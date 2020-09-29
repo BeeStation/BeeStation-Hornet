@@ -113,7 +113,7 @@
 
 /datum/dna/proc/generate_dna_blocks()
 	var/bonus
-	if(species && species.inert_mutation)
+	if(species?.inert_mutation)
 		bonus = GET_INITIALIZED_MUTATION(species.inert_mutation)
 	var/list/mutations_temp = GLOB.good_mutations + GLOB.bad_mutations + GLOB.not_good_mutations + bonus
 	if(!LAZYLEN(mutations_temp))
@@ -150,8 +150,8 @@
 	if(active)
 		return sequence
 	while(difficulty)
-		var/randnum = rand(1, length(sequence))
-		sequence = copytext(sequence, 1, randnum) + "X" + copytext(sequence, randnum+1, length(sequence)+1)
+		var/randnum = rand(1, length_char(sequence))
+		sequence = copytext_char(sequence, 1, randnum) + "X" + copytext_char(sequence, randnum + 1)
 		difficulty--
 	return sequence
 
@@ -159,7 +159,7 @@
 	. = ""
 	if(istype(holder))
 		real_name = holder.real_name
-		. += md5(holder.real_name)
+		. += rustg_hash_string(RUSTG_HASH_MD5, holder.real_name)
 	else
 		. += random_string(DNA_UNIQUE_ENZYMES_LEN, GLOB.hex_characters)
 	return .
@@ -201,25 +201,6 @@
 		. = HM.on_losing(holder)
 		update_instability(FALSE)
 		return
-
-/datum/dna/proc/mutations_say_mods(message)
-	if(message)
-		for(var/datum/mutation/human/M in mutations)
-			message = M.say_mod(message)
-		return message
-
-/datum/dna/proc/mutations_get_spans()
-	var/list/spans = list()
-	for(var/datum/mutation/human/M in mutations)
-		spans |= M.get_spans()
-	return spans
-
-/datum/dna/proc/species_get_spans()
-	var/list/spans = list()
-	if(species)
-		spans |= species.get_spans()
-	return spans
-
 
 /datum/dna/proc/is_same_as(datum/dna/D)
 	if(uni_identity == D.uni_identity && mutation_index == D.mutation_index && real_name == D.real_name)
@@ -312,6 +293,12 @@
 		var/datum/species/old_species = dna.species
 		dna.species = new_race
 		dna.species.on_species_gain(src, old_species, pref_load)
+		SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
+		if(ishuman(src))
+			qdel(language_holder)
+			var/species_holder = initial(mrace.species_language_holder)
+			language_holder = new species_holder(src)
+		update_atom_languages()
 
 /mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
 	..()
@@ -351,7 +338,7 @@
 		updateappearance(icon_update=0)
 
 	if(LAZYLEN(mutation_index))
-		dna.mutation_index = mutation_index
+		dna.mutation_index = mutation_index.Copy()
 		domutcheck()
 
 	if(mrace || newfeatures || ui)
@@ -364,7 +351,7 @@
 		for(var/M in mutations)
 			var/datum/mutation/human/HM = M
 			if(HM.allow_transfer || force_transfer_mutations)
-				dna.force_give(HM.class, copymut = new HM.type (HM)) //using force_give since it may include exotic mutations that otherwise wont be handled properly
+				dna.force_give(new HM.type(HM.class, copymut=HM)) //using force_give since it may include exotic mutations that otherwise wont be handled properly
 
 /mob/living/carbon/proc/create_dna()
 	dna = new /datum/dna(src)
@@ -456,14 +443,14 @@
 
 /proc/getleftblocks(input,blocknumber,blocksize)
 	if(blocknumber > 1)
-		return copytext(input,1,((blocksize*blocknumber)-(blocksize-1)))
+		return copytext_char(input,1,((blocksize*blocknumber)-(blocksize-1)))
 
 /proc/getrightblocks(input,blocknumber,blocksize)
 	if(blocknumber < (length(input)/blocksize))
-		return copytext(input,blocksize*blocknumber+1,length(input)+1)
+		return copytext_char(input,blocksize*blocknumber+1,length(input)+1)
 
 /proc/getblock(input, blocknumber, blocksize=DNA_BLOCK_SIZE)
-	return copytext(input, blocksize*(blocknumber-1)+1, (blocksize*blocknumber)+1)
+	return copytext_char(input, blocksize*(blocknumber-1)+1, (blocksize*blocknumber)+1)
 
 /proc/setblock(istring, blocknumber, replacement, blocksize=DNA_BLOCK_SIZE)
 	if(!istring || !blocknumber || !replacement || !blocksize)
@@ -588,7 +575,7 @@
 				physiology.damage_resistance = -20000
 			if(5)
 				to_chat(src, "<span class='notice'>Oh, I actually feel quite alright!</span>")
-				reagents.add_reagent("mutationtoxin2", 10)
+				reagents.add_reagent(/datum/reagent/aslimetoxin, 10)
 			if(6)
 				apply_status_effect(STATUS_EFFECT_GO_AWAY)
 			if(7)
@@ -642,11 +629,11 @@
 
 
 /mob/living/carbon/human/proc/something_horrible_mindmelt()
-	if(!has_trait(TRAIT_BLIND))
+	if(!HAS_TRAIT(src, TRAIT_BLIND))
 		var/obj/item/organ/eyes/eyes = locate(/obj/item/organ/eyes) in internal_organs
 		if(!eyes)
 			return
 		eyes.Remove(src)
 		qdel(eyes)
 		visible_message("<span class='notice'>[src] looks up and their eyes melt away!</span>", "<span class>='userdanger'>I understand now.</span>")
-		addtimer(CALLBACK(src, .proc/adjustBrainLoss, 200), 20)
+		addtimer(CALLBACK(src, .proc/adjustOrganLoss, ORGAN_SLOT_BRAIN, 200), 20)

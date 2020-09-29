@@ -10,7 +10,7 @@
 	var/stage_speed = 0
 	var/transmittable = 0
 	// The type level of the symptom. Higher is harder to generate.
-	var/level = 0
+	var/level = -1
 	// The severity level of the symptom. Higher is more dangerous.
 	var/severity = 0
 	// The hash tag for our diseases, we will add it up with our other symptoms to get a unique id! ID MUST BE UNIQUE!!!
@@ -45,6 +45,10 @@
 	next_activation = world.time + rand(symptom_delay_min * 10, symptom_delay_max * 10) //so it doesn't instantly activate on infection
 	return TRUE
 
+//called when a disease first tries to infect someone.
+/datum/symptom/proc/severityset(datum/disease/advance/A)
+	severity = initial(severity)
+
 // Called when the advance disease is going to be deleted or when the advance disease stops processing.
 /datum/symptom/proc/End(datum/disease/advance/A)
 	if(neutered)
@@ -52,6 +56,8 @@
 	return TRUE
 
 /datum/symptom/proc/Activate(datum/disease/advance/A)
+	if(!A)
+		return FALSE //prevents a niche runtime where a disease procs on the same tick it is cured
 	if(neutered)
 		return FALSE
 	if(world.time < next_activation)
@@ -73,4 +79,13 @@
 	return new_symp
 
 /datum/symptom/proc/generate_threshold_desc()
+	return
+
+/datum/symptom/proc/OnDeath(datum/disease/advance/A)    //What happens when the host dies.
+	return !neutered
+
+/datum/symptom/proc/OnAdd(datum/disease/advance/A)		//Overload when a symptom needs to be active before processing, like changing biotypes.
+	return
+
+/datum/symptom/proc/OnRemove(datum/disease/advance/A)	//But dont forget to remove them too.
 	return

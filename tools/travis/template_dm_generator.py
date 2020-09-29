@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 
 import os
-import os.path
 import sys
 
-folders = ["_maps/RandomRuins", "_maps/RandomZLevels", "_maps/shuttles",
-           "_maps/templates"]
+folders = ["_maps/RandomRooms", "_maps/RandomRuins", "_maps/RandomZLevels",
+           "_maps/shuttles", "_maps/templates"]
 
 generated = "_maps/templates.dm"
 
@@ -27,4 +26,3 @@ for folder in folders:
 with open(generated, 'w') as f:
     for template in template_filenames:
         f.write('''#include "{}"\n'''.format(template))
-

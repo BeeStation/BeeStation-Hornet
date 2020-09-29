@@ -27,6 +27,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	use_power = NO_POWER_USE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/sprite_number = 0
+	var/ztrait //Set to a valid ZTRAIT define to have the gravgen provide gravity to all of the zlevels with said trait. Ex: ZTRAIT_STATION
 
 /obj/machinery/gravity_generator/safe_throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG)
 	return FALSE
@@ -93,6 +94,9 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 // Generator which spawns with the station.
 //
 
+/obj/machinery/gravity_generator/main/station
+	ztrait = ZTRAIT_STATION
+
 /obj/machinery/gravity_generator/main/station/Initialize()
 	. = ..()
 	setup_parts()
@@ -113,7 +117,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	icon_state = "on_8"
 	idle_power_usage = 0
 	active_power_usage = 3000
-	power_channel = ENVIRON
+	power_channel = AREA_USAGE_ENVIRON
 	sprite_number = 8
 	use_power = IDLE_POWER_USE
 	interaction_flags_machine = INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OFFLINE
@@ -220,40 +224,34 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 				return
 	return ..()
 
-/obj/machinery/gravity_generator/main/ui_interact(mob/user)
-	if(stat & BROKEN)
-		return
-	var/dat = "Gravity Generator Breaker: "
-	if(breaker)
-		dat += "<span class='linkOn'>ON</span> <A href='?src=[REF(src)];gentoggle=1'>OFF</A>"
-	else
-		dat += "<A href='?src=[REF(src)];gentoggle=1'>ON</A> <span class='linkOn'>OFF</span> "
+/obj/machinery/gravity_generator/main/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
+									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "GravityGenerator", name, ui_x, ui_y, master_ui, state)
+		ui.open()
 
-	dat += "<br>Generator Status:<br><div class='statusDisplay'>"
-	if(charging_state != POWER_IDLE)
-		dat += "<font class='bad'>WARNING</font> Radiation Detected. <br>[charging_state == POWER_UP ? "Charging..." : "Discharging..."]"
-	else if(on)
-		dat += "Powered."
-	else
-		dat += "Unpowered."
+/obj/machinery/gravity_generator/main/ui_data(mob/user)
+	var/list/data = list()
 
-	dat += "<br>Gravity Charge: [charge_count]%</div>"
+	data["breaker"] = breaker
+	data["charge_count"] = charge_count
+	data["charging_state"] = charging_state
+	data["on"] = on
+	data["operational"] = (stat & BROKEN) ? FALSE : TRUE
 
-	var/datum/browser/popup = new(user, "gravgen", name)
-	popup.set_content(dat)
-	popup.open()
+	return data
 
-
-/obj/machinery/gravity_generator/main/Topic(href, href_list)
-
+/obj/machinery/gravity_generator/main/ui_act(action, params)
 	if(..())
 		return
 
-	if(href_list["gentoggle"])
-		breaker = !breaker
-		investigate_log("was toggled [breaker ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>"] by [key_name(usr)].", INVESTIGATE_GRAVITY)
-		set_power()
-		src.updateUsrDialog()
+	switch(action)
+		if("gentoggle")
+			breaker = !breaker
+			investigate_log("was toggled [breaker ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>"] by [key_name(usr)].", INVESTIGATE_GRAVITY)
+			set_power()
+			. = TRUE
 
 // Power and Icon States
 
@@ -362,7 +360,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	var/sound/alert_sound = sound('sound/effects/alert.ogg')
 	for(var/i in GLOB.mob_list)
 		var/mob/M = i
-		if(M.z != z)
+		if(M.z != z && !(ztrait && SSmapping.level_trait(z, ztrait) && SSmapping.level_trait(M.z, ztrait)))
 			continue
 		M.update_gravity(M.mob_has_gravity())
 		if(M.client)
@@ -378,14 +376,22 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	return 0
 
 /obj/machinery/gravity_generator/main/proc/update_list()
-	var/turf/T = get_turf(src.loc)
+	var/turf/T = get_turf(src)
 	if(T)
-		if(!GLOB.gravity_generators["[T.z]"])
-			GLOB.gravity_generators["[T.z]"] = list()
-		if(on)
-			GLOB.gravity_generators["[T.z]"] |= src
+		var/list/z_list = list()
+		// Multi-Z, station gravity generator generates gravity on all ZTRAIT_STATION z-levels.
+		if(ztrait && SSmapping.level_trait(T.z, ztrait))
+			for(var/theZ in SSmapping.levels_by_trait(ztrait))
+				z_list += theZ
 		else
-			GLOB.gravity_generators["[T.z]"] -= src
+			z_list += T.z
+		for(var/theZ in z_list)
+			if(!GLOB.gravity_generators["[theZ]"])
+				GLOB.gravity_generators["[theZ]"] = list()
+			if(on)
+				GLOB.gravity_generators["[theZ]"] |= src
+			else
+				GLOB.gravity_generators["[theZ]"] -= src
 
 /obj/machinery/gravity_generator/main/proc/change_setting(value)
 	if(value != setting)

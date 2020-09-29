@@ -2,10 +2,6 @@
 #define COLLECT_EVERYTHING 1
 #define COLLECT_SAME 2
 
-#define DROP_NOTHING 0
-#define DROP_AT_PARENT 1
-#define DROP_AT_LOCATION 2
-
 // External storage-related logic:
 // /mob/proc/ClickOn() in /_onclick/click.dm - clicking items in storages
 // /mob/living/Move() in /modules/mob/living/living.dm - hiding storage boxes on mob movement
@@ -505,27 +501,32 @@
 	set waitfor = FALSE
 	. = COMPONENT_NO_MOUSEDROP
 	var/atom/A = parent
-	if(ismob(M)) //all the check for item manipulation are in other places, you can safely open any storages as anything and its not buggy, i checked
-		A.add_fingerprint(M)
-		if(!over_object)
-			return FALSE
-		if(ismecha(M.loc)) // stops inventory actions in a mech
-			return FALSE
-		// this must come before the screen objects only block, dunno why it wasn't before
-		if(over_object == M)
-			user_show_to_mob(M)
-		if(!M.incapacitated())
-			if(!istype(over_object, /obj/screen))
-				dump_content_at(over_object, M)
-				return
-			if(A.loc != M)
-				return
-			playsound(A, "rustle", 50, 1, -5)
-			if(istype(over_object, /obj/screen/inventory/hand))
-				var/obj/screen/inventory/hand/H = over_object
-				M.putItemFromInventoryInHandIfPossible(A, H.held_index)
-				return
-			A.add_fingerprint(M)
+	if(istype(A, /obj/item))
+		var/obj/item/I = A
+		I.remove_outline()	//Removes the outline when we drag
+	if(!ismob(M))
+		return
+	if(!over_object)
+		return
+	if(ismecha(M.loc)) // stops inventory actions in a mech
+		return
+	if(M.incapacitated() || !M.canUseStorage())
+		return
+	A.add_fingerprint(M)
+	// this must come before the screen objects only block, dunno why it wasn't before
+	if(over_object == M)
+		user_show_to_mob(M)
+	if(!istype(over_object, /obj/screen))
+		dump_content_at(over_object, M)
+		return
+	if(A.loc != M)
+		return
+	playsound(A, "rustle", 50, 1, -5)
+	if(istype(over_object, /obj/screen/inventory/hand))
+		var/obj/screen/inventory/hand/H = over_object
+		M.putItemFromInventoryInHandIfPossible(A, H.held_index)
+		return
+	A.add_fingerprint(M)
 
 /datum/component/storage/proc/user_show_to_mob(mob/M, force = FALSE)
 	var/atom/A = parent
@@ -589,12 +590,12 @@
 		return FALSE
 	if(isitem(host))
 		var/obj/item/IP = host
-		GET_COMPONENT_FROM(STR_I, /datum/component/storage, I)
+		var/datum/component/storage/STR_I = I.GetComponent(/datum/component/storage)
 		if((I.w_class >= IP.w_class) && STR_I && !allow_big_nesting)
 			if(!stop_messages)
 				to_chat(M, "<span class='warning'>[IP] cannot hold [I] as it's a storage item of the same size!</span>")
 			return FALSE //To prevent the stacking of same sized storage items.
-	if(I.has_trait(TRAIT_NODROP)) //SHOULD be handled in unEquip, but better safe than sorry.
+	if(HAS_TRAIT(I, TRAIT_NODROP)) //SHOULD be handled in unEquip, but better safe than sorry.
 		if(!stop_messages)
 			to_chat(M, "<span class='warning'>\the [I] is stuck to your hand, you can't put it in \the [host]!</span>")
 		return FALSE

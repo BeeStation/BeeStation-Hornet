@@ -16,25 +16,28 @@
 
 /obj/item/organ/body_egg/Insert(var/mob/living/carbon/M, special = 0)
 	..()
-	owner.add_trait(TRAIT_XENO_HOST, TRAIT_GENERIC)
+	ADD_TRAIT(owner, TRAIT_XENO_HOST, TRAIT_GENERIC)
+	ADD_TRAIT(owner, TRAIT_XENO_IMMUNE, "xeno immune")
 	START_PROCESSING(SSobj, src)
 	owner.med_hud_set_status()
 	INVOKE_ASYNC(src, .proc/AddInfectionImages, owner)
 
 /obj/item/organ/body_egg/Remove(var/mob/living/carbon/M, special = 0)
-	STOP_PROCESSING(SSobj, src)
 	if(owner)
-		owner.remove_trait(TRAIT_XENO_HOST, TRAIT_GENERIC)
+		REMOVE_TRAIT(owner, TRAIT_XENO_HOST, TRAIT_GENERIC)
+		REMOVE_TRAIT(owner, TRAIT_XENO_IMMUNE, "xeno immune")
 		owner.med_hud_set_status()
 		INVOKE_ASYNC(src, .proc/RemoveInfectionImages, owner)
 	..()
 
-/obj/item/organ/body_egg/process()
+/obj/item/organ/body_egg/on_death()
+	. = ..()
 	if(!owner)
 		return
-	if(!(src in owner.internal_organs))
-		Remove(owner)
-		return
+	egg_process()
+
+/obj/item/organ/body_egg/on_life()
+	. = ..()
 	egg_process()
 
 /obj/item/organ/body_egg/proc/egg_process()

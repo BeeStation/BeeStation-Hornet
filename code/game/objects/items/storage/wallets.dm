@@ -11,7 +11,7 @@
 
 /obj/item/storage/wallet/ComponentInitialize()
 	. = ..()
-	GET_COMPONENT(STR, /datum/component/storage)
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 4
 	STR.cant_hold = typecacheof(list(/obj/item/screwdriver/power)) //Must be specifically called out since normal screwdrivers can fit but not the wrench form of the drill
 	STR.can_hold = typecacheof(list(
@@ -64,7 +64,10 @@
 /obj/item/storage/wallet/update_icon()
 	var/new_state = "wallet"
 	if(front_id)
-		new_state = "wallet_[front_id.icon_state]"
+		if("wallet_[front_id.icon_state]" in icon_states(src.icon)) //fixes the bug that would make your wallet disappear with the new ids
+			new_state = "wallet_[front_id.icon_state]"
+		else
+			new_state = "wallet_id"
 	if(new_state != icon_state)		//avoid so many icon state changes.
 		icon_state = new_state
 

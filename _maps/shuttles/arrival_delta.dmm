@@ -165,6 +165,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plasteel/white,
 /area/shuttle/arrival)
 "o" = (
@@ -430,7 +431,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/arrival)
 "R" = (
-/obj/structure/chair/office/dark,
+/obj/structure/chair/office,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},

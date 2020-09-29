@@ -183,6 +183,8 @@ All ShuttleMove procs go here
 
 /obj/machinery/door/airlock/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()
+	update_aac_docked(oldT)
+	update_aac_docked()
 	var/current_area = get_area(src)
 	for(var/obj/machinery/door/airlock/A in orange(1, src))  // does not include src
 		if(get_area(A) != current_area)  // does not include double-wide airlocks unless actually docked
@@ -340,11 +342,17 @@ All ShuttleMove procs go here
 	. = ..()
 	update()
 
+/obj/structure/cable/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
+	. = ..()
+	cut_cable_from_powernet(FALSE)
+
 /obj/structure/cable/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()
 	var/turf/T = loc
 	if(level==1)
 		hide(T.intact)
+	mergeConnectedNetworks(d1)
+	mergeConnectedNetworks(d2)
 
 /obj/structure/shuttle/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
 	. = ..()

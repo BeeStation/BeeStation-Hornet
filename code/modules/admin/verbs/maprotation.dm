@@ -12,6 +12,7 @@
 /client/proc/adminchangemap()
 	set category = "Server"
 	set name = "Change Map"
+		
 	var/list/maprotatechoices = list()
 	for (var/map in config.maplist)
 		var/datum/map_config/VM = config.maplist[map]
@@ -33,7 +34,7 @@
 			mapname += "\]"
 
 		maprotatechoices[mapname] = VM
-	var/chosenmap = input("Choose a map to change to", "Change Map")  as null|anything in maprotatechoices
+	var/chosenmap = input("Choose a map to change to", "Change Map")  as null|anything in sortList(maprotatechoices)
 	if (!chosenmap)
 		return
 	SSticker.maprotatechecked = 1

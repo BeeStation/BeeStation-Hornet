@@ -4,7 +4,7 @@
 	var/list/datum/mind/cult = list()
 
 /proc/iscultist(mob/living/M)
-	return istype(M) && M.mind && M.mind.has_antag_datum(/datum/antagonist/cult)
+	return M?.mind?.has_antag_datum(/datum/antagonist/cult)
 
 /datum/team/cult/proc/is_sacrifice_target(datum/mind/mind)
 	for(var/datum/objective/sacrifice/sac_objective in objectives)
@@ -20,13 +20,15 @@
 			return FALSE
 		if(specific_cult && specific_cult.is_sacrifice_target(M.mind))
 			return FALSE
+		if(is_servant_of_ratvar(M))
+			return FALSE
 		if(M.mind.enslaved_to && !iscultist(M.mind.enslaved_to))
 			return FALSE
 		if(M.mind.unconvertable)
 			return FALSE
 	else
 		return FALSE
-	if(M.has_trait(TRAIT_MINDSHIELD) || issilicon(M) || isbot(M) || isdrone(M) || is_servant_of_ratvar(M) || !M.client)
+	if(HAS_TRAIT(M, TRAIT_MINDSHIELD) || issilicon(M) || isbot(M) || isdrone(M) || !M.client)
 		return FALSE //can't convert machines, shielded, braindead, or ratvar's dogs
 	return TRUE
 
@@ -35,8 +37,8 @@
 	config_tag = "cult"
 	report_type = "cult"
 	antag_flag = ROLE_CULTIST
-	false_report_weight = 10
-	restricted_jobs = list("Chaplain","AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel")
+	false_report_weight = 1
+	restricted_jobs = list("Chaplain","AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Brig Physician")
 	protected_jobs = list()
 	required_players = 29
 	required_enemies = 4
@@ -47,6 +49,8 @@
 	announce_text = "Some crew members are trying to start a cult to Nar'Sie!\n\
 	<span class='cult'>Cultists</span>: Carry out Nar'Sie's will.\n\
 	<span class='notice'>Crew</span>: Prevent the cult from expanding and drive it out."
+
+	title_icon = "cult"
 
 	var/finished = 0
 
@@ -65,6 +69,9 @@
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		restricted_jobs += "Assistant"
 
+	if(CONFIG_GET(flag/protect_heads_from_antagonist))
+		restricted_jobs += GLOB.command_positions
+
 	//cult scaling goes here
 	recommended_enemies = 1 + round(num_players()/CULT_SCALING_COEFFICIENT)
 	var/remaining = (num_players() % CULT_SCALING_COEFFICIENT) * 10 //Basically the % of how close the population is toward adding another cultis
@@ -75,7 +82,7 @@
 	for(var/cultists_number = 1 to recommended_enemies)
 		if(!antag_candidates.len)
 			break
-		var/datum/mind/cultist = antag_pick(antag_candidates)
+		var/datum/mind/cultist = antag_pick(antag_candidates, ROLE_CULTIST)
 		antag_candidates -= cultist
 		cultists_to_cult += cultist
 		cultist.special_role = ROLE_CULTIST
@@ -163,5 +170,27 @@
 			the cult of Nar'Sie. If evidence of this cult is discovered aboard your station, extreme caution and extreme vigilance must be taken going forward, and all resources should be \
 			devoted to stopping this cult. Note that holy water seems to weaken and eventually return the minds of cultists that ingest it, and mindshield implants will prevent conversion \
 			altogether."
+
+
+
+/datum/game_mode/cult/generate_credit_text()
+	var/list/round_credits = list()
+	var/len_before_addition
+
+	round_credits += "<center><h1>The Cult of Nar'Sie:</h1>"
+	len_before_addition = round_credits.len
+	for(var/datum/mind/cultist in cult)
+		round_credits += "<center><h2>[cultist.name] as a cult fanatic</h2>"
+
+	var/datum/objective/eldergod/summon_objective = locate() in main_cult.objectives
+	if(summon_objective && summon_objective.summoned)
+		round_credits += "<center><h2>Nar'Sie as the eldritch abomination</h2>"
+
+	if(len_before_addition == round_credits.len)
+		round_credits += list("<center><h2>The cultists have learned the danger of eldritch magic!</h2>", "<center><h2>They all disappeared!</h2>")
+		round_credits += "<br>"
+
+	round_credits += ..()
+	return round_credits
 
 #undef CULT_SCALING_COEFFICIENT

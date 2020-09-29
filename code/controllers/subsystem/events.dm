@@ -17,7 +17,7 @@ SUBSYSTEM_DEF(events)
 /datum/controller/subsystem/events/Initialize(time, zlevel)
 	for(var/type in typesof(/datum/round_event_control))
 		var/datum/round_event_control/E = new type()
-		if(!E.typepath)
+		if(!E.typepath || !E.auto_add)
 			continue				//don't want this one! leave it for the garbage collector
 		control += E				//add it to the list of all events (controls)
 	reschedule()
@@ -100,7 +100,7 @@ SUBSYSTEM_DEF(events)
 // REEEEEEEEE
 /client/proc/forceEvent()
 	set name = "Trigger Event"
-	set category = "Fun"
+	set category = "Round"
 
 	if(!holder ||!check_rights(R_FUN))
 		return

@@ -130,7 +130,7 @@
 	// notify ghosts that someone's shaking a haunted eightball
 	// and inform them of the message, (hopefully a yes/no question)
 	selected_message = last_message
-	notify_ghosts("[user] is shaking [src], hoping to get an answer to \"[selected_message]\"", source=src, enter_link="<a href=?src=[REF(src)];interact=1>(Click to help)</a>", action=NOTIFY_ATTACK)
+	notify_ghosts("[user] is shaking [src], hoping to get an answer to \"[selected_message]\"", source=src, enter_link="<a href=?src=[REF(src)];interact=1>(Click to help)</a>", action=NOTIFY_ATTACK, header = "Magic eightball")
 
 /obj/item/toy/eightball/haunted/Topic(href, href_list)
 	if(href_list["interact"])
@@ -172,7 +172,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "eightball", name, 400, 600, master_ui, state)
+		ui = new(user, src, ui_key, "EightBallVote", name, 400, 600, master_ui, state)
 		ui.open()
 
 /obj/item/toy/eightball/haunted/ui_data(mob/user)
@@ -206,7 +206,7 @@
 	switch(action)
 		if("vote")
 			var/selected_answer = params["answer"]
-			if(!selected_answer in possible_answers)
+			if(!(selected_answer in possible_answers))
 				return
 			else
 				votes[user.ckey] = selected_answer

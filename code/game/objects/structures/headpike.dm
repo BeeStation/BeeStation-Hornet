@@ -13,7 +13,6 @@
 	icon_state = "headpike-bone"
 	bonespear = TRUE
 
-
 /obj/structure/headpike/CheckParts(list/parts_list)
 	..()
 	victim = locate(/obj/item/bodypart/head) in parts_list
@@ -42,8 +41,9 @@
 	if(.)
 		return
 	to_chat(user, "<span class='notice'>You take down [src].</span>")
-	victim.forceMove(drop_location())
-	victim = null
+	if(victim)
+		victim.forceMove(drop_location())
+		victim = null
 	spear.forceMove(drop_location())
 	spear = null
 	qdel(src)

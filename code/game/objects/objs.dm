@@ -1,22 +1,31 @@
 
 /obj
-	animate_movement = 2
+	animate_movement = SLIDE_STEPS
+	speech_span = SPAN_ROBOT
 	var/obj_flags = CAN_BE_HIT
-	var/set_obj_flags // ONLY FOR MAPPING: Sets flags from a string list, handled in Initialize. Usage: set_obj_flags = "EMAGGED;!CAN_BE_HIT" to set EMAGGED and clear CAN_BE_HIT.
+
+	/// ONLY FOR MAPPING: Sets flags from a string list, handled in Initialize. Usage: set_obj_flags = "EMAGGED;!CAN_BE_HIT" to set EMAGGED and clear CAN_BE_HIT.
+	var/set_obj_flags
 
 	var/damtype = BRUTE
 	var/force = 0
 
 	var/datum/armor/armor
-	var/obj_integrity	//defaults to max_integrity
+	/// The integrity the object starts at. Defaults to max_integrity.
+	var/obj_integrity
+	/// The maximum integrity the object can have.
 	var/max_integrity = 500
-	var/integrity_failure = 0 //0 if we have no special broken behavior
+	/// The object will break once obj_integrity reaches this amount in take_damage(). 0 if we have no special broken behavior.
+	var/integrity_failure = 0
 
-	var/resistance_flags = NONE // INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
+	/// INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
+	var/resistance_flags = NONE
 
-	var/acid_level = 0 //how much acid is on that obj
+	/// How much acid is on that obj
+	var/acid_level = 0
 
-	var/persistence_replacement //have something WAY too amazing to live to the next round? Set a new path here. Overuse of this var will make me upset.
+	/// Have something WAY too amazing to live to the next round? Set a new path here. Overuse of this var will make me upset. Will replace the object with the type you specify during persistence.
+	var/persistence_replacement
 	var/current_skin //Has the item been reskinned?
 	var/list/unique_reskin //List of options to reskin.
 
@@ -25,8 +34,15 @@
 	var/req_access_txt = "0"
 	var/list/req_one_access
 	var/req_one_access_txt = "0"
+	/// Custom fire overlay icon
+	var/custom_fire_overlay
 
-	var/renamedByPlayer = FALSE //set when a player uses a pen on a renamable object
+	/// Set when a player uses a pen on a renamable object
+	var/renamedByPlayer = FALSE
+
+	var/drag_slowdown // Amont of multiplicative slowdown applied if pulled. >1 makes you slower, <1 makes you faster.
+
+	vis_flags = VIS_INHERIT_PLANE //when this be added to vis_contents of something it inherit something.plane, important for visualisation of obj in openspace.
 
 /obj/vv_edit_var(vname, vval)
 	switch(vname)
@@ -57,15 +73,14 @@
 		var/flagslist = splittext(set_obj_flags,";")
 		var/list/string_to_objflag = GLOB.bitfields["obj_flags"]
 		for (var/flag in flagslist)
-			if (findtext(flag,"!",1,2))
-				flag = copytext(flag,1-(length(flag))) // Get all but the initial !
+			if(flag[1] == "!")
+				flag = copytext(flag, length(flag[1]) + 1) // Get all but the initial !
 				obj_flags &= ~string_to_objflag[flag]
 			else
 				obj_flags |= string_to_objflag[flag]
 	if((obj_flags & ON_BLUEPRINTS) && isturf(loc))
 		var/turf/T = loc
 		T.add_blueprints_preround(src)
-
 
 /obj/Destroy(force=FALSE)
 	if(!ismachinery(src))
@@ -123,7 +138,7 @@
 			if ((M.client && M.machine == src))
 				is_in_use = TRUE
 				ui_interact(M)
-		if(isAI(usr) || iscyborg(usr) || IsAdminGhost(usr))
+		if(issilicon(usr) || IsAdminGhost(usr))
 			if (!(usr in nearby))
 				if (usr.client && usr.machine==src) // && M.machine == src is omitted because if we triggered this by using the dialog, it doesn't matter if our machine changed in between triggering it and this - the dialog is probably still supposed to refresh.
 					is_in_use = TRUE
@@ -170,9 +185,6 @@
 /obj/proc/container_resist(mob/living/user)
 	return
 
-/obj/proc/update_icon()
-	return
-
 /mob/proc/unset_machine()
 	if(machine)
 		machine.on_unset_machine(src)
@@ -202,9 +214,6 @@
 	if(!anchored || current_size >= STAGE_FIVE)
 		step_towards(src,S)
 
-/obj/get_spans()
-	return ..() | SPAN_ROBOT
-
 /obj/get_dumping_location(datum/component/storage/source,mob/user)
 	return get_turf(src)
 
@@ -216,16 +225,85 @@
 
 /obj/vv_get_dropdown()
 	. = ..()
-	.["Delete all of type"] = "?_src_=vars;[HrefToken()];delall=[REF(src)]"
-	.["Osay"] = "?_src_=vars;[HrefToken()];osay[REF(src)]"
-	.["Modify armor values"] = "?_src_=vars;[HrefToken()];modarmor=[REF(src)]"
+	VV_DROPDOWN_OPTION("", "---")
+	VV_DROPDOWN_OPTION(VV_HK_MASS_DEL_TYPE, "Delete all of type")
+	VV_DROPDOWN_OPTION(VV_HK_OSAY, "Object Say")
+	VV_DROPDOWN_OPTION(VV_HK_ARMOR_MOD, "Modify armor values")
+
+/obj/vv_do_topic(list/href_list)
+	if(!(. = ..()))
+		return
+	if(href_list[VV_HK_OSAY])
+		if(check_rights(R_FUN, FALSE))
+			usr.client.object_say(src)
+	if(href_list[VV_HK_ARMOR_MOD])
+		var/list/pickerlist = list()
+		var/list/armorlist = armor.getList()
+
+		for (var/i in armorlist)
+			pickerlist += list(list("value" = armorlist[i], "name" = i))
+
+		var/list/result = presentpicker(usr, "Modify armor", "Modify armor: [src]", Button1="Save", Button2 = "Cancel", Timeout=FALSE, inputtype = "text", values = pickerlist)
+
+		if (islist(result))
+			if (result["button"] != 2) // If the user pressed the cancel button
+				// text2num conveniently returns a null on invalid values
+				armor = armor.setRating(melee = text2num(result["values"]["melee"]),\
+			                  bullet = text2num(result["values"]["bullet"]),\
+			                  laser = text2num(result["values"]["laser"]),\
+			                  energy = text2num(result["values"]["energy"]),\
+			                  bomb = text2num(result["values"]["bomb"]),\
+			                  bio = text2num(result["values"]["bio"]),\
+			                  rad = text2num(result["values"]["rad"]),\
+			                  fire = text2num(result["values"]["fire"]),\
+			                  acid = text2num(result["values"]["acid"]))
+				log_admin("[key_name(usr)] modified the armor on [src] ([type]) to melee: [armor.melee], bullet: [armor.bullet], laser: [armor.laser], energy: [armor.energy], bomb: [armor.bomb], bio: [armor.bio], rad: [armor.rad], fire: [armor.fire], acid: [armor.acid]")
+				message_admins("<span class='notice'>[key_name_admin(usr)] modified the armor on [src] ([type]) to melee: [armor.melee], bullet: [armor.bullet], laser: [armor.laser], energy: [armor.energy], bomb: [armor.bomb], bio: [armor.bio], rad: [armor.rad], fire: [armor.fire], acid: [armor.acid]</span>")
+	if(href_list[VV_HK_MASS_DEL_TYPE])
+		if(check_rights(R_DEBUG|R_SERVER))
+			var/action_type = alert("Strict type ([type]) or type and all subtypes?",,"Strict type","Type and subtypes","Cancel")
+			if(action_type == "Cancel" || !action_type)
+				return
+
+			if(alert("Are you really sure you want to delete all objects of type [type]?",,"Yes","No") != "Yes")
+				return
+
+			if(alert("Second confirmation required. Delete?",,"Yes","No") != "Yes")
+				return
+
+			var/O_type = type
+			switch(action_type)
+				if("Strict type")
+					var/i = 0
+					for(var/obj/Obj in world)
+						if(Obj.type == O_type)
+							i++
+							qdel(Obj)
+						CHECK_TICK
+					if(!i)
+						to_chat(usr, "No objects of this type exist")
+						return
+					log_admin("[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted) ")
+					message_admins("<span class='notice'>[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted) </span>")
+				if("Type and subtypes")
+					var/i = 0
+					for(var/obj/Obj in world)
+						if(istype(Obj,O_type))
+							i++
+							qdel(Obj)
+						CHECK_TICK
+					if(!i)
+						to_chat(usr, "No objects of this type exist")
+						return
+					log_admin("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) ")
+					message_admins("<span class='notice'>[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) </span>")
 
 /obj/examine(mob/user)
-	..()
+	. = ..()
 	if(obj_flags & UNIQUE_RENAME)
-		to_chat(user, "<span class='notice'>Use a pen on it to rename it or change its description.</span>")
+		. += "<span class='notice'>Use a pen on it to rename it or change its description.</span>"
 	if(unique_reskin && !current_skin)
-		to_chat(user, "<span class='notice'>Alt-click it to reskin it.</span>")
+		. += "<span class='notice'>Alt-click it to reskin it.</span>"
 
 /obj/AltClick(mob/user)
 	. = ..()
@@ -240,10 +318,48 @@
 		var/output = icon2html(src, M, unique_reskin[V])
 		to_chat(M, "[V]: <span class='reallybig'>[output]</span>")
 
-	var/choice = input(M,"Warning, you can only reskin [src] once!","Reskin Object") as null|anything in unique_reskin
+	var/choice = input(M,"Warning, you can only reskin [src] once!","Reskin Object") as null|anything in sortList(unique_reskin)
 	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated() && in_range(M,src))
 		if(!unique_reskin[choice])
 			return
 		current_skin = choice
 		icon_state = unique_reskin[choice]
 		to_chat(M, "[src] is now skinned as '[choice].'")
+
+/obj/analyzer_act(mob/living/user, obj/item/I)
+	if(atmosanalyzer_scan(user, src))
+		return TRUE
+	return ..()
+
+/obj/proc/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
+	return
+
+//For returning special data when the object is saved
+//For example, or silos will return a list of their materials which will be dumped on top of them
+//Can be customised if you have something that contains something you want saved
+//If you put an incorrect format it will break outputting, so don't use this if you don't know what you are doing
+//NOTE: Contents is automatically saved, so if you store your things in the contents var, don't worry about this
+//====Output Format Examples====:
+//===Single Object===
+//	"/obj/item/folder/blue"
+//===Multiple Objects===
+//	"/obj/item/folder/blue,\n
+//	/obj/item/folder/red"
+//===Single Object with metadata===
+//	"/obj/item/folder/blue{\n
+//	\tdir = 8;\n
+//	\tname = "special folder"\n
+//	\t}"
+//===Multiple Objects with metadata===
+//	"/obj/item/folder/blue{\n
+//	\tdir = 8;\n
+//	\tname = "special folder"\n
+//	\t},\n
+//	/obj/item/folder/red"
+//====How to save easily====:
+//	return "[thing.type][generate_tgm_metadata(thing)]"
+//Where thing is the additional thing you want to same (For example ores inside an ORM)
+//Just add ,\n between each thing
+//generate_tgm_metadata(thing) handles everything inside the {} for you
+/obj/proc/on_object_saved(var/depth = 0)
+	return ""

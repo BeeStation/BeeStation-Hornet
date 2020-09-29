@@ -17,6 +17,11 @@
 	construction_type = /obj/item/pipe/binary/bendable
 	pipe_state = "simple"
 
+	FASTDMM_PROP(\
+		pipe_type = PIPE_TYPE_SIMPLE,\
+		pipe_interference_group = "atmos-[piping_layer]"\
+	)
+
 /obj/machinery/atmospherics/pipe/simple/SetInitDirections()
 	if(dir in GLOB.diagonals)
 		initialize_directions = dir

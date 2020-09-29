@@ -5,6 +5,7 @@
 	integrity_failure = 80
 	var/damaged_clothes = 0 //similar to machine's BROKEN stat and structure's broken var
 	var/flash_protect = 0		//What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
+	var/bang_protect = 0		//what level of sound protection the item has. 1 is the level of a normal bowman.
 	var/tint = 0				//Sets the item's level of visual impairment tint, normally set to the same as flash_protect
 	var/up = 0					//but separated to allow items to protect but not impair vision, like space helmets
 	var/visor_flags = 0			//flags that are added/removed when an item is adjusted up/down
@@ -21,6 +22,9 @@
 	var/toggle_cooldown = null
 	var/cooldown = 0
 	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
+	var/envirosealed = FALSE //is it safe for plasmamen
+
+	var/blocks_shove_knockdown = FALSE //Whether wearing the clothing item blocks the ability for shove to knock down.
 
 	var/clothing_flags = NONE
 
@@ -60,8 +64,9 @@
 /obj/item/reagent_containers/food/snacks/clothing
 	name = "temporary moth clothing snack item"
 	desc = "If you're reading this it means I messed up. This is related to moths eating clothes and I didn't know a better way to do it than making a new food object."
-	list_reagents = list("nutriment" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
 	tastes = list("dust" = 1, "lint" = 1)
+	foodtype = CLOTH
 
 /obj/item/clothing/attack(mob/M, mob/user, def_zone)
 	if(user.a_intent != INTENT_HARM && ismoth(M))
@@ -74,8 +79,8 @@
 		return ..()
 
 /obj/item/clothing/attackby(obj/item/W, mob/user, params)
-	if(damaged_clothes && istype(W, /obj/item/stack/sheet/cloth))
-		var/obj/item/stack/sheet/cloth/C = W
+	if(damaged_clothes && istype(W, /obj/item/stack/sheet/cotton/cloth))
+		var/obj/item/stack/sheet/cotton/cloth/C = W
 		C.use(1)
 		update_clothes_damaged_state(FALSE)
 		obj_integrity = max_integrity
@@ -110,11 +115,17 @@
 					user.vv_edit_var(variable, user_vars_to_edit[variable])
 
 /obj/item/clothing/examine(mob/user)
-	..()
-	clothing_resistance_flag_examine_message(user)
+	. = ..()
+	switch (max_heat_protection_temperature)
+		if (400 to 1000)
+			. += "[src] offers the wearer limited protection from fire."
+		if (1001 to 1600)
+			. += "[src] offers the wearer some protection from fire."
+		if (1601 to 35000)
+			. += "[src] offers the wearer robust protection from fire."
 	if(damaged_clothes)
-		to_chat(user,  "<span class='warning'>It looks damaged!</span>")
-	GET_COMPONENT(pockets, /datum/component/storage)
+		. += "<span class='warning'>It looks damaged!</span>"
+	var/datum/component/storage/pockets = GetComponent(/datum/component/storage)
 	if(pockets)
 		var/list/how_cool_are_your_threads = list("<span class='notice'>")
 		if(pockets.attack_hand_interact)
@@ -128,7 +139,7 @@
 		if(pockets.silent)
 			how_cool_are_your_threads += "Adding or removing items from [src] makes no noise.\n"
 		how_cool_are_your_threads += "</span>"
-		to_chat(user, how_cool_are_your_threads.Join())
+		. += how_cool_are_your_threads.Join()
 
 /obj/item/clothing/obj_break(damage_flag)
 	if(!damaged_clothes)
@@ -214,6 +225,12 @@ BLIND     // can't see anything
 		if(H.w_uniform == src)
 			H.update_suit_sensors()
 
+/obj/item/clothing/under/attack_hand(mob/user)
+	if(attached_accessory && ispath(attached_accessory.pocket_storage_component_path) && loc == user)
+		attached_accessory.attack_hand(user)
+		return
+	..()
+
 /obj/item/clothing/under/AltClick(mob/user)
 	if(..())
 		return 1
@@ -252,12 +269,14 @@ BLIND     // can't see anything
 		return
 	adjusted = !adjusted
 	if(adjusted)
+		envirosealed = FALSE
 		if(fitted != FEMALE_UNIFORM_TOP)
 			fitted = NO_FEMALE_UNIFORM
 		if(!alt_covers_chest) // for the special snowflake suits that expose the chest when adjusted
 			body_parts_covered &= ~CHEST
 	else
 		fitted = initial(fitted)
+		envirosealed = initial(envirosealed)
 		if(!alt_covers_chest)
 			body_parts_covered |= CHEST
 	return adjusted
@@ -289,6 +308,15 @@ BLIND     // can't see anything
 	if(visor_vars_to_toggle & VISOR_TINT)
 		tint ^= initial(tint)
 
+/obj/item/clothing/head/helmet/space/plasmaman/visor_toggling() //handles all the actual toggling of flags
+	up = !up
+	clothing_flags ^= visor_flags
+	flags_inv ^= visor_flags_inv
+	icon_state = "[initial(icon_state)]"
+	if(visor_vars_to_toggle & VISOR_FLASHPROTECT)
+		flash_protect ^= initial(flash_protect)
+	if(visor_vars_to_toggle & VISOR_TINT)
+		tint ^= initial(tint)
 
 /obj/item/clothing/proc/can_use(mob/user)
 	if(user && ismob(user))

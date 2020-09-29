@@ -101,7 +101,7 @@
 		if (!open)
 			return
 		var/obj/item/reagent_containers/RG = I
-		RG.reagents.add_reagent("water", min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
+		RG.reagents.add_reagent(/datum/reagent/water, min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
 		to_chat(user, "<span class='notice'>You fill [RG] from [src]. Gross.</span>")
 	else
 		return ..()
@@ -199,7 +199,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "urinalcake"
 	w_class = WEIGHT_CLASS_TINY
-	list_reagents = list("chlorine" = 3, "ammonia" = 1)
+	list_reagents = list(/datum/reagent/chlorine = 3, /datum/reagent/ammonia = 1)
 	foodtype = TOXIC | GROSS
 
 /obj/item/reagent_containers/food/snacks/urinalcake/attack_self(mob/living/user)
@@ -222,7 +222,7 @@
 	desc = "A sink used for washing one's hands and face."
 	anchored = TRUE
 	var/busy = FALSE 	//Something's being washed at the moment
-	var/dispensedreagent = "water" // for whenever plumbing happens
+	var/dispensedreagent = /datum/reagent/water // for whenever plumbing happens
 
 /obj/structure/sink/attack_hand(mob/living/user)
 	. = ..()
@@ -287,7 +287,7 @@
 	if(istype(O, /obj/item/melee/baton))
 		var/obj/item/melee/baton/B = O
 		if(B.cell)
-			if(B.cell.charge > 0 && B.status == 1)
+			if(B.cell.charge > 0 && B.turned_on)
 				flick("baton_active", src)
 				var/stunforce = B.stunforce
 				user.Paralyze(stunforce)
@@ -299,7 +299,7 @@
 				return
 
 	if(istype(O, /obj/item/mop))
-		O.reagents.add_reagent("[dispensedreagent]", 5)
+		O.reagents.add_reagent(dispensedreagent, 5)
 		to_chat(user, "<span class='notice'>You wet [O] in [src].</span>")
 		playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 		return
@@ -335,7 +335,7 @@
 		return ..()
 
 /obj/structure/sink/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/metal (loc, 3)
+	new /obj/item/stack/sheet/iron (loc, 3)
 	qdel(src)
 
 
@@ -374,7 +374,8 @@
 	name = "curtain"
 	desc = "Contains less than 1% mercury."
 	icon = 'icons/obj/watercloset.dmi'
-	icon_state = "open"
+	icon_state = "bathroom-open"
+	var/icon_type = "bathroom"//used in making the icon state
 	color = "#ACD1E9" //Default color, didn't bother hardcoding other colors, mappers can and should easily change it.
 	alpha = 200 //Mappers can also just set this to 255 if they want curtains that can't be seen through
 	layer = SIGN_LAYER
@@ -389,13 +390,13 @@
 
 /obj/structure/curtain/update_icon()
 	if(!open)
-		icon_state = "closed"
+		icon_state = "[icon_type]-closed"
 		layer = WALL_OBJ_LAYER
 		density = TRUE
 		open = FALSE
 
 	else
-		icon_state = "open"
+		icon_state = "[icon_type]-open"
 		layer = SIGN_LAYER
 		density = FALSE
 		open = TRUE
@@ -431,7 +432,7 @@
 	toggle()
 
 /obj/structure/curtain/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/cloth (loc, 2)
+	new /obj/item/stack/sheet/cotton/cloth (loc, 2)
 	new /obj/item/stack/sheet/plastic (loc, 2)
 	new /obj/item/stack/rods (loc, 1)
 	qdel(src)
@@ -445,3 +446,9 @@
 				playsound(loc, 'sound/weapons/tap.ogg', 50, 1)
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 80, 1)
+
+/obj/structure/curtain/bounty
+	icon_type = "bounty"
+	icon_state = "bounty-open"
+	color = null
+	alpha = 255

@@ -6,7 +6,7 @@
 
 /datum/food_processor_process/meat
 	input = /obj/item/reagent_containers/food/snacks/meat/slab
-	output = /obj/item/reagent_containers/food/snacks/faggot
+	output = /obj/item/reagent_containers/food/snacks/meatball
 
 /datum/food_processor_process/bacon
 	input = /obj/item/reagent_containers/food/snacks/meat/rawcutlet
@@ -39,6 +39,10 @@
 /datum/food_processor_process/corn
 	input = /obj/item/reagent_containers/food/snacks/grown/corn
 	output = /obj/item/reagent_containers/food/snacks/tortilla
+
+/datum/food_processor_process/tortilla
+	input = /obj/item/reagent_containers/food/snacks/tortilla
+	output = /obj/item/reagent_containers/food/snacks/cornchips
 
 /datum/food_processor_process/parsnip
 	input = /obj/item/reagent_containers/food/snacks/grown/parsnip

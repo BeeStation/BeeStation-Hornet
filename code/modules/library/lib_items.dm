@@ -23,20 +23,26 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
 	var/state = 0
 	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/book) //Things allowed in the bookcase
+	/// When enabled, books_to_load number of random books will be generated for this bookcase when first interacted with.
+	var/load_random_books = FALSE
+	/// The category of books to pick from when populating random books.
+	var/random_category = null
+	/// How many random books to generate.
+	var/books_to_load = 0
 
 /obj/structure/bookcase/examine(mob/user)
-	..()
+	. = ..()
 	if(!anchored)
-		to_chat(user, "<span class='notice'>The <i>bolts</i> on the bottom are unsecured.</span>")
-	if(anchored)
-		to_chat(user, "<span class='notice'>It's secured in place with <b>bolts</b>.</span>")
+		. += "<span class='notice'>The <i>bolts</i> on the bottom are unsecured.</span>"
+	else
+		. += "<span class='notice'>It's secured in place with <b>bolts</b>.</span>"
 	switch(state)
 		if(0)
-			to_chat(user, "<span class='notice'>There's a <b>small crack</b> visible on the back panel.</span>")
+			. += "<span class='notice'>There's a <b>small crack</b> visible on the back panel.</span>"
 		if(1)
-			to_chat(user, "<span class='notice'>There's space inside for a <i>wooden</i> shelf.</span>")
+			. += "<span class='notice'>There's space inside for a <i>wooden</i> shelf.</span>"
 		if(2)
-			to_chat(user, "<span class='notice'>There's a <b>small crack</b> visible on the shelf.</span>")
+			. += "<span class='notice'>There's a <b>small crack</b> visible on the shelf.</span>"
 
 /obj/structure/bookcase/Initialize(mapload)
 	. = ..()
@@ -78,7 +84,7 @@
 				state = 0
 
 		if(2)
-			GET_COMPONENT_FROM(STR, /datum/component/storage, I)
+			var/datum/component/storage/STR = I.GetComponent(/datum/component/storage)
 			if(is_type_in_list(I, allowed_books))
 				if(!user.transferItemToLoc(I, src))
 					return
@@ -119,8 +125,11 @@
 		return
 	if(!istype(user))
 		return
+	if(load_random_books)
+		create_random_books(books_to_load, src, FALSE, random_category)
+		load_random_books = FALSE
 	if(contents.len)
-		var/obj/item/book/choice = input(user, "Which book would you like to remove from the shelf?") as null|obj in contents
+		var/obj/item/book/choice = input(user, "Which book would you like to remove from the shelf?") as null|obj in sortNames(contents)
 		if(choice)
 			if(!(user.mobility_flags & MOBILITY_USE) || user.stat || user.restrained() || !in_range(loc, user))
 				return
@@ -140,10 +149,10 @@
 
 
 /obj/structure/bookcase/update_icon()
-	if(contents.len < 5)
-		icon_state = "book-[contents.len]"
-	else
-		icon_state = "book-5"
+	var/amount = contents.len
+	if(load_random_books)
+		amount += books_to_load
+	icon_state = "book-[amount < 5 ? amount : 5]"
 
 
 /obj/structure/bookcase/manuals/medical
@@ -255,6 +264,8 @@
 				if(!newauthor)
 					to_chat(user, "The name is invalid.")
 					return
+				else if(length(newauthor) > 45)
+					to_chat(user, "That name is too long!")
 				else
 					author = newauthor
 			else

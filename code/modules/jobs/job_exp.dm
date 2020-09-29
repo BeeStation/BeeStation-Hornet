@@ -8,6 +8,8 @@ GLOBAL_PROTECT(exp_to_update)
 		return 0
 	if(!CONFIG_GET(flag/use_exp_tracking))
 		return 0
+	if(!SSdbcore.Connect())
+		return 0
 	if(!exp_requirements || !exp_type)
 		return 0
 	if(!job_is_xp_locked(src.title))
@@ -16,6 +18,8 @@ GLOBAL_PROTECT(exp_to_update)
 		return 0
 	var/isexempt = C.prefs.db_flags & DB_FLAG_EXEMPT
 	if(isexempt)
+		return 0
+	if(C.prefs.job_exempt)
 		return 0
 	var/my_exp = C.calc_exp_type(get_exp_req_type())
 	var/job_requirement = get_exp_req_amount()
@@ -38,7 +42,7 @@ GLOBAL_PROTECT(exp_to_update)
 	return exp_type
 
 /proc/job_is_xp_locked(jobtitle)
-	if(!CONFIG_GET(flag/use_exp_restrictions_heads) && jobtitle in (GLOB.command_positions | list("AI")))
+	if(!CONFIG_GET(flag/use_exp_restrictions_heads) && (jobtitle in (GLOB.command_positions | list("AI"))))
 		return FALSE
 	if(!CONFIG_GET(flag/use_exp_restrictions_other) && !(jobtitle in (GLOB.command_positions | list("AI"))))
 		return FALSE
@@ -85,7 +89,8 @@ GLOBAL_PROTECT(exp_to_update)
 				exp_data[category] = text2num(play_records[category])
 			else
 				exp_data[category] = 0
-	if(prefs.db_flags & DB_FLAG_EXEMPT)
+
+	if((prefs.db_flags & DB_FLAG_EXEMPT) || (prefs.job_exempt))
 		return_text += "<LI>Exempt (all jobs auto-unlocked)</LI>"
 
 	for(var/dep in exp_data)
@@ -120,11 +125,13 @@ GLOBAL_PROTECT(exp_to_update)
 	return return_text
 
 
-/client/proc/get_exp_living()
+/client/proc/get_exp_living(var/format = TRUE)
 	if(!prefs.exp)
 		return "No data"
 	var/exp_living = text2num(prefs.exp[EXP_TYPE_LIVING])
-	return get_exp_format(exp_living)
+	if(format)
+		return get_exp_format(exp_living)
+	return exp_living
 
 /proc/get_exp_format(expnum)
 	if(expnum > 60)
@@ -146,7 +153,7 @@ GLOBAL_PROTECT(exp_to_update)
 	set waitfor = FALSE
 	var/list/old_minutes = GLOB.exp_to_update
 	GLOB.exp_to_update = null
-	SSdbcore.MassInsert(format_table_name("role_time"), old_minutes, "ON DUPLICATE KEY UPDATE minutes = minutes + VALUES(minutes)")
+	SSdbcore.MassInsert(format_table_name("role_time"), old_minutes, duplicate_key = "ON DUPLICATE KEY UPDATE minutes = minutes + VALUES(minutes)")
 
 //resets a client's exp to what was in the db.
 /client/proc/set_exp_from_db()
@@ -154,7 +161,10 @@ GLOBAL_PROTECT(exp_to_update)
 		return -1
 	if(!SSdbcore.Connect())
 		return -1
-	var/datum/DBQuery/exp_read = SSdbcore.NewQuery("SELECT job, minutes FROM [format_table_name("role_time")] WHERE ckey = '[sanitizeSQL(ckey)]'")
+	var/datum/DBQuery/exp_read = SSdbcore.NewQuery(
+		"SELECT job, minutes FROM [format_table_name("role_time")] WHERE ckey = :ckey",
+		list("ckey" = ckey)
+	)
 	if(!exp_read.Execute(async = TRUE))
 		qdel(exp_read)
 		return -1
@@ -186,7 +196,10 @@ GLOBAL_PROTECT(exp_to_update)
 	else
 		prefs.db_flags |= newflag
 
-	var/datum/DBQuery/flag_update = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET flags = '[prefs.db_flags]' WHERE ckey='[sanitizeSQL(ckey)]'")
+	var/datum/DBQuery/flag_update = SSdbcore.NewQuery(
+		"UPDATE [format_table_name("player")] SET flags=:flags WHERE ckey=:ckey",
+		list("flags" = "[prefs.db_flags]", "ckey" = ckey)
+	)
 
 	if(!flag_update.Execute())
 		qdel(flag_update)
@@ -199,7 +212,7 @@ GLOBAL_PROTECT(exp_to_update)
 		return -1
 	if(!SSdbcore.Connect())
 		return -1
-	if (!isnum(minutes))
+	if (!isnum_safe(minutes))
 		return -1
 	var/list/play_records = list()
 
@@ -207,6 +220,9 @@ GLOBAL_PROTECT(exp_to_update)
 		if(mob.stat != DEAD)
 			var/rolefound = FALSE
 			play_records[EXP_TYPE_LIVING] += minutes
+
+			process_ten_minute_living()
+
 			if(announce_changes)
 				to_chat(src,"<span class='notice'>You got: [minutes] Living EXP!</span>")
 			if(mob.mind.assigned_role)
@@ -250,12 +266,12 @@ GLOBAL_PROTECT(exp_to_update)
 		var/jvalue = play_records[jtype]
 		if (!jvalue)
 			continue
-		if (!isnum(jvalue))
+		if (!isnum_safe(jvalue))
 			CRASH("invalid job value [jtype]:[jvalue]")
 		LAZYINITLIST(GLOB.exp_to_update)
 		GLOB.exp_to_update.Add(list(list(
-			"job" = "'[sanitizeSQL(jtype)]'",
-			"ckey" = "'[sanitizeSQL(ckey)]'",
+			"job" = jtype,
+			"ckey" = ckey,
 			"minutes" = jvalue)))
 		prefs.exp[jtype] += jvalue
 	addtimer(CALLBACK(SSblackbox,/datum/controller/subsystem/blackbox/proc/update_exp_db),20,TIMER_OVERRIDE|TIMER_UNIQUE)
@@ -266,7 +282,10 @@ GLOBAL_PROTECT(exp_to_update)
 	if(!SSdbcore.Connect())
 		return FALSE
 
-	var/datum/DBQuery/flags_read = SSdbcore.NewQuery("SELECT flags FROM [format_table_name("player")] WHERE ckey='[ckey]'")
+	var/datum/DBQuery/flags_read = SSdbcore.NewQuery(
+		"SELECT flags FROM [format_table_name("player")] WHERE ckey=:ckey",
+		list("ckey" = ckey)
+	)
 
 	if(!flags_read.Execute(async = TRUE))
 		qdel(flags_read)

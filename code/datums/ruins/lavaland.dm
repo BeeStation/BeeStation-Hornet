@@ -73,7 +73,7 @@
 /datum/map_template/ruin/lavaland/animal_hospital
 	name = "Animal Hospital"
 	id = "animal-hospital"
-	description = "Rats with cancer do not live very long. And the ones that wake up from cryostasis seem to commit suicide out of boredom."
+	description = "An ancient animal hospital, its true purpose long forgotten. The doctors awaken with a singular purpose: heal the dying, sick, and injured habitants of the wasteland around them."
 	cost = 5
 	suffix = "lavaland_surface_animal_hospital.dmm"
 	allow_duplicates = FALSE
@@ -222,3 +222,12 @@
 	description = "Mystery to be solved."
 	suffix = "lavaland_surface_puzzle.dmm"
 	cost = 5
+  
+/datum/map_template/ruin/lavaland/elite_tumor
+	name = "Pulsating Tumor"
+	id = "tumor"
+	description = "A strange tumor which houses a powerful beast..."
+	suffix = "lavaland_surface_elite_tumor.dmm"
+	cost = 5
+	always_place = TRUE
+	allow_duplicates = TRUE

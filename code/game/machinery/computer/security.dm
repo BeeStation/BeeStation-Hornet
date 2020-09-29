@@ -20,13 +20,12 @@
 	//Sorting Variables
 	var/sortBy = "name"
 	var/order = 1 // -1 = Descending - 1 = Ascending
-
 	light_color = LIGHT_COLOR_RED
 
 /obj/machinery/computer/secure_data/examine(mob/user)
-	..()
+	. = ..()
 	if(scan)
-		to_chat(user, "<span class='notice'>Alt-click to eject the ID card.</span>")
+		. += "<span class='notice'>Alt-click to eject the ID card.</span>"
 
 /obj/machinery/computer/secure_data/syndie
 	icon_keyboard = "syndie_key"
@@ -210,6 +209,32 @@
 					if((istype(active2, /datum/data/record) && GLOB.data_core.security.Find(active2)))
 						dat += "<font size='4'><b>Security Data</b></font>"
 						dat += "<br>Criminal Status: <A href='?src=[REF(src)];choice=Edit Field;field=criminal'>[active2.fields["criminal"]]</A>"
+						dat += "<br><br>Citations: <A href='?src=[REF(src)];choice=Edit Field;field=citation_add'>Add New</A>"
+
+						dat +={"<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+						<tr>
+						<th>Crime</th>
+						<th>Fine</th>
+						<th>Author</th>
+						<th>Time Added</th>
+						<th>Amount Due</th>
+						<th>Del</th>
+						</tr>"}
+						for(var/datum/data/crime/c in active2.fields["citation"])
+							var/owed = c.fine - c.paid
+							dat += {"<tr><td>[c.crimeName]</td>
+							<td>[c.fine] cr</td><td>[c.author]</td>
+							<td>[c.time]</td>"}
+							if(owed > 0)
+								dat += "<td>[owed] cr <A href='?src=[REF(src)];choice=Pay;field=citation_pay;cdataid=[c.dataId]'>\[Pay\]</A></td></td>"
+							else
+								dat += "<td>All Paid Off</td>"
+							dat += {"<td>
+							<A href='?src=[REF(src)];choice=Edit  Field;field=citation_delete;cdataid=[c.dataId]'>\[X\]</A>
+							</td>
+							</tr>"}
+						dat += "</table>"
+
 						dat += "<br><br>Minor Crimes: <A href='?src=[REF(src)];choice=Edit Field;field=mi_crim_add'>Add New</A>"
 
 
@@ -263,7 +288,7 @@
 					else
 						dat += "Security Record Lost!<br>"
 						dat += "<A href='?src=[REF(src)];choice=New Record (Security)'>New Security Record</A><br><br>"
-					dat += "<A href='?src=[REF(src)];choice=Delete Record (ALL)'>Delete Record (ALL)</A><br><A href='?src=[REF(src)];choice=Print Record'>Print Record</A><BR><A href='?src=[REF(src)];choice=Print Poster'>Print Wanted Poster</A><BR><A href='?src=[REF(src)];choice=Return'>Back</A><BR><BR>"
+					dat += "<A href='?src=[REF(src)];choice=Delete Record (ALL)'>Delete Record (ALL)</A><br><A href='?src=[REF(src)];choice=Print Record'>Print Record</A><BR><A href='?src=[REF(src)];choice=Print Poster'>Print Wanted Poster</A><BR><A href='?src=[REF(src)];choice=Print Missing'>Print Missing Persons Poster</A><BR><A href='?src=[REF(src)];choice=Return'>Back</A><BR><BR>"
 					dat += "<A href='?src=[REF(src)];choice=Log Out'>{Log Out}</A>"
 				else
 		else
@@ -356,6 +381,25 @@ What a mess.*/
 							active2 = E
 					screen = 3
 
+			if("Pay")
+				for(var/datum/data/crime/p in active2.fields["citation"])
+					if(p.dataId == text2num(href_list["cdataid"]))
+						var/obj/item/holochip/C = usr.is_holding_item_of_type(/obj/item/holochip)
+						if(C && istype(C))
+							var/pay = C.get_item_credit_value()
+							if(!pay)
+								to_chat(usr, "<span class='warning'>[C] doesn't seem to be worth anything!</span>")
+							else
+								var/diff = p.fine - p.paid
+								GLOB.data_core.payCitation(active2.fields["id"], text2num(href_list["cdataid"]), pay)
+								to_chat(usr, "<span class='notice'>You have paid [pay] credit\s towards your fine.</span>")
+								if (pay == diff || pay > diff || pay >= diff)
+									investigate_log("Citation Paid off: <strong>[p.crimeName]</strong> Fine: [p.fine] | Paid off by [key_name(usr)]", INVESTIGATE_RECORDS)
+									to_chat(usr, "<span class='notice'>The fine has been paid in full.</span>")
+								qdel(C)
+								playsound(src, "terminal_type", 25, FALSE)
+						else
+							to_chat(usr, "<span class='warning'>Fines can only be paid with holochips!</span>")
 
 			if("Print Record")
 				if(!( printing ))
@@ -438,6 +482,8 @@ What a mess.*/
 								default_description += "\n[c.crimeName]\n"
 								default_description += "[c.crimeDetails]\n"
 
+						var/headerText = stripped_input(usr, "Please enter Poster Heading (Max 7 Chars):", "Print Wanted Poster", "WANTED", 8)
+
 						var/info = stripped_multiline_input(usr, "Please input a description for the poster:", "Print Wanted Poster", default_description, null)
 						if(info)
 							playsound(loc, 'sound/items/poster_being_created.ogg', 100, 1)
@@ -445,7 +491,24 @@ What a mess.*/
 							sleep(30)
 							if((istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1)))//make sure the record still exists.
 								var/obj/item/photo/photo = active1.fields["photo_front"]
-								new /obj/item/poster/wanted(loc, photo.picture.picture_image, wanted_name, info)
+								new /obj/item/poster/wanted(loc, photo.picture.picture_image, wanted_name, info, headerText)
+							printing = 0
+			if("Print Missing")
+				if(!( printing ))
+					var/missing_name = stripped_input(usr, "Please enter an alias for the missing person:", "Print Missing Persons Poster", active1.fields["name"])
+					if(missing_name)
+						var/default_description = "A poster declaring [missing_name] to be a missing individual, missed by Nanotrasen. Report any sightings to security immediately."
+
+						var/headerText = stripped_input(usr, "Please enter Poster Heading (Max 7 Chars):", "Print Missing Persons Poster", "MISSING", 8)
+
+						var/info = stripped_multiline_input(usr, "Please input a description for the poster:", "Print Missing Persons Poster", default_description, null)
+						if(info)
+							playsound(loc, 'sound/items/poster_being_created.ogg', 100, 1)
+							printing = 1
+							sleep(30)
+							if((istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1)))//make sure the record still exists.
+								var/obj/item/photo/photo = active1.fields["photo_front"]
+								new /obj/item/poster/wanted/missing(loc, photo.picture.picture_image, missing_name, info, headerText)
 							printing = 0
 
 //RECORD DELETE
@@ -466,7 +529,7 @@ What a mess.*/
 				if(!( istype(active2, /datum/data/record) ))
 					return
 				var/a2 = active2
-				var/t1 = stripped_multiline_input("Add Comment:", "Secure. records", null, null)
+				var/t1 = stripped_multiline_input(usr, "Add Comment:", "Secure. records")
 				if(!canUseSecurityRecordsConsole(usr, t1, null, a2))
 					return
 				var/counter = 1
@@ -560,7 +623,7 @@ What a mess.*/
 				switch(href_list["field"])
 					if("name")
 						if(istype(active1, /datum/data/record) || istype(active2, /datum/data/record))
-							var/t1 = copytext(sanitize(input("Please input name:", "Secure. records", active1.fields["name"], null)  as text),1,MAX_MESSAGE_LEN)
+							var/t1 = stripped_input(usr, "Please input name:", "Secure. records", active1.fields["name"])
 							if(!canUseSecurityRecordsConsole(usr, t1, a1))
 								return
 							if(istype(active1, /datum/data/record))
@@ -569,7 +632,7 @@ What a mess.*/
 								active2.fields["name"] = t1
 					if("id")
 						if(istype(active2, /datum/data/record) || istype(active1, /datum/data/record))
-							var/t1 = stripped_input(usr, "Please input id:", "Secure. records", active1.fields["id"], null)
+							var/t1 = stripped_input(usr, "Please input id:", "Secure. records", active1.fields["id"])
 							if(!canUseSecurityRecordsConsole(usr, t1, a1))
 								return
 							if(istype(active1, /datum/data/record))
@@ -674,6 +737,45 @@ What a mess.*/
 								if(!canUseSecurityRecordsConsole(usr, "delete", null, a2))
 									return
 								GLOB.data_core.removeMajorCrime(active1.fields["id"], href_list["cdataid"])
+					if("citation_add")
+						if(istype(active1, /datum/data/record))
+							var/maxFine = CONFIG_GET(number/maxfine)
+
+							var/t1 = stripped_input(usr, "Please input citation crime:", "Secure. records", "", null)
+							var/fine = FLOOR(input(usr, "Please input citation fine, up to [maxFine]:", "Secure. records", 50) as num|null, 1)
+
+							if (isnull(fine))
+								return
+							fine = min(fine, maxFine)
+
+							if(fine < 0)
+								to_chat(usr, "<span class='warning'>You're pretty sure that's not how money works.</span>")
+								return
+
+							if(!canUseSecurityRecordsConsole(usr, t1, null, a2))
+								return
+
+							var/crime = GLOB.data_core.createCrimeEntry(t1, "", authenticated, station_time_timestamp(), fine)
+							for (var/obj/item/pda/P in GLOB.PDAs)
+								if(P.owner == active1.fields["name"])
+									var/message = "You have been fined [fine] credits for '[t1]'. Fines may be paid at security."
+									var/datum/signal/subspace/messaging/pda/signal = new(src, list(
+										"name" = "Security Citation",
+										"job" = "Citation Server",
+										"message" = message,
+										"targets" = list("[P.owner] ([P.ownjob])"),
+										"automated" = 1
+									))
+									signal.send_to_receivers()
+									usr.log_message("(PDA: Citation Server) sent \"[message]\" to [signal.format_target()]", LOG_PDA)
+							GLOB.data_core.addCitation(active1.fields["id"], crime)
+							investigate_log("New Citation: <strong>[t1]</strong> Fine: [fine] | Added to [active1.fields["name"]] by [key_name(usr)]", INVESTIGATE_RECORDS)
+					if("citation_delete")
+						if(istype(active1, /datum/data/record))
+							if(href_list["cdataid"])
+								if(!canUseSecurityRecordsConsole(usr, "delete", null, a2))
+									return
+								GLOB.data_core.removeCitation(active1.fields["id"], href_list["cdataid"])
 					if("notes")
 						if(istype(active2, /datum/data/record))
 							var/t1 = stripped_input(usr, "Please summarize notes:", "Secure. records", active2.fields["notes"], null)
@@ -765,19 +867,14 @@ What a mess.*/
 		P = user.get_active_held_item()
 	return P
 
-/obj/machinery/computer/secure_data/proc/print_photo(icon/temp, name)
+/obj/machinery/computer/secure_data/proc/print_photo(icon/temp, person_name)
 	if (printing)
 		return
 	printing = TRUE
 	sleep(20)
 	var/obj/item/photo/P = new/obj/item/photo(drop_location())
-	var/icon/small_img = icon(temp)
-	var/icon/ic = icon('icons/obj/items_and_weapons.dmi',"photo")
-	small_img.Scale(8, 8)
-	ic.Blend(small_img,ICON_OVERLAY, 13, 13)
-	P.icon = ic
-	P.picture.picture_image = temp
-	P.desc = "The photo on file for [name]."
+	var/datum/picture/toEmbed = new(name = person_name, desc = "The photo on file for [person_name].", image = temp)
+	P.set_picture(toEmbed, TRUE, TRUE)
 	P.pixel_x = rand(-10, 10)
 	P.pixel_y = rand(-10, 10)
 	printing = FALSE
@@ -821,7 +918,7 @@ What a mess.*/
 /obj/machinery/computer/secure_data/proc/canUseSecurityRecordsConsole(mob/user, message1 = 0, record1, record2)
 	if(user)
 		if(authenticated)
-			if(user.canUseTopic(src))
+			if(user.canUseTopic(src, !issilicon(user)))
 				if(!trim(message1))
 					return 0
 				if(!record1 || record1 == active1)
@@ -830,7 +927,7 @@ What a mess.*/
 	return 0
 
 /obj/machinery/computer/secure_data/AltClick(mob/user)
-	if(user.canUseTopic(src))
+	if(user.canUseTopic(src, !issilicon(user)))
 		eject_id(user)
 
 /obj/machinery/computer/secure_data/proc/eject_id(mob/user)

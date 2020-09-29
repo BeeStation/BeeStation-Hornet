@@ -30,9 +30,6 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 /mob/dead/gib()		//ghosts can't be gibbed.
 	return
 
-/mob/dead/ConveyorMove()	//lol
-	return
-
 /mob/dead/forceMove(atom/destination)
 	var/turf/old_turf = get_turf(src)
 	var/turf/new_turf = get_turf(destination)
@@ -77,7 +74,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 			verbs -= /mob/dead/proc/server_hop
 			to_chat(src, "<span class='notice'>Server Hop has been disabled.</span>")
 		if(1)
-			pick = csa[0]
+			pick = csa[1]
 		else
 			pick = input(src, "Pick a server to jump to", "Server Hop") as null|anything in csa
 
@@ -102,7 +99,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 
 	winset(src, null, "command=.options") //other wise the user never knows if byond is downloading resources
 
-	C << link("[addr]?server_hop=[key]")
+	C << link("[addr]")
 
 /mob/dead/proc/update_z(new_z) // 1+ to register, null to unregister
 	if (registered_z != new_z)

@@ -1,11 +1,21 @@
 // channel numbers for power
-#define EQUIP			1
-#define LIGHT			2
-#define ENVIRON			3
-#define TOTAL			4	//for total power used only
-#define STATIC_EQUIP 	5
-#define STATIC_LIGHT	6
-#define STATIC_ENVIRON	7
+// These are indexes in a list, and indexes for "dynamic" and static channels should be kept contiguous
+#define AREA_USAGE_EQUIP			1
+#define AREA_USAGE_LIGHT			2
+#define AREA_USAGE_ENVIRON			3
+#define AREA_USAGE_STATIC_EQUIP 	4
+#define AREA_USAGE_STATIC_LIGHT	5
+#define AREA_USAGE_STATIC_ENVIRON	6
+#define AREA_USAGE_LEN AREA_USAGE_STATIC_ENVIRON // largest idx
+/// Index of the first dynamic usage channel
+#define AREA_USAGE_DYNAMIC_START AREA_USAGE_EQUIP
+/// Index of the last dynamic usage channel
+#define AREA_USAGE_DYNAMIC_END AREA_USAGE_ENVIRON
+/// Index of the first static usage channel
+#define AREA_USAGE_STATIC_START AREA_USAGE_STATIC_EQUIP
+/// Index of the last static usage channel
+#define AREA_USAGE_STATIC_END AREA_USAGE_STATIC_ENVIRON
+
 
 //Power use
 #define NO_POWER_USE 0
@@ -22,8 +32,8 @@
 
 //used in design to specify which machine can build it
 #define IMPRINTER		(1<<0)	//For circuits. Uses glass/chemicals.
-#define PROTOLATHE		(1<<1)	//New stuff. Uses glass/metal/chemicals
-#define AUTOLATHE		(1<<2)	//Uses glass/metal only.
+#define PROTOLATHE		(1<<1)	//New stuff. Uses glass/iron/chemicals
+#define AUTOLATHE		(1<<2)	//Uses glass/iron only.
 #define CRAFTLATHE		(1<<3)	//Uses fuck if I know. For use eventually.
 #define MECHFAB			(1<<4) 	//Remember, objects utilising this flag should have construction_time and construction_cost vars.
 #define BIOGENERATOR	(1<<5) 	//Uses biomass
@@ -45,19 +55,19 @@
 #define MC_CHARGE "CHARGE"
 #define MC_AI "AI"
 
-//NTNet stuff, for modular computers
-									// NTNet module-configuration values. Do not change these. If you need to add another use larger number (5..6..7 etc)
-#define NTNET_SOFTWAREDOWNLOAD 1 	// Downloads of software from NTNet
-#define NTNET_PEERTOPEER 2			// P2P transfers of files between devices
-#define NTNET_COMMUNICATION 3		// Communication (messaging)
-#define NTNET_SYSTEMCONTROL 4		// Control of various systems, RCon, air alarm control, etc.
+//! ## NTNet stuff, for modular computers
+//!  **NTNet module-configuration values. Do not change these. If you need to add another use larger number (5..6..7 etc)**
+#define NTNET_SOFTWAREDOWNLOAD 1 	//! Downloads of software from NTNet
+#define NTNET_PEERTOPEER 2			//! P2P transfers of files between devices
+#define NTNET_COMMUNICATION 3		//! Communication (messaging)
+#define NTNET_SYSTEMCONTROL 4		//! Control of various systems, RCon, air alarm control, etc.
 
-//NTNet transfer speeds, used when downloading/uploading a file/program.
-#define NTNETSPEED_LOWSIGNAL 0.5	// GQ/s transfer speed when the device is wirelessly connected and on Low signal
-#define NTNETSPEED_HIGHSIGNAL 1	// GQ/s transfer speed when the device is wirelessly connected and on High signal
-#define NTNETSPEED_ETHERNET 2		// GQ/s transfer speed when the device is using wired connection
+//! **NTNet transfer speeds, used when downloading/uploading a file/program.**
+#define NTNETSPEED_LOWSIGNAL 0.5	//! GQ/s transfer speed when the device is wirelessly connected and on Low signal
+#define NTNETSPEED_HIGHSIGNAL 1	//! GQ/s transfer speed when the device is wirelessly connected and on High signal
+#define NTNETSPEED_ETHERNET 2		//! GQ/s transfer speed when the device is using wired connection
 
-//Caps for NTNet logging. Less than 10 would make logging useless anyway, more than 500 may make the log browser too laggy. Defaults to 100 unless user changes it.
+// Caps for NTNet logging. Less than 10 would make logging useless anyway, more than 500 may make the log browser too laggy. Defaults to 100 unless user changes it.
 #define MAX_NTNET_LOGS 300
 #define MIN_NTNET_LOGS 10
 
@@ -94,6 +104,13 @@
 #define NUKESTATE_CORE_EXPOSED	1
 #define NUKESTATE_CORE_REMOVED	0
 
+#define NUKEUI_AWAIT_DISK 0
+#define NUKEUI_AWAIT_CODE 1
+#define NUKEUI_AWAIT_TIMER 2
+#define NUKEUI_AWAIT_ARM 3
+#define NUKEUI_TIMING 4
+#define NUKEUI_EXPLODED 5
+
 #define NUKE_OFF_LOCKED		0
 #define NUKE_OFF_UNLOCKED	1
 #define NUKE_ON_TIMING		2
@@ -106,3 +123,7 @@
 //cloning defines. These are flags.
 #define CLONING_SUCCESS (1<<0)
 #define CLONING_DELETE_RECORD (1<<1)
+
+//these flags are used to tell the DNA modifier if a plant gene cannot be extracted or modified.
+#define PLANT_GENE_REMOVABLE	(1<<0)
+#define PLANT_GENE_EXTRACTABLE	(1<<1)

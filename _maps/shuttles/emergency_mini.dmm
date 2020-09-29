@@ -34,9 +34,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "g" = (
-/obj/machinery/sleeper{
-	dir = 8
-	},
+/obj/machinery/stasis,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "h" = (
@@ -80,19 +78,6 @@
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"o" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Escape Shuttle Cell";
-	req_access_txt = "2"
-	},
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"p" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary"
-	},
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/escape)
 "q" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
@@ -113,6 +98,21 @@
 /obj/machinery/door/airlock/titanium{
 	name = "Emergency Shuttle Airlock"
 	},
+/obj/docking_port/mobile/emergency{
+	dir = 8;
+	dwidth = 8;
+	height = 9;
+	name = "Mini emergency shuttle";
+	width = 21
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"w" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "x" = (
@@ -146,17 +146,14 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "B" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary"
 	},
-/obj/docking_port/mobile/emergency{
-	dir = 8;
-	dwidth = 8;
-	height = 9;
-	name = "Mini emergency shuttle";
-	width = 21
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
 	},
-/turf/open/floor/mineral/titanium/blue,
+/turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "D" = (
 /obj/structure/table,
@@ -173,16 +170,13 @@
 /obj/machinery/light,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
+"G" = (
+/obj/structure/table/optable,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/escape)
 "H" = (
 /obj/machinery/status_display/evac,
 /turf/closed/wall/mineral/titanium,
-/area/shuttle/escape)
-"I" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit";
-	req_access_txt = "19"
-	},
-/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "J" = (
 /obj/machinery/computer/atmos_alert{
@@ -252,8 +246,41 @@
 /obj/item/crowbar,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
+"U" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"W" = (
+/obj/structure/table,
+/obj/item/clothing/suit/apron/surgical,
+/obj/item/storage/backpack/duffelbag/med/surgery,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/escape)
 "X" = (
 /turf/open/floor/mineral/titanium/white,
+/area/shuttle/escape)
+"Y" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Escape Shuttle Cockpit";
+	req_access_txt = "19"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"Z" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Escape Shuttle Cell";
+	req_access_txt = "2"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -265,9 +292,9 @@ b
 b
 b
 b
-n
-n
-n
+U
+U
+U
 b
 b
 b
@@ -285,7 +312,7 @@ b
 e
 k
 X
-p
+B
 f
 M
 M
@@ -305,7 +332,7 @@ b
 (3,1,1) = {"
 c
 d
-X
+W
 X
 X
 n
@@ -323,12 +350,12 @@ b
 K
 K
 Q
-n
+U
 "}
 (4,1,1) = {"
 c
 d
-g
+G
 l
 g
 n
@@ -346,7 +373,7 @@ H
 t
 f
 R
-n
+U
 "}
 (5,1,1) = {"
 c
@@ -365,11 +392,11 @@ n
 R
 f
 f
-I
+Y
 f
 f
 S
-n
+U
 "}
 (6,1,1) = {"
 c
@@ -392,14 +419,14 @@ b
 L
 f
 R
-n
+U
 "}
 (7,1,1) = {"
 c
 d
 i
 i
-o
+Z
 f
 f
 f
@@ -415,7 +442,7 @@ b
 M
 M
 T
-n
+U
 "}
 (8,1,1) = {"
 b
@@ -447,13 +474,13 @@ b
 b
 b
 b
+w
+b
+b
+U
+b
+b
 u
-b
-b
-n
-b
-b
-B
 b
 b
 b

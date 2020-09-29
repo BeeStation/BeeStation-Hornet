@@ -15,7 +15,6 @@ Bonus
 
 //////////////////////////////////////
 */
-
 /datum/symptom/sneeze
 	name = "Sneezing"
 	desc = "The virus causes irritation of the nasal cavity, making the host sneeze occasionally."
@@ -24,17 +23,14 @@ Bonus
 	stage_speed = 0
 	transmittable = 4
 	level = 1
-	severity = 1
+	severity = 0
 	symptom_delay_min = 5
 	symptom_delay_max = 35
-	threshold_desc = "<b>Transmission 9:</b> Increases sneezing range, spreading the virus over a larger area.<br>\
-					  <b>Stealth 4:</b> The symptom remains hidden until active."
+	threshold_desc = "<b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/sneeze/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 9) //longer spread range
-		power = 2
 	if(A.properties["stealth"] >= 4)
 		suppress_warning = TRUE
 
@@ -48,5 +44,3 @@ Bonus
 				M.emote("sniff")
 		else
 			M.emote("sneeze")
-			if(M.CanSpreadAirborneDisease()) //don't spread germs if they covered their mouth
-				A.spread(4 + power)

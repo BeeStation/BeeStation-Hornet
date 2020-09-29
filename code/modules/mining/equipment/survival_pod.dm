@@ -33,8 +33,8 @@
 /obj/item/survivalcapsule/examine(mob/user)
 	. = ..()
 	get_template()
-	to_chat(user, "This capsule has the [template.name] stored.")
-	to_chat(user, template.description)
+	. += "This capsule has the [template.name] stored."
+	. += template.description
 
 /obj/item/survivalcapsule/attack_self()
 	//Can't grab when capsule is New() because templates aren't loaded then
@@ -70,7 +70,48 @@
 /obj/item/survivalcapsule/luxury
 	name = "luxury bluespace shelter capsule"
 	desc = "An exorbitantly expensive luxury suite stored within a pocket of bluespace."
+	icon_state = "capsulelux"
 	template_id = "shelter_beta"
+
+/obj/item/survivalcapsule/luxuryelite
+	name = "luxury elite bar capsule"
+	desc = "A luxury bar in a capsule. Bartender required and not included."
+	icon_state = "capsuleluxelite"
+	template_id = "shelter_charlie"
+
+/obj/item/survivalcapsule/encampment
+	name = "mining encampment capsule"
+	desc = "A medium-sized mining encampment in a capsule. A home away from home, away from home!"
+	icon_state = "capsulecamp"
+	template_id = "shelter_delta"
+
+/obj/item/survivalcapsule/medical
+	name = "emergency medical capsule"
+	desc = "A small pod with medical facilities designed for station emergencies inside a bluespace capsule. Do NOT swallow."
+	icon_state = "capsulemed"
+	icon = 'icons/obj/mining.dmi'
+	template_id = "shelter_echo"
+	
+/obj/item/survivalcapsule/space
+	name = "space shelter capsule"
+	desc = "A spaceworthy shelter designed for emergencies/construction in a bluespace capsule."
+	icon_state = "capsuleeng"
+	icon = 'icons/obj/mining.dmi'
+	template_id = "shelter_eta"
+	
+/obj/item/survivalcapsule/barricade
+	name = "barricade capsule"
+	desc = "A 3x3 glass barricade designed for security use with energy weapons."
+	icon_state = "capsulesec"
+	icon = 'icons/obj/mining.dmi'
+	template_id = "capsule_barricade"
+
+/obj/item/survivalcapsule/party
+	name = "party capsule"
+	desc = "A 7x7 party area, fit with tables and a dancefloor. Groovy."
+	icon_state = "capsuleparty"
+	icon = 'icons/obj/mining.dmi'
+	template_id = "shelter_theta"
 
 //Pod objects
 
@@ -137,6 +178,26 @@
 		cut_overlays()
 	else
 		add_overlay("sleeper_cover")
+
+//Lifeform Stasis Unit
+/obj/machinery/stasis/survival_pod
+	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon_state = "sleeper"
+	mattress_state = null
+	buckle_lying = 270
+
+/obj/machinery/stasis/survival_pod/play_power_sound()
+	return
+
+/obj/machinery/stasis/survival_pod/update_icon()
+	return
+
+//NanoMed
+/obj/machinery/vending/wallmed/survival_pod
+	name = "survival pod medical supply"
+	desc = "Wall-mounted Medical Equipment dispenser. This one seems just a tiny bit smaller."
+	refill_canister = null
+	onstation = FALSE
 
 //Computer
 /obj/item/gps/computer
@@ -216,7 +277,7 @@
 	desc = "A large machine releasing a constant gust of air."
 	anchored = TRUE
 	density = TRUE
-	var/buildstacktype = /obj/item/stack/sheet/metal
+	var/buildstacktype = /obj/item/stack/sheet/iron
 	var/buildstackamount = 5
 	CanAtmosPass = ATMOS_PASS_NO
 
@@ -284,7 +345,6 @@
 						/obj/item/gun/energy/pulse,
 						/obj/item/book/granter/martial/carp,
 						/obj/item/melee/supermatter_sword,
-						/obj/item/shield/changeling,
 						/obj/item/lava_staff,
 						/obj/item/energy_katana,
 						/obj/item/hierophant_club,

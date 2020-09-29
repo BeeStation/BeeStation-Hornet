@@ -4,7 +4,7 @@
 	config_tag = "overthrow"
 	report_type = "overthrow"
 	antag_flag = ROLE_OVERTHROW
-	restricted_jobs = list("Security Officer", "Warden", "Detective", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer")
+	restricted_jobs = list("Security Officer", "Warden", "Detective", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Brig Physician")
 	required_players = 20 // the core idea is of a swift, bloodless coup, so it shouldn't be as chaotic as revs.
 	required_enemies = 2 // minimum two teams, otherwise it's just nerfed revs.
 	recommended_enemies = 4
@@ -28,7 +28,7 @@
 	for (var/i in 1 to sleeping_agents)
 		if (!antag_candidates.len)
 			break
-		var/datum/mind/sleeping_agent = antag_pick(antag_candidates)
+		var/datum/mind/sleeping_agent = antag_pick(antag_candidates, ROLE_OVERTHROW)
 		antag_candidates -= sleeping_agent
 		initial_agents += sleeping_agent
 		sleeping_agent.restricted_roles = restricted_jobs
@@ -74,4 +74,4 @@
 		var/datum/team/Tagain = l
 		if(teams[Tagain] == max_points)
 			winners += Tagain.name
-	return "<span class='greentext big'>The [english_list(winners)] team[winners.len > 1 ? "s tied" : " won"] with [max_points] points!</span>"
+	return "<div class='panel redborder'><span class='greentext big'>The [english_list(winners)] team[winners.len > 1 ? "s tied" : " won"] with [max_points] points!</span></div>"

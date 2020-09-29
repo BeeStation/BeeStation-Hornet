@@ -1,0 +1,81 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/wood,
+/area/template_noop)
+"b" = (
+/obj/structure/chair/stool,
+/turf/open/floor/wood,
+/area/template_noop)
+"c" = (
+/turf/closed/wall,
+/area/template_noop)
+"d" = (
+/obj/structure/table,
+/obj/machinery/chem_dispenser/drinks/beer,
+/turf/open/floor/wood,
+/area/template_noop)
+"e" = (
+/obj/structure/table/wood,
+/obj/item/soap/nanotrasen,
+/turf/open/floor/wood{
+	icon_state = "wood-broken7"
+	},
+/area/template_noop)
+"g" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/lootdrop/maintenance/four,
+/turf/open/floor/wood,
+/area/template_noop)
+"h" = (
+/obj/machinery/vending/boozeomat/all_access,
+/obj/effect/turf_decal/tile/bar,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"i" = (
+/turf/open/floor/wood{
+	icon_state = "wood-broken5"
+	},
+/area/template_noop)
+"j" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/wood,
+/area/template_noop)
+"u" = (
+/obj/structure/chair/stool,
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/wood,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+j
+c
+h
+"}
+(2,1,1) = {"
+a
+a
+d
+a
+"}
+(3,1,1) = {"
+a
+u
+e
+i
+"}
+(4,1,1) = {"
+a
+b
+g
+a
+"}
+(5,1,1) = {"
+a
+a
+a
+a
+"}

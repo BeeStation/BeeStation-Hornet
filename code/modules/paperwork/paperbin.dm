@@ -87,7 +87,6 @@
 				if(prob(30))
 					P.info = "<font face=\"[CRAYON_FONT]\" color=\"red\"><b>HONK HONK HONK HONK HONK HONK HONK<br>HOOOOOOOOOOOOOOOOOOOOOONK<br>APRIL FOOLS</b></font>"
 					P.rigged = 1
-					P.updateinfolinks()
 
 		P.add_fingerprint(user)
 		P.forceMove(user.loc)
@@ -118,11 +117,11 @@
 		return ..()
 
 /obj/item/paper_bin/examine(mob/user)
-	..()
+	. = ..()
 	if(total_paper)
-		to_chat(user, "It contains " + (total_paper > 1 ? "[total_paper] papers" : " one paper")+".")
+		. += "It contains [total_paper > 1 ? "[total_paper] papers" : " one paper"]."
 	else
-		to_chat(user, "It doesn't contain anything.")
+		. += "It doesn't contain anything."
 
 
 /obj/item/paper_bin/update_icon()

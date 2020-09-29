@@ -1,13 +1,13 @@
 /obj/structure/statue
 	name = "statue"
-	desc = "Placeholder. Yell at Firecage if you SOMEHOW see this."
+	desc = "Placeholder. Yell at Qwerty if you SOMEHOW see this."
 	icon = 'icons/obj/statue.dmi'
 	icon_state = ""
 	density = TRUE
 	anchored = FALSE
 	max_integrity = 100
 	var/oreAmount = 5
-	var/material_drop_type = /obj/item/stack/sheet/metal
+	var/material_drop_type = /obj/item/stack/sheet/iron
 	CanAtmosPass = ATMOS_PASS_DENSITY
 
 
@@ -281,3 +281,22 @@
 	name = "snowman"
 	desc = "Several lumps of snow put together to form a snowman."
 	icon_state = "snowman"
+
+/obj/structure/statue/snow/snowlegion
+    name = "snowlegion"
+    desc = "Looks like that weird kid with the tiger plushie has been round here again."
+    icon_state = "snowlegion"
+
+//////////////////////////copper///////////////////////////////////////
+
+/obj/structure/statue/copper
+	max_integrity = 350
+	material_drop_type = /obj/item/stack/sheet/mineral/copper
+	desc = "This is a statue made from copper."
+
+/obj/structure/statue/copper/dimas
+	name = "statue of the quartermaster"
+	desc = "This is a statue of the legendary Quartermaster, Lord of Cargonia the land of stolen things. You feel the need to bow before it."
+	max_integrity = 400
+	icon_state = "dimas"
+	oreAmount = 10 //dimas b dense

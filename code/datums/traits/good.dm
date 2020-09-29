@@ -16,13 +16,13 @@
 	mood_quirk = TRUE
 
 /datum/quirk/apathetic/add()
-	GET_COMPONENT_FROM(mood, /datum/component/mood, quirk_holder)
+	var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
 	if(mood)
 		mood.mood_modifier -= 0.2
 
 /datum/quirk/apathetic/remove()
 	if(quirk_holder)
-		GET_COMPONENT_FROM(mood, /datum/component/mood, quirk_holder)
+		var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
 		if(mood)
 			mood.mood_modifier += 0.2
 
@@ -35,6 +35,14 @@
 	lose_text = "<span class='danger'>You no longer feel like drinking would ease your pain.</span>"
 	medical_record_text = "Patient has unusually efficient liver metabolism and can slowly regenerate wounds by drinking alcoholic beverages."
 
+/datum/quirk/empath
+	name = "Empath"
+	desc = "Whether it's a sixth sense or careful study of body language, it only takes you a quick glance at someone to understand how they feel."
+	value = 2
+	mob_trait = TRAIT_EMPATH
+	gain_text = "<span class='notice'>You feel in tune with those around you.</span>"
+	lose_text = "<span class='danger'>You feel isolated from others.</span>"
+
 /datum/quirk/freerunning
 	name = "Freerunning"
 	desc = "You're great at quick moves! You can climb tables more quickly."
@@ -43,12 +51,25 @@
 	gain_text = "<span class='notice'>You feel lithe on your feet!</span>"
 	lose_text = "<span class='danger'>You feel clumsy again.</span>"
 
+/datum/quirk/friendly
+	name = "Friendly"
+	desc = "You give the best hugs, especially when you're in the right mood."
+	value = 1
+	mob_trait = TRAIT_FRIENDLY
+	gain_text = "<span class='notice'>You want to hug someone.</span>"
+	lose_text = "<span class='danger'>You no longer feel compelled to hug others.</span>"
+	mood_quirk = TRUE
+
 /datum/quirk/jolly
 	name = "Jolly"
 	desc = "You sometimes just feel happy, for no reason at all."
 	value = 1
 	mob_trait = TRAIT_JOLLY
 	mood_quirk = TRUE
+
+/datum/quirk/jolly/on_process()
+	if(prob(0.05))
+		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "jolly", /datum/mood_event/jolly)
 
 /datum/quirk/light_step
 	name = "Light Step"
@@ -69,9 +90,33 @@
 /datum/quirk/musician/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
 	var/obj/item/choice_beacon/music/B = new(get_turf(H))
-	H.put_in_hands(B)
-	H.equip_to_slot(B, SLOT_IN_BACKPACK)
-	H.regenerate_icons()
+	var/list/slots = list (
+		"backpack" = SLOT_IN_BACKPACK,
+		"hands" = SLOT_HANDS,
+	)
+	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
+
+/datum/quirk/multilingual
+	name = "Multilingual"
+	desc = "You spent a portion of your life learning to understand an additional language. You may or may not be able to speak it based on your anatomy."
+	value = 1
+	mob_trait = TRAIT_MULTILINGUAL
+	gain_text = "<span class='notice'>You have learned to understand an additional language.</span>"
+	lose_text = "<span class='danger'>You have forgotten how to understand a language.</span>"
+
+/datum/quirk/multilingual/on_spawn()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(H.job != "Curator")
+		var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+		var/list/languages_possible = T.languages_possible
+		languages_possible = languages_possible - typecacheof(/datum/language/codespeak) - typecacheof(/datum/language/narsie) - typecacheof(/datum/language/ratvar)
+		languages_possible = languages_possible - H.language_holder.understood_languages
+		languages_possible = languages_possible - H.language_holder.spoken_languages
+		languages_possible = languages_possible - H.language_holder.blocked_languages
+		if(LAZYLEN(languages_possible))
+			var/datum/language/random_language = pick(languages_possible)
+			H.grant_language(random_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
+//Credit To Yowii/Yoworii/Yorii for a much more streamlined method of language library building
 
 /datum/quirk/night_vision
 	name = "Night Vision"
@@ -131,7 +176,7 @@
 /datum/quirk/spiritual/on_process()
 	var/comforted = FALSE
 	for(var/mob/living/L in oview(5, quirk_holder))
-		if(L.mind && L.mind.isholy && L.stat == CONSCIOUS)
+		if(L.mind?.isholy && L.stat == CONSCIOUS)
 			comforted = TRUE
 			break
 	if(comforted)
@@ -177,4 +222,10 @@
 	if(!D) //if their current mob doesn't have a bank account, likely due to them being a special role (ie nuke op)
 		return
 	D.welfare = TRUE
-	D.add_neetbux()
+
+/datum/quirk/neet/on_process()
+	var/mob/living/carbon/human/H = quirk_holder
+	if (H.hygiene <= HYGIENE_LEVEL_DIRTY)
+		SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "NEET", /datum/mood_event/happy_neet)
+	else
+		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "NEET")

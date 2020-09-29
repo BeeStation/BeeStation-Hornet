@@ -2,6 +2,7 @@
 	name = "Spontaneous Brain Trauma"
 	typepath = /datum/round_event/brain_trauma
 	weight = 25
+	min_players = 20 //this shit aint fun on a small crew
 
 /datum/round_event/brain_trauma
 	fakeable = FALSE

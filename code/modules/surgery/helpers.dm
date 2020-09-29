@@ -44,7 +44,7 @@
 		if(!available_surgeries.len)
 			return
 
-		var/P = input("Begin which procedure?", "Surgery", null, null) as null|anything in available_surgeries
+		var/P = input("Begin which procedure?", "Surgery", null, null) as null|anything in sortList(available_surgeries)
 		if(P && user && user.Adjacent(M) && (I in user))
 			var/datum/surgery/S = available_surgeries[P]
 
@@ -89,12 +89,12 @@
 			"<span class='notice'>You remove [I] from [M]'s [parse_zone(selected_zone)].</span>")
 		qdel(S)
 	else if(S.can_cancel)
-		var/close_tool_type = /obj/item/cautery
+		var/required_tool_type = TOOL_CAUTERY
 		var/obj/item/close_tool = user.get_inactive_held_item()
 		var/is_robotic = S.requires_bodypart_type == BODYPART_ROBOTIC
 		if(is_robotic)
-			close_tool_type = /obj/item/screwdriver
-		if(istype(close_tool, close_tool_type) || iscyborg(user))
+			required_tool_type = TOOL_SCREWDRIVER
+		if(close_tool.tool_behaviour == required_tool_type || iscyborg(user))
 			M.surgeries -= S
 			user.visible_message("[user] closes [M]'s [parse_zone(selected_zone)] with [close_tool] and removes [I].", \
 				"<span class='notice'>You close [M]'s [parse_zone(selected_zone)] with [close_tool] and remove [I].</span>")

@@ -3,11 +3,15 @@
 	desc = "A heads-up display that provides important info in (almost) real time."
 	flags_1 = null //doesn't protect eyes because it's a monocle, duh
 	var/hud_type = null
+	var/alt_hud_type = null
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot)
 	..()
 	if(hud_type && slot == SLOT_GLASSES)
 		var/datum/atom_hud/H = GLOB.huds[hud_type]
+		H.add_hud_to(user)
+	if(alt_hud_type && slot == SLOT_GLASSES)
+		var/datum/atom_hud/H = GLOB.huds[alt_hud_type]
 		H.add_hud_to(user)
 
 /obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user)
@@ -15,6 +19,11 @@
 	if(hud_type && istype(user) && user.glasses == src)
 		var/datum/atom_hud/H = GLOB.huds[hud_type]
 		H.remove_hud_from(user)
+
+	if(alt_hud_type && istype(user) && user.glasses == src)
+		var/datum/atom_hud/H = GLOB.huds[alt_hud_type]
+		H.remove_hud_from(user)
+
 
 /obj/item/clothing/glasses/hud/emp_act(severity)
 	. = ..()
@@ -86,6 +95,18 @@
 	hud_type = DATA_HUD_SECURITY_ADVANCED
 	glass_colour_type = /datum/client_colour/glass_colour/red
 
+/obj/item/clothing/glasses/hud/security/deputy
+	name = "deputy security HUD"
+	icon_state = "sunhudtoggle"
+
+/obj/item/clothing/glasses/hud/medsec
+	name = "medsec HUD"
+	desc = "A combination HUD, providing the user the use of a Medical and Security HUD."
+	icon_state = "medsechud"
+	hud_type = DATA_HUD_SECURITY_ADVANCED
+	alt_hud_type = DATA_HUD_MEDICAL_ADVANCED
+	glass_colour_type = /datum/client_colour/glass_colour/red
+
 /obj/item/clothing/glasses/hud/security/chameleon
 	name = "chameleon security HUD"
 	desc = "A stolen security HUD integrated with Syndicate chameleon technology. Provides flash protection."
@@ -155,6 +176,13 @@
 /obj/item/clothing/glasses/hud/toggle
 	name = "Toggle HUD"
 	desc = "A hud with multiple functions."
+	icon_state = "togglehud"
+	actions_types = list(/datum/action/item_action/switch_hud)
+
+/obj/item/clothing/glasses/hud/toggle/sunglasses
+	name = "Toggle HUDSunglasses"
+	desc = "Sunglasses with a Toggle HUD."
+	icon_state = "sunhudtoggle"
 	actions_types = list(/datum/action/item_action/switch_hud)
 
 /obj/item/clothing/glasses/hud/toggle/attack_self(mob/user)

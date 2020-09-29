@@ -54,11 +54,15 @@
 
 /datum/config_entry/flag/log_game	// log game events
 
+/datum/config_entry/flag/log_objective	// log antag objectives
+
 /datum/config_entry/flag/log_mecha	// log mech data
 
 /datum/config_entry/flag/log_virus	// log virology data
 
 /datum/config_entry/flag/log_cloning // log cloning actions.
+
+/datum/config_entry/flag/log_id		//log ID changes
 
 /datum/config_entry/flag/log_vote	// log voting
 
@@ -90,6 +94,8 @@
 /datum/config_entry/flag/allow_vote_restart	// allow votes to restart
 
 /datum/config_entry/flag/allow_vote_mode	// allow votes to change mode
+
+/datum/config_entry/flag/allow_vote_map	// allow votes to change map
 
 /datum/config_entry/number/vote_delay	// minimum time between voting sessions (deciseconds, 10 minute default)
 	config_entry_value = 6000
@@ -208,6 +214,14 @@
 /datum/config_entry/string/githuburl
 	config_entry_value = "https://www.github.com/tgstation/-tg-station"
 
+/datum/config_entry/string/issue_label
+
+/datum/config_entry/string/donateurl
+	config_entry_value = "https://www.patreon.com/user?u=10639001"
+
+/datum/config_entry/string/discordurl
+	config_entry_value = "https://discord.gg/zUe34rs"
+
 /datum/config_entry/string/roundstatsurl
 
 /datum/config_entry/string/gamelogurl
@@ -280,6 +294,8 @@
 
 /datum/config_entry/flag/maprotation
 
+/datum/config_entry/flag/automapvote
+
 /datum/config_entry/number/maprotatechancedelta
 	config_entry_value = 0.75
 	min_val = 0
@@ -306,6 +322,8 @@
 
 /datum/config_entry/string/extreme_popcap_message
 	config_entry_value = "The server is currently serving a high number of users, find alternative servers."
+
+/datum/config_entry/flag/byond_member_bypass_popcap
 
 /datum/config_entry/flag/panic_bunker	// prevents people the server hasn't seen before from connecting
 
@@ -360,6 +378,12 @@
 /datum/config_entry/flag/announce_admin_login
 
 /datum/config_entry/flag/allow_map_voting
+	deprecated_by = /datum/config_entry/flag/preference_map_voting
+
+/datum/config_entry/flag/allow_map_voting/DeprecationUpdate(value)
+	return value
+
+/datum/config_entry/flag/preference_map_voting
 
 /datum/config_entry/number/client_warn_version
 	config_entry_value = null
@@ -474,3 +498,49 @@
 
 /datum/config_entry/flag/reopen_roundstart_suicide_roles_command_report
 
+/datum/config_entry/string/metacurrency_name
+	config_entry_value = "MetaCoin"
+
+/datum/config_entry/flag/grant_metacurrency
+
+/datum/config_entry/flag/respect_global_bans
+
+//Fail2Topic settings.
+/datum/config_entry/number/topic_rate_limit
+	config_entry_value = 5
+	min_val = 1
+
+/datum/config_entry/number/topic_max_fails
+	config_entry_value = 5
+	min_val = 1
+
+/datum/config_entry/string/topic_rule_name
+	config_entry_value = "_DD_Fail2topic"
+
+/datum/config_entry/number/topic_max_size
+	config_entry_value = 500
+
+/datum/config_entry/flag/topic_enabled
+
+/datum/config_entry/flag/auto_profile
+
+/datum/config_entry/string/centcom_ban_db	// URL for the CentCom Galactic Ban DB API
+
+/datum/config_entry/flag/ic_filter_enabled
+
+/datum/config_entry/flag/ooc_filter_enabled
+
+/datum/config_entry/string/redirect_address
+	config_entry_value = ""
+
+/datum/config_entry/flag/vote_autotransfer_enabled //toggle for autotransfer system
+
+/datum/config_entry/number/vote_autotransfer_initial //length of time before the first autotransfer vote is called (deciseconds, default 2 hours)
+	config_entry_value = 72000
+	integer = FALSE
+	min_val = 0
+
+/datum/config_entry/number/vote_autotransfer_interval //length of time to wait before subsequent autotransfer votes (deciseconds, default 30 minutes)
+	config_entry_value = 18000
+	integer = FALSE
+	min_val = 0

@@ -12,14 +12,14 @@
 
 /obj/machinery/washing_machine/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/redirect, list(COMSIG_COMPONENT_CLEAN_ACT = CALLBACK(src, .proc/clean_blood)))
+	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_blood)
 
 /obj/machinery/washing_machine/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>Alt-click it to start a wash cycle.</span>")
+	. = ..()
+	. += "<span class='notice'>Alt-click it to start a wash cycle.</span>"
 
 /obj/machinery/washing_machine/AltClick(mob/user)
-	if(!user.canUseTopic(src))
+	if(!user.canUseTopic(src, !issilicon(user)))
 		return
 
 	if(busy)
@@ -95,7 +95,11 @@
 				var/obj/item/reagent_containers/food/snacks/grown/rainbow_flower/RF = WM.color_source
 				add_atom_colour(RF.color, WASHABLE_COLOUR_PRIORITY)
 
-/mob/living/simple_animal/pet/dog/corgi/machine_wash(obj/machinery/washing_machine/WM)
+/obj/item/clothing/head/mob_holder/machine_wash(obj/machinery/washing_machine/WM)
+	..()
+	held_mob.machine_wash(WM)
+
+/mob/living/simple_animal/pet/machine_wash(obj/machinery/washing_machine/WM)
 	WM.bloody_mess = TRUE
 	gib()
 
@@ -286,7 +290,7 @@
 		if(L.buckled || L.has_buckled_mobs())
 			return
 		if(state_open)
-			if(iscorgi(L))
+			if(istype(L, /mob/living/simple_animal/pet))
 				L.forceMove(src)
 				update_icon()
 		return
@@ -298,7 +302,7 @@
 		update_icon()
 
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/metal(drop_location(), 2)
+	new /obj/item/stack/sheet/iron(drop_location(), 2)
 	qdel(src)
 
 /obj/machinery/washing_machine/open_machine(drop = 1)

@@ -99,7 +99,7 @@
 	if (bulb.burnt_out || (last_flash && world.time < src.last_flash + 150))
 		return
 
-	if(!bulb.flash_recharge(30)) //Bulb can burn out if it's used too often too fast
+	if(!bulb.bulb.use_flashbulb()) //Bulb can burn out if it's used too often too fast
 		power_change()
 		return
 
@@ -109,17 +109,12 @@
 	last_flash = world.time
 	use_power(1000)
 
-	var/flashed = FALSE
 	for (var/mob/living/L in viewers(src, null))
 		if (get_dist(src, L) > range)
 			continue
 
 		if(L.flash_act(affect_silicon = 1))
 			L.Paralyze(strength)
-			flashed = TRUE
-
-	if(flashed)
-		bulb.times_used++
 
 	return 1
 
@@ -151,7 +146,7 @@
 			F.id = id
 			playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 		else
-			new /obj/item/stack/sheet/metal (loc, 2)
+			new /obj/item/stack/sheet/iron (loc, 2)
 	qdel(src)
 
 /obj/machinery/flasher/portable/Initialize()
@@ -196,8 +191,8 @@
 	var/id = null
 
 /obj/item/wallframe/flasher/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>Its channel ID is '[id]'.</span>")
+	. = ..()
+	. += "<span class='notice'>Its channel ID is '[id]'.</span>"
 
 /obj/item/wallframe/flasher/after_attach(var/obj/O)
 	..()

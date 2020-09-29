@@ -7,6 +7,7 @@
 /area/shuttle/escape)
 "c" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plasteel/elevatorshaft,
 /area/shuttle/escape)
 "d" = (
@@ -79,12 +80,6 @@
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape)
-"p" = (
-/obj/machinery/door/airlock/gold{
-	req_access_txt = "19"
-	},
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape)
 "q" = (
 /obj/structure/statue/plasma/scientist{
 	anchored = 1;
@@ -101,24 +96,9 @@
 "t" = (
 /turf/open/floor/light/colour_cycle,
 /area/shuttle/escape)
-"u" = (
-/obj/docking_port/mobile/emergency{
-	name = "Disco Inferno"
-	},
-/obj/machinery/door/airlock/gold{
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
-	heat_proof = 1;
-	resistance_flags = 2
-	},
-/turf/open/floor/mineral/plasma,
-/area/shuttle/escape)
 "v" = (
 /obj/machinery/jukebox/disco/indestructible,
 /turf/open/floor/light/colour_cycle,
-/area/shuttle/escape)
-"w" = (
-/obj/machinery/door/airlock/gold,
-/turf/open/floor/wood,
 /area/shuttle/escape)
 "x" = (
 /turf/open/floor/wood,
@@ -220,6 +200,33 @@
 "O" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/escape)
+"P" = (
+/obj/docking_port/mobile/emergency{
+	name = "Disco Inferno"
+	},
+/obj/machinery/door/airlock/gold{
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	heat_proof = 1;
+	resistance_flags = 2
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/mineral/plasma,
+/area/shuttle/escape)
+"V" = (
+/obj/machinery/door/airlock/gold{
+	req_access_txt = "19"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"Y" = (
+/obj/machinery/door/airlock/gold,
+/obj/structure/fans/tiny,
+/turf/open/floor/wood,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 a
@@ -231,7 +238,7 @@ b
 b
 c
 b
-u
+P
 b
 c
 c
@@ -239,7 +246,7 @@ c
 b
 O
 b
-w
+Y
 b
 c
 b
@@ -370,7 +377,7 @@ c
 e
 j
 j
-p
+V
 r
 r
 s

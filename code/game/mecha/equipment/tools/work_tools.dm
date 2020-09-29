@@ -8,6 +8,8 @@
 	icon_state = "mecha_clamp"
 	equip_cooldown = 15
 	energy_drain = 10
+	tool_behaviour = TOOL_RETRACTOR
+	toolspeed = 0.8
 	var/dam_force = 20
 	var/obj/mecha/working/ripley/cargo_holder
 	harmful = TRUE
@@ -69,10 +71,10 @@
 				return
 			M.adjustOxyLoss(round(dam_force/2))
 			M.updatehealth()
-			target.visible_message("<span class='danger'>[chassis] squeezes [target].</span>", \
-								"<span class='userdanger'>[chassis] squeezes [target].</span>",\
+			target.visible_message("<span class='danger'>[chassis] squeezes [target]!</span>", \
+								"<span class='userdanger'>[chassis] squeezes you!</span>",\
 								"<span class='italics'>You hear something crack.</span>")
-			log_combat(chassis.occupant, M, "attacked", "[name]", "(INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYE: [uppertext(damtype)])")
+			log_combat(chassis.occupant, M, "attacked", "[name]", "(INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
 		else
 			step_away(M,chassis)
 			occupant_message("You push [target] out of the way.")
@@ -130,12 +132,12 @@
 					return
 				M.adjustOxyLoss(round(dam_force/2))
 				M.updatehealth()
-				target.visible_message("<span class='danger'>[chassis] destroys [target] in an unholy fury.</span>", \
-									"<span class='userdanger'>[chassis] destroys [target] in an unholy fury.</span>")
-				log_combat(chassis.occupant, M, "attacked", "[name]", "(INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYE: [uppertext(damtype)])")
+				target.visible_message("<span class='danger'>[chassis] destroys [target] in an unholy fury!</span>", \
+									"<span class='userdanger'>[chassis] destroys you in an unholy fury!</span>")
+				log_combat(chassis.occupant, M, "attacked", "[name]", "(INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
 			else
-				target.visible_message("<span class='danger'>[chassis] destroys [target] in an unholy fury.</span>", \
-									"<span class='userdanger'>[chassis] destroys [target] in an unholy fury.</span>")
+				target.visible_message("<span class='danger'>[chassis] destroys [target] in an unholy fury!</span>", \
+									"<span class='userdanger'>[chassis] destroys you in an unholy fury!</span>")
 		else if(chassis.occupant.a_intent == INTENT_DISARM)
 			if(real_clamp)
 				var/mob/living/carbon/C = target
@@ -153,15 +155,16 @@
 					limbs_gone = "[limbs_gone], [affected]"
 				if(play_sound)
 					playsound(src, get_dismember_sound(), 80, TRUE)
-					target.visible_message("<span class='danger'>[chassis] rips [target]'s arms off.</span>", \
-								   "<span class='userdanger'>[chassis] rips [target]'s arms off.</span>")
-					log_combat(chassis.occupant, M, "dismembered of[limbs_gone],", "[name]", "(INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYE: [uppertext(damtype)])")
+					target.visible_message("<span class='danger'>[chassis] rips [target]'s arms off!</span>", \
+								   "<span class='userdanger'>[chassis] rips your arms off!</span>")
+					log_combat(chassis.occupant, M, "dismembered of[limbs_gone],", "[name]", "(INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
 			else
-				target.visible_message("<span class='danger'>[chassis] rips [target]'s arms off.</span>", \
-								   "<span class='userdanger'>[chassis] rips [target]'s arms off.</span>")
+				target.visible_message("<span class='danger'>[chassis] rips [target]'s arms off!</span>", \
+								   "<span class='userdanger'>[chassis] rips your arms off!</span>")
 		else
 			step_away(M,chassis)
-			target.visible_message("[chassis] tosses [target] like a piece of paper.")
+			target.visible_message("<span class='danger'>[chassis] tosses [target] like a piece of paper!</span>", \
+								"<span class='userdanger'>[chassis] tosses you like a piece of paper!</span>")
 		return 1
 
 
@@ -172,12 +175,12 @@
 	icon_state = "mecha_exting"
 	equip_cooldown = 5
 	energy_drain = 0
-	range = MELEE|RANGED
+	range = MECHA_MELEE|MECHA_RANGED
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/Initialize()
 	. = ..()
 	create_reagents(1000)
-	reagents.add_reagent("water", 1000)
+	reagents.add_reagent(/datum/reagent/water, 1000)
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/action(atom/target) //copypasted from extinguisher. TODO: Rewrite from scratch.
 	if(!action_checks(target) || get_dist(chassis, target)>3)
@@ -239,7 +242,7 @@
 	icon_state = "mecha_rcd"
 	equip_cooldown = 10
 	energy_drain = 250
-	range = MELEE|RANGED
+	range = MECHA_MELEE|MECHA_RANGED
 	item_flags = NO_MAT_REDEMPTION
 	var/mode = 0 //0 - deconstruct, 1 - wall or floor, 2 - airlock.
 
@@ -268,14 +271,14 @@
 				occupant_message("Deconstructing [W]...")
 				if(do_after_cooldown(W))
 					chassis.spark_system.start()
-					W.ScrapeAway()
+					W.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 					playsound(W, 'sound/items/deconstruct.ogg', 50, 1)
 			else if(isfloorturf(target))
 				var/turf/open/floor/F = target
 				occupant_message("Deconstructing [F]...")
 				if(do_after_cooldown(target))
 					chassis.spark_system.start()
-					F.ScrapeAway()
+					F.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 					playsound(F, 'sound/items/deconstruct.ogg', 50, 1)
 			else if (istype(target, /obj/machinery/door/airlock))
 				occupant_message("Deconstructing [target]...")
@@ -288,7 +291,7 @@
 				var/turf/open/space/S = target
 				occupant_message("Building Floor...")
 				if(do_after_cooldown(S))
-					S.PlaceOnTop(/turf/open/floor/plating)
+					S.PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 					playsound(S, 'sound/items/deconstruct.ogg', 50, 1)
 					chassis.spark_system.start()
 			else if(isfloorturf(target))
@@ -397,7 +400,7 @@
 		log_message("[equip_ready?"Dea":"A"]ctivated.", LOG_MECHA)
 		return
 	if(href_list["cut"])
-		if(cable && cable.amount)
+		if(cable?.amount)
 			var/m = round(input(chassis.occupant,"Please specify the length of cable to cut","Cut cable",min(cable.amount,30)) as num, 1)
 			m = min(m, cable.amount)
 			if(m)
@@ -489,6 +492,9 @@
 	if(M.occupant) //We're actualy making a new mech and swapping things over, it might get weird if players are involved
 		to_chat(loc, "<span class='warning'>[M] must be unoccupied before this conversion kit can be applied.</span>")
 		return FALSE
+	if(!M.cell) //Turns out things break if the cell is missing
+		to_chat(loc, "<span class='warning'>The conversion process requires a cell installed.</span>")
+		return FALSE
 	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/ripleyupgrade/attach(obj/mecha/M)
@@ -500,8 +506,17 @@
 		N.cell = M.cell
 		M.cell.forceMove(N)
 		M.cell = null
-	N.step_energy_drain = M.step_energy_drain //For the scanning module
-	N.armor = N.armor.setRating(energy = M.armor["energy"]) //for the capacitor
+	QDEL_NULL(N.scanmod)
+	if (M.scanmod)
+		N.scanmod = M.scanmod
+		M.scanmod.forceMove(N)
+		M.scanmod = null
+	QDEL_NULL(N.capacitor)
+	if (M.capacitor)
+		N.capacitor = M.capacitor
+		M.capacitor.forceMove(N)
+		M.capacitor = null
+	N.update_part_values()
 	for(var/obj/item/mecha_parts/E in M.contents)
 		if(istype(E, /obj/item/mecha_parts/concealed_weapon_bay)) //why is the bay not just a variable change who did this
 			E.forceMove(N)

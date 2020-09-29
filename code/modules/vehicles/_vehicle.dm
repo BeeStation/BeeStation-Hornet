@@ -24,6 +24,13 @@
 	var/obj/vehicle/trailer
 	var/are_legs_exposed = FALSE
 
+/obj/vehicle/CanPass(atom/movable/mover, turf/target)
+	if(istype(mover, /obj/item)) //thrown objects and projectiles bypass vehicles
+		return 1
+	if(HAS_TRAIT(mover, TRAIT_PASSTABLE)) 
+		return 1
+	return ..()
+
 /obj/vehicle/Initialize(mapload)
 	. = ..()
 	occupants = list()
@@ -33,17 +40,17 @@
 	generate_actions()
 
 /obj/vehicle/examine(mob/user)
-	..()
+	. = ..()
 	if(resistance_flags & ON_FIRE)
-		to_chat(user, "<span class='warning'>It's on fire!</span>")
+		. += "<span class='warning'>It's on fire!</span>"
 	var/healthpercent = obj_integrity/max_integrity * 100
 	switch(healthpercent)
 		if(50 to 99)
-			to_chat(user,  "It looks slightly damaged.")
+			. += "It looks slightly damaged."
 		if(25 to 50)
-			to_chat(user,  "It appears heavily damaged.")
+			. += "It appears heavily damaged."
 		if(0 to 25)
-			to_chat(user,  "<span class='warning'>It's falling apart!</span>")
+			. += "<span class='warning'>It's falling apart!</span>"
 
 /obj/vehicle/proc/is_key(obj/item/I)
 	return I? (key_type_exact? (I.type == key_type) : istype(I, key_type)) : FALSE
@@ -61,6 +68,7 @@
 			.++
 
 /obj/vehicle/proc/return_controllers_with_flag(flag)
+	RETURN_TYPE(/list/mob)
 	. = list()
 	for(var/i in occupants)
 		if(occupants[i] & flag)
@@ -120,6 +128,7 @@
 	if(!canmove)
 		return
 	vehicle_move(direction)
+	return TRUE
 
 /obj/vehicle/proc/vehicle_move(direction)
 	if(lastmove + movedelay > world.time)

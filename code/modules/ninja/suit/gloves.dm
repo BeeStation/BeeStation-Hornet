@@ -61,7 +61,7 @@
 	. = A.ninjadrain_act(suit,H,src)
 	draining = FALSE
 
-	if(isnum(.)) //Numerical values of drained handle their feedback here, Alpha values handle it themselves (Research hacking)
+	if(isnum_safe(.)) //Numerical values of drained handle their feedback here, Alpha values handle it themselves (Research hacking)
 		if(.)
 			to_chat(H, "<span class='notice'>Gained <B>[DisplayEnergy(.)]</B> of energy from [A].</span>")
 		else
@@ -76,6 +76,6 @@
 	candrain=!candrain
 
 /obj/item/clothing/gloves/space_ninja/examine(mob/user)
-	..()
-	if(has_trait(TRAIT_NODROP, NINJA_SUIT_TRAIT))
-		to_chat(user, "The energy drain mechanism is <B>[candrain?"active":"inactive"]</B>.")
+	. = ..()
+	if(HAS_TRAIT_FROM(src, TRAIT_NODROP, NINJA_SUIT_TRAIT))
+		. += "The energy drain mechanism is <B>[candrain?"active":"inactive"]</B>."

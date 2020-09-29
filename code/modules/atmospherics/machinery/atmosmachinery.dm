@@ -15,7 +15,7 @@
 	move_resist = INFINITY				//Moving a connected machine without actually doing the normal (dis)connection things will probably cause a LOT of issues.
 	idle_power_usage = 0
 	active_power_usage = 0
-	power_channel = ENVIRON
+	power_channel = AREA_USAGE_ENVIRON
 	layer = GAS_PIPE_HIDDEN_LAYER //under wires
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
@@ -26,8 +26,8 @@
 	var/piping_layer = PIPING_LAYER_DEFAULT
 	var/pipe_flags = NONE
 
-	var/global/list/iconsetids = list()
-	var/global/list/pipeimages = list()
+	var/static/list/iconsetids = list()
+	var/static/list/pipeimages = list()
 
 	var/image/pipe_vision_img = null
 
@@ -39,11 +39,11 @@
 	var/on = FALSE
 
 /obj/machinery/atmospherics/examine(mob/user)
-	..()
+	. = ..()
 	if(is_type_in_list(src, GLOB.ventcrawl_machinery) && isliving(user))
 		var/mob/living/L = user
 		if(L.ventcrawler)
-			to_chat(L, "<span class='notice'>Alt-click to crawl through it.</span>")
+			. += "<span class='notice'>Alt-click to crawl through it.</span>"
 
 /obj/machinery/atmospherics/New(loc, process = TRUE, setdir)
 	if(!isnull(setdir))
@@ -211,6 +211,12 @@
 		//You unwrenched a pipe full of pressure? Let's splat you into the wall, silly.
 		if(unsafe_wrenching)
 			unsafe_pressure_release(user, internal_pressure)
+
+			
+			if (user.client)
+				SSmedals.UnlockMedal(MEDAL_UNWRENCH_HIGH_PRESSURE,user.client)
+			
+			
 		deconstruct(TRUE)
 	return TRUE
 

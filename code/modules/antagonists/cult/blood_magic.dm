@@ -176,7 +176,7 @@
 
 /datum/action/innate/cult/blood_spell/construction
 	name = "Twisted Construction"
-	desc = "Empowers your hand to corrupt certain metalic objects.<br><u>Converts:</u><br>Plasteel into runed metal<br>50 metal into a construct shell<br>Living cyborgs into constructs after a delay<br>Cyborg shells into construct shells<br>Airlocks into brittle runed airlocks after a delay (harm intent)"
+	desc = "Empowers your hand to corrupt certain metalic objects.<br><u>Converts:</u><br>Plasteel into runed metal<br>50 iron into a construct shell<br>Living cyborgs into constructs after a delay<br>Cyborg shells into construct shells<br>Airlocks into brittle runed airlocks after a delay (harm intent)"
 	button_icon_state = "transmute"
 	magic_path = "/obj/item/melee/blood_magic/construction"
 	health_cost = 12
@@ -358,10 +358,6 @@
 	health_cost = source.health_cost
 	..()
 
-/obj/item/melee/blood_magic/Initialize()
-	. = ..()
-	add_trait(TRAIT_NODROP, CULT_TRAIT)
-
 /obj/item/melee/blood_magic/Destroy()
 	if(!QDELETED(source))
 		if(uses <= 0)
@@ -406,8 +402,8 @@
 
 //Stun
 /obj/item/melee/blood_magic/stun
-	name = "Stunning Aura"
-	desc = "Will stun and mute a victim on contact."
+	name = "Forbidden Whispers"
+	desc = "A coil of death wrapped around your hand, anyone inflicted with this will have their mind flooded with the forbidden whispers of Nar'Sie, causing them to collapse in to a frenzy if they lack protection for their mind."
 	color = RUNE_COLOR_RED
 	invocation = "Fuu ma'jin!"
 
@@ -418,7 +414,7 @@
 	if(iscultist(target))
 		return
 	if(iscultist(user))
-		user.visible_message("<span class='warning'>[user] holds up [user.p_their()] hand, which explodes in a flash of red light!</span>", \
+		user.visible_message("<span class='warning'>[user] floods [L]'s mind with an eldritch energy!</span>", \
 							"<span class='cultitalic'>You attempt to stun [L] with the spell!</span>")
 
 		user.mob_light(_color = LIGHT_COLOR_BLOOD_MAGIC, _range = 3, _duration = 2)
@@ -432,14 +428,10 @@
 			addtimer(CALLBACK(L, /atom/proc/cut_overlay, forbearance), 100)
 
 			if(istype(anti_magic_source, /obj/item))
-				var/obj/item/ams_object = anti_magic_source
-				target.visible_message("<span class='warning'>[L] starts to glow in a halo of light!</span>", \
-									   "<span class='userdanger'>Your [ams_object.name] begins to glow, emitting a blanket of holy light which surrounds you and protects you from the flash of light!</span>")
-			else
-				target.visible_message("<span class='warning'>[L] starts to glow in a halo of light!</span>", \
-									   "<span class='userdanger'>A feeling of warmth washes over you, rays of holy light surround your body and protect you from the flash of light!</span>")
-		else
-			to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
+				target.visible_message("<span class='warning'>[L] is utterly unphased by your utterance!</span>", \
+									   "<span class='userdanger'>[GLOB.deity] protects you from the heresy of [user]!</span>")
+		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) && !istype(L.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+			to_chat(user, "<span class='cultitalic'>[L] falls to the ground, gibbering madly!</span>")
 			L.Paralyze(160)
 			L.flash_act(1,1)
 			if(issilicon(target))
@@ -451,8 +443,9 @@
 				C.stuttering += 15
 				C.cultslurring += 15
 				C.Jitter(15)
-			if(is_servant_of_ratvar(L))
-				L.adjustBruteLoss(15)
+		else
+			target.visible_message("<span class='warning'>You fail to corrupt [L]'s mind!</span>", \
+									   "<span class='userdanger'>Your mindshield protects you from the heresy of [user]!</span>")
 		uses--
 	..()
 
@@ -552,29 +545,38 @@
 	. = ..()
 
 
-//Construction: Converts 50 metal to a construct shell, plasteel to runed metal, airlock to brittle runed airlock, a borg to a construct, or borg shell to a construct shell
+//Construction: Converts 50 iron to a construct shell, plasteel to runed metal, airlock to brittle runed airlock, a borg to a construct, or borg shell to a construct shell
 /obj/item/melee/blood_magic/construction
 	name = "Twisting Aura"
 	desc = "Corrupts certain metalic objects on contact."
 	invocation = "Ethra p'ni dedol!"
 	color = "#000000" // black
+	var/channeling = FALSE
 
 /obj/item/melee/blood_magic/construction/examine(mob/user)
-	..()
-	to_chat(user,"<u>A sinister spell used to convert:</u><br>Plasteel into runed metal<br>[METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal into a construct shell<br>Living cyborgs into constructs after a delay<br>Cyborg shells into construct shells<br>Airlocks into brittle runed airlocks after a delay (harm intent)")
+	. = ..()
+	. += {"<u>A sinister spell used to convert:</u>\n
+	Plasteel into runed metal\n
+	[IRON_TO_CONSTRUCT_SHELL_CONVERSION] metal into a construct shell\n
+	Living cyborgs into constructs after a delay\n
+	Cyborg shells into construct shells\n
+	Airlocks into brittle runed airlocks after a delay (harm intent)"}
 
 /obj/item/melee/blood_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(proximity_flag && iscultist(user))
+		if(channeling)
+			to_chat(user, "<span class='cultitalic'>You are already invoking twisted construction!</span>")
+			return
 		var/turf/T = get_turf(target)
-		if(istype(target, /obj/item/stack/sheet/metal))
+		if(istype(target, /obj/item/stack/sheet/iron))
 			var/obj/item/stack/sheet/candidate = target
-			if(candidate.use(METAL_TO_CONSTRUCT_SHELL_CONVERSION))
+			if(candidate.use(IRON_TO_CONSTRUCT_SHELL_CONVERSION))
 				uses--
-				to_chat(user, "<span class='warning'>A dark cloud emanates from your hand and swirls around the metal, twisting it into a construct shell!</span>")
+				to_chat(user, "<span class='warning'>A dark cloud emanates from your hand and swirls around the iron, twisting it into a construct shell!</span>")
 				new /obj/structure/constructshell(T)
 				SEND_SOUND(user, sound('sound/effects/magic.ogg',0,1,25))
 			else
-				to_chat(user, "<span class='warning'>You need [METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal to produce a construct shell!</span>")
+				to_chat(user, "<span class='warning'>You need [IRON_TO_CONSTRUCT_SHELL_CONVERSION] iron to produce a construct shell!</span>")
 				return
 		else if(istype(target, /obj/item/stack/sheet/plasteel))
 			var/obj/item/stack/sheet/plasteel/candidate = target
@@ -587,6 +589,7 @@
 		else if(istype(target,/mob/living/silicon/robot))
 			var/mob/living/silicon/robot/candidate = target
 			if(candidate.mmi)
+				channeling = TRUE
 				user.visible_message("<span class='danger'>A dark cloud emanates from [user]'s hand and swirls around [candidate]!</span>")
 				playsound(T, 'sound/machines/airlock_alien_prying.ogg', 80, 1)
 				var/prev_color = candidate.color
@@ -594,6 +597,9 @@
 				if(do_after(user, 90, target = candidate))
 					candidate.emp_act(EMP_HEAVY)
 					var/construct_class = alert(user, "Please choose which type of construct you wish to create.",,"Juggernaut","Wraith","Artificer")
+					if(QDELETED(candidate))
+						channeling = FALSE
+						return
 					user.visible_message("<span class='danger'>The dark cloud receedes from what was formerly [candidate], revealing a\n [construct_class]!</span>")
 					switch(construct_class)
 						if("Juggernaut")
@@ -606,7 +612,9 @@
 					uses--
 					candidate.mmi = null
 					qdel(candidate)
+					channeling = FALSE
 				else
+					channeling = FALSE
 					candidate.color = prev_color
 					return
 			else
@@ -614,15 +622,22 @@
 				to_chat(user, "<span class='warning'>A dark cloud emanates from you hand and swirls around [candidate] - twisting it into a construct shell!</span>")
 				new /obj/structure/constructshell(T)
 				SEND_SOUND(user, sound('sound/effects/magic.ogg',0,1,25))
+				qdel(candidate)
 		else if(istype(target,/obj/machinery/door/airlock))
+			channeling = TRUE
 			playsound(T, 'sound/machines/airlockforced.ogg', 50, 1)
 			do_sparks(5, TRUE, target)
 			if(do_after(user, 50, target = user))
+				if(QDELETED(target))
+					channeling = FALSE
+					return
 				target.narsie_act()
 				uses--
 				user.visible_message("<span class='warning'>Black ribbons suddenly emanate from [user]'s hand and cling to the airlock - twisting and corrupting it!</span>")
 				SEND_SOUND(user, sound('sound/effects/magic.ogg',0,1,25))
+				channeling = FALSE
 			else
+				channeling = FALSE
 				return
 		else
 			to_chat(user, "<span class='warning'>The spell will not work on [target]!</span>")
@@ -657,7 +672,8 @@
 	color = "#7D1717"
 
 /obj/item/melee/blood_magic/manipulator/examine(mob/user)
-	to_chat(user,"Blood spear, blood bolt barrage, and blood beam cost [BLOOD_SPEAR_COST], [BLOOD_BARRAGE_COST], and [BLOOD_BEAM_COST] charges respectively.")
+	. = ..()
+	. += "Blood spear, blood bolt barrage, and blood beam cost [BLOOD_SPEAR_COST], [BLOOD_BARRAGE_COST], and [BLOOD_BEAM_COST] charges respectively."
 
 /obj/item/melee/blood_magic/manipulator/afterattack(atom/target, mob/living/carbon/human/user, proximity)
 	if(proximity)
@@ -747,7 +763,7 @@
 	var/turf/T = get_turf(target)
 	if(T)
 		for(var/obj/effect/decal/cleanable/blood/B in view(T, 2))
-			if(B.blood_state == "blood")
+			if(B.blood_state == BLOOD_STATE_HUMAN)
 				if(B.bloodiness == 100) //Bonus for "pristine" bloodpools, also to prevent cheese with footprint spam
 					temp += 30
 				else
@@ -757,9 +773,9 @@
 		for(var/obj/effect/decal/cleanable/trail_holder/TH in view(T, 2))
 			qdel(TH)
 		var/obj/item/clothing/shoes/shoecheck = user.shoes
-		if(shoecheck && shoecheck.bloody_shoes["blood"])
-			temp += shoecheck.bloody_shoes["blood"]/20
-			shoecheck.bloody_shoes["blood"] = 0
+		if(shoecheck && shoecheck.bloody_shoes[/datum/reagent/blood])
+			temp += shoecheck.bloody_shoes[/datum/reagent/blood]/20
+			shoecheck.bloody_shoes[/datum/reagent/blood] = 0
 		if(temp)
 			user.Beam(T,icon_state="drainbeam",time=15)
 			new /obj/effect/temp_visual/cult/sparks(get_turf(user))
@@ -815,4 +831,3 @@
 					else
 						to_chat(user, "<span class='cultitalic'>You need a free hand for this rite!</span>")
 						qdel(rite)
-

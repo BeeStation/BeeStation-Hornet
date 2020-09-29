@@ -73,7 +73,8 @@ GLOBAL_LIST_INIT(summoned_magic, list(
 	/obj/item/warpwhistle,
 	/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
 	/obj/item/immortality_talisman,
-	/obj/item/melee/ghost_sword))
+	/obj/item/melee/ghost_sword,
+	/obj/item/stand_arrow))
 
 GLOBAL_LIST_INIT(summoned_special_magic, list(
 	/obj/item/gun/magic/staff/change,
@@ -97,7 +98,8 @@ GLOBAL_LIST_INIT(summoned_magic_objectives, list(
 	/obj/item/spellbook,
 	/obj/item/storage/belt/wands/full,
 	/obj/item/voodoo,
-	/obj/item/warpwhistle))
+	/obj/item/warpwhistle,
+	/obj/item/stand_arrow))
 
 // If true, it's the probability of triggering "survivor" antag.
 GLOBAL_VAR_INIT(summon_guns_triggered, FALSE)
@@ -118,7 +120,8 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 
 	var/gun_type = pick(GLOB.summoned_guns)
 	var/obj/item/gun/G = new gun_type(get_turf(H))
-	G.unlock()
+	if (istype(G)) // The list contains some non-gun type guns like the speargun which do not have this proc
+		G.unlock()
 	playsound(get_turf(H),'sound/magic/summon_guns.ogg', 50, 1)
 
 	var/in_hand = H.put_in_hands(G) // not always successful

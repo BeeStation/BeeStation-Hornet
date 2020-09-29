@@ -24,12 +24,12 @@
 	health = 40
 	maxHealth = 40
 	minbodytemp = 180
-	melee_damage_lower = 1
-	melee_damage_upper = 2
+	melee_damage = 5
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	stop_automated_movement_when_pulled = 1
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/obj/item/udder/udder = null
+	mobsay_color = "#B2CEB3"
 
 	do_footstep = TRUE
 
@@ -132,6 +132,7 @@
 	var/obj/item/udder/udder = null
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
+	mobsay_color = "#FFFFFF"
 
 	do_footstep = TRUE
 
@@ -198,7 +199,7 @@
 	density = FALSE
 	speak_chance = 2
 	turns_per_move = 2
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/chicken = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -210,6 +211,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	gold_core_spawnable = FRIENDLY_SPAWN
+	mobsay_color = "#FFDC9B"
 
 	do_footstep = TRUE
 
@@ -217,6 +219,7 @@
 	. = ..()
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
+	GLOB.total_chickens++
 
 /mob/living/simple_animal/chick/Life()
 	. =..()
@@ -227,6 +230,15 @@
 		if(amount_grown >= 100)
 			new /mob/living/simple_animal/chicken(src.loc)
 			qdel(src)
+
+/mob/living/simple_animal/chick/death(gibbed)
+	GLOB.total_chickens--
+	..()
+
+/mob/living/simple_animal/chick/Destroy()
+	if(stat != DEAD)
+		GLOB.total_chickens--
+	return ..()
 
 /mob/living/simple_animal/chick/holo/Life()
 	..()
@@ -247,7 +259,7 @@
 	density = FALSE
 	speak_chance = 2
 	turns_per_move = 3
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/chicken = 2)
 	var/egg_type = /obj/item/reagent_containers/food/snacks/egg
 	var/food_type = /obj/item/reagent_containers/food/snacks/grown/wheat
 	response_help  = "pets"
@@ -268,6 +280,7 @@
 	var/list/validColors = list("brown","black","white")
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/static/chicken_count = 0
+	mobsay_color = "#FFDC9B"
 
 	do_footstep = TRUE
 
@@ -280,10 +293,15 @@
 	icon_dead = "[icon_prefix]_[body_color]_dead"
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
-	++chicken_count
+	GLOB.total_chickens++
+
+/mob/living/simple_animal/chicken/death(gibbed)
+	GLOB.total_chickens--
+	..()
 
 /mob/living/simple_animal/chicken/Destroy()
-	--chicken_count
+	if(stat != DEAD)
+		GLOB.total_chickens--
 	return ..()
 
 /mob/living/simple_animal/chicken/attackby(obj/item/O, mob/user, params)
@@ -302,14 +320,14 @@
 	. =..()
 	if(!.)
 		return
-	if((!stat && prob(3) && eggsleft > 0) && egg_type)
-		visible_message("<span class='alertalien'>[src] [pick(layMessage)]</span>")
+	if((!stat && prob(3) && eggsleft > 0) && egg_type && GLOB.total_chickens < CONFIG_GET(number/max_chickens))
+		visible_message("[src] [pick(layMessage)]")
 		eggsleft--
 		var/obj/item/E = new egg_type(get_turf(src))
 		E.pixel_x = rand(-6,6)
 		E.pixel_y = rand(-6,6)
 		if(eggsFertile)
-			if(chicken_count < MAX_CHICKENS && prob(25))
+			if(prob(25))
 				START_PROCESSING(SSobj, E)
 
 /obj/item/reagent_containers/food/snacks/egg/var/amount_grown = 0
@@ -324,18 +342,40 @@
 	else
 		STOP_PROCESSING(SSobj, src)
 
+/mob/living/simple_animal/chicken/turkey
+	name = "\improper turkey"
+	desc = "it's that time again."
+	icon_state = "turkey_plain"
+	icon_living = "turkey_plain"
+	icon_dead = "turkey_plain_dead"
+	speak = list("Gobble!","GOBBLE GOBBLE GOBBLE!","Cluck.")
+	speak_emote = list("clucks","gobbles")
+	emote_hear = list("gobbles.")
+	emote_see = list("pecks at the ground.","flaps its wings viciously.")
+	density = FALSE
+	health = 15
+	maxHealth = 15
+	egg_type = null
+	attacktext = "pecks"
+	attack_sound = 'sound/creatures/turkey.ogg'
+	ventcrawler = VENTCRAWLER_ALWAYS
+	icon_prefix = "turkey"
+	feedMessages = list("It gobbles up the food voraciously.","It clucks happily.")
+	validColors = list("plain")
+	gold_core_spawnable = FRIENDLY_SPAWN
+	mobsay_color = "#FFDC9B"
 
 /obj/item/udder
 	name = "udder"
 
 /obj/item/udder/Initialize()
 	create_reagents(50)
-	reagents.add_reagent("milk", 20)
+	reagents.add_reagent(/datum/reagent/consumable/milk, 20)
 	. = ..()
 
 /obj/item/udder/proc/generateMilk()
 	if(prob(5))
-		reagents.add_reagent("milk", rand(5, 10))
+		reagents.add_reagent(/datum/reagent/consumable/milk, rand(5, 10))
 
 /obj/item/udder/proc/milkAnimal(obj/O, mob/user)
 	var/obj/item/reagent_containers/glass/G = O

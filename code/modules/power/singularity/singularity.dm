@@ -43,7 +43,8 @@
 		if(singubeacon.active)
 			target = singubeacon
 			break
-	return
+	AddElement(/datum/element/bsa_blocker)
+	RegisterSignal(src, COMSIG_ATOM_BSA_BEAM, .proc/bluespace_reaction)
 
 /obj/singularity/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -135,7 +136,6 @@
 	eat()
 	dissipate()
 	check_energy()
-
 	return
 
 
@@ -382,11 +382,11 @@
 		return 0
 	else if(locate(/obj/machinery/field/generator) in T)
 		var/obj/machinery/field/generator/G = locate(/obj/machinery/field/generator) in T
-		if(G && G.active)
+		if(G?.active)
 			return 0
 	else if(locate(/obj/machinery/shieldwallgen) in T)
 		var/obj/machinery/shieldwallgen/S = locate(/obj/machinery/shieldwallgen) in T
-		if(S && S.active)
+		if(S?.active)
 			return 0
 	return 1
 
@@ -446,3 +446,7 @@
 	explosion(src.loc,(dist),(dist*2),(dist*4))
 	qdel(src)
 	return(gain)
+
+/obj/singularity/proc/bluespace_reaction()
+	investigate_log("has been shot by bluespace artillery and destroyed.", INVESTIGATE_SINGULO)
+	qdel(src)

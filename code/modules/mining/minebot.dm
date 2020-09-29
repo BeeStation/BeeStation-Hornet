@@ -18,8 +18,7 @@
 	move_to_delay = 10
 	health = 125
 	maxHealth = 125
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	obj_damage = 10
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	check_friendly_fire = TRUE
@@ -68,22 +67,22 @@
 	check_friendly_fire = 0
 
 /mob/living/simple_animal/hostile/mining_drone/examine(mob/user)
-	..()
+	. = ..()
 	var/t_He = p_they(TRUE)
 	var/t_him = p_them()
 	var/t_s = p_s()
 	if(health < maxHealth)
 		if(health >= maxHealth * 0.5)
-			to_chat(user, "<span class='warning'>[t_He] look[t_s] slightly dented.</span>")
+			. += "<span class='warning'>[t_He] look[t_s] slightly dented.</span>"
 		else
-			to_chat(user, "<span class='boldwarning'>[t_He] look[t_s] severely dented!</span>")
-	to_chat(user, "<span class='notice'>Using a mining scanner on [t_him] will instruct [t_him] to drop stored ore. <b>[max(0, LAZYLEN(contents) - 1)] Stored Ore</b>\n\
-	Field repairs can be done with a welder.")
+			. += "<span class='boldwarning'>[t_He] look[t_s] severely dented!</span>"
+	. += {"<span class='notice'>Using a mining scanner on [t_him] will instruct [t_him] to drop stored ore. <b>[max(0, LAZYLEN(contents) - 1)] Stored Ore</b>\n
+	Field repairs can be done with a welder."}
 	if(stored_gun && stored_gun.max_mod_capacity)
-		to_chat(user, "<b>[stored_gun.get_remaining_mod_capacity()]%</b> mod capacity remaining.")
+		. += "<b>[stored_gun.get_remaining_mod_capacity()]%</b> mod capacity remaining."
 		for(var/A in stored_gun.get_modkits())
 			var/obj/item/borg/upgrade/modkit/M = A
-			to_chat(user, "<span class='notice'>There is \a [M] installed, using <b>[M.cost]%</b> capacity.</span>")
+			. += "<span class='notice'>There is \a [M] installed, using <b>[M.cost]%</b> capacity.</span>"
 
 /mob/living/simple_animal/hostile/mining_drone/welder_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -276,11 +275,10 @@
 	upgrade_bot(M, user)
 
 /obj/item/mine_bot_upgrade/proc/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
-	if(M.melee_damage_upper != initial(M.melee_damage_upper))
+	if(M.melee_damage != initial(M.melee_damage))
 		to_chat(user, "[src] already has a combat upgrade installed!")
 		return
-	M.melee_damage_lower += 7
-	M.melee_damage_upper += 7
+	M.melee_damage += 7
 	qdel(src)
 
 //Health
@@ -313,8 +311,7 @@
 	if(istype(SM, /mob/living/simple_animal/hostile/mining_drone))
 		var/mob/living/simple_animal/hostile/mining_drone/M = SM
 		M.maxHealth = initial(M.maxHealth) + base_health_add
-		M.melee_damage_lower = initial(M.melee_damage_lower) + base_damage_add
-		M.melee_damage_upper = initial(M.melee_damage_upper) + base_damage_add
+		M.melee_damage = initial(M.melee_damage) + base_damage_add
 		M.move_to_delay = initial(M.move_to_delay) + base_speed_add
 		if(M.stored_gun)
 			M.stored_gun.overheat_time += base_cooldown_add

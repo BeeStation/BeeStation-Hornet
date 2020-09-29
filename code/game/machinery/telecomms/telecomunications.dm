@@ -17,6 +17,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 /obj/machinery/telecomms
 	icon = 'icons/obj/machines/telecomms.dmi'
 	critical_machine = TRUE
+	light_color = LIGHT_COLOR_CYAN
 	var/list/links = list() // list of machines this machine is linked to
 	var/traffic = 0 // value increases as traffic increases
 	var/netspeed = 5 // how much traffic to lose per tick (50 gigabytes/second * netspeed)
@@ -102,11 +103,17 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 /obj/machinery/telecomms/proc/add_link(obj/machinery/telecomms/T)
 	var/turf/position = get_turf(src)
 	var/turf/T_position = get_turf(T)
-	if((position.z == T_position.z) || (long_range_link && T.long_range_link))
+	var/same_zlevel = FALSE
+	if(position && T_position)	//Stops a bug with a phantom telecommunications interceptor which is spawned by circuits caching their components into nullspace
+		if(position.z == T_position.z)
+			same_zlevel = TRUE
+	if(same_zlevel || (long_range_link && T.long_range_link))
 		if(src != T)
 			for(var/x in autolinkers)
 				if(x in T.autolinkers)
 					links |= T
+					T.links |= src
+
 
 /obj/machinery/telecomms/update_icon()
 	if(on)
@@ -130,6 +137,8 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	else
 		on = FALSE
 
+	set_light(on)
+
 /obj/machinery/telecomms/process()
 	update_power()
 
@@ -143,9 +152,18 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	if(prob(100/severity))
-		if(!(stat & EMPED))
-			stat |= EMPED
-			var/duration = (300 * 10)/severity
-			spawn(rand(duration - 20, duration + 20)) // Takes a long time for the machines to reboot.
-				stat &= ~EMPED
+	if(prob(100/severity) && !(stat & EMPED))
+		stat |= EMPED
+		var/duration = (300 * 10)/severity
+		addtimer(CALLBACK(src, .proc/de_emp), rand(duration - 20, duration + 20))
+
+/obj/machinery/telecomms/obj_break(damage_flag)
+	. = ..()
+	update_power()
+
+/obj/machinery/telecomms/power_change()
+	..()
+	update_power()
+
+/obj/machinery/telecomms/proc/de_emp()
+	stat &= ~EMPED

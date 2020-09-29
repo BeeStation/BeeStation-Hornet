@@ -13,6 +13,7 @@
 	mob_biotypes = list(MOB_ROBOTIC)
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	deathsound = 'sound/voice/borg_deathsound.ogg'
+	speech_span = SPAN_ROBOT
 
 	var/datum/ai_laws/laws = null//Now... THEY ALL CAN ALL HAVE LAWS
 	var/last_lawchange_announce = 0
@@ -23,7 +24,7 @@
 	var/obj/item/camera/siliconcam/aicamera = null //photography
 	hud_possible = list(ANTAG_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_TRACK_HUD)
 
-	var/obj/item/radio/borg/radio = null //AIs dont use this but this is at the silicon level to advoid copypasta in say()
+	var/obj/item/radio/borg/radio = null //All silicons make use of this, with (p)AI's creating headsets
 
 	var/list/alarm_types_show = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
 	var/list/alarm_types_clear = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
@@ -44,6 +45,7 @@
 
 	var/hack_software = FALSE //Will be able to use hacking actions
 	var/interaction_range = 7			//wireless control range
+	var/obj/item/pda/aiPDA
 
 /mob/living/silicon/Initialize()
 	. = ..()
@@ -69,6 +71,9 @@
 
 /mob/living/silicon/contents_explosion(severity, target)
 	return
+
+/mob/living/silicon/prevent_content_explosion()
+	return TRUE
 
 /mob/living/silicon/proc/cancelAlarm()
 	return
@@ -205,6 +210,9 @@
 	if (href_list["laws"]) // With how my law selection code works, I changed statelaws from a verb to a proc, and call it through my law selection panel. --NeoFite
 		statelaws()
 
+	if (href_list["printlawtext"]) // this is kinda backwards
+		to_chat(usr, href_list["printlawtext"])
+
 	return
 
 
@@ -217,7 +225,7 @@
 	var/number = 1
 	sleep(10)
 
-	if (laws.devillaws && laws.devillaws.len)
+	if (laws.devillaws?.len)
 		for(var/index = 1, index <= laws.devillaws.len, index++)
 			if (force || devillawcheck[index] == "Yes")
 				say("[radiomod] 666. [laws.devillaws[index]]")
@@ -321,6 +329,17 @@
 
 	usr << browse(list, "window=laws")
 
+/mob/living/silicon/proc/ai_roster()
+	if(!client)
+		return
+	if(world.time < client.crew_manifest_delay)
+		return
+	client.crew_manifest_delay = world.time + (1 SECONDS)
+
+	var/datum/browser/popup = new(src, "airoster", "Crew Manifest", 387, 420)
+	popup.set_content(GLOB.data_core.get_manifest_html())
+	popup.open()
+
 /mob/living/silicon/proc/set_autosay() //For allowing the AI and borgs to set the radio behavior of auto announcements (state laws, arrivals).
 	if(!radio)
 		to_chat(src, "Radio not detected.")
@@ -407,3 +426,6 @@
 
 /mob/living/silicon/handle_high_gravity(gravity)
 	return
+
+/mob/living/silicon/rust_heretic_act()
+	adjustBruteLoss(500)

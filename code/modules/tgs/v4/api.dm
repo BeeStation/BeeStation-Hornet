@@ -35,28 +35,26 @@
 	var/security_level
 
 	var/requesting_new_port = FALSE
-	
+
 	var/list/intercepted_message_queue
-	
+
 	var/list/custom_commands
 
 	var/list/cached_test_merges
 	var/datum/tgs_revision_information/cached_revision
 
-	var/datum/tgs_event_handler/event_handler
-
 	var/export_lock = FALSE
 	var/list/last_interop_response
 
 /datum/tgs_api/v4/ApiVersion()
-	return "4.0.0.0"
+	return new /datum/tgs_version("4.0.0.0")
 
-/datum/tgs_api/v4/OnWorldNew(datum/tgs_event_handler/event_handler, minimum_required_security_level)
+/datum/tgs_api/v4/OnWorldNew(minimum_required_security_level)
 	json_path = world.params[TGS4_PARAM_INFO_JSON]
 	if(!json_path)
 		TGS_ERROR_LOG("Missing [TGS4_PARAM_INFO_JSON] world parameter!")
 		return
-	var/json_file = file2text(json_path)
+	var/json_file = rustg_file_read(json_path)
 	if(!json_file)
 		TGS_ERROR_LOG("Missing specified json file: [json_path]")
 		return
@@ -76,7 +74,6 @@
 	security_level = cached_json["securityLevel"]
 	chat_channels_json_path = cached_json["chatChannelsJson"]
 	chat_commands_json_path = cached_json["chatCommandsJson"]
-	src.event_handler = event_handler
 	instance_name = cached_json["instanceName"]
 
 	ListCustomCommands()
@@ -185,7 +182,7 @@
 		data = list()
 	data[TGS4_PARAMETER_COMMAND] = command
 	var/json = json_encode(data)
-	
+
 	while(requesting_new_port && !override_requesting_new_port)
 		sleep(1)
 
@@ -199,13 +196,13 @@
 		//request a new port
 		export_lock = FALSE
 		var/list/new_port_json = Export(TGS4_COMM_NEW_PORT, list(TGS4_PARAMETER_DATA = "[world.port]"), TRUE)	//stringify this on purpose
-		
+
 		if(!new_port_json)
 			TGS_ERROR_LOG("No new port response from server![TGS4_PORT_CRITFAIL_MESSAGE]")
 			del(world)
 
 		var/new_port = new_port_json[TGS4_PARAMETER_DATA]
-		if(!isnum(new_port) || new_port <= 0)
+		if(!isnum_safe(new_port) || new_port <= 0)
 			TGS_ERROR_LOG("Malformed new port json ([json_encode(new_port_json)])![TGS4_PORT_CRITFAIL_MESSAGE]")
 			del(world)
 
@@ -220,7 +217,7 @@
 
 	last_interop_response = null
 	fdel(server_commands_json_path)
-	text2file(json, server_commands_json_path)
+	rustg_file_append(json, server_commands_json_path)
 
 	for(var/I = 0; I < EXPORT_TIMEOUT_DS && !last_interop_response; ++I)
 		sleep(1)
@@ -236,11 +233,11 @@
 	var/list/result = Export(TGS4_COMM_WORLD_REBOOT)
 	if(!result)
 		return
-	
+
 	//okay so the standard TGS4 proceedure is: right before rebooting change the port to whatever was sent to us in the above json's data parameter
 
 	var/port = result[TGS4_PARAMETER_DATA]
-	if(!isnum(port))
+	if(!isnum_safe(port))
 		return	//this is valid, server may just want use to reboot
 
 	if(port == 0)
@@ -255,7 +252,7 @@
 
 /datum/tgs_api/v4/TestMerges()
 	return cached_test_merges
-	
+
 /datum/tgs_api/v4/EndProcess()
 	Export(TGS4_COMM_END_PROCESS)
 
@@ -297,7 +294,7 @@
 /datum/tgs_api/v4/ChatChannelInfo()
 	. = list()
 	//no caching cause tgs may change this
-	var/list/json = json_decode(file2text(chat_channels_json_path))
+	var/list/json = json_decode(rustg_file_read(chat_channels_json_path))
 	for(var/I in json)
 		. += DecodeChannel(I)
 

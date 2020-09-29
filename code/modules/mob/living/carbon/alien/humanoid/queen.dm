@@ -16,6 +16,22 @@
 /mob/living/carbon/alien/humanoid/royal/can_inject()
 	return 0
 
+/mob/living/carbon/alien/humanoid/royal/queen/proc/maidify()
+	name = "alien queen maid"
+	desc = "Lusty, Sexy"
+	icon = 'icons/mob/alienqueen.dmi'
+	icon_state = "alienqmaid"
+	caste = "qmaid"
+	update_icons()
+
+/mob/living/carbon/alien/humanoid/royal/queen/proc/unmaidify()
+	name = "alien queen"
+	desc = ""
+	icon = 'icons/mob/alienqueen.dmi'
+	icon_state = "alienq"
+	caste = "q"
+	update_icons()
+	
 /mob/living/carbon/alien/humanoid/royal/queen
 	name = "alien queen"
 	caste = "q"
@@ -108,7 +124,7 @@
 
 /obj/item/queenpromote/Initialize()
 	. = ..()
-	add_trait(TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 /obj/item/queenpromote/attack(mob/living/M, mob/living/carbon/alien/humanoid/user)
 	if(!isalienadult(M) || isalienroyal(M))

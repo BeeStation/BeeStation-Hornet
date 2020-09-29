@@ -17,7 +17,7 @@
 	return TRUE
 
 /obj/item/onetankbomb/examine(mob/user)
-	bombtank.examine(user)
+	return bombtank.examine(user)
 
 /obj/item/onetankbomb/update_icon()
 	cut_overlays()
@@ -51,14 +51,10 @@
 		return
 	if(I.use_tool(src, user, 0, volume=40))
 		status = TRUE
-		log_bomber(user, "welded a single tank bomb,", src, "| Temp: [bombtank.air_contents.temperature-T0C]")
+		log_bomber(user, "welded a single tank bomb,", src, "| Temp: [bombtank.air_contents.return_temperature()-T0C]")
 		to_chat(user, "<span class='notice'>A pressure hole has been bored to [bombtank] valve. \The [bombtank] can now be ignited.</span>")
 		add_fingerprint(user)
 		return TRUE
-
-
-/obj/item/onetankbomb/analyzer_act(mob/living/user, obj/item/I)
-	bombtank.analyzer_act(user, I)
 
 /obj/item/onetankbomb/attack_self(mob/user) //pressing the bomb accesses its assembly
 	bombassembly.attack_self(user, TRUE)
@@ -142,9 +138,7 @@
 	return
 
 /obj/item/tank/proc/ignite()	//This happens when a bomb is told to explode
-	air_contents.assert_gases(/datum/gas/plasma, /datum/gas/oxygen)
-	var/fuel_moles = air_contents.gases[/datum/gas/plasma][MOLES] + air_contents.gases[/datum/gas/oxygen][MOLES]/6
-	air_contents.garbage_collect()
+	var/fuel_moles = air_contents.get_moles(/datum/gas/plasma) + air_contents.get_moles(/datum/gas/oxygen)/6
 	var/datum/gas_mixture/bomb_mixture = air_contents.copy()
 	var/strength = 1
 
@@ -154,11 +148,13 @@
 		qdel(master)
 	qdel(src)
 
-	if(bomb_mixture.temperature > (T0C + 400))
+	if(bomb_mixture.return_temperature() > (T0C + 400))
 		strength = (fuel_moles/15)
 
-		if(strength >=1)
+		if(strength >=2)
 			explosion(ground_zero, round(strength,1), round(strength*2,1), round(strength*3,1), round(strength*4,1))
+		else if(strength >=1)
+			explosion(ground_zero, round(strength,1), round(strength*2,1), round(strength*2,1), round(strength*3,1))
 		else if(strength >=0.5)
 			explosion(ground_zero, 0, 1, 2, 4)
 		else if(strength >=0.2)
@@ -167,21 +163,21 @@
 			ground_zero.assume_air(bomb_mixture)
 			ground_zero.hotspot_expose(1000, 125)
 
-	else if(bomb_mixture.temperature > (T0C + 250))
+	else if(bomb_mixture.return_temperature() > (T0C + 250))
 		strength = (fuel_moles/20)
 
 		if(strength >=1)
 			explosion(ground_zero, 0, round(strength,1), round(strength*2,1), round(strength*3,1))
-		else if (strength >=0.5)
+		else if(strength >=0.5)
 			explosion(ground_zero, -1, 0, 1, 2)
 		else
 			ground_zero.assume_air(bomb_mixture)
 			ground_zero.hotspot_expose(1000, 125)
 
-	else if(bomb_mixture.temperature > (T0C + 100))
+	else if(bomb_mixture.return_temperature() > (T0C + 100))
 		strength = (fuel_moles/25)
 
-		if (strength >=1)
+		if(strength >=1)
 			explosion(ground_zero, -1, 0, round(strength,1), round(strength*3,1))
 		else
 			ground_zero.assume_air(bomb_mixture)
@@ -200,3 +196,9 @@
 		return
 	T.assume_air(removed)
 	air_update_turf()
+
+/obj/item/onetankbomb/return_analyzable_air()
+	if(bombtank)
+		return bombtank.return_analyzable_air()
+	else
+		return null

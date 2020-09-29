@@ -31,12 +31,12 @@
 			ignore_clothing = TRUE
 
 /obj/machinery/gibber/examine(mob/user)
-	..()
+	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		to_chat(user, "<span class='notice'>The status display reads: Outputting <b>[meat_produced]</b> meat slab(s) after <b>[gibtime*0.1]</b> seconds of processing.<span>")
+		. += "<span class='notice'>The status display reads: Outputting <b>[meat_produced]</b> meat slab(s) after <b>[gibtime*0.1]</b> seconds of processing.<span>"
 		for(var/obj/item/stock_parts/manipulator/M in component_parts)
 			if(M.rating >= 2)
-				to_chat(user, "<span class='notice'>Gibber has been upgraded to process inorganic materials.<span>")
+				. += "<span class='notice'>Gibber has been upgraded to process inorganic materials.<span>"
 
 /obj/machinery/gibber/update_icon()
 	cut_overlays()
@@ -86,7 +86,7 @@
 
 		if(!ignore_clothing)
 			for(var/obj/item/I in C.held_items + C.get_equipped_items())
-				if(!I.has_trait(TRAIT_NODROP))
+				if(!HAS_TRAIT(I, TRAIT_NODROP))
 					to_chat(user, "<span class='danger'>Subject may not have abiotic items on.</span>")
 					return
 
@@ -166,7 +166,7 @@
 
 	if(ishuman(occupant))
 		var/mob/living/carbon/human/gibee = occupant
-		if(gibee.dna && gibee.dna.species)
+		if(gibee.dna?.species)
 			typeofmeat = gibee.dna.species.meat
 			typeofskin = gibee.dna.species.skinned_type
 
@@ -186,7 +186,7 @@
 		newmeat.name = "[sourcename] [newmeat.name]"
 		if(istype(newmeat))
 			newmeat.subjectname = sourcename
-			newmeat.reagents.add_reagent ("nutriment", sourcenutriment / meat_produced) // Thehehe. Fat guys go first
+			newmeat.reagents.add_reagent (/datum/reagent/consumable/nutriment, sourcenutriment / meat_produced) // Thehehe. Fat guys go first
 			if(occupant_volume)
 				occupant.reagents.trans_to(newmeat, occupant_volume / meat_produced, remove_blacklisted = TRUE)
 			if(sourcejob)
@@ -216,7 +216,7 @@
 		meatslab.throw_at(pick(nearby_turfs),i,3)
 		for (var/turfs=1 to meat_produced)
 			var/turf/gibturf = pick(nearby_turfs)
-			if (!gibturf.density && src in view(gibturf))
+			if (!gibturf.density && (src in view(gibturf)))
 				new gibtype(gibturf,i,diseases)
 
 	pixel_x = initial(pixel_x) //return to its spot after shaking

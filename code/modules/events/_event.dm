@@ -26,6 +26,7 @@
 	var/list/gamemode_whitelist = list() // Event will happen ONLY in these gamemodes if not empty
 
 	var/triggering	//admin cancellation
+	var/auto_add = TRUE				//Auto add to the event pool, if not you have to do it yourself!
 
 /datum/round_event_control/New()
 	if(config && !wizardevent) // Magic is unaffected by configs
@@ -107,7 +108,8 @@
 	var/datum/round_event_control/control
 
 	var/startWhen		= 0	//When in the lifetime to call start().
-	var/announceWhen	= 0	//When in the lifetime to call announce(). Set an event's announceWhen to -1 if announcement should not be shown.
+	var/announceWhen	= 0	//When in the lifetime to call announce(). If you don't want it to announce use announceChance, below.
+	var/announceChance	= 100 // Probability of announcing, used in prob(), 0 to 100, default 100. Used in ion storms currently.
 	var/endWhen			= 0	//When in the lifetime the event should end.
 
 	var/activeFor		= 0	//How long the event has existed. You don't need to change this.
@@ -174,7 +176,7 @@
 		start()
 		processing = TRUE
 
-	if(activeFor == announceWhen)
+	if(activeFor == announceWhen && prob(announceChance))
 		processing = FALSE
 		announce(FALSE)
 		processing = TRUE

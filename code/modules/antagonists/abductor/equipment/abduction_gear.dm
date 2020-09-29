@@ -29,13 +29,18 @@
 	var/stealth_armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 15, "rad" = 15, "fire" = 70, "acid" = 70)
 	var/combat_armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 50, "rad" = 50, "fire" = 90, "acid" = 90)
 
+/obj/item/clothing/suit/armor/abductor/vest/Initialize()
+	. = ..()
+	stealth_armor = getArmor(arglist(stealth_armor))
+	combat_armor = getArmor(arglist(combat_armor))
+
 /obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()
-	if(has_trait(TRAIT_NODROP, ABDUCTOR_VEST_TRAIT))
-		remove_trait(TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
+	if(HAS_TRAIT_FROM(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT))
+		REMOVE_TRAIT(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
 	else
-		add_trait(TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
+		ADD_TRAIT(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
 	if(ismob(loc))
-		to_chat(loc, "<span class='notice'>Your vest is now [has_trait(TRAIT_NODROP, ABDUCTOR_VEST_TRAIT) ? "locked" : "unlocked"].</span>")
+		to_chat(loc, "<span class='notice'>Your vest is now [HAS_TRAIT_FROM(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT) ? "locked" : "unlocked"].</span>")
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/flip_mode()
 	switch(mode)
@@ -138,14 +143,16 @@
 	righthand_file = 'icons/mob/inhands/antag/abductor_righthand.dmi'
 
 /obj/item/abductor/proc/AbductorCheck(mob/user)
-	if(user.has_trait(TRAIT_ABDUCTOR_TRAINING))
+	if (HAS_TRAIT(user, TRAIT_ABDUCTOR_TRAINING))
+		return TRUE
+	if (istype(user) && user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING))
 		return TRUE
 	to_chat(user, "<span class='warning'>You can't figure how this works!</span>")
 	return FALSE
 
 /obj/item/abductor/proc/ScientistCheck(mob/user)
-	var/training = user.has_trait(TRAIT_ABDUCTOR_TRAINING)
-	var/sci_training = user.has_trait(TRAIT_ABDUCTOR_SCIENTIST_TRAINING)
+	var/training = HAS_TRAIT(user, TRAIT_ABDUCTOR_TRAINING) || (user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING))
+	var/sci_training = HAS_TRAIT(user, TRAIT_ABDUCTOR_SCIENTIST_TRAINING) || (user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SCIENTIST_TRAINING))
 
 	if(training && !sci_training)
 		to_chat(user, "<span class='warning'>You're not trained to use this!</span>")
@@ -379,8 +386,8 @@
 
 /obj/item/gun/energy/alien
 	name = "alien pistol"
-	desc = "A complicated gun that fires bursts of high-intensity radiation."
-	ammo_type = list(/obj/item/ammo_casing/energy/declone)
+	desc = "A complicated gun that fires bursts of high-intensity radiation, electromagnetic disruption bolts or freezing shots."
+	ammo_type = list(/obj/item/ammo_casing/energy/declone, /obj/item/ammo_casing/energy/ion, /obj/item/ammo_casing/energy/temp)
 	pin = /obj/item/firing_pin/abductor
 	icon_state = "alienpistol"
 	item_state = "alienpistol"
@@ -389,6 +396,7 @@
 /obj/item/paper/guides/antag/abductor
 	name = "Dissection Guide"
 	icon_state = "alienpaper_words"
+	show_written_words = FALSE
 	info = {"<b>Dissection for Dummies</b><br>
 
 <br>
@@ -500,7 +508,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	L.lastattacker = user.real_name
 	L.lastattackerckey = user.ckey
-
+	if(istype(L.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		to_chat(user, "<span class='warning'>The specimen's protective headgear is interfering with the baton's stun function!</span>")
+		L.visible_message("<span class='danger'>[user] tried to stun [L] with [src], but [L.p_their()] headgear protected [L.p_them()]!</span>", \
+								"<span class='userdanger'>You feel a slight tickle where [src] touches you!</span>")
+		return
 	L.Paralyze(140)
 	L.apply_effect(EFFECT_STUTTER, 7)
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK)
@@ -605,16 +617,16 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	. = ..()
 
 /obj/item/abductor/baton/examine(mob/user)
-	..()
+	. = ..()
 	switch(mode)
 		if(BATON_STUN)
-			to_chat(user, "<span class='warning'>The baton is in stun mode.</span>")
+			. += "<span class='warning'>The baton is in stun mode.</span>"
 		if(BATON_SLEEP)
-			to_chat(user, "<span class='warning'>The baton is in sleep inducement mode.</span>")
+			. += "<span class='warning'>The baton is in sleep inducement mode.</span>"
 		if(BATON_CUFF)
-			to_chat(user, "<span class='warning'>The baton is in restraining mode.</span>")
+			. += "<span class='warning'>The baton is in restraining mode.</span>"
 		if(BATON_PROBE)
-			to_chat(user, "<span class='warning'>The baton is in probing mode.</span>")
+			. += "<span class='warning'>The baton is in probing mode.</span>"
 
 /obj/item/radio/headset/abductor
 	name = "alien headset"
@@ -623,21 +635,52 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "abductor_headset"
 	item_state = "abductor_headset"
 	keyslot2 = new /obj/item/encryptionkey/heads/captain
+	bang_protect = 1
 
 /obj/item/radio/headset/abductor/Initialize(mapload)
 	. = ..()
 	make_syndie()
-
-/obj/item/radio/headset/abductor/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/wearertargeting/earprotection, list(SLOT_EARS))
 
 /obj/item/radio/headset/abductor/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		return // Stops humans from disassembling abductor headsets.
 	return ..()
 
+/obj/item/abductor_machine_beacon
+	name = "machine beacon"
+	desc = "A beacon designed to instantly tele-construct abductor machinery."
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "beacon"
+	w_class = WEIGHT_CLASS_TINY
+	var/obj/machinery/spawned_machine
 
+/obj/item/abductor_machine_beacon/attack_self(mob/user)
+	..()
+	user.visible_message("<span class='notice'>[user] places down [src] and activates it.</span>", "<span class='notice'>You place down [src] and activate it.</span>")
+	user.dropItemToGround(src)
+	playsound(src, 'sound/machines/terminal_alert.ogg', 50)
+	addtimer(CALLBACK(src, .proc/try_spawn_machine), 30)
+
+/obj/item/abductor_machine_beacon/proc/try_spawn_machine()
+	var/viable = FALSE
+	if(isfloorturf(loc))
+		var/turf/T = loc
+		viable = TRUE
+		for(var/obj/thing in T.contents)
+			if(thing.density || ismachinery(thing) || isstructure(thing))
+				viable = FALSE
+	if(viable)
+		playsound(src, 'sound/effects/phasein.ogg', 50, TRUE)
+		var/new_machine = new spawned_machine(loc)
+		visible_message("<span class='notice'>[new_machine] warps on top of the beacon!")
+		qdel(src)
+	else
+		playsound(src, 'sound/machines/buzz-two.ogg', 50)
+
+/obj/item/abductor_machine_beacon/chem_dispenser
+	name = "beacon - Reagent Synthesizer"
+	spawned_machine = /obj/machinery/chem_dispenser/abductor
+	
 /obj/item/scalpel/alien
 	name = "alien scalpel"
 	desc = "It's a gleaming sharp knife made out of silvery-green metal."
@@ -680,6 +723,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "Abduct with style - spiky style. Prevents digital tracking."
 	icon_state = "alienhelmet"
 	item_state = "alienhelmet"
+	flash_protect = 1
 	blockTracking = TRUE
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 
@@ -755,7 +799,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "bed"
 	can_buckle = 1
 
-	var/static/list/injected_reagents = list("corazone")
+	var/static/list/injected_reagents = list(/datum/reagent/medicine/corazone)
 
 /obj/structure/table/optable/abductor/Crossed(atom/movable/AM)
 	. = ..()

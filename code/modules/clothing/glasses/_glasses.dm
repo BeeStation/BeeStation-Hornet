@@ -8,7 +8,7 @@
 	strip_delay = 20
 	equip_delay_other = 25
 	resistance_flags = NONE
-	materials = list(MAT_GLASS = 250)
+	materials = list(/datum/material/glass = 250)
 	var/vision_flags = 0
 	var/darkness_view = 2//Base human is 2
 	var/invis_view = SEE_INVISIBLE_LIVING	//admin only for now
@@ -23,9 +23,9 @@
 	return BRUTELOSS
 
 /obj/item/clothing/glasses/examine(mob/user)
-	..()
+	. = ..()
 	if(glass_colour_type && ishuman(user))
-		to_chat(user, "<span class='notice'>Alt-click to toggle its colors.</span>")
+		. += "<span class='notice'>Alt-click to toggle its colors.</span>"
 
 /obj/item/clothing/glasses/visor_toggling()
 	..()
@@ -45,13 +45,14 @@
 /obj/item/clothing/glasses/proc/thermal_overload()
 	if(ishuman(src.loc))
 		var/mob/living/carbon/human/H = src.loc
-		if(!(H.has_trait(TRAIT_BLIND)))
+		var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
+		if(!(HAS_TRAIT(H, TRAIT_BLIND)))
 			if(H.glasses == src)
 				to_chat(H, "<span class='danger'>[src] overloads and blinds you!</span>")
 				H.flash_act(visual = 1)
 				H.blind_eyes(3)
 				H.blur_eyes(5)
-				H.adjust_eye_damage(5)
+				eyes.applyOrganDamage(5)
 
 /obj/item/clothing/glasses/meson
 	name = "optical meson scanner"
@@ -102,6 +103,13 @@
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
 	if(slot == SLOT_GLASSES)
 		return 1
+
+/obj/item/clothing/glasses/science/sciencesun
+	name = "science sunglasses"
+	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion. Has enhanced shielding which blocks flashes."
+	icon_state = "sunhudscience"
+	item_state = "sunhudscience"
+	flash_protect = 1
 
 /obj/item/clothing/glasses/night
 	name = "night vision goggles"
@@ -185,32 +193,36 @@
 
 /obj/item/clothing/glasses/sunglasses
 	name = "sunglasses"
-	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks flashes."
+	desc = "Strangely ancient technology used to help provide rudimentary eye cover. They do not provide flash protection."
 	icon_state = "sun"
 	item_state = "sunglasses"
 	darkness_view = 1
-	flash_protect = 1
 	tint = 1
 	glass_colour_type = /datum/client_colour/glass_colour/gray
 	dog_fashion = /datum/dog_fashion/head
 
-/obj/item/clothing/glasses/sunglasses/reagent
+/obj/item/clothing/glasses/sunglasses/advanced/
+	name = "advanced sunglasses"
+	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Has enhanced shielding which blocks flashes."
+	flash_protect = 1
+
+/obj/item/clothing/glasses/sunglasses/advanced/reagent
 	name = "beer goggles"
-	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion."
+	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion. Has enhanced shielding which blocks flashes."
 	scan_reagents = TRUE
 
-/obj/item/clothing/glasses/sunglasses/reagent/equipped(mob/user, slot)
+/obj/item/clothing/glasses/sunglasses/advanced/reagent/equipped(mob/user, slot)
 	. = ..()
 	if(ishuman(user) && slot == SLOT_GLASSES)
-		user.add_trait(TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
+		ADD_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
 
-/obj/item/clothing/glasses/sunglasses/reagent/dropped(mob/user)
+/obj/item/clothing/glasses/sunglasses/advanced/reagent/dropped(mob/user)
 	. = ..()
-	user.remove_trait(TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
+	REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
 
-/obj/item/clothing/glasses/sunglasses/garb
+/obj/item/clothing/glasses/sunglasses/advanced/garb
 	name = "black gar glasses"
-	desc = "Go beyond impossible and kick reason to the curb!"
+	desc = "Go beyond impossible and kick reason to the curb!  Has enhanced shielding which blocks flashes."
 	icon_state = "garb"
 	item_state = "garb"
 	force = 10
@@ -220,17 +232,17 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 
-/obj/item/clothing/glasses/sunglasses/garb/supergarb
+/obj/item/clothing/glasses/sunglasses/advanced/garb/supergarb
 	name = "black giga gar glasses"
-	desc = "Believe in us humans."
+	desc = "Believe in us humans.  Has enhanced shielding which blocks flashes."
 	icon_state = "supergarb"
 	item_state = "garb"
 	force = 12
 	throwforce = 12
 
-/obj/item/clothing/glasses/sunglasses/gar
+/obj/item/clothing/glasses/sunglasses/advanced/gar
 	name = "gar glasses"
-	desc = "Just who the hell do you think I am?!"
+	desc = "Just who the hell do you think I am?!  Has enhanced shielding which blocks flashes."
 	icon_state = "gar"
 	item_state = "gar"
 	force = 10
@@ -241,9 +253,9 @@
 	sharpness = IS_SHARP
 	glass_colour_type = /datum/client_colour/glass_colour/orange
 
-/obj/item/clothing/glasses/sunglasses/gar/supergar
+/obj/item/clothing/glasses/sunglasses/advanced/gar/supergar
 	name = "giga gar glasses"
-	desc = "We evolve past the person we were a minute before. Little by little we advance with each turn. That's how a drill works!"
+	desc = "We evolve past the person we were a minute before. Little by little we advance with each turn. That's how a drill works!  Has enhanced shielding which blocks flashes."
 	icon_state = "supergar"
 	item_state = "gar"
 	force = 12
@@ -256,7 +268,7 @@
 	icon_state = "welding-g"
 	item_state = "welding-g"
 	actions_types = list(/datum/action/item_action/toggle)
-	materials = list(MAT_METAL = 250)
+	materials = list(/datum/material/iron = 250)
 	flash_protect = 2
 	tint = 2
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
@@ -266,6 +278,16 @@
 /obj/item/clothing/glasses/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
 
+/obj/item/clothing/glasses/welding/ghostbuster
+	name = "optical ecto-scanner"
+	desc = "A bulky pair of unwieldy glasses that lets you see things best left unseen. Obscures vision, but also has enhanced shielding which blocks flashes."
+	icon_state = "bustin-g"
+	item_state = "bustin-g"
+	invis_view = SEE_INVISIBLE_OBSERVER
+	invis_override = null
+	flash_protect = 1
+	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_INVISVIEW
+	glass_colour_type = /datum/client_colour/glass_colour/green
 
 /obj/item/clothing/glasses/blindfold
 	name = "blindfold"
@@ -313,8 +335,8 @@
 		M.color = "#[H.eye_color]"
 		. += M
 
-/obj/item/clothing/glasses/sunglasses/big
-	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Larger than average enhanced shielding blocks flashes."
+/obj/item/clothing/glasses/sunglasses/advanced/big
+	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Has enhanced shielding which blocks flashes."
 	icon_state = "bigsunglasses"
 	item_state = "bigsunglasses"
 
@@ -339,7 +361,7 @@
 	desc = "A pair of xray goggles manufactured by the Syndicate."
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	flash_protect = -1
-	
+
 /obj/item/clothing/glasses/thermal/syndi	//These are now a traitor item, concealed as mesons.	-Pete
 	name = "chameleon thermals"
 	desc = "A pair of thermal optic goggles with an onboard chameleon generator."
@@ -368,13 +390,12 @@
 	flags_1 = null //doesn't protect eyes because it's a monocle, duh
 
 /obj/item/clothing/glasses/thermal/monocle/examine(mob/user) //Different examiners see a different description!
-	var/desk = desc
 	if(user.gender == MALE)
 		desc = replacetext(desc, "person", "man")
 	else if(user.gender == FEMALE)
 		desc = replacetext(desc, "person", "woman")
-	..()
-	desc = desk
+	. = ..()
+	desc = initial(desc)
 
 /obj/item/clothing/glasses/thermal/eyepatch
 	name = "optical thermal eyepatch"
@@ -421,7 +442,7 @@
 
 /obj/item/clothing/glasses/godeye/Initialize()
 	. = ..()
-	add_trait(TRAIT_NODROP, EYE_OF_GOD_TRAIT)
+	ADD_TRAIT(src, TRAIT_NODROP, EYE_OF_GOD_TRAIT)
 
 /obj/item/clothing/glasses/godeye/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, src) && W != src && W.loc == user)

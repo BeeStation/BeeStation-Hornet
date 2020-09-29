@@ -7,7 +7,7 @@
 	anchored = TRUE
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall"
-	layer = CLOSED_TURF_LAYER
+	layer = LOW_OBJ_LAYER
 	density = TRUE
 	opacity = 1
 	max_integrity = 100
@@ -26,7 +26,7 @@
 	CanAtmosPass = ATMOS_PASS_DENSITY
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
-	var/mineral = /obj/item/stack/sheet/metal
+	var/mineral = /obj/item/stack/sheet/iron
 	var/mineral_amount = 2
 	var/walltype = /turf/closed/wall
 	var/girder_type = /obj/structure/girder/displaced
@@ -217,6 +217,15 @@
 	walltype = /turf/closed/wall/mineral/silver
 	canSmoothWith = list(/obj/structure/falsewall/silver, /turf/closed/wall/mineral/silver)
 
+/obj/structure/falsewall/copper
+	name = "copper wall"
+	desc = "A wall with copper plating. Shiny!"
+	icon = 'icons/turf/walls/copper_wall.dmi'
+	icon_state = "copper"
+	mineral = /obj/item/stack/sheet/mineral/copper
+	walltype = /turf/closed/wall/mineral/copper
+	canSmoothWith = list(/obj/structure/falsewall/copper, /turf/closed/wall/mineral/copper)
+
 /obj/structure/falsewall/diamond
 	name = "diamond wall"
 	desc = "A wall with diamond plating. You monster."
@@ -284,8 +293,8 @@
 	canSmoothWith = list(/obj/structure/falsewall/wood, /turf/closed/wall/mineral/wood)
 
 /obj/structure/falsewall/iron
-	name = "rough metal wall"
-	desc = "A wall with rough metal plating."
+	name = "rough iron wall"
+	desc = "A wall with rough iron plating."
 	icon = 'icons/turf/walls/iron_wall.dmi'
 	icon_state = "iron"
 	mineral = /obj/item/stack/rods
@@ -330,7 +339,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	mineral_amount = 1
 	canSmoothWith = list(/obj/effect/clockwork/overlay/wall, /obj/structure/falsewall/brass)
-	girder_type = /obj/structure/destructible/clockwork/wall_gear/displaced
+	girder_type = /obj/structure/girder/bronze
 	walltype = /turf/closed/wall/clockwork
 	mineral = /obj/item/stack/tile/brass
 
@@ -339,12 +348,6 @@
 	var/turf/T = get_turf(src)
 	new /obj/effect/temp_visual/ratvar/wall/false(T)
 	new /obj/effect/temp_visual/ratvar/beam/falsewall(T)
-	change_construction_value(4)
 
 /obj/structure/falsewall/brass/Destroy()
-	change_construction_value(-4)
 	return ..()
-
-/obj/structure/falsewall/brass/ratvar_act()
-	if(GLOB.ratvar_awakens)
-		obj_integrity = max_integrity

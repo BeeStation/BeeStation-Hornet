@@ -1,3 +1,5 @@
+#define FREEMOVE_TIME 2 MINUTES
+
 /*
 A mob of type /mob/camera/disease is an overmind coordinating at least one instance of /datum/disease/advance/sentient_disease
 that has infected a host. All instances in a host will be synchronized with the stats of the overmind's disease_template. Any
@@ -22,7 +24,6 @@ the new instance inside the host to be updated to the template's stats.
 
 	var/freemove = TRUE
 	var/freemove_end = 0
-	var/const/freemove_time = 1200
 	var/freemove_end_timerid
 
 	var/datum/action/innate/disease_adapt/adaptation_menu_action
@@ -31,7 +32,6 @@ the new instance inside the host to be updated to the template's stats.
 	var/browser_open = FALSE
 
 	var/mob/living/following_host
-	var/datum/component/redirect/move_listener
 	var/list/disease_instances
 	var/list/hosts //this list is associative, affected_mob -> disease_instance
 	var/datum/disease/advance/sentient_disease/disease_template
@@ -67,8 +67,8 @@ the new instance inside the host to be updated to the template's stats.
 
 	browser = new /datum/browser(src, "disease_menu", "Adaptation Menu", 1000, 770, src)
 
-	freemove_end = world.time + freemove_time
-	freemove_end_timerid = addtimer(CALLBACK(src, .proc/infect_random_patient_zero), freemove_time, TIMER_STOPPABLE)
+	freemove_end = world.time + FREEMOVE_TIME
+	freemove_end_timerid = addtimer(CALLBACK(src, .proc/infect_random_patient_zero), FREEMOVE_TIME, TIMER_STOPPABLE)
 
 /mob/camera/disease/Destroy()
 	. = ..()
@@ -98,14 +98,12 @@ the new instance inside the host to be updated to the template's stats.
 
 
 /mob/camera/disease/examine(mob/user)
-	..()
+	. = ..()
 	if(isobserver(user))
-		to_chat(user, "<span class='notice'>[src] has [points]/[total_points] adaptation points.</span>")
-		to_chat(user, "<span class='notice'>[src] has the following unlocked:</span>")
-		for(var/A in purchased_abilities)
-			var/datum/disease_ability/B = A
-			if(istype(B))
-				to_chat(user, "<span class='notice'>[B.name]</span>")
+		. += {"<span class='notice'>[src] has [points]/[total_points] adaptation points.</span>
+		<span class='notice'>[src] has the following unlocked:</span>"}
+		for(var/datum/disease_ability/ability in purchased_abilities)
+			. += "<span class='notice'>[ability.name]</span>"
 
 /mob/camera/disease/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	return
@@ -138,6 +136,8 @@ the new instance inside the host to be updated to the template's stats.
 	. = ..()
 	if(!mind.has_antag_datum(/datum/antagonist/disease))
 		mind.add_antag_datum(/datum/antagonist/disease)
+	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	medsensor.add_hud_to(src)
 
 /mob/camera/disease/proc/pick_name()
 	var/static/list/taken_names
@@ -148,7 +148,7 @@ the new instance inside the host to be updated to the template's stats.
 			taken_names[initial(D.name)] = TRUE
 	var/set_name
 	while(!set_name)
-		var/input = stripped_input(src, "Select a name for your disease", "Select Name", "", MAX_NAME_LEN)
+		var/input = sanitize_name(stripped_input(src, "Select a name for your disease", "Select Name", "", MAX_NAME_LEN))
 		if(!input)
 			set_name = "Sentient Virus"
 			break
@@ -259,16 +259,10 @@ the new instance inside the host to be updated to the template's stats.
 		refresh_adaptation_menu()
 
 /mob/camera/disease/proc/set_following(mob/living/L)
+	if(following_host)
+		UnregisterSignal(following_host, COMSIG_MOVABLE_MOVED)
+	RegisterSignal(L, COMSIG_MOVABLE_MOVED, .proc/follow_mob)
 	following_host = L
-	if(!move_listener)
-		move_listener = L.AddComponent(/datum/component/redirect, list(COMSIG_MOVABLE_MOVED = CALLBACK(src, .proc/follow_mob)))
-	else
-		if(L)
-			L.TakeComponent(move_listener)
-			if(QDELING(move_listener))
-				move_listener = null
-		else
-			QDEL_NULL(move_listener)
 	follow_mob()
 
 /mob/camera/disease/proc/follow_next(reverse = FALSE)
@@ -405,3 +399,5 @@ the new instance inside the host to be updated to the template's stats.
 /datum/action/innate/disease_adapt/Activate()
 	var/mob/camera/disease/D = owner
 	D.adaptation_menu()
+
+#undef FREEMOVE_TIME

@@ -16,7 +16,7 @@
 	radio_channel = RADIO_CHANNEL_SECURITY
 	bot_type = SEC_BOT
 	model = "ED-209"
-	bot_core = /obj/machinery/bot_core/secbot
+	bot_core_type = /obj/machinery/bot_core/secbot
 	window_id = "autoed209"
 	window_name = "Automatic Security Unit v2.6"
 	allow_pai = 0
@@ -40,12 +40,11 @@
 	var/check_records = TRUE //Does it check security records?
 	var/arrest_type = FALSE //If true, don't handcuff
 	var/projectile = /obj/item/projectile/energy/electrode //Holder for projectile type
-	var/shoot_sound = 'sound/weapons/taser.ogg'
+	var/shoot_sound = 'sound/weapons/taser2.ogg'
 	var/cell_type = /obj/item/stock_parts/cell
 	var/vest_type = /obj/item/clothing/suit/armor/vest
 
 	do_footstep = TRUE
-
 
 /mob/living/simple_animal/bot/ed209/Initialize(mapload,created_name,created_lasercolor)
 	. = ..()
@@ -93,6 +92,9 @@
 	last_found = world.time
 	set_weapon()
 
+/mob/living/simple_animal/bot/ed209/electrocute_act(shock_damage, source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+    return 0
+
 /mob/living/simple_animal/bot/ed209/set_custom_texts()
 	text_hack = "You disable [name]'s combat inhibitor."
 	text_dehack = "You restore [name]'s combat inhibitor."
@@ -116,7 +118,6 @@ Maintenance panel panel is [open ? "opened" : "closed"]<BR>"},
 Arrest Unidentifiable Persons: []<BR>
 Arrest for Unauthorized Weapons: []<BR>
 Arrest for Warrant: []<BR>
-<BR>
 Operating Mode: []<BR>
 Report Arrests[]<BR>
 Auto Patrol[]"},
@@ -237,7 +238,7 @@ Auto Patrol[]"},
 		targets += C
 	if(targets.len>0)
 		var/mob/living/carbon/t = pick(targets)
-		if((t.stat!=2) && (!(t.mobility_flags & MOBILITY_STAND)) && (!t.handcuffed)) //we don't shoot people who are dead, cuffed or lying down.
+		if(t.stat != DEAD && (t.mobility_flags & MOBILITY_STAND) && !t.handcuffed) //we don't shoot people who are dead, cuffed or lying down.
 			shootAt(t)
 	switch(mode)
 
@@ -386,7 +387,7 @@ Auto Patrol[]"},
 	drop_part(cell_type, Tsec)
 
 	if(!lasercolor)
-		var/obj/item/gun/energy/e_gun/dragnet/G = new (Tsec)
+		var/obj/item/gun/energy/disabler/G = new (Tsec)
 		G.cell.charge = 0
 		G.update_icon()
 	else if(lasercolor == "b")
@@ -428,14 +429,14 @@ Auto Patrol[]"},
 	else
 		if(!lasercolor)
 			shoot_sound = 'sound/weapons/laser.ogg'
-			projectile = /obj/item/projectile/energy/net
+			projectile = /obj/item/projectile/beam/disabler
 		else if(lasercolor == "b")
 			projectile = /obj/item/projectile/beam/lasertag/bluetag
 		else if(lasercolor == "r")
 			projectile = /obj/item/projectile/beam/lasertag/redtag
 
 /mob/living/simple_animal/bot/ed209/proc/shootAt(mob/target)
-	if(lastfired && world.time - lastfired < shot_delay)
+	if(world.time <= lastfired + shot_delay)
 		return
 	lastfired = world.time
 	var/turf/T = loc
@@ -533,6 +534,14 @@ Auto Patrol[]"},
 			cuff(A)
 	else
 		..()
+
+/mob/living/simple_animal/bot/ed209/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
+	if(istype(AM, /obj/item))
+		var/obj/item/I = AM
+		if(I.throwforce < src.health && I.thrownby && ishuman(I.thrownby))
+			var/mob/living/carbon/human/H = I.thrownby
+			retaliate(H)
+	..()
 
 /mob/living/simple_animal/bot/ed209/RangedAttack(atom/A)
 	if(!on)

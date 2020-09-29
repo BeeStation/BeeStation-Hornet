@@ -9,7 +9,10 @@
 	var/appearance_cache
 
 	var/id
-	var/ordered = TRUE //If the button gets placed into the default bar
+	var/ordered = TRUE //If the button gets placed into the default bar.
+
+/obj/screen/movable/action_button/Destroy()
+	. = ..()
 
 /obj/screen/movable/action_button/proc/can_use(mob/user)
 	if (linked_action)
@@ -20,10 +23,23 @@
 	else
 		return TRUE
 
-/obj/screen/movable/action_button/MouseDrop()
-	if (!can_use(usr))
+/obj/screen/movable/action_button/MouseDrop(over_object)
+	if(!can_use(usr))
 		return
-	return ..()
+	if((istype(over_object, /obj/screen/movable/action_button) && !istype(over_object, /obj/screen/movable/action_button/hide_toggle)))
+		if(locked)
+			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
+			return
+		var/obj/screen/movable/action_button/B = over_object
+		var/list/actions = usr.actions
+		actions.Swap(actions.Find(src.linked_action), actions.Find(B.linked_action))
+		moved = FALSE
+		ordered = TRUE
+		B.moved = FALSE
+		B.ordered = TRUE
+		usr.update_action_buttons()
+	else
+		return ..()
 
 /obj/screen/movable/action_button/Click(location,control,params)
 	if (!can_use(usr))
@@ -47,6 +63,10 @@
 		return
 	usr.next_click = world.time + 1
 	linked_action.Trigger()
+	SEND_SOUND(usr, 'sound/effects/pop.ogg')
+	transform = turn(matrix() * 0.9, pick(-8, 8))
+	alpha = 200
+	animate(src, transform = matrix(), time=4, alpha=255)
 	return TRUE
 
 //Hide/Show Action Buttons ... Button
@@ -100,7 +120,7 @@
 		name = "Show Buttons"
 	else
 		name = "Hide Buttons"
-	UpdateIcon()
+	update_icon()
 	usr.update_action_buttons()
 
 /obj/screen/movable/action_button/hide_toggle/AltClick(mob/user)
@@ -121,9 +141,9 @@
 	hide_icon = settings["toggle_icon"]
 	hide_state = settings["toggle_hide"]
 	show_state = settings["toggle_show"]
-	UpdateIcon()
+	update_icon()
 
-/obj/screen/movable/action_button/hide_toggle/proc/UpdateIcon()
+/obj/screen/movable/action_button/hide_toggle/update_icon()
 	cut_overlays()
 	add_overlay(mutable_appearance(hide_icon, hidden ? show_state : hide_state))
 

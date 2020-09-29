@@ -5,6 +5,7 @@ GLOBAL_LIST_INIT(duplicate_forbidden_vars,list(
 	))
 
 /proc/DuplicateObject(atom/original, perfectcopy = TRUE, sameloc, atom/newloc = null, nerf, holoitem)
+	RETURN_TYPE(original.type)
 	if(!original)
 		return
 	var/atom/O
@@ -37,6 +38,9 @@ GLOBAL_LIST_INIT(duplicate_forbidden_vars,list(
 		if(ismachinery(O))
 			var/obj/machinery/M = O
 			M.power_change()
+			if(istype(O, /obj/machinery/button))
+				var/obj/machinery/button/B = O
+				B.setup_device()
 
 	if(holoitem)
 		O.flags_1 |= HOLOGRAM_1
@@ -130,7 +134,7 @@ GLOBAL_LIST_INIT(duplicate_forbidden_vars,list(
 
 	if(toupdate.len)
 		for(var/turf/T1 in toupdate)
-			T1.CalculateAdjacentTurfs()
+			CALCULATE_ADJACENT_TURFS(T1)
 			SSair.add_to_active(T1,1)
 
 

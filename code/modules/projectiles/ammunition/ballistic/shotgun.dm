@@ -6,14 +6,20 @@
 	icon_state = "blshell"
 	caliber = "shotgun"
 	projectile_type = /obj/item/projectile/bullet/shotgun_slug
-	materials = list(MAT_METAL=4000)
+	materials = list(/datum/material/iron=4000)
 
 /obj/item/ammo_casing/shotgun/beanbag
 	name = "beanbag slug"
 	desc = "A weak beanbag slug for riot control."
 	icon_state = "bshell"
 	projectile_type = /obj/item/projectile/bullet/shotgun_beanbag
-	materials = list(MAT_METAL=250)
+	materials = list(/datum/material/iron=250)
+
+/obj/item/ammo_casing/shotgun/sleepytime
+	name = "soporific shell"
+	desc = "A shotgun shell loaded with a hypodermic needle containing a low strength sleeping agent."
+	icon_state = "sleepy"
+	projectile_type = /obj/item/projectile/bullet/sleepy
 
 /obj/item/ammo_casing/shotgun/incendiary
 	name = "incendiary slug"
@@ -34,7 +40,7 @@
 	desc = "A stunning taser slug."
 	icon_state = "stunshell"
 	projectile_type = /obj/item/projectile/bullet/shotgun_stunslug
-	materials = list(MAT_METAL=250)
+	materials = list(/datum/material/iron=250)
 
 /obj/item/ammo_casing/shotgun/meteorslug
 	name = "meteorslug shell"
@@ -71,14 +77,23 @@
 	projectile_type = /obj/item/projectile/bullet/pellet/shotgun_rubbershot
 	pellets = 6
 	variance = 25
-	materials = list(MAT_METAL=4000)
+	materials = list(/datum/material/iron=4000)
+
+/obj/item/ammo_casing/shotgun/incapacitate
+	name = "custom incapacitating shot"
+	desc = "A shotgun casing filled with... something. used to incapacitate targets."
+	icon_state = "bountyshell"
+	projectile_type = /obj/item/projectile/bullet/pellet/shotgun_incapacitate
+	pellets = 12//double the pellets, but half the stun power of each, which makes this best for just dumping right in someone's face.
+	variance = 25
+	materials = list(/datum/material/iron=4000)
 
 /obj/item/ammo_casing/shotgun/improvised
 	name = "improvised shell"
 	desc = "An extremely weak shotgun shell with multiple small pellets made out of metal shards."
 	icon_state = "improvshell"
 	projectile_type = /obj/item/projectile/bullet/pellet/shotgun_improvised
-	materials = list(MAT_METAL=250)
+	materials = list(/datum/material/iron=250)
 	pellets = 10
 	variance = 25
 
@@ -134,8 +149,15 @@
 
 /obj/item/ammo_casing/shotgun/dart/bioterror/Initialize()
 	. = ..()
-	reagents.add_reagent("neurotoxin", 6)
-	reagents.add_reagent("spore", 6)
-	reagents.add_reagent("mutetoxin", 6) //;HELP OPS IN MAINT
-	reagents.add_reagent("coniine", 6)
-	reagents.add_reagent("sodium_thiopental", 6)
+	reagents.add_reagent(/datum/reagent/consumable/ethanol/neurotoxin, 6)
+	reagents.add_reagent(/datum/reagent/toxin/spore, 6)
+	reagents.add_reagent(/datum/reagent/toxin/mutetoxin, 6) //;HELP OPS IN MAINT
+	reagents.add_reagent(/datum/reagent/toxin/coniine, 6)
+	reagents.add_reagent(/datum/reagent/toxin/sodium_thiopental, 6)
+
+/obj/item/ammo_casing/shotgun/breacher
+	name = "breaching slug"
+	desc = "A 12 gauge anti-material slug. Great for breaching airlocks and windows with minimal shots."
+	icon_state = "breacher"
+	projectile_type = /obj/item/projectile/bullet/shotgun_breaching
+	materials = list(/datum/material/iron=4000)

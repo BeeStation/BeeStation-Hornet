@@ -7,17 +7,17 @@ html, body {
 	padding: 0;
 	margin: 0;
 	height: 100%;
-	color: #8ba5c4;
+	color: #a4bad6;
 }
 body {
 	background: #171717;
     font-family: Verdana, sans-serif;
     font-size: 9pt;
-	font-color: #8ba5c4;
+	font-color: #a4bad6;
     line-height: 1.2;
 	overflow-x: hidden;
 	overflow-y: scroll;
-	word-wrap: break-word;		
+	word-wrap: break-word;
 	scrollbar-face-color:#1A1A1A;
 	scrollbar-track-color:#171717;
 	scrollbar-highlight-color:#171717;
@@ -97,14 +97,14 @@ a.popt {text-decoration: none;}
     font-variant: small-caps;
     font-size: 1.1em;
     font-weight: bold;
-	color: #8ba5c4;
+	color: #a4bad6;
 }
 #newMessages:hover {background: #171717;}
 #newMessages i {vertical-align: middle; padding-left: 3px;}
 #ping {
 	position: fixed;
 	top: 0;
-	right: 115px;
+	right: 135px;
 	width: 45px;
 	background: #202020;
 	height: 30px;
@@ -127,20 +127,20 @@ a.popt {text-decoration: none;}
     height: 30px;
 	padding: 5px 0;
 	display: block;
-	color: #8ba5c4;
+	color: #a4bad6;
 	text-decoration: none;
     line-height: 28px;
     border-top: 1px solid #171717;
 }
 #userBar .subCell:hover {background: #202020;}
 #userBar .toggle {
-	width: 40px;
+	width: 45px;
     background: #202020;
     border-top: 0;
     float: right;
     text-align: center;
 }
-#userBar .sub {clear: both; display: none; width: 160px;}
+#userBar .sub {clear: both; display: none; width: 180px;}
 #userBar .sub.scroll {overflow-y: scroll;}
 #userBar .sub.subCell {padding: 3px 0 3px 8px; line-height: 30px; font-size: 0.9em; clear: both;}
 #userBar .sub span {
@@ -245,12 +245,12 @@ a.popt {text-decoration: none;}
 ******************************************/
 
 /* MOTD */
-.motd {color: #8ba5c4;	font-family: Verdana, sans-serif;}
-.motd h1, .motd h2, .motd h3, .motd h4, .motd h5, .motd h6 {color: #8ba5c4;	text-decoration: underline;}
-.motd a, .motd a:link, .motd a:visited, .motd a:active, .motd a:hover {color: #8ba5c4;}
+.motd {color: #a4bad6;	font-family: Verdana, sans-serif;}
+.motd h1, .motd h2, .motd h3, .motd h4, .motd h5, .motd h6 {color: #a4bad6;	text-decoration: underline;}
+.motd a, .motd a:link, .motd a:visited, .motd a:active, .motd a:hover {color: #a4bad6;}
 
 /* ADD HERE FOR BOLD */
-.bold, .name, .prefix, .ooc, .looc, .adminooc, .admin, .medal, .yell {font-weight: bold;}
+.bold, .name, .prefix, .ooc, .dooc, .looc, .adminooc, .admin, .medal, .yell {font-weight: bold;}
 
 /* ADD HERE FOR ITALIC */
 .italic, .italics,  .emote {font-style: italic;}
@@ -258,22 +258,23 @@ a.popt {text-decoration: none;}
 /* OUTPUT COLORS */
 .highlight {background: yellow;}
 
-h1, h2, h3, h4, h5, h6	{color: #8ba5c4;font-family: Georgia, Verdana, sans-serif;}
-h1.alert, h2.alert		{color: #8ba5c4;}
+h1, h2, h3, h4, h5, h6	{color: #a4bad6;font-family: Georgia, Verdana, sans-serif;}
+h1.alert, h2.alert		{color: #a4bad6;}
 
 em						{font-style: normal;	font-weight: bold;}
 
 .ooc					{color: #cca300;	font-weight: bold;}
+.dooc					{color: #d543e9;	font-weight: bold;}
 .looc 					{color: #ffde5c;	font-weight: bold;}
 .adminobserverooc		{color: #0099cc;	font-weight: bold;}
 .adminooc				{color: #3d5bc3;	font-weight: bold;}
 
-.adminsay   			{color: #b6c653;	font-weight: bold;}
+.adminsay   			{color: #b6c653}
 .admin					{color: #243fa3;	font-weight: bold;}
 
 .mentorfrom 			{color: #d34bd8;}
 .mentorto				{color: #4bd84b;}
-.mentorhelp				{color: #3456ef;}
+.mentorhelp				{color: #8f66ff;}
 
 .name					{					font-weight: bold;}
 
@@ -286,10 +287,10 @@ em						{font-style: normal;	font-weight: bold;}
 .sciradio				{color: #c68cfa;}
 .comradio				{color: #5177ff;}
 .secradio				{color: #dd3535;}
-.medradio				{color: #57b8f0;}
+.medradio				{color: #33ccff;}
 .engradio				{color: #f37746;}
 .suppradio				{color: #b88646;}
-.servradio				{color: #6ca729;}
+.servradio				{color: #4e7a1f}
 .syndradio				{color: #8f4a4b;}
 .centcomradio			{color: #2681a5;}
 .aiprivradio			{color: #d65d95;}
@@ -299,10 +300,11 @@ em						{font-style: normal;	font-weight: bold;}
 .yell					{					font-weight: bold;}
 
 .alert					{color: #d82020;}
-h1.alert, h2.alert		{color: #99aab5;}
 
 .emote					{					font-style: italic;}
 .selecteddna			{color: #ffffff; 	background-color: #001B1B}
+
+.examine				{font-size: 8pt;}
 
 .attack					{color: #e01c1c;}
 .disarm					{color: #b42525;}
@@ -311,21 +313,24 @@ h1.alert, h2.alert		{color: #99aab5;}
 .userdanger				{color: #c51e1e;	font-weight: bold; font-size: 24px;}
 .danger					{color: #c51e1e;}
 .warning				{color: #c51e1e;	font-style: italic;}
+.alertwarning           {color: #FF0000;    font-weight: bold}
 .boldwarning			{color: #c51e1e;	font-style: italic;	font-weight: bold}
 .announce 				{color: #c51e1e;	font-weight: bold;}
 .boldannounce			{color: #c51e1e;	font-weight: bold;}
 .greenannounce			{color: #059223;	font-weight: bold;}
 .rose					{color: #ff5050;}
-.info					{color: #5373e9;}
-.notice					{color: #5373e9;}
-.boldnotice				{color: #5373e9;	font-weight: bold;}
-.adminnotice			{color: #5373e9;}
+.info					{color: #6685f5;}
+.notice					{color: #6685f5;}
+.boldnotice				{color: #6685f5;	font-weight: bold;}
+.adminnotice			{color: #6685f5;}
 .adminhelp              {color: #ff0000;    font-weight: bold;}
-.unconscious			{color: #8ba5c4;	font-weight: bold;}
+.unconscious			{color: #a4bad6;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #059223;}
+.red                    {color: #FF0000}
+.blue                   {color: #215cff}
 .nicegreen				{color: #059223;}
-.shadowling				{color: #3b2769;}
+.shadowling				{color: #8e8a99;}
 .cult					{color: #aa1c1c;}
 
 .cultitalic				{color: #aa1c1c;	font-style: italic;}
@@ -336,9 +341,9 @@ h1.alert, h2.alert		{color: #99aab5;}
 .narsie					{color: #aa1c1c; font-weight: bold; font-size: 120px;}
 .narsiesmall			{color: #aa1c1c; font-weight: bold; font-size: 48px;}
 .colossus				{color: #7F282A; font-size: 40px;}
-.hierophant				{color: #a22bdd; font-weight: bold; font-style: italic;}
+.hierophant				{color: #b441ee; font-weight: bold; font-style: italic;}
 .hierophant_warning		{color: #c56bf1; font-style: italic;}
-.purple					{color: #a03ff5;}
+.purple					{color: #9956d3;}
 .holoparasite			{color: #88809c;}
 
 .revennotice			{color: #1d2953;}
@@ -351,13 +356,14 @@ h1.alert, h2.alert		{color: #99aab5;}
 .umbra_emphasis			{color: #7c00e6;	font-weight: bold;	font-style: italic;}
 .umbra_large			{color: #7c00e6; font-size: 24px; font-weight: bold; font-style: italic;}
 
-.deconversion_message	{color: #7c00e6; font-size: 24px; font-style: italic;}
+.deconversion_message	{color: #a947ff; font-size: 24px; font-style: italic;}
 
 .brass					{color: #BE8700;}
 .heavy_brass			{color: #BE8700; font-weight: bold; font-style: italic;}
 .large_brass			{color: #BE8700; font-size: 24px;}
+.leader_brass			{color: #BE8700; font-size: 16px;}
 .big_brass				{color: #BE8700; font-size: 24px; font-weight: bold; font-style: italic;}
-.ratvar					{color: #BE8700; font-size: 48px; font-weight: bold; font-style: italic;}
+.ratvar					{color: #BE8700; font-size: 48px; font-weight: bold; font-style: italic; animation: ratvarcolor 5000ms infinite;}
 .alloy					{color: #42474D;}
 .heavy_alloy			{color: #42474D; font-weight: bold; font-style: italic;}
 .nezbere_large			{color: #42474D; font-size: 24px; font-weight: bold; font-style: italic;}
@@ -376,6 +382,21 @@ h1.alert, h2.alert		{color: #99aab5;}
 .neovgre				{color: #6E001A; font-weight: bold; font-style: italic;}
 .neovgre_small			{color: #6E001A;}
 
+@keyframes ratvarcolor {
+	0% { color: #0d0d0d; }
+	9% { color: #BE8700; }
+	18% { color: #0d0d0d; }
+	27% { color: #42474D; }
+	36% { color: #0d0d0d; }
+	45% { color: #AF0AAF; }
+	54% { color: #0d0d0d; }
+	63% { color: #1E8CE1; }
+	72% { color: #0d0d0d; }
+	81% { color: #DAAA18; }
+	90% { color: #0d0d0d; }
+	100% { color: #6E001A; }
+}
+
 .newscaster				{color: #c05d5d;}
 .ghostalert				{color: #6600ff;	font-style: italic; font-weight: bold;}
 
@@ -384,6 +405,7 @@ h1.alert, h2.alert		{color: #99aab5;}
 .alertalien				{color: #059223;	font-weight: bold;}
 .changeling				{color: #059223;	font-style: italic;}
 .assimilator			{color: #059223;	font-size: 16px ; font-weight: bold;}
+.alertsyndie			{color: #FF0000;	font-size: 24px ; font-weight: bold;}
 
 .spider					{color: #8800ff;}
 
@@ -401,6 +423,7 @@ h1.alert, h2.alert		{color: #99aab5;}
 .greentext				{color: #059223;	font-size: 24px;}
 .redtext				{color: #c51e1e;	font-size: 24px;}
 .clown					{color: #ff70c1;	font-size: 24px; font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}
+.singing				{font-family: "Trebuchet MS", cursive, sans-serif; font-style: italic;}
 .his_grace				{color: #15D512;	font-family: "Courier New", cursive, sans-serif; font-style: italic;}
 .hypnophrase			{color: #202020;	font-weight: bold; animation: hypnocolor 1500ms infinite;}
 @keyframes hypnocolor {

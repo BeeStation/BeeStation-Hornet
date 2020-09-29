@@ -5,6 +5,7 @@
 	icon_state = "nothingwand"
 	item_state = "wand"
 	w_class = WEIGHT_CLASS_SMALL
+	weapon_weight = WEAPON_LIGHT
 	can_charge = FALSE
 	max_charges = 100 //100, 50, 50, 34 (max charge distribution by 25%ths)
 	var/variable_charges = TRUE
@@ -18,8 +19,8 @@
 	return ..()
 
 /obj/item/gun/magic/wand/examine(mob/user)
-	..()
-	to_chat(user, "Has [charges] charge\s remaining.")
+	. = ..()
+	. += "Has [charges] charge\s remaining."
 
 /obj/item/gun/magic/wand/update_icon()
 	icon_state = "[initial(icon_state)][charges ? "" : "-drained"]"

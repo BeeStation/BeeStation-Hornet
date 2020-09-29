@@ -40,107 +40,6 @@
 	SEND_SOUND(owner, sound('sound/magic/summon_karp.ogg', volume = 25))
 	owner.adjustBruteLoss(3)
 
-
-/datum/status_effect/vanguard_shield
-	id = "vanguard"
-	duration = 200
-	tick_interval = 0 //tick as fast as possible
-	status_type = STATUS_EFFECT_REPLACE
-	alert_type = /obj/screen/alert/status_effect/vanguard
-	var/datum/progressbar/progbar
-
-/obj/screen/alert/status_effect/vanguard
-	name = "Vanguard"
-	desc = "You're absorbing stuns! 25% of all stuns taken will affect you after this effect ends."
-	icon_state = "vanguard"
-	alerttooltipstyle = "clockcult"
-
-/obj/screen/alert/status_effect/vanguard/MouseEntered(location,control,params)
-	var/mob/living/L = usr
-	if(istype(L)) //this is probably more safety than actually needed
-		var/vanguard = L.stun_absorption["vanguard"]
-		desc = initial(desc)
-		desc += "<br><b>[FLOOR(vanguard["stuns_absorbed"] * 0.1, 1)]</b> seconds of stuns held back.\
-		[GLOB.ratvar_awakens ? "":"<br><b>[FLOOR(min(vanguard["stuns_absorbed"] * 0.025, 20), 1)]</b> seconds of stun will affect you."]"
-	..()
-
-/datum/status_effect/vanguard_shield/Destroy()
-	qdel(progbar)
-	progbar = null
-	return ..()
-
-/datum/status_effect/vanguard_shield/on_apply()
-	owner.log_message("gained Vanguard stun immunity", LOG_ATTACK)
-	owner.add_stun_absorption("vanguard", INFINITY, 1, "'s yellow aura momentarily intensifies!", "Your ward absorbs the stun!", " radiating with a soft yellow light!")
-	owner.visible_message("<span class='warning'>[owner] begins to faintly glow!</span>", "<span class='brass'>You will absorb all stuns for the next twenty seconds.</span>")
-	owner.SetStun(0, FALSE)
-	owner.SetKnockdown(0, FALSE)
-	owner.SetParalyzed(0, FALSE)
-	owner.SetImmobilized(0)
-	progbar = new(owner, duration, owner)
-	progbar.bar.color = list("#FAE48C", "#FAE48C", "#FAE48C", rgb(0,0,0))
-	progbar.update(duration - world.time)
-	return ..()
-
-/datum/status_effect/vanguard_shield/tick()
-	progbar.update(duration - world.time)
-
-/datum/status_effect/vanguard_shield/on_remove()
-	var/vanguard = owner.stun_absorption["vanguard"]
-	var/stuns_blocked = 0
-	if(vanguard)
-		stuns_blocked = FLOOR(min(vanguard["stuns_absorbed"] * 0.25, 400), 1)
-		vanguard["end_time"] = 0 //so it doesn't absorb the stuns we're about to apply
-	if(owner.stat != DEAD)
-		var/message_to_owner = "<span class='warning'>You feel your Vanguard quietly fade...</span>"
-		var/otheractiveabsorptions = FALSE
-		for(var/i in owner.stun_absorption)
-			if(owner.stun_absorption[i]["end_time"] > world.time && owner.stun_absorption[i]["priority"] > vanguard["priority"])
-				otheractiveabsorptions = TRUE
-		if(!GLOB.ratvar_awakens && stuns_blocked && !otheractiveabsorptions)
-			owner.Paralyze(stuns_blocked)
-			message_to_owner = "<span class='boldwarning'>The weight of the Vanguard's protection crashes down upon you!</span>"
-			if(stuns_blocked >= 300)
-				message_to_owner += "\n<span class='userdanger'>You faint from the exertion!</span>"
-				stuns_blocked *= 2
-				owner.Unconscious(stuns_blocked)
-		else
-			stuns_blocked = 0 //so logging is correct in cases where there were stuns blocked but we didn't stun for other reasons
-		owner.visible_message("<span class='warning'>[owner]'s glowing aura fades!</span>", message_to_owner)
-		owner.log_message("lost Vanguard stun immunity[stuns_blocked ? "and was stunned for [stuns_blocked]":""]", LOG_ATTACK)
-
-
-/datum/status_effect/inathneqs_endowment
-	id = "inathneqs_endowment"
-	duration = 150
-	alert_type = /obj/screen/alert/status_effect/inathneqs_endowment
-
-/obj/screen/alert/status_effect/inathneqs_endowment
-	name = "Inath-neq's Endowment"
-	desc = "Adrenaline courses through you as the Resonant Cogwheel's energy shields you from all harm!"
-	icon_state = "inathneqs_endowment"
-	alerttooltipstyle = "clockcult"
-
-/datum/status_effect/inathneqs_endowment/on_apply()
-	owner.log_message("gained Inath-neq's invulnerability", LOG_ATTACK)
-	owner.visible_message("<span class='warning'>[owner] shines with azure light!</span>", "<span class='notice'>You feel Inath-neq's power flow through you! You're invincible!</span>")
-	var/oldcolor = owner.color
-	owner.color = "#1E8CE1"
-	owner.fully_heal()
-	owner.add_stun_absorption("inathneq", 150, 2, "'s flickering blue aura momentarily intensifies!", "Inath-neq's power absorbs the stun!", " glowing with a flickering blue light!")
-	owner.status_flags |= GODMODE
-	animate(owner, color = oldcolor, time = 150, easing = EASE_IN)
-	addtimer(CALLBACK(owner, /atom/proc/update_atom_colour), 150)
-	playsound(owner, 'sound/magic/ethereal_enter.ogg', 50, 1)
-	return ..()
-
-/datum/status_effect/inathneqs_endowment/on_remove()
-	owner.log_message("lost Inath-neq's invulnerability", LOG_ATTACK)
-	owner.visible_message("<span class='warning'>The light around [owner] flickers and dissipates!</span>", "<span class='boldwarning'>You feel Inath-neq's power fade from your body!</span>")
-	owner.status_flags &= ~GODMODE
-	playsound(owner, 'sound/magic/ethereal_exit.ogg', 50, 1)
-
-
 /datum/status_effect/cyborg_power_regen
 	id = "power_regen"
 	duration = 100
@@ -149,7 +48,7 @@
 
 /datum/status_effect/cyborg_power_regen/on_creation(mob/living/new_owner, new_power_per_tick)
 	. = ..()
-	if(. && isnum(new_power_per_tick))
+	if(. && isnum_safe(new_power_per_tick))
 		power_to_give = new_power_per_tick
 
 /obj/screen/alert/status_effect/power_regen
@@ -285,6 +184,7 @@
 /datum/status_effect/blooddrunk/on_apply()
 	. = ..()
 	if(.)
+		ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 		owner.maxHealth *= 10
 		owner.bruteloss *= 10
 		owner.fireloss *= 10
@@ -385,6 +285,7 @@
 	owner.staminaloss *= 0.1
 	owner.updatehealth()
 	owner.log_message("lost blood-drunk stun immunity", LOG_ATTACK)
+	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk");
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
 		owner.stun_absorption -= "blooddrunk"
 
@@ -403,12 +304,12 @@
 	owner.spin(duration,1)
 	animate(owner, color = oldcolor, time = duration, easing = EASE_IN)
 	addtimer(CALLBACK(owner, /atom/proc/update_atom_colour), duration)
-	playsound(owner, 'sound/weapons/fwoosh.wav', 75, 0)
+	playsound(owner, 'sound/weapons/fwoosh.ogg', 75, 0)
 	return ..()
 
 
 /datum/status_effect/sword_spin/tick()
-	playsound(owner, 'sound/weapons/fwoosh.wav', 75, 0)
+	playsound(owner, 'sound/weapons/fwoosh.ogg', 75, 0)
 	var/obj/item/slashy
 	slashy = owner.get_active_held_item()
 	for(var/mob/living/M in orange(1,owner))
@@ -419,11 +320,9 @@
 
 
 //Used by changelings to rapidly heal
-//Heals 10 brute and oxygen damage every second, and 5 fire
 //Being on fire will suppress this healing
 /datum/status_effect/fleshmend
 	id = "fleshmend"
-	duration = 100
 	alert_type = /obj/screen/alert/status_effect/fleshmend
 
 /datum/status_effect/fleshmend/tick()
@@ -432,9 +331,10 @@
 		return
 	else
 		linked_alert.icon_state = "fleshmend"
-	owner.adjustBruteLoss(-10, FALSE)
-	owner.adjustFireLoss(-5, FALSE)
-	owner.adjustOxyLoss(-10)
+	owner.adjustBruteLoss(-1.5, FALSE)
+	owner.adjustFireLoss(-0.25, FALSE)
+	owner.adjustToxLoss(-0.5, FALSE)
+	owner.adjustCloneLoss(-0.5)
 
 /obj/screen/alert/status_effect/fleshmend
 	name = "Fleshmend"
@@ -468,13 +368,13 @@
 
 /datum/status_effect/hippocraticOath/on_apply()
 	//Makes the user passive, it's in their oath not to harm!
-	owner.add_trait(TRAIT_PACIFISM, "hippocraticOath")
+	ADD_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.add_hud_to(owner)
 	return ..()
 
 /datum/status_effect/hippocraticOath/on_remove()
-	owner.remove_trait(TRAIT_PACIFISM, "hippocraticOath")
+	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.remove_hud_from(owner)
 
@@ -485,7 +385,7 @@
 		else
 			owner.visible_message("[owner]'s soul is absorbed into the rod, relieving the previous snake of its duty.")
 			var/mob/living/simple_animal/hostile/retaliate/poison/snake/healSnake = new(owner.loc)
-			var/list/chems = list("bicaridine", "salbutamol", "kelotane", "antitoxin")
+			var/list/chems = list(/datum/reagent/medicine/bicaridine, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/kelotane, /datum/reagent/medicine/antitoxin)
 			healSnake.poison_type = pick(chems)
 			healSnake.name = "Asclepius's Snake"
 			healSnake.real_name = "Asclepius's Snake"
@@ -523,7 +423,7 @@
 			itemUser.adjustToxLoss(-1.5, forced = TRUE) //Because Slime People are people too
 			itemUser.adjustOxyLoss(-1.5)
 			itemUser.adjustStaminaLoss(-1.5)
-			itemUser.adjustBrainLoss(-1.5)
+			itemUser.adjustOrganLoss(ORGAN_SLOT_BRAIN, -1.5)
 			itemUser.adjustCloneLoss(-0.5) //Becasue apparently clone damage is the bastion of all health
 		//Heal all those around you, unbiased
 		for(var/mob/living/L in view(7, owner))
@@ -535,7 +435,7 @@
 				L.adjustToxLoss(-3.5, forced = TRUE) //Because Slime People are people too
 				L.adjustOxyLoss(-3.5)
 				L.adjustStaminaLoss(-3.5)
-				L.adjustBrainLoss(-3.5)
+				L.adjustOrganLoss(ORGAN_SLOT_BRAIN, -3.5)
 				L.adjustCloneLoss(-1) //Becasue apparently clone damage is the bastion of all health
 			else if(issilicon(L))
 				L.adjustBruteLoss(-3.5)
@@ -543,6 +443,48 @@
 			else if(isanimal(L))
 				var/mob/living/simple_animal/SM = L
 				SM.adjustHealth(-3.5, forced = TRUE)
+
+/obj/screen/alert/status_effect/regenerative_core
+	name = "Blessing of the Necropolis"
+	desc = "The power of the necropolis flows through you. You could get used to this..."
+	icon_state = "regenerative_core"
+	name = "Blessing of the Necropolis"
+
+/datum/status_effect/regenerative_core
+	id = "Regenerative Core"
+	duration = 300
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = /obj/screen/alert/status_effect/regenerative_core
+	var/power = 1
+	var/alreadyinfected = FALSE
+
+/datum/status_effect/regenerative_core/on_apply()
+	if(!HAS_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED))
+		to_chat(owner, "<span class='userdanger'>Tendrils of vile corruption knit your flesh together and strengthen your sinew. You resist the temptation of giving in to the corruption.</span>")
+	else
+		alreadyinfected = TRUE
+	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "legion_core_trait")
+	ADD_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
+	if(owner.z == 5)
+		power = 2
+	owner.adjustBruteLoss(-50 * power)
+	owner.adjustFireLoss(-50 * power)
+	owner.cure_nearsighted()
+	owner.ExtinguishMob()
+	owner.fire_stacks = 0
+	owner.set_blindness(0)
+	owner.set_blurriness(0)
+	owner.restore_blood()
+	owner.bodytemperature = BODYTEMP_NORMAL
+	owner.restoreEars()
+	duration = rand(150, 450) * power
+	return TRUE
+
+/datum/status_effect/regenerative_core/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "legion_core_trait")
+	REMOVE_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
+	if(!alreadyinfected)
+		to_chat(owner, "<span class='userdanger'>You feel empty as the vile tendrils slink out of your flesh and leave you, a fragile human once more.</span>")
 
 /datum/status_effect/good_music
 	id = "Good Music"
@@ -557,29 +499,6 @@
 	owner.confused = max(0, owner.confused - 1)
 	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "goodmusic", /datum/mood_event/goodmusic)
 
-/obj/screen/alert/status_effect/regenerative_core
-	name = "Reinforcing Tendrils"
-	desc = "You can move faster than your broken body could normally handle!"
-	icon_state = "regenerative_core"
-	name = "Regenerative Core Tendrils"
-
-/datum/status_effect/regenerative_core
-	id = "Regenerative Core"
-	duration = 1 MINUTES
-	status_type = STATUS_EFFECT_REPLACE
-	alert_type = /obj/screen/alert/status_effect/regenerative_core
-
-/datum/status_effect/regenerative_core/on_apply()
-	owner.add_trait(TRAIT_IGNOREDAMAGESLOWDOWN, "regenerative_core")
-	owner.adjustBruteLoss(-25)
-	owner.adjustFireLoss(-25)
-	owner.remove_CC()
-	owner.bodytemperature = BODYTEMP_NORMAL
-	return TRUE
-
-/datum/status_effect/regenerative_core/on_remove()
-	owner.remove_trait(TRAIT_IGNOREDAMAGESLOWDOWN, "regenerative_core")
-
 /datum/status_effect/antimagic
 	id = "antimagic"
 	duration = 10 SECONDS
@@ -587,11 +506,11 @@
 
 /datum/status_effect/antimagic/on_apply()
 	owner.visible_message("<span class='notice'>[owner] is coated with a dull aura!</span>")
-	owner.add_trait(TRAIT_ANTIMAGIC, MAGIC_TRAIT)
+	ADD_TRAIT(owner, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
 	//glowing wings overlay
-	playsound(owner, 'sound/weapons/fwoosh.wav', 75, 0)
+	playsound(owner, 'sound/weapons/fwoosh.ogg', 75, 0)
 	return ..()
 
 /datum/status_effect/antimagic/on_remove()
-	owner.remove_trait(TRAIT_ANTIMAGIC, MAGIC_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
 	owner.visible_message("<span class='warning'>[owner]'s dull aura fades away...</span>")

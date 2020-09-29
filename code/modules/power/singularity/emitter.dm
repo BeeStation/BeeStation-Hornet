@@ -90,13 +90,13 @@
 	active_power_usage = power_usage
 
 /obj/machinery/power/emitter/examine(mob/user)
-	..()
+	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		to_chat(user, "<span class='notice'>The status display reads: Emitting one beam each <b>[fire_delay*0.1]</b> seconds.<br>Power consumption at <b>[active_power_usage]W</b>.<span>")
+		. += "<span class='notice'>The status display reads: Emitting one beam each <b>[fire_delay*0.1]</b> seconds.<br>Power consumption at <b>[active_power_usage]W</b>.<span>"
 
 /obj/machinery/power/emitter/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_FLIP ,null,CALLBACK(src, .proc/can_be_rotated))
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
 
 /obj/machinery/power/emitter/proc/can_be_rotated(mob/user,rotation_type)
 	if (anchored)
@@ -208,6 +208,7 @@
 	if(prob(35))
 		sparks.start()
 	P.firer = user ? user : src
+	P.fired_from = src
 	if(last_projectile_params)
 		P.p_x = last_projectile_params[2]
 		P.p_y = last_projectile_params[3]
@@ -263,7 +264,7 @@
 			user.visible_message("[user.name] starts to weld the [name] to the floor.", \
 				"<span class='notice'>You start to weld \the [src] to the floor...</span>", \
 				"<span class='italics'>You hear welding.</span>")
-			if(I.use_tool(src, user, 20, volume=50))
+			if(I.use_tool(src, user, 20, volume=50) && state == EMITTER_WRENCHED)
 				state = EMITTER_WELDED
 				to_chat(user, "<span class='notice'>You weld \the [src] to the floor.</span>")
 				connect_to_network()
@@ -273,7 +274,7 @@
 			user.visible_message("[user.name] starts to cut the [name] free from the floor.", \
 				"<span class='notice'>You start to cut \the [src] free from the floor...</span>", \
 				"<span class='italics'>You hear welding.</span>")
-			if(I.use_tool(src, user, 20, volume=50))
+			if(I.use_tool(src, user, 20, volume=50) && state == EMITTER_WELDED)
 				state = EMITTER_WRENCHED
 				to_chat(user, "<span class='notice'>You cut \the [src] free from the floor.</span>")
 				disconnect_from_network()
@@ -364,7 +365,7 @@
 	icon_state_underpowered = "protoemitter_+u"
 	can_buckle = TRUE
 	buckle_lying = FALSE
-	var/view_range = 12
+	var/view_range = 4.5
 	var/datum/action/innate/protoemitter/firing/auto
 
 //BUCKLE HOOKS
@@ -379,7 +380,7 @@
 		buckled_mob.pixel_x = 0
 		buckled_mob.pixel_y = 0
 		if(buckled_mob.client)
-			buckled_mob.client.change_view(CONFIG_GET(string/default_view))
+			buckled_mob.client.view_size.resetToDefault()
 	auto.Remove(buckled_mob)
 	. = ..()
 
@@ -395,7 +396,7 @@
 	M.pixel_y = 14
 	layer = 4.1
 	if(M.client)
-		M.client.change_view(view_range)
+		M.client.view_size.setTo(view_range)
 	if(!auto)
 		auto = new()
 	auto.Grant(M, src)
@@ -456,7 +457,7 @@
 
 /obj/item/turret_control/Initialize()
 	. = ..()
-	add_trait(TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 /obj/item/turret_control/afterattack(atom/targeted_atom, mob/user, proxflag, clickparams)
 	. = ..()

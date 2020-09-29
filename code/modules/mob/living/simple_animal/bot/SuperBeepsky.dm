@@ -5,10 +5,11 @@
 	icon_state = "grievous"
 	health = 150
 	maxHealth = 150
-	baton_type = /obj/item/melee/transforming/energy/sword
+	baton_type = /obj/item/melee/transforming/energy/sword/saber
 	base_speed = 4 //he's a fast fucker
 	var/obj/item/weapon
 	var/block_chance = 50
+	noloot = FALSE
 
 
 /mob/living/simple_animal/bot/secbot/grievous/toy //A toy version of general beepsky!
@@ -17,6 +18,12 @@
 	health = 50
 	maxHealth = 50
 	baton_type = /obj/item/toy/sword
+
+/mob/living/simple_animal/bot/secbot/grievous/nullcrate
+	name = "General Griefsky"
+	desc = "The Syndicate sends their regards."
+	emagged = 2
+	noloot = TRUE
 
 /mob/living/simple_animal/bot/secbot/grievous/bullet_act(obj/item/projectile/P)
 	visible_message("[src] deflects [P] with its energy swords!")
@@ -51,7 +58,7 @@
 	weapon.attack(C, src)
 	playsound(src, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 	if(C.stat == DEAD)
-		addtimer(CALLBACK(src, .proc/update_icon), 2)
+		addtimer(CALLBACK(src, /atom/.proc/update_icon), 2)
 		back_to_idle()
 
 
@@ -144,7 +151,8 @@
 		drop_part(robot_arm, Tsec)
 
 	do_sparks(3, TRUE, src)
-	for(var/IS = 0 to 4)
-		drop_part(baton_type, Tsec)
+	if(!noloot)
+		for(var/IS = 0 to 4)
+			drop_part(baton_type, Tsec)
 	new /obj/effect/decal/cleanable/oil(Tsec)
 	qdel(src)

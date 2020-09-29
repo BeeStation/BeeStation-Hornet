@@ -28,16 +28,20 @@
 		// Handle power damage (oxy)
 		if(aiRestorePowerRoutine)
 			// Lost power
-			adjustOxyLoss(1)
+			if (!battery)
+				to_chat(src, "<span class='warning'>Your backup battery's output drops below usable levels. It takes only a moment longer for your systems to fail, corrupted and unusable.</span>")
+				adjustOxyLoss(200)
+			else
+				battery --
 		else
 			// Gain Power
-			if(getOxyLoss())
-				adjustOxyLoss(-1)
+			if (battery < 200)
+				battery ++
 
 		if(!lacks_power())
 			var/area/home = get_area(src)
-			if(home.powered(EQUIP))
-				home.use_power(1000, EQUIP)
+			if(home.powered(AREA_USAGE_EQUIP))
+				home.use_power(1000, AREA_USAGE_EQUIP)
 
 			if(aiRestorePowerRoutine >= POWER_RESTORATION_SEARCH_APC)
 				ai_restore_power()
@@ -54,10 +58,6 @@
 			return FALSE
 		if(POWER_REQ_ALL)
 			return !T || !A || ((!A.power_equip || isspaceturf(T)) && !is_type_in_list(loc, list(/obj/item, /obj/mecha)))
-		if(POWER_REQ_CLOCKCULT)
-			for(var/obj/effect/clockwork/sigil/transmission/ST in range(src, SIGIL_ACCESS_RANGE))
-				return FALSE
-			return !T || !A || (!istype(T, /turf/open/floor/clockwork) && (!A.power_equip || isspaceturf(T)) && !is_type_in_list(loc, list(/obj/item, /obj/mecha)))
 
 /mob/living/silicon/ai/updatehealth()
 	if(status_flags & GODMODE)
@@ -100,7 +100,7 @@
 	sleep(50)
 	var/turf/T = get_turf(src)
 	var/area/AIarea = get_area(src)
-	if(AIarea && AIarea.power_equip)
+	if(AIarea?.power_equip)
 		if(!isspaceturf(T))
 			ai_restore_power()
 			return

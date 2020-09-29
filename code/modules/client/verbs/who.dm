@@ -13,7 +13,7 @@
 				log_admin("[key_name(usr)] checked advanced who in-round")
 			for(var/client/C in GLOB.clients)
 				var/entry = "\t[C.key]"
-				if(C.holder && C.holder.fakekey)
+				if(C.holder?.fakekey)
 					entry += " <i>(as [C.holder.fakekey])</i>"
 				if (isnewplayer(C.mob))
 					entry += " - <font color='darkgray'><b>In Lobby</b></font>"

@@ -3,8 +3,9 @@
 	desc = "A basic energy-based laser gun that fires concentrated beams of light which pass through glass and thin metal."
 	icon_state = "laser"
 	item_state = "laser"
+	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_NORMAL
-	materials = list(MAT_METAL=2000)
+	materials = list(/datum/material/iron=2000)
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
 	shaded_charge = 1
@@ -38,6 +39,7 @@
 	ammo_x_offset = 3
 	selfcharge = 1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	weapon_weight = WEAPON_LIGHT
 
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"

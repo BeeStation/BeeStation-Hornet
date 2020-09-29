@@ -21,10 +21,13 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 #define ASSET_CACHE_PRELOAD_CONCURRENT 3
 
 /client
-	var/list/cache = list() // List of all assets sent to this client by the asset cache.
-	var/list/completed_asset_jobs = list() // List of all completed jobs, awaiting acknowledgement.
+	/// List of all assets sent to this client by the asset cache.
+	var/list/cache = list()
+	/// List of all completed asset jobs, awaiting acknowledgement.
+	var/list/completed_asset_jobs = list()
 	var/list/sending = list()
-	var/last_asset_job = 0 // Last job done.
+	/// The last asset job done.
+	var/last_asset_job = 0
 
 //This proc sends the asset to the client, but only if it needs it.
 //This proc blocks(sleeps) unless verify is set to false
@@ -228,7 +231,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/res_name = "spritesheet_[name].css"
 	var/fname = "data/spritesheets/[res_name]"
 	fdel(fname)
-	text2file(generate_css(), fname)
+	rustg_file_append(generate_css(), fname)
 	register_asset(res_name, fcopy_rsc(fname))
 	fdel(fname)
 
@@ -325,6 +328,13 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/size_id = sprite[SPR_SIZE]
 	return {"<span class="[name][size_id] [sprite_name]"></span>"}
 
+/datum/asset/spritesheet/proc/icon_class_name(sprite_name)
+	var/sprite = sprites[sprite_name]
+	if (!sprite)
+		return null
+	var/size_id = sprite[SPR_SIZE]
+	return {"[name][size_id] [sprite_name]"}
+
 #undef SPR_SIZE
 #undef SPR_IDX
 #undef SPRSZ_COUNT
@@ -381,14 +391,14 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/simple/tgui
 	assets = list(
-		"tgui.css"	= 'tgui/assets/tgui.css',
-		"tgui.js"	= 'tgui/assets/tgui.js',
-		"font-awesome.min.css" = 'tgui/assets/font-awesome.min.css',
-		"fontawesome-webfont.eot" = 'tgui/assets/fonts/fontawesome-webfont.eot',
-		"fontawesome-webfont.woff2" = 'tgui/assets/fonts/fontawesome-webfont.woff2',
-		"fontawesome-webfont.woff" = 'tgui/assets/fonts/fontawesome-webfont.woff',
-		"fontawesome-webfont.ttf" = 'tgui/assets/fonts/fontawesome-webfont.ttf',
-		"fontawesome-webfont.svg" = 'tgui/assets/fonts/fontawesome-webfont.svg'
+		"tgui.bundle.js" = 'tgui/packages/tgui/public/tgui.bundle.js',
+		"tgui.bundle.css" = 'tgui/packages/tgui/public/tgui.bundle.css',
+	)
+
+/datum/asset/group/tgui
+	children = list(
+		/datum/asset/simple/tgui,
+		/datum/asset/simple/fontawesome
 	)
 
 /datum/asset/simple/headers
@@ -450,7 +460,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"scanner"		= 'icons/pda_icons/pda_scanner.png',
 		"signaler"		= 'icons/pda_icons/pda_signaler.png',
 		"status"		= 'icons/pda_icons/pda_status.png',
-		"dronephone"	= 'icons/pda_icons/pda_dronephone.png'
+		"dronephone"	= 'icons/pda_icons/pda_dronephone.png',
+		"emoji"			= 'icons/pda_icons/pda_emoji.png'
 	)
 
 /datum/asset/spritesheet/simple/paper
@@ -473,6 +484,11 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/simple/IRV
 	assets = list(
 		"jquery-ui.custom-core-widgit-mouse-sortable-min.js" = 'html/IRV/jquery-ui.custom-core-widgit-mouse-sortable-min.js',
+	)
+
+/datum/asset/simple/fuckywucky
+	assets = list(
+		"fuckywucky.png" = 'html/fuckywucky.png'
 	)
 
 /datum/asset/group/IRV
@@ -508,7 +524,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	children = list(
 		/datum/asset/simple/jquery,
 		/datum/asset/simple/goonchat,
-		/datum/asset/spritesheet/goonchat
+		/datum/asset/spritesheet/goonchat,
+		/datum/asset/simple/fontawesome
 	)
 
 /datum/asset/simple/jquery
@@ -523,12 +540,19 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"json2.min.js"             = 'code/modules/goonchat/browserassets/js/json2.min.js',
 		"errorHandler.js"          = 'code/modules/goonchat/browserassets/js/errorHandler.js',
 		"browserOutput.js"         = 'code/modules/goonchat/browserassets/js/browserOutput.js',
-		"fontawesome-webfont.eot"  = 'tgui/assets/fonts/fontawesome-webfont.eot',
-		"fontawesome-webfont.svg"  = 'tgui/assets/fonts/fontawesome-webfont.svg',
-		"fontawesome-webfont.ttf"  = 'tgui/assets/fonts/fontawesome-webfont.ttf',
-		"fontawesome-webfont.woff" = 'tgui/assets/fonts/fontawesome-webfont.woff',
-		"font-awesome.css"	       = 'code/modules/goonchat/browserassets/css/font-awesome.css',
 		"browserOutput.css"	       = 'code/modules/goonchat/browserassets/css/browserOutput.css',
+		"browserOutput_white.css"  = 'code/modules/goonchat/browserassets/css/browserOutput_white.css',
+	)
+
+/datum/asset/simple/fontawesome
+	verify = FALSE
+	assets = list(
+		"fa-regular-400.eot"  = 'html/font-awesome/webfonts/fa-regular-400.eot',
+		"fa-regular-400.woff" = 'html/font-awesome/webfonts/fa-regular-400.woff',
+		"fa-solid-900.eot"    = 'html/font-awesome/webfonts/fa-solid-900.eot',
+		"fa-solid-900.woff"   = 'html/font-awesome/webfonts/fa-solid-900.woff',
+		"font-awesome.css"    = 'html/font-awesome/css/all.min.css',
+		"v4shim.css"          = 'html/font-awesome/css/v4-shims.min.css'
 	)
 
 /datum/asset/spritesheet/goonchat
@@ -561,6 +585,16 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"minor_button.png" = 'html/minor_button.png',
 		"none_button.png" = 'html/none_button.png',
 	)
+
+/datum/asset/simple/arcade
+	assets = list(
+		"boss1.gif" = 'icons/UI_Icons/Arcade/boss1.gif',
+		"boss2.gif" = 'icons/UI_Icons/Arcade/boss2.gif',
+		"boss3.gif" = 'icons/UI_Icons/Arcade/boss3.gif',
+		"boss4.gif" = 'icons/UI_Icons/Arcade/boss4.gif',
+		"boss5.gif" = 'icons/UI_Icons/Arcade/boss5.gif',
+		"boss6.gif" = 'icons/UI_Icons/Arcade/boss6.gif',
+		)
 
 /datum/asset/spritesheet/simple/pills
 	name ="pills"
@@ -600,7 +634,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	name = "pipes"
 
 /datum/asset/spritesheet/pipes/register()
-	for (var/each in list('icons/obj/atmospherics/pipes/pipe_item.dmi', 'icons/obj/atmospherics/pipes/disposal.dmi', 'icons/obj/atmospherics/pipes/transit_tube.dmi'))
+	for (var/each in list('icons/obj/atmospherics/pipes/pipe_item.dmi', 'icons/obj/atmospherics/pipes/disposal.dmi', 'icons/obj/atmospherics/pipes/transit_tube.dmi', 'icons/obj/plumbing/fluid_ducts.dmi'))
 		InsertAll("", each, GLOB.alldirs)
 	..()
 
@@ -663,9 +697,87 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		Insert(initial(D.id), I)
 	return ..()
 
+/datum/asset/spritesheet/vending
+	name = "vending"
+
+/datum/asset/spritesheet/vending/register()
+	for (var/k in GLOB.vending_products)
+		var/atom/item = k
+		if (!ispath(item, /atom))
+			continue
+
+		var/icon_file = initial(item.icon)
+		var/icon_state = initial(item.icon_state)
+		var/icon/I
+
+		var/icon_states_list = icon_states(icon_file)
+		if(icon_state in icon_states_list)
+			I = icon(icon_file, icon_state, SOUTH)
+			var/c = initial(item.color)
+			if (!isnull(c) && c != "#FFFFFF")
+				I.Blend(c, ICON_MULTIPLY)
+		else
+			var/icon_states_string
+			for (var/an_icon_state in icon_states_list)
+				if (!icon_states_string)
+					icon_states_string = "[json_encode(an_icon_state)](\ref[an_icon_state])"
+				else
+					icon_states_string += ", [json_encode(an_icon_state)](\ref[an_icon_state])"
+			stack_trace("[item] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
+			I = icon('icons/turf/floors.dmi', "", SOUTH)
+
+		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
+
+		Insert(imgid, I)
+	return ..()
+
 /datum/asset/simple/genetics
 	assets = list(
 		"dna_discovered.png"	= 'html/dna_discovered.png',
 		"dna_undiscovered.png"	= 'html/dna_undiscovered.png',
 		"dna_extra.png" 		= 'html/dna_extra.png'
 )
+
+/datum/asset/simple/bee_antags
+	assets = list(
+		"traitor.png" = 'html/img/traitor.png',
+		"bloodcult.png" = 'html/img/bloodcult.png',
+		"dagger.png" = 'html/img/dagger.png',
+		"sacrune.png" = 'html/img/sacrune.png',
+		"archives.png" = 'html/img/archives.png',
+		"xeno.png" = 'html/img/xeno.png',
+		"xenoqueen.png" = 'html/img/xenoqueen.png',
+		"facehugger.png" = 'html/img/facehugger.png',
+		"xenolarva.png" = 'html/img/xenolarva.png',
+		"blobcore.png" = 'html/img/blobcore.png',
+		"blobnode.png" = 'html/img/blobnode.png',
+		"blobresource.png" = 'html/img/blobresource.png',
+		"blobfactory.png" = 'html/img/blobfactory.png',
+		"changeling.gif" = 'html/img/changeling.gif',
+		"emporium.gif" = 'html/img/emporium.gif',
+		"absorb.png" = 'html/img/absorb.png',
+		"tentacle.png" = 'html/img/tentacle.png',
+		"hivemind.png" = 'html/img/hivemind.png',
+		"sting_extract.png" = 'html/img/sting_extract.png',
+		"wizard.png" = 'html/img/wizard.png',
+		"nukie.png" = 'html/img/nukie.png',
+		"ayylmao.png" = 'html/img/ayylmao.png',
+		"headset.png" = 'html/img/headset.png',
+		"pen.png" = 'html/img/pen.png',
+		"pda.png" = 'html/img/pda.png',
+		"spellbook.png" = 'html/img/spellbook.png',
+		"scroll.png" = 'html/img/scroll.png',
+		"disk.png" = 'html/img/disk.png',
+		"nuke.png" = 'html/img/nuke.png',
+		"eshield.png" = 'html/img/eshield.png',
+		"mech.png" = 'html/img/mech.png',
+		"scitool.png" = 'html/img/scitool.png',
+		"alienorgan.png"= 'html/img/alienorgan.png',
+		"abaton.png"= 'html/img/abaton.png'
+	)
+
+
+/datum/asset/simple/vv
+	assets = list(
+		"view_variables.css" = 'html/admin/view_variables.css'
+	)

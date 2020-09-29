@@ -31,6 +31,9 @@
 	var/mob/living/simple_animal/mouse/movement_target
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_type = "cat"
+	can_be_held = TRUE
+	held_state = "cat2"
+	mobsay_color = "#FFD586"
 
 	do_footstep = TRUE
 
@@ -58,6 +61,7 @@
 	unsuitable_atmos_damage = 0
 	minbodytemp = TCMB
 	maxbodytemp = T0C + 40
+	held_state = "spacecat"
 
 /mob/living/simple_animal/pet/cat/original
 	name = "Batsy"
@@ -68,6 +72,7 @@
 	icon_dead = "original_dead"
 	collar_type = null
 	unique_pet = TRUE
+	held_state = "original"
 
 /mob/living/simple_animal/pet/cat/kitten
 	name = "kitten"
@@ -94,6 +99,7 @@
 	var/list/children = list()//Actual mob instances of children
 	var/cats_deployed = 0
 	var/memory_saved = FALSE
+	held_state = "cat"
 
 /mob/living/simple_animal/pet/cat/Runtime/Initialize()
 	if(prob(5))
@@ -131,7 +137,7 @@
 		var/json_file = file("data/npc_saves/Runtime.json")
 		if(!fexists(json_file))
 			return
-		var/list/json = json_decode(file2text(json_file))
+		var/list/json = json_decode(rustg_file_read(json_file))
 		family = json["family"]
 	if(isnull(family))
 		family = list()
@@ -156,7 +162,7 @@
 	cats_deployed = 1
 	for(var/cat_type in family)
 		if(family[cat_type] > 0)
-			for(var/i in 1 to min(family[cat_type],100)) //Limits to about 500 cats, you wouldn't think this would be needed (BUT IT IS)
+			for(var/i in 1 to min(family[cat_type],25)) //Limits to about 25 cats, whoever thought leaving the max at 500 was a genius. Prevents catsplosions.
 				new cat_type(loc)
 
 /mob/living/simple_animal/pet/cat/Proc
@@ -238,6 +244,8 @@
 			if(M && stat != DEAD)
 				new /obj/effect/temp_visual/heart(loc)
 				emote("me", 1, "purrs!")
+				if(flags_1 & HOLOGRAM_1)
+					return
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
 		else
 			if(M && stat != DEAD)
@@ -259,6 +267,7 @@
 	attacked_sound = 'sound/items/eatfood.ogg'
 	deathmessage = "loses its false life and collapses!"
 	deathsound = "bodyfall"
+	held_state = "cak"
 
 /mob/living/simple_animal/pet/cat/cak/CheckParts(list/parts)
 	..()
@@ -281,11 +290,22 @@
 	if(health < maxHealth)
 		adjustBruteLoss(-8) //Fast life regen
 	for(var/obj/item/reagent_containers/food/snacks/donut/D in range(1, src)) //Frosts nearby donuts!
-		if(!D.is_frosted)
-			D.frost_donut()
+		if(!D.is_decorated)
+			D.decorate_donut()
 
 /mob/living/simple_animal/pet/cat/cak/attack_hand(mob/living/L)
 	..()
 	if(L.a_intent == INTENT_HARM && L.reagents && !stat)
-		L.reagents.add_reagent("nutriment", 0.4)
-		L.reagents.add_reagent("vitamin", 0.4)
+		L.reagents.add_reagent(/datum/reagent/consumable/nutriment, 0.4)
+		L.reagents.add_reagent(/datum/reagent/consumable/nutriment/vitamin, 0.4)
+
+/mob/living/simple_animal/pet/cat/breadcat
+	name = "bread cat"
+	desc = "It's a cat... with a bread!"
+	gender = MALE
+	icon_state = "breadcat"
+	icon_living = "breadcat"
+	icon_dead = "breadcat_dead"
+	collar_type = null
+	held_state = "breadcat"
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2, /obj/item/organ/ears/cat = 1, /obj/item/organ/tail/cat = 1, /obj/item/reagent_containers/food/snacks/breadslice/plain = 1)

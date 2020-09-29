@@ -7,6 +7,9 @@
 	projectile_type = /obj/item/projectile/energy/declone
 	select_name = "declone"
 	fire_sound = 'sound/weapons/pulse3.ogg'
+	
+/obj/item/ammo_casing/energy/declone/weak
+	projectile_type = /obj/item/projectile/energy/declone/weak
 
 /obj/item/ammo_casing/energy/flora
 	fire_sound = 'sound/effects/stealthoff.ogg'
@@ -23,7 +26,7 @@
 /obj/item/ammo_casing/energy/temp
 	projectile_type = /obj/item/projectile/temp
 	select_name = "freeze"
-	e_cost = 250
+	e_cost = 100
 	fire_sound = 'sound/weapons/pulse3.ogg'
 
 /obj/item/ammo_casing/energy/temp/hot

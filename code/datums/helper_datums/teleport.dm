@@ -15,6 +15,7 @@
 		)) - typecacheof(list(
 		/obj/effect/dummy/chameleon,
 		/obj/effect/wisp,
+		/obj/effect/mob_spawn,
 		))
 	if(delete_atoms[teleatom.type])
 		qdel(teleatom)
@@ -24,7 +25,6 @@
 	// if the precision is not specified, default to 0, but apply BoH penalties
 	if (isnull(precision))
 		precision = 0
-
 	switch(channel)
 		if(TELEPORT_CHANNEL_BLUESPACE)
 			if(istype(teleatom, /obj/item/storage/backpack/holding))
@@ -56,7 +56,7 @@
 
 	var/area/A = get_area(curturf)
 	var/area/B = get_area(destturf)
-	if(!forced && (teleatom.has_trait(TRAIT_NO_TELEPORT) || A.noteleport || B.noteleport))
+	if(!forced && (HAS_TRAIT(teleatom, TRAIT_NO_TELEPORT) || A.noteleport || B.noteleport))
 		return FALSE
 
 	if(SEND_SIGNAL(destturf, COMSIG_ATOM_INTERCEPT_TELEPORT, channel, curturf, destturf))
@@ -73,6 +73,8 @@
 	if(ismob(teleatom))
 		var/mob/M = teleatom
 		M.cancel_camera()
+
+	teleatom.teleport_act()
 
 	return TRUE
 
@@ -106,9 +108,8 @@
 			continue
 
 		var/datum/gas_mixture/A = F.air
-		var/list/A_gases = A.gases
 		var/trace_gases
-		for(var/id in A_gases)
+		for(var/id in A.get_gases())
 			if(id in GLOB.hardcoded_gases)
 				continue
 			trace_gases = TRUE
@@ -117,15 +118,15 @@
 		// Can most things breathe?
 		if(trace_gases)
 			continue
-		if(!(A_gases[/datum/gas/oxygen] && A_gases[/datum/gas/oxygen][MOLES] >= 16))
+		if(A.get_moles(/datum/gas/oxygen) < 16)
 			continue
-		if(A_gases[/datum/gas/plasma])
+		if(A.get_moles(/datum/gas/plasma))
 			continue
-		if(A_gases[/datum/gas/carbon_dioxide] && A_gases[/datum/gas/carbon_dioxide][MOLES] >= 10)
+		if(A.get_moles(/datum/gas/carbon_dioxide) >= 10)
 			continue
 
 		// Aim for goldilocks temperatures and pressure
-		if((A.temperature <= 270) || (A.temperature >= 360))
+		if((A.return_temperature() <= 270) || (A.return_temperature() >= 360))
 			continue
 		var/pressure = A.return_pressure()
 		if((pressure <= 20) || (pressure >= 550))

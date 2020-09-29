@@ -9,7 +9,9 @@
 	var/can_contaminate
 
 /datum/radiation_wave/New(atom/_source, dir, _intensity=0, _range_modifier=RAD_DISTANCE_COEFFICIENT, _can_contaminate=TRUE)
-	source = _source
+
+	source = "[_source] \[[REF(_source)]\]"
+
 	master_turf = get_turf(_source)
 
 	move_dir = dir
@@ -42,7 +44,7 @@
 	else
 		strength = intensity
 
-	if(strength<RAD_BACKGROUND_RADIATION)
+	if(strength < RAD_WAVE_MINIMUM)
 		qdel(src)
 		return
 
@@ -112,4 +114,6 @@
 			if(SEND_SIGNAL(thing, COMSIG_ATOM_RAD_CONTAMINATING, strength) & COMPONENT_BLOCK_CONTAMINATION)
 				continue
 			var/rad_strength = (strength-RAD_MINIMUM_CONTAMINATION) * RAD_CONTAMINATION_STR_COEFFICIENT
-			thing.AddComponent(/datum/component/radioactive, rad_strength, source)
+
+			if (rad_strength >= RAD_WAVE_MINIMUM) // Don't even bother to add the component if its waves aren't going to do anything
+				thing.AddComponent(/datum/component/radioactive, rad_strength, source)

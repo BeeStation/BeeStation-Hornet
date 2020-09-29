@@ -109,6 +109,7 @@
 /datum/spellbook_entry/spell_cards
 	name = "Spell Cards"
 	spell_type = /obj/effect/proc_holder/spell/aimed/spell_cards
+	cost = 1
 
 /datum/spellbook_entry/rod_form
 	name = "Rod Form"
@@ -152,7 +153,7 @@
 
 /datum/spellbook_entry/blind
 	name = "Blind"
-	spell_type = /obj/effect/proc_holder/spell/targeted/trigger/blind
+	spell_type = /obj/effect/proc_holder/spell/pointed/trigger/blind
 	cost = 1
 
 /datum/spellbook_entry/mindswap
@@ -205,6 +206,7 @@
 	name = "Bind Soul"
 	spell_type = /obj/effect/proc_holder/spell/targeted/lichdom
 	category = "Defensive"
+	cost = 3
 
 /datum/spellbook_entry/teslablast
 	name = "Tesla Blast"
@@ -213,7 +215,6 @@
 /datum/spellbook_entry/lightningbolt
 	name = "Lightning Bolt"
 	spell_type = /obj/effect/proc_holder/spell/aimed/lightningbolt
-	cost = 3
 
 /datum/spellbook_entry/lightningbolt/Buy(mob/living/carbon/human/user,obj/item/spellbook/book) //return TRUE on success
 	. = ..()
@@ -228,7 +229,6 @@
 /datum/spellbook_entry/arcane_barrage
 	name = "Arcane Barrage"
 	spell_type = /obj/effect/proc_holder/spell/targeted/infinite_guns/arcane_barrage
-	cost = 3
 	no_coexistance_typecache = /obj/effect/proc_holder/spell/targeted/infinite_guns/gun
 
 /datum/spellbook_entry/barnyard
@@ -251,7 +251,7 @@
 	name = "Soul Tap"
 	spell_type = /obj/effect/proc_holder/spell/self/tap
 	category = "Assistance"
-	cost = 3
+	cost = 1
 
 /datum/spellbook_entry/spacetime_dist
 	name = "Spacetime Distortion"
@@ -369,6 +369,8 @@
 	if(.)
 		new /obj/item/clothing/shoes/sandal/magic(get_turf(user)) //In case they've lost them.
 		new /obj/item/clothing/gloves/color/purple(get_turf(user))//To complete the outfit
+		new /obj/item/clothing/mask/breath(get_turf(user)) // so the air gets to your mouth. Just an average mask.
+		new /obj/item/tank/internals/emergency_oxygen/magic_oxygen(get_turf(user)) // so you have something to actually breathe. Near infinite.
 
 /datum/spellbook_entry/item/contract
 	name = "Contract of Apprenticeship"
@@ -380,13 +382,8 @@
 	name = "Guardian Deck"
 	desc = "A deck of guardian tarot cards, capable of binding a personal guardian to your body. There are multiple types of guardian available, but all of them will transfer some amount of damage to you. \
 	It would be wise to avoid buying these with anything capable of causing you to swap bodies with others."
-	item_path = /obj/item/guardiancreator/choose/wizard
+	item_path = /obj/item/guardiancreator/wizard
 	category = "Assistance"
-
-/datum/spellbook_entry/item/guardian/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
-	. = ..()
-	if(.)
-		new /obj/item/paper/guides/antag/guardian/wizard(get_turf(user))
 
 /datum/spellbook_entry/item/bloodbottle
 	name = "Bottle of Blood"
@@ -571,11 +568,11 @@
 	var/list/categories = list()
 
 /obj/item/spellbook/examine(mob/user)
-	..()
+	. = ..()
 	if(owner)
-		to_chat(user, "There is a small signature on the front cover: \"[owner]\".")
+		. += {"There is a small signature on the front cover: "[owner]"."}
 	else
-		to_chat(user, "It appears to have no author.")
+		. += "It appears to have no author."
 
 /obj/item/spellbook/Initialize()
 	. = ..()
@@ -644,7 +641,7 @@
 
 /obj/item/spellbook/proc/wrap(content)
 	var/dat = ""
-	dat +="<html><head><title>Spellbook</title></head>"
+	dat +="<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>Spellbook</title></head>"
 	dat += {"
 	<head>
 		<style type="text/css">
@@ -732,7 +729,7 @@
 					uses -= E.cost
 		else if(href_list["refund"])
 			E = entries[text2num(href_list["refund"])]
-			if(E && E.refundable)
+			if(E?.refundable)
 				var/result = E.Refund(H,src)
 				if(result > 0)
 					if(!isnull(E.limit))

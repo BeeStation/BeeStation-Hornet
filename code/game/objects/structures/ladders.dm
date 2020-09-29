@@ -7,6 +7,7 @@
 	anchored = TRUE
 	var/obj/structure/ladder/down   //the ladder below this one
 	var/obj/structure/ladder/up     //the ladder above this one
+	max_integrity = 100
 
 /obj/structure/ladder/Initialize(mapload, obj/structure/ladder/up, obj/structure/ladder/down)
 	..()
@@ -91,8 +92,13 @@
 	if (!is_ghost && !in_range(src, user))
 		return
 
+	var/list/tool_list = list(
+		"Up" = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = NORTH),
+		"Down" = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = SOUTH)
+		)
+
 	if (up && down)
-		var/result = alert("Go up or down [src]?", "Ladder", "Up", "Down", "Cancel")
+		var/result = show_radial_menu(user, src, tool_list, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
 		if (!is_ghost && !in_range(src, user))
 			return  // nice try
 		switch(result)
@@ -112,6 +118,11 @@
 	if(!is_ghost)
 		add_fingerprint(user)
 
+/obj/structure/ladder/proc/check_menu(mob/user)
+	if(user.incapacitated() || !user.Adjacent(src))
+		return FALSE
+	return TRUE
+
 /obj/structure/ladder/attack_hand(mob/user)
 	. = ..()
 	if(.)
@@ -121,8 +132,45 @@
 /obj/structure/ladder/attack_paw(mob/user)
 	return use(user)
 
-/obj/structure/ladder/attackby(obj/item/W, mob/user, params)
-	return use(user)
+/obj/structure/ladder/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
+	switch(the_rcd.mode)
+		if(RCD_DECONSTRUCT)
+			return list("mode" = RCD_DECONSTRUCT, "delay" = 30, "cost" = 15)
+	return FALSE
+
+/obj/structure/ladder/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
+	switch(passed_mode)
+		if(RCD_DECONSTRUCT)
+			to_chat(user, "<span class='notice'>You deconstruct the ladder.</span>")
+			qdel(src)
+			return TRUE
+
+/obj/structure/ladder/unbreakable/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
+	switch(passed_mode)
+		if(RCD_DECONSTRUCT)
+			to_chat(user, "<span class='warning'>[src] seems to resist all attempts to deconstruct it!</span>")
+			return FALSE
+
+/obj/structure/ladder/attackby(obj/item/I, mob/user, params)
+	user.changeNext_move(CLICK_CD_MELEE)
+	add_fingerprint(user)
+	if(!(resistance_flags & INDESTRUCTIBLE))
+		if(I.tool_behaviour == TOOL_WELDER)
+			if(!I.tool_start_check(user, amount=0))
+				return FALSE
+		
+			to_chat(user, "<span class='notice'>You begin cutting [src]...</span>")
+			if(I.use_tool(src, user, 50, volume=100))
+				user.visible_message("<span class='notice'>[user] cuts [src].</span>", \
+									 "<span class='notice'>You cut [src].</span>")
+				I.play_tool_sound(src, 100)
+				var/obj/R = new /obj/item/stack/rods(drop_location(), 10)
+				transfer_fingerprints_to(R)
+				qdel(src)
+				return TRUE
+	else
+		to_chat(user, "<span class='warning'>[src] seems to resist all attempts to deconstruct it!</span>")
+		return FALSE
 
 /obj/structure/ladder/attack_robot(mob/living/silicon/robot/R)
 	if(R.Adjacent(src))
@@ -181,51 +229,3 @@
 				break  // break if both our connections are filled
 
 	update_icon()
-
-/obj/structure/ladder/unbreakable/binary
-	name = "mysterious ladder"
-	desc = "Where does it go?"
-	height = 0
-	id = "lavaland_binary"
-	var/area_to_place = /area/lavaland/surface/outdoors
-	var/active = FALSE
-
-/obj/structure/ladder/unbreakable/binary/proc/ActivateAlmonds()
-	if(area_to_place && !active)
-		var/turf/T = getTargetTurf()
-		if(T)
-			var/obj/structure/ladder/unbreakable/U = new (T)
-			U.id = id
-			U.height = height+1
-			LateInitialize() // LateInit both of these to build the links. It's fine.
-			U.LateInitialize()
-			for(var/turf/TT in range(2,U))
-				TT.TerraformTurf(/turf/open/indestructible/binary, /turf/open/indestructible/binary, CHANGETURF_INHERIT_AIR)
-		active = TRUE
-
-/obj/structure/ladder/unbreakable/binary/proc/getTargetTurf()
-	var/list/turfList = get_area_turfs(area_to_place)
-	while (turfList.len && !.)
-		var/i = rand(1, turfList.len)
-		var/turf/potentialTurf = turfList[i]
-		if (is_centcom_level(potentialTurf.z)) // These ladders don't lead to centcom.
-			turfList.Cut(i,i+1)
-			continue
-		if(!istype(potentialTurf, /turf/open/lava) && !potentialTurf.density)			// Or inside dense turfs or lava
-			var/clear = TRUE
-			for(var/obj/O in potentialTurf) // Let's not place these on dense objects either. Might be funny though.
-				if(O.density)
-					clear = FALSE
-					break
-			if(clear)
-				. = potentialTurf
-		if (!.)
-			turfList.Cut(i,i+1)
-
-/obj/structure/ladder/unbreakable/binary/space
-	id = "space_binary"
-	area_to_place = /area/space
-
-/obj/structure/ladder/unbreakable/binary/unlinked //Crew gets to complete one
-	id = "unlinked_binary"
-	area_to_place = null

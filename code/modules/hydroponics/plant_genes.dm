@@ -1,14 +1,26 @@
 /datum/plant_gene
 	var/name
+	var/mutability_flags = PLANT_GENE_EXTRACTABLE | PLANT_GENE_REMOVABLE ///These flags tells the genemodder if we want the gene to be extractable, only removable or neither.
 
 /datum/plant_gene/proc/get_name() // Used for manipulator display and gene disk name.
-	return name
+	var/formatted_name
+	if(!(mutability_flags & PLANT_GENE_REMOVABLE && mutability_flags & PLANT_GENE_EXTRACTABLE))
+		if(mutability_flags & PLANT_GENE_REMOVABLE)
+			formatted_name += "Fragile "
+		else if(mutability_flags & PLANT_GENE_EXTRACTABLE)
+			formatted_name += "Essential "
+		else
+			formatted_name += "Immutable "
+	formatted_name += name
+	return formatted_name
 
 /datum/plant_gene/proc/can_add(obj/item/seeds/S)
 	return !istype(S, /obj/item/seeds/sample) // Samples can't accept new genes
 
 /datum/plant_gene/proc/Copy()
-	return new type
+	var/datum/plant_gene/G = new type
+	G.mutability_flags = mutability_flags
+	return G
 
 /datum/plant_gene/proc/apply_vars(obj/item/seeds/S) // currently used for fire resist, can prob. be further refactored
 	return
@@ -97,18 +109,27 @@
 // Reagent genes store reagent ID and reagent ratio. Amount of reagent in the plant = 1 + (potency * rate)
 /datum/plant_gene/reagent
 	name = "Nutriment"
-	var/reagent_id = "nutriment"
+	var/reagent_id = /datum/reagent/consumable/nutriment
 	var/rate = 0.04
 
 /datum/plant_gene/reagent/get_name()
-	return "[name] production [rate*100]%"
+	var/formatted_name
+	if(!(mutability_flags & PLANT_GENE_REMOVABLE && mutability_flags & PLANT_GENE_EXTRACTABLE))
+		if(mutability_flags & PLANT_GENE_REMOVABLE)
+			formatted_name += "Fragile "
+		else if(mutability_flags & PLANT_GENE_EXTRACTABLE)
+			formatted_name += "Essential "
+		else
+			formatted_name += "Immutable "
+	formatted_name += "[name] production [rate*100]%"
+	return formatted_name
 
 /datum/plant_gene/reagent/proc/set_reagent(reag_id)
 	reagent_id = reag_id
 	name = "UNKNOWN"
 
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reag_id]
-	if(R && R.id == reagent_id)
+	if(R && R.type == reagent_id)
 		name = R.name
 
 /datum/plant_gene/reagent/New(reag_id = null, reag_rate = 0)
@@ -132,8 +153,17 @@
 			return FALSE
 	return TRUE
 
+/datum/plant_gene/reagent/polypyr
+	name = "Polypyrylium Oligomers"
+	reagent_id = /datum/reagent/medicine/polypyr
+	rate = 0.15
 
-// Various traits affecting the product. Each must be somehow useful.
+/datum/plant_gene/reagent/liquidelectricity
+	name = "Liquid Electricity"
+	reagent_id = /datum/reagent/consumable/liquidelectricity
+	rate = 0.1
+
+// Various traits affecting the product.
 /datum/plant_gene/trait
 	var/rate = 0.05
 	var/examine_line = ""
@@ -167,10 +197,17 @@
 /datum/plant_gene/trait/proc/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	return
 
+/datum/plant_gene/trait/proc/on_squashreact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+	return
+
 /datum/plant_gene/trait/proc/on_attackby(obj/item/reagent_containers/food/snacks/grown/G, obj/item/I, mob/user)
 	return
 
 /datum/plant_gene/trait/proc/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+	return
+
+///This proc triggers when the tray processes and a roll is sucessful, the success chance scales with production.
+/datum/plant_gene/trait/proc/on_grow(obj/machinery/hydroponics/H)
 	return
 
 /datum/plant_gene/trait/squash
@@ -179,7 +216,7 @@
 	// For code, see grown.dm
 	name = "Liquid Contents"
 	examine_line = "<span class='info'>It has a lot of liquid contents inside.</span>"
-	
+
 /datum/plant_gene/trait/squash/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	// Squash the plant on slip.
 	G.squash(C)
@@ -198,7 +235,7 @@
 	var/obj/item/seeds/seed = G.seed
 	var/stun_len = seed.potency * rate
 
-	if(!istype(G, /obj/item/grown/bananapeel) && (!G.reagents || !G.reagents.has_reagent("lube")))
+	if(!istype(G, /obj/item/grown/bananapeel) && (!G.reagents || !G.reagents.has_reagent(/datum/reagent/lube)))
 		stun_len /= 3
 
 	G.AddComponent(/datum/component/slippery, min(stun_len,140), NONE, CALLBACK(src, .proc/handle_slip, G))
@@ -316,10 +353,9 @@
 	..()
 	ENABLE_BITFIELD(G.reagents.flags, NO_REACT)
 
-/datum/plant_gene/trait/noreact/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/noreact/on_squashreact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	DISABLE_BITFIELD(G.reagents.flags, NO_REACT)
 	G.reagents.handle_reactions()
-
 
 /datum/plant_gene/trait/maxchem
 	// 2x to max reagents volume.
@@ -360,7 +396,7 @@
 			pocell.name = "[G.name] battery"
 			pocell.desc = "A rechargeable plant-based power cell. This one has a rating of [DisplayEnergy(pocell.maxcharge)], and you should not swallow it."
 
-			if(G.reagents.has_reagent("plasma", 2))
+			if(G.reagents.has_reagent(/datum/reagent/toxin/plasma, 2))
 				pocell.rigged = TRUE
 
 			qdel(G)
@@ -373,7 +409,7 @@
 
 /datum/plant_gene/trait/stinging/on_slip(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	on_throw_impact(G, target)
-	
+
 /datum/plant_gene/trait/stinging/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(isliving(target) && G.reagents && G.reagents.total_volume)
 		var/mob/living/L = target
@@ -385,7 +421,7 @@
 			to_chat(target, "<span class='danger'>You are pricked by [G]!</span>")
 
 /datum/plant_gene/trait/smoke
-	name = "gaseous decomposition"
+	name = "Gaseous Decomposition"
 
 /datum/plant_gene/trait/smoke/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	var/datum/effect_system/smoke_spread/chem/S = new
@@ -407,6 +443,30 @@
 	if(!(G.resistance_flags & FIRE_PROOF))
 		G.resistance_flags |= FIRE_PROOF
 
+///Invasive spreading lets the plant jump to other trays, the spreadinhg plant won't replace plants of the same type.
+/datum/plant_gene/trait/invasive
+	name = "Invasive Spreading"
+
+/datum/plant_gene/trait/invasive/on_grow(obj/machinery/hydroponics/H)
+	for(var/step_dir in GLOB.alldirs)
+		var/obj/machinery/hydroponics/HY = locate() in get_step(H, step_dir)
+		if(HY && prob(15))
+			if(HY.myseed) // check if there is something in the tray.
+				if(HY.myseed.type == H.myseed.type && HY.dead != 0)
+					continue //It should not destroy its owm kind.
+				qdel(HY.myseed)
+				HY.myseed = null
+			HY.myseed = H.myseed.Copy()
+			HY.age = 0
+			HY.dead = 0
+			HY.plant_health = HY.myseed.endurance
+			HY.lastcycle = world.time
+			HY.harvest = 0
+			HY.weedlevel = 0 // Reset
+			HY.pestlevel = 0 // Reset
+			HY.update_icon()
+			HY.visible_message("<span class='warning'>The [H.myseed.plantname] spreads!</span>")
+
 /datum/plant_gene/trait/plant_type // Parent type
 	name = "you shouldn't see this"
 	trait_id = "plant_type"
@@ -419,3 +479,6 @@
 
 /datum/plant_gene/trait/plant_type/alien_properties
 	name ="?????"
+
+/datum/plant_gene/trait/plant_type/carnivory
+	name = "Obligate Carnivory"

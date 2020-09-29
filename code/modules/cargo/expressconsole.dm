@@ -1,5 +1,5 @@
 #define MAX_EMAG_ROCKETS 8
-#define BEACON_COST 5000
+#define BEACON_COST 500
 #define SP_LINKED 1
 #define SP_READY 2
 #define SP_LAUNCH 3
@@ -13,8 +13,11 @@
 		All sales are near instantaneous - please choose carefully"
 	icon_screen = "supply_express"
 	circuit = /obj/item/circuitboard/computer/cargo/express
+	ui_x = 600
+	ui_y = 700
 	blockade_warning = "Bluespace instability detected. Delivery impossible."
 	req_access = list(ACCESS_QM)
+
 	var/message
 	var/printed_beacons = 0 //number of beacons printed. Used to determine beacon names.
 	var/list/meme_pack_data
@@ -56,8 +59,9 @@
 /obj/machinery/computer/cargo/express/emag_act(mob/living/user)
 	if(obj_flags & EMAGGED)
 		return
-	user.visible_message("<span class='warning'>[user] swipes a suspicious card through [src]!</span>",
-	"<span class='notice'>You change the routing protocols, allowing the Supply Pod to land anywhere on the station.</span>")
+	if(user)
+		user.visible_message("<span class='warning'>[user] swipes a suspicious card through [src]!</span>",
+		"<span class='notice'>You change the routing protocols, allowing the Supply Pod to land anywhere on the station.</span>")
 	obj_flags |= EMAGGED
 	// This also sets this on the circuit board
 	var/obj/item/circuitboard/computer/cargo/board = circuit
@@ -87,7 +91,7 @@
 /obj/machinery/computer/cargo/express/ui_interact(mob/living/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state) // Remember to use the appropriate state.
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "cargo_express", name, 1000, 800, master_ui, state)
+		ui = new(user, src, ui_key, "CargoExpress", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/cargo/express/ui_data(mob/user)
@@ -126,6 +130,9 @@
 	return data
 
 /obj/machinery/computer/cargo/express/ui_act(action, params, datum/tgui/ui)
+	. = ..()
+	if(!isliving(usr))
+		return
 	switch(action)
 		if("LZCargo")
 			usingBeacon = FALSE
@@ -184,7 +191,7 @@
 								continue
 							LAZYADD(empty_turfs, T)
 							CHECK_TICK
-						if(empty_turfs && empty_turfs.len)
+						if(empty_turfs?.len)
 							LZ = pick(empty_turfs)
 					if (SO.pack.cost <= points_to_check && LZ)//we need to call the cost check again because of the CHECK_TICK call
 						D.adjust_money(-SO.pack.cost)

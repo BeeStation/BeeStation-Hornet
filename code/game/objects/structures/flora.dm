@@ -309,6 +309,8 @@
 	layer = ABOVE_MOB_LAYER
 	w_class = WEIGHT_CLASS_HUGE
 	force = 10
+	attack_weight = 2
+	force_wielded = 10
 	throwforce = 13
 	throw_speed = 2
 	throw_range = 4
@@ -340,7 +342,7 @@
 
 /obj/item/twohanded/required/kirbyplants/random/proc/generate_states()
 	states = list()
-	for(var/i in 1 to 25)
+	for(var/i in 1 to 34)
 		var/number
 		if(i < 10)
 			number = "0[i]"

@@ -7,7 +7,7 @@
 	..()
 	new /obj/item/clothing/neck/cloak/qm(src)
 	new /obj/item/storage/lockbox/medal/cargo(src)
-	new /obj/item/clothing/under/rank/cargo(src)
+	new /obj/item/clothing/under/rank/cargo/qm(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 	new /obj/item/radio/headset/headset_cargo(src)
 	new /obj/item/clothing/suit/fire/firefighter(src)
@@ -21,3 +21,4 @@
 	new /obj/item/circuitboard/machine/techfab/department/cargo(src)
 	new /obj/item/storage/photo_album/QM(src)
 	new /obj/item/circuitboard/machine/ore_silo(src)
+	new /obj/item/card/id/departmental_budget/car(src)

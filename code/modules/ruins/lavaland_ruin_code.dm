@@ -34,7 +34,7 @@
 	desc = "Allows for the construction of a Golem Shell."
 	id = "golem"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 40000)
+	materials = list(/datum/material/iron = 40000)
 	build_path = /obj/item/golem_shell
 	category = list("Imported")
 
@@ -50,7 +50,8 @@
 /obj/item/golem_shell/attackby(obj/item/I, mob/user, params)
 	..()
 	var/static/list/golem_shell_species_types = list(
-		/obj/item/stack/sheet/metal	                = /datum/species/golem,
+		/obj/item/stack/sheet/iron	                = /datum/species/golem,
+		/obj/item/stack/sheet/mineral/copper        = /datum/species/golem/copper,
 		/obj/item/stack/sheet/glass 	            = /datum/species/golem/glass,
 		/obj/item/stack/sheet/plasteel 	            = /datum/species/golem/plasteel,
 		/obj/item/stack/sheet/mineral/sandstone	    = /datum/species/golem/sand,
@@ -67,7 +68,7 @@
 		/obj/item/stack/sheet/bluespace_crystal	    = /datum/species/golem/bluespace,
 		/obj/item/stack/sheet/runed_metal	        = /datum/species/golem/runic,
 		/obj/item/stack/medical/gauze	            = /datum/species/golem/cloth,
-		/obj/item/stack/sheet/cloth	                = /datum/species/golem/cloth,
+		/obj/item/stack/sheet/cotton/cloth			= /datum/species/golem/cloth,
 		/obj/item/stack/sheet/mineral/adamantine	= /datum/species/golem/adamantine,
 		/obj/item/stack/sheet/plastic	            = /datum/species/golem/plastic,
 		/obj/item/stack/tile/brass					= /datum/species/golem/clockwork,
@@ -75,8 +76,9 @@
 		/obj/item/stack/sheet/cardboard				= /datum/species/golem/cardboard,
 		/obj/item/stack/sheet/leather				= /datum/species/golem/leather,
 		/obj/item/stack/sheet/bone					= /datum/species/golem/bone,
-		/obj/item/stack/sheet/cloth/durathread		= /datum/species/golem/durathread,
+		/obj/item/stack/sheet/durathread			= /datum/species/golem/durathread,
 		/obj/item/stack/sheet/cotton/durathread		= /datum/species/golem/durathread,
+		/obj/item/stack/sheet/mineral/snow			= /datum/species/golem/snow,
 		/obj/item/stack/sheet/capitalisium			= /datum/species/golem/capitalist,
 		/obj/item/stack/sheet/stalinium				= /datum/species/golem/soviet)
 
@@ -104,9 +106,12 @@
 	name = "Syndicate Bioweapon Scientist"
 	roundstart = FALSE
 	death = FALSE
+	random = TRUE
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper_s"
-	flavour_text = "<span class='big bold'>You are a syndicate agent,</span><b> employed in a top secret research facility developing biological weapons. Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. <b>Continue your research as best you can, and try to keep a low profile. The base is rigged with explosives, <font size=6>DO NOT</font> abandon it or let it fall into enemy hands!</b>"
+	short_desc = "You are a syndicate science technician, employed in a top secret research facility developing biological weapons."
+	flavour_text = "Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. Continue your research as best you can, and try to keep a low profile."
+	important_info = "The base is rigged with explosives, DO NOT abandon it or let it fall into enemy hands!"
 	outfit = /datum/outfit/lavaland_syndicate
 	assignedrole = "Lavaland Syndicate"
 
@@ -131,11 +136,15 @@
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms
 	name = "Syndicate Comms Agent"
-	flavour_text = "<span class='big bold'>You are a syndicate agent,</span><b> employed in a top secret research facility developing biological weapons. Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. <b>Monitor enemy activity as best you can, and try to keep a low profile. <font size=6>DO NOT</font> abandon the base.</b> Use the communication equipment to provide support to any field agents, and sow disinformation to throw Nanotrasen off your trail. Do not let the base fall into enemy hands!</b>"
+	short_desc = "You are a syndicate comms agent, employed in a top secret research facility developing biological weapons."
+	flavour_text = "Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. Monitor enemy activity as best you can, and try to keep a low profile. Use the communication equipment to provide support to any field agents, and sow disinformation to throw Nanotrasen off your trail. Do not let the base fall into enemy hands!"
+	important_info = "DO NOT abandon the base."
 	outfit = /datum/outfit/lavaland_syndicate/comms
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms/space
-	flavour_text = "<span class='big bold'>You are a syndicate agent,</span><b> assigned to a small listening post station situated near your hated enemy's top secret research facility: Space Station 13. <b>Monitor enemy activity as best you can, and try to keep a low profile. <font size=6>DO NOT</font> abandon the base.</b> Use the communication equipment to provide support to any field agents, and sow disinformation to throw Nanotrasen off your trail. Do not let the base fall into enemy hands!</b>" 
+	short_desc = "You are a syndicate agent, assigned to a small listening post station situated near your hated enemy's top secret research facility: Space Station 13."
+	flavour_text = "Monitor enemy activity as best you can, and try to keep a low profile. Monitor enemy activity as best you can, and try to keep a low profile. Use the communication equipment to provide support to any field agents, and sow disinformation to throw Nanotrasen off your trail. Do not let the base fall into enemy hands!"
+	important_info = "DO NOT abandon the base."
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms/space/Initialize()
 	. = ..()
@@ -151,7 +160,4 @@
 
 /obj/item/clothing/mask/chameleon/gps/Initialize()
 	. = ..()
-	new /obj/item/gps/internal/lavaland_syndicate_base(src)
-
-/obj/item/gps/internal/lavaland_syndicate_base
-	gpstag = "Encrypted Signal"
+	AddComponent(/datum/component/gps, "Encrypted Signal")

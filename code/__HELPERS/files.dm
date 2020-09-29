@@ -4,6 +4,11 @@
 		src << browse_rsc(file)
 
 /client/proc/browse_files(root="data/logs/", max_iterations=10, list/valid_extensions=list("txt","log","htm", "html"))
+	if(IsAdminAdvancedProcCall())
+		log_admin_private("BROWSEFILES: Admin proc call blocked")
+		message_admins("BROWSEFILES: Admin proc call blocked")
+		return null
+
 	var/path = root
 
 	for(var/i=0, i<max_iterations, i++)
@@ -11,7 +16,7 @@
 		if(path != root)
 			choices.Insert(1,"/")
 
-		var/choice = input(src,"Choose a file to access:","Download",null) as null|anything in choices
+		var/choice = input(src,"Choose a file to access:","Download",null) as null|anything in sortList(choices)
 		switch(choice)
 			if(null)
 				return
@@ -20,7 +25,7 @@
 				continue
 		path += choice
 
-		if(copytext(path,-1,0) != "/")		//didn't choose a directory, no need to iterate again
+		if(copytext_char(path, -1) != "/")		//didn't choose a directory, no need to iterate again
 			break
 	var/extensions
 	for(var/i in valid_extensions)

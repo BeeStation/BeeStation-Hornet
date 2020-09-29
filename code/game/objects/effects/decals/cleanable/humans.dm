@@ -19,11 +19,24 @@
 	desc = "Looks like it's been here a while.  Eew."
 	bloodiness = 0
 	icon_state = "floor1-old"
+	var/list/disease = list()
 
 /obj/effect/decal/cleanable/blood/old/Initialize(mapload, list/datum/disease/diseases)
 	add_blood_DNA(list("Non-human DNA" = random_blood_type())) // Needs to happen before ..()
 	. = ..()
 	icon_state = "[icon_state]-old" //change from the normal blood icon selected from random_icon_states in the parent's Initialize to the old dried up blood.
+	if(prob(40))
+		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 4), rand(4, 9))
+		disease += R
+
+/obj/effect/decal/cleanable/blood/old/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+	if(!disease.len)
+		return FALSE
+	if(scan)
+		E.scan(src, disease, user)
+	else
+		E.extrapolate(src, disease, user)
+	return TRUE
 
 /obj/effect/decal/cleanable/blood/splatter
 	icon_state = "gibbl1"
@@ -38,7 +51,6 @@
 /obj/effect/decal/cleanable/trail_holder //not a child of blood on purpose
 	name = "blood"
 	icon = 'icons/effects/blood.dmi'
-	icon_state = "ltrails_1"
 	desc = "Your instincts say you shouldn't be following these."
 	var/list/existing_dirs = list()
 
@@ -58,7 +70,7 @@
 
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
-	reagents.add_reagent("liquidgibs", 5)
+	reagents.add_reagent(/datum/reagent/liquidgibs, 5)
 	if(already_rotting)
 		start_rotting(rename=FALSE)
 	else
@@ -75,19 +87,17 @@
 
 /obj/effect/decal/cleanable/blood/gibs/Crossed(mob/living/L)
 	if(istype(L) && has_gravity(loc))
-		playsound(loc, 'sound/effects/gib_step.ogg', L.has_trait(TRAIT_LIGHT_STEP) ? 20 : 50, 1)
+		playsound(loc, 'sound/effects/gib_step.ogg', HAS_TRAIT(L, TRAIT_LIGHT_STEP) ? 20 : 50, 1)
 	. = ..()
 
 /obj/effect/decal/cleanable/blood/gibs/proc/streak(list/directions)
-	set waitfor = 0
+	set waitfor = FALSE
+	var/list/diseases = list()
+	SEND_SIGNAL(src, COMSIG_GIBS_STREAK, directions, diseases)
 	var/direction = pick(directions)
-	for(var/i = 0, i < pick(1, 200; 2, 150; 3, 50), i++)
+	for(var/i in 0 to pick(0, 200; 1, 150; 2, 50))
 		sleep(2)
 		if(i > 0)
-			var/list/datum/disease/diseases
-			GET_COMPONENT(infective, /datum/component/infective)
-			if(infective)
-				diseases = infective.diseases
 			new /obj/effect/decal/cleanable/blood/splatter(loc, diseases)
 		if(!step_to(src, get_step(src, direction), 0))
 			break
@@ -121,12 +131,25 @@
 	desc = "Space Jesus, why didn't anyone clean this up? They smell terrible."
 	bloodiness = 0
 	already_rotting = TRUE
+	var/list/disease = list()
 
 /obj/effect/decal/cleanable/blood/gibs/old/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
 	setDir(pick(1,2,4,8))
 	icon_state += "-old"
 	add_blood_DNA(list("Non-human DNA" = random_blood_type()))
+	if(prob(50))
+		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 6), rand(5, 9))
+		disease += R
+
+/obj/effect/decal/cleanable/blood/gibs/old/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+	if(!disease.len)
+		return FALSE
+	if(scan)
+		E.scan(src, disease, user)
+	else
+		E.extrapolate(src, disease, user)
+	return TRUE
 
 /obj/effect/decal/cleanable/blood/drip
 	name = "drips of blood"
@@ -203,8 +226,6 @@
 		for(var/shoe in shoe_types)
 			var/obj/item/clothing/shoes/S = shoe
 			. += "[icon2html(initial(S.icon), user)] Some <B>[initial(S.name)]</B>.\n"
-
-	to_chat(user, .)
 
 /obj/effect/decal/cleanable/blood/footprints/replace_decal(obj/effect/decal/cleanable/C)
 	if(blood_state != C.blood_state) //We only replace footprints of the same type as us

@@ -6,24 +6,21 @@
 /datum/action/changeling/pheromone_receptors
 	name = "Pheromone Receptors"
 	desc = "We attune our senses to track other changelings by scent.  The closer they are, the easier we can find them."
-	helptext = "We will know the general direction of nearby changelings, with closer scents being stronger.  Our chemical generation is slowed while this is active."
-	chemical_cost = 0 //Reduces regain rate while active.
+	helptext = "We will know the general direction of nearby changelings, with closer scents being stronger. This ability is passive, and costs no chemicals."
+	chemical_cost = 0
 	dna_cost = 2
 	var/receptors_active = FALSE
 
-/datum/action/changeling/pheromone_receptors/sting_action(mob/living/carbon/user)
-	..()
-	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
-	if(!receptors_active)
-		to_chat(user, "<span class='warning'>We search for the scent of any nearby changelings.</span>")
-		changeling.chem_recharge_slowdown += 0.5
-		user.apply_status_effect(/datum/status_effect/agent_pinpointer/changeling)
-	else
-		to_chat(user, "<span class='notice'>We stop searching for now.</span>")
-		changeling.chem_recharge_slowdown -= 0.5
-		user.remove_status_effect(/datum/status_effect/agent_pinpointer/changeling)
+/datum/action/changeling/pheromone_receptors/on_purchase(mob/user)
+	.=..()
+	var/mob/living/carbon/C = user
+	to_chat(user, "<span class='warning'>We search for the scent of any nearby changelings.</span>")
+	C.apply_status_effect(/datum/status_effect/agent_pinpointer/changeling)
 
-	receptors_active = !receptors_active
+/datum/action/changeling/pheromone_receptors/Remove(mob/user)
+	.=..()
+	var/mob/living/carbon/C = user
+	C.remove_status_effect(/datum/status_effect/agent_pinpointer/changeling)
 
 //Modified IA pinpointer - Points to the NEAREST changeling, but will only get you within a few tiles of the target.
 //You'll still have to rely on intuition and observation to make the identification.  Lings can 'hide' in public places.

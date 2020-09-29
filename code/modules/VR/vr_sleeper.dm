@@ -95,7 +95,7 @@
 	switch(action)
 		if("vr_connect")
 			var/mob/living/carbon/human/human_occupant = occupant
-			if(human_occupant && human_occupant.mind && usr == occupant)
+			if(human_occupant?.mind && usr == occupant)
 				to_chat(occupant, "<span class='warning'>Transferring to virtual reality...</span>")
 				if(vr_human && vr_human.stat == CONSCIOUS && !vr_human.real_mind)
 					SStgui.close_user_uis(occupant, src)

@@ -1,0 +1,141 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/table,
+/obj/item/reagent_containers/medspray/spraytan{
+	pixel_x = 8;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/medspray/barber{
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/medspray/sterilizine{
+	pixel_x = -8;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/medspray/dye{
+	pixel_x = -3
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/template_noop)
+"b" = (
+/obj/structure/table,
+/obj/structure/mirror{
+	pixel_y = 28
+	},
+/obj/item/razor{
+	pixel_x = -5
+	},
+/obj/item/handmirror{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plasteel/cafeteria,
+/area/template_noop)
+"c" = (
+/turf/open/floor/plasteel/cafeteria,
+/area/template_noop)
+"d" = (
+/obj/structure/chair/sofa/right,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"e" = (
+/obj/structure/chair/sofa/left,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"f" = (
+/obj/effect/landmark/start/randommaint/backalley_doc,
+/turf/open/floor/plasteel/cafeteria,
+/area/template_noop)
+"g" = (
+/obj/item/chair/stool/bar{
+	name = "barber's stool"
+	},
+/turf/open/floor/plasteel/ameridiner,
+/area/template_noop)
+"h" = (
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"i" = (
+/turf/closed/wall,
+/area/template_noop)
+"j" = (
+/obj/structure/dresser,
+/obj/item/flashlight/lamp{
+	pixel_x = 2;
+	pixel_y = 14
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/template_noop)
+"k" = (
+/obj/machinery/vending/wallmed{
+	pixel_y = -28
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/mineral_door/wood,
+/turf/open/floor/plating,
+/area/template_noop)
+"l" = (
+/obj/item/hemostat,
+/obj/item/retractor,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/clothing/suit/apron/surgical,
+/obj/item/roller,
+/obj/item/tank/internals/anesthetic,
+/obj/structure/closet/cardboard,
+/obj/item/cautery,
+/obj/effect/spawner/lootdrop/teratoma/major,
+/obj/item/surgical_drapes,
+/obj/item/storage/firstaid,
+/obj/item/storage/box/syringes,
+/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/stack/sheet/mineral/silver{
+	amount = 2
+	},
+/obj/item/stack/sheet/iron/ten,
+/obj/item/twohanded/required/chainsaw,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/item/clothing/head/wig/random,
+/obj/item/radio,
+/obj/item/reagent_containers/medspray/spraytan,
+/turf/open/floor/plating,
+/area/template_noop)
+"M" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+f
+c
+j
+"}
+(2,1,1) = {"
+b
+g
+c
+c
+"}
+(3,1,1) = {"
+c
+c
+c
+c
+"}
+(4,1,1) = {"
+d
+h
+i
+k
+"}
+(5,1,1) = {"
+e
+M
+i
+l
+"}

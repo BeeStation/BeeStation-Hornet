@@ -8,7 +8,7 @@
 	name = "navigation beacon"
 	desc = "A radio beacon used for bot navigation."
 	level = 1		// underfloor
-	layer = LOW_OBJ_LAYER
+	layer = UNDER_CATWALK
 	max_integrity = 500
 	armor = list("melee" = 70, "bullet" = 70, "laser" = 70, "energy" = 70, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
 
@@ -62,7 +62,7 @@
 		var/index = findtext(e, "=")		// format is "key=value"
 		if(index)
 			var/key = copytext(e, 1, index)
-			var/val = copytext(e, index+1)
+			var/val = copytext(e, index + length(e[index]))
 			codes[key] = val
 		else
 			codes[e] = "1"
@@ -72,10 +72,10 @@
 // hide the object if turf is intact
 /obj/machinery/navbeacon/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
-	updateicon()
+	update_icon()
 
 // update the icon_state
-/obj/machinery/navbeacon/proc/updateicon()
+/obj/machinery/navbeacon/update_icon()
 	var/state="navbeacon[open]"
 
 	if(invisibility)
@@ -94,7 +94,7 @@
 
 		user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", "<span class='notice'>You [open ? "open" : "close"] the beacon's cover.</span>")
 
-		updateicon()
+		update_icon()
 
 	else if (istype(I, /obj/item/card/id)||istype(I, /obj/item/pda))
 		if(open)
@@ -167,7 +167,7 @@ Transponder Codes:<UL>"}
 		usr.set_machine(src)
 
 		if(href_list["locedit"])
-			var/newloc = copytext(sanitize(input("Enter New Location", "Navigation Beacon", location) as text|null),1,MAX_MESSAGE_LEN)
+			var/newloc = stripped_input(usr, "Enter New Location", "Navigation Beacon", location)
 			if(newloc)
 				location = newloc
 				updateDialog()

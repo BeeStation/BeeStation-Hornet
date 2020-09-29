@@ -12,10 +12,8 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "whacks"
-	harm_intent_damage = 5
 	obj_damage = 0
-	melee_damage_lower = 1
-	melee_damage_upper = 1
+	melee_damage = 1
 	attack_same = 2
 	attacktext = "chomps"
 	attack_sound = 'sound/weapons/bite.ogg'
@@ -38,11 +36,11 @@
 	var/static/mutable_appearance/cap_dead
 
 /mob/living/simple_animal/hostile/mushroom/examine(mob/user)
-	..()
+	. = ..()
 	if(health >= maxHealth)
-		to_chat(user, "<span class='info'>It looks healthy.</span>")
+		. += "<span class='info'>It looks healthy.</span>"
 	else
-		to_chat(user, "<span class='info'>It looks like it's been roughed up.</span>")
+		. += "<span class='info'>It looks like it's been roughed up.</span>"
 
 /mob/living/simple_animal/hostile/mushroom/Life()
 	..()
@@ -50,8 +48,7 @@
 		adjustBruteLoss(-2)
 
 /mob/living/simple_animal/hostile/mushroom/Initialize()//Makes every shroom a little unique
-	melee_damage_lower += rand(3, 5)
-	melee_damage_upper += rand(10,20)
+	melee_damage += rand(1,15)
 	maxHealth += rand(40,60)
 	move_to_delay = rand(3,11)
 	cap_living = cap_living || mutable_appearance(icon, "mushroom_cap")
@@ -141,10 +138,7 @@
 /mob/living/simple_animal/hostile/mushroom/proc/LevelUp(level_gain)
 	if(powerlevel <= 9)
 		powerlevel += level_gain
-		if(prob(25))
-			melee_damage_lower += (level_gain * rand(1,5))
-		else
-			melee_damage_upper += (level_gain * rand(1,5))
+		melee_damage += (level_gain * rand(1,5))
 		maxHealth += (level_gain * rand(1,5))
 	adjustBruteLoss(-maxHealth) //They'll always heal, even if they don't gain a level, in case you want to keep this shroom around instead of harvesting it
 
@@ -186,6 +180,6 @@
 	var/counter
 	for(counter=0, counter<=powerlevel, counter++)
 		var/obj/item/reagent_containers/food/snacks/hugemushroomslice/S = new /obj/item/reagent_containers/food/snacks/hugemushroomslice(src.loc)
-		S.reagents.add_reagent("mushroomhallucinogen", powerlevel)
-		S.reagents.add_reagent("omnizine", powerlevel)
-		S.reagents.add_reagent("synaptizine", powerlevel)
+		S.reagents.add_reagent(/datum/reagent/drug/mushroomhallucinogen, powerlevel)
+		S.reagents.add_reagent(/datum/reagent/medicine/omnizine, powerlevel)
+		S.reagents.add_reagent(/datum/reagent/medicine/synaptizine, powerlevel)

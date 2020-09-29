@@ -36,15 +36,15 @@
 	var/strength = null
 
 /obj/structure/particle_accelerator/examine(mob/user)
-	..()
+	. = ..()
 
 	switch(construction_state)
 		if(PA_CONSTRUCTION_UNSECURED)
-			to_chat(user, "Looks like it's not attached to the flooring.")
+			. += "Looks like it's not attached to the flooring."
 		if(PA_CONSTRUCTION_UNWIRED)
-			to_chat(user, "It is missing some cables.")
+			. += "It is missing some cables."
 		if(PA_CONSTRUCTION_PANEL_OPEN)
-			to_chat(user, "The panel is open.")
+			. += "The panel is open."
 
 /obj/structure/particle_accelerator/Destroy()
 	construction_state = PA_CONSTRUCTION_UNSECURED
@@ -115,12 +115,12 @@
 
 /obj/structure/particle_accelerator/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
-		new /obj/item/stack/sheet/metal (loc, 5)
+		new /obj/item/stack/sheet/iron (loc, 5)
 	qdel(src)
 
 /obj/structure/particle_accelerator/Move()
 	. = ..()
-	if(master && master.active)
+	if(master?.active)
 		master.toggle_power()
 		investigate_log("was moved whilst active; it <font color='red'>powered down</font>.", INVESTIGATE_SINGULO)
 

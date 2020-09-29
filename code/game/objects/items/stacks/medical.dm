@@ -18,7 +18,7 @@
 
 /obj/item/stack/medical/attack(mob/living/M, mob/user)
 
-	if(M.stat == DEAD)
+	if(M.stat == DEAD && !stop_bleeding)
 		var/t_him = "it"
 		if(M.gender == MALE)
 			t_him = "him"
@@ -100,8 +100,6 @@
 
 	use(1)
 
-
-
 /obj/item/stack/medical/bruise_pack
 	name = "bruise pack"
 	singular_name = "bruise pack"
@@ -111,7 +109,10 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	heal_brute = 40
 	self_delay = 20
-	grind_results = list("styptic_powder" = 10)
+	grind_results = list(/datum/reagent/medicine/styptic_powder = 10)
+
+/obj/item/stack/medical/bruise_pack/one
+	amount = 1
 
 /obj/item/stack/medical/bruise_pack/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is bludgeoning [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -119,21 +120,21 @@
 
 /obj/item/stack/medical/gauze
 	name = "medical gauze"
-	desc = "A roll of elastic cloth that is extremely effective at stopping bleeding, but does not heal wounds."
+	desc = "A roll of elastic cloth that is extremely effective at stopping bleeding, heals minor bruising."
 	gender = PLURAL
 	singular_name = "medical gauze"
 	icon_state = "gauze"
 	stop_bleeding = 1800
+	heal_brute = 5 //Reminder that you can not stack healing thus you wait out the 1800 timer.
 	self_delay = 20
 	max_amount = 12
-
 
 /obj/item/stack/medical/gauze/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
 		if(get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need at least two gauzes to do this!</span>")
 			return
-		new /obj/item/stack/sheet/cloth(user.drop_location())
+		new /obj/item/stack/sheet/cotton/cloth(user.drop_location())
 		user.visible_message("[user] cuts [src] into pieces of cloth with [I].", \
 					 "<span class='notice'>You cut [src] into pieces of cloth with [I].</span>", \
 					 "<span class='italics'>You hear cutting.</span>")
@@ -150,6 +151,16 @@
 	singular_name = "improvised gauze"
 	desc = "A roll of cloth roughly cut from something that can stop bleeding, but does not heal wounds."
 	stop_bleeding = 900
+	heal_brute = 0
+
+/obj/item/stack/medical/gauze/adv
+	name = "sterilized medical gauze"
+	desc = "A roll of elastic sterilized cloth that is extremely effective at stopping bleeding, heals minor wounds and cleans them."
+	singular_name = "sterilized medical gauze"
+	self_delay = 5
+
+/obj/item/stack/medical/gauze/adv/one
+	amount = 1
 
 /obj/item/stack/medical/gauze/cyborg
 	materials = list()
@@ -166,7 +177,10 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	heal_burn = 40
 	self_delay = 20
-	grind_results = list("silver_sulfadiazine" = 10)
+	grind_results = list(/datum/reagent/medicine/silver_sulfadiazine = 10)
+
+/obj/item/stack/medical/ointment/one
+	amount = 1
 
 /obj/item/stack/medical/ointment/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is squeezing \the [src] into [user.p_their()] mouth! [user.p_do(TRUE)]n't [user.p_they()] know that stuff is toxic?</span>")

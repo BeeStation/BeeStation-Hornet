@@ -20,17 +20,22 @@ Bonus
 	name = "Hyphema"
 	desc = "The virus causes inflammation of the retina, leading to eye damage and eventually blindness."
 	stealth = -1
-	resistance = -4
+	resistance = -3
 	stage_speed = -4
-	transmittable = -3
+	transmittable = -2
 	level = 5
-	severity = 5
+	severity = 3
 	base_message_chance = 50
 	symptom_delay_min = 25
 	symptom_delay_max = 80
 	var/remove_eyes = FALSE
 	threshold_desc = "<b>Resistance 12:</b> Weakens extraocular muscles, eventually leading to complete detachment of the eyes.<br>\
 					  <b>Stealth 4:</b> The symptom remains hidden until active."
+
+/datum/symptom/visionloss/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.properties["resistance"] >= 12) //goodbye eyes
+		severity += 1
 
 /datum/symptom/visionloss/Start(datum/disease/advance/A)
 	if(!..())
@@ -45,7 +50,7 @@ Bonus
 		return
 	var/mob/living/carbon/M = A.affected_mob
 	var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
-	if(istype(eyes))
+	if(eyes)
 		switch(A.stage)
 			if(1, 2)
 				if(prob(base_message_chance) && !suppress_warning)
@@ -53,19 +58,19 @@ Bonus
 			if(3, 4)
 				to_chat(M, "<span class='warning'><b>Your eyes burn!</b></span>")
 				M.blur_eyes(10)
-				M.adjust_eye_damage(1)
+				eyes.applyOrganDamage(1)
 			else
 				M.blur_eyes(20)
-				M.adjust_eye_damage(5)
-				if(eyes.eye_damage >= 10)
+				eyes.applyOrganDamage(5)
+				if(eyes.damage >= 10)
 					M.become_nearsighted(EYE_DAMAGE)
-				if(prob(eyes.eye_damage - 10 + 1))
+				if(prob(eyes.damage - 10 + 1))
 					if(!remove_eyes)
-						if(!M.has_trait(TRAIT_BLIND))
+						if(!HAS_TRAIT(M, TRAIT_BLIND))
 							to_chat(M, "<span class='userdanger'>You go blind!</span>")
-						M.become_blind(EYE_DAMAGE)
+							eyes.applyOrganDamage(eyes.maxHealth)
 					else
-						M.visible_message("<span class='warning'>[M]'s eyes fall off their sockets!</span>", "<span class='userdanger'>Your eyes fall off their sockets!</span>")
+						M.visible_message("<span class='warning'>[M]'s eyes fall out of their sockets!</span>", "<span class='userdanger'>Your eyes fall out of their sockets!</span>")
 						eyes.Remove(M)
 						eyes.forceMove(get_turf(M))
 				else

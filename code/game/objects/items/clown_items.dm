@@ -23,7 +23,7 @@
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
-	grind_results = list("lye" = 10)
+	grind_results = list(/datum/reagent/lye = 10)
 	var/cleanspeed = 35 //slower than mop
 	force_string = "robust... against germs"
 	var/uses = 100
@@ -39,21 +39,21 @@
 	if(uses != max_uses)
 		var/percentage_left = uses / max_uses
 		switch(percentage_left)
-			if(0 to 14)
+			if(0 to 0.15)
 				msg = "There's just a tiny bit left of what it used to be, you're not sure it'll last much longer."
-			if(15 to 29)
+			if(0.15 to 0.30)
 				msg = "It's dissolved quite a bit, but there's still some life to it."
-			if(30 to 49)
+			if(0.30 to 0.50)
 				msg = "It's past its prime, but it's definitely still good."
-			if(50 to 74)
+			if(0.50 to 0.75)
 				msg = "It's started to get a little smaller than it used to be, but it'll definitely still last for a while."
 			else
 				msg = "It's seen some light use, but it's still pretty fresh."
-	to_chat(user, "<span class='notice'>[msg]</span>")
+	. += "<span class='notice'>[msg]</span>"
 
 /obj/item/soap/nanotrasen
 	desc = "A heavy duty bar of Nanotrasen brand soap. Smells of plasma."
-	grind_results = list("plasma" = 10, "lye" = 10)
+	grind_results = list(/datum/reagent/toxin/plasma = 10, /datum/reagent/lye = 10)
 	icon_state = "soapnt"
 	cleanspeed = 28 //janitor gets this
 	uses = 300
@@ -123,6 +123,13 @@
 		user.visible_message("[user] begins to clean \the [target.name] with [src]...", "<span class='notice'>You begin to clean \the [target.name] with [src]...</span>")
 		if(do_after(user, src.cleanspeed, target = target))
 			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
+			if(istype(target, /obj/item/clothing) && HAS_TRAIT(target, TRAIT_SPRAYPAINTED))
+				var/obj/item/clothing/C = target
+				var/mob/living/carbon/human/H = user
+				C.flash_protect -= 1
+				C.tint -= 2
+				H.update_tint()
+				REMOVE_TRAIT(target, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
 			for(var/obj/effect/decal/cleanable/C in target)
 				qdel(C)
 			target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
@@ -147,13 +154,14 @@
 	throwforce = 0
 	hitsound = null //To prevent tap.ogg playing, as the item lacks of force
 	w_class = WEIGHT_CLASS_TINY
+	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
 	throw_speed = 3
 	throw_range = 7
 	attack_verb = list("HONKED")
 
 /obj/item/bikehorn/Initialize()
 	. = ..()
-	AddComponent(/datum/component/squeak, /datum/outputs/bikehorn, 50)
+	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'=1), 50)
 
 /obj/item/bikehorn/attack(mob/living/carbon/M, mob/living/carbon/user)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "honk", /datum/mood_event/honk)
@@ -172,7 +180,7 @@
 
 /obj/item/bikehorn/airhorn/Initialize()
 	. = ..()
-	AddComponent(/datum/component/squeak, /datum/outputs/airhorn, 50)
+	AddComponent(/datum/component/squeak, list('sound/items/airhorn2.ogg'=1), 50)
 
 //golden bikehorn
 /obj/item/bikehorn/golden
@@ -207,4 +215,4 @@
 	name = "Canned Laughter"
 	desc = "Just looking at this makes you want to giggle."
 	icon_state = "laughter"
-	list_reagents = list("laughter" = 50)
+	list_reagents = list(/datum/reagent/consumable/laughter = 50)

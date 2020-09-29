@@ -26,11 +26,11 @@
 
 //Flash
 	if(M.flash_act(affect_silicon = 1))
-		M.Paralyze(max(200/max(1,distance), 60))
+		M.confused += (max(20/max(1,distance), 6))
 //Bang
 	if(!distance || loc == M || loc == M.loc)	//Stop allahu akbarring rooms with this.
-		M.Paralyze(200)
+		var/protection = max(1, M.get_ear_protection())
+		M.adjustEarDamage(15/protection, 30/protection)
 		M.soundbang_act(1, 200, 10, 15)
-
 	else
-		M.soundbang_act(1, max(200/max(1,distance), 60), rand(0, 5))
+		M.soundbang_act(1, max(200/max(1,distance), 60), rand(3))

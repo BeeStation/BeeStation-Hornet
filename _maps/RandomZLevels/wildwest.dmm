@@ -590,7 +590,7 @@
 /area/awaymission/wildwest/mines)
 "cm" = (
 /obj/structure/bookcase/random{
-	book_count = 5
+	books_to_load = 5
 	},
 /turf/open/floor/wood,
 /area/awaymission/wildwest/gov)
@@ -706,7 +706,7 @@
 /area/awaymission/wildwest/gov)
 "cI" = (
 /obj/structure/bookcase/random{
-	book_count = 5
+	books_to_load = 5
 	},
 /turf/open/floor/wood,
 /area/awaymission/wildwest/mines)
@@ -1674,13 +1674,13 @@
 	},
 /area/awaymission/wildwest/mines)
 "fE" = (
-/obj/structure/chair/office/dark{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/open/floor/wood,
 /area/awaymission/wildwest/mines)
 "fF" = (
-/obj/structure/chair/office/dark{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /turf/open/floor/wood,

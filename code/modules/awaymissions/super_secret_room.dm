@@ -15,7 +15,7 @@
 	var/json_file = file("data/npc_saves/Poly.json")
 	if(!fexists(json_file))
 		return
-	var/list/json = json_decode(file2text(json_file))
+	var/list/json = json_decode(rustg_file_read(json_file))
 	shenanigans = json["phrases"]
 
 /obj/structure/speaking_tile/interact(mob/user)
@@ -122,7 +122,7 @@
 	icon = 'icons/obj/economy.dmi'
 	icon_state = "rupee"
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(MAT_GLASS = 500)
+	materials = list(/datum/material/glass = 500)
 
 /obj/item/rupee/Initialize()
 	. = ..()

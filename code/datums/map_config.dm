@@ -11,6 +11,7 @@
 	var/config_max_users = 0
 	var/config_min_users = 0
 	var/voteweight = 1
+	var/votable = FALSE
 
 	// Config actually from the JSON - should default to Box
 	var/map_name = "Box Station"
@@ -53,7 +54,7 @@
 		log_world("Could not open map_config: [filename]")
 		return
 
-	json = file2text(json)
+	json = rustg_file_read(json)
 	if(!json)
 		log_world("map_config is not text: [filename]")
 		return
@@ -109,14 +110,14 @@
 		return
 
 	var/temp = json["space_ruin_levels"]
-	if (isnum(temp))
+	if (isnum_safe(temp))
 		space_ruin_levels = temp
 	else if (!isnull(temp))
 		log_world("map_config space_ruin_levels is not a number!")
 		return
 
 	temp = json["space_empty_levels"]
-	if (isnum(temp))
+	if (isnum_safe(temp))
 		space_empty_levels = temp
 	else if (!isnull(temp))
 		log_world("map_config space_empty_levels is not a number!")
@@ -137,6 +138,11 @@
 	. = list()
 	for (var/file in map_file)
 		. += "_maps/[map_path]/[file]"
+
+/datum/map_config/proc/is_votable()
+	var/below_max = !(config_max_users) || GLOB.clients.len <= config_max_users
+	var/above_min = !(config_min_users) || GLOB.clients.len >= config_min_users
+	return votable && below_max && above_min
 
 /datum/map_config/proc/MakeNextMap()
 	return config_filename == "data/next_map.json" || fcopy(config_filename, "data/next_map.json")

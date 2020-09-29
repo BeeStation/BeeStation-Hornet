@@ -18,12 +18,12 @@ BONUS
 
 	name = "Facial Hypertrichosis"
 	desc = "The virus increases hair production significantly, causing rapid beard growth."
-	stealth = 0
+	stealth = 1
 	resistance = 3
-	stage_speed = 2
+	stage_speed = 3
 	transmittable = 1
 	level = 4
-	severity = 1
+	severity = 0
 	symptom_delay_min = 18
 	symptom_delay_max = 36
 

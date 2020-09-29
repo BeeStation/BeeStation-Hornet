@@ -1,3 +1,9 @@
+/proc/apid_name(gender)
+	if(gender == MALE)
+		return "[pick(GLOB.apid_names_male)] [pick(GLOB.apid_names_last)]"
+	else
+		return "[pick(GLOB.apid_names_female)] [pick(GLOB.apid_names_last)]"
+
 /proc/lizard_name(gender)
 	if(gender == MALE)
 		return "[pick(GLOB.lizard_names_male)]-[pick(GLOB.lizard_names_male)]"
@@ -13,25 +19,17 @@
 /proc/plasmaman_name()
 	return "[pick(GLOB.plasmaman_names)] \Roman[rand(1,99)]"
 
+/proc/ipc_name()
+	return "[pick(GLOB.posibrain_names)]-[rand(100, 999)]"
+
 /proc/moth_name()
 	return "[pick(GLOB.moth_first)] [pick(GLOB.moth_last)]"
 
-/proc/church_name()
-	var/static/church_name
-	if (church_name)
-		return church_name
-
-	var/name = ""
-
-	name += pick("Holy", "United", "First", "Second", "Last")
-
-	if (prob(20))
-		name += " Space"
-
-	name += " " + pick("Church", "Cathedral", "Body", "Worshippers", "Movement", "Witnesses")
-	name += " of [religion_name()]"
-
-	return name
+proc/squid_name(gender)
+	if(gender == MALE)
+		return "[pick(GLOB.squid_names_male)] [pick(GLOB.last_names)]"
+	else
+		return "[pick(GLOB.squid_names_female)] [pick(GLOB.last_names)]"
 
 GLOBAL_VAR(command_name)
 /proc/command_name()
@@ -48,18 +46,6 @@ GLOBAL_VAR(command_name)
 	GLOB.command_name = name
 
 	return name
-
-/proc/religion_name()
-	var/static/religion_name
-	if (religion_name)
-		return religion_name
-
-	var/name = ""
-
-	name += pick("bee", "science", "edu", "captain", "assistant", "monkey", "alien", "space", "unit", "sprocket", "gadget", "bomb", "revolution", "beyond", "station", "goon", "robot", "ivor", "hobnob")
-	name += pick("ism", "ia", "ology", "istism", "ites", "ick", "ian", "ity")
-
-	return capitalize(name)
 
 /proc/station_name()
 	if(!GLOB.station_name)
@@ -156,6 +142,10 @@ GLOBAL_VAR(command_name)
 //Traitors and traitor silicons will get these. Revs will not.
 GLOBAL_VAR(syndicate_code_phrase) //Code phrase for traitors.
 GLOBAL_VAR(syndicate_code_response) //Code response for traitors.
+
+//Cached regex search - for checking if codewords are used.
+GLOBAL_DATUM(syndicate_code_phrase_regex, /regex)
+GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 
 	/*
 	Should be expanded.

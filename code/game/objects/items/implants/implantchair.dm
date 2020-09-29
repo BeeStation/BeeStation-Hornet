@@ -189,8 +189,15 @@
 		objective = stripped_input(usr,"What order do you want to imprint on [C]?","Enter the order","",120)
 		message_admins("[ADMIN_LOOKUPFLW(user)] set brainwash machine objective to '[objective]'.")
 		log_game("[key_name(user)] set brainwash machine objective to '[objective]'.")
-	if(C.has_trait(TRAIT_MINDSHIELD))
+	if(HAS_TRAIT(C, TRAIT_MINDSHIELD))
 		return FALSE
+	if(ishuman(C))
+		var/mob/living/carbon/human/H = C
+		if(istype(H.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+			to_chat(H, "<span class ='userdanger'>Your trusty tinfoil hat shorts out the implant as it plunges into your skull!</span>")
+			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 75)
+			H.emote("scream")
+			return TRUE
 	brainwash(C, objective)
 	message_admins("[ADMIN_LOOKUPFLW(user)] brainwashed [key_name_admin(C)] with objective '[objective]'.")
 	log_game("[key_name(user)] brainwashed [key_name(C)] with objective '[objective]'.")

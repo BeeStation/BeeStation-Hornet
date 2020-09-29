@@ -321,7 +321,7 @@
 		if(17)
 			//Tator Kit
 			T.visible_message("<span class='userdanger'>A suspicious box appears!</span>")
-			new /obj/item/storage/box/syndicate(drop_location())
+			new /obj/item/storage/box/syndicate/bundle_A(drop_location())
 			do_smoke(0, drop_location())
 		if(18)
 			//Captain ID
@@ -341,7 +341,7 @@
 
 /datum/outfit/butler
 	name = "Butler"
-	uniform = /obj/item/clothing/under/suit_jacket/really_black
+	uniform = /obj/item/clothing/under/suit/black_really
 	shoes = /obj/item/clothing/shoes/laceup
 	head = /obj/item/clothing/head/bowler
 	glasses = /obj/item/clothing/glasses/monocle

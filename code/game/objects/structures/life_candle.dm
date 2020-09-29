@@ -55,9 +55,9 @@
 /obj/structure/life_candle/examine(mob/user)
 	. = ..()
 	if(linked_minds.len)
-		to_chat(user, "[src] is active, and linked to [linked_minds.len] souls.")
+		. += "[src] is active, and linked to [linked_minds.len] souls."
 	else
-		to_chat(user, "It is static, still, unmoving.")
+		. += "It is static, still, unmoving."
 
 /obj/structure/life_candle/process()
 	if(!linked_minds.len)
@@ -80,7 +80,7 @@
 	if(!body)
 		body = new mob_type(T)
 		var/mob/ghostie = mind.get_ghost(TRUE)
-		if(ghostie.client && ghostie.client.prefs)
+		if(ghostie.client?.prefs)
 			ghostie.client.prefs.copy_to(body)
 		mind.transfer_to(body)
 	else

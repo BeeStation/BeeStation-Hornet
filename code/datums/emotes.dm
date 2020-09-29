@@ -11,6 +11,7 @@
 	var/message_robot = "" //Message displayed if the user is a robot
 	var/message_AI = "" //Message displayed if the user is an AI
 	var/message_monkey = "" //Message displayed if the user is a monkey
+	var/message_ipc = "" // Message to display if the user is an IPC
 	var/message_simple = "" //Message to display if the user is a simple_animal
 	var/message_param = "" //Message to display if a param was given
 	var/emote_type = EMOTE_VISIBLE //Whether the emote is visible or audible
@@ -24,12 +25,7 @@
 	var/vary = FALSE	//used for the honk borg emote
 	var/only_forced_audio = FALSE //can only code call this event instead of the player.
 
-	var/static/list/emote_list = list()
-
-
 /datum/emote/New()
-	if(key_third_person)
-		emote_list[key_third_person] = src
 	if (ispath(mob_type_allowed_typecache))
 		switch (mob_type_allowed_typecache)
 			if (/mob)
@@ -47,7 +43,7 @@
 	. = TRUE
 	if(!can_run_emote(user, TRUE, intentional))
 		return FALSE
-	var/msg = select_message_type(user)
+	var/msg = select_message_type(user, intentional)
 	if(params && message_param)
 		msg = select_param(user, params)
 
@@ -61,7 +57,12 @@
 	if(!msg)
 		return
 
+	var/end = copytext(msg, length(message))
+	if(!(end in list("!", ".", "?", ":", "\"", "-")))
+		msg += "."
+
 	user.log_message(msg, LOG_EMOTE)
+
 	msg = "<b>[user]</b> " + msg
 
 	var/tmp_sound = get_sound(user)
@@ -92,11 +93,11 @@
 		message = replacetext(message, "%s", user.p_s())
 	return message
 
-/datum/emote/proc/select_message_type(mob/user)
+/datum/emote/proc/select_message_type(mob/user, intentional)
 	. = message
 	if(!muzzle_ignore && user.is_muzzled() && emote_type == EMOTE_AUDIBLE)
 		return "makes a [pick("strong ", "weak ", "")]noise."
-	if(user.mind && user.mind.miming && message_mime)
+	if(user.mind?.miming && message_mime)
 		. = message_mime
 	if(isalienadult(user) && message_alien)
 		. = message_alien
@@ -108,6 +109,8 @@
 		. = message_AI
 	else if(ismonkey(user) && message_monkey)
 		. = message_monkey
+	else if(isipc(user) && message_ipc)
+		. = message_ipc
 	else if(isanimal(user) && message_simple)
 		. = message_simple
 
@@ -148,5 +151,5 @@
 
 	if(isliving(user))
 		var/mob/living/L = user
-		if(L.has_trait(TRAIT_EMOTEMUTE))
+		if(HAS_TRAIT(L, TRAIT_EMOTEMUTE))
 			return FALSE

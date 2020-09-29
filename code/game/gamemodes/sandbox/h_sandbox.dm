@@ -25,14 +25,14 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 	var/canisterinfo = null
 	var/hsbinfo = null
 	//items that shouldn't spawn on the floor because they would bug or act weird
-	var/global/list/spawn_forbidden = list(
+	var/static/list/spawn_forbidden = list(
 		/obj/item/tk_grab, /obj/item/implant, // not implanter, the actual thing that is inside you
 		/obj/item/assembly, /obj/item/onetankbomb, /obj/item/pda/ai,
 		/obj/item/smallDelivery, /obj/item/projectile,
 		/obj/item/borg/sight, /obj/item/borg/stun, /obj/item/robot_module)
 
 /datum/hSB/proc/update()
-	var/global/list/hrefs = list(
+	var/static/list/hrefs = list(
 			"Space Gear",
 			"Suit Up (Space Travel Gear)"		= "hsbsuit",
 			"Spawn Gas Mask"					= "hsbspawn&path=[/obj/item/clothing/mask/gas]",
@@ -47,7 +47,7 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 
 			"Building Supplies",
 			"Spawn 50 Wood"                     = "hsbwood",
-			"Spawn 50 Metal"					= "hsbmetal",
+			"Spawn 50 Iron"						= "hsbiron",
 			"Spawn 50 Plasteel"					= "hsbplasteel",
 			"Spawn 50 Reinforced Glass"         = "hsbrglass",
 			"Spawn 50 Glass"					= "hsbglass",
@@ -189,8 +189,8 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 			if("hsbrglass")
 				new/obj/item/stack/sheet/rglass{amount=50}(usr.loc)
 
-			if("hsbmetal")
-				new/obj/item/stack/sheet/metal{amount=50}(usr.loc)
+			if("hsbiron")
+				new/obj/item/stack/sheet/iron{amount=50}(usr.loc)
 
 			if("hsbplasteel")
 				new/obj/item/stack/sheet/plasteel{amount=50}(usr.loc)

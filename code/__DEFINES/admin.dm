@@ -6,18 +6,8 @@
 #define MUTE_PRAY		(1<<2)
 #define MUTE_ADMINHELP	(1<<3)
 #define MUTE_DEADCHAT	(1<<4)
+#define MUTE_MHELP		(1<<5)
 #define MUTE_ALL		(~0)
-
-//Some constants for DB_Ban
-#define BANTYPE_PERMA		1
-#define BANTYPE_TEMP		2
-#define BANTYPE_JOB_PERMA	3
-#define BANTYPE_JOB_TEMP	4
-#define BANTYPE_ANY_FULLBAN	5 //used to locate stuff to unban.
-
-#define BANTYPE_ADMIN_PERMA	7
-#define BANTYPE_ADMIN_TEMP	8
-#define BANTYPE_ANY_JOB		9 //used to remove jobbans
 
 //Admin Permissions
 #define R_BUILD		(1<<0)
@@ -62,6 +52,7 @@
 #define ADMIN_COORDJMP(src) "[src ? "[COORD(src)] [ADMIN_JMP(src)]" : "nonexistent location"]"
 #define ADMIN_VERBOSEJMP(src) "[src ? "[AREACOORD(src)] [ADMIN_JMP(src)]" : "nonexistent location"]"
 #define ADMIN_INDIVIDUALLOG(user) "(<a href='?_src_=holder;[HrefToken(TRUE)];individuallog=[REF(user)]'>LOGS</a>)"
+#define ADMIN_RETRIEVE_BOH_ITEMS(boh) "(<a href='?_src_=holder;[HrefToken(TRUE)];retrieveboh=[REF(boh)]'>RETRIEVE CONSUMED ITEMS</a>)"
 
 #define ADMIN_PUNISHMENT_LIGHTNING "Lightning bolt"
 #define ADMIN_PUNISHMENT_BRAINDAMAGE "Brain damage"
@@ -74,15 +65,25 @@
 #define ADMIN_PUNISHMENT_MAZING "Puzzle"
 #define ADMIN_PUNISHMENT_FLOORCLUWNE "Floor Cluwne"
 #define ADMIN_PUNISHMENT_CLUWNE "Make Cluwne"
+#define ADMIN_PUNISHMENT_NUGGET "Nugget"
+#define ADMIN_PUNISHMENT_IMMERSE "Fully Immerse"
 
-#define AHELP_ACTIVE 1
-#define AHELP_CLOSED 2
-#define AHELP_RESOLVED 3
+#define AHELP_UNCLAIMED 1
+#define AHELP_ACTIVE 2
+#define AHELP_CLOSED 3
+#define AHELP_RESOLVED 4
 
 #define ROUNDSTART_LOGOUT_REPORT_TIME	6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
 
 #define SPAM_TRIGGER_WARNING	5	//Number of identical messages required before the spam-prevention will warn you to stfu
 #define SPAM_TRIGGER_AUTOMUTE	10	//Number of identical messages required before the spam-prevention will automute you
 
+#define MAX_KEYPRESS_COMMANDLENGTH 32 //Max length of a keypress command before it's considered to be a forged packet
+#define MAX_KEYPRESS_AUTOKICK 50
+
 #define STICKYBAN_DB_CACHE_TIME 10 SECONDS
 #define STICKYBAN_ROGUE_CHECK_TIME 5
+
+
+#define POLICY_POLYMORPH "polymorph" //Shown to vicitm of staff of change and related effects.
+#define POLICY_VERB_HEADER "policy_verb_header" //Shown on top of policy verb window

@@ -3,7 +3,7 @@
 	desc = "You shouldn't see this! Adminhelp and report this as an issue on github!"
 	zone = BODY_ZONE_R_ARM
 	icon_state = "implant-toolkit"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_SMALL
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
 	var/list/items_list = list()
@@ -38,8 +38,8 @@
 		transform = matrix(-1, 0, 0, 0, 1, 0)
 
 /obj/item/organ/cyberimp/arm/examine(mob/user)
-	..()
-	to_chat(user, "<span class='info'>[src] is assembled in the [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>")
+	. = ..()
+	. += "<span class='info'>[src] is assembled in the [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>"
 
 /obj/item/organ/cyberimp/arm/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -89,7 +89,7 @@
 
 	holder = item
 
-	holder.add_trait(TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
+	ADD_TRAIT(holder, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
 	holder.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	holder.slot_flags = null
 	holder.materials = null
@@ -121,7 +121,7 @@
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
 
 /obj/item/organ/cyberimp/arm/ui_action_click()
-	if(broken_cyber_organ || (!holder && !contents.len))
+	if((organ_flags & ORGAN_FAILING) || (!holder && !contents.len))
 		to_chat(owner, "<span class='warning'>The implant doesn't respond. It seems to be broken...</span>")
 		return
 
@@ -132,7 +132,7 @@
 		else
 			var/list/choice_list = list()
 			for(var/obj/item/I in items_list)
-				choice_list[I] = getFlatIcon(I)
+				choice_list[I] = image(I)
 			var/obj/item/choice = show_radial_menu(owner, owner, choice_list)
 			if(owner && owner == usr && owner.stat != DEAD && (src in owner.internal_organs) && !holder && (choice in contents))
 				// This monster sanity check is a nice example of how bad input is.
@@ -145,7 +145,7 @@
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	if(prob(30/severity) && owner && !broken_cyber_organ)
+	if(prob(30/severity) && owner && !(organ_flags & ORGAN_FAILING))
 		Retract()
 		owner.visible_message("<span class='danger'>A loud bang comes from [owner]\'s [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm!</span>")
 		playsound(get_turf(owner), 'sound/weapons/flashbang.ogg', 100, 1)
@@ -153,7 +153,7 @@
 		owner.adjust_fire_stacks(20)
 		owner.IgniteMob()
 		owner.adjustFireLoss(25)
-		broken_cyber_organ = TRUE
+		organ_flags |= ORGAN_FAILING
 
 
 /obj/item/organ/cyberimp/arm/gun/laser
@@ -177,7 +177,7 @@
 
 /obj/item/organ/cyberimp/arm/toolset
 	name = "integrated toolset implant"
-	desc = "A stripped-down version of the engineering cyborg toolset, designed to be installed on subject's arm. Contains all necessary tools."
+	desc = "A stripped-down version of the engineering cyborg toolset, designed to be installed on subject's arm. Contains advanced versions of every tool."
 	contents = newlist(/obj/item/screwdriver/cyborg, /obj/item/wrench/cyborg, /obj/item/weldingtool/largetank/cyborg,
 		/obj/item/crowbar/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/cyborg)
 
@@ -185,9 +185,9 @@
 	zone = BODY_ZONE_L_ARM
 
 /obj/item/organ/cyberimp/arm/toolset/emag_act()
-	if(!(locate(/obj/item/kitchen/knife/combat/cyborg) in items_list))
-		to_chat(usr, "<span class='notice'>You unlock [src]'s integrated knife!</span>")
-		items_list += new /obj/item/kitchen/knife/combat/cyborg(src)
+	if(!(locate(/obj/item/melee/hydraulic_blade) in items_list))
+		to_chat(usr, "<span class='notice'>You unlock [src]'s integrated blade!</span>")
+		items_list += new /obj/item/melee/hydraulic_blade(src)
 		return 1
 	return 0
 
@@ -233,3 +233,24 @@
 	name = "surgical toolset implant"
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm."
 	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/surgicaldrill/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/surgical_drapes)
+
+/obj/item/organ/cyberimp/arm/power_cord
+	name = "power cord implant"
+	desc = "An internal power cord hooked up to a battery. Useful if you run on volts."
+	contents = newlist(/obj/item/apc_powercord)
+	zone = "l_arm"
+
+/obj/item/organ/cyberimp/arm/esaw
+	name = "arm-mounted energy saw"
+	desc = "An illegal and highly dangerous implanted carbon-fiber blade that also has a toggleable hard-light edge."
+	icon_state = "esaw_0"
+	contents = newlist(/obj/item/melee/transforming/energy/sword/esaw)
+
+/obj/item/organ/cyberimp/arm/hydraulic_blade
+	name = "arm-mounted hydraulic blade"
+	desc = "Highly dangerous implanted plasteel blade."
+	icon_state = "hydraulic_blade"
+	contents = newlist(/obj/item/melee/hydraulic_blade)
+
+/obj/item/organ/cyberimp/arm/hydraulic_blade/l
+	zone = BODY_ZONE_L_ARM

@@ -5,6 +5,12 @@ GLOBAL_VAR(restart_counter)
 //This happens after the Master subsystem new(s) (it's a global datum)
 //So subsystems globals exist, but are not initialised
 /world/New()
+	if (fexists(EXTOOLS))
+		call(EXTOOLS, "debug_initialize")()
+		call(EXTOOLS, "maptick_initialize")()
+
+	//Early profile for auto-profiler - will be stopped on profiler init if necessary.
+	world.Profile(PROFILE_START)
 
 	log_world("World loaded at [time_stamp()]!")
 
@@ -28,6 +34,9 @@ GLOBAL_VAR(restart_counter)
 	SSdbcore.CheckSchemaVersion()
 	SSdbcore.SetRoundID()
 	SetupLogs()
+	load_poll_data()
+
+	populate_gear_list()
 
 #ifndef USE_CUSTOM_ERROR_HANDLER
 	world.log = file("[GLOB.log_directory]/dd.log")
@@ -42,7 +51,7 @@ GLOBAL_VAR(restart_counter)
 	GLOB.timezoneOffset = text2num(time2text(0,"hh")) * 36000
 
 	if(fexists(RESTART_COUNTER_PATH))
-		GLOB.restart_counter = text2num(trim(file2text(RESTART_COUNTER_PATH)))
+		GLOB.restart_counter = text2num(trim(rustg_file_read(RESTART_COUNTER_PATH)))
 		fdel(RESTART_COUNTER_PATH)
 
 	if(NO_INIT_PARAMETER in params)
@@ -100,9 +109,11 @@ GLOBAL_VAR(restart_counter)
 		GLOB.picture_log_directory = "data/picture_logs/[override_dir]"
 
 	GLOB.world_game_log = "[GLOB.log_directory]/game.log"
+	GLOB.world_objective_log = "[GLOB.log_directory]/objectives.log"
 	GLOB.world_mecha_log = "[GLOB.log_directory]/mecha.log"
 	GLOB.world_virus_log = "[GLOB.log_directory]/virus.log"
 	GLOB.world_cloning_log = "[GLOB.log_directory]/cloning.log"
+	GLOB.world_id_log = "[GLOB.log_directory]/id.log"
 	GLOB.world_asset_log = "[GLOB.log_directory]/asset.log"
 	GLOB.world_attack_log = "[GLOB.log_directory]/attack.log"
 	GLOB.world_pda_log = "[GLOB.log_directory]/pda.log"
@@ -111,9 +122,12 @@ GLOBAL_VAR(restart_counter)
 	GLOB.world_href_log = "[GLOB.log_directory]/hrefs.log"
 	GLOB.sql_error_log = "[GLOB.log_directory]/sql.log"
 	GLOB.world_qdel_log = "[GLOB.log_directory]/qdel.log"
+	GLOB.world_map_error_log = "[GLOB.log_directory]/map_errors.log"
 	GLOB.world_runtime_log = "[GLOB.log_directory]/runtime.log"
 	GLOB.query_debug_log = "[GLOB.log_directory]/query_debug.log"
 	GLOB.world_job_debug_log = "[GLOB.log_directory]/job_debug.log"
+	GLOB.world_paper_log = "[GLOB.log_directory]/paper.log"
+	GLOB.tgui_log = "[GLOB.log_directory]/tgui.log"
 
 #ifdef UNIT_TESTS
 	GLOB.test_log = file("[GLOB.log_directory]/tests.log")
@@ -128,6 +142,8 @@ GLOBAL_VAR(restart_counter)
 	start_log(GLOB.world_qdel_log)
 	start_log(GLOB.world_runtime_log)
 	start_log(GLOB.world_job_debug_log)
+	start_log(GLOB.world_id_log)
+	start_log(GLOB.tgui_log)
 
 	GLOB.changelog_hash = md5('html/changelog.html') //for telling if the changelog has changed recently
 	if(fexists(GLOB.config_error_log))
@@ -143,7 +159,19 @@ GLOBAL_VAR(restart_counter)
 	log_runtime(GLOB.revdata.get_log_message())
 
 /world/Topic(T, addr, master, key)
-	TGS_TOPIC	//redirect to server tools if necessary
+	TGS_TOPIC	//*THIS NEEDS TO BE AT THE TOP OF /world/Topic()* - Redirect to server tools if necessary
+
+
+	var/list/response[] = list()
+	if (SSfail2topic?.IsRateLimited(addr))
+		response["statuscode"] = 429
+		response["response"] = "Rate limited."
+		return json_encode(response)
+
+	if (length(T) > CONFIG_GET(number/topic_max_size))
+		response["statuscode"] = 413
+		response["response"] = "Payload too large."
+		return json_encode(response)
 
 	var/static/list/topic_handlers = TopicHandlers()
 
@@ -161,7 +189,7 @@ GLOBAL_VAR(restart_counter)
 		return
 
 	handler = new handler()
-	return handler.TryRun(input)
+	return handler.TryRun(input, addr)
 
 /world/proc/AnnouncePR(announcement, list/payload)
 	var/static/list/PRcounts = list()	//PR id -> number of times announced this round
@@ -192,7 +220,7 @@ GLOBAL_VAR(restart_counter)
 	else
 		fail_reasons = list("Missing GLOB!")
 	if(!fail_reasons)
-		text2file("Success!", "[GLOB.log_directory]/clean_run.lk")
+		rustg_file_append("Success!", "[GLOB.log_directory]/clean_run.lk")
 	else
 		log_world("Test run failed!\n[fail_reasons.Join("\n")]")
 	sleep(0)	//yes, 0, this'll let Reboot finish and prevent byond memes
@@ -227,7 +255,7 @@ GLOBAL_VAR(restart_counter)
 				if(GLOB.restart_counter >= ruhr)
 					do_hard_reboot = TRUE
 				else
-					text2file("[++GLOB.restart_counter]", RESTART_COUNTER_PATH)
+					rustg_file_append("[++GLOB.restart_counter]", RESTART_COUNTER_PATH)
 					do_hard_reboot = FALSE
 
 		if(do_hard_reboot)
@@ -237,6 +265,17 @@ GLOBAL_VAR(restart_counter)
 
 	log_world("World rebooted at [time_stamp()]")
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
+	..()
+
+/world/Del()
+	// memory leaks bad
+	var/num_deleted = 0
+	for(var/datum/gas_mixture/GM)
+		GM.__gasmixture_unregister()
+		num_deleted++
+	log_world("Deallocated [num_deleted] gas mixtures")
+	if(fexists(EXTOOLS))
+		call(EXTOOLS, "cleanup")()
 	..()
 
 /world/proc/update_status()
@@ -259,26 +298,22 @@ GLOBAL_VAR(restart_counter)
 		hostedby = CONFIG_GET(string/hostedby)
 
 	s += "<b>[station_name()]</b>";
-	s += " ("
-	s += "<a href=\"http://\">" //Change this to wherever you want the hub to link to.
-	s += "Default"  //Replace this with something else. Or ever better, delete it and uncomment the game version.
-	s += "</a>"
-	s += ")"
-	
+	s += "(<a href='https://discord.gg/z9ttAvA'>Discord</a>|<a href='http://beestation13.com'>Website</a>)"
+
 	var/players = GLOB.clients.len
-	
+
 	var/popcaptext = ""
 	var/popcap = max(CONFIG_GET(number/extreme_popcap), CONFIG_GET(number/hard_popcap), CONFIG_GET(number/soft_popcap))
 	if (popcap)
 		popcaptext = "/[popcap]"
-	
+
 	if (players > 1)
 		features += "[players][popcaptext] players"
 	else if (players > 0)
 		features += "[players][popcaptext] player"
-	
+
 	game_state = (CONFIG_GET(number/extreme_popcap) && players >= CONFIG_GET(number/extreme_popcap)) //tells the hub if we are full
-	
+
 	if (!host && hostedby)
 		features += "hosted by <b>[hostedby]</b>"
 
@@ -300,3 +335,6 @@ GLOBAL_VAR(restart_counter)
 	maxz++
 	SSmobs.MaxZChanged()
 	SSidlenpcpool.MaxZChanged()
+	world.refresh_atmos_grid()
+
+/world/proc/refresh_atmos_grid()

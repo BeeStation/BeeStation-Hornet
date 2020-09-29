@@ -24,7 +24,7 @@
 
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
-		if(H.has_trait(TRAIT_PIERCEIMMUNE))
+		if(HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
 			return
 
 		if((flags & CALTROP_IGNORE_WALKERS) && H.m_intent == MOVE_INTENT_WALK)
@@ -42,12 +42,14 @@
 		if(!(flags & CALTROP_BYPASS_SHOES) && (H.shoes || feetCover))
 			return
 
-		if((H.movement_type & FLYING) || H.buckled)
+		if((H.movement_type & FLYING) || !(H.mobility_flags & MOBILITY_STAND)|| H.buckled)
 			return
 
 		var/damage = rand(min_damage, max_damage)
-		if(H.has_trait(TRAIT_LIGHT_STEP))
-			damage *= 0.75
+		if(HAS_TRAIT(H, TRAIT_LIGHT_STEP))
+			damage *= 0.5
+		if(is_species(H, /datum/species/squid))
+			damage *= 1.3
 		H.apply_damage(damage, BRUTE, picked_def_zone)
 
 		if(cooldown < world.time - 10) //cooldown to avoid message spam.
@@ -59,4 +61,7 @@
 						"<span class='userdanger'>You slide on [A]!</span>")
 
 			cooldown = world.time
-		H.Paralyze(60)
+		if(is_species(H, /datum/species/squid))
+			H.Paralyze(10)
+		else
+			H.Paralyze(40)

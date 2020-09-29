@@ -33,7 +33,7 @@
 		qdel(src)
 
 /obj/item/grenade/proc/clown_check(mob/living/carbon/human/user)
-	var/clumsy = user.has_trait(TRAIT_CLUMSY)
+	var/clumsy = HAS_TRAIT(user, TRAIT_CLUMSY)
 	if(clumsy && (clumsy_check == GRENADE_CLUMSY_FUMBLE))
 		if(prob(50))
 			to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
@@ -47,12 +47,12 @@
 
 
 /obj/item/grenade/examine(mob/user)
-	..()
+	. = ..()
 	if(display_timer)
 		if(det_time > 1)
 			to_chat(user, "The timer is set to [DisplayTimeText(det_time)].")
 		else
-			to_chat(user, "\The [src] is set for instant detonation.")
+			. += "\The [src] is set for instant detonation."
 
 
 /obj/item/grenade/attack_self(mob/user)
@@ -68,9 +68,6 @@
 	log_grenade(user, T) //Inbuilt admin procs already handle null users
 	if(user)
 		add_fingerprint(user)
-		if(iscarbon(user))
-			var/mob/living/carbon/C = user
-			C.throw_mode_on()
 		if(msg)
 			to_chat(user, "<span class='warning'>You prime [src]! [DisplayTimeText(det_time)]!</span>")
 	playsound(src, 'sound/weapons/armbomb.ogg', volume, 1)
@@ -112,5 +109,13 @@
 	var/obj/item/projectile/P = hitby
 	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
 		owner.visible_message("<span class='danger'>[attack_text] hits [owner]'s [src], setting it off! What a shot!</span>")
+		var/turf/T = get_turf(src)
+		log_game("A projectile ([hitby]) detonated a grenade held by [key_name(owner)] at [COORD(T)]")
+		message_admins("A projectile ([hitby]) detonated a grenade held by [key_name_admin(owner)] at [ADMIN_COORDJMP(T)]")
 		prime()
 		return TRUE //It hit the grenade, not them
+
+/obj/item/grenade/afterattack(atom/target, mob/user)
+	. = ..()
+	if(active)
+		user.throw_item(target)

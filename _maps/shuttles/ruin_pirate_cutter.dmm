@@ -8,7 +8,7 @@
 	},
 /obj/item/clothing/head/collectable/pirate,
 /obj/item/clothing/suit/pirate,
-/obj/item/clothing/under/pirate,
+/obj/item/clothing/under/costume/pirate,
 /obj/item/clothing/shoes/jackboots,
 /obj/item/clothing/head/bandana,
 /turf/open/floor/plasteel/dark/side{
@@ -337,7 +337,7 @@
 	},
 /obj/item/clothing/head/collectable/pirate,
 /obj/item/clothing/suit/pirate,
-/obj/item/clothing/under/pirate,
+/obj/item/clothing/under/costume/pirate,
 /obj/item/clothing/shoes/jackboots,
 /obj/item/clothing/head/bandana,
 /obj/effect/turf_decal/tile/red{
@@ -717,7 +717,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "Pirate Cutter APC";
-	pixel_x = -24;
+	pixel_x = -25;
 	req_access = null
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -735,7 +735,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/caravan/pirate)
 "EB" = (
-/obj/structure/chair/office/dark{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/machinery/turretid{
@@ -774,7 +774,7 @@
 	icon_state = "0-2"
 	},
 /obj/structure/closet/crate,
-/obj/item/stack/sheet/metal/twenty,
+/obj/item/stack/sheet/iron/twenty,
 /obj/item/stack/sheet/glass{
 	amount = 10
 	},
@@ -1027,7 +1027,7 @@
 "Xq" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
-/obj/item/melee/classic_baton,
+/obj/item/melee/classic_baton/police,
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/caravan/pirate)
@@ -1066,7 +1066,7 @@
 /turf/open/floor/plating,
 /area/shuttle/caravan/pirate)
 "ZY" = (
-/obj/structure/chair/office/dark{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral{

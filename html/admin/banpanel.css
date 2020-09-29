@@ -1,30 +1,20 @@
-.column {
-    float: left;
-    flex-wrap: wrap;
-}
-
-.left {
-    width: 280px;
-}
-
 .middle {
-    width: 80px;
+    margin-left: 5px;
+    margin-right: 5px;
+    max-width: 125px;
 }
 
 .right {
-    width: 150px;
-}
-
-.row {
-    content: '';
-    display: table;
-    clear: both;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 80px;
 }
 
 .reason {
     resize: none;
     min-height: 40px;
-    width: 340px;
+    width: 250px;
+    margin-bottom: 5px;
 }
 
 .rolegroup {
@@ -86,22 +76,4 @@
 
 .antagonistpositions {
     background-color: #6d3f40;
-}
-
-.inputbox {
-    position: absolute;
-    top: 0px;
-    left: 4px;
-    width: 14px;
-    height: 14px;
-    background: #e6e6e6;
-}
-
-.select {
-    position: relative;
-    display: inline-block;
-}
-
-.hidden {
-    display: none;
 }
