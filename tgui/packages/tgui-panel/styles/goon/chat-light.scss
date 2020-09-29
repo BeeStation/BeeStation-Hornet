@@ -229,8 +229,6 @@ a.popt {text-decoration: none;}
 /* ADMIN FILTER MESSAGES MENU */
 .filterMessages {padding: 5px;}
 .filterMessages div {padding: 2px 0;}
-.filterMessages input {}
-.filterMessages label {}
 
 .icon-stack {height: 1em; line-height: 1em; width: 1em; vertical-align: middle; margin-top: -2px;}
 
@@ -273,9 +271,8 @@ em						{font-style: normal;	font-weight: bold;}
 .mentorto				{color: #1d861d;}
 .mentorhelp				{color: #4400c2;}
 
-.name					{					font-weight: bold;}
+.name					{	font-weight: bold;}
 
-.say					{}
 .deadsay				{color: #5c00e6;}
 .binarysay    			{color: #20c20e; background-color: #000000; display: block;}
 .binarysay a  			{color: #00ff00;}

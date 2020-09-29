@@ -11,10 +11,10 @@ html, body {
 }
 body {
 	background: #171717;
-    font-family: Verdana, sans-serif;
-    font-size: 9pt;
-	font-color: #a4bad6;
-    line-height: 1.2;
+  font-family: Verdana, sans-serif;
+  font-size: 9pt;
+	color: #a4bad6;
+  line-height: 1.2;
 	overflow-x: hidden;
 	overflow-y: scroll;
 	word-wrap: break-word;
@@ -232,8 +232,6 @@ a.popt {text-decoration: none;}
 /* ADMIN FILTER MESSAGES MENU */
 .filterMessages {padding: 5px;}
 .filterMessages div {padding: 2px 0;}
-.filterMessages input {}
-.filterMessages label {}
 
 .icon-stack {height: 1em; line-height: 1em; width: 1em; vertical-align: middle; margin-top: -2px;}
 
@@ -276,9 +274,8 @@ em						{font-style: normal;	font-weight: bold;}
 .mentorto				{color: #4bd84b;}
 .mentorhelp				{color: #8f66ff;}
 
-.name					{					font-weight: bold;}
+.name					{	font-weight: bold;}
 
-.say					{}
 .deadsay				{color: #b866ff}
 .binarysay    			{color: #20c20e; background-color: #000000; display: block;}
 .binarysay a  			{color: #00ff00;}
