@@ -44,7 +44,7 @@
 	if(owner)
 		owner_node = owner
 		slimecolor = owner_node.color
-		owner_node.controlled_tiles += src
+		owner_node.creeps += src
 	if(!blacklisted_turfs)
 		blacklisted_turfs = typecacheof(list(
 			/turf/open/space,
@@ -59,7 +59,11 @@
 		return FALSE
 
 	for(var/turf/T in U.GetAtmosAdjacentTurfs())
-		if((locate(/obj/structure/xenoblob) in T))
+		var/obj/structure/xenoblob/creep/C = locate(/obj/structure/xenoblob/creep) in T
+		if(C)
+			if(!C.owner_node)
+				C.owner_node = owner_node
+				owner_node.creeps += C
 			continue
 
 		if(is_type_in_typecache(T, blacklisted_turfs))
@@ -67,6 +71,11 @@
 
 		new /obj/structure/xenoblob/creep(T, node)
 	return TRUE
+
+/obj/structure/xenoblob/creep/Destroy()
+	if(owner_node)
+		owner_node.creeps -= src
+		qdel(src)
 
 /obj/structure/xenoblob/node
 	gender = NEUTER
@@ -91,15 +100,15 @@
 	var/thawing_time = 900 // How long until this node thaws. Might be changed in different slime types
 
 	var/obj/structure/xenoblob/node/core/owner_core // What core controls this node. If none (core is killed), probably start dying or start becoming a core
-	var/list/controlled_tiles // List of tiles controlled by this node
 
 	var/mob/living/carbon/trapped_mob // What mob is trapped inside of the node, could be spit out when node is harvested for use in monkey recycler
 
 	var/range = 2 // How far the node will spread creep out to. Keep in mind that expand() makes creep on all adjacent tiles, so real range is this +1
+	var/list/creeps //controlled creeps
 
 /obj/structure/xenoblob/node/Initialize(mapload, var/owner, var/scolor) //scolor for slimecolor, in case we want to make a new node/core with X color (slime cores growing into nodes?)
 	. = ..()
-	controlled_tiles = list()
+	creeps = list()
 	if(owner)
 		owner_core = owner
 		slimecolor = owner_core.slimecolor // TODO: color mutation. Maybe color mutation uses scolor?
@@ -128,6 +137,13 @@
 			if(C.expand(src))
 				C.last_expand = world.time + C.growth_cooldown
 
+/obj/structure/xenoblob/node/proc/uproot()
+	frozen = TRUE
+	for(var/obj/structure/xenoblob/creep/C in creeps)
+		C.owner_node = null
+	owner_core = null	//for now.
+	creeps = null
+
 /obj/structure/xenoblob/node/core
 	name = "slime core"
 	desc = "A translucent, pulsating mass of slime containing glowing cores."
@@ -147,7 +163,7 @@
 	var/total_t
 	if(controlled_nodes)
 		for(var/obj/structure/xenoblob/node/N in controlled_nodes)
-			total_t += N.controlled_tiles.len
-	total_t += controlled_tiles
+			total_t += N.creeps.len
+	total_t += creeps
 	total_tiles = total_t
 
