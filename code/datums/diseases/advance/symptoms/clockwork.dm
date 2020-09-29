@@ -301,7 +301,7 @@
 	basewings = "moth_wings"
 	canopen = FALSE
 
-/obj/item/organ/tail/clockwork
+/obj/item/organ/tail/human/clockwork
 	name = "biomechanical tail"
 	desc = "A stiff tail composed of a strange alloy."
 	color = null
@@ -309,20 +309,6 @@
 	icon_state = "clocktail"
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
-
-/obj/item/organ/tail/clockwork/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
-	..()
-	if(istype(H))
-		if(!("tail_human" in H.dna.species.mutant_bodyparts))
-			H.dna.features["tail_human"] = tail_type
-			H.dna.species.mutant_bodyparts |= "tail_human"
-		H.update_body()
-
-/obj/item/organ/tail/clockwork/Remove(mob/living/carbon/human/H,  special = 0)
-	..()
-	if(istype(H))
-		H.dna.species.mutant_bodyparts -= "tail_human"
-		H.update_body()
 
 /obj/item/bodypart/l_arm/robot/clockwork
 	name = "clockwork left arm"
