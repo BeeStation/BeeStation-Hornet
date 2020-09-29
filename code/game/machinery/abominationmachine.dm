@@ -23,6 +23,7 @@
 	speed_process = TRUE
 	interaction_flags_machine = INTERACT_MACHINE_OFFLINE
 
+	var/has_creature = FALSE
 	var/n_arms_eaten = 0
 	var/n_legs_eaten = 0
 	var/n_organs_eaten = 0
@@ -48,7 +49,7 @@
 		creature.obj_damage = (n_arms_eaten>=8) ? 100 : 40
 	
 	to_chat(user, "<span class='warning'>It lives!</span>")
-	qdel(src)
+	has_creature = FALSE
 	return creature
 
 /obj/machinery/abomachine/obj_break()
@@ -68,7 +69,9 @@
 	. += {"A digital display on it reads "[seconds_remaining()]"."}
 
 /obj/machinery/abomachine/proc/feed_part(obj/item/part)
-	if (istype(part, obj/item/bodypart))//can't feed non body parts				
+	if (istype(part, obj/item/bodypart))//can't feed non body parts		
+		if (!has_creature)//no creature inside
+			return FALSE
 		var/obj/item/bodypart/limb = part
 		if (limb.status != BODYPART_ORGANIC)
 			return FALSE	//cannot feed robotic body parts either
@@ -89,9 +92,31 @@
 			return FALSE	//cannot feed robotic body parts either
 		
 		if (istype(thing, obj/item/organ/heart))	//have a heart
+			if (!has_creature)				
+				has_creature = TRUE
+			else
+				n_organs_eaten = n_organs_eaten + 1
+			qdel(thing)
+			return TRUE	
+			
+		if (!has_creature)//no creature inside
+			return FALSE
+		
+		if (istype(thing, obj/item/organ/brain))
 		
 			to_chat(user, "<span class='notice'>You offer [src] to [SM]...</span>")	
-			qdel(thing)
+			var/obj/item/organ/brain/brian = thing
+			
+			if(brian.brainmob && brian.brainmob.mind)
+			
+				var/mob/creature = release_creature(FALSE)
+				brainmob.mind.transfer_to(creature)
+				creature.key = brian.brainmob.mind.key
+				creature.mind.enslave_mind_to_creator(user)
+				creature.sentience_act()
+				to_chat(creature, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
+				to_chat(creature, "<span class='userdanger'>You are grateful to be self aware and owe [user.real_name] a great debt. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
+				creature.copy_languages(user)	
 			
 			var/list/candidates = pollCandidatesForMob("Do you want to play as [SM.name]?", ROLE_SENTIENCE, null, ROLE_SENTIENCE, 50, SM, POLL_IGNORE_SENTIENCE_POTION)
 			if(LAZYLEN(candidates))
@@ -103,9 +128,7 @@
 				creature.sentience_act()
 				to_chat(creature, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 				to_chat(creature, "<span class='userdanger'>You are grateful to be self aware and owe [user.real_name] a great debt. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
-				creature.copy_languages(user)				
-			else
-				n_organs_eaten = n_organs_eaten + 1
+				creature.copy_languages(user)							
 		else
 			n_organs_eaten = n_organs_eaten + 1
 			qdel(thing)
