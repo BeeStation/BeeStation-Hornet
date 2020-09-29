@@ -261,11 +261,14 @@
 
 	ui_mode = NUKEUI_AWAIT_TIMER
 
-/obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key="main", datum/tgui/ui=null, force_open=0, datum/tgui/master_ui=null, datum/ui_state/state=GLOB.default_state)
+/obj/machinery/nuclearbomb/ui_interact(mob/user, datum/tgui/ui=null)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-
+		ui = new(user, src, "NuclearBomb")
 		ui.open()
+
+/obj/machinery/nuclearbomb/ui_state(mob/user)
+	return GLOB.default_state
 
 /obj/machinery/nuclearbomb/ui_data(mob/user)
 	var/list/data = list()

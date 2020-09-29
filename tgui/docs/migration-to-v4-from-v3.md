@@ -37,7 +37,7 @@ Then reduce `ui_interact` until you finish with something like this:
 .../ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "FooBar", "Foo Bar UI", 600, 400)
+		ui = new(user, src, "FooBar")
 		ui.open()
 ```
 

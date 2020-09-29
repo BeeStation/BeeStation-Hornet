@@ -78,7 +78,7 @@
 		/datum/asset/simple/arcade
 	)
 
-/datum/computer_file/program/arcade/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
+/datum/computer_file/program/arcade/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
 
 /datum/computer_file/program/arcade/ui_data(mob/user)

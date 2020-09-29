@@ -312,12 +312,12 @@
 		stamps = null
 		info = "<font face=\"[SIGNFONT]\"><i>The paper has been burned. You can't make anything out.</i></font>"
 
-/obj/item/paper/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/default/paper_state/state = new)
+/obj/item/paper/ui_interact(mob/user, datum/tgui/ui = null)
 	ui_key = "main-[REF(user)]"
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		// The x size is because we double the width for the editor
-
+		ui = new(user, src, "PaperSheet", name, 600, 800)
 		ui.set_autoupdate(FALSE)
 		viewing_ui[user] = ui
 		ui.open()
@@ -328,6 +328,8 @@
 		else
 			ui.state = state
 
+/obj/item/paper/ui_state(mob/user)
+	return new /datum/ui_state/default/paper_state()
 
 /obj/item/paper/ui_close(mob/user)
 	/// close the editing window and change the mode

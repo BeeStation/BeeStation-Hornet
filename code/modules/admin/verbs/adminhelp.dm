@@ -402,15 +402,18 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 /datum/admin_help/proc/TicketPanel()
 	ui_interact(usr)
 
-/datum/admin_help/ui_interact(mob/user, ui_key = "ticket", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
+/datum/admin_help/ui_interact(mob/user, datum/tgui/ui = null)
 	//Support multiple tickets open at once
 	ui_key = "ticket[id]"
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		log_admin_private("[user.ckey] opened the ticket panel.")
-		ui = new(user, src, ui_key, "TicketMessenger", "ticket messenger", 620, 500, master_ui, state)
+		ui = new(user, src, "TicketMessenger")
 		ui.set_autoupdate(TRUE)
 		ui.open()
+
+/datum/admin_help/ui_state(mob/user)
+	return GLOB.admin_state
 
 /datum/admin_help/ui_data(mob/user)
 	var/datum/admins/admin_datum = GLOB.admin_datums[user.ckey]
