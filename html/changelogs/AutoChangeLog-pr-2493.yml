@@ -1,0 +1,5 @@
+author: PerishedFraud
+delete-after: true
+changes:
+  - bugfix: Makes mining station's outer airlocks not vent out the entire station
+      if you go through them too fast
