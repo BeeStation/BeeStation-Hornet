@@ -43,7 +43,7 @@
 
   //Layouts
   @include meta.load-css('../layouts/Layout.scss');
-  @include meta.load-css('../layouTts/Window.scss');
+  @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css('../layouts/TitleBar.scss', $with: (
     'background-color': #5F380E,
     'shadow-color': rgba(0, 0, 0, 0.1),
