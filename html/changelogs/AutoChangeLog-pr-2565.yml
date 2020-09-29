@@ -1,0 +1,5 @@
+author: qwertyquerty
+delete-after: true
+changes:
+  - bugfix: Added input capping and sanitization
+  - config: Added some new input wrappers
