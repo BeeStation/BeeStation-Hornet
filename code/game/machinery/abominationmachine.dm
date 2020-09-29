@@ -160,7 +160,10 @@
 			//you cant attack this body part to the abomination
 			to_chat(user, "<span class='notice'>[I] cannot attach on your abomination.</span>")
 		else
-			to_chat(user, "<span class='notice'>You feed the [I] through a small gap in [src], as it attaches to the fleshy mass.</span>")
+			if (!has_creature)
+				to_chat(user, "<span class='notice'>There is no creature inside of the [src].</span>")
+			else
+				to_chat(user, "<span class='notice'>You feed the [I] through a small gap in [src], as it attaches to the fleshy mass.</span>")
 
 	if(I.tool_behaviour == TOOL_WRENCH)
 		if(!anchored)
