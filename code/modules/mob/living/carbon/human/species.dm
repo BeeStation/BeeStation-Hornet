@@ -90,8 +90,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	//in __DEFINES/mobs.dm, defaults to NONE, so people actually have to think about it
 	var/changesource_flags = NONE
 
-	var/patron_locked = FALSE
-
 ///////////
 // PROCS //
 ///////////

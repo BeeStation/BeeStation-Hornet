@@ -1422,7 +1422,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						var/new_species_type = GLOB.species_list[result]
 						var/datum/species/new_species = new new_species_type()
 
-						if (!new_species.patron_locked || IS_PATRON(parent.ckey) || parent.holder)
+						if (!CONFIG_GET(keyed_list/paywall_races)[new_species.id] || IS_PATRON(parent.ckey) || parent.holder)
 							pref_species = new_species
 							//Now that we changed our species, we must verify that the mutant colour is still allowed.
 							var/temp_hsv = RGBtoHSV(features["mcolor"])
