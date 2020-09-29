@@ -123,6 +123,9 @@
 				antag_info["objectives"] += list(list("objective_type"=O.type,"text"=O.explanation_text,"result"=result))
 		SSblackbox.record_feedback("associative", "antagonists", 1, antag_info)
 
+		if(IS_PATRON(C.ckey))
+			greentexted = TRUE
+
 		if (greentexted)
 			if (A.owner && A.owner.key)
 				if (A.type != /datum/antagonist/custom)
