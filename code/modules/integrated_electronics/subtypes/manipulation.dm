@@ -398,6 +398,8 @@
 			AM.forceMove(src)
 
 /obj/item/integrated_circuit/manipulation/grabber/proc/drop(obj/item/AM, turf/T = drop_location())
+	if(!(AM in contents))
+		return
 	var/atom/A = get_object()
 	A.investigate_log("dropped ([AM]) from [src].", INVESTIGATE_CIRCUIT)
 	AM.forceMove(T)

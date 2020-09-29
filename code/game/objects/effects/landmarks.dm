@@ -239,6 +239,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Psychiatrist"
 	job = "Psychiatrist"
 
+/obj/effect/landmark/start/randommaint/celebrity
+	name = "VIP"
+	job = "VIP"
+
 //Department Security spawns
 
 /obj/effect/landmark/start/depsec

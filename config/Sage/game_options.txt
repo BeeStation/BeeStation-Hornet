@@ -95,6 +95,7 @@ ALERT_DELTA Destruction of the station is imminent. All crew are instructed to o
 PROBABILITY TRAITOR 9
 PROBABILITY SECRET_EXTENDED 7
 PROBABILITY CULT 6
+PROBABILITY HERESY 6
 PROBABILITY INTERNAL_AFFAIRS 6
 PROBABILITY TRAITORCHAN 5
 PROBABILITY CHANGELING 5
@@ -102,10 +103,11 @@ PROBABILITY REVOLUTION 4
 PROBABILITY INCURSION 4
 PROBABILITY NUCLEAR 4
 PROBABILITY TRAITORBRO 3
-PROBABILITY GANG 3
 PROBABILITY EXTENDED 2
 PROBABILITY MONKEY 1
 PROBABILITY WIZARD 1
+PROBABILITY CLOCKCULT 1
+PROBABILITY GANG 0
 PROBABILITY CLOWNOPS 0
 PROBABILITY METEOR 0
 PROBABILITY DEVIL 0
@@ -133,6 +135,7 @@ CONTINUOUS CHANGELING
 CONTINUOUS WIZARD
 #CONTINUOUS MONKEY
 CONTINUOUS HIVEMIND
+CONTINUOUS CLOCKCULT
 
 ##Note: do not toggle continuous off for these modes, as they have no antagonists and would thus end immediately!
 
@@ -208,7 +211,8 @@ MAX_POP INCURSION -1
 #MIN_POP EXTENDED 0
 #MAX_POP EXTENDED -1
 
-
+MIN_POP CLOCKCULT 32
+MAX_POP CLOCKCULT -1
 
 ## The amount of time it takes for the emergency shuttle to be called, from round start.
 SHUTTLE_REFUEL_DELAY 12000
@@ -219,6 +223,7 @@ SHUTTLE_REFUEL_DELAY 12000
 TRAITOR_SCALING_COEFF 6
 BROTHER_SCALING_COEFF 6
 CHANGELING_SCALING_COEFF 6
+ECULT_SCALING_COEFF 6
 
 ## Variables calculate how number of open security officer positions will scale to population.
 ## Used as (Officers = Population / Coeff)
@@ -312,7 +317,7 @@ ALLOW_AI_MULTICAM
 ## AWAY MISSIONS ###
 
 ## Uncomment to load one of the missions from awaymissionconfig.txt at roundstart.
-ROUNDSTART_AWAY
+#ROUNDSTART_AWAY
 
 ## How long the delay is before the Away Mission gate opens. Default is half an hour.
 ## 600 is one minute.
