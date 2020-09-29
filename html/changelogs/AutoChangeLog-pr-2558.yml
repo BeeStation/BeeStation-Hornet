@@ -1,0 +1,5 @@
+author: Victor239
+delete-after: true
+changes:
+  - tweak: All Command roles now require 20h playtime in the relevant department,
+      except HOP requires 10h Service. Warden and QM require 10h each.
