@@ -1,0 +1,5 @@
+author: r1ks-iwnl
+delete-after: true
+changes:
+  - imageadd: Adds 8 new icons for circuit boards, based on department colors
+  - refactor: Reorganizes computer_circuits.dm and machine_circuitboard.dm
