@@ -494,7 +494,7 @@ ROUNDSTART_RACES ipc
 ##-------------------------------------------------------------------------------------------
 ## Uncommenting races will restrict them behind the patreon paywall
 
-PAYWALL_RACES felinid
+#PAYWALL_RACES felinid
 
 ##-------------------------------------------------------------------------------------------
 
