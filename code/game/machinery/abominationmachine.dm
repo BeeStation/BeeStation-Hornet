@@ -2,9 +2,9 @@
 //Monster beacon
 ////////////////////////////////////////
 
-/obj/item/sbeacondrop/powersink
+/obj/item/sbeacondrop/abomachine
 	desc = "A label on it reads: <i>Warning: Activating this device will send a power draining device to your location</i>."
-	droptype = /obj/item/powersink
+	droptype = /obj/machinery/abomachine
 	
 ////////////////////////////////////////
 //Actual Machine
@@ -63,6 +63,9 @@
 /obj/machinery/abomachine/Initialize()
 	. = ..()
 	update_icon()
+	
+/obj/machinery/abomachine/update_icon()
+	icon_state = has_creature ? "pod_g" : "pod_0"
 
 /obj/machinery/abomachine/examine(mob/user)
 	. = ..()
