@@ -21,7 +21,7 @@
     skinned_type = /obj/item/stack/sheet/animalhide/human
     toxic_food = FRIED
     species_language_holder = /datum/language_holder/squid
-	patreon_locked = true // requires donation
+    patron_locked = true // requires donation
 
 /mob/living/carbon/human/species/squid
     race = /datum/species/squid
