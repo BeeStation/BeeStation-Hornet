@@ -1,4 +1,0 @@
-author: archeoid
-delete-after: true
-changes:
-  - bugfix: fixed non-functional passkeys for circuits
