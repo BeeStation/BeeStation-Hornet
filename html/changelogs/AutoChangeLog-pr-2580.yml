@@ -1,0 +1,5 @@
+author: qwertyquerty
+delete-after: true
+changes:
+  - rscadd: Added race paywall to config
+  - config: Felinids are no longer paywalled.
