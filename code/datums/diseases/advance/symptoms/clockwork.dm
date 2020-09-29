@@ -130,7 +130,7 @@
 					organ.Insert(H, TRUE, FALSE)
 					return TRUE
 			if(ORGAN_SLOT_TAIL)
-				var/obj/item/organ/tail/clockwork/organ = new()
+				var/obj/item/organ/tail/human/clockwork/organ = new()
 				organ.Insert(H, TRUE, FALSE)
 				return TRUE
 			if(ORGAN_SLOT_WINGS)
