@@ -234,7 +234,7 @@
  ** not sure how tgui handles many producers?
 **/
 /obj/item/paper/proc/create_ui(mob/user, datum/ui_state/default/paper_state/state)
-	ui_interact(user, "main", null, FALSE, null, state)
+	ui_interact(user, null, state)
 
 
 /obj/item/proc/burn_paper_product_attackby_check(obj/item/I, mob/living/user, bypass_clumsy)
@@ -312,8 +312,7 @@
 		stamps = null
 		info = "<font face=\"[SIGNFONT]\"><i>The paper has been burned. You can't make anything out.</i></font>"
 
-/obj/item/paper/ui_interact(mob/user, datum/tgui/ui = null)
-	ui_key = "main-[REF(user)]"
+/obj/item/paper/ui_interact(mob/user, datum/tgui/ui = null, datum/ui_state/default/paper_state/state)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		// The x size is because we double the width for the editor
@@ -326,7 +325,7 @@
 		if(last_state)
 			last_state.copy_from(state)
 		else
-			ui.state = state
+			ui.state = ui_state(state)
 
 /obj/item/paper/ui_state(mob/user)
 	return new /datum/ui_state/default/paper_state()

@@ -404,7 +404,6 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 /datum/admin_help/ui_interact(mob/user, datum/tgui/ui = null)
 	//Support multiple tickets open at once
-	ui_key = "ticket[id]"
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		log_admin_private("[user.ckey] opened the ticket panel.")
