@@ -1,5 +1,0 @@
-author: qwertyquerty
-delete-after: true
-changes:
-  - rscadd: Re-add qwerty lighting in specific areas
-  - code_imp: You can now specify area bulb brightness
