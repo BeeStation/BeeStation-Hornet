@@ -95,7 +95,7 @@ Doesn't work on other aliens/AI.*/
 	var/mob/living/M = input("Select who to whisper to:","Whisper to?",null) as null|mob in sortNames(options)
 	if(!M)
 		return 0
-	var/msg = sanitize(input("Message:", "Alien Whisper") as text|null)
+	var/msg = stripped_input(usr, "Message:", "Alien Whisper")
 	if(msg)
 		log_directed_talk(user, M, msg, LOG_SAY, tag="alien whisper")
 		to_chat(M, "<span class='noticealien'>You hear a strange, alien voice in your head...</span>[msg]")
