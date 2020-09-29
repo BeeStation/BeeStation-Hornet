@@ -49,7 +49,15 @@
 		creature.obj_damage = (n_arms_eaten>=8) ? 100 : 40
 	
 	to_chat(user, "<span class='warning'>It lives!</span>")
+	
+	//Reset the machine
 	has_creature = FALSE
+	n_arms_eaten = 0
+	n_legs_eaten = 0
+	n_organs_eaten = 0
+	n_ublood_eaten = 0
+	update_icon()
+	
 	return creature
 
 /obj/machinery/abomachine/obj_break()
@@ -97,6 +105,7 @@
 		if (istype(thing, obj/item/organ/heart))	//have a heart
 			if (!has_creature)				
 				has_creature = TRUE
+				update_icon()
 			else
 				n_organs_eaten = n_organs_eaten + 1
 			qdel(thing)
@@ -110,7 +119,7 @@
 			to_chat(user, "<span class='notice'>You offer [src] to [SM]...</span>")	
 			var/obj/item/organ/brain/brian = thing
 			
-			if(brian.brainmob && brian.brainmob.mind)
+			if(brian.brainmob && brian.brainmob.mind) //enslave the current mind into the creature
 			
 				var/mob/creature = release_creature(FALSE)
 				brainmob.mind.transfer_to(creature)
@@ -121,17 +130,18 @@
 				to_chat(creature, "<span class='userdanger'>You are grateful to be self aware and owe [user.real_name] a great debt. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 				creature.copy_languages(user)	
 			
-			var/list/candidates = pollCandidatesForMob("Do you want to play as [SM.name]?", ROLE_SENTIENCE, null, ROLE_SENTIENCE, 50, SM, POLL_IGNORE_SENTIENCE_POTION)
-			if(LAZYLEN(candidates))
-			
-				var/mob/creature = release_creature(FALSE)
-				var/mob/dead/observer/C = pick(candidates)
-				creature.key = C.key
-				creature.mind.enslave_mind_to_creator(user)
-				creature.sentience_act()
-				to_chat(creature, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
-				to_chat(creature, "<span class='userdanger'>You are grateful to be self aware and owe [user.real_name] a great debt. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
-				creature.copy_languages(user)							
+			else //create a ghostpoll
+				var/list/candidates = pollCandidatesForMob("Do you want to play as [SM.name]?", ROLE_SENTIENCE, null, ROLE_SENTIENCE, 50, SM, POLL_IGNORE_SENTIENCE_POTION)
+				if(LAZYLEN(candidates))
+				
+					var/mob/creature = release_creature(FALSE)
+					var/mob/dead/observer/C = pick(candidates)
+					creature.key = C.key
+					creature.mind.enslave_mind_to_creator(user)
+					creature.sentience_act()
+					to_chat(creature, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
+					to_chat(creature, "<span class='userdanger'>You are grateful to be self aware and owe [user.real_name] a great debt. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
+					creature.copy_languages(user)							
 		else
 			n_organs_eaten = n_organs_eaten + 1
 			qdel(thing)
