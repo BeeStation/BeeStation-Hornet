@@ -67,6 +67,7 @@
 		damage_shield()
 		to_chat(src, "<span class='warning'>Your shield blocks the attack.</span>")
 		return BULLET_ACT_BLOCK
+	return ..()
 
 /mob/living/simple_animal/clockwork_marauder/proc/damage_shield()
 	if(shield_health == MARAUDER_SHIELD_MAX)
