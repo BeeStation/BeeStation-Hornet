@@ -83,3 +83,7 @@
 	sheet_amount = 2
 	girder_type = /obj/structure/girder/bronze
 
+/turf/closed/indestructible/cordon
+	name = "cordon"
+	desc = "Cordon Freeman"
+	icon_state = "cordon"
