@@ -1,0 +1,4 @@
+author: zeskorion
+delete-after: true
+changes:
+  - bugfix: mutation toxin is restricted again
