@@ -95,29 +95,33 @@
 		var/pck = pick("assasinate","stalk","protect")
 		switch(pck)
 			if("assasinate")
-				var/datum/objective/assassinate/A = new
+				var/datum/objective/assassinate/A = new()
 				A.owner = owner
 				var/list/owners = A.get_owners()
 				A.find_target(owners,protection)
 				assasination += A.target
 				objectives += A
+				log_objective(owner, A.explanation_text)
 			if("stalk")
-				var/datum/objective/stalk/S = new
+				var/datum/objective/stalk/S = new()
 				S.owner = owner
 				S.find_target()
 				objectives += S
+				log_objective(owner, S.explanation_text)
 			if("protect")
-				var/datum/objective/protect/P = new
+				var/datum/objective/protect/P = new()
 				P.owner = owner
 				var/list/owners = P.get_owners()
 				P.find_target(owners,assasination)
 				protection += P.target
 				objectives += P
+				log_objective(owner, P.explanation_text)
 
-	var/datum/objective/sacrifice_ecult/SE = new
+	var/datum/objective/sacrifice_ecult/SE = new()
 	SE.owner = owner
 	SE.update_explanation_text()
 	objectives += SE
+	log_objective(owner, SE.explanation_text)
 
 /datum/antagonist/heretic/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -152,6 +156,9 @@
 	if(length(objectives))
 		var/count = 1
 		for(var/o in objectives)
+			if(isnull(o) || !o)
+				stack_trace("Heretic objective was NULL'ed")
+				continue
 			var/datum/objective/objective = o
 			if(objective.check_completion())
 				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</b></span>"
@@ -162,7 +169,8 @@
 
 	if(ascended)
 		//Ascension isnt technically finishing the objectives, buut it is to be considered a great win.
-		owner.current.client.process_greentext()
+		if(owner.current.client)
+			owner.current.client.process_greentext()
 		parts += "<span class='greentext big'>HERETIC HAS ASCENDED!</span>"
 	else
 		if(cultiewin)
@@ -216,13 +224,15 @@
 	var/timer = 5 MINUTES
 
 /datum/objective/stalk/process()
-	if(owner?.current.stat != DEAD && target?.current.stat != DEAD && (target in view(5,owner.current)))
+	if(owner && owner.current && owner.current.stat != DEAD && target && target && target.current && target.current.stat != DEAD && (target in view(5,owner.current)))
 		timer -= 1 SECONDS
 	///we don't want to process after the counter reaches 0, otherwise it is wasted processing
 	if(timer <= 0)
+		completed = TRUE
 		STOP_PROCESSING(SSprocessing,src)
 
 /datum/objective/stalk/Destroy(force, ...)
+	stack_trace("Stalk objective is being removed! This shouldn't normally happen!")
 	STOP_PROCESSING(SSprocessing,src)
 	return ..()
 
