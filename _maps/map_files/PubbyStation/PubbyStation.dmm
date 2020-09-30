@@ -62412,7 +62412,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "rnh" = (
-/obj/structure/plasticflaps/opaque,
 /obj/machinery/conveyor{
 	dir = 8;
 	id = "SciLoad"
@@ -117118,7 +117117,7 @@ bkF
 aaa
 aaa
 aaa
-aaa
+vuQ
 tqD
 fwB
 rbC

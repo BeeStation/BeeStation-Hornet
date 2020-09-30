@@ -120398,7 +120398,6 @@
 /turf/open/floor/engine/vacuum,
 /area/science/mixing/chamber)
 "eAA" = (
-/obj/structure/plasticflaps/opaque,
 /obj/machinery/conveyor{
 	dir = 1;
 	id = "SciLoad"

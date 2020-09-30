@@ -85070,6 +85070,16 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
+"pCO" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "SciLoad"
+	},
+/turf/open/floor/plating,
+/area/science/shuttledock)
 "pCV" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -126194,7 +126204,7 @@ ctl
 nYJ
 fZG
 nYJ
-xlJ
+pCO
 xHp
 mjJ
 xVS
@@ -126450,7 +126460,7 @@ aaf
 lrF
 aaa
 aaa
-aaa
+nYJ
 ybQ
 wcC
 jbz
