@@ -299,7 +299,6 @@ GLOBAL_VAR(restart_counter)
 
 	s += "<b>[station_name()]</b>";
 	s += "(<a href='https://discord.gg/CwYA6Mz'>Discord</a>|<a href='https://ko-fi.com/dappersquid'>Donations</a>)"
-	s += "<img src=\"https://i.imgur.com/lrm067D.gif\">" //Banner image
 
 	var/players = GLOB.clients.len
 
@@ -322,6 +321,8 @@ GLOBAL_VAR(restart_counter)
 		s += ": [jointext(features, ", ")]"
 
 	status = s
+
+	s += "<img src=\"https://i.imgur.com/zLm9d09.gif\">" //Banner image
 
 /world/proc/update_hub_visibility(new_visibility)
 	if(new_visibility == GLOB.hub_visibility)
