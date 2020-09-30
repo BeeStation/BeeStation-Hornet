@@ -169,8 +169,9 @@
 
 	if(ascended)
 		//Ascension isnt technically finishing the objectives, buut it is to be considered a great win.
-		if(owner.current.client)
-			owner.current.client.process_greentext()
+		var/client/C = GLOB.directory[ckey(owner.key)]
+		if(C)
+			C.process_greentext()
 		parts += "<span class='greentext big'>HERETIC HAS ASCENDED!</span>"
 	else
 		if(cultiewin)
