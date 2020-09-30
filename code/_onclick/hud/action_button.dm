@@ -9,7 +9,7 @@
 	var/appearance_cache
 
 	var/id
-	var/ordered = TRUE //If the button gets placed into the default bar
+	var/ordered = TRUE //If the button gets placed into the default bar.
 
 /obj/screen/movable/action_button/Destroy()
 	. = ..()
@@ -63,6 +63,10 @@
 		return
 	usr.next_click = world.time + 1
 	linked_action.Trigger()
+	SEND_SOUND(usr, 'sound/effects/pop.ogg')
+	transform = turn(matrix() * 0.9, pick(-8, 8))
+	alpha = 200
+	animate(src, transform = matrix(), time=4, alpha=255)
 	return TRUE
 
 //Hide/Show Action Buttons ... Button

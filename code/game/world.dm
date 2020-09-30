@@ -51,7 +51,7 @@ GLOBAL_VAR(restart_counter)
 	GLOB.timezoneOffset = text2num(time2text(0,"hh")) * 36000
 
 	if(fexists(RESTART_COUNTER_PATH))
-		GLOB.restart_counter = text2num(trim(file2text(RESTART_COUNTER_PATH)))
+		GLOB.restart_counter = text2num(trim(rustg_file_read(RESTART_COUNTER_PATH)))
 		fdel(RESTART_COUNTER_PATH)
 
 	if(NO_INIT_PARAMETER in params)
@@ -113,6 +113,7 @@ GLOBAL_VAR(restart_counter)
 	GLOB.world_mecha_log = "[GLOB.log_directory]/mecha.log"
 	GLOB.world_virus_log = "[GLOB.log_directory]/virus.log"
 	GLOB.world_cloning_log = "[GLOB.log_directory]/cloning.log"
+	GLOB.world_id_log = "[GLOB.log_directory]/id.log"
 	GLOB.world_asset_log = "[GLOB.log_directory]/asset.log"
 	GLOB.world_attack_log = "[GLOB.log_directory]/attack.log"
 	GLOB.world_pda_log = "[GLOB.log_directory]/pda.log"
@@ -141,6 +142,7 @@ GLOBAL_VAR(restart_counter)
 	start_log(GLOB.world_qdel_log)
 	start_log(GLOB.world_runtime_log)
 	start_log(GLOB.world_job_debug_log)
+	start_log(GLOB.world_id_log)
 	start_log(GLOB.tgui_log)
 
 	GLOB.changelog_hash = md5('html/changelog.html') //for telling if the changelog has changed recently
@@ -218,7 +220,7 @@ GLOBAL_VAR(restart_counter)
 	else
 		fail_reasons = list("Missing GLOB!")
 	if(!fail_reasons)
-		text2file("Success!", "[GLOB.log_directory]/clean_run.lk")
+		rustg_file_append("Success!", "[GLOB.log_directory]/clean_run.lk")
 	else
 		log_world("Test run failed!\n[fail_reasons.Join("\n")]")
 	sleep(0)	//yes, 0, this'll let Reboot finish and prevent byond memes
@@ -253,7 +255,7 @@ GLOBAL_VAR(restart_counter)
 				if(GLOB.restart_counter >= ruhr)
 					do_hard_reboot = TRUE
 				else
-					text2file("[++GLOB.restart_counter]", RESTART_COUNTER_PATH)
+					rustg_file_append("[++GLOB.restart_counter]", RESTART_COUNTER_PATH)
 					do_hard_reboot = FALSE
 
 		if(do_hard_reboot)

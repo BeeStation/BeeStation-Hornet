@@ -44,7 +44,7 @@
 	if(!select)
 		burst_size = 1
 		fire_delay = 0
-		to_chat(user, "<span class='notice'>You switch to semi-automatic.</span>")
+		to_chat(user, "<span class='notice'>You switch to [full_auto ? "full-auto": "semi-automatic."]</span>")
 	else
 		burst_size = initial(burst_size)
 		fire_delay = initial(fire_delay)

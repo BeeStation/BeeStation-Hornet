@@ -555,7 +555,7 @@
 	category = list("Misc", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
-/datum/design/wingpack
+/datum/design/wingpack_alien
 	name = "Advanced Cybernetic Wingpack"
 	desc = "A compact pair of mechanical wings. They are equipped with miniaturized void engines, and can fly in any atmosphere, or lack thereof."
 	id = "wingpack_ayy"

@@ -702,4 +702,14 @@
 	. = O.attack(M, user, def_zone, FALSE)
 	update_icon()
 
+/obj/item/reagent_containers/food/snacks/ravtart
+	name = "Rav'tart"
+	desc = "A brass colored tart with a red filling. Originally baked by TRNE Corp, it is supposedly blessed by a certain eldritch god."
+	icon_state = "ravtart"
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1, /datum/reagent/consumable/ratlight = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 7, /datum/reagent/consumable/nutriment/vitamin = 3, /datum/reagent/consumable/ratlight = 8)
+	filling_color = "#F2CE91"
+	tastes = list("pastry" = 1, "sweetness" = 1)
+	foodtype = GRAIN | FRUIT
+
 #undef PANCAKE_MAX_STACK

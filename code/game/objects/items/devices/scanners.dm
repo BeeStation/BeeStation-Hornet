@@ -935,6 +935,8 @@ GENE SCANNER
 			return
 		symptomholder.name = chosen.name
 		symptomholder.symptoms += chosen
+		symptomholder.Finalize()
+		symptomholder.Refresh()
 		to_chat(user, "<span class='warning'>you begin isolating [chosen].</span>")
 		if(do_mob(user, AM, (600 / scanner.rating)))
 			create_culture(symptomholder, user)

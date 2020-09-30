@@ -23,7 +23,7 @@
 	agent = "advance microbes"
 	max_stages = 5
 	spread_text = "Unknown"
-	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
+	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey, /mob/living/carbon/monkey/tumor)
 
 	// NEW VARS
 	var/list/properties = list()
@@ -36,7 +36,7 @@
 	var/faltered = FALSE //used if a disease has been made non-contagious
 	// The order goes from easy to cure to hard to cure.
 	var/static/list/advance_cures = 	list(
-																/datum/reagent/consumable/sugar, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/sodiumchloride, 
+																/datum/reagent/water, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/sodiumchloride,
 									/datum/reagent/medicine/spaceacillin, /datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/mine_salve,
 									/datum/reagent/medicine/leporazine, /datum/reagent/concentrated_barbers_aid, /datum/reagent/toxin/lipolicide,
 									/datum/reagent/medicine/haloperidol, /datum/reagent/drug/krokodil
@@ -203,18 +203,18 @@
 		S.severityset(src)
 		if(!S.neutered && S.severity >= 5) //big severity goes first. This means it can be reduced by beneficials, but won't increase from minor symptoms
 			properties["severity"] += S.severity
-	for(var/datum/symptom/S in symptoms) 
+	for(var/datum/symptom/S in symptoms)
 		S.severityset(src)
 		if(!S.neutered)
 			switch(S.severity)//these go in the middle. They won't augment large severity diseases, but they can push low ones up to channel 2
 				if(1 to 2)
 					properties["severity"] = max(properties["severity"], min(3, (S.severity + properties["severity"])))
 				if(3 to 4)
-					properties["severity"] = max(properties["severity"], min(4, (S.severity + properties["severity"])))		
+					properties["severity"] = max(properties["severity"], min(4, (S.severity + properties["severity"])))
 	for(var/datum/symptom/S in symptoms) //benign and beneficial symptoms go last
 		S.severityset(src)
 		if(!S.neutered && S.severity <= 0)
-			properties["severity"] += S.severity		
+			properties["severity"] += S.severity
 
 // Assign the properties that are in the list.
 /datum/disease/advance/proc/AssignProperties()
@@ -369,6 +369,11 @@
 		id = result
 	return id
 
+//This proc is used when creating diseases, to call OnAdd for each symptom to make sure the symptoms work as they should
+/datum/disease/advance/proc/Finalize()
+	for(var/datum/symptom/S in symptoms)
+		S.OnAdd(src)
+
 
 // Add a symptom, if it is over the limit we take a random symptom away and add the new one.
 /datum/disease/advance/proc/AddSymptom(datum/symptom/S)
@@ -472,6 +477,7 @@
 			return
 		D.AssignName(new_name)
 		D.Refresh()
+		D.Finalize()
 
 		for(var/datum/disease/advance/AD in SSdisease.active_diseases)
 			AD.Refresh()
@@ -501,3 +507,6 @@
 
 /datum/disease/advance/proc/totalTransmittable()
 	return properties["transmittable"]
+
+/datum/disease/advance/proc/totalSeverity()
+	return properties["severity"]

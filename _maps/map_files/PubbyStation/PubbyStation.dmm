@@ -30024,32 +30024,6 @@
 /obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
-"bqg" = (
-/obj/structure/table,
-/obj/item/book/manual/wiki/robotics_cyborgs{
-	pixel_x = 2;
-	pixel_y = 5
-	},
-/obj/item/storage/belt/utility,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/radio/intercom{
-	pixel_x = -27
-	},
-/obj/item/radio/headset/headset_sci{
-	pixel_x = -3
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/science/robotics/lab)
 "bqh" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -30076,20 +30050,6 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/plasteel,
-/area/science/robotics/lab)
-"bqk" = (
-/obj/machinery/aug_manipulator,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "bql" = (
 /obj/machinery/power/apc{
@@ -30749,20 +30709,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
-"brw" = (
-/obj/machinery/vending/wardrobe/robo_wardrobe,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/science/robotics/lab)
 "brx" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -31419,33 +31365,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
-"bsW" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/item/twohanded/required/kirbyplants/random,
-/turf/open/floor/plasteel/dark,
-/area/science/robotics/lab)
 "bsX" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/science/robotics/lab)
-"bsY" = (
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
 	dir = 8
@@ -54110,6 +54035,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/explab)
+"cNb" = (
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/plasteel,
+/area/science/robotics/lab)
 "cNN" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -54266,6 +54199,23 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/closed/wall/r_wall,
 /area/engine/engineering)
+"dcT" = (
+/obj/item/radio/intercom{
+	pixel_x = -27
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/aug_manipulator,
+/turf/open/floor/plasteel/dark,
+/area/science/robotics/lab)
 "dcV" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -54473,6 +54423,29 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/department/science)
+"dtT" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/storage/belt/utility,
+/obj/item/radio/headset/headset_sci{
+	pixel_x = -3
+	},
+/obj/item/book/manual/wiki/robotics_cyborgs{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/turf/open/floor/plasteel/dark,
+/area/science/robotics/lab)
 "duF" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -55399,6 +55372,22 @@
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
+"fuO" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/structure/bodycontainer/morgue{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/science/robotics/lab)
 "fuP" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -59625,6 +59614,20 @@
 "mVM" = (
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
+"mVU" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/vending/wardrobe/robo_wardrobe,
+/turf/open/floor/plasteel/dark,
+/area/science/robotics/lab)
 "mXq" = (
 /obj/item/taperecorder,
 /obj/item/cartridge/lawyer,
@@ -63618,6 +63621,7 @@
 /obj/item/clothing/mask/gas/sechailer,
 /obj/item/gun/energy/e_gun/dragnet,
 /obj/item/gun/energy/e_gun/dragnet,
+/obj/item/beacon/nettingportal,
 /obj/item/gun/grenadelauncher,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
@@ -101931,9 +101935,9 @@ blE
 bmL
 bnO
 boX
-bqg
-brw
-bsW
+dcT
+dtT
+mVU
 bku
 cqp
 bxm
@@ -102447,7 +102451,7 @@ bnP
 bnP
 bqi
 bmM
-bsY
+cNb
 bku
 bvF
 bxo
@@ -103730,7 +103734,7 @@ blL
 bmR
 bnS
 boZ
-bqk
+fuO
 brC
 btd
 bkt

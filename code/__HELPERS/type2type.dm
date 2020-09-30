@@ -14,8 +14,8 @@
 //returns an empty list if the file doesn't exist
 /world/proc/file2list(filename, seperator="\n", trim = TRUE)
 	if (trim)
-		return splittext(trim(file2text(filename)),seperator)
-	return splittext(file2text(filename),seperator)
+		return splittext(trim(rustg_file_read(filename)),seperator)
+	return splittext(rustg_file_read(filename),seperator)
 
 //Turns a direction into text
 /proc/dir2text(direction)
@@ -548,7 +548,7 @@ Takes a string and a datum. The string is well, obviously the string being check
 	var/c
 	for(var/i = 1 to length(str))
 		c = text2ascii(str,i)
-		r += num2hex(c, 1)
+		r += num2hex(c, 2)
 	return r
 
 /// Decodes hex to raw byte string. If safe=TRUE, returns null on incorrect input strings instead of CRASHing

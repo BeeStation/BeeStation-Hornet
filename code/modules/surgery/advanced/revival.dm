@@ -54,13 +54,14 @@
 	display_results(user, target, "<span class='notice'>You prepare to give [target]'s brain the spark of life with [tool].</span>",
 		"[user] prepares to shock [target]'s brain with [tool].",
 		"[user] prepares to shock [target]'s brain with [tool].")
-	target.notify_ghost_cloning("Someone is trying to zap your brain. Re-enter your corpse if you want to be revived!", source = target)
+	target.notify_ghost_cloning("Someone is trying to zap your brain!", source = target)
 
 /datum/surgery_step/revive/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='notice'>You successfully shock [target]'s brain with [tool]...</span>",
 		"[user] send a powerful shock to [target]'s brain with [tool]...",
 		"[user] send a powerful shock to [target]'s brain with [tool]...")
 	playsound(get_turf(target), 'sound/magic/lightningbolt.ogg', 50, 1)
+	target.grab_ghost()
 	target.adjustOxyLoss(-50, 0)
 	target.updatehealth()
 	if(target.revive())

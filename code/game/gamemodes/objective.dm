@@ -135,7 +135,7 @@ GLOBAL_LIST_EMPTY(objectives)
 	var/list/datum/mind/owners = get_owners()
 	var/list/possible_targets = list()
 	for(var/datum/mind/possible_target in get_crewmember_minds())
-		if(!(possible_target in owners) && ishuman(possible_target.current))
+		if(!(possible_target in owners) && ishuman(possible_target.current) && is_valid_target(possible_target))
 			var/is_role = FALSE
 			if(role_type)
 				if(possible_target.special_role == role)
@@ -298,7 +298,11 @@ GLOBAL_LIST_EMPTY(objectives)
 	return target
 
 /datum/objective/protect/check_completion()
-	return !target || considered_alive(target, enforce_human = human_check)
+	var/obj/item/organ/brain/brain_target
+	if(human_check)
+		brain_target = target.current.getorganslot(ORGAN_SLOT_BRAIN)
+	//Protect will always suceed when someone suicides
+	return !target || considered_alive(target, enforce_human = human_check) || (human_check == TRUE && brain_target)? brain_target.suicided : FALSE
 
 /datum/objective/protect/update_explanation_text()
 	..()
