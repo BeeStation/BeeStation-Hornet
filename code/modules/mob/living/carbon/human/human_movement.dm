@@ -79,3 +79,12 @@
 	if(dna.species.space_move(src))
 		return TRUE
 	return ..()
+
+/mob/living/carbon/human/carefulmovement()
+	if(buckled) //sitting down, being in a vehicle, etc
+		return FALSE 
+	if(stat) //iron out edgecases
+		return FALSE
+	if((cached_multiplicative_slowdown + dna.species.movement_delay(src)) >= CONFIG_GET(number/movedelay/walk_delay) && mobility_flags & MOBILITY_STAND) //later, i want walk to not slow you down past walk delay. later.
+		return TRUE
+	return FALSE

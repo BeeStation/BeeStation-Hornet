@@ -27,7 +27,7 @@
 		if(HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
 			return
 
-		if((flags & CALTROP_IGNORE_WALKERS) && H.m_intent == MOVE_INTENT_WALK)
+		if((flags & CALTROP_IGNORE_WALKERS) && H.carefulmovement())
 			return
 
 		var/picked_def_zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)

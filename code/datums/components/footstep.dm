@@ -27,7 +27,7 @@
 		var/mob/living/carbon/C = LM
 		if(!C.get_bodypart(BODY_ZONE_L_LEG) && !C.get_bodypart(BODY_ZONE_R_LEG))
 			return
-		if(ishuman(C) && C.m_intent == MOVE_INTENT_WALK)
+		if(C.carefulmovement())
 			return // stealth
 	steps++
 

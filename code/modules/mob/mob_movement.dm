@@ -137,7 +137,7 @@
 	else
 		move_delay = world.time
 
-	if(L.confused && L.m_intent == MOVE_INTENT_RUN && !HAS_TRAIT(L, TRAIT_CONFUSEIMMUNE))
+	if(L.confused && !L.carefulmovement() && !HAS_TRAIT(L, TRAIT_CONFUSEIMMUNE))
 		var/newdir = 0
 		if(L.confused > 40)
 			newdir = pick(GLOB.alldirs)
