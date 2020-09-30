@@ -1,0 +1,10 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscdel: Hierophant relay no longer transmits the radio channels of people on Reebe,
+      but will still recieve them.
+  - bugfix: Clockies can now be deconverted properly.
+  - bugfix: More than 1 of each weapon can now be summoned.
+  - bugfix: Clockwork marauders can now speak rat'varian
+  - bugfix: Clockwork marauders can now take damage from bullets
+  - bugfix: Spells will now consume vitality when they are meant to
