@@ -298,7 +298,8 @@ GLOBAL_VAR(restart_counter)
 		hostedby = CONFIG_GET(string/hostedby)
 
 	s += "<b>[station_name()]</b>";
-	s += "(<a href='https://discord.gg/z9ttAvA'>Discord</a>|<a href='http://beestation13.com'>Website</a>)"
+	s += "(<a href='https://discord.gg/CwYA6Mz'>Discord</a>|<a href='https://ko-fi.com/dappersquid'>Donations</a>)"
+	s += "<img src=\"https://i.imgur.com/lrm067D.gif\">" //Banner image
 
 	var/players = GLOB.clients.len
 
