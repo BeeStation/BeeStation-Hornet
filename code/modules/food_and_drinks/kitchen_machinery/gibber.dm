@@ -102,6 +102,19 @@
 				update_icon()
 	else
 		startgibbing(user)
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user 
+			if(H.oshaviolation(src, 2))
+				H.Stun(50)
+				stoplag(25)
+				H.visible_message("<span class='danger'>[H] is sucked into the gibber!</span>", "<span class='userdanger'>you are sucked into the gibber!</span>")
+				H.forceMove(src)
+				occupant = H
+				update_icon()
+				stoplag(25)
+				if(prob(50))
+					startgibbing(H) //fuck!
+				
 
 /obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", P))

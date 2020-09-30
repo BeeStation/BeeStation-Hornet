@@ -894,3 +894,43 @@
 	ADD_TRAIT(src, TRAIT_NOBLOCK, type)
 	stoplag(50)
 	REMOVE_TRAIT(src, TRAIT_NOBLOCK, type)
+
+/mob/living/carbon/human/proc/oshaviolation(var/obj/O, workplace_accident_prob = 2)
+	var/OSHAVIOLATION = list("Long Bedhead", "Very Long Hair 1", "Very Long Hair 2", "Long Hair 1", "Long Hair 2", "Long Hair 3", "Long Side Part", "Hime Updo", "Hime Cut", "Hime Cut 2", "Drill Hair (Extended)")
+	var/OSHAVIOLATIONPLUS= list("Braid (Floorlength)", "Floorlength Bedhead")
+	if(head)
+		var/obj/item/I = head
+		if(I.flags_inv & HIDEHAIR)
+			return FALSE
+	if(wear_mask)
+		var/obj/item/I = wear_mask
+		if(I.flags_inv & HIDEHAIR)
+			return FALSE
+	if(hair_style in OSHAVIOLATION)
+		if(!prob(workplace_accident_prob))// for some reason, it only works this way
+			return FALSE
+		Stun(10)
+		apply_damage(15,"brute","head")
+		visible_message("<span class='notice'>[src] has their [hair_style] caught in [O]!</span>", "<span class='userdanger'>Your [hair_style] is caught in [O]!</span>")
+		if(prob(workplace_accident_prob * 10))
+			hair_style = "Bedhead"
+			update_hair()
+		emote("scream")
+	else if(hair_style in OSHAVIOLATIONPLUS)
+		if(!prob(workplace_accident_prob * 5))
+			return FALSE
+		Paralyze(20)
+		visible_message("<span class='notice'>[src] has their [hair_style] caught in [O]!</span>", "<span class='userdanger'>Your [hair_style] is caught in [O]!</span>")
+		if(prob(workplace_accident_prob * 20))
+			hair_style = "Long Bedhead"
+			update_hair()
+		apply_damage(15,"brute","head")
+		emote("scream")
+	else 
+		return FALSE
+	if(get_dist(src, O))
+		throw_at(O, get_dist(src, O), 2, spin = FALSE)
+	if(isitem(O))
+		var/obj/item/I = O 
+		attackby(I, src)
+	return TRUE

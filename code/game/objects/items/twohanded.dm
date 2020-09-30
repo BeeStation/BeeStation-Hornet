@@ -636,6 +636,18 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+	if(ishuman(user) && on)
+		var/mob/living/carbon/human/H = user 
+		H.oshaviolation(src, 5)
+
+/obj/item/twohanded/required/chainsaw/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user 
+		H.oshaviolation(src, 1)
+	if(ishuman(target)) //Yes, if this happens, the target is thrown at the user, knocking them both down. I think that is hilarious.
+		var/mob/living/carbon/human/H = target 
+		H.oshaviolation(src, 1)
 
 /obj/item/twohanded/required/chainsaw/doomslayer
 	name = "THE GREAT COMMUNICATOR"
