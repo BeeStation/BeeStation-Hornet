@@ -28,6 +28,8 @@
 	melee_damage = 24
 	faction = list("ratvar")
 
+	initial_language_holder = /datum/language_holder/clockmob
+
 	var/shield_health = MARAUDER_SHIELD_MAX
 	var/next_shield_recharge = 0
 
