@@ -20,6 +20,9 @@
 	var/mob/living/silicon/ai/mainframe = null
 	var/datum/action/innate/undeployment/undeployment_action = new
 
+	var/obj/item/clockwork/clockwork_slab/internal_clock_slab = null
+	var/ratvar = FALSE
+
 //Hud stuff
 
 	var/obj/screen/inv1 = null
@@ -102,7 +105,7 @@
 
 	wires = new /datum/wires/robot(src)
 	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
-	
+
 	RegisterSignal(src, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, .proc/charge)
 
 	robot_modules_background = new()
@@ -616,7 +619,7 @@
 		if(lamp_intensity > 2)
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_l"
 		else
-			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_e"
+			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_e[ratvar ? "_r" : ""]"
 		eye_lights.icon = icon
 		add_overlay(eye_lights)
 
@@ -689,6 +692,18 @@
 		throw_alert("hacked", /obj/screen/alert/hacked)
 	else
 		clear_alert("hacked")
+
+/mob/living/silicon/robot/proc/SetRatvar(new_state, rebuild=TRUE)
+	ratvar = new_state
+	if(rebuild)
+		module.rebuild_modules()
+	update_icons()
+	if(ratvar)
+		internal_clock_slab = new(src)
+		throw_alert("ratvar", /obj/screen/alert/ratvar)
+	else
+		qdel(internal_clock_slab)
+		clear_alert("ratvar")
 
 /mob/living/silicon/robot/verb/outputlaws()
 	set category = "Robot Commands"

@@ -4045,6 +4045,12 @@
 /obj/item/radio/intercom{
 	pixel_x = -30
 	},
+/obj/item/flashlight/seclite{
+	pixel_y = 11
+	},
+/obj/item/flashlight/seclite{
+	pixel_y = 11
+	},
 /turf/open/floor/plasteel,
 /area/security/warden)
 "aiQ" = (
@@ -57496,6 +57502,8 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/item/clothing/mask/gas/sechailer,
+/obj/item/clothing/mask/gas/sechailer,
 /turf/open/floor/plasteel,
 /area/security/warden)
 "bTg" = (
@@ -63605,6 +63613,7 @@
 /obj/structure/table/reinforced,
 /obj/item/gun/energy/e_gun/dragnet,
 /obj/item/gun/energy/e_gun/dragnet,
+/obj/item/beacon/nettingportal,
 /obj/item/gun/grenadelauncher,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
@@ -124069,16 +124078,6 @@
 /turf/open/floor/plating,
 /area/space)
 "sEu" = (
-/obj/structure/rack,
-/obj/item/storage/box/handcuffs,
-/obj/item/storage/box/flashbangs{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/clothing/mask/gas/sechailer,
-/obj/item/clothing/mask/gas/sechailer,
-/obj/item/flashlight/seclite,
-/obj/item/flashlight/seclite,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -124089,6 +124088,8 @@
 /obj/machinery/keycard_auth{
 	pixel_x = 24
 	},
+/mob/living/simple_animal/pet/dog/bullterrier/walter,
+/obj/structure/bed/dogbed/walter,
 /turf/open/floor/plasteel,
 /area/security/warden)
 "sII" = (

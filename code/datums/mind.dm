@@ -327,6 +327,9 @@
 	if(iscultist(creator))
 		SSticker.mode.add_cultist(src)
 
+	else if(is_servant_of_ratvar(creator))
+		add_servant_of_ratvar(src)
+
 	else if(is_revolutionary(creator))
 		var/datum/antagonist/rev/converter = creator.mind.has_antag_datum(/datum/antagonist/rev,TRUE)
 		converter.add_revolutionary(src,FALSE)

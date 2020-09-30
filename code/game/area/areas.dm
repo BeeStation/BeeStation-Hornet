@@ -73,7 +73,10 @@
 	var/lighting_colour_tube = "#FFF6ED"
 	var/lighting_colour_bulb = "#FFE6CC"
 	var/lighting_colour_night = "#FFDBB5"
-	
+	var/lighting_brightness_tube = 10
+	var/lighting_brightness_bulb = 6
+	var/lighting_brightness_night = 6
+
 /**
   * A list of teleport locations
   *

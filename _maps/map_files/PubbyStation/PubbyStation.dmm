@@ -63621,6 +63621,7 @@
 /obj/item/clothing/mask/gas/sechailer,
 /obj/item/gun/energy/e_gun/dragnet,
 /obj/item/gun/energy/e_gun/dragnet,
+/obj/item/beacon/nettingportal,
 /obj/item/gun/grenadelauncher,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)

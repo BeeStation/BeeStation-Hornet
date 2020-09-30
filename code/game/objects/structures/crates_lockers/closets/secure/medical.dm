@@ -50,6 +50,28 @@
 	new /obj/item/clothing/glasses/hud/health(src)
 	return
 
+/obj/structure/closet/secure_closet/medicaldanger
+	name = "group T medical closet"
+	desc = "Filled to the brim with potentially dangerous drugs. Keep away from assistants."
+	req_access = list(ACCESS_MEDICAL)
+	icon_state = "med_secure"
+
+/obj/structure/closet/secure_closet/medicaldanger/PopulateContents()
+	..()
+	new /obj/item/reagent_containers/glass/bottle/formaldehyde(src)
+	new /obj/item/reagent_containers/glass/bottle/formaldehyde(src)
+	new /obj/item/reagent_containers/glass/bottle/charcoal(src)
+	new /obj/item/reagent_containers/glass/bottle/chloralhydrate(src)
+	new /obj/item/reagent_containers/glass/bottle/morphine(src)
+	new /obj/item/reagent_containers/glass/bottle/sodium_thiopental(src)
+	new /obj/item/storage/pill_bottle/epinephrine(src)
+	new /obj/item/storage/pill_bottle/charcoal(src)
+	new /obj/item/reagent_containers/syringe/calomel(src)
+	new /obj/item/reagent_containers/syringe/diphenhydramine(src)
+	new /obj/item/reagent_containers/hypospray/medipen/atropine(src) //just one
+	new /obj/item/storage/box/syringes(src)
+	return
+
 /obj/structure/closet/secure_closet/CMO
 	name = "\proper chief medical officer's locker"
 	req_access = list(ACCESS_CMO)

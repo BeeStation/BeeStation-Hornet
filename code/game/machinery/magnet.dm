@@ -306,7 +306,7 @@
 				if(speed <= 0)
 					speed = 1
 			if("setpath")
-				var/newpath = stripped_input(usr, "Please define a new path!", "New Path", path, MAX_MESSAGE_LEN)
+				var/newpath = stripped_input(usr, "Please define a new path!", "New Path", path)
 				if(newpath && newpath != "")
 					moving = 0 // stop moving
 					path = newpath
