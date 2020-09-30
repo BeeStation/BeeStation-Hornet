@@ -1,0 +1,4 @@
+author: francinum
+delete-after: true
+changes:
+  - server: ss13_feedback can now be disabled with the LIMITED_FEEDBACK flag.
