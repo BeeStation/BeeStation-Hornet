@@ -3,6 +3,8 @@
 //this item is intended to give the effect of entering the mine, so that light gradually fades
 /obj/effect/light_emitter
 	name = "Light emitter"
+	icon = 'icons/effects/mapping_helpers.dmi'
+	icon_state = "blocker" //todo make this unique from the path blocker.
 	anchored = TRUE
 	invisibility = 101
 	var/set_luminosity = 8
