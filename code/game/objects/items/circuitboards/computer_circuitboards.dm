@@ -1,4 +1,5 @@
-//Command
+//Command boards
+
 
 /obj/item/circuitboard/computer/aiupload
 	name = "AI Upload (Computer Board)"
@@ -12,6 +13,7 @@
 
 /obj/item/circuitboard/computer/bsa_control
 	name = "Bluespace Artillery Controls (Computer Board)"
+	icon_state = "command"
 	build_path = /obj/machinery/computer/bsa_control
 
 /obj/item/circuitboard/computer/card
@@ -21,10 +23,12 @@
 
 /obj/item/circuitboard/computer/card/centcom
 	name = "CentCom ID Console (Computer Board)"
+	icon_state = "command"
 	build_path = /obj/machinery/computer/card/centcom
 
 /obj/item/circuitboard/computer/card/minor
 	name = "Department Management Console (Computer Board)"
+	icon_state = "command"
 	build_path = /obj/machinery/computer/card/minor
 	var/target_dept = 1
 	var/list/dept_list = list("General","Security","Medical","Science","Engineering")
@@ -37,26 +41,22 @@
 		return ..()
 
 /obj/item/circuitboard/computer/card/minor/examine(user)
-	..()
-	to_chat(user, "Currently set to \"[dept_list[target_dept]]\".")
+	. = ..()
+	. += "Currently set to \"[dept_list[target_dept]]\"."
 
+/obj/item/circuitboard/computer/communications
+	name = "Communications (Computer Board)"
+	icon_state = "command"
+	build_path = /obj/machinery/computer/communications
+	var/lastTimeUsed = 0
 
 //obj/item/circuitboard/computer/shield
 //	name = "Shield Control (Computer Board)"
-//	icon_state = "command"
 //	build_path = /obj/machinery/computer/stationshield
+
 
 //Engineering
 
-/obj/item/circuitboard/computer/shuttle/flight_control
-	name = "Shuttle Flight Control (Computer Board)"
-	icon_state = "engineering"
-	build_path = /obj/machinery/computer/custom_shuttle
-
-/obj/item/circuitboard/computer/shuttle/docker
-	name = "Shuttle Navigation Computer (Computer Board)"
-	icon_state = "engineering"
-	build_path = /obj/machinery/computer/camera_advanced/shuttle_docker/custom
 
 /obj/item/circuitboard/computer/apc_control
 	name = "\improper Power Flow Control Console (Computer Board)"
@@ -129,12 +129,6 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/telecomms/server
 
-/obj/item/circuitboard/computer/communications
-	name = "Communications (Computer Board)"
-	icon_state = "engineering"
-	build_path = /obj/machinery/computer/communications
-	var/lastTimeUsed = 0
-
 /obj/item/circuitboard/computer/message_monitor
 	name = "Message Monitor (Computer Board)"
 	icon_state = "engineering"
@@ -147,7 +141,6 @@
 
 /obj/item/circuitboard/computer/powermonitor/secret
 	name = "Outdated Power Monitor (Computer Board)" //Variant used on ruins to prevent them from showing up on PDA's.
-	icon_state = "engineering"
 	build_path = /obj/machinery/computer/monitor/secret
 
 /obj/item/circuitboard/computer/sat_control
@@ -180,7 +173,9 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/turbine_computer
 
+
 //Generic
+
 
 /obj/item/circuitboard/computer/advanced_camera
 	name = "Advanced Camera Console (Computer Board)"
@@ -209,6 +204,7 @@
 
 /obj/item/circuitboard/computer/libraryconsole
 	name = "Library Visitor Console (Computer Board)"
+	icon_state = "generic"
 	build_path = /obj/machinery/computer/libraryconsole
 
 /obj/item/circuitboard/computer/libraryconsole/attackby(obj/item/I, mob/user, params)
@@ -282,6 +278,17 @@
 	name = "Salvage Pod Recall (Computer Board)"
 	build_path = /obj/machinery/computer/shuttle/white_ship/pod/recall
 
+/obj/item/circuitboard/computer/shuttle/flight_control
+	name = "Shuttle Flight Control (Computer Board)"
+	icon_state = "generic"
+	build_path = /obj/machinery/computer/custom_shuttle
+
+/obj/item/circuitboard/computer/shuttle/docker
+	name = "Shuttle Navigation Computer (Computer Board)"
+	icon_state = "generic"
+	build_path = /obj/machinery/computer/camera_advanced/shuttle_docker/custom
+
+
 //Medical
 
 /obj/item/circuitboard/computer/cloning
@@ -290,9 +297,9 @@
 	build_path = /obj/machinery/computer/cloning
 
 /obj/item/circuitboard/computer/crew
-    name = "Crew Monitoring Console (Computer Board)"
-    icon_state = "medical"
-    build_path = /obj/machinery/computer/crew
+	name = "Crew Monitoring Console (Computer Board)"
+	icon_state = "medical"
+	build_path = /obj/machinery/computer/crew
 
 /obj/item/circuitboard/computer/med_data
 	name = "Medical Records Console (Computer Board)"
@@ -319,7 +326,9 @@
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/scan_consolenew
 
+
 //Science
+
 
 /obj/item/circuitboard/computer/aifixer
 	name = "AI Integrity Restorer (Computer Board)"
@@ -360,7 +369,6 @@
 	name = "R&D Console Production Only (Computer Board)"
 	build_path = /obj/machinery/computer/rdconsole/production
 
-
 /obj/item/circuitboard/computer/rdconsole/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(build_path == /obj/machinery/computer/rdconsole/core)
@@ -394,12 +402,9 @@
 	icon_state = "science"
 	build_path = /obj/machinery/computer/camera_advanced/xenobio
 
+
 //Security
 
-/obj/item/circuitboard/computer/warrant
-	name = "Security Warrant Viewer (Computer Board)"
-	icon_state = "security"
-	build_path = /obj/machinery/computer/warrant
 
 /obj/item/circuitboard/computer/labor_shuttle
 	name = "Labor Shuttle (Computer Board)"
@@ -408,7 +413,6 @@
 
 /obj/item/circuitboard/computer/labor_shuttle/one_way
 	name = "Prisoner Shuttle Console (Computer Board)"
-	icon_state = "security"
 	build_path = /obj/machinery/computer/shuttle/labor/one_way
 
 /obj/item/circuitboard/computer/gulag_teleporter_console
@@ -431,9 +435,16 @@
 	icon_state = "security"
 	build_path = /obj/machinery/computer/security
 
+/obj/item/circuitboard/computer/warrant
+	name = "Security Warrant Viewer (Computer Board)"
+	icon_state = "security"
+	build_path = /obj/machinery/computer/warrant
+
 //Service
 
+
 //Supply
+
 
 /obj/item/circuitboard/computer/bounty
 	name = "Nanotrasen Bounty Console (Computer Board)"
@@ -461,6 +472,7 @@
 
 /obj/item/circuitboard/computer/cargo/express
 	name = "Express Supply Console (Computer Board)"
+	icon_state = "supply"
 	build_path = /obj/machinery/computer/cargo/express
 
 /obj/item/circuitboard/computer/cargo/express/multitool_act(mob/living/user)
@@ -476,6 +488,7 @@
 
 /obj/item/circuitboard/computer/cargo/request
 	name = "Supply Request Console (Computer Board)"
+	icon_state = "supply"
 	build_path = /obj/machinery/computer/cargo/request
 
 /obj/item/circuitboard/computer/ferry
@@ -485,7 +498,6 @@
 
 /obj/item/circuitboard/computer/ferry/request
 	name = "Transport Ferry Console (Computer Board)"
-	icon_state = "supply"
 	build_path = /obj/machinery/computer/shuttle/ferry/request
 
 /obj/item/circuitboard/computer/mining
