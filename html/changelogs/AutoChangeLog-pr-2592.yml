@@ -1,0 +1,5 @@
+author: Archanial
+delete-after: true
+changes:
+  - rscadd: Circuit boards are colored.
+  - bugfix: Every machine broken by previous pr should be working now.
