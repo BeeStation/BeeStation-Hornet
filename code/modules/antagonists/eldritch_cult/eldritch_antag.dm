@@ -225,7 +225,7 @@
 	var/timer = 5 MINUTES
 
 /datum/objective/stalk/process()
-	if(owner && owner.current && owner.current.stat != DEAD && target && target && target.current && target.current.stat != DEAD && (target in view(5,owner.current)))
+	if(owner && owner.current && owner.current.stat != DEAD && target && target.current && target.current.stat != DEAD && (target in view(5,owner.current)))
 		timer -= 1 SECONDS
 	///we don't want to process after the counter reaches 0, otherwise it is wasted processing
 	if(timer <= 0)
