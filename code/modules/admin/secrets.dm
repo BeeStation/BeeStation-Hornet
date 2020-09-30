@@ -19,20 +19,20 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 	/*
 	Each command is a list that will be read like [Name, Action(see ui_act)]
 	"omg but you could have done it like X"
-	But I didn't. This is how I did it. And it works. And it's simple.
+	But I didn't. This is how I did it. And it works (with TGUI 4 it doesn't anymore and it's really annoying). And it's simple.
 	And lets us keep each command entry to one line. Gotta stay compact, yo.
 	*/
-	. = list()
-	.["Categories"] = list()
+	var/list/data
+	data["Categories"] = list()
 
-	.["Categories"]["General Secrets"] = list(
+	data["Categories"]["General Secrets"] = list(
 		list("Admin Log", "admin_log"),
 		list("Mentor Log", "mentor_log"),
 		list("Show Admin List", "show_admins")
 		)
 
 	if(check_rights(R_ADMIN,0))
-		.["Categories"]["Admin Secrets"] = list(
+		data["Categories"]["Admin Secrets"] = list(
 			list("Cure all diseases currently in existence", "clear_virus"),
 			list("Vaccinate all diseases currently in existence", "delete_virus"),
 			list("Bombing List", "list_bombers"),
@@ -50,7 +50,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			list("Set Night Shift Mode", "night_shift_set")
 			)
 
-		.["Categories"]["Shuttles"] += list(
+		data["Categories"]["Shuttles"] += list(
 			list("Move Ferry", "moveferry"),
 			list("Toggle Arrivals Ferry", "togglearrivals"),
 			list("Move Mining Shuttle", "moveminingshuttle"),
@@ -58,7 +58,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			)
 
 	if(check_rights(R_FUN,0))
-		.["Categories"]["Fun Secrets"] += list(
+		data["Categories"]["Fun Secrets"] += list(
 			list("Trigger a Virus Outbreak", "virus"),
 			list("Turn all humans into monkeys", "monkey"),
 			list("Chinese Cartoons", "anime"),
@@ -93,11 +93,13 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			)
 
 	if(check_rights(R_DEBUG,0))
-		.["Categories"]["Security Level Elevated"] = list(
+		data["Categories"]["Security Level Elevated"] = list(
 			list("Change all maintenance doors to engie/brig access only", "maint_access_engiebrig"),
 			list("Change all maintenance doors to brig access only", "maint_access_brig"),
 			list("Remove cap on security officers", "infinite_sec")
 			)
+
+	return data
 
 /datum/admin_secrets/ui_act(action, params)
 	var/datum/admins/admin_datum = GLOB.admin_datums[usr.ckey]
