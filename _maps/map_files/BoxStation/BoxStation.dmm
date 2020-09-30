@@ -7167,6 +7167,7 @@
 /obj/machinery/airalarm{
 	pixel_y = 23
 	},
+/obj/item/clothing/glasses/sunglasses/advanced,
 /turf/open/floor/wood,
 /area/lawoffice)
 "arU" = (
@@ -7653,6 +7654,7 @@
 /obj/machinery/camera/autoname{
 	dir = 1
 	},
+/obj/item/clothing/glasses/sunglasses/advanced,
 /turf/open/floor/wood,
 /area/lawoffice)
 "atN" = (
@@ -32047,7 +32049,7 @@
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/layer3,
+/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "bMy" = (
@@ -32324,20 +32326,12 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/research/glass/incinerator/toxmix_interior,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 8
+	dir = 6
 	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "bNw" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 5
-	},
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_toxmix,
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "bNx" = (
@@ -32720,9 +32714,7 @@
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/layer1{
-	dir = 1
-	},
+/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "bOG" = (
@@ -47954,6 +47946,12 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/main)
+"feS" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
+/turf/closed/wall/r_wall,
+/area/science/mixing/chamber)
 "ffw" = (
 /obj/structure/disposalpipe/junction/flip{
 	dir = 1
@@ -48167,13 +48165,13 @@
 "fsW" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 1
-	},
 /obj/machinery/door/firedoor/border_only{
 	dir = 1
 	},
 /obj/machinery/door/firedoor/border_only,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
 "ftp" = (
@@ -56450,6 +56448,12 @@
 	},
 /turf/closed/wall,
 /area/maintenance/port/aft)
+"pYD" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/turf/closed/wall/r_wall,
+/area/science/mixing/chamber)
 "pYX" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -57842,6 +57846,12 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"rRh" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 5
+	},
+/turf/closed/wall/r_wall,
+/area/science/mixing/chamber)
 "rVB" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -58236,6 +58246,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
+"sqR" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 6
+	},
+/turf/closed/wall/r_wall,
+/area/science/mixing/chamber)
 "srt" = (
 /obj/effect/turf_decal/tile/red,
 /obj/structure/sign/departments/minsky/security/security{
@@ -58947,6 +58963,20 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
+"ttS" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/science/mixing)
 "tuC" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -61356,6 +61386,9 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor/border_only,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing/chamber)
 "wnd" = (
@@ -62465,6 +62498,9 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor/border_only,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing/chamber)
 "xrw" = (
@@ -111493,11 +111529,11 @@ byu
 bzN
 byb
 aGs
-dGF
+sqR
 bMx
 bNw
 bOF
-dGF
+rRh
 bJU
 mPh
 mCs
@@ -111750,11 +111786,11 @@ bvK
 bvK
 bvK
 bvK
-dGF
+feS
 bMv
 bNv
 bMv
-dGF
+pYD
 qas
 tjy
 mCs
@@ -112268,7 +112304,7 @@ fsW
 bMy
 bNx
 bOG
-fsW
+ttS
 kOw
 bSk
 fvi
