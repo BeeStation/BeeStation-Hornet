@@ -1814,6 +1814,7 @@
 	/obj/item/storage/box/donkpockets/donkpocketteriyaki,
 	/obj/item/storage/box/donkpockets/donkpocketpizza,
 	/obj/item/storage/box/donkpockets/donkpocketberry,
+	/obj/item/storage/box/donkpockets ,
 	/obj/item/storage/box/donkpockets/donkpockethonk)
 	crate_name = "donk pocket crate"
 
