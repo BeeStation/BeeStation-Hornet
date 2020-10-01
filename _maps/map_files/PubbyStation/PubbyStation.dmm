@@ -2393,8 +2393,7 @@
 	pixel_x = -32
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = 26;
-	pixel_y = 2
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 4
@@ -6439,7 +6438,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -8202,8 +8201,7 @@
 /area/crew_quarters/dorms)
 "atk" = (
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = -26;
-	pixel_y = 2
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 4
@@ -8996,8 +8994,7 @@
 /area/bridge)
 "auV" = (
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = 26;
-	pixel_y = 2
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 8
@@ -9232,7 +9229,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
@@ -11390,7 +11387,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -20459,7 +20456,7 @@
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump,
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = -26
+	pixel_y = 24
 	},
 /turf/open/floor/plating,
 /area/quartermaster/storage)
@@ -21475,7 +21472,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plating,
 /area/quartermaster/storage)
@@ -24444,7 +24441,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard)
@@ -24490,7 +24487,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
@@ -25759,7 +25756,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plating,
 /area/quartermaster/miningdock)
@@ -38890,8 +38887,7 @@
 /area/space/nearstation)
 "bHJ" = (
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = -26;
-	pixel_y = 2
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 4
@@ -40896,21 +40892,6 @@
 /obj/structure/table,
 /obj/item/hemostat,
 /obj/item/stack/medical/gauze,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/surgery)
-"bMO" = (
-/obj/structure/table,
-/obj/item/surgicaldrill,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -48687,8 +48668,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = -26;
-	pixel_y = 2
+	pixel_y = 24
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -51479,7 +51459,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 1
@@ -57918,7 +57898,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science)
@@ -58668,7 +58648,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = -26
+	pixel_y = 24
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
@@ -60679,7 +60659,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon{
 	dir = 4
@@ -61474,6 +61454,22 @@
 	icon_state = "platingdmg1"
 	},
 /area/maintenance/department/engine)
+"pZd" = (
+/obj/structure/table,
+/obj/item/surgicaldrill,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/item/blood_filter,
+/turf/open/floor/plasteel/white,
+/area/medical/surgery)
 "pZp" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/sunnybush,
@@ -62236,8 +62232,7 @@
 /area/maintenance/solars/port)
 "rkw" = (
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = 26;
-	pixel_y = 2
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 4
@@ -63420,7 +63415,7 @@
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump,
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -64790,7 +64785,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
@@ -65015,8 +65010,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = 26;
-	pixel_y = 2
+	pixel_y = 24
 	},
 /turf/open/floor/plating,
 /area/science/mixing)
@@ -96299,7 +96293,7 @@ bIp
 bJv
 bJx
 bLN
-bMO
+pZd
 bFU
 bCz
 bPE
