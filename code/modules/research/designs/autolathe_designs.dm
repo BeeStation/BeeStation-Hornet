@@ -455,7 +455,7 @@
 /datum/design/blood_filter
 	name = "Blood Filter"
 	id = "blood_filter"
-	build_type = AUTOLATHE | PROTOLATHE
+	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 4000, /datum/material/glass = 1500, /datum/material/silver = 500)
 	build_path = /obj/item/blood_filter
 	category = list("initial", "Medical", "Tool Designs")
