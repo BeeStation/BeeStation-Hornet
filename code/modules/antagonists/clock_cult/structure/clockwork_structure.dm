@@ -10,7 +10,7 @@
 	density = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/can_be_repaired = TRUE //if a fabricator can repair it
-	break_message = "<span class='warning'>The frog isn't a meme after all!</span>" //The message shown when a structure breaks
+	break_message = "<span class='warning'>Sparks fly as the brass structure shatters across the ground.</span>" //The message shown when a structure breaks
 	break_sound = 'sound/magic/clockwork/anima_fragment_death.ogg' //The sound played when a structure breaks
 	debris = list(/obj/item/clockwork/alloy_shards/large = 1, \
 		/obj/item/clockwork/alloy_shards/medium = 2, \
