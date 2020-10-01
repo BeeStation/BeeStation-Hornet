@@ -13,12 +13,6 @@
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_supply, bolt)
 
-/obj/machinery/plumbing/grinder_chemical/can_be_rotated(mob/user, rotation_type)
-	if(anchored)
-		to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
-		return FALSE
-	return TRUE
-
 /obj/machinery/plumbing/grinder_chemical/setDir(newdir)
 	. = ..()
 	eat_dir = newdir
