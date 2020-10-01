@@ -1,10 +1,10 @@
 /datum/symptom/robotic_adaptation
 	name = "Biometallic Replication"
 	desc = "The virus can manipulate metal and silicate compounds, becoming able to infect robotic beings. The virus also provides a suitable substrate for nanites in otherwise inhospitable hosts"
-	stealth = 1
-	resistance = -2
+	stealth = 0
+	resistance = 1
 	stage_speed = 4 //while the reference material has low speed, this virus will take a good while to completely convert someone
-	transmittable = 0
+	transmittable = -1
 	level = 9
 	severity = 0
 	symptom_delay_min = 10
@@ -50,7 +50,7 @@
 				if(Replace(H))
 					return
 				else if(replacebody)
-					H.adjustCloneLoss(-20) //we're fully mechanical, repair integrity. This symptom has a soft synergy with overclocked pituitary, so we want that to be useable. OFI is obviously out
+					H.adjustCloneLoss(-30) //we're fully mechanical, repair integrity. This symptom has a soft synergy with overclocked pituitary, so we want that to be useable. OFI is obviously out
 					ADD_TRAIT(H, TRAIT_NANITECOMPATIBLE, DISEASE_TRAIT)
 	return
 
@@ -143,6 +143,9 @@
 	if(replacebody)
 		for(var/obj/item/bodypart/O in H.bodyparts)
 			if(O.status == BODYPART_ROBOTIC)
+				if(robustbits && O.brute_reduction < 3 || O.burn_reduction < 2)
+					O.burn_reduction = max(2, O.burn_reduction)
+					O.brute_reduction = max(3, O.brute_reduction)
 				continue
 			switch(O.body_zone) 
 				if(BODY_ZONE_HEAD)
@@ -310,15 +313,15 @@
 /obj/item/organ/tail/clockwork/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
 	..()
 	if(istype(H))
-		if(!("tail_lizard" in H.dna.species.mutant_bodyparts))
-			H.dna.features["tail_lizard"] = tail_type
-			H.dna.species.mutant_bodyparts |= "tail_lizard"
+		if(!("tail_human" in H.dna.species.mutant_bodyparts))
+			H.dna.features["tail_human"] = tail_type
+			H.dna.species.mutant_bodyparts |= "tail_human"
 		H.update_body()
 
 /obj/item/organ/tail/clockwork/Remove(mob/living/carbon/human/H,  special = 0)
 	..()
 	if(istype(H))
-		H.dna.species.mutant_bodyparts -= "tail_lizard"
+		H.dna.species.mutant_bodyparts -= "tail_human"
 		H.update_body()
 
 /obj/item/bodypart/l_arm/robot/clockwork

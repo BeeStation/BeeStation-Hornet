@@ -4045,6 +4045,12 @@
 /obj/item/radio/intercom{
 	pixel_x = -30
 	},
+/obj/item/flashlight/seclite{
+	pixel_y = 11
+	},
+/obj/item/flashlight/seclite{
+	pixel_y = 11
+	},
 /turf/open/floor/plasteel,
 /area/security/warden)
 "aiQ" = (
@@ -57496,6 +57502,8 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/item/clothing/mask/gas/sechailer,
+/obj/item/clothing/mask/gas/sechailer,
 /turf/open/floor/plasteel,
 /area/security/warden)
 "bTg" = (
@@ -63605,6 +63613,7 @@
 /obj/structure/table/reinforced,
 /obj/item/gun/energy/e_gun/dragnet,
 /obj/item/gun/energy/e_gun/dragnet,
+/obj/item/beacon/nettingportal,
 /obj/item/gun/grenadelauncher,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
@@ -105989,13 +105998,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
-"dCv" = (
-/obj/structure/filingcabinet/chestdrawer,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/science/robotics/lab)
 "dCw" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -106607,23 +106609,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
-"dDF" = (
-/obj/structure/noticeboard{
-	dir = 8;
-	pixel_x = 32
-	},
-/obj/machinery/camera{
-	c_tag = "Science - Robotics Lab";
-	dir = 8;
-	name = "science camera";
-	network = list("ss13","rd")
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/aug_manipulator,
-/turf/open/floor/plasteel,
-/area/science/robotics/lab)
 "dDG" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -107205,13 +107190,6 @@
 	dir = 4
 	},
 /obj/item/twohanded/required/kirbyplants/random,
-/turf/open/floor/plasteel,
-/area/science/robotics/lab)
-"dEO" = (
-/obj/machinery/computer/rdconsole/robotics{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "dEP" = (
@@ -107893,15 +107871,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/plasteel,
-/area/science/robotics/lab)
-"dGe" = (
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/rnd/production/circuit_imprinter/department/science,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "dGf" = (
@@ -121173,6 +121142,17 @@
 	},
 /turf/closed/wall,
 /area/security/prison)
+"hjR" = (
+/obj/machinery/airalarm{
+	dir = 8;
+	pixel_x = 24
+	},
+/obj/effect/turf_decal/bot,
+/obj/structure/bodycontainer/morgue{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/science/robotics/lab)
 "hrP" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -123532,6 +123512,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
+"qaR" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/aug_manipulator,
+/turf/open/floor/plasteel,
+/area/science/robotics/lab)
 "qcx" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -124093,16 +124078,6 @@
 /turf/open/floor/plating,
 /area/space)
 "sEu" = (
-/obj/structure/rack,
-/obj/item/storage/box/handcuffs,
-/obj/item/storage/box/flashbangs{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/clothing/mask/gas/sechailer,
-/obj/item/clothing/mask/gas/sechailer,
-/obj/item/flashlight/seclite,
-/obj/item/flashlight/seclite,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -124113,6 +124088,8 @@
 /obj/machinery/keycard_auth{
 	pixel_x = 24
 	},
+/mob/living/simple_animal/pet/dog/bullterrier/walter,
+/obj/structure/bed/dogbed/walter,
 /turf/open/floor/plasteel,
 /area/security/warden)
 "sII" = (
@@ -124174,6 +124151,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
+"sQL" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/rnd/production/circuit_imprinter/department/science,
+/turf/open/floor/plasteel,
+/area/science/robotics/lab)
 "sTs" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -124358,6 +124342,25 @@
 "tCh" = (
 /turf/closed/wall,
 /area/science/misc_lab)
+"tCn" = (
+/obj/structure/noticeboard{
+	dir = 8;
+	pixel_x = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Science - Robotics Lab";
+	dir = 8;
+	name = "science camera";
+	network = list("ss13","rd")
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/computer/rdconsole/robotics{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/science/robotics/lab)
 "tGq" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -163366,8 +163369,8 @@ dwB
 dyd
 dzK
 dAO
-dCv
-dDF
+sQL
+tCn
 dEN
 dGd
 dHA
@@ -163625,8 +163628,8 @@ dyd
 dAP
 dyd
 dyg
-dEO
-dGe
+qaR
+hjR
 dHB
 dIS
 dyg

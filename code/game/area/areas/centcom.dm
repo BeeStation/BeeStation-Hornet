@@ -172,3 +172,40 @@
 
 /area/ctf/flag_room2
 	name = "Flag Room B"
+
+// REEBE
+
+/area/reebe
+	name = "Reebe"
+	icon_state = "yellow"
+	requires_power = FALSE
+	has_gravity = STANDARD_GRAVITY
+	noteleport = TRUE
+	hidden = TRUE
+	ambientsounds = REEBE
+
+/area/reebe/city_of_cogs
+	name = "Reebe - City of Cogs"
+	icon_state = "purple"
+	hidden = FALSE
+	var/playing_ambience = FALSE
+
+/area/reebe/city_of_cogs/Entered(atom/movable/AM)
+	. = ..()
+	if(ismob(AM))
+		var/mob/M = AM
+		if(M.client)
+			addtimer(CALLBACK(M.client, /client/proc/play_reebe_ambience), 900)
+
+//Reebe ambience replay
+
+/client/proc/play_reebe_ambience()
+	var/area/A = get_area(mob)
+	if(!istype(A, /area/reebe/city_of_cogs))
+		return
+	var/sound = pick(REEBE)
+	if(!played)
+		SEND_SOUND(src, sound(sound, repeat = 0, wait = 0, volume = 25, channel = CHANNEL_AMBIENCE))
+		played = TRUE
+		addtimer(CALLBACK(src, /client/proc/ResetAmbiencePlayed), 600)
+	addtimer(CALLBACK(src, /client/proc/play_reebe_ambience), 900)
