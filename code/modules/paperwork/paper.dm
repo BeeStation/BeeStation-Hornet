@@ -380,8 +380,8 @@
 /obj/item/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"
 
-/obj/item/paper/crumpled/muddy
-	icon_state = "scrap_mud"
+/obj/item/paper/crumpled/beernuke
+	name = "beer-stained note"
 
 #undef MAX_PAPER_LENGTH
 #undef MAX_PAPER_STAMPS
