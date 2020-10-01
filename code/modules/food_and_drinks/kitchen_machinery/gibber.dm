@@ -104,7 +104,7 @@
 		startgibbing(user)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user 
-			if(H.oshaviolation(src, 2))
+			if(H.safety_compliance_check(src, 2))
 				H.Stun(50)
 				stoplag(25)
 				H.visible_message("<span class='danger'>[H] is sucked into the gibber!</span>", "<span class='userdanger'>you are sucked into the gibber!</span>")

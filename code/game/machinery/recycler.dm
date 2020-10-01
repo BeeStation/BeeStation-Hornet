@@ -76,7 +76,7 @@
 	to_chat(user, "<span class='notice'>You use the cryptographic sequencer on [src].</span>")
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user 
-		H.oshaviolation(src, 5) //OOPS!
+		H.safety_compliance_check(src, 5) //OOPS!
 
 /obj/machinery/recycler/update_icon()
 	..()

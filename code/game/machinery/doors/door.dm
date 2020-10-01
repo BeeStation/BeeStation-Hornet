@@ -319,10 +319,10 @@
 				return
 
 	operating = TRUE
-	
+
 	if(!safe)
 		for(var/mob/living/carbon/human/H in range(1))
-			H.oshaviolation(src, 1) //if we dont have safeties, their hair may get caught, dragging them in and crushing them
+			H.safety_compliance_check(src, 1) //if we dont have safeties, their hair may get caught, dragging them in and crushing them
 
 	do_animate("closing")
 	layer = closingLayer

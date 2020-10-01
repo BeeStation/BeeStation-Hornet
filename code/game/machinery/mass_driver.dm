@@ -19,7 +19,7 @@
 	var/O_limit
 	var/atom/target = get_edge_target_turf(src, dir)
 	for(var/mob/living/carbon/human/H in range(1))
-		H.oshaviolation(src, 2)
+		H.safety_compliance_check(src, 2)
 	for(var/atom/movable/O in loc)
 		if(!O.anchored || ismecha(O))	//Mechs need their launch platforms.
 			if(ismob(O) && !isliving(O))

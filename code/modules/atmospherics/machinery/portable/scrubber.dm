@@ -105,7 +105,7 @@
 			. = TRUE
 			if(on)
 				for(var/mob/living/carbon/human/H in range(1))
-					H.oshaviolation(src, 2)
+					H.safety_compliance_check(src, 2)
 		if("eject")
 			if(holding)
 				replace_tank(usr, FALSE)

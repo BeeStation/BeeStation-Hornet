@@ -400,3 +400,48 @@
 	desc = "You feel ashamed about what you had to do to get this hat"
 	icon_state = "cowboy"
 	item_state = "cowboy"
+
+/obj/item/clothing/head/hairtie
+	name = "hair tie"
+	desc = "A piece of wire used to tie the hair back for workplace safety"
+	icon_state = "hairtie"
+	item_state = "hairtie"
+	item_color = "red"
+	clothing_flags = EFFECT_HAT | SNUG_FIT
+	w_class = WEIGHT_CLASS_TINY
+	color = "#ff0000"
+	var/cachedstyle = "Long Bedhead"
+
+/obj/item/clothing/head/hairtie/mob_can_equip(mob/living/M, mob/living/equipper, slot, disable_warning, bypass_equip_delay_self)
+	var/tieback = list("Long Bedhead", "Very Long Hair 1", "Very Long Hair 2", "Long Hair 1", "Long Hair 2", "Long Hair 3", "Long Side Part", "Hime Updo", "Hime Cut", "Hime Cut 2", "Drill Hair (Extended)", "Floorlength Bedhead")
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.hair_style in tieback)
+			return ..()
+	to_chat(equipper, "<span class='notice'>[M] does not have suitable hair to tie back.</span>")
+	return FALSE
+	
+/obj/item/clothing/head/hairtie/equipped(mob/living/carbon/human/user, slot)
+	..()
+	var/tieback = list("Long Bedhead", "Very Long Hair 1", "Very Long Hair 2", "Long Hair 1", "Long Hair 2", "Long Hair 3", "Long Side Part", "Hime Updo", "Hime Cut", "Hime Cut 2", "Drill Hair (Extended)")
+	var/tiebackplus= list("Floorlength Bedhead") 
+	if(slot == SLOT_HEAD)
+		cachedstyle = user.hair_style
+		if(user.hair_style in tieback)
+			user.hair_style = "Braid (High)"
+			user.update_hair()
+		if(user.hair_style in tiebackplus)
+			user.hair_style = "Braid (Floorlength)"
+			user.update_hair()
+		to_chat(user, "<span class='notice'>Your [cachedstyle] hair is tied back into a more manageable configuration.</span>")
+
+/obj/item/clothing/head/hairtie/dropped(mob/user)
+	. = ..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(istype(H.head, /obj/item/clothing/head/hairtie))
+			return
+		if(H.hair_style != cachedstyle)
+			H.hair_style = cachedstyle
+			H.update_hair()
+			to_chat(user, "<span class='notice'>Your hair is let down into its original style.</span>")

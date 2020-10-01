@@ -895,9 +895,9 @@
 	stoplag(50)
 	REMOVE_TRAIT(src, TRAIT_NOBLOCK, type)
 
-/mob/living/carbon/human/proc/oshaviolation(var/obj/O, workplace_accident_prob = 2)
+/mob/living/carbon/human/proc/safety_compliance_check(var/obj/O, workplace_accident_prob = 2)
 	var/OSHAVIOLATION = list("Long Bedhead", "Very Long Hair 1", "Very Long Hair 2", "Long Hair 1", "Long Hair 2", "Long Hair 3", "Long Side Part", "Hime Updo", "Hime Cut", "Hime Cut 2", "Drill Hair (Extended)")
-	var/OSHAVIOLATIONPLUS= list("Braid (Floorlength)", "Floorlength Bedhead")
+	var/OSHAVIOLATIONPLUS= list("Floorlength Bedhead") //only one hairstyle for now. this is for futureproofing. "Braid (Floorlength)" is excluded both due to scrunchees and ike using it
 	if(head)
 		var/obj/item/I = head
 		if(I.flags_inv & HIDEHAIR)

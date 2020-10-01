@@ -271,6 +271,9 @@
 	power_change()
 	if(!beaker || stat & (NOPOWER|BROKEN) || beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user 
+		H.safety_compliance_check(src, 2)
 	operate_for(60)
 	for(var/i in holdingitems)
 		if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
@@ -305,6 +308,9 @@
 	power_change()
 	if(!beaker || stat & (NOPOWER|BROKEN))
 		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user 
+		H.safety_compliance_check(src, 2)
 	operate_for(50, juicing = TRUE)
 	addtimer(CALLBACK(src, /obj/machinery/reagentgrinder/proc/mix_complete), 50)
 
