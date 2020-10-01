@@ -1,0 +1,4 @@
+author: TheChaser212
+delete-after: true
+changes:
+  - bugfix: Bee infestation honey threshold is actually 12 now
