@@ -24,6 +24,7 @@
 	interaction_flags_machine = INTERACT_MACHINE_OFFLINE
 
 	var/has_creature = FALSE
+	var/creature_name = ""
 	var/n_arms_eaten = 0
 	var/n_legs_eaten = 0
 	var/n_organs_eaten = 0
@@ -33,10 +34,13 @@
 	var/mob/living/simple_animal/hostile/netherworld/blankbody/creature = new (src.loc)	//to be replaced? Blank bodies are cool too
 	
 	creature.name = "abomination"
+	if (creature_name!="")
+		creature.name = creature_name
 	creature.desc = "a mass of limbs and organs disgustingly welded together with flesh."
 	
 	//life	
-	creature.maxHealth = 40+max(n_organs_eaten,20)*15
+	n_ublood_eaten = reagents.get_reagent_amount(datum/reagent/medicine/synthflesh)*3 + reagents.get_reagent_amount(datum/reagent/blood)
+	creature.maxHealth = 40+max(n_organs_eaten*20 + n_ublood_eaten * 2,200)
 	creature.health = creature.maxHealth
 	if (premature)
 		creature.health = creature.maxHealth/2
@@ -56,13 +60,11 @@
 	n_legs_eaten = 0
 	n_organs_eaten = 0
 	n_ublood_eaten = 0
+	creature_name = ""
+	reagents.clear_reagents()
 	update_icon()
 	
 	return creature
-
-/obj/machinery/abomachine/obj_break()
-	release_creature(TRUE)
-	..()
 
 /obj/machinery/abomachine/obj_destruction()	//what is the difference?
 	release_creature(TRUE)
@@ -70,6 +72,7 @@
 
 /obj/machinery/abomachine/Initialize()
 	. = ..()
+	create_reagents(300, OPENCONTAINER)
 	update_icon()
 	
 /obj/machinery/abomachine/update_icon()
@@ -164,44 +167,13 @@
 				to_chat(user, "<span class='notice'>There is no creature inside of the [src].</span>")
 			else
 				to_chat(user, "<span class='notice'>You feed the [I] through a small gap in [src], as it attaches to the fleshy mass.</span>")
-
-	if(I.tool_behaviour == TOOL_WRENCH)
-		if(!anchored)
-			if(!isturf(loc) || isspaceturf(loc))
-				to_chat(user, "<span class='notice'>[src] must be placed on solid ground to attach it.</span>")
-			else
-				to_chat(user, "<span class='notice'>You firmly wrench [src] to the floor.</span>")
-				I.play_tool_sound(src)
-				setAnchored(TRUE)
-		else
-			to_chat(user, "<span class='notice'>You wrench [src] from the floor.</span>")
-			I.play_tool_sound(src)
-			setAnchored(FALSE)
-			
-	else
-		. = ..()
-
-/obj/machinery/abomachine/proc/activate()
-	active = TRUE
-	START_PROCESSING(SSfastprocess, src)
-	countdown.start()
-	next_beep = world.time + 10
-	detonation_timer = world.time + (timer_set * 10)
-	playsound(loc, 'sound/machines/click.ogg', 30, 1)
-	notify_ghosts("\A [src] has been activated at [get_area(src)]!", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Bomb Planted")
-
-/obj/machinery/abomachine/proc/settings(mob/user)
-	var/new_timer = input(user, "Please set the timer.", "Timer", "[timer_set]") as num
-	if(in_range(src, user) && isliving(user)) //No running off and setting bombs from across the station
-		timer_set = CLAMP(new_timer, minimum_timer, maximum_timer)
-		loc.visible_message("<span class='notice'>[icon2html(src, viewers(src))] timer set for [timer_set] seconds.</span>")
-	if(alert(user,"Would you like to start the countdown now?",,"Yes","No") == "Yes" && in_range(src, user) && isliving(user))
-		if(!active)
-			visible_message("<span class='danger'>[icon2html(src, viewers(loc))] [timer_set] seconds until detonation, please clear the area.</span>")
-			activate()
-			update_icon()
-			add_fingerprint(user)
-
-			if(payload && !istype(payload, /obj/item/bombcore/training))
-				log_bomber(user, "has primed a", src, "for detonation (Payload: [payload.name])")
-				payload.adminlog = "The [name] that [key_name(user)] had primed detonated!"
+				
+	if(default_unfasten_wrench(user, I))
+		return
+	
+	if (istype(I, /obj/item/pen))
+		var/input = stripped_input(user,"What will your horror be named?", ,"", MAX_NAME_LEN)
+		if(QDELETED(I) || !user.canUseTopic(I, BE_CLOSE))
+			return
+		creature_name = input
+	..()
