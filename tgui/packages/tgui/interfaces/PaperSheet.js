@@ -17,7 +17,7 @@ import { isFalsy } from 'common/react';
 // Might as well use a proper one then
 
 import { createLogger } from '../logging';
-import { vecCreate, vecAdd, vecSubtract } from 'common/vector';
+import { vecScale, vecSubtract } from 'common/vector';
 const logger = createLogger('PaperSheet');
 const MAX_PAPER_LENGTH = 5000; // Question, should we send this with ui_data?
 
@@ -313,12 +313,12 @@ class PaperSheetStamper extends Component {
       reference = reference.offsetParent;
     }
 
-    const pos_x = position.x - offset.left;
-    const pos_y = position.y - offset.top;
-    const pos = vecCreate(pos_x, pos_y);
-
-    const center_offset = vecCreate((121/2), (51/2));
-    const center = vecSubtract(pos, center_offset);
+    const pos = [
+      position.x - offset.left,
+      position.y - offset.top,
+    ];
+    const centerOffset = vecScale([121, 51], 0.5);
+    const center = vecSubtract(pos, centerOffset);
     return center;
   }
   componentDidMount() {
