@@ -18310,6 +18310,10 @@
 /obj/machinery/recharger,
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
+"WC" = (
+/obj/effect/landmark/mafia_game_area,
+/turf/open/space/basic,
+/area/space)
 "WJ" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome Administration";
@@ -57740,7 +57744,7 @@ aa
 aa
 aa
 aa
-aa
+WC
 aa
 aa
 aa
