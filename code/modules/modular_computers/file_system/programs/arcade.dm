@@ -91,7 +91,7 @@
 	data["GameActive"] = game_active
 	data["PauseState"] = pause_state
 	data["Status"] = heads_up
-	data["BossID"] = "boss[boss_id].gif"
+	data["BossID"] = SSassets.transport.get_asset_url("boss[boss_id].gif")
 	return data
 
 /datum/computer_file/program/arcade/ui_act(action, list/params)
