@@ -434,7 +434,6 @@
 	new /obj/item/clothing/shoes/sneakers/black(src)
 	new /obj/item/storage/belt/security/deputy(src)
 	new /obj/item/clothing/accessory/armband/deputy(src)
-	new /obj/item/blood_filter(src)
 
 /obj/item/storage/backpack/duffelbag/engineering
 	name = "industrial duffel bag"
