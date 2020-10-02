@@ -1,4 +1,0 @@
-author: park66665
-delete-after: true
-changes:
-  - bugfix: stim_ball reaction now properly consumes plasma
