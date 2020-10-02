@@ -510,7 +510,7 @@
 	air.adjust_moles(/datum/gas/nitrogen, 8*stim_used)
 	air.adjust_moles(/datum/gas/pluoxium, -pluox_used)
 	air.adjust_moles(/datum/gas/stimulum, -stim_used)
-	air.adjust_moles(/datum/gas/plasma, air.get_moles(/datum/gas/plasma)/2)
+	air.adjust_moles(/datum/gas/plasma, -air.get_moles(/datum/gas/plasma)/2)
 	if(energy_released)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
