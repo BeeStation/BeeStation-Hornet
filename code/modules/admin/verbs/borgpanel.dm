@@ -39,7 +39,7 @@
 /datum/borgpanel/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "BorgPanel")
+		ui = new(user, src, "BorgPanel", "Borging Panel")
 		ui.open()
 
 /datum/borgpanel/ui_data(mob/user)

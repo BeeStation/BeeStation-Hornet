@@ -12,7 +12,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		log_admin_private("[user.ckey] opened the Secrets panel.")
-		ui = new(user, src, "AdminSecretsPanel")
+		ui = new(user, src, "AdminSecretsPanel", "Secrets Panel")
 		ui.open()
 
 /datum/admin_secrets/ui_data(mob/user)

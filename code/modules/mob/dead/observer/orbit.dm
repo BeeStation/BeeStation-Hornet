@@ -12,7 +12,7 @@
 
 /datum/orbit_menu/ui_interact(mob/user, datum/tgui/ui)
 	if (!ui)
-		ui = new(user, src, "Orbit")
+		ui = new(user, src, "Orbit", "Orbit")
 		ui.open()
 
 /datum/orbit_menu/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
