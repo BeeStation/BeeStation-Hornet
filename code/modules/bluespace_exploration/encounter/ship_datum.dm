@@ -26,6 +26,9 @@
 	//For difficulty calculation
 	var/jumps = 0
 
+	//How many turfs need to be destroyed before we are considered destroyed
+	var/health_percentage = SHIP_INTEGRITY_FACTOR
+
 /datum/ship_datum/New()
 	. = ..()
 	//TODO: Make it share a faction for gods sake
@@ -67,7 +70,7 @@
 		max_ship_integrity = calculated_health
 	current_ship_integrity = calculated_health
 	var/difference = max_ship_integrity - current_ship_integrity
-	var/used_health_pool = max_ship_integrity * SHIP_INTEGRITY_FACTOR
+	var/used_health_pool = max_ship_integrity * health_percentage
 	integrity_remaining = used_health_pool - difference
 
 /datum/ship_datum/proc/hull_critical(list/turfs)
@@ -132,3 +135,5 @@
 
 /datum/ship_datum/custom_shuttle
 	bluespace = FALSE
+	//Custom shuttles have to take a really, really heavy beating to be considered destroyed
+	health_percentage = 0.8

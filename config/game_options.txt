@@ -608,3 +608,24 @@ MAX_SLIMES 100
 
 ## Uncomment to restrict suiciding. Adds an additional confirmation dialogue, additional logging, and prevents suicide within the first 15 minutes of the round.
 #RESTRICTED_SUICIDE
+
+## BLUESPACE EXPLORATION ##
+## -----------------------------------------------------------------
+
+##Uncomment to allow for bluespace shuttles to be allowed to travel to randomly generated z-levels.
+BLUESPACE_EXPLORATION_RANDOM_LEVELS
+
+##Uncomment to enable the shuttle weapon system
+BLUESPACE_EXPLORATION_WEAPONS
+
+##Uncomment to enable random NPC ship encounters in randomly generated z-levels
+BLUESPACE_EXPLORATION_RANDOM_ENCOUNTERS
+
+##Uncomment to enable custom shuttles using shuttle weapons
+CUSTOM_SHUTTLE_WEAPONS
+
+##The amount of levels to have for random generation
+##3 means that 3 ships will be able to jump to random locations before the next ship needs to wait until the z-level isn't in use anymore
+BLUESPACE_EXPLORATION_LEVELS 3
+
+## END BLUESPACE EXPLORATION ##

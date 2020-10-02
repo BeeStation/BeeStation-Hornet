@@ -56,20 +56,21 @@
 		data["ship_name"] = SD.ship_name
 		var/datum/faction/faction = SD.ship_faction
 		data["ship_faction"] = faction.name
-		//Initial setup
-		if(!islist(SD.star_systems))
-			SD.recalculate_star_systems()
-		for(var/star_id in SD.star_systems)
-			var/datum/star_system/system = SD.star_systems[star_id]
-			var/datum/faction/system_faction = system.system_alignment
-			var/list/formatted_star = list(
-				"name" = system.name,
-				"alignment" = system_faction ? system_faction.name : "Error",
-				"threat" = system.calculated_threat,
-				"research_value" = system.calculated_research_potential,
-				"distance" = system.distance_from_center,
-			)
-			data["stars"] += list(formatted_star)
+		if(CONFIG_GET(flag/bluespace_exploration_random_levels))
+			//Initial setup
+			if(!islist(SD.star_systems))
+				SD.recalculate_star_systems()
+			for(var/star_id in SD.star_systems)
+				var/datum/star_system/system = SD.star_systems[star_id]
+				var/datum/faction/system_faction = system.system_alignment
+				var/list/formatted_star = list(
+					"name" = system.name,
+					"alignment" = system_faction ? system_faction.name : "Error",
+					"threat" = system.calculated_threat,
+					"research_value" = system.calculated_research_potential,
+					"distance" = system.distance_from_center,
+				)
+				data["stars"] += list(formatted_star)
 	else
 		data["ship_name"] = "Unknown"
 		data["ship_faction"] = "independant"

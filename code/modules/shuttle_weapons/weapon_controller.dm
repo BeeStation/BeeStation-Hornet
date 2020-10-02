@@ -54,6 +54,14 @@
 /obj/machinery/computer/weapons/ui_interact(\
 		mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
 		datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	if(!CONFIG_GET(flag/bluespace_exploration_weapons))
+		to_chat(user, "<span class='warning'>Nanotrasen have restricted the use of shuttle based weaponry in this sector. Sorry for the inconvinience.</span>")
+		return
+	var/datum/ship_datum/our_ship = SSbluespace_exploration.tracked_ships[shuttle_id]
+	//Must actually be on a ship
+	if(!our_ship)
+		to_chat(user, "<span class='warning'>Weapon control console not linked to a shuttle.</span>")
+		return
 	// Update UI
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
@@ -87,6 +95,8 @@
 		//Shooting ourself, 🤔
 		if(ship.mobile_port_id == shuttle_id)
 			continue
+		if(!ship.combat_allowed)
+			continue
 		var/list/other_ship = list(
 			id = ship_id,
 			name = ship.ship_name,
@@ -96,7 +106,8 @@
 			critical = ship.critical,
 		)
 		data["ships"] += list(other_ship)
-	if(!connected_port)
+	var/datum/ship_datum/our_ship = SSbluespace_exploration.tracked_ships[shuttle_id]
+	if(!connected_port || !our_ship || !our_ship.combat_allowed)
 		return data
 	var/list/turfs = connected_port.return_turfs()
 	//Weapons

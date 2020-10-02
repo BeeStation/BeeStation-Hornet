@@ -241,9 +241,6 @@ SUBSYSTEM_DEF(mapping)
 		query_round_map_name.Execute()
 		qdel(query_round_map_name)
 
-	//Todo: put this inside the low mem mode thing
-	SSbluespace_exploration.reserved_bs_level = add_new_zlevel("Bluespace Exploration/Reserved", ZTRAITS_BLUESPACE_EXPLORATION)
-
 #ifndef LOWMEMORYMODE
 	// TODO: remove this when the DB is prepared for the z-levels getting reordered
 	while (world.maxz < (5 - 1) && space_levels_so_far < config.space_ruin_levels)

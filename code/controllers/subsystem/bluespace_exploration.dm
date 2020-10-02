@@ -8,6 +8,9 @@ SUBSYSTEM_DEF(bluespace_exploration)
 
 	var/generating = FALSE
 
+	//Which systems are ours?
+	var/list/datum/star_system/bluespace_systems	// Key = /datum/space_level, Value = Boolean (Are we in use)
+
 	//Starmap generation
 	var/datum/star_system/current_system = null
 	var/list/star_systems = list()
@@ -48,11 +51,16 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/list/z_level_queue
 
 /datum/controller/subsystem/bluespace_exploration/Initialize(start_timeofday)
-	z_level_queue = list()
 	. = ..()
+	z_level_queue = list()
 	//Create factions
 	for(var/faction_datum in subtypesof(/datum/faction))
 		factions[faction_datum] = new faction_datum
+	//Create z-levels
+	//Todo: Check low mem mode
+	bluespace_systems = list()
+	for(var/i in 1 to CONFIG_GET(number/bluespace_exploration_levels))
+		bluespace_systems[SSmapping.add_new_zlevel("Bluespace Exploration Level [i]", ZTRAITS_BLUESPACE_EXPLORATION)] = FALSE
 
 /datum/controller/subsystem/bluespace_exploration/fire(resumed = 0)
 	if(times_fired % 50 == 0)
@@ -63,8 +71,11 @@ SUBSYSTEM_DEF(bluespace_exploration)
 				tracked_ships -= ship_key
 			CHECK_TICK
 		//Keep doing this just in case
-		initiate_queued_warp()
+		if(CONFIG_GET(flag/bluespace_exploration_random_levels))
+			initiate_queued_warp()
 		CHECK_TICK
+	if(!CONFIG_GET(flag/bluespace_exploration_random_levels))
+		return
 	if(!wiping_z_level && LAZYLEN(z_level_queue))
 		var/first = z_level_queue[1]
 		var/value = z_level_queue[first]

@@ -448,3 +448,21 @@
 	config_entry_value = 250
 
 /datum/config_entry/flag/restricted_suicide
+
+//====Bluespace exploration====
+
+//Can shuttles jump to random levels? If not then random level clearing will be disabled
+/datum/config_entry/flag/bluespace_exploration_random_levels
+
+//Decides weather or not weapons can be created and used
+/datum/config_entry/flag/bluespace_exploration_weapons
+
+//Will NPC ships spawn in randomly created levels
+/datum/config_entry/flag/bluespace_exploration_random_encounters
+
+//Can custom shuttles use weapons?
+/datum/config_entry/flag/custom_shuttle_weapons
+
+//The number of z-levels created for bluespace exploration random levels
+/datum/config_entry/number/bluespace_exploration_levels
+	config_entry_value = 3

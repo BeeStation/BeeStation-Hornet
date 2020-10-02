@@ -268,6 +268,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	//Begin tracking with bluespace exploration
 	var/datum/ship_datum/custom_shuttle/bluespace_tracking_datum = new
 	bluespace_tracking_datum.ship_name = shuttle_Name
+	bluespace_tracking_datum.combat_allowed = CONFIG_GET(flag/custom_shuttle_weapons)
 	SSbluespace_exploration.register_new_ship(port.id, bluespace_tracking_datum, /datum/faction/independant)
 	return TRUE
 
