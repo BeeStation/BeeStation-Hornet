@@ -4,7 +4,7 @@
 	report_type = "heresy"
 	antag_flag = ROLE_HERETIC
 	false_report_weight = 5
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Brig Physician")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Brig Physician", "VIP")
 	restricted_jobs = list("AI", "Cyborg")
 	required_players = 0
 	required_enemies = 1

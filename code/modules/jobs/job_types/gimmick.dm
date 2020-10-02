@@ -129,4 +129,4 @@
 	uniform = /obj/item/clothing/under/suit/black_really
 	shoes = /obj/item/clothing/shoes/laceup
 
-	implants = list(/obj/item/implant/mindshield) //this fuck gets a mindshield, but he isn't necessarily antag-proof
+	implants = list(/obj/item/implant/mindshield) //of course they can't be antag as well considering their roundstart mindshield, money and high access

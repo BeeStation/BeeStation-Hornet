@@ -6,7 +6,7 @@
 	var/antagonist_datum = /datum/antagonist/special
 	var/antag_name	//The datum of the antag E.G. /datum/antagonist/special/undercover
 	var/preference_type = ROLE_TRAITOR
-	var/protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Research Director", "Captain", "Brig Physician")
+	var/protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Research Director", "Captain", "Brig Physician", "VIP")
 
 /datum/round_event_control/spawn_special_antagonist/runEvent()
 	var/datum/round_event/create_special_antag/E = new /datum/round_event/create_special_antag
@@ -36,7 +36,7 @@
 	var/role_name
 	var/antag_datum	//The datum of the antag E.G. /datum/antagonist/special/undercover
 	var/preference_type = ROLE_TRAITOR
-	var/protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Research Director", "Captain", "Brig Physician")
+	var/protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Research Director", "Captain", "Brig Physician", "VIP")
 
 /datum/round_event/create_special_antag/start()
 	for(var/mob/living/carbon/human/H in shuffle(GLOB.player_list))
