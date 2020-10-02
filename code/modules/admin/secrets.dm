@@ -19,10 +19,10 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 	/*
 	Each command is a list that will be read like [Name, Action(see ui_act)]
 	"omg but you could have done it like X"
-	But I didn't. This is how I did it. And it works (with TGUI 4 it doesn't anymore and it's really annoying). And it's simple.
+	But I didn't. This is how I did it. And it works (THIS STOPPED WORKING WITH TGUI 4 PORT!). And it's simple.
 	And lets us keep each command entry to one line. Gotta stay compact, yo.
 	*/
-	var/list/data
+	var/list/data = list()
 	data["Categories"] = list()
 
 	data["Categories"]["General Secrets"] = list(

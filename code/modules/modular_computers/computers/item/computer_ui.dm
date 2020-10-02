@@ -9,8 +9,8 @@
 
 /obj/item/modular_computer/ui_assets(mob/user)
 	return list(
-		/datum/asset/simple/headers,
-		/datum/asset/simple/arcade,
+		get_asset_datum(/datum/asset/simple/headers),
+		get_asset_datum(/datum/asset/simple/arcade),
 	)
 
 /obj/item/modular_computer/ui_interact(mob/user, datum/tgui/ui)

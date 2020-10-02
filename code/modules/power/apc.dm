@@ -835,7 +835,7 @@
 /obj/machinery/power/apc/ui_state(mob/user)
 	if(isAI(user))
 		var/mob/living/silicon/ai/AI = user
-		if(AI.apc_override)
+		if(AI.apc_override == src)
 			return GLOB.conscious_state
 	return GLOB.default_state
 
@@ -1021,6 +1021,12 @@
 					INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
 				CHECK_TICK
 	return 1
+
+/obj/machinery/power/apc/ui_close(mob/user)
+	if(isAI(user))
+		var/mob/living/silicon/ai/AI = user
+		if(AI.apc_override == src)
+			AI.apc_override = null
 
 /obj/machinery/power/apc/proc/toggle_breaker(mob/user)
 	if(!is_operational() || failure_timer)

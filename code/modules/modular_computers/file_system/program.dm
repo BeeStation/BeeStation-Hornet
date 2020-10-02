@@ -140,7 +140,7 @@
 
 /datum/computer_file/program/ui_assets(mob/user)
 	return list(
-		/datum/asset/simple/headers,
+		get_asset_datum(/datum/asset/simple/headers),
 	)
 
 /datum/computer_file/program/ui_state(mob/user)
@@ -149,7 +149,7 @@
 /datum/computer_file/program/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui && tgui_id)
-		ui = new(user, src, "PRG_")
+		ui = new(user, src, tgui_id)
 
 		ui.set_autoupdate(TRUE)
 		ui.open()

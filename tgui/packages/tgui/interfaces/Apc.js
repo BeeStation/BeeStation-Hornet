@@ -209,6 +209,7 @@ const ApcContent = (props, context) => {
             <Button
               icon="lightbulb-o"
               content={data.nightshiftLights ? 'Enabled' : 'Disabled'}
+              disabled={locked}
               onClick={() => act('toggle_nightshift')} />
           )} />
       </Section>
