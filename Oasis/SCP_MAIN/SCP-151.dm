@@ -1,6 +1,6 @@
 /obj/structure/scp151
 	name = "Strange Painting"
-	icon = 'icons/obj/SCP151.dmi'
+	icon = 'Oasis/SCP_MAIN/SCP_ICONS/scpobj/SCP151.dmi'
 	desc = "<b><span class='warning'><big>SCP-151</big></span></b> - A painting depicting a rising wave."
 	icon_state = ""
 	anchored = TRUE
