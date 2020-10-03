@@ -1,5 +1,5 @@
 /datum/ert
-	var/mobtype = /mob/living/carbon/human
+	var/mobtype = /mob/living/carbon/human/species/corporate
 	var/team = /datum/team/ert
 	var/opendoors = TRUE
 	var/leader_role = /datum/antagonist/ert/commander
@@ -28,6 +28,7 @@
 	code = "Red"
 
 /datum/ert/deathsquad
+	mobtype = /mob/living/carbon/human/species/synth/military
 	roles = list(/datum/antagonist/ert/deathsquad)
 	leader_role = /datum/antagonist/ert/deathsquad/leader
 	rename_team = "Deathsquad"
