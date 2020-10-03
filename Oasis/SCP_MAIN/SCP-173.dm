@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/statue/scp_173
 	name = "SCP-173"
-	icon = 'icons/mob/scpicon/scpmobs/scp-173.dmi'
+	icon = 'Oasis/SCP_MAIN/SCP_ICONS/scpmobs/scp-173.dmi'
 	desc = "<b><span class='warning'><big>SCP-173</big></span></b> - A statue, constructed from concrete and rebar with traces of Krylon brand spray paint"
 	ventcrawler = VENTCRAWLER_NUDE
 	icon_state = "173"
@@ -9,7 +9,7 @@
 	obj_damage = 500
 	melee_damage = 1000
 	attacktext = "crushes"
-	attack_sound = 'sound/scpsounds/scp/spook/NeckSnap1.ogg'
+	attack_sound = 'Oasis/SCP_MAIN/scpsounds/scp/spook/NeckSnap1.ogg'
 	spacewalk = TRUE //Move in space
 	move_force = MOVE_FORCE_NORMAL
 	environment_smash = ENVIRONMENT_SMASH_WALLS
@@ -58,11 +58,11 @@
 					return
 				else if(ishuman(target)) //If target is a human subtype, Snap their neck
 					visible_message("<span class='danger'>[src] snaps [target]'s neck!</span>")
-					playsound(loc, pick('sound/scpsounds/scp/spook/NeckSnap1.ogg', 'sound/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
+					playsound(loc, pick('Oasis/SCP_MAIN/scpsounds/scp/spook/NeckSnap1.ogg', 'Oasis/SCP_MAIN/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
 					H.death()
 				else if(isliving(target)) //If target is not a human subtype but still a living thing, crush it
 					visible_message("<span class='danger'>[src] crushes [target] with raw force!</span>")
-					playsound(loc, pick('sound/scpsounds/scp/spook/NeckSnap1.ogg', 'sound/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
+					playsound(loc, pick('Oasis/SCP_MAIN/scpsounds/scp/spook/NeckSnap1.ogg', 'Oasis/SCP_MAIN/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
 					H.death()
 				else
 					return FALSE // this is just for error catching
@@ -88,11 +88,11 @@
 					return
 				else if(ishuman(target)) //If target is a human subtype, Snap their neck
 					visible_message("<span class='danger'>[src] snaps [target]'s neck!</span>")
-					playsound(loc, pick('sound/scpsounds/scp/spook/NeckSnap1.ogg', 'sound/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
+					playsound(loc, pick('Oasis/SCP_MAIN/scpsounds/scp/spook/NeckSnap1.ogg', 'Oasis/SCP_MAIN/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
 					H.death()
 				else if(isliving(target)) //If target is not a human subtype but still a living thing, crush it
 					visible_message("<span class='danger'>[src] crushes [target] with raw force!</span>")
-					playsound(loc, pick('sound/scpsounds/scp/spook/NeckSnap1.ogg', 'sound/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
+					playsound(loc, pick('Oasis/SCP_MAIN/scpsounds/scp/spook/NeckSnap1.ogg', 'Oasis/SCP_MAIN/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
 					H.death()
 				else
 					return FALSE // this is just for error catching
