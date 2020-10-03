@@ -41,6 +41,8 @@
 		if ("tank")
 			new /obj/item/tank/internals/air(src)
 			new /obj/item/clothing/mask/breath(src)
+			new /obj/item/clothing/head/helmet/space/skinsuit(src)
+			new /obj/item/clothing/suit/space/skinsuit(src)
 
 		if ("both")
 			new /obj/item/tank/internals/emergency_oxygen(src)
