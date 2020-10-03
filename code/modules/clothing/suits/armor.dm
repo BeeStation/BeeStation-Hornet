@@ -43,6 +43,12 @@
 	item_state = "blueshift"
 	custom_premium_price = 600
 
+/obj/item/clothing/suit/armor/vest/corporate
+	name = "Corporate Jacket"
+	desc = "A Stylish Corporate Jacket which also provides Protection."
+	icon_state = "secjacket"
+	item_state = "secjacket"
+
 /obj/item/clothing/suit/armor/hos
 	name = "armored greatcoat"
 	desc = "A greatcoat enhanced with a special alloy for some extra protection and style for those with a commanding presence."
@@ -103,11 +109,18 @@
 	name = "syndicate captain's vest"
 	desc = "A sinister looking vest of advanced armor worn over a black and red fireproof jacket. The gold collar and shoulders denote that this belongs to a high ranking syndicate officer."
 	icon_state = "syndievest"
+	item_state = ""
 
 /obj/item/clothing/suit/armor/vest/capcarapace/alt
 	name = "captain's parade jacket"
 	desc = "For when an armoured vest isn't fashionable enough."
 	icon_state = "capformal"
+	item_state = "capspacesuit"
+
+/obj/item/clothing/suit/armor/vest/capcarapce/jacket
+	name = "captain's jacket"
+	desc = "An armored Jacket in the Captains colors"
+	icon_state = "capjacket"
 	item_state = "capspacesuit"
 
 /obj/item/clothing/suit/armor/riot
