@@ -620,6 +620,7 @@
 		)
 	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
 	power_draw_per_use = 15
+	max_allowed = 2
 	var/busy = FALSE
 
 /obj/item/integrated_circuit/reagent/extinguisher/Initialize()
