@@ -12,7 +12,7 @@
 	new /obj/item/storage/backpack/duffelbag/captain(src)
 	new /obj/item/clothing/neck/cloak/cap(src)
 	new /obj/item/clothing/neck/petcollar(src)
-	new	/obj/item/clothing/suit/armor/vest/capcarapce/jacket(src)
+	new	/obj/item/clothing/suit/armor/vest/capcarapace/jacket(src)
 	new /obj/item/pet_carrier(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 	new /obj/item/clothing/under/rank/captain(src)
