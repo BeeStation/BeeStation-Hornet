@@ -210,7 +210,7 @@
 		var/datum/status_effect/syringe/syringestatus = pick_n_take(syringes)
 		if(istype(syringestatus, /datum/status_effect/syringe))
 			var/obj/item/reagent_containers/syringe/syringe = syringestatus.syringe
-			to_chat(owner, "<span class='notice'>You begin carefully yanking the syringe out...</span>")
+			to_chat(owner, "<span class='notice'>You begin carefully pulling the syringe out...</span>")
 			if(do_after(C, 20, null, owner))
 				to_chat(C, "<span class='notice'>You succesfuly remove the syringe.</span>")
 				syringe.forceMove(C.loc)
