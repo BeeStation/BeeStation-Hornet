@@ -238,7 +238,7 @@
 	else if(href_list["import"])
 		var/t = ""
 		do
-			t = stripped_multiline_input(usr, "Please paste the entire song, formatted:", text("[]", name), t)
+			t = stripped_multiline_input(usr, "Please paste the entire song, formatted:", text("[]", name), t, MUSIC_MAXLINES*MUSIC_MAXLINECHARS)
 			if(!usr.canUseTopic(instrumentObj, BE_CLOSE, FALSE, NO_TK))
 				return
 
