@@ -578,5 +578,5 @@
 		. += "<span class='notice'>This body has been dissected and analyzed. It is no longer worth experimenting on.</span><br>"
 
 /mob/proc/isLivingSSD()
-	if(player_logged && stat != DEAD)
+	if(mind.active && stat != DEAD)
 		return TRUE

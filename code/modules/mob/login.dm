@@ -77,7 +77,7 @@
 			var/datum/callback/CB = foo
 			CB.Invoke()
 
-		player_logged = FALSE
+		mind.active = FALSE
 		log_played_names(client.ckey,name,real_name)
 		auto_deadmin_on_login()
 
