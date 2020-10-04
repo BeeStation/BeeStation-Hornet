@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - code_imp: Players who don't want to be a heretic will no longer lose antag rep
+      if selected as a heretic due to low pop
