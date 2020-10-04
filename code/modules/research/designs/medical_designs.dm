@@ -231,6 +231,17 @@
 	category = list("Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/nanopaste
+	name = "Nanopaste"
+	desc = "A tube of paste containing swarms of repair nanites. Very effective in repairing robotic machinery."
+	id = "nanopaste"
+	build_path = /obj/item/stack/nanopaste
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 7000, /datum/material/glass = 7000)
+	build_path = /obj/item/stack/nanopaste
+	category = list("Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
+
 /////////////////////////////////////////
 //////////Cybernetic Implants////////////
 /////////////////////////////////////////
