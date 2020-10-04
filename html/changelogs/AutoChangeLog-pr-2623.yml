@@ -1,0 +1,5 @@
+author: qwertyquerty
+delete-after: true
+changes:
+  - refactor: Refactors ambient sounds completely to be less bad code wise and better
+      IC and immersion wise
