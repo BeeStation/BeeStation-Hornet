@@ -1,7 +1,0 @@
-author: Time-Green, Tlaltecuhtli, arcanemagician, TMTIME
-delete-after: true
-changes:
-  - rscadd: Grinding machine
-  - rscadd: Message when trying to rotate anchored plumbing machines
-  - bugfix: Plumbing pipes nolonger appear disconnected
-  - bugfix: Reactions that leave no chemicals don't break the reaction chamber now
