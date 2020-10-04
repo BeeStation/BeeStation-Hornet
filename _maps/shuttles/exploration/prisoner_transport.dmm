@@ -1,0 +1,208 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/obj/machinery/computer/weapons,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"c" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration)
+"e" = (
+/obj/machinery/light/small,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration)
+"f" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/exploration)
+"h" = (
+/obj/structure/table/reinforced,
+/obj/item/gun/energy/disabler,
+/obj/item/storage/box/handcuffs,
+/obj/item/assembly/flash,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"i" = (
+/obj/machinery/door/airlock/security,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration)
+"j" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/security,
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration)
+"k" = (
+/obj/machinery/flasher/portable,
+/obj/item/wrench,
+/obj/structure/closet/crate,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration)
+"l" = (
+/obj/effect/landmark/exploration_weapon_spawner/right{
+	dir = 1
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration)
+"o" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/mob/living/simple_animal/hostile/nanotrasen,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/power/apc{
+	name = "Prisoner Transport Vessel APC";
+	pixel_y = -24;
+	req_access = null
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"q" = (
+/obj/structure/shuttle/engine/heater,
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration)
+"w" = (
+/obj/effect/landmark/exploration_weapon_spawner/left{
+	dir = 1
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration)
+"x" = (
+/obj/machinery/computer/system_map,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"C" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration)
+"D" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/open/floor/plating,
+/area/shuttle/exploration)
+"E" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"M" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/mob/living/simple_animal/hostile/nanotrasen,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"N" = (
+/turf/template_noop,
+/area/template_noop)
+"O" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Q" = (
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration)
+"W" = (
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration)
+"Z" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/exploration)
+
+(1,1,1) = {"
+N
+Z
+W
+w
+W
+W
+Z
+W
+W
+f
+"}
+(2,1,1) = {"
+Z
+Z
+b
+o
+f
+c
+k
+c
+q
+D
+"}
+(3,1,1) = {"
+Z
+h
+O
+E
+i
+Q
+Q
+e
+q
+D
+"}
+(4,1,1) = {"
+Z
+Z
+x
+M
+f
+C
+Q
+C
+q
+D
+"}
+(5,1,1) = {"
+N
+Z
+W
+l
+W
+f
+j
+f
+W
+f
+"}

@@ -1,0 +1,550 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ay" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"bP" = (
+/turf/open/floor/wood,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"cd" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/showroomfloor,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"dW" = (
+/obj/structure/kitchenspike,
+/turf/open/floor/plasteel/showroomfloor,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"eb" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	id = "felinidbakery"
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"gr" = (
+/obj/machinery/door/airlock/medical,
+/turf/open/floor/wood,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"gM" = (
+/turf/open/floor/plasteel/showroomfloor,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"gN" = (
+/obj/machinery/deepfryer,
+/turf/open/floor/plasteel/cafeteria,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"hr" = (
+/obj/machinery/vending/dinnerware,
+/turf/open/floor/plasteel/cafeteria,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"if" = (
+/turf/closed/wall/mineral/titanium/interior,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"ii" = (
+/obj/structure/table/reinforced,
+/obj/item/kitchen/knife,
+/obj/item/clothing/under/costume/schoolgirl,
+/obj/item/clothing/head/kitty,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"ky" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"kR" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"mx" = (
+/obj/structure/closet/secure_closet/freezer/meat,
+/turf/open/floor/plasteel/showroomfloor,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"nA" = (
+/turf/open/floor/plasteel/cafeteria,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"nE" = (
+/obj/structure/table/reinforced,
+/obj/item/melee/classic_baton/police/telescopic,
+/obj/item/gps,
+/obj/item/gun/energy/disabler/personal,
+/obj/item/restraints/handcuffs/cable/zipties,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"pp" = (
+/obj/machinery/gibber,
+/turf/open/floor/plasteel/showroomfloor,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"qb" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"qO" = (
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"qR" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/showroomfloor,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"qX" = (
+/obj/structure/table,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap{
+	pixel_x = -1;
+	pixel_y = -1
+	},
+/obj/item/reagent_containers/food/condiment/enzyme{
+	layer = 5
+	},
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/food/condiment/flour,
+/turf/open/floor/plasteel/cafeteria,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"qY" = (
+/obj/machinery/door/airlock/medical,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"rz" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/structure/shuttle/engine/heater,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"ti" = (
+/obj/machinery/computer/crew,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"vd" = (
+/obj/structure/table/reinforced,
+/obj/structure/fans/tiny,
+/obj/item/reagent_containers/food/snacks/raisincookie{
+	pixel_x = 2;
+	pixel_y = -10
+	},
+/obj/item/reagent_containers/food/snacks/sugarcookie{
+	pixel_x = -2;
+	pixel_y = 7
+	},
+/obj/machinery/door/poddoor{
+	id = "felinidbakery"
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"vl" = (
+/obj/machinery/computer/weapons,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"yj" = (
+/obj/structure/table/reinforced,
+/obj/structure/fans/tiny,
+/obj/item/reagent_containers/food/snacks/cookie{
+	pixel_x = 1;
+	pixel_y = -10
+	},
+/obj/item/reagent_containers/food/snacks/raisincookie{
+	pixel_x = -3
+	},
+/obj/machinery/door/poddoor{
+	id = "felinidbakery"
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"zw" = (
+/obj/machinery/button/door{
+	id = "felinidbakery";
+	name = "Bakesale Offloading Shutters";
+	pixel_x = -25;
+	pixel_y = 25
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"Dt" = (
+/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/food/condiment/sugar,
+/obj/item/reagent_containers/food/condiment/sugar,
+/obj/item/reagent_containers/food/condiment/sugar,
+/obj/item/reagent_containers/food/condiment/sugar,
+/turf/open/floor/plasteel/cafeteria,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"DI" = (
+/obj/machinery/button/door{
+	id = "felinidbakery";
+	name = "Bakesale Offloading Shutters";
+	pixel_x = 25;
+	pixel_y = -7
+	},
+/turf/template_noop,
+/area/template_noop)
+"DY" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"Ff" = (
+/obj/machinery/processor,
+/turf/open/floor/plasteel/cafeteria,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"FB" = (
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"GN" = (
+/obj/machinery/computer/system_map,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"JS" = (
+/obj/structure/table,
+/obj/machinery/microwave{
+	pixel_y = 6
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"JZ" = (
+/obj/machinery/vending/wardrobe/chef_wardrobe,
+/turf/open/floor/plasteel/showroomfloor,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"KB" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/rawpastrybase,
+/obj/item/reagent_containers/food/snacks/rawpastrybase,
+/obj/item/reagent_containers/food/snacks/rawpastrybase,
+/obj/item/reagent_containers/food/snacks/rawpastrybase,
+/obj/item/kitchen/rollingpin,
+/turf/open/floor/plasteel/cafeteria,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"Lx" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/plasteel/showroomfloor,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"Nh" = (
+/obj/structure/table,
+/obj/machinery/reagentgrinder{
+	desc = "Used to grind things up into raw materials and liquids.";
+	pixel_y = 5
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"Nr" = (
+/obj/structure/table,
+/obj/item/book/manual/chef_recipes{
+	pixel_x = 2;
+	pixel_y = 4
+	},
+/obj/item/book/manual/chef_recipes{
+	pixel_y = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"Ou" = (
+/obj/machinery/chem_master/condimaster,
+/turf/open/floor/plasteel/showroomfloor,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"OA" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"OB" = (
+/obj/effect/landmark/exploration_weapon_spawner/right{
+	dir = 1
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"PJ" = (
+/obj/structure/shuttle/engine/heater,
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"PK" = (
+/obj/structure/dresser,
+/turf/open/floor/wood,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"Qf" = (
+/obj/structure/table/reinforced,
+/obj/structure/fans/tiny,
+/obj/item/reagent_containers/food/snacks/pancakes/chocolatechip,
+/obj/item/reagent_containers/food/snacks/pancakes/blueberry{
+	pixel_x = 3;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/snacks/donut/jelly/bungo{
+	pixel_x = -5;
+	pixel_y = 13
+	},
+/obj/machinery/door/poddoor{
+	id = "felinidbakery"
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"RC" = (
+/turf/template_noop,
+/area/template_noop)
+"Sw" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"SR" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"Ug" = (
+/obj/structure/bed,
+/obj/item/bedsheet/hop,
+/obj/item/restraints/handcuffs,
+/turf/open/floor/wood,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"VK" = (
+/obj/structure/table/reinforced,
+/obj/structure/fans/tiny,
+/obj/item/reagent_containers/food/snacks/sugarcookie{
+	pixel_x = 4;
+	pixel_y = -9
+	},
+/obj/item/reagent_containers/food/snacks/pastrybase{
+	pixel_x = -5;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/snacks/pancakes{
+	pixel_x = 3;
+	pixel_y = 18
+	},
+/obj/machinery/door/poddoor{
+	id = "felinidbakery"
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"ZH" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"ZO" = (
+/obj/structure/reagent_dispensers/cooking_oil,
+/turf/open/floor/plasteel/showroomfloor,
+/area/shuttle/exploration/ruin/felinid/bakery)
+
+(1,1,1) = {"
+RC
+RC
+RC
+DI
+RC
+RC
+RC
+RC
+RC
+RC
+RC
+RC
+RC
+"}
+(2,1,1) = {"
+RC
+FB
+FB
+qb
+yj
+vd
+VK
+Qf
+eb
+qb
+FB
+FB
+qb
+"}
+(3,1,1) = {"
+FB
+FB
+nE
+if
+zw
+nA
+nA
+nA
+nA
+nA
+Dt
+rz
+kR
+"}
+(4,1,1) = {"
+ZH
+vl
+SR
+if
+hr
+nA
+nA
+nA
+nA
+nA
+Dt
+rz
+kR
+"}
+(5,1,1) = {"
+ZH
+ti
+qO
+qY
+nA
+nA
+KB
+Nr
+gN
+nA
+Ff
+qb
+qb
+"}
+(6,1,1) = {"
+ZH
+GN
+SR
+if
+JS
+nA
+nA
+nA
+nA
+nA
+nA
+rz
+kR
+"}
+(7,1,1) = {"
+FB
+FB
+ii
+if
+JS
+nA
+nA
+nA
+nA
+Nh
+qX
+rz
+kR
+"}
+(8,1,1) = {"
+RC
+FB
+OB
+FB
+qb
+ZH
+gr
+ZH
+qb
+FB
+FB
+FB
+qb
+"}
+(9,1,1) = {"
+RC
+RC
+RC
+RC
+ZH
+PK
+bP
+Ug
+ZH
+RC
+ay
+RC
+RC
+"}
+(10,1,1) = {"
+RC
+RC
+RC
+FB
+qb
+ZH
+gr
+ZH
+qb
+FB
+qb
+RC
+RC
+"}
+(11,1,1) = {"
+RC
+RC
+RC
+ZH
+JZ
+OA
+gM
+qR
+mx
+PJ
+kR
+RC
+RC
+"}
+(12,1,1) = {"
+RC
+RC
+RC
+ZH
+dW
+Lx
+DY
+Sw
+ZO
+PJ
+kR
+RC
+RC
+"}
+(13,1,1) = {"
+RC
+RC
+RC
+ZH
+pp
+cd
+Ou
+ky
+mx
+PJ
+kR
+RC
+RC
+"}
+(14,1,1) = {"
+RC
+RC
+RC
+FB
+OB
+FB
+FB
+FB
+FB
+FB
+qb
+RC
+RC
+"}
