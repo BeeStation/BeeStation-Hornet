@@ -171,6 +171,15 @@
 /area/shuttle/exploration/ruin/pirate/cruiser
 	name = "Pirate Cruiser"
 
+/area/shuttle/exploration/ruin/drone/syndicate
+	name = "Syndicate Scouting Drone"
+
+/area/shuttle/exploration/ruin/drone/assault
+	name = "Autonomous Assault Vessel"
+
+/area/shuttle/exploration/ruin/drone/dreadnaught
+	name = "Autonomous Dreadnaught"
+
 ////////////////////////////Single-area shuttles////////////////////////////
 
 /area/shuttle/transit
