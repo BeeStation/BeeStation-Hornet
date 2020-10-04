@@ -124,7 +124,7 @@
 	icon_state = "capjacket"
 	item_state = "capspacesuit"
 	body_parts_covered = CHEST|ARMS
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 50, "bomb" = 155, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 80)
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 50, "bomb" = 55, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 80)
 
 /obj/item/clothing/suit/armor/riot
 	name = "riot suit"
