@@ -25991,7 +25991,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = 26
+	pixel_x = 26;
 	pixel_y = 2
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
@@ -55512,7 +55512,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = -26
+	pixel_x = -26;
 	pixel_y = 2
 	},
 /turf/open/floor/plasteel/dark,
@@ -63740,7 +63740,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = -26
+	pixel_x = -26;
 	pixel_y = 2
 	},
 /turf/open/floor/plasteel,
@@ -81722,7 +81722,7 @@
 /obj/machinery/light/small,
 /obj/effect/turf_decal/bot,
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = -26
+	pixel_x = -26;
 	pixel_y = 2
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon{
@@ -119963,7 +119963,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = 26
+	pixel_x = 26;
 	pixel_y = 2
 	},
 /turf/open/floor/plasteel,

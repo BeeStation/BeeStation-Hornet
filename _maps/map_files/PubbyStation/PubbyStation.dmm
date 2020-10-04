@@ -2393,7 +2393,7 @@
 	pixel_x = -32
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = 26
+	pixel_x = 26;
 	pixel_y = 2
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
@@ -8202,7 +8202,7 @@
 /area/crew_quarters/dorms)
 "atk" = (
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = -26
+	pixel_x = -26;
 	pixel_y = 2
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
@@ -38890,7 +38890,7 @@
 /area/space/nearstation)
 "bHJ" = (
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = -26
+	pixel_x = -26;
 	pixel_y = 2
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
@@ -48672,7 +48672,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = -26
+	pixel_x = -26;
 	pixel_y = 2
 	},
 /turf/open/floor/plating,
@@ -62237,7 +62237,7 @@
 /area/maintenance/solars/port)
 "rkw" = (
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = 26
+	pixel_x = 26;
 	pixel_y = 2
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
@@ -65016,7 +65016,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = 26
+	pixel_x = 26;
 	pixel_y = 2
 	},
 /turf/open/floor/plating,
