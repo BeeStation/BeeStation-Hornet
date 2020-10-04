@@ -54,3 +54,9 @@
 	materials = list()
 	is_cyborg = 1
 	cost = 750
+
+/obj/item/stack/nanopaste/cyborg/attack(mob/living/M as mob, mob/user as mob)
+	if(user == M)
+		to_chat(user, "<span class='warning'>You can't use [src] on yourself!</span>")
+		return
+	..()
