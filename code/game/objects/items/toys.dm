@@ -431,7 +431,7 @@
 /obj/item/toy/snappop/Crossed(H as mob|obj)
 	if(ishuman(H) || issilicon(H)) //i guess carp and shit shouldn't set them off
 		var/mob/living/carbon/M = H
-		if(issilicon(H) || !M.carefulmovement())
+		if(issilicon(H) || !M.movingcarefully())
 			to_chat(M, "<span class='danger'>You step on the snap pop!</span>")
 			pop_burst(2, 0)
 

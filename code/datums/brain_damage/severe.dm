@@ -129,7 +129,7 @@
 	if(owner.IsSleeping())
 		return
 	var/sleep_chance = 1
-	if(!owner.carefulmovement())
+	if(!owner.movingcarefully())
 		sleep_chance += 2
 	if(owner.drowsyness)
 		sleep_chance += 3

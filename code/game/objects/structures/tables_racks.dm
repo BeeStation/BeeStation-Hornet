@@ -40,7 +40,7 @@
 	if(!istype(H))
 		return
 	var/feetCover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))
-	if(H.shoes || feetCover || !(H.mobility_flags & MOBILITY_STAND) || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || H.carefulmovement())
+	if(H.shoes || feetCover || !(H.mobility_flags & MOBILITY_STAND) || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || H.movingcarefully())
 		return
 	if((world.time >= last_bump + 100) && prob(5))
 		to_chat(H, "<span class='warning'>You stub your toe on the [name]!</span>")

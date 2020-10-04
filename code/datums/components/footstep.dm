@@ -27,7 +27,7 @@
 		var/mob/living/carbon/C = LM
 		if(!C.get_bodypart(BODY_ZONE_L_LEG) && !C.get_bodypart(BODY_ZONE_R_LEG))
 			return
-		if(C.carefulmovement())
+		if(C.movingcarefully())
 			return // stealth
 	steps++
 

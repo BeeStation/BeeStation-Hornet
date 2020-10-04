@@ -488,7 +488,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				return 0
 		else
 			return 0
-	if(owner.carefulmovement())
+	if(owner.movingcarefully())
 		final_block_level += block_upgrade_walk
 	switch(relative_dir)
 		if(180, -180)

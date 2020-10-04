@@ -64,7 +64,7 @@
 		return 1
 	if(iscarbon(mover))
 		var/mob/living/carbon/C = mover
-		if(allow_walk && C.carefulmovement())
+		if(allow_walk && C.movingcarefully())
 			return 1
 
 /obj/structure/holosign/barrier/wetsign

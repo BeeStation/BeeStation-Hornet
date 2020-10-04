@@ -36,7 +36,7 @@
 			if(m_intent == MOVE_INTENT_RUN)
 				adjust_nutrition(-(HUNGER_FACTOR/10))
 	
-/mob/living/carbon/carefulmovement()
+/mob/living/carbon/movingcarefully()
 	if(buckled) //sitting down, being in a vehicle, etc
 		return FALSE 
 	if(stat) //iron out edgecases

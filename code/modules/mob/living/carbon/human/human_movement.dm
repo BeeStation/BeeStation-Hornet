@@ -80,7 +80,7 @@
 		return TRUE
 	return ..()
 
-/mob/living/carbon/human/carefulmovement()
+/mob/living/carbon/human/movingcarefully()
 	if(buckled) //sitting down, being in a vehicle, etc
 		return FALSE 
 	if(stat) //iron out edgecases
