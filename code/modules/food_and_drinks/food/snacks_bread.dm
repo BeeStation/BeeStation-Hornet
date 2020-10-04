@@ -247,17 +247,11 @@
 
 /obj/item/reagent_containers/food/snacks/deepfryholder/proc/clean_batter()
 	qdel(src)
-	
-/obj/item/reagent_containers/food/snacks/deepfryholder/Destroy()
-	if(contents)
-		for(var/atom/movable/A in contents)
-			A.forceMove(src.turf)
-	. = ..()
 
 /obj/item/reagent_containers/food/snacks/deepfryholder/On_Consume(mob/living/eater)
 	if(contents)
 		for(var/atom/movable/A in contents)
-			A.forceMove(src.turf)
+			A.forceMove(eater.loc)
 	..()
 
 /obj/item/reagent_containers/food/snacks/deepfryholder/proc/fry(cook_time = 30)
