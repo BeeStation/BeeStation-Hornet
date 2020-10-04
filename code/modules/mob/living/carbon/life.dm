@@ -29,6 +29,10 @@
 		if(.) //not dead
 			handle_blood()
 
+		if(!client && key && stat != DEAD)//if you're disconnected, you're going to sleep
+			SetSleeping(40)
+
+
 		if(stat != DEAD)
 			var/bprv = handle_bodyparts()
 			if(bprv & BODYPART_LIFE_UPDATE_HEALTH)
