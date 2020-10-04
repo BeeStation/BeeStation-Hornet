@@ -29,8 +29,9 @@
 		if(.) //not dead
 			handle_blood()
 
-		if(!client && key && stat != DEAD)//if you're disconnected, you're going to sleep
-			SetSleeping(40)
+		if(isLivingSSD())//if you're disconnected, you're going to sleep
+			if(AmountSleeping() < 20)
+				AdjustSleeping(20)
 
 
 		if(stat != DEAD)

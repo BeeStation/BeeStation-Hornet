@@ -576,3 +576,7 @@
 /mob/proc/common_trait_examine()
 	if(HAS_TRAIT(src, TRAIT_DISSECTED))
 		. += "<span class='notice'>This body has been dissected and analyzed. It is no longer worth experimenting on.</span><br>"
+
+/mob/proc/isLivingSSD()
+	if(player_logged && stat != DEAD)
+		return TRUE

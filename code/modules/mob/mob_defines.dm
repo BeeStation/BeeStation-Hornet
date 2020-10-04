@@ -112,6 +112,8 @@
 	/// movable atom we are buckled to
 	var/atom/movable/buckling
 
+	var/player_logged = FALSE //keep track at login and logout; used for SSD
+
 	//Hands
 	///What hand is the active hand
 	var/active_hand_index = 1
