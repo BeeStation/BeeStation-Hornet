@@ -8,7 +8,6 @@ Head of Security=1,1
 Chief Engineer=1,1
 Research Director=1,1
 Chief Medical Officer=1,1
-Expansion Director=1,1
 
 Assistant=-1,-1
 
@@ -38,7 +37,6 @@ Virologist=1,1
 
 Scientist=8,6
 Roboticist=2,2
-Exploration Crew=3,3
 
 Warden=1,1
 Detective=1,1
