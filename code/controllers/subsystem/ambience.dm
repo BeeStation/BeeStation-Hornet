@@ -4,6 +4,7 @@
 #define AMBIENT_MUSIC_VOLUME 75
 #define AMBIENT_EFFECTS_VOLUME 45
 
+// Ambient sounds: buzz, effects, music
 SUBSYSTEM_DEF(ambience)
 	name = "Ambience"
 	wait = 2
@@ -32,9 +33,11 @@ SUBSYSTEM_DEF(ambience)
 				if (istype(M, /mob/dead/new_player)) // Don't play ambience to nerds in the lobby
 					return
 
-				src.update_buzz(M)
-				src.update_effects(M)
-				src.update_music(M)
+				src.update_buzz(M) // Update buzz every fire, or every 1/5th second
+
+				if (src.times_fired % 5 == 0) // Only update effects and music every second instead of every 1/5th second
+					src.update_effects(M)
+					src.update_music(M)
 
 		if (MC_TICK_CHECK)
 			return
@@ -56,13 +59,13 @@ SUBSYSTEM_DEF(ambience)
 /datum/controller/subsystem/ambience/proc/update_music(mob/M) // Background music, the more OOC ambience, like eerie space music
 	var/area/A = get_area(M)
 
-	if (A.ambient_music && (M.client.prefs.toggles & SOUND_AMBIENCE) && (prob(1) && prob(25)) && !M.client.channel_in_use(CHANNEL_AMBIENT_MUSIC)) // 1/80 chance to play every second, only play while another one is not playing
+	if (A.ambient_music && (M.client.prefs.toggles & SOUND_AMBIENCE) && prob(1.25) && !M.client.channel_in_use(CHANNEL_AMBIENT_MUSIC)) // 1/80 chance to play every second, only play while another one is not playing
 		SEND_SOUND(M, sound(pick(A.ambient_music), repeat = 0, wait = 0, volume = AMBIENT_MUSIC_VOLUME, channel = CHANNEL_AMBIENT_MUSIC))
 
 
 /datum/controller/subsystem/ambience/proc/update_effects(mob/M) // Effect, random sounds that will play at random times, IC (requires the user to be able to hear)
 	var/area/A = get_area(M)
 
-	if (A.ambient_effects && (M.client.prefs.toggles & SOUND_AMBIENCE) && M.can_hear_ambience() && (world.time - M.client.ambient_effect_last_played) > AMBIENT_EFFECT_COOLDOWN && prob(1) && !M.client.channel_in_use(CHANNEL_AMBIENT_EFFECTS))
+	if (A.ambient_effects && (M.client.prefs.toggles & SOUND_AMBIENCE) && M.can_hear_ambience() && (world.time - M.client.ambient_effect_last_played) > AMBIENT_EFFECT_COOLDOWN && prob(5) && !M.client.channel_in_use(CHANNEL_AMBIENT_EFFECTS)) // 1/20 chance to play every second after cooldown
 		SEND_SOUND(M, sound(pick(A.ambient_effects), repeat = 0, wait = 0, volume = AMBIENT_EFFECTS_VOLUME, channel = CHANNEL_AMBIENT_EFFECTS))
 		M.client.ambient_effect_last_played = world.time
