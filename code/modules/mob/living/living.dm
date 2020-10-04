@@ -1380,3 +1380,8 @@
 			STAMINA:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=stamina' id='stamina'>[getStaminaLoss()]</a>
 		</font>
 	"}
+
+/mob/living/eminence_act(mob/living/simple_animal/eminence/eminence)
+	if(is_servant_of_ratvar(src))
+		eminence.selected_mob = src
+		to_chat(eminence, "<span class='brass'>You select [src].</span>")

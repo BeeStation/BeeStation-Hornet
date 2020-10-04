@@ -21,12 +21,6 @@
 	icon_state = "wood-broken7"
 	},
 /area/template_noop)
-"f" = (
-/obj/structure/table/wood,
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
-/area/template_noop)
 "g" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance/four,
@@ -76,12 +70,12 @@ i
 (4,1,1) = {"
 a
 b
-f
+g
 a
 "}
 (5,1,1) = {"
 a
-b
-g
+a
+a
 a
 "}

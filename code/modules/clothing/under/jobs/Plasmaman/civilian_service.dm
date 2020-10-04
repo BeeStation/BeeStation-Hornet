@@ -30,9 +30,16 @@
 /obj/item/clothing/under/plasmaman/tux
 	name = "envirotux"
 	desc = "A flashy suit blended into an envirosuit."
-	icon_state = "really_black_suit"
+	icon_state = "envirotux"
 	item_state = "envirotux"
 	item_color = "envirotux"
+
+/obj/item/clothing/under/plasmaman/gold //yes, you can sell this for ludicrous mony
+	name = "designer envirosuit"
+	desc = "A flashy gold-trimmed envirosuit, complete with a suit jacket outerwear. This is a designer model, worth a few thousand credits."
+	icon_state = "gold_envirosuit"
+	item_state = "gold_envirosuit"
+	item_color = "gold_envirosuit"
 
 /obj/item/clothing/under/plasmaman/chaplain
 	name = "chaplain's plasma envirosuit"

@@ -1350,6 +1350,24 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	exclude_modes = list()
 	include_modes = list(/datum/game_mode/nuclear)
 
+/datum/uplink_item/stealthy_tools/chambowman
+	name = "Chameleon Bangproof Headset"
+	desc = "A headset reinforced to protect the ears from flashbangs, enhanced with chameleon disguise technology."
+	item = /obj/item/radio/headset/chameleon/bowman
+	cost = 2
+
+/datum/uplink_item/stealthy_tools/chamweldinggoggles
+	name = "Chameleon Flashproof Glasses"
+	desc = "A pair of glasses reinforced to protect the eyes from welding flashes, enhanced with chameleon disguise technology."
+	item = /obj/item/clothing/glasses/chameleon/flashproof
+	cost = 2
+
+/datum/uplink_item/stealthy_tools/chaminsuls
+	name = "Chameleon Combat Gloves"
+	desc = "A pair of gloves reinforced with fire and shock resistance, enhanced with chameleon disguise technology."
+	item = /obj/item/clothing/gloves/chameleon/combat
+	cost = 1
+
 /datum/uplink_item/stealthy_tools/jammer
 	name = "Radio Jammer"
 	desc = "This device will disrupt any nearby outgoing radio communication when activated. Does not affect binary chat."
