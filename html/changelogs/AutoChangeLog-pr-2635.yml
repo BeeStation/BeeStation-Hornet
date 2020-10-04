@@ -1,0 +1,5 @@
+author: Phil Smith
+delete-after: true
+changes:
+  - rscadd: New incursion icon
+  - imageadd: Added a new hud icon for incursion
