@@ -7,6 +7,7 @@
 	usage_flags = PROGRAM_LAPTOP | PROGRAM_TABLET
 	size = 20
 	tgui_id = "NtosCargo"
+	program_icon = "credit-card"
 	//Are you actually placing orders with it?
 	var/requestonly = TRUE
 	//Can the tablet see or buy illegal stuff?

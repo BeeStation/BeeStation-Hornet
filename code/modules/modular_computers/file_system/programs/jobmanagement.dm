@@ -7,6 +7,7 @@
 	requires_ntnet = 0
 	size = 4
 	tgui_id = "NtosJobManager"
+	program_icon = "address-book"
 
 
 

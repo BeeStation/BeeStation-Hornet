@@ -8,9 +8,7 @@
 	network_destination = "alarm monitoring network"
 	size = 5
 	tgui_id = "NtosStationAlertConsole"
-
-
-
+	program_icon = "bell"
 	var/has_alert = 0
 
 /datum/computer_file/program/alarm_monitor/process_tick()

@@ -6,6 +6,7 @@
 	network_destination = "atmos scan"
 	size = 4
 	tgui_id = "NtosAtmos"
+	program_icon = "thermometer-half"
 
 /datum/computer_file/program/atmosscan/run_program(mob/living/user)
 	. = ..()

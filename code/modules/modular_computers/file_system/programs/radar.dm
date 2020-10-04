@@ -216,6 +216,7 @@
 	requires_ntnet = TRUE
 	transfer_access = ACCESS_MEDICAL
 	available_on_ntnet = TRUE
+	program_icon = "heartbeat"
 
 /datum/computer_file/program/radar/lifeline/find_atom()
 	return locate(selected) in GLOB.carbon_list //currently we dont have a list of humanoids so this'll have to do
@@ -271,6 +272,7 @@
 	available_on_ntnet = FALSE
 	available_on_syndinet = TRUE
 	tgui_id = "NtosRadarSyndicate"
+	program_icon = "bomb"
 	arrowstyle = "ntosradarpointerS.png"
 	pointercolor = "red"
 

@@ -10,6 +10,7 @@
 	usage_flags = PROGRAM_CONSOLE | PROGRAM_LAPTOP
 	size = 5
 	tgui_id = "NtosSecurEye"
+	program_icon = "eye"
 
 	var/list/network = list("ss13")
 	var/obj/machinery/camera/active_camera

@@ -11,6 +11,7 @@
 	available_on_ntnet = 0
 	ui_header = "downloader_finished.gif"
 	tgui_id = "NtosNetDownloader"
+	program_icon = "download"
 
 
 

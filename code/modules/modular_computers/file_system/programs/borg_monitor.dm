@@ -9,6 +9,7 @@
 	network_destination = "cyborg remote monitoring"
 	size = 5
 	tgui_id = "NtosCyborgRemoteMonitor"
+	program_icon = "project-diagram"
 
 
 

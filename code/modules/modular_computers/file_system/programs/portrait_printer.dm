@@ -18,6 +18,7 @@
 	requires_ntnet = TRUE
 	size = 9
 	tgui_id = "NtosPortraitPrinter"
+	program_icon = "print"
 
 /datum/computer_file/program/portrait_printer/ui_data(mob/user)
 	var/list/data = list()

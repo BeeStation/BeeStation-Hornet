@@ -7,6 +7,7 @@
 	requires_ntnet = FALSE
 	size = 4
 	tgui_id = "NtosCrewManifest"
+	program_icon = "clipboard-list"
 
 
 

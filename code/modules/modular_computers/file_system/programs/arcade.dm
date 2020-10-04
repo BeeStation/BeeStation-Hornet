@@ -7,6 +7,7 @@
 	network_destination = "arcade network"
 	size = 6
 	tgui_id = "NtosArcade"
+	program_icon = "gamepad"
 
 
 
