@@ -8996,7 +8996,7 @@
 /area/bridge)
 "auV" = (
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = 26
+	pixel_x = 26;
 	pixel_y = 2
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
