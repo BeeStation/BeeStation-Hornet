@@ -40,7 +40,7 @@ export const Gps = (props, context) => {
     <Window
       resizable
       width={470}
-      height={Math.clamp(325 + signals.length * 14, 325, 700)}>
+      height={clamp(325 + signals.length * 14, 325, 700)}>
       <Window.Content scrollable>
         <Section
           title="Control"
