@@ -17,7 +17,7 @@
 	power_light = FALSE
 	outdoors = TRUE
 	flags_1 = NONE
-	ambientsounds = MINING
+	ambient_effects = MINING
 
 /area/mine/unexplored
 	name = "Mine"
@@ -30,7 +30,7 @@
 	power_light = FALSE
 	outdoors = TRUE
 	flags_1 = NONE
-	ambientsounds = MINING
+	ambient_effects = MINING
 
 /area/mine/lobby
 	name = "Mining Station"
@@ -73,7 +73,7 @@
 /area/mine/laborcamp/security
 	name = "Labor Camp Security"
 	icon_state = "security"
-	ambientsounds = HIGHSEC
+	ambient_effects = HIGHSEC
 
 
 
@@ -94,7 +94,7 @@
 	power_equip = FALSE
 	power_light = FALSE
 	requires_power = TRUE
-	ambientsounds = MINING
+	ambient_effects = MINING
 
 /area/lavaland/underground
 	name = "Lavaland Caves"
@@ -105,7 +105,7 @@
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE
-	ambientsounds = MINING
+	ambient_effects = MINING
 
 
 /area/lavaland/surface/outdoors
