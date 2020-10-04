@@ -116,7 +116,7 @@
 	icon_state = "capformal"
 	item_state = "capspacesuit"
 
-/obj/item/clothing/suit/armor/vest/capcarapce/jacket
+/obj/item/clothing/suit/armor/vest/capcarapace/jacket
 	name = "captain's jacket"
 	desc = "An armored Jacket in the Captains colors"
 	icon_state = "capjacket"
