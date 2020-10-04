@@ -231,7 +231,7 @@
 */
 
 /mob/living/simple_animal/UnarmedAttack(atom/A, proximity)
-	if(!dextrous)
+	if(!dextrous || a_intent == INTENT_HARM)
 		return ..()
 	if(!ismob(A))
 		A.attack_hand(src)
