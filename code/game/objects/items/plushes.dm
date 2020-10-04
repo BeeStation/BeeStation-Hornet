@@ -125,19 +125,7 @@
 				I.play_tool_sound(src)
 				stuffed = FALSE
 			else
-				to_chat(user, "<span class='notice'>What a fool you are. [src] is a god, how can you kill a god? What a grand and intoxicating innocence.</span>")
-				if(iscarbon(user))
-					var/mob/living/carbon/C = user
-					if(C.drunkenness < 50)
-						C.drunkenness = min(C.drunkenness + 20, 50)
-				var/turf/current_location = get_turf(user)
-				var/area/current_area = current_location.loc //copied from hand tele code
-				if(current_location && current_area && current_area.noteleport)
-					to_chat(user, "<span class='notice'>There is no escape. No recall or intervention can work in this place.</span>")
-				else
-					to_chat(user, "<span class='notice'>There is no escape. Although recall or intervention can work in this place, attempting to flee from [src]'s immense power would be futile.</span>")
-				user.visible_message("<span class='notice'>[user] lays down their weapons and begs for [src]'s mercy!</span>", "<span class='notice'>You lay down your weapons and beg for [src]'s mercy.</span>")
-				user.drop_all_held_items()
+				to_chat(user, "<span class='warning'>You can't bring yourself to tear the stuffing out of [src]!</span>")
 		else
 			to_chat(user, "<span class='notice'>You remove the grenade from [src].</span>")
 			user.put_in_hands(grenade)
