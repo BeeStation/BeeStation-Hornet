@@ -1,0 +1,10 @@
+author: zeskorion
+delete-after: true
+changes:
+  - tweak: piercing syringes now inject past thick clothing when not shot from a syringe
+      gun as well
+  - balance: syringe guns no longer instantly inject their reagents, instead injecting
+      them over time
+  - rscadd: syringes can be embedded on harm intent, also injecting reagents over
+      time, but at a slower rate
+  - bugfix: explosive chem mixes no longer purge chems if an explosion is not triggered
