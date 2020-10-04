@@ -117894,7 +117894,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = -26
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/solars/port/aft)
