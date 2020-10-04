@@ -1,0 +1,5 @@
+author: Kryyto
+delete-after: true
+changes:
+  - rscadd: Added Random AI lawset at roundstart
+  - tweak: tweaked 3 lawset for being too harmfull
