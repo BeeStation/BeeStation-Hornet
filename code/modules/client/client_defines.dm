@@ -111,3 +111,6 @@
 	var/datum/viewData/view_size
 	/// rate limiting for the crew manifest
 	var/crew_manifest_delay
+
+	//Tick when ghost roles are useable again
+	var/next_ghost_role_tick = 0

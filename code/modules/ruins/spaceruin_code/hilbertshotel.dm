@@ -456,6 +456,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     shoes = /obj/item/clothing/shoes/sneakers/brown
     back = /obj/item/storage/backpack/satchel/leather
     suit = /obj/item/clothing/suit/toggle/labcoat
+	use_cooldown = TRUE
 
 /obj/item/paper/crumpled/docslogs
     name = "Research Logs"
