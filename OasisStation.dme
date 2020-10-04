@@ -3159,6 +3159,8 @@
 #include "interface\menu.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
+// OASIS MODULARIZATION INCLUDES
+#include "Oasis\code\modules\integrated_electronics\subtypes\manipulation.dm"
 #include "Oasis\SCP_MAIN\SCP-012.dm"
 #include "Oasis\SCP_MAIN\SCP-151.dm"
 #include "Oasis\SCP_MAIN\SCP-173.dm"
