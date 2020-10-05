@@ -25,14 +25,14 @@
 	if(!iscarbon(M))
 		return
 
-
+	//Always log attemped injects for admins
 	var/list/injected = list()
 	for(var/datum/reagent/R in reagents.reagent_list)
 		injected += R.name
 	var/contained = english_list(injected)
 	log_combat(user, M, "attempted to inject", src, "([contained])")
 
-	if(reagents.total_volume && (ignore_flags || M.can_inject(user, 1)))
+	if(reagents.total_volume && (ignore_flags || M.can_inject(user, 1))) // Ignore flag should be checked first or there will be an error message.
 		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
 		to_chat(user, "<span class='notice'>You inject [M] with [src].</span>")
 
@@ -61,7 +61,7 @@
 	item_state = "combat_hypo"
 	icon_state = "combat_hypo"
 	volume = 90
-	ignore_flags = 1
+	ignore_flags = 1 // So they can heal their comrades.
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 30, /datum/reagent/medicine/omnizine = 30, /datum/reagent/medicine/leporazine = 15, /datum/reagent/medicine/atropine = 15)
 
 /obj/item/reagent_containers/hypospray/combat/nanites
@@ -97,7 +97,7 @@
 /*
 /obj/item/reagent_containers/hypospray/supersoldier/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
-		if(!ishumanbasic(M) || reac_volume < 5)
+		if(!ishumanbasic(M) || reac_volume < 5) // implying xenohumans are holy
 			if(method == INGEST && show_message)
 				to_chat(M, "<span class='notice'><i>You feel nothing, your DNA must not be compatible.</i></span>")
 			return ..()
@@ -110,7 +110,7 @@
 	..()
 	*/
 
-
+//MediPens
 
 /obj/item/reagent_containers/hypospray/medipen
 	name = "epinephrine medipen"
@@ -121,7 +121,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	amount_per_transfer_from_this = 13
 	volume = 13
-	ignore_flags = 1
+	ignore_flags = 1 //so you can medipen through hardsuits
 	reagent_flags = DRAWABLE
 	flags_1 = null
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 10, /datum/reagent/toxin/formaldehyde = 3)
@@ -129,7 +129,7 @@
 
 /obj/item/reagent_containers/hypospray/medipen/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins to choke on \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return OXYLOSS
+	return OXYLOSS//ironic. he could save others from oxyloss, but not himself.
 
 /obj/item/reagent_containers/hypospray/medipen/attack(mob/M, mob/user)
 	if(!reagents.total_volume)
@@ -137,7 +137,7 @@
 		return
 	..()
 	if(!iscyborg(user))
-		reagents.maximum_volume = 0
+		reagents.maximum_volume = 0 //Makes them useless afterwards
 		reagents.flags = NONE
 	update_icon()
 	addtimer(CALLBACK(src, .proc/cyborg_recharge, user), 80)
@@ -162,7 +162,7 @@
 	else
 		. += "<span class='notice'>It is spent.</span>"
 
-/obj/item/reagent_containers/hypospray/medipen/stimpack
+/obj/item/reagent_containers/hypospray/medipen/stimpack //goliath kiting
 	name = "stimpack medipen"
 	desc = "A rapid way to stimulate your body's adrenaline, allowing for freer movement in restrictive armor."
 	icon_state = "stimpen"
@@ -223,15 +223,6 @@
 	volume = 57
 	amount_per_transfer_from_this = 57
 	list_reagents = list(/datum/reagent/medicine/salbutamol = 10, /datum/reagent/medicine/leporazine = 15, /datum/reagent/medicine/tricordrazine = 15, /datum/reagent/medicine/epinephrine = 10, /datum/reagent/medicine/lavaland_extract = 2, /datum/reagent/medicine/omnizine = 5)
-
-/obj/item/reagent_containers/hypospray/medipen/survival/premium
-	name = "premium survival medipen"
-	desc = "A premium medipen equipped with bluespace reagent storage, intended for high-intencity combat, while healing user up. WARNING: Do not inject more than one pen in quick succession."
-	icon_state = "luxpen"
-	item_state = "stimpen"
-	volume = 107
-	amount_per_transfer_from_this = 107
-	list_reagents = list(/datum/reagent/medicine/atropine = 10, /datum/reagent/medicine/lavaland_extract = 2, /datum/reagent/medicine/omnizine = 10, /datum/reagent/medicine/sal_acid = 15, /datum/reagent/medicine/salbutamol = 10, /datum/reagent/medicine/oxandrolone = 15, /datum/reagent/medicine/leporazine = 15, /datum/reagent/medicine/tricordrazine = 15, /datum/reagent/medicine/morphine = 3, /datum/reagent/drug/methamphetamine = 5, /datum/reagent/medicine/mannitol = 7)
 
 /obj/item/reagent_containers/hypospray/medipen/species_mutator
 	name = "species mutator medipen"

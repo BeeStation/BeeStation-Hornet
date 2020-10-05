@@ -24,8 +24,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 							//If you died in the game and are a ghsot - this will remain as null.
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
 	var/atom/movable/following = null
-	var/fun_verbs = 1
-	var/possess_verb = 0
+	var/fun_verbs = 1 // OASIS EDIT
+	var/possess_verb = 0 // OASIS EDIT
 	var/image/ghostimage_default = null //this mobs ghost image without accessories and dirs
 	var/image/ghostimage_simple = null //this mob with the simple white ghost sprite
 	var/ghostvision = 1 //is the ghost able to see things humans can't?
@@ -127,7 +127,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(!fun_verbs)
 		verbs -= /mob/dead/observer/verb/boo
 
-	if(!possess_verb)
+	if(!possess_verb) // OASIS EDIT
 		verbs -= /mob/dead/observer/verb/possess
 
 	animate(src, pixel_y = 2, time = 10, loop = -1)
