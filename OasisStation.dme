@@ -16,7 +16,6 @@
 
 // BEGIN_INCLUDE
 // OASIS INCLUDES
-#include "Oasis\code\controllers\subsystem\redbot.dm"
 #include "Oasis\code\datums\world_topic.dm"
 #include "Oasis\code\game\objects\items\religion.dm"
 #include "Oasis\code\modules\integrated_electronics\subtypes\manipulation.dm"
