@@ -77,7 +77,7 @@
 		return
 
 	if(href_list["settitle"])
-		var/newtitle = input("Enter a title to search for:") as text|null
+		var/newtitle = capped_input(usr, "Enter a title to search for:")
 		if(newtitle)
 			title = sanitize(newtitle)
 		else
@@ -91,7 +91,7 @@
 			category = "Any"
 		category = sanitize(category)
 	if(href_list["setauthor"])
-		var/newauthor = input("Enter an author to search for:") as text|null
+		var/newauthor = capped_input(usr, "Enter an author to search for:")
 		if(newauthor)
 			author = sanitize(newauthor)
 		else
@@ -382,7 +382,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	if(href_list["editbook"])
 		buffer_book = stripped_input(usr, "Enter the book's title:")
 	if(href_list["editmob"])
-		buffer_mob = stripped_input(usr, "Enter the recipient's name:", max_length = MAX_NAME_LEN)
+		buffer_mob = stripped_input(usr, "Enter the recipient's name:", max_length=MAX_NAME_LEN)
 	if(href_list["checkout"])
 		var/datum/borrowbook/b = new /datum/borrowbook
 		b.bookname = sanitize(buffer_book)

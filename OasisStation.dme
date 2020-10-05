@@ -1,0 +1,37 @@
+// DM Environment file for OasisStation.dme.
+// All manual changes should be made outside the BEGIN_ and END_ blocks.
+// New source code should be placed in .dm files: choose File/New --> Code File.
+// BEGIN_INTERNALS
+// END_INTERNALS
+
+// BEGIN_FILE_DIR
+#define FILE_DIR .
+// END_FILE_DIR
+
+// BEGIN_PREFERENCES
+#define DEBUG
+// END_PREFERENCES
+
+#include "beestation.dme"
+
+// BEGIN_INCLUDE
+// OASIS INCLUDES
+#include "Oasis\code\datums\world_topic.dm"
+#include "Oasis\code\game\objects\items\religion.dm"
+#include "Oasis\code\modules\integrated_electronics\subtypes\manipulation.dm"
+#include "Oasis\code\modules\integrated_electronics\subtypes\reagents.dm"
+#include "Oasis\code\modules\reagents\chemistry\reagent_containers\hypospray.dm"
+#include "Oasis\code\modules\reagents\chemistry\reagents\alcohol_reagents.dm"
+#include "Oasis\code\modules\reagents\chemistry\reagents\drink_reagents.dm"
+#include "Oasis\code\modules\reagents\chemistry\reagents\other_reagents.dm"
+#include "Oasis\code\modules\reagents\chemistry\recipes\others.dm"
+// SCP_MAIN INCLUDES
+#include "Oasis\SCP_MAIN\code\game\machinery\doors\airlock.dm"
+#include "Oasis\SCP_MAIN\code\game\machinery\doors\firelock.dm"
+#include "Oasis\SCP_MAIN\code\game\machinery\doors\poddoor.dm"
+#include "Oasis\SCP_MAIN\datums\SCP-012.dm"
+#include "Oasis\SCP_MAIN\datums\SCP-151.dm"
+#include "Oasis\SCP_MAIN\datums\SCP-173.dm"
+#include "Oasis\SCP_MAIN\datums\SCP-294.dm"
+#include "Oasis\SCP_MAIN\datums\SCP-529.dm"
+// END_INCLUDE

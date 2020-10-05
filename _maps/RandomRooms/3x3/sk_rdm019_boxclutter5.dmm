@@ -16,11 +16,6 @@
 /obj/item/stack/sheet/cardboard,
 /turf/open/floor/plating,
 /area/template_noop)
-"e" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/template_noop)
 "f" = (
 /obj/structure/closet/cardboard,
 /turf/open/floor/plating,
@@ -29,7 +24,7 @@
 (1,1,1) = {"
 a
 d
-e
+c
 "}
 (2,1,1) = {"
 b
@@ -38,6 +33,6 @@ b
 "}
 (3,1,1) = {"
 c
-c
+b
 f
 "}
