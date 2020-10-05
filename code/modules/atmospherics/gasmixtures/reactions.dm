@@ -297,7 +297,7 @@
 	var/delta_plasma = initial_plasma - air.get_moles(/datum/gas/plasma)
 
 	reaction_energy += delta_plasma*PLASMA_BINDING_ENERGY //Energy is gained or lost corresponding to the creation or destruction of mass.
-	if(instability < FUSION_INSTABILITY_ENDOTHERMALITY)
+	if(instability <= FUSION_INSTABILITY_ENDOTHERMALITY)
 		reaction_energy = max(reaction_energy,0) //Stable reactions don't end up endothermic.
 	else if (reaction_energy < 0)
 		reaction_energy *= (instability-FUSION_INSTABILITY_ENDOTHERMALITY)**0.5
@@ -327,7 +327,7 @@
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
 			air.set_temperature(CLAMP(((air.return_temperature()*old_heat_capacity + reaction_energy)/new_heat_capacity),TCMB,INFINITY))
 		return REACTING
-	else if(reaction_energy == 0 && instability < FUSION_INSTABILITY_ENDOTHERMALITY)
+	else if(reaction_energy == 0 && instability <= FUSION_INSTABILITY_ENDOTHERMALITY)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
 			air.set_temperature(clamp(((air.return_temperature()*old_heat_capacity)/new_heat_capacity),TCMB,INFINITY)) // THIS SHOULD STAY OR FUSION WILL EAT YOUR FACE
