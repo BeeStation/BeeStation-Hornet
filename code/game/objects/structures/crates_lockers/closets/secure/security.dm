@@ -80,7 +80,7 @@
 	new	/obj/item/storage/firstaid/o2(src)
 	new	/obj/item/storage/firstaid/brute(src)
 	new /obj/item/storage/belt/medical(src)
-	new /obj/item/storage/belt/security/full(src)
+	new /obj/item/storage/belt/security/deputy(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/restraints/handcuffs(src)
