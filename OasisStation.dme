@@ -3161,9 +3161,14 @@
 #include "interface\skin.dmf"
 // OASIS MODULARIZATION INCLUDES
 #include "Oasis\code\modules\integrated_electronics\subtypes\manipulation.dm"
-#include "Oasis\SCP_MAIN\SCP-012.dm"
-#include "Oasis\SCP_MAIN\SCP-151.dm"
-#include "Oasis\SCP_MAIN\SCP-173.dm"
-#include "Oasis\SCP_MAIN\SCP-294.dm"
-#include "Oasis\SCP_MAIN\SCP-529.dm"
+#include "Oasis\code\datums\world_topic.dm"
+// SCP_MAIN INCLUDES
+#include "Oasis\SCP_MAIN\datums\SCP-012.dm"
+#include "Oasis\SCP_MAIN\datums\SCP-151.dm"
+#include "Oasis\SCP_MAIN\datums\SCP-173.dm"
+#include "Oasis\SCP_MAIN\datums\SCP-294.dm"
+#include "Oasis\SCP_MAIN\datums\SCP-529.dm"
+#include "Oasis\SCP_MAIN\code\game\machinery\doors\airlock.dm"
+#include "Oasis\SCP_MAIN\code\game\machinery\doors\firelock.dm"
+#include "Oasis\SCP_MAIN\code\game\machinery\doors\poddoor.dm"
 // END_INCLUDE

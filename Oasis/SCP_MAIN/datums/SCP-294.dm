@@ -2,7 +2,7 @@ GLOBAL_LIST_EMPTY(scp294_reagents)
 
 /obj/machinery/scp294
 	name = "SCP-294"
-	icon = 'Oasis/SCP_MAIN/SCP_ICONS/scpobj/scp294.dmi'
+	icon = 'Oasis/SCP_MAIN/icons/scpobj/scp294.dmi'
 	desc = "<b><span class='notice''><big>SCP-294</big></span></b> - A standard coffee vending machine."
 	icon_state = "coffee_294"
 	layer = 2.9
