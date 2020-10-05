@@ -193,10 +193,11 @@ Temporary Items
 *.sublime-project
 *.sublime-workspace
 
-#Visual studio stuff
+#Visual studio stuff - I included launch.json to save everyone the headache of stupid vscode shenanigans with multiple dme files.
 *.vscode/*
 !/.vscode/extensions.json
 !/.vscode/settings.json
+!/.vscode/launch.json
 tools/MapAtmosFixer/MapAtmosFixer/obj/*
 tools/MapAtmosFixer/MapAtmosFixer/bin/*
 
