@@ -160,6 +160,8 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 	report_type = "changeling infiltration"
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Personnel","Head of Security","Research Director","Chief Engineer","Chief Medical Officer", "Captain", "Brig Physician","VIP","Chaplain","Warden","Quartermaster")	//exclude the possible target roles... Just in case.
 	force_team_mode = TRUE
+	required_players = 40
+	required_enemies = 3
 
 /datum/game_mode/changeling/infiltration/generate_report()
 	return "Worrying reports in your sector indicate the presence of shape shifting alien creatures, the linkes of which we have never seen before. We believe the ultimate goal of these creatures	\
