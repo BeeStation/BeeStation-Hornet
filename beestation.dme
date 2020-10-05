@@ -273,7 +273,6 @@
 #include "code\controllers\subsystem\profiler.dm"
 #include "code\controllers\subsystem\radiation.dm"
 #include "code\controllers\subsystem\radio.dm"
-#include "Oasis\code\controllers\subsystem\redbot.dm" // OASIS EDIT
 #include "code\controllers\subsystem\research.dm"
 #include "code\controllers\subsystem\server_maint.dm"
 #include "code\controllers\subsystem\shuttle.dm"
