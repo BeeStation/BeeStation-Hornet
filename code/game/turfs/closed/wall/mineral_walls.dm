@@ -136,7 +136,7 @@
 	icon = 'icons/turf/walls/wood_wall.dmi'
 	icon_state = "wood"
 	sheet_type = /obj/item/stack/sheet/mineral/wood
-	hardness = 70
+	hardness = 25
 	explosion_block = 0
 	canSmoothWith = list(/turf/closed/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/closed/wall/mineral/wood/nonmetal)
 
@@ -153,7 +153,7 @@
 /turf/closed/wall/mineral/wood/nonmetal
 	desc = "A solidly wooden wall. It's a bit weaker than a wall made with metal."
 	girder_type = /obj/structure/barricade/wooden
-	hardness = 50
+	hardness = 40
 	canSmoothWith = list(/turf/closed/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/closed/wall/mineral/wood/nonmetal)
 
 /turf/closed/wall/mineral/iron
@@ -169,7 +169,7 @@
 	desc = "A wall made of densely packed snow blocks."
 	icon = 'icons/turf/walls/snow_wall.dmi'
 	icon_state = "snow"
-	hardness = 80
+	hardness = 20
 	explosion_block = 0
 	slicing_duration = 30
 	sheet_type = /obj/item/stack/sheet/mineral/snow

@@ -42,7 +42,7 @@
 	name = "clockwork wall"
 	desc = "A huge chunk of warm metal. The clanging of machinery emanates from within."
 	explosion_block = 2
-	hardness = 10
+	hardness = 100
 	slicing_duration = 80
 	sheet_type = /obj/item/stack/tile/brass
 	sheet_amount = 1
@@ -123,7 +123,7 @@
 		visible_message("<span class='warning'>[src] sizzles with heat!</span>")
 		playsound(src, 'sound/machines/fryer/deep_fryer_emerge.ogg', 50, TRUE)
 		heated = TRUE
-		hardness = -100 //Lower numbers are tougher, so this makes the wall essentially impervious to smashing
+		hardness = 1000 //twice as durable as a reinforced wall
 		slicing_duration = 150
 		animate(realappearance, color = "#FFC3C3", time = 5)
 	else
@@ -144,7 +144,7 @@
 	icon_state = "iced"
 	desc = "A wall covered in a thick sheet of ice."
 	canSmoothWith = null
-	hardness = 35
+	hardness = 75
 	slicing_duration = 150 //welding through the ice+metal
 	bullet_sizzle = TRUE
 
@@ -152,7 +152,7 @@
 	name = "rusted wall"
 	desc = "A rusted metal wall."
 	icon = 'icons/turf/walls/rusty_wall.dmi'
-	hardness = 45
+	hardness = 30
 
 /turf/closed/wall/rust/rust_heretic_act()
 	if(prob(70))
@@ -163,7 +163,7 @@
 	name = "rusted reinforced wall"
 	desc = "A huge chunk of rusted reinforced metal."
 	icon = 'icons/turf/walls/rusty_reinforced_wall.dmi'
-	hardness = 15
+	hardness = 250
 
 /turf/closed/wall/r_wall/rust/rust_heretic_act()
 	if(prob(50))
