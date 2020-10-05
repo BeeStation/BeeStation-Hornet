@@ -1,0 +1,123 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/machinery/disposal/deliveryChute{
+	dir = 4
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/turf/open/floor/plasteel/grimy,
+/area/template_noop)
+"e" = (
+/obj/machinery/disposal/deliveryChute{
+	dir = 4
+	},
+/obj/structure/disposalpipe/trunk,
+/turf/open/floor/plasteel/grimy,
+/area/template_noop)
+"l" = (
+/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/effect/decal/remains/human,
+/obj/effect/trap/nexus/trickyspawner/spookyskeleton,
+/obj/effect/spawner/lootdrop/trap,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/turf/open/floor/plasteel/grimy,
+/area/template_noop)
+"s" = (
+/obj/effect/decal/cleanable/vomit/old,
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/turf/open/floor/plasteel/grimy,
+/area/template_noop)
+"u" = (
+/obj/machinery/disposal/deliveryChute{
+	dir = 8
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/turf/open/floor/plasteel/grimy,
+/area/template_noop)
+"z" = (
+/obj/effect/decal/cleanable/vomit/old,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/open/floor/plasteel/grimy,
+/area/template_noop)
+"B" = (
+/obj/machinery/disposal/deliveryChute{
+	dir = 8
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/open/floor/plasteel/grimy,
+/area/template_noop)
+"H" = (
+/obj/machinery/disposal/deliveryChute,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/turf/open/floor/plasteel/grimy,
+/area/template_noop)
+"I" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/window/reinforced/fulltile/indestructable,
+/turf/open/floor/plasteel/grimy,
+/area/template_noop)
+"J" = (
+/obj/machinery/disposal/deliveryChute{
+	dir = 1
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/turf/open/floor/plasteel/grimy,
+/area/template_noop)
+"T" = (
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/turf/open/floor/plasteel/grimy,
+/area/template_noop)
+"V" = (
+/obj/machinery/disposal/deliveryChute,
+/obj/structure/disposalpipe/trunk,
+/turf/open/floor/plasteel/grimy,
+/area/template_noop)
+"Z" = (
+/obj/machinery/disposal/deliveryChute{
+	dir = 1
+	},
+/obj/structure/disposalpipe/trunk,
+/turf/open/floor/plasteel/grimy,
+/area/template_noop)
+
+(1,1,1) = {"
+e
+H
+s
+J
+a
+"}
+(2,1,1) = {"
+l
+Z
+I
+H
+z
+"}
+(3,1,1) = {"
+B
+V
+T
+Z
+u
+"}

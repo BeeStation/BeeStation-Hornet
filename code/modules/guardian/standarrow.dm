@@ -150,7 +150,7 @@
 
 /obj/item/stand_arrow/proc/pick_name(mob/living/simple_animal/hostile/guardian/G)
 	set waitfor = FALSE
-	var/new_name = input("Set your name!", "Guardian Name") as text|null
+	var/new_name = capped_input(usr, "Set your name!", "Guardian Name", max_length=MAX_NAME_LEN)
 	if(new_name)
 		if(G.mind)
 			G.mind.name = new_name

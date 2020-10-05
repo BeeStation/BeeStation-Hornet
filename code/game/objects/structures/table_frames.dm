@@ -103,7 +103,7 @@
 			return
 		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
 		if(do_after(user, 20, target = src) && W.use(1))
-			make_new_table(/obj/structure/table/reinforced/brass)
+			make_new_table(/obj/structure/table/brass)
 	else
 		return ..()
 
