@@ -59,13 +59,7 @@
 
 #define STATUS_EFFECT_PACIFY /datum/status_effect/pacify //! the affected is pacified, preventing direct hostile actions
 
-#define STATUS_EFFECT_BELLIGERENT /datum/status_effect/belligerent //! forces the affected to walk, doing damage if they try to run
-
-#define STATUS_EFFECT_GEISTRACKER /datum/status_effect/geis_tracker //! if you're using geis, this tracks that and keeps you from using scripture
-
-#define STATUS_EFFECT_MANIAMOTOR /datum/status_effect/maniamotor //! disrupts, damages, and confuses the affected as long as they're in range of the motor
-#define MAX_MANIA_SEVERITY 100 //! how high the mania severity can go
-#define MANIA_DAMAGE_TO_CONVERT 90 //! how much damage is required before it'll convert affected targets
+#define STATUS_EFFECT_INTERDICTION /datum/status_effect/interdiction //! The affected is inside the range of an interdiction lens
 
 #define STATUS_EFFECT_CHOKINGSTRAND /datum/status_effect/strandling //! Choking Strand
 
@@ -100,6 +94,8 @@
 #define STATUS_EFFECT_GO_AWAY /datum/status_effect/go_away //! makes you launch through walls in a single direction for a while
 
 #define STATUS_EFFECT_STASIS /datum/status_effect/incapacitating/stasis //! Halts biological functions like bleeding, chemical processing, blood regeneration, walking, etc
+
+#define STATUS_EFFECT_SYRINGE /datum/status_effect/syringe //used to handle being injected with a syringe
 
 //---------//
 // NEUTRAL //

@@ -471,6 +471,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			blockhand = (locate(/obj/item/bodypart/r_arm) in owner.bodyparts)
 		else
 			blockhand = (locate(/obj/item/bodypart/l_arm) in owner.bodyparts)
+	if(!blockhand)
+		return 0
 	if(blockhand.is_disabled())
 		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack<!/span>")
 		return 0

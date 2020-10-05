@@ -72,6 +72,7 @@
 #define COMSIG_ATOM_RAD_ACT "atom_rad_act"						//! from base of atom/rad_act(intensity)
 #define COMSIG_ATOM_NARSIE_ACT "atom_narsie_act"				//! from base of atom/narsie_act(): ()
 #define COMSIG_ATOM_RATVAR_ACT "atom_ratvar_act"				//! from base of atom/ratvar_act(): ()
+#define COMSIG_ATOM_EMINENCE_ACT "atom_eminence_act"				//! from base of atom/eminence_act(): ()
 #define COMSIG_ATOM_RCD_ACT "atom_rcd_act"						//! from base of atom/rcd_act(): (/mob, /obj/item/construction/rcd, passed_mode)
 #define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"			//! from base of atom/teleport_act(): ()
 #define COMSIG_ATOM_EXTRAPOLATOR_ACT "atom_extrapolator_act"	//! from base of atom/Exited(): (mob/user, var/obj/item/extrapolator/E, scan = TRUE)
@@ -346,6 +347,9 @@
 
 // /datum/mind signals
 #define COMSIG_MIND_TRANSFER_TO	"mind_transfer_to"					// (mob/old, mob/new)
+
+// /datum/component/clockwork_trap signals
+#define COMSIG_CLOCKWORK_SIGNAL_RECIEVED "clock_recieved"			//! When anything the trap is attatched to is triggered
 
 /*******Non-Signal Component Related Defines*******/
 
