@@ -3102,5 +3102,6 @@
 #include "interface\menu.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
-#include "Oasis\backpack.dm"
+#include "oasis\backpack.dm"
+#include "oasis\Factories\factories.dm"
 // END_INCLUDE

@@ -1100,3 +1100,13 @@
 	build_path = /obj/machinery/atmospherics/components/unary/shuttle/heater
 	req_components = list(/obj/item/stock_parts/micro_laser = 2,
 		/obj/item/stock_parts/matter_bin = 1)
+
+/obj/item/circuitboard/machine/factories
+	name = "Factory"
+	build_path = /obj/machinery/factories
+	req_components = list(/obj/item/stock_parts/micro_laser = 2)
+
+/obj/item/circuitboard/machine/factories/material_dispenser
+	name = "Material Dispenser"
+	build_path = /obj/machinery/factories/material_dispenser
+	req_components = list(/obj/item/stock_parts/micro_laser = 2)
