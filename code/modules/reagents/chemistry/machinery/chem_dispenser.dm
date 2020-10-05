@@ -321,7 +321,6 @@
 				return
 			recording_recipe = null
 			. = TRUE
-
 		if("import_recipe")
 			if(!is_operational())
 				return
