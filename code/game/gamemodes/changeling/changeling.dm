@@ -26,6 +26,7 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 
 	var/const/changeling_amount = 4 //hard limit on changelings if scaling is turned off
 	var/list/changelings = list()
+	var/force_team_mode = FALSE
 
 /datum/game_mode/changeling/pre_setup()
 
@@ -64,6 +65,7 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 	for(var/datum/mind/changeling in changelings)
 		log_game("[key_name(changeling)] has been selected as a changeling")
 		var/datum/antagonist/changeling/new_antag = new()
+		new_antag.team_mode = force_team_mode
 		changeling.add_antag_datum(new_antag)
 	..()
 
@@ -150,3 +152,16 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 
 	round_credits += ..()
 	return round_credits
+
+
+/datum/game_mode/changeling/infiltration
+	name = "changeling infiltration"
+	config_tag = "changeling infiltration"
+	report_type = "changeling infiltration"
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Personnel","Head of Security","Research Director","Chief Engineer","Chief Medical Officer", "Captain", "Brig Physician","VIP","Chaplain","Warden","Quartermaster")	//exclude the possible target roles... Just in case.
+	force_team_mode = TRUE
+
+/datum/game_mode/changeling/infiltration/generate_report()
+	return "Worrying reports in your sector indicate the presence of shape shifting alien creatures, the linkes of which we have never seen before. We believe the ultimate goal of these creatures	\
+			is to infiltrate the highest ranks of our organisation, but their purpose is unknown. Beware, these creatures can take the guise of any humanoid creature and will become hostile when	\
+			their identity is revealed; please approach them with caution.

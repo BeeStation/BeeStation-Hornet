@@ -388,6 +388,8 @@
 			ac.owner = owner
 			objectives += ac
 			log_objective(owner, ac.explanation_text)
+			
+	// Special objective override -> team_mode objectives
 
 	if(prob(60))
 		if(prob(85))
@@ -430,7 +432,7 @@
 			objectives += maroon_objective
 			log_objective(owner, maroon_objective.explanation_text)
 
-			if (!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
+			if (!team_mode && !(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
 				var/datum/objective/escape/escape_with_identity/identity_theft = new
 				identity_theft.owner = owner
 				identity_theft.target = maroon_objective.target
@@ -440,20 +442,28 @@
 				escape_objective_possible = FALSE
 
 	if (!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
-		if(prob(50))
-			var/datum/objective/escape/escape_objective = new
-			escape_objective.owner = owner
-			objectives += escape_objective
-			log_objective(owner, escape_objective.explanation_text)
-		else
-			var/datum/objective/escape/escape_with_identity/identity_theft = new
-			identity_theft.owner = owner
-			if(team_mode)
-				identity_theft.find_target_by_role(role = ROLE_CHANGELING, role_type = TRUE, invert = TRUE)
-			else
+	
+		if(team_mode)	//additionally, team mode changelings have to take the role of a highest in command
+				var/datum/objective/escape/escape_with_identity/head_hunter/identity_theft = new
+				identity_theft.owner = owner
 				identity_theft.find_target()
-			objectives += identity_theft
-			log_objective(owner, identity_theft.explanation_text)
+				objectives += identity_theft
+				log_objective(owner, identity_theft.explanation_text)
+		else	
+			if(prob(50))
+				var/datum/objective/escape/escape_objective = new
+				escape_objective.owner = owner
+				objectives += escape_objective
+				log_objective(owner, escape_objective.explanation_text)
+			else
+				var/datum/objective/escape/escape_with_identity/identity_theft = new
+				identity_theft.owner = owner
+				//if(team_mode)
+				//	identity_theft.find_target_by_role(role = ROLE_CHANGELING, role_type = TRUE, invert = TRUE)
+				//else
+				identity_theft.find_target()
+				objectives += identity_theft
+				log_objective(owner, identity_theft.explanation_text)
 		escape_objective_possible = FALSE
 
 /datum/antagonist/changeling/proc/update_changeling_icons_added()

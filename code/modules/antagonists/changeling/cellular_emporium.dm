@@ -26,6 +26,7 @@
 	var/genetic_points_remaining = changeling.geneticpoints
 	var/absorbed_dna_count = changeling.absorbedcount
 	var/true_absorbs = changeling.trueabsorbs
+	var/team_mode = changeling.team_mode
 
 	data["can_readapt"] = can_readapt
 	data["genetic_points_remaining"] = genetic_points_remaining
@@ -37,6 +38,9 @@
 		var/datum/action/changeling/ability = path
 
 		var/dna_cost = initial(ability.dna_cost)
+		var/infiltrate_cost = initial(ability.dnai_cost)	//hack for infiltration
+		if (team_mode && infiltrate_cost>=0)
+			dna_cost = infiltrate_cost	
 		if(dna_cost <= 0)
 			continue
 
