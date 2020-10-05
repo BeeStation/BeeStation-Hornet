@@ -44,7 +44,7 @@
 	custom_premium_price = 600
 
 /obj/item/clothing/suit/armor/vest/corporate
-	name = "Corporate Jacket"
+	name = "corporate Jacket"
 	desc = "A Stylish Corporate Jacket which also provides Protection."
 	icon_state = "secjacket"
 	item_state = "secjacket"
