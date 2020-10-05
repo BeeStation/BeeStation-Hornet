@@ -570,7 +570,7 @@
 	if(!check_rights(0))
 		return
 
-	var/message = capped_multiline_input(usr, "Global message to send:", "Admin Announce")
+	var/message = input("Global message to send:", "Admin Announce", null, null)  as message
 	if(message)
 		if(!check_rights(R_SERVER,0))
 			message = adminscrub(message,500)
@@ -586,7 +586,7 @@
 	if(!check_rights(0))
 		return
 
-	var/new_admin_notice = capped_multiline_input(usr, "Set a public notice for this round. Everyone who joins the server will see it.\n(Leaving it blank will delete the current notice):","Set Notice",GLOB.admin_notice)
+	var/new_admin_notice = input(src,"Set a public notice for this round. Everyone who joins the server will see it.\n(Leaving it blank will delete the current notice):","Set Notice",GLOB.admin_notice) as message|null
 	if(new_admin_notice == null)
 		return
 	if(new_admin_notice == GLOB.admin_notice)

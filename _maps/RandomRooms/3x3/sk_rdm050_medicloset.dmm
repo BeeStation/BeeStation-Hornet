@@ -9,6 +9,12 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "b" = (
+/obj/structure/table,
+/obj/item/storage/backpack/duffelbag/med,
+/obj/item/flashlight/pen{
+	pixel_x = 4;
+	pixel_y = 3
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)
@@ -49,6 +55,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)
+"g" = (
+/obj/structure/bed/roller,
+/obj/structure/bed/roller,
+/obj/machinery/iv_drip,
+/obj/machinery/iv_drip,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/template_noop)
 "h" = (
 /turf/open/floor/plating,
 /area/template_noop)
@@ -67,7 +81,7 @@
 (1,1,1) = {"
 a
 d
-f
+g
 "}
 (2,1,1) = {"
 b
@@ -76,6 +90,6 @@ h
 "}
 (3,1,1) = {"
 c
-h
+f
 i
 "}

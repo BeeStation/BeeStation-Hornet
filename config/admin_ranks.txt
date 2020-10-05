@@ -84,27 +84,7 @@ Include = EVERYTHING
 Exclude =
 Edit = EVERYTHING
 
-Name = Map Master
-Include = EVERYTHING
-Exclude =
-Edit = EVERYTHING
-
 Name = Headmin
-Include = EVERYTHING
-Exclude =
-Edit = EVERYTHING
-
-Name = Head Developer
-Include = EVERYTHING
-Exclude =
-Edit = EVERYTHING
-
-Name = Github Manager
-Include = EVERYTHING
-Exclude =
-Edit = EVERYTHING
-
-Name = Relations Manager
 Include = EVERYTHING
 Exclude =
 Edit = EVERYTHING

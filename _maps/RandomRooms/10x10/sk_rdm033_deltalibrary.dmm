@@ -258,6 +258,25 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
+"Q" = (
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"R" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/remains/human,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
 "S" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
@@ -401,7 +420,7 @@ m
 r
 w
 e
-B
+D
 D
 D
 P
@@ -413,10 +432,10 @@ n
 s
 x
 A
-B
 D
 G
 J
+Q
 X
 "}
 (10,1,1) = {"
@@ -425,9 +444,9 @@ o
 t
 y
 B
-B
 D
 H
 K
+R
 Y
 "}

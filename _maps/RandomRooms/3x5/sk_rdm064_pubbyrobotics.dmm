@@ -3,6 +3,10 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating,
 /area/template_noop)
+"b" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/open/floor/plating,
+/area/template_noop)
 "c" = (
 /obj/structure/closet,
 /obj/item/clothing/under/color/black,
@@ -55,7 +59,7 @@ h
 i
 "}
 (2,1,1) = {"
-g
+b
 e
 g
 h

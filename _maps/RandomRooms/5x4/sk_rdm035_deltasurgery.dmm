@@ -69,22 +69,6 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/spawner/lootdrop/trap,
-/turf/open/floor/plasteel,
-/area/template_noop)
-"i" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -95,8 +79,14 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plasteel,
+/area/template_noop)
+"i" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
 /area/template_noop)
 "j" = (
 /obj/machinery/iv_drip,
@@ -179,12 +169,28 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "p" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/blue{
+/obj/structure/table/reinforced,
+/obj/machinery/status_display/evac{
+	pixel_y = -32
+	},
+/obj/item/reagent_containers/blood/random,
+/obj/item/reagent_containers/blood/random,
+/obj/item/reagent_containers/syringe/epinephrine{
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/syringe,
+/obj/item/clothing/neck/stethoscope,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/trap,
-/turf/open/floor/plasteel/white,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
 /area/template_noop)
 "q" = (
 /obj/structure/table/reinforced,
@@ -212,43 +218,48 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/template_noop)
-"s" = (
-/obj/effect/trap/nexus/trickyspawner/catbutcher,
+"X" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plasteel,
-/area/template_noop)
-"t" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trap,
-/turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
 a
-i
+f
 j
 n
 "}
 (2,1,1) = {"
 b
+g
 k
-f
 o
 "}
 (3,1,1) = {"
-h
+c
+X
 l
-s
-t
+p
 "}
 (4,1,1) = {"
 d
 c
-g
+h
 q
 "}
 (5,1,1) = {"
 e
-p
+i
 m
 r
 "}

@@ -60,7 +60,6 @@
 		message_admins("[key_name_admin(src)] has cancelled their reply to [key_name_admin(C, 0, 0)]'s admin help.")
 		return
 	cmd_admin_pm(whom, msg)
-	AH.Claim()
 
 /client/proc/cmd_ahelp_reply_instant(whom, msg)
 	if(prefs.muted & MUTE_ADMINHELP)

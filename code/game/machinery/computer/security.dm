@@ -529,7 +529,7 @@ What a mess.*/
 				if(!( istype(active2, /datum/data/record) ))
 					return
 				var/a2 = active2
-				var/t1 = stripped_multiline_input(usr, "Add Comment:", "Secure. records")
+				var/t1 = stripped_multiline_input("Add Comment:", "Secure. records", null, null)
 				if(!canUseSecurityRecordsConsole(usr, t1, null, a2))
 					return
 				var/counter = 1
@@ -623,7 +623,7 @@ What a mess.*/
 				switch(href_list["field"])
 					if("name")
 						if(istype(active1, /datum/data/record) || istype(active2, /datum/data/record))
-							var/t1 = stripped_input(usr, "Please input name:", "Secure. records", active1.fields["name"])
+							var/t1 = stripped_input(usr, "Please input name:", "Secure. records", active1.fields["name"], MAX_MESSAGE_LEN)
 							if(!canUseSecurityRecordsConsole(usr, t1, a1))
 								return
 							if(istype(active1, /datum/data/record))
@@ -632,7 +632,7 @@ What a mess.*/
 								active2.fields["name"] = t1
 					if("id")
 						if(istype(active2, /datum/data/record) || istype(active1, /datum/data/record))
-							var/t1 = stripped_input(usr, "Please input id:", "Secure. records", active1.fields["id"])
+							var/t1 = stripped_input(usr, "Please input id:", "Secure. records", active1.fields["id"], null)
 							if(!canUseSecurityRecordsConsole(usr, t1, a1))
 								return
 							if(istype(active1, /datum/data/record))

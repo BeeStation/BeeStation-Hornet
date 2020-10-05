@@ -16,6 +16,11 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/structure/table/wood,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/glasses/eyepatch{
+	pixel_y = 5
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
@@ -65,20 +70,14 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "i" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/structure/table/wood,
-/obj/item/clothing/shoes/jackboots,
-/obj/item/clothing/glasses/eyepatch{
-	pixel_y = 5
-	},
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/gibs/limb,
+/turf/open/floor/wood{
+	icon_state = "wood-broken7"
+	},
 /area/template_noop)
 
 (1,1,1) = {"

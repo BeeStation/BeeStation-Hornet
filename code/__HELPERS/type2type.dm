@@ -548,7 +548,7 @@ Takes a string and a datum. The string is well, obviously the string being check
 	var/c
 	for(var/i = 1 to length(str))
 		c = text2ascii(str,i)
-		r += num2hex(c, 2)
+		r += num2hex(c, 1)
 	return r
 
 /// Decodes hex to raw byte string. If safe=TRUE, returns null on incorrect input strings instead of CRASHing

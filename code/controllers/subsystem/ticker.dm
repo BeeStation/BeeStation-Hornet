@@ -215,7 +215,7 @@ SUBSYSTEM_DEF(ticker)
 
 
 /datum/controller/subsystem/ticker/proc/setup()
-	message_admins("Setting up game.")
+	to_chat(world, "<span class='boldannounce'>Starting game...</span>")
 	var/init_start = world.timeofday
 		//Create and announce mode
 	var/list/datum/game_mode/runnable_modes
@@ -256,7 +256,6 @@ SUBSYSTEM_DEF(ticker)
 	can_continue = can_continue && SSjob.DivideOccupations() 				//Distribute jobs
 	CHECK_TICK
 
-	to_chat(world, "<span class='boldannounce'>Starting game...</span>")
 	if(!GLOB.Debug2)
 		if(!can_continue)
 			log_game("[mode.name] failed pre_setup, cause: [mode.setup_error]")

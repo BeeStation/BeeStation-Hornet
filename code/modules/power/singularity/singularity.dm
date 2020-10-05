@@ -136,6 +136,7 @@
 	eat()
 	dissipate()
 	check_energy()
+
 	return
 
 

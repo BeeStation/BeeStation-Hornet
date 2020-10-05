@@ -65,6 +65,10 @@
 /obj/item/stack/tile/circuit,
 /turf/open/floor/plasteel,
 /area/template_noop)
+"m" = (
+/obj/item/clothing/head/cone,
+/turf/open/floor/plating,
+/area/template_noop)
 "n" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -93,7 +97,7 @@ l
 (3,1,1) = {"
 c
 h
-b
+m
 "}
 (4,1,1) = {"
 d

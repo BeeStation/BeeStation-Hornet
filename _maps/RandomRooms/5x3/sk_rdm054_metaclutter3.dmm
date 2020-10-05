@@ -81,11 +81,6 @@
 /obj/item/storage/box/lights/mixed,
 /turf/open/floor/plating,
 /area/template_noop)
-"j" = (
-/obj/effect/trap/nexus/trickyspawner,
-/obj/effect/spawner/lootdrop/trap,
-/turf/open/floor/plating,
-/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -99,16 +94,16 @@ h
 "}
 (3,1,1) = {"
 c
-j
+c
 c
 "}
 (4,1,1) = {"
 d
 c
-f
+c
 "}
 (5,1,1) = {"
 e
-c
+f
 i
 "}

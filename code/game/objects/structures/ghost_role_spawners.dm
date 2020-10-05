@@ -326,7 +326,7 @@
 	shoes = /obj/item/clothing/shoes/laceup
 	r_pocket = /obj/item/radio/off
 	back = /obj/item/storage/backpack
-	implants = list(/obj/item/implant/mindshield, /obj/item/implant/exile/hotel)
+	implants = list(/obj/item/implant/mindshield)
 
 /obj/effect/mob_spawn/human/hotel_staff/security
 	name = "hotel security sleeper"

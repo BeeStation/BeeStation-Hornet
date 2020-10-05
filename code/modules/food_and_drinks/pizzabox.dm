@@ -303,7 +303,6 @@
 
 //An anomalous pizza box that, when opened, produces the opener's favorite kind of pizza.
 /obj/item/pizzabox/infinite
-	desc = "<b><span class='notice''><big>SCP-458</big></span></b> - A box suited for pizzas." // OASIS EDIT
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF //hard to destroy
 	can_open_on_fall = FALSE
 	var/list/pizza_types = list(

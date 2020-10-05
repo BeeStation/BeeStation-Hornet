@@ -1,0 +1,331 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/bed,
+/obj/item/bedsheet/random,
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/turf/closed/wall,
+/area/template_noop)
+"d" = (
+/obj/structure/chair,
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/fluorine{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/glass/bottle/hydrogen{
+	pixel_x = -6
+	},
+/obj/item/reagent_containers/glass/bottle/water{
+	pixel_y = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"g" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/aluminium{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/glass/bottle/bromine{
+	pixel_x = -6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/item/reagent_containers/glass/beaker/large,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"h" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/carbon{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/glass/bottle/chlorine{
+	pixel_x = -6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/machinery/reagentgrinder,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"i" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/copper{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/glass/bottle/ethanol{
+	pixel_x = -6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"j" = (
+/obj/machinery/door/airlock,
+/turf/open/floor/plating,
+/area/template_noop)
+"k" = (
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/template_noop)
+"l" = (
+/obj/machinery/chem_master,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"m" = (
+/turf/open/floor/plasteel,
+/area/template_noop)
+"n" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/mercury{
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/glass/bottle/nitrogen{
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/glass/bottle/oxygen{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/glass/bottle/phosphorus{
+	pixel_x = -6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"o" = (
+/obj/machinery/door/window/westleft,
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/template_noop)
+"p" = (
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"q" = (
+/obj/effect/decal/cleanable/insectguts,
+/turf/open/floor/plating,
+/area/template_noop)
+"r" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/item/storage/box/beakers,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"s" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/iodine{
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/glass/bottle/iron{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/glass/bottle/lithium{
+	pixel_x = -6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"t" = (
+/obj/structure/bed,
+/obj/item/bedsheet/random,
+/turf/open/floor/plating,
+/area/template_noop)
+"u" = (
+/obj/item/chair,
+/turf/open/floor/plating,
+/area/template_noop)
+"v" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/sugar{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/glass/bottle/sulfur{
+	pixel_x = -6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"w" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/silver{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/glass/bottle/sodium{
+	pixel_x = -6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"x" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/sacid{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/glass/bottle/silicon{
+	pixel_x = -6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"y" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/potassium{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/glass/bottle/radium{
+	pixel_x = -6
+	},
+/obj/item/reagent_containers/glass/bottle/welding_fuel{
+	pixel_y = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+c
+e
+c
+t
+"}
+(2,1,1) = {"
+b
+j
+e
+j
+e
+"}
+(3,1,1) = {"
+c
+c
+e
+c
+c
+"}
+(4,1,1) = {"
+d
+e
+e
+q
+u
+"}
+(5,1,1) = {"
+e
+e
+e
+e
+e
+"}
+(6,1,1) = {"
+e
+k
+k
+b
+m
+"}
+(7,1,1) = {"
+f
+l
+o
+r
+v
+"}
+(8,1,1) = {"
+g
+m
+p
+m
+w
+"}
+(9,1,1) = {"
+h
+e
+e
+m
+x
+"}
+(10,1,1) = {"
+i
+n
+m
+s
+y
+"}

@@ -298,8 +298,7 @@ GLOBAL_VAR(restart_counter)
 		hostedby = CONFIG_GET(string/hostedby)
 
 	s += "<b>[station_name()]</b>";
-	s += "(<a href='https://discord.gg/CwYA6Mz'>Discord</a>|<a href='https://ko-fi.com/dappersquid'>Donations</a>)" // OASIS EDIT
-	s += "<br><img src=\"https://i.imgur.com/zLm9d09.gif\"></br>" //Banner image // OASIS EDIT
+	s += "(<a href='https://discord.gg/z9ttAvA'>Discord</a>|<a href='http://beestation13.com'>Website</a>)"
 
 	var/players = GLOB.clients.len
 

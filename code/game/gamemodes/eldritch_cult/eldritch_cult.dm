@@ -42,7 +42,7 @@
 	for(var/i in 1 to num_ecult)
 		if(!antag_candidates.len)
 			break
-		var/datum/mind/cultie = antag_pick(antag_candidates, ROLE_HERETIC)
+		var/datum/mind/cultie = antag_pick(antag_candidates)
 		antag_candidates -= cultie
 		cultie.special_role = ROLE_HERETIC
 		cultie.restricted_roles = restricted_jobs

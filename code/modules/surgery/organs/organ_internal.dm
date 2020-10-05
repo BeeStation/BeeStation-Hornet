@@ -84,8 +84,7 @@
 	///Damage decrements by a percent of its maxhealth
 	var/healing_amount = -(maxHealth * healing_factor)
 	///Damage decrements again by a percent of its maxhealth, up to a total of 4 extra times depending on the owner's health
-	if(owner)
-		healing_amount -= owner.satiety > 0 ? 4 * healing_factor * owner.satiety / MAX_SATIETY : 0
+	healing_amount -= owner.satiety > 0 ? 4 * healing_factor * owner.satiety / MAX_SATIETY : 0
 	applyOrganDamage(healing_amount)
 
 /obj/item/organ/examine(mob/user)

@@ -68,8 +68,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trap,
-/obj/effect/trap/nexus/trickyspawner/shitsec,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -104,7 +102,7 @@
 (1,1,1) = {"
 a
 f
-h
+f
 "}
 (2,1,1) = {"
 b
@@ -123,6 +121,6 @@ i
 "}
 (5,1,1) = {"
 e
-c
+h
 j
 "}

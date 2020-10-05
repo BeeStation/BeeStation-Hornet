@@ -25,7 +25,6 @@
 /area/template_noop)
 "c" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/trap/trigger/all,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -55,21 +54,6 @@
 	},
 /area/template_noop)
 "g" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/trap/trigger/all,
-/turf/open/floor/plating,
-/area/template_noop)
-"h" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/item/shard,
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
-/area/template_noop)
-"i" = (
 /obj/structure/table/optable,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
@@ -88,8 +72,40 @@
 	},
 /obj/item/surgical_drapes,
 /obj/item/clothing/mask/surgical,
-/obj/effect/trap/nexus/doorbolt,
-/obj/effect/trap/nexus/darkness,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"h" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/item/shard,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/template_noop)
+"i" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/structure/rack,
+/obj/item/reagent_containers/blood/random{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/blood/random,
+/obj/item/reagent_containers/blood/random{
+	pixel_x = -4;
+	pixel_y = -4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "j" = (
@@ -174,29 +190,15 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "o" = (
+/obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/structure/rack,
-/obj/item/reagent_containers/blood/random{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/reagent_containers/blood/random,
-/obj/item/reagent_containers/blood/random{
-	pixel_x = -4;
-	pixel_y = -4
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
 	},
 /obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
 /area/template_noop)
 "p" = (
 /obj/effect/decal/cleanable/dirt,
@@ -212,7 +214,6 @@
 	dir = 8
 	},
 /obj/item/shard,
-/obj/effect/trap/trigger/all,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -240,7 +241,7 @@
 
 (1,1,1) = {"
 a
-g
+d
 j
 o
 "}
@@ -252,7 +253,7 @@ p
 "}
 (3,1,1) = {"
 c
-i
+g
 l
 q
 "}
@@ -264,7 +265,7 @@ r
 "}
 (5,1,1) = {"
 e
-g
+i
 n
 s
 "}

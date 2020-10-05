@@ -8,7 +8,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/cured = 0
-		if(MOB_ROBOTIC in H.mob_biotypes)
+		if(H.mob_biotypes & MOB_ROBOTIC)
 			H.say("Installing [src]. Please do not turn your [H.dna.species] unit off or otherwise disturb it during the installation process")
 			if(do_mob(user, H, 450)) //it has unlimited uses, but that's balanced by being very slow
 				H.say("[src] succesfully installed. Initiating scan.")

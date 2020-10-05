@@ -23,4 +23,3 @@
 #define LANGUAGE_DRUGGY			"druggy"
 #define LANGUAGE_VOICECHANGE	"voicechange"
 #define LANGUAGE_REAGENT    	"reagent"
-#define LANGUAGE_MULTILINGUAL	"multilingual"

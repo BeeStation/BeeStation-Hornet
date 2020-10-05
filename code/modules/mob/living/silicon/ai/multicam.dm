@@ -93,7 +93,7 @@
 	icon_state = "ai_camera_room"
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	valid_territory = FALSE
-	ambient_effects = list()
+	ambientsounds = list()
 	blob_allowed = FALSE
 	noteleport = TRUE
 	hidden = TRUE

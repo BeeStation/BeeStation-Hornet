@@ -610,6 +610,9 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
+/obj/machinery/advanced_airlock_controller/lavaland{
+	pixel_y = 24
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 6
 	},
@@ -761,9 +764,17 @@
 /turf/open/floor/plasteel,
 /area/mine/eva)
 "bX" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station"
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/obj/machinery/door/airlock/external{
+	glass = 1;
+	name = "Mining External Airlock";
+	opacity = 0;
+	req_access_txt = "54"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/mine/eva)
@@ -806,16 +817,16 @@
 /area/mine/laborcamp/security)
 "ce" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/mob/living/simple_animal/bot/secbot/beepsky{
+	desc = "Powered by the tears and sweat of laborers.";
+	name = "Prison Ofitser"
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
-	},
-/mob/living/simple_animal/bot/secbot/beepsky{
-	desc = "Powered by the tears and sweat of laborers.";
-	name = "Prison Ofitser"
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
@@ -4591,6 +4602,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
+"WD" = (
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/obj/machinery/door/airlock/external{
+	glass = 1;
+	name = "Mining External Airlock";
+	opacity = 0;
+	req_access_txt = "54"
+	},
+/turf/open/floor/plasteel,
+/area/mine/eva)
 "WE" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -19773,7 +19796,7 @@ ab
 bq
 bC
 gb
-bP
+vk
 xA
 cH
 cO
@@ -21577,7 +21600,7 @@ bf
 ad
 bq
 dc
-vk
+bP
 dM
 dW
 dW
@@ -21828,7 +21851,7 @@ bf
 bf
 bf
 bg
-bS
+bX
 WY
 bf
 ai
@@ -22599,7 +22622,7 @@ aj
 ab
 bf
 bg
-bX
+WD
 bg
 bf
 ai

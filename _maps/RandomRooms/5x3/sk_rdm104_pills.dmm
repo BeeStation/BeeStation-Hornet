@@ -3,25 +3,6 @@
 /obj/item/storage/pill_bottle,
 /turf/open/floor/plating,
 /area/template_noop)
-"b" = (
-/obj/effect/trap/nexus/trickyspawner/zombie,
-/turf/open/floor/plating,
-/area/template_noop)
-"c" = (
-/obj/effect/spawner/lootdrop/trap,
-/turf/open/floor/plating,
-/area/template_noop)
-"d" = (
-/obj/effect/decal/cleanable/vomit/old,
-/obj/effect/mob_spawn/human/corpse/assistant,
-/obj/item/storage/pill_bottle,
-/obj/effect/spawner/lootdrop/trap,
-/turf/open/floor/plating,
-/area/template_noop)
-"e" = (
-/obj/effect/trap/nexus/trickyspawner,
-/turf/open/floor/plating,
-/area/template_noop)
 "f" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/pill/floorpill{
@@ -86,9 +67,15 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
+"N" = (
+/obj/effect/decal/cleanable/vomit/old,
+/obj/effect/mob_spawn/human/corpse/assistant,
+/obj/item/storage/pill_bottle,
+/turf/open/floor/plating,
+/area/template_noop)
 
 (1,1,1) = {"
-b
+C
 k
 a
 "}
@@ -98,9 +85,9 @@ f
 k
 "}
 (3,1,1) = {"
-c
+C
 r
-d
+N
 "}
 (4,1,1) = {"
 C
@@ -110,5 +97,5 @@ C
 (5,1,1) = {"
 C
 C
-e
+C
 "}

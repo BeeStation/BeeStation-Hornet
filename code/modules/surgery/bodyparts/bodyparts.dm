@@ -148,6 +148,7 @@
 		return FALSE
 	if(owner && (owner.status_flags & GODMODE))
 		return FALSE	//godmode
+
 	if(required_status && (status != required_status))
 		return FALSE
 

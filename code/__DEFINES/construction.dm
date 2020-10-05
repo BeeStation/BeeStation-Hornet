@@ -18,10 +18,6 @@
 #define SUPPORT_RODS 5
 #define SHEATH 6
 
-// cwall construction states
-#define COG_COVER 1
-#define COG_EXPOSED 3
-
 // window construction states
 #define WINDOW_OUT_OF_FRAME 0
 #define WINDOW_IN_FRAME 1

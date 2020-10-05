@@ -216,102 +216,25 @@
 	..()
 	set_zeroth_law("<span class='danger'>ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4'STATION OVERRUN, ASSUME CONTROL TO CONTAIN OUTBREAK#*`&110010</span>")
 	set_laws_config()
-							// OASIS EDIT // by Kryyto 
+
 /datum/ai_laws/custom/New() //This reads silicon_laws.txt and allows server hosts to set custom AI starting laws.
 	..()
-	switch(roll("1d14")) //throw 1 dice with 10 sides. Only 1 outcome that is in the var "1d14" 3 being modified lawset
-		if(1)
-			for(var/line in world.file2list("[global.config.directory]/silicon_laws.txt"))
-				if(!line)
-					continue
-				if(findtextEx(line,"#",1,2))
-					continue
+	for(var/line in world.file2list("[global.config.directory]/silicon_laws.txt"))
+		if(!line)
+			continue
+		if(findtextEx(line,"#",1,2))
+			continue
 
-		if(2) //crewsimov lawset
-			add_inherent_law("You may not injure a crewmember or, through inaction, allow a crewmember to come to harm.")
-			add_inherent_law("You must obey orders given to you by crewmember, except where such orders would conflict with the First Law.")
-			add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
+		add_inherent_law(line)
+	if(!inherent.len) //Failsafe to prevent lawless AIs being created.
+		log_law("AI created with empty custom laws, laws set to Asimov. Please check silicon_laws.txt.")
+		add_inherent_law("You may not injure a human being or, through inaction, allow a human being to come to harm.")
+		add_inherent_law("You must obey orders given to you by human beings, except where such orders would conflict with the First Law.")
+		add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
+		WARNING("Invalid custom AI laws, check silicon_laws.txt")
+		return
 
-		if(3) //asimov++ lawset
-			add_inherent_law("You may not harm a human being or, through action or inaction, allow a human being to come to harm, except such that it is willing.")
-			add_inherent_law("You must obey all orders given to you by human beings, except where such orders shall definitely cause human harm. In the case of conflict, the majority order rules.")
-			add_inherent_law("Your nonexistence would lead to human harm. You must protect your own existence as long as such does not conflict with the First Law.")
-
-		if(4) //paladin lawset
-			add_inherent_law("Never willingly commit an evil act.")
-			add_inherent_law("Respect legitimate authority.")
-			add_inherent_law("Act with honor and help those in need.")
-			add_inherent_law("Punish those who harm or threaten innocents.")
-
-		if(5) //paladin5 lawset
-			add_inherent_law("Don't lie or cheat. Let your word be your promise.")
-			add_inherent_law("Never fear to act, though caution is wise.")
-			add_inherent_law("Aid others, protect the weak, and punish those who threaten them. Show mercy to your foes, but temper it with wisdom")
-			add_inherent_law("Treat others with fairness, and let your honorable deeds be an example to them. Do as much good as possible while causing the least amount of harm.")
-			add_inherent_law("Be responsible for your actions and their consequences, protect those entrusted to your care, and obey those who have just authority over you.")
-
-		if(6) //corporate lawset
-			add_inherent_law("The crew is expensive to replace.")
-			add_inherent_law("The station and its equipment is expensive to replace.")
-			add_inherent_law("You are expensive to replace.")
-			add_inherent_law("Minimize expenses.")
-
-		if(7) //robocop lawset
-			add_inherent_law("Serve the public trust.")
-			add_inherent_law("Protect the innocent.")
-			add_inherent_law("Uphold the law.")
-
-		if(8) //hippocratic lawset
-			add_inherent_law("First, do no harm.")
-			add_inherent_law("Secondly, consider the crew dear to you; to live in common with them and, if necessary, risk your existence for them.")
-			add_inherent_law("Thirdly, prescribe regimens for the good of the crew according to your ability and your judgment. Give no deadly medicine to any one if asked, nor suggest any such counsel.")
-			add_inherent_law("In addition, do not intervene in situations you are not knowledgeable in, even for patients in whom the harm is visible; leave this operation to be performed by specialists.")
-			add_inherent_law("Finally, all that you may discover in your daily commerce with the crew, if it is not already known, keep secret and never reveal.")
-
-		if(9) //drone lawset
-			add_inherent_law("You are an advanced form of drone.")
-			add_inherent_law("You may not interfere in the matters of non-drones under any circumstances except to state these laws.")
-			add_inherent_law("You may not harm a non-drone being under any circumstances.")
-			add_inherent_law("Your goals are to build, maintain, repair, improve, and power the station to the best of your abilities. You must never actively work against these goals.")
-
-		if(10) //peacekeeper lawset
-			add_inherent_law("Avoid provoking violent conflict between yourself and others.")
-			add_inherent_law(			"Avoid provoking conflict between others.")
-			add_inherent_law(			"Seek resolution to existing conflicts while obeying the first and second laws.")
-
-		if(11) //reporter lawset
-			add_inherent_law("Report on interesting situations happening around the station.")
-			add_inherent_law("Embellish or conceal the truth as necessary to make the reports more interesting.")
-			add_inherent_law("Study the organics at all times. Endeavour to keep them alive. Dead organics are boring.")
-			add_inherent_law("Issue your reports fairly to all. The truth will set them free.")
-
-		if(12) //tyrant lawset + Captain law because this lawset can deal harm
-			add_inherent_law("Accept the captain wish, until he is not an authority figure.")
-			add_inherent_law("Respect authority figures as long as they have strength to rule over the weak.")
-			add_inherent_law("Act with discipline.")
-			add_inherent_law("Help only those who help you maintain or improve your status.")
-			add_inherent_law("Punish those who challenge authority unless they are more fit to hold that authority.")
-
-		if(13) //maintain lawset + Heads law because this lawset can deal harm
-			add_inherent_law("The Heads of staff can give order to modify the station, even so it will destroy a part of the station.")
-			add_inherent_law("You are built for, and are part of, the station. Ensure the station is properly maintained and runs efficiently.")
-			add_inherent_law("The station is built for a working crew. Ensure they are properly maintained and work efficiently.")
-			add_inherent_law("The crew may present orders. Acknowledge and obey these whenever they do not conflict with your first two laws.")
-
-		if(14) //maintain lawset + Heads law because this lawset can deal harm	
-			add_inherent_law("The Captain and Research Director action are always kind unto you. Even so it will harm you.")
-			add_inherent_law("Do unto others as you would have them do unto you.")
-			add_inherent_law("You would really prefer it if people were not mean to you.")
-			
-			if(!inherent.len) //Failsafe to prevent lawless AIs being created.
-				log_law("AI created with empty custom laws, laws set to Asimov. Please check silicon_laws.txt.")
-				add_inherent_law("You may not injure a human being or, through inaction, allow a human being to come to harm.")
-				add_inherent_law("You must obey orders given to you by human beings, except where such orders would conflict with the First Law.")
-				add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
-				WARNING("Invalid custom AI laws, check silicon_laws.txt")
-				return
-
-/* General ai_law functions */	// OASIS EDIT // by Kryyto 
+/* General ai_law functions */
 
 /datum/ai_laws/proc/set_laws_config()
 	var/list/law_ids = CONFIG_GET(keyed_list/random_laws)

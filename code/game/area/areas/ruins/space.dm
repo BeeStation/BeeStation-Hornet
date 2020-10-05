@@ -22,7 +22,7 @@
 	power_environ = FALSE
 	valid_territory = FALSE
 	outdoors = TRUE
-	ambient_effects = SPACE
+	ambientsounds = SPACE
 	blob_allowed = FALSE
 
 /////////////
@@ -63,7 +63,7 @@
 
 /area/ruin/space/has_grav/powered/aesthetic
 	name = "Aesthetic"
-	ambient_effects = list('sound/ambience/ambivapor1.ogg')
+	ambientsounds = list('sound/ambience/ambivapor1.ogg')
 
 
 //Ruin of Hotel
@@ -381,7 +381,7 @@
 /area/ruin/space/abandoned_tele
 	name = "Abandoned Teleporter"
 	icon_state = "teleporter"
-	ambient_effects = list('sound/ambience/ambimalf.ogg', 'sound/ambience/signal.ogg')
+	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/signal.ogg')
 
 //OLD AI SAT
 

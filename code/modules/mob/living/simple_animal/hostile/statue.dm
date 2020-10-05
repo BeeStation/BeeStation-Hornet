@@ -19,9 +19,8 @@
 	health = 50000
 	healable = 0
 
-	harm_intent_damage = 10 // OASIS EDIT
 	obj_damage = 100
-	melee_damage = 75 // OASIS EDIT
+	melee_damage = 70
 	attacktext = "claws"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 
@@ -50,7 +49,7 @@
 
 	var/cannot_be_seen = 1
 	var/mob/living/creator = null
-	var/list/next_blinks = list() // OASIS EDIT
+
 
 
 // No movement while seen code.
@@ -125,16 +124,12 @@
 	// This loop will, at most, loop twice.
 	for(var/atom/check in check_list)
 		for(var/mob/living/M in viewers(world.view + 1, check) - src)
-			if(M.client && !M.has_unlimited_silicon_privilege) // OASIS EDIT
+			if(M.client && CanAttack(M) && !M.has_unlimited_silicon_privilege)
 				if(!M.eye_blind)
-					if(next_blinks[M] == null) // OASIS EDIT
-						next_blinks[M] = world.time+rand(15 SECONDS, 45 SECONDS) // OASIS EDIT
 					return M
 		for(var/obj/mecha/M in view(world.view + 1, check)) //assuming if you can see them they can see you
-			if(M.occupant && M.occupant.client) // OASIS EDIT
+			if(M.occupant?.client)
 				if(!M.occupant.eye_blind)
-					if(next_blinks[M.occupant] == null) // OASIS EDIT
-						next_blinks[M.occupant] = world.time+rand(15 SECONDS, 45 SECONDS) // OASIS EDIT
 					return M.occupant
 	return null
 
@@ -187,16 +182,15 @@
 	desc = "Your prey will be momentarily blind for you to advance on them."
 
 	message = "<span class='notice'>You glare your eyes.</span>"
-	charge_max = 300 // OASIS EDIT
+	charge_max = 600
 	clothes_req = 0
-	range = 12 // OASIS EDIT
+	range = 10
 
 /obj/effect/proc_holder/spell/aoe_turf/blindness/cast(list/targets,mob/user = usr)
 	for(var/mob/living/L in GLOB.alive_mob_list)
 		var/turf/T = get_turf(L.loc)
 		if(T && (T in targets))
-			L.blind_eyes(5) // OASIS EDIT
-			L.visible_message("<span class='notice'>[L] blinks.</span>") // OASIS EDIT
+			L.blind_eyes(4)
 	return
 
 //Toggle Night Vision

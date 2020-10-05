@@ -637,7 +637,7 @@
 		Remove(H)
 		return
 
-	var/message = stripped_input(usr, "Message:", "Slime Telepathy")
+	var/message = sanitize(input("Message:", "Slime Telepathy") as text|null)
 
 	if(!species || !(H in species.linked_mobs))
 		to_chat(H, "<span class='warning'>The link seems to have been severed...</span>")
@@ -685,7 +685,7 @@
 	if(!M)
 		return
 
-	var/msg = stripped_input(usr, "Message:", "Telepathy")
+	var/msg = sanitize(input("Message:", "Telepathy") as text|null)
 	if(msg)
 		log_directed_talk(H, M, msg, LOG_SAY, "slime telepathy")
 		to_chat(M, "<span class='notice'>You hear an alien voice in your head... </span><font color=#008CA2>[msg]</font>")

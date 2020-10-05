@@ -70,7 +70,7 @@
 /datum/game_mode/proc/update_incursion_icons_added(datum/mind/incursion_mind)
 	var/datum/atom_hud/antag/incursionhud = GLOB.huds[ANTAG_HUD_INCURSION]
 	incursionhud.join_hud(incursion_mind.current)
-	set_antag_hud(incursion_mind.current, "incursion")
+	set_antag_hud(incursion_mind.current, "traitor")
 
 /datum/game_mode/proc/update_incursion_icons_removed(datum/mind/incursion_mind)
 	var/datum/atom_hud/antag/incursionhud = GLOB.huds[ANTAG_HUD_INCURSION]

@@ -112,9 +112,6 @@
 	var/icon_update_needed = FALSE
 	var/obj/machinery/computer/apc_control/remote_control = null
 
-	var/clock_cog_rewarded = FALSE	//Clockcult - Has the reward for converting an APC been given?
-	var/integration_cog = null		//Clockcult - The integration cog inserted inside of us
-
 /obj/machinery/power/apc/unlocked
 	locked = FALSE
 
@@ -275,8 +272,6 @@
 		else
 			. += {"It's [ !terminal ? "not" : "" ] wired up.\n
 			The electronics are[!has_electronics?"n't":""] installed."}
-		if(integration_cog || (user.hallucinating() && prob(20)))
-			. += "A small cogwheel is inside of it."
 
 	else
 		if (stat & MAINT)
@@ -434,13 +429,7 @@
 /obj/machinery/power/apc/crowbar_act(mob/user, obj/item/W)
 	. = TRUE
 	if (opened)
-		if(integration_cog)
-			to_chat(user, "<span class='notice'>You begin prying something out of the APC...</span>")
-			W.play_tool_sound(src)
-			if(W.use_tool(src, user, 50))
-				to_chat(user, "<span class='warning'>You screw up breaking whatever was inside!</span>")
-				QDEL_NULL(integration_cog)
-		else if (has_electronics == APC_ELECTRONICS_INSTALLED)
+		if (has_electronics == APC_ELECTRONICS_INSTALLED)
 			if (terminal)
 				to_chat(user, "<span class='warning'>Disconnect the wires first!</span>")
 				return
@@ -1282,12 +1271,6 @@
 		else // chargemode off
 			charging = 0
 			chargecount = 0
-
-		//=====Clock Cult=====
-		if(integration_cog && cell.charge >= cell.maxcharge/2)
-			var/power_delta = CLAMP(cell.charge - 20, 0, 20)
-			GLOB.clockcult_power += power_delta
-			cell.charge -= power_delta
 
 	else // no cell, switch everything off
 

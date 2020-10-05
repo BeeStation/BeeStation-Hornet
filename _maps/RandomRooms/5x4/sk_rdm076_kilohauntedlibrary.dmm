@@ -126,14 +126,9 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "l" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
+/turf/open/floor/wood{
+	icon_state = "wood-broken3"
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/gibs/old,
-/obj/effect/trap/trigger,
-/turf/open/floor/plasteel/dark,
 /area/template_noop)
 "m" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -188,11 +183,14 @@
 /obj/item/pen,
 /turf/open/floor/wood,
 /area/template_noop)
-"t" = (
-/obj/effect/trap/nexus/darkness,
-/turf/open/floor/wood{
-	icon_state = "wood-broken3"
+"w" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/gibs/old,
+/turf/open/floor/plasteel/dark,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -203,14 +201,14 @@ o
 "}
 (2,1,1) = {"
 b
-l
+w
 g
 p
 "}
 (3,1,1) = {"
 c
 h
-t
+l
 q
 "}
 (4,1,1) = {"

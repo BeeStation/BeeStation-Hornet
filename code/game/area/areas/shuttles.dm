@@ -34,7 +34,7 @@
 /area/shuttle/syndicate
 	name = "Syndicate Infiltrator"
 	blob_allowed = FALSE
-	ambient_effects = HIGHSEC
+	ambientsounds = HIGHSEC
 	canSmoothWithAreas = /area/shuttle/syndicate
 
 /area/shuttle/syndicate/bridge

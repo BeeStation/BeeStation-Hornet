@@ -1575,6 +1575,18 @@
 	name = "Spikes"
 	icon_state = "spikes"
 
+/datum/sprite_accessory/tails/lizard/spikes
+	name = "Clockwork"
+	icon_state = "clockwork"
+	locked = TRUE
+	color_src = null
+
+/datum/sprite_accessory/tails_animated/lizard/spikes
+	name = "Clockwork"
+	icon_state = "clockwork"
+	locked = TRUE
+	color_src = null
+
 /datum/sprite_accessory/tails/human/none
 	name = "None"
 	icon_state = "none"
@@ -1592,18 +1604,6 @@
 	name = "Cat"
 	icon_state = "cat"
 	color_src = HAIR
-
-/datum/sprite_accessory/tails/human/clock
-	name = "Clockwork"
-	icon_state = "clockwork"
-	locked = TRUE
-	color_src = null
-
-/datum/sprite_accessory/tails_animated/human/clock
-	name = "Clockwork"
-	icon_state = "clockwork"
-	locked = TRUE
-	color_src = null
 
 /datum/sprite_accessory/snouts
 	icon = 'icons/mob/mutant_bodyparts.dmi'

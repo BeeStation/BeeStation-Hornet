@@ -208,7 +208,7 @@
 	if(admin_ckey)
 		. = admin_ckey
 	else
-		admin_key = capped_input(usr, "New admin's key","Admin key")
+		admin_key = input("New admin's key","Admin key") as text|null
 		. = ckey(admin_key)
 	if(!.)
 		return FALSE
@@ -307,7 +307,7 @@
 			rank_names[R.name] = R
 	var/new_rank = input("Please select a rank", "New rank") as null|anything in rank_names
 	if(new_rank == "*New Rank*")
-		new_rank = capped_input(usr, "Please input a new rank", "New custom rank")
+		new_rank = input("Please input a new rank", "New custom rank") as text|null
 	if(!new_rank)
 		return
 	R = rank_names[new_rank]

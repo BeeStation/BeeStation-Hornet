@@ -48,6 +48,12 @@
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/wood,
 /area/template_noop)
+"f" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/open/floor/wood,
+/area/template_noop)
 "g" = (
 /obj/structure/table/wood,
 /obj/item/storage/briefcase,
@@ -332,7 +338,7 @@ r
 n
 "}
 (6,1,1) = {"
-n
+f
 o
 t
 A

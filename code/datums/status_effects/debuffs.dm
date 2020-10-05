@@ -164,69 +164,6 @@
 			to_chat(owner, "<span class='notice'>You succesfuly remove the durathread strand.</span>")
 			L.remove_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
 
-/datum/status_effect/syringe
-	id = "syringe"
-	status_type = STATUS_EFFECT_MULTIPLE
-	alert_type = null
-	var/obj/item/reagent_containers/syringe/syringe = null
-	var/injectmult = 1
-	
-/datum/status_effect/syringe/on_creation(mob/living/new_owner, obj/item/reagent_containers/syringe/origin, mult)
-	syringe = origin
-	injectmult = mult
-	return ..()
-
-/datum/status_effect/syringe/on_apply()
-	. = ..()
-	var/amount = syringe.initial_inject
-	syringe.reagents.reaction(owner, INJECT)
-	syringe.reagents.trans_to(owner, max(3.1, amount * injectmult))
-	owner.throw_alert("syringealert", /obj/screen/alert/syringe)
-
-/datum/status_effect/syringe/tick()
-	. = ..()
-	var/amount = syringe.units_per_tick
-	syringe.reagents.reaction(owner, INJECT, amount / 10)//so the slow drip-feed of reagents isn't exploited
-	syringe.reagents.trans_to(owner, amount * injectmult)
-
-
-/obj/screen/alert/syringe
-	name = "Embedded Syringe"
-	desc = "A syringe has embedded itself into your body, injecting its reagents! click this icon to carefully remove the syringe."
-	icon_state = "drugged"
-	alerttooltipstyle = "hisgrace"
-
-/obj/screen/alert/syringe/Click(location, control, params)
-	. = ..()
-	if(usr != owner)
-		return
-	var/list/syringes = list()
-	if(iscarbon(owner))
-		var/mob/living/carbon/C = owner
-		for(var/datum/status_effect/syringe/S in C.status_effects)
-			syringes += S
-		if(!syringes.len)
-			return
-		var/datum/status_effect/syringe/syringestatus = pick_n_take(syringes)
-		if(istype(syringestatus, /datum/status_effect/syringe))
-			var/obj/item/reagent_containers/syringe/syringe = syringestatus.syringe
-			to_chat(owner, "<span class='notice'>You begin carefully pulling the syringe out...</span>")
-			if(do_after(C, 20, null, owner))
-				to_chat(C, "<span class='notice'>You succesfuly remove the syringe.</span>")
-				syringe.forceMove(C.loc)
-				C.put_in_hands(syringe)
-				qdel(syringestatus)
-			else
-				to_chat(C, "<span class='userdanger'>You screw up, and inject yourself with more chemicals by mistake!</span>")
-				var/amount = syringe.initial_inject
-				syringe.reagents.reaction(C, INJECT)
-				syringe.reagents.trans_to(C, amount)
-				syringe.forceMove(C.loc)
-				qdel(syringestatus)
-		if(!C.has_status_effect(STATUS_EFFECT_SYRINGE))	
-			C.clear_alert("syringealert")
-
-
 
 /datum/status_effect/pacify/on_creation(mob/living/new_owner, set_duration)
 	if(isnum_safe(set_duration))
@@ -696,34 +633,6 @@
 	name = "TO THE STARS AND BEYOND!"
 	desc = "I must go, my people need me!"
 	icon_state = "high"
-
-//Clock cult
-/datum/status_effect/interdiction
-	id = "interdicted"
-	duration = 25
-	status_type = STATUS_EFFECT_REFRESH
-	tick_interval = 1
-	alert_type = /obj/screen/alert/status_effect/interdiction
-	var/running_toggled = FALSE
-
-/datum/status_effect/interdiction/tick()
-	if(owner.m_intent == MOVE_INTENT_RUN)
-		owner.toggle_move_intent(owner)
-		if(owner.confused < 10)
-			owner.confused = 10
-		running_toggled = TRUE
-		to_chat(owner, "<span class='warning'>You know you shouldn't be running here...</span>")
-	owner.add_movespeed_modifier(MOVESPEED_ID_INTERDICTION, multiplicative_slowdown=1.5)
-
-/datum/status_effect/interdiction/on_remove()
-	owner.remove_movespeed_modifier(MOVESPEED_ID_INTERDICTION)
-	if(running_toggled && owner.m_intent == MOVE_INTENT_WALK)
-		owner.toggle_move_intent(owner)
-
-/obj/screen/alert/status_effect/interdiction
-	name = "Interdicted"
-	desc = "I don't think I am meant to go this way..."
-	icon_state = "inathneqs_endowment"
 
 /datum/status_effect/fake_virus
 	id = "fake_virus"

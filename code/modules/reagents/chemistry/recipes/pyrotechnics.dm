@@ -23,7 +23,7 @@
 		var/datum/effect_system/reagents_explosion/e = new()
 		e.set_up(power , T, 0, 0)
 		e.start()
-		holder.clear_reagents()
+	holder.clear_reagents()
 
 
 /datum/chemical_reaction/reagent_explosion/nitroglycerin

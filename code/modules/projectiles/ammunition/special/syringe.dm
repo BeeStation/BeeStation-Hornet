@@ -13,12 +13,13 @@
 			return
 
 		var/obj/item/reagent_containers/syringe/S = SG.syringes[1]
+
+		S.reagents.trans_to(BB, S.reagents.total_volume, transfered_by = user)
 		BB.name = S.name
 		var/obj/item/projectile/bullet/dart/D = BB
 		D.piercing = S.proj_piercing
 		SG.syringes.Remove(S)
-		S.forceMove(BB)
-		D.syringe = S
+		qdel(S)
 	..()
 
 /obj/item/ammo_casing/chemgun

@@ -185,8 +185,8 @@
 	crate_name = "emergency crate"
 	crate_type = /obj/structure/closet/crate/internals
 	dangerous = TRUE
-	var/beepsky_chance = 0 // OASIS EDIT
-	var/level = 0 // OASIS EDIT
+	var/beepsky_chance = 0
+	var/level = 0
 
 /datum/supply_pack/emergency/syndicate/fill(obj/structure/closet/crate/C)
 	var/crate_value = 30
@@ -197,7 +197,7 @@
 			new /mob/living/simple_animal/bot/secbot/grievous/nullcrate(C)
 			crate_value = 0
 			beepsky_chance = 0
-			level += 0 // OASIS EDIT
+			level += 0
 		var/category = pick(uplink_items)
 		var/item = pick(uplink_items[category])
 		var/datum/uplink_item/I = uplink_items[category][item]
@@ -1713,8 +1713,6 @@
 					/obj/item/stack/tile/carpet/red/fifty,
 					/obj/item/stack/tile/carpet/royalblue/fifty,
 					/obj/item/stack/tile/carpet/royalblue/fifty,
-					/obj/item/stack/tile/eighties/fifty,
-					/obj/item/stack/tile/eighties/fifty,
 					/obj/item/stack/tile/carpet/royalblack/fifty,
 					/obj/item/stack/tile/carpet/royalblack/fifty)
 	crate_name = "exotic carpet crate"

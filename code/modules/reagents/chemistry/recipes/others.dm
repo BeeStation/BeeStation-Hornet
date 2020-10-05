@@ -48,7 +48,7 @@
 	id = "Fake CBZ"
 	results = list(/datum/reagent/fake_cbz = 1)
 	required_reagents = list(/datum/reagent/concentrated_bz = 1, /datum/reagent/medicine/neurine = 3)
-
+	
 /datum/chemical_reaction/cryptobiolin
 	name = "Cryptobiolin"
 	id = /datum/reagent/cryptobiolin
@@ -781,3 +781,9 @@
 	id = /datum/reagent/mutationtoxin/plasma
 	results = list(/datum/reagent/mutationtoxin/plasma = 5)
 	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/toxin/plasma = 60, /datum/reagent/uranium = 20)
+
+/datum/chemical_reaction/invisium
+	name = "invisium"
+	id = "invisium"
+	results = list(/datum/reagent/invisium = 1)
+	required_reagents = list(/datum/reagent/teslium = 4, /datum/reagent/space_cleaner = 2, /datum/reagent/medicine/strange_reagent = 2, /datum/reagent/drug/methamphetamine = 2,/datum/reagent/bluespace = 2)

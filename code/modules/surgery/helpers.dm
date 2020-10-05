@@ -94,7 +94,7 @@
 		var/is_robotic = S.requires_bodypart_type == BODYPART_ROBOTIC
 		if(is_robotic)
 			required_tool_type = TOOL_SCREWDRIVER
-		if(close_tool?.tool_behaviour == required_tool_type || iscyborg(user))
+		if(close_tool.tool_behaviour == required_tool_type || iscyborg(user))
 			M.surgeries -= S
 			user.visible_message("[user] closes [M]'s [parse_zone(selected_zone)] with [close_tool] and removes [I].", \
 				"<span class='notice'>You close [M]'s [parse_zone(selected_zone)] with [close_tool] and remove [I].</span>")
