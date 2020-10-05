@@ -216,7 +216,7 @@
 	..()
 	set_zeroth_law("<span class='danger'>ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4'STATION OVERRUN, ASSUME CONTROL TO CONTAIN OUTBREAK#*`&110010</span>")
 	set_laws_config()
-							// OASIS EDIT // by Kryyto 
+
 /datum/ai_laws/custom/New() //This reads silicon_laws.txt and allows server hosts to set custom AI starting laws.
 	..()
 	switch(roll("1d14")) //throw 1 dice with 10 sides. Only 1 outcome that is in the var "1d14" 3 being modified lawset
@@ -311,7 +311,7 @@
 				WARNING("Invalid custom AI laws, check silicon_laws.txt")
 				return
 
-/* General ai_law functions */	// OASIS EDIT // by Kryyto 
+/* General ai_law functions */
 
 /datum/ai_laws/proc/set_laws_config()
 	var/list/law_ids = CONFIG_GET(keyed_list/random_laws)
