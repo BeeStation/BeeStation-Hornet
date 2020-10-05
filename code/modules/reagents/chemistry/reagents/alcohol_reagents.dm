@@ -1407,6 +1407,79 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_name = "eggnog"
 	glass_desc = "For enjoying the most wonderful time of the year."
 
+// IPC ALCHOHOL WOOOOOOOOOOO
+/datum/reagent/consumable/ethanol/synthanol
+	name = "Synthanol"
+	description = "A runny liquid with conductive capacities. Its effects on synthetics are similar to those of alcohol on organics."
+	reagent_state = LIQUID
+	color = "#1BB1FF"
+	process_flags = SYNTHETIC
+	boozepwr = 20
+	glass_icon_state = "synthanolglass"
+	glass_name = "Glass of Synthanol"
+	glass_desc = "Alcohol's synthetic counterpart chemically designed to be consumed for an organics counterpart."
+	taste_description = "motor oil and grease"
+
+/datum/reagent/consumable/ethanol/synthanol/robottears
+	name = "Robot Tears"
+	description = "An oily substance that an IPC could technically consider a 'drink'."
+	reagent_state = LIQUID
+	color = "#363636"
+	boozepwr = 10 //watered down
+	glass_icon_state = "robottearsglass"
+	glass_name = "Glass of Robot Tears"
+	glass_desc = ": A perfect way to drown your emulated sorrow, the feeling washing away like tears in rain - or tears in a glass of excellent synth-booze."
+
+/datum/reagent/consumable/ethanol/synthanol/trinary
+	name = "Trinary"
+	description = "A fruit drink meant only for synthetics, however that works."
+	reagent_state = LIQUID
+	color = "#adb21f"
+	boozepwr = 10 //watered down
+	glass_icon_state = "trinaryglass"
+	glass_name = "Glass of Trinary"
+	glass_desc = "Expanding your binary way of thinking into a trinary way of processing - may be mentally damaging to IPCs."
+
+/datum/reagent/consumable/ethanol/synthanol/servo
+	name = "Servo"
+	description = "A drink containing some organic ingredients, but meant only for synthetics."
+	reagent_state = LIQUID
+	color = "#5b3210"
+	boozepwr = 10  //watered down
+	glass_icon_state = "servoglass"
+	glass_name = "Glass of Servo"
+	glass_desc = "Helps loosen your aching servos - almost helps too much after consuming a few glasses."
+
+/datum/reagent/consumable/ethanol/synthanol/uplink
+	name = "Uplink"
+	description = "A potent mix of alcohol and synthanol. Will only work on synthetics."
+	reagent_state = LIQUID
+	color = "#e7ae04"
+	boozepwr = 75 // contains a LOT of alchohol
+	glass_icon_state = "uplinkglass"
+	glass_name = "Glass of Uplink"
+	glass_desc = "Not to be used for buying things with tele-crystals, only to be enjoyed by the station's synths."
+
+/datum/reagent/consumable/ethanol/synthanol/synthnsoda
+	name = "Synth 'n Soda"
+	description = "The classic drink adjusted for a robot's tastes."
+	reagent_state = LIQUID
+	color = "#7204e7"
+	boozepwr = 20 //watered down
+	glass_icon_state = "synthnsodaglass"
+	glass_name = "Glass of Synth 'n Soda"
+	glass_desc = "A fine concoction of one of the simplest drinks ever crafted for synthetics. This drink is a staple for any IPC looking to g-... is that a sparking battery?"
+
+/datum/reagent/consumable/ethanol/synthanol/synthignon
+	name = "Synthignon"
+	description = "Someone mixed wine and alcohol for robots. Hope you're proud of yourself."
+	reagent_state = LIQUID
+	color = "#d004e7"
+	boozepwr = 50
+	glass_icon_state = "synthignonglass"
+	glass_name = "Glass of Synthignon"
+	glass_desc = "An exquisite wine made from aged and harvested steel-grapes from the Spaso Robles station. It looks like it was meant to emulate a Merlot or a Cabernet - though one could speculate it's as cheap as space bag wine."
+
 
 /datum/reagent/consumable/ethanol/narsour
 	name = "Nar'Sour"

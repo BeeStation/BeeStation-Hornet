@@ -519,7 +519,8 @@
 		/datum/reagent/consumable/ethanol/creme_de_cacao,
 		/datum/reagent/consumable/ethanol/triple_sec,
 		/datum/reagent/consumable/ethanol/sake,
-		/datum/reagent/consumable/ethanol/applejack
+		/datum/reagent/consumable/ethanol/applejack,
+		/datum/reagent/consumable/ethanol/synthanol
 	)
 	upgrade_reagents = null
 	emagged_reagents = list(
@@ -683,7 +684,7 @@
 		/datum/reagent/toxin/carpotoxin,
 		/datum/reagent/medicine/rezadone,
 		/datum/reagent/medicine/silibinin,
-		/datum/reagent/medicine/polypyr	
+		/datum/reagent/medicine/polypyr
 	)
 
 /obj/machinery/chem_dispenser/abductor/Initialize()

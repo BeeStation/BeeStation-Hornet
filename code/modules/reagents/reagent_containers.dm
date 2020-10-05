@@ -12,6 +12,7 @@
 	var/spawned_disease = null
 	var/disease_amount = 20
 	var/spillable = FALSE
+	var/you_drink_from_this = FALSE
 	var/list/fill_icon_thresholds = null
 	var/fill_icon_state = null // Optional custom name for reagent fill icon_state prefix
 	var/prevent_grinding = FALSE //used for ungrindable stuff
@@ -62,7 +63,7 @@
 		var/who = (isnull(user) || eater == user) ? "your" : "[eater.p_their()]"
 		to_chat(user, "<span class='warning'>You have to remove [who] [covered] first!</span>")
 		return 0
-	if(!eater.has_mouth())
+	if(!eater.has_mouth(you_drink_from_this))
 		if(eater == user)
 			to_chat(eater, "<span class='warning'>You have no mouth, and cannot eat.</span>")
 		else
