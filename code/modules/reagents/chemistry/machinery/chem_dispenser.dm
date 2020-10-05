@@ -353,7 +353,7 @@
 						return
 				if (resmismatch && alert("[src] is not yet capable of replicating this recipe with the precision it needs, do you want to save it anyway?",, "Yes","No") == "No")
 					return
-				saved_recipes += process_recipe_list(list(list("recipe_name" = name, "contents" = recipe)))
+				saved_recipes[name] = process_recipe_list(recipe)
 
 /obj/machinery/chem_dispenser/proc/check_macro(macro)
 	var/res = macroresolution
