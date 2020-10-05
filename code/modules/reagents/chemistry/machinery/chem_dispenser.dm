@@ -25,7 +25,7 @@
 	ui_x = 565
 	ui_y = 620
 
-	var/macroresolution = 1 // OASIS EDIT
+	var/macroresolution = 1
 	var/obj/item/stock_parts/cell/cell
 	var/powerefficiency = 0.1
 	var/amount = 30
@@ -322,8 +322,6 @@
 			recording_recipe = null
 			. = TRUE
 
-// OASIS EDIT BEGIN
-
 		if("import_recipe")
 			if(!is_operational())
 				return
@@ -377,8 +375,6 @@
 		final_list += list(avoid_assoc_duplicate_keys(splitreagent[1],key_list) = max(text2num(splitreagent[2]),macroresolution)) //if amount<macrores then increases amount up to macrores
 	return final_list
 
-// OASIS EDIT END
-
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
 	if(default_unfasten_wrench(user, I))
 		return
@@ -428,7 +424,7 @@
 /obj/machinery/chem_dispenser/RefreshParts()
 	recharge_amount = initial(recharge_amount)
 	var/newpowereff = 0.0666666
-	macroresolution = 5 // OASIS EDIT
+	macroresolution = 5
 	for(var/obj/item/stock_parts/cell/P in component_parts)
 		cell = P
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
@@ -436,8 +432,8 @@
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		recharge_amount *= C.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		if (M.rating > 1) // OASIS EDIT
-			macroresolution -= M.rating		//5 for t1, 3 for t2, 2 for t3, 1 for t4 // OASIS EDIT
+		if (M.rating > 1)
+			macroresolution -= M.rating		//5 for t1, 3 for t2, 2 for t3, 1 for t4
 		if (M.rating > 3)
 			dispensable_reagents |= upgrade_reagents
 	powerefficiency = round(newpowereff, 0.01)
