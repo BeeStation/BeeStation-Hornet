@@ -353,7 +353,7 @@
 						return
 				if (resmismatch && alert("[src] is not yet capable of replicating this recipe with the precision it needs, do you want to save it anyway?",, "Yes","No") == "No")
 					return
-				saved_recipes[name] = process_recipe_list(recipe)
+				saved_recipes[name] = process_recipe_list(recipe) // process recipe before saving to make it compatible with recorded recipes
 
 /obj/machinery/chem_dispenser/proc/check_macro(macro)
 	var/res = macroresolution
@@ -374,7 +374,7 @@
 	var/list/first_process = splittext(recipe, ";")
 	for(var/reagents in first_process)
 		var/list/splitreagent = splittext(reagents, "=")
-		final_list += list(avoid_assoc_duplicate_keys(splitreagent[1],key_list) = text2num(splitreagent[2]))
+		final_list += list(avoid_assoc_duplicate_keys(splitreagent[1],key_list) = max(text2num(splitreagent[2]),macroresolution)) //if amount<macrores then increases amount up to macrores
 	return final_list
 
 // OASIS EDIT END
