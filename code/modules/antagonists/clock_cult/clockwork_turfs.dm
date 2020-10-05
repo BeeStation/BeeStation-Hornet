@@ -106,12 +106,6 @@
 /turf/closed/wall/clockwork/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	return
 
-/turf/closed/wall/clockwork/attack_hulk(mob/user, does_attack_animation)
-	if(prob(10))
-		return ..()
-	to_chat(user, "<span class='warning'>Your slightly dent [src].</span>")
-	return
-
 //========Deconstruction Handled Here=======
 /turf/closed/wall/clockwork/deconstruction_hints(mob/user)
 	switch(d_state)
