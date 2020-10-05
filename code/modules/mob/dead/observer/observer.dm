@@ -785,12 +785,15 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if("fun_verbs")
 			if(fun_verbs)
 				verbs += /mob/dead/observer/verb/boo
+				// OASIS EDIT
 			else
 				verbs -= /mob/dead/observer/verb/boo
+// OASIS EDIT BEGIN
 		if("possess_verb")
 			if(possess_verb)
 				verbs += /mob/dead/observer/verb/possess
 			else
+// OASIS EDIT END
 				verbs -= /mob/dead/observer/verb/possess
 
 /mob/dead/observer/reset_perspective(atom/A)

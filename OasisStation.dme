@@ -26,6 +26,8 @@
 #include "Oasis\code\modules\reagents\chemistry\reagents\drink_reagents.dm"
 #include "Oasis\code\modules\reagents\chemistry\reagents\other_reagents.dm"
 #include "Oasis\code\modules\reagents\chemistry\recipes\others.dm"
+#include "Oasis\code\modules\reagents\chemistry\recipes\solid_reagent.dm"
+#include "Oasis\code\modules\reagents\chemistry\recipes\special.dm"
 // SCP_MAIN INCLUDES
 #include "Oasis\SCP_MAIN\code\game\machinery\doors\airlock.dm"
 #include "Oasis\SCP_MAIN\code\game\machinery\doors\firelock.dm"
