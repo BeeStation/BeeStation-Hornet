@@ -302,7 +302,7 @@
 	else if (reaction_energy < 0)
 		reaction_energy *= (instability-FUSION_INSTABILITY_ENDOTHERMALITY)**0.5
 
-	if(air.thermal_energy() + reaction_energy < 0) //No using energy that doesn't exist.
+	if(air.return_temperature()*old_heat_capacity + reaction_energy < 0) //No using energy that doesn't exist.
 		air.set_moles(/datum/gas/plasma, initial_plasma)
 		air.set_moles(/datum/gas/carbon_dioxide, initial_carbon)
 		return NO_REACTION
