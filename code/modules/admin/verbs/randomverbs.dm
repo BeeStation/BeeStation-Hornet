@@ -29,7 +29,7 @@
 		return
 
 	message_admins("[key_name_admin(src)] has started answering [ADMIN_LOOKUPFLW(M)]'s prayer.")
-	var/msg = input("Message:", text("Subtle PM to [M.key]")) as text|null
+	var/msg = capped_input(usr, "Message:", "Subtle PM to [M.key]")
 
 	if(!msg)
 		message_admins("[key_name_admin(src)] decided not to answer [ADMIN_LOOKUPFLW(M)]'s prayer")
@@ -70,7 +70,7 @@
 			return
 
 	message_admins("[key_name_admin(src)] has started answering [key_name_admin(H)]'s [sender] request.")
-	var/input = input("Please enter a message to reply to [key_name(H)] via their headset.","Outgoing message from [sender]", "") as text|null
+	var/input = capped_input(usr, "Please enter a message to reply to [key_name(H)] via their headset.","Outgoing message from [sender]")
 	if(!input)
 		message_admins("[key_name_admin(src)] decided not to answer [key_name_admin(H)]'s [sender] request.")
 		return
@@ -134,7 +134,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/msg = input("Message:", text("Enter the text you wish to appear to everyone:")) as text|null
+	var/msg = capped_input(usr, "Message:", "Enter the text you wish to appear to everyone:")
 
 	if (!msg)
 		return
@@ -156,7 +156,7 @@
 	if(!M)
 		return
 
-	var/msg = input("Message:", text("Enter the text you wish to appear to your target:")) as text|null
+	var/msg = capped_input(usr, "Message:", "Enter the text you wish to appear to your target:")
 
 	if( !msg )
 		return
@@ -179,7 +179,7 @@
 	var/range = input("Range:", "Narrate to mobs within how many tiles:", 7) as num|null
 	if(!range)
 		return
-	var/msg = input("Message:", text("Enter the text you wish to appear to everyone within view:")) as text|null
+	var/msg = capped_input(usr, "Message:", "Enter the text you wish to appear to everyone within view:")
 	if (!msg)
 		return
 	for(var/mob/M in view(range,A))
@@ -512,7 +512,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/input = input(usr, "Please enter anything you want the AI to do. Anything. Serious.", "What?", "") as text|null
+	var/input = capped_input(usr, "Please enter anything you want the AI to do. Anything. Serious.", "What?")
 	if(!input)
 		return
 
@@ -556,7 +556,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/input = input(usr, "Enter a Command Report. Ensure it makes sense IC.", "What?", "") as message|null
+	var/input = capped_multiline_input(usr, "Enter a Command Report. Ensure it makes sense IC.", "What?")
 	if(!input)
 		return
 
@@ -582,7 +582,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/input = input(usr, "Please input a new name for Central Command.", "What?", "") as text|null
+	var/input = capped_input(usr, "Please input a new name for Central Command.", "What?")
 	if(!input)
 		return
 	change_command_name(input)
@@ -996,7 +996,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/input = input(usr, "Please specify your tip that you want to send to the players.", "Tip", "") as message|null
+	var/input = capped_multiline_input(usr, "Please specify your tip that you want to send to the players.", "Tip")
 	if(!input)
 		return
 
@@ -1171,7 +1171,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 	var/message = pick(GLOB.admiral_messages)
-	message = input("Enter message from the on-call admiral to be put in the recall report.", "Admiral Message", message) as text|null
+	message = capped_input(src, "Enter message from the on-call admiral to be put in the recall report.", "Admiral Message", message)
 
 	if(!message)
 		return

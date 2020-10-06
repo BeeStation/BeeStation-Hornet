@@ -140,7 +140,7 @@
 			return
 
 		if(SSticker.queued_players.len || (relevant_cap && living_player_count() >= relevant_cap && !(ckey(key) in GLOB.admin_datums)))
-			if(GLOB.patrons.Find(src.ckey))
+			if(IS_PATRON(src.ckey))
 				LateChoices()
 				return
 			to_chat(usr, "<span class='danger'>[CONFIG_GET(string/hard_popcap_message)]</span>")

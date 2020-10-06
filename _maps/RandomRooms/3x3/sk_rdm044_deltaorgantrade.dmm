@@ -46,7 +46,6 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "f" = (
-/obj/structure/table/optable,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/remains/human,
 /turf/open/floor/plasteel/white/side{
@@ -60,6 +59,7 @@
 	pixel_y = -22
 	},
 /obj/effect/turf_decal/bot,
+/obj/structure/table/optable,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "h" = (

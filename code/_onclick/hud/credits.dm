@@ -4,7 +4,6 @@
 #define CREDIT_EASE_DURATION 12
 
 GLOBAL_LIST(end_titles)
-GLOBAL_LIST_INIT(patrons, world.file2list("[global.config.directory]/patrons.txt"))
 
 /proc/RollCredits()
 	set waitfor = FALSE

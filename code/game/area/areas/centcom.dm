@@ -127,7 +127,7 @@
 	noteleport = TRUE
 	blob_allowed = FALSE //Not... entirely sure this will ever come up... but if the bus makes blobs AND ops, it shouldn't aim for the ops to win.
 	flags_1 = NONE
-	ambientsounds = HIGHSEC
+	ambient_effects = HIGHSEC
 
 /area/syndicate_mothership/control
 	name = "Syndicate Control Room"
@@ -172,3 +172,20 @@
 
 /area/ctf/flag_room2
 	name = "Flag Room B"
+
+// REEBE
+
+/area/reebe
+	name = "Reebe"
+	icon_state = "yellow"
+	requires_power = FALSE
+	has_gravity = STANDARD_GRAVITY
+	noteleport = TRUE
+	hidden = TRUE
+	ambient_effects = REEBE
+
+/area/reebe/city_of_cogs
+	name = "Reebe - City of Cogs"
+	icon_state = "purple"
+	hidden = FALSE
+	var/playing_ambience = FALSE

@@ -191,6 +191,11 @@
 	. = ..()
 	radio = new(src)
 
+/obj/item/cartridge/annoyance //the only purpose of this cartridge is to allow the VIP to be annoying
+	name = "\improper TWIT cartridge"
+	icon_state = "cart-c"
+	spam_enabled = 1
+
 /obj/item/cartridge/proc/post_status(command, data1, data2)
 
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(FREQ_STATUS_DISPLAYS)
@@ -624,10 +629,10 @@ Code:
 				if("alert")
 					post_status("alert", href_list["alert"])
 				if("setmsg1")
-					message1 = reject_bad_text(input("Line 1", "Enter Message Text", message1) as text|null, 40)
+					message1 = reject_bad_text(capped_input(usr, "Line 1", "Enter Message Text", message1), 40)
 					updateSelfDialog()
 				if("setmsg2")
-					message2 = reject_bad_text(input("Line 2", "Enter Message Text", message2) as text|null, 40)
+					message2 = reject_bad_text(capped_input(usr, "Line 2", "Enter Message Text", message2), 40)
 					updateSelfDialog()
 				else
 					post_status(href_list["statdisp"])
