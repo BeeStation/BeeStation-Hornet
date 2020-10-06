@@ -1640,6 +1640,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	item = /obj/item/encryptionkey/syndicate
 	cost = 2
 	surplus = 75
+	exclude_modes = list(/datum/game_mode/incursion)
 	restricted = TRUE
 
 /datum/uplink_item/device_tools/syndietome
