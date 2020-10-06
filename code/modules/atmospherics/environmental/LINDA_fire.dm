@@ -79,7 +79,7 @@
 		var/datum/gas_mixture/affected = location.air.remove_ratio(volume/location.air.return_volume())
 		if(affected) //in case volume is 0
 			affected.set_temperature(temperature)
-			affected.react(src)
+			affected.react(src, typecacheof(/datum/gas_reaction/fusion,FALSE,TRUE))
 			temperature = affected.return_temperature()
 			volume = affected.reaction_results["fire"]*FIRE_GROWTH_RATE
 			location.assume_air(affected)
