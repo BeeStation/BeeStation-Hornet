@@ -392,7 +392,7 @@
 			temp_html += status
 			temp_html += buttons
 			temp_html += "<div class='line'><div class='statusLabel'><b>Advanced Injectors:</b></div></div><br>"
-			temp_html += "<div class='statusLine'><a href='?src=[REF(src)];task=add_advinjector;'>New Selection</a></div>"
+			temp_html += "<div><a href='?src=[REF(src)];task=add_advinjector;'>New Selection</a></div>"
 			for(var/A in injector_selection)
 				temp_html += "<div class='statusDisplay'><b>[A]</b>"
 				var/list/true_selection = injector_selection[A]
@@ -407,12 +407,12 @@
 							mutcolor = "average"
 						if(NEGATIVE)
 							mutcolor = "bad"
-					temp_html += "<div class='statusLine'><span class='[mutcolor]'>[HM.name] </span>"
+					temp_html += "<div><span class='[mutcolor]'>[HM.name] </span>"
 					temp_html += "<a href='?src=[REF(src)];task=remove_from_advinjector;injector=[A];path=[HM.type];'>Remove</a></div>"
 				if(injectorready < world.time)
-					temp_html += "<div class='statusLine'> <a href='?src=[REF(src)];task=advinjector;injector=[A];'>Print Advanced Injector</a>"
+					temp_html += "<div> <a href='?src=[REF(src)];task=advinjector;injector=[A];'>Print Advanced Injector</a>"
 				else
-					temp_html += "<div class='statusLine'><span class='linkOff'>Print Advanced Injector</span>"
+					temp_html += "<div><span class='linkOff'>Print Advanced Injector</span>"
 				temp_html += "<a href='?src=[REF(src)];task=remove_advinjector;injector=[A];'>Remove Injector</a></div>"
 				temp_html += "<br></div>"
 
@@ -502,40 +502,40 @@
 				mutcolor = "bad"
 		if(HM)
 			instability *= GET_MUTATION_STABILIZER(HM)
-		temp_html += "<div class='statusDisplay'><div class='statusLine'><span class='[mutcolor]'><b>[mut_name]</b></span><small> ([alias])</small><br>"
-		temp_html += "<div class='statusLine'>Instability : [round(instability)]</span><br>"
+		temp_html += "<div class='statusDisplay'><div><span class='[mutcolor]'><b>[mut_name]</b></span><small> ([alias])</small><br>"
+		temp_html += "<div>Instability : [round(instability)]</span><br>"
 	else
-		temp_html += "<div class='statusDisplay'><div class='statusLine'><b>[alias]</b><br>"
-	temp_html += "<div class='statusLine'>[mut_desc]<br></div>"
+		temp_html += "<div class='statusDisplay'><div><b>[alias]</b><br>"
+	temp_html += "<div>[mut_desc]<br></div>"
 	if(active && !storage_slot)
 		if(HM?.can_chromosome && (HM in viable_occupant.dna.mutations))
 			var/i = viable_occupant.dna.mutations.Find(HM)
 			var/chromosome_name = "<a href='?src=[REF(src)];task=applychromosome;path=[mutation];num=[i];'>----</a>"
 			if(HM.chromosome_name)
 				chromosome_name = HM.chromosome_name
-			temp_html += "<div class='statusLine'>Chromosome status: [chromosome_name]<br></div>"
-	temp_html += "<div class='statusLine'>Sequence:<br><br></div>"
+			temp_html += "<div>Chromosome status: [chromosome_name]<br></div>"
+	temp_html += "<div>Sequence:<br><br></div>"
 	if(!scrambled)
 		for(var/block in 1 to A.blocks)
 			var/whole_sequence = get_valid_gene_string(mutation)
 			var/sequence = copytext_char(whole_sequence, 1+(block-1)*(DNA_SEQUENCE_LENGTH*2),(DNA_SEQUENCE_LENGTH*2*block+1))
-			temp_html += "<div class='statusLine'><table class='statusDisplay'><tr>"
+			temp_html += "<div><table class='statusDisplay'><tr>"
 			for(var/i in 1 to DNA_SEQUENCE_LENGTH)
 				var/num = 1+(i-1)*2
 				var/genenum = num+(DNA_SEQUENCE_LENGTH*2*(block-1))
-				temp_html += "<td><div class='statusLine'><span class='dnaBlockNumber'><a href='?src=[REF(src)];task=pulsegene;num=[genenum];alias=[alias];'>[sequence[num]]</span></a></div></td>"
+				temp_html += "<td><div><span class='dnaBlockNumber'><a href='?src=[REF(src)];task=pulsegene;num=[genenum];alias=[alias];'>[sequence[num]]</span></a></div></td>"
 			temp_html += "</tr><tr>"
 			for(var/i in 1 to DNA_SEQUENCE_LENGTH)
-				temp_html += "<td><div class='statusLine'>|</div></td>"
+				temp_html += "<td><div>|</div></td>"
 			temp_html += "</tr><tr>"
 			for(var/i in 1 to DNA_SEQUENCE_LENGTH)
 				var/num = i*2
 				var/genenum = num+(DNA_SEQUENCE_LENGTH*2*(block-1))
-				temp_html += "<td><div class='statusLine'><span class='dnaBlockNumber'><a href='?src=[REF(src)];task=pulsegene;num=[genenum];alias=[alias];'>[sequence[num]]</span></a></div></td>"
+				temp_html += "<td><div><span class='dnaBlockNumber'><a href='?src=[REF(src)];task=pulsegene;num=[genenum];alias=[alias];'>[sequence[num]]</span></a></div></td>"
 			temp_html += "</tr></table></div>"
 		temp_html += "<br><br><br><br><br>"
 	else
-		temp_html = "<div class='statusLine'>Sequence unreadable due to unpredictable mutation.</div>"
+		temp_html = "<div>Sequence unreadable due to unpredictable mutation.</div>"
 	if((active || storage_slot) && (injectorready < world.time) && !scrambled)
 		temp_html += "<a href='?src=[REF(src)];task=activator;path=[mutation];slot=[storage_slot];'>Print Activator</a>"
 		temp_html += "<a href='?src=[REF(src)];task=mutator;path=[mutation];slot;=[storage_slot];'>Print Mutator</a>"
@@ -546,7 +546,7 @@
 		temp_html += "<a href='?src=[REF(src)];task=expand_advinjector;path=[mutation];'>Adv. Injector</a>"
 	else
 		temp_html += "<span class='linkOff'>Adv. Injector</span>"
-	temp_html += "<br><div class='statusLine'>"
+	temp_html += "<br><div>"
 	if(storage_slot)
 		temp_html += "<a href='?src=[REF(src)];task=deletemut;num=[storage_slot];'>Delete</a>"
 		if((LAZYLEN(stored_mutations) < max_storage) && diskette && !diskette.read_only)
