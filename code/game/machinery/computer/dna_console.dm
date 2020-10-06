@@ -622,7 +622,7 @@
 				viable_occupant.dna.remove_all_mutations(list(MUT_NORMAL, MUT_EXTRA))
 				viable_occupant.dna.generate_dna_blocks()
 				scrambleready = world.time + SCRAMBLE_TIMEOUT
-				to_chat(usr,"<span class'notice'>DNA scrambled.</span>")
+				to_chat(usr,"<span class='notice'>DNA scrambled.</span>")
 				viable_occupant.radiation += RADIATION_STRENGTH_MULTIPLIER*50/(connected.damage_coeff ** 2)
 
 		if("setbufferlabel")
@@ -882,7 +882,7 @@
 						var/result_path = get_mixed_mutation(combine, path)
 						if(result_path)
 							stored_mutations += new result_path()
-							to_chat(usr, "<span class='boldnotice'>Succes! New mutation has been added to storage</span>")
+							to_chat(usr, "<span class='boldnotice'>Success! New mutation has been added to storage.</span>")
 							discover(result_path)
 							combine = null
 						else
@@ -890,7 +890,7 @@
 							combine = null
 					else
 						combine = path
-						to_chat(usr,"<span class='notice'>Selected [A.name] for combining</span>")
+						to_chat(usr,"<span class='notice'>Selected [A.name] for combining.</span>")
 				else
 					to_chat(usr, "<span class='warning'>Not enough space to store potential mutation.</span>")
 		if("ejectchromosome")
