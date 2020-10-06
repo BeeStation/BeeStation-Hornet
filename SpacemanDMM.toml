@@ -1,2 +1,4 @@
+environment = "OasisStation.dme"
+
 [langserver]
 dreamchecker = true
