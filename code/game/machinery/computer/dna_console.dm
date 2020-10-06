@@ -75,19 +75,18 @@
 		if(LAZYLEN(stored_chromosomes) < max_chromosomes)
 			I.forceMove(src)
 			stored_chromosomes += I
-			to_chat(user, "<span class='notice'>You insert [I]</span>")
+			to_chat(user, "<span class='notice'>You insert [I].</span>")
 		else
-			to_chat(user, "<span class='warnning'>You cannot store any more chromosomes.</span>")
+			to_chat(user, "<span class='warning'>You cannot store any more chromosomes.</span>")
 		return
 	if(istype(I, /obj/item/dnainjector/activator))
 		var/obj/item/dnainjector/activator/A = I
 		if(A.used)
 			to_chat(user,"<span class='notice'>Recycled [I].</span>")
-			if(A.research)
+			if(A.filled)
 				var/c_typepath = generate_chromosome()
 				var/obj/item/chromosome/CM = new c_typepath (drop_location())
-				to_chat(user,"<span class='notice'>Recycled [I].</span>")
-				if((LAZYLEN(stored_chromosomes) < max_chromosomes) && prob(60))
+				if(LAZYLEN(stored_chromosomes) < max_chromosomes)
 					CM.forceMove(src)
 					stored_chromosomes += CM
 					to_chat(user,"<span class='notice'>[capitalize(CM.name)] added to storage.</span>")
