@@ -600,7 +600,7 @@
 		if("scramble")
 			if(viable_occupant && (scrambleready < world.time))
 				if(prob(1) && prob(1))
-					to_chat(usr,"<span class='bad'>Error: Musa acuminata transformation detected</span>") //Actually we only share 1% of our functional protein-coding DNA with bananas, but this is mildly amusing so whatever
+					to_chat(usr,"<span class='bad'>Error: Musa acuminata transformation detected!</span>") //Actually we only share 1% of our functional protein-coding DNA with bananas, but this is mildly amusing so whatever
 					if(viable_occupant.client && viable_occupant.ckey)
 						message_admins("[key_name(viable_occupant)] has been turned into a banana by [key_name(usr)]")
 						log_game("[key_name(viable_occupant)] has been turned into a banana by [key_name(usr)]")
