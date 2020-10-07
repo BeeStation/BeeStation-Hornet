@@ -725,12 +725,12 @@
 			qdel(SPEC)
 		
 		
-	for(var/module in src.addmodules)
-		var/item = locate(module) in R
-		if (!item)
-			item = new(R.module)
-			R.module.basic_modules += item
-			R.module.add_module(item, FALSE, TRUE)
+		for(var/module in src.addmodules)
+			var/item = locate(module) in R
+			if (!item)
+				item = new(R.module)
+				R.module.basic_modules += item
+				R.module.add_module(item, FALSE, TRUE)
 	return .
 	
 /obj/item/borg/upgrade/speciality/deactivate(mob/living/silicon/robot/R, user = usr)
@@ -740,7 +740,8 @@
 		for(var/module in src.addmodules)
 			var/item = locate(module) in R
 			if (item)
-				R.module.remove_module(item, TRUE)
+				R.module.remove_module(item, TRUE)	
+	return .
 
 /obj/item/borg/upgrade/speciality/botany
 	name = "Botany Speciality"
