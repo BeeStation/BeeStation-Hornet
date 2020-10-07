@@ -712,7 +712,7 @@
 	if(.)
 		var/obj/item/crowbar/cyborg/E = locate() in R.module.modules
 		if(E)
-			to_chat(user, "<span class='warning'>This is already equipted with a crowbar.</span>")
+			to_chat(user, "<span class='warning'>This is already equipted with a crowbar module.</span>")
 			return FALSE
 
 		E = new(R.module)
@@ -737,7 +737,7 @@
 	if(.)
 		var/obj/item/healthanalyzer/E = locate() in R.module.modules
 		if(E)
-			to_chat(user, "<span class='warning'>This is already equipted with a health analyzer.</span>")
+			to_chat(user, "<span class='warning'>This is already equipted with a health analyzer module.</span>")
 			return FALSE
 
 		E = new(R.module)
