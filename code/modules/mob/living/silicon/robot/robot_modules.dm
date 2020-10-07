@@ -475,6 +475,7 @@
 		/obj/item/razor,
 		/obj/item/borg/charger,
 		/obj/item/rsf,
+		/obj/item/cookiesynth,
 		/obj/item/instrument/piano_synth,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/lighter,
