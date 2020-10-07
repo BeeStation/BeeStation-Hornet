@@ -706,8 +706,9 @@
 			
 /obj/item/borg/upgrade/speciality
 	name = "Speciality Module"
-	desc = "If you read this, contact admins for a complimentary antag token, and never speak of it again."
 	icon_state = "cyborg_upgrade3"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/butler
 	var/addmodules = list()
 	
 /obj/item/borg/upgrade/speciality/action(mob/living/silicon/robot/R, user = usr)
@@ -732,7 +733,7 @@
 			R.module.add_module(item, FALSE, TRUE)
 	return .
 	
-/obj/item/borg/upgrade/botany/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/speciality/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)		
 		//Remove existing modules indiscriminately
@@ -744,9 +745,6 @@
 /obj/item/borg/upgrade/speciality/botany
 	name = "Botany Speciality"
 	desc = "A service cyborg upgrade allowing for plant tending and manipulation."
-	icon_state = "cyborg_upgrade3"
-	require_module = TRUE
-	module_type = /obj/item/robot_module/butler
 	addmodules = list (
 		/obj/item/storage/bag/plants/portaseeder,
 		/obj/item/hatchet/cyborg,
@@ -757,10 +755,7 @@
 
 /obj/item/borg/upgrade/speciality/kitchen
 	name = "Cook Speciality"
-	desc = "A service cyborg upgrade allowing for food handling and feeding organics."
-	icon_state = "cyborg_upgrade3"
-	require_module = TRUE
-	module_type = /obj/item/robot_module/butler
+	desc = "A service cyborg upgrade allowing for basic food handling."
 	addmodules = list (
 		/obj/item/kitchen/knife/cyborg,
 		/obj/item/kitchen/rollingpin/cyborg,
@@ -769,10 +764,7 @@
 
 /obj/item/borg/upgrade/speciality/casino
 	name = "Cook Speciality"
-	desc = "A service cyborg upgrade allowing for money draining and destroying lives."
-	icon_state = "cyborg_upgrade3"
-	require_module = TRUE
-	module_type = /obj/item/robot_module/butler
+	desc = "It's not crew harm if they do it themselves!"
 	addmodules = list (
 		/obj/item/roulette,
 		/obj/item/storage/pill_bottle/dice_cup/cyborg,
