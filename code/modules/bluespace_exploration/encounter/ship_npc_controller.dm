@@ -38,6 +38,10 @@
 		var/datum/ship_datum/ship = SSbluespace_exploration.tracked_ships[ship_key]
 		if(ship == src)
 			continue
+		var/obj/shuttle_port = SSshuttle.mobile[ship_key]
+		var/obj/our_port = SSshuttle.mobile[mobile_port_id]
+		if(!shuttle_port || !our_port || shuttle_port.z != our_port.z)
+			continue
 		if(ship in hostile_ships)
 			continue
 		if(check_faction_alignment(ship_faction, ship.ship_faction) == FACTION_STATUS_HOSTILE)

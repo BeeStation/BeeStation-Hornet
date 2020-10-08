@@ -95,6 +95,10 @@
 		//Shooting ourself, 🤔
 		if(ship.mobile_port_id == shuttle_id)
 			continue
+		//Ignore ships that are on different z-levels#
+		var/obj/target_port = SSshuttle.mobile[ship_id]
+		if(!target_port || !connected_port || target_port.z != connected_port.z)
+			continue
 		if(!ship.combat_allowed)
 			continue
 		var/list/other_ship = list(

@@ -51,7 +51,6 @@
 	return data
 
 /obj/machinery/computer/system_map/custom_shuttle/ui_act(action, params)
-	var/obj/docking_port/mobile/linkedShuttle = SSshuttle.getShuttle(shuttle_id)
 	if(action == "calculate_custom_shuttle")
 		calculateStats()
 		return

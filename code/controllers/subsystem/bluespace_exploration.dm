@@ -7,9 +7,10 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	init_order = INIT_ORDER_BS_EXPLORATION
 
 	var/generating = FALSE
+	var/generating_level
 
 	//Which systems are ours?
-	var/list/datum/star_system/bluespace_systems	// Key = /datum/space_level, Value = Boolean (Are we in use)
+	var/list/bluespace_systems	// Key = /datum/space_level, Value = Boolean (Are we in use)
 
 	//Starmap generation
 	var/datum/star_system/current_system = null
@@ -17,7 +18,6 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/list/star_links = list()
 
 	//Ruin generation
-	var/datum/space_level/reserved_bs_level
 	var/list/ruin_templates = list()
 	var/obj/docking_port/stationary/away_mission_port
 
@@ -112,8 +112,23 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		return
 	if(!LAZYLEN(ship_traffic_queue))
 		return
+	//Find a system that is empty and jump to it
+	var/datum/space_level/free_level
+	for(var/key in bluespace_systems)
+		if(!bluespace_systems[key])
+			free_level = key
+			generating_level = free_level.z_value
+			//Mark the system as in use
+			bluespace_systems[key] = TRUE
+			break	//Don't reserve every BS level like it used to
+	if(!free_level)
+		return
 	var/first_shuttle_id = ship_traffic_queue[1]
-	shuttle_translation(first_shuttle_id, ship_traffic_queue[first_shuttle_id])
+	//Fetch the data holder and submit the target z
+	var/datum/data_holder/bluespace_exploration/data_holder = ship_traffic_queue[first_shuttle_id]
+	data_holder.z_value = free_level.z_value
+	//Initiate translation
+	shuttle_translation(first_shuttle_id, data_holder)
 	ship_traffic_queue.Remove(first_shuttle_id)
 
 //====================================
@@ -211,7 +226,43 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		allowed_contents -= T
 		for(var/i in 1 to allowed_contents.len)
 			var/thing = allowed_contents[i]
-			qdel(thing, force=TRUE)
+			if(ismob(thing))
+				var/mob/living/M = thing
+				if(M.key)
+					//If the mob has a key (but is DC) then teleport them to a safe z-level where they can potentially be retrieved.
+					//Since the wiping takes 90 seconds they could potentially still be on the z-level as it is wiping if they reconnect in time
+					random_teleport_atom(M)
+					to_chat(M, "<span class='warning'>You feel sick as your body lurches through space and time, the ripples of the starship that brought you here eminate no more and you get the horrible feeling that you have been left behind.</span>")
+				else
+					qdel(thing, force=TRUE)
+			else
+				qdel(thing, force=TRUE)
+
+//Randomly teleports an atom to a random z-level
+//Copy and paste of turf/open/space/transit, could probably be a global proc
+
+/datum/controller/subsystem/bluespace_exploration/proc/random_teleport_atom(atom/movable/AM)
+	set waitfor = FALSE
+	if(!AM || istype(AM, /obj/docking_port))
+		return
+	if(AM.loc != src) 	// Multi-tile objects are "in" multiple locs but its loc is it's true placement.
+		return			// Don't move multi tile objects if their origin isnt in transit
+	var/max = world.maxx-TRANSITIONEDGE
+	var/min = 1+TRANSITIONEDGE
+
+	var/list/possible_transtitons = list()
+	for(var/A in SSmapping.z_list)
+		var/datum/space_level/D = A
+		if (D.linkage == CROSSLINKED)
+			possible_transtitons += D.z_value
+	var/_z = pick(possible_transtitons)
+
+	//now select coordinates for a border turf
+	var/_x = rand(min,max)
+	var/_y = rand(min,max)
+
+	var/turf/T = locate(_x, _y, _z)
+	AM.forceMove(T)
 
 /datum/controller/subsystem/bluespace_exploration/proc/reset_turfs(list/turfs)
 	var/list/new_turfs = list()
@@ -283,11 +334,11 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			if(!Space_ruin.allow_duplicates)
 				standard_valid_ruins -= Space_ruin
 		//Subtract Cost
-		selected_ruin.try_to_place(reserved_bs_level.z_value, /area/space)
+		selected_ruin.try_to_place(data_holder.z_value, /area/space)
 		cost_limit -= selected_ruin.cost
 		CHECK_TICK
 	//=== Spawn Hostile Ships ===
-	var/max_ships = 5
+	var/max_ships = 3
 	var/threat_left = target_level.calculated_threat
 	while(threat_left > 0 && max_ships > 0)
 		//Pick a ship to spawn
@@ -305,7 +356,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 				valid_ships += ship_name
 		if(!LAZYLEN(valid_ships))
 			break
-		spawn_and_register_shuttle(spawnable_ships[pick(valid_ships)])
+		spawn_and_register_shuttle(spawnable_ships[pick(valid_ships)], data_holder.z_value)
 		max_ships --
 	addtimer(CALLBACK(src, .proc/on_generation_complete, data_holder), 0)
 
@@ -327,7 +378,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			away_mission_port.dheight = shuttle.dheight
 			away_mission_port.dwidth = shuttle.dwidth
 		var/max_size = max(away_mission_port.width, away_mission_port.height)
-		away_mission_port.forceMove(locate(rand(max_size, world.maxx - max_size), rand(max_size, world.maxx - max_size), reserved_bs_level.z_value))
+		away_mission_port.forceMove(locate(rand(max_size, world.maxx - max_size), rand(max_size, world.maxx - max_size), data_holder.z_value))
 		//Check if blocked
 		var/blocked = FALSE
 		for(var/turf/T in away_mission_port.return_turfs())
@@ -347,9 +398,11 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	shuttle.setTimer(shuttle.ignitionTime)
 	current_system = data_holder.target_star_system
 	generating = FALSE
+	generating_level = -1
 
 /datum/controller/subsystem/bluespace_exploration/proc/generate_z_level(datum/data_holder/bluespace_exploration/data_holder)
-	add_to_wipe_queue(reserved_bs_level.z_value, data_holder)
+	add_to_wipe_queue(data_holder.z_value, data_holder)
+	check_free_levels()
 
 /datum/controller/subsystem/bluespace_exploration/proc/shuttle_translation(shuttle_id, datum/data_holder/bluespace_exploration/data_holder)
 	if(!check_z_level())
@@ -370,7 +423,23 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	shuttle.mode = SHUTTLE_IGNITING
 	shuttle.setTimer(shuttle.ignitionTime)
 	//Clear the z-level after the shuttle leaves
+	//TODO: Remove usage of timers
 	addtimer(CALLBACK(src, .proc/generate_z_level, data_holder), shuttle.ignitionTime + 50, TIMER_UNIQUE)
+
+//====================================
+// Z-Level Free checking
+//====================================
+
+/datum/controller/subsystem/bluespace_exploration/proc/check_free_levels()
+	var/list/levels_in_use
+	//Most efficient way I could think of doing it
+	for(var/mob/living/M in GLOB.player_list)
+		if(!(M.z in levels_in_use))
+			levels_in_use += M.z
+	for(var/datum/space_level/level as anything in bluespace_systems)
+		//Run a quick check to check if the system is free
+		//TRUE if the system is in use, false if there are no cliented mobs in the system
+		bluespace_systems[level] = (level.z_value in levels_in_use) || level.z_value == generating_level
 
 //====================================
 // Factions
@@ -400,3 +469,4 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/spawn_ruins = TRUE
 	var/ruin_spawn_type = BLUESPACE_DRIVE_BSLEVEL
 	var/target_star_system
+	var/z_value
