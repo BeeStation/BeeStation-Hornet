@@ -15,7 +15,7 @@
 #include "beestation.dme"
 
 // BEGIN_INCLUDE
-// OASIS INCLUDES
+#include "code\modules\food_and_drinks\recipes\drinks_recipes.dm"
 #include "Oasis\code\controllers\subsystem\redbot.dm"
 #include "Oasis\code\datums\world_topic.dm"
 #include "Oasis\code\game\objects\items\religion.dm"
@@ -26,9 +26,6 @@
 #include "Oasis\code\modules\reagents\chemistry\reagents\drink_reagents.dm"
 #include "Oasis\code\modules\reagents\chemistry\reagents\other_reagents.dm"
 #include "Oasis\code\modules\reagents\chemistry\recipes\others.dm"
-//#include "Oasis\code\modules\reagents\chemistry\recipes\solid_reagent.dm" Who added these files?
-//#include "Oasis\code\modules\reagents\chemistry\recipes\special.dm" Who added these files?
-// SCP_MAIN INCLUDES
 #include "Oasis\SCP_MAIN\code\game\machinery\doors\airlock.dm"
 #include "Oasis\SCP_MAIN\code\game\machinery\doors\firelock.dm"
 #include "Oasis\SCP_MAIN\code\game\machinery\doors\poddoor.dm"
