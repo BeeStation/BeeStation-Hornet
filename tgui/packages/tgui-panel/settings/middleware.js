@@ -5,6 +5,7 @@
  */
 
 import { storage } from 'common/storage';
+import { chatMiddleware } from '../chat';
 import { setClientTheme } from '../themes';
 import { loadSettings, updateSettings } from './actions';
 import { selectSettings } from './selectors';
@@ -31,6 +32,11 @@ export const settingsMiddleware = store => {
       const theme = payload?.theme;
       if (theme) {
         setClientTheme(theme);
+      }
+      else if (type === loadSettings.type) {
+        updateSettings({
+          theme: 'dark',
+        });
       }
       // Pass action to get an updated state
       next(action);
