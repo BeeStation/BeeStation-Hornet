@@ -262,7 +262,7 @@
 			if("load")
 				if(cloning)
 					return
-				var/input = capped_multiline_input(usr, "Put your code there:", "loading","", 6000)
+				var/input = capped_multiline_input(usr, "Put your code there:", "loading", null, 6000)
 				if(!check_interactivity(usr) || cloning)
 					return
 				if(!input)
