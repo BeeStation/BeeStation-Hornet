@@ -45,6 +45,6 @@
 		H.adjustToxLoss(3)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
 
-mob/living/carbon/human/species/apid/mind_initialize()
-	..()
-	mind.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
+/datum/species/apid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
+	. = ..()

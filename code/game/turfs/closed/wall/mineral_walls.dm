@@ -191,6 +191,15 @@
 	girder_type = null
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = null
+	var/health = 25
+
+/turf/closed/wall/mineral/wax/attackby(obj/item/W, mob/user, params)
+	. = ..()
+	if(W.force)
+		health - W.force
+	if(health <= 0)
+		dismantle_wall()
+
 
 /turf/closed/wall/mineral/abductor
 	name = "alien wall"

@@ -149,7 +149,7 @@
 
 /datum/action/item_action/organ_action/use/bee_dash
 	var/jumpdistance = 3
-	var/jumpspeed = 3
+	var/jumpspeed = 1
 	var/recharging_rate = 100
 	var/recharging_time = 0
 
@@ -163,9 +163,7 @@
 		to_chat(L, "<span class='warning'>The wings aren't ready to dash yet!</span>")
 		return
 
-	var/turf/T = get_turf(L)
-	var/datum/gas_mixture/environment = T.return_air()
-
+	var/datum/gas_mixture/environment = get_turf(L).return_air()
 	if(environment && !(environment.return_pressure() > 30))
 		to_chat(L, "<span class='warning'>The atmosphere is too thin for you to dash!</span>")
 		return
@@ -180,12 +178,12 @@
 	var/hoppingtable = FALSE
 	var/jumpdistancemoved = jumpdistance
 	var/turf/checkjump = L.loc
-	for(var/i in 1 to jumpdistance)
-		if(locate(/obj/structure/table, get_step(checkjump, L.dir)))
+	for(var/i in 1 to jumpdistance) //This is how hiero club find the tiles in front of it, tell me/fix it if there's a better way
+		if(locate(/obj/structure/table, get_step(checkjump, L.dir))) // If there's a table, trip
 			hoppingtable = TRUE
 			jumpdistancemoved = i
 			break
-		if(locate(/obj/structure/, get_step(checkjump, L.dir)))
+		if(locate(/obj/structure/, get_step(checkjump, L.dir))) // breaks if there's anything else in the way, no tripping on tables through walls
 			break
 		checkjump = get_step(checkjump, L.dir)
 

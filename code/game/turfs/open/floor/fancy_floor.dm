@@ -293,16 +293,13 @@
 	underlay_appearance.plane = PLANE_SPACE
 	return TRUE
 
-/turf/open/floor/grass/wax
+/turf/open/floor/wax
 	name = "wax"
-	icon = 'icons/turf/floors.dmi'
 	icon_state = 'honeyfloor'
-	desc = "Looks shiny."
-	ore_type = /obj/item/stack/sheet/mineral/wax
-	floor_tile = null
-	slowdown = 1.5
-	bullet_sizzle = TRUE
-	footstep = FOOTSTEP_SAND
-	barefootstep = FOOTSTEP_SAND
-	clawfootstep = FOOTSTEP_SAND
+	desc = "Hard wax. Makes you feel like part of a hive."
+	floor_tile = /obj/item/stack/tile/mineral/wax
+	footstep = FOOTSTEP_WOOD
+	barefootstep = FOOTSTEP_WOOD_BAREFOOT
+	clawfootstep = FOOTSTEP_WOOD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	tiled_dirt = FALSE
