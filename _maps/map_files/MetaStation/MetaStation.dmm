@@ -59877,12 +59877,6 @@
 /obj/item/clothing/gloves/color/latex,
 /turf/open/floor/plasteel,
 /area/medical/surgery)
-"cnn" = (
-/obj/structure/table,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/item/hemostat,
-/turf/open/floor/plasteel/white/side,
-/area/medical/surgery)
 "cno" = (
 /obj/structure/table,
 /obj/item/scalpel{
@@ -84322,6 +84316,13 @@
 	},
 /turf/closed/wall/r_wall,
 /area/maintenance/disposal/incinerator)
+"mTW" = (
+/obj/structure/table,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/item/hemostat,
+/obj/item/blood_filter,
+/turf/open/floor/plasteel/white/side,
+/area/medical/surgery)
 "mYd" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -105534,7 +105535,7 @@ cib
 cjx
 ckV
 cml
-cnn
+mTW
 coz
 coz
 crk
