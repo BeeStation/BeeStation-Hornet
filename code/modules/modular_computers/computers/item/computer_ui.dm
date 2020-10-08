@@ -48,6 +48,7 @@
 		ui = new(user, src, "NtosMain")
 		ui.open()
 		ui.set_autoupdate(TRUE)
+		ui.send_asset(get_asset_datum(/datum/asset/simple/headers))
 
 /obj/item/modular_computer/ui_data(mob/user)
 	var/list/data = get_header_data()
