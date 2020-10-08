@@ -40908,21 +40908,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
-"bMO" = (
-/obj/structure/table,
-/obj/item/surgicaldrill,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/surgery)
 "bMP" = (
 /obj/structure/table,
 /obj/item/scalpel{
@@ -61474,6 +61459,22 @@
 	icon_state = "platingdmg1"
 	},
 /area/maintenance/department/engine)
+"pZd" = (
+/obj/structure/table,
+/obj/item/surgicaldrill,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/item/blood_filter,
+/turf/open/floor/plasteel/white,
+/area/medical/surgery)
 "pZp" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/sunnybush,
@@ -96299,7 +96300,7 @@ bIp
 bJv
 bJx
 bLN
-bMO
+pZd
 bFU
 bCz
 bPE
