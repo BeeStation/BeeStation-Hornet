@@ -1,5 +1,5 @@
 #define MAX_CIRCUIT_CLONE_TIME 3 MINUTES //circuit slow-clones can only take up this amount of time to complete
-#define MAX_SIZE_CIRCUIT 17500 //max string size of circuit
+#define MAX_SIZE_CIRCUIT 20000 //max string size of circuit
 
 /obj/item/integrated_circuit_printer
 	name = "integrated circuit printer"
