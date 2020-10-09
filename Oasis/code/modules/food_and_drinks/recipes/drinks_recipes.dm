@@ -16,16 +16,30 @@
 /datum/chemical_reaction/vodka_cola
 	name = "Vodka Cola"
 	id = /datum/reagent/consumable/ethanol/vodka_cola
-	results = list(/datum/reagent/consumable/ethanol/vodka_cola = 5)
-	required_reagents = list(/datum/reagent/consumable/ethanol/vodka = 5, /datum/reagent/consumable/space_cola = 1) || list(/datum/reagent/consumable/ethanol/vodka = 5, /datum/reagent/consumable/sodawater = 1)
+	results = list(/datum/reagent/consumable/ethanol/vodka_cola = 15)
+	required_reagents = list(/datum/reagent/consumable/ethanol/vodka = 10, /datum/reagent/consumable/space_cola = 5)
 	mix_message = "Nothing special."
+
+/datum/chemical_reaction/vodka_soda
+	name = "Vodka Soda"
+	id = /datum/reagent/consumable/ethanol/vodka_soda
+	results = list(/datum/reagent/consumable/ethanol/vodka_soda = 15)
+	required_reagents = list(/datum/reagent/consumable/ethanol/vodka = 10, /datum/reagent/consumable/sodawater = 5)
+	mix_message = "Nothing special."
+
+/datum/chemical_reaction/salt_n_water
+	name = "Salty water"
+	id = /datum/reagent/consumable/salt_n_water
+	results = list(/datum/reagent/consumable/salt_n_water = 5)
+	required_reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/sodiumchloride = 1)
+	mix_message = "Nothing special."   
 
 /datum/chemical_reaction/salty_water
 	name = "Salty water"
 	id = /datum/reagent/consumable/salty_water
 	results = list(/datum/reagent/consumable/salty_water = 5)
-	required_reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/sodiumchloride = 1) || list(/datum/reagent/water = 5, /datum/reagent/medicine/salglu_solution = 1)
-	mix_message = "Nothing special."   
+	required_reagents = list(/datum/reagent/water = 5, /datum/reagent/medicine/salglu_solution = 1)
+	mix_message = "Nothing special." 
 
 /datum/chemical_reaction/death_afternoon
 	name = "Death in the afternoon"

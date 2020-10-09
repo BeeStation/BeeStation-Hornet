@@ -9,6 +9,17 @@
 	glass_name = "Vodka Cola"
 	glass_desc = "You don't like rum ? Fine, there is Whiskey, wha.. You don't like that too ? Man.. Well, Vodka I guess ?"
 
+/datum/reagent/consumable/ethanol/vodka_soda
+	name = "Vodka Soda"
+	description = "Vodka, mixed with soda. Eww."
+	color = "#3f2410" // rgb: 62, 27, 0
+	boozepwr = 60
+	quality = DRINK_NICE
+	taste_description = "vodka soda"
+	glass_icon_state = "whiskeysodaglass"
+	glass_name = "Vodka Soda"
+	glass_desc = "For those little snowflakes who don't like whiskey and cola."
+
 /datum/reagent/consumable/ethanol/black_roulette
 	name = "Black Roulette"
 	description = "It's like the real one! Be careful"
@@ -50,12 +61,26 @@
 	name = "Salty Water"
 	description = "Water and, hmm, salt?"
 	color = "#ffe65b"
-	taste_description = "salt"
+	taste_description = "salty water"
 	glass_icon_state = "glass_clear"
 	glass_name = "Water?"
 	glass_desc = "Who would ask that, seriously"
 
 /datum/reagent/consumable/salty_water/on_mob_add(mob/living/L)
+	metabolization_rate = 5
+	L.emote("scream")
+	..()
+
+/datum/reagent/consumable/salt_n_water
+	name = "Salty Water"
+	description = "Water and, salt, right ?"
+	color = "#ffe65b"
+	taste_description = "salt"
+	glass_icon_state = "glass_clear"
+	glass_name = "Water?"
+	glass_desc = "Who would ask that, seriously"
+
+/datum/reagent/consumable/salt_n_water/on_mob_add(mob/living/L)
 	metabolization_rate = 5
 	L.emote("scream")
 	..()
