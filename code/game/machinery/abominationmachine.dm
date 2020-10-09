@@ -3,7 +3,7 @@
 ////////////////////////////////////////
 
 /obj/item/sbeacondrop/abomachine
-	desc = "A label on it reads: <i>Warning: Activating this device will send a power draining device to your location</i>."
+	desc = "A label on it reads: <i>Warning: Activating this device will send an abomination chamber to your location</i>."
 	droptype = /obj/machinery/abomachine
 	
 ////////////////////////////////////////
@@ -13,8 +13,8 @@
 /obj/machinery/abomachine
 	icon = 'icons/obj/machines/cloning.dmi'
 	icon_state = "pod_g"
-	name = "syndicate bomb"
-	desc = "A large and menacing device. Can be bolted down with a wrench."
+	name = "abomination chamber"
+	desc = "A horrible machine that uses modern science to weld humans into horrible abominations."
 
 	anchored = FALSE
 	density = FALSE
@@ -29,17 +29,22 @@
 	var/n_legs_eaten = 0
 	var/n_organs_eaten = 0
 	var/n_ublood_eaten = 0
+	
+/obj/machinery/abomachine/examine(mob/user)
+	. = ..()
+	if (has_creature)
+		. += {"Looks like something is inside. It's twirling, squirming and begging for escape... Should I?"}
 
 /obj/machinery/abomachine/proc/release_creature(premature = FALSE)
-	var/mob/living/simple_animal/hostile/netherworld/blankbody/creature = new (src.loc)	//to be replaced? Blank bodies are cool too
+	var/mob/living/simple_animal/hostile/abomination/creature = new (src.loc)	//to be replaced? Blank bodies are cool too
+	if (creature==null)
+		return	//uh oh something went rogue
 	
-	creature.name = "abomination"
 	if (creature_name!="")
 		creature.name = creature_name
-	creature.desc = "a mass of limbs and organs disgustingly welded together with flesh."
 	
 	//life	
-	n_ublood_eaten = reagents.get_reagent_amount(datum/reagent/medicine/synthflesh)*3 + reagents.get_reagent_amount(datum/reagent/blood)
+	n_ublood_eaten = reagents.get_reagent_amount(datum/reagent/medicine/synthflesh)*3 + reagents.get_reagent_amount(datum/reagent/liquidgibs) * 2+ reagents.get_reagent_amount(datum/reagent/blood)
 	creature.maxHealth = 40+max(n_organs_eaten*20 + n_ublood_eaten * 2,200)
 	creature.health = creature.maxHealth
 	if (premature)
@@ -51,6 +56,10 @@
 	creature.obj_damage = 10
 	if (n_arms_eaten>=4)
 		creature.obj_damage = (n_arms_eaten>=8) ? 100 : 40
+		
+	//mutations
+	var/can_mutate = reagents.get_reagent_amount(datum/reagent/medicine/mutagen)>10 // tresspass mutagen
+		creature.mutate_random()
 	
 	to_chat(user, "<span class='warning'>It lives!</span>")
 	
@@ -66,7 +75,18 @@
 	
 	return creature
 
-/obj/machinery/abomachine/obj_destruction()	//what is the difference?
+/obj/machinery/abomachine/proc/birth_sentience(key, user)	// ???
+	var/mob/creature = release_creature(FALSE)
+	
+	creature.mind.enslave_mind_to_creator(user)
+	creature.sentience_act()
+	to_chat(creature, "<span class='warning'>What happened? Where is my beautiful body! What is this?!</span>")
+	to_chat(creature, "<span class='userdanger'>You are trapped in the body of [creature] and, while you may or may not be angry at [user.real_name] for enslaving you, you cannot help but follow [user.p_their()] every command. You cannot remember your past, all you know is that [user.real_name] brought you to life to assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
+	creature.copy_languages(user)
+	
+	return creature
+
+/obj/machinery/abomachine/obj_destruction()	
 	release_creature(TRUE)
 	..()
 
@@ -77,10 +97,6 @@
 	
 /obj/machinery/abomachine/update_icon()
 	icon_state = has_creature ? "pod_g" : "pod_0"
-
-/obj/machinery/abomachine/examine(mob/user)
-	. = ..()
-	. += {"A digital display on it reads "[seconds_remaining()]"."}
 
 /obj/machinery/abomachine/proc/feed_part(obj/item/part)
 	if (istype(part, obj/item/bodypart))//can't feed non body parts		
@@ -119,32 +135,20 @@
 		
 		if (istype(thing, obj/item/organ/brain))
 		
-			to_chat(user, "<span class='notice'>You offer [src] to [SM]...</span>")	
+			to_chat(user, "<span class='notice'>You offer [thing] to [src]...</span>")	
 			var/obj/item/organ/brain/brian = thing
 			
 			if(brian.brainmob && brian.brainmob.mind) //enslave the current mind into the creature
 			
-				var/mob/creature = release_creature(FALSE)
+				var/mob/creature = birth_sentience(brian.brainmob.mind.key,user)
 				brainmob.mind.transfer_to(creature)
-				creature.key = brian.brainmob.mind.key
-				creature.mind.enslave_mind_to_creator(user)
-				creature.sentience_act()
-				to_chat(creature, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
-				to_chat(creature, "<span class='userdanger'>You are grateful to be self aware and owe [user.real_name] a great debt. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
-				creature.copy_languages(user)	
 			
 			else //create a ghostpoll
 				var/list/candidates = pollCandidatesForMob("Do you want to play as [SM.name]?", ROLE_SENTIENCE, null, ROLE_SENTIENCE, 50, SM, POLL_IGNORE_SENTIENCE_POTION)
 				if(LAZYLEN(candidates))
 				
-					var/mob/creature = release_creature(FALSE)
 					var/mob/dead/observer/C = pick(candidates)
-					creature.key = C.key
-					creature.mind.enslave_mind_to_creator(user)
-					creature.sentience_act()
-					to_chat(creature, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
-					to_chat(creature, "<span class='userdanger'>You are grateful to be self aware and owe [user.real_name] a great debt. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
-					creature.copy_languages(user)							
+					birth_sentience(C.key,user)
 		else
 			n_organs_eaten = n_organs_eaten + 1
 			qdel(thing)
@@ -177,3 +181,86 @@
 			return
 		creature_name = input
 	..()
+	
+////////////////////////////////////////
+//Custom Monster
+////////////////////////////////////////
+
+/mob/living/simple_animal/hostile/abomination
+	name = "abomination"
+	desc = "a mass of limbs and organs disgustingly welded together"
+	deathmessage = "shrieks, as it melts down into flesh."
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "horror"
+	icon_living = "horror"
+	health = 80
+	maxHealth = 80
+	obj_damage = 15
+	melee_damage = 35
+	attacktext = "claws"
+	attack_sound = 'sound/weapons/bladeslice.ogg'
+	faction = list("creature")
+	speak_emote = list("gurgles")
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	hardattacks = TRUE
+	gold_core_spawnable = NO_SPAWN
+	del_on_death = 1
+	loot = list(/obj/effect/gibspawner/generic)
+	
+/mob/living/simple_animal/hostile/abomination/proc/mutate_random()
+	switch (rand(1,100))
+		if(0 to 20)		//speedy boy
+			speed = speed*2
+			health = health/2
+			maxHealth = maxHealth/2
+			obj_damage = 15
+			desc = desc + " into a slim, agile silhouette."
+		if(20 to 40)	//chunkeh boye
+			speed = speed/2
+			health = health*3
+			maxHealth = maxHealth*3
+			desc = desc + " into huge mass of flesh."
+		if(40 to 60)	//sus boye
+			melee_damage = melee_damage*2/3
+			obj_damage = obj_damage/3
+			health = health*2/3
+			maxHealth = maxHealth*2/3
+			ventcrawler = VENTCRAWLER_ALWAYS
+			desc = desc + " into a little ball of flesh."
+		if(60 to 70)	//spidy boy
+			ranged = 1
+			ranged_cooldown_time = 60
+			projectiletype = /obj/item/projectile/mega_arachnid
+			projectilesound = 'sound/weapons/pierce.ogg'
+			health = health*2/3
+			maxHealth = maxHealth*2/3
+			desc = desc + " into a spider like creature."
+		if(70 to 80)	//toxin boy
+			ranged = 1
+			projectiletype = /obj/item/projectile/bullet/neurotoxin
+			projectilesound = 'sound/weapons/pierce.ogg'
+			health = health*2/3
+			maxHealth = maxHealth*2/3
+			desc = desc + " into a toxin spewing tumor."
+		if(80 to 90)	//bullet boy
+			ranged = 1
+			rapid = 3
+			projectilesound = 'sound/weapons/gunshot.ogg'
+			projectiletype = /obj/item/projectile/hivebotbullet
+			health = health/2
+			maxHealth = maxHealth/2
+			melee_damage = melee_damage/2
+			obj_damage = obj_damage/3
+			desc = desc + " into a bone hurling monster."
+		if(90 to 100)	//brainiac
+			ranged = 1
+			ranged_cooldown_time = 20
+			projectiletype = /obj/item/projectile/beam/mindflayer
+			fire_sound = 'sound/weapons/laser.ogg'
+			health = health*2/3
+			maxHealth = maxHealth*2/3
+			melee_damage = melee_damage*2/3
+			obj_damage = obj_damage/3
+			speak_emote = list("smugly declares")
+			desc = desc + " into what looks like a crawling brain."
