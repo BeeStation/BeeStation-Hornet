@@ -50,6 +50,7 @@
 
 
 			log_combat(user, M, "injected", src, "([contained])")
+
 /obj/item/reagent_containers/hypospray/CMO/verb/empty()
 	set name = "Empty Hypospray"
 	set category = "Object"
@@ -213,7 +214,7 @@
 	item_state = "dexpen"
 	desc = "A autoinjector containing dexalin, used to heal oxygen damage quickly."
 	list_reagents = list(/datum/reagent/medicine/dexalin = 10)
-	
+
 /obj/item/reagent_containers/hypospray/medipen/tuberculosiscure
 	name = "BVAK autoinjector"
 	desc = "Bio Virus Antidote Kit autoinjector. Has a two use system for yourself, and someone else. Inject when infected."
