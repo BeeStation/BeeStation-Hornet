@@ -6453,6 +6453,7 @@
 /area/mine/maintenance)
 "ZH" = (
 /obj/machinery/camera/preset/toxins{
+	c_tag = "Outpost Bomb Testing Site";
 	dir = 8
 	},
 /obj/item/target/alien/anchored,
