@@ -147,12 +147,14 @@
 						return
 				else if(!L.can_inject(user, TRUE))
 					return
-				if(user.a_intent == INTENT_HARM && iscarbon(L) && do_mob(user, L, 5))
-					var/mob/living/carbon/C = L
-					embed(C, 0.5)
-					log_combat(user, C, "injected (embedding)", src, addition="which had [contained]")
-					L.visible_message("<span class='danger'>[user] stabs [L] with the syringe!", \
-						"<span class='userdanger'>[user] shoves the syringe into your flesh, and it sticks!</span>")
+				if(user.a_intent == INTENT_HARM && iscarbon(L) && iscarbon(user))
+					if(do_mob(user, L, 10))
+						var/mob/living/carbon/C = L
+						embed(C, 0.5)
+						log_combat(user, C, "injected (embedding)", src, addition="which had [contained]")
+						L.visible_message("<span class='danger'>[user] stabs [L] with the syringe!", \
+							"<span class='userdanger'>[user] shoves the syringe into your flesh, and it sticks!</span>")
+						return
 					return
 				if(L != user)
 					L.visible_message("<span class='danger'>[user] is trying to inject [L]!</span>", \
