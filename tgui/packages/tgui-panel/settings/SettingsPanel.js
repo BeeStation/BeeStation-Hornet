@@ -42,6 +42,9 @@ export const SettingsPanel = (props, context) => {
         {activeTab === 'chatPage' && (
           <ChatPageSettings />
         )}
+        {activeTab === 'highlightPage' && (
+          <SettingsHighlight />
+        )}
       </Flex.Item>
     </Flex>
   );
@@ -52,12 +55,14 @@ export const SettingsGeneral = (props, context) => {
     theme,
     fontSize,
     lineHeight,
-    highlightText,
-    highlightColor,
   } = useSelector(context, selectSettings);
   const dispatch = useDispatch(context);
   return (
     <Section fill>
+      <Flex bold>
+        General Settings
+      </Flex>
+      <Divider />
       <LabeledList>
         <LabeledList.Item label="Theme">
           <Dropdown
@@ -96,7 +101,28 @@ export const SettingsGeneral = (props, context) => {
         </LabeledList.Item>
       </LabeledList>
       <Divider />
+      <Button
+        icon="save"
+        onClick={() => dispatch(saveChatToDisk())}>
+        Save chat log
+      </Button>
+    </Section>
+  );
+};
+
+export const SettingsHighlight = (props, context) => {
+  const {
+    highlightText,
+    highlightColor,
+  } = useSelector(context, selectSettings);
+  const dispatch = useDispatch(context);
+  return (
+    <Section fill>
       <Box>
+        <Flex bold>
+          Highlight Settings
+        </Flex>
+        <Divider />
         <Flex mb={1} color="label" align="baseline">
           <Flex.Item grow={1}>
             Highlight words (comma separated):
@@ -131,12 +157,7 @@ export const SettingsGeneral = (props, context) => {
           Can freeze the chat for a while.
         </Box>
       </Box>
-      <Divider />
-      <Button
-        icon="save"
-        onClick={() => dispatch(saveChatToDisk())}>
-        Save chat log
-      </Button>
     </Section>
   );
 };
+

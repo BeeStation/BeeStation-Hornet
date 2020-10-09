@@ -15,6 +15,10 @@ export const ChatPageSettings = (props, context) => {
   const dispatch = useDispatch(context);
   return (
     <Section fill>
+      <Flex bold>
+        Chat Tab Settings
+      </Flex>
+      <Divider />
       <Flex mx={-0.5} align="center">
         <Flex.Item mx={0.5} grow={1}>
           <Input

@@ -13,4 +13,8 @@ export const SETTINGS_TABS = [
     id: 'chatPage',
     name: 'Chat Tabs',
   },
+  {
+    id: 'highlightPage',
+    name: 'Highlight',
+  },
 ];

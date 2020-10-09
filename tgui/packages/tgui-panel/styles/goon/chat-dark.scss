@@ -251,7 +251,7 @@ a.popt {text-decoration: none;}
 .bold, .name, .prefix, .ooc, .dooc, .looc, .adminooc, .admin, .medal, .yell {font-weight: bold;}
 
 /* ADD HERE FOR ITALIC */
-.italic, .italics,  .emote {font-style: italic;}
+.italic, .italics {font-style: italic;}
 
 /* OUTPUT COLORS */
 .highlight {background: yellow;}
@@ -298,7 +298,7 @@ em						{font-style: normal;	font-weight: bold;}
 
 .alert					{color: #d82020;}
 
-.emote					{					font-style: italic;}
+.emote					{	color: #8595aa; }
 .selecteddna			{color: #ffffff; 	background-color: #001B1B}
 
 .examine				{font-size: 8pt;}

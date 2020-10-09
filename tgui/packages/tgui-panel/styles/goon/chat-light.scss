@@ -248,7 +248,7 @@ a.popt {text-decoration: none;}
 .bold, .name, .prefix, .ooc, .dooc, .looc, .adminooc, .admin, .medal, .yell {font-weight: bold;}
 
 /* ADD HERE FOR ITALIC */
-.italic, .italics,  .emote {font-style: italic;}
+.italic, .italics {font-style: italic;}
 
 /* OUTPUT COLORS */
 .highlight {background: yellow;}
@@ -291,12 +291,12 @@ em						{font-style: normal;	font-weight: bold;}
 .redteamradio           {color: #ff0000;}
 .blueteamradio          {color: #0000ff;}
 
-.yell					{					font-weight: bold;}
+.yell					{	font-weight: bold;}
 
 .alert					{color: #ff0000;}
 h1.alert, h2.alert		{color: #000000;}
 
-.emote					{					font-style: italic;}
+.emote					{	color: #474c52; }
 .selecteddna			{color: #ffffff; 	background-color: #001B1B}
 
 .examine				{font-size: 8pt;}
