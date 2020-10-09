@@ -57,7 +57,7 @@
 
 /datum/reagent/consumable/salty_water/on_mob_add(mob/living/L)
 	metabolization_rate = 5
-		L.emote("scream")
+	L.emote("scream")
 	..()
 
 /datum/reagent/consumable/ethanol/fringe_weaver/on_mob_life(mob/living/carbon/M)

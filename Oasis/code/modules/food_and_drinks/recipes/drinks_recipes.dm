@@ -17,16 +17,14 @@
 	name = "Vodka Cola"
 	id = /datum/reagent/consumable/ethanol/vodka_cola
 	results = list(/datum/reagent/consumable/ethanol/vodka_cola = 5)
-	required_reagents = list(/datum/reagent/consumable/ethanol/vodka = 5, /datum/reagent/consumable/space_cola = 1)
-	required_reagents = list(/datum/reagent/consumable/ethanol/vodka = 5, /datum/reagent/consumable/soda_water = 1)
+	required_reagents = list(/datum/reagent/consumable/ethanol/vodka = 5, /datum/reagent/consumable/space_cola = 1) || list(/datum/reagent/consumable/ethanol/vodka = 5, /datum/reagent/consumable/sodawater = 1)
 	mix_message = "Nothing special."
 
 /datum/chemical_reaction/salty_water
 	name = "Salty water"
 	id = /datum/reagent/consumable/salty_water
 	results = list(/datum/reagent/consumable/salty_water = 5)
-	required_reagents = list(/datum/reagent/consumable/water = 5, /datum/reagent/consumable/sodiumchloride = 1)
-	required_reagents = list(/datum/reagent/consumable/water = 5, /datum/reagent/medicine/salglu_solution = 1)
+	required_reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/sodiumchloride = 1) || list(/datum/reagent/water = 5, /datum/reagent/medicine/salglu_solution = 1)
 	mix_message = "Nothing special."   
 
 /datum/chemical_reaction/death_afternoon
