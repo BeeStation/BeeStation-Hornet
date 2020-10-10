@@ -59,6 +59,8 @@
 	var/list/ambient_music = null // OOC, doesn't require the user to actually be able to hear it
 	var/list/ambient_effects = GENERIC // IC, requires the user to actually be able to hear it, will play spontaneously
 	var/ambient_buzz = 'sound/ambience/shipambience.ogg' // Ambient buzz of the station, plays repeatedly, also IC
+	var/ambient_buzz_out = 'sound/ambience/shipambience_out.ogg'	//Sound file played when ambient loop needs to stop playing
+	var/ambient_buzz_in = 'sound/ambience/shipambience_in.ogg'	//Found file played when ambient loop initially starts
 
 	flags_1 = CAN_BE_DIRTY_1
 

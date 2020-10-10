@@ -46,7 +46,9 @@
 		//SOUND STUFF//
 		///////////////
 	var/ambient_buzz_playing = null // What buzz ambience is currently playing
+	var/ambient_fade_end_tick = 0	// What tick will fading end?
 	var/ambient_effect_last_played = 0 // What was the last time we played an ambient effect noise?
+	var/previous_area_fade_out = null	//The sound file of our previous area
 		////////////
 		//SECURITY//
 		////////////

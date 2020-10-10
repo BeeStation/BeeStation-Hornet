@@ -12,8 +12,8 @@ SUBSYSTEM_DEF(ambience)
 	flags = SS_NO_INIT
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 
+	var/ambience_killed = FALSE
 	var/list/currentrun = list()
-
 
 /datum/controller/subsystem/ambience/fire(resumed = 0)
 	if (!resumed)
@@ -46,21 +46,46 @@ SUBSYSTEM_DEF(ambience)
 /datum/controller/subsystem/ambience/proc/update_buzz(mob/M) // Buzz, the growling buzz of the station, etc, IC (requires the user to be able to hear)
 	var/area/A = get_area(M)
 
+	//No more buzz
+	if(ambience_killed)
+		return
+
 	if (A.ambient_buzz && (M.client.prefs.toggles & SOUND_SHIP_AMBIENCE) && M.can_hear_ambience())
-		if (!M.client.ambient_buzz_playing || (A.ambient_buzz != M.client.ambient_buzz_playing))
-			SEND_SOUND(M, sound(A.ambient_buzz, repeat = 1, wait = 0, volume = AMBIENT_BUZZ_VOLUME, channel = CHANNEL_AMBIENT_BUZZ))
+		if ((!M.client.ambient_buzz_playing || (A.ambient_buzz != M.client.ambient_buzz_playing)) && world.time > M.client.ambient_fade_end_tick)
+			var/sound/fadein = sound(A.ambient_buzz_in, repeat = 0, wait = 0, volume = AMBIENT_BUZZ_VOLUME, channel = CHANNEL_AMBIENT_BUZZ)
+			M.client.ambient_fade_end_tick = world.time + (fadein.len * 10)
+			SEND_SOUND(M, sound(fadein, repeat = FALSE, wait = FALSE, volume = AMBIENT_BUZZ_VOLUME, channel = CHANNEL_AMBIENT_BUZZ))
+			SEND_SOUND(M, sound(A.ambient_buzz, repeat = TRUE, wait = TRUE, volume = AMBIENT_BUZZ_VOLUME, channel = CHANNEL_AMBIENT_BUZZ))
 			M.client.ambient_buzz_playing = A.ambient_buzz // It's done this way so I can tell when the user switches to an area that has a different buzz effect, so we can seamlessly swap over to that one
 
 	else if (M.client.ambient_buzz_playing) // If it's playing, and it shouldn't be, stop it
-		M.stop_sound_channel(CHANNEL_AMBIENT_BUZZ)
+		// If the user uses ambience, the area has a fade out sound and there isn't a fade currently playing, then fade out the thing we are listening to.
+		if(world.time > M.client.ambient_fade_end_tick)
+			// Don't stop the fading out sound
+			M.stop_sound_channel(CHANNEL_AMBIENT_BUZZ)
+			var/last_sound_file = M.client.previous_area_fade_out
+			if (M.client.prefs.toggles & SOUND_SHIP_AMBIENCE && last_sound_file)
+				var/sound/S = sound(last_sound_file, repeat = FALSE, wait = FALSE, volume = AMBIENT_BUZZ_VOLUME, channel = CHANNEL_AMBIENT_BUZZ)
+				M.client.ambient_fade_end_tick = world.time + (S.len * 10)
+				SEND_SOUND(M, S)
 		M.client.ambient_buzz_playing = null
 
+	M.client.previous_area_fade_out = A.ambient_buzz_out
+
+/datum/controller/subsystem/ambience/proc/kill_ambience(final_sound)
+	for(var/mob/M in GLOB.player_list)
+		if(isnewplayer(M))
+			return
+		SEND_SOUND(M, sound(null, repeat = FALSE, wait = FALSE, channel = CHANNEL_AMBIENT_BUZZ))
+		if(M.client.prefs.toggles & SOUND_SHIP_AMBIENCE && final_sound)
+			SEND_SOUND(M, sound(final_sound, repeat = FALSE, wait = FALSE, volume = AMBIENT_BUZZ_VOLUME, channel = CHANNEL_AMBIENT_BUZZ))
+	ambience_killed = TRUE
 
 /datum/controller/subsystem/ambience/proc/update_music(mob/M) // Background music, the more OOC ambience, like eerie space music
 	var/area/A = get_area(M)
 
 	if (A.ambient_music && (M.client.prefs.toggles & SOUND_AMBIENCE) && prob(1.25) && !M.client.channel_in_use(CHANNEL_AMBIENT_MUSIC)) // 1/80 chance to play every second, only play while another one is not playing
-		SEND_SOUND(M, sound(pick(A.ambient_music), repeat = 0, wait = 0, volume = AMBIENT_MUSIC_VOLUME, channel = CHANNEL_AMBIENT_MUSIC))
+		SEND_SOUND(M, sound(pick(A.ambient_music), repeat = FALSE, wait = FALSE, volume = AMBIENT_MUSIC_VOLUME, channel = CHANNEL_AMBIENT_MUSIC))
 
 
 /datum/controller/subsystem/ambience/proc/update_effects(mob/M) // Effect, random sounds that will play at random times, IC (requires the user to be able to hear)
