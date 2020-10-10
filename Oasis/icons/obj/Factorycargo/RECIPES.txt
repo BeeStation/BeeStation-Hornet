@@ -1,0 +1,10 @@
+Sub-parts are made of basics ressources (iron, wood, uranium, water, sodium, ect..)
+There are differents ways to modify ressources:
+By CUTTING, BENDING, HEATING, COOLING, ASSEMBLING
+
+
+Recipe of the said sprites and sub-parts/parts:
+
+Guns recipes:
+##Example: Shotgun --> stock + magazine + barrel:
+##1) Stock: CUT wood.	Barrel: Basics barrel, CUT iron bar	magazine: ASSEMBLE CUT wood + CUT iron
