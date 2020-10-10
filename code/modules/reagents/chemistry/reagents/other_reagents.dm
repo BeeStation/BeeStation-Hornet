@@ -2065,7 +2065,7 @@
 			if(istype(HM, /datum/mutation/human))
 				mutation = HM.type
 				if (M.dna.activate_mutation(HM))
-					if (log_msg!="")
+					if (!log_msg)
 						log_msg+=", "
 					log_msg += "[mutation]"
 		if (log_msg!="")
