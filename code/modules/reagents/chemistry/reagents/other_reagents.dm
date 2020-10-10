@@ -2047,7 +2047,7 @@
 
 	..()
 
-datum/reagent/elementx
+/datum/reagent/elementx
 	name = "Element X"	//Sorry for the PPG refference
 	description = "Gets quickly absorbed into the bloodstream, and activates one's positive mutations."
 	color = "#000000"
