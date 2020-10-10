@@ -1,9 +1,9 @@
 /obj/structure/closet/secure_closet/freezer
 	icon_state = "freezer"
 	var/jones = FALSE
-	door_anim_squish = 0.20 // default 0.22
+	door_anim_squish = 0.22
 	door_anim_angle = 123
-	door_anim_time = 3.50 //default 4
+	door_anim_time = 3.50
 
 /obj/structure/closet/secure_closet/freezer/Destroy()
 	recursive_organ_check(src)
