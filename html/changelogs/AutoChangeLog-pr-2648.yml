@@ -1,0 +1,8 @@
+author: TheChaser212
+delete-after: true
+changes:
+  - bugfix: advanced injectors no longer get an extra 'expended' added for each mutation
+  - bugfix: only filled activators will give chromosomes
+  - tweak: chromosomes will always go into the dna console if possible
+  - tweak: telekinesis works on dna consoles
+  - spellcheck: fixed some genetics typos
