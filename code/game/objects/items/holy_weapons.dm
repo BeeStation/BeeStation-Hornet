@@ -4,7 +4,7 @@
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE)
 
-/obj/item/clothing/suit/hooded/chaplain_hoodie/Initialize()
+/obj/item/clothing/suit/hooded/chaplain_hoodie/leader/Initialize()
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE)
 
