@@ -1362,7 +1362,6 @@
 #include "code\modules\antagonists\changeling\powers\regenerate.dm"
 #include "code\modules\antagonists\changeling\powers\shriek.dm"
 #include "code\modules\antagonists\changeling\powers\strained_muscles.dm"
-#include "code\modules\antagonists\changeling\powers\teratoma.dm"
 #include "code\modules\antagonists\changeling\powers\tiny_prick.dm"
 #include "code\modules\antagonists\changeling\powers\transform.dm"
 #include "code\modules\antagonists\clock_cult\clockcult_objectives.dm"
