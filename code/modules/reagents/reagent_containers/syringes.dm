@@ -148,6 +148,8 @@
 				else if(!L.can_inject(user, TRUE))
 					return
 				if(user.a_intent == INTENT_HARM && iscarbon(L) && iscarbon(user))
+					L.visible_message("<span class='danger'>[user] lines a syringe up to [L]!", \
+							"<span class='userdanger'>[user] rears their arm back, ready to stab you with [src]</span>")
 					if(do_mob(user, L, 10))
 						var/mob/living/carbon/C = L
 						embed(C, 0.5)
