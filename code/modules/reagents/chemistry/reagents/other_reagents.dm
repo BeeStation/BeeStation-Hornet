@@ -2067,7 +2067,7 @@
 					if (!log_msg)
 						log_msg+=", "
 					log_msg += "[mutation]"
-		if (log_msg!="")
+		if (!log_msg)
 			to_chat(M, "<span class='notice'>As your DNA changes, you gain new powers: [log_msg].</span>")
 		else //A little hack, would be unfair to not gain a mutation because herpaderp RNG fucked me up on a TC item
 			var/datum/mutation/human/power = pick(add_mutations)
