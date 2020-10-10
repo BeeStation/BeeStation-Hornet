@@ -2046,3 +2046,31 @@
 	L.set_light(-1)
 
 	..()
+
+datum/reagent/elementx
+	name = "Element X"	//Sorry for the PPG refference
+	description = "Gets quickly absorbed into the bloodstream, and activates one's positive mutations."
+	color = "#000000"
+	metabolization_rate = 5 * REAGENTS_METABOLISM
+	taste_description = "empowered"
+
+/datum/reagent/elementx/on_mob_end_metabolize(mob/living/target)
+	if(target.has_dna())
+		var/add_mutations = list(XRAY,TK,CHAMELEON,LASEREYES,ANTENNA,MINDREAD,OLFACTION,INSULATED,SHOCKTOUCH,GIGANTISM,GELADIKINESIS,CRYOKINESIS,THERMAL,GLOWY,ANTIGLOWY,SPACEMUT,TELEPATHY,FIREBREATH,STRONG)
+		var/mob/living/carbon/M = target
+
+		var/log_msg = ""
+		for(var/mutation in add_mutations)
+			var/datum/mutation/human/HM = mutation
+			if(istype(HM, /datum/mutation/human))
+				mutation = HM.type
+				if (M.dna.activate_mutation(HM))
+					if (log_msg!="")
+						log_msg+=", "
+					log_msg += "[mutation]"
+		if (log_msg!="")
+			to_chat(M, "<span class='notice'>As your DNA changes, you gain new powers: [log_msg].</span>")
+		else //A little hack, would be unfair to not gain a mutation because herpaderp RNG fucked me up on a TC item
+			var/datum/mutation/human/power = pick(add_mutations)
+			M.dna.add_mutation(power, MUT_OTHER)
+			to_chat(M, "<span class='notice'>As your DNA changes, you gain a new power: [power].</span>")

@@ -1850,6 +1850,14 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	cost = 14							//High cost because of the potential for extreme damage in the hands of a skilled scientist.
 	restricted_roles = list("Research Director", "Scientist")
 
+/datum/uplink_item/role_restricted/superhero
+	name = "Element X"
+	desc = "While reading those comic books, I'm sure you wondered what it's like to have super powers like your favorite comic hero or villain. \ Well, dream no longer! Unlock your true potential with Element X, and become the supervillain of your story! \ Contains an Element X Medipen; a single use injector that activates all your positive mutations."
+	item = /obj/item/reagent_containers/hypospray/medipen/stimpack/elemetx
+	cost = 3
+	surplus = 3
+	restricted_roles = list("Curator")
+
 /datum/uplink_item/role_restricted/crushmagboots
 	name = "Crushing Magboots"
 	desc = "A pair of extra-strength magboots that crush anyone you walk over."

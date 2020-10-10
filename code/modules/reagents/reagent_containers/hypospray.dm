@@ -175,6 +175,11 @@
 	desc = "A modified stimulants autoinjector for use in combat situations. Has a mild healing effect."
 	list_reagents = list(/datum/reagent/medicine/stimulants = 10, /datum/reagent/medicine/omnizine = 10)
 
+/obj/item/reagent_containers/hypospray/medipen/stimpack/elemetx
+	name = "element x medipen"
+	desc = "Contains a rare sample of Element X, a mysterious substance that, when injected into the bloodstream, alters one's DNA and activates all positive mutations."
+	list_reagents = list(/datum/reagent/elementx = 10)
+
 /obj/item/reagent_containers/hypospray/medipen/pumpup
 	name = "pumpup medipen"
 	desc = "Contains a very large amount of an incredibly powerful stimulant, vastly increasing your immunity and recovery from slowdowns for around five minutes. Do not take if pregnant."
@@ -197,7 +202,7 @@
 	item_state = "dexpen"
 	desc = "A autoinjector containing dexalin, used to heal oxygen damage quickly."
 	list_reagents = list(/datum/reagent/medicine/dexalin = 10)
-	
+
 /obj/item/reagent_containers/hypospray/medipen/tuberculosiscure
 	name = "BVAK autoinjector"
 	desc = "Bio Virus Antidote Kit autoinjector. Has a two use system for yourself, and someone else. Inject when infected."
