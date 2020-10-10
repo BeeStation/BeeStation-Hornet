@@ -39,7 +39,8 @@
 	var/icon_welded = "welded"
 	var/obj/effect/overlay/closet_door/door_obj
 	var/is_animating_door = FALSE
-	var/door_anim_squish = 0.32 //default 0.12
+	var/door_anim_squish_1 = 0.965 //default 0.12
+	var/door_anim_squish_2 = 0.30 //default 0.12
 	var/door_anim_angle = 149 //defaul 136
 	var/door_hinge_x = -6.5 //default -6.5
 	var/door_anim_time = 6.00 // set to 0 to make the door not animate at all default 2.5
@@ -118,7 +119,7 @@
 /obj/structure/closet/proc/get_door_transform(angle)
 	var/matrix/M = matrix()
 	M.Translate(-door_hinge_x, 0)
-	M.Multiply(matrix(cos(angle), 0, 0, -sin(angle) * door_anim_squish, 1, 0))
+	M.Multiply(matrix(cos(angle) * door_anim_squish_1, 0, 0, -sin(angle) * door_anim_squish_2, 1, 0))
 	M.Translate(door_hinge_x, 0)
 	return M
 
