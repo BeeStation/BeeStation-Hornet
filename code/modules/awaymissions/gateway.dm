@@ -1,4 +1,5 @@
 GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
+GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 
 /obj/machinery/gateway
 	name = "gateway"
@@ -81,7 +82,6 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	if(!GLOB.the_gateway)
 		GLOB.the_gateway = src
 	update_icon()
-	wait = world.time + CONFIG_GET(number/gateway_delay)	//+ thirty minutes default
 	awaygate = locate(/obj/machinery/gateway/centeraway)
 
 /obj/machinery/gateway/centerstation/Destroy()
@@ -96,7 +96,6 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	use_power = IDLE_POWER_USE
 
 	//warping vars
-	var/wait = 0				//this just grabs world.time at world start
 	var/obj/machinery/gateway/centeraway/awaygate = null
 	can_link = TRUE
 
@@ -120,11 +119,14 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 		return
 	if(!powered())
 		return
+	var/targetdestination = stripped_input(user, "Enter the target destination ID", "Destination selection:", "MAIN_MISSION")
+	for(var/obj/machinery/gateway/centeraway/G in world)
+		if(G.targetid == targetdestination)
+			awaygate = G
+			if(!G.calibrated)
+				say("Target is not calibrated. Travel will not be possible.")
 	if(!awaygate)
-		to_chat(user, "<span class='notice'>Error: No destination found.</span>")
-		return
-	if(world.time < wait)
-		to_chat(user, "<span class='notice'>Error: Warpspace triangulation in progress. Estimated time to completion: [DisplayTimeText(wait - world.time)].</span>")
+		say("Error: No destination found.")
 		return
 
 	for(var/obj/machinery/gateway/G in linked)
@@ -151,18 +153,14 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 				M.client.move_delay = max(world.time + 5, M.client.move_delay)
 		return
 	else
-		var/obj/effect/landmark/dest = pick(randomspawns)
-		if(dest)
-			AM.forceMove(get_turf(dest))
-			AM.setDir(SOUTH)
-			use_power(5000)
+		say("Error: Target destination is not calibrated. Entry is impossible.")
 		return
 
 /obj/machinery/gateway/centeraway/multitool_act(mob/living/user, obj/item/I)
 	if(calibrated)
 		to_chat(user, "\black The gate is already calibrated, there is no work for you to do here.")
 	else
-		to_chat(user, "<span class='boldnotice'>Recalibration successful!</span>: \black This gate's systems have been fine tuned.  Travel to this gate will now be on target.")
+		to_chat(user, "<span class='boldnotice'>Recalibration successful!</span>: \black This gate's systems have been fine tuned.  Travel to this gate will now be possible.")
 		calibrated = TRUE
 	return TRUE
 
@@ -175,12 +173,15 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	use_power = NO_POWER_USE
 	var/obj/machinery/gateway/centerstation/stationgate = null
 	can_link = TRUE
+	var/targetid = "MAIN_MISSION"
 
 
 /obj/machinery/gateway/centeraway/Initialize()
 	. = ..()
 	update_icon()
 	stationgate = locate(/obj/machinery/gateway/centerstation)
+	if(!GLOB.awaygatelist)
+		GLOB.awaygatelist += src
 
 
 /obj/machinery/gateway/centeraway/update_icon()
@@ -193,7 +194,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	if(!detect())
 		return
 	if(!stationgate)
-		to_chat(user, "<span class='notice'>Error: No destination found.</span>")
+		say("Error: No destination found.")
 		return
 
 	for(var/obj/machinery/gateway/G in linked)
@@ -239,10 +240,34 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 /obj/machinery/gateway/centeraway/admin
 	desc = "A mysterious gateway built by unknown hands, this one seems more compact."
 
-/obj/machinery/gateway/centeraway/admin/Initialize()
+/obj/machinery/gateway/centeraway/unstable
+	targetid = "TIMED_MISSION"
+	var/timeinmission = 600
+	var/timeremaining = null
+	desc = "An unstable temporal gateway, linking our world to this strange anomaly in time. Anyone still trapped here when it collapses will die to the sands of time."
+
+/obj/machinery/gateway/centeraway/unstable/Initialize()
+	timeremaining = world.time + timeinmission
+
+/obj/machinery/gateway/centeraway/unstable/proc/get_time()
+	var/showtime = timeremaining - world.time
+	return showtime / 10
+
+/obj/machinery/gateway/centeraway/unstable/examine(mob/user)
 	. = ..()
-	if(stationgate && !stationgate.awaygate)
-		stationgate.awaygate = src
+	to_chat(user, "It will collapse in [get_time()] seconds")
+
+/obj/machinery/gateway/centeraway/unstable/process()
+	if(timeremaining < world.time)
+		collapse()
+
+/obj/machinery/gateway/centeraway/unstable/proc/collapse()
+	for(var/mob/living/M in GLOB.mob_list)
+		if(M.z == z)
+			M.dust()
+	for(var/obj/machinery/gateway/G in linked)
+		qdel(G)
+	qdel(src)
 
 /obj/machinery/gateway/centeraway/admin/detect()
 	return TRUE
