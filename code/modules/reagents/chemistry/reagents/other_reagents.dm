@@ -2060,8 +2060,7 @@
 		var/mob/living/carbon/M = target
 
 		var/log_msg = ""
-		for(var/mutation in add_mutations)
-			var/datum/mutation/human/HM = mutation
+		for(var/datum/mutation/human/HM as anything in add_mutations)
 			if(istype(HM, /datum/mutation/human))
 				mutation = HM.type
 				if (M.dna.activate_mutation(HM))
