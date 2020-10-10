@@ -1,8 +1,7 @@
 /obj/structure/closet/secure_closet/freezer
 	icon_state = "freezer"
 	var/jones = FALSE
-	door_anim_squish_1 = 1
-	door_anim_squish_2 = 0.22
+	door_anim_squish = 0.30 // default 0.22
 	door_anim_angle = 123
 	door_anim_time = 3.00 //default 4
 

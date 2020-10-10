@@ -8,7 +8,6 @@
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 60)
-
 	var/icon_door = null
 	var/icon_door_override = FALSE //override to have open overlay use icon different to its base's
 	var/secure = FALSE //secure locker or not, also used if overriding a non-secure locker with a secure door overlay to add fancy lights
@@ -39,12 +38,10 @@
 	var/icon_welded = "welded"
 	var/obj/effect/overlay/closet_door/door_obj
 	var/is_animating_door = FALSE
-	var/door_anim_squish_1 = 0.965 //default 0.12
-	var/door_anim_squish_2 = 0.30 //default 0.12
-	var/door_anim_angle = 149 //defaul 136
+	var/door_anim_squish = 0.26 //default 0.12
+	var/door_anim_angle = 136 //defaul 136
 	var/door_hinge_x = -6.5 //default -6.5
-	var/door_anim_time = 6.00 // set to 0 to make the door not animate at all default 2.5
-
+	var/door_anim_time = 2.00 // set to 0 to make the door not animate at all default 2.5
 /obj/structure/closet/Initialize(mapload)
 	if(mapload && !opened)		// if closed, any item at the crate's loc is put in the contents
 		addtimer(CALLBACK(src, .proc/take_contents), 0)
@@ -119,7 +116,7 @@
 /obj/structure/closet/proc/get_door_transform(angle)
 	var/matrix/M = matrix()
 	M.Translate(-door_hinge_x, 0)
-	M.Multiply(matrix(cos(angle) * door_anim_squish_1, 0, 0, -sin(angle) * door_anim_squish_2, 1, 0))
+	M.Multiply(matrix(cos(angle), 0, 0, -sin(angle) * door_anim_squish, 1, 0))
 	M.Translate(door_hinge_x, 0)
 	return M
 
