@@ -1,5 +1,5 @@
 #define MAX_CIRCUIT_CLONE_TIME 3 MINUTES //circuit slow-clones can only take up this amount of time to complete
-/proc MAX_SIZE_CIRCUIT //used to get Max_SIZE_CIRCUIT into this file
+
 /obj/item/integrated_circuit_printer
 	name = "integrated circuit printer"
 	desc = "A portable(ish) machine made to print tiny modular circuitry out of iron."
