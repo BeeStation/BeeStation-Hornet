@@ -456,7 +456,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		if (menuitem)
 			menuitem.Load_checked(src)
 
-	view_size = new(src, getScreenSize(FALSE, mob))
+	view_size = new(src, getScreenSize(mob))
 	view_size.resetFormat()
 	view_size.setZoomMode()
 	fit_viewport()
