@@ -52,37 +52,10 @@
 	glass_desc = "Is there cocaine in the drink ? I'm suspicious now.."
 
 /datum/reagent/consumable/ethanol/triple_coke/on_mob_life(mob/living/carbon/M)
+	metabolization_rate = 1
 	M.emote("flip")
 	if(prob(25))
 		M.emote("collapse")
-	..()
-
-/datum/reagent/consumable/salty_water
-	name = "Salty Water"
-	description = "Water and, hmm, salt?"
-	color = "#ffe65b"
-	taste_description = "salty water"
-	glass_icon_state = "glass_clear"
-	glass_name = "Water?"
-	glass_desc = "Who would ask that, seriously"
-
-/datum/reagent/consumable/salty_water/on_mob_add(mob/living/L)
-	metabolization_rate = 5
-	L.emote("scream")
-	..()
-
-/datum/reagent/consumable/salt_n_water
-	name = "Salty Water"
-	description = "Water and, salt, right ?"
-	color = "#ffe65b"
-	taste_description = "salt"
-	glass_icon_state = "glass_clear"
-	glass_name = "Water?"
-	glass_desc = "Who would ask that, seriously"
-
-/datum/reagent/consumable/salt_n_water/on_mob_add(mob/living/L)
-	metabolization_rate = 5
-	L.emote("scream")
 	..()
 
 /datum/reagent/consumable/ethanol/fringe_weaver/on_mob_life(mob/living/carbon/M)
@@ -104,6 +77,13 @@
 	glass_icon_state = "pina_colada"
 	glass_name = "Piña Colada"
 	glass_desc = "Smells like pineapple, oh there is rum too, seems good."
+
+/datum/reagent/consumable/ethanol/pina_colada/on_mob_life(mob/living/carbon/C)
+	if(prob(50))
+		C.adjustBruteLoss(-0.25)
+		C.adjustFireLoss(-0.25)
+		. = TRUE
+	..()
 
 /datum/reagent/consumable/ethanol/death_afternoon
 	name = "Death in the afternoon"
