@@ -1,6 +1,5 @@
 #define MAX_CIRCUIT_CLONE_TIME 3 MINUTES //circuit slow-clones can only take up this amount of time to complete
-#define MAX_SIZE_CIRCUIT 10000 //max string size of circuit
-
+/proc MAX_SIZE_CIRCUIT //used to get Max_SIZE_CIRCUIT into this file
 /obj/item/integrated_circuit_printer
 	name = "integrated circuit printer"
 	desc = "A portable(ish) machine made to print tiny modular circuitry out of iron."
@@ -263,7 +262,7 @@
 			if("load")
 				if(cloning)
 					return
-				var/input = capped_multiline_input(usr, "Put your code there:", "loading", max_length=MAX_SIZE_CIRCUIT)
+				var/input = capped_multiline_input(usr, "Put your code there:", "loading", max_length = MAX_SIZE_CIRCUIT)
 				if(!check_interactivity(usr) || cloning)
 					return
 				if(!input)
