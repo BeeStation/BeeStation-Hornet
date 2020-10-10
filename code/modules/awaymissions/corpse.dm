@@ -337,8 +337,7 @@
 	icon_state = "sleeper"
 	short_desc = "You are a space doctor!"
 	assignedrole = "Space Doctor"
-	use_cooldown = TRUE
-	use_cooldown = TRUE
+	use_cooldown = TRUE // Use cooldown
 
 /obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H)
 	..()
