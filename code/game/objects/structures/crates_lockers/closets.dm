@@ -41,7 +41,7 @@
 	var/door_anim_squish = 0.30 //default 0.12
 	var/door_anim_angle = 136 //defaul 136
 	var/door_hinge_x = -6.5 //default -6.5
-	var/door_anim_time = 2.25 // set to 0 to make the door not animate at all default 2.5
+	var/door_anim_time = 2.5 // set to 0 to make the door not animate at all default 2.5
 /obj/structure/closet/Initialize(mapload)
 	if(mapload && !opened)		// if closed, any item at the crate's loc is put in the contents
 		addtimer(CALLBACK(src, .proc/take_contents), 0)
