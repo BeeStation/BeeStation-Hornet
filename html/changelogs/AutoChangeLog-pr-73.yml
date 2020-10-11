@@ -1,4 +1,0 @@
-author: Poly-The-Parrot
-delete-after: true
-changes:
-  - bugfix: fixes circuit input size so you can put longer circuits again
