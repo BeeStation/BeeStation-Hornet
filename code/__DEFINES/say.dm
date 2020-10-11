@@ -87,7 +87,7 @@
 #define MAX_CHARTER_LEN			80
 
 //Sets the max string size that can be put in for circuit cloning
-#define MAX_SIZE_CIRCUIT		10000
+#define MAX_SIZE_CIRCUIT		15000
 
 // Is something in the IC chat filter? This is config dependent.
 #define CHAT_FILTER_CHECK(T) (CONFIG_GET(flag/ic_filter_enabled) && config.ic_filter_regex && findtext(T, config.ic_filter_regex))
