@@ -1,0 +1,4 @@
+author: Dennok
+delete-after: true
+changes:
+  - tweak: Custom shuttle get name that you give it on construction.
