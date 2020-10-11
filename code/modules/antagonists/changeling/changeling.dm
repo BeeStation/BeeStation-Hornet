@@ -2,11 +2,11 @@
 #define LING_DEAD_GENETICDAMAGE_HEAL_CAP	50	//The lowest value of geneticdamage handle_changeling() can take it to while dead.
 #define LING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
 
-#define LING_CHEM_STORAGE_BASE				50
+#define LING_CHEM_STORAGE_BASE				60
 #define LING_CHEM_STORAGE_ADD				10
 
-#define LING_GENE_STORAGE_BASE				6
-#define LING_GENE_STORAGE_ADD				0.5
+#define LING_GENE_STORAGE_BASE				8
+#define LING_GENE_STORAGE_ADD				4
 
 /datum/antagonist/changeling
 	name = "Changeling"
@@ -25,9 +25,10 @@
 	var/datum/changelingprofile/first_prof = null
 	var/absorbedcount = 0
 	var/trueabsorbs = 0//dna gained using absorb, not dna sting
+	var/absorbedothers = 0
 	var/chem_charges = 20
 	var/chem_storage = LING_CHEM_STORAGE_BASE
-	var/chem_recharge_rate = 1.5
+	var/chem_recharge_rate = 1
 	var/chem_recharge_slowdown = 0
 	var/sting_range = 2
 	var/changelingID = "Changeling"

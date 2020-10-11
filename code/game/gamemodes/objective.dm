@@ -829,13 +829,8 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 			continue
 		var/datum/antagonist/changeling/changeling = M.has_antag_datum(/datum/antagonist/changeling)
 		if(!changeling)
-			continue
-		var/total_genetic_points = changeling.geneticpoints
-
-		for(var/datum/action/changeling/p in changeling.purchasedpowers)
-			total_genetic_points += p.dna_cost
-
-		if(total_genetic_points > initial(changeling.geneticpoints))
+			continue		
+		if(changeling.absorbedothers > 0)
 			return TRUE
 	return FALSE
 
