@@ -1,0 +1,4 @@
+author: qwertyquerty
+delete-after: true
+changes:
+  - bugfix: 4 random runtimes, including gibs not always spawning on human death
