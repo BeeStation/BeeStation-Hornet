@@ -199,6 +199,8 @@ GLOBAL_DATUM_INIT(iconCache, /savefile, new("tmp/iconCache.sav")) //Cache of ico
 
 	if(!cookie)
 		return
+	else
+		return
 
 	if(cookie != "none")
 
