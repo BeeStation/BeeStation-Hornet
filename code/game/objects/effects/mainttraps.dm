@@ -356,7 +356,7 @@
 	rune_in_use = TRUE
 	for(var/mob/living/simple_animal/hostile/floor_cluwne/FC in range(5, src)) //we unleash the floor cluwne 
 		FC.dontkill = FALSE
-		cluwne.delete_after_target_killed = FALSE
+		FC.delete_after_target_killed = FALSE
 		FC.interest = 300
 	color = RUNE_COLOR_SUMMON
 	for(var/mob/living/carbon/C in view(10, src))
