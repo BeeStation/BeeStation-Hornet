@@ -18350,6 +18350,10 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"Xc" = (
+/obj/effect/landmark/mafia_game_area,
+/turf/open/space/basic,
+/area/space)
 "Xd" = (
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/flora/ausbushes/fullgrass,
@@ -58258,7 +58262,7 @@ aa
 aa
 aa
 aa
-aa
+Xc
 aa
 aa
 aa
