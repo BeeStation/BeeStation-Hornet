@@ -219,7 +219,7 @@
 	desc = "We induce our victim with a mixture of synthesized BZ gas. Costs 10 chemicals. Our body will absorb a part of the chemicals."
 	helptext = "We evolve the ability to sting a target with a BZ based hallucinogenic chemical. The compound will cause hallucination in regular humans, and disable other changelings' ability to generate chemicals for a short while. However, the process will inject some BZ into our body as well."
 	button_icon_state = "sting_lsd"
-	chemical_cost = 10
+	chemical_cost = 30
 	dna_cost = 2
 	req_absorbs = 3
 
@@ -227,10 +227,7 @@
 	log_combat(user, target, "stung", "LSD sting")
 	addtimer(CALLBACK(src, .proc/hallucination_time, target), rand(300,600))
 	if(target.reagents)
-		target.reagents.add_reagent(/datum/reagent/bz_metabolites, 6)
-		target.reagents.add_reagent(/datum/reagent/concentrated_bz, 3)	
-	if(user.reagents)	//risky
-		user.reagents.add_reagent(/datum/reagent/bz_metabolites, 8)
+		target.reagents.add_reagent(/datum/reagent/bz_metabolites, 9)
 	return TRUE
 
 /datum/action/changeling/sting/CBZ/proc/hallucination_time(mob/living/carbon/target)
