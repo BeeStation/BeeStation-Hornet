@@ -276,6 +276,7 @@
 #include "code\controllers\subsystem\research.dm"
 #include "code\controllers\subsystem\server_maint.dm"
 #include "code\controllers\subsystem\shuttle.dm"
+#include "code\controllers\subsystem\sound.dm"
 #include "code\controllers\subsystem\spacedrift.dm"
 #include "code\controllers\subsystem\stickyban.dm"
 #include "code\controllers\subsystem\sun.dm"

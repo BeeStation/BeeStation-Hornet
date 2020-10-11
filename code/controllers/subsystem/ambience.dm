@@ -48,13 +48,17 @@ SUBSYSTEM_DEF(ambience)
 
 	if (A.ambient_buzz && (M.client.prefs.toggles & SOUND_SHIP_AMBIENCE) && M.can_hear_ambience())
 		if (!M.client.ambient_buzz_playing || (A.ambient_buzz != M.client.ambient_buzz_playing))
-			SEND_SOUND(M, sound(A.ambient_buzz, repeat = 1, wait = 0, volume = AMBIENT_BUZZ_VOLUME, channel = CHANNEL_AMBIENT_BUZZ))
+			var/sound/sound_in = sound(A.ambient_buzz, repeat = TRUE, wait = FALSE, volume = AMBIENT_BUZZ_VOLUME, channel = CHANNEL_AMBIENT_BUZZ)
+			sound_fade(sound_in, 0, AMBIENT_BUZZ_VOLUME, 20, M.client)
 			M.client.ambient_buzz_playing = A.ambient_buzz // It's done this way so I can tell when the user switches to an area that has a different buzz effect, so we can seamlessly swap over to that one
+			M.client.ambient_buzz_sound = sound_in
 
 	else if (M.client.ambient_buzz_playing) // If it's playing, and it shouldn't be, stop it
-		M.stop_sound_channel(CHANNEL_AMBIENT_BUZZ)
+		//We will just update the sound the client is playing so it doesn't jump to the beginning
+		var/sound/sound_out = M.client.ambient_buzz_sound
+		sound_fade(sound_out, AMBIENT_BUZZ_VOLUME, 0, 20, M.client)
 		M.client.ambient_buzz_playing = null
-
+		M.client.ambient_buzz_sound = null
 
 /datum/controller/subsystem/ambience/proc/update_music(mob/M) // Background music, the more OOC ambience, like eerie space music
 	var/area/A = get_area(M)
