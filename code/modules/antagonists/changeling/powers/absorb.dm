@@ -129,12 +129,13 @@
 			target_ling.chem_charges = 0
 			target_ling.chem_storage = 0
 			changeling.absorbedcount += (target_ling.absorbedcount)
+			changeling.trueabsorbs += (target_ling.trueabsorbs)
 			target_ling.stored_profiles.len = 1
 			target_ling.absorbedcount = 0
 			target_ling.was_absorbed = TRUE
 
-	changeling.chem_storage = LING_CHEM_STORAGE_BASE + changeling.absorbedcount * LING_CHEM_STORAGE_ADD
-	changeling.geneticpoints = LING_GENE_STORAGE_BASE + floor(changeling.absorbedcount * LING_GENE_STORAGE_ADD)	// couldn't find a math.floor method. does this work?
+	changeling.chem_storage = LING_CHEM_STORAGE_BASE + changeling.trueabsorbs * LING_CHEM_STORAGE_ADD
+	changeling.geneticpoints = LING_GENE_STORAGE_BASE + floor(changeling.trueabsorbs * LING_GENE_STORAGE_ADD)	// couldn't find a math.floor method. does this work?
 	changeling.chem_charges=min(changeling.chem_charges+10, changeling.chem_storage)
 
 	changeling.isabsorbing = 0
