@@ -123,7 +123,7 @@
 		if(target_ling)//If the target was a changeling, suck out their extra juice and objective points!
 			to_chat(user, "<span class='boldnotice'>[target] was one of us. We have absorbed their power.</span>")
 			target_ling.remove_changeling_powers()
-			changeling.geneticpoints += 2
+			//	changeling.geneticpoints += 2	handled separately; you can eat lings to gain their progress
 			target_ling.geneticpoints = 0
 			target_ling.canrespec = 0
 			target_ling.chem_charges = 0
@@ -133,7 +133,8 @@
 			target_ling.absorbedcount = 0
 			target_ling.was_absorbed = TRUE
 
-
+	changeling.chem_storage = LING_CHEM_STORAGE_BASE + changeling.absorbedcount * LING_CHEM_STORAGE_ADD
+	changeling.geneticpoints = LING_GENE_STORAGE_BASE + floor(changeling.absorbedcount * LING_GENE_STORAGE_ADD)
 	changeling.chem_charges=min(changeling.chem_charges+10, changeling.chem_storage)
 
 	changeling.isabsorbing = 0
