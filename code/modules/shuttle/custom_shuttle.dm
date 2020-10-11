@@ -264,12 +264,12 @@
 	return ..()
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/custom/proc/linkShuttle(new_id)
-	shuttleId = port.id
+	shuttleId = new_id
 	shuttlePortId = "shuttle[new_id]_custom"
 
 	//Take info from connected port and calculate amendments
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(new_id)
 	var/list/shuttlebounds = M.return_coords()
-	view_range = round(max(width, height)*0.5)
+	view_range = min(round(max(width, height)*0.5), 36)
 	x_offset = round((shuttlebounds[1] + shuttlebounds[3])*0.5) - M.x
 	y_offset = round((shuttlebounds[2] + shuttlebounds[4])*0.5) - M.y
