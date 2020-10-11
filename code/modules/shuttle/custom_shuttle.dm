@@ -270,6 +270,6 @@
 	//Take info from connected port and calculate amendments
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(new_id)
 	var/list/shuttlebounds = M.return_coords()
-	view_range = min(round(max(width, height)*0.5), 36)
+	view_range = min(round(max(M.width, M.height)*0.5), 36)
 	x_offset = round((shuttlebounds[1] + shuttlebounds[3])*0.5) - M.x
 	y_offset = round((shuttlebounds[2] + shuttlebounds[4])*0.5) - M.y
