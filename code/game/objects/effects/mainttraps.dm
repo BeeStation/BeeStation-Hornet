@@ -293,8 +293,8 @@
 	for(var/mob/living/simple_animal/hostile/floor_cluwne/clown in range(5, src))
 		cluwne = TRUE
 		break
-	if(!cluwne)
-		if(ishuman(user) && !iscultist(user))
+	if(!cluwne && !iscultist(user))
+		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(HAS_TRAIT(H, TRAIT_CLUMSY) || H.job == "Clown" || H.dna.check_mutation(CLUWNEMUT))
 				to_chat(user, "<span class='warning'>We need a connection! One of the honkmother's manifested forms!</span>")
