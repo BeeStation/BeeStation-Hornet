@@ -1,0 +1,5 @@
+author: Phil Smith
+delete-after: true
+changes:
+  - tweak: Hyposprays can now have their dosages changed and can also be emptied
+  - soundadd: Adds hypospray noise from TGMC
