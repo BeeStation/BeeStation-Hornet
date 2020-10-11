@@ -263,7 +263,7 @@
 		return
 	return ..()
 
-/obj/machinery/computer/camera_advanced/shuttle_docker/custom/proc/linkShuttle(new_id) 
+/obj/machinery/computer/camera_advanced/shuttle_docker/custom/proc/linkShuttle(new_id)
 	shuttleId = new_id
 	shuttlePortId = "shuttle[new_id]_custom"
 
