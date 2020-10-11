@@ -216,8 +216,8 @@
 
 /datum/action/changeling/sting/CBZ
 	name = "Hallucination Sting"
-	desc = "We induce our victim with a mixture of synthesized BZ gas. Costs 10 chemicals. Our body will absorb a part of the chemicals."
-	helptext = "We evolve the ability to sting a target with a BZ based hallucinogenic chemical. The compound will cause hallucination in regular humans, and disable other changelings' ability to generate chemicals for a short while. However, the process will inject some BZ into our body as well."
+	desc = "We induce our victim with a mixture of synthesized BZ gas. Costs 25 chemicals."
+	helptext = "We evolve the ability to sting a target with a BZ based hallucinogenic chemical. The compound will cause hallucination in regular humans, and disable other changelings' ability to generate chemicals for a short while. "
 	button_icon_state = "sting_lsd"
 	chemical_cost = 25
 	dna_cost = 1
