@@ -293,7 +293,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		FD.CalculateAffectingAreas()
 
 	var/static/list/choice = list("NORTH" = NORTH, "SOUTH" = SOUTH, "EAST" = EAST, "WEST" = WEST)
-	var/Pdir = input(user, "Shuttle Fly Direction:", "Blueprint Editing", NORTH) as anything|null in list("NORTH", "SOUTH", "EAST", "WEST")
+	var/Pdir = input(user, "Shuttle Fly Direction:", "Blueprint Editing", NORTH) as null|anything in list("NORTH", "SOUTH", "EAST", "WEST")
 	if(Pdir)
 		ShuttlePreferred_direction = choice[Pdir]
 
