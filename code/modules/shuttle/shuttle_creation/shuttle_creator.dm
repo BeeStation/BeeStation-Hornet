@@ -38,6 +38,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	var/datum/shuttle_creator_overlay_holder/overlay_holder
 	//After designation
 	var/linkedShuttleId
+	var/ShuttlePreferred_direction = NORTH
 
 /obj/item/shuttle_creator/Initialize()
 	. = ..()
@@ -290,6 +291,12 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	for(var/door in firedoors)
 		var/obj/machinery/door/firedoor/FD = door
 		FD.CalculateAffectingAreas()
+
+	var/static/list/choice = list("NORTH" = NORTH, "SOUTH" = SOUTH, "EAST" = EAST, "WEST" = WEST)
+	var/Pdir = input(user, "Shuttle Fly Direction:", "Blueprint Editing", NORTH) as anything|null in list("NORTH", "SOUTH", "EAST", "WEST")
+	if(Pdir)
+		ShuttlePreferred_direction = choice[Pdir]
+
 	return TRUE
 
 //Checks an area to ensure that the turfs provided are valid to be made into a shuttle
