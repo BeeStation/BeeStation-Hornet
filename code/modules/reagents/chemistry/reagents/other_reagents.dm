@@ -2052,7 +2052,7 @@
 	description = "Gets quickly absorbed into the bloodstream, and activates one's positive mutations."
 	color = "#000000"
 	metabolization_rate = 5 * REAGENTS_METABOLISM
-	taste_description = "empowered"
+	taste_description = "empowerment"
 
 /datum/reagent/elementx/on_mob_end_metabolize(mob/living/target)
 	if(target.has_dna())
@@ -2062,7 +2062,7 @@
 		var/log_msg = ""
 		for(var/datum/mutation/human/HM as anything in add_mutations)
 			if(istype(HM, /datum/mutation/human))
-				mutation = HM.type
+				var/mutation = HM.type
 				if (M.dna.activate_mutation(HM))
 					if (!log_msg)
 						log_msg+=", "

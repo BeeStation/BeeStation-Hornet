@@ -177,8 +177,8 @@
 
 /obj/item/reagent_containers/hypospray/medipen/stimpack/elemetx
 	name = "element x medipen"
-	desc = "Contains a rare sample of Element X, a mysterious substance that, when injected into the bloodstream, alters one's DNA and activates all positive mutations."
-	list_reagents = list(/datum/reagent/elementx = 10)
+	desc = "Contains a rare sample of Element X, a mysterious substance that, when injected into the bloodstream, alters one's DNA and activates all dormant positive mutations."
+	list_reagents = list(/datum/reagent/elementx = 1)
 
 /obj/item/reagent_containers/hypospray/medipen/pumpup
 	name = "pumpup medipen"
