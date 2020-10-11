@@ -6,7 +6,7 @@
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/leader/Initialize()
 	. = ..()
-	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE)
+	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE) //makes the leader hoodie immune without giving the follower hoodies immunity
 
 /obj/item/clothing/head/helmet/chaplain
 	name = "crusader helmet"
