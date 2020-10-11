@@ -163,6 +163,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_APPRAISAL			"appraisal"
 #define TRAIT_NOBLOCK			"noblock"
 #define TRAIT_NANITECOMPATIBLE	"nanitecompatible"
+#define TRAIT_PERMANENTLY_ONFIRE	"permanently_onfire" //overrides the update_fire proc to always add fire (for lava)
 
 //non-mob traits
 #define TRAIT_PARALYSIS			"paralysis" //Used for limb-based paralysis, where replacing the limb will fix it
@@ -220,6 +221,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CLOTHING_TRAIT "clothing"
 #define VEHICLE_TRAIT "vehicle" // inherited from riding vehicles
 #define INNATE_TRAIT "innate"
+#define TURF_TRAIT "turf"
 
 // unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"
