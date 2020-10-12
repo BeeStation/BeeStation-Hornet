@@ -2795,7 +2795,7 @@
 /turf/open/floor/bluespace,
 /area/centcom)
 "hy" = (
-/turf/open/floor/engine/air,
+/turf/open/floor/engine,
 /area/centcom)
 "hz" = (
 /obj/structure/glowshroom/shadowshroom,
@@ -14980,6 +14980,14 @@
 /obj/machinery/vending/cigarette,
 /turf/open/floor/wood,
 /area/centcom/holding)
+"Fk" = (
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/palebush,
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/open/floor/grass,
+/area/centcom)
 "Fl" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/spellblade,
@@ -18791,6 +18799,16 @@
 /obj/machinery/light,
 /turf/open/floor/bluespace,
 /area/centcom)
+"Ob" = (
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/button/ignition/incinerator{
+	id = fire;
+	pixel_x = -22
+	},
+/turf/open/floor/plasteel,
+/area/centcom)
 "Od" = (
 /obj/machinery/light{
 	dir = 4
@@ -18848,6 +18866,15 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ctf)
+"Om" = (
+/obj/structure/table/reinforced,
+/obj/item/transfer_valve,
+/obj/item/transfer_valve,
+/obj/item/transfer_valve,
+/obj/item/transfer_valve,
+/obj/item/transfer_valve,
+/turf/open/floor/plasteel,
+/area/centcom)
 "Op" = (
 /obj/structure/sink{
 	dir = 8;
@@ -18991,6 +19018,12 @@
 /area/centcom/holding)
 "OZ" = (
 /obj/machinery/light,
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/palebush,
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/genericbush,
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes,
 /turf/open/floor/grass,
 /area/centcom)
 "Pa" = (
@@ -19021,6 +19054,10 @@
 /obj/structure/closet/crate/bin,
 /turf/open/floor/wood,
 /area/centcom/holding)
+"Pi" = (
+/obj/structure/tank_dispenser,
+/turf/open/floor/plasteel,
+/area/centcom)
 "Pj" = (
 /obj/structure/chair/comfy/brown{
 	color = "#596479";
@@ -19093,6 +19130,12 @@
 /obj/item/gun/energy/e_gun/mini,
 /turf/open/floor/plasteel,
 /area/centcom)
+"Py" = (
+/obj/machinery/atmospherics/components/binary/volume_pump{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/centcom)
 "Pz" = (
 /obj/structure/table/reinforced,
 /obj/item/paper/pamphlet/centcom/visitor_info,
@@ -19147,6 +19190,10 @@
 /obj/machinery/autolathe,
 /turf/open/floor/wood,
 /area/centcom/holding)
+"PN" = (
+/obj/machinery/light/broken,
+/turf/open/floor/plasteel,
+/area/centcom)
 "PO" = (
 /obj/machinery/hydroponics/constructable,
 /obj/effect/turf_decal/tile/green{
@@ -19245,6 +19292,13 @@
 /obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/plasteel/dark,
 /area/ctf)
+"Qc" = (
+/obj/machinery/door/poddoor{
+	id = atmo;
+	name = "Atmospherics Vent"
+	},
+/turf/open/floor/plating,
+/area/centcom)
 "Qd" = (
 /obj/machinery/power/emitter/ctf{
 	dir = 8
@@ -19493,6 +19547,15 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel/dark,
 /area/centcom)
+"Rc" = (
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/palebush,
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/open/floor/grass,
+/area/centcom)
 "Rd" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/green{
@@ -19723,6 +19786,12 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"RW" = (
+/obj/machinery/light/broken{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/centcom)
 "RY" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand/death/debug,
@@ -19812,6 +19881,10 @@
 "Si" = (
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/two)
+"Sj" = (
+/mob/living/simple_animal/hostile/gorilla/rabid,
+/turf/open/floor/plasteel,
+/area/centcom)
 "Sl" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -20214,10 +20287,10 @@
 /turf/open/floor/plasteel/dark,
 /area/ctf)
 "Tx" = (
-/obj/structure/table/reinforced,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/atmospherics/components/binary/volume_pump,
 /turf/open/floor/plasteel,
 /area/centcom)
 "Ty" = (
@@ -20308,6 +20381,11 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel,
+/area/centcom)
+"TV" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple,
+/turf/open/floor/plating,
 /area/centcom)
 "TW" = (
 /obj/structure/table/wood,
@@ -20445,6 +20523,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/plasteel,
+/area/centcom)
+"Uv" = (
+/obj/item/flashlight/lamp/bananalamp,
 /turf/open/floor/plasteel,
 /area/centcom)
 "Uw" = (
@@ -20949,6 +21031,21 @@
 /area/abductor_ship)
 "WE" = (
 /obj/structure/table/reinforced,
+/obj/item/assembly/signaler{
+	pixel_x = 4;
+	pixel_y = 7
+	},
+/obj/item/assembly/signaler{
+	pixel_y = 3
+	},
+/obj/item/assembly/signaler{
+	pixel_x = -4
+	},
+/obj/machinery/atmospherics/pipe/simple,
+/obj/machinery/airalarm/unlocked{
+	dir = 4;
+	pixel_x = -20
+	},
 /turf/open/floor/plasteel,
 /area/centcom)
 "WG" = (
@@ -21015,6 +21112,21 @@
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
+/area/centcom)
+"WV" = (
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/button{
+	id = atmo;
+	name = "Chamber Vent";
+	pixel_x = 24
+	},
+/turf/open/floor/plasteel,
+/area/centcom)
+"WX" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector,
+/turf/open/floor/engine/airless,
 /area/centcom)
 "WY" = (
 /obj/structure/mineral_door/paperframe{
@@ -21112,6 +21224,10 @@
 /obj/machinery/vending/dinnerware,
 /turf/open/floor/plasteel/cafeteria,
 /area/centcom/holding)
+"Xp" = (
+/obj/machinery/atmospherics/components/unary/vent_pump,
+/turf/open/floor/engine/airless,
+/area/centcom)
 "Xq" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Test Chamber"
@@ -21299,6 +21415,20 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ctf)
+"Ye" = (
+/obj/structure/table/reinforced,
+/obj/item/assembly/timer{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/assembly/timer{
+	pixel_x = 2
+	},
+/obj/item/assembly/timer{
+	pixel_y = -4
+	},
+/turf/open/floor/plasteel,
+/area/centcom)
 "Yf" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/chawanmushi,
@@ -21545,6 +21675,12 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"Zb" = (
+/obj/machinery/igniter{
+	id = fire
+	},
+/turf/open/floor/engine/airless,
+/area/centcom)
 "Zc" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -60048,16 +60184,16 @@ gv
 VV
 gc
 yW
-QP
+Qc
 hK
-hK
-gc
+WX
+TV
 WE
-gv
-gv
-WE
+Py
+Ob
+Ye
 gc
-go
+Fk
 QP
 aa
 aa
@@ -60305,11 +60441,11 @@ hu
 gv
 gc
 yW
-QP
+Qc
 hK
-hK
+Zb
 gc
-WE
+Om
 hO
 gv
 hP
@@ -60562,16 +60698,16 @@ gv
 gv
 gc
 yW
-QP
+Qc
 hK
-hK
-gc
+Xp
+TV
 Tx
-WE
+WV
 gv
-WE
+Pi
 gc
-go
+Rc
 QP
 aa
 aa
@@ -67519,7 +67655,7 @@ gv
 gv
 gv
 gv
-gv
+PN
 QP
 aa
 aa
@@ -68031,7 +68167,7 @@ Qv
 gv
 hk
 gv
-gv
+Sj
 SI
 gv
 QP
@@ -68788,7 +68924,7 @@ UI
 gc
 hI
 QP
-gv
+RW
 gv
 gv
 gv
@@ -69825,14 +69961,14 @@ VJ
 HH
 gv
 Ti
-gv
+Sj
 Mj
 gv
 gv
 gv
 gv
 gv
-gv
+PN
 QP
 aa
 aa
@@ -70080,7 +70216,7 @@ Qv
 gv
 gv
 gv
-gv
+Uv
 gv
 gv
 gv
@@ -71102,7 +71238,7 @@ QP
 aa
 QP
 gv
-gv
+Sj
 gv
 gv
 gv
@@ -71371,7 +71507,7 @@ gv
 Sz
 Ry
 gv
-gv
+Sj
 Ry
 gv
 gv
@@ -71872,7 +72008,7 @@ aa
 aa
 aa
 QP
-gv
+RW
 gv
 gv
 gv
@@ -71888,7 +72024,7 @@ gv
 gv
 gv
 gv
-gv
+PN
 QP
 aa
 aa
