@@ -21334,6 +21334,16 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"XP" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Test Chamber"
+	},
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/centcom)
 "XS" = (
 /obj/structure/table/wood,
 /obj/item/storage/toolbox/brass/prefilled/servant,
@@ -67379,10 +67389,10 @@ aa
 QP
 QP
 QP
-hn
+XP
 QP
 QP
-hn
+XP
 QP
 QP
 QP
