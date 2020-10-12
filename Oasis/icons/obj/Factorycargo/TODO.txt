@@ -1,0 +1,10 @@
+How to create parts of objects:
+1) Think of it in real life, how could it be made ? (Example: A shotgun have 3 essential parts: the stock, magazine and barrel)
+2) take those parts and sprites them. Now how are these parts made ? (Example 2: A shotgun stock is made of wood if the in game sprite is made of a woodish looking texture.)
+3) If these sub-parts already exists, then don't touch it, otherwise add a recipe in the "RECIPES.txt" document.
+
+~ Kryyto ~
+
+Sprite parts needed:
+
+Medicine components:
