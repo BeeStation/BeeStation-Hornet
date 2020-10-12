@@ -1,0 +1,5 @@
+author: Victor239
+delete-after: true
+changes:
+  - rscadd: Most armoured suits and helmets' thick reinforced materials now prevent
+      syringes, parapens and hypos.
