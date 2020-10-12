@@ -18300,6 +18300,11 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"Mt" = (
+/obj/structure/bed,
+/obj/item/bedsheet/cosmos,
+/turf/open/floor/mineral/titanium/blue,
+/area/centcom/evac)
 "Mu" = (
 /obj/machinery/light{
 	dir = 1
@@ -47602,7 +47607,7 @@ Ln
 Lq
 KH
 Lv
-Lv
+Mt
 Lx
 Lv
 Lv
