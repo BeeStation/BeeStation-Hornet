@@ -1,0 +1,7 @@
+author: Poly-The-Parrot
+delete-after: true
+changes:
+  - balance: Shotguns have new, bigger sprites for inhands and back slot.
+  - balance: Riot shotguns have a slightly slower fire rate, and combat shotguns are
+      now faster.
+  - balance: Shotgun lethal ammo is slightly weaker, moreso against armoured targets.
