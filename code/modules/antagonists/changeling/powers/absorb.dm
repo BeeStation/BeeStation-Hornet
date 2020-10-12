@@ -120,9 +120,12 @@
 
 
 		var/datum/antagonist/changeling/target_ling = target.mind.has_antag_datum(/datum/antagonist/changeling)
+		var/datum/antagonist/changeling/target_xenobioling = target.mind.has_antag_datum(/datum/antagonist/changeling/xenobio)
 		if(target_ling)//If the target was a changeling, suck out their extra juice and objective points!
 			to_chat(user, "<span class='boldnotice'>[target] was one of us. We have absorbed their power.</span>")
 			target_ling.remove_changeling_powers()
+			if(!target_xenobioling)
+				changeling.geneticpoints += 2
 			changeling.geneticpoints += 2
 			target_ling.geneticpoints = 0
 			target_ling.canrespec = 0
