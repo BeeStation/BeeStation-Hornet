@@ -43,6 +43,14 @@
 	item_state = "blueshift"
 	custom_premium_price = 600
 
+/obj/item/clothing/suit/armor/vest/corporate
+	name = "corporate Jacket"
+	desc = "A Stylish Corporate Jacket which also provides Protection."
+	icon_state = "secjacket"
+	item_state = "secjacket"
+	body_parts_covered = CHEST|ARMS
+	armor = list("melee" = 25, "bullet" = 25, "laser" = 25, "energy" = 35, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 45, "acid" = 45)
+
 /obj/item/clothing/suit/armor/hos
 	name = "armored greatcoat"
 	desc = "A greatcoat enhanced with a special alloy for some extra protection and style for those with a commanding presence."
@@ -109,6 +117,14 @@
 	desc = "For when an armoured vest isn't fashionable enough."
 	icon_state = "capformal"
 	item_state = "capspacesuit"
+
+/obj/item/clothing/suit/armor/vest/capcarapace/jacket
+	name = "captain's jacket"
+	desc = "An armored Jacket in the Captains colors"
+	icon_state = "capjacket"
+	item_state = "capspacesuit"
+	body_parts_covered = CHEST|ARMS
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 50, "bomb" = 55, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 80)
 
 /obj/item/clothing/suit/armor/riot
 	name = "riot suit"
