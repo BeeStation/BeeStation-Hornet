@@ -13,7 +13,7 @@
 		user.audible_message("<span class='warning'>[src] lets off a shrill beep!</span>")
 	if("spypopup_map" in user.client.screen_maps) //alright, the popup this object uses is already IN use, so the window is open. no point in doing any other work here, so we're good.
 		return
-	user.client.setup_popup("spypopup", 3, 3, 2)
+	user.client.setup_popup("spypopup", 3, 3, 2)	//should I implement these too?
 	user.client.register_map_obj(linked_bug.cam_screen)
 	for(var/plane in linked_bug.cam_plane_masters)
 		user.client.register_map_obj(plane)
@@ -94,27 +94,3 @@
 	var/obj/item/clothing/glasses/sunglasses/spy/newglasses = new(src)
 	newbug.linked_glasses = newglasses
 	newglasses.linked_bug = newbug
-	new /obj/item/paper/fluff/nerddocs(src)
-
-
-/obj/item/clothing/glasses/sunglasses/spy/chameleon
-	name = "Optical Meson Scanner"
-	desc = "Used by engineering and mining staff to see basic structural and terrain layouts through walls, regardless of lighting condition."
-	icon_state = "meson"
-	item_state = "meson"
-	resistance_flags = NONE
-	var/datum/action/item_action/chameleon/change/chameleon_action
-
-/obj/item/clothing/glasses/sunglasses/spy/Initialize()
-	. = ..()
-	chameleon_action = new(src)
-	chameleon_action.chameleon_type = /obj/item/clothing/glasses
-	chameleon_action.chameleon_name = "Glasses"
-	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/glasses/changeling, only_root_path = TRUE)
-	chameleon_action.initialize_disguises()
-
-/obj/item/clothing/glasses/sunglasses/spy/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	chameleon_action.emp_randomise()
