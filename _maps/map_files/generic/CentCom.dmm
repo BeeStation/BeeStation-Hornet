@@ -19300,7 +19300,7 @@
 /area/ctf)
 "Qc" = (
 /obj/machinery/door/poddoor{
-	id = atmo;
+	id = 81;
 	name = "Atmospherics Vent"
 	},
 /turf/open/floor/plating,
@@ -21124,7 +21124,7 @@
 	dir = 1
 	},
 /obj/machinery/button{
-	id = atmo;
+	id = 81;
 	name = "Chamber Vent";
 	pixel_x = 24
 	},
