@@ -18809,7 +18809,8 @@
 	dir = 1
 	},
 /obj/machinery/button/ignition/incinerator{
-	id = fire;
+	id = 80;
+	name = "Chamber Ignition Switch";
 	pixel_x = -22
 	},
 /turf/open/floor/plasteel,
@@ -21682,7 +21683,7 @@
 /area/centcom/holding)
 "Zb" = (
 /obj/machinery/igniter{
-	id = fire
+	id = 80
 	},
 /turf/open/floor/engine/airless,
 /area/centcom)
