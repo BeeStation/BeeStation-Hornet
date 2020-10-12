@@ -42,7 +42,7 @@
 				to_chat(src, "You already have set a memo.")
 				qdel(query_memocheck)
 				return
-			var/memotext = input(src,"Write your Memo","Memo") as message
+			var/memotext = capped_multiline_input(src,"Write your Memo","Memo")
 			if(!memotext)
 				qdel(query_memocheck)
 				return
@@ -92,7 +92,7 @@
 				return
 			if(query_memofind.NextRow())
 				var/old_memo = query_memofind.item[1]
-				var/new_memo = input("Input new memo", "New Memo", "[old_memo]", null) as message
+				var/new_memo = capped_multiline_input(src, "Input new memo", "New Memo", "[old_memo]")
 				if(!new_memo)
 					qdel(query_memolist)
 					qdel(query_memofind)

@@ -183,7 +183,7 @@
 			H.damageoverlaytemp = 9001
 			H.update_damage_hud()
 			return
-	var/n_name = stripped_input(usr, "What would you like to label the paper?", "Paper Labelling", null, MAX_NAME_LEN)
+	var/n_name = stripped_input(usr, "What would you like to label the paper?", "Paper Labelling", max_length=MAX_NAME_LEN)
 	if((loc == usr && usr.stat == CONSCIOUS))
 		if(CHAT_FILTER_CHECK(n_name))
 			to_chat(usr, "<span class='warning'>That name contains prohibited word(s)!</span>")
