@@ -40,6 +40,7 @@
 			/obj/item/storage/box/donkpockets/donkpocketpizza = 1,
 			/obj/item/storage/box/donkpockets/donkpocketberry = 1,
 			/obj/item/storage/box/donkpockets/donkpockethonk = 1,
+			/obj/item/storage/box/donkpockets = 1
 		)
 
 
