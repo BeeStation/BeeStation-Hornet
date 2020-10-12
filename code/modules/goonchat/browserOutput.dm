@@ -199,11 +199,13 @@ GLOBAL_DATUM_INIT(iconCache, /savefile, new("tmp/iconCache.sav")) //Cache of ico
 
 	if(!cookie)
 		return
-	else
-		return
 
+<<<<<<< HEAD
 	if(cookie != "none")
 
+=======
+	/*if(cookie != "none")
+>>>>>>> 41a0b7f137... Update browserOutput.dm (#2699)
 		var/regex/crashy_thingy = regex("(\\\[ *){5}")
 		if(crashy_thingy.Find(cookie))
 			message_admins("[key_name(src.owner)] tried to crash the server using at least 5 \"\[\" in a row. Ban them.")
@@ -237,7 +239,7 @@ GLOBAL_DATUM_INIT(iconCache, /savefile, new("tmp/iconCache.sav")) //Cache of ico
 				message_admins("[key_name(src.owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 				log_admin_private("[key_name(owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 
-	cookieSent = TRUE
+	cookieSent = TRUE*/
 
 //Called by js client every 60 seconds
 /datum/chatOutput/proc/ping()
