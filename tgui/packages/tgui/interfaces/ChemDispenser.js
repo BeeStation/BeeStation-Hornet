@@ -64,6 +64,12 @@ export const ChemDispenser = (props, context) => {
                   content="Record"
                   onClick={() => act('record_recipe')} />
               )}
+              {!recording && (
+                <Button
+                  icon="plus"
+                  content="Import"
+                  onClick={() => act('import_recipe')} />
+              )}
               {recording && (
                 <Button
                   icon="ban"

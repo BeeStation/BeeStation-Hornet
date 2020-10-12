@@ -10,7 +10,7 @@ cp tools/travis/travis_config.txt travis_test/config/config.txt
 
 cd travis_test
 ln -s $HOME/libmariadb/libmariadb.so libmariadb.so
-DreamDaemon beestation.dmb -close -trusted -verbose -params "test-run&log-directory=travis" || EXIT_CODE=$?
+DreamDaemon OasisStation.dmb -close -trusted -verbose -params "test-run&log-directory=travis" || EXIT_CODE=$?
 
 #We don't care if extools dies
 if [ $EXIT_CODE != 134 ]; then

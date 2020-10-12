@@ -25,6 +25,7 @@
 	ui_x = 565
 	ui_y = 620
 
+	var/macroresolution = 1 // OASIS EDIT
 	var/obj/item/stock_parts/cell/cell
 	var/powerefficiency = 0.1
 	var/amount = 30
@@ -321,6 +322,63 @@
 			recording_recipe = null
 			. = TRUE
 
+// OASIS EDIT BEGIN
+
+		if("import_recipe")
+			if(!is_operational())
+				return
+			var/name = stripped_input(usr,"Name","What do you want to name this recipe?", "Recipe", MAX_NAME_LEN)
+			var/recipe = stripped_input(usr,"Recipe","Insert recipe with chem IDs")
+			if(!usr.canUseTopic(src, !issilicon(usr)))
+				playsound(src, 'sound/machines/buzz-two.ogg', 50, 1)
+				return
+			if(name && recipe)
+				var/list/first_process = splittext(recipe, ";")
+				if(!LAZYLEN(first_process))
+					return
+				var/res = macroresolution
+				var/resmismatch = FALSE
+				for(var/reagents in first_process)
+					var/list/reagent = splittext(reagents, "=")
+					var/reagent_id = GLOB.name2reagent[translate_legacy_chem_id(reagent[1])]
+					if(dispensable_reagents.Find(reagent_id))
+						if (!resmismatch && !check_macro_part(reagents, res))
+							resmismatch = TRUE
+						continue
+					else
+						var/chemid = reagent[1]
+						visible_message("<span class='warning'>[src] buzzes.</span>", "<span class='italics'>You hear a faint buzz.</span>")
+						to_chat(usr, "<span class ='danger'>[src] cannot find Chemical ID: <b>[chemid]</b>!</span>")
+						playsound(src, 'sound/machines/buzz-two.ogg', 50, 1)
+						return
+				if (resmismatch && alert("[src] is not yet capable of replicating this recipe with the precision it needs, do you want to save it anyway?",, "Yes","No") == "No")
+					return
+				saved_recipes[name] = process_recipe_list(recipe) // process recipe before saving to make it compatible with recorded recipes
+
+/obj/machinery/chem_dispenser/proc/check_macro(macro)
+	var/res = macroresolution
+	for (var/reagent in splittext(trim(macro), ";"))
+		if (!check_macro_part(reagent, res))
+			return FALSE
+	return TRUE
+
+/obj/machinery/chem_dispenser/proc/check_macro_part(var/part, var/res = macroresolution)
+	var/detail = splittext(part, "=")
+	if (text2num(detail[2]) < res)
+		return FALSE
+	return TRUE
+
+/obj/machinery/chem_dispenser/proc/process_recipe_list(var/recipe)
+	var/list/key_list = list()
+	var/list/final_list = list()
+	var/list/first_process = splittext(recipe, ";")
+	for(var/reagents in first_process)
+		var/list/splitreagent = splittext(reagents, "=")
+		final_list += list(avoid_assoc_duplicate_keys(splitreagent[1],key_list) = max(text2num(splitreagent[2]),macroresolution)) //if amount<macrores then increases amount up to macrores
+	return final_list
+
+// OASIS EDIT END
+
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
 	if(default_unfasten_wrench(user, I))
 		return
@@ -370,6 +428,7 @@
 /obj/machinery/chem_dispenser/RefreshParts()
 	recharge_amount = initial(recharge_amount)
 	var/newpowereff = 0.0666666
+	macroresolution = 5 // OASIS EDIT
 	for(var/obj/item/stock_parts/cell/P in component_parts)
 		cell = P
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
@@ -377,6 +436,8 @@
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		recharge_amount *= C.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
+		if (M.rating > 1) // OASIS EDIT
+			macroresolution -= M.rating		//5 for t1, 3 for t2, 2 for t3, 1 for t4 // OASIS EDIT
 		if (M.rating > 3)
 			dispensable_reagents |= upgrade_reagents
 	powerefficiency = round(newpowereff, 0.01)
@@ -683,7 +744,7 @@
 		/datum/reagent/toxin/carpotoxin,
 		/datum/reagent/medicine/rezadone,
 		/datum/reagent/medicine/silibinin,
-		/datum/reagent/medicine/polypyr	
+		/datum/reagent/medicine/polypyr
 	)
 
 /obj/machinery/chem_dispenser/abductor/Initialize()

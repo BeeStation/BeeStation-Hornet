@@ -48,7 +48,7 @@
 	id = "Fake CBZ"
 	results = list(/datum/reagent/fake_cbz = 1)
 	required_reagents = list(/datum/reagent/concentrated_bz = 1, /datum/reagent/medicine/neurine = 3)
-	
+
 /datum/chemical_reaction/cryptobiolin
 	name = "Cryptobiolin"
 	id = /datum/reagent/cryptobiolin

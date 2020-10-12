@@ -10,6 +10,7 @@
 	lethal (TRUE) or stun (FALSE) modes. It uses the internal battery of the weapon itself, not the assembly. If you wish to fire the gun while the circuit is in \
 	hand, you will need to use an assembly that is a gun."
 	complexity = 20
+	max_allowed = 1
 	w_class = WEIGHT_CLASS_SMALL
 	size = 3
 	inputs = list(
@@ -143,6 +144,7 @@
 	being held, or anchored in some way. It should be noted that the ability to move is dependant on the type of assembly that this circuit inhabits; only drone assemblies can move."
 	w_class = WEIGHT_CLASS_SMALL
 	complexity = 10
+	max_allowed = 4
 	cooldown_per_use = 1 SECONDS
 	ext_cooldown = 1 SECONDS
 	inputs = list("direction" = IC_PINTYPE_DIR)
@@ -179,6 +181,7 @@
 					Beware: Once primed, there is no aborting the process!"
 	icon_state = "grenade"
 	complexity = 30
+	max_allowed = 1
 	cooldown_per_use = 10
 	inputs = list("detonation time" = IC_PINTYPE_NUMBER)
 	outputs = list("reference to grenade" = IC_PINTYPE_REF)
@@ -352,6 +355,9 @@
 		push_data()
 	activate_pin(2)
 
+// OASIS MODULARIZATION EDIT BEGIN
+/*
+
 /obj/item/integrated_circuit/manipulation/grabber
 	name = "grabber"
 	desc = "A circuit with its own inventory for items. Used to grab and store things."
@@ -361,6 +367,7 @@
 	size = 3
 	cooldown_per_use = 5
 	complexity = 10
+	max_allowed = 1
 	inputs = list("target" = IC_PINTYPE_REF,"mode" = IC_PINTYPE_NUMBER)
 	outputs = list("first" = IC_PINTYPE_REF, "last" = IC_PINTYPE_REF, "amount" = IC_PINTYPE_NUMBER,"contents" = IC_PINTYPE_LIST)
 	activators = list("pulse in" = IC_PINTYPE_PULSE_IN,"pulse out" = IC_PINTYPE_PULSE_OUT)
@@ -398,6 +405,8 @@
 			AM.forceMove(src)
 
 /obj/item/integrated_circuit/manipulation/grabber/proc/drop(obj/item/AM, turf/T = drop_location())
+	if(!(AM in contents))
+		return
 	var/atom/A = get_object()
 	A.investigate_log("dropped ([AM]) from [src].", INVESTIGATE_CIRCUIT)
 	AM.forceMove(T)
@@ -425,6 +434,10 @@
 	update_outputs()
 	push_data()
 
+*/
+// OASIS MODULARIZATION EDIT END
+
+
 /obj/item/integrated_circuit/manipulation/claw
 	name = "pulling claw"
 	desc = "Circuit which can pull things.."
@@ -433,6 +446,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	size = 3
 	cooldown_per_use = 5
+	max_allowed = 1
 	complexity = 10
 	inputs = list("target" = IC_PINTYPE_REF,"mode" = IC_PINTYPE_INDEX,"dir" = IC_PINTYPE_DIR)
 	outputs = list("is pulling" = IC_PINTYPE_BOOLEAN)
@@ -480,6 +494,56 @@
 	..()
 
 
+/obj/item/integrated_circuit/manipulation/activator
+	name = "activator"
+	desc = "Circuit which can activate things remotely!"
+	icon_state = "pull_claw"
+	extended_desc = "This circuit needs a reference to a thing to activate, it also needs to know who is activating said item."
+	w_class = WEIGHT_CLASS_SMALL
+	size = 3
+	cooldown_per_use = 1
+	complexity = 10
+	inputs = list("target" = IC_PINTYPE_REF, "person" = IC_PINTYPE_REF)
+	activators = list("pulse in" = IC_PINTYPE_PULSE_IN,"pulse out" = IC_PINTYPE_PULSE_OUT)
+	spawn_flags = IC_SPAWN_RESEARCH
+	power_draw_per_use = 50
+	ext_cooldown = 1
+
+/obj/item/integrated_circuit/manipulation/activator/do_work(ord)
+	var/obj/acting_object = get_pin_data_as_type(IC_INPUT, 1, /obj/)
+	var/mob/person = get_pin_data_as_type(IC_INPUT, 2, /mob/)
+	acting_object.interact(person)
+	activate_pin(1)
+
+
+/obj/item/integrated_circuit/manipulation/advactivator
+	name = "advactivator"
+	desc = "Circuit which can UI elements remotely!"
+	icon_state = "pull_claw"
+	extended_desc = "This circuit needs a reference to a to activate, as well as action and parems to pass! Use mode 1 for lists or 0 for single values."
+	w_class = WEIGHT_CLASS_SMALL
+	size = 3
+	cooldown_per_use = 1
+	complexity = 10
+
+	//inputs = list("target" = IC_PINTYPE_REF, "action" = IC_PINTYPE_STRING, "params" = IC_PINTYPE_STRING)
+	inputs = list("target" = IC_PINTYPE_REF, "action" = IC_PINTYPE_STRING, "mode" = IC_PINTYPE_NUMBER, "params" = IC_PINTYPE_STRING, "listparams" = IC_PINTYPE_LIST)
+	activators = list("pulse in" = IC_PINTYPE_PULSE_IN,"pulse out" = IC_PINTYPE_PULSE_OUT)
+	spawn_flags = IC_SPAWN_RESEARCH
+	power_draw_per_use = 50
+	ext_cooldown = 1
+	var/max_grab = GRAB_PASSIVE
+
+/obj/item/integrated_circuit/manipulation/advactivator/do_work(ord)
+	var/obj/acting_object = get_pin_data_as_type(IC_INPUT, 1, /obj/)
+	var/action = get_pin_data(IC_INPUT, 2)
+	var/mode = get_pin_data(IC_INPUT, 3)
+	var/params = get_pin_data(IC_INPUT, 4)
+	if(mode == 1)
+		params = get_pin_data(IC_INPUT, 5)
+
+	acting_object.ui_act(action, params)
+	activate_pin(1)
 
 
 /obj/item/integrated_circuit/manipulation/matman

@@ -19,13 +19,13 @@ matrix:
         - tools/travis/install_build_tools.sh
         - tools/travis/install_spaceman_dmm.sh dreamchecker
       script:
-        - tools/travis/check_filedirs.sh beestation.dme
+        - tools/travis/check_filedirs.sh OasisStation.dme
         - tools/travis/check_changelogs.sh
         - find . -name "*.php" -print0 | xargs -0 -n1 php -l
         - find . -name "*.json" -not -path "./tgui/node_modules/*" -print0 | xargs -0 python3 ./tools/json_verifier.py
         - tools/travis/build_tgui.sh
         - tools/travis/check_grep.sh
-        - ~/dreamchecker
+        - ~/dreamchecker -e OasisStation.dme
 
     - name: "Compile All Maps"
       addons:
@@ -41,7 +41,7 @@ matrix:
       before_script:
         - tools/travis/template_dm_generator.py
       script:
-        - tools/travis/dm.sh -DTRAVISBUILDING -DTRAVISTESTING -DALL_MAPS beestation.dme
+        - tools/travis/dm.sh -DTRAVISBUILDING -DTRAVISTESTING -DALL_MAPS OasisStation.dme
 
     - name: "Compile and Run Tests"
       addons:
@@ -67,7 +67,7 @@ matrix:
         - mysql -u root -e 'CREATE DATABASE bee_travis;'
         - mysql -u root bee_travis < SQL/beestation_schema.sql
       script:
-        - tools/travis/dm.sh -DTRAVISBUILDING beestation.dme || travis_terminate 1
+        - tools/travis/dm.sh -DTRAVISBUILDING OasisStation.dme || travis_terminate 1
         - tools/travis/run_server.sh
 
 #    - name: "Generate Documentation"

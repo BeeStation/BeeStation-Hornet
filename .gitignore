@@ -216,3 +216,6 @@ tools/MapAtmosFixer/MapAtmosFixer/bin/*
 !/config/jukebox_music/sounds/exclude
 /config/title_music/sounds/*
 !/config/title_music/sounds/exclude
+
+# Ignore PRMirror bot tool
+merge-upstream-pull-request.sh
