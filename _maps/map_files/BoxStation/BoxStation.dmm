@@ -57198,6 +57198,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
+"qNU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/microwave,
+/obj/structure/table,
+/turf/open/floor/plasteel,
+/area/quartermaster/warehouse)
 "qOk" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -60283,6 +60289,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
+"vbg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/donkpockets,
+/turf/open/floor/plasteel,
+/area/quartermaster/warehouse)
 "vbZ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -84659,7 +84670,7 @@ baS
 bbP
 baS
 bcE
-baS
+vbg
 bex
 gjl
 bgu
@@ -84916,7 +84927,7 @@ cBi
 bbS
 bcS
 bbS
-baS
+qNU
 bbS
 gjl
 aZE
