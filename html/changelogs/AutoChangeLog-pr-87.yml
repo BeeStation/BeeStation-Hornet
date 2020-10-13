@@ -1,4 +1,0 @@
-author: Poly-The-Parrot
-delete-after: true
-changes:
-  - code_imp: tiny renaming of a runtime error datum
