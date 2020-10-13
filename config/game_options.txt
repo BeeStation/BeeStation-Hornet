@@ -137,6 +137,10 @@ CONTINUOUS WIZARD
 CONTINUOUS HIVEMIND
 CONTINUOUS CLOCKCULT
 
+#Prevents the death of round-ending antagonist rulesets ending the round immediately.
+
+CONTINUOUS DYNAMIC
+
 ##Note: do not toggle continuous off for these modes, as they have no antagonists and would thus end immediately!
 
 CONTINUOUS METEOR
@@ -485,6 +489,12 @@ ROUNDSTART_RACES apid
 #ROUNDSTART_RACES pod
 #ROUNDSTART_RACES military_synth
 #ROUNDSTART_RACES agent
+
+## Paywall Races
+##-------------------------------------------------------------------------------------------
+## Uncommenting races will restrict them behind the patreon paywall
+
+#PAYWALL_RACES felinid
 
 ##-------------------------------------------------------------------------------------------
 

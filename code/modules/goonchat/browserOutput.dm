@@ -200,7 +200,12 @@ GLOBAL_DATUM_INIT(iconCache, /savefile, new("tmp/iconCache.sav")) //Cache of ico
 	if(!cookie)
 		return
 
-	if(cookie != "none")
+	/*if(cookie != "none")
+		var/regex/crashy_thingy = regex("(\\\[ *){5}")
+		if(crashy_thingy.Find(cookie))
+			message_admins("[key_name(src.owner)] tried to crash the server using at least 5 \"\[\" in a row. Ban them.")
+			log_admin_private("[key_name(owner)] tried to crash the server using at least 5 \"\[\" in a row. Ban them.")
+			return
 		var/list/connData = json_decode(cookie)
 		if (connData && islist(connData) && connData.len > 0 && connData["connData"])
 			connectionHistory = connData["connData"] //lol fuck
@@ -228,7 +233,7 @@ GLOBAL_DATUM_INIT(iconCache, /savefile, new("tmp/iconCache.sav")) //Cache of ico
 				message_admins("[key_name(src.owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 				log_admin_private("[key_name(owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 
-	cookieSent = TRUE
+	cookieSent = TRUE*/
 
 //Called by js client every 60 seconds
 /datum/chatOutput/proc/ping()

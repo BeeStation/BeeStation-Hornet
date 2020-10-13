@@ -691,7 +691,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	Close(silent = TRUE)
 
 /datum/admin_help/proc/Retitle()
-	var/new_title = input(usr, "Enter a title for the ticket", "Rename Ticket", name) as text|null
+	var/new_title = capped_input(usr, "Enter a title for the ticket", "Rename Ticket", name)
 	if(new_title)
 		name = new_title
 		//not saying the original name cause it could be a long ass message
@@ -757,7 +757,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 // Used for methods where input via arg doesn't work
 /client/proc/get_adminhelp()
-	var/msg = input(src, "Please describe your problem concisely and an admin will help as soon as they're able. Include the names of the people you are ahelping against if applicable.", "Adminhelp contents") as text|null
+	var/msg = capped_input(src, "Please describe your problem concisely and an admin will help as soon as they're able. Include the names of the people you are ahelping against if applicable.", "Adminhelp contents")
 	adminhelp(msg)
 
 /client/verb/adminhelp(msg as text)

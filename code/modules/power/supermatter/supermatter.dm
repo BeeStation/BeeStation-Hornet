@@ -2,6 +2,8 @@
 //Please do not bother them with bugs from this port, however, as it has been modified quite a bit.
 //Modifications include removing the world-ending full supermatter variation, and leaving only the shard.
 
+#define SUPERMATTER_MAXIMUM_ENERGY 1e6
+
 #define PLASMA_HEAT_PENALTY 15     // Higher == Bigger heat and waste penalty from having the crystal surrounded by this gas. Negative numbers reduce penalty.
 #define OXYGEN_HEAT_PENALTY 1
 #define CO2_HEAT_PENALTY 0.1
@@ -73,6 +75,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	desc = "A strangely translucent and iridescent crystal."
 	icon = 'icons/obj/supermatter.dmi'
 	icon_state = "darkmatter"
+	layer = 4
 	density = TRUE
 	anchored = TRUE
 	var/uid = 1
@@ -421,7 +424,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			temp_factor = 30
 			icon_state = base_icon_state
 
-		power = max((removed.return_temperature() * temp_factor / T0C) * gasmix_power_ratio + power, 0) //Total laser power plus an overload
+		power = clamp((removed.return_temperature() * temp_factor / T0C) * gasmix_power_ratio + power, 0, SUPERMATTER_MAXIMUM_ENERGY) //Total laser power plus an overload
 
 		if(prob(50))
 			radiation_pulse(src, power * (1 + (tritiumcomp * TRITIUM_RADIOACTIVITY_MODIFIER) + ((pluoxiumcomp * PLUOXIUM_RADIOACTIVITY_MODIFIER) * pluoxiumbonus) * (power_transmission_bonus/(10-(bzcomp * BZ_RADIOACTIVITY_MODIFIER))))) // Rad Modifiers BZ(500%), Tritium(300%), and Pluoxium(-200%)
