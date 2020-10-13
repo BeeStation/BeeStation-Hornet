@@ -1004,9 +1004,9 @@
 		if(result)
 			new result(src, TRUE)
 
-/mob/living/carbon/has_mouth()
+/mob/living/carbon/has_mouth(just_sipping = FALSE)
 	for(var/obj/item/bodypart/head/head in bodyparts)
-		if(head.mouth)
+		if(head.mouth || just_sipping)//if we're just sipping any orifice will do
 			return TRUE
 
 /mob/living/carbon/can_resist()
@@ -1017,7 +1017,7 @@
 		return FALSE
 	if(hallucinating())
 		return TRUE
-	
+
 	if(IsSleeping())
 		return TRUE
 	if(HAS_TRAIT(src, TRAIT_DUMB))

@@ -48,7 +48,7 @@
 	id = "Fake CBZ"
 	results = list(/datum/reagent/fake_cbz = 1)
 	required_reagents = list(/datum/reagent/concentrated_bz = 1, /datum/reagent/medicine/neurine = 3)
-	
+
 /datum/chemical_reaction/cryptobiolin
 	name = "Cryptobiolin"
 	id = /datum/reagent/cryptobiolin
@@ -781,3 +781,47 @@
 	id = /datum/reagent/mutationtoxin/plasma
 	results = list(/datum/reagent/mutationtoxin/plasma = 5)
 	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/toxin/plasma = 60, /datum/reagent/uranium = 20)
+
+// IPC DRINKS
+
+/datum/chemical_reaction/synthanol
+	name = "Synthanol"
+	id = /datum/reagent/consumable/ethanol/synthanol
+	required_reagents = list(/datum/reagent/lube = 1, /datum/reagent/toxin/plasma = 1, /datum/reagent/fuel = 1)
+	results = list(/datum/reagent/consumable/ethanol/synthanol = 3)
+
+/datum/chemical_reaction/synthanol/robottears
+	name = "Robot Tears"
+	id = /datum/chemical_reaction/synthanol/robottears
+	required_reagents = list(/datum/reagent/consumable/ethanol/synthanol = 1, /datum/reagent/oil = 1, /datum/reagent/consumable/sodawater = 1)
+	results = list(/datum/reagent/consumable/ethanol/synthanol/robottears = 3)
+
+/datum/chemical_reaction/synthanol/trinary
+	name = "Trinary"
+	id = /datum/chemical_reaction/synthanol/trinary
+	required_reagents = list(/datum/reagent/consumable/ethanol/synthanol = 1, /datum/reagent/consumable/lemon_lime = 1, /datum/reagent/consumable/orangejuice = 1)
+	results = list(/datum/reagent/consumable/ethanol/synthanol/trinary = 3)
+
+/datum/chemical_reaction/synthanol/servo
+	name = "Servo"
+	id = /datum/chemical_reaction/synthanol/servo
+	required_reagents = list(/datum/reagent/consumable/ethanol/synthanol = 2, /datum/reagent/consumable/cream = 1, /datum/reagent/consumable/hot_coco = 1)
+	results = list(/datum/reagent/consumable/ethanol/synthanol/servo = 4)
+
+/datum/chemical_reaction/synthanol/uplink
+	name = "Uplink"
+	id = /datum/chemical_reaction/synthanol/uplink
+	required_reagents = list(/datum/reagent/consumable/ethanol/rum = 1, /datum/reagent/consumable/ethanol/vodka = 1, /datum/reagent/consumable/ethanol/tequila = 1, /datum/reagent/consumable/ethanol/whiskey = 1, /datum/reagent/consumable/ethanol/synthanol = 1)
+	results = list(/datum/reagent/consumable/ethanol/synthanol/uplink = 5)
+
+/datum/chemical_reaction/synthanol/synthnsoda
+	name = "Synth 'n Soda"
+	id = /datum/chemical_reaction/synthanol/synthnsoda
+	required_reagents = list(/datum/reagent/consumable/ethanol/synthanol = 1, /datum/reagent/consumable/space_cola = 1)
+	results = list(/datum/reagent/consumable/ethanol/synthanol/synthnsoda = 2)
+
+/datum/chemical_reaction/synthanol/synthignon
+	name = "Synthignon"
+	id = /datum/chemical_reaction/synthanol/synthignon
+	required_reagents = list(/datum/reagent/consumable/ethanol/synthanol = 1, /datum/reagent/consumable/ethanol/wine = 1)
+	results = list(/datum/reagent/consumable/ethanol/synthanol/synthignon = 2)

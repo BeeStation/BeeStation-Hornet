@@ -1,5 +1,3 @@
-
-
 /obj/item/reagent_containers/food/drinks/drinkingglass
 	name = "drinking glass"
 	desc = "Your standard drinking glass."

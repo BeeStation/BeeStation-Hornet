@@ -13,6 +13,7 @@
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	volume = 50
 	resistance_flags = NONE
+	you_drink_from_this = TRUE
 	var/isGlass = TRUE //Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it
 	var/beingChugged = FALSE //We don't want people downing 100u super fast with drinking glasses
 
@@ -435,6 +436,7 @@
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
 	reagent_flags = NONE
 	spillable = FALSE
+	you_drink_from_this = TRUE
 	isGlass = FALSE
 	custom_price = 10
 
@@ -587,3 +589,9 @@
 	desc = "There is no air shortage. Do not drink."
 	icon_state = "air"
 	list_reagents = list(/datum/reagent/nitrogen = 24, /datum/reagent/oxygen = 6)
+
+/obj/item/reagent_containers/food/drinks/soda_cans/synthanol
+	name = "Beep's Classic Synthanol"
+	desc = "A can of IPC booze, however that works."
+	icon_state = "synthanolcan"
+	list_reagents = list(/datum/reagent/consumable/ethanol/synthanol = 30)

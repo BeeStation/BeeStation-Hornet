@@ -1,3 +1,5 @@
+
+
 /obj/machinery/vending/boozeomat
 	name = "\improper Booze-O-Mat"
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
@@ -34,8 +36,9 @@
 					/obj/item/reagent_containers/food/drinks/bottle/sake = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/applejack = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/blank = 15,
-					/obj/item/reagent_containers/food/drinks/bottle/blank/small = 15
-					)
+					/obj/item/reagent_containers/food/drinks/bottle/blank/small = 15,
+					/obj/item/reagent_containers/food/drinks/soda_cans/synthanol = 5,
+	)
 	contraband = list(/obj/item/reagent_containers/food/drinks/mug/tea = 12,
 					 /obj/item/reagent_containers/food/drinks/bottle/fernet = 5)
 	premium = list(/obj/item/reagent_containers/glass/bottle/ethanol = 4,
