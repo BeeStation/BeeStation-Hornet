@@ -560,6 +560,7 @@
 		player_info["alive"] = R.game_status == MAFIA_ALIVE
 		player_data += list(player_info)
 	.["players"] = player_data
+	.["timeleft"] = next_phase_timer ? timeleft(next_phase_timer) : 0
 
 	//Not sure on this, should this info be visible
 	.["all_roles"] = current_setup_text
