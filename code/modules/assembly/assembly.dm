@@ -125,3 +125,9 @@
 
 /obj/item/assembly/interact(mob/user)
 	return ui_interact(user)
+
+/obj/item/assembly/ui_status(mob/user)
+	.= ..()
+	if(src.can_interact(user) || holder.can_interact(user))
+		. = max(., UI_INTERACTIVE)
+
