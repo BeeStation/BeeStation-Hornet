@@ -1,4 +1,0 @@
-author: yorii
-delete-after: true
-changes:
-  - code_imp: tiny renaming of a runtime error datum
