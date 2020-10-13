@@ -1,0 +1,4 @@
+author: TheChaser212
+delete-after: true
+changes:
+  - tweak: Crew monitors and pinpointers now work with multi-z maps
