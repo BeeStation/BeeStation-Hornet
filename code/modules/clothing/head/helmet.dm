@@ -14,6 +14,7 @@
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEHAIR
 	bang_protect = 1
+	clothing_flags = THICKMATERIAL
 
 	dog_fashion = /datum/dog_fashion/head/helmet
 
