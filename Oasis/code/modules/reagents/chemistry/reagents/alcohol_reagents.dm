@@ -9,6 +9,17 @@
 	glass_name = "Vodka Cola"
 	glass_desc = "You don't like rum ? Fine, there is Whiskey, wha.. You don't like that too ? Man.. Well, Vodka I guess ?"
 
+/datum/reagent/consumable/ethanol/vodka_soda
+	name = "Vodka Soda"
+	description = "Vodka, mixed with soda. Eww."
+	color = "#3f2410" // rgb: 62, 27, 0
+	boozepwr = 60
+	quality = DRINK_NICE
+	taste_description = "vodka soda"
+	glass_icon_state = "whiskeysodaglass"
+	glass_name = "Vodka Soda"
+	glass_desc = "For those little snowflakes who don't like whiskey and cola."
+
 /datum/reagent/consumable/ethanol/black_roulette
 	name = "Black Roulette"
 	description = "It's like the real one! Be careful"
@@ -41,25 +52,10 @@
 	glass_desc = "Is there cocaine in the drink ? I'm suspicious now.."
 
 /datum/reagent/consumable/ethanol/triple_coke/on_mob_life(mob/living/carbon/M)
-	M.set_drugginess(20)
+	metabolization_rate = 1
 	M.emote("flip")
-	M.emote("collapse")
-	..()
-
-/datum/reagent/consumable/salty_water
-	name = "Salty Water"
-	description = "Water and, hmm, salt?"
-	color = "#ffe65b"
-	quality = DRINK_NICE
-	taste_description = "salt"
-	glass_icon_state = "glass_clear"
-	glass_name = "Water?"
-	glass_desc = "Who would ask that, seriously"
-
-/datum/reagent/consumable/salty_water/on_mob_add(mob/living/L)
-	metabolization_rate = 5
-	if(prob(100))
-		L.emote("scream")
+	if(prob(25))
+		M.emote("collapse")
 	..()
 
 /datum/reagent/consumable/ethanol/fringe_weaver/on_mob_life(mob/living/carbon/M)
@@ -82,6 +78,13 @@
 	glass_name = "Piña Colada"
 	glass_desc = "Smells like pineapple, oh there is rum too, seems good."
 
+/datum/reagent/consumable/ethanol/pina_colada/on_mob_life(mob/living/carbon/C)
+	if(prob(50))
+		C.adjustBruteLoss(-0.25)
+		C.adjustFireLoss(-0.25)
+		. = TRUE
+	..()
+
 /datum/reagent/consumable/ethanol/death_afternoon
 	name = "Death in the afternoon"
 	description = "Icy, milky, scary"
@@ -93,12 +96,9 @@
 	glass_name = "Death in the afternoon"
 	glass_desc = "You gotta drink it fast!"
 
-/datum/reagent/consumable/ethanol/death_afternoon/on_mob_life(mob/living/carbon/M)
+/datum/reagent/consumable/ethanol/death_afternoon/on_mob_add(mob/living/carbon/M)
 	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
-		M.adjustFireLoss(-3, 0)
-	..()
-	M.hallucination += 4
+		new /datum/hallucination/death(M, TRUE)
 	..()
 
-/datum/reagent/consumable/death_afternoon/on_mob_add(mob/living/L)
-	L.hallucination = /datum/hallucination/death
+

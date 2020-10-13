@@ -21,8 +21,5 @@ Barrel legnth:						Barrel viewfinder:					Basic barrel:
 - Moistnugget : medium
 
 
-Components category:
-- Here is all the new gear and components for the factory update.
-
 
 ~ Kryyto ~
