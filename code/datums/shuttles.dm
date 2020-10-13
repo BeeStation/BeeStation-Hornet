@@ -198,7 +198,7 @@
 	name = "Pizza buffet Shuttle"
 	description = "Delta class Shuttle outfitted with extra seating, expanded medbay and most importantly a pizza buffet."
 	admin_notes = "pretty much Delta but with pizza"
-	credit_cost = 3000
+	credit_cost = 2000
 
 /datum/map_template/shuttle/emergency/bar
 	suffix = "bar"
