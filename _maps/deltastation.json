@@ -3,7 +3,7 @@
     "map_path": "map_files/Deltastation",
     "map_file": "DeltaStation2.dmm",
     "shuttles": {
-	    "emergency": "emergency_delta",
+	    "emergency": "emergency_pizza",
 	    "ferry": "ferry_fancy",
 	    "cargo": "cargo_delta",
 	    "whiteship": "whiteship_delta"
