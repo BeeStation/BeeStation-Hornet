@@ -1169,7 +1169,7 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
-	weight = 2 //may be a bit higher than it should be, but the 10x10 pool is very saturated relative to how many spawn, and the art of using this rune will likely be forgotten
+	weight = 1 //rare
 
 /datum/map_template/random_room/sk_rdm136 //this room is fun as well
 	name = "Tiny Cluwne Altar"
@@ -1178,7 +1178,7 @@
 	centerspawner = FALSE
 	template_height = 4
 	template_width = 5
-	weight = 1 //but this one is tiny and uncinematic and bad
+	weight = 1
 
 /datum/map_template/random_room/sk_rdm137
 	name = "Tiny psych ward"
