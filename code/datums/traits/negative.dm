@@ -184,6 +184,7 @@
 		heirloom_type = pick(
 		/obj/item/reagent_containers/food/drinks/urn,
 		/obj/item/clothing/accessory/heirloom,		
+		/obj/item/reagent_containers/food/drinks/flask,
 		/obj/item/lighter)
 	heirloom = new heirloom_type(get_turf(quirk_holder))
 	var/list/slots = list(
