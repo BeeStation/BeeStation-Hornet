@@ -1,3 +1,4 @@
+// Effects
 /obj/effect/oneway
 	name = "one way effect"
 	desc = "Only lets things in from it's dir."
@@ -51,4 +52,20 @@
 			if(blocked_types[thing.type])
 				return reverse
 	return !reverse
-	
+
+// Items
+
+/obj/item/awaymaploader
+	name = "debug away mission loader - report this!"
+	desc = "A disk containing a set of data codes needed to lock onto an away mission. Insert it into the station gateway to lock onto the mission."
+	icon = 'icons/obj/module.dmi'
+	icon_state = "datadisk0"
+	var/map = null
+	var/mapcode = "MAIN_MISSION" // This is the code the user must enter into the gateway to journey to your map
+
+/obj/item/awaymaploader/beach
+	name = "away mission data disk: Beach"
+	map = '_maps/RandomZLevels/TheBeach.dmm'
+	mapcode = "BEACH"
+
+

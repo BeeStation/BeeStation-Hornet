@@ -14,6 +14,7 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 	var/calibrated = TRUE
 	var/list/linked = list()
 	var/can_link = FALSE	//Is this the centerpiece?
+	var/list/loadedmaps = list()
 
 /obj/machinery/gateway/Initialize()
 	randomspawns = GLOB.awaydestinations
@@ -134,6 +135,25 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 		G.update_icon()
 	active = 1
 	update_icon()
+
+/obj/machinery/gateway/centerstation/attackby(obj/item/awaymaploader/I, mob/user, params)
+	for(var/V in loadedmaps)
+		if(I.map == V)
+			to_chat(user, "<span class='warning'>Error: Data already in gateway.</span>")
+			return
+	var/away_name
+	var/datum/space_level/away_level
+	away_name = I.map
+	to_chat(usr,"<span class='notice'>The gateway begins to whirr as it processes the data...</span>")
+	var/datum/map_template/template = new(away_name, "Away Mission")
+	away_level = template.load_new_z()
+	message_admins("[usr.ckey] has loaded [away_name] away mission.")
+	if(!away_level)
+		message_admins("Loading of map [away_name] from a loading disk failed!")
+		to_chat(usr,"<span class='notice'>The gateway begins to whirr as it processes the data...</span>")
+		return
+	to_chat(usr,"<span class='notice'>Loaded [away_name]. Use the code [I.mapcode] to access it.</span>")
+	qdel(I)
 
 //okay, here's the good teleporting stuff
 /obj/machinery/gateway/centerstation/Bumped(atom/movable/AM)
