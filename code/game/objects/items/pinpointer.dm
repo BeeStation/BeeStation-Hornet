@@ -210,3 +210,25 @@
 /obj/item/pinpointer/shuttle/Destroy()
 	shuttleport = null
 	. = ..()
+
+/obj/item/pinpointer/pinpointer_gateway
+	name = "unstable gateway tracker"
+	desc = "A handheld tracking device, displaying the location of an unstable gateway, along with the time before collapse. Use it on the center of an unstable gateway to link it."
+	var/obj/machinery/gateway/centeraway/unstable/linked_gate = null
+
+/obj/item/pinpointer/pinpointer_gateway/scan_for_target()
+	if(isnull(linked_gate))
+		say("Error: No linked gateway detected.")
+		return
+	target = linked_gate
+
+/obj/item/pinpointer/pinpointer_gateway/Destroy()
+	linked_gate = null
+	. = ..()
+
+/obj/item/pinpointer/pinpointer_gateway/examine(mob/user)
+	. = ..()
+	if(!isnull(linked_gate))
+		to_chat(user, "The linked gateway will collapse in [linked_gate.get_time()] seconds.")
+		return
+	

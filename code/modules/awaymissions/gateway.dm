@@ -236,29 +236,26 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 		if (M.client)
 			M.client.move_delay = max(world.time + 5, M.client.move_delay)
 
-
-/obj/machinery/gateway/centeraway/admin
-	desc = "A mysterious gateway built by unknown hands, this one seems more compact."
-
 /obj/machinery/gateway/centeraway/unstable
 	targetid = "TIMED_MISSION"
-	var/timeinmission = 600
-	var/timeremaining = null
+	var/timeinmission = 6000
+	var/collapsetime = null
 	desc = "An unstable temporal gateway, linking our world to this strange anomaly in time. Anyone still trapped here when it collapses will die to the sands of time."
 
 /obj/machinery/gateway/centeraway/unstable/Initialize()
-	timeremaining = world.time + timeinmission
+	. = ..()
+	collapsetime = world.time + timeinmission
 
 /obj/machinery/gateway/centeraway/unstable/proc/get_time()
-	var/showtime = timeremaining - world.time
+	var/showtime = collapsetime - world.time
 	return showtime / 10
 
 /obj/machinery/gateway/centeraway/unstable/examine(mob/user)
 	. = ..()
-	to_chat(user, "It will collapse in [get_time()] seconds")
+	to_chat(user, "This gateway will collapse in [get_time()] seconds.")
 
 /obj/machinery/gateway/centeraway/unstable/process()
-	if(timeremaining < world.time)
+	if(collapsetime < world.time)
 		collapse()
 
 /obj/machinery/gateway/centeraway/unstable/proc/collapse()
@@ -268,6 +265,13 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 	for(var/obj/machinery/gateway/G in linked)
 		qdel(G)
 	qdel(src)
+
+/obj/machinery/gateway/centeraway/unstable/attackby(obj/item/pinpointer/pinpointer_gateway/P, mob/user, params)
+	to_chat(user, "<span class='notice'>You link [P] to [src], allowing the time until collapse to be tracked.</span>")
+	P.linked_gate = src
+
+/obj/machinery/gateway/centeraway/admin
+	desc = "A mysterious gateway built by unknown hands, this one seems more compact."
 
 /obj/machinery/gateway/centeraway/admin/detect()
 	return TRUE
