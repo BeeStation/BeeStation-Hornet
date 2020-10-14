@@ -274,6 +274,7 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 	qdel(src)
 
 /obj/machinery/gateway/centeraway/unstable/attackby(obj/item/pinpointer/pinpointer_gateway/P, mob/user, params)
+	. = ..()
 	to_chat(user, "<span class='notice'>You link [P] to [src], allowing the time until collapse to be tracked.</span>")
 	P.linked_gate = src
 	linked_pinpointers += P

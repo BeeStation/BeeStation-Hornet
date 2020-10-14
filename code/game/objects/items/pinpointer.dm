@@ -221,8 +221,8 @@
 	if(isnull(linked_gate))
 		return
 	if(linked_gate.get_time() < 120)
-		playsound(loc, 'sound/machines/alarm.ogg', 50, FALSE)
 		alert = TRUE
+
 
 
 /obj/item/pinpointer/pinpointer_gateway/scan_for_target()
