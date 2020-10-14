@@ -725,8 +725,9 @@
 	desc = "To be issued to those authorized to act as deputy of security."
 
 /obj/item/storage/box/deputy/PopulateContents()
-	for(var/i in 1 to 7)
+	for(var/i in 1 to 4)	//not too many
 		new /obj/item/clothing/accessory/armband/deputy(src)
+		new /obj/item/card/deputy_access_card(src)
 
 /obj/item/storage/box/metalfoam
 	name = "box of metal foam grenades"
