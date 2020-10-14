@@ -105,7 +105,7 @@
 						 "You operate the manual lever on \the [src].")
 			if (!do_after(user, 30, TRUE, src))
 				return FALSE
-		else if (density || allow_hand_open(user))
+		else if (density && !allow_hand_open(user))
 			return FALSE
 	
 		add_fingerprint(user)		
