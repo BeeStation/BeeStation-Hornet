@@ -24,6 +24,7 @@
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 70)
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	air_tight = TRUE
+	open_speed = -3
 	var/emergency_close_timer = 0
 	var/nextstate = null
 	var/boltslocked = TRUE
@@ -97,8 +98,17 @@
 	. = ..()
 	if(.)
 		return
-	if(!welded && !operating && !(stat & NOPOWER) && (!density || allow_hand_open(user)))
-		add_fingerprint(user)
+	
+	if (!welded && !operating)
+		if (stat & NOPOWER) 				
+			user.visible_message("[user] tries to force open \the [src].",
+						 "You try to force open \the [src].")
+			if (!do_after(user, 30, TRUE, src))
+				return FALSE
+		else if (density || allow_hand_open(user))
+			return FALSE
+	
+		add_fingerprint(user)		
 		if(density)
 			emergency_close_timer = world.time + 30 // prevent it from instaclosing again if in space
 			open()
@@ -107,6 +117,7 @@
 		return TRUE
 	if(operating || !density)
 		return
+	
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	user.visible_message("[user] bangs on \the [src].",
@@ -162,7 +173,7 @@
 		if(is_holding_pressure())
 			// tell the user that this is a bad idea, and have a do_after as well
 			to_chat(user, "<span class='warning'>As you begin crowbarring \the [src] a gush of air blows in your face... maybe you should reconsider?</span>")
-			if(!do_after(user, 20, TRUE, src)) // give them a few seconds to reconsider their decision.
+			if(!do_after(user, 10, TRUE, src)) // give them a few seconds to reconsider their decision.
 				return
 			log_game("[key_name(user)] has opened a firelock with a pressure difference at [AREACOORD(loc)]")
 			user.log_message("has opened a firelock with a pressure difference at [AREACOORD(loc)]", LOG_ATTACK)
