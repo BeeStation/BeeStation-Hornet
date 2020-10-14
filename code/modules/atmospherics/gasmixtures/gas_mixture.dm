@@ -169,7 +169,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 		set_moles(path, text2num(gas[id]))
 	return 1
 
-/datum/gas_mixture/react(datum/holder, reactions_exempted = list())
+/datum/gas_mixture/react(datum/holder)
 	. = NO_REACTION
 	var/list/reactions = list()
 	for(var/I in get_gases())
@@ -183,9 +183,6 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 	reaction_loop:
 		for(var/r in reactions)
 			var/datum/gas_reaction/reaction = r
-
-			if(is_type_in_typecache(reaction,reactions_exempted))
-				continue
 
 			var/list/min_reqs = reaction.min_requirements
 			if((min_reqs["TEMP"] && temp < min_reqs["TEMP"]) \
