@@ -299,7 +299,7 @@ GLOBAL_VAR(restart_counter)
 
 	s += "<b>[station_name()]</b>";
 	s += "(<a href='https://discord.gg/CwYA6Mz'>Discord</a>|<a href='https://ko-fi.com/dappersquid'>Donations</a>)" // OASIS EDIT
-	s += "<br><img src=\"https://i.imgur.com/zLm9d09.gif\"></br>" //Banner image // OASIS EDIT
+	s += "<br><img src=\"https://i.imgur.com/lrm067D.gif\"></br>" //Banner image // OASIS EDIT
 
 	var/players = GLOB.clients.len
 
