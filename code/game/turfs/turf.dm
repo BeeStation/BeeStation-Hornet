@@ -129,6 +129,8 @@
 
 /turf/attack_hand(mob/user)
 	. = ..()
+	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_NO_ATTACK_HAND)
+		. = TRUE
 	if(.)
 		return
 	user.Move_Pulled(src)

@@ -1396,6 +1396,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		var/mob/living/carbon/human/target_collateral_human
 		var/obj/structure/table/target_table
 		var/obj/machinery/disposal/bin/target_disposal_bin
+		var/turf/open/indestructible/sound/pool/target_pool
 		var/shove_blocked = FALSE //Used to check if a shove is blocked so that if it is knockdown logic can be applied
 
 		//Thank you based whoneedsspace
@@ -1407,6 +1408,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			if(get_turf(target) == target_oldturf)
 				target_table = locate(/obj/structure/table) in target_shove_turf.contents
 				target_disposal_bin = locate(/obj/machinery/disposal/bin) in target_shove_turf.contents
+				target_pool = istype(target_shove_turf, /turf/open/indestructible/sound/pool) ? target_shove_turf : null
 				shove_blocked = TRUE
 
 		if(target.IsKnockdown() && !target.IsParalyzed())
@@ -1429,7 +1431,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 						if(O.flags_1 & ON_BORDER_1 && O.dir == turn(shove_dir, 180) && O.density)
 							directional_blocked = TRUE
 							break
-			if((!target_table && !target_collateral_human && !target_disposal_bin) || directional_blocked)
+			if((!target_table && !target_collateral_human && !target_disposal_bin && !target_pool) || directional_blocked)
 				target.Knockdown(SHOVE_KNOCKDOWN_SOLID)
 				target.drop_all_held_items()
 				user.visible_message("<span class='danger'>[user.name] shoves [target.name], knocking [target.p_them()] down!</span>",
@@ -1454,6 +1456,12 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				user.visible_message("<span class='danger'>[user.name] shoves [target.name] into \the [target_disposal_bin]!</span>",
 					"<span class='danger'>You shove [target.name] into \the [target_disposal_bin]!</span>", null, COMBAT_MESSAGE_RANGE)
 				log_combat(user, target, "shoved", "into [target_disposal_bin] (disposal bin)")
+			else if(target_pool)
+				target.Knockdown(SHOVE_KNOCKDOWN_SOLID)
+				target.forceMove(target_pool)
+				user.visible_message("<span class='danger'>[user.name] shoves [target.name] into \the [target_pool]!</span>",
+					"<span class='danger'>You shove [target.name] into \the [target_pool]!</span>", null, COMBAT_MESSAGE_RANGE)
+				log_combat(user, target, "shoved", "into [target_pool] (swimming pool)")
 		else
 			user.visible_message("<span class='danger'>[user.name] shoves [target.name]!</span>",
 				"<span class='danger'>You shove [target.name]!</span>", null, COMBAT_MESSAGE_RANGE)

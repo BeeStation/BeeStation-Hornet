@@ -7,39 +7,8 @@ Place pool border decals around the pool so it doesn't look weird
 Place a pool ladder at the top of the pool so that it leads to a normal tile (or else it'll be hard to get out of the pool.)
 Place a pool filter somewhere in the pool if you want people to be able to modify the pool's settings (Temperature) or dump reagents into the pool (which'll change the pool's colour)
 */
-//So you don't get to run at /tg/ movespeed in a pool and SPAM SPLOSH!
-#define MOVESPEED_ID_SWIMMING "SWIMMING_SPEED_MOD"
 
-//Component used to show that a mob is swimming, and force them to swim a lil' bit slower. Components are actually really based!
-
-/datum/component/swimming
-	dupe_mode = COMPONENT_DUPE_UNIQUE
-	var/lengths = 0 //How far have we swum?
-	var/lengths_for_bonus = 25 //If you swim this much, you'll count as having "excercised" and thus gain a buff.
-
-/datum/component/swimming/Initialize()
-	. = ..()
-	if(!isliving(parent))
-		message_admins("Swimming component erroneously added to a non-living mob ([parent]).")
-		return INITIALIZE_HINT_QDEL //Only mobs can swim, like Ian...
-	var/mob/M = parent
-	M.visible_message("<span class='notice'>[parent] starts splashing around in the water!</span>")
-	M.add_movespeed_modifier(MOVESPEED_ID_SWIMMING, update=TRUE, priority=50, multiplicative_slowdown=4, movetypes=GROUND)
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/onMove)
-
-/datum/component/swimming/proc/onMove()
-	lengths ++
-	if(lengths > lengths_for_bonus)
-		var/mob/living/L = parent
-		SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "exercise", /datum/mood_event/exercise)
-		L.apply_status_effect(STATUS_EFFECT_EXERCISED) //Swimming is really good excercise!
-		lengths = 0
-
-/datum/component/swimming/UnregisterFromParent()
-	var/mob/M = parent
-	M.remove_movespeed_modifier(MOVESPEED_ID_SWIMMING)
-	UnregisterSignal(parent, COMSIG_MOVABLE_MOVED)
-	return ..()
+GLOBAL_LIST_EMPTY(species_swimming_components)
 
 /obj/effect/overlay/poolwater
 	name = "Pool water"
@@ -47,6 +16,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	icon_state = "water"
 	anchored = TRUE
 	layer = ABOVE_ALL_MOB_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /turf/open/indestructible/sound/pool
 	name = "Swimming pool"
@@ -62,6 +32,14 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 
 /turf/open/indestructible/sound/pool/Initialize(mapload)
 	. = ..()
+	water_overlay = new /obj/effect/overlay/poolwater(get_turf(src))
+	if(!LAZYLEN(GLOB.species_swimming_components))
+		//Setup the swimming species
+		GLOB.species_swimming_components[/datum/species/squid] = /datum/component/swimming/squid
+		GLOB.species_swimming_components[/datum/species/ethereal] = /datum/component/swimming/ethereal
+		GLOB.species_swimming_components[/datum/species/jelly] = /datum/component/swimming/disolve
+		for(var/golem_type in typesof(/datum/species/golem))
+			GLOB.species_swimming_components[golem_type] = /datum/component/swimming/golem
 	water_overlay = new /obj/effect/overlay/poolwater(src)
 	add_overlay(water_overlay)
 
@@ -69,6 +47,11 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	cut_overlay(water_overlay)
 	water_overlay.color = colour
 	add_overlay(water_overlay)
+
+/turf/open/indestructible/sound/pool/end/ChangeTurf(path, list/new_baseturfs, flags)
+	if(water_overlay)
+		qdel(water_overlay)
+	. = ..()
 
 /turf/open/CanPass(atom/movable/mover, turf/target)
 	var/datum/component/swimming/S = mover.GetComponent(/datum/component/swimming) //If you're swimming around, you don't really want to stop swimming just like that do you?
@@ -86,6 +69,14 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	if(isliving(AM))
 		var/datum/component/swimming/S = AM.GetComponent(/datum/component/swimming) //You can't get in the pool unless you're swimming.
 		if(!S)
+			var/mob/living/carbon/C = AM
+			var/component_type = /datum/component/swimming
+			if(istype(C))
+				if(C.dna.species.type in GLOB.species_swimming_components)
+					component_type = GLOB.species_swimming_components[C.dna.species.type]
+				else if(iscatperson(C))	//Why is this not it's own species, that is really annoying
+					component_type = /datum/component/swimming/felinid
+			AM.AddComponent(component_type)
 			AM.AddComponent(/datum/component/swimming)
 
 /turf/open/indestructible/sound/pool/Exited(atom/movable/Obj, atom/newloc)
@@ -207,6 +198,9 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	icon_state = "ladder"
 	pixel_y = 12
 
+GLOBAL_LIST_EMPTY(pool_filters)
+
+
 /obj/machinery/pool_filter
 	name = "Pool filter"
 	desc = "A device which can help you regulate conditions in a pool. Use a <b>wrench</b> to change its operating temperature, or hit it with a reagent container to load in new liquid to add to the pool."
@@ -236,6 +230,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 		if(id && water.id != id)
 			continue //Not the same id. Fine. Ignore that one then!
 		pool += water
+	GLOB.pool_filters += src
 
 //Brick can set the pool to low temperatures remotely. This will probably be hell on malf!
 
@@ -283,6 +278,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 					splash_holder.reaction(M, TOUCH)
 				else //Sometimes the water penetrates a lil deeper than just a splosh.
 					splash_holder.reaction(M, INGEST)
+				splash_holder.trans_to(M, trans_amount, transfered_by = src)	//Actually put reagents in the mob
 				qdel(splash_holder)
 				var/mob/living/carbon/C = M
 				if(current_temperature <= 283.5) //Colder than 10 degrees is going to make you very cold

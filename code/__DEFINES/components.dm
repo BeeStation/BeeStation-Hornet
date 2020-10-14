@@ -248,6 +248,8 @@
 #define COMSIG_ITEM_MARK_RETRIEVAL "item_mark_retrieval"		//! called before marking an object for retrieval, checked in /obj/effect/proc_holder/spell/targeted/summonitem/cast() : (mob/user)
 	#define COMPONENT_BLOCK_MARK_RETRIEVAL 1
 #define COMSIG_ITEM_HIT_REACT "item_hit_react"					//! from base of obj/item/hit_reaction(): (list/args)
+#define COMSIG_ITEM_IS_WIELDED "item_is_wielded"								//! used to check if an item is two-handed and wielded
+	#define COMPONENT_WIELDED 1
 
 // /obj/item/clothing signals
 #define COMSIG_SHOES_STEP_ACTION "shoes_step_action"			//! from base of obj/item/clothing/shoes/proc/step_action(): ()
