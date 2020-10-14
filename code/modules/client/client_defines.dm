@@ -46,7 +46,7 @@
 		//SOUND STUFF//
 		///////////////
 	var/ambient_buzz_playing = null // What buzz ambience is currently playing
-	var/ambient_buzz_sound = null
+	var/ambient_buzz = null
 	var/ambient_effect_last_played = 0 // What was the last time we played an ambient effect noise?
 		////////////
 		//SECURITY//
