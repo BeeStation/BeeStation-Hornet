@@ -10,7 +10,7 @@ export const Wires = (props, context) => {
   return (
     <Window
       width={180}
-      height={wires.len * 30 + 150}>
+      height={wires.length * 30 + 150}>
       <Window.Content>
         <Section>
           <LabeledList>
