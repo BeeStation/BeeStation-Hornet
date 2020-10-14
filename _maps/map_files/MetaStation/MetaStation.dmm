@@ -15329,6 +15329,9 @@
 /obj/item/sealant,
 /obj/item/sealant,
 /obj/item/sealant,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/engine,
 /area/engine/engineering/reactor_core)
 "aDa" = (
@@ -16034,6 +16037,9 @@
 	},
 /obj/structure/table,
 /obj/machinery/computer/reactor/stats,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering/reactor_control)
 "aEt" = (
@@ -19798,6 +19804,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/pool{
+	dir = 1
+	},
+/obj/machinery/light{
 	dir = 1
 	},
 /turf/open/indestructible/sound/pool/end,
@@ -78560,6 +78569,7 @@
 	},
 /obj/structure/closet/secure_closet/engineering_personal,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "dei" = (
@@ -78587,6 +78597,7 @@
 	dir = 1
 	},
 /obj/machinery/modular_computer/console/preset/engineering,
+/obj/machinery/camera/autoname,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering/reactor_control)
 "del" = (
@@ -78601,6 +78612,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/purple/hidden/layer1{
 	dir = 6
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering/reactor_control)
@@ -78855,6 +78869,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering/reactor_control)
 "dfG" = (
@@ -78897,6 +78914,9 @@
 	dir = 1
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/engine,
 /area/engine/engineering/reactor_core)
 "dfV" = (
@@ -80638,6 +80658,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -29
 	},
+/obj/machinery/light,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering/reactor_control)
 "dBx" = (
@@ -80652,6 +80673,9 @@
 /area/engine/engineering/reactor_core)
 "dBy" = (
 /obj/effect/turf_decal/pool{
+	dir = 4
+	},
+/obj/machinery/light{
 	dir = 4
 	},
 /turf/open/indestructible/sound/pool,
@@ -82871,6 +82895,13 @@
 "iEs" = (
 /turf/open/floor/engine,
 /area/engine/engineering/reactor_core)
+"iEJ" = (
+/obj/effect/turf_decal/pool{
+	dir = 1
+	},
+/obj/machinery/camera/autoname,
+/turf/open/indestructible/sound/pool/end,
+/area/engine/engineering)
 "iGZ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -83189,6 +83220,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering/reactor_control)
 "jKK" = (
@@ -83453,6 +83487,9 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
+	},
+/obj/machinery/camera/autoname{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering/reactor_control)
@@ -84742,6 +84779,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/engine,
 /area/engine/engineering/reactor_core)
 "oOv" = (
@@ -84966,6 +85006,9 @@
 /obj/item/clothing/glasses/meson/engine,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
+	},
+/obj/machinery/light/small{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering/reactor_control)
@@ -85321,6 +85364,9 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
+	},
+/obj/machinery/camera/autoname{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering/reactor_control)
@@ -85970,6 +86016,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 5
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering/reactor_control)
@@ -86801,6 +86850,17 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plasteel,
 /area/maintenance/department/science)
+"wSM" = (
+/obj/structure/cable/white{
+	icon_state = "4-8"
+	},
+/obj/structure/closet/secure_closet/engineering_personal,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/engine/engineering)
 "wVw" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -128987,7 +129047,7 @@ deB
 azd
 nRe
 fQZ
-aMi
+iEJ
 dfi
 aAw
 aQd
@@ -129507,7 +129567,7 @@ aBO
 aQe
 dBA
 dBA
-deh
+wSM
 dfY
 apc
 aYu
