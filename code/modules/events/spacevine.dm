@@ -99,22 +99,6 @@
 	if(!isvineimmune(eater))
 		eater.adjustToxLoss(5)
 
-/datum/spacevine_mutation/explosive  //OH SHIT IT CAN CHAINREACT RUN!!!
-	name = "explosive"
-	hue = "#ff0000"
-	quality = NEGATIVE
-	severity = 2
-
-/datum/spacevine_mutation/explosive/on_explosion(explosion_severity, target, obj/structure/spacevine/holder)
-	if(explosion_severity < 3)
-		qdel(holder)
-	else
-		. = 1
-		QDEL_IN(holder, 5)
-
-/datum/spacevine_mutation/explosive/on_death(obj/structure/spacevine/holder, mob/hitter, obj/item/I)
-	explosion(holder.loc, 0, 0, severity, 0, 0)
-
 /datum/spacevine_mutation/fire_proof
 	name = "fire proof"
 	hue = "#ff8888"
@@ -128,28 +112,6 @@
 		. = 0
 	else
 		. = expected_damage
-
-/datum/spacevine_mutation/vine_eating
-	name = "vine eating"
-	hue = "#ff7700"
-	quality = MINOR_NEGATIVE
-
-/datum/spacevine_mutation/vine_eating/on_spread(obj/structure/spacevine/holder, turf/target)
-	var/obj/structure/spacevine/prey = locate() in target
-	if(prey && !prey.mutations.Find(src))  //Eat all vines that are not of the same origin
-		qdel(prey)
-
-/datum/spacevine_mutation/aggressive_spread  //very OP, but im out of other ideas currently
-	name = "aggressive spreading"
-	hue = "#333333"
-	severity = 3
-	quality = NEGATIVE
-
-/datum/spacevine_mutation/aggressive_spread/on_spread(obj/structure/spacevine/holder, turf/target)
-	target.ex_act(severity, null, src) // vine immunity handled at /mob/ex_act
-
-/datum/spacevine_mutation/aggressive_spread/on_buckle(obj/structure/spacevine/holder, mob/living/buckled)
-	buckled.ex_act(severity, null, src)
 
 /datum/spacevine_mutation/transparency
 	name = "transparent"
