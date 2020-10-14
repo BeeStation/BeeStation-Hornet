@@ -368,3 +368,23 @@
 	new /obj/item/gun/ballistic/revolver/detective(src)
 	new /obj/item/ammo_box/c38(src)
 	new /obj/item/ammo_box/c38(src)
+
+///////////////////
+//FAMILY HEIRLOOM//
+///////////////////
+
+/obj/item/clothing/accessory/heirloom
+	name = "family broch"
+	desc = "A simple broch with sentimental value. It would be kind to return this to whoever lost it."
+	icon_state = "lawyerbadge"
+	item_color = "lawyerbadge"
+
+/obj/item/clothing/accessory/heirloom/on_uniform_equip(obj/item/clothing/under/U, user)
+	var/mob/living/L = user
+	if(L)
+		L.bubble_icon = "lawyer"
+
+/obj/item/clothing/accessory/heirloom/on_uniform_dropped(obj/item/clothing/under/U, user)
+	var/mob/living/L = user
+	if(L)
+		L.bubble_icon = initial(L.bubble_icon)

@@ -95,15 +95,17 @@
 	var/mob/living/carbon/human/H = quirk_holder
 	var/obj/item/heirloom_type
 
-	if(is_species(H, /datum/species/moth) && prob(50))
+	if(is_species(H, /datum/species/moth) && prob(25))
 		heirloom_type = /obj/item/flashlight/lantern/heirloom_moth
-	else
+	else if(is_species(H, /datum/species/felinid) && prob(10))
+		heirloom_type = /obj/item/toy/cattoy
+	else if (prob(90))
 		switch(quirk_holder.mind.assigned_role)
 			//Service jobs
 			if("Clown")
 				heirloom_type = /obj/item/bikehorn/golden
 			if("Mime")
-				heirloom_type = /obj/item/reagent_containers/food/snacks/baguette
+				heirloom_type = /obj/item/staff/stick
 			if("Janitor")
 				heirloom_type = pick(/obj/item/mop, /obj/item/clothing/suit/caution, /obj/item/reagent_containers/glass/bucket)
 			if("Cook")
@@ -120,17 +122,23 @@
 				heirloom_type = /obj/item/storage/toolbox/mechanical/old/heirloom
 			if("Barber")
 				heirloom_type = /obj/item/handmirror
+			if("Psychiatrist")
+				heirloom_type =  pick(subtypesof(/obj/item/toy/plush))
 			if("Stage Magician")
 				heirloom_type = /obj/item/gun/magic/wand
+			if("VIP")
+				heirloom_type = /obj/item/pda/clear				
 			//Security/Command
 			if("Captain")
-				heirloom_type = /obj/item/reagent_containers/food/drinks/flask/gold
+				heirloom_type = pick(/obj/item/reagent_containers/food/drinks/flask/gold, /obj/item/phone)
+			if("Head Of Personnel")
+				heirloom_type = pick(/obj/item/toy/figure/ian, /obj/item/phone)
 			if("Head of Security")
-				heirloom_type = /obj/item/book/manual/wiki/security_space_law
+				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/phone)
 			if("Warden")
 				heirloom_type = /obj/item/book/manual/wiki/security_space_law
 			if("Security Officer")
-				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/clothing/head/beret/sec)
+				heirloom_type = pick(/obj/item/clothing/head/beret/sec, /obj/item/clothing/head/helmet/old)
 			if("Detective")
 				heirloom_type = /obj/item/reagent_containers/food/drinks/bottle/whiskey
 			if("Lawyer")
@@ -139,7 +147,7 @@
 				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/book/manual/wiki/security_space_law)
 			//RnD
 			if("Research Director")
-				heirloom_type = /obj/item/toy/plush/slimeplushie
+				heirloom_type = pick(/obj/item/toy/plush/slimeplushie, /obj/item/phone)
 			if("Scientist")
 				heirloom_type = /obj/item/toy/plush/slimeplushie
 			if("Roboticist")
@@ -159,11 +167,11 @@
 				heirloom_type = /obj/item/clothing/under/shorts/purple
 			//Engineering
 			if("Chief Engineer")
-				heirloom_type = pick(/obj/item/clothing/head/hardhat/white, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
+				heirloom_type = pick(/obj/item/clothing/head/hardhat/white, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters, /obj/item/phone, /obj/item/clothing/gloves/color/fyellow/old)
 			if("Station Engineer")
-				heirloom_type = pick(/obj/item/clothing/head/hardhat, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
+				heirloom_type = pick(/obj/item/clothing/head/hardhat, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters, /obj/item/clothing/gloves/color/fyellow/old)
 			if("Atmospheric Technician")
-				heirloom_type = pick(/obj/item/lighter, /obj/item/lighter/greyscale, /obj/item/storage/box/matches)
+				heirloom_type = pick(/obj/item/lighter, /obj/item/lighter/greyscale, /obj/item/wrench)
 			//Supply
 			if("Quartermaster")
 				heirloom_type = pick(/obj/item/stamp, /obj/item/stamp/denied)
@@ -174,9 +182,9 @@
 
 	if(!heirloom_type)
 		heirloom_type = pick(
-		/obj/item/toy/cards/deck,
-		/obj/item/lighter,
-		/obj/item/dice/d20)
+		/obj/item/reagent_containers/food/drinks/urn,
+		/obj/item/clothing/accessory/heirloom,		
+		/obj/item/lighter)
 	heirloom = new heirloom_type(get_turf(quirk_holder))
 	var/list/slots = list(
 		"in your left pocket" = SLOT_L_STORE,

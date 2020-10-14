@@ -587,3 +587,11 @@
 	desc = "There is no air shortage. Do not drink."
 	icon_state = "air"
 	list_reagents = list(/datum/reagent/nitrogen = 24, /datum/reagent/oxygen = 6)
+
+/obj/item/reagent_containers/food/drinks/urn
+	name = "family urn"
+	desc = "A urn containing the remains of a dear family member."
+	icon_state = "pewter_cup"
+	volume = 30
+	list_reagents = list(/datum/reagent/ash = 30)
+	isGlass = FALSE
