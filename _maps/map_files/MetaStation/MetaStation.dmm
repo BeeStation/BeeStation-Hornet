@@ -24336,10 +24336,8 @@
 /turf/open/floor/plating,
 /area/engine/engineering/reactor_control)
 "aVh" = (
-/obj/machinery/door/firedoor/window,
-/obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/atmospherics/pipe/layer_manifold/visible,
-/turf/open/floor/plating,
+/turf/closed/wall/r_wall,
 /area/engine/engineering/reactor_core)
 "aVk" = (
 /obj/structure/window/reinforced{
@@ -81458,11 +81456,11 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer3{
 	dir = 6
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/components/unary/portables_connector/visible/layer1{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 4
@@ -83455,11 +83453,6 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/cryopods)
-"kpw" = (
-/obj/machinery/door/firedoor/window,
-/obj/effect/spawner/structure/window/plasma/reinforced,
-/turf/open/floor/plating,
-/area/engine/engineering/reactor_core)
 "kqg" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer3{
@@ -83780,8 +83773,10 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "lpL" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
-/turf/closed/wall/r_wall,
+/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/structure/grille,
+/turf/open/floor/plating,
 /area/engine/engineering/reactor_core)
 "lrF" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -84510,10 +84505,10 @@
 /area/science/shuttledock)
 "nZG" = (
 /obj/machinery/atmospherics/components/binary/pump/layer1{
-	dir = 4
+	dir = 8
 	},
 /obj/machinery/atmospherics/components/binary/pump{
-	dir = 8
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/engine/engineering/reactor_core)
@@ -131367,7 +131362,7 @@ dft
 dBB
 dBB
 dBB
-kpw
+ehd
 aKF
 aaf
 auv
@@ -131867,7 +131862,7 @@ aok
 aaf
 aaf
 aaf
-ehd
+lpL
 aCZ
 iEs
 rtN
@@ -131881,7 +131876,7 @@ iEs
 iEs
 iEs
 pDZ
-ehd
+lpL
 auv
 aaf
 auv
@@ -133158,9 +133153,9 @@ ehd
 ehd
 ehd
 hbd
-ehd
-ehd
-ehd
+lpL
+lpL
+lpL
 hbd
 ehd
 ehd
