@@ -82499,7 +82499,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "faQ" = (
-/obj/machinery/pool_filter,
 /obj/effect/turf_decal/pool/innercorner{
 	dir = 4
 	},
@@ -82521,6 +82520,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall,
 /area/hallway/secondary/entry)
+"fcP" = (
+/obj/machinery/pool_filter,
+/turf/open/indestructible/sound/pool,
+/area/engine/engineering/reactor_core)
 "fdr" = (
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating,
@@ -83266,7 +83269,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering/reactor_control)
 "hbG" = (
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold/visible,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "heM" = (
@@ -86738,6 +86741,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
+"szu" = (
+/obj/item/twohanded/required/fuel_rod,
+/turf/open/space/basic,
+/area/space)
 "szA" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -134954,7 +134961,7 @@ goc
 ccZ
 fGw
 aaf
-aaa
+szu
 aaf
 cjo
 ckM
@@ -135987,7 +135994,7 @@ lRX
 voS
 jYV
 tyd
-khG
+fcP
 faQ
 ehd
 sXK
