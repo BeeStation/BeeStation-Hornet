@@ -238,8 +238,9 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 
 /obj/machinery/gateway/centeraway/unstable
 	targetid = "TIMED_MISSION"
-	var/timeinmission = 6000
+	var/timeinmission = 300
 	var/collapsetime = null
+	var/list/obj/item/pinpointer/pinpointer_gateway/linked_pinpointers = list()
 	desc = "An unstable temporal gateway, linking our world to this strange anomaly in time. Anyone still trapped here when it collapses will die to the sands of time."
 
 /obj/machinery/gateway/centeraway/unstable/Initialize()
@@ -257,8 +258,14 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 /obj/machinery/gateway/centeraway/unstable/process()
 	if(collapsetime < world.time)
 		collapse()
+	else
+		var/volume = (get_time() <= 20 ? 30 : 5)
+		playsound(loc, 'sound/items/timer.ogg', volume, FALSE)
 
 /obj/machinery/gateway/centeraway/unstable/proc/collapse()
+	for(var/obj/item/pinpointer/pinpointer_gateway/P in linked_pinpointers)
+		P.alert = FALSE
+		P.linked_gate = null
 	for(var/mob/living/M in GLOB.mob_list)
 		if(M.z == z)
 			M.dust()
@@ -269,6 +276,7 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 /obj/machinery/gateway/centeraway/unstable/attackby(obj/item/pinpointer/pinpointer_gateway/P, mob/user, params)
 	to_chat(user, "<span class='notice'>You link [P] to [src], allowing the time until collapse to be tracked.</span>")
 	P.linked_gate = src
+	linked_pinpointers += P
 
 /obj/machinery/gateway/centeraway/admin
 	desc = "A mysterious gateway built by unknown hands, this one seems more compact."
