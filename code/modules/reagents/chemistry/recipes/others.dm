@@ -358,6 +358,7 @@
 /datum/chemical_reaction/mix_virus/rem_virus
 	name = "Devolve Virus"
 	id = "remvirus"
+	results = null
 	required_reagents = list(/datum/reagent/medicine/synaptizine = 1)
 	required_catalysts = list(/datum/reagent/blood = 1)
 
@@ -373,6 +374,7 @@
 /datum/chemical_reaction/mix_virus/neuter_virus
 	name = "Neuter Virus"
 	id = "neutervirus"
+	results = null
 	required_reagents = list(/datum/reagent/toxin/formaldehyde = 1)
 	required_catalysts = list(/datum/reagent/blood = 1)
 
@@ -388,6 +390,7 @@
 /datum/chemical_reaction/mix_virus/preserve_virus
 	name = "Preserve Virus"
 	id = "preservevirus"
+	results = null
 	required_reagents = list(/datum/reagent/cryostylane = 1)
 	required_catalysts = list(/datum/reagent/blood = 1)
 
@@ -403,6 +406,7 @@
 /datum/chemical_reaction/mix_virus/falter_virus
 	name = "Falter Virus"
 	id = "faltervirus"
+	results = null
 	required_reagents = list(/datum/reagent/medicine/spaceacillin = 1)
 	required_catalysts = list(/datum/reagent/blood = 1)
 
