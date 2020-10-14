@@ -145,6 +145,7 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 	var/datum/space_level/away_level
 	away_name = I.map
 	to_chat(usr,"<span class='notice'>The gateway begins to whirr as it processes the data...</span>")
+	qdel(I)
 	var/datum/map_template/template = new(away_name, "Away Mission")
 	away_level = template.load_new_z()
 	message_admins("[usr.ckey] has loaded [away_name] away mission.")
@@ -153,7 +154,7 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 		to_chat(usr,"<span class='notice'>The gateway begins to whirr as it processes the data...</span>")
 		return
 	to_chat(usr,"<span class='notice'>Loaded [away_name]. Use the code [I.mapcode] to access it.</span>")
-	qdel(I)
+	loadedmaps += away_name
 
 //okay, here's the good teleporting stuff
 /obj/machinery/gateway/centerstation/Bumped(atom/movable/AM)
