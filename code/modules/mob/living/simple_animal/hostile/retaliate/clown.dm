@@ -65,6 +65,15 @@
 		if(L.reagents)
 			L.reagents.add_reagent(attack_reagent, 5)
 
+/mob/living/simple_animal/hostile/retaliate/clown/temporal
+	name = "Time Travelling Clown"
+	desc = "We need to go back; back TO THE CIRCUS!"
+
+/mob/living/simple_animal/hostile/retaliate/clown/temporal/bullet_act(obj/item/projectile/P, def_zone)
+	if(istimeprojectile(P))
+		P.damage = P.damage * 4
+	. = ..()
+	
 /mob/living/simple_animal/hostile/retaliate/clown/lube
 	name = "Living Lube"
 	desc = "A puddle of lube brought to life by the honkmother."

@@ -65,3 +65,6 @@
 	e_cost = 200
 	select_name = "stun"
 	projectile_type = /obj/item/projectile/energy/tesla/revolver
+
+/obj/item/ammo_casing/energy/temporal
+	projectile_type = /obj/item/projectile/energy/temporal
