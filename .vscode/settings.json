@@ -1,15 +1,3 @@
 {
 	"dreammaker.extoolsDLL": "byond-extools.dll",
-
-	"eslint.workingDirectories": [
-		"./tgui"
-	],
-
-	"workbench.editorAssociations": [
-		{
-			"filenamePattern": "*.dmi",
-			"viewType": "imagePreview.previewEditor"
-		}
-	],
-	"files.eol": "\n"
 }
