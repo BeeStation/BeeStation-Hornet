@@ -193,6 +193,13 @@
 	description = "A respectable mid-sized shuttle that first saw service shuttling Nanotrasen crew to and from their asteroid belt embedded facilities."
 	credit_cost = 3000
 
+/datum/map_template/shuttle/emergency/pizza
+	suffix = "pizza"
+	name = "Pizza buffet Shuttle"
+	description = "Delta class Shuttle outfitted with extra seating, expanded medbay and most importantly a pizza buffet."
+	admin_notes = "pretty much Delta but with pizza"
+	credit_cost = 2000
+
 /datum/map_template/shuttle/emergency/bar
 	suffix = "bar"
 	name = "The Emergency Escape Bar"
