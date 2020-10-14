@@ -1,0 +1,4 @@
+author: ro5490
+delete-after: true
+changes:
+  - bugfix: fixed server banner on the hub, also we're live on hub now
