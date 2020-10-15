@@ -277,7 +277,8 @@
 	var/initial_plasma = air.get_moles(/datum/gas/plasma)
 	var/initial_carbon = air.get_moles(/datum/gas/carbon_dioxide)
 	var/scale_factor = (air.return_volume())/(PI) //We scale it down by volume/Pi because for fusion conditions, moles roughly = 2*volume, but we want it to be based off something constant between reactions.
-	var/toroidal_size = (2*PI)+TORADIANS(arctan((air.return_volume()-TOROID_VOLUME_BREAKEVEN)/TOROID_VOLUME_BREAKEVEN)) //The size of the phase space hypertorus
+	var/temperature_scale = log(10, air.return_temperature())
+	var/toroidal_size = max(TOROID_CALCULATED_THRESHOLD + min((temperature_scale-6)/10,0) + 4 ** temperature_scale / 1300, 1000)//The size of the phase space hypertorus
 	var/gas_power = 0
 	for (var/gas_id in air.get_gases())
 		gas_power += (GLOB.meta_gas_info[gas_id][META_GAS_FUSION_POWER]*air.get_moles(gas_id))
