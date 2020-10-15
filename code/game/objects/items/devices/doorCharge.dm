@@ -1,5 +1,5 @@
 /obj/item/doorCharge
-	name = "Airlock Charge"
+	name = "airlock charge"
 	desc = null //Different examine for traitors
 	icon = 'icons/obj/device.dmi'
 	item_state = "electronic"
