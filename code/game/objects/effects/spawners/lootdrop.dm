@@ -190,7 +190,7 @@
 		/obj/item/organ/tongue/snail = 1,
 		/obj/item/organ/appendix = 5,
 		/obj/effect/gibspawner/human = 1,
-		/obj/item/organ/wings = 1, 
+		/obj/item/organ/wings = 1,
 		/obj/item/organ/wings/moth = 1,
 		/obj/item/organ/wings/bee = 1,
 		/obj/item/organ/wings/dragon/fake = 1)
@@ -237,6 +237,13 @@
 		/obj/effect/decal/remains/xeno = 49,
 		/obj/effect/spawner/xeno_egg_delivery = 1)
 
+/obj/effect/spawner/lootdrop/tesla_and_singuloth_spawner
+	name = "Tesla or Singularity spawner"
+	loot = list(
+		/obj/machinery/the_singularitygen/tesla = 80,
+		/obj/machinery/the_singularitygen = 20)
+
+
 /obj/effect/spawner/lootdrop/sanitarium
 	name = "patient spawner"
 	loot = list(
@@ -253,7 +260,7 @@
 		/mob/living/simple_animal/hostile/retaliate/spaceman = 2,
 		/obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection = 1,
 		/mob/living/simple_animal/hostile/retaliate/frog = 2)
-	
+
 /obj/effect/spawner/lootdrop/costume
 	name = "random costume spawner"
 

@@ -689,7 +689,7 @@
 	template_height = 3
 	template_width = 3
 	weight = 3
-	
+
 /datum/map_template/random_room/sk_rdm082
 	name = "Maint Chemistry"
 	room_id = "sk_rdm082_maintmedical"
@@ -1198,7 +1198,7 @@
 	template_width = 5
 	weight = 4
 
-/datum/map_template/random_room/sk_rdm139 
+/datum/map_template/random_room/sk_rdm139
 	name = "containment cell"
 	room_id = "sk_rdm139_containmentcell"
 	mappath = "_maps/RandomRooms/3x3/containmentcell.dmm"
@@ -1215,3 +1215,13 @@
 	template_height = 5
 	template_width = 3
 	weight = 2
+
+/datum/map_template/random_room/sk_rdm141
+	name = "test"
+	room_id = "sk_rdm141_engine"
+	mappath = "_maps/RandomRooms/19x23/sk_rdm141_engine.dmm"
+	centerspawner = TRUE
+	template_height = 23
+	template_width = 19
+	weight = 1
+
