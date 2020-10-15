@@ -68,7 +68,7 @@
 	desc = "This spell constructs a cult Airlock."
 
 	school = "conjuration"
-	charge_max = 300
+	charge_max = 400
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
