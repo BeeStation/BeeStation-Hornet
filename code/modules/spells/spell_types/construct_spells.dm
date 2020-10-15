@@ -68,10 +68,11 @@
 	desc = "This spell constructs a cult Airlock."
 
 	school = "conjuration"
-	charge_max = 400
+	charge_max = 300
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
+	invocation_time = 50
 	range = 0
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
 	action_icon_state = "airlockconstruct"
