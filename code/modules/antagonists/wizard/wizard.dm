@@ -4,6 +4,7 @@
 	antagpanel_category = "Wizard"
 	job_rank = ROLE_WIZARD
 	antag_moodlet = /datum/mood_event/focused
+	hijack_speed = 0.5
 	var/strip = TRUE //strip before equipping
 	var/allow_rename = TRUE
 	var/hud_version = "wizard"
@@ -11,7 +12,6 @@
 	var/move_to_lair = TRUE
 	var/outfit_type = /datum/outfit/wizard
 	var/wiz_age = WIZARD_AGE_MIN /* Wizards by nature cannot be too young. */
-	can_hijack = HIJACK_HIJACKER
 	show_to_ghosts = TRUE
 
 /datum/antagonist/wizard/on_gain()

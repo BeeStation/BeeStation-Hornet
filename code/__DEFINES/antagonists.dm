@@ -52,6 +52,14 @@
 #define MAX_LEADERS_GANG		3
 #define INITIAL_DOM_ATTEMPTS	3
 
+//Shuttle elimination hijacking
+/// Does not stop elimination hijacking but itself won't elimination hijack
+#define ELIMINATION_NEUTRAL 0
+/// Needs to be present for shuttle to be elimination hijacked
+#define ELIMINATION_ENABLED 1
+/// Prevents elimination hijack same way as non-antags
+#define ELIMINATION_PREVENT 2
+
 //Syndicate Contracts
 #define CONTRACT_STATUS_INACTIVE 1
 #define CONTRACT_STATUS_ACTIVE 2

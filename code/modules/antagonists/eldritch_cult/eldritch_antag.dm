@@ -4,8 +4,9 @@
 	antagpanel_category = "Heretic"
 	antag_moodlet = /datum/mood_event/heretics
 	job_rank = ROLE_HERETIC
-	var/antag_hud_type = ANTAG_HUD_HERETIC
+	var/antag_hud_type = ANTAG_HUD_HERETIC // someone make all the other antags conform to this too lol
 	var/antag_hud_name = "heretic"
+	hijack_speed = 0.5
 	var/give_equipment = TRUE
 	var/list/researched_knowledge = list()
 	var/total_sacrifices = 0

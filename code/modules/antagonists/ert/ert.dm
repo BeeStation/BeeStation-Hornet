@@ -16,10 +16,13 @@
 	var/role = "Security Officer"
 	var/list/name_source
 	var/random_names = TRUE
+	var/rip_and_tear = FALSE
+	var/equip_ert = TRUE
+	var/forge_objectives_for_ert = TRUE
+	can_elimination_hijack = ELIMINATION_PREVENT
 	show_in_antagpanel = FALSE
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
-	can_hijack = HIJACK_PREVENT
 
 /datum/antagonist/ert/on_gain()
 	if(random_names)

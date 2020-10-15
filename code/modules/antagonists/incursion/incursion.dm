@@ -5,7 +5,7 @@
 	var/special_role = ROLE_INCURSION
 	var/datum/team/incursion/team
 	antag_moodlet = /datum/mood_event/focused
-	can_hijack = HIJACK_HIJACKER
+	hijack_speed = 0.5
 
 /datum/antagonist/incursion/create_team(datum/team/incursion/new_team)
 	if(!new_team)
@@ -153,8 +153,8 @@
 	for(var/i = 1 to max(1, CONFIG_GET(number/incursion_objective_amount)))
 		forge_single_objective(CLAMP((5 + !is_hijacker)-i, 1, 3))	//Hijack = 3, 2, 1, 1 no hijack = 3, 3, 2, 1
 	if(is_hijacker)
-		if(!(locate(/datum/objective/hijack/single) in objectives))
-			add_objective(new/datum/objective/hijack/single)
+		if(!(locate(/datum/objective/hijack) in objectives))
+			add_objective(new/datum/objective/hijack)
 	else if(!(locate(/datum/objective/escape/single) in objectives))
 		add_objective(new/datum/objective/escape/single, FALSE)
 
