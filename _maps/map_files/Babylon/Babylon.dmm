@@ -40023,7 +40023,6 @@
 	},
 /obj/effect/turf_decal/tile/blue,
 /obj/structure/sink{
-	pixel_x = 0;
 	pixel_y = 25;
 	step_y = 0
 	},
@@ -50202,7 +50201,6 @@
 	dir = 8
 	},
 /obj/structure/sink{
-	pixel_x = 0;
 	pixel_y = 25;
 	step_y = 0
 	},
