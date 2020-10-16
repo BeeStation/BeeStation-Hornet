@@ -135,7 +135,7 @@
 		return TRUE
 	recharging = FALSE
 
-/obj/item/inducer/proc/do_harm(mob/living/carbon/victim, mob/living/user
+/obj/item/inducer/proc/do_harm(mob/living/carbon/victim, mob/living/user)
 	if(recharging)
 		return FALSE
 	if(do_after(user, 10, victim))
@@ -150,7 +150,7 @@
 		cell.update_icon()
 		
 		do_sparks(1, TRUE, victim)
-		log_combat(user, H, "induced ", defib)
+		log_combat(user, victim, "induced ", src)
 		if (tesla_strength>500)
 			shock_touching(25 * tesla_strength/1000, victim)
 			victim.apply_damage(3 + 10*tesla_strength/1000, BURN, BODY_ZONE_CHEST)
