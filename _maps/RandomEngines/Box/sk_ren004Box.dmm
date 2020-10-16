@@ -701,10 +701,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/engine,
 /area/engine/supermatter)
-"rM" = (
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space)
 "sh" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -2362,8 +2358,8 @@ tK
 xm
 xm
 Pn
-rM
-rM
+ui
+ui
 cU
 cU
 NH
@@ -2427,11 +2423,11 @@ hq
 NK
 bB
 Pn
-cU
+NH
 nH
 vN
 nH
-cU
+NH
 cU
 "}
 (7,1,1) = {"
@@ -2456,7 +2452,7 @@ NK
 NK
 NK
 Pn
-cU
+NH
 nH
 vN
 nH
@@ -2547,7 +2543,7 @@ NH
 nH
 vN
 nH
-cU
+NH
 cU
 "}
 (11,1,1) = {"
@@ -2572,11 +2568,11 @@ NK
 yb
 NK
 Pn
-cU
+NH
 nH
 vN
 nH
-cU
+NH
 cU
 "}
 (12,1,1) = {"
@@ -2634,7 +2630,7 @@ NH
 nH
 vN
 nH
-cU
+NH
 cU
 "}
 (14,1,1) = {"
@@ -2663,7 +2659,7 @@ NH
 nH
 vN
 nH
-cU
+NH
 cU
 "}
 (15,1,1) = {"
@@ -2779,7 +2775,7 @@ NH
 nH
 vN
 nH
-cU
+NH
 cU
 "}
 (19,1,1) = {"

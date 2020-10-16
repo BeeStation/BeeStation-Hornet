@@ -660,9 +660,6 @@
 	},
 /turf/closed/wall/r_wall,
 /area/maintenance/starboard/fore)
-"Do" = (
-/turf/open/floor/plating,
-/area/security/checkpoint/engineering)
 "DQ" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/security_space_law,
@@ -1089,9 +1086,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"TB" = (
-/turf/closed/wall/r_wall,
-/area/space/nearstation)
 "US" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/stripes/line{
@@ -1342,8 +1336,8 @@ Jt
 PY
 mD
 qj
-SF
-Do
+Sv
+Wh
 "}
 (7,1,1) = {"
 Sv
@@ -1367,8 +1361,8 @@ xH
 Xv
 yV
 Xv
-SF
-Do
+Sv
+Wh
 "}
 (8,1,1) = {"
 Sv
@@ -1442,8 +1436,8 @@ lM
 lb
 lb
 cB
-TB
-TB
+Sv
+Sv
 "}
 (11,1,1) = {"
 Ao
@@ -1467,8 +1461,8 @@ BB
 Sp
 Sp
 KM
-TB
-TB
+Sv
+Sv
 "}
 (12,1,1) = {"
 Sv
@@ -1492,8 +1486,8 @@ lM
 lb
 aU
 cB
-TB
-TB
+Sv
+Sv
 "}
 (13,1,1) = {"
 Sv
@@ -1517,8 +1511,8 @@ BB
 Sp
 pC
 KM
-TB
-TB
+Sv
+Sv
 "}
 (14,1,1) = {"
 iV
@@ -1542,8 +1536,8 @@ lM
 lb
 aU
 cB
-TB
-TB
+Sv
+Sv
 "}
 (15,1,1) = {"
 bJ
@@ -1567,8 +1561,8 @@ BB
 Sp
 Sp
 KM
-TB
-TB
+Sv
+Sv
 "}
 (16,1,1) = {"
 bJ
@@ -1592,8 +1586,8 @@ lM
 lb
 lb
 cB
-TB
-TB
+Sv
+Sv
 "}
 (17,1,1) = {"
 bJ
@@ -1617,8 +1611,8 @@ lM
 lb
 pM
 HT
-TB
-TB
+Sv
+Sv
 "}
 (18,1,1) = {"
 Df
@@ -1642,8 +1636,8 @@ Wk
 lb
 lb
 aU
-TB
-TB
+Sv
+Sv
 "}
 (19,1,1) = {"
 Sv
@@ -1667,6 +1661,6 @@ Xv
 Xv
 Xv
 Xv
-TB
-TB
+Sv
+Sv
 "}
