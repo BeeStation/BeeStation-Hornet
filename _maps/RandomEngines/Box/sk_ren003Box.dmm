@@ -76,7 +76,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "cu" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -142,8 +142,12 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "do" = (
-/turf/open/floor/plating,
-/area/space/nearstation)
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/grille,
+/turf/open/floor/plating/airless,
+/area/engine/engineering)
 "dS" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -154,7 +158,7 @@
 "dT" = (
 /obj/structure/grille,
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "ej" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/closed/wall/r_wall,
@@ -196,7 +200,7 @@
 	},
 /obj/structure/grille,
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "fL" = (
 /obj/structure/grille,
 /turf/open/space/basic,
@@ -279,7 +283,7 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "iF" = (
 /obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable,
@@ -406,7 +410,7 @@
 	},
 /obj/structure/grille,
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "lX" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
@@ -531,7 +535,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "qM" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -625,7 +629,7 @@
 	},
 /obj/structure/grille,
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "xq" = (
 /obj/structure/sign/warning/securearea,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -690,7 +694,7 @@
 	icon_state = "0-8"
 	},
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "Ao" = (
 /obj/structure/lattice,
 /turf/open/space,
@@ -739,9 +743,6 @@
 "Cl" = (
 /turf/open/space/basic,
 /area/space)
-"CJ" = (
-/turf/closed/wall/r_wall,
-/area/space/nearstation)
 "CV" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -874,7 +875,7 @@
 	},
 /obj/structure/grille,
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "Kj" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -895,7 +896,7 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "KA" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -905,7 +906,7 @@
 	},
 /obj/structure/grille,
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "KU" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
@@ -966,7 +967,7 @@
 	},
 /obj/structure/grille,
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "Mh" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -1012,7 +1013,7 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "NG" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -1036,7 +1037,7 @@
 	network = list("aichamber")
 	},
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "NU" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "engpa";
@@ -1319,7 +1320,7 @@
 	icon_state = "0-4"
 	},
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "ZA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 9
@@ -1367,7 +1368,7 @@ gu
 ne
 ne
 ne
-CJ
+ne
 Cl
 AD
 Cl
@@ -1396,20 +1397,20 @@ nV
 ej
 Fz
 xq
-CJ
-CJ
-CJ
-CJ
-CJ
-CJ
-CJ
-CJ
-CJ
-CJ
-CJ
-CJ
-CJ
-CJ
+ne
+ne
+ne
+ne
+ne
+ne
+ne
+ne
+ne
+ne
+ne
+ne
+ne
+ne
 AD
 AD
 oT
@@ -1437,8 +1438,8 @@ xi
 lO
 xi
 ND
-Br
-CJ
+do
+ne
 Br
 Cl
 oT
@@ -1456,18 +1457,18 @@ ne
 ne
 NJ
 zX
-do
+Ub
 qH
 dT
 LZ
 dT
 qH
-do
+Ub
 zX
-do
+Ub
 qH
-Br
-CJ
+do
+ne
 Br
 Cl
 Cl
@@ -1495,9 +1496,9 @@ lK
 lK
 lK
 NG
-CJ
-CJ
-CJ
+ne
+ne
+ne
 AD
 oT
 "}
@@ -1525,7 +1526,7 @@ qD
 qD
 jd
 Br
-CJ
+ne
 Br
 Cl
 Cl
@@ -1554,7 +1555,7 @@ eJ
 qD
 jd
 Br
-CJ
+ne
 Br
 AD
 oT
@@ -1583,7 +1584,7 @@ Ao
 qD
 jd
 Br
-CJ
+ne
 Br
 Cl
 Cl
@@ -1611,9 +1612,9 @@ Cl
 Ao
 jL
 Ne
-CJ
-CJ
-CJ
+ne
+ne
+ne
 AD
 oT
 "}
@@ -1641,7 +1642,7 @@ YV
 qD
 jd
 Br
-CJ
+ne
 Br
 Cl
 oT
@@ -1670,7 +1671,7 @@ Cl
 qM
 WS
 Br
-CJ
+ne
 Br
 AD
 oT
@@ -1699,7 +1700,7 @@ YV
 qD
 jd
 Br
-CJ
+ne
 Br
 Cl
 Cl
@@ -1727,9 +1728,9 @@ Cl
 Ao
 jL
 Jc
-CJ
-CJ
-CJ
+ne
+ne
+ne
 AD
 oT
 "}
@@ -1757,7 +1758,7 @@ Ao
 qD
 jd
 Br
-CJ
+ne
 Br
 Cl
 oT
@@ -1786,7 +1787,7 @@ UI
 qD
 jd
 Br
-CJ
+ne
 Br
 AD
 oT
@@ -1815,7 +1816,7 @@ qD
 qD
 jd
 Br
-CJ
+ne
 Br
 Cl
 Cl
@@ -1843,9 +1844,9 @@ lK
 lK
 lK
 NG
-CJ
-CJ
-CJ
+ne
+ne
+ne
 AD
 oT
 "}
@@ -1862,18 +1863,18 @@ ne
 ne
 NJ
 Zq
-do
+Ub
 qH
 dT
 LZ
 dT
 qH
-do
+Ub
 Zq
-do
+Ub
 qH
-Br
-CJ
+do
+ne
 Br
 Cl
 Cl
@@ -1901,8 +1902,8 @@ xi
 JE
 xi
 ia
-Br
-CJ
+do
+ne
 Br
 Cl
 oT
@@ -1918,20 +1919,20 @@ Fg
 ej
 Fz
 xM
-CJ
-CJ
-CJ
-CJ
-CJ
-CJ
-CJ
-CJ
-CJ
-CJ
-CJ
-CJ
-CJ
-CJ
+ne
+ne
+ne
+ne
+ne
+ne
+ne
+ne
+ne
+ne
+ne
+ne
+ne
+ne
 AD
 AD
 oT
@@ -1947,7 +1948,7 @@ Lp
 ne
 ne
 ne
-CJ
+ne
 Cl
 AD
 Cl
