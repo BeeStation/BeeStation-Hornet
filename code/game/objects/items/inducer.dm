@@ -97,7 +97,7 @@
 /obj/item/inducer/proc/recharge(atom/movable/A, mob/user)
 	if(!isturf(A) && user.loc == A)
 		return FALSE
-	if (powertransfer>1000 && shock(user, (powertransfer-1000)/200))
+	if (powertransfer>1000 && user.electrocute_act( (powertransfer-1000)/200),user)
 		return FALSE
 	if(recharging)
 		return TRUE
@@ -140,7 +140,7 @@
 		return FALSE
 	if(do_after(user, 10, victim))
 		
-		user.visible_message("<span class='boldannounce'><i>[user] shocks [H] with \the [src]!</span>", "<span class='warning'>You shock [H] with \the [src]!</span>")
+		user.visible_message("<span class='boldannounce'><i>[user] shocks [victim] with \the [src]!</span>", "<span class='warning'>You shock [victim] with \the [src]!</span>")
 		var/tesla_strength = 200
 		if(obj_flags & EMAGGED)
 			tesla_strength = powertransfer		
@@ -152,13 +152,10 @@
 		do_sparks(1, TRUE, victim)
 		log_combat(user, victim, "induced ", src)
 		if (tesla_strength>500)
-			shock_touching(25 * tesla_strength/1000, victim)
 			victim.apply_damage(3 + 10*tesla_strength/1000, BURN, BODY_ZONE_CHEST)
-			victim.Paralyze(30 * tesla_strength/1000)
-			victim.Jitter(45 * tesla_strength/1000)
+			victim.electrocute_act(30 * tesla_strength/1000,user)
 		else
-			victim.confused = 5
-			victim.Jitter(20)
+			victim.electrocute_act(5,user)
 
 /obj/item/inducer/attack(mob/M, mob/user)
 	if(cantbeused(user))
@@ -216,7 +213,6 @@
 /obj/item/inducer/sci
 	icon_state = "inducer-sci"
 	item_state = "inducer-sci"
-	name = "inducer"
 	desc = "A tool for inductively charging internal power cells. This one has a science color scheme, and is less potent than its engineering counterpart."
 	cell_type = null
 	powertransfer = 500
