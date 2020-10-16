@@ -227,7 +227,7 @@
 
 /datum/antagonist/changeling/proc/can_absorb_dna(mob/living/carbon/human/target, var/verbose=1)
 	var/mob/living/carbon/user = owner.current
-	if(isIPC(target))
+	if(isipc(target))
 		to_chat(user, "<span class='warning'>We cannot absorb mechanical entities!</span>")
 		return
 	if(!istype(user))
@@ -327,7 +327,7 @@
 
 /datum/antagonist/changeling/proc/create_initial_profile()
 	var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
-	if(isIPC(C))
+	if(isipc(C))
 		C.set_species(/datum/species/human)
 		var/replacementName = random_unique_name(C.gender)
 		if(C.client.prefs.custom_names["human"])
