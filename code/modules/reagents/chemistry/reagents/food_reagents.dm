@@ -291,10 +291,10 @@
 		if (!(pepper_proof)) // you need both eye and mouth protection
 			if(prob(5))
 				victim.emote("scream")
-			victim.blur_eyes(5) // 10 seconds
-			victim.blind_eyes(3) // 6 seconds
-			victim.confused = max(M.confused, 5) // 10 seconds
-			victim.Knockdown(3 SECONDS)
+			victim.blur_eyes(7) // 14 seconds
+			victim.blind_eyes(5) // 10 seconds
+			victim.confused = max(M.confused, 8) // 16 seconds
+			victim.Knockdown(5 SECONDS)
 			victim.add_movespeed_modifier(MOVESPEED_ID_PEPPER_SPRAY, update=TRUE, priority=100, multiplicative_slowdown=0.25, blacklisted_movetypes=(FLYING|FLOATING))
 			addtimer(CALLBACK(victim, /mob.proc/remove_movespeed_modifier, MOVESPEED_ID_PEPPER_SPRAY), 10 SECONDS)
 		victim.update_damage_hud()

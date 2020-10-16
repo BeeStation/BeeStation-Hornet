@@ -79,7 +79,7 @@
 	for(var/i=0, i<range, i++)
 		range_left--
 		step_towards(D,A)
-		sleep(wait_step)
+		sleep(1)
 
 		for(var/atom/T in get_turf(D))
 			if(T == D || T.invisibility) //we ignore the puff itself and stuff below the floor
@@ -196,10 +196,10 @@
 	item_state = "pepperspray"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	volume = 50
-	stream_range = 4
+	volume = 100
+	stream_range = 6
 	amount_per_transfer_from_this = 5
-	list_reagents = list(/datum/reagent/consumable/condensedcapsaicin = 50)
+	list_reagents = list(/datum/reagent/consumable/condensedcapsaicin = 100)
 
 /obj/item/reagent_containers/spray/pepper/empty //for protolathe printing
 	list_reagents = null
