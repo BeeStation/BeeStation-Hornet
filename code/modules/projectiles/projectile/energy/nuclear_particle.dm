@@ -26,7 +26,7 @@
 
 /obj/item/projectile/energy/nuclear_particle/proc/customize(custompower)
 	irradiate = min(3000 * 3 ** (log(10,custompower)-15),10)
-	var/custom_color = HSVtoRGB(hsv(clamp(log(10,custompower)-12,0,5)*256),rand(191,256),rand(191,256),255)
+	var/custom_color = HSVtoRGB(hsv(clamp(log(10,custompower)-12,0,5)*256,rand(191,255),rand(191,255),255))
 	add_atom_colour(custom_color, FIXED_COLOUR_PRIORITY)
 	set_light(4, 3, custom_color)
 	switch (irradiate)
