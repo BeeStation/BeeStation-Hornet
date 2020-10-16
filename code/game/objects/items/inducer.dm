@@ -106,9 +106,11 @@
 	var/obj/item/stock_parts/cell/C = A.get_cell()
 	var/obj/O
 	var/coefficient = 1
-	if(istype(A, /obj/item/gun/energy))
+	if(istype(A, /obj/item/gun/energy) && !(obj_flags & EMAGGED))
 		to_chat(user,"Error unable to interface with device")
 		return FALSE
+	else
+		coefficient = 1/5
 	if(istype(A, /obj))
 		O = A
 	if(C)
@@ -133,21 +135,37 @@
 		return TRUE
 	recharging = FALSE
 
-
-/obj/item/inducer/attack(mob/M, mob/user)
-	if(cantbeused(user))
-		return
+/obj/item/inducer/proc/do_harm(mob/living/carbon/victim, mob/living/user
+	if(recharging)
+		return FALSE
+	if(do_after(user, 10, victim))
 		
-	if(user.a_intent == INTENT_HARM)
-		var/tesla_strength = 100
+		user.visible_message("<span class='boldannounce'><i>[user] shocks [H] with \the [src]!</span>", "<span class='warning'>You shock [H] with \the [src]!</span>")
+		var/tesla_strength = 200
 		if(obj_flags & EMAGGED)
 			tesla_strength = powertransfer		
 		
 		tesla_strength = min(cell.charge,tesla_strength)
 		cell.use(tesla_strength)
 		cell.update_icon()
-		shock(M, tesla_strength / 100)
 		
+		log_combat(user, H, "induced ", defib)
+		if (tesla_strength>500)
+			shock_touching(25 * tesla_strength/1000, victim)
+			victim.apply_damage(3 + 10*tesla_strength/1000, BURN, BODY_ZONE_CHEST)
+			victim.Paralyze(25 * tesla_strength/1000)
+			victim.Jitter(50 * tesla_strength/1000)
+		else
+			victim.Paralyze(20)
+			victim.Jitter(30)
+
+/obj/item/inducer/attack(mob/M, mob/user)
+	if(cantbeused(user))
+		return
+		
+	if(user.a_intent == INTENT_HARM)	
+		if (istype(M, /mob/living/carbon))
+			do_harm(M,user)
 		return ..()
 
 	if(recharge(M, user))
