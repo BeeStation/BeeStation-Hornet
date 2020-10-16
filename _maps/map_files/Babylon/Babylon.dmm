@@ -6417,12 +6417,16 @@
 	icon_state = "left"
 	},
 /obj/item/storage/firstaid/brute{
+	
 	},
 /obj/item/storage/firstaid/brute{
+	
 	},
 /obj/item/storage/firstaid/brute{
+	
 	},
 /obj/item/storage/firstaid/brute{
+	
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/light,
@@ -6436,8 +6440,10 @@
 /obj/structure/window/reinforced/spawner/east,
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/brute{
+	
 	},
 /obj/item/storage/firstaid/brute{
+	
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
@@ -9159,7 +9165,6 @@
 "aRL" = (
 /obj/machinery/stasis,
 /obj/machinery/defibrillator_mount/loaded{
-	step_y = 31
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/cryopods)
@@ -40012,6 +40017,7 @@
 /obj/effect/turf_decal/tile/blue,
 /obj/structure/sink{
 	pixel_y = 25;
+	
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
@@ -50189,6 +50195,7 @@
 	},
 /obj/structure/sink{
 	pixel_y = 25;
+	
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
@@ -56641,8 +56648,10 @@
 	},
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/brute{
+	
 	},
 /obj/item/storage/firstaid/brute{
+	
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
