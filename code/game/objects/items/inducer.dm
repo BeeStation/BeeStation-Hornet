@@ -152,9 +152,10 @@
 		log_combat(user, victim, "induced ", src)
 		if (tesla_strength>500)
 			victim.electrocute_act(3 + 5 * tesla_strength/1000,user,stun = FALSE,override = TRUE)
+			victim.Knockdown(10 * tesla_strength/1000)
 		else
-			victim.electrocute_act(0,user,stun = FALSE)
-			victim.confused = 5
+			victim.electrocute_act(3,user,stun = FALSE)
+			victim.Knockdown(10)
 
 /obj/item/inducer/attack(mob/M, mob/user)
 	if(cantbeused(user))
