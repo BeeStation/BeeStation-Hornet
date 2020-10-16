@@ -6417,20 +6417,12 @@
 	icon_state = "left"
 	},
 /obj/item/storage/firstaid/brute{
-	step_x = 0;
-	step_y = 0
 	},
 /obj/item/storage/firstaid/brute{
-	step_x = 0;
-	step_y = 0
 	},
 /obj/item/storage/firstaid/brute{
-	step_x = 0;
-	step_y = 0
 	},
 /obj/item/storage/firstaid/brute{
-	step_x = 0;
-	step_y = 0
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/light,
@@ -6444,12 +6436,8 @@
 /obj/structure/window/reinforced/spawner/east,
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/brute{
-	step_x = 0;
-	step_y = 0
 	},
 /obj/item/storage/firstaid/brute{
-	step_x = 0;
-	step_y = 0
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
@@ -40023,9 +40011,7 @@
 	},
 /obj/effect/turf_decal/tile/blue,
 /obj/structure/sink{
-	pixel_x = 0;
 	pixel_y = 25;
-	step_y = 0
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
@@ -50202,9 +50188,7 @@
 	dir = 8
 	},
 /obj/structure/sink{
-	pixel_x = 0;
 	pixel_y = 25;
-	step_y = 0
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
@@ -56657,12 +56641,8 @@
 	},
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/brute{
-	step_x = 0;
-	step_y = 0
 	},
 /obj/item/storage/firstaid/brute{
-	step_x = 0;
-	step_y = 0
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
