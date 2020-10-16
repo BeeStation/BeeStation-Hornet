@@ -97,7 +97,7 @@
 /obj/item/inducer/proc/recharge(atom/movable/A, mob/user)
 	if(!isturf(A) && user.loc == A)
 		return FALSE
-	if (powertransfer>1000 && user.electrocute_act( (powertransfer-1000)/200),user)
+	if (powertransfer>1000 && user.electrocute_act( (powertransfer-1000)/400),user)
 		return FALSE
 	if(recharging)
 		return TRUE
@@ -140,7 +140,6 @@
 		return FALSE
 	if(do_after(user, 10, victim))
 		
-		user.visible_message("<span class='boldannounce'><i>[user] shocks [victim] with \the [src]!</span>", "<span class='warning'>You shock [victim] with \the [src]!</span>")
 		var/tesla_strength = 200
 		if(obj_flags & EMAGGED)
 			tesla_strength = powertransfer		
@@ -152,10 +151,10 @@
 		do_sparks(1, TRUE, victim)
 		log_combat(user, victim, "induced ", src)
 		if (tesla_strength>500)
-			victim.apply_damage(3 + 10*tesla_strength/1000, BURN, BODY_ZONE_CHEST)
-			victim.electrocute_act(30 * tesla_strength/1000,user)
+			victim.electrocute_act(3 + 5 * tesla_strength/1000,user,stun = FALSE,override = TRUE)
 		else
-			victim.electrocute_act(5,user)
+			victim.electrocute_act(0,user,stun = FALSE)
+			victim.confused = 5
 
 /obj/item/inducer/attack(mob/M, mob/user)
 	if(cantbeused(user))
