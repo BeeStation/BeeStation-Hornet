@@ -69,8 +69,4 @@
 	room_width = 3
 	room_height = 3
 
-/obj/effect/spawner/room/ninteentwentythree
-	name = "19x23 room spawner"
-	room_width = 19
-	room_height = 23
 

@@ -6376,10 +6376,6 @@
 "alq" = (
 /turf/closed/wall,
 /area/maintenance/starboard)
-"alr" = (
-/obj/effect/spawner/room/ninteentwentythree,
-/turf/open/space/basic,
-/area/space)
 "als" = (
 /obj/machinery/light{
 	dir = 8
@@ -7889,11 +7885,10 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "aok" = (
-/obj/structure/reagent_dispensers/fueltank,
-/turf/open/floor/plating{
-	icon_state = "platingdmg2"
-	},
-/area/maintenance/starboard/fore)
+/obj/structure/closet/firecloset,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "aol" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -12755,14 +12750,13 @@
 /turf/closed/wall/r_wall,
 /area/engine/engineering)
 "axZ" = (
-/obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-20";
-	pixel_y = 3
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
 	},
 /turf/open/floor/plating,
-/area/maintenance/starboard/fore)
+/area/maintenance/starboard)
 "aya" = (
-/obj/effect/spawner/room/ninteentwentythree,
+/obj/effect/spawner/engine/metaengine,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "ayi" = (
@@ -77955,6 +77949,9 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "dgI" = (
+/obj/machinery/atmospherics/pipe/simple/orange/visible{
+	dir = 5
+	},
 /turf/closed/wall/mineral/plastitanium,
 /area/maintenance/starboard)
 "dgJ" = (
@@ -82704,6 +82701,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
+"mSY" = (
+/obj/machinery/atmospherics/pipe/simple/orange/visible,
+/turf/open/space/basic,
+/area/space)
 "mSZ" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -128190,7 +128191,7 @@ arR
 ath
 ajb
 avA
-dqu
+dqT
 dnS
 dnS
 dnS
@@ -128214,8 +128215,8 @@ dnS
 dnS
 dnS
 dnS
-beq
-atm
+aqr
+axZ
 bif
 bif
 bif
@@ -128447,7 +128448,7 @@ arS
 ati
 ajb
 avB
-aok
+dqT
 dnS
 dnS
 dnS
@@ -128471,7 +128472,7 @@ dnS
 dnS
 dnS
 dnS
-beq
+apc
 atm
 bfZ
 bif
@@ -128728,7 +128729,7 @@ dnS
 dnS
 dnS
 dnS
-beq
+aok
 atm
 wOY
 adF
@@ -128961,7 +128962,7 @@ dni
 dps
 dpL
 avD
-axZ
+dqT
 dnS
 dnS
 dnS
@@ -128985,7 +128986,7 @@ dnS
 dnS
 dnS
 dnS
-beq
+atm
 atm
 aaa
 aaa
@@ -129218,7 +129219,7 @@ apm
 apm
 dnR
 avE
-dnz
+dqT
 dnS
 dnS
 dnS
@@ -129242,7 +129243,7 @@ dnS
 dnS
 dnS
 dnS
-aaa
+mSY
 dgI
 aaa
 aaa
@@ -141796,7 +141797,7 @@ aaa
 aaa
 aaa
 aaa
-alr
+aaa
 aaa
 aaa
 aaa

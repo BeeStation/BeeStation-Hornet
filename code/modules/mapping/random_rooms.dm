@@ -1216,12 +1216,5 @@
 	template_width = 3
 	weight = 2
 
-/datum/map_template/random_room/sk_rdm141
-	name = "test"
-	room_id = "sk_rdm141_engine"
-	mappath = "_maps/RandomRooms/19x23/sk_rdm141_engine.dmm"
-	centerspawner = TRUE
-	template_height = 23
-	template_width = 19
-	weight = 1
+
 
