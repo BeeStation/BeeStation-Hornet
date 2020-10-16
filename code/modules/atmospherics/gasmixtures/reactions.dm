@@ -302,11 +302,18 @@
 		reaction_energy = max(reaction_energy,0) //Stable reactions don't end up endothermic.
 	else if (reaction_energy < 0)
 		reaction_energy *= (instability-FUSION_INSTABILITY_ENDOTHERMALITY)**0.5
+	
+	var/middle_energy = ((TOROID_CALCULATED_THRESHOLD / 2 * scale_factor) + 250) * 200 * 10 ** 6
+	var/translated_energy = middle_energy * 1.25 ** log(10, air.return_temperature() * old_heat_capacity / middle_energy) // 1.25 really is low. Don't try to go lower.
 
 	if(air.thermal_energy() + reaction_energy < 0) //No using energy that doesn't exist.
 		air.set_moles(/datum/gas/plasma, initial_plasma)
 		air.set_moles(/datum/gas/carbon_dioxide, initial_carbon)
 		return NO_REACTION
+
+	translated_energy += reaction_energy
+	translated_energy = middle_energy * 10 ** log(1.25, translated_energy / middle_energy)
+
 	air.adjust_moles(/datum/gas/tritium, -FUSION_TRITIUM_MOLES_USED)
 	//The decay of the tritium and the reaction's energy produces waste gases, different ones depending on whether the reaction is endo or exothermic
 	if(reaction_energy > 0)
@@ -325,12 +332,12 @@
 
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.set_temperature(CLAMP(((air.return_temperature()*old_heat_capacity + reaction_energy)/new_heat_capacity),TCMB,INFINITY))
+			air.set_temperature(CLAMP(translated_energy/new_heat_capacity,TCMB,INFINITY))
 		return REACTING
 	else if(reaction_energy == 0 && instability <= FUSION_INSTABILITY_ENDOTHERMALITY)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.set_temperature(clamp(((air.return_temperature()*old_heat_capacity)/new_heat_capacity),TCMB,INFINITY)) // THIS SHOULD STAY OR FUSION WILL EAT YOUR FACE
+			air.set_temperature(clamp(translated_energy/new_heat_capacity,TCMB,INFINITY)) // THIS SHOULD STAY OR FUSION WILL EAT YOUR FACE
 		return REACTING
 
 /datum/gas_reaction/nitrylformation //The formation of nitryl. Endothermic. Requires N2O as a catalyst.
