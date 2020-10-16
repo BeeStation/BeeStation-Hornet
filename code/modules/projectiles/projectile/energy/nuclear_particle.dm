@@ -32,18 +32,25 @@
 	switch (irradiate)
 		if(10 to 100)
 			name = "extremely weak nuclear particle"
+			damage = 1
 		if(100 to 200)
 			name = "very weak nuclear particle"
+			damage = 2
 		if(200 to 500)
 			name = "fairly weak nuclear particle"
+			damage = 4
 		if(500 to 1500)
 			name = "slightly weak nuclear particle"
+			damage = 7
 		if(4000 to 8000)
 			name = "powerful nuclear particle"
+			damage = 15
 		if(8000 to 30000)
 			name = "extremely strong nuclear particle"
+			damage = 20
 		if(30000 to INFINITY)
 			name = "impossibly strong nuclear particle"
+			damage = 30
 
 /atom/proc/fire_nuclear_particle(angle = rand(0,360), customize = FALSE, custompower = 1e12) //used by fusion to fire random nuclear particles. Fires one particle in a random direction.
 	var/obj/item/projectile/energy/nuclear_particle/P = new /obj/item/projectile/energy/nuclear_particle(src)
