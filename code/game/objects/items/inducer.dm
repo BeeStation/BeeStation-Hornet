@@ -7,7 +7,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	force = 7
-	var/powertransfer = 1500
+	var/powertransfer = 1000
 	var/opened = FALSE
 	var/cell_type = /obj/item/stock_parts/cell/high
 	var/obj/item/stock_parts/cell/cell
@@ -97,7 +97,7 @@
 /obj/item/inducer/proc/recharge(atom/movable/A, mob/user)
 	if(!isturf(A) && user.loc == A)
 		return FALSE
-	if (powertransfer>=1000 && shock(user, (powertransfer-1000)/200))
+	if (powertransfer>1000 && shock(user, (powertransfer-1000)/200))
 		return FALSE
 	if(recharging)
 		return TRUE
