@@ -44,3 +44,8 @@
 	room_width = 19
 	room_height = 23
 
+/obj/effect/spawner/engine/boxengine
+	name = "Box Station Engine"
+	room_width = 23
+	room_height = 27
+

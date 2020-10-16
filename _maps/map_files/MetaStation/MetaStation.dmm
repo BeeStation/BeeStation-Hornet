@@ -18304,9 +18304,6 @@
 /obj/item/clothing/glasses/meson/engine,
 /obj/item/clothing/glasses/meson/engine,
 /obj/item/clothing/glasses/meson/engine,
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -82701,10 +82698,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
-"mSY" = (
-/obj/machinery/atmospherics/pipe/simple/orange/visible,
-/turf/open/space/basic,
-/area/space)
 "mSZ" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -83328,6 +83321,10 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/crew_quarters/cryopods)
+"pCo" = (
+/obj/machinery/atmospherics/pipe/simple/orange/visible,
+/turf/open/floor/plating,
+/area/maintenance/starboard/fore)
 "pCp" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -84632,6 +84629,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
+"vud" = (
+/obj/machinery/atmospherics/pipe/simple/orange/visible,
+/turf/open/space/basic,
+/area/space)
 "vvZ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/closed/wall/r_wall,
@@ -129242,8 +129243,8 @@ dnS
 dnS
 dnS
 dnS
-dnS
-mSY
+pCo
+vud
 dgI
 aaa
 aaa

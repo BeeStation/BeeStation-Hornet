@@ -33,7 +33,6 @@
 "it" = (/obj/machinery/atmospherics/pipe/manifold/general/visible,/obj/machinery/power/rad_collector/anchored,/obj/structure/cable{icon_state = "0-2"},/obj/structure/window/plasma/reinforced{dir = 1},/turf/open/floor/engine,/area/engine/supermatter)
 "iu" = (/obj/effect/turf_decal/stripes/line{dir = 8},/obj/machinery/atmospherics/pipe/simple/cyan/visible,/turf/open/floor/engine,/area/engine/engineering)
 "iG" = (/obj/effect/turf_decal/bot{dir = 1},/obj/machinery/atmospherics/components/unary/portables_connector/visible{dir = 8},/obj/machinery/portable_atmospherics/canister/nitrogen,/turf/open/floor/plasteel/dark,/area/engine/engineering)
-"iP" = (/obj/effect/spawner/structure/window/reinforced,/obj/machinery/door/firedoor/window,/obj/machinery/atmospherics/pipe/simple/orange/visible{dir = 4},/turf/open/floor/plating,/area/maintenance/starboard)
 "iS" = (/obj/machinery/atmospherics/pipe/simple/general/visible,/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{dir = 4},/obj/machinery/door/airlock/engineering/glass{name = "Supermatter Engine"; req_access_txt = "10"},/obj/effect/turf_decal/stripes/line,/obj/effect/turf_decal/stripes/line{dir = 1},/obj/machinery/door/firedoor/border_only{dir = 1},/obj/machinery/door/firedoor/border_only,/turf/open/floor/plasteel/dark,/area/engine/engineering)
 "jn" = (/obj/structure/cable/white,/turf/open/floor/plating,/area/engine/engineering)
 "jz" = (/obj/structure/table,/obj/item/paper_bin{pixel_x = -1; pixel_y = 5},/obj/item/pen,/obj/machinery/newscaster/security_unit{pixel_x = 30},/obj/effect/turf_decal/tile/red{dir = 1},/obj/effect/turf_decal/tile/red,/obj/effect/turf_decal/tile/red{dir = 4},/turf/open/floor/plasteel,/area/security/checkpoint/engineering)
@@ -151,7 +150,6 @@
 "Lk" = (/obj/effect/turf_decal/stripes/line{dir = 8},/obj/machinery/atmospherics/pipe/simple/cyan/visible{dir = 5},/turf/open/floor/engine,/area/engine/engineering)
 "LO" = (/obj/structure/reflector/single/anchored{dir = 10},/turf/open/floor/plating,/area/engine/engineering)
 "Mi" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,/obj/effect/spawner/structure/window/plasma/reinforced,/turf/open/floor/plating,/area/engine/engineering)
-"Ms" = (/obj/structure/lattice/catwalk,/obj/machinery/atmospherics/pipe/simple/orange/visible,/turf/open/space,/area/space/nearstation)
 "MF" = (/obj/effect/turf_decal/stripes/line{dir = 4},/obj/machinery/atmospherics/components/binary/volume_pump/on{icon_state = "volpump_on_map-2"; name = "Gas to Filter"},/turf/open/floor/engine,/area/engine/engineering)
 "MJ" = (/obj/machinery/atmospherics/pipe/heat_exchanging/simple,/obj/machinery/atmospherics/pipe/heat_exchanging/simple{dir = 4},/turf/open/space,/area/space/nearstation)
 "MK" = (/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,/turf/closed/wall/r_wall,/area/engine/engineering)
@@ -184,7 +182,7 @@
 "SI" = (/obj/machinery/atmospherics/pipe/simple/cyan/visible{dir = 4},/turf/closed/wall/r_wall,/area/engine/supermatter)
 "SO" = (/obj/machinery/atmospherics/pipe/heat_exchanging/simple{dir = 4},/obj/machinery/atmospherics/pipe/heat_exchanging/simple,/turf/open/space,/area/space/nearstation)
 "SQ" = (/obj/structure/cable/yellow{icon_state = "1-2"},/obj/structure/disposalpipe/sorting/mail{sortType = 4},/obj/effect/landmark/start/station_engineer,/turf/open/floor/plasteel,/area/engine/engineering)
-"Td" = (/obj/effect/spawner/structure/window/reinforced,/obj/machinery/atmospherics/pipe/simple/orange/visible{dir = 4},/obj/machinery/door/firedoor/window,/turf/open/floor/plating,/area/maintenance/starboard)
+"Td" = (/obj/machinery/atmospherics/pipe/simple/orange/visible{dir = 4},/obj/effect/spawner/structure/window/reinforced,/turf/open/floor/plating,/area/maintenance/starboard)
 "Tr" = (/turf/open/floor/plasteel/dark,/area/engine/engineering)
 "TO" = (/obj/effect/turf_decal/stripes/line{dir = 4},/obj/machinery/atmospherics/pipe/manifold/supply/hidden{dir = 8},/turf/open/floor/plasteel,/area/engine/engineering)
 "UE" = (/obj/effect/turf_decal/stripes/line{dir = 4},/obj/machinery/meter,/obj/machinery/atmospherics/pipe/simple/orange/visible,/turf/open/floor/engine,/area/engine/engineering)
@@ -193,9 +191,8 @@
 "UO" = (/obj/machinery/atmospherics/components/unary/vent_pump/on{dir = 8},/turf/open/floor/plasteel/dark,/area/engine/engineering)
 "Va" = (/obj/effect/spawner/structure/window/plasma/reinforced,/obj/machinery/door/firedoor/window,/turf/open/floor/plating,/area/engine/supermatter)
 "Vy" = (/obj/machinery/door/airlock/engineering/glass/critical{heat_proof = 1; name = "Supermatter Chamber"; req_access_txt = "10"},/obj/effect/mapping_helpers/airlock/cyclelink_helper{dir = 4},/obj/effect/turf_decal/stripes/line{dir = 8},/obj/effect/turf_decal/stripes/line{dir = 4},/turf/open/floor/engine,/area/engine/supermatter)
-"VA" = (/obj/machinery/door/firedoor/window,/turf/open/floor/plating,/area/maintenance/starboard)
 "VR" = (/obj/machinery/atmospherics/pipe/heat_exchanging/simple{dir = 4},/obj/structure/lattice,/turf/open/space,/area/space/nearstation)
-"VU" = (/obj/effect/spawner/structure/window/reinforced,/obj/machinery/door/firedoor/window,/turf/open/floor/plating,/area/maintenance/starboard)
+"VU" = (/obj/effect/spawner/structure/window/reinforced,/turf/open/floor/plating,/area/maintenance/starboard)
 "VW" = (/turf/open/floor/engine,/area/engine/supermatter)
 "Wx" = (/obj/machinery/door/window/southright{dir = 4; name = "Engineering Deliveries"; req_access_txt = "10"},/obj/effect/turf_decal/delivery,/turf/open/floor/plasteel,/area/engine/engineering)
 "Xd" = (/obj/effect/turf_decal/stripes/line{dir = 4},/obj/machinery/light{dir = 4},/obj/machinery/atmospherics/components/trinary/filter/flipped/critical,/turf/open/floor/engine,/area/engine/engineering)
@@ -239,7 +236,7 @@ bGpAaAXesOhCFOFOCKKyMLHIQXZgqGqGNRgsYt
 QfwWoGoGgWoGvNJluuGaYdYGhfTrrWGGTrgsYt
 AuAuNMAurLAuFzAuKGCzCzKGAuAuYpgsgsgsIV
 gsQSQSQSELUFQSmISoVRVRDLQbYbeQYbQbYbBX
-qpqpqpqpqpELsZiPTdYkaKDLMJMJDLMJrsSOSG
-qpwXCWjzbWQSQSVAVUtZSoDLrsrsDLrsrssKBX
-qpuxNLNCbWqwQSGYmIMsIVrbSGrbSGrbSGrbSG
+qpqpqpqpqpELsZTdTdYkaKDLMJMJDLMJrsSOSG
+qpwXCWjzbWQSQSQSVUtZSoDLrsrsDLrsrssKBX
+qpuxNLNCbWqwQSGYmIIVIVrbSGrbSGrbSGrbSG
 "}

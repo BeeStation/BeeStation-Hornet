@@ -17,10 +17,28 @@
 	weight = 1
 
 /datum/map_template/random_engine/sk_ren002
-	name = "Super Matter engine"
+	name = ",Meta Super Matter engine"
 	engine_id = "sk_ren002"
 	mappath = "_maps/RandomEngines/Meta/sk_ren002Meta.dmm"
 	centerspawner = TRUE
 	template_height = 23
 	template_width = 19
+	weight = 1
+
+/datum/map_template/random_engine/sk_ren003
+	name = "Box Singularity and Tesla Engine"
+	engine_id = "sk_ren003"
+	mappath = "_maps/RandomEngines/Box/sk_ren003Box.dmm"
+	centerspawner = TRUE
+	template_height = 27
+	template_width = 23
+	weight = 1
+
+/datum/map_template/random_engine/sk_ren004
+	name = "Box Super Matter engine"
+	engine_id = "sk_ren004"
+	mappath = "_maps/RandomEngines/Box/sk_ren004Box.dmm"
+	centerspawner = TRUE
+	template_height = 27
+	template_width = 23
 	weight = 1
