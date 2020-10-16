@@ -77,6 +77,16 @@
 	category = list("Power Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
+/datum/design/superinducer
+	name = "Super Inducer"
+	desc = "An upgraded, experimental Electromagnetic Power Inducer. This one works like the regular inducer, but packs more of a punch."
+	id = "superinducer"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 5000, /datum/material/glass = 1000, /datum/material/gold = 500)
+	build_path = /obj/item/inducer/sci
+	category = list("Power Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+
 /datum/design/board/pacman
 	name = "Machine Design (PACMAN-type Generator Board)"
 	desc = "The circuit board that for a PACMAN-type portable generator."

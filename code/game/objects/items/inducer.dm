@@ -7,7 +7,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	force = 7
-	var/powertransfer = 1000
+	var/powertransfer = 1500
 	var/opened = FALSE
 	var/cell_type = /obj/item/stock_parts/cell/high
 	var/obj/item/stock_parts/cell/cell
@@ -97,6 +97,8 @@
 /obj/item/inducer/proc/recharge(atom/movable/A, mob/user)
 	if(!isturf(A) && user.loc == A)
 		return FALSE
+	if (powertransfer>=1000 && shock(user, (powertransfer-1000)/200))
+		return FALSE
 	if(recharging)
 		return TRUE
 	else
@@ -133,11 +135,20 @@
 
 
 /obj/item/inducer/attack(mob/M, mob/user)
-	if(user.a_intent == INTENT_HARM)
-		return ..()
-
 	if(cantbeused(user))
 		return
+		
+	if(user.a_intent == INTENT_HARM)
+		var/tesla_strength = 100
+		if(obj_flags & EMAGGED)
+			tesla_strength = powertransfer		
+		
+		tesla_strength = min(cell.charge,tesla_strength)
+		cell.use(tesla_strength)
+		cell.update_icon()
+		shock(M, tesla_strength / 100)
+		
+		return ..()
 
 	if(recharge(M, user))
 		return
@@ -170,9 +181,23 @@
 		else
 			add_overlay("inducer-bat")
 
+/obj/item/inducer/emag_act()
+	if(obj_flags & EMAGGED)
+		return
+	Emag()
+
+/obj/item/inducer/proc/Emag()
+	obj_flags ^= EMAGGED
+	playsound(src.loc, "sparks", 100, 1)
+	if(obj_flags & EMAGGED)
+		name = "shortcircuited [initial(name)]"
+	else
+		name = initial(name)
+
 /obj/item/inducer/sci
 	icon_state = "inducer-sci"
 	item_state = "inducer-sci"
+	name = "inducer"
 	desc = "A tool for inductively charging internal power cells. This one has a science color scheme, and is less potent than its engineering counterpart."
 	cell_type = null
 	powertransfer = 500
@@ -181,3 +206,10 @@
 /obj/item/inducer/sci/Initialize()
 	. = ..()
 	update_icon()
+
+/obj/item/inducer/super
+	name = "super inducer"
+	desc = "A tool for inductively charging internal power cells. This one has a warning label on it, reading 'wear insulated gloves'."
+	powertransfer = 2500
+	cell_type = null
+	opened = TRUE

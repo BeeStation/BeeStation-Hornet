@@ -402,7 +402,7 @@
 	display_name = "Quantum Electromagnetic Technology"	//bs
 	description = "Even better electromagnetic technology."
 	prereq_ids = list("emp_adv")
-	design_ids = list("quadultra_micro_laser")
+	design_ids = list("quadultra_micro_laser","superinducer")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
 	export_price = 5000
 
