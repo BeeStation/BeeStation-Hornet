@@ -9,6 +9,10 @@
 /obj/machinery/factories/material_dispenser
 		name = "material_dispenser"
 		desc = "this machine can dispense material from a linked silo"
+		icon = "oasis/icons/obj/Factorycargo/dispenser.dmi"
+		icon_state = "dispenser"
+		var/icon_state_open = "dispenser_maint"
+		var/icon_state_off = "dispenser"
 		circuit = /obj/item/circuitboard/machine/factories/material_dispenser
 		var/datum/component/remote_materials/materials
 		var/mat_type
@@ -64,7 +68,7 @@
 		var/datum/material/M = text2path(mat_type)
 		mat_container.retrieve_sheets(target_Ammount,getmaterialref(M))
 
-/*/obj/machinery/factories/material_dispenser/attackby(obj/item/I, mob/user, params)
+/obj/machinery/factories/material_dispenser/attackby(obj/item/I, mob/user, params)
 	if(!on)
 		if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_off, I))
 			return
@@ -77,4 +81,3 @@
 obj/machinery/factories/material_dispenser/default_change_direction_wrench(mob/user, obj/item/I)
 	. = ..()
 	setDir(turn(dir,45))
-*/
