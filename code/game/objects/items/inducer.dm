@@ -149,15 +149,16 @@
 		cell.use(tesla_strength)
 		cell.update_icon()
 		
+		do_sparks(1, TRUE, victim)
 		log_combat(user, H, "induced ", defib)
 		if (tesla_strength>500)
 			shock_touching(25 * tesla_strength/1000, victim)
 			victim.apply_damage(3 + 10*tesla_strength/1000, BURN, BODY_ZONE_CHEST)
-			victim.Paralyze(25 * tesla_strength/1000)
-			victim.Jitter(50 * tesla_strength/1000)
+			victim.Paralyze(30 * tesla_strength/1000)
+			victim.Jitter(45 * tesla_strength/1000)
 		else
-			victim.Paralyze(20)
-			victim.Jitter(30)
+			victim.confused = 5
+			victim.Jitter(20)
 
 /obj/item/inducer/attack(mob/M, mob/user)
 	if(cantbeused(user))
@@ -228,6 +229,6 @@
 /obj/item/inducer/super
 	name = "super inducer"
 	desc = "A tool for inductively charging internal power cells. This one has a warning label on it, reading 'wear insulated gloves'."
-	powertransfer = 2500
+	powertransfer = 2000
 	cell_type = null
 	opened = TRUE

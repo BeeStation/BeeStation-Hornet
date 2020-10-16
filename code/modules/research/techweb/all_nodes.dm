@@ -393,7 +393,7 @@
 	display_name = "Advanced Electromagnetic Theory"
 	description = "Determining whether reversing the polarity will actually help in a given situation."
 	prereq_ids = list("emp_basic")
-	design_ids = list("ultra_micro_laser")
+	design_ids = list("ultra_micro_laser","superinducer")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
 	export_price = 5000
 
@@ -402,7 +402,7 @@
 	display_name = "Quantum Electromagnetic Technology"	//bs
 	description = "Even better electromagnetic technology."
 	prereq_ids = list("emp_adv")
-	design_ids = list("quadultra_micro_laser","superinducer")
+	design_ids = list("quadultra_micro_laser")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
 	export_price = 5000
 
