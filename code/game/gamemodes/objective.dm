@@ -817,7 +817,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 			continue
 		return FALSE
 	return TRUE
-	return FALSE
+
 
 //End Changeling Objectives
 
