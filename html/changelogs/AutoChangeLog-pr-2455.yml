@@ -1,0 +1,11 @@
+author: eeSPee
+delete-after: true
+changes:
+  - rscdel: Razor from service cyborg
+  - rscdel: Tray from service cyborg
+  - rscadd: service beaker aparatus replaced with a grasper aparatus, that can also
+      carry food items, cigs, etc
+  - rscdel: Enzime bottle from service cyborg
+  - rscadd: cyborg shaker can synthesize its own enzime
+  - rscdel: cookie synthesizer from service cyborg
+  - rscadd: emagged RSF can dispense plasma cigs
