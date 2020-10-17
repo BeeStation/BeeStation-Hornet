@@ -493,8 +493,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	update_icon()
 
 /obj/item/twohanded/required/fuel_rod
-	name = "Uranium-238 Fuel Rod"
-	desc = "A titanium sheathed rod containing a measure of enriched uranium-dioxide powder, used to kick off a fission reaction."
+	name = "Uranium-235 Fuel Rod"
+	desc = "A titanium sheathed rod containing a measure of enriched uranium-dioxide powder inside, and a breeding blanket of uranium-238 around it, used to kick off a fission reaction and breed plutonium fuel respectivly."
 	icon = 'icons/obj/control_rod.dmi'
 	icon_state = "irradiated"
 	w_class = WEIGHT_CLASS_BULKY
@@ -506,7 +506,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	if(depletion >= 100)
 		fuel_power = 0.20
 		name = "Plutonium-239 Fuel Rod"
-		desc = "A highly energetic titanium sheathed rod containing a sizeable measure of weapons grade uranium, it's highly efficient as nuclear fuel, but will cause the reaction to get out of control if not properly utilised."
+		desc = "A highly energetic titanium sheathed rod containing a sizeable measure of weapons grade plutonium, it's highly efficient as nuclear fuel, but will cause the reaction to get out of control if not properly utilised."
 		icon_state = "inferior"
 		AddComponent(/datum/component/radioactive, 1500 , src)
 	else
