@@ -1058,6 +1058,13 @@
 
 			src.is_busy = FALSE
 
+/mob/living/carbon/human/limb_attack_self()
+	var/obj/item/bodypart/arm = hand_bodyparts[active_hand_index]
+	if(arm)
+		arm.attack_self(src)
+	return ..()
+
+
 //src is the user that will be carrying, target is the mob to be carried
 /mob/living/carbon/human/proc/can_piggyback(mob/living/carbon/target)
 	return (istype(target) && target.is_conscious() && (target.mobility_flags & MOBILITY_STAND))
