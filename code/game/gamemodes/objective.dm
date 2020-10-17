@@ -817,26 +817,6 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 			continue
 		return FALSE
 	return TRUE
-
-/datum/objective/absorb_changeling
-	name = "absorb changeling"
-	explanation_text = "Absorb another Changeling."
-
-/datum/objective/absorb_changeling/check_completion()
-	var/list/datum/mind/owners = get_owners()
-	for(var/datum/mind/M in owners)
-		if(!M)
-			continue
-		var/datum/antagonist/changeling/changeling = M.has_antag_datum(/datum/antagonist/changeling)
-		if(!changeling)
-			continue
-		var/total_genetic_points = changeling.geneticpoints
-
-		for(var/datum/action/changeling/p in changeling.purchasedpowers)
-			total_genetic_points += p.dna_cost
-
-		if(total_genetic_points > initial(changeling.geneticpoints))
-			return TRUE
 	return FALSE
 
 //End Changeling Objectives
