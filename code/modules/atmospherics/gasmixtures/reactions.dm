@@ -316,11 +316,13 @@
 
 	air.adjust_moles(/datum/gas/tritium, -FUSION_TRITIUM_MOLES_USED)
 	//The decay of the tritium and the reaction's energy produces waste gases, different ones depending on whether the reaction is endo or exothermic
-	if(reaction_energy > 0)
-		air.adjust_moles(/datum/gas/water_vapor, FUSION_TRITIUM_MOLES_USED*(reaction_energy*FUSION_TRITIUM_CONVERSION_COEFFICIENT))
+	if(delta_plasma > 0)
+		air.adjust_moles(/datum/gas/water_vapor, FUSION_TRITIUM_MOLES_USED*scale_factor*FUSION_TRITIUM_CONVERSION_COEFFICIENT)
 	else
-		air.adjust_moles(/datum/gas/nitrogen, FUSION_TRITIUM_MOLES_USED*(reaction_energy*FUSION_TRITIUM_CONVERSION_COEFFICIENT))
+		air.adjust_moles(/datum/gas/bz, FUSION_TRITIUM_MOLES_USED*scale_factor*FUSION_TRITIUM_CONVERSION_COEFFICIENT)
 
+	air.adjust_moles(/datum/gas/oxygen, FUSION_TRITIUM_MOLES_USED*scale_factor*FUSION_TRITIUM_CONVERSION_COEFFICIENT*0.5)
+	
 	if(reaction_energy)
 		if(location)
 			var/standard_energy = 400*air.get_moles(/datum/gas/plasma)*air.return_temperature()
