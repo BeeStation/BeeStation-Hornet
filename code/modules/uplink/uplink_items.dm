@@ -1872,7 +1872,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 			of humanoids. It has two settings: intensity, which controls the power of the radiation, \
 			and wavelength, which controls the delay before the effect kicks in."
 	item = /obj/item/healthanalyzer/rad_laser
-	restricted_roles = list("Medical Doctor", "Chief Medical Officer", "Roboticist")
+	restricted_roles = list("Medical Doctor", "Chief Medical Officer", "Roboticist", "Paramedic")
 	cost = 3
 
 /datum/uplink_item/role_restricted/upgrade_wand
@@ -2090,7 +2090,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	desc = "An implant that grants you a deadly energy saw inside your arm. Comes with a syndicate autosurgeon for immediate self-application."
 	cost = 8
 	item = /obj/item/autosurgeon/syndicate/esaw_arm
-	restricted_roles = list("Medical Doctor", "Chief Medical Officer")
+	restricted_roles = list("Medical Doctor", "Chief Medical Officer", "Paramedic")
 
 /datum/uplink_item/role_restricted/magillitis_serum
 	name = "Magillitis Serum Autoinjector"
