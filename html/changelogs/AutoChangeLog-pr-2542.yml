@@ -1,0 +1,6 @@
+author: eeSPee
+delete-after: true
+changes:
+  - rscadd: 'Jungle Fever: Added advanced huds to all monkeys and gorillas.'
+  - tweak: 'Jungle Fever: 4% chance to turn into a gorilla instead of regular momke'
+  - tweak: Jungle Fever Transformation always fullheals monkeys.
