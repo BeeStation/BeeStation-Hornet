@@ -220,6 +220,41 @@
 
 /datum/symptom/heal/surface/passive_message_condition(mob/living/M)
 	return M.getBruteLoss() <= threshhold || M.getFireLoss() <= threshhold
+	
+/datum/symptom/heal/metabolism
+	name = "Metabolic Boost"
+	stealth = -1
+	resistance = -2
+	stage_speed = 2
+	transmittable = 1
+	level = 4
+	var/triple_metabolism = FALSE
+	var/reduced_hunger = FALSE
+	desc = "The virus causes the host's metabolism to accelerate rapidly, making them process chemicals twice as fast,\
+	 but also causing increased hunger."
+	threshold_desc = "<b>Stealth 3:</b> Reduces hunger rate.<br>\
+					  <b>Stage Speed 10:</b> Chemical metabolization is tripled instead of doubled."
+
+/datum/symptom/heal/metabolism/Start(datum/disease/advance/A)
+	if(!..())
+		return
+	if(A.properties["stage_rate"] >= 10)
+		triple_metabolism = TRUE
+	if(A.properties["stealth"] >= 3)
+		reduced_hunger = TRUE
+
+/datum/symptom/heal/metabolism/Heal(mob/living/carbon/C, datum/disease/advance/A, actual_power)
+	if(!istype(C))
+		return
+	C.reagents.metabolize(C, can_overdose=TRUE) //this works even without a liver; it's intentional since the virus is metabolizing by itself
+	if(triple_metabolism)
+		C.reagents.metabolize(C, can_overdose=TRUE)
+	C.overeatduration = max(C.overeatduration - 2, 0)
+	var/lost_nutrition = 9 - (reduced_hunger * 5)
+	C.adjust_nutrition(-lost_nutrition * HUNGER_FACTOR) //Hunger depletes at 10x the normal speed
+	if(prob(2))
+		to_chat(C, "<span class='notice'>You feel an odd gurgle in your stomach, as if it was working much faster than normal.</span>")
+	return 1
 
 /*
 //////////////////////////////////////
