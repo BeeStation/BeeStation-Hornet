@@ -295,7 +295,7 @@
 
 	air.set_moles(/datum/gas/plasma, plasma*scale_factor + FUSION_MOLE_THRESHOLD )//Scales the gases back up
 	air.set_moles(/datum/gas/carbon_dioxide, carbon*scale_factor + FUSION_MOLE_THRESHOLD)
-	var/delta_plasma = initial_plasma - air.get_moles(/datum/gas/plasma)
+	var/delta_plasma = min(initial_plasma - air.get_moles(/datum/gas/plasma), toroidal_size * scale_factor * 5)
 
 	reaction_energy += delta_plasma*PLASMA_BINDING_ENERGY //Energy is gained or lost corresponding to the creation or destruction of mass.
 	if(instability <= FUSION_INSTABILITY_ENDOTHERMALITY)
