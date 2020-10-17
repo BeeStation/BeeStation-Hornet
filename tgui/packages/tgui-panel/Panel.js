@@ -7,6 +7,7 @@
 import { Button, Flex, Section } from 'tgui/components';
 import { Pane } from 'tgui/layouts';
 import { NowPlayingWidget, useAudio } from './audio';
+import { StatTabs } from './stat'
 import { ChatPanel, ChatTabs } from './chat';
 import { useGame } from './game';
 import { Notifications } from './Notifications';
@@ -36,7 +37,13 @@ export const Panel = (props, context) => {
     <Pane theme={settings.theme}>
       <Flex
         direction="column"
-        height="100%">
+        height="40%">
+        <StatTabs />
+      </Flex>
+      <Flex
+        direction="column"
+        height="60%"
+        mt={1}>
         <Flex.Item>
           <Section fitted>
             <Flex mx={0.5} align="center">

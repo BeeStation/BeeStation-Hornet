@@ -704,27 +704,30 @@
 /mob/Stat()
 	..()
 
-	if(statpanel("Status"))
-		stoplag(world.fps)
-		if (client)
-			stat(null, "Ping: [round(client.lastping, 1)]ms (Average: [round(client.avgping, 1)]ms)")
-		stat(null, "Map: [SSmapping.config?.map_name || "Loading..."]")
-		var/datum/map_config/cached = SSmapping.next_map_config
-		if(cached)
-			stat(null, "Next Map: [cached.map_name]")
-		stat(null, "Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]")
-		stat(null, "Server Time: [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")]")
-		stat(null, "Round Time: [worldtime2text()]")
-		stat(null, "Station Time: [station_time_timestamp()]")
-		stat(null, "Time Dilation: [round(SStime_track.time_dilation_current,1)]% AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, [round(SStime_track.time_dilation_avg,1)]%, [round(SStime_track.time_dilation_avg_slow,1)]%)")
-		stat(null, "Players Connected: [GLOB.clients.len]")
-		if(SSshuttle.emergency)
-			var/ETA = SSshuttle.emergency.getModeStr()
-			if(ETA)
-				stat(null, "[ETA] [SSshuttle.emergency.getTimerStr()]")
+	var/list/status_panel = list()
+	status_panel["Map"] = "[SSmapping.config?.map_name || "Loading..."]"
+	var/datum/map_config/cached = SSmapping.next_map_config
+	if(cached)
+		status_panel["Next Map"] = cached.map_name
+	status_panel["Server Time"] = time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")
+	status_panel["Round Time"] = worldtime2text()
+	status_panel["Station Time"] = station_time_timestamp()
+	status_panel["Time Dilation"] = "[round(SStime_track.time_dilation_current,1)]% AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, [round(SStime_track.time_dilation_avg,1)]%, [round(SStime_track.time_dilation_avg_slow,1)]%)"
+	status_panel["Players Connected"] = "[GLOB.clients.len]"
+	if(SSshuttle.emergency)
+		var/ETA = SSshuttle.emergency.getModeStr()
+		if(ETA)
+			status_panel["ETA"] = SSshuttle.emergency.getTimerStr()
 
 	if(client?.holder)
-		if(statpanel("MC"))
+		var/list/master_controller = list()
+		var/turf/T = get_turf(client.eye)
+		master_controller["Location"] = COORD(T)
+		master_controller["CPU"] = "[world.cpu]"
+		master_controller["Instances"] = "[num2text(world.contents.len, 10)]"
+		master_controller["World Time"] = "[world.time]"
+
+		/*if(statpanel("MC"))
 			var/turf/T = get_turf(client.eye)
 			stat("Location:", COORD(T))
 			stat("CPU:", "[world.cpu]")
@@ -753,7 +756,7 @@
 				stat("Access Global SDQL2 List", GLOB.sdql2_vv_statobj)
 				for(var/i in GLOB.sdql2_queries)
 					var/datum/SDQL2_query/Q = i
-					Q.generate_stat()
+					Q.generate_stat()*/
 
 	if(listed_turf && client)
 		if(!TurfAdjacent(listed_turf))
@@ -779,6 +782,12 @@
 	if(mind)
 		add_spells_to_statpanel(mind.spell_list)
 	add_spells_to_statpanel(mob_spell_list)
+
+	client.tgui_panel?.update_stat_info(
+		list(
+			"Status" = status_panel,
+		)
+	)
 
 /**
   * Convert a list of spells into a displyable list for the statpanel
