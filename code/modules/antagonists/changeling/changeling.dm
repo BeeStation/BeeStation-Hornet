@@ -371,7 +371,7 @@
 	//If it seems like they'd be able to do it in play, add a 10% chance to have to escape alone
 
 	var/escape_objective_possible = TRUE
-	switch(competitive_objectives ? rand(1,2) : 1)
+	switch(competitive_objectives ? (team_mode ? rand(1,2) : rand(1,3)) : 1)
 		if(1)
 			var/datum/objective/absorb/absorb_objective = new
 			absorb_objective.owner = owner
@@ -383,6 +383,12 @@
 			ac.owner = owner
 			objectives += ac
 			log_objective(owner, ac.explanation_text)
+		if(3) //only give the murder other changelings goal if they're not in a team.
+			var/datum/objective/absorb_changeling/ac = new
+			ac.owner = owner
+			objectives += ac
+			log_objective(owner, ac.explanation_text)
+
 	if(prob(60))
 		if(prob(85))
 			var/datum/objective/steal/steal_objective = new
