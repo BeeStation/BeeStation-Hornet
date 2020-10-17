@@ -97,7 +97,7 @@
 /obj/item/inducer/proc/recharge(atom/movable/A, mob/user)
 	if(!isturf(A) && user.loc == A)
 		return FALSE
-	if (powertransfer>1000 && user.electrocute_act( (powertransfer-1000)/400),user)
+	if (powertransfer>1000 && user.electrocute_act( (powertransfer-1000)/400),user))
 		return FALSE
 	if(recharging)
 		return TRUE
