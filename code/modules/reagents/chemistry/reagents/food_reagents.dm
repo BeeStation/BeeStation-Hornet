@@ -284,17 +284,15 @@
 
 	var/mob/living/carbon/victim = M
 	if(method == TOUCH || method == VAPOR)
-		var/pepper_proof = victim.is_pepper_proof()
-
 		//check for protection
 		//actually handle the pepperspray effects
-		if (!(pepper_proof)) // you need both eye and mouth protection
-			if(prob(5))
-				victim.emote("scream")
+		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
 			victim.blur_eyes(5) // 10 seconds
 			victim.blind_eyes(3) // 6 seconds
-			victim.confused = max(M.confused, 5) // 10 seconds
 			victim.Knockdown(3 SECONDS)
+			if(prob(5))
+				victim.emote("scream")
+			victim.confused = max(M.confused, 5) // 10 seconds
 			victim.add_movespeed_modifier(MOVESPEED_ID_PEPPER_SPRAY, update=TRUE, priority=100, multiplicative_slowdown=0.25, blacklisted_movetypes=(FLYING|FLOATING))
 			addtimer(CALLBACK(victim, /mob.proc/remove_movespeed_modifier, MOVESPEED_ID_PEPPER_SPRAY), 10 SECONDS)
 		victim.update_damage_hud()
