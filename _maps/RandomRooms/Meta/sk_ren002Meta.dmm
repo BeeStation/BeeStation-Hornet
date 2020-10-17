@@ -1,4 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"af" = (
+/obj/structure/lattice,
+/obj/structure/grille/broken,
+/turf/open/space,
+/area/space/nearstation)
 "ag" = (
 /obj/structure/reflector/double/anchored{
 	dir = 5
@@ -494,6 +499,11 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/open/floor/engine,
 /area/engine/supermatter)
+"qU" = (
+/obj/structure/lattice,
+/obj/structure/grille,
+/turf/open/space,
+/area/space/nearstation)
 "rb" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
@@ -1540,6 +1550,11 @@
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
+"Rz" = (
+/obj/structure/lattice,
+/obj/structure/grille,
+/turf/open/space/basic,
+/area/space/nearstation)
 "Sa" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -2303,4 +2318,54 @@ BX
 SG
 BX
 SG
+"}
+(20,1,1) = {"
+Yt
+Iq
+Iq
+Iq
+Iq
+Yt
+Iq
+Yt
+Iq
+Iq
+Yt
+Iq
+Yt
+Iq
+Yt
+Iq
+Iq
+Yt
+Yt
+Yt
+Iq
+Iq
+Yt
+"}
+(21,1,1) = {"
+Yt
+qU
+qU
+qU
+qU
+Yt
+qU
+qU
+qU
+qU
+qU
+qU
+af
+qU
+qU
+qU
+qU
+qU
+af
+qU
+Rz
+Rz
+Yt
 "}

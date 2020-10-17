@@ -61418,7 +61418,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "ylc" = (
-/obj/effect/spawner/engine/boxengine,
+/obj/effect/spawner/room/box,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "yll" = (

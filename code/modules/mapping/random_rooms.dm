@@ -1215,3 +1215,39 @@
 	template_height = 5
 	template_width = 3
 	weight = 2
+
+/datum/map_template/random_room/sk_ren001
+	name = "Meta Singularity and Tesla engine"
+	room_id = "sk_ren001"
+	mappath = "_maps/RandomRooms/Meta/sk_ren001Meta.dmm"
+	centerspawner = TRUE
+	template_height = 23
+	template_width = 19
+	weight = 1
+
+/datum/map_template/random_room/sk_ren002
+	name = ",Meta Super Matter engine"
+	room_id = "sk_ren002"
+	mappath = "_maps/RandomRooms/Meta/sk_ren002Meta.dmm"
+	centerspawner = TRUE
+	template_height = 23
+	template_width = 19
+	weight = 1
+
+/datum/map_template/random_room/sk_ren003
+	name = "Box Singularity and Tesla Engine"
+	room_id = "sk_ren003"
+	mappath = "_maps/RandomRooms/Box/sk_ren003Box.dmm"
+	centerspawner = TRUE
+	template_height = 27
+	template_width = 23
+	weight = 1
+
+/datum/map_template/random_room/sk_ren004
+	name = "Box Super Matter engine"
+	room_id = "sk_ren004"
+	mappath = "_maps/RandomRooms/Box/sk_ren004Box.dmm"
+	centerspawner = TRUE
+	template_height = 27
+	template_width = 23
+	weight = 1

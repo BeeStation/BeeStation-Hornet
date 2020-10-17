@@ -1,4 +1,10 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aN" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plating,
+/area/space/nearstation)
 "aP" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -107,6 +113,10 @@
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
+"gY" = (
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/engine/engineering)
 "hn" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -116,6 +126,13 @@
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
+"hV" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/engine/engineering)
 "iD" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -180,6 +197,15 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
+/area/engine/engineering)
+"kU" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating,
 /area/engine/engineering)
 "lb" = (
 /turf/open/floor/plating,
@@ -250,6 +276,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"no" = (
+/obj/effect/landmark/start/station_engineer,
+/turf/open/floor/plasteel,
+/area/engine/engineering)
 "oc" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -279,6 +309,16 @@
 	dir = 6
 	},
 /turf/closed/wall/r_wall,
+/area/engine/engineering)
+"pc" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/camera/motion{
+	c_tag = "E.V.A. Storage";
+	dir = 8
+	},
+/turf/open/floor/plating,
 /area/engine/engineering)
 "pC" = (
 /obj/structure/grille,
@@ -400,12 +440,12 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "sO" = (
-/obj/machinery/camera/motion{
-	c_tag = "E.V.A. Storage";
-	dir = 8
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
+/obj/structure/grille,
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "ta" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 8
@@ -564,6 +604,13 @@
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
+"zN" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/lattice/catwalk,
+/turf/open/space/basic,
+/area/engine/engineering)
 "Ad" = (
 /obj/machinery/light_switch{
 	pixel_x = 23
@@ -938,6 +985,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"OE" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating,
+/area/engine/engineering)
 "Pi" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -1129,8 +1188,24 @@
 "Wk" = (
 /turf/open/floor/plating,
 /area/space/nearstation)
+"WT" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/engine/engineering)
 "Xv" = (
 /turf/closed/wall/r_wall,
+/area/engine/engineering)
+"XF" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating,
 /area/engine/engineering)
 "XN" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -1245,7 +1320,7 @@ sc
 Gv
 oP
 qA
-Ax
+no
 Fb
 RS
 Hh
@@ -1257,7 +1332,7 @@ gG
 Hh
 sF
 Kv
-Ax
+no
 RO
 Pi
 Qm
@@ -1621,17 +1696,17 @@ aU
 lb
 lb
 Wk
-sO
 Wk
 Wk
 Wk
+aN
+Wk
+aN
+Wk
+aN
 Wk
 Wk
 Wk
-Wk
-Wk
-Wk
-sO
 Wk
 lb
 lb
@@ -1640,6 +1715,56 @@ Sv
 Sv
 "}
 (19,1,1) = {"
+Sv
+Xv
+sO
+lb
+lb
+lb
+lb
+gY
+gY
+zN
+gY
+zN
+gY
+zN
+gY
+gY
+lb
+lb
+lb
+lb
+sO
+Sv
+Sv
+"}
+(20,1,1) = {"
+Sv
+Xv
+WT
+Sp
+Sp
+pc
+Sp
+Sp
+Sp
+kU
+Sp
+OE
+Sp
+XF
+Sp
+Sp
+Sp
+pc
+Sp
+Sp
+hV
+Sv
+Sv
+"}
+(21,1,1) = {"
 Sv
 Xv
 Xv
