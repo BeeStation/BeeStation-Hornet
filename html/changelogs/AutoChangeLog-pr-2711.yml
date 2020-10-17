@@ -1,0 +1,4 @@
+author: super12pl
+delete-after: true
+changes:
+  - rscadd: Paramedics now have medical doctor's role-specific traitor items
