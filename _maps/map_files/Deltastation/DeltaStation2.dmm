@@ -55354,6 +55354,8 @@
 /area/ai_monitored/security/armory)
 "bPA" = (
 /obj/structure/closet/secure_closet/contraband/armory,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/lootdrop/armory_contraband,
 /obj/machinery/light{
 	dir = 4
 	},
