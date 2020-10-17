@@ -272,7 +272,7 @@
 	if(!air.analyzer_results)
 		air.analyzer_results = new
 	var/list/cached_scan_results = air.analyzer_results
-	var/old_heat_capacity = air.heat_capacity()
+	var/old_thermal_energy = air.thermal_energy()
 	var/reaction_energy = 0 //Reaction energy can be negative or positive, for both exothermic and endothermic reactions.
 	var/initial_plasma = air.get_moles(/datum/gas/plasma)
 	var/initial_carbon = air.get_moles(/datum/gas/carbon_dioxide)
@@ -306,7 +306,7 @@
 	var/middle_energy = ((TOROID_CALCULATED_THRESHOLD / 2 * scale_factor) + 250) * 200 * 10 ** 6
 	var/translated_energy = middle_energy * 1.25 ** log(10, air.return_temperature() * old_heat_capacity / middle_energy) // 1.25 really is low. Don't try to go lower.
 
-	if(air.thermal_energy() + reaction_energy < 0) //No using energy that doesn't exist.
+	if(old_thermal_energy + reaction_energy < 0) //No using energy that doesn't exist.
 		air.set_moles(/datum/gas/plasma, initial_plasma)
 		air.set_moles(/datum/gas/carbon_dioxide, initial_carbon)
 		return NO_REACTION
