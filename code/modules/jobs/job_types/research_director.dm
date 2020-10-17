@@ -61,3 +61,8 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/rd
 	suit_store = /obj/item/tank/internals/oxygen
 	internals_slot = SLOT_S_STORE
+
+/datum/job/rd/after_spawn(mob/living/H, mob/M)
+	. = ..()
+	if(H.mind)
+		ADD_TRAIT(H, TRAIT_ANTIMAGIC, JOB_TRAIT)
