@@ -114,6 +114,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		message = copytext_char(message, 3)
 	message = trim_left(message)
 
+	message = emoji_parse(message)
+
 	if(message_mode == MODE_ADMIN)
 		if(client)
 			client.cmd_admin_say(message)
