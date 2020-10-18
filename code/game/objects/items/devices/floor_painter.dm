@@ -6,7 +6,6 @@
 	icon_state = "floor_painter"
 	item_state = "electronic"
 
-	var/painting_speed = 5
 	var/floor_icon
 	var/floor_state = "floor"
 	var/floor_dir = SOUTH
@@ -56,7 +55,7 @@
 
 /obj/item/floor_painter/interact(mob/user as mob)
 	if(!floor_icon)
-		floor_icon = icon('icons/turf/floors.dmi', floor_state, floor_dir,painting_speed = 5)
+		floor_icon = icon('icons/turf/floors.dmi', floor_state, floor_dir)
 	user << browse_rsc(floor_icon, "floor.png")
 	var/dat = {"
 		<center>
