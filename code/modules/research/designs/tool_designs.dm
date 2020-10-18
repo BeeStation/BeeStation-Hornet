@@ -93,6 +93,16 @@
 	category = list("Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
+/datum/design/floorpainter
+	name = "Floor Painter"
+	desc = "A small electric painter to recolour floor tiles."
+	id = "floor_painter"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 3500, /datum/material/silver = 1500, /datum/material/titanium = 2500)
+	build_path = /obj/item/floor_painter
+	category = list("Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
 /////////////////////////////////////////
 //////////////Alien Tools////////////////
 /////////////////////////////////////////
