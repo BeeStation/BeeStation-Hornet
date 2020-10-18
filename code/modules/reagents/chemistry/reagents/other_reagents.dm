@@ -769,7 +769,7 @@
 		step(M, pick(GLOB.cardinals))
 	if(prob(5))
 		M.emote(pick("twitch","drool","moan"))
-	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
 	..()
 
 /datum/reagent/sulfur
