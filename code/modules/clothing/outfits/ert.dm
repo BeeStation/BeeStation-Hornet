@@ -392,3 +392,30 @@
 		/obj/item/megaphone/clown = 1,
 		/obj/item/reagent_containers/spray/chemsprayer/janitor/clown = 1,
 		)
+
+
+/datum/outfit/ert/blueshield
+	name = "Blueshield"
+
+	id = /obj/item/card/id/silver
+	uniform = /obj/item/clothing/under/rank/blueshield
+	gloves = /obj/item/clothing/gloves/combat
+	shoes = /obj/item/clothing/shoes/jackboots
+	ears = /obj/item/radio/headset/headset_cent
+	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
+	belt = /obj/item/storage/belt/security
+	suit = /obj/item/clothing/suit/storage/blueshield
+	l_pocket = /obj/item/device/pda/blueshield
+	r_pocket = /obj/item/assembly/flash/handheld
+
+	implants = list(/obj/item/implant/mindshield)
+
+	backpack = /obj/item/storage/backpack/security
+	satchel = /obj/item/storage/backpack/satchel/sec
+	duffelbag = /obj/item/storage/backpack/duffelbag/sec
+
+	backpack_contents = list(
+		/obj/item/gun/energy/e_gun/blueshield = 1,
+		/obj/item/storage/firstaid/regular = 1,
+		/obj/item/clothing/suit/armor/vest/blueshield = 1
+	)

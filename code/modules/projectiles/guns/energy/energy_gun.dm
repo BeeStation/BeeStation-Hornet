@@ -156,3 +156,12 @@
 				add_overlay("[icon_state]_fail_1")
 			if(151 to INFINITY)
 				add_overlay("[icon_state]_fail_2")
+				
+/obj/item/gun/energy/e_gun/blueshield
+	name = "advanced disabler revolver"
+	desc = "An advanced disabler revolver with the capacity to shoot both disablers and lasers."
+	icon_state = "bsgun"
+	item_state = "gun"
+	force = 7
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos)
+	ammo_x_offset = 1

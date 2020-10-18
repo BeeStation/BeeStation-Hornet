@@ -51,6 +51,12 @@
 	item_state = "secjacket"
 	body_parts_covered = CHEST|ARMS
 	armor = list("melee" = 25, "bullet" = 25, "laser" = 25, "energy" = 35, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 45, "acid" = 45)
+	
+/obj/item/clothing/suit/armor/vest/blueshield
+	name = "blueshield security armor"
+	desc = "An armored vest with the badge of a Blueshield Lieutenant."
+	icon_state = "blueshield"
+	item_state = "blueshield"
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored greatcoat"

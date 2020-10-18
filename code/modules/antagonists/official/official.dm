@@ -43,3 +43,16 @@
 	forge_objectives()
 	. = ..()
 	equip_official()
+	
+	
+/datum/antagonist/official/blueshield
+	name = "Blueshield"
+	
+/datum/antagonist/official/blueshield/equip_official()
+	var/mob/living/carbon/human/H = owner.current
+	if(!istype(H))
+		return
+	if(CONFIG_GET(flag/enforce_human_authority))
+		H.set_species(/datum/species/human)
+		
+	H.equipOutfit(/datum/outfit/ert/blueshield)

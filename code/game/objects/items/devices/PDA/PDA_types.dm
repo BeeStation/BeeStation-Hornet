@@ -236,3 +236,8 @@
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. This model is gold-plated, and probably quite expensive."
 	icon_state = "pda-gold"
 	ttone = "ch-CHING"
+	
+/obj/item/device/pda/blueshield
+	name = "blueshield PDA"
+	var/default_cartridge = /obj/item/cartridge/hos
+	icon_state = "pda-warden"
