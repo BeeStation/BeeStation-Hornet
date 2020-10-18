@@ -12782,11 +12782,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom)
-"Bl" = (
-/obj/structure/table/wood,
-/obj/item/storage/fancy,
-/turf/open/floor/plasteel,
-/area/centcom)
 "Bm" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/bananalamp,
@@ -19134,6 +19129,11 @@
 /obj/item/gun/energy/floragun,
 /obj/item/gun/energy/e_gun/mini/practice_phaser,
 /obj/item/gun/energy/e_gun/mini,
+/turf/open/floor/plasteel,
+/area/centcom)
+"Px" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel,
 /area/centcom)
 "Py" = (
@@ -66357,7 +66357,7 @@ Kw
 Iv
 QP
 QP
-Bl
+Px
 hY
 lG
 tZ
