@@ -303,7 +303,7 @@
 	else if (reaction_energy < 0)
 		reaction_energy *= (instability-FUSION_INSTABILITY_ENDOTHERMALITY)**0.5
 	
-	var/middle_energy = ((TOROID_CALCULATED_THRESHOLD / 2 * scale_factor) + 250) * 200 * 10 ** 6
+	var/middle_energy = ((TOROID_CALCULATED_THRESHOLD / 2 * scale_factor) + FUSION_MOLE_THRESHOLD) * 200 * FUSION_MIDDLE_ENERGY_REFERENCE
 	var/translated_energy = middle_energy * FUSION_ENERGY_TRANSLATION_EXPONENT ** log(10, old_thermal_energy / middle_energy) // 1.2 really is low. Don't try to go lower.
 
 	if(old_thermal_energy + reaction_energy < 0) //No using energy that doesn't exist.
@@ -321,7 +321,7 @@
 	else
 		air.adjust_moles(/datum/gas/bz, FUSION_TRITIUM_MOLES_USED*scale_factor*FUSION_TRITIUM_CONVERSION_COEFFICIENT)
 
-	air.adjust_moles(/datum/gas/oxygen, FUSION_TRITIUM_MOLES_USED*scale_factor*FUSION_TRITIUM_CONVERSION_COEFFICIENT*0.5)
+	air.adjust_moles(/datum/gas/oxygen, FUSION_TRITIUM_MOLES_USED*scale_factor*FUSION_TRITIUM_CONVERSION_COEFFICIENT)
 	
 	if(reaction_energy)
 		if(location)
@@ -329,7 +329,7 @@
 			var/particle_chance = ((PARTICLE_CHANCE_CONSTANT)/(reaction_energy-PARTICLE_CHANCE_CONSTANT)) + 1//Asymptopically approaches 100% as the energy of the reaction goes up.
 			if(prob(PERCENT(particle_chance)))
 				location.fire_nuclear_particle(customize = TRUE, custompower = standard_energy)
-			var/rad_power = max(2000 * 3 ** (log(10,standard_energy)-15),0)
+			var/rad_power = max(2000 * 3 ** (log(10,standard_energy)-FUSION_RAD_MIDPOINT),0)
 			radiation_pulse(location,rad_power)
 
 		var/new_heat_capacity = air.heat_capacity()

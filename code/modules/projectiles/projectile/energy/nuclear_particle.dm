@@ -25,7 +25,7 @@
 	set_light(4, 3, particle_colors[our_color]) //Range of 4, brightness of 3 - Same range as a flashlight
 
 /obj/item/projectile/energy/nuclear_particle/proc/customize(custompower)
-	irradiate = max(3000 * 3 ** (log(10,custompower)-15),10)
+	irradiate = max(3000 * 3 ** (log(10,custompower)-FUSION_RAD_MIDPOINT),10)
 	var/custom_color = HSVtoRGB(hsv(clamp(log(10,custompower)-12,0,5)*256,rand(191,255),rand(191,255),255))
 	add_atom_colour(custom_color, FIXED_COLOUR_PRIORITY)
 	set_light(4, 3, custom_color)
