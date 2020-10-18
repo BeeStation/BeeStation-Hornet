@@ -28,7 +28,7 @@
 	name = "\improper SWAT boots"
 	desc = "High speed, no drag combat boots. Immune to slipping even on space lube."
 	permeability_coefficient = 0.01
-	clothing_flags = NOSLIPALL
+	clothing_flags = LUBEPROOF
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 25, "energy" = 25, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 90, "acid" = 50)
 
 /obj/item/clothing/shoes/sandal

@@ -1,4 +1,5 @@
 /obj/item/clothing/shoes/clown_shoes/taeclowndo
+	clothing_flags = NOSLIP
 	var/list/spelltypes = list	(
 								/obj/effect/proc_holder/spell/targeted/conjure_item/summon_pie,
 								/obj/effect/proc_holder/spell/aimed/banana_peel,

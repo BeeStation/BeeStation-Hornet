@@ -1066,6 +1066,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0
 	include_modes = list(/datum/game_mode/nuclear/clown_ops)
 
+/datum/uplink_item/explosives/clusterbuster_lube
+	name = "Slipocaust"
+	desc = "The Slipocaust is an essential terraforming grenade for aspiring prank artists. \
+			The cluster grenade will fragment into smaller grenades for maximum lubrication of the \
+			surrounding area, essential for delivering the most laughs. "
+	item = /obj/item/grenade/clusterbuster/lube
+	cost = 3
+
 /datum/uplink_item/explosives/detomatix
 	name = "Detomatix PDA Cartridge"
 	desc = "When inserted into a personal digital assistant, this cartridge gives you four opportunities to \
@@ -1496,7 +1504,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	desc = "These armoured boots will allow the wearer to run on wet floors and slippery objects without falling down. Does not work on heavily lubricated surfaces."
 	item = /obj/item/clothing/shoes/combat/galoshes
 	cost = 2
-	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
+	exclude_modes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/emag
 	name = "Cryptographic Sequencer"

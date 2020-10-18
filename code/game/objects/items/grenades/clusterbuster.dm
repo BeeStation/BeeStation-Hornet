@@ -141,6 +141,10 @@
 	name = "Mr. Proper"
 	payload = /obj/item/grenade/chem_grenade/cleaner
 
+/obj/item/grenade/clusterbuster/lube
+	name = "Slipocaust"
+	payload = /obj/item/grenade/chem_grenade/lube
+
 /obj/item/grenade/clusterbuster/teargas
 	name = "Oignon Grenade"
 	payload = /obj/item/grenade/chem_grenade/teargas
