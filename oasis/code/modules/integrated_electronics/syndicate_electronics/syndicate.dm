@@ -9,9 +9,9 @@
 	name = "teleportation circuit"
 	desc = "lets you teleport."
 	extended_desc = "lets you teleport."
-	icon_state = "speaker"
+	icon_state = "syndicate_teleporter"
 	cooldown_per_use = 100
-	complexity = 12
+	complexity = 20
 	inputs = list("X" = IC_PINTYPE_NUMBER,"Y" = IC_PINTYPE_NUMBER, "REF to teleport" = IC_PINTYPE_REF)
 	outputs = list()
 	activators = list("Teleport" = IC_PINTYPE_PULSE_IN)
@@ -24,5 +24,33 @@
 	var/y = CLAMP(get_pin_data(IC_INPUT, 2), 0, world.maxy)
 	var/turf/t = get_turf(teleportee)
 	var/turf/target = locate(x, y, t.z)
-
 	do_teleport(teleportee,target,0)
+
+/obj/item/integrated_circuit/syndicate/ammo_printer
+	name = "ammo printer"
+	desc = "lets you print ammo."
+	extended_desc = "lets you print ammo by its name the names are 10mm, 10mmap, 10mmhp, 10mmfire, 9mm, 9mmap, 9mminc."
+	icon_state = "syndicate_teleporter"
+	cooldown_per_use = 10
+	complexity = 15
+	inputs = list("Ammostring" = IC_PINTYPE_STRING)
+	outputs = list()
+	activators = list("print" = IC_PINTYPE_PULSE_IN)
+	power_draw_per_use = 270000
+	spawn_flags = IC_SPAWN_SYNDICATE
+	//if you whant to have it spawn more types of ammo add the path and name like this
+	var/valid_ammo = list(
+		"10mm"			=	/obj/item/ammo_casing/c10mm,
+		"10mmap"		=	/obj/item/ammo_casing/c10mm/ap,
+		"10mmhp"		=	/obj/item/ammo_casing/c10mm/hp,
+		"10mmfire"		=	/obj/item/ammo_casing/c10mm/fire,
+		"9mm"			=	/obj/item/ammo_casing/c9mm,
+		"9mmap"			=	/obj/item/ammo_casing/c9mm/ap,
+		"9mminc"		=	/obj/item/ammo_casing/c9mm/inc,
+	)
+
+/obj/item/integrated_circuit/syndicate/ammo_printer/do_work()
+	var/obj/ammotype = valid_ammo[get_pin_data(IC_INPUT,1)]
+	if(ammotype == null)
+		return
+	spawn_atom_to_turf(ammotype, src.loc, 1, FALSE)
