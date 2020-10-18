@@ -2053,6 +2053,7 @@
 	color = "#000000"
 	metabolization_rate = 5 * REAGENTS_METABOLISM
 	taste_description = "raw power"
+	can_synth = FALSE
 
 /datum/reagent/elementx/on_mob_end_metabolize(mob/living/target)
 	if(target.has_dna())
