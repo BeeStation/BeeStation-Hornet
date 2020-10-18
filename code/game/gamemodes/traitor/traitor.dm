@@ -1,12 +1,12 @@
 /datum/game_mode
-	var/traitor_name = "traitor"
+	var/traitor_name = "impostor"
 	var/list/datum/mind/traitors = list()
 
 	var/datum/mind/exchange_red
 	var/datum/mind/exchange_blue
 
 /datum/game_mode/traitor
-	name = "traitor"
+	name = "impostor"
 	config_tag = "traitor"
 	report_type = "traitor"
 	antag_flag = ROLE_TRAITOR
