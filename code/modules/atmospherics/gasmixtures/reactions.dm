@@ -276,9 +276,9 @@
 	var/reaction_energy = 0 //Reaction energy can be negative or positive, for both exothermic and endothermic reactions.
 	var/initial_plasma = air.get_moles(/datum/gas/plasma)
 	var/initial_carbon = air.get_moles(/datum/gas/carbon_dioxide)
-	var/scale_factor = air.return_volume()/10
+	var/scale_factor = max(air.return_volume()/FUSION_SCALE_DIVISOR,FUSION_MINIMAL_SCALE)
 	var/temperature_scale = log(10, air.return_temperature())
-	var/toroidal_size = min(TOROID_CALCULATED_THRESHOLD + min(temperature_scale-6,0) + 4 ** max(temperature_scale-6,0) / 1250, 1000)//The size of the phase space hypertorus
+	var/toroidal_size = min(TOROID_CALCULATED_THRESHOLD + min(temperature_scale-FUSION_BASE_TEMPSCALE,0) + 4 ** max(temperature_scale-FUSION_BASE_TEMPSCALE,0) / FUSION_SLOPE_DIVISOR, 1000)//The size of the phase space hypertorus
 	var/gas_power = 0
 	for (var/gas_id in air.get_gases())
 		gas_power += (GLOB.meta_gas_info[gas_id][META_GAS_FUSION_POWER]*air.get_moles(gas_id))
@@ -304,7 +304,7 @@
 		reaction_energy *= (instability-FUSION_INSTABILITY_ENDOTHERMALITY)**0.5
 	
 	var/middle_energy = ((TOROID_CALCULATED_THRESHOLD / 2 * scale_factor) + 250) * 200 * 10 ** 6
-	var/translated_energy = middle_energy * 1.25 ** log(10, old_thermal_energy / middle_energy) // 1.2 really is low. Don't try to go lower.
+	var/translated_energy = middle_energy * FUSION_ENERGY_TRANSLATION_EXPONENT ** log(10, old_thermal_energy / middle_energy) // 1.2 really is low. Don't try to go lower.
 
 	if(old_thermal_energy + reaction_energy < 0) //No using energy that doesn't exist.
 		air.set_moles(/datum/gas/plasma, initial_plasma)
@@ -312,7 +312,7 @@
 		return NO_REACTION
 
 	translated_energy += reaction_energy
-	translated_energy = clamp(middle_energy * 10 ** log(1.25, translated_energy / middle_energy), old_thermal_energy / 10, old_thermal_energy * 10)
+	translated_energy = clamp(middle_energy * 10 ** log(FUSION_ENERGY_TRANSLATION_EXPONENT, translated_energy / middle_energy), old_thermal_energy / 10, old_thermal_energy * 10)
 
 	air.adjust_moles(/datum/gas/tritium, -FUSION_TRITIUM_MOLES_USED)
 	//The decay of the tritium and the reaction's energy produces waste gases, different ones depending on whether the reaction is endo or exothermic
