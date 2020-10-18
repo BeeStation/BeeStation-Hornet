@@ -36153,7 +36153,7 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "bZZ" = (
-/obj/machinery/atmospherics/pipe/manifold,
+/obj/machinery/atmospherics/pipe/manifold/general/visible,
 /turf/open/floor/engine,
 /area/science/misc_lab)
 "cag" = (
@@ -39453,7 +39453,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "clv" = (
-/obj/machinery/atmospherics/pipe/manifold{
+/obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 4
 	},
 /turf/open/floor/engine,
@@ -46427,7 +46427,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
 "dwb" = (
-/obj/machinery/atmospherics/pipe/manifold{
+/obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 8
 	},
 /turf/open/floor/engine,
@@ -51199,7 +51199,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "jHW" = (
-/obj/machinery/atmospherics/pipe/manifold{
+/obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 1
 	},
 /turf/open/floor/engine,
@@ -59881,7 +59881,7 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
 "uvi" = (
-/obj/machinery/atmospherics/pipe/simple{
+/obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 9
 	},
 /turf/open/floor/engine,
@@ -62380,6 +62380,10 @@
 /obj/item/bedsheet/medical,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
+"wXZ" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible,
+/turf/open/floor/engine,
+/area/science/misc_lab)
 "wZy" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -111336,7 +111340,7 @@ bUn
 lEW
 bEC
 jHW
-cms
+wXZ
 vyK
 uvi
 cka
