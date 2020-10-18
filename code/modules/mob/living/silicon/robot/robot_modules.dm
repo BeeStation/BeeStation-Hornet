@@ -255,6 +255,8 @@
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/extinguisher,
+		/obj/item/holosign_creator/atmos,
+		/obj/item/floor_painter,
 		/obj/item/pickaxe,
 		/obj/item/t_scanner/adv_mining_scanner,
 		/obj/item/restraints/handcuffs/cable/zipties,

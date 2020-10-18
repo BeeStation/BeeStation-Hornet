@@ -965,6 +965,7 @@
 #include "code\game\objects\items\devices\electroadaptive_pseudocircuit.dm"
 #include "code\game\objects\items\devices\explosive_flashbulb.dm"
 #include "code\game\objects\items\devices\flashlight.dm"
+#include "code\game\objects\items\devices\floor_painter.dm"
 #include "code\game\objects\items\devices\forcefieldprojector.dm"
 #include "code\game\objects\items\devices\geiger_counter.dm"
 #include "code\game\objects\items\devices\glue.dm"
