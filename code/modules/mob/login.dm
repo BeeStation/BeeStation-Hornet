@@ -30,6 +30,8 @@
 	client.screen = list()				//remove hud items just in case
 	client.images = list()
 
+	instantiate_nametag(client)
+
 	if(!hud_used)
 		create_mob_hud()
 	if(hud_used)

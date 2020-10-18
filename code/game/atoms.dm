@@ -7,6 +7,9 @@
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
+
+	var/image/nametag
+
 	var/level = 2
 
 	///If non-null, overrides a/an/some in all cases
