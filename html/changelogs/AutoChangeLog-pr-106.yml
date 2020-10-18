@@ -1,0 +1,4 @@
+author: Poly-The-Parrot
+delete-after: true
+changes:
+  - tweak: Custom shuttle delete starting port after takeoff
