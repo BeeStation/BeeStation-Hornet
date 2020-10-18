@@ -700,7 +700,7 @@
 	},
 /area/ai_monitored/turret_protected/ai)
 "abh" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/security/prison)
 "abi" = (
 /obj/effect/turf_decal/delivery,
@@ -788,7 +788,7 @@
 /turf/closed/wall,
 /area/security/prison)
 "abq" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/quartermaster/warehouse)
 "abr" = (
 /obj/effect/turf_decal/tile/red{
@@ -1054,7 +1054,7 @@
 /area/security/warden)
 "abP" = (
 /obj/structure/sign/warning/securearea,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/chapel/office)
 "abQ" = (
 /obj/effect/turf_decal/stripes/line{
@@ -2366,7 +2366,7 @@
 /turf/closed/wall,
 /area/hallway/primary/fore)
 "adQ" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/fore)
 "adR" = (
 /obj/machinery/door/firedoor,
@@ -2613,7 +2613,7 @@
 /turf/closed/wall,
 /area/security/warden)
 "aeg" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/security/warden)
 "aeh" = (
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden,
@@ -2763,7 +2763,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "aer" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/port/aft)
 "aes" = (
 /obj/effect/turf_decal/tile/red{
@@ -2856,7 +2856,7 @@
 /turf/open/floor/engine,
 /area/ai_monitored/storage/satellite)
 "aey" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/security/main)
 "aez" = (
 /turf/closed/wall,
@@ -2880,7 +2880,7 @@
 /turf/open/floor/plating,
 /area/security/execution/education)
 "aeC" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/security/execution/education)
 "aeD" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -4081,7 +4081,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "agt" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/space/nearstation)
 "agu" = (
 /obj/effect/turf_decal/tile/red{
@@ -4320,7 +4320,7 @@
 /area/engine/break_room)
 "agO" = (
 /obj/structure/sign/warning/electricshock,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/crew_quarters/heads/hos)
 "agP" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -5325,8 +5325,6 @@
 "aiu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
 	pixel_y = 28
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
@@ -6508,7 +6506,7 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "akn" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/engine/gravity_generator)
 "ako" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6562,7 +6560,7 @@
 /area/solar/starboard/fore)
 "aks" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/engine/atmos)
 "akt" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1{
@@ -8346,7 +8344,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/processing)
 "amR" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/port)
 "amS" = (
 /obj/structure/chair{
@@ -8811,7 +8809,7 @@
 /obj/machinery/atmospherics/pipe/simple/dark/visible{
 	dir = 9
 	},
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/disposal/incinerator)
 "anC" = (
 /obj/structure/table/wood,
@@ -9933,7 +9931,7 @@
 	},
 /area/maintenance/fore)
 "apl" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/lawoffice)
 "apm" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
@@ -10422,7 +10420,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/genetics)
 "apX" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/central)
 "apY" = (
 /obj/machinery/door/airlock/maintenance{
@@ -12336,7 +12334,7 @@
 /turf/closed/wall,
 /area/security/courtroom)
 "asG" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/security/courtroom)
 "asH" = (
 /obj/machinery/power/solar_control{
@@ -12934,7 +12932,7 @@
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "atA" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/bridge)
 "atB" = (
 /obj/machinery/porta_turret/ai{
@@ -13599,7 +13597,7 @@
 /area/bridge)
 "auz" = (
 /obj/structure/sign/warning/vacuum/external,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/starboard)
 "auA" = (
 /obj/machinery/disposal/bin,
@@ -13653,7 +13651,7 @@
 /turf/closed/wall,
 /area/storage/primary)
 "auF" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/crew_quarters/heads/cmo)
 "auG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -13901,10 +13899,10 @@
 /area/crew_quarters/heads/hop)
 "auZ" = (
 /obj/structure/sign/warning/securearea,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/bridge)
 "ava" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/starboard)
 "avb" = (
 /obj/machinery/door/airlock/maintenance{
@@ -14581,8 +14579,6 @@
 	dir = 8
 	},
 /obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
 	pixel_y = 28
 	},
 /obj/structure/cable/yellow{
@@ -15377,7 +15373,7 @@
 	},
 /area/maintenance/starboard/fore)
 "awZ" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/security/checkpoint/engineering)
 "axa" = (
 /turf/closed/wall/r_wall,
@@ -16061,7 +16057,7 @@
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
 "axV" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/engine/engineering)
 "axW" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
@@ -19587,7 +19583,7 @@
 	dir = 4
 	},
 /obj/structure/sign/plaques/atmos,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/engine/break_room)
 "aCV" = (
 /obj/structure/sign/warning/securearea,
@@ -19804,7 +19800,7 @@
 /turf/closed/wall,
 /area/engine/atmos)
 "aDl" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/engine/atmos)
 "aDm" = (
 /obj/effect/turf_decal/delivery,
@@ -20427,7 +20423,7 @@
 /area/space/nearstation)
 "aEw" = (
 /obj/structure/sign/poster/contraband/random,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/port)
 "aEx" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
@@ -20606,7 +20602,7 @@
 /area/maintenance/port/fore)
 "aEK" = (
 /obj/structure/sign/poster/contraband/random,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/starboard/aft)
 "aEL" = (
 /obj/machinery/door/airlock/maintenance{
@@ -21253,7 +21249,7 @@
 /turf/closed/wall,
 /area/maintenance/disposal/incinerator)
 "aFJ" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/disposal/incinerator)
 "aFK" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -21340,7 +21336,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/heads/hor)
 "aFS" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/crew_quarters/theatre)
 "aFT" = (
 /obj/machinery/door/firedoor,
@@ -22495,7 +22491,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1{
 	dir = 6
 	},
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/disposal/incinerator)
 "aHL" = (
 /obj/effect/turf_decal/tile/red{
@@ -22727,7 +22723,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/storage)
 "aIa" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/science/lab)
 "aIb" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -23559,7 +23555,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 9
 	},
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/disposal/incinerator)
 "aJm" = (
 /obj/effect/turf_decal/bot,
@@ -23600,7 +23596,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1{
 	dir = 8
 	},
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/engine/atmos)
 "aJq" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -24087,7 +24083,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "aJZ" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/storage/primary)
 "aKa" = (
 /obj/structure/table,
@@ -24270,7 +24266,7 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 4
 	},
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/engine/atmos)
 "aKn" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -26572,7 +26568,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/mixing/chamber)
 "aNC" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/medical/morgue)
 "aND" = (
 /obj/effect/turf_decal/tile/purple,
@@ -26712,7 +26708,7 @@
 /turf/open/floor/plating,
 /area/medical/genetics/cloning)
 "aNP" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/medical/genetics/cloning)
 "aNQ" = (
 /turf/closed/wall,
@@ -27413,7 +27409,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/genetics/cloning)
 "aOL" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/medical/genetics)
 "aOM" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -27755,7 +27751,7 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics)
 "aPf" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/medical/virology)
 "aPg" = (
 /obj/effect/turf_decal/tile/yellow{
@@ -28024,7 +28020,7 @@
 /turf/open/floor/plating,
 /area/medical/storage)
 "aPy" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/medical/storage)
 "aPz" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -28932,7 +28928,7 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/starboard)
 "aQL" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/security/checkpoint/medical)
 "aQM" = (
 /obj/effect/turf_decal/stripes/line,
@@ -28956,7 +28952,7 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port)
 "aQP" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/medical/surgery)
 "aQQ" = (
 /obj/machinery/computer/secure_data,
@@ -30407,7 +30403,7 @@
 	},
 /area/maintenance/central)
 "aSL" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/crew_quarters/fitness/recreation)
 "aSM" = (
 /obj/machinery/door/poddoor/preopen{
@@ -33778,7 +33774,7 @@
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "aXj" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/science/robotics/lab)
 "aXk" = (
 /turf/closed/wall/r_wall,
@@ -34360,7 +34356,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/break_room)
 "aXW" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/starboard/fore)
 "aXX" = (
 /obj/structure/chair/office/light{
@@ -35216,7 +35212,7 @@
 /area/ai_monitored/turret_protected/aisat/foyer)
 "aZi" = (
 /obj/structure/sign/departments/science,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/science/lab)
 "aZj" = (
 /obj/structure/table,
@@ -36028,7 +36024,7 @@
 /turf/closed/wall,
 /area/science/robotics/mechbay)
 "bao" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/science/robotics/mechbay)
 "bap" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -36501,7 +36497,7 @@
 /turf/open/floor/plating,
 /area/security/checkpoint/science/research)
 "baV" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/security/checkpoint/science/research)
 "baW" = (
 /obj/machinery/door/poddoor/shutters{
@@ -37540,7 +37536,7 @@
 /turf/open/floor/plasteel/dark/telecomms,
 /area/science/server)
 "bcD" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/science/mixing)
 "bcE" = (
 /obj/effect/turf_decal/tile/purple{
@@ -39274,7 +39270,7 @@
 /area/science/storage)
 "beK" = (
 /obj/structure/sign/warning/docking,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/starboard)
 "beL" = (
 /obj/machinery/door/firedoor,
@@ -41456,7 +41452,7 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/aft)
 "bhG" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/quartermaster/qm)
 "bhH" = (
 /turf/closed/wall,
@@ -41465,7 +41461,7 @@
 /turf/closed/wall,
 /area/quartermaster/office)
 "bhJ" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/quartermaster/office)
 "bhK" = (
 /obj/machinery/door/firedoor,
@@ -41567,7 +41563,7 @@
 /turf/closed/wall,
 /area/quartermaster/storage)
 "bhR" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/quartermaster/miningoffice)
 "bhS" = (
 /obj/structure/bed/roller,
@@ -41881,7 +41877,7 @@
 /area/quartermaster/qm)
 "bin" = (
 /obj/structure/sign/warning/docking,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/quartermaster/miningoffice)
 "bio" = (
 /obj/machinery/navbeacon{
@@ -42926,7 +42922,7 @@
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
 "bjF" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/quartermaster/storage)
 "bjG" = (
 /obj/effect/turf_decal/tile/brown{
@@ -43735,7 +43731,7 @@
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "bkP" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/quartermaster/sorting)
 "bkQ" = (
 /obj/effect/turf_decal/delivery,
@@ -44844,7 +44840,7 @@
 /area/quartermaster/storage)
 "bmn" = (
 /obj/structure/sign/warning/docking,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/quartermaster/storage)
 "bmo" = (
 /obj/item/twohanded/required/kirbyplants{
@@ -45141,7 +45137,7 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/kitchen)
 "bmM" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/hydroponics)
 "bmN" = (
 /obj/machinery/door/firedoor,
@@ -47563,7 +47559,7 @@
 /area/engine/break_room)
 "bqb" = (
 /obj/structure/sign/departments/custodian,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/central)
 "bqc" = (
 /obj/effect/turf_decal/bot,
@@ -48266,8 +48262,6 @@
 	dir = 1
 	},
 /obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
 	pixel_y = 28
 	},
 /obj/effect/decal/cleanable/blood/old,
@@ -49160,7 +49154,7 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/central)
 "bsm" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/chapel/office)
 "bsn" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -50820,7 +50814,7 @@
 /area/library)
 "buD" = (
 /obj/structure/sign/poster/contraband/random,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/quartermaster/warehouse)
 "buE" = (
 /obj/effect/spawner/structure/window,
@@ -50949,7 +50943,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "buQ" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/crew_quarters/bar)
 "buR" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -51587,7 +51581,7 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
 "bvK" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/library)
 "bvL" = (
 /obj/machinery/computer/shuttle/labor,
@@ -51828,7 +51822,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "bwi" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/crew_quarters/kitchen)
 "bwj" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -51879,7 +51873,7 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "bwn" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/science/xenobiology)
 "bwo" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -51918,7 +51912,7 @@
 /turf/open/floor/grass,
 /area/chapel/main)
 "bws" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/security/detectives_office)
 "bwt" = (
 /obj/machinery/hydroponics/soil,
@@ -51926,7 +51920,7 @@
 /turf/open/floor/grass,
 /area/chapel/main)
 "bwu" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/security/processing)
 "bwv" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -51969,7 +51963,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "bwz" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/security/checkpoint/supply)
 "bwA" = (
 /obj/effect/turf_decal/tile/blue{
@@ -52241,7 +52235,7 @@
 /turf/open/floor/grass,
 /area/chapel/main)
 "bwX" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/chapel/main)
 "bwY" = (
 /obj/structure/chair/pew/left{
@@ -52411,7 +52405,7 @@
 /area/hallway/primary/starboard)
 "bxm" = (
 /obj/structure/sign/plaques/atmos,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/engine/atmos)
 "bxn" = (
 /obj/structure/sign/warning/biohazard,
@@ -52820,7 +52814,7 @@
 /area/security/main)
 "bxT" = (
 /obj/machinery/status_display/evac,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/chapel/office)
 "bxU" = (
 /obj/effect/turf_decal/tile/blue{
@@ -53325,7 +53319,7 @@
 /area/quartermaster/storage)
 "byy" = (
 /obj/structure/sign/poster/contraband/random,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/central)
 "byz" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible,
@@ -55432,7 +55426,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "bBB" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/hallway/primary/aft)
 "bBC" = (
 /obj/machinery/computer/turbine_computer{
@@ -57448,7 +57442,7 @@
 /area/hallway/primary/port)
 "bEq" = (
 /obj/structure/sign/warning/pods,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/starboard)
 "bEr" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -57833,7 +57827,7 @@
 /turf/open/floor/wood,
 /area/lawoffice)
 "bEQ" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/gateway)
 "bER" = (
 /obj/effect/turf_decal/tile/blue{
@@ -57861,7 +57855,7 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
 "bET" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/aft)
 "bEU" = (
 /obj/effect/turf_decal/tile/red,
@@ -58624,7 +58618,7 @@
 /area/maintenance/aft)
 "bFZ" = (
 /obj/structure/sign/warning/electricshock,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/aft)
 "bGa" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -59863,7 +59857,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/quartermaster/sorting)
 "bHR" = (
 /obj/structure/disposalpipe/junction,
@@ -59905,7 +59899,7 @@
 /turf/closed/wall,
 /area/hallway/primary/aft)
 "bHV" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/storage/tech)
 "bHW" = (
 /obj/structure/bed/dogbed/ian,
@@ -59924,7 +59918,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "bHX" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/hallway/primary/port)
 "bHY" = (
 /obj/structure/table,
@@ -59988,7 +59982,7 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 4
 	},
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/engine/atmos)
 "bIf" = (
 /obj/effect/landmark/event_spawn,
@@ -61070,7 +61064,7 @@
 /area/security/prison)
 "bJA" = (
 /obj/machinery/status_display/ai,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/security/warden)
 "bJB" = (
 /obj/machinery/door/airlock/security/glass{
@@ -61377,7 +61371,7 @@
 /area/maintenance/port/aft)
 "bJY" = (
 /obj/structure/sign/warning/docking,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/space/nearstation)
 "bJZ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1{
@@ -61829,7 +61823,7 @@
 /area/maintenance/port/aft)
 "bKO" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/disposal/incinerator)
 "bKP" = (
 /obj/machinery/door/airlock/medical/glass{
@@ -61852,8 +61846,6 @@
 /area/crew_quarters/fitness/recreation)
 "bKR" = (
 /obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
 	pixel_y = 28
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -62155,7 +62147,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "bLn" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/crew_quarters/toilet/restrooms)
 "bLo" = (
 /obj/structure/table,
@@ -62271,7 +62263,7 @@
 /turf/open/floor/plasteel/dark,
 /area/janitor)
 "bLu" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/crew_quarters/locker)
 "bLv" = (
 /obj/effect/decal/cleanable/dirt,
@@ -62656,7 +62648,7 @@
 /area/maintenance/port/aft)
 "bLU" = (
 /obj/structure/sign/warning/fire,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/crew_quarters/fitness/recreation)
 "bLV" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -63819,7 +63811,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/janitor)
 "bNw" = (
 /obj/structure/disposalpipe/segment{
@@ -63831,7 +63823,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/janitor)
 "bNy" = (
 /obj/machinery/computer/security{
@@ -64283,7 +64275,7 @@
 /turf/closed/wall,
 /area/hallway/secondary/exit/departure_lounge)
 "bOd" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/janitor)
 "bOe" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -64301,7 +64293,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "bOf" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/vacant_room/commissary)
 "bOg" = (
 /obj/machinery/door/airlock/external{
@@ -64415,7 +64407,7 @@
 /area/maintenance/starboard/aft)
 "bOo" = (
 /obj/structure/sign/departments/custodian,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/janitor)
 "bOp" = (
 /obj/structure/disposalpipe/segment{
@@ -64600,7 +64592,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "bOC" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/starboard/aft)
 "bOD" = (
 /obj/effect/turf_decal/tile/brown{
@@ -64652,7 +64644,7 @@
 /area/ai_monitored/storage/eva)
 "bOH" = (
 /obj/machinery/status_display/evac,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/janitor)
 "bOI" = (
 /obj/effect/turf_decal/box/corners,
@@ -64804,8 +64796,6 @@
 /area/teleporter)
 "bOT" = (
 /obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
 	pixel_y = 28
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -66801,7 +66791,7 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
 "bRF" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/hallway/secondary/exit/departure_lounge)
 "bRG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -67583,7 +67573,7 @@
 /area/security/courtroom)
 "bSI" = (
 /obj/structure/sign/warning/electricshock,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/starboard/aft)
 "bSJ" = (
 /obj/machinery/light/small,
@@ -69000,7 +68990,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/engine/atmos)
 "bUY" = (
 /obj/effect/turf_decal/stripes/line{
@@ -69352,7 +69342,7 @@
 /obj/structure/sign/warning/securearea{
 	name = "WARNING: Station Limits"
 	},
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/space/nearstation)
 "bVv" = (
 /turf/closed/mineral/random/high_chance,
@@ -70445,7 +70435,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "bWT" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/hallway/secondary/entry)
 "bWU" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -73175,7 +73165,7 @@
 /area/hallway/primary/starboard)
 "cav" = (
 /obj/structure/sign/poster/contraband/random,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/hallway/secondary/entry)
 "caw" = (
 /obj/structure/janitorialcart,
@@ -74081,7 +74071,7 @@
 /area/security/detectives_office)
 "cbK" = (
 /obj/machinery/status_display/evac,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/security/prison)
 "cbL" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -75365,7 +75355,7 @@
 /turf/closed/wall,
 /area/ai_monitored/turret_protected/ai)
 "cdZ" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/ai_monitored/turret_protected/ai)
 "cea" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -77992,7 +77982,7 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "chV" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/ai_monitored/turret_protected/aisat_interior)
 "chW" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -78585,7 +78575,7 @@
 /area/security/brig)
 "ciQ" = (
 /obj/structure/sign/warning/securearea,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/space/nearstation)
 "ciR" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -79377,7 +79367,7 @@
 /area/engine/engineering)
 "cjX" = (
 /obj/structure/sign/warning/securearea,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/engine/gravity_generator)
 "cjY" = (
 /obj/effect/turf_decal/tile/red{
@@ -80091,7 +80081,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "clb" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/solars/starboard/aft)
 "clc" = (
 /obj/effect/turf_decal/box,
@@ -81181,7 +81171,7 @@
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "cmO" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/crew_quarters/heads/hos)
 "cmP" = (
 /turf/closed/wall,
@@ -81390,7 +81380,7 @@
 	},
 /area/maintenance/starboard/aft)
 "cnd" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/disposal)
 "cne" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -81768,7 +81758,7 @@
 /turf/closed/wall,
 /area/maintenance/solars/port/aft)
 "cnO" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/solars/port/aft)
 "cnP" = (
 /turf/closed/wall/r_wall,
@@ -82197,7 +82187,7 @@
 /area/janitor)
 "cou" = (
 /obj/structure/sign/poster/contraband/random,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/port/aft)
 "cov" = (
 /obj/structure/lattice,
@@ -83632,7 +83622,7 @@
 /area/maintenance/port/aft)
 "cqs" = (
 /obj/structure/sign/warning/docking,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/port)
 "cqt" = (
 /obj/structure/sign/warning,
@@ -83838,7 +83828,7 @@
 /area/security/processing)
 "cqI" = (
 /obj/structure/sign/warning/docking,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/port/aft)
 "cqJ" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -83984,7 +83974,7 @@
 /area/engine/engineering)
 "cqT" = (
 /obj/structure/sign/warning/pods,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/port)
 "cqU" = (
 /obj/effect/turf_decal/tile/red,
@@ -84157,7 +84147,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/starboard/fore)
 "cri" = (
 /obj/structure/lattice/catwalk,
@@ -84250,7 +84240,7 @@
 /area/maintenance/port/aft)
 "crq" = (
 /obj/structure/sign/warning/nosmoking,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/port)
 "crr" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -85802,7 +85792,7 @@
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "ctA" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/solars/port/fore)
 "ctB" = (
 /turf/closed/wall,
@@ -86724,7 +86714,7 @@
 /area/hallway/secondary/entry)
 "cuR" = (
 /obj/structure/sign/warning/xeno_mining,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/port)
 "cuS" = (
 /obj/effect/turf_decal/stripes/line,
@@ -86898,7 +86888,7 @@
 /area/maintenance/port)
 "cve" = (
 /obj/structure/sign/poster/contraband/red_rum,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/port)
 "cvf" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -87100,7 +87090,7 @@
 /area/quartermaster/warehouse)
 "cvt" = (
 /obj/structure/sign/warning/vacuum,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/quartermaster/warehouse)
 "cvu" = (
 /obj/machinery/light/small{
@@ -87231,7 +87221,7 @@
 /area/maintenance/port)
 "cvB" = (
 /obj/structure/sign/departments/security,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/port)
 "cvC" = (
 /obj/machinery/vending/cigarette,
@@ -87652,7 +87642,7 @@
 /area/engine/engineering)
 "cwf" = (
 /obj/structure/sign/poster/contraband/missing_gloves,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/port/fore)
 "cwg" = (
 /obj/machinery/door/airlock/maintenance{
@@ -87690,7 +87680,7 @@
 /area/engine/engineering)
 "cwj" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/engine/atmos)
 "cwk" = (
 /obj/machinery/atmospherics/components/binary/pump{
@@ -87743,7 +87733,7 @@
 /turf/closed/wall,
 /area/maintenance/port/fore)
 "cwq" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/port/fore)
 "cwr" = (
 /obj/machinery/door/poddoor/shutters{
@@ -88453,7 +88443,7 @@
 /area/maintenance/port/fore)
 "cxr" = (
 /obj/structure/sign/poster/contraband/clown,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/port/fore)
 "cxs" = (
 /obj/machinery/door/airlock/external{
@@ -88468,7 +88458,7 @@
 /area/security/processing)
 "cxt" = (
 /obj/structure/sign/poster/contraband/random,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/port/fore)
 "cxu" = (
 /obj/structure/table/glass,
@@ -88675,7 +88665,7 @@
 /area/engine/atmos)
 "cxI" = (
 /obj/structure/sign/warning/vacuum/external,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/port/fore)
 "cxJ" = (
 /obj/effect/turf_decal/tile/red,
@@ -88805,7 +88795,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/engine/atmos)
 "cxS" = (
 /obj/effect/decal/cleanable/dirt,
@@ -89411,8 +89401,6 @@
 "cyI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
 	pixel_y = 28
 	},
 /obj/effect/landmark/blobstart,
@@ -90390,7 +90378,7 @@
 /area/medical/morgue)
 "cAg" = (
 /obj/structure/sign/poster/contraband/missing_gloves,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/port)
 "cAh" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -90489,7 +90477,7 @@
 /area/maintenance/fore)
 "cAp" = (
 /obj/structure/sign/departments/holy,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/chapel/office)
 "cAq" = (
 /obj/effect/turf_decal/bot,
@@ -91135,7 +91123,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/engine/atmos)
 "cBr" = (
 /obj/effect/turf_decal/bot,
@@ -92251,7 +92239,7 @@
 /area/quartermaster/warehouse)
 "cDy" = (
 /obj/structure/sign/warning/docking,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/quartermaster/warehouse)
 "cDz" = (
 /obj/machinery/camera{
@@ -92280,7 +92268,7 @@
 /turf/open/space/basic,
 /area/space)
 "cDC" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/construction/mining/aux_base)
 "cDD" = (
 /turf/closed/wall,
@@ -92349,7 +92337,7 @@
 /area/construction/mining/aux_base)
 "cDL" = (
 /obj/machinery/status_display/evac,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/construction/mining/aux_base)
 "cDM" = (
 /obj/structure/grille,
@@ -92676,7 +92664,7 @@
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/fore)
 "cEm" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/department/electrical)
 "cEn" = (
 /turf/closed/wall,
@@ -92891,7 +92879,7 @@
 /area/maintenance/starboard)
 "cEB" = (
 /obj/structure/sign/warning/electricshock,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/department/electrical)
 "cEC" = (
 /obj/effect/decal/cleanable/dirt,
@@ -93038,7 +93026,7 @@
 /area/maintenance/fore)
 "cEO" = (
 /obj/structure/sign/departments/medbay/alt,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/fore)
 "cEP" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -93269,7 +93257,7 @@
 /area/maintenance/fore)
 "cFd" = (
 /obj/structure/sign/poster/contraband/random,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/fore)
 "cFe" = (
 /obj/effect/decal/cleanable/dirt,
@@ -93343,7 +93331,7 @@
 /turf/closed/wall,
 /area/storage/tcom)
 "cFn" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/storage/tcom)
 "cFo" = (
 /obj/structure/girder,
@@ -93575,7 +93563,7 @@
 /area/storage/tcom)
 "cFC" = (
 /obj/structure/sign/poster/contraband/random,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/storage/tcom)
 "cFD" = (
 /obj/effect/decal/cleanable/dirt,
@@ -93584,7 +93572,7 @@
 /area/maintenance/starboard/fore)
 "cFE" = (
 /obj/structure/sign/warning/biohazard,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/starboard)
 "cFF" = (
 /obj/structure/girder,
@@ -93613,7 +93601,7 @@
 /area/maintenance/department/electrical)
 "cFI" = (
 /obj/machinery/status_display/ai,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/department/electrical)
 "cFJ" = (
 /obj/machinery/door/poddoor/shutters{
@@ -93710,7 +93698,7 @@
 /area/maintenance/starboard)
 "cFV" = (
 /obj/structure/sign/poster/contraband/random,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/starboard)
 "cFW" = (
 /turf/closed/wall/r_wall,
@@ -93719,7 +93707,7 @@
 /turf/closed/wall,
 /area/maintenance/solars/starboard/fore)
 "cFY" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/solars/starboard/fore)
 "cFZ" = (
 /obj/structure/sign/warning/nosmoking,
@@ -94106,7 +94094,7 @@
 /area/maintenance/starboard/fore)
 "cGS" = (
 /obj/structure/sign/poster/contraband/random,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/starboard/fore)
 "cGT" = (
 /obj/effect/turf_decal/stripes/line{
@@ -94164,7 +94152,7 @@
 /area/maintenance/fore)
 "cGZ" = (
 /obj/structure/sign/poster/contraband/missing_gloves,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/maintenance/starboard)
 "cHa" = (
 /obj/machinery/door/airlock/atmos{
@@ -95323,7 +95311,7 @@
 /area/security/prison)
 "cIW" = (
 /obj/structure/sign/poster/official/random,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/security/prison)
 "cIX" = (
 /obj/effect/turf_decal/tile/red{
@@ -95575,7 +95563,7 @@
 /area/security/prison)
 "cJj" = (
 /obj/structure/sign/departments/security,
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/security/prison)
 "cJk" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -100508,7 +100496,7 @@
 /turf/open/floor/plating,
 /area/crew_quarters/cryopods)
 "cPX" = (
-/turf/closed/wall/rust,
+/turf/closed/wall,
 /area/crew_quarters/cryopods)
 "cPY" = (
 /obj/effect/turf_decal/tile/blue{
