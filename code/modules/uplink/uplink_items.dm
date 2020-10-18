@@ -1491,6 +1491,13 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	item = /obj/item/storage/belt/military
 	cost = 1
 
+/datum/uplink_item/device_tools/combatgaloshes
+	name = "Combat Galoshes"
+	desc = "These armoured boots will allow the wearer to run on wet floors and slippery objects without falling down. Does not work on heavily lubricated surfaces."
+	item = /obj/item/clothing/shoes/combat/galoshes
+	cost = 2
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
+
 /datum/uplink_item/device_tools/emag
 	name = "Cryptographic Sequencer"
 	desc = "The cryptographic sequencer, electromagnetic card, or emag, is a small card that unlocks hidden functions \

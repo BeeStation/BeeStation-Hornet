@@ -416,7 +416,7 @@
 /datum/outfit/syndicate_empty
 	name = "Syndicate Operative Empty"
 	uniform = /obj/item/clothing/under/syndicate
-	shoes = /obj/item/clothing/shoes/combat/nukie
+	shoes = /obj/item/clothing/shoes/combat/galoshes
 	gloves = /obj/item/clothing/gloves/combat
 	ears = /obj/item/radio/headset/syndicate/alt
 	back = /obj/item/storage/backpack
