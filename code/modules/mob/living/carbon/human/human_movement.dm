@@ -16,9 +16,9 @@
 	if(HAS_TRAIT(src, TRAIT_NOSLIPALL))
 		return 0
 	if(shoes && istype(shoes, /obj/item/clothing))
-			var/obj/item/clothing/CS = shoes
-			if (CS.clothing_flags & NOSLIPALL)
-				return 0
+		var/obj/item/clothing/CS = shoes
+		if (CS.clothing_flags & NOSLIPALL)
+			return 0
 	if (!(lube&GALOSHES_DONT_HELP))
 		if(HAS_TRAIT(src, TRAIT_NOSLIPWATER))
 			return 0

@@ -554,7 +554,7 @@
 	icon_state = "black"
 	item_color = "black"
 	desc = "A pair of black shoes."
-	clothing_flags = NOSLIP
+	clothing_flags = NOSLIPALL
 	can_be_bloody = FALSE
 
 /obj/item/clothing/shoes/chameleon/noslip/broken/Initialize()
