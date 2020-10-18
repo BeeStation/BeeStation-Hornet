@@ -8,7 +8,7 @@
 /obj/item/integrated_circuit/syndicate/teleporter
 	name = "teleportation circuit"
 	desc = "lets you teleport."
-	extended_desc = "lets you teleport."
+	extended_desc = "teleports the selected ref to the absolute x,y coordinates on the same z level."
 	icon_state = "syndicate_teleporter"
 	cooldown_per_use = 100
 	complexity = 20
@@ -24,6 +24,7 @@
 	var/y = CLAMP(get_pin_data(IC_INPUT, 2), 0, world.maxy)
 	var/turf/t = get_turf(teleportee)
 	var/turf/target = locate(x, y, t.z)
+	playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, TRUE)
 	do_teleport(teleportee,target,0)
 
 /obj/item/integrated_circuit/syndicate/ammo_printer
@@ -54,3 +55,25 @@
 	if(ammotype == null)
 		return
 	spawn_atom_to_turf(ammotype, src.loc, 1, FALSE)
+
+/obj/item/integrated_circuit/syndicate/electronics_detonator
+	name = "electronics detonator"
+	desc = "detonates machinery."
+	extended_desc = "detonates selected machinery."
+	icon_state = "syndicate_teleporter"
+	cooldown_per_use = 10
+	complexity = 20
+	inputs = list("ref of machine to detonate" = IC_PINTYPE_REF)
+	outputs = list()
+	activators = list("detonate" = IC_PINTYPE_PULSE_IN)
+	power_draw_per_use = 5000000
+	spawn_flags = IC_SPAWN_SYNDICATE
+
+
+/obj/item/integrated_circuit/syndicate/electronics_detonator/do_work()
+	var/obj/machine = get_pin_data_as_type(IC_INPUT, 1, /atom)
+	if(istype(machine, /obj/machinery))
+		if(!istype(machine,/obj/machinery/nuclearbomb) && !istype(machine,/obj/machinery/door) && !istype(machine,/obj/machinery/atmospherics) && !istype(machine,/obj/machinery/porta_turret)&& !istype(machine,/obj/machinery/porta_turret_cover)&& !istype(machine,/obj/machinery/portable_atmospherics))
+			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25)
+			explosion(machine,0,0,0,1)
+			machine.deconstruct()
