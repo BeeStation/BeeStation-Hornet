@@ -239,7 +239,47 @@
 
 			emergency = !emergency
 			update_icon()
+		//Oasis edit by Nuclearmayhem
+		if("electrify")
+			if(command_value == "on" && isElectrified())
+				return
 
+			if(command_value == "off" && !isElectrified())
+				return
+
+			if(!isElectrified())
+				set_electrified(MACHINE_ELECTRIFIED_PERMANENT)
+			else
+				set_electrified(MACHINE_NOT_ELECTRIFIED)
+		
+		if("safety")
+			if(command_value == "on" && safe)
+				return
+
+			if(command_value == "off" && !safe)
+				return
+
+			safe = !safe
+		
+		if("timer")
+			if(command_value == "on" && autoclose)
+				return
+
+			if(command_value == "off" && !autoclose)
+				return
+
+			autoclose = !autoclose
+		
+		if("speed")
+			if(command_value == "on" && normalspeed)
+				return
+
+			if(command_value == "off" && !normalspeed)
+				return
+
+			normalspeed = !normalspeed
+
+		//End edit by Nuclearmayhem
 /obj/machinery/door/airlock/lock()
 	bolt()
 
