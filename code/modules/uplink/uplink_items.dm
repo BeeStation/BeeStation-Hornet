@@ -1317,7 +1317,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 
 /datum/uplink_item/stealthy_tools/combatbananashoes
-	name = "Combat Banana Shoes"
+	name = "MK-HONK Combat Banana Shoes"
 	desc = "While making the wearer immune to most slipping attacks like regular combat clown shoes, these shoes \
 		can generate a large number of synthetic banana peels as the wearer walks, slipping up would-be pursuers. They also \
 		squeak significantly louder."
