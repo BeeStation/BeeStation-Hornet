@@ -15908,7 +15908,7 @@
 /area/crew_quarters/fitness/recreation)
 "aLg" = (
 /obj/structure/closet/secure_closet/contraband/armory,
-/obj/effect/spawner/lootdrop/armory_contraband/donutstation,
+/obj/effect/spawner/lootdrop/armory_contraband,
 /obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)

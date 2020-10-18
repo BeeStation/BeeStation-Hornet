@@ -272,7 +272,7 @@
 	if(!air.analyzer_results)
 		air.analyzer_results = new
 	var/list/cached_scan_results = air.analyzer_results
-	var/old_heat_capacity = air.heat_capacity()
+	var/old_thermal_energy = air.thermal_energy()
 	var/reaction_energy = 0 //Reaction energy can be negative or positive, for both exothermic and endothermic reactions.
 	var/initial_plasma = air.get_moles(/datum/gas/plasma)
 	var/initial_carbon = air.get_moles(/datum/gas/carbon_dioxide)
@@ -302,7 +302,7 @@
 	else if (reaction_energy < 0)
 		reaction_energy *= (instability-FUSION_INSTABILITY_ENDOTHERMALITY)**0.5
 
-	if(air.thermal_energy() + reaction_energy < 0) //No using energy that doesn't exist.
+	if(old_thermal_energy + reaction_energy < 0) //No using energy that doesn't exist.
 		air.set_moles(/datum/gas/plasma, initial_plasma)
 		air.set_moles(/datum/gas/carbon_dioxide, initial_carbon)
 		return NO_REACTION
@@ -325,7 +325,7 @@
 
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.set_temperature(CLAMP(((air.return_temperature()*old_heat_capacity + reaction_energy)/new_heat_capacity),TCMB,INFINITY))
+			air.set_temperature(CLAMP(((old_thermal_energy + reaction_energy)/new_heat_capacity),TCMB,INFINITY))
 		return REACTING
 
 /datum/gas_reaction/nitrylformation //The formation of nitryl. Endothermic. Requires N2O as a catalyst.
