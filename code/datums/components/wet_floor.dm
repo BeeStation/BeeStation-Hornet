@@ -67,10 +67,6 @@
 		T.add_overlay(intended)
 		current_overlay = intended
 
-/datum/component/wet_floor/proc/AfterSlip(mob/living/L)
-	if(highest_strength == TURF_WET_LUBE)
-		L.confused = max(L.confused, 8)
-
 /datum/component/wet_floor/proc/update_flags()
 	var/intensity
 	lube_flags = NONE
@@ -91,7 +87,7 @@
 			qdel(parent.GetComponent(/datum/component/slippery))
 			return
 
-	parent.LoadComponent(/datum/component/slippery, intensity, lube_flags, CALLBACK(src, .proc/AfterSlip))
+	parent.LoadComponent(/datum/component/slippery, intensity, lube_flags, CALLBACK(src))
 
 /datum/component/wet_floor/proc/dry(datum/source, strength = TURF_WET_WATER, immediate = FALSE, duration_decrease = INFINITY)
 	for(var/i in time_left_list)
