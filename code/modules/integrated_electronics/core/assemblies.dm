@@ -363,7 +363,7 @@
 			component.rename_component(usr)
 			if(component.assembly)
 				component.assembly.add_allowed_scanner(usr.ckey)
-		
+
 		if(href_list["interact"])
 			var/obj/item/I = usr.get_active_held_item()
 			if(istype(I))
@@ -456,6 +456,15 @@
 
 	var/total_part_size = return_total_size()
 	var/total_complexity = return_total_complexity()
+
+	if(IC.max_allowed)
+		var/current_components
+		for(var/obj/item/integrated_circuit/component as anything in assembly_components)
+			if(component.type == IC.type)
+				current_components++
+		if(current_components >= IC.max_allowed)
+			to_chat(user, "<span class='warning'>You can't seem to add the '[IC]', as there are too many installed already.</span>")
+			return FALSE
 
 	if((total_part_size + IC.size) > max_components)
 		to_chat(user, "<span class='warning'>You can't seem to add the '[IC]', as there's insufficient space.</span>")
