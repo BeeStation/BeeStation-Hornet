@@ -326,6 +326,9 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 /obj/item/clothing/mask/cigarette/carp
 	desc = "A Carp Classic brand cigarette."
+	
+/obj/item/clothing/mask/cigarette/plasma
+	list_reagents = list(/datum/reagent/toxin/plasma = 5) 
 
 /obj/item/clothing/mask/cigarette/syndicate
 	desc = "An unknown brand cigarette."
