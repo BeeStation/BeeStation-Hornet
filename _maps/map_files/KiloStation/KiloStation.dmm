@@ -22,7 +22,7 @@
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
 "aad" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/security/brig)
 "aae" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -33,7 +33,7 @@
 /turf/closed/wall/r_wall,
 /area/security/brig)
 "aag" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/security/warden)
 "aah" = (
 /obj/item/wrench,
@@ -206,7 +206,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "aat" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/security/prison)
 "aau" = (
 /obj/effect/turf_decal/stripes/line{
@@ -2409,7 +2409,7 @@
 /area/security/warden)
 "adT" = (
 /obj/structure/sign/warning/securearea,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/ai_monitored/turret_protected/aisat_interior)
 "adU" = (
 /obj/structure/closet/cardboard,
@@ -6115,7 +6115,7 @@
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
 "ajC" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/tcommsat/server)
 "ajD" = (
 /obj/effect/turf_decal/stripes/line,
@@ -6493,7 +6493,7 @@
 /turf/open/floor/plasteel/dark,
 /area/science/mixing)
 "akl" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/maintenance/port/aft)
 "akm" = (
 /obj/effect/turf_decal/tile/red{
@@ -7743,7 +7743,7 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "alV" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/ai_monitored/turret_protected/aisat_interior)
 "alW" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8156,10 +8156,10 @@
 	},
 /area/maintenance/central)
 "amy" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/security/processing)
 "amz" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/maintenance/port)
 "amA" = (
 /turf/closed/wall,
@@ -8419,7 +8419,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/science/research)
 "amX" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/ai_monitored/security/armory)
 "amY" = (
 /obj/machinery/atmospherics/pipe/simple/dark/visible{
@@ -8884,7 +8884,7 @@
 /area/ai_monitored/security/armory)
 "anG" = (
 /obj/structure/sign/nanotrasen,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/ai_monitored/security/armory)
 "anH" = (
 /turf/closed/wall,
@@ -9508,7 +9508,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/toilet/restrooms)
 "aoH" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/medical/virology)
 "aoI" = (
 /obj/effect/turf_decal/stripes/line,
@@ -10119,7 +10119,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "apA" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/crew_quarters/heads/captain)
 "apB" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
@@ -12732,7 +12732,7 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "atn" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/security/courtroom)
 "ato" = (
 /obj/structure/table,
@@ -13079,7 +13079,7 @@
 /area/chapel/main)
 "atK" = (
 /obj/machinery/status_display/evac,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/medical/virology)
 "atL" = (
 /obj/machinery/door/airlock/maintenance{
@@ -13143,7 +13143,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "atP" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/bridge)
 "atQ" = (
 /obj/effect/turf_decal/tile/purple,
@@ -13464,7 +13464,7 @@
 /turf/open/floor/grass,
 /area/medical/genetics)
 "aup" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/teleporter)
 "auq" = (
 /obj/effect/turf_decal/tile/purple{
@@ -15254,7 +15254,7 @@
 	},
 /area/maintenance/starboard/fore)
 "awL" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/engine/break_room)
 "awM" = (
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
@@ -15346,7 +15346,7 @@
 /turf/open/floor/plasteel,
 /area/gateway)
 "awV" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/crew_quarters/heads/chief)
 "awW" = (
 /obj/structure/sign/warning/securearea,
@@ -16052,10 +16052,10 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "axS" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/engine/engineering)
 "axT" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/engine/supermatter)
 "axU" = (
 /turf/closed/wall/r_wall,
@@ -17480,7 +17480,7 @@
 /area/maintenance/starboard/fore)
 "azX" = (
 /obj/structure/sign/warning/securearea,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/engine/engineering)
 "azY" = (
 /obj/structure/table,
@@ -17640,7 +17640,7 @@
 /turf/open/floor/engine,
 /area/security/nuke_storage)
 "aAg" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/ai_monitored/turret_protected/ai)
 "aAh" = (
 /obj/effect/turf_decal/stripes/line{
@@ -18918,7 +18918,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/research)
 "aBY" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/engine/atmos)
 "aBZ" = (
 /obj/structure/table,
@@ -23166,7 +23166,7 @@
 /area/engine/engineering)
 "aIG" = (
 /obj/structure/grille,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/engine/atmos)
 "aIH" = (
 /obj/effect/turf_decal/tile/purple,
@@ -23491,7 +23491,7 @@
 /area/engine/atmos)
 "aJe" = (
 /obj/machinery/atmospherics/pipe/layer_manifold,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/engine/atmos)
 "aJf" = (
 /obj/effect/turf_decal/stripes/line{
@@ -24579,7 +24579,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 4
 	},
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/engine/atmos)
 "aKI" = (
 /obj/effect/turf_decal/tile/yellow,
@@ -25243,7 +25243,7 @@
 /area/engine/supermatter)
 "aLG" = (
 /obj/machinery/status_display/evac,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/engine/supermatter)
 "aLH" = (
 /obj/structure/sign/warning/fire,
@@ -25251,7 +25251,7 @@
 /area/engine/supermatter)
 "aLI" = (
 /obj/structure/sign/warning/fire,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/engine/supermatter)
 "aLJ" = (
 /obj/effect/turf_decal/tile/yellow,
@@ -25296,7 +25296,7 @@
 /area/hallway/primary/fore)
 "aLN" = (
 /obj/structure/sign/warning/electricshock,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/engine/engineering)
 "aLO" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
@@ -26481,7 +26481,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/mixing)
 "aNt" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/medical/genetics)
 "aNu" = (
 /turf/closed/wall,
@@ -26705,7 +26705,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/genetics)
 "aNN" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/medical/morgue)
 "aNO" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -27687,7 +27687,7 @@
 /turf/closed/wall,
 /area/medical/storage)
 "aPa" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/medical/storage)
 "aPb" = (
 /obj/structure/table/glass,
@@ -32013,7 +32013,7 @@
 /area/science/mixing/chamber)
 "aUP" = (
 /obj/structure/sign/warning/biohazard,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/medical/virology)
 "aUQ" = (
 /obj/machinery/door/firedoor,
@@ -33781,10 +33781,10 @@
 /turf/closed/wall/rust,
 /area/science/robotics/lab)
 "aXk" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/science/explab)
 "aXl" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/science/mixing)
 "aXm" = (
 /obj/structure/table/wood,
@@ -34464,7 +34464,7 @@
 /turf/open/floor/plating,
 /area/science/lab)
 "aYf" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/science/lab)
 "aYg" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -35405,7 +35405,7 @@
 /turf/closed/wall,
 /area/science/explab)
 "aZw" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/crew_quarters/heads/cmo)
 "aZx" = (
 /obj/effect/turf_decal/stripes/line{
@@ -36022,7 +36022,7 @@
 	},
 /area/maintenance/port)
 "bam" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/science/robotics/lab)
 "ban" = (
 /turf/closed/wall,
@@ -36371,7 +36371,7 @@
 /turf/open/floor/plasteel/dark,
 /area/science/mixing)
 "baL" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/science/server)
 "baM" = (
 /obj/effect/turf_decal/tile/red,
@@ -36545,7 +36545,7 @@
 /turf/closed/wall/r_wall,
 /area/science/storage)
 "bbd" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/science/storage)
 "bbe" = (
 /obj/effect/turf_decal/tile/purple,
@@ -36795,7 +36795,7 @@
 /turf/open/floor/engine/vacuum,
 /area/science/mixing/chamber)
 "bbu" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/science/mixing/chamber)
 "bbv" = (
 /obj/effect/turf_decal/stripes/line{
@@ -41061,7 +41061,7 @@
 /turf/open/floor/wood,
 /area/library)
 "bha" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/ai_monitored/turret_protected/ai_upload)
 "bhb" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -47653,7 +47653,7 @@
 	dir = 4
 	},
 /obj/structure/grille,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/engine/atmos)
 "bqj" = (
 /obj/effect/turf_decal/tile/red,
@@ -51798,7 +51798,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "bwe" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/science/xenobiology)
 "bwf" = (
 /obj/effect/turf_decal/bot,
@@ -51932,7 +51932,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 6
 	},
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/engine/atmos)
 "bww" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
@@ -52523,7 +52523,7 @@
 /area/security/main)
 "bxx" = (
 /obj/machinery/status_display/ai,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/crew_quarters/heads/captain)
 "bxy" = (
 /obj/effect/turf_decal/tile/blue{
@@ -53804,7 +53804,7 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "bze" = (
 /obj/structure/sign/warning/electricshock,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/ai_monitored/turret_protected/ai_upload)
 "bzf" = (
 /obj/effect/turf_decal/stripes/line{
@@ -56233,7 +56233,7 @@
 /turf/closed/wall/r_wall,
 /area/storage/tech)
 "bCD" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/storage/tech)
 "bCE" = (
 /obj/structure/chair/pew/left{
@@ -56408,7 +56408,7 @@
 /turf/open/floor/plasteel,
 /area/bridge)
 "bCQ" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/ai_monitored/storage/eva)
 "bCR" = (
 /obj/effect/turf_decal/delivery,
@@ -56621,7 +56621,7 @@
 /area/engine/atmos)
 "bDg" = (
 /obj/machinery/status_display/ai,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/ai_monitored/storage/eva)
 "bDh" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -58305,7 +58305,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "bFz" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/maintenance/aft)
 "bFA" = (
 /obj/effect/turf_decal/tile/red{
@@ -67376,7 +67376,7 @@
 	dir = 4
 	},
 /obj/structure/grille,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/engine/atmos)
 "bSu" = (
 /obj/effect/turf_decal/tile/red{
@@ -69503,14 +69503,14 @@
 	},
 /area/maintenance/starboard)
 "bVH" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/science/test_area)
 "bVI" = (
 /obj/structure/sign/warning/securearea{
 	desc = "A warning sign which reads 'BOMB RANGE";
 	name = "BOMB RANGE"
 	},
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/science/test_area)
 "bVJ" = (
 /obj/machinery/door/firedoor,
@@ -69535,7 +69535,7 @@
 /area/quartermaster/warehouse)
 "bVL" = (
 /obj/structure/sign/warning/explosives,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/science/test_area)
 "bVM" = (
 /obj/effect/turf_decal/tile/blue{
@@ -70068,7 +70068,7 @@
 	dir = 1;
 	icon_state = "warningline_white"
 	},
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/security/prison)
 "bWs" = (
 /obj/effect/turf_decal/tile/red,
@@ -75198,7 +75198,7 @@
 /turf/closed/wall,
 /area/quartermaster/warehouse)
 "cdI" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/security/nuke_storage)
 "cdJ" = (
 /obj/machinery/telecomms/server/presets/common,
@@ -75833,7 +75833,7 @@
 /turf/closed/wall/r_wall,
 /area/ai_monitored/turret_protected/aisat/atmos)
 "ceG" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/ai_monitored/turret_protected/aisat/atmos)
 "ceH" = (
 /obj/effect/turf_decal/stripes/line{
@@ -76589,7 +76589,7 @@
 /turf/open/floor/plasteel,
 /area/gateway)
 "cfU" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/tcommsat/computer)
 "cfV" = (
 /obj/effect/turf_decal/stripes/line,
@@ -76634,7 +76634,7 @@
 /area/security/prison)
 "cfX" = (
 /obj/structure/sign/departments/security,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/security/nuke_storage)
 "cfY" = (
 /turf/closed/wall/r_wall,
@@ -76660,7 +76660,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "cga" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/ai_monitored/storage/satellite)
 "cgb" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -78300,7 +78300,7 @@
 /area/maintenance/central)
 "cis" = (
 /obj/structure/sign/warning/securearea,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "cit" = (
 /obj/effect/turf_decal/stripes/line{
@@ -78948,7 +78948,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "cjo" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/engine/gravity_generator)
 "cjp" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -79665,7 +79665,7 @@
 /turf/closed/wall/r_wall,
 /area/maintenance/solars/starboard/aft)
 "ckv" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/maintenance/solars/starboard/aft)
 "ckw" = (
 /obj/effect/turf_decal/tile/yellow,
@@ -82274,7 +82274,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/engine/break_room)
 "coB" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/maintenance/solars/port/aft)
 "coC" = (
 /obj/structure/sign/warning/deathsposal,
@@ -85811,7 +85811,7 @@
 /turf/closed/wall/r_wall,
 /area/maintenance/solars/port/fore)
 "ctD" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/maintenance/solars/port/fore)
 "ctE" = (
 /obj/structure/lattice/catwalk,
@@ -86257,7 +86257,7 @@
 /area/maintenance/port)
 "cun" = (
 /obj/structure/sign/warning/electricshock,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/maintenance/solars/port/fore)
 "cuo" = (
 /obj/machinery/door/firedoor,
@@ -90395,7 +90395,7 @@
 "cAh" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/grille,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/engine/atmos)
 "cAi" = (
 /obj/structure/closet/crate/coffin,
@@ -91225,7 +91225,7 @@
 "cBz" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible,
 /obj/structure/grille,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/engine/atmos)
 "cBA" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
@@ -94134,7 +94134,7 @@
 /area/maintenance/starboard)
 "cGV" = (
 /obj/structure/sign/warning/electricshock,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/maintenance/solars/starboard/fore)
 "cGW" = (
 /obj/effect/decal/cleanable/dirt,
@@ -94178,7 +94178,7 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/starboard)
 "cHb" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/maintenance/solars/starboard/fore)
 "cHc" = (
 /obj/structure/flora/grass/jungle/b,
@@ -95985,7 +95985,7 @@
 	},
 /area/security/execution/education)
 "cJI" = (
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/security/execution/education)
 "cJJ" = (
 /obj/effect/turf_decal/tile/red{
@@ -97939,7 +97939,7 @@
 "cMz" = (
 /obj/structure/sign/warning/fire,
 /obj/structure/grille,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/engine/atmos)
 "cMA" = (
 /obj/effect/turf_decal/stripes/line,
@@ -98206,7 +98206,7 @@
 "cMS" = (
 /obj/structure/sign/warning/vacuum,
 /obj/structure/grille,
-/turf/closed/wall/r_wall/rust,
+/turf/closed/wall/r_wall,
 /area/engine/atmos)
 "cMT" = (
 /obj/structure/sign/warning/vacuum,
