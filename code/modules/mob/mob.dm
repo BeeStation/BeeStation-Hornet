@@ -704,6 +704,8 @@
 /mob/Stat()
 	..()
 
+	var/list/status_data = list()
+
 	var/list/status_panel = list()
 	status_panel["Map"] = "[SSmapping.config?.map_name || "Loading..."]"
 	var/datum/map_config/cached = SSmapping.next_map_config
@@ -718,6 +720,7 @@
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
 			status_panel["ETA"] = SSshuttle.emergency.getTimerStr()
+	status_data["Status"] = status_panel
 
 	if(client?.holder)
 		var/list/master_controller = list()
@@ -726,6 +729,8 @@
 		master_controller["CPU"] = "[world.cpu]"
 		master_controller["Instances"] = "[num2text(world.contents.len, 10)]"
 		master_controller["World Time"] = "[world.time]"
+
+		status_data["MC"] = master_controller
 
 		/*if(statpanel("MC"))
 			var/turf/T = get_turf(client.eye)
@@ -783,11 +788,7 @@
 		add_spells_to_statpanel(mind.spell_list)
 	add_spells_to_statpanel(mob_spell_list)
 
-	client.tgui_panel?.update_stat_info(
-		list(
-			"Status" = status_panel,
-		)
-	)
+	client.tgui_panel?.update_stat_info(status_data)
 
 /**
   * Convert a list of spells into a displyable list for the statpanel
