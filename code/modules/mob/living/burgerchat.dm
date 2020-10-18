@@ -91,12 +91,12 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			var/moveup = text2num(splittext(C.MeasureText(I.maptext, width = 128), "x")[2])
 			for(var/image/old in target.stored_chat_text)
 				if(old != I && old != O)
-					var/pixel_y_new = old.pixel_y + moveup
+					var/pixel_y_new = old.pixel_y - moveup
 					animate(old, 2, pixel_y = pixel_y_new)
 		else // oh god this shouldn't happen, but MeasureText() was introduced in 513.1490 as a client proc
 			for(var/image/old in target.stored_chat_text)
 				if(old != I && old != O)
-					var/pixel_y_new = old.pixel_y + 10
+					var/pixel_y_new = old.pixel_y - 10
 					animate(old, 2, pixel_y = pixel_y_new)
 
 	for(var/client/C in show_to)
@@ -106,8 +106,8 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			else
 				C.images += O
 
-	animate(I, 1, alpha = 255, pixel_y = 24)
-	animate(O, 1, alpha = 255, pixel_y = 24)
+	animate(I, 1, alpha = 255, pixel_y = -24)
+	animate(O, 1, alpha = 255, pixel_y = -24)
 
 	addtimer(CALLBACK(GLOBAL_PROC, .proc/fadeout_overhead_messages, I, O), duration)
 	addtimer(CALLBACK(GLOBAL_PROC, .proc/delete_overhead_messages, I, O, show_to, target, message_language), duration+5)
