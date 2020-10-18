@@ -68,10 +68,10 @@
 		var/datum/antagonist/hivemind/hive = mind.has_antag_datum(/datum/antagonist/hivemind)
 		hive.destroy_hive()
 
-	for(var/obj/item/W in M)
-		if(!M.dropItemToGround(W))
+	for(var/obj/item/W in src)
+		if(!dropItemToGround(W))
 			qdel(W)
-			M.regenerate_icons()
+			regenerate_icons()
 	qdel(src)
 
 /mob/living/carbon/human/proc/makeSkeleton()
