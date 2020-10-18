@@ -34016,7 +34016,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/science/circuit_lab)
 "bTr" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -35295,7 +35295,7 @@
 	pixel_y = 3
 	},
 /turf/open/floor/plasteel,
-/area/space)
+/area/science/circuit_lab)
 "bXz" = (
 /obj/machinery/telecomms/processor/preset_four,
 /turf/open/floor/plasteel/dark/telecomms,
@@ -35646,7 +35646,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/science/circuit_lab)
 "bYy" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Incinerator Access";
@@ -36374,7 +36374,7 @@
 /obj/item/integrated_electronics/debugger,
 /obj/item/integrated_electronics/detailer,
 /turf/open/floor/plasteel,
-/area/space)
+/area/science/circuit_lab)
 "caY" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
@@ -36528,7 +36528,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/space)
+/area/science/circuit_lab)
 "cbz" = (
 /obj/machinery/vending/wardrobe/atmos_wardrobe,
 /turf/open/floor/plasteel,
@@ -36705,7 +36705,7 @@
 "cbV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/science/circuit_lab)
 "cbZ" = (
 /obj/structure/sink{
 	dir = 4;
@@ -46072,7 +46072,7 @@
 	pixel_y = 3
 	},
 /turf/open/floor/plasteel,
-/area/space)
+/area/science/circuit_lab)
 "cYY" = (
 /obj/effect/landmark/blobstart,
 /obj/effect/landmark/xeno_spawn,
@@ -46506,7 +46506,7 @@
 "dBN" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/space)
+/area/science/circuit_lab)
 "dCN" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/yellow{
@@ -47364,7 +47364,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/space)
+/area/science/circuit_lab)
 "eKL" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 6
@@ -47828,7 +47828,7 @@
 	dir = 6
 	},
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/science/circuit_lab)
 "fnC" = (
 /obj/machinery/airalarm{
 	dir = 4;
@@ -47979,7 +47979,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/science/circuit_lab)
 "fzG" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -48025,7 +48025,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/science/circuit_lab)
 "fBK" = (
 /obj/structure/table,
 /obj/item/folder/white,
@@ -48612,7 +48612,7 @@
 /obj/structure/table/reinforced,
 /obj/item/integrated_circuit_printer,
 /turf/open/floor/plasteel,
-/area/space)
+/area/science/circuit_lab)
 "gmC" = (
 /obj/machinery/button/door{
 	id = "QMLoaddoor";
@@ -49305,9 +49305,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"gXh" = (
-/turf/closed/wall/r_wall,
-/area/maintenance/starboard/aft)
 "gXs" = (
 /obj/structure/lattice,
 /turf/open/space/basic,
@@ -49926,7 +49923,7 @@
 	dir = 9
 	},
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/science/circuit_lab)
 "hZj" = (
 /obj/structure/disposalpipe/segment,
 /obj/item/cigbutt/roach,
@@ -51087,7 +51084,7 @@
 /obj/item/screwdriver,
 /obj/item/wrench,
 /turf/open/floor/plasteel,
-/area/space)
+/area/science/circuit_lab)
 "jwc" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -51107,7 +51104,7 @@
 	},
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel,
-/area/space)
+/area/science/circuit_lab)
 "jyC" = (
 /obj/machinery/light{
 	dir = 8
@@ -51907,7 +51904,7 @@
 	dir = 2
 	},
 /turf/open/floor/plasteel,
-/area/space)
+/area/science/circuit_lab)
 "kzO" = (
 /obj/machinery/door/airlock{
 	name = "Kitchen";
@@ -52195,7 +52192,7 @@
 /area/maintenance/starboard)
 "kRn" = (
 /turf/closed/wall/r_wall,
-/area/space)
+/area/science/circuit_lab)
 "kRy" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Hydroponics";
@@ -52843,13 +52840,13 @@
 	dir = 6
 	},
 /turf/open/floor/plasteel,
-/area/space)
+/area/science/circuit_lab)
 "lAu" = (
 /obj/structure/chair/office{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/space)
+/area/science/circuit_lab)
 "lAC" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel/white,
@@ -53324,7 +53321,7 @@
 /area/hallway/secondary/exit)
 "mbd" = (
 /turf/closed/wall,
-/area/space)
+/area/science/circuit_lab)
 "mbx" = (
 /obj/structure/closet/l3closet,
 /obj/effect/turf_decal/stripes/line{
@@ -53961,7 +53958,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/science/circuit_lab)
 "mGS" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -54249,7 +54246,7 @@
 /obj/machinery/light,
 /obj/item/integrated_circuit_printer,
 /turf/open/floor/plasteel,
-/area/space)
+/area/science/circuit_lab)
 "mZn" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
@@ -55154,7 +55151,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/science/circuit_lab)
 "ooY" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
@@ -55461,7 +55458,7 @@
 /area/maintenance/fore)
 "oHU" = (
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/science/circuit_lab)
 "oIj" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -55925,7 +55922,7 @@
 	dir = 2
 	},
 /turf/open/floor/plasteel,
-/area/space)
+/area/science/circuit_lab)
 "pph" = (
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume{
 	dir = 1
@@ -57149,7 +57146,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/science/circuit_lab)
 "qJW" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -58874,7 +58871,7 @@
 "tbd" = (
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel,
-/area/space)
+/area/science/circuit_lab)
 "tcR" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 10
@@ -59446,7 +59443,7 @@
 /obj/item/integrated_electronics/detailer,
 /obj/item/integrated_electronics/wirer,
 /turf/open/floor/plasteel,
-/area/space)
+/area/science/circuit_lab)
 "tRt" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -59692,7 +59689,7 @@
 /obj/item/screwdriver,
 /obj/item/wrench,
 /turf/open/floor/plasteel,
-/area/space)
+/area/science/circuit_lab)
 "ulW" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 10
@@ -60947,7 +60944,7 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/science/circuit_lab)
 "vCP" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -62377,7 +62374,7 @@
 	icon_state = "0-8"
 	},
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/science/circuit_lab)
 "wXU" = (
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
@@ -112108,18 +112105,18 @@ tjy
 mCs
 piD
 upN
-bQZ
-lQG
-lQG
-lQG
-lQG
-lQG
-lQG
-jVl
+kRn
+mbd
+mbd
+mbd
+mbd
+mbd
+mbd
+dBN
 fyR
 dBN
 mbd
-bQZ
+kRn
 bQZ
 bQZ
 bQZ
@@ -112365,7 +112362,7 @@ vzp
 mCs
 bUn
 oUq
-bQZ
+kRn
 ulo
 gmo
 poQ
@@ -112622,7 +112619,7 @@ bSk
 fvi
 bUn
 wfU
-bQZ
+kRn
 tbd
 lAu
 kzt
@@ -112879,7 +112876,7 @@ lNB
 bFU
 vCt
 bVs
-bQZ
+kRn
 bXt
 caX
 lAi
@@ -113136,7 +113133,7 @@ bGk
 bFU
 ptw
 bGz
-bQZ
+kRn
 oHU
 oHU
 oHU
@@ -113393,7 +113390,7 @@ flc
 vPE
 kwK
 bVt
-bQZ
+kRn
 bTl
 oHU
 oHU
@@ -113650,18 +113647,18 @@ bEC
 bEC
 bEC
 bEC
-bQZ
-bQZ
-bQZ
-bQZ
-bQZ
-bQZ
-bQZ
-bQZ
-gXh
-gXh
-gXh
-gXh
+kRn
+kRn
+kRn
+kRn
+kRn
+kRn
+kRn
+kRn
+kRn
+kRn
+kRn
+kRn
 fBD
 viN
 rXg
