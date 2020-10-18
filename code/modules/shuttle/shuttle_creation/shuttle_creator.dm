@@ -181,6 +181,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 
 	var/obj/docking_port/mobile/port = new /obj/docking_port/mobile(get_turf(target))
 	var/obj/docking_port/stationary/stationary_port = new /obj/docking_port/stationary(get_turf(target))
+	stationary_port.delete_after = TRUE
 	stationary_port.name = "[recorded_shuttle_area.name] Custom Shuttle construction site"
 	port.callTime = 50
 	port.dir = 1	//Point away from space.
