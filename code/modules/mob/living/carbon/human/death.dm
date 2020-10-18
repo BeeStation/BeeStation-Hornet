@@ -68,6 +68,12 @@
 		var/datum/antagonist/hivemind/hive = mind.has_antag_datum(/datum/antagonist/hivemind)
 		hive.destroy_hive()
 
+	for(var/obj/item/W in M)
+		if(!M.dropItemToGround(W))
+			qdel(W)
+			M.regenerate_icons()
+	qdel(src)
+
 /mob/living/carbon/human/proc/makeSkeleton()
 	ADD_TRAIT(src, TRAIT_DISFIGURED, TRAIT_GENERIC)
 	set_species(/datum/species/skeleton)
