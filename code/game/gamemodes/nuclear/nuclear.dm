@@ -118,7 +118,7 @@
 	name = "Syndicate Operative - Basic"
 
 	uniform = /obj/item/clothing/under/syndicate
-	shoes = /obj/item/clothing/shoes/combat
+	shoes = /obj/item/clothing/shoes/combat/nukie
 	gloves = /obj/item/clothing/gloves/combat
 	back = /obj/item/storage/backpack/fireproof
 	ears = /obj/item/radio/headset/syndicate/alt
