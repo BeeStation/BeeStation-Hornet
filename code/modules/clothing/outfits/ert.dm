@@ -407,12 +407,10 @@
 	suit = /obj/item/clothing/suit/storage/blueshield
 	l_pocket = /obj/item/device/pda/blueshield
 	r_pocket = /obj/item/assembly/flash/handheld
+	back = /obj/item/storage/backpack/security
 
 	implants = list(/obj/item/implant/mindshield)
 
-	backpack = /obj/item/storage/backpack/security
-	satchel = /obj/item/storage/backpack/satchel/sec
-	duffelbag = /obj/item/storage/backpack/duffelbag/sec
 
 	backpack_contents = list(
 		/obj/item/gun/energy/e_gun/blueshield = 1,
