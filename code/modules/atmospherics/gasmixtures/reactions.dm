@@ -296,6 +296,7 @@
 	air.set_moles(/datum/gas/plasma, plasma*scale_factor + FUSION_MOLE_THRESHOLD )//Scales the gases back up
 	air.set_moles(/datum/gas/carbon_dioxide, carbon*scale_factor + FUSION_MOLE_THRESHOLD)
 	var/delta_plasma = min(initial_plasma - air.get_moles(/datum/gas/plasma), toroidal_size * scale_factor * 5)
+	var/delta_carbon = initial_carbon - air.get_moles(/datum/gas/carbon_dioxide)
 
 	reaction_energy += delta_plasma*PLASMA_BINDING_ENERGY //Energy is gained or lost corresponding to the creation or destruction of mass.
 	if(instability <= FUSION_INSTABILITY_ENDOTHERMALITY)
@@ -306,13 +307,14 @@
 	var/middle_energy = ((TOROID_CALCULATED_THRESHOLD / 2 * scale_factor) + FUSION_MOLE_THRESHOLD) * 200 * FUSION_MIDDLE_ENERGY_REFERENCE
 	var/translated_energy = middle_energy * FUSION_ENERGY_TRANSLATION_EXPONENT ** log(10, old_thermal_energy / middle_energy) // 1.2 really is low. Don't try to go lower.
 
-	if(old_thermal_energy + reaction_energy < 0) //No using energy that doesn't exist.
-		air.set_moles(/datum/gas/plasma, initial_plasma)
-		air.set_moles(/datum/gas/carbon_dioxide, initial_carbon)
-		return NO_REACTION
-
-	translated_energy += reaction_energy
-	translated_energy = clamp(middle_energy * 10 ** log(FUSION_ENERGY_TRANSLATION_EXPONENT, translated_energy / middle_energy), old_thermal_energy / 10, old_thermal_energy * 10)
+	var/bowdlerized_reaction_energy = clamp(reaction_energy, translated_energy / ((1 / FUSION_ENERGY_TRANSLATION_EXPONENT) - 1), translated_energy * (FUSION_ENERGY_TRANSLATION_EXPONENT - 1))
+	if (bowdlerized_reaction_energy != reaction_energy)
+		var/bowdlerized_reaction_energy_ratio = bowdlerized_reaction_energy / reaction_energy
+		delta_plasma *= bowdlerized_reaction_energy_ratio
+		delta_carbon *= bowdlerized_reaction_energy_ratio
+		air.set_moles(/datum/gas/plasma, initial_plasma - delta_plasma)
+		air.set_moles(/datum/gas/carbon_dioxide, initial_carbon - delta_carbon)
+	translated_energy = middle_energy * 10 ** log(FUSION_ENERGY_TRANSLATION_EXPONENT, (translated_energy + bowdlerized_reaction_energy) / middle_energy)
 
 	air.adjust_moles(/datum/gas/tritium, -FUSION_TRITIUM_MOLES_USED)
 	//The decay of the tritium and the reaction's energy produces waste gases, different ones depending on whether the reaction is endo or exothermic
