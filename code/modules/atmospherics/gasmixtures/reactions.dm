@@ -304,10 +304,10 @@
 	else if (reaction_energy < 0)
 		reaction_energy *= (instability-FUSION_INSTABILITY_ENDOTHERMALITY)**0.5
 	
-	var/middle_energy = ((TOROID_CALCULATED_THRESHOLD / 2 * scale_factor) + FUSION_MOLE_THRESHOLD) * 200 * FUSION_MIDDLE_ENERGY_REFERENCE
+	var/middle_energy = (((TOROID_CALCULATED_THRESHOLD / 2) * scale_factor) + FUSION_MOLE_THRESHOLD) * (200 * FUSION_MIDDLE_ENERGY_REFERENCE)
 	var/translated_energy = middle_energy * FUSION_ENERGY_TRANSLATION_EXPONENT ** log(10, old_thermal_energy / middle_energy) // 1.2 really is low. Don't try to go lower.
 
-	var/bowdlerized_reaction_energy = clamp(reaction_energy, translated_energy / ((1 / FUSION_ENERGY_TRANSLATION_EXPONENT) - 1), translated_energy * (FUSION_ENERGY_TRANSLATION_EXPONENT - 1))
+	var/bowdlerized_reaction_energy = clamp(reaction_energy, translated_energy * ((1 / FUSION_ENERGY_TRANSLATION_EXPONENT) - 1), translated_energy * (FUSION_ENERGY_TRANSLATION_EXPONENT - 1))
 	if (bowdlerized_reaction_energy != reaction_energy)
 		var/bowdlerized_reaction_energy_ratio = bowdlerized_reaction_energy / reaction_energy
 		delta_plasma *= bowdlerized_reaction_energy_ratio
@@ -319,11 +319,11 @@
 	air.adjust_moles(/datum/gas/tritium, -FUSION_TRITIUM_MOLES_USED)
 	//The decay of the tritium and the reaction's energy produces waste gases, different ones depending on whether the reaction is endo or exothermic
 	if(delta_plasma > 0)
-		air.adjust_moles(/datum/gas/water_vapor, FUSION_TRITIUM_MOLES_USED*scale_factor*FUSION_TRITIUM_CONVERSION_COEFFICIENT)
+		air.adjust_moles(/datum/gas/water_vapor, scale_factor*(FUSION_TRITIUM_CONVERSION_COEFFICIENT*FUSION_TRITIUM_MOLES_USED))
 	else
-		air.adjust_moles(/datum/gas/bz, FUSION_TRITIUM_MOLES_USED*scale_factor*FUSION_TRITIUM_CONVERSION_COEFFICIENT)
+		air.adjust_moles(/datum/gas/bz, scale_factor*(FUSION_TRITIUM_CONVERSION_COEFFICIENT*FUSION_TRITIUM_MOLES_USED))
 
-	air.adjust_moles(/datum/gas/oxygen, FUSION_TRITIUM_MOLES_USED*scale_factor*FUSION_TRITIUM_CONVERSION_COEFFICIENT)
+	air.adjust_moles(/datum/gas/oxygen, scale_factor*(FUSION_TRITIUM_CONVERSION_COEFFICIENT*FUSION_TRITIUM_MOLES_USED))
 	
 	if(reaction_energy)
 		if(location)
