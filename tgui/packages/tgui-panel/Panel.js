@@ -38,7 +38,8 @@ export const Panel = (props, context) => {
       <Flex
         direction="column"
         height="40%">
-        <StatTabs />
+        <StatTabs
+          height="100%" />
       </Flex>
       <Flex
         direction="column"

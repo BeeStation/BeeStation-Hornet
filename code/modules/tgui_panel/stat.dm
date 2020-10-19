@@ -42,7 +42,7 @@
 /datum/tgui_panel/proc/set_stat_tab(new_tab)
 	if(!is_ready())
 		return
-	window.send_message("stat/setPanelInfomation", new_tab)
+	window.send_message("stat/setTab", new_tab)
 
 /**
  * public

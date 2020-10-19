@@ -15,6 +15,7 @@
 		// ===== MASTER CONTROLLER =====
 		if("MC")
 			requires_holder = TRUE
+			tab_data = get_stat_tab_master_controller()
 		// ===== ADMIN TICKETS =====
 		if("Tickets")
 			requires_holder = TRUE
@@ -24,12 +25,16 @@
 			requires_holder = TRUE
 	// ===== NON CONSTANT TABS (Tab names which can change) =====
 	// ===== LISTEDS TURFS =====
-	// TODO: Contains images too!
 	if(listed_turf && listed_turf.name == selected_tab)
 		var/list/overrides = list()
 		for(var/image/I in client.images)
 			if(I.loc && I.loc.loc == listed_turf && I.override)
 				overrides += I.loc
+		tab_data[REF(listed_turf)] = list(
+			text="[listed_turf.name]",
+			icon=icon2base64(getFlatIcon(listed_turf, no_anim=TRUE)),	//TODO: Cache this shit
+			type=STAT_ATOM,
+		)
 		for(var/atom/A in listed_turf)
 			if(!A.mouse_opacity)
 				continue
@@ -41,7 +46,7 @@
 				continue
 			tab_data[REF(A)] = list(
 				text="[A.name]",
-				icon=icon2base64(icon(A.icon, A.icon_state, frame=1)),	//TODO: Cache this shit
+				icon=icon2base64(getFlatIcon(A, no_anim=TRUE)),	//TODO: Cache this shit
 				type=STAT_ATOM,
 			)
 	if(requires_holder && !client.holder)
@@ -91,6 +96,49 @@
 				)
 	return tab_data
 
+/mob/proc/get_stat_tab_master_controller()
+	var/list/tab_data = list()
+	var/turf/T = get_turf(client.eye)
+	tab_data["Location"] = list(
+		text="[COORD(T)]",
+		type=STAT_TEXT,
+	)
+	tab_data["CPU"] = list(
+		text="[world.cpu]",
+		type=STAT_TEXT,
+	)
+	tab_data["Instances"] = list(
+		text="[num2text(world.contents.len, 10)]",
+		type=STAT_TEXT,
+	)
+	tab_data["World Time"] = list(
+		text="[world.time]",
+		type=STAT_TEXT,
+	)
+	tab_data += GLOB.stat_entry()
+	tab_data += config.stat_entry()
+	tab_data["divider_1"] = list(type=STAT_DIVIDER)
+	if(Master)
+		tab_data += Master.stat_entry()
+	else
+		tab_data["Master Controller"] = list(
+			text="ERROR",
+			type=STAT_TEXT,
+		)
+	if(Failsafe)
+		tab_data += Failsafe.stat_entry()
+	else
+		tab_data["Failsafe Controller"] = list(
+			text="ERROR",
+			type=STAT_TEXT,
+		)
+	if(Master)
+		tab_data["divider_2"] = list(type=STAT_DIVIDER)
+		for(var/datum/controller/subsystem/SS in Master.subsystems)
+			tab_data += SS.stat_entry()
+	tab_data += GLOB.cameranet.stat_entry()
+	return tab_data
+
 /*
  * Gets the stat tabs available to the user.
  * Contents of the stat tabs are got through get_stat()
@@ -121,11 +169,37 @@
 			GLOB.ahelp_tickets.BrowseTickets(src)
 		if("statPanelData")
 			var/ticket_id = text2num(params["id"])
+			message_admins("Finding ticket with ID [ticket_id]")
 			var/datum/admin_help/AH = GLOB.ahelp_tickets.TicketByID(ticket_id)
 			if(AH)
 				AH.TicketPanel()
 		if("atomClick")
 			var/atomRef = params["ref"]
+			var/atom/atom_actual = locate(atomRef)
+			var/mob/actor = client.mob
+			if(!atom_actual)
+				return
+			if(client.keys_held["Alt"])
+				actor.AltClickOn(atom_actual)
+			else if(client.keys_held["Ctrl"])
+				actor.CtrlClickOn(atom_actual)
+			else if(client.keys_held["Shift"])
+				actor.ShiftClickOn(atom_actual)
+			else
+				actor.ClickOn(atom_actual)
+		if("statClickDebug")
+			var/targetRef = params["targetRef"]
+			var/class = params["class"]
+			var/target = locate(targetRef)
+			if(!usr.client.holder)
+				message_admins("[usr.client] attempted to interact with the MC without sufficient perms.")
+				return
+			if(!target)
+				to_chat(usr, "<span class='warning'>Could not locate target, report this!</span>")
+				log_runtime("[usr] attempted to interact with a statClickDebug, but was unsuccessful due to the target not existing.")
+				return
+			usr.client.debug_variables(target)
+			message_admins("Admin [key_name_admin(usr)] is debugging the [target] [class].")
 
 /*
  * Sets the current stat tab selected.
@@ -167,39 +241,6 @@
 	/*
 
 	if(client?.holder)
-		var/list/master_controller = list()
-		var/turf/T = get_turf(client.eye)
-		master_controller["Location"] = COORD(T)
-		master_controller["CPU"] = "[world.cpu]"
-		master_controller["Instances"] = "[num2text(world.contents.len, 10)]"
-		master_controller["World Time"] = "[world.time]"
-
-		status_data["MC"] = master_controller
-
-		if(statpanel("MC"))
-			var/turf/T = get_turf(client.eye)
-			stat("Location:", COORD(T))
-			stat("CPU:", "[world.cpu]")
-			stat("Instances:", "[num2text(world.contents.len, 10)]")
-			stat("World Time:", "[world.time]")
-			GLOB.stat_entry()
-			config.stat_entry()
-			stat(null)
-			if(Master)
-				Master.stat_entry()
-			else
-				stat("Master Controller:", "ERROR")
-			if(Failsafe)
-				Failsafe.stat_entry()
-			else
-				stat("Failsafe Controller:", "ERROR")
-			if(Master)
-				stat(null)
-				for(var/datum/controller/subsystem/SS in Master.subsystems)
-					SS.stat_entry()
-			GLOB.cameranet.stat_entry()
-		if(statpanel("Tickets"))
-			GLOB.ahelp_tickets.stat_entry()
 		if(length(GLOB.sdql2_queries))
 			if(statpanel("SDQL2"))
 				stat("Access Global SDQL2 List", GLOB.sdql2_vv_statobj)
