@@ -31,7 +31,7 @@
 	set_light(4, 3, custom_color)
 	switch (irradiate)
 		if(10 to 100)
-			name = "extremely weak nuclear particle"
+			name = "pathetically weak nuclear particle"
 			damage = 1
 		if(100 to 200)
 			name = "very weak nuclear particle"

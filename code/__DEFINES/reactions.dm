@@ -39,7 +39,7 @@
 #define FUSION_ENERGY_THRESHOLD				3e9 	//! Amount of energy it takes to start a fusion reaction
 #define FUSION_MOLE_THRESHOLD				250 	//! Mole count required (tritium/plasma) to start a fusion reaction
 #define FUSION_TRITIUM_CONVERSION_COEFFICIENT 0.002
-#define INSTABILITY_GAS_POWER_FACTOR 		0.3
+#define INSTABILITY_GAS_POWER_FACTOR 		3
 #define FUSION_TRITIUM_MOLES_USED  			1
 #define PLASMA_BINDING_ENERGY  				20000000
 #define TOROID_CALCULATED_THRESHOLD			5.96	//! changing it by 0.1 generally doubles or halves fusion temps
