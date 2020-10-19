@@ -297,7 +297,7 @@
 	return amount
 
 /datum/reagents/proc/metabolize(mob/living/carbon/C, can_overdose = FALSE, liverless = FALSE)
-	if(NOREAGENTS in C.dna.species.species_traits)
+	if(C?.dna?.species && (NOREAGENTS in C.dna.species.species_traits))
 		return 0
 	var/list/cached_reagents = reagent_list
 	var/list/cached_addictions = addiction_list
@@ -308,8 +308,7 @@
 		var/datum/reagent/R = reagent
 		if(QDELETED(R.holder))
 			continue
-		if(liverless && !R.self_consuming) //need to be metabolized
-			continue
+
 		if(!C)
 			C = R.holder.my_atom
 		if(ishuman(C))
@@ -343,7 +342,12 @@
 			R.on_mob_metabolize(C)
 
 		if(C && R)
-			if(C.reagent_check(R) != 1)
+			if(C.reagent_check(R) != TRUE)
+				if(liverless && !R.self_consuming) //need to be metabolized
+					continue
+				if(!R.metabolizing)
+					R.metabolizing = TRUE
+					R.on_mob_metabolize(C)
 				if(can_overdose)
 					if(R.overdose_threshold)
 						if(R.volume >= R.overdose_threshold && !R.overdosed)
@@ -652,7 +656,7 @@
 	chem_temp = CLAMP(chem_temp + (J / (S * total_volume)), 2.7, 1000)
 
 /datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = 300, no_react = 0)
-	if(!isnum(amount) || !amount)
+	if(!isnum_safe(amount) || !amount)
 		return FALSE
 
 	if(amount <= 0)
@@ -726,9 +730,8 @@
 	if(isnull(amount))
 		amount = 0
 		CRASH("null amount passed to reagent code")
-		return FALSE
 
-	if(!isnum(amount))
+	if(!isnum_safe(amount))
 		return FALSE
 
 	if(amount < 0)
@@ -790,7 +793,7 @@
 	return jointext(names, ",")
 
 /datum/reagents/proc/remove_all_type(reagent_type, amount, strict = 0, safety = 1) // Removes all reagent of X type. @strict set to 1 determines whether the childs of the type are included.
-	if(!isnum(amount))
+	if(!isnum_safe(amount))
 		return 1
 	var/list/cached_reagents = reagent_list
 	var/has_removed_reagent = 0
@@ -917,12 +920,22 @@
 	reagents = new /datum/reagents(max_vol, flags)
 	reagents.my_atom = src
 
-/proc/get_random_reagent_id()	// Returns a random reagent ID minus blacklisted reagents
+/proc/get_random_reagent_id()	// Returns a random reagent ID minus blacklisted reagents and most foods and drinks
 	var/static/list/random_reagents = list()
 	if(!random_reagents.len)
 		for(var/thing  in subtypesof(/datum/reagent))
 			var/datum/reagent/R = thing
-			if(initial(R.can_synth))
+			if(initial(R.can_synth) && initial(R.random_unrestricted))
+				random_reagents += R
+	var/picked_reagent = pick(random_reagents)
+	return picked_reagent
+
+/proc/get_unrestricted_random_reagent_id()	// Returns a random reagent ID minus most foods and drinks
+	var/static/list/random_reagents = list()
+	if(!random_reagents.len)
+		for(var/thing  in subtypesof(/datum/reagent))
+			var/datum/reagent/R = thing
+			if(initial(R.random_unrestricted))
 				random_reagents += R
 	var/picked_reagent = pick(random_reagents)
 	return picked_reagent

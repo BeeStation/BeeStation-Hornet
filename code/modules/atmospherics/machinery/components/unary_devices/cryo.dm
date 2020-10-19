@@ -10,6 +10,8 @@
 	layer = ABOVE_WINDOW_LAYER
 	state_open = FALSE
 	circuit = /obj/item/circuitboard/machine/cryo_tube
+	ui_x = 400
+	ui_y = 550
 	pipe_flags = PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY
 	occupant_typecache = list(/mob/living/carbon, /mob/living/simple_animal)
 
@@ -190,12 +192,12 @@
 		if(autoeject) // Eject if configured.
 			msg += " Auto ejecting patient now."
 			open_machine()
-		radio.talk_into(src, msg, radio_channel, get_spans(), get_default_language())
+		radio.talk_into(src, msg, radio_channel)
 		return
 
 	var/datum/gas_mixture/air1 = airs[1]
 
-	if(air1.gases.len)
+	if(air1.total_moles())
 		if(mob_occupant.bodytemperature < T0C) // Sleepytime. Why? More cryo magic.
 			mob_occupant.Sleeping((mob_occupant.bodytemperature * sleep_factor) * 2000)
 			mob_occupant.Unconscious((mob_occupant.bodytemperature * unconscious_factor) * 2000)
@@ -203,8 +205,7 @@
 			if(reagent_transfer == 0) // Magically transfer reagents. Because cryo magic.
 				beaker.reagents.trans_to(occupant, 1, efficiency * 0.25) // Transfer reagents.
 				beaker.reagents.reaction(occupant, VAPOR)
-				air1.gases[/datum/gas/oxygen][MOLES] -= max(0,air1.gases[/datum/gas/oxygen][MOLES] - 2 / efficiency) //Let's use gas for this
-				air1.garbage_collect()
+				air1.adjust_moles(/datum/gas/oxygen, -max(0,air1.get_moles(/datum/gas/oxygen) - 2 / efficiency)) //Let's use gas for this
 			if(++reagent_transfer >= 10 * efficiency) // Throttle reagent transfer (higher efficiency will transfer the same amount but consume less from the beaker).
 				reagent_transfer = 0
 
@@ -218,7 +219,7 @@
 
 	var/datum/gas_mixture/air1 = airs[1]
 
-	if(!nodes[1] || !airs[1] || !air1.gases.len || air1.gases[/datum/gas/oxygen][MOLES] < 5) // Turn off if the machine won't work.
+	if(!nodes[1] || !airs[1] || air1.get_moles(/datum/gas/oxygen) < 5) // Turn off if the machine won't work.
 		on = FALSE
 		update_icon()
 		return
@@ -226,22 +227,21 @@
 	if(occupant)
 		var/mob/living/mob_occupant = occupant
 		var/cold_protection = 0
-		var/temperature_delta = air1.temperature - mob_occupant.bodytemperature // The only semi-realistic thing here: share temperature between the cell and the occupant.
+		var/temperature_delta = air1.return_temperature() - mob_occupant.bodytemperature // The only semi-realistic thing here: share temperature between the cell and the occupant.
 
 		if(ishuman(occupant))
 			var/mob/living/carbon/human/H = occupant
-			cold_protection = H.get_cold_protection(air1.temperature)
+			cold_protection = H.get_cold_protection(air1.return_temperature())
 
 		if(abs(temperature_delta) > 1)
 			var/air_heat_capacity = air1.heat_capacity()
 
 			var/heat = ((1 - cold_protection) * 0.1 + conduction_coefficient) * temperature_delta * (air_heat_capacity * heat_capacity / (air_heat_capacity + heat_capacity))
 
-			air1.temperature = max(air1.temperature - heat / air_heat_capacity, TCMB)
+			air1.set_temperature(max(air1.return_temperature() - heat / air_heat_capacity, TCMB))
 			mob_occupant.adjust_bodytemperature(heat / heat_capacity, TCMB)
 
-		air1.gases[/datum/gas/oxygen][MOLES] = max(0,air1.gases[/datum/gas/oxygen][MOLES] - 0.5 / efficiency) // Magically consume gas? Why not, we run on cryo magic.
-		air1.garbage_collect()
+		air1.set_moles(/datum/gas/oxygen, max(0,air1.get_moles(/datum/gas/oxygen) - 0.5 / efficiency)) // Magically consume gas? Why not, we run on cryo magic.
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/power_change()
 	..()
@@ -335,7 +335,7 @@
 																	datum/tgui/master_ui = null, datum/ui_state/state = GLOB.notcontained_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "cryo", name, 400, 550, master_ui, state)
+		ui = new(user, src, ui_key, "Cryo", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/ui_data()
@@ -378,11 +378,11 @@
 			data["occupant"]["temperaturestatus"] = "bad"
 
 	var/datum/gas_mixture/air1 = airs[1]
-	data["cellTemperature"] = round(air1.temperature, 1)
+	data["cellTemperature"] = round(air1.return_temperature(), 1)
 
 	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
 	var/beakerContents = list()
-	if(beaker?.reagents && beaker.reagents.reagent_list.len)
+	if(beaker && beaker.reagents && beaker.reagents.reagent_list.len)
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
 			beakerContents += list(list("name" = R.name, "volume" = R.volume))
 	data["beakerContents"] = beakerContents
@@ -417,13 +417,13 @@
 				. = TRUE
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/CtrlClick(mob/user)
-	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK) && !state_open)
+	if(can_interact(user) && !state_open)
 		on = !on
 		update_icon()
 	return ..()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/AltClick(mob/user)
-	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(can_interact(user))
 		if(state_open)
 			close_machine()
 		else
@@ -446,7 +446,7 @@
 	var/datum/gas_mixture/G = airs[1]
 
 	if(G.total_moles() > 10)
-		return G.temperature
+		return G.return_temperature()
 	return ..()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/default_change_direction_wrench(mob/user, obj/item/wrench/W)

@@ -44,8 +44,7 @@ Difficulty: Medium
 	friendly = "stares down"
 	speak_emote = list("roars")
 	armour_penetration = 40
-	melee_damage_lower = 40
-	melee_damage_upper = 40
+	melee_damage = 40
 	speed = 5
 	move_to_delay = 5
 	ranged = TRUE
@@ -190,7 +189,7 @@ Difficulty: Medium
 		if(istype(T, /turf/open/indestructible))
 			continue
 		if(!istype(T, /turf/closed/indestructible))
-			T.ChangeTurf(/turf/open/floor/plating/asteroid/basalt/lava_land_surface)
+			T.ChangeTurf(/turf/open/floor/plating/asteroid/basalt/lava_land_surface, flags = CHANGETURF_INHERIT_AIR)
 		else
 			indestructible_turfs += T
 	SLEEP_CHECK_DEATH(10) // give them a bit of time to realize what attack is actually happening
@@ -446,9 +445,9 @@ Difficulty: Medium
 	if(!istype(T, /turf/closed) && !istype(T, /turf/open/lava))
 		var/lava_turf = /turf/open/lava/smooth
 		var/reset_turf = T.type
-		T.ChangeTurf(lava_turf)
+		T.ChangeTurf(lava_turf, flags = CHANGETURF_INHERIT_AIR)
 		sleep(reset_time)
-		T.ChangeTurf(reset_turf)
+		T.ChangeTurf(reset_turf, flags = CHANGETURF_INHERIT_AIR)
 
 /obj/effect/temp_visual/drakewall
 	desc = "An ash drakes true flame."
@@ -571,8 +570,7 @@ obj/effect/temp_visual/fireball
 	health = 200
 	faction = list("neutral")
 	obj_damage = 80
-	melee_damage_upper = 30
-	melee_damage_lower = 30
+	melee_damage = 30
 	mouse_opacity = MOUSE_OPACITY_ICON
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	loot = list()
@@ -604,8 +602,7 @@ obj/effect/temp_visual/fireball
 	icon_living = "spacedragon"
 	icon_dead = "spacedragon_dead"
 	obj_damage = 80
-	melee_damage_upper = 35
-	melee_damage_lower = 35
+	melee_damage = 35
 	speed = 0
 	mouse_opacity = MOUSE_OPACITY_ICON
 	loot = list()

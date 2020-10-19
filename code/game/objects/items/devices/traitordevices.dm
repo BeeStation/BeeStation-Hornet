@@ -50,7 +50,7 @@ effective or pretty fucking useless.
 		else
 			to_chat(M, "<span class='userdanger'>You feel a sudden, electric jolt travel through your head.</span>")
 
-	playsound(src.loc, 'sound/misc/interference.ogg', 50, 1)
+	playsound(src.loc, 'sound/misc/interference.ogg', 50, TRUE)
 	to_chat(user, "<span class='notice'>You trigger [src].</span>")
 	times_used += 1
 	if(times_used >= max_uses)
@@ -69,12 +69,14 @@ effective or pretty fucking useless.
 */
 
 /obj/item/healthanalyzer/rad_laser
-	materials = list(/datum/material/iron=400)
-	var/irradiate = 1
+	custom_materials = list(/datum/material/iron=400)
+	var/ui_x = 320
+	var/ui_y = 335
+	var/irradiate = TRUE
+	var/stealth = FALSE
+	var/used = FALSE // is it cooling down?
 	var/intensity = 10 // how much damage the radiation does
 	var/wavelength = 10 // time it takes for the radiation to kick in, in seconds
-	var/used = 0 // is it cooling down?
-	var/stealth = FALSE
 
 /obj/item/healthanalyzer/rad_laser/attack(mob/living/M, mob/living/user)
 	if(!stealth || !irradiate)
@@ -83,8 +85,8 @@ effective or pretty fucking useless.
 		return
 	if(!used)
 		log_combat(user, M, "irradiated", src)
-		var/cooldown = GetCooldown()
-		used = 1
+		var/cooldown = get_cooldown()
+		used = TRUE
 		icon_state = "health1"
 		handle_cooldown(cooldown) // splits off to handle the cooldown while handling wavelength
 		to_chat(user, "<span class='warning'>Successfully irradiated [M].</span>")
@@ -98,78 +100,86 @@ effective or pretty fucking useless.
 
 /obj/item/healthanalyzer/rad_laser/proc/handle_cooldown(cooldown)
 	spawn(cooldown)
-		used = 0
+		used = FALSE
 		icon_state = "health"
+
+/obj/item/healthanalyzer/rad_laser/proc/get_cooldown()
+	return round(max(10, (stealth*30 + intensity*5 - wavelength/4)))
 
 /obj/item/healthanalyzer/rad_laser/attack_self(mob/user)
 	interact(user)
 
-/obj/item/healthanalyzer/rad_laser/proc/GetCooldown()
-	return round(max(10, (stealth*30 + intensity*5 - wavelength/4)))
-
 /obj/item/healthanalyzer/rad_laser/interact(mob/user)
 	ui_interact(user)
 
-/obj/item/healthanalyzer/rad_laser/ui_interact(mob/user)
-	. = ..()
+/obj/item/healthanalyzer/rad_laser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
+									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.hands_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "RadioactiveMicrolaser", "Radioactive Microlaser", ui_x, ui_y, master_ui, state)
+		ui.open()
 
-	var/dat = "Irradiation: <A href='?src=[REF(src)];rad=1'>[irradiate ? "On" : "Off"]</A><br>"
-	dat += "Stealth Mode (NOTE: Deactivates automatically while Irradiation is off): <A href='?src=[REF(src)];stealthy=[TRUE]'>[stealth ? "On" : "Off"]</A><br>"
-	dat += "Scan Mode: <a href='?src=[REF(src)];mode=1'>"
-	if(!scanmode)
-		dat += "Scan Health"
-	else if(scanmode == 1)
-		dat += "Scan Reagents"
-	else
-		dat += "Disabled"
-	dat += "</a><br><br>"
+/obj/item/healthanalyzer/rad_laser/ui_data(mob/user)
+	var/list/data = list()
+	data["irradiate"] = irradiate
+	data["stealth"] = stealth
+	data["scanmode"] = scanmode
+	data["intensity"] = intensity
+	data["wavelength"] = wavelength
+	data["on_cooldown"] = used
+	data["cooldown"] = DisplayTimeText(get_cooldown())
+	return data
 
-	dat += {"
-	Radiation Intensity:
-	<A href='?src=[REF(src)];radint=-5'>-</A><A href='?src=[REF(src)];radint=-1'>-</A>
-	[intensity]
-	<A href='?src=[REF(src)];radint=1'>+</A><A href='?src=[REF(src)];radint=5'>+</A><BR>
+/obj/item/healthanalyzer/rad_laser/ui_act(action, params)
+	if(..())
+		return
 
-	Radiation Wavelength:
-	<A href='?src=[REF(src)];radwav=-5'>-</A><A href='?src=[REF(src)];radwav=-1'>-</A>
-	[(wavelength+(intensity*4))]
-	<A href='?src=[REF(src)];radwav=1'>+</A><A href='?src=[REF(src)];radwav=5'>+</A><BR>
-	Laser Cooldown: [DisplayTimeText(GetCooldown())]<BR>
-	"}
-
-	var/datum/browser/popup = new(user, "radlaser", "Radioactive Microlaser Interface", 400, 240)
-	popup.set_content(dat)
-	popup.open()
-
-/obj/item/healthanalyzer/rad_laser/Topic(href, href_list)
-	if(!usr.canUseTopic(src))
-		return 1
-
-	usr.set_machine(src)
-	if(href_list["rad"])
-		irradiate = !irradiate
-
-	else if(href_list["stealthy"])
-		stealth = !stealth
-
-	else if(href_list["mode"])
-		scanmode += 1
-		if(scanmode > 2)
-			scanmode = 0
-
-	else if(href_list["radint"])
-		var/amount = text2num(href_list["radint"])
-		amount += intensity
-		intensity = max(1,(min(20,amount)))
-
-	else if(href_list["radwav"])
-		var/amount = text2num(href_list["radwav"])
-		amount += wavelength
-		wavelength = max(0,(min(120,amount)))
-
-	attack_self(usr)
-	add_fingerprint(usr)
-	return
+	switch(action)
+		if("irradiate")
+			irradiate = !irradiate
+			. = TRUE
+		if("stealth")
+			stealth = !stealth
+			. = TRUE
+		if("scanmode")
+			scanmode = !scanmode
+			. = TRUE
+		if("radintensity")
+			var/target = params["target"]
+			var/adjust = text2num(params["adjust"])
+			if(target == "min")
+				target = 1
+				. = TRUE
+			else if(target == "max")
+				target = 20
+				. = TRUE
+			else if(adjust)
+				target = intensity + adjust
+				. = TRUE
+			else if(text2num(target) != null)
+				target = text2num(target)
+				. = TRUE
+			if(.)
+				target = round(target)
+				intensity = clamp(target, 1, 20)
+		if("radwavelength")
+			var/target = params["target"]
+			var/adjust = text2num(params["adjust"])
+			if(target == "min")
+				target = 0
+				. = TRUE
+			else if(target == "max")
+				target = 120
+				. = TRUE
+			else if(adjust)
+				target = wavelength + adjust
+				. = TRUE
+			else if(text2num(target) != null)
+				target = text2num(target)
+				. = TRUE
+			if(.)
+				target = round(target)
+				wavelength = clamp(target, 0, 120)
 
 /obj/item/shadowcloak
 	name = "cloaker belt"
@@ -180,6 +190,7 @@ effective or pretty fucking useless.
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
 
+	var/equipslot = SLOT_BELT
 	var/mob/living/carbon/human/user = null
 	var/charge = 300
 	var/max_charge = 300
@@ -188,7 +199,7 @@ effective or pretty fucking useless.
 	actions_types = list(/datum/action/item_action/toggle)
 
 /obj/item/shadowcloak/ui_action_click(mob/user)
-	if(user.get_item_by_slot(SLOT_BELT) == src)
+	if(user.get_item_by_slot(equipslot) == src)
 		if(!on)
 			Activate(usr)
 		else
@@ -196,7 +207,7 @@ effective or pretty fucking useless.
 	return
 
 /obj/item/shadowcloak/item_action_slot_check(slot, mob/user)
-	if(slot == SLOT_BELT)
+	if(slot == equipslot)
 		return 1
 
 /obj/item/shadowcloak/proc/Activate(mob/living/carbon/human/user)
@@ -218,11 +229,11 @@ effective or pretty fucking useless.
 
 /obj/item/shadowcloak/dropped(mob/user)
 	..()
-	if(user && user.get_item_by_slot(SLOT_BELT) != src)
+	if(user && user.get_item_by_slot(equipslot) != src)
 		Deactivate()
 
 /obj/item/shadowcloak/process()
-	if(user.get_item_by_slot(SLOT_BELT) != src)
+	if(user.get_item_by_slot(equipslot) != src)
 		Deactivate()
 		return
 	var/turf/T = get_turf(src)
@@ -234,6 +245,26 @@ effective or pretty fucking useless.
 			charge = min(max_charge,charge + 50) //Charge in the dark
 		animate(user,alpha = CLAMP(255 - charge,0,255),time = 10)
 
+/obj/item/shadowcloak/magician
+	name = "magician's cape"
+	desc = "A magician never reveals his secrets."
+	icon = 'icons/obj/bedsheets.dmi'
+	icon_state = "sheetmagician"
+	slot_flags = ITEM_SLOT_NECK
+	layer = MOB_LAYER
+	equipslot = SLOT_NECK
+	attack_verb = null
+
+/obj/item/shadowcloak/magician/attackby(obj/item/W, mob/user, params)
+	. = ..()
+	if(istype(W, /obj/item/upgradewand))
+		var/obj/item/upgradewand/wand = W
+		if(!wand.used && max_charge == initial(max_charge))
+			wand.used = TRUE
+			charge = 450
+			max_charge = 450
+			to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand].</span>")
+			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 
 /obj/item/jammer
 	name = "radio jammer"

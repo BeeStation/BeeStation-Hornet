@@ -101,6 +101,16 @@
 	crate_name = "emergency crate"
 	crate_type = /obj/structure/closet/crate/internals
 
+/datum/supply_pack/emergency/medical
+	name = "Emergency Medical Crate"
+	desc = "For when the shit hits the fan and medical can't keep up. Comes with a 7x5 Medical capsule and 2 Medibots for emergencies."
+	cost = 3500
+	contains = list(/mob/living/simple_animal/bot/medbot,
+					/mob/living/simple_animal/bot/medbot,
+					/obj/item/survivalcapsule/medical)
+	crate_name = "emergency medical crate"
+	crate_type = /obj/structure/closet/crate/medical
+
 /datum/supply_pack/emergency/bomb
 	name = "Explosive Emergency Crate"
 	desc = "Science gone bonkers? Beeping behind the airlock? Buy now and be the hero the station des... I mean needs! (time not included)"
@@ -168,18 +178,26 @@
 
 /datum/supply_pack/emergency/syndicate
 	name = "NULL_ENTRY"
-	desc = "(#@&^$THIS PACKAGE CONTAINS 30TC WORTH OF SOME RANDOM SYNDICATE GEAR WE HAD LYING AROUND THE WAREHOUSE. GIVE EM HELL, OPERATIVE@&!*() "
+	desc = "(#@&^$THIS PACKAGE CONTAINS 30TC WORTH OF SOME RANDOM SYNDICATE GEAR WE HAD LYING AROUND THE WAREHOUSE. GIVE EM HELL, OPERATIVE, BUT DON'T GET GREEDY- ORDER TOO MANY AND WE'LL BE SENDING OUR DEADLIEST ENFORCERS TO INVESTIGATE@&!*() "
 	hidden = TRUE
 	cost = 20000
 	contains = list()
 	crate_name = "emergency crate"
 	crate_type = /obj/structure/closet/crate/internals
 	dangerous = TRUE
+	var/beepsky_chance = -1
+	var/level = 1
 
 /datum/supply_pack/emergency/syndicate/fill(obj/structure/closet/crate/C)
 	var/crate_value = 30
 	var/list/uplink_items = get_uplink_items(SSticker.mode)
+	beepsky_chance += min(level, 5) //1% chance per crate an item will be replaced with a beepsky and the crate stops spawning items. Doesnt act as a hardcap, making nullcrates far riskier and less predictable
 	while(crate_value)
+		if(prob(beepsky_chance) && prob(50))
+			new /mob/living/simple_animal/bot/secbot/grievous/nullcrate(C)
+			crate_value = 0
+			beepsky_chance = 0
+			level += 1
 		var/category = pick(uplink_items)
 		var/item = pick(uplink_items[category])
 		var/datum/uplink_item/I = uplink_items[category][item]
@@ -189,6 +207,11 @@
 			continue
 		crate_value -= I.cost
 		new I.item(C)
+	var/datum/round_event_control/operative/loneop = locate(/datum/round_event_control/operative) in SSevents.control
+	if(istype(loneop))
+		loneop.weight += 7
+		message_admins("a NULL_ENTRY crate has shipped, increasing the weight of the Lone Operative event to [loneop.weight]")
+		log_game("a NULL_ENTRY crate has shipped, increasing the weight of the Lone Operative event to [loneop.weight]")
 
 /datum/supply_pack/emergency/plasma_spacesuit
 	name = "Plasmaman Space Envirosuits"
@@ -356,16 +379,16 @@
 	name = "Security Clothing Crate"
 	desc = "Contains appropriate outfits for the station's private security force. Contains outfits for the Warden, Head of Security, and two Security Officers. Each outfit comes with a rank-appropriate jumpsuit, suit, and beret. Requires Security access to open."
 	cost = 3000
-	contains = list(/obj/item/clothing/under/rank/security/navyblue,
-					/obj/item/clothing/under/rank/security/navyblue,
+	contains = list(/obj/item/clothing/under/rank/security/officer/formal,
+					/obj/item/clothing/under/rank/security/officer/formal,
 					/obj/item/clothing/suit/security/officer,
 					/obj/item/clothing/suit/security/officer,
 					/obj/item/clothing/head/beret/sec/navyofficer,
 					/obj/item/clothing/head/beret/sec/navyofficer,
-					/obj/item/clothing/under/rank/warden/navyblue,
+					/obj/item/clothing/under/rank/security/warden/formal,
 					/obj/item/clothing/suit/security/warden,
 					/obj/item/clothing/head/beret/sec/navywarden,
-					/obj/item/clothing/under/rank/head_of_security/navyblue,
+					/obj/item/clothing/under/rank/security/head_of_security/formal,
 					/obj/item/clothing/suit/security/hos,
 					/obj/item/clothing/head/beret/sec/navyhos)
 	crate_name = "security clothing crate"
@@ -394,7 +417,7 @@
 	contains = list(/obj/item/storage/box/firingpins,
 					/obj/item/storage/box/firingpins)
 	crate_name = "firing pins crate"
-	
+
 /datum/supply_pack/security/firingpins/paywall
 	name = "Paywall Firing Pins Crate"
 	desc = "Specialized firing pins with a built-in configurable paywall. Requires Security access to open."
@@ -448,6 +471,13 @@
 					/obj/item/clothing/suit/armor/bulletproof,
 					/obj/item/clothing/suit/armor/bulletproof)
 	crate_name = "bulletproof armor crate"
+
+/datum/supply_pack/security/armory/cling_test
+	name = "Changeling Testing Kit"
+	desc = "Contains a single bottle of concentrated BZ, used for detecting and incapacitating changelings. Due to the rarity of this chemical, the cost is extortionate, and security personnel are recommended to visit their local chemistry department instead if possible. Requires Armory access to open."
+	cost = 10000
+	contains = list(/obj/item/reagent_containers/glass/bottle/concentrated_bz)
+	crate_name = "Changeling testing kit crate"
 
 /datum/supply_pack/security/armory/chemimp
 	name = "Chemical Implants Crate"
@@ -554,6 +584,16 @@
 	crate_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
 
+/datum/supply_pack/security/armory/securitybarriersxl
+	name = "Security Barrier Capsules XL"
+	desc = "3x3 Reinforced glass barricades for when the nukies come knocking. Requires Security access to open."
+	small_item = TRUE
+	contains = list(/obj/item/survivalcapsule/barricade,
+					/obj/item/survivalcapsule/barricade,
+					/obj/item/survivalcapsule/barricade)
+	cost = 2500
+	crate_name = "security barriers crate XL"
+
 /datum/supply_pack/security/armory/mindshield
 	name = "Mindshield Implants Crate"
 	desc = "Prevent against radical thoughts with three Mindshield implants. Requires Armory access to open."
@@ -620,7 +660,7 @@
 					/obj/item/clothing/shoes/russian,
 					/obj/item/clothing/gloves/combat,
 					/obj/item/clothing/under/syndicate/rus_army,
-					/obj/item/clothing/under/soviet,
+					/obj/item/clothing/under/costume/soviet,
 					/obj/item/clothing/mask/russian_balaclava,
 					/obj/item/clothing/head/helmet/rus_ushanka,
 					/obj/item/clothing/suit/armor/vest/russian_coat,
@@ -632,7 +672,25 @@
 	for(var/i in 1 to 10)
 		var/item = pick(contains)
 		new item(C)
+/datum/supply_pack/security/armory/smartmine
+	name = "Smart Mine Crate"
+	desc = "Contains three nonlethal pressure activated stun mines capable of ignoring mindshieled personnel. Requires Armory access to open."
+	cost = 4000
+	contains = list(/obj/item/deployablemine/smartstun,
+					/obj/item/deployablemine/smartstun,
+					/obj/item/deployablemine/smartstun)
+	crate_name = "stun mine create"
 
+/datum/supply_pack/security/armory/stunmine
+	name = "Stun Mine Crate"
+	desc = "Contains five nonlethal pressure activated stun mines. Requires Armory access to open."
+	cost = 2500
+	contains = list(/obj/item/deployablemine/stun,
+					/obj/item/deployablemine/stun,
+					/obj/item/deployablemine/stun,
+					/obj/item/deployablemine/stun,
+					/obj/item/deployablemine/stun)
+	crate_name = "stun mine create"
 /datum/supply_pack/security/armory/swat
 	name = "SWAT Crate"
 	desc = "Contains two fullbody sets of tough, fireproof, pressurized suits designed in a joint effort by IS-ERI and Nanotrasen. Each set contains a suit, helmet, mask, combat belt, and combat gloves. Requires Armory access to open."
@@ -760,6 +818,19 @@
 	crate_name = "insulated gloves crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
+/datum/supply_pack/engineering/spacecapsule
+	name = "Space Shelter Capsule"
+	desc = "A crate containing an RCD, some compressed matter cartridges, and a single bluespace capsule containing a spaceworthy shelter for construction/emergencies."
+	cost = 2000
+	contains = list(/obj/item/survivalcapsule/space,
+					/obj/item/construction/rcd,
+					/obj/item/rcd_ammo,
+					/obj/item/rcd_ammo,
+					/obj/item/rcd_ammo,
+					/obj/item/rcd_ammo)
+	crate_name = "space shelter crate"
+	crate_type = /obj/structure/closet/crate/engineering/electrical
+
 /obj/item/stock_parts/cell/inducer_supply
 	maxcharge = 5000
 	charge = 5000
@@ -812,12 +883,13 @@
 	cost = 1000
 	crate_name = "toolbox crate"
 
-/datum/supply_pack/service/vending/engivend
-	name = "EngiVend Supply Crate"
-	desc = "The engineers are out of metal foam grenades? This should help."
-	cost = 1500
-	contains = list(/obj/item/vending_refill/engivend)
-	crate_name = "engineering supply crate"
+/datum/supply_pack/engineering/vending/engineering
+	name = "Engineering Vending Crate"
+	desc = "Sick of assistants breaking into engineering for tools? Contains one Engi-Vend refill and one YouTool refill."
+	cost = 2000
+	contains = list(/obj/item/vending_refill/engivend,
+					/obj/item/vending_refill/tool)
+	crate_name = "engineering vending crate"
 
 /datum/supply_pack/engineering/bsa
 	name = "Bluespace Artillery Parts"
@@ -881,6 +953,28 @@
 	contains = list(/obj/item/circuitboard/computer/sat_control)
 	crate_name= "shield control board crate"
 
+/datum/supply_pack/engineering/shuttle_construction
+	name = "Shuttle Construction Kit"
+	desc = "A DIY kit for building your own shuttle! Comes with all the parts you need to get your people to the stars!"
+	cost = 6000
+	contains = list(
+		/obj/machinery/portable_atmospherics/canister/toxins,
+		/obj/item/construction/rcd/loaded,
+		/obj/item/rcd_ammo/large,
+		/obj/item/rcd_ammo/large,
+		/obj/item/shuttle_creator,
+		/obj/item/pipe_dispenser,
+		/obj/item/storage/toolbox/mechanical,
+		/obj/item/storage/toolbox/electrical,
+		/obj/item/circuitboard/computer/shuttle/docker,
+		/obj/item/circuitboard/computer/shuttle/flight_control,
+		/obj/item/circuitboard/machine/shuttle/engine/plasma,
+		/obj/item/circuitboard/machine/shuttle/engine/plasma,
+		/obj/item/circuitboard/machine/shuttle/heater,
+		/obj/item/circuitboard/machine/shuttle/heater
+		)
+	crate_name = "shuttle construction crate"
+	crate_type = /obj/structure/closet/crate/large
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////// Engine Construction /////////////////////////////////
@@ -1209,6 +1303,17 @@
 	crate_name = "blood freezer"
 	crate_type = /obj/structure/closet/crate/freezer
 
+/datum/supply_pack/medical/synthflesh
+	name = "Synthflesh resupply pack"
+	desc = "Contains four 100u cartons of synthflesh in case the cloner ran out of it."
+	cost = 3000
+	contains = list(/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
+					/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
+					/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
+					/obj/item/reagent_containers/food/drinks/bottle/synthflesh)
+	crate_name = "rusty freezer"
+	crate_type = /obj/structure/closet/crate/freezer
+
 /datum/supply_pack/medical/firstaidbruises_single
 	name = "Bruise Treatment Kit Single-Pack"
 	desc = "Contains one first aid kit focused on healing bruises and broken bones."
@@ -1330,28 +1435,33 @@
 	access = ACCESS_MEDICAL
 	contains = list(/obj/machinery/iv_drip/saline)
 
-/datum/supply_pack/medical/virus
-	name = "Virus Crate"
-	desc = "Contains twelve different bottles, containing several viral samples for virology research. Also includes seven beakers and syringes. Balled-up jeans not included. Requires CMO access to open."
-	cost = 2500
-	access = ACCESS_CMO
-	contains = list(/obj/item/reagent_containers/glass/bottle/flu_virion,
-					/obj/item/reagent_containers/glass/bottle/cold,
+/datum/supply_pack/medical/randomvirus
+	name = "Virus Sample Crate"
+	desc = "Contains five random experimental disease cultures for epidemiological research"
+	cost = 1500
+	access = ACCESS_VIROLOGY
+	contains = list(/obj/item/reagent_containers/glass/bottle/random_virus,
 					/obj/item/reagent_containers/glass/bottle/random_virus,
 					/obj/item/reagent_containers/glass/bottle/random_virus,
 					/obj/item/reagent_containers/glass/bottle/random_virus,
-					/obj/item/reagent_containers/glass/bottle/random_virus,
-					/obj/item/reagent_containers/glass/bottle/fake_gbs,
-					/obj/item/reagent_containers/glass/bottle/magnitis,
-					/obj/item/reagent_containers/glass/bottle/pierrot_throat,
-					/obj/item/reagent_containers/glass/bottle/brainrot,
-					/obj/item/reagent_containers/glass/bottle/anxiety,
-					/obj/item/reagent_containers/glass/bottle/beesease,
-					/obj/item/storage/box/syringes,
-					/obj/item/storage/box/beakers,
-					/obj/item/reagent_containers/glass/bottle/mutagen)
-	crate_name = "virus crate"
+					/obj/item/reagent_containers/glass/bottle/random_virus)
+	crate_name = "virus sample crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
+	dangerous = TRUE
+
+/datum/supply_pack/medical/virology
+	name = "Junior Epidemiology Kit"
+	desc = "Contains the necessary supplies to start an epidemiological research lab. P.A.N.D.E.M.I.C. not included. Comes with a free virologist action figure!"
+	cost = 2000
+	access = ACCESS_VIROLOGY
+	contains = list(/obj/item/reagent_containers/food/snacks/monkeycube,
+					/obj/item/reagent_containers/food/drinks/bottle/virusfood,
+					/obj/item/reagent_containers/glass/bottle/mutagen,
+					/obj/item/reagent_containers/glass/bottle/formaldehyde,
+					/obj/item/reagent_containers/glass/bottle/synaptizine,
+					/obj/item/storage/box/beakers,
+					/obj/item/toy/figure/virologist)
+	crate_name = "Junior Epidemiology Kit"
 	dangerous = TRUE
 
 /datum/supply_pack/medical/vending
@@ -1361,6 +1471,22 @@
 	contains = list(/obj/item/vending_refill/medical,
 					/obj/item/vending_refill/wallmed)
 	crate_name = "medical vending crate"
+
+/datum/supply_pack/medical/virus
+	name = "Virus Crate"
+	desc = "Contains several contagious virus samples, ranging from annoying to lethal. Balled-up jeans not included. Requires CMO access to open."
+	cost = 2000
+	access = ACCESS_CMO
+	contraband = TRUE
+	contains = list(/obj/item/reagent_containers/glass/bottle/fake_gbs,
+					/obj/item/reagent_containers/glass/bottle/magnitis,
+					/obj/item/reagent_containers/glass/bottle/pierrot_throat,
+					/obj/item/reagent_containers/glass/bottle/brainrot,
+					/obj/item/reagent_containers/glass/bottle/anxiety,
+					/obj/item/reagent_containers/glass/bottle/beesease)
+	crate_name = "virus crate"
+	crate_type = /obj/structure/closet/crate/secure/plasma
+	dangerous = TRUE
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////
@@ -1410,6 +1536,20 @@
 					/obj/item/bot_assembly/cleanbot,
 					/obj/item/bot_assembly/cleanbot)
 	crate_name = "robotics assembly crate"
+	crate_type = /obj/structure/closet/crate/secure/science
+
+/datum/supply_pack/science/recharging
+	name = "Recharging Station Crate"
+	desc = "If you are looking for an improvement that makes your station more suitable for silicons, this is the pack for you! Contains all the materials required to put together a recharging station. Tools not included."
+	cost = 2500
+	access = ACCESS_ROBOTICS
+	contains = list(/obj/item/stack/sheet/iron/five,
+					/obj/item/stack/cable_coil/random/five,
+					/obj/item/circuitboard/machine/cyborgrecharger,
+					/obj/item/stock_parts/capacitor,
+					/obj/item/stock_parts/cell,
+					/obj/item/stock_parts/manipulator)
+	crate_name = "recharging station crate"
 	crate_type = /obj/structure/closet/crate/secure/science
 
 /datum/supply_pack/science/rped
@@ -1477,15 +1617,16 @@
 
 /datum/supply_pack/service/janitor
 	name = "Janitorial Supplies Crate"
-	desc = "Fight back against dirt and grime with Nanotrasen's Janitorial Essentials(tm)! Contains three buckets, caution signs, and cleaner grenades. Also has a single mop, spray cleaner, rag, and trash bag."
+	desc = "Fight back against dirt and grime with Nanotrasen's Janitorial Essentials(tm)! Contains three buckets, caution signs, and cleaner grenades. Also has a single mop, broom, spray cleaner, rag, and trash bag."
 	cost = 1000
 	contains = list(/obj/item/reagent_containers/glass/bucket,
 					/obj/item/reagent_containers/glass/bucket,
 					/obj/item/reagent_containers/glass/bucket,
 					/obj/item/mop,
-					/obj/item/caution,
-					/obj/item/caution,
-					/obj/item/caution,
+					/obj/item/twohanded/pushbroom,
+					/obj/item/clothing/suit/caution,
+					/obj/item/clothing/suit/caution,
+					/obj/item/clothing/suit/caution,
 					/obj/item/storage/bag/trash,
 					/obj/item/reagent_containers/spray/cleaner,
 					/obj/item/reagent_containers/glass/rag,
@@ -1522,8 +1663,8 @@
 
 /datum/supply_pack/service/party
 	name = "Party Equipment"
-	desc = "Celebrate both life and death on the station with Nanotrasen's Party Essentials(tm)! Contains seven colored glowsticks, four beers, two ales, and a bottle of patron, goldschlager, and shaker!"
-	cost = 2000
+	desc = "Celebrate both life and death on the station with Nanotrasen's Party Essentials(tm)! Contains a special party area, seven colored glowsticks, four beers, two ales, and a bottle of patron, goldschlager, and shaker!"
+	cost = 2500
 	contains = list(/obj/item/storage/box/drinkingglasses,
 					/obj/item/reagent_containers/food/drinks/shaker,
 					/obj/item/reagent_containers/food/drinks/bottle/patron,
@@ -1540,7 +1681,8 @@
 					/obj/item/flashlight/glowstick/cyan,
 					/obj/item/flashlight/glowstick/orange,
 					/obj/item/flashlight/glowstick/yellow,
-					/obj/item/flashlight/glowstick/pink)
+					/obj/item/flashlight/glowstick/pink,
+					/obj/item/survivalcapsule/party)
 	crate_name = "party equipment crate"
 
 /datum/supply_pack/service/carpet
@@ -1571,10 +1713,12 @@
 					/obj/item/stack/tile/carpet/red/fifty,
 					/obj/item/stack/tile/carpet/royalblue/fifty,
 					/obj/item/stack/tile/carpet/royalblue/fifty,
+					/obj/item/stack/tile/eighties/fifty,
+					/obj/item/stack/tile/eighties/fifty,
 					/obj/item/stack/tile/carpet/royalblack/fifty,
 					/obj/item/stack/tile/carpet/royalblack/fifty)
 	crate_name = "exotic carpet crate"
-	
+
 /datum/supply_pack/service/lightbulbs
 	name = "Replacement Lights"
 	desc = "May the light of Aether shine upon this station! Or at least, the light of forty two light tubes and twenty one light bulbs."
@@ -1896,6 +2040,27 @@
 					/obj/item/vending_refill/hydronutrients)
 	crate_name = "hydroponics supply crate"
 
+/datum/supply_pack/organic/grill
+	name = "Grilling Starter Kit"
+	desc = "Hey dad I'm Hungry. Hi Hungry I'm THE NEW GRILLING STARTER KIT ONLY 5000 BUX GET NOW! Contains a grill and fuel."
+	cost = 5000
+	crate_type = /obj/structure/closet/crate
+	contains = list(/obj/item/stack/sheet/mineral/coal/five,
+					/obj/machinery/grill/unwrenched,
+					/obj/item/reagent_containers/food/drinks/soda_cans/monkey_energy
+					)
+	crate_name = "grilling starter kit crate"
+
+/datum/supply_pack/organic/grillfuel
+	name = "Grilling Fuel Kit"
+	desc = "Contains propane and propane accessories. (Note: doesn't contain any actual propane.)"
+	cost = 2000
+	crate_type = /obj/structure/closet/crate
+	contains = list(/obj/item/stack/sheet/mineral/coal/ten,
+					/obj/item/reagent_containers/food/drinks/soda_cans/monkey_energy
+					)
+	crate_name = "grilling fuel kit crate"
+
 //////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// Livestock /////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -2029,6 +2194,14 @@
 					/obj/item/clothing/neck/petcollar)
 	crate_name = "pug crate"
 
+/datum/supply_pack/critter/bullterrier
+	name = "Bull Terrier Crate"
+	desc = "Like a normal dog, but with a head the shape of an egg. Comes with a nice collar!"
+	cost = 5000
+	contains = list(/mob/living/simple_animal/pet/dog/bullterrier,
+					/obj/item/clothing/neck/petcollar)
+	crate_name = "bull terrier crate"
+
 /datum/supply_pack/critter/snake
 	name = "Snake Crate"
 	desc = "Tired of these MOTHER FUCKING snakes on this MOTHER FUCKING space station? Then this isn't the crate for you. Contains three poisonous snakes."
@@ -2129,14 +2302,13 @@
 	name = "Formalwear Crate"
 	desc = "You're gonna like the way you look, I guaranteed it. Contains an asston of fancy clothing."
 	cost = 3000 //Lots of very expensive items. You gotta pay up to look good!
-	contains = list(/obj/item/clothing/under/blacktango,
-					/obj/item/clothing/under/assistantformal,
-					/obj/item/clothing/under/assistantformal,
-					/obj/item/clothing/under/lawyer/bluesuit,
+	contains = list(/obj/item/clothing/under/dress/blacktango,
+					/obj/item/clothing/under/misc/assistantformal,
+					/obj/item/clothing/under/misc/assistantformal,
+					/obj/item/clothing/under/rank/civilian/lawyer/bluesuit,
 					/obj/item/clothing/suit/toggle/lawyer,
-					/obj/item/clothing/under/lawyer/purpsuit,
+					/obj/item/clothing/under/rank/civilian/lawyer/purpsuit,
 					/obj/item/clothing/suit/toggle/lawyer/purple,
-					/obj/item/clothing/under/lawyer/blacksuit,
 					/obj/item/clothing/suit/toggle/lawyer/black,
 					/obj/item/clothing/accessory/waistcoat,
 					/obj/item/clothing/neck/tie/blue,
@@ -2150,11 +2322,11 @@
 					/obj/item/clothing/shoes/laceup,
 					/obj/item/clothing/shoes/laceup,
 					/obj/item/clothing/shoes/laceup,
-					/obj/item/clothing/under/suit_jacket/charcoal,
-					/obj/item/clothing/under/suit_jacket/navy,
-					/obj/item/clothing/under/suit_jacket/burgundy,
-					/obj/item/clothing/under/suit_jacket/checkered,
-					/obj/item/clothing/under/suit_jacket/tan,
+					/obj/item/clothing/under/suit/charcoal,
+					/obj/item/clothing/under/suit/navy,
+					/obj/item/clothing/under/suit/burgundy,
+					/obj/item/clothing/under/suit/checkered,
+					/obj/item/clothing/under/suit/tan,
 					/obj/item/lipstick/random)
 	crate_name = "formalwear crate"
 	crate_type = /obj/structure/closet/crate/wooden
@@ -2200,6 +2372,16 @@
 	contains = list(/obj/item/storage/box/lasertagpins)
 	crate_name = "laser tag crate"
 
+/datum/supply_pack/costumes_toys/mech_suits
+	name = "Mech Pilot's Suit Crate"
+	desc = "Suits for piloting big robots. Contains all three colors!"
+	cost = 1500 //state-of-the-art technology doesn't come cheap
+	contains = list(/obj/item/clothing/under/costume/mech_suit,
+					/obj/item/clothing/under/costume/mech_suit/white,
+					/obj/item/clothing/under/costume/mech_suit/blue)
+	crate_name = "mech pilot's suit crate"
+	crate_type = /obj/structure/closet/crate/wooden
+
 /datum/supply_pack/costumes_toys/costume_original
 	name = "Original Costume Crate"
 	desc = "Reenact Shakespearean plays with this assortment of outfits. Contains eight different costumes!"
@@ -2228,9 +2410,9 @@
 	contains = list(/obj/item/storage/backpack/clown,
 					/obj/item/clothing/shoes/clown_shoes,
 					/obj/item/clothing/mask/gas/clown_hat,
-					/obj/item/clothing/under/rank/clown,
+					/obj/item/clothing/under/rank/civilian/clown,
 					/obj/item/bikehorn,
-					/obj/item/clothing/under/rank/mime,
+					/obj/item/clothing/under/rank/civilian/mime,
 					/obj/item/clothing/shoes/sneakers/black,
 					/obj/item/clothing/gloves/color/white,
 					/obj/item/clothing/mask/gas/mime,
@@ -2393,13 +2575,15 @@
 
 /datum/supply_pack/misc/book_crate
 	name = "Book Crate"
-	desc = "Surplus from the Nanotrasen Archives, these five books are sure to be good reads."
+	desc = "Surplus from the Nanotrasen Archives, these seven books are sure to be good reads."
 	cost = 1500
 	contains = list(/obj/item/book/codex_gigas,
 					/obj/item/book/manual/random/,
 					/obj/item/book/manual/random/,
 					/obj/item/book/manual/random/,
-					/obj/item/book/random/triple)
+					/obj/item/book/random,
+					/obj/item/book/random,
+					/obj/item/book/random)
 	crate_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/misc/paper
@@ -2449,7 +2633,7 @@
 	name = "Funeral Supply crate"
 	desc = "At the end of the day, someone's gonna want someone dead. Give them a proper send-off with these funeral supplies! Contains a coffin with burial garmets and flowers."
 	cost = 600
-	contains = list(/obj/item/clothing/under/burial,
+	contains = list(/obj/item/clothing/under/misc/burial,
 					/obj/item/reagent_containers/food/snacks/grown/harebell,
 					/obj/item/reagent_containers/food/snacks/grown/poppy/geranium)
 	crate_name = "coffin"

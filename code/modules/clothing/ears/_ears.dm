@@ -16,11 +16,11 @@
 	equip_delay_other = 25
 	resistance_flags = FLAMMABLE
 	custom_price = 40
+	bang_protect = 2
 
 /obj/item/clothing/ears/earmuffs/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/earhealing)
-	AddComponent(/datum/component/wearertargeting/earprotection, list(SLOT_EARS))
 
 /obj/item/clothing/ears/headphones
 	name = "headphones"
@@ -32,6 +32,7 @@
 	actions_types = list(/datum/action/item_action/toggle_headphones)
 	var/headphones_on = FALSE
 	custom_price = 20
+	bang_protect = 1 //these only work if on your ears due to how bang_protect is calculated, so it's as balanced as earmuffs
 
 /obj/item/clothing/ears/headphones/Initialize()
 	. = ..()

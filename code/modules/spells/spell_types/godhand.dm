@@ -107,3 +107,87 @@
 	M.Stun(40)
 	M.petrify()
 	return ..()
+
+
+/obj/item/melee/touch_attack/megahonk
+	name = "\improper honkmother's blessing"
+	desc = "You've got a feeling they won't be laughing after this one. Honk honk."
+	catchphrase = "HONKDOOOOUKEN!"
+	on_use_sound = 'sound/items/airhorn.ogg'
+	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon_state = "mecha_honker"
+
+/obj/item/melee/touch_attack/megahonk/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(!proximity || !iscarbon(target) || !iscarbon(user) || user.handcuffed)
+		return
+	user.say(catchphrase, forced = "spell")
+	playsound(get_turf(target), on_use_sound,100,1)
+	for(var/mob/living/carbon/M in (hearers(1, target) - user)) //3x3 around the target, not affecting the user
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(istype(H.ears, /obj/item/clothing/ears/earmuffs))
+				continue
+		var/mul = (M==target ? 1 : 0.5)
+		to_chat(M, "<font color='red' size='7'>HONK</font>")
+		M.SetSleeping(0)
+		M.stuttering += 20*mul
+		M.adjustEarDamage(0, 30*mul)
+		M.Knockdown(60*mul)
+		if(prob(40))
+			M.Knockdown(200*mul)
+		else
+			M.Jitter(500*mul)
+
+	charges--
+	if(charges <= 0)
+		qdel(src)
+
+/obj/item/melee/touch_attack/megahonk/attack_self(mob/user)
+	. = ..()
+	to_chat(user, "<span class='notice'>\The [src] disappears, to honk another day.</span>")
+	qdel(src)
+
+/obj/item/melee/touch_attack/bspie
+	name = "\improper bluespace pie"
+	desc = "A thing you can barely comprehend as you hold it in your hand. You're fairly sure you could fit an entire body inside."
+	on_use_sound = 'sound/magic/demon_consume.ogg'
+	icon = 'icons/obj/food/piecake.dmi'
+	icon_state = "frostypie"
+	color = "#000077"
+
+/obj/item/melee/touch_attack/bspie/attack_self(mob/user)
+	. = ..()
+	to_chat(user, "<span class='notice'>You smear \the [src] on your chest! </span>")
+	qdel(src)
+
+/obj/item/melee/touch_attack/bspie/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(!proximity || !iscarbon(target) || !iscarbon(user) || user.handcuffed)
+		return
+	if(target == user)
+		to_chat(user, "<span class='notice'>You smear \the [src] on your chest!</span>")
+		qdel(src)
+		return
+	var/mob/living/carbon/M = target
+
+	user.visible_message("<span class='warning'>[user] is trying to stuff [M]\s body into \the [src]!</span>")
+	if(do_mob(user, M, 250))
+		var/name = M.real_name
+		var/obj/item/reagent_containers/food/snacks/pie/cream/body/pie = new(get_turf(M))
+		pie.name = "\improper [name] [pie.name]"
+
+		playsound(get_turf(target), on_use_sound, 50, 1)
+
+		/*
+		var/obj/item/bodypart/head = M.get_bodypart("head")
+		if(head)
+			head.drop_limb()
+		head.throw_at(get_turf(head), 1, 1)
+		qdel(M)
+		*/
+		M.forceMove(pie)
+
+
+		charges--
+
+	if(charges <= 0)
+		qdel(src)

@@ -45,8 +45,8 @@
 		///////////////
 		//SOUND STUFF//
 		///////////////
-	var/ambience_playing= null
-	var/played			= 0
+	var/ambient_buzz_playing = null // What buzz ambience is currently playing
+	var/ambient_effect_last_played = 0 // What was the last time we played an ambient effect noise?
 		////////////
 		//SECURITY//
 		////////////
@@ -107,3 +107,7 @@
 	var/next_keysend_reset = 0
 	var/next_keysend_trip_reset = 0
 	var/keysend_tripped = FALSE
+
+	var/datum/viewData/view_size
+	/// rate limiting for the crew manifest
+	var/crew_manifest_delay

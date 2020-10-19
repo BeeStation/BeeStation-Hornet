@@ -25,7 +25,6 @@
 	// if the precision is not specified, default to 0, but apply BoH penalties
 	if (isnull(precision))
 		precision = 0
-
 	switch(channel)
 		if(TELEPORT_CHANNEL_BLUESPACE)
 			if(istype(teleatom, /obj/item/storage/backpack/holding))
@@ -75,6 +74,8 @@
 		var/mob/M = teleatom
 		M.cancel_camera()
 
+	teleatom.teleport_act()
+
 	return TRUE
 
 /proc/tele_play_specials(atom/movable/teleatom, atom/location, datum/effect_system/effect, sound)
@@ -107,9 +108,8 @@
 			continue
 
 		var/datum/gas_mixture/A = F.air
-		var/list/A_gases = A.gases
 		var/trace_gases
-		for(var/id in A_gases)
+		for(var/id in A.get_gases())
 			if(id in GLOB.hardcoded_gases)
 				continue
 			trace_gases = TRUE
@@ -118,15 +118,15 @@
 		// Can most things breathe?
 		if(trace_gases)
 			continue
-		if(!(A_gases[/datum/gas/oxygen] && A_gases[/datum/gas/oxygen][MOLES] >= 16))
+		if(A.get_moles(/datum/gas/oxygen) < 16)
 			continue
-		if(A_gases[/datum/gas/plasma])
+		if(A.get_moles(/datum/gas/plasma))
 			continue
-		if(A_gases[/datum/gas/carbon_dioxide] && A_gases[/datum/gas/carbon_dioxide][MOLES] >= 10)
+		if(A.get_moles(/datum/gas/carbon_dioxide) >= 10)
 			continue
 
 		// Aim for goldilocks temperatures and pressure
-		if((A.temperature <= 270) || (A.temperature >= 360))
+		if((A.return_temperature() <= 270) || (A.return_temperature() >= 360))
 			continue
 		var/pressure = A.return_pressure()
 		if((pressure <= 20) || (pressure >= 550))

@@ -124,6 +124,7 @@
 
 			needs_update = 1
 
+
 //Nutrients//////////////////////////////////////////////////////////////
 			// Nutrients deplete slowly
 			if(prob(50))
@@ -175,8 +176,27 @@
 
 //Pests & Weeds//////////////////////////////////////////////////////////
 
-			else if(pestlevel >= 5)
-				adjustHealth(-1 / rating)
+			if(pestlevel >= 8)
+				if(!myseed.get_gene(/datum/plant_gene/trait/plant_type/carnivory))
+					adjustHealth(-2 / rating)
+
+				else
+					adjustHealth(2 / rating)
+					adjustPests(-1 / rating)
+
+			else if(pestlevel >= 4)
+				if(!myseed.get_gene(/datum/plant_gene/trait/plant_type/carnivory))
+					adjustHealth(-1 / rating)
+
+				else
+					adjustHealth(1 / rating)
+					if(prob(50))
+						adjustPests(-1 / rating)
+
+			else if(pestlevel < 4 && myseed.get_gene(/datum/plant_gene/trait/plant_type/carnivory))
+				adjustHealth(-2 / rating)
+				if(prob(5))
+					adjustPests(-1 / rating)
 
 			// If it's a weed, it doesn't stunt the growth
 			if(weedlevel >= 5 && !myseed.get_gene(/datum/plant_gene/trait/plant_type/weed_hardy))
@@ -216,6 +236,12 @@
 			needs_update = 1
 		if (needs_update)
 			update_icon()
+
+		if(myseed && prob(5 * (11-myseed.production)))
+			for(var/g in myseed.genes)
+				if(istype(g, /datum/plant_gene/trait))
+					var/datum/plant_gene/trait/selectedtrait = g
+					selectedtrait.on_grow(src)
 	return
 
 /obj/machinery/hydroponics/proc/nutrimentMutation()
@@ -282,7 +308,7 @@
 		else
 			plant_overlay.icon_state = myseed.icon_harvest
 	else
-		var/t_growthstate = min(round((age / myseed.maturation) * myseed.growthstages), myseed.growthstages)
+		var/t_growthstate = clamp(round((age / myseed.maturation) * myseed.growthstages), 1, myseed.growthstages)
 		plant_overlay.icon_state = "[myseed.icon_grow][t_growthstate]"
 	add_overlay(plant_overlay)
 
@@ -362,6 +388,7 @@
 	pestlevel = 0 // Reset
 	update_icon()
 	visible_message("<span class='warning'>The [oldPlantName] is overtaken by some [myseed.plantname]!</span>")
+	update_name()
 
 
 /obj/machinery/hydroponics/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0) // Mutates the current seed
@@ -396,6 +423,7 @@
 	sleep(5) // Wait a while
 	update_icon()
 	visible_message("<span class='warning'>[oldPlantName] suddenly mutates into [myseed.plantname]!</span>")
+	update_name()
 
 
 /obj/machinery/hydroponics/proc/mutateweed() // If the weeds gets the mutagent instead. Mind you, this pretty much destroys the old plant
@@ -416,6 +444,7 @@
 		sleep(5) // Wait a while
 		update_icon()
 		visible_message("<span class='warning'>The mutated weeds in [src] spawn some [myseed.plantname]!</span>")
+		update_name()
 	else
 		to_chat(usr, "<span class='warning'>The few weeds in [src] seem to react, but only for a moment...</span>")
 
@@ -507,7 +536,6 @@
 	if(S.has_reagent(/datum/reagent/medicine/charcoal, 1))
 		adjustToxic(-round(S.get_reagent_amount(/datum/reagent/medicine/charcoal) * 2))
 
-	// NIGGA, YOU JUST WENT ON FULL RETARD.
 	if(S.has_reagent(/datum/reagent/toxin, 1))
 		adjustToxic(round(S.get_reagent_amount(/datum/reagent/toxin) * 2))
 
@@ -756,6 +784,7 @@
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
 			dead = 0
 			myseed = O
+			update_name()
 			age = 1
 			plant_health = myseed.endurance
 			lastcycle = world.time
@@ -822,6 +851,7 @@
 					harvest = FALSE //To make sure they can't just put in another seed and insta-harvest it
 				qdel(myseed)
 				myseed = null
+				update_name()
 			weedlevel = 0 //Has a side effect of cleaning up those nasty weeds
 			update_icon()
 
@@ -853,6 +883,7 @@
 		to_chat(user, "<span class='notice'>You remove the dead plant from [src].</span>")
 		qdel(myseed)
 		myseed = null
+		update_name()
 		update_icon()
 	else
 		if(user)
@@ -870,6 +901,7 @@
 	if(!myseed.get_gene(/datum/plant_gene/trait/repeated_harvest))
 		qdel(myseed)
 		myseed = null
+		update_name()
 		dead = 0
 	update_icon()
 
@@ -906,6 +938,12 @@
 	visible_message("<span class='boldnotice'>[src] begins to glow with a beautiful light!</span>")
 	self_sustaining = TRUE
 	update_icon()
+
+/obj/machinery/hydroponics/proc/update_name()
+	if(myseed)
+		name = "[initial(name)] ([myseed.plantname])"
+	else
+		name = initial(name)
 
 ///////////////////////////////////////////////////////////////////////////////
 /obj/machinery/hydroponics/soil //Not actually hydroponics at all! Honk!

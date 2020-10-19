@@ -57,7 +57,7 @@
 		start_harvest()
 
 /obj/machinery/harvester/proc/can_harvest()
-	if(!powered(EQUIP) || state_open || !occupant || !iscarbon(occupant))
+	if(!powered() || state_open || !occupant || !iscarbon(occupant))
 		return
 	var/mob/living/carbon/C = occupant
 	if(!allow_clothing)
@@ -92,7 +92,7 @@
 
 /obj/machinery/harvester/proc/harvest()
 	update_icon()
-	if(!harvesting || state_open || !powered(EQUIP) || !occupant || !iscarbon(occupant))
+	if(!harvesting || state_open || !powered() || !occupant || !iscarbon(occupant))
 		return
 	playsound(src, 'sound/machines/juicer.ogg', 20, 1)
 	var/mob/living/carbon/C = occupant

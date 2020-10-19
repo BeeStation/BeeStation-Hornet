@@ -86,6 +86,11 @@
 	. = ..()
 	reagents.add_reagent(pick(/datum/reagent/uranium, /datum/reagent/uranium/radium), 5)
 
+/obj/effect/decal/cleanable/greenglow/ecto
+	name = "ectoplasmic puddle"
+	desc = "You know who to call."
+	light_power = 2
+
 /obj/effect/decal/cleanable/cobweb
 	name = "cobweb"
 	desc = "Somebody should remove that."
@@ -130,8 +135,8 @@
 				for(var/datum/reagent/R in reagents.reagent_list)
 					if (istype(R, /datum/reagent/consumable))
 						var/datum/reagent/consumable/nutri_check = R
-						if(nutri_check.nutriment_factor >0)
-							H.adjust_nutrition(nutri_check.nutriment_factor * nutri_check.volume)
+						if(nutri_check.nutriment_factor > 0)
+							H.adjust_nutrition(nutri_check.nutriment_factor * nutri_check.volume * 15) //Volume is typically really low so it needs a multiplier
 							reagents.remove_reagent(nutri_check.type,nutri_check.volume)
 			reagents.trans_to(H, reagents.total_volume, transfered_by = user)
 			qdel(src)
@@ -139,10 +144,23 @@
 /obj/effect/decal/cleanable/vomit/old
 	name = "crusty dried vomit"
 	desc = "You try not to look at the chunks, and fail."
+	var/list/disease = list()
 
 /obj/effect/decal/cleanable/vomit/old/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
 	icon_state += "-old"
+	if(prob(90))//vomit is much more likely to be diseased than blood is
+		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(2, 6), 6+(rand(1, 3)))
+		disease += R
+
+/obj/effect/decal/cleanable/vomit/old/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+	if(!disease.len)
+		return FALSE
+	if(scan)
+		E.scan(src, disease, user)
+	else
+		E.extrapolate(src, disease, user)
+	return TRUE
 
 /obj/effect/decal/cleanable/chem_pile
 	name = "chemical pile"

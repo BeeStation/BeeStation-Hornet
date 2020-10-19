@@ -117,7 +117,7 @@ Borg Hypospray
 	log_combat(user, M, "injected", src, "(CHEMICALS: [english_list(injected)])")
 
 /obj/item/reagent_containers/borghypo/attack_self(mob/user)
-	var/chosen_reagent = modes[reagent_names[input(user, "What reagent do you want to dispense?") as null|anything in reagent_names]]
+	var/chosen_reagent = modes[reagent_names[input(user, "What reagent do you want to dispense?") as null|anything in sortList(reagent_names)]]
 	if(!chosen_reagent)
 		return
 	mode = chosen_reagent
@@ -183,7 +183,34 @@ Borg Shaker
 	recharge_time = 3
 	accepts_reagent_upgrades = FALSE
 
-	reagent_ids = list(/datum/reagent/consumable/ethanol/beer, /datum/reagent/consumable/orangejuice, /datum/reagent/consumable/grenadine, /datum/reagent/consumable/limejuice, /datum/reagent/consumable/tomatojuice, /datum/reagent/consumable/space_cola, /datum/reagent/consumable/tonic, /datum/reagent/consumable/sodawater, /datum/reagent/consumable/ice, /datum/reagent/consumable/cream, /datum/reagent/consumable/ethanol/whiskey, /datum/reagent/consumable/ethanol/vodka, /datum/reagent/consumable/ethanol/rum, /datum/reagent/consumable/ethanol/gin, /datum/reagent/consumable/ethanol/tequila, /datum/reagent/consumable/ethanol/vermouth, /datum/reagent/consumable/ethanol/wine, /datum/reagent/consumable/ethanol/kahlua, /datum/reagent/consumable/ethanol/cognac, /datum/reagent/consumable/ethanol/ale, /datum/reagent/consumable/milk, /datum/reagent/consumable/coffee, /datum/reagent/consumable/banana, /datum/reagent/consumable/lemonjuice)
+	reagent_ids = list(
+			/datum/reagent/consumable/ethanol/absinthe,
+			/datum/reagent/consumable/ethanol/ale,
+			/datum/reagent/consumable/ethanol/beer,
+			/datum/reagent/consumable/ethanol/cognac,
+			/datum/reagent/consumable/ethanol/gin,
+			/datum/reagent/consumable/ethanol/kahlua,
+			/datum/reagent/consumable/ethanol/rum,
+			/datum/reagent/consumable/ethanol/tequila,
+			/datum/reagent/consumable/ethanol/triple_sec,
+			/datum/reagent/consumable/ethanol/vermouth,
+			/datum/reagent/consumable/ethanol/vodka,
+			/datum/reagent/consumable/ethanol/whiskey,
+			/datum/reagent/consumable/ethanol/wine,
+			/datum/reagent/consumable/enzyme,
+			/datum/reagent/consumable/banana,
+			/datum/reagent/consumable/coffee,
+			/datum/reagent/consumable/cream,
+			/datum/reagent/consumable/grenadine,
+			/datum/reagent/consumable/ice,
+			/datum/reagent/consumable/lemonjuice,
+			/datum/reagent/consumable/limejuice,
+			/datum/reagent/consumable/milk,
+			/datum/reagent/consumable/orangejuice,
+			/datum/reagent/consumable/sodawater,
+			/datum/reagent/consumable/space_cola,
+			/datum/reagent/consumable/tomatojuice,
+			/datum/reagent/consumable/tonic)
 
 /obj/item/reagent_containers/borghypo/borgshaker/attack(mob/M, mob/user)
 	return //Can't inject stuff with a shaker, can we? //not with that attitude
@@ -240,13 +267,13 @@ Borg Shaker
 /obj/item/reagent_containers/borghypo/peace
 	name = "Peace Hypospray"
 
-	reagent_ids = list(/datum/reagent/peaceborg/confuse,/datum/reagent/peaceborg/tire,/datum/reagent/pax/peaceborg)
+	reagent_ids = list(/datum/reagent/peaceborg/inabizine,/datum/reagent/peaceborg/tire,/datum/reagent/pax/peaceborg)
 	accepts_reagent_upgrades = FALSE
 
 /obj/item/reagent_containers/borghypo/peace/hacked
 	desc = "Everything's peaceful in death!"
 	icon_state = "borghypo_s"
-	reagent_ids = list(/datum/reagent/peaceborg/confuse,/datum/reagent/peaceborg/tire,/datum/reagent/pax/peaceborg,/datum/reagent/toxin/staminatoxin,/datum/reagent/toxin/sulfonal,/datum/reagent/toxin/sodium_thiopental,/datum/reagent/toxin/cyanide,/datum/reagent/toxin/fentanyl)
+	reagent_ids = list(/datum/reagent/peaceborg/inabizine,/datum/reagent/peaceborg/tire,/datum/reagent/pax/peaceborg,/datum/reagent/toxin/staminatoxin,/datum/reagent/toxin/sulfonal,/datum/reagent/toxin/sodium_thiopental,/datum/reagent/toxin/cyanide,/datum/reagent/toxin/fentanyl)
 	accepts_reagent_upgrades = FALSE
 
 /obj/item/reagent_containers/borghypo/epi

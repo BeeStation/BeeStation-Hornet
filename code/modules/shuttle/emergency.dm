@@ -8,6 +8,9 @@
 	desc = "For shuttle control."
 	icon_screen = "shuttle"
 	icon_keyboard = "tech_key"
+	ui_x = 400
+	ui_y = 350
+
 	var/auth_need = 3
 	var/list/authorized = list()
 
@@ -20,8 +23,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "emergency_shuttle_console", name,
-			400, 400, master_ui, state)
+		ui = new(user, src, ui_key, "EmergencyShuttleConsole", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/emergency_shuttle/ui_data()
@@ -119,7 +121,7 @@
 
 	if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 		authorized.Cut()
-		DISABLE_BITFIELD(obj_flags, EMAGGED)
+		obj_flags &= ~(EMAGGED)
 
 	if(ENGINES_STARTED || (!IS_DOCKED))
 		return .
@@ -138,7 +140,7 @@
 	if(!IS_DOCKED)
 		return
 
-	if(CHECK_BITFIELD(obj_flags, EMAGGED) || ENGINES_STARTED)	//SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LAUNCH IN 10 SECONDS
+	if((obj_flags & EMAGGED) || ENGINES_STARTED)	//SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LAUNCH IN 10 SECONDS
 		to_chat(user, "<span class='warning'>The shuttle is already about to launch!</span>")
 		return
 
@@ -146,7 +148,7 @@
 	message_admins("[ADMIN_LOOKUPFLW(user.client)] has emagged the emergency shuttle [time] seconds before launch.")
 	log_game("[key_name(user)] has emagged the emergency shuttle in [COORD(src)] [time] seconds before launch.")
 
-	ENABLE_BITFIELD(obj_flags, EMAGGED)
+	obj_flags |= EMAGGED
 	SSshuttle.emergency.movement_force = list("KNOCKDOWN" = 60, "THROW" = 20)//YOUR PUNY SEATBELTS can SAVE YOU NOW, MORTAL
 	var/datum/species/S = new
 	for(var/i in 1 to 10)
@@ -201,7 +203,7 @@
 	. = ..()
 
 /obj/docking_port/mobile/emergency/request(obj/docking_port/stationary/S, area/signalOrigin, reason, redAlert, set_coefficient=null)
-	if(!isnum(set_coefficient))
+	if(!isnum_safe(set_coefficient))
 		var/security_num = seclevel2num(get_security_level())
 		switch(security_num)
 			if(SEC_LEVEL_GREEN)
@@ -293,12 +295,14 @@
 			has_xenos = TRUE
 
 	return has_xenos
-	
+
 /obj/docking_port/mobile/emergency/proc/ShuttleDBStuff()
 	set waitfor = FALSE
 	if(!SSdbcore.Connect())
 		return
-	var/datum/DBQuery/query_round_shuttle_name = SSdbcore.NewQuery("UPDATE [format_table_name("round")] SET shuttle_name = '[name]' WHERE id = [GLOB.round_id]")
+	var/datum/DBQuery/query_round_shuttle_name = SSdbcore.NewQuery({"
+		UPDATE [format_table_name("round")] SET shuttle_name = :name WHERE id = :round_id
+	"}, list("name" = name, "round_id" = GLOB.round_id))
 	query_round_shuttle_name.Execute()
 	qdel(query_round_shuttle_name)
 
@@ -348,6 +352,11 @@
 
 		if(SHUTTLE_IGNITING)
 			var/success = TRUE
+			//Check if the gamemode is clockcult and the clockies are utter failures
+			if(GLOB.celestial_gateway && !GLOB.gateway_opening)
+				SSshuttle.registerHostileEnvironment(GLOB.celestial_gateway)
+				var/obj/structure/destructible/clockwork/massive/celestial_gateway/gateway = GLOB.celestial_gateway
+				gateway.open_gateway()
 			SSshuttle.checkHostileEnvironment()
 			if(mode == SHUTTLE_STRANDED)
 				return
@@ -476,7 +485,7 @@
 /obj/machinery/computer/shuttle/pod/emag_act(mob/user)
 	if(obj_flags & EMAGGED)
 		return
-	ENABLE_BITFIELD(obj_flags, EMAGGED)
+	obj_flags |= EMAGGED
 	to_chat(user, "<span class='warning'>You fry the pod's alert level checking system.</span>")
 
 /obj/machinery/computer/shuttle/pod/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)

@@ -49,6 +49,7 @@
 	icon_state = "atmos_firesuit"
 	item_state = "firesuit_atmos"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	allowed = list(/obj/item/flashlight, /obj/item/extinguisher, /obj/item/crowbar, /obj/item/tank/internals)
 
 /*
  * Bomb protection
@@ -57,7 +58,7 @@
 	name = "bomb hood"
 	desc = "Use in case of bomb."
 	icon_state = "bombsuit"
-	clothing_flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL | SNUG_FIT
 	armor = list("melee" = 20, "bullet" = 0, "laser" = 20,"energy" = 10, "bomb" = 100, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
 	flags_inv = HIDEFACE|HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR
 	dynamic_hair_suffix = ""
@@ -120,7 +121,7 @@
 	name = "radiation hood"
 	icon_state = "rad"
 	desc = "A hood with radiation protective properties. The label reads, 'Made with lead. Please do not consume insulation.'"
-	clothing_flags = THICKMATERIAL|SHOWEROKAY
+	clothing_flags = THICKMATERIAL	| SHOWEROKAY | SNUG_FIT
 	flags_inv = HIDEMASK|HIDEEARS|HIDEFACE|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 60, "rad" = 100, "fire" = 30, "acid" = 30)
 	strip_delay = 60

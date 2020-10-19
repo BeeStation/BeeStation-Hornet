@@ -1,0 +1,47 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/closet/emcloset,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/structure/chair,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/structure/table,
+/obj/item/taperecorder,
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+b
+f
+"}
+(2,1,1) = {"
+b
+e
+b
+"}
+(3,1,1) = {"
+c
+b
+h
+"}

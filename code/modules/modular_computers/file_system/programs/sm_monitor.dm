@@ -8,7 +8,7 @@
 	transfer_access = ACCESS_CONSTRUCTION
 	network_destination = "supermatter monitoring system"
 	size = 5
-	tgui_id = "ntos_supermatter_monitor"
+	tgui_id = "NtosSupermatterMonitor"
 	ui_x = 600
 	ui_y = 350
 	var/last_status = SUPERMATTER_INACTIVE
@@ -72,22 +72,22 @@
 		data["active"] = TRUE
 		data["SM_integrity"] = active.get_integrity()
 		data["SM_power"] = active.power
-		data["SM_ambienttemp"] = air.temperature
+		data["SM_ambienttemp"] = air.return_temperature()
 		data["SM_ambientpressure"] = air.return_pressure()
 		//data["SM_EPR"] = round((air.total_moles / air.group_multiplier) / 23.1, 0.01)
 		var/list/gasdata = list()
 
 
 		if(air.total_moles())
-			for(var/gasid in air.gases)
+			for(var/gasid in air.get_gases())
 				gasdata.Add(list(list(
-				"name"= air.gases[gasid][GAS_META][META_GAS_NAME],
-				"amount" = round(100*air.gases[gasid][MOLES]/air.total_moles(),0.01))))
+				"name"= GLOB.meta_gas_info[gasid][META_GAS_NAME],
+				"amount" = round(100*air.get_moles(gasid)/air.total_moles(),0.01))))
 
 		else
-			for(var/gasid in air.gases)
+			for(var/gasid in air.get_gases())
 				gasdata.Add(list(list(
-					"name"= air.gases[gasid][GAS_META][META_GAS_NAME],
+					"name"= GLOB.meta_gas_info[gasid][META_GAS_NAME],
 					"amount" = 0)))
 
 		data["gases"] = gasdata

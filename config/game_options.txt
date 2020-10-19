@@ -18,6 +18,10 @@ REVIVAL_BRAIN_LIFE -1
 ## Comment this out if you want OOC to be automatically disabled during the round, it will be enabled during the lobby and after the round end results.
 OOC_DURING_ROUND
 
+## LOOC
+## Comment this out to disable LOOC
+LOOC_ENABLED
+
 ## EMOJI ###
 ## Comment this out if you want to disable emojis
 EMOJIS
@@ -90,17 +94,19 @@ ALERT_DELTA Destruction of the station is imminent. All crew are instructed to o
 
 PROBABILITY TRAITOR 9
 PROBABILITY CULT 6
+PROBABILITY HERESY 6
 PROBABILITY NUCLEAR 6
 PROBABILITY TRAITORCHAN 5
 PROBABILITY CHANGELING 5
+PROBABILITY INCURSION 4
 PROBABILITY REVOLUTION 4
 PROBABILITY INTERNAL_AFFAIRS 3
 PROBABILITY TRAITORBRO 3
-PROBABILITY CLOCKWORK_CULT 3
-PROBABILITY GANG 3
 PROBABILITY WIZARD 2
 PROBABILITY CLOWNOPS 2
 PROBABILITY MONKEY 1
+PROBABILITY CLOCKCULT 1
+PROBABILITY GANG 0
 PROBABILITY METEOR 0
 PROBABILITY EXTENDED 0
 PROBABILITY SECRET_EXTENDED 0
@@ -120,15 +126,20 @@ REPEATED_MODE_ADJUST 45 30 10
 CONTINUOUS TRAITOR
 CONTINUOUS TRAITORBRO
 CONTINUOUS TRAITORCHAN
+CONTINUOUS INCURSION
 CONTINUOUS INTERNAL_AFFAIRS
 #CONTINUOUS NUCLEAR
 #CONTINUOUS REVOLUTION
 CONTINUOUS CULT
-CONTINUOUS CLOCKWORK_CULT
 CONTINUOUS CHANGELING
 CONTINUOUS WIZARD
 #CONTINUOUS MONKEY
 CONTINUOUS HIVEMIND
+CONTINUOUS CLOCKCULT
+
+#Prevents the death of round-ending antagonist rulesets ending the round immediately.
+
+CONTINUOUS DYNAMIC
 
 ##Note: do not toggle continuous off for these modes, as they have no antagonists and would thus end immediately!
 
@@ -141,13 +152,13 @@ CONTINUOUS SECRET_EXTENDED
 ## In modes that are continuous, if all antagonists should die then a new set of antagonists will be created.
 
 MIDROUND_ANTAG TRAITOR
+#MIDROUND_ANTAG INCURSION
 #MIDROUND_ANTAG TRAITORBRO
 MIDROUND_ANTAG TRAITORCHAN
 MIDROUND_ANTAG INTERNAL_AFFAIRS
 #MIDROUND_ANTAG  NUCLEAR
 #MIDROUND_ANTAG  REVOLUTION
 MIDROUND_ANTAG CULT
-MIDROUND_ANTAG CLOCKWORK_CULT
 MIDROUND_ANTAG CHANGELING
 MIDROUND_ANTAG WIZARD
 #MIDROUND_ANTAG  MONKEY
@@ -179,9 +190,6 @@ MIDROUND_ANTAG WIZARD
 #MIN_POP CULT 24
 #MAX_POP CULT -1
 
-#MIN_POP CLOCKWORK_CULT 24
-#MAX_POP CLOCKWORK_CULT -1
-
 #MIN_POP CHANGELING 15
 #MAX_POP CHANGELING -1
 
@@ -200,11 +208,15 @@ MIDROUND_ANTAG WIZARD
 #MIN_POP DEVIL_AGENTS 25
 #MAX_POP DEVIL_AGENTS -1
 
+MIN_POP INCURSION 22
+MAX_POP INCURSION -1
+
 ## Setting at least one mode to be playable at 0/1 players is required.
 #MIN_POP EXTENDED 0
 #MAX_POP EXTENDED -1
 
-
+MIN_POP CLOCKCULT 32
+MAX_POP CLOCKCULT -1
 
 ## The amount of time it takes for the emergency shuttle to be called, from round start.
 SHUTTLE_REFUEL_DELAY 12000
@@ -215,6 +227,7 @@ SHUTTLE_REFUEL_DELAY 12000
 TRAITOR_SCALING_COEFF 6
 BROTHER_SCALING_COEFF 6
 CHANGELING_SCALING_COEFF 6
+ECULT_SCALING_COEFF 6
 
 ## Variables calculate how number of open security officer positions will scale to population.
 ## Used as (Officers = Population / Coeff)
@@ -233,11 +246,24 @@ PROTECT_ROLES_FROM_ANTAGONIST
 ## Uncomment to prohibit assistants from becoming most antagonists.
 #PROTECT_ASSISTANT_FROM_ANTAGONIST
 
+## Uncomment to prohibit head roles from becoming most antagonists.
+#PROTECT_HEADS_FROM_ANTAGONIST
+
 ## If non-human species are barred from joining as a head of staff
 #ENFORCE_HUMAN_AUTHORITY
 
 ## If late-joining players have a chance to become a traitor/changeling
 ALLOW_LATEJOIN_ANTAGONISTS
+
+## Incursion Rules
+## The more incursion-traitors spawn, the most pop is required to spawn the next
+## Values of 6 and 2 will be 6 for 1 then (6) + (6 + 2) for 2
+## 6, 14, 24, 36, 50, 66, 84
+INCURSION_COST_BASE 6
+INCURSION_COST_INCREMENT 0.25
+INCURSION_COUNT_MAX 6
+INCURSION_COUNT_MIN 2
+INCURSION_OBJECTIVE_AMOUNT 4
 
 ## Comment this out to disable the antagonist reputation system. This system rewards players who participate in the game instead of greytiding by giving them slightly higher odds to
 ## roll antagonist in subsequent rounds until they get it.
@@ -295,7 +321,7 @@ ALLOW_AI_MULTICAM
 ## AWAY MISSIONS ###
 
 ## Uncomment to load one of the missions from awaymissionconfig.txt at roundstart.
-ROUNDSTART_AWAY
+#ROUNDSTART_AWAY
 
 ## How long the delay is before the Away Mission gate opens. Default is half an hour.
 ## 600 is one minute.
@@ -434,7 +460,7 @@ ROUNDSTART_RACES human
 
 ## Races that are strictly worse than humans that could probably be turned on without balance concerns
 ROUNDSTART_RACES lizard
-#ROUNDSTART_RACES fly
+ROUNDSTART_RACES fly
 ROUNDSTART_RACES moth
 ROUNDSTART_RACES plasmaman
 ROUNDSTART_RACES felinid
@@ -444,14 +470,15 @@ ROUNDSTART_RACES ipc
 
 ## Races that are better than humans in some ways, but worse in others
 ROUNDSTART_RACES ethereal
+ROUNDSTART_RACES apid
 #ROUNDSTART_RACES jelly
-#ROUNDSTART_RACES golem
-#ROUNDSTART_RACES adamantine
-#ROUNDSTART_RACES plasma
-#ROUNDSTART_RACES diamond
-#ROUNDSTART_RACES gold
-#ROUNDSTART_RACES silver
-#ROUNDSTART_RACES uranium
+#ROUNDSTART_RACES iron_golem
+#ROUNDSTART_RACES adamantine_golem
+#ROUNDSTART_RACES plasma_golem
+#ROUNDSTART_RACES diamond_golem
+#ROUNDSTART_RACES gold_golem
+#ROUNDSTART_RACES silver_golem
+#ROUNDSTART_RACES uranium_golem
 #ROUNDSTART_RACES abductor
 #ROUNDSTART_RACES synth
 
@@ -462,6 +489,12 @@ ROUNDSTART_RACES ethereal
 #ROUNDSTART_RACES pod
 #ROUNDSTART_RACES military_synth
 #ROUNDSTART_RACES agent
+
+## Paywall Races
+##-------------------------------------------------------------------------------------------
+## Uncommenting races will restrict them behind the patreon paywall
+
+#PAYWALL_RACES felinid
 
 ##-------------------------------------------------------------------------------------------
 
@@ -521,7 +554,7 @@ BOMBCAP 24
 LAVALAND_BUDGET 60
 
 ## Space Ruin Budged
-Space_Budget 16
+Space_Budget 8
 
 ## Time in ds from when a player latejoins till the arrival shuttle docks at the station
 ## Must be at least 30. At least 55 recommended to be visually/aurally appropriate
@@ -559,6 +592,9 @@ ROUNDSTART_TRAITS
 ## Sets shift time to server time at roundstart. Overridden by RANDOMIZE_SHIFT_TIME ##
 #SHIFT_TIME_REALTIME
 
+## Maximum fine for a citation
+MAXFINE 2000
+
 ## Enable the capitalist agenda on your server.
 ECONOMY
 
@@ -566,7 +602,7 @@ ECONOMY
 ALLOW_CREW_OBJECTIVES
 
 ## Mob spam prevention. The number of each mobtype that can be alive at once. Stops people from crashing the server with chickens/monkeycubes/slimes. Altering these values is recommended based on server hardware.
-MAX_CUBE_MONKEYS 100
+MAX_CUBE_MONKEYS 150
 MAX_CHICKENS 100
 MAX_SLIMES 100
 

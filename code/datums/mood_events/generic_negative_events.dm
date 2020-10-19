@@ -77,13 +77,22 @@
 	timeout = 2 MINUTES
 
 /datum/mood_event/table/add_effects()
-	if(ishuman(owner))
-		var/mob/living/carbon/human/H = owner
+	var/datum/component/L = owner //owner is lying about its type, its component/mood while pretending to be mob. You must cast it to use it properly
+	var/mob/living/T = L.parent
+	if(ishuman(T))
+		var/mob/living/carbon/human/H = T
 		if(iscatperson(H))
 			H.dna.species.start_wagging_tail(H)
 			addtimer(CALLBACK(H.dna.species, /datum/species.proc/stop_wagging_tail, H), 30)
 			description =  "<span class='nicegreen'>They want to play on the table!</span>\n"
 			mood_change = 2
+
+
+
+/datum/mood_event/table_headsmash
+	description = "<span class='warning'>My fucking head, that hurt...</span>"
+	mood_change = -3
+	timeout = 3 MINUTES
 
 /datum/mood_event/brain_damage
   mood_change = -3
@@ -157,7 +166,7 @@
 /datum/mood_event/notcreepingsevere/add_effects(name)
 	var/list/unstable = list(name)
 	for(var/i in 1 to rand(3,5))
-		unstable += copytext(name, -1)
+		unstable += copytext_char(name, -1)
 	var/unhinged = uppertext(unstable.Join(""))//example Tinea Luxor > TINEA LUXORRRR (with randomness in how long that slur is)
 	description = "<span class='boldwarning'>THEY NEEEEEEED [unhinged]!!</span>\n"
 
@@ -188,6 +197,11 @@
 	mood_change = -2
 	timeout = 1200
 
+/datum/mood_event/gates_of_mansus
+	description = "<span class='boldwarning'>LIVING IN A PERFORMANCE IS WORSE THAN DEATH</span>\n"
+	mood_change = -25
+	timeout = 4 MINUTES
+
 //These are unused so far but I want to remember them to use them later
 /datum/mood_event/cloned_corpse
 	description = "<span class='boldwarning'>I recently saw my own corpse...</span>\n"
@@ -197,3 +211,9 @@
 	description = "<span class='boldwarning'>HE'S CUTTING ME OPEN!!</span>\n"
 	mood_change = -8
 
+/datum/mood_event/nanite_sadness
+	description = "<span class='warning robot'>+++++++HAPPINESS SUPPRESSION+++++++</span>\n"
+	mood_change = -7
+
+/datum/mood_event/nanite_sadness/add_effects(message)
+	description = "<span class='warning robot'>+++++++[message]+++++++</span>\n"

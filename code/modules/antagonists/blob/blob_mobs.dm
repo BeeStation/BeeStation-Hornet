@@ -57,7 +57,7 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/blob/proc/blob_chat(msg)
-	var/spanned_message = say_quote(msg, get_spans())
+	var/spanned_message = say_quote(msg)
 	var/rendered = "<font color=\"#EE4000\"><b>\[Blob Telepathy\] [real_name]</b> [spanned_message]</font>"
 	for(var/M in GLOB.mob_list)
 		if(isovermind(M) || istype(M, /mob/living/simple_animal/hostile/blob))
@@ -81,8 +81,7 @@
 	verb_ask = "psychically probes"
 	verb_exclaim = "psychically yells"
 	verb_yell = "psychically screams"
-	melee_damage_lower = 2
-	melee_damage_upper = 4
+	melee_damage = 4
 	obj_damage = 20
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attacktext = "hits"
@@ -94,12 +93,25 @@
 	var/mob/living/carbon/human/oldguy
 	var/is_zombie = 0
 	gold_core_spawnable = HOSTILE_SPAWN
+	var/list/disease = list()
 
 /mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src
 	. = ..()
+	/*var/datum/disease/advance/random/blob/R = new //either viro is cooperating with xenobio, or a blob has spawned and the round is probably over sooner than they can make a virus for this
+	disease += R*/
+
+/mob/living/simple_animal/hostile/blob/blobspore/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+	if(scan)
+		E.scan(src, disease, user)
+	else
+		if(E.create_culture(disease, user))
+			dust()
+			user.visible_message("<span class='danger'>[user] stabs [src] with [E], sucking it up!</span>", \
+	 				 "<span class='danger'>You stab [src] with [E]'s probe, destroying it!</span>")
+	return TRUE
 
 /mob/living/simple_animal/hostile/blob/blobspore/Life()
 	if(!is_zombie && isturf(src.loc))
@@ -121,8 +133,7 @@
 	name = "blob zombie"
 	desc = "A shambling corpse animated by the blob."
 	mob_biotypes += MOB_HUMANOID
-	melee_damage_lower += 8
-	melee_damage_upper += 11
+	melee_damage += 11
 	movement_type = GROUND
 	death_cloud_size = 0
 	icon = H.icon
@@ -184,8 +195,7 @@
 	name = "fragile blob spore"
 	health = 15
 	maxHealth = 15
-	melee_damage_lower = 1
-	melee_damage_upper = 2
+	melee_damage = 2
 	death_cloud_size = 0
 
 /////////////////
@@ -201,8 +211,7 @@
 	health = 200
 	maxHealth = 200
 	damage_coeff = list(BRUTE = 0.5, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
-	melee_damage_lower = 20
-	melee_damage_upper = 20
+	melee_damage = 20
 	obj_damage = 60
 	attacktext = "slams"
 	attack_sound = 'sound/effects/blobattack.ogg'
@@ -276,12 +285,10 @@
 /mob/living/simple_animal/hostile/blob/blobbernaut/update_icons()
 	..()
 	if(overmind) //if we have an overmind, we're doing chemical reactions instead of pure damage
-		melee_damage_lower = 4
-		melee_damage_upper = 4
+		melee_damage = 4
 		attacktext = overmind.blobstrain.blobbernaut_message
 	else
-		melee_damage_lower = initial(melee_damage_lower)
-		melee_damage_upper = initial(melee_damage_upper)
+		melee_damage = initial(melee_damage)
 		attacktext = initial(attacktext)
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)
@@ -294,3 +301,4 @@
 /mob/living/simple_animal/hostile/blob/blobbernaut/independent
 	independent = TRUE
 	gold_core_spawnable = HOSTILE_SPAWN
+

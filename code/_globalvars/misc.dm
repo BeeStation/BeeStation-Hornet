@@ -18,6 +18,13 @@ GLOBAL_VAR_INIT(bsa_unlock, FALSE)	//! BSA unlocked by head ID swipes
 GLOBAL_LIST_EMPTY(player_details)	//! ckey -> /datum/player_details
 
 GLOBAL_VAR_INIT(remote_control, TRUE) //! circuit shit
+///All currently running polls held as datums
+GLOBAL_LIST_EMPTY(polls)
+GLOBAL_PROTECT(polls)
+
+///All poll option datums of running polls
+GLOBAL_LIST_EMPTY(poll_options)
+GLOBAL_PROTECT(poll_options)
 
 // All religion stuff
 GLOBAL_VAR(religion)
@@ -32,3 +39,5 @@ GLOBAL_VAR(holy_armor_type)
 GLOBAL_VAR_INIT(total_cube_monkeys, 0)
 GLOBAL_VAR_INIT(total_chickens, 0)
 GLOBAL_VAR_INIT(total_slimes, 0)
+
+GLOBAL_VAR_INIT(internal_tick_usage, 0.2 * world.tick_lag) //This var is updated every tick by a DLL if present, used to reduce lag

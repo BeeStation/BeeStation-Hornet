@@ -583,3 +583,21 @@
 
 	beakers += B1
 	beakers += B2
+
+/obj/item/grenade/chem_grenade/ghostbuster
+	name = "counterparanormal foam grenade"
+	desc = "The note on the side guarantees to ward off most malicious spirits from covered area.\ The grenade itself seems to be old and covered with dust."
+	stage = GRENADE_READY
+
+/obj/item/grenade/chem_grenade/ghostbuster/Initialize()
+	. = ..()
+	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
+
+	B1.reagents.add_reagent(/datum/reagent/fluorosurfactant, 50)
+	B1.reagents.add_reagent(/datum/reagent/water/holywater, 50)
+	B2.reagents.add_reagent(/datum/reagent/water, 50)
+	B2.reagents.add_reagent(/datum/reagent/consumable/sodiumchloride, 50)
+
+	beakers += B1
+	beakers += B2

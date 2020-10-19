@@ -287,10 +287,10 @@ em						{font-style: normal;	font-weight: bold;}
 .sciradio				{color: #c68cfa;}
 .comradio				{color: #5177ff;}
 .secradio				{color: #dd3535;}
-.medradio				{color: #57b8f0;}
+.medradio				{color: #33ccff;}
 .engradio				{color: #f37746;}
 .suppradio				{color: #b88646;}
-.servradio				{color: #6ca729;}
+.servradio				{color: #4e7a1f}
 .syndradio				{color: #8f4a4b;}
 .centcomradio			{color: #2681a5;}
 .aiprivradio			{color: #d65d95;}
@@ -361,8 +361,9 @@ em						{font-style: normal;	font-weight: bold;}
 .brass					{color: #BE8700;}
 .heavy_brass			{color: #BE8700; font-weight: bold; font-style: italic;}
 .large_brass			{color: #BE8700; font-size: 24px;}
+.leader_brass			{color: #BE8700; font-size: 16px;}
 .big_brass				{color: #BE8700; font-size: 24px; font-weight: bold; font-style: italic;}
-.ratvar					{color: #BE8700; font-size: 48px; font-weight: bold; font-style: italic;}
+.ratvar					{color: #BE8700; font-size: 48px; font-weight: bold; font-style: italic; animation: ratvarcolor 5000ms infinite;}
 .alloy					{color: #42474D;}
 .heavy_alloy			{color: #42474D; font-weight: bold; font-style: italic;}
 .nezbere_large			{color: #42474D; font-size: 24px; font-weight: bold; font-style: italic;}
@@ -380,6 +381,21 @@ em						{font-style: normal;	font-weight: bold;}
 .neovgre_large			{color: #6E001A; font-size: 24px; font-weight: bold; font-style: italic;}
 .neovgre				{color: #6E001A; font-weight: bold; font-style: italic;}
 .neovgre_small			{color: #6E001A;}
+
+@keyframes ratvarcolor {
+	0% { color: #0d0d0d; }
+	9% { color: #BE8700; }
+	18% { color: #0d0d0d; }
+	27% { color: #42474D; }
+	36% { color: #0d0d0d; }
+	45% { color: #AF0AAF; }
+	54% { color: #0d0d0d; }
+	63% { color: #1E8CE1; }
+	72% { color: #0d0d0d; }
+	81% { color: #DAAA18; }
+	90% { color: #0d0d0d; }
+	100% { color: #6E001A; }
+}
 
 .newscaster				{color: #c05d5d;}
 .ghostalert				{color: #6600ff;	font-style: italic; font-weight: bold;}
@@ -407,6 +423,7 @@ em						{font-style: normal;	font-weight: bold;}
 .greentext				{color: #059223;	font-size: 24px;}
 .redtext				{color: #c51e1e;	font-size: 24px;}
 .clown					{color: #ff70c1;	font-size: 24px; font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}
+.singing				{font-family: "Trebuchet MS", cursive, sans-serif; font-style: italic;}
 .his_grace				{color: #15D512;	font-family: "Courier New", cursive, sans-serif; font-style: italic;}
 .hypnophrase			{color: #202020;	font-weight: bold; animation: hypnocolor 1500ms infinite;}
 @keyframes hypnocolor {

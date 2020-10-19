@@ -313,7 +313,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     hidden = TRUE
     unique = FALSE
     dynamic_lighting = DYNAMIC_LIGHTING_FORCED
-    ambientsounds = list('sound/ambience/servicebell.ogg')
+    ambient_effects = list('sound/ambience/servicebell.ogg')
     var/roomnumber = 0
     var/obj/item/hilbertshotel/parentSphere
     var/datum/turf_reservation/reservation
@@ -452,7 +452,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     id_access_list = list(ACCESS_AWAY_GENERIC3, ACCESS_RESEARCH)
     instant = TRUE
     id = /obj/item/card/id/silver
-    uniform = /obj/item/clothing/under/rank/research_director
+    uniform = /obj/item/clothing/under/rank/rnd/research_director
     shoes = /obj/item/clothing/shoes/sneakers/brown
     back = /obj/item/storage/backpack/satchel/leather
     suit = /obj/item/clothing/suit/toggle/labcoat

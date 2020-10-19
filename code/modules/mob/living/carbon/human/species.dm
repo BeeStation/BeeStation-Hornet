@@ -26,6 +26,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/list/no_equip = list()	// slots the race can't equip stuff to
 	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
 	var/say_mod = "says"	// affects the speech message
+	var/species_language_holder = /datum/language_holder
 	var/list/default_features = list() // Default mutant bodyparts for this species. Don't forget to set one for every mutant bodypart you allow this species to have.
 	var/list/mutant_bodyparts = list() 	// Visible CURRENT bodyparts that are unique to a species. DO NOT USE THIS AS A LIST OF ALL POSSIBLE BODYPARTS AS IT WILL FUCK SHIT UP! Changes to this list for non-species specific bodyparts (ie cat ears and tails) should be assigned at organ level if possible. Layer hiding is handled by handle_mutant_bodyparts() below.
 	var/list/mutant_organs = list()		//Internal organs that are unique to this race.
@@ -41,9 +42,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/toxmod = 1
 	var/staminamod = 1		// multiplier for stun duration
 	var/attack_type = BRUTE //Type of damage attack does
-	var/punchdamagelow = 1       //lowest possible punch damage. if this is set to 0, punches will always miss
-	var/punchdamagehigh = 10      //highest possible punch damage
-	var/punchstunthreshold = 10//damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
+	var/punchdamage = 7      //highest possible punch damage
 	var/siemens_coeff = 1 //base electrocution coefficient
 	var/damage_overlay_type = "human" //what kind of damage overlays (if any) appear on our species when wounded?
 	var/fixed_mut_color = "" //to use MUTCOLOR with a fixed color that's independent of dna.feature["mcolor"]
@@ -55,19 +54,20 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/species_gibs = "human"
 	var/allow_numbers_in_name // Can this species use numbers in its name?
 	var/datum/outfit/outfit_important_for_life /// A path to an outfit that is important for species life e.g. plasmaman outfit
-
+	var/datum/action/innate/flight/fly //the actual flying ability given to flying species
 
 	// species-only traits. Can be found in DNA.dm
 	var/list/species_traits = list()
 	// generic traits tied to having the species
 	var/list/inherent_traits = list()
 	var/list/inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	///List of factions the mob gain upon gaining this species.
+	var/list/inherent_factions
 
 	var/attack_verb = "punch"	// punch-specific attack verb
 	var/sound/attack_sound = 'sound/weapons/punch1.ogg'
 	var/sound/miss_sound = 'sound/weapons/punchmiss.ogg'
 
-	var/list/mob/living/ignored_by = list()	// list of mobs that will ignore this species
 	//Breathing!
 	var/obj/item/organ/lungs/mutantlungs = null
 	var/breathid = "o2"
@@ -79,6 +79,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/obj/item/mutanthands
 	var/obj/item/organ/tongue/mutanttongue = /obj/item/organ/tongue
 	var/obj/item/organ/tail/mutanttail = null
+	var/obj/item/organ/wings/mutantwings = null
 
 	var/obj/item/organ/liver/mutantliver
 	var/obj/item/organ/stomach/mutantstomach
@@ -88,6 +89,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	//Think magic mirror and pride mirror, slime extract, ERT etc, see defines
 	//in __DEFINES/mobs.dm, defaults to NONE, so people actually have to think about it
 	var/changesource_flags = NONE
+
 ///////////
 // PROCS //
 ///////////
@@ -153,6 +155,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/obj/item/organ/liver/liver = C.getorganslot(ORGAN_SLOT_LIVER)
 	var/obj/item/organ/stomach/stomach = C.getorganslot(ORGAN_SLOT_STOMACH)
 	var/obj/item/organ/tail/tail = C.getorganslot(ORGAN_SLOT_TAIL)
+	var/obj/item/organ/wings/wings = C.getorganslot(ORGAN_SLOT_WINGS)
 
 	var/should_have_brain = TRUE
 	var/should_have_heart = !(NOBLOOD in species_traits)
@@ -161,9 +164,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/should_have_eyes = TRUE
 	var/should_have_ears = TRUE
 	var/should_have_tongue = TRUE
-	var/should_have_liver = !(NOLIVER in species_traits)
+	var/should_have_liver = !(TRAIT_NOMETABOLISM in inherent_traits)
 	var/should_have_stomach = !(NOSTOMACH in species_traits)
 	var/should_have_tail = mutanttail
+	var/should_have_wings = mutantwings
 
 	if(heart && (!should_have_heart || replace_current))
 		heart.Remove(C,1)
@@ -215,6 +219,13 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(should_have_tail && !tail)
 		tail = new mutanttail()
 		tail.Insert(C)
+
+	if(wings && (!should_have_wings || replace_current))
+		wings.Remove(C,1)
+		QDEL_NULL(wings)
+	if(should_have_wings && !wings)
+		wings = new mutantwings()
+		wings.Insert(C)
 
 	if(C.get_bodypart(BODY_ZONE_HEAD))
 		if(brain && (replace_current || !should_have_brain))
@@ -312,6 +323,25 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		for(var/datum/disease/A in C.diseases)
 			A.cure(FALSE)
 
+	for(var/datum/disease/A in C.diseases)//if we can't have the disease, dont keep it
+		var/curedisease = TRUE
+		for(var/host_type in A.infectable_biotypes)
+			if(host_type in inherent_biotypes)
+				curedisease = FALSE
+				break
+		if(curedisease)
+			A.cure(FALSE)
+
+	if(TRAIT_TOXIMMUNE in inherent_traits)
+		C.setToxLoss(0, TRUE, TRUE)
+
+	if(TRAIT_NOMETABOLISM in inherent_traits)
+		C.reagents.end_metabolization(C, keep_liverless = TRUE)
+
+	if(inherent_factions)
+		for(var/i in inherent_factions)
+			C.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
+
 	C.add_movespeed_modifier(MOVESPEED_ID_SPECIES, TRUE, 100, override=TRUE, multiplicative_slowdown=speedmod, movetypes=(~FLYING))
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_GAIN, src, old_species)
@@ -340,6 +370,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		C.dna.mutation_index[location] = new_species.inert_mutation
 		C.dna.mutation_index[new_species.inert_mutation] = create_sequence(new_species.inert_mutation)
 
+	if(inherent_factions)
+		for(var/i in inherent_factions)
+			C.faction -= i
 	C.remove_movespeed_modifier(MOVESPEED_ID_SPECIES)
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_LOSS, src)
@@ -406,6 +439,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				if(hair_color)
 					if(hair_color == "mutcolor")
 						facial_overlay.color = "#" + H.dna.features["mcolor"]
+					else if (hair_color =="fixedmutcolor")
+						facial_overlay.color = "#[fixed_mut_color]"
 					else
 						facial_overlay.color = "#" + hair_color
 				else
@@ -466,6 +501,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					if(hair_color)
 						if(hair_color == "mutcolor")
 							hair_overlay.color = "#" + H.dna.features["mcolor"]
+						else if(hair_color == "fixedmutcolor")
+							hair_overlay.color = "#[fixed_mut_color]"
 						else
 							hair_overlay.color = "#" + hair_color
 					else
@@ -778,8 +815,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		H.losebreath = 0
 
 		var/takes_crit_damage = (!HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
-		if((H.health < H.crit_threshold) && takes_crit_damage)
+		if((H.health <= H.crit_threshold) && takes_crit_damage)
 			H.adjustBruteLoss(1)
+	if(H.getorgan(/obj/item/organ/wings))
+		handle_flight(H)
 
 /datum/species/proc/spec_death(gibbed, mob/living/carbon/human/H)
 	return
@@ -1011,13 +1050,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		return FALSE
 	return TRUE
 
-/datum/species/proc/handle_speech(message, mob/living/carbon/human/H)
-	return message
-
-//return a list of spans or an empty list
-/datum/species/proc/get_spans()
-	return list()
-
 /datum/species/proc/check_species_weakness(obj/item, mob/living/attacker)
 	return 0 //This is not a boolean, it's the multiplier for the damage that the user takes from the item.It is added onto the check_weakness value of the mob, and then the force of the item is multiplied by this value
 
@@ -1062,10 +1094,14 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		var/datum/component/mood/mood = H.GetComponent(/datum/component/mood)
 		if(mood && mood.sanity > SANITY_DISTURBED)
 			hunger_rate *= max(0.5, 1 - 0.002 * mood.sanity) //0.85 to 0.75
-
-		if(H.satiety > 0)
+		// Whether we cap off our satiety or move it towards 0
+		if(H.satiety > MAX_SATIETY)
+			H.satiety = MAX_SATIETY
+		else if(H.satiety > 0)
 			H.satiety--
-		if(H.satiety < 0)
+		else if(H.satiety < -MAX_SATIETY)
+			H.satiety = -MAX_SATIETY
+		else if(H.satiety < 0)
 			H.satiety++
 			if(prob(round(-H.satiety/40)))
 				H.Jitter(5)
@@ -1105,8 +1141,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				H.add_movespeed_modifier(MOVESPEED_ID_HUNGRY, override = TRUE, multiplicative_slowdown = (hungry / 50))
 			else if(isethereal(H))
 				var/datum/species/ethereal/E = H.dna.species
-				if(E.ethereal_charge <= ETHEREAL_CHARGE_NORMAL)
-					H.add_movespeed_modifier(MOVESPEED_ID_HUNGRY, override = TRUE, multiplicative_slowdown = (1.5 * (1 - E.ethereal_charge / 100)))
+				var/charge = E.get_charge()
+				if(charge <= ETHEREAL_CHARGE_NORMAL)
+					. += 1.5 * (1 - charge / 100)
 			else
 				H.remove_movespeed_modifier(MOVESPEED_ID_HUNGRY)
 
@@ -1174,12 +1211,23 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/movement_delay(mob/living/carbon/human/H)
 	. = 0	//We start at 0.
-	var/gravity = H.has_gravity()
+	var/gravity = 0
+	gravity = H.has_gravity()
 
-	if(!HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN) && gravity > STANDARD_GRAVITY)
-		//Moving in high gravity is very slow (Flying too)
-		var/grav_force = min(gravity - STANDARD_GRAVITY,3)
-		. += 1 + grav_force
+	if(!HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN) && gravity)
+		if(H.wear_suit)
+			. += H.wear_suit.slowdown
+		if(H.shoes)
+			. += H.shoes.slowdown
+		if(H.back)
+			. += H.back.slowdown
+		for(var/obj/item/I in H.held_items)
+			if(I.item_flags & SLOWS_WHILE_IN_HAND)
+				. += I.slowdown
+
+		if(gravity > STANDARD_GRAVITY)
+			var/grav_force = min(gravity - STANDARD_GRAVITY,3)
+			. += 1 + grav_force
 
 	return .
 
@@ -1227,6 +1275,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			to_chat(user, "<span class='notice'>You do not breathe, so you cannot perform CPR.</span>")
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(HAS_TRAIT(target, TRAIT_ONEWAYROAD))
+		user.visible_message("<span class='userdanger'>Your wrist twists unnaturally as you attempt to grab [target]!</span>", "<span class='warning'>[user]'s wrist twists unnaturally away from [target]!</span>")
+		user.apply_damage(rand(15, 25), BRUTE, pick(list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)))
+		return FALSE
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>", \
 							"<span class='userdanger'>You block [user]'s grab attempt!</span>")
@@ -1248,6 +1300,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		return TRUE
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(HAS_TRAIT(target, TRAIT_ONEWAYROAD))
+		user.visible_message("<span class='userdanger'>Your wrist twists unnaturally as you attempt to hit [target]!</span>", "<span class='warning'>[user]'s wrist twists unnaturally away from [target]!</span>")
+		user.apply_damage(rand(15, 25), BRUTE, pick(list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)))
+		return FALSE
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
 		return FALSE
@@ -1273,18 +1329,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			else
 				user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 
-		var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
+		var/damage = user.dna.species.punchdamage
 
 		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.zone_selected))
 
-		var/miss_chance = 100//calculate the odds that a punch misses entirely. considers stamina and brute damage of the puncher. punches miss by default to prevent weird cases
-		if(user.dna.species.punchdamagelow)
-			if(atk_verb == ATTACK_EFFECT_KICK) //kicks never miss (provided your species deals more than 0 damage)
-				miss_chance = 0
-			else
-				miss_chance = min((user.dna.species.punchdamagehigh/user.dna.species.punchdamagelow) + user.getStaminaLoss() + (user.getBruteLoss()*0.5), 100) //old base chance for a miss + various damage. capped at 100 to prevent weirdness in prob()
-
-		if(!damage || !affecting || prob(miss_chance))//future-proofing for species that have 0 damage/weird cases where no zone is targeted
+		if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
 			playsound(target.loc, user.dna.species.miss_sound, 25, 1, -1)
 			target.visible_message("<span class='danger'>[user]'s [atk_verb] misses [target]!</span>",\
 			"<span class='userdanger'>[user]'s [atk_verb] misses you!</span>", null, COMBAT_MESSAGE_RANGE)
@@ -1313,20 +1362,14 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
 			log_combat(user, target, "punched")
 
-		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
-			target.visible_message("<span class='danger'>[user] knocked [target] down!</span>", \
-							"<span class='userdanger'>[user] knocked you down!</span>", null, COMBAT_MESSAGE_RANGE)
-			var/knockdown_duration = 40 + (target.getStaminaLoss() + (target.getBruteLoss()*0.5))*0.8 //50 total damage = 40 base stun + 40 stun modifier = 80 stun duration, which is the old base duration
-			target.apply_effect(knockdown_duration, EFFECT_KNOCKDOWN, armor_block)
-			target.forcesay(GLOB.hit_appends)
-			log_combat(user, target, "got a stun punch with their previous punch")
-		else if(!(target.mobility_flags & MOBILITY_STAND))
-			target.forcesay(GLOB.hit_appends)
-
 /datum/species/proc/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	return
 
-/datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+/datum/species/proc/disarm(mob/living/carbon/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(HAS_TRAIT(target, TRAIT_ONEWAYROAD))
+		user.visible_message("<span class='userdanger'>Your wrist twists unnaturally as you attempt to shove [target]!</span>", "<span class='warning'>[user]'s wrist twists unnaturally away from [target]!</span>")
+		user.apply_damage(15, BRUTE, pick(list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)))
+		return FALSE
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s shoving attempt!</span>", \
 							"<span class='userdanger'>You block [user]'s shoving attempt!</span>")
@@ -1356,7 +1399,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		var/shove_blocked = FALSE //Used to check if a shove is blocked so that if it is knockdown logic can be applied
 
 		//Thank you based whoneedsspace
-		target_collateral_human = locate(/mob/living/carbon/human) in target_shove_turf.contents
+		target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents
 		if(target_collateral_human)
 			shove_blocked = TRUE
 		else
@@ -1368,7 +1411,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 		if(target.IsKnockdown() && !target.IsParalyzed())
 			target.Paralyze(SHOVE_CHAIN_PARALYZE)
-			target.visible_message("<span class='danger'>[user.name] kicks [target.name] onto their side!</span>",
+			target.visible_message("<span class='danger'>[user.name] kicks [target.name] onto [target.p_their()] side!</span>",
 				"<span class='danger'>[user.name] kicks you onto your side!</span>", null, COMBAT_MESSAGE_RANGE)
 			addtimer(CALLBACK(target, /mob/living/proc/SetKnockdown, 0), SHOVE_CHAIN_PARALYZE)
 			log_combat(user, target, "kicks", "onto their side (paralyzing)")
@@ -1386,13 +1429,15 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 						if(O.flags_1 & ON_BORDER_1 && O.dir == turn(shove_dir, 180) && O.density)
 							directional_blocked = TRUE
 							break
-			if((!target_table && !target_collateral_human) || directional_blocked)
+			if((!target_table && !target_collateral_human && !target_disposal_bin) || directional_blocked)
 				target.Knockdown(SHOVE_KNOCKDOWN_SOLID)
-				user.visible_message("<span class='danger'>[user.name] shoves [target.name], knocking them down!</span>",
-					"<span class='danger'>You shove [target.name], knocking them down!</span>", null, COMBAT_MESSAGE_RANGE)
+				target.drop_all_held_items()
+				user.visible_message("<span class='danger'>[user.name] shoves [target.name], knocking [target.p_them()] down!</span>",
+					"<span class='danger'>You shove [target.name], knocking [target.p_them()] down!</span>", null, COMBAT_MESSAGE_RANGE)
 				log_combat(user, target, "shoved", "knocking them down")
 			else if(target_table)
 				target.Knockdown(SHOVE_KNOCKDOWN_TABLE)
+				target.drop_all_held_items()
 				user.visible_message("<span class='danger'>[user.name] shoves [target.name] onto \the [target_table]!</span>",
 					"<span class='danger'>You shove [target.name] onto \the [target_table]!</span>", null, COMBAT_MESSAGE_RANGE)
 				target.throw_at(target_table, 1, 1, null, FALSE) //1 speed throws with no spin are basically just forcemoves with a hard collision check
@@ -1412,7 +1457,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		else
 			user.visible_message("<span class='danger'>[user.name] shoves [target.name]!</span>",
 				"<span class='danger'>You shove [target.name]!</span>", null, COMBAT_MESSAGE_RANGE)
-			var/target_held_item = target.get_active_held_item()
+			/*var/target_held_item = target.get_active_held_item()
 			var/knocked_item = FALSE
 			if(!is_type_in_typecache(target_held_item, GLOB.shove_disarming_types))
 				target_held_item = null
@@ -1432,8 +1477,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				if(knocked_item)
 					append_message = "causing them to drop [target_held_item]"
 				else
-					append_message = "loosening their grip on [target_held_item]"
-			log_combat(user, target, "shoved", append_message)
+					append_message = "loosening their grip on [target_held_item]"*/
+			log_combat(user, target, "shoved")
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	return
@@ -1454,6 +1499,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 						"<span class='userdanger'>[M] attempts to touch you!</span>")
 		return 0
 	SEND_SIGNAL(M, COMSIG_MOB_ATTACK_HAND, M, H, attacker_style)
+	SEND_SIGNAL(H, COMSIG_MOB_HAND_ATTACKED, H, M, attacker_style)
 	switch(M.a_intent)
 		if("help")
 			help(M, H, attacker_style)
@@ -1497,14 +1543,19 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		return 0 //item force is zero
 
 	//dismemberment
-	var/probability = I.get_dismemberment_chance(affecting)
-	if(prob(probability) || (HAS_TRAIT(H, TRAIT_EASYDISMEMBER) && prob(probability))) //try twice
+	var/dismemberthreshold = ((affecting.max_damage * 2) - affecting.get_damage()) //don't take the current hit into account.
+	var/attackforce = (((I.w_class - 3) * 5) + ((I.attack_weight - 1) * 14) + ((I.sharpness-1) * 20)) //all the variables that go into ripping off a limb in one handy package. Force is absent because it's already been taken into account by the limb being damaged
+	if(HAS_TRAIT(src, TRAIT_EASYDISMEMBER))
+		dismemberthreshold -= 30
+	if(I.sharpness)
+		attackforce = max(attackforce, I.force)
+	if(attackforce >= dismemberthreshold && I.force >= 10)
 		if(affecting.dismember(I.damtype))
 			I.add_mob_blood(H)
 			playsound(get_turf(H), I.get_dismember_sound(), 80, 1)
 
 	var/bloody = 0
-	if(((I.damtype == BRUTE) && I.force && prob(25 + (I.force * 2))))
+	if((I.damtype == BRUTE) && (I.force >= max(10, armor_block) || I.sharpness))
 		if(affecting.status == BODYPART_ORGANIC)
 			I.add_mob_blood(H)	//Make the weapon bloody, not the person.
 			if(prob(I.force * 2))	//blood spatter!
@@ -1520,20 +1571,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 		switch(hit_area)
 			if(BODY_ZONE_HEAD)
-				if(!I.is_sharp() && armor_block < 50)
-					if(prob(I.force))
-						H.adjustBrainLoss(20)
-						if(H.stat == CONSCIOUS)
-							H.visible_message("<span class='danger'>[H] is knocked senseless!</span>", \
-											"<span class='userdanger'>You're knocked senseless!</span>")
-							H.confused = max(H.confused, 20)
-							H.adjust_blurriness(10)
-						if(prob(10))
-							H.gain_trauma(/datum/brain_trauma/mild/concussion)
-					else
-						H.adjustBrainLoss(I.force * 0.2)
-
-					if(H.mind && H.stat == CONSCIOUS && H != user && prob(I.force + ((100 - H.health) * 0.5))) // rev deconversion through blunt trauma.
+				if(!I.sharpness)
+					if(H.mind && H.stat == CONSCIOUS && H != user && (H.health - (I.force * I.attack_weight)) <= 0) // rev deconversion through blunt trauma.
 						var/datum/antagonist/rev/rev = H.mind.has_antag_datum(/datum/antagonist/rev)
 						if(rev)
 							rev.remove_revolutionary(FALSE, user)
@@ -1550,12 +1589,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 						H.update_inv_glasses()
 
 			if(BODY_ZONE_CHEST)
-				if(H.stat == CONSCIOUS && !I.is_sharp() && armor_block < 50)
-					if(prob(I.force))
-						H.visible_message("<span class='danger'>[H] is knocked down!</span>", \
-									"<span class='userdanger'>You're knocked down!</span>")
-						H.apply_effect(60, EFFECT_KNOCKDOWN, armor_block)
-
 				if(bloody)
 					if(H.wear_suit)
 						H.wear_suit.add_mob_blood(H)
@@ -1580,7 +1613,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		BP = def_zone
 	else
 		if(!def_zone)
-			def_zone = ran_zone(def_zone)
+			def_zone = check_zone(def_zone)
 		BP = H.get_bodypart(check_zone(def_zone))
 		if(!BP)
 			BP = H.bodyparts[1]
@@ -1620,7 +1653,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				H.adjustStaminaLoss(damage_amount)
 		if(BRAIN)
 			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.brain_mod
-			H.adjustBrainLoss(damage_amount)
+			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, damage_amount)
 	return 1
 
 /datum/species/proc/on_hit(obj/item/projectile/P, mob/living/carbon/human/H)
@@ -1828,10 +1861,14 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 
 ////////////
-//Stun//
+//  Stun  //
 ////////////
 
 /datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
+	var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
+	if(H.getorgan(/obj/item/organ/wings))
+		if(wings.flight_level >= WINGS_FLYING && H.movement_type & FLYING)
+			flyslip(H)
 	. = stunmod * H.physiology.stun_mod * amount
 
 //////////////
@@ -1839,10 +1876,20 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 //////////////
 
 /datum/species/proc/space_move(mob/living/carbon/human/H)
-	return 0
+	if(H.loc && !isspaceturf(H.loc) && H.getorgan(/obj/item/organ/wings))
+		var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
+		if(wings.flight_level == WINGS_FLIGHTLESS)
+			var/datum/gas_mixture/current = H.loc.return_air()
+			if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
+				return TRUE
+	if(H.movement_type & FLYING)
+		return TRUE
+	return FALSE
 
 /datum/species/proc/negates_gravity(mob/living/carbon/human/H)
-	return 0
+	if(H.movement_type & FLYING)
+		return TRUE
+	return FALSE
 
 ////////////////
 //Tail Wagging//
@@ -1857,3 +1904,76 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /datum/species/proc/start_wagging_tail(mob/living/carbon/human/H)
 
 /datum/species/proc/stop_wagging_tail(mob/living/carbon/human/H)
+
+///////////////
+//FLIGHT SHIT//
+///////////////
+
+/datum/species/proc/handle_flight(mob/living/carbon/human/H)
+	if(H.movement_type & FLYING)
+		if(!CanFly(H))
+			toggle_flight(H)
+			return FALSE
+		return TRUE
+	else
+		return FALSE
+
+/datum/species/proc/CanFly(mob/living/carbon/human/H)
+	var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
+	if(!H.getorgan(/obj/item/organ/wings))
+		return FALSE
+	if(H.stat || !(H.mobility_flags & MOBILITY_STAND))
+		return FALSE
+	var/turf/T = get_turf(H)
+	if(!T)
+		return FALSE
+
+	var/datum/gas_mixture/environment = T.return_air()
+	if(environment && !(environment.return_pressure() > 30) && wings.flight_level <= WINGS_FLYING)
+		to_chat(H, "<span class='warning'>The atmosphere is too thin for you to fly!</span>")
+		return FALSE
+	else
+		return TRUE
+
+/datum/species/proc/flyslip(mob/living/carbon/human/H)
+	var/obj/buckled_obj
+	if(H.buckled)
+		buckled_obj = H.buckled
+
+	to_chat(H, "<span class='notice'>Your wings spazz out and launch you!</span>")
+
+	for(var/obj/item/I in H.held_items)
+		H.accident(I)
+
+	var/olddir = H.dir
+
+	H.stop_pulling()
+	if(buckled_obj)
+		buckled_obj.unbuckle_mob(H)
+		step(buckled_obj, olddir)
+	else
+		new /datum/forced_movement(H, get_ranged_target_turf(H, olddir, 4), 1, FALSE, CALLBACK(H, /mob/living/carbon/.proc/spin, 1, 1))
+	return TRUE
+
+//UNSAFE PROC, should only be called through the Activate or other sources that check for CanFly
+/datum/species/proc/toggle_flight(mob/living/carbon/human/H)
+	if(!(H.movement_type & FLYING))
+		stunmod *= 2
+		speedmod -= 0.35
+		H.setMovetype(H.movement_type | FLYING)
+		override_float = TRUE
+		H.pass_flags |= PASSTABLE
+		H.update_mobility()
+		if("wings" in H.dna.species.mutant_bodyparts)
+			H.Togglewings()
+	else
+		stunmod *= 0.5
+		speedmod += 0.35
+		H.setMovetype(H.movement_type & ~FLYING)
+		override_float = FALSE
+		H.pass_flags &= ~PASSTABLE
+		if("wingsopen" in H.dna.species.mutant_bodyparts)
+			H.Togglewings()
+		if(isturf(H.loc))
+			var/turf/T = H.loc
+			T.Entered(H)

@@ -155,17 +155,25 @@
 	else if(istype(W, /obj/item/coin))
 		insert_money(W, user, TRUE)
 		return
+	else if(istype(W, /obj/item/storage/bag/money))
+		var/obj/item/storage/bag/money/money_bag = W
+		var/list/money_contained = money_bag.contents
+
+		var/money_added = mass_insert_money(money_contained, user)
+
+		if (money_added)
+			to_chat(user, "<span class='notice'>You stuff the contents into the card! They disappear in a puff of bluespace smoke, adding [money_added] worth of credits to the linked account.</span>")
+		return
 	else
 		return ..()
 
 /obj/item/card/id/proc/insert_money(obj/item/I, mob/user, physical_currency)
+	if(!registered_account)
+		to_chat(user, "<span class='warning'>[src] doesn't have a linked account to deposit [I] into!</span>")
+		return
 	var/cash_money = I.get_item_credit_value()
 	if(!cash_money)
 		to_chat(user, "<span class='warning'>[I] doesn't seem to be worth anything!</span>")
-		return
-
-	if(!registered_account)
-		to_chat(user, "<span class='warning'>[src] doesn't have a linked account to deposit [I] into!</span>")
 		return
 
 	registered_account.adjust_money(cash_money)
@@ -177,6 +185,25 @@
 	to_chat(user, "<span class='notice'>The linked account now reports a balance of $[registered_account.account_balance].</span>")
 	qdel(I)
 
+/obj/item/card/id/proc/mass_insert_money(list/money, mob/user)
+	if(!registered_account)
+		to_chat(user, "<span class='warning'>[src] doesn't have a linked account to deposit into!</span>")
+		return FALSE
+
+	if (!money || !money.len)
+		return FALSE
+
+	var/total = 0
+
+	for (var/obj/item/physical_money in money)
+		total += physical_money.get_item_credit_value()
+		CHECK_TICK
+
+	registered_account.adjust_money(total)
+	SSblackbox.record_feedback("amount", "credits_inserted", total)
+	QDEL_LIST(money)
+
+	return total
 
 /obj/item/card/id/proc/alt_click_can_use_id(mob/living/user)
 	if(!isliving(user))
@@ -213,7 +240,7 @@
 			to_chat(user, "<span class='notice'>The provided account has been linked to this ID card.</span>")
 
 			return TRUE
-			
+
 	to_chat(user, "<span class='warning'>The account ID number provided is invalid.</span>")
 	return
 
@@ -310,7 +337,7 @@ update_label("John Doe", "Clowny")
 	name = "agent card"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE)
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
-	
+	var/forged = FALSE //have we set a custom name and job assignment, or will we use what we're given when we chameleon change?
 	var/static/list/available_icon_states = list(
 		"id",
 		"orange",
@@ -338,6 +365,7 @@ update_label("John Doe", "Clowny")
 		"ert",
 		"centcom",
 		"syndicate",
+		"ratvar",
 	)
 
 /obj/item/card/id/syndicate/Initialize()
@@ -353,6 +381,7 @@ update_label("John Doe", "Clowny")
 	if(istype(O, /obj/item/card/id))
 		var/obj/item/card/id/I = O
 		src.access |= I.access
+		log_id("[key_name(user)] copied all avaliable access from [I] to agent ID [src] at [AREACOORD(user)].")
 		if(isliving(user) && user.mind)
 			if(user.mind.special_role || anyone)
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over the ID, copying its access.</span>")
@@ -366,31 +395,32 @@ update_label("John Doe", "Clowny")
 			else
 				return ..()
 
-		var/popup_input = alert(user, "Action", "Agent ID", "Show", "Forge", "Change Account ID")
-		if(popup_input == "Forge")
-			var/t = copytext(sanitize_name(input(user, "What name would you like to put on this card?", "Agent card name", registered_name ? registered_name : (ishuman(user) ? user.real_name : user.name))as text | null),1,26)
-			if(!t || t == "Unknown" || t == "floor" || t == "wall" || t == "r-wall") //Same as mob/dead/new_player/prefrences.dm
-				if (t)
-					alert("Invalid name.")
-				return
-			registered_name = t
+		var/popup_input = alert(user, "Choose Action", "Agent ID", "Show", "Forge/Reset", "Change Account ID")
+		if(user.incapacitated())
+			return
+		if(popup_input == "Forge/Reset" && !forged)
+			var/input_name = stripped_input(user, "What name would you like to put on this card? Leave blank to randomise.", "Agent card name", registered_name ? registered_name : (ishuman(user) ? user.real_name : user.name), MAX_NAME_LEN)
+			input_name = reject_bad_name(input_name)
+			if(!input_name)
+				// Invalid/blank names give a randomly generated one.
+				if(user.gender == MALE)
+					input_name = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
+				else if(user.gender == FEMALE)
+					input_name = "[pick(GLOB.first_names_female)] [pick(GLOB.last_names)]"
+				else
+					input_name = "[pick(GLOB.first_names)] [pick(GLOB.last_names)]"
 
-			var/u = copytext(sanitize(input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", "Assistant")as text | null),1,MAX_MESSAGE_LEN)
-			if(!u)
-				registered_name = ""
+			var/target_occupation = stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", assignment ? assignment : "Assistant", MAX_MESSAGE_LEN)
+			if(!target_occupation)
 				return
-			assignment = u
+			log_id("[key_name(user)] forged agent ID [src] name to [input_name] and occupation to [target_occupation] at [AREACOORD(user)].")
+			registered_name = input_name
+			assignment = target_occupation
 			update_label()
-
-			var/choice = input(user) in available_icon_states
-			if(!Adjacent(user))
-				return
-			if(!choice)
-				return
-			icon_state = choice
-
+			forged = TRUE
 			to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
-			
+			log_game("[key_name(user)] has forged \the [initial(name)] with name \"[registered_name]\" and occupation \"[assignment]\".")
+
 			// First time use automatically sets the account id to the user.
 			if (first_use && !registered_account)
 				if(ishuman(user))
@@ -403,17 +433,30 @@ update_label("John Doe", "Clowny")
 							registered_account = account
 							to_chat(user, "<span class='notice'>Your account number has been automatically assigned.</span>")
 			return
+		else if (popup_input == "Forge/Reset" && forged)
+			registered_name = initial(registered_name)
+			assignment = initial(assignment)
+			log_id("[key_name(user)] reset agent ID [src] name to default at [AREACOORD(user)].")
+			log_game("[key_name(user)] has reset \the [initial(name)] named \"[src]\" to default.")
+			update_label()
+			forged = FALSE
+			to_chat(user, "<span class='notice'>You successfully reset the ID card.</span>")
+			return
 		else if (popup_input == "Change Account ID")
 			set_new_account(user)
 			return
 	return ..()
-
 /obj/item/card/id/syndicate/anyone
 	anyone = TRUE
 
 /obj/item/card/id/syndicate/nuke_leader
 	name = "lead agent card"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER)
+
+/obj/item/card/id/syndicate/ratvar
+	name = "servant ID card"
+	icon_state = "ratvar"
+	access = list(ACCESS_CLOCKCULT, ACCESS_MAINT_TUNNELS)
 
 /obj/item/card/id/syndicate_command
 	name = "syndicate ID card"

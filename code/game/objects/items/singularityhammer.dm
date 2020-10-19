@@ -7,6 +7,8 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
 	force = 5
+	attack_weight = 3
+	block_upgrade_walk = 1
 	force_unwielded = 5
 	force_wielded = 20
 	throwforce = 15
@@ -83,6 +85,8 @@
 	force_wielded = 25
 	throwforce = 30
 	throw_range = 7
+	block_upgrade_walk = 1
+	attack_weight = 3
 	w_class = WEIGHT_CLASS_HUGE
 
 /obj/item/twohanded/mjollnir/proc/shock(mob/living/target)

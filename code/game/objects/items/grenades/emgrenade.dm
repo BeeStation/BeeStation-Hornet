@@ -6,5 +6,8 @@
 
 /obj/item/grenade/empgrenade/prime()
 	update_mob()
+	for(var/obj/machinery/light/L in range(10, src))
+		L.on = 1
+		L.break_light_tube()
 	empulse(src, 4, 10)
 	qdel(src)

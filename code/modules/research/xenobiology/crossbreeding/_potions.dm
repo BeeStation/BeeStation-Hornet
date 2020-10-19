@@ -108,7 +108,7 @@ Slimecrossing Potions
 	icon_state = "potblue"
 	var/uses = 2
 
-/obj/item/slimepotion/spaceproof/afterattack(obj/item/clothing/C, mob/user, proximity)
+/obj/item/slimepotion/spaceproof/pre_attack(obj/item/clothing/C, mob/user, proximity)
 	. = ..()
 	if(!uses)
 		qdel(src)
@@ -131,6 +131,7 @@ Slimecrossing Potions
 	uses--
 	if(!uses)
 		qdel(src)
+	return FALSE
 
 //Enhancer potion - Charged Cerulean
 /obj/item/slimepotion/enhancer/max
@@ -148,7 +149,7 @@ Slimecrossing Potions
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	var/uses = 2
 
-/obj/item/slimepotion/lavaproof/afterattack(obj/item/C, mob/user, proximity)
+/obj/item/slimepotion/lavaproof/pre_attack(obj/item/C, mob/user, proximity)
 	. = ..()
 	if(!uses)
 		qdel(src)
@@ -169,6 +170,7 @@ Slimecrossing Potions
 	uses--
 	if(!uses)
 		qdel(src)
+	return FALSE
 
 //Revival potion - Charged Grey
 /obj/item/slimepotion/slime_reviver

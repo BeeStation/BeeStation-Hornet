@@ -1,7 +1,7 @@
 {
     "documentation": "/tg/station server 3 configuration file",
     "changelog": {
-      "script": "tools/ss13_genchangelog.py",
+      "script": "tools/changelog/ss13_genchangelog.py",
       "arguments": "html/changelog.html html/changelogs",
       "pip_dependancies": [
         "PyYaml",

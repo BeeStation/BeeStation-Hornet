@@ -9,7 +9,6 @@
 	var/docile = 0
 	faction = list("slime","neutral")
 
-	harm_intent_damage = 5
 	icon_living = "grey baby slime"
 	icon_dead = "grey baby slime dead"
 	response_help  = "pets"
@@ -19,6 +18,7 @@
 	speak_emote = list("blorbles")
 	bubble_icon = "slime"
 	initial_language_holder = /datum/language_holder/slime
+	mobsay_color = "#A6E398"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
@@ -39,6 +39,7 @@
 	status_flags = CANUNCONSCIOUS|CANPUSH
 
 	hud_type = /datum/hud/slime
+	hardattacks = TRUE //A sharp blade wont cut a slime from a mere parry
 
 	var/cores = 1 // the number of /obj/item/slime_extract's the slime has left inside
 	var/mutation_chance = 30 // Chance of mutating, should be between 25 and 35
@@ -55,6 +56,7 @@
 	var/rabid = 0 // If set to 1, the slime will attack and eat anything it comes in contact with
 	var/holding_still = 0 // AI variable, cooloff-ish for how long it's going to stay in one place
 	var/target_patience = 0 // AI variable, cooloff-ish for how long it's going to follow its target
+	var/bucklestrength = 5 //rng replacement var for wrestling slimes off
 
 	var/list/Friends = list() // A list of friends; they are not considered targets for feeding; passed down after splitting
 
@@ -221,12 +223,10 @@
 				probab = 95
 		if(prob(probab))
 			if(istype(O, /obj/structure/window) || istype(O, /obj/structure/grille))
-				if(nutrition <= get_hunger_nutrition() && !Atkcool)
+				if(attack_cooldown < world.time && nutrition <= get_hunger_nutrition())
 					if (is_adult || prob(5))
 						O.attack_slime(src)
-						Atkcool = 1
-						spawn(45)
-							Atkcool = 0
+						attack_cooldown = world.time + attack_cooldown_time
 
 /mob/living/simple_animal/slime/Process_Spacemove(movement_dir = 0)
 	return 2
@@ -323,31 +323,18 @@
 /mob/living/simple_animal/slime/attack_hand(mob/living/carbon/human/M)
 	if(buckled)
 		M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
-		if(buckled == M)
-			if(prob(60))
-				M.visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off!</span>", \
-					"<span class='danger'>You attempt to wrestle \the [name] off!</span>")
-				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-
-			else
-				M.visible_message("<span class='warning'>[M] manages to wrestle \the [name] off!</span>", \
-					"<span class='notice'>You manage to wrestle \the [name] off!</span>")
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-
-				discipline_slime(M)
+		if(bucklestrength >= 0)
+			M.visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off!</span>", \
+				"<span class='danger'>You attempt to wrestle \the [name] off!</span>")
+			playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+			bucklestrength --
 
 		else
-			if(prob(30))
-				buckled.visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off of [buckled]!</span>", \
-					"<span class='warning'>[M] attempts to wrestle \the [name] off of you!</span>")
-				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+			M.visible_message("<span class='warning'>[M] manages to wrestle \the [name] off!</span>", \
+				"<span class='notice'>You manage to wrestle \the [name] off!</span>")
+			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
-			else
-				buckled.visible_message("<span class='warning'>[M] manages to wrestle \the [name] off of [buckled]!</span>", \
-					"<span class='notice'>[M] manage to wrestle \the [name] off of you!</span>")
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-
-				discipline_slime(M)
+			discipline_slime(M)
 	else
 		if(stat == DEAD && surgeries.len)
 			if(M.a_intent == INTENT_HELP || M.a_intent == INTENT_DISARM)
@@ -490,6 +477,7 @@
 		Target = null
 	if(buckled)
 		Feedstop(silent = TRUE) //we unbuckle the slime from the mob it latched onto.
+		bucklestrength = initial(bucklestrength)
 
 	SStun = world.time + rand(20,60)
 

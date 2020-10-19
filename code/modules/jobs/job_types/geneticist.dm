@@ -8,6 +8,7 @@
 	spawn_positions = 2
 	supervisors = "the chief medical officer and research director"
 	selection_color = "#d4ebf2"
+	chat_color = "#83BBBF"
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/geneticist
@@ -26,7 +27,7 @@
 	id = /obj/item/card/id/job/med
 	belt = /obj/item/pda/geneticist
 	ears = /obj/item/radio/headset/headset_medsci
-	uniform = /obj/item/clothing/under/rank/geneticist
+	uniform = /obj/item/clothing/under/rank/medical/geneticist
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	suit =  /obj/item/clothing/suit/toggle/labcoat/genetics
 	suit_store =  /obj/item/flashlight/pen

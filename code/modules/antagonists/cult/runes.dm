@@ -82,7 +82,7 @@ Runes can either be invoked by one's self or with many different cultists. Each 
 
 /obj/effect/rune/attack_animal(mob/living/simple_animal/M)
 	if(istype(M, /mob/living/simple_animal/shade) || istype(M, /mob/living/simple_animal/hostile/construct))
-		if(istype(M, /mob/living/simple_animal/hostile/construct/wraith/angelic) || istype(M, /mob/living/simple_animal/hostile/construct/armored/angelic) || istype(M, /mob/living/simple_animal/hostile/construct/builder/angelic)) 
+		if(istype(M, /mob/living/simple_animal/hostile/construct/wraith/angelic) || istype(M, /mob/living/simple_animal/hostile/construct/armored/angelic) || istype(M, /mob/living/simple_animal/hostile/construct/builder/angelic))
 			to_chat(M, "<span class='warning'>You purge the rune!</span>")
 			qdel(src)
 		else
@@ -207,21 +207,15 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/oldcolor = color
 	color = RUNE_COLOR_DARKRED
 	var/mob/living/L = pick(myriad_targets)
-	var/is_clock = is_servant_of_ratvar(L)
 
 	var/mob/living/F = invokers[1]
 	var/datum/antagonist/cult/C = F.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
 	var/datum/team/cult/Cult_team = C.cult_team
 	var/is_convertable = is_convertable_to_cult(L,C.cult_team)
-	if(L.stat != DEAD && (is_clock || is_convertable))
+	if(L.stat != DEAD && (is_convertable))
 		invocation = "Mah'weyh pleggh at e'ntrath!"
 		..()
-		if(is_clock)
-			L.visible_message("<span class='warning'>[L]'s eyes glow a defiant yellow!</span>", \
-			"<span class='cultlarge'>\"Stop resisting. You <i>will</i> be mi-\"</span>\n\
-			<span class='large_brass'>\"Give up and you will feel pain unlike anything you've ever felt!\"</span>")
-			L.Paralyze(80)
-		else if(is_convertable)
+		if(is_convertable)
 			do_convert(L, invokers)
 	else
 		invocation = "Barhah hra zar'garis!"
@@ -231,14 +225,14 @@ structure_check() searches for nearby cultist structures required for the invoca
 	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 5)
 	Cult_team.check_size() // Triggers the eye glow or aura effects if the cult has grown large enough relative to the crew
 	rune_in_use = FALSE
-	
+
 /obj/effect/rune/convert/proc/do_convert(mob/living/convertee, list/invokers)
 	if(invokers.len < 2)
 		for(var/M in invokers)
 			to_chat(M, "<span class='danger'>You need at least two invokers to convert [convertee]!</span>")
 		log_game("Offer rune failed - tried conversion with one invoker")
 		return 0
-	if(convertee.anti_magic_check(TRUE, TRUE, major = FALSE)) //Not major because it can be spammed
+	if(convertee.anti_magic_check(TRUE, TRUE, major = FALSE) || istype(convertee.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat)) //Not major because it can be spammed
 		for(var/M in invokers)
 			to_chat(M, "<span class='warning'>Something is shielding [convertee]'s mind!</span>")
 		log_game("Offer rune failed - convertee had anti-magic")
@@ -776,8 +770,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 					to_chat(L, "<span class='userdanger'>[I] suddenly burns hotly before returning to normal!</span>")
 				continue
 			to_chat(L, "<span class='cultlarge'>Your blood boils in your veins!</span>")
-			if(is_servant_of_ratvar(L))
-				to_chat(L, "<span class='userdanger'>You feel an unholy darkness dimming the Justiciar's light!</span>")
 	animate(src, color = "#FCB56D", time = 4)
 	sleep(4)
 	if(QDELETED(src))
@@ -803,8 +795,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 			if(L.anti_magic_check(major = FALSE))
 				continue
 			L.take_overall_damage(tick_damage*multiplier, tick_damage*multiplier)
-			if(is_servant_of_ratvar(L))
-				L.adjustStaminaLoss(tick_damage*multiplier*1.5)
 
 //Rite of Spectral Manifestation: Summons a ghost on top of the rune as a cultist human with no items. User must stand on the rune at all times, and takes damage for each summoned ghost.
 /obj/effect/rune/manifest

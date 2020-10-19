@@ -8,6 +8,8 @@
 	icon_state = "mecha_clamp"
 	equip_cooldown = 15
 	energy_drain = 10
+	tool_behaviour = TOOL_RETRACTOR
+	toolspeed = 0.8
 	var/dam_force = 20
 	var/obj/mecha/working/ripley/cargo_holder
 	harmful = TRUE
@@ -173,7 +175,7 @@
 	icon_state = "mecha_exting"
 	equip_cooldown = 5
 	energy_drain = 0
-	range = MELEE|RANGED
+	range = MECHA_MELEE|MECHA_RANGED
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/Initialize()
 	. = ..()
@@ -240,7 +242,7 @@
 	icon_state = "mecha_rcd"
 	equip_cooldown = 10
 	energy_drain = 250
-	range = MELEE|RANGED
+	range = MECHA_MELEE|MECHA_RANGED
 	item_flags = NO_MAT_REDEMPTION
 	var/mode = 0 //0 - deconstruct, 1 - wall or floor, 2 - airlock.
 
@@ -269,14 +271,14 @@
 				occupant_message("Deconstructing [W]...")
 				if(do_after_cooldown(W))
 					chassis.spark_system.start()
-					W.ScrapeAway()
+					W.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 					playsound(W, 'sound/items/deconstruct.ogg', 50, 1)
 			else if(isfloorturf(target))
 				var/turf/open/floor/F = target
 				occupant_message("Deconstructing [F]...")
 				if(do_after_cooldown(target))
 					chassis.spark_system.start()
-					F.ScrapeAway()
+					F.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 					playsound(F, 'sound/items/deconstruct.ogg', 50, 1)
 			else if (istype(target, /obj/machinery/door/airlock))
 				occupant_message("Deconstructing [target]...")
@@ -289,7 +291,7 @@
 				var/turf/open/space/S = target
 				occupant_message("Building Floor...")
 				if(do_after_cooldown(S))
-					S.PlaceOnTop(/turf/open/floor/plating)
+					S.PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 					playsound(S, 'sound/items/deconstruct.ogg', 50, 1)
 					chassis.spark_system.start()
 			else if(isfloorturf(target))
@@ -504,8 +506,17 @@
 		N.cell = M.cell
 		M.cell.forceMove(N)
 		M.cell = null
-	N.step_energy_drain = M.step_energy_drain //For the scanning module
-	N.armor = N.armor.setRating(energy = M.armor["energy"]) //for the capacitor
+	QDEL_NULL(N.scanmod)
+	if (M.scanmod)
+		N.scanmod = M.scanmod
+		M.scanmod.forceMove(N)
+		M.scanmod = null
+	QDEL_NULL(N.capacitor)
+	if (M.capacitor)
+		N.capacitor = M.capacitor
+		M.capacitor.forceMove(N)
+		M.capacitor = null
+	N.update_part_values()
 	for(var/obj/item/mecha_parts/E in M.contents)
 		if(istype(E, /obj/item/mecha_parts/concealed_weapon_bay)) //why is the bay not just a variable change who did this
 			E.forceMove(N)

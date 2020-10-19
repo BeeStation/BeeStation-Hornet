@@ -1,4 +1,55 @@
 #define CONFUSION_STACK_MAX_MULTIPLIER 2
+#define FLASH_USE 2
+#define FLASH_USE_BURNOUT 1
+#define FLASH_FAIL 0
+
+/obj/item/flashbulb
+	name = "flashbulb"
+	desc = "A powerful bulb that, when placed into a flash device can emit a bright light that will disorientate and subdue targets."
+	icon = 'icons/obj/assemblies/new_assemblies.dmi'
+	icon_state = "flashbulb"
+	throwforce = 0
+	w_class = WEIGHT_CLASS_TINY
+	materials = list(/datum/material/iron = 150, /datum/material/glass = 100)
+	flags_1 = CONDUCT_1
+	throw_speed = 3
+	throw_range = 7
+	var/charges_left = 15
+
+/obj/item/flashbulb/update_icon()
+	if(charges_left <= 0)
+		icon_state = "flashbulbburnt"
+	else
+		icon_state = "flashbulb"
+
+/obj/item/flashbulb/examine(mob/user)
+	. = ..()
+	. += "This one can probably just about handle [charges_left] more uses."
+
+/obj/item/flashbulb/proc/check_working()
+	return charges_left > 0
+
+/obj/item/flashbulb/proc/use_flashbulb()
+	if(charges_left <= 0)
+		return FLASH_FAIL
+	charges_left--
+	if(charges_left == 0)
+		icon_state = "flashbulbburnt"
+		return FLASH_USE_BURNOUT
+	return FLASH_USE
+
+/obj/item/flashbulb/weak
+	name = "weakened flashbulb"
+	charges_left = 4
+
+/obj/item/flashbulb/strong
+	name = "modified flashbulb"
+	charges_left = 120
+
+/obj/item/flashbulb/cyborg
+	name = "cyborg flashbulb"
+	charges_left = INFINITY
+
 /obj/item/assembly/flash
 	name = "flash"
 	desc = "A powerful and versatile flashbulb device, with applications ranging from disorienting attackers to acting as visual receptors in robot production."
@@ -12,15 +63,31 @@
 	light_color = LIGHT_COLOR_WHITE
 	light_power = FLASH_LIGHT_POWER
 	var/flashing_overlay = "flash-f"
-	var/times_used = 0 //Number of times it's been used.
-	var/burnt_out = FALSE     //Is the flash burnt out?
-	var/burnout_resistance = 0
 	var/last_used = 0 //last world.time it was used.
-	var/cooldown = 0
+	var/cooldown = 20
 	var/last_trigger = 0 //Last time it was successfully triggered.
+	var/burnt_out = FALSE
+	var/obj/item/flashbulb/bulb = /obj/item/flashbulb	//Store reference to object and run new when initialised.
+
+/obj/item/assembly/flash/handheld/weak
+	bulb = /obj/item/flashbulb/weak
+
+/obj/item/assembly/flash/handheld/strong
+	bulb = /obj/item/flashbulb/strong
+
+/obj/item/assembly/flash/Initialize()
+	. = ..()
+	bulb = new bulb
+
+/obj/item/assembly/flash/examine(mob/user)
+	. = ..()
+	. += "[bulb ? "The bulb looks like it can handle just about [bulb.charges_left] more uses.\nIt looks like you can cut out the flashbulb with a pair of wirecutters." : "The device has no bulb installed."]"
 
 /obj/item/assembly/flash/suicide_act(mob/living/user)
-	if(burnt_out)
+	if(!bulb)
+		user.visible_message("<span class='suicide'>[user] raises \the [src] up to [user.p_their()] eyes and activates it ... but there is no bulb!</span>")
+		return SHAME
+	if(bulb.charges_left <= 0)
 		user.visible_message("<span class='suicide'>[user] raises \the [src] up to [user.p_their()] eyes and activates it ... but it's burnt out!</span>")
 		return SHAME
 	else if(user.eye_blind)
@@ -33,15 +100,31 @@
 /obj/item/assembly/flash/update_icon(flash = FALSE)
 	cut_overlays()
 	attached_overlays = list()
-	if(burnt_out)
+	if(!bulb)
+		add_overlay("flashempty")
+		attached_overlays += "flashempty"
+	else if(burnt_out)
 		add_overlay("flashburnt")
 		attached_overlays += "flashburnt"
 	if(flash)
 		add_overlay(flashing_overlay)
 		attached_overlays += flashing_overlay
-		addtimer(CALLBACK(src, .proc/update_icon), 5)
+		addtimer(CALLBACK(src, /atom/.proc/update_icon), 5)
 	if(holder)
 		holder.update_icon()
+
+/obj/item/assembly/flash/attackby(obj/item/W, mob/user, params)
+	. = ..()
+	var/obj/item/flashbulb/newflash = W
+	if(!istype(newflash))
+		return
+	if(bulb)
+		to_chat("<span class='warning'>You fail to put the bulb into \the [src] as it already has a bulb in it.</spawn>")
+		return
+	user.transferItemToLoc(newflash, src)
+	bulb = newflash
+	burnt_out = !bulb.check_working()
+	update_icon()
 
 /obj/item/assembly/flash/proc/clown_check(mob/living/carbon/human/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
@@ -60,15 +143,16 @@
 		var/turf/T = get_turf(src)
 		T.visible_message("<span class='danger'>[src] burns out!</span>")
 
-/obj/item/assembly/flash/proc/flash_recharge(interval = 10)
-	var/deciseconds_passed = world.time - last_used
-	for(var/seconds = deciseconds_passed / 10, seconds >= interval, seconds -= interval) //get 1 charge every interval
-		times_used--
-	last_used = world.time
-	times_used = max(0, times_used) //sanity
-	if(max(0, times_used - burnout_resistance) >= 10) //The more often it's used in a short span of time the more likely it will burn out
-		burn_out()
+/obj/item/assembly/flash/wirecutter_act(mob/living/user, obj/item/I)
+	if(!bulb)
+		to_chat(user, "<span class='notice'>There is no bulb in \the [src].</span>")
 		return FALSE
+	bulb.forceMove(drop_location())
+	user.put_in_hands(bulb)
+	bulb.update_icon()
+	bulb = null
+	to_chat(user, "<span class='notice'>You remove the bulb from \the [src].</span>")
+	update_icon()
 	return TRUE
 
 //BYPASS CHECKS ALSO PREVENTS BURNOUT!
@@ -93,13 +177,16 @@
 		return typecache_filter_list(target_loc.GetAllContents(), GLOB.typecache_living)
 
 /obj/item/assembly/flash/proc/try_use_flash(mob/user = null)
-	if(burnt_out || (world.time < last_trigger + cooldown))
+	if(!bulb || (world.time < last_trigger + cooldown))
 		return FALSE
+	switch(bulb.use_flashbulb())
+		if(FLASH_FAIL)
+			return FALSE
+		if(FLASH_USE_BURNOUT)
+			burn_out()
 	last_trigger = world.time
 	playsound(src, 'sound/weapons/flash.ogg', 100, TRUE)
 	flash_lighting_fx(FLASH_LIGHT_RANGE, light_power, light_color)
-	times_used++
-	flash_recharge()
 	update_icon(TRUE)
 	if(user && !clown_check(user))
 		return FALSE
@@ -116,9 +203,6 @@
 		to_chat(M, "<span class='disarm'>[src] emits a blinding light!</span>")
 	if(targeted)
 		if(M.flash_act(1, 1))
-			if(M.confused < power)
-				var/diff = power * CONFUSION_STACK_MAX_MULTIPLIER - M.confused
-				M.confused += min(power, diff)
 			if(user)
 				terrible_conversion_proc(M, user)
 				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
@@ -127,6 +211,7 @@
 			else
 				to_chat(M, "<span class='userdanger'>You are blinded by [src]!</span>")
 			M.Paralyze(70)
+
 		else if(user)
 			visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
 			to_chat(user, "<span class='warning'>You fail to blind [M] with the flash!</span>")
@@ -134,9 +219,7 @@
 		else
 			to_chat(M, "<span class='danger'>[src] fails to blind you!</span>")
 	else
-		if(M.flash_act())
-			var/diff = power * CONFUSION_STACK_MAX_MULTIPLIER - M.confused
-			M.confused += min(power, diff)
+		M.flash_act()
 
 /obj/item/assembly/flash/attack(mob/living/M, mob/user)
 	if(!try_use_flash(user))
@@ -151,7 +234,7 @@
 		R.Paralyze(70)
 		var/diff = 5 * CONFUSION_STACK_MAX_MULTIPLIER - M.confused
 		R.confused += min(5, diff)
-		R.flash_act(affect_silicon = 1)
+		R.flash_act(affect_silicon = 1, type = /obj/screen/fullscreen/flash/static)
 		user.visible_message("<span class='disarm'>[user] overloads [R]'s sensors with the flash!</span>", "<span class='danger'>You overload [R]'s sensors with the flash!</span>")
 		return TRUE
 
@@ -190,13 +273,12 @@
 			if(H.stat != CONSCIOUS)
 				to_chat(user, "<span class='warning'>They must be conscious before you can convert [H.p_them()]!</span>")
 				return
-			if(converter.add_revolutionary(H.mind))
-				times_used -- //Flashes less likely to burn out for headrevs when used for conversion
-			else
+			if(!converter.add_revolutionary(H.mind))
 				to_chat(user, "<span class='warning'>This mind seems resistant to the flash!</span>")
 
 
 /obj/item/assembly/flash/cyborg
+	bulb = /obj/item/flashbulb/cyborg
 
 /obj/item/assembly/flash/cyborg/attack(mob/living/M, mob/user)
 	..()
@@ -208,7 +290,11 @@
 
 /obj/item/assembly/flash/cyborg/attackby(obj/item/W, mob/user, params)
 	return
+
 /obj/item/assembly/flash/cyborg/screwdriver_act(mob/living/user, obj/item/I)
+	return
+
+/obj/item/assembly/flash/cyborg/wirecutter_act(mob/living/user, obj/item/I)
 	return
 
 /obj/item/assembly/flash/memorizer
@@ -249,13 +335,20 @@
 /obj/item/assembly/flash/armimplant/proc/cooldown()
 	overheat = FALSE
 
+/obj/item/assembly/flash/armimplant/wirecutter_act(mob/living/user, obj/item/I)
+	return
+
 /obj/item/assembly/flash/hypnotic
 	desc = "A modified flash device, programmed to emit a sequence of subliminal flashes that can send a vulnerable target into a hypnotic trance."
 	flashing_overlay = "flash-hypno"
 	light_color = LIGHT_COLOR_PINK
 	cooldown = 20
+	bulb = /obj/item/flashbulb/cyborg	//Flashbulb with infinite charges
 
 /obj/item/assembly/flash/hypnotic/burn_out()
+	return
+
+/obj/item/assembly/flash/hypnotic/wirecutter_act(mob/living/user, obj/item/I)
 	return
 
 /obj/item/assembly/flash/hypnotic/flash_carbon(mob/living/carbon/M, mob/user, power = 15, targeted = TRUE, generic_message = FALSE)
@@ -295,3 +388,7 @@
 		M.dizziness += min(M.dizziness + 4, 20)
 		M.drowsyness += min(M.drowsyness + 4, 20)
 		M.apply_status_effect(STATUS_EFFECT_PACIFY, 40)
+
+#undef FLASH_USE
+#undef FLASH_USE_BURNOUT
+#undef FLASH_FAIL

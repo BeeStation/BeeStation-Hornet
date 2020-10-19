@@ -4,7 +4,7 @@
 	say_mod = "states" //inherited from a user's real species
 	sexes = 0
 	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,NOBLOOD,TRAIT_EASYDISMEMBER,ROBOTIC_LIMBS,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH) //all of these + whatever we inherit from the real species
-	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_VIRUSIMMUNE,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT)
+	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_NOCRITDAMAGE)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutant_brain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
@@ -38,6 +38,7 @@
 	var/list/initial_species_traits //for getting these values back for assume_disguise()
 	var/list/initial_inherent_traits
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
+	species_language_holder = /datum/language_holder/synthetic
 
 	var/datum/action/innate/change_screen/change_screen
 
@@ -50,6 +51,7 @@
 	var/obj/item/organ/appendix/appendix = C.getorganslot("appendix") // Easiest way to remove it.
 	appendix.Remove(C)
 	QDEL_NULL(appendix)
+	ADD_TRAIT(C, TRAIT_XENO_IMMUNE, "xeno immune") //makes the IPC immune to huggers
 	if(ishuman(C) && !change_screen)
 		change_screen = new
 		change_screen.Grant(C)
@@ -65,14 +67,12 @@
 
 datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	. = ..()
+	REMOVE_TRAIT(C, TRAIT_XENO_IMMUNE, "xeno immune")
 	if(change_screen)
 		change_screen.Remove(C)
 
-/datum/species/ipc/get_spans()
-	return SPAN_ROBOT
-
-/datum/species/ipc/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	H.grant_language(/datum/language/machine)
+/datum/species/ipc/proc/handle_speech(datum/source, list/speech_args)
+	speech_args[SPEECH_SPANS] |= SPAN_ROBOT //beep
 
 /datum/species/ipc/spec_death(gibbed, mob/living/carbon/C)
 	saved_screen = C.dna.features["ipc_screen"]
@@ -114,7 +114,7 @@ datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/obj/machinery/power/apc/A = target
 	var/mob/living/carbon/human/H = user
-	var/obj/item/organ/stomach/cell/cell = H.internal_organs_slot["stomach"]
+	var/obj/item/organ/stomach/cell/cell = locate(/obj/item/organ/stomach/cell) in H.internal_organs
 	if(!cell)
 		to_chat(H, "<span class='warning'>You try to siphon energy from the [A], but your power cell is gone!</span>")
 		return
@@ -155,7 +155,7 @@ datum/species/ipc/on_species_loss(mob/living/carbon/C)
 
 /datum/species/ipc/spec_life(mob/living/carbon/human/H)
 	. = ..()
-	if(H.health <= HEALTH_THRESHOLD_CRIT && H.stat != DEAD) // So they die eventually instead of being stuck in crit limbo.
+	if(H.health <= UNCONSCIOUS && H.stat != DEAD) // So they die eventually instead of being stuck in crit limbo.
 		H.adjustFireLoss(6) // After bodypart_robotic resistance this is ~2/second
 		if(prob(5))
 			to_chat(H, "<span class='warning'>Alert: Internal temperature regulation systems offline; thermal damage sustained. Shutdown imminent.</span>")

@@ -19,11 +19,13 @@
 	fire_sound = 'sound/weapons/beam_sniper.ogg'
 	slot_flags = ITEM_SLOT_BACK
 	force = 15
+	block_upgrade_walk = 1
 	materials = list()
 	recoil = 4
 	ammo_x_offset = 3
 	ammo_y_offset = 3
 	modifystate = FALSE
+	charge_sections = 1
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
 	ammo_type = list(/obj/item/ammo_casing/energy/beam_rifle/hitscan)
@@ -63,15 +65,13 @@
 
 	//ZOOMING
 	var/zoom_current_view_increase = 0
-	var/zoom_target_view_increase = 10
+	///The radius you want to zoom by
+	var/zoom_target_view_increase = 9.5
 	var/zooming = FALSE
 	var/zoom_lock = ZOOM_LOCK_OFF
 	var/zooming_angle
 	var/current_zoom_x = 0
 	var/current_zoom_y = 0
-
-	var/static/image/charged_overlay = image(icon = 'icons/obj/guns/energy.dmi', icon_state = "esniper_charged")
-	var/static/image/drained_overlay = image(icon = 'icons/obj/guns/energy.dmi', icon_state = "esniper_empty")
 
 	var/datum/action/item_action/zoom_lock_action/zoom_lock_action
 	var/mob/listeningTo
@@ -122,7 +122,7 @@
 /obj/item/gun/energy/beam_rifle/proc/handle_zooming()
 	if(!zooming || !check_user())
 		return
-	current_user.client.change_view(world.view + zoom_target_view_increase)
+	current_user.client.view_size.setTo(zoom_target_view_increase)
 	zoom_current_view_increase = zoom_target_view_increase
 	set_autozoom_pixel_offsets_immediate(zooming_angle)
 
@@ -141,20 +141,11 @@
 		user = current_user
 	if(!user || !user.client)
 		return FALSE
-	animate(user.client, pixel_x = 0, pixel_y = 0, 0, FALSE, LINEAR_EASING, ANIMATION_END_NOW)
+	user.client.view_size.zoomIn()
 	zoom_current_view_increase = 0
-	user.client.change_view(CONFIG_GET(string/default_view))
 	zooming_angle = 0
 	current_zoom_x = 0
 	current_zoom_y = 0
-
-/obj/item/gun/energy/beam_rifle/update_icon()
-	cut_overlays()
-	var/obj/item/ammo_casing/energy/primary_ammo = ammo_type[1]
-	if(!QDELETED(cell) && (cell.charge >= primary_ammo.e_cost))
-		add_overlay(charged_overlay)
-	else
-		add_overlay(drained_overlay)
 
 /obj/item/gun/energy/beam_rifle/attack_self(mob/user)
 	projectile_setting_pierce = !projectile_setting_pierce
@@ -190,7 +181,8 @@
 
 /obj/item/gun/energy/beam_rifle/proc/aiming_beam(force_update = FALSE)
 	var/diff = abs(aiming_lastangle - lastangle)
-	check_user()
+	if(!check_user())
+		return
 	if(diff < AIMING_BEAM_ANGLE_CHANGE_THRESHOLD && !force_update)
 		return
 	aiming_lastangle = lastangle

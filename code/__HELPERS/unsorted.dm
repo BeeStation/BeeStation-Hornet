@@ -6,25 +6,16 @@
 
 /// Inverts the colour of an HTML string
 /proc/invertHTML(HTMLstring)
-
-	if (!( istext(HTMLstring) ))
+	if(!istext(HTMLstring))
 		CRASH("Given non-text argument!")
-		return
-	else
-		if (length(HTMLstring) != 7)
-			CRASH("Given non-HTML argument!")
-			return
+	else if(length(HTMLstring) != 7)
+		CRASH("Given non-HTML argument!")
+	else if(length_char(HTMLstring) != 7)
+		CRASH("Given non-hex symbols in argument!")
 	var/textr = copytext(HTMLstring, 2, 4)
 	var/textg = copytext(HTMLstring, 4, 6)
 	var/textb = copytext(HTMLstring, 6, 8)
-	var/r = hex2num(textr)
-	var/g = hex2num(textg)
-	var/b = hex2num(textb)
-	textr = num2hex(255 - r, 2)
-	textg = num2hex(255 - g, 2)
-	textb = num2hex(255 - b, 2)
-	return text("#[][][]", textr, textg, textb)
-	return
+	return rgb(255 - hex2num(textr), 255 - hex2num(textg), 255 - hex2num(textb))
 
 /// Get the angle between two atoms
 /proc/Get_Angle(atom/movable/start,atom/movable/end)//For beams.
@@ -187,15 +178,15 @@ Turf and target are separate in case you want to teleport some distance from a t
 /// Returns whether or not a player is a guest using their ckey as an input
 /proc/IsGuestKey(key)
 	if (findtext(key, "Guest-", 1, 7) != 1) //was findtextEx
-		return 0
+		return FALSE
 
 	var/i, ch, len = length(key)
 
-	for (i = 7, i <= len, ++i)
+	for (i = 7, i <= len, ++i) //we know the first 6 chars are Guest-
 		ch = text2ascii(key, i)
-		if (ch < 48 || ch > 57)
-			return 0
-	return 1
+		if (ch < 48 || ch > 57) //0-9
+			return FALSE
+	return TRUE
 
 //// Generalised helper proc for letting mobs rename themselves. Used to be clname() and ainame()
 /mob/proc/apply_pref_name(role, client/C)
@@ -275,7 +266,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/mob/living/silicon/ai/selected
 	var/list/active = active_ais()
 	for(var/mob/living/silicon/ai/A in active)
-		if(!selected || (selected.connected_robots.len > A.connected_robots.len))
+		if((!selected || (selected.connected_robots.len > A.connected_robots.len)) && !is_servant_of_ratvar(A))
 			selected = A
 
 	return selected
@@ -285,7 +276,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/list/borgs = active_free_borgs()
 	if(borgs.len)
 		if(user)
-			. = input(user,"Unshackled cyborg signals detected:", "Cyborg Selection", borgs[1]) in borgs
+			. = input(user,"Unshackled cyborg signals detected:", "Cyborg Selection", borgs[1]) in sortList(borgs)
 		else
 			. = pick(borgs)
 	return .
@@ -295,7 +286,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/list/ais = active_ais()
 	if(ais.len)
 		if(user)
-			. = input(user,"AI signals detected:", "AI Selection", ais[1]) in ais
+			. = input(user,"AI signals detected:", "AI Selection", ais[1]) in sortList(ais)
 		else
 			. = pick(ais)
 	return .
@@ -454,15 +445,6 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/x = min(world.maxx, max(1, A.x + dx))
 	var/y = min(world.maxy, max(1, A.y + dy))
 	return locate(x,y,A.z)
-
-#if DM_VERSION > 513
-#warn 513 is definitely stable now, remove this
-#endif
-#if DM_VERSION < 513
-/proc/arctan(x)
-	var/y=arcsin(x/sqrt(1+x*x))
-	return y
-#endif
 
 /// Gets all contents of contents and returns them all in a list.
 /atom/proc/GetAllContents(var/T)
@@ -1200,7 +1182,7 @@ proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
 	if(matches.len==1)
 		chosen = matches[1]
 	else
-		chosen = input("Select a type", "Pick Type", matches[1]) as null|anything in matches
+		chosen = input("Select a type", "Pick Type", matches[1]) as null|anything in sortList(matches)
 		if(!chosen)
 			return
 	chosen = matches[chosen]
@@ -1357,6 +1339,10 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			var/obj/structure/window/W = O
 			if(W.ini_dir == dir_to_check || W.ini_dir == FULLTILE_WINDOW_DIR || dir_to_check == FULLTILE_WINDOW_DIR)
 				return FALSE
+		if(istype(O, /obj/structure/railing))
+			var/obj/structure/railing/rail = O
+			if(rail.ini_dir == dir_to_check || rail.ini_dir == FULLTILE_WINDOW_DIR || dir_to_check == FULLTILE_WINDOW_DIR)
+				return FALSE
 	return TRUE
 
 #define UNTIL(X) while(!(X)) stoplag()
@@ -1429,7 +1415,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /proc/GUID()
 	var/const/GUID_VERSION = "b"
 	var/const/GUID_VARIANT = "d"
-	var/node_id = copytext(md5("[rand()*rand(1,9999999)][world.name][world.hub][world.hub_password][world.internet_address][world.address][world.contents.len][world.status][world.port][rand()*rand(1,9999999)]"), 1, 13)
+	var/node_id = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, "[rand()*rand(1,9999999)][world.name][world.hub][world.hub_password][world.internet_address][world.address][world.contents.len][world.status][world.port][rand()*rand(1,9999999)]"), 1, 13)
 
 	var/time_high = "[num2hex(text2num(time2text(world.realtime,"YYYY")), 2)][num2hex(world.realtime, 6)]"
 
@@ -1453,7 +1439,7 @@ If it ever becomes necesary to get a more performant REF(), this lies here in wa
 /proc/REF(datum/input)
 	if(istype(input) && (input.datum_flags & DF_USE_TAG))
 		if(input.tag)
-			return "\[[url_encode(input.tag)]\]"
+			return "\[[rustg_url_encode(input.tag)]\]"
 		stack_trace("A ref was requested of an object with DF_USE_TAG set but no tag: [input]")
 		input.datum_flags &= ~DF_USE_TAG
 	return "\ref[input]"
@@ -1467,13 +1453,6 @@ If it ever becomes necesary to get a more performant REF(), this lies here in wa
 	else
 		. = CB.Invoke()
 	usr = temp
-
-/// Returns a list of all servants of Ratvar and observers.
-/proc/servants_and_ghosts()
-	. = list()
-	for(var/V in GLOB.player_list)
-		if(is_servant_of_ratvar(V) || isobserver(V))
-			. += V
 
 /// datum may be null, but it does need to be a typed var
 #define NAMEOF(datum, X) (#X || ##datum.##X)
@@ -1663,3 +1642,7 @@ config_setting should be one of the following:
 			return "."
 		if(189)
 			return "-"
+
+/proc/get_final_z(atom/A)
+	var/turf/T = get_turf(A)
+	return T ? T.z : A.z

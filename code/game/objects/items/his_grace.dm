@@ -14,6 +14,8 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	w_class = WEIGHT_CLASS_GIGANTIC
 	force = 12
+	block_upgrade_walk = 1
+	block_level = 1
 	attack_verb = list("robusted")
 	hitsound = 'sound/weapons/smash.ogg'
 	var/awakened = FALSE

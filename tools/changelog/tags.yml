@@ -1,0 +1,47 @@
+tags:
+    fix: &fix_type bugfix
+    fixes: *fix_type
+    bugfix: *fix_type
+    rsctweak: &tweak_type tweak
+    tweak: *tweak_type
+    tweaks: *tweak_type
+    soundadd: soundadd
+    sounddel: sounddel
+    add: &add_type rscadd
+    adds: *add_type
+    rscadd: *add_type
+    del: &del_type rscdel
+    dels: *del_type
+    rscdel: *del_type
+    imageadd: imageadd
+    imagedel: imagedel
+    typo: &typo_type spellcheck
+    spellcheck: *typo_type
+    balance: &balance_type balance
+    rebalance: *balance_type
+    tgs: tgs
+    code_imp: &code_type code_imp
+    code: *code_type
+    refactor: refactor
+    config: config
+    admin: admin
+    server: server
+
+defaults:
+    admin: messed with admin stuff
+    balance: rebalanced something
+    bugfix: fixed a few things
+    code_imp: changed some code
+    config: changed some config setting
+    imageadd: added some icons and images
+    imagedel: deleted some icons and images
+    refactor: refactored some code
+    rscadd: Added new things
+    rscadd2: Added more things
+    rscdel: Removed old things
+    server: something server ops should know
+    soundadd: added a new sound thingy
+    sounddel: removed an old sound thingy
+    spellcheck: fixed a few typos
+    tweak: tweaked a few things
+

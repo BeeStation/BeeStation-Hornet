@@ -1,5 +1,13 @@
 // CHAPLAIN CUSTOM ARMORS //
 
+/obj/item/clothing/suit/armor/riot/chaplain/Initialize()
+	. = ..()
+	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE)
+
+/obj/item/clothing/suit/hooded/chaplain_hoodie/leader/Initialize()
+	. = ..()
+	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE) //makes the leader hoodie immune without giving the follower hoodies immunity
+
 /obj/item/clothing/head/helmet/chaplain
 	name = "crusader helmet"
 	desc = "Deus Vult."
@@ -22,7 +30,7 @@
 
 /obj/item/choice_beacon/holy
 	name = "armaments beacon"
-	desc = "Contains a set of armaments for the chaplain."
+	desc = "Contains a set of armaments for the chaplain that have been reinforced with a silver and beryllium-bronze alloy, providing immunity to magic and its influences."
 
 /obj/item/choice_beacon/holy/canUseBeacon(mob/living/user)
 	if(user.mind?.isholy)
@@ -192,6 +200,7 @@
 	item_state = "nullrod"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
+	block_upgrade_walk = 1
 	force = 18
 	throw_speed = 3
 	throw_range = 4
@@ -224,7 +233,7 @@
 		if (initial(rodtype.chaplain_spawnable))
 			display_names[initial(rodtype.name)] = rodtype
 
-	var/choice = input(M,"What theme would you like for your holy weapon?","Holy Weapon Theme") as null|anything in display_names
+	var/choice = input(M,"What theme would you like for your holy weapon?","Holy Weapon Theme") as null|anything in sortList(display_names, /proc/cmp_typepaths_asc)
 	if(QDELETED(src) || !choice || M.stat || !in_range(M, src) || M.incapacitated() || reskinned)
 		return
 
@@ -252,6 +261,7 @@
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN
 	attack_verb = list("punched", "cross countered", "pummeled")
+	block_upgrade_walk = 0
 
 /obj/item/nullrod/godhand/Initialize()
 	. = ..()
@@ -267,7 +277,9 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
 	slot_flags = ITEM_SLOT_BACK
-	block_chance = 50
+	block_flags = BLOCKING_PROJECTILE
+	block_level = 1
+	block_power = 20
 	var/shield_icon = "shield-red"
 
 /obj/item/nullrod/staff/worn_overlays(isinhands)
@@ -290,15 +302,12 @@
 	desc = "A weapon fit for a crusade!"
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
-	block_chance = 30
+	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
+	block_level = 1
+	block_power = 30
 	sharpness = IS_SHARP
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-
-/obj/item/nullrod/claymore/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //Don't bring a sword to a gunfight
-	return ..()
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 
 /obj/item/nullrod/claymore/darkblade
 	icon_state = "cultblade"
@@ -318,8 +327,10 @@
 	name = "sacred chainsaw sword"
 	desc = "Suffer not a heretic to live."
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
+	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
+	tool_behaviour = TOOL_SAW
+	toolspeed = 1.5 //slower than a real saw
 
 /obj/item/nullrod/claymore/glowing
 	icon_state = "swordon"
@@ -333,7 +344,9 @@
 	desc = "Capable of cutting clean through a holy claymore."
 	icon_state = "katana"
 	item_state = "katana"
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
+	block_power = 0
 
 /obj/item/nullrod/claymore/multiverse
 	name = "extradimensional blade"
@@ -378,7 +391,16 @@
 	force = 4.13
 	throwforce = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	block_level = 1
+
+/obj/item/nullrod/sord/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	if(isitem(hitby))
+		var/obj/item/I = hitby
+		owner.attackby(src)
+		owner.attackby(src, owner)
+		owner.visible_message("<span class='danger'>[owner] can't get a grip, and stabs himself with both the [I] and the[src] while trying to parry the [I]!</span>")
+	return ..()
 
 /obj/item/nullrod/scythe
 	icon_state = "scythe1"
@@ -389,6 +411,9 @@
 	desc = "Ask not for whom the bell tolls..."
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 35
+	block_level = 1
+	block_power = 15
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	slot_flags = ITEM_SLOT_BACK
 	sharpness = IS_SHARP
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -461,7 +486,9 @@
 		S.ckey = C.ckey
 		S.fully_replace_character_name(null, "The spirit of [name]")
 		S.status_flags |= GODMODE
-		S.language_holder = user.language_holder.copy(S)
+		S.copy_languages(user, LANGUAGE_MASTER)	//Make sure the sword can understand and communicate with the user.
+		S.update_atom_languages()
+		grant_all_languages(FALSE, FALSE, TRUE)	//Grants omnitongue
 		var/input = sanitize_name(stripped_input(S,"What are you named?", ,"", MAX_NAME_LEN))
 
 		if(src && input)
@@ -485,8 +512,10 @@
 	chaplain_spawnable = FALSE
 	force = 30
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
+	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
+	tool_behaviour = TOOL_SAW
+	toolspeed = 0.5 //faster than normal saw
 
 
 /obj/item/nullrod/hammmer
@@ -499,6 +528,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("smashed", "bashed", "hammered", "crunched")
+	attack_weight = 2
 
 /obj/item/nullrod/chainsaw
 	name = "chainsaw hand"
@@ -510,8 +540,13 @@
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ABSTRACT
 	sharpness = IS_SHARP
-	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
+	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
+	tool_behaviour = TOOL_SAW
+	toolspeed = 2 //slower than a real saw
+	attack_weight = 2
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+
 
 /obj/item/nullrod/chainsaw/Initialize()
 	. = ..()
@@ -526,7 +561,7 @@
 	desc = "Used for absolutely hilarious sacrifices."
 	hitsound = 'sound/items/bikehorn.ogg'
 	sharpness = IS_SHARP
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 
 /obj/item/nullrod/pride_hammer
 	icon_state = "pride"
@@ -538,6 +573,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	attack_verb = list("attacked", "smashed", "crushed", "splattered", "cracked")
 	hitsound = 'sound/weapons/blade1.ogg'
+	attack_weight = 2
 
 /obj/item/nullrod/pride_hammer/afterattack(atom/A as mob|obj|turf|area, mob/user, proximity)
 	. = ..()
@@ -620,8 +656,8 @@
 	name = "monk's staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, it is now used to harass the clown."
 	w_class = WEIGHT_CLASS_BULKY
-	force = 15
-	block_chance = 40
+	force = 14
+	block_power = 40
 	slot_flags = ITEM_SLOT_BACK
 	sharpness = IS_BLUNT
 	hitsound = "swing_hit"
@@ -643,7 +679,7 @@
 	sharpness = IS_SHARP
 	slot_flags = null
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	item_flags = SLOWS_WHILE_IN_HAND
 
 /obj/item/nullrod/tribal_knife/Initialize(mapload)
@@ -656,8 +692,11 @@
 	. = ..()
 
 /obj/item/nullrod/tribal_knife/process()
-	slowdown = rand(-2, 2)
-
+	slowdown = rand(-10, 10)/10
+	if(iscarbon(loc))
+		var/mob/living/carbon/wielder = loc
+		if(wielder.is_holding(src))
+			wielder.update_equipment_speed_mods()
 
 /obj/item/nullrod/pitchfork
 	icon_state = "pitchfork0"

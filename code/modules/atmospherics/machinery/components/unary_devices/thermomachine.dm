@@ -13,7 +13,7 @@
 	ui_x = 300
 	ui_y = 230
 
-	pipe_flags = PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY
+	pipe_flags = PIPING_ONE_PER_TURF
 
 	var/icon_state_off = "freezer"
 	var/icon_state_on = "freezer_1"
@@ -30,7 +30,10 @@
 	initialize_directions = dir
 
 /obj/machinery/atmospherics/components/unary/thermomachine/on_construction()
-	..(dir,dir)
+	var/obj/item/circuitboard/machine/thermomachine/board = circuit
+	if(board)
+		piping_layer = board.pipe_layer
+	..(dir, piping_layer)
 
 /obj/machinery/atmospherics/components/unary/thermomachine/RefreshParts()
 	var/B
@@ -39,6 +42,8 @@
 	heat_capacity = 5000 * ((B - 1) ** 2)
 
 /obj/machinery/atmospherics/components/unary/thermomachine/update_icon()
+	cut_overlays()
+
 	if(panel_open)
 		icon_state = icon_state_open
 	else if(on && is_operational())
@@ -46,10 +51,19 @@
 	else
 		icon_state = icon_state_off
 
+	add_overlay(getpipeimage(icon, "pipe", dir, , piping_layer))
+
 /obj/machinery/atmospherics/components/unary/thermomachine/update_icon_nopipes()
 	cut_overlays()
 	if(showpipe)
 		add_overlay(getpipeimage(icon, "scrub_cap", initialize_directions))
+
+/obj/machinery/atmospherics/components/unary/thermomachine/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>The thermostat is set to [target_temperature]K ([(T0C-target_temperature)*-1]C).</span>"
+	if(in_range(user, src) || isobserver(user))
+		. += "<span class='notice'>The status display reads: Efficiency <b>[(heat_capacity/5000)*100]%</b>.</span>"
+		. += "<span class='notice'>Temperature range <b>[min_temperature]K - [max_temperature]K ([(T0C-min_temperature)*-1]C - [(T0C-max_temperature)*-1]C)</b>.</span>"
 
 /obj/machinery/atmospherics/components/unary/thermomachine/process_atmos()
 	..()
@@ -59,13 +73,13 @@
 
 	var/air_heat_capacity = air_contents.heat_capacity()
 	var/combined_heat_capacity = heat_capacity + air_heat_capacity
-	var/old_temperature = air_contents.temperature
+	var/old_temperature = air_contents.return_temperature()
 
 	if(combined_heat_capacity > 0)
-		var/combined_energy = heat_capacity * target_temperature + air_heat_capacity * air_contents.temperature
-		air_contents.temperature = combined_energy/combined_heat_capacity
+		var/combined_energy = heat_capacity * target_temperature + air_heat_capacity * air_contents.return_temperature()
+		air_contents.set_temperature(combined_energy/combined_heat_capacity)
 
-	var/temperature_delta= abs(old_temperature - air_contents.temperature)
+	var/temperature_delta= abs(old_temperature - air_contents.return_temperature())
 	if(temperature_delta > 1)
 		active_power_usage = (heat_capacity * temperature_delta) / 10 + idle_power_usage
 		update_parents()
@@ -114,7 +128,7 @@
 																	datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "thermomachine", name, 400, 240, master_ui, state)
+		ui = new(user, src, ui_key, "ThermoMachine", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/ui_data(mob/user)
@@ -127,7 +141,7 @@
 	data["initial"] = initial(target_temperature)
 
 	var/datum/gas_mixture/air1 = airs[1]
-	data["temperature"] = air1.temperature
+	data["temperature"] = air1.return_temperature()
 	data["pressure"] = air1.return_pressure()
 	return data
 
@@ -156,9 +170,15 @@
 				target = text2num(target)
 				. = TRUE
 			if(.)
-				target_temperature = CLAMP(target, min_temperature, max_temperature)
+				target_temperature = clamp(target, min_temperature, max_temperature)
 				investigate_log("was set to [target_temperature] K by [key_name(usr)]", INVESTIGATE_ATMOS)
 
+	update_icon()
+
+/obj/machinery/atmospherics/components/unary/thermomachine/CtrlClick(mob/living/user)
+	if(!can_interact(user))
+		return
+	on = !on
 	update_icon()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer
@@ -185,7 +205,7 @@
 
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on/coldroom/Initialize()
 	. = ..()
-	target_temperature = T0C-80
+	target_temperature = T0C-20 //Cold enough to prevent Miasma
 
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/RefreshParts()
 	..()
@@ -193,6 +213,11 @@
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		L += M.rating
 	min_temperature = max(T0C - (initial(min_temperature) + L * 15), TCMB) //73.15K with T1 stock parts
+
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/AltClick(mob/living/user)
+	if(!can_interact(user))
+		return
+	target_temperature = min_temperature
 
 /obj/machinery/atmospherics/components/unary/thermomachine/heater
 	name = "heater"
@@ -214,3 +239,8 @@
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		L += M.rating
 	max_temperature = T20C + (initial(max_temperature) * L) //573.15K with T1 stock parts
+
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/AltClick(mob/living/user)
+	if(!can_interact(user))
+		return
+	target_temperature = max_temperature

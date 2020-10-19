@@ -385,7 +385,7 @@
 #undef BRAINS_BLOWN_THROW_RANGE
 
 
-
+//TODO: sawing off guns with TOOL_SAW
 /obj/item/gun/ballistic/proc/sawoff(mob/user)
 	if(sawn_off)
 		to_chat(user, "<span class='warning'>\The [src] is already shortened!</span>")

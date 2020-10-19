@@ -18,7 +18,6 @@ map boxstation
 endmap
 
 map metastation
-	minplayers 50
 	maxplayers 100
 	votable
 endmap

@@ -9,12 +9,14 @@
 /datum/action/changeling/absorbDNA/can_sting(mob/living/carbon/user)
 	if(!..())
 		return
-
+	var/mob/living/carbon/target = user.pulling
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	if(changeling.isabsorbing)
 		to_chat(user, "<span class='warning'>We are already absorbing!</span>")
 		return
-
+	if(HAS_TRAIT(target, TRAIT_NODEATH))
+		to_chat(user, "<span class='warning'>We can't absorb this creature.</span>")
+		return
 	if(!user.pulling || !iscarbon(user.pulling))
 		to_chat(user, "<span class='warning'>We must be grabbing a creature to absorb them!</span>")
 		return
@@ -22,7 +24,6 @@
 		to_chat(user, "<span class='warning'>We must have a tighter grip to absorb this creature!</span>")
 		return
 
-	var/mob/living/carbon/target = user.pulling
 	return changeling.can_absorb_dna(target)
 
 
@@ -61,7 +62,7 @@
 
 	if(target.mind && user.mind)//if the victim and user have minds
 		// Absorb a lizard, speak Draconic.
-		user.copy_known_languages_from(target)
+		owner.copy_languages(target, LANGUAGE_ABSORB)
 
 		var/datum/mind/suckedbrain = target.mind
 		user.mind.memory += "<BR><b>We've absorbed [target]'s memories into our own...</b><BR>[suckedbrain.memory]<BR>"
@@ -122,11 +123,9 @@
 		if(target_ling)//If the target was a changeling, suck out their extra juice and objective points!
 			to_chat(user, "<span class='boldnotice'>[target] was one of us. We have absorbed their power.</span>")
 			target_ling.remove_changeling_powers()
-			changeling.geneticpoints += round(target_ling.geneticpoints/2)
+			changeling.geneticpoints += 2
 			target_ling.geneticpoints = 0
 			target_ling.canrespec = 0
-			changeling.chem_storage += round(target_ling.chem_storage/2)
-			changeling.chem_charges += min(target_ling.chem_charges, changeling.chem_storage)
 			target_ling.chem_charges = 0
 			target_ling.chem_storage = 0
 			changeling.absorbedcount += (target_ling.absorbedcount)

@@ -243,6 +243,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "struck", "hit")
 	var/hacked = FALSE
+	block_upgrade_walk = 1
+	block_power = -200
 
 /obj/item/toy/sword/attack_self(mob/user)
 	active = !( active )
@@ -306,6 +308,8 @@
 	attack_verb = list("pricked", "absorbed", "gored")
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
+	block_upgrade_walk = 1
+	block_power = -200
 
 
 /obj/item/toy/windupToolbox
@@ -366,6 +370,8 @@
 	force_unwielded = 0
 	force_wielded = 0
 	attack_verb = list("attacked", "struck", "hit")
+	block_upgrade_walk = 1
+	block_power = -100
 
 /obj/item/twohanded/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
@@ -373,6 +379,10 @@
 /obj/item/twohanded/dualsaber/toy/IsReflect()//Stops Toy Dualsabers from reflecting energy projectiles
 	return 0
 
+/obj/item/twohanded/dualsaber/toy/impale(mob/living/user)//Stops Toy Dualsabers from injuring clowns
+	to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
+	user.adjustStaminaLoss(25)
+	
 /obj/item/toy/katana
 	name = "replica katana"
 	desc = "Woefully underpowered in D20."
@@ -388,6 +398,10 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	block_upgrade_walk = 1
+	block_level = 1
+	block_flags = BLOCKING_ACTIVE | BLOCKING_PROJECTILE
+	block_power = -500 //not to be used on anything more effective than nerf darts
 
 /*
  * Snap pops
@@ -635,8 +649,6 @@
 || A Deck of Cards for playing various games of chance ||
 */
 
-
-
 /obj/item/toy/cards
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
@@ -648,6 +660,8 @@
 	var/card_throw_speed = 3
 	var/card_throw_range = 7
 	var/list/card_attack_verb = list("attacked")
+	var/card_sharpness
+	var/card_embed_chance = 0
 
 /obj/item/toy/cards/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] wrists with \the [src]! It looks like [user.p_they()] [user.p_have()] a crummy hand!</span>")
@@ -668,6 +682,7 @@
 	var/cooldown = 0
 	var/obj/machinery/computer/holodeck/holo = null // Holodeck cards should not be infinite
 	var/list/cards = list()
+	var/original_size = 52
 
 /obj/item/toy/cards/deck/Initialize()
 	. = ..()
@@ -719,16 +734,16 @@
 	H.parentdeck = src
 	var/O = src
 	H.apply_card_vars(H,O)
-	src.cards -= choice
+	src.cards.Cut(1,2) //Removes the top card from the list
 	H.pickup(user)
 	user.put_in_hands(H)
 	user.visible_message("[user] draws a card from the deck.", "<span class='notice'>You draw a card from the deck.</span>")
 	update_icon()
 
 /obj/item/toy/cards/deck/update_icon()
-	if(cards.len > 26)
+	if(cards.len > original_size/2)
 		icon_state = "deck_[deckstyle]_full"
-	else if(cards.len > 10)
+	else if(cards.len > original_size/4)
 		icon_state = "deck_[deckstyle]_half"
 	else if(cards.len > 0)
 		icon_state = "deck_[deckstyle]_low"
@@ -794,7 +809,7 @@
 	name = "hand of cards"
 	desc = "A number of cards not in a deck, customarily held in ones hand."
 	icon = 'icons/obj/toy.dmi'
-	icon_state = "nanotrasen_hand2"
+	icon_state = "none"
 	w_class = WEIGHT_CLASS_TINY
 	var/list/currenthand = list()
 	var/choice = null
@@ -814,7 +829,6 @@
 	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.set_content(dat)
 	popup.open()
-
 
 /obj/item/toy/cards/cardhand/Topic(href, href_list)
 	if(..())
@@ -838,12 +852,7 @@
 			cardUser.visible_message("<span class='notice'>[cardUser] draws a card from [cardUser.p_their()] hand.</span>", "<span class='notice'>You take the [C.cardname] from your hand.</span>")
 
 			interact(cardUser)
-			if(src.currenthand.len < 3)
-				src.icon_state = "[deckstyle]_hand2"
-			else if(src.currenthand.len < 4)
-				src.icon_state = "[deckstyle]_hand3"
-			else if(src.currenthand.len < 5)
-				src.icon_state = "[deckstyle]_hand4"
+			update_sprite()
 			if(src.currenthand.len == 1)
 				var/obj/item/toy/cards/singlecard/N = new/obj/item/toy/cards/singlecard(src.loc)
 				N.parentdeck = src.parentdeck
@@ -863,12 +872,7 @@
 			user.visible_message("[user] adds a card to [user.p_their()] hand.", "<span class='notice'>You add the [C.cardname] to your hand.</span>")
 			qdel(C)
 			interact(user)
-			if(currenthand.len > 4)
-				src.icon_state = "[deckstyle]_hand5"
-			else if(currenthand.len > 3)
-				src.icon_state = "[deckstyle]_hand4"
-			else if(currenthand.len > 2)
-				src.icon_state = "[deckstyle]_hand3"
+			update_sprite()
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
 	else
@@ -877,7 +881,7 @@
 /obj/item/toy/cards/cardhand/apply_card_vars(obj/item/toy/cards/newobj,obj/item/toy/cards/sourceobj)
 	..()
 	newobj.deckstyle = sourceobj.deckstyle
-	newobj.icon_state = "[deckstyle]_hand2" // Another dumb hack, without this the hand is invisible (or has the default deckstyle) until another card is added.
+	update_sprite()
 	newobj.card_hitsound = sourceobj.card_hitsound
 	newobj.card_force = sourceobj.card_force
 	newobj.card_throwforce = sourceobj.card_throwforce
@@ -886,16 +890,31 @@
 	newobj.card_attack_verb = sourceobj.card_attack_verb
 	newobj.resistance_flags = sourceobj.resistance_flags
 
+/obj/item/toy/cards/cardhand/proc/update_sprite()
+	cut_overlays()
+	var/overlay_cards = currenthand.len
+
+	var/k = overlay_cards == 2 ? 1 : overlay_cards - 2
+	for(var/i = k; i <= overlay_cards; i++)
+		var/card_overlay = image(icon=src.icon,icon_state="sc_[currenthand[i]]_[deckstyle]",pixel_x=(1-i+k)*3,pixel_y=(1-i+k)*3)
+		add_overlay(card_overlay)
+
 /obj/item/toy/cards/singlecard
 	name = "card"
 	desc = "a card"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "singlecard_down_nanotrasen"
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_SMALL
 	var/cardname = null
 	var/flipped = 0
 	pixel_x = -5
 
+/obj/item/toy/cards/singlecard/apply_card_vars(obj/item/toy/cards/singlecard/newobj,obj/item/toy/cards/sourceobj)
+	..()
+	newobj.card_embed_chance = sourceobj.card_embed_chance
+	newobj.embedding = newobj.embedding.setRating(embed_chance = card_embed_chance)
+	newobj.card_sharpness = sourceobj.card_sharpness
+	newobj.sharpness = newobj.card_sharpness
 
 /obj/item/toy/cards/singlecard/examine(mob/user)
 	. = ..()
@@ -952,12 +971,7 @@
 			user.visible_message("[user] adds a card to [user.p_their()] hand.", "<span class='notice'>You add the [cardname] to your hand.</span>")
 			qdel(src)
 			H.interact(user)
-			if(H.currenthand.len > 4)
-				H.icon_state = "[deckstyle]_hand5"
-			else if(H.currenthand.len > 3)
-				H.icon_state = "[deckstyle]_hand4"
-			else if(H.currenthand.len > 2)
-				H.icon_state = "[deckstyle]_hand3"
+			H.update_sprite()
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
 	else
@@ -997,8 +1011,10 @@
 	deckstyle = "syndicate"
 	card_hitsound = 'sound/weapons/bladeslice.ogg'
 	card_force = 5
-	card_throwforce = 10
-	card_throw_speed = 3
+	card_throwforce = 12
+	card_throw_speed = 6
+	card_embed_chance = 80
+	card_sharpness = IS_SHARP
 	card_throw_range = 7
 	card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
 	resistance_flags = NONE
@@ -1387,7 +1403,8 @@
 /obj/item/toy/figure/virologist
 	name = "Virologist action figure"
 	icon_state = "virologist"
-	toysay = "The cure is potassium!"
+	toysay = "It's beneficial! Mostly."
+	toysound = 'sound/ambience/antag/ling_aler.ogg'
 
 /obj/item/toy/figure/warden
 	name = "Warden action figure"

@@ -20,6 +20,9 @@
 	var/mob/living/silicon/ai/mainframe = null
 	var/datum/action/innate/undeployment/undeployment_action = new
 
+	var/obj/item/clockwork/clockwork_slab/internal_clock_slab = null
+	var/ratvar = FALSE
+
 //Hud stuff
 
 	var/obj/screen/inv1 = null
@@ -103,6 +106,8 @@
 	wires = new /datum/wires/robot(src)
 	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
 
+	RegisterSignal(src, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, .proc/charge)
+
 	robot_modules_background = new()
 	robot_modules_background.icon_state = "block"
 	robot_modules_background.layer = HUD_LAYER	//Objects that appear on screen are on layer ABOVE_HUD_LAYER, UI should be just below it.
@@ -139,6 +144,7 @@
 	else if(!mmi || !mmi.brainmob)
 		mmi = new (src)
 		mmi.brain = new /obj/item/organ/brain(mmi)
+		mmi.brain.organ_flags |= ORGAN_FROZEN
 		mmi.brain.name = "[real_name]'s brain"
 		mmi.name = "[initial(mmi.name)]: [real_name]"
 		mmi.brainmob = new(mmi)
@@ -210,7 +216,7 @@
 	if(!CONFIG_GET(flag/disable_secborg))
 		modulelist["Security"] = /obj/item/robot_module/security
 
-	var/input_module = input("Please, select a module!", "Robot", null, null) as null|anything in modulelist
+	var/input_module = input("Please, select a module!", "Robot", null, null) as null|anything in sortList(modulelist)
 	if(!input_module || module.type != /obj/item/robot_module)
 		return
 
@@ -267,6 +273,11 @@
 	alerts.set_content(dat)
 	alerts.open()
 
+/mob/living/silicon/robot/verb/view_manifest()
+	set name = "View Crew Manifest"
+	set category = "Robot Commands"
+	ai_roster()
+
 /mob/living/silicon/robot/proc/ionpulse()
 	if(!ionpulse_on)
 		return
@@ -300,15 +311,15 @@
 	..()
 	if(statpanel("Status"))
 		if(cell)
-			stat("Charge Left:", "[cell.charge]/[cell.maxcharge]")
+			stat(null, "Charge Left: [cell.charge]/[cell.maxcharge]")
 		else
 			stat(null, text("No Cell Inserted!"))
 
 		if(module)
 			for(var/datum/robot_energy_storage/st in module.storages)
-				stat("[st.name]:", "[st.energy]/[st.max_energy]")
+				stat(null, "[st.name]: [st.energy]/[st.max_energy]")
 		if(connected_ai)
-			stat("Master AI:", connected_ai.name)
+			stat(null, "Master AI: [connected_ai.name]")
 
 /mob/living/silicon/robot/restrained(ignore_grab)
 	. = 0
@@ -362,6 +373,10 @@
 	if (!T0 || ! T1)
 		return FALSE
 	return ISINRANGE(T1.x, T0.x - interaction_range, T0.x + interaction_range) && ISINRANGE(T1.y, T0.y - interaction_range, T0.y + interaction_range)
+
+/mob/living/silicon/robot/AltClick(mob/user)
+	..()
+	togglelock(user)
 
 /mob/living/silicon/robot/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WELDER && (user.a_intent != INTENT_HARM || user == src))
@@ -455,6 +470,7 @@
 			to_chat(user, "<span class='notice'>You start to unfasten [src]'s securing bolts...</span>")
 			if(W.use_tool(src, user, 50, volume=50) && !cell)
 				user.visible_message("[user] deconstructs [src]!", "<span class='notice'>You unfasten the securing bolts, and [src] falls to pieces!</span>")
+				log_attack("[key_name(user)] deconstructed [name] at [AREACOORD(src)].")
 				deconstruct()
 
 	else if(istype(W, /obj/item/aiModule))
@@ -487,17 +503,7 @@
 			to_chat(user, "<span class='warning'>Unable to locate a radio!</span>")
 
 	else if (istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))			// trying to unlock the interface with an ID card
-		if(opened)
-			to_chat(user, "<span class='warning'>You must close the cover to swipe an ID card!</span>")
-		else
-			if(allowed(usr))
-				locked = !locked
-				to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] [src]'s cover.</span>")
-				update_icons()
-				if(emagged)
-					to_chat(user, "<span class='notice'>The cover interface glitches out for a split second.</span>")
-			else
-				to_chat(user, "<span class='danger'>Access denied.</span>")
+		togglelock(user)
 
 	else if(istype(W, /obj/item/borg/upgrade/))
 		var/obj/item/borg/upgrade/U = W
@@ -545,6 +551,19 @@
 			to_chat(user, "<span class='notice'>You replace the headlamp bulbs.</span>")
 	else
 		return ..()
+
+/mob/living/silicon/robot/proc/togglelock(mob/user)
+	if(opened)
+		to_chat(user, "<span class='warning'>You must close the cover to swipe an ID card!</span>")
+	else
+		if(allowed(usr))
+			locked = !locked
+			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] [src]'s cover.</span>")
+			update_icons()
+			if(emagged)
+				to_chat(user, "<span class='notice'>The cover interface glitches out for a split second.</span>")
+		else
+			to_chat(user, "<span class='danger'>Access denied.</span>")
 
 /mob/living/silicon/robot/verb/unlock_own_cover()
 	set category = "Robot Commands"
@@ -605,7 +624,7 @@
 		if(lamp_intensity > 2)
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_l"
 		else
-			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_e[is_servant_of_ratvar(src) ? "_r" : ""]"
+			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_e[ratvar ? "_r" : ""]"
 		eye_lights.icon = icon
 		add_overlay(eye_lights)
 
@@ -678,6 +697,18 @@
 		throw_alert("hacked", /obj/screen/alert/hacked)
 	else
 		clear_alert("hacked")
+
+/mob/living/silicon/robot/proc/SetRatvar(new_state, rebuild=TRUE)
+	ratvar = new_state
+	if(rebuild)
+		module.rebuild_modules()
+	update_icons()
+	if(ratvar)
+		internal_clock_slab = new(src)
+		throw_alert("ratvar", /obj/screen/alert/ratvar)
+	else
+		qdel(internal_clock_slab)
+		clear_alert("ratvar")
 
 /mob/living/silicon/robot/verb/outputlaws()
 	set category = "Robot Commands"
@@ -1142,7 +1173,7 @@
 		M.visible_message("<span class='warning'>[M] really can't seem to mount [src]...</span>")
 		return
 	var/datum/component/riding/riding_datum = LoadComponent(/datum/component/riding/cyborg)
-	if(buckled_mobs)
+	if(has_buckled_mobs())
 		if(buckled_mobs.len >= max_buckled_mobs)
 			return
 		if(M in buckled_mobs)
@@ -1189,3 +1220,11 @@
 			connected_ai.aicamera.stored[i] = TRUE
 		for(var/i in connected_ai.aicamera.stored)
 			aicamera.stored[i] = TRUE
+
+/mob/living/silicon/robot/proc/charge(datum/source, amount, repairs)
+	if(module)
+		module.respawn_consumable(src, amount * 0.005)
+	if(cell)
+		cell.charge = min(cell.charge + amount, cell.maxcharge)
+	if(repairs)
+		heal_bodypart_damage(repairs, repairs - 1)

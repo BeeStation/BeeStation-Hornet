@@ -142,6 +142,11 @@
 	toxpwr = 2
 	taste_description = "fish"
 
+/datum/reagent/toxin/carpotoxin/on_mob_metabolize(mob/living/carbon/L)
+	if(iscatperson(L))
+		toxpwr = 0
+	..()
+
 /datum/reagent/toxin/zombiepowder
 	name = "Zombie Powder"
 	description = "A strong neurotoxin that puts the subject into a death-like state."
@@ -316,7 +321,8 @@
 	description = "Finely shredded tea leaves, used for making tea."
 	reagent_state = SOLID
 	color = "#7F8400" // rgb: 127, 132, 0
-	toxpwr = 0.5
+	toxpwr = 0.1
+	taste_description = "green tea"
 
 /datum/reagent/toxin/mutetoxin //the new zombie powder.
 	name = "Mute Toxin"
@@ -349,12 +355,12 @@
 	description = "An extremely radioactive material in liquid form. Ingestion results in fatal irradiation."
 	reagent_state = LIQUID
 	color = "#787878"
-	metabolization_rate = 0.125 * REAGENTS_METABOLISM
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	toxpwr = 0
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/toxin/polonium/on_mob_life(mob/living/carbon/M)
-	M.radiation += 4
+	M.radiation += 10
 	..()
 
 /datum/reagent/toxin/histamine
@@ -434,7 +440,7 @@
 	toxpwr = 0
 
 /datum/reagent/toxin/fentanyl/on_mob_life(mob/living/carbon/M)
-	M.adjustBrainLoss(3*REM, 150)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3*REM, 150)
 	if(M.toxloss <= 60)
 		M.adjustToxLoss(1*REM, 0)
 	if(current_cycle >= 18)
@@ -858,8 +864,6 @@
 
 /datum/reagent/toxin/bonehurtingjuice/on_mob_life(mob/living/carbon/M)
 	M.adjustStaminaLoss(7.5, 0)
-	if(HAS_TRAIT(M, TRAIT_CALCIUM_HEALER))
-		M.adjustBruteLoss(0.5, 0)
 	if(prob(20))
 		switch(rand(1, 3))
 			if(1)
@@ -904,3 +908,21 @@
 				to_chat(M, "<span class='warning'>Your missing arm aches from wherever you left it.</span>")
 				M.emote("sigh")
 	return ..()
+
+/datum/reagent/toxin/bungotoxin
+	name = "Bungotoxin"
+	description = "A horrible cardiotoxin that protects the humble bungo pit."
+	silent_toxin = TRUE
+	color = "#EBFF8E"
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	toxpwr = 0
+	taste_description = "tannin"
+
+/datum/reagent/toxin/bungotoxin/on_mob_life(mob/living/carbon/M)
+	M.adjustOrganLoss(ORGAN_SLOT_HEART, 3)
+	M.confused = M.dizziness //add a tertiary effect here if this is isn't an effective poison.
+	if(current_cycle >= 12 && prob(8))
+		var/tox_message = pick("You feel your heart spasm in your chest.", "You feel faint.","You feel you need to catch your breath.","You feel a prickle of pain in your chest.")
+		to_chat(M, "<span class='notice'>[tox_message]</span>")
+	. = 1
+	..()

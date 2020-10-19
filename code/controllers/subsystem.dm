@@ -87,7 +87,7 @@
 		queue_node_flags = queue_node.flags
 
 		if (queue_node_flags & SS_TICKER)
-			if (!(SS_flags & SS_TICKER))
+			if ((SS_flags & (SS_TICKER|SS_BACKGROUND)) != SS_TICKER)
 				continue
 			if (queue_node_priority < SS_priority)
 				break
@@ -161,7 +161,7 @@
 	initialized = TRUE
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 	var/msg = "Initialized [name] subsystem within [time] second[time == 1 ? "" : "s"]!"
-	to_chat(world, "<span class='boldannounce'>[msg]</span>")
+	testing("[msg]")
 	log_world(msg)
 	return time
 

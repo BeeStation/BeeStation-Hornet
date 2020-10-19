@@ -23,11 +23,15 @@ Bonus
 	resistance = -3
 	stage_speed = -3
 	transmittable = -4
+	severity = -1
 	level = 6
 	base_message_chance = 5
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 	var/regenerate_blood = FALSE
+	var/gas_type = /datum/gas/miasma
+	var/base_moles = 3
+	var/emote = "fart"
 	threshold_desc = "<b>Resistance 8:</b> Additionally regenerates lost blood.<br>"
 
 /datum/symptom/oxygen/Start(datum/disease/advance/A)
@@ -47,9 +51,17 @@ Bonus
 			M.losebreath = max(0, M.losebreath - 4)
 			if(regenerate_blood && M.blood_volume < BLOOD_VOLUME_NORMAL)
 				M.blood_volume += 1
+			if(prob(1) && prob(50))
+				var/turf/open/T = get_turf(M)
+				if(!istype(T))
+					return
+				var/datum/gas_mixture/air = T.return_air()
+				air.set_moles(gas_type, air.get_moles(gas_type) + base_moles)
+				T.air_update_turf()
+				M.emote(emote)
 		else
 			if(prob(base_message_chance))
-				to_chat(M, "<span class='notice'>[pick("Your lungs feel great.", "You realize you haven't been breathing.", "You don't feel the need to breathe.")]</span>")
+				to_chat(M, "<span class='notice'>[pick("Your lungs feel great.", "You realize you haven't been breathing.", "You don't feel the need to breathe.", "Something smells rotten", "You feel peckish")]</span>")
 	return
 
 /datum/symptom/oxygen/on_stage_change(new_stage, datum/disease/advance/A)

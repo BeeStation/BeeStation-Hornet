@@ -15,7 +15,7 @@
 #define LAZYADD(L, I) if(!L) { L = list(); } L += I;
 #define LAZYOR(L, I) if(!L) { L = list(); } L |= I;
 #define LAZYFIND(L, V) L ? L.Find(V) : 0
-#define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= length(L) ? L[I] : null) : L[I]) : null)
+#define LAZYACCESS(L, I) (L ? (isnum_safe(I) ? (I > 0 && I <= length(L) ? L[I] : null) : L[I]) : null)
 #define LAZYSET(L, K, V) if(!L) { L = list(); } L[K] = V;
 #define LAZYLEN(L) length(L)
 #define LAZYCLEARLIST(L) if(L) L.Cut()
@@ -75,7 +75,7 @@
 /// Returns list element or null. Should prevent "index out of bounds" error.
 /proc/listgetindex(list/L, index)
 	if(LAZYLEN(L))
-		if(isnum(index) && ISINTEGER(index))
+		if(isnum_safe(index) && ISINTEGER(index))
 			if(ISINRANGE(index,1,L.len))
 				return L[index]
 		else if(index in L)
@@ -336,7 +336,7 @@
 	var/temp = L.Copy()
 	L.len = 0
 	for(var/key in temp)
-		if (isnum(key))
+		if (isnum_safe(key))
 			L |= key
 		else
 			L[key] = temp[key]
@@ -533,7 +533,7 @@
 	. = l.Copy()
 	for(var/i = 1 to l.len)
 		var/key = .[i]
-		if(isnum(key))
+		if(isnum_safe(key))
 			// numbers cannot ever be associative keys
 			continue
 		var/value = .[key]

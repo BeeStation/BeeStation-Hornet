@@ -9,7 +9,7 @@
 	input_dir = EAST
 	ui_x = 300
 	ui_y = 250
-
+	var/obj/item/storage/bag/money/bag_to_use
 	var/produced_coins = 0 // how many coins the machine has made in it's last cycle
 	var/processing = FALSE
 	var/chosen = /datum/material/iron //which material will be used to make coins
@@ -74,24 +74,24 @@
 											datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "mint", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, ui_key, "Mint", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/mineral/mint/ui_data()
 	var/list/data = list()
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	data["inserted_materials"] = list()
+	data["chosen_material"] = null
 
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/datum/material/inserted_material in materials.materials)
 		var/amount = materials.get_material_amount(inserted_material)
 
 		if(!amount)
 			continue
-
 		data["inserted_materials"] += list(list(
 			"material" = inserted_material.name,
-			"amount" = amount
+			"amount" = amount,
 		))
-
 		if(chosen == inserted_material)
 			data["chosen_material"] = inserted_material.name
 
@@ -101,6 +101,11 @@
 	return data;
 
 /obj/machinery/mineral/mint/ui_act(action, params, datum/tgui/ui)
+
+	. = ..()
+	if(.)
+		return
+
 	switch(action)
 		if ("startpress")
 			if (!processing)
@@ -120,9 +125,8 @@
 	temp_list[chosen] = 400
 	if(T)
 		var/obj/item/O = new /obj/item/coin(src)
-		var/obj/item/storage/bag/money/B = locate(/obj/item/storage/bag/money, T)
 		O.set_custom_materials(temp_list)
-		if(!B)
-			B = new /obj/item/storage/bag/money(src)
-			unload_mineral(B)
-		O.forceMove(B)
+		if(QDELETED(bag_to_use) || (bag_to_use.loc != T) || !SEND_SIGNAL(bag_to_use, COMSIG_TRY_STORAGE_INSERT, O, null, TRUE)) //important to send the signal so we don't overfill the bag.
+			bag_to_use = new(src) //make a new bag if we can't find or use the old one.
+			unload_mineral(bag_to_use) //just forcemove memes.
+			O.forceMove(bag_to_use) //don't bother sending the signal, the new bag is empty and all that.

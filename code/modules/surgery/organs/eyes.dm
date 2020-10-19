@@ -6,6 +6,19 @@
 	slot = ORGAN_SLOT_EYES
 	gender = PLURAL
 
+	healing_factor = STANDARD_ORGAN_HEALING
+	decay_factor = STANDARD_ORGAN_DECAY
+	maxHealth = 0.5 * STANDARD_ORGAN_THRESHOLD		//half the normal health max since we go blind at 30, a permanent blindness at 50 therefore makes sense unless medicine is administered
+	high_threshold = 0.3 * STANDARD_ORGAN_THRESHOLD	//threshold at 30
+	low_threshold = 0.2 * STANDARD_ORGAN_THRESHOLD	//threshold at 20
+
+	low_threshold_passed = "<span class='info'>Distant objects become somewhat less tangible.</span>"
+	high_threshold_passed = "<span class='info'>Everything starts to look a lot less clear.</span>"
+	now_failing = "<span class='warning'>Darkness envelopes you, as your eyes go blind!</span>"
+	now_fixed = "<span class='info'>Color and shapes are once again perceivable.</span>"
+	high_threshold_cleared = "<span class='info'>Your vision functions passably once more.</span>"
+	low_threshold_cleared = "<span class='info'>Your vision is cleared of any ailment.</span>"
+
 	var/sight_flags = 0
 	var/see_in_dark = 2
 	var/tint = 0
@@ -17,9 +30,6 @@
 	var/lighting_alpha
 	var/no_glasses
 	var/damaged	= FALSE	//damaged indicates that our eyes are undergoing some level of negative effect
-	maxHealth = 50		//half the normal health max since we go blind at 30, a permanent blindness at 50 therefore makes sense unless medicine is administered
-	high_threshold = 20
-	low_threshold = 10
 
 /obj/item/organ/eyes/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, initialising)
 	. = ..()
@@ -47,17 +57,18 @@
 	M.update_tint()
 	M.update_sight()
 
+
 /obj/item/organ/eyes/on_life()
 	..()
 	var/mob/living/carbon/C = owner
 	//since we can repair fully damaged eyes, check if healing has occurred
-	if(failing && (damage < maxHealth))
-		failing = FALSE
+	if((organ_flags & ORGAN_FAILING) && (damage < maxHealth))
+		organ_flags &= ~ORGAN_FAILING
 		C.cure_blind(EYE_DAMAGE)
 	//various degrees of "oh fuck my eyes", from "point a laser at your eye" to "staring at the Sun" intensities
 	if(damage > 20)
 		damaged = TRUE
-		if(failing)
+		if((organ_flags & ORGAN_FAILING))
 			C.become_blind(EYE_DAMAGE)
 		else if(damage > 30)
 			C.overlay_fullscreen("eye_damage", /obj/screen/fullscreen/impaired, 2)
@@ -117,6 +128,7 @@
 	icon_state = "cybernetic_eyeballs"
 	desc = "A very basic set of optical sensors with no extra vision modes or functions."
 	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_SYNTHETIC
 
 /obj/item/organ/eyes/robotic/emp_act(severity)
 	. = ..()
@@ -182,7 +194,7 @@
 /obj/item/organ/eyes/robotic/shield/emp_act(severity)
 	return
 
-#define RGB2EYECOLORSTRING(definitionvar) ("[copytext(definitionvar,2,3)][copytext(definitionvar,4,5)][copytext(definitionvar,6,7)]")
+#define RGB2EYECOLORSTRING(definitionvar) ("[copytext_char(definitionvar, 2, 3)][copytext_char(definitionvar, 4, 5)][copytext_char(definitionvar, 6, 7)]")
 
 /obj/item/organ/eyes/robotic/glow
 	name = "High Luminosity Eyes"
@@ -372,3 +384,7 @@
 	eye_icon_state = "snail_eyes"
 	icon_state = "snail_eyeballs"
 
+/obj/item/organ/eyes/apid
+	name = "apid eyes"
+	desc = "Designed for navigating dark hives, these eyes have improvement to low light vision."
+	see_in_dark = 8

@@ -18,11 +18,13 @@
 	steal_objective.owner = owner
 	steal_objective.set_target(new /datum/objective_item/steal/nukedisc)
 	objectives += steal_objective
+	log_objective(owner, steal_objective.explanation_text)
 
 	var/datum/objective/hijack/hijack_objective = new
 	hijack_objective.explanation_text = "Escape on the shuttle alone. Ensure that nobody else makes it out."
 	hijack_objective.owner = owner
 	objectives += hijack_objective
+	log_objective(owner, hijack_objective.explanation_text)
 
 /datum/antagonist/highlander/on_gain()
 	forge_objectives()
@@ -46,7 +48,7 @@
 		qdel(I)
 	for(var/obj/item/I in H.held_items)
 		qdel(I)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/kilt/highlander(H), SLOT_W_UNIFORM)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/kilt/highlander(H), SLOT_W_UNIFORM)
 	H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), SLOT_EARS)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/beret/highlander(H), SLOT_HEAD)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), SLOT_SHOES)

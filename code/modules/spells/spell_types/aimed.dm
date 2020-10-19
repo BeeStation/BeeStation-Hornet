@@ -74,6 +74,8 @@
 
 /obj/effect/proc_holder/spell/aimed/proc/fire_projectile(mob/living/user, atom/target)
 	current_amount--
+	if(!projectile_type)
+		return
 	for(var/i in 1 to projectiles_per_fire)
 		var/obj/item/projectile/P = new projectile_type(user.loc)
 		P.firer = user

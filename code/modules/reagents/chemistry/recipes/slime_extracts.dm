@@ -49,7 +49,7 @@
 /datum/chemical_reaction/slime/slimemutate
 	name = "Mutation Toxin"
 	id = "slimetoxin"
-	results = list(/datum/reagent/slime_toxin = 1)
+	results = list(/datum/reagent/mutationtoxin/jelly = 5)
 	required_reagents = list(/datum/reagent/toxin/plasma = 1)
 	required_other = TRUE
 	required_container = /obj/item/slime_extract/green
@@ -57,7 +57,7 @@
 /datum/chemical_reaction/slime/unstabletoxin
 	name = "Unstable Mutation Toxin"
 	id = "unstablemuttoxin"
-	results = list(/datum/reagent/mutationtoxin/unstable = 1)
+	results = list(/datum/reagent/mutationtoxin/unstable = 5)
 	required_reagents = list(/datum/reagent/uranium/radium = 1)
 	required_other = TRUE
 	required_container = /obj/item/slime_extract/green
@@ -128,6 +128,16 @@
 /datum/chemical_reaction/slime/slimemobspawn/friendly/summon_mobs(datum/reagents/holder, turf/T)
 	T.visible_message("<span class='danger'>The slime extract begins to vibrate adorably!</span>")
 	addtimer(CALLBACK(src, .proc/chemical_mob_spawn, holder, 1, "Friendly Gold Slime", FRIENDLY_SPAWN, "neutral"), 50)
+
+/datum/chemical_reaction/slime/slimemobspawn/spider
+	name = "Slime Crit Traitor Spider"
+	id = "m_tele6"
+	required_reagents = list(/datum/reagent/spider_extract = 1)
+
+/datum/chemical_reaction/slime/slimemobspawn/spider/summon_mobs(datum/reagents/holder, turf/T)
+	T.visible_message("<span class='danger'>The slime extract begins to vibrate crikey-ingly!</span>")
+	addtimer(CALLBACK(src, .proc/chemical_mob_spawn, holder, 3, "Traitor Spider Slime", /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife, "neutral", FALSE), 50)
+
 
 //Silver
 /datum/chemical_reaction/slime/slimebork
@@ -411,7 +421,7 @@
 /datum/chemical_reaction/slime/slimemutate2
 	name = "Advanced Mutation Toxin"
 	id = "mutationtoxin2"
-	results = list(/datum/reagent/aslimetoxin = 1)
+	results = list(/datum/reagent/aslimetoxin = 5)
 	required_reagents = list(/datum/reagent/toxin/plasma = 1)
 	required_other = TRUE
 	required_container = /obj/item/slime_extract/black

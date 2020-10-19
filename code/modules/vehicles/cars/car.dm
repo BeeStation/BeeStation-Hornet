@@ -1,6 +1,6 @@
 /obj/vehicle/sealed/car
 	layer = ABOVE_MOB_LAYER
-	anchored = TRUE
+	move_resist = MOVE_FORCE_OVERPOWERING
 	default_driver_move = FALSE
 	var/car_traits = NONE //Bitflag for special behavior such as kidnapping
 	var/engine_sound = 'sound/vehicles/carrev.ogg'
@@ -31,6 +31,23 @@
 	last_enginesound_time = world.time
 	playsound(src, engine_sound, 100, TRUE)
 	return TRUE
+
+/obj/vehicle/sealed/car/proc/RunOver(mob/living/carbon/human/H) //pasted right out of mulebot code
+	log_combat(src, H, "run over", null, "(DAMTYPE: [uppertext(BRUTE)])")
+	H.visible_message("<span class='danger'>[src] drives over [H]!</span>", \
+					"<span class='userdanger'>[src] drives over you!</span>")
+	playsound(loc, 'sound/effects/splat.ogg', 50, 1)
+
+	var/damage = 10
+	H.apply_damage(2*damage, BRUTE, BODY_ZONE_HEAD)
+	H.apply_damage(2*damage, BRUTE, BODY_ZONE_CHEST)
+	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_L_LEG)
+	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_R_LEG)
+	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_L_ARM)
+	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_R_ARM)
+
+	var/turf/T = get_turf(src)
+	T.add_mob_blood(H)
 
 /obj/vehicle/sealed/car/MouseDrop_T(atom/dropping, mob/M)
 	if(M.stat || M.restrained())

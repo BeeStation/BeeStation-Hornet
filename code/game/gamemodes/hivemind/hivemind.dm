@@ -77,12 +77,15 @@
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		restricted_jobs += "Assistant"
 
+	if(CONFIG_GET(flag/protect_heads_from_antagonist))
+		restricted_jobs += GLOB.command_positions
+
 	var/num_hosts = max( 1 , rand(0,1) + min(8, round(num_players() / 8) ) ) //1 host for every 8 players up to 64, with a 50% chance of an extra
 
 	for(var/j = 0, j < num_hosts, j++)
 		if (!antag_candidates.len)
 			break
-		var/datum/mind/host = antag_pick(antag_candidates)
+		var/datum/mind/host = antag_pick(antag_candidates, ROLE_HIVE)
 		hosts += host
 		host.special_role = ROLE_HIVE
 		host.restricted_roles = restricted_jobs

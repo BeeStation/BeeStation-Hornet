@@ -34,6 +34,8 @@
 	var/reroll_friendly 	//During mode conversion only these are in the running
 	var/continuous_sanity_checked	//Catches some cases where config options could be used to suggest that modes without antagonists should end when all antagonists die
 	var/enemy_minimum_age = 7 //How many days must players have been playing before they can play this antagonist
+	var/list/allowed_special = list()	//Special roles that can spawn (Add things like /datum/antagonist/special/undercover for them to be able to spawn during this gamemode)
+	var/list/active_specials = list()	//Special roles that have spawned, and can now spawn late
 
 	var/announce_span = "warning" //The gamemode's name will be in this span during announcement.
 	var/announce_text = "This gamemode forgot to set a descriptive text! Uh oh!" //Used to describe a gamemode when it's announced.
@@ -81,6 +83,48 @@
 /datum/game_mode/proc/pre_setup()
 	return 1
 
+/datum/game_mode/proc/create_special_antags()
+	var/list/living_crew = list()
+	living_crew = get_living_station_crew()
+
+	var/list/candidates = list()
+	for(var/mob/living/carbon/human/H in living_crew)
+		if((!H.client) || (is_centcom_level(H.z)))
+			continue
+		candidates += H
+
+	for(var/role_to_init in allowed_special)
+		var/datum/special_role/new_role = new role_to_init
+		if(!prob(new_role.probability))
+			continue
+		new_role.add_to_pool()
+		active_specials += new_role
+
+	for(var/datum/special_role/special in active_specials)
+		if(special.spawn_mode == SPAWNTYPE_MIDROUND)
+			continue
+		//To make it feel a little more random, and for efficiency reasons we just pick the person, then check their job and if they cannot be antag, we will just remove the slot
+		var/amount = round(living_crew.len * special.proportion)
+		amount = min(amount, special.max_amount)
+		for(var/i in 1 to amount)
+			if(candidates.len == 0)
+				return	//No more candidates, end the selection process, and active specials at this time will be handled by latejoins or not included
+			var/mob/person = pick_n_take(candidates)
+			if(is_banned_from(person.ckey, special.preference_type))
+				continue
+			if(!person)
+				continue
+			var/datum/mind/selected_mind = person.mind
+			if(selected_mind.special_role)
+				continue
+			if(person.job in special.protected_jobs)
+				continue
+			//Would be annoying trying to assasinate someone with special statuses
+			if(selected_mind.isAntagTarget && !special.allowAntagTargets)
+				continue
+			var/datum/antagonist/special/A = special.add_antag_status_to(selected_mind)
+			log_game("[key_name(selected_mind)] has been selected as a [A.name]")
+
 ///Everyone should now be on the station and have their normal gear.  This is the place to give the special roles extra things
 /datum/game_mode/proc/post_setup(report) //Gamemodes can override the intercept report. Passing TRUE as the argument will force a report.
 	if(!report)
@@ -96,19 +140,25 @@
 		addtimer(CALLBACK(GLOBAL_PROC, .proc/reopen_roundstart_suicide_roles), delay)
 
 	if(SSdbcore.Connect())
-		var/sql
+		var/list/to_set = list()
+		var/arguments = list()
 		if(SSticker.mode)
-			sql += "game_mode = '[SSticker.mode]'"
+			to_set += "game_mode = :game_mode"
+			arguments["game_mode"] = SSticker.mode
 		if(GLOB.revdata.originmastercommit)
-			if(sql)
-				sql += ", "
-			sql += "commit_hash = '[GLOB.revdata.originmastercommit]'"
-		if(sql)
-			var/datum/DBQuery/query_round_game_mode = SSdbcore.NewQuery("UPDATE [format_table_name("round")] SET [sql] WHERE id = [GLOB.round_id]")
+			to_set += "commit_hash = :commit_hash"
+			arguments["commit_hash"] = GLOB.revdata.originmastercommit
+		if(to_set.len)
+			arguments["round_id"] = GLOB.round_id
+			var/datum/DBQuery/query_round_game_mode = SSdbcore.NewQuery(
+				"UPDATE [format_table_name("round")] SET [to_set.Join(", ")] WHERE id = :round_id",
+				arguments
+			)
 			query_round_game_mode.Execute()
 			qdel(query_round_game_mode)
 	if(report)
 		addtimer(CALLBACK(src, .proc/send_intercept, 0), rand(waittime_l, waittime_h))
+	create_special_antags()
 	generate_station_goals()
 	gamemode_ready = TRUE
 	return 1
@@ -120,15 +170,40 @@
 		replacementmode.make_antag_chance(character)
 	return
 
+/datum/game_mode/proc/make_special_antag_chance(mob/living/character)
+	if(!character.mind.antag_datums)
+		return
+	//Check if they are banned
+	if(QDELETED(character))
+		return
+	for(var/datum/special_role/subantag in active_specials)
+		if(!subantag.latejoin_allowed)
+			continue
+		if(subantag.spawn_mode == SPAWNTYPE_MIDROUND)
+			continue
+		var/count = 0
+		for(var/mob/living/M in GLOB.mob_living_list)
+			if(!M.mind)
+				continue
+			if(!is_special_type(M, subantag.attached_antag_datum))
+				continue
+			if(is_banned_from(M.ckey, list(subantag.preference_type)))
+				continue
+			count++
+		if(count >= subantag.max_amount)
+			continue
+		//Lower chance for midrounds than round starts
+		if(prob(subantag.proportion * 100))
+			var/datum/antagonist/special/A = subantag.add_antag_status_to(character.mind)
+			log_game("[key_name(character.mind)] has been selected as a [A.name]")
+			return
 
 ///Allows rounds to basically be "rerolled" should the initial premise fall through. Also known as mulligan antags.
 /datum/game_mode/proc/convert_roundtype()
 	set waitfor = FALSE
 	var/list/living_crew = list()
+	living_crew = get_living_station_crew()
 
-	for(var/mob/Player in GLOB.mob_list)
-		if(Player.mind && Player.stat != DEAD && !isnewplayer(Player) && !isbrain(Player) && Player.client)
-			living_crew += Player
 	var/malc = CONFIG_GET(number/midround_antag_life_check)
 	if(living_crew.len / GLOB.joined_player_list.len <= malc) //If a lot of the player base died, we start fresh
 		message_admins("Convert_roundtype failed due to too many dead people. Limit is [malc * 100]% living crew")
@@ -222,10 +297,16 @@
 	if(!round_converted && (!continuous[config_tag] || (continuous[config_tag] && midround_antag[config_tag]))) //Non-continuous or continous with replacement antags
 		if(!continuous_sanity_checked) //make sure we have antags to be checking in the first place
 			for(var/mob/Player in GLOB.mob_list)
-				if(Player.mind)
-					if(Player.mind.special_role || LAZYLEN(Player.mind.antag_datums))
-						continuous_sanity_checked = 1
-						return 0
+				if(!Player.mind)
+					continue
+				//Gamemodes like revs do not give antag status, but special roles instead.
+				if(Player.mind.special_role && !LAZYLEN(Player.mind.antag_datums))
+					continuous_sanity_checked = TRUE
+					return FALSE
+				for(var/datum/antagonist/A in Player.mind.antag_datums)
+					if(A.delay_roundend)
+						continuous_sanity_checked = TRUE
+						return FALSE
 			if(!continuous_sanity_checked)
 				message_admins("The roundtype ([config_tag]) has no antagonists, continuous round has been defaulted to on and midround_antag has been defaulted to off.")
 				continuous[config_tag] = TRUE
@@ -311,7 +392,7 @@
 // The odds become:
 //     Player A: 150 / 250 = 0.6 = 60%
 //     Player B: 100 / 250 = 0.4 = 40%
-/datum/game_mode/proc/antag_pick(list/datum/candidates)
+/datum/game_mode/proc/antag_pick(list/datum/candidates, role)
 	if(!CONFIG_GET(flag/use_antag_rep)) // || candidates.len <= 1)
 		return pick(candidates)
 
@@ -320,7 +401,6 @@
 
 	// You may use up to 100 extra tickets (double your odds)
 	var/MAX_TICKETS_PER_ROLL = CONFIG_GET(number/max_tickets_per_roll)
-
 
 	var/total_tickets = 0
 
@@ -331,24 +411,24 @@
 
 	for(var/datum/mind/mind in candidates)
 		p_ckey = ckey(mind.key)
-		total_tickets += min(SSpersistence.antag_rep[p_ckey] + DEFAULT_ANTAG_TICKETS, MAX_TICKETS_PER_ROLL)
+		var/mob/dead/new_player/player = get_mob_by_ckey(p_ckey)
+		total_tickets += min(((role in player.client.prefs.be_special) ? SSpersistence.antag_rep[p_ckey] : 0) + DEFAULT_ANTAG_TICKETS, MAX_TICKETS_PER_ROLL)
 
 	var/antag_select = rand(1,total_tickets)
 	var/current = 1
 
 	for(var/datum/mind/mind in candidates)
 		p_ckey = ckey(mind.key)
+		var/mob/dead/new_player/player = get_mob_by_ckey(p_ckey)
 		p_rep = SSpersistence.antag_rep[p_ckey]
 
 		var/previous = current
-		var/spend = min(p_rep + DEFAULT_ANTAG_TICKETS, MAX_TICKETS_PER_ROLL)
+		var/spend = min(((role in player.client.prefs.be_special) ? p_rep : 0) + DEFAULT_ANTAG_TICKETS, MAX_TICKETS_PER_ROLL)
 		current += spend
 
 		if(antag_select >= previous && antag_select <= (current-1))
 			SSpersistence.antag_rep_change[p_ckey] = -(spend - DEFAULT_ANTAG_TICKETS)
-
 //			WARNING("AR_DEBUG: Player [mind.key] won spending [spend] tickets from starting value [SSpersistence.antag_rep[p_ckey]]")
-
 			return mind
 
 	WARNING("Something has gone terribly wrong. /datum/game_mode/proc/antag_pick failed to select a candidate. Falling back to pick()")
@@ -429,6 +509,24 @@
 							//			recommended_enemies if the number of people with that role set to yes is less than recomended_enemies,
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
+
+/datum/game_mode/proc/get_alive_non_antagonsist_players_for_role(role)
+	var/list/candidates = list()
+
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		if(player.client && is_station_level(player.z))
+			if(role in player.client.prefs.be_special)
+				if(!is_banned_from(player.ckey, list(role, ROLE_SYNDICATE)) && !QDELETED(player))
+					if(age_check(player.client) && !player.mind.special_role) //Must be older than the minimum age
+						candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
+
+	if(restricted_jobs)
+		for(var/datum/mind/player in candidates)
+			for(var/job in restricted_jobs)					// Remove people who want to be antagonist but have a job already that precludes it
+				if(player.assigned_role == job)
+					candidates -= player
+
+	return candidates
 
 
 /datum/game_mode/proc/num_players()
@@ -592,15 +690,16 @@
 		return 0
 	if(!CONFIG_GET(flag/use_age_restriction_for_jobs))
 		return 0
-	if(!isnum(C.player_age))
+	if(!isnum_safe(C.player_age))
 		return 0 //This is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced
-	if(!isnum(enemy_minimum_age))
+	if(!isnum_safe(enemy_minimum_age))
 		return 0
 
 	return max(0, enemy_minimum_age - C.player_age)
 
 /datum/game_mode/proc/remove_antag_for_borging(datum/mind/newborgie)
 	SSticker.mode.remove_cultist(newborgie, 0, 0)
+	remove_servant_of_ratvar(newborgie)
 	var/datum/antagonist/rev/rev = newborgie.has_antag_datum(/datum/antagonist/rev)
 	if(rev)
 		rev.remove_revolutionary(TRUE)

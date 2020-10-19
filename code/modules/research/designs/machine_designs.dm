@@ -2,6 +2,30 @@
 //////////////MISC Boards///////////////
 ////////////////////////////////////////
 
+/datum/design/board/shuttle/engine/plasma
+	name = "Machine Design (Plasma Thruster Board)"
+	desc = "The circuit board for a plasma thruster."
+	id = "engine_plasma"
+	build_path = /obj/item/circuitboard/machine/shuttle/engine/plasma
+	category = list ("Shuttle Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/shuttle/engine/void
+	name = "Machine Design (Void Thruster Board)"
+	desc = "The circuit board for a void thruster."
+	id = "engine_void"
+	build_path = /obj/item/circuitboard/machine/shuttle/engine/void
+	category = list ("Shuttle Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/shuttle/engine/heater
+	name = "Machine Design (Engine Heater Board)"
+	desc = "The circuit board for an engine heater."
+	id = "engine_heater"
+	build_path = /obj/item/circuitboard/machine/shuttle/heater
+	category = list ("Shuttle Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
+
 /datum/design/board/smes
 	name = "Machine Design (SMES Board)"
 	desc = "The circuit board for a SMES."
@@ -600,6 +624,14 @@
 	desc = "The circuit board for a stasis unit."
 	id = "stasis"
 	build_path = /obj/item/circuitboard/machine/stasis
+	category = list("Medical Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/board/autodoc
+	name = "Machine Design (Autodoc)"
+	desc = "The circuit board for an Autodoc."
+	id = "autodoc"
+	build_path = /obj/item/circuitboard/machine/autodoc
 	category = list("Medical Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 

@@ -31,7 +31,7 @@
 	icon_state = "captain"
 	item_state = "that"
 	flags_inv = 0
-	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 30, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/captain
 
@@ -49,7 +49,7 @@
 	name = "head of personnel's cap"
 	icon_state = "hopcap"
 	desc = "The symbol of true bureaucratic micromanagement."
-	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 30, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	dog_fashion = /datum/dog_fashion/head/hop
 
 //Chaplain
@@ -59,7 +59,7 @@
 	icon_state = "nun_hood"
 	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
-	
+
 /obj/item/clothing/head/bishopmitre
 	name = "bishop mitre"
 	desc = "An opulent hat that functions as a radio to God. Or as a lightning rod, depending on who you ask."
@@ -69,7 +69,7 @@
 /obj/item/clothing/head/fedora/det_hat
 	name = "detective's fedora"
 	desc = "There's only one man who can sniff out the dirty stench of crime, and he's likely wearing this hat."
-	armor = list("melee" = 25, "bullet" = 5, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 50)
+	armor = list("melee" = 25, "bullet" = 5, "laser" = 25, "energy" = 30, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 50)
 	icon_state = "detective"
 	var/candy_cooldown = 0
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/detective
@@ -135,7 +135,7 @@
 	desc =  "A beret made from durathread, its resilient fibres provide some protection to the wearer."
 	icon_state = "beretdurathread"
 	item_color = null
-	armor = list("melee" = 15, "bullet" = 5, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 5)
+	armor = list("melee" = 15, "bullet" = 5, "laser" = 15, "energy" = 20, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 5)
 
 //Security
 
@@ -143,7 +143,7 @@
 	name = "head of security cap"
 	desc = "The robust standard-issue cap of the Head of Security. For showing the officers who's in charge."
 	icon_state = "hoscap"
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 25, "energy" = 30, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
 	strip_delay = 80
 	dynamic_hair_suffix = ""
 
@@ -164,7 +164,7 @@
 	name = "warden's police hat"
 	desc = "It's a special armored hat issued to the Warden of a security force. Protects the head from impacts."
 	icon_state = "policehelm"
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 60)
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 60)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
 
@@ -199,46 +199,54 @@
 		mode = DRILL_CANADIAN
 	return TRUE
 
-/obj/item/clothing/head/warden/drill/speechModification(M)
-	if(copytext(M, 1, 2) != "*")
-		if(mode == DRILL_DEFAULT)
-			M = " [M]"
-			return trim(M)
-		if(mode == DRILL_SHOUTING)
-			M = " [M]!"
-			return trim(M)
-		if(mode ==  DRILL_YELLING)
-			M = " [M]!!"
-			return trim(M)
-		if(mode == DRILL_CANADIAN)
-			M = " [M]"
-			var/list/canadian_words = strings("canadian_replacement.json", "canadian")
+/obj/item/clothing/head/warden/drill/equipped(mob/M, slot)
+	. = ..()
+	if (slot == SLOT_HEAD)
+		RegisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
+	else
+		UnregisterSignal(M, COMSIG_MOB_SAY)
 
-			for(var/key in canadian_words)
-				var/value = canadian_words[key]
-				if(islist(value))
-					value = pick(value)
+/obj/item/clothing/head/warden/drill/dropped(mob/M)
+	. = ..()
+	UnregisterSignal(M, COMSIG_MOB_SAY)
 
-				M = replacetextEx(M, " [uppertext(key)]", " [uppertext(value)]")
-				M = replacetextEx(M, " [capitalize(key)]", " [capitalize(value)]")
-				M = replacetextEx(M, " [key]", " [value]")
+/obj/item/clothing/head/warden/drill/proc/handle_speech(datum/source, mob/speech_args)
+	var/message = speech_args[SPEECH_MESSAGE]
+	if(message[1] != "*")
+		switch (mode)
+			if(DRILL_SHOUTING)
+				message += "!"
+			if(DRILL_YELLING)
+				message += "!!"
+			if(DRILL_CANADIAN)
+				message = " [message]"
+				var/list/canadian_words = strings("canadian_replacement.json", "canadian")
 
-			if(prob(30))
-				M += pick(", eh?", ", EH?")
-		return trim(M)
+				for(var/key in canadian_words)
+					var/value = canadian_words[key]
+					if(islist(value))
+						value = pick(value)
+
+					message = replacetextEx(message, " [uppertext(key)]", " [uppertext(value)]")
+					message = replacetextEx(message, " [capitalize(key)]", " [capitalize(value)]")
+					message = replacetextEx(message, " [key]", " [value]")
+
+				if(prob(30))
+					message += pick(", eh?", ", EH?")
+		speech_args[SPEECH_MESSAGE] = message
 
 /obj/item/clothing/head/beret/corpwarden
 	name = "corporate warden beret"
-	desc = "A special black beret with a Warden's insignia in the middle. This one is commonly warn by wardens of the corporation."
+	desc = "A special black beret with the Warden's insignia in the middle. This one is commonly worn by wardens of the corporation."
 	icon_state = "beret_corporate_warden"
-	armor = list(melee = 40, bullet = 30, laser = 30, energy = 10, bomb = 25, bio = 0, rad = 0, fire = 30, acid = 60)
+	armor = list(melee = 40, bullet = 30, laser = 30, energy = 30, bomb = 25, bio = 0, rad = 0, fire = 30, acid = 60)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/sec
 	name = "security beret"
 	desc = "A robust beret with the security insignia emblazoned on it. Uses reinforced fabric to offer sufficient protection."
 	icon_state = "beret_badge"
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
+	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 40, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	strip_delay = 60
 	dog_fashion = null
 
@@ -246,7 +254,7 @@
 	name = "corporate security beret"
 	desc = "A special black beret for the mundane life of a corporate security officer."
 	icon_state = "beret_corporate_officer"
-	armor = list(melee = 40, bullet = 30, laser = 30,energy = 10, bomb = 25, bio = 0, rad = 0, fire = 20, acid = 50)
+	armor = list(melee = 40, bullet = 30, laser = 30,energy = 30, bomb = 25, bio = 0, rad = 0, fire = 20, acid = 50)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/sec/navyhos
@@ -297,6 +305,13 @@
 	desc = "A purple beret with the science insignia emblazoned on it. It has that authentic burning plasma smell."
 	icon_state = "beret_sci"
 	armor = list(bomb = 5, bio = 5, fire = 5, acid = 10)
+	strip_delay = 60
+
+/obj/item/clothing/head/beret/supply
+	name = "supply beret"
+	desc = "A brown beret with the supply insignia emblazoned on it. You can't help but wonder how much it'd sell for."
+	icon_state = "beret_supply"
+	armor = list(rad = 10, fire = 10)
 	strip_delay = 60
 
 //Medical
@@ -355,7 +370,7 @@
 	name = "captain beret"
 	desc = "A lovely blue Captain beret with a gold and white insignia."
 	icon_state = "beret_captain"
-	armor = list(melee = 50, bullet = 30, laser = 20, energy = 10, bomb = 15, bio = 10, rad = 10, fire = 10, acid = 60)
+	armor = list(melee = 50, bullet = 30, laser = 20, energy = 30, bomb = 15, bio = 10, rad = 10, fire = 10, acid = 60)
 	strip_delay = 90
 
 #undef DRILL_DEFAULT

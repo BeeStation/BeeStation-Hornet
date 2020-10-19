@@ -40,7 +40,6 @@
 	M.heal_bodypart_damage(5,5)
 	M.adjustToxLoss(-5, 0, TRUE)
 	M.hallucination = 0
-	M.setBrainLoss(0)
 	REMOVE_TRAITS_NOT_IN(M, list(SPECIES_TRAIT, ROUNDSTART_TRAIT, ORGAN_TRAIT))
 	M.set_blurriness(0)
 	M.set_blindness(0)
@@ -62,9 +61,12 @@
 		M.blood_volume = BLOOD_VOLUME_NORMAL
 
 	M.cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
+	for(var/organ in M.internal_organs)
+		var/obj/item/organ/O = organ
+		O.setOrganDamage(0)
 	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
-		if(D.severity == DISEASE_SEVERITY_POSITIVE)
+		if(D.severity == DISEASE_SEVERITY_BENEFICIAL || D.severity == DISEASE_SEVERITY_POSITIVE)
 			continue
 		D.cure()
 	..()
@@ -205,6 +207,14 @@
 	..()
 	. = 1
 
+/datum/reagent/medicine/rezadone/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+	. = ..()
+	if(iscarbon(M))
+		var/mob/living/carbon/patient = M
+		if(reac_volume >= 5 && HAS_TRAIT_FROM(patient, TRAIT_HUSK, "burn") && patient.getFireLoss() < THRESHOLD_UNHUSK) //One carp yields 12u rezadone.
+			patient.cure_husk("burn")
+			patient.visible_message("<span class='nicegreen'>[patient]'s body rapidly absorbs moisture from the enviroment, taking on a more healthy appearance.")
+
 /datum/reagent/medicine/spaceacillin
 	name = "Spaceacillin"
 	description = "Spaceacillin will prevent a patient from conventionally spreading any diseases they are currently infected with."
@@ -217,6 +227,7 @@
 	description = "If used in touch-based applications, immediately restores burn wounds as well as restoring more over time. If ingested through other means, deals minor toxin damage."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
+	overdose_threshold = 40
 
 /datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -224,6 +235,8 @@
 			M.adjustToxLoss(0.5*reac_volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You don't feel so good...</span>")
+		else if(M.reagents.has_reagent(/datum/reagent/medicine/silver_sulfadiazine, 40) && M.getFireLoss())
+			to_chat(M, "<span class='danger'>Silver sulfadiazine foams as it fails to heal your burns!</span>")
 		else if(M.getFireLoss())
 			M.adjustFireLoss(-reac_volume)
 			if(show_message)
@@ -234,6 +247,14 @@
 
 /datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/carbon/M)
 	M.adjustFireLoss(-2*REM, 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/silver_sulfadiazine/overdose_process(mob/living/M)
+	M.adjustFireLoss(2*REM, FALSE, FALSE, BODYPART_ORGANIC)
+	if(volume > overdose_threshold+10)
+		if(prob(33))
+			M.adjustToxLoss(1*REM, FALSE, FALSE, BODYPART_ORGANIC)
 	..()
 	. = 1
 
@@ -264,6 +285,7 @@
 	description = "If used in touch-based applications, immediately restores bruising as well as restoring more over time. If ingested through other means, deals minor toxin damage."
 	reagent_state = LIQUID
 	color = "#FF9696"
+	overdose_threshold = 40
 
 /datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -271,6 +293,8 @@
 			M.adjustToxLoss(0.5*reac_volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You don't feel so good...</span>")
+		else if(M.reagents.has_reagent(/datum/reagent/medicine/styptic_powder, 40) && M.getBruteLoss())
+			to_chat(M, "<span class='danger'>Styptic powder foams as it fails to heal your bruises!</span>")
 		else if(M.getBruteLoss())
 			M.adjustBruteLoss(-reac_volume)
 			if(show_message)
@@ -282,6 +306,14 @@
 
 /datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/carbon/M)
 	M.adjustBruteLoss(-2*REM, 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/styptic_powder/overdose_process(mob/living/M)
+	M.adjustBruteLoss(2*REM, 0)
+	if(volume > overdose_threshold+10)
+		if(prob(33))
+			M.adjustToxLoss(1*REM, FALSE, FALSE, BODYPART_ORGANIC)
 	..()
 	. = 1
 
@@ -379,23 +411,27 @@
 			if(show_message)
 				to_chat(M, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
+			//Has to be at less than THRESHOLD_UNHUSK burn damage and have 100 isntabitaluri before unhusking. Corpses dont metabolize.
+			if(HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn") && M.getFireLoss() < THRESHOLD_UNHUSK && M.reagents.has_reagent(/datum/reagent/medicine/synthflesh, 100))
+				M.cure_husk("burn")
+				M.visible_message("<span class='nicegreen'>You successfully replace most of the burnt off flesh of [M].")
 	..()
 
 /datum/reagent/medicine/charcoal
 	name = "Charcoal"
-	description = "Heals toxin damage as well as slowly removing any other chemicals the patient has in their bloodstream."
+	description = "Heals mild toxin damage as well as slowly removing any other chemicals the patient has in their bloodstream."
 	reagent_state = LIQUID
 	color = "#000000"
-	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	metabolization_rate = REAGENTS_METABOLISM
 	taste_description = "ash"
 	process_flags = ORGANIC
 
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/carbon/M)
-	M.adjustToxLoss(-2*REM, 0)
+	M.adjustToxLoss(-1*REM, 0)
 	. = 1
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			M.reagents.remove_reagent(R.type,1)
+			M.reagents.remove_reagent(R.type,0.75)
 	..()
 
 /datum/reagent/medicine/system_cleaner
@@ -422,7 +458,7 @@
 	process_flags = SYNTHETIC
 
 /datum/reagent/medicine/liquid_solder/on_mob_life(mob/living/M)
-	M.adjustBrainLoss(-3*REM)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, (-3*REM))
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(prob(30) && C.has_trauma_type(BRAIN_TRAUMA_SPECIAL))
@@ -575,7 +611,7 @@
 			M.Jitter(10)
 
 	M.AdjustAllImmobility(-20, FALSE)
-	M.adjustStaminaLoss(-1*REM, FALSE)
+	M.adjustStaminaLoss(-10*REM, FALSE)
 	..()
 	return TRUE
 
@@ -846,6 +882,13 @@
 			addtimer(CALLBACK(M, /mob/living/carbon.proc/do_jitter_animation, 10), 40) //jitter immediately, then again after 4 and 8 seconds
 			addtimer(CALLBACK(M, /mob/living/carbon.proc/do_jitter_animation, 10), 80)
 			sleep(100) //so the ghost has time to re-enter
+
+
+			var/mob/living/carbon/H = M
+			for(var/organ in H.internal_organs)
+				var/obj/item/organ/O = organ
+				O.setOrganDamage(0)
+
 			M.adjustOxyLoss(-20, 0)
 			M.adjustToxLoss(-20, 0)
 			M.updatehealth()
@@ -866,7 +909,7 @@
 	color = "#DCDCFF"
 
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/carbon/C)
-	C.adjustBrainLoss(-2*REM)
+	C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -2*REM)
 	..()
 
 /datum/reagent/medicine/neurine
@@ -913,6 +956,7 @@
 	..()
 	. = 1
 
+//Stimulants. Used in Adrenal Implant
 /datum/reagent/medicine/stimulants
 	name = "Stimulants"
 	description = "Increases stun resistance and movement speed in addition to restoring minor damage and weakness. Overdose causes weakness and toxin damage."
@@ -935,7 +979,7 @@
 		M.adjustBruteLoss(-1*REM, 0)
 		M.adjustFireLoss(-1*REM, 0)
 	M.AdjustAllImmobility(-60, FALSE)
-	M.adjustStaminaLoss(-5*REM, 0)
+	M.adjustStaminaLoss(-35*REM, 0)
 	..()
 	. = 1
 
@@ -946,6 +990,43 @@
 		M.losebreath++
 		. = 1
 	..()
+
+
+//Pump-Up for Stimpack
+/datum/reagent/medicine/pumpup
+	name = "Pump-Up"
+	description = "Makes you immune to damage slowdown, resistant to all other kinds of slowdown and gives a minor speed boost. Overdose causes weakness and toxin damage."
+	color = "#78008C"
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	overdose_threshold = 60
+
+/datum/reagent/medicine/pumpup/on_mob_life(mob/living/carbon/M as mob)
+	M.AdjustAllImmobility(-80, FALSE)
+	M.adjustStaminaLoss(-80, 0)
+	M.Jitter(300)
+	..()
+	return TRUE
+
+/datum/reagent/medicine/pumpup/on_mob_metabolize(mob/living/L)
+	..()
+	ADD_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
+	ADD_TRAIT(L, TRAIT_STUNRESISTANCE, type)
+	ADD_TRAIT(L, TRAIT_IGNOREDAMAGESLOWDOWN, type)
+
+/datum/reagent/medicine/pumpup/on_mob_end_metabolize(mob/living/L)
+	..()
+	REMOVE_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
+	REMOVE_TRAIT(L, TRAIT_STUNRESISTANCE, type)
+	REMOVE_TRAIT(L, TRAIT_IGNOREDAMAGESLOWDOWN, type)
+
+/datum/reagent/medicine/pumpup/overdose_process(mob/living/M)
+	if(prob(33))
+		M.adjustStaminaLoss(2.5*REM, 0)
+		M.adjustToxLoss(1*REM, 0)
+		M.losebreath++
+		. = 1
+	..()
+
 
 /datum/reagent/medicine/insulin
 	name = "Insulin"
@@ -1153,13 +1234,14 @@
 	color = "#555555"
 	overdose_threshold = 30
 	process_flags = ORGANIC | SYNTHETIC
+	can_synth = FALSE
 
 /datum/reagent/medicine/syndicate_nanites/on_mob_life(mob/living/carbon/M)
 	M.adjustBruteLoss(-5*REM, 0) //A ton of healing - this is a 50 telecrystal investment.
 	M.adjustFireLoss(-5*REM, 0)
 	M.adjustOxyLoss(-15, 0)
 	M.adjustToxLoss(-5*REM, 0)
-	M.adjustBrainLoss(-15*REM)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, -15*REM)
 	M.adjustCloneLoss(-3*REM, 0)
 	..()
 	. = 1
@@ -1182,7 +1264,7 @@
 	M.adjustFireLoss(-3 * REM, 0)
 	M.adjustOxyLoss(-15 * REM, 0)
 	M.adjustToxLoss(-3 * REM, 0)
-	M.adjustBrainLoss(2 * REM, 150) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM, 150) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
 	M.adjustCloneLoss(-1 * REM, 0)
 	M.adjustStaminaLoss(-30 * REM, 0)
 	M.jitteriness = min(max(0, M.jitteriness + 3), 30)
@@ -1212,7 +1294,7 @@
 	if (M.hallucination >= 5)
 		M.hallucination -= 5
 	if(prob(20))
-		M.adjustBrainLoss(1*REM, 50)
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1*REM, 50)
 	M.adjustStaminaLoss(2.5*REM, 0)
 	..()
 	return TRUE
@@ -1245,12 +1327,12 @@
 
 /datum/reagent/medicine/changelingadrenaline/on_mob_life(mob/living/carbon/M as mob)
 	M.AdjustAllImmobility(-20, FALSE)
-	M.adjustStaminaLoss(-1, 0)
+	M.adjustStaminaLoss(-20, 0)
 	..()
 	return TRUE
 
 /datum/reagent/medicine/changelingadrenaline/overdose_process(mob/living/M as mob)
-	M.adjustToxLoss(1, 0)
+	M.adjustToxLoss(2, 0)
 	..()
 	return TRUE
 
@@ -1284,9 +1366,11 @@
 /datum/reagent/medicine/corazone/on_mob_metabolize(mob/living/M)
 	..()
 	ADD_TRAIT(M, TRAIT_STABLEHEART, type)
+	ADD_TRAIT(M, TRAIT_STABLELIVER, type)
 
 /datum/reagent/medicine/corazone/on_mob_end_metabolize(mob/living/M)
 	REMOVE_TRAIT(M, TRAIT_STABLEHEART, type)
+	REMOVE_TRAIT(M, TRAIT_STABLELIVER, type)
 	..()
 
 /datum/reagent/medicine/muscle_stimulant
@@ -1395,5 +1479,49 @@
 /datum/reagent/medicine/psicodine/overdose_process(mob/living/M)
 	M.hallucination = min(max(0, M.hallucination + 5), 60)
 	M.adjustToxLoss(1, 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/silibinin
+	name = "Silibinin"
+	description = "A thistle derrived hepatoprotective flavolignan mixture that help reverse damage to the liver."
+	reagent_state = SOLID
+	color = "#FFFFD0"
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+
+/datum/reagent/medicine/silibinin/on_mob_life(mob/living/carbon/M)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, -2)//Add a chance to cure liver trauma once implemented.
+	..()
+	. = 1
+
+/datum/reagent/medicine/polypyr  //This is intended to be an ingredient in advanced chems.
+	name = "Polypyrylium Oligomers"
+	description = "A�purple mixture of short polyelectrolyte chains not easily synthesized in the laboratory. It is valued as an intermediate in the synthesis of the cutting edge pharmaceuticals."
+	reagent_state = SOLID
+	color = "#9423FF"
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
+	overdose_threshold = 50
+	taste_description = "numbing bitterness"
+
+/datum/reagent/medicine/polypyr/on_mob_life(mob/living/carbon/M) //I w�nted a collection of small positive effects, this is as hard to obtain as coniine after all.
+	M.adjustOrganLoss(ORGAN_SLOT_LUNGS, -0.25)
+	M.adjustBruteLoss(-0.35, 0)
+	if(prob(50))
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			H.bleed_rate = max(H.bleed_rate - 1, 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/polypyr/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+	if(method == TOUCH || method == VAPOR)
+		if(M && ishuman(M) && reac_volume >= 0.5)
+			var/mob/living/carbon/human/H = M
+			H.hair_color = "92f"
+			H.facial_hair_color = "92f"
+			H.update_hair()
+
+/datum/reagent/medicine/polypyr/overdose_process(mob/living/M)
+	M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 0.5)
 	..()
 	. = 1

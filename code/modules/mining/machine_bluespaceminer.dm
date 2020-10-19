@@ -2,7 +2,7 @@
 	name = "bluespace mining machine"
 	desc = "A machine that uses the magic of Bluespace to slowly generate materials and add them to a linked ore silo."
 	icon = 'icons/obj/machines/mining_machines.dmi'
-	icon_state = "stacker"
+	icon_state = "bs_miner"
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/bluespace_miner
 	layer = BELOW_OBJ_LAYER

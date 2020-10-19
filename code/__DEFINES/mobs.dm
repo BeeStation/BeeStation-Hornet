@@ -62,6 +62,7 @@
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
 
 #define MONKEY_BODYPART "monkey"
+#define TERATOMA_BODYPART "teratoma"
 #define ALIEN_BODYPART "alien"
 #define LARVA_BODYPART "larva"
 #define DEVIL_BODYPART "devil"
@@ -123,6 +124,12 @@
 #define TRAUMA_LIMIT_ABSOLUTE INFINITY
 
 #define BRAIN_DAMAGE_INTEGRITY_MULTIPLIER 0.5
+
+//wing defines
+#define WINGS_COSMETIC 0 //Absolutely fucking useless
+#define WINGS_FLIGHTLESS 1 //can't generate lift, will only fly in 0-G, while atmos is present
+#define WINGS_FLYING 2 //can generate lift and fly if atmos is present
+#define WINGS_MAGIC 3 //can fly regardless of atmos
 
 //Surgery Defines
 #define BIOWARE_GENERIC "generic"
@@ -230,8 +237,15 @@
 #define GALOSHES_DONT_HELP		(1<<2)
 #define SLIDE_ICE				(1<<3)
 
-
-
+///Flags used by the flags parameter of electrocute act.
+///Makes it so that the shock doesn't take gloves into account.
+#define SHOCK_NOGLOVES (1 << 0)
+///Used when the shock is from a tesla bolt.
+#define SHOCK_TESLA (1 << 1)
+///Used when an illusion shocks something. Makes the shock deal stamina damage and not trigger certain secondary effects.
+#define SHOCK_ILLUSION (1 << 2)
+///The shock doesn't stun.
+#define SHOCK_NOSTUN (1 << 3)
 
 #define INCORPOREAL_MOVE_BASIC 1
 #define INCORPOREAL_MOVE_SHADOW 2 //!  leaves a trail of shadows
@@ -274,7 +288,7 @@
 #define DOOR_CRUSH_DAMAGE	15	//! the amount of damage that airlocks deal when they crush you
 
 #define	HUNGER_FACTOR		0.1	//! factor at which mob nutrition decreases
-#define	ETHEREAL_CHARGE_FACTOR	0.12 //! factor at which ethereal's charge decreases
+#define	ETHEREAL_CHARGE_FACTOR	0.1 //! factor at which ethereal's charge decreases
 #define	HYGIENE_FACTOR  0.1	//! factor at which mob hygiene decreases
 #define	REAGENTS_METABOLISM 0.4	//! How many units of reagent are consumed per tick, by default.
 #define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4)	//! By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
@@ -319,3 +333,5 @@
 #define WABBAJACK     (1<<6)
 
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
+
+#define SILENCE_RANGED_MESSAGE (1<<0)

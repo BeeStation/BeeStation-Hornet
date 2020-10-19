@@ -66,8 +66,8 @@ GLOBAL_DATUM_INIT(iconCache, /savefile, new("tmp/iconCache.sav")) //Cache of ico
 	// Arguments are in the form "param[paramname]=thing"
 	var/list/params = list()
 	for(var/key in href_list)
-		if(length(key) > 7 && findtext(key, "param")) // 7 is the amount of characters in the basic param key template.
-			var/param_name = copytext(key, 7, -1)
+		if(length_char(key) > 7 && findtext(key, "param")) // 7 is the amount of characters in the basic param key template.
+			var/param_name = copytext_char(key, 7, -1)
 			var/item       = href_list[key]
 
 			params[param_name] = item
@@ -157,7 +157,7 @@ GLOBAL_DATUM_INIT(iconCache, /savefile, new("tmp/iconCache.sav")) //Cache of ico
 /datum/chatOutput/proc/sendMusic(music, list/extra_data)
 	if(!findtext(music, GLOB.is_http_protocol))
 		return
-	var/list/music_data = list("adminMusic" = url_encode(url_encode(music)))
+	var/list/music_data = list("adminMusic" = rustg_url_encode(rustg_url_encode(music)))
 
 	if(extra_data?.len)
 		music_data["musicRate"] = extra_data["pitch"]
@@ -200,7 +200,12 @@ GLOBAL_DATUM_INIT(iconCache, /savefile, new("tmp/iconCache.sav")) //Cache of ico
 	if(!cookie)
 		return
 
-	if(cookie != "none")
+	/*if(cookie != "none")
+		var/regex/crashy_thingy = regex("(\\\[ *){5}")
+		if(crashy_thingy.Find(cookie))
+			message_admins("[key_name(src.owner)] tried to crash the server using at least 5 \"\[\" in a row. Ban them.")
+			log_admin_private("[key_name(owner)] tried to crash the server using at least 5 \"\[\" in a row. Ban them.")
+			return
 		var/list/connData = json_decode(cookie)
 		if (connData && islist(connData) && connData.len > 0 && connData["connData"])
 			connectionHistory = connData["connData"] //lol fuck
@@ -228,7 +233,7 @@ GLOBAL_DATUM_INIT(iconCache, /savefile, new("tmp/iconCache.sav")) //Cache of ico
 				message_admins("[key_name(src.owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 				log_admin_private("[key_name(owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 
-	cookieSent = TRUE
+	cookieSent = TRUE*/
 
 //Called by js client every 60 seconds
 /datum/chatOutput/proc/ping()
@@ -266,7 +271,7 @@ GLOBAL_DATUM_INIT(iconCache, /savefile, new("tmp/iconCache.sav")) //Cache of ico
 
 	if(islist(target))
 		// Do the double-encoding outside the loop to save nanoseconds
-		var/twiceEncoded = url_encode(url_encode(message))
+		var/twiceEncoded = rustg_url_encode(rustg_url_encode(message))
 		for(var/I in target)
 			var/client/C = CLIENT_FROM_VAR(I) //Grab us a client if possible
 
@@ -302,8 +307,8 @@ GLOBAL_DATUM_INIT(iconCache, /savefile, new("tmp/iconCache.sav")) //Cache of ico
 			C.chatOutput.messageQueue += message
 			return
 
-		// url_encode it TWICE, this way any UTF-8 characters are able to be decoded by the Javascript.
-		C << output(url_encode(url_encode(message)), "browseroutput:output")
+		// rustg_url_encode it TWICE, this way any UTF-8 characters are able to be decoded by the Javascript.
+		C << output(rustg_url_encode(rustg_url_encode(message)), "browseroutput:output")
 
 /proc/to_chat(target, message, handle_whitespace = TRUE)
 	if(Master.current_runlevel == RUNLEVEL_INIT || !SSchat?.initialized)

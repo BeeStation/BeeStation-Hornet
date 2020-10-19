@@ -1198,8 +1198,7 @@
 "dw" = (
 /mob/living/simple_animal/hostile/bear/snow{
 	desc = "It's a polar bear, in space, but not actually in space. It's actually on a planet. This is a planet.";
-	melee_damage_lower = 10;
-	melee_damage_upper = 20;
+	melee_damage = 15;
 	name = "fat space polar bear";
 	speed = 3;
 	wander = 1
@@ -1361,8 +1360,7 @@
 	},
 /mob/living/simple_animal/hostile/bear/snow{
 	desc = "It's a polar bear, in space, but not actually in space. It's actually on a planet. This is a planet.";
-	melee_damage_lower = 10;
-	melee_damage_upper = 20;
+	melee_damage = 15;
 	name = "fat space polar bear";
 	speed = 3;
 	wander = 1
@@ -1913,7 +1911,7 @@
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
 "fu" = (
-/obj/machinery/computer/prisoner{
+/obj/machinery/computer/prisoner/management{
 	desc = "Used to manage tracking implants placed inside criminals and the prison cells.";
 	dir = 4
 	},
@@ -2213,8 +2211,7 @@
 "ga" = (
 /mob/living/simple_animal/hostile/bear/snow{
 	desc = "It's a polar bear, in space, but not actually in space. It's actually on a planet. This is a planet.";
-	melee_damage_lower = 10;
-	melee_damage_upper = 20;
+	melee_damage = 15;
 	name = "fat space polar bear";
 	speed = 3;
 	wander = 0
@@ -3116,7 +3113,7 @@
 "hS" = (
 /mob/living/simple_animal/hostile/tree{
 	desc = "I am death. I will have my vengeance upon my enemies.";
-	melee_damage_upper = 8;
+	melee_damage = 8;
 	wander = 0
 	},
 /turf/open/floor/plating/asteroid/snow,
@@ -4507,8 +4504,7 @@
 	icon_state = "snowman";
 	loot = list(/obj/item/dnainjector/geladikinesis);
 	maxHealth = 5000;
-	melee_damage_lower = 65;
-	melee_damage_upper = 65;
+	melee_damage = 65;
 	name = "Frosty"
 	},
 /turf/open/floor/plating/asteroid/snow,
@@ -4857,7 +4853,7 @@
 /mob/living/simple_animal/hostile/bear/russian{
 	desc = "He'll hold the line against you!";
 	light_range = 3;
-	melee_damage_upper = 25;
+	melee_damage = 30;
 	name = "Artyom";
 	speak = list("Blyat!","Rawr!","GRR!","Growl!");
 	wander = 0
@@ -5097,8 +5093,7 @@
 /mob/living/simple_animal/hostile/skeleton/ice{
 	desc = "A reanimated skeleton covered in thick sheet of natural ice. It is obvious to tell that they look really slow.";
 	maxHealth = 20;
-	melee_damage_lower = 5;
-	melee_damage_upper = 5;
+	melee_damage = 5;
 	name = "frozen skeleton";
 	speed = 7;
 	wander = 0
@@ -5190,8 +5185,7 @@
 /mob/living/simple_animal/hostile/skeleton/ice{
 	desc = "A reanimated skeleton covered in thick sheet of natural ice. It is obvious to tell that they look really slow.";
 	maxHealth = 20;
-	melee_damage_lower = 5;
-	melee_damage_upper = 5;
+	melee_damage = 5;
 	name = "frozen skeleton";
 	speed = 7;
 	wander = 0

@@ -1,6 +1,6 @@
 /obj/item/reagent_containers/hypospray
 	name = "hypospray"
-	desc = "The DeForest Medical Corporation hypospray is a sterile, air-needle autoinjector for rapid administration of drugs to patients."
+	desc = "The DeForest Medical Corporation hypospray is a sterile, air-needle autoinjector for rapid administration of drugs to patients. It is also fitted with a nozzle which lets you change the dosage."
 	icon = 'icons/obj/syringe.dmi'
 	item_state = "hypo"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
@@ -8,7 +8,7 @@
 	icon_state = "hypo"
 	amount_per_transfer_from_this = 5
 	volume = 30
-	possible_transfer_amounts = list()
+	possible_transfer_amounts = list(1,5,15)
 	resistance_flags = ACID_PROOF
 	reagent_flags = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
@@ -35,6 +35,7 @@
 	if(reagents.total_volume && (ignore_flags || M.can_inject(user, 1))) // Ignore flag should be checked first or there will be an error message.
 		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
 		to_chat(user, "<span class='notice'>You inject [M] with [src].</span>")
+		playsound(loc, 'sound/items/hypospray.ogg', 50, 1)
 
 		var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
 		reagents.reaction(M, INJECT, fraction)
@@ -50,6 +51,18 @@
 
 			log_combat(user, M, "injected", src, "([contained])")
 
+/obj/item/reagent_containers/hypospray/CMO/verb/empty()
+	set name = "Empty Hypospray"
+	set category = "Object"
+	set src in usr
+	if(usr.incapacitated())
+		return
+	if (alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
+		return
+	if(isturf(usr.loc) && src.loc == usr)
+		to_chat(usr, "<span class='notice'>You empty \the [src] onto the floor.</span>")
+		reagents.reaction(usr.loc)
+		src.reagents.clear_reagents()
 /obj/item/reagent_containers/hypospray/CMO
 	list_reagents = list(/datum/reagent/medicine/omnizine = 30)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -61,6 +74,7 @@
 	item_state = "combat_hypo"
 	icon_state = "combat_hypo"
 	volume = 90
+	possible_transfer_amounts = list(10,15,30,45)
 	ignore_flags = 1 // So they can heal their comrades.
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 30, /datum/reagent/medicine/omnizine = 30, /datum/reagent/medicine/leporazine = 15, /datum/reagent/medicine/atropine = 15)
 
@@ -70,6 +84,7 @@
 	item_state = "nanite_hypo"
 	icon_state = "nanite_hypo"
 	volume = 100
+	possible_transfer_amounts = list(5,10,15,30,50)
 	list_reagents = list(/datum/reagent/medicine/adminordrazine/quantum_heal = 80, /datum/reagent/medicine/synaptizine = 20)
 
 /obj/item/reagent_containers/hypospray/combat/nanites/update_icon()
@@ -84,24 +99,49 @@
 	item_state = "holy_hypo"
 	icon_state = "holy_hypo"
 	volume = 250
+	possible_transfer_amounts = list(25,50,100)
 	list_reagents = list(/datum/reagent/water/holywater = 150, /datum/reagent/peaceborg/tire = 50, /datum/reagent/peaceborg/confuse = 50)
 	amount_per_transfer_from_this = 50
+
+/obj/item/reagent_containers/hypospray/combat/supersoldier
+	name = "Supersoldier Nanites"
+	desc = "The key ingredient to Nanotrasen's supersoldier program, regular doses of nanites must be taken before every mission to unlock the supersoldier's true capabilities."
+	item_state = "nanite_hypo"
+	icon_state = "nanite_hypo"
+	list_reagents = list(/datum/reagent/mutationtoxin/supersoldier = 5)
+	possible_transfer_amounts = list()
+/*
+/obj/item/reagent_containers/hypospray/supersoldier/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
+	if(iscarbon(M) && M.stat != DEAD)
+		if(!ishumanbasic(M) || reac_volume < 5) // implying xenohumans are holy
+			if(method == INGEST && show_message)
+				to_chat(M, "<span class='notice'><i>You feel nothing, your DNA must not be compatible.</i></span>")
+			return ..()
+
+		to_chat(M, "<span class='userdanger'>A flare of pain washes over you as the nanites restructure your body!</span>")
+		M.set_species(/datum/species/human/supersoldier)
+		playsound(M.loc, 'sound/items/poster_ripped.ogg', 50, 1, -1)
+		M.adjustBruteLoss(10)
+		M.emote("scream")
+	..()
+	*/
 
 //MediPens
 
 /obj/item/reagent_containers/hypospray/medipen
 	name = "epinephrine medipen"
-	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge."
+	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge. Contains a powerful preservative that can delay decomposition when applied to a dead body."
 	icon_state = "medipen"
 	item_state = "medipen"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	amount_per_transfer_from_this = 10
-	volume = 10
+	amount_per_transfer_from_this = 13
+	volume = 13
+	possible_transfer_amounts = list()
 	ignore_flags = 1 //so you can medipen through hardsuits
 	reagent_flags = DRAWABLE
 	flags_1 = null
-	list_reagents = list(/datum/reagent/medicine/epinephrine = 10)
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 10, /datum/reagent/toxin/formaldehyde = 3)
 	custom_price = 40
 
 /obj/item/reagent_containers/hypospray/medipen/suicide_act(mob/living/carbon/user)
@@ -152,14 +192,14 @@
 	desc = "A modified stimulants autoinjector for use in combat situations. Has a mild healing effect."
 	list_reagents = list(/datum/reagent/medicine/stimulants = 10, /datum/reagent/medicine/omnizine = 10)
 
-/obj/item/reagent_containers/hypospray/medipen/stimulants
-	name = "stimulant medipen"
-	desc = "Contains a very large amount of an incredibly powerful stimulant, vastly increasing your movement speed and reducing stuns by a very large amount for around five minutes. Do not take if pregnant."
+/obj/item/reagent_containers/hypospray/medipen/pumpup
+	name = "pumpup medipen"
+	desc = "Contains a very large amount of an incredibly powerful stimulant, vastly increasing your immunity and recovery from slowdowns for around five minutes. Do not take if pregnant."
 	icon_state = "syndipen"
 	item_state = "tbpen"
 	volume = 50
 	amount_per_transfer_from_this = 50
-	list_reagents = list(/datum/reagent/medicine/stimulants = 50)
+	list_reagents = list(/datum/reagent/medicine/pumpup = 50)
 
 /obj/item/reagent_containers/hypospray/medipen/morphine
 	name = "morphine medipen"
@@ -174,7 +214,7 @@
 	item_state = "dexpen"
 	desc = "A autoinjector containing dexalin, used to heal oxygen damage quickly."
 	list_reagents = list(/datum/reagent/medicine/dexalin = 10)
-	
+
 /obj/item/reagent_containers/hypospray/medipen/tuberculosiscure
 	name = "BVAK autoinjector"
 	desc = "Bio Virus Antidote Kit autoinjector. Has a two use system for yourself, and someone else. Inject when infected."

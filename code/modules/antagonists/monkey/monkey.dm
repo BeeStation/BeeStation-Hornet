@@ -8,6 +8,7 @@
 	job_rank = ROLE_MONKEY
 	roundend_category = "monkeys"
 	antagpanel_category = "Monkey"
+	show_to_ghosts = TRUE
 	var/datum/team/monkey/monkey_team
 	var/monkey_only = TRUE
 
@@ -62,6 +63,8 @@
 	monkey_team = new_team
 
 /datum/antagonist/monkey/proc/forge_objectives()
+	if(!give_objectives)
+		return
 	objectives |= monkey_team.objectives
 
 /datum/antagonist/monkey/admin_remove(mob/admin)
@@ -147,6 +150,8 @@
 	var/datum/objective/monkey/O = new()
 	O.team = src
 	objectives += O
+	for(var/datum/mind/M in members)
+		log_objective(M, O.explanation_text)
 
 /datum/team/monkey/proc/infected_monkeys_alive()
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()
@@ -159,6 +164,17 @@
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()
 	for(var/mob/living/carbon/monkey/M in GLOB.alive_mob_list)
 		if(M.HasDisease(D) && (M.onCentCom() || M.onSyndieBase()))
+			return TRUE
+	return FALSE
+
+/datum/team/monkey/proc/infected_gorillas_alive()
+	for(var/mob/living/simple_animal/hostile/gorilla/rabid/M in GLOB.alive_mob_list)
+		return TRUE
+	return FALSE
+
+/datum/team/monkey/proc/infected_gorillas_escaped()
+	for(var/mob/living/simple_animal/hostile/gorilla/rabid/M in GLOB.alive_mob_list)
+		if(M.onCentCom() || M.onSyndieBase())
 			return TRUE
 	return FALSE
 
@@ -177,9 +193,9 @@
 	return FALSE
 
 /datum/team/monkey/proc/get_result()
-	if(infected_monkeys_escaped())
+	if(infected_monkeys_escaped() || infected_gorillas_escaped())
 		return MONKEYS_ESCAPED
-	if(infected_monkeys_alive())
+	if(infected_monkeys_alive() || infected_gorillas_alive())
 		return MONKEYS_LIVED
 	if(infected_humans_alive() || infected_humans_escaped())
 		return DISEASE_LIVED

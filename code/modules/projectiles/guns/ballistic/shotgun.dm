@@ -2,7 +2,11 @@
 	name = "shotgun"
 	desc = "A traditional shotgun with wood furniture and a four-shell capacity underneath."
 	icon_state = "shotgun"
+	lefthand_file = 'icons/mob/inhands/weapons/64x_guns_left.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/64x_guns_right.dmi'
 	item_state = "shotgun"
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
 	fire_sound = "sound/weapons/shotgunshot.ogg"
 	vary_fire_sound = FALSE
 	fire_sound_volume = 90
@@ -20,6 +24,9 @@
 	bolt_wording = "pump"
 	cartridge_wording = "shell"
 	tac_reloads = FALSE
+	fire_rate = 1 //reee
+	block_upgrade_walk = 1
+	pb_knockback = 2
 
 /obj/item/gun/ballistic/shotgun/blow_up(mob/user)
 	. = 0
@@ -36,6 +43,7 @@
 	name = "riot shotgun"
 	desc = "A sturdy shotgun with a longer magazine and a fixed tactical stock designed for non-lethal riot control."
 	icon_state = "riotshotgun"
+	item_state = "shotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot
 	sawn_desc = "Come with me if you want to live."
 
@@ -50,14 +58,15 @@
 
 // Automatic Shotguns//
 
-/obj/item/gun/ballistic/shotgun/automatic/shoot_live_shot(mob/living/user as mob|obj)
+/obj/item/gun/ballistic/shotgun/automatic/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
 	..()
-	src.rack()
+	rack()
 
 /obj/item/gun/ballistic/shotgun/automatic/combat
 	name = "combat shotgun"
 	desc = "A semi automatic shotgun with tactical furniture and a six-shell capacity underneath."
 	icon_state = "cshotgun"
+	item_state = "shotgun_combat"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
 
@@ -67,6 +76,15 @@
 	icon_state = "cshotgunc"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com/compact
 	w_class = WEIGHT_CLASS_BULKY
+
+// Breaching Shotgun //
+
+/obj/item/gun/ballistic/shotgun/automatic/breaching
+	name = "tactical breaching shotgun"
+	desc = "A compact semi-auto shotgun designed to fire breaching slugs and create rapid entry points."
+	icon_state = "breachingshotgun"
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/breaching
+	w_class = WEIGHT_CLASS_NORMAL //compact so it fits in backpacks
 
 //Dual Feed Shotgun
 
@@ -133,6 +151,8 @@
 	semi_auto = TRUE
 	internal_magazine = FALSE
 	tac_reloads = TRUE
+	fire_rate = 2
+	automatic = 1
 
 
 /obj/item/gun/ballistic/shotgun/bulldog/unrestricted
@@ -145,7 +165,7 @@
 	name = "double-barreled shotgun"
 	desc = "A true classic."
 	icon_state = "dshotgun"
-	item_state = "shotgun"
+	item_state = "shotgun_db"
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
 	force = 10
@@ -164,6 +184,8 @@
 						)
 	semi_auto = TRUE
 	bolt_type = BOLT_TYPE_NO_BOLT
+	fire_rate = 2 //being double barrelled, you don't rely on internal mechanisms.
+	pb_knockback = 3
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/AltClick(mob/user)
 	. = ..()
@@ -271,3 +293,4 @@
 		hook.afterattack(target, user, flag, params)
 	else
 		return ..()
+

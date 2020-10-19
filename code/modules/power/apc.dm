@@ -59,6 +59,14 @@
 	ui_x = 450
 	ui_y = 460
 
+	FASTDMM_PROP(\
+		set_instance_vars(\
+			pixel_x = dir == EAST ? 24 : (dir == WEST ? -24 : INSTANCE_VAR_DEFAULT),\
+			pixel_y = dir == NORTH ? 24 : (dir == SOUTH ? -24 : INSTANCE_VAR_DEFAULT)\
+		),\
+		dir_amount = 4\
+    )
+
 	var/lon_range = 2
 	var/area/area
 	var/areastring = null
@@ -92,7 +100,6 @@
 	var/beenhit = 0 // used for counting how many times it has been hit, used for Aliens at the moment
 	var/mob/living/silicon/ai/occupier = null
 	var/transfer_in_progress = FALSE //Is there an AI being transferred out of us?
-	var/obj/item/clockwork/integration_cog/integration_cog //Is there a cog siphoning power?
 	var/longtermpower = 10
 	var/auto_name = FALSE
 	var/failure_timer = 0
@@ -104,6 +111,9 @@
 	var/update_overlay = -1
 	var/icon_update_needed = FALSE
 	var/obj/machinery/computer/apc_control/remote_control = null
+
+	var/clock_cog_rewarded = FALSE	//Clockcult - Has the reward for converting an APC been given?
+	var/integration_cog = null		//Clockcult - The integration cog inserted inside of us
 
 /obj/machinery/power/apc/unlocked
 	locked = FALSE
@@ -265,8 +275,8 @@
 		else
 			. += {"It's [ !terminal ? "not" : "" ] wired up.\n
 			The electronics are[!has_electronics?"n't":""] installed."}
-		if(user.Adjacent(src) && integration_cog)
-			. += "<span class='warning'>[src]'s innards have been replaced by strange brass machinery!</span>"
+		if(integration_cog || (user.hallucinating() && prob(20)))
+			. += "A small cogwheel is inside of it."
 
 	else
 		if (stat & MAINT)
@@ -275,9 +285,6 @@
 			. += "The cover is broken. It may be hard to force it open."
 		else
 			. += "The cover is closed."
-
-	if(integration_cog && is_servant_of_ratvar(user))
-		. += "<span class='brass'>There is an integration cog installed!</span>"
 
 	. += "<span class='notice'>Alt-Click the APC to [ locked ? "unlock" : "lock"] the interface.</span>"
 
@@ -427,7 +434,13 @@
 /obj/machinery/power/apc/crowbar_act(mob/user, obj/item/W)
 	. = TRUE
 	if (opened)
-		if (has_electronics == APC_ELECTRONICS_INSTALLED)
+		if(integration_cog)
+			to_chat(user, "<span class='notice'>You begin prying something out of the APC...</span>")
+			W.play_tool_sound(src)
+			if(W.use_tool(src, user, 50))
+				to_chat(user, "<span class='warning'>You screw up breaking whatever was inside!</span>")
+				QDEL_NULL(integration_cog)
+		else if (has_electronics == APC_ELECTRONICS_INSTALLED)
 			if (terminal)
 				to_chat(user, "<span class='warning'>Disconnect the wires first!</span>")
 				return
@@ -461,16 +474,6 @@
 							"<span class='notice'>You remove the power control board.</span>")
 						new /obj/item/electronics/apc(loc)
 						return
-		else if(integration_cog)
-			user.visible_message("<span class='notice'>[user] starts prying [integration_cog] from [src]...</span>", \
-			"<span class='notice'>You painstakingly start tearing [integration_cog] out of [src]'s guts...</span>")
-			W.play_tool_sound(src)
-			if(W.use_tool(src, user, 100))
-				user.visible_message("<span class='notice'>[user] destroys [integration_cog] in [src]!</span>", \
-				"<span class='notice'>[integration_cog] comes free with a clank and snaps in two as the machinery returns to normal!</span>")
-				playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
-				QDEL_NULL(integration_cog)
-			return
 		else if (opened!=APC_COVER_REMOVED)
 			opened = APC_COVER_CLOSED
 			coverlocked = TRUE //closing cover relocks it
@@ -580,7 +583,6 @@
 		var/turf/host_turf = get_turf(src)
 		if(!host_turf)
 			CRASH("attackby on APC when it's not on a turf")
-			return
 		if (host_turf.intact)
 			to_chat(user, "<span class='warning'>You must remove the floor plating in front of the APC first!</span>")
 			return
@@ -682,37 +684,10 @@
 			if (opened==APC_COVER_REMOVED)
 				opened = APC_COVER_OPENED
 			update_icon()
-	else if(istype(W, /obj/item/clockwork/integration_cog) && is_servant_of_ratvar(user))
-		if(integration_cog)
-			to_chat(user, "<span class='warning'>This APC already has a cog.</span>")
-			return
-		if(!opened)
-			user.visible_message("<span class='warning'>[user] slices [src]'s cover lock, and it swings wide open!</span>", \
-			"<span class='alloy'>You slice [src]'s cover lock apart with [W], and the cover swings open.</span>")
-			opened = APC_COVER_OPENED
-			update_icon()
-		else
-			user.visible_message("<span class='warning'>[user] presses [W] into [src]!</span>", \
-			"<span class='alloy'>You hold [W] in place within [src], and it slowly begins to warm up...</span>")
-			playsound(src, 'sound/machines/click.ogg', 50, TRUE)
-			if(!do_after(user, 70, target = src))
-				return
-			user.visible_message("<span class='warning'>[user] installs [W] in [src]!</span>", \
-			"<span class='alloy'>Replicant alloy rapidly covers the APC's innards, replacing the machinery.</span><br>\
-			<span class='brass'>This APC will now passively provide power for the cult!</span>")
-			playsound(user, 'sound/machines/clockcult/integration_cog_install.ogg', 50, TRUE)
-			user.transferItemToLoc(W, src)
-			integration_cog = W
-			START_PROCESSING(SSfastprocess, W)
-			playsound(src, 'sound/machines/clockcult/steam_whoosh.ogg', 50, FALSE)
-			opened = APC_COVER_CLOSED
-			locked = FALSE
-			update_icon()
 
 	else if(istype(W, /obj/item/apc_powercord))
 		return //because we put our fancy code in the right places, and this is all in the powercord's afterattack()
 
-		return
 	else if(panel_open && !opened && is_wire_tool(W))
 		wires.interact(user)
 	else
@@ -793,6 +768,57 @@
 	. = ..()
 	if(.)
 		return
+
+	if(isethereal(user))
+		var/mob/living/carbon/human/H = user
+		var/datum/species/ethereal/E = H.dna.species
+		if((H.a_intent == INTENT_HARM) && (E.drain_time < world.time))
+			if(cell.charge <= (cell.maxcharge / 2)) // if charge is under 50% you shouldn't drain it
+				to_chat(H, "<span class='warning'>The APC doesn't have much power, you probably shouldn't drain any.</span>")
+				return
+			var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+			if(!istype(stomach))
+				to_chat(H, "<span class='warning'>You can't receive charge!</span>")
+				return
+			if(stomach.crystal_charge >= ETHEREAL_CHARGE_FULL)
+				to_chat(H, "<span class='warning'>Your charge is full!</span>")
+				return
+			E.drain_time = world.time + 75
+			to_chat(H, "<span class='notice'>You start channeling some power through the APC into your body.</span>")
+			if(do_after(user, 75, target = src))
+				if(cell.charge <= (cell.maxcharge / 2) || (stomach.crystal_charge >= ETHEREAL_CHARGE_FULL))
+					to_chat(H, "<span class='warning'>You can't receive more charge from the APC.</span>")
+					return
+				to_chat(H, "<span class='notice'>You receive some charge from the APC.</span>")
+				stomach.adjust_charge(10)
+				cell.charge -= 10
+			else
+				to_chat(H, "<span class='warning'>You fail to receive charge from the APC!</span>")
+			return
+		if((H.a_intent == INTENT_GRAB) && (E.drain_time < world.time))
+			if(cell.charge == cell.maxcharge)
+				to_chat(H, "<span class='warning'>The APC is full!</span>")
+				return
+			var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+			if(!istype(stomach))
+				to_chat(H, "<span class='warning'>You can't transfer charge!</span>")
+				return
+			if(stomach.crystal_charge < 10)
+				to_chat(H, "<span class='warning'>Your charge is too low!</span>")
+				return
+			E.drain_time = world.time + 75
+			to_chat(H, "<span class='notice'>You start channeling power through your body into the APC.</span>")
+			if(cell.charge == cell.maxcharge || (stomach.crystal_charge < 10))
+				to_chat(H, "<span class='warning'>You can't transfer more charge to the APC.</span>")
+				return
+			if(do_after(user, 75, target = src))
+				to_chat(H, "<span class='notice'>You transfer some power to the APC.</span>")
+				stomach.adjust_charge(-10)
+				cell.charge += 10
+			else
+				to_chat(H, "<span class='warning'>You fail to transfer power to the APC!</span>")
+			return
+
 	if(opened && (!issilicon(user)))
 		if(cell)
 			user.visible_message("[user] removes \the [cell] from [src]!","<span class='notice'>You remove \the [cell].</span>")
@@ -810,12 +836,12 @@
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 
 	if(!ui)
-		ui = new(user, src, ui_key, "apc", name, 535, 515, master_ui, state)
+		ui = new(user, src, ui_key, "Apc", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/power/apc/ui_data(mob/user)
 	var/list/data = list(
-		"locked" = locked && !(integration_cog && is_servant_of_ratvar(user)),
+		"locked" = locked,
 		"failTime" = failure_timer,
 		"isOperating" = operating,
 		"externalPower" = main_status,
@@ -923,7 +949,7 @@
 		. = UI_INTERACTIVE
 
 /obj/machinery/power/apc/ui_act(action, params)
-	if(..() || !can_use(usr, 1) || (locked && !usr.has_unlimited_silicon_privilege && !failure_timer && !(integration_cog && (is_servant_of_ratvar(usr)))))
+	if(..() || !can_use(usr, 1) || (locked && !usr.has_unlimited_silicon_privilege && !failure_timer))
 		return
 	switch(action)
 		if("lock")
@@ -994,7 +1020,7 @@
 		return
 	operating = !operating
 	add_hiddenprint(user)
-	log_combat(user, src, "turned [operating ? "on" : "off"]")
+	log_game("[key_name(user)] turned [operating ? "on" : "off"] the [src] in [AREACOORD(src)]")
 	update()
 	update_icon()
 
@@ -1145,12 +1171,9 @@
 		force_update = 1
 		return
 
-	lastused_light = area.usage(STATIC_LIGHT)
-	lastused_light += area.usage(LIGHT)
-	lastused_equip = area.usage(EQUIP)
-	lastused_equip += area.usage(STATIC_EQUIP)
-	lastused_environ = area.usage(ENVIRON)
-	lastused_environ += area.usage(STATIC_ENVIRON)
+	lastused_light = area.power_usage[AREA_USAGE_LIGHT] + area.power_usage[AREA_USAGE_STATIC_LIGHT]
+	lastused_equip = area.power_usage[AREA_USAGE_EQUIP] + area.power_usage[AREA_USAGE_STATIC_EQUIP]
+	lastused_environ = area.power_usage[AREA_USAGE_ENVIRON] + area.power_usage[AREA_USAGE_STATIC_ENVIRON]
 	area.clear_usage()
 
 	lastused_total = lastused_light + lastused_equip + lastused_environ
@@ -1259,6 +1282,12 @@
 		else // chargemode off
 			charging = 0
 			chargecount = 0
+
+		//=====Clock Cult=====
+		if(integration_cog && cell.charge >= cell.maxcharge/2)
+			var/power_delta = CLAMP(cell.charge - 20, 0, 20)
+			GLOB.clockcult_power += power_delta
+			cell.charge -= power_delta
 
 	else // no cell, switch everything off
 

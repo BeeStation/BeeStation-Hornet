@@ -42,3 +42,25 @@
 	icon_state = "stobacco_leaves"
 	distill_reagent = null
 	wine_power = 50
+
+//Lavaland Tobacco
+
+obj/item/seeds/tobacco/lavaland
+	name = "pack of lavaland tobacco seeds"
+	desc = "These seeds grow into lavaland tobacco plants."
+	icon_state = "seed-lavatobacco"
+	species = "ashtobacco"
+	plantname = "Lavaland Tobacco Plant"
+	product = /obj/item/reagent_containers/food/snacks/grown/tobacco/lavaland
+	mutatelist = list()
+	reagents_add = list(/datum/reagent/medicine/salbutamol = 0.1, /datum/reagent/drug/nicotine = 0.08, /datum/reagent/toxin/lipolicide = 0.4)
+	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
+	rarity = 20
+
+/obj/item/reagent_containers/food/snacks/grown/tobacco/lavaland
+	seed = /obj/item/seeds/tobacco/lavaland
+	name = "lavaland tobacco leaves"
+	desc = "Despite being called lavaland tobacco this plant has little in common with regular tobacco."
+	icon_state = "ltobacco_leaves"
+	distill_reagent = null
+	wine_power = 10

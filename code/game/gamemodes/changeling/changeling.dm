@@ -2,7 +2,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 GLOBAL_LIST_INIT(slots, list("head", "wear_mask", "back", "wear_suit", "w_uniform", "shoes", "belt", "gloves", "glasses", "ears", "wear_id", "s_store"))
 GLOBAL_LIST_INIT(slot2slot, list("head" = SLOT_HEAD, "wear_mask" = SLOT_WEAR_MASK, "neck" = SLOT_NECK, "back" = SLOT_BACK, "wear_suit" = SLOT_WEAR_SUIT, "w_uniform" = SLOT_W_UNIFORM, "shoes" = SLOT_SHOES, "belt" = SLOT_BELT, "gloves" = SLOT_GLOVES, "glasses" = SLOT_GLASSES, "ears" = SLOT_EARS, "wear_id" = SLOT_WEAR_ID, "s_store" = SLOT_S_STORE))
 GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "wear_mask" = /obj/item/clothing/mask/changeling, "back" = /obj/item/changeling, "wear_suit" = /obj/item/clothing/suit/changeling, "w_uniform" = /obj/item/clothing/under/changeling, "shoes" = /obj/item/clothing/shoes/changeling, "belt" = /obj/item/changeling, "gloves" = /obj/item/clothing/gloves/changeling, "glasses" = /obj/item/clothing/glasses/changeling, "ears" = /obj/item/changeling, "wear_id" = /obj/item/changeling, "s_store" = /obj/item/changeling))
-GLOBAL_VAR(changeling_team_objective_type) //If this is not null, we hand our this objective to all lings
 
 
 /datum/game_mode/changeling
@@ -36,6 +35,9 @@ GLOBAL_VAR(changeling_team_objective_type) //If this is not null, we hand our th
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		restricted_jobs += "Assistant"
 
+	if(CONFIG_GET(flag/protect_heads_from_antagonist))
+		restricted_jobs += GLOB.command_positions
+
 	var/num_changelings = 1
 
 	var/csc = CONFIG_GET(number/changeling_scaling_coeff)
@@ -48,7 +50,7 @@ GLOBAL_VAR(changeling_team_objective_type) //If this is not null, we hand our th
 		for(var/i = 0, i < num_changelings, i++)
 			if(!antag_candidates.len)
 				break
-			var/datum/mind/changeling = antag_pick(antag_candidates)
+			var/datum/mind/changeling = antag_pick(antag_candidates, ROLE_CHANGELING)
 			antag_candidates -= changeling
 			changelings += changeling
 			changeling.special_role = ROLE_CHANGELING
@@ -59,23 +61,9 @@ GLOBAL_VAR(changeling_team_objective_type) //If this is not null, we hand our th
 		return 0
 
 /datum/game_mode/changeling/post_setup()
-	//Decide if it's ok for the lings to have a team objective
-	//And then set it up to be handed out in forge_changeling_objectives
-	var/list/team_objectives = subtypesof(/datum/objective/changeling_team_objective)
-	var/list/possible_team_objectives = list()
-	for(var/T in team_objectives)
-		var/datum/objective/changeling_team_objective/CTO = T
-
-		if(changelings.len >= initial(CTO.min_lings))
-			possible_team_objectives += T
-
-	if(possible_team_objectives.len && prob(20*changelings.len))
-		GLOB.changeling_team_objective_type = pick(possible_team_objectives)
-
 	for(var/datum/mind/changeling in changelings)
 		log_game("[key_name(changeling)] has been selected as a changeling")
 		var/datum/antagonist/changeling/new_antag = new()
-		new_antag.team_mode = TRUE
 		changeling.add_antag_datum(new_antag)
 	..()
 

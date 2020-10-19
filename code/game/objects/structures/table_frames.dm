@@ -56,10 +56,6 @@
 	new /obj/structure/table_frame/wood(src.loc)
 	qdel(src)
 
-/obj/structure/table_frame/ratvar_act()
-	new /obj/structure/table_frame/brass(src.loc)
-	qdel(src)
-
 /*
  * Wooden Frames
  */
@@ -99,14 +95,6 @@
 	framestack = /obj/item/stack/tile/brass
 	framestackamount = 1
 
-/obj/structure/table_frame/brass/Initialize()
-	. = ..()
-	change_construction_value(1)
-
-/obj/structure/table_frame/brass/Destroy()
-	change_construction_value(-1)
-	return ..()
-
 /obj/structure/table_frame/brass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/tile/brass))
 		var/obj/item/stack/tile/brass/W = I
@@ -115,7 +103,7 @@
 			return
 		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
 		if(do_after(user, 20, target = src) && W.use(1))
-			make_new_table(/obj/structure/table/reinforced/brass)
+			make_new_table(/obj/structure/table/brass)
 	else
 		return ..()
 

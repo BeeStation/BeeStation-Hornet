@@ -7,7 +7,6 @@
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-	ui_style = "nanotrasen"
 	ui_x = 350
 	ui_y = 442
 
@@ -71,7 +70,7 @@
 	anchored = TRUE //stops it being moved
 
 /obj/machinery/nuclearbomb/syndicate
-	//ui_style = "syndicate" // actually the nuke op bomb is a stole nt bomb
+	// actually the nuke op bomb is a stole nt bomb
 
 /obj/machinery/nuclearbomb/syndicate/get_cinematic_type(off_station)
 	var/datum/game_mode/nuclear/NM = SSticker.mode
@@ -237,7 +236,7 @@
 			explode()
 		else
 			var/volume = (get_time_left() <= 20 ? 30 : 5)
-			playsound(loc, 'sound/items/timer.ogg', volume, 0)
+			playsound(loc, 'sound/items/timer.ogg', volume, FALSE)
 
 /obj/machinery/nuclearbomb/proc/update_ui_mode()
 	if(exploded)
@@ -265,8 +264,7 @@
 /obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key="main", datum/tgui/ui=null, force_open=0, datum/tgui/master_ui=null, datum/ui_state/state=GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "nuclear_bomb", name, 500, 600, master_ui, state)
-		ui.set_style(ui_style)
+		ui = new(user, src, ui_key, "NuclearBomb", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/nuclearbomb/ui_data(mob/user)
@@ -363,7 +361,7 @@
 							if(NUKEUI_AWAIT_TIMER)
 								var/number_value = text2num(numeric_input)
 								if(number_value)
-									timer_set = CLAMP(number_value, minimum_timer_set, maximum_timer_set)
+									timer_set = clamp(number_value, minimum_timer_set, maximum_timer_set)
 									playsound(src, 'sound/machines/nuke/general_beep.ogg', 50, FALSE)
 									set_safety()
 									. = TRUE
@@ -385,6 +383,7 @@
 				playsound(src, 'sound/machines/nuke/confirm_beep.ogg', 50, FALSE)
 				set_active()
 				update_ui_mode()
+				. = TRUE
 			else
 				playsound(src, 'sound/machines/nuke/angry_beep.ogg', 50, FALSE)
 		if("anchor")
@@ -507,7 +506,7 @@
 		return CINEMATIC_SELFDESTRUCT_MISS
 
 /obj/machinery/nuclearbomb/beer
-	name = "Nanotrasen-brand nuclear fission explosive"
+	name = "\improper Nanotrasen-brand nuclear fission explosive"
 	desc = "One of the more successful achievements of the Nanotrasen Corporate Warfare Division, their nuclear fission explosives are renowned for being cheap to produce and devastatingly effective. Signs explain that though this particular device has been decommissioned, every Nanotrasen station is equipped with an equivalent one, just in case. All Captains carefully guard the disk needed to detonate them - at least, the sign says they do. There seems to be a tap on the back."
 	proper_bomb = FALSE
 	var/obj/structure/reagent_dispensers/beerkeg/keg
@@ -641,9 +640,9 @@ This is here to make the tiles around the station mininuke change when it's arme
 	if(newturf && lastlocation == newturf)
 		if(last_disk_move < world.time - 5000 && prob((world.time - 5000 - last_disk_move)*0.0001))
 			var/datum/round_event_control/operative/loneop = locate(/datum/round_event_control/operative) in SSevents.control
-			if(istype(loneop))
+			if(istype(loneop) && loneop.occurrences < loneop.max_occurrences)
 				loneop.weight += 1
-				if(loneop.weight % 5 == 0)
+				if(loneop.weight % 5 == 0 && SSticker.totalPlayers > 1)
 					message_admins("[src] is stationary in [ADMIN_VERBOSEJMP(newturf)]. The weight of Lone Operative is now [loneop.weight].")
 				log_game("[src] is stationary for too long in [loc_name(newturf)], and has increased the weight of the Lone Operative event to [loneop.weight].")
 
@@ -651,9 +650,9 @@ This is here to make the tiles around the station mininuke change when it's arme
 		lastlocation = newturf
 		last_disk_move = world.time
 		var/datum/round_event_control/operative/loneop = locate(/datum/round_event_control/operative) in SSevents.control
-		if(istype(loneop) && prob(loneop.weight))
+		if(istype(loneop) && loneop.occurrences < loneop.max_occurrences && prob(loneop.weight))
 			loneop.weight = max(loneop.weight - 1, 0)
-			if(loneop.weight % 5 == 0)
+			if(loneop.weight % 5 == 0 && SSticker.totalPlayers > 1)
 				message_admins("[src] is on the move (currently in [ADMIN_VERBOSEJMP(newturf)]). The weight of Lone Operative is now [loneop.weight].")
 			log_game("[src] being on the move has reduced the weight of the Lone Operative event to [loneop.weight].")
 
@@ -687,7 +686,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 
 /obj/item/disk/nuclear/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is going delta! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(src, 'sound/machines/alarm.ogg', 50, -1, 1)
+	playsound(src, 'sound/machines/alarm.ogg', 50, -1, TRUE)
 	for(var/i in 1 to 100)
 		addtimer(CALLBACK(user, /atom/proc/add_atom_colour, (i % 2)? "#00FF00" : "#FF0000", ADMIN_COLOUR_PRIORITY), i)
 	addtimer(CALLBACK(src, .proc/manual_suicide, user), 101)
@@ -695,7 +694,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 
 /obj/item/disk/nuclear/proc/manual_suicide(mob/living/user)
 	user.remove_atom_colour(ADMIN_COLOUR_PRIORITY)
-	user.visible_message("<span class='suicide'>[user] was destroyed by the nuclear blast!</span>")
+	user.visible_message("<span class='suicide'>[user] is destroyed by the nuclear blast!</span>")
 	user.adjustOxyLoss(200)
 	user.death(0)
 

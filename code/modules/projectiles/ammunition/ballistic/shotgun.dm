@@ -86,7 +86,7 @@
 	projectile_type = /obj/item/projectile/bullet/pellet/shotgun_incapacitate
 	pellets = 12//double the pellets, but half the stun power of each, which makes this best for just dumping right in someone's face.
 	variance = 25
-	materials = list(MAT_METAL=4000)
+	materials = list(/datum/material/iron=4000)
 
 /obj/item/ammo_casing/shotgun/improvised
 	name = "improvised shell"
@@ -154,3 +154,10 @@
 	reagents.add_reagent(/datum/reagent/toxin/mutetoxin, 6) //;HELP OPS IN MAINT
 	reagents.add_reagent(/datum/reagent/toxin/coniine, 6)
 	reagents.add_reagent(/datum/reagent/toxin/sodium_thiopental, 6)
+
+/obj/item/ammo_casing/shotgun/breacher
+	name = "breaching slug"
+	desc = "A 12 gauge anti-material slug. Great for breaching airlocks and windows with minimal shots."
+	icon_state = "breacher"
+	projectile_type = /obj/item/projectile/bullet/shotgun_breaching
+	materials = list(/datum/material/iron=4000)

@@ -12,6 +12,7 @@
 			new /obj/item/grenade/syndieminibomb/concussion/frag(src) // ~2 tc each?
 			new /obj/item/grenade/syndieminibomb/concussion/frag(src) 
 			new /obj/item/flashlight/emp(src)
+			new /obj/item/book/granter/martial/karate(src)
 
 		if("bloodyspai") 
 			new /obj/item/clothing/under/chameleon(src) // 2 tc since it's not the full set
@@ -45,7 +46,7 @@
 			new /obj/item/grenade/plastic/c4(src)
 			new /obj/item/clothing/gloves/color/latex/nitrile(src)
 			new /obj/item/clothing/mask/gas/clown_hat(src)
-			new /obj/item/clothing/under/suit_jacket/really_black(src)
+			new /obj/item/clothing/under/suit/black_really(src)
 
 		if("screwed") 
 			new /obj/item/sbeacondrop/bomb(src)
@@ -54,6 +55,7 @@
 			new /obj/item/clothing/suit/space/syndicate/black/red(src)
 			new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
 			new /obj/item/encryptionkey/syndicate(src)
+			new /obj/item/pen/edagger(src)
 
 		if("murder") 
 			new /obj/item/melee/transforming/energy/sword/saber(src)
@@ -81,6 +83,7 @@
 			new /obj/item/camera_bug(src)
 			new /obj/item/clothing/glasses/thermal/syndi(src)
 			new /obj/item/card/id/syndicate(src)
+			new /obj/item/pen/edagger(src)
 
 		if("lordsingulo") 
 			new /obj/item/sbeacondrop(src)
@@ -88,6 +91,7 @@
 			new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
 			new /obj/item/card/emag(src)
 			new /obj/item/storage/toolbox/syndicate(src)
+			new /obj/item/pen/edagger(src)
 
 		if("sabotage") 
 			new /obj/item/grenade/plastic/c4 (src)
@@ -107,7 +111,7 @@
 			new /obj/item/clothing/glasses/thermal/syndi(src)
 			new /obj/item/clothing/gloves/color/latex/nitrile(src)
 			new /obj/item/clothing/mask/gas/clown_hat(src)
-			new /obj/item/clothing/under/suit_jacket/really_black(src)
+			new /obj/item/clothing/under/suit/black_really(src)
 
 		if("metaops") 
 			new /obj/item/clothing/suit/space/hardsuit/syndi(src) // 8 tc
@@ -125,11 +129,13 @@
 			new /obj/item/gun/ballistic/automatic/pistol(src)
 			new /obj/item/suppressor(src)
 			new /obj/item/ammo_box/magazine/m10mm(src)
-			new /obj/item/ammo_box/magazine/m10mm(src)
+			new /obj/item/ammo_box/magazine/m10mm/ap(src)
+			new /obj/item/ammo_box/magazine/m10mm/hp(src)
 			new /obj/item/clothing/under/chameleon(src)
 			new /obj/item/card/id/syndicate(src)
-			new /obj/item/reagent_containers/hypospray/medipen/stimulants(src)
+			new /obj/item/reagent_containers/hypospray/medipen/pumpup(src)
 			new /obj/item/reagent_containers/glass/rag(src)
+			new /obj/item/encryptionkey/syndicate(src)
 			
 		if("ninja") 
 			new /obj/item/katana(src) // Unique , hard to tell how much tc this is worth. 8 tc?
@@ -154,8 +160,8 @@
 			new /obj/item/clothing/suit/space/hardsuit/carp(src)
 			new /obj/item/clothing/mask/gas/carp(src)
 			new /obj/item/grenade/spawnergrenade/spesscarp(src)
-			new /obj/item/toy/plush/carpplushie/dehy_carp
-			new /obj/item/slimepotion/slime/sentience
+			new /obj/item/toy/plush/carpplushie/dehy_carp(src)
+			new /obj/item/slimepotion/slime/sentience(src)
 
 		if("mad_scientist")
 			new /obj/item/clothing/suit/toggle/labcoat/mad(src) // 0 tc
@@ -175,12 +181,12 @@
 			
 		if("bee") 
 			new /obj/item/paper/fluff/bee_objectives(src) // 0 tc (motivation)
-			new /obj/item/clothing/suit/hooded/bee_costume(src) // 0 tc
+			new /obj/item/clothing/suit/hooded/bee_costume/syndie(src) // 0 tc
 			new /obj/item/clothing/mask/rat/bee(src) // 0 tc
 			new /obj/item/storage/belt/fannypack/yellow(src) // 0 tc
 			new /obj/item/storage/box/syndie_kit/bee_grenades(src) // 15 tc
 			new /obj/item/reagent_containers/glass/bottle/beesease(src) // 10 tc?
-			new /obj/item/melee/transforming/energy/sword/bee(src) //priceless
+			new /obj/item/gun/chem/bee(src) //priceless
 			
 		if("mr_freeze")
 			new /obj/item/clothing/glasses/cold(src)
@@ -267,29 +273,27 @@
 /obj/item/storage/box/syndicate/contract_kit/PopulateContents()
 	new /obj/item/modular_computer/tablet/syndicate_contract_uplink/preset/uplink(src)
 	new /obj/item/storage/box/syndicate/contractor_loadout(src)
-	new /obj/item/melee/classic_baton/telescopic/contractor_baton(src)
+	new /obj/item/melee/classic_baton/contractor_baton(src)
 
 	// All about 4 TC or less - some nukeops only items, but fit nicely to the theme.
 	var/list/item_list = list(
 		/obj/item/storage/backpack/duffelbag/syndie/x4,
 		/obj/item/storage/box/syndie_kit/throwing_weapons,
-		/obj/item/gun/syringe/syndicate,
 		/obj/item/pen/edagger,
 		/obj/item/pen/sleepy,
-		/obj/item/flashlight/emp,
-		/obj/item/reagent_containers/syringe/mulligan,
+		/obj/item/storage/box/syndie_kit/emp,
 		/obj/item/clothing/shoes/chameleon/noslip,
 		/obj/item/storage/firstaid/tactical,
-		/obj/item/encryptionkey/syndicate,
+		/obj/item/encryptionkey/binary,
 		/obj/item/clothing/glasses/thermal/syndi,
 		/obj/item/slimepotion/slime/sentience/nuclear,
 		/obj/item/storage/box/syndie_kit/imp_radio,
-		/obj/item/storage/box/syndie_kit/imp_uplink,
 		/obj/item/clothing/gloves/krav_maga/combatglovesplus,
 		/obj/item/gun/ballistic/automatic/c20r/toy/unrestricted/riot,
-		/obj/item/reagent_containers/hypospray/medipen/stimulants,
-		/obj/item/storage/box/syndie_kit/imp_freedom,
-		/obj/item/toy/eightball/haunted
+		/obj/item/reagent_containers/hypospray/medipen/pumpup,
+		/obj/item/compressionkit,
+		/obj/item/book/granter/martial/karate,
+		/obj/item/storage/box/syndie_kit/imp_freedom
 	)
 
 	var/obj/item1 = pick_n_take(item_list)
@@ -318,6 +322,8 @@
 	new /obj/item/book/granter/action/origami(src)
 	for(var/i in 1 to 5)
 		new /obj/item/paper(src)
+	var/obj/item/paper/construction/redpaper = new /obj/item/paper/construction(src)
+	redpaper.color = "#FF0000" //Red paper, for an extra special calling card flair
 
 /obj/item/storage/box/syndie_kit/imp_freedom
 	name = "freedom implant box"
@@ -467,6 +473,26 @@
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/pda/chameleon(src)
+	new /obj/item/razor(src)
+	new /obj/item/handmirror(src)
+	new /obj/item/clothing/head/wig(src)
+
+/obj/item/storage/box/syndie_kit/plasmachameleon
+	name = "plasmaman chameleon kit"
+
+/obj/item/storage/box/syndie_kit/plasmachameleon/PopulateContents()
+	new /obj/item/clothing/under/chameleon/envirosuit(src)
+	new /obj/item/clothing/suit/chameleon(src)
+	new /obj/item/clothing/gloves/chameleon(src)
+	new /obj/item/clothing/shoes/chameleon(src)
+	new /obj/item/clothing/glasses/chameleon(src)
+	new /obj/item/clothing/head/chameleon/envirohelm(src)
+	new /obj/item/clothing/mask/chameleon(src)
+	new /obj/item/clothing/neck/cloak/chameleon(src)
+	new /obj/item/storage/backpack/chameleon(src)
+	new /obj/item/radio/headset/chameleon(src)
+	new /obj/item/stamp/chameleon(src)
+	new /obj/item/pda/chameleon(src)
 
 //5*(2*4) = 5*8 = 45, 45 damage if you hit one person with all 5 stars.
 //Not counting the damage it will do while embedded (2*4 = 8, at 15% chance)
@@ -474,7 +500,7 @@
 	for(var/i in 1 to 5)
 		new /obj/item/throwing_star(src)
 	for(var/i in 1 to 2)
-		new /obj/item/paperplane/syndicate(src)
+		new /obj/item/origami/paperplane/syndicate(src)
 	new /obj/item/restraints/legcuffs/bola/tactical(src)
 	new /obj/item/restraints/legcuffs/bola/tactical(src)
 
@@ -500,11 +526,11 @@
 	new /obj/item/book/granter/spell/mimery_guns(src)
 
 /obj/item/storage/box/syndie_kit/centcom_costume/PopulateContents()
-	new /obj/item/clothing/under/rank/centcom_officer(src)
+	new /obj/item/clothing/under/rank/centcom/officer(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/radio/headset/headset_cent/empty(src)
-	new /obj/item/clothing/glasses/sunglasses(src)
+	new /obj/item/clothing/glasses/sunglasses/advanced(src)
 	new /obj/item/storage/backpack/satchel(src)
 	new /obj/item/pda/heads(src)
 	new /obj/item/clipboard(src)
@@ -530,3 +556,12 @@
 /obj/item/storage/box/syndie_kit/bee_grenades/PopulateContents()
 	for(var/i in 1 to 3)
 		new /obj/item/grenade/spawnergrenade/buzzkill(src)
+
+/obj/item/storage/box/syndie_kit/cultconstructkit
+	name = "cult construct kit"
+	desc = "A sleek, sturdy box with an ominous, dark energy inside. Yikes."
+
+/obj/item/storage/box/syndie_kit/cultconstructkit/PopulateContents()
+	new /obj/item/storage/belt/soulstone/full/purified(src)
+	new /obj/item/sbeacondrop/constructshell(src)
+	new /obj/item/sbeacondrop/constructshell(src)

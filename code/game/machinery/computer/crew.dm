@@ -37,12 +37,14 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 	jobs["Security Officer"] = 12
 	jobs["Detective"] = 13
 	jobs["Brig Physician"] = 14
+	jobs["Deputy"] = 16
 	jobs["Chief Medical Officer"] = 20
 	jobs["Chemist"] = 21
 	jobs["Geneticist"] = 22
 	jobs["Virologist"] = 23
 	jobs["Medical Doctor"] = 24
 	jobs["Paramedic"] = 25
+	jobs["Psychiatrist"] = 26 //psychiatrist will count as medical, even being gimmick
 	jobs["Research Director"] = 30
 	jobs["Scientist"] = 31
 	jobs["Roboticist"] = 32
@@ -61,6 +63,9 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 	jobs["Mime"] = 67
 	jobs["Janitor"] = 68
 	jobs["Lawyer"] = 69
+	jobs["Barber"] = 70
+	jobs["Stage Magician"] = 71
+	jobs["VIP"] = 72
 	jobs["Admiral"] = 200
 	jobs["CentCom Commander"] = 210
 	jobs["Custodian"] = 211
@@ -81,7 +86,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 							datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if (!ui)
-		ui = new(user, src, ui_key, "crew", "crew monitor", 800, 600 , master_ui, state)
+		ui = new(user, src, ui_key, "CrewConsole", "crew monitor", 800, 600 , master_ui, state)
 		ui.open()
 
 /datum/crewmonitor/proc/show(mob/M, source)
@@ -127,7 +132,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 			nanite_sensors = TRUE
 		// Check if their z-level is correct and if they are wearing a uniform.
 		// Accept H.z==0 as well in case the mob is inside an object.
-		if ((H.z == 0 || H.z == z) && (istype(H.w_uniform, /obj/item/clothing/under) || nanite_sensors))
+		if ((H.z == 0 || H.z == z || (is_station_level(H.z) && is_station_level(z))) && (istype(H.w_uniform, /obj/item/clothing/under) || nanite_sensors))
 			U = H.w_uniform
 
 			// Are the suit sensors on?
@@ -135,7 +140,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 				pos = H.z == 0 || (nanite_sensors || U.sensor_mode == SENSOR_COORDS) ? get_turf(H) : null
 
 				// Special case: If the mob is inside an object confirm the z-level on turf level.
-				if (H.z == 0 && (!pos || pos.z != z))
+				if (H.z == 0 && (!pos || (pos.z != z) && !(is_station_level(pos.z) && is_station_level(z))))
 					continue
 
 				I = H.wear_id ? H.wear_id.GetID() : null

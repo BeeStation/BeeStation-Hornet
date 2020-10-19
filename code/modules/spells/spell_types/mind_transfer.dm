@@ -61,9 +61,14 @@ Also, you never added distance checking after target is selected. I've went ahea
 		return
 
 	var/datum/mind/TM = target.mind
-	if((target.anti_magic_check() || TM.has_antag_datum(/datum/antagonist/wizard) || TM.has_antag_datum(/datum/antagonist/cult) || TM.has_antag_datum(/datum/antagonist/clockcult) || TM.has_antag_datum(/datum/antagonist/changeling) || TM.has_antag_datum(/datum/antagonist/rev)) || cmptext(copytext(target.key,1,2),"@"))
+	if(target.anti_magic_check() || TM.has_antag_datum(/datum/antagonist/wizard) || TM.has_antag_datum(/datum/antagonist/cult) || TM.has_antag_datum(/datum/antagonist/changeling) || TM.has_antag_datum(/datum/antagonist/rev) || target.key[1] == "@")
 		if(!silent)
 			to_chat(user, "<span class='warning'>[target.p_their(TRUE)] mind is resisting your spell!</span>")
+		return
+	
+	if(istype(target.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		to_chat(target, "<span class='warning'>Your protective headgear successfully deflects mind controlling brainwaves!</span>")
+		to_chat(user, "<span class='warning'>[target.p_their(TRUE)] mind is protected by a strange ward on their headgear!</span>")
 		return
 
 	if(istype(target, /mob/living/simple_animal/hostile/guardian))

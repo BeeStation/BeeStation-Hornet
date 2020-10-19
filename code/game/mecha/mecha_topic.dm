@@ -5,7 +5,9 @@
 
 /obj/mecha/proc/get_stats_html()
 	. = {"<html>
-			<head><title>[name] data</title>
+			<head>
+				<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+				<title>[name] data</title>
 				<style>
 					body {color: #00ff00; background: #000000; font-family:"Lucida Console",monospace; font-size: 12px;}
 					hr {border: 1px solid #0f0; color: #0f0; background-color: #0f0;}
@@ -60,7 +62,7 @@
 	if (internal_tank)
 		int_tank_air = internal_tank.return_air()
 		tank_pressure = internal_tank ? round(int_tank_air.return_pressure(),0.01) : "None"
-		tank_temperature = internal_tank ? int_tank_air.temperature : "Unknown"
+		tank_temperature = internal_tank ? int_tank_air.return_temperature() : "Unknown"
 		cabin_pressure = round(return_pressure(),0.01)
 	. =	{"[report_internal_damage()]
 		[integrity<30?"<span class='userdanger'>DAMAGE LEVEL CRITICAL</span><br>":null]
@@ -161,6 +163,7 @@
 		return
 	. = {"<html>
 			<head>
+				<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 				<style>
 					h1 {font-size:15px;margin-bottom:4px;}
 					body {color: #00ff00; background: #000000; font-family:"Courier New", Courier, monospace; font-size: 12px;}
@@ -192,6 +195,7 @@
 		return
 	. = {"<html>
 			<head>
+				<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 				<style>
 					body {color: #00ff00; background: #000000; font-family:"Courier New", Courier, monospace; font-size: 12px;}
 					a {padding:2px 5px; background:#32CD32;color:#000;display:block;margin:2px;text-align:center;text-decoration:none;}
@@ -199,8 +203,13 @@
 			</head>
 			<body>
 				[add_req_access?"<a href='?src=[REF(src)];req_access=1;id_card=[REF(id_card)];user=[REF(user)]'>Edit operation keycodes</a>":null]
-				[maint_access?"<a href='?src=[REF(src)];maint_access=1;id_card=[REF(id_card)];user=[REF(user)]'>[(state>0) ? "Terminate" : "Initiate"] maintenance protocol</a>":null]
-				[(state>0) ?"<a href='?src=[REF(src)];set_internal_tank_valve=1;user=[REF(user)]'>Set Cabin Air Pressure</a>":null]
+				[maint_access?"<a href='?src=[REF(src)];maint_access=1;id_card=[REF(id_card)];user=[REF(user)]'>[(construction_state > MECHA_LOCKED) ? "Terminate" : "Initiate"] maintenance protocol</a>":null]
+				[(construction_state == MECHA_OPEN_HATCH) ?"--------------------</br>":null]
+				[(construction_state == MECHA_OPEN_HATCH) ?"[cell?"<a href='?src=[REF(src)];drop_cell=1;id_card=[REF(id_card)];user=[REF(user)]'>Drop power cell</a>":"No cell installed</br>"]":null]
+				[(construction_state == MECHA_OPEN_HATCH) ?"[scanmod?"<a href='?src=[REF(src)];drop_scanmod=1;id_card=[REF(id_card)];user=[REF(user)]'>Drop scanning module</a>":"No scanning module installed</br>"]":null]
+				[(construction_state == MECHA_OPEN_HATCH) ?"[capacitor?"<a href='?src=[REF(src)];drop_cap=1;id_card=[REF(id_card)];user=[REF(user)]'>Drop capacitor</a>":"No capacitor installed</br>"]":null]
+				[(construction_state == MECHA_OPEN_HATCH) ?"--------------------</br>":null]
+				[(construction_state > MECHA_LOCKED) ?"<a href='?src=[REF(src)];set_internal_tank_valve=1;user=[REF(user)]'>Set Cabin Air Pressure</a>":null]
 			</body>
 		</html>"}
 	user << browse(., "window=exosuit_maint_console")
@@ -242,12 +251,30 @@
 			if(href_list["maint_access"])
 				if(!maint_access)
 					return
-				if(state==0)
-					state = 1
+				if(construction_state == MECHA_LOCKED)
+					construction_state = MECHA_SECURE_BOLTS
 					to_chat(usr, "The securing bolts are now exposed.")
-				else if(state==1)
-					state = 0
+				else if(construction_state == MECHA_SECURE_BOLTS)
+					construction_state = MECHA_LOCKED
 					to_chat(usr, "The securing bolts are now hidden.")
+				output_maintenance_dialog(id_card,usr)
+				return
+			if(href_list["drop_cell"])
+				if(construction_state == MECHA_OPEN_HATCH)
+					cell.forceMove(get_turf(src))
+					cell = null
+				output_maintenance_dialog(id_card,usr)
+				return
+			if(href_list["drop_scanmod"])
+				if(construction_state == MECHA_OPEN_HATCH)
+					scanmod.forceMove(get_turf(src))
+					scanmod = null
+				output_maintenance_dialog(id_card,usr)
+				return
+			if(href_list["drop_cap"])
+				if(construction_state == MECHA_OPEN_HATCH)
+					capacitor.forceMove(get_turf(src))
+					capacitor = null
 				output_maintenance_dialog(id_card,usr)
 				return
 
@@ -273,9 +300,9 @@
 			return
 
 		//Set pressure.
-		if(href_list["set_internal_tank_valve"] && state)
+		if(href_list["set_internal_tank_valve"] && construction_state)
 			var/new_pressure = input(usr,"Input new output pressure","Pressure setting",internal_tank_valve) as num|null
-			if(isnull(new_pressure) || usr.incapacitated() || !state)
+			if(isnull(new_pressure) || usr.incapacitated() || !construction_state)
 				return
 			internal_tank_valve = new_pressure
 			to_chat(usr, "<span class='notice'>The internal pressure valve has been set to [internal_tank_valve]kPa.</span>")
@@ -321,12 +348,10 @@
 
 	//Changes the exosuit name.
 	if(href_list["change_name"])
-		var/userinput = input(usr, "Choose a new exosuit name.", "Rename exosuit", "") as null|text
-		if(usr != occupant || usr.incapacitated())
+		var/userinput = stripped_input(usr, "Choose a new exosuit name.", "Rename exosuit", "", MAX_NAME_LEN)
+		if(!userinput || usr != occupant || usr.incapacitated())
 			return
-		if(!isnull(userinput))
-			var/newname = copytext(sanitize_name(userinput),1,MAX_NAME_LEN)
-			name = newname ? newname : initial(name)
+		name = userinput
 		return
 
 	//Toggles ID upload.
@@ -337,7 +362,7 @@
 
 	//Toggles main access.
 	if(href_list["toggle_maint_access"])
-		if(state)
+		if(construction_state)
 			occupant_message("<span class='danger'>Maintenance protocols in effect</span>")
 			return
 		maint_access = !maint_access

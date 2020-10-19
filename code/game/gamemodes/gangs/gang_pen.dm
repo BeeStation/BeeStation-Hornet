@@ -51,11 +51,10 @@
 	if(check && HAS_TRAIT(gangster_mind.current, TRAIT_MINDSHIELD)) //Check to see if the potential gangster is implanted
 		to_chat(user, "<span class='danger'>This mind is too strong to control!</span>")
 		return
-	if(is_banned_from(gangster_mind.current.ckey, ROLE_GANG))
-		to_chat(user, "<span class='danger'>This mind is too clusterfucked to control!</span>")
-		return
-
 	var/mob/living/carbon/human/H = gangster_mind.current // we are sure the dude's human cause it's checked in attack()
+	if(istype(H.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		to_chat(user, "<span class='danger'>This mind appears to be too delusional to register the mind-control waves!</span>")
+		return
 	H.silent = max(H.silent, 5)
 	H.Knockdown(100)
 

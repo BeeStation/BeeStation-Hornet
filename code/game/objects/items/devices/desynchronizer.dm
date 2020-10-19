@@ -57,8 +57,9 @@
 	addtimer(CALLBACK(src, .proc/resync), duration)
 
 /obj/item/desynchronizer/proc/resync()
-	new /obj/effect/temp_visual/desynchronizer(sync_holder.drop_location())
-	QDEL_NULL(sync_holder)
+	if(sync_holder)
+		new /obj/effect/temp_visual/desynchronizer(sync_holder.drop_location())
+		QDEL_NULL(sync_holder)
 	icon_state = initial(icon_state)
 	next_use = world.time + (world.time - last_use) // Could be 2*world.time-last_use but that would just be confusing
 

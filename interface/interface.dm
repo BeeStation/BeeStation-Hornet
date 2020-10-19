@@ -65,12 +65,13 @@
 			message += GLOB.revdata.GetTestMergeInfo(FALSE)
 		if(tgalert(src, message, "Report Issue","Yes","No")!="Yes")
 			return
-		var/static/issue_template = file2text(".github/ISSUE_TEMPLATE.md")
+		var/static/issue_template = rustg_file_read(".github/ISSUE_TEMPLATE.md")
 		var/servername = CONFIG_GET(string/servername)
 		var/url_params = "Reporting client version: [byond_version].[byond_build]\n\n[issue_template]"
 		if(GLOB.round_id || servername)
 			url_params = "Issue reported from [GLOB.round_id ? " Round ID: [GLOB.round_id][servername ? " ([servername])" : ""]" : servername]\n\n[url_params]"
-		DIRECT_OUTPUT(src, link("[githuburl]/issues/new?body=[url_encode(url_params)]"))
+		var/issue_label = CONFIG_GET(string/issue_label)
+		DIRECT_OUTPUT(src, link("[githuburl]/issues/new?body=[rustg_url_encode(url_params)][issue_label ? "&labels=[rustg_url_encode(issue_label)]" : ""]"))
 	else
 		to_chat(src, "<span class='danger'>The Github URL is not set in the server configuration.</span>")
 	return
@@ -231,7 +232,7 @@ Any-Mode: (hotkey doesn't need to be on)
 	set hidden = 1
 	var/donateurl = CONFIG_GET(string/donateurl)
 	if(donateurl)
-		if(alert("This will open the Doantion page in your browser. Are you sure?",,"Yes","No")!="Yes")
+		if(alert("This will open the Donation page in your browser. Are you sure?",,"Yes","No")!="Yes")
 			return
 		src << link(donateurl)
 	else

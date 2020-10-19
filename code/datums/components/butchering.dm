@@ -20,17 +20,17 @@
 	if(_can_be_blunt)
 		can_be_blunt = _can_be_blunt
 	if(isitem(parent))
-		RegisterSignal(parent, COMSIG_ITEM_ATTACK, .proc/onItemAttack)		
+		RegisterSignal(parent, COMSIG_ITEM_ATTACK, .proc/onItemAttack)
 
 /datum/component/butchering/proc/onItemAttack(obj/item/source, mob/living/M, mob/living/user)
 	if(user.a_intent == INTENT_HARM && M.stat == DEAD && (M.butcher_results || M.guaranteed_butcher_results)) //can we butcher it?
 		if(butchering_enabled && (can_be_blunt || source.is_sharp()))
 			INVOKE_ASYNC(src, .proc/startButcher, source, M, user)
 			return COMPONENT_ITEM_NO_ATTACK
-	if(user.a_intent == INTENT_HARM && ishuman(M) && source.is_sharp())
+	if(user.a_intent == INTENT_GRAB && ishuman(M) && source.is_sharp())
 		var/mob/living/carbon/human/H = M
 		if(H.has_status_effect(/datum/status_effect/neck_slice))
-			user.show_message("<span class='danger'>[H]'s neck has already been already cut, you can't make the bleeding any worse!", \
+			user.show_message("<span class='danger'>[H]'s neck has already been already cut, you can't make the bleeding any worse!", 1, \
 							"<span class='danger'>Their neck has already been already cut, you can't make the bleeding any worse!")
 			return COMPONENT_ITEM_NO_ATTACK
 		if((H.health <= H.crit_threshold || (user.pulling == H && user.grab_state >= GRAB_NECK) || H.IsSleeping()) && user.zone_selected == BODY_ZONE_HEAD) // Only sleeping, neck grabbed, or crit, can be sliced.
@@ -47,13 +47,13 @@
 	user.visible_message("<span class='danger'>[user] is slitting [H]'s throat!</span>", \
 					"<span class='danger'>You start slicing [H]'s throat!</span>", \
 					"<span class='hear'>You hear a cutting noise!</span>")
-	H.show_message("<span class='userdanger'>Your throat is being slit by [user]!</span>", \
+	H.show_message("<span class='userdanger'>Your throat is being slit by [user]!</span>", 1, \
 					"<span class = 'userdanger'>Something is cutting into your neck!</span>", NONE)
 
 	playsound(H.loc, butcher_sound, 50, TRUE, -1)
 	if(do_mob(user, H, CLAMP(500 / source.force, 30, 100)) && H.Adjacent(source))
 		if(H.has_status_effect(/datum/status_effect/neck_slice))
-			user.show_message("<span class='danger'>[H]'s neck has already been already cut, you can't make the bleeding any worse!", \
+			user.show_message("<span class='danger'>[H]'s neck has already been already cut, you can't make the bleeding any worse!", 1, \
 							"<span class='danger'>Their neck has already been already cut, you can't make the bleeding any worse!")
 			return
 

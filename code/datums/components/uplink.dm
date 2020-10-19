@@ -26,6 +26,7 @@
 	var/failsafe_code
 	var/compact_mode = FALSE
 	var/debug = FALSE
+	var/non_traitor_allowed = TRUE
 
 	var/list/previous_attempts
 
@@ -112,6 +113,8 @@
 /datum/component/uplink/proc/interact(datum/source, mob/user)
 	if(locked)
 		return
+	if(!non_traitor_allowed && !user.mind.special_role)
+		return
 	active = TRUE
 	if(user)
 		ui_interact(user)
@@ -123,9 +126,10 @@
 	active = TRUE
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "uplink", name, 620, 580, master_ui, state)
-		ui.set_autoupdate(FALSE) // This UI is only ever opened by one person, and never is updated outside of user input.
-		ui.set_style("syndicate")
+		ui = new(user, src, ui_key, "Uplink", name, 620, 580, master_ui, state)
+		// This UI is only ever opened by one person,
+		// and never is updated outside of user input.
+		ui.set_autoupdate(FALSE)
 		ui.open()
 
 /datum/component/uplink/ui_data(mob/user)
@@ -134,8 +138,7 @@
 	var/list/data = list()
 	data["telecrystals"] = telecrystals
 	data["lockable"] = lockable
-	data["compact_mode"] = compact_mode
-
+	data["compactMode"] = compact_mode
 	return data
 
 /datum/component/uplink/ui_static_data(mob/user)
@@ -149,14 +152,14 @@
 			var/datum/uplink_item/I = uplink_items[category][item]
 			if(I.limited_stock == 0)
 				continue
-			if(I.restricted_roles.len)
+			if(I.restricted_roles.len && I.discounted == FALSE)
 				var/is_inaccessible = TRUE
 				for(var/R in I.restricted_roles)
 					if(R == user.mind.assigned_role || debug)
 						is_inaccessible = FALSE
 				if(is_inaccessible)
 					continue
-			if(I.restricted_species)
+			if(I.restricted_species && I.discounted == FALSE)
 				if(ishuman(user))
 					var/is_inaccessible = TRUE
 					var/mob/living/carbon/human/H = user
@@ -177,19 +180,16 @@
 /datum/component/uplink/ui_act(action, params)
 	if(!active)
 		return
-
 	switch(action)
 		if("buy")
-			var/item = params["item"]
-
+			var/item_name = params["name"]
 			var/list/buyable_items = list()
 			for(var/category in uplink_items)
 				buyable_items += uplink_items[category]
-
-			if(item in buyable_items)
-				var/datum/uplink_item/I = buyable_items[item]
+			if(item_name in buyable_items)
+				var/datum/uplink_item/I = buyable_items[item_name]
 				MakePurchase(usr, I)
-				. = TRUE
+				return TRUE
 		if("lock")
 			active = FALSE
 			locked = TRUE
@@ -198,9 +198,10 @@
 			SStgui.close_uis(src)
 		if("select")
 			selected_cat = params["category"]
+			return TRUE
 		if("compact_toggle")
 			compact_mode = !compact_mode
-	return TRUE
+			return TRUE
 
 /datum/component/uplink/proc/MakePurchase(mob/user, datum/uplink_item/U)
 	if(!istype(U))
@@ -300,7 +301,7 @@
 	if(istype(parent,/obj/item/pda))
 		return "[rand(100,999)] [pick(GLOB.phonetic_alphabet)]"
 	else if(istype(parent,/obj/item/radio))
-		return sanitize_frequency(rand(MIN_FREQ, MAX_FREQ))
+		return sanitize_frequency(rand(MIN_FREQ, MAX_FREQ), TRUE)
 	else if(istype(parent,/obj/item/pen))
 		var/list/L = list()
 		for(var/i in 1 to PEN_ROTATIONS)

@@ -189,6 +189,7 @@ RLD
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	custom_price = 150
 	max_matter = 160
+	slot_flags = ITEM_SLOT_BELT
 	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON
 	has_ammobar = TRUE
 	var/mode = RCD_FLOORWALL
@@ -570,8 +571,6 @@ RLD
 	else
 		return FALSE
 
-		return FALSE
-
 /obj/item/construction/rcd/afterattack(atom/A, mob/user, proximity)
 	. = ..()
 	if(!prox_check(proximity))
@@ -670,7 +669,8 @@ RLD
 	name = "admin RCD"
 	max_matter = INFINITY
 	matter = INFINITY
-
+	delay_mod = 0.1
+	upgrade = 1
 
 // Ranged RCD
 
@@ -701,7 +701,7 @@ RLD
 
 
 /obj/item/construction/rld
-	name = "rapid-light-device (RLD)"
+	name = "Rapid Lighting Device (RLD)"
 	desc = "A device used to rapidly provide lighting sources to an area. Reload with iron, plasteel, glass or compressed matter cartridges."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rld-5"
@@ -710,6 +710,7 @@ RLD
 	matter = 200
 	max_matter = 200
 	var/mode = LIGHT_MODE
+	slot_flags = ITEM_SLOT_BELT
 	actions_types = list(/datum/action/item_action/pick_color)
 
 	var/wallcost = 10
@@ -861,6 +862,7 @@ RLD
 	desc = "An expertly modified RCD outfitted to construct plumbing machinery."
 	icon_state = "plumberer2"
 	icon = 'icons/obj/tools.dmi'
+	slot_flags = ITEM_SLOT_BELT
 
 	matter = 200
 	max_matter = 200

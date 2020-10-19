@@ -8,6 +8,7 @@
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#bbe291"
+	chat_color = "#A2FBB9"
 	var/cooks = 0 //Counts cooks amount
 
 	outfit = /datum/outfit/job/cook
@@ -26,7 +27,7 @@
 	id = /obj/item/card/id/job/serv
 	belt = /obj/item/pda/cook
 	ears = /obj/item/radio/headset/headset_srv
-	uniform = /obj/item/clothing/under/rank/chef
+	uniform = /obj/item/clothing/under/rank/civilian/chef
 	suit = /obj/item/clothing/suit/toggle/chef
 	head = /obj/item/clothing/head/chefhat
 	mask = /obj/item/clothing/mask/fakemoustache/italian

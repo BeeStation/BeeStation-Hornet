@@ -9,6 +9,7 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	"red" = "#ff0000"
 	))
 
+
 ///////////////////////////////
 //CABLE STRUCTURE
 ///////////////////////////////
@@ -47,6 +48,12 @@ By design, d1 is the smallest direction and d2 is the highest
 	var/datum/powernet/powernet
 	var/obj/item/stack/cable_coil/stored
 
+	FASTDMM_PROP(\
+		pipe_type = PIPE_TYPE_CABLE,\
+		pipe_interference_group = list("cable"),\
+		pipe_group = "cable-[cable_color]"\
+	)
+
 	var/cable_color = "red"
 	color = "#ff0000"
 
@@ -84,8 +91,8 @@ By design, d1 is the smallest direction and d2 is the highest
 
 	// ensure d1 & d2 reflect the icon_state for entering and exiting cable
 	var/dash = findtext(icon_state, "-")
-	d1 = text2num( copytext( icon_state, 1, dash ) )
-	d2 = text2num( copytext( icon_state, dash+1 ) )
+	d1 = text2num(copytext(icon_state, 1, dash))
+	d2 = text2num(copytext(icon_state, dash + length(icon_state[dash])))
 
 	var/turf/T = get_turf(src)			// hide if turf is not intact
 	if(level==1)
@@ -474,7 +481,7 @@ By design, d1 is the smallest direction and d2 is the highest
 // Definitions
 ////////////////////////////////
 
-GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restraints", /obj/item/restraints/handcuffs/cable, 15)))
+GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restraints", /obj/item/restraints/handcuffs/cable, 15), new/datum/stack_recipe("noose", /obj/structure/chair/noose, 30, time = 80, one_per_turf = 1, on_floor = 1)))
 
 /obj/item/stack/cable_coil
 	name = "cable coil"

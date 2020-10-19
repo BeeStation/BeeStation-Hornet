@@ -101,6 +101,7 @@ Slimecrossing Armor
 	icon_state = "peaceflower"
 	item_state = "peaceflower"
 	slot_flags = ITEM_SLOT_HEAD
+	clothing_flags = EFFECT_HAT | SNUG_FIT
 	body_parts_covered = NONE
 	dynamic_hair_suffix = ""
 	force = 0
@@ -128,13 +129,20 @@ Slimecrossing Armor
 
 /obj/item/clothing/suit/armor/heavy/adamantine
 	name = "adamantine armor"
-	desc = "A full suit of adamantine plate armor. Impressively resistant to damage, but weighs about as much as you do."
+	desc = "A full suit of adamantine plate armor. Impressively resistant to damage, but weighs about as much as you do. The locked joints appear to move under their own power, making this suit of armor impossible to speed up."
 	icon_state = "adamsuit"
 	item_state = "adamsuit"
 	flags_inv = NONE
-	obj_flags = IMMUTABLE_SLOW
-	slowdown = 4
+	slowdown = 0 //slowdown is handled in the equipped proc
 	var/hit_reflect_chance = 40
+
+/obj/item/clothing/suit/armor/heavy/adamantine/equipped(mob/user, slot)
+	. = ..()
+	user.add_movespeed_modifier(MOVESPEED_ID_SLOW_ARMOR, update=TRUE, priority=100, multiplicative_slowdown= 4)
+
+/obj/item/clothing/suit/armor/heavy/adamantine/dropped(mob/user)
+	. = ..()
+	user.remove_movespeed_modifier(MOVESPEED_ID_SLOW_ARMOR, TRUE)
 
 /obj/item/clothing/suit/armor/heavy/adamantine/IsReflect(def_zone)
 	if(def_zone in list(BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG) && prob(hit_reflect_chance))

@@ -13,6 +13,7 @@
 	taste_mult = 4
 	var/nutriment_factor = 1 * REAGENTS_METABOLISM
 	var/quality = 0	//affects mood, typically higher for mixed drinks with more complex recipes
+	random_unrestricted = FALSE
 
 /datum/reagent/consumable/on_mob_life(mob/living/carbon/M)
 	current_cycle++
@@ -26,6 +27,8 @@
 	if(method == INGEST)
 		if (quality && !HAS_TRAIT(M, TRAIT_AGEUSIA))
 			switch(quality)
+				if (DRINK_BAD)
+					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
 				if (DRINK_NICE)
 					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_nice)
 				if (DRINK_GOOD)
@@ -42,6 +45,7 @@
 	reagent_state = SOLID
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
+	random_unrestricted = TRUE
 
 	var/brute_heal = 1
 	var/burn_heal = 0
@@ -112,6 +116,7 @@
 /datum/reagent/consumable/cooking_oil/reaction_obj(obj/O, reac_volume)
 	if(holder && holder.chem_temp >= fry_temperature)
 		if(isitem(O) && !istype(O, /obj/item/reagent_containers/food/snacks/deepfryholder))
+			log_game("[O.name] ([O.type]) has been deep fried by a reaction with cooking oil reagent at [AREACOORD(O)].")
 			O.loc.visible_message("<span class='warning'>[O] rapidly fries as it's splashed with hot oil! Somehow.</span>")
 			var/obj/item/reagent_containers/food/snacks/deepfryholder/F = new(O.drop_location(), O)
 			F.fry(volume)
@@ -170,6 +175,12 @@
 	color = "#899613" // rgb: 137, 150, 19
 	taste_description = "watery milk"
 
+/datum/reagent/consumable/virus_food/on_mob_life(mob/living/carbon/M)
+	. = ..()
+	for(var/datum/disease/D in M.diseases)
+		if(prob(D.stage_prob * 10))
+			D.update_stage(min(D.stage += 1, D.max_stages))
+
 /datum/reagent/consumable/soysauce
 	name = "Soysauce"
 	description = "A salty sauce made from the soy plant."
@@ -221,6 +232,7 @@
 	description = "A special oil that noticably chills the body. Extracted from Icepeppers and slimes."
 	color = "#8BA6E9" // rgb: 139, 166, 233
 	taste_description = "mint"
+	random_unrestricted = TRUE
 
 /datum/reagent/consumable/frostoil/on_mob_life(mob/living/carbon/M)
 	var/cooling = 0
@@ -258,7 +270,7 @@
 		if(isopenturf(T))
 			var/turf/open/OT = T
 			OT.MakeSlippery(wet_setting=TURF_WET_ICE, min_wet_time=100, wet_time_to_add=reac_volume SECONDS) // Is less effective in high pressure/high heat capacity environments. More effective in low pressure.
-			OT.air.temperature -= MOLES_CELLSTANDARD*100*reac_volume/OT.air.heat_capacity() // reduces environment temperature by 5K per unit.
+			OT.air.set_temperature(OT.air.return_temperature() - MOLES_CELLSTANDARD*100*reac_volume/OT.air.heat_capacity()) // reduces environment temperature by 5K per unit.
 
 /datum/reagent/consumable/condensedcapsaicin
 	name = "Condensed Capsaicin"
@@ -269,11 +281,11 @@
 /datum/reagent/consumable/condensedcapsaicin/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(!ishuman(M) && !ismonkey(M))
 		return
-		
+
 	var/mob/living/carbon/victim = M
 	if(method == TOUCH || method == VAPOR)
 		var/pepper_proof = victim.is_pepper_proof()
-	
+
 		//check for protection
 		//actually handle the pepperspray effects
 		if (!(pepper_proof)) // you need both eye and mouth protection
@@ -286,7 +298,7 @@
 			victim.add_movespeed_modifier(MOVESPEED_ID_PEPPER_SPRAY, update=TRUE, priority=100, multiplicative_slowdown=0.25, blacklisted_movetypes=(FLYING|FLOATING))
 			addtimer(CALLBACK(victim, /mob.proc/remove_movespeed_modifier, MOVESPEED_ID_PEPPER_SPRAY), 10 SECONDS)
 		victim.update_damage_hud()
-			
+
 /datum/reagent/consumable/condensedcapsaicin/on_mob_life(mob/living/carbon/M)
 	if(prob(5))
 		M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
@@ -439,7 +451,7 @@
 	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot)
 		var/datum/gas_mixture/lowertemp = T.remove_air(T.air.total_moles())
-		lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)
+		lowertemp.set_temperature(max( min(lowertemp.return_temperature()-2000,lowertemp.return_temperature() / 2) ,0))
 		lowertemp.react(src)
 		T.assume_air(lowertemp)
 		qdel(hotspot)
@@ -544,7 +556,6 @@
 /datum/reagent/consumable/corn_syrup/on_mob_life(mob/living/carbon/M)
 	holder.add_reagent(/datum/reagent/consumable/sugar, 3)
 	..()
-
 /datum/reagent/consumable/honey
 	name = "Honey"
 	description = "Sweet sweet honey that decays into sugar. Has antibacterial and natural healing properties."
@@ -552,14 +563,17 @@
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	metabolization_rate = 1 * REAGENTS_METABOLISM
 	taste_description = "sweetness"
+	var/power = 0
+	random_unrestricted = TRUE
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/carbon/M)
-	M.reagents.add_reagent(/datum/reagent/consumable/sugar,3)
+	if(power == 0)
+		M.reagents.add_reagent(/datum/reagent/consumable/sugar,3)
 	if(prob(55))
-		M.adjustBruteLoss(-1*REM, 0)
-		M.adjustFireLoss(-1*REM, 0)
-		M.adjustOxyLoss(-1*REM, 0)
-		M.adjustToxLoss(-1*REM, 0)
+		M.adjustBruteLoss(-1*REM+power, 0)
+		M.adjustFireLoss(-1*REM+power, 0)
+		M.adjustOxyLoss(-1*REM+power, 0)
+		M.adjustToxLoss(-1*REM+power, 0)
 	..()
 
 /datum/reagent/consumable/honey/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
@@ -569,6 +583,11 @@
       var/datum/surgery/S = s
       S.success_multiplier = max(0.6, S.success_multiplier) // +60% success probability on each step, compared to bacchus' blessing's ~46%
   ..()
+
+/datum/reagent/consumable/honey/special
+	name = "Royal Honey"
+	description = "A special honey which heals the imbiber far faster than normal honey"
+	power = 1
 
 /datum/reagent/consumable/mayonnaise
 	name = "Mayonnaise"
@@ -640,7 +659,7 @@
 		. = 1
 	if(prob(20))
 		M.losebreath += 4
-		M.adjustBrainLoss(2*REM, 150)
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2*REM, 150)
 		M.adjustToxLoss(3*REM,0)
 		M.adjustStaminaLoss(10*REM,0)
 		M.blur_eyes(5)
@@ -723,3 +742,26 @@
 	taste_mult = 2
 	taste_description = "bitter sweetness"
 	reagent_state = SOLID
+
+/datum/reagent/consumable/bbqsauce
+	name = "BBQ Sauce"
+	description = "Sweet, Smokey, Savory, and gets everywhere. Perfect for Grilling."
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#78280A" // rgb: 120 40, 10
+	taste_mult = 2.5 //sugar's 1.5, capsacin's 1.5, so a good middle ground.
+	taste_description = "smokey sweetness"
+
+/datum/reagent/consumable/char
+	name = "Char"
+	description = "Essence of the grill. Has strange properties when overdosed."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#C8C8C8"
+	taste_mult = 6
+	taste_description = "smoke"
+	overdose_threshold = 25
+
+/datum/reagent/consumable/char/overdose_process(mob/living/carbon/M)
+	if(prob(10))
+		M.say(pick("I hate my wife.", "I just want to grill for God's sake.", "I wish I could just go on my lawnmower and cut the grass.", "Yep, Quake. That was a good game...", "Yeah, my PDA has wi-fi. A wife I hate."), forced = /datum/reagent/consumable/char)
+	..()

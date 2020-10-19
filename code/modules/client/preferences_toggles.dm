@@ -78,6 +78,17 @@ TOGGLE_CHECKBOX(/datum/verbs/menu/Settings/Ghost/chatterbox, toggle_ghost_pda)()
 /datum/verbs/menu/Settings/Ghost/chatterbox/toggle_ghost_pda/Get_checked(client/C)
 	return C.prefs.chat_toggles & CHAT_GHOSTPDA
 
+TOGGLE_CHECKBOX(/datum/verbs/menu/Settings/Ghost/chatterbox, toggle_ghost_laws)()
+	set name = "Show/Hide GhostLaws"
+	set category = "Preferences"
+	set desc = "See All Law Changes"
+	usr.client.prefs.chat_toggles ^= CHAT_GHOSTLAWS
+	to_chat(usr, "As a ghost, you will now [(usr.client.prefs.chat_toggles & CHAT_GHOSTLAWS) ? "be notified of all law chanes" : "no longer be notified of law changes"].")
+	usr.client.prefs.save_preferences()
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ghost Laws", "[usr.client.prefs.chat_toggles & CHAT_GHOSTLAWS ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+/datum/verbs/menu/Settings/Ghost/chatterbox/toggle_ghost_laws/Get_checked(client/C)
+	return C.prefs.chat_toggles & CHAT_GHOSTLAWS
+
 /datum/verbs/menu/Settings/Ghost/chatterbox/Events
 	name = "Events"
 
@@ -177,8 +188,8 @@ TOGGLE_CHECKBOX(/datum/verbs/menu/Settings/Sound, Toggle_Soundscape)()
 		to_chat(usr, "You will now hear ambient sounds.")
 	else
 		to_chat(usr, "You will no longer hear ambient sounds.")
-		usr.stop_sound_channel(CHANNEL_AMBIENCE)
-		usr.stop_sound_channel(CHANNEL_BUZZ)
+		usr.stop_sound_channel(CHANNEL_AMBIENT_EFFECTS)
+		usr.stop_sound_channel(CHANNEL_AMBIENT_MUSIC)
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ambience", "[usr.client.prefs.toggles & SOUND_AMBIENCE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 /datum/verbs/menu/Settings/Sound/Toggle_Soundscape/Get_checked(client/C)
 	return C.prefs.toggles & SOUND_AMBIENCE
@@ -194,8 +205,8 @@ TOGGLE_CHECKBOX(/datum/verbs/menu/Settings/Sound, toggle_ship_ambience)()
 		to_chat(usr, "You will now hear ship ambience.")
 	else
 		to_chat(usr, "You will no longer hear ship ambience.")
-		usr.stop_sound_channel(CHANNEL_BUZZ)
-		usr.client.ambience_playing = 0
+		usr.stop_sound_channel(CHANNEL_AMBIENT_BUZZ)
+		usr.client.ambient_buzz_playing = FALSE
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ship Ambience", "[usr.client.prefs.toggles & SOUND_SHIP_AMBIENCE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, I bet you read this comment expecting to see the same thing :^)
 /datum/verbs/menu/Settings/Sound/toggle_ship_ambience/Get_checked(client/C)
 	return C.prefs.toggles & SOUND_SHIP_AMBIENCE
@@ -247,11 +258,11 @@ TOGGLE_CHECKBOX(/datum/verbs/menu/Settings, listen_bank_card)()
 	return C.prefs.chat_toggles & CHAT_BANKCARD
 
 
-GLOBAL_LIST_INIT(ghost_forms, list("ghost","ghostking","ghostian2","skeleghost","ghost_red","ghost_black", \
+GLOBAL_LIST_INIT(ghost_forms, sortList(list("ghost","ghostking","ghostian2","skeleghost","ghost_red","ghost_black", \
 							"ghost_blue","ghost_yellow","ghost_green","ghost_pink", \
 							"ghost_cyan","ghost_dblue","ghost_dred","ghost_dgreen", \
 							"ghost_dcyan","ghost_grey","ghost_dyellow","ghost_dpink", "ghost_purpleswirl","ghost_funkypurp","ghost_pinksherbert","ghost_blazeit",\
-							"ghost_mellow","ghost_rainbow","ghost_camo","ghost_fire", "catghost"))
+							"ghost_mellow","ghost_rainbow","ghost_camo","ghost_fire", "catghost")))
 /client/proc/pick_form()
 	if(!is_content_unlocked())
 		alert("This setting is for accounts with BYOND premium only.")

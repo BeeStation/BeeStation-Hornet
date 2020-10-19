@@ -132,12 +132,12 @@
 	set waitfor = FALSE
 
 	// Perform final composition steps on the message.
-	var/message = copytext(data["message"], 1, MAX_BROADCAST_LEN)
+	var/message = copytext_char(data["message"], 1, MAX_BROADCAST_LEN)
 	if(!message)
 		return
 	var/compression = data["compression"]
 	if(compression > 0)
-		message = Gibberish(message, compression + 40)
+		message = Gibberish(message, compression >= 30)
 
 	// Assemble the list of radios
 	var/list/radios = list()

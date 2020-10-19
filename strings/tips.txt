@@ -61,6 +61,7 @@ As a Chemist, Water and Potassium mixed together will create an explosion, with 
 As a Geneticist, you can eject someone from cloning early by disabling power in genetics. Note that they will suffer more genetic damage and may lose vital organs from this.
 As a Geneticist, T goes to A, and G goes to C.
 As a Geneticist, becoming a hulk makes you capable of dealing high melee damage, stunlocking people, and punching through walls. However, you can't fire guns, will lose your hulk status if you go into critical condition, and are not considered a human by the AI while you are a hulk.
+As a Geneticist, you have to power to make superhumans. Be aware, going over 99 instability WILL cause side effects.
 As the Virologist, your viruses can range from healing powers so great that you can heal out of critical status, or diseases so dangerous they can kill the entire crew with airborne spontaneous combustion. Experiment!
 As the Virologist, you only require small amounts of vaccine to heal a sick patient. Work with the Chemist to distribute your cures more efficiently.
 As the Research Director, you can take AIs out of their cores by loading them into an intelliCard, which lets you see their laws, even ion/syndicate ones. It can then be placed into an AI system integrity restorer computer to revive and/or repair them.
@@ -126,6 +127,7 @@ As a Security Officer, communicate and coordinate with your fellow officers usin
 As a Security Officer, your sechuds or HUDsunglasses can not only see crewmates' job assignments and criminal status, but also if they are mindshield implanted. You can tell by the flashing blue outline around their job icon. Use this to your advantage in a revolution to definitively tell who is on your side!
 As a Security Officer, mindshield implants can only prevent someone from being turned into a cultist: unlike revolutionaries, it will not de-cult them if they have already been converted.
 As a Security Officer, examining someone while wearing sechuds or HUDsunglasses will let you set their arrest level, which will cause Beepsky and other security bots to chase after them.
+As a Security Officer, keep your weapons in your bag when they aren't being used! You can easily be shoved and stolen from!
 As the Detective, people leave fingerprints everywhere and on everything. With the exception of white latex, gloves will hide them. All is not lost, however, as gloves leave fibers specific to their kind such as black or nitrile, pointing to a general department.
 As the Detective, you can use your forensics scanner from a distance.
 As the Detective, your revolver can be loaded with .357 ammunition obtained from a hacked autolathe. Firing it has a decent chance to blow up your revolver.
@@ -142,6 +144,7 @@ As the Clown, your Grail is the mineral bananium, which can be given to the Robo
 As the Clown, you can use your stamp on a sheet of cardboard as the first step of making a honkbot. Fun for the whole crew!
 As the Clown, spice your gimmicks up! Nobody likes a one-trick pony.
 As the Clown, if you're a Traitor and get an emag on sale (or convince another traitor), you can emag your Clown Car to unlock a variety of new functions, including the Siege Mode, which will allow you to launch your passengers, preferably directly into the Supermatter! Or into space.
+As the Clown, the clown car item can gain access by eating people with said access.
 As the Chaplain, your null rod has anti magic functions: it can destroy cultist runes by hitting them, and it makes you immune to wizard spells and cult magic.
 As the Chaplain, your bible is also a container that can store small items. Depending on your god, your starting bible may come with a surprise!
 As the Chaplain, you are much more likely to get a response by praying to the gods than most people. To boost your chances, make altars with colorful crayon runes, lit candles, and wire art.
@@ -182,6 +185,7 @@ As a Nuclear Operative, communication is key! Use ; to speak to your fellow oper
 As a Nuclear Operative, you should look into purchasing a syndicate cyborg, as they can provide heavy fire support, full access, are immune to conventional stuns, and can easily take down the AI.
 As a Nuclear Operative, stick together! While your equipment is robust, your fellow operatives are much better at saving your life: they can drag you away from danger while stunned and provide cover fire.
 As a Nuclear Operative, you might end up in a situation where the AI has bolted you into a room. Having some spare C4 in your pocket can save your life.
+As a Nuclear Operative, buy tools to heal your robots. There's a engi-vend in the backroom!
 As a Monkey, you can crawl through air or scrubber vents by alt+left clicking them. You must drop everything you are wearing and holding to do this, however.
 As a Monkey, you can still wear a few human items, such as backpacks, gas masks and hats, and still have two free hands.
 As the Malfunctioning AI, you can shunt to an APC if the situation gets bad. This disables your doomsday device if it is active.
@@ -249,3 +253,17 @@ When crafting most items, you can either manually combine parts or use the craft
 Suit storage units not only remove blood and dirt from clothing, but also radiation!
 Remote devices will work when used through cameras. For example: Bluespace RPEDs and door remotes.
 You can light a cigar on a supermatter crystal.
+Walking negates all wallstuns. Walk to avoid flashes, slipping on water, etc. Walking also does not trigger motion detector flashes!
+Cloners require 30 units of synthflesh per clone. When upgraded to tier 4 parts, these cloners can clone one person much cheaper!
+You can perform self-surgery for amputation, tend wounds, implanting and others. It only has 20% success rate though per step, bumping hot to 40% if there's a mirror in the same room.
+When Experimental Surgery is unlocked, you can build an Autodoc. This allows you to automatically add any implant in seconds.
+Fun fact: reading this (https://beestation13.com/rules) may lead to an increase in your chances on not being banned. Seriously. Read it.
+You can whisper by putting # before your message. You can also whisper in critical, however it may kill you depending on how hurt you are.
+Fore = north, aft = south, starboard = east and port = west.
+If you use a Cup Ramen on a sink twice, it becomes warm.
+Death is normal. Chances are you'll get cloned, anyways.
+Emping the AI has a chance to call the emergency shuttle.
+Beating revolutionaries over the head has a chance to deconvert them.
+You can examine someone to tell if their red eyes are natural or cultist.
+You can put holy water in darts to make them more effective against cultists. Or use the shotgun, cause it doesn't miss.
+Don't know what a word means? https://wiki.beestation13.com/view/Terminology

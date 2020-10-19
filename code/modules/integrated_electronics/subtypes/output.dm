@@ -1,5 +1,6 @@
 /obj/item/integrated_circuit/output
 	category_text = "Output"
+	speech_span = SPAN_ROBOT
 
 /obj/item/integrated_circuit/output/screen
 	name = "small screen"
@@ -66,6 +67,7 @@
 	desc = "A basic light which can be toggled on/off when pulsed."
 	icon_state = "light"
 	complexity = 4
+	max_allowed = 4
 	inputs = list()
 	outputs = list()
 	activators = list("toggle light" = IC_PINTYPE_PULSE_IN)
@@ -111,7 +113,7 @@
 	var/new_color = get_pin_data(IC_INPUT, 1)
 	var/brightness = get_pin_data(IC_INPUT, 2)
 
-	if(new_color && isnum(brightness))
+	if(new_color && isnum_safe(brightness))
 		brightness = CLAMP(brightness, 0, 4)
 		light_rgb = new_color
 		light_brightness = brightness
@@ -129,6 +131,7 @@
 		"volume" = IC_PINTYPE_NUMBER,
 		"frequency" = IC_PINTYPE_BOOLEAN
 	)
+	max_allowed = 5
 	outputs = list()
 	activators = list("play sound" = IC_PINTYPE_PULSE_IN)
 	power_draw_per_use = 10
@@ -323,6 +326,7 @@
 	desc = "RGB LED. Takes a boolean value in, and if the boolean value is 'true-equivalent', the LED will be marked as lit on examine."
 	extended_desc = "TRUE-equivalent values are: Non-empty strings, non-zero numbers, and valid refs."
 	complexity = 0.1
+	max_allowed = 4
 	icon_state = "led"
 	inputs = list(
 		"lit" = IC_PINTYPE_BOOLEAN,
@@ -432,7 +436,7 @@
 	if(!isnull(text))
 		var/atom/movable/A = get_object()
 		var/sanitized_text = sanitize(text)
-		radio.talk_into(A, sanitized_text, , get_spans())
+		radio.talk_into(A, sanitized_text, )
 		if (assembly)
 			log_say("[assembly] [REF(assembly)] : [sanitized_text]")
 

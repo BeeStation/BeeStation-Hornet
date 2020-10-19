@@ -22,7 +22,7 @@
 
 /datum/surgery_step/dissection
 	name = "dissection"
-	implements = list(/obj/item/scalpel = 60, /obj/item/kitchen/knife = 30, /obj/item/shard = 15)
+	implements = list(TOOL_SCALPEL = 60, /obj/item/kitchen/knife = 30, /obj/item/shard = 15)
 	time = 125
 
 /datum/surgery_step/dissection/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)

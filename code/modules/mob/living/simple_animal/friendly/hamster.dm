@@ -29,11 +29,14 @@
 	animal_species = /mob/living/simple_animal/pet/hamster
 	gold_core_spawnable = FRIENDLY_SPAWN
 	can_be_held = TRUE
+	mobsay_color = "#D3B277"
 
-/mob/living/simple_animal/pet/hamster/vector
+/mob/living/simple_animal/pet/hamster/vector //now also viro's source of a solitary, shitty starter disease
 	name = "Vector"
 	desc = "It's Vector the hamster. Definitely not a source of deadly diseases."
 	var/datum/disease/vector_disease
+	var/list/extrapolatordisease = list()
+	
 
 /mob/living/simple_animal/pet/hamster/vector/Initialize()
 	. = ..()
@@ -42,6 +45,17 @@
 		vector_disease = new disease
 		message_admins("Vector was roundstart infected with [vector_disease.name]. Don't lynch the virologist!")
 		log_game("Vector was roundstart infected with [vector_disease.name].")
+	var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 3))
+	extrapolatordisease += R
+
+/mob/living/simple_animal/pet/hamster/vector/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+	if(!extrapolatordisease.len)
+		return FALSE
+	if(scan)
+		E.scan(src, extrapolatordisease, user)
+	else
+		E.extrapolate(src, extrapolatordisease, user)
+	return TRUE
 
 /mob/living/simple_animal/pet/hamster/vector/Crossed(M as mob)
 	if(isliving(M) && !isnull(vector_disease) && prob(20))

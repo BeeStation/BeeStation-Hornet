@@ -27,6 +27,12 @@
 
 	. = ..()
 
+	GLOB.new_player_list += src
+
+/mob/dead/new_player/Destroy()
+	GLOB.new_player_list -= src
+	return ..()
+
 /mob/dead/new_player/prepare_huds()
 	return
 
@@ -48,20 +54,33 @@
 
 	if(!IsGuestKey(src.key))
 		if (SSdbcore.Connect())
-			var/isadmin = 0
-			if(src.client?.holder)
-				isadmin = 1
-			var/datum/DBQuery/query_get_new_polls = SSdbcore.NewQuery("SELECT id FROM [format_table_name("poll_question")] WHERE [(isadmin ? "" : "adminonly = false AND")] Now() BETWEEN starttime AND endtime AND id NOT IN (SELECT pollid FROM [format_table_name("poll_vote")] WHERE ckey = \"[sanitizeSQL(ckey)]\") AND id NOT IN (SELECT pollid FROM [format_table_name("poll_textreply")] WHERE ckey = \"[sanitizeSQL(ckey)]\")")
+			var/isadmin = FALSE
+			if(client?.holder)
+				isadmin = TRUE
+			var/datum/DBQuery/query_get_new_polls = SSdbcore.NewQuery({"
+				SELECT id FROM [format_table_name("poll_question")]
+				WHERE (adminonly = 0 OR :isadmin = 1)
+				AND Now() BETWEEN starttime AND endtime
+				AND deleted = 0
+				AND id NOT IN (
+					SELECT pollid FROM [format_table_name("poll_vote")]
+					WHERE ckey = :ckey
+					AND deleted = 0
+				)
+				AND id NOT IN (
+					SELECT pollid FROM [format_table_name("poll_textreply")]
+					WHERE ckey = :ckey
+					AND deleted = 0
+				)
+			"}, list("isadmin" = isadmin, "ckey" = ckey))
 			var/rs = REF(src)
-			if(query_get_new_polls.Execute())
-				var/newpoll = 0
-				if(query_get_new_polls.NextRow())
-					newpoll = 1
-
-				if(newpoll)
-					output += "<p><b><a href='byond://?src=[rs];showpoll=1'>Show Player Polls</A> (NEW!)</b></p>"
-				else
-					output += "<p><a href='byond://?src=[rs];showpoll=1'>Show Player Polls</A></p>"
+			if(!query_get_new_polls.Execute())
+				qdel(query_get_new_polls)
+				return
+			if(query_get_new_polls.NextRow())
+				output += "<p><b><a href='byond://?src=[rs];showpoll=1'>Show Player Polls</A> (NEW!)</b></p>"
+			else
+				output += "<p><a href='byond://?src=[rs];showpoll=1'>Show Player Polls</A></p>"
 			qdel(query_get_new_polls)
 			if(QDELETED(src))
 				return
@@ -121,6 +140,9 @@
 			return
 
 		if(SSticker.queued_players.len || (relevant_cap && living_player_count() >= relevant_cap && !(ckey(key) in GLOB.admin_datums)))
+			if(IS_PATRON(src.ckey))
+				LateChoices()
+				return
 			to_chat(usr, "<span class='danger'>[CONFIG_GET(string/hard_popcap_message)]</span>")
 
 			var/queue_position = SSticker.queued_players.Find(usr)
@@ -154,9 +176,6 @@
 		AttemptLateSpawn(href_list["SelectedJob"])
 		return
 
-	if(!ready && href_list["preference"])
-		if(client)
-			client.prefs.process_link(src, href_list)
 	else if(!href_list["late_join"])
 		new_player_panel()
 
@@ -164,85 +183,13 @@
 		handle_player_polling()
 		return
 
-	if(href_list["pollid"])
-		var/pollid = href_list["pollid"]
-		if(istext(pollid))
-			pollid = text2num(pollid)
-		if(isnum(pollid) && ISINTEGER(pollid))
-			src.poll_player(pollid)
-		return
+	if(href_list["viewpoll"])
+		var/datum/poll_question/poll = locate(href_list["viewpoll"]) in GLOB.polls
+		poll_player(poll)
 
-	if(href_list["votepollid"] && href_list["votetype"])
-		var/pollid = text2num(href_list["votepollid"])
-		var/votetype = href_list["votetype"]
-		//lets take data from the user to decide what kind of poll this is, without validating it
-		//what could go wrong
-		switch(votetype)
-			if(POLLTYPE_OPTION)
-				var/optionid = text2num(href_list["voteoptionid"])
-				if(vote_on_poll(pollid, optionid))
-					to_chat(usr, "<span class='notice'>Vote successful.</span>")
-				else
-					to_chat(usr, "<span class='danger'>Vote failed, please try again or contact an administrator.</span>")
-			if(POLLTYPE_TEXT)
-				var/replytext = href_list["replytext"]
-				if(log_text_poll_reply(pollid, replytext))
-					to_chat(usr, "<span class='notice'>Feedback logging successful.</span>")
-				else
-					to_chat(usr, "<span class='danger'>Feedback logging failed, please try again or contact an administrator.</span>")
-			if(POLLTYPE_RATING)
-				var/id_min = text2num(href_list["minid"])
-				var/id_max = text2num(href_list["maxid"])
-
-				if( (id_max - id_min) > 100 )	//Basic exploit prevention
-					                            //(protip, this stops no exploits)
-					to_chat(usr, "The option ID difference is too big. Please contact administration or the database admin.")
-					return
-
-				for(var/optionid = id_min; optionid <= id_max; optionid++)
-					if(!isnull(href_list["o[optionid]"]))	//Test if this optionid was replied to
-						var/rating
-						if(href_list["o[optionid]"] == "abstain")
-							rating = null
-						else
-							rating = text2num(href_list["o[optionid]"])
-							if(!isnum(rating) || !ISINTEGER(rating))
-								return
-
-						if(!vote_on_numval_poll(pollid, optionid, rating))
-							to_chat(usr, "<span class='danger'>Vote failed, please try again or contact an administrator.</span>")
-							return
-				to_chat(usr, "<span class='notice'>Vote successful.</span>")
-			if(POLLTYPE_MULTI)
-				var/id_min = text2num(href_list["minoptionid"])
-				var/id_max = text2num(href_list["maxoptionid"])
-
-				if( (id_max - id_min) > 100 )	//Basic exploit prevention
-					to_chat(usr, "The option ID difference is too big. Please contact administration or the database admin.")
-					return
-
-				for(var/optionid = id_min; optionid <= id_max; optionid++)
-					if(!isnull(href_list["option_[optionid]"]))	//Test if this optionid was selected
-						var/i = vote_on_multi_poll(pollid, optionid)
-						switch(i)
-							if(0)
-								continue
-							if(1)
-								to_chat(usr, "<span class='danger'>Vote failed, please try again or contact an administrator.</span>")
-								return
-							if(2)
-								to_chat(usr, "<span class='danger'>Maximum replies reached.</span>")
-								break
-				to_chat(usr, "<span class='notice'>Vote successful.</span>")
-			if(POLLTYPE_IRV)
-				if (!href_list["IRVdata"])
-					to_chat(src, "<span class='danger'>No ordering data found. Please try again or contact an administrator.</span>")
-					return
-				var/list/votelist = splittext(href_list["IRVdata"], ",")
-				if (!vote_on_irv_poll(pollid, votelist))
-					to_chat(src, "<span class='danger'>Vote failed, please try again or contact an administrator.</span>")
-					return
-				to_chat(src, "<span class='notice'>Vote successful.</span>")
+	if(href_list["votepollref"])
+		var/datum/poll_question/poll = locate(href_list["votepollref"]) in GLOB.polls
+		vote_on_poll_handler(poll, href_list)
 
 //When you cop out of the round (NB: this HAS A SLEEP FOR PLAYER INPUT IN IT)
 /mob/dead/new_player/proc/make_me_an_observer()
@@ -304,7 +251,7 @@
 		return JOB_UNAVAILABLE_GENERIC
 	if((job.current_positions >= job.total_positions) && job.total_positions != -1)
 		if(job.title == "Assistant")
-			if(isnum(client.player_age) && client.player_age <= 14) //Newbies can always be assistants
+			if(isnum_safe(client.player_age) && client.player_age <= 14) //Newbies can always be assistants
 				return JOB_AVAILABLE
 			for(var/datum/job/J in SSjob.occupations)
 				if(J && J.current_positions < J.total_positions && J.title != job.title)
@@ -397,9 +344,11 @@
 			switch(SSshuttle.emergency.mode)
 				if(SHUTTLE_RECALL, SHUTTLE_IDLE)
 					SSticker.mode.make_antag_chance(humanc)
+					SSticker.mode.make_special_antag_chance(humanc)
 				if(SHUTTLE_CALL)
 					if(SSshuttle.emergency.timeLeft(1) > initial(SSshuttle.emergencyCallTime)*0.5)
 						SSticker.mode.make_antag_chance(humanc)
+						SSticker.mode.make_special_antag_chance(humanc)
 
 	if(humanc && CONFIG_GET(flag/roundstart_traits))
 		SSquirks.AssignQuirks(humanc, humanc.client, TRUE)
@@ -499,9 +448,15 @@
 		qdel(src)
 
 /mob/dead/new_player/proc/ViewManifest()
-	var/dat = "<html><body>"
+	if(!client)
+		return
+	if(world.time < client.crew_manifest_delay)
+		return
+	client.crew_manifest_delay = world.time + (1 SECONDS)
+
+	var/dat = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'></head><body>"
 	dat += "<h4>Crew Manifest</h4>"
-	dat += GLOB.data_core.get_manifest(OOC = 1)
+	dat += GLOB.data_core.get_manifest_html()
 
 	src << browse(dat, "window=manifest;size=387x420;can_close=1")
 

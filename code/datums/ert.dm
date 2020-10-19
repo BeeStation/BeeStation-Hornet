@@ -71,3 +71,31 @@
 	rename_team = "Horde of Interns"
 	mission = "Assist in conflict resolution."
 	polldesc = "an unpaid internship opportunity with Nanotrasen"
+
+/datum/ert/doomguy
+	roles = list(/datum/antagonist/ert/doomguy)
+	leader_role = /datum/antagonist/ert/doomguy
+	teamsize = 1
+	opendoors = TRUE
+	rename_team = "The Juggernaut"
+	mission = "Send them straight back to Hell."
+	polldesc = "an elite Nanotrasen enhanced supersoldier"
+
+/datum/ert/clown
+	roles = list(/datum/antagonist/ert/clown)
+	leader_role = /datum/antagonist/ert/clown
+	teamsize = 7
+	opendoors = FALSE
+	rename_team = "The Circus"
+	mission = "Provide vital morale support to the station in this time of crisis"
+	code = "Banana"
+
+/datum/ert/honk
+	roles = list(/datum/antagonist/ert/clown/honk)
+	leader_role = /datum/antagonist/ert/clown/honk
+	teamsize = 5
+	opendoors = TRUE
+	rename_team = "HONK Squad"
+	mission = "HONK them into submission"
+	polldesc = "an elite Nanotrasen tactical pranking squad"
+	code = "HOOOOOOOOOONK"

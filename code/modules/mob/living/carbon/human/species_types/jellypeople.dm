@@ -16,22 +16,19 @@
 	heatmod = 0.5 // = 1/4x heat damage
 	burnmod = 0.5 // = 1/2x generic burn damage
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
+	inherent_factions = list("slime")
+	species_language_holder = /datum/language_holder/jelly
 
 /datum/species/jelly/on_species_loss(mob/living/carbon/C)
 	if(regenerate_limbs)
 		regenerate_limbs.Remove(C)
-	C.remove_language(/datum/language/slime)
-	C.faction -= "slime"
 	..()
-	C.faction -= "slime"
 
 /datum/species/jelly/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	C.grant_language(/datum/language/slime)
 	if(ishuman(C))
 		regenerate_limbs = new
 		regenerate_limbs.Grant(C)
-	C.faction |= "slime"
 
 /datum/species/jelly/spec_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD) //can't farm slime jelly from a dead slime/jelly person indefinitely
@@ -118,7 +115,6 @@
 	say_mod = "says"
 	hair_color = "mutcolor"
 	hair_alpha = 150
-	ignored_by = list(/mob/living/simple_animal/slime)
 	var/datum/action/innate/split_body/slime_split
 	var/list/mob/living/carbon/bodies
 	var/datum/action/innate/swap_body/swap_body
@@ -269,7 +265,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "slime_swap_body", name, 400, 400, master_ui, state)
+		ui = new(user, src, ui_key, "SlimeBodySwapper", name, 400, 400, master_ui, state)
 		ui.open()
 
 /datum/action/innate/swap_body/ui_data(mob/user)
@@ -599,6 +595,10 @@
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_MINDSHIELD)) //mindshield implant, no dice
 		return FALSE
+	if(istype(M.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		to_chat(M, "<span class='danger'>[slimelink_owner.real_name]'s no-good syndicate mind-slime is blocked by your protective headgear!</span>")
+
+		return FALSE
 	if(M in linked_mobs)
 		return FALSE
 	linked_mobs.Add(M)
@@ -637,7 +637,7 @@
 		Remove(H)
 		return
 
-	var/message = sanitize(input("Message:", "Slime Telepathy") as text|null)
+	var/message = stripped_input(usr, "Message:", "Slime Telepathy")
 
 	if(!species || !(H in species.linked_mobs))
 		to_chat(H, "<span class='warning'>The link seems to have been severed...</span>")
@@ -681,11 +681,11 @@
 	var/list/options = list()
 	for(var/mob/living/Ms in oview(H))
 		options += Ms
-	var/mob/living/M = input("Select who to send your message to:","Send thought to?",null) as null|mob in options
+	var/mob/living/M = input("Select who to send your message to:","Send thought to?",null) as null|mob in sortNames(options)
 	if(!M)
 		return
 
-	var/msg = sanitize(input("Message:", "Telepathy") as text|null)
+	var/msg = stripped_input(usr, "Message:", "Telepathy")
 	if(msg)
 		log_directed_talk(H, M, msg, LOG_SAY, "slime telepathy")
 		to_chat(M, "<span class='notice'>You hear an alien voice in your head... </span><font color=#008CA2>[msg]</font>")

@@ -1,0 +1,85 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/closet/cardboard,
+/obj/item/storage/toolbox/emergency,
+/obj/item/reagent_containers/food/drinks/bottle/hooch,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/item/trash/can{
+	pixel_x = 4;
+	pixel_y = 6
+	},
+/obj/structure/table/wood,
+/obj/item/wirecutters{
+	pixel_y = -3;
+	pixel_x = 6
+	},
+/obj/item/wrench/medical{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/reagent_containers/syringe,
+/turf/open/floor/plating,
+/area/template_noop)
+"j" = (
+/obj/structure/bonfire,
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
+/obj/effect/decal/cleanable/glass,
+/turf/open/floor/plating,
+/area/template_noop)
+"o" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/broken_bottle,
+/obj/item/cigbutt,
+/obj/item/cigbutt{
+	pixel_x = 3
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"L" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/plating,
+/area/template_noop)
+"M" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/landmark/start/randommaint/hobo,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating,
+/area/template_noop)
+"O" = (
+/obj/item/chair,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating,
+/area/template_noop)
+"Y" = (
+/obj/structure/bed/roller{
+	name = "rusty cot"
+	},
+/obj/item/bedsheet/blue,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+b
+L
+a
+"}
+(2,1,1) = {"
+M
+o
+n
+"}
+(3,1,1) = {"
+j
+O
+Y
+"}

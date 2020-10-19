@@ -147,8 +147,6 @@
 
 		ui = new(user, src, ui_key, tgui_id, filedesc, ui_x, ui_y, state = state)
 
-		if(ui_style)
-			ui.set_style(ui_style)
 		ui.set_autoupdate(state = 1)
 		ui.open()
 

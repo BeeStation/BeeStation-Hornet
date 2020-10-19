@@ -337,6 +337,9 @@
 	name = "bola"
 	desc = "A restraining device designed to be thrown at the target. Upon connecting with said target, it will wrap around their legs, making it difficult for them to move quickly."
 	icon_state = "bola"
+	item_state = "bola"
+	lefthand_file = 'icons/mob/inhands/weapons/thrown_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/thrown_righthand.dmi'
 	breakouttime = 35//easy to apply, easy to break out of
 	gender = NEUTER
 	var/knockdown = 0
@@ -372,13 +375,22 @@
 	name = "reinforced bola"
 	desc = "A strong bola, made with a long steel chain. It looks heavy, enough so that it could trip somebody."
 	icon_state = "bola_r"
+	item_state = "bola_r"
 	breakouttime = 70
 	knockdown = 20
+
+/obj/item/restraints/legcuffs/bola/watcher //tribal bola for tribal lizards
+	name = "watcher Bola"
+	desc = "A Bola made from the stretchy sinew of fallen watchers."
+	icon_state = "bola_watcher"
+	item_state = "bola_watcher"
+	breakouttime = 45
 
 /obj/item/restraints/legcuffs/bola/energy //For Security
 	name = "energy bola"
 	desc = "A specialized hard-light bola designed to ensnare fleeing criminals and aid in arrests."
 	icon_state = "ebola"
+	item_state = "ebola"
 	hitsound = 'sound/weapons/taserhit.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	breakouttime = 60
@@ -394,6 +406,7 @@
 	name = "gonbola"
 	desc = "Hey, if you have to be hugged in the legs by anything, it might as well be this little guy."
 	icon_state = "gonbola"
+	item_state = "bola_r"
 	breakouttime = 300
 	slowdown = 0
 	var/datum/status_effect/gonbolaPacify/effectReference

@@ -9,9 +9,9 @@
     burnmod = 1.5
     heatmod = 1.4
     coldmod = 1.5
-    punchdamagehigh = 7 // Lower max damage in melee. It's just a tentacle
+    punchdamage = 7 // Lower max damage in melee. It's just a tentacle
     changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | SLIME_EXTRACT
-    attack_verb = list("whipped", "lashed", "disciplined")
+    attack_verb = "lash"
     attack_sound = 'sound/weapons/whip.ogg'
     miss_sound = 'sound/weapons/etherealmiss.ogg'
     grab_sound = 'sound/weapons/whipgrab.ogg'
@@ -20,6 +20,7 @@
     no_equip = list(SLOT_SHOES)
     skinned_type = /obj/item/stack/sheet/animalhide/human
     toxic_food = FRIED
+    species_language_holder = /datum/language_holder/squid
 
 /mob/living/carbon/human/species/squid
     race = /datum/species/squid
@@ -42,7 +43,6 @@
             break
 
 /datum/species/squid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	H.grant_language(/datum/language/rlyehian)
 	var/datum/action/innate/squid_change/S = new
 	S.Grant(H)
 

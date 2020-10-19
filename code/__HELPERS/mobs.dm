@@ -116,6 +116,13 @@
 		if(!findname(.))
 			break
 
+/proc/random_unique_apid_name(gender, attempts_to_find_unique_name=10)
+	for(var/i in 1 to attempts_to_find_unique_name)
+		. = capitalize(apid_name(gender))
+
+		if(!findname(.))
+			break
+
 /proc/random_unique_plasmaman_name(attempts_to_find_unique_name=10)
 	for(var/i in 1 to attempts_to_find_unique_name)
 		. = capitalize(plasmaman_name())
@@ -148,7 +155,7 @@
 /proc/random_skin_tone()
 	return pick(GLOB.skin_tones)
 
-GLOBAL_LIST_INIT(skin_tones, list(
+GLOBAL_LIST_INIT(skin_tones, sortList(list(
 	"albino",
 	"caucasian1",
 	"caucasian2",
@@ -161,7 +168,7 @@ GLOBAL_LIST_INIT(skin_tones, list(
 	"indian",
 	"african1",
 	"african2"
-	))
+	)))
 
 GLOBAL_LIST_EMPTY(species_list)
 
@@ -421,30 +428,39 @@ GLOBAL_LIST_EMPTY(species_list)
 /proc/deadchat_broadcast(message, mob/follow_target=null, turf/turf_target=null, speaker_key=null, message_type=DEADCHAT_REGULAR)
 	message = "<span class='linkify'>[message]</span>"
 	for(var/mob/M in GLOB.player_list)
-		var/datum/preferences/prefs
-		if(M.client?.prefs)
-			prefs = M.client.prefs
-		else
-			prefs = new
+		var/chat_toggles = TOGGLES_DEFAULT_CHAT
+		var/toggles = TOGGLES_DEFAULT
+		var/list/ignoring
+		if(M?.client.prefs)
+			var/datum/preferences/prefs = M.client.prefs
+			chat_toggles = prefs.chat_toggles
+			toggles = prefs.toggles
+			ignoring = prefs.ignoring
+
 
 		var/override = FALSE
-		if(M.client && M.client.holder && (prefs.chat_toggles & CHAT_DEAD))
+		if(M?.client.holder && (chat_toggles & CHAT_DEAD))
 			override = TRUE
 		if(HAS_TRAIT(M, TRAIT_SIXTHSENSE))
+			override = TRUE
+		if(SSticker.current_state == GAME_STATE_FINISHED)
 			override = TRUE
 		if(isnewplayer(M) && !override)
 			continue
 		if(M.stat != DEAD && !override)
 			continue
-		if(speaker_key && speaker_key in prefs.ignoring)
+		if(speaker_key && (speaker_key in ignoring))
 			continue
 
 		switch(message_type)
 			if(DEADCHAT_DEATHRATTLE)
-				if(prefs.toggles & DISABLE_DEATHRATTLE)
+				if(toggles & DISABLE_DEATHRATTLE)
 					continue
 			if(DEADCHAT_ARRIVALRATTLE)
-				if(prefs.toggles & DISABLE_ARRIVALRATTLE)
+				if(toggles & DISABLE_ARRIVALRATTLE)
+					continue
+			if(DEADCHAT_LAWCHANGE)
+				if(!(chat_toggles & CHAT_GHOSTLAWS))
 					continue
 
 		if(isobserver(M))
@@ -486,3 +502,44 @@ GLOBAL_LIST_EMPTY(species_list)
 		chosen = pick(mob_spawn_meancritters)
 	var/mob/living/simple_animal/C = new chosen(spawn_location)
 	return C
+
+/proc/passtable_on(target, source)
+	var/mob/living/L = target
+	if (!HAS_TRAIT(L, TRAIT_PASSTABLE) && L.pass_flags & PASSTABLE)
+		ADD_TRAIT(L, TRAIT_PASSTABLE, INNATE_TRAIT)
+	ADD_TRAIT(L, TRAIT_PASSTABLE, source)
+	L.pass_flags |= PASSTABLE
+
+/proc/passtable_off(target, source)
+	var/mob/living/L = target
+	REMOVE_TRAIT(L, TRAIT_PASSTABLE, source)
+	if(!HAS_TRAIT(L, TRAIT_PASSTABLE))
+		L.pass_flags &= ~PASSTABLE
+
+//Gets the sentient mobs that are not on centcom and are alive
+/proc/get_sentient_mobs()
+	. = list()
+	for(var/mob/living/player in GLOB.mob_living_list)
+		if(player.stat != DEAD && player.mind && !is_centcom_level(player.z) && !isnewplayer(player) && !isbrain(player))
+			. |= player
+
+//Gets all sentient humans that are alive
+/proc/get_living_crew()
+	. = list()
+	for(var/mob/living/carbon/human/player in GLOB.mob_living_list)
+		if(player.stat != DEAD && player.mind)
+			. |= player
+
+//Gets all sentient humans that are on the station
+/proc/get_living_station_crew()
+	. = list()
+	for(var/mob/living/carbon/human/player in GLOB.mob_living_list)
+		if(player.stat != DEAD && player.mind && is_station_level(player.z))
+			. |= player
+
+//Gets all the minds of humans that are on station
+/proc/get_living_station_minds()
+	. = list()
+	for(var/mob/living/carbon/human/player in GLOB.mob_living_list)
+		if(player.stat != DEAD && player.mind && is_station_level(player.z))
+			. |= player.mind

@@ -43,3 +43,15 @@
 /obj/item/storage/proc/emptyStorage()
 	var/datum/component/storage/ST = GetComponent(/datum/component/storage)
 	ST.do_quick_empty()
+
+/obj/item/storage/on_object_saved(var/depth = 0)
+	if(depth >= 10)
+		return ""
+	var/dat = ""
+	for(var/obj/item in contents)
+		var/metadata = generate_tgm_metadata(item)
+		dat += "[dat ? ",\n" : ""][item.type][metadata]"
+		//Save the contents of things inside the things inside us, EG saving the contents of bags inside lockers
+		var/custom_data = item.on_object_saved(depth++)
+		dat += "[custom_data ? ",\n[custom_data]" : ""]"
+	return dat

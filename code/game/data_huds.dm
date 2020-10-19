@@ -149,7 +149,6 @@
 			return "health-85"
 		else
 			return "health-100"
-	return "0"
 
 //HOOKS
 
@@ -195,6 +194,8 @@
 		holder.icon_state = "huddead"
 	else
 		switch(virus_threat)
+			if(DISEASE_SEVERITY_PANDEMIC)
+				holder.icon_state = "hudill6"
 			if(DISEASE_SEVERITY_BIOHAZARD)
 				holder.icon_state = "hudill5"
 			if(DISEASE_SEVERITY_DANGEROUS)
@@ -209,6 +210,8 @@
 				holder.icon_state = "hudill0"
 			if(DISEASE_SEVERITY_POSITIVE)
 				holder.icon_state = "hudbuff"
+			if(DISEASE_SEVERITY_BENEFICIAL)
+				holder.icon_state = "hudbuff2"
 			if(null)
 				holder.icon_state = "hudhealthy"
 
@@ -244,7 +247,7 @@
 			var/icon/IC = icon(icon, icon_state, dir)
 			holder.pixel_y = IC.Height() - world.icon_size
 			holder.icon_state = "hud_imp_chem"
-	if(HAS_TRAIT(src, TRAIT_MINDSHIELD))
+	if(HAS_TRAIT(src, TRAIT_MINDSHIELD) && !istype(src.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat)) //tinfoil hats interfere with implant detection
 		holder = hud_list[IMPLOYAL_HUD]
 		var/icon/IC = icon(icon, icon_state, dir)
 		holder.pixel_y = IC.Height() - world.icon_size
@@ -302,7 +305,6 @@
 			return "crit"
 		else
 			return "dead"
-	return "dead"
 
 //Sillycone hooks
 /mob/living/silicon/proc/diag_hud_set_health()

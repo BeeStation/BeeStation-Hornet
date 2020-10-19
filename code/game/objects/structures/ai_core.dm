@@ -235,8 +235,6 @@
 					to_chat(user, "<span class='notice'>You connect the monitor.</span>")
 					if(brain)
 						SSticker.mode.remove_antag_for_borging(brain.brainmob.mind)
-						if(!istype(brain.laws, /datum/ai_laws/ratvar))
-							remove_servant_of_ratvar(brain.brainmob, TRUE)
 
 						var/mob/living/silicon/ai/A = null
 
@@ -248,6 +246,7 @@
 						if(brain.force_replace_ai_name)
 							A.fully_replace_character_name(A.name, brain.replacement_ai_name())
 						SSblackbox.record_feedback("amount", "ais_created", 1)
+						deadchat_broadcast("<span class='deadsay'><span class='name'>[A]</span> has been brought online at <b>[get_area_name(A, TRUE)]</b></span>.", "<span class='name'>[A]</span>", follow_target=A)
 						qdel(src)
 					else
 						state = AI_READY_CORE

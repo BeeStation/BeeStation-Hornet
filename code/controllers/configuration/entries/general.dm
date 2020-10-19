@@ -54,11 +54,15 @@
 
 /datum/config_entry/flag/log_game	// log game events
 
+/datum/config_entry/flag/log_objective	// log antag objectives
+
 /datum/config_entry/flag/log_mecha	// log mech data
 
 /datum/config_entry/flag/log_virus	// log virology data
 
 /datum/config_entry/flag/log_cloning // log cloning actions.
+
+/datum/config_entry/flag/log_id		//log ID changes
 
 /datum/config_entry/flag/log_vote	// log voting
 
@@ -199,16 +203,18 @@
 /datum/config_entry/string/banappeals
 
 /datum/config_entry/string/wikiurl
-	config_entry_value = "http://www.tgstation13.org/wiki"
+	config_entry_value = "https://wiki.beestation13.com/view/Main_Page"
 
 /datum/config_entry/string/forumurl
-	config_entry_value = "http://tgstation13.org/phpBB/index.php"
+	config_entry_value = "https://forums.beestation13.com/"
 
 /datum/config_entry/string/rulesurl
-	config_entry_value = "http://www.tgstation13.org/wiki/Rules"
+	config_entry_value = "https://beestation13.com/rules"
 
 /datum/config_entry/string/githuburl
-	config_entry_value = "https://www.github.com/tgstation/-tg-station"
+	config_entry_value = "https://github.com/BeeStation/BeeStation-Hornet"
+
+/datum/config_entry/string/issue_label
 
 /datum/config_entry/string/donateurl
 	config_entry_value = "https://www.patreon.com/user?u=10639001"
@@ -515,3 +521,26 @@
 	config_entry_value = 500
 
 /datum/config_entry/flag/topic_enabled
+
+/datum/config_entry/flag/auto_profile
+
+/datum/config_entry/string/centcom_ban_db	// URL for the CentCom Galactic Ban DB API
+
+/datum/config_entry/flag/ic_filter_enabled
+
+/datum/config_entry/flag/ooc_filter_enabled
+
+/datum/config_entry/string/redirect_address
+	config_entry_value = ""
+
+/datum/config_entry/flag/vote_autotransfer_enabled //toggle for autotransfer system
+
+/datum/config_entry/number/vote_autotransfer_initial //length of time before the first autotransfer vote is called (deciseconds, default 2 hours)
+	config_entry_value = 72000
+	integer = FALSE
+	min_val = 0
+
+/datum/config_entry/number/vote_autotransfer_interval //length of time to wait before subsequent autotransfer votes (deciseconds, default 30 minutes)
+	config_entry_value = 18000
+	integer = FALSE
+	min_val = 0

@@ -28,6 +28,7 @@
 	reagent_state = LIQUID
 	color = "#FFFF00"
 	taste_description = "metal"
+	random_unrestricted = FALSE
 
 /datum/reagent/clf3
 	name = "Chlorine Trifluoride"
@@ -49,7 +50,7 @@
 	if(isplatingturf(T))
 		var/turf/open/floor/plating/F = T
 		if(prob(10 + F.burnt + 5*F.broken)) //broken or burnt plating is more susceptible to being destroyed
-			F.ScrapeAway()
+			F.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 	if(isfloorturf(T))
 		var/turf/open/floor/F = T
 		if(prob(reac_volume))
@@ -177,6 +178,7 @@
 	taste_description = "bitterness"
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
+	random_unrestricted = FALSE
 
 
 /datum/reagent/cryostylane/on_mob_life(mob/living/carbon/M) //TODO: code freezing into an ice cube
@@ -198,6 +200,7 @@
 	taste_description = "bitterness"
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
+	random_unrestricted = FALSE
 
 /datum/reagent/pyrosium/on_mob_life(mob/living/carbon/M)
 	if(M.reagents.has_reagent(/datum/reagent/oxygen))
@@ -264,8 +267,8 @@
 	if(hotspot && !isspaceturf(T))
 		if(T.air)
 			var/datum/gas_mixture/G = T.air
-			if(G.temperature > T20C)
-				G.temperature = max(G.temperature/2,T20C)
+			if(G.return_temperature() > T20C)
+				G.set_temperature(max(G.return_temperature()/2,T20C))
 			G.react(src)
 			qdel(hotspot)
 

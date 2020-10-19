@@ -6,6 +6,12 @@
 #define PLANE_SPACE -95
 #define PLANE_SPACE_PARALLAX -90
 
+
+#define OPENSPACE_LAYER 17 //Openspace layer over all
+#define OPENSPACE_PLANE -4 //Openspace plane below all turfs
+#define OPENSPACE_BACKDROP_PLANE -3 //Black square just over openspace plane to guaranteed cover all in openspace turf
+
+
 #define FLOOR_PLANE -2
 #define GAME_PLANE -1
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
@@ -31,6 +37,7 @@
 #define GAS_PIPE_VISIBLE_LAYER 2.47
 #define GAS_FILTER_LAYER 2.48
 #define GAS_PUMP_LAYER 2.49
+#define PRESSURE_PLATE_LAYER 2.49
 #define LOW_OBJ_LAYER 2.5
 #define LOW_SIGIL_LAYER 2.52
 #define SIGIL_LAYER 2.54
@@ -84,9 +91,6 @@
 
 #define ABOVE_LIGHTING_PLANE 16
 #define ABOVE_LIGHTING_LAYER 16
-
-#define FLOOR_OPENSPACE_PLANE 17
-#define OPENSPACE_LAYER 17
 
 #define BYOND_LIGHTING_PLANE 18
 #define BYOND_LIGHTING_LAYER 18

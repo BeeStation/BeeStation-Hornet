@@ -278,7 +278,12 @@
 		var/obj/item/I = i
 		check_trash(I)
 		if(I.grind_results)
-			grind_item(i, user)
+			if(istype(I, /obj/item/reagent_containers))
+				var/obj/item/reagent_containers/p = I
+				if(!p.prevent_grinding)
+					grind_item(p, user)
+			else
+				grind_item(I, user)
 
 /obj/machinery/reagentgrinder/proc/grind_item(obj/item/I, mob/user) //Grind results can be found in respective object definitions
 	if(I.on_grind(src) == -1) //Call on_grind() to change amount as needed, and stop grinding the item if it returns -1
