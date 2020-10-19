@@ -459,6 +459,10 @@
 		return
 	if(!silent)
 		emote("deathgasp")
+	for(var/datum/disease/advance/D in diseases)
+		for(var/symptom in D.symptoms)
+			var/datum/symptom/S = symptom
+			S.OnDeath(D)
 	ADD_TRAIT(src, TRAIT_FAKEDEATH, source)
 	ADD_TRAIT(src, TRAIT_DEATHCOMA, source)
 	tod = station_time_timestamp()

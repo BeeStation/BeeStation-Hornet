@@ -51,7 +51,7 @@ Bonus
 			M.losebreath = max(0, M.losebreath - 4)
 			if(regenerate_blood && M.blood_volume < BLOOD_VOLUME_NORMAL)
 				M.blood_volume += 1
-			if(prob(1) && prob(70))
+			if(prob(1) && prob(50))
 				var/turf/open/T = get_turf(M)
 				if(!istype(T))
 					return

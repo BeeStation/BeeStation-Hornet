@@ -17,16 +17,15 @@
 	burnmod = 0.5 // = 1/2x generic burn damage
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	inherent_factions = list("slime")
+	species_language_holder = /datum/language_holder/jelly
 
 /datum/species/jelly/on_species_loss(mob/living/carbon/C)
 	if(regenerate_limbs)
 		regenerate_limbs.Remove(C)
-	C.remove_language(/datum/language/slime)
 	..()
 
 /datum/species/jelly/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	C.grant_language(/datum/language/slime)
 	if(ishuman(C))
 		regenerate_limbs = new
 		regenerate_limbs.Grant(C)
@@ -638,7 +637,7 @@
 		Remove(H)
 		return
 
-	var/message = sanitize(input("Message:", "Slime Telepathy") as text|null)
+	var/message = stripped_input(usr, "Message:", "Slime Telepathy")
 
 	if(!species || !(H in species.linked_mobs))
 		to_chat(H, "<span class='warning'>The link seems to have been severed...</span>")
@@ -686,7 +685,7 @@
 	if(!M)
 		return
 
-	var/msg = sanitize(input("Message:", "Telepathy") as text|null)
+	var/msg = stripped_input(usr, "Message:", "Telepathy")
 	if(msg)
 		log_directed_talk(H, M, msg, LOG_SAY, "slime telepathy")
 		to_chat(M, "<span class='notice'>You hear an alien voice in your head... </span><font color=#008CA2>[msg]</font>")

@@ -54,7 +54,7 @@
 		log_world("Could not open map_config: [filename]")
 		return
 
-	json = file2text(json)
+	json = rustg_file_read(json)
 	if(!json)
 		log_world("map_config is not text: [filename]")
 		return

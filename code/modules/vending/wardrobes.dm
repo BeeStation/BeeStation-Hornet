@@ -19,7 +19,10 @@
 					/obj/item/storage/backpack/duffelbag/sec = 3,
 					/obj/item/clothing/under/rank/security/officer = 3,
 					/obj/item/clothing/under/plasmaman/security = 3,
+					/obj/item/clothing/suit/armor/vest/corporate = 3,
+					/obj/item/clothing/under/rank/security/officer/corporate = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/security = 3,
+					/obj/item/clothing/head/beret/corpsec = 3,
 					/obj/item/clothing/shoes/jackboots = 3,
 					/obj/item/clothing/head/beret/sec = 3,
 					/obj/item/clothing/head/soft/sec = 3,
@@ -147,6 +150,7 @@
 	vend_reply = "Thank you for using the RoboDrobe!"
 	light_color = LIGHT_COLOR_WHITE
 	products = list(/obj/item/clothing/glasses/hud/diagnostic = 2,
+					/obj/item/reagent_containers/medspray/sterilizine = 3,
 					/obj/item/clothing/under/rank/rnd/roboticist = 2,
 					/obj/item/clothing/under/plasmaman/robotics = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/robotics = 2,
@@ -156,6 +160,7 @@
 					/obj/item/clothing/head/soft/black = 2,
 					/obj/item/clothing/mask/bandana/skull = 2,
 					/obj/item/clothing/head/beret/sci = 2)
+
 	contraband = list(/obj/item/clothing/suit/hooded/techpriest = 2,
 					/obj/item/organ/tongue/robot = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/robo_wardrobe

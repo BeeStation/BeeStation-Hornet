@@ -83,7 +83,9 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			list("Reset movement directions to default", "resetmovement"),
 			list("Change bomb cap", "changebombcap"),
 			list("Mass Purrbation", "masspurrbation"),
-			list("Mass Remove Purrbation", "massremovepurrbation")
+			list("Mass Remove Purrbation", "massremovepurrbation"),
+			list("Fully Immerse Everyone", "massimmerse"),
+			list("Un-Fully Immerse Everyone", "unmassimmerse")
 			)
 
 	if(check_rights(R_DEBUG,0))
@@ -160,7 +162,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("set_name")
 			if(!check_rights(R_ADMIN))
 				return
-			var/new_name = input(usr, "Please input a new name for the station.", "What?", "") as text|null
+			var/new_name = capped_input(usr, "Please input a new name for the station.", "What?")
 			if(!new_name)
 				return
 			set_station_name(new_name)
@@ -292,7 +294,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			dat += "<table cellspacing=5><tr><th>Name</th><th>Fingerprints</th></tr>"
 			for(var/mob/living/carbon/human/H in GLOB.carbon_list)
 				if(H.ckey)
-					dat += "<tr><td>[H]</td><td>[md5(H.dna.uni_identity)]</td></tr>"
+					dat += "<tr><td>[H]</td><td>[rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)]</td></tr>"
 			dat += "</table>"
 			usr << browse(dat, "window=fingerprints;size=440x410")
 
@@ -660,6 +662,21 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				purrbation.")
 			log_admin("[key_name(usr)] has removed everyone from purrbation.")
 
+		if("massimmerse")
+			if(!check_rights(R_FUN))
+				return
+			mass_immerse()
+			message_admins("[key_name_admin(usr)] has Fully Immersed \
+				everyone!")
+			log_admin("[key_name(usr)] has Fully Immersed everyone.")
+		if("unmassimmerse")
+			if(!check_rights(R_FUN))
+				return
+			mass_immerse(remove=TRUE)
+			message_admins("[key_name_admin(usr)] has Un-Fully Immersed \
+				everyone!")
+			log_admin("[key_name(usr)] has Un-Fully Immersed everyone.")
+
 		if("flipmovement")
 			if(!check_rights(R_FUN))
 				return
@@ -696,7 +713,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 
 				var/msg = "Please input the new movement direction when the user presses [key]. Ex. northeast"
 				var/title = "New direction for [key]"
-				var/new_direction = text2dir(input(usr, msg, title) as text|null)
+				var/new_direction = text2dir(capped_input(usr, msg, title))
 				if(!new_direction)
 					new_direction = movement_keys[key]
 

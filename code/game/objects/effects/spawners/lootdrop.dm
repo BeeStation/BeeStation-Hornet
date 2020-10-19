@@ -435,3 +435,22 @@
 				/obj/item/circuitboard/computer/apc_control,
 				/obj/item/circuitboard/computer/robotics
 				)
+
+/obj/effect/spawner/lootdrop/trap
+	name = "10% pressure plate spawner"
+	loot = list(
+		/obj/effect/spawner/lootdrop/maintenance = 9,
+		/obj/effect/trap/trigger/all = 1)
+
+/obj/effect/spawner/lootdrop/trap/reusable
+	loot = list(
+		/obj/effect/spawner/lootdrop/maintenance = 9,
+		/obj/effect/trap/trigger/reusable/all = 1)
+
+/obj/effect/spawner/lootdrop/clowntrap
+	name = "clown trap spawner"
+	loot = list(
+		/obj/effect/spawner/lootdrop/maintenance = 9,
+		/obj/effect/trap/nexus/trickyspawner/clownmutant = 2,
+		/obj/effect/trap/nexus/trickyspawner/honkling = 3,
+		/obj/effect/trap/nexus/cluwnecurse = 1)

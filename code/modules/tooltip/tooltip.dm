@@ -44,7 +44,7 @@ Notes:
 		owner = C
 		var/datum/asset/stuff = get_asset_datum(/datum/asset/simple/jquery)
 		stuff.send(owner)
-		owner << browse(file2text('code/modules/tooltip/tooltip.html'), "window=[control]")
+		owner << browse(rustg_file_read('code/modules/tooltip/tooltip.html'), "window=[control]")
 
 	..()
 

@@ -76,18 +76,19 @@
 
 /datum/symptom/heal/coma
 	name = "Regenerative Coma"
-	desc = "The virus causes the host to fall into a death-like coma when severely damaged, then rapidly fixes the damage."
+	desc = "The virus causes the host to fall into a death-like coma when severely damaged, then rapidly fixes the damage. Only fixes burn and brute damage."
 	stealth = 0
 	resistance = 2
 	stage_speed = -3
-	transmittable = -2
+	transmittable = -3
 	level = 8
 	severity = -2
 	passive_message = "<span class='notice'>The pain from your wounds makes you feel oddly sleepy...</span>"
 	var/deathgasp = FALSE
 	var/stabilize = FALSE
 	var/active_coma = FALSE //to prevent multiple coma procs
-	threshold_desc = "<b>Stealth 2:</b> Host appears to die when falling into a coma.<br>\
+	threshold_desc = "<b>Stealth 2:</b> Host appears to die when falling into a coma, triggering symptoms that activate on death.<br>\
+
 					  <b>Resistance 4:</b> The virus also stabilizes the host while they are in critical condition.<br>\
 					  <b>Stage Speed 7:</b> Increases healing speed."
 
@@ -174,7 +175,7 @@
 	stealth = -1
 	resistance = -2
 	stage_speed = -2
-	transmittable = 1
+	transmittable = 0
 	severity = -1
 	level = 6
 	passive_message = "<span class='notice'>Your skin tingles.</span>"
@@ -196,18 +197,17 @@
 	var/healed = FALSE
 
 	if(M.getBruteLoss() && M.getBruteLoss() <= threshhold)
-		M.adjustBruteLoss(-power)
+		M.heal_overall_damage(power, required_status = BODYPART_ORGANIC)
 		healed = TRUE
 		scarcounter++
 
 	if(M.getFireLoss() && M.getFireLoss() <= threshhold)
-		M.adjustFireLoss(-power)
+		M.heal_overall_damage(burn = power, required_status = BODYPART_ORGANIC)
 		healed = TRUE
 		scarcounter++
 
 	if(M.getToxLoss() && M.getToxLoss() <= threshhold)
 		M.adjustToxLoss(-power)
-		healed = TRUE
 
 	if(healed)
 		if(prob(10))
@@ -241,12 +241,12 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	symptom_delay_max = 40
 	var/bigemp = FALSE
 	var/cellheal = FALSE
-	threshold_desc = "<b>Stealth 4:</b> The disease resets cell DNA, quickly curing cell damage and mutations<br>\
+	threshold_desc = "<b>Stealth 2:</b> The disease resets cell DNA, quickly curing cell damage and mutations<br>\
 					<b>transmission 8:</b> The EMP affects electronics adjacent to the subject as well."
 
 /datum/symptom/EMP/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["stealth"] >= 4)
+	if(A.properties["stealth"] >= 2) //if you combine this with pituitary disruption, you have the two most downside-heavy symptoms available
 		severity -= 1
 	if(A.properties["transmittable"] >= 8)
 		severity += 1
@@ -254,7 +254,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/EMP/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stealth"] >= 4)
+	if(A.properties["stealth"] >= 2)
 		cellheal = TRUE
 	if(A.properties["transmittable"] >= 8)
 		bigemp = TRUE
@@ -267,7 +267,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		if(4, 5)
 			M.emp_act(EMP_HEAVY)
 			if(cellheal)
-				M.adjustCloneLoss(-40)
+				M.adjustCloneLoss(-30)
 				M.reagents.add_reagent(/datum/reagent/medicine/mutadone = 1)
 			if(bigemp)
 				empulse(M.loc, 0, 1)
@@ -382,7 +382,7 @@ obj/effect/sweatsplash/proc/splash()
 	switch(A.stage)
 		if(4, 5)
 			if(burnheal)
-				M.adjustFireLoss(-1 * power)
+				M.heal_overall_damage(0, 1) //no required_status checks here, this does all bodyparts equally
 			if(prob(5) && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
 				location_return = get_turf(M)	//sets up return point
 				if(prob(50))
@@ -416,8 +416,10 @@ obj/effect/sweatsplash/proc/splash()
 	var/current_size = 1
 	var/tetsuo = FALSE
 	var/bruteheal = FALSE
-	threshold_desc = "<b>Stage Speed 6:</b> The disease heals brute damage at a fast rate, but causes expulsion of benign tumors<br>\
-					<b>Stage Speed 12:</b> The disease heals brute damage incredibly fast, but deteriorates cell health and causes tumors to become more advanced."
+	var/sizemult = 1
+	var/datum/mind/ownermind
+	threshold_desc = "<b>Stage Speed 6:</b> The disease heals brute damage at a fast rate, but causes expulsion of benign tumors.<br>\
+					<b>Stage Speed 12:</b> The disease heals brute damage incredibly fast, but deteriorates cell health and causes tumors to become more advanced. The disease will also regenerate lost limbs and cause organ mutation."
 
 /datum/symptom/growth/severityset(datum/disease/advance/A)
 	. = ..()
@@ -433,47 +435,88 @@ obj/effect/sweatsplash/proc/splash()
 		bruteheal = TRUE
 	if(A.properties["stage_rate"] >= 12)
 		tetsuo = TRUE
+		power = 3 //should make this symptom actually worth it
+	var/mob/living/carbon/M = A.affected_mob
+	ownermind = M.mind
+	sizemult = CLAMP((0.5 + A.properties["stage_rate"] / 10), 1.1, 2.5)
+	M.resize = sizemult
+	M.update_transform()
 
 /datum/symptom/growth/Activate(datum/disease/advance/A)
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
-	var/newsize = current_size
 	switch(A.stage)
 		if(4, 5)
-			switch(A.properties["stage_rate"])
-				if(5 to 8)
-					newsize = 1.25
-				if(9 to 12)
-					newsize = 1.5
-				if(13 to 16)
-					newsize = 1.75
-				if(17 to INFINITY)
-					newsize = 2
-			M.resize = newsize/current_size
-			current_size = newsize
-			M.update_transform()
 			if(prob(5) && bruteheal)
 				to_chat(M, "<span class='userdanger'>You retch, and a splatter of gore escapes your gullet</span>")
 				M.Knockdown(10)
+				new /obj/effect/decal/cleanable/blood/(M.loc)
 				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
-				if(prob(80))
+				if(prob(60))
 					new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
-				if(tetsuo && prob(30))
-					new /obj/effect/gibspawner/human/bodypartless(M.loc)
-					new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
+				if(tetsuo)
+					var/list/organcantidates = list()
+					var/list/missing = M.get_missing_limbs()
+					if(prob(35))
+						new /obj/effect/gibspawner/human/bodypartless(M.loc) //yes. this is very messy. very, very messy.
+						new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
+						for(var/obj/item/organ/O in M.loc)
+							if(O.organ_flags & ORGAN_FAILING || O.organ_flags & ORGAN_VITAL) //dont use shitty organs or brains
+								continue
+							if(O.organ_flags & (ORGAN_SYNTHETIC)) //if we can infect robots, we can implant cyber organs
+								if(MOB_ROBOTIC in A.infectable_biotypes) //why do i have to do this this way? no idea, but it wont fucking work otherwise
+									organcantidates += O
+								continue
+							organcantidates += O
+						if(organcantidates.len)
+							for(var/I in 1 to min(rand(1, 3), organcantidates.len))
+								var/obj/item/organ/chosen = pick_n_take(organcantidates)
+								chosen.Insert(M, TRUE, FALSE)
+								to_chat(M, "<span class='userdanger'>As the [chosen] touches your skin, it is promptly absorbed.</span>")
+					if(missing.len) //we regrow one missing limb
+						for(var/Z in missing) //uses the same text and sound a ling's regen does. This can false-flag the host as a changeling. 
+							if(M.regenerate_limb(Z, TRUE))
+								playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
+								M.visible_message("<span class='warning'>[M]'s missing limbs \
+									reform, making a loud, grotesque sound!</span>",
+									"<span class='userdanger'>Your limbs regrow, making a \
+									loud, crunchy sound and giving you great pain!</span>",
+									"<span class='italics'>You hear organic matter ripping \
+									and tearing!</span>")
+								M.emote("scream")
+								if(Z == BODY_ZONE_HEAD) //if we regenerate the head, make sure the mob still owns us
+									if(isliving(ownermind.current))
+										var/mob/living/owner = ownermind.current
+										if(owner.stat != DEAD)//if they have a new mob, forget they exist
+											ownermind = null
+											break
+										if(owner == M) //they're already in control of this body, probably because their brain isn't in the head!
+											break
+									if(ishuman(M))
+										var/mob/living/carbon/human/H = M
+										H.dna.species.regenerate_organs(H, replace_current = FALSE) //get head organs, including the brain, back
+									ownermind.transfer_to(M)
+									M.grab_ghost()
+								break
 				if(tetsuo && prob(10) && A.affected_mob.job == "Clown")
-					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
-			if(tetsuo)
-				M.adjustBruteLoss(-4)
-				if(prob(20))
+					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)				
+			if(bruteheal)
+				M.heal_overall_damage(2 * power, required_status = BODYPART_ORGANIC)
+				if(prob(11 * power))
 					M.adjustCloneLoss(1)
-			else if(bruteheal)
-				M.adjustBruteLoss(-1)
 		else
 			if(prob(5))
 				to_chat(M, "<span class='notice'>[pick("You feel bloated.", "The station seems small", "You are the strongest")]</span>")
 	return
+
+/datum/symptom/growth/End(datum/disease/advance/A)
+	. = ..()
+	var/mob/living/carbon/M = A.affected_mob
+	to_chat(M, "<span class='notice'>You lose your balance and stumble as you shrink, and your legs come out from underneath you!</span>")
+	animate(M, pixel_z = 4, time = 0) //size is fixed by having the player do one waddle. Animation for some reason resets size, meaning waddling can desize you
+	animate(pixel_z = 0, transform = turn(matrix(), pick(-12, 0, 12)), time=2) //waddle desizing is an issue, because you can game it to use this symptom and become small
+	animate(pixel_z = 0, transform = matrix(), time = 0) //so, instead, we use waddle desizing to desize you from this symptom, instead of a transformation, because it wont shrink you naturally
 
 /obj/effect/mob_spawn/teratomamonkey //spawning these is one of the downsides of overclocking the symptom
 	name = "fleshy mass"

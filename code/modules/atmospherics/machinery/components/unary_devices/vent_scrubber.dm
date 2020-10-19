@@ -17,7 +17,7 @@
 	var/id_tag = null
 	var/scrubbing = SCRUBBING //0 = siphoning, 1 = scrubbing
 
-	var/filter_types = list(/datum/gas/carbon_dioxide)
+	var/filter_types = list(/datum/gas/carbon_dioxide, /datum/gas/bz)
 	var/volume_rate = 200
 	var/widenet = 0 //is this scrubber acting on the 3x3 area around it.
 	var/list/turf/adjacent_turfs = list()

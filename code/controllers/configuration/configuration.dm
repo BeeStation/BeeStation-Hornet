@@ -250,7 +250,7 @@
 	votable_modes += "secret"
 
 /datum/controller/configuration/proc/LoadMOTD()
-	motd = file2text("[directory]/motd.txt")
+	motd = rustg_file_read("[directory]/motd.txt")
 	var/tm_info = GLOB.revdata.GetTestMergeInfo()
 	if(motd || tm_info)
 		motd = motd ? "[motd]<br>[tm_info]" : tm_info

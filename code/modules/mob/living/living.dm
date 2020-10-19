@@ -57,10 +57,10 @@
 /mob/living/Bump(atom/A)
 	if(..()) //we are thrown onto something
 		return
-	if (buckled || now_pushing)
+	if(buckled || now_pushing)
 		return
 	if(!ismovableatom(A) || is_blocked_turf(A))  // ported from VORE, sue me
-		if((confused || is_blind()) && stat == CONSCIOUS && m_intent=="run")
+		if((confused || is_blind()) && stat == CONSCIOUS && m_intent=="run" && mobility_flags & MOBILITY_STAND)
 			playsound(get_turf(src), "punch", 25, 1, -1)
 			visible_message("<span class='warning'>[src] [pick("ran", "slammed")] into \the [A]!</span>")
 			apply_damage(5, BRUTE)
@@ -1275,18 +1275,19 @@
 	..()
 	update_z(new_z)
 
-/mob/living/MouseDrop(mob/over)
+/mob/living/MouseDrop_T(atom/dropping, atom/user)
+	var/mob/living/U = user
+	if(isliving(dropping))
+		var/mob/living/M = dropping
+		if(M.can_be_held && U.pulling == M)
+			M.mob_try_pickup(U)//blame kevinz
+			return//dont open the mobs inventory if you are picking them up
 	. = ..()
-	var/mob/living/user = usr
-	if(!istype(over) || !istype(user))
-		return
-	if(!over.Adjacent(src) || (user != src) || !canUseTopic(over))
-		return
-	if(can_be_held)
-		mob_try_pickup(over)
 
 /mob/living/proc/mob_pickup(mob/living/L)
-	return
+	var/obj/item/clothing/head/mob_holder/holder = new(get_turf(src), src, held_state, head_icon, held_lh, held_rh, worn_slot_flags)
+	L.visible_message("<span class='warning'>[L] scoops up [src]!</span>")
+	L.put_in_hands(holder)
 
 /mob/living/proc/mob_try_pickup(mob/living/user)
 	if(!ishuman(user))
@@ -1379,3 +1380,8 @@
 			STAMINA:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=stamina' id='stamina'>[getStaminaLoss()]</a>
 		</font>
 	"}
+
+/mob/living/eminence_act(mob/living/simple_animal/eminence/eminence)
+	if(is_servant_of_ratvar(src))
+		eminence.selected_mob = src
+		to_chat(eminence, "<span class='brass'>You select [src].</span>")

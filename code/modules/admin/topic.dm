@@ -1936,11 +1936,11 @@
 			return
 		var/datum/station_goal/G = new picked()
 		if(picked == /datum/station_goal)
-			var/newname = input("Enter goal name:") as text|null
+			var/newname = capped_input(usr, "Enter goal name:")
 			if(!newname)
 				return
 			G.name = newname
-			var/description = input("Enter CentCom message contents:") as message|null
+			var/description = capped_multiline_input(usr, "Enter CentCom message contents:")
 			if(!description)
 				return
 			G.report_message = description
@@ -2154,7 +2154,7 @@
 		var/role = href_list["editbanrole"]
 		var/duration = href_list["editbanduration"]
 		var/applies_to_admins = text2num(href_list["editbanadmins"])
-		var/reason = url_decode(href_list["editbanreason"])
+		var/reason = rustg_url_decode(href_list["editbanreason"])
 		var/page = href_list["editbanpage"]
 		var/admin_key = href_list["editbanadminkey"]
 		ban_panel(player_key, player_ip, player_cid, role, duration, applies_to_admins, reason, edit_id, page, admin_key)

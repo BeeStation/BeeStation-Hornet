@@ -26,6 +26,8 @@
 		restricted_jobs += protected_jobs
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		restricted_jobs += "Assistant"
+	if(CONFIG_GET(flag/protect_heads_from_antagonist))
+		restricted_jobs += GLOB.command_positions
 
 	var/num_devils = 1
 

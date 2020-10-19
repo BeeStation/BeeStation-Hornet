@@ -29,7 +29,7 @@
 		return
 
 	message_admins("[key_name_admin(src)] has started answering [ADMIN_LOOKUPFLW(M)]'s prayer.")
-	var/msg = input("Message:", text("Subtle PM to [M.key]")) as text|null
+	var/msg = capped_input(usr, "Message:", "Subtle PM to [M.key]")
 
 	if(!msg)
 		message_admins("[key_name_admin(src)] decided not to answer [ADMIN_LOOKUPFLW(M)]'s prayer")
@@ -70,7 +70,7 @@
 			return
 
 	message_admins("[key_name_admin(src)] has started answering [key_name_admin(H)]'s [sender] request.")
-	var/input = input("Please enter a message to reply to [key_name(H)] via their headset.","Outgoing message from [sender]", "") as text|null
+	var/input = capped_input(usr, "Please enter a message to reply to [key_name(H)] via their headset.","Outgoing message from [sender]")
 	if(!input)
 		message_admins("[key_name_admin(src)] decided not to answer [key_name_admin(H)]'s [sender] request.")
 		return
@@ -134,7 +134,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/msg = input("Message:", text("Enter the text you wish to appear to everyone:")) as text|null
+	var/msg = capped_input(usr, "Message:", "Enter the text you wish to appear to everyone:")
 
 	if (!msg)
 		return
@@ -156,7 +156,7 @@
 	if(!M)
 		return
 
-	var/msg = input("Message:", text("Enter the text you wish to appear to your target:")) as text|null
+	var/msg = capped_input(usr, "Message:", "Enter the text you wish to appear to your target:")
 
 	if( !msg )
 		return
@@ -179,7 +179,7 @@
 	var/range = input("Range:", "Narrate to mobs within how many tiles:", 7) as num|null
 	if(!range)
 		return
-	var/msg = input("Message:", text("Enter the text you wish to appear to everyone within view:")) as text|null
+	var/msg = capped_input(usr, "Message:", "Enter the text you wish to appear to everyone within view:")
 	if (!msg)
 		return
 	for(var/mob/M in view(range,A))
@@ -416,7 +416,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(G_found.mind && !G_found.mind.active)	//mind isn't currently in use by someone/something
 		/*Try and locate a record for the person being respawned through GLOB.data_core.
 		This isn't an exact science but it does the trick more often than not.*/
-		var/id = md5("[G_found.real_name][G_found.mind.assigned_role]")
+		var/id = rustg_hash_string(RUSTG_HASH_MD5, "[G_found.real_name][G_found.mind.assigned_role]")
 
 		record_found = find_record("id", id, GLOB.data_core.locked)
 
@@ -512,7 +512,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/input = input(usr, "Please enter anything you want the AI to do. Anything. Serious.", "What?", "") as text|null
+	var/input = capped_input(usr, "Please enter anything you want the AI to do. Anything. Serious.", "What?")
 	if(!input)
 		return
 
@@ -556,7 +556,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/input = input(usr, "Enter a Command Report. Ensure it makes sense IC.", "What?", "") as message|null
+	var/input = capped_multiline_input(usr, "Enter a Command Report. Ensure it makes sense IC.", "What?")
 	if(!input)
 		return
 
@@ -582,7 +582,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/input = input(usr, "Please input a new name for Central Command.", "What?", "") as text|null
+	var/input = capped_input(usr, "Please input a new name for Central Command.", "What?")
 	if(!input)
 		return
 	change_command_name(input)
@@ -996,7 +996,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/input = input(usr, "Please specify your tip that you want to send to the players.", "Tip", "") as message|null
+	var/input = capped_multiline_input(usr, "Please specify your tip that you want to send to the players.", "Tip")
 	if(!input)
 		return
 
@@ -1044,13 +1044,28 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggled Hub Visibility", "[GLOB.hub_visibility ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/proc/immerse_player(mob/living/carbon/target, toggle=TRUE, remove=FALSE)
+	var/list/immersion_components = list(/datum/component/manual_breathing, /datum/component/manual_blinking)
+
+	for(var/immersies in immersion_components)
+		var/has_component = target.GetComponent(immersies)
+
+		if(has_component && (toggle || remove))
+			qdel(has_component)
+		else if(toggle || !remove)
+			target.AddComponent(immersies)
+
+/proc/mass_immerse(remove=FALSE)
+	for(var/mob/living/carbon/M in GLOB.mob_list)
+		immerse_player(M, toggle=FALSE, remove=remove)
+
 /client/proc/smite(mob/living/target as mob)
 	set name = "Smite"
 	set category = "Fun"
 	if(!check_rights(R_ADMIN) || !check_rights(R_FUN))
 		return
 
-	var/list/punishment_list = list(ADMIN_PUNISHMENT_LIGHTNING, ADMIN_PUNISHMENT_BRAINDAMAGE, ADMIN_PUNISHMENT_GIB, ADMIN_PUNISHMENT_BSA, ADMIN_PUNISHMENT_FIREBALL, ADMIN_PUNISHMENT_ROD, ADMIN_PUNISHMENT_SUPPLYPOD_QUICK, ADMIN_PUNISHMENT_SUPPLYPOD, ADMIN_PUNISHMENT_MAZING, ADMIN_PUNISHMENT_FLOORCLUWNE, ADMIN_PUNISHMENT_CLUWNE)
+	var/list/punishment_list = list(ADMIN_PUNISHMENT_LIGHTNING, ADMIN_PUNISHMENT_BRAINDAMAGE, ADMIN_PUNISHMENT_GIB, ADMIN_PUNISHMENT_BSA, ADMIN_PUNISHMENT_FIREBALL, ADMIN_PUNISHMENT_ROD, ADMIN_PUNISHMENT_SUPPLYPOD_QUICK, ADMIN_PUNISHMENT_SUPPLYPOD, ADMIN_PUNISHMENT_MAZING, ADMIN_PUNISHMENT_FLOORCLUWNE, ADMIN_PUNISHMENT_CLUWNE, ADMIN_PUNISHMENT_IMMERSE)
 	if(istype(target, /mob/living/carbon))
 		punishment_list += ADMIN_PUNISHMENT_NUGGET
 	var/punishment = input("Choose a punishment", "DIVINE SMITING") as null|anything in sortList(punishment_list)
@@ -1141,6 +1156,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 					if(BP.dismemberable)
 						BP.dismember()
 
+		if(ADMIN_PUNISHMENT_IMMERSE)
+			immerse_player(target)
+
 	punish_log(target, punishment)
 
 /client/proc/punish_log(var/whom, var/punishment)
@@ -1153,7 +1171,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 	var/message = pick(GLOB.admiral_messages)
-	message = input("Enter message from the on-call admiral to be put in the recall report.", "Admiral Message", message) as text|null
+	message = capped_input(src, "Enter message from the on-call admiral to be put in the recall report.", "Admiral Message", message)
 
 	if(!message)
 		return

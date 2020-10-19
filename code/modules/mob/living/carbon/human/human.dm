@@ -89,7 +89,7 @@
 				stat(null, "Energy Charge: [round(SN.cell.charge/100)]%")
 				stat(null, "Smoke Bombs: \Roman [SN.s_bombs]")
 				//Ninja status
-				stat(null, "Fingerprints: [md5(dna.uni_identity)]")
+				stat(null, "Fingerprints: [rustg_hash_string(RUSTG_HASH_MD5, dna.uni_identity)]")
 				stat(null, "Unique Identity: [dna.unique_enzymes]")
 				stat(null, "Overall Status: [stat > 1 ? "dead" : "[health]% healthy"]")
 				stat(null, "Nutrition Status: [nutrition]")
@@ -455,8 +455,8 @@
 									switch(alert("What crime would you like to add?","Security HUD","Minor Crime","Major Crime","Cancel"))
 										if("Minor Crime")
 											if(R)
-												var/t1 = stripped_input("Please input minor crime names:", "Security HUD", "", null)
-												var/t2 = stripped_multiline_input("Please input minor crime details:", "Security HUD", "", null)
+												var/t1 = stripped_input(usr, "Please input minor crime names:", "Security HUD")
+												var/t2 = stripped_multiline_input(usr, "Please input minor crime details:", "Security HUD")
 												if(R)
 													if (!t1 || !t2 || !allowed_access)
 														return
@@ -471,8 +471,8 @@
 													return
 										if("Major Crime")
 											if(R)
-												var/t1 = stripped_input("Please input major crime names:", "Security HUD", "", null)
-												var/t2 = stripped_multiline_input("Please input major crime details:", "Security HUD", "", null)
+												var/t1 = stripped_input(usr, "Please input major crime names:", "Security HUD")
+												var/t2 = stripped_multiline_input(usr, "Please input major crime details:", "Security HUD")
 												if(R)
 													if (!t1 || !t2 || !allowed_access)
 														return
@@ -502,7 +502,7 @@
 
 								if(href_list["add_comment"])
 									if(R)
-										var/t1 = stripped_multiline_input("Add Comment:", "Secure. records", null, null)
+										var/t1 = stripped_multiline_input(usr, "Add Comment:", "Secure. records")
 										if(R)
 											if (!t1 || !allowed_access)
 												return

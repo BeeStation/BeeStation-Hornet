@@ -7,15 +7,15 @@
 /area/shuttle/arrival)
 "c" = (
 /obj/structure/shuttle/engine/propulsion{
-	icon_state = "propulsion";
-	dir = 1
+	dir = 1;
+	icon_state = "propulsion"
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "d" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater";
-	dir = 1
+	dir = 1;
+	icon_state = "heater"
 	},
 /obj/structure/window/reinforced,
 /turf/open/floor/plating/airless,
@@ -40,6 +40,7 @@
 /area/shuttle/arrival)
 "k" = (
 /obj/machinery/door/airlock/titanium,
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/arrival)
 "l" = (
@@ -67,8 +68,8 @@
 /area/shuttle/arrival)
 "p" = (
 /obj/structure/shuttle/engine/propulsion{
-	icon_state = "propulsion";
-	dir = 1
+	dir = 1;
+	icon_state = "propulsion"
 	},
 /obj/docking_port/mobile/arrivals{
 	dir = 2;

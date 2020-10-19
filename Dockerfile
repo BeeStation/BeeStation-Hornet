@@ -1,6 +1,6 @@
-FROM beestation/byond:513.1528 as base
+FROM beestation/byond:513.1534 as base
 ONBUILD ENV BYOND_MAJOR=513
-ONBUILD ENV BYOND_MINOR=1528
+ONBUILD ENV BYOND_MINOR=1534
 
 FROM base as build_base
 
@@ -21,7 +21,7 @@ RUN apt-get install -y --no-install-recommends \
     gcc-multilib \
     && curl https://sh.rustup.rs -sSf | sh -s -- -y --default-host i686-unknown-linux-gnu \
     && git init \
-    && git remote add origin https://github.com/tgstation/rust-g
+    && git remote add origin https://github.com/BeeStation/rust-g
 
 COPY dependencies.sh .
 
@@ -29,7 +29,7 @@ RUN dos2unix dependencies.sh \
 	&& /bin/bash -c "source dependencies.sh \
     && git fetch --depth 1 origin \$RUST_G_VERSION" \
     && git checkout FETCH_HEAD \
-    && ~/.cargo/bin/cargo build --release --features log,dmi,git,http,sql,noise,url,file,hash \
+    && ~/.cargo/bin/cargo build --release --all-features \
 	&& apt-get --purge remove -y dos2unix
 
 FROM base as dm_base

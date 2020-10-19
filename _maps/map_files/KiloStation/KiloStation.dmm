@@ -5535,11 +5535,6 @@
 "aiK" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/clothing/accessory/armband/deputy,
-/obj/item/clothing/accessory/armband/deputy,
-/obj/item/clothing/accessory/armband/deputy,
-/obj/item/clothing/accessory/armband/deputy,
-/obj/item/clothing/accessory/armband/deputy,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -38505,6 +38500,7 @@
 	pixel_y = 4
 	},
 /obj/item/gun/energy/e_gun/dragnet,
+/obj/item/beacon/nettingportal,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "bdM" = (
