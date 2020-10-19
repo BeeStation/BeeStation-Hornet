@@ -25,8 +25,8 @@
 	var/static/regex/alien_name_regex = new("alien (larva|sentinel|drone|hunter|praetorian|queen)( \\(\\d+\\))?")
 
 /mob/living/carbon/alien/Initialize()
-	verbs += /mob/living/proc/mob_sleep
-	verbs += /mob/living/proc/lay_down
+	add_verb(/mob/living/proc/mob_sleep)
+	add_verb(/mob/living/proc/lay_down)
 
 	create_bodyparts() //initialize bodyparts
 

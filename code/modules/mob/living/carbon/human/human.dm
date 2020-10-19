@@ -6,8 +6,8 @@
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
 
 /mob/living/carbon/human/Initialize()
-	verbs += /mob/living/proc/mob_sleep
-	verbs += /mob/living/proc/lay_down
+	add_verb(/mob/living/proc/mob_sleep)
+	add_verb(/mob/living/proc/lay_down)
 
 	icon_state = ""		//Remove the inherent human icon that is visible on the map editor. We're rendering ourselves limb by limb, having it still be there results in a bug where the basic human icon appears below as south in all directions and generally looks nasty.
 
@@ -615,7 +615,7 @@
 	//Agent cards lower threatlevel.
 	if(istype(idcard, /obj/item/card/id/syndicate))
 		threatcount -= 5
-	
+
 	//individuals wearing tinfoil hats are 30% more likely to be criminals
 	if(istype(get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		threatcount += 2

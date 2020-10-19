@@ -49,6 +49,15 @@
 				icon=icon2base64(getFlatIcon(A, no_anim=TRUE)),	//TODO: Cache this shit
 				type=STAT_ATOM,
 			)
+	var/list/all_verbs = sorted_verbs + client.sorted_verbs
+	if(selected_tab in all_verbs)
+		for(var/verb in all_verbs[selected_tab])
+			var/procpath/V = verb
+			tab_data["[V.name]"] = list(
+				action = "verb",
+				params = list("verb" = V.name),
+				type=STAT_VERB,
+			)
 	if(requires_holder && !client.holder)
 		message_admins("[ckey] attempted to access the MC tab without sufficient rights.")
 		log_admin("[ckey] attempted to access the MC tab without sufficient rights.")
@@ -144,19 +153,24 @@
  * Contents of the stat tabs are got through get_stat()
  */
 /mob/proc/get_stat_tabs()
+	//Standard
 	var/list/tabs = list(
 		"Status",
 	)
-	if(client.holder)
-		tabs |= "MC"
-		tabs |= "Tickets"
-		if(length(GLOB.sdql2_queries))
-			tabs |= "SDQL2"
+	//Listed turfs
 	if(listed_turf && client)
 		if(!TurfAdjacent(listed_turf))
 			listed_turf = null
 		else
 			tabs |= listed_turf.name
+	//Holder stat tabs
+	if(client.holder)
+		tabs |= "MC"
+		tabs |= "Tickets"
+		if(length(GLOB.sdql2_queries))
+			tabs |= "SDQL2"
+	//Get verbs
+	tabs |= sorted_verbs + client?.sorted_verbs
 	return tabs
 
 /*
@@ -200,6 +214,38 @@
 				return
 			usr.client.debug_variables(target)
 			message_admins("Admin [key_name_admin(usr)] is debugging the [target] [class].")
+		if("verb")
+			var/verb_name = params["verb"]
+			//Get all available verbs to the client.
+			var/list/mob_verbs = sorted_verbs
+			var/list/client_verbs = client.sorted_verbs
+			//Find the verb we need
+			if(!(client.selected_stat_tab in (mob_verbs + client_verbs)))
+				return
+			//Invoking verbs on mob
+			if(mob_verbs)
+				for(var/verb in mob_verbs[client.selected_stat_tab])
+					var/procpath/V = verb
+					if(V.name == verb_name)
+						//Security check
+						if(!(verb in verbs))
+							return
+						//Call it
+						call(src, verb)()
+						log_tgui("[client] used verb [V.name]")
+						return
+			//Invoke verbs on client
+			if(client_verbs)
+				for(var/verb in client_verbs[client.selected_stat_tab])
+					var/procpath/V = verb
+					if(V.name == verb_name)
+						//Security check
+						if(!(verb in client.verbs))
+							return
+						//INCREDIBLE DANGEROUS CALL (should be find since they can't call any verb they don't have... right?)
+						call(client, .client/verb)()
+						log_tgui("[client] used verb [V.name]")
+						return
 
 /*
  * Sets the current stat tab selected.
@@ -247,27 +293,6 @@
 				for(var/i in GLOB.sdql2_queries)
 					var/datum/SDQL2_query/Q = i
 					Q.generate_stat()
-
-	if(listed_turf && client)
-		if(!TurfAdjacent(listed_turf))
-			listed_turf = null
-		else
-			statpanel(listed_turf.name, null, listed_turf)
-			var/list/overrides = list()
-			for(var/image/I in client.images)
-				if(I.loc && I.loc.loc == listed_turf && I.override)
-					overrides += I.loc
-			for(var/atom/A in listed_turf)
-				if(!A.mouse_opacity)
-					continue
-				if(A.invisibility > see_invisible)
-					continue
-				if(overrides.len && (A in overrides))
-					continue
-				if(A.IsObscured())
-					continue
-				statpanel(listed_turf.name, null, A)
-
 
 	if(mind)
 		add_spells_to_statpanel(mind.spell_list)

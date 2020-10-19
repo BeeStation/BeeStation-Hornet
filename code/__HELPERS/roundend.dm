@@ -351,7 +351,7 @@
 	if(!previous)
 		var/list/report_parts = list(personal_report(C), GLOB.common_report)
 		content = report_parts.Join()
-		C.verbs -= /client/proc/show_previous_roundend_report
+		C.remove_verb(/client/proc/show_previous_roundend_report)
 		fdel(filename)
 		rustg_file_append(content, filename)
 	else

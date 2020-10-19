@@ -105,7 +105,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/Initialize()
 	. = ..()
-	verbs -= /mob/living/verb/pulled
+	remove_verb(/mob/living/verb/pulled)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 
