@@ -1,45 +1,78 @@
+/**
+ * private
+ *
+ * Handles incomming stat messages
+ */
+/datum/tgui_panel/proc/handle_stat_message(type, payload)
+	switch(type)
+		if("stat/setTab")
+			client.selected_stat_tab = payload["selectedTab"]
+			return TRUE
+		if("stat/pressed")
+			client.mob?.stat_pressed(payload["action_id"], payload["params"])
+			return TRUE
+	return FALSE
 
 /**
  * public
  *
- * Sends stat panel info for things that are set constantly throughout the round.
- *
- * Round ID
+ * Sets the different available tabs.
  */
-/datum/tgui_panel/proc/initial_stat_info(payload)
+/datum/tgui_panel/proc/set_tab_info(payload)
 	if(!is_ready())
 		return
-	window.send_message("stat/setInfo", payload)
+	window.send_message("stat/setStatTabs", payload)
+
 
 /**
  * public
  *
- * Sends stat panel info for things that are set constantly throughout the round.
- *
- * Note: List twice to prevent sending as an object rather than a list.
- * list(list(
- *		"statPanelName" = list
- * 		(
- *			"" = ""
- * 		)
- * ))
- *
- * Round Time
- * Mob status
- * Antagonist or not
- * etc.
+ * Sets the infomation to be displayed of the current tab.
  */
-/datum/tgui_panel/proc/update_stat_info(payload)
+/datum/tgui_panel/proc/set_panel_infomation(payload)
 	if(!is_ready())
 		return
-	window.send_message("stat/updateInfo", payload)
+	window.send_message("stat/setPanelInfomation", payload)
 
 /**
  * public
  *
- * Updates the stat panel with the names of the verbs
- * accessable to the client.
- *
- * Should be called when the client recieves new verbs (adminning / deadminning)
+ * Sets the current tab.
  */
-/datum/tgui_panel/proc/update_verbs()
+/datum/tgui_panel/proc/set_stat_tab(new_tab)
+	if(!is_ready())
+		return
+	window.send_message("stat/setPanelInfomation", new_tab)
+
+/**
+ * public
+ *
+ * Displays the antagonist popup.
+ */
+/datum/tgui_panel/proc/give_antagonist_popup(title, text)
+	if(!is_ready())
+		return
+	var/list/payload = list()
+	payload["title"] = title
+	payload["text"] = text
+	window.send_message("stat/antagPopup", payload)
+
+/**
+ * public
+ *
+ * Displays the dead message.
+ */
+/datum/tgui_panel/proc/give_dead_popup()
+	if(!is_ready())
+		return
+	window.send_message("stat/deadPopup", list())
+
+/**
+ * public
+ *
+ * Clears the death message
+ */
+/datum/tgui_panel/proc/clear_dead_poup()
+	if(!is_ready())
+		return
+	window.send_message("stat/clearDeadPopup", list())

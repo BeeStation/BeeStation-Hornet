@@ -86,6 +86,8 @@
 	if(type == "telemetry")
 		analyze_telemetry(payload)
 		return TRUE
+	if(cmptext(copytext(type, 1, 5), "stat"))
+		return handle_stat_message(type, payload)
 
 /**
  * public
