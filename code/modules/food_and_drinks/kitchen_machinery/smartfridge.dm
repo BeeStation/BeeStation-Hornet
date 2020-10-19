@@ -137,9 +137,9 @@
 
 
 /obj/machinery/smartfridge/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)	
-	if (istype(AM, /obj/item))
-		var/obj/item/O = AM
-		if(!stat)
+	if(!stat)
+		if (istype(AM, /obj/item))		
+			var/obj/item/O = AM
 			if(contents.len < max_n_of_items && accept_check(O))
 				load(O)
 				updateUsrDialog()
