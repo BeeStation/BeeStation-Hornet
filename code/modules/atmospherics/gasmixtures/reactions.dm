@@ -276,9 +276,9 @@
 	var/reaction_energy = 0 //Reaction energy can be negative or positive, for both exothermic and endothermic reactions.
 	var/initial_plasma = air.get_moles(/datum/gas/plasma)
 	var/initial_carbon = air.get_moles(/datum/gas/carbon_dioxide)
-	var/scale_factor = max(air.return_volume()/FUSION_SCALE_DIVISOR,FUSION_MINIMAL_SCALE)
+	var/scale_factor = max( air.return_volume() / FUSION_SCALE_DIVISOR, FUSION_MINIMAL_SCALE)
 	var/temperature_scale = log(10, air.return_temperature())
-	var/toroidal_size = TOROID_CALCULATED_THRESHOLD + min(temperature_scale-FUSION_BASE_TEMPSCALE,0) / FUSION_BUFFER_DIVISOR + 4 ** max(temperature_scale-FUSION_BASE_TEMPSCALE,0) / FUSION_SLOPE_DIVISOR//The size of the phase space hypertorus
+	var/toroidal_size = TOROID_CALCULATED_THRESHOLD + min(temperature_scale-FUSION_BASE_TEMPSCALE, 0) / FUSION_BUFFER_DIVISOR + 4 ** max(temperature_scale-FUSION_BASE_TEMPSCALE, 0) / FUSION_SLOPE_DIVISOR //The size of the phase space hypertorus
 	var/gas_power = 0
 	for (var/gas_id in air.get_gases())
 		gas_power += (GLOB.meta_gas_info[gas_id][META_GAS_FUSION_POWER]*air.get_moles(gas_id))
@@ -305,13 +305,13 @@
 		reaction_energy *= (instability-FUSION_INSTABILITY_ENDOTHERMALITY)**0.5
 	
 	var/middle_energy = (((TOROID_CALCULATED_THRESHOLD / 2) * scale_factor) + FUSION_MOLE_THRESHOLD) * (200 * FUSION_MIDDLE_ENERGY_REFERENCE)
-	var/translated_energy = middle_energy * FUSION_ENERGY_TRANSLATION_EXPONENT ** log(10, old_thermal_energy / middle_energy) // 1.2 really is low. Don't try to go lower.
+	var/translated_energy = middle_energy * FUSION_ENERGY_TRANSLATION_EXPONENT ** log(10, old_thermal_energy / middle_energy)
 
 	var/bowdlerized_reaction_energy = clamp(reaction_energy, translated_energy * ((1 / FUSION_ENERGY_TRANSLATION_EXPONENT ** 2) - 1), translated_energy * (FUSION_ENERGY_TRANSLATION_EXPONENT ** 2 - 1))
 	if (bowdlerized_reaction_energy != reaction_energy)
-		var/bowdlerized_reaction_energy_ratio = bowdlerized_reaction_energy / reaction_energy
-		delta_plasma *= bowdlerized_reaction_energy_ratio
-		delta_carbon *= bowdlerized_reaction_energy_ratio
+		var/bowdlerization_ratio = bowdlerized_reaction_energy/reaction_energy
+		delta_plasma *= bowdlerization_ratio
+		delta_carbon *= bowdlerization_ratio
 		air.set_moles(/datum/gas/plasma, initial_plasma - delta_plasma)
 		air.set_moles(/datum/gas/carbon_dioxide, initial_carbon - delta_carbon)
 	translated_energy = middle_energy * 10 ** log(FUSION_ENERGY_TRANSLATION_EXPONENT, (translated_energy + bowdlerized_reaction_energy) / middle_energy)
@@ -319,29 +319,29 @@
 	air.adjust_moles(/datum/gas/tritium, -FUSION_TRITIUM_MOLES_USED)
 	//The decay of the tritium and the reaction's energy produces waste gases, different ones depending on whether the reaction is endo or exothermic
 	if(delta_plasma > 0)
-		air.adjust_moles(/datum/gas/water_vapor, scale_factor*(FUSION_TRITIUM_CONVERSION_COEFFICIENT*FUSION_TRITIUM_MOLES_USED))
+		air.adjust_moles(/datum/gas/water_vapor, scale_factor * (FUSION_TRITIUM_CONVERSION_COEFFICIENT*FUSION_TRITIUM_MOLES_USED))
 	else
-		air.adjust_moles(/datum/gas/bz, scale_factor*(FUSION_TRITIUM_CONVERSION_COEFFICIENT*FUSION_TRITIUM_MOLES_USED))
+		air.adjust_moles(/datum/gas/bz, scale_factor * (FUSION_TRITIUM_CONVERSION_COEFFICIENT*FUSION_TRITIUM_MOLES_USED))
 
-	air.adjust_moles(/datum/gas/oxygen, scale_factor*(FUSION_TRITIUM_CONVERSION_COEFFICIENT*FUSION_TRITIUM_MOLES_USED))
+	air.adjust_moles(/datum/gas/oxygen, scale_factor * (FUSION_TRITIUM_CONVERSION_COEFFICIENT*FUSION_TRITIUM_MOLES_USED))
 	
 	if(reaction_energy)
 		if(location)
-			var/standard_energy = 400*air.get_moles(/datum/gas/plasma)*air.return_temperature()
+			var/standard_energy = 400 * air.get_moles(/datum/gas/plasma) * air.return_temperature()
 			var/particle_chance = ((PARTICLE_CHANCE_CONSTANT)/(reaction_energy-PARTICLE_CHANCE_CONSTANT)) + 1//Asymptopically approaches 100% as the energy of the reaction goes up.
 			if(prob(PERCENT(particle_chance)))
 				location.fire_nuclear_particle(customize = TRUE, custompower = standard_energy)
-			var/rad_power = max(2000 * 3 ** (log(10,standard_energy)-FUSION_RAD_MIDPOINT),0)
+			var/rad_power = max(2000 * 3 ** (log(10,standard_energy) - FUSION_RAD_MIDPOINT), 0)
 			radiation_pulse(location,rad_power)
 
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.set_temperature(clamp(translated_energy/new_heat_capacity,TCMB,INFINITY))
+			air.set_temperature(clamp( translated_energy/new_heat_capacity, TCMB, INFINITY))
 		return REACTING
 	else if(reaction_energy == 0 && instability <= FUSION_INSTABILITY_ENDOTHERMALITY)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.set_temperature(clamp(translated_energy/new_heat_capacity,TCMB,INFINITY)) // THIS SHOULD STAY OR FUSION WILL EAT YOUR FACE
+			air.set_temperature(clamp( translated_energy/new_heat_capacity, TCMB, INFINITY)) // THIS SHOULD STAY OR FUSION WILL EAT YOUR FACE
 		return REACTING
 
 /datum/gas_reaction/nitrylformation //The formation of nitryl. Endothermic. Requires N2O as a catalyst.
