@@ -70,23 +70,23 @@
 	return ..()
 
 
-/obj/item/modular_computer/proc/add_verb(var/path)
+/obj/item/modular_computer/proc/add_computer_verbs(var/path)
 	switch(path)
 		if(MC_CARD)
-			verbs += /obj/item/modular_computer/proc/eject_id
+			add_verb(/obj/item/modular_computer/proc/eject_id)
 		if(MC_SDD)
-			verbs += /obj/item/modular_computer/proc/eject_disk
+			add_verb(/obj/item/modular_computer/proc/eject_disk)
 		if(MC_AI)
-			verbs += /obj/item/modular_computer/proc/eject_card
+			add_verb(/obj/item/modular_computer/proc/eject_card)
 
-/obj/item/modular_computer/proc/remove_verb(path)
+/obj/item/modular_computer/proc/remove_computer_verbs(path)
 	switch(path)
 		if(MC_CARD)
-			verbs -= /obj/item/modular_computer/proc/eject_id
+			remove_verb(/obj/item/modular_computer/proc/eject_id)
 		if(MC_SDD)
-			verbs -= /obj/item/modular_computer/proc/eject_disk
+			remove_verb(/obj/item/modular_computer/proc/eject_disk)
 		if(MC_AI)
-			verbs -= /obj/item/modular_computer/proc/eject_card
+			remove_verb(/obj/item/modular_computer/proc/eject_card)
 
 // Eject ID card from computer, if it has ID slot with card inside.
 /obj/item/modular_computer/proc/eject_id()

@@ -587,9 +587,9 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /mob/living/simple_animal/hostile/guardian/proc/OnMindTransfer(datum/_source, mob/old_body, mob/new_body)
 	if(!QDELETED(old_body))
-		old_body.verbs -= /mob/living/proc/guardian_comm
-		old_body.verbs -= /mob/living/proc/guardian_recall
-		old_body.verbs -= /mob/living/proc/guardian_reset
+		old_body.remove_verb(/mob/living/proc/guardian_comm)
+		old_body.remove_verb(/mob/living/proc/guardian_recall)
+		old_body.remove_verb(/mob/living/proc/guardian_reset)
 		UnregisterSignal(old_body, COMSIG_MOVABLE_MOVED)
 		UnregisterSignal(old_body, COMSIG_LIVING_REVIVE)
 	if(isliving(new_body))
@@ -600,9 +600,9 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		RegisterSignal(new_body, COMSIG_MOVABLE_MOVED, /mob/living/simple_animal/hostile/guardian.proc/OnMoved)
 		RegisterSignal(new_body, COMSIG_LIVING_REVIVE, /mob/living/simple_animal/hostile/guardian.proc/Reviveify)
 		to_chat(src, "<span class='notice'>You manifest into existence, as your master's soul appears in a new body!</span>")
-		new_body.verbs |= /mob/living/proc/guardian_comm
-		new_body.verbs |= /mob/living/proc/guardian_recall
-		new_body.verbs |= /mob/living/proc/guardian_reset
+		new_body.add_verb(/mob/living/proc/guardian_comm)
+		new_body.add_verb(/mob/living/proc/guardian_recall)
+		new_body.add_verb(/mob/living/proc/guardian_reset)
 
 /mob/living/proc/guardian_comm()
 	set name = "Communicate"
@@ -682,7 +682,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		else
 			to_chat(src, "<span class='holoparasite'>You decide not to reset [guardians.len > 1 ? "any of your guardians":"your guardian"].</span>")
 	else
-		verbs -= /mob/living/proc/guardian_reset
+		remove_verb(/mob/living/proc/guardian_reset)
 
 ////////parasite tracking/finding procs
 

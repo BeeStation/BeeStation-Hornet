@@ -146,7 +146,7 @@ Doesn't work on other aliens/AI.*/
 	user.verbs.Add(/mob/living/carbon/proc/corrosive_acid)
 
 /obj/effect/proc_holder/alien/acid/on_lose(mob/living/carbon/user)
-	user.verbs.Remove(/mob/living/carbon/proc/corrosive_acid)
+	user.remove_verb(/mob/living/carbon/proc/corrosive_acid)
 
 /obj/effect/proc_holder/alien/acid/proc/corrode(atom/target,mob/living/carbon/user = usr)
 	if(target in oview(1,user))

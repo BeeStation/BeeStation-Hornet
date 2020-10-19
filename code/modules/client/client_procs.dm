@@ -220,7 +220,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		holder.owner = src
 		connecting_admin = TRUE
 	else if(GLOB.deadmins[ckey])
-		verbs += /client/proc/readmin
+		add_verb(/client/proc/readmin)
 		connecting_admin = TRUE
 	if(CONFIG_GET(flag/autoadmin))
 		if(!GLOB.admin_datums[ckey])
@@ -250,7 +250,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	fps = prefs.clientfps
 
 	if(fexists(roundend_report_file()))
-		verbs += /client/proc/show_previous_roundend_report
+		add_verb(/client/proc/show_previous_roundend_report)
 
 	var/full_version = "[byond_version].[byond_build ? byond_build : "xxx"]"
 	log_access("Login: [key_name(src)] from [address ? address : "localhost"]-[computer_id] || BYOND v[full_version]")
@@ -396,7 +396,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	validate_key_in_db()
 
 	fetch_uuid()
-	verbs += /client/proc/show_account_identifier
+	add_verb(/client/proc/show_account_identifier)
 
 	send_resources()
 
@@ -910,9 +910,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /client/proc/add_verbs_from_config()
 	if(CONFIG_GET(flag/see_own_notes))
-		verbs += /client/proc/self_notes
+		add_verb(/client/proc/self_notes)
 	if(CONFIG_GET(flag/use_exp_tracking))
-		verbs += /client/proc/self_playtime
+		add_verb(/client/proc/self_playtime)
 
 
 #undef UPLOAD_LIMIT
@@ -1021,7 +1021,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	set category = "OOC"
 	set desc ="Get your ID for account verification."
 
-	verbs -= /client/proc/show_account_identifier
+	remove_verb(/client/proc/show_account_identifier)
 	addtimer(CALLBACK(src, .proc/restore_account_identifier), 20) //Don't DoS DB queries, asshole
 
 	var/confirm = alert("Do NOT share the verification ID in the following popup. Understand?", "Important Warning", "Yes", "Cancel")
@@ -1044,4 +1044,4 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			onclose(src, "accountidentifier")
 
 /client/proc/restore_account_identifier()
-	verbs += /client/proc/show_account_identifier
+	add_verb(/client/proc/show_account_identifier)
