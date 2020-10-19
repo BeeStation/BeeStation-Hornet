@@ -295,7 +295,7 @@
 
 	air.set_moles(/datum/gas/plasma, plasma*scale_factor + FUSION_MOLE_THRESHOLD )//Scales the gases back up
 	air.set_moles(/datum/gas/carbon_dioxide, carbon*scale_factor + FUSION_MOLE_THRESHOLD)
-	var/delta_plasma = min(initial_plasma - air.get_moles(/datum/gas/plasma), toroidal_size * scale_factor * 5)
+	var/delta_plasma = min(initial_plasma - air.get_moles(/datum/gas/plasma), toroidal_size * scale_factor * 1.5)
 	var/delta_carbon = initial_carbon - air.get_moles(/datum/gas/carbon_dioxide)
 
 	reaction_energy += delta_plasma*PLASMA_BINDING_ENERGY //Energy is gained or lost corresponding to the creation or destruction of mass.
@@ -307,7 +307,7 @@
 	var/middle_energy = (((TOROID_CALCULATED_THRESHOLD / 2) * scale_factor) + FUSION_MOLE_THRESHOLD) * (200 * FUSION_MIDDLE_ENERGY_REFERENCE)
 	var/translated_energy = middle_energy * FUSION_ENERGY_TRANSLATION_EXPONENT ** log(10, old_thermal_energy / middle_energy) // 1.2 really is low. Don't try to go lower.
 
-	var/bowdlerized_reaction_energy = clamp(reaction_energy, translated_energy * ((1 / FUSION_ENERGY_TRANSLATION_EXPONENT) - 1), translated_energy * (FUSION_ENERGY_TRANSLATION_EXPONENT - 1))
+	var/bowdlerized_reaction_energy = clamp(reaction_energy, translated_energy * ((1 / FUSION_ENERGY_TRANSLATION_EXPONENT ** 2) - 1), translated_energy * (FUSION_ENERGY_TRANSLATION_EXPONENT ** 2 - 1))
 	if (bowdlerized_reaction_energy != reaction_energy)
 		var/bowdlerized_reaction_energy_ratio = bowdlerized_reaction_energy / reaction_energy
 		delta_plasma *= bowdlerized_reaction_energy_ratio
