@@ -181,10 +181,17 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 	return 0
 
 /datum/cameranet/proc/stat_entry()
-	if(!statclick)
-		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
-
-	stat(name, statclick.update("Cameras: [GLOB.cameranet.cameras.len] | Chunks: [GLOB.cameranet.chunks.len]"))
+	var/list/tab_data = list()
+	tab_data["[name]"] = list(
+		text="Cameras: [GLOB.cameranet.cameras.len] | Chunks: [GLOB.cameranet.chunks.len]",
+		action = "statClickDebug",
+		params=list(
+			"targetRef" = REF(src),
+			"class"="datum",
+		),
+		type=STAT_BUTTON,
+	)
+	return tab_data
 
 /obj/effect/overlay/camera_static
 	name = "static"

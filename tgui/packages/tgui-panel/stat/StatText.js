@@ -5,6 +5,7 @@ import { Button, Flex, Knob, Tabs, Box, Section } from 'tgui/components';
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
 import { sendMessage } from 'tgui/backend';
+import { Divider } from '../../tgui/components';
 
 export const StatText = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
@@ -17,22 +18,26 @@ export const StatText = (props, context) => {
             {statPanelData
               ? Object.keys(statPanelData).map(key => (
                 <Flex.Item mt={1}>
-                  {statPanelData[key].type === 0
-                    ?<StatText_text
-                     title={key}
-                      text={statPanelData[key].text} />
-                    :statPanelData[key].type === 1
-                      ? <StatText_button
-                        title={key}
-                        text={statPanelData[key].text}
-                        action_id={statPanelData[key].action}
-                        params={statPanelData[key].params} />
-                      :statPanelData[key].type === 2
-                        ? <StatText_atom
-                          atom_ref={key}
-                          atom_name={statPanelData[key].text}
-                          atom_icon={statPanelData[key].icon} />
-                        : null
+                  {statPanelData[key]
+                    ?statPanelData[key].type === 0
+                      ?<StatText_text
+                      title={key}
+                        text={statPanelData[key].text} />
+                      :statPanelData[key].type === 1
+                        ? <StatText_button
+                          title={key}
+                          text={statPanelData[key].text}
+                          action_id={statPanelData[key].action}
+                          params={statPanelData[key].params} />
+                        :statPanelData[key].type === 2
+                          ? <StatText_atom
+                            atom_ref={key}
+                            atom_name={statPanelData[key].text}
+                            atom_icon={statPanelData[key].icon} />
+                          : statPanelData[key].type === 3
+                            ? <StatText_divider />
+                            : null
+                    :null
                   }
                 </Flex.Item>
               ))
@@ -93,21 +98,35 @@ export const StatText_atom = (props, context) => {
   } = props;
   return (
     <Button
-      onClick={() => sendMessage({
+      onClick={e => sendMessage({
         type: 'stat/pressed',
         payload: {
           action_id: 'atomClick',
-          params: {ref: atom_ref},
+          params: {
+            ref: atom_ref,
+          },
         },
       })}
       color="transparent">
-      <img
-        src={`data:image/jpeg;base64,${atom_icon}`}
-        style={{
-          'vertical-align': 'middle',
-          'horizontal-align': 'middle',
-        }} />
-      {atom_name}
+      <Flex>
+        <Flex.Item>
+          <img
+            src={`data:image/jpeg;base64,${atom_icon}`}
+            style={{
+              'vertical-align': 'middle',
+              'horizontal-align': 'middle',
+            }} />
+        </Flex.Item>
+        <Flex.Item ml={1}>
+          {atom_name}
+        </Flex.Item>
+      </Flex>
     </Button>
+  );
+};
+
+export const StatText_divider = (props, context) => {
+  return (
+    <Divider />
   );
 };

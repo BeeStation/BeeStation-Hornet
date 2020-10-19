@@ -21,6 +21,7 @@ export const StatTabs = (props, context) => {
   let statTabs = stat.statTabs;
   return (
     <Flex
+      height="100%"
       direction="column">
       <Flex.Item>
         <Section
@@ -46,6 +47,7 @@ export const StatTabs = (props, context) => {
         </Section>
       </Flex.Item>
       <Flex.Item
+        overflowY="scroll"
         grow={1}
         mt={1}>
         {statSection}
