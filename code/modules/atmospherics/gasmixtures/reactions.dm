@@ -278,7 +278,7 @@
 	var/initial_carbon = air.get_moles(/datum/gas/carbon_dioxide)
 	var/scale_factor = max(air.return_volume()/FUSION_SCALE_DIVISOR,FUSION_MINIMAL_SCALE)
 	var/temperature_scale = log(10, air.return_temperature())
-	var/toroidal_size = min(TOROID_CALCULATED_THRESHOLD + min(temperature_scale-FUSION_BASE_TEMPSCALE,0) / FUSION_BUFFER_DIVISOR + 4 ** max(temperature_scale-FUSION_BASE_TEMPSCALE,0) / FUSION_SLOPE_DIVISOR, 1000)//The size of the phase space hypertorus
+	var/toroidal_size = TOROID_CALCULATED_THRESHOLD + min(temperature_scale-FUSION_BASE_TEMPSCALE,0) / FUSION_BUFFER_DIVISOR + 4 ** max(temperature_scale-FUSION_BASE_TEMPSCALE,0) / FUSION_SLOPE_DIVISOR//The size of the phase space hypertorus
 	var/gas_power = 0
 	for (var/gas_id in air.get_gases())
 		gas_power += (GLOB.meta_gas_info[gas_id][META_GAS_FUSION_POWER]*air.get_moles(gas_id))
