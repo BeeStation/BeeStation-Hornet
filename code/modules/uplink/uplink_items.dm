@@ -2054,7 +2054,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 /datum/uplink_item/role_restricted/holocarp
 	name = "Holocarp Parasites"
 	desc = "Fishsticks prepared through ritualistic means in honor of the god Carp-sie, capable of binding a holocarp \
-			to act as a servent and guardian to their host."
+			to act as a servant and guardian to their host."
 	item = /obj/item/guardiancreator/carp
 	cost = 18
 	surplus = 5
