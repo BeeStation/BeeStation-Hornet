@@ -18,15 +18,7 @@ export const StatTabs = (props, context) => {
       break;
   }
   //Map the input data into tabs, then filter out extra_data
-  let statTabs = stat.infomationUpdate
-    ? Object.entries(stat.infomationUpdate)
-      .map(statusTab => statusTab[0] === "extra_data"
-        ? null
-        : statusTab[0])
-      .filter(function(value) {
-        return value !== null;
-      })
-    : [];
+  let statTabs = stat.statTabs;
   return (
     <Flex
       direction="column">

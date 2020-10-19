@@ -1,4 +1,6 @@
 
+import { sendMessage } from 'tgui/backend';
+
 export class StatPanel {
   constructor() {
     this.selectedTab = 'Status';
