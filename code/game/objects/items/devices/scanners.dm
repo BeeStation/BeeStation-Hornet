@@ -971,7 +971,7 @@ GENE SCANNER
 	name = "material scanner"
 	desc = "A device that analyzes a object's composition and lists its materials."
 	icon = 'icons/obj/device.dmi'
-	icon_state = "analyzer_old"
+	icon_state = "forensic0"
 	item_state = "analyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
