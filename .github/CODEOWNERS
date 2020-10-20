@@ -6,32 +6,32 @@
 
 # crossedfall
 
-.dockerignore @crossedfall
-.github @crossedfall
-.travis.yml @crossedfall
-appveyor.yml @crossedfall
-/code/modules/tgs @crossedfall
-/config @crossedfall
-dependencies.sh @crossedfall
-Dockerfile @crossedfall
-/SQL @crossedfall
-TGS3.json @crossedfall
-/tools @crossedfall
+#.dockerignore @crossedfall
+#.github @crossedfall
+#.travis.yml @crossedfall
+#appveyor.yml @crossedfall
+#/code/modules/tgs @crossedfall
+#/config @crossedfall								He don't want to be spam, I'll do the same for others bee contribuor, unless they ask to be mailed when a pr is up.
+#dependencies.sh @crossedfall
+#Dockerfile @crossedfall
+#/SQL @crossedfall
+#TGS3.json @crossedfall
+#/tools @crossedfall
 
 
 # ike709
 
-/code/modules/client/loadout @ike709
+#/code/modules/client/loadout @ike709
 
 
 # powerfulbacon
 
-/code/game/machinery/shuttle @powerfulbacon
-/code/modules/shuttle @powerfulbacon
+#/code/game/machinery/shuttle @powerfulbacon
+#/code/modules/shuttle @powerfulbacon
 
 # zeskorion
 
-/code/__DEFINES/diseases.dm @zeskorion
-/code/controllers/subsystem/disease.dm @zeskorion
-/code/datums/diseases @zeskorion
-/code/modules/antagonists/disease @zeskorion
+#/code/__DEFINES/diseases.dm @zeskorion
+#/code/controllers/subsystem/disease.dm @zeskorion
+#/code/datums/diseases @zeskorion
+#/code/modules/antagonists/disease @zeskorion
