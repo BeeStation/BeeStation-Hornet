@@ -44,14 +44,14 @@
 		humie.ghostize(0)		
 		humie.key = C.key
 
+	log_game("[key_name_admin(humie)] has become a voiceless dead, their master is [user.real_name]")
+	humie.revive(full_heal = TRUE, admin_revive = TRUE)
 	ADD_TRAIT(humie,TRAIT_MUTE,MAGIC_TRAIT)
 	ADD_TRAIT(humie, TRAIT_STUNIMMUNE, MAGIC_TRAIT)
 	ADD_TRAIT(humie, TRAIT_CONFUSEIMMUNE, MAGIC_TRAIT)
 	ADD_TRAIT(humie, TRAIT_IGNOREDAMAGESLOWDOWN, MAGIC_TRAIT)
 	ADD_TRAIT(humie, TRAIT_NOSTAMCRIT, MAGIC_TRAIT)
 	ADD_TRAIT(humie, TRAIT_NOLIMBDISABLE, MAGIC_TRAIT)
-	log_game("[key_name_admin(humie)] has become a voiceless dead, their master is [user.real_name]")
-	humie.revive(full_heal = TRUE, admin_revive = TRUE)
 	humie.setMaxHealth(50)
 	humie.health = 50 // Voiceless dead are much tougher than ghouls
 	humie.become_husk()
@@ -116,9 +116,9 @@
 	. = TRUE
 	RegisterSignal(human_target,COMSIG_MOB_DEATH,.proc/remove_ghoul)
 	human_target.revive(full_heal = TRUE, admin_revive = TRUE)
+	ADD_TRAIT(human_target, TRAIT_NOSTAMCRIT, MAGIC_TRAIT)
+	ADD_TRAIT(human_target, TRAIT_NOLIMBDISABLE, MAGIC_TRAIT)
 	human_target.setMaxHealth(25)
-	ADD_TRAIT(human_target, TRAIT_STUNIMMUNE, MAGIC_TRAIT)
-	ADD_TRAIT(human_target, TRAIT_CONFUSEIMMUNE, MAGIC_TRAIT)
 	human_target.health = 25
 	human_target.become_husk()
 	human_target.faction |= "heretics"
