@@ -989,7 +989,7 @@ GENE SCANNER
 		if (I.materials)
 			analyze_materials(I, user)
 			return	
-	to_chat(user, "<span class='notice'>[O] doesn't have any reusable materials.</span>")
+	to_chat(user, "<span class='notice'>[I] doesn't have any reusable materials.</span>")
 
 /obj/item/material_scanner/proc/analyze_materials(obj/item/I, mob/living/user)
 	to_chat(user, "- Material Analysis of [I] -")
