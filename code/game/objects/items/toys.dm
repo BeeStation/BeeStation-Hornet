@@ -1456,6 +1456,7 @@
 	
 /obj/item/toy/eldrich_book/attack_self(mob/user)
 	open = !open
+	update_icon()
 
 /obj/item/toy/eldrich_book/update_icon()
 	icon_state = open ? "book_open" : "book"
