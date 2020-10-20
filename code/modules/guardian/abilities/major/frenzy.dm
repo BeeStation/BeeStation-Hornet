@@ -41,7 +41,10 @@
 		next_rush = world.time + ((0.2 SECONDS * (5 - master_stats.potential)) + 2)	//2 to 3 seconds
 
 /datum/guardian_ability/major/frenzy/Stat()
-	. = ..()
-	if(statpanel("Status"))
-		if(next_rush > world.time)
-			stat(null, "Frenzy Charge Cooldown Remaining: [DisplayTimeText(next_rush - world.time)]")
+	var/list/tab_data = list()
+	if(next_rush > world.time)
+		tab_data["Frenzy Charge Cooldown Remaining"] = list(
+			text="[DisplayTimeText(next_rush - world.time)]",
+			type=STAT_TEXT,
+		)
+	return tab_data

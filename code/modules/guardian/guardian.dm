@@ -241,20 +241,26 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	if(stats.ability)
 		stats.ability.Berserk()
 
-/mob/living/simple_animal/hostile/guardian/Stat()
-	..()
-	if(statpanel("Status"))
-		if(summoner?.current)
-			var/resulthealth
-			if(iscarbon(summoner.current))
-				resulthealth = round((abs(HEALTH_THRESHOLD_DEAD - summoner.current.health) / abs(HEALTH_THRESHOLD_DEAD - summoner.current.maxHealth)) * 100)
-			else
-				resulthealth = round((summoner.current.health / summoner.current.maxHealth) * 100, 0.5)
-			stat(null, "Summoner Health: [resulthealth]%")
-		if(cooldown >= world.time)
-			stat(null, "Manifest/Recall Cooldown Remaining: [DisplayTimeText(cooldown - world.time)]")
-		if(stats.ability)
-			stats.ability.Stat()
+/mob/living/simple_animal/hostile/guardian/get_stat_tab_status()
+	var/list/tab_data = ..()
+	if(summoner?.current)
+		var/resulthealth
+		if(iscarbon(summoner.current))
+			resulthealth = round((abs(HEALTH_THRESHOLD_DEAD - summoner.current.health) / abs(HEALTH_THRESHOLD_DEAD - summoner.current.maxHealth)) * 100)
+		else
+			resulthealth = round((summoner.current.health / summoner.current.maxHealth) * 100, 0.5)
+		tab_data["Summoner Health"] = list(
+			text="[resulthealth]%",
+			type=STAT_TEXT,
+		)
+	if(cooldown >= world.time)
+		tab_data["Manifest/Recall Cooldown Remaining"] = list(
+			text=" [DisplayTimeText(cooldown - world.time)]",
+			type=STAT_TEXT,
+		)
+	if(stats.ability)
+		tab_data += stats.ability.Stat()
+	return tab_data
 
 /mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
 	pixel_x = initial(pixel_x)
