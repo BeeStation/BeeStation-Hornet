@@ -116690,10 +116690,7 @@
 /obj/machinery/newscaster{
 	pixel_y = -32
 	},
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1481;
-	name = "Confessional Intercom";
+/obj/item/radio/intercom/chapel{
 	pixel_x = -26
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -116716,10 +116713,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1481;
-	name = "Confessional Intercom";
+/obj/item/radio/intercom/chapel{
 	pixel_y = -26
 	},
 /obj/effect/turf_decal/tile/neutral{

@@ -72545,11 +72545,8 @@
 /turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "cNz" = (
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1481;
-	name = "Confessional Intercom";
-	pixel_x = -25
+/obj/item/radio/intercom/chapel{
+	pixel_x = -26
 	},
 /obj/structure/chair,
 /turf/open/floor/plasteel/dark,
@@ -73074,11 +73071,8 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
 "cOL" = (
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1481;
-	name = "Confessional Intercom";
-	pixel_x = 25
+/obj/item/radio/intercom/chapel{
+	pixel_x = 26
 	},
 /obj/structure/chair{
 	dir = 1
