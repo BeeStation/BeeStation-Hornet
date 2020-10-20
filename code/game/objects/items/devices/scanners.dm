@@ -986,7 +986,6 @@ GENE SCANNER
 	if(user.stat || user.eye_blind)
 		return
 	if(istype(O, /obj/item))
-		var/obj/item/I = O
 		if (I.materials)
 			analyze_materials(I, user)
 			return	
