@@ -143,7 +143,7 @@ Doesn't work on other aliens/AI.*/
 	action_icon_state = "alien_acid"
 
 /obj/effect/proc_holder/alien/acid/on_gain(mob/living/carbon/user)
-	user.verbs.Add(/mob/living/carbon/proc/corrosive_acid)
+	user.add_verb(/mob/living/carbon/proc/corrosive_acid)
 
 /obj/effect/proc_holder/alien/acid/on_lose(mob/living/carbon/user)
 	user.remove_verb(/mob/living/carbon/proc/corrosive_acid)

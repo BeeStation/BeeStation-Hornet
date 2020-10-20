@@ -60,6 +60,8 @@
 	to_chat(owner.current, "The Syndicate only accepts those that have proven themselves. Prove yourself and prove your [team.member_name]s by completing your objectives together!")
 	owner.announce_objectives()
 	give_meeting_area()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("You are the [owner.special_role]",
+		"Work with [brother_text] to prove yourself to the syndicate.")
 
 /datum/antagonist/brother/proc/finalize_brother()
 	SSticker.mode.update_brother_icons_added(owner)

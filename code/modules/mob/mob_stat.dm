@@ -216,36 +216,7 @@
 			message_admins("Admin [key_name_admin(usr)] is debugging the [target] [class].")
 		if("verb")
 			var/verb_name = params["verb"]
-			//Get all available verbs to the client.
-			var/list/mob_verbs = sorted_verbs
-			var/list/client_verbs = client.sorted_verbs
-			//Find the verb we need
-			if(!(client.selected_stat_tab in (mob_verbs + client_verbs)))
-				return
-			//Invoking verbs on mob
-			if(mob_verbs)
-				for(var/verb in mob_verbs[client.selected_stat_tab])
-					var/procpath/V = verb
-					if(V.name == verb_name)
-						//Security check
-						if(!(verb in verbs))
-							return
-						//Call it
-						call(src, verb)()
-						log_tgui("[client] used verb [V.name]")
-						return
-			//Invoke verbs on client
-			if(client_verbs)
-				for(var/verb in client_verbs[client.selected_stat_tab])
-					var/procpath/V = verb
-					if(V.name == verb_name)
-						//Security check
-						if(!(verb in client.verbs))
-							return
-						//INCREDIBLE DANGEROUS CALL (should be find since they can't call any verb they don't have... right?)
-						call(client, .client/verb)()
-						log_tgui("[client] used verb [V.name]")
-						return
+			winset(client, null, "command=[replacetext(verb_name, " ", "-")]")
 
 /*
  * Sets the current stat tab selected.

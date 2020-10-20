@@ -5,12 +5,14 @@ import { Button, Flex, Knob, Tabs, Box, Section } from 'tgui/components';
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
 import { sendMessage } from 'tgui/backend';
-import { Divider, Grid } from '../../tgui/components';
+import { Divider, Grid, Table } from '../../tgui/components';
 import { STAT_TEXT, STAT_BUTTON, STAT_ATOM, STAT_DIVIDER, STAT_VERB } from './constants'
 
 export const StatText = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
   let statPanelData = stat.statInfomation;
+  let verbs = Object.keys(statPanelData)
+    .filter(element => !!statPanelData[element] && statPanelData[element].type === STAT_VERB);
   return (
     <Flex.Item mt={1}>
       <Flex direction="column">
@@ -32,13 +34,24 @@ export const StatText = (props, context) => {
                     atom_name={statPanelData[key].text}
                     atom_icon={statPanelData[key].icon} />
                   || statPanelData[key].type === STAT_DIVIDER && <StatText_divider />
-                  || statPanelData[key].type === STAT_VERB && <StatText_verb
-                    title={key}
-                    action_id={statPanelData[key].action}
-                    params={statPanelData[key].params} />
+                  || null
                 )
               ))
               : "No data"}
+              {!!verbs.length && (
+                <Flex.Item>
+                  <Flex
+                    wrap="wrap"
+                    align="left">
+                    {verbs.map(verb => (
+                      <StatText_verb
+                        title={verb}
+                        action_id={statPanelData[verb].action}
+                        params={statPanelData[verb].params} />
+                    ))}
+                  </Flex>
+                </Flex.Item>
+              )}
           </Section>
         </div>
       </Flex>
@@ -137,7 +150,9 @@ export const StatText_verb = (props, context) => {
     params = [],
   } = props;
   return (
-    <Flex.Item mt={1} inline>
+    <Flex.Item
+      shrink={1}
+      basis="200px">
       <Button
         content={title}
         onClick={() => sendMessage({
@@ -147,7 +162,8 @@ export const StatText_verb = (props, context) => {
             params: params,
           },
         })}
-        color="transparent" />
+        color="transparent"
+        fluid />
     </Flex.Item>
   );
 };

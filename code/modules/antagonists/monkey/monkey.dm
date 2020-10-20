@@ -36,6 +36,8 @@
 	to_chat(owner, "<b><i>As an intelligent monkey, you know how to use technology and how to ventcrawl while wearing things.</i></b>")
 	to_chat(owner, "<b>You can use :k to talk to fellow monkeys!</b>")
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/monkey.ogg'))
+	owner.current.client?.tgui_panel?.give_antagonist_popup("You are the [owner.special_role]",
+		"Bite other humans to infect them and escape on the emergency shuttle to succeed.")
 
 /datum/antagonist/monkey/on_removal()
 	owner.special_role = null
@@ -126,6 +128,8 @@
 	to_chat(owner, "<b>As an initial infectee, you will be considered a 'leader' by your fellow monkeys.</b>")
 	to_chat(owner, "<b>You can use :k to talk to fellow monkeys!</b>")
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/monkey.ogg'))
+	owner.current.client?.tgui_panel?.give_antagonist_popup("You are the [owner.special_role]",
+		"Bite other humans to infect them and escape on the emergency shuttle to succeed.")
 
 /datum/objective/monkey
 	explanation_text = "Ensure that infected monkeys escape on the emergency shuttle!"

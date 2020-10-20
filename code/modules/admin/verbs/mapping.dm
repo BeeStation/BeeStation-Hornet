@@ -206,13 +206,13 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 	if(!check_rights(R_DEBUG))
 		return
 	remove_verb(/client/proc/enable_debug_verbs)
-	verbs.Add(/client/proc/disable_debug_verbs, GLOB.admin_verbs_debug_mapping)
+	add_verb(list(/client/proc/disable_debug_verbs, GLOB.admin_verbs_debug_mapping))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Enable Debug Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/disable_debug_verbs()
 	set category = "Debug"
 	set name = "Debug verbs - Disable"
-	remove_verb(/client/proc/disable_debug_verbs, GLOB.admin_verbs_debug_mapping)
+	remove_verb(list(/client/proc/disable_debug_verbs, GLOB.admin_verbs_debug_mapping))
 	add_verb(/client/proc/enable_debug_verbs)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Disable Debug Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

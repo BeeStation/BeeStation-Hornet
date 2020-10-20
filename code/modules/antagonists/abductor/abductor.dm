@@ -68,6 +68,8 @@
 	to_chat(owner.current, "<span class='notice'>Choose a worthy disguise and plan your targets carefully! Humans will kill you on sight.</span>")
 	to_chat(owner.current, "<span class='notice'>[greet_text]</span>")
 	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("You are the [owner.special_role]!",
+		"Capture and experiment on the crew without getting caught.")
 
 /datum/antagonist/abductor/proc/finalize_abductor()
 	//Equip
@@ -182,6 +184,9 @@
 	to_chat(owner, "<span class='warning'><b>Your mind snaps!</b></span>")
 	to_chat(owner, "<big><span class='warning'><b>You can't remember how you got here...</b></span></big>")
 	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("You can't remember how you got here.",
+		"Something isn't right with your brain, you feel like there is something you have to do no matter what...\n\
+		[LAZYLEN(objectives) ? <B>Objective</B>: [objectives[1].explanation_text]] : 'Nevermind...'")
 
 /datum/antagonist/abductee/proc/give_objective()
 	var/mob/living/carbon/human/H = owner.current

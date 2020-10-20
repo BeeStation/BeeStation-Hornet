@@ -46,6 +46,8 @@
 /datum/antagonist/rev/greet()
 	to_chat(owner, "<span class='userdanger'>You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Help them kill the heads to win the revolution!</span>")
 	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("You are the [owner.special_role]",
+		"Eliminate the heads of staff. Viva la revolution!")
 
 /datum/antagonist/rev/create_team(datum/team/revolution/new_team)
 	if(!new_team)

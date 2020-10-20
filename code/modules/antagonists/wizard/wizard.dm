@@ -143,6 +143,8 @@
 	to_chat(owner, "The spellbook is bound to you, and others cannot use it.")
 	to_chat(owner, "In your pockets you will find a teleport scroll. Use it as needed.")
 	to_chat(owner,"<B>Remember:</B> do not forget to prepare your spells.")
+	owner.current.client?.tgui_panel?.give_antagonist_popup("You are the Space Wizard!",
+		"Prepare your spells and cause havok upon the accursed station.")
 
 /datum/antagonist/wizard/farewell()
 	to_chat(owner, "<span class='userdanger'>You have been brainwashed! You are no longer a wizard!</span>")
