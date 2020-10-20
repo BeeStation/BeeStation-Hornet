@@ -56147,6 +56147,7 @@
 /obj/item/wrench,
 /obj/item/crowbar,
 /obj/item/clothing/glasses/welding,
+/obj/item/material_scanner,
 /obj/item/stack/sheet/mineral/copper{
 	amount = 5
 	},

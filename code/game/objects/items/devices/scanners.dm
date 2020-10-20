@@ -966,3 +966,36 @@ GENE SCANNER
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 	return TRUE
 
+
+/obj/item/material_scanner
+	name = "material scanner"
+	desc = "A device that analyzes a object's composition and lists its materials."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "analyzer_old"
+	item_state = "analyzer"
+	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
+	w_class = WEIGHT_CLASS_SMALL
+	flags_1 = CONDUCT_1
+	throwforce = 0
+	throw_speed = 3
+	throw_range = 7
+	materials = list(/datum/material/iron=30, /datum/material/glass=20)
+
+/obj/item/material_scanner/attack(obj/O, mob/living/user)
+	if(user.stat || user.eye_blind)
+		return
+	if(istype(O, /obj/item) && O.materials)
+		var/obj/item/I = O
+		analyze_materials(I, user)
+	else
+		to_chat(user, "<span class='notice'>[O] doesn't have any reusable materials.</span>")
+
+/obj/item/material_scanner/proc/analyze_materials(obj/item/I, mob/living/user)
+	to_chat(user, "- Material Analysis of [I] -")
+	for(var/R in I.materials)
+		var/datum/material/M = R
+		var/name = R.name
+		var/amount =  I.materials[R]
+		to_chat(user, "* [name] ([amount])")
+	to_chat(user, "- Analysis complete! -")

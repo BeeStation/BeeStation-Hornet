@@ -718,6 +718,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
+/obj/item/material_scanner,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "abL" = (
@@ -44882,6 +44883,7 @@
 /obj/item/stock_parts/manipulator,
 /obj/item/stock_parts/micro_laser,
 /obj/item/stock_parts/micro_laser,
+/obj/item/material_scanner,
 /obj/item/reagent_containers/glass/beaker{
 	pixel_x = 8;
 	pixel_y = 2

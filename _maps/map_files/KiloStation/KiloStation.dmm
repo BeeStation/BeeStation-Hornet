@@ -49096,6 +49096,7 @@
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/clothing/glasses/welding,
+/obj/item/material_scanner,
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
@@ -51174,6 +51175,7 @@
 	pixel_x = 8;
 	pixel_y = 2
 	},
+/obj/item/material_scanner,
 /obj/item/pen,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1

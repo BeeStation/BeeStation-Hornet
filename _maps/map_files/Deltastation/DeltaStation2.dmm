@@ -27650,6 +27650,7 @@
 	pixel_y = 3
 	},
 /obj/item/stamp,
+/obj/item/material_scanner,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
@@ -92650,6 +92651,7 @@
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/wrench,
 /obj/item/clothing/glasses/welding,
+/obj/item/material_scanner,
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},

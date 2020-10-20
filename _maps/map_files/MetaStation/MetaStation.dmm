@@ -29035,6 +29035,7 @@
 	pixel_x = 4;
 	pixel_y = -2
 	},
+/obj/item/material_scanner,
 /obj/item/stamp{
 	pixel_x = -3;
 	pixel_y = 3
@@ -59185,6 +59186,7 @@
 	},
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/clothing/glasses/welding,
+/obj/item/material_scanner,
 /obj/structure/table,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4

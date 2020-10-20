@@ -21559,6 +21559,7 @@
 	},
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/clothing/glasses/welding,
+/obj/item/material_scanner,
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = -2;
 	pixel_y = -1
@@ -23361,6 +23362,7 @@
 	pixel_x = 4;
 	pixel_y = -2
 	},
+/obj/item/material_scanner,
 /obj/structure/table,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 10
