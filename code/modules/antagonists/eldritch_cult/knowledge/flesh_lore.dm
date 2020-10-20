@@ -117,9 +117,8 @@
 	RegisterSignal(human_target,COMSIG_MOB_DEATH,.proc/remove_ghoul)
 	human_target.revive(full_heal = TRUE, admin_revive = TRUE)
 	human_target.setMaxHealth(25)
+	ADD_TRAIT(human_target, TRAIT_STUNIMMUNE, MAGIC_TRAIT)
 	ADD_TRAIT(human_target, TRAIT_CONFUSEIMMUNE, MAGIC_TRAIT)
-	ADD_TRAIT(human_target, TRAIT_NOSTAMCRIT, MAGIC_TRAIT)
-	ADD_TRAIT(human_target, TRAIT_NOLIMBDISABLE, MAGIC_TRAIT)
 	human_target.health = 25
 	human_target.become_husk()
 	human_target.faction |= "heretics"
