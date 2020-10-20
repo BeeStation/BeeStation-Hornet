@@ -121,10 +121,13 @@
 	holder.pixel_y = I.Height() - world.icon_size
 	holder.icon_state = "hudstat"
 
-/mob/living/simple_animal/hostile/swarmer/Stat()
-	..()
-	if(statpanel("Status"))
-		stat(null ,"Resources: [resources]")
+/mob/living/simple_animal/hostile/swarmer/get_stat_tab_status()
+	var/list/tab_data = ..()
+	tab_data["Resources"] = list(
+		text="[resources]",
+		type=STAT_TEXT,
+	)
+	return tab_data
 
 /mob/living/simple_animal/hostile/swarmer/emp_act()
 	. = ..()

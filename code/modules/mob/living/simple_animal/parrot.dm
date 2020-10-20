@@ -137,11 +137,11 @@
 
 	..(gibbed)
 
-/mob/living/simple_animal/parrot/Stat()
-	..()
-	if(statpanel("Status"))
-		stat("Held Item", held_item)
-		stat("Mode",a_intent)
+/mob/living/simple_animal/parrot/get_stat_tab_status()
+	var/list/tab_data = ..()
+	tab_data["Held Item"] = GENERATE_STAT_TEXT("[held_item]")
+	tab_data["Mode"] = GENERATE_STAT_TEXT("[a_intent]")
+	return tab_data
 
 /mob/living/simple_animal/parrot/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, list/spans, message_mode)
 	. = ..()

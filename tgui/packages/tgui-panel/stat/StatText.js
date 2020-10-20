@@ -11,6 +11,15 @@ import { STAT_TEXT, STAT_BUTTON, STAT_ATOM, STAT_DIVIDER, STAT_VERB } from './co
 export const StatText = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
   let statPanelData = stat.statInfomation;
+  if(!statPanelData)
+  {
+    return(
+      <Flex.Item
+        color="red">
+        Passed stat panel data was null contant coderman (or coderwoman).
+      </Flex.Item>
+    );
+  }
   let verbs = Object.keys(statPanelData)
     .filter(element => !!statPanelData[element] && statPanelData[element].type === STAT_VERB);
   return (

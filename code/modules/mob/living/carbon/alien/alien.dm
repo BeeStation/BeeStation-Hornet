@@ -86,11 +86,15 @@
 /mob/living/carbon/alien/IsAdvancedToolUser()
 	return has_fine_manipulation
 
-/mob/living/carbon/alien/Stat()
-	..()
+/mob/living/carbon/alien/get_stat_tab_status()
+	var/list/tab_data = ..()
 
-	if(statpanel("Status"))
-		stat(null, "Intent: [a_intent]")
+	tab_data["Intent"] = list(
+		text="[a_intent]",
+		type=STAT_TEXT,
+	)
+
+	return tab_data
 
 /mob/living/carbon/alien/getTrail()
 	if(getBruteLoss() < 200)

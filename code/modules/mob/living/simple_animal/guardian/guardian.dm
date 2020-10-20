@@ -189,18 +189,18 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		qdel(src)
 	snapback()
 
-/mob/living/simple_animal/hostile/guardian/Stat()
-	..()
-	if(statpanel("Status"))
-		if(summoner)
-			var/resulthealth
-			if(iscarbon(summoner))
-				resulthealth = round((abs(HEALTH_THRESHOLD_DEAD - summoner.health) / abs(HEALTH_THRESHOLD_DEAD - summoner.maxHealth)) * 100)
-			else
-				resulthealth = round((summoner.health / summoner.maxHealth) * 100, 0.5)
-			stat(null, "Summoner Health: [resulthealth]%")
-		if(cooldown >= world.time)
-			stat(null, "Manifest/Recall Cooldown Remaining: [DisplayTimeText(cooldown - world.time)]")
+/mob/living/simple_animal/hostile/guardian/get_stat_tab_status()
+	var/list/tab_data = ..()
+	if(summoner)
+		var/resulthealth
+		if(iscarbon(summoner))
+			resulthealth = round((abs(HEALTH_THRESHOLD_DEAD - summoner.health) / abs(HEALTH_THRESHOLD_DEAD - summoner.maxHealth)) * 100)
+		else
+			resulthealth = round((summoner.health / summoner.maxHealth) * 100, 0.5)
+		tab_data["Summoner Health"] = GENERATE_STAT_TEXT("[resulthealth]%")
+	if(cooldown >= world.time)
+		tab_data["Manifest/Recall Cooldown Remaining"] = GENERATE_STAT_TEXT("[DisplayTimeText(cooldown - world.time)]")
+	return tab_data
 
 /mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
 	. = ..()

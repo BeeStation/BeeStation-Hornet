@@ -186,7 +186,7 @@
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("You can't remember how you got here.",
 		"Something isn't right with your brain, you feel like there is something you have to do no matter what...\n\
-		[LAZYLEN(objectives) ? <B>Objective</B>: [objectives[1].explanation_text]] : 'Nevermind...'")
+		[LAZYLEN(objectives)?"<B>Objective</B>: [objectives[1].explanation_text]": "Nevermind..."]")
 
 /datum/antagonist/abductee/proc/give_objective()
 	var/mob/living/carbon/human/H = owner.current
