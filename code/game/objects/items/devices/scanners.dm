@@ -985,7 +985,7 @@ GENE SCANNER
 /obj/item/material_scanner/attack(obj/item/I, mob/living/user)
 	if(user.stat || user.eye_blind)
 		return
-	if(istype(O, /obj/item))
+	if(istype(I))
 		if (I.materials)
 			analyze_materials(I, user)
 			return	
