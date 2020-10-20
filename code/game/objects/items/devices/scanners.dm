@@ -985,11 +985,12 @@ GENE SCANNER
 /obj/item/material_scanner/attack(obj/O, mob/living/user)
 	if(user.stat || user.eye_blind)
 		return
-	if(istype(O, /obj/item) && O.materials)
+	if(istype(O, /obj/item))
 		var/obj/item/I = O
-		analyze_materials(I, user)
-	else
-		to_chat(user, "<span class='notice'>[O] doesn't have any reusable materials.</span>")
+		if (I.materials)
+			analyze_materials(I, user)
+			return	
+	to_chat(user, "<span class='notice'>[O] doesn't have any reusable materials.</span>")
 
 /obj/item/material_scanner/proc/analyze_materials(obj/item/I, mob/living/user)
 	to_chat(user, "- Material Analysis of [I] -")
