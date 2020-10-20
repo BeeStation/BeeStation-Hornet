@@ -22,6 +22,7 @@
  *		Snowballs
  *		Clockwork Watches
  *		Toy Daggers
+ *		Eldrich stuff
  */
 
 
@@ -1439,3 +1440,32 @@
 
 /obj/item/toy/dummy/GetVoice()
 	return doll_name
+	
+/*
+ * Eldrich Toys
+ */
+
+/obj/item/toy/eldrich_book
+	name = "Codex Cicatrix"
+	desc = "A toy book built to resemble the real deal. Does not contain the secrets of the veil. Does not substitute the real thing. Produced by THE ARM Toys, Inc."
+	icon = 'icons/obj/eldritch.dmi'
+	icon_state = "book"
+	w_class = WEIGHT_CLASS_SMALL
+	attack_verb = list("sacrificed", "transmuted", "grasped", "cursed")
+	var/open = FALSE
+	
+/obj/item/toy/eldrich_book/attack_self(mob/user)
+	open = !open
+
+/obj/item/toy/eldrich_book/update_icon()
+	icon_state = open ? "book_open" : "book"
+	
+/*
+ * Fake tear
+ */
+ 
+/obj/item/toy/reality_pierce
+	name = "Pierced reality"
+	desc = "Hah. You thought it was the real deal!"
+	icon = 'icons/effects/eldritch.dmi'
+	icon_state = "pierced_illusion"
