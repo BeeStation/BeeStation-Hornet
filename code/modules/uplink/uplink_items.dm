@@ -1088,6 +1088,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/deployablemine/traitor
 	cost = 4
 
+/datum/uplink_item/explosives/doorCharge
+	name = "Airlock Charge"		
+	desc = "A small explosive device that can be used to sabotage airlocks to cause an explosion upon opening. \
+			To apply, remove the airlock's maintenance panel and place it within."
+	item = /obj/item/doorCharge
+	cost = 4
+
 /datum/uplink_item/explosives/virus_grenade
 	name = "Fungal Tuberculosis Grenade"
 	desc = "A primed bio-grenade packed into a compact box. Comes with five Bio Virus Antidote Kit (BVAK) \
@@ -1349,6 +1356,24 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	cost = 4
 	exclude_modes = list()
 	include_modes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/stealthy_tools/chambowman
+	name = "Chameleon Bangproof Headset"
+	desc = "A headset reinforced to protect the ears from flashbangs, enhanced with chameleon disguise technology."
+	item = /obj/item/radio/headset/chameleon/bowman
+	cost = 2
+
+/datum/uplink_item/stealthy_tools/chamweldinggoggles
+	name = "Chameleon Flashproof Glasses"
+	desc = "A pair of glasses reinforced to protect the eyes from welding flashes, enhanced with chameleon disguise technology."
+	item = /obj/item/clothing/glasses/chameleon/flashproof
+	cost = 2
+
+/datum/uplink_item/stealthy_tools/chaminsuls
+	name = "Chameleon Combat Gloves"
+	desc = "A pair of gloves reinforced with fire and shock resistance, enhanced with chameleon disguise technology."
+	item = /obj/item/clothing/gloves/chameleon/combat
+	cost = 1
 
 /datum/uplink_item/stealthy_tools/jammer
 	name = "Radio Jammer"
@@ -1854,7 +1879,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 			of humanoids. It has two settings: intensity, which controls the power of the radiation, \
 			and wavelength, which controls the delay before the effect kicks in."
 	item = /obj/item/healthanalyzer/rad_laser
-	restricted_roles = list("Medical Doctor", "Chief Medical Officer", "Roboticist")
+	restricted_roles = list("Medical Doctor", "Chief Medical Officer", "Roboticist", "Paramedic")
 	cost = 3
 
 /datum/uplink_item/role_restricted/upgrade_wand
@@ -2029,7 +2054,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 /datum/uplink_item/role_restricted/holocarp
 	name = "Holocarp Parasites"
 	desc = "Fishsticks prepared through ritualistic means in honor of the god Carp-sie, capable of binding a holocarp \
-			to act as a servent and guardian to their host."
+			to act as a servant and guardian to their host."
 	item = /obj/item/guardiancreator/carp
 	cost = 18
 	surplus = 5
@@ -2070,7 +2095,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	desc = "An implant that grants you a deadly energy saw inside your arm. Comes with a syndicate autosurgeon for immediate self-application."
 	cost = 8
 	item = /obj/item/autosurgeon/syndicate/esaw_arm
-	restricted_roles = list("Medical Doctor", "Chief Medical Officer")
+	restricted_roles = list("Medical Doctor", "Chief Medical Officer", "Paramedic")
 
 /datum/uplink_item/role_restricted/magillitis_serum
 	name = "Magillitis Serum Autoinjector"

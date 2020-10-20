@@ -135,7 +135,7 @@ GLOBAL_LIST_EMPTY(objectives)
 	var/list/datum/mind/owners = get_owners()
 	var/list/possible_targets = list()
 	for(var/datum/mind/possible_target in get_crewmember_minds())
-		if(!(possible_target in owners) && ishuman(possible_target.current))
+		if(!(possible_target in owners) && ishuman(possible_target.current) && is_valid_target(possible_target))
 			var/is_role = FALSE
 			if(role_type)
 				if(possible_target.special_role == role)
@@ -441,7 +441,7 @@ GLOBAL_LIST_EMPTY(objectives)
 		if(!M.has_antag_datum(/datum/antagonist/changeling))
 			continue
 		var/datum/mind/T = possible_target
-		if(!istype(T) || isIPC(T.current))
+		if(!istype(T) || isipc(T.current))
 			return FALSE
 	return TRUE
 
@@ -818,26 +818,6 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		return FALSE
 	return TRUE
 
-/datum/objective/absorb_changeling
-	name = "absorb changeling"
-	explanation_text = "Absorb another Changeling."
-
-/datum/objective/absorb_changeling/check_completion()
-	var/list/datum/mind/owners = get_owners()
-	for(var/datum/mind/M in owners)
-		if(!M)
-			continue
-		var/datum/antagonist/changeling/changeling = M.has_antag_datum(/datum/antagonist/changeling)
-		if(!changeling)
-			continue
-		var/total_genetic_points = changeling.geneticpoints
-
-		for(var/datum/action/changeling/p in changeling.purchasedpowers)
-			total_genetic_points += p.dna_cost
-
-		if(total_genetic_points > initial(changeling.geneticpoints))
-			return TRUE
-	return FALSE
 
 //End Changeling Objectives
 

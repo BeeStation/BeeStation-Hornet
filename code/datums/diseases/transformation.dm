@@ -126,12 +126,14 @@
 /datum/disease/transformation/jungle_fever/do_disease_transformation(mob/living/carbon/affected_mob)
 	if(affected_mob.mind && !is_monkey(affected_mob.mind))
 		add_monkey(affected_mob.mind)
-	if(ishuman(affected_mob))
-		if(affected_mob && !is_monkey_leader(affected_mob.mind))
-			var/mob/living/carbon/monkey/M = affected_mob.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE)
-			M.ventcrawler = VENTCRAWLER_ALWAYS
-		else
+	if(affected_mob && ishuman(affected_mob))
+		if((is_monkey_leader(affected_mob.mind) || prob(4)))
 			affected_mob.junglegorillize()
+		else
+			var/mob/living/carbon/monkey/M = affected_mob.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPVIRUS | TR_KEEPSE)
+			M.ventcrawler = VENTCRAWLER_ALWAYS
+			var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+			H.add_hud_to(M)
 
 /datum/disease/transformation/jungle_fever/stage_act()
 	..()

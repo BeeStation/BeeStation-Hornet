@@ -162,7 +162,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("set_name")
 			if(!check_rights(R_ADMIN))
 				return
-			var/new_name = input(usr, "Please input a new name for the station.", "What?", "") as text|null
+			var/new_name = capped_input(usr, "Please input a new name for the station.", "What?")
 			if(!new_name)
 				return
 			set_station_name(new_name)
@@ -713,7 +713,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 
 				var/msg = "Please input the new movement direction when the user presses [key]. Ex. northeast"
 				var/title = "New direction for [key]"
-				var/new_direction = text2dir(input(usr, msg, title) as text|null)
+				var/new_direction = text2dir(capped_input(usr, msg, title))
 				if(!new_direction)
 					new_direction = movement_keys[key]
 

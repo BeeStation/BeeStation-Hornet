@@ -94,6 +94,7 @@ ALERT_DELTA Destruction of the station is imminent. All crew are instructed to o
 
 PROBABILITY TRAITOR 9
 PROBABILITY CULT 6
+PROBABILITY HERESY 6
 PROBABILITY NUCLEAR 6
 PROBABILITY TRAITORCHAN 5
 PROBABILITY CHANGELING 5
@@ -101,10 +102,11 @@ PROBABILITY INCURSION 4
 PROBABILITY REVOLUTION 4
 PROBABILITY INTERNAL_AFFAIRS 3
 PROBABILITY TRAITORBRO 3
-PROBABILITY GANG 3
 PROBABILITY WIZARD 2
 PROBABILITY CLOWNOPS 2
 PROBABILITY MONKEY 1
+PROBABILITY CLOCKCULT 1
+PROBABILITY GANG 0
 PROBABILITY METEOR 0
 PROBABILITY EXTENDED 0
 PROBABILITY SECRET_EXTENDED 0
@@ -133,6 +135,11 @@ CONTINUOUS CHANGELING
 CONTINUOUS WIZARD
 #CONTINUOUS MONKEY
 CONTINUOUS HIVEMIND
+CONTINUOUS CLOCKCULT
+
+#Prevents the death of round-ending antagonist rulesets ending the round immediately.
+
+CONTINUOUS DYNAMIC
 
 ##Note: do not toggle continuous off for these modes, as they have no antagonists and would thus end immediately!
 
@@ -208,7 +215,8 @@ MAX_POP INCURSION -1
 #MIN_POP EXTENDED 0
 #MAX_POP EXTENDED -1
 
-
+MIN_POP CLOCKCULT 32
+MAX_POP CLOCKCULT -1
 
 ## The amount of time it takes for the emergency shuttle to be called, from round start.
 SHUTTLE_REFUEL_DELAY 12000
@@ -219,6 +227,7 @@ SHUTTLE_REFUEL_DELAY 12000
 TRAITOR_SCALING_COEFF 6
 BROTHER_SCALING_COEFF 6
 CHANGELING_SCALING_COEFF 6
+ECULT_SCALING_COEFF 6
 
 ## Variables calculate how number of open security officer positions will scale to population.
 ## Used as (Officers = Population / Coeff)
@@ -312,7 +321,7 @@ ALLOW_AI_MULTICAM
 ## AWAY MISSIONS ###
 
 ## Uncomment to load one of the missions from awaymissionconfig.txt at roundstart.
-ROUNDSTART_AWAY
+#ROUNDSTART_AWAY
 
 ## How long the delay is before the Away Mission gate opens. Default is half an hour.
 ## 600 is one minute.
@@ -480,6 +489,12 @@ ROUNDSTART_RACES apid
 #ROUNDSTART_RACES pod
 #ROUNDSTART_RACES military_synth
 #ROUNDSTART_RACES agent
+
+## Paywall Races
+##-------------------------------------------------------------------------------------------
+## Uncommenting races will restrict them behind the patreon paywall
+
+#PAYWALL_RACES felinid
 
 ##-------------------------------------------------------------------------------------------
 

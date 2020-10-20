@@ -352,6 +352,11 @@
 
 		if(SHUTTLE_IGNITING)
 			var/success = TRUE
+			//Check if the gamemode is clockcult and the clockies are utter failures
+			if(GLOB.celestial_gateway && !GLOB.gateway_opening)
+				SSshuttle.registerHostileEnvironment(GLOB.celestial_gateway)
+				var/obj/structure/destructible/clockwork/massive/celestial_gateway/gateway = GLOB.celestial_gateway
+				gateway.open_gateway()
 			SSshuttle.checkHostileEnvironment()
 			if(mode == SHUTTLE_STRANDED)
 				return

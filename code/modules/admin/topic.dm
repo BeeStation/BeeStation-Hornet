@@ -1936,11 +1936,11 @@
 			return
 		var/datum/station_goal/G = new picked()
 		if(picked == /datum/station_goal)
-			var/newname = input("Enter goal name:") as text|null
+			var/newname = capped_input(usr, "Enter goal name:")
 			if(!newname)
 				return
 			G.name = newname
-			var/description = input("Enter CentCom message contents:") as message|null
+			var/description = capped_multiline_input(usr, "Enter CentCom message contents:")
 			if(!description)
 				return
 			G.report_message = description

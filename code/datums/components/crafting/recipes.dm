@@ -235,6 +235,16 @@
 	time = 40
 	category = CAT_ROBOT
 
+/datum/crafting_recipe/Atmosbot
+	name = "Atmosbot"
+	result = /mob/living/simple_animal/bot/atmosbot
+	reqs = list(/obj/item/analyzer = 1,
+				/obj/item/bodypart/r_arm/robot = 1,
+				/obj/item/assembly/prox_sensor = 1,
+				/obj/item/tank/internals = 1)
+	time = 40
+	category = CAT_ROBOT
+
 /datum/crafting_recipe/improvised_pneumatic_cannon //Pretty easy to obtain but
 	name = "Pneumatic Cannon"
 	result = /obj/item/pneumatic_cannon/ghetto
