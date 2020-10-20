@@ -286,7 +286,8 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 			add_verb(GLOB.admin_verbs_spawn)
 
 /client/proc/remove_admin_verbs()
-	remove_verb(
+	var/list/verb_list = list()
+	verb_list.Add(
 		GLOB.admin_verbs_default,
 		/client/proc/togglebuildmodeself,
 		GLOB.admin_verbs_admin,
@@ -307,12 +308,13 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		/client/proc/readmin,
 		/client/proc/fix_say
 		)
+	remove_verb(verb_list)
 
 /client/proc/hide_most_verbs()//Allows you to keep some functionality while hiding some verbs
 	set name = "Adminverbs - Hide Most"
 	set category = "Admin"
 
-	remove_verb(/client/proc/hide_most_verbs, GLOB.admin_verbs_hideable)
+	remove_verb(list(/client/proc/hide_most_verbs, GLOB.admin_verbs_hideable))
 	add_verb(/client/proc/show_verbs)
 
 	to_chat(src, "<span class='interface'>Most of your adminverbs have been hidden.</span>")

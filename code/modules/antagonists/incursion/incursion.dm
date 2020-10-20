@@ -53,6 +53,8 @@
 	to_chat(owner.current, "You have formed a team of Syndicate members with a similar mindset and must infiltrate the ranks of the station!")
 	to_chat(owner.current, "You have been implanted with a syndicate headset for communication with your team. This headset can only be heard by you directly and if those pigs at Nanotrasen try to steal it they will violently explode!")
 	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("You are a member of the Incursion",
+		"Work with your team members to complete your objectives.")
 
 /datum/antagonist/incursion/apply_innate_effects(mob/living/mob_override)
 	if(issilicon(owner))

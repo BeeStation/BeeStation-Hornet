@@ -30,6 +30,8 @@
 
 /datum/antagonist/valentine/greet()
 	to_chat(owner, "<span class='warning'><B>You're on a date with [date.name]! Protect [date.p_them()] at all costs. This takes priority over all other loyalties.</B></span>")
+	owner.current.client?.tgui_panel?.give_antagonist_popup("You are on a date with [date.name].",
+		"Protect your date no matter the cost. Your loyalities are insignificant compared to your true love!")
 
 //Squashed up a bit
 /datum/antagonist/valentine/roundend_report()

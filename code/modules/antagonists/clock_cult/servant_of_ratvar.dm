@@ -29,6 +29,10 @@
 	to_chat(owner.current, "<span class='brass'>Use your Clockwork Slab to summon integration cogs to unlock more scriptures and siphon power.</span>")
 	to_chat(owner.current, "<span class='brass'>Unlock Kindle to stun targets, Hateful Manacles to restrain them and use a sigil of submission to convert them!</span>")
 	to_chat(owner.current, "<span class='brass'>When you are ready, gather 6 cultists around the Ark and activate it to summon Rat'var, but be prepared to fight for your life.</span>")
+	owner.current.client?.tgui_panel?.give_antagonist_popup("You are the [owner.special_role]",
+		"Use your clockwork slab to unlock and invoke scriptures.\n\
+		Hijack APCs by placing an integration cog into them.\n\
+		Convert the unfaithful to your side but above all else, protect the Gateway!")
 
 /datum/antagonist/servant_of_ratvar/on_gain()
 	. = ..()

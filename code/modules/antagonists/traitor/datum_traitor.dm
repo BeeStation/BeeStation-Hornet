@@ -202,7 +202,8 @@
 	owner.announce_objectives()
 	if(should_give_codewords)
 		give_codewords()
-	owner.current.client?.tgui_panel?.give_antagonist_popup("You are the [owner.special_role]!", "Complete your objectives, no matter the cost.")
+	owner.current.client?.tgui_panel?.give_antagonist_popup("You are the [owner.special_role]!",
+		"Complete your objectives, no matter the cost.")
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
