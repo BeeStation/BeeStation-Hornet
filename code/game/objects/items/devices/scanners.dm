@@ -996,6 +996,6 @@ GENE SCANNER
 	to_chat(user, "- Material Analysis of [I] -")
 	for(var/R in I.materials)
 		var/datum/material/M = R
-		var/amount =  I.materials[R]
+		var/amount =  I.materials[M]
 		to_chat(user, "* [M.name] ([amount])")
 	to_chat(user, "- Analysis complete! -")
