@@ -982,7 +982,7 @@ GENE SCANNER
 	throw_range = 7
 	materials = list(/datum/material/iron=30, /datum/material/glass=20)
 
-/obj/item/material_scanner/attack(obj/O, mob/living/user)
+/obj/item/material_scanner/attack(obj/item/I, mob/living/user)
 	if(user.stat || user.eye_blind)
 		return
 	if(istype(O, /obj/item))
