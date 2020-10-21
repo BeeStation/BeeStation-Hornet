@@ -473,46 +473,46 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
-"M" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 5
-	},
-/turf/open/floor/plating,
-/area/shuttle/mining/large)
-"R" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/shuttle/mining/large)
-"X" = (
+"N" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
-"Y" = (
+"Q" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 5
+	},
+/turf/open/floor/plating,
+/area/shuttle/mining/large)
+"U" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional{
 	dir = 8
+	},
+/turf/open/floor/plating,
+/area/shuttle/mining/large)
+"Y" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 
 (1,1,1) = {"
 a
-Y
-Y
+U
+U
 k
 k
 k
-Y
+U
 k
 F
 a
 "}
 (2,1,1) = {"
 b
-R
+Y
 f
 l
 k
@@ -523,19 +523,19 @@ G
 I
 "}
 (3,1,1) = {"
-R
+Y
 c
 g
 m
 q
 t
 y
-F
 k
-F
+k
+k
 "}
 (4,1,1) = {"
-R
+Y
 d
 h
 n
@@ -547,20 +547,20 @@ H
 J
 "}
 (5,1,1) = {"
-R
+Y
 e
 i
 o
 k
 v
 A
-F
 k
-F
+k
+k
 "}
 (6,1,1) = {"
-M
-R
+Q
+Y
 j
 p
 k
@@ -572,12 +572,12 @@ I
 "}
 (7,1,1) = {"
 a
-M
-X
+Q
+N
 k
 k
 k
-X
+N
 k
 F
 a
