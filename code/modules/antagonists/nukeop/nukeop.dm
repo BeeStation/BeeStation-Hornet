@@ -46,7 +46,7 @@
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ops.ogg',100,0)
 	to_chat(owner, "<span class='notice'>You are a [nuke_team ? nuke_team.syndicate_name : "syndicate"] agent!</span>")
 	owner.announce_objectives()
-	owner.current.client?.tgui_panel?.give_antagonist_popup("You are the [owner.special_role]",
+	owner.current.client?.tgui_panel?.give_antagonist_popup("You are the a [nuke_team ? nuke_team.syndicate_name : "syndicate"] agent!",
 		"Destroy the station with a nuclear device.")
 
 /datum/antagonist/nukeop/on_gain()
