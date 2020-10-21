@@ -279,9 +279,10 @@
 	var/scale_factor = max(air.return_volume() / FUSION_SCALE_DIVISOR, FUSION_MINIMAL_SCALE)
 	var/temperature_scale = log(10, air.return_temperature())
 	//The size of the phase space hypertorus
-	var/toroidal_size = 	TOROID_CALCULATED_THRESHOLD + \
-							min(temperature_scale-FUSION_BASE_TEMPSCALE, 0) / FUSION_BUFFER_DIVISOR + \
-							4 ** max(temperature_scale-FUSION_BASE_TEMPSCALE, 0) / FUSION_SLOPE_DIVISOR
+	var/toroidal_size = 	TOROID_CALCULATED_THRESHOLD \
+							+ (temperature_scale <= FUSION_BASE_TEMPSCALE ? \
+							(temperature_scale-FUSION_BASE_TEMPSCALE) / FUSION_BUFFER_DIVISOR \
+							: 4 ** (temperature_scale-FUSION_BASE_TEMPSCALE) / FUSION_SLOPE_DIVISOR)
 	var/gas_power = 0
 	for (var/gas_id in air.get_gases())
 		gas_power += (GLOB.meta_gas_info[gas_id][META_GAS_FUSION_POWER]*air.get_moles(gas_id))
@@ -305,12 +306,12 @@
 	reaction_energy = 	instability <= FUSION_INSTABILITY_ENDOTHERMALITY || delta_plasma > 0 ? \
 						max(delta_plasma*PLASMA_BINDING_ENERGY, 0) \
 						: delta_plasma*PLASMA_BINDING_ENERGY * (instability-FUSION_INSTABILITY_ENDOTHERMALITY)**0.5
-	
+
 	//To achieve faster equilibrium. Too bad it is not that good at cooling down.
 	if (reaction_energy)
 		var/middle_energy = (((TOROID_CALCULATED_THRESHOLD / 2) * scale_factor) + FUSION_MOLE_THRESHOLD) * (200 * FUSION_MIDDLE_ENERGY_REFERENCE)
 		thermal_energy = middle_energy * FUSION_ENERGY_TRANSLATION_EXPONENT ** log(10, thermal_energy / middle_energy)
-		
+
 		//This bowdlerization is a double-edged sword. Tread with care!
 		var/bowdlerized_reaction_energy = 	clamp(reaction_energy, \
 											thermal_energy * ((1 / FUSION_ENERGY_TRANSLATION_EXPONENT ** 2) - 1), \
@@ -331,7 +332,7 @@
 	else
 		air.adjust_moles(/datum/gas/bz, standard_waste_gas_output)
 	air.adjust_moles(/datum/gas/oxygen, standard_waste_gas_output) //Oxygen is a bit touchy subject
-	
+
 	if(reaction_energy)
 		if(location)
 			var/standard_energy = 400 * air.get_moles(/datum/gas/plasma) * air.return_temperature() //Prevents putting meaningless waste gases to achieve high rads.
