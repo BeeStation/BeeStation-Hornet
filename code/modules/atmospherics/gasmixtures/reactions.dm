@@ -307,18 +307,21 @@
 						: delta_plasma*PLASMA_BINDING_ENERGY * (instability-FUSION_INSTABILITY_ENDOTHERMALITY)**0.5
 	
 	//To achieve faster equilibrium. Too bad it is not that good at cooling down.
-	var/middle_energy = (((TOROID_CALCULATED_THRESHOLD / 2) * scale_factor) + FUSION_MOLE_THRESHOLD) * (200 * FUSION_MIDDLE_ENERGY_REFERENCE)
-	var/translated_energy = middle_energy * FUSION_ENERGY_TRANSLATION_EXPONENT ** log(10, old_thermal_energy / middle_energy)
-	
-	//This bowdlerization is a double-edged sword. Tread with care!
-	var/bowdlerized_reaction_energy = 	clamp(reaction_energy, \
-										translated_energy * ((1 / FUSION_ENERGY_TRANSLATION_EXPONENT ** 2) - 1), \
-										translated_energy * (FUSION_ENERGY_TRANSLATION_EXPONENT ** 2 - 1))
-	if (bowdlerized_reaction_energy != reaction_energy)
-		var/bowdlerization_ratio = bowdlerized_reaction_energy/reaction_energy
-		air.set_moles(/datum/gas/plasma, initial_plasma - delta_plasma * bowdlerization_ratio)
-		air.set_moles(/datum/gas/carbon_dioxide, initial_carbon - delta_carbon * bowdlerization_ratio)
-	translated_energy = middle_energy * 10 ** log(FUSION_ENERGY_TRANSLATION_EXPONENT, (translated_energy + bowdlerized_reaction_energy) / middle_energy)
+	if (reaction_energy)
+		var/middle_energy = (((TOROID_CALCULATED_THRESHOLD / 2) * scale_factor) + FUSION_MOLE_THRESHOLD) * (200 * FUSION_MIDDLE_ENERGY_REFERENCE)
+		var/translated_energy = middle_energy * FUSION_ENERGY_TRANSLATION_EXPONENT ** log(10, old_thermal_energy / middle_energy)
+		
+		//This bowdlerization is a double-edged sword. Tread with care!
+		var/bowdlerized_reaction_energy = 	clamp(reaction_energy, \
+											translated_energy * ((1 / FUSION_ENERGY_TRANSLATION_EXPONENT ** 2) - 1), \
+											translated_energy * (FUSION_ENERGY_TRANSLATION_EXPONENT ** 2 - 1))
+		if (bowdlerized_reaction_energy != reaction_energy)
+			var/bowdlerization_ratio = bowdlerized_reaction_energy/reaction_energy
+			air.set_moles(/datum/gas/plasma, initial_plasma - delta_plasma * bowdlerization_ratio)
+			air.set_moles(/datum/gas/carbon_dioxide, initial_carbon - delta_carbon * bowdlerization_ratio)
+		translated_energy = middle_energy * 10 ** log(FUSION_ENERGY_TRANSLATION_EXPONENT, (translated_energy + bowdlerized_reaction_energy) / middle_energy)
+	else
+		translated_energy = old_thermal_energy //What happens if reaction_energy is 0, in a nutshell
 
 	//The reason why you should set up a tritium production line.
 	air.adjust_moles(/datum/gas/tritium, -FUSION_TRITIUM_MOLES_USED)
