@@ -45,7 +45,8 @@
 	desc = "We turn our limbs into a slithering snake. The poison of this creatures can paralyze attackers. Costs 15 chemicals."
 	helptext = "We reform one of our limbs as a hostile snake-like creature. This grotesque display may ward off attackers, and the creature will inject them with incapacitating poison."
 	button_icon_state = "last_resort"
-	chemical_cost = 15
+	chemical_cost = 10
+	req_absorbs = 3
 	dna_cost = 1
 	req_human = 1
 	req_stat = DEAD
@@ -85,9 +86,8 @@
 /mob/living/simple_animal/hostile/retaliate/poison/snake/limb
         name = "limb snake"
         desc = "This is no snake at all! It looks like someone's limb grew fangs out of it's fingers and it's out to bite anyone!"
-        
-		health = 20
-		maxHealth = 20
+		health = 50
+		maxHealth = 50
 		melee_damage = 6
         faction = list("creature")
         poison_per_bite = 3
