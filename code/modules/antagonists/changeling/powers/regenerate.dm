@@ -39,3 +39,56 @@
 		H.restore_blood()
 		H.remove_all_embedded_objects()
 	return TRUE
+
+/datum/action/changeling/limbsnake
+	name = "Limb Snake"
+	desc = "We turn our limbs into a slithering snake. The poison of this creatures can paralyze attackers. Costs 15 chemicals."
+	helptext = "We reform one of our limbs as a hostile snake-like creature. This grotesque display may ward off attackers, and the creature will inject them with incapacitating poison."
+	button_icon_state = "last_resort"
+	chemical_cost = 15
+	dna_cost = 1
+	req_human = 1
+	req_stat = DEAD
+	ignores_fakedeath = TRUE
+
+/datum/action/changeling/limbsnake/sting_action(mob/user)
+	var/mob/living/carbon/C = user
+	var/list/parts = list()
+	for(var/X in C.bodyparts)
+		var/obj/item/bodypart/BP = X
+		if(BP.body_part != HEAD && BP.body_part != CHEST)
+			if(BP.dismemberable)
+				parts += BP
+	if(!parts.len)
+		playsound(user, 'sound/magic/demon_consume.ogg', 50, 1)	//copy_paste from regenerate
+		C.visible_message("<span class='warning'>[user]'s missing limbs \
+			reform, making a loud, grotesque sound!</span>",
+			"<span class='userdanger'>Your limbs regrow, making a \
+			loud, crunchy sound and giving you great pain!</span>",
+			"<span class='italics'>You hear organic matter ripping \
+			and tearing!</span>")
+		C.regenerate_limbs(1)
+		return
+	//limb related actions
+	var/obj/item/bodypart/BP = pick(parts)
+	C.visible_message("<span class='warning'>[user]'s [BP] detaches itself and takes the form of a snake!</span>",
+			"<span class='userdanger'>Our [BP] forms into a horrifying snake and heads towards our attackers!</span>")
+	BP.Destroy()	
+	//Deploy limbsnake
+	var/mob/living/snek = new /mob/living/simple_animal/hostile/retaliate/poison/snake/limb(get_turf(user))		
+	//assign faction
+	var/list/factions = user.faction.Copy()
+	snek.faction = factions
+	//text message
+	
+
+/mob/living/simple_animal/hostile/retaliate/poison/snake/limb
+        name = "limb snake"
+        desc = "This is no snake at all! It looks like someone's limb grew fangs out of it's fingers and it's out to bite anyone!"
+        
+		health = 20
+		maxHealth = 20
+		melee_damage = 6
+        faction = list("creature")
+        poison_per_bite = 3
+        poison_type = /datum/reagent/toxin/staminatoxin
