@@ -97,8 +97,10 @@
 /obj/item/inducer/proc/recharge(atom/movable/A, mob/user)
 	if(!isturf(A) && user.loc == A)
 		return FALSE
-	if (powertransfer>1000 && user.electrocute_act( (powertransfer-1000)/400,user,stun = TRUE))
-		return FALSE
+	if (powertransfer>1000)
+		var/mob/living/carbon/human = user
+		if (human.electrocute_act( (powertransfer-1000)/400,human,stun = TRUE))
+			return FALSE
 	if(recharging)
 		return TRUE
 	else
@@ -116,9 +118,16 @@
 	if(C)
 		var/done_any = FALSE
 		if(C.charge >= C.maxcharge)
-			to_chat(user, "<span class='notice'>[A] is fully charged!</span>")
-			recharging = FALSE
-			return TRUE
+			if((obj_flags & EMAGGED))
+				var/burndamage = min(cell.charge,powertransfer)
+				cell.use(burndamage)
+				cell.update_icon()
+				A.take_damage(burndamage/2000, BURN, "energy")
+				do_sparks(1, FALSE, A)
+			else
+				to_chat(user, "<span class='notice'>[A] is fully charged!</span>")
+				recharging = FALSE
+				return TRUE
 		user.visible_message("[user] starts recharging [A] with [src].","<span class='notice'>You start recharging [A] with [src].</span>")
 		while(C.charge < C.maxcharge)
 			if(do_after(user, 10, target = user) && cell.charge)
@@ -135,7 +144,7 @@
 		return TRUE
 	recharging = FALSE
 
-/obj/item/inducer/proc/do_harm(mob/living/carbon/victim, mob/living/user)
+/obj/item/inducer/proc/do_harm(mob/living/carbon/victim, mob/living/user)	//maybe a good idea to leave this out?
 	if(recharging)
 		return FALSE
 	if(do_after(user, 10, victim))
@@ -161,10 +170,10 @@
 	if(cantbeused(user))
 		return
 		
-	if(user.a_intent == INTENT_HARM)	
+	/*if(user.a_intent == INTENT_HARM)	
 		if (istype(M, /mob/living/carbon))
 			do_harm(M,user)
-		return ..()
+		return ..()*/
 
 	if(recharge(M, user))
 		return
@@ -197,7 +206,7 @@
 		else
 			add_overlay("inducer-bat")
 
-/obj/item/inducer/emag_act()
+obj/item/inducer/emag_act()	I WILL BE BAK
 	if(obj_flags & EMAGGED)
 		return
 	Emag()
