@@ -43,6 +43,19 @@ RSF
 	switch(mode)
 		if(5)
 			mode = 1
+<<<<<<< HEAD
+=======
+			if(iscyborg(user))
+				var/mob/living/silicon/robot/R = user
+				if(R.emagged)
+					mode = 6
+			if (mode==1)
+				to_chat(user, "Changed dispensing mode to 'Drinking Glass'")
+			else
+				to_chat(user, "Changed dispensing mode to 'Explosive Cigarette'")
+		if(6)
+			mode = 1
+>>>>>>> 6afd993ddb... Update RSF.dm (#2743)
 			to_chat(user, "Changed dispensing mode to 'Drinking Glass'")
 		if(1)
 			mode = 2
