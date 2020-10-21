@@ -1,0 +1,5 @@
+author: Poly-The-Parrot
+delete-after: true
+changes:
+  - rscadd: smartfridges will automatically load items off conveyor belts, or items
+      thrown at them.
