@@ -8,8 +8,8 @@
 	available_on_ntnet = FALSE
 	available_on_syndinet = TRUE
 	tgui_id = "NtosRevelation"
-	ui_x = 400
-	ui_y = 250
+
+
 
 	var/armed = 0
 

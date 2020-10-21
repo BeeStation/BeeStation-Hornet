@@ -25,7 +25,10 @@ const damageTypes = [
 
 export const Cryo = () => {
   return (
-    <Window resizable>
+    <Window
+      resizable
+      width={400}
+      height={550}>
       <Window.Content scrollable>
         <CryoContent />
       </Window.Content>
