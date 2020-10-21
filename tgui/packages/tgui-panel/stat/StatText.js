@@ -6,14 +6,14 @@ import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
 import { sendMessage } from 'tgui/backend';
 import { Divider, Grid, Table } from '../../tgui/components';
-import { STAT_TEXT, STAT_BUTTON, STAT_ATOM, STAT_DIVIDER, STAT_VERB } from './constants'
+import { STAT_TEXT, STAT_BUTTON, STAT_ATOM, STAT_DIVIDER, STAT_VERB } from './constants';
 
 export const StatText = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
   let statPanelData = stat.statInfomation;
-  if(!statPanelData)
+  if (!statPanelData)
   {
-    return(
+    return (
       <Flex.Item
         color="red">
         Passed stat panel data was null contant coderman (or coderwoman).
@@ -21,7 +21,8 @@ export const StatText = (props, context) => {
     );
   }
   let verbs = Object.keys(statPanelData)
-    .filter(element => !!statPanelData[element] && statPanelData[element].type === STAT_VERB);
+    .filter(element => !!statPanelData[element]
+      && statPanelData[element].type === STAT_VERB);
   return (
     <Flex.Item mt={1}>
       <Flex direction="column">
@@ -30,37 +31,39 @@ export const StatText = (props, context) => {
             {statPanelData
               ? Object.keys(statPanelData).map(key => (
                 !!statPanelData[key] && (
-                  statPanelData[key].type === STAT_TEXT && <StatText_text
+                  statPanelData[key].type === STAT_TEXT && <StatTextText
                     title={key}
                     text={statPanelData[key].text} />
-                  || statPanelData[key].type === STAT_BUTTON && <StatText_button
+                  || statPanelData[key].type === STAT_BUTTON && <StatTextButton
                     title={key}
                     text={statPanelData[key].text}
                     action_id={statPanelData[key].action}
                     params={statPanelData[key].params} />
-                  || statPanelData[key].type === STAT_ATOM && <StatText_atom
+                  || statPanelData[key].type === STAT_ATOM && <StatTextAtom
                     atom_ref={key}
                     atom_name={statPanelData[key].text}
                     atom_icon={statPanelData[key].icon} />
-                  || statPanelData[key].type === STAT_DIVIDER && <StatText_divider />
+                  || statPanelData[key].type === STAT_DIVIDER
+                  && <StatTextDivider />
                   || null
                 )
               ))
               : "No data"}
-              {!!verbs.length && (
-                <Flex.Item>
-                  <Flex
-                    wrap="wrap"
-                    align="left">
-                    {verbs.map(verb => (
-                      <StatText_verb
-                        title={verb}
-                        action_id={statPanelData[verb].action}
-                        params={statPanelData[verb].params} />
-                    ))}
-                  </Flex>
-                </Flex.Item>
-              )}
+            {!!verbs.length && (
+              <Flex.Item>
+                <Flex
+                  wrap="wrap"
+                  align="left">
+                  {verbs.map(verb => (
+                    <StatTextVerb
+                      key={verb}
+                      title={verb}
+                      action_id={statPanelData[verb].action}
+                      params={statPanelData[verb].params} />
+                  ))}
+                </Flex>
+              </Flex.Item>
+            )}
           </Section>
         </div>
       </Flex>
@@ -68,7 +71,7 @@ export const StatText = (props, context) => {
   );
 };
 
-export const StatText_text = (props, context) => {
+export const StatTextText = (props, context) => {
   const {
     title,
     text,
@@ -83,7 +86,7 @@ export const StatText_text = (props, context) => {
   );
 };
 
-export const StatText_button = (props, context) => {
+export const StatTextButton = (props, context) => {
   const {
     title,
     text,
@@ -109,7 +112,7 @@ export const StatText_button = (props, context) => {
   );
 };
 
-export const StatText_atom = (props, context) => {
+export const StatTextAtom = (props, context) => {
   const {
     atom_name,
     atom_icon,
@@ -146,13 +149,13 @@ export const StatText_atom = (props, context) => {
   );
 };
 
-export const StatText_divider = (props, context) => {
+export const StatTextDivider = (props, context) => {
   return (
     <Divider />
   );
 };
 
-export const StatText_verb = (props, context) => {
+export const StatTextVerb = (props, context) => {
   const {
     title,
     action_id,

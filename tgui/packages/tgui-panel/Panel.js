@@ -7,7 +7,7 @@
 import { Button, Flex, Section } from 'tgui/components';
 import { Pane } from 'tgui/layouts';
 import { NowPlayingWidget, useAudio } from './audio';
-import { StatTabs } from './stat'
+import { StatTabs } from './stat';
 import { ChatPanel, ChatTabs } from './chat';
 import { useGame } from './game';
 import { Notifications } from './Notifications';

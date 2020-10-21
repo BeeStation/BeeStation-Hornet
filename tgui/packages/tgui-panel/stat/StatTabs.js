@@ -11,13 +11,12 @@ export const StatTabs = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
   const dispatch = useDispatch(context);
   let statSection = (<StatText />);
-  switch(stat.selectedTab)
-  {
+  switch (stat.selectedTab) {
     case 'Status':
       statSection = (<StatStatus />);
       break;
   }
-  //Map the input data into tabs, then filter out extra_data
+  // Map the input data into tabs, then filter out extra_data
   let statTabs = stat.statTabs;
   return (
     <Flex

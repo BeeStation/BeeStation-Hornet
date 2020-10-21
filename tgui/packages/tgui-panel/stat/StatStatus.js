@@ -4,15 +4,15 @@ import { Fragment } from 'inferno';
 import { Button, Flex, Knob, Tabs, Box, Section } from 'tgui/components';
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
-import { StatText } from './StatText'
+import { StatText } from './StatText';
 
 export const StatStatus = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
   const dispatch = useDispatch(context);
   let statPanelData = [];
-  if(stat.infomationUpdate) {
+  if (stat.infomationUpdate) {
     for (const [key, value] of Object.entries(stat.infomationUpdate)) {
-      if(key === stat.selectedTab) {
+      if (key === stat.selectedTab) {
         statPanelData = value;
       }
     }
@@ -20,12 +20,13 @@ export const StatStatus = (props, context) => {
   return (
     <Flex direction="column">
       {stat.dead_popup
-        ?(<Flex.Item mt={1}>
+        ?(
+          <Flex.Item mt={1}>
             <Flex direction="column">
               <div className="StatBorder_observer">
                 <Flex.Item>
                   <Section
-                    className='deadsay'>
+                    className="deadsay">
                     <Button
                       color="transparent"
                       icon="times"
@@ -37,8 +38,9 @@ export const StatStatus = (props, context) => {
                 </Flex.Item>
                 <Flex.Item>
                   <Section
-                    className='deadsay'>
-                    Don't worry, you can still get back into the game if your body is revived or through ghost roles.
+                    className="deadsay">
+                    Don&#39t worry, you can still get back into the game
+                    if your body is revived or through ghost roles.
                   </Section>
                 </Flex.Item>
               </div>
@@ -53,7 +55,7 @@ export const StatStatus = (props, context) => {
               <Section>
                 <Flex
                   direction="column"
-                  className='stat_antagonist'>
+                  className="stat_antagonist">
                   <Flex.Item bold>
                     <Button
                       color="transparent"
