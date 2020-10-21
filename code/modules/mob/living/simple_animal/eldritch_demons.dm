@@ -56,7 +56,6 @@
 	health = 50
 	sight = SEE_MOBS|SEE_OBJS|SEE_TURFS
 	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash/long,/obj/effect/proc_holder/spell/pointed/manse_link,/obj/effect/proc_holder/spell/targeted/telepathy/eldritch,/obj/effect/proc_holder/spell/pointed/trigger/blind/eldritch)
-	gold_core_spawnable = HOSTILE_SPAWN
 
 	var/list/linked_mobs = list()
 
@@ -367,5 +366,4 @@
 	melee_damage = 20
 	sight = SEE_MOBS
 	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash,/obj/effect/proc_holder/spell/targeted/shapeshift/eldritch,/obj/effect/proc_holder/spell/targeted/emplosion/eldritch)
-	gold_core_spawnable = HOSTILE_SPAWN // Could possibly be NO_SPAWN, as stalker is a lategame, super overpowered spawn
 
