@@ -1447,7 +1447,7 @@
 
 /obj/item/toy/eldrich_book
 	name = "Codex Cicatrix"
-	desc = "A toy book built to resemble the real deal. Does not contain the secrets of the veil. Does not substitute the real thing. Produced by THE ARM Toys, Inc."
+	desc = "A toy book that closely resembles the Codex Cicatrix. Covered in fake polyester human flesh and has a huge goggly eye attached to the cover. The runes are gibberish and cannot be used to summon demons... Hopefully?"
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "book"
 	w_class = WEIGHT_CLASS_SMALL
