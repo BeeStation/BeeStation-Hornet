@@ -1,0 +1,4 @@
+author: Archanial
+delete-after: true
+changes:
+  - bugfix: Held mobs no longer lose their sprites if they were resting.
