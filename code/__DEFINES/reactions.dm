@@ -50,7 +50,7 @@
 #define FUSION_MINIMAL_SCALE				50
 #define FUSION_SLOPE_DIVISOR				1250	//! This number is probably the safest number to change
 #define FUSION_ENERGY_TRANSLATION_EXPONENT	1.25	//! This number is probably the most dangerous number to change
-#define FUSION_BASE_TEMPSCALE				6
+#define FUSION_BASE_TEMPSCALE				6       //! This number is sort of tied to TOROID_CALCULATED_THRESHOLD.
 #define FUSION_RAD_MIDPOINT					15		//! If you decrease this by one, the fusion rads will *triple* and vice versa
 #define FUSION_MIDDLE_ENERGY_REFERENCE		1e6		//! This number is deceptively dangerous
 #define FUSION_BUFFER_DIVISOR				1		//! Increase this to cull unrobust fusions faster
