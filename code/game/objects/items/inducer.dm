@@ -206,7 +206,7 @@
 		else
 			add_overlay("inducer-bat")
 
-obj/item/inducer/emag_act()	I WILL BE BAK
+obj/item/inducer/emag_act()
 	if(obj_flags & EMAGGED)
 		return
 	Emag()
