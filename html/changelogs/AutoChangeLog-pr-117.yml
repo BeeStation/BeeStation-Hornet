@@ -1,4 +1,0 @@
-author: Crossedfall
-delete-after: true
-changes:
-  - bugfix: Updates the DME to use the correct casing for includes
