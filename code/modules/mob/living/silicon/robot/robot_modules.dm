@@ -289,6 +289,7 @@
 		/obj/item/surgicaldrill/augment,
 		/obj/item/scalpel/augment,
 		/obj/item/circular_saw/augment,
+		/obj/item/blood_filter,
 		/obj/item/extinguisher/mini,
 		/obj/item/roller/robo,
 		/obj/item/borg/cyborghug/medical,
