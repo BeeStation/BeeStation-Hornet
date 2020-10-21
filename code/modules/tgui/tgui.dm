@@ -256,9 +256,6 @@
 			+ "world.time: [world.time]")
 		close(can_be_suspended = FALSE)
 		return
-	// Update through a normal call to ui_interact
-	if(status != UI_DISABLED && (autoupdate || force))
-		src_object.ui_interact(user, src)
 	// Update status only
 	var/needs_update = process_status()
 	if(status <= UI_CLOSE)
@@ -266,6 +263,10 @@
 		return
 	if(needs_update)
 		window.send_message("update", get_payload())
+	// Update through a normal call to ui_interact
+	if(status != UI_DISABLED && (autoupdate || force))
+		src_object.ui_interact(user, src)
+		return
 
 /**
  * private
