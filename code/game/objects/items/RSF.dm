@@ -43,7 +43,6 @@ RSF
 	switch(mode)
 		if(5)
 			mode = 1
-
 			if(iscyborg(user))
 				var/mob/living/silicon/robot/R = user
 				if(R.emagged)
@@ -108,6 +107,10 @@ RSF
 			to_chat(user, "Dispensing Cigarette...")
 			new /obj/item/clothing/mask/cigarette(T)
 			use_matter(10, user)
+		if(6)
+			to_chat(user, "Dispensing Explosive Cigarette...")
+			new /obj/item/clothing/mask/cigarette/plasma(T)
+			use_matter(20, user)
 
 /obj/item/rsf/proc/use_matter(charge, mob/user)
 	if (iscyborg(user))
