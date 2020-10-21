@@ -307,9 +307,10 @@
 						: delta_plasma*PLASMA_BINDING_ENERGY * (instability-FUSION_INSTABILITY_ENDOTHERMALITY)**0.5
 	
 	//To achieve faster equilibrium. Too bad it is not that good at cooling down.
+	var/translated_energy = 0
 	if (reaction_energy)
 		var/middle_energy = (((TOROID_CALCULATED_THRESHOLD / 2) * scale_factor) + FUSION_MOLE_THRESHOLD) * (200 * FUSION_MIDDLE_ENERGY_REFERENCE)
-		var/translated_energy = middle_energy * FUSION_ENERGY_TRANSLATION_EXPONENT ** log(10, old_thermal_energy / middle_energy)
+		translated_energy = middle_energy * FUSION_ENERGY_TRANSLATION_EXPONENT ** log(10, old_thermal_energy / middle_energy)
 		
 		//This bowdlerization is a double-edged sword. Tread with care!
 		var/bowdlerized_reaction_energy = 	clamp(reaction_energy, \
