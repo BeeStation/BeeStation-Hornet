@@ -938,18 +938,9 @@
 			admin_ticket_log(src, msg)
 
 /mob/living/carbon/human/MouseDrop_T(mob/living/target, mob/living/user)
-<<<<<<< HEAD
 	if(pulling == target && grab_state >= GRAB_AGGRESSIVE && stat == CONSCIOUS)
 		//If they dragged themselves and we're currently aggressively grabbing them try to piggyback
 		if(user == target && can_piggyback(target))
-=======
-	if(pulling != target || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS || a_intent != INTENT_GRAB)
-		return ..()
-
-	//If they dragged themselves and we're currently aggressively grabbing them try to piggyback
-	if(user == target)
-		if(can_piggyback(target))
->>>>>>> 3deacb4b69... Fixes not being able to neck grab into fireman carry, and piggybacking (#2754)
 			piggyback(target)
 			return
 		//If you dragged them to you and you're aggressively grabbing try to fireman carry them
@@ -1034,7 +1025,7 @@
 
 //src is the user that will be carrying, target is the mob to be carried
 /mob/living/carbon/human/proc/can_piggyback(mob/living/carbon/target)
-	return (istype(target) && target.stat == CONSCIOUS && (target.mobility_flags & MOBILITY_STAND))
+	return (istype(target) && target.stat == CONSCIOUS)
 
 /mob/living/carbon/human/proc/can_be_firemanned(mob/living/carbon/target)
 	return (ishuman(target) && !(target.mobility_flags & MOBILITY_STAND))
