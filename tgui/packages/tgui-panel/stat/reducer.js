@@ -11,54 +11,54 @@ const initialState = {
 
 export const statReducer = (state = initialState, action) => {
   const { type, payload } = action;
-  if (type === 'stat/setTab'){
+  if (type === 'stat/setTab') {
     sendMessage({
       type: 'stat/setTab',
       payload: {
-        selectedTab: payload
+        selectedTab: payload,
       },
-    })
+    });
     return {
       ...state,
       selectedTab: payload,
     };
   }
-  if(type === 'stat/setStatTabs'){
+  if (type === 'stat/setStatTabs') {
     return {
       ...state,
       statTabs: payload,
     };
   }
-  if(type === 'stat/setPanelInfomation'){
+  if (type === 'stat/setPanelInfomation') {
     return {
       ...state,
       statInfomation: payload,
     };
   }
-  if(type === 'stat/antagPopup'){
+  if (type === 'stat/antagPopup') {
     return {
       ...state,
       antagonist_popup: payload,
     };
   }
-  if(type === 'stat/clearAntagPopup'){
+  if (type === 'stat/clearAntagPopup') {
     return {
       ...state,
       antagonist_popup: null,
     };
   }
-  if(type === 'stat/deadPopup'){
+  if (type === 'stat/deadPopup') {
     return {
       ...state,
       antagonist_popup: null,
       dead_popup: true,
     };
   }
-  if(type === 'stat/clearDeadPopup'){
+  if (type === 'stat/clearDeadPopup') {
     return {
       ...state,
       dead_popup: false,
     };
   }
   return state;
-}
+};
