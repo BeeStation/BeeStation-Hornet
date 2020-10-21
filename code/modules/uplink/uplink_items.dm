@@ -1088,6 +1088,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/deployablemine/traitor
 	cost = 4
 
+/datum/uplink_item/explosives/doorCharge
+	name = "Airlock Charge"		
+	desc = "A small explosive device that can be used to sabotage airlocks to cause an explosion upon opening. \
+			To apply, remove the airlock's maintenance panel and place it within."
+	item = /obj/item/doorCharge
+	cost = 4
+
 /datum/uplink_item/explosives/virus_grenade
 	name = "Fungal Tuberculosis Grenade"
 	desc = "A primed bio-grenade packed into a compact box. Comes with five Bio Virus Antidote Kit (BVAK) \
