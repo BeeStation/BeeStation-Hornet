@@ -341,7 +341,6 @@
 #include "code\datums\shuttles.dm"
 #include "code\datums\soullink.dm"
 #include "code\datums\spawners_menu.dm"
-#include "code\datums\verbs.dm"
 #include "code\datums\view.dm"
 #include "code\datums\weakrefs.dm"
 #include "code\datums\world_topic.dm"
@@ -598,6 +597,7 @@
 #include "code\game\say.dm"
 #include "code\game\shuttle_engines.dm"
 #include "code\game\sound.dm"
+#include "code\game\verbs.dm"
 #include "code\game\world.dm"
 #include "code\game\verbs.dm"
 #include "code\game\area\ai_monitored.dm"
@@ -3172,7 +3172,6 @@
 #include "code\modules\zombie\items.dm"
 #include "code\modules\zombie\organs.dm"
 #include "interface\interface.dm"
-#include "interface\menu.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
 // END_INCLUDE
