@@ -100,7 +100,7 @@
 /obj/machinery/power/apc/syndicate{
 	dir = 1;
 	name = "Virology APC";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -284,7 +284,7 @@
 /obj/machinery/power/apc/syndicate{
 	dir = 8;
 	name = "Chemistry APC";
-	pixel_x = -25
+	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -633,7 +633,7 @@
 /obj/machinery/power/apc/syndicate{
 	dir = 1;
 	name = "Cargo Bay APC";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/closet/emcloset/anchored,
 /obj/effect/decal/cleanable/dirt,
@@ -1340,7 +1340,7 @@
 "fk" = (
 /obj/machinery/power/apc/syndicate{
 	name = "Experimentation Lab APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -1451,22 +1451,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
-/area/ruin/unpowered/syndicate_lava_base/cargo)
-"fs" = (
-/obj/effect/turf_decal/box/white/corners{
-	dir = 8
-	},
-/obj/structure/closet/crate,
-/obj/item/storage/box/stockparts/deluxe,
-/obj/item/storage/box/stockparts/deluxe,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/circuitboard/machine/processor,
-/obj/item/circuitboard/machine/gibber,
-/obj/item/circuitboard/machine/deep_fryer,
-/obj/item/circuitboard/machine/cell_charger,
-/obj/item/circuitboard/machine/smoke_machine,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "ft" = (
@@ -2856,10 +2840,10 @@
 	dir = 1
 	},
 /obj/machinery/turretid{
+	ailock = 1;
 	control_area = "/area/ruin/unpowered/syndicate_lava_base/main";
 	dir = 1;
 	icon_state = "control_kill";
-	ailock = 1;
 	lethal = 1;
 	name = "Base turret controls";
 	pixel_y = 30;
@@ -3181,7 +3165,7 @@
 	},
 /obj/machinery/power/apc/syndicate{
 	name = "Dormitories APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -3345,7 +3329,7 @@
 /obj/machinery/power/apc/syndicate{
 	dir = 8;
 	name = "Primary Hallway APC";
-	pixel_x = -25
+	pixel_x = -24
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -4075,7 +4059,7 @@
 /obj/machinery/power/apc/syndicate{
 	dir = 1;
 	name = "Engineering APC";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -4639,30 +4623,6 @@
 	dir = 4
 	},
 /area/ruin/unpowered/syndicate_lava_base/medbay)
-"lL" = (
-/obj/machinery/airalarm/syndicate{
-	dir = 4;
-	pixel_x = -24
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/structure/table,
-/obj/item/stack/sheet/iron/fifty{
-	pixel_x = -1;
-	pixel_y = 1
-	},
-/obj/item/stack/sheet/mineral/plastitanium{
-	amount = 30
-	},
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 1;
-	pixel_y = -1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered/syndicate_lava_base/engineering)
 "lM" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -4993,7 +4953,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/syndicate{
 	name = "Bar APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/bar)
@@ -5470,7 +5430,7 @@
 /obj/machinery/power/apc/syndicate{
 	dir = 1;
 	name = "Arrival Hallway APC";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -6019,7 +5979,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/syndicate{
 	name = "Telecommunications APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -6231,6 +6191,31 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
+"vN" = (
+/obj/machinery/airalarm/syndicate{
+	dir = 4;
+	pixel_x = -24
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/item/stack/sheet/iron/fifty{
+	pixel_x = -1;
+	pixel_y = 1
+	},
+/obj/item/stack/sheet/mineral/plastitanium{
+	amount = 30
+	},
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = 1;
+	pixel_y = -1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/circuitboard/machine/thermomachine/freezer,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "BF" = (
 /obj/structure/grille,
 /obj/structure/window/plastitanium,
@@ -6275,6 +6260,23 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
+"HE" = (
+/obj/effect/turf_decal/box/white/corners{
+	dir = 8
+	},
+/obj/structure/closet/crate,
+/obj/item/storage/box/stockparts/deluxe,
+/obj/item/storage/box/stockparts/deluxe,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/circuitboard/machine/processor,
+/obj/item/circuitboard/machine/gibber,
+/obj/item/circuitboard/machine/deep_fryer,
+/obj/item/circuitboard/machine/cell_charger,
+/obj/item/circuitboard/machine/smoke_machine,
+/obj/item/storage/part_replacer/cargo,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered/syndicate_lava_base/cargo)
 "IJ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 1
@@ -7947,7 +7949,7 @@ dL
 eb
 ey
 eX
-fs
+HE
 fa
 gM
 hi
@@ -8115,7 +8117,7 @@ ju
 kx
 kV
 lp
-lL
+vN
 mg
 mF
 nc
