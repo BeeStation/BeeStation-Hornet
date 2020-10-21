@@ -1,0 +1,5 @@
+author: Poly-The-Parrot
+delete-after: true
+changes:
+  - bugfix: You can fireman carry from neck or kill grabs again.
+  - bugfix: You can't piggyback to get out of neck or kill grabs.
