@@ -206,3 +206,9 @@
 	aggressive = TRUE
 	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
 					 /obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
+
+/mob/living/carbon/monkey/tumor/Initialize()
+	. = ..()
+	dna.species.species_traits += NOTRANSSTING
+	for(var/datum/mutation/human/race/M in dna.mutations)
+		M.mutadone_proof = TRUE
