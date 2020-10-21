@@ -122,7 +122,7 @@
 				var/burndamage = min(cell.charge,powertransfer)
 				cell.use(burndamage)
 				cell.update_icon()
-				A.take_damage(burndamage/2000, BURN, "energy")
+				O.take_damage(burndamage/500, BURN, "energy")
 				do_sparks(1, FALSE, A)
 			else
 				to_chat(user, "<span class='notice'>[A] is fully charged!</span>")
