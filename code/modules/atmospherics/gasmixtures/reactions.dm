@@ -272,7 +272,7 @@
 	if(!air.analyzer_results)
 		air.analyzer_results = new
 	var/list/cached_scan_results = air.analyzer_results
-	var/old_thermal_energy = air.thermal_energy()
+	var/thermal_energy = air.thermal_energy()
 	var/reaction_energy = 0 //Reaction energy can be negative or positive, for both exothermic and endothermic reactions.
 	var/initial_plasma = air.get_moles(/datum/gas/plasma)
 	var/initial_carbon = air.get_moles(/datum/gas/carbon_dioxide)
@@ -307,22 +307,19 @@
 						: delta_plasma*PLASMA_BINDING_ENERGY * (instability-FUSION_INSTABILITY_ENDOTHERMALITY)**0.5
 	
 	//To achieve faster equilibrium. Too bad it is not that good at cooling down.
-	var/translated_energy = 0
 	if (reaction_energy)
 		var/middle_energy = (((TOROID_CALCULATED_THRESHOLD / 2) * scale_factor) + FUSION_MOLE_THRESHOLD) * (200 * FUSION_MIDDLE_ENERGY_REFERENCE)
-		translated_energy = middle_energy * FUSION_ENERGY_TRANSLATION_EXPONENT ** log(10, old_thermal_energy / middle_energy)
+		thermal_energy = middle_energy * FUSION_ENERGY_TRANSLATION_EXPONENT ** log(10, thermal_energy / middle_energy)
 		
 		//This bowdlerization is a double-edged sword. Tread with care!
 		var/bowdlerized_reaction_energy = 	clamp(reaction_energy, \
-											translated_energy * ((1 / FUSION_ENERGY_TRANSLATION_EXPONENT ** 2) - 1), \
-											translated_energy * (FUSION_ENERGY_TRANSLATION_EXPONENT ** 2 - 1))
+											thermal_energy * ((1 / FUSION_ENERGY_TRANSLATION_EXPONENT ** 2) - 1), \
+											thermal_energy * (FUSION_ENERGY_TRANSLATION_EXPONENT ** 2 - 1))
 		if (bowdlerized_reaction_energy != reaction_energy)
 			var/bowdlerization_ratio = bowdlerized_reaction_energy/reaction_energy
 			air.set_moles(/datum/gas/plasma, initial_plasma - delta_plasma * bowdlerization_ratio)
 			air.set_moles(/datum/gas/carbon_dioxide, initial_carbon - delta_carbon * bowdlerization_ratio)
-		translated_energy = middle_energy * 10 ** log(FUSION_ENERGY_TRANSLATION_EXPONENT, (translated_energy + bowdlerized_reaction_energy) / middle_energy)
-	else
-		translated_energy = old_thermal_energy //What happens if reaction_energy is 0, in a nutshell
+		thermal_energy = middle_energy * 10 ** log(FUSION_ENERGY_TRANSLATION_EXPONENT, (thermal_energy + bowdlerized_reaction_energy) / middle_energy)
 
 	//The reason why you should set up a tritium production line.
 	air.adjust_moles(/datum/gas/tritium, -FUSION_TRITIUM_MOLES_USED)
@@ -344,12 +341,12 @@
 			radiation_pulse(location, max(2000 * 3 ** (log(10,standard_energy) - FUSION_RAD_MIDPOINT), 0))
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.set_temperature(clamp(translated_energy/new_heat_capacity, TCMB, INFINITY))
+			air.set_temperature(clamp(thermal_energy/new_heat_capacity, TCMB, INFINITY))
 		return REACTING
 	else if(reaction_energy == 0 && instability <= FUSION_INSTABILITY_ENDOTHERMALITY)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.set_temperature(clamp(translated_energy/new_heat_capacity, TCMB, INFINITY)) //THIS SHOULD STAY OR FUSION WILL EAT YOUR FACE
+			air.set_temperature(clamp(thermal_energy/new_heat_capacity, TCMB, INFINITY)) //THIS SHOULD STAY OR FUSION WILL EAT YOUR FACE
 		return REACTING
 
 /datum/gas_reaction/nitrylformation //The formation of nitryl. Endothermic. Requires N2O as a catalyst.
