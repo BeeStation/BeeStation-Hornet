@@ -84,11 +84,11 @@
 	
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/limb
-        name = "limb snake"
-        desc = "This is no snake at all! It looks like someone's limb grew fangs out of it's fingers and it's out to bite anyone!"
-		health = 50
-		maxHealth = 50
-		melee_damage = 6
-        faction = list("creature")
-        poison_per_bite = 3
-        poison_type = /datum/reagent/toxin/staminatoxin
+	name = "limb snake"
+	desc = "This is no snake at all! It looks like someone's limb grew fangs out of it's fingers and it's out to bite anyone!"
+	health = 50
+	maxHealth = 50
+	melee_damage = 6
+	faction = list("creature")
+	poison_per_bite = 3
+	poison_type = /datum/reagent/toxin/staminatoxin
