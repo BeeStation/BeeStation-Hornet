@@ -55,23 +55,20 @@
 /datum/action/changeling/limbsnake/sting_action(mob/user)
 	var/mob/living/carbon/C = user
 	var/list/parts = list()
-	for(var/X in C.bodyparts)
-		var/obj/item/bodypart/BP = X
+	for(var/Zim in C.bodyparts)
+		var/obj/item/bodypart/BP = Zim
 		if(BP.body_part != HEAD && BP.body_part != CHEST)
 			if(BP.dismemberable)
 				parts += BP
 	if(!parts.len)
-		playsound(user, 'sound/magic/demon_consume.ogg', 50, 1)	//copy_paste from regenerate
-		C.visible_message("<span class='warning'>[user]'s missing limbs \
-			reform, making a loud, grotesque sound!</span>",
-			"<span class='userdanger'>Your limbs regrow, making a \
-			loud, crunchy sound and giving you great pain!</span>",
-			"<span class='italics'>You hear organic matter ripping \
-			and tearing!</span>")
-		C.regenerate_limbs(1)
+		to_chat(user, "<span class='notice'>We don't have any limbs to detach.</span>")
 		return
 	//limb related actions
 	var/obj/item/bodypart/BP = pick(parts)
+	for(var/obj/item/bodypart/Gir in parts)
+		var/obj/item/bodypart/BP = X
+		if(Gir.body_part == ARM_RIGHT)	//the bible warned you to stop touching yourself, didn't it?
+			BP = Gir	
 	C.visible_message("<span class='warning'>[user]'s [BP] detaches itself and takes the form of a snake!</span>",
 			"<span class='userdanger'>Our [BP] forms into a horrifying snake and heads towards our attackers!</span>")
 	BP.Destroy()	
@@ -83,12 +80,35 @@
 	//text message
 	
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/limb
+/mob/living/simple_animal/hostile/limbsnake
 	name = "limb snake"
 	desc = "This is no snake at all! It looks like someone's limb grew fangs out of it's fingers and it's out to bite anyone!"
+	icon_state = "snake"
+	icon_living = "snake"
+	del_on_death = 1
+	speak_emote = list("hisses")
 	health = 50
 	maxHealth = 50
 	melee_damage = 6
-	faction = list("creature")
-	poison_per_bite = 3
-	poison_type = /datum/reagent/toxin/staminatoxin
+	attacktext = "bites"
+	response_help  = "pokes"
+	response_disarm = "shoos"
+	response_harm   = "steps on"
+	ventcrawler = VENTCRAWLER_ALWAYS
+	density = FALSE
+	pass_flags = PASSTABLE | PASSMOB
+	mob_size = MOB_SIZE_SMALL
+	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	obj_damage = 0
+	environment_smash = ENVIRONMENT_SMASH_NONE
+	mobsay_color = "#26F55A"
+	faction = list("hostile","creature")
+	var/poison_per_bite = 3
+	var/poison_type = /datum/reagent/toxin/staminatoxin
+
+/mob/living/simple_animal/hostile/limbsnake/AttackingTarget()
+	. = ..()
+	if(. && isliving(target))
+		var/mob/living/L = target
+		if(L.reagents)
+			L.reagents.add_reagent(poison_type, poison_per_bite)
