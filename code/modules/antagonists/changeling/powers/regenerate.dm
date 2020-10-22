@@ -41,9 +41,9 @@
 	return TRUE
 
 /datum/action/changeling/limbsnake
-	name = "Limb Snake"
-	desc = "We turn our limbs into a slithering snake. The poison of this creatures can paralyze attackers. Costs 15 chemicals."
-	helptext = "We reform one of our limbs as a hostile snake-like creature. This grotesque display may ward off attackers, and the creature will inject them with incapacitating poison."
+	name = "Chimera"
+	desc = "We turn our limbs into an autonomous snake. The poison of this creatures can paralyze attackers. Costs 10 chemicals."
+	helptext = "We reform one of our limbs as a autonomous snake-like creature. This grotesque display may ward off attackers, and the creature will inject them with incapacitating poison."
 	button_icon_state = "last_resort"
 	chemical_cost = 10
 	req_absorbs = 3
@@ -66,8 +66,7 @@
 	//limb related actions
 	var/obj/item/bodypart/BP = pick(parts)
 	for(var/obj/item/bodypart/Gir in parts)
-		var/obj/item/bodypart/BP = X
-		if(Gir.body_part == ARM)	//the bible warned you to stop touching yourself, didn't it? (this made more sense when it only removed your right arm)
+		if(Gir.body_part == ARM_LEFT || Gir.body_part == ARM_RIGHT)	//arms first, so they can mitigate the damage with the Armblade ability too, and it's not entirely reliant on regenerate
 			BP = Gir	
 	C.visible_message("<span class='warning'>[user]'s [BP] detaches itself and takes the form of a snake!</span>",
 			"<span class='userdanger'>Our [BP] forms into a horrifying snake and heads towards our attackers!</span>")
@@ -86,7 +85,7 @@
 	icon_state = "snake"
 	icon_living = "snake"
 	del_on_death = 1
-	speak_emote = list("hisses")
+	speak_emote = list("gargles")
 	health = 50
 	maxHealth = 50
 	melee_damage = 6
