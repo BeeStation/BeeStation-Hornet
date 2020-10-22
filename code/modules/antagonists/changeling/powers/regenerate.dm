@@ -67,20 +67,20 @@
 	var/obj/item/bodypart/BP = pick(parts)
 	for(var/obj/item/bodypart/Gir in parts)
 		var/obj/item/bodypart/BP = X
-		if(Gir.body_part == ARM_RIGHT)	//the bible warned you to stop touching yourself, didn't it?
+		if(Gir.body_part == ARM)	//the bible warned you to stop touching yourself, didn't it? (this made more sense when it only removed your right arm)
 			BP = Gir	
 	C.visible_message("<span class='warning'>[user]'s [BP] detaches itself and takes the form of a snake!</span>",
 			"<span class='userdanger'>Our [BP] forms into a horrifying snake and heads towards our attackers!</span>")
 	BP.Destroy()	
 	//Deploy limbsnake
-	var/mob/living/snek = new /mob/living/simple_animal/hostile/retaliate/poison/snake/limb(get_turf(user))		
+	var/mob/living/snek = new /mob/living/simple_animal/hostile/poison/limbsnake(get_turf(user))		
 	//assign faction
 	var/list/factions = user.faction.Copy()
 	snek.faction = factions
 	//text message
 	
 
-/mob/living/simple_animal/hostile/limbsnake
+/mob/living/simple_animal/hostile/poison/limbsnake
 	name = "limb snake"
 	desc = "This is no snake at all! It looks like someone's limb grew fangs out of it's fingers and it's out to bite anyone!"
 	icon_state = "snake"
@@ -105,10 +105,3 @@
 	faction = list("hostile","creature")
 	var/poison_per_bite = 3
 	var/poison_type = /datum/reagent/toxin/staminatoxin
-
-/mob/living/simple_animal/hostile/limbsnake/AttackingTarget()
-	. = ..()
-	if(. && isliving(target))
-		var/mob/living/L = target
-		if(L.reagents)
-			L.reagents.add_reagent(poison_type, poison_per_bite)
