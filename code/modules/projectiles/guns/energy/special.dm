@@ -154,6 +154,7 @@
 /obj/item/gun/energy/plasmacutter/Initialize()
 	. = ..()
 	AddComponent(/datum/component/butchering, 25, 105, 0, 'sound/weapons/plasma_cutter.ogg')
+	cell.use(cell.maxcharge)	//This is horrible. I tried to use "/obj/item/stock_parts/cell/empty" as a cell_type, but it won't work for some unknown reason as if Initialize() doesn't work.
 
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()
