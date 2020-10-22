@@ -15,7 +15,7 @@
 	var/voteweight = 1
 	var/votable = FALSE
 
-	// Config actually from the JSON - should default to Box CHANGE: EDITTED TO CORGSTATION
+	// Config actually from the JSON - should default to Box
 	var/map_name = "Box Station"
 	var/map_path = "map_files/BoxStation"
 	var/map_file = "BoxStation.dmm"

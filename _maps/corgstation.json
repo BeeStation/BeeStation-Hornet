@@ -1,6 +1,6 @@
 {
     "map_name": "Corg Station",
-    "map_path": "map_files/Corgstation",
+    "map_path": "map_files/CorgStation",
     "map_file": "CorgStation.dmm",
     "shuttles": {
 	    "cargo": "cargo_box",
