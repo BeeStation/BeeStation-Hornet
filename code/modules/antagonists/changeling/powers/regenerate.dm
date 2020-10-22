@@ -43,7 +43,7 @@
 /datum/action/changeling/limbsnake
 	name = "Chimera"
 	desc = "We turn our limbs into an autonomous snake. The poison of this creatures can paralyze attackers. Costs 10 chemicals."
-	helptext = "We reform one of our limbs as a autonomous snake-like creature. This grotesque display may ward off attackers, and the creature will inject them with incapacitating poison."
+	helptext = "We reform one of our limbs as an autonomous snake-like creature. This grotesque display may ward off attackers, and the creature will inject them with incapacitating poison."
 	button_icon_state = "last_resort"
 	chemical_cost = 10
 	req_absorbs = 3
@@ -66,7 +66,7 @@
 	//limb related actions
 	var/obj/item/bodypart/BP = pick(parts)
 	for(var/obj/item/bodypart/Gir in parts)
-		if(Gir.body_part == ARM_LEFT || Gir.body_part == ARM_RIGHT)	//arms first, so they can mitigate the damage with the Armblade ability too, and it's not entirely reliant on regenerate
+		if(Gir.body_part == ARMS)	//arms first, so they can mitigate the damage with the Armblade ability too, and it's not entirely reliant on regenerate
 			BP = Gir	
 	C.visible_message("<span class='warning'>[user]'s [BP] detaches itself and takes the form of a snake!</span>",
 			"<span class='userdanger'>Our [BP] forms into a horrifying snake and heads towards our attackers!</span>")
