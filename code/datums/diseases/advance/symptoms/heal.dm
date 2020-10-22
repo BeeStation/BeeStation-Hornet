@@ -220,7 +220,7 @@
 
 /datum/symptom/heal/surface/passive_message_condition(mob/living/M)
 	return M.getBruteLoss() <= threshhold || M.getFireLoss() <= threshhold
-	
+
 /datum/symptom/heal/metabolism
 	name = "Metabolic Boost"
 	stealth = -1
@@ -510,7 +510,7 @@ obj/effect/sweatsplash/proc/splash()
 								chosen.Insert(M, TRUE, FALSE)
 								to_chat(M, "<span class='userdanger'>As the [chosen] touches your skin, it is promptly absorbed.</span>")
 					if(missing.len) //we regrow one missing limb
-						for(var/Z in missing) //uses the same text and sound a ling's regen does. This can false-flag the host as a changeling. 
+						for(var/Z in missing) //uses the same text and sound a ling's regen does. This can false-flag the host as a changeling.
 							if(M.regenerate_limb(Z, TRUE))
 								playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
 								M.visible_message("<span class='warning'>[M]'s missing limbs \
@@ -535,7 +535,7 @@ obj/effect/sweatsplash/proc/splash()
 									M.grab_ghost()
 								break
 				if(tetsuo && prob(10) && A.affected_mob.job == "Clown")
-					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)				
+					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
 			if(bruteheal)
 				M.heal_overall_damage(2 * power, required_status = BODYPART_ORGANIC)
 				if(prob(11 * power))
@@ -553,6 +553,7 @@ obj/effect/sweatsplash/proc/splash()
 	animate(pixel_z = 0, transform = turn(matrix(), pick(-12, 0, 12)), time=2) //waddle desizing is an issue, because you can game it to use this symptom and become small
 	animate(pixel_z = 0, transform = matrix(), time = 0) //so, instead, we use waddle desizing to desize you from this symptom, instead of a transformation, because it wont shrink you naturally
 
+//they are used for the maintenance spawn, for ling teratoma see changeling\teratoma.dm
 /obj/effect/mob_spawn/teratomamonkey //spawning these is one of the downsides of overclocking the symptom
 	name = "fleshy mass"
 	desc = "A writhing mass of flesh."
@@ -561,14 +562,13 @@ obj/effect/sweatsplash/proc/splash()
 	density = FALSE
 	anchored = FALSE
 
+	antagonist_type = /datum/antagonist/teratoma/hugbox
 	mob_type = /mob/living/carbon/monkey/tumor
 	mob_name = "a living tumor"
 	death = FALSE
 	roundstart = FALSE
-	short_desc = "You are a living tumor. By all accounts, you should not exist."
-	flavour_text = {"
-	<b>You are a living teratoma, and your existence is misery. You feel the need to spread woe about the station- but not to kill.
-	"}
+	show_flavour = FALSE	//it's handled by antag datum
+
 
 /obj/effect/mob_spawn/teratomamonkey/Initialize()
 	. = ..()
@@ -591,3 +591,8 @@ obj/effect/sweatsplash/proc/splash()
 		qdel(src)
 	else
 		..()
+
+/obj/effect/mob_spawn/teratomamonkey/create(ckey, name)
+	..()
+	var/datum/antagonist/teratoma/hugbox/D = new
+	usr.mind.add_antag_datum(D)
