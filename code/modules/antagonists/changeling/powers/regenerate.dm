@@ -103,5 +103,5 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	mobsay_color = "#26F55A"
 	faction = list("hostile","creature")
-	var/poison_per_bite = 3
-	var/poison_type = /datum/reagent/toxin/staminatoxin
+	poison_per_bite = 3
+	poison_type = /datum/reagent/toxin/staminatoxin
