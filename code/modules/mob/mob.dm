@@ -700,16 +700,18 @@
   *
   * Shows charge and other important info
   */
-/mob/proc/add_spells_to_statpanel(list/spells)
+/mob/proc/get_spell_stat_data(list/spells, current_tab)
+	var/list/stat_data = list()
 	for(var/obj/effect/proc_holder/spell/S in spells)
-		if(S.can_be_cast_by(src))
+		if(S.can_be_cast_by(src) && current_tab == S.panel)
 			switch(S.charge_type)
 				if("recharge")
-					statpanel("[S.panel]","[S.charge_counter/10.0]/[S.charge_max/10]",S)
+					stat_data["[S.name]"] = GENERATE_STAT_TEXT("[S.charge_counter/10.0]/[S.charge_max/10]")
 				if("charges")
-					statpanel("[S.panel]","[S.charge_counter]/[S.charge_max]",S)
+					stat_data["[S.name]"] = GENERATE_STAT_TEXT("[S.charge_counter]/[S.charge_max]")
 				if("holdervar")
-					statpanel("[S.panel]","[S.holder_var_type] [S.holder_var_amount]",S)
+					stat_data["[S.name]"] = GENERATE_STAT_TEXT("[S.holder_var_type] [S.holder_var_amount]")
+	return stat_data
 
 #define MOB_FACE_DIRECTION_DELAY 1
 

@@ -58,6 +58,9 @@
 				params = list("verb" = V.name),
 				type=STAT_VERB,
 			)
+	if(mind)
+		tab_data += get_spell_stat_data(mind.spell_list, selected_tab)
+	tab_data += get_spell_stat_data(mob_spell_list, selected_tab)
 	if(requires_holder && !client.holder)
 		message_admins("[ckey] attempted to access the MC tab without sufficient rights.")
 		log_admin("[ckey] attempted to access the MC tab without sufficient rights.")
@@ -72,31 +75,16 @@
 	tab_data["Map"] = list("[SSmapping.config?.map_name || "Loading..."]", STAT_TEXT)
 	var/datum/map_config/cached = SSmapping.next_map_config
 	if(cached)
-		tab_data["Next Map"] = list(
-			text=cached.map_name,
-			type=STAT_TEXT,
-		)
-	tab_data["Server Time"] = list(
-		text=time2text(world.timeofday,"YYYY-MM-DD hh:mm:ss"),
-		type=STAT_TEXT,
-	)
-	tab_data["Round Time"] = list(
-		text=worldtime2text(),
-		type=STAT_TEXT,
-	)
-	tab_data["Station Time"] = list(
-		text=station_time_timestamp(),
-		type=STAT_TEXT,
-	)
+		tab_data["Next Map"] = GENERATE_STAT_TEXT(cached.map_name)
+	tab_data["Server Time"] = GENERATE_STAT_TEXT(time2text(world.timeofday,"YYYY-MM-DD hh:mm:ss"))
+	tab_data["Round Time"] = GENERATE_STAT_TEXT(worldtime2text())
+	tab_data["Station Time"] = GENERATE_STAT_TEXT(station_time_timestamp())
 	tab_data["Time Dilation"] = GENERATE_STAT_TEXT("[round(SStime_track.time_dilation_current,1)]% AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, [round(SStime_track.time_dilation_avg,1)]%, [round(SStime_track.time_dilation_avg_slow,1)]%)")
 	tab_data["Players Connected"] = GENERATE_STAT_TEXT("[GLOB.clients.len]")
 	if(SSshuttle.emergency)
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
-			tab_data["ETA"] = list(
-				text=SSshuttle.emergency.getTimerStr(),
-				type=STAT_TEXT,
-				)
+			tab_data["ETA"] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
 	return tab_data
 
 /mob/proc/get_stat_tab_master_controller()
@@ -139,6 +127,13 @@
 			listed_turf = null
 		else
 			tabs |= listed_turf.name
+	//Add spells
+	var/list/spells = mob_spell_list
+	if(mind)
+		spells = mind.spell_list
+	for(var/obj/effect/proc_holder/spell/S in spells)
+		if(S.can_be_cast_by(src))
+			tabs |= S.panel
 	//Holder stat tabs
 	if(client.holder)
 		tabs |= "MC"
@@ -238,8 +233,4 @@
 				stat("Access Global SDQL2 List", GLOB.sdql2_vv_statobj)
 				for(var/i in GLOB.sdql2_queries)
 					var/datum/SDQL2_query/Q = i
-					Q.generate_stat()
-
-	if(mind)
-		add_spells_to_statpanel(mind.spell_list)
-	add_spells_to_statpanel(mob_spell_list)*/
+					Q.generate_stat()*/
