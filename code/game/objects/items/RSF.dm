@@ -43,6 +43,16 @@ RSF
 	switch(mode)
 		if(5)
 			mode = 1
+			if(iscyborg(user))
+				var/mob/living/silicon/robot/R = user
+				if(R.emagged)
+					mode = 6
+			if (mode==1)
+				to_chat(user, "Changed dispensing mode to 'Drinking Glass'")
+			else
+				to_chat(user, "Changed dispensing mode to 'Explosive Cigarette'")
+		if(6)
+			mode = 1
 			to_chat(user, "Changed dispensing mode to 'Drinking Glass'")
 		if(1)
 			mode = 2
@@ -97,6 +107,10 @@ RSF
 			to_chat(user, "Dispensing Cigarette...")
 			new /obj/item/clothing/mask/cigarette(T)
 			use_matter(10, user)
+		if(6)
+			to_chat(user, "Dispensing Explosive Cigarette...")
+			new /obj/item/clothing/mask/cigarette/plasma(T)
+			use_matter(20, user)
 
 /obj/item/rsf/proc/use_matter(charge, mob/user)
 	if (iscyborg(user))

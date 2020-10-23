@@ -327,6 +327,26 @@
 		note = null
 		update_icon()
 
+/obj/machinery/door/airlock/Bumped(atom/movable/AM)
+	if(operating || (obj_flags & EMAGGED))
+		return
+	if(ismecha(AM))
+		var/obj/mecha/mecha = AM
+		if(density)
+			if(mecha.occupant)
+				if(world.time - mecha.occupant.last_bumped <= 10)
+					return
+				mecha.occupant.last_bumped = world.time
+			if(locked && (allowed(mecha.occupant) || check_access_list(mecha.operation_req_access)) && aac)
+				aac.request_from_door(src)
+				return
+			if(mecha.occupant && (src.allowed(mecha.occupant) || src.check_access_list(mecha.operation_req_access)))
+				open()
+			else
+				do_animate("deny")
+		return
+	. = ..()
+
 /obj/machinery/door/airlock/bumpopen(mob/living/user) //Airlocks now zap you when you 'bump' them open when they're electrified. --NeoFite
 	if(!issilicon(usr))
 		if(isElectrified())

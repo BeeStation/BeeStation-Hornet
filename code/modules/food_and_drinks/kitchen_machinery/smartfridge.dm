@@ -136,6 +136,18 @@
 		return ..()
 
 
+/obj/machinery/smartfridge/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)	
+	if(!stat)
+		if (istype(AM, /obj/item))		
+			var/obj/item/O = AM
+			if(contents.len < max_n_of_items && accept_check(O))
+				load(O)
+				updateUsrDialog()
+				if (visible_contents)
+					update_icon()
+				return TRUE
+	return ..()
+
 
 /obj/machinery/smartfridge/proc/accept_check(obj/item/O)
 	if(istype(O, /obj/item/reagent_containers/food/snacks/grown/) || istype(O, /obj/item/seeds/) || istype(O, /obj/item/grown/))
