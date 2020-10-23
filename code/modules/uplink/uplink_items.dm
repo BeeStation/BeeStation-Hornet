@@ -290,10 +290,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	starting_crate_value = index * 5
 	if(index == 1)
 		to_chat(user, "<span class='warning'><b>Incomming transmission from the syndicate.</b></span>")
-		to_chat(user, "<span class='warning'>Unfortunately you are a loser. A free box of tissues will be transfered over.</span>")
-		var/obj/item/paper = new(get_turf(user))
-		paper.name = "tissue"
-		paper.desc = "A tissue curtosy of the syndicate for hitting small."
+		to_chat(user, "<span class='warning'>You feel an overwhelming sense of pride and accomplishment.</span>")
+		var/obj/item/clothing/mask/joy/funny_mask = new(get_turf(user))
+		ADD_TRAIT(funny_mask, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+		var/obj/item/I = user.get_item_by_slot(SLOT_WEAR_MASK)
+		if(I)
+			user.dropItemToGround(I, TRUE)
+		user.equip_to_slot_if_possible(funny_mask, SLOT_WEAR_MASK)
 	if(index == 20)
 		to_chat(user, "<span class='warning'><b>Incomming transmission from the syndicate.</b></span>")
 		to_chat(user, "<span class='warning'>Congratulations winner, you have won the grand syndicate prize!</span>")
