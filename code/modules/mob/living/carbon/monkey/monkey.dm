@@ -209,6 +209,4 @@
 
 /mob/living/carbon/monkey/tumor/Initialize()
 	. = ..()
-	dna.species.species_traits += NOTRANSSTING
-	for(var/datum/mutation/human/race/M in dna.mutations)
-		M.mutadone_proof = TRUE
+	dna = null		//prevents teratomas from shoving up in DNA consoles and getting humanized, it just works

@@ -13,7 +13,6 @@
 /datum/antagonist/teratoma/greet()
 	to_chat(owner, "<b>You are a living tumor. By all accounts, you should not exist.</b>")
 	to_chat(owner, "<b>Spread misery and chaos upon the station.</b>")
-	//owner.announce_objectives()
 
 /datum/antagonist/teratoma/on_removal()
 	owner.special_role = null
