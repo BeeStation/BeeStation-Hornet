@@ -104,7 +104,6 @@
 			step_away(src,M,15)
 		switch(M.damtype)
 			if(BRUTE)
-				Unconscious(20)
 				take_overall_damage(rand(M.force/2, M.force))
 				playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
 			if(BURN)
@@ -410,7 +409,7 @@
 		else
 			E.extrapolate(src, diseases, user)
 		return TRUE
-	else 
+	else
 		return FALSE
 
 
