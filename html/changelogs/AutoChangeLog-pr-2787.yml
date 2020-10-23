@@ -1,0 +1,5 @@
+author: Archanial
+delete-after: true
+changes:
+  - tweak: Lipid extractor has slightly different recipe.
+  - bugfix: Spawned lipid extractor will now correctly deconstruct.
