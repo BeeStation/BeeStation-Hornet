@@ -6,6 +6,7 @@
 
 import { Button, Flex, Section } from 'tgui/components';
 import { Pane } from 'tgui/layouts';
+import { useDispatch } from 'common/redux';
 import { NowPlayingWidget, useAudio } from './audio';
 import { StatTabs } from './stat';
 import { ChatPanel, ChatTabs } from './chat';
@@ -15,6 +16,7 @@ import { PingIndicator } from './ping';
 import { SettingsPanel, useSettings } from './settings';
 import { useLocalState } from '../tgui/backend';
 import { Box, Divider, DraggableControl } from '../tgui/components';
+import { updateSettings } from './settings/actions';
 
 export const Panel = (props, context) => {
   // IE8-10: Needs special treatment due to missing Flex support
@@ -38,7 +40,8 @@ export const Panel = (props, context) => {
   const [
     number,
     setNumber,
-  ] = useLocalState(context, 'number', 50);
+  ] = useLocalState(context, 'number', settings.statSize);
+  const dispatch = useDispatch(context);
   return (
     <Pane theme={settings.theme}>
       <Flex
@@ -55,7 +58,9 @@ export const Panel = (props, context) => {
         dragMatrix={[0, -1]}
         step={1}
         stepPixelSize={9}
-        onDrag={(e, value) => setNumber(value)}>
+        onDrag={(e, value) => dispatch(updateSettings({
+          statSize: value,
+        }))}>
         {control => (
           <Box
             onMouseDown={control.handleDragStart}
