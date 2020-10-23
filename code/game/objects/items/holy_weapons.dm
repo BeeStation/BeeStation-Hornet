@@ -144,7 +144,7 @@
 	desc = "Its only heretical when others do it."
 	icon_state = "crusader"
 	item_state = "crusader"
-	flags_cover = HEADCOVERSEYES
+	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
 
 /obj/item/clothing/suit/armor/riot/chaplain/adept
 	name = "adept robes"
