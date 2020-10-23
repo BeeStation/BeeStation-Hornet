@@ -287,7 +287,18 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/bundles_TC/surplus/random/purchase(mob/user, datum/component/uplink/U)
 	var/index = rand(1, 20)
-	starting_crate_value = FLOOR((0.1 * (index ** 2.1)) + index + 5, 1)
+	starting_crate_value = index * 5
+	if(index == 1)
+		to_chat(user, "<span class='warning'><b>Incomming transmission from the syndicate.</b></span>")
+		to_chat(user, "<span class='warning'>Unfortunately you are a loser. A free box of tissues will be transfered over.</span>")
+		var/obj/item/paper = new(get_turf(user))
+		paper.name = "tissue"
+		paper.desc = "A tissue curtosy of the syndicate for hitting small."
+	if(index == 20)
+		to_chat(user, "<span class='warning'><b>Incomming transmission from the syndicate.</b></span>")
+		to_chat(user, "<span class='warning'>Congratulations winner, you have won the grand syndicate prize!</span>")
+		to_chat(user, "<span class='warning'>Your winnings will be beamed over immediately.</span>")
+		starting_crate_value = rand(100, 200)
 	var/obj/item/implant/weapons_auth/W = new
 	W.implant(user)	//Gives them the ability to use restricted weapons
 	. = ..()
@@ -1089,7 +1100,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 4
 
 /datum/uplink_item/explosives/doorCharge
-	name = "Airlock Charge"		
+	name = "Airlock Charge"
 	desc = "A small explosive device that can be used to sabotage airlocks to cause an explosion upon opening. \
 			To apply, remove the airlock's maintenance panel and place it within."
 	item = /obj/item/doorCharge
