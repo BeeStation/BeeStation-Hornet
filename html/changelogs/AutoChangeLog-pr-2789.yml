@@ -1,4 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - bugfix: misc_food no longer shows up twice.
