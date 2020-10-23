@@ -68,7 +68,7 @@
 	objectives |= monkey_team.objectives
 
 /datum/antagonist/monkey/admin_remove(mob/admin)
-	var/mob/living/carbon/monkey/tumor/M = owner.current
+	var/mob/living/carbon/monkey/M = owner.current
 	if(alert(admin, "Humanize?", "Humanize", "Yes", "No") == "Yes")
 		M.humanize(TR_KEEPITEMS  |  TR_KEEPIMPLANTS  |  TR_KEEPORGANS  |  TR_KEEPDAMAGE  |  TR_KEEPVIRUS  |  TR_DEFAULTMSG)
 	. = ..()
