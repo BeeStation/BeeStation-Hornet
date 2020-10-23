@@ -50,11 +50,6 @@ export const setClientTheme = name => {
       // Status and verb tabs
       'output.background-color': 'none',
       'output.text-color': '#000000',
-<<<<<<< HEAD
-=======
-      'statwindow.background-color': 'none',
-      'statwindow.text-color': '#000000',
->>>>>>> master
       'stat.background-color': '#FFFFFF',
       'stat.tab-background-color': 'none',
       'stat.text-color': '#000000',
@@ -113,11 +108,6 @@ export const setClientTheme = name => {
     // Status and verb tabs
     'output.background-color': desired_background_darker,
     'output.text-color': desired_text,
-<<<<<<< HEAD
-=======
-    'statwindow.background-color': desired_background_darker,
-    'statwindow.text-color': desired_text,
->>>>>>> master
     'stat.background-color': desired_background_darker,
     'stat.tab-background-color': desired_background,
     'stat.text-color': desired_text,

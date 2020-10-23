@@ -7,20 +7,14 @@
 import { Button, Flex, Section } from 'tgui/components';
 import { Pane } from 'tgui/layouts';
 import { NowPlayingWidget, useAudio } from './audio';
-<<<<<<< HEAD
 import { StatTabs } from './stat';
-=======
->>>>>>> master
 import { ChatPanel, ChatTabs } from './chat';
 import { useGame } from './game';
 import { Notifications } from './Notifications';
 import { PingIndicator } from './ping';
 import { SettingsPanel, useSettings } from './settings';
-<<<<<<< HEAD
 import { useLocalState } from '../tgui/backend';
 import { Box, Divider, DraggableControl } from '../tgui/components';
-=======
->>>>>>> master
 
 export const Panel = (props, context) => {
   // IE8-10: Needs special treatment due to missing Flex support
@@ -41,18 +35,14 @@ export const Panel = (props, context) => {
       );
     }
   }
-<<<<<<< HEAD
   const [
     number,
     setNumber,
   ] = useLocalState(context, 'number', 50);
-=======
->>>>>>> master
   return (
     <Pane theme={settings.theme}>
       <Flex
         direction="column"
-<<<<<<< HEAD
         height={(99-number) + '%'}>
         <StatTabs
           height="100%" />
@@ -84,9 +74,6 @@ export const Panel = (props, context) => {
         direction="column"
         height={(number-1) + '%'}
         mt={1}>
-=======
-        height="100%">
->>>>>>> master
         <Flex.Item>
           <Section fitted>
             <Flex mx={0.5} align="center">

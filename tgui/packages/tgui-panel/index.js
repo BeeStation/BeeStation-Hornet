@@ -21,10 +21,7 @@ import { gameMiddleware, gameReducer } from './game';
 import { setupPanelFocusHacks } from './panelFocus';
 import { pingMiddleware, pingReducer } from './ping';
 import { settingsMiddleware, settingsReducer } from './settings';
-<<<<<<< HEAD
 import { statMiddleware, statReducer } from './stat';
-=======
->>>>>>> master
 import { telemetryMiddleware } from './telemetry';
 
 perf.mark('inception', window.performance?.timing?.navigationStart);
@@ -37,10 +34,7 @@ const store = configureStore({
     game: gameReducer,
     ping: pingReducer,
     settings: settingsReducer,
-<<<<<<< HEAD
     stat: statReducer,
-=======
->>>>>>> master
   }),
   middleware: {
     pre: [
@@ -50,10 +44,7 @@ const store = configureStore({
       settingsMiddleware,
       audioMiddleware,
       gameMiddleware,
-<<<<<<< HEAD
       statMiddleware,
-=======
->>>>>>> master
     ],
   },
 });
@@ -117,10 +108,7 @@ const setupApp = () => {
       './Panel',
       './ping',
       './settings',
-<<<<<<< HEAD
       './stat',
-=======
->>>>>>> master
       './telemetry',
     ], () => {
       renderApp();
