@@ -26,12 +26,12 @@
 
 /obj/item/hemostat
 	name = "hemostat"
-	desc = "You think you have seen this before."
+	desc = "A pair of foreceps with precise needle like ends. Usually used for sowing up, or moving veins and small things in the body around during surgery."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "hemostat"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	item_state = "clamps"
+	item_state = "hemostat"
 	materials = list(/datum/material/iron=5000, /datum/material/glass=2500)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
