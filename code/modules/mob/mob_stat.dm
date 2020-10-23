@@ -88,14 +88,8 @@
 		text=station_time_timestamp(),
 		type=STAT_TEXT,
 	)
-	tab_data["Time Dilation"] = list(
-		text="[round(SStime_track.time_dilation_current,1)]% AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, [round(SStime_track.time_dilation_avg,1)]%, [round(SStime_track.time_dilation_avg_slow,1)]%)",
-		type=STAT_TEXT,
-	)
-	tab_data["Players Connected"] = list(
-		text="[GLOB.clients.len]",
-		type=STAT_TEXT,
-	)
+	tab_data["Time Dilation"] = GENERATE_STAT_TEXT("[round(SStime_track.time_dilation_current,1)]% AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, [round(SStime_track.time_dilation_avg,1)]%, [round(SStime_track.time_dilation_avg_slow,1)]%)")
+	tab_data["Players Connected"] = GENERATE_STAT_TEXT("[GLOB.clients.len]")
 	if(SSshuttle.emergency)
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
@@ -108,39 +102,21 @@
 /mob/proc/get_stat_tab_master_controller()
 	var/list/tab_data = list()
 	var/turf/T = get_turf(client.eye)
-	tab_data["Location"] = list(
-		text="[COORD(T)]",
-		type=STAT_TEXT,
-	)
-	tab_data["CPU"] = list(
-		text="[world.cpu]",
-		type=STAT_TEXT,
-	)
-	tab_data["Instances"] = list(
-		text="[num2text(world.contents.len, 10)]",
-		type=STAT_TEXT,
-	)
-	tab_data["World Time"] = list(
-		text="[world.time]",
-		type=STAT_TEXT,
-	)
+	tab_data["Location"] = GENERATE_STAT_TEXT("[COORD(T)]")
+	tab_data["CPU"] = GENERATE_STAT_TEXT("[world.cpu]")
+	tab_data["Instances"] = GENERATE_STAT_TEXT("[num2text(world.contents.len, 10)]")
+	tab_data["World Time"] = GENERATE_STAT_TEXT("[world.time]")
 	tab_data += GLOB.stat_entry()
 	tab_data += config.stat_entry()
-	tab_data["divider_1"] = list(type=STAT_DIVIDER)
+	tab_data["divider_1"] = GENERATE_STAT_DIVIDER
 	if(Master)
 		tab_data += Master.stat_entry()
 	else
-		tab_data["Master Controller"] = list(
-			text="ERROR",
-			type=STAT_TEXT,
-		)
+		tab_data["Master Controller"] = GENERATE_STAT_TEXT("ERROR")
 	if(Failsafe)
 		tab_data += Failsafe.stat_entry()
 	else
-		tab_data["Failsafe Controller"] = list(
-			text="ERROR",
-			type=STAT_TEXT,
-		)
+		tab_data["Failsafe Controller"] = GENERATE_STAT_TEXT("ERROR")
 	if(Master)
 		tab_data["divider_2"] = list(type=STAT_DIVIDER)
 		for(var/datum/controller/subsystem/SS in Master.subsystems)

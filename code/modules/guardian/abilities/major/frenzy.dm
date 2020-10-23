@@ -43,8 +43,5 @@
 /datum/guardian_ability/major/frenzy/Stat()
 	var/list/tab_data = list()
 	if(next_rush > world.time)
-		tab_data["Frenzy Charge Cooldown Remaining"] = list(
-			text="[DisplayTimeText(next_rush - world.time)]",
-			type=STAT_TEXT,
-		)
+		tab_data["Frenzy Charge Cooldown Remaining"] = GENERATE_STAT_TEXT("[DisplayTimeText(next_rush - world.time)]")
 	return tab_data

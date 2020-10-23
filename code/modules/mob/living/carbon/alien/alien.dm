@@ -89,10 +89,7 @@
 /mob/living/carbon/alien/get_stat_tab_status()
 	var/list/tab_data = ..()
 
-	tab_data["Intent"] = list(
-		text="[a_intent]",
-		type=STAT_TEXT,
-	)
+	tab_data["Intent"] = GENERATE_STAT_TEXT("[a_intent]")
 
 	return tab_data
 

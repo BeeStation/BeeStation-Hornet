@@ -419,15 +419,9 @@
 	var/list/tab_data = ..()
 	var/obj/item/organ/alien/plasmavessel/vessel = getorgan(/obj/item/organ/alien/plasmavessel)
 	if(vessel)
-		tab_data["Plasma Stored"] = list(
-			text="[vessel.storedPlasma]/[vessel.max_plasma]",
-			type=STAT_TEXT,
-		)
+		tab_data["Plasma Stored"] = GENERATE_STAT_TEXT("[vessel.storedPlasma]/[vessel.max_plasma]")
 	if(locate(/obj/item/assembly/health) in src)
-		tab_data["Health"] = list(
-			text="[health]",
-			type=STAT_TEXT,
-		)
+		tab_data["Health"] = GENERATE_STAT_TEXT("[health]")
 	return tab_data
 
 /mob/living/carbon/Stat()

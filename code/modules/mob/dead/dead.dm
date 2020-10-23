@@ -42,40 +42,22 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 /mob/dead/get_stat_tab_status()
 	var/list/tab_data = ..()
 
-	tab_data["Game Mode"] = list(
-		text="[SSticker.hide_mode ? "Secret" : "[GLOB.master_mode]"]",
-		type=STAT_TEXT,
-	)
+	tab_data["Game Mode"] = GENERATE_STAT_TEXT("[SSticker.hide_mode ? "Secret" : "[GLOB.master_mode]"]")
 
 	if(SSticker.HasRoundStarted())
 		return tab_data
 
 	var/time_remaining = SSticker.GetTimeLeft()
 	if(time_remaining > 0)
-		tab_data["Time To Start"] = list(
-			text="[round(time_remaining/10)]s",
-			type=STAT_TEXT,
-		)
+		tab_data["Time To Start"] = GENERATE_STAT_TEXT("[round(time_remaining/10)]s")
 	else if(time_remaining == -10)
-		tab_data["Time To Start"] = list(
-			text="DELAYED",
-			type=STAT_TEXT,
-		)
+		tab_data["Time To Start"] = GENERATE_STAT_TEXT("DELAYED")
 	else
-		tab_data["Time To Start"] = list(
-			text="SOON",
-			type=STAT_TEXT,
-		)
+		tab_data["Time To Start"] = GENERATE_STAT_TEXT("SOON")
 
-	tab_data["Players"] = list(
-		text="[SSticker.totalPlayers]",
-		type=STAT_TEXT,
-	)
+	tab_data["Players"] = GENERATE_STAT_TEXT("[SSticker.totalPlayers]")
 	if(client.holder)
-		tab_data["Players Ready"] = list(
-			text="[SSticker.totalPlayersReady]",
-			type=STAT_TEXT,
-		)
+		tab_data["Players Ready"] = GENERATE_STAT_TEXT("[SSticker.totalPlayersReady]")
 	return tab_data
 
 /mob/dead/proc/server_hop()
