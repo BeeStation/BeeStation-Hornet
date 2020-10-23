@@ -298,10 +298,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			user.dropItemToGround(I, TRUE)
 		user.equip_to_slot_if_possible(funny_mask, SLOT_WEAR_MASK)
 	if(index == 20)
-		to_chat(user, "<span class='warning'><b>Incomming transmission from the Syndicate.</b></span>")
-		to_chat(user, "<span class='warning'>Congratulations winner, you have won the grand Syndicate prize!</span>")
-		to_chat(user, "<span class='warning'>Your winnings will be beamed over immediately.</span>")
-		starting_crate_value = rand(100, 200)
+		starting_crate_value = 200
+		print_command_report("Congratulations to [user] for being the [rand(4, 9)]th lucky winner of the syndicate lottery! \
+		Dread Admiral Sabertooth has authorised the beaming of your special equipment immediately! Happy hunting operative.",
+		"Syndicate Gambling Division High Command", TRUE)
 	var/obj/item/implant/weapons_auth/W = new
 	W.implant(user)	//Gives them the ability to use restricted weapons
 	. = ..()
