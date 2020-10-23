@@ -297,7 +297,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		if(I)
 			user.dropItemToGround(I, TRUE)
 		user.equip_to_slot_if_possible(funny_mask, SLOT_WEAR_MASK)
-	if(index == 20)
+	else if(index == 20)
 		starting_crate_value = 200
 		print_command_report("Congratulations to [user] for being the [rand(4, 9)]th lucky winner of the syndicate lottery! \
 		Dread Admiral Sabertooth has authorised the beaming of your special equipment immediately! Happy hunting operative.",
