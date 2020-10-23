@@ -23,6 +23,14 @@
 		// ===== SDQL2 =====
 		if("SDQL2")
 			requires_holder = TRUE
+			tab_data["Access Global SDQL2 List"] = list(
+				text="VIEW VARIABLES (all)",
+				action = "sdql2debug",
+				type=STAT_BUTTON,
+			)
+			for(var/i in GLOB.sdql2_queries)
+				var/datum/SDQL2_query/Q = i
+				tab_data += Q.generate_stat()
 	// ===== NON CONSTANT TABS (Tab names which can change) =====
 	// ===== LISTEDS TURFS =====
 	if(listed_turf && listed_turf.name == selected_tab)
@@ -187,6 +195,18 @@
 		if("verb")
 			var/verb_name = params["verb"]
 			winset(client, null, "command=[replacetext(verb_name, " ", "-")]")
+		if("sdql2debug")
+			client.debug_variables(GLOB.sdql2_queries)
+		if("sdql2delete")
+			var/query_id = params["qid"]
+			var/datum/SDQL2_query/query = sdqlQueryByID(text2num(query_id))
+			if(query)
+				query.delete_click()
+		if("sdql2toggle")
+			var/query_id = params["qid"]
+			var/datum/SDQL2_query/query = sdqlQueryByID(text2num(query_id))
+			if(query)
+				query.action_click()
 
 /*
  * Sets the current stat tab selected.
@@ -224,13 +244,3 @@
 
 	var/list/status_data = get_stat(client.selected_stat_tab)
 	client.tgui_panel.set_panel_infomation(status_data)
-
-	/*
-
-	if(client?.holder)
-		if(length(GLOB.sdql2_queries))
-			if(statpanel("SDQL2"))
-				stat("Access Global SDQL2 List", GLOB.sdql2_vv_statobj)
-				for(var/i in GLOB.sdql2_queries)
-					var/datum/SDQL2_query/Q = i
-					Q.generate_stat()*/

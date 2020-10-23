@@ -1,19 +1,3 @@
-// Clickable stat() button.
-/obj/effect/statclick
-	name = "Initializing..."
-	var/target
-
-INITIALIZE_IMMEDIATE(/obj/effect/statclick)
-
-/obj/effect/statclick/Initialize(mapload, text, target) //Don't port this to Initialize it's too critical
-	. = ..()
-	name = text
-	src.target = target
-
-/obj/effect/statclick/proc/update(text)
-	name = text
-	return src
-
 // Debug verbs.
 /client/proc/restart_controller(controller in list("Master", "Failsafe"))
 	set category = "Debug"
