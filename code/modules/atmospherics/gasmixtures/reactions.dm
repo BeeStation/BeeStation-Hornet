@@ -299,7 +299,6 @@
 	air.set_moles(/datum/gas/plasma, plasma*scale_factor + FUSION_MOLE_THRESHOLD )//Scales the gases back up
 	air.set_moles(/datum/gas/carbon_dioxide, carbon*scale_factor + FUSION_MOLE_THRESHOLD)
 	var/delta_plasma = min(initial_plasma - air.get_moles(/datum/gas/plasma), toroidal_size * scale_factor * 1.5)
-	var/delta_carbon = initial_carbon - air.get_moles(/datum/gas/carbon_dioxide)
 
 	//Energy is gained or lost corresponding to the creation or destruction of mass.
 	//Low instability prevents endothermality while higher instability acutally encourages it.
