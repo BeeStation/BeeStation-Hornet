@@ -31,7 +31,7 @@
 			else
 				//Add category with verb
 				sorted_verbs["[V.category]"] = list(V)
-				sortAssoc(sorted_verbs)
+				sortList(sorted_verbs)
 
 /datum/proc/remove_verb(old_verbs)
 	if(IsAdminAdvancedProcCall())
