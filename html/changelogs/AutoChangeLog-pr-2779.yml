@@ -1,0 +1,4 @@
+author: qwertyquerty
+delete-after: true
+changes:
+  - rscadd: Added a single storage slot to potted plants
