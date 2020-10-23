@@ -13,6 +13,8 @@ import { useGame } from './game';
 import { Notifications } from './Notifications';
 import { PingIndicator } from './ping';
 import { SettingsPanel, useSettings } from './settings';
+import { useLocalState } from '../tgui/backend';
+import { Box, Divider, DraggableControl } from '../tgui/components';
 
 export const Panel = (props, context) => {
   // IE8-10: Needs special treatment due to missing Flex support
@@ -33,17 +35,44 @@ export const Panel = (props, context) => {
       );
     }
   }
+  const [
+    number,
+    setNumber,
+  ] = useLocalState(context, 'number', 50);
   return (
     <Pane theme={settings.theme}>
       <Flex
         direction="column"
-        height="40%">
+        height={(99-number) + '%'}>
         <StatTabs
           height="100%" />
       </Flex>
+      <DraggableControl
+        height="1%"
+        value={number}
+        minValue={0}
+        maxValue={100}
+        dragMatrix={[0, -1]}
+        step={1}
+        stepPixelSize={9}
+        onDrag={(e, value) => setNumber(value)}>
+        {control => (
+          <Box
+            onMouseDown={control.handleDragStart}
+            height="10px">
+            <Box
+              position="relative"
+              height="4px"
+              backgroundColor="grey"
+              top="3px">
+              <Divider />
+            </Box>
+          </Box>
+        )}
+      </DraggableControl>
       <Flex
         direction="column"
-        height="60%"
+        height={(number-1) + '%'}
         mt={1}>
         <Flex.Item>
           <Section fitted>

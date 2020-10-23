@@ -177,7 +177,6 @@
  * Called when a stat button is pressed.
  */
 /mob/proc/stat_pressed(button_pressed, params)
-	message_admins("[button_pressed] pressed, with parameters [list2params(params)]")
 	switch(button_pressed)
 		if("browsetickets")
 			GLOB.ahelp_tickets.BrowseTickets(src)
@@ -185,8 +184,8 @@
 			var/ticket_id = text2num(params["id"])
 			message_admins("Finding ticket with ID [ticket_id]")
 			var/datum/admin_help/AH = GLOB.ahelp_tickets.TicketByID(ticket_id)
-			if(AH)
-				AH.TicketPanel()
+			if(AH && client.holder)
+				AH.ui_interact(src)
 		if("atomClick")
 			var/atomRef = params["ref"]
 			var/atom/atom_actual = locate(atomRef)
