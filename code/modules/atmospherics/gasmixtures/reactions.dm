@@ -316,10 +316,6 @@
 		var/bowdlerized_reaction_energy = 	clamp(reaction_energy, \
 											thermal_energy * ((1 / FUSION_ENERGY_TRANSLATION_EXPONENT ** 2) - 1), \
 											thermal_energy * (FUSION_ENERGY_TRANSLATION_EXPONENT ** 2 - 1))
-		if (bowdlerized_reaction_energy != reaction_energy)
-			var/bowdlerization_ratio = bowdlerized_reaction_energy/reaction_energy
-			air.set_moles(/datum/gas/plasma, initial_plasma - delta_plasma * bowdlerization_ratio)
-			air.set_moles(/datum/gas/carbon_dioxide, initial_carbon - delta_carbon * bowdlerization_ratio)
 		thermal_energy = middle_energy * 10 ** log(FUSION_ENERGY_TRANSLATION_EXPONENT, (thermal_energy + bowdlerized_reaction_energy) / middle_energy)
 
 	//The reason why you should set up a tritium production line.
