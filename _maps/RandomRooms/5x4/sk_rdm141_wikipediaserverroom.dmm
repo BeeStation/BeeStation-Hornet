@@ -31,6 +31,9 @@
 /obj/effect/trap/nexus/darkness,
 /obj/effect/trap/trigger/all,
 /obj/effect/trap/nexus/doorbolt/wikipedia,
+/obj/machinery/door/window{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "K" = (
