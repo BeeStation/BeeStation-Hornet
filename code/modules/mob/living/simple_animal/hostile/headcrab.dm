@@ -56,7 +56,8 @@
 
 /obj/item/organ/body_egg/changeling_egg/egg_process()
 	// Changeling eggs grow in dead people, but not people in stasis
-	if(owner.isinstasis())
+	var/mob/living/L = owner
+	if(L.isinstasis())
 		return
 	time++
 	if(time >= EGG_INCUBATION_TIME)

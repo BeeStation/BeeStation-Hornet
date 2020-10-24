@@ -65,7 +65,8 @@
 /datum/disease/proc/stage_act()
 	var/cure = has_cure()
 
-	if(affected_mob.isinstasis())
+	var/mob/living/L = affected_mob
+	if(L.isinstasis())
 		return
 
 	if(carrier && !cure)
