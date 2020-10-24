@@ -1,0 +1,5 @@
+author: eeSPee
+delete-after: true
+changes:
+  - tweak: stam imunity to flesh path ghouls
+  - tweak: stun+stam imunity to mute ghouls
