@@ -1,0 +1,5 @@
+author: Dennok
+delete-after: true
+changes:
+  - tweak: Custom ship navigation computer now get offsets and view range depends
+      on ship size.
