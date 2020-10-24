@@ -44175,6 +44175,9 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible/layer3{
 	dir = 6
 	},
+/obj/machinery/shower{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bUq" = (
@@ -45947,6 +45950,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/shower{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "bYn" = (
@@ -45964,6 +45970,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/machinery/shower{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -58963,6 +58972,12 @@
 /obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel/dark,
 /area/library/lounge)
+"lsD" = (
+/obj/machinery/shower{
+	dir = 4
+	},
+/turf/open/space/basic,
+/area/space)
 "lsI" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/sign/directions/engineering{
@@ -97888,7 +97903,7 @@ cFQ
 aaX
 mZR
 aaa
-aaa
+lsD
 aaa
 aaa
 aaa
