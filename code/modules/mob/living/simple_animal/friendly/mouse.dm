@@ -58,14 +58,15 @@
 	death()
 
 /mob/living/simple_animal/mouse/death(gibbed, toast)
-	var/list/data = list("viruses" = list(ratdisease))
 	if(!ckey)
 		..(1)
 		if(!gibbed)
 			var/obj/item/reagent_containers/food/snacks/deadmouse/M = new(loc)
 			M.icon_state = icon_dead
 			M.name = name
-			M.reagents.add_reagent(/datum/reagent/blood, 2, data)
+			if(ratdisease.len)
+				var/list/data = list("viruses" = list(ratdisease))
+				M.reagents.add_reagent(/datum/reagent/blood, 2, data)
 			if(toast)
 				M.add_atom_colour("#3A3A3A", FIXED_COLOUR_PRIORITY)
 				M.desc = "It's toast."
