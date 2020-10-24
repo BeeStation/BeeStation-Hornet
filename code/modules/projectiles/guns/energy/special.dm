@@ -172,7 +172,7 @@
 			to_chat(user, "<span class='notice'>You try to insert [I] into [src], but it's fully charged.</span>") //my cell is round and full
 			return
 		I.use(1)
-		cell.give(25*charge_multiplier)
+		cell.give(50*charge_multiplier)
 		to_chat(user, "<span class='notice'>You insert [I] in [src], recharging it.</span>")
 	else
 		..()
