@@ -1220,6 +1220,7 @@
 #include "code\modules\admin\admin_verbs.dm"
 #include "code\modules\admin\adminmenu.dm"
 #include "code\modules\admin\antag_panel.dm"
+#include "code\modules\admin\battle_royale.dm"
 #include "code\modules\admin\chat_commands.dm"
 #include "code\modules\admin\check_antagonists.dm"
 #include "code\modules\admin\create_mob.dm"
