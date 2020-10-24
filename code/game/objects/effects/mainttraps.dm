@@ -132,27 +132,10 @@
 	var/cocktime = 199 SECONDS
 
 /obj/effect/trap/nexus/doorbolt/wikipedia/TrapEffect(AM)
-	if(inuse)
-		return FALSE
-	else
-		inuse = TRUE
-	var/list/airlocks = list()
-	for(var/obj/machinery/door/airlock/airlock in view(10, src))
-		airlocks += airlock
-		airlock.unbolt()//you think you're so smart, hm? I'm smarter.
-		if(!airlock.density)
-			if(!airlock.close())
-				airlock.safe = FALSE
-				airlock.close(3)//yank that bitch shut as hard as you can. this'll be noisy
-				airlock.visible_message("<span class='warning'>[airlock] shudders for a second, and then grinds closed ominously.</span>")
-		airlock.bolt()
 	for(var/mob/living/carbon/human/C in range(5, src))
 		if(C.mind)
 			playsound(C,'sound/misc/wikipedia.ogg', 100)
 	stoplag(cocktime)
-	for(var/obj/machinery/door/airlock/airlock in airlocks)
-		airlock.unbolt()
-	inuse = FALSE
 	return TRUE
 
 /obj/effect/trap/nexus/cluwnecurse

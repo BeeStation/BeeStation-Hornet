@@ -23,10 +23,6 @@
 	},
 /turf/open/floor/sepia,
 /area/template_noop)
-"A" = (
-/obj/structure/window/reinforced/fulltile,
-/turf/open/floor/plating,
-/area/space)
 "E" = (
 /obj/effect/trap/nexus/darkness,
 /obj/effect/trap/trigger/all,
@@ -83,7 +79,7 @@ K
 Q
 Y
 U
-A
+U
 "}
 (5,1,1) = {"
 l
