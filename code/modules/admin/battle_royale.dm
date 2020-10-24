@@ -123,12 +123,14 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 /datum/battle_royale_controller
 	var/list/players
 	var/datum/proximity_monitor/advanced/battle_royale/field_wall
+	var/radius = 128
 	var/process_num = 0
+	var/list/death_wall
 	var/field_delay = 15
-	var/field_jumps = 5
 	var/debug_mode = FALSE
 
 /datum/battle_royale_controller/Destroy(force, ...)
+	QDEL_LIST(death_wall)
 	. = ..()
 	GLOB.enter_allowed = TRUE
 	world.update_status()
@@ -148,7 +150,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		if(QDELETED(M))
 			players -= M
 			continue
-		if(M.x > 128 + field_wall.current_range + 1 && M.x < 128 - field_wall.current_range - 1 && M.y > 128 + field_wall.current_range + 1 && M.y < 128 - field_wall.current_range - 1)
+		if(M.x > 128 + radius + 1 && M.x < 128 - radius - 1 && M.y > 128 + radius + 1 && M.y < 128 - radius - 1)
 			M.gib()
 		if(!SSmapping.level_trait(M.z, ZTRAIT_STATION) && !SSmapping.level_trait(M.z, ZTRAIT_RESERVED))
 			to_chat(M, "<span class='warning'>You have left the z-level!</span>")
@@ -158,6 +160,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 			winner = M
 		CHECK_TICK
 	if(living_victims <= 1 && !debug_mode)
+		to_chat(world, "<span class='ratvar'><font size=18>VICTORY ROYALE!!</font></span>")
 		if(winner)
 			to_chat(world, "<span class='ratvar'><font size=18>[key_name(winner)] is the winner!</font></span>")
 			new /obj/item/melee/supermatter_sword(get_turf(winner))
@@ -165,9 +168,11 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		return
 	//Once every 15 seconsd
 	// 1,920 seconds (about 32 minutes per game)
-	if(process_num % (field_delay * field_jumps) == 0)
-		field_wall.current_range -= field_jumps
-		field_wall.recalculate_field(TRUE)
+	if(process_num % (field_delay) == 0)
+		for(var/obj/effect/death_wall/wall in death_wall)
+			wall.decrease_size()
+			if(QDELETED(wall))
+				death_wall -= wall
 	if(process_num > 1000 && prob(0.5))
 		generate_endgame_drop()
 
@@ -214,8 +219,13 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	sleep(50)
 	to_chat(world, "<span class='boldannounce'>Battle Royale: Starting game.</span>")
 	titanfall()
+	death_wall = list()
+	var/z_level = SSmapping.station_start
 	var/turf/center = SSmapping.get_station_center()
-	field_wall = make_field(/datum/proximity_monitor/advanced/battle_royale, list("current_range" = 96, "host" = center))
+	for(var/turf/T in block(locate(0, 0, z_level), locate(0, 255, z_level)) + block(locate(1, 255, z_level), locate(0, 0, z_level)) + block(locate(255, 255, z_level), locate(1, 255, z_level)) + block(locate(1, 254, z_level), locate(255, 255, z_level)))
+		var/obj/effect/death_wall/DW = new(T)
+		DW.set_center(center)
+		death_wall += DW
 
 /datum/battle_royale_controller/proc/titanfall()
 	var/list/participants = pollGhostCandidates("Would you like to partake in BATTLE ROYALE?")
@@ -292,11 +302,11 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 // WORLD BORDER
 //==================================
 
-/datum/proximity_monitor/advanced/battle_royale
-	setup_edge_turfs = TRUE
-	use_host_turf = TRUE
-	field_shape = 1
-	current_range = 5
+/obj/effect/death_wall
+	var/current_radius = 128
+	var/turf/center_turf
+	icon = 'icons/effects/fields.dmi'
+	icon_state = "projectile_dampen_generic"
 	var/static/image/edgeturf_south = image('icons/effects/fields.dmi', icon_state = "projectile_dampen_south")
 	var/static/image/edgeturf_north = image('icons/effects/fields.dmi', icon_state = "projectile_dampen_north")
 	var/static/image/edgeturf_west = image('icons/effects/fields.dmi', icon_state = "projectile_dampen_west")
@@ -307,57 +317,62 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/static/image/southeast_corner = image('icons/effects/fields.dmi', icon_state = "projectile_dampen_southeast")
 	var/static/image/generic_edge = image('icons/effects/fields.dmi', icon_state = "projectile_dampen_generic")
 
-/datum/proximity_monitor/advanced/battle_royale/field_edge_crossed(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_edge/F)
+/obj/effect/death_wall/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+	//lol u died
 	if(isliving(AM))
 		var/mob/living/M = AM
 		M.gib()
 		to_chat(M, "<span class='warning'>You left the zone!</span>")
 
-/datum/proximity_monitor/advanced/battle_royale/setup_edge_turf(turf/T)
-	. = ..()
-	var/image/I = get_edgeturf_overlay(get_edgeturf_direction(T))
-	var/obj/effect/abstract/proximity_checker/advanced/F = edge_turfs[T]
-	F.appearance = I.appearance
-	F.invisibility = 0
-	F.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	F.layer = 5
+/obj/effect/death_wall/proc/set_center(turf/center)
+	center_turf = center
 
-/datum/proximity_monitor/advanced/battle_royale/proc/get_edgeturf_overlay(direction)
-	switch(direction)
-		if(NORTH)
-			return edgeturf_north
-		if(SOUTH)
-			return edgeturf_south
-		if(EAST)
-			return edgeturf_east
-		if(WEST)
-			return edgeturf_west
-		if(NORTHEAST)
-			return northeast_corner
-		if(NORTHWEST)
-			return northwest_corner
-		if(SOUTHEAST)
-			return southeast_corner
-		if(SOUTHWEST)
-			return southwest_corner
+/obj/effect/death_wall/proc/decrease_size()
+	var/minx = CLAMP(center_turf.x - current_radius, 1, 255)
+	var/maxx = CLAMP(center_turf.x + current_radius, 1, 255)
+	var/miny = CLAMP(center_turf.y - current_radius, 1, 255)
+	var/maxy = CLAMP(center_turf.y + current_radius, 1, 255)
+	if(y == maxy || y == miny)
+		//We have nowhere to move to so are deleted
+		if(x == minx || x == minx + 1 || x == maxx || x == maxx -1)
+			qdel(src)
+			return
+	//Where do we go to?
+	var/top = y == maxy
+	var/bottom = y == miny
+	var/left = x == minx
+	var/right = x == maxx
+	if(x == minx)
+		forceMove(get_step(get_turf(src), EAST))
+		if(top)
+			icon = northwest_corner
+		else if(bottom)
+			icon = southwest_corner
 		else
-			return generic_edge
-
-//Checks tick when recalculating becuase field will be large
-/datum/proximity_monitor/advanced/battle_royale/update_new_turfs()
-	if(!istype(host))
-		return FALSE
-	var/turf/center = get_turf(host)
-	field_turfs_new = list()
-	edge_turfs_new = list()
-	for(var/turf/T in block(locate(center.x-current_range,center.y-current_range,center.z-square_depth_down),locate(center.x+current_range, center.y+current_range,center.z+square_depth_up)))
-		field_turfs_new += T
-	edge_turfs_new = field_turfs_new.Copy()
-	if(current_range >= 1)
-		var/list/turf/center_turfs = list()
-		for(var/turf/T in block(locate(center.x-current_range+1,center.y-current_range+1,center.z-square_depth_down),locate(center.x+current_range-1, center.y+current_range-1,center.z+square_depth_up)))
-			center_turfs += T
-			CHECK_TICK
-		for(var/turf/T in center_turfs)
-			edge_turfs_new -= T
-			CHECK_TICK
+			icon = edgeturf_west
+	else if(x == maxx)
+		forceMove(get_step(get_turf(src), WEST))
+		if(top)
+			icon = northeast_corner
+		else if(bottom)
+			icon = southeast_corner
+		else
+			icon = edgeturf_east
+	else if(y == miny)
+		forceMove(get_step(get_turf(src), NORTH))
+		if(left)
+			icon = southwest_corner
+		else if(right)
+			icon = southeast_corner
+		else
+			icon = edgeturf_south
+	else if(y == maxy)
+		forceMove(get_step(get_turf(src), SOUTH))
+		if(left)
+			icon = northwest_corner
+		else if(right)
+			icon = northeast_corner
+		else
+			icon = edgeturf_north
+	current_radius --
