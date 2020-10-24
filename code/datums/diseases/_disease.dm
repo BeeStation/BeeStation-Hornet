@@ -66,7 +66,7 @@
 	var/cure = has_cure()
 
 	var/mob/living/L = affected_mob
-	if(L.isinstasis())
+	if(L.IsInStasis())
 		return
 
 	if(carrier && !cure)

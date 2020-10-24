@@ -52,7 +52,7 @@
 
 /obj/item/organ/body_egg/alien_embryo/egg_process()
 	var/mob/living/L = owner
-	if(L.isinstasis())
+	if(L.IsInStasis())
 		return
 	if(stage < 5 && prob(3))
 		stage++
