@@ -152,18 +152,20 @@
 		if(I.embedding.embedded_ignore_throwspeed_threshold || ((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) )
 			if(can_embed(I))
 				if(prob(I.embedding.embed_chance) && !HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
-					throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
-					var/obj/item/bodypart/L = pick(bodyparts)
-					L.embedded_objects |= I
-					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
-					I.forceMove(src)
-					L.receive_damage(I.w_class*I.embedding.embedded_impact_pain_multiplier)
-					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
-					SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "embedded", /datum/mood_event/embedded)
+					src.embed_object(I)
 					hitpush = FALSE
 					skipcatch = TRUE //can't catch the now embedded item
-
 	return ..()
+
+/mob/living/carbon/human/proc/embed_object(obj/item/I)
+	throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+	var/obj/item/bodypart/L = pick(bodyparts)
+	L.embedded_objects |= I
+	I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
+	I.forceMove(src)
+	L.receive_damage(I.w_class*I.embedding.embedded_impact_pain_multiplier)
+	visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
+	SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "embedded", /datum/mood_event/embedded)
 
 /mob/living/carbon/human/grippedby(mob/living/user, instant = FALSE)
 	if(w_uniform)
