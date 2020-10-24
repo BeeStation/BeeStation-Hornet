@@ -58972,12 +58972,6 @@
 /obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel/dark,
 /area/library/lounge)
-"lsD" = (
-/obj/machinery/shower{
-	dir = 4
-	},
-/turf/open/space/basic,
-/area/space)
 "lsI" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/sign/directions/engineering{
@@ -97903,7 +97897,7 @@ cFQ
 aaX
 mZR
 aaa
-lsD
+aaa
 aaa
 aaa
 aaa
