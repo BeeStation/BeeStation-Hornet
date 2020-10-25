@@ -476,9 +476,12 @@
 	if (loaded_rods<20)
 		return FALSE
 	. = ..()
+
+/obj/item/gun/energy/railgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+	. = ..()
 	if (.)
-		loaded_rods -= 20
-		return .	
+		loaded_rods-=20
+	return .
 
 obj/item/gun/energy/railgun/examine(mob/user)
 	. = ..()
