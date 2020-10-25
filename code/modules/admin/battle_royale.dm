@@ -39,7 +39,6 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/clothing/glasses/thermal/eyepatch,
 		/obj/item/clothing/glasses/thermal/syndi,
 		/obj/item/clothing/suit/space,
-		/obj/item/clothing/suit/armor,
 		/obj/item/clothing/suit/armor/riot,
 		/obj/item/clothing/suit/armor/vest,
 		/obj/item/clothing/suit/armor/vest/russian_coat,
@@ -106,6 +105,13 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 
 GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 
+#define BATTLE_ROYALE_AVERBS list(\
+	/client/proc/battle_royale_speed,\
+	/client/proc/battle_royale_varedit,\
+	/client/proc/battle_royale_spawn_loot,\
+	/client/proc/battle_royale_spawn_loot_good\
+)
+
 /client/proc/battle_royale()
 	set name = "Battle Royale"
 	set category = "Fun"
@@ -115,15 +121,70 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	if(GLOB.battle_royale)
 		to_chat(src, "<span class='warning'>A game is already in progress!</span>")
 		return
+	if(alert(src, "ARE YOU SURE YOU ARE SURE YOU WANT TO START BATTLE ROYALE?",,"Yes","No") != "Yes")
+		to_chat(src, "<span class='notice'>oh.. ok then.. I see how it is.. :(</span>")
+		return
 	log_admin("[key_name(usr)] HAS TRIGGERED BATTLE ROYALE")
 	message_admins("[key_name(usr)] HAS TRIGGERED BATTLE ROYALE")
 	GLOB.battle_royale = new()
 	GLOB.battle_royale.start()
 
+/client/proc/battle_royale_speed()
+	set name = "Battle Royale - Change wall speed"
+	set category = "Event"
+	if(!check_rights(R_FUN))
+		to_chat(src, "<span class='warning'>You do not have permission to do that!</span>")
+		return
+	if(!GLOB.battle_royale)
+		to_chat(src, "<span class='warning'>No game is in progress.</span>")
+		return
+	var/new_speed = input(src, "New wall delay (seconds)") as num
+	if(new_speed > 0)
+		GLOB.battle_royale.field_delay = new_speed
+		log_admin("[key_name(usr)] has changed the field delay to [new_speed] seconds")
+		message_admins("[key_name(usr)] has changed the field delay to [new_speed] seconds")
+
+/client/proc/battle_royale_varedit()
+	set name = "Battle Royale - Variable Edit"
+	set category = "Event"
+	if(!check_rights(R_FUN))
+		to_chat(src, "<span class='warning'>You do not have permission to do that!</span>")
+		return
+	if(!GLOB.battle_royale)
+		to_chat(src, "<span class='warning'>No game is in progress.</span>")
+		return
+	debug_variables(GLOB.battle_royale)
+
+/client/proc/battle_royale_spawn_loot()
+	set name = "Battle Royale - Spawn Loot Drop (Minor)"
+	set category = "Event"
+	if(!check_rights(R_FUN))
+		to_chat(src, "<span class='warning'>You do not have permission to do that!</span>")
+		return
+	if(!GLOB.battle_royale)
+		to_chat(src, "<span class='warning'>No game is in progress.</span>")
+		return
+	GLOB.battle_royale.generate_good_drop()
+	log_admin("[key_name(usr)] generated a battle royale drop.")
+	message_admins("[key_name(usr)] generated a battle royale drop.")
+
+/client/proc/battle_royale_spawn_loot_good()
+	set name = "Battle Royale - Spawn Loot Drop (Major)"
+	set category = "Event"
+	if(!check_rights(R_FUN))
+		to_chat(src, "<span class='warning'>You do not have permission to do that!</span>")
+		return
+	if(!GLOB.battle_royale)
+		to_chat(src, "<span class='warning'>No game is in progress.</span>")
+		return
+	GLOB.battle_royale.generate_endgame_drop()
+	log_admin("[key_name(usr)] generated a good battle royale drop.")
+	message_admins("[key_name(usr)] generated a good battle royale drop.")
+
 /datum/battle_royale_controller
 	var/list/players
 	var/datum/proximity_monitor/advanced/battle_royale/field_wall
-	var/radius = 128
+	var/radius = 106
 	var/process_num = 0
 	var/list/death_wall
 	var/field_delay = 15
@@ -131,9 +192,12 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 
 /datum/battle_royale_controller/Destroy(force, ...)
 	QDEL_LIST(death_wall)
+	for(var/client/C in GLOB.admins)
+		C.verbs -= BATTLE_ROYALE_AVERBS
 	. = ..()
 	GLOB.enter_allowed = TRUE
 	world.update_status()
+	GLOB.battle_royale = null
 
 //Trigger random events and shit, update the world border
 /datum/battle_royale_controller/process()
@@ -150,7 +214,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		if(QDELETED(M))
 			players -= M
 			continue
-		if(M.x > 128 + radius + 1 && M.x < 128 - radius - 1 && M.y > 128 + radius + 1 && M.y < 128 - radius - 1)
+		if(M.x > 128 + radius + 2 || M.x < 128 - radius - 2 || M.y > 128 + radius + 2 || M.y < 128 - radius - 2)
 			M.gib()
 		if(!SSmapping.level_trait(M.z, ZTRAIT_STATION) && !SSmapping.level_trait(M.z, ZTRAIT_RESERVED))
 			to_chat(M, "<span class='warning'>You have left the z-level!</span>")
@@ -173,6 +237,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 			wall.decrease_size()
 			if(QDELETED(wall))
 				death_wall -= wall
+		radius --
 	if(process_num > 1000 && prob(0.5))
 		generate_endgame_drop()
 
@@ -181,6 +246,10 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 //==================================
 
 /datum/battle_royale_controller/proc/start()
+	//Give Verbs to admins
+	for(var/client/C in GLOB.admins)
+		if(check_rights_for(C, R_FUN))
+			C.verbs += BATTLE_ROYALE_AVERBS
 	toggle_ooc(FALSE)
 	to_chat(world, "<span class='ratvar'><font size=24>Battle Royale will begin soon...</span></span>")
 	//Stop new player joining
@@ -222,7 +291,12 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	death_wall = list()
 	var/z_level = SSmapping.station_start
 	var/turf/center = SSmapping.get_station_center()
-	for(var/turf/T in block(locate(0, 0, z_level), locate(0, 255, z_level)) + block(locate(1, 255, z_level), locate(0, 0, z_level)) + block(locate(255, 255, z_level), locate(1, 255, z_level)) + block(locate(1, 254, z_level), locate(255, 255, z_level)))
+	var/list/edge_turfs = list()
+	edge_turfs += block(locate(12, 12, z_level), locate(244, 12, z_level))			//BOTTOM
+	edge_turfs += block(locate(12, 244, z_level), locate(244, 244, z_level))		//TOP
+	edge_turfs |= block(locate(12, 12, z_level), locate(12, 244, z_level))			//LEFT
+	edge_turfs |= block(locate(244, 12, z_level), locate(244, 244, z_level)) 	//RIGHT
+	for(var/turf/T in edge_turfs)
 		var/obj/effect/death_wall/DW = new(T)
 		DW.set_center(center)
 		death_wall += DW
@@ -303,25 +377,22 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 //==================================
 
 /obj/effect/death_wall
-	var/current_radius = 128
+	var/current_radius = 118
 	var/turf/center_turf
 	icon = 'icons/effects/fields.dmi'
 	icon_state = "projectile_dampen_generic"
-	var/static/image/edgeturf_south = image('icons/effects/fields.dmi', icon_state = "projectile_dampen_south")
-	var/static/image/edgeturf_north = image('icons/effects/fields.dmi', icon_state = "projectile_dampen_north")
-	var/static/image/edgeturf_west = image('icons/effects/fields.dmi', icon_state = "projectile_dampen_west")
-	var/static/image/edgeturf_east = image('icons/effects/fields.dmi', icon_state = "projectile_dampen_east")
-	var/static/image/northwest_corner = image('icons/effects/fields.dmi', icon_state = "projectile_dampen_northwest")
-	var/static/image/southwest_corner = image('icons/effects/fields.dmi', icon_state = "projectile_dampen_southwest")
-	var/static/image/northeast_corner = image('icons/effects/fields.dmi', icon_state = "projectile_dampen_northeast")
-	var/static/image/southeast_corner = image('icons/effects/fields.dmi', icon_state = "projectile_dampen_southeast")
-	var/static/image/generic_edge = image('icons/effects/fields.dmi', icon_state = "projectile_dampen_generic")
 
 /obj/effect/death_wall/Crossed(atom/movable/AM, oldloc)
 	. = ..()
 	//lol u died
 	if(isliving(AM))
 		var/mob/living/M = AM
+		M.gib()
+		to_chat(M, "<span class='warning'>You left the zone!</span>")
+
+/obj/effect/death_wall/Moved(atom/OldLoc, Dir)
+	. = ..()
+	for(var/mob/living/M in get_turf(src))
 		M.gib()
 		to_chat(M, "<span class='warning'>You left the zone!</span>")
 
@@ -335,7 +406,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/maxy = CLAMP(center_turf.y + current_radius, 1, 255)
 	if(y == maxy || y == miny)
 		//We have nowhere to move to so are deleted
-		if(x == minx || x == minx + 1 || x == maxx || x == maxx -1)
+		if(x == minx || x == minx + 1 || x == maxx || x == maxx - 1)
 			qdel(src)
 			return
 	//Where do we go to?
@@ -343,36 +414,12 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/bottom = y == miny
 	var/left = x == minx
 	var/right = x == maxx
-	if(x == minx)
+	if(left)
 		forceMove(get_step(get_turf(src), EAST))
-		if(top)
-			icon = northwest_corner
-		else if(bottom)
-			icon = southwest_corner
-		else
-			icon = edgeturf_west
-	else if(x == maxx)
+	else if(right)
 		forceMove(get_step(get_turf(src), WEST))
-		if(top)
-			icon = northeast_corner
-		else if(bottom)
-			icon = southeast_corner
-		else
-			icon = edgeturf_east
-	else if(y == miny)
+	else if(bottom)
 		forceMove(get_step(get_turf(src), NORTH))
-		if(left)
-			icon = southwest_corner
-		else if(right)
-			icon = southeast_corner
-		else
-			icon = edgeturf_south
-	else if(y == maxy)
+	else if(top)
 		forceMove(get_step(get_turf(src), SOUTH))
-		if(left)
-			icon = northwest_corner
-		else if(right)
-			icon = northeast_corner
-		else
-			icon = edgeturf_north
 	current_radius --
