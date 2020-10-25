@@ -1,0 +1,5 @@
+author: zeskorion
+delete-after: true
+changes:
+  - rscadd: sentient gorillas can now break stuff whilst on harm intent, but cant
+      pick stuff up and such
