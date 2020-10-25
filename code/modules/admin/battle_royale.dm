@@ -215,7 +215,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 			players -= M
 			continue
 		var/turf/T = get_turf(M)
-		if(T.x > 128 + radius + 2 || T.x < 128 - radius - 2 || T.y > 128 + radius + 2 || T.y < 128 - radius - 2)
+		if(T.x > 128 + radius || T.x < 128 - radius || T.y > 128 + radius || T.y < 128 - radius)
 			to_chat(M, "<span class='warning'>You have left the zone!</span>")
 			M.gib()
 		if(!SSmapping.level_trait(T.z, ZTRAIT_STATION) && !SSmapping.level_trait(T.z, ZTRAIT_RESERVED))
