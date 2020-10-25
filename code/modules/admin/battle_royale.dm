@@ -222,7 +222,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 			to_chat(M, "<span class='warning'>You have left the z-level!</span>")
 			M.gib()
 		if(M.stat != DEAD)
-			living_victims ++
+			living_victims++
 			winner = M
 		CHECK_TICK
 	if(living_victims <= 1 && !debug_mode)
