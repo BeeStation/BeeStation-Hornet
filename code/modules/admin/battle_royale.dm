@@ -201,7 +201,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 
 //Trigger random events and shit, update the world border
 /datum/battle_royale_controller/process()
-	process_num ++
+	process_num++
 	//Once every 50 seconds
 	if(prob(2))
 		generate_basic_loot(2)
