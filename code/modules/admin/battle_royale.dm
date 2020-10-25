@@ -184,7 +184,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 /datum/battle_royale_controller
 	var/list/players
 	var/datum/proximity_monitor/advanced/battle_royale/field_wall
-	var/radius = 106
+	var/radius = 118
 	var/process_num = 0
 	var/list/death_wall
 	var/field_delay = 15
@@ -210,7 +210,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		generate_good_drop()
 	var/living_victims = 0
 	var/winner
-	for(var/mob/living/M in players)
+	for(var/mob/living/M as anything in players)
 		if(QDELETED(M))
 			players -= M
 			continue
@@ -306,6 +306,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/turf/spawn_turf = get_safe_random_station_turf()
 	var/obj/structure/closet/supplypod/centcompod/pod = new()
 	pod.setStyle()
+	players = list()
 	for(var/mob/M in participants)
 		var/key = M.key
 		//Create a mob and transfer their mind to it.
@@ -326,6 +327,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	SEND_SOUND(world, sound('sound/misc/airraid.ogg'))
 	to_chat(world, "<span class='boldannounce'>A 30 second grace period has been established. Good luck.</span>")
 	to_chat(world, "<span class='boldannounce'>WARNING: YOU WILL BE GIBBED IF YOU LEAVE THE STATION Z-LEVEL!</span>")
+	to_chat(world, "<span class='boldannounce'>[players.len] people remain...</span>")
 	//Start processing our world events
 	START_PROCESSING(SSprocessing, src)
 	addtimer(CALLBACK(src, .proc/end_grace), 300)
