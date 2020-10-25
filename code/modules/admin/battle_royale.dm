@@ -303,6 +303,8 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		var/obj/effect/death_wall/DW = new(T)
 		DW.set_center(center)
 		death_wall += DW
+		CHECK_TICK
+	START_PROCESSING(SSprocessing, src)
 
 /datum/battle_royale_controller/proc/titanfall()
 	var/list/participants = pollGhostCandidates("Would you like to partake in BATTLE ROYALE?")
@@ -332,7 +334,6 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	to_chat(world, "<span class='boldannounce'>WARNING: YOU WILL BE GIBBED IF YOU LEAVE THE STATION Z-LEVEL!</span>")
 	to_chat(world, "<span class='boldannounce'>[players.len] people remain...</span>")
 	//Start processing our world events
-	START_PROCESSING(SSprocessing, src)
 	addtimer(CALLBACK(src, .proc/end_grace), 300)
 	generate_basic_loot(100)
 
