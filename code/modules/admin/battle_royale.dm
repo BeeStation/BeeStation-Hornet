@@ -263,7 +263,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		SSticker.start_immediately = FALSE
 		UNTIL(SSticker.current_state >= GAME_STATE_PREGAME)
 		to_chat(world, "<span class=boldannounce>Battle Royale: Done!</span>")
-	//Delay pre-game if we are in it
+	//Delay pre-game if we are in it.
 	if(SSticker.current_state == GAME_STATE_PREGAME)
 		//Force people to be not ready and start the game
 		for(var/mob/dead/new_player/player in GLOB.player_list)
