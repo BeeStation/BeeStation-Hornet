@@ -1,0 +1,5 @@
+author: That0nePerson
+delete-after: true
+changes:
+  - rscadd: Added an emag act to the mech-mounted disabler, emag to make it lethal
+  - tweak: Moved mech weapons from mech fabricator to sec protolathe
