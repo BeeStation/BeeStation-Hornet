@@ -276,7 +276,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	sleep(50)
 	//Clear client mobs
 	to_chat(world, "<span class='boldannounce'>Battle Royale: Clearing world mobs.</span>")
-	for(var/mob/M as anything in GLOB.player_list)
+	for(var/mob/M as() in GLOB.player_list)
 		if(isliving(M))
 			qdel(M)
 		CHECK_TICK
