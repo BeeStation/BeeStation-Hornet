@@ -209,6 +209,7 @@ obj/item/inducer/emag_act()
 /obj/item/inducer/proc/Emag()
 	obj_flags ^= EMAGGED
 	playsound(src.loc, "sparks", 100, 1)
+	to_chat(user, "<span class='notice'>You short circuit the [src]!</span>")
 	if(obj_flags & EMAGGED)
 		name = "shortcircuited [initial(name)]"
 		force = 0
