@@ -27,7 +27,7 @@
 		new /datum/data/mining_equipment("Jump Boots",					/obj/item/clothing/shoes/bhop,										2000),
 		new /datum/data/mining_equipment("Proto-Kinetic Crusher",		/obj/item/twohanded/kinetic_crusher,								800),
 		new /datum/data/mining_equipment("Proto-Kinetic Accelerator",	/obj/item/gun/energy/kinetic_accelerator,							500),
-		new /datum/data/mining_equipment("Resonator",					/obj/item/resonator,												7500),
+		new /datum/data/mining_equipment("Resonator",					/obj/item/resonator,												750),
 		new /datum/data/mining_equipment("Upgraded Resonator",			/obj/item/resonator/upgraded,										1500),
 		new /datum/data/mining_equipment("Silver Pickaxe",				/obj/item/pickaxe/silver,											500),
 		new /datum/data/mining_equipment("Diamond Pickaxe",				/obj/item/pickaxe/diamond,											1000),
