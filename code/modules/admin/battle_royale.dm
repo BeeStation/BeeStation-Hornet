@@ -428,4 +428,4 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		forceMove(get_step(get_turf(src), NORTH))
 	else if(top)
 		forceMove(get_step(get_turf(src), SOUTH))
-	current_radius --
+	current_radius--
