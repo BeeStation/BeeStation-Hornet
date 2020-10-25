@@ -1,7 +1,0 @@
-author: eeSPee
-delete-after: true
-changes:
-  - tweak: firelocks open 60% faster.
-  - tweak: halved the time it takes to open a firelock by crowbar.
-  - tweak: reduced the time it takes for a firelock to close automatically
-  - rscadd: You can now pry open the firelocks with your bare hand.

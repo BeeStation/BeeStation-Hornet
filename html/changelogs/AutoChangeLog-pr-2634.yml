@@ -1,4 +1,0 @@
-author: ritea
-delete-after: true
-changes:
-  - bugfix: Plating no longer disappears when you build walls with spells!
