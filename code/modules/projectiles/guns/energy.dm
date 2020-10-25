@@ -17,6 +17,7 @@
 	var/old_ratio = 0 // stores the gun's previous ammo "ratio" to see if it needs an updated icon
 	var/selfcharge = 0
 	var/charge_tick = 0
+	var/charge_rate = 100
 	var/charge_delay = 4
 	var/use_cyborg_cell = FALSE //whether the gun's cell drains the cyborg user's cell to recharge
 	var/dead_cell = FALSE //set to true so the gun is given an empty cell
@@ -74,7 +75,7 @@
 		if(charge_tick < charge_delay)
 			return
 		charge_tick = 0
-		cell.give(100)
+		cell.give(charge_rate)
 		if(!chambered) //if empty chamber we try to charge a new shot
 			recharge_newshot(TRUE)
 		update_icon()

@@ -1864,6 +1864,13 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	item = /obj/item/clothing/shoes/magboots/crushing
 	restricted_roles = list("Chief Engineer", "Station Engineer", "Atmospheric Technician")
 
+/datum/uplink_item/role_restricted/railguninducer
+	name = "Railgun Inducer"
+	desc = "An rail gun disguised as an inducer, capable of firing stacks of rods towards the faces of unexpecting victims. Uses iron rods as ammo."
+	cost = 11
+	item = /obj/item/gun/energy/railgun/inducer
+	restricted_roles = list("Chief Engineer", "Station Engineer", "Atmospheric Technician")
+
 /datum/uplink_item/role_restricted/gorillacubes
 	name = "Box of Gorilla Cubes"
 	desc = "A box with three Waffle Co. brand gorilla cubes. Eat big to get big. \
