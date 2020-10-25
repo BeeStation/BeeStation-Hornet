@@ -210,7 +210,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		generate_good_drop()
 	var/living_victims = 0
 	var/winner
-	for(var/mob/living/M as anything in players)
+	for(var/mob/living/M as() in players)
 		if(QDELETED(M))
 			players -= M
 			continue
