@@ -104,11 +104,12 @@
 	var/obj/item/stock_parts/cell/C = A.get_cell()
 	var/obj/O
 	var/coefficient = 1
-	if(istype(A, /obj/item/gun/energy) && !(obj_flags & EMAGGED))
-		to_chat(user,"Error unable to interface with device")
-		return FALSE
-	else
-		coefficient = 1/5
+	if(istype(A, /obj/item/gun/energy))
+		if (obj_flags & EMAGGED)		
+			coefficient = 1/5	
+		else
+			to_chat(user,"Error unable to interface with device")
+			return FALSE
 	if(istype(A, /obj))
 		O = A
 	if(C)
@@ -128,7 +129,7 @@
 					var/burndamage = min(cell.charge,powertransfer)
 					cell.use(burndamage)
 					cell.update_icon()
-					O.take_damage(burndamage/30, BURN, "energy")
+					O.take_damage(burndamage/10, BURN, "energy")
 					user.visible_message("<span class='notice'>You overcharge the [O].</span>")
 				do_sparks(1, FALSE, A)
 				if (powertransfer>1000)
