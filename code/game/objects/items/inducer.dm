@@ -97,10 +97,6 @@
 /obj/item/inducer/proc/recharge(atom/movable/A, mob/user)
 	if(!isturf(A) && user.loc == A)
 		return FALSE
-	if (powertransfer>1000)
-		var/mob/living/carbon/human = user
-		if (human.electrocute_act( (powertransfer-1000)/400,human,stun = TRUE))
-			return FALSE
 	if(recharging)
 		return TRUE
 	else
@@ -118,24 +114,31 @@
 	if(C)
 		var/done_any = FALSE
 		if(C.charge >= C.maxcharge)
-			if((obj_flags & EMAGGED))
-				var/burndamage = min(cell.charge,powertransfer)
-				cell.use(burndamage)
-				cell.update_icon()
-				O.take_damage(burndamage/500, BURN, "energy")
-				do_sparks(1, FALSE, A)
-			else
+			if(!(obj_flags & EMAGGED))
 				to_chat(user, "<span class='notice'>[A] is fully charged!</span>")
 				recharging = FALSE
 				return TRUE
 		user.visible_message("[user] starts recharging [A] with [src].","<span class='notice'>You start recharging [A] with [src].</span>")
-		while(C.charge < C.maxcharge)
+		while((obj_flags & EMAGGED) || C.charge < C.maxcharge)
 			if(do_after(user, 10, target = user) && cell.charge)
 				done_any = TRUE
-				induce(C, coefficient)
+				if(C.charge < C.maxcharge)
+					induce(C, coefficient)
+				else if(obj_flags & EMAGGED)
+					var/burndamage = min(cell.charge,powertransfer)
+					cell.use(burndamage)
+					cell.update_icon()
+					O.take_damage(burndamage/30, BURN, "energy")
+					user.visible_message("<span class='notice'>You overcharge the [O].</span>")
 				do_sparks(1, FALSE, A)
+				if (powertransfer>1000)
+					var/mob/living/carbon/human = user
+					if (human.electrocute_act( (powertransfer-1000)/400,human,stun = TRUE))
+						return FALSE
 				if(O)
 					O.update_icon()
+				if (!C)
+					break
 			else
 				break
 		if(done_any) // Only show a message if we succeeded at least once
@@ -146,34 +149,25 @@
 
 /obj/item/inducer/proc/do_harm(mob/living/carbon/victim, mob/living/user)	//maybe a good idea to leave this out?
 	if(recharging)
-		return FALSE
-	if(do_after(user, 10, victim))
-		
-		var/tesla_strength = 200
-		if(obj_flags & EMAGGED)
-			tesla_strength = powertransfer		
-		
-		tesla_strength = min(cell.charge,tesla_strength)
-		cell.use(tesla_strength)
-		cell.update_icon()
-		
-		do_sparks(1, TRUE, victim)
-		log_combat(user, victim, "induced ", src)
-		if (tesla_strength>500)
-			victim.electrocute_act(3 + 5 * tesla_strength/1000,user,stun = FALSE,override = TRUE)
-			victim.Knockdown(10 * tesla_strength/1000)
-		else
-			victim.electrocute_act(3,user,stun = FALSE)
-			victim.Knockdown(10)
+		return FALSE	
+	var/tesla_strength = powertransfer				
+	tesla_strength = min(cell.charge,tesla_strength)
+	cell.use(tesla_strength)
+	cell.update_icon()
+	
+	do_sparks(1, TRUE, victim)
+	log_combat(user, victim, "induced ", src)
+	victim.electrocute_act(3 + 5 * tesla_strength/600,user,stun = FALSE,override = TRUE)
+	victim.Knockdown(10 * tesla_strength/5000)
 
 /obj/item/inducer/attack(mob/M, mob/user)
 	if(cantbeused(user))
 		return
 		
-	/*if(user.a_intent == INTENT_HARM)	
+	if(user.a_intent == INTENT_HARM && (obj_flags & EMAGGED))	
 		if (istype(M, /mob/living/carbon))
 			do_harm(M,user)
-		return ..()*/
+		return ..()
 
 	if(recharge(M, user))
 		return
@@ -216,6 +210,7 @@ obj/item/inducer/emag_act()
 	playsound(src.loc, "sparks", 100, 1)
 	if(obj_flags & EMAGGED)
 		name = "shortcircuited [initial(name)]"
+		force = 0
 	else
 		name = initial(name)
 
