@@ -214,6 +214,8 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		if(QDELETED(M))
 			players -= M
 			continue
+		if(M.stat == DEAD)	//We aren't going to remove them from the list in case they somehow revive.
+			continue
 		var/turf/T = get_turf(M)
 		if(T.x > 128 + radius || T.x < 128 - radius || T.y > 128 + radius || T.y < 128 - radius)
 			to_chat(M, "<span class='warning'>You have left the zone!</span>")
@@ -221,9 +223,8 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		if(!SSmapping.level_trait(T.z, ZTRAIT_STATION) && !SSmapping.level_trait(T.z, ZTRAIT_RESERVED))
 			to_chat(M, "<span class='warning'>You have left the z-level!</span>")
 			M.gib()
-		if(M.stat != DEAD)
-			living_victims++
-			winner = M
+		living_victims++
+		winner = M
 		CHECK_TICK
 	if(living_victims <= 1 && !debug_mode)
 		to_chat(world, "<span class='ratvar'><font size=18>VICTORY ROYALE!!</font></span>")
@@ -235,7 +236,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	//Once every 15 seconsd
 	// 1,920 seconds (about 32 minutes per game)
 	if(process_num % (field_delay) == 0)
-		for(var/obj/effect/death_wall/wall in death_wall)
+		for(var/obj/effect/death_wall/wall as() in death_wall)
 			wall.decrease_size()
 			if(QDELETED(wall))
 				death_wall -= wall
