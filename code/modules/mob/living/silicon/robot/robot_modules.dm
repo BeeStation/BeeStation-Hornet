@@ -452,7 +452,8 @@
 		/obj/item/paint/paint_remover,
 		/obj/item/lightreplacer/cyborg,
 		/obj/item/holosign_creator/janibarrier,
-		/obj/item/reagent_containers/spray/cyborg_drying)
+		/obj/item/reagent_containers/spray/cyborg/drying_agent,
+		/obj/item/reagent_containers/spray/cyborg/plantbgone)
 	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_lube)
 	ratvar_modules = list(
 		/obj/item/clock_module/abscond,
@@ -464,11 +465,6 @@
 	hat_offset = -5
 	clean_on_move = TRUE
 
-/obj/item/reagent_containers/spray/cyborg_drying
-	name = "drying agent spray"
-	color = "#A000A0"
-	list_reagents = list(/datum/reagent/drying_agent = 250)
-
 /obj/item/reagent_containers/spray/cyborg_lube
 	name = "lube spray"
 	list_reagents = list(/datum/reagent/lube = 250)
@@ -479,10 +475,6 @@
 	if(LR)
 		for(var/i in 1 to coeff)
 			LR.Charge(R)
-
-	var/obj/item/reagent_containers/spray/cyborg_drying/CD = locate(/obj/item/reagent_containers/spray/cyborg_drying) in basic_modules
-	if(CD)
-		CD.reagents.add_reagent(/datum/reagent/drying_agent, 5 * coeff)
 
 	var/obj/item/reagent_containers/spray/cyborg_lube/CL = locate(/obj/item/reagent_containers/spray/cyborg_lube) in emag_modules
 	if(CL)

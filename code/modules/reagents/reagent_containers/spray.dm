@@ -357,3 +357,42 @@
 	righthand_file = 'icons/mob/inhands/equipment/hydroponics_righthand.dmi'
 	volume = 100
 	list_reagents = list(/datum/reagent/toxin/plantbgone = 100)
+
+/obj/item/reagent_containers/spray/cyborg
+	var/charge_cost = 50
+	var/charge_tick = 0
+	var/recharge_time = 2 //Time it takes for 5u to recharge (in seconds)
+	var/datum/reagent/set_reagent
+
+/obj/item/reagent_containers/spray/cyborg/Initialize()
+	. = ..()
+	reagents.add_reagent(set_reagent, volume)
+	START_PROCESSING(SSobj, src)
+
+/obj/item/reagent_containers/spray/cyborg/process()
+	charge_tick++
+	if(charge_tick >= recharge_time)
+		regenerate_reagents()
+		charge_tick = 0
+
+/obj/item/reagent_containers/spray/cyborg/proc/regenerate_reagents()
+	if(iscyborg(src.loc))
+		var/mob/living/silicon/robot/R = src.loc
+		if(R && R.cell)
+			if(reagents.total_volume <= volume)
+				R.cell.use(charge_cost)
+				reagents.add_reagent(set_reagent, 5)
+
+/obj/item/reagent_containers/spray/cyborg/drying_agent
+	name = "drying agent spray"
+	desc = "A spray for cleaning up wet floors."
+	color = "#A000A0"
+	set_reagent = /datum/reagent/drying_agent
+
+/obj/item/reagent_containers/spray/cyborg/plantbgone
+	name = "Plant-B-Gone"
+	desc = "A bottle of weed killer spray for stopping kudzu-based harm."
+	icon = 'icons/obj/hydroponics/equipment.dmi'
+	icon_state = "plantbgone"
+	item_state = "plantbgone"
+	set_reagent = /datum/reagent/toxin/plantbgone
