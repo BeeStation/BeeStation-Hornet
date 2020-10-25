@@ -214,9 +214,11 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		if(QDELETED(M))
 			players -= M
 			continue
-		if(M.x > 128 + radius + 2 || M.x < 128 - radius - 2 || M.y > 128 + radius + 2 || M.y < 128 - radius - 2)
+		var/turf/T = get_turf(M)
+		if(T.x > 128 + radius + 2 || T.x < 128 - radius - 2 || T.y > 128 + radius + 2 || T.y < 128 - radius - 2)
+			to_chat(M, "<span class='warning'>You have left the zone!</span>")
 			M.gib()
-		if(!SSmapping.level_trait(M.z, ZTRAIT_STATION) && !SSmapping.level_trait(M.z, ZTRAIT_RESERVED))
+		if(!SSmapping.level_trait(T.z, ZTRAIT_STATION) && !SSmapping.level_trait(T.z, ZTRAIT_RESERVED))
 			to_chat(M, "<span class='warning'>You have left the z-level!</span>")
 			M.gib()
 		if(M.stat != DEAD)
