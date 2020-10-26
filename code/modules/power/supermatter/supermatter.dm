@@ -71,10 +71,10 @@
 GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 /obj/machinery/power/supermatter_crystal
-	name = "supermatter crystal"
-	desc = "A strangely translucent and iridescent crystal."
-	icon = 'icons/obj/supermatter.dmi'
-	icon_state = "darkmatter"
+	name = "captain's spare ID"
+	desc = "The spare ID of the High Lord himself."
+	icon = 'icons/obj/card.dmi'
+	icon_state = "gold"
 	layer = ABOVE_MOB_LAYER
 	density = TRUE
 	anchored = TRUE
@@ -87,7 +87,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 	var/gasefficency = 0.15
 
-	var/base_icon_state = "darkmatter"
+	var/base_icon_state = "gold"
 
 	var/final_countdown = FALSE
 
