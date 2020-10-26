@@ -69,7 +69,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/storage/firstaid/fire,
 		/obj/item/storage/firstaid/medical,
 		/obj/item/storage/firstaid/tactical,
-		/obj/item/gun/energy/ionrifle/carbine
+		/obj/item/gun/energy/ionrifle
 	))
 
 GLOBAL_LIST_INIT(battle_royale_good_loot, list(
