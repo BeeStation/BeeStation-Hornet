@@ -689,7 +689,7 @@
 	template_height = 3
 	template_width = 3
 	weight = 3
-	
+
 /datum/map_template/random_room/sk_rdm082
 	name = "Maint Chemistry"
 	room_id = "sk_rdm082_maintmedical"
@@ -1198,7 +1198,7 @@
 	template_width = 5
 	weight = 4
 
-/datum/map_template/random_room/sk_rdm139 
+/datum/map_template/random_room/sk_rdm139
 	name = "containment cell"
 	room_id = "sk_rdm139_containmentcell"
 	mappath = "_maps/RandomRooms/3x3/containmentcell.dmm"
@@ -1215,3 +1215,39 @@
 	template_height = 5
 	template_width = 3
 	weight = 2
+
+/datum/map_template/random_room/sk_ren001
+	name = "Meta Singularity and Tesla engine"
+	room_id = "sk_ren001"
+	mappath = "_maps/RandomRooms/Meta/sk_ren001Meta.dmm"
+	centerspawner = TRUE
+	template_height = 23
+	template_width = 19
+	weight = 1
+
+/datum/map_template/random_room/sk_ren002
+	name = ",Meta Super Matter engine"
+	room_id = "sk_ren002"
+	mappath = "_maps/RandomRooms/Meta/sk_ren002Meta.dmm"
+	centerspawner = TRUE
+	template_height = 23
+	template_width = 19
+	weight = 5
+
+/datum/map_template/random_room/sk_ren003
+	name = "Box Singularity and Tesla Engine"
+	room_id = "sk_ren003"
+	mappath = "_maps/RandomRooms/Box/sk_ren003Box.dmm"
+	centerspawner = TRUE
+	template_height = 27
+	template_width = 23
+	weight = 1
+
+/datum/map_template/random_room/sk_ren004
+	name = "Box Super Matter engine"
+	room_id = "sk_ren004"
+	mappath = "_maps/RandomRooms/Box/sk_ren004Box.dmm"
+	centerspawner = TRUE
+	template_height = 27
+	template_width = 23
+	weight = 5
