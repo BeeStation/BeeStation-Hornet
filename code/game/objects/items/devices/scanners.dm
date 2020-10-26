@@ -1032,8 +1032,3 @@ MAT SCANNER
 	if (output != "")
 		to_chat(user, output)
 	to_chat(user, "- Analysis complete! -")
-=======
-		var/amount =  I.materials[R]
-		to_chat(user, "* [M.name] ([amount])")
-	to_chat(user, "- Analysis complete! -")
->>>>>>> beb308a3b685d8da127e24f27aabf597ba4609b5
