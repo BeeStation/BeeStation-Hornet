@@ -209,7 +209,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	if(prob(1))
 		generate_good_drop()
 	var/living_victims = 0
-	var/winner
+	var/mob/winner
 	for(var/mob/living/M as() in players)
 		if(QDELETED(M))
 			players -= M
@@ -229,6 +229,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	if(living_victims <= 1 && !debug_mode)
 		to_chat(world, "<span class='ratvar'><font size=18>VICTORY ROYALE!!</font></span>")
 		if(winner)
+			winner.client?.process_greentext()
 			to_chat(world, "<span class='ratvar'><font size=18>[key_name(winner)] is the winner!</font></span>")
 			new /obj/item/melee/supermatter_sword(get_turf(winner))
 		qdel(src)
