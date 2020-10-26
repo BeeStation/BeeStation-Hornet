@@ -32,3 +32,4 @@
 		else
 			postfix = "soon"
 		to_chat(src, "Please set up your character and select \"Ready\". The game will start [postfix].")
+		UpdateMobStat()

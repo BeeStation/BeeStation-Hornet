@@ -8,6 +8,12 @@ const initialState = {
 
 export const statReducer = (state = initialState, action) => {
   const { type, payload } = action;
+  if (type === 'stat/setTab') {
+    return {
+      ...state,
+      selectedTab: payload,
+    };
+  }
   if (type === 'stat/setStatTabs') {
     return {
       ...state,

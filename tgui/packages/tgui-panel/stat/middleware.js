@@ -10,16 +10,16 @@ export const statMiddleware = store => {
     const { type, payload } = action;
 
     if (type === 'stat/setTab') {
-      const newTab = payload?.newTab;
-      if (typeof newTab === 'string') {
-        stat.setTab(newTab);
-      }
       sendMessage({
         type: 'stat/setTab',
         payload: {
           selectedTab: payload,
         },
       });
+      const newTab = payload?.newTab;
+      if (typeof newTab === 'string') {
+        stat.setTab(newTab);
+      }
       return next(action);
     }
 

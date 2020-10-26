@@ -76,6 +76,8 @@
 	. = ..()
 	update_config_movespeed()
 	update_movespeed(TRUE)
+	//Give verbs to stat
+	add_verb(verbs, TRUE)
 
 /**
   * Generate the tag for this mob
