@@ -76,7 +76,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "cu" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -589,12 +589,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"uJ" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/open/floor/plating,
-/area/space/nearstation)
 "vb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -830,12 +824,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"HR" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plating,
-/area/space/nearstation)
 "ID" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -908,7 +896,7 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "KA" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1049,7 +1037,7 @@
 	network = list("aichamber")
 	},
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "NU" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "engpa";
@@ -1468,7 +1456,7 @@ ne
 ne
 ne
 NJ
-HR
+zX
 Ub
 qH
 dT
@@ -1874,7 +1862,7 @@ ne
 ne
 ne
 NJ
-uJ
+Zq
 Ub
 qH
 dT
