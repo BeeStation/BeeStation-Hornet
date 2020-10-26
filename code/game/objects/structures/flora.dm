@@ -322,6 +322,7 @@
 /datum/component/storage/concrete/kirbyplants
 	max_items = 1
 	max_w_class = WEIGHT_CLASS_NORMAL
+	attack_hand_interact = FALSE
 
 /obj/item/twohanded/required/kirbyplants/equipped(mob/living/user)
 	var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)
