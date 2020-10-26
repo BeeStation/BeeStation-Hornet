@@ -241,6 +241,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 			wall.decrease_size()
 			if(QDELETED(wall))
 				death_wall -= wall
+			CHECK_TICK
 		radius--
 	if(radius < 70 && prob(1))
 		generate_endgame_drop()
