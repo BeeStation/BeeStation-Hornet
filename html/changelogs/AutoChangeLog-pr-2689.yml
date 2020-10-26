@@ -1,0 +1,4 @@
+author: Dennok
+delete-after: true
+changes:
+  - tweak: Now you can set transit  fly direction for custom shuttle
