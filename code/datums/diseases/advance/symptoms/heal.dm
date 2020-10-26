@@ -220,6 +220,41 @@
 
 /datum/symptom/heal/surface/passive_message_condition(mob/living/M)
 	return M.getBruteLoss() <= threshhold || M.getFireLoss() <= threshhold
+	
+/datum/symptom/heal/metabolism
+	name = "Metabolic Boost"
+	stealth = -1
+	resistance = -2
+	stage_speed = 2
+	transmittable = 1
+	level = 4
+	var/triple_metabolism = FALSE
+	var/reduced_hunger = FALSE
+	desc = "The virus causes the host's metabolism to accelerate rapidly, making them process chemicals twice as fast,\
+	 but also causing increased hunger."
+	threshold_desc = "<b>Stealth 3:</b> Reduces hunger rate.<br>\
+					  <b>Stage Speed 10:</b> Chemical metabolization is tripled instead of doubled."
+
+/datum/symptom/heal/metabolism/Start(datum/disease/advance/A)
+	if(!..())
+		return
+	if(A.properties["stage_rate"] >= 10)
+		triple_metabolism = TRUE
+	if(A.properties["stealth"] >= 3)
+		reduced_hunger = TRUE
+
+/datum/symptom/heal/metabolism/Heal(mob/living/carbon/C, datum/disease/advance/A, actual_power)
+	if(!istype(C))
+		return
+	C.reagents.metabolize(C, can_overdose=TRUE) //this works even without a liver; it's intentional since the virus is metabolizing by itself
+	if(triple_metabolism)
+		C.reagents.metabolize(C, can_overdose=TRUE)
+	C.overeatduration = max(C.overeatduration - 2, 0)
+	var/lost_nutrition = 9 - (reduced_hunger * 5)
+	C.adjust_nutrition(-lost_nutrition * HUNGER_FACTOR) //Hunger depletes at 10x the normal speed
+	if(prob(2))
+		to_chat(C, "<span class='notice'>You feel an odd gurgle in your stomach, as if it was working much faster than normal.</span>")
+	return 1
 
 /*
 //////////////////////////////////////
@@ -289,21 +324,25 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	symptom_delay_max = 30
 	var/bigsweat = FALSE
 	var/toxheal = FALSE
-	threshold_desc = "<b>transmission 6:</b> The sweat production ramps up to the point that it puts out fires in the general vicinity<br>\
-					<b>transmission 8:</b> The symptom heals toxin damage and purges chemicals."
+	var/ammonia = FALSE
+	threshold_desc = "<b>transmission 4:</b> The sweat production ramps up to the point that it puts out fires in the general vicinity<br>\
+					<b>transmission 6:</b> The symptom heals toxin damage and purges chemicals.<br>\
+					<b>stage speed 6:</b> The host's sweat contains traces of ammonia."
 
 /datum/symptom/sweat/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["transmittable"] >= 8)
+	if(A.properties["transmittable"] >= 6)
 		severity -= 1
 
 /datum/symptom/sweat/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 8)
-		toxheal = TRUE
 	if(A.properties["transmittable"] >= 6)
+		toxheal = TRUE
+	if(A.properties["transmittable"] >= 4)
 		bigsweat = TRUE
+	if(A.properties["stage_rate"] >= 6)
+		ammonia = TRUE
 
 /datum/symptom/sweat/Activate(datum/disease/advance/A)
 	if(!..())
@@ -324,6 +363,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						M.reagents.remove_reagent(R.type, 5)
 						S.reagents.add_reagent(R.type, 5)
 					M.adjustToxLoss(-20, forced = TRUE)
+				if(ammonia)
+					S.reagents.add_reagent(/datum/reagent/space_cleaner, 5)
 				S.splash()
 				to_chat(M, "<span class='userdanger'>You sweat out nearly everything in your body!</span>")
 		else

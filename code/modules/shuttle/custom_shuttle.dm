@@ -68,7 +68,6 @@
 
 	popup = new(user, "computer", M ? M.name : "shuttle", 350, 450)
 	popup.set_content("<center>[dat]</center>")
-	popup.set_title_image(usr.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 /obj/machinery/computer/custom_shuttle/Topic(href, href_list)
@@ -260,6 +259,13 @@
 		return
 	return ..()
 
-/obj/machinery/computer/camera_advanced/shuttle_docker/custom/proc/linkShuttle(var/new_id)
+/obj/machinery/computer/camera_advanced/shuttle_docker/custom/proc/linkShuttle(new_id)
 	shuttleId = new_id
 	shuttlePortId = "shuttle[new_id]_custom"
+
+	//Take info from connected port and calculate amendments
+	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(new_id)
+	var/list/shuttlebounds = M.return_coords()
+	view_range = min(round(max(M.width, M.height)*0.5), 15)
+	x_offset = round((shuttlebounds[1] + shuttlebounds[3])*0.5) - M.x
+	y_offset = round((shuttlebounds[2] + shuttlebounds[4])*0.5) - M.y

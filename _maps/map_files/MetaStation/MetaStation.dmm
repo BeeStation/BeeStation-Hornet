@@ -2220,12 +2220,9 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "aes" = (
-/obj/structure/closet/secure_closet{
-	name = "contraband locker";
-	req_access_txt = "3"
-	},
+/obj/structure/closet/secure_closet/contraband/armory,
 /obj/effect/spawner/lootdrop/maintenance/three,
-/obj/effect/spawner/lootdrop/armory_contraband/metastation,
+/obj/effect/spawner/lootdrop/armory_contraband,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},

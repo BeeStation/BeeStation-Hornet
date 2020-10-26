@@ -289,6 +289,7 @@
 		/obj/item/surgicaldrill,
 		/obj/item/scalpel,
 		/obj/item/circular_saw,
+		/obj/item/blood_filter,
 		/obj/item/extinguisher/mini,
 		/obj/item/roller/robo,
 		/obj/item/borg/cyborghug/medical,
@@ -524,20 +525,18 @@
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/reagent_containers/food/drinks/drinkingglass,
-		/obj/item/reagent_containers/food/condiment/enzyme,
 		/obj/item/pen,
 		/obj/item/toy/crayon/spraycan/borg,
 		/obj/item/extinguisher/mini,
 		/obj/item/hand_labeler/borg,
-		/obj/item/borg/charger,
 		/obj/item/razor,
+		/obj/item/borg/charger,
 		/obj/item/rsf,
+		/obj/item/cookiesynth,
 		/obj/item/instrument/piano_synth,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/lighter,
-		/obj/item/storage/bag/tray,
-		/obj/item/borg/apparatus/beaker,
-		/obj/item/cookiesynth,
+		/obj/item/borg/apparatus/beaker/service,
 		/obj/item/reagent_containers/borghypo/borgshaker)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/borgshaker/hacked)
 	ratvar_modules = list(
