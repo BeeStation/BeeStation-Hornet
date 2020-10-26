@@ -7,6 +7,8 @@
 	switch(type)
 		if("stat/setTab")
 			client.selected_stat_tab = payload["selectedTab"]
+			//Update the panel they are on
+			client.mob?.UpdateMobStat()
 			return TRUE
 		if("stat/pressed")
 			client.mob?.stat_pressed(payload["action_id"], payload["params"])

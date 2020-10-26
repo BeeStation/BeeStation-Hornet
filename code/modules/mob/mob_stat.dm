@@ -148,8 +148,11 @@
 		tabs |= "Tickets"
 		if(length(GLOB.sdql2_queries))
 			tabs |= "SDQL2"
+	var/list/additional_tabs = list()
+	additional_tabs |= sorted_verbs + client?.sorted_verbs
+	additional_tabs = sortList(additional_tabs)
 	//Get verbs
-	tabs |= sorted_verbs + client?.sorted_verbs
+	tabs |= additional_tabs
 	return tabs
 
 /*
@@ -230,9 +233,7 @@
   * calculates client ping, round id, server time, time dilation and other data about the round
   * and puts it in the mob status panel on a regular loop
   */
-/mob/Stat()
-	..()
-
+/mob/proc/UpdateMobStat()
 	if(!client.tgui_panel)
 		return
 
