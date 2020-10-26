@@ -189,7 +189,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	port.ignitionTime = 25
 	port.name = "Custom Shuttle"
 	port.port_direction = 2
-	port.preferred_direction = NORTH
+	port.preferred_direction = EAST
 	port.area_type = recorded_shuttle_area
 
 	stationary_port.area_type = overwritten_area
