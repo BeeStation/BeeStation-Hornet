@@ -533,30 +533,33 @@
 	// If targeting the head, see if the head item is thin enough.
 	// If targeting anything else, see if the wear suit is thin enough.
 	if (!penetrate_thick)
-		switch(target_zone)
-			if(BODY_ZONE_HEAD)
-				if(head && istype(head, /obj/item/clothing))
-					var/obj/item/clothing/head/CH = head
-					if (CH.clothing_flags & THICKMATERIAL)
-						. = 0
-			if(BODY_ZONE_CHEST)
-				if(wear_suit && istype(wear_suit, /obj/item/clothing))
-					var/obj/item/clothing/suit/CS = wear_suit
-					if (CS.clothing_flags & THICKMATERIAL && CS.body_parts_covered & CHEST)
-						. = 0
-			if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
-				if(wear_suit && istype(wear_suit, /obj/item/clothing))
-					var/obj/item/clothing/suit/CT = wear_suit
-					if (CT.clothing_flags & THICKMATERIAL && CT.body_parts_covered & ARMS)
-						. = 0
-			if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-				if(wear_suit && istype(wear_suit, /obj/item/clothing))
-					var/obj/item/clothing/suit/CU = wear_suit
-					if (CU.clothing_flags & THICKMATERIAL && CU.body_parts_covered & LEGS)
-						. = 0
-	if(!. && error_msg && user)
-		// Might need re-wording.
-		to_chat(user, "<span class='alert'>There is no exposed flesh or thin material [above_neck(target_zone) ? "on [p_their()] head" : "on [p_their()] body"].</span>")
+		if(above_neck(target_zone))
+			if(head && istype(head, /obj/item/clothing))
+				var/obj/item/clothing/head/CH = head
+				if(CH.clothing_flags & THICKMATERIAL)
+					to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on this head!</span>")
+					return 0
+		if(wear_suit && istype(wear_suit, /obj/item/clothing))
+			var/obj/item/clothing/suit/CS = wear_suit
+			if(CS.clothing_flags & THICKMATERIAL)
+				switch(target_zone)
+					if(BODY_ZONE_CHEST)
+						if(CS.body_parts_covered & CHEST)
+							to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on this chest!</span>")
+							return 0
+					if(BODY_ZONE_PRECISE_GROIN)
+						if(CS.body_parts_covered & GROIN)
+							to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on this groin!</span>")
+							return 0
+					if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+						if(CS.body_parts_covered & ARMS)
+							to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on these arms!</span>")
+							return 0
+					if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+						if(CS.body_parts_covered & LEGS)
+							to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on these legs!</span>")
+							return 0
+//to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on this body part!</span>")
 
 /mob/living/carbon/human/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null)
 	if(judgement_criteria & JUDGE_EMAGGED)
