@@ -38,7 +38,6 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	var/datum/shuttle_creator_overlay_holder/overlay_holder
 	//After designation
 	var/linkedShuttleId
-	var/ShuttlePreferred_direction = NORTH
 
 /obj/item/shuttle_creator/Initialize()
 	. = ..()
@@ -57,6 +56,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 /obj/item/shuttle_creator/attack_self(mob/user)
 	..()
 	if(linkedShuttleId)
+		select_preferred_direction(user)
 		return
 	if(GLOB.custom_shuttle_count > CUSTOM_SHUTTLE_LIMIT && !override_max_shuttles)
 		to_chat(user, "<span class='warning'>Too many shuttles have been created.</span>")
@@ -189,7 +189,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	port.ignitionTime = 25
 	port.name = "Custom Shuttle"
 	port.port_direction = 2
-	port.preferred_direction = 4
+	port.preferred_direction = NORTH
 	port.area_type = recorded_shuttle_area
 
 	stationary_port.area_type = overwritten_area
@@ -239,6 +239,9 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	port.register()
 
 	icon_state = "rsd_used"
+
+	//Select shuttle fly direction. 
+	select_preferred_direction(mob/user)
 
 	//Clear highlights
 	overlay_holder.clear_highlights()
@@ -291,13 +294,17 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	for(var/door in firedoors)
 		var/obj/machinery/door/firedoor/FD = door
 		FD.CalculateAffectingAreas()
+	return TRUE
 
+//Select shuttle fly direction. 
+/obj/item/shuttle_creator/proc/select_preferred_direction(mob/user)
+	var/obj/docking_port/mobile/port = getShuttle(linkedShuttleId)
+	if(!port || !istype(port, /obj/docking_port/mobile))
+		return FALSE
 	var/static/list/choice = list("NORTH" = NORTH, "SOUTH" = SOUTH, "EAST" = EAST, "WEST" = WEST)
 	var/Pdir = input(user, "Shuttle Fly Direction:", "Blueprint Editing", "NORTH") as null|anything in list("NORTH", "SOUTH", "EAST", "WEST")
 	if(Pdir)
-		ShuttlePreferred_direction = choice[Pdir]
-
-	return TRUE
+		port.preferred_direction = choice[Pdir]
 
 //Checks an area to ensure that the turfs provided are valid to be made into a shuttle
 /obj/item/shuttle_creator/proc/check_area(list/turfs, addingTurfs = TRUE)
