@@ -28,7 +28,7 @@
 	var/rustle_sound = TRUE							//play rustle sound on interact.
 	var/allow_quick_empty = FALSE					//allow empty verb which allows dumping on the floor of everything inside quickly.
 	var/allow_quick_gather = FALSE					//allow toggle mob verb which toggles collecting all items from a tile.
-	var/insert_on_attack = TRUE						//allow inserting items by clicking the storage with another item, if this is FALSE you will have to open the storage and click the slots
+	var/insert_while_closed = TRUE					//the user can insert items while the storage is closed, if not the user will have to click/alt click to open it before they can insert items
 
 	var/collection_mode = COLLECT_EVERYTHING
 
@@ -464,8 +464,6 @@
 
 //This proc is called when you want to place an item into the storage item.
 /datum/component/storage/proc/attackby(datum/source, obj/item/I, mob/M, params)
-	if(!insert_on_attack)
-		return FALSE
 	if(istype(I, /obj/item/hand_labeler))
 		var/obj/item/hand_labeler/labeler = I
 		if(labeler.mode)
@@ -562,6 +560,8 @@
 	var/atom/host = parent
 	if(real_location == I.loc)
 		return FALSE //Means the item is already in the storage item
+	if(!insert_while_closed && !(M in is_using))
+		return FALSE
 	if(locked)
 		if(M && !stop_messages)
 			host.add_fingerprint(M)

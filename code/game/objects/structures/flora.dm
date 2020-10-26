@@ -322,7 +322,7 @@
 /datum/component/storage/concrete/kirbyplants
 	max_items = 1
 	max_w_class = WEIGHT_CLASS_NORMAL
-	insert_on_attack = FALSE // We don't want clicking plants with items to insert it, you have to alt click then click the slots
+	insert_while_closed = FALSE // We don't want clicking plants with items to insert it, you have to alt click then click the slots
 
 /obj/item/twohanded/required/kirbyplants/equipped(mob/living/user)
 	var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)
