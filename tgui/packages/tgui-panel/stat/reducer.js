@@ -1,6 +1,3 @@
-
-import { sendMessage } from 'tgui/backend';
-
 const initialState = {
   selectedTab: 'Status',
   antagonist_popup: null,

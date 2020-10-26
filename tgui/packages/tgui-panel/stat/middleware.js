@@ -1,5 +1,6 @@
 
 import { StatPanel } from './statPanel';
+import { sendMessage } from 'tgui/backend';
 
 export const statMiddleware = store => {
   const stat = new StatPanel();

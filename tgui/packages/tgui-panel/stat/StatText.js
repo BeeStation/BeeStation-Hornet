@@ -96,7 +96,7 @@ export const StatTextButton = (props, context) => {
   return (
     <Flex.Item mt={1}>
       <b>
-        {title}:
+        {title}: 
       </b>
       <Button
         content={text}
