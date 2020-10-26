@@ -983,15 +983,14 @@ MAT SCANNER
 	throw_range = 7
 	materials = list(/datum/material/iron=30, /datum/material/glass=20)
 
-/obj/item/material_scanner/attack(obj/O, mob/living/user)
+/obj/item/material_scanner/attack(obj/item/I, mob/living/user)
 	if(user.stat || user.eye_blind)
 		return
-	if(istype(O, /obj/item))
-		var/obj/item/I = O
+	if(istype(I))
 		if (I.materials)
 			analyze_materials(I, user)
 			return	
-	to_chat(user, "<span class='notice'>[O] doesn't have any reusable materials.</span>")
+	to_chat(user, "<span class='notice'>[I] doesn't have any reusable materials.</span>")
 
 /obj/item/material_scanner/proc/analyze_materials(obj/item/I, mob/living/user)
 	to_chat(user, "- Material Analysis of [I] -")
@@ -999,6 +998,7 @@ MAT SCANNER
 	var/string/output = ""
 	for(var/R in I.materials)
 		var/datum/material/M = R
+<<<<<<< HEAD
 		var/amount =  I.materials[M]
 		var/fcolor = "#696969"	//hehehe
 		switch (M)
@@ -1032,3 +1032,8 @@ MAT SCANNER
 	if (output != "")
 		to_chat(user, output)
 	to_chat(user, "- Analysis complete! -")
+=======
+		var/amount =  I.materials[R]
+		to_chat(user, "* [M.name] ([amount])")
+	to_chat(user, "- Analysis complete! -")
+>>>>>>> beb308a3b685d8da127e24f27aabf597ba4609b5
