@@ -161,8 +161,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		if(!(src in user.mob_spell_list))
 			return FALSE
 
-	if(do_after(user,invocation_time, target = user, progress = 1) == 0) //checks if there is a invocation time set for this spell and cancels the spell if the user is interrupted.
-		to_chat(user, "<span class='notice'>You got interrupted.</span>")
+	if(!do_after(user,invocation_time, target = user, progress = 1)) //checks if there is a invocation time set for this spell and cancels the spell if the user is interrupted.
+		to_chat(user, "<span class='notice'>You get interrupted.</span>")
 		return FALSE
 
 	var/turf/T = get_turf(user)
