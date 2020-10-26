@@ -205,8 +205,8 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	//Once every 50 seconds
 	if(prob(2))
 		generate_basic_loot(2)
-	//Once every 300 seconds.
-	if(prob(0.333))
+	//Once every 100 seconds.
+	if(prob(1))
 		generate_good_drop()
 	var/living_victims = 0
 	var/winner
@@ -241,7 +241,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 			if(QDELETED(wall))
 				death_wall -= wall
 		radius--
-	if(process_num > 1000 && prob(0.5))
+	if(radius < 70 && prob(1))
 		generate_endgame_drop()
 
 //==================================
