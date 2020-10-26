@@ -73,6 +73,7 @@
 /obj/structure/closet/secure_closet/brig_phys/PopulateContents()
 	..()
 	new /obj/item/defibrillator/loaded(src)
+	new /obj/item/blood_filter(src)
 	new /obj/item/radio/headset/headset_medsec(src)
 	new	/obj/item/storage/firstaid/regular(src)
 	new	/obj/item/storage/firstaid/fire(src)
