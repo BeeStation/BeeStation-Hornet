@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(ambience)
 
 			if(M)
 				if (istype(M, /mob/dead/new_player)) // Don't play ambience to nerds in the lobby
-					return
+					continue
 
 				src.update_buzz(M) // Update buzz every fire, or every 1/5th second
 
