@@ -998,7 +998,6 @@ MAT SCANNER
 	var/string/output = ""
 	for(var/R in I.materials)
 		var/datum/material/M = R
-<<<<<<< HEAD
 		var/amount =  I.materials[M]
 		var/fcolor = "#696969"	//hehehe
 		switch (M)
