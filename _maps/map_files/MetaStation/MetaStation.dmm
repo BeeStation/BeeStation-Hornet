@@ -2220,12 +2220,9 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "aes" = (
-/obj/structure/closet/secure_closet{
-	name = "contraband locker";
-	req_access_txt = "3"
-	},
+/obj/structure/closet/secure_closet/contraband/armory,
 /obj/effect/spawner/lootdrop/maintenance/three,
-/obj/effect/spawner/lootdrop/armory_contraband/metastation,
+/obj/effect/spawner/lootdrop/armory_contraband,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -6376,6 +6373,10 @@
 "alq" = (
 /turf/closed/wall,
 /area/maintenance/starboard)
+"alr" = (
+/obj/machinery/atmospherics/pipe/simple/orange/visible,
+/turf/open/floor/plating,
+/area/maintenance/starboard/fore)
 "als" = (
 /obj/machinery/light{
 	dir = 8
@@ -7884,11 +7885,6 @@
 /obj/effect/spawner/room/threexthree,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"aok" = (
-/obj/structure/closet/firecloset,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/plating,
-/area/maintenance/starboard)
 "aol" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -12749,16 +12745,6 @@
 "axY" = (
 /turf/closed/wall/r_wall,
 /area/engine/engineering)
-"axZ" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard)
-"aya" = (
-/obj/effect/spawner/room/meta,
-/turf/open/floor/plating,
-/area/maintenance/starboard/fore)
 "ayi" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -18306,6 +18292,9 @@
 /obj/item/clothing/glasses/meson/engine,
 /obj/item/clothing/glasses/meson/engine,
 /obj/item/clothing/glasses/meson/engine,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -19486,6 +19475,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"aMm" = (
+/obj/effect/spawner/room/meta,
+/turf/open/floor/plating,
+/area/maintenance/starboard/fore)
 "aMq" = (
 /obj/structure/window/reinforced,
 /turf/open/space,
@@ -24614,6 +24607,12 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"aWu" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "aWv" = (
 /turf/closed/wall,
 /area/storage/tech)
@@ -27450,6 +27449,9 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "bbA" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 9
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -27460,7 +27462,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "bbF" = (
@@ -76277,6 +76278,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"cYj" = (
+/obj/structure/closet/firecloset,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "cYE" = (
 /obj/structure/closet/toolcloset,
 /obj/effect/turf_decal/tile/yellow{
@@ -77896,7 +77902,7 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"ddY" = (
+"ddX" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
@@ -77948,6 +77954,10 @@
 /obj/item/clothing/glasses/meson/engine,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"dgA" = (
+/obj/machinery/atmospherics/pipe/simple/orange/visible,
+/turf/open/space/basic,
+/area/space)
 "dgI" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 5
@@ -83324,10 +83334,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/crew_quarters/cryopods)
-"pCo" = (
-/obj/machinery/atmospherics/pipe/simple/orange/visible,
-/turf/open/floor/plating,
-/area/maintenance/starboard/fore)
 "pCp" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -84632,10 +84638,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
-"vud" = (
-/obj/machinery/atmospherics/pipe/simple/orange/visible,
-/turf/open/space/basic,
-/area/space)
 "vvZ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/closed/wall/r_wall,
@@ -126657,7 +126659,7 @@ axY
 axT
 axY
 aAr
-ddY
+ddX
 aCU
 aEq
 aTO
@@ -128220,7 +128222,7 @@ dnS
 dnS
 dnS
 aqr
-axZ
+aWu
 bif
 bif
 bif
@@ -128733,7 +128735,7 @@ dnS
 dnS
 dnS
 dnS
-aok
+cYj
 atm
 wOY
 adF
@@ -129246,8 +129248,8 @@ dnS
 dnS
 dnS
 dnS
-pCo
-vud
+alr
+dgA
 dgI
 aaa
 aaa
@@ -129492,7 +129494,7 @@ dnS
 dnS
 dnS
 dnS
-aya
+aMm
 dnS
 dnS
 dnS
