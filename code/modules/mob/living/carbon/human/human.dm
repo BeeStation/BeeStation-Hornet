@@ -559,7 +559,6 @@
 						if(CS.body_parts_covered & LEGS)
 							to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on these legs!</span>")
 							return 0
-//to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on this body part!</span>")
 
 /mob/living/carbon/human/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null)
 	if(judgement_criteria & JUDGE_EMAGGED)
@@ -629,7 +628,7 @@
 	//Agent cards lower threatlevel.
 	if(istype(idcard, /obj/item/card/id/syndicate))
 		threatcount -= 5
-	
+
 	//individuals wearing tinfoil hats are 30% more likely to be criminals
 	if(istype(get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		threatcount += 2
