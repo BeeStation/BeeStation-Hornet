@@ -396,3 +396,15 @@
 	icon_state = "plantbgone"
 	item_state = "plantbgone"
 	set_reagent = /datum/reagent/toxin/plantbgone
+
+/obj/item/reagent_containers/spray/cyborg/lube
+	name = "lube spray"
+	desc = "A spray filled with space lube, for sabotaging the crew."
+	color = "#009CA8"
+	set_reagent = /datum/reagent/lube
+
+/obj/item/reagent_containers/spray/cyborg/acid
+	name = "acid spray"
+	desc = "A spray filled with sulphuric acid for offensive use."
+	color = "#00FF32"
+	set_reagent = /datum/reagent/toxin/acid
