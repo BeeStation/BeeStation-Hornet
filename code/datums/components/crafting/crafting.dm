@@ -4,8 +4,15 @@
 
 /datum/component/personal_crafting/proc/create_mob_button(mob/user, client/CL)
 	var/datum/hud/H = user.hud_used
+
+	var/widescreen_layout = FALSE
+	if(CL.prefs?.widescreenpref)
+		widescreen_layout = TRUE
+
 	var/obj/screen/craft/C = new()
 	C.icon = H.ui_style
+	if(!widescreen_layout)
+		C.screen_loc = UI_BOXCRAFT
 	H.static_inventory += C
 	CL.screen += C
 	RegisterSignal(C, COMSIG_CLICK, .proc/component_ui_interact)

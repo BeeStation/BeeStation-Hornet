@@ -973,6 +973,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if (isnull(new_size))
 		CRASH("change_view called without argument.")
 
+	if(prefs && !prefs.widescreenpref && new_size == CONFIG_GET(string/default_view))
+		new_size = CONFIG_GET(string/default_view_square)
+
 	view = new_size
 	apply_clickcatcher()
 	mob.reload_fullscreen()
