@@ -23,7 +23,7 @@
 /obj/item/melee/touch_attack/shock
 	name = "\improper shock touch"
 	desc = "This is kind of like when you rub your feet on a shag rug so you can zap your friends, only a lot less safe."
-	catchphrase = null
+	catchphrases = list(null)
 	on_use_sound = 'sound/weapons/zapbang.ogg'
 	icon_state = "zapper"
 	item_state = "zapper"
