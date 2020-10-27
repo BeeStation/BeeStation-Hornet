@@ -69,7 +69,8 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/storage/firstaid/fire,
 		/obj/item/storage/firstaid/medical,
 		/obj/item/storage/firstaid/tactical,
-		/obj/item/gun/energy/ionrifle
+		/obj/item/gun/energy/ionrifle,
+		/obj/item/organ/regenerative_core/battle_royale
 	))
 
 GLOBAL_LIST_INIT(battle_royale_good_loot, list(
@@ -204,7 +205,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	process_num++
 	//Once every 50 seconds
 	if(prob(2))
-		generate_basic_loot(2)
+		generate_basic_loot(5)
 	//Once every 100 seconds.
 	if(prob(1))
 		generate_good_drop()
@@ -338,7 +339,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	to_chat(world, "<span class='boldannounce'>[players.len] people remain...</span>")
 	//Start processing our world events
 	addtimer(CALLBACK(src, .proc/end_grace), 300)
-	generate_basic_loot(100)
+	generate_basic_loot(150)
 
 /datum/battle_royale_controller/proc/end_grace()
 	for(var/mob/M in GLOB.player_list)
@@ -364,7 +365,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 
 /datum/battle_royale_controller/proc/generate_endgame_drop()
 	var/obj/item = pick(GLOB.battle_royale_insane_loot)
-	send_item(item, announce = "We found a weird looking package in the back of our warehouse. We have no idea what is in it, but it is marked as incredibily dangerous and could be a superweapon.", force_time = 1800)
+	send_item(item, announce = "We found a weird looking package in the back of our warehouse. We have no idea what is in it, but it is marked as incredibily dangerous and could be a superweapon.", force_time = 9000)
 
 /datum/battle_royale_controller/proc/send_item(item_path, style = STYLE_BOX, announce=FALSE, force_time = 0)
 	if(!item_path)
@@ -433,3 +434,9 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	else if(top)
 		forceMove(get_step(get_turf(src), SOUTH))
 	current_radius--
+
+//=====
+// Heal
+// =====
+/obj/item/organ/regenerative_core/battle_royale
+	preserved = TRUE
