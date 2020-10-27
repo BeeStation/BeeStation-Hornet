@@ -745,8 +745,10 @@
 	name = "Lipid Extractor (Machine Board)"
 	icon_state = "medical"
 	build_path = /obj/machinery/fat_sucker
-	req_components = list(/obj/item/stock_parts/micro_laser = 1,
-		/obj/item/kitchen/fork = 1)
+	req_components = list(/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/cable_coil = 1,
+		/obj/item/scalpel = 1)
 
 /obj/item/circuitboard/machine/harvester
 	name = "Harvester (Machine Board)"
