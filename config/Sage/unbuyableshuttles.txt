@@ -12,7 +12,7 @@
 #_maps/shuttles/emergency_pubby.dmm
 
 ##Others
-_maps/shuttles/emergency_asteroid.dmm
+#_maps/shuttles/emergency_asteroid.dmm
 #_maps/shuttles/emergency_airless.dmm
 #_maps/shuttles/emergency_arena.dmm
 #_maps/shuttles/emergency_bar.dmm
@@ -21,7 +21,7 @@ _maps/shuttles/emergency_asteroid.dmm
 _maps/shuttles/emergency_imfedupwiththisworld.dmm
 #_maps/shuttles/emergency_goon.dmm
 #_maps/shuttles/emergency_luxury.dmm
-#_maps/shuttles/emergency_meteor.dmm
+_maps/shuttles/emergency_meteor.dmm
 #_maps/shuttles/emergency_raven.dmm
 #_maps/shuttles/emergency_russiafightpit.dmm
 #_maps/shuttles/emergency_scrapheap.dmm
