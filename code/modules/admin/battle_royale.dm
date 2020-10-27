@@ -74,7 +74,6 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 	))
 
 GLOBAL_LIST_INIT(battle_royale_good_loot, list(
-		/obj/item/uplink/nuclear,
 		/obj/item/hand_tele,
 		/obj/item/gun/ballistic/bow/clockbolt,
 		/obj/item/gun/ballistic/rifle/boltaction,
@@ -102,6 +101,7 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 		/obj/item/guardiancreator/tech,
 		/obj/item/twohanded/mjollnir,
 		/obj/item/pneumatic_cannon/pie/selfcharge,
+		/obj/item/uplink/nuclear
 	))
 
 GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
