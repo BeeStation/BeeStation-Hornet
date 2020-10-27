@@ -41,8 +41,8 @@
 	var/datum/action/small_sprite/smallsprite = new/datum/action/small_sprite/queen()
 
 /mob/living/carbon/alien/humanoid/royal/queen/Initialize()
-	SSshuttle.registerHostileEnvironment(src) //yogs: aliens delay shuttle
-	addtimer(CALLBACK(src, .proc/game_end), 30 MINUTES) //yogs: time until shuttle is freed/called
+	SSshuttle.registerHostileEnvironment(src) //aliens delay shuttle
+	addtimer(CALLBACK(src, .proc/game_end), 30 MINUTES) //time until shuttle is freed/called
 	//there should only be one queen
 	for(var/mob/living/carbon/alien/humanoid/royal/queen/Q in GLOB.carbon_list)
 		if(Q == src)
