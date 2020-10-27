@@ -12,11 +12,11 @@
 	var/static/list/blacklisted_turfs = typecacheof(list(/turf/closed,/turf/open/space,/turf/open/lava))
 	///Is it in use?
 	var/in_use = FALSE
+	var/list/remarks = list("Is that a whisper I hear?", "The letters twist and jumble...","It's starting to make sense...","The illustration is staring into my eyes!","I have seen this in a dream!","Have I seen this symbol somewhere else?","This is the place I've been dreaming about!","I've seen this in a recurring dream!","It's like this book is reaching out to me...","Ah! A greater purpose!","I was destined to read this!") 
 
 /obj/item/forbidden_book/Destroy()
 	last_user = null
 	. = ..()
-
 
 /obj/item/forbidden_book/examine(mob/user)
 	. = ..()
@@ -32,12 +32,8 @@
 	if(!proximity_flag || !IS_HERETIC(user) || in_use)
 		return
 	in_use = TRUE
-	if(istype(target,/obj/effect/eldritch))
-		remove_rune(target,user)
 	if(istype(target,/obj/effect/reality_smash))
 		get_power_from_influence(target,user)
-	if(istype(target,/turf/open))
-		draw_rune(target,user)
 	in_use = FALSE
 
 ///Gives you a charge and destroys a corresponding influence
@@ -47,29 +43,6 @@
 	if(do_after(user,10 SECONDS,FALSE,RS))
 		qdel(RS)
 		charge += 1
-
-///Draws a rune on a selected turf
-/obj/item/forbidden_book/proc/draw_rune(atom/target,mob/user)
-
-	for(var/turf/T in range(1,target))
-		if(is_type_in_typecache(T, blacklisted_turfs))
-			to_chat(target, "<span class='warning'>The terrain doesn't support runes!</span>")
-			return
-	var/A = get_turf(target)
-	to_chat(user, "<span class='danger'>You start drawing a rune...</span>")
-
-	if(do_after(user,30 SECONDS,FALSE,A))
-
-		new /obj/effect/eldritch/big(A)
-
-
-///Removes runes from the selected turf
-/obj/item/forbidden_book/proc/remove_rune(atom/target,mob/user)
-
-	to_chat(user, "<span class='danger'>You start removing a rune...</span>")
-	if(do_after(user,2 SECONDS,user))
-		qdel(target)
-
 
 /obj/item/forbidden_book/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!IS_HERETIC(user))
@@ -81,6 +54,35 @@
 		flick("book_opening",src)
 		ui = new(user, src, "ForbiddenLore")
 		ui.open()
+
+/obj/item/forbidden_book/attack_self(mob/living/carbon/human/user)
+	if(!istype(user) || IS_HERETIC(user) || in_use)
+		return FALSE
+	if(HAS_TRAIT(user, TRAIT_MINDSHIELD))
+		to_chat(user, "<span class='alert'>You feel the [name] trying to take over your mind!</span>")
+		return FALSE
+	if(victim.has_trauma_type(/datum/brain_trauma/fascination))
+		to_chat(user, "<span class='alert'>Reading the [name] will not satisfy our thirst for knowledge!</span>")
+		return FALSE
+		
+	to_chat(user, "<span class='notice'>You open the [name]...</span>")
+	in_use = TRUE
+	for(var/i=1, i<=pages_to_mastery, i++)
+		if(!turn_page(user))
+			to_chat(user, "<span class='notice'>You resist temptation and put the [name] down.</span>")
+			in_use = FALSE
+			return
+	if(do_after(user,50, user))
+		user.gain_trauma(/datum/brain_trauma/fascination,TRAUMA_RESILIENCE_SURGERY)
+		in_use = FALSE
+	return TRUE
+
+/obj/item/forbidden_book/proc/turn_page(mob/user)
+	playsound(user, pick('sound/effects/pageturn1.ogg','sound/effects/pageturn2.ogg','sound/effects/pageturn3.ogg'), 30, 1)
+	if(do_after(user,50, user))
+		to_chat(user, "<span class='notice'>[pick(remarks)]</span>")
+		return TRUE
+	return FALSE
 
 /obj/item/forbidden_book/ui_state(mob/user)
 	return GLOB.default_state
@@ -151,3 +153,39 @@
 
 /obj/item/forbidden_book/debug
 	charge = 100
+
+
+/datum/brain_trauma/fascination
+	name = "Hypnosis"
+	desc = "Patient's unconscious is completely enthralled by a word or sentence, focusing their thoughts and actions on it."
+	scan_desc = "looping thought pattern"
+	gain_text = ""
+	lose_text = ""
+	resilience = TRAUMA_RESILIENCE_SURGERY
+
+	var/inflictor = "Nobody"
+	var/regex/target_phrase
+
+/datum/brain_trauma/fascination/on_gain()
+	message_admins("[ADMIN_LOOKUPFLW(owner)] was fascinated by '[inflictor]'.")
+	log_game("[key_name(owner)] was fascinated by '[inflictor]'.")
+	to_chat(owner, "<span class='boldwarning'>¤¤¤.</span>")
+	var/obj/screen/alert/hypnosis/hypno_alert = owner.throw_alert("hypnosis", /obj/screen/alert/hypnosis)
+	hypno_alert.desc = "¤¤¤."
+	..()
+
+/datum/brain_trauma/fascination/on_lose()
+	message_admins("[ADMIN_LOOKUPFLW(owner)] is no longer fascinated.")
+	log_game("[key_name(owner)] is no longer fascinated.")
+	to_chat(owner, "<span class='userdanger'>¤¤¤.</span>")
+	owner.clear_alert("hypnosis")
+	..()
+
+/datum/brain_trauma/fascination/on_life()
+	..()
+	if(prob(2))
+		switch(rand(1,2))
+			if(1)
+				to_chat(owner, "<i>...[lowertext(hypnotic_phrase)]...</i>")
+			if(2)
+				new /datum/hallucination/chat(owner, TRUE, FALSE, "<span class='hypnophrase'>[hypnotic_phrase]</span>")

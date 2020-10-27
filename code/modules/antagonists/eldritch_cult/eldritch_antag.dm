@@ -8,7 +8,9 @@
 	var/antag_hud_name = "heretic"
 	var/give_equipment = TRUE
 	var/list/researched_knowledge = list()
+	var/list/analyzed_artifacts = list()
 	var/total_sacrifices = 0
+	var/total_conversion = 0
 	var/ascended = FALSE
 
 /datum/antagonist/heretic/admin_add(datum/mind/new_owner,mob/admin)
