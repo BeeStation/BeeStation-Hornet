@@ -8867,7 +8867,7 @@
 /obj/structure/table,
 /obj/item/folder/red,
 /obj/item/pen,
-/obj/item/storage/box/donkpockets,
+/obj/effect/spawner/lootdrop/donkpockets,
 /turf/open/floor/plasteel,
 /area/security/main)
 "apZ" = (
@@ -14776,8 +14776,8 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 6
 	},
-/obj/item/storage/box/donkpockets,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/donkpockets,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "aBZ" = (
