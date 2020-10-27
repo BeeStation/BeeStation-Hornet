@@ -30,4 +30,5 @@
 		var/proportion = viewX / viewY
 		viewX += zoom_amt * proportion
 		viewY += zoom_amt
-	return "[viewX]x[viewY]"
+	//God, I hate that we have to round this.
+	return "[round(viewX)]x[round(viewY)]"
