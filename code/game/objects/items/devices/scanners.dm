@@ -995,7 +995,7 @@ MAT SCANNER
 /obj/item/material_scanner/proc/analyze_materials(obj/item/I, mob/living/user)
 	to_chat(user, "- Material Analysis of [I] -")
 	var/I = 1
-	var/string/output = ""
+	var/output = ""
 	for(var/R in I.materials)
 		var/datum/material/M = R
 		var/amount =  I.materials[M]
