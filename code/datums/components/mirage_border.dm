@@ -14,15 +14,23 @@
 	var/x = target.x
 	var/y = target.y
 	var/z = target.z
-	var/turf/southwest = locate(CLAMP(x - (direction & WEST ? range : 0), 1, world.maxx), CLAMP(y - (direction & SOUTH ? range : 0), 1, world.maxy), CLAMP(z, 1, world.maxz))
-	var/turf/northeast = locate(CLAMP(x + (direction & EAST ? range : 0), 1, world.maxx), CLAMP(y + (direction & NORTH ? range : 0), 1, world.maxy), CLAMP(z, 1, world.maxz))
+
+	var/rangex = range
+	var/rangey = range
+
+	if(istext(rangex))
+		rangex = getviewsize(range)[1]
+		rangey = getviewsize(range)[2]
+
+	var/turf/southwest = locate(CLAMP(x - (direction & WEST ? rangex : 0), 1, world.maxx), CLAMP(y - (direction & SOUTH ? rangey : 0), 1, world.maxy), CLAMP(z, 1, world.maxz))
+	var/turf/northeast = locate(CLAMP(x + (direction & EAST ? rangex : 0), 1, world.maxx), CLAMP(y + (direction & NORTH ? rangey : 0), 1, world.maxy), CLAMP(z, 1, world.maxz))
 	//holder.vis_contents += block(southwest, northeast) // This doesnt work because of beta bug memes
 	for(var/i in block(southwest, northeast))
 		holder.vis_contents += i
 	if(direction & SOUTH)
-		holder.pixel_y -= world.icon_size * range
+		holder.pixel_y -= world.icon_size * rangey
 	if(direction & WEST)
-		holder.pixel_x -= world.icon_size * range
+		holder.pixel_x -= world.icon_size * rangex
 
 /datum/component/mirage_border/Destroy()
 	QDEL_NULL(holder)
