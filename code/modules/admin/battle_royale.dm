@@ -343,7 +343,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 /datum/battle_royale_controller/proc/end_grace()
 	for(var/mob/M in GLOB.player_list)
 		M.RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/knock)
-		H.status_flags -= GODMODE
+		M.status_flags -= GODMODE
 		REMOVE_TRAIT(M, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
 		to_chat(M, "<span class='greenannounce'>You are no longer a pacafist. Be the last [M.gender == MALE ? "man" : "woman"] standing.</span>")
 
