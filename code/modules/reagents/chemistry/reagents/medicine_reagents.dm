@@ -1227,6 +1227,23 @@
 	. = 1
 	..()
 
+/datum/reagent/medicine/regen_jelly/regen_ooze
+	name = "Regenerative Ooze"
+	description = "Gradually regenerates all types of damage, without harming slime anatomy."
+	reagent_state = LIQUID
+	color = "#65d891"
+	taste_description = "jelly"
+
+/datum/reagent/medicine/regen_jelly/regen_ooze/on_mob_life(mob/living/carbon/M)
+	M.adjustBruteLoss(-0.5*REM, 0)
+	M.adjustFireLoss(-0.5*REM, 0)
+	M.adjustOxyLoss(-0.5*REM, 0)
+	M.adjustToxLoss(-0.5*REM, 0, TRUE) //heals TOXINLOVERs
+	. = 1
+	..()
+
+
+
 /datum/reagent/medicine/syndicate_nanites //Used exclusively by Syndicate medical cyborgs
 	name = "Restorative Nanites"
 	description = "Miniature medical robots that swiftly restore bodily damage."

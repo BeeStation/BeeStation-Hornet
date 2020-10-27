@@ -406,6 +406,14 @@
 	safe_toxins_min = 16 //We breath THIS!
 	safe_toxins_max = 0
 
+/obj/item/organ/lungs/oozeling
+	name = "oozling vacuole"
+	desc = "A large organelle designed to store oxygen and filter plasma."
+
+	safe_oxygen_min = 16 //We breath THIS!
+	safe_toxins_min = 0 //We dont't breath this
+	safe_toxins_max = 0
+
 /obj/item/organ/lungs/slime
 	name = "vacuole"
 	desc = "A large organelle designed to store oxygen and other important gasses."

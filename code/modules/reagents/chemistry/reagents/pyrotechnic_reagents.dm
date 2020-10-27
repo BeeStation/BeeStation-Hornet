@@ -245,6 +245,44 @@
 			L.extract_cooldown = max(0, L.extract_cooldown - 20)
 	..()
 
+
+/datum/reagent/teslium/energized_jelly/energized_ooze
+	name = "Energized Ooze"
+	description = "Electrically-charged Ooze. Boosts Oozeling's nervous system, but only shocks other lifeforms."
+	reagent_state = LIQUID
+	color = "#CAFF43"
+	taste_description = "slime"
+	overdose_threshold = 30
+
+/datum/reagent/teslium/energized_jelly/energized_ooze/on_mob_life(mob/living/carbon/M)
+	if(isjellyperson(M))
+		shock_timer = 0 //immune to shocks
+		M.AdjustAllImmobility(-40, FALSE)
+		M.adjustStaminaLoss(-2, 0)
+		if(isluminescent(M))
+			var/mob/living/carbon/human/H = M
+			var/datum/species/jelly/luminescent/L = H.dna.species
+			L.extract_cooldown = max(0, L.extract_cooldown - 20)
+	if(isoozeling(M))
+		shock_timer = 0 //immune to shocks
+		M.AdjustAllImmobility(-40, FALSE)
+		M.adjustStaminaLoss(-2, 0)
+	..()
+
+/datum/reagent/teslium/energized_jelly/overdose_process(mob/living/carbon/M)
+	shock_timer++
+	if(isoozeling(M))
+		shock_timer = (rand(0,2))
+		M.electrocute_act(rand(5,20), "Teslium in their body", 1, 1) //Override because it's caused from INSIDE of you
+		playsound(M, "sparks", 50, 1)
+	..()
+	if(isjellyperson(M))
+		shock_timer = (rand(0,2))
+		M.electrocute_act(rand(5,20), "Teslium in their body", 1, 1) //Override because it's caused from INSIDE of you
+		playsound(M, "sparks", 50, 1)
+	..()
+
+
 /datum/reagent/firefighting_foam
 	name = "Firefighting Foam"
 	description = "A historical fire suppressant. Originally believed to simply displace oxygen to starve fires, it actually interferes with the combustion reaction itself. Vastly superior to the cheap water-based extinguishers found on NT vessels."
