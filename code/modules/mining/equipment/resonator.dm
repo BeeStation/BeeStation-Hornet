@@ -10,10 +10,12 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 15
 	throwforce = 10
-	var/burst_time = 30
+	var/charge_time = 15
 	var/fieldlimit = 4
 	var/list/fields = list()
 	var/quick_burst_mod = 0.8
+	var/charged = TRUE
+	var/trap_mode = FALSE
 
 /obj/item/resonator/upgraded
 	name = "upgraded resonator"
@@ -21,31 +23,68 @@
 	icon_state = "resonator_u"
 	item_state = "resonator_u"
 	fieldlimit = 6
+	charge_time = 8
 	quick_burst_mod = 1
 
-/obj/item/resonator/attack_self(mob/user)
-	if(burst_time == 50)
-		burst_time = 30
-		to_chat(user, "<span class='info'>You set the resonator's fields to detonate after 3 seconds.</span>")
-	else
-		burst_time = 50
-		to_chat(user, "<span class='info'>You set the resonator's fields to detonate after 5 seconds.</span>")
+/obj/item/resonator/attack_self(mob/user) //Was tooo shitty
+	for(var/obj/effect/temp_visual/resonance/field in fields)
+		field.damage_multiplier = quick_burst_mod
+		field.burst()
+	to_chat(user, "<span class='info'>You activate your resonator's remote detonator and rupture all the fields at once.</span>")
 
-/obj/item/resonator/proc/CreateResonance(target, mob/user)
-	var/turf/T = get_turf(target)
-	var/obj/effect/temp_visual/resonance/R = locate(/obj/effect/temp_visual/resonance) in T
-	if(R)
-		R.damage_multiplier = quick_burst_mod
-		R.burst()
+/obj/item/resonator/afterattack(atom/target, mob/living/user, proximity_flag, clickparams)
+	. = ..()
+	if(charged && length(fields) < fieldlimit)
+		var/turf/proj_turf = user.loc
+		if(!isturf(proj_turf))
+			return
+		var/obj/item/projectile/resonator/D = new /obj/item/projectile/resonator(proj_turf)
+		if(trap_mode)
+			D.rupture_time = 50
+			D.name = "resonating force"
+		D.preparePixelProjectile(target, user, clickparams)
+		D.firer = user
+		D.resonator = src
+		playsound(user, 'sound/weapons/plasma_cutter.ogg', 100, 1)
+		D.fire()
+		charged = FALSE
+		update_icon()
+		addtimer(CALLBACK(src, .proc/Recharge), charge_time)
 		return
-	if(LAZYLEN(fields) < fieldlimit)
-		new /obj/effect/temp_visual/resonance(T, user, src, burst_time)
-		user.changeNext_move(CLICK_CD_MELEE)
 
-/obj/item/resonator/pre_attack(atom/target, mob/user, params)
-	if(check_allowed_items(target, 1))
-		CreateResonance(target, user)
-	return TRUE
+/obj/item/resonator/AltClick(mob/user)
+	to_chat(user, "<span class='info'>You switched [src] to [trap_mode ? "mining":"trapping"] mode.</span>")
+	trap_mode = !trap_mode
+	. = ..()
+
+/obj/item/resonator/proc/Recharge()
+	charged = TRUE
+
+/obj/item/projectile/resonator
+	name = "resonating force"
+	icon_state = "holoball"
+	damage = 5 //We're just here to create resonators. Small damage through, but not for mobs
+	damage_type = BRUTE
+	flag = "bomb"
+	speed = 4 //Pretty fucking slow
+	range = 6
+	log_override = TRUE
+	var/rupture_time = 10
+	var/obj/item/resonator/resonator
+
+/obj/item/projectile/resonator/on_hit(atom/target, blocked = FALSE)
+	if(isturf(target))
+		new/obj/effect/temp_visual/resonance(target, firer, resonator, rupture_time)
+	else
+		new/obj/effect/temp_visual/resonance(get_turf(target), firer, resonator, rupture_time)
+
+	if(ismob(target))
+		damage = 0
+		nodamage = TRUE
+	else
+		damage = 5
+		nodamage = FALSE
+	. = ..()
 
 //resonance field, crushes rock, damages mobs
 /obj/effect/temp_visual/resonance
@@ -53,8 +92,8 @@
 	desc = "A resonating field that significantly damages anything inside of it when the field eventually ruptures. More damaging in low pressure environments."
 	icon_state = "shield1"
 	layer = ABOVE_ALL_MOB_LAYER
-	duration = 50
-	var/resonance_damage = 20
+	duration = 10
+	var/resonance_damage = 10 //Nerfed the damage
 	var/damage_multiplier = 1
 	var/creator
 	var/obj/item/resonator/res
@@ -85,7 +124,7 @@
 	resonance_damage = initial(resonance_damage)
 	if(lavaland_equipment_pressure_check(proj_turf))
 		name = "strong [initial(name)]"
-		resonance_damage *= 3
+		resonance_damage *= 4.5
 	else
 		name = initial(name)
 	resonance_damage *= damage_multiplier
