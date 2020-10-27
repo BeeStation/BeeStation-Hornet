@@ -13,7 +13,7 @@
 	desc = "It's watching you suspiciously."
 
 /obj/structure/closet/crate/necropolis/tendril/PopulateContents()
-	var/loot = rand(1,30)
+	var/loot = rand(1,31)
 	switch(loot)
 		if(1)
 			new /obj/item/shared_storage/red(src)
@@ -83,6 +83,67 @@
 			new /obj/item/reagent_containers/glass/waterbottle/relic(src)
 		if(30)
 			new /obj/item/reagent_containers/glass/bottle/necropolis_seed(src)
+		if(31)
+			if(prob(30))
+				new /obj/item/power_tube/filled(src)
+			else
+				new /obj/item/power_tube(src)
+
+//Golden Amulet
+/obj/item/clothing/neck/necklace/golden_amulet
+	name = "golden amulet"
+	desc = "A very old necklace, made out of gold. It has a bloody-red gem inserted into it."
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "golden_amulet"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	var/used = FALSE
+
+/obj/item/clothing/neck/necklace/golden_amulet/equipped(var/mob/user, var/slot)
+	. = ..()
+	if(used)
+		unequip(user)
+		return
+	if(slot == ITEM_SLOT_NECK)
+		RegisterSignal(user, COMSIG_MOB_DEATH, .proc/revival)
+	else
+		unequip(user)
+
+/obj/item/clothing/neck/necklace/golden_amulet/dropped(var/mob/user)
+	. = ..()
+	unequip(user)
+
+/obj/item/clothing/neck/necklace/golden_amulet/proc/unequip(var/mob/user)
+	UnregisterSignal(user, COMSIG_MOB_DEATH)
+
+/obj/item/clothing/neck/necklace/golden_amulet/proc/revival()
+	if(used)
+		return
+	var/mob/living/user = loc
+	if(!istype(user))
+		return
+	user.revive(full_heal = 1, admin_revive = 1)
+	used = TRUE
+	name = "used golden amulet"
+	desc = "A very old necklace, made out of gold. It's gem has been removed. Now it's useless."
+
+/obj/item/throwing_belt
+	name = "ancient belt"
+	desc = "A red belt, made out of sinew. It is full of throwing daggers!"
+	icon = 'icons/obj/clothing/belts.dmi'
+	icon_state = "ebelt"
+	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
+	slot_flags = ITEM_SLOT_BELT
+
+/obj/item/throwing_belt/attack_hand(var/mob/living/carbon/human/H)
+	if(loc != H)
+		return
+	if(!istype(H))
+		return
+	to_chat(H, "<span class='notice'>You draw a throwing knife from the [src].</span>")
+	var/obj/item/kitchen/knife/combat/bone/throwing/boned = new(get_turf(H))
+	H.put_in_hands(boned)
+	QDEL_IN(boned, 30)
 
 //KA modkit design discs
 /obj/item/disk/design_disk/modkit_disc
@@ -803,11 +864,36 @@
 			new /obj/item/gun/magic/wand/fireball(src)
 		if(4)
 			new /obj/item/dragons_blood(src)
+	new /obj/item/borg/upgrade/modkit/knockback(src)
 
 /obj/structure/closet/crate/necropolis/dragon/crusher
 	name = "firey dragon chest"
 
 /obj/structure/closet/crate/necropolis/dragon/crusher/PopulateContents()
+	..()
+	new /obj/item/crusher_trophy/tail_spike(src)
+
+/obj/structure/closet/crate/necropolis/dragon/hard
+	name = "enraged dragon chest"
+
+/obj/structure/closet/crate/necropolis/dragon/hard/PopulateContents()
+	var/loot = rand(1,4)
+	switch(loot)
+		if(1)
+			new /obj/item/melee/ghost_sword/upgraded(src)
+		if(2)
+			new /obj/item/lava_staff(src)
+		if(3)
+			new /obj/item/clothing/neck/necklace/golden_amulet(src)
+		if(4)
+			new /obj/item/dragons_blood/pure(src)
+
+	new /obj/item/borg/upgrade/modkit/knockback(src)
+
+/obj/structure/closet/crate/necropolis/dragon/hard/crusher
+	name = "enraged firey dragon chest"
+
+/obj/structure/closet/crate/necropolis/dragon/hard/crusher/PopulateContents()
 	..()
 	new /obj/item/crusher_trophy/tail_spike(src)
 
@@ -905,6 +991,43 @@
 	final_block_chance += CLAMP((ghost_counter * 5), 0, 75)
 	owner.visible_message("<span class='danger'>[owner] is protected by a ring of [ghost_counter] ghosts!</span>")
 	return ..()
+
+/obj/item/melee/ghost_sword/upgraded
+	name = "\improper improved spectral blade"
+	desc = "A polished blue blade. It doesn't look like it'd do much damage. It glows weakly."
+
+/obj/item/melee/ghost_sword/upgraded/attack(mob/living/target, mob/living/carbon/human/user)
+	force = 0
+	var/ghost_counter = ghost_check()
+
+	force = clamp((ghost_counter * 10), 0, 75)
+	user.visible_message("<span class='danger'>[user] strikes with the force of [ghost_counter] vengeful spirits!</span>")
+	return ..()
+
+/obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	var/ghost_counter = ghost_check()
+	final_block_chance += CLAMP((ghost_counter * 15), 0, 75)
+	owner.visible_message("<span class='danger'>[owner] is protected by a ring of [ghost_counter] ghosts!</span>")
+	return ..()
+
+/obj/item/dragons_blood/pure
+	name = "bottle of pure dragons blood"
+
+/obj/item/dragons_blood/pure/attack_self(mob/living/carbon/human/user)
+	if(!istype(user))
+		return
+
+	var/mob/living/carbon/human/H = user
+
+	to_chat(user, "<span class='danger'>Your appearance morphs to that of a very small humanoid ash dragon! You feel that you are now also lava and storm-proof!</span>")
+	H.dna.features = list("mcolor" = "A02720", "tail_lizard" = "Dark Tiger", "tail_human" = "None", "snout" = "Sharp", "horns" = "Curled", "ears" = "None", "wings" = "None", "frills" = "None", "spines" = "Long", "body_markings" = "Dark Tiger Body", "legs" = "Digitigrade")
+	H.eye_color = "fee5a3"
+	H.set_species(/datum/species/lizard)
+	H.weather_immunities |= "lava"
+	H.weather_immunities |= "ash"
+
+	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
+	qdel(src)
 
 //Blood
 
@@ -1041,11 +1164,29 @@
 			new /obj/item/blood_contract(src)
 		if(3)
 			new /obj/item/gun/magic/staff/spellblade(src)
+	new /obj/item/borg/upgrade/modkit/shotgun(src)
 
 /obj/structure/closet/crate/necropolis/bubblegum/crusher
 	name = "bloody bubblegum chest"
 
 /obj/structure/closet/crate/necropolis/bubblegum/crusher/PopulateContents()
+	..()
+	new /obj/item/crusher_trophy/demon_claws(src)
+
+/obj/structure/closet/crate/necropolis/bubblegum/hard
+	name = "enraged bubblegum chest"
+
+/obj/structure/closet/crate/necropolis/bubblegum/hard/PopulateContents()
+	new /obj/item/borg/upgrade/modkit/shotgun(src)
+	new /obj/item/mayhem(src)
+	new /obj/item/blood_contract(src)
+	new /obj/item/gun/magic/staff/spellblade(src)
+	new /obj/item/clothing/suit/space/hardsuit/deathsquad/praetor(src)
+
+/obj/structure/closet/crate/necropolis/bubblegum/hard/crusher
+	name = "enraged bloody bubblegum chest"
+
+/obj/structure/closet/crate/necropolis/bubblegum/hard/crusher/PopulateContents()
 	..()
 	new /obj/item/crusher_trophy/demon_claws(src)
 
@@ -1124,12 +1265,93 @@
 	new random_crystal(src)
 	new /obj/item/organ/vocal_cords/colossus(src)
 
+	new /obj/item/borg/upgrade/modkit/bolter(src)
+
 /obj/structure/closet/crate/necropolis/colossus/crusher
 	name = "angelic colossus chest"
 
 /obj/structure/closet/crate/necropolis/colossus/crusher/PopulateContents()
 	..()
 	new /obj/item/crusher_trophy/blaster_tubes(src)
+
+
+/obj/structure/closet/crate/necropolis/colossus/hard
+	name = "enraged colossus chest"
+
+/obj/structure/closet/crate/necropolis/colossus/hard/PopulateContents()
+	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
+	var/random_crystal = pick(choices)
+	new random_crystal(src)
+	new /obj/item/fallen_wings(src)
+	new /obj/item/organ/vocal_cords/colossus(src)
+
+	new /obj/item/borg/upgrade/modkit/bolter(src)
+
+/obj/structure/closet/crate/necropolis/colossus/hard/crusher
+	name = "enraged angelic colossus chest"
+
+/obj/structure/closet/crate/necropolis/colossus/hard/crusher/PopulateContents()
+	..()
+	new /obj/item/crusher_trophy/blaster_tubes(src)
+
+
+/obj/item/fallen_wings
+	name = "wings of the fallen angel"
+	desc = "A pair of white, beautiful wings. They have been cut and you can't use them, but looks like they can provide decent protection."
+	force = 0
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BACK
+	throwforce = 0
+	throw_speed = 0
+
+	armor = list("melee" = 25, "bullet" = 25, "laser" = 15, "energy" = 15, "bomb" = 25, "bio" = 0, "rad" = 0)
+
+	body_parts_covered = CHEST | GROIN | LEGS | ARMS
+
+/obj/item/fallen_wings/equipped(var/mob/user, var/slot)
+	. = ..()
+	if(slot == ITEM_SLOT_BACK)
+		ADD_TRAIT(src, TRAIT_NODROP, MEGAFAUNA_TRAIT)
+		armor = initial(armor)
+	else
+		armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0)
+
+/obj/item/fallen_wings/dropped(var/mob/user)
+	. = ..()
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0)
+
+/obj/item/fallen_wings/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	final_block_chance += rand(5, 20)
+	return ..()
+
+//Corrupted System
+
+/obj/structure/closet/crate/necropolis/corrupted_system
+	name = "corrupted system chest"
+
+/obj/structure/closet/crate/necropolis/corrupted_system/PopulateContents()
+	new /obj/item/borg/upgrade/modkit/plasma(src)
+	new /obj/item/mecha_parts/mecha_equipment/drill/experimental(src) //A very good drill
+	new /obj/item/gun/energy/plasmacutter/experimental(src) //A REALLY good plasmacutter (Not for combat, just for mining)
+
+/obj/structure/closet/crate/necropolis/corrupted_system/crusher
+	name = "glitching corrupted system chest"
+
+/obj/structure/closet/crate/necropolis/corrupted_system/crusher/PopulateContents()
+	. = ..()
+	new /obj/item/crusher_trophy/rogue_ai(src)
+
+/obj/item/gun/energy/plasmacutter/experimental
+	name = "experimental plasma cutter"
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "experimental_cutter"
+	force = 17
+	ammo_type = list(/obj/item/ammo_casing/energy/plasma/rogue)
+
+/obj/item/ammo_casing/energy/plasma/rogue
+	projectile_type = /obj/item/projectile/plasma/rogue
+	delay = 7
+	e_cost = 7
 
 //Hierophant
 /obj/item/hierophant_club

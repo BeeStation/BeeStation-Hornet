@@ -76,6 +76,10 @@
 	name = "Forgotten Ruin"
 	icon_state = "dk_yellow"
 
+/area/ruin/unpowered/necropolis
+	name = "The Necropolis"
+	icon_state = "dk_yellow"
+
 //Xeno Nest
 
 /area/ruin/unpowered/xenonest

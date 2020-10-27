@@ -67,6 +67,10 @@ Difficulty: Medium
 							   /datum/action/innate/megafauna_attack/lava_swoop)
 	small_sprite_type = /datum/action/small_sprite/megafauna/drake
 
+	abyss_born = TRUE
+	enraged_type = /mob/living/simple_animal/hostile/megafauna/dragon/hard
+	enrage_message = "spreads it's wings and roars as it feels the power of Abyss!"
+
 /datum/action/innate/megafauna_attack/fire_cone
 	name = "Fire Cone"
 	icon_icon = 'icons/obj/wizard.dmi'

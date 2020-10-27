@@ -61,6 +61,24 @@
 	cost = 20
 	allow_duplicates = FALSE
 
+/datum/map_template/ruin/lavaland/power_collector
+	name = "Power Collector"
+	id = "power_collector"
+	description = "An ancient device intended for collecting Abyssal Power."
+	suffix = "lavaland_surface_power_collector.dmm"
+	cost = 5
+	allow_duplicates = TRUE
+	always_place = TRUE
+
+/datum/map_template/ruin/lavaland/corrupted_system
+	name = "Corrupted System"
+	id = "corrupted_system"
+	description = "A crashed pod, containing a malfunctioning mining mech."
+	suffix = "lavaland_surface_corrupted_system.dmm"
+	always_place = TRUE
+	cost = 0
+	allow_duplicates = FALSE
+
 /datum/map_template/ruin/lavaland/free_golem
 	name = "Free Golem Ship"
 	id = "golem-ship"
@@ -128,16 +146,15 @@
 	id = "hierophant"
 	description = "A strange, square chunk of metal of massive size. Inside awaits only death and many, many squares."
 	suffix = "lavaland_surface_hierophant.dmm"
-	always_place = TRUE
-	allow_duplicates = FALSE
+	always_place = TRUE //Now multiple can spawn
+	cost = 0
 
 /datum/map_template/ruin/lavaland/blood_drunk_miner
 	name = "Blood-Drunk Miner"
 	id = "blooddrunk"
 	description = "A strange arrangement of stone tiles and an insane, beastly miner contemplating them."
 	suffix = "lavaland_surface_blooddrunk1.dmm"
-	cost = 0
-	allow_duplicates = FALSE //will only spawn one variant of the ruin
+	cost = 0 //Now multiple can spawn
 
 /datum/map_template/ruin/lavaland/blood_drunk_miner/guidance
 	name = "Blood-Drunk Miner (Guidance)"
@@ -222,7 +239,7 @@
 	description = "Mystery to be solved."
 	suffix = "lavaland_surface_puzzle.dmm"
 	cost = 5
-  
+
 /datum/map_template/ruin/lavaland/elite_tumor
 	name = "Pulsating Tumor"
 	id = "tumor"

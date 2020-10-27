@@ -42,6 +42,10 @@
 	var/list/attack_action_types = list()
 	var/small_sprite_type
 
+	var/abyss_born = FALSE //Was it born in abyss and will it enrage from it. And yeah, power cylinders also depends on this
+	var/enraged_type = /mob/living/simple_animal/hostile/megafauna
+	var/enrage_message = "enrages and starts to grow bigger! It feels the power of Abyss!"
+
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
 	if(gps_name && true_spawn)
@@ -176,3 +180,27 @@
 /datum/action/innate/megafauna_attack/Activate()
 	M.chosen_attack = chosen_attack_num
 	to_chat(M, chosen_message)
+
+/mob/living/simple_animal/hostile/megafauna/attacked_by(obj/item/I, mob/living/user, attackchain_flags = NONE, damage_multiplier = 1)
+	if(istype(I, /obj/item/power_tube))
+		var/obj/item/power_tube/tube = I
+		if(tube.filled)
+			tube.filled = FALSE
+			tube.update_icon()
+			user.visible_message("<span class = 'warning'>[user] splashes the [src] with [tube]!</span>")
+			if(abyss_born)
+				abyss_act()
+			return
+	. = ..()
+
+/mob/living/simple_animal/hostile/megafauna/Life(seconds, times_fired)
+	if(!(. = ..()))
+		return
+	if(abyss_born && is_abyss_level(z))
+		abyss_act()
+
+/mob/living/simple_animal/hostile/megafauna/proc/abyss_act()
+	if(abyss_born)
+		visible_message("<span class='danger'>[src] [enrage_message]</span>")
+		new enraged_type(get_turf(src))
+		qdel(src)

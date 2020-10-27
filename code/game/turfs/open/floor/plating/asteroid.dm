@@ -131,12 +131,13 @@
 
 
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"
-#define SPAWN_BUBBLEGUM 6
+#define SPAWN_MEGAFAUNA_ABYSS "bluh bluh huge abyss boss"
 
 /turf/open/floor/plating/asteroid/airless/cave
 	var/length = 100
 	var/list/mob_spawn_list
 	var/list/megafauna_spawn_list
+	var/list/megafauna_abyss_spawn_list
 	var/list/flora_spawn_list
 	var/list/terrain_spawn_list
 	var/sanity = 1
@@ -151,10 +152,10 @@
 	has_data = TRUE
 
 /turf/open/floor/plating/asteroid/airless/cave/volcanic
-	mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/random = 50, /obj/structure/spawner/lavaland/goliath = 3, \
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random = 40, /obj/structure/spawner/lavaland = 2, \
-		/mob/living/simple_animal/hostile/asteroid/hivelord/legion/random = 30, /obj/structure/spawner/lavaland/legion = 3, \
-		SPAWN_MEGAFAUNA = 6, /mob/living/simple_animal/hostile/asteroid/goldgrub = 10, )
+	mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/random = 50, /obj/structure/spawner/lavaland/goliath = 4, \
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random = 30, /obj/structure/spawner/lavaland = 2, \
+		/mob/living/simple_animal/hostile/asteroid/hivelord/legion/random = 30, /obj/structure/spawner/lavaland/legion = 4, \
+		SPAWN_MEGAFAUNA = 6, /mob/living/simple_animal/hostile/asteroid/goldgrub = 10, /mob/living/simple_animal/hostile/asteroid/crazy_miner/random = 10)
 
 	data_having_type = /turf/open/floor/plating/asteroid/airless/cave/volcanic/has_data
 	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
@@ -167,7 +168,9 @@
 	if (!mob_spawn_list)
 		mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goldgrub = 1, /mob/living/simple_animal/hostile/asteroid/goliath = 5, /mob/living/simple_animal/hostile/asteroid/basilisk = 4, /mob/living/simple_animal/hostile/asteroid/hivelord = 3)
 	if (!megafauna_spawn_list)
-		megafauna_spawn_list = list(/mob/living/simple_animal/hostile/megafauna/dragon = 4, /mob/living/simple_animal/hostile/megafauna/colossus = 2, /mob/living/simple_animal/hostile/megafauna/bubblegum = SPAWN_BUBBLEGUM)
+		megafauna_spawn_list = list(/mob/living/simple_animal/hostile/megafauna/dragon = 6, /mob/living/simple_animal/hostile/megafauna/colossus = 2, /mob/living/simple_animal/hostile/megafauna/bubblegum = 4) //Now there can spawn more than 1 bubblegum. With new mining thats fair
+	if (!megafauna_abyss_spawn_list)
+		megafauna_abyss_spawn_list = list(/mob/living/simple_animal/hostile/megafauna/dragon/hard = 6, /mob/living/simple_animal/hostile/megafauna/colossus/hard = 2, /mob/living/simple_animal/hostile/megafauna/bubblegum/hard = 4)
 	if (!flora_spawn_list)
 		flora_spawn_list = list(/obj/structure/flora/ash/leaf_shroom = 2 , /obj/structure/flora/ash/cap_shroom = 2 , /obj/structure/flora/ash/stem_shroom = 2 , /obj/structure/flora/ash/cacti = 1, /obj/structure/flora/ash/tall_shroom = 2)
 	if(!terrain_spawn_list)
@@ -265,8 +268,14 @@
 				var/maybe_boss = pickweight(megafauna_spawn_list)
 				if(megafauna_spawn_list[maybe_boss])
 					randumb = maybe_boss
-					if(ispath(maybe_boss, /mob/living/simple_animal/hostile/megafauna/bubblegum)) //there can be only one bubblegum, so don't waste spawns on it
-						megafauna_spawn_list[maybe_boss] = 0
+			else //this is not danger, don't spawn a boss, spawn something else
+				randumb = pickweight(mob_spawn_list)
+
+		while(randumb == SPAWN_MEGAFAUNA_ABYSS)
+			if(megafauna_abyss_spawn_list && megafauna_abyss_spawn_list.len)
+				var/maybe_boss = pickweight(megafauna_abyss_spawn_list)
+				if(megafauna_abyss_spawn_list[maybe_boss])
+					randumb = maybe_boss
 			else //this is not danger, don't spawn a boss, spawn something else
 				randumb = pickweight(mob_spawn_list)
 
@@ -281,8 +290,21 @@
 		new randumb(T)
 	return
 
+/turf/open/floor/plating/asteroid/airless/cave/volcanic_abyss
+	mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/fire_wisp = 15, \
+        /mob/living/simple_animal/hostile/asteroid/ash_whelp = 35, \
+        /mob/living/simple_animal/hostile/asteroid/abyss_demon = 35, \
+		SPAWN_MEGAFAUNA_ABYSS = 6, /mob/living/simple_animal/hostile/asteroid/crazy_miner/random = 15)
+
+	data_having_type = /turf/open/floor/plating/asteroid/airless/cave/volcanic_abyss/has_data
+	turf_type = /turf/open/floor/plating/asteroid/basalt/lavaland_abyss
+	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
+
+/turf/open/floor/plating/asteroid/airless/cave/volcanic_abyss/has_data //subtype for producing a tunnel with given data
+	has_data = TRUE
+
 #undef SPAWN_MEGAFAUNA
-#undef SPAWN_BUBBLEGUM
+#undef SPAWN_MEGAFAUNA_ABYSS
 
 /turf/open/floor/plating/asteroid/airless/cave/proc/SpawnFlora(turf/T)
 	if(prob(12))
@@ -357,3 +379,8 @@
 /turf/open/floor/plating/asteroid/snow/atmosphere
 	initial_gas_mix = FROZEN_ATMOS
 	planetary_atmos = FALSE
+
+/turf/open/floor/plating/asteroid/basalt/lavaland_abyss
+	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
+	planetary_atmos = TRUE
+	baseturfs = /turf/open/floor/plating/asteroid/basalt/lavaland_abyss

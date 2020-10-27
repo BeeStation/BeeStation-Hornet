@@ -1,0 +1,259 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/template_noop)
+"b" = (
+/turf/closed/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"c" = (
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"d" = (
+/turf/closed/wall/rust,
+/area/lavaland/surface/outdoors)
+"e" = (
+/turf/open/floor/plating,
+/area/lavaland/surface/outdoors)
+"f" = (
+/turf/closed/wall,
+/area/lavaland/surface/outdoors)
+"g" = (
+/turf/open/floor/plasteel,
+/area/lavaland/surface/outdoors)
+"h" = (
+/mob/living/simple_animal/hostile/megafauna/corrupted_system,
+/turf/open/floor/plasteel,
+/area/lavaland/surface/outdoors)
+"i" = (
+/obj/structure/fluff/broken_flooring,
+/turf/open/floor/plating,
+/area/lavaland/surface/outdoors)
+"j" = (
+/obj/structure/door_assembly/door_assembly_highsecurity,
+/turf/open/floor/plating,
+/area/lavaland/surface/outdoors)
+"k" = (
+/obj/structure/girder,
+/turf/open/floor/plating,
+/area/lavaland/surface/outdoors)
+"l" = (
+/obj/structure/girder/displaced,
+/turf/open/floor/plating,
+/area/lavaland/surface/outdoors)
+"m" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plasteel,
+/area/lavaland/surface/outdoors)
+"n" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+
+(1,1,1) = {"
+a
+a
+a
+b
+b
+b
+b
+b
+b
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+b
+b
+c
+c
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(3,1,1) = {"
+b
+b
+b
+c
+c
+c
+c
+b
+b
+b
+b
+b
+b
+a
+"}
+(4,1,1) = {"
+b
+b
+c
+c
+c
+c
+c
+c
+c
+c
+b
+b
+b
+b
+"}
+(5,1,1) = {"
+b
+c
+c
+c
+d
+f
+l
+c
+c
+c
+c
+c
+b
+b
+"}
+(6,1,1) = {"
+b
+c
+c
+e
+g
+i
+g
+e
+n
+n
+n
+c
+c
+b
+"}
+(7,1,1) = {"
+b
+c
+c
+f
+g
+h
+g
+j
+n
+n
+n
+n
+c
+b
+"}
+(8,1,1) = {"
+b
+c
+c
+k
+e
+g
+m
+d
+n
+n
+n
+c
+c
+b
+"}
+(9,1,1) = {"
+b
+c
+c
+c
+e
+k
+k
+c
+c
+c
+c
+c
+b
+b
+"}
+(10,1,1) = {"
+b
+b
+c
+c
+c
+c
+c
+c
+b
+b
+c
+b
+b
+b
+"}
+(11,1,1) = {"
+b
+b
+b
+c
+c
+c
+c
+b
+b
+b
+b
+b
+b
+a
+"}
+(12,1,1) = {"
+a
+b
+b
+c
+c
+c
+b
+b
+b
+b
+b
+a
+a
+a
+"}
+(13,1,1) = {"
+a
+a
+b
+b
+b
+b
+b
+a
+a
+a
+a
+a
+a
+a
+"}

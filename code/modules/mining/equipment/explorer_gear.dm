@@ -114,3 +114,75 @@
 		var/mutable_appearance/M = mutable_appearance('icons/mob/head.dmi', "hostile_env_glass")
 		M.appearance_flags = RESET_COLOR
 		. += M
+
+/****************SEVA Suit and Mask****************/
+/obj/item/clothing/suit/hooded/explorer/seva
+	name = "SEVA Suit"
+	desc = "A fire-proof suit for exploring hot environments. Its design and material make it easier for a Goliath to keep their grip on the wearer."
+	icon_state = "seva"
+	w_class = WEIGHT_CLASS_BULKY
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	hoodtype = /obj/item/clothing/head/hooded/explorer/seva
+	armor = list("melee" = 15, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 15, "bio" = 50, "rad" = 25, "fire" = 100, "acid" = 25)
+	resistance_flags = FIRE_PROOF | GOLIATH_WEAKNESS
+
+/obj/item/clothing/head/hooded/explorer/seva
+	name = "SEVA Hood"
+	desc = "A fire-proof hood for exploring hot environments. Its design and material make it easier for a Goliath to keep their grip on the wearer."
+	icon_state = "seva"
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	armor = list("melee" = 15, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 15, "bio" = 50, "rad" = 25, "fire" = 100, "acid" = 25)
+	resistance_flags = FIRE_PROOF | GOLIATH_WEAKNESS
+
+/obj/item/clothing/mask/gas/seva
+	name = "SEVA Mask"
+	desc = "A face-covering plate that can be connected to an air supply. Intended for use with the SEVA Suit."
+	icon_state = "seva"
+	resistance_flags = FIRE_PROOF
+
+/****************Exo-Suit and Mask****************/
+
+/obj/item/clothing/suit/hooded/explorer/exo
+	name = "Exo-suit"
+	desc = "A robust suit for fighting dangerous animals. Its design and material make it harder for a Goliath to keep their grip on the wearer."
+	icon_state = "exo"
+	w_class = WEIGHT_CLASS_BULKY
+	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	hoodtype = /obj/item/clothing/head/hooded/explorer/exo
+	armor = list("melee" = 45, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 40, "bio" = 25, "rad" = 10, "fire" = 0, "acid" = 0)
+	resistance_flags = 50 | GOLIATH_RESISTANCE
+	slowdown = 1
+
+/obj/item/clothing/head/hooded/explorer/exo
+	name = "Exo-hood"
+	desc = "A robust helmet for fighting dangerous animals. Its design and material make it harder for a Goliath to keep their grip on the wearer."
+	icon_state = "exo"
+	armor = list("melee" = 50, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 40, "bio" = 25, "rad" = 10, "fire" = 0, "acid" = 0)
+	resistance_flags = FIRE_PROOF | GOLIATH_RESISTANCE
+
+/obj/item/clothing/mask/gas/exo
+	name = "Exosuit Mask"
+	desc = "A face-covering mask that can be connected to an air supply. Intended for use with the Exosuit."
+	icon_state = "exo"
+	resistance_flags = FIRE_PROOF
+
+/**************** Praetor Suit. Exclusive super bubblegum loot ****************/
+
+/obj/item/clothing/suit/space/hardsuit/deathsquad/praetor
+	name = "Praetor Suit"
+	desc = "And those that tasted the bite of his sword named him... The Doom Slayer."
+	armor = list("melee" = 75, "bullet" = 55, "laser" = 55, "energy" = 55, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "wound" = 40)
+	strip_delay = 130
+	icon_state = "praetor"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/deathsquad/praetor
+	slowdown = 0
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+
+/obj/item/clothing/head/helmet/space/hardsuit/deathsquad/praetor
+	name = "Praetor Suit helmet"
+	desc = "That's one doomed space marine."
+	armor = list("melee" = 75, "bullet" = 55, "laser" = 55, "energy" = 55, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "wound" = 37)
+	strip_delay = 130
+	icon_state = "praetor"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF

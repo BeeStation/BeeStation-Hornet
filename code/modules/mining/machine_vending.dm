@@ -34,11 +34,13 @@
 		new /datum/data/mining_equipment("Kinetic Crusher",				/obj/item/twohanded/kinetic_crusher,								750),
 		new /datum/data/mining_equipment("Kinetic Accelerator",			/obj/item/gun/energy/kinetic_accelerator,							750),
 		new /datum/data/mining_equipment("Advanced Scanner",			/obj/item/t_scanner/adv_mining_scanner,								800),
+		new /datum/data/mining_equipment("Parachute",					/obj/item/parachute,												800),
 		new /datum/data/mining_equipment("Resonator",					/obj/item/resonator,												800),
 		new /datum/data/mining_equipment("Fulton Pack",					/obj/item/extraction_pack,											1000),
 		new /datum/data/mining_equipment("Lazarus Injector",			/obj/item/lazarus_injector,											1000),
 		new /datum/data/mining_equipment("Silver Pickaxe",				/obj/item/pickaxe/silver,											1000),
 		new /datum/data/mining_equipment("Mining Conscription Kit",		/obj/item/storage/backpack/duffelbag/mining_conscript,				1000),
+		new /datum/data/mining_equipment("Luxury Survival Medipen",			/obj/item/reagent_containers/hypospray/medipen/survival/luxury,	1500),
 		new /datum/data/mining_equipment("Jetpack Upgrade",				/obj/item/tank/jetpack/suit,										2000),
 		new /datum/data/mining_equipment("Space Cash",					/obj/item/stack/spacecash/c1000,									2000),
 		new /datum/data/mining_equipment("Mining Hardsuit",				/obj/item/clothing/suit/space/hardsuit/mining,						2000),
@@ -165,6 +167,9 @@
 			. = TRUE
 
 /obj/machinery/mineral/equipment_vendor/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/mining_voucher/suit))
+		RedeemSVoucher(I, user)
+		return
 	if(istype(I, /obj/item/mining_voucher))
 		RedeemVoucher(I, user)
 		return
@@ -173,6 +178,27 @@
 	if(default_deconstruction_crowbar(I))
 		return
 	return ..()
+
+/obj/machinery/mineral/equipment_vendor/proc/RedeemSVoucher(obj/item/mining_voucher/suit/voucher, mob/redeemer)
+	var/items = list(	"Exo-suit" = image(icon = 'icons/obj/clothing/suits.dmi', icon_state = "exo"),
+						"SEVA suit" = image(icon = 'icons/obj/clothing/suits.dmi', icon_state = "seva"),
+                        "Explorer suit" = image(icon = 'icons/obj/clothing/suits.dmi', icon_state = "explorer"))
+
+	var/selection = show_radial_menu(redeemer, src, items, require_near = TRUE, tooltips = TRUE)
+	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
+		return
+	var/drop_location = drop_location()
+	switch(selection)
+		if("Exo-suit")
+			new /obj/item/clothing/suit/hooded/explorer/exo(drop_location)
+			new /obj/item/clothing/mask/gas/exo(drop_location)
+		if("SEVA suit")
+			new /obj/item/clothing/suit/hooded/explorer/seva(drop_location)
+			new /obj/item/clothing/mask/gas/seva(drop_location)
+		if("Explorer suit")
+			new /obj/item/clothing/suit/hooded/explorer(drop_location)
+			new /obj/item/clothing/mask/gas/explorer(drop_location)
+    qdel(voucher)
 
 /obj/machinery/mineral/equipment_vendor/proc/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
 	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Mining Conscription Kit")
@@ -240,6 +266,11 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "mining_voucher"
 	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/mining_voucher/suit
+	name = "mining suit voucher"
+	icon_state = "suit_voucher"
+	desc = "A token to redeem a piece of equipment. Use it on a mining equipment vendor. This one will give you a suit instead of starting kit."
 
 /**********************Mining Point Card**********************/
 

@@ -69,6 +69,10 @@ Difficulty: Hard
 							   /datum/action/innate/megafauna_attack/blood_warp)
 	small_sprite_type = /datum/action/small_sprite/megafauna/bubblegum
 
+	abyss_born = TRUE
+	enraged_type = /mob/living/simple_animal/hostile/megafauna/bubblegum/hard
+	enrage_message = "starts growing bigger as it feels the energy of Abyss flowing in his veins!"
+
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Initialize()
 	. = ..()
 	if(true_spawn)

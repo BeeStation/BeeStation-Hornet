@@ -53,6 +53,9 @@ Difficulty: Very Hard
 							   /datum/action/innate/megafauna_attack/shotgun,
 							   /datum/action/innate/megafauna_attack/alternating_cardinals)
 	small_sprite_type = /datum/action/small_sprite/megafauna/colossus
+	abyss_born = TRUE
+	enraged_type = /mob/living/simple_animal/hostile/megafauna/colossus/hard
+	enrage_message = "raises it's arms and lets out a terrifying screech as it feels the power of Abyss!"
 
 /datum/action/innate/megafauna_attack/spiral_attack
 	name = "Spiral Shots"
@@ -253,6 +256,8 @@ Difficulty: Very Hard
 	pass_flags = PASSTABLE
 
 /obj/item/projectile/colossus/on_hit(atom/target, blocked = FALSE)
+	if(istype(target, /mob/living/simple_animal/hostile/megafauna/colossus))
+		return
 	. = ..()
 	if(isturf(target) || isobj(target))
 		target.ex_act(EXPLODE_HEAVY)

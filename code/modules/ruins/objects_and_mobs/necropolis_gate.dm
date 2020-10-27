@@ -137,25 +137,28 @@
 /obj/structure/necropolis_gate/locked
 	locked = TRUE
 
-GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
+GLOBAL_LIST_EMPTY(necropolis_gates)
+GLOBAL_VAR_INIT(necropolis_gate_open, FALSE)
+
 /obj/structure/necropolis_gate/legion_gate
 	desc = "A tremendous, impossibly large gateway, set into a massive tower of stone."
 	sight_blocker_distance = 2
 
 /obj/structure/necropolis_gate/legion_gate/Initialize()
 	. = ..()
-	GLOB.necropolis_gate = src
+	GLOB.necropolis_gates |= src
 
 /obj/structure/necropolis_gate/legion_gate/Destroy(force)
 	if(force)
-		if(GLOB.necropolis_gate == src)
-			GLOB.necropolis_gate = null
+		GLOB.necropolis_gates -= src
 		. = ..()
 	else
 		return QDEL_HINT_LETMELIVE
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/structure/necropolis_gate/legion_gate/attack_hand(mob/user)
+	if(GLOB.necropolis_gate_open)
+		return ..()
 	if(!open && !changing_openness)
 		var/safety = alert(user, "You think this might be a bad idea...", "Knock on the door?", "Proceed", "Abort")
 		if(safety == "Abort" || !in_range(src, user) || !src || open || changing_openness || user.incapacitated())
@@ -169,8 +172,9 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	if(open)
 		return
 	. = ..()
-	if(.)
+	if(. && !GLOB.necropolis_gate_open)
 		locked = TRUE
+		GLOB.necropolis_gate_open = TRUE
 		var/turf/T = get_turf(src)
 		visible_message("<span class='userdanger'>Something horrible emerges from the Necropolis!</span>")
 		if(legion_damaged)

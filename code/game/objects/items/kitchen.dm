@@ -56,6 +56,12 @@
 	else
 		return ..()
 
+/obj/item/kitchen/knife/combat/bone/throwing
+	name = "throwing bone dagger"
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	force = 5
+	throwforce = 15
+
 /obj/item/kitchen/knife/poison
 	name = "venom knife"
 	icon_state = "poisonknife"

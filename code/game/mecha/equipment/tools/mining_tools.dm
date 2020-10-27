@@ -135,6 +135,17 @@
 		if(target_part && prob(10 * drill_level))
 			target_part.dismember(BRUTE)
 
+/obj/item/mecha_parts/mecha_equipment/drill/experimental
+	name = "experimental exosuit drill"
+	desc = "An experimental exosuit drill, equipped with hydraulic system and made in light-green colors."
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "corrupted_drill"
+	equip_cooldown = 5
+	drill_delay = 2
+	drill_level = DRILL_HARDENED
+	force = 30
+	toolspeed = 0.4
+
 /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill
 	name = "diamond-tipped exosuit drill"
 	desc = "Equipment for engineering and combat exosuits. This is an upgraded version of the drill that'll pierce the heavens!"
