@@ -60,6 +60,14 @@
 			return ..()
 	var/datum/mind/M = user.mind
 	var/datum/antagonist/heretic/cultie = M.has_antag_datum(/datum/antagonist/heretic)
+	
+	if(istype(target,/obj/effect/eldritch))
+		remove_rune(target,user)
+		return
+	if(istype(target,/turf/open))
+		var/mob/caster = user
+		if (caster.a_intent != INTENT_HARM)
+			draw_rune(target,user)
 
 	var/use_charge = FALSE
 	if(iscarbon(target))
@@ -68,14 +76,41 @@
 		C.adjustBruteLoss(10)
 		C.AdjustKnockdown(5 SECONDS)
 		C.adjustStaminaLoss(80)
+		
+	if (ishuman(target))
+		var/mob/living/carbon/human/victim = target
+		if(victim.has_trauma_type(/datum/brain_trauma/fascination))
+			//make eldritch antag
+			return ..()
+	
 	var/list/knowledge = cultie.get_all_knowledge()
-
 	for(var/X in knowledge)
 		var/datum/eldritch_knowledge/EK = knowledge[X]
 		if(EK.on_mansus_grasp(target, user, proximity_flag, click_parameters))
 			use_charge = TRUE
 	if(use_charge)
 		return ..()
+
+///Draws a rune on a selected turf
+/obj/item/melee/touch_attack/mansus_fist/proc/draw_rune(atom/target,mob/user)
+
+	for(var/turf/T in range(1,target))
+		if(is_type_in_typecache(T, blacklisted_turfs))
+			to_chat(target, "<span class='warning'>The terrain doesn't support runes!</span>")
+			return
+	var/A = get_turf(target)
+	to_chat(user, "<span class='danger'>You start drawing a rune...</span>")
+
+	if(do_after(user,30 SECONDS,FALSE,A))
+		new /obj/effect/eldritch/big(A)
+
+
+///Removes runes from the selected turf
+/obj/item/melee/touch_attack/mansus_fist/proc/remove_rune(atom/target,mob/user)
+
+	to_chat(user, "<span class='danger'>You start removing a rune...</span>")
+	if(do_after(user,2 SECONDS,user))
+		qdel(target)
 
 /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
 	name = "Aggressive Spread"
