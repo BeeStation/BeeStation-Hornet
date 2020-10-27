@@ -1,0 +1,5 @@
+author: eeSPee
+delete-after: true
+changes:
+  - tweak: the cost and resistances of ling armor; it is now a loud anti projectile
+      defense.
