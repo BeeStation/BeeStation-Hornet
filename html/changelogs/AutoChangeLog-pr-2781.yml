@@ -1,0 +1,5 @@
+author: St0rmC4st3r
+delete-after: true
+changes:
+  - balance: Resonators now detonate all their sonic blasts on use.
+  - balance: Plasma cutters consume more plasma now.
