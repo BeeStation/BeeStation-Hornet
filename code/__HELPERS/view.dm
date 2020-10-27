@@ -16,3 +16,18 @@
 	var/turf/source = get_turf(user)
 	var/turf/target = get_turf(A)
 	return ISINRANGE(target.x, source.x - view_range[1], source.x + view_range[1]) && ISINRANGE(target.y, source.y - view_range[1], source.y + view_range[1])
+
+//Returns an in proportion scaled out view, with zoom_amt extra tiles on the y axis.
+/proc/get_zoomed_view(view, zoom_amt)
+	var/viewX
+	var/viewY
+	if(isnum_safe(view))
+		return view + zoom_amt
+	else
+		var/list/viewrangelist = splittext(view,"x")
+		viewX = text2num(viewrangelist[1])
+		viewY = text2num(viewrangelist[2])
+		var/proportion = viewX / viewY
+		viewX += zoom_amt * proportion
+		viewY += zoom_amt
+	return "[viewX]x[viewY]"
