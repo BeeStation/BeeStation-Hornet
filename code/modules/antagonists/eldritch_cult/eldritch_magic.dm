@@ -45,7 +45,7 @@
 	desc = "A sinister looking aura that distorts the flow of reality around it. Causes knockdown, major stamina damage aswell as some Brute. It gains additional beneficial effects with certain knowledges you can research."
 	icon_state = "mansus_grasp"
 	item_state = "mansus_grasp"
-	catchphrase = "R'CH T'H TR'TH"
+	catchphrases = list("M'SUS 'N B'N","S'L GR'SP", "R'CH 'N TH' SO'L", "S'C C'MB")
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag || target == user)
@@ -122,7 +122,7 @@
 	desc = "A sinister looking aura that distorts the flow of reality around it."
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
-	catchphrase = "R'BRTH"
+	catchphrases = list("LA'IF","ST'L","M'NE","DR'IN")
 
 /obj/item/melee/touch_attack/blood_siphon/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)
