@@ -20,9 +20,6 @@
 
 	title_icon = "traitor"
 
-	//Some regular traitors to spice things up once in a while
-	allowed_special = list(/datum/special_role/traitor/higher_chance)
-
 	var/datum/team/incursion/pre_incursionist_team
 	var/const/team_amount = 1 //hard limit on brother teams if scaling is turned off
 	var/const/min_team_size = 2
