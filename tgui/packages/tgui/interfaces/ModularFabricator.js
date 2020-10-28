@@ -117,6 +117,8 @@ const MAX_SEARCH_RESULTS = 25;
 export const ModularFabricator = (props, context) => {
   return (
     <Window
+      width={1000}
+      height={714}
       resizable>
       <Window.Content>
         <div className="ModularFabricator__top">

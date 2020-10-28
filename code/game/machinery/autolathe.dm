@@ -75,16 +75,19 @@
 	QDEL_NULL(wires)
 	return ..()
 
-/obj/machinery/autolathe/ui_interact(mob/user, ui_key = "autolathe", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/autolathe/ui_state()
+	return GLOB.default_state
+
+/obj/machinery/autolathe/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!is_operational())
 		return
 
 	if(shocked && !(stat & NOPOWER))
 		shock(user,50)
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ModularFabricator", "Autolathe", 1000, 714, master_ui, state) //width, height
+		ui = new(user, src, "ModularFabricator")
 		ui.open()
 		ui.set_autoupdate(TRUE)
 		viewing_mobs += user
@@ -283,7 +286,7 @@
 			continue
 		update_static_data(M)
 
-/obj/machinery/autolathe/proc/add_to_queue(queue_list, design_id, amount, repeat=0)
+/obj/machinery/autolathe/proc/add_to_queue(queue_list, design_id, amount, repeat=null)
 	if(queue_list["[design_id]"])
 		queue_list["[design_id]"]["amount"] += amount
 		if(queue_list["[design_id]"]["amount"] <= 0)
@@ -293,18 +296,19 @@
 		return
 	//Check if the item uses custom materials
 	var/datum/design/requested_item = stored_research.isDesignResearchedID(design_id)
-	var/datum/material/used_material
-	for(var/MAT in requested_item.materials)
-		used_material = MAT
-		if(istext(used_material)) //This means its a category
-			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-			var/list/list_to_show = list()
-			for(var/i in SSmaterials.materials_by_category[used_material])
-				if(materials.materials[i] > 0)
-					list_to_show += i
-			used_material = input("Choose [used_material]", "Custom Material") as null|anything in sortList(list_to_show, /proc/cmp_typepaths_asc)
-			if(!used_material)
-				return //Didn't pick any material, so you can't build shit either.
+	var/datum/material/used_material = repeat
+	if(!used_material)
+		for(var/MAT in requested_item.materials)
+			used_material = MAT
+			if(istext(used_material)) //This means its a category
+				var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+				var/list/list_to_show = list()
+				for(var/i in SSmaterials.materials_by_category[used_material])
+					if(materials.materials[i] > 0)
+						list_to_show += i
+				used_material = input("Choose [used_material]", "Custom Material") as null|anything in sortList(list_to_show, /proc/cmp_typepaths_asc)
+				if(!used_material)
+					return //Didn't pick any material, so you can't build shit either.
 
 	queue_list["[design_id]"] = list(
 		"amount" = amount,
