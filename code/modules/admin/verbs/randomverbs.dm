@@ -550,8 +550,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Rejuvinate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_freeze(mob/living/M in GLOB.mob_list)
-	set category = "Admin"
-	set name = "Special Verbs"
+	set category = "Special Verbs"
+	set name = "Freeze Player"
 	if(!holder)
 		to_chat(src, "Only administrators may use this command.")
 		return
