@@ -567,7 +567,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		M.anchored = TRUE
 		M.notransform = TRUE
 		log_admin("[key_name(usr)] froze [key_name(M)]!")
-		to_chat(M, "<span class='userdanger'>You have been frozen by Administrator [usr.key]!</span>")
+		to_chat(M, "<span class='userdanger'>You have been frozen by an Administrator!</span>")
 	else
 		M.SetSleeping(M.adminfrozen)//set it to what it was before freezing or just 1/10th of a second if it was nothing
 		M.adminfrozen = 0
