@@ -53,7 +53,7 @@
 				return reverse
 	return !reverse
 
-// Items
+// Away Mission Rework Items
 
 /obj/item/awaymaploader
 	name = "debug away mission loader - report this!"
@@ -61,11 +61,30 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk0"
 	var/map = null
-	var/mapcode = "MAIN_MISSION" // This is the code the user must enter into the gateway to journey to your map
+	var/mapcode = "MAIN_MISSION" // This is the code the user must enter into the gateway to journey to your map. Set this to whatever you set the targetid variable of the gateway in your map to be. If you have more than one gateway on an away mission, set it to the code of the gateway you want them to start at.
 
 /obj/item/awaymaploader/beach
 	name = "away mission data disk: Beach"
 	map = '_maps/RandomZLevels/TheBeach.dmm'
 	mapcode = "BEACH"
+
+/obj/item/awaymaploader/challenge
+	name = "away mission data disk: Challenge"
+	map = '_maps/RandomZLevels/challenge.dmm'
+	mapcode = "CHALLENGE"
+
+// Decon disks
+
+/obj/item/reverseengineeringdata
+	name = "broken gateway technology disk"
+	desc = "Deconstruct this at the RnD lab to reverse engineer new tech."
+	icon = 'icons/obj/module.dmi'
+	icon_state = "datadisk0"
+
+/obj/item/reverseengineeringdata/basic
+	name = "basic gateway technology disk"
+
+/obj/item/reverseengineeringdata/advanced
+	name = "advanced gateway technology disk"
 
 

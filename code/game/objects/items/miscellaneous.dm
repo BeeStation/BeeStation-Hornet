@@ -119,6 +119,10 @@
 	new /obj/item/grenade/chem_grenade/ghostbuster(src)
 	new /obj/item/grenade/chem_grenade/ghostbuster(src)
 
+/obj/item/choice_beacon/away_team
+	name = "gateway equipment beacon"
+	desc = "Used for selecting gateway exploration weapons"
+
 /obj/item/choice_beacon/augments
 	name = "augment beacon"
 	desc = "Summons augmentations. Can be used 3 times!"

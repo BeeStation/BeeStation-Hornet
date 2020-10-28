@@ -26,10 +26,16 @@
 	name = "Away Team"
 	jobtype = /datum/job/away_team
 	id = /obj/item/card/id/job/sci
-	belt = /obj/item/pda/toxins
+	belt = /obj/item/storage/belt/utility/full/engi
 	ears = /obj/item/radio/headset/headset_sci
 	uniform = /obj/item/clothing/under/rank/rnd/awayteam
 	shoes = /obj/item/clothing/shoes/jackboots
 	suit = /obj/item/clothing/suit/armor/vest/light
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel/tox
+	l_pocket = /obj/item/pinpointer/pinpointer_gateway
+	r_pocket = /obj/item/pda/toxins
+	backpack_contents = list(
+		/obj/item/gun/ballistic/revolver/detective = 1, // Placeholder for now
+		/obj/item/choice_beacon/away_team = 1,
+		)

@@ -1117,24 +1117,74 @@
 	export_price = 20000
 	hidden = TRUE
 
-/datum/techweb_node/syndicate_basic
-	id = "syndicate_basic"
-	display_name = "Illegal Technology"
-	description = "Dangerous research used to create dangerous objects."
-	prereq_ids = list("adv_engi", "adv_weaponry", "explosive_weapons")
-	design_ids = list("decloner", "borg_syndicate_module", "ai_cam_upgrade", "suppressor", "largecrossbow", "donksofttoyvendor", "donksoft_refill", "advanced_camera")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
-	export_price = 5000
+/////////////////////////////GATEWAY TECH////////////////////////////////////////
+
+/datum/techweb_node/gateway
+	id = "gateway_basic"
+	display_name = "Reverse Engineering Technology"
+	description = "Allows us to reverse engineer technology recovered from the gateway."
+	boost_item_paths = list(/obj/item/reverseengineeringdata/basic)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	hidden = TRUE
 
-/datum/techweb_node/syndicate_basic/New()		//Crappy way of making syndicate gear decon supported until there's another way.
-	. = ..()
-	boost_item_paths = list()
-	for(var/path in GLOB.uplink_items)
-		var/datum/uplink_item/UI = new path
-		if(!UI.item || !UI.illegal_tech)
-			continue
-		boost_item_paths |= UI.item	//allows deconning to unlock.
+/datum/techweb_node/gateway_toy
+	id = "gateway_toy"
+	display_name = "Reverse Engineering: Donksoft"
+	description = "Toys that aren't made in Space China."
+	prereq_ids = list("gateway_basic")
+	design_ids = list("donksofttoyvendor", "donksoft_refill")
+	boost_item_paths = list(/obj/item/reverseengineeringdata/basic)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+	hidden = TRUE
+
+/datum/techweb_node/gateway_suppressor
+	id = "gateway_suppressor"
+	display_name = "Reverse Engineering: Suppressors"
+	description = "For a more subtle approach to gunfights."
+	prereq_ids = list("gateway_basic")
+	design_ids = list("suppressor")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	boost_item_paths = list(/obj/item/reverseengineeringdata/basic)
+	hidden = TRUE
+
+/datum/techweb_node/gateway_adv
+	id = "gateway_adv"
+	display_name = "Advanced Reverse Engineering Technology"
+	description = "Allows us to reverse engineer advanced technology recovered from the gateway."
+	prereq_ids = list("gateway_basic")
+	boost_item_paths = list(/obj/item/reverseengineeringdata/advanced)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	hidden = TRUE
+
+/datum/techweb_node/gateway_camera
+	id = "gateway_camera"
+	display_name = "Reverse Engineering: Surveillance Technology"
+	description = "Big brother is watching you."
+	prereq_ids = list("gateway_basic", "gateway_adv")
+	design_ids = list("ai_cam_upgrade", "advanced_camera")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	boost_item_paths = list(/obj/item/reverseengineeringdata/advanced)
+	hidden = TRUE
+
+/datum/techweb_node/gateway_energy
+	id = "gateway_energy"
+	display_name = "Reverse Engineering: Energy Weapon Technology"
+	description = "These designs may be unorthodox, but they sure are effective."
+	prereq_ids = list("gateway_basic", "gateway_adv", "adv_weaponry")
+	design_ids = list("largecrossbow", "decloner")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	boost_item_paths = list(/obj/item/reverseengineeringdata/advanced)
+	hidden = TRUE
+
+/datum/techweb_node/gateway_robotics
+	id = "gateway_robotics"
+	display_name = "Reverse Engineering: Illegal Cyborg Modules"
+	description = "For high performance military cyborgs."
+	prereq_ids = list("gateway_basic", "gateway_adv", "adv_robotics")
+	design_ids = list("borg_syndicate_module")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	boost_item_paths = list(/obj/item/reverseengineeringdata/advanced)
+	hidden = TRUE
 
 //Helpers for debugging/balancing the techweb in its entirety!
 /proc/total_techweb_exports()

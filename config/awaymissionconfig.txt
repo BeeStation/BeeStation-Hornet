@@ -7,8 +7,8 @@
 #Do NOT tick the maps during compile -- the game uses this list to decide which map to load. Ticking the maps will result in them ALL being loaded at once.
 #DO tick the associated code file for the away mission you are enabling. Otherwise, the map will be trying to reference objects which do not exist, which will cause runtime errors!
 
-# Notes for adding new away missions:
-#
+# UPDATE 28/10/2020: (or 10/28/2020 for you americans)
+# This is now only used to spawn an initial gateway mission roundstart if the config setting is enabled. If you want the map to be loadable by away teams you must add an awaymaploader item in away_proms.dm
 
 #_maps/RandomZLevels/blackmarketpackers.dmm
 #_maps/RandomZLevels/spacebattle.dmm
