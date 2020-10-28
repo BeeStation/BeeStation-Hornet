@@ -172,7 +172,7 @@
 /obj/item/clothing/suit/space/hardsuit/deathsquad/praetor
 	name = "Praetor Suit"
 	desc = "And those that tasted the bite of his sword named him... The Doom Slayer."
-	armor = list("melee" = 75, "bullet" = 55, "laser" = 55, "energy" = 55, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "wound" = 40)
+	armor = list("melee" = 75, "bullet" = 55, "laser" = 40, "energy" = 40, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "wound" = 40)
 	strip_delay = 130
 	icon_state = "praetor"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/deathsquad/praetor
