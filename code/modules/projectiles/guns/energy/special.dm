@@ -229,6 +229,12 @@
 	force = 15
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 
+/obj/item/gun/energy/plasmacutter/cyborg
+	name = "cyborg plasma cutter"
+	desc = "An integrated plasma cutter."
+	can_charge = FALSE
+	use_cyborg_cell = TRUE
+
 /obj/item/gun/energy/wormhole_projector
 	name = "bluespace wormhole projector"
 	desc = "A projector that emits high density quantum-coupled bluespace beams."
