@@ -64,3 +64,8 @@
 	layer = FLOAT_LAYER
 	vis_flags = VIS_INHERIT_ID
 	appearance_flags = KEEP_TOGETHER | LONG_GLIDE | PIXEL_SCALE
+
+/obj/effect/overlay/adminfrozen
+	name = "FROZEN"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "adminfreeze"
