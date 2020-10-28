@@ -77,7 +77,7 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/datum/admins/proc/open_borgopanel,
 	/client/proc/fix_say,
 	/client/proc/stabilize_atmos,
-	/client/proc/openTicketManager
+	/client/proc/openTicketManager,
 	/client/proc/cmd_admin_rejuvenate,
 	/client/proc/cmd_admin_freeze,
 	)
