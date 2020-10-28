@@ -297,7 +297,7 @@
 	//Check if the item uses custom materials
 	var/datum/design/requested_item = stored_research.isDesignResearchedID(design_id)
 	var/datum/material/used_material = repeat
-	if(!used_material)
+	if(!istype(used_material))
 		for(var/MAT in requested_item.materials)
 			used_material = MAT
 			if(istext(used_material)) //This means its a category
@@ -477,7 +477,7 @@
 			if(queue_repeating || queue_data["repeating"])
 				stored_item_amount ++
 				if(removed)
-					add_to_queue(item_queue, requested_design_id, stored_item_amount, queue_data["repeating"])
+					add_to_queue(item_queue, requested_design_id, stored_item_amount, queue_data["build_mat"])
 					stored_item_amount = 0
 		//Create item and restart
 		process_completion_world_tick = world.time + time
