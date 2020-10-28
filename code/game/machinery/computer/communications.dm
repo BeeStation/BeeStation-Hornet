@@ -568,7 +568,7 @@
 					dat += "<A href='?src=[REF(src)];operation=buyshuttle;chosen_shuttle=[REF(S)]'>(<font color=red><i>Purchase</i></font>)</A><BR><BR>"
 				else if(obj_flags & EMAGGED)
 					if(S.syndicate_exclusive && S.credit_cost < INFINITY)
-						dat += "<b> Shuttle supplied by Syndicate, order on your own risk: </b>"
+						dat += "<b> Shuttle supplied by Syndicate, order at your own risk: </b>"
 						dat += "<BR>"
 						dat += "[S.name] | [S.credit_cost] Credits<BR>"
 						dat += "[S.description]<BR>"
