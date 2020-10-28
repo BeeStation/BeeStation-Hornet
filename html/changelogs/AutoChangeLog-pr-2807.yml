@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Runtime on TGUI failing to load.
