@@ -1332,7 +1332,6 @@
 #include "code\modules\antagonists\blob\blobstrains\replicating_foam.dm"
 #include "code\modules\antagonists\blob\blobstrains\shifting_fragments.dm"
 #include "code\modules\antagonists\blob\blobstrains\synchronous_mesh.dm"
-#include "code\modules\antagonists\blob\blobstrains\zombifying_pods.dm"
 #include "code\modules\antagonists\blob\structures\_blob.dm"
 #include "code\modules\antagonists\blob\structures\core.dm"
 #include "code\modules\antagonists\blob\structures\factory.dm"
