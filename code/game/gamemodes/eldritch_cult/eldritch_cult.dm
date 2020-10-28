@@ -12,6 +12,8 @@
 	reroll_friendly = 1
 	enemy_minimum_age = 0
 
+	allowed_special = list(/datum/special_role/traitor/higher_chance)
+
 	announce_span = "danger"
 	announce_text = "Heretics have been spotted on the station!\n\
 	<span class='danger'>Heretics</span>: Accomplish your objectives.\n\

@@ -95,6 +95,7 @@
 
 	for(var/role_to_init in allowed_special)
 		var/datum/special_role/new_role = new role_to_init
+		new_role.setup()
 		if(!prob(new_role.probability))
 			continue
 		new_role.add_to_pool()
@@ -109,7 +110,11 @@
 		for(var/i in 1 to amount)
 			if(candidates.len == 0)
 				return	//No more candidates, end the selection process, and active specials at this time will be handled by latejoins or not included
-			var/mob/person = pick_n_take(candidates)
+			var/mob/person
+			if(special.special_role_flag)
+				person = antag_pick(candidates, special.special_role_flag)
+			else
+				person = pick_n_take(candidates)
 			if(is_banned_from(person.ckey, special.preference_type))
 				continue
 			if(!person)
@@ -117,7 +122,7 @@
 			var/datum/mind/selected_mind = person.mind
 			if(selected_mind.special_role)
 				continue
-			if(person.job in special.protected_jobs)
+			if(person.job in special.restricted_jobs)
 				continue
 			//Would be annoying trying to assasinate someone with special statuses
 			if(selected_mind.isAntagTarget && !special.allowAntagTargets)
