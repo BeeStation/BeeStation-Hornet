@@ -1316,6 +1316,15 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
+"alc" = (
+/obj/effect/landmark/start/ai/secondary,
+/obj/machinery/door/window{
+	dir = 4;
+	name = "AI Core Door";
+	req_access_txt = "16"
+	},
+/turf/open/floor/circuit,
+/area/space)
 "alf" = (
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -4328,10 +4337,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/space)
-"aKJ" = (
-/obj/effect/landmark/start/ai/secondary,
-/turf/open/floor/circuit,
-/area/space)
 "aKL" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -5912,6 +5917,12 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engine_room)
+"aYR" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/space/nearstation)
 "aYT" = (
 /turf/closed/wall,
 /area/crew_quarters/kitchen)
@@ -13423,6 +13434,15 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen/coldroom)
+"jvn" = (
+/obj/effect/landmark/start/ai/secondary,
+/obj/machinery/door/window{
+	dir = 8;
+	name = "AI Core Door";
+	req_access_txt = "16"
+	},
+/turf/open/floor/circuit,
+/area/space)
 "jwh" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -16427,6 +16447,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"mTL" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 5
+	},
+/turf/open/floor/plasteel/white,
+/area/science/xenobiology)
 "mUl" = (
 /obj/machinery/power/apc/auto_name/east{
 	pixel_x = 24
@@ -17126,10 +17154,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
-"nNQ" = (
-/obj/structure/table/glass,
-/turf/open/floor/plasteel/white,
-/area/science/xenobiology)
 "nNW" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -17241,6 +17265,16 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
+"nWQ" = (
+/obj/structure/table/glass,
+/obj/item/paper_bin{
+	pixel_y = 3
+	},
+/obj/item/pen{
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/white,
+/area/science/xenobiology)
 "nXB" = (
 /obj/effect/turf_decal/tile/green,
 /obj/structure/closet/crate/hydroponics,
@@ -17580,6 +17614,9 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
+/area/space/nearstation)
+"opr" = (
+/turf/open/space/basic,
 /area/space/nearstation)
 "opS" = (
 /obj/structure/disposalpipe/segment,
@@ -19090,10 +19127,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen/coldroom)
-"pWj" = (
-/obj/machinery/monkey_recycler,
-/turf/open/floor/plasteel/white,
-/area/science/xenobiology)
 "pXb" = (
 /obj/machinery/airalarm/directional/east,
 /obj/effect/turf_decal/bot,
@@ -22198,10 +22231,6 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/space)
-"tpv" = (
-/obj/machinery/airalarm/directional/west,
-/turf/open/floor/plasteel/white,
-/area/science/xenobiology)
 "tpy" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -22453,6 +22482,12 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore)
+"tDe" = (
+/obj/structure/table/glass,
+/obj/item/wrench,
+/obj/item/screwdriver,
+/turf/open/floor/plasteel/white,
+/area/science/xenobiology)
 "tDh" = (
 /obj/structure/closet/crate/freezer/blood,
 /obj/effect/turf_decal/stripes/line{
@@ -22773,6 +22808,10 @@
 /obj/machinery/vending/cola/random,
 /turf/open/floor/grass,
 /area/hallway/primary/fore)
+"tSh" = (
+/obj/structure/sign/nanotrasen,
+/turf/closed/wall/r_wall,
+/area/space)
 "tTj" = (
 /obj/structure/closet/secure_closet/security/sec,
 /obj/effect/turf_decal/tile/red{
@@ -25126,6 +25165,11 @@
 /obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
+"wpV" = (
+/obj/machinery/airalarm/directional/west,
+/obj/machinery/monkey_recycler,
+/turf/open/floor/plasteel/white,
+/area/science/xenobiology)
 "wqy" = (
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
@@ -25161,12 +25205,6 @@
 /obj/effect/turf_decal/tile,
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/cmo)
-"wsE" = (
-/obj/effect/turf_decal/caution/stand_clear{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
-/area/space)
 "wsU" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -26394,6 +26432,11 @@
 /obj/effect/turf_decal/tile/yellow,
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
+"xMG" = (
+/obj/structure/table/glass,
+/obj/machinery/reagentgrinder,
+/turf/open/floor/plasteel/white,
+/area/science/xenobiology)
 "xMH" = (
 /obj/effect/spawner/room/threexfive,
 /turf/open/floor/plating,
@@ -37508,7 +37551,7 @@ aMT
 aMT
 aMT
 aMT
-aug
+huQ
 aMT
 aMT
 aMT
@@ -37765,7 +37808,7 @@ aMT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
@@ -38021,9 +38064,9 @@ aMT
 aMT
 aMT
 aMT
-aug
-aug
-aug
+huQ
+huQ
+huQ
 aMT
 aMT
 aMT
@@ -38278,9 +38321,9 @@ aMT
 aMT
 aMT
 aMT
-aXj
-wsE
-aXj
+anT
+aYR
+anT
 aMT
 aMT
 aMT
@@ -38532,15 +38575,15 @@ aMT
 aMT
 aMT
 aMT
-aXj
-aug
-aXj
-aXj
+anT
+huQ
+anT
+anT
 aMT
-aXj
-aXj
-aug
-aXj
+anT
+anT
+huQ
+anT
 aMT
 aMT
 aMT
@@ -38789,15 +38832,15 @@ aMT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
-aXj
+anT
 aMT
-aXj
+anT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
@@ -39046,15 +39089,15 @@ aMT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
-aXj
-aXj
-aXj
+anT
+anT
+anT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
@@ -39302,17 +39345,17 @@ aMT
 aMT
 aMT
 aMT
-aXj
-aug
-aXj
-aXj
-aXj
+anT
+huQ
+anT
+anT
+anT
 aMT
-aXj
-aXj
-aXj
-aug
-aXj
+anT
+anT
+anT
+huQ
+anT
 aMT
 aMT
 aMT
@@ -39559,17 +39602,17 @@ aMT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
@@ -39816,17 +39859,17 @@ aMT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
@@ -40073,17 +40116,17 @@ aMT
 aMT
 aMT
 aMT
-aug
-aXj
-aXj
-aXj
-aXj
-aXj
-aXj
-aXj
-aXj
-aXj
-aug
+huQ
+anT
+anT
+anT
+anT
+anT
+anT
+anT
+anT
+anT
+huQ
 aMT
 aMT
 aMT
@@ -40330,17 +40373,17 @@ aMT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
@@ -40587,17 +40630,17 @@ aMT
 aMT
 aMT
 aMT
-bPQ
+qBt
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
-bPQ
+qBt
 aMT
 aMT
 aMT
@@ -40848,9 +40891,9 @@ aMT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
@@ -41105,9 +41148,9 @@ aMT
 aMT
 aMT
 aMT
-aXj
-aXj
-aXj
+anT
+anT
+anT
 aMT
 aMT
 aMT
@@ -41362,9 +41405,9 @@ aMT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
@@ -41613,21 +41656,21 @@ aMT
 aMT
 aMT
 aMT
-bPQ
+qBt
 aMT
 aMT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
-aXj
-aMT
-aMT
+anT
 aMT
 aMT
 aMT
-bPQ
+aMT
+aMT
+qBt
 aMT
 aMT
 aMT
@@ -41870,21 +41913,21 @@ aMT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
-aXj
-aMT
-aMT
+anT
 aMT
 aMT
 aMT
-aXj
+aMT
+aMT
+anT
 aMT
 aMT
 aMT
@@ -42127,21 +42170,21 @@ aMT
 aMT
 aMT
 aMT
+anT
+aMT
+aMT
+aMT
+aMT
+aMT
+anT
 aXj
+anT
 aMT
 aMT
 aMT
 aMT
 aMT
-aXj
-aXj
-aXj
-aMT
-aMT
-aMT
-aMT
-aMT
-aXj
+anT
 aMT
 aMT
 aMT
@@ -42384,21 +42427,21 @@ aMT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
-aXj
-aMT
-aMT
+anT
 aMT
 aMT
 aMT
-aXj
+aMT
+aMT
+anT
 aMT
 aMT
 aMT
@@ -42641,21 +42684,21 @@ aMT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
 aLq
 aLq
-aXj
-aXj
-aXj
-aMT
-aXj
-aXj
-aXj
+anT
+anT
+anT
+opr
+anT
+anT
+anT
 aLq
 aLq
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
@@ -42898,21 +42941,21 @@ aMT
 aMT
 aMT
 aMT
-aXj
-aXj
+anT
+anT
 aLq
 wqy
 aMT
 aMT
-aXj
+anT
 aMT
-aXj
+anT
 aMT
 aMT
 wqy
 aLq
-aXj
-aXj
+anT
+anT
 aMT
 aMT
 aMT
@@ -43155,21 +43198,21 @@ aMT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
 aLq
 wqy
 aMT
 aMT
-aXj
-aXj
-aXj
+anT
+anT
+anT
 aMT
 aMT
 wqy
 aLq
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
@@ -43412,21 +43455,21 @@ aMT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
 aLq
 aLq
 aLq
-aXj
-aXj
+anT
+anT
 aMT
-aXj
-aXj
+anT
+anT
 aLq
 aLq
 aLq
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
@@ -43669,21 +43712,21 @@ aMT
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
 aLq
 wqy
 wqy
 wqy
-aXj
+anT
 aMT
-aXj
+anT
 wqy
 wqy
 wqy
 aLq
 aMT
-aXj
+anT
 aMT
 aMT
 aMT
@@ -47001,7 +47044,7 @@ aWt
 aWt
 aWt
 myM
-aMT
+anT
 aLq
 aLq
 aLq
@@ -47031,7 +47074,7 @@ aUY
 aCe
 aLq
 aMT
-aMT
+anT
 aMT
 aMT
 aMT
@@ -47287,8 +47330,8 @@ aAy
 atH
 aDe
 aLq
-aMT
-aMT
+anT
+anT
 aMT
 aMT
 aMT
@@ -47545,7 +47588,7 @@ ajb
 aAy
 aLq
 aMT
-aMT
+anT
 aMT
 aMT
 aMT
@@ -47772,7 +47815,7 @@ aWt
 aWt
 aWt
 myM
-aMT
+anT
 hDZ
 axH
 ayK
@@ -47802,7 +47845,7 @@ ajb
 aAy
 aLq
 aMT
-aMT
+anT
 aMT
 aMT
 aMT
@@ -48058,8 +48101,8 @@ aAy
 aas
 ags
 aLq
-aMT
-aMT
+anT
+anT
 aMT
 aMT
 aMT
@@ -48316,7 +48359,7 @@ aNV
 aAy
 aLq
 aMT
-aMT
+anT
 aMT
 aMT
 aMT
@@ -48835,8 +48878,8 @@ ajd
 aiD
 aLp
 aug
-aMT
-aMT
+anT
+anT
 aFe
 ven
 aFe
@@ -49349,13 +49392,13 @@ aYW
 aZw
 apH
 aug
-aug
+tSh
 aFe
 aFe
 ven
 aFe
 aFe
-aug
+tSh
 aug
 aMT
 aMT
@@ -52962,11 +53005,11 @@ uMY
 scb
 dtI
 dtI
+tDe
+wpV
 dtI
-tpv
 dtI
-dtI
-dtI
+mTL
 wpg
 aMT
 aMT
@@ -53216,7 +53259,6 @@ tmY
 qob
 iZG
 uMY
-pWj
 dtI
 dtI
 dtI
@@ -53224,6 +53266,7 @@ dtI
 dtI
 dtI
 dtI
+xMG
 wpg
 qBt
 qBt
@@ -53475,12 +53518,12 @@ dPY
 cHO
 pzD
 pvO
-kjS
+dtI
 pvO
 dtI
 dtI
 dtI
-dtI
+kjS
 wfM
 aem
 opn
@@ -53729,12 +53772,12 @@ wpg
 sRj
 qob
 lEc
-wpg
+mxX
 tEA
 ouB
 maB
 ouB
-nNQ
+nWQ
 dtI
 dtI
 dtI
@@ -60057,7 +60100,7 @@ aug
 aug
 aug
 aug
-aKJ
+alc
 aug
 aug
 aug
@@ -62627,7 +62670,7 @@ aug
 aug
 aug
 aug
-aKJ
+jvn
 aug
 aug
 aug
@@ -75846,13 +75889,13 @@ aMb
 aSl
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
-aXj
+anT
 aMT
 aTR
 aMb
@@ -76103,13 +76146,13 @@ aSl
 aSl
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
-aXj
+anT
 aMT
 aTR
 aMb
@@ -76357,17 +76400,17 @@ aTR
 aMT
 aMT
 aMT
-aXj
-aXj
-aXj
-aXj
-aXj
-aXj
-aXj
-aXj
-aXj
-aXj
-aXj
+anT
+anT
+anT
+anT
+anT
+anT
+anT
+anT
+anT
+anT
+anT
 aTR
 aMb
 aTR
@@ -76611,19 +76654,19 @@ aMb
 aTR
 aMb
 aTR
-aXj
-aXj
-aXj
-aXj
+anT
+anT
+anT
+anT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
-aXj
+anT
 aMT
 aTR
 aMb
@@ -76871,16 +76914,16 @@ aTR
 aMT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
-aXj
+anT
 aMT
 aMT
-aXj
+anT
 aMT
 aTR
 aMb
