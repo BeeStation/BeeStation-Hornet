@@ -26,7 +26,7 @@
 			target = null
 			targetselected = FALSE
 
-	var/procpath = input("Proc path, eg: /proc/fake_blood","Path:", null) as text|null
+	var/procpath = capped_input(usr, "Proc path, eg: /proc/fake_blood","Path:", null)
 	if(!procpath)
 		return
 
@@ -140,7 +140,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/procname = input("Proc name, eg: fake_blood","Proc:", null) as text|null
+	var/procname = capped_input(usr, "Proc name, eg: fake_blood","Proc:", null)
 	if(!procname)
 		return
 	if(!hascall(A,procname))
@@ -172,7 +172,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	. = list()
 	var/list/named_args = list()
 	while(argnum--)
-		var/named_arg = input("Leave blank for positional argument. Positional arguments will be considered as if they were added first.", "Named argument") as text|null
+		var/named_arg = capped_input(usr, "Leave blank for positional argument. Positional arguments will be considered as if they were added first.", "Named argument")
 		var/value = vv_get_value(restricted_classes = list(VV_RESTORE_DEFAULT))
 		if (!value["class"])
 			return

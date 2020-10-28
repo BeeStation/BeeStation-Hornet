@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(overlays)
 
 
 /datum/controller/subsystem/overlays/Shutdown()
-	text2file(render_stats(stats), "[GLOB.log_directory]/overlay.log")
+	rustg_file_append(render_stats(stats), "[GLOB.log_directory]/overlay.log")
 
 
 /datum/controller/subsystem/overlays/Recover()

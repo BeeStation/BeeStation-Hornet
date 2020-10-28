@@ -216,7 +216,6 @@
 
 	var/datum/browser/popup = new(user, "cloning", "Prototype Cloning System Control")
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 /obj/machinery/computer/prototype_cloning/Topic(href, href_list)

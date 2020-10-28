@@ -1593,6 +1593,18 @@
 	icon_state = "cat"
 	color_src = HAIR
 
+/datum/sprite_accessory/tails/human/clock
+	name = "Clockwork"
+	icon_state = "clockwork"
+	locked = TRUE
+	color_src = null
+
+/datum/sprite_accessory/tails_animated/human/clock
+	name = "Clockwork"
+	icon_state = "clockwork"
+	locked = TRUE
+	color_src = null
+
 /datum/sprite_accessory/snouts
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
@@ -1855,6 +1867,11 @@
 /datum/sprite_accessory/moth_wings/whitefly
 	name = "White Fly"
 	icon_state = "whitefly"
+
+/datum/sprite_accessory/moth_wings/clockwork
+	name = "Clockwork"
+	icon_state = "clockwork"
+	locked = TRUE
 
 /datum/sprite_accessory/moth_wings/punished
 	name = "Burnt Off"

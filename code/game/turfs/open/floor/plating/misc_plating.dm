@@ -239,4 +239,3 @@
 /turf/open/floor/plating/snowed/temperatre
 	temperature = 255.37
 
-

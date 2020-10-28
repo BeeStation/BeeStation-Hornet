@@ -1,38 +1,37 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/closed/wall/mineral/titanium,
+/turf/closed/wall/mineral/titanium/survival,
 /area/shuttle/mining)
 "b" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "c" = (
 /obj/structure/table,
-/turf/open/floor/mineral/titanium/blue,
+/turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "d" = (
 /obj/machinery/computer/shuttle/mining,
-/turf/open/floor/mineral/titanium/blue,
+/turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "e" = (
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "f" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/open/floor/mineral/titanium/blue,
+/turf/open/floor/pod/light,
 /area/shuttle/mining)
 "g" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/pod/light,
 /area/shuttle/mining)
 "h" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Mining Shuttle Airlock"
-	},
 /obj/docking_port/mobile{
 	dir = 8;
 	dwidth = 3;
@@ -42,11 +41,12 @@
 	port_direction = 4;
 	width = 7
 	},
+/obj/machinery/door/airlock/survival_pod/glass,
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "i" = (
 /obj/structure/closet/crate,
-/turf/open/floor/mineral/titanium/blue,
+/turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "j" = (
 /obj/structure/shuttle/engine/heater,
@@ -64,61 +64,79 @@
 /area/shuttle/mining)
 "k" = (
 /obj/structure/ore_box,
-/turf/open/floor/mineral/titanium/blue,
+/turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "l" = (
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/open/floor/plating/airless,
 /area/shuttle/mining)
+"q" = (
+/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/area/shuttle/mining)
+"F" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/shuttle/mining)
+"K" = (
+/turf/open/floor/pod/light,
+/area/shuttle/mining)
 "Q" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/pod/dark,
+/area/shuttle/mining)
+"X" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 8
+	},
+/turf/open/floor/plating,
 /area/shuttle/mining)
 
 (1,1,1) = {"
 a
-a
-b
-a
-b
-a
+q
+X
+q
+X
+q
 a
 "}
 (2,1,1) = {"
-a
+q
 c
 e
 g
 f
 i
-a
+q
 "}
 (3,1,1) = {"
 b
 d
 Q
-e
+K
 f
 j
 l
 "}
 (4,1,1) = {"
-a
+q
 c
 e
-e
+K
 f
 k
-a
+q
 "}
 (5,1,1) = {"
 a
-a
-b
+q
+F
 h
-b
-a
+F
+q
 a
 "}

@@ -30,10 +30,10 @@
 		else
 			errorcode = shell("[interpreter] \"[command]\" > [out_file] 2> [err_file]")
 		if(fexists(out_file))
-			stdout = file2text(out_file)
+			stdout = rustg_file_read(out_file)
 			fdel(out_file)
 		if(fexists(err_file))
-			stderr = file2text(err_file)
+			stderr = rustg_file_read(err_file)
 			fdel(err_file)
 		shelleo_ids[shelleo_id] = FALSE
 	else
@@ -53,7 +53,7 @@
 		bad_chars = bad_chars_regex.Find(url)
 		scrubbed_url += copytext(url, last_good, bad_chars)
 		if(bad_chars)
-			bad_match = url_encode(bad_chars_regex.match)
+			bad_match = rustg_url_encode(bad_chars_regex.match)
 			scrubbed_url += bad_match
 			last_good = bad_chars + length(bad_chars_regex.match)
 	while(bad_chars)

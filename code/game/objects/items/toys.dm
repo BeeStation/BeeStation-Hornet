@@ -379,6 +379,10 @@
 /obj/item/twohanded/dualsaber/toy/IsReflect()//Stops Toy Dualsabers from reflecting energy projectiles
 	return 0
 
+/obj/item/twohanded/dualsaber/toy/impale(mob/living/user)//Stops Toy Dualsabers from injuring clowns
+	to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
+	user.adjustStaminaLoss(25)
+	
 /obj/item/toy/katana
 	name = "replica katana"
 	desc = "Woefully underpowered in D20."
@@ -822,7 +826,6 @@
 		dat += "<A href='?src=[REF(src)];pick=[t]'>A [t].</A><BR>"
 	dat += "Which card will you remove next?"
 	var/datum/browser/popup = new(user, "cardhand", "Hand of Cards", 400, 240)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.set_content(dat)
 	popup.open()
 

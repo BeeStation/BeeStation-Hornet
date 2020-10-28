@@ -403,7 +403,7 @@
 //Stun
 /obj/item/melee/blood_magic/stun
 	name = "Forbidden Whispers"
-	desc = "A forgotten word that will drive the target to madness for a short time if their ears are unprotected."
+	desc = "A coil of death wrapped around your hand, anyone inflicted with this will have their mind flooded with the forbidden whispers of Nar'Sie, causing them to collapse in to a frenzy if they lack protection for their mind."
 	color = RUNE_COLOR_RED
 	invocation = "Fuu ma'jin!"
 
@@ -414,7 +414,7 @@
 	if(iscultist(target))
 		return
 	if(iscultist(user))
-		user.visible_message("<span class='warning'>[user] whispers an unintelligable phrase into [L]'s ear.</span>", \
+		user.visible_message("<span class='warning'>[user] floods [L]'s mind with an eldritch energy!</span>", \
 							"<span class='cultitalic'>You attempt to stun [L] with the spell!</span>")
 
 		user.mob_light(_color = LIGHT_COLOR_BLOOD_MAGIC, _range = 3, _duration = 2)
@@ -429,8 +429,8 @@
 
 			if(istype(anti_magic_source, /obj/item))
 				target.visible_message("<span class='warning'>[L] is utterly unphased by your utterance!</span>", \
-									   "<span class='userdanger'>[user] whispers gibberish into your ear. Was that supposed to do something?</span>")
-		else if(L.get_ear_protection() <= 0)
+									   "<span class='userdanger'>[GLOB.deity] protects you from the heresy of [user]!</span>")
+		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) && !istype(L.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			to_chat(user, "<span class='cultitalic'>[L] falls to the ground, gibbering madly!</span>")
 			L.Paralyze(160)
 			L.flash_act(1,1)
@@ -444,8 +444,8 @@
 				C.cultslurring += 15
 				C.Jitter(15)
 		else
-			target.visible_message("<span class='warning'>[L] can't seem to hear you!</span>", \
-									   "<span class='userdanger'>[user] whispers something to you, but you can't quite make it out through your hearing protection.</span>")
+			target.visible_message("<span class='warning'>You fail to corrupt [L]'s mind!</span>", \
+									   "<span class='userdanger'>Your mindshield protects you from the heresy of [user]!</span>")
 		uses--
 	..()
 

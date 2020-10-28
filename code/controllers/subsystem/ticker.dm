@@ -101,7 +101,7 @@ SUBSYSTEM_DEF(ticker)
 					continue
 				music += S
 
-	var/old_login_music = trim(file2text("data/last_round_lobby_music.txt"))
+	var/old_login_music = trim(rustg_file_read("data/last_round_lobby_music.txt"))
 	if(music.len > 1)
 		music -= old_login_music
 
@@ -215,7 +215,7 @@ SUBSYSTEM_DEF(ticker)
 
 
 /datum/controller/subsystem/ticker/proc/setup()
-	to_chat(world, "<span class='boldannounce'>Starting game...</span>")
+	message_admins("Setting up game.")
 	var/init_start = world.timeofday
 		//Create and announce mode
 	var/list/datum/game_mode/runnable_modes
@@ -256,6 +256,7 @@ SUBSYSTEM_DEF(ticker)
 	can_continue = can_continue && SSjob.DivideOccupations() 				//Distribute jobs
 	CHECK_TICK
 
+	to_chat(world, "<span class='boldannounce'>Starting game...</span>")
 	if(!GLOB.Debug2)
 		if(!can_continue)
 			log_game("[mode.name] failed pre_setup, cause: [mode.setup_error]")
@@ -582,7 +583,7 @@ SUBSYSTEM_DEF(ticker)
 			addtimer(CALLBACK(player, /mob/dead/new_player.proc/make_me_an_observer), 1)
 
 /datum/controller/subsystem/ticker/proc/load_mode()
-	var/mode = trim(file2text("data/mode.txt"))
+	var/mode = trim(rustg_file_read("data/mode.txt"))
 	if(mode)
 		GLOB.master_mode = mode
 	else
@@ -651,4 +652,4 @@ SUBSYSTEM_DEF(ticker)
 			round_end_sound = "sound/roundend/[pick(tracks)]"
 
 	SEND_SOUND(world, sound(round_end_sound))
-	text2file(login_music, "data/last_round_lobby_music.txt")
+	rustg_file_append(login_music, "data/last_round_lobby_music.txt")

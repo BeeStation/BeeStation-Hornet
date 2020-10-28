@@ -41,8 +41,8 @@
 
 	// hash the original name?
 	if(tr_flags & TR_HASHNAME)
-		O.name = "monkey ([copytext_char(md5(real_name), 2, 6)])"
-		O.real_name = "monkey ([copytext_char(md5(real_name), 2, 6)])"
+		O.name = "monkey ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
+		O.real_name = "monkey ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
 
 	//handle DNA and other attributes
 	dna.transfer_identity(O)
@@ -541,6 +541,8 @@
 	invisibility = INVISIBILITY_MAXIMUM
 	var/mob/living/simple_animal/hostile/gorilla/rabid/new_gorilla = new (get_turf(src))
 	new_gorilla.a_intent = INTENT_HARM
+	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	H.add_hud_to(new_gorilla)
 	if(mind)
 		mind.transfer_to(new_gorilla)
 	else

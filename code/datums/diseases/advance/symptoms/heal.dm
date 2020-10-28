@@ -197,12 +197,12 @@
 	var/healed = FALSE
 
 	if(M.getBruteLoss() && M.getBruteLoss() <= threshhold)
-		M.adjustBruteLoss(-power)
+		M.heal_overall_damage(power, required_status = BODYPART_ORGANIC)
 		healed = TRUE
 		scarcounter++
 
 	if(M.getFireLoss() && M.getFireLoss() <= threshhold)
-		M.adjustFireLoss(-power)
+		M.heal_overall_damage(burn = power, required_status = BODYPART_ORGANIC)
 		healed = TRUE
 		scarcounter++
 
@@ -220,6 +220,41 @@
 
 /datum/symptom/heal/surface/passive_message_condition(mob/living/M)
 	return M.getBruteLoss() <= threshhold || M.getFireLoss() <= threshhold
+	
+/datum/symptom/heal/metabolism
+	name = "Metabolic Boost"
+	stealth = -1
+	resistance = -2
+	stage_speed = 2
+	transmittable = 1
+	level = 4
+	var/triple_metabolism = FALSE
+	var/reduced_hunger = FALSE
+	desc = "The virus causes the host's metabolism to accelerate rapidly, making them process chemicals twice as fast,\
+	 but also causing increased hunger."
+	threshold_desc = "<b>Stealth 3:</b> Reduces hunger rate.<br>\
+					  <b>Stage Speed 10:</b> Chemical metabolization is tripled instead of doubled."
+
+/datum/symptom/heal/metabolism/Start(datum/disease/advance/A)
+	if(!..())
+		return
+	if(A.properties["stage_rate"] >= 10)
+		triple_metabolism = TRUE
+	if(A.properties["stealth"] >= 3)
+		reduced_hunger = TRUE
+
+/datum/symptom/heal/metabolism/Heal(mob/living/carbon/C, datum/disease/advance/A, actual_power)
+	if(!istype(C))
+		return
+	C.reagents.metabolize(C, can_overdose=TRUE) //this works even without a liver; it's intentional since the virus is metabolizing by itself
+	if(triple_metabolism)
+		C.reagents.metabolize(C, can_overdose=TRUE)
+	C.overeatduration = max(C.overeatduration - 2, 0)
+	var/lost_nutrition = 9 - (reduced_hunger * 5)
+	C.adjust_nutrition(-lost_nutrition * HUNGER_FACTOR) //Hunger depletes at 10x the normal speed
+	if(prob(2))
+		to_chat(C, "<span class='notice'>You feel an odd gurgle in your stomach, as if it was working much faster than normal.</span>")
+	return 1
 
 /*
 //////////////////////////////////////
@@ -254,7 +289,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/EMP/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stealth"] >= 4)
+	if(A.properties["stealth"] >= 2)
 		cellheal = TRUE
 	if(A.properties["transmittable"] >= 8)
 		bigemp = TRUE
@@ -267,7 +302,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		if(4, 5)
 			M.emp_act(EMP_HEAVY)
 			if(cellheal)
-				M.adjustCloneLoss(-20)
+				M.adjustCloneLoss(-30)
 				M.reagents.add_reagent(/datum/reagent/medicine/mutadone = 1)
 			if(bigemp)
 				empulse(M.loc, 0, 1)
@@ -382,7 +417,7 @@ obj/effect/sweatsplash/proc/splash()
 	switch(A.stage)
 		if(4, 5)
 			if(burnheal)
-				M.adjustFireLoss(-1 * power)
+				M.heal_overall_damage(0, 1) //no required_status checks here, this does all bodyparts equally
 			if(prob(5) && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
 				location_return = get_turf(M)	//sets up return point
 				if(prob(50))
@@ -435,6 +470,7 @@ obj/effect/sweatsplash/proc/splash()
 		bruteheal = TRUE
 	if(A.properties["stage_rate"] >= 12)
 		tetsuo = TRUE
+		power = 3 //should make this symptom actually worth it
 	var/mob/living/carbon/M = A.affected_mob
 	ownermind = M.mind
 	sizemult = CLAMP((0.5 + A.properties["stage_rate"] / 10), 1.1, 2.5)
@@ -487,7 +523,7 @@ obj/effect/sweatsplash/proc/splash()
 								if(Z == BODY_ZONE_HEAD) //if we regenerate the head, make sure the mob still owns us
 									if(isliving(ownermind.current))
 										var/mob/living/owner = ownermind.current
-										if(owner.stat && owner != M && !istype(owner, /mob/living/brain))//if they have a new mob, forget they exist
+										if(owner.stat != DEAD)//if they have a new mob, forget they exist
 											ownermind = null
 											break
 										if(owner == M) //they're already in control of this body, probably because their brain isn't in the head!
@@ -499,13 +535,11 @@ obj/effect/sweatsplash/proc/splash()
 									M.grab_ghost()
 								break
 				if(tetsuo && prob(10) && A.affected_mob.job == "Clown")
-					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
-			if(tetsuo)
-				M.adjustBruteLoss(-4)
-				if(prob(20))
+					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)				
+			if(bruteheal)
+				M.heal_overall_damage(2 * power, required_status = BODYPART_ORGANIC)
+				if(prob(11 * power))
 					M.adjustCloneLoss(1)
-			else if(bruteheal)
-				M.adjustBruteLoss(-1)
 		else
 			if(prob(5))
 				to_chat(M, "<span class='notice'>[pick("You feel bloated.", "The station seems small", "You are the strongest")]</span>")

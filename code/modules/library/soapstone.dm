@@ -152,7 +152,7 @@
 
 /obj/structure/chisel_message/update_icon()
 	..()
-	var/hash = md5(hidden_message)
+	var/hash = rustg_hash_string(RUSTG_HASH_MD5, hidden_message)
 	var/newcolor = copytext_char(hash, 1, 7)
 	add_atom_colour("#[newcolor]", FIXED_COLOUR_PRIORITY)
 	light_color = "#[newcolor]"
@@ -208,10 +208,14 @@
 /obj/structure/chisel_message/interact()
 	return
 
-/obj/structure/chisel_message/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/structure/chisel_message/ui_state(mob/user)
+	return GLOB.always_state
+
+/obj/structure/chisel_message/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "EngravedMessage", name, 600, 300, master_ui, state)
+		ui = new(user, src, "EngravedMessage")
 		ui.open()
 
 /obj/structure/chisel_message/ui_data(mob/user)
