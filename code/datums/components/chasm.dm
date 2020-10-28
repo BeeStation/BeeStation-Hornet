@@ -105,6 +105,7 @@
 				if(istype(H.get_item_by_slot(ITEM_SLOT_BACK), /obj/item/parachute))
 					var/obj/item/parachute/para = H.get_item_by_slot(ITEM_SLOT_BACK)
 					para.deploy(T)
+					falling_atoms -= AM
 					return
 
 			L.Knockdown(100)
