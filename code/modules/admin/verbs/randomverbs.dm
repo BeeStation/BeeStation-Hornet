@@ -565,6 +565,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		M.adminfreezeoverlay = new()
 		M.add_overlay(M.adminfreezeoverlay)
 		M.anchored = TRUE
+		M.notransform = TRUE
 		log_admin("[key_name(usr)] froze [key_name(M)]!")
 		to_chat(M, "<span class='userdanger'>You have been frozen by Administrator [usr.key]!</span>")
 	else
@@ -572,6 +573,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		M.adminfrozen = 0
 		M.cut_overlay(M.adminfreezeoverlay)
 		M.anchored = FALSE
+		M.notransform = FALSE
 		log_admin("[key_name(usr)] unfroze [key_name(M)].")
 		to_chat(M, "<span class='userdanger'>You have been unfrozen by Administrator [usr.key]!</span>")
 
