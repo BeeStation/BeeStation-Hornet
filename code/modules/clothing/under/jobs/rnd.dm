@@ -52,3 +52,14 @@
 	item_state = "robotics"
 	item_color = "robotics"
 	resistance_flags = NONE
+
+/obj/item/clothing/under/rank/rnd/awayteam
+	desc = "It's a sleek black with plasteel nanofibres woven into it; provides unusually high protection for a jumpsuit."
+	name = "away team jumpsuit"
+	icon_state = "awayteam"
+	item_state = "awayteam"
+	item_color = "awayteam"
+	resistance_flags = NONE
+	permeability_coefficient = 0.5
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 0,"energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20)
+	can_adjust = FALSE

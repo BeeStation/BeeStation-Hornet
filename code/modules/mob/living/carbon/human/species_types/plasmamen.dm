@@ -129,7 +129,7 @@
 		if("Virologist")
 			O = new /datum/outfit/plasmaman/viro
 
-		if("Scientist")
+		if("Scientist", "Away Team")
 			O = new /datum/outfit/plasmaman/science
 
 		if("Station Engineer")
