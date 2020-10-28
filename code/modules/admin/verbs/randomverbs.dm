@@ -551,7 +551,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/cmd_admin_freeze(mob/living/M in GLOB.mob_list)
 	set category = "Admin"
-	set name = "Freeze Player"
+	set name = "Special Verbs"
 	if(!holder)
 		to_chat(src, "Only administrators may use this command.")
 		return
