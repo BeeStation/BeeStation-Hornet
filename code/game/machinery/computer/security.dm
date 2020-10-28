@@ -247,16 +247,15 @@
 						<th>Del</th>
 						</tr>"}
 						for(var/datum/data/crime/c in active2.fields["crim"])
+							dat += "<tr><td>[c.crimeName]</td>"
 							if(!c.crimeDetails)
 								dat += "<td><A href='?src=[REF(src)];choice=Edit Field;field=add_details;cdataid=[c.dataId]'>\[+\]</A></td>"
 							else
 								dat += "<td>[c.crimeDetails]</td>"
-								dat += "<tr><td>[c.crimeName]</td>"
-								dat += "<td>[c.crimeDetails]</td>"
-								dat += "<td>[c.author]</td>"
-								dat += "<td>[c.time]</td>"
-								dat += "<td><A href='?src=[REF(src)];choice=Edit Field;field=crim_delete;cdataid=[c.dataId]'>\[X\]</A></td>"
-								dat += "</tr>"
+							dat += "<td>[c.author]</td>"
+							dat += "<td>[c.time]</td>"
+							dat += "<td><A href='?src=[REF(src)];choice=Edit Field;field=crim_delete;cdataid=[c.dataId]'>\[X\]</A></td>"
+							dat += "</tr>"
 						dat += "</table>"
 
 						dat += "<br>\nImportant Notes:<br>\n\t<A href='?src=[REF(src)];choice=Edit Field;field=notes'>&nbsp;[active2.fields["notes"]]&nbsp;</A>"
