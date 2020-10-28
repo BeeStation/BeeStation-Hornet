@@ -212,6 +212,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/brig_phys
 	name = "Brig Physician"
 
+/obj/effect/landmark/start/away_team
+	name = "Away Team"
+
 /obj/effect/landmark/start/randommaint
 	name = "maintjobstart"
 	icon_state = "x3" 

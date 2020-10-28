@@ -25,7 +25,8 @@ GLOBAL_LIST_INIT(medical_positions, list(
 GLOBAL_LIST_INIT(science_positions, list(
 	"Research Director",
 	"Scientist",
-	"Roboticist"))
+	"Roboticist",
+	"Away Team"))
 
 
 GLOBAL_LIST_INIT(supply_positions, list(

@@ -2,7 +2,7 @@
 
 /datum/objective/crew/cyborgs //Ported from old Hippie
 	explanation_text = "Ensure there are at least (Yell on GitHub, something broke) functioning cyborgs when the shift ends."
-	jobs = "researchdirector,roboticist"
+	jobs = "researchdirector,roboticist,awayteam"
 
 /datum/objective/crew/cyborgs/New()
 	. = ..()

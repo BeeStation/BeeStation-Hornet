@@ -144,6 +144,8 @@
 				heirloom_type = /obj/item/toy/plush/slimeplushie
 			if("Roboticist")
 				heirloom_type = pick(subtypesof(/obj/item/toy/prize)) //look at this nerd
+			if("Away Team")
+				heirloom_type = /obj/item/toy/plush/slimeplushie
 			//Medical
 			if("Chief Medical Officer")
 				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/bodybag)
