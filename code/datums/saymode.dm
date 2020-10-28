@@ -88,7 +88,7 @@
 	return FALSE
 
 
-/datum/saymode/binary //everything that uses .b (silicons, drones, blobbernauts/spores, swarmers)
+/datum/saymode/binary //everything that uses .b (silicons, drones, swarmers)
 	key = MODE_KEY_BINARY
 	mode = MODE_BINARY
 
@@ -96,10 +96,6 @@
 	if(isswarmer(user))
 		var/mob/living/simple_animal/hostile/swarmer/S = user
 		S.swarmer_chat(message)
-		return FALSE
-	if(isblobmonster(user))
-		var/mob/living/simple_animal/hostile/blob/B = user
-		B.blob_chat(message)
 		return FALSE
 	if(isdrone(user))
 		var/mob/living/simple_animal/drone/D = user
