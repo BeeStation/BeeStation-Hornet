@@ -187,8 +187,12 @@
 /turf/open/floor/plating,
 /area/space)
 "R" = (
-/obj/machinery/the_singularitygen/tesla{
-	pixel_y = 10
+/obj/item/cardboard_cutout{
+	desc = "A cardboard cutout of the tesla ball generator. You could scribble over it easily.";
+	icon = 'icons/obj/tesla_engine/tesla_generator.dmi';
+	icon_state = "TheSingGen";
+	name = "energy ball generator";
+	pixel_y = 12
 	},
 /turf/open/floor/monotile/steel,
 /area/space)
