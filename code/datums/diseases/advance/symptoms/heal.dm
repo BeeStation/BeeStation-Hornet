@@ -516,7 +516,7 @@ obj/effect/sweatsplash/proc/splash()
 								chosen.Insert(M, TRUE, FALSE)
 								to_chat(M, "<span class='userdanger'>As the [chosen] touches your skin, it is promptly absorbed.</span>")
 					if(missing.len) //we regrow one missing limb
-						for(var/Z in missing) //uses the same text and sound a ling's regen does. This can false-flag the host as a changeling. 
+						for(var/Z in missing) //uses the same text and sound a ling's regen does. This can false-flag the host as a changeling.
 							if(M.regenerate_limb(Z, TRUE))
 								playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
 								M.visible_message("<span class='warning'>[M]'s missing limbs \
@@ -541,7 +541,7 @@ obj/effect/sweatsplash/proc/splash()
 									M.grab_ghost()
 								break
 				if(tetsuo && prob(10) && A.affected_mob.job == "Clown")
-					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)				
+					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
 			if(bruteheal)
 				M.heal_overall_damage(2 * power, required_status = BODYPART_ORGANIC)
 				if(prob(11 * power))
@@ -575,6 +575,7 @@ obj/effect/sweatsplash/proc/splash()
 	flavour_text = {"
 	<b>You are a living teratoma, and your existence is misery. You feel the need to spread woe about the station- but not to kill.
 	"}
+	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/teratomamonkey/Initialize()
 	. = ..()

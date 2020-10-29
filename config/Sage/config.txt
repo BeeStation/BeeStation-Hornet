@@ -539,3 +539,6 @@ VOTE_AUTOTRANSFER_ENABLED
 VOTE_AUTOTRANSFER_INITIAL 54000
 ## Time (in deciseconds) between subsequent transfer votes. Default: 30 minutes
 VOTE_AUTOTRANSFER_INTERVAL 18000
+
+## Ghost role cooldown time after death (In deciseconds)
+GHOST_ROLE_COOLDOWN 3000

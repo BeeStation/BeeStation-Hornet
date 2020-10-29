@@ -544,3 +544,7 @@
 	config_entry_value = 18000
 	integer = FALSE
 	min_val = 0
+
+/datum/config_entry/number/ghost_role_cooldown
+	config_entry_value = 0
+	min_val = 0
