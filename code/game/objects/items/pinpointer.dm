@@ -218,15 +218,14 @@
 
 /obj/item/pinpointer/pinpointer_gateway/process()
 	. = ..()
-	if(isnull(linked_gate))
+	if(!linked_gate)
 		return
-	if(linked_gate.get_time() < 120)
+	if(linked_gate.get_time() < 120 && !alert)
 		alert = TRUE
-
-
+		playsound(src, 'sound/machines/alarm.ogg', 50, -1, TRUE)
 
 /obj/item/pinpointer/pinpointer_gateway/scan_for_target()
-	if(isnull(linked_gate))
+	if(!linked_gate)
 		return
 	target = linked_gate
 
@@ -236,11 +235,11 @@
 
 /obj/item/pinpointer/pinpointer_gateway/examine(mob/user)
 	. = ..()
-	if(!isnull(linked_gate))
+	if(linked_gate)
 		to_chat(user, "The linked gateway will collapse in [linked_gate.get_time()] seconds.")
 		return
 
 /obj/item/pinpointer/pinpointer_gateway/attack_self(mob/living/user)
-	if(!isnull(linked_gate))
+	if(linked_gate)
 		. = ..()
 	

@@ -69,7 +69,7 @@
 	var/unstable = FALSE // Does the map have a time limit?
 	var/time = 0 // If so, how long is the time limit (in minutes)?
 	var/difficulty = "Medium" // Currently unused, will be used in an anti-duplicate disk device later
-	var/map = null
+	var/map
 	var/mapcode = "MAIN_MISSION" // This is the code the user must enter into the gateway to journey to your map. Set this to whatever you set the targetid variable of the gateway in your map to be. If you have more than one gateway on an away mission, set it to the code of the gateway you want them to start at.
 
 /obj/item/awaymaploader/beach

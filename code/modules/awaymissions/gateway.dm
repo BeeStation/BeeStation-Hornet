@@ -141,9 +141,8 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 		if(I.map == V)
 			to_chat(user, "<span class='warning'>Error: Data already in gateway.</span>")
 			return
-	var/away_name
+	var/away_name = I.map
 	var/datum/space_level/away_level
-	away_name = I.map
 	to_chat(usr,"<span class='notice'>The gateway begins to whirr as it processes the data...</span>")
 	var/instability = I.unstable
 	var/timelimit = I.time
@@ -266,7 +265,7 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 /obj/machinery/gateway/centeraway/unstable
 	targetid = "TIMED_MISSION"
 	var/timeinmission = 3000
-	var/collapsetime = null
+	var/collapsetime
 	var/list/obj/item/pinpointer/pinpointer_gateway/linked_pinpointers = list()
 
 /obj/machinery/gateway/centeraway/unstable/Initialize()
