@@ -15,8 +15,10 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	"Shift" = 1, "Ctrl" = 1, "Numlock" = 1, "Scroll" = 1, "Alt" = 1, "'" = 1, ";" = 1, "#" = 1, "GamepadUp" = 1, "GamepadDown" = 1, "GamepadLeft" = 1,
 	"GamepadRight" = 1, "GamepadDownLeft" = 1, "GamepadDownRight" = 1, "GamepadUpLeft" = 1, "GamepadUpRight" = 1, "GamepadFace1" = 1, "GamepadFace2" = 1,
 	"GamepadFace3" = 1, "GamepadFace4" = 1, "GamepadR1" = 1, "GamepadR2" = 1, "GamepadR3" = 1, "GamepadL1" = 1, "GamepadL2" = 1, "GamepadL3" = 1,
-	"GamepadStart" = 1, "GamepadSelect" = 1, "VolumeUp" = 1, "VolumeDown" = 1, "VolumeMute" = 1, "MediaPlayPause" = 1, "MediaStop" = 1, "MediaNext" = 1,
-	"MediaPrev" = 1
+	"GamepadStart" = 1, "GamepadSelect" = 1, "Gamepad2Up" = 1, "Gamepad2Down" = 1, "Gamepad2Left" = 1, "Gamepad2Right" = 1, "Gamepad2DownLeft" = 1,
+	"Gamepad2DownRight" = 1, "Gamepad2UpLeft" = 1, "Gamepad2UpRight" = 1, "Gamepad2Face1" = 1, "Gamepad2Face2" = 1, "Gamepad2Face3" = 1, "Gamepad2Face4" = 1,
+	"Gamepad2R1" = 1, "Gamepad2R2" = 1, "Gamepad2R3" = 1, "Gamepad2L1" = 1, "Gamepad2L2" = 1, "Gamepad2L3" = 1,	"Gamepad2Start" = 1, "Gamepad2Select" = 1, 
+	"VolumeUp" = 1, "VolumeDown" = 1, "VolumeMute" = 1, "MediaPlayPause" = 1, "MediaStop" = 1, "MediaNext" = 1,	"MediaPrev" = 1
 ))
 
 /proc/input_sanity_check(client/C, key)
