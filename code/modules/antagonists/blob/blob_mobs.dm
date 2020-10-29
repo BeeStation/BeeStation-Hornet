@@ -114,7 +114,6 @@
 		factory = linked_node
 		factory.spores += src
 	. = ..()
-
 	/*var/datum/disease/advance/random/blob/R = new //either viro is cooperating with xenobio, or a blob has spawned and the round is probably over sooner than they can make a virus for this
 	disease += R*/
 
