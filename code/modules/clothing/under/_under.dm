@@ -106,6 +106,9 @@
 			if(user && notifyAttach)
 				to_chat(user, "<span class='notice'>You attach [I] to [src].</span>")
 
+			if((flags_inv & HIDEACCESSORY) || (A.flags_inv & HIDEACCESSORY))
+				return TRUE
+
 			var/accessory_color = attached_accessory.item_color
 			if(!accessory_color)
 				accessory_color = attached_accessory.icon_state

@@ -108,6 +108,7 @@
 #define HIDEHAIR		(1<<8)
 #define HIDEFACIALHAIR	(1<<9)
 #define HIDENECK		(1<<10)
+#define HIDEACCESSORY	(1<<11) //hides the jumpsuit accessory.
 
 //bitflags for clothing coverage - also used for limbs
 #define HEAD		(1<<0)

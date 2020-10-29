@@ -359,6 +359,10 @@
 	item_state = "holster"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/holster
 
+/obj/item/clothing/accessory/holster/undercover
+	name = "concealed carry holster"
+	flags_inv = HIDEACCESSORY //hidden from indiscrete mob examines.
+
 /obj/item/clothing/accessory/holster/detective
 	name = "detective's shoulder holster"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/holster/detective
