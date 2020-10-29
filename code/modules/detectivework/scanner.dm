@@ -4,7 +4,7 @@
 
 /obj/item/detective_scanner
 	name = "forensic scanner"
-	desc = "Used to remotely scan objects and biomass for DNA and fingerprints. Can print a report of the findings."
+	desc = "Used to remotely scan objects and biomass for DNA and fingerprints, and has an integrated health and reagent analyzer. Can print a report of its findings."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "forensicnew"
 	w_class = WEIGHT_CLASS_SMALL
@@ -18,6 +18,9 @@
 	var/list/log = list()
 	var/range = 8
 	var/view_check = TRUE
+	var/mode
+	var/advanced = TRUE
+	icon_state = "forensicnew-0"
 	actions_types = list(/datum/action/item_action/displayDetectiveScanResults)
 
 /datum/action/item_action/displayDetectiveScanResults

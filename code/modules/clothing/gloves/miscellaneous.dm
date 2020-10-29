@@ -125,8 +125,6 @@
 /obj/item/clothing/gloves/color/black/aerostatic_gloves
 	name = "aerostatic gloves"
 	desc = "Vivid red gloves that exude a mysterious style."
-	mob_overlay_icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium_worn.dmi'
-	icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium.dmi'
 	icon_state = "aerostatic_gloves"
-	item_state = "redgloves"
+	item_state = "aerostatic_gloves"
 	can_be_cut = FALSE

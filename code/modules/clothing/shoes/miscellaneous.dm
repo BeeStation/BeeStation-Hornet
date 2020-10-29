@@ -34,7 +34,7 @@
 	equip_delay_other = 50
 	permeability_coefficient = 0.9
 	strip_delay = 5
-	
+
 /obj/item/clothing/shoes/sandal/marisa
 	desc = "A pair of magic black shoes."
 	name = "magic shoes"
@@ -342,15 +342,12 @@
 /obj/item/clothing/shoes/sneakers/disco
 	name = "green lizardskin shoes"
 	desc = "Though depleted of lustre with the passage of time, these well-worn green lizard leather shoes fit almost perfectly."
-	mob_overlay_icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium_worn.dmi'
-	icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium.dmi'
 	icon_state = "lizardskin_shoes"
-	item_state = "bl_shoes"
+	item_state = "lizardskin_shoes"
 
 /obj/item/clothing/shoes/jackboots/aerostatic
 	name = "aerostatic boots"
 	desc = "Sharp and comfortable looking boots crafted from tough brown leather."
-	mob_overlay_icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium_worn.dmi'
-	icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium.dmi'
 	icon_state = "aerostatic_boots"
-	item_state = "magboots"
+	item_state = "aerostatic_boots"
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes

@@ -106,10 +106,8 @@
 /obj/item/clothing/under/rank/security/detective/disco
 	name = "jamrock suit"
 	desc = "An... interesting looking ensemble consisting of golden-brown flare cut trousers and a hard worn white satin shirt."
-	mob_overlay_icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium_worn.dmi'
-	icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium.dmi'
 	icon_state = "jamrock_suit"
-	item_state = "lb_suit"
+	item_state = "jamrock_suit"
 	alt_covers_chest = TRUE
 
 /obj/item/clothing/under/rank/security/detective/disco/aerostatic
@@ -179,7 +177,7 @@
 	item_state = "wardenblueclothes"
 	item_color = "wardenblueclothes"
 	alt_covers_chest = TRUE
-	
+
 /obj/item/clothing/under/rank/security/head_of_security/formal
 	desc = "The insignia on this uniform tells you that this uniform belongs to the Head of Security."
 	name = "head of security's formal uniform"
@@ -221,11 +219,11 @@
 	has_sensor = LOCKED_SENSORS
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
-	
+
 /*
  * Triiodine's security uniforms
  */
- 
+
 
 /obj/item/clothing/under/rank/security/officer/mallcop
 	name = "NT mall cop uniform"

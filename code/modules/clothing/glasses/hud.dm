@@ -254,8 +254,6 @@
 /obj/item/clothing/glasses/detective
 	name = "detective's glasses"
 	desc = "Stylish glasses with integrated medical, diagnostic and security HUDs and reagent scanning used by detectives. The Meson Scanner mode lets you see basic structural and terrain layouts through walls. WARNING! Flash proofing has been compromised to accomodate HUD integration."
-	icon = 'icons/Fulpicons/Surreal_stuff/detective_obs.dmi'
-	mob_overlay_icon = 'icons/Fulpicons/Surreal_stuff/detective_obs_worn.dmi'
 	icon_state = "sundetect-"
 	item_state = "sunglasses"
 	actions_types = list(/datum/action/item_action/toggle_mode)
@@ -269,7 +267,7 @@
 	var/range = 1
 	var/emped = FALSE //whether or not it's subject to the effects of an EMP.
 
-	clothing_flags = SCAN_REAGENTS //You can see reagents while wearing detective glasses
+	scan_reagents = TRUE //You can see reagents while wearing detective glasses
 	resistance_flags = ACID_PROOF
 	glass_colour_type = /datum/client_colour/glass_colour/red
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 25, "fire" = 100, "acid" = 100)

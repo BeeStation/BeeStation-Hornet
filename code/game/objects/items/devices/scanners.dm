@@ -1069,17 +1069,14 @@ GENE SCANNER
 
 	if(!I || !check_access(I))
 		to_chat(usr, "<span class='warning'>Inadequate security clearance. Access denied.</span>")
-		playsound(loc, SEC_RADIO_SCAN_SOUND_DENY, get_clamped_volume(), TRUE, -1)
 		return
 
 	if(!F.write_mode) //Copy the log to the disk if we're set to read mode.
 		F.disk_log = log
-		playsound(loc, SEC_BODY_CAM_SOUND, get_clamped_volume(), TRUE, -1)
 		to_chat(usr, "<span class='notice'>You copied the scanner's log to the disk.</span>")
 
 	else if(LAZYLEN(F.disk_log)) //So we don't accidentally overwrite the scanner logs with nothing
 		log = F.disk_log
-		playsound(loc, SEC_BODY_CAM_SOUND, get_clamped_volume(), TRUE, -1)
 		to_chat(usr, "<span class='notice'>You overwrote the scanner's log with the disk's contents.</span>")
 
 //Classic floppy back ups!

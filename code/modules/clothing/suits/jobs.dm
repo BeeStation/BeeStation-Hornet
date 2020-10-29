@@ -77,10 +77,8 @@
 /obj/item/clothing/suit/det_suit/disco
 	name = "disco-ass blazer"
 	desc = "Looks like someone skinned this blazer off some long extinct disco-animal. It has an enigmatic white rectangle on the back and the right sleeve."
-	mob_overlay_icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium_worn.dmi'
-	icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium.dmi'
 	icon_state = "jamrock_blazer"
-	item_state = "g_suit"
+	item_state = "jamrock_blazer"
 
 /obj/item/clothing/suit/det_suit/disco/aerostatic
 	name = "aerostatic bomber jacket"
