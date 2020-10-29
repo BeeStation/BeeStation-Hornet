@@ -111,7 +111,7 @@
 
 /obj/item/storage/box/hero/ghostbuster/PopulateContents()
 	new /obj/item/clothing/glasses/welding/ghostbuster(src)
-	new /obj/item/storage/belt/fannypack/bustin(src)	
+	new /obj/item/storage/belt/fannypack/bustin(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/under/color/khaki/buster(src)
@@ -193,7 +193,7 @@
 			maximum_size = 4
 			to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand].</span>")
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
-	
+
 /obj/item/clothing/head/that/bluespace/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!proximity_flag)
@@ -306,3 +306,48 @@
 	item_state = "wand"
 	w_class = WEIGHT_CLASS_SMALL
 	var/used = FALSE
+
+//Detective loadout
+/obj/item/choice_beacon/detective
+	name = "detective beacon"
+	desc = "There are many ways of investigating crime, pick yours."
+
+/obj/item/choice_beacon/detective/generate_display_names()
+	var/static/list/detective_item_list
+	if(!detective_item_list)
+		detective_item_list = list()
+		var/list/templist = typesof(/obj/item/storage/box/detective) //we have to convert type = name to name = type, how lovely!
+		for(var/V in templist)
+			var/atom/A = V
+			detective_item_list[initial(A.name)] = A
+	return detective_item_list
+
+/obj/item/storage/box/detectivebeacon/undercover
+	name = "Undercover Agent"
+
+/obj/item/storage/box/detectivebeacon/undercover/PopulateContents()
+	new /obj/item/radio/headset(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/clothing/under/color/grey(src)
+	/obj/item/storage/backpack
+	/obj/item/clothing/shoes/sneakers/black
+	/obj/item/clothing/gloves/color/fyellow
+
+/obj/item/storage/box/detectivebeacon/indirect
+	name = "Ghost Whisperer"
+
+/obj/item/storage/box/detectivebeacon/indirect/PopulateContents()
+	new /obj/item/clothing/neck/tie/detective/disco_necktie(src)
+	new /obj/item/toy/eightball/haunted(src)
+
+/obj/item/storage/box/detectivebeacon/fastresponder
+	name = "Fast Responder"
+
+/obj/item/storage/box/detectivebeacon/fastresponder/PopulateContents()
+	new /obj/item/radio/headset/headset_sec/alt(src)
+	/obj/item/clothing/glasses/detective/advanced(src)
+	new /obj/item/clothing/suit/armor/vest/det_suit(src)
+	/obj/item/storage/belt/security/deputy
+	/obj/item/sensor_device
+	/obj/item/storage/box/trackimp(src) //Allows easily tracking down criminals again
+	/obj/item/ammo_box/c38/trac(src)

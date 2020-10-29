@@ -241,16 +241,6 @@
 #define MODE_NONE ""
 #define MODE_MESON "meson"
 
-/datum/design/detective_glasses
-	name = "Detective Glasses"
-	desc = "Stylish glasses with integrated medical, diagnostic and security HUDs and reagent scanning used by detectives. Has an integrated Meson Scanner mode. Flash proofing compromised to accomodate HUD integration."
-	id = "detective_glasses"
-	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 500, /datum/material/plastic = 2000, /datum/material/glass = 2000, /datum/material/silver = 1000, /datum/material/gold = 1000, /datum/material/uranium = 1000)
-	build_path = /obj/item/clothing/glasses/detective
-	category = list("Equipment")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-
 /obj/item/clothing/glasses/detective
 	name = "detective's glasses"
 	desc = "Stylish glasses with integrated medical, diagnostic and security HUDs and reagent scanning used by detectives. The Meson Scanner mode lets you see basic structural and terrain layouts through walls. WARNING! Flash proofing has been compromised to accomodate HUD integration."
@@ -400,6 +390,12 @@
 			user.update_inv_glasses()
 		else
 			user.update_inv_hands()
+
+/obj/item/clothing/glasses/detective/advanced
+	name = "advanced detective's glasses"
+	desc = "Stylish glasses with integrated medical, diagnostic and security HUDs and reagent scanning used by detectives. The Meson Scanner mode lets you see basic structural and terrain layouts through walls. Has enhanced shielding which blocks flashes."
+	flash_protect = 1
+	tint = 1
 
 #undef MODE_NONE
 #undef MODE_MESON

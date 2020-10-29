@@ -4,6 +4,7 @@
 	activated = FALSE
 	var/lifespan_postmortem = 6000 //for how many deciseconds after user death will the implant work?
 	var/allow_teleport = TRUE //will people implanted with this act as teleporter beacons?
+	var/undercover = FALSE
 
 /obj/item/implant/tracking/c38
 	name = "TRAC implant"
@@ -44,3 +45,6 @@
 				<b>Integrity:</b> Gradient creates slight risk of being overcharged and frying the
 				circuitry. As a result neurotoxins can cause massive damage."}
 	return dat
+
+/obj/item/implant/tracking/undercover
+	undercover = TRUE

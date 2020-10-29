@@ -211,38 +211,22 @@
 
 /obj/structure/closet/secure_closet/detective/PopulateContents()
 	..()
-	new /obj/item/clothing/under/rank/security/detective(src)
-	new /obj/item/clothing/suit/det_suit(src)
-	new /obj/item/clothing/head/fedora/det_hat(src)
-	new /obj/item/clothing/gloves/color/black(src)
-	new /obj/item/clothing/under/rank/security/detective/grey(src)
-	new /obj/item/clothing/accessory/waistcoat(src)
-	new /obj/item/clothing/suit/det_suit/grey(src)
-	new /obj/item/clothing/suit/det_suit/noir(src)
-	new /obj/item/clothing/head/fedora(src)
-	new /obj/item/clothing/shoes/laceup(src)
-	new /obj/item/clothing/suit/det_suit/disco(src)
-	new /obj/item/clothing/suit/det_suit/disco/aerostatic(src)
-	new /obj/item/clothing/under/rank/security/detective/disco(src)
-	new /obj/item/clothing/under/rank/security/detective/disco/aerostatic(src)
-	new /obj/item/clothing/neck/tie/detective/disco_necktie(src)
-	new /obj/item/clothing/gloves/color/black/aerostatic_gloves(src)
-	new /obj/item/clothing/shoes/sneakers/disco(src)
-	new /obj/item/clothing/shoes/jackboots/aerostatic(src)
-	new /obj/item/clothing/glasses/sunglasses/advanced/disco(src)
 	new /obj/item/storage/box/evidence(src)
-	new /obj/item/radio/headset/headset_sec(src)
+	new /obj/item/disk/forensic(src)
 	new /obj/item/detective_scanner(src)
+	new /obj/item/taperecorder(src)
+	new /obj/item/camera/detective(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/holosign_creator/security(src)
+	/obj/item/assembly/flash/handheld
 	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/clothing/suit/armor/vest/det_suit(src)
 	new /obj/item/clothing/accessory/holster/detective(src)
-	new /obj/item/pinpointer/crew(src)
 	new /obj/item/twohanded/binoculars(src)
-	new /obj/item/clothing/neck/tie/red(src)
-	new	/obj/item/clothing/neck/tie/black(src)
-	new /obj/item/clothing/neck/tie/detective(src)
+	new /obj/item/folder(src)
+	new /obj/item/pinpointer/crew(src)
+	/obj/item/assembly/flash/handheld
+	/obj/item/reagent_containers/spray/pepper
+
 
 /obj/structure/closet/secure_closet/deputy
 	name = "deputy's locker"
