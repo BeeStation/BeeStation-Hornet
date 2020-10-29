@@ -144,15 +144,15 @@
 	humanize_pod(user)
 
 /mob/living/simple_animal/hostile/blob/blobspore/proc/humanize_pod(mob/user)
-	if((!overmind || istype(src, /mob/living/simple_animal/hostile/blob/blobspore/weak) || !istype(overmind.blobstrain, /datum/blobstrain/reagent/distributed_neurons)) && !is_zombie)
+	if((!overmind || istype(src, /mob/living/simple_animal/hostile/blob/blobspore/weak) || istype(src, /mob/living/simple_animal/hostile/blob/blobspore)) && !is_zombie)
 		return
 	if(key || stat)
 		return
-	var/pod_ask = alert("Become a blob spore?", "Are you bulbous enough?", "Yes", "No")
+	var/pod_ask = alert("Become a blob zombie?", "Are you bulbous enough?", "Yes", "No")
 	if(pod_ask == "No" || !src || QDELETED(src))
 		return
 	if(key)
-		to_chat(user, "<span class='warning'>Someone else already took this spore!</span>")
+		to_chat(user, "<span class='warning'>Someone else already took this blob zombie!</span>")
 		return
 	key = user.key
 	log_game("[key_name(src)] took control of [name].")
