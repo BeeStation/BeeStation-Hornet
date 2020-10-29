@@ -351,3 +351,12 @@
 	fire_rate = 2
 	block_upgrade_walk = 1
 
+/obj/item/gun/ballistic/automatic/striker
+	name = "Nanotrasen Striker SMG"
+	desc = "A cheap, light submachine gun based on the prototype SABR smg."
+	icon_state = "striker"
+	mag_type = /obj/item/ammo_box/magazine/striker
+	fire_rate = 4 // individual bullets are very weak. This works out at slightly less dps than the detective's .38, hence why this can safely be given to science staff.
+	mag_display = TRUE
+	weapon_weight = WEAPON_LIGHT
+	

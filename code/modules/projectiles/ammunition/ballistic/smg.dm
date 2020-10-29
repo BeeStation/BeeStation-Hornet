@@ -23,3 +23,11 @@
 	desc = "A .45 bullet casing."
 	caliber = ".45"
 	projectile_type = /obj/item/projectile/bullet/c45
+
+// 8mm (Striker)
+
+/obj/item/ammo_casing/striker
+	name = "8mm bullet casing"
+	desc = "An 8mm bullet casing"
+	caliber = "8mm"
+	projectile_type = /obj/item/projectile/bullet/striker

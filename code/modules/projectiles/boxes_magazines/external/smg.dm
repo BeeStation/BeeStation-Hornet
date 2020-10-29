@@ -74,3 +74,14 @@
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
 	max_ammo = 50
+
+/obj/item/ammo_box/magazine/striker
+	name = "SMG magazine (8mm low velocity)"
+	icon_state = "smg8-15"
+	ammo_type = /obj/item/ammo_casing/striker
+	caliber = "8mm"
+	max_ammo = 15
+
+/obj/item/ammo_box/magazine/striker/update_icon()
+	..()
+	icon_state = "smg8-[ammo_count() ? "15" : "0"]"

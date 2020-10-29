@@ -93,6 +93,11 @@
 	map = '_maps/RandomZLevels/SnowCabin.dmm'
 	mapcode = "SNOW_CABIN"
 
+/obj/item/awaymaploader/moonoutpost19
+	name = "away mission data disk: Moon Outpost 19 (Medium)"
+	map = '_maps/RandomZLevels/moonoutpost19.dmm'
+	mapcode = "MOON_OUTPOST"
+
 // Decon disks
 
 /obj/item/reverseengineeringdata

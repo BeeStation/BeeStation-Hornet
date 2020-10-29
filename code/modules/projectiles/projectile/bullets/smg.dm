@@ -19,3 +19,11 @@
 	name = "4.6x30mm incendiary bullet"
 	damage = 10
 	fire_stacks = 1
+
+// 8mm (Striker)
+
+/obj/item/projectile/bullet/striker
+	name = "8mm low velocity bullet"
+	damage = 12
+	speed = 0.8 // Slightly slower than normal
+	armour_penetration = -20 // low velocity so weak against armour

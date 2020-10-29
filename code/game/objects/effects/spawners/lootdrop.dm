@@ -471,4 +471,15 @@
 		/obj/item/reverseengineeringdata/advanced = 3,
 		/obj/item/reverseengineeringdata/epic = 2)
 
+/obj/effect/spawner/lootdrop/gateway_mission/easy
+	name = "gateway mission data spawner"
+	loot = list(
+		/obj/item/awaymaploader/beach = 1,
+		/obj/item/awaymaploader/snowcabin = 1)
+
+/obj/effect/spawner/lootdrop/gateway_mission/medium
+	loot = list(
+		/obj/item/awaymaploader/challenge = 1,
+		/obj/item/awaymaploader/moonoutpost19 = 1)
+
 

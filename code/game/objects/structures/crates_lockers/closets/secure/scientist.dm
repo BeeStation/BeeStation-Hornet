@@ -48,3 +48,10 @@
 	name = "\proper away team secure firearms locker"
 	req_access = list(ACCESS_RD)
 	icon_state = "rd"
+
+/obj/structure/closet/secure_closet/gatewayweapons/PopulateContents()
+	..()
+	for(var/i in 1 to 3)
+	new /obj/item/gun/ballistic/automatic/striker(src)
+	new /obj/item/ammo_box/magazine/striker(src)
+	new /obj/item/ammo_box/magazine/striker(src)

@@ -82,4 +82,4 @@
 /obj/item/projectile/bullet/rpocket
 	name = "6mm bullet"
 	damage = 15
-	speed = 0.5 // Slower than normal
+	speed = 0.9 // Slower than normal
