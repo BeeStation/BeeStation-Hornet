@@ -73,10 +73,6 @@
 			if(changeling)
 				stat(null, "Chemical Storage: [changeling.chem_charges]/[changeling.chem_storage]")
 				stat(null, "Absorbed DNA: [changeling.absorbedcount]")
-			var/datum/antagonist/hivemind/hivemind = mind.has_antag_datum(/datum/antagonist/hivemind)
-			if(hivemind)
-				stat(null, "Hivemind Vessels: [hivemind.hive_size] (+[hivemind.size_mod])")
-				stat(null, "Psychic Link Duration: [(hivemind.track_bonus + TRACKER_DEFAULT_TIME)/10] seconds")
 
 	//NINJACODE
 	if(istype(wear_suit, /obj/item/clothing/suit/space/space_ninja)) //Only display if actually a ninja.
@@ -615,7 +611,7 @@
 	//Agent cards lower threatlevel.
 	if(istype(idcard, /obj/item/card/id/syndicate))
 		threatcount -= 5
-	
+
 	//individuals wearing tinfoil hats are 30% more likely to be criminals
 	if(istype(get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		threatcount += 2

@@ -134,7 +134,6 @@ CONTINUOUS CULT
 CONTINUOUS CHANGELING
 CONTINUOUS WIZARD
 #CONTINUOUS MONKEY
-CONTINUOUS HIVEMIND
 CONTINUOUS CLOCKCULT
 
 #Prevents the death of round-ending antagonist rulesets ending the round immediately.
