@@ -1,6 +1,0 @@
-author: Crossedfall
-delete-after: true
-changes:
-  - bugfix: The mining vending machine will correctly show the newly added items (Burn
-      Healing Kit & Flight Potion Bottle)
-  - bugfix: Removed non-existent items from the necrochest
