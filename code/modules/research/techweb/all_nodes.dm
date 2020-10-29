@@ -242,7 +242,7 @@
 	id = "unregulated_bluespace"
 	display_name = "Unregulated Bluespace Research"
 	description = "Bluespace technology using unstable or unbalanced procedures, prone to damaging the fabric of bluespace. Outlawed by galactic conventions."
-	prereq_ids = list("bluespace_travel", "syndicate_basic")
+	prereq_ids = list("bluespace_travel", "gateway_adv")
 	design_ids = list("desynchronizer")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 2500
@@ -570,7 +570,7 @@
 	id = "adv_combat_cyber_implants"
 	display_name = "Advanced Combat Cybernetic Implants"
 	description = "Experimental military cybernetic weapons."
-	prereq_ids = list("combat_cyber_implants", "syndicate_basic")
+	prereq_ids = list("combat_cyber_implants", "gateway_adv")
 	design_ids = list("hydraulic_blade")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 10000
@@ -1061,7 +1061,7 @@
 	id = "nanite_military"
 	display_name = "Military Nanite Programming"
 	description = "Nanite programs that perform military-grade functions."
-	prereq_ids = list("nanite_harmonic", "syndicate_basic")
+	prereq_ids = list("nanite_harmonic", "gateway_adv")
 	design_ids = list("explosive_nanites","pyro_nanites","meltdown_nanites","viral_nanites","nanite_sting_nanites")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500, TECHWEB_POINT_TYPE_NANITES = 2500)
 	export_price = 12500
