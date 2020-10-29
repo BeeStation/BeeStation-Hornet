@@ -24,6 +24,7 @@
 #define NANITE_HUD "20"
 #define DIAG_NANITE_FULL_HUD "21"
 #define DIAG_LAUNCHPAD_HUD "22" //Displays launchpads' targeting reticle
+#define IMPUNDERCOVER_HUD	"23" // implant for undercover kit
 //for antag huds. these are used at the /mob level
 #define ANTAG_HUD		"23"
 

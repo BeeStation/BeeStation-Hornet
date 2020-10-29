@@ -171,3 +171,11 @@
 /obj/item/implanter/radio/syndicate/selfdestruct
 	name = "implanter (modified internal syndicate radio)"
 	imp_type = /obj/item/implant/radio/syndicate/selfdestruct
+
+/obj/item/implant/undercover
+	name = "undercover implant"
+	desc = "Signals that you're an undercover agent to all security HUDs."
+
+/obj/item/implanter/undercover
+	name = "implanter (undercover)"
+	imp_type = /obj/item/implant/undercover
