@@ -477,8 +477,7 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
-
-	var/vchange = 1
+	vchange = 1
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
