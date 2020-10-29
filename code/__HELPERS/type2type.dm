@@ -540,6 +540,11 @@ Takes a string and a datum. The string is well, obviously the string being check
 		else //regex everything else (works for /proc too)
 			return lowertext(replacetext("[the_type]", "[type2parent(the_type)]/", ""))
 
+/// Return html to load a url.
+/// for use inside of browse() calls to html assets that might be loaded on a cdn.
+/proc/url2htmlloader(url)
+	return {"<html><head><meta http-equiv="refresh" content="0;URL='[url]'"/></head><body onLoad="parent.location='[url]'"></body></html>"}
+
 /// Encodes a string to hex
 /proc/strtohex(str)
 	if(!istext(str)||!str)
@@ -548,7 +553,7 @@ Takes a string and a datum. The string is well, obviously the string being check
 	var/c
 	for(var/i = 1 to length(str))
 		c = text2ascii(str,i)
-		r += num2hex(c, 1)
+		r += num2hex(c, 2)
 	return r
 
 /// Decodes hex to raw byte string. If safe=TRUE, returns null on incorrect input strings instead of CRASHing

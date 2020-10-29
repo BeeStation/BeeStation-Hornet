@@ -47,7 +47,10 @@ export const Sleeper = (props, context) => {
   ];
 
   return (
-    <Window resizable>
+    <Window
+      resizable
+      width={310}
+      height={520}>
       <Window.Content>
         <Section
           title={occupant.name ? occupant.name : 'No Occupant'}

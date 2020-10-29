@@ -432,7 +432,6 @@ const KitchenSinkByondUi = (props, context) => {
         <ByondUi
           params={{
             type: 'button',
-            parent: config.window,
             text: 'Button',
           }} />
       </Section>

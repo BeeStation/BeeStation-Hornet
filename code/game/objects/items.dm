@@ -471,6 +471,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			blockhand = (locate(/obj/item/bodypart/r_arm) in owner.bodyparts)
 		else
 			blockhand = (locate(/obj/item/bodypart/l_arm) in owner.bodyparts)
+	if(!blockhand)
+		return 0
 	if(blockhand.is_disabled())
 		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack<!/span>")
 		return 0
@@ -1018,3 +1020,20 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/proc/doStrip(mob/stripper, mob/owner)
 	return owner.dropItemToGround(src)
+
+/obj/item/ex_act(severity, target)
+	if(resistance_flags & INDESTRUCTIBLE)
+		return
+	..() //contents explosion
+	if(QDELETED(src))
+		return
+	if(target == src)
+		take_damage(INFINITY, BRUTE, "bomb", 0)
+		return
+	switch(severity)
+		if(1)
+			take_damage(250, BRUTE, "bomb", 0)
+		if(2)
+			take_damage(75, BRUTE, "bomb", 0)
+		if(3)
+			take_damage(20, BRUTE, "bomb", 0)

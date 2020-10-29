@@ -1,0 +1,6 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: Adds a 5-minute cooldown to non antagonist related ghost roles if the
+      client has more than 2 deaths or has committed suicide.
+  - code_imp: Replaces spaces in hilbert's hotel with tabs

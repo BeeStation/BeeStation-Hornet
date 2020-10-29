@@ -4,6 +4,7 @@ $include game_options.txt
 $include dbconfig.txt
 $include comms.txt
 $include antag_rep.txt
+$include resources.txt
 
 # You can use the @ character at the beginning of a config option to lock it from being edited in-game
 # Example usage:
@@ -133,6 +134,9 @@ LOG_LAW
 
 ## log viruses
 LOG_VIRUS
+
+## log ID changes
+LOG_ID
 
 ## log crew manifest to seperate file
 LOG_MANIFEST
@@ -541,3 +545,6 @@ VOTE_AUTOTRANSFER_ENABLED
 VOTE_AUTOTRANSFER_INITIAL 54000
 ## Time (in deciseconds) between subsequent transfer votes. Default: 30 minutes
 VOTE_AUTOTRANSFER_INTERVAL 18000
+
+## Ghost role cooldown time after death (In deciseconds)
+GHOST_ROLE_COOLDOWN 3000

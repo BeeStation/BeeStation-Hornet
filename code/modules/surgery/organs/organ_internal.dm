@@ -38,6 +38,8 @@
 		else
 			qdel(replaced)
 
+	SEND_SIGNAL(M, COMSIG_CARBON_GAIN_ORGAN, src)
+
 	owner = M
 	M.internal_organs |= src
 	M.internal_organs_slot[slot] = src
@@ -59,6 +61,9 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(M)
+
+	SEND_SIGNAL(M, COMSIG_CARBON_LOSE_ORGAN, src)
+
 	START_PROCESSING(SSobj, src)
 
 
@@ -79,7 +84,8 @@
 	///Damage decrements by a percent of its maxhealth
 	var/healing_amount = -(maxHealth * healing_factor)
 	///Damage decrements again by a percent of its maxhealth, up to a total of 4 extra times depending on the owner's health
-	healing_amount -= owner.satiety > 0 ? 4 * healing_factor * owner.satiety / MAX_SATIETY : 0
+	if(owner)
+		healing_amount -= owner.satiety > 0 ? 4 * healing_factor * owner.satiety / MAX_SATIETY : 0
 	applyOrganDamage(healing_amount)
 
 /obj/item/organ/examine(mob/user)

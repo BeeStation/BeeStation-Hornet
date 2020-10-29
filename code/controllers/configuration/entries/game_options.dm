@@ -87,6 +87,11 @@
 	integer = FALSE
 	min_val = 1
 
+/datum/config_entry/number/ecult_scaling_coeff	//how much does the amount of players get divided by to determine e_cult
+	config_entry_value = 6
+	integer = FALSE
+	min_val = 1
+
 /datum/config_entry/number/security_scaling_coeff	//how much does the amount of players get divided by to determine open security officer positions
 	config_entry_value = 8
 	integer = FALSE
@@ -185,6 +190,10 @@
 /datum/config_entry/flag/show_game_type_odds	//if set this allows players to see the odds of each roundtype on the get revision screen
 
 /datum/config_entry/keyed_list/roundstart_races	//races you can play as from the get go.
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_FLAG
+
+/datum/config_entry/keyed_list/paywall_races	//races you have to be a subscriber to play as
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_FLAG
 
