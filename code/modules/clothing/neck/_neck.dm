@@ -52,6 +52,82 @@
 	icon_state = "detective"
 	item_color = "detective"
 
+/obj/item/clothing/neck/tie/detective/disco_necktie
+	name = "horrific necktie"
+	desc = "The necktie is adorned with a garish pattern. It's disturbingly vivid. Somehow you feel as if it would be wrong to ever take it off. It's your friend now. You will betray it if you change it for some boring scarf."
+	mob_overlay_icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium_worn.dmi'
+	icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium.dmi'
+	icon_state = "eldritch_tie"
+	item_state = "greenbandana"
+	var/possessed
+
+/obj/item/clothing/neck/tie/detective/disco_necktie/relaymove(mob/user)
+	return
+
+/obj/item/clothing/neck/tie/detective/disco_necktie/attack_self(mob/living/user)
+	if(possessed)
+		return
+
+	to_chat(user, "<span class='notice'>You plumb the depths of your Inland Empire. Whispers seem to emanate from [src], as though it had somehow come to life; could it be?</span>")
+
+	possessed = TRUE
+
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the spirit of [user.real_name]'s [src]?", ROLE_PAI, null, FALSE, 100, POLL_IGNORE_POSSESSED_BLADE)
+
+	if(LAZYLEN(candidates))
+		var/mob/dead/observer/C = pick(candidates)
+		var/mob/living/simple_animal/shade/S = new(src)
+		S.ckey = C.ckey
+		S.fully_replace_character_name(null, "The spirit of [name]")
+		S.status_flags |= GODMODE
+		S.copy_languages(user, LANGUAGE_MASTER)	//Make sure the tie  can understand and communicate with the user.
+		S.update_atom_languages()
+		grant_all_languages(FALSE, FALSE, TRUE)	//Grants omnitongue
+		var/input = sanitize_name(stripped_input(S,"What are you named?", ,"", MAX_NAME_LEN))
+
+		if(src && input)
+			name = input
+			S.fully_replace_character_name(null, "The spirit of [input]")
+	else
+		to_chat(user, "<span class='warning'>The whispers coming from [src] fade and are silent again... Was it all your imagination? Maybe you can try again later.</span>")
+		possessed = FALSE
+
+/obj/item/clothing/neck/tie/detective/disco_necktie/Destroy()
+	deconceptualize()
+	return ..()
+
+/obj/item/clothing/neck/tie/detective/disco_necktie/proc/deconceptualize()
+	for(var/mob/living/simple_animal/shade/S in contents)
+		to_chat(S, "<span class='userdanger'>You were deconceptualized!</span>")
+		qdel(S)
+
+/obj/item/clothing/neck/tie/detective/disco_necktie/verb/deconceptualize_tie()
+	set name = "Deconceptualize Tie"
+	set category = "Object"
+	set src in usr
+	var/mob/M = usr
+	if (istype(M, /mob/dead/))
+		return
+	if (!can_use(M))
+		return
+	if (!possessed)
+		to_chat(M, "<span class='warning'>There is no tie persona to deconceptualize!</span>")
+		return
+
+	var/list/deconceptualize_options = list(
+	"No.", \
+	"Yes.")
+
+	var/choice = input(M,"Deconceptualizing the tie will remove its personality. Are you sure?","Deconceptualize Tie") as null|anything in deconceptualize_options
+
+	switch(choice)
+		if("Yes.")
+			to_chat(M, "<span class='warning'>Asserting your volition in a triumphant act of will, you dispel the phantom persona imposed upon your preternaturally ugly tie.</span>")
+			deconceptualize() //This kills the tie ghost.
+		if("No.")
+			to_chat(M, "<span class='warning'>Thinking better of it, you choose not to banish your phantom friend to the conceptual oblivion from which it was dredged.</span>")
+
+
 /obj/item/clothing/neck/stethoscope
 	name = "stethoscope"
 	desc = "An outdated medical apparatus for listening to the sounds of the human body. It also makes you look like you know what you're doing."

@@ -71,7 +71,7 @@
 			M.changeNext_move(CLICK_CD_RAPID)
 			if(warcry)
 				M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
-			
+
 	else if(M.a_intent == INTENT_HARM)
 		for(var/mob/living/L in oview(1, M))
 			L.attack_hand(M)
@@ -121,5 +121,12 @@
 			playsound(M, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 			A.attack_hand(M)
 			return 1
-	
-	
+
+/obj/item/clothing/gloves/color/black/aerostatic_gloves
+	name = "aerostatic gloves"
+	desc = "Vivid red gloves that exude a mysterious style."
+	mob_overlay_icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium_worn.dmi'
+	icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium.dmi'
+	icon_state = "aerostatic_gloves"
+	item_state = "redgloves"
+	can_be_cut = FALSE

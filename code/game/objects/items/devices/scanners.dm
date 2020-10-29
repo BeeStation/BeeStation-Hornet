@@ -129,9 +129,13 @@ GENE SCANNER
 
 
 // Used by the PDA medical scanner too
-/proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)
+/proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE, log = FALSE)
 	if(isliving(user) && (user.incapacitated() || user.eye_blind))
 		return
+
+	// the final list of strings to render
+	var/render_list = list()
+
 	//Damage specifics
 	var/oxy_loss = M.getOxyLoss()
 	var/tox_loss = M.getToxLoss()
@@ -407,6 +411,11 @@ GENE SCANNER
 			to_chat(user, "<span class='notice'>Detected cybernetic modifications:</span>")
 			to_chat(user, "<span class='notice'>[cyberimp_detect]</span>")
 	SEND_SIGNAL(M, COMSIG_NANITE_SCAN, user, FALSE)
+	var/health_report = jointext(render_list, "") //FULPSTATION EXPANDED DETECTIVE KIT by Surrealistik Mar 2020
+	to_chat(user, health_report, trailing_newline = FALSE) // we handled the last <br> so we don't need handholding
+
+	if(log) //FULPSTATION EXPANDED DETECTIVE KIT by Surrealistik Mar 2020
+		return health_report
 
 /proc/chemscan(mob/living/user, mob/living/M)
 	if(istype(M))
@@ -966,3 +975,130 @@ GENE SCANNER
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 	return TRUE
 
+
+
+//Detective Scanner
+#define HEALTH_SCANNER_RANGE 1
+/obj/item/detective_scanner/proc/bio_scan(mob/user, mob/living/M)
+
+	var/health_scan = healthscan(user, M, TRUE, TRUE, TRUE)
+	scanning = TRUE
+	add_log(health_scan, FALSE)
+	scanning = FALSE
+
+/obj/item/detective_scanner/proc/chemscan(mob/user, atom/A)
+	if(istype(A))
+		if(A.reagents)
+			scanning = TRUE
+			var/list/reagent_report = list()
+			add_log("<B>[station_time_timestamp()][get_timestamp()] - [A]: Chemical Analysis:</B>", FALSE)
+			if(A.reagents.reagent_list.len)
+				reagent_report += "<span class='notice'>Subject contains the following reagents:<br></span>"
+				for(var/datum/reagent/R in A.reagents.reagent_list)
+					reagent_report += "<span class='notice'>[round(R.volume, 0.001)] units of [R.name][R.overdosed == 1 && istype(A, /mob/living) ? "</span> - <span class='boldannounce'>OVERDOSING</span>" : ".</span>"]<br>"
+			else
+				reagent_report += "<span class='notice'>Subject contains no reagents.<br></span>"
+			if(istype(A, /mob/living))
+				var/mob/living/M = A
+				if(M.reagents.addiction_list.len)
+					reagent_report +="<span class='boldannounce'>Subject is addicted to the following reagents:<br></span>"
+					for(var/datum/reagent/R in M.reagents.addiction_list)
+						reagent_report += "<span class='alert'>[R.name]</span><br>"
+				else
+					reagent_report += "<span class='notice'>Subject is not addicted to any reagents.<br></span>"
+			add_log(reagent_report.Join())
+			scanning = FALSE
+
+/obj/item/detective_scanner/proc/attack_mode(atom/A, mob/user, afterattack)
+	if(!mode)
+		scan(A, user)
+		return
+
+	if(get_dist(A, user) > HEALTH_SCANNER_RANGE)
+		return
+
+	if(!user)
+		return
+
+	chemscan(user, A)
+
+	if(!istype(A, /mob/living))
+		return
+
+	bio_scan(user, A)
+
+
+/obj/item/detective_scanner/proc/self_mode(mob/user)
+	mode = !mode
+	to_chat(usr, "You change [src] to [mode ? "biochem" : "forensic"] mode.")
+	update_icon()
+
+
+/obj/item/detective_scanner/verb/toggle_mode()
+	set name = "Print Forensic Scanner Report"
+	set category = "Object"
+	set src in view(1)
+
+	if(!isliving(usr))
+		to_chat(usr, "<span class='warning'>You can't do that!</span>")
+		return
+
+	if(usr.incapacitated())
+		return
+
+	if(log.len && !scanning)
+		scanning = 1
+		to_chat(usr, "<span class='notice'>Printing report, please wait...</span>")
+		addtimer(CALLBACK(src, .proc/PrintReport), 30)
+	else
+		to_chat(usr, "<span class='notice'>The scanner has no logs or is in use.</span>")
+
+
+/obj/item/detective_scanner/update_icon()
+	icon_state = "forensicnew-[mode]"
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
+/obj/item/detective_scanner/attackby(obj/item/W, mob/user, params)
+	if(!istype(W, /obj/item/disk/forensic))
+		return
+	var/obj/item/disk/forensic/F = W
+
+	var/obj/item/card/id/I = user.get_idcard(TRUE)
+
+	if(!I || !check_access(I))
+		to_chat(usr, "<span class='warning'>Inadequate security clearance. Access denied.</span>")
+		playsound(loc, SEC_RADIO_SCAN_SOUND_DENY, get_clamped_volume(), TRUE, -1)
+		return
+
+	if(!F.write_mode) //Copy the log to the disk if we're set to read mode.
+		F.disk_log = log
+		playsound(loc, SEC_BODY_CAM_SOUND, get_clamped_volume(), TRUE, -1)
+		to_chat(usr, "<span class='notice'>You copied the scanner's log to the disk.</span>")
+
+	else if(LAZYLEN(F.disk_log)) //So we don't accidentally overwrite the scanner logs with nothing
+		log = F.disk_log
+		playsound(loc, SEC_BODY_CAM_SOUND, get_clamped_volume(), TRUE, -1)
+		to_chat(usr, "<span class='notice'>You overwrote the scanner's log with the disk's contents.</span>")
+
+//Classic floppy back ups!
+/obj/item/disk/forensic
+	name = "forensic data disk"
+	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
+	desc = "Charmingly antiquated yet undeniably effective. Used to read and write data to and from the forensic scanner for record storage. Can be labeled with a pen."
+	var/list/disk_log = list()
+	var/write_mode = FALSE //This determines whether we read or write data from/to the forensic scanner
+	obj_flags = UNIQUE_RENAME //Allows us to name and identify the disk.
+
+
+/obj/item/disk/forensic/attack_self(mob/user)
+	if(!write_mode)
+		to_chat(usr, "<span class='notice'>You set [src] to write mode. It will now overwrite the forensic scanner's logs with its contents.</span>")
+		write_mode = TRUE
+
+	else
+		to_chat(usr, "<span class='notice'>You set [src] to read mode. It will now copy data from the forensic scanner's logs.</span>")
+		write_mode = FALSE
+
+	playsound(loc, 'sound/machines/click.ogg', get_clamped_volume(), TRUE, -1)

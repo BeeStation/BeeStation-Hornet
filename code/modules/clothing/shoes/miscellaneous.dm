@@ -338,3 +338,19 @@
 	icon_state = "rus_shoes"
 	item_state = "rus_shoes"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
+
+/obj/item/clothing/shoes/sneakers/disco
+	name = "green lizardskin shoes"
+	desc = "Though depleted of lustre with the passage of time, these well-worn green lizard leather shoes fit almost perfectly."
+	mob_overlay_icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium_worn.dmi'
+	icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium.dmi'
+	icon_state = "lizardskin_shoes"
+	item_state = "bl_shoes"
+
+/obj/item/clothing/shoes/jackboots/aerostatic
+	name = "aerostatic boots"
+	desc = "Sharp and comfortable looking boots crafted from tough brown leather."
+	mob_overlay_icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium_worn.dmi'
+	icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium.dmi'
+	icon_state = "aerostatic_boots"
+	item_state = "magboots"

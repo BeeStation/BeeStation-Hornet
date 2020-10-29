@@ -53,7 +53,8 @@
 	item_state = "det_suit"
 	blood_overlay_type = "coat"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
-	armor = list("melee" = 25, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 45)
+	armor = list("melee" = 35, "bullet" = 30, "laser" = 30, "energy" = 40, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50) //FULPSTATION Sprite Tweaks by Surrealisitik May 2020
+	resistance_flags = FLAMMABLE //FULPSTATION Sprite Tweaks by Surrealisitik May 2020
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 
@@ -72,6 +73,20 @@
 	desc = "A dapper private investigator's grey suit coat."
 	icon_state = "detsuit"
 	item_state = "detsuit"
+
+/obj/item/clothing/suit/det_suit/disco
+	name = "disco-ass blazer"
+	desc = "Looks like someone skinned this blazer off some long extinct disco-animal. It has an enigmatic white rectangle on the back and the right sleeve."
+	mob_overlay_icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium_worn.dmi'
+	icon = 'icons/Fulpicons/Surreal_stuff/disco_elysium.dmi'
+	icon_state = "jamrock_blazer"
+	item_state = "g_suit"
+
+/obj/item/clothing/suit/det_suit/disco/aerostatic
+	name = "aerostatic bomber jacket"
+	desc = "Unquestionably gaudy and peculiar yet also curiously flattering; emanates a strange air of authority."
+	icon_state = "aerostatic_bomber_jacket"
+	item_state = "suit-orange"
 
 //Brig Phys
 /obj/item/clothing/suit/hazardvest/brig_phys
