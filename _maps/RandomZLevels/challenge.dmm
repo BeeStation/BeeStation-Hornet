@@ -241,6 +241,7 @@
 /turf/open/floor/plating/airless,
 /area/awaymission/challenge/main)
 "aX" = (
+/obj/structure/window/reinforced,
 /obj/machinery/porta_turret{
 	dir = 8;
 	installation = /obj/item/gun/energy/lasercannon;
@@ -358,7 +359,6 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/oil,
-/obj/machinery/porta_turret,
 /turf/open/floor/plating/airless,
 /area/awaymission/challenge/main)
 "bt" = (
@@ -386,10 +386,16 @@
 /turf/open/floor/plasteel,
 /area/awaymission/challenge/main)
 "bx" = (
-/obj/structure/window/reinforced,
-/obj/machinery/porta_turret,
-/turf/open/floor/plating/airless,
-/area/awaymission/challenge/main)
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching evil areas.";
+	name = "Security Monitor";
+	network = "";
+	pixel_y = 30
+	},
+/obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/gateway_tech/uncommon,
+/turf/open/floor/plasteel/dark,
+/area/awaymission/challenge/end)
 "by" = (
 /obj/machinery/light{
 	dir = 8
@@ -696,14 +702,8 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
-/obj/effect/spawner/lootdrop/gateway_tech/rare,
+/obj/effect/spawner/lootdrop/gateway_tech/uncommon,
 /turf/open/floor/carpet,
-/area/awaymission/challenge/end)
-"ct" = (
-/obj/structure/rack,
-/obj/item/awaymaploader/snowcabin,
-/obj/item/clothing/suit/space/hardsuit/syndi,
-/turf/open/floor/wood,
 /area/awaymission/challenge/end)
 "cu" = (
 /mob/living/simple_animal/hostile/syndicate/melee/sword,
@@ -1104,7 +1104,11 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/porta_turret,
+/obj/machinery/porta_turret{
+	dir = 8;
+	installation = /obj/item/gun/energy/lasercannon;
+	set_obj_flags = "EMAGGED"
+	},
 /turf/open/floor/plating/airless,
 /area/awaymission/challenge/main)
 "iM" = (
@@ -1156,7 +1160,11 @@
 	},
 /area/awaymission/challenge/start)
 "IR" = (
-/obj/machinery/porta_turret,
+/obj/machinery/porta_turret{
+	dir = 8;
+	installation = /obj/item/gun/energy/lasercannon;
+	set_obj_flags = "EMAGGED"
+	},
 /turf/open/floor/plating/airless,
 /area/awaymission/challenge/main)
 "OM" = (
@@ -1187,7 +1195,11 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/porta_turret,
+/obj/machinery/porta_turret{
+	dir = 8;
+	installation = /obj/item/gun/energy/lasercannon;
+	set_obj_flags = "EMAGGED"
+	},
 /turf/open/floor/plating/airless,
 /area/awaymission/challenge/main)
 "Vj" = (
@@ -1218,10 +1230,6 @@
 /obj/item/gun/ballistic/shotgun/automatic/combat,
 /turf/open/floor/wood,
 /area/awaymission/challenge/end)
-"XQ" = (
-/obj/machinery/porta_turret,
-/turf/open/floor/plasteel,
-/area/awaymission/challenge/main)
 "ZV" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/end{
 	dir = 8
@@ -26796,13 +26804,11 @@ aF
 aF
 aF
 aF
-aX
-aS
-aF
 aF
 aS
 aF
 aF
+aS
 aF
 aF
 aF
@@ -26811,6 +26817,8 @@ aF
 aF
 aF
 aF
+aF
+IR
 aF
 aF
 aF
@@ -27054,7 +27062,7 @@ aF
 aF
 aF
 aF
-aF
+IR
 aF
 aF
 aF
@@ -27066,7 +27074,7 @@ aF
 aF
 IR
 aF
-IR
+aF
 aF
 aS
 aF
@@ -27308,7 +27316,7 @@ aA
 aA
 aT
 aT
-Ul
+aT
 aT
 aT
 aT
@@ -27595,7 +27603,7 @@ bI
 aF
 aF
 bP
-VP
+bx
 ce
 cd
 cd
@@ -27819,7 +27827,7 @@ aa
 aA
 aF
 aF
-aP
+aX
 bh
 bh
 bh
@@ -28333,7 +28341,7 @@ ax
 aA
 aF
 aF
-bx
+aP
 bh
 bh
 bh
@@ -29114,7 +29122,7 @@ bh
 bh
 bh
 bf
-XQ
+bh
 bn
 bq
 jH
@@ -29122,7 +29130,7 @@ bh
 bh
 bh
 bh
-XQ
+bq
 bh
 aR
 bA
@@ -29371,7 +29379,7 @@ bh
 bh
 bh
 bf
-XQ
+bh
 bh
 bq
 jH
@@ -29379,7 +29387,7 @@ bh
 bh
 bh
 bh
-XQ
+bq
 bh
 aR
 bA
@@ -30132,7 +30140,7 @@ av
 aA
 aF
 aN
-bx
+aP
 bh
 bh
 bh
@@ -30903,7 +30911,7 @@ aa
 aA
 aI
 aF
-aP
+aX
 bh
 bh
 bh
@@ -31163,7 +31171,6 @@ aA
 aA
 aV
 aV
-dM
 aV
 aV
 aV
@@ -31173,7 +31180,8 @@ aV
 aV
 aV
 aV
-dM
+aV
+aV
 aV
 aV
 aV
@@ -31423,7 +31431,7 @@ aF
 aF
 aF
 aN
-aF
+IR
 aF
 aF
 aF
@@ -31435,7 +31443,7 @@ aF
 aF
 IR
 aF
-IR
+aF
 aF
 aF
 aF
@@ -31679,7 +31687,7 @@ aF
 aF
 aW
 aF
-aX
+aF
 aF
 aW
 aF
@@ -31693,7 +31701,7 @@ aF
 aF
 aF
 aF
-aF
+IR
 aF
 aF
 aF
@@ -31708,7 +31716,7 @@ aa
 aa
 bP
 ca
-ct
+cw
 XC
 cw
 bP

@@ -185,8 +185,10 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 	if(calibrated)
 		to_chat(user, "\black The gate is already calibrated, there is no work for you to do here.")
 	else
+		var/newid = stripped_input(user, "Enter a destination ID for this gateway to use.", "Gateway Setup:", "SECONDARY_GATEWAY")
 		to_chat(user, "<span class='boldnotice'>Recalibration successful!</span>: \black This gate's systems have been fine tuned.  Travel to this gate will now be possible.")
 		calibrated = TRUE
+		targetid = newid
 	return TRUE
 
 /////////////////////////////////////Away////////////////////////
@@ -291,17 +293,17 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 	for(var/obj/item/pinpointer/pinpointer_gateway/P in linked_pinpointers)
 		P.alert = FALSE
 		P.linked_gate = null
-	for(var/obj/machinery/gateway/centerstation/G in world)
-		G.toggleoff()
-	for(var/obj/machinery/gateway/centeraway/G in world)
-		if(G.z == src.z)
+	for(var/obj/machinery/gateway/centerstation/CG in world)
+		CG.toggleoff()
+	for(var/obj/machinery/gateway/centeraway/OG in world)
+		if(OG.z == z)
 			stationgate = null
 			targetid = null
 	for(var/mob/living/M in GLOB.mob_list)
 		if(M.z == z)
 			M.dust()
-	for(var/obj/machinery/gateway/G in linked)
-		qdel(G)
+	for(var/obj/machinery/gateway/LG in linked)
+		qdel(LG)
 	qdel(src)
 
 /obj/machinery/gateway/centeraway/unstable/attackby(obj/item/pinpointer/pinpointer_gateway/P, mob/user, params)
