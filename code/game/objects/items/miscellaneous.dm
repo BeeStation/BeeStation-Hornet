@@ -316,7 +316,7 @@
 	var/static/list/detective_item_list
 	if(!detective_item_list)
 		detective_item_list = list()
-		var/list/templist = typesof(/obj/item/storage/box/detective) //we have to convert type = name to name = type, how lovely!
+		var/list/templist = typesof(/obj/item/storage/box/detectivebeacon) //we have to convert type = name to name = type, how lovely!
 		for(var/V in templist)
 			var/atom/A = V
 			detective_item_list[initial(A.name)] = A
@@ -326,28 +326,51 @@
 	name = "Undercover Agent"
 
 /obj/item/storage/box/detectivebeacon/undercover/PopulateContents()
+	new /obj/item/implanter/undercover(src)
+	new /obj/item/card/id/syndicate/anyone/undercover(src)
+	new /obj/item/card/assistant_disguise_card(src)
+	new /obj/item/handmirror(src)
 	new /obj/item/radio/headset(src)
 	new /obj/item/screwdriver(src)
+	new /obj/item/clothing/mask/gas/voicechange(src)
 	new /obj/item/clothing/under/color/grey(src)
-	/obj/item/storage/backpack
-	/obj/item/clothing/shoes/sneakers/black
-	/obj/item/clothing/gloves/color/fyellow
+	new /obj/item/storage/backpack(src)
+	new /obj/item/clothing/shoes/sneakers/black(src)
+	new /obj/item/clothing/gloves/color/fyellow(src)
+	new /obj/item/clothing/accessory/holster/undercover(src)
 
-/obj/item/storage/box/detectivebeacon/indirect
-	name = "Ghost Whisperer"
+/obj/item/storage/box/detectivebeacon/esoteric
+	name = "Esoteric Investigator"
 
-/obj/item/storage/box/detectivebeacon/indirect/PopulateContents()
+/obj/item/storage/box/detectivebeacon/esoteric/PopulateContents()
 	new /obj/item/clothing/neck/tie/detective/disco_necktie(src)
 	new /obj/item/toy/eightball/haunted(src)
+	new /obj/item/storage/box/rxglasses/spyglasskit(src)
+	//new /obj/item/clothing/glasses/detective/advanced(src)
 
 /obj/item/storage/box/detectivebeacon/fastresponder
 	name = "Fast Responder"
 
 /obj/item/storage/box/detectivebeacon/fastresponder/PopulateContents()
 	new /obj/item/radio/headset/headset_sec/alt(src)
-	/obj/item/clothing/glasses/detective/advanced(src)
+	new /obj/item/clothing/glasses/detective/advanced(src)
 	new /obj/item/clothing/suit/armor/vest/det_suit(src)
-	/obj/item/storage/belt/security/deputy
-	/obj/item/sensor_device
-	/obj/item/storage/box/trackimp(src) //Allows easily tracking down criminals again
-	/obj/item/ammo_box/c38/trac(src)
+	new /obj/item/storage/belt/security/deputy(src)
+	new /obj/item/sensor_device(src)
+	new /obj/item/storage/box/trackimp(src) //Allows easily tracking down criminals again
+	new /obj/item/ammo_box/c38/trac(src)
+
+/obj/item/card/assistant_disguise_card
+	name = "assistant disguise card"
+	desc = "A small card, that when used on any ID, will change the job role to Assistant."
+	icon_state = "data_1"
+
+/obj/item/card/assistant_disguise_card/afterattack(atom/movable/AM, mob/user, proximity)
+	. = ..()
+	if(istype(AM, /obj/item/card/id) && proximity)
+		var/obj/item/card/id/I = AM
+		I.assignment = "Assistant"
+		to_chat(user, "You have disguised this ID as an Assistant ID.")
+		log_id("[key_name(user)] disguised the ID'[I]' as Assistant using [src] at [AREACOORD(user)].")
+		qdel(src)
+

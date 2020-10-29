@@ -218,15 +218,12 @@
 	new /obj/item/camera/detective(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/holosign_creator/security(src)
-	/obj/item/assembly/flash/handheld
+	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/clothing/accessory/holster/detective(src)
 	new /obj/item/twohanded/binoculars(src)
 	new /obj/item/folder(src)
 	new /obj/item/pinpointer/crew(src)
-	/obj/item/assembly/flash/handheld
-	/obj/item/reagent_containers/spray/pepper
-
 
 /obj/structure/closet/secure_closet/deputy
 	name = "deputy's locker"

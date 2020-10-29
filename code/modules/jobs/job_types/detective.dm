@@ -32,7 +32,7 @@
 	id = /obj/item/card/id/job/detective
 	belt = /obj/item/pda/detective
 	ears = /obj/item/radio/headset/headset_sec/alt
-	glasses = /obj/item/clothing/glasses/detective
+	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	uniform = /obj/item/clothing/under/rank/security/detective
 	neck = /obj/item/clothing/neck/tie/detective
 	shoes = /obj/item/clothing/shoes/sneakers/brown
@@ -43,6 +43,7 @@
 	r_pocket = /obj/item/lighter
 	backpack_contents = list(/obj/item/storage/box/evidence=1,
 	/obj/item/detective_scanner=1,
+	/obj/item/clothing/glasses/detective=1,
 	/obj/item/choice_beacon/detective=1,
 	/obj/item/melee/classic_baton=1)
 
