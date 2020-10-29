@@ -28571,6 +28571,7 @@
 /obj/machinery/camera/autoname{
 	dir = 1
 	},
+/obj/item/gun/ballistic/revolver/pocket,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/hor)
 "bCh" = (
@@ -53865,6 +53866,7 @@
 /obj/machinery/camera/autoname{
 	dir = 6
 	},
+/obj/structure/closet/secure_closet/gatewayweapons,
 /turf/open/floor/plasteel/white,
 /area/gateway)
 "mKh" = (
@@ -55262,6 +55264,10 @@
 	},
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
+"oNu" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/open/floor/plasteel/white,
+/area/gateway)
 "oOO" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -55297,6 +55303,10 @@
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/hallway)
+"oRQ" = (
+/obj/machinery/vending/wardrobe/science_wardrobe,
+/turf/open/floor/plasteel/white,
+/area/gateway)
 "oTd" = (
 /obj/machinery/ai_slipper{
 	uses = 10
@@ -56255,6 +56265,10 @@
 	},
 /turf/open/floor/plating,
 /area/engine/atmos)
+"qdt" = (
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/plasteel,
+/area/hallway/primary/starboard)
 "qdR" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 10
@@ -58422,6 +58436,19 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"sWH" = (
+/obj/structure/table,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/open/floor/plasteel/white,
+/area/gateway)
 "sYn" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -61000,6 +61027,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
+"wgs" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/plasteel/white,
+/area/gateway)
 "whf" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -61354,6 +61386,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"wCm" = (
+/obj/structure/closet/secure_closet/gateway,
+/turf/open/floor/plasteel/white,
+/area/gateway)
 "wDF" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -108665,7 +108701,7 @@ aCR
 aCR
 bcs
 aXq
-aYV
+qdt
 bfX
 bfV
 bfV
@@ -111762,10 +111798,10 @@ pOJ
 buu
 exH
 qrU
-xXe
-xXe
-xXe
-xXe
+wCm
+wCm
+wCm
+oNu
 bqe
 rYJ
 rYJ
@@ -112022,7 +112058,7 @@ gHj
 gHj
 gHj
 bvq
-qSj
+sWH
 bqe
 fGF
 bEA
@@ -113050,7 +113086,7 @@ xXe
 xXe
 nXP
 xXe
-qSj
+wgs
 bqe
 btp
 bEE
@@ -113307,7 +113343,7 @@ xXe
 xXe
 xXe
 xXe
-xXe
+oRQ
 bqe
 btp
 vqI

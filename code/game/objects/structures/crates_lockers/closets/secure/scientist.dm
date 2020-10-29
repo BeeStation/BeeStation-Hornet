@@ -29,3 +29,22 @@
 	new /obj/item/circuitboard/machine/techfab/department/science(src)
 	new /obj/item/storage/photo_album/RD(src)
 	new /obj/item/card/id/departmental_budget/sci(src)
+
+/obj/structure/closet/secure_closet/gateway
+	name = "\proper away team locker"
+	req_access = list(ACCESS_GATEWAY)
+	icon_state = "rd" // Placeholder
+
+/obj/structure/closet/secure_closet/gateway/PopulateContents()
+	..()
+	new /obj/item/clothing/suit/armor/vest/light(src)
+	new /obj/item/pinpointer/pinpointer_gateway(src)
+	new /obj/item/gun/ballistic/revolver/pocket(src)
+	new /obj/item/ammo_box/rpocket(src)
+	new /obj/item/ammo_box/rpocket(src)
+	new /obj/item/ammo_box/rpocket(src)
+
+/obj/structure/closet/secure_closet/gatewayweapons
+	name = "\proper away team secure firearms locker"
+	req_access = list(ACCESS_RD)
+	icon_state = "rd"

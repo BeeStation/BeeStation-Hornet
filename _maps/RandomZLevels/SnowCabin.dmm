@@ -242,13 +242,6 @@
 /obj/structure/curtain,
 /turf/open/floor/plasteel/freezer,
 /area/awaymission/cabin)
-"aI" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/table/wood,
-/turf/open/floor/wood,
-/area/awaymission/cabin)
 "aJ" = (
 /obj/structure/table,
 /obj/item/surgicaldrill,
@@ -1543,7 +1536,6 @@
 /obj/item/stack/sheet/mineral/wood,
 /obj/item/stack/sheet/mineral/wood,
 /obj/item/stack/sheet/mineral/wood,
-/obj/item/reverseengineeringdata/basic,
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "ey" = (
@@ -2841,11 +2833,12 @@
 /turf/open/floor/carpet,
 /area/awaymission/cabin)
 "he" = (
-/obj/item/reverseengineeringdata/advanced,
-/turf/open/indestructible{
-	icon_state = "plating";
-	name = "plating"
-	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood/gibs,
+/obj/effect/spawner/lootdrop/gateway_tech/rare,
+/turf/open/indestructible/hoteltile,
 /area/awaymission/cabin/caves/mountain)
 "hf" = (
 /obj/machinery/space_heater,
@@ -2872,7 +2865,7 @@
 /area/awaymission/cabin)
 "hi" = (
 /obj/structure/table/glass,
-/obj/item/reverseengineeringdata/basic,
+/obj/effect/spawner/lootdrop/gateway_tech,
 /turf/open/floor/plating/snowed,
 /area/awaymission/cabin/caves)
 "hj" = (
@@ -3042,7 +3035,7 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/item/reverseengineeringdata/basic,
+/obj/effect/spawner/lootdrop/gateway_tech,
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "hH" = (
@@ -3103,7 +3096,7 @@
 	desc = "Hey, Centcom, we located our complimentary case of space beer! The pamphlet didn't lie!";
 	name = "complimentary keg of space beer"
 	},
-/obj/item/reverseengineeringdata/basic,
+/obj/effect/spawner/lootdrop/gateway_tech/rare,
 /turf/open/floor/plating/snowed,
 /area/awaymission/cabin/caves)
 "hS" = (
@@ -4238,6 +4231,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/effect/spawner/lootdrop/gateway_tech,
 /turf/open/floor/mineral/plastitanium/red{
 	name = "soviet floor"
 	},
@@ -5026,7 +5020,7 @@
 	name = "wooden box"
 	},
 /obj/item/fakeartefact,
-/obj/item/reverseengineeringdata/basic,
+/obj/effect/spawner/lootdrop/gateway_tech,
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/caves)
 "mE" = (
@@ -5118,6 +5112,7 @@
 	name = "wooden box"
 	},
 /obj/item/fakeartefact,
+/obj/effect/spawner/lootdrop/gateway_tech,
 /turf/open/floor/plating/ice/smooth,
 /area/awaymission/cabin/caves)
 "mR" = (
@@ -5528,6 +5523,21 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/awaymission/cabin)
+"GC" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/lootdrop/gateway_tech,
+/turf/open/floor/wood/cold,
+/area/awaymission/cabin/lumbermill)
+"Jt" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "lumbermill"
+	},
+/obj/effect/turf_decal/stripes/red/full,
+/obj/structure/barricade/wooden/snowed,
+/obj/effect/spawner/lootdrop/gateway_tech,
+/turf/open/floor/plating/snowed/temperatre,
+/area/awaymission/cabin/lumbermill)
 
 (1,1,1) = {"
 ab
@@ -21235,7 +21245,7 @@ ne
 ne
 nw
 ne
-nE
+he
 fp
 fm
 fm
@@ -23024,7 +23034,7 @@ fp
 fp
 fp
 fp
-he
+nm
 nm
 nm
 fp
@@ -26500,7 +26510,7 @@ an
 an
 aq
 aA
-aI
+hG
 aA
 aq
 an
@@ -29070,7 +29080,7 @@ an
 an
 aq
 aA
-aI
+hG
 aA
 jj
 an
@@ -30612,7 +30622,7 @@ an
 an
 aq
 aA
-aI
+hG
 aA
 aq
 an
@@ -34724,7 +34734,7 @@ an
 an
 aq
 aA
-aI
+hG
 aA
 aq
 an
@@ -37255,7 +37265,7 @@ ad
 ad
 af
 af
-ak
+GC
 af
 am
 af
@@ -39054,7 +39064,7 @@ ad
 ad
 af
 af
-ak
+GC
 jL
 af
 kd
@@ -41626,7 +41636,7 @@ bS
 bS
 cZ
 eJ
-lC
+Jt
 eV
 cZ
 bS

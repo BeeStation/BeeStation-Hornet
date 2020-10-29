@@ -75,6 +75,7 @@
 /obj/item/awaymaploader/beach
 	name = "away mission data disk: Beach (Easy)"
 	map = '_maps/RandomZLevels/TheBeach.dmm'
+	difficulty = "Easy"
 	mapcode = "BEACH"
 
 /obj/item/awaymaploader/challenge
@@ -105,5 +106,9 @@
 
 /obj/item/reverseengineeringdata/advanced
 	name = "advanced gateway technology disk"
+
+/obj/item/reverseengineeringdata/epic // Currently does nothing
+	name = "expert gateway technology disk"
+
 
 

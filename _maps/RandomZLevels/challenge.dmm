@@ -228,12 +228,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/awaymission/challenge/main)
-"aU" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/plasteel/airless,
-/area/awaymission/challenge/main)
 "aV" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -274,11 +268,11 @@
 /area/awaymission/challenge/main)
 "bb" = (
 /obj/item/multitool,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/plasteel,
 /area/awaymission/challenge/main)
 "bc" = (
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/plasteel,
 /area/awaymission/challenge/main)
 "bd" = (
 /obj/structure/window/reinforced{
@@ -290,28 +284,16 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/plating,
-/area/awaymission/challenge/main)
-"be" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/awaymission/challenge/main)
 "bf" = (
-/obj/machinery/power/emitter/ctf{
-	dir = 1
-	},
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/awaymission/challenge/main)
 "bg" = (
 /obj/structure/window/reinforced{
@@ -323,70 +305,36 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/awaymission/challenge/main)
 "bh" = (
 /turf/open/floor/plasteel,
 /area/awaymission/challenge/main)
-"bi" = (
-/obj/machinery/power/emitter/ctf{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/awaymission/challenge/main)
-"bj" = (
-/obj/machinery/light,
-/turf/open/floor/plating,
-/area/awaymission/challenge/main)
 "bk" = (
-/obj/machinery/power/emitter/ctf{
-	dir = 1
-	},
 /obj/machinery/light,
-/turf/open/floor/plating,
-/area/awaymission/challenge/main)
-"bl" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/power/emitter/ctf{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/awaymission/challenge/main)
 "bm" = (
 /obj/machinery/door/window,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/plasteel,
 /area/awaymission/challenge/main)
 "bn" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/awaymission/challenge/main)
 "bo" = (
-/obj/machinery/power/emitter/ctf{
-	dir = 2
-	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/awaymission/challenge/main)
 "bp" = (
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/awaymission/challenge/main)
 "bq" = (
 /obj/machinery/porta_turret{
@@ -394,7 +342,7 @@
 	installation = /obj/item/gun/energy/lasercannon;
 	set_obj_flags = "EMAGGED"
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/awaymission/challenge/main)
 "br" = (
 /obj/structure/window/reinforced{
@@ -403,7 +351,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/awaymission/challenge/main)
 "bs" = (
 /obj/structure/window/reinforced{
@@ -415,7 +363,7 @@
 /area/awaymission/challenge/main)
 "bt" = (
 /obj/item/storage/toolbox/electrical,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/plasteel,
 /area/awaymission/challenge/main)
 "bu" = (
 /obj/structure/window/reinforced{
@@ -425,14 +373,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/turf/open/floor/plating,
-/area/awaymission/challenge/main)
-"bv" = (
-/obj/structure/window/reinforced,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/awaymission/challenge/main)
 "bw" = (
 /obj/structure/window/reinforced{
@@ -442,15 +383,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/awaymission/challenge/main)
 "bx" = (
-/obj/machinery/power/emitter/ctf{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced,
+/obj/machinery/porta_turret,
 /turf/open/floor/plating/airless,
 /area/awaymission/challenge/main)
 "by" = (
@@ -759,11 +696,13 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
+/obj/effect/spawner/lootdrop/gateway_tech/rare,
 /turf/open/floor/carpet,
 /area/awaymission/challenge/end)
 "ct" = (
 /obj/structure/rack,
-/obj/item/reverseengineeringdata/advanced,
+/obj/item/awaymaploader/snowcabin,
+/obj/item/clothing/suit/space/hardsuit/syndi,
 /turf/open/floor/wood,
 /area/awaymission/challenge/end)
 "cu" = (
@@ -778,8 +717,7 @@
 /area/awaymission/challenge/end)
 "cw" = (
 /obj/structure/rack,
-/obj/item/stack/spacecash/c1000,
-/obj/item/stack/spacecash/c1000,
+/obj/item/clothing/suit/space/hardsuit/syndi,
 /turf/open/floor/wood,
 /area/awaymission/challenge/end)
 "cx" = (
@@ -1068,12 +1006,12 @@
 "df" = (
 /obj/structure/table,
 /obj/item/paper/pamphlet/gateway,
-/obj/item/reverseengineeringdata/basic,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/challenge/end)
 "dg" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
+/obj/effect/spawner/lootdrop/gateway_tech,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/challenge/end)
 "dh" = (
@@ -1095,7 +1033,6 @@
 /obj/item/implanter/explosive{
 	pixel_y = 12
 	},
-/obj/item/reverseengineeringdata/basic,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/challenge/end)
 "dj" = (
@@ -1143,6 +1080,7 @@
 /area/awaymission/challenge/end)
 "dp" = (
 /obj/structure/closet/emcloset,
+/obj/effect/spawner/lootdrop/gateway_tech,
 /turf/open/floor/circuit,
 /area/awaymission/challenge/end)
 "dq" = (
@@ -1159,6 +1097,7 @@
 /area/awaymission/challenge/end)
 "ds" = (
 /obj/structure/closet/l3closet,
+/obj/effect/spawner/lootdrop/gateway_tech,
 /turf/open/floor/circuit,
 /area/awaymission/challenge/end)
 "dM" = (
@@ -1168,13 +1107,22 @@
 /obj/machinery/porta_turret,
 /turf/open/floor/plating/airless,
 /area/awaymission/challenge/main)
+"iM" = (
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plasteel,
+/area/awaymission/challenge/main)
 "jH" = (
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
-/obj/item/reverseengineeringdata/basic,
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
+/area/awaymission/challenge/main)
+"mX" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/end{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
 /area/awaymission/challenge/main)
 "nk" = (
 /obj/machinery/gateway{
@@ -1191,10 +1139,15 @@
 	},
 /area/awaymission/challenge/start)
 "zX" = (
-/obj/item/reverseengineeringdata/basic,
+/obj/effect/spawner/lootdrop/gateway_tech,
 /turf/open/floor/plasteel/white/side{
 	dir = 2
 	},
+/area/awaymission/challenge/main)
+"BN" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/fans/tiny,
+/turf/open/floor/plasteel,
 /area/awaymission/challenge/main)
 "CZ" = (
 /obj/machinery/gateway,
@@ -1202,6 +1155,16 @@
 	icon_state = "damaged3"
 	},
 /area/awaymission/challenge/start)
+"IR" = (
+/obj/machinery/porta_turret,
+/turf/open/floor/plating/airless,
+/area/awaymission/challenge/main)
+"OM" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/challenge/main)
 "Sh" = (
 /obj/machinery/gateway{
 	dir = 5
@@ -1211,9 +1174,15 @@
 	},
 /area/awaymission/challenge/start)
 "SN" = (
-/obj/item/reverseengineeringdata/basic,
+/obj/effect/spawner/lootdrop/gateway_tech,
 /turf/open/floor/plasteel/airless,
 /area/awaymission/challenge/start)
+"Uj" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/challenge/main)
 "Ul" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1233,7 +1202,7 @@
 	pixel_y = 30
 	},
 /obj/structure/table/reinforced,
-/obj/item/reverseengineeringdata/advanced,
+/obj/effect/spawner/lootdrop/gateway_tech/rare,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/challenge/end)
 "Wn" = (
@@ -1244,6 +1213,21 @@
 	icon_state = "damaged3"
 	},
 /area/awaymission/challenge/start)
+"XC" = (
+/obj/structure/rack,
+/obj/item/gun/ballistic/shotgun/automatic/combat,
+/turf/open/floor/wood,
+/area/awaymission/challenge/end)
+"XQ" = (
+/obj/machinery/porta_turret,
+/turf/open/floor/plasteel,
+/area/awaymission/challenge/main)
+"ZV" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/end{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/challenge/main)
 
 (1,1,1) = {"
 aa
@@ -26819,10 +26803,10 @@ aF
 aS
 aF
 aF
-aS
 aF
 aF
-aS
+aF
+aF
 aF
 aF
 aF
@@ -27075,14 +27059,14 @@ aF
 aF
 aF
 aF
-aS
 aF
 aF
 aF
 aF
 aF
+IR
 aF
-aF
+IR
 aF
 aS
 aF
@@ -27324,7 +27308,7 @@ aA
 aA
 aT
 aT
-aT
+Ul
 aT
 aT
 aT
@@ -27579,39 +27563,39 @@ aA
 aF
 aF
 aO
-aH
-aH
-aH
-aH
-aJ
-aH
-aH
-aH
-aH
 bh
-aJ
-aH
-aH
-aH
-aH
-aJ
-aH
-aH
-aH
+bh
+bh
+bh
+Uj
+bh
+bh
+bh
+bh
+bh
+Uj
+bh
+bh
+bh
+bh
+Uj
+bh
+bh
+bh
 by
 aY
 ba
-aH
-aH
-aH
-aJ
-aH
-aH
+bh
+bh
+bh
+Uj
+bh
+bh
 bI
 aF
 aF
 bP
-bS
+VP
 ce
 cd
 cd
@@ -27836,34 +27820,34 @@ aA
 aF
 aF
 aP
-aH
-aH
-aH
-aH
-aH
-aH
-aH
-aH
-aH
+bh
+bh
+bh
+bh
+bh
+bh
+bh
+bh
+bh
 aR
-aY
+ZV
 ba
 bt
-aH
-aH
-aH
-aH
-aH
-aH
+bh
+bh
+bh
+bh
+bh
+bh
 aR
 bA
 ba
-aH
-aH
-aH
-aH
+bh
+bh
+bh
+bh
 bE
-aH
+bh
 bI
 bM
 aF
@@ -28093,34 +28077,34 @@ aA
 aF
 aI
 aQ
+bh
+bh
+iM
+bh
+bh
 aH
-aH
-aK
-aH
-aH
-aH
-aH
-aH
-aH
+bh
+bh
+bh
 aR
-aZ
+mX
 ba
-aH
-aH
-aH
-aH
-aH
-aH
-aH
+bh
+bh
+bh
+bh
+bh
+bh
+bh
 aR
 bA
 ba
-aH
-aH
-aH
-aH
-aH
-aH
+bh
+bh
+bh
+bh
+bh
+bh
 bI
 aF
 aF
@@ -28349,31 +28333,31 @@ ax
 aA
 aF
 aF
-aP
-aH
-aH
-aH
+bx
+bh
+bh
+bh
 aR
-aY
+ZV
 ba
-aH
-aH
-aH
+bh
+bh
+bh
 bh
 bm
-aH
-aH
-aH
-aH
-aH
+bh
+bh
+bh
+bh
+bh
 aR
 aY
 ba
 aR
 aZ
 ba
-aH
-aH
+bh
+bh
 aR
 aY
 ba
@@ -28607,34 +28591,34 @@ aA
 aA
 aA
 aA
-aU
-aH
-aH
+bp
+bh
+bh
 aR
-aZ
+mX
 ba
-aH
-aH
+bh
+bh
 bd
-bi
-bn
+bo
+bh
 bo
 bu
-aH
-aH
-aH
+bh
+bh
+bh
+aR
+mX
+ba
+bh
+bh
+bh
+bh
+bh
 aR
 aZ
 ba
-aH
-aH
-aH
-aH
-aH
-aR
-aZ
-ba
-aH
+bh
 bI
 aF
 aF
@@ -28863,32 +28847,32 @@ av
 aB
 aC
 aJ
-aR
-aH
-aH
-aH
-aH
-aH
+BN
+bh
+bh
+bh
+bh
+bh
 bb
-aH
-aH
-be
-bj
-bn
+bh
+bh
+bf
+bk
+bh
 bp
-bv
+jH
 aH
-aK
-aH
-aH
-aH
+iM
+bh
+bh
+bh
 aH
 aR
 aY
 ba
 aH
-aH
-aH
+bh
+bh
 bm
 aH
 bF
@@ -29120,31 +29104,31 @@ an
 aC
 aG
 aK
-aR
-aH
-aH
-aH
-aH
-aH
-aH
-aH
-aH
+BN
+bh
+bh
+bh
+bh
+bh
+bh
+bh
+bh
 bf
-aC
+XQ
 bn
 bq
-bv
-aH
-aH
-aH
-aH
-aH
-aH
+jH
+bh
+bh
+bh
+bh
+XQ
+bh
 aR
 bA
 ba
-aH
-aH
+bh
+bh
 aR
 aY
 ba
@@ -29377,31 +29361,31 @@ ay
 aD
 aC
 aL
-aR
-aH
-aH
-aH
-aH
-aH
-aH
-aH
-aH
-be
-aC
-bn
+BN
+bh
+bh
+bh
+bh
+bh
+bh
+bh
+bh
+bf
+XQ
+bh
 bq
 jH
-aH
-aH
-aH
-aH
-aH
-aH
+bh
+bh
+bh
+bh
+XQ
+bh
 aR
 bA
 ba
-aH
-aH
+bh
+bh
 aR
 aZ
 ba
@@ -29634,34 +29618,34 @@ az
 aE
 aH
 aM
-aR
+BN
+bh
+bh
+bh
+bh
 aH
-aH
-aH
-aH
-aH
-aH
-aH
-aH
-be
+bh
+bh
+bh
+bf
 bk
-bn
+bh
 bp
-bv
-aH
-aH
-aH
-aH
-aH
+jH
+bh
+bh
+bh
+bh
+bh
 aH
 aR
 aZ
 ba
-aH
-aH
-aH
+bh
+bh
+bh
 bm
-aH
+bh
 bH
 bK
 aV
@@ -29892,34 +29876,34 @@ aA
 aA
 aA
 aA
-aU
-aH
-aH
+bp
+bh
+bh
 aR
-aY
+ZV
 ba
-aH
-aH
+bh
+bh
 bg
-bl
-bn
+br
+bh
 br
 bw
-aH
-aH
-aH
+bh
+bh
+bh
+aR
+ZV
+ba
+bh
+bh
+bh
+bh
+bh
 aR
 aY
 ba
-aH
-aH
-aH
-aH
-aH
-aR
-aY
-ba
-aH
+bh
 bI
 aN
 aF
@@ -30148,35 +30132,35 @@ av
 aA
 aF
 aN
-aP
-aH
-aH
-aH
+bx
+bh
+bh
+bh
 aR
-aZ
+mX
 ba
-aH
-aH
-aH
+bh
+bh
+bh
 bh
 bm
-aH
-aH
-aH
-aH
-aH
+bh
+bh
+bh
+bh
+bh
 aR
-aZ
+mX
 ba
 aR
 aY
 ba
-aH
-aH
+bh
+bh
 aR
 aZ
 ba
-aH
+bh
 bI
 aF
 bM
@@ -30406,34 +30390,34 @@ aA
 aF
 aF
 aO
-aH
-aH
-aH
-aH
-aH
-aH
+bh
+bh
+bh
+bh
+bh
+bh
 bc
-aH
-aH
+bh
+bh
 aR
-aY
+ZV
 ba
+bh
+bh
 aH
-aH
-aH
-aH
-aH
-aH
-aH
+bh
+bh
+bh
+bh
 aR
 bA
 ba
-aH
-aH
-aH
-aH
-aH
-aH
+bh
+bh
+bh
+bh
+bh
+bh
 bI
 aF
 aF
@@ -30663,34 +30647,34 @@ aA
 aF
 aF
 aP
-aH
-aH
-aH
-aH
-aH
-aH
-aH
-aH
-aH
+bh
+bh
+bh
+bh
+bh
+bh
+bh
+bh
+bh
 aR
-aZ
+mX
 ba
-aH
-aH
-aH
-aH
-aH
-aH
-aH
+bh
+bh
+bh
+bh
+bh
+bh
+bh
 aR
 bA
 bB
-aH
-aH
-aH
-aH
-aH
-aH
+bh
+bh
+bh
+bh
+bh
+bh
 bL
 aF
 aF
@@ -30920,34 +30904,34 @@ aA
 aI
 aF
 aP
-aH
-aH
-aH
-aH
-aM
-aH
-aH
-aH
-aH
 bh
-aM
-aH
-aH
-aH
-aH
-aM
-aH
-aH
-aH
+bh
+bh
+bh
+OM
+bh
+bh
+bh
+bh
+bh
+OM
+bh
+bh
+bh
+bh
+OM
+bh
+bh
+bh
 bz
 aZ
 ba
-aH
-aH
-aH
-aM
-aH
-aH
+bh
+bh
+bh
+OM
+bh
+bh
 bI
 aF
 aF
@@ -31179,7 +31163,7 @@ aA
 aA
 aV
 aV
-aV
+dM
 aV
 aV
 aV
@@ -31194,7 +31178,7 @@ aV
 aV
 aV
 aV
-bx
+aV
 aV
 aV
 aV
@@ -31442,7 +31426,6 @@ aN
 aF
 aF
 aF
-aW
 aF
 aF
 aF
@@ -31450,8 +31433,9 @@ aF
 aF
 aF
 aF
+IR
 aF
-aF
+IR
 aF
 aF
 aF
@@ -31703,10 +31687,10 @@ aF
 aF
 aF
 aF
-aW
 aF
 aF
-aW
+aF
+aF
 aF
 aF
 aF
@@ -31725,7 +31709,7 @@ aa
 bP
 ca
 ct
-ct
+XC
 cw
 bP
 cn

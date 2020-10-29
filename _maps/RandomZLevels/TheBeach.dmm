@@ -138,6 +138,7 @@
 	name = "foam pirate's sabre";
 	throwforce = 0
 	},
+/obj/effect/spawner/lootdrop/gateway_tech/rare,
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
 "av" = (
@@ -269,7 +270,9 @@
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
 "aQ" = (
-/obj/machinery/gateway/centeraway,
+/obj/machinery/gateway/centeraway{
+	targetid = "BEACH"
+	},
 /obj/effect/turf_decal/sand,
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
@@ -403,6 +406,7 @@
 "bk" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/glasses/heat,
+/obj/effect/spawner/lootdrop/gateway_tech,
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "bl" = (
@@ -789,6 +793,7 @@
 "cl" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/shaker,
+/obj/effect/spawner/lootdrop/gateway_tech/rare,
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "cm" = (
@@ -1055,31 +1060,55 @@
 "db" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/suit/jacket/letterman_nanotrasen,
+/obj/effect/spawner/lootdrop/gateway_tech,
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "dc" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/suit/jacket/letterman_syndie,
+/obj/effect/spawner/lootdrop/gateway_tech,
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "dd" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/suit/jacket/letterman_red,
+/obj/effect/spawner/lootdrop/gateway_tech,
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "de" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/suit/jacket/letterman,
+/obj/effect/spawner/lootdrop/gateway_tech,
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "df" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/neck/necklace/dope,
+/obj/effect/spawner/lootdrop/gateway_tech,
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "dg" = (
 /obj/item/clothing/glasses/heat,
 /turf/open/floor/plating/beach/sand,
+/area/awaymission/beach)
+"jG" = (
+/mob/living/simple_animal/hostile/syndicate/ranged,
+/turf/open/floor/wood,
+/area/awaymission/beach)
+"wp" = (
+/mob/living/simple_animal/hostile/syndicate/ranged/shotgun,
+/turf/open/floor/plating/beach/sand,
+/area/awaymission/beach)
+"Fe" = (
+/obj/effect/explosionblocker,
+/turf/open/floor/plating/beach/water{
+	desc = "What's the difference?";
+	name = "coastline water"
+	},
+/area/awaymission/beach)
+"XC" = (
+/mob/living/simple_animal/hostile/syndicate/melee,
+/turf/open/floor/wood,
 /area/awaymission/beach)
 
 (1,1,1) = {"
@@ -2977,7 +3006,7 @@ av
 av
 av
 av
-av
+Fe
 av
 av
 av
@@ -9579,14 +9608,14 @@ aw
 ag
 aX
 bd
-bd
+XC
 bd
 bB
 ba
 ba
 bI
 bd
-bd
+jG
 bd
 aX
 ak
@@ -10328,7 +10357,7 @@ ak
 ak
 aX
 bd
-bd
+XC
 bd
 bC
 ba
@@ -11084,7 +11113,7 @@ ba
 ba
 bK
 bd
-bd
+XC
 bd
 aX
 ak
@@ -14892,7 +14921,7 @@ ad
 ag
 au
 an
-ak
+wp
 ap
 ar
 ab

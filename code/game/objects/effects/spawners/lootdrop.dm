@@ -454,3 +454,21 @@
 		/obj/effect/trap/nexus/trickyspawner/clownmutant = 2,
 		/obj/effect/trap/nexus/trickyspawner/honkling = 3,
 		/obj/effect/trap/nexus/cluwnecurse = 1)
+
+/obj/effect/spawner/lootdrop/gateway_tech
+	name = "gateway tech spawner"
+	loot = list(
+		/obj/item/reverseengineeringdata/basic = 2,
+		/obj/item/reverseengineeringdata = 3)
+
+/obj/effect/spawner/lootdrop/gateway_tech/uncommon
+	loot = list(
+		/obj/item/reverseengineeringdata/advanced = 1,
+		/obj/item/reverseengineeringdata/basic = 3)
+
+/obj/effect/spawner/lootdrop/gateway_tech/rare
+	loot = list(
+		/obj/item/reverseengineeringdata/advanced = 3,
+		/obj/item/reverseengineeringdata/epic = 2)
+
+
