@@ -131,7 +131,8 @@ GLOBAL_PROTECT(admin_verbs_server)
 	/client/proc/forcerandomrotate,
 	/client/proc/adminchangemap,
 	/client/proc/panicbunker,
-	/client/proc/toggle_hub
+	/client/proc/toggle_hub,
+	/client/proc/toggle_cdn
 	)
 GLOBAL_LIST_INIT(admin_verbs_debug, world.AVerbsDebug())
 GLOBAL_PROTECT(admin_verbs_debug)
@@ -173,7 +174,8 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/cmd_display_init_log,
 	/client/proc/cmd_display_overlay_log,
 	/client/proc/reload_configuration,
-	/datum/admins/proc/create_or_modify_area
+	/datum/admins/proc/create_or_modify_area,
+	/client/proc/toggle_cdn
 	)
 
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, /proc/release))

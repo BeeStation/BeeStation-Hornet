@@ -257,7 +257,6 @@
 
 /obj/machinery/doorButtons/airlock_controller/ui_interact(mob/user)
 	var/datum/browser/popup = new(user, "computer", name)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.set_content(returnText())
 	popup.open()
 

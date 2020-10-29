@@ -4,8 +4,8 @@
 	icon_state = "timer"
 	custom_materials = list(/datum/material/iron=500, /datum/material/glass=50)
 	attachable = TRUE
-	var/ui_x = 275
-	var/ui_y = 115
+
+
 	var/timing = FALSE
 	var/time = 5
 	var/saved_time = 5
@@ -88,11 +88,14 @@
 		return ..()
 	return UI_CLOSE
 
-/obj/item/assembly/timer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.hands_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/item/assembly/timer/ui_state(mob/user)
+	return GLOB.hands_state
+
+/obj/item/assembly/timer/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Timer", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "Timer")
 		ui.open()
 
 /obj/item/assembly/timer/ui_data(mob/user)
