@@ -265,10 +265,9 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 
 /obj/machinery/gateway/centeraway/unstable
 	targetid = "TIMED_MISSION"
-	var/timeinmission = 300
+	var/timeinmission = 3000
 	var/collapsetime = null
 	var/list/obj/item/pinpointer/pinpointer_gateway/linked_pinpointers = list()
-	desc = "An unstable temporal gateway, linking our world to this strange anomaly in time. Anyone still trapped here when it collapses will die to the sands of time."
 
 /obj/machinery/gateway/centeraway/unstable/Initialize()
 	. = ..()
