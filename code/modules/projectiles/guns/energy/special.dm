@@ -233,9 +233,12 @@
 /obj/item/gun/energy/plasmacutter/cyborg
 	name = "cyborg plasma cutter"
 	desc = "An integrated plasma cutter."
+	dead_cell = FALSE
 	can_charge = FALSE
 	use_cyborg_cell = TRUE
-
+	tool_behaviour = null //because it will drain the cutters cell and not the borgs.
+	
+	
 /obj/item/gun/energy/wormhole_projector
 	name = "bluespace wormhole projector"
 	desc = "A projector that emits high density quantum-coupled bluespace beams."
