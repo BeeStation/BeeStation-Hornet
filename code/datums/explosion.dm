@@ -69,6 +69,12 @@ GLOBAL_LIST_EMPTY(explosions)
 		flash_range = min(GLOB.MAX_EX_FLASH_RANGE * cap_multiplier, flash_range)
 		flame_range = min(GLOB.MAX_EX_FLAME_RANGE * cap_multiplier, flame_range)
 
+	for(var/obj/effect/explosionblocker/E in world)
+		if(epicenter.z == E.z)
+			message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [ADMIN_VERBOSEJMP(epicenter)] was blocked by [E].")
+			log_game("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [loc_name(epicenter)] was blocked by an explosion inhibitor.")
+			qdel(src)
+			return
 	//DO NOT REMOVE THIS STOPLAG, IT BREAKS THINGS
 	//not sleeping causes us to ex_act() the thing that triggered the explosion
 	//doing that might cause it to trigger another explosion

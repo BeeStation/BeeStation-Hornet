@@ -30,6 +30,12 @@
 	if(istype(T))
 		T.consider_pressure_difference(get_step(T,dir),strength)
 
+/obj/effect/explosionblocker
+	name = "explosion inhibitor"
+	desc = "Blocks all explosions from occuring on this Z-level"
+	invisibility = INVISIBILITY_MAXIMUM
+	anchored = TRUE
+
 //Keep these rare due to cost of doing these checks
 /obj/effect/path_blocker
 	name = "magic barrier"
@@ -60,18 +66,31 @@
 	desc = "A disk containing a set of data codes needed to lock onto an away mission. Insert it into the station gateway to lock onto the mission."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk0"
+	var/unstable = FALSE // Does the map have a time limit?
+	var/time = 0 // If so, how long is the time limit (in minutes)?
+	var/difficulty = "Medium" // Currently unused, will be used in an anti-duplicate disk device later
 	var/map = null
 	var/mapcode = "MAIN_MISSION" // This is the code the user must enter into the gateway to journey to your map. Set this to whatever you set the targetid variable of the gateway in your map to be. If you have more than one gateway on an away mission, set it to the code of the gateway you want them to start at.
 
 /obj/item/awaymaploader/beach
-	name = "away mission data disk: Beach"
+	name = "away mission data disk: Beach (Easy)"
 	map = '_maps/RandomZLevels/TheBeach.dmm'
 	mapcode = "BEACH"
 
 /obj/item/awaymaploader/challenge
-	name = "away mission data disk: Challenge"
+	name = "away mission data disk: Challenge (Medium)"
 	map = '_maps/RandomZLevels/challenge.dmm'
+	unstable = TRUE
+	time = 7.5
 	mapcode = "CHALLENGE"
+
+/obj/item/awaymaploader/snowcabin
+	name = "away mission data disk: Snow Cabin (Easy)"
+	unstable = TRUE
+	time = 25
+	difficulty = "Easy"
+	map = '_maps/RandomZLevels/challenge.dmm'
+	mapcode = "SNOW_CABIN"
 
 // Decon disks
 

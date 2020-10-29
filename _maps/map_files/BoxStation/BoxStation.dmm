@@ -28607,6 +28607,7 @@
 	dir = 1
 	},
 /obj/structure/table,
+/obj/item/awaymaploader/challenge,
 /turf/open/floor/plasteel/white,
 /area/gateway)
 "bCm" = (

@@ -8,21 +8,16 @@
 #DO tick the associated code file for the away mission you are enabling. Otherwise, the map will be trying to reference objects which do not exist, which will cause runtime errors!
 
 # UPDATE 28/10/2020: (or 10/28/2020 for you americans)
-# This is now only used to spawn an initial gateway mission roundstart if the config setting is enabled. If you want the map to be loadable by away teams you must add an awaymaploader item in away_proms.dm
+# If you want your map to be loadable by away teams you must also add an awaymaploader item in away_props.dm
 
-#_maps/RandomZLevels/blackmarketpackers.dmm
 #_maps/RandomZLevels/spacebattle.dmm
 _maps/RandomZLevels/TheBeach.dmm
 #_maps/RandomZLevels/Academy.dmm until its fixed this is just smack-a-window
-#_maps/RandomZLevels/wildwest.dmm
+_maps/RandomZLevels/wildwest.dmm
 _maps/RandomZLevels/challenge.dmm
-#_maps/RandomZLevels/centcomAway.dmm
-#_maps/RandomZLevels/moonoutpost19.dmm
-#_maps/RandomZLevels/undergroundoutpost45.dmm
-#_maps/RandomZLevels/caves.dmm
-#_maps/RandomZLevels/snowdin.dmm
-#_maps/RandomZLevels/research.dmm
-#_maps/RandomZLevels/SnowCabin.dmm
-#_maps/RandomZLevels/VR/murderdome.dmm
-#_maps/RandomZLevels/VR/snowdin_VR.dmm
-#_maps/RandomZLevels/VR/syndicate_trainer.dmm
+_maps/RandomZLevels/moonoutpost19.dmm
+_maps/RandomZLevels/caves.dmm
+_maps/RandomZLevels/snowdin.dmm
+_maps/RandomZLevels/SnowCabin.dmm
+_maps/RandomZLevels/undergroundoutpost45.dmm
+_maps/RandomZLevels/research.dmm
