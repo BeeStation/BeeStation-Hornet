@@ -20,3 +20,9 @@
 /obj/item/ammo_box/magazine/internal/rus357/Initialize()
 	stored_ammo += new ammo_type(src)
 	. = ..()
+
+/obj/item/ammo_box/magazine/internal/cylinder/rpocket
+	name = "pocket revolver cylinder"
+	ammo_type = /obj/item/ammo_casing/rpocket
+	caliber = "6mm"
+	max_ammo = 6

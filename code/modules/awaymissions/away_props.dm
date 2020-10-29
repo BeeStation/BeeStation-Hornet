@@ -89,7 +89,7 @@
 	unstable = TRUE
 	time = 25
 	difficulty = "Easy"
-	map = '_maps/RandomZLevels/challenge.dmm'
+	map = '_maps/RandomZLevels/SnowCabin.dmm'
 	mapcode = "SNOW_CABIN"
 
 // Decon disks

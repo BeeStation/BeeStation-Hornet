@@ -145,16 +145,20 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 	var/datum/space_level/away_level
 	away_name = I.map
 	to_chat(usr,"<span class='notice'>The gateway begins to whirr as it processes the data...</span>")
+	var/instability = I.unstable
+	var/timelimit = I.time
 	qdel(I)
 	var/datum/map_template/template = new(away_name, "Away Mission")
 	away_level = template.load_new_z()
 	message_admins("[usr.ckey] has loaded [away_name] away mission.")
 	if(!away_level)
 		message_admins("Loading of map [away_name] from a loading disk failed!")
-		to_chat(usr,"<span class='notice'>The gateway begins to whirr as it processes the data...</span>")
+		to_chat(usr,"<span class='notice'>The gateway lights up with error messages. Something went wrong. Contact Central Command immediately.</span>")
 		return
 	to_chat(usr,"<span class='notice'>Loaded [away_name]. Use the code [I.mapcode] to access it.</span>")
 	loadedmaps += away_name
+	if(instability == TRUE)
+		to_chat(usr,"<span class='notice'>The loaded away mission is unstable. The gateway will collapse in [timelimit] minutes, killing all who are still there. Use your pinpointer on the unstable gateway to track how long remains.</span>")
 
 //okay, here's the good teleporting stuff
 /obj/machinery/gateway/centerstation/Bumped(atom/movable/AM)
@@ -287,6 +291,12 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 	for(var/obj/item/pinpointer/pinpointer_gateway/P in linked_pinpointers)
 		P.alert = FALSE
 		P.linked_gate = null
+	for(var/obj/machinery/gateway/centerstation/G in world)
+		G.toggleoff()
+	for(var/obj/machinery/gateway/centeraway/G in world)
+		if(G.z == src.z)
+			stationgate = null
+			targetid = null
 	for(var/mob/living/M in GLOB.mob_list)
 		if(M.z == z)
 			M.dust()

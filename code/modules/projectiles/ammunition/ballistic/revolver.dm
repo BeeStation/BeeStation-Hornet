@@ -49,3 +49,8 @@
 /obj/item/ammo_casing/caseless/mime/lethals
 	projectile_type = /obj/item/projectile/bullet/c38
 
+/obj/item/ammo_casing/rpocket
+	name = "6mm bullet casing"
+	desc = "A 6mm bullet casing from an away team pocket revolver."
+	caliber = "6mm"
+	projectile_type = /obj/item/projectile/bullet/rpocket

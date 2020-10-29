@@ -36,6 +36,6 @@
 	l_pocket = /obj/item/pinpointer/pinpointer_gateway
 	r_pocket = /obj/item/pda/toxins
 	backpack_contents = list(
-		/obj/item/gun/ballistic/revolver/detective = 1, // Placeholder for now
-		/obj/item/choice_beacon/away_team = 1,
+		/obj/item/gun/ballistic/revolver/pocket = 1,
+		/obj/item/ammo_box/rpocket = 1,
 		)

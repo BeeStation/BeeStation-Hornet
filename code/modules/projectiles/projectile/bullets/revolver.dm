@@ -75,3 +75,11 @@
 /obj/item/projectile/bullet/a357
 	name = ".357 bullet"
 	damage = 60
+
+
+// 6mm (Pocket Revolver)
+
+/obj/item/projectile/bullet/rpocket
+	name = "6mm bullet"
+	damage = 15
+	speed = 0.5 // Slower than normal

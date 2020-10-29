@@ -161,6 +161,16 @@
 
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
 
+/obj/item/gun/ballistic/revolver/pocket
+	name = "NT pocket revolver"
+	desc = "A tiny, low calibre revolver made as cheaply as possible for self defence. Very quiet. Uses 6mm subsonic ammo."
+	icon_state = "pocket"
+	w_class = WEIGHT_CLASS_TINY
+	fire_sound = 'sound/weapons/gunshot_silenced.ogg'
+	fire_sound_volume = 20 // Louder than an actual supressed weapon, but still very quiet.
+	fire_rate = 2
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rpocket
+
 
 // A gun to play Russian Roulette!
 // You can spin the chamber to randomize the position of the bullet.

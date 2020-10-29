@@ -37,6 +37,14 @@
 	item_flags = DROPDEL
 	ammo_type = /obj/item/ammo_casing/caseless/mime/lethals
 
+/obj/item/ammo_box/rpocket
+	name = "speed loader (6mm)"
+	desc = "Designed to quickly reload revolvers."
+	icon_state = "rpocket"
+	ammo_type = /obj/item/ammo_casing/rpocket
+	max_ammo = 6
+	multiple_sprites = 1
+
 /obj/item/ammo_box/c9mm
 	name = "ammo box (9mm)"
 	icon_state = "9mmbox"
