@@ -12,8 +12,8 @@
 	idle_power_usage = 5
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/smartfridge
-	ui_x = 440
-	ui_y = 550
+
+
 
 	var/max_n_of_items = 1500
 	var/allow_ai_retrieve = FALSE
@@ -136,6 +136,18 @@
 		return ..()
 
 
+/obj/machinery/smartfridge/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)	
+	if(!stat)
+		if (istype(AM, /obj/item))		
+			var/obj/item/O = AM
+			if(contents.len < max_n_of_items && accept_check(O))
+				load(O)
+				updateUsrDialog()
+				if (visible_contents)
+					update_icon()
+				return TRUE
+	return ..()
+
 
 /obj/machinery/smartfridge/proc/accept_check(obj/item/O)
 	if(istype(O, /obj/item/reagent_containers/food/snacks/grown/) || istype(O, /obj/item/seeds/) || istype(O, /obj/item/grown/))
@@ -164,10 +176,14 @@
 		adjust_item_drop_location(O)
 
 
-/obj/machinery/smartfridge/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/smartfridge/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/smartfridge/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SmartVend", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "SmartVend")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -178,7 +194,7 @@
 	for (var/I in src)
 		var/atom/movable/O = I
 		if (!QDELETED(O))
-			var/md5name = md5(O.name)				// This needs to happen because of a bug in a TGUI component, https://github.com/ractivejs/ractive/issues/744
+			var/md5name = rustg_hash_string(RUSTG_HASH_MD5, O.name)				// This needs to happen because of a bug in a TGUI component, https://github.com/ractivejs/ractive/issues/744
 			if (listofitems[md5name])				// which is fixed in a version we cannot use due to ie8 incompatibility
 				listofitems[md5name]["amount"]++	// The good news is, #30519 made smartfridge UIs non-auto-updating
 			else

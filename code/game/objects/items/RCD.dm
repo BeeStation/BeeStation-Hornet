@@ -273,7 +273,6 @@ RLD
 
 	var/datum/browser/popup = new(user, "rcd_access", "Access Control", 900, 500)
 	popup.set_content(t1)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
 	onclose(user, "rcd_access")
 
@@ -669,7 +668,8 @@ RLD
 	name = "admin RCD"
 	max_matter = INFINITY
 	matter = INFINITY
-
+	delay_mod = 0.1
+	upgrade = 1
 
 // Ranged RCD
 

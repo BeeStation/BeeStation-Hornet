@@ -49,7 +49,7 @@
 /datum/chemical_reaction/slime/slimemutate
 	name = "Mutation Toxin"
 	id = "slimetoxin"
-	results = list(/datum/reagent/slime_toxin = 1)
+	results = list(/datum/reagent/mutationtoxin/jelly = 5)
 	required_reagents = list(/datum/reagent/toxin/plasma = 1)
 	required_other = TRUE
 	required_container = /obj/item/slime_extract/green
@@ -57,7 +57,7 @@
 /datum/chemical_reaction/slime/unstabletoxin
 	name = "Unstable Mutation Toxin"
 	id = "unstablemuttoxin"
-	results = list(/datum/reagent/mutationtoxin/unstable = 1)
+	results = list(/datum/reagent/mutationtoxin/unstable = 5)
 	required_reagents = list(/datum/reagent/uranium/radium = 1)
 	required_other = TRUE
 	required_container = /obj/item/slime_extract/green
@@ -421,7 +421,7 @@
 /datum/chemical_reaction/slime/slimemutate2
 	name = "Advanced Mutation Toxin"
 	id = "mutationtoxin2"
-	results = list(/datum/reagent/aslimetoxin = 1)
+	results = list(/datum/reagent/aslimetoxin = 5)
 	required_reagents = list(/datum/reagent/toxin/plasma = 1)
 	required_other = TRUE
 	required_container = /obj/item/slime_extract/black

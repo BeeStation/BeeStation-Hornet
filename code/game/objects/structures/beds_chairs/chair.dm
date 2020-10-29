@@ -376,6 +376,15 @@
 	if(turns >= 8)
 		STOP_PROCESSING(SSfastprocess, src)
 
+/obj/structure/chair/brass/relaymove(mob/user, direction)
+	if(!direction)
+		return FALSE
+	if(direction == dir)
+		return
+	setDir(direction)
+	playsound(src, 'sound/effects/servostep.ogg', 50, FALSE)
+	return FALSE
+
 /obj/structure/chair/brass/AltClick(mob/living/user)
 	turns = 0
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))

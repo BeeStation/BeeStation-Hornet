@@ -139,6 +139,7 @@
 	block_upgrade_walk = 1
 	sharpness = IS_SHARP
 	can_charge = FALSE
+	dead_cell = TRUE
 
 	heat = 3800
 	usesound = list('sound/items/welder.ogg', 'sound/items/welder2.ogg')
@@ -171,7 +172,7 @@
 			to_chat(user, "<span class='notice'>You try to insert [I] into [src], but it's fully charged.</span>") //my cell is round and full
 			return
 		I.use(1)
-		cell.give(500*charge_multiplier)
+		cell.give(50*charge_multiplier)
 		to_chat(user, "<span class='notice'>You insert [I] in [src], recharging it.</span>")
 	else
 		..()
@@ -228,6 +229,12 @@
 	item_state = "adv_plasmacutter"
 	force = 15
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
+
+/obj/item/gun/energy/plasmacutter/cyborg
+	name = "cyborg plasma cutter"
+	desc = "An integrated plasma cutter."
+	can_charge = FALSE
+	use_cyborg_cell = TRUE
 
 /obj/item/gun/energy/wormhole_projector
 	name = "bluespace wormhole projector"
