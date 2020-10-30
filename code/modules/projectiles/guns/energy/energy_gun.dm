@@ -158,7 +158,7 @@
 				add_overlay("[icon_state]_fail_2")
 				
 /obj/item/gun/energy/e_gun/blueshield
-	name = "advanced disabler revolver"
+	name = "Aegis SG7 stun revolver"
 	desc = "An advanced disabler revolver with the capacity to shoot both disablers and lasers."
 	icon_state = "bsgun"
 	item_state = "gun"

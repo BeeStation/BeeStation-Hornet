@@ -88,3 +88,9 @@
 	icon_state = "foambox_riot"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	materials = list(/datum/material/iron = 50000)
+
+/obj/item/ammo_box/r45
+	name = "ammo box (.45 rubber)"
+	icon_state = "45rbox"
+	ammo_type = /obj/item/ammo_casing/rubber45
+	max_ammo = 10

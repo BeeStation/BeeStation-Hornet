@@ -17,6 +17,7 @@
  *		Replacement light boxes.
  *		Action Figure Boxes
  *		Various paper bags.
+ *		Blueshield Equipment boxes
  *
  *		For syndicate call-ins see uplink_kits.dm
  */
@@ -1201,3 +1202,30 @@
 		/obj/item/storage/box/beakers/variety=1
 		)
 	generate_items_inside(items_inside,src)
+	
+	
+/obj/item/storage/box/blueshield
+	desc = "It's a box filled with a Blueshield's equipment."
+	illustration = "blu-box"
+
+/obj/item/storage/box/blueshield/laser
+	name = "Blueshield Equipment (Aegis SG7 laser gun)"
+
+/obj/item/storage/box/blueshield/laser/PopulateContents()
+	new /obj/item/gun/energy/e_gun/blueshield(src)
+
+/obj/item/storage/box/blueshield/revolver
+	name = "Blueshield Equipment (.38 Mars Special revolver)"
+
+/obj/item/storage/box/blueshield/revolver/PopulateContents()
+	new /obj/item/gun/ballistic/revolver/detective(src)
+	new /obj/item/ammo_box/c38(src)
+	new /obj/item/ammo_box/c38(src)
+
+/obj/item/storage/box/blueshield/enforcer
+	name = "Blueshield Equipment (.45 Enforcer semi automatic pistol)"
+
+/obj/item/storage/box/blueshield/enforcer/PopulateContents()
+	new /obj/item/gun/ballistic/automatic/pistol/enforcer(src)
+	new /obj/item/ammo_box/magazine/enforcer(src)
+	new /obj/item/ammo_box/magazine/enforcer(src) 

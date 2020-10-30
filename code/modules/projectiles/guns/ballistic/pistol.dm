@@ -81,3 +81,40 @@
 		to_chat(user, "<span class='notice'>..and falls into view. Whew, that was a close one.</span>")
 		user.dropItemToGround(src)
 
+/obj/item/gun/ballistic/automatic/pistol/enforcer
+	name = "enforcer pistol"
+	desc = "A lightweight .45 pistol for modern asset protection units. Smells like justice."
+	icon_state = "enforcer_black"
+	var/base_icon_state = "enforcer_black"
+	mag_type = /obj/item/ammo_box/magazine/enforcer
+	can_flashlight = TRUE
+	unique_reskin = list("Default" = "enforcer_black",
+						"Silver Finish" = "enforcer_silver",
+						"Red Finish" = "enforcer_red",
+						"Red Grip" = "enforcer_redgrip",
+						"Green Finish" = "enforcer_green",
+						"Green Grip" = "enforcer_greengrip",
+						"Tan Finish" = "enforcer_tan",
+						"Tan Grip" = "enforcer_tangrip"
+						)
+
+/obj/item/gun/ballistic/automatic/pistol/enforcer/reskin_obj(mob/M)
+	..()
+	base_icon_state = icon_state
+	update_icon()
+
+/obj/item/gun/ballistic/automatic/pistol/enforcer/update_icon()
+	cut_overlays()
+	icon_state = base_icon_state
+	if(!chambered)
+		icon_state += "-e"
+	if(suppressed)
+		add_overlay("enforcer_supp")
+	if(gun_light)
+		if(gun_light.on)
+			add_overlay("enforcer_light-on")
+		else
+			add_overlay("enforcer_light")
+
+/obj/item/gun/ballistic/automatic/pistol/enforcer/ui_action_click()
+	toggle_gunlight()

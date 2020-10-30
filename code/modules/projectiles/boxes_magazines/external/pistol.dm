@@ -57,3 +57,24 @@
 	caliber = ".50"
 	max_ammo = 7
 	multiple_sprites = 1
+
+
+/obj/item/ammo_box/magazine/enforcer
+	name = "pistol magazine (enforcer .45)"
+	icon_state = "enforcer"
+	desc = "A gun magazine. Compatible with the Enforcer series firearms."
+	ammo_type = /obj/item/ammo_casing/rubber45
+	max_ammo = 7
+	caliber = ".45"
+
+/obj/item/ammo_box/magazine/enforcer/update_icon()
+	icon_state = "enforcer-[stored_ammo.len]"
+
+/obj/item/ammo_box/magazine/enforcer/examine(mob/user)
+	..()
+	if(stored_ammo)
+		var/obj/item/ammo_casing/A = stored_ammo[stored_ammo.len]
+		to_chat(user, "TThere's a [A.name] at the top.")//it's either rubber or lead. better to know the difference
+
+/obj/item/ammo_box/magazine/enforcer/lethal
+	ammo_type = /obj/item/ammo_casing/c45nostamina

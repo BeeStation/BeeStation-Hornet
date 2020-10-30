@@ -48,3 +48,18 @@
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/a50AE
 
+// BLUESHIELD PEAGUN
+
+/obj/item/ammo_casing/c45nostamina
+	name = ".45 lethal bullet casing"
+	desc = "A .45 bullet casing."
+	caliber = ".45"
+	projectile_type = /obj/item/projectile/bullet/c45lethal
+
+/obj/item/ammo_casing/rubber45
+	name = ".45 rubber bullet casing"
+	desc = "A .45 rubber bullet casing."
+	caliber = ".45"
+	projectile_type = /obj/item/projectile/bullet/c45rubber
+
+

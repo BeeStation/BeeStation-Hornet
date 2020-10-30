@@ -34,3 +34,11 @@
 	name = "10mm incendiary bullet"
 	damage = 15
 	fire_stacks = 2
+
+
+/obj/item/projectile/bullet/c45lethal
+	damage = 30
+
+/obj/item/projectile/bullet/c45rubber
+	damage = 5
+	stamina = 80
