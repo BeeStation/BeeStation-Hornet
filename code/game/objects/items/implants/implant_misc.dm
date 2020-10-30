@@ -175,6 +175,8 @@
 /obj/item/implant/undercover
 	name = "undercover implant"
 	desc = "Signals that you're an undercover agent to all security HUDs."
+	icon_state = "auth"
+	activated = 0
 
 /obj/item/implanter/undercover
 	name = "implanter (undercover)"

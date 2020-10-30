@@ -246,7 +246,7 @@
 			holder = hud_list[IMPUNDERCOVER_HUD]
 			var/icon/IC = icon(icon, icon_state, dir)
 			holder.pixel_y = IC.Height() - world.icon_size
-			holder.icon_state = "hud_imp_UNDERCOVER"
+			holder.icon_state = "hud_imp_undercover"
 		else if(istype(I, /obj/item/implant/chem))
 			holder = hud_list[IMPCHEM_HUD]
 			var/icon/IC = icon(icon, icon_state, dir)
