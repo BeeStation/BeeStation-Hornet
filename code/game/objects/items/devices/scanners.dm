@@ -983,50 +983,49 @@ MAT SCANNER
 	throw_range = 7
 	materials = list(/datum/material/iron=30, /datum/material/glass=20)
 
-/obj/item/material_scanner/attack(obj/item/I, mob/living/user)
-	if(user.stat || user.eye_blind)
-		return
-	if(istype(I))
-		if (I.materials)
+/obj/item/material_scanner/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(istype(target,/obj/item))
+		var/obj/item/I = target
+		if (I.materials && length(I.materials)>0)
 			analyze_materials(I, user)
-			return	
-	to_chat(user, "<span class='notice'>[I] doesn't have any reusable materials.</span>")
+			return
+	to_chat(user, "<span class='notice'>[target] doesn't have any reusable materials.</span>")
 
 /obj/item/material_scanner/proc/analyze_materials(obj/item/I, mob/living/user)
 	to_chat(user, "- Material Analysis of [I] -")
-	var/I = 1
+	var/integ = 1
 	var/output = ""
 	for(var/R in I.materials)
 		var/datum/material/M = R
 		var/amount =  I.materials[M]
 		var/fcolor = "#696969"	//hehehe
-		switch (M)
-			if (istype(M,/datum/material/glass))
-				fcolor = "#60b6ff"
-			if (istype(M,/datum/material/gold))
-				fcolor = "#ffcc4f"
-			if (istype(M,/datum/material/silver))
-				fcolor = "#ccccdb"
-			if (istype(M,/datum/material/copper))
-				fcolor = "#d57e00"
-			if (istype(M,/datum/material/diamond))
-				fcolor = "#d5f5ff"
-			if (istype(M,/datum/material/uranium))
-				fcolor = "#83bf33"
-			if (istype(M,/datum/material/plasma))
-				fcolor = "#ee82ee"
-			if (istype(M,/datum/material/bluespace))
-				fcolor = "#0000ff"
-			if (istype(M,/datum/material/bananium))
-				fcolor = "#ffff00"
-			if (istype(M,/datum/material/titanium))
-				fcolor = "#dddddd"			
+		if (istype(M,/datum/material/glass))
+			fcolor = "#60b6ff"
+		else if (istype(M,/datum/material/gold))
+			fcolor = "#ffcc4f"
+		else if (istype(M,/datum/material/silver))
+			fcolor = "#ccccdb"
+		else if (istype(M,/datum/material/copper))
+			fcolor = "#d57e00"
+		else if (istype(M,/datum/material/diamond))
+			fcolor = "#d5f5ff"
+		else if (istype(M,/datum/material/uranium))
+			fcolor = "#83bf33"
+		else if (istype(M,/datum/material/plasma))
+			fcolor = "#ee82ee"
+		else if (istype(M,/datum/material/bluespace))
+			fcolor = "#0000ff"
+		else if (istype(M,/datum/material/bananium))
+			fcolor = "#ffff00"
+		else if (istype(M,/datum/material/titanium))
+			fcolor = "#dddddd"
 		output+= "<font color='[fcolor]'>[M.name] ([amount])</font>"
-		I++
-		if (I>3)
+		integ++
+		if (integ>3)
 			to_chat(user, output)
-			I = 1
-		else 
+			integ = 1
+		else
 			output +=" - "
 	if (output != "")
 		to_chat(user, output)
