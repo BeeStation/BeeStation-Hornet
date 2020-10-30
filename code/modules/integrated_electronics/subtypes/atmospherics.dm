@@ -168,7 +168,7 @@
 		direction = SOURCE_TO_TARGET
 	target_pressure = min(PUMP_MAX_VOLUME,abs(new_amount))
 
-/obj/item/integrated_circuit/atmospherics/pump/volume/move_gas(datum/gas_mixture/source_air, datum/gas_mixture/target_air)
+/obj/item/integrated_circuit/atmospherics/pump/volume/move_gas(datum/gas_mixture/source_air, datum/gas_mixture/target_air, obj/item/tank/snowflake)
 	// No moles = nothing to pump
 	if(source_air.total_moles() <= 0)
 		return
@@ -185,8 +185,10 @@
 
 	var/datum/gas_mixture/removed = source_air.remove_ratio(transfer_ratio * PUMP_EFFICIENCY)
 
-	target_air.merge(removed)
-
+	if(istype(snowflake))
+		snowflake.assume_air(removed)
+	else
+		target_air.merge(removed)
 
 // - gas vent - // **works**
 /obj/item/integrated_circuit/atmospherics/pump/vent
