@@ -39,11 +39,6 @@
 	var/info = ""
 	var/show_written_words = TRUE
 
-	/// This REALLY should be a componenet.  Basicly used during, april fools
-	/// to honk at you
-	var/rigged = 0
-	var/spam_flag = 0
-
 	/// The (text for the) stamps on the paper.
 	var/list/stamps			/// Positioning for the stamp in tgui
 	var/list/stamped		/// Overlay info
@@ -115,7 +110,7 @@
 	set category = "Object"
 	set src in usr
 
-	if(!usr.can_read(src) || usr.incapacitated(TRUE, TRUE) || (isobserver(usr) && !IsAdminGhost(usr)))
+	if(!usr.can_read(src) || usr.incapacitated(TRUE, TRUE) || (isobserver(usr) && !isAdminGhostAI(usr)))
 		return
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
@@ -156,7 +151,7 @@
 		return UI_CLOSE
 	if(!in_range(user,src))
 		return UI_CLOSE
-	if(user.incapacitated(TRUE, TRUE) || (isobserver(user) && !IsAdminGhost(user)))
+	if(user.incapacitated(TRUE, TRUE) || (isobserver(user) && !isAdminGhostAI(user)))
 		return UI_UPDATE
 	// Even harder to read if your blind...braile? humm
 	// .. or if you cannot read
@@ -257,8 +252,6 @@
 
 /obj/item/paper/ui_data(mob/user)
 	var/list/data = list()
-	data["edit_usr"] = "[user]"
-
 	var/obj/O = user.get_active_held_item()
 	if(istype(O, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/PEN = O
