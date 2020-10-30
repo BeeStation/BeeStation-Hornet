@@ -10,7 +10,7 @@
 	var/list/researched_knowledge = list()
 	var/list/analyzed_artifacts = list()
 	var/total_sacrifices = 0
-	var/total_conversion = 0
+	var/list/folloers = list()
 	var/ascended = FALSE
 
 /datum/antagonist/heretic/admin_add(datum/mind/new_owner,mob/admin)
@@ -189,6 +189,10 @@
 	parts += knowledge_message.Join(", ")
 
 	return parts.Join("<br>")
+	
+/datum/antagonist/heretic/proc/get_max_followers() TBD
+	return 1
+	
 ////////////////
 // Knowledge //
 ////////////////
@@ -266,3 +270,36 @@
 	if(!cultie)
 		return FALSE
 	return cultie.total_sacrifices >= target_amount
+
+/*
+BIGGEST CHANGES
+	Grasp
+	Book
+	Artifacts
+	Economy
+	Gygax
+	
+ 
+Curses
+	Alteration curse - blindness, mute, incapacitate, etc	
+	Dream Eater - fascinate sleeper
+	Hunter curse
+
+mindshield interaction
+	remove trauma 
+ 
+Artifacts:
+Omen - deals damage/healing when selfused/attacked by
+ 
+Codex Gygax
+Research: Random damage: brute, burn, tox, eye, hunger
+All around buff spells, some immunities when ascending
+
+ECONOMY REVISE 
+Paths: upgrades cost 5, artifacts offer 2, gates offer 3, sacrifices offer 5, 1 from forbidden readings
+get max followers
+
+RECIPE REVISE
+Book: now with bible and skin
+heart no poppy
+poppies for curse*/
