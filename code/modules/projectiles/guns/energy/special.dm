@@ -372,15 +372,7 @@
 	desc = "Why are you seeing this?!"
 	projectile_type = /obj/item/projectile/bullet/reusable/railgun_rod
 	icon_state = "retro"
-	e_cost = 1000
-	fire_sound = 'sound/weapons/grenadelaunch.ogg'
-
-/obj/item/ammo_casing/energy/railgun_rod/strong
-	name = "Railgun"
-	desc = "Why are you seeing this?!"
-	projectile_type = /obj/item/projectile/bullet/reusable/railgun_rod/strong
-	icon_state = "retro"
-	e_cost = 1000
+	e_cost = 100
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 
 /obj/item/projectile/bullet/reusable/railgun_rod
@@ -389,8 +381,8 @@
 	icon_state = "chronobolt"	//that is, till sprites make one better
 	ammo_type = /obj/item/stack/rods
 	damage_type = BRUTE
-	damage = 30
-	var/embed_chance = 25
+	damage = 35
+	var/embed_chance = 75
 	var/obj/item/stack/rods/rod_drop
 	
 /obj/item/projectile/bullet/reusable/railgun_rod/on_hit(atom/target, blocked)
@@ -399,7 +391,7 @@
 	if(istype(human_target))
 		if (prob(embed_chance))
 			var/obj/item/stack/rods/embed_rod = new ammo_type(human_target)
-			embed_rod.add(20 - 1)
+			embed_rod.add(3 - 1)
 			embed_rod.update_icon()
 			embed_rod.embedding = new /datum/embedding_behavior(
 				embed_chance = 0,
@@ -414,14 +406,10 @@
 	if(dropped == FALSE)
 		var/turf/T = get_turf(src)
 		rod_drop = new ammo_type(T)
-		rod_drop.add(20-1)
+		rod_drop.add(3-1)
 		dropped = TRUE
 
-/obj/item/projectile/bullet/reusable/railgun_rod/strong
-	damage = 45
-	embed_chance = 75
-
-/obj/item/projectile/bullet/reusable/railgun_rod/strong/on_hit(atom/target, blocked)
+/obj/item/projectile/bullet/reusable/railgun_rod/on_hit(atom/target, blocked)
 	if(..())	
 		var/mob/living/ltarget = target
 		if (istype(ltarget))
@@ -435,14 +423,11 @@
 	name = "rail gun"
 	desc = "A heavy gun that uses magnetic induction to launch iron rods at high velocity."
 	ammo_type = list(/obj/item/ammo_casing/energy/railgun_rod/strong)
-	charge_rate = 1000
-	charge_tick = 1
-	selfcharge = TRUE
 	dead_cell = FALSE
 	can_suppress = FALSE
 	can_bayonet = FALSE
 	can_flashlight = FALSE
-	var/loaded_rods = 60
+	var/rod_loaded = TRUE
 
 /obj/item/gun/energy/railgun/update_icon(force_update)
 	if (!cell && cell.charge<1000)
@@ -451,45 +436,41 @@
 		icon_state = "export_cannon"
 
 /obj/item/gun/energy/railgun/attack_self(mob/living/user as mob)
-	if(loaded_rods > 0)
+	if(rod_loaded > 0)
 		var/obj/item/stack/rods/mylongrod = new /obj/item/stack/rods(get_turf(src))
-		mylongrod.add( loaded_rods - 1 )
-		loaded_rods = 0
+		mylongrod.add( 3 - 1 )
+		rod_loaded = FALSE
 		to_chat(user, "<span class='warning'>You unload [mylongrod.amount] iron rods from the [src]!</span>")
 
 /obj/item/gun/energy/railgun/attackby(obj/item/item, mob/user, params)
-	if (istype(item,/obj/item/stack/rods))
+	if (istype(item,/obj/item/stack/rods) && do_after(user,60,target = src))
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+		to_chat(user, "<span class='notice'>You load [src] with the [item]!</span>")
 		var/obj/item/stack/rods/payload = item
-		var/load_amount = payload.amount		
-		if (load_amount + loaded_rods > 60)
-			load_amount = 60 - loaded_rods	
-		else if (load_amount > payload.amount )
-			load_amount = payload.amount
+		var/load_amount = 3
 		if (payload.use(load_amount,FALSE,TRUE))
 			payload.update_icon()
-			loaded_rods += load_amount
+			rod_loaded += TRUE
 			update_icon(FALSE)		
-			to_chat(user, "<span class='notice'>You load [src] with [load_amount] rods!</span>")
 	
 /obj/item/gun/energy/railgun/recharge_newshot(no_cyborg_drain)
-	if (loaded_rods<20)
+	if (!rod_loaded)
 		return FALSE
 	. = ..()
 
 /obj/item/gun/energy/railgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	. = ..()
 	if (.)
-		loaded_rods-=20
+		rod_loaded=false
 	return .
 
 obj/item/gun/energy/railgun/examine(mob/user)
 	. = ..()
-	if(.)
-		. += "\ It currently has [loaded_rods] ammo."
+	if(. && rod_loaded)
+		. += "\ It is loaded."
 
 /obj/item/gun/energy/railgun/can_shoot()
-	return ..() && loaded_rods>0	
+	return ..() && rod_loaded	
 
 /obj/item/gun/energy/ignition_effect(atom/A, mob/living/user)
 	return //you try to ignite your cigar with a railgun and you shot a fucking rod through your dumb ugly face
@@ -505,8 +486,6 @@ obj/item/gun/energy/railgun/examine(mob/user)
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	name = "inducer"
 	desc = "A rail gun disguised as an inducer. It uses magnetic induction to launch iron rods at high velocity."
-	loaded_rods = 0
-	charge_tick = 1
-	charge_rate = 1000
+	rod_loaded = FALSE
 	dead_cell = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/railgun_rod)
