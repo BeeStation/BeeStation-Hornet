@@ -259,7 +259,7 @@
 		/obj/item/reagent_containers/food/snacks/donut,
 		/obj/item/kitchen/knife/combat,
 		/obj/item/flashlight/seclite,
-		/obj/item/melee/classic_baton/police/telescopic,
+		/obj/item/melee/classic_baton,
 		/obj/item/radio,
 		/obj/item/clothing/gloves,
 		/obj/item/restraints/legcuffs/bola,

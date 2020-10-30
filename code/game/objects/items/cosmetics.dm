@@ -297,8 +297,6 @@
 /obj/item/handmirror/attack_self(mob/user)
 	ADD_TRAIT(user, TRAIT_SELF_AWARE, "mirror_trait")
 	to_chat(user, "<span class='notice'>You look into the mirror</span>")
-	sleep(150)
-	REMOVE_TRAIT(user, TRAIT_SELF_AWARE, "mirror_trait")
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -321,3 +319,6 @@
 			H.hair_style = new_style
 
 		H.update_hair()
+
+	sleep(150)
+	REMOVE_TRAIT(user, TRAIT_SELF_AWARE, "mirror_trait")

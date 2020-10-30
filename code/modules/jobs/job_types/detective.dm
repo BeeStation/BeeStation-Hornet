@@ -45,7 +45,7 @@
 	/obj/item/detective_scanner=1,
 	/obj/item/clothing/glasses/detective=1,
 	/obj/item/choice_beacon/detective=1,
-	/obj/item/melee/classic_baton=1)
+	/obj/item/melee/classic_baton/police=1)
 
 	mask = /obj/item/clothing/mask/cigarette
 

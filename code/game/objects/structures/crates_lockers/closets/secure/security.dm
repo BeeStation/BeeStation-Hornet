@@ -212,7 +212,6 @@
 /obj/structure/closet/secure_closet/detective/PopulateContents()
 	..()
 	new /obj/item/storage/box/evidence(src)
-	new /obj/item/disk/forensic(src)
 	new /obj/item/detective_scanner(src)
 	new /obj/item/taperecorder(src)
 	new /obj/item/camera/detective(src)
@@ -222,7 +221,6 @@
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/clothing/accessory/holster/detective(src)
 	new /obj/item/twohanded/binoculars(src)
-	new /obj/item/folder(src)
 	new /obj/item/pinpointer/crew(src)
 
 /obj/structure/closet/secure_closet/deputy
