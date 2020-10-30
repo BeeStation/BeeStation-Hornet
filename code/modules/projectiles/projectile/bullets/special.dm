@@ -26,7 +26,7 @@
 		var/mob/living/carbon/M = target
 		M.silent = max(M.silent, 10)
 
-// Special HoS "Bullets"
+// Special HoS 3D-printed rounds
 
 /obj/item/projectile/bullet/hos
 	name = "3D printed .454 round"

@@ -63,6 +63,22 @@
 
 	new /obj/effect/DPtarget(get_turf(src), pod)
 
+//HoS gun beacon
+/obj/item/choice_beacon/hosgun
+	name = "Head of Security gun beacon"
+	desc = "Choose one of several experimental guns created by leading scientists at NT to put it through proper field testing."
+
+/obj/item/choice_beacon/hosgun/generate_display_names()
+	var/static/list/hosgun_item_list
+	if(!hosgun_item_list)
+		hosgun_item_list = list()
+		var/list/templist = typesof(/obj/item/gun/energy/e_gun/hos)
+		for(var/V in templist)
+			var/atom/A = V
+			hosgun_item_list[initial(A.name)] = A
+	return hosgun_item_list
+
+//Curator beacon
 /obj/item/choice_beacon/hero
 	name = "heroic beacon"
 	desc = "To summon heroes from the past to protect the future."

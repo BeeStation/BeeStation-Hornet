@@ -77,7 +77,7 @@
 
 /obj/item/ammo_casing/energy/hos/hv
 	fire_sound = 'sound/weapons/rifleshot.ogg'
-	e_cost = 150
+	e_cost = 120
 	select_name = ".454HV"
 	projectile_type = /obj/item/projectile/bullet/hos/hv
 
@@ -104,4 +104,4 @@
 	e_cost = 60
 
 /obj/item/ammo_casing/energy/ion/hos
-	e_cost = 200
+	e_cost = 100

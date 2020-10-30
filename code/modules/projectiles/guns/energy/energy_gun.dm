@@ -54,6 +54,10 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser/practice)
 	icon_state = "decloner"
 
+//////////////
+// HoS Guns //
+//////////////
+
 /obj/item/gun/energy/e_gun/hos
 	name = "\improper X-01 MultiPhase Energy Gun"
 	desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
@@ -68,29 +72,38 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/gun/energy/e_gun/hos/x02
-	name = "\improper X-02 MultiPhase Hybrid Gun"
-	desc = "An upgraded hybrid energy/ballistic gun based on the prototype X-01 Energy Gun. This gun has several unique firemodes, and can use built-in 3D printers to turn energy into ballistic rounds, but lacks a conventional nonlethal ammo type."
-	automatic = 0
-	fire_rate = 2
-	ammo_type = list(/obj/item/ammo_casing/energy/hos/hv, /obj/item/ammo_casing/energy/hos/trac, /obj/item/ammo_casing/energy/hos/light, /obj/item/ammo_casing/energy/hos/breach, /obj/item/ammo_casing/energy/ion/hos, /obj/item/ammo_casing/energy/temp/hos)
+	name = "\improper X-02 MultiPhase Energy Gun"
+	desc = "A utility-oriented energy gun based on the prototype X-01 Energy Gun. This gun has several unique firemodes for a variety of situations, but lacks conventional lethal ammo types."
+	ammo_type = list(/obj/item/ammo_casing/energy/temp/hos, /obj/item/ammo_casing/energy/ion/hos, /obj/item/ammo_casing/energy/net)
 
 /obj/item/gun/energy/e_gun/hos/x02/select_fire(mob/living/user)
 	..()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	switch(shot.select_name)
+		if("freeze")
+			fire_rate = 3
+		if("ion")
+			fire_rate = 3
+		if("netting")
+			fire_rate = 2
+
+/obj/item/gun/energy/e_gun/hos/x03
+	name = "\improper X-03 MultiPhase Hybrid Gun"
+	desc = "An upgraded hybrid energy/ballistic gun based on the prototype X-02 Energy Gun. This gun has several unique firemodes, and can use built-in 3D printers to turn energy into ballistic rounds, but lacks a conventional nonlethal ammo type as well as various utility ammo."
+	ammo_type = list(/obj/item/ammo_casing/energy/hos/hv, /obj/item/ammo_casing/energy/hos/light, /obj/item/ammo_casing/energy/hos/breach)
+
+/obj/item/gun/energy/e_gun/hos/x03/select_fire(mob/living/user)
+	..()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	switch(shot.select_name)
 		if(".454HV")
 			fire_rate = 2
-		if(".454TRAC")
-			fire_rate = 1.5
 		if(".454AR")
 			fire_rate = 4
 		if(".454B")
 			fire_rate = 3
-		if("ion")
-			fire_rate = 3
-		if("freeze")
-			fire_rate = 3
 
+//Dragnet
 /obj/item/gun/energy/e_gun/dragnet
 	name = "\improper DRAGnet"
 	desc = "The \"Dynamic Rapid-Apprehension of the Guilty\" net is a revolution in law enforcement technology."
