@@ -411,10 +411,10 @@ GENE SCANNER
 			to_chat(user, "<span class='notice'>Detected cybernetic modifications:</span>")
 			to_chat(user, "<span class='notice'>[cyberimp_detect]</span>")
 	SEND_SIGNAL(M, COMSIG_NANITE_SCAN, user, FALSE)
-	var/health_report = jointext(render_list, "") //FULPSTATION EXPANDED DETECTIVE KIT by Surrealistik Mar 2020
+	var/health_report = jointext(render_list, "")
 	to_chat(user, health_report, trailing_newline = FALSE) // we handled the last <br> so we don't need handholding
 
-	if(log) //FULPSTATION EXPANDED DETECTIVE KIT by Surrealistik Mar 2020
+	if(log)
 		return health_report
 
 /proc/chemscan(mob/living/user, mob/living/M)
