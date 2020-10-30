@@ -329,7 +329,7 @@
 	new /obj/item/clothing/neck/tie/detective/disco_necktie(src)
 	new /obj/item/toy/eightball/haunted(src)
 	new /obj/item/storage/box/rxglasses/spyglasskit(src)
-	new /obj/item/clothing/glasses/detective/advanced(src)
+	new /obj/item/dnainjector/olfaction(src)
 	new /obj/item/clothing/shoes/sneakers/disco
 	new /obj/item/clothing/shoes/jackboots/aerostatic
 	new /obj/item/clothing/suit/det_suit/disco
@@ -344,9 +344,7 @@
 
 /obj/item/storage/box/detectivebeacon/undercover/PopulateContents()
 	new /obj/item/implanter/undercover(src)
-	//new /obj/item/card/id/syndicate/anyone/undercover(src)
 	new /obj/item/card/assistant_disguise_card(src)
-	//new /obj/item/card/id/undercover(src)
 	new /obj/item/handmirror(src)
 	new /obj/item/radio/headset/headset_undercover(src)
 	new /obj/item/clothing/mask/gas/voicechange(src)
@@ -393,4 +391,3 @@
 	new /obj/item/card/id/job/detective/spare(src)
 	new /obj/item/paper(src)
 	new /obj/item/pen(src)
-

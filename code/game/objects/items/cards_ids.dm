@@ -728,6 +728,9 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/detective
 	icon_state = "detective"
 
+/obj/item/card/id/job/detective/spare
+	name = "spare detective identification card"
+
 /obj/item/card/id/job/warden
 	icon_state = "warden"
 
