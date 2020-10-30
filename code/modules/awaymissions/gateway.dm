@@ -1,5 +1,4 @@
 GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
-GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 
 /obj/machinery/gateway
 	name = "gateway"
@@ -14,7 +13,6 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 	var/calibrated = TRUE
 	var/list/linked = list()
 	var/can_link = FALSE	//Is this the centerpiece?
-	var/list/loadedmaps = list()
 
 /obj/machinery/gateway/Initialize()
 	randomspawns = GLOB.awaydestinations
@@ -95,6 +93,8 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 	density = TRUE
 	icon_state = "offcenter"
 	use_power = IDLE_POWER_USE
+	var/list/loadedmaps = list()
+	var/list/possibledestinations = list()
 
 	//warping vars
 	var/obj/machinery/gateway/centeraway/awaygate = null
@@ -121,7 +121,7 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 	if(!powered())
 		return
 	var/targetdestination = stripped_input(user, "Enter the target destination ID", "Destination selection:", "MAIN_MISSION")
-	for(var/obj/machinery/gateway/centeraway/G in world)
+	for(var/obj/machinery/gateway/centeraway/G in possibledestinations)
 		if(G.targetid == targetdestination)
 			awaygate = G
 			if(!G.calibrated)
@@ -206,9 +206,7 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 	. = ..()
 	update_icon()
 	stationgate = locate(/obj/machinery/gateway/centerstation)
-	if(!GLOB.awaygatelist)
-		GLOB.awaygatelist += src
-
+	stationgate.possibledestinations += src
 
 /obj/machinery/gateway/centeraway/update_icon()
 	if(active)
@@ -291,9 +289,7 @@ GLOBAL_DATUM(awaygatelist, /obj/machinery/gateway/centeraway)
 	for(var/obj/item/pinpointer/pinpointer_gateway/P in linked_pinpointers)
 		P.alert = FALSE
 		P.linked_gate = null
-	for(var/obj/machinery/gateway/centerstation/CG in world)
-		CG.toggleoff()
-	for(var/obj/machinery/gateway/centeraway/OG in world)
+	for(var/obj/machinery/gateway/centeraway/OG in stationgate.possibledestinations)
 		if(OG.z == z)
 			stationgate = null
 			targetid = null
