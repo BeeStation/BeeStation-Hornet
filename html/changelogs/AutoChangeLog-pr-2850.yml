@@ -1,0 +1,4 @@
+author: ike709
+delete-after: true
+changes:
+  - bugfix: Circuits can no longer be exploited to make super bombs.
