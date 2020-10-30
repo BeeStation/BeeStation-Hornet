@@ -384,9 +384,20 @@ obj/item/integrated_circuit/atmospherics/connector/portableConnectorReturnAir()
 			removed.set_moles(filtered_gas, 0)
 
 	//Check if the pressure is high enough to put stuff in filtered, or else just put it back in the source
-	var/datum/gas_mixture/target = (filtered_air.return_pressure() < target_pressure ? filtered_air : source_air)
-	target.merge(filtered_out)
-	contaminated_air.merge(removed)
+	if(filtered_air.return_pressure() < target_pressure)
+		if(istype(filtered, /obj/item/tank))
+			filtered.assume_air(filtered_out)
+		else
+			filtered_air.merge(filtered_out)
+	else
+		if(istype(source, /obj/item/tank))
+			source.assume_air(filtered_out)
+		else
+			source_air.merge(filtered_out)
+	if(istype(contaminants, /obj/item/tank))
+		contaminants.assume_air(removed)
+	else
+		contaminated_air.merge(removed)
 
 
 /obj/item/integrated_circuit/atmospherics/pump/filter/Initialize()
@@ -453,11 +464,19 @@ obj/item/integrated_circuit/atmospherics/connector/portableConnectorReturnAir()
 
 	if(transfer_moles <= 0)
 		return
+		
+	var/snowflakecheck = istype(gas_output, /obj/item/tank)
 
 	var/datum/gas_mixture/mix = source_1_gases.remove(transfer_moles * gas_percentage)
-	output_gases.merge(mix)
+	if(snowflakecheck)
+		gas_output.assume_air(mix)
+	else
+		output_gases.merge(mix)
 	mix = source_2_gases.remove(transfer_moles * (1-gas_percentage))
-	output_gases.merge(mix)
+	if(snowflakecheck)
+		gas_output.assume_air(mix)
+	else
+		output_gases.merge(mix)
 
 
 // - integrated tank - // **works**
