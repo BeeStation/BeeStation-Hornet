@@ -721,3 +721,103 @@
 		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
 		if (E)
 			R.module.remove_module(E, TRUE)
+
+
+/obj/item/borg/upgrade/speciality
+	name = "Speciality Module"
+	icon_state = "cyborg_upgrade3"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/butler
+	var/obj/item/hat
+	var/addmodules = list()
+	var/list/additional_reagents = list()
+
+/obj/item/borg/upgrade/speciality/action(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if(.)
+		for(var/obj/item/borg/upgrade/SPEC in R.upgrades)
+			if (istype(SPEC,/obj/item/borg/upgrade/speciality) && SPEC != src)
+				SPEC.deactivate(R)
+				R.upgrades -= SPEC
+				qdel(SPEC)
+
+
+		for(var/module in src.addmodules)
+			var/obj/item/nmodule = locate(module) in R
+			if (!nmodule)
+				nmodule = new module(R.module)
+				R.module.basic_modules += nmodule
+				R.module.add_module(nmodule, FALSE, TRUE)
+				
+		for(var/obj/item/reagent_containers/borghypo/borgshaker/H in R.module.modules)
+			for(var/re in additional_reagents)
+				H.add_reagent(re)
+
+		if(hat && R.hat_offset != INFINITY)
+			var/obj/item/equipt = new hat(src)
+			if (equipt)
+				R.place_on_head(equipt)
+	return .
+
+/obj/item/borg/upgrade/speciality/deactivate(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if (.)
+		//Remove existing modules indiscriminately
+		for(var/module in src.addmodules)
+			var/dmod = locate(module) in R.module.modules
+			if (dmod)
+				R.module.remove_module(dmod, TRUE)
+		for(var/obj/item/reagent_containers/borghypo/borgshaker/H in R.module.modules)
+			for(var/re in additional_reagents)
+				H.del_reagent(re)
+	return .
+
+/obj/item/borg/upgrade/speciality/kitchen
+	name = "Cook Speciality"
+	desc = "A service cyborg upgrade allowing for basic food handling."
+	hat = /obj/item/clothing/head/chefhat
+	addmodules = list (
+		/obj/item/kitchen/knife/cyborg,
+		/obj/item/kitchen/rollingpin/cyborg
+	)
+	additional_reagents = list(
+		/datum/reagent/consumable/enzyme,
+		/datum/reagent/consumable/sugar,
+		/datum/reagent/consumable/flour,
+		/datum/reagent/water,
+	)
+
+/obj/item/borg/upgrade/speciality/botany
+	name = "Botany Speciality"
+	desc = "A service cyborg upgrade allowing for plant tending and manipulation."
+	hat = /obj/item/clothing/head/rice_hat
+	addmodules = list (
+		/obj/item/storage/bag/plants/portaseeder,
+		/obj/item/cultivator,
+		/obj/item/plant_analyzer,
+		/obj/item/shovel/spade
+	)
+	additional_reagents = list(
+		/datum/reagent/water,
+	)
+
+
+/obj/item/borg/upgrade/speciality/casino
+	name = "Gambler Speciality"
+	desc = "It's not crew harm if they do it themselves!"
+	hat = /obj/item/clothing/head/rabbitears
+	addmodules = list (
+		/obj/item/gobbler,
+		/obj/item/storage/pill_bottle/dice_cup/cyborg,
+		/obj/item/toy/cards/deck/cyborg,
+	)
+
+/obj/item/borg/upgrade/speciality/party
+	name = "Party Speciality"
+	desc = "The night's still young..."
+	hat = /obj/item/clothing/head/beanie/rasta
+	addmodules = list (
+		/obj/item/stack/tile/light/cyborg,
+		/obj/item/crowbar/cyborg,
+		/obj/item/dance_trance
+	)
