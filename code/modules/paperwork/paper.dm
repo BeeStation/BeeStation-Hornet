@@ -110,7 +110,7 @@
 	set category = "Object"
 	set src in usr
 
-	if(!usr.can_read(src) || usr.incapacitated(TRUE, TRUE) || (isobserver(usr) && !isAdminGhostAI(usr)))
+	if(!usr.can_read(src) || usr.incapacitated(TRUE, TRUE) || (isobserver(usr)))
 		return
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
@@ -151,7 +151,7 @@
 		return UI_CLOSE
 	if(!in_range(user,src))
 		return UI_CLOSE
-	if(user.incapacitated(TRUE, TRUE) || (isobserver(user) && !isAdminGhostAI(user)))
+	if(user.incapacitated(TRUE, TRUE) || (isobserver(user)))
 		return UI_UPDATE
 	// Even harder to read if your blind...braile? humm
 	// .. or if you cannot read
@@ -214,18 +214,6 @@
 	. = ..()
 	if(.)
 		info = "[stars(info)]"
-
-/// ONLY USED FOR APRIL FOOLS
-/obj/item/paper/proc/reset_spamflag()
-	spam_flag = FALSE
-
-/obj/item/paper/attack_self(mob/user)
-	if(rigged && (SSevents.holidays && SSevents.holidays[APRIL_FOOLS]))
-		if(!spam_flag)
-			spam_flag = TRUE
-			playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
-			addtimer(CALLBACK(src, .proc/reset_spamflag), 20)
-	. = ..()
 
 /obj/item/paper/ui_assets(mob/user)
 	return list(
