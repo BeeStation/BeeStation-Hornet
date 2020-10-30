@@ -67,6 +67,30 @@
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/item/gun/energy/e_gun/hos/x02
+	name = "\improper X-02 MultiPhase Hybrid Gun"
+	desc = "An upgraded hybrid energy/ballistic gun based on the prototype X-01 Energy Gun. This gun has several unique firemodes, and can use built-in 3D printers to turn energy into ballistic rounds, but lacks a conventional nonlethal ammo type."
+	automatic = 0
+	fire_rate = 2
+	ammo_type = list(/obj/item/ammo_casing/energy/hos/hv, /obj/item/ammo_casing/energy/hos/trac, /obj/item/ammo_casing/energy/hos/light, /obj/item/ammo_casing/energy/hos/breach, /obj/item/ammo_casing/energy/ion/hos, /obj/item/ammo_casing/energy/temp/hos)
+
+/obj/item/gun/energy/e_gun/hos/x02/select_fire(mob/living/user)
+	..()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	switch(shot.select_name)
+		if(".454HV")
+			fire_rate = 2
+		if(".454TRAC")
+			fire_rate = 1.5
+		if(".454AR")
+			fire_rate = 4
+		if(".454B")
+			fire_rate = 3
+		if("ion")
+			fire_rate = 3
+		if("freeze")
+			fire_rate = 3
+
 /obj/item/gun/energy/e_gun/dragnet
 	name = "\improper DRAGnet"
 	desc = "The \"Dynamic Rapid-Apprehension of the Guilty\" net is a revolution in law enforcement technology."
