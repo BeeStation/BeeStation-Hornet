@@ -50,6 +50,7 @@
 		charged = FALSE
 		update_icon()
 		addtimer(CALLBACK(src, .proc/Recharge), charge_time)
+
 		return
 
 /obj/item/resonator/AltClick(mob/user)

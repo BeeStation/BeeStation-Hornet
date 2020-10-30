@@ -190,7 +190,7 @@
 		if("Survival Capsule and Explorer's Webbing")
 			new /obj/item/storage/belt/mining/vendor(drop_location)
 		if("Resonator Kit")
-			new /obj/item/extinguisher/mini(drop_location)
+			new /obj/item/storage/firstaid/brute(drop_location)
 			new /obj/item/resonator(drop_location)
 		if("Minebot Kit")
 			new /mob/living/simple_animal/hostile/mining_drone(drop_location)
