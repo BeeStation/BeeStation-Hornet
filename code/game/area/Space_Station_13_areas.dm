@@ -388,6 +388,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Restrooms"
 	icon_state = "toilet"
 
+/area/crew_quarters/toilet/medbay
+	name = "Medbay Restroom"
+	icon_state = "toilet"
+
 /area/crew_quarters/locker
 	name = "Locker Room"
 	icon_state = "locker"
@@ -732,9 +736,33 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Surgery"
 	icon_state = "surgery"
 
+area/medical/paramedic
+	name = "Paramedic"
+	icon_state = "medbay2"
+
+area/medical/limbgrowing
+	name = "Limb Growing Room"
+	icon_state = "medbay3"
+
+/area/medical/surgery/OR1
+	name = "Surgery"
+	icon_state = "surgery"
+
+/area/medical/surgery/OR2
+	name = "Surgery"
+	icon_state = "surgery"
+
 /area/medical/cryo
 	name = "Cryogenics"
 	icon_state = "cryo"
+
+/area/medical/aux_storage
+	name = "Medbay Auxiliary Storage"
+	icon_state = "medbay2"
+
+/area/medical/breakroom
+	name = "Medbay Breakroom"
+	icon_state = "medbay2"
 
 /area/medical/exam_room
 	name = "Exam Room"
