@@ -115,10 +115,10 @@
 		source_air = air_contents
 
 	// Move gas from one place to another
-	move_gas(source_air, target_air)
+	move_gas(source_air, target_air, (istype(target, /obj/item/tank) ? target : null))
 	air_update_turf()
 
-/obj/item/integrated_circuit/atmospherics/pump/proc/move_gas(datum/gas_mixture/source_air, datum/gas_mixture/target_air)
+/obj/item/integrated_circuit/atmospherics/pump/proc/move_gas(datum/gas_mixture/source_air, datum/gas_mixture/target_air, obj/item/tank/snowflake)
 
 	// No moles = nothing to pump
 	if(source_air.total_moles() <= 0  || target_air.return_pressure() >= PUMP_MAX_PRESSURE)
@@ -132,7 +132,10 @@
 	if(pressure_delta > 0.1)
 		var/transfer_moles = (pressure_delta*target_air.return_volume()/(source_air.return_temperature() * R_IDEAL_GAS_EQUATION))*PUMP_EFFICIENCY
 		var/datum/gas_mixture/removed = source_air.remove(transfer_moles)
-		target_air.merge(removed)
+		if(istype(snowflake)) //Snowflake check for tanks specifically, because tank ruptures are handled in a very snowflakey way that expects all tank interactions to be handled via the tank's procs
+			snowflake.assume_air(removed)
+		else
+			target_air.merge(removed)
 
 
 // - volume pump - // **Works**
