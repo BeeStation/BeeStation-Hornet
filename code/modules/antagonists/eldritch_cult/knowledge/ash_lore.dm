@@ -152,6 +152,20 @@
 	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
 	chosen_mob.update_mobility()
 
+/datum/eldritch_knowledge/curse/fascination
+	name = "Curse of Fascination"
+	gain_text = "Spread the word, weaken their minds."
+	desc = "Whisper through the void, making someone vulnerable to conversion. Requires a poppy, a tongue and an item that the victim touched  with their bare hands. "
+	cost = 1
+	required_atoms = list(/obj/item/organ/tongue,/obj/item/reagent_containers/food/snacks/grown/poppy)
+	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/summon/raw_prophet)
+	timer = 5 MINUTES
+
+/datum/eldritch_knowledge/curse/fascination/curse(mob/living/chosen_mob)
+	. = ..()
+	if (!IS_HERETIC(chosen_mob) && !IS_HERETIC_MONSTER(chosen_mob))
+		chosen_mob.gain_trauma(/datum/brain_trauma/fascination,TRAUMA_RESILIENCE_SURGERY)	
+
 /datum/eldritch_knowledge/spell/cleave
 	name = "Blood Cleave"
 	gain_text = "At first i didn't know these instruments of war, but the priest told me to use them."
@@ -191,3 +205,35 @@
 		env.set_temperature(env.return_temperature() + 5 )
 		T.air_update_turf()
 	L.air_update_turf()
+
+
+/datum/eldritch_knowledge/curse/alteration
+	name = "Curse of Corrosion"
+	gain_text = "Cursed land, cursed man, cursed mind."
+	desc = "Curse someone for 2 minutes of vomiting and major organ damage. Using a wirecutter, a spill of blood, a heart, left arm and a right arm, and an item that the victim touched  with their bare hands."
+	cost = 1
+	required_atoms = list(/obj/item/reagent_containers/food/snacks/grown/poppy)
+	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/spell/area_conversion)
+	timer = 2 MINUTES
+
+/datum/eldritch_knowledge/curse/alteration/curse(mob/living/chosen_mob)
+	. = ..()
+	chosen_mob.apply_status_effect(/datum/status_effect/corrosion_curse)
+
+/datum/eldritch_knowledge/curse/corrosion/uncurse(mob/living/chosen_mob)
+	. = ..()
+	chosen_mob.remove_status_effect(/datum/status_effect/corrosion_curse)
+
+/datum/eldritch_knowledge/curse/corrosion/on_finished_recipe(mob/living/user, list/atoms, loc)
+	var/list/local_required_atoms = list()
+	local_required_atoms += current_eldritch_knowledge.required_atoms
+	
+	for(var/LR in local_required_atoms)
+		var/list/local_required_atom_list = LR
+
+		for(var/LAIR in atoms_in_range)
+			var/atom/local_atom_in_range = LAIR
+			if(is_type_in_list(local_atom_in_range,local_required_atom_list))
+				selected_atoms |= local_atom_in_range
+				local_required_atoms -= list(local_required_atom_list)
+	. = ..()

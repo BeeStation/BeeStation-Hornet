@@ -73,7 +73,15 @@
 			in_use = FALSE
 			return
 	if(do_after(user,50, user))
-		user.gain_trauma(/datum/brain_trauma/fascination,TRAUMA_RESILIENCE_SURGERY)
+		if (prob(30))
+			user.gain_trauma(/datum/brain_trauma/fascination,TRAUMA_RESILIENCE_SURGERY)
+		else
+			if (prob(95))
+				to_chat(user, "<span class='notice'>Your sanity slips away...</span>")
+				user.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10, 160)
+			else
+				to_chat(user, "<span class='notice'>I must have offended the Gods somehow!</span>")
+				new /mob/living/simple_animal/hostile/netherworld/blankbody(GetTurf(user))
 		in_use = FALSE
 	return TRUE
 
@@ -155,20 +163,17 @@
 	charge = 100
 
 
-/datum/brain_trauma/fascination
-	name = "Hypnosis"
+/datum/brain_trauma/fascination	REVISE
+	name = "Delirium"
 	desc = "Patient's unconscious is completely enthralled by a word or sentence, focusing their thoughts and actions on it."
-	scan_desc = "looping thought pattern"
+	scan_desc = "paranormalitis fascinitis"
 	gain_text = ""
 	lose_text = ""
 	resilience = TRAUMA_RESILIENCE_SURGERY
 
-	var/inflictor = "Nobody"
-	var/regex/target_phrase
-
 /datum/brain_trauma/fascination/on_gain()
-	message_admins("[ADMIN_LOOKUPFLW(owner)] was fascinated by '[inflictor]'.")
-	log_game("[key_name(owner)] was fascinated by '[inflictor]'.")
+	message_admins("[ADMIN_LOOKUPFLW(owner)] has become fascinated.")
+	log_game("[key_name(owner)] has become fascinated.")
 	to_chat(owner, "<span class='boldwarning'>¤¤¤.</span>")
 	var/obj/screen/alert/hypnosis/hypno_alert = owner.throw_alert("hypnosis", /obj/screen/alert/hypnosis)
 	hypno_alert.desc = "¤¤¤."
