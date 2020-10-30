@@ -480,6 +480,7 @@
 /obj/effect/spawner/lootdrop/gateway_mission/medium
 	loot = list(
 		/obj/item/awaymaploader/challenge = 1,
-		/obj/item/awaymaploader/moonoutpost19 = 1)
+		/obj/item/awaymaploader/moonoutpost19 = 1,
+		/obj/item/awaymaploader/undergroundoutpost45 = 1)
 
 

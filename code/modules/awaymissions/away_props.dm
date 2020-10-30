@@ -66,6 +66,7 @@
 	desc = "A disk containing a set of data codes needed to lock onto an away mission. Insert it into the station gateway to lock onto the mission."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk0"
+	w_class = WEIGHT_CLASS_TINY
 	var/unstable = FALSE // Does the map have a time limit?
 	var/time = 0 // If so, how long is the time limit (in minutes)?
 	var/difficulty = "Medium" // Currently unused, will be used in an anti-duplicate disk device later
@@ -95,8 +96,17 @@
 
 /obj/item/awaymaploader/moonoutpost19
 	name = "away mission data disk: Moon Outpost 19 (Medium)"
+	unstable = TRUE
+	time = 35
 	map = '_maps/RandomZLevels/moonoutpost19.dmm'
 	mapcode = "MOON_OUTPOST"
+
+/obj/item/awaymaploader/undergroundoutpost45
+	name = "away mission data disk: Underground Outpost 45 (Medium)"
+	unstable = TRUE
+	time = 20
+	map = '_maps/RandomZLevels/undergroundoutpost45.dmm'
+	mapcode = "UNDERGROUND_OUTPOST"
 
 // Decon disks
 
