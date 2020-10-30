@@ -169,6 +169,7 @@
 	fire_sound = 'sound/weapons/gunshot_silenced.ogg'
 	fire_sound_volume = 20 // Louder than an actual supressed weapon, but still very quiet.
 	fire_rate = 2
+	pin = /obj/item/firing_pin/explorer
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rpocket
 
 

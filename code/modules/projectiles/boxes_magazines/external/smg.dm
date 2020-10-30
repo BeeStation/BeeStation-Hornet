@@ -80,8 +80,8 @@
 	icon_state = "smg8-15"
 	ammo_type = /obj/item/ammo_casing/striker
 	caliber = "8mm"
-	max_ammo = 15
+	max_ammo = 25
 
 /obj/item/ammo_box/magazine/striker/update_icon()
 	..()
-	icon_state = "smg8-[ammo_count() ? "15" : "0"]"
+	icon_state = "smg8-[ammo_count() ? "25" : "0"]"

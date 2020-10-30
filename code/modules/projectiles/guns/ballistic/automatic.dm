@@ -355,8 +355,9 @@
 	name = "Nanotrasen Striker SMG"
 	desc = "A cheap, light submachine gun based on the prototype SABR smg."
 	icon_state = "striker"
+	pin = /obj/item/firing_pin/explorer
 	mag_type = /obj/item/ammo_box/magazine/striker
-	fire_rate = 4 // individual bullets are very weak. This works out at slightly less dps than the detective's .38, hence why this can safely be given to science staff.
+	fire_rate = 4 // individual bullets are somewhat weak.
 	mag_display = TRUE
 	weapon_weight = WEAPON_LIGHT
 	

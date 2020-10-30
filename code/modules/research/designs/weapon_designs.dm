@@ -412,3 +412,34 @@
 	build_path = /obj/item/flashbulb
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/rpocket
+	name = "6mm Speedloader"
+	desc = "A speedloader of 6mm revolver bullets"
+	id = "speedloader_gateway"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 2000, /datum/material/glass = 500)
+	build_path = /obj/item/ammo_box/rpocket
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/striker_ammo
+	name = "Striker 8mm Magazine"
+	desc = "A magazine of 8mm bullets for the Striker SMG"
+	id = "ammo_gateway"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 5000, /datum/material/glass = 1500)
+	build_path = /obj/item/ammo_box/magazine/striker
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/pin_testing
+	name = "Gateway Firing Pin"
+	desc = "This safety firing pin allows firearms to be operated off the station, allowing away teams to be safely equipped with nonstandard firearms."
+	id = "pin_gateway"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 500, /datum/material/glass = 300)
+	build_path = /obj/item/firing_pin/explorer
+	category = list("Firing Pins")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+

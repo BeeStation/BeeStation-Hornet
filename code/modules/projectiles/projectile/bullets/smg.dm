@@ -24,6 +24,5 @@
 
 /obj/item/projectile/bullet/striker
 	name = "8mm low velocity bullet"
-	damage = 12
+	damage = 15
 	speed = 0.8 // Slightly slower than normal
-	armour_penetration = -20 // low velocity so weak against armour

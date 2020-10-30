@@ -889,8 +889,8 @@
 /area/awaymission/research/interior/gateway)
 "ck" = (
 /obj/machinery/door/window/eastright{
-	icon_state = "right";
-	dir = 2
+	dir = 2;
+	icon_state = "right"
 	},
 /obj/effect/landmark/awaystart,
 /turf/open/floor/plasteel/dark,
@@ -4715,11 +4715,11 @@
 "jp" = (
 /obj/structure/barricade/wooden{
 	desc = "A wooden table hastily flipped over for cover.";
-	obj_integrity = 55;
 	icon = 'icons/obj/smooth_structures/wood_table.dmi';
 	icon_state = "wood_table";
 	max_integrity = 55;
-	name = "flipped table"
+	name = "flipped table";
+	obj_integrity = 55
 	},
 /turf/open/floor/plasteel/yellowsiding{
 	dir = 1
@@ -4894,11 +4894,11 @@
 "jG" = (
 /obj/structure/barricade/wooden{
 	desc = "A wooden table hastily flipped over for cover.";
-	obj_integrity = 55;
 	icon = 'icons/obj/smooth_structures/wood_table.dmi';
 	icon_state = "wood_table";
 	max_integrity = 55;
-	name = "flipped table"
+	name = "flipped table";
+	obj_integrity = 55
 	},
 /turf/open/floor/plasteel,
 /area/awaymission/research/interior/dorm)
@@ -5085,11 +5085,11 @@
 "kb" = (
 /obj/structure/barricade/wooden{
 	desc = "A wooden table hastily flipped over for cover.";
-	obj_integrity = 55;
 	icon = 'icons/obj/smooth_structures/wood_table.dmi';
 	icon_state = "wood_table";
 	max_integrity = 55;
-	name = "flipped table"
+	name = "flipped table";
+	obj_integrity = 55
 	},
 /turf/open/floor/plasteel/yellowsiding,
 /area/awaymission/research/interior/dorm)
