@@ -66230,6 +66230,8 @@
 /obj/machinery/light_switch{
 	pixel_x = -26
 	},
+/obj/structure/bed/dogbed/vector,
+/mob/living/simple_animal/pet/hamster/vector,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "cEJ" = (
