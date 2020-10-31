@@ -68737,6 +68737,12 @@
 /area/medical/aux_storage)
 "cKj" = (
 /obj/structure/plasticflaps/opaque,
+/obj/machinery/navbeacon{
+	codes_txt = "delivery;dir=4";
+	dir = 4;
+	freq = 1400;
+	location = "Medbay"
+	},
 /turf/open/floor/plating,
 /area/maintenance/port)
 "cKk" = (
