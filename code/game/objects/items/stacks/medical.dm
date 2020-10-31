@@ -101,10 +101,10 @@
 	use(1)
 
 /obj/item/stack/medical/bruise_pack
-	name = "bruise pack"
-	singular_name = "bruise pack"
+	name = "suture"
+	singular_name = "suture"
 	desc = "A therapeutic gel pack and bandages designed to treat blunt-force trauma."
-	icon_state = "brutepack"
+	icon_state = "suture"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	heal_brute = 40
@@ -168,11 +168,11 @@
 	cost = 250
 
 /obj/item/stack/medical/ointment
-	name = "ointment"
+	name = "regenerative mesh"
 	desc = "Used to treat those nasty burn wounds."
 	gender = PLURAL
-	singular_name = "ointment"
-	icon_state = "ointment"
+	singular_name = "regenerative mesh"
+	icon_state = "regen_mesh"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	heal_burn = 40
