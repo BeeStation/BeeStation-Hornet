@@ -53570,6 +53570,7 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
+/obj/effect/landmark/start/depsec/medical,
 /turf/open/floor/plasteel/white,
 /area/security/checkpoint/medical)
 "caq" = (
