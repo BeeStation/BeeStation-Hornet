@@ -65716,6 +65716,9 @@
 /obj/machinery/door/window{
 	dir = 4
 	},
+/obj/machinery/shower{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
 "cDP" = (
