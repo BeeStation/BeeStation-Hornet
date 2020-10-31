@@ -45,7 +45,7 @@ RSF
 			mode = 1
 			if(iscyborg(user))
 				var/mob/living/silicon/robot/R = user
-				if(!R.emagged)
+				if(R.emagged)
 					mode = 6
 			if (mode==1)
 				to_chat(user, "Changed dispensing mode to 'Drinking Glass'")

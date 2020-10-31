@@ -29,26 +29,25 @@
   ));
   @include meta.load-css('../components/Input.scss');
   @include meta.load-css('../components/Tooltip.scss', $with: (
-    'color-background': #2D1400,
+    'background-color': #2D1400,
   ));
   @include meta.load-css('../components/Section.scss', $with: (
-    'color-separator': #d6ca85,
+    'separator-color': #d6ca85,
   ));
   @include meta.load-css('../components/Divider.scss', $with: (
     'color': #d6ca85,
   ));
   @include meta.load-css('../components/ProgressBar.scss', $with: (
-    'color-background': rgba(0, 0, 0, 0.5),
+    'background-color': rgba(0, 0, 0, 0.5),
   ));
 
   //Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css('../layouts/TitleBar.scss', $with: (
-    'color-background': #5F380E,
-    'color-shadow': rgba(0, 0, 0, 0.1),
-    'color-shadow-core': #170800,
-    'color-text': #CFBA47,
+    'background-color': #5F380E,
+    'shadow-color': rgba(0, 0, 0, 0.1),
+    'text-color': #CFBA47,
   ));
 
   .Input {

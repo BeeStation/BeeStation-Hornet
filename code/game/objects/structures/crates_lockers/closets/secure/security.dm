@@ -205,6 +205,7 @@
 	icon_state = "cabinet"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
+	door_anim_time = 0 // no animation
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 
@@ -242,7 +243,7 @@
 	..()
 	for(var/i in 1 to 4)
 		new /obj/item/storage/backpack/duffelbag/sec/deputy(src)
-	
+
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections"
 	req_access = list(ACCESS_HOS)

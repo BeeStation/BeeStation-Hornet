@@ -816,6 +816,7 @@
 
 /obj/docking_port/mobile/proc/count_engines()
 	. = 0
+	engine_list.Cut()
 	for(var/thing in shuttle_areas)
 		var/area/shuttle/areaInstance = thing
 		for(var/obj/structure/shuttle/engine/E in areaInstance.contents)

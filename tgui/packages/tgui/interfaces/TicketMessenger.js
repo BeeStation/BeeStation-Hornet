@@ -7,7 +7,9 @@ import { round } from 'common/math';
 export const TicketMessenger = (props, context) => {
   return (
     <Window
-      theme="admin">
+      theme="admin"
+      width={620}
+      height={500}>
       <Window.Content>
         <Section
           height="85px">
