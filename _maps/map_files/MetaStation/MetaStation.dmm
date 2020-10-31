@@ -58707,7 +58707,6 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/cmo)
 "cnG" = (
-/obj/structure/table/glass,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -58721,6 +58720,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue,
+/obj/machinery/computer/crew{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/cmo)
 "cnI" = (
@@ -66634,7 +66636,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
-/obj/structure/closet/wardrobe/virology_white,
+/obj/machinery/vending/wardrobe/viro_wardrobe,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "cFC" = (
@@ -66738,6 +66740,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 10
+	},
+/obj/structure/chair/office/light{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -67450,6 +67455,7 @@
 /area/medical/virology)
 "cHv" = (
 /obj/structure/disposalpipe/segment,
+/obj/structure/chair/office/light,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "cHw" = (
@@ -67916,15 +67922,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/structure/table/glass,
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
-/obj/item/hand_labeler,
-/obj/item/folder/white,
-/obj/item/folder/white,
-/obj/item/pen/red,
+/obj/machinery/computer/pandemic,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "cIy" = (
@@ -82843,6 +82845,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
 	dir = 1
 	},
+/obj/item/hand_labeler,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "pfL" = (
