@@ -37,11 +37,11 @@
 			return
 		to_chat(user, "<span class='notice'>You start adding [material] to [src]...</span>")
 		if(do_after(user, 20, target = src) && material.use(1))
-			make_new_table(material.tableVariant)
+			make_new_table(material.tableVariant, user)
 	else
 		return ..()
 
-/obj/structure/table_frame/proc/make_new_table(table_type) //makes sure the new table made retains what we had as a frame
+/obj/structure/table_frame/proc/make_new_table(table_type, user = null) //makes sure the new table made retains what we had as a frame
 	for(var/obj/A in get_turf(loc))
 		if(istype(A, /obj/structure/table))
 			to_chat(user, "<span class='danger'>There is already a table here.</span>")
