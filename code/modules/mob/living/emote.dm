@@ -162,6 +162,18 @@
 	emote_type = EMOTE_AUDIBLE
 	stat_allowed = UNCONSCIOUS
 
+/datum/emote/living/gasp/get_sound(mob/living/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.mind?.miming)
+		return
+	if(ishumanbasic(H) || iscatperson(H))
+		if(user.gender == FEMALE)
+			return pick('sound/voice/human/femalegasp_1.ogg', 'sound/voice/human/femalegasp_2.ogg')
+		else
+			return pick('sound/voice/human/malegasp_1.ogg', 'sound/voice/human/malegasp_2.ogg', 'sound/voice/human/malegasp_3.ogg')
+
 /datum/emote/living/giggle
 	key = "giggle"
 	key_third_person = "giggles"
