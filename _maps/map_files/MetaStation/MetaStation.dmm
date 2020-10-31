@@ -61308,8 +61308,7 @@
 /turf/closed/wall/r_wall,
 /area/medical/genetics)
 "ctB" = (
-/obj/structure/closet/wardrobe/white/medical,
-/obj/item/clothing/suit/hooded/wintercoat/medical,
+/obj/machinery/vending/wardrobe/medi_wardrobe,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "ctE" = (
@@ -81684,6 +81683,12 @@
 	},
 /turf/closed/wall,
 /area/hallway/secondary/service)
+"mwK" = (
+/obj/machinery/shower{
+	dir = 4
+	},
+/turf/closed/wall/r_wall,
+/area/crew_quarters/heads/cmo)
 "myI" = (
 /obj/effect/turf_decal/stripes/white{
 	dir = 10
@@ -109004,7 +109009,7 @@ cmu
 rOF
 fXV
 cqk
-tXF
+mwK
 csw
 jeS
 wHH
