@@ -79364,11 +79364,10 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "fNV" = (
-/obj/structure/closet/secure_closet/medical1,
-/obj/item/storage/box/pillbottles,
 /obj/machinery/light_switch{
 	pixel_y = -26
 	},
+/obj/machinery/rnd/production/protolathe/department/medical,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "fOf" = (
