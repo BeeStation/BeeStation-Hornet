@@ -62679,6 +62679,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue,
+/obj/machinery/vending/snack/random,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "cxf" = (
@@ -70102,6 +70103,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue,
+/obj/machinery/vending/cola/random,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "cNh" = (
@@ -81683,12 +81685,6 @@
 	},
 /turf/closed/wall,
 /area/hallway/secondary/service)
-"mwK" = (
-/obj/machinery/shower{
-	dir = 4
-	},
-/turf/closed/wall/r_wall,
-/area/crew_quarters/heads/cmo)
 "myI" = (
 /obj/effect/turf_decal/stripes/white{
 	dir = 10
@@ -83633,6 +83629,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/misc_lab/range)
+"ssh" = (
+/obj/machinery/shower{
+	dir = 4
+	},
+/turf/closed/wall/r_wall,
+/area/crew_quarters/heads/cmo)
 "ssS" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -109009,7 +109011,7 @@ cmu
 rOF
 fXV
 cqk
-mwK
+ssh
 csw
 jeS
 wHH
