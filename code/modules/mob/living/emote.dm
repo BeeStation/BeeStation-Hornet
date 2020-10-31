@@ -82,6 +82,18 @@
 	message_simple =  "stops moving..."
 	stat_allowed = UNCONSCIOUS
 
+/datum/emote/living/deathgasp/get_sound(mob/living/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.mind?.miming)
+		return
+	if(ishumanbasic(H) || iscatperson(H))
+		if(user.gender == FEMALE)
+			return 'sound/voice/human/femaledeathgasp.ogg'
+		else
+			return 'sound/voice/human/maledeathgasp.ogg'
+
 /datum/emote/living/deathgasp/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/simple_animal/S = user
 	if(istype(S) && S.deathmessage)
