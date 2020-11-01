@@ -259,7 +259,7 @@
 		C.electrocute_act(power, G, 1, 1)
 		var/turf/T = get_turf(C)
 		if(C.ckey != offender)
-			C.investigate_log("[C] has slipped on electric plant at [AREACOORD(T)] 	 last touched by [offender].", INVESTIGATE_BOTANY)
+			C.investigate_log("[C] has slipped on an electric plant at [AREACOORD(T)] 	 last touched by [offender].", INVESTIGATE_BOTANY)
 			log_combat(C, G, "slipped on", null, "with the power of 10 last touched by [offender]")
 
 /datum/plant_gene/trait/cell_charge/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
@@ -357,8 +357,8 @@
 			if(K.ckey == offender)
 				badperson = K
 				break
-		log_combat(badperson, C, "hit", G, "at [AREACOORD(T)] teleporting him to [AREACOORD(C)]")
-		C.investigate_log("has been hit by a bluespace plant at [AREACOORD(T)] teleporting him to [AREACOORD(C)] last touched by [offender].", INVESTIGATE_BOTANY)
+		log_combat(badperson, C, "hit", G, "at [AREACOORD(T)] teleporting them to [AREACOORD(C)]")
+		C.investigate_log("has been hit by a bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(C)] last touched by [offender].", INVESTIGATE_BOTANY)
 
 /datum/plant_gene/trait/teleport/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
@@ -367,8 +367,8 @@
 	to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
 	do_teleport(C, T, teleport_radius, channel = TELEPORT_CHANNEL_BLUESPACE)
 	if(C.ckey != offender)			//what's the point of logging someone attacking himself
-		C.investigate_log("[C] has slipped on bluespace plant at [AREACOORD(T)] teleporting him to [AREACOORD(C)] last touched by [offender].", INVESTIGATE_BOTANY)
-		log_combat(C, G, "slipped on", null, "teleporting him from [AREACOORD(T)] to [AREACOORD(C)] last touched by [offender].")
+		C.investigate_log("[C] has slipped on bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(C)] last touched by [offender].", INVESTIGATE_BOTANY)
+		log_combat(C, G, "slipped on", null, "teleporting them from [AREACOORD(T)] to [AREACOORD(C)] last touched by [offender].")
 	if(prob(50))
 		do_teleport(G, T, teleport_radius, channel = TELEPORT_CHANNEL_BLUESPACE)
 	else
@@ -471,8 +471,8 @@
 					if(C.ckey == offender)
 						badperson = C
 						break
-				log_combat(badperson, L, "hit", G, "at [AREACOORD(T)] injecting him with [G.reagents.log_list()]")
-				L.investigate_log("[L] has been prickled by a plant at [AREACOORD(T)] injecting him with [G.reagents.log_list()] last touched by [offender].", INVESTIGATE_BOTANY)
+				log_combat(badperson, L, "hit", G, "at [AREACOORD(T)] injecting them with [G.reagents.log_list()]")
+				L.investigate_log("[L] has been prickled by a plant at [AREACOORD(T)] injecting them with [G.reagents.log_list()] last touched by [offender].", INVESTIGATE_BOTANY)
 
 /datum/plant_gene/trait/smoke
 	name = "Gaseous Decomposition"
