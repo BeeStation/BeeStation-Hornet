@@ -331,11 +331,11 @@
 		return
 	else
 		linked_alert.icon_state = "fleshmend"
-	owner.adjustBruteLoss(-3, FALSE)
-	owner.adjustFireLoss(-3, FALSE)
-	owner.adjustOxyLoss(-3)
-	owner.adjustToxLoss(-3, FALSE)
-	owner.adjustCloneLoss(-3)
+	owner.adjustBruteLoss(-2.5, FALSE)
+	owner.adjustFireLoss(-2.5, FALSE)
+	owner.adjustOxyLoss(-2.5)
+	owner.adjustToxLoss(-2.5, FALSE)
+	owner.adjustCloneLoss(-2.5)
 
 /obj/screen/alert/status_effect/fleshmend
 	name = "Fleshmend"

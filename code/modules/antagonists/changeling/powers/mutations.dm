@@ -221,13 +221,13 @@
 
 /datum/action/changeling/weapon/tentacle
 	name = "Tentacle"
-	desc = "We ready a tentacle to grab items or victims with. Costs 5 chemicals."
+	desc = "We ready a tentacle to grab items or victims with. Costs 10 chemicals."
 	helptext = "We can use it once to retrieve a distant item. If used on living creatures, the effect depends on the intent: \
 	Help will simply drag them closer, Disarm will grab whatever they're holding instead of them, Grab will put the victim in our hold after catching it, \
 	and Harm will stun it, and stab it if we're also holding a sharp weapon. Cannot be used while in lesser form."
 	button_icon_state = "tentacle"
 	chemical_cost = 10
-	dna_cost = 1
+	dna_cost = 2
 	req_human = 1
 	weapon_type = /obj/item/gun/magic/tentacle
 	weapon_name_simple = "tentacle"
@@ -402,12 +402,12 @@
 |*********SPACE SUIT + HELMET***********|
 \***************************************/
 /datum/action/changeling/suit/organic_space_suit
-	name = "Organic Flesh Suit"
-	desc = "We grow an organic suit to protect ourselves which is immune to space, good armor especially to melee and blocks shoves. Costs 20 chemicals."
+	name = "Organic Space Suit"
+	desc = "We grow an organic suit to protect ourselves from space exposure and is lightly armoured. Costs 20 chemicals."
 	helptext = "We must constantly repair our form to make it armored and space-proof, reducing chemical production while we are protected. Cannot be used in Lesser Form."
 	button_icon_state = "organic_suit"
 	chemical_cost = 20
-	dna_cost = 2
+	dna_cost = 1
 	req_human = 1
 
 	suit_type = /obj/item/clothing/suit/space/changeling
@@ -424,9 +424,8 @@
 	item_flags = DROPDEL
 	clothing_flags = STOPSPRESSUREDAMAGE //Not THICKMATERIAL because it's organic tissue, so if somebody tries to inject something into it, it still ends up in your blood. (also balance but muh fluff)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/oxygen)
-	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 15, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)//Basically the same as riot suit
-	blocks_shove_knockdown = TRUE
-	slowdown = 1
+	armor = list("melee" = 35, "bullet" = 25, "laser" = 25,"energy" = 30, "bomb" = 30, "bio" = 20, "rad" = 20, "fire" = 90, "acid" = 90)//Bit less armoured than the Syndicate space suit
+	slowdown = 0.2
 
 /obj/item/clothing/suit/space/changeling/Initialize()
 	. = ..()
@@ -446,7 +445,7 @@
 	desc = "A covering of armored pressure and temperature-resistant organic tissue with a glass-like chitin front."
 	item_flags = DROPDEL
 	clothing_flags = STOPSPRESSUREDAMAGE
-	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 15, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
+	armor = list("melee" = 35, "bullet" = 25, "laser" = 25,"energy" = 30, "bomb" = 30, "bio" = 20, "rad" = 20, "fire" = 90, "acid" = 90)
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 /obj/item/clothing/head/helmet/space/changeling/Initialize()

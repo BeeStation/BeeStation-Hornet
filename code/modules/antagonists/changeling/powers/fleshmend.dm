@@ -4,7 +4,7 @@
 	helptext = "If we are on fire, the healing effect will not function. Does not regrow limbs or restore lost blood. Functions while unconscious."
 	button_icon_state = "fleshmend"
 	chemical_cost = 25
-	dna_cost = 3
+	dna_cost = 2
 	req_stat = UNCONSCIOUS
 
 //Starts healing you every second for 10 seconds.
