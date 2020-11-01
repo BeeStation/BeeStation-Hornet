@@ -290,7 +290,6 @@ DEFAULT_REP_VALUE 5
 #SHOW_GAME_TYPE_ODDS
 
 DYNAMIC_CONFIG_ENABLED
-DYNAMIC_CONFIG_FILE "config/dynamic.json"
 
 ## RANDOM EVENTS ###
 ## Comment this out to disable random events during the round.
