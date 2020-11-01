@@ -1,0 +1,4 @@
+author: francinum
+delete-after: true
+changes:
+  - bugfix: No more instagib glass tables.
