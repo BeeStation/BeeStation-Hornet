@@ -46,9 +46,8 @@
 	helptext = "We reform one of our limbs as an autonomous snake-like creature. This grotesque display may ward off attackers, and the creature will inject them with incapacitating poison."
 	button_icon_state = "last_resort"
 	chemical_cost = 10
-	req_absorbs = 3
 	dna_cost = 1
-	req_human = 1
+	req_human = TRUE
 	req_stat = DEAD
 	ignores_fakedeath = TRUE
 
@@ -68,6 +67,7 @@
 	for(var/obj/item/bodypart/Gir in parts)
 		if(Gir.body_part == ARMS)	//arms first, so they can mitigate the damage with the Armblade ability too, and it's not entirely reliant on regenerate
 			BP = Gir	
+	//text message
 	C.visible_message("<span class='warning'>[user]'s [BP] detaches itself and takes the form of a snake!</span>",
 			"<span class='userdanger'>Our [BP] forms into a horrifying snake and heads towards our attackers!</span>")
 	BP.Destroy()	
@@ -76,7 +76,6 @@
 	//assign faction
 	var/list/factions = user.faction.Copy()
 	snek.faction = factions
-	//text message
 	
 
 /mob/living/simple_animal/hostile/poison/limbsnake
