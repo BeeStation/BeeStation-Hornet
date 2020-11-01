@@ -298,16 +298,9 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 /datum/game_mode/dynamic/pre_setup()
 	if(CONFIG_GET(flag/dynamic_config_enabled))
-		var/json_file = file("config/dynamic.json")
+		var/json_file = file(CONFIG_GET(string/dynamic_config_file))
 		if(fexists(json_file))
 			configuration = json_decode(file2text(json_file))
-			if(configuration["Dynamic"])
-				for(var/variable in configuration["Dynamic"]) 
-					if(!vars[variable])
-						stack_trace("Invalid dynamic configuration variable [variable] in game mode variable changes.")
-						continue
-					vars[variable] = configuration["dynamic"][variable]
-
 	for (var/rule in subtypesof(/datum/dynamic_ruleset))
 		var/datum/dynamic_ruleset/ruleset = new rule()
 		// Simple check if the ruleset should be added to the lists.
@@ -328,12 +321,11 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 				continue
 			var/rule_conf = configuration[ruleset.ruletype][ruleset.name]
 			for(var/variable in rule_conf)
-				if(isnull(ruleset.vars[variable]))
-					stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.ruletype] [ruleset.name].")
-					continue
+				if(!ruleset.vars[variable])
+					stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.ruletype] [ruleset.name]")
 				ruleset.vars[variable] = rule_conf[variable]
-	for(var/i in GLOB.new_player_list)
-		var/mob/dead/new_player/player = i
+	
+	for(var/mob/dead/new_player/player in GLOB.player_list)
 		if(player.ready == PLAYER_READY_TO_PLAY && player.mind)
 			roundstart_pop_ready++
 			candidates.Add(player)
