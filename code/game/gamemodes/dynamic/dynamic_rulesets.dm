@@ -115,7 +115,7 @@
 		return (threat_level >= high_population_requirement)
 	else
 		pop_per_requirement = pop_per_requirement > 0 ? pop_per_requirement : mode.pop_per_requirement
-		indice_pop = min(requirements.len,round(population/pop_per_requirement)+1)
+		var/indice_pop = min(requirements.len,round(population/pop_per_requirement)+1)
 		return (threat_level >= requirements[indice_pop])
 
 /// Called when a suitable rule is picked during roundstart(). Will some times attempt to scale a rule up when there is threat remaining. Returns the amount of scaled steps.
