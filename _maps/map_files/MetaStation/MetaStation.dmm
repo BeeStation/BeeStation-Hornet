@@ -54966,6 +54966,7 @@
 /obj/machinery/requests_console{
 	pixel_x = -30
 	},
+/obj/structure/closet/secure_closet/chemical,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "cdt" = (
@@ -54975,6 +54976,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/machinery/vending/wardrobe/chem_wardrobe,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "cdu" = (
