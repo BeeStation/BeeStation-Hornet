@@ -42,7 +42,7 @@
 
 /datum/action/changeling/limbsnake
 	name = "Chimera"
-	desc = "We turn our limbs into an autonomous snake. The poison of this creatures can paralyze attackers. Costs 10 chemicals."
+	desc = "We turn our limbs into an autonomous snake. The poison of this creatures can paralyze attackers. Costs 15 chemicals."
 	helptext = "We reform one of our limbs as an autonomous snake-like creature. This grotesque display may ward off attackers, and the creature will inject them with incapacitating poison."
 	button_icon_state = "limbsnake"
 	chemical_cost = 15
@@ -71,9 +71,8 @@
 	//text message
 	C.visible_message("<span class='warning'>[user]'s [BP] detaches itself and takes the form of a snake!</span>",
 			"<span class='userdanger'>Our [BP] forms into a horrifying snake and heads towards our attackers!</span>")
+	BP.set_disabled(TRUE)
 	BP.Destroy()
-	C.update_health_hud()
-	C.update_body()
 	C.update_mobility()
 	//Deploy limbsnake
 	var/mob/living/snek = new /mob/living/simple_animal/hostile/poison/limbsnake(get_turf(user))
