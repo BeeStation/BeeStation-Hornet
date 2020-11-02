@@ -116,7 +116,7 @@
 		return (threat_level >= high_population_requirement)
 	else
 		pop_per_requirement = pop_per_requirement > 0 ? pop_per_requirement : mode.pop_per_requirement
-		if(antag_cap && requirements.len != antag_cap.len)
+		if(antag_cap.len && requirements.len != antag_cap.len)
 			message_admins("DYNAMIC: requirements and antag_cap lists have different lengths in ruleset [name]. Likely config issue, report this.")
 			log_game("DYNAMIC: requirements and antag_cap lists have different lengths in ruleset [name]. Likely config issue, report this.")
 		indice_pop = min(requirements.len,round(population/pop_per_requirement)+1)
@@ -127,8 +127,7 @@
 	remaining_threat_level -= cost
 	if(scaling_cost && scaling_cost <= remaining_threat_level) // Only attempts to scale the modes with a scaling cost explicitly set.
 		var/new_prob
-		var/pop_to_antags = (mode.antags_rolled + (antag_cap[indice_pop] * scaled_times + 1)) / mode.roundstart_pop_ready
-		remaining_threat_level -= cost
+		var/pop_to_antags = (mode.antags_rolled + (antag_cap[indice_pop] * (scaled_times + 1))) / mode.roundstart_pop_ready
 		log_game("DYNAMIC: [name] roundstart ruleset attempting to scale up with [extra_rulesets] rulesets waiting and [remaining_threat_level] threat remaining.")
 		for(var/i in 1 to 3) //Can scale a max of 3 times
 			if(remaining_threat_level >= scaling_cost && pop_to_antags < 0.25)
@@ -137,7 +136,7 @@
 					break
 				remaining_threat_level -= scaling_cost
 				scaled_times++
-				pop_to_antags = (mode.antags_rolled + (antag_cap[indice_pop] * scaled_times + 1)) / mode.roundstart_pop_ready
+				pop_to_antags = (mode.antags_rolled + (antag_cap[indice_pop] * (scaled_times + 1))) / mode.roundstart_pop_ready
 		log_game("DYNAMIC: [name] roundstart ruleset failed scaling up at [new_prob ? new_prob : 0]% chance after [scaled_times]/3 successful scaleups. [remaining_threat_level] threat remaining, antag to crew ratio: [pop_to_antags*100]%.")
 		mode.antags_rolled += (1 + scaled_times) * antag_cap[indice_pop]
 		return scaled_times * scaling_cost
