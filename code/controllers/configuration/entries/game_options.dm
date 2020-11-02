@@ -450,6 +450,3 @@
 /datum/config_entry/flag/restricted_suicide
 
 /datum/config_entry/flag/dynamic_config_enabled
-
-/datum/config_entry/string/dynamic_config_file
-	config_entry_value = "config/dynamic.json"
