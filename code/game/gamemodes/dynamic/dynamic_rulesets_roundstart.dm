@@ -391,7 +391,6 @@
 /datum/dynamic_ruleset/roundstart/revs/execute()
 	revolution = new()
 	for(var/datum/mind/M in assigned)
-		GLOB.pre_setup_antags -= M
 		if(check_eligible(M))
 			var/datum/antagonist/rev/head/new_head = new antag_datum()
 			new_head.give_flash = TRUE
