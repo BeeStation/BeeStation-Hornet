@@ -75,6 +75,9 @@
 	var/list/antag_cap = list()
 	/// Base probability used in scaling. The higher it is, the more likely to scale. Kept as a var to allow for config editing._SendSignal(sigtype, list/arguments)
 	var/base_prob = 60
+	/// Delay for when execute will get called from the time of post_setup (roundstart) or process (midround/latejoin).
+	/// Make sure your ruleset works with execute being called during the game when using this, and that the clean_up proc reverts it properly in case of faliure.
+	var/delay = 0
 
 
 /datum/dynamic_ruleset/New()
@@ -94,9 +97,6 @@
 
 /datum/dynamic_ruleset/roundstart // One or more of those drafted at roundstart
 	ruletype = "Roundstart"
-	/// Delay for when execute will get called from the time of post_setup.
-	/// Make sure your ruleset works with execute being called during the game when using this.
-	var/delay = 0
 
 // Can be drafted when a player joins the server
 /datum/dynamic_ruleset/latejoin
@@ -165,6 +165,12 @@
 	if (required_candidates > candidates.len)
 		return FALSE
 	return TRUE
+
+/// Runs from gamemode process() if ruleset fails to start, like delayed rulesets not getting valid candidates.
+/// This one only handles refunding the threat, override in ruleset to clean up the rest.
+/datum/dynamic_ruleset/proc/clean_up()
+	mode.refund_threat(cost + (scaled_times * scaling_cost))
+	mode.threat_log += "[worldtime2text()]: [ruletype] [name] refunded [cost + (scaled_times * scaling_cost)]"
 
 /// Gets weight of the ruleset
 /// Note that this decreases weight if repeatable is TRUE and repeatable_weight_decrease is higher than 0
