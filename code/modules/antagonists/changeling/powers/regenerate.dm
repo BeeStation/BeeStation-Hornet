@@ -44,19 +44,20 @@
 	name = "Chimera"
 	desc = "We turn our limbs into an autonomous snake. The poison of this creatures can paralyze attackers. Costs 10 chemicals."
 	helptext = "We reform one of our limbs as an autonomous snake-like creature. This grotesque display may ward off attackers, and the creature will inject them with incapacitating poison."
-	button_icon_state = "last_resort"
-	chemical_cost = 10
+	button_icon_state = "limbsnake"
+	chemical_cost = 15
 	dna_cost = 1
 	req_human = TRUE
 	req_stat = DEAD
 	ignores_fakedeath = TRUE
 
 /datum/action/changeling/limbsnake/sting_action(mob/user)
+	..()
 	var/mob/living/carbon/C = user
 	var/list/parts = list()
 	for(var/Zim in C.bodyparts)
 		var/obj/item/bodypart/BP = Zim
-		if(BP.body_part != HEAD && BP.body_part != CHEST)
+		if(BP.body_part != HEAD && BP.body_part != CHEST && BP.is_organic_limb())
 			if(BP.dismemberable)
 				parts += BP
 	if(!LAZYLEN(parts))
@@ -65,18 +66,20 @@
 	//limb related actions
 	var/obj/item/bodypart/BP = pick(parts)
 	for(var/obj/item/bodypart/Gir in parts)
-		if(Gir.body_part == ARMS)	//arms first, so they can mitigate the damage with the Armblade ability too, and it's not entirely reliant on regenerate
-			BP = Gir	
+		if(Gir.body_part == ARM_RIGHT || Gir.body_part == ARM_LEFT)	//arms first, so they can mitigate the damage with the Armblade ability too, and it's not entirely reliant on regenerate
+			BP = Gir
 	//text message
 	C.visible_message("<span class='warning'>[user]'s [BP] detaches itself and takes the form of a snake!</span>",
 			"<span class='userdanger'>Our [BP] forms into a horrifying snake and heads towards our attackers!</span>")
-	BP.Destroy()	
+	BP.Destroy()
+	C.update_health_hud()
+	C.update_body()
+	C.update_mobility()
 	//Deploy limbsnake
-	var/mob/living/snek = new /mob/living/simple_animal/hostile/poison/limbsnake(get_turf(user))		
+	var/mob/living/snek = new /mob/living/simple_animal/hostile/poison/limbsnake(get_turf(user))
 	//assign faction
-	var/list/factions = user.faction.Copy()
-	snek.faction = factions
-	
+	snek.faction |= "[REF(C)]"
+	return TRUE
 
 /mob/living/simple_animal/hostile/poison/limbsnake
 	name = "limb snake"
@@ -87,7 +90,7 @@
 	speak_emote = list("gargles")
 	health = 50
 	maxHealth = 50
-	melee_damage = 6
+	melee_damage = 3
 	attacktext = "bites"
 	response_help  = "pokes"
 	response_disarm = "shoos"
@@ -101,5 +104,5 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	mobsay_color = "#26F55A"
 	faction = list("hostile","creature")
-	poison_per_bite = 3
+	poison_per_bite = 4
 	poison_type = /datum/reagent/toxin/staminatoxin
