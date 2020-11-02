@@ -152,20 +152,6 @@
 	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
 	chosen_mob.update_mobility()
 
-/datum/eldritch_knowledge/curse/fascination
-	name = "Curse of Fascination"
-	gain_text = "Spread the word, weaken their minds."
-	desc = "Whisper through the void, making someone vulnerable to conversion. Requires a poppy, a tongue and an item that the victim touched  with their bare hands. "
-	cost = 1
-	required_atoms = list(/obj/item/organ/tongue,/obj/item/reagent_containers/food/snacks/grown/poppy)
-	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/summon/raw_prophet)
-	timer = 5 MINUTES
-
-/datum/eldritch_knowledge/curse/fascination/curse(mob/living/chosen_mob)
-	. = ..()
-	if (!IS_HERETIC(chosen_mob) && !IS_HERETIC_MONSTER(chosen_mob))
-		chosen_mob.gain_trauma(/datum/brain_trauma/fascination,TRAUMA_RESILIENCE_SURGERY)	
-
 /datum/eldritch_knowledge/spell/cleave
 	name = "Blood Cleave"
 	gain_text = "At first i didn't know these instruments of war, but the priest told me to use them."
@@ -206,34 +192,140 @@
 		T.air_update_turf()
 	L.air_update_turf()
 
+/datum/eldritch_knowledge/curse/fascination
+	name = "Dreamgate"
+	gain_text = "Those safe in this world are not safe in others..."
+	desc = "Enter the world of dreams, and fascinate the minds of those that currently inhabit it. Requires a poppy, a tongue and an item that the victim touched  with their bare hands. "
+	cost = 1
+	required_atoms = list(/obj/item/organ/tongue,/obj/item/reagent_containers/food/snacks/grown/poppy)
+	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/summon/raw_prophet)
+	timer = 5 MINUTES
+
+/datum/eldritch_knowledge/curse/fascination/curse(mob/living/chosen_mob)
+	. = ..()
+	if (!IS_HERETIC(chosen_mob) && !IS_HERETIC_MONSTER(chosen_mob))
+		chosen_mob.gain_trauma(/datum/brain_trauma/fascination,TRAUMA_RESILIENCE_SURGERY)	
+
+/datum/eldritch_knowledge/curse/fascination/on_finished_recipe(mob/living/user,list/atoms,loc)
+	var/list/compiled_list = list()
+
+	for(var/H in GLOB.carbon_list)
+		if(!ishuman(H))
+			continue
+		var/mob/living/carbon/human/human_to_check = H
+		if((human_to_check.IsUnconscious() || human_to_check.IsSleeping()) && human_to_check.stat != DEAD)
+			compiled_list |= human_to_check.real_name
+			compiled_list[human_to_check.real_name] = human_to_check
+
+	if(compiled_list.len == 0)
+		to_chat(user, "<span class='warning'>There are no sleepers on this plane.</span>")
+		return FALSE
+
+	var/chosen_mob = input("Select the person you wish to curse","Your target") as null|anything in sortList(compiled_list, /proc/cmp_mob_realname_dsc)
+	if(!chosen_mob)
+		return FALSE
+	curse(compiled_list[chosen_mob])
+	addtimer(CALLBACK(src, .proc/uncurse, compiled_list[chosen_mob]),timer)
+	return TRUE
+
 
 /datum/eldritch_knowledge/curse/alteration
-	name = "Curse of Corrosion"
-	gain_text = "Cursed land, cursed man, cursed mind."
-	desc = "Curse someone for 2 minutes of vomiting and major organ damage. Using a wirecutter, a spill of blood, a heart, left arm and a right arm, and an item that the victim touched  with their bare hands."
+	name = "Alteration"
+	gain_text = "Mortal bodies, prisons of flesh. Death, a release..."
+	desc = "Place a kidney, a candle and a hatchet onto a rune to start the ritual. Place limbs or sense organs on the rune will be sacrificed to enhance the ritual."
 	cost = 1
-	required_atoms = list(/obj/item/reagent_containers/food/snacks/grown/poppy)
+	required_atoms = list(/obj/item/organ/kidney,/obj/item/candle,/obj/item/hatchet)
 	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/spell/area_conversion)
-	timer = 2 MINUTES
-
-/datum/eldritch_knowledge/curse/alteration/curse(mob/living/chosen_mob)
-	. = ..()
-	chosen_mob.apply_status_effect(/datum/status_effect/corrosion_curse)
-
-/datum/eldritch_knowledge/curse/corrosion/uncurse(mob/living/chosen_mob)
-	. = ..()
-	chosen_mob.remove_status_effect(/datum/status_effect/corrosion_curse)
-
-/datum/eldritch_knowledge/curse/corrosion/on_finished_recipe(mob/living/user, list/atoms, loc)
-	var/list/local_required_atoms = list()
-	local_required_atoms += current_eldritch_knowledge.required_atoms
+	timer = 1 MINUTES
+	var/list/debuffs = list()
 	
-	for(var/LR in local_required_atoms)
-		var/list/local_required_atom_list = LR
+/datum/eldritch_knowledge/curse/alteration/on_finished_recipe(mob/living/user, list/atoms, loc)	//the ritual completed, take the payment and apply the curse
+	//declare
+	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)	
+	debuffs = list()
+	var/list/extra_atoms = list()	
 
-		for(var/LAIR in atoms_in_range)
-			var/atom/local_atom_in_range = LAIR
-			if(is_type_in_list(local_atom_in_range,local_required_atom_list))
-				selected_atoms |= local_atom_in_range
-				local_required_atoms -= list(local_required_atom_list)
+	//check variables
+	for(var/A in range(1, src))
+		var/atom/atom_in_range = A
+		if(istype(atom_in_range,/obj/item/bodypart/r_leg))
+			extra_atoms |= A
+			debuffs |= "r_leg"
+		else if(istype(atom_in_range,/obj/item/bodypart/l_leg))
+			extra_atoms |= A
+			debuffs |= "l_leg"
+		else if(istype(atom_in_range,/obj/item/bodypart/r_arm))
+			extra_atoms |= A
+			debuffs |= "r_arm"
+		else if(istype(atom_in_range,/obj/item/bodypart/l_arm))
+			extra_atoms |= A
+			debuffs |= "l_arm"
+		else if(istype(atom_in_range,/obj/item/organ/tongue))
+			extra_atoms |= A
+			debuffs |= "tongue"
+		else if(istype(atom_in_range,/obj/item/organ/eyes))
+			extra_atoms |= A
+			debuffs |= "eyes"
+		else if(istype(atom_in_range,/obj/item/organ/ears))
+			extra_atoms |= A
+			debuffs |= "ears"
+		else if(istype(atom_in_range,/obj/item/organ/liver) || istype(atom_in_range,/obj/item/organ/lungs) || istype(atom_in_range,/obj/item/organ/appendix) || istype(atom_in_range,/obj/item/organ/heart))
+			extra_atoms |= A
+			debuffs |= "organs"
+		else
+			continue		
+		atoms_in_range += atom_in_range
+	
+	if (LAZYLEN(debuffs)==0)
+		to_chat(user, "<span class='warning'>Ritual aborted.</span>")
+		return FALSE
+	
 	. = ..()
+	
+	cleanup_atoms(extra_atoms)
+	qdel(debuffs) // how to clear list
+	
+	return .
+		
+/datum/eldritch_knowledge/curse/blindness/curse(mob/living/chosen_mob)
+	. = ..()
+	if (chosen_mob.has_status_effect(/datum/status_effect/corrosion_curse))
+		return FALSE
+	
+	chosen_mob.apply_status_effect(/datum/status_effect/corrosion_curse)
+	for(var/X in debuffs)
+		switch (X)
+			if ("r_leg")
+				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
+			if ("l_leg")
+				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
+			if ("r_arm")
+				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_ARM,MAGIC_TRAIT)
+			if ("l_arm")
+				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_ARM,MAGIC_TRAIT)
+			if ("tongue")
+				ADD_TRAIT(chosen_mob, TRAIT_MUTE, MAGIC_TRAIT)
+			if ("eyes")
+				chosen_mob.become_blind(MAGIC_TRAIT)
+			if ("ears")
+				ADD_TRAIT(chosen_mob, TRAIT_DEAF, MAGIC_TRAIT)
+	return .
+
+/datum/eldritch_knowledge/curse/blindness/uncurse(mob/living/chosen_mob)
+	. = ..()
+	//organ fuckup
+	chosen_mob.remove_status_effect(/datum/status_effect/corrosion_curse)
+	
+	//CC
+	chosen_mob.cure_blind(MAGIC_TRAIT)
+	REMOVE_TRAIT(chosen_mob, TRAIT_MUTE, MAGIC_TRAIT)
+	REMOVE_TRAIT(chosen_mob, TRAIT_DEAF, MAGIC_TRAIT)
+	
+	//paralysis
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_ARM,MAGIC_TRAIT)
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_ARM,MAGIC_TRAIT)
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
+	chosen_mob.update_mobility()
+	
+	return .
