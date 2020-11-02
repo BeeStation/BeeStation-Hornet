@@ -328,8 +328,9 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 				continue
 			var/rule_conf = configuration[ruleset.ruletype][ruleset.name]
 			for(var/variable in rule_conf)
-				if(!ruleset.vars[variable])
-					stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.ruletype] [ruleset.name]")
+				if(isnull(ruleset.vars[variable]))
+					stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.ruletype] [ruleset.name].")
+					continue
 				ruleset.vars[variable] = rule_conf[variable]
 	
 	for(var/mob/dead/new_player/player in GLOB.player_list)
