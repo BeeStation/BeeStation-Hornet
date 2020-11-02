@@ -865,7 +865,7 @@
 	. = ..()
 	to_chat(owner, "<span class='danger'>Your feel your body starting to break apart...</span>")
 
-/datum/status_effect/corrosion_curse/tick()
+/datum/status_effect/corrosion_curse/tick()	//revise
 	. = ..()
 	if(!ishuman(owner))
 		return
