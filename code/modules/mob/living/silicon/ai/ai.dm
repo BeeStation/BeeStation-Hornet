@@ -875,7 +875,7 @@
 	if(isturf(loc)) //AI in core, check if on cameras
 		//get_turf_pixel() is because APCs in maint aren't actually in view of the inner camera
 		//apc_override is needed here because AIs use their own APC when depowered
-		return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(get_turf_pixel(A))) || apc_override
+		return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(get_turf_pixel(A))) || apc_override == A
 	//AI is carded/shunted
 	//view(src) returns nothing for carded/shunted AIs and they have X-ray vision so just use get_dist
 	var/list/viewscale = getviewsize(client.view)

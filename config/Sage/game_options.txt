@@ -86,7 +86,7 @@ ALERT_DELTA Destruction of the station is imminent. All crew are instructed to o
 ## GAME MODES ###
 
 ## Uncomment to not send a roundstart intercept report. Gamemodes may override this.
-#NO_INTERCEPT_REPORT
+NO_INTERCEPT_REPORT
 
 ## Probablities for game modes chosen in 'secret' and 'random' modes.
 ## Default probablity is 1, increase to make that mode more likely to be picked.
@@ -136,6 +136,10 @@ CONTINUOUS WIZARD
 #CONTINUOUS MONKEY
 CONTINUOUS HIVEMIND
 CONTINUOUS CLOCKCULT
+
+#Prevents the death of round-ending antagonist rulesets ending the round immediately.
+
+CONTINUOUS DYNAMIC
 
 ##Note: do not toggle continuous off for these modes, as they have no antagonists and would thus end immediately!
 

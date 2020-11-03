@@ -196,7 +196,6 @@
 
 	var/datum/browser/popup = new(user, "instrument", instrumentObj.name, 700, 500)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(instrumentObj.icon, instrumentObj.icon_state))
 	popup.open()
 
 /datum/song/proc/ParseSong(text)
@@ -238,7 +237,7 @@
 	else if(href_list["import"])
 		var/t = ""
 		do
-			t = stripped_multiline_input(usr, "Please paste the entire song, formatted:", text("[]", name), t)
+			t = stripped_multiline_input(usr, "Please paste the entire song, formatted:", text("[]", name), t, MUSIC_MAXLINES*MUSIC_MAXLINECHARS)
 			if(!usr.canUseTopic(instrumentObj, BE_CLOSE, FALSE, NO_TK))
 				return
 

@@ -137,6 +137,7 @@
 			var/mob/living/simple_animal/hostile/floor_cluwne/FC = new /mob/living/simple_animal/hostile/floor_cluwne(T)
 			FC.force_target(C)
 			FC.dontkill = TRUE
+			FC.delete_after_target_killed = TRUE //it only affects the one to walk on the rune. when he dies, the rune is no longer usable
 			playsound(C,'sound/misc/honk_echo_distant.ogg', 30, 1)
 			return TRUE
 	return FALSE
@@ -292,13 +293,11 @@
 	for(var/mob/living/simple_animal/hostile/floor_cluwne/clown in range(5, src))
 		cluwne = TRUE
 		break
-	if(!cluwne)
+	if(!cluwne && !iscultist(user))
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(HAS_TRAIT(H, TRAIT_CLUMSY) || H.job == "Clown" || H.dna.check_mutation(CLUWNEMUT))
 				to_chat(user, "<span class='warning'>We need a connection! One of the honkmother's manifested forms!</span>")
-			else if(iscultist(H)) //cultists are good at this kind of magic, so they can use it too
-				to_chat(user, "<span class='warning'>The veil is too strong here... Something is missing.</span>")
 			else
 				to_chat(user, "<span class='warning'>You touch the crayon drawing, and feel somewhat foolish.</span>")
 		return
@@ -357,6 +356,7 @@
 	rune_in_use = TRUE
 	for(var/mob/living/simple_animal/hostile/floor_cluwne/FC in range(5, src)) //we unleash the floor cluwne 
 		FC.dontkill = FALSE
+		FC.delete_after_target_killed = FALSE
 		FC.interest = 300
 	color = RUNE_COLOR_SUMMON
 	for(var/mob/living/carbon/C in view(10, src))
@@ -371,10 +371,14 @@
 			var/mob/living/simple_animal/hostile/floor_cluwne/cluwne = new(src.loc)
 			cluwne.force_target(H)
 			cluwne.stage = 4
+			if(prob(75))
+				cluwne.delete_after_target_killed = TRUE
 			to_chat(H, "<span class='Clown'>YOU'RE MINE!</span>")
 		else if(prob(20))
 			var/mob/living/simple_animal/hostile/floor_cluwne/cluwne = new(src.loc)
 			cluwne.force_target(H)
+			if(prob(75))
+				cluwne.delete_after_target_killed = TRUE
 			to_chat(H, "<span class='Clown'>Do you want to play a game?</span>")
 		else if(prob(60))
 			H.cluwneify()
