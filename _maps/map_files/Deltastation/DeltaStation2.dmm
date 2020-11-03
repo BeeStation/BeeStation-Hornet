@@ -35290,12 +35290,12 @@
 	req_access_txt = "28"
 	},
 /obj/item/storage/box/donkpockets,
-/obj/item/storage/box/donkpockets,
 /obj/item/clothing/head/chefhat,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
+/obj/effect/spawner/lootdrop/donkpockets,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "blv" = (
@@ -43983,7 +43983,6 @@
 /area/engine/break_room)
 "bzn" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/box/donkpockets,
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
@@ -43997,6 +43996,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/effect/spawner/lootdrop/donkpockets,
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "bzo" = (

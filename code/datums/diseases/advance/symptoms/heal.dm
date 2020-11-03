@@ -220,7 +220,7 @@
 
 /datum/symptom/heal/surface/passive_message_condition(mob/living/M)
 	return M.getBruteLoss() <= threshhold || M.getFireLoss() <= threshhold
-	
+
 /datum/symptom/heal/metabolism
 	name = "Metabolic Boost"
 	stealth = -1
@@ -276,7 +276,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	symptom_delay_max = 40
 	var/bigemp = FALSE
 	var/cellheal = FALSE
-	threshold_desc = "<b>Stealth 2:</b> The disease resets cell DNA, quickly curing cell damage and mutations<br>\
+	threshold_desc = "<b>Stealth 2:</b> The disease resets cell DNA, quickly curing cell damage and mutations.<br>\
 					<b>Transmission 8:</b> The EMP affects electronics adjacent to the subject as well."
 
 /datum/symptom/EMP/severityset(datum/disease/advance/A)
@@ -324,21 +324,25 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	symptom_delay_max = 30
 	var/bigsweat = FALSE
 	var/toxheal = FALSE
-	threshold_desc = "<b>Transmission 6:</b> The sweat production ramps up to the point that it puts out fires in the general vicinity.<br>\
-					<b>Transmission 8:</b> The symptom heals toxin damage and purges chemicals."
+	var/ammonia = FALSE
+	threshold_desc = "<b>Transmission 4:</b> The sweat production ramps up to the point that it puts out fires in the general vicinity.<br>\
+					<b>Transmission 6:</b> The symptom heals toxin damage and purges chemicals.<br>\
+					<b>Stage speed 6:</b> The host's sweat contains traces of ammonia."
 
 /datum/symptom/sweat/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["transmittable"] >= 8)
+	if(A.properties["transmittable"] >= 6)
 		severity -= 1
 
 /datum/symptom/sweat/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 8)
-		toxheal = TRUE
 	if(A.properties["transmittable"] >= 6)
+		toxheal = TRUE
+	if(A.properties["transmittable"] >= 4)
 		bigsweat = TRUE
+	if(A.properties["stage_rate"] >= 6)
+		ammonia = TRUE
 
 /datum/symptom/sweat/Activate(datum/disease/advance/A)
 	if(!..())
@@ -359,6 +363,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						M.reagents.remove_reagent(R.type, 5)
 						S.reagents.add_reagent(R.type, 5)
 					M.adjustToxLoss(-20, forced = TRUE)
+				if(ammonia)
+					S.reagents.add_reagent(/datum/reagent/space_cleaner, 5)
 				S.splash()
 				to_chat(M, "<span class='userdanger'>You sweat out nearly everything in your body!</span>")
 		else
@@ -378,7 +384,7 @@ obj/effect/sweatsplash/proc/splash()
 
 /datum/symptom/teleport
 	name = "Thermal Retrostable Displacement"
-	desc = "When too hot or cold, the subject will return to a recent location at which they experienced safe homeostasis"
+	desc = "When too hot or cold, the subject will return to a recent location at which they experienced safe homeostasis."
 	stealth = 1
 	resistance = 2
 	stage_speed = -2
@@ -439,7 +445,7 @@ obj/effect/sweatsplash/proc/splash()
 
 /datum/symptom/growth
 	name = "Pituitary Disruption"
-	desc = "Causes uncontrolled growth in the subject"
+	desc = "Causes uncontrolled growth in the subject."
 	stealth = -3
 	resistance = -2
 	stage_speed = 1
@@ -542,7 +548,7 @@ obj/effect/sweatsplash/proc/splash()
 					M.adjustCloneLoss(1)
 		else
 			if(prob(5))
-				to_chat(M, "<span class='notice'>[pick("You feel bloated.", "The station seems small", "You are the strongest")]</span>")
+				to_chat(M, "<span class='notice'>[pick("You feel bloated.", "The station seems small.", "You are the strongest.")]</span>")
 	return
 
 /datum/symptom/growth/End(datum/disease/advance/A)
@@ -569,6 +575,7 @@ obj/effect/sweatsplash/proc/splash()
 	flavour_text = {"
 	<b>You are a living teratoma, and your existence is misery. You feel the need to spread woe about the station- but not to kill.
 	"}
+	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/teratomamonkey/Initialize()
 	. = ..()

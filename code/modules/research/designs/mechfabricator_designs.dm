@@ -632,6 +632,15 @@
 	construction_time = 40
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_upgrade_cutter
+	name = "Cyborg Upgrade (Plasma Cutter)"
+	id = "borg_upgrade_cutter"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/cutter
+	materials = list(/datum/material/iron = 10000, /datum/material/gold = 2000, /datum/material/uranium = 1000)
+	construction_time = 40
+	category = list("Cyborg Upgrade Modules")
+
 /datum/design/borg_upgrade_lavaproof
 	name = "Cyborg Upgrade (Lavaproof Tracks)"
 	id = "borg_upgrade_lavaproof"

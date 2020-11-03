@@ -7,7 +7,9 @@ export const Guardian = (props, context) => {
   const { act, data } = useBackend(context);
   const [tab, setTab] = useLocalState(context, 'tab', 'general');
   return (
-    <Window>
+    <Window
+      width={500}
+      height={600}>
       <Window.Content scrollable>
         {!!data.waiting && (
           <Dimmer fontSize="32px">

@@ -37356,8 +37356,10 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "cdn" = (
-/obj/structure/closet/firecloset,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+	dir = 4
+	},
+/obj/machinery/shower{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
@@ -37647,17 +37649,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/tcommsat/computer)
-"cek" = (
-/obj/machinery/door/poddoor/preopen{
-	id = "Engineering";
-	name = "engineering security door"
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/shower{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/engine/engineering)
 "cel" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Engineering";
@@ -37967,7 +37958,6 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "cfB" = (
-/obj/structure/closet/secure_closet/engineering_personal,
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -37975,6 +37965,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 8
 	},
+/obj/structure/closet/firecloset,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "cfD" = (
@@ -38027,7 +38018,6 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
 "cfI" = (
-/obj/structure/closet/secure_closet/engineering_personal,
 /obj/machinery/airalarm{
 	dir = 8;
 	pixel_x = 24
@@ -38036,6 +38026,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
+/obj/structure/closet/firecloset,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "cfJ" = (
@@ -41120,7 +41111,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/structure/closet/secure_closet/engineering_personal,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "cqp" = (
@@ -44208,7 +44199,9 @@
 /turf/open/space,
 /area/space/nearstation)
 "cCT" = (
-/obj/structure/closet/firecloset,
+/obj/machinery/shower{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "cCY" = (
@@ -50975,6 +50968,10 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/atmos)
+"jnY" = (
+/obj/structure/closet/secure_closet/engineering_personal,
+/turf/open/floor/plasteel,
+/area/engine/engineering)
 "joo" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -57201,6 +57198,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
+"qNU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/microwave,
+/obj/structure/table,
+/turf/open/floor/plasteel,
+/area/quartermaster/warehouse)
 "qOk" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -57711,9 +57714,6 @@
 	name = "engineering security door"
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/shower{
-	dir = 8
-	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "rEB" = (
@@ -60297,6 +60297,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
+"vbg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/donkpockets,
+/turf/open/floor/plasteel,
+/area/quartermaster/warehouse)
 "vbZ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -84673,7 +84678,7 @@ baS
 bbP
 baS
 bcE
-baS
+vbg
 bex
 gjl
 bgu
@@ -84930,7 +84935,7 @@ cBi
 bbS
 bcS
 bbS
-baS
+qNU
 bbS
 gjl
 aZE
@@ -94486,7 +94491,7 @@ bZE
 cfK
 cCT
 cdn
-cek
+rDy
 cep
 kGE
 clQ
@@ -95264,7 +95269,7 @@ ccw
 ccw
 ccw
 ccw
-cgR
+jnY
 dQs
 cjh
 cDI
