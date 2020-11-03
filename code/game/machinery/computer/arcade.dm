@@ -46,6 +46,8 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/clothing/shoes/wheelys = 2,
 		/obj/item/clothing/shoes/kindleKicks = 2,
 		/obj/item/toy/plush/moth = 2,
+		/obj/item/storage/box/heretic_asshole = 1,
+		/obj/item/toy/eldrich_book = 1,
 		/obj/item/storage/belt/military/snack = 2))
 
 /obj/machinery/computer/arcade
@@ -183,7 +185,6 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	dat += "</b></center>"
 	var/datum/browser/popup = new(user, "arcade", "Space Villain 2000")
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
 
 /obj/machinery/computer/arcade/battle/Topic(href, href_list)
@@ -504,7 +505,6 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		dat += "<P ALIGN=Right><a href='byond://?src=[REF(src)];close=1'>Close</a></P>"
 	var/datum/browser/popup = new(user, "arcade", "The Orion Trail",400,700)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
 	return
 

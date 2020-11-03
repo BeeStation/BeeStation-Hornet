@@ -10,7 +10,7 @@
 	var/chem_catalysts[] = list() //like tools but for reagents
 	var/category = CAT_NONE //where it shows up in the crafting UI
 	var/subcategory = CAT_NONE
-	var/always_availible = TRUE //Set to FALSE if it needs to be learned first.
+	var/always_available = TRUE //Set to FALSE if it needs to be learned first.
 
 /datum/crafting_recipe/New()
 	if(!(result in reqs))
@@ -921,7 +921,7 @@
 	time = 20
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
-	always_availible = TRUE
+	always_available = TRUE
 
 /datum/crafting_recipe/sharpmop
 	name = "Sharpened Mop"

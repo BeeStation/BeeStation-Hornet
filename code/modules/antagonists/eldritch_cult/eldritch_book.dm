@@ -71,16 +71,19 @@
 		qdel(target)
 
 
-/obj/item/forbidden_book/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state) // Remember to use the appropriate state.
+/obj/item/forbidden_book/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!IS_HERETIC(user))
 		return FALSE
 	last_user = user
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		icon_state = "book_open"
 		flick("book_opening",src)
-		ui = new(user, src, ui_key, "ForbiddenLore", name, 500, 900, master_ui, state)
+		ui = new(user, src, "ForbiddenLore")
 		ui.open()
+
+/obj/item/forbidden_book/ui_state(mob/user)
+	return GLOB.default_state
 
 /obj/item/forbidden_book/ui_data(mob/user)
 	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
