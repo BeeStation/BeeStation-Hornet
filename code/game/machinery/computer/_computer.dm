@@ -14,6 +14,7 @@
 	var/icon_screen = "generic"
 	var/clockwork = FALSE
 	var/time_to_scewdrive = 20
+	var/datum/virus/infection
 
 /obj/machinery/computer/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
@@ -29,6 +30,8 @@
 
 /obj/machinery/computer/process()
 	if(stat & (NOPOWER|BROKEN))
+		return 0
+	if (infection && !infection.on_process())
 		return 0
 	return 1
 
@@ -51,7 +54,7 @@
 /obj/machinery/computer/update_icon()
 	cut_overlays()
 	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
-	if(stat & NOPOWER)
+	if((stat & NOPOWER) || (infection  && !infection.on_charge()))
 		add_overlay("[icon_keyboard]_off")
 		return
 	add_overlay(icon_keyboard)
@@ -66,7 +69,7 @@
 
 /obj/machinery/computer/power_change()
 	..()
-	if(stat & NOPOWER)
+	if((stat & NOPOWER) || (infection  && !infection.on_charge()))
 		set_light(0, 0)
 	else
 		set_light(brightness_on, 2)
@@ -139,3 +142,29 @@
 			C.forceMove(loc)
 
 	qdel(src)
+
+/obj/machinery/computer/ui_interact(mob/user)
+	..()
+	if (infection)
+		infection.on_interact(user)
+		
+/obj/machinery/computer/attackby(obj/item/W, mob/user)
+	..()
+	if (istype(W,/obj/item/disk/antivirus))
+		var/obj/item/disk/antivirus/attacker = W
+		
+		to_chat(user, "<span class='notice'>You install the [W] on the [src].</span>")
+		if (do_after(user, 3 SECONDS, target = src))
+			if (infection)
+				var/defence = infection.resistance	//calculate defense
+				var/roll = prob(attacker.resistcap)	//attack
+				if (roll>defence)
+					to_chat(user, "<span class='notice'>The [W] identified and removed the [infection.name] from the [src].</span>")
+					infection.Destroy()
+				else if (roll==defence)	//least likely
+					to_chat(user, "<span class='notice'>The [W] didn't find any viruses on the [src].</span>")
+				else
+					to_chat(user, "<span class='notice'>The [W] identified and the [infection.name] on the [src] but failed to diagnose it.</span>")
+			else
+				to_chat(user, "<span class='notice'>The [W] didn't find any viruses on the [src].</span>")
+			

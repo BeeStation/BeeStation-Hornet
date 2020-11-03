@@ -67,6 +67,8 @@
 			var/mob/M = usr
 
 			var/obj/item/card/id/I = M.get_idcard(TRUE)
+			if (infection!=null)
+				I = infection.on_request_login(src,I)
 
 			if(I && istype(I))
 				if(check_access(I))

@@ -161,15 +161,18 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		dat = "<a href='?src=[REF(src)];choice=return'>Return</a>"
 		dat += " || Confirm Identity: "
 		var/S
-		if(scan)
-			S = html_encode(scan.name)
+		var/obj/item/card/id/scanner_ID = scan
+		if (infection!=null)
+			scanner_ID = infection.on_request_login(src,scanner_ID)
+		if(scanner_ID)
+			S = html_encode(scanner_ID.name)
 		else
 			S = "--------"
-		dat += "<a href='?src=[REF(src)];choice=scan'>[S]</a>"
+		dat += "<a href='?src=[REF(src)];choice=scanner_ID'>[S]</a>"
 		dat += "<table>"
 		dat += "<tr><td style='width:25%'><b>Job</b></td><td style='width:25%'><b>Slots</b></td><td style='width:25%'><b>Open job</b></td><td style='width:25%'><b>Close job</b><td style='width:25%'><b>Prioritize</b></td></td></tr>"
 		var/ID
-		if(scan && (ACCESS_CHANGE_IDS in scan.access) && !target_dept)
+		if(scanner_ID && (ACCESS_CHANGE_IDS in scanner_ID.access) && !target_dept)
 			ID = 1
 		else
 			ID = 0
@@ -235,24 +238,27 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		dat += " || Confirm Identity: "
 		var/S
 		var/list/paycheck_departments = list()
-		if(scan)
-			S = html_encode(scan.name)
+		var/obj/item/card/id/scanner_ID = scan
+		if (infection!=null)
+			scanner_ID = infection.on_request_login(src,scanner_ID)
+		if(scanner_ID)
+			S = html_encode(scanner_ID.name)
 			//Checking all the accesses and their corresponding departments
-			if((ACCESS_HOP in scan.access) && ((target_dept==DEPT_GEN) || !target_dept))
+			if((ACCESS_HOP in scanner_ID.access) && ((target_dept==DEPT_GEN) || !target_dept))
 				paycheck_departments |= ACCOUNT_SRV
 				paycheck_departments |= ACCOUNT_CIV
 				paycheck_departments |= ACCOUNT_CAR //Currently no seperation between service/civillian and supply
-			if((ACCESS_HOS in scan.access) && ((target_dept==DEPT_SEC) || !target_dept))
+			if((ACCESS_HOS in scanner_ID.access) && ((target_dept==DEPT_SEC) || !target_dept))
 				paycheck_departments |= ACCOUNT_SEC
-			if((ACCESS_CMO in scan.access) && ((target_dept==DEPT_MED) || !target_dept))
+			if((ACCESS_CMO in scanner_ID.access) && ((target_dept==DEPT_MED) || !target_dept))
 				paycheck_departments |= ACCOUNT_MED
-			if((ACCESS_RD in scan.access) && ((target_dept==DEPT_SCI) || !target_dept))
+			if((ACCESS_RD in scanner_ID.access) && ((target_dept==DEPT_SCI) || !target_dept))
 				paycheck_departments |= ACCOUNT_SCI
-			if((ACCESS_CE in scan.access) && ((target_dept==DEPT_ENG) || !target_dept))
+			if((ACCESS_CE in scanner_ID.access) && ((target_dept==DEPT_ENG) || !target_dept))
 				paycheck_departments |= ACCOUNT_ENG
 		else
 			S = "--------"
-		dat += "<a href='?src=[REF(src)];choice=scan'>[S]</a>"
+		dat += "<a href='?src=[REF(src)];choice=scanner_ID'>[S]</a>"
 		dat += "<table>"
 		dat += "<tr><td style='width:25%'><b>Name</b></td><td style='width:25%'><b>Job</b></td><td style='width:25%'><b>Paycheck</b></td><td style='width:25%'><b>Pay Bonus</b></td></tr>"
 
@@ -285,19 +291,22 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			target_rank = "Unassigned"
 
 		var/scan_name
-		if(scan)
-			scan_name = html_encode(scan.name)
+		var/obj/item/card/id/scanner_ID = scan
+		if (infection!=null)
+			scanner_ID = infection.on_request_login(src,scanner_ID)
+		if(scanner_ID)
+			scan_name = html_encode(scanner_ID.name)
 		else
 			scan_name = "--------"
 
 		if(!authenticated)
 			header += "<br><i>Please insert the cards into the slots</i><br>"
 			header += "Target: <a href='?src=[REF(src)];choice=modify'>[target_name]</a><br>"
-			header += "Confirm Identity: <a href='?src=[REF(src)];choice=scan'>[scan_name]</a><br>"
+			header += "Confirm Identity: <a href='?src=[REF(src)];choice=scanner_ID'>[scan_name]</a><br>"
 		else
 			header += "<div align='center'><br>"
 			header += "<a href='?src=[REF(src)];choice=modify'>Remove [target_name]</a> || "
-			header += "<a href='?src=[REF(src)];choice=scan'>Remove [scan_name]</a> <br> "
+			header += "<a href='?src=[REF(src)];choice=scanner_ID'>Remove [scan_name]</a> <br> "
 			header += "<a href='?src=[REF(src)];choice=mode;mode_target=1'>Access Crew Manifest</a> <br> "
 			header += "<a href='?src=[REF(src)];choice=logout'>Log Out</a></div>"
 
@@ -400,6 +409,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		usr.unset_machine()
 		usr << browse(null, "window=id_com")
 		return
+	
+	var/obj/item/card/id/auth_ID = scan
+	if (infection!=null)
+		auth_ID = infection.on_request_login(src,auth_ID)
 
 	usr.set_machine(src)
 	switch(href_list["choice"])
@@ -408,11 +421,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if ("scan")
 			eject_id_scan(usr)
 		if ("auth")
-			if ((!( authenticated ) && (scan || issilicon(usr)) && (modify || mode)))
-				if (check_access(scan))
+			if ((!( authenticated ) && (auth_ID || issilicon(usr)) && (modify || mode)))
+				if (check_access(auth_ID))
 					region_access = list()
 					head_subordinates = list()
-					if(ACCESS_CHANGE_IDS in scan.access)
+					if(ACCESS_CHANGE_IDS in auth_ID.access)
 						if(target_dept)
 							head_subordinates = get_all_jobs()
 							region_access |= target_dept
@@ -422,20 +435,20 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						playsound(src, 'sound/machines/terminal_on.ogg', 50, 0)
 
 					else
-						if((ACCESS_HOP in scan.access) && ((target_dept==DEPT_GEN) || !target_dept))
+						if((ACCESS_HOP in auth_ID.access) && ((target_dept==DEPT_GEN) || !target_dept))
 							region_access |= DEPT_GEN
 							region_access |= DEPT_SUP //Currently no seperation between service/civillian and supply
 							get_subordinates("Head of Personnel")
-						if((ACCESS_HOS in scan.access) && ((target_dept==DEPT_SEC) || !target_dept))
+						if((ACCESS_HOS in auth_ID.access) && ((target_dept==DEPT_SEC) || !target_dept))
 							region_access |= DEPT_SEC
 							get_subordinates("Head of Security")
-						if((ACCESS_CMO in scan.access) && ((target_dept==DEPT_MED) || !target_dept))
+						if((ACCESS_CMO in auth_ID.access) && ((target_dept==DEPT_MED) || !target_dept))
 							region_access |= DEPT_MED
 							get_subordinates("Chief Medical Officer")
-						if((ACCESS_RD in scan.access) && ((target_dept==DEPT_SCI) || !target_dept))
+						if((ACCESS_RD in auth_ID.access) && ((target_dept==DEPT_SCI) || !target_dept))
 							region_access |= DEPT_SCI
 							get_subordinates("Research Director")
-						if((ACCESS_CE in scan.access) && ((target_dept==DEPT_ENG) || !target_dept))
+						if((ACCESS_CE in auth_ID.access) && ((target_dept==DEPT_ENG) || !target_dept))
 							region_access |= DEPT_ENG
 							get_subordinates("Chief Engineer")
 						if(region_access)
@@ -455,10 +468,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					var/access_allowed = text2num(href_list["allowed"])
 					if(access_type in (istype(src, /obj/machinery/computer/card/centcom)?get_all_centcom_access() : get_all_accesses()))
 						modify.access -= access_type
-						log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [modify] using [scan] at [AREACOORD(usr)].")
+						log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [modify] using [auth_ID] at [AREACOORD(usr)].")
 						if(access_allowed == 1)
 							modify.access += access_type
-							log_id("[key_name(usr)] added [get_access_desc(access_type)] to [modify] using [scan] at [AREACOORD(usr)].")
+							log_id("[key_name(usr)] added [get_access_desc(access_type)] to [modify] using [auth_ID] at [AREACOORD(usr)].")
 						playsound(src, "terminal_type", 50, 0)
 		if ("assign")
 			if (authenticated == 2)
@@ -467,11 +480,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					var/newJob = reject_bad_text(input("Enter a custom job assignment.", "Assignment", modify ? modify.assignment : "Unassigned"), MAX_NAME_LEN)
 					if(newJob)
 						t1 = newJob
-						log_id("[key_name(usr)] changed [modify] assignment to [newJob] using [scan] at [AREACOORD(usr)].")
+						log_id("[key_name(usr)] changed [modify] assignment to [newJob] using [auth_ID] at [AREACOORD(usr)].")
 
 				else if(t1 == "Unassigned")
 					modify.access -= get_all_accesses()
-					log_id("[key_name(usr)] unassigned and stripped all access from [modify] using [scan] at [AREACOORD(usr)].")
+					log_id("[key_name(usr)] unassigned and stripped all access from [modify] using [auth_ID] at [AREACOORD(usr)].")
 
 				else
 					var/datum/job/jobdatum
@@ -491,7 +504,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						modify.registered_account.account_job = jobdatum // this is a terrible idea and people will grief but sure whatever
 
 					modify.access = ( istype(src, /obj/machinery/computer/card/centcom) ? get_centcom_access(t1) : jobdatum.get_access() )
-					log_id("[key_name(usr)] assigned [jobdatum] job to [modify], overriding all previous access using [scan] at [AREACOORD(usr)].")
+					log_id("[key_name(usr)] assigned [jobdatum] job to [modify], overriding all previous access using [auth_ID] at [AREACOORD(usr)].")
 
 				if (modify)
 					modify.assignment = t1
@@ -499,7 +512,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if ("demote")
 			if(modify.assignment in head_subordinates || modify.assignment == "Assistant")
 				modify.assignment = "Unassigned"
-				log_id("[key_name(usr)] demoted [modify], unassigning the card without affecting access, using [scan] at [AREACOORD(usr)].")
+				log_id("[key_name(usr)] demoted [modify], unassigning the card without affecting access, using [auth_ID] at [AREACOORD(usr)].")
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 			else
 				to_chat(usr, "<span class='error'>You are not authorized to demote this position.</span>")
@@ -509,7 +522,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if ((authenticated && modify == t2 && (in_range(src, usr) || issilicon(usr)) && isturf(loc)))
 					var/newName = reject_bad_name(href_list["reg"])
 					if(newName)
-						log_id("[key_name(usr)] changed [modify] name to '[newName]', using [scan] at [AREACOORD(usr)].")
+						log_id("[key_name(usr)] changed [modify] name to '[newName]', using [auth_ID] at [AREACOORD(usr)].")
 						modify.registered_name = newName
 						playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 					else
@@ -526,7 +539,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if("make_job_available")
 			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
-			if(scan && (ACCESS_CHANGE_IDS in scan.access) && !target_dept)
+			if(auth_ID && (ACCESS_CHANGE_IDS in auth_ID.access) && !target_dept)
 				var/edit_job_target = href_list["job"]
 				var/datum/job/j = SSjob.GetJob(edit_job_target)
 				if(!j)
@@ -543,7 +556,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if("make_job_unavailable")
 			// MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
-			if(scan && (ACCESS_CHANGE_IDS in scan.access) && !target_dept)
+			if(auth_ID && (ACCESS_CHANGE_IDS in auth_ID.access) && !target_dept)
 				var/edit_job_target = href_list["job"]
 				var/datum/job/j = SSjob.GetJob(edit_job_target)
 				if(!j)
@@ -561,7 +574,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if ("prioritize_job")
 			// TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY
-			if(scan && (ACCESS_CHANGE_IDS in scan.access) && !target_dept)
+			if(auth_ID && (ACCESS_CHANGE_IDS in auth_ID.access) && !target_dept)
 				var/priority_target = href_list["job"]
 				var/datum/job/j = SSjob.GetJob(priority_target)
 				if(!j)
@@ -582,7 +595,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if ("adjust_pay")
 			//Adjust the paycheck of a crew member. Can't be less than zero.
-			if(!scan)
+			if(!auth_ID)
 				updateUsrDialog()
 				return
 			var/account_name = href_list["account"]
@@ -596,23 +609,23 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				return
 			switch(account.account_job.paycheck_department) //Checking if the user has access to change pay.
 				if(ACCOUNT_SRV,ACCOUNT_CIV,ACCOUNT_CAR)
-					if(!(ACCESS_HOP in scan.access))
+					if(!(ACCESS_HOP in auth_ID.access))
 						updateUsrDialog()
 						return
 				if(ACCOUNT_SEC)
-					if(!(ACCESS_HOS in scan.access))
+					if(!(ACCESS_HOS in auth_ID.access))
 						updateUsrDialog()
 						return
 				if(ACCOUNT_MED)
-					if(!(ACCESS_CMO in scan.access))
+					if(!(ACCESS_CMO in auth_ID.access))
 						updateUsrDialog()
 						return
 				if(ACCOUNT_SCI)
-					if(!(ACCESS_RD in scan.access))
+					if(!(ACCESS_RD in auth_ID.access))
 						updateUsrDialog()
 						return
 				if(ACCOUNT_ENG)
-					if(!(ACCESS_CE in scan.access))
+					if(!(ACCESS_CE in auth_ID.access))
 						updateUsrDialog()
 						return
 			var/new_pay = FLOOR(input(usr, "Input the new paycheck amount.", "Set new paycheck amount.", account.paycheck_amount) as num|null, 1)
@@ -627,7 +640,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if ("adjust_bonus")
 			//Adjust the bonus pay of a crew member. Negative amounts dock pay.
-			if(!scan)
+			if(!auth_ID)
 				updateUsrDialog()
 				return
 			var/account_name = href_list["account"]
@@ -641,23 +654,23 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				return
 			switch(account.account_job.paycheck_department) //Checking if the user has access to change pay.
 				if(ACCOUNT_SRV,ACCOUNT_CIV,ACCOUNT_CAR)
-					if(!(ACCESS_HOP in scan.access))
+					if(!(ACCESS_HOP in auth_ID.access))
 						updateUsrDialog()
 						return
 				if(ACCOUNT_SEC)
-					if(!(ACCESS_HOS in scan.access))
+					if(!(ACCESS_HOS in auth_ID.access))
 						updateUsrDialog()
 						return
 				if(ACCOUNT_MED)
-					if(!(ACCESS_CMO in scan.access))
+					if(!(ACCESS_CMO in auth_ID.access))
 						updateUsrDialog()
 						return
 				if(ACCOUNT_SCI)
-					if(!(ACCESS_RD in scan.access))
+					if(!(ACCESS_RD in auth_ID.access))
 						updateUsrDialog()
 						return
 				if(ACCOUNT_ENG)
-					if(!(ACCESS_CE in scan.access))
+					if(!(ACCESS_CE in auth_ID.access))
 						updateUsrDialog()
 						return
 			var/new_bonus = FLOOR(input(usr, "Input the bonus amount. Negative values will dock paychecks.", "Set paycheck bonus", account.paycheck_bonus) as num|null, 1)

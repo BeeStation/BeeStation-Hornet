@@ -33,8 +33,7 @@
 					H.forcesay("No malicious files detected!")
 			return
 		else
-			return ..()
-			
+			return ..()	
 
 /obj/item/disk/antivirus/tier2
 	name = "Ahoy"

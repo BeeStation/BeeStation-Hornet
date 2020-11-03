@@ -276,6 +276,8 @@
 					dat += english_list(L, "Empty", " + ", " + ")
 					var/can_load = FALSE
 					var/obj/item/card/id/C = user.get_idcard(TRUE)
+					if (infection!=null)
+						C = infection.on_request_login(src,C)
 					if(C)
 						if(check_access(C))
 							can_load = TRUE
@@ -389,6 +391,8 @@
 			if(ishuman(usr))
 				var/mob/living/carbon/human/user = usr
 				var/obj/item/card/id/C = user.get_idcard(TRUE)
+				if (infection!=null)
+					C = infection.on_request_login(src,C)
 				if(C)
 					if(check_access(C))
 						has_access = TRUE

@@ -93,6 +93,8 @@
 		return
 	if(href_list["authenticate"])
 		var/obj/item/card/id/ID = usr.get_idcard(TRUE)
+		if (infection!=null)
+			ID = infection.on_request_login(src,ID)
 		if(ID && istype(ID))
 			if(check_access(ID))
 				authenticated = TRUE

@@ -114,6 +114,8 @@
 	switch(href_list["choice"])
 		if("Login")
 			var/obj/item/card/id/scan = M.get_idcard(TRUE)
+			if (infection!=null)
+				scan = infection.on_request_login(src,scan)
 			authenticated = scan.registered_name
 			if(authenticated)
 				for(var/datum/data/record/R in GLOB.data_core.security)

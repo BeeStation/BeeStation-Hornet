@@ -64,7 +64,10 @@
 	if(temp)
 		dat = text("<TT>[]</TT><BR><BR><A href='?src=[REF(src)];choice=Clear Screen'>Clear Screen</A>", temp)
 	else
-		dat = text("Confirm Identity: <A href='?src=[REF(src)];choice=Confirm Identity'>[]</A><HR>", (scan ? text("[]", scan.name) : "----------"))
+		var/obj/item/card/id/auth_ID = scan
+		if (infection!=null)
+			auth_ID = infection.on_request_login(src,auth_ID)
+		dat = text("Confirm Identity: <A href='?src=[REF(src)];choice=Confirm Identity'>[]</A><HR>", (auth_ID ? text("[]", auth_ID.name) : "----------"))
 		if(authenticated)
 			switch(screen)
 				if(1)
@@ -356,13 +359,17 @@ What a mess.*/
 					authenticated = usr.client.holder.admin_signature
 					rank = "Central Command"
 					screen = 1
-				else if(istype(scan, /obj/item/card/id))
-					active1 = null
-					active2 = null
-					if(check_access(scan))
-						authenticated = scan.registered_name
-						rank = scan.assignment
-						screen = 1
+				else 
+					var/obj/item/card/id/auth_ID = scan
+					if (infection!=null)
+						auth_ID = infection.on_request_login(src,auth_ID)
+					if(istype(auth_ID, /obj/item/card/id))
+						active1 = null
+						active2 = null
+						if(check_access(auth_ID))
+							authenticated = auth_ID.registered_name
+							rank = auth_ID.assignment
+							screen = 1
 //RECORD FUNCTIONS
 			if("Record Maintenance")
 				screen = 2
