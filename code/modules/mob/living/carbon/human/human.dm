@@ -292,8 +292,6 @@
 				return
 			if(!H.canUseHUD())
 				return
-			if(!HAS_TRAIT(H, TRAIT_SECURITY_HUD) && !HAS_TRAIT(H, TRAIT_MEDICAL_HUD))
-				return
 			var/obj/item/photo/P = null
 			if(href_list["photo_front"])
 				P = R.fields["photo_front"]

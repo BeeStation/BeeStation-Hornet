@@ -12,8 +12,8 @@
 	name = "HUD implant"
 	desc = "These cybernetic eyes will display a HUD over everything you see. Maybe."
 	slot = ORGAN_SLOT_HUD
-	var/HUD_type = 0
-	var/HUD_trait = null
+	var/HUD_type
+	var/HUD_trait
 
 /obj/item/organ/cyberimp/eyes/hud/Insert(var/mob/living/carbon/M, var/special = 0, drop_if_replaced = FALSE)
 	..()
