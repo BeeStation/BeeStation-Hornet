@@ -229,7 +229,7 @@ Class Procs:
 	return 1
 
 /obj/machinery/proc/is_operational()
-	return !(stat & (NOPOWER|BROKEN|MAINT))
+	return !(stat & (NOPOWER|BROKEN|MAINT|VIRUSED))
 
 /obj/machinery/can_interact(mob/user)
 	var/silicon = issilicon(user)
@@ -247,7 +247,7 @@ Class Procs:
 		if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON))
 			return FALSE
 
-	else if(living) // If we are a living human
+	else if(living && !(stat & VIRUSED)) // If we are a living human
 		var/mob/living/L = user
 
 		if(interaction_flags_machine & INTERACT_MACHINE_REQUIRES_SILICON) // First make sure the machine doesn't require silicon interaction

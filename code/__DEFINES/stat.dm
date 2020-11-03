@@ -16,6 +16,7 @@
 #define NOPOWER	(1<<1)
 #define MAINT	(1<<2)		// under maintaince
 #define EMPED	(1<<3)		// temporary broken by EMP pulse
+#define VIRUSED	(1<<4)		
 
 //ai power requirement defines
 #define POWER_REQ_ALL 1

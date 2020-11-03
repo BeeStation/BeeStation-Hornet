@@ -54,7 +54,7 @@
 /obj/machinery/computer/update_icon()
 	cut_overlays()
 	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
-	if((stat & NOPOWER) || (infection  && !infection.on_charge()))
+	if((stat & (NOPOWER|VIRUSED)))
 		add_overlay("[icon_keyboard]_off")
 		return
 	add_overlay(icon_keyboard)
@@ -69,7 +69,7 @@
 
 /obj/machinery/computer/power_change()
 	..()
-	if((stat & NOPOWER) || (infection  && !infection.on_charge()))
+	if((stat & (NOPOWER|VIRUSED)))
 		set_light(0, 0)
 	else
 		set_light(brightness_on, 2)
@@ -140,13 +140,18 @@
 			circuit = null
 		for(var/obj/C in src)
 			C.forceMove(loc)
-
+	if (infection)
+		infection.Destroy()
 	qdel(src)
 
-/obj/machinery/computer/ui_interact(mob/user)
-	..()
+/obj/machinery/computer/interact(mob/user)	
 	if (infection)
-		infection.on_interact(user)
+		if (istype(user, /mob/living/silicon/ai) && (infection.resistance<=20) && do_after(user, 90 SECONDS, target = src))
+			to_chat(user, "<span class='notice'>You removed the [infection.name] from the [src].</span>")
+			infection.Destroy()
+		else
+			..()
+			infection.on_interact(user)
 		
 /obj/machinery/computer/attackby(obj/item/W, mob/user)
 	..()
@@ -156,15 +161,12 @@
 		to_chat(user, "<span class='notice'>You install the [W] on the [src].</span>")
 		if (do_after(user, 3 SECONDS, target = src))
 			if (infection)
-				var/defence = infection.resistance	//calculate defense
-				var/roll = prob(attacker.resistcap)	//attack
-				if (roll>defence)
+				var/attack = attacker.resistcap
+				var/defence = infection.resistance	
+				if (attack>defence)
 					to_chat(user, "<span class='notice'>The [W] identified and removed the [infection.name] from the [src].</span>")
 					infection.Destroy()
-				else if (roll==defence)	//least likely
-					to_chat(user, "<span class='notice'>The [W] didn't find any viruses on the [src].</span>")
-				else
+				else 
 					to_chat(user, "<span class='notice'>The [W] identified and the [infection.name] on the [src] but failed to diagnose it.</span>")
 			else
-				to_chat(user, "<span class='notice'>The [W] didn't find any viruses on the [src].</span>")
-			
+				to_chat(user, "<span class='notice'>The [W] didn't find any viruses on the [src].</span>")			

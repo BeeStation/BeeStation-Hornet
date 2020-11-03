@@ -25,9 +25,6 @@ datum/malware/proc/on_interact(mob/user)	//on user interact with computer/consol
 datum/malware/proc/on_process()	//prevents computer from processing
 	return TRUE
 
-datum/malware/proc/on_charge()	//prevents computer from gaining power
-	return TRUE
-
 datum/malware/proc/on_request_login(obj/machinery/computer/source,obj/item/card/id/suckers_id)	//on sucker put ID into the console
 		//save ID
 		//output saved ID if suckers ID is null
@@ -52,17 +49,26 @@ datum/malware/clown/on_process()
 	return TRUE
 	
 //	<3	KILLER	<3	/
-//	prevents console from opeating
+//	prevents console from being operated by humans
 //	-------------	/
 datum/malware/killer
-	name = "K1LL3R"	
+	name = "D0M3-N@T.r1x"	
 	resistance = 5
 	
-datum/malware/killer/on_process()	
-	return FALSE
+datum/malware/killer/can_install(mob/user, obj/machinery/computer/source)	
+	. = ..()
+	if (.)
+		console.stat |= VIRUSED
+	return .
 	
-datum/malware/killer/on_charge()	
-	return FALSE
+datum/malware/killer/Destroy()	
+	if (console.stat & VIRUSED)
+		console.stat ~= VIRUSED
+	 ..()
+	 
+datum/malware/killer/strong
+	name = "D0M3-N@T_2.r1x"	
+	resistance = 100
 
 //	<3	TIDER	<3	/
 //	Scrambles the name and ID of the user
@@ -70,7 +76,7 @@ datum/malware/killer/on_charge()
 datum/malware/tider
 	var/name = "T1-D3R"	
 	var/obj/item/card/id/cached_id
-	resistance = 10
+	resistance = 5
 requires ID
 
 datum/malware/tider/install()	
@@ -87,33 +93,9 @@ datum/malware/tider/on_request_login(obj/machinery/computer/source,obj/item/card
 	cached_id.access = suckers_id.access
 	return cached_id
 
-
-//	---	SYNDICATE SELECTION	---
-
-/*	<3	LOGGER	<3	*
- *	Copies the last inserted ID
-/*	-------------	*/
-datum/malware/logger
-	var/name = "Keylogger"	
-	var/obj/item/card/id/cached_id
-	resistance = 14
-requires ID
-
-datum/malware/logger/on_request_login(obj/machinery/computer/source,obj/item/card/id/suckers_id)	
-	if (!suckers_id)
-		return cached_id
-	if (!cached_id)
-		cached_id = new ()
-	cached_id.registered_name = registered_name.access
-	cached_id.assignment = suckers_id.assignment
-	cached_id.access_txt = suckers_id.access_txt
-	cached_id.access = suckers_id.access
-	return suckers_id
-
-
-/*	<3	GREMLIN	<3	*
- *	bomb explodes the console when used, small explosion
-/*	-------------	*/
+//	<3	CUBAN	<3	/
+//	bomb explodes the console when used, small explosion
+//	-------------	/
 datum/malware/cuban
 	name = "Trojan Pete"	
 	resistance = 12
@@ -127,3 +109,34 @@ datum/malware/cuban/proc/detonate_machine()
 	if(console && !QDELETED(console))
 		var/turf/T = get_turf(console)
 		explosion(get_turf(console), 0, 1, 2, 0)
+
+
+//	---	SYNDICATE SELECTION	---
+
+//	<3	LOGGER	<3	/
+//	Copies the last inserted ID
+//	-------------	/
+datum/malware/logger
+	var/name = "Keylogger"	
+	var/obj/item/card/id/cached_id
+	resistance = 16
+requires ID
+
+datum/malware/logger/on_request_login(obj/machinery/computer/source,obj/item/card/id/suckers_id)	
+	if (!suckers_id)
+		return cached_id
+	if (!cached_id)
+		cached_id = new ()
+	cached_id.registered_name = registered_name.access
+	cached_id.assignment = suckers_id.assignment
+	cached_id.access_txt = suckers_id.access_txt
+	cached_id.access = suckers_id.access
+	return suckers_id
+		
+//	<3	MOBSPAWNER	<3	/
+//	Injects cloning/research/engineering/botany/teleporter, outputs hostile mobs... AI/nukeops only
+//	-------------	/
+datum/malware/gate
+	name = "G4T3"	
+	resistance = 9001
+	var/next_mob_time = 0
