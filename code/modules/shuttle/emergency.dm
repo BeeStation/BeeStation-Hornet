@@ -19,8 +19,8 @@
 		say("Please equip your ID card into your ID slot to authenticate.")
 	. = ..()
 
-/obj/machinery/computer/emergency_shuttle/attack_alien(mob/living/carbon/alien/humanoid/user)
-	if(istype(user, /mob/living/carbon/alien/humanoid/royal/queen))
+/obj/machinery/computer/emergency_shuttle/attack_alien(mob/living/carbon/alien/humanoid/royal/queen/user)
+	if(istype(user))
 		SSshuttle.clearHostileEnvironment(user)
 
 /obj/machinery/computer/emergency_shuttle/ui_state(mob/user)
