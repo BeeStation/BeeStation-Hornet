@@ -46910,8 +46910,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Corporate Showroom";
-	req_access_txt = "19";
-	security_level = 1
+	req_access_txt = "19"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
