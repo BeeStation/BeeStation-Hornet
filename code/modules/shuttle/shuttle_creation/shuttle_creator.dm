@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	var/overwritten_area = /area/space
 	var/list/loggedTurfs = list()
 	var/loggedOldArea
-	var/recorded_shuttle_area
+	var/area/recorded_shuttle_area
 	var/datum/shuttle_creator_overlay_holder/overlay_holder
 	//After designation
 	var/linkedShuttleId
@@ -56,6 +56,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 /obj/item/shuttle_creator/attack_self(mob/user)
 	..()
 	if(linkedShuttleId)
+		select_preferred_direction(user)
 		return
 	if(GLOB.custom_shuttle_count > CUSTOM_SHUTTLE_LIMIT && !override_max_shuttles)
 		to_chat(user, "<span class='warning'>Too many shuttles have been created.</span>")
@@ -75,7 +76,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		return
 	if(istype(target, /obj/machinery/computer/custom_shuttle))
 		if(!linkedShuttleId)
-			to_chat(user, "<span class='warning'>Error, no defined shuttle linked to device</span>")
+			to_chat(user, "<span class='warning'>Error, no defined shuttle linked to device.</span>")
 			return
 		var/obj/machinery/computer/custom_shuttle/console = target
 		console.linkShuttle(linkedShuttleId)
@@ -83,7 +84,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		return
 	else if(istype(target, /obj/machinery/computer/camera_advanced/shuttle_docker/custom))
 		if(!linkedShuttleId)
-			to_chat(user, "<span class='warning'>Error, no defined shuttle linked to device</span>")
+			to_chat(user, "<span class='warning'>Error, no defined shuttle linked to device.</span>")
 			return
 		var/obj/machinery/computer/camera_advanced/shuttle_docker/custom/console = target
 		console.linkShuttle(linkedShuttleId)
@@ -181,14 +182,16 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 
 	var/obj/docking_port/mobile/port = new /obj/docking_port/mobile(get_turf(target))
 	var/obj/docking_port/stationary/stationary_port = new /obj/docking_port/stationary(get_turf(target))
+	stationary_port.delete_after = TRUE
+	stationary_port.name = "[recorded_shuttle_area.name] Custom Shuttle construction site"
 	port.callTime = 50
 	port.dir = 1	//Point away from space.
 	port.id = "custom_[GLOB.custom_shuttle_count]"
 	linkedShuttleId = port.id
 	port.ignitionTime = 25
-	port.name = "Custom Shuttle"
 	port.port_direction = 2
-	port.preferred_direction = 4
+	port.preferred_direction = EAST
+	port.name = "[recorded_shuttle_area.name] Custom Shuttle"
 	port.area_type = recorded_shuttle_area
 
 	stationary_port.area_type = overwritten_area
@@ -239,6 +242,9 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 
 	icon_state = "rsd_used"
 
+	//Select shuttle fly direction. 
+	select_preferred_direction(user)
+
 	//Clear highlights
 	overlay_holder.clear_highlights()
 	GLOB.custom_shuttle_count ++
@@ -264,7 +270,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	if(!str || !length(str))
 		return FALSE
 	if(length(str) > 50)
-		to_chat(user, "<span class='warning'>The provided ship name is too long, blares the [src]</span>")
+		to_chat(user, "<span class='warning'>The provided ship name is too long, blares the [src].</span>")
 		return FALSE
 	if(OOC_FILTER_CHECK(str))
 		to_chat(user, "<span class='warning'>Nanotrasen prohibited words are in use in this shuttle name, blares the [src] in a slightly offended tone.</span>")
@@ -292,6 +298,16 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		FD.CalculateAffectingAreas()
 	return TRUE
 
+//Select shuttle fly direction. 
+/obj/item/shuttle_creator/proc/select_preferred_direction(mob/user)
+	var/obj/docking_port/mobile/port = SSshuttle.getShuttle(linkedShuttleId)
+	if(!port || !istype(port, /obj/docking_port/mobile))
+		return FALSE
+	var/static/list/choice = list("NORTH" = NORTH, "SOUTH" = SOUTH, "EAST" = EAST, "WEST" = WEST)
+	var/Pdir = input(user, "Shuttle Fly Direction:", "Blueprint Editing", "NORTH") as null|anything in list("NORTH", "SOUTH", "EAST", "WEST")
+	if(Pdir)
+		port.preferred_direction = choice[Pdir]
+
 //Checks an area to ensure that the turfs provided are valid to be made into a shuttle
 /obj/item/shuttle_creator/proc/check_area(list/turfs, addingTurfs = TRUE)
 	if(!turfs)
@@ -312,7 +328,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		else if(istype(place, /area/lavaland/surface/outdoors))
 			overwritten_area = /area/lavaland/surface/outdoors
 		else
-			to_chat(usr, "<span class='warning'>Caution, shuttle must not use any material connected to the station. Your shuttle is currenly overlapping with [place.name]</span>")
+			to_chat(usr, "<span class='warning'>Caution, shuttle must not use any material connected to the station. Your shuttle is currenly overlapping with [place.name].</span>")
 			return FALSE
 	//Finally, check to see if the area is actually attached
 	if(!LAZYLEN(loggedTurfs))

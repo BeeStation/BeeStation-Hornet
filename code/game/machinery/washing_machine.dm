@@ -26,7 +26,7 @@
 		return
 
 	if(state_open)
-		to_chat(user, "<span class='notice'>Close the door first</span>")
+		to_chat(user, "<span class='notice'>Close the door first.</span>")
 		return
 
 	if(bloody_mess)
@@ -95,7 +95,11 @@
 				var/obj/item/reagent_containers/food/snacks/grown/rainbow_flower/RF = WM.color_source
 				add_atom_colour(RF.color, WASHABLE_COLOUR_PRIORITY)
 
-/mob/living/simple_animal/pet/dog/corgi/machine_wash(obj/machinery/washing_machine/WM)
+/obj/item/clothing/head/mob_holder/machine_wash(obj/machinery/washing_machine/WM)
+	..()
+	held_mob.machine_wash(WM)
+
+/mob/living/simple_animal/pet/machine_wash(obj/machinery/washing_machine/WM)
 	WM.bloody_mess = TRUE
 	gib()
 
@@ -286,7 +290,7 @@
 		if(L.buckled || L.has_buckled_mobs())
 			return
 		if(state_open)
-			if(iscorgi(L))
+			if(istype(L, /mob/living/simple_animal/pet))
 				L.forceMove(src)
 				update_icon()
 		return

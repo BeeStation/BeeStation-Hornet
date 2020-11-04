@@ -4,6 +4,9 @@
 	id = "felinid"
 	limbs_id = "human"
 
+	disliked_food = VEGETABLES | SUGAR
+	liked_food = DAIRY | MEAT
+
 	mutant_bodyparts = list("ears", "tail_human")
 	default_features = list("mcolor" = "FFF", "tail_human" = "Cat", "ears" = "Cat", "wings" = "None")
 
@@ -89,10 +92,10 @@
 			NT.Insert(H, drop_if_replaced = FALSE)
 		else
 			tail.Remove(H)
-			
+
 /datum/species/human/felinid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/M)
 	.=..()
-	if(chem.type == /datum/reagent/consumable/coco)
+	if(chem.type == /datum/reagent/consumable/cocoa)
 		if(prob(40))
 			M.adjust_disgust(20)
 		if(prob(5))

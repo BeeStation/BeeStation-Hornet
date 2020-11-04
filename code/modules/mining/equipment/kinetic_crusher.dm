@@ -39,7 +39,7 @@
 	return ..()
 
 /obj/item/twohanded/kinetic_crusher/examine(mob/living/user)
-	..()
+	. = ..()
 	to_chat(user, "<span class='notice'>Mark a large creature with the destabilizing force, then hit them in melee to do <b>[force + detonation_damage]</b> damage.</span>")
 	to_chat(user, "<span class='notice'>Does <b>[force + detonation_damage + backstab_bonus]</b> damage if the target is backstabbed, instead of <b>[force + detonation_damage]</b>.</span>")
 	for(var/t in trophies)

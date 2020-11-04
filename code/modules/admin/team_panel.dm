@@ -54,7 +54,7 @@
 	log_admin("[key_name(usr)] renamed [old_name] team to [name]")
 
 /datum/team/proc/admin_communicate(mob/user)
-	var/message = input(user,"Message for the team ?","Team Message") as text|null
+	var/message = capped_input(user,"Message for the team ?","Team Message")
 	if(!message)
 		return
 	for(var/datum/mind/M in members)

@@ -188,7 +188,7 @@
 			user.set_nutrition(0)
 
 /obj/item/book/granter/spell/blind
-	spell = /obj/effect/proc_holder/spell/targeted/trigger/blind
+	spell = /obj/effect/proc_holder/spell/pointed/trigger/blind
 	spellname = "blind"
 	icon_state ="bookblind"
 	desc = "This book looks blurry, no matter how you look at it."
@@ -435,7 +435,7 @@
 	crafting_recipe_types = list(
 		/datum/crafting_recipe/food/mimetart,
 		/datum/crafting_recipe/food/berrytart,
-		/datum/crafting_recipe/food/cocolavatart,
+		/datum/crafting_recipe/food/cocoalavatart,
 		/datum/crafting_recipe/food/clowncake,
 		/datum/crafting_recipe/food/vanillacake
 	)

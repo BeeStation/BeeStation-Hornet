@@ -112,7 +112,7 @@
 	icon_state = "tile-carpet-black"
 	item_state = "tile-carpet-black"
 	turf_type = /turf/open/floor/carpet/black
-	
+
 	tableVariant = /obj/structure/table/wood/fancy/black
 
 /obj/item/stack/tile/carpet/blue
@@ -171,9 +171,16 @@
 	turf_type = /turf/open/floor/carpet/royalblue
 	tableVariant = /obj/structure/table/wood/fancy/royalblue
 
+/obj/item/stack/tile/eighties
+	name = "retro tile"
+	singular_name = "retro floor tile"
+	desc = "A stack of floor tiles that remind you of simpler times.."
+	icon_state = "tile_eighties"
+	turf_type = /turf/open/floor/eighties
+
 /obj/item/stack/tile/carpet/fifty
 	amount = 50
-	
+
 /obj/item/stack/tile/carpet/black/fifty
 	amount = 50
 
@@ -199,6 +206,9 @@
 	amount = 50
 
 /obj/item/stack/tile/carpet/royalblue/fifty
+	amount = 50
+
+/obj/item/stack/tile/eighties/fifty
 	amount = 50
 
 /obj/item/stack/tile/fakespace
@@ -252,7 +262,7 @@
 	icon_state = "tile_noslip_white"
 	turf_type = /turf/open/floor/noslip/white
 	merge_type = /obj/item/stack/tile/noslip
-	
+
 /obj/item/stack/tile/noslip/blue
 	name = "high-traction floor tile"
 	singular_name = "high-traction floor tile"
@@ -268,7 +278,7 @@
 	icon_state = "tile_noslip_darkblue"
 	turf_type = /turf/open/floor/noslip/darkblue
 	merge_type = /obj/item/stack/tile/noslip
-	
+
 /obj/item/stack/tile/noslip/dark
 	name = "high-traction floor tile"
 	singular_name = "high-traction floor tile"

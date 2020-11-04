@@ -322,13 +322,23 @@ SUBSYSTEM_DEF(explosions)
 
 		//--- THROW ITEMS AROUND ---
 		var/throw_dir = get_dir(epicenter,T)
-		var/throw_range = max_range-throw_dist
-		var/list/throwingturf = T.explosion_throw_details
-		if (throwingturf)
-			if (throwingturf[1] < throw_range)
-				throwingturf[1] = throw_range
-				throwingturf[2] = throw_dir
-				throwingturf[3] = max_range
+		for(var/obj/item/I in T)
+			if(!I.anchored)
+				var/throw_range = rand(throw_dist, max_range)
+				var/turf/throw_at = get_ranged_target_turf(I, throw_dir, throw_range)
+				I.throw_at(throw_at, throw_range, EXPLOSION_THROW_SPEED)
+
+		for(var/mob/living/L in T)
+			if(!L.anchored)
+				var/throw_range = rand(throw_dist, max_range)
+				var/turf/throw_at = get_ranged_target_turf(L, throw_dir, throw_range)
+				L.throw_at(throw_at, throw_range, EXPLOSION_THROW_SPEED)
+
+		//wait for the lists to repop
+		var/break_condition
+		if(reactionary)
+			//If we've caught up to the density checker thread and there are no more turfs to process
+			break_condition = iteration == expBlockLen && iteration < affTurfLen
 		else
 			T.explosion_throw_details = list(throw_range, throw_dir, max_range)
 			throwturf += T

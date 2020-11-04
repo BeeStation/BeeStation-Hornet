@@ -2,6 +2,10 @@
 	var/enter_delay = 20
 	var/mouse_pointer
 
+/obj/vehicle/sealed/CanPass(atom/movable/mover, turf/target)
+	if(mover in buckled_mobs)
+		return 1
+
 /obj/vehicle/sealed/generate_actions()
 	. = ..()
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/climb_out)

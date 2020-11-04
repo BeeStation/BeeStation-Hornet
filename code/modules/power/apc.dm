@@ -56,8 +56,8 @@
 	integrity_failure = 50
 	resistance_flags = FIRE_PROOF
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
-	ui_x = 450
-	ui_y = 460
+
+
 
 	FASTDMM_PROP(\
 		set_instance_vars(\
@@ -111,6 +111,9 @@
 	var/update_overlay = -1
 	var/icon_update_needed = FALSE
 	var/obj/machinery/computer/apc_control/remote_control = null
+
+	var/clock_cog_rewarded = FALSE	//Clockcult - Has the reward for converting an APC been given?
+	var/integration_cog = null		//Clockcult - The integration cog inserted inside of us
 
 /obj/machinery/power/apc/unlocked
 	locked = FALSE
@@ -272,6 +275,8 @@
 		else
 			. += {"It's [ !terminal ? "not" : "" ] wired up.\n
 			The electronics are[!has_electronics?"n't":""] installed."}
+		if(integration_cog || (user.hallucinating() && prob(20)))
+			. += "A small cogwheel is inside of it."
 
 	else
 		if (stat & MAINT)
@@ -429,7 +434,13 @@
 /obj/machinery/power/apc/crowbar_act(mob/user, obj/item/W)
 	. = TRUE
 	if (opened)
-		if (has_electronics == APC_ELECTRONICS_INSTALLED)
+		if(integration_cog)
+			to_chat(user, "<span class='notice'>You begin prying something out of the APC...</span>")
+			W.play_tool_sound(src)
+			if(W.use_tool(src, user, 50))
+				to_chat(user, "<span class='warning'>You screw up breaking whatever was inside!</span>")
+				QDEL_NULL(integration_cog)
+		else if (has_electronics == APC_ELECTRONICS_INSTALLED)
 			if (terminal)
 				to_chat(user, "<span class='warning'>Disconnect the wires first!</span>")
 				return
@@ -649,7 +660,7 @@
 			return
 	else if (istype(W, /obj/item/wallframe/apc) && opened)
 		if (!(stat & BROKEN || opened==APC_COVER_REMOVED || obj_integrity < max_integrity)) // There is nothing to repair
-			to_chat(user, "<span class='warning'>You found no reason for repairing this APC</span>")
+			to_chat(user, "<span class='warning'>You find no reason for repairing this APC.</span>")
 			return
 		if (!(stat & BROKEN) && opened==APC_COVER_REMOVED) // Cover is the only thing broken, we do not need to remove elctronicks to replace cover
 			user.visible_message("[user.name] replaces missing APC's cover.",\
@@ -820,12 +831,19 @@
 	if((stat & MAINT) && !opened) //no board; no interface
 		return
 
-/obj/machinery/power/apc/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-										datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/power/apc/ui_state(mob/user)
+	if(isAI(user))
+		var/mob/living/silicon/ai/AI = user
+		if(AI.apc_override == src)
+			return GLOB.conscious_state
+	return GLOB.default_state
+
+/obj/machinery/power/apc/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 
 	if(!ui)
-		ui = new(user, src, ui_key, "Apc", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "Apc")
 		ui.open()
 
 /obj/machinery/power/apc/ui_data(mob/user)
@@ -1003,6 +1021,12 @@
 					INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
 				CHECK_TICK
 	return 1
+
+/obj/machinery/power/apc/ui_close(mob/user)
+	if(isAI(user))
+		var/mob/living/silicon/ai/AI = user
+		if(AI.apc_override == src)
+			AI.apc_override = null
 
 /obj/machinery/power/apc/proc/toggle_breaker(mob/user)
 	if(!is_operational() || failure_timer)
@@ -1271,6 +1295,12 @@
 		else // chargemode off
 			charging = 0
 			chargecount = 0
+
+		//=====Clock Cult=====
+		if(integration_cog && cell.charge >= cell.maxcharge/2)
+			var/power_delta = CLAMP(cell.charge - 20, 0, 20)
+			GLOB.clockcult_power += power_delta
+			cell.charge -= power_delta
 
 	else // no cell, switch everything off
 

@@ -148,7 +148,6 @@
 		return FALSE
 	if(owner && (owner.status_flags & GODMODE))
 		return FALSE	//godmode
-
 	if(required_status && (status != required_status))
 		return FALSE
 
@@ -698,7 +697,7 @@
 	desc = "You put your right leg in, your right leg out. In, out, in, out, \
 		shake it all about. And apparently then it detaches.\n\
 		The hokey pokey has certainly changed a lot since space colonisation."
-	// alternative spellings of 'pokey' are availible
+	// alternative spellings of 'pokey' are available
 	icon_state = "default_human_r_leg"
 	attack_verb = list("kicked", "stomped")
 	max_damage = 50

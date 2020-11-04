@@ -126,7 +126,7 @@
 		radial_list["Paper S"] = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "papersyndicate")
 
 	var/origami_selected = show_radial_menu(user, src, radial_list, require_near = TRUE, tooltips = TRUE)
-	if(!origami_selected || !user || !user.stat)
+	if(!origami_selected || !user || user.stat)
 		return
 
 	var/origami_type = origami_nametotype(origami_selected)

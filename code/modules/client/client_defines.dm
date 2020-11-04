@@ -45,8 +45,8 @@
 		///////////////
 		//SOUND STUFF//
 		///////////////
-	var/ambience_playing= null
-	var/played			= 0
+	var/ambient_buzz_playing = null // What buzz ambience is currently playing
+	var/ambient_effect_last_played = 0 // What was the last time we played an ambient effect noise?
 		////////////
 		//SECURITY//
 		////////////
@@ -96,8 +96,6 @@
 	var/list/topiclimiter
 	var/list/clicklimiter
 
-	var/datum/chatOutput/chatOutput
-
 	/// These persist between logins/logouts during the same round.
 	var/datum/player_details/player_details
 
@@ -109,5 +107,17 @@
 	var/keysend_tripped = FALSE
 
 	var/datum/viewData/view_size
+
+	// List of all asset filenames sent to this client by the asset cache, along with their assoicated md5s
+	var/list/sent_assets = list()
+	/// List of all completed blocking send jobs awaiting acknowledgement by send_asset
+	var/list/completed_asset_jobs = list()
+	/// Last asset send job id.
+	var/last_asset_job = 0
+	var/last_completed_asset_job = 0
+
 	/// rate limiting for the crew manifest
 	var/crew_manifest_delay
+
+	//Tick when ghost roles are useable again
+	var/next_ghost_role_tick = 0
