@@ -23,9 +23,6 @@
 
 /obj/structure/closet/crate/Initialize()
 	. = ..()
-	if(icon_state == "[initial(icon_state)]open")
-		opened = TRUE
-	update_icon()
 
 /obj/structure/closet/crate/CanPass(atom/movable/mover, turf/target)
 	if(!istype(mover, /obj/structure/closet))
@@ -38,11 +35,13 @@
 	return !density
 
 /obj/structure/closet/crate/update_icon()
-	icon_state = "[initial(icon_state)][opened ? "open" : ""]"
-
 	cut_overlays()
-	if(manifest)
-		add_overlay("manifest")
+	if(opened)
+		add_overlay("[initial(icon_state)]_open")
+	else
+		add_overlay("[initial(icon_state)]_close")
+		if(manifest)
+			add_overlay("manifest")
 
 /obj/structure/closet/crate/attack_hand(mob/user)
 	. = ..()
