@@ -1,0 +1,4 @@
+author: qwertyquerty
+delete-after: true
+changes:
+  - tweak: Made auto viewport fit default
