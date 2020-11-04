@@ -50333,7 +50333,7 @@
 /obj/machinery/door/airlock/command{
 	name = "Corporate Showroom";
 	req_access_txt = "19";
-	security_level = 6
+	security_level = 1
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -50350,7 +50350,7 @@
 /obj/machinery/door/airlock/command{
 	name = "Corporate Showroom";
 	req_access_txt = "19";
-	security_level = 6
+	security_level = 1
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
