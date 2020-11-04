@@ -255,12 +255,11 @@
 /datum/plant_gene/trait/cell_charge/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/power = round(G.seed.potency*rate)
 	if(prob(power))
-		var/offender = G.fingerprintslast
 		C.electrocute_act(power, G, 1, 1)
 		var/turf/T = get_turf(C)
-		if(C.ckey != offender)
-			C.investigate_log("[C] has slipped on an electric plant at [AREACOORD(T)] 	 last touched by [offender].", INVESTIGATE_BOTANY)
-			log_combat(C, G, "slipped on", null, "with the power of 10 last touched by [offender]")
+		if(C.ckey != G.fingerprintslast)
+			C.investigate_log("[C] has slipped on an electric plant at [AREACOORD(T)] 	 last touched by [G.fingerprintslast].", INVESTIGATE_BOTANY)
+			log_combat(C, G, "slipped on and got electrocuted by", null, "with the power of 10 last touched by [G.fingerprintslast]")
 
 /datum/plant_gene/trait/cell_charge/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(iscarbon(target))
@@ -268,16 +267,9 @@
 		var/power = G.seed.potency*rate
 		if(prob(power))
 			C.electrocute_act(round(power), G, 1, 1)
-			var/offender = G.fingerprintslast
-			if(C.ckey != offender)
-				var/mob/living/carbon/badperson
-				for(var/mob/M in GLOB.mob_living_list)
-					var/mob/living/carbon/P = M
-					if(P.ckey == offender)
-						badperson = P
-						break
-				log_combat(badperson, C, "hit", G, "at [AREACOORD(G)] with power of [power]")
-				C.investigate_log("[C] has been hit by an electric plant at [AREACOORD(G)] with power of [power] last touched by [offender].", INVESTIGATE_BOTANY)
+			if(C.ckey != G.fingerprintslast)
+				log_combat(G.thrownby, C, "hit and electrocuted", G, "at [AREACOORD(G)] with power of [power]")
+				C.investigate_log("[C] has been hit by an electric plant at [AREACOORD(G)] with power of [power] last touched by [G.fingerprintslast].", INVESTIGATE_BOTANY)
 
 /datum/plant_gene/trait/cell_charge/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	if(!G.reagents.total_volume)
@@ -345,30 +337,22 @@
 	if(isliving(target))
 		var/teleport_radius = max(round(G.seed.potency / 10), 1)
 		var/turf/T = get_turf(target)
-		var/offender = G.fingerprintslast
 		var/mob/living/carbon/C = target
 		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
 		do_teleport(target, T, teleport_radius, channel = TELEPORT_CHANNEL_BLUESPACE)
-		if(C.ckey == offender)		//what's the point of logging someone attacking himself
+		if(C.ckey == G.fingerprintslast)		//what's the point of logging someone attacking himself
 			return
-		var/mob/living/carbon/badperson
-		for(var/mob/M in GLOB.mob_living_list)
-			var/mob/living/carbon/K = M
-			if(K.ckey == offender)
-				badperson = K
-				break
-		log_combat(badperson, C, "hit", G, "at [AREACOORD(T)] teleporting them to [AREACOORD(C)]")
-		C.investigate_log("has been hit by a bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(C)] last touched by [offender].", INVESTIGATE_BOTANY)
+		log_combat(G.thrownby, C, "hit", G, "at [AREACOORD(T)] teleporting them to [AREACOORD(C)]")
+		C.investigate_log("has been hit by a bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(C)] last touched by [G.fingerprintslast].", INVESTIGATE_BOTANY)
 
 /datum/plant_gene/trait/teleport/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
 	var/turf/T = get_turf(C)
-	var/offender = G.fingerprintslast
 	to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
 	do_teleport(C, T, teleport_radius, channel = TELEPORT_CHANNEL_BLUESPACE)
-	if(C.ckey != offender)			//what's the point of logging someone attacking himself
-		C.investigate_log("[C] has slipped on bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(C)] last touched by [offender].", INVESTIGATE_BOTANY)
-		log_combat(C, G, "slipped on", null, "teleporting them from [AREACOORD(T)] to [AREACOORD(C)] last touched by [offender].")
+	if(C.ckey != G.fingerprintslast)			//what's the point of logging someone attacking himself
+		C.investigate_log("has slipped on bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(C)] last touched by [G.fingerprintslast].", INVESTIGATE_BOTANY)
+		log_combat(C, G, "slipped on", null, "teleporting them from [AREACOORD(T)] to [AREACOORD(C)] last touched by [G.fingerprintslast].")
 	if(prob(50))
 		do_teleport(G, T, teleport_radius, channel = TELEPORT_CHANNEL_BLUESPACE)
 	else
@@ -447,11 +431,10 @@
 			G.reagents.reaction(L, INJECT, fraction)
 			G.reagents.trans_to(L, injecting_amount)
 			to_chat(target, "<span class='danger'>You are pricked by [G]!</span>")
-			var/offender = G.fingerprintslast
-			if(L.ckey != offender)
+			if(L.ckey != G.fingerprintslast)
 				var/turf/T = get_turf(L)
-				L.investigate_log("[L] has slipped on plant at [AREACOORD(T)] injecting him with [G.reagents.log_list()] last touched by [offender].", INVESTIGATE_BOTANY)
-				log_combat(L, G, "slipped on the", null, "injecting him with [G.reagents.log_list()] last touched by [offender].")
+				L.investigate_log("has slipped on plant at [AREACOORD(T)] injecting him with [G.reagents.log_list()] last touched by [G.fingerprintslast].", INVESTIGATE_BOTANY)
+				log_combat(L, G, "slipped on the", null, "injecting him with [G.reagents.log_list()] last touched by [G.fingerprintslast].")
 
 /datum/plant_gene/trait/stinging/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(isliving(target) && G.reagents && G.reagents.total_volume)
@@ -462,17 +445,10 @@
 			G.reagents.reaction(L, INJECT, fraction)
 			G.reagents.trans_to(L, injecting_amount)
 			to_chat(target, "<span class='danger'>You are pricked by [G]!</span>")
-			var/offender = G.fingerprintslast
-			var/mob/living/carbon/badperson
-			if(L.ckey != offender)			//what's the point of logging someone attacking himself
+			if(L.ckey != G.fingerprintslast)			//what's the point of logging someone attacking himself
 				var/turf/T = get_turf(L)
-				for(var/mob/M in GLOB.mob_living_list)
-					var/mob/living/carbon/C = M
-					if(C.ckey == offender)
-						badperson = C
-						break
-				log_combat(badperson, L, "hit", G, "at [AREACOORD(T)] injecting them with [G.reagents.log_list()]")
-				L.investigate_log("[L] has been prickled by a plant at [AREACOORD(T)] injecting them with [G.reagents.log_list()] last touched by [offender].", INVESTIGATE_BOTANY)
+				log_combat(G.thrownby, L, "hit", G, "at [AREACOORD(T)] injecting them with [G.reagents.log_list()]")
+				L.investigate_log("[L] has been prickled by a plant at [AREACOORD(T)] injecting them with [G.reagents.log_list()] last touched by [G.fingerprintslast].", INVESTIGATE_BOTANY)
 
 /datum/plant_gene/trait/smoke
 	name = "Gaseous Decomposition"
@@ -481,14 +457,13 @@
 	var/datum/effect_system/smoke_spread/chem/S = new
 	var/splat_location = get_turf(target)
 	var/smoke_amount = round(sqrt(G.seed.potency * 0.1), 1)
-	var/offender = G.fingerprintslast
 	var/turf/T = get_turf(G)
 	S.attach(splat_location)
 	S.set_up(G.reagents, smoke_amount, splat_location, 0)
 	S.start()
-	log_admin_private("[offender] has caused a plant to create smoke containing [G.reagents.log_list()] at [AREACOORD(T)]")
-	message_admins("[offender] has caused a plant to create smoke containing [G.reagents.log_list()] at [ADMIN_VERBOSEJMP(T)]")
-	G.investigate_log("[offender] has caused a plant to create smoke containing [G.reagents.log_list()] at [AREACOORD(T)].", INVESTIGATE_BOTANY)
+	log_admin_private("[G.fingerprintslast] has caused a plant to create smoke containing [G.reagents.log_list()] at [AREACOORD(T)]")
+	message_admins("[G.fingerprintslast] has caused a plant to create smoke containing [G.reagents.log_list()] at [ADMIN_VERBOSEJMP(T)]")
+	G.investigate_log(" has created a smoke containing [G.reagents.log_list()] at [AREACOORD(T)] last touched by [G.fingerprintslast].", INVESTIGATE_BOTANY)
 	G.reagents.clear_reagents()
 
 /datum/plant_gene/trait/fire_resistance // Lavaland

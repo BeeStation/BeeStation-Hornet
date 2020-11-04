@@ -140,8 +140,6 @@ obj/item/seeds/bamboo
 /obj/structure/punji_sticks/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/caltrop, 20, 30, 100, CALTROP_BYPASS_SHOES)
-	var/turf/T = get_turf(src)
-	usr.investigate_log("has placed punji sticks trap at [AREACOORD(T)].", INVESTIGATE_BOTANY)
 
 /////////BONFIRES//////////
 
