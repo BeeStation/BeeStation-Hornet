@@ -3652,7 +3652,8 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
-	req_access_txt = "1"
+	req_access_txt = "1";
+	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/turf_decal/stripes/line,
@@ -3673,7 +3674,8 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
-	req_access_txt = "1"
+	req_access_txt = "1";
+	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/turf_decal/stripes/line,
@@ -60893,7 +60895,15 @@
 	},
 /obj/machinery/power/apc/auto_name/north,
 /obj/structure/disposalpipe/segment{
-	dir = 10
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/machinery/door/airlock/command{
+	name = "Chief Medical Officer's Office";
+	req_access_txt = "40";
+	security_level = 6
 	},
 /obj/machinery/camera/autoname,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
