@@ -10,10 +10,13 @@
 
 /obj/structure/closet/crate/bin/Initialize()
 	. = ..()
+	if(icon_state == "[initial(icon_state)]open")
+		opened = TRUE
 	update_icon()
 
 /obj/structure/closet/crate/bin/update_icon()
-	..()
+	icon_state = "[initial(icon_state)][opened ? "open" : ""]"
+
 	cut_overlays()
 	if(contents.len == 0)
 		add_overlay("largebing")
@@ -21,6 +24,8 @@
 		add_overlay("largebinr")
 	else
 		add_overlay("largebino")
+	if(manifest)
+		add_overlay("manifest")
 
 /obj/structure/closet/crate/bin/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage/bag/trash))
@@ -39,4 +44,4 @@
 	flick("animate_largebins", src)
 	spawn(13)
 		playsound(loc, close_sound, 15, 1, -3)
-		update_icon()
+	update_icon()
