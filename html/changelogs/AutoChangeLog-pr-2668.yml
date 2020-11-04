@@ -1,0 +1,6 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Changed the view width to 17x15
+  - bugfix: Mirage borders sometimes not working properly
+  - code_imp: Proper zooming out procs.
