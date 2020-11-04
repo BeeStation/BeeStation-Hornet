@@ -53534,7 +53534,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/storage/box/lights/mixed,
 /turf/open/floor/plating,
 /area/maintenance/port)
 "bZZ" = (
@@ -60069,21 +60068,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
-/obj/machinery/door/airlock/maintenance{
-	name = "CMO Maintenance";
-	req_access_txt = "40";
-	security_level = 6
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/medical/central)
-"cqq" = (
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
-	},
-/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
@@ -60894,31 +60878,21 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/auto_name/north,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
-	},
-/obj/machinery/door/airlock/command{
-	name = "Chief Medical Officer's Office";
-	req_access_txt = "40";
-	security_level = 6
 	},
 /obj/machinery/camera/autoname,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
-	},
-/obj/machinery/door/airlock/command{
-	name = "Chief Medical Officer's Office";
-	req_access_txt = "40";
-	security_level = 6
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
@@ -80948,6 +80922,16 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"kem" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/aft)
 "keN" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -83752,6 +83736,18 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery/OR1)
+"rFk" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/aft)
 "rFZ" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 1
@@ -109108,7 +109104,7 @@ dxz
 dxz
 dxz
 oft
-csB
+rFk
 ctw
 cuq
 cvs
@@ -110136,7 +110132,7 @@ cnE
 coQ
 dDt
 crB
-csB
+kem
 ctz
 wHH
 cvw
