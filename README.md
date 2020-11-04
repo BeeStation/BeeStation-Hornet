@@ -46,6 +46,7 @@ If you see any errors or warnings, something has gone wrong - possibly a corrupt
 download or the files extracted wrong. If problems persist, ask for assistance
 in https://discord.gg/Vh8TJp9 or https://discord.gg/z9ttAvA
 
+
 Once that's done, open up the config folder. You'll want to edit config.txt to
 set the probabilities for different gamemodes in Secret and to set your server
 location so that all your players don't get disconnected at the end of each
