@@ -351,7 +351,7 @@
 /datum/objective/sacrifice/is_valid_target(possible_target)
 	. = ..()
 	var/datum/mind/M = possible_target
-	if(istype(M) && isIPC(M.current))
+	if(istype(M) && isipc(M.current))
 		return FALSE
 
 /datum/objective/sacrifice/check_completion()

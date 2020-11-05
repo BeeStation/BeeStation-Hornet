@@ -452,11 +452,11 @@
 	if(mutation == current_mutation)
 		class = "selected"
 	if(location > DNA_MUTATION_BLOCKS)
-		temp_html += "<a class='clean' href='?src=[REF(src)];task=inspect;num=[location];'><img class='[class]' src='dna_extra.png' width = '65'  alt='Extra Mutation'></a>"
+		temp_html += "<a class='clean' href='?src=[REF(src)];task=inspect;num=[location];'><img class='[class]' src='[SSassets.transport.get_asset_url("dna_extra.png")]' width = '65'  alt='Extra Mutation'></a>"
 	else if(mutation in stored_research.discovered_mutations)
-		temp_html += "<a class='clean' href='?src=[REF(src)];task=inspect;num=[location];'><img class='[class]' src='dna_discovered.png' width = '65'  alt='Discovered Mutation'></a>"
+		temp_html += "<a class='clean' href='?src=[REF(src)];task=inspect;num=[location];'><img class='[class]' src='[SSassets.transport.get_asset_url("dna_discovered.png")]' width = '65'  alt='Discovered Mutation'></a>"
 	else
-		temp_html += "<a class='clean' clean href='?src=[REF(src)];task=inspect;num=[location];'><img class='[class]' src='dna_undiscovered.png' width = '65' alt=Undiscovered Mutation'></a>"
+		temp_html += "<a class='clean' clean href='?src=[REF(src)];task=inspect;num=[location];'><img class='[class]' src='[SSassets.transport.get_asset_url("dna_undiscovered.png")]' width = '65' alt=Undiscovered Mutation'></a>"
 	return temp_html
 
 /obj/machinery/computer/scan_consolenew/proc/display_sequence(mutation, storage_slot) //Storage slot is for when viewing from the stored mutations
@@ -746,7 +746,7 @@
 			current_screen = "info"
 		if("savemut")
 			if(viable_occupant)
-				var/succes
+				var/success
 				if(LAZYLEN(stored_mutations) < max_storage)
 					var/mutation = text2path(href_list["path"])
 					if(ispath(mutation, /datum/mutation/human)) //sanity checks
@@ -754,10 +754,10 @@
 						if(HM)
 							var/datum/mutation/human/A = new HM.type()
 							A.copy_mutation(HM)
-							succes = TRUE
+							success = TRUE
 							stored_mutations += A
 							to_chat(usr,"<span class='notice'>Mutation succesfully stored.</span>")
-				if(!succes) //we can exactly return here
+				if(!success) //we can exactly return here
 					to_chat(usr,"<span class='warning'>Mutation storage is full.</span>")
 		if("deletemut")
 			var/datum/mutation/human/HM = stored_mutations[num]

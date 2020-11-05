@@ -30,30 +30,32 @@
 			loot_spawned++
 	return INITIALIZE_HINT_QDEL
 
+/obj/effect/spawner/lootdrop/donkpockets
+	name = "donk pocket box spawner"
+	lootdoubles = FALSE
+
+	loot = list(
+			/obj/item/storage/box/donkpockets/donkpocketspicy = 1,
+			/obj/item/storage/box/donkpockets/donkpocketteriyaki = 1,
+			/obj/item/storage/box/donkpockets/donkpocketpizza = 1,
+			/obj/item/storage/box/donkpockets/donkpocketberry = 1,
+			/obj/item/storage/box/donkpockets/donkpockethonk = 1,
+			/obj/item/storage/box/donkpockets = 1
+		)
+
+
 /obj/effect/spawner/lootdrop/armory_contraband
 	name = "armory contraband gun spawner"
 	lootdoubles = FALSE
 
 	loot = list(
 				/obj/item/gun/ballistic/automatic/pistol = 8,
-				/obj/item/gun/ballistic/shotgun/automatic/combat = 5,
-				/obj/item/gun/ballistic/revolver/mateba,
-				/obj/item/gun/ballistic/automatic/pistol/deagle
-				)
-
-/obj/effect/spawner/lootdrop/armory_contraband/metastation
-	loot = list(/obj/item/gun/ballistic/automatic/pistol = 5,
-				/obj/item/gun/ballistic/shotgun/automatic/combat = 5,
+				/obj/item/gun/ballistic/shotgun/automatic/combat = 3,
 				/obj/item/gun/ballistic/revolver/mateba,
 				/obj/item/gun/ballistic/automatic/pistol/deagle,
-				/obj/item/storage/box/syndie_kit/throwing_weapons = 3)
-
-/obj/effect/spawner/lootdrop/armory_contraband/donutstation
-	loot = list(/obj/item/grenade/clusterbuster/teargas = 5,
-				/obj/item/gun/ballistic/shotgun/automatic/combat = 5,
-				/obj/item/bikehorn/golden,
-				/obj/item/grenade/clusterbuster,
-				/obj/item/storage/box/syndie_kit/throwing_weapons = 3)
+				/obj/item/storage/box/syndie_kit/throwing_weapons = 3,
+				/obj/item/grenade/clusterbuster
+				)
 
 /obj/effect/spawner/lootdrop/gambling
 	name = "gambling valuables spawner"
