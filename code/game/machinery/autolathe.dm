@@ -342,7 +342,6 @@
 		return TRUE
 
 	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", O))
-		updateUsrDialog()
 		return TRUE
 
 	if(default_deconstruction_crowbar(O))
@@ -382,7 +381,6 @@
 			else
 				flick("autolathe_r",src)//plays glass insertion animation by default otherwise
 		use_power(min(1000, amount_inserted / 100))
-	updateUsrDialog()
 	//Begin processing to continue the queue if we had items in the queue
 	if(wants_operate)
 		begin_process()
