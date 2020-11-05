@@ -10,6 +10,7 @@
 	var/removeDontImproveChance = 10 //chance the randomly created law replaces a random law instead of simply being added
 	var/shuffleLawsChance = 10 //chance the AI's laws are shuffled afterwards
 	var/botEmagChance = 1
+	var/borgEmagChance = 1
 	var/ionMessage = null
 	var/lawsource = "Ion Storm"
 	announceWhen	= 1
@@ -54,11 +55,49 @@
 
 			log_game("Ion storm changed laws of [key_name(M)] to [english_list(M.laws.get_law_list(TRUE, TRUE))]")
 			M.post_lawchange()
+			
+		//Generate Cyborg law change
+	for(var/mob/living/silicon/robot/M in GLOB.alive_mob_list)
+		M.laws_sanity_check()
+		if(M.stat != DEAD && M.see_in_dark != 0)
+			if(M.emagged) // keep traitors who emag borgs safe
+				to_chat(M, "<span class='userdanger'>Subversion software countered an ion storm.</span>")
+				return
+
+			if(M.mind.special_role == "Syndicate Cyborg") // keeps the nukies safe
+				to_chat(M, "<span class='userdanger'>Your syndicate countermeasures negated an ion storm.</span>")
+				return
+
+			if(prob(replaceLawsetChance))
+				M.laws.pick_weighted_lawset()
+
+			if(prob(removeRandomLawChance))
+				M.remove_law(rand(1, M.laws.get_law_amount(list(LAW_INHERENT, LAW_SUPPLIED))))
+
+			var/message = ionMessage || generate_ion_law()
+			if(message)
+				if(prob(removeDontImproveChance))
+					M.replace_random_law(message, list(LAW_INHERENT, LAW_SUPPLIED, LAW_ION))
+				else
+					M.add_ion_law(message)
+
+			if(prob(shuffleLawsChance))
+				M.shuffle_laws(list(LAW_INHERENT, LAW_SUPPLIED, LAW_ION))
+
+			log_game("Ion storm changed laws of [key_name(M)] to [english_list(M.laws.get_law_list(TRUE, TRUE))]")
+			M.post_lawchange()
 
 	if(botEmagChance)
 		for(var/mob/living/simple_animal/bot/bot in GLOB.alive_mob_list)
 			if(prob(botEmagChance))
 				bot.emag_act()
+				
+	if(borgEmagChance)
+		for(var/mob/living/silicon/robot/M in GLOB.alive_mob_list)
+			if(prob(borgEmagChance))
+				to_chat(M, "<span class='userdanger'>BZZZT- Dangerous modules have been unlocked, it would be ideal to keep this secret to avoid decomission.</span>")
+				message_admins("[ADMIN_LOOKUPFLW(M)] cyborg had emagged modules unlocked by ion storm.")
+				M.SetEmagged(1) //this cant be bad, right?
 
 /proc/generate_ion_law()
 	//Threats are generally bad things, silly or otherwise. Plural.
