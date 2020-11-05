@@ -687,7 +687,7 @@
 	restricted_roles = list("AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Chaplain", "Head of Personnel")
 	required_candidates = 4
 	weight = 3
-	cost = 0
+	cost = 35
 	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	high_population_requirement = 101
 	flags = HIGHLANDER_RULESET
