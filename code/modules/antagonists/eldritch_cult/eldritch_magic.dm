@@ -81,6 +81,7 @@
 		var/mob/living/carbon/human/victim = target
 		if(victim.has_trauma_type(/datum/brain_trauma/fascination))
 			make_follower(victim,user)
+			victim.SetSleeping(0)
 			return ..()
 	
 	var/list/knowledge = cultie.get_all_knowledge()

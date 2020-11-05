@@ -185,12 +185,3 @@
 	to_chat(owner, "<span class='userdanger'>¤¤¤.</span>")
 	owner.clear_alert("hypnosis")
 	..()
-
-/datum/brain_trauma/fascination/on_life()
-	..()
-	if(prob(2))
-		switch(rand(1,2))
-			if(1)
-				to_chat(owner, "<i>...[lowertext(hypnotic_phrase)]...</i>")
-			if(2)
-				new /datum/hallucination/chat(owner, TRUE, FALSE, "<span class='hypnophrase'>[hypnotic_phrase]</span>")
