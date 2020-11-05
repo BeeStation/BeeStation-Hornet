@@ -1548,7 +1548,7 @@
 
 /obj/item/gobbler
 	name = "Coin Gobbler"
-	desc = "Feed it credits, and activate it, with a chance to spit out DOUBLE the amount! For ages 18 and up."
+	desc = "Feed it credits, and activate it, with a chance to spit out DOUBLE the amount!"
 	icon = 'icons/obj/plushes.dmi'
 	icon_state = "debug"
 	var/money = 0
@@ -1573,11 +1573,11 @@
 		return
 
 	playsound(src.loc, 'sound/creatures/rattle.ogg', 10, 1)
-	user.visible_message("<span class='notice'>[src] starts spinning! What will happen?</span>", \
+	user.visible_message("<span class='notice'>[src]'s eyes start spinning! What will happen?</span>", \
 		"<span class='notice'>You activate [src].</span>")
 	sleep(10)
 
-	if(prob(33*(1500+moneyeaten-money)/1500))
+	if(prob(33*(777+moneyeaten-money)/777))
 		playsound(src.loc, 'sound/arcade/win.ogg', 10, 1)
 		user.visible_message("<span class='warning'>[src] cashes out! [user] starts spitting credits!</span>", \
 		"<span class='notice'>[src] cashes out!</span>")
@@ -1610,7 +1610,7 @@
 
 	if (cash_money == 0)
 		to_chat(user, "<span class='warning'>[src] spits out [A] as it is not worth anything!</span>")
-		return ..()
+		return .
 	money+=cash_money
 	to_chat(user, "<span class='notice'>[src] quicky gobbles up [A], and the value goes up by [cash_money].</span>")
 	qdel(A)
