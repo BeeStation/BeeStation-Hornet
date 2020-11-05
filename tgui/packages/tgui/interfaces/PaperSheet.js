@@ -14,19 +14,7 @@ import marked from 'marked';
 import { useBackend } from '../backend';
 import { Box, Flex, Tabs, TextArea } from '../components';
 import { Window } from '../layouts';
-<<<<<<< HEAD
-import marked from 'marked';
-import DOMPurify from 'dompurify';
-import { classes, isFalsy } from "common/react";
-// There is a sanatize option in marked but they say its deprecated.
-// Might as well use a proper one then
 
-import { createLogger } from '../logging';
-import { vecCreate, vecAdd, vecSubtract } from 'common/vector';
-const logger = createLogger('PaperSheet');
-=======
-
->>>>>>> 56b27b6b54... Paper Fixes (#2860)
 const MAX_PAPER_LENGTH = 5000; // Question, should we send this with ui_data?
 
 const sanatize_text = value => {
@@ -253,20 +241,13 @@ const PaperSheetView = (props, context) => {
     stamps,
     backgroundColor,
     readOnly,
-    ...rest
   } = props;
-  const readonly = !isFalsy(readOnly);
   const stamp_list = stamps || [];
-<<<<<<< HEAD
-  const text_html = { __html: "<span class='paper-text'>"
-    + setInputReadonly(value, readonly) + "</span>" };
-=======
   const text_html = {
     __html: '<span class="paper-text">'
       + setInputReadonly(value, readOnly)
       + '</span>',
   };
->>>>>>> 56b27b6b54... Paper Fixes (#2860)
   return (
     <Box
       position="relative"
@@ -317,12 +298,12 @@ class PaperSheetStamper extends Component {
       reference = reference.offsetParent;
     }
 
-    const pos_x = position.x - offset.left;
-    const pos_y = position.y - offset.top;
-    const pos = vecCreate(pos_x, pos_y);
-
-    const center_offset = vecCreate((121/2), (51/2));
-    const center = vecSubtract(pos, center_offset);
+    const pos = [
+      position.x - offset.left,
+      position.y - offset.top,
+    ];
+    const centerOffset = vecScale([121, 51], 0.5);
+    const center = vecSubtract(pos, centerOffset);
     return center;
   }
 
@@ -382,7 +363,7 @@ class PaperSheetStamper extends Component {
         onMouseMove={this.handleMouseMove.bind(this)}
         onwheel={this.handleWheel.bind(this)} {...rest}>
         <PaperSheetView
-          readOnly={1}
+          readOnly
           value={value}
           stamps={stamp_list} />
         <Stamp
@@ -610,13 +591,6 @@ export const PaperSheet = (props, context) => {
     : stamps;
   const decide_mode = mode => {
     switch (mode) {
-<<<<<<< HEAD
-      case 0: // min-height="100vh" min-width="100vw"
-        return (<PaperSheetView
-          value={text}
-          stamps={stamp_list}
-          readOnly={1} />);
-=======
       case 0:
         return (
           <PaperSheetView
@@ -624,7 +598,6 @@ export const PaperSheet = (props, context) => {
             stamps={stamp_list}
             readOnly />
         );
->>>>>>> 56b27b6b54... Paper Fixes (#2860)
       case 1:
         return (
           <PaperSheetEdit
@@ -646,13 +619,6 @@ export const PaperSheet = (props, context) => {
     }
   };
   return (
-<<<<<<< HEAD
-    <Window resizable theme="paper" style={background_style}>
-      <Window.Content min-height="100vh" min-width="100vw"
-        style={background_style}>
-        <Box fillPositionedParent={1} min-height="100vh"
-          min-width="100vw" backgroundColor={backgroundColor}>
-=======
     <Window
       theme="paper"
       width={400}
@@ -662,7 +628,6 @@ export const PaperSheet = (props, context) => {
         <Box
           fillPositionedParent
           backgroundColor={backgroundColor}>
->>>>>>> 56b27b6b54... Paper Fixes (#2860)
           {decide_mode(edit_mode)}
         </Box>
       </Window.Content>
