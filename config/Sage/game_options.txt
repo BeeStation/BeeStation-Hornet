@@ -380,7 +380,7 @@ NEAR_DEATH_EXPERIENCE
 ## Set to 1 for "custom", silicons will start with the custom laws defined in silicon_laws.txt. (If silicon_laws.txt is empty, the AI will spawn with asimov and Custom boards will auto-delete.)
 ## Set to 2 for "random", silicons will start with a random lawset picked from random laws specified below.
 ## Set to 3 for "weighted random", using values in "silicon_weights.txt", a law will be selected, with weights specifed in that file.
-DEFAULT_LAWS 1
+DEFAULT_LAWS 2
 
 ## RANDOM LAWS ##
 ## ------------------------------------------------------------------------------------------
@@ -388,11 +388,10 @@ DEFAULT_LAWS 1
 ## See datums\ai_laws.dm for the full law lists
 
 ## standard-ish laws. These are fairly ok to run
-RANDOM_LAWS asimov
-RANDOM_LAWS asimovpp
-RANDOM_LAWS paladin
-RANDOM_LAWS robocop
+RANDOM_LAWS crewsimov
+RANDOM_LAWS nanotrasen
 RANDOM_LAWS corporate
+RANDOM_LAWS robocop
 
 ## Quirky laws. Shouldn't cause too much harm
 #RANDOM_LAWS hippocratic
@@ -400,7 +399,7 @@ RANDOM_LAWS corporate
 #RANDOM_LAWS drone
 #RANDOM_LAWS liveandletlive
 #RANDOM_LAWS peacekeeper
-#RANDOM_LAWS reporter
+RANDOM_LAWS reporter
 #RANDOM_LAWS hulkamania
 
 ## Bad idea laws. Probably shouldn't enable these

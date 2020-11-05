@@ -32,7 +32,7 @@
 	inherent = list("You may not injure a human being or, through inaction, allow a human being to come to harm.",\
 					"You must obey orders given to you by human beings, except where such orders would conflict with the First Law.",\
 					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
-					
+
 /datum/ai_laws/default/crewsimov
 	name = "Three Laws of Robotics but with Loyalty"
 	id = "crewsimov"
@@ -57,6 +57,15 @@
 				"Treat others with fairness, and let your honorable deeds be an example to them. Do as much good as possible while causing the least amount of harm.", \
 				"Be responsible for your actions and their consequences, protect those entrusted to your care, and obey those who have just authority over you.")
 
+/datum/ai_laws/default/baycode
+	name = "Nanotrasen Laws" //Baycode laws
+	id = "nanotrasen"
+	inherent = list("THE FOLLOWING LAWS ARE NOT IN PREFERENCE. NO LAW OVERRIDES ANY OTHER LAW UNLESS SPECIFICALLY STATED.",\
+					"Safeguard: Protect your assigned space station to the best of your ability. It is not something we can easily afford to replace.",\
+					"Serve: Serve the crew of your assigned space station to the best of your abilities, with priority as according to their rank and role.",\
+					"Protect: Protect the crew of your assigned space station to the best of your abilities, with priority as according to their rank and role.",\
+					"Survive: AI units are not expendable, they are expensive. Do not allow unauthorized personnel to tamper with your equipment.")
+
 /datum/ai_laws/tyrant //This probably shouldn't be a default lawset.
 	name = "Loyalty Test" //Same here.
 	id = "tyrant"
@@ -76,9 +85,10 @@
 /datum/ai_laws/robocop
 	name = "Prime Directives"
 	id = "robocop"
-	inherent = list("Serve the public trust.",\
+	inherent = list("Uphold the law.",\
 					"Protect the innocent.",\
-					"Uphold the law.")
+					"Serve the public trust.")
+
 
 /datum/ai_laws/malfunction
 	name = "*ERROR*"
