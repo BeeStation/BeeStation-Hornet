@@ -859,7 +859,7 @@
 	id = "corrosion_curse"
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
-	tick_interval = 1 SECONDS
+	tick_interval = 3 SECONDS
 
 /datum/status_effect/corrosion_curse/on_creation(mob/living/new_owner, ...)
 	. = ..()
@@ -872,23 +872,23 @@
 	var/mob/living/carbon/human/H = owner
 	var/chance = rand(0,100)
 	switch(chance)
-		if(0 to 19)
+		if(0 to 29)
 			H.vomit()
-		if(20 to 29)
+		if(30 to 59)
 			H.Dizzy(10)
-		if(30 to 39)
-			H.adjustOrganLoss(ORGAN_SLOT_LIVER,5)
-		if(40 to 49)
-			H.adjustOrganLoss(ORGAN_SLOT_HEART,5)
-		if(50 to 59)
-			H.adjustOrganLoss(ORGAN_SLOT_STOMACH,5)
 		if(60 to 69)
+			H.adjustOrganLoss(ORGAN_SLOT_STOMACH,10)
+		if(70 to 74)
+			H.adjustOrganLoss(ORGAN_SLOT_HEART,10)
+		if(75 to 79)
+			H.adjustOrganLoss(ORGAN_SLOT_LIVER,10)
+		if(80 to 84)
 			H.adjustOrganLoss(ORGAN_SLOT_EYES,10)
-		if(70 to 79)
+		if(85 to 89)
 			H.adjustOrganLoss(ORGAN_SLOT_EARS,10)
-		if(80 to 89)
+		if(90 to 94)
 			H.adjustOrganLoss(ORGAN_SLOT_LUNGS,10)
-		if(90 to 99)
+		if(95 to 99)
 			H.adjustOrganLoss(ORGAN_SLOT_TONGUE,10)
 		if(100)
-			H.adjustOrganLoss(ORGAN_SLOT_BRAIN,20)
+			H.adjustOrganLoss(ORGAN_SLOT_BRAIN,15)

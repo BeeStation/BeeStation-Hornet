@@ -10,6 +10,9 @@
 	var/list/researched_knowledge = list()
 	var/list/analyzed_artifacts = list()
 	var/total_sacrifices = 0
+	var/dread = 0
+	var/power_earned = 0
+	var/power_spent = 0
 	var/list/folloers = list()
 	var/ascended = FALSE
 
@@ -221,6 +224,25 @@
 
 /datum/antagonist/heretic/proc/get_all_knowledge()
 	return researched_knowledge
+	
+/////////////
+// Economy //
+/////////////
+
+/datum/antagonist/heretic/proc/gain_power(points,dread = FALSE)
+	power_earned+=points
+	if (dread)
+		dread++
+	return TRUE
+
+/datum/antagonist/heretic/proc/gain_wisdom(points)
+	if (get_power_left()<points)
+		return FALSE
+	power_spent-=points
+	return TRUE
+
+/datum/antagonist/heretic/proc/get_power_left()
+	return power_earned-power_spent
 
 ////////////////
 // Objectives //
@@ -281,25 +303,13 @@ BIGGEST CHANGES
 	
  
 Curses
-	Alteration curse - blindness, mute, incapacitate, etc	
-	Dream Eater - fascinate sleeper
 	Hunter curse
-
-mindshield interaction
-	remove trauma 
+	
+followers code
+power code???
+	take out charges from books
  
 Artifacts:
 Omen - deals damage/healing when selfused/attacked by
  
-Codex Gygax
-Research: Random damage: brute, burn, tox, eye, hunger
-All around buff spells, some immunities when ascending
-
-ECONOMY REVISE 
-Paths: upgrades cost 5, artifacts offer 2, gates offer 3, sacrifices offer 5, 1 from forbidden readings
-get max followers
-
-RECIPE REVISE
-Book: now with bible and skin
-heart no poppy
-poppies for curse*/
+*/

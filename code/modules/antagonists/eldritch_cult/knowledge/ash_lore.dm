@@ -202,7 +202,7 @@
 	timer = 5 MINUTES
 
 /datum/eldritch_knowledge/curse/fascination/curse(mob/living/chosen_mob)
-	. = ..()
+	. = ..()	
 	if (!IS_HERETIC(chosen_mob) && !IS_HERETIC_MONSTER(chosen_mob))
 		chosen_mob.gain_trauma(/datum/brain_trauma/fascination,TRAUMA_RESILIENCE_SURGERY)	
 
