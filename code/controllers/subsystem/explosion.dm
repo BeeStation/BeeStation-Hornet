@@ -232,8 +232,8 @@ SUBSYSTEM_DEF(explosions)
 				var/baseshakeamount
 				if(orig_max_distance - dist > 0)
 					baseshakeamount = sqrt((orig_max_distance - dist)*0.1)
-				// If inside the blast radius + world.view - 2
-				if(dist <= round(max_range + world.view - 2, 1))
+				// If inside the blast radius + world.view (x) - 2
+				if(dist <= round(max_range + getviewsize(world.view)[1] - 2, 1))
 					M.playsound_local(epicenter, null, 100, 1, frequency, falloff = 5, S = explosion_sound)
 					if(baseshakeamount > 0)
 						shake_camera(M, 25, clamp(baseshakeamount, 0, 10))
