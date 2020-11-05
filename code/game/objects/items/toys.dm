@@ -1546,7 +1546,7 @@
 //money eater/maker//
 ////////////////////
 
-/obj/item/gobbler
+/obj/item/toy/gobbler
 	name = "Coin Gobbler"
 	desc = "Feed it credits, and activate it, with a chance to spit out DOUBLE the amount!"
 	icon = 'icons/obj/plushes.dmi'
@@ -1557,14 +1557,14 @@
 	var/cooldowndelay = 20
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/gobbler/examine(mob/user)
+/obj/item/toy/gobbler/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>The Coin Gobbler holds [money] credits.</span>"
 
-/obj/item/gobbler/attackby()
+/obj/item/toy/gobbler/attackby()
 	return
 
-/obj/item/gobbler/attack_self(mob/user)
+/obj/item/toy/gobbler/attack_self(mob/user)
 	if(cooldown > world.time)
 		return
 	cooldown = world.time + cooldowndelay
@@ -1592,7 +1592,7 @@
 		money=0
 		playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 10, 1)
 
-/obj/item/gobbler/afterattack(atom/A, mob/user, proximity)
+/obj/item/toy/gobbler/afterattack(atom/A, mob/user, proximity)
 	. = ..()
 	if(!proximity)
 		return

@@ -804,10 +804,10 @@
 
 /obj/item/borg/upgrade/speciality/casino
 	name = "Gambler Speciality"
-	desc = "It's not crew harm if they do it themselves!"
+	desc = "A service cyborg upgrade allowing for entertaining the crew!"
 	hat = /obj/item/clothing/head/rabbitears
 	addmodules = list (
-		/obj/item/gobbler,
+		/obj/item/toy/gobbler,
 		/obj/item/storage/pill_bottle/dice_cup/cyborg,
 		/obj/item/toy/cards/deck/cyborg,
 	)
