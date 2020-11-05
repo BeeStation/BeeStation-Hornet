@@ -753,9 +753,9 @@
 			for(var/re in additional_reagents)
 				H.add_reagent(re)
 
-		if(hat && R.hat_offset != INFINITY)
+		if(hat && R.hat_offset != INFINITY && !R.hat)
 			var/obj/item/equipt = new hat(src)
-			if (equipt)
+			if (equipt )
 				R.place_on_head(equipt)
 	return .
 
@@ -777,8 +777,8 @@
 	desc = "A service cyborg upgrade allowing for basic food handling."
 	hat = /obj/item/clothing/head/chefhat
 	addmodules = list (
-		/obj/item/kitchen/knife/cyborg,
-		/obj/item/kitchen/rollingpin/cyborg
+		/obj/item/kitchen/knife,
+		/obj/item/kitchen/rollingpin
 	)
 	additional_reagents = list(
 		/datum/reagent/consumable/enzyme,

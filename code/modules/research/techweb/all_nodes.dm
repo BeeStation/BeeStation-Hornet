@@ -374,7 +374,7 @@
 	prereq_ids = list("cyborg_upg_util")
 	design_ids = list("borg_upgrade_casino", "borg_upgrade_kitchen", "borg_upgrade_botany", "borg_upgrade_party")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500)
-	export_price = 5000
+	export_price = 1000
 
 /datum/techweb_node/ai
 	id = "ai"

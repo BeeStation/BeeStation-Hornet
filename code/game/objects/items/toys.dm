@@ -724,7 +724,7 @@
 		if(!(L.mobility_flags & MOBILITY_PICKUP))
 			return
 	var/choice = null
-	if(cards.len == 0)
+	if(LAZYLEN(cards) == 0)
 		to_chat(user, "<span class='warning'>There are no more cards to draw!</span>")
 		return
 	var/obj/item/toy/cards/singlecard/H = new/obj/item/toy/cards/singlecard(user.loc)
@@ -1523,9 +1523,7 @@
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
 		update_icon()
-	else if (!(istype(A, /obj/structure/table) || isfloorturf(A)) && !proximity)
-		return
-
+	
 	var/choice = null
 	if(cards.len == 0)
 		to_chat(user, "<span class='warning'>There are no more cards to draw!</span>")
@@ -1641,13 +1639,14 @@
 			var/mob/living/carbon/human/H = M
 			if(istype(H.ears, /obj/item/clothing/ears/earmuffs))
 				continue
-		if (prob(33))
-			M.emote("flip")
-			M.emote("spin")
-		else if (prob(50))
-			M.emote("flip")
-		else
-			M.emote("spin")
+		switch (rand(1,3))
+			if (1)
+				M.emote("flip")
+				M.emote("spin")
+			if (2)
+				M.emote("flip")
+			if (3)
+				M.emote("spin")
 	flip_cooldown = world.time + 20
 
 
