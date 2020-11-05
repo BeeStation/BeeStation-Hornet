@@ -6,8 +6,6 @@
 	icon_keyboard = "tech_key"
 	icon_screen = "ai-fixer"
 	light_color = LIGHT_COLOR_PINK
-	ui_x = 370
-	ui_y = 360
 	/// Variable containing transferred AI
 	var/mob/living/silicon/ai/occupier
 	/// Variable dictating if we are in the process of restoring the occupier AI
@@ -22,11 +20,14 @@
 	else
 		return ..()
 
-/obj/machinery/computer/aifixer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/computer/aifixer/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/aifixer/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AiRestorer", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "AiRestorer")
 		ui.open()
 
 /obj/machinery/computer/aifixer/ui_data(mob/user)
@@ -112,14 +113,14 @@
 		AI.control_disabled = TRUE
 		AI.radio_enabled = FALSE
 		to_chat(AI, "<span class='alert'>You have been uploaded to a stationary terminal. Sadly, there is no remote access from here.</span>")
-		to_chat(user, "<span class='notice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
+		to_chat(user, "<span class='notice'>Transfer Successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
 		card.AI = null
 		update_icon()
 
 	else //Uploading AI from terminal to card
 		if(occupier && !restoring)
 			to_chat(occupier, "<span class='notice'>You have been downloaded to a mobile storage device. Still no remote access.</span>")
-			to_chat(user, "<span class='notice'>Transfer successful</span>: [occupier.name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
+			to_chat(user, "<span class='notice'>Transfer Successful</span>: [occupier.name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 			occupier.forceMove(card)
 			card.AI = occupier
 			occupier = null

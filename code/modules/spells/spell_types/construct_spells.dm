@@ -63,6 +63,22 @@
 
 	summon_type = list(/turf/closed/wall/mineral/cult/artificer) //we don't want artificer-based runed metal farms
 
+/obj/effect/proc_holder/spell/aoe_turf/conjure/door
+	name = "Summon Cult Door"
+	desc = "This spell constructs a cult Airlock."
+
+	school = "conjuration"
+	charge_max = 300
+	clothes_req = FALSE
+	invocation = "none"
+	invocation_type = "none"
+	invocation_time = 50
+	range = 0
+	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon_state = "airlockconstruct"
+	action_background_icon_state = "bg_cult"
+
+	summon_type = list(/obj/machinery/door/airlock/cult)
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/wall/reinforced
 	name = "Greater Construction"
@@ -102,7 +118,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/noncult/purified
 	summon_type = list(/obj/item/soulstone/anybody/purified)
-	
+
 /obj/effect/proc_holder/spell/targeted/forcewall/cult
 	name = "Shield"
 	desc = "This spell creates a temporary forcefield to shield yourself and allies from incoming fire."

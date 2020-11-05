@@ -293,7 +293,7 @@
 
 /datum/reagent/hellwater/on_mob_life(mob/living/carbon/M)
 	M.fire_stacks = min(5,M.fire_stacks + 3)
-	M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
+	M.IgniteMob()			//Only problem with igniting people is currently the commonly available fire suits make you immune to being on fire
 	M.adjustToxLoss(1, 0)
 	M.adjustFireLoss(1, 0)		//Hence the other damages... ain't I a bastard?
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5, 150)
@@ -986,7 +986,7 @@
 	random_unrestricted = FALSE
 
 /datum/reagent/fuel
-	name = "Welding fuel"
+	name = "Welding Fuel"
 	description = "Required for welders. Flammable."
 	color = "#660000" // rgb: 102, 0, 0
 	taste_description = "gross metal"
@@ -1008,7 +1008,7 @@
 	return TRUE
 
 /datum/reagent/space_cleaner
-	name = "Space cleaner"
+	name = "Space Cleaner"
 	description = "A compound used to clean things. Now with 50% more sodium hypochlorite! Not safe for consumption. If ingested, contact poison control immediately"
 	color = "#A5F0EE" // rgb: 165, 240, 238
 	taste_description = "sourness"
@@ -1317,9 +1317,9 @@
 
 /datum/reagent/colorful_reagent/powder/New()
 	if(colorname == "none")
-		description = "A rather mundane-looking powder. It doesn't look like it'd color much of anything..."
+		description = "A rather mundane-looking powder. It doesn't look like it'd color much of anything."
 	else if(colorname == "invisible")
-		description = "An invisible powder. Unfortunately, since it's invisible, it doesn't look like it'd color much of anything..."
+		description = "An invisible powder. Unfortunately, since it's invisible, it doesn't look like it'd color much of anything."
 	else
 		description = "\An [colorname] powder, used for coloring things [colorname]."
 
@@ -1526,7 +1526,7 @@
 
 /datum/reagent/ash
 	name = "Ash"
-	description = "Supposedly phoenixes rise from these, but you've never seen it."
+	description = "Phoenixes supposedly rise from this, but you've never seen it."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	taste_description = "ash"
@@ -1534,7 +1534,7 @@
 
 /datum/reagent/acetone
 	name = "Acetone"
-	description = "A slick, slightly carcinogenic liquid. Has a multitude of mundane uses in everyday life."
+	description = "A slick liquid with carcinogenic properties. Has a multitude of mundane uses in everyday life."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	taste_description = "acid"
@@ -1620,7 +1620,7 @@
 
 /datum/reagent/saltpetre
 	name = "Saltpetre"
-	description = "Volatile. Controversial. Third Thing."
+	description = "A fairly innocuous chemical which can be used to improve the potency of various plant species."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	taste_description = "cool salt"
@@ -1628,7 +1628,7 @@
 
 /datum/reagent/lye
 	name = "Lye"
-	description = "Also known as sodium hydroxide. As a profession making this is somewhat underwhelming."
+	description = "Also known as sodium hydroxide. As a profession, making this is somewhat underwhelming."
 	reagent_state = LIQUID
 	color = "#FFFFD6" // very very light yellow
 	taste_description = "acid"
@@ -1655,60 +1655,60 @@
 // Virology virus food chems.
 
 /datum/reagent/toxin/mutagen/mutagenvirusfood
-	name = "mutagenic agar"
+	name = "Mutagenic Agar"
 	color = "#A3C00F" // rgb: 163,192,15
 	taste_description = "sourness"
 
 /datum/reagent/toxin/mutagen/mutagenvirusfood/sugar
-	name = "sucrose agar"
+	name = "Sucrose Agar"
 	color = "#41B0C0" // rgb: 65,176,192
 	taste_description = "sweetness"
 
 /datum/reagent/medicine/synaptizine/synaptizinevirusfood
-	name = "virus rations"
+	name = "Virus Rations"
 	color = "#D18AA5" // rgb: 209,138,165
 	taste_description = "bitterness"
 
 /datum/reagent/toxin/plasma/plasmavirusfood
-	name = "virus plasma"
+	name = "Virus Plasma"
 	color = "#A69DA9" // rgb: 166,157,169
 	taste_description = "bitterness"
 	taste_mult = 1.5
 
 /datum/reagent/toxin/plasma/plasmavirusfood/weak
-	name = "weakened virus plasma"
+	name = "Weakened Virus Plasma"
 	color = "#CEC3C6" // rgb: 206,195,198
 	taste_description = "bitterness"
 	taste_mult = 1.5
 
 /datum/reagent/uranium/uraniumvirusfood
-	name = "decaying uranium gel"
+	name = "Decaying Uranium Gel"
 	color = "#67ADBA" // rgb: 103,173,186
 	taste_description = "the inside of a reactor"
 
 /datum/reagent/uranium/uraniumvirusfood/unstable
-	name = "unstable uranium gel"
+	name = "Unstable Uranium Gel"
 	color = "#2FF2CB" // rgb: 47,242,203
 	taste_description = "the inside of a reactor"
 
 /datum/reagent/uranium/uraniumvirusfood/stable
-	name = "stable uranium gel"
+	name = "Stable Uranium Gel"
 	color = "#04506C" // rgb: 4,80,108
 	taste_description = "the inside of a reactor"
 
 /datum/reagent/consumable/laughter/laughtervirusfood
-	name = "anomolous virus food"
+	name = "Anomolous Virus Food"
 	color = "#ffa6ff" //rgb: 255,166,255
 	taste_description = "a bad idea"
 
 /datum/reagent/consumable/virus_food/advvirusfood
-	name = "highly unstable virus food"
+	name = "Highly Unstable Virus Food"
 	color = "#ffffff" //rgb: 255,255,255 ITS PURE WHITE CMON
 	taste_description = "an EXTREMELY bad idea"
 	can_synth = FALSE
 
 /datum/reagent/consumable/virus_food/viralbase
-	name = "Experimental viral base"
+	name = "Experimental Viral Base"
 	description = "Recently discovered by Nanotrasen's top scientists after years of research, this substance can be used as the base for extremely rare and extremely dangerous viruses once exposed to uranium."
 	color = "#fff0da"
 	taste_description = "tears of scientists"
@@ -1717,7 +1717,7 @@
 // Bee chemicals
 
 /datum/reagent/royal_bee_jelly
-	name = "royal bee jelly"
+	name = "Royal Bee Jelly"
 	description = "Royal Bee Jelly, if injected into a Queen Space Bee said bee will split into two bees."
 	color = "#00ff80"
 	taste_description = "strange honey"
@@ -1793,15 +1793,15 @@
 	..()
 
 /datum/reagent/plastic_polymers
-	name = "plastic polymers"
-	description = "the petroleum based components of plastic."
+	name = "Plastic Polymers"
+	description = "The petroleum-based components of plastic."
 	color = "#f7eded"
 	taste_description = "plastic"
 	random_unrestricted = FALSE
 
 /datum/reagent/glitter
-	name = "generic glitter"
-	description = "if you can see this description, contact a coder."
+	name = "Generic Glitter"
+	description = "If you can see this description, contact a coder."
 	color = "#FFFFFF" //pure white
 	taste_description = "plastic"
 	reagent_state = SOLID
@@ -1814,25 +1814,25 @@
 	new glitter_type(T)
 
 /datum/reagent/glitter/pink
-	name = "pink glitter"
-	description = "pink sparkles that get everywhere"
+	name = "Pink Glitter"
+	description = "Pink sparkles that get everywhere."
 	color = "#ff8080" //A light pink color
 	glitter_type = /obj/effect/decal/cleanable/glitter/pink
 
 /datum/reagent/glitter/white
-	name = "white glitter"
-	description = "white sparkles that get everywhere"
+	name = "White Glitter"
+	description = "White sparkles that get everywhere."
 	glitter_type = /obj/effect/decal/cleanable/glitter/white
 
 /datum/reagent/glitter/blue
-	name = "blue glitter"
-	description = "blue sparkles that get everywhere"
+	name = "Blue Glitter"
+	description = "Blue sparkles that get everywhere."
 	color = "#4040FF" //A blueish color
 	glitter_type = /obj/effect/decal/cleanable/glitter/blue
 
 /datum/reagent/pax
 	name = "Pax"
-	description = "A colorless liquid that suppresses violence in its subjects."
+	description = "A colorless liquid that suppresses violent urges in its subjects."
 	color = "#AAAAAA55"
 	taste_description = "water"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
@@ -1847,7 +1847,7 @@
 
 /datum/reagent/bz_metabolites
 	name = "BZ metabolites"
-	description = "A harmless metabolite of BZ gas"
+	description = "A harmless metabolite of BZ gas."
 	color = "#FAFF00"
 	taste_description = "acrid cinnamon"
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
@@ -1910,8 +1910,8 @@
 		to_chat(L, "You don't feel much of anything")
 
 /datum/reagent/pax/peaceborg
-	name = "synthpax"
-	description = "A colorless liquid that suppresses violence in its subjects. Cheaper to synthesize than normal Pax, but wears off faster."
+	name = "Synthpax"
+	description = "A colorless liquid that suppresses violent urges in its subjects. Cheaper to synthesize than normal Pax, but wears off faster."
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
 /datum/reagent/peaceborg
@@ -1920,7 +1920,7 @@
 
 /datum/reagent/peaceborg/confuse
 	name = "Dizzying Solution"
-	description = "Makes the target off balance and dizzy"
+	description = "Makes the target off balance and dizzy."
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "dizziness"
 	can_synth = TRUE
@@ -1937,7 +1937,7 @@
 
 /datum/reagent/peaceborg/inabizine
 	name = "Inabizine"
-	description = "Induces muscle relaxation causing the target to drop items and fall on the ground"
+	description = "Induces muscle relaxation, which makes holding objects and standing difficult."
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "relaxing"
 
@@ -1953,7 +1953,7 @@
 
 /datum/reagent/peaceborg/tire
 	name = "Tiring Solution"
-	description = "An extremely weak stamina-toxin that tires out the target. Completely harmless."
+	description = "An very mild stamina toxin that wears out the target. Completely harmless."
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "tiredness"
 	can_synth = TRUE

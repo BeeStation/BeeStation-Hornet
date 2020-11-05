@@ -59,6 +59,9 @@
 	LoadMOTD()
 	LoadChatFilter()
 
+	if (Master)
+		Master.OnConfigLoad()
+
 /datum/controller/configuration/proc/full_wipe()
 	if(IsAdminAdvancedProcCall())
 		return
@@ -428,6 +431,4 @@
 		in_character_filter += REGEX_QUOTE(line)
 
 	ic_filter_regex = in_character_filter.len ? regex("\\b([jointext(in_character_filter, "|")])\\b", "i") : null
-
-	syncChatRegexes()
 

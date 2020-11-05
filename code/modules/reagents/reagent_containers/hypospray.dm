@@ -189,8 +189,8 @@
 	list_reagents = list(/datum/reagent/medicine/ephedrine = 10, /datum/reagent/consumable/coffee = 10)
 
 /obj/item/reagent_containers/hypospray/medipen/stimpack/traitor
-	desc = "A modified stimulants autoinjector for use in combat situations. Has a mild healing effect."
-	list_reagents = list(/datum/reagent/medicine/stimulants = 10, /datum/reagent/medicine/omnizine = 10)
+	desc = "A modified amphetamine autoinjector for use in combat situations. Has a mild healing effect."
+	list_reagents = list(/datum/reagent/medicine/amphetamine = 10, /datum/reagent/medicine/omnizine = 10)
 
 /obj/item/reagent_containers/hypospray/medipen/pumpup
 	name = "pumpup medipen"

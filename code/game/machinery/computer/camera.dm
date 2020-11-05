@@ -7,8 +7,8 @@
 	icon_keyboard = "security_key"
 	circuit = /obj/item/circuitboard/computer/security
 	light_color = LIGHT_COLOR_RED
-	ui_x = 870
-	ui_y = 708
+
+
 
 	var/list/network = list("ss13")
 	var/obj/machinery/camera/active_camera
@@ -57,11 +57,13 @@
 		network -= i
 		network += "[idnum][i]"
 
-/obj/machinery/computer/security/ui_interact(\
-		mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-		datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+
+/obj/machinery/computer/security/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/security/ui_interact(mob/user, datum/tgui/ui)
 	// Update UI
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	// Show static if can't use the camera
 	if(!active_camera?.can_use())
 		show_camera_static()
@@ -81,7 +83,7 @@
 		user.client.register_map_obj(cam_plane_master)
 		user.client.register_map_obj(cam_background)
 		// Open UI
-		ui = new(user, src, ui_key, "CameraConsole", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "CameraConsole")
 		ui.open()
 
 /obj/machinery/computer/security/ui_data()
@@ -243,7 +245,7 @@
 
 /obj/machinery/computer/security/telescreen/entertainment
 	name = "entertainment monitor"
-	desc = "Damn, they better have the /tg/ channel on these things."
+	desc = "Damn, they better have the beestation channel on these things."
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "entertainment_blank"
 	network = list("thunder")

@@ -101,7 +101,7 @@
 		if(isanimal(target))
 			var/mob/living/simple_animal/A = target
 			if(!A.healable)//simple approximation of being animal not a robot or similar
-				to_chat(user, "<span class='warning'>No compatible DNA detected</span>")
+				to_chat(user, "<span class='warning'>No compatible DNA detected.</span>")
 				return
 		if(animals[target.type])
 			to_chat(user, "<span class='notice'>Animal data already present in local storage.</span>")
@@ -131,8 +131,8 @@
 	light_range = 3
 	light_power = 1.5
 	light_color = LIGHT_COLOR_CYAN
-	ui_x = 350
-	ui_y = 400
+
+
 
 
 	//High defaults so it's not completed automatically if there's no station goal
@@ -177,11 +177,15 @@
 	. = ..()
 
 
-/obj/machinery/dna_vault/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/dna_vault/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/machinery/dna_vault/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		roll_powers(user)
-		ui = new(user, src, ui_key, "DnaVault", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "DnaVault")
 		ui.open()
 
 

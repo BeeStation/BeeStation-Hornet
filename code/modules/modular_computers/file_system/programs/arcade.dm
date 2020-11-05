@@ -7,8 +7,8 @@
 	network_destination = "arcade network"
 	size = 6
 	tgui_id = "NtosArcade"
-	ui_x = 450
-	ui_y = 350
+
+
 
 	///Returns TRUE if the game is being played.
 	var/game_active = TRUE
@@ -73,10 +73,13 @@
 	pause_state = FALSE
 	game_check()
 
-/datum/computer_file/program/arcade/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
+/datum/computer_file/program/arcade/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/arcade),
+	)
+
+/datum/computer_file/program/arcade/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
-	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/arcade)
-	assets.send(user)
 
 /datum/computer_file/program/arcade/ui_data(mob/user)
 	var/list/data = get_header_data()
@@ -88,7 +91,7 @@
 	data["GameActive"] = game_active
 	data["PauseState"] = pause_state
 	data["Status"] = heads_up
-	data["BossID"] = "boss[boss_id].gif"
+	data["BossID"] = SSassets.transport.get_asset_url("boss[boss_id].gif")
 	return data
 
 /datum/computer_file/program/arcade/ui_act(action, list/params)

@@ -154,7 +154,7 @@
 		/datum/reagent/consumable/sugar = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/hotcrossbun
-	category = CAT_MISCFOOD
+	subcategory = CAT_MISCFOOD
 
 
 /obj/item/reagent_containers/food/snacks/store/cake/brioche
@@ -178,7 +178,7 @@
 		/datum/reagent/consumable/sugar = 2
 	)
 	result = /obj/item/reagent_containers/food/snacks/store/cake/brioche
-	category = CAT_MISCFOOD
+	subcategory = CAT_MISCFOOD
 
 /obj/item/reagent_containers/food/snacks/scotchegg
 	name = "scotch egg"
@@ -198,7 +198,7 @@
 		/obj/item/reagent_containers/food/snacks/meatball = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/scotchegg
-	category = CAT_MISCFOOD
+	subcategory = CAT_MISCFOOD
 
 /obj/item/reagent_containers/food/snacks/soup/mammi
 	name = "Mammi"
@@ -215,14 +215,14 @@
 		/datum/reagent/consumable/milk = 5
 	)
 	result = /obj/item/reagent_containers/food/snacks/soup/mammi
-	category = CAT_MISCFOOD
+	subcategory = CAT_MISCFOOD
 
 /obj/item/reagent_containers/food/snacks/chocolatebunny
 	name = "chocolate bunny"
 	desc = "Contains less than 10% real rabbit!"
 	icon_state = "chocolatebunny"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/coco = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/cocoa = 2)
 	filling_color = "#A0522D"
 
 /datum/crafting_recipe/food/chocolatebunny
@@ -232,4 +232,4 @@
 		/obj/item/reagent_containers/food/snacks/chocolatebar = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/chocolatebunny
-	category = CAT_MISCFOOD
+	subcategory = CAT_MISCFOOD

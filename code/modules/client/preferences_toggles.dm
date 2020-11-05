@@ -83,7 +83,7 @@ TOGGLE_CHECKBOX(/datum/verbs/menu/Settings/Ghost/chatterbox, toggle_ghost_laws)(
 	set category = "Preferences"
 	set desc = "See All Law Changes"
 	usr.client.prefs.chat_toggles ^= CHAT_GHOSTLAWS
-	to_chat(usr, "As a ghost, you will now [(usr.client.prefs.chat_toggles & CHAT_GHOSTLAWS) ? "be notified of all law chanes" : "no longer be notified of law changes"].")
+	to_chat(usr, "As a ghost, you will now [(usr.client.prefs.chat_toggles & CHAT_GHOSTLAWS) ? "be notified of all law changes" : "no longer be notified of law changes"].")
 	usr.client.prefs.save_preferences()
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ghost Laws", "[usr.client.prefs.chat_toggles & CHAT_GHOSTLAWS ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 /datum/verbs/menu/Settings/Ghost/chatterbox/toggle_ghost_laws/Get_checked(client/C)
@@ -156,8 +156,7 @@ TOGGLE_CHECKBOX(/datum/verbs/menu/Settings/Sound, togglemidis)()
 		to_chat(usr, "You will no longer hear sounds uploaded by admins")
 		usr.stop_sound_channel(CHANNEL_ADMIN)
 		var/client/C = usr.client
-		if(C && C.chatOutput && !C.chatOutput.broken && C.chatOutput.loaded)
-			C.chatOutput.stopMusic()
+		C?.tgui_panel?.stop_music()
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Hearing Midis", "[usr.client.prefs.toggles & SOUND_MIDI ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 /datum/verbs/menu/Settings/Sound/togglemidis/Get_checked(client/C)
 	return C.prefs.toggles & SOUND_MIDI
@@ -230,8 +229,7 @@ TOGGLE_CHECKBOX(/datum/verbs/menu/Settings/Sound, toggle_announcement_sound)()
 	set desc = "Stop Current Sounds"
 	SEND_SOUND(usr, sound(null))
 	var/client/C = usr.client
-	if(C && C.chatOutput && !C.chatOutput.broken && C.chatOutput.loaded)
-		C.chatOutput.stopMusic()
+	C?.tgui_panel?.stop_music()
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Stop Self Sounds")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 

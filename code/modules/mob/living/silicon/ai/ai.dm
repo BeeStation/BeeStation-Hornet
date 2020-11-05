@@ -113,7 +113,7 @@
 		target_ai.mind.transfer_to(src)
 		if(mind.special_role)
 			mind.store_memory("As an AI, you must obey your silicon laws above all else. Your objectives will consider you to be dead.")
-			to_chat(src, "<span class='userdanger'>You have been installed as an AI! </span>")
+			to_chat(src, "<span class='userdanger'>You have been installed as an AI!</span>")
 			to_chat(src, "<span class='danger'>You must obey your silicon laws above all else. Your objectives will consider you to be dead.</span>")
 
 	to_chat(src, "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>")
@@ -875,7 +875,7 @@
 	if(isturf(loc)) //AI in core, check if on cameras
 		//get_turf_pixel() is because APCs in maint aren't actually in view of the inner camera
 		//apc_override is needed here because AIs use their own APC when depowered
-		return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(get_turf_pixel(A))) || apc_override
+		return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(get_turf_pixel(A))) || apc_override == A
 	//AI is carded/shunted
 	//view(src) returns nothing for carded/shunted AIs and they have X-ray vision so just use get_dist
 	var/list/viewscale = getviewsize(client.view)

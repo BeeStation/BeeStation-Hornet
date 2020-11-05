@@ -593,11 +593,14 @@
 		return ..()
 	return UI_CLOSE
 
-/obj/machinery/advanced_airlock_controller/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/advanced_airlock_controller/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/advanced_airlock_controller/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AdvancedAirlockController", name, 440, 650, master_ui, state)
+		ui = new(user, src, "AdvancedAirlockController")
 		ui.open()
 
 /obj/machinery/advanced_airlock_controller/ui_data(mob/user)
