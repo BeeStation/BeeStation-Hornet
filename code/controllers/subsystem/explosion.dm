@@ -259,11 +259,11 @@ SUBSYSTEM_DEF(explosions)
 				else if(dist <= far_dist)
 					var/far_volume = clamp(far_dist/2, FAR_LOWER, FAR_UPPER) // Volume is based on explosion size and dist
 					if(creaking_explosion)
-						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = creaking_explosion_sound, distance_multiplier = 0)
+						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = creaking_explosion_sound, turf_source = 0)
 					else if(prob(PROB_SOUND)) // Sound variety during meteor storm/tesloose/other bad event
-						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = far_explosion_sound, distance_multiplier = 0) // Far sound
+						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = far_explosion_sound, turf_source = 0) // Far sound
 					else
-						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = explosion_echo_sound, distance_multiplier = 0) // Echo sound
+						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = explosion_echo_sound, turf_source = 0) // Echo sound
 
 					if(baseshakeamount > 0 || devastation_range)
 						if(!baseshakeamount) // Devastating explosions rock the station and ground
@@ -275,7 +275,7 @@ SUBSYSTEM_DEF(explosions)
 						baseshakeamount = devastation_range
 						shake_camera(M, 10, clamp(baseshakeamount*0.25, 0, SHAKE_CLAMP))
 						echo_volume = 60
-					M.playsound_local(epicenter, null, echo_volume, 1, frequency, S = explosion_echo_sound, distance_multiplier = 0)
+					M.playsound_local(epicenter, null, echo_volume, 1, frequency, S = explosion_echo_sound, turf_source = 0)
 
 				if(creaking_explosion) // 5 seconds after the bang, the station begins to creak
 					addtimer(CALLBACK(M, /mob/proc/playsound_local, epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, FALSE, hull_creaking_sound, 0), CREAK_DELAY)
