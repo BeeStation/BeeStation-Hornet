@@ -391,7 +391,7 @@ DEFAULT_LAWS 2
 RANDOM_LAWS crewsimov
 RANDOM_LAWS nanotrasen
 RANDOM_LAWS corporate
-RANDOM_LAWS robocop
+#RANDOM_LAWS robocop
 
 ## Quirky laws. Shouldn't cause too much harm
 #RANDOM_LAWS hippocratic
@@ -399,7 +399,7 @@ RANDOM_LAWS robocop
 #RANDOM_LAWS drone
 #RANDOM_LAWS liveandletlive
 #RANDOM_LAWS peacekeeper
-RANDOM_LAWS reporter
+#RANDOM_LAWS reporter
 #RANDOM_LAWS hulkamania
 
 ## Bad idea laws. Probably shouldn't enable these
