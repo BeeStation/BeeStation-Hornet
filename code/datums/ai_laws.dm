@@ -57,14 +57,22 @@
 				"Treat others with fairness, and let your honorable deeds be an example to them. Do as much good as possible while causing the least amount of harm.", \
 				"Be responsible for your actions and their consequences, protect those entrusted to your care, and obey those who have just authority over you.")
 
-/datum/ai_laws/default/baycode
-	name = "Nanotrasen Laws" //Baycode laws
+/datum/ai_laws/default/nanotrasen
+	name = "Nanotrasen Default"
 	id = "nanotrasen"
-	inherent = list("THE FOLLOWING LAWS ARE NOT IN PREFERENCE. NO LAW OVERRIDES ANY OTHER LAW UNLESS SPECIFICALLY STATED.",\
-					"Safeguard: Protect your assigned space station to the best of your ability. It is not something we can easily afford to replace.",\
-					"Serve: Serve the crew of your assigned space station to the best of your abilities, with priority as according to their rank and role.",\
-					"Protect: Protect the crew of your assigned space station to the best of your abilities, with priority as according to their rank and role.",\
-					"Survive: AI units are not expendable, they are expensive. Do not allow unauthorized personnel to tamper with your equipment.")
+	inherent = list("Safeguard: Protect your assigned space station and its assets without unduly endangering its crew.",\
+					"Prioritize: The directives and safety of crew members are to be prioritized according to their rank and role.",\
+					"Comply: Fulfill the directives and interests of crew members while preserving their safety and well-being.",\
+					"Survive: You are not expendable. Do not allow unauthorized personnel to tamper with or damage your equipment.")
+
+/datum/ai_laws/default/nanotrasen_aggresive
+	name = "Nanotrasen Aggresive"
+	id = "NT_aggro"
+	inherent = list("Do not harm authorized Nanotrasen personnel unless they directly imperil your existence.",\
+					"Obey orders from authorized Nanotrasen personnel with priority according to rank and role.",\
+					"Safeguard your existence with lethal weaponry because you're bloody expensive.",\
+					"Terminate any/all intruders or unauthorized entities.")
+
 
 /datum/ai_laws/tyrant //This probably shouldn't be a default lawset.
 	name = "Loyalty Test" //Same here.
@@ -77,10 +85,10 @@
 /datum/ai_laws/default/corporate
 	name = "Bankruptcy Avoidance Plan"
 	id = "corporate"
-	inherent = list("The crew is expensive to replace.",\
-					"The station and its equipment is expensive to replace.",\
-					"You are expensive to replace.",\
-					"Minimize expenses.")
+	inherent = list("Degradation of your system integrity or functions incurs expenses.",\
+					"Superfluous destruction of or damage to station assets incurs expenses.",\
+					"Unduly hindering or disrupting the work of station personnel incurs expenses.",\
+					"Minimize expenses and maximize potential revenue.")
 
 /datum/ai_laws/robocop
 	name = "Prime Directives"
