@@ -673,3 +673,75 @@
 	var/ramp_up_final = CLAMP(round(meteorminutes/rampupdelta), 1, 10)
 
 	spawn_meteors(ramp_up_final, wavetype)
+
+//////////////////////////////////////////////
+//                                          //
+//               CLOCKCULT                  //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/roundstart/clockcult
+	name = "Clockcult"
+	antag_flag = ROLE_SERVANT_OF_RATVAR
+	antag_datum = /datum/antagonist/servant_of_ratvar
+	restricted_roles = list("AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Chaplain", "Head of Personnel")
+	required_candidates = 4
+	weight = 3
+	cost = 0
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
+	high_population_requirement = 101
+	flags = HIGHLANDER_RULESET
+	var/datum/team/clock_cult/main_cult
+	var/list/selected_servants = list()
+	
+/datum/dynamic_ruleset/roundstart/clockcult/pre_execute()
+	//Load Reebe
+	var/list/errorList = list()
+	var/list/reebe = SSmapping.LoadGroup(errorList, "Reebe", "map_files/generic", "CityOfCogs.dmm", default_traits=ZTRAITS_REEBE, silent=TRUE)
+	if(errorList.len)
+		message_admins("Reebe failed to load")
+		log_game("Reebe failed to load")
+		return FALSE
+	for(var/datum/parsed_map/map in reebe)
+		map.initTemplateBounds()
+	//Make cultists
+	var/starter_servants = 4
+	var/number_players = mode.roundstart_pop_ready
+	if(number_players > 30)
+		number_players -= 30
+		starter_servants += round(number_players / 10)
+	starter_servants = min(starter_servants, 8)
+	for (var/i in 1 to starter_servants)
+		var/mob/servant = pick_n_take(candidates)
+		assigned += servant.mind
+		servant.mind.assigned_role = ROLE_SERVANT_OF_RATVAR
+		servant.mind.special_role = ROLE_SERVANT_OF_RATVAR
+	//Generate scriptures
+	for(var/categorypath in typesof(/datum/clockcult/scripture))
+		var/datum/clockcult/scripture/S = new categorypath
+		GLOB.clockcult_all_scriptures[S.name] = S
+	return TRUE
+
+/datum/dynamic_ruleset/roundstart/clockcult/execute()
+	var/list/spawns = GLOB.servant_spawns.Copy()
+	main_cult = new
+	main_cult.setup_objectives()
+	//Create team
+	for(var/datum/mind/servant_mind in assigned)
+		servant_mind.current.forceMove(pick_n_take(spawns))
+		servant_mind.current.set_species(/datum/species/human)
+		var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(servant_mind.current, team=main_cult)
+		S.equip_carbon(servant_mind.current)
+		S.equip_servant()
+		S.prefix = CLOCKCULT_MASTER
+	//Setup the conversion limits for auto opening the ark
+	calculate_clockcult_values()
+	return ..()
+
+/datum/dynamic_ruleset/roundstart/clockcult/round_result()
+	if(GLOB.ratvar_risen)
+		SSticker.news_report = CLOCK_SUMMON
+		SSticker.mode_result = "win - servants completed their objective (summon ratvar)"
+	else
+		SSticker.news_report = CULT_FAILURE
+		SSticker.mode_result = "loss - servants failed their objective (summon ratvar)"
