@@ -61588,12 +61588,12 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/turf/open/floor/plating,
 /obj/machinery/door/airlock/maintenance{
 	name = "CMO Maintenance";
 	req_access_txt = "40";
 	security_level = 6
 	},
+/turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "cqq" = (
 /obj/structure/disposalpipe/segment{
