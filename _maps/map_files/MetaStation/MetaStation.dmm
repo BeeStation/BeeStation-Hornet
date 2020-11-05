@@ -63,11 +63,6 @@
 	},
 /turf/open/floor/plasteel/airless/solarpanel,
 /area/solar/port/fore)
-"aam" = (
-/obj/structure/cable,
-/obj/structure/lattice/catwalk,
-/turf/open/space,
-/area/solar/port/fore)
 "aan" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -91,22 +86,24 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/solar/port/fore)
-"aap" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/open/space,
-/area/solar/port/fore)
 "aaq" = (
 /obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/open/space,
 /area/solar/port/fore)
 "aar" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/space,
 /area/solar/port/fore)
 "aas" = (
@@ -146,6 +143,9 @@
 "aaw" = (
 /obj/item/stack/cable_coil,
 /obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/space,
 /area/solar/port/fore)
 "aax" = (
@@ -162,6 +162,9 @@
 "aaz" = (
 /obj/effect/landmark/xeno_spawn,
 /obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/space,
 /area/solar/port/fore)
 "aaA" = (
@@ -432,10 +435,10 @@
 /turf/closed/wall,
 /area/security/prison)
 "abf" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
 /obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/space,
 /area/solar/port/fore)
 "abg" = (
@@ -618,8 +621,10 @@
 /turf/open/floor/plasteel/airless/solarpanel,
 /area/solar/starboard/fore)
 "abw" = (
-/obj/structure/cable,
 /obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/space,
 /area/solar/starboard/fore)
 "abx" = (
@@ -778,22 +783,24 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/solar/starboard/fore)
-"abQ" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/open/space,
-/area/solar/starboard/fore)
 "abR" = (
 /obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/open/space,
 /area/solar/starboard/fore)
 "abS" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/space,
 /area/solar/starboard/fore)
 "abT" = (
@@ -1075,6 +1082,9 @@
 "acz" = (
 /obj/item/stack/cable_coil,
 /obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/space,
 /area/solar/starboard/fore)
 "acA" = (
@@ -2330,6 +2340,9 @@
 "aeF" = (
 /obj/effect/landmark/xeno_spawn,
 /obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/space,
 /area/solar/starboard/fore)
 "aeG" = (
@@ -5586,10 +5599,10 @@
 /turf/open/space,
 /area/maintenance/solars/starboard/fore)
 "ake" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
 /obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/space,
 /area/maintenance/solars/starboard/fore)
 "akf" = (
@@ -19909,7 +19922,8 @@
 	},
 /obj/machinery/atmospherics/components/binary/volume_pump/on{
 	icon_state = "volpump_on_map-2";
-	name = "Gas to Filter"
+	name = "Gas to Filter";
+	on = 0
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -20447,7 +20461,9 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "aNv" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
+	scrubbing = 0
+	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "aNw" = (
@@ -21854,7 +21870,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/trinary/filter/flipped/critical{
-	dir = 1
+	dir = 1;
+	on = 1
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -55253,11 +55270,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/atmos)
-"cda" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable,
-/turf/open/space,
-/area/solar/port/aft)
 "cdc" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -55695,10 +55707,6 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/engine/atmos)
-"cej" = (
-/obj/structure/lattice/catwalk,
-/turf/open/space,
-/area/solar/port/aft)
 "cek" = (
 /obj/machinery/door/airlock/external{
 	req_access_txt = "13"
@@ -56256,13 +56264,6 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
 /turf/open/space,
 /area/space/nearstation)
-"cfz" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/space,
-/area/solar/port/aft)
 "cfA" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -57619,11 +57620,6 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /turf/open/floor/plating,
 /area/engine/atmos)
-"chY" = (
-/obj/structure/cable,
-/obj/structure/lattice/catwalk,
-/turf/open/space,
-/area/solar/port/aft)
 "chZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -64085,18 +64081,11 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/solar/port/aft)
-"cvf" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/open/space,
-/area/solar/port/aft)
 "cvg" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/space,
 /area/solar/port/aft)
 "cvh" = (
@@ -65183,6 +65172,9 @@
 "cxa" = (
 /obj/item/stack/cable_coil,
 /obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/space,
 /area/solar/port/aft)
 "cxb" = (
@@ -66534,10 +66526,10 @@
 /turf/open/floor/plating,
 /area/science/test_area)
 "czL" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
 /obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/space,
 /area/solar/port/aft)
 "czO" = (
@@ -67581,8 +67573,10 @@
 /area/science/test_area)
 "cBQ" = (
 /obj/effect/landmark/xeno_spawn,
-/obj/structure/cable,
 /obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/space,
 /area/solar/port/aft)
 "cBR" = (
@@ -75882,6 +75876,15 @@
 /area/science/xenobiology)
 "cRO" = (
 /obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/open/space,
 /area/solar/starboard/aft)
 "cRP" = (
@@ -76195,10 +76198,13 @@
 "cSz" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "0-8"
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/open/space,
-/area/solar/starboard/aft)
+/area/solar/port/aft)
 "cSA" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -76228,13 +76234,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
-"cSC" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/space,
-/area/solar/starboard/aft)
 "cSD" = (
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
@@ -77364,14 +77363,15 @@
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 1
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable,
 /obj/structure/window/plasma/reinforced,
+/obj/machinery/power/rad_collector/anchored/preset,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "dbb" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 1
+	dir = 1;
+	pressure_checks = 2
 	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
@@ -77608,7 +77608,9 @@
 /area/maintenance/solars/starboard/aft)
 "dbO" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/space,
 /area/solar/starboard/aft)
 "dbP" = (
@@ -77652,15 +77654,24 @@
 "dbS" = (
 /obj/structure/lattice/catwalk,
 /obj/item/stack/cable_coil,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/space,
 /area/solar/starboard/aft)
 "dbT" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "0-4"
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/open/space,
-/area/solar/starboard/aft)
+/area/solar/port/aft)
 "dbU" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
@@ -78991,7 +79002,9 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/portable_atmospherics/canister/nitrogen{
+	anchored = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "deD" = (
@@ -79011,12 +79024,15 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/trinary/filter/flipped/critical,
+/obj/machinery/atmospherics/components/trinary/filter/flipped/critical{
+	on = 1
+	},
 /turf/open/floor/engine,
 /area/engine/engineering)
 "deK" = (
 /obj/structure/cable/white,
 /obj/machinery/power/emitter/anchored{
+	active = 1;
 	state = 2
 	},
 /turf/open/floor/plating,
@@ -79050,9 +79066,9 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 10
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable,
 /obj/structure/window/plasma/reinforced,
+/obj/machinery/power/rad_collector/anchored/preset,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "deU" = (
@@ -79062,7 +79078,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/trinary/filter/flipped/critical,
+/obj/machinery/atmospherics/components/trinary/filter/flipped/critical{
+	on = 1
+	},
 /turf/open/floor/engine,
 /area/engine/engineering)
 "deV" = (
@@ -79122,7 +79140,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/atmospherics/components/trinary/filter/flipped/critical,
+/obj/machinery/atmospherics/components/trinary/filter/flipped/critical{
+	on = 1
+	},
 /turf/open/floor/engine,
 /area/engine/engineering)
 "dff" = (
@@ -79159,26 +79179,26 @@
 /area/engine/supermatter)
 "dfk" = (
 /obj/machinery/atmospherics/pipe/manifold/general/visible,
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/structure/window/plasma/reinforced{
 	dir = 1
 	},
+/obj/machinery/power/rad_collector/anchored/preset,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "dfm" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 9
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/structure/window/plasma/reinforced{
 	dir = 1
 	},
+/obj/machinery/power/rad_collector/anchored/preset,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "dfp" = (
@@ -79216,7 +79236,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/trinary/filter/flipped/critical{
-	filter_type = "n2"
+	filter_type = "n2";
+	on = 1
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -79255,6 +79276,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/emitter/anchored{
+	active = 1;
 	dir = 1;
 	state = 2
 	},
@@ -79264,12 +79286,13 @@
 /obj/structure/cable/white{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/emitter/anchored{
-	dir = 1;
-	state = 2
-	},
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/machinery/power/emitter/anchored{
+	active = 1;
+	dir = 1;
+	state = 2
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -79373,7 +79396,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/components/binary/volume_pump/on{
-	icon_state = "volpump_on_map-1";
+	icon_state = "volpump_on_map-2";
 	name = "Cold to Atmos"
 	},
 /turf/open/floor/engine,
@@ -82085,7 +82108,8 @@
 "dNO" = (
 /obj/machinery/atmospherics/components/binary/volume_pump{
 	dir = 4;
-	name = "Gas to Chamber"
+	name = "Gas to Chamber";
+	on = 1
 	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
@@ -82248,7 +82272,8 @@
 "evh" = (
 /obj/machinery/atmospherics/components/binary/volume_pump{
 	dir = 8;
-	name = "Gas to Filter"
+	name = "Gas to Filter";
+	on = 1
 	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
@@ -83768,7 +83793,8 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/components/binary/volume_pump{
-	dir = 8
+	dir = 8;
+	on = 1
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -83901,7 +83927,8 @@
 "kCF" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/components/binary/volume_pump{
-	dir = 8
+	dir = 8;
+	on = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
@@ -86069,7 +86096,7 @@
 "tOc" = (
 /obj/machinery/atmospherics/components/binary/volume_pump/on{
 	dir = 1;
-	icon_state = "volpump_on_map-1";
+	icon_state = "volpump_on_map-2";
 	name = "Cold loop to Gas"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -99472,15 +99499,15 @@ aaa
 aai
 aaa
 aaf
-cvf
+cvg
 aaa
 aaa
 aaf
-cvf
+cvg
 aaa
 aaa
 aaf
-cvf
+cvg
 aaa
 aaa
 aaa
@@ -99729,15 +99756,15 @@ aaf
 anT
 aaf
 aaf
-cej
-cej
+cSz
+czL
 cxa
-cej
-cej
+czL
+dbT
 czL
 cED
 cBQ
-cej
+dbT
 czL
 cED
 cED
@@ -100999,20 +101026,20 @@ bXu
 bYD
 hvP
 jyQ
-cda
-cej
-cfz
+czL
+czL
+czL
 cED
-chY
-cej
-cej
-cej
-cfz
+czL
+czL
+czL
+czL
+czL
 cED
-cda
-cej
-cej
-cfz
+czL
+czL
+czL
+czL
 cED
 cvh
 cwe
@@ -103992,15 +104019,15 @@ aaf
 aaa
 aaa
 aaf
-aap
+aar
 aaf
 aaf
 aaf
-aap
+aar
 aaf
 aaa
 aaf
-aap
+aar
 aaf
 aaa
 aaf
@@ -104248,17 +104275,17 @@ aaa
 aah
 aak
 aak
-aam
+abf
 aaq
-aaq
-aaq
+abf
+abf
 aaw
 aaq
-aaq
+abf
 aaz
+abf
 aaq
-aaq
-aaq
+abf
 abf
 aak
 aak
@@ -124678,7 +124705,7 @@ aaa
 aaa
 aaa
 aaa
-cSz
+dbR
 aaa
 aaa
 aaf
@@ -124935,7 +124962,7 @@ dbJ
 dbJ
 dbJ
 aaf
-cRO
+dbR
 aaa
 dbJ
 dbJ
@@ -125193,7 +125220,7 @@ dbM
 dbM
 dbO
 cRO
-cSC
+dbO
 dbV
 dbV
 dbV
@@ -125706,7 +125733,7 @@ aaf
 aaa
 aaa
 aaa
-cRO
+dbR
 aaa
 aaf
 aaa
@@ -125963,7 +125990,7 @@ dbJ
 dbJ
 dbJ
 aaf
-cRO
+dbR
 aaa
 dbJ
 dbJ
@@ -126221,7 +126248,7 @@ dbM
 dbM
 dbO
 cRO
-cSC
+dbO
 dbV
 dbV
 dbV
@@ -126477,7 +126504,7 @@ dbL
 dbL
 dbL
 aaf
-cRO
+dbR
 aaf
 dbL
 dbL
@@ -126734,7 +126761,7 @@ aaf
 aaf
 aaa
 aaa
-cRO
+dbR
 aaa
 aaa
 aaf
@@ -126991,7 +127018,7 @@ dbJ
 dbJ
 dbJ
 aaf
-cRO
+dbR
 aaa
 dbJ
 dbJ
@@ -127249,7 +127276,7 @@ dbM
 dbM
 dbO
 cRO
-cSC
+dbO
 dbV
 dbV
 dbV
@@ -127505,7 +127532,7 @@ dbL
 dbL
 dbL
 aaf
-dbT
+dbR
 aaf
 dbL
 dbL
@@ -131245,15 +131272,15 @@ aaf
 aaa
 aaa
 aaf
-abQ
+abS
 aaf
 aaf
 aaf
-abQ
+abS
 aaf
 aaa
 aaf
-abQ
+abS
 aaf
 aaa
 aaa
@@ -131503,18 +131530,18 @@ aaY
 aaY
 abw
 abR
-abR
+abw
 acz
+abw
 abR
-abR
-abR
-abR
+abw
+abw
 aeF
 abR
-abR
-abR
-abR
-abR
+abw
+abw
+abw
+abw
 ake
 alw
 lvJ

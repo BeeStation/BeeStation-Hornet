@@ -32,6 +32,10 @@
 /obj/machinery/power/rad_collector/anchored
 	anchored = TRUE
 
+obj/machinery/power/rad_collector/anchored/preset
+	loaded_tank = new /obj/item/tank/internals/plasma/full
+	active = 1
+
 /obj/machinery/power/rad_collector/Destroy()
 	return ..()
 
