@@ -26,6 +26,7 @@ map pubbystation
 	minplayers 50
 	maxplayers 100
 	votable
+	disabled
 endmap
 
 map deltastation
