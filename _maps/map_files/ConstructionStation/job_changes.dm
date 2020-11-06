@@ -1,3 +1,5 @@
+#define JOB_MODIFICATION_MAP_NAME "Construction Station"
+
 /datum/job/engineer/New()
 	..()
 	MAP_JOB_CHECK
