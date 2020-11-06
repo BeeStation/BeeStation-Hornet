@@ -215,7 +215,7 @@
 "vp" = (/obj/structure/bed,/obj/item/bedsheet/medical,/obj/effect/decal/cleanable/blood/old,/turf/open/floor/plasteel/white,/area/mine/lobby)
 "vw" = (/obj/machinery/computer/camera_advanced/xenobio{dir = 8},/turf/open/floor/plasteel,/area/science/xenobiology)
 "vC" = (/turf/open/floor/plasteel,/area/science/xenobiology)
-"vE" = (/obj/structure/cable/yellow{icon_state = "4-8"},/obj/effect/turf_decal/sand/plating,/obj/effect/turf_decal/sand,/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,/turf/open/floor/plating/airless,/area/space/nearstation)
+"vE" = (/obj/structure/cable/yellow{icon_state = "4-8"},/obj/effect/turf_decal/sand/plating,/obj/effect/turf_decal/sand,/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{dir = 9},/turf/open/floor/plating/airless,/area/space/nearstation)
 "vI" = (/obj/machinery/atmospherics/components/unary/tank/air,/turf/open/floor/plasteel,/area/science/xenobiology)
 "vO" = (/obj/machinery/door/window/brigdoor/southleft,/obj/machinery/door/poddoor/preopen{id = "xeno"; name = "Creature Cell"},/obj/machinery/door/firedoor/border_only,/turf/open/floor/plasteel,/area/science/xenobiology)
 "we" = (/obj/structure/cable{icon_state = "4-8"},/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{dir = 4},/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{dir = 8},/turf/open/floor/plating,/area/engine/storage_shared)
