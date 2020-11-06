@@ -14,23 +14,27 @@ endmap
 
 map boxstation
 	maxplayers 60
-	votable
+	disabled
+endmap
+
+map constructionstation
+	default
 endmap
 
 map metastation
 	maxplayers 100
-	votable
+	disabled
 endmap
 
 map pubbystation
 	minplayers 50
 	maxplayers 100
-	votable
+	disabled
 endmap
 
 map deltastation
 	minplayers 50
-	votable
+	disabled
 endmap
 
 map donutstation
@@ -48,6 +52,6 @@ map multiz_debug
 endmap
 
 map kilostation
-    maxplayers 60
-	votable
+    	maxplayers 60
+	disabled
 endmap
