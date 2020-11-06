@@ -1,5 +1,0 @@
-author: Autisem
-delete-after: true
-changes:
-  - bugfix: assembly's now can be interacted with while inside other objects like
-      TTV

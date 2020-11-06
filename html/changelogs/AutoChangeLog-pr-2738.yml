@@ -1,6 +1,0 @@
-author: zeskorion
-delete-after: true
-changes:
-  - code_imp: pepper proofing now checks eye and mouth covering instead of a snowflake
-      flag
-  - bugfix: spraypaint now uses eye covering instead of flash protection
