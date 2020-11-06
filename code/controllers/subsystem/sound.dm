@@ -48,13 +48,6 @@ SUBSYSTEM_DEF(sound_effects)
 		listeners_list = list(listeners)
 	//Create datum
 	var/datum/sound_effect/fade/SE = new(S, listeners_list, time, start_volume, end_volume)
-	//If the sound is already playing, make it fade from the current point
-	if(SSsound_effects.acting_effects[SE.effect_id])
-		var/datum/sound_effect/fade/old_sound = SSsound_effects.acting_effects[SE.effect_id]
-		SE.in_vol = old_sound.current_vol
-	else
-		SE.send_sound()
-	SSsound_effects.acting_effects[SE.effect_id] = SE
 
 // ===== Sound effect datum =====
 
@@ -73,11 +66,12 @@ SUBSYSTEM_DEF(sound_effects)
 	start_tick = world.time
 	end_tick = world.time + time
 	effect_id = generate_id()
+	start_sound()
 
 /datum/sound_effect/proc/generate_id()
 	var/id = "[name][sound.file]"
 	for(var/A in listeners)
-		id = "[id][A]"
+		id = "[id][REF(A)]"
 	return id
 
 /datum/sound_effect/proc/send_sound()
@@ -90,6 +84,10 @@ SUBSYSTEM_DEF(sound_effects)
 /datum/sound_effect/proc/end_effect()
 	return	//Not implemented
 
+/datum/sound_effect/proc/start_sound()
+	send_sound()
+	SSsound_effects.acting_effects[effect_id] = src
+
 //============== Fade =============
 
 /datum/sound_effect/fade
@@ -100,9 +98,18 @@ SUBSYSTEM_DEF(sound_effects)
 	var/current_vol
 
 /datum/sound_effect/fade/New(S, list/_listeners, time, start_vol, end_vol)
-	. = ..(S, _listeners, time)
 	in_vol = start_vol
 	out_vol = end_vol
+	. = ..(S, _listeners, time)
+
+/datum/sound_effect/fade/start_sound()
+	//If the sound is already playing, make it fade from the current point
+	if(SSsound_effects.acting_effects[effect_id])
+		var/datum/sound_effect/fade/old_sound = SSsound_effects.acting_effects[effect_id]
+		in_vol = old_sound.current_vol
+	else
+		send_sound()
+	SSsound_effects.acting_effects[effect_id] = src
 
 /datum/sound_effect/fade/update_effect()
 	var/time_multiplier = CLAMP((world.time - start_tick) / (end_tick - start_tick), 0, 1)
