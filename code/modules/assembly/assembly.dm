@@ -129,5 +129,4 @@
 /obj/item/assembly/ui_status(mob/user)
 	.= ..()
 	if(src.can_interact(user) || holder.can_interact(user))
-		. = max(., UI_INTERACTIVE)
-
+		return UI_INTERACTIVE
