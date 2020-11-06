@@ -901,7 +901,7 @@
 
 /datum/design/borg_upgrade_party
 	name = "Cyborg Speciality (Party)"
-	id = "borg_upgrade_casino"
+	id = "borg_upgrade_party"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/speciality/party
 	materials = list(/datum/material/iron = 2000, /datum/material/diamond = 500)
