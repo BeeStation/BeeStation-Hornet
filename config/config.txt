@@ -487,14 +487,11 @@ ROUNDS_UNTIL_HARD_RESTART 3
 ##	By default, this is 15x15, which gets simplified to 7 by BYOND, as it is a 1:1 screen ratio.
 ##	For reference, Goonstation uses a resolution of 21x15 for it's widescreen mode.
 ##	Do note that changing this value will affect the title screen. The title screen will have to be updated manually if this is changed.
-DEFAULT_VIEW 17x15
-
-##Should we use square view (15x15) while a new player (main menu)
-MENU_SQUARE_VIEW
+DEFAULT_VIEW 15x15
 
 ## Name your perpetual currency here
 ## This is used within the metashop and earned by playing the game.
-METACURRENCY_NAME BeeCoin
+METACURRENCY_NAME SinguloCoin
 
 ## Grant metacurrency
 ## Comment this out if you don't want players to earn metacurrency
@@ -530,12 +527,6 @@ TOPIC_MAX_SIZE 500
 ## More API details can be found here: https://centcom.melonmesa.com
 CENTCOM_BAN_DB https://centcom.melonmesa.com/ban/search
 
-## Respect upstream bans. Uncomment to automatically block connections from players that are banned from both BeeStation servers
-## Requires CENTCOM_BAN_DB to be enabled with a valid URL.
-#RESPECT_UPSTREAM_BANS
-## Only respect upstream bans if it's a permaban
-#RESPECT_UPSTREAM_PERMABANS
-
 ## Enable IC/OOC Hard Filtering. Comment to disable one or both of them
 #IC_FILTER_ENABLED
 #OOC_FILTER_ENABLED
@@ -546,11 +537,8 @@ CENTCOM_BAN_DB https://centcom.melonmesa.com/ban/search
 
 ### Autotransfer Settings
 ## Uncomment to enable shuttle autotransfer
-VOTE_AUTOTRANSFER_ENABLED
+#VOTE_AUTOTRANSFER_ENABLED
 ## Time (in deciseconds) before the first transfer vote. Default: 90 minutes
-VOTE_AUTOTRANSFER_INITIAL 54000
+#VOTE_AUTOTRANSFER_INITIAL 54000
 ## Time (in deciseconds) between subsequent transfer votes. Default: 30 minutes
-VOTE_AUTOTRANSFER_INTERVAL 18000
-
-## Ghost role cooldown time after death (In deciseconds)
-GHOST_ROLE_COOLDOWN 3000
+#VOTE_AUTOTRANSFER_INTERVAL 18000

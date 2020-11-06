@@ -12,46 +12,8 @@ Format:
 	disabled (disables the map)
 endmap
 
-map boxstation
-	maxplayers 60
-	disabled
-endmap
-
 map constructionstation
+	minplayers 0
+	maxplayers 0
 	default
-endmap
-
-map metastation
-	maxplayers 100
-	disabled
-endmap
-
-map pubbystation
-	minplayers 50
-	maxplayers 100
-	disabled
-endmap
-
-map deltastation
-	minplayers 50
-	disabled
-endmap
-
-map donutstation
-	minplayers 80
-	maxplayers 120
-	disabled
-endmap
-
-map runtimestation
-	disabled
-endmap
-
-map multiz_debug
-	disabled
-endmap
-
-map kilostation
-    	maxplayers 60
-	disabled
 endmap
