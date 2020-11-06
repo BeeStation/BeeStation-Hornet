@@ -84,6 +84,8 @@ SUBSYSTEM_DEF(sound_effects)
 /datum/sound_effect/proc/end_effect()
 	return	//Not implemented
 
+// Send the sound to the person it's affecting and add it to the sound subsystem.
+// Should be overridden to account for if an effect is already playing for that sound.
 /datum/sound_effect/proc/start_sound()
 	send_sound()
 	SSsound_effects.acting_effects[effect_id] = src
