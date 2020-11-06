@@ -3,6 +3,7 @@ import { capitalize } from "common/string";
 import { useBackend, useLocalState } from "../backend";
 import { Blink, Box, Button, Dimmer, Flex, Icon, Input, Modal, NoticeBox, Section, Stack, Tabs, TextArea } from "../components";
 import { Window } from "../layouts";
+import { sanitizeText } from "../sanitize";
 
 const STATE_BUYING_SHUTTLE = "buying_shuttle";
 const STATE_CHANGING_STATUS = "changing_status";
@@ -629,6 +630,10 @@ const PageMessages = (props, context) => {
             );
           }
 
+          const textHtml = {
+            __html: sanitizeText(message.content),
+          };
+
           return (
             <Section
               title={message.title}
@@ -643,7 +648,8 @@ const PageMessages = (props, context) => {
                   })}
                 />
               )}>
-              <Box>{message.content}</Box>
+              <Box
+                dangerouslySetInnerHTML={textHtml} />
 
               {answers}
             </Section>
