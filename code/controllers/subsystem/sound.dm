@@ -47,7 +47,7 @@ SUBSYSTEM_DEF(sound_effects)
 	if(!islist(listeners_list))
 		listeners_list = list(listeners)
 	//Create datum
-	var/datum/sound_effect/fade/SE = new(S, listeners_list, time, start_volume, end_volume)
+	new /datum/sound_effect/fade(S, listeners_list, time, start_volume, end_volume)
 
 // ===== Sound effect datum =====
 
