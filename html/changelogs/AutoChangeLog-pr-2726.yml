@@ -1,0 +1,4 @@
+author: Victor239
+delete-after: true
+changes:
+  - rscadd: The name and job of the announcer are now shown on announcements.
