@@ -438,7 +438,7 @@
 	density = TRUE
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
-	var/firelock_type
+	var/firelock_type = "/obj/machinery/door/firedoor"
 
 /obj/structure/firelock_frame/examine(mob/user)
 	. = ..()
@@ -491,14 +491,9 @@
 				user.visible_message("<span class='notice'>[user] finishes the firelock.</span>", \
 									 "<span class='notice'>You finish the firelock.</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
-				if(reinforced)
-					new /obj/machinery/door/firedoor/heavy(get_turf(src))
-				else if(istype(src, /obj/structure/firelock_frame/border))
-					var/obj/machinery/door/firedoor/F = new firelock_type(get_turf(src))
-					F.dir = src.dir
-					F.update_icon()
-				else
-					new /obj/machinery/door/firedoor(get_turf(src))
+				var/obj/machinery/door/firedoor/F = new [firelock_type](get_turf(src))
+				F.dir = src.dir
+				F.update_icon()
 				qdel(src)
 				return
 			if(istype(C, /obj/item/stack/sheet/plasteel))
@@ -650,10 +645,12 @@
 
 /obj/structure/firelock_frame/heavy
 	name = "heavy firelock frame"
+	firelock_type = "/obj/machinery/door/firedoor/heavy"
 	reinforced = TRUE
 
 /obj/structure/firelock_frame/border
 	name = "firelock frame"
+	firelock_type = "/obj/machinery/door/firedoor/border_only"
 	icon = 'icons/obj/doors/edge_Doorfire.dmi'
 	icon_state = "door_frame"
 
@@ -672,6 +669,7 @@
 
 /obj/structure/firelock_frame/window
 	name = "window firelock frame"
+	firelock_type = "/obj/machinery/door/firedoor/window"
 	icon = 'icons/obj/doors/doorfirewindow.dmi'
 	icon_state = "door_frame"
 
