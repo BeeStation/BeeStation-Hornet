@@ -436,6 +436,7 @@
 	icon_state = "frame1"
 	anchored = FALSE
 	density = TRUE
+	var/reinforceable = 1
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
 	var/firelock_type = /obj/machinery/door/firedoor
@@ -491,15 +492,17 @@
 				user.visible_message("<span class='notice'>[user] finishes the firelock.</span>", \
 									 "<span class='notice'>You finish the firelock.</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
-				var/obj/machinery/door/firedoor/F = new [firelock_type](get_turf(src))
+				var/obj/machinery/door/firedoor/F = new firelock_type(get_turf(src))
 				F.dir = src.dir
-				F.update_icon()
 				qdel(src)
 				return
 			if(istype(C, /obj/item/stack/sheet/plasteel))
 				var/obj/item/stack/sheet/plasteel/P = C
 				if(reinforced)
 					to_chat(user, "<span class='warning'>[src] is already reinforced.</span>")
+					return
+				if(!reinforceable)
+					to_chat(user, "<span class='warning'>[src] can't be reinforced.</span>")
 					return
 				if(P.get_amount() < 2)
 					to_chat(user, "<span class='warning'>You need more plasteel to reinforce [src].</span>")
@@ -514,7 +517,9 @@
 										 "<span class='notice'>You reinforce [src].</span>")
 					playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 					P.use(2)
-					reinforced = 1
+					var/obj/structure/firelock_frame/Q = new /obj/structure/firelock_frame/heavy(get_turf(src))
+					Q.constructionStep = src.constructionStep
+					qdel(src)
 				return
 
 		if(CONSTRUCTION_WIRES_EXPOSED)
@@ -646,11 +651,13 @@
 /obj/structure/firelock_frame/heavy
 	name = "heavy firelock frame"
 	firelock_type = /obj/machinery/door/firedoor/heavy
+	reinforceable = 0
 	reinforced = TRUE
 
 /obj/structure/firelock_frame/border
 	name = "firelock frame"
 	firelock_type = /obj/machinery/door/firedoor/border_only
+	reinforceable = 0
 	icon = 'icons/obj/doors/edge_Doorfire.dmi'
 	icon_state = "door_frame"
 
@@ -670,6 +677,7 @@
 /obj/structure/firelock_frame/window
 	name = "window firelock frame"
 	firelock_type = /obj/machinery/door/firedoor/window
+	reinforceable = 0
 	icon = 'icons/obj/doors/doorfirewindow.dmi'
 	icon_state = "door_frame"
 
