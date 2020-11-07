@@ -21,6 +21,7 @@
 #include "Oasis\code\modules\food_and_drinks\recipes\drinks_recipes.dm"
 #include "Oasis\code\modules\hydroponics\grown\mushrooms.dm"
 #include "Oasis\code\modules\integrated_electronics\subtypes\manipulation.dm"
+#include "Oasis\code\modules\mob\oasis_emotes.dm"
 #include "Oasis\code\modules\integrated_electronics\subtypes\reagents.dm"
 #include "Oasis\code\modules\integrated_electronics\syndicate_electronics\syndicate.dm"
 #include "Oasis\code\modules\mob\living\simple_animal\hostile\mushroom.dm"
