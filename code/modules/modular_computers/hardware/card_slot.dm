@@ -10,11 +10,11 @@
 
 /obj/item/computer_hardware/card_slot/handle_atom_del(atom/A)
 	if(A == stored_card)
-		try_eject(null, TRUE)
+		try_eject(forced = TRUE)
 	. = ..()
 
 /obj/item/computer_hardware/card_slot/Destroy()
-	try_eject()
+	try_eject(forced = TRUE)
 	return ..()
 
 /obj/item/computer_hardware/card_slot/GetAccess()
