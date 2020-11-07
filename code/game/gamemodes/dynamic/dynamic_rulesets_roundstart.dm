@@ -687,8 +687,8 @@
 	required_candidates = 4
 	weight = 3
 	cost = 35
-	requirements = list(101,101,101,101,101,101,101,101,101,101)
-	high_population_requirement = 101
+	requirements = list(2,3,3,4,4,4,4,4,4,4)
+	high_population_requirement = 10
 	flags = HIGHLANDER_RULESET
 	var/datum/team/clock_cult/main_cult
 	var/list/selected_servants = list()
