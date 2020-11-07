@@ -24,7 +24,7 @@
 #include "Oasis\code\modules\integrated_electronics\subtypes\reagents.dm"
 #include "Oasis\code\modules\integrated_electronics\syndicate_electronics\syndicate.dm"
 #include "Oasis\code\modules\mob\living\simple_animal\hostile\mushroom.dm"
-#include "Oasis\code\modules\mob\living\simple_animal\hostile\megafauna\spirit\bill.dm"
+//#include "Oasis\code\modules\mob\living\simple_animal\hostile\megafauna\spirit\bill.dm"  //Commented out til Kryyto fixes whatever this is
 #include "Oasis\code\modules\reagents\chemistry\reagent_containers\hypospray.dm"
 #include "Oasis\code\modules\reagents\chemistry\reagents\alcohol_reagents.dm"
 #include "Oasis\code\modules\reagents\chemistry\reagents\drink_reagents.dm"
