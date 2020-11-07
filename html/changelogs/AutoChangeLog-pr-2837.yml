@@ -1,0 +1,7 @@
+author: Archanial
+delete-after: true
+changes:
+  - rscdel: Major and minor crimes are gone.
+  - tweak: Adding a crime recond in sechuds in only 1 pop-up now.
+  - rscadd: You can add details to a crime separately.
+  - refactor: Cleaned up sec console code and hud glasses code.
