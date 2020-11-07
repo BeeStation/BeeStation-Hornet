@@ -25,10 +25,9 @@ import { classes, isFalsy } from "common/react";
 import { createLogger } from '../logging';
 import { vecCreate, vecAdd, vecSubtract } from 'common/vector';
 const logger = createLogger('PaperSheet');
-=======
 
->>>>>>> 56b27b6b54... Paper Fixes (#2860)
 const MAX_PAPER_LENGTH = 5000; // Question, should we send this with ui_data?
+>>>>>>> master
 
 const sanatize_text = value => {
   // This is VERY important to think first if you NEED
@@ -257,17 +256,11 @@ const PaperSheetView = (props, context) => {
     ...rest
   } = props;
   const readonly = !isFalsy(readOnly);
-  const stamp_list = stamps || [];
-<<<<<<< HEAD
-  const text_html = { __html: "<span class='paper-text'>"
-    + setInputReadonly(value, readonly) + "</span>" };
-=======
   const text_html = {
     __html: '<span class="paper-text">'
       + setInputReadonly(value, readOnly)
       + '</span>',
   };
->>>>>>> 56b27b6b54... Paper Fixes (#2860)
   return (
     <Box
       position="relative"
@@ -287,6 +280,7 @@ const PaperSheetView = (props, context) => {
     </Box>
   );
 };
+
 
 // again, need the states for dragging and such
 class PaperSheetStamper extends Component {
@@ -609,13 +603,6 @@ export const PaperSheet = (props, context) => {
     : stamps;
   const decide_mode = mode => {
     switch (mode) {
-<<<<<<< HEAD
-      case 0: // min-height="100vh" min-width="100vw"
-        return (<PaperSheetView
-          value={text}
-          stamps={stamp_list}
-          readOnly={1} />);
-=======
       case 0:
         return (
           <PaperSheetView
@@ -623,7 +610,7 @@ export const PaperSheet = (props, context) => {
             stamps={stamp_list}
             readOnly />
         );
->>>>>>> 56b27b6b54... Paper Fixes (#2860)
+
       case 1:
         return (
           <PaperSheetEdit
@@ -645,13 +632,7 @@ export const PaperSheet = (props, context) => {
     }
   };
   return (
-<<<<<<< HEAD
-    <Window resizable theme="paper" style={background_style}>
-      <Window.Content min-height="100vh" min-width="100vw"
-        style={background_style}>
-        <Box fillPositionedParent={1} min-height="100vh"
-          min-width="100vw" backgroundColor={backgroundColor}>
-=======
+
     <Window
       theme="paper"
       width={400}
@@ -661,7 +642,7 @@ export const PaperSheet = (props, context) => {
         <Box
           fillPositionedParent
           backgroundColor={backgroundColor}>
->>>>>>> 56b27b6b54... Paper Fixes (#2860)
+
           {decide_mode(edit_mode)}
         </Box>
       </Window.Content>
