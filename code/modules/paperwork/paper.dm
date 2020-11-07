@@ -81,14 +81,11 @@
 	var/list/stamps			/// Positioning for the stamp in tgui
 	var/list/stamped		/// Overlay info
 
-<<<<<<< HEAD
 	/// This REALLY should be a componenet.  Basicly used during, april fools
 	/// to honk at you
 	var/rigged = 0
 	var/spam_flag = 0
 
-=======
->>>>>>> 56b27b6b54... Paper Fixes (#2860)
 	var/contact_poison // Reagent ID to transfer on contact
 	var/contact_poison_volume = 0
 	var/burnt = FALSE
@@ -334,7 +331,6 @@
 		else
 			ui.state = state
 
-<<<<<<< HEAD
 
 /obj/item/paper/ui_close(mob/user)
 	/// close the editing window and change the mode
@@ -345,12 +341,6 @@
 /obj/item/paper/proc/update_all_ui()
 	for(var/datum/tgui/ui in viewing_ui)
 		ui.update()
-=======
-/obj/item/paper/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/spritesheet/simple/paper),
-	)
->>>>>>> 56b27b6b54... Paper Fixes (#2860)
 
 // Again, we have to do this as autoupdate is off
 /obj/item/paper/proc/close_all_ui()
