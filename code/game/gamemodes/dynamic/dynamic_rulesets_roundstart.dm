@@ -107,7 +107,6 @@
 	requirements = list(70,70,60,50,40,20,20,10,10,10)
 	high_population_requirement = 10
 	antag_cap = list(1,1,1,1,1,2,2,2,2,3)
-	var/team_mode_probability = 30
 
 /datum/dynamic_ruleset/roundstart/changeling/pre_execute()
 	var/num_changelings = antag_cap[indice_pop] * (scaled_times + 1)
