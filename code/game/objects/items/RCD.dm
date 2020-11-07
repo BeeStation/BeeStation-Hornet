@@ -273,7 +273,6 @@ RLD
 
 	var/datum/browser/popup = new(user, "rcd_access", "Access Control", 900, 500)
 	popup.set_content(t1)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
 	onclose(user, "rcd_access")
 

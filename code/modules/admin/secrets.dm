@@ -2,33 +2,37 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 
 /datum/admin_secrets
 
-/datum/admin_secrets/ui_interact(mob/user, ui_key = "secrets_panel", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
+
+/datum/admin_secrets/ui_state(mob/user)
+	return GLOB.admin_state
+
+/datum/admin_secrets/ui_interact(mob/user, datum/tgui/ui)
 	if(!check_rights(0))
 		return
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		log_admin_private("[user.ckey] opened the Secrets panel.")
-		ui = new(user, src, ui_key, "AdminSecretsPanel", "Secrets", 720, 480, master_ui, state)
+		ui = new(user, src, "AdminSecretsPanel", "Secrets Panel")
 		ui.open()
 
 /datum/admin_secrets/ui_data(mob/user)
 	/*
 	Each command is a list that will be read like [Name, Action(see ui_act)]
 	"omg but you could have done it like X"
-	But I didn't. This is how I did it. And it works. And it's simple.
+	But I didn't. This is how I did it. And it works (THIS STOPPED WORKING WITH TGUI 4 PORT!). And it's simple.
 	And lets us keep each command entry to one line. Gotta stay compact, yo.
 	*/
-	. = list()
-	.["Categories"] = list()
+	var/list/data = list()
+	data["Categories"] = list()
 
-	.["Categories"]["General Secrets"] = list(
+	data["Categories"]["General Secrets"] = list(
 		list("Admin Log", "admin_log"),
 		list("Mentor Log", "mentor_log"),
 		list("Show Admin List", "show_admins")
 		)
 
 	if(check_rights(R_ADMIN,0))
-		.["Categories"]["Admin Secrets"] = list(
+		data["Categories"]["Admin Secrets"] = list(
 			list("Cure all diseases currently in existence", "clear_virus"),
 			list("Vaccinate all diseases currently in existence", "delete_virus"),
 			list("Bombing List", "list_bombers"),
@@ -46,7 +50,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			list("Set Night Shift Mode", "night_shift_set")
 			)
 
-		.["Categories"]["Shuttles"] += list(
+		data["Categories"]["Shuttles"] += list(
 			list("Move Ferry", "moveferry"),
 			list("Toggle Arrivals Ferry", "togglearrivals"),
 			list("Move Mining Shuttle", "moveminingshuttle"),
@@ -54,7 +58,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			)
 
 	if(check_rights(R_FUN,0))
-		.["Categories"]["Fun Secrets"] += list(
+		data["Categories"]["Fun Secrets"] += list(
 			list("Trigger a Virus Outbreak", "virus"),
 			list("Turn all humans into monkeys", "monkey"),
 			list("Chinese Cartoons", "anime"),
@@ -89,11 +93,13 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			)
 
 	if(check_rights(R_DEBUG,0))
-		.["Categories"]["Security Level Elevated"] = list(
+		data["Categories"]["Security Level Elevated"] = list(
 			list("Change all maintenance doors to engie/brig access only", "maint_access_engiebrig"),
 			list("Change all maintenance doors to brig access only", "maint_access_brig"),
 			list("Remove cap on security officers", "infinite_sec")
 			)
+
+	return data
 
 /datum/admin_secrets/ui_act(action, params)
 	var/datum/admins/admin_datum = GLOB.admin_datums[usr.ckey]

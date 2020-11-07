@@ -228,7 +228,6 @@ Possible to do for anyone motivated enough:
 
 	var/datum/browser/popup = new(user, "holopad", name, 300, 175)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 //Stop ringing the AI!!
