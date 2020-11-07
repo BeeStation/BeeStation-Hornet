@@ -438,7 +438,7 @@
 	density = TRUE
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
-	var/firelock_type = "/obj/machinery/door/firedoor"
+	var/firelock_type = /obj/machinery/door/firedoor
 
 /obj/structure/firelock_frame/examine(mob/user)
 	. = ..()
@@ -645,12 +645,12 @@
 
 /obj/structure/firelock_frame/heavy
 	name = "heavy firelock frame"
-	firelock_type = "/obj/machinery/door/firedoor/heavy"
+	firelock_type = /obj/machinery/door/firedoor/heavy
 	reinforced = TRUE
 
 /obj/structure/firelock_frame/border
 	name = "firelock frame"
-	firelock_type = "/obj/machinery/door/firedoor/border_only"
+	firelock_type = /obj/machinery/door/firedoor/border_only
 	icon = 'icons/obj/doors/edge_Doorfire.dmi'
 	icon_state = "door_frame"
 
@@ -669,7 +669,7 @@
 
 /obj/structure/firelock_frame/window
 	name = "window firelock frame"
-	firelock_type = "/obj/machinery/door/firedoor/window"
+	firelock_type = /obj/machinery/door/firedoor/window
 	icon = 'icons/obj/doors/doorfirewindow.dmi'
 	icon_state = "door_frame"
 
