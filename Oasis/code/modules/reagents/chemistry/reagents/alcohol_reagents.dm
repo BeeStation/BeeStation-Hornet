@@ -101,4 +101,32 @@
 		new /datum/hallucination/death(M, TRUE)
 	..()
 
+/datum/reagent/consumable/ethanol/mine_dread
+	name = "Miner's Dread"
+	description = "Only the most experienced miners should drink this mixture."
+	color = "#35322f"
+	boozepwr = 70
+	taste_description = "Bloody powder"
+	glass_icon_state = "mine_dread"
+	glass_name = "Miner's Dread"
+	glass_desc = "This drink is made with fake demon feet."
 
+/datum/reagent/consumable/ethanol/mine_dread/on_mob_life(mob/living/carbon/M)
+	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE)&&prob(20))
+		new /datum/hallucination/oh_yeah(M, TRUE)
+	..()
+
+/datum/reagent/consumable/ethanol/electro_blaster
+	name = "Electro Blaster"
+	description = "Said to be use in the creation of tesla coil."
+	color = "#6294ff"
+	boozepwr = 80
+	taste_description = "coil"
+	glass_icon_state = "electro_blaster"
+	glass_name = "Electro Blaster"
+	glass_desc = "A true drink? For a true engineer, I'm sure."
+
+/datum/reagent/consumable/ethanol/mine_dread/on_mob_add(mob/living/carbon/M)
+	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
+		new /datum/hallucination/shock(M, TRUE)
+	..()
