@@ -770,7 +770,6 @@
 		for(var/obj/item/reagent_containers/borghypo/borgshaker/H in R.module.modules)
 			for(var/re in additional_reagents)
 				H.del_reagent(re)
-	return .
 
 /obj/item/borg/upgrade/speciality/kitchen
 	name = "Cook Speciality"
