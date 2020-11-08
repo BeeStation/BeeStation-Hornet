@@ -36,12 +36,23 @@
 
 /obj/structure/closet/crate/update_icon()
 	cut_overlays()
-	if(opened)
-		add_overlay("[initial(icon_state)]_open")
+	if(!opened)
+		layer = OBJ_LAYER
+		if(!is_animating_door)
+			if(icon_door)
+				add_overlay("[icon_door]_door")
+			else
+				add_overlay("[icon_state]_door")
 	else
-		add_overlay("[initial(icon_state)]_close")
-		if(manifest)
-			add_overlay("manifest")
+		layer = BELOW_OBJ_LAYER
+		if(!is_animating_door)
+			if(icon_door_override)
+				add_overlay("[icon_door]_open")
+			else
+				add_overlay("[icon_state]_open")
+
+/obj/structure/closet/crate/animate_door(var/closing = FALSE)
+	. = ..()
 
 /obj/structure/closet/crate/attack_hand(mob/user)
 	. = ..()
