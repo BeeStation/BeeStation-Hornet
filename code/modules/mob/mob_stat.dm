@@ -164,7 +164,6 @@
 			GLOB.ahelp_tickets.BrowseTickets(src)
 		if("open_ticket")
 			var/ticket_id = text2num(params["id"])
-			message_admins("Finding ticket with ID [ticket_id]")
 			var/datum/admin_help/AH = GLOB.ahelp_tickets.TicketByID(ticket_id)
 			if(AH && client.holder)
 				AH.ui_interact(src)
