@@ -437,6 +437,7 @@
 	anchored = FALSE
 	density = TRUE
 	var/reinforceable = 1
+	var/can_have_glass = 1
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
 	var/firelock_type = /obj/machinery/door/firedoor
@@ -511,13 +512,37 @@
 									 "<span class='notice'>You begin reinforcing [src]...</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 				if(do_after(user, 60, target = src))
-					if(constructionStep != CONSTRUCTION_PANEL_OPEN || reinforced || P.get_amount() < 2 || !P)
+					if(constructionStep != CONSTRUCTION_PANEL_OPEN || P.get_amount() < 2 || !P)
 						return
 					user.visible_message("<span class='notice'>[user] reinforces [src].</span>", \
 										 "<span class='notice'>You reinforce [src].</span>")
 					playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 					P.use(2)
 					var/obj/structure/firelock_frame/Q = new /obj/structure/firelock_frame/heavy(get_turf(src))
+					Q.constructionStep = src.constructionStep
+					qdel(src)
+				return
+			if(istype(C, /obj/item/stack/sheet/rglass))
+				var/obj/item/stack/sheet/rglass/P = C
+				if(istype(src, /obj/structure/firelock_frame/window))
+					to_chat(user, "<span class='warning'>[src] already has glass.</span>")
+					return
+				if(!can_have_glass)
+					to_chat(user, "<span class='warning'>[src] can't have glass inserted.</span>")
+					return
+				if(P.get_amount() < 2)
+					to_chat(user, "<span class='warning'>You need more reinforced glass to add glass to [src].</span>")
+					return
+				user.visible_message("<span class='notice'>[user] begins adding glass to [src]...</span>", \
+									 "<span class='notice'>You begin adding glass to [src]...</span>")
+				if(do_after(user, 60, target = src))
+					if(constructionStep != CONSTRUCTION_PANEL_OPEN || P.get_amount() < 2 || !P)
+						return
+					user.visible_message("<span class='notice'>[user] adds glass to [src].</span>", \
+										 "<span class='notice'>You add glass to [src].</span>")
+					playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
+					P.use(2)
+					var/obj/structure/firelock_frame/Q = new /obj/structure/firelock_frame/window(get_turf(src))
 					Q.constructionStep = src.constructionStep
 					qdel(src)
 				return
@@ -652,12 +677,14 @@
 	name = "heavy firelock frame"
 	firelock_type = /obj/machinery/door/firedoor/heavy
 	reinforceable = 0
+	can_have_glass = 0
 	reinforced = TRUE
 
 /obj/structure/firelock_frame/border
 	name = "firelock frame"
 	firelock_type = /obj/machinery/door/firedoor/border_only
 	reinforceable = 0
+	can_have_glass = 0
 	icon = 'icons/obj/doors/edge_Doorfire.dmi'
 	icon_state = "door_frame"
 
@@ -678,6 +705,7 @@
 	name = "window firelock frame"
 	firelock_type = /obj/machinery/door/firedoor/window
 	reinforceable = 0
+	can_have_glass = 0
 	icon = 'icons/obj/doors/doorfirewindow.dmi'
 	icon_state = "door_frame"
 
