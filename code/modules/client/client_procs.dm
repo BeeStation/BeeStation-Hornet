@@ -445,6 +445,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	//Add the default client verbs to the TGUI window
 	add_verb(subtypesof(/client/verb), TRUE)
 
+	//Load the TGUI stat in case of TGUI subsystem not ready (startup)
+	mob.UpdateMobStat()
+
 /client/proc/time_to_redirect()
 	var/redirect_address = CONFIG_GET(string/redirect_address)
 	GLOB.ckey_redirects -= ckey

@@ -4,14 +4,9 @@ SUBSYSTEM_DEF(stat)
 	priority = FIRE_PRIORITY_STAT
 	runlevels = RUNLEVEL_INIT | RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	init_order = INIT_ORDER_STAT
+	flags = SS_NO_INIT
 
 	var/list/currentrun = list()
-
-/datum/controller/subsystem/stat/Initialize(start_timeofday)
-	//Make it display (It will only auto update after INIT is complete, but this allows them to change tabs.)
-	for(var/client/C in GLOB.clients)
-		C.mob?.UpdateMobStat()
-	return ..()
 
 /datum/controller/subsystem/stat/fire(resumed = 0)
 	if (!resumed)

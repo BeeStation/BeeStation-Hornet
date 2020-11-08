@@ -46,7 +46,7 @@ export const Panel = (props, context) => {
     <Pane theme={settings.theme}>
       <Flex
         direction="column"
-        height={(99-number) + '%'}>
+        height={(98-number) + '%'}>
         <StatTabs
           height="100%" />
       </Flex>
