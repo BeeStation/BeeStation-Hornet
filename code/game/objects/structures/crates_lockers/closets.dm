@@ -42,6 +42,7 @@
 	var/door_anim_angle = 136
 	var/door_hinge_x = -6.5
 	var/door_anim_time = 2.0 // set to 0 to make the door not animate at all
+	var/is_crate = FALSE
 /obj/structure/closet/Initialize(mapload)
 	if(mapload && !opened)		// if closed, any item at the crate's loc is put in the contents
 		addtimer(CALLBACK(src, .proc/take_contents), 0)
@@ -114,11 +115,18 @@
 	COMPILE_OVERLAYS(src)
 
 /obj/structure/closet/proc/get_door_transform(angle)
-	var/matrix/M = matrix()
-	M.Translate(-door_hinge_x, 0)
-	M.Multiply(matrix(cos(angle), 0, 0, -sin(angle) * door_anim_squish, 1, 0))
-	M.Translate(door_hinge_x, 0)
-	return M
+	if(!is_crate)
+		var/matrix/M = matrix()
+		M.Translate(-door_hinge_x, 0)
+		M.Multiply(matrix(cos(angle), 0, 0, -sin(angle) * door_anim_squish, 1, 0))
+		M.Translate(door_hinge_x, 0)
+		return M
+	else
+		var/matrix/M = matrix()
+		M.Translate(0, -door_hinge_x)
+		M.Multiply(matrix(1, cos(angle) * door_anim_squish, 0, 0, sin(angle), 0))
+		M.Translate(0, door_hinge_x)
+		return M
 
 /obj/structure/closet/examine(mob/user)
 	. = ..()
