@@ -128,5 +128,3 @@
 	ears = /obj/item/radio/headset/heads //VIP can talk loud for no reason
 	uniform = /obj/item/clothing/under/suit/black_really
 	shoes = /obj/item/clothing/shoes/laceup
-
-	implants = list(/obj/item/implant/mindshield) //this fuck gets a mindshield, but he isn't necessarily antag-proof
