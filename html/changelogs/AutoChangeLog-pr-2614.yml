@@ -1,0 +1,15 @@
+author: park66665
+delete-after: true
+changes:
+  - bugfix: "no more with exponential thermal energy, fusion now correctly produces\
+      \ heat: supply plasma to your nuclear fusion 'reactor', dammit!"
+  - balance: in an attempt to preserve fun, I tweaked some numbers and logics in fusion
+      to create some healthy fun
+  - rscdel: e30 fusion
+  - balance: rad now scales with fusion temperature, which means that you will get
+      meager rads if you are bad at fusion (e.g. canister fusion), or stronger rads
+      than before if you manage to keep a strong and robust fusion
+  - rscadd: in order to help you gauge the strength of your fusion, fusion-derived
+      nuclear particles (aka radballs) are color-coded; and adjective-coded, so you
+      can also gauge how damned you are after being hit by a radball
+  - refactor: lightly refactored fusion code in general
