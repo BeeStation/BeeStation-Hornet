@@ -117,8 +117,8 @@ GLOBAL_LIST_EMPTY(explosions)
 				var/baseshakeamount
 				if(orig_max_distance - dist > 0)
 					baseshakeamount = sqrt((orig_max_distance - dist)*0.1)
-				// If inside the blast radius + world.view - 2
-				if(dist <= round(max_range + world.view - 2, 1))
+				// If inside the blast radius + world.view (x) - 2
+				if(dist <= round(max_range + getviewsize(world.view)[1] - 2, 1))
 					M.playsound_local(epicenter, null, 100, 1, frequency, falloff = 5, S = explosion_sound)
 					if(baseshakeamount > 0)
 						shake_camera(M, 25, CLAMP(baseshakeamount, 0, 10))
@@ -222,7 +222,7 @@ GLOBAL_LIST_EMPTY(explosions)
 				var/throw_range = rand(throw_dist, max_range)
 				var/turf/throw_at = get_ranged_target_turf(I, throw_dir, throw_range)
 				I.throw_at(throw_at, throw_range, EXPLOSION_THROW_SPEED)
-		
+
 		for(var/mob/living/L in T)
 			if(!L.anchored)
 				var/throw_range = rand(throw_dist, max_range)
