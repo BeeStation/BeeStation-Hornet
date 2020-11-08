@@ -154,7 +154,7 @@
 	result = /obj/item/reagent_containers/food/snacks/pie/berrytart
 	subcategory = CAT_PIE
 
-/datum/crafting_recipe/food/cocolavatart
+/datum/crafting_recipe/food/cocoalavatart
 	name = "Chocolate Lava tart"
 	always_available = FALSE
 	reqs = list(
@@ -164,7 +164,7 @@
 	        /obj/item/reagent_containers/food/snacks/chocolatebar = 3,
 	        /obj/item/slime_extract = 1 //The reason you dont know how to make it!
 	        )
-	result = /obj/item/reagent_containers/food/snacks/pie/cocolavatart
+	result = /obj/item/reagent_containers/food/snacks/pie/cocoalavatart
 	subcategory = CAT_PIE
 
 /datum/crafting_recipe/food/blumpkinpie

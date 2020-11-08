@@ -25,8 +25,7 @@
 	var/distance = max(0,get_dist(get_turf(src),T))
 
 //Flash
-	if(M.flash_act(affect_silicon = 1))
-		M.confused += (max(20/max(1,distance), 6))
+	M.flash_act(affect_silicon = 1)
 //Bang
 	if(!distance || loc == M || loc == M.loc)	//Stop allahu akbarring rooms with this.
 		var/protection = max(1, M.get_ear_protection())

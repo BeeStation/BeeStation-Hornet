@@ -1,6 +1,6 @@
 /obj/machinery/recharge_station
 	name = "cyborg recharging station"
-	desc = "This device recharges cyborgs and resupplies them with materials."
+	desc = "This device recharges cyborgs and resupplies their materials."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "borgcharger0"
 	density = FALSE

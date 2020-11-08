@@ -341,14 +341,14 @@
 		if(M.stat == CONSCIOUS && M.pulling && M.pulling.loc == T2 && !M.pulling.anchored && M.pulling.move_resist <= M.move_force)
 			var/mob/living/M2 = M.pulling
 			if(!istype(M2) || !M2.buckled || !M2.buckled.buckle_prevents_pull)
-				to_chat(M, "<span class='notice'>You pull [M.pulling] through [src] right as it closes</span>")
+				to_chat(M, "<span class='notice'>You pull [M.pulling] through [src] right as it closes.</span>")
 				M.pulling.forceMove(T1)
 				M.start_pulling(M2)
 	for(var/mob/living/M in T2)
 		if(M.stat == CONSCIOUS && M.pulling && M.pulling.loc == T1 && !M.pulling.anchored && M.pulling.move_resist <= M.move_force)
 			var/mob/living/M2 = M.pulling
 			if(!istype(M2) || !M2.buckled || !M2.buckled.buckle_prevents_pull)
-				to_chat(M, "<span class='notice'>You pull [M.pulling] through [src] right as it closes</span>")
+				to_chat(M, "<span class='notice'>You pull [M.pulling] through [src] right as it closes.</span>")
 				M.pulling.forceMove(T2)
 				M.start_pulling(M2)
 	. = ..()
