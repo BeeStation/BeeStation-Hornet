@@ -52,7 +52,6 @@
 
 	title_icon = "cult"
 
-	allowed_special = list(/datum/special_role/traitor)
 
 	var/finished = 0
 
