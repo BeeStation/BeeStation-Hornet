@@ -757,7 +757,6 @@
 			var/obj/item/equipt = new hat(src)
 			if (equipt )
 				R.place_on_head(equipt)
-	return .
 
 /obj/item/borg/upgrade/speciality/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
