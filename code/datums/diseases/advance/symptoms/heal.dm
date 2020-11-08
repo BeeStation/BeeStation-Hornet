@@ -324,21 +324,25 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	symptom_delay_max = 30
 	var/bigsweat = FALSE
 	var/toxheal = FALSE
-	threshold_desc = "<b>transmission 6:</b> The sweat production ramps up to the point that it puts out fires in the general vicinity<br>\
-					<b>transmission 8:</b> The symptom heals toxin damage and purges chemicals."
+	var/ammonia = FALSE
+	threshold_desc = "<b>transmission 4:</b> The sweat production ramps up to the point that it puts out fires in the general vicinity<br>\
+					<b>transmission 6:</b> The symptom heals toxin damage and purges chemicals.<br>\
+					<b>stage speed 6:</b> The host's sweat contains traces of ammonia."
 
 /datum/symptom/sweat/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["transmittable"] >= 8)
+	if(A.properties["transmittable"] >= 6)
 		severity -= 1
 
 /datum/symptom/sweat/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 8)
-		toxheal = TRUE
 	if(A.properties["transmittable"] >= 6)
+		toxheal = TRUE
+	if(A.properties["transmittable"] >= 4)
 		bigsweat = TRUE
+	if(A.properties["stage_rate"] >= 6)
+		ammonia = TRUE
 
 /datum/symptom/sweat/Activate(datum/disease/advance/A)
 	if(!..())
@@ -359,6 +363,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						M.reagents.remove_reagent(R.type, 5)
 						S.reagents.add_reagent(R.type, 5)
 					M.adjustToxLoss(-20, forced = TRUE)
+				if(ammonia)
+					S.reagents.add_reagent(/datum/reagent/space_cleaner, 5)
 				S.splash()
 				to_chat(M, "<span class='userdanger'>You sweat out nearly everything in your body!</span>")
 		else
@@ -510,7 +516,7 @@ obj/effect/sweatsplash/proc/splash()
 								chosen.Insert(M, TRUE, FALSE)
 								to_chat(M, "<span class='userdanger'>As the [chosen] touches your skin, it is promptly absorbed.</span>")
 					if(missing.len) //we regrow one missing limb
-						for(var/Z in missing) //uses the same text and sound a ling's regen does. This can false-flag the host as a changeling. 
+						for(var/Z in missing) //uses the same text and sound a ling's regen does. This can false-flag the host as a changeling.
 							if(M.regenerate_limb(Z, TRUE))
 								playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
 								M.visible_message("<span class='warning'>[M]'s missing limbs \
@@ -535,7 +541,7 @@ obj/effect/sweatsplash/proc/splash()
 									M.grab_ghost()
 								break
 				if(tetsuo && prob(10) && A.affected_mob.job == "Clown")
-					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)				
+					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
 			if(bruteheal)
 				M.heal_overall_damage(2 * power, required_status = BODYPART_ORGANIC)
 				if(prob(11 * power))
@@ -569,6 +575,7 @@ obj/effect/sweatsplash/proc/splash()
 	flavour_text = {"
 	<b>You are a living teratoma, and your existence is misery. You feel the need to spread woe about the station- but not to kill.
 	"}
+	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/teratomamonkey/Initialize()
 	. = ..()
