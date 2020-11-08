@@ -1498,7 +1498,6 @@
 		if(R.cell && R.cell.use(300))
 			populate_deck()
 			to_chat(user, "<span class='notice'>You fabricate a new set of cards.</span>")
-			return
 
 /obj/item/toy/cards/deck/cyborg/afterattack(atom/A, mob/user, proximity)
 	. = ..()
@@ -1540,7 +1539,6 @@
 	if(!proximity)
 		H.forceMove(get_turf(src))
 		H.throw_at(get_turf(A), 10 , 1 , user)
-		return
 
 ////////////////////
 //money eater/maker//

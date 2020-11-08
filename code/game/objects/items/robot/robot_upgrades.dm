@@ -795,7 +795,7 @@
 		/obj/item/storage/bag/plants/portaseeder,
 		/obj/item/cultivator,
 		/obj/item/plant_analyzer,
-		/obj/item/shovel/spade
+		/obj/item/shovel/spade,
 	)
 	additional_reagents = list(
 		/datum/reagent/water,
@@ -819,5 +819,5 @@
 	addmodules = list (
 		/obj/item/stack/tile/light/cyborg,
 		/obj/item/crowbar/cyborg,
-		/obj/item/dance_trance
+		/obj/item/dance_trance,
 	)
