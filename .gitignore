@@ -219,3 +219,4 @@ tools/MapAtmosFixer/MapAtmosFixer/bin/*
 
 # Ignore PRMirror bot tool
 merge-upstream-pull-request.sh
+*.sfk
