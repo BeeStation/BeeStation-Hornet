@@ -1,0 +1,6 @@
+author: PerishedFraud
+delete-after: true
+changes:
+  - rscadd: Some new items in the mining vendor.
+  - tweak: Some prices changed in the mining vendor, can also eat through explorer
+      mask.
