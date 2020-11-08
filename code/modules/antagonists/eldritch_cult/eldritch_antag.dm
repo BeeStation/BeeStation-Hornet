@@ -303,8 +303,6 @@ BIGGEST CHANGES
 	Gygax
 	
  
-Curses
-	Hunter curse
 	
 followers code
 power code???
@@ -312,5 +310,6 @@ power code???
  
 Artifacts:
 Omen - deals damage/healing when selfused/attacked by
+knowledge - turn artifacts to dust
  
 */
