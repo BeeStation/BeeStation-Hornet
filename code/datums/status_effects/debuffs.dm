@@ -872,10 +872,10 @@
 	var/mob/living/carbon/human/H = owner
 	var/chance = rand(0,100)
 	switch(chance)
-		if(0 to 29)
+		if(0 to 39)
 			H.vomit()
-		if(30 to 59)
-			H.Dizzy(10)
+		if(40 to 59)
+			H.Dizzy(20)
 		if(60 to 69)
 			H.adjustOrganLoss(ORGAN_SLOT_STOMACH,10)
 		if(70 to 74)

@@ -51,24 +51,17 @@
 	if(!proximity_flag || target == user)
 		return
 	playsound(user, 'sound/items/welder.ogg', 75, TRUE)
+			
 	if(ishuman(target))
 		var/mob/living/carbon/human/tar = target
 		if(tar.check_shields(src,10, "the [tar.name]"))
 			return ..()
 		if(tar.anti_magic_check())
-			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The spell bounces off of you!</span>")
+			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The [src] bounces off of you!</span>")
 			return ..()
 	var/datum/mind/M = user.mind
 	var/datum/antagonist/heretic/cultie = M.has_antag_datum(/datum/antagonist/heretic)
-	
-	if(istype(target,/obj/effect/eldritch))
-		remove_rune(target,user)
-		return
-	if(istype(target,/turf/open))
-		var/mob/caster = user
-		if (caster.a_intent != INTENT_HARM)
-			draw_rune(target,user)
-
+		
 	var/use_charge = FALSE
 	if(iscarbon(target))
 		use_charge = TRUE
@@ -76,6 +69,17 @@
 		C.adjustBruteLoss(10)
 		C.AdjustKnockdown(5 SECONDS)
 		C.adjustStaminaLoss(80)
+	else if (istype(target,/obj/item/toy/artifact) && cultie.heretic.get_knowledge(/datum/eldritch_knowledge/dematerialize))
+		var/obj/item/toy/artifact/target_artifact = target
+		target_artifact.to_ashes()
+	else if(istype(target,/obj/effect/eldritch))
+		remove_rune(target,user)
+		return
+	else if(istype(target,/turf/open))
+		var/mob/caster = user
+		if (caster.a_intent != INTENT_HARM)
+			draw_rune(target,user)	
+			return	
 		
 	if (ishuman(target))
 		var/mob/living/carbon/human/victim = target

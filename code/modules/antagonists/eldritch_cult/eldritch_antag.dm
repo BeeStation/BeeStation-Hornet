@@ -11,8 +11,8 @@
 	var/list/analyzed_artifacts = list()
 	var/total_sacrifices = 0
 	var/dread = 0
-	var/power_earned = 0
-	var/power_spent = 0
+	var/favor_earned = 0
+	var/favor_spent = 0
 	var/list/folloers = list()
 	var/ascended = FALSE
 
@@ -39,6 +39,7 @@
 		gain_knowledge(/datum/eldritch_knowledge/spell/basic)
 		gain_knowledge(/datum/eldritch_knowledge/living_heart)
 		gain_knowledge(/datum/eldritch_knowledge/codex_cicatrix)
+		gain_knowledge(/datum/eldritch_knowledge/eldritch_avatar)
 	current.log_message("has become a heretic", LOG_ATTACK, color="#960000")
 	GLOB.reality_smash_track.AddMind(owner)
 	START_PROCESSING(SSprocessing,src)

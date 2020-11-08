@@ -183,32 +183,6 @@
 	next_knowledge = list(/datum/eldritch_knowledge/summon/ashy,/datum/eldritch_knowledge/summon/rusty,/datum/eldritch_knowledge/final/flesh_final)
 	route = PATH_FLESH
 
-/datum/eldritch_knowledge/summon/ashy
-	name = "Ashen Ritual"
-	gain_text = "I combined principle of hunger with desire of destruction. The eyeful lords have noticed me."
-	desc = "You can now summon an Ash Man by transmutating a pile of ash , a head and a book."
-	cost = 1
-	required_atoms = list(/obj/effect/decal/cleanable/ash,/obj/item/bodypart/head,/obj/item/book)
-	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/ash_spirit
-	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/rust_wave)
-
-/datum/eldritch_knowledge/summon/rusty
-	name = "Rusted Ritual"
-	gain_text = "I combined principle of hunger with desire of corruption. The rusted hills call my name."
-	desc = "You can now summon a Rust Walker transmutating vomit pool, a head and a book."
-	cost = 1
-	required_atoms = list(/obj/effect/decal/cleanable/vomit,/obj/item/bodypart/head,/obj/item/book)
-	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/rust_spirit
-	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/flame_birth)
-
-/datum/eldritch_knowledge/spell/blood_siphon
-	name = "Blood Siphon"
-	gain_text = "Our blood is all the same after all, the owl told me."
-	desc = "You gain a spell that drains enemies health and restores yours."
-	cost = 1
-	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/blood_siphon
-	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet,/datum/eldritch_knowledge/spell/area_conversion)
-
 /datum/eldritch_knowledge/final/flesh_final
 	name = "Priest's Final Hymn"
 	gain_text = "Man of this world. Hear me! For the time of the lord of arms has come! Emperor of Flesh guides my army!"
