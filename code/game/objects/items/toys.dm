@@ -1535,7 +1535,7 @@
 	H.parentdeck = src
 	var/O = src
 	H.apply_card_vars(H,O)
-	src.cards.Cut(1,2) //Removes the top card from the list
+	cards.Cut(1,2) //Removes the top card from the list
 
 	if(!proximity)
 		H.forceMove(get_turf(src))
