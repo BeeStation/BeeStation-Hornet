@@ -1,0 +1,4 @@
+author: Archanial
+delete-after: true
+changes:
+  - tweak: Cyborgs no longer get confused after getting flashed/flashbanged.
