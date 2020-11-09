@@ -152,7 +152,7 @@
 		if(((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedding.embedded_ignore_throwspeed_threshold)
 			if(can_embed(I))
 				if(prob(I.embedding.embed_chance) && !HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
-					throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+					throw_alert("embeddedobject", /atom/movable/screen/alert/embeddedobject)
 					var/obj/item/bodypart/L = pick(bodyparts)
 					L.embedded_objects |= I
 					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
@@ -237,7 +237,7 @@
 	if(M.a_intent == INTENT_DISARM) //the fact that this fucking works is hilarious to me
 		dna.species.disarm(M, src)
 		return 1
-	
+
 	if(M.limb_destroyer)
 		dismembering_strike(M, affecting.body_zone)
 
@@ -888,7 +888,7 @@
 
 	for(var/obj/item/I in torn_items)
 		I.take_damage(damage_amount, damage_type, damage_flag, 0)
-	
+
 /mob/living/carbon/human/proc/blockbreak()
 	to_chat(src, "<span class ='userdanger'>Your block was broken!</span>")
 	ADD_TRAIT(src, TRAIT_NOBLOCK, type)

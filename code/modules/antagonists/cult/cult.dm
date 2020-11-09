@@ -109,7 +109,7 @@
 	communion.Grant(current)
 	if(ishuman(current))
 		magic.Grant(current)
-	current.throw_alert("bloodsense", /obj/screen/alert/bloodsense)
+	current.throw_alert("bloodsense", /atom/movable/screen/alert/bloodsense)
 	if(cult_team.cult_risen)
 		cult_team.rise(current)
 		if(cult_team.cult_ascendent)
@@ -327,7 +327,7 @@
 	for(var/datum/mind/M in C.members)
 		if(M.current)
 			M.current.clear_alert("bloodsense")
-			M.current.throw_alert("bloodsense", /obj/screen/alert/bloodsense)
+			M.current.throw_alert("bloodsense", /atom/movable/screen/alert/bloodsense)
 
 /datum/team/cult/proc/setup_objectives()
 	var/datum/objective/sacrifice/sac_objective = new

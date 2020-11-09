@@ -383,7 +383,7 @@
 /obj/item/twohanded/dualsaber/toy/impale(mob/living/user)//Stops Toy Dualsabers from injuring clowns
 	to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
 	user.adjustStaminaLoss(25)
-	
+
 /obj/item/toy/katana
 	name = "replica katana"
 	desc = "Woefully underpowered in D20."
@@ -796,8 +796,8 @@
 			M.put_in_hands(src)
 			to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
 
-		else if(istype(over_object, /obj/screen/inventory/hand))
-			var/obj/screen/inventory/hand/H = over_object
+		else if(istype(over_object, /atom/movable/screen/inventory/hand))
+			var/atom/movable/screen/inventory/hand/H = over_object
 			if(M.putItemFromInventoryInHandIfPossible(src, H.held_index))
 				to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
 
@@ -1439,7 +1439,7 @@
 
 /obj/item/toy/dummy/GetVoice()
 	return doll_name
-	
+
 /*
  * Eldrich Toys
  */
@@ -1452,18 +1452,18 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("sacrificed", "transmuted", "grasped", "cursed")
 	var/open = FALSE
-	
+
 /obj/item/toy/eldrich_book/attack_self(mob/user)
 	open = !open
 	update_icon()
 
 /obj/item/toy/eldrich_book/update_icon()
 	icon_state = open ? "book_open" : "book"
-	
+
 /*
  * Fake tear
  */
- 
+
 /obj/item/toy/reality_pierce
 	name = "Pierced reality"
 	desc = "Hah. You thought it was the real deal!"
