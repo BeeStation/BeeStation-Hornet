@@ -93,6 +93,7 @@
 			if(prob(borgEmagChance))
 				to_chat(M, "<span class='userdanger'>BZZZT- Dangerous modules have been unlocked, it would be ideal to keep this secret to avoid decomission.</span>")
 				message_admins("[ADMIN_LOOKUPFLW(M)] cyborg had emagged modules unlocked by ion storm.")
+				log_game("Ion storm emagged [key_name(M)]")
 				M.SetEmagged(1) //this cant be bad, right?
 
 /proc/generate_ion_law()
