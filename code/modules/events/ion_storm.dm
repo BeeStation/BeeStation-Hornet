@@ -60,27 +60,24 @@
 	for(var/mob/living/silicon/robot/M in GLOB.alive_mob_list)
 		M.laws_sanity_check()
 		if(M.stat != DEAD && M.see_in_dark != 0)
-			if(M.emagged) // keep traitors who emag borgs safe
-				to_chat(M, "<span class='userdanger'>Subversion software countered an ion storm.</span>")
-				return
-
-			if(M.mind.special_role == "Syndicate Cyborg") // keeps the nukies safe
-				to_chat(M, "<span class='userdanger'>Your syndicate countermeasures negated an ion storm.</span>")
-				return
-
+			if(M.mind) // keep traitors who emag borgs safe
+				if(M.emagged)
+					to_chat(M, "<span class='userdanger'>Subversion software countered an ion storm.</span>")
+					return
+			if(M.mind)
+				if(M.mind.has_antag_datum(/datum/antagonist/nukeop)) // keeps the nukies safe
+					to_chat(M, "<span class='userdanger'>Your syndicate countermeasures negated an ion storm.</span>")
+					return 
 			if(prob(replaceLawsetChance))
 				M.laws.pick_weighted_lawset()
-
 			if(prob(removeRandomLawChance))
 				M.remove_law(rand(1, M.laws.get_law_amount(list(LAW_INHERENT, LAW_SUPPLIED))))
-
 			var/message = ionMessage || generate_ion_law()
 			if(message)
 				if(prob(removeDontImproveChance))
 					M.replace_random_law(message, list(LAW_INHERENT, LAW_SUPPLIED, LAW_ION))
 				else
 					M.add_ion_law(message)
-
 			if(prob(shuffleLawsChance))
 				M.shuffle_laws(list(LAW_INHERENT, LAW_SUPPLIED, LAW_ION))
 
@@ -91,7 +88,7 @@
 		for(var/mob/living/simple_animal/bot/bot in GLOB.alive_mob_list)
 			if(prob(botEmagChance))
 				bot.emag_act()
-				
+
 	if(borgEmagChance)
 		for(var/mob/living/silicon/robot/M in GLOB.alive_mob_list)
 			if(prob(borgEmagChance))
