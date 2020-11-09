@@ -1,0 +1,6 @@
+author: That0nePerson
+delete-after: true
+changes:
+  - rscadd: Adds weed killer spray to janiborg
+  - rscadd: Adds acid spray to emagged janiborg
+  - refactor: Refactors cyborg spray bottles
