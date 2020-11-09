@@ -7,6 +7,7 @@
 	icon_state = "circuit_printer"
 	w_class = WEIGHT_CLASS_BULKY
 	var/upgraded = FALSE		// When hit with an upgrade disk, will turn true, allowing it to print the higher tier circuits.
+	var/syndicate = FALSE 		// Oasis edit Nuclearmayhem, if true allows printing of syndicate circuits
 	var/can_clone = TRUE		// Allows the printer to clone circuits, either instantly or over time depending on upgrade. Set to FALSE to disable entirely.
 	var/fast_clone = FALSE		// If this is false, then cloning will take an amount of deciseconds equal to the iron cost divided by 100.
 	var/debug = FALSE			// If it's upgraded and can clone, even without config settings.
@@ -30,6 +31,7 @@
 	upgraded = TRUE
 	can_clone = TRUE
 	fast_clone = TRUE
+	syndicate = TRUE //oasis edit Nuclearmayhem
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/integrated_circuit_printer/Initialize()
@@ -64,6 +66,15 @@
 			return TRUE
 		to_chat(user, "<span class='notice'>You install [O] into [src]. Circuit cloning will now be instant. </span>")
 		fast_clone = TRUE
+		return TRUE
+	
+	//Oasis edit Nuclearmayhem
+	if(istype(O, /obj/item/disk/integrated_circuit/upgrade/syndicate))
+		if(syndicate)
+			to_chat(user, "<span class='warning'>[src] already has this upgrade. </span>")
+			return TRUE
+		to_chat(user, "<span class='notice'>You install [O] into [src]. Illegal components are now available</span>")
+		syndicate = TRUE
 		return TRUE
 
 	if(istype(O, /obj/item/electronic_assembly))
@@ -189,6 +200,9 @@
 		if(ispath(path, /obj/item/integrated_circuit))
 			var/obj/item/integrated_circuit/IC = path
 			if((initial(IC.spawn_flags) & IC_SPAWN_RESEARCH) && (!(initial(IC.spawn_flags) & IC_SPAWN_DEFAULT)) && !upgraded)
+				can_build = FALSE
+			//oasis edit nuclearmayhem
+			if((initial(IC.spawn_flags) & IC_SPAWN_SYNDICATE) && !syndicate)
 				can_build = FALSE
 		if(can_build)
 			HTML += "<a href='?src=[REF(src)];build=[path]'>[initial(O.name)]</a>: [initial(O.desc)]<br>"
@@ -348,4 +362,10 @@
 /obj/item/disk/integrated_circuit/upgrade/clone
 	name = "integrated circuit printer upgrade disk - instant cloner"
 	desc = "Install this into your integrated circuit printer to enhance it.  This one allows the printer to duplicate assemblies instantaneously."
+	icon_state = "upgrade_disk_clone"
+
+// Oasis edit Nuclearmayhem
+/obj/item/disk/integrated_circuit/upgrade/syndicate
+	name = "suspicious upgrade disk"
+	desc = "Installs illegal component blueprints"
 	icon_state = "upgrade_disk_clone"

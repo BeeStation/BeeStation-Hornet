@@ -26,8 +26,8 @@ PROCESSING_SUBSYSTEM_DEF(circuit)
 		var/name = initial(IC.name)
 		all_components[name] = path // Populating the component lists
 		cached_components[IC] = new path
-
-		if(!(initial(IC.spawn_flags) & (IC_SPAWN_DEFAULT | IC_SPAWN_RESEARCH)))
+		//Oasis edit Nuclearmayhem (added syndicate flag)
+		if(!(initial(IC.spawn_flags) & (IC_SPAWN_DEFAULT | IC_SPAWN_RESEARCH | IC_SPAWN_SYNDICATE)))
 			continue
 
 		var/category = initial(IC.category_text)

@@ -253,9 +253,15 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"
 
 //debug printing macros
-#define debug_world(msg) if (GLOB.Debug2) to_chat(world, "DEBUG: [msg]")
-#define debug_usr(msg) if (GLOB.Debug2&&usr) to_chat(usr, "DEBUG: [msg]")
-#define debug_admins(msg) if (GLOB.Debug2) to_chat(GLOB.admins, "DEBUG: [msg]")
+#define debug_world(msg) if (GLOB.Debug2) to_chat(world, \
+	type = MESSAGE_TYPE_DEBUG, \
+	text = "DEBUG: [msg]")
+#define debug_usr(msg) if (GLOB.Debug2&&usr) to_chat(usr, \
+	type = MESSAGE_TYPE_DEBUG, \
+	text = "DEBUG: [msg]")
+#define debug_admins(msg) if (GLOB.Debug2) to_chat(GLOB.admins, \
+	type = MESSAGE_TYPE_DEBUG, \
+	text = "DEBUG: [msg]")
 #define debug_world_log(msg) if (GLOB.Debug2) log_world("DEBUG: [msg]")
 
 //TODO Move to a pref
@@ -394,7 +400,7 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 
 #define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
 
-/// Used by PDA and cartridge code to reduce repetitiveness of spritesheets
+// Used by PDA and cartridge code to reduce repetitiveness of spritesheets
 #define PDAIMG(what) {"<span class="pda16x16 [#what]"></span>"}
 
 //Filters

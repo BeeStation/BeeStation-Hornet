@@ -3,7 +3,10 @@ import { StationAlertConsoleContent } from './StationAlertConsole';
 
 export const NtosStationAlertConsole = () => {
   return (
-    <NtosWindow resizable>
+    <NtosWindow
+      resizable
+      width={315}
+      height={500}>
       <NtosWindow.Content scrollable>
         <StationAlertConsoleContent />
       </NtosWindow.Content>

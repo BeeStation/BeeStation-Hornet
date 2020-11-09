@@ -196,6 +196,26 @@
 		R.module.basic_modules += S
 		R.module.add_module(S, FALSE, TRUE)
 
+/obj/item/borg/upgrade/cutter
+	name = "mining cyborg plasma cutter"
+	desc = "An upgrade to the mining module granting a self-recharging plasma cutter."
+	icon_state = "cyborg_upgrade3"
+	require_module = 1
+	module_type = /obj/item/robot_module/miner
+
+/obj/item/borg/upgrade/cutter/action(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if(.)
+		var/obj/item/gun/energy/plasmacutter/cyborg/P = new(R.module)
+		R.module.basic_modules += P
+		R.module.add_module(P, FALSE, TRUE)
+
+/obj/item/borg/upgrade/cutter/deactivate(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if (.)
+		var/obj/item/gun/energy/plasmacutter/cyborg/P = locate() in R.module
+		R.module.remove_module(P, TRUE)
+
 /obj/item/borg/upgrade/tboh
 	name = "janitor cyborg trash bag of holding"
 	desc = "A trash bag of holding replacement for the janiborg's standard trash bag."

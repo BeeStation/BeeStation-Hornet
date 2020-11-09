@@ -33,4 +33,3 @@
 	if(tomatosseen >= frenzythreshold)
 		attack_same = TRUE
 	. = ..()
-	

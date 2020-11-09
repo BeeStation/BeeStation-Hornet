@@ -26,7 +26,9 @@ export const Radio = (props, context) => {
     status: !!value,
   }))(data.channels);
   return (
-    <Window>
+    <Window
+      width={360}
+      height={106 + (channels.len > 0 ? 6 + channels.len * 21 : 24)}>
       <Window.Content>
         <Section>
           <LabeledList>

@@ -61,3 +61,17 @@
 	results = list(/datum/reagent/consumable/ethanol/black_roulette = 5)
 	required_reagents = list(/datum/reagent/consumable/ethanol/black_russian = 5, /datum/reagent/medicine/strange_reagent = 1)
 	mix_message = "You hear a mechanical sound coming from the drink."
+
+/datum/chemical_reaction/mine_dread
+	name = "Miner's Dread"
+	id = /datum/reagent/consumable/ethanol/mine_dread
+	results = list(/datum/reagent/consumable/ethanol/mine_dread = 10)
+	required_reagents = list(/datum/reagent/blood = 5, /datum/reagent/ash = 5)
+	mix_message = "You can hear the demons from another world."
+
+/datum/chemical_reaction/electro_blaster
+	name = "Electro Blaster"
+	id = /datum/reagent/consumable/ethanol/electro_blaster
+	results = list(/datum/reagent/consumable/ethanol/electro_blaster = 10)
+	required_reagents = list(/datum/reagent/consumable/ethanol/screwdrivercocktail = 5, /datum/reagent/consumable/ethanol/thirteenloko = 5)
+	mix_message = "Electrical sparks come out of the drink."
