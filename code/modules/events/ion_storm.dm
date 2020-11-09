@@ -63,11 +63,10 @@
 			if(M.mind) // keep traitors who emag borgs safe
 				if(M.emagged)
 					to_chat(M, "<span class='userdanger'>Subversion software countered an ion storm.</span>")
-					return
-			if(M.mind)
+					continue
 				if(M.mind.has_antag_datum(/datum/antagonist/nukeop)) // keeps the nukies safe
 					to_chat(M, "<span class='userdanger'>Your syndicate countermeasures negated an ion storm.</span>")
-					return 
+					continue
 			if(prob(replaceLawsetChance))
 				M.laws.pick_weighted_lawset()
 			if(prob(removeRandomLawChance))
