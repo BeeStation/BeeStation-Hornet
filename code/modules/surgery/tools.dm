@@ -371,6 +371,7 @@
 	hitsound = 'sound/items/welder.ogg'
 	toolspeed = 0.7
 	light_color = LIGHT_COLOR_RED
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/surgicaldrill/advanced/Initialize()
 	. = ..()
