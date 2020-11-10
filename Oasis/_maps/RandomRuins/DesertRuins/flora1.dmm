@@ -1,14 +1,12 @@
-"a" = (/obj/structure/flora/rock/pile,/turf/open/floor/plating/asteroid,/area/space)
-"e" = (/obj/structure/flora/rock/jungle,/turf/open/floor/plating/asteroid,/area/space)
-"m" = (/obj/structure/flora/rock,/turf/open/floor/plating/asteroid,/area/space)
-"u" = (/obj/structure/flora/rock,/turf/open/floor/plating/asteroid,/area/space{icon_state = "desert"})
-"C" = (/turf/open/floor/plating/asteroid,/area/space{icon_state = /turf/open/floor/plating/asteroid})
-"Q" = (/obj/structure/flora/junglebush/large,/turf/open/floor/plating/asteroid,/area/space)
-"T" = (/turf/open/floor/plating/asteroid,/area/space)
+"a" = (/obj/structure/flora/rock/pile,/turf/open/floor/plating/asteroid,/area/ruin/unpowered)
+"e" = (/obj/structure/flora/rock/jungle,/turf/open/floor/plating/asteroid,/area/ruin/unpowered)
+"u" = (/obj/structure/flora/rock,/turf/open/floor/plating/asteroid,/area/ruin/unpowered)
+"Q" = (/obj/structure/flora/junglebush/large,/turf/open/floor/plating/asteroid,/area/ruin/unpowered)
+"T" = (/turf/open/floor/plating/asteroid,/area/ruin/unpowered)
 
 (1,1,1) = {"
-TQTTm
-emCaQ
+TQTTu
+euTaQ
 TTQTT
 TeTuT
 aTTTQ

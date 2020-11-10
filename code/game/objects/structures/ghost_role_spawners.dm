@@ -611,3 +611,23 @@
 	objectives = "Kill them all"
 
 
+//Tuskan Raider
+/obj/effect/mob_spawn/human/tuskraider
+	name = "old cryogenics pod"
+	desc = "A humming cryo pod. You can barely recognise a raider underneath the built up ice. The machine is attempting to wake up its occupant."
+	mob_name = "Tuskan Raider"
+	icon = 'icons/obj/machines/sleeper.dmi'
+	icon_state = "sleeper"
+	roundstart = FALSE
+	death = FALSE
+	random = TRUE
+	mob_species = /datum/species/human
+	short_desc = "You are a tusken raider working with your team, survive and help your friends survive."
+	flavour_text = "<span class='big bold'> You vaguely recall rushing into a cryogenics pod due to an oncoming radiation fueled sandstorm storm. \
+	The last thing you remember is the cryo pod telling you that you would only be asleep for eight hours. \
+	As you open your eyes, everything seems coated in sand and broken, a dark feeling swells in your gut as you climb out of your pod. \
+	Work as a team with your fellow survivors and do not abandon them."
+	uniform = /obj/item/clothing/under/costume/gladiator
+	shoes = /obj/item/clothing/shoes/plate
+	l_pocket = /obj/item/stack/medical/bruise_pack
+	assignedrole = "Tuskan Raider"
