@@ -124,13 +124,13 @@
 
 	// This loop will, at most, loop twice.
 	for(var/atom/check in check_list)
-		for(var/mob/living/M in viewers(world.view + "1x1", check) - src)
+		for(var/mob/living/M in viewers(world.view + 1, check) - src)
 			if(M.client && !M.has_unlimited_silicon_privilege) // OASIS EDIT
 				if(!M.eye_blind)
 					if(next_blinks[M] == null) // OASIS EDIT
 						next_blinks[M] = world.time+rand(15 SECONDS, 45 SECONDS) // OASIS EDIT
 					return M
-		for(var/obj/mecha/M in view(world.view + "1x1", check)) //assuming if you can see them they can see you
+		for(var/obj/mecha/M in view(world.view + 1, check)) //assuming if you can see them they can see you
 			if(M.occupant && M.occupant.client) // OASIS EDIT
 				if(!M.occupant.eye_blind)
 					if(next_blinks[M.occupant] == null) // OASIS EDIT
