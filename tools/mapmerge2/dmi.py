@@ -260,3 +260,22 @@ def _self_test():
                 count += 1
 
     print(f"Successfully parsed {count} dmi files")
+
+def _usage():
+    import sys
+    print(f"Usage:")
+    print(f"    {sys.argv[0]} --test")
+    exit(1)
+
+def _main():
+    import sys
+    if len(sys.argv) < 2:
+        return _usage()
+
+    if sys.argv[1] == '--test':
+        return _self_test()
+
+    return _usage()
+
+if __name__ == '__main__':
+    _main()
