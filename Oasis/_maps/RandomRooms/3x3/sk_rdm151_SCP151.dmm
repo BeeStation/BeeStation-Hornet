@@ -1,0 +1,50 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/reagent_dispensers/watertank/high,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/structure/scp151{
+	pixel_y = -5
+	},
+/turf/closed/wall/mineral/diamond,
+/area/template_noop)
+"c" = (
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/structure/reagent_dispensers/watertank/high,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/item/reagent_containers/glass/waterbottle/large/empty,
+/turf/open/floor/plating,
+/area/template_noop)
+"x" = (
+/obj/machinery/portable_atmospherics/canister/water_vapor,
+/turf/open/floor/plating,
+/area/template_noop)
+"G" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+G
+x
+"}
+(2,1,1) = {"
+b
+x
+G
+"}
+(3,1,1) = {"
+c
+d
+f
+"}

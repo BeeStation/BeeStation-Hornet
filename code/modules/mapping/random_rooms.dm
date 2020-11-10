@@ -1220,7 +1220,7 @@
 
 /*
 
-/datum/map_template/random_room/sk_rdm173 //SCP173
+/datum/map_template/random_room/sk_rdmSCP173 //SCP173
 	name = "SCP-173 Containment"
 	room_id = "sk_rdm173_SCP173"
 	mappath = "oasis/_maps/RandomRooms/10x10/sk_rdm173_SCP173.dmm"
@@ -1228,6 +1228,39 @@
 	template_height = 10
 	template_width = 10
 	weight = 900
-
 */
+
+
+/datum/map_template/random_room/sk_rdmSCP012 //SCP012
+	name = "SCP-012 Containment"
+	room_id = "sk_rdm012_SCP012"
+	mappath = "oasis/_maps/RandomRooms/3x3/sk_rdm012_SCP012.dmm"
+	centerspawner = FALSE
+	template_height = 3
+	template_width = 3
+	weight = 5
+
+
+
+/datum/map_template/random_room/sk_rdmSCP151 //SCP151
+	name = "SCP-151 Containment"
+	room_id = "sk_rdm151_SCP151"
+	mappath = "oasis/_maps/RandomRooms/3x3/sk_rdm151_SCP151.dmm"
+	centerspawner = FALSE
+	template_height = 3
+	template_width = 3
+	weight = 5
+
+
+
+/datum/map_template/random_room/sk_rdmSCP294 //SCP294
+	name = "SCP-294 Containment"
+	room_id = "sk_rdm294_SCP294"
+	mappath = "oasis/_maps/RandomRooms/3x3/sk_rdm294_SCP294.dmm"
+	centerspawner = FALSE
+	template_height = 3
+	template_width = 3
+	weight = 1
+
+
 
