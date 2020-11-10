@@ -54,3 +54,9 @@
 	desc = "A 6mm bullet casing from an away team pocket revolver."
 	caliber = "6mm"
 	projectile_type = /obj/item/projectile/bullet/rpocket
+
+/obj/item/ammo_casing/peacemaker
+	name = ".45 bullet casing"
+	desc = "A .45 bullet casing."
+	caliber = "45"
+	projectile_type = /obj/item/projectile/bullet/peacemaker

@@ -83,3 +83,9 @@
 	name = "6mm bullet"
 	damage = 15
 	speed = 0.9 // Slower than normal
+
+// .45 (Peacemaker)
+
+/obj/item/projectile/bullet/peacemaker
+	name = ".45 bullet"
+	damage = 40

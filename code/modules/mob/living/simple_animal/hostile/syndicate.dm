@@ -258,6 +258,43 @@
 	maxHealth = 250
 	health = 250
 
+/mob/living/simple_animal/hostile/syndicate/ranged/wildwest // shoots colt revolver bullets for wild west away mission
+	name = "Syndicate Operative in a Cowboy Hat"
+	casingtype = /obj/item/ammo_casing/peacemaker
+
+/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/gunslinger // has a charged six round burst attack.
+	name = "Syndicate Gunslinger"
+
+/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/gunslinger/OpenFire(atom/A)
+	if(CheckFriendlyFire(A))
+		return
+
+	if(prob(40))
+		visible_message("<span class='danger'><b>[src]</b> pauses, hand on holster, staring at at [A]!</span>")
+		SetParalyzed(500, FALSE)
+		say("Draw!")
+		fan_the_hammer(A)
+		return
+
+	if(!(simple_mob_flags & SILENCE_RANGED_MESSAGE))
+		visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
+
+
+	if(rapid > 1)
+		var/datum/callback/cb = CALLBACK(src, .proc/Shoot, A)
+		for(var/i in 1 to rapid)
+			addtimer(cb, (i - 1)*rapid_fire_delay)
+	else
+		Shoot(A)
+	ranged_cooldown = world.time + ranged_cooldown_time
+
+/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/gunslinger/proc/fan_the_hammer(atom/A)
+	visible_message("<span class='danger'><b>[src]</b> draws a spare revolver and fans the hammer!</span>")
+	for(var/i in 1 to 6)
+		Shoot(A)
+	ranged_cooldown = world.time + ranged_cooldown_time
+		
+
 ///////////////Misc////////////
 
 /mob/living/simple_animal/hostile/syndicate/civilian

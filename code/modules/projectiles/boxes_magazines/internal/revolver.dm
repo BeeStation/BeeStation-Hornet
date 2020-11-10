@@ -26,3 +26,9 @@
 	ammo_type = /obj/item/ammo_casing/rpocket
 	caliber = "6mm"
 	max_ammo = 6
+
+/obj/item/ammo_box/magazine/internal/cylinder/peacemaker
+	name = "colt .45 revolver cylinder"
+	ammo_type = /obj/item/ammo_casing/peacemaker
+	caliber = "45"
+	max_ammo = 6

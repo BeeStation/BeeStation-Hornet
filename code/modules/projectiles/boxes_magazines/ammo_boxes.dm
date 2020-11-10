@@ -63,6 +63,12 @@
 	ammo_type = /obj/item/ammo_casing/c45
 	max_ammo = 20
 
+/obj/item/ammo_box/c45/revolver
+	name = "ammo box (.45)"
+	icon_state = "45box"
+	ammo_type = /obj/item/ammo_casing/peacemaker
+	max_ammo = 18
+
 /obj/item/ammo_box/a40mm
 	name = "ammo box (40mm grenades)"
 	icon_state = "40mm"
