@@ -6,5 +6,5 @@ if(!(Test-Path -Path "C:/byond")){
 
 Set-Location $env:APPVEYOR_BUILD_FOLDER
 
-&"C:/byond/bin/dm.exe" -max_errors 0 tgstation.dme
+&"C:/byond/bin/dm.exe" -max_errors 0 beestation.dme
 exit $LASTEXITCODE
