@@ -101,3 +101,10 @@
 						GLOB.barefootstep[T.barefootstep][2] * v,
 						TRUE,
 						GLOB.barefootstep[T.barefootstep][3] + e)
+
+
+
+	//For SCP-173  OASIS EDIT
+	if(is173(LM))
+		playsound(T, pick('Oasis/SCP_MAIN/sound/scp/spook/173Run1.mp3','Oasis/SCP_MAIN/sound/scp/spook/173Run2.mp3', 'Oasis/SCP_MAIN/sound/scp/spook/173Run3.mp3'), 25 * v)
+		return

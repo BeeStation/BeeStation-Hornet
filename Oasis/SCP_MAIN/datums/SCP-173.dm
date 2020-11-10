@@ -14,7 +14,7 @@
 	move_force = MOVE_FORCE_NORMAL
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	speed = -5
-
+	do_footstep = TRUE
 	var/last_snap = 0
 
 /mob/living/simple_animal/hostile/statue/scp_173/examine(mob/user)
