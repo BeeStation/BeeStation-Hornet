@@ -310,7 +310,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(GLOB.created_baseturf_lists[current_target])
 		var/list/premade_baseturfs = GLOB.created_baseturf_lists[current_target]
 		if(length(premade_baseturfs))
-			baseturfs = baseturfs_string_list(premade_baseturfs, src)
+			baseturfs = baseturfs_string_list(premade_baseturfs.Copy(), src)
 		else
 			baseturfs = baseturfs_string_list(premade_baseturfs, src)
 		return baseturfs
