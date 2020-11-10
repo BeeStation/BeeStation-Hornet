@@ -27600,6 +27600,7 @@
 /area/medical/medbay/central)
 "bzL" = (
 /obj/effect/turf_decal/stripes/line,
+/mob/living/simple_animal/cat/friendly/SCP529,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/hor)
 "bzM" = (

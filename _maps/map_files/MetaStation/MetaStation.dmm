@@ -64019,6 +64019,7 @@
 	},
 /area/crew_quarters/heads/hor)
 "cuQ" = (
+/mob/living/simple_animal/cat/friendly/SCP529,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
