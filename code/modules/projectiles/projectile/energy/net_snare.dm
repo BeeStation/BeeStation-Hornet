@@ -57,7 +57,7 @@
 /obj/effect/nettingportal/proc/pop(teletarget)
 	if(teletarget)
 		for(var/mob/living/L in get_turf(src))
-			do_teleport(L, teletarget, 2, channel = TELEPORT_CHANNEL_BLUESPACE)//teleport what's in the tile to the beacon
+			do_teleport(L, teletarget, 0, channel = TELEPORT_CHANNEL_BLUESPACE)//teleport what's in the tile to the beacon
 	else
 		for(var/mob/living/L in get_turf(src))
 			do_teleport(L, L, 15, channel = TELEPORT_CHANNEL_BLUESPACE) //Otherwise it just warps you off somewhere.

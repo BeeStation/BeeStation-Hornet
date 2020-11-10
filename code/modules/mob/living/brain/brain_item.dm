@@ -201,7 +201,7 @@
 
 /obj/item/organ/brain/on_life()
 	if(damage >= BRAIN_DAMAGE_DEATH) //rip
-		to_chat(owner, "<span class='userdanger'>The last spark of life in your brain fizzles out...</span>")
+		to_chat(owner, "<span class='userdanger'>The last spark of life in your brain fizzles out.</span>")
 		owner.death()
 		brain_death = TRUE
 
@@ -229,7 +229,7 @@
 			else if(prev_damage < BRAIN_DAMAGE_SEVERE && damage >= BRAIN_DAMAGE_SEVERE)
 				brain_message = "<span class='warning'>You feel less in control of your thoughts.</span>"
 			else if(prev_damage < (BRAIN_DAMAGE_DEATH - 20) && damage >= (BRAIN_DAMAGE_DEATH - 20))
-				brain_message = "<span class='warning'>You can feel your mind flickering on and off...</span>"
+				brain_message = "<span class='warning'>You can feel your mind flickering on and off.</span>"
 
 			if(.)
 				. += "\n[brain_message]"

@@ -4220,7 +4220,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Chief Medical Officer's Office";
-	req_access_txt = "40"
+	req_access_txt = "40";
+	security_level = 6
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/cmo)
@@ -4437,7 +4438,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/hatch{
 	name = "Upload Access";
-	req_one_access_txt = "16"
+	req_one_access_txt = "16";
+	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -5535,11 +5537,6 @@
 "aiK" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/clothing/accessory/armband/deputy,
-/obj/item/clothing/accessory/armband/deputy,
-/obj/item/clothing/accessory/armband/deputy,
-/obj/item/clothing/accessory/armband/deputy,
-/obj/item/clothing/accessory/armband/deputy,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -12241,7 +12238,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plasteel/dark,
@@ -13491,7 +13489,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel's Office";
-	req_access_txt = "57"
+	req_access_txt = "57";
+	security_level = 6
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
@@ -13971,7 +13970,8 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/airlock/command{
 	name = "Captain's Office";
-	req_access_txt = "20"
+	req_access_txt = "20";
+	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -14386,7 +14386,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Research Division Server Room";
-	req_access_txt = "30"
+	req_access_txt = "30";
+	security_level = 6
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -15557,7 +15558,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command/glass{
 	name = "Teleporter Access";
-	req_one_access_txt = "17;19"
+	req_one_access_txt = "17;19";
+	security_level = 6
 	},
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
@@ -16352,7 +16354,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Research Director's Office";
-	req_access_txt = "30"
+	req_access_txt = "30";
+	security_level = 6
 	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/dark,
@@ -18475,7 +18478,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command/glass{
 	name = "E.V.A. Storage";
-	req_access_txt = "18"
+	req_access_txt = "18";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
@@ -21353,7 +21357,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
 /obj/machinery/door/airlock/command{
 	name = "Chief Medical Officer's Office";
-	req_access_txt = "40"
+	req_access_txt = "40";
+	security_level = 6
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -31508,7 +31513,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Chief Engineer's Office";
-	req_access_txt = "56"
+	req_access_txt = "56";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -33704,7 +33710,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Research Director's Office";
-	req_access_txt = "30"
+	req_access_txt = "30";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -51529,7 +51536,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Council Chamber";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -54375,7 +54383,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Transit Access";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -54739,7 +54748,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Transit Access";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -56504,7 +56514,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "E.V.A. Storage";
-	req_access_txt = "18"
+	req_access_txt = "18";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -57490,7 +57501,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Captain's Office";
-	req_access_txt = "20"
+	req_access_txt = "20";
+	security_level = 6
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -59458,7 +59470,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plasteel/dark,
@@ -61787,7 +61800,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -63895,7 +63909,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel's Office";
-	req_access_txt = "57"
+	req_access_txt = "57";
+	security_level = 6
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -70777,7 +70792,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -79621,7 +79637,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Chief Engineer's Office";
-	req_access_txt = "56"
+	req_access_txt = "56";
+	security_level = 6
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -81916,7 +81933,8 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Equipment Room";
-	req_access_txt = "1"
+	req_access_txt = "1";
+	security_level = 6
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
@@ -82507,7 +82525,8 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/airlock/security{
 	name = "Armoury";
-	req_access_txt = "3"
+	req_access_txt = "3";
+	security_level = 6
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
@@ -83532,7 +83551,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Head of Security's Office";
-	req_access_txt = "58"
+	req_access_txt = "58";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -83596,7 +83616,8 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/airlock/command{
 	name = "Head of Security's Office";
-	req_access_txt = "58"
+	req_access_txt = "58";
+	security_level = 6
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -87408,7 +87429,8 @@
 "cvN" = (
 /obj/machinery/door/airlock/command{
 	name = "Gateway";
-	req_access_txt = "62"
+	req_access_txt = "62";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
@@ -94965,7 +94987,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Teleporter Access";
-	req_one_access_txt = "17;19"
+	req_one_access_txt = "17;19";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -96101,7 +96124,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Equipment Room";
-	req_access_txt = "1"
+	req_access_txt = "1";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -99580,7 +99604,8 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/airlock/security{
 	name = "Armoury";
-	req_access_txt = "3"
+	req_access_txt = "3";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"

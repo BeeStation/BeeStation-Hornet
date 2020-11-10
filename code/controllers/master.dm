@@ -158,7 +158,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		current_runlevel = Master.current_runlevel
 		StartProcessing(10)
 	else
-		to_chat(world, "<span class='boldannounce'>The Master Controller is having some issues, we will need to re-initialize EVERYTHING</span>")
+		to_chat(world, "<span class='boldannounce'>The Master Controller is having some issues, we will need to re-initialize EVERYTHING.</span>")
 		Initialize(20, TRUE)
 
 
@@ -616,3 +616,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		processing = CONFIG_GET(number/mc_tick_rate/base_mc_tick_rate)
 	else if (client_count > CONFIG_GET(number/mc_tick_rate/high_pop_mc_mode_amount))
 		processing = CONFIG_GET(number/mc_tick_rate/high_pop_mc_tick_rate)
+
+/datum/controller/master/proc/OnConfigLoad()
+	for (var/thing in subsystems)
+		var/datum/controller/subsystem/SS = thing
+		SS.OnConfigLoad()

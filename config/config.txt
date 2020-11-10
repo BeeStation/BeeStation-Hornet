@@ -4,6 +4,7 @@ $include game_options.txt
 $include dbconfig.txt
 $include comms.txt
 $include antag_rep.txt
+$include resources.txt
 
 # You can use the @ character at the beginning of a config option to lock it from being edited in-game
 # Example usage:
@@ -486,7 +487,10 @@ ROUNDS_UNTIL_HARD_RESTART 3
 ##	By default, this is 15x15, which gets simplified to 7 by BYOND, as it is a 1:1 screen ratio.
 ##	For reference, Goonstation uses a resolution of 21x15 for it's widescreen mode.
 ##	Do note that changing this value will affect the title screen. The title screen will have to be updated manually if this is changed.
-DEFAULT_VIEW 15x15
+DEFAULT_VIEW 17x15
+
+##Should we use square view (15x15) while a new player (main menu)
+MENU_SQUARE_VIEW
 
 ## Name your perpetual currency here
 ## This is used within the metashop and earned by playing the game.
@@ -526,6 +530,12 @@ TOPIC_MAX_SIZE 500
 ## More API details can be found here: https://centcom.melonmesa.com
 CENTCOM_BAN_DB https://centcom.melonmesa.com/ban/search
 
+## Respect upstream bans. Uncomment to automatically block connections from players that are banned from both BeeStation servers
+## Requires CENTCOM_BAN_DB to be enabled with a valid URL.
+#RESPECT_UPSTREAM_BANS
+## Only respect upstream bans if it's a permaban
+#RESPECT_UPSTREAM_PERMABANS
+
 ## Enable IC/OOC Hard Filtering. Comment to disable one or both of them
 #IC_FILTER_ENABLED
 #OOC_FILTER_ENABLED
@@ -541,3 +551,6 @@ VOTE_AUTOTRANSFER_ENABLED
 VOTE_AUTOTRANSFER_INITIAL 54000
 ## Time (in deciseconds) between subsequent transfer votes. Default: 30 minutes
 VOTE_AUTOTRANSFER_INTERVAL 18000
+
+## Ghost role cooldown time after death (In deciseconds)
+GHOST_ROLE_COOLDOWN 3000

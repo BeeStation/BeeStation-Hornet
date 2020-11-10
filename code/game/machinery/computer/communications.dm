@@ -439,7 +439,6 @@
 
 
 	var/datum/browser/popup = new(user, "communications", "Communications Console", 400, 500)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 
 	if(issilicon(user))
 		var/dat2 = interact_ai(user) // give the AI a different interact proc to limit its access
@@ -703,7 +702,7 @@
 	if(CHAT_FILTER_CHECK(input))
 		to_chat(user, "<span class='warning'>You cannot send an announcement that contains prohibited words.</span>")
 		return
-	SScommunications.make_announcement(user, is_silicon, input)
+	SScommunications.make_announcement(user, is_silicon, input, auth_id)
 	deadchat_broadcast("<span class='deadsay'><span class='name'>[user.real_name]</span> made a priority announcement from <span class='name'>[get_area_name(usr, TRUE)]</span>.</span>", user)
 
 /obj/machinery/computer/communications/proc/post_status(command, data1, data2)

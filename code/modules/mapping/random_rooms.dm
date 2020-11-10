@@ -689,7 +689,7 @@
 	template_height = 3
 	template_width = 3
 	weight = 3
-	
+
 /datum/map_template/random_room/sk_rdm082
 	name = "Maint Chemistry"
 	room_id = "sk_rdm082_maintmedical"
@@ -1161,25 +1161,6 @@
 	template_width = 10
 	weight = 3
 
-
-/datum/map_template/random_room/sk_rdm135 //this room is fun.
-	name = "Cluwne Altar"
-	room_id = "sk_rdm135_cluwnealtar"
-	mappath = "_maps/RandomRooms/10x10/sk_rdm135_cluwnealtar.dmm"
-	centerspawner = FALSE
-	template_height = 10
-	template_width = 10
-	weight = 2 //may be a bit higher than it should be, but the 10x10 pool is very saturated relative to how many spawn, and the art of using this rune will likely be forgotten
-
-/datum/map_template/random_room/sk_rdm136 //this room is fun as well
-	name = "Tiny Cluwne Altar"
-	room_id = "sk_rdm136_tinycluwnealtar"
-	mappath = "_maps/RandomRooms/5x4/sk_rdm136_tinycluwnealtar.dmm"
-	centerspawner = FALSE
-	template_height = 4
-	template_width = 5
-	weight = 1 //but this one is tiny and uncinematic and bad
-
 /datum/map_template/random_room/sk_rdm137
 	name = "Tiny psych ward"
 	room_id = "sk_rdm137_tinyshrink"
@@ -1198,7 +1179,7 @@
 	template_width = 5
 	weight = 4
 
-/datum/map_template/random_room/sk_rdm139 
+/datum/map_template/random_room/sk_rdm139
 	name = "containment cell"
 	room_id = "sk_rdm139_containmentcell"
 	mappath = "_maps/RandomRooms/3x3/containmentcell.dmm"

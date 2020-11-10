@@ -933,7 +933,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		else
 			to_chat(user, "<span class='warning'>The personality slot is locked.</span>")
 	else
-		to_chat(user, "<span class='warning'>[src] is not compatible with [card]</span>")
+		to_chat(user, "<span class='warning'>[src] is not compatible with [card].</span>")
 
 /mob/living/simple_animal/bot/proc/ejectpai(mob/user = null, announce = 1)
 	if(paicard)

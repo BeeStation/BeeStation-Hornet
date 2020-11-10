@@ -168,7 +168,7 @@
 		cyclelinkedairlock = null
 	if (!cyclelinkeddir)
 		return
-	var/limit = world.view
+	var/limit = 15
 	var/turf/T = get_turf(src)
 	var/obj/machinery/door/airlock/FoundDoor
 	do
@@ -326,6 +326,26 @@
 	if(A == note)
 		note = null
 		update_icon()
+
+/obj/machinery/door/airlock/Bumped(atom/movable/AM)
+	if(operating || (obj_flags & EMAGGED))
+		return
+	if(ismecha(AM))
+		var/obj/mecha/mecha = AM
+		if(density)
+			if(mecha.occupant)
+				if(world.time - mecha.occupant.last_bumped <= 10)
+					return
+				mecha.occupant.last_bumped = world.time
+			if(locked && (allowed(mecha.occupant) || check_access_list(mecha.operation_req_access)) && aac)
+				aac.request_from_door(src)
+				return
+			if(mecha.occupant && (src.allowed(mecha.occupant) || src.check_access_list(mecha.operation_req_access)))
+				open()
+			else
+				do_animate("deny")
+		return
+	. = ..()
 
 /obj/machinery/door/airlock/bumpopen(mob/living/user) //Airlocks now zap you when you 'bump' them open when they're electrified. --NeoFite
 	if(!issilicon(usr))
@@ -1461,11 +1481,14 @@
 	else if(istype(note, /obj/item/photo))
 		return "photo"
 
-/obj/machinery/door/airlock/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-													datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/door/airlock/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/door/airlock/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AiAirlock", name, 500, 390, master_ui, state)
+		ui = new(user, src, "AiAirlock")
 		ui.open()
 	return TRUE
 
