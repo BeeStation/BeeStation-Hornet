@@ -757,7 +757,6 @@
 			var/obj/item/equipt = new hat(src)
 			if (equipt )
 				R.place_on_head(equipt)
-	return .
 
 /obj/item/borg/upgrade/speciality/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
@@ -770,7 +769,6 @@
 		for(var/obj/item/reagent_containers/borghypo/borgshaker/H in R.module.modules)
 			for(var/re in additional_reagents)
 				H.del_reagent(re)
-	return .
 
 /obj/item/borg/upgrade/speciality/kitchen
 	name = "Cook Speciality"
