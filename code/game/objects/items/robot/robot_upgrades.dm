@@ -778,7 +778,7 @@
 	hat = /obj/item/clothing/head/chefhat
 	addmodules = list (
 		/obj/item/kitchen/knife,
-		/obj/item/kitchen/rollingpin
+		/obj/item/kitchen/rollingpin,
 	)
 	additional_reagents = list(
 		/datum/reagent/consumable/enzyme,
