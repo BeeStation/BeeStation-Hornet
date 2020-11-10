@@ -45,7 +45,7 @@
 	name = "Piña colada"
 	id = /datum/reagent/consumable/ethanol/pina_colada
 	results = list(/datum/reagent/consumable/ethanol/pina_colada = 5)
-	required_reagents = list(/datum/reagent/consumable/ethanol/rum = 5, /datum/reagent/consumable/coco = 1, /datum/reagent/consumable/cream = 1, /datum/reagent/consumable/pineapplejuice = 5)
+	required_reagents = list(/datum/reagent/consumable/ethanol/rum = 5, /datum/reagent/consumable/cocoa = 1, /datum/reagent/consumable/cream = 1, /datum/reagent/consumable/pineapplejuice = 5)
 	mix_message = "Nothing that special."
 
 /datum/chemical_reaction/triple_coke

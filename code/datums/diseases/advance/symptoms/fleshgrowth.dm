@@ -10,7 +10,7 @@
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 	var/cachedcolor = null
-	var/turf/open/currentloc = null 
+	var/turf/open/currentloc = null
 	var/cycles = 0
 	var/lastcycle = 0
 	var/requiredcycles = 0
@@ -35,7 +35,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.dna.species.use_skintones)
-			cachedcolor = H.skin_tone 
+			cachedcolor = H.skin_tone
 		else if(MUTCOLORS in H.dna.species.species_traits)
 			cachedcolor	= H.dna.features["mcolor"]
 
@@ -79,7 +79,7 @@
 						N.node_range = 0
 					else
 						new /obj/structure/alien/flesh(currentloc, diseases)
-					C.visible_message("<span class='warning'>the film on [C]'s skin grows onto the floor!</span>", "<span class='userdanger'>The film creeping along your skin secretes onto the floor!</span>")
+					C.visible_message("<span class='warning'>The film on [C]'s skin grows onto the floor!</span>", "<span class='userdanger'>The film creeping along your skin secretes onto the floor!</span>")
 					lastcycle += 1
 				if(A.properties["stage_rate"] >= 8)
 					healfactor += 0.5
@@ -89,7 +89,7 @@
 					if(istype(H.dna.species, /datum/species/zombie/infectious))
 						var/datum/species/zombie/infectious/Z = H.dna.species
 						if(Z.limbs_id == "pinkzombie")
-							return 
+							return
 						else
 							Z.limbs_id = "pinkzombie"
 							H.regenerate_icons()
@@ -99,13 +99,13 @@
 						return
 					if(H.dna.species.use_skintones)
 						H.skin_tone = "pink"
-						H.visible_message("<span class='warning'>a film of pinkish material grows over [H]'s skin!</span>", "<span class='userdanger'>Your skin is completely covered by a film of pinkish, fleshy mass!</span>")
+						H.visible_message("<span class='warning'>A film of pinkish material grows over [H]'s skin!</span>", "<span class='userdanger'>Your skin is completely covered by a film of pinkish, fleshy mass!</span>")
 						H.regenerate_icons()
 					else if(MUTCOLORS in H.dna.species.species_traits)
 						H.dna.features["mcolor"] = "D37" //pinkish red
-						H.visible_message("<span class='warning'>a film of pinkish material grows over [H]'s skin!</span>", "<span class='userdanger'>Your skin is completely covered by a film of pinkish, fleshy mass!</span>")
+						H.visible_message("<span class='warning'>A film of pinkish material grows over [H]'s skin!</span>", "<span class='userdanger'>Your skin is completely covered by a film of pinkish, fleshy mass!</span>")
 						H.regenerate_icons()
-				
+
 /datum/symptom/flesh/End(datum/disease/advance/A)
 	. = ..()
 	var/mob/living/M = A.affected_mob
@@ -157,7 +157,7 @@
 				icon = 'icons/obj/smooth_structures/alien/flesh2.dmi'
 			if(3)
 				icon = 'icons/obj/smooth_structures/alien/flesh3.dmi'
-	if(LAZYLEN(diseases)) 
+	if(LAZYLEN(diseases))
 		for(var/datum/disease/D in diseases)
 			nodediseases += D
 		if(LAZYLEN(nodediseases))
@@ -209,7 +209,7 @@
 	light_power = 0.5
 	var/lon_range = 4
 	var/node_range = 3
-	
+
 
 /obj/structure/alien/flesh/node/Initialize()
 	icon = 'icons/obj/smooth_structures/alien/fleshpolyp.dmi'
