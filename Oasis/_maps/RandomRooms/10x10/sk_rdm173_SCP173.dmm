@@ -157,6 +157,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/shieldwallgen/xenobiologyaccess{
+	active = 1;
 	anchored = 1;
 	locked = 0;
 	power = 497

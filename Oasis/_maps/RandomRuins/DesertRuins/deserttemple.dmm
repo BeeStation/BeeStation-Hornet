@@ -1,0 +1,63 @@
+"a" = (/turf/open/floor/plating/asteroid,/area/ruin/unpowered)
+"b" = (/obj/structure/flora/rock,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"c" = (/obj/structure/mineral_door/sandstone,/turf/open/floor/plating/asteroid,/area/ruin/unpowered)
+"d" = (/mob/living/simple_animal/hostile/retaliate/poison/snake,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"e" = (/obj/structure/mineral_door/sandstone,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"f" = (/obj/structure/stone_tile/slab/cracked,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"g" = (/obj/structure/stone_tile/slab/cracked{dir = 5},/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"h" = (/obj/item/twohanded/bonespear,/obj/structure/rack,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"i" = (/obj/structure/stone_tile/block/cracked{dir = 8},/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"j" = (/obj/structure/stone_tile/block/cracked{dir = 10},/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"k" = (/obj/structure/stone_tile/slab/cracked,/obj/item/emptysandbag,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"l" = (/obj/structure/stone_tile/slab/cracked{dir = 9},/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"m" = (/obj/structure/stone_tile/block/cracked{dir = 8},/turf/open/floor/plating/asteroid,/area/ruin/unpowered)
+"n" = (/obj/structure/stone_tile/surrounding/cracked,/obj/structure/stone_tile/surrounding_tile/cracked,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"o" = (/obj/structure/closet/crate/secure/loot,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"p" = (/obj/structure/stone_tile/slab/cracked,/obj/structure/closet/crate/secure/loot,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"q" = (/mob/living/simple_animal/hostile/mimic/crate,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"r" = (/obj/structure/stone_tile/block/cracked,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"s" = (/obj/structure/mineral_door/sandstone,/obj/structure/mineral_door/sandstone,/turf/open/floor/plating/asteroid,/area/ruin/unpowered)
+"t" = (/obj/structure/stone_tile/slab/cracked,/turf/open/floor/plating/asteroid,/area/ruin/unpowered)
+"v" = (/obj/structure/stone_tile/block/cracked{dir = 4},/turf/open/floor/plating/asteroid,/area/ruin/unpowered)
+"w" = (/obj/structure/stone_tile/surrounding_tile/cracked,/obj/structure/stone_tile/surrounding/cracked,/obj/structure/stone_tile/center/cracked,/obj/item/grenade/spawnergrenade/buzzkill,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"y" = (/obj/structure/flora/rock,/turf/open/floor/plating/asteroid,/area/ruin/unpowered)
+"z" = (/obj/structure/stone_tile/cracked,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"A" = (/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"B" = (/turf/closed/wall/mineral/sandstone,/area/ruin/unpowered)
+"C" = (/obj/structure/stone_tile/block/cracked{dir = 4},/mob/living/simple_animal/hostile/retaliate/poison/snake,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"E" = (/mob/living/simple_animal/hostile/skeleton/templar,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"F" = (/obj/structure/stone_tile/surrounding_tile/cracked{dir = 8},/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"G" = (/obj/structure/stone_tile/slab/cracked,/obj/structure/bed,/obj/item/bedsheet/syndie,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"I" = (/obj/item/emptysandbag,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"J" = (/obj/structure/falsewall/sandstone,/turf/open/floor/plating/asteroid,/area/ruin/unpowered)
+"K" = (/obj/structure/stone_tile/block/cracked{dir = 8},/obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"L" = (/obj/structure/stone_tile/surrounding/cracked,/obj/structure/stone_tile/center/cracked,/obj/structure/bed,/obj/item/bedsheet/rainbow,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"M" = (/obj/structure/stone_tile/center/cracked,/mob/living/simple_animal/hostile/retaliate/poison/snake,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"N" = (/mob/living/simple_animal/cockroach,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"O" = (/obj/structure/stone_tile/slab/cracked{dir = 10},/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"P" = (/obj/structure/stone_tile/slab/cracked{dir = 1},/turf/open/floor/plating/asteroid,/area/ruin/unpowered)
+"R" = (/obj/structure/stone_tile/center/cracked,/obj/structure/stone_tile/surrounding/cracked,/mob/living/simple_animal/hostile/skeleton/templar,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"S" = (/obj/structure/stone_tile/surrounding_tile/cracked,/turf/open/floor/plating/asteroid,/area/ruin/unpowered)
+"T" = (/obj/structure/stone_tile/block/cracked{dir = 8},/obj/structure/bed,/obj/item/bedsheet/nanotrasen,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"V" = (/obj/structure/flora/rock/pile,/turf/open/floor/plating/asteroid,/area/ruin/unpowered)
+"X" = (/obj/structure/stone_tile/slab/cracked{dir = 4},/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"Y" = (/obj/structure/stone_tile/block/cracked{dir = 4},/obj/item/emptysandbag,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+"Z" = (/obj/structure/stone_tile/block/cracked{dir = 4},/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/unpowered)
+
+(1,1,1) = {"
+aBBBBBBBBBBBBaa
+aBIoGBrAAAAKBVa
+aBIATBAArnAiBaa
+VBkNLBAMABBBBBB
+aBrfzBCjOBhhhhB
+aBAgZeAdAefffpB
+aBBBBBBBeBhhhhB
+yBIkRBAqiBBBBBB
+aBYArfNZfJddfAB
+aBBcBBBcBBBBBAB
+asfNFAAXAEfABwB
+aBBfBBcBBBBcBBB
+aaBcBqAABaVmBaa
+VaatvBlbaPSAaaa
+aaAyaaccayaaaVa
+"}
