@@ -24,7 +24,7 @@ jobs:
           pip3 install -r tools/mapmerge2/requirements.txt
       - name: Run Linters
         run: |
-          bash tools/ci/check_filedirs.sh tgstation.dme
+          bash tools/ci/check_filedirs.sh beesstation.dme
           bash tools/ci/check_changelogs.sh
           find . -name "*.php" -print0 | xargs -0 -n1 php -l
           find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python3 ./tools/json_verifier.py
