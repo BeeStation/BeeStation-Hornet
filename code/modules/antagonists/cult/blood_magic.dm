@@ -403,7 +403,7 @@
 //Stun
 /obj/item/melee/blood_magic/stun
 	name = "Stunning Aura"
-	desc = "Will stun and mute a weak-minded victim on contact."
+	desc = "Will stun and mute a victim on contact."
 	color = RUNE_COLOR_RED
 	invocation = "Fuu ma'jin!"
 
