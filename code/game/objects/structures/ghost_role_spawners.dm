@@ -592,3 +592,22 @@
 
 /obj/effect/mob_spawn/human/pirate/gunner
 	rank = "Gunner"
+
+
+
+//SCP173 Spawner
+/obj/effect/mob_spawn/scp/scp_173
+	name = "Timelocked SCP-173"
+	desc = "It seems this creature is locked in space and time."
+	mob_name = "SCP-173"
+	mob_type = /mob/living/simple_animal/hostile/statue/scp_173
+	antagonist_type = /datum/antagonist/scp_173
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "timelocked_173"
+	death = FALSE
+	roundstart = FALSE
+	short_desc = "SCP-173 is a sculpture constructed of concrete and rebar with krylon-brand spray paint."
+	flavour_text = "Unable to move in line of sight, you must use the darkness and vents to get around, forcing people to blink, and killing indescriminately as you never want to be imprisoned again. Make sure to check your spells tab, and alt-click for ventcrawling"
+	objectives = "Kill them all"
+
+

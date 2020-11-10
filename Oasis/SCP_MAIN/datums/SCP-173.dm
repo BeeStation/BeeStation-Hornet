@@ -14,7 +14,7 @@
 	move_force = MOVE_FORCE_NORMAL
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	speed = -5
-
+	do_footstep = TRUE
 	var/last_snap = 0
 
 /mob/living/simple_animal/hostile/statue/scp_173/examine(mob/user)
@@ -48,7 +48,7 @@
 			to_chat(src, "<span class='warning'>You cannot attack, there are eyes on you!</span>")
 		return FALSE
 	else
-		if(istype(target, /obj/structure/table) || istype(target, /obj/structure/rack) || istype(target, /obj/machinery/light) || istype(target, /obj/machinery/light/small) || istype(target, /obj/machinery/vending) || istype(target, /obj/machinery/door) || istype(target, /obj/machinery/computer) || istype(target, /obj/structure/closet) || istype(target, /obj/structure/girder) || istype(target, /obj/structure/grille) || istype(target, /turf/closed/wall))
+		if(istype(target, /obj/structure/table) || istype(target, /obj/structure/rack) || istype(target, /obj/machinery/light) || istype(target, /obj/machinery/light/small) || istype(target, /obj/machinery/vending) || istype(target, /obj/machinery/door) || istype(target, /obj/structure/window) || istype(target, /obj/machinery/computer) || istype(target, /obj/structure/closet) || istype(target, /obj/structure/girder) || istype(target, /obj/structure/grille) || istype(target, /obj/structure/barricade))
 			return ..()  //The above line checks for lights, tables, computers, vendimg machines, doors, racks and closets. if the target is any of these objects, Attack as normal doing obj_damage)
 		else if(istype(target,/mob))
 			if(isliving(target))
@@ -78,7 +78,7 @@
 			to_chat(src, "<span class='warning'>You cannot attack, there are eyes on you!</span>")
 		return FALSE
 	else
-		if(istype(target, /obj/structure/table) || istype(target, /obj/structure/rack) || istype(target, /obj/machinery/light) || istype(target, /obj/machinery/light/small) || istype(target, /obj/machinery/vending) || istype(target, /obj/machinery/door) || istype(target, /obj/machinery/computer) || istype(target, /obj/structure/closet) || istype(target, /obj/structure/girder) || istype(target, /obj/structure/grille) || istype(target, /turf/closed/wall))
+		if(istype(target, /obj/structure/table) || istype(target, /obj/structure/rack) || istype(target, /obj/machinery/light) || istype(target, /obj/machinery/light/small) || istype(target, /obj/machinery/vending) || istype(target, /obj/machinery/door) || istype(target, /obj/structure/window) || istype(target, /obj/machinery/computer) || istype(target, /obj/structure/closet) || istype(target, /obj/structure/girder) || istype(target, /obj/structure/grille) || istype(target, /obj/structure/barricade))
 			return ..()  //The above line checks for lights, tables, computers, vendimg machines, doors, racks and closets. if the target is any of these objects, Attack as normal doing obj_damage
 		else if(istype(target,/mob))
 			if(isliving(target))
@@ -99,3 +99,18 @@
 		else
 			to_chat(src, "<span class='warning'><I>Why would we waste our energy attacking [target]</I></span>")
 			return // If none of the above, dont attack
+
+
+
+
+/obj/item/paper/fluff/scp_173
+	name = "Item #: SCP-173"
+	info = "Item #: SCP-173,  Object Class: Euclid,  Special Containment Procedures: Item SCP-173 is to be kept in a locked container at all times. When personnel must enter SCP-173's container, no fewer than 3 may enter at any time and the door is to be relocked behind them. At all times, two persons must maintain direct eye contact with SCP-173 until all personnel have vacated and relocked the container.    Description: Moved to //REDACTED in Space Sector //REDACTED. Origin is as of yet unknown. It is constructed from concrete and rebar with traces of Krylon brand spray paint. SCP-173 is animate and extremely hostile. The object cannot move while within a direct line of sight. Line of sight must not be broken at any time with SCP-173. Personnel assigned to enter container are instructed to alert one another before blinking. Object is reported to attack by snapping the neck at the base of the skull, or by strangulation. In the event of an attack, personnel are to observe Class 4 hazardous object containment procedures.   Personnel report sounds of scraping stone originating from within the container when no one is present inside. This is considered normal, and any change in this behaviour should be reported to the acting HMCL supervisor on duty.   The reddish brown substance on the floor is a combination of feces and blood. Origin of these materials is unknown. The enclosure must be cleaned on a bi-weekly basis."
+
+
+/datum/antagonist/scp_173
+	name = "SCP-173"
+	show_in_antagpanel = TRUE
+	show_name_in_check_antagonists = TRUE
+	show_to_ghosts = TRUE
+	antagpanel_category = "SCP"
