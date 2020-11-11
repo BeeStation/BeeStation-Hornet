@@ -113,3 +113,24 @@
 	resistance_flags = NONE
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES
+
+/obj/item/clothing/neck/cloak/royal
+	name = "royal cloak"
+	desc = "Show people who is in charge here. Woven with bluespace nano fibers. Can switch between four colors."
+	icon_state = "royalcloakred"
+
+/obj/item/clothing/neck/cloak/royal/attack_self(mob/user)
+	..()
+	switch(icon_state)
+		if("royalcloakred")
+			icon_state = "royalcloakblue"
+			to_chat(user, "<span class='notice'>The cloak changes its color to blue.</span>")
+		if("royalcloakblue")
+			icon_state = "royalcloakpurple"
+			to_chat(user, "<span class='notice'>The cloak changes its color to purple.</span>")
+		if("royalcloakpurple")
+			icon_state = "royalcloakdark"
+			to_chat(user, "<span class='notice'>The cloak changes its color to black.</span>")
+		if("royalcloakdark")
+			icon_state = "royalcloakred"
+			to_chat(user, "<span class='notice'>The cloak changes its color to red.</span>")
