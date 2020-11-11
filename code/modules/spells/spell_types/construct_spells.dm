@@ -33,7 +33,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/floor
 	name = "Summon Cult Floor"
-	desc = "This spell constructs a cult floor."
+	desc = "This spell enchants the floor to always sustain life."
 
 	school = "conjuration"
 	charge_max = 20
@@ -47,7 +47,7 @@
 	action_background_icon_state = "bg_cult"
 
 /obj/structure/fans/tiny/cult
-	name = "pulsating essence"
+	name = "floor enchantment"
 	desc = "An enchanced tile that prevents airflow."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "hole"
