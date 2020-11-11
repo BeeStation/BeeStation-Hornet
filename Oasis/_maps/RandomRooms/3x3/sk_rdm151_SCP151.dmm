@@ -29,7 +29,9 @@
 	release_pressure = 1000;
 	valve_open = 1
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plating{
+	initial_gas_mix = "o2=22;n2=82;water_vapor=500;TEMP=293.15"
+	},
 /area/template_noop)
 "x" = (
 /obj/machinery/portable_atmospherics/canister/water_vapor,
