@@ -2487,6 +2487,11 @@
 "hl" = (
 /turf/open/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
+"hq" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box,
+/turf/open/floor/mineral/plastitanium/red,
+/area/centcom/evac)
 "ht" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -12693,6 +12698,11 @@
 "Di" = (
 /turf/closed/indestructible/riveted,
 /area/ai_multicam_room)
+"Dn" = (
+/obj/structure/table,
+/obj/item/assembly/flash/handheld,
+/turf/open/floor/mineral/plastitanium/red,
+/area/centcom/evac)
 "Dp" = (
 /obj/structure/trap/ctf/red,
 /obj/effect/turf_decal/tile/red,
@@ -16223,38 +16233,34 @@
 "KH" = (
 /turf/closed/wall/mineral/titanium,
 /area/centcom/evac)
-"KI" = (
+"KL" = (
 /obj/structure/shuttle/engine/propulsion/right{
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/centcom/evac)
-"KJ" = (
+"KM" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/centcom/evac)
-"KK" = (
+"KN" = (
+/turf/open/floor/plating,
+/area/centcom/evac)
+"KO" = (
+/obj/machinery/door/airlock/titanium,
+/turf/open/floor/plating,
+/area/centcom/evac)
+"KP" = (
 /obj/structure/shuttle/engine/propulsion/left{
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/centcom/evac)
-"KL" = (
+"KQ" = (
 /obj/docking_port/stationary{
-	dir = 1;
-	dwidth = 1;
-	height = 4;
-	id = "pod4_away";
-	name = "recovery ship";
-	width = 3
-	},
-/turf/open/space,
-/area/space)
-"KM" = (
-/obj/docking_port/stationary{
-	dir = 1;
+	dir = 4;
 	dwidth = 1;
 	height = 4;
 	id = "pod3_away";
@@ -16263,33 +16269,20 @@
 	},
 /turf/open/space,
 /area/space)
-"KN" = (
-/obj/structure/window/reinforced,
-/obj/structure/shuttle/engine/heater{
-	dir = 1
-	},
-/turf/open/floor/plating/airless,
-/area/centcom/evac)
-"KO" = (
-/obj/machinery/door/airlock/titanium,
-/turf/open/floor/plating,
-/area/centcom/evac)
-"KP" = (
-/obj/structure/window/shuttle,
-/obj/structure/grille,
-/turf/open/floor/plating,
-/area/centcom/evac)
-"KQ" = (
-/turf/open/floor/plating,
-/area/centcom/evac)
 "KR" = (
-/obj/machinery/light/small{
-	dir = 4
+/obj/docking_port/stationary{
+	dwidth = 1;
+	height = 4;
+	id = "pod5_away";
+	name = "recovery ship";
+	width = 3
 	},
-/turf/open/floor/plating,
-/area/centcom/evac)
+/turf/open/space,
+/area/space)
 "KS" = (
-/turf/closed/wall/mineral/titanium/interior,
+/obj/structure/table/reinforced,
+/obj/item/paper_bin,
+/turf/open/floor/mineral/plastitanium/red,
 /area/centcom/evac)
 "KT" = (
 /obj/structure/window/reinforced{
@@ -16305,6 +16298,78 @@
 /turf/open/floor/mineral/titanium,
 /area/centcom/evac)
 "KW" = (
+/obj/docking_port/stationary{
+	dwidth = 1;
+	height = 4;
+	id = "pod4_away";
+	name = "recovery ship";
+	width = 3
+	},
+/turf/open/space,
+/area/space)
+"KX" = (
+/obj/structure/window/reinforced,
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/turf/open/floor/plating/airless,
+/area/centcom/evac)
+"KY" = (
+/obj/machinery/stasis,
+/turf/open/floor/mineral/titanium/blue,
+/area/centcom/evac)
+"KZ" = (
+/obj/structure/window/shuttle,
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/centcom/evac)
+"La" = (
+/obj/machinery/computer/secure_data{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/centcom/evac)
+"Lb" = (
+/turf/open/floor/mineral/titanium/blue,
+/area/centcom/evac)
+"Lc" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/centcom/evac)
+"Ld" = (
+/obj/structure/table,
+/obj/item/storage/box/handcuffs,
+/turf/open/floor/mineral/plastitanium/red,
+/area/centcom/evac)
+"Le" = (
+/obj/machinery/door/window/northright{
+	dir = 2;
+	name = "Security Desk";
+	req_access_txt = "103"
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/centcom/evac)
+"Lf" = (
+/obj/structure/table/reinforced,
+/obj/item/assembly/flash/handheld,
+/turf/open/floor/mineral/plastitanium/red,
+/area/centcom/evac)
+"Lg" = (
+/obj/structure/table/reinforced,
+/turf/open/floor/mineral/plastitanium/red,
+/area/centcom/evac)
+"Lh" = (
+/turf/closed/wall/mineral/titanium/interior,
+/area/centcom/evac)
+"Li" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/centcom/evac)
+"Lj" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/toxin{
 	pixel_x = -2;
@@ -16313,7 +16378,7 @@
 /obj/item/storage/firstaid/toxin,
 /turf/open/floor/mineral/titanium/blue,
 /area/centcom/evac)
-"KX" = (
+"Lk" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/fire,
 /obj/item/storage/firstaid/fire{
@@ -16322,7 +16387,7 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/centcom/evac)
-"KY" = (
+"Ll" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular{
 	pixel_x = 2
@@ -16333,86 +16398,17 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/centcom/evac)
-"KZ" = (
+"Lm" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/open/floor/plating,
 /area/centcom/evac)
-"La" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium/blue,
-/area/centcom/evac)
-"Lb" = (
-/turf/open/floor/mineral/titanium/blue,
-/area/centcom/evac)
-"Lc" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium/blue,
-/area/centcom/evac)
-"Ld" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/turf/open/floor/mineral/plastitanium/red,
-/area/centcom/evac)
-"Le" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
-/turf/open/floor/mineral/plastitanium/red,
-/area/centcom/evac)
-"Lf" = (
-/obj/structure/table/reinforced,
-/obj/item/pen,
-/turf/open/floor/mineral/plastitanium/red,
-/area/centcom/evac)
-"Lg" = (
-/obj/structure/table/reinforced,
-/turf/open/floor/mineral/plastitanium/red,
-/area/centcom/evac)
-"Lh" = (
-/obj/machinery/sleeper{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium/blue,
-/area/centcom/evac)
-"Li" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium/blue,
-/area/centcom/evac)
-"Lj" = (
-/obj/machinery/computer/secure_data{
-	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/centcom/evac)
-"Lk" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/centcom/evac)
-"Ll" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/centcom/evac)
-"Lm" = (
-/obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/stamp,
-/turf/open/floor/mineral/plastitanium/red,
-/area/centcom/evac)
 "Ln" = (
-/obj/structure/table,
-/obj/item/assembly/flash/handheld,
-/turf/open/floor/mineral/plastitanium/red,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
 /area/centcom/evac)
 "Lo" = (
 /turf/open/floor/mineral/plastitanium/red,
@@ -16424,19 +16420,16 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/centcom/evac)
 "Lq" = (
-/obj/structure/table,
-/obj/item/storage/box/handcuffs,
+/obj/structure/chair{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/centcom/evac)
 "Lr" = (
-/obj/machinery/door/window/northright{
-	base_state = "right";
-	dir = 4;
-	icon_state = "right";
-	name = "Security Desk";
-	req_access_txt = "103"
+/obj/machinery/light{
+	dir = 4
 	},
-/turf/open/floor/mineral/plastitanium/red,
+/turf/open/floor/mineral/titanium/blue,
 /area/centcom/evac)
 "Ls" = (
 /obj/docking_port/stationary{
@@ -17071,6 +17064,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"Oc" = (
+/obj/machinery/sleeper{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/centcom/evac)
 "Of" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -17553,6 +17552,17 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/centcom/holding)
+"Rl" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 1;
+	height = 4;
+	id = "pod6_away";
+	name = "recovery ship";
+	width = 3
+	},
+/turf/open/space,
+/area/space)
 "Rm" = (
 /obj/structure/chair/wood/wings{
 	dir = 3
@@ -18262,6 +18272,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/evac)
+"Wd" = (
+/obj/structure/table/reinforced,
+/obj/item/pen,
+/turf/open/floor/mineral/plastitanium/red,
+/area/centcom/evac)
+"Wg" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/centcom/evac)
 "Wi" = (
 /turf/open/floor/circuit/telecomms,
 /area/ctf)
@@ -18381,6 +18402,12 @@
 "Xk" = (
 /turf/open/floor/wood,
 /area/centcom/holding)
+"Xl" = (
+/obj/structure/table/reinforced,
+/obj/item/clipboard,
+/obj/item/stamp,
+/turf/open/floor/mineral/plastitanium/red,
+/area/centcom/evac)
 "Xn" = (
 /obj/machinery/door/airlock/wood{
 	req_one_access_txt = "0"
@@ -18817,6 +18844,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supply)
+"ZZ" = (
+/obj/machinery/door/window/northright{
+	dir = 4;
+	name = "Security Desk";
+	req_access_txt = "63"
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/centcom/evac)
 
 (1,1,1) = {"
 aa
@@ -43460,14 +43495,14 @@ aa
 aa
 aa
 aa
+KH
+KH
+KH
+KH
+KH
 aa
 aa
 aa
-KH
-KH
-KH
-KH
-KH
 aa
 aa
 aa
@@ -43717,15 +43752,15 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-KI
+KL
+KX
 KN
-KQ
-KQ
+KN
 KH
 KH
+aa
+aa
+aa
 aa
 aa
 aa
@@ -43974,17 +44009,17 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-KJ
+KM
+KX
+Lc
 KN
-KR
-KQ
-KQ
+KN
 KH
 aa
 aa
+aa
+aa
+Rl
 aa
 aa
 aa
@@ -44231,17 +44266,17 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-KK
-KN
-KS
+KP
+KX
+Lh
 KH
 KO
 KH
 KH
 KH
+KH
+KH
+KO
 KH
 KH
 KH
@@ -44488,17 +44523,17 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
 KH
 KH
+Lh
+Ln
+Lb
 KS
 La
-Lb
+Dn
 Ld
-Lj
-Ln
+Lo
+Lo
 Lq
 KH
 Lv
@@ -44746,17 +44781,17 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
 KH
 KU
 Lb
 KV
+hq
+Lq
+Lo
 Le
-Lk
 Lo
 Lo
+Lq
 KH
 KV
 KV
@@ -45002,16 +45037,16 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-KL
+KR
 KO
 KV
 KV
 KV
+Wd
+Wg
+Lo
 Lf
-Ll
+Lo
 Lo
 Lo
 KH
@@ -45260,17 +45295,17 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
 KH
-KW
+Lj
 Lb
 KV
 Lg
-Lm
+Xl
 Lg
-Lr
+Lg
+Lg
+ZZ
+Lg
 Lt
 KH
 KH
@@ -45517,12 +45552,12 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-KP
-KX
+KZ
+Lk
 Lb
+KV
+KV
+KV
 KV
 KV
 KV
@@ -45774,18 +45809,18 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
 KH
-KY
+Ll
 Lb
 KV
-Lh
+KY
 Lb
 Li
 Li
+Li
 Lb
+Lb
+Li
 Li
 Li
 KV
@@ -46030,19 +46065,19 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-KM
+KW
 KO
 KV
 KV
 KV
-Lb
+Oc
 Lb
 Lp
 Lp
+Lp
 Lb
+Lb
+Lp
 Lp
 Lp
 KV
@@ -46288,12 +46323,12 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
 KH
 KU
 Lb
+KV
+KV
+KV
 KV
 KV
 KV
@@ -46544,14 +46579,14 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
 KH
 KH
-KS
-Lc
+Lh
+Lr
 Lb
+Li
+Li
+KV
 Li
 Li
 Li
@@ -46801,16 +46836,16 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-KI
-KN
-KS
+KL
+KX
+Lh
 KH
 KO
 KH
 KH
+KO
+KH
+Lw
 KH
 KO
 KH
@@ -47058,15 +47093,15 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-KJ
+KM
+KX
+Lm
 KN
-KZ
-KQ
-KQ
+KN
 KH
+aa
+KQ
+aa
 aa
 aa
 Ls
@@ -47315,15 +47350,15 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-KK
+KP
+KX
 KN
-KQ
-KQ
+KN
 KH
 KH
+aa
+aa
+aa
 aa
 aa
 aa
@@ -47572,14 +47607,14 @@ aa
 aa
 aa
 aa
+KH
+KH
+KH
+KH
+KH
 aa
 aa
 aa
-KH
-KH
-KH
-KH
-KH
 aa
 aa
 aa
