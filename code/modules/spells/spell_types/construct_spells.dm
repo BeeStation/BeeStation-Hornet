@@ -33,7 +33,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/floor
 	name = "Summon Cult Floor"
-	desc = "This spell enchants the floor to sustain life."
+	desc = "This spell enchants places a runed tile and also enhances it to support life."
 
 	school = "conjuration"
 	charge_max = 20
@@ -54,7 +54,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/wall
 	name = "Summon Cult Wall"
-	desc = "This spell constructs a cult wall."
+	desc = "This spell constructs a runed wall."
 
 	school = "conjuration"
 	charge_max = 100
@@ -70,7 +70,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/door
 	name = "Summon Cult Door"
-	desc = "This spell constructs a cult Airlock."
+	desc = "This spell constructs a runed Airlock."
 
 	school = "conjuration"
 	charge_max = 300
