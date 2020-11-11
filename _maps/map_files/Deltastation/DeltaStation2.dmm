@@ -35290,12 +35290,12 @@
 	req_access_txt = "28"
 	},
 /obj/item/storage/box/donkpockets,
-/obj/item/storage/box/donkpockets,
 /obj/item/clothing/head/chefhat,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
+/obj/effect/spawner/lootdrop/donkpockets,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "blv" = (
@@ -37659,7 +37659,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Head of Security's Office";
-	req_access_txt = "58"
+	req_access_txt = "58";
+	security_level = 6
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -37769,7 +37770,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Head of Security's Quarters";
-	req_access_txt = "58"
+	req_access_txt = "58";
+	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -43983,7 +43985,6 @@
 /area/engine/break_room)
 "bzn" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/box/donkpockets,
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
@@ -43997,6 +43998,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/effect/spawner/lootdrop/donkpockets,
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "bzo" = (
@@ -46272,7 +46274,8 @@
 "bCG" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Power Tools Storage";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -46305,7 +46308,8 @@
 "bCI" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Power Tools Storage";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -46942,7 +46946,8 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -47034,7 +47039,8 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -47331,7 +47337,8 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -47389,7 +47396,8 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -47852,7 +47860,8 @@
 "bEu" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Gravity Generator Room";
-	req_access_txt = "19;23"
+	req_access_txt = "19;23";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -48400,7 +48409,8 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -48473,7 +48483,8 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -48760,7 +48771,8 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -50833,7 +50845,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Council Chambers";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
@@ -50994,7 +51007,8 @@
 "bIX" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Office";
-	req_access_txt = "20"
+	req_access_txt = "20";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -52196,7 +52210,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Telecomms Control Room";
-	req_access_txt = "19; 61"
+	req_access_txt = "19; 61";
+	security_level = 6
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -52975,7 +52990,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Chief Engineer's Office";
-	req_access_txt = "56"
+	req_access_txt = "56";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -58191,7 +58207,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Chief Engineer's Quarters";
-	req_access_txt = "56"
+	req_access_txt = "56";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -58696,7 +58713,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel's Office";
-	req_access_txt = "57"
+	req_access_txt = "57";
+	security_level = 6
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor/border_only,
@@ -58749,7 +58767,8 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/command{
 	name = "Telecomms Server Room";
-	req_access_txt = "61"
+	req_access_txt = "61";
+	security_level = 6
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -61045,7 +61064,8 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Armoury";
-	req_access_txt = "3"
+	req_access_txt = "3";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -62073,7 +62093,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Telecomms Server Room";
-	req_access_txt = "61"
+	req_access_txt = "61";
+	security_level = 6
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -62118,7 +62139,8 @@
 "bZm" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Quarters";
-	req_access_txt = "20"
+	req_access_txt = "20";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -62531,7 +62553,8 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Armoury";
-	req_access_txt = "3"
+	req_access_txt = "3";
+	security_level = 6
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -67725,7 +67748,8 @@
 "cij" = (
 /obj/machinery/door/airlock/command{
 	name = "Emergency Escape";
-	req_access_txt = "20"
+	req_access_txt = "20";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -68643,7 +68667,8 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/command{
 	name = "Telecomms Server Room";
-	req_access_txt = "61"
+	req_access_txt = "61";
+	security_level = 6
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -69397,7 +69422,8 @@
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Teleporter Maintenance";
-	req_access_txt = "17"
+	req_access_txt = "17";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
@@ -70181,7 +70207,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Telecomms Server Room";
-	req_access_txt = "61"
+	req_access_txt = "61";
+	security_level = 6
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -70995,7 +71022,8 @@
 "cnY" = (
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel's Quarters";
-	req_access_txt = "57"
+	req_access_txt = "57";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -72394,7 +72422,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel's Office";
-	req_access_txt = "57"
+	req_access_txt = "57";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/firedoor/border_only,
@@ -72425,7 +72454,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Telecomms Foyer";
-	req_access_txt = "61"
+	req_access_txt = "61";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/stripes/line{
@@ -72443,7 +72473,8 @@
 "crc" = (
 /obj/machinery/door/airlock/command{
 	name = "Teleport Access";
-	req_access_txt = "17"
+	req_access_txt = "17";
+	security_level = 6
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
@@ -74770,7 +74801,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "E.V.A. Storage";
-	req_access_txt = "18"
+	req_access_txt = "18";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/stripes/line{
@@ -74788,7 +74820,8 @@
 "cvq" = (
 /obj/machinery/door/airlock/command{
 	name = "E.V.A. Storage";
-	req_access_txt = "18"
+	req_access_txt = "18";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/stripes/line{
@@ -74906,7 +74939,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Gateway Atrium";
-	req_access_txt = "62"
+	req_access_txt = "62";
+	security_level = 6
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -77499,7 +77533,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Corporate Lounge";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -77512,7 +77547,8 @@
 "cAb" = (
 /obj/machinery/door/airlock/command{
 	name = "Corporate Lounge";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -80472,7 +80508,8 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Gateway Chamber";
-	req_access_txt = "62"
+	req_access_txt = "62";
+	security_level = 6
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -82025,7 +82062,8 @@
 "cHO" = (
 /obj/machinery/door/airlock/command{
 	name = "Corporate Lounge";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -82043,7 +82081,8 @@
 "cHP" = (
 /obj/machinery/door/airlock/command{
 	name = "Gateway Atrium";
-	req_access_txt = "62"
+	req_access_txt = "62";
+	security_level = 6
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
@@ -100244,7 +100283,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Research Director's Office";
-	req_access_txt = "30"
+	req_access_txt = "30";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -103226,7 +103266,8 @@
 "dwY" = (
 /obj/machinery/door/airlock/command{
 	name = "Chief Medical Officer's Office";
-	req_access_txt = "40"
+	req_access_txt = "40";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -103329,7 +103370,8 @@
 "dxe" = (
 /obj/machinery/door/airlock/command{
 	name = "Chief Medical Officer's Office";
-	req_access_txt = "40"
+	req_access_txt = "40";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -103552,7 +103594,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Research Director's Quarters";
-	req_access_txt = "30"
+	req_access_txt = "30";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/stripes/line{
@@ -107299,7 +107342,8 @@
 "dFg" = (
 /obj/machinery/door/airlock/command{
 	name = "Chief Medical Officer's Quarters";
-	req_access_txt = "40"
+	req_access_txt = "40";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -107737,7 +107781,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Research Division Server Room";
-	req_access_txt = "30"
+	req_access_txt = "30";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -108432,7 +108477,8 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Server Access";
-	req_access_txt = "30"
+	req_access_txt = "30";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -123514,7 +123560,8 @@
 "oZC" = (
 /obj/machinery/door/airlock/command{
 	name = "Corporate Lounge";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
