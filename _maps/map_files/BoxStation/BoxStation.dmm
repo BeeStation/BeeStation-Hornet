@@ -34657,10 +34657,6 @@
 	},
 /turf/open/floor/plasteel/white/corner,
 /area/engine/atmos)
-"bUU" = (
-/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
-/turf/open/floor/engine/n2o,
-/area/engine/atmos)
 "bUV" = (
 /obj/machinery/air_sensor/atmos/nitrous_tank,
 /turf/open/floor/engine/n2o,
@@ -35972,10 +35968,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"bYU" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
-/turf/open/floor/engine/plasma,
-/area/engine/atmos)
 "bYV" = (
 /obj/machinery/air_sensor/atmos/toxin_tank,
 /turf/open/floor/engine/plasma,
@@ -36921,10 +36913,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/misc_lab)
-"cbX" = (
-/obj/machinery/atmospherics/miner/toxins,
-/turf/open/floor/engine/plasma,
-/area)
 "cbZ" = (
 /obj/structure/sink{
 	dir = 4;
@@ -37177,10 +37165,6 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/engine/atmos)
-"ccB" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
-/turf/open/floor/engine/co2,
 /area/engine/atmos)
 "ccC" = (
 /obj/machinery/air_sensor/atmos/carbon_tank,
@@ -39837,16 +39821,8 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"clT" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
-/turf/open/floor/engine/n2,
-/area/engine/atmos)
 "clU" = (
 /turf/open/floor/engine/n2,
-/area/engine/atmos)
-"clV" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/open/floor/engine/o2,
 /area/engine/atmos)
 "clW" = (
 /turf/open/floor/engine/o2,
@@ -46243,6 +46219,10 @@
 "cVb" = (
 /turf/closed/wall,
 /area/hallway/secondary/service)
+"cVt" = (
+/obj/machinery/atmospherics/miner/nitrogen,
+/turf/open/floor/engine/n2,
+/area/engine/atmos)
 "cWf" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -47123,6 +47103,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
+"ekq" = (
+/obj/machinery/atmospherics/miner/carbon_dioxide,
+/turf/open/floor/engine/co2,
+/area/engine/atmos)
 "ekG" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -47135,11 +47119,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/processing)
-"ekP" = (
-/obj/machinery/atmospherics/miner,
-/obj/machinery/atmospherics/miner,
-/turf/open/floor/engine/n2,
-/area/engine/atmos)
 "ekU" = (
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
@@ -47475,6 +47454,10 @@
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/aisat/hallway)
+"eDJ" = (
+/obj/machinery/atmospherics/miner/n2o,
+/turf/open/floor/engine/n2o,
+/area/engine/atmos)
 "eEb" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -49643,6 +49626,10 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/hallway/secondary/exit)
+"hhj" = (
+/obj/machinery/atmospherics/miner/toxins,
+/turf/open/floor/engine/plasma,
+/area/engine/atmos)
 "hhs" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
@@ -54616,6 +54603,9 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"nvR" = (
+/turf/open/floor/engine/plasma,
+/area)
 "nxv" = (
 /obj/machinery/power/apc/auto_name/south{
 	pixel_y = -24
@@ -55787,10 +55777,6 @@
 	dir = 5
 	},
 /area/science/research)
-"pcC" = (
-/obj/machinery/atmospherics/miner/carbon_dioxide,
-/turf/open/floor/engine/co2,
-/area/engine/atmos)
 "pcI" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/blue{
@@ -57371,10 +57357,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"qVc" = (
-/obj/machinery/atmospherics/miner/n2o,
-/turf/open/floor/engine/n2o,
-/area/engine/atmos)
 "qVo" = (
 /turf/open/floor/plasteel/white/side{
 	dir = 6
@@ -60357,10 +60339,6 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/exit)
-"vcF" = (
-/obj/machinery/atmospherics/miner/oxygen,
-/turf/open/floor/engine/o2,
-/area/engine/atmos)
 "vdl" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -60378,6 +60356,10 @@
 	dir = 8
 	},
 /area/science/research)
+"veN" = (
+/obj/machinery/atmospherics/miner/oxygen,
+/turf/open/floor/engine/o2,
+/area/engine/atmos)
 "vhl" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -96088,7 +96070,7 @@ nDO
 aaf
 bQA
 ckU
-clT
+cVt
 cmU
 bOh
 ccw
@@ -96346,7 +96328,7 @@ bVu
 ckb
 ckW
 clU
-ekP
+clU
 bOh
 ccw
 ccw
@@ -97116,7 +97098,7 @@ nDO
 aaf
 bQA
 ckX
-clV
+veN
 cmV
 bOh
 cig
@@ -97374,7 +97356,7 @@ bVu
 ckb
 ckZ
 clW
-vcF
+clW
 bOh
 cig
 aaa
@@ -99668,15 +99650,15 @@ bPm
 bPm
 bOh
 bTW
-bUU
+eDJ
 bTW
 bOh
 bXW
-bYU
+hhj
 bXW
 bOh
 cbH
-ccB
+ekq
 cbH
 bOh
 aaf
@@ -99926,15 +99908,15 @@ bPm
 bOh
 bTW
 bUW
-qVc
+bTW
 bOh
 bXY
 bYW
-cbX
+nvR
 bOh
 cbH
 ccD
-pcC
+cbH
 bOh
 aaf
 aaf

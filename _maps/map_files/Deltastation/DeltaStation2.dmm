@@ -27032,10 +27032,6 @@
 	},
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
-"aXW" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
-/turf/open/floor/engine/co2,
-/area/engine/atmos)
 "aXX" = (
 /obj/machinery/air_sensor/atmos/carbon_tank,
 /turf/open/floor/engine/co2,
@@ -29427,10 +29423,6 @@
 /obj/machinery/air_sensor/atmos/oxygen_tank,
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
-"bbO" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/open/floor/engine/o2,
-/area/engine/atmos)
 "bbP" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -30942,10 +30934,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/open/floor/engine/plasma,
-/area/engine/atmos)
-"bev" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "bew" = (
@@ -32762,10 +32750,6 @@
 /area/engine/atmos)
 "bhv" = (
 /obj/machinery/air_sensor/atmos/nitrogen_tank,
-/turf/open/floor/engine/n2,
-/area/engine/atmos)
-"bhw" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "bhx" = (
@@ -34875,12 +34859,6 @@
 "bkG" = (
 /obj/machinery/light/small{
 	dir = 8
-	},
-/turf/open/floor/engine/n2o,
-/area/engine/atmos)
-"bkH" = (
-/obj/machinery/portable_atmospherics/canister/nitrous_oxide{
-	valve_open = 1
 	},
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
@@ -120904,10 +120882,6 @@
 	},
 /turf/closed/wall/r_wall,
 /area/security/execution/education)
-"gjt" = (
-/obj/machinery/atmospherics/miner/n2o,
-/turf/open/floor/engine/n2o,
-/area/engine/atmos)
 "goa" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -121143,10 +121117,6 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"gVf" = (
-/obj/machinery/atmospherics/miner/nitrogen,
-/turf/open/floor/engine/n2,
-/area/engine/atmos)
 "gVM" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -121559,6 +121529,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
+"ipC" = (
+/obj/machinery/atmospherics/miner/nitrogen,
+/turf/open/floor/engine/n2,
+/area/engine/atmos)
 "isT" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -122517,10 +122491,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/research)
-"lxY" = (
-/obj/machinery/atmospherics/miner/oxygen,
-/turf/open/floor/engine/o2,
-/area/engine/atmos)
 "lyU" = (
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_toxmix{
 	dir = 8
@@ -122572,6 +122542,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port)
+"lEN" = (
+/obj/machinery/atmospherics/miner/toxins,
+/turf/open/floor/engine/plasma,
+/area/engine/atmos)
 "lFh" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plasteel/white,
@@ -123658,10 +123632,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
-"prv" = (
-/obj/machinery/atmospherics/miner/carbon_dioxide,
-/turf/open/floor/engine/co2,
-/area/engine/atmos)
 "psi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bodycontainer/morgue{
@@ -123899,6 +123869,10 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"qiM" = (
+/obj/machinery/atmospherics/miner/n2o,
+/turf/open/floor/engine/n2o,
+/area/engine/atmos)
 "qjp" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	id_tag = "commissarydoor";
@@ -124500,6 +124474,10 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/shuttledock)
+"sNZ" = (
+/obj/machinery/atmospherics/miner/carbon_dioxide,
+/turf/open/floor/engine/co2,
+/area/engine/atmos)
 "sOi" = (
 /obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
@@ -124687,10 +124665,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"tlE" = (
-/obj/machinery/atmospherics/miner/toxins,
-/turf/open/floor/engine/plasma,
-/area/engine/atmos)
 "tub" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -124841,6 +124815,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
+"tUY" = (
+/obj/machinery/atmospherics/miner/oxygen,
+/turf/open/floor/engine/o2,
+/area/engine/atmos)
 "udo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -146830,15 +146808,15 @@ hFo
 aRF
 aWt
 aXV
-prv
+aWt
 aRF
 bcX
 beu
-tlE
+bcX
 aRF
 biT
 bkG
-gjt
+biT
 aRF
 bpO
 brT
@@ -147086,15 +147064,15 @@ aFr
 aSQ
 aRF
 aWu
-aXW
+sNZ
 aWt
 aRF
 bcY
-bev
+lEN
 bcX
 aRF
 biU
-bkH
+qiM
 biT
 aRF
 bpO
@@ -154541,11 +154519,11 @@ aVa
 aTl
 aRF
 bal
-bbO
+tUY
 bam
 aRF
 bgg
-bhw
+ipC
 bgh
 aRF
 aMN
@@ -154799,11 +154777,11 @@ aTl
 aRF
 bam
 bbP
-lxY
+bam
 aRF
 bgh
 bhx
-gVf
+bgh
 aRF
 aMO
 alf

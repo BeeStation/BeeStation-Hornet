@@ -42101,10 +42101,6 @@
 /obj/machinery/air_sensor/atmos/nitrous_tank,
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
-"bQa" = (
-/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
-/turf/open/floor/engine/n2o,
-/area/engine/atmos)
 "bQb" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -43535,10 +43531,6 @@
 /area/engine/atmos)
 "bSW" = (
 /obj/machinery/air_sensor/atmos/toxin_tank,
-/turf/open/floor/engine/plasma,
-/area/engine/atmos)
-"bSX" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "bSY" = (
@@ -45051,10 +45043,6 @@
 /area/space/nearstation)
 "bWe" = (
 /obj/machinery/air_sensor/atmos/carbon_tank,
-/turf/open/floor/engine/co2,
-/area/engine/atmos)
-"bWf" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "bWg" = (
@@ -47267,15 +47255,7 @@
 "cbs" = (
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
-"cbt" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
-/turf/open/floor/engine/n2,
-/area/engine/atmos)
 "cbu" = (
-/turf/open/floor/engine/o2,
-/area/engine/atmos)
-"cbv" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "cbw" = (
@@ -55657,10 +55637,6 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/chapel/main/monastery)
-"fMb" = (
-/obj/machinery/atmospherics/miner/toxins,
-/turf/open/floor/engine/plasma,
-/area/engine/atmos)
 "fNd" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
@@ -58831,10 +58807,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"kUR" = (
-/obj/machinery/atmospherics/miner/n2o,
-/turf/open/floor/engine/n2o,
-/area/engine/atmos)
 "kXb" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/abandoned,
@@ -59703,6 +59675,10 @@
 /obj/effect/turf_decal/tile/yellow,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/disposal/incinerator)
+"mOL" = (
+/obj/machinery/atmospherics/miner/toxins,
+/turf/open/floor/engine/plasma,
+/area/engine/atmos)
 "mPh" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/sign/directions/evac{
@@ -60246,6 +60222,10 @@
 /obj/machinery/meter,
 /turf/open/floor/engine,
 /area/engine/engineering)
+"nQz" = (
+/obj/machinery/atmospherics/miner/oxygen,
+/turf/open/floor/engine/o2,
+/area/engine/atmos)
 "nSj" = (
 /obj/structure/grille/broken,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
@@ -60311,6 +60291,10 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
+"nXG" = (
+/obj/machinery/atmospherics/miner/n2o,
+/turf/open/floor/engine/n2o,
+/area/engine/atmos)
 "nYn" = (
 /obj/structure/sign/warning/docking,
 /obj/effect/spawner/structure/window/reinforced,
@@ -60470,6 +60454,10 @@
 	icon_state = "platingdmg3"
 	},
 /area/maintenance/department/security/brig)
+"olS" = (
+/obj/machinery/atmospherics/miner/carbon_dioxide,
+/turf/open/floor/engine/co2,
+/area/engine/atmos)
 "onn" = (
 /obj/structure/chair{
 	dir = 1
@@ -60578,6 +60566,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"osg" = (
+/obj/machinery/atmospherics/miner/nitrogen,
+/turf/open/floor/engine/n2,
+/area/engine/atmos)
 "ost" = (
 /obj/structure/table/glass,
 /obj/item/paper_bin{
@@ -62493,10 +62485,6 @@
 	luminosity = 2
 	},
 /area/maintenance/department/science)
-"rpx" = (
-/obj/machinery/atmospherics/miner/oxygen,
-/turf/open/floor/engine/o2,
-/area/engine/atmos)
 "rrb" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -63908,10 +63896,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
-"umF" = (
-/obj/machinery/atmospherics/miner/nitrogen,
-/turf/open/floor/engine/n2,
-/area/engine/atmos)
 "uos" = (
 /obj/machinery/computer/camera_advanced/base_construction,
 /obj/effect/turf_decal/stripes/line{
@@ -65741,10 +65725,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
-"xzY" = (
-/obj/machinery/atmospherics/miner/carbon_dioxide,
-/turf/open/floor/engine/co2,
-/area/engine/atmos)
 "xDj" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
@@ -101264,7 +101244,7 @@ bZd
 bZL
 caz
 cbs
-umF
+cbs
 bJP
 aaa
 aaa
@@ -101520,7 +101500,7 @@ eKK
 abI
 bMi
 caA
-cbt
+osg
 ccm
 bJP
 aaa
@@ -102292,7 +102272,7 @@ bZd
 bZL
 caC
 cbu
-rpx
+cbu
 bJP
 abI
 aby
@@ -102548,7 +102528,7 @@ eKK
 abI
 bMi
 caD
-cbv
+nQz
 ccn
 bJP
 aaa
@@ -106131,15 +106111,15 @@ bLe
 bLe
 bJP
 bPh
-bQa
+nXG
 bPh
 bJP
 bSk
-bSX
+mOL
 bSk
 bJP
 bVo
-bWf
+olS
 bVo
 bJP
 aht
@@ -106389,15 +106369,15 @@ bLe
 bJP
 bPh
 bQb
-kUR
+bPh
 bJP
 bSl
 bSY
-fMb
+bSk
 bJP
 bVo
 bWg
-xzY
+bVo
 bJP
 oex
 bYw
