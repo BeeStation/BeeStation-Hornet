@@ -1,0 +1,74 @@
+"a" = (/turf/open/space/basic,/area/space)
+"b" = (/obj/structure/frame/machine{icon_state = "subspace_ansible"},/turf/open/floor/plating/asteroid/airless{icon_state = "plastitanium"},/area/ruin)
+"c" = (/turf/open/floor/plating/asteroid/airless{icon_state = "platingdmg3"},/area/ruin)
+"d" = (/obj/effect/spawner/lootdrop/whiteship_cere_ripley,/turf/open/floor/plating/asteroid/airless,/area/ruin)
+"e" = (/obj/item/chair/wood/wings,/turf/open/floor/wood{icon_state = "wood-broken"},/area/ruin)
+"f" = (/obj/machinery/light_switch,/turf/closed/wall/r_wall/rust,/area/ruin)
+"g" = (/obj/structure/bed/dogbed/walter,/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,/turf/open/floor/wood,/area/ruin)
+"h" = (/turf/open/floor/plating/asteroid/airless{icon_state = "plastitanium_dam4"},/area/ruin)
+"i" = (/obj/machinery/light{icon_state = "tube-broken"},/turf/open/floor/plating/asteroid/airless,/area/ruin)
+"j" = (/obj/structure/table_frame,/turf/open/floor/plating/asteroid/airless{icon_state = "plastitanium"},/area/ruin)
+"k" = (/turf/open/floor/wood{icon_state = "wood-broken"},/area/ruin)
+"l" = (/obj/structure/table/reinforced,/obj/item/clothing/head/collectable/petehat,/turf/open/floor/wood,/area/ruin)
+"n" = (/turf/open/floor/wood,/area/ruin)
+"o" = (/turf/open/floor/plating/asteroid/airless,/area/ruin)
+"p" = (/obj/machinery/power/apc/away{icon_state = "apc-b"},/turf/closed/wall/r_wall/rust,/area/ruin)
+"q" = (/turf/open/floor/plating/rust,/area/ruin)
+"r" = (/obj/structure/chair/comfy,/turf/open/floor/plating/asteroid/airless,/area/ruin)
+"s" = (/obj/machinery/light{icon_state = "tube-construct-stage1"},/turf/open/floor/plating/asteroid/airless{icon_state = "plastitanium"},/area/ruin)
+"t" = (/turf/closed/wall/r_wall/rust,/area/ruin)
+"u" = (/turf/open/space/basic,/area/ruin)
+"v" = (/obj/item/pda/chameleon/broken,/turf/open/floor/wood,/area/ruin)
+"w" = (/obj/item/chair/stool/bar,/turf/open/floor/wood{icon_state = "wood-broken4"},/area/ruin)
+"x" = (/obj/structure/table_frame/wood,/turf/open/floor/plating/asteroid/airless,/area/ruin)
+"y" = (/obj/effect/spawner/lootdrop/aimodule_neutral,/turf/open/floor/plating/asteroid/airless,/area/ruin)
+"z" = (/obj/effect/spawner/lootdrop/donkpockets,/turf/open/floor/wood,/area/ruin)
+"A" = (/obj/machinery/light{icon_state = "tube-burned"},/turf/open/floor/wood,/area/ruin)
+"B" = (/obj/structure/bed,/obj/item/bedsheet/random,/turf/open/floor/wood{icon_state = "wood-broken5"},/area/ruin)
+"C" = (/obj/machinery/door/airlock/science,/turf/open/floor/plating/rust,/area/ruin)
+"D" = (/turf/open/floor/plating/asteroid/airless{icon_state = "plastitanium_dam3"},/area/ruin)
+"E" = (/obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner,/turf/open/floor/plating/asteroid/airless,/area/ruin)
+"F" = (/obj/effect/spawner/lootdrop/pizzaparty,/turf/open/floor/plating/asteroid/airless,/area/ruin)
+"G" = (/obj/structure/frame/machine{icon_state = "box_1"},/turf/open/floor/plating/asteroid/airless{icon_state = "plastitanium_dam3"},/area/ruin)
+"H" = (/turf/open/floor/plating/asteroid/airless{icon_state = "plastitanium"},/area/ruin)
+"I" = (/turf/closed/wall/rust,/area/ruin)
+"J" = (/obj/effect/spawner/lootdrop/crate_spawner,/turf/open/floor/plating/asteroid/airless{icon_state = "plastitanium"},/area/ruin)
+"K" = (/obj/structure/table_frame/wood,/turf/open/floor/wood,/area/ruin)
+"L" = (/turf/open/floor/wood{icon_state = "wood-broken5"},/area/ruin)
+"M" = (/obj/structure/door_assembly/door_assembly_research,/turf/open/floor/plating/asteroid/airless,/area/ruin)
+"N" = (/obj/structure/fluff/broken_flooring,/turf/open/floor/plating/rust,/area/ruin)
+"O" = (/obj/machinery/light{icon_state = "tube-construct-stage1"},/turf/open/floor/wood,/area/ruin)
+"P" = (/obj/structure/table/optable,/obj/structure/frame/machine{icon_state = "super_scan_module"},/turf/open/floor/plating/asteroid/airless{icon_state = "plastitanium"},/area/ruin)
+"Q" = (/obj/structure/grille/ratvar/broken,/turf/open/space/basic,/area/space)
+"R" = (/obj/structure/disposalpipe/broken,/turf/open/floor/plating/asteroid/airless{icon_state = "plastitanium"},/area/ruin)
+"S" = (/obj/structure/bed,/obj/item/bedsheet/random,/obj/structure/safe/floor,/turf/open/floor/plating/asteroid/airless,/area/ruin)
+"T" = (/turf/open/floor/plating/asteroid/airless{icon_state = "platingdmg2"},/area/ruin)
+"U" = (/obj/machinery/light{icon_state = "tube-burned"},/turf/open/floor/plating/asteroid/airless{icon_state = "plastitanium"},/area/ruin)
+"V" = (/turf/open/floor/plating/asteroid/airless{icon_state = "plastitanium_dam5"},/area/ruin)
+"W" = (/obj/effect/spawner/lootdrop/seed_vault,/turf/open/floor/wood,/area/ruin)
+"X" = (/obj/effect/spawner/lootdrop/minor,/turf/open/floor/plating/asteroid/airless{icon_state = "plastitanium"},/area/ruin)
+"Y" = (/obj/effect/spawner/lootdrop/minor/twentyfive_percent_cyborg_mask,/turf/open/floor/plating/asteroid/airless,/area/ruin)
+"Z" = (/obj/machinery/vending/wardrobe/sec_wardrobe{icon_state = "chemdrobe-broken"},/turf/open/floor/plating/asteroid/airless,/area/ruin)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaa
+auuuuuuttttptttttttt
+auuuuuutdoHHVPHJoZFt
+auuuuuutHHHhDHHHooot
+auuuuuutbHUHHRHHooot
+aItttfIttttqttooooot
+atEooktttutottooocot
+atoookMHHttHttooooot
+atnniwttottHttGHooot
+aItttfItHttottooooTt
+atlrnWttoNoottHXoojt
+atSkooCoototttHooojt
+QukOovttHtuuutHoooVt
+aItttfItVtuutxooooyt
+atzkKgttYtuutoooooot
+atBneLCootuutoHoooot
+atnAnnttttuutHHiosHt
+aIttttIuuuuuttttottt
+aaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaa
+"}

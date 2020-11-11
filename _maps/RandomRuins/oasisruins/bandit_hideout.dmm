@@ -1,0 +1,97 @@
+"aj" = (/turf/open/floor/wood,/area/ruin/powered)
+"ap" = (/obj/structure/reagent_dispensers/beerkeg,/turf/open/floor/stone,/area/ruin/powered)
+"au" = (/obj/machinery/seed_extractor,/turf/open/floor/stone,/area/ruin/powered)
+"aG" = (/obj/machinery/hydroponics/soil,/obj/item/seeds/soya,/turf/open/floor/stone,/area/ruin/powered)
+"aV" = (/obj/machinery/atmospherics/components/unary/tank/oxygen,/turf/open/floor/stone,/area/ruin/powered)
+"bX" = (/obj/machinery/vending/hydroseeds,/turf/open/floor/stone,/area/ruin/powered)
+"cb" = (/obj/structure/reagent_dispensers/watertank,/turf/open/floor/stone,/area/ruin/powered)
+"cl" = (/obj/structure/closet/cabinet,/obj/item/gun/energy/laser/retro,/obj/item/gun/energy/laser/retro,/obj/item/gun/energy/laser/retro,/turf/open/floor/stone,/area/ruin/powered)
+"cE" = (/obj/structure/closet/cardboard,/obj/item/soap/homemade,/obj/item/soap/homemade,/obj/item/paper_bin/bundlenatural,/obj/item/reagent_containers/glass/bucket,/obj/item/stack/sheet/plastic/fifty,/turf/open/floor/stone,/area/ruin/powered)
+"do" = (/obj/machinery/hydroponics/soil,/obj/item/seeds/random,/obj/item/seeds/random,/turf/open/floor/stone,/area/ruin/powered)
+"dK" = (/obj/machinery/hydroponics/soil,/obj/item/seeds/potato,/obj/item/seeds/potato/sweet,/turf/open/floor/stone,/area/ruin/powered)
+"fF" = (/obj/machinery/power/floodlight,/turf/open/floor/wood,/area/ruin/powered)
+"gu" = (/obj/machinery/hydroponics/soil,/obj/item/seeds/chili,/turf/open/floor/stone,/area/ruin/powered)
+"hO" = (/obj/machinery/chem_master/condimaster,/turf/open/floor/stone,/area/ruin/powered)
+"hV" = (/obj/item/bedsheet/dorms,/obj/effect/mob_spawn/human/beach/alive,/turf/open/floor/stone,/area/ruin/powered)
+"lv" = (/turf/open/space/basic,/area/space)
+"lG" = (/obj/machinery/hydroponics/soil,/obj/item/seeds/lemon,/obj/item/seeds/lime,/obj/item/seeds/whitebeet,/turf/open/floor/stone,/area/ruin/powered)
+"lY" = (/obj/machinery/hydroponics/soil,/obj/item/seeds/garlic,/obj/item/seeds/onion,/obj/item/seeds/onion/red,/turf/open/floor/stone,/area/ruin/powered)
+"mb" = (/obj/item/card/id/departmental_budget/srv,/obj/structure/closet/cabinet,/turf/open/floor/stone,/area/ruin/powered)
+"nl" = (/obj/structure/falsewall/sandstone,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/powered)
+"nE" = (/obj/machinery/hydroponics/soil,/obj/item/seeds/pineapple,/turf/open/floor/stone,/area/ruin/powered)
+"pR" = (/obj/structure/mineral_door/sandstone,/turf/open/space/basic,/area/ruin/powered)
+"rS" = (/obj/structure/bedsheetbin/empty,/turf/open/floor/stone,/area/ruin/powered)
+"sg" = (/obj/machinery/hydroponics/soil,/obj/item/seeds/lavaland/cactus,/obj/item/seeds/lavaland/ember,/obj/item/seeds/lavaland/inocybe,/obj/item/seeds/lavaland/polypore,/obj/item/seeds/lavaland/porcini,/obj/item/seeds/liberty,/obj/item/seeds/plump,/obj/item/seeds/tower,/obj/item/seeds/tower,/turf/open/floor/stone,/area/ruin/powered)
+"so" = (/obj/machinery/power/floodlight,/turf/open/floor/stone,/area/ruin/powered)
+"ss" = (/obj/structure/reagent_dispensers/watertank/high,/turf/open/floor/stone,/area/ruin/powered)
+"sU" = (/obj/structure/sign/departments/botany,/turf/closed/wall/mineral/sandstone,/area/ruin/powered)
+"sZ" = (/obj/structure/closet/cabinet,/obj/item/stack/sheet/wetleather,/obj/item/stack/sheet/mineral/coal/five,/turf/open/floor/stone,/area/ruin/powered)
+"uJ" = (/obj/machinery/portable_atmospherics/canister/oxygen,/turf/open/floor/stone,/area/ruin/powered)
+"vv" = (/obj/structure/table/reinforced,/turf/open/floor/stone,/area/ruin/powered)
+"vM" = (/obj/structure/tank_dispenser/oxygen,/turf/open/floor/stone,/area/ruin/powered)
+"xU" = (/obj/machinery/hydroponics/soil,/obj/machinery/hydroponics/soil,/obj/item/seeds/wheat/rice,/obj/item/seeds/wheat,/turf/open/floor/stone,/area/ruin/powered)
+"yd" = (/obj/machinery/hydroponics/soil,/obj/item/seeds/tea,/obj/item/seeds/tea/astra,/turf/open/floor/stone,/area/ruin/powered)
+"yV" = (/obj/structure/closet/cabinet,/obj/item/stack/sheet/mineral/titanium,/turf/open/floor/stone,/area/ruin/powered)
+"zS" = (/obj/machinery/chem_dispenser,/turf/open/floor/stone,/area/ruin/powered)
+"Am" = (/obj/machinery/plantgenes/seedvault,/obj/structure/table/reinforced,/turf/open/floor/stone,/area/ruin/powered)
+"An" = (/obj/machinery/hydroponics/soil,/obj/item/seeds/pumpkin,/turf/open/floor/stone,/area/ruin/powered)
+"AG" = (/obj/structure/statue/sandstone/assistant,/turf/open/floor/stone,/area/ruin/powered)
+"AV" = (/obj/machinery/portable_atmospherics/canister/oxygen,/obj/machinery/portable_atmospherics/canister/oxygen,/turf/open/floor/stone,/area/ruin/powered)
+"AW" = (/obj/structure/mineral_door/sandstone,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/powered)
+"Bb" = (/obj/machinery/hydroponics/soil,/obj/item/seeds/eggplant/eggy,/turf/open/floor/stone,/area/ruin/powered)
+"BR" = (/obj/structure/closet/cabinet,/obj/item/stack/sheet/mineral/silver,/obj/item/storage/firstaid,/obj/item/storage/firstaid/toxin,/obj/item/storage/firstaid/radbgone,/turf/open/floor/stone,/area/ruin/powered)
+"Cx" = (/obj/machinery/hydroponics/soil,/obj/item/seeds/corn,/turf/open/floor/stone,/area/ruin/powered)
+"CF" = (/obj/structure/ore_box,/turf/open/floor/wood,/area/ruin/powered)
+"CU" = (/obj/structure/closet/crate/wooden,/obj/item/storage/toolbox/mechanical,/obj/item/storage/toolbox/mechanical,/obj/item/paper/fluff/jobs/mining/smelter_notice,/obj/item/pickaxe/drill/diamonddrill,/obj/item/pickaxe/drill/diamonddrill,/obj/item/pickaxe/drill/diamonddrill,/turf/open/floor/wood,/area/ruin/powered)
+"Dv" = (/obj/machinery/hydroponics/soil,/obj/item/seeds/wheat/oat,/turf/open/floor/stone,/area/ruin/powered)
+"Ft" = (/obj/machinery/chem_dispenser/mutagensaltpetersmall,/turf/open/floor/stone,/area/ruin/powered)
+"Gt" = (/obj/structure/table/reinforced,/obj/item/kitchen/knife/butcher,/obj/item/kitchen/knife,/obj/item/trash/can/food/beans,/obj/item/book/granter/crafting_recipe/cooking_sweets_101,/obj/item/storage/bag/plants/portaseeder,/turf/open/floor/stone,/area/ruin/powered)
+"Kj" = (/obj/machinery/portable_atmospherics/canister/water_vapor,/turf/open/floor/stone,/area/ruin/powered)
+"KI" = (/obj/structure/mineral_door/wood,/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/powered)
+"Or" = (/obj/structure/mopbucket,/obj/item/mop,/obj/item/reagent_containers/spray/cleaner,/turf/open/floor/stone,/area/ruin/powered)
+"Oy" = (/turf/open/floor/plasteel/rockvault/sandstone,/area/ruin/powered)
+"OD" = (/obj/machinery/vending/hydronutrients,/turf/open/floor/stone,/area/ruin/powered)
+"Qm" = (/turf/open/floor/stone,/area/ruin/powered)
+"QP" = (/obj/structure/table/reinforced,/obj/item/reagent_containers/glass/beaker/large,/obj/item/reagent_containers/glass/beaker/large,/obj/item/reagent_containers/glass/beaker/large,/turf/open/floor/stone,/area/ruin/powered)
+"Ri" = (/turf/closed/wall/mineral/wood/nonmetal,/area/ruin/powered)
+"RT" = (/turf/closed/wall/mineral/sandstone,/area/ruin/powered)
+"Se" = (/obj/machinery/food_cart,/turf/open/floor/stone,/area/ruin/powered)
+"TD" = (/obj/structure/closet/cabinet,/obj/item/stack/sheet/plasteel/twenty,/obj/item/stack/sheet/plasmaglass/fifty,/obj/item/stack/sheet/plastic/fifty,/obj/item/stack/sheet/rglass,/obj/item/stack/sheet/rglass,/obj/item/stack/sheet/rglass,/obj/item/stack/sheet/rglass,/obj/item/stack/sheet/titaniumglass,/obj/item/stack/sheet/mineral/wood/fifty,/obj/item/stack/sheet/mineral/gold,/obj/item/stack/sheet/iron/fifty,/obj/item/stack/sheet/cotton/cloth/five,/obj/item/stack/sheet/cardboard/fifty,/turf/open/floor/stone,/area/ruin/powered)
+"UI" = (/obj/structure/reagent_dispensers/fueltank,/turf/open/floor/stone,/area/ruin/powered)
+"VH" = (/obj/machinery/hydroponics/soil,/obj/item/seeds/coffee/robusta,/turf/open/floor/stone,/area/ruin/powered)
+"Xn" = (/obj/item/chair/wood,/turf/open/floor/wood,/area/ruin/powered)
+"XL" = (/obj/machinery/hydroponics/soil,/obj/item/seeds/grape,/obj/item/seeds/grape/green,/obj/item/seeds/watermelon,/turf/open/floor/stone,/area/ruin/powered)
+"YQ" = (/obj/machinery/processor,/turf/open/floor/stone,/area/ruin/powered)
+
+(1,1,1) = {"
+lvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlv
+lvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlv
+lvlvlvRTRTRTRTRTRTRTRTlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlv
+lvlvlvRTmbTDsZyVBRclRTlvRiRiRiRiRiRilvlvlvlvlvlvlvlvlvlvlvlv
+lvlvlvRTQmQmQmQmQmQmRTlvRiCUajajCFRilvRTRTRTRTRTRTRTRTRTRTRT
+lvlvlvRTQmQmQmQmQmQmRTlvRiajajajCFRilvRTQmhVQmQmRTQmhVQmQmRT
+lvlvlvRTrSsoQmQmQmQmRTRTRifFajajCFRiRTRThVQmQmQmpRQmQmQmhVRT
+lvlvlvRTRTRTAWAWRTRTRTQmRiXnajajCFRiQmRTQmQmsoQmpRQmsoQmQmRT
+lvlvlvRTQmAGOyOyAGQmRTQmRiRiKIKIRiRiQmRTQmQmQmQmRTQmQmQmQmRT
+lvlvlvRTQmQmOyOyQmQmRTQmQmQmOyOyQmQmQmRTRTpRpRRTRTRTpRpRRTRT
+RTRTRTRTRTRTOyOyRTRTRTQmQmQmOyOyQmQmQmQmQmOyOyQmRTQmQmQmQmRT
+RTaVuJvMvMRTOyOyQmQmQmQmQmQmOyOyQmQmQmQmQmOyOyQmRThVQmQmhVRT
+RTKjUIssssRTOyOyQmQmQmQmQmQmOyOyQmQmQmQmQmOyOyQmRTQmQmsoQmRT
+RTKjQmQmQmAWOyOyQmQmQmQmQmsoOyOyQmQmQmQmQmOyOyQmRTQmQmQmQmRT
+RTapQmQmQmAWOyOyQmQmQmQmQmQmOyOyQmQmQmQmQmOyOyQmRTRTpRpRRTRT
+RTcEQmQmOrRTOyOyQmQmQmQmQmQmOyOyQmQmQmQmQmOyOyQmRTQmQmQmQmRT
+RTuJuJuJuJRTOyOyOyOyOyOyOyOyOyOyOyOyOyOyOyOyOyOypRhVQmQmhVRT
+RTAVuJuJuJRTOyOyOyOyOyOyOyOyOyOyOyOyOyOyOyOyOyOypRQmsoQmQmRT
+RTRTRTRTRTRTOyOyQmQmQmQmOyOyQmQmQmsoQmQmQmOyOyQmRTQmQmQmQmRT
+lvlvlvlvlvRTOyOyQmQmQmQmOyOyQmQmQmQmQmQmQmOyOyQmRTRTpRpRRTRT
+lvlvlvlvlvRTOyOyQmQmQmQmOyOyQmQmQmQmQmQmQmOyOyQmRTQmQmQmQmRT
+RTRTRTRTsURTAWAWRTRTRTRTOyOyQmQmQmQmQmQmQmOyOyOypRhVQmsohVRT
+RTcbODbXQmQmQmQmQmQmQmRTOyOyQmQmQmQmQmQmQmOyOyOypRQmQmQmQmRT
+RTQmBbBbBbQmQmQmQmQmSeRTOyOyQmQmQmQmQmQmQmQmQmQmRTQmQmQmQmRT
+RTQmDvxUCxQmQmQmQmQmvvRTOyOyQmQmQmQmQmQmQmQmQmQmRTRTRTRTRTRT
+RTQmVHgulYQmsoQmQmQmQPRTOyOyQmQmQmQmQmQmQmQmQmQmRTlvlvlvlvlv
+RTzSXLsglGQmQmQmQmQmGtRTOyOyQmQmQmQmQmQmQmQmQmQmRTlvlvlvlvlv
+RTFtnEAndKQmQmQmQmQmAmRTOyOyQmQmQmQmQmQmQmQmQmQmRTlvlvlvlvlv
+RThOdoaGydQmQmQmYQQmauRTOyOyQmQmQmQmQmQmQmQmQmQmRTlvlvlvlvlv
+RTRTRTRTRTRTRTRTRTRTRTRTnlnlRTRTRTRTRTRTRTRTRTRTRTlvlvlvlvlv
+"}

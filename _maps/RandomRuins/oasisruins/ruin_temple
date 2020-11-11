@@ -1,0 +1,45 @@
+"a" = (/turf/open/space/basic,/area/space)
+"b" = (/turf/closed/wall/mineral/sandstone,/area/space)
+"f" = (/obj/structure/stone_tile/slab/cracked,/obj/structure/statue/sandstone/venus,/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+"i" = (/obj/item/coin/gold,/obj/item/dice/d20,/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+"j" = (/obj/item/deployablemine/explosive,/obj/structure/mineral_door/sandstone,/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+"k" = (/obj/structure/stone_tile/surrounding/cracked,/obj/structure/stone_tile/surrounding_tile,/obj/structure/statue/sandstone/venus,/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+"m" = (/obj/structure/stone_tile,/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+"n" = (/obj/structure/statue/sandstone/assistant,/obj/structure/stone_tile/block,/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+"r" = (/obj/structure/healingfountain,/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+"s" = (/obj/effect/spawner/trap,/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+"t" = (/obj/structure/destructible/clockwork/trap/pressure_sensor,/obj/structure/destructible/clockwork/trap/skewer,/obj/structure/destructible/clockwork/trap/skewer,/obj/structure/destructible/clockwork/trap/skewer,/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+"u" = (/obj/structure/sacrificealtar,/obj/item/instrument/violin/golden,/obj/item/bikehorn/golden,/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+"w" = (/obj/structure/stone_tile/block,/obj/structure/stone_tile/center,/obj/structure/statue/sandstone/venus,/obj/structure/stone_tile/surrounding/cracked,/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+"D" = (/obj/structure/statue/sandstone/assistant,/obj/structure/stone_tile/block/cracked,/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+"G" = (/obj/structure/stone_tile/burnt,/obj/structure/stone_tile/center,/obj/structure/stone_tile/center/cracked,/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+"J" = (/obj/structure/stone_tile/surrounding_tile,/obj/structure/stone_tile/center/burnt,/obj/structure/statue/sandstone/venus,/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+"M" = (/obj/structure/stone_tile/slab/cracked,/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+"P" = (/obj/structure/statue/sandstone/venus,/obj/structure/stone_tile,/obj/structure/stone_tile/block/burnt,/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+"R" = (/obj/structure/statue/sandstone/venus,/obj/structure/stone_tile/slab,/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+"V" = (/obj/item/deployablemine/plasma,/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+"X" = (/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+"Z" = (/obj/effect/trap,/obj/structure/destructible/clockwork/trap/skewer,/obj/structure/destructible/clockwork/trap/skewer,/obj/effect/mob_spawn/human/skeleton/alive,/turf/open/floor/plasteel/rockvault/sandstone,/area/space)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaa
+aaaaabbbbbbbbbaaaaaa
+aaaabXVXrurXVXbaaaaa
+aaaabXPsXZXXRXbaaaaa
+aaabiXVXXXXsVXXbaaaa
+aaabXXJXXXXXwXXbaaaa
+aaaabXVXXtXXVXbaaaaa
+aaaabXfsXXXXkXbaaaaa
+aaaabXXXXXXXXXbaaaaa
+aaaaabbXXXXXbbaaaaaa
+aaaaaaabXXmbaaaaaaaa
+aaaaaaaDbjbnaaaaaaaa
+aaaaaaaaMXGaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaa
+"}
