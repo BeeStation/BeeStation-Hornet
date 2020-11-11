@@ -41,11 +41,16 @@
 	invocation = "none"
 	invocation_type = "none"
 	range = 0
-	summon_type = list(/turf/open/floor/engine/cult)
+	summon_type = list(/turf/open/floor/engine/cult, /obj/structure/fans/tiny/cult)
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
 	action_icon_state = "floorconstruct"
 	action_background_icon_state = "bg_cult"
 
+/obj/structure/fans/tiny/cult
+	name = "pulsating essence"
+	desc = "An enchanced tile that prevents airflow."
+	icon = 'icons/obj/cult.dmi'
+	icon_state = "hole"
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/wall
 	name = "Summon Cult Wall"
