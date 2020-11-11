@@ -59,7 +59,7 @@
 
 /obj/machinery/airalarm
 	name = "air alarm"
-	desc = "A machine that monitors atmosphere levels. Goes off if the area is dangerous."
+	desc = "A machine that monitors atmosphere levels and alerts if the area is dangerous."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarm0"
 	use_power = IDLE_POWER_USE
@@ -159,7 +159,7 @@
 
 /obj/machinery/airalarm/all_access
 	name = "all-access air alarm"
-	desc = "This particular atmos control unit appears to have no access restrictions."
+	desc = "This particular atmospherics control unit appears to have no access restrictions."
 	locked = FALSE
 	req_access = null
 	req_one_access = null
@@ -733,7 +733,7 @@
 		if(1)
 			if(W.tool_behaviour == TOOL_CROWBAR)
 				user.visible_message("[user.name] removes the electronics from [src.name].",\
-									"<span class='notice'>You start prying out the circuit...</span>")
+									"<span class='notice'>You start prying out the circuit.</span>")
 				W.play_tool_sound(src)
 				if (W.use_tool(src, user, 20))
 					if (buildstage == 1)
@@ -750,7 +750,7 @@
 					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the air alarm!</span>")
 					return
 				user.visible_message("[user.name] wires the air alarm.", \
-									"<span class='notice'>You start wiring the air alarm...</span>")
+									"<span class='notice'>You start wiring the air alarm.</span>")
 				if (do_after(user, 20, target = src))
 					if (cable.get_amount() >= 5 && buildstage == 1)
 						cable.use(5)

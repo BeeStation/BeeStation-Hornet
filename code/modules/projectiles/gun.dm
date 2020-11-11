@@ -74,6 +74,7 @@
 	var/atom/autofire_target = null //What are we aiming at? This will change if you move your mouse whilst spraying.
 	var/next_autofire = 0 //As to stop mag dumps, Whoops!
 	var/pb_knockback = 0
+	var/ranged_cooldown = 0
 
 /obj/item/gun/Initialize()
 	. = ..()
@@ -220,7 +221,9 @@
 	if(!can_shoot()) //Just because you can pull the trigger doesn't mean it can shoot.
 		shoot_with_empty_chamber(user)
 		return
-
+		
+	if (ranged_cooldown>world.time)
+		return
 	//Exclude lasertag guns from the TRAIT_CLUMSY check.
 	if(clumsy_check)
 		if(istype(user))
@@ -313,9 +316,9 @@
 /obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	add_fingerprint(user)
 	if(fire_rate)
-		user.changeNext_move(10 / fire_rate)
+		ranged_cooldown = world.time + 10 / fire_rate
 	else
-		user.changeNext_move(CLICK_CD_RANGE)
+		ranged_cooldown = world.time + CLICK_CD_RANGE
 	if(semicd)
 		return
 
@@ -547,7 +550,7 @@
 			if(user == target)
 				user.visible_message("<span class='notice'>[user] decided not to shoot.</span>")
 			else if(target && target.Adjacent(user))
-				target.visible_message("<span class='notice'>[user] has decided to spare [target]</span>", "<span class='notice'>[user] has decided to spare your life!</span>")
+				target.visible_message("<span class='notice'>[user] has decided to spare [target].</span>", "<span class='notice'>[user] has decided to spare your life!</span>")
 		semicd = FALSE
 		return
 
