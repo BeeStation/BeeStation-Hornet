@@ -84,6 +84,11 @@
 	path = /obj/item/clothing/ears/headphones
 	cost = 2000
 
+/datum/gear/accessory/royalcloak
+	display_name = "royal cloak"
+	path = /obj/item/clothing/neck/cloak/royal
+	cost = 100000
+
 //GLASSES
 
 /datum/gear/accessory/eyepatch
