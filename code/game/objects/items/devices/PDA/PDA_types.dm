@@ -240,4 +240,4 @@
 /obj/item/device/pda/blueshield
 	name = "blueshield PDA"
 	var/default_cartridge = /obj/item/cartridge/hos
-	icon_state = "pda-warden"
+	icon_state = "pda-clear"
