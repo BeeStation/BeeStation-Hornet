@@ -55657,6 +55657,10 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/chapel/main/monastery)
+"fMb" = (
+/obj/machinery/atmospherics/miner/toxins,
+/turf/open/floor/engine/plasma,
+/area/engine/atmos)
 "fNd" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
@@ -58827,6 +58831,10 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"kUR" = (
+/obj/machinery/atmospherics/miner/n2o,
+/turf/open/floor/engine/n2o,
+/area/engine/atmos)
 "kXb" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/abandoned,
@@ -59021,7 +59029,9 @@
 /obj/machinery/conveyor_switch{
 	id = "SciLoad"
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -62483,6 +62493,10 @@
 	luminosity = 2
 	},
 /area/maintenance/department/science)
+"rpx" = (
+/obj/machinery/atmospherics/miner/oxygen,
+/turf/open/floor/engine/o2,
+/area/engine/atmos)
 "rrb" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -63894,6 +63908,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
+"umF" = (
+/obj/machinery/atmospherics/miner/nitrogen,
+/turf/open/floor/engine/n2,
+/area/engine/atmos)
 "uos" = (
 /obj/machinery/computer/camera_advanced/base_construction,
 /obj/effect/turf_decal/stripes/line{
@@ -65723,6 +65741,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
+"xzY" = (
+/obj/machinery/atmospherics/miner/carbon_dioxide,
+/turf/open/floor/engine/co2,
+/area/engine/atmos)
 "xDj" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
@@ -101242,7 +101264,7 @@ bZd
 bZL
 caz
 cbs
-cbs
+umF
 bJP
 aaa
 aaa
@@ -102270,7 +102292,7 @@ bZd
 bZL
 caC
 cbu
-cbu
+rpx
 bJP
 abI
 aby
@@ -106367,15 +106389,15 @@ bLe
 bJP
 bPh
 bQb
-bPh
+kUR
 bJP
 bSl
 bSY
-bSk
+fMb
 bJP
 bVo
 bWg
-bVo
+xzY
 bJP
 oex
 bYw

@@ -82754,7 +82754,9 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
 "gjM" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},

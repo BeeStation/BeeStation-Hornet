@@ -36921,6 +36921,10 @@
 	},
 /turf/open/floor/engine,
 /area/science/misc_lab)
+"cbX" = (
+/obj/machinery/atmospherics/miner/toxins,
+/turf/open/floor/engine/plasma,
+/area)
 "cbZ" = (
 /obj/structure/sink{
 	dir = 4;
@@ -47131,6 +47135,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/processing)
+"ekP" = (
+/obj/machinery/atmospherics/miner,
+/obj/machinery/atmospherics/miner,
+/turf/open/floor/engine/n2,
+/area/engine/atmos)
 "ekU" = (
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
@@ -55778,6 +55787,10 @@
 	dir = 5
 	},
 /area/science/research)
+"pcC" = (
+/obj/machinery/atmospherics/miner/carbon_dioxide,
+/turf/open/floor/engine/co2,
+/area/engine/atmos)
 "pcI" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/blue{
@@ -56161,7 +56174,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "pIP" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -57356,6 +57371,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"qVc" = (
+/obj/machinery/atmospherics/miner/n2o,
+/turf/open/floor/engine/n2o,
+/area/engine/atmos)
 "qVo" = (
 /turf/open/floor/plasteel/white/side{
 	dir = 6
@@ -58349,7 +58368,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "ssh" = (
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
@@ -60336,6 +60357,10 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/exit)
+"vcF" = (
+/obj/machinery/atmospherics/miner/oxygen,
+/turf/open/floor/engine/o2,
+/area/engine/atmos)
 "vdl" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -96321,7 +96346,7 @@ bVu
 ckb
 ckW
 clU
-clU
+ekP
 bOh
 ccw
 ccw
@@ -97349,7 +97374,7 @@ bVu
 ckb
 ckZ
 clW
-clW
+vcF
 bOh
 cig
 aaa
@@ -99901,15 +99926,15 @@ bPm
 bOh
 bTW
 bUW
-bTW
+qVc
 bOh
 bXY
 bYW
-bXW
+cbX
 bOh
 cbH
 ccD
-cbH
+pcC
 bOh
 aaf
 aaf

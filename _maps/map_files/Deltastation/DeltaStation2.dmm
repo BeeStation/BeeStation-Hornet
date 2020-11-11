@@ -120904,6 +120904,10 @@
 	},
 /turf/closed/wall/r_wall,
 /area/security/execution/education)
+"gjt" = (
+/obj/machinery/atmospherics/miner/n2o,
+/turf/open/floor/engine/n2o,
+/area/engine/atmos)
 "goa" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -121139,6 +121143,10 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"gVf" = (
+/obj/machinery/atmospherics/miner/nitrogen,
+/turf/open/floor/engine/n2,
+/area/engine/atmos)
 "gVM" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -122509,6 +122517,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/research)
+"lxY" = (
+/obj/machinery/atmospherics/miner/oxygen,
+/turf/open/floor/engine/o2,
+/area/engine/atmos)
 "lyU" = (
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_toxmix{
 	dir = 8
@@ -123238,7 +123250,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -123644,6 +123658,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"prv" = (
+/obj/machinery/atmospherics/miner/carbon_dioxide,
+/turf/open/floor/engine/co2,
+/area/engine/atmos)
 "psi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bodycontainer/morgue{
@@ -124669,6 +124687,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"tlE" = (
+/obj/machinery/atmospherics/miner/toxins,
+/turf/open/floor/engine/plasma,
+/area/engine/atmos)
 "tub" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -146808,15 +146830,15 @@ hFo
 aRF
 aWt
 aXV
-aWt
+prv
 aRF
 bcX
 beu
-bcX
+tlE
 aRF
 biT
 bkG
-biT
+gjt
 aRF
 bpO
 brT
@@ -154777,11 +154799,11 @@ aTl
 aRF
 bam
 bbP
-bam
+lxY
 aRF
 bgh
 bhx
-bgh
+gVf
 aRF
 aMO
 alf
