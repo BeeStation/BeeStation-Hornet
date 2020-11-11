@@ -528,7 +528,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Atmospherics Engine"
 	icon_state = "atmos_engine"
 
-/area/engine/engine_room //donut station specific
+/area/engine/engine_room //donut station/zulu station specific
 	name = "Engine Room"
 	icon_state = "atmos_engine"
 
@@ -581,7 +581,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/solar/aft
 	name = "Aft Solar Array"
-	icon_state = "yellow"
+	icon_state = "panelsAFT"
 
 /area/solar/aux/port
 	name = "Port Bow Auxiliary Solar Array"
@@ -622,6 +622,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Solar Maintenance"
 	icon_state = "yellow"
 
+/area/maintenance/solars/aft
+	name = "Aft Solar Maintenance"
+	icon_state = "SolarcontrolAFT"
+
 /area/maintenance/solars/port
 	name = "Port Solar Maintenance"
 	icon_state = "SolarcontrolP"
@@ -645,6 +649,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/solars/starboard/fore
 	name = "Starboard Bow Solar Maintenance"
 	icon_state = "SolarcontrolFS"
+
 
 //Teleporter
 
@@ -853,6 +858,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/checkpoint/science/research
 	name = "Security Post - Research Division"
 	icon_state = "checkpoint_res"
+
+/area/security/checkpoint/bridge_port
+	name = "Security Post - Bridge Port"
+	icon_state = "checkpoint_bridge_port"
+
+/area/security/checkpoint/bridge_star
+	name = "Security Post - Bridge Star"
+	icon_state = "checkpoint_bridge_star"
 
 /area/security/checkpoint/customs
 	name = "Customs"
