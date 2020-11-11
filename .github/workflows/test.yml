@@ -47,7 +47,7 @@ jobs:
           bash tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           python3 tools/ci/template_dm_generator.py
-          bash tools/ci/dm.sh -DTRAVISBUILDING -DTRAVISTESTING -DALL_MAPS beestation.dme
+          bash tools/ci/dm.sh -DCIBUILDING -DCITESTING -DALL_MAPS beestation.dme
   run_all_tests:
     runs-on: ubuntu-latest
     services:
@@ -80,7 +80,7 @@ jobs:
         run: |
           bash tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
-          bash tools/ci/dm.sh -DTRAVISBUILDING beestation.dme
+          bash tools/ci/dm.sh -DCIBUILDING beestation.dme
           bash tools/ci/run_server.sh
   test_windows:
     runs-on: windows-latest

@@ -49,11 +49,11 @@
 #define FIND_REF_NO_CHECK_TICK
 #endif
 
-#ifdef TRAVISBUILDING
+#ifdef CIBUILDING
 #define UNIT_TESTS
 #endif
 
-#ifdef TRAVISTESTING
+#ifdef CITESTING
 #define TESTING
 #endif
 
