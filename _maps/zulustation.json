@@ -1,0 +1,11 @@
+{
+    "map_name": "Zulu Station",
+    "map_path": "map_files/ZuluStation",
+    "map_file": "ZuluStation.dmm",
+    "shuttles": {
+	    "cargo": "cargo_box",
+	    "ferry": "ferry_fancy",
+	    "whiteship": "whiteship_box",
+	    "emergency": "emergency_box"
+    }
+}
