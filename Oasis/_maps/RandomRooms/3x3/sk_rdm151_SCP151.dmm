@@ -24,6 +24,13 @@
 /obj/item/reagent_containers/glass/waterbottle/large/empty,
 /turf/open/floor/plating,
 /area/template_noop)
+"o" = (
+/obj/machinery/portable_atmospherics/canister/water_vapor{
+	release_pressure = 1000;
+	valve_open = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
 "x" = (
 /obj/machinery/portable_atmospherics/canister/water_vapor,
 /turf/open/floor/plating,
@@ -40,7 +47,7 @@ x
 "}
 (2,1,1) = {"
 b
-x
+o
 G
 "}
 (3,1,1) = {"

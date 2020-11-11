@@ -1226,7 +1226,7 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
-	weight = 900
+	weight = 1
 */
 
 
@@ -1249,7 +1249,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
-	weight = 5
+	weight = 4
 
 
 
