@@ -111,11 +111,11 @@
 	else
 		for(var/I in 0 to num_steps)
 			var/angle = 2*door_anim_angle * (closing ? 1 - (I/num_steps) : (I/num_steps))
-			var/door_state = angle >= anglecrate ? "[icon_door_override ? icon_door : icon_state]_door" : "[icon_door || icon_state]_door"
-			var/door_layer = angle >= anglecrate ? FLOAT_LAYER : ABOVE_MOB_LAYER
+			var/door_state = angle >= 90 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
+			var/door_layer = angle >= 90 ? FLOAT_LAYER : ABOVE_MOB_LAYER
 			var/isbiggercos = angle >= 180 ? TRUE : FALSE
 			var/isbiggersin = angle >= 90 ? TRUE : FALSE
-			var/matrix/M = get_door_transform(angle,isbiggercos,isbiggersin,isscale)
+			var/matrix/M = get_door_transform(angle,isbiggercos,isbiggersin)
 			if(I == 0)
 				door_obj.transform = M
 				door_obj.icon_state = door_state
@@ -132,7 +132,7 @@
 	update_icon()
 	COMPILE_OVERLAYS(src)
 
-/obj/structure/closet/proc/get_door_transform(angle, isbiggercos,isbiggersin,isscale)
+/obj/structure/closet/proc/get_door_transform(angle, isbiggercos,isbiggersin)
 	if(!is_crate)
 		var/matrix/M = matrix()
 		M.Translate(-door_hinge, 0)
