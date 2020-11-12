@@ -17,6 +17,10 @@ map boxstation
 	votable
 endmap
 
+map zulustation
+	votable
+endmap
+
 map metastation
 	maxplayers 100
 	votable

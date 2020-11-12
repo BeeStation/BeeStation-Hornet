@@ -18786,7 +18786,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/hallway/secondary/entry)
 "ggc" = (
 /obj/item/radio/intercom{
 	pixel_x = 27
@@ -36531,6 +36531,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/engineering)
+"lRe" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "lRv" = (
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/components/binary/pump{
@@ -44949,14 +44961,15 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "opk" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "opl" = (
@@ -60518,7 +60531,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/space)
+/area/maintenance/starboard)
 "til" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -63423,6 +63436,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/airlock/external{
+	name = "External Airlock";
+	req_access_txt = "13"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "uhr" = (
@@ -75758,7 +75776,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/chapel/office)
 "xPI" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -84915,7 +84933,7 @@ brf
 ggb
 ggb
 ggb
-hut
+jXI
 tfJ
 tfJ
 tfJ
@@ -84925,11 +84943,11 @@ tfJ
 tfJ
 tfJ
 tfJ
-hut
+jXI
 ggb
 ggb
 ggb
-hut
+jXI
 tfJ
 tfJ
 tfJ
@@ -86183,7 +86201,7 @@ mGv
 tfJ
 tfJ
 tfJ
-cdz
+eMs
 eMs
 oSE
 wMM
@@ -86437,10 +86455,10 @@ hkn
 imD
 eMs
 mGv
-cdz
-tfJ
-tfJ
-cdz
+eMs
+kGR
+kGR
+eMs
 oid
 oid
 xLR
@@ -86697,7 +86715,7 @@ mGv
 tfJ
 tfJ
 tfJ
-cdz
+eMs
 oiJ
 qXe
 xWE
@@ -86954,7 +86972,7 @@ eMs
 tfJ
 tfJ
 tfJ
-cdz
+eMs
 oiJ
 rAy
 ycp
@@ -87208,10 +87226,10 @@ tfJ
 eMs
 tfJ
 mGv
-cdz
+eMs
 tfJ
 tfJ
-cdz
+eMs
 oiJ
 scp
 ecD
@@ -87465,10 +87483,10 @@ mGv
 eMs
 mGv
 mGv
-cdz
-tfJ
-tfJ
-cdz
+eMs
+kGR
+kGR
+eMs
 oiJ
 oiJ
 nfL
@@ -102347,7 +102365,7 @@ tfJ
 tfJ
 tfJ
 tfJ
-nOR
+kGR
 tfJ
 tfJ
 tfJ
@@ -102604,7 +102622,7 @@ tfJ
 tfJ
 tfJ
 tfJ
-nOR
+kGR
 tfJ
 tfJ
 tfJ
@@ -102861,7 +102879,7 @@ tfJ
 tfJ
 tfJ
 tfJ
-nOR
+kGR
 tfJ
 tfJ
 tfJ
@@ -103118,7 +103136,7 @@ tfJ
 tfJ
 tfJ
 tfJ
-nOR
+kGR
 tfJ
 tfJ
 tfJ
@@ -103375,7 +103393,7 @@ tfJ
 tfJ
 tfJ
 tfJ
-nOR
+kGR
 tfJ
 tfJ
 tfJ
@@ -103632,7 +103650,7 @@ tfJ
 tfJ
 tfJ
 tfJ
-nOR
+kGR
 dYN
 htx
 lXx
@@ -116735,7 +116753,7 @@ tfJ
 tfJ
 tfJ
 jEb
-opk
+bMq
 hxQ
 eMs
 eMs
@@ -117249,7 +117267,7 @@ tfJ
 tfJ
 tfJ
 jEb
-btR
+opk
 jEb
 tfJ
 tfJ
@@ -117506,7 +117524,7 @@ tfJ
 tfJ
 tfJ
 jEb
-btR
+opk
 jEb
 jEb
 jEb
@@ -117763,7 +117781,7 @@ tfJ
 tfJ
 tfJ
 jEb
-btR
+lRe
 wEI
 wEI
 wEI
@@ -118026,8 +118044,8 @@ mAG
 jEb
 sQK
 btR
-jEb
 btR
+jEb
 ufc
 uOv
 tfJ
