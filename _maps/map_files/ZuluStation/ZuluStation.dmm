@@ -14776,10 +14776,8 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "eQH" = (
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = 20
-	},
+/obj/structure/table/wood,
+/obj/item/instrument/saxophone,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/theatre)
 "eRe" = (
@@ -25549,6 +25547,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
+"imq" = (
+/obj/structure/table/wood,
+/obj/item/instrument/piano_synth,
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/theatre)
 "imu" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -35294,6 +35297,10 @@
 "lyf" = (
 /obj/structure/table/wood,
 /obj/item/toy/plush/moth,
+/obj/machinery/airalarm{
+	dir = 1;
+	pixel_y = -24
+	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/theatre)
 "lyi" = (
@@ -38383,6 +38390,11 @@
 	dir = 1
 	},
 /area/engine/atmos)
+"mue" = (
+/obj/structure/table/wood,
+/obj/item/soap/nanotrasen,
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/theatre)
 "mum" = (
 /obj/structure/table/glass,
 /obj/machinery/airalarm{
@@ -41193,6 +41205,11 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/storage/tech)
+"nlz" = (
+/obj/structure/table/wood,
+/obj/item/instrument/banjo,
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/theatre)
 "nlI" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -52529,6 +52546,10 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engine_room)
+"qHu" = (
+/obj/structure/chair/stool/bar,
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/theatre)
 "qHv" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -71620,6 +71641,12 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/fore)
+"wIJ" = (
+/obj/structure/piano{
+	icon_state = "piano"
+	},
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/theatre)
 "wIV" = (
 /turf/closed/wall,
 /area/ai_monitored/storage/eva)
@@ -104496,7 +104523,7 @@ lex
 vpE
 cVp
 cKe
-oMR
+wIJ
 oMR
 wlP
 oMR
@@ -104753,7 +104780,7 @@ idS
 mSn
 umP
 cKe
-oMR
+qHu
 evP
 oCl
 evP
@@ -105010,7 +105037,7 @@ lXG
 ppq
 cbS
 cKe
-oMR
+nlz
 wpU
 gnz
 dyY
@@ -105267,7 +105294,7 @@ ojK
 tqo
 tqo
 cKe
-oMR
+mue
 evP
 xrW
 xrW
@@ -105524,7 +105551,7 @@ tqo
 tqo
 tqo
 cKe
-oMR
+imq
 evP
 evP
 evP
@@ -106041,7 +106068,7 @@ cKe
 hwL
 bGn
 hwL
-hwL
+bGn
 hwL
 bGn
 hwL
