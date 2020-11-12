@@ -264,36 +264,78 @@
 
 /mob/living/simple_animal/hostile/syndicate/ranged/wildwest/gunslinger // has a charged six round burst attack.
 	name = "Syndicate Gunslinger"
+	maxHealth = 250
+	health = 250
+	ranged_cooldown_time = 50 // They shoot slower because they hit pretty hard
+	var/paused // Handles special attack
 
 /mob/living/simple_animal/hostile/syndicate/ranged/wildwest/gunslinger/OpenFire(atom/A)
 	if(CheckFriendlyFire(A))
 		return
 
-	if(prob(40))
-		visible_message("<span class='danger'><b>[src]</b> pauses, hand on holster, staring at at [A]!</span>")
-		SetParalyzed(500, FALSE)
-		say("Draw!")
-		fan_the_hammer(A)
+	if(prob(45))
+		visible_message("<span class='danger'><b>[src]</b> pauses, hand on holster, staring at [A]!</span>")
+		paused = 1 // They won't chase
+		retreat_distance = 0 // They won't flee
+		if(do_after(src, 20, target = src))
+			say("Draw!")
+			rapid = 6
+			visible_message("<span class='danger'><b>[src]</b> fans the hammer at [A]!</span>")
+		paused = 0 // Now they can move again
+		retreat_distance = 5
+	. = ..()	
+	rapid = 0
+
+/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/gunslinger/Goto()
+	if(paused)
 		return
+	. = ..()
 
-	if(!(simple_mob_flags & SILENCE_RANGED_MESSAGE))
-		visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
+/////////////Sniper Subtype///////////
 
+/mob/living/simple_animal/hostile/syndicate/ranged/sniper
+	name = "Syndicate Sniper"
+	minimum_distance = 12 // Likes to keep his distance
+	icon_state = "syndicate_shotgun"
+	icon_living = "syndicate_shotgun"
+	casingtype = /obj/item/ammo_casing/p50
+	projectilesound = 'sound/weapons/sniper_shot.ogg'
+	vision_range = 15 // because they're a sniper, duh
+	aggro_vision_range = 15
+	ranged_cooldown_time = 70 // They shoot slower because they hit pretty hard
+	var/aim_time = 40 // Time it takes for them to aim in deciseconds
+	var/paused // Handles special attack
+	var/aiming // Are they currently lining up a shot?
 
-	if(rapid > 1)
-		var/datum/callback/cb = CALLBACK(src, .proc/Shoot, A)
-		for(var/i in 1 to rapid)
-			addtimer(cb, (i - 1)*rapid_fire_delay)
-	else
-		Shoot(A)
-	ranged_cooldown = world.time + ranged_cooldown_time
+/mob/living/simple_animal/hostile/syndicate/ranged/sniper/OpenFire(atom/A)
+	if(aiming) // prevents lining up 2-3 shots in a row for a rapid crit
+		return
+	if(CheckFriendlyFire(A))
+		return
+	visible_message("<span class='danger'><b>[src]</b> raises their rifle, lining up a shot at [A]!</span>")
+	aiming = 1
+	if(ismob(A))
+		to_chat(A, "<span class='userdanger'>You feel a small area of heat on your head, it's a sniper dot!</span>")
+	retreat_distance = 0 // They won't flee
+	paused = 1
+	say("Steady, steady...")
+	if(do_after(src, aim_time, target = src))
+		say("Standing around like a bloody idiot!")
+		. = ..()
+	retreat_distance = 8
+	paused = 0
+	aiming = 0
 
-/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/gunslinger/proc/fan_the_hammer(atom/A)
-	visible_message("<span class='danger'><b>[src]</b> draws a spare revolver and fans the hammer!</span>")
-	for(var/i in 1 to 6)
-		Shoot(A)
-	ranged_cooldown = world.time + ranged_cooldown_time
-		
+/mob/living/simple_animal/hostile/syndicate/ranged/sniper/Goto()
+	if(paused)
+		return
+	. = ..()
+
+/mob/living/simple_animal/hostile/syndicate/ranged/sniper/wildwest
+	name = "Syndicate Wildwest Marksman"
+	ranged_cooldown_time = 50
+	aim_time = 20
+	casingtype = /obj/item/ammo_casing/p50/old
 
 ///////////////Misc////////////
 

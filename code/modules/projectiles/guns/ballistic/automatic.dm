@@ -317,6 +317,18 @@
 	can_unsuppress = TRUE
 	pin = /obj/item/firing_pin/implant/pindicate
 
+/obj/item/gun/ballistic/automatic/sniper_rifle/old
+	name = "old marksman rifle"
+	desc = "An outdated long ranged weapon that does significant damage. No, you still can't quickscope."
+	icon_state = "moistnugget"
+	item_state = "moistnugget"
+	recoil = 1
+	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/old
+	fire_delay = 0
+	fire_rate = 1.5
+	zoom_amt = 5 // Not as far as a proper sniper
+	zoom_out_amt = 3
+
 // Old Semi-Auto Rifle //
 
 /obj/item/gun/ballistic/automatic/surplus

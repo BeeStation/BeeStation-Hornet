@@ -25,3 +25,8 @@
 	desc = "An extremely powerful round capable of passing straight through cover and anyone unfortunate enough to be behind it."
 	ammo_type = /obj/item/ammo_casing/p50/penetrator
 	max_ammo = 5
+
+/obj/item/ammo_box/magazine/sniper_rounds/old
+	name = "old marksman rounds (.50)"
+	ammo_type = /obj/item/ammo_casing/p50/old
+	max_ammo = 5

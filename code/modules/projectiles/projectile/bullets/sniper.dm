@@ -44,3 +44,10 @@
 	damage = 25
 	speed = 0.3
 	range = 16
+
+/obj/item/projectile/bullet/p50/old
+	name = "antique marksman bullet"
+	damage = 45
+	paralyze = 50
+	dismemberment = 0
+	armour_penetration = 20
