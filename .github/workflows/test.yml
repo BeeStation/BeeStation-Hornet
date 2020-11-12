@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     paths-ignore:
-  	- 'html/changelogs/**'
+    - 'html/changelogs/**'
     branches:
     - master
   pull_request:
