@@ -566,6 +566,15 @@
 					if(S.prerequisites)
 						dat += "Prerequisites: [S.prerequisites]<BR>"
 					dat += "<A href='?src=[REF(src)];operation=buyshuttle;chosen_shuttle=[REF(S)]'>(<font color=red><i>Purchase</i></font>)</A><BR><BR>"
+				else if(obj_flags & EMAGGED)
+					if(S.syndicate_exclusive && S.credit_cost < INFINITY)
+						dat += "<b> Shuttle supplied by Syndicate, order at your own risk: </b>"
+						dat += "<BR>"
+						dat += "[S.name] | [S.credit_cost] Credits<BR>"
+						dat += "[S.description]<BR>"
+						if(S.prerequisites)
+							dat += "Prerequisites: [S.prerequisites]<BR>"
+						dat += "<A href='?src=[REF(src)];operation=buyshuttle;chosen_shuttle=[REF(S)]'>(<font color=red><i>Purchase</i></font>)</A><BR><BR>"
 
 	dat += "<BR><BR>\[ [(state != STATE_DEFAULT) ? "<A HREF='?src=[REF(src)];operation=main'>Main Menu</A> | " : ""]<A HREF='?src=[REF(user)];mach_close=communications'>Close</A> \]"
 
