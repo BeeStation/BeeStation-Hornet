@@ -186,7 +186,7 @@
 		if(6)
 			setSanity(sanity+0.2, maximum=SANITY_GREAT)
 		if(7)
-			setSanity(sanity+0.3, maximum=INFINITY)
+			setSanity(sanity+0.3, maximum=SANITY_GREAT)
 		if(8)
 			setSanity(sanity+0.4, maximum=SANITY_MAXIMUM)
 		if(9)
