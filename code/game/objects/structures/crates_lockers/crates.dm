@@ -113,7 +113,6 @@
 	desc = "A medical crate."
 	name = "medical crate"
 	icon_state = "medicalcrate"
-	door_anim_time = 0
 
 /obj/structure/closet/crate/freezer
 	desc = "A freezer."
