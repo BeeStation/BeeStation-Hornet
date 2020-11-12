@@ -7,6 +7,7 @@
 	anchored = TRUE
 	horizontal = FALSE
 	delivery_icon = null
+	door_anim_time = 0
 
 /obj/structure/closet/crate/bin/Initialize()
 	. = ..()

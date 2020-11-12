@@ -8,6 +8,7 @@
 	desc = "It's watching you closely."
 	icon_state = "necrocrate"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	door_anim_time = 0
 
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."

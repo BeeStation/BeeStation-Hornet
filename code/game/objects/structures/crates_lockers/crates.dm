@@ -96,6 +96,7 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
 	close_sound_volume = 50
+	door_anim_time = 0
 
 /obj/structure/closet/crate/internals
 	desc = "An internals crate."
@@ -106,11 +107,13 @@
 	desc = "A heavy, metal trashcart with wheels."
 	name = "trash cart"
 	icon_state = "trashcart"
+	door_anim_time = 0
 
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
 	name = "medical crate"
 	icon_state = "medicalcrate"
+	door_anim_time = 0
 
 /obj/structure/closet/crate/freezer
 	desc = "A freezer."
