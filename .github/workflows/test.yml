@@ -2,6 +2,8 @@ name: Run tests
 on:
   workflow_dispatch:
   push:
+    paths-ignore:
+  	- 'html/changelogs/**'
     branches:
     - master
   pull_request:
