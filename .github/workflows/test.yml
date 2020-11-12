@@ -90,12 +90,3 @@ jobs:
       - uses: actions/checkout@v2
       - name: Compile
         run: pwsh tools/ci/build.ps1
-      - name: Create artifact
-        run: |
-          md deploy
-          bash tools/deploy.sh ./deploy
-      - name: Deploy artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: deploy
-          path: deploy
