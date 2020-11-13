@@ -47,6 +47,7 @@
 /obj/item/circuitboard/computer/communications
 	name = "Communications (Computer Board)"
 	icon_state = "command"
+	desc = "Can be modified using a screwdriver."
 	build_path = /obj/machinery/computer/communications
 	var/lastTimeUsed = 0
 	var/insecure = 0 // Forbids shuttles that are set as illegal. 
