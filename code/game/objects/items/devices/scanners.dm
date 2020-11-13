@@ -1020,14 +1020,12 @@ MAT SCANNER
 			fcolor = "#ffff00"
 		else if (istype(M,/datum/material/titanium))
 			fcolor = "#dddddd"
-		if (output!="")
-			output +=" - "
-		output+= "<font color='[fcolor]'>[M.name] ([amount])</font>"
+		output+= " - <font color='[fcolor]'>[M.name] ([amount])</font>"
 		integ++
 		if (integ>3)
-			to_chat(user, output)
+			to_chat(user, output + " - ")
 			integ = 1
 			output = ""
 	if (output != "")
-		to_chat(user, output)
+		to_chat(user, output+ " - ")
 	to_chat(user, "- Analysis complete! -")
