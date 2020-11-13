@@ -193,37 +193,38 @@
 	parts += knowledge_message.Join(", ")
 
 	return parts.Join("<br>")
-	
+
 //////////////
 // Minicult //
 //////////////
-	
+
 /datum/antagonist/heretic/proc/get_max_followers()
 	var/towtal = 0 //a 'w' got lost in here somehow...
 	var/list/knowledge = get_all_knowledge()
 	for(var/X in knowledge)
 		var/datum/eldritch_knowledge/EK = knowledge[X]
-		towtal += knowledge[X].followers_increment
+		towtal += EK.followers_increment
 	return towtal
-	
+
 /datum/antagonist/heretic/proc/get_cur_followers()
 	return LAZYLEN(folloers)
-	
+
 /datum/antagonist/heretic/proc/enslave(mob/living/carbon/human/victim)
 	if(get_cur_followers() >= get_max_followers())
-		to_chat(user,"<span class='notice'>We enslaved too many minds!</span>")
+		to_chat(src,"<span class='notice'>We enslaved too many minds!</span>")
 		return FALSE
-		if(!victim.mind || !victim.client )
-		to_chat(user,"<span class='notice'>[victim] has no mind to enslave!</span>")
+	if(!victim.mind || !victim.client )
+		to_chat(src,"<span class='notice'>[victim] has no mind to enslave!</span>")
+		return FALSE
 	if (IS_HERETIC(victim) || IS_HERETIC_MONSTER(victim))
-		to_chat(user,"<span class='warning'>Their mind belongs to someone else!</span>")
+		to_chat(src,"<span class='warning'>Their mind belongs to someone else!</span>")
 		return FALSE
-	log_game("[key_name_admin(victim)] has become a follower of [user.real_name]")
+	log_game("[key_name_admin(victim)] has become a follower of [key_name_admin(src)]")
 	victim.faction |= "heretics"
 	var/datum/antagonist/heretic_monster/heretic_monster = victim.mind.add_antag_datum(/datum/antagonist/heretic_monster)
 	heretic_monster.set_owner(src)
 	return TRUE
-	
+
 ////////////////
 // Knowledge //
 ////////////////
@@ -252,7 +253,7 @@
 
 /datum/antagonist/heretic/proc/get_all_knowledge()
 	return researched_knowledge
-	
+
 /////////////
 // Economy //
 /////////////

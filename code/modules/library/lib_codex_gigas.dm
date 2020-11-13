@@ -16,7 +16,7 @@
 	author = "Forces beyond your comprehension"
 	unique = 1
 	title = "the Codex Gigas"
-	var/inUse = 0
+	var/inUse = FALSE
 	var/currentName = ""
 	var/currentSection = PRE_TITLE
 
@@ -36,7 +36,7 @@
 	ask_name(user)
 
 
-/o bj/item/book/codex_gigas/proc/perform_research(mob/user, devilName)
+/obj/item/book/codex_gigas/proc/perform_research(mob/user, devilName)
 	if(!devilName)
 		user.visible_message("[user] closes [title] without looking anything up.")
 		return
@@ -111,38 +111,39 @@
 
 /obj/item/book/codex_gigas/proc/do_eldritch_ritual(mob/living/carbon/human/heretic)
 	if (!istype(heretic))	//somehow
-		to_chat(user, "<span class='notice'>You start reading the[title].</span>")
-		to_chat(user, "<span class='warning'>A daemonic seals prevent mortals from reading the [title]... Our magic is stronger!</span>")
-		if (do_after(heretic,20 SECONDS, src))			
-			var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
+		to_chat(heretic, "<span class='notice'>You start reading the[title].</span>")
+		to_chat(heretic, "<span class='warning'>A daemonic seals prevent mortals from reading the [title]... Our magic is stronger!</span>")
+		if (do_after(heretic,20 SECONDS, src))
+			var/datum/antagonist/heretic/cultie = heretic.mind.has_antag_datum(/datum/antagonist/heretic)
 			var/chance = rand(10+cultie.dread*2,100+cultie.dread*5)
 			switch(chance)
-				if (10 to 39)	revise
-					to_chat(user, "<span class='notice'>The gods look down upon you.</span>")
+				if (10 to 39)
+					to_chat(heretic, "<span class='notice'>The gods look down upon you.</span>")
 				if(40 to 54)
 					heretic.adjustOrganLoss(ORGAN_SLOT_EYES,5)
-					to_chat(user, "<span class='warning'>Your eyes bleed...</span>")
+					to_chat(heretic, "<span class='warning'>Your eyes bleed...</span>")
 				if(40 to 54)
 					heretic.adjustOrganLoss(ORGAN_SLOT_EYES,5)
-					to_chat(user, "<span class='warning'>Your eyes bleed...</span>")
+					to_chat(heretic, "<span class='warning'>Your eyes bleed...</span>")
 				if(55 to 69)
 					heretic.adjustOrganLoss(ORGAN_SLOT_EARS,5)
-					to_chat(user, "<span class='warning'>A peeping scream disturbs your concentration...</span>")
+					to_chat(heretic, "<span class='warning'>A peeping scream disturbs your concentration...</span>")
 				if(55 to 69)
 					heretic.adjustToxLoss(5)
-					to_chat(user, "<span class='warning'>Your body feels weaker.</span>")
+					to_chat(heretic, "<span class='warning'>Your body feels weaker.</span>")
 				if(70 to 79)
 					new /mob/living/simple_animal/hostile/netherworld/blankbody(get_turf(src))
-					to_chat(user, "<span class='warning'>You draw unwanted attention...</span>")
+					to_chat(heretic, "<span class='warning'>You draw unwanted attention...</span>")
 				if(80 to 89)
-					cultie.gain_power(0,TRUE)
-					to_chat(user, "<span class='warning'>A sense of dread overcomes you...</span>")
+					cultie.gain_favor(0,TRUE)
+					to_chat(heretic, "<span class='warning'>A sense of dread overcomes you...</span>")
 				if(90 to 99)
 					heretic.adjustOrganLoss(ORGAN_SLOT_BRAIN,5)
-					to_chat(user, "<span class='warning'>Your sanity decays...</span>")
+					to_chat(heretic, "<span class='warning'>Your sanity decays...</span>")
 				else
 					heretic.adjustCloneLoss(5)
-					to_chat(user, "<span class='warning'>Something fights back!</span>")
-				cultie.gain_power(125,TRUE)
-				to_chat(user, "<span class='notice'>Small price to pay, for the forbidden knowledge.</span>")
-				heretic.whisper(pick("HYPNOS","CELEPHALIS","AZATHOTH","DAGON","YIG","EX OBLIVIONE","NYARLATHOTEP","NATHICANA","ARCADIA","ASTROPHOBOS"), language = /datum/language/common)
+					to_chat(heretic, "<span class='warning'>Something fights back!</span>")
+			//switch case over
+			cultie.gain_favor(125,TRUE)
+			to_chat(heretic, "<span class='notice'>Small price to pay, for the forbidden knowledge.</span>")
+			heretic.whisper(pick("HYPNOS","CELEPHALIS","AZATHOTH","DAGON","YIG","EX OBLIVIONE","NYARLATHOTEP","NATHICANA","ARCADIA","ASTROPHOBOS"), language = /datum/language/common)

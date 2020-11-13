@@ -1,7 +1,7 @@
 /obj/item/melee/touch_attack
 	name = "\improper outstretched hand"
 	desc = "High Five?"
-	var/catchphrases = list("High Five!")
+	var/catchphrase = "High Five!"
 	var/on_use_sound = null
 	var/obj/effect/proc_holder/spell/targeted/touch/attached_spell
 	icon = 'icons/obj/items_and_weapons.dmi'
@@ -31,7 +31,7 @@
 
 /obj/item/melee/touch_attack/afterattack(atom/target, mob/user, proximity)
 	. = ..()
-	user.say(pick(catchphrases), forced = "spell")
+	user.say(catchphrase, forced = "spell")
 	playsound(get_turf(user), on_use_sound,50,1)
 	charges--
 	if(charges <= 0)
@@ -45,7 +45,7 @@
 /obj/item/melee/touch_attack/disintegrate
 	name = "\improper disintegrating touch"
 	desc = "This hand of mine glows with an awesome power!"
-	catchphrases = list("EI NATH!!","NATH ERMAC!!", "EI EN' NATH!!")
+	catchphrase = "EI NATH!!"
 	on_use_sound = 'sound/magic/disintegrate.ogg'
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
@@ -84,7 +84,7 @@
 /obj/item/melee/touch_attack/fleshtostone
 	name = "\improper petrifying touch"
 	desc = "That's the bottom line, because flesh to stone said so!"
-	catchphrases = list("STAUN EI!!","PETRIFY!!", "STAPH STATUN!!")
+	catchphrase = "STAUN EI!!"
 	on_use_sound = 'sound/magic/fleshtostone.ogg'
 	icon_state = "fleshtostone"
 	item_state = "fleshtostone"
@@ -112,7 +112,7 @@
 /obj/item/melee/touch_attack/megahonk
 	name = "\improper honkmother's blessing"
 	desc = "You've got a feeling they won't be laughing after this one. Honk honk."
-	catchphrases = list("HONKDOOOOUKEN!")
+	catchphrase = "HONKDOOOOUKEN!"
 	on_use_sound = 'sound/items/airhorn.ogg'
 	icon = 'icons/mecha/mecha_equipment.dmi'
 	icon_state = "mecha_honker"
@@ -120,7 +120,7 @@
 /obj/item/melee/touch_attack/megahonk/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || !iscarbon(target) || !iscarbon(user) || user.handcuffed)
 		return
-	user.say(pick(catchphrases), forced = "spell")
+	user.say(catchphrase, forced = "spell")
 	playsound(get_turf(target), on_use_sound,100,1)
 	for(var/mob/living/carbon/M in (hearers(1, target) - user)) //3x3 around the target, not affecting the user
 		if(ishuman(M))

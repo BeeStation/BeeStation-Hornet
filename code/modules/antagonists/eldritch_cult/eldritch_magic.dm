@@ -45,13 +45,15 @@
 	desc = "A sinister looking aura that distorts the flow of reality around it. Causes knockdown, major stamina damage aswell as some Brute. It gains additional beneficial effects with certain knowledges you can research."
 	icon_state = "mansus_grasp"
 	item_state = "mansus_grasp"
-	catchphrases = list("M'SUS 'N B'N","S'L GR'SP", "R'CH 'N TH' SO'L", "S'C C'MB")
+	catchphrase = "M'SUS 'N B'N"
+	///Where we cannot create the rune?
+	var/static/list/blacklisted_turfs = typecacheof(list(/turf/closed,/turf/open/space,/turf/open/lava))
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag || target == user)
 		return
 	playsound(user, 'sound/items/welder.ogg', 75, TRUE)
-			
+
 	if(ishuman(target))
 		var/mob/living/carbon/human/tar = target
 		if(tar.check_shields(src,10, "the [tar.name]"))
@@ -61,7 +63,7 @@
 			return ..()
 	var/datum/mind/M = user.mind
 	var/datum/antagonist/heretic/cultie = M.has_antag_datum(/datum/antagonist/heretic)
-		
+
 	var/use_charge = FALSE
 	if(iscarbon(target))
 		use_charge = TRUE
@@ -69,7 +71,7 @@
 		C.adjustBruteLoss(10)
 		C.AdjustKnockdown(5 SECONDS)
 		C.adjustStaminaLoss(80)
-	else if (istype(target,/obj/item/toy/artifact) && cultie.heretic.get_knowledge(/datum/eldritch_knowledge/dematerialize))
+	else if (istype(target,/obj/item/toy/artifact) && cultie.get_knowledge(/datum/eldritch_knowledge/dematerialize))
 		var/obj/item/toy/artifact/target_artifact = target
 		target_artifact.to_ashes()
 	else if(istype(target,/obj/effect/eldritch))
@@ -78,16 +80,16 @@
 	else if(istype(target,/turf/open))
 		var/mob/caster = user
 		if (caster.a_intent != INTENT_HARM)
-			draw_rune(target,user)	
-			return	
-		
+			draw_rune(target,user)
+			return
+
 	if (ishuman(target))
 		var/mob/living/carbon/human/victim = target
 		if(victim.has_trauma_type(/datum/brain_trauma/fascination) && !QDELETED(victim) && victim.stat > DEAD)
 			if (cultie.enslave(victim))
 				victim.SetSleeping(0)
 				return ..()
-	
+
 	var/list/knowledge = cultie.get_all_knowledge()
 	for(var/X in knowledge)
 		var/datum/eldritch_knowledge/EK = knowledge[X]
@@ -162,7 +164,7 @@
 	desc = "A sinister looking aura that distorts the flow of reality around it."
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
-	catchphrases = list("LA'IF","ST'L","M'NE","DR'IN")
+	catchphrase = "ST'L"
 
 /obj/item/melee/touch_attack/blood_siphon/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)

@@ -261,8 +261,9 @@
 			for(var/X in carbon_user.get_all_gear())
 				if(!istype(X,/obj/item/forbidden_book))
 					continue
-				var/obj/item/forbidden_book/FB = X
-				FB.charge++
+				//var/obj/item/forbidden_book/FB = X
+				//FB.charge++
+				EC.gain_favor(100,FALSE)
 				break
 
 		if(!LH.target)
@@ -330,7 +331,7 @@
 	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift)
 	required_atoms = list(/obj/structure/reagent_dispensers/watertank)
 	result_atoms = list(/obj/item/reagent_containers/glass/beaker/eldritch)
-	
+
 /datum/eldritch_knowledge/ashen_eyes
 	name = "Ashen Eyes"
 	gain_text = "Piercing eyes may guide me through the mundane."
@@ -371,9 +372,10 @@
 	followers_increment = 1
 
 /datum/eldritch_knowledge/curse/fascination/curse(mob/living/chosen_mob)
-	. = ..()	
-	if (!IS_HERETIC(chosen_mob) && !IS_HERETIC_MONSTER(chosen_mob))
-		chosen_mob.gain_trauma(/datum/brain_trauma/fascination,TRAUMA_RESILIENCE_SURGERY)	
+	. = ..()
+	var/mob/living/carbon/human/sucker = chosen_mob
+	if (istype(sucker) && !IS_HERETIC(chosen_mob) && !IS_HERETIC_MONSTER(chosen_mob))
+		sucker.gain_trauma(/datum/brain_trauma/fascination,TRAUMA_RESILIENCE_SURGERY)
 
 /datum/eldritch_knowledge/curse/fascination/on_finished_recipe(mob/living/user,list/atoms,loc)
 	var/list/compiled_list = list()
@@ -403,16 +405,15 @@
 	gain_text = "Mortal bodies, prisons of flesh. Death, a release..."
 	desc = "Place a kidney, a candle and a hatchet onto a rune to start the ritual. Place limbs or sense organs on the rune will be sacrificed to enhance the ritual."
 	cost = 1
-	required_atoms = list(/obj/item/organ/kidney,/obj/item/candle,/obj/item/hatchet)
+	required_atoms = list(/obj/item/organ/liver,/obj/item/candle,/obj/item/hatchet)	//did I confuse kidney and liver?
 	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/spell/area_conversion)
 	timer = 1 MINUTES
 	var/list/debuffs = list()
-	
+
 /datum/eldritch_knowledge/curse/alteration/on_finished_recipe(mob/living/user, list/atoms, loc)	//the ritual completed, take the payment and apply the curse
 	//declare
-	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)	
 	debuffs = list()
-	var/list/extra_atoms = list()	
+	var/list/extra_atoms = list()
 
 	//check variables
 	for(var/A in range(1, src))
@@ -442,25 +443,25 @@
 			extra_atoms |= A
 			debuffs |= "organs"
 		else
-			continue		
-		atoms_in_range += atom_in_range
-	
+			continue
+		extra_atoms += atom_in_range
+
 	if (LAZYLEN(debuffs)==0)
 		to_chat(user, "<span class='warning'>Ritual aborted.</span>")
 		return FALSE
-	
+
 	. = ..()
-	
+
 	cleanup_atoms(extra_atoms)
 	qdel(debuffs) // how to clear list
-	
+
 	return .
-		
+
 /datum/eldritch_knowledge/curse/alteration/curse(mob/living/chosen_mob)
 	. = ..()
 	if (chosen_mob.has_status_effect(/datum/status_effect/corrosion_curse))
 		return FALSE
-	
+
 	chosen_mob.apply_status_effect(/datum/status_effect/corrosion_curse)
 	for(var/X in debuffs)
 		switch (X)
@@ -484,19 +485,19 @@
 	. = ..()
 	//organ fuckup
 	chosen_mob.remove_status_effect(/datum/status_effect/corrosion_curse)
-	
+
 	//CC
 	chosen_mob.cure_blind(HERETIX_CURSE_TRAIT)
 	REMOVE_TRAIT(chosen_mob, TRAIT_MUTE, HERETIX_CURSE_TRAIT)
 	REMOVE_TRAIT(chosen_mob, TRAIT_DEAF, HERETIX_CURSE_TRAIT)
-	
+
 	//paralysis
 	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_ARM,HERETIX_CURSE_TRAIT)
 	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_ARM,HERETIX_CURSE_TRAIT)
 	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,HERETIX_CURSE_TRAIT)
 	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,HERETIX_CURSE_TRAIT)
 	chosen_mob.update_mobility()
-	
+
 	return .
 
 //original curses

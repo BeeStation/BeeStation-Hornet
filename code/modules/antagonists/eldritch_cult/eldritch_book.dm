@@ -6,11 +6,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	///Last person that touched this
 	var/mob/living/last_user
-	///Where we cannot create the rune?
-	var/static/list/blacklisted_turfs = typecacheof(list(/turf/closed,/turf/open/space,/turf/open/lava))
 	///Is it in use?
 	var/in_use = FALSE
-	var/list/remarks = list("Is that a whisper I hear?", "The letters twist and jumble...","It's starting to make sense...","The illustration is staring into my eyes!","I have seen this in a dream!","Have I seen this symbol somewhere else?","This is the place I've been dreaming about!","I've seen this in a recurring dream!","It's like this book is reaching out to me...","Ah! A greater purpose!","I was destined to read this!") 
+	var/list/remarks = list("Is that a whisper I hear?", "The letters twist and jumble...","It's starting to make sense...","The illustration is staring into my eyes!","I have seen this in a dream!","Have I seen this symbol somewhere else?","This is the place I've been dreaming about!","I've seen this in a recurring dream!","It's like this book is reaching out to me...","Ah! A greater purpose!","I was destined to read this!")
 
 /obj/item/forbidden_book/Destroy()
 	last_user = null
@@ -44,7 +42,7 @@
 	if(cultie && do_after(user,10 SECONDS,FALSE,RS))
 		cultie.gain_favor(1)
 		qdel(RS)
-		
+
 
 /obj/item/forbidden_book/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!IS_HERETIC(user))
@@ -63,13 +61,13 @@
 	if(HAS_TRAIT(user, TRAIT_MINDSHIELD))
 		to_chat(user, "<span class='alert'>You feel the [name] trying to take over your mind!</span>")
 		return FALSE
-	if(victim.has_trauma_type(/datum/brain_trauma/fascination))
+	if(user.has_trauma_type(/datum/brain_trauma/fascination))
 		to_chat(user, "<span class='alert'>Reading the [name] will not satisfy our thirst for knowledge!</span>")
 		return FALSE
-		
+
 	to_chat(user, "<span class='notice'>You open the [name]...</span>")
 	in_use = TRUE
-	for(var/i=1, i<=pages_to_mastery, i++)
+	for(var/i=1, i<=5, i++)
 		if(!turn_page(user))
 			to_chat(user, "<span class='notice'>You resist temptation and put the [name] down.</span>")
 			in_use = FALSE
@@ -83,7 +81,7 @@
 				user.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10, 160)
 			else
 				to_chat(user, "<span class='notice'>I must have offended the Gods somehow!</span>")
-				new /mob/living/simple_animal/hostile/netherworld/blankbody(GetTurf(user))
+				new /mob/living/simple_animal/hostile/netherworld/blankbody(get_turf(user))
 		in_use = FALSE
 	return TRUE
 
@@ -162,7 +160,7 @@
 	return ..()
 
 
-/datum/brain_trauma/fascination	REVISE
+/datum/brain_trauma/fascination
 	name = "Delirium"
 	desc = "Patient's deluded into believing that omnipotent extraterestrial entities infiltrated our ranks."
 	scan_desc = "lovecraft madness"
@@ -173,10 +171,10 @@
 /datum/brain_trauma/fascination/on_gain()
 	message_admins("[ADMIN_LOOKUPFLW(owner)] has become fascinated.")	//self antag warning?
 	log_game("[key_name(owner)] has become fascinated.")
-	
+
 	var/obj/screen/alert/hypnosis/hypno_alert = owner.throw_alert("hypnosis", /obj/screen/alert/hypnosis)
 	hypno_alert.desc = "Seek Answers!"
-	
+
 	..()
 
 /datum/brain_trauma/fascination/on_lose()
@@ -184,26 +182,25 @@
 	log_game("[key_name(owner)] is no longer fascinated.")
 	owner.clear_alert("hypnosis")
 	..()
-	
+
 /datum/brain_trauma/fascination/on_life()
-	if(prob(1))
+	if(prob(3))
 		var/message = pick(
-			"I'm not feeling creative now. Will come back later!"
+			"I'm not feeling creative now. Will come back later!",
+			"...",
 		)
 		to_chat(owner, "<span class='hypnophrase'>[message]</span>")
 
 /datum/brain_trauma/fascination/on_hear(message, speaker, message_language, raw_message, radio_freq)	//copy paste from phobia, good idea?
 	if(!owner.can_hear())
 		return message
-		
+
 	var/list/trigger_words = list( "heretic","curse","magic","eldritch","god" )
-		
+
 	for(var/word in trigger_words)
 		var/regex/reg = regex("(\\b|\\A)[REGEX_QUOTE(word)]'?s*(\\b|\\Z)", "i")
 
 		if(findtext(raw_message, reg))
-			if(fear_state <= (PHOBIA_STATE_CALM)) //words can put you on edge, but won't take you over it, unless you have gotten stressed already. don't call freak_out to avoid gaming the adrenaline rush
-				fearscore ++
 			message = reg.Replace(message, "<span class='phobia'>$1</span>")
 			break
 	return message
