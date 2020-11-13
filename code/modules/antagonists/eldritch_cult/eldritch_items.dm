@@ -229,7 +229,7 @@
 /obj/item/toy/artifact/examine(mob/user)
 	. = ..()
 	var/heretic_user = IS_HERETIC(user)
-	if(!ashes && (heretic_user || IS_HERETIC_MONSTER(user) || user.job in list("Curator")))
+	if(!ashes && (heretic_user || IS_HERETIC_MONSTER(user) || (user.job in list("Curator"))))
 		if (deity<=6)
 			.+="This is a statue of [godname], one of the earth's weak gods."	//the weak gods of earth watch out for their creations, so they offer beneficial boons
 		else
