@@ -212,7 +212,7 @@
 /obj/structure/closet/crate/radiation
 	desc = "A crate with a radiation sign on it."
 	name = "radiation crate"
-	icon_state = "radiation"
+	icon_state = "radiationcrate"
 
 /obj/structure/closet/crate/hydroponics
 	name = "hydroponics crate"
