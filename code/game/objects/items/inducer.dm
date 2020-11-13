@@ -106,7 +106,7 @@
 	var/coefficient = 1
 	if(istype(A, /obj/item/gun/energy))
 		if (obj_flags & EMAGGED)		
-			coefficient = 50/powertransfer //always charge 5% of power cell, so that guns take 10 seconds to recharge, making it effectively pointless in combat
+			coefficient = powertransfer * 0.025 //superinducer recharges 2.5% (20s), engineering inducer recharges 1.25% (40s), science inducer recharges .625% (80s); 
 		else
 			to_chat(user,"Error unable to interface with device")
 			return FALSE
