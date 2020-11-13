@@ -42,7 +42,6 @@
 	var/door_anim_angle = 136
 	var/door_hinge = -6.5
 	var/door_anim_time = 2.0 // set to 0 to make the door not animate at all
-	var/is_crate = FALSE
 /obj/structure/closet/Initialize(mapload)
 	if(mapload && !opened)		// if closed, any item at the crate's loc is put in the contents
 		addtimer(CALLBACK(src, .proc/take_contents), 0)
@@ -92,37 +91,20 @@
 	door_obj.icon_state = "[icon_door || icon_state]_door"
 	is_animating_door = TRUE
 	var/num_steps = door_anim_time / world.tick_lag
-	if(is_crate)
-		for(var/I in 0 to num_steps)
-			var/angle = 2*door_anim_angle * (closing ? 1 - (I/num_steps) : (I/num_steps))
-			var/door_state = angle >= 90 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
-			var/door_layer = angle >= 90 ? FLOAT_LAYER : ABOVE_MOB_LAYER
-			var/isbiggercos = angle >= 180 ? TRUE : FALSE
-			var/isbiggersin = angle >= 90 ? TRUE : FALSE
-			var/matrix/M = get_door_transform(angle,isbiggercos,isbiggersin)
-			if(I == 0)
-				door_obj.transform = M
-				door_obj.icon_state = door_state
-				door_obj.layer = door_layer
-			else if(I == 1)
-				animate(door_obj, transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag, flags = ANIMATION_END_NOW)
-			else
-				animate(transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag)
-	else
-		for(var/I in 0 to num_steps)
-			var/angle = door_anim_angle * (closing ? 1 - (I/num_steps) : (I/num_steps))
-			var/matrix/M = get_door_transform(angle)
-			var/door_state = angle >= 90 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
-			var/door_layer = angle >= 90 ? FLOAT_LAYER : ABOVE_MOB_LAYER
+	for(var/I in 0 to num_steps)
+		var/angle = door_anim_angle * (closing ? 1 - (I/num_steps) : (I/num_steps))
+		var/matrix/M = get_door_transform(angle)
+		var/door_state = angle >= 90 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
+		var/door_layer = angle >= 90 ? FLOAT_LAYER : ABOVE_MOB_LAYER
 
-			if(I == 0)
-				door_obj.transform = M
-				door_obj.icon_state = door_state
-				door_obj.layer = door_layer
-			else if(I == 1)
-				animate(door_obj, transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag, flags = ANIMATION_END_NOW)
-			else
-				animate(transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag)
+		if(I == 0)
+			door_obj.transform = M
+			door_obj.icon_state = door_state
+			door_obj.layer = door_layer
+		else if(I == 1)
+			animate(door_obj, transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag, flags = ANIMATION_END_NOW)
+		else
+			animate(transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag)
 	addtimer(CALLBACK(src,.proc/end_door_animation),door_anim_time,TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /obj/structure/closet/proc/end_door_animation()
@@ -131,19 +113,13 @@
 	update_icon()
 	COMPILE_OVERLAYS(src)
 
-/obj/structure/closet/proc/get_door_transform(angle, isbiggercos,isbiggersin)
-	if(is_crate)
-		var/matrix/M = matrix()
-		M.Translate(0, -door_hinge)
-		M.Multiply(matrix(1, isbiggersin ? -(2 - sin(angle))*door_anim_squish : -sin(angle)* door_anim_squish, 0, 0, isbiggercos ? -2 - cos(angle) : cos(angle), 0))
-		M.Translate(0, door_hinge)
-		return M
-	else
-		var/matrix/M = matrix()
-		M.Translate(-door_hinge, 0)
-		M.Multiply(matrix(cos(angle), 0, 0, -sin(angle) * door_anim_squish, 1, 0))
-		M.Translate(door_hinge, 0)
-		return M
+/obj/structure/closet/proc/get_door_transform(angle)
+	var/matrix/M = matrix()
+	M.Translate(-door_hinge, 0)
+	M.Multiply(matrix(cos(angle), 0, 0, -sin(angle) * door_anim_squish, 1, 0))
+	M.Translate(door_hinge, 0)
+	return M
+
 /obj/structure/closet/examine(mob/user)
 	. = ..()
 	if(welded)

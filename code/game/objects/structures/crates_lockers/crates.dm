@@ -56,7 +56,43 @@
 				add_overlay("[icon_state]_open")
 
 /obj/structure/closet/crate/animate_door(var/closing = FALSE)
-	. = ..()
+	if(!door_anim_time)
+		return
+	if(!door_obj) door_obj = new
+	vis_contents |= door_obj
+	door_obj.icon = icon
+	door_obj.icon_state = "[icon_door || icon_state]_door"
+	is_animating_door = TRUE
+	var/num_steps = door_anim_time / world.tick_lag
+	for(var/I in 0 to num_steps)
+		var/angle = 2*door_anim_angle * (closing ? 1 - (I/num_steps) : (I/num_steps))
+		var/door_state = angle >= 90 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
+		var/door_layer = angle >= 90 ? FLOAT_LAYER : ABOVE_MOB_LAYER
+		var/isbiggercos = angle >= 180 ? TRUE : FALSE
+		var/isbiggersin = angle >= 90 ? TRUE : FALSE
+		var/matrix/M = get_door_transform(angle,isbiggercos,isbiggersin)
+		if(I == 0)
+			door_obj.transform = M
+			door_obj.icon_state = door_state
+			door_obj.layer = door_layer
+		else if(I == 1)
+			animate(door_obj, transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag, flags = ANIMATION_END_NOW)
+		else
+			animate(transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag)
+	addtimer(CALLBACK(src,.proc/end_door_animation),door_anim_time,TIMER_UNIQUE|TIMER_OVERRIDE)
+
+/obj/structure/closet/crate/end_door_animation()
+	is_animating_door = FALSE
+	vis_contents -= door_obj
+	update_icon()
+	COMPILE_OVERLAYS(src)
+
+/obj/structure/closet/crate/get_door_transform(angle, isbiggercos,isbiggersin)
+		var/matrix/M = matrix()
+		M.Translate(0, -door_hinge)
+		M.Multiply(matrix(1, isbiggersin ? -(2 - sin(angle))*door_anim_squish : -sin(angle)* door_anim_squish, 0, 0, isbiggercos ? -2 - cos(angle) : cos(angle), 0))
+		M.Translate(0, door_hinge)
+		return M
 
 /obj/structure/closet/crate/attack_hand(mob/user)
 	. = ..()
