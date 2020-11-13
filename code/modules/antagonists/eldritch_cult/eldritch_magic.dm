@@ -101,7 +101,7 @@
 		return
 
 	var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	if(length(master.followers) >= get_max_followers())
+	if(master.get_cur_followers() >= master.get_max_followers())
 		to_chat(user,"<span class='notice'>We enslaved too many minds!</span>")
 		return
 

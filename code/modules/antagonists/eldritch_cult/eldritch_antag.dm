@@ -200,6 +200,11 @@
 //////////////
 	
 /datum/antagonist/heretic/proc/get_max_followers()
+	var/towtal = 0 //a 'w' got lost in here somehow...
+	var/list/knowledge = get_all_knowledge()
+	for(var/X in knowledge)
+		var/datum/eldritch_knowledge/EK = knowledge[X]
+		towtal += knowledge[X].followers_increment
 	return 1
 	
 /datum/antagonist/heretic/proc/get_cur_followers()
