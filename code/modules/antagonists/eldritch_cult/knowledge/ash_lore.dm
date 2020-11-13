@@ -8,6 +8,7 @@
 	result_atoms = list(/obj/item/melee/sickly_blade/ash)
 	cost = 1
 	route = PATH_ASH
+	followers_increment = 1
 
 /datum/eldritch_knowledge/spell/ashen_shift
 	name = "Ashen Shift"
@@ -55,6 +56,7 @@
 	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness)
 	banned_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/flesh_mark)
 	route = PATH_ASH
+	followers_increment = 1
 
 /datum/eldritch_knowledge/ash_mark/on_eldritch_blade(target,user,proximity_flag,click_parameters)
 	. = ..()
@@ -105,6 +107,7 @@
 	next_knowledge = list(/datum/eldritch_knowledge/spell/flame_birth)
 	banned_knowledge = list(/datum/eldritch_knowledge/rust_blade_upgrade,/datum/eldritch_knowledge/flesh_blade_upgrade)
 	route = PATH_ASH
+	followers_increment = 1
 
 /datum/eldritch_knowledge/ash_blade_upgrade/on_eldritch_blade(target,user,proximity_flag,click_parameters)
 	. = ..()

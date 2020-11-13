@@ -25,6 +25,8 @@
 	var/list/result_atoms = list()
 	///What path is this on defaults to "Side"
 	var/route = PATH_SIDE
+	//Increases the total amount of followers
+	var/followers_increment = 0
 
 /datum/eldritch_knowledge/New()
 	. = ..()
@@ -358,6 +360,7 @@
 	required_atoms = list(/obj/item/organ/tongue,/obj/item/reagent_containers/food/snacks/grown/poppy)
 	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/summon/raw_prophet)
 	timer = 5 MINUTES
+	followers_increment = 1
 
 /datum/eldritch_knowledge/curse/fascination/curse(mob/living/chosen_mob)
 	. = ..()	
@@ -487,6 +490,8 @@
 	chosen_mob.update_mobility()
 	
 	return .
+
+//original curses
 
 /datum/eldritch_knowledge/curse/corrosion
 	name = "Curse of Corrosion"

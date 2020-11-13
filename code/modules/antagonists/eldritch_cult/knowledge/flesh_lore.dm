@@ -8,6 +8,7 @@
 	result_atoms = list(/obj/item/melee/sickly_blade/flesh)
 	cost = 1
 	route = PATH_FLESH
+	followers_increment = 1
 
 /datum/eldritch_knowledge/flesh_ghoul
 	name = "Imperfect Ritual"
@@ -140,6 +141,7 @@
 	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet)
 	banned_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/ash_mark)
 	route = PATH_FLESH
+	followers_increment = 1
 
 /datum/eldritch_knowledge/flesh_mark/on_eldritch_blade(target,user,proximity_flag,click_parameters)
 	. = ..()
@@ -155,6 +157,7 @@
 	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker)
 	banned_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/rust_blade_upgrade)
 	route = PATH_FLESH
+	followers_increment = 1
 
 /datum/eldritch_knowledge/flesh_blade_upgrade/on_eldritch_blade(target,user,proximity_flag,click_parameters)
 	. = ..()

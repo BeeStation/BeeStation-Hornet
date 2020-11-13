@@ -193,9 +193,17 @@
 	parts += knowledge_message.Join(", ")
 
 	return parts.Join("<br>")
+	return LAZYLEN(folloers)
 	
-/datum/antagonist/heretic/proc/get_max_followers() TBD
+//////////////
+// Minicult //
+//////////////
+	
+/datum/antagonist/heretic/proc/get_max_followers()
 	return 1
+	
+/datum/antagonist/heretic/proc/get_cur_followers()
+	return LAZYLEN(folloers)
 	
 ////////////////
 // Knowledge //
@@ -230,13 +238,13 @@
 // Economy //
 /////////////
 
-/datum/antagonist/heretic/proc/gain_power(points,dread = FALSE)
+/datum/antagonist/heretic/proc/gain_favor(points,dread = FALSE)
 	power_earned+=points
 	if (dread)
 		dread++
 	return TRUE
 
-/datum/antagonist/heretic/proc/gain_wisdom(points)
+/datum/antagonist/heretic/proc/spend_power(points)
 	if (get_power_left()<points)
 		return FALSE
 	power_spent-=points
@@ -293,24 +301,3 @@
 	if(!cultie)
 		return FALSE
 	return cultie.total_sacrifices >= target_amount
-
-/*
-BIGGEST CHANGES
-	Grasp
-	Book
-	Artifacts
-	Economy
-	Gygax
-	
- 
-Curses
-	Hunter curse
-	
-followers code
-power code???
-	take out charges from books
- 
-Artifacts:
-Omen - deals damage/healing when selfused/attacked by
- 
-*/
