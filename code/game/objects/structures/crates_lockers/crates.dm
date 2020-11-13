@@ -15,7 +15,7 @@
 	delivery_icon = "deliverycrate"
 	door_anim_time = 2
 	door_anim_squish = 0.25
-	door_anim_angle = 120
+	door_anim_angle = 220
 	door_hinge = 3.5
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
@@ -64,7 +64,7 @@
 	is_animating_door = TRUE
 	var/num_steps = door_anim_time / world.tick_lag
 	for(var/I in 0 to num_steps)
-		var/angle = 2*door_anim_angle * (closing ? 1 - (I/num_steps) : (I/num_steps))
+		var/angle = door_anim_angle * (closing ? 1 - (I/num_steps) : (I/num_steps))
 		var/door_state = angle >= 90 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
 		var/door_layer = angle >= 90 ? FLOAT_LAYER : ABOVE_MOB_LAYER
 		var/isbiggercos = angle >= 180 ? TRUE : FALSE
