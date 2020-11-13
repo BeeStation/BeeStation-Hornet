@@ -1,3 +1,5 @@
+#define BSARATE 0.05			// rate of internal charge to external power
+
 // Crew has to build a bluespace cannon
 // Cargo orders part for high price
 // Requires high amount of power
@@ -20,27 +22,27 @@
 /datum/station_goal/bluespace_cannon/check_completion()
 	if(..())
 		return TRUE
-	var/obj/machinery/bsa/full/B = locate()
+	var/obj/machinery/power/bsa/full/B = locate()
 	if(B && !B.stat)
 		return TRUE
 	return FALSE
 
-/obj/machinery/bsa
+/obj/machinery/power/bsa
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	density = TRUE
 	anchored = TRUE
 
-/obj/machinery/bsa/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/power/bsa/wrench_act(mob/living/user, obj/item/I)
 	..()
 	default_unfasten_wrench(user, I, 10)
 	return TRUE
 
-/obj/machinery/bsa/back
+/obj/machinery/power/bsa/back
 	name = "Bluespace Artillery Generator"
 	desc = "Generates cannon pulse. Needs to be linked with a fusor."
 	icon_state = "power_box"
 
-/obj/machinery/bsa/back/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/power/bsa/back/multitool_act(mob/living/user, obj/item/I)
 	if(!multitool_check_buffer(user, I)) //make sure it has a data buffer
 		return
 	var/obj/item/multitool/M = I
@@ -48,12 +50,12 @@
 	to_chat(user, "<span class='notice'>You store linkage information in [I]'s buffer.</span>")
 	return TRUE
 
-/obj/machinery/bsa/front
+/obj/machinery/power/bsa/front
 	name = "Bluespace Artillery Bore"
 	desc = "Do not stand in front of cannon during operation. Needs to be linked with a fusor."
 	icon_state = "emitter_center"
 
-/obj/machinery/bsa/front/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/power/bsa/front/multitool_act(mob/living/user, obj/item/I)
 	if(!multitool_check_buffer(user, I)) //make sure it has a data buffer
 		return
 	var/obj/item/multitool/M = I
@@ -61,23 +63,23 @@
 	to_chat(user, "<span class='notice'>You store linkage information in [I]'s buffer.</span>")
 	return TRUE
 
-/obj/machinery/bsa/middle
+/obj/machinery/power/bsa/middle
 	name = "Bluespace Artillery Fusor"
 	desc = "Contents classified by Nanotrasen Naval Command. Needs to be linked with the other BSA parts using multitool."
 	icon_state = "fuel_chamber"
-	var/obj/machinery/bsa/back/back
-	var/obj/machinery/bsa/front/front
+	var/obj/machinery/power/bsa/back/back
+	var/obj/machinery/power/bsa/front/front
 
-/obj/machinery/bsa/middle/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/power/bsa/middle/multitool_act(mob/living/user, obj/item/I)
 	if(!multitool_check_buffer(user, I))
 		return
 	var/obj/item/multitool/M = I
 	if(M.buffer)
-		if(istype(M.buffer, /obj/machinery/bsa/back))
+		if(istype(M.buffer, /obj/machinery/power/bsa/back))
 			back = M.buffer
 			M.buffer = null
 			to_chat(user, "<span class='notice'>You link [src] with [back].</span>")
-		else if(istype(M.buffer, /obj/machinery/bsa/front))
+		else if(istype(M.buffer, /obj/machinery/power/bsa/front))
 			front = M.buffer
 			M.buffer = null
 			to_chat(user, "<span class='notice'>You link [src] with [front].</span>")
@@ -85,7 +87,7 @@
 		to_chat(user, "<span class='warning'>[I]'s data buffer is empty!</span>")
 	return TRUE
 
-/obj/machinery/bsa/middle/proc/check_completion()
+/obj/machinery/power/bsa/middle/proc/check_completion()
 	if(!front || !back)
 		return "No linked parts detected!"
 	if(!front.anchored || !back.anchored || !anchored)
@@ -95,7 +97,7 @@
 	if(!has_space())
 		return "Not enough free space!"
 
-/obj/machinery/bsa/middle/proc/has_space()
+/obj/machinery/power/bsa/middle/proc/has_space()
 	var/cannon_dir = get_cannon_direction()
 	var/x_min
 	var/x_max
@@ -112,32 +114,39 @@
 			return FALSE
 	return TRUE
 
-/obj/machinery/bsa/middle/proc/get_cannon_direction()
+/obj/machinery/power/bsa/middle/proc/get_cannon_direction()
 	if(front.x > x && back.x < x)
 		return EAST
 	else if(front.x < x && back.x > x)
 		return WEST
 
 
-/obj/machinery/bsa/full
+/obj/machinery/power/bsa/full
 	name = "Bluespace Artillery"
 	desc = "Long range bluespace artillery."
 	icon = 'icons/obj/lavaland/cannon.dmi'
 	icon_state = "orbital_cannon1"
 	var/static/mutable_appearance/top_layer
-	var/ex_power = 3
-	var/power_used_per_shot = 2000000 //enough to kil standard apc - todo : make this use wires instead and scale explosion power with it
+	var/capacity = 2e6
+	var/charge = 0
+	var/input_attempt = TRUE
+	var/inputting = TRUE
+	var/input_level = 50000
+	var/input_level_max = 800000
+	var/input_available = 0
+	var/shot_power = 0
 	var/ready
+	use_power = NO_POWER_USE
 	pixel_y = -32
 	pixel_x = -192
 	bound_width = 352
 	bound_x = -192
 	appearance_flags = NONE //Removes default TILE_BOUND
 
-/obj/machinery/bsa/full/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/power/bsa/full/wrench_act(mob/living/user, obj/item/I)
 	return FALSE
 
-/obj/machinery/bsa/full/proc/get_front_turf()
+/obj/machinery/power/bsa/full/proc/get_front_turf()
 	switch(dir)
 		if(WEST)
 			return locate(x - 7,y,z)
@@ -145,7 +154,7 @@
 			return locate(x + 4,y,z)
 	return get_turf(src)
 
-/obj/machinery/bsa/full/proc/get_back_turf()
+/obj/machinery/power/bsa/full/proc/get_back_turf()
 	switch(dir)
 		if(WEST)
 			return locate(x + 4,y,z)
@@ -153,7 +162,7 @@
 			return locate(x - 6,y,z)
 	return get_turf(src)
 
-/obj/machinery/bsa/full/proc/get_target_turf()
+/obj/machinery/power/bsa/full/proc/get_target_turf()
 	switch(dir)
 		if(WEST)
 			return locate(1,y,z)
@@ -161,9 +170,10 @@
 			return locate(world.maxx,y,z)
 	return get_turf(src)
 
-/obj/machinery/bsa/full/Initialize(mapload, cannon_direction = WEST)
+/obj/machinery/power/bsa/full/Initialize(mapload, cannon_direction = WEST)
 	. = ..()
 	top_layer = top_layer || mutable_appearance(icon, layer = ABOVE_MOB_LAYER)
+	connect_to_network()
 	switch(cannon_direction)
 		if(WEST)
 			setDir(WEST)
@@ -177,9 +187,27 @@
 	add_overlay(top_layer)
 	reload()
 
-/obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye)
-	reload()
+/obj/machinery/power/bsa/full/process()
+	if(stat & BROKEN)
+		return
+	if(powernet)
+		input_available = CLAMP(powernet.avail-powernet.load, 0, powernet.avail)
+		if(inputting)
+			if(input_available > 0)		// if there's power available, try to charge
+				var/load = min(min((capacity-charge)/BSARATE, input_level), input_available)
+				charge += load * BSARATE
+				powernet.load += load
+			else
+				inputting = FALSE
+		else
+			if(input_attempt && input_available > 0)
+				inputting = TRUE
+	else
+		inputting = FALSE
 
+
+/obj/machinery/power/bsa/full/proc/fire(mob/user, turf/bullseye)
+	reload()
 	var/turf/point = get_front_turf()
 	var/turf/target = get_target_turf()
 	var/atom/movable/blocker
@@ -205,18 +233,19 @@
 	if(!blocker)
 		message_admins("[ADMIN_LOOKUPFLW(user)] has launched an artillery strike targeting [ADMIN_VERBOSEJMP(bullseye)].")
 		log_game("[key_name(user)] has launched an artillery strike targeting [AREACOORD(bullseye)].")
-		explosion(bullseye, ex_power, ex_power*2, ex_power*4)
+		explosion(bullseye, shot_power, shot_power*2, shot_power*4)
 	else
 		message_admins("[ADMIN_LOOKUPFLW(user)] has launched an artillery strike targeting [ADMIN_VERBOSEJMP(bullseye)] but it was blocked by [blocker] at [ADMIN_VERBOSEJMP(target)].")
 		log_game("[key_name(user)] has launched an artillery strike targeting [AREACOORD(bullseye)] but it was blocked by [blocker] at [AREACOORD(target)].")
+	shot_power = 0
 
-
-/obj/machinery/bsa/full/proc/reload()
+/obj/machinery/power/bsa/full/proc/reload()
 	ready = FALSE
-	use_power(power_used_per_shot)
+	shot_power = round(round(charge, -5)* 2 / 1000000, 0)
+	charge = 0
 	addtimer(CALLBACK(src,"ready_cannon"),600)
 
-/obj/machinery/bsa/full/proc/ready_cannon()
+/obj/machinery/power/bsa/full/proc/ready_cannon()
 	ready = TRUE
 
 /obj/structure/filler
@@ -238,7 +267,7 @@
 
 
 
-	var/obj/machinery/bsa/full/cannon
+	var/obj/machinery/power/bsa/full/cannon
 	var/notice
 	var/target
 	var/area_aim = FALSE //should also show areas for targeting
@@ -259,6 +288,12 @@
 	data["connected"] = cannon
 	data["notice"] = notice
 	data["unlocked"] = GLOB.bsa_unlock
+	data["capacityPercent"] = round(100*cannon.charge/cannon.capacity, 0.1)
+	data["inputAttempt"] = cannon.input_attempt
+	data["inputting"] = cannon.inputting
+	data["inputLevel"] = cannon.input_level
+	data["inputLevelMax"] = cannon.input_level_max
+	data["inputAvailable"] = cannon.input_available
 	if(target)
 		data["target"] = get_target_name()
 	return data
@@ -267,6 +302,10 @@
 	if(..())
 		return
 	switch(action)
+		if("tryinput")
+			cannon.input_attempt = !cannon.input_attempt
+			update_icon()
+			. = TRUE
 		if("build")
 			cannon = deploy()
 			. = TRUE
@@ -276,6 +315,23 @@
 		if("recalibrate")
 			calibrate(usr)
 			. = TRUE
+		if("input")
+			var/target = params["target"]
+			var/adjust = text2num(params["adjust"])
+			if(target == "min")
+				target = 0
+				. = TRUE
+			else if(target == "max")
+				target = cannon.input_level_max
+				. = TRUE
+			else if(adjust)
+				target = cannon.input_level + adjust
+				. = TRUE
+			else if(text2num(target) != null)
+				target = text2num(target)
+				. = TRUE
+			if(.)
+				cannon.input_level = clamp(target, 0, cannon.input_level_max)
 	update_icon()
 
 /obj/machinery/computer/bsa_control/proc/calibrate(mob/user)
@@ -308,18 +364,18 @@
 		return get_turf(G.parent)
 
 /obj/machinery/computer/bsa_control/proc/fire(mob/user)
-	if(cannon.stat)
-		notice = "Cannon unpowered!"
+	if(round(round(cannon.charge, -5)* 2 / 1000000, 0) == 0)
+		notice = "Not enough charge!"
 		return
 	notice = null
 	cannon.fire(user, get_impact_turf())
 
 /obj/machinery/computer/bsa_control/proc/deploy(force=FALSE)
-	var/obj/machinery/bsa/full/prebuilt = locate() in range(7) //In case of adminspawn
+	var/obj/machinery/power/bsa/full/prebuilt = locate() in range(7) //In case of adminspawn
 	if(prebuilt)
 		return prebuilt
 
-	var/obj/machinery/bsa/middle/centerpiece = locate() in range(7)
+	var/obj/machinery/power/bsa/middle/centerpiece = locate() in range(7)
 	if(!centerpiece)
 		notice = "No BSA parts detected nearby."
 		return null
@@ -330,8 +386,10 @@
 	var/datum/effect_system/smoke_spread/s = new
 	s.set_up(4,get_turf(centerpiece))
 	s.start()
-	var/obj/machinery/bsa/full/cannon = new(get_turf(centerpiece),centerpiece.get_cannon_direction())
+	var/obj/machinery/power/bsa/full/cannon = new(get_turf(centerpiece),centerpiece.get_cannon_direction())
 	qdel(centerpiece.front)
 	qdel(centerpiece.back)
 	qdel(centerpiece)
 	return cannon
+
+#undef BSARATE

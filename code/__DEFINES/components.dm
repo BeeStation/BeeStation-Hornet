@@ -77,7 +77,7 @@
 #define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"			//! from base of atom/teleport_act(): ()
 #define COMSIG_ATOM_EXTRAPOLATOR_ACT "atom_extrapolator_act"	//! from base of atom/Exited(): (mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 #define COMSIG_ATOM_SING_PULL "atom_sing_pull"					//! from base of atom/singularity_pull(): (S, current_size)
-#define COMSIG_ATOM_BSA_BEAM "atom_bsa_beam_pass"				//from obj/machinery/bsa/full/proc/fire(): ()
+#define COMSIG_ATOM_BSA_BEAM "atom_bsa_beam_pass"				//from obj/machinery/power/bsa/full/proc/fire(): ()
 	#define COMSIG_ATOM_BLOCKS_BSA_BEAM 1
 #define COMSIG_ATOM_SET_LIGHT "atom_set_light"					//! from base of atom/set_light(): (l_range, l_power, l_color)
 #define COMSIG_ATOM_DIR_CHANGE "atom_dir_change"				//! from base of atom/setDir(): (old_dir, new_dir)

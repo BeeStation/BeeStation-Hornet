@@ -4,7 +4,7 @@
 /obj/item/circuitboard/machine/bsa/back
 	name = "Bluespace Artillery Generator (Machine Board)"
 	icon_state = "command"
-	build_path = /obj/machinery/bsa/back //No freebies!
+	build_path = /obj/machinery/power/bsa/back //No freebies!
 	req_components = list(
 		/obj/item/stock_parts/capacitor/quadratic = 5,
 		/obj/item/stack/cable_coil = 2)
@@ -12,7 +12,7 @@
 /obj/item/circuitboard/machine/bsa/middle
 	name = "Bluespace Artillery Fusor (Machine Board)"
 	icon_state = "command"
-	build_path = /obj/machinery/bsa/middle
+	build_path = /obj/machinery/power/bsa/middle
 	req_components = list(
 		/obj/item/stack/ore/bluespace_crystal = 20,
 		/obj/item/stack/cable_coil = 2)
@@ -20,7 +20,7 @@
 /obj/item/circuitboard/machine/bsa/front
 	name = "Bluespace Artillery Bore (Machine Board)"
 	icon_state = "command"
-	build_path = /obj/machinery/bsa/front
+	build_path = /obj/machinery/power/bsa/front
 	req_components = list(
 		/obj/item/stock_parts/manipulator/femto = 5,
 		/obj/item/stack/cable_coil = 2)
