@@ -43,4 +43,4 @@
 	flick("animate_largebins", src)
 	spawn(13)
 		playsound(loc, close_sound, 15, 1, -3)
-	update_icon()
+		update_icon()
