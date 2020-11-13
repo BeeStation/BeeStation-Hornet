@@ -398,7 +398,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		if(unbuyable.Find(S.mappath))
 			S.can_be_bought = FALSE
 		if(illegal.Find(S.mappath))
-			S.syndicate_exclusive = TRUE
+			S.illegal_shuttle = TRUE
 
 		shuttle_templates[S.shuttle_id] = S
 		map_templates[S.shuttle_id] = S

@@ -556,8 +556,10 @@
 			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
 			dat += "Budget: [D.account_balance] Credits.<BR>"
 			dat += "<BR>"
-			dat += "<b>Caution: Purchasing dangerous shuttles may lead to mutiny and/or death.</b><br>"
-			dat += "<BR>"
+			if(obj_flags & EMAGGED)
+				dat += "<b>WARNING: Safety features disabled. Non-certified shuttles included. Order at your own peril.</b><BR><BR>" 
+			else 
+				dat += "<b>Safety protocols in effect: The listed shuttles fulfill NT safety standards.</b><BR><BR>" //not that they're very high but these won't kill everyone aboard
 			for(var/shuttle_id in SSmapping.shuttle_templates)
 				var/datum/map_template/shuttle/S = SSmapping.shuttle_templates[shuttle_id]
 				if(S.can_be_bought && S.credit_cost < INFINITY)
@@ -566,10 +568,11 @@
 					if(S.prerequisites)
 						dat += "Prerequisites: [S.prerequisites]<BR>"
 					dat += "<A href='?src=[REF(src)];operation=buyshuttle;chosen_shuttle=[REF(S)]'>(<font color=red><i>Purchase</i></font>)</A><BR><BR>"
-				else if(obj_flags & EMAGGED)
-					if(S.syndicate_exclusive && S.credit_cost < INFINITY)
-						dat += "<b> Shuttle supplied by Syndicate, order at your own risk: </b>"
-						dat += "<BR>"
+			if(obj_flags & EMAGGED)
+				dat += "<b>NON-CERTIFIED SHUTTLES APPENDED BELOW.</b><BR><BR>"
+				for(var/shuttle_id in SSmapping.shuttle_templates)
+					var/datum/map_template/shuttle/S = SSmapping.shuttle_templates[shuttle_id]
+					if(S.illegal_shuttle && S.credit_cost < INFINITY)
 						dat += "[S.name] | [S.credit_cost] Credits<BR>"
 						dat += "[S.description]<BR>"
 						if(S.prerequisites)
