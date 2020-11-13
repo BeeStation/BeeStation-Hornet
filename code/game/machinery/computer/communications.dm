@@ -554,12 +554,13 @@
 
 		if(STATE_PURCHASE)
 			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+			var/obj/item/circuitboard/computer/communications/CM = circuit
 			dat += "Budget: [D.account_balance] Credits.<BR>"
 			dat += "<BR>"
-			if(obj_flags & EMAGGED)
+			if(obj_flags & EMAGGED || CM.insecure)
 				dat += "<b>WARNING: Safety features disabled. Non-certified shuttles included. Order at your own peril.</b><BR><BR>" 
 			else 
-				dat += "<b>Safety protocols in effect: The listed shuttles fulfill NT safety standards.</b><BR><BR>" //not that they're very high but these won't kill everyone aboard
+				dat += "<b>Safety protocols in effect: These shuttles all fulfill NT safety standards.</b><BR><BR>" //not that they're very high but these won't kill everyone aboard
 			for(var/shuttle_id in SSmapping.shuttle_templates)
 				var/datum/map_template/shuttle/S = SSmapping.shuttle_templates[shuttle_id]
 				if(S.can_be_bought && S.credit_cost < INFINITY)
@@ -568,7 +569,7 @@
 					if(S.prerequisites)
 						dat += "Prerequisites: [S.prerequisites]<BR>"
 					dat += "<A href='?src=[REF(src)];operation=buyshuttle;chosen_shuttle=[REF(S)]'>(<font color=red><i>Purchase</i></font>)</A><BR><BR>"
-			if(obj_flags & EMAGGED)
+			if(obj_flags & EMAGGED || CM.insecure)
 				dat += "<b>NON-CERTIFIED SHUTTLES APPENDED BELOW.</b><BR><BR>"
 				for(var/shuttle_id in SSmapping.shuttle_templates)
 					var/datum/map_template/shuttle/S = SSmapping.shuttle_templates[shuttle_id]
