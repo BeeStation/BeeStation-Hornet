@@ -67,7 +67,7 @@
 
 /mob/living/simple_animal/pet/gondola/jammor_ix
 	name = "Jammor IX"
-	desc = "Jammor IX,one of Octagons weird experiments,donated by Nanotrasen after a failed revolt."
+	desc = "One of Octagon's weird experiments, donated by Nanotrasen after a failed revolt."
 	gender = MALE
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
