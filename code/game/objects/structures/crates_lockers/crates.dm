@@ -16,7 +16,6 @@
 	door_anim_time = 2
 	door_anim_squish = 0.25
 	door_anim_angle = 120
-	is_crate = TRUE
 	door_hinge = 3.5
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
