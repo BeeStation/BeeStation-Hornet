@@ -124,23 +124,21 @@
 		while(continue)
 			if(do_after(user, 10, target = user) && cell.charge)
 				done_any = TRUE
-				if(C.charge < C.maxcharge)
+				if(!O || !C)
+					continue = FALSE
+				else if(C.charge < C.maxcharge)
 					induce(C, coefficient)					
 				else if(obj_flags & EMAGGED)
 					var/burndamage = min(cell.charge,powertransfer)
 					cell.use(burndamage)
 					cell.update_icon()
 					O.take_damage(burndamage/10, BURN, "energy")
-					user.visible_message("<span class='notice'>You overcharge the [O].</span>")
+					user.visible_message("<span class='warning'>You overcharge the [O].</span>")
 				else
 					continue = FALSE
 					
-				if(!O || !C)
-					continue = FALSE
-				else if(O)
-					O.update_icon()
-				
 				if (continue)
+					O.update_icon()
 					do_sparks(1, FALSE, A)
 					if (powertransfer>1000)
 						var/mob/living/carbon/human = user
