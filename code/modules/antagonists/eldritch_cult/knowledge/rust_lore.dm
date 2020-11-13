@@ -61,9 +61,9 @@
 	living_user.adjustStaminaLoss(-2)
 
 /datum/eldritch_knowledge/rust_mark
-	name = "Mark of Rust"
-	desc = "Your eldritch blade now applies a rust mark. Rust mark has a chance to deal between 0 to 200 damage to 75% of enemies items. To Detonate the mark use your mansus grasp on it."
+	name = "Priest Ascension"
 	gain_text = "Lords of the depths help those in dire need at a cost."
+	desc = "Become a Priest of Rust, which allows you to recruit more disciples. Also, your eldritch blade now applies a mark which, when activated with Mansus Grasph, damages the equipment the target wears."
 	cost = 2
 	next_knowledge = list(/datum/eldritch_knowledge/spell/area_conversion)
 	banned_knowledge = list(/datum/eldritch_knowledge/ash_mark,/datum/eldritch_knowledge/flesh_mark)
@@ -77,9 +77,9 @@
 		living_target.apply_status_effect(/datum/status_effect/eldritch/rust)
 
 /datum/eldritch_knowledge/rust_blade_upgrade
-	name = "Toxic blade"
+	name = "Prophet Ascension"
 	gain_text = "Let the blade guide you through the flesh."
-	desc = "Your blade of choice will now add toxin to enemies bloodstream."
+	desc = "Become a Prophet of Rust, which allows you to recruit more disciples. Enhances your blade to inject toxin to enemies bloodstream."
 	cost = 2
 	next_knowledge = list(/datum/eldritch_knowledge/spell/rust_wave)
 	banned_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/flesh_blade_upgrade)
@@ -90,7 +90,7 @@
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/carbon_target = target
-		carbon_target.reagents.add_reagent(/datum/reagent/eldritch, 2)
+		carbon_target.reagents.add_reagent(/datum/reagent/eldritch, 4)
 
 /datum/eldritch_knowledge/spell/rust_wave
 	name = "Wave of Rust"

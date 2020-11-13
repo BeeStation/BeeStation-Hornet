@@ -244,19 +244,19 @@
 /////////////
 
 /datum/antagonist/heretic/proc/gain_favor(points,dread = FALSE)
-	power_earned+=points
+	favor_earned+=points
 	if (dread)
 		dread++
 	return TRUE
 
-/datum/antagonist/heretic/proc/spend_power(points)
-	if (get_power_left()<points)
+/datum/antagonist/heretic/proc/spend_favor(points)
+	if (get_favor_left()<points)
 		return FALSE
-	power_spent-=points
+	favor_spent-=points
 	return TRUE
 
-/datum/antagonist/heretic/proc/get_power_left()
-	return power_earned-power_spent
+/datum/antagonist/heretic/proc/get_favor_left()
+	return favor_earned-favor_spent
 
 ////////////////
 // Objectives //

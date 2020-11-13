@@ -49,9 +49,9 @@
 	return
 
 /datum/eldritch_knowledge/ash_mark
-	name = "Mark of ash"
+	name = "Priest Ascension"
 	gain_text = "Spread the famine."
-	desc = "Your sickly blade now applies ash mark on hit. Use your mansus grasp to proc the mark. Mark of Ash causes stamina damage, and fire loss, and spreads to a nearby carbon. Damage decreases with how many times the mark has spread."
+	desc = "Become a Priest of Ash, which allows you to recruit more disciples. Also, your eldritch blade now applies a mark which, when activated with Mansus Grasph, causes stamina loss, and fire damage, and spreads to a nearby carbons."
 	cost = 2
 	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness)
 	banned_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/flesh_mark)
@@ -84,7 +84,7 @@
 
 /datum/eldritch_knowledge/dematerialize
 	name = "Dematerialzie"
-	gain_text = "Gates have opened, minds have flooded, I remain."
+	gain_text = "God's anger, my weapon!"
 	desc = "Your Mansus Grasp can shred avatars into dust. The dust can be thrown at mortals to inflict a stronger curse."
 	cost = 1
 	next_knowledge = list(/datum/eldritch_knowledge/spell/ashen_shift)
@@ -92,7 +92,7 @@
 
 /datum/eldritch_knowledge/spell/flame_birth
 	name = "Flame Birth"
-	gain_text = "Nightwatcher was a man of principles, and yet he arose from the chaos he vowed to protect from."
+	gain_text = "Nightwatcher was a man of principles, and yet he arose from the chaos he vowed to protect us from."
 	desc = "Short range spell that allows you to curse someone with massive sanity loss."
 	cost = 1
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/fiery_rebirth
@@ -100,9 +100,9 @@
 	route = PATH_ASH
 
 /datum/eldritch_knowledge/ash_blade_upgrade
-	name = "Fiery blade"
-	gain_text = "May the sun burn the heretics."
-	desc = "Your blade of choice will now add firestacks."
+	name = "Prophet Ascension"
+	gain_text = "Your pitiful form, turned to ashes..."
+	desc = "Become a Prophet of Ash, which allows you to recruit more disciples. Enhances your blade to to set targets on fire."
 	cost = 2
 	next_knowledge = list(/datum/eldritch_knowledge/spell/flame_birth)
 	banned_knowledge = list(/datum/eldritch_knowledge/rust_blade_upgrade,/datum/eldritch_knowledge/flesh_blade_upgrade)
@@ -115,14 +115,6 @@
 		var/mob/living/carbon/C = target
 		C.adjust_fire_stacks(1)
 		C.IgniteMob()
-
-/datum/eldritch_knowledge/spell/cleave
-	name = "Blood Cleave"
-	gain_text = "At first i didn't know these instruments of war, but the priest told me to use them."
-	desc = "Gives AOE spell that causes heavy bleeding and blood loss."
-	cost = 1
-	spell_to_add = /obj/effect/proc_holder/spell/pointed/cleave
-	next_knowledge = list(/datum/eldritch_knowledge/spell/rust_wave,/datum/eldritch_knowledge/spell/flame_birth)
 
 /datum/eldritch_knowledge/final/ash_final
 	name = "Ashlord's rite"

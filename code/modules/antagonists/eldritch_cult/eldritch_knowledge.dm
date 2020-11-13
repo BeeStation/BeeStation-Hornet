@@ -350,6 +350,14 @@
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/blood_siphon
 	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet,/datum/eldritch_knowledge/spell/area_conversion)
 
+/datum/eldritch_knowledge/spell/cleave
+	name = "Blood Cleave"
+	gain_text = "At first i didn't know these instruments of war, but the priest told me to use them."
+	desc = "Gives AOE spell that causes heavy bleeding and blood loss."
+	cost = 1
+	spell_to_add = /obj/effect/proc_holder/spell/pointed/cleave
+	next_knowledge = list(/datum/eldritch_knowledge/spell/rust_wave,/datum/eldritch_knowledge/spell/flame_birth)
+
 // Curses //
 
 /datum/eldritch_knowledge/curse/fascination

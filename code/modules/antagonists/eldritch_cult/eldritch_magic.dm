@@ -31,7 +31,7 @@
 
 /obj/effect/proc_holder/spell/targeted/touch/mansus_grasp
 	name = "Mansus Grasp"
-	desc = "Touch spell that let's you channel the power of the old gods through you."
+	desc = "Channel the power of the old gods through you! Strike a mortal to disable them, or carve transmutation runes on the floor."
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 	school = "evocation"
 	charge_max = 150

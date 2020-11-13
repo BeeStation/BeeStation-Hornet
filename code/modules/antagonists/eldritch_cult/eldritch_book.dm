@@ -6,8 +6,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	///Last person that touched this
 	var/mob/living/last_user
-	///how many charges do we have?
-	var/charge = 1
 	///Where we cannot create the rune?
 	var/static/list/blacklisted_turfs = typecacheof(list(/turf/closed,/turf/open/space,/turf/open/lava))
 	///Is it in use?
@@ -22,10 +20,12 @@
 	. = ..()
 	if(!IS_HERETIC(user))
 		return
-	. += "The Tome holds [charge] charges."
-	. += "Use it on the floor to create a transmutation rune, used to perform rituals."
-	. += "Hit an influence in the black part with it to gain a charge."
-	. += "Hit a transmutation rune to destroy it."
+	//. += "The Tome holds [charge] charges."
+	//. += "Use it on the floor to create a transmutation rune, used to perform rituals."
+	//. += "Hit an influence in the black part with it to gain a charge."
+	//. += "Hit a transmutation rune to destroy it."
+	. += "You can create holes in reality and gain favor by activating influences with the cover of this book."
+	. += "Any mortal that reads this book will gain fascination. Strike them with your Mansus Grasp to turn them into your disciples."
 
 /obj/item/forbidden_book/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -37,12 +37,14 @@
 	in_use = FALSE
 
 ///Gives you a charge and destroys a corresponding influence
-/obj/item/forbidden_book/proc/get_power_from_influence(atom/target, mob/user)
+/obj/item/forbidden_book/proc/get_power_from_influence(atom/target, mob/user)	//why is this a proc? literally not called anywhere else
 	var/obj/effect/reality_smash/RS = target
 	to_chat(target, "<span class='danger'>You start drawing power from influence...</span>")
-	if(do_after(user,10 SECONDS,FALSE,RS))
+	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	if(cultie && do_after(user,10 SECONDS,FALSE,RS))
+		cultie.gain_favor(1,FALSE)
 		qdel(RS)
-		charge += 1
+		
 
 /obj/item/forbidden_book/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!IS_HERETIC(user))
@@ -104,7 +106,7 @@
 	var/list/data = list()
 	var/list/lore = list()
 
-	data["charges"] = charge
+	data["charges"] = cultie.get_favor_left()
 
 	for(var/X in to_know)
 		lore = list()
@@ -112,7 +114,7 @@
 		lore["type"] = EK.type
 		lore["name"] = EK.name
 		lore["cost"] = EK.cost
-		lore["disabled"] = EK.cost <= charge ? FALSE : TRUE
+		lore["disabled"] = EK.cost <= cultie.get_favor_left() ? FALSE : TRUE
 		lore["path"] = EK.route
 		lore["state"] = "Research"
 		lore["flavour"] = EK.gain_text
@@ -149,7 +151,7 @@
 				if(initial(EK.name) != ekname)
 					continue
 				if(cultie.gain_knowledge(EK))
-					charge -= text2num(params["cost"])
+					cultie.spend_favor(text2num(params["cost"]))
 					return TRUE
 
 	update_icon() // Not applicable to all objects.
@@ -159,8 +161,8 @@
 	icon_state = initial(icon_state)
 	return ..()
 
-/obj/item/forbidden_book/debug
-	charge = 100
+//obj/item/forbidden_book/debug
+//	charge = 100
 
 
 /datum/brain_trauma/fascination	REVISE
