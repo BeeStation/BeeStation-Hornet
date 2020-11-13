@@ -187,9 +187,8 @@
 	var/deity = 0
 	var/godname = "C'Thulhu"
 	var/infused = FALSE
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "assistant"
-	item_state = "doll"
+	icon = 'icons/obj/wizard.dmi'	//temporary
+	icon_state = "voodoo"
 
 /obj/item/toy/artifact/Initialize()
 	deity = rand(1,15)
@@ -230,54 +229,45 @@
 	. = ..()
 	var/heretic_user = IS_HERETIC(user)
 	if(heretic_user || IS_HERETIC_MONSTER(user) || user.job in list("Curator"))
-		switch (deity)
-			if (1)
-				.+="Lore"
+		if (deity<=6)
+			.+="This is a statue of [godname], one of the earth's weak gods."	//earth's gods watch out for their creatures, so they offer beneficial boons
+		else	
+			.+="This is a statue of [godname], a forbidden god."				//forbidden gods on the other side...
 	if (heretic_user)
 		if (!infused)
 			.+="This [src] has not been infused with magic."
 		else
 			switch (deity)
 				if (1)
-					.+="The blessing of [godname] will awake the sleeping."
+					.+="The boon of [godname] will snap one's mind back to reality."
 				if (2)
-					.+="The blessing of [godname] will heal the blind."
+					.+="The boon of [godname] will bring back one's vision."					
 				if (3)
-					.+="The blessing of [godname] will cure stupidity."
-				if (4)
-					.+="The blessing of [godname] will cauterize bruises."
+					.+="The boon of [godname] will restore sanity and mind."
+				if (4)	
+					.+="The boon of [godname] will purge one's body of inpurities."
 				if (5)	
-					.+="The blessing of [godname] will mend burns."
-				if (1)	//force awake - induce sleep
-					godname = "Lobon"
-				if (2)	//eye heal - cure blindness
-					godname = "Nath-Horthath"
-				if (3)	//brain heal 
-					godname = "Oukranos"
-				if (4)	//heal toxin
-					godname = "Tamash"
-				if (5)	//heal burn
-					godname = "Karakal"
-				if (6)	// heal brute
-					godname = "D’endrrah"	
-				if (7)	// eye damage
-					godname = "Azathoth"
-				if (8)	//tongue damage
-					godname = "Abhoth"
-				if (9)	//brain damage
-					godname = "Aiueb Gnshal"
-				if (10)	//brute
-					godname = "Ialdagorth"
-				if (11)	//burn
-					godname = "Tulzscha"
-				if (12)	//paralyze legs
-					godname = "C'thalpa"
-				if (13)	//paralyze hands	
-					godname = "Mh'ithrha"
-				if (14)	//emp - emag
-					godname = "Shabbith-Ka"
-				if (15)	// depacification - eldritch antag
-					godname = "Yomagn'tho"
+					.+="The boon of [godname] will heal one's burned flesh."
+				if (6)
+					.+="The boon of [godname] will bring back one's vision."
+				if (7)
+					.+="The boon of [godname] will make one blind."
+				if (8)
+					.+="The boon of [godname] will halt one's speech."
+				if (9)	
+					.+="The boon of [godname] will make one stupid."
+				if (10)	
+					.+="The boon of [godname] will inflict wounds."
+				if (11)	
+					.+="The boon of [godname] will cause one's skin to burn."
+				if (12)	
+					.+="The boon of [godname] will cripple one's legs."
+				if (13)	
+					.+="The boon of [godname] will cripple one's hands."
+				if (14)	
+					.+="The boon of [godname] will cripple one's hands."
+				if (15)	
+					.+="The boon of [godname] will bring madness into one's mind."
 			
 		var/datum/antagonist/heretic/her = user.mind.has_antag_datum(/datum/antagonist/heretic)
 		if (her && !her.analyzed_artifacts[deity])
@@ -350,7 +340,7 @@
 			if(HAS_TRAIT(target, TRAIT_PACIFISM))
 				REMOVE_TRAIT(target, TRAIT_PACIFISM)
 
-/obj/item/toy/artifact/proc/to_ashes() 	
+/obj/item/toy/artifact/proc/to_ashes(mob/living/usr) 	
 	if (infused)
 		var/god = deity
 		var/name = godname	
@@ -364,8 +354,10 @@
 	qdel(src)
 
 /obj/item/toy/artifact/ashes
-	name = "pile ashes"
-	description = "A pile of ashes."
+	name = "eldritch ashes"
+	description = "There's something eldritch about these ashes... You just know it!"
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "ash"
 	infused = TRUE
 
 /obj/item/toy/artifact/ashes/Initialize()
@@ -384,6 +376,9 @@
 		infuse_blessing(user)
 		qdel(src)
 	return .
+
+/obj/item/toy/artifact/ashes/to_ashes(mob/living/usr) 
+	return
 	
 /obj/item/toy/artifact/ashes/infuse_blessing(mob/living/carbon/human/target)
 	if (!istype(target) || QDELETED(target) || target.stat == DEAD)

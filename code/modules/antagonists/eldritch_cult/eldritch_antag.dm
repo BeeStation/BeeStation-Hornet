@@ -193,7 +193,6 @@
 	parts += knowledge_message.Join(", ")
 
 	return parts.Join("<br>")
-	return LAZYLEN(folloers)
 	
 //////////////
 // Minicult //
@@ -205,7 +204,7 @@
 	for(var/X in knowledge)
 		var/datum/eldritch_knowledge/EK = knowledge[X]
 		towtal += knowledge[X].followers_increment
-	return 1
+	return towtal
 	
 /datum/antagonist/heretic/proc/get_cur_followers()
 	return LAZYLEN(folloers)
@@ -219,7 +218,7 @@
 	if (IS_HERETIC(victim) || IS_HERETIC_MONSTER(victim))
 		to_chat(user,"<span class='warning'>Their mind belongs to someone else!</span>")
 		return FALSE
-		log_game("[key_name_admin(victim)] has become a follower of [user.real_name]")
+	log_game("[key_name_admin(victim)] has become a follower of [user.real_name]")
 	victim.faction |= "heretics"
 	var/datum/antagonist/heretic_monster/heretic_monster = victim.mind.add_antag_datum(/datum/antagonist/heretic_monster)
 	heretic_monster.set_owner(src)

@@ -164,23 +164,46 @@
 
 /datum/brain_trauma/fascination	REVISE
 	name = "Delirium"
-	desc = "Patient's unconscious is completely enthralled by a word or sentence, focusing their thoughts and actions on it."
-	scan_desc = "paranormalitis fascinitis"
-	gain_text = ""
-	lose_text = ""
+	desc = "Patient's deluded into believing that omnipotent extraterestrial entities infiltrated our ranks."
+	scan_desc = "lovecraft madness"
+	gain_text = "I have stared into the void and it stared back!"
+	lose_text = "You come to the realization that there are no omnipotent Gods that can save you from the monotony of your day to day job."
 	resilience = TRAUMA_RESILIENCE_SURGERY
 
 /datum/brain_trauma/fascination/on_gain()
-	message_admins("[ADMIN_LOOKUPFLW(owner)] has become fascinated.")
+	message_admins("[ADMIN_LOOKUPFLW(owner)] has become fascinated.")	//self antag warning?
 	log_game("[key_name(owner)] has become fascinated.")
-	to_chat(owner, "<span class='boldwarning'>¤¤¤.</span>")
+	
 	var/obj/screen/alert/hypnosis/hypno_alert = owner.throw_alert("hypnosis", /obj/screen/alert/hypnosis)
-	hypno_alert.desc = "¤¤¤."
+	hypno_alert.desc = "Seek Answers!"
+	
 	..()
 
 /datum/brain_trauma/fascination/on_lose()
 	message_admins("[ADMIN_LOOKUPFLW(owner)] is no longer fascinated.")
 	log_game("[key_name(owner)] is no longer fascinated.")
-	to_chat(owner, "<span class='userdanger'>¤¤¤.</span>")
 	owner.clear_alert("hypnosis")
 	..()
+	
+/datum/brain_trauma/fascination/on_life()
+	if(prob(1))
+		var/message = pick(
+			"I'm not feeling creative now. Will come back later!"
+		)
+		to_chat(owner, "<span class='hypnophrase'>[message]</span>")
+
+/datum/brain_trauma/fascination/on_hear(message, speaker, message_language, raw_message, radio_freq)	//copy paste from phobia, good idea?
+	if(!owner.can_hear())
+		return message
+		
+	var/list/trigger_words = list( "heretic","curse","magic","eldritch","god" )
+		
+	for(var/word in trigger_words)
+		var/regex/reg = regex("(\\b|\\A)[REGEX_QUOTE(word)]'?s*(\\b|\\Z)", "i")
+
+		if(findtext(raw_message, reg))
+			if(fear_state <= (PHOBIA_STATE_CALM)) //words can put you on edge, but won't take you over it, unless you have gotten stressed already. don't call freak_out to avoid gaming the adrenaline rush
+				fearscore ++
+			message = reg.Replace(message, "<span class='phobia'>$1</span>")
+			break
+	return message
