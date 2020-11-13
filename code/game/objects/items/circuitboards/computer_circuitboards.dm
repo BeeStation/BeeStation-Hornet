@@ -54,7 +54,7 @@
 
 /obj/item/circuitboard/computer/communications/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		insecure = (insecure == 0) ? 1 : 0 
+		insecure = !insecure
 		if(insecure)
 			desc = "Tampering has removed some safety features from this circuit board. A screwdriver can undo this."
 			to_chat(user, "<span class='notice'>You disable the shuttle safety features of the board.</span>")
