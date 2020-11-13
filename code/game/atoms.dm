@@ -513,11 +513,11 @@
 	if(isobj(target))
 		switch(severity)
 			if(EXPLODE_DEVASTATE)
-				SSexplosions.highobj += target
+				SSexplosions.low_mov_atom += target
 			if(EXPLODE_HEAVY)
-				SSexplosions.medobj += target
+				SSexplosions.med_mov_atom += target
 			if(EXPLODE_LIGHT)
-				SSexplosions.lowobj += target
+				SSexplosions.low_mov_atom += target
 	return //For handling the effects of explosions on contents that would not normally be effected
 
 /**
