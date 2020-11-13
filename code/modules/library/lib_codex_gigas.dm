@@ -36,7 +36,7 @@
 	ask_name(user)
 
 
-/obj/item/book/codex_gigas/proc/perform_research(mob/user, devilName)
+/o bj/item/book/codex_gigas/proc/perform_research(mob/user, devilName)
 	if(!devilName)
 		user.visible_message("[user] closes [title] without looking anything up.")
 		return

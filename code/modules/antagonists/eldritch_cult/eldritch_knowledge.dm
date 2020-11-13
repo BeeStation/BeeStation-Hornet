@@ -25,6 +25,8 @@
 	var/list/result_atoms = list()
 	///What path is this on defaults to "Side"
 	var/route = PATH_SIDE
+	//Increases the total amount of followers
+	var/followers_increment = 0
 
 /datum/eldritch_knowledge/New()
 	. = ..()
@@ -348,6 +350,14 @@
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/blood_siphon
 	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet,/datum/eldritch_knowledge/spell/area_conversion)
 
+/datum/eldritch_knowledge/spell/cleave
+	name = "Blood Cleave"
+	gain_text = "At first i didn't know these instruments of war, but the priest told me to use them."
+	desc = "Gives AOE spell that causes heavy bleeding and blood loss."
+	cost = 1
+	spell_to_add = /obj/effect/proc_holder/spell/pointed/cleave
+	next_knowledge = list(/datum/eldritch_knowledge/spell/rust_wave,/datum/eldritch_knowledge/spell/flame_birth)
+
 // Curses //
 
 /datum/eldritch_knowledge/curse/fascination
@@ -358,6 +368,7 @@
 	required_atoms = list(/obj/item/organ/tongue,/obj/item/reagent_containers/food/snacks/grown/poppy)
 	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/summon/raw_prophet)
 	timer = 5 MINUTES
+	followers_increment = 1
 
 /datum/eldritch_knowledge/curse/fascination/curse(mob/living/chosen_mob)
 	. = ..()	
@@ -454,19 +465,19 @@
 	for(var/X in debuffs)
 		switch (X)
 			if ("r_leg")
-				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
+				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,HERETIX_CURSE_TRAIT)
 			if ("l_leg")
-				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
+				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,HERETIX_CURSE_TRAIT)
 			if ("r_arm")
-				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_ARM,MAGIC_TRAIT)
+				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_ARM,HERETIX_CURSE_TRAIT)
 			if ("l_arm")
-				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_ARM,MAGIC_TRAIT)
+				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_ARM,HERETIX_CURSE_TRAIT)
 			if ("tongue")
-				ADD_TRAIT(chosen_mob, TRAIT_MUTE, MAGIC_TRAIT)
+				ADD_TRAIT(chosen_mob, TRAIT_MUTE, HERETIX_CURSE_TRAIT)
 			if ("eyes")
-				chosen_mob.become_blind(MAGIC_TRAIT)
+				chosen_mob.become_blind(HERETIX_CURSE_TRAIT)
 			if ("ears")
-				ADD_TRAIT(chosen_mob, TRAIT_DEAF, MAGIC_TRAIT)
+				ADD_TRAIT(chosen_mob, TRAIT_DEAF, HERETIX_CURSE_TRAIT)
 	return .
 
 /datum/eldritch_knowledge/curse/alteration/uncurse(mob/living/chosen_mob)
@@ -475,18 +486,20 @@
 	chosen_mob.remove_status_effect(/datum/status_effect/corrosion_curse)
 	
 	//CC
-	chosen_mob.cure_blind(MAGIC_TRAIT)
-	REMOVE_TRAIT(chosen_mob, TRAIT_MUTE, MAGIC_TRAIT)
-	REMOVE_TRAIT(chosen_mob, TRAIT_DEAF, MAGIC_TRAIT)
+	chosen_mob.cure_blind(HERETIX_CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mob, TRAIT_MUTE, HERETIX_CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mob, TRAIT_DEAF, HERETIX_CURSE_TRAIT)
 	
 	//paralysis
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_ARM,MAGIC_TRAIT)
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_ARM,MAGIC_TRAIT)
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_ARM,HERETIX_CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_ARM,HERETIX_CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,HERETIX_CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,HERETIX_CURSE_TRAIT)
 	chosen_mob.update_mobility()
 	
 	return .
+
+//original curses
 
 /datum/eldritch_knowledge/curse/corrosion
 	name = "Curse of Corrosion"
@@ -516,14 +529,14 @@
 
 /datum/eldritch_knowledge/curse/paralysis/curse(mob/living/chosen_mob)
 	. = ..()
-	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
-	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
+	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,HERETIX_CURSE_TRAIT)
+	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,HERETIX_CURSE_TRAIT)
 	chosen_mob.update_mobility()
 
 /datum/eldritch_knowledge/curse/paralysis/uncurse(mob/living/chosen_mob)
 	. = ..()
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,HERETIX_CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,HERETIX_CURSE_TRAIT)
 	chosen_mob.update_mobility()
 
 // Summons //

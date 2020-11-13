@@ -185,15 +185,18 @@
 	name = "avatar"
 	description = "A cobble statuette of some sorts."
 	var/deity = 0
-	var/godname = "Cthulhu"
+	var/godname = "C'Thulhu"
 	var/infused = FALSE
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "assistant"
+	item_state = "doll"
 
 /obj/item/toy/artifact/Initialize()
 	deity = rand(1,15)
 	switch (deity)
-		if (1)	//force awake
+		if (1)	//force awake - sleep
 			godname = "Lobon"
-		if (2)	//eye heal - cure blindness
+		if (2)	//eye heal
 			godname = "Nath-Horthath"
 		if (3)	//brain heal 
 			godname = "Oukranos"
@@ -203,9 +206,9 @@
 			godname = "Karakal"
 		if (6)	// heal brute
 			godname = "D’endrrah"	
-		if (7)	// eye damage - blind
+		if (7)	// eye damage 
 			godname = "Azathoth"
-		if (8)	//tongue damage - mute
+		if (8)	//tongue damage 
 			godname = "Abhoth"
 		if (9)	//brain damage - induce sleep
 			godname = "Aiueb Gnshal"
@@ -306,7 +309,7 @@
 	return .
 	
 /obj/item/toy/artifact/proc/infuse_blessing(mob/living/carbon/human/target)
-	if (!infused || !istype(target) || QDELETED(victim) || victim.stat == DEAD)
+	if (!infused || !istype(target) || QDELETED(target) || target.stat == DEAD)
 		return
 	
 	//tochat
@@ -372,16 +375,18 @@
 	. = ..()
 	if (.)
 		infuse_blessing(target)
+		qdel(src)
 	return .
 
 /obj/item/toy/artifact/ashes/attack_self(mob/user)
 	. = ..()
 	if (.)
 		infuse_blessing(user)
+		qdel(src)
 	return .
 	
 /obj/item/toy/artifact/ashes/infuse_blessing(mob/living/carbon/human/target)
-	if (!istype(target) || QDELETED(victim) || victim.stat == DEAD)
+	if (!istype(target) || QDELETED(target) || target.stat == DEAD)
 		return
 	//no tochat, this one is stealthy
 	switch (deity)
@@ -402,11 +407,15 @@
 		if (8)	
 			target.adjustOrganLoss(ORGAN_SLOT_TONGUE,80)
 		if (9)	
-			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,15)
+			target.SetSleeping(10 SECONDS)
 		if (10)
 			target.adjustBruteLoss(30)	
+			var/atom/throw_target = get_edge_target_turf(target, user.dir)
+			if(!target.anchored)
+				target.throw_at(throw_target, rand(4,8), 14, user)
 		if (11)	
 			target.adjustFireLoss(30)
+			target.IgniteMob()
 		if (12)	
 			for(var/obj/item/bodypart/organ in target.bodyparts)
 				if(organ.body_part == LEG_RIGHT || organ.body_part == LEG_LEFT)
@@ -416,22 +425,8 @@
 				if(organ.body_part == ARM_RIGHT || organ.body_part == ARM_LEFT)
 					organ.receive_damage(stamina = 200)
 		if (14)	
-			A.emp_act(EMP_HEAVY)
+			A.emp_act(EMP_HEAVY)	//was gonna make it emag, but I figured this is just as good
 		if (15)
 			var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
 			if (master)
-			if(length(master.followers) >= get_max_followers())
-				to_chat(user,"<span class='notice'>We enslaved too many minds!</span>")
-				return
-
-			if(!victim.mind || !victim.client )
-				to_chat(user,"<span class='notice'>[victim] has no mind to enslave!</span>")
-			if (IS_HERETIC(victim) || IS_HERETIC_MONSTER(victim))
-				to_chat(user,"<span class='warning'>Their mind belongs to someone else!</span>")
-				return
-
-			log_game("[key_name_admin(victim)] has become a follower of [user.real_name]")
-			victim.faction |= "heretics"
-
-			var/datum/antagonist/heretic_monster/heretic_monster = victim.mind.add_antag_datum(/datum/antagonist/heretic_monster)
-			heretic_monster.set_owner(master)
+				master.enslave(target)
