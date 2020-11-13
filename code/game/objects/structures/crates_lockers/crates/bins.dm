@@ -25,8 +25,6 @@
 		add_overlay("largebinr")
 	else
 		add_overlay("largebino")
-	if(manifest)
-		add_overlay("manifest")
 
 /obj/structure/closet/crate/bin/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage/bag/trash))
