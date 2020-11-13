@@ -47,15 +47,6 @@
 		C.throw_at(throw_target, rand(4,8), 14, user)
 	return
 
-/datum/eldritch_knowledge/ashen_eyes
-	name = "Ashen Eyes"
-	gain_text = "Piercing eyes may guide me through the mundane."
-	desc = "Allows you to craft thermal vision amulet by transmutating eyes with a glass shard."
-	cost = 1
-	next_knowledge = list(/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
-	required_atoms = list(/obj/item/organ/eyes,/obj/item/shard)
-	result_atoms = list(/obj/item/clothing/neck/eldritch_amulet)
-
 /datum/eldritch_knowledge/ash_mark
 	name = "Mark of ash"
 	gain_text = "Spread the famine."
@@ -89,6 +80,14 @@
 	. = ..()
 	chosen_mob.cure_blind(MAGIC_TRAIT)
 
+/datum/eldritch_knowledge/dematerialize
+	name = "Dematerialzie"
+	gain_text = "Gates have opened, minds have flooded, I remain."
+	desc = "Your Mansus Grasp can shred avatars into dust. The dust can be thrown at mortals to inflict a stronger curse."
+	cost = 1
+	next_knowledge = list(/datum/eldritch_knowledge/spell/ashen_shift)
+	route = PATH_ASH
+
 /datum/eldritch_knowledge/spell/flame_birth
 	name = "Flame Birth"
 	gain_text = "Nightwatcher was a man of principles, and yet he arose from the chaos he vowed to protect from."
@@ -113,44 +112,6 @@
 		var/mob/living/carbon/C = target
 		C.adjust_fire_stacks(1)
 		C.IgniteMob()
-
-/datum/eldritch_knowledge/curse/corrosion
-	name = "Curse of Corrosion"
-	gain_text = "Cursed land, cursed man, cursed mind."
-	desc = "Curse someone for 2 minutes of vomiting and major organ damage. Using a wirecutter, a spill of blood, a heart, left arm and a right arm, and an item that the victim touched  with their bare hands."
-	cost = 1
-	required_atoms = list(/obj/item/wirecutters,/obj/effect/decal/cleanable/blood,/obj/item/organ/heart,/obj/item/bodypart/l_arm,/obj/item/bodypart/r_arm)
-	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/spell/area_conversion)
-	timer = 2 MINUTES
-
-/datum/eldritch_knowledge/curse/corrosion/curse(mob/living/chosen_mob)
-	. = ..()
-	chosen_mob.apply_status_effect(/datum/status_effect/corrosion_curse)
-
-/datum/eldritch_knowledge/curse/corrosion/uncurse(mob/living/chosen_mob)
-	. = ..()
-	chosen_mob.remove_status_effect(/datum/status_effect/corrosion_curse)
-
-/datum/eldritch_knowledge/curse/paralysis
-	name = "Curse of Paralysis"
-	gain_text = "Corrupt their flesh, make them bleed."
-	desc = "Curse someone for 5 minutes of inability to walk. Using a knife, pool of blood, left leg, right leg, a hatchet and an item that the victim touched  with their bare hands. "
-	cost = 1
-	required_atoms = list(/obj/item/kitchen/knife,/obj/effect/decal/cleanable/blood,/obj/item/bodypart/l_leg,/obj/item/bodypart/r_leg,/obj/item/hatchet)
-	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/summon/raw_prophet)
-	timer = 5 MINUTES
-
-/datum/eldritch_knowledge/curse/paralysis/curse(mob/living/chosen_mob)
-	. = ..()
-	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
-	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
-	chosen_mob.update_mobility()
-
-/datum/eldritch_knowledge/curse/paralysis/uncurse(mob/living/chosen_mob)
-	. = ..()
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
-	chosen_mob.update_mobility()
 
 /datum/eldritch_knowledge/spell/cleave
 	name = "Blood Cleave"

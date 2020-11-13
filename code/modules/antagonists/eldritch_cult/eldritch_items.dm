@@ -24,10 +24,11 @@
 				to_chat(user,"<span class='warning'>[target.real_name] is near you. They are to the [dir2text(dir)] of you!</span>")
 			if(16 to 31)
 				to_chat(user,"<span class='warning'>[target.real_name] is somewhere in your vicinty. They are to the [dir2text(dir)] of you!</span>")
-			if(32 to 127)
-				to_chat(user,"<span class='warning'>[target.real_name] is far away from you. They are to the [dir2text(dir)] of you!</span>")
 			else
-				to_chat(user,"<span class='warning'>[target.real_name] is beyond our reach.</span>")
+				if (dir)
+					to_chat(user,"<span class='warning'>[target.real_name] is far away from you. They are to the [dir2text(dir)] of you!</span>")
+				else
+					to_chat(user,"<span class='warning'>[target.real_name] is beyond our reach.</span>")
 
 	if(target.stat == DEAD)
 		to_chat(user,"<span class='warning'>[target.real_name] is dead. Bring them onto a transmutation rune!</span>")
@@ -179,3 +180,258 @@
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "eldrich_flask"
 	list_reagents = list(/datum/reagent/eldritch = 50)
+
+/obj/item/toy/artifact
+	name = "avatar"
+	description = "A cobble statuette of some sorts."
+	var/deity = 0
+	var/godname = "Cthulhu"
+	var/infused = FALSE
+
+/obj/item/toy/artifact/Initialize()
+	deity = rand(1,15)
+	switch (deity)
+		if (1)	//force awake
+			godname = "Lobon"
+		if (2)	//eye heal - cure blindness
+			godname = "Nath-Horthath"
+		if (3)	//brain heal 
+			godname = "Oukranos"
+		if (4)	//heal toxin
+			godname = "Tamash"
+		if (5)	//heal burn
+			godname = "Karakal"
+		if (6)	// heal brute
+			godname = "D’endrrah"	
+		if (7)	// eye damage - blind
+			godname = "Azathoth"
+		if (8)	//tongue damage - mute
+			godname = "Abhoth"
+		if (9)	//brain damage - induce sleep
+			godname = "Aiueb Gnshal"
+		if (10)	//brute
+			godname = "Ialdagorth"
+		if (11)	//burn
+			godname = "Tulzscha"
+		if (12)	//paralyze legs
+			godname = "C'thalpa"
+		if (13)	//paralyze hands	
+			godname = "Mh'ithrha"
+		if (14)	//emp - emag
+			godname = "Shabbith-Ka"
+		if (15)	// depacification - eldritch antag
+			godname = "Yomagn'tho"
+	name = "statue of [godname]"
+
+/obj/item/toy/artifact/examine(mob/user)
+	. = ..()
+	var/heretic_user = IS_HERETIC(user)
+	if(heretic_user || IS_HERETIC_MONSTER(user) || user.job in list("Curator"))
+		switch (deity)
+			if (1)
+				.+="Lore"
+	if (heretic_user)
+		if (!infused)
+			.+="This [src] has not been infused with magic."
+		else
+			switch (deity)
+				if (1)
+					.+="The blessing of [godname] will awake the sleeping."
+				if (2)
+					.+="The blessing of [godname] will heal the blind."
+				if (3)
+					.+="The blessing of [godname] will cure stupidity."
+				if (4)
+					.+="The blessing of [godname] will cauterize bruises."
+				if (5)	
+					.+="The blessing of [godname] will mend burns."
+				if (1)	//force awake - induce sleep
+					godname = "Lobon"
+				if (2)	//eye heal - cure blindness
+					godname = "Nath-Horthath"
+				if (3)	//brain heal 
+					godname = "Oukranos"
+				if (4)	//heal toxin
+					godname = "Tamash"
+				if (5)	//heal burn
+					godname = "Karakal"
+				if (6)	// heal brute
+					godname = "D’endrrah"	
+				if (7)	// eye damage
+					godname = "Azathoth"
+				if (8)	//tongue damage
+					godname = "Abhoth"
+				if (9)	//brain damage
+					godname = "Aiueb Gnshal"
+				if (10)	//brute
+					godname = "Ialdagorth"
+				if (11)	//burn
+					godname = "Tulzscha"
+				if (12)	//paralyze legs
+					godname = "C'thalpa"
+				if (13)	//paralyze hands	
+					godname = "Mh'ithrha"
+				if (14)	//emp - emag
+					godname = "Shabbith-Ka"
+				if (15)	// depacification - eldritch antag
+					godname = "Yomagn'tho"
+			
+		var/datum/antagonist/heretic/her = user.mind.has_antag_datum(/datum/antagonist/heretic)
+		if (her && !her.analyzed_artifacts[deity])
+			.+="You have not gained the favor of [godname]."
+	
+
+/obj/item/toy/artifact/afterattack(atom/target, mob/user, proximity)
+	. = ..()
+	if (. && do_after(user,20,target))
+		infuse_blessing(target)
+	return .
+
+/obj/item/toy/artifact/attack_self(mob/user)
+	. = ..()
+	if (IS_HERETIC(user))
+		var/datum/antagonist/heretic/her = user.mind.has_antag_datum(/datum/antagonist/heretic)
+		if (her && !her.analyzed_artifacts[deity])
+			//you stare intensely at SRC
+			if (do_after(user,3 SECONDS))
+				her.analyzed_artifacts[deity] = godname
+				if (!infused)
+					//the ritual is complete! you may channel the blessing of [godname] through [src]
+					infused = TRUE
+				else
+					//you gained the favor of [godname]
+				return TRUE
+	if (. && do_after(user,30))
+		infuse_blessing(user)
+	return .
+	
+/obj/item/toy/artifact/proc/infuse_blessing(mob/living/carbon/human/target)
+	if (!infused || !istype(target) || QDELETED(victim) || victim.stat == DEAD)
+		return
+	
+	//tochat
+	switch (deity)
+		if (1)	
+			target.SetSleeping(0)
+		if (2)
+			target.adjustOrganLoss(ORGAN_SLOT_EYES,-10)
+		if (3)
+			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,-10)
+		if (4)
+			target.adjustToxLoss(-10)
+		if (5)
+			target.adjustFireLoss(-10)
+		if (6)
+			target.adjustBruteLoss(-10)	
+		if (7)	
+			target.adjustOrganLoss(ORGAN_SLOT_EYES,15)
+		if (8)	
+			target.adjustOrganLoss(ORGAN_SLOT_TONGUE,20)
+		if (9)	
+			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,15)
+		if (10)
+			target.adjustBruteLoss(5)	
+		if (11)	
+			target.adjustFireLoss(5)
+		if (12)	
+			for(var/obj/item/bodypart/organ in target.bodyparts)
+				if(organ.body_part == LEG_RIGHT || organ.body_part == LEG_LEFT)
+					organ.receive_damage(stamina = 5)
+		if (13)	
+			for(var/obj/item/bodypart/organ in target.bodyparts)
+				if(organ.body_part == ARM_RIGHT || organ.body_part == ARM_LEFT)
+					organ.receive_damage(stamina = 5)
+		if (14)	
+			A.emp_act(EMP_LIGHT)
+		if (15)
+			if(HAS_TRAIT(target, TRAIT_PACIFISM))
+				REMOVE_TRAIT(target, TRAIT_PACIFISM)
+
+/obj/item/toy/artifact/proc/to_ashes() 	
+	if (infused)
+		var/god = deity
+		var/name = godname	
+		var/obj/item/toy/artifact/ashes/new_item = new(usr.loc)
+		
+		new_item.deity = god
+		new_item.godname = name
+		//you forge something
+	else
+		//the src turns to ashes
+	qdel(src)
+
+/obj/item/toy/artifact/ashes
+	name = "pile ashes"
+	description = "A pile of ashes."
+	infused = TRUE
+
+/obj/item/toy/artifact/ashes/Initialize()
+	return
+	
+/obj/item/toy/artifact/ashes/afterattack(atom/target, mob/user, proximity)
+	. = ..()
+	if (.)
+		infuse_blessing(target)
+	return .
+
+/obj/item/toy/artifact/ashes/attack_self(mob/user)
+	. = ..()
+	if (.)
+		infuse_blessing(user)
+	return .
+	
+/obj/item/toy/artifact/ashes/infuse_blessing(mob/living/carbon/human/target)
+	if (!istype(target) || QDELETED(victim) || victim.stat == DEAD)
+		return
+	//no tochat, this one is stealthy
+	switch (deity)
+		if (1)	
+			target.SetSleeping(10 SECONDS)
+		if (2)
+			target.adjustOrganLoss(ORGAN_SLOT_EYES,-80)
+		if (3)
+			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,-50)
+		if (4)
+			target.adjustToxLoss(-50)
+		if (5)
+			target.adjustFireLoss(-50)
+		if (6)
+			target.adjustBruteLoss(-50)	
+		if (7)	
+			target.adjustOrganLoss(ORGAN_SLOT_EYES,80)
+		if (8)	
+			target.adjustOrganLoss(ORGAN_SLOT_TONGUE,80)
+		if (9)	
+			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,15)
+		if (10)
+			target.adjustBruteLoss(30)	
+		if (11)	
+			target.adjustFireLoss(30)
+		if (12)	
+			for(var/obj/item/bodypart/organ in target.bodyparts)
+				if(organ.body_part == LEG_RIGHT || organ.body_part == LEG_LEFT)
+					organ.receive_damage(stamina = 200)
+		if (13)	
+			for(var/obj/item/bodypart/organ in target.bodyparts)
+				if(organ.body_part == ARM_RIGHT || organ.body_part == ARM_LEFT)
+					organ.receive_damage(stamina = 200)
+		if (14)	
+			A.emp_act(EMP_HEAVY)
+		if (15)
+			var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
+			if (master)
+			if(length(master.followers) >= get_max_followers())
+				to_chat(user,"<span class='notice'>We enslaved too many minds!</span>")
+				return
+
+			if(!victim.mind || !victim.client )
+				to_chat(user,"<span class='notice'>[victim] has no mind to enslave!</span>")
+			if (IS_HERETIC(victim) || IS_HERETIC_MONSTER(victim))
+				to_chat(user,"<span class='warning'>Their mind belongs to someone else!</span>")
+				return
+
+			log_game("[key_name_admin(victim)] has become a follower of [user.real_name]")
+			victim.faction |= "heretics"
+
+			var/datum/antagonist/heretic_monster/heretic_monster = victim.mind.add_antag_datum(/datum/antagonist/heretic_monster)
+			heretic_monster.set_owner(master)

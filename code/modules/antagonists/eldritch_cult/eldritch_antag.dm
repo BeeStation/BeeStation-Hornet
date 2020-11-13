@@ -8,7 +8,12 @@
 	var/antag_hud_name = "heretic"
 	var/give_equipment = TRUE
 	var/list/researched_knowledge = list()
+	var/list/analyzed_artifacts = list()
 	var/total_sacrifices = 0
+	var/dread = 0
+	var/favor_earned = 0
+	var/favor_spent = 0
+	var/list/folloers = list()
 	var/ascended = FALSE
 
 /datum/antagonist/heretic/admin_add(datum/mind/new_owner,mob/admin)
@@ -34,6 +39,7 @@
 		gain_knowledge(/datum/eldritch_knowledge/spell/basic)
 		gain_knowledge(/datum/eldritch_knowledge/living_heart)
 		gain_knowledge(/datum/eldritch_knowledge/codex_cicatrix)
+		gain_knowledge(/datum/eldritch_knowledge/eldritch_avatar)
 	current.log_message("has become a heretic", LOG_ATTACK, color="#960000")
 	GLOB.reality_smash_track.AddMind(owner)
 	START_PROCESSING(SSprocessing,src)
@@ -187,6 +193,10 @@
 	parts += knowledge_message.Join(", ")
 
 	return parts.Join("<br>")
+	
+/datum/antagonist/heretic/proc/get_max_followers() TBD
+	return 1
+	
 ////////////////
 // Knowledge //
 ////////////////
@@ -215,6 +225,25 @@
 
 /datum/antagonist/heretic/proc/get_all_knowledge()
 	return researched_knowledge
+	
+/////////////
+// Economy //
+/////////////
+
+/datum/antagonist/heretic/proc/gain_power(points,dread = FALSE)
+	power_earned+=points
+	if (dread)
+		dread++
+	return TRUE
+
+/datum/antagonist/heretic/proc/gain_wisdom(points)
+	if (get_power_left()<points)
+		return FALSE
+	power_spent-=points
+	return TRUE
+
+/datum/antagonist/heretic/proc/get_power_left()
+	return power_earned-power_spent
 
 ////////////////
 // Objectives //
@@ -264,3 +293,24 @@
 	if(!cultie)
 		return FALSE
 	return cultie.total_sacrifices >= target_amount
+
+/*
+BIGGEST CHANGES
+	Grasp
+	Book
+	Artifacts
+	Economy
+	Gygax
+	
+ 
+Curses
+	Hunter curse
+	
+followers code
+power code???
+	take out charges from books
+ 
+Artifacts:
+Omen - deals damage/healing when selfused/attacked by
+ 
+*/

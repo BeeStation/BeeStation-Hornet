@@ -45,22 +45,23 @@
 	desc = "A sinister looking aura that distorts the flow of reality around it. Causes knockdown, major stamina damage aswell as some Brute. It gains additional beneficial effects with certain knowledges you can research."
 	icon_state = "mansus_grasp"
 	item_state = "mansus_grasp"
-	catchphrase = "R'CH T'H TR'TH"
+	catchphrases = list("M'SUS 'N B'N","S'L GR'SP", "R'CH 'N TH' SO'L", "S'C C'MB")
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag || target == user)
 		return
 	playsound(user, 'sound/items/welder.ogg', 75, TRUE)
+			
 	if(ishuman(target))
 		var/mob/living/carbon/human/tar = target
 		if(tar.check_shields(src,10, "the [tar.name]"))
 			return ..()
 		if(tar.anti_magic_check())
-			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The spell bounces off of you!</span>")
+			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The [src] bounces off of you!</span>")
 			return ..()
 	var/datum/mind/M = user.mind
 	var/datum/antagonist/heretic/cultie = M.has_antag_datum(/datum/antagonist/heretic)
-
+		
 	var/use_charge = FALSE
 	if(iscarbon(target))
 		use_charge = TRUE
@@ -68,14 +69,74 @@
 		C.adjustBruteLoss(10)
 		C.AdjustKnockdown(5 SECONDS)
 		C.adjustStaminaLoss(80)
+	else if (istype(target,/obj/item/toy/artifact) && cultie.heretic.get_knowledge(/datum/eldritch_knowledge/dematerialize))
+		var/obj/item/toy/artifact/target_artifact = target
+		target_artifact.to_ashes()
+	else if(istype(target,/obj/effect/eldritch))
+		remove_rune(target,user)
+		return
+	else if(istype(target,/turf/open))
+		var/mob/caster = user
+		if (caster.a_intent != INTENT_HARM)
+			draw_rune(target,user)	
+			return	
+		
+	if (ishuman(target))
+		var/mob/living/carbon/human/victim = target
+		if(victim.has_trauma_type(/datum/brain_trauma/fascination))
+			make_follower(victim,user)
+			victim.SetSleeping(0)
+			return ..()
+	
 	var/list/knowledge = cultie.get_all_knowledge()
-
 	for(var/X in knowledge)
 		var/datum/eldritch_knowledge/EK = knowledge[X]
 		if(EK.on_mansus_grasp(target, user, proximity_flag, click_parameters))
 			use_charge = TRUE
 	if(use_charge)
 		return ..()
+		¨
+/obj/item/melee/touch_attack/mansus_fist/proc/make_follower(mob/living/carbon/human/victim, mob/living/carbon/human/user)
+	if(QDELETED(victim) || victim.stat == DEAD)
+		return
+
+	var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	if(length(master.followers) >= get_max_followers())
+		to_chat(user,"<span class='notice'>We enslaved too many minds!</span>")
+		return
+
+	if(!victim.mind || !victim.client )
+		to_chat(user,"<span class='notice'>[victim] has no mind to enslave!</span>")
+	if (IS_HERETIC(victim) || IS_HERETIC_MONSTER(victim))
+		to_chat(user,"<span class='warning'>Their mind belongs to someone else!</span>")
+		return
+
+	log_game("[key_name_admin(victim)] has become a follower of [user.real_name]")
+	victim.faction |= "heretics"
+
+	var/datum/antagonist/heretic_monster/heretic_monster = victim.mind.add_antag_datum(/datum/antagonist/heretic_monster)
+	heretic_monster.set_owner(master)
+
+///Draws a rune on a selected turf
+/obj/item/melee/touch_attack/mansus_fist/proc/draw_rune(atom/target,mob/user)
+
+	for(var/turf/T in range(1,target))
+		if(is_type_in_typecache(T, blacklisted_turfs))
+			to_chat(target, "<span class='warning'>The terrain doesn't support runes!</span>")
+			return
+	var/A = get_turf(target)
+	to_chat(user, "<span class='danger'>You start drawing a rune...</span>")
+
+	if(do_after(user,30 SECONDS,FALSE,A))
+		new /obj/effect/eldritch/big(A)
+
+
+///Removes runes from the selected turf
+/obj/item/melee/touch_attack/mansus_fist/proc/remove_rune(atom/target,mob/user)
+
+	to_chat(user, "<span class='danger'>You start removing a rune...</span>")
+	if(do_after(user,2 SECONDS,user))
+		qdel(target)
 
 /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
 	name = "Aggressive Spread"
@@ -122,7 +183,7 @@
 	desc = "A sinister looking aura that distorts the flow of reality around it."
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
-	catchphrase = "R'BRTH"
+	catchphrases = list("LA'IF","ST'L","M'NE","DR'IN")
 
 /obj/item/melee/touch_attack/blood_siphon/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)
