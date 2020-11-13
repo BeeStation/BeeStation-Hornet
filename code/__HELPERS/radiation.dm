@@ -25,11 +25,7 @@
 /proc/radiation_pulse(atom/source, intensity, range_modifier, log=FALSE, can_contaminate=TRUE)
 	if(!SSradiation.can_fire)
 		return
-
-	if(intensity >= RAD_WAVE_MINIMUM) // Don't bother to spawn rad waves if they're just going to immediately go out
-		for(var/dir in GLOB.cardinals)
-			new /datum/radiation_wave(source, dir, intensity, range_modifier, can_contaminate)
-
+	
 	var/list/things = get_rad_contents(source) //copypasta because I don't want to put special code in waves to handle their origin
 	for(var/k in 1 to things.len)
 		var/atom/thing = things[k]
@@ -37,11 +33,15 @@
 			continue
 		thing.rad_act(intensity)
 
-	var/static/last_huge_pulse = 0
-	if(intensity > 3000 && world.time > last_huge_pulse + 200)
-		last_huge_pulse = world.time
-		log = TRUE
-	if(log)
-		var/turf/_source_T = isturf(source) ? source : get_turf(source)
-		log_game("Radiation pulse with intensity: [intensity] and range modifier: [range_modifier] in [loc_name(_source_T)] ")
+	if(intensity >= RAD_WAVE_MINIMUM) // Don't bother to spawn rad waves if they're just going to immediately go out
+		new /datum/radiation_wave(source, intensity, range_modifier, can_contaminate)
+
+		var/static/last_huge_pulse = 0
+		if(intensity > 3000 && world.time > last_huge_pulse + 200)
+			last_huge_pulse = world.time
+			log = TRUE
+		if(log)
+			var/turf/_source_T = isturf(source) ? source : get_turf(source)
+			log_game("Radiation pulse with intensity: [intensity] and range modifier: [range_modifier] in [loc_name(_source_T)] ")
+	
 	return TRUE

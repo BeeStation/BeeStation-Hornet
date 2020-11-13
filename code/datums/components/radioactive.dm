@@ -23,7 +23,7 @@
 			RegisterSignal(parent, COMSIG_ITEM_ATTACK_OBJ, .proc/rad_attack)
 	else
 		return COMPONENT_INCOMPATIBLE
-	if(strength > RAD_MINIMUM_CONTAMINATION)
+	if(strength * (RAD_CONTAMINATION_STR_COEFFICIENT * RAD_CONTAMINATION_BUDGET_SIZE) > RAD_COMPONENT_MINIMUM)
 		SSradiation.warn(src)
 	//Let's make er glow
 	//This relies on parent not being a turf or something. IF YOU CHANGE THAT, CHANGE THIS
@@ -46,7 +46,7 @@
 		return
 	strength -= strength / hl3_release_date
 
-	if(strength < RAD_WAVE_MINIMUM)
+	if(strength < RAD_COMPONENT_MINIMUM)
 		qdel(src)
 		return PROCESS_KILL
 
@@ -63,9 +63,9 @@
 		return
 	if(C)
 		var/datum/component/radioactive/other = C
-		strength = max(strength, other.strength)
+		strength += other.strength
 	else
-		strength = max(strength, arguments[1])
+		strength += arguments[1]
 
 /datum/component/radioactive/proc/rad_examine(datum/source, mob/user, atom/thing)
 	var/atom/master = parent

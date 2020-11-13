@@ -2,24 +2,18 @@
 	var/source
 	var/turf/master_turf //The center of the wave
 	var/steps=0 //How far we've moved
-	var/intensity //How strong it was originaly
+	var/intensity[8] //How strong it was originaly
 	var/range_modifier //Higher than 1 makes it drop off faster, 0.5 makes it drop off half etc
-	var/move_dir //The direction of movement
-	var/list/__dirs //The directions to the side of the wave, stored for easy looping
 	var/can_contaminate
 
-/datum/radiation_wave/New(atom/_source, dir, _intensity=0, _range_modifier=RAD_DISTANCE_COEFFICIENT, _can_contaminate=TRUE)
+/datum/radiation_wave/New(atom/_source, _intensity=0, _range_modifier=RAD_DISTANCE_COEFFICIENT, _can_contaminate=TRUE)
 
 	source = "[_source] \[[REF(_source)]\]"
 
 	master_turf = get_turf(_source)
 
-	move_dir = dir
-	__dirs = list()
-	__dirs+=turn(dir, 90)
-	__dirs+=turn(dir, -90)
-
-	intensity = _intensity
+	for(var/i in 1 to 8)
+		intensity[i] = _intensity
 	range_modifier = _range_modifier
 	can_contaminate = _can_contaminate
 
@@ -27,69 +21,76 @@
 
 /datum/radiation_wave/Destroy()
 	. = QDEL_HINT_IWILLGC
+	intensity = null
 	STOP_PROCESSING(SSradiation, src)
 	..()
 
 /datum/radiation_wave/process()
-	master_turf = get_step(master_turf, move_dir)
 	if(!master_turf)
 		qdel(src)
 		return
-	steps++
-	var/list/atoms = get_rad_atoms()
-
-	var/strength
-	if(steps>1)
-		strength = INVERSE_SQUARE(intensity, max(range_modifier*steps, 1), 1)
-	else
-		strength = intensity
-
-	if(strength < RAD_WAVE_MINIMUM)
-		qdel(src)
-		return
-
-	radiate(atoms, FLOOR(strength, 1))
-
-	check_obstructions(atoms) // reduce our overall strength if there are radiation insulators
-
-/datum/radiation_wave/proc/get_rad_atoms()
+	var/ded = TRUE
 	var/list/atoms = list()
 	var/distance = steps
-	var/cmove_dir = move_dir
-	var/cmaster_turf = master_turf
+	var/divisor = distance + 1
+	var/falloff = 1 / distance ** 2
+	var/ratio_behind
+	var/ratio_front
+	var/candidate
+	var/turf/cmaster_turf = master_turf
+	var/old_index = 0
+	var/list/old_intensity = intensity
+	var/list/new_intensity = list((steps+2)*4)
 
-	if(cmove_dir == NORTH || cmove_dir == SOUTH)
-		distance-- //otherwise corners overlap
-
-	atoms += get_rad_contents(cmaster_turf)
-
-	var/turf/place
-	for(var/dir in __dirs) //There should be just 2 dirs in here, left and right of the direction of movement
-		place = cmaster_turf
-		for(var/i in 1 to distance)
+	var/turf/place = locate(cmaster_turf.x - distance, cmaster_turf.y + distance, cmaster_turf.z)
+	for(var/dir in list(EAST, SOUTH, WEST, NORTH))
+		for(var/i in 1 to distance * 2)
+			if(old_intensity[++old_index])
+				atoms = get_rad_contents(place)
+				old_intensity[old_index] *= radiate(atoms, FLOOR(old_intensity[old_index] * falloff, 1))
+				check_obstructions(atoms, old_index)
+				ded = FALSE
 			place = get_step(place, dir)
-			atoms += get_rad_contents(place)
+	
+	var/new_index = 0 // I don't want to create ridiculous amount of additions
+	old_index = 1
 
-	return atoms
+	// THIS REDUNDANCY IS INTENTIONAL
+	for(var/dir in list(EAST, EAST, SOUTH, SOUTH, WEST, WEST, NORTH, NORTH))
+		new_intensity[++new_index] = old_intensity[old_index]
+		ratio_behind = divisor
+		ratio_front = 0
+		for(var/i in 1 to distance)
+			candidate = old_intensity[old_index]*--ratio_behind*divisor + old_intensity[++old_index]*++ratio_front*divisor
+			if(candidate * falloff < RAD_WAVE_MINIMUM)
+				new_intensity[++new_index] = 0
+			else
+				new_intensity[++new_index] = candidate
 
-/datum/radiation_wave/proc/check_obstructions(list/atoms)
-	var/width = steps
-	var/cmove_dir = move_dir
-	if(cmove_dir == NORTH || cmove_dir == SOUTH)
-		width--
-	width = 1+(2*width)
+	steps++
+
+	intensity = new_intensity //THERE CAN BE ONLY ONE
+
+	if(ded)
+		qdel(src)
+
+/datum/radiation_wave/proc/check_obstructions(list/atoms, index)
 
 	for(var/k in 1 to atoms.len)
 		var/atom/thing = atoms[k]
 		if(!thing)
 			continue
-		if (SEND_SIGNAL(thing, COMSIG_ATOM_RAD_WAVE_PASSING, src, width) & COMPONENT_RAD_WAVE_HANDLED)
+		if (SEND_SIGNAL(thing, COMSIG_ATOM_RAD_WAVE_PASSING, src, index) & COMPONENT_RAD_WAVE_HANDLED)
 			continue
 		if (thing.rad_insulation != RAD_NO_INSULATION)
-			intensity *= (1-((1-thing.rad_insulation)/width))
+			intensity[index] *= thing.rad_insulation
 
 /datum/radiation_wave/proc/radiate(list/atoms, strength)
-	var/contamination_chance = (strength-RAD_MINIMUM_CONTAMINATION) * RAD_CONTAMINATION_CHANCE_COEFFICIENT * min(1, 1/(steps*range_modifier))
+	. = 1
+	var/list/moblist = list()
+	var/list/atomlist = list()
+	var/contam_strength = strength * (RAD_CONTAMINATION_STR_COEFFICIENT * RAD_CONTAMINATION_BUDGET_SIZE) // The budget for each list
+	var/is_contaminating = contam_strength > RAD_COMPONENT_MINIMUM && can_contaminate
 	for(var/k in 1 to atoms.len)
 		var/atom/thing = atoms[k]
 		if(!thing)
@@ -107,12 +108,30 @@
 			/obj/item/implant,
 			/obj/singularity
 			))
-		if(!can_contaminate || blacklisted[thing.type])
+		if(!is_contaminating)
 			continue
-		if(prob(contamination_chance)) // Only stronk rads get to have little baby rads
-			if(SEND_SIGNAL(thing, COMSIG_ATOM_RAD_CONTAMINATING, strength) & COMPONENT_BLOCK_CONTAMINATION)
-				continue
-			var/rad_strength = (strength-RAD_MINIMUM_CONTAMINATION) * RAD_CONTAMINATION_STR_COEFFICIENT
+		if(!blacklisted[thing.type])
+			continue
+		// Insulating objects won't get contaminated
+		if(SEND_SIGNAL(thing, COMSIG_ATOM_RAD_CONTAMINATING, strength) & COMPONENT_BLOCK_CONTAMINATION)
+			continue
+		if(ismob(thing))
+			moblist += thing
+		else
+			atomlist += thing
 
-			if (rad_strength >= RAD_WAVE_MINIMUM) // Don't even bother to add the component if its waves aren't going to do anything
-				thing.AddComponent(/datum/component/radioactive, rad_strength, source)
+	if(atomlist.len)
+		. -= 0.1
+		var/affordance = min(FLOOR(contam_strength,RAD_COMPONENT_MINIMUM), atomlist.len)
+		var/contam_strength_divided = contam_strength / affordance
+		for(var/k in 1 to affordance)
+			var/atom/poor_thing = atomlist[k]
+			poor_thing.AddComponent(/datum/component/radioactive, contam_strength_divided, source)
+
+	if(moblist.len)
+		. -= 0.1
+		var/affordance = min(FLOOR(contam_strength,RAD_COMPONENT_MINIMUM), moblist.len)
+		var/contam_strength_divided = contam_strength / affordance
+		for(var/k in 1 to affordance)
+			var/mob/poor_mob = moblist[k]
+			poor_mob.AddComponent(/datum/component/radioactive, contam_strength_divided, source)
