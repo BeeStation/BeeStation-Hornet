@@ -45,6 +45,7 @@
 #define rustg_dmi_strip_metadata(fname) call(RUST_G, "dmi_strip_metadata")(fname)
 #define rustg_dmi_create_png(path, width, height, data) call(RUST_G, "dmi_create_png")(path, width, height, data)
 #define rustg_dmi_resize_png(path, width, height, resizetype) call(RUST_G, "dmi_resize_png")(path, width, height, resizetype)
+
 #define rustg_file_read(fname) call(RUST_G, "file_read")(fname)
 #define rustg_file_exists(fname) call(RUST_G, "file_exists")(fname)
 #define rustg_file_write(text, fname) call(RUST_G, "file_write")(text, fname)
@@ -85,6 +86,7 @@
 /proc/rustg_log_close_all() return call(RUST_G, "log_close_all")()
 
 #define rustg_noise_get_at_coordinates(seed, x, y) call(RUST_G, "noise_get_at_coordinates")(seed, x, y)
+
 #define rustg_sql_connect_pool(options) call(RUST_G, "sql_connect_pool")(options)
 #define rustg_sql_query_async(handle, query, params) call(RUST_G, "sql_query_async")(handle, query, params)
 #define rustg_sql_query_blocking(handle, query, params) call(RUST_G, "sql_query_blocking")(handle, query, params)
