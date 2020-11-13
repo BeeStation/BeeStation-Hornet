@@ -877,7 +877,6 @@
 
 		if (SSticker.HasRoundStarted())
 			to_chat(usr, "<span class='warning'>The round has already started!</span>")
-			HandleCMode()
 			return
 		GLOB.master_mode = href_list["c_mode2"]
 		log_admin("[key_name(usr)] set the mode as [GLOB.master_mode].")
