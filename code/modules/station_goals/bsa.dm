@@ -288,6 +288,7 @@
 	data["connected"] = cannon
 	data["notice"] = notice
 	data["unlocked"] = GLOB.bsa_unlock
+	data["shotPower"] = round(round(cannon.charge, -5)* 2 / 1000000, 0)
 	data["capacityPercent"] = round(100*cannon.charge/cannon.capacity, 0.1)
 	data["inputAttempt"] = cannon.input_attempt
 	data["inputting"] = cannon.inputting
