@@ -143,7 +143,6 @@ SUBSYSTEM_DEF(vote)
 					restart = 1
 			if("gamemode")
 				if(GLOB.master_mode != .)
-					SSticker.save_mode(.)
 					if(SSticker.HasRoundStarted())
 						restart = 1
 					else
