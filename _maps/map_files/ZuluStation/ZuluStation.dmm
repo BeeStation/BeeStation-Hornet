@@ -10186,7 +10186,7 @@
 /area/hallway/primary/central)
 "dcG" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
-	filter_types = list(/datum/gas/carbon_dioxide,/datum/gas/bz,/datum/gas/oxygen,/datum/gas/n2)
+	filter_types = list(/datum/gas/carbon_dioxide,/datum/gas/bz,/datum/gas/oxygen,/datum/gas/nitrogen)
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
