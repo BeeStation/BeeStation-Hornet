@@ -83,10 +83,10 @@
 		
 	if (ishuman(target))
 		var/mob/living/carbon/human/victim = target
-		if(victim.has_trauma_type(/datum/brain_trauma/fascination))
-			make_follower(victim,user)
-			victim.SetSleeping(0)
-			return ..()
+		if(victim.has_trauma_type(/datum/brain_trauma/fascination) && !QDELETED(victim) && victim.stat > DEAD)
+			if (cultie.enslave(victim))
+				victim.SetSleeping(0)
+				return ..()
 	
 	var/list/knowledge = cultie.get_all_knowledge()
 	for(var/X in knowledge)
@@ -95,27 +95,6 @@
 			use_charge = TRUE
 	if(use_charge)
 		return ..()
-		¨
-/obj/item/melee/touch_attack/mansus_fist/proc/make_follower(mob/living/carbon/human/victim, mob/living/carbon/human/user)
-	if(QDELETED(victim) || victim.stat == DEAD)
-		return
-
-	var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	if(master.get_cur_followers() >= master.get_max_followers())
-		to_chat(user,"<span class='notice'>We enslaved too many minds!</span>")
-		return
-
-	if(!victim.mind || !victim.client )
-		to_chat(user,"<span class='notice'>[victim] has no mind to enslave!</span>")
-	if (IS_HERETIC(victim) || IS_HERETIC_MONSTER(victim))
-		to_chat(user,"<span class='warning'>Their mind belongs to someone else!</span>")
-		return
-
-	log_game("[key_name_admin(victim)] has become a follower of [user.real_name]")
-	victim.faction |= "heretics"
-
-	var/datum/antagonist/heretic_monster/heretic_monster = victim.mind.add_antag_datum(/datum/antagonist/heretic_monster)
-	heretic_monster.set_owner(master)
 
 ///Draws a rune on a selected turf
 /obj/item/melee/touch_attack/mansus_fist/proc/draw_rune(atom/target,mob/user)

@@ -42,7 +42,7 @@
 	to_chat(target, "<span class='danger'>You start drawing power from influence...</span>")
 	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	if(cultie && do_after(user,10 SECONDS,FALSE,RS))
-		cultie.gain_favor(1,FALSE)
+		cultie.gain_favor(1)
 		qdel(RS)
 		
 
@@ -160,9 +160,6 @@
 	flick("book_closing",src)
 	icon_state = initial(icon_state)
 	return ..()
-
-//obj/item/forbidden_book/debug
-//	charge = 100
 
 
 /datum/brain_trauma/fascination	REVISE
