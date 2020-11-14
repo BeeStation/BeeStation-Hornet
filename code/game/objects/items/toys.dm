@@ -1608,7 +1608,7 @@
 
 	if (!cash_money)
 		to_chat(user, "<span class='warning'>[src] spits out [A] as it is not worth anything!</span>")
-		return .
+		return
 	money+=cash_money
 	to_chat(user, "<span class='notice'>[src] quicky gobbles up [A], and the value goes up by [cash_money].</span>")
 	qdel(A)
