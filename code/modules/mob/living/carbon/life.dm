@@ -341,16 +341,14 @@
 	var/force_heal = 0
 	//Find how many bodyparts we have with stamina damage
 	if(stam_regen)
-		for(var/I in bodyparts)
-			var/obj/item/bodypart/BP = I
+		for(var/obj/item/bodypart/BP as anything in bodyparts)
 			if(BP.stamina_dam > DAMAGE_PRECISION)
 				bodyparts_with_stam ++
 				total_stamina_loss += BP.stamina_dam * BP.stam_damage_coeff
 		//Force bodyparts to heal if we have more than 150 stamina damage (3 seconds + 3.333 second base regen time)
 		force_heal = max(0, total_stamina_loss - 150) / max(bodyparts_with_stam, 1)
 	//Heal bodypart stamina damage
-	for(var/I in bodyparts)
-		var/obj/item/bodypart/BP = I
+	for(var/obj/item/bodypart/BP as anything in bodyparts)
 		if(BP.needs_processing)
 			. |= BP.on_life(force_heal + ((stam_regen * stam_heal) / max(bodyparts_with_stam, 1)))
 
