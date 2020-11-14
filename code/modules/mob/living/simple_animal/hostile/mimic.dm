@@ -44,13 +44,16 @@
 	if(mapload)	//eat shit
 		for(var/obj/item/I in loc)
 			I.forceMove(src)
+	add_overlay("[icon_state]_door")
 
 /mob/living/simple_animal/hostile/mimic/crate/DestroyPathToTarget()
 	..()
 	if(prob(90))
-		icon_state = "[initial(icon_state)]open"
+		cut_overlays()
+		add_overlay("[icon_state]_open")
 	else
-		icon_state = initial(icon_state)
+		cut_overlays()
+		add_overlay("[icon_state]_door")
 
 /mob/living/simple_animal/hostile/mimic/crate/ListTargets()
 	if(attempt_open)
@@ -65,7 +68,8 @@
 /mob/living/simple_animal/hostile/mimic/crate/AttackingTarget()
 	. = ..()
 	if(.)
-		icon_state = initial(icon_state)
+		cut_overlays()
+		add_overlay("[icon_state]_door")
 
 /mob/living/simple_animal/hostile/mimic/crate/proc/trigger()
 	if(!attempt_open)
