@@ -184,7 +184,8 @@
 	//We've dealt the physical damages, if there's room lets apply the stamina damage.
 	var/current_damage = get_damage(TRUE)		//This time around, count stamina loss too.
 	var/available_damage = max_damage - current_damage
-	stamina_dam += round(CLAMP(stamina, 0, min(max_stamina_damage - stamina_dam, available_damage)), DAMAGE_PRECISION)
+	var/applied_damage = min(max_stamina_damage - stamina_dam, available_damage)
+	stamina_dam += round(CLAMP(stamina, 0, applied_damage), DAMAGE_PRECISION)
 
 
 	if(owner && updating_health)
@@ -450,7 +451,7 @@
 	px_x = 0
 	px_y = 0
 	stam_damage_coeff = 1
-	max_stamina_damage = 120
+	max_stamina_damage = 150
 	var/obj/item/cavity_item
 
 /obj/item/bodypart/chest/can_dismember(obj/item/I)
