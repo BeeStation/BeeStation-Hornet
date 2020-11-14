@@ -537,7 +537,7 @@
 			if(head && istype(head, /obj/item/clothing))
 				var/obj/item/clothing/head/CH = head
 				if(CH.clothing_flags & THICKMATERIAL)
-					to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on this head!</span>")
+					to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on [p_their()] head!</span>")
 					return 0
 		if(wear_suit && istype(wear_suit, /obj/item/clothing))
 			var/obj/item/clothing/suit/CS = wear_suit
