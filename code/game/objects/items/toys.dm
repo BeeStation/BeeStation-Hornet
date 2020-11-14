@@ -748,7 +748,7 @@
 		icon_state = "deck_[deckstyle]_half"
 	else if(LAZYLEN(cards) > 0)
 		icon_state = "deck_[deckstyle]_low"
-	else if(LAZYLEN(cards) == 0)
+	else if(!LAZYLEN(cards))
 		icon_state = "deck_[deckstyle]_empty"
 
 /obj/item/toy/cards/deck/attack_self(mob/user)
