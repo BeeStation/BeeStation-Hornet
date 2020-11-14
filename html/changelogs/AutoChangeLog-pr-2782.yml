@@ -1,7 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - rscadd: Teratomas are actual antagonists now!
-  - rscadd: You can now make someone teratoma in traitor panel.
-  - tweak: Teratomas cannot be made into a human with DNA sting or by mutadone!
-  - refactor: fixed some shitcode in monkey (who cares).
