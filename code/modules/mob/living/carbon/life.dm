@@ -332,22 +332,15 @@
 
 /mob/living/carbon/proc/handle_bodyparts()
 	var/stam_regen = FALSE
-	if(stam_regen_start_time <= world.time && stam_paralyzed)
+	if(stam_regen_start_time <= world.time)
 		stam_regen = TRUE
 		if(stam_paralyzed)
 			. |= BODYPART_LIFE_UPDATE_HEALTH //make sure we remove the stamcrit
-	var/bodyparts_with_stam = 0
-	//Find how many bodyparts we have with stamina damage
-	if(stam_regen)
-		for(var/I in bodyparts)
-			var/obj/item/bodypart/BP = I
-			if(BP.stamina_dam > DAMAGE_PRECISION)
-				bodyparts_with_stam ++
 	//Heal bodypart stamina damage
 	for(var/I in bodyparts)
 		var/obj/item/bodypart/BP = I
 		if(BP.needs_processing)
-			. |= BP.on_life((stam_regen * stam_heal)/max(bodyparts_with_stam,1))
+			. |= BP.on_life((stam_regen * stam_heal)/max(bodyparts.len,1))
 
 /mob/living/carbon/handle_diseases()
 	for(var/thing in diseases)
