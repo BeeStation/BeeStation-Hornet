@@ -60,7 +60,6 @@
 					/obj/item/clothing/neck/tie/red = 1,
 					/obj/item/clothing/neck/tie/black = 1,
 					/obj/item/clothing/neck/tie/detective = 1,
-					/obj/item/clothing/neck/tie/detective/disco_necktie = 1,
 					/obj/item/clothing/gloves/color/black/aerostatic_gloves = 1,
 					/obj/item/clothing/gloves/color/black = 1,
 					/obj/item/clothing/shoes/sneakers/disco = 1,

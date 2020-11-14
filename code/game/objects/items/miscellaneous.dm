@@ -326,18 +326,10 @@
 	name = "Paranormal Investigator"
 
 /obj/item/storage/box/detectivebeacon/PopulateContents()
-	new /obj/item/clothing/neck/tie/detective/disco_necktie(src)
 	new /obj/item/toy/eightball/haunted(src)
-	new /obj/item/storage/box/rxglasses/spyglasskit(src)
-	new /obj/item/dnainjector/olfaction(src)
-	new /obj/item/clothing/shoes/sneakers/disco
-	new /obj/item/clothing/shoes/jackboots/aerostatic
-	new /obj/item/clothing/suit/det_suit/disco
-	new /obj/item/clothing/suit/det_suit/disco/aerostatic
-	new /obj/item/clothing/under/rank/security/detective/disco
-	new /obj/item/clothing/under/rank/security/detective/disco/aerostatic
-	new /obj/item/clothing/gloves/color/black/aerostatic_gloves
-	new /obj/item/clothing/glasses/sunglasses/advanced/disco
+	new /obj/item/clothing/glasses/detective/paranormal(src)
+	new /obj/item/book/granter/spell/olfaction(src)
+	new /obj/item/storage/box/detpiclothes(src)
 
 /obj/item/storage/box/detectivebeacon/undercover
 	name = "Undercover Agent"
@@ -345,6 +337,7 @@
 /obj/item/storage/box/detectivebeacon/undercover/PopulateContents()
 	new /obj/item/implanter/undercover(src)
 	new /obj/item/card/assistant_disguise_card(src)
+	new /obj/item/storage/box/undercover(src)
 	new /obj/item/handmirror(src)
 	new /obj/item/radio/headset/headset_undercover(src)
 	new /obj/item/clothing/mask/gas/voicechange(src)
@@ -359,7 +352,7 @@
 
 /obj/item/storage/box/detectivebeacon/fastresponder/PopulateContents()
 	new /obj/item/radio/headset/headset_sec/alt(src)
-	new /obj/item/clothing/glasses/detective/advanced(src)
+	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/suit/armor/vest/det_suit(src)
 	new /obj/item/storage/belt/security/deputy(src)
 	new /obj/item/sensor_device(src)
@@ -391,3 +384,17 @@
 	new /obj/item/card/id/job/detective/spare(src)
 	new /obj/item/paper(src)
 	new /obj/item/pen(src)
+
+/obj/item/storage/box/detpiclothes
+	name = "paranormal investigator clothes box"
+	desc = "Contains a variety of clothes from a deceased detective who was haunted by ghosts. Any lingering spiritual presence has been eradicated by a paranormal ERT squad."
+
+/obj/item/storage/box/undercover/PopulateContents()
+	new /obj/item/clothing/shoes/sneakers/disco
+	new /obj/item/clothing/shoes/jackboots/aerostatic
+	new /obj/item/clothing/suit/det_suit/disco
+	new /obj/item/clothing/suit/det_suit/disco/aerostatic
+	new /obj/item/clothing/under/rank/security/detective/disco
+	new /obj/item/clothing/under/rank/security/detective/disco/aerostatic
+	new /obj/item/clothing/gloves/color/black/aerostatic_gloves
+	new /obj/item/clothing/glasses/sunglasses/advanced/disco

@@ -391,6 +391,15 @@
 		else
 			user.update_inv_hands()
 
+//Paranormal Investigator kit
+/obj/item/clothing/glasses/detective/paranormal
+	name = "paranormal investigator's glasses"
+	desc = "Stylish glasses with integrated medical, diagnostic and security HUDs and reagent scanning used by detectives. The Meson Scanner mode lets you see basic structural and terrain layouts through walls. These glasses also seem to be haunted by unknown forces, giving them the ability to see beyond the veil. WARNING! Flash proofing has been compromised to accomodate HUD integration."
+	invis_view = SEE_INVISIBLE_OBSERVER
+	invis_override = null
+	vision_flags = SEE_MOBS
+
+//Advanced detective's glasses
 /obj/item/clothing/glasses/detective/advanced
 	name = "advanced detective's glasses"
 	desc = "Stylish glasses with integrated medical, diagnostic and security HUDs and reagent scanning used by detectives. The Meson Scanner mode lets you see basic structural and terrain layouts through walls. Has enhanced shielding which blocks flashes."

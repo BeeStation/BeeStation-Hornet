@@ -310,6 +310,15 @@
 	new real_type(loc)
 	return INITIALIZE_HINT_QDEL
 
+/obj/item/book/granter/spell/olfaction
+	spell = /obj/effect/proc_holder/spell/targeted/olfaction
+	name = "smelly old detective manual"
+	spellname = "olfaction"
+	icon_state ="bookDetective"
+	desc = "This appears to be a standard Detective manual that smells really bad. I wonder if there's anything that can be learnt from it."
+	remarks = list("I feel tingling sensation across my face that's not the wind...", "I wonder if fingerprints have a smell too...", "Everybody has smelly, oily residue on their fingers...", "My nose is starting to identify all the smells within...")
+
+
 ///MARTIAL ARTS///
 
 /obj/item/book/granter/martial
