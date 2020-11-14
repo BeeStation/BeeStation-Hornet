@@ -1614,6 +1614,7 @@
 #include "code\modules\awaymissions\mission_code\stationCollision.dm"
 #include "code\modules\awaymissions\mission_code\undergroundoutpost45.dm"
 #include "code\modules\awaymissions\mission_code\wildwest.dm"
+#include "code\modules\bluespace_exploration\bluespace_debug_verbs.dm"
 #include "code\modules\bluespace_exploration\bluespace_drive.dm"
 #include "code\modules\bluespace_exploration\control_console.dm"
 #include "code\modules\bluespace_exploration\exploration_location.dm"
