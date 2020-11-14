@@ -1,4 +1,0 @@
-author: MNarath1
-delete-after: true
-changes:
-  - bugfix: Fixes Abductor locker to be animated and animates the alien locker
