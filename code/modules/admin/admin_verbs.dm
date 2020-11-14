@@ -147,6 +147,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/cmd_debug_del_all,
 	/client/proc/restart_controller,
 	/client/proc/enable_debug_verbs,
+	/client/proc/enable_exploration_verbs,
 	/client/proc/callproc,
 	/client/proc/callproc_datum,
 	/client/proc/SDQL2_query,
@@ -240,6 +241,7 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_debug_del_all,
 	/client/proc/enable_debug_verbs,
+	/client/proc/enable_exploration_verbs,
 	/proc/possess,
 	/proc/release,
 	/client/proc/reload_admins,
@@ -304,6 +306,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		/*Debug verbs added by "show debug verbs"*/
 		GLOB.admin_verbs_debug_mapping,
 		/client/proc/disable_debug_verbs,
+		/client/proc/disable_exploration_verbs,
 		/client/proc/readmin,
 		/client/proc/fix_say
 		)
