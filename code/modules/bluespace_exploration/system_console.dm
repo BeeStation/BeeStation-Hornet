@@ -5,8 +5,6 @@
 	icon_keyboard = "security_key"
 	circuit = /obj/item/circuitboard/computer/security
 	light_color = LIGHT_COLOR_RED
-	ui_x = 540
-	ui_y = 708
 
 	// Note: Not all shuttles have a bluespace drive
 	var/datum/weakref/linked_bluespace_drive
@@ -29,17 +27,15 @@
 	//Locate the bluespace drive
 	addtimer(CALLBACK(src, .proc/locate_bluespace_drive), 10)
 
-/obj/machinery/computer/system_map/ui_interact(\
-		mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-		datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/computer/system_map/ui_interact(mob/user, datum/tgui/ui)
 	if(!shuttle_id)
 		to_chat(usr, "<span class='warning'>Console not attatched to a bluespace capable shuttle.</span>")
 		return
 	// Update UI
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		// Open UI
-		ui = new(user, src, ui_key, "SystemMap", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "SystemMap")
 		ui.open()
 
 

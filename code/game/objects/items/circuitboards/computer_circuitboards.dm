@@ -281,7 +281,7 @@
 /obj/item/circuitboard/computer/shuttle/flight_control
 	name = "Shuttle Flight Control (Computer Board)"
 	icon_state = "generic"
-	build_path = /obj/machinery/computer/custom_shuttle
+	build_path = /obj/machinery/computer/system_map/custom_shuttle
 
 /obj/item/circuitboard/computer/shuttle/docker
 	name = "Shuttle Navigation Computer (Computer Board)"

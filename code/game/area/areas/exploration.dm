@@ -6,7 +6,6 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	blob_allowed = FALSE
 	valid_territory = FALSE
-	ambientsounds = SPACE
 
 /area/exploration_away/outside
 	name = "\improper Uncharted Space"

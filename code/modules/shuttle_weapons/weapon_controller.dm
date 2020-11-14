@@ -5,8 +5,6 @@
 	icon_keyboard = "security_key"
 	circuit = /obj/item/circuitboard/computer/security
 	light_color = LIGHT_COLOR_RED
-	ui_x = 870
-	ui_y = 708
 
 	var/list/weapon_weakrefs = list()	//A list of weakrefs to the weapon systems
 	var/shuttle_id						//The shuttle we are connected to
@@ -51,10 +49,9 @@
 	qdel(cam_background)
 	return ..()
 
-/obj/machinery/computer/weapons/ui_interact(\
-		mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-		datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/computer/weapons/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!CONFIG_GET(flag/bluespace_exploration_weapons))
+		//Boring!
 		to_chat(user, "<span class='warning'>Nanotrasen have restricted the use of shuttle based weaponry in this sector. Sorry for the inconvinience.</span>")
 		return
 	var/datum/ship_datum/our_ship = SSbluespace_exploration.tracked_ships[shuttle_id]
@@ -63,7 +60,7 @@
 		to_chat(user, "<span class='warning'>Weapon control console not linked to a shuttle.</span>")
 		return
 	// Update UI
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		var/user_ref = REF(user)
 		var/is_living = isliving(user)
@@ -80,7 +77,7 @@
 		user.client.register_map_obj(cam_plane_master)
 		user.client.register_map_obj(cam_background)
 		// Open UI
-		ui = new(user, src, ui_key, "WeaponConsole", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "WeaponConsole")
 		ui.open()
 
 /obj/machinery/computer/weapons/ui_data(mob/user)

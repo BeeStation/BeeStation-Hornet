@@ -27,6 +27,8 @@ export const SystemMap = (props, context) => {
   ] = useLocalState(context, 'system', {});
   return (
     <Window
+      width={540}
+      height={708}
       resizable>
       <Section
         textAlign="center">

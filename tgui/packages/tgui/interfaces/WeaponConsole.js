@@ -12,6 +12,8 @@ export const WeaponConsole = (props, context) => {
   } = data;
   return (
     <Window
+      width={870}
+      height={708}
       resizable>
       <div className="WeaponConsole__left">
         <Window.Content scrollable>
