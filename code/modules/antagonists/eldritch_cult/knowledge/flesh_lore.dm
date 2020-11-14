@@ -1,6 +1,6 @@
 /datum/eldritch_knowledge/base_flesh
-	name = "Principle of Hunger"
-	desc = "Opens up the path of flesh to you. Allows you to transmute a pool of blood with a kitchen knife into a Flesh Blade"
+	name = "Harbinger of Famine"
+	desc = "Opens up the path of flesh to you. Allows you to transmute a pool of blood with a kitchen knife into a flesh blade. Allows you to recruit disciples."
 	gain_text = "Hundred's of us starved, but I.. I found the strength in my greed."
 	banned_knowledge = list(/datum/eldritch_knowledge/base_ash,/datum/eldritch_knowledge/base_rust,/datum/eldritch_knowledge/final/ash_final,/datum/eldritch_knowledge/final/rust_final)
 	next_knowledge = list(/datum/eldritch_knowledge/flesh_grasp)
@@ -8,7 +8,7 @@
 	result_atoms = list(/obj/item/melee/sickly_blade/flesh)
 	cost = 1
 	route = PATH_FLESH
-	followers_increment = 1
+	followers_increment = 2
 
 /datum/eldritch_knowledge/flesh_ghoul
 	name = "Imperfect Ritual"

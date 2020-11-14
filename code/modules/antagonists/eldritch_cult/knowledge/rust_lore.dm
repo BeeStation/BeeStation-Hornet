@@ -1,6 +1,6 @@
 /datum/eldritch_knowledge/base_rust
-	name = "Blacksmith's Tale"
-	desc = "Opens up the path of rust to you. Allows you to transmute a knife with any trash item into a Rusty Blade."
+	name = "Harbinger of Decadence"
+	desc = "Opens up the path of rust to you. Allows you to transmute a knife with any trash item into a rusty blade. Allows you to recruit disciples."
 	gain_text = "Let me tell you a story, blacksmith said as he glazed into his rusty blade."
 	banned_knowledge = list(/datum/eldritch_knowledge/base_ash,/datum/eldritch_knowledge/base_flesh,/datum/eldritch_knowledge/final/ash_final,/datum/eldritch_knowledge/final/flesh_final)
 	next_knowledge = list(/datum/eldritch_knowledge/rust_fist)
@@ -8,7 +8,7 @@
 	result_atoms = list(/obj/item/melee/sickly_blade/rust)
 	cost = 1
 	route = PATH_RUST
-	followers_increment = 1
+	followers_increment = 2
 
 /datum/eldritch_knowledge/rust_fist
 	name = "Grasp of rust"

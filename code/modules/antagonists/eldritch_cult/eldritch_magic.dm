@@ -71,8 +71,8 @@
 		C.adjustBruteLoss(10)
 		C.AdjustKnockdown(5 SECONDS)
 		C.adjustStaminaLoss(80)
-	else if (istype(target,/obj/item/toy/artifact) && cultie.get_knowledge(/datum/eldritch_knowledge/dematerialize))
-		var/obj/item/toy/artifact/target_artifact = target
+	else if (istype(target,/obj/item/artifact) && cultie.get_knowledge(/datum/eldritch_knowledge/dematerialize))
+		var/obj/item/artifact/target_artifact = target
 		target_artifact.to_ashes()
 	else if(istype(target,/obj/effect/eldritch))
 		remove_rune(target,user)
@@ -85,10 +85,18 @@
 
 	if (ishuman(target))
 		var/mob/living/carbon/human/victim = target
-		if(victim.has_trauma_type(/datum/brain_trauma/fascination) && !QDELETED(victim) && victim.stat > DEAD)
-			if (cultie.enslave(victim))
-				victim.SetSleeping(0)
-				return ..()
+		if(victim.has_trauma_type(/datum/brain_trauma/fascination) && !QDELETED(victim) && victim.stat != DEAD)
+			switch (cultie.enslave(victim))
+				if (0)
+					victim.SetSleeping(0)
+					to_chat(user,"<span class='warning'>You corrupt the mind of [victim]! He is now bound to do your bidding...</span>")
+					return ..()
+				if (3)
+					to_chat(user,"<span class='warning'>Their mind belongs to someone else!</span>")
+				if (2)
+					to_chat(user,"<span class='notice'>[victim] has no mind to enslave!</span>")
+				if (1)
+					to_chat(user, "<span class='notice'>You sense a weak mind, but your powers are not strong enough to take it over!</span>")
 
 	var/list/knowledge = cultie.get_all_knowledge()
 	for(var/X in knowledge)

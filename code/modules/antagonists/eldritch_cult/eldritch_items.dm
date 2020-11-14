@@ -181,7 +181,7 @@
 	icon_state = "eldrich_flask"
 	list_reagents = list(/datum/reagent/eldritch = 50)
 
-/obj/item/toy/artifact
+/obj/item/artifact
 	name = "avatar"
 	desc = "A cobble statuette of some sort."
 	var/deity = 0
@@ -191,7 +191,8 @@
 	icon = 'icons/obj/wizard.dmi'	//temporary
 	icon_state = "voodoo"
 
-/obj/item/toy/artifact/Initialize()
+/obj/item/artifact/Initialize()
+	..()
 	deity = rand(1,15)
 	switch (deity)
 		if (1)	//force awake - sleep
@@ -224,9 +225,9 @@
 			godname = "Shabbith-Ka"
 		if (15)	// depacification - eldritch antag
 			godname = "Yomagn'tho"
-	name = "statue of [godname]"
+	//name = "statue of [godname]"
 
-/obj/item/toy/artifact/examine(mob/user)
+/obj/item/artifact/examine(mob/user)
 	. = ..()
 	var/heretic_user = IS_HERETIC(user)
 	if(!ashes && (heretic_user || IS_HERETIC_MONSTER(user) || (user.job in list("Curator"))))
@@ -274,32 +275,32 @@
 		if (her && !her.analyzed_artifacts[deity])
 			.+="You have not gained the favor of [godname]."
 
-
-/obj/item/toy/artifact/afterattack(atom/target, mob/user, proximity)
+/obj/item/artifact/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if (. && do_after(user,20,target))
+	if (. && do_after(user,10,target))
 		infuse_blessing(user,target)
 	return .
 
-/obj/item/toy/artifact/attack_self(mob/user)
+/obj/item/artifact/attack_self(mob/user)
 	. = ..()
 	if (IS_HERETIC(user))
 		var/datum/antagonist/heretic/her = user.mind.has_antag_datum(/datum/antagonist/heretic)
-		if (her && !her.analyzed_artifacts[deity])
-			//you stare intensely at SRC
-			if (do_after(user,3 SECONDS))
-				her.analyzed_artifacts[deity] = godname
-				if (!infused)
-					to_chat(user,"<span class='notice'>The ritual is complete! You may channel the blessing of [godname] through [src]!</span>")
-					infused = TRUE
-				else
-					to_chat(user,"<span class='notice'>The ritual is complete! You gained the favor of [godname]!</span>")
-				return TRUE
+		to_chat(user,"<span class='notice'>You start a ritual for [godname] in an atte!</span>")
+		if (do_after(user,5 SECONDS))
+			var/result = "The ritual is complete"
+			if (!infused)
+				result += ". You infused the [src] with the blessing of [godname]"
+			if (!her.analyzed_artifacts[deity])
+				result += " and you gained the favor of [godname]"
+			to_chat(user,"<span class='notice'>[result].</span>")
+			infused = TRUE
+			her.analyzed_artifacts[deity] = godname
+			return TRUE
 	if (. && do_after(user,30))
 		infuse_blessing(user,user)
 	return .
 
-/obj/item/toy/artifact/proc/infuse_blessing(mob/living/carbon/human/target)
+/obj/item/artifact/proc/infuse_blessing(mob/living/carbon/human/target)
 	if (!infused || !istype(target) || QDELETED(target) || target.stat == DEAD)
 		return
 
@@ -341,20 +342,20 @@
 			if(HAS_TRAIT(target, TRAIT_PACIFISM))
 				REMOVE_TRAIT(target, TRAIT_PACIFISM,TRAIT_GENERIC)	//remove any and all?
 
-/obj/item/toy/artifact/proc/to_ashes(mob/living/usr)
+/obj/item/artifact/proc/to_ashes(mob/living/usr)
 	infused = TRUE
-		
+
 	var/god = deity
 	var/name = godname
 	to_chat(usr,"<span class='notice'>You crush the [src] into your burning hand. The cursed ash can be used to inflict a stronger curse on the target.</span>")
-	
+
 	qdel(src)
-	
-	var/obj/item/toy/artifact/ashes/new_item = new(usr.loc)
+
+	var/obj/item/artifact/ashes/new_item = new(usr.loc)
 	new_item.deity = god
 	new_item.godname = name
 
-/obj/item/toy/artifact/ashes
+/obj/item/artifact/ashes
 	name = "cursed ashes"
 	desc = "There's something cursed about these ashes... You just know it!"
 	icon = 'icons/obj/objects.dmi'
@@ -362,27 +363,27 @@
 	infused = TRUE
 	ashes = TRUE
 
-/obj/item/toy/artifact/ashes/Initialize()
-	return
+/obj/item/artifact/ashes/Initialize()
+	..()
 
-/obj/item/toy/artifact/ashes/afterattack(atom/target, mob/user, proximity)
+/obj/item/artifact/ashes/afterattack(atom/target, mob/user, proximity)
 	. = ..()
 	if (.)
 		infuse_blessing(user,target)
 		qdel(src)
 	return .
 
-/obj/item/toy/artifact/ashes/attack_self(mob/user)
+/obj/item/artifact/ashes/attack_self(mob/user)
 	. = ..()
 	if (.)
 		infuse_blessing(user,user)
 		qdel(src)
 	return .
 
-/obj/item/toy/artifact/ashes/to_ashes(mob/living/usr)
+/obj/item/artifact/ashes/to_ashes(mob/living/usr)
 	return
 
-/obj/item/toy/artifact/ashes/infuse_blessing(mob/living/user,mob/living/carbon/human/target)
+/obj/item/artifact/ashes/infuse_blessing(mob/living/user,mob/living/carbon/human/target)
 	if (!istype(target) || QDELETED(target) || target.stat == DEAD)
 		return
 	//no tochat, this one is stealthy

@@ -211,19 +211,16 @@
 
 /datum/antagonist/heretic/proc/enslave(mob/living/carbon/human/victim)
 	if(get_cur_followers() >= get_max_followers())
-		to_chat(src,"<span class='notice'>We enslaved too many minds!</span>")
-		return FALSE
+		return 1
 	if(!victim.mind || !victim.client )
-		to_chat(src,"<span class='notice'>[victim] has no mind to enslave!</span>")
-		return FALSE
+		return 2
 	if (IS_HERETIC(victim) || IS_HERETIC_MONSTER(victim))
-		to_chat(src,"<span class='warning'>Their mind belongs to someone else!</span>")
-		return FALSE
+		return 3
 	log_game("[key_name_admin(victim)] has become a follower of [key_name_admin(src)]")
 	victim.faction |= "heretics"
 	var/datum/antagonist/heretic_monster/heretic_monster = victim.mind.add_antag_datum(/datum/antagonist/heretic_monster)
 	heretic_monster.set_owner(src)
-	return TRUE
+	return 0
 
 ////////////////
 // Knowledge //

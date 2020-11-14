@@ -311,7 +311,7 @@
 	gain_text = "You call the aid of lesser gods."
 	cost = 0
 	required_atoms = list(/obj/item/rcd_ammo)
-	result_atoms = list(/obj/item/toy/artifact)
+	result_atoms = list(/obj/item/artifact)
 	route = "Start"
 
 /datum/eldritch_knowledge/armor

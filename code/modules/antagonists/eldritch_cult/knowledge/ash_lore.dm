@@ -1,6 +1,6 @@
 /datum/eldritch_knowledge/base_ash
-	name = "Nightwatcher's secret"
-	desc = "Opens up the path of ash to you. Allows you to transmute a match with a kitchen knife or it's derivatives into an ashen blade."
+	name = "Harbinger of Ember"
+	desc = "Opens up the path of ash to you. Allows you to transmute a match with a kitchen knife or it's derivatives into an ashen blade. Allows you to recruit disciples."
 	gain_text = "City guard knows their watch. If you ask them at night they may tell you about the ashy lantern."
 	banned_knowledge = list(/datum/eldritch_knowledge/base_rust,/datum/eldritch_knowledge/base_flesh,/datum/eldritch_knowledge/final/rust_final,/datum/eldritch_knowledge/final/flesh_final)
 	next_knowledge = list(/datum/eldritch_knowledge/ashen_grasp)
@@ -8,7 +8,7 @@
 	result_atoms = list(/obj/item/melee/sickly_blade/ash)
 	cost = 1
 	route = PATH_ASH
-	followers_increment = 1
+	followers_increment = 2
 
 /datum/eldritch_knowledge/spell/ashen_shift
 	name = "Ashen Shift"

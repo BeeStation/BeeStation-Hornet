@@ -8,7 +8,8 @@
 	var/mob/living/last_user
 	///Is it in use?
 	var/in_use = FALSE
-	var/list/remarks = list("Is that a whisper I hear?", "The letters twist and jumble...","It's starting to make sense...","The illustration is staring into my eyes!","I have seen this in a dream!","Have I seen this symbol somewhere else?","This is the place I've been dreaming about!","I've seen this in a recurring dream!","It's like this book is reaching out to me...","Ah! A greater purpose!","I was destined to read this!")
+	var/list/failure_reads = list("Did something whisper my name?", "It's just shapes and scribbles!","This page is just blank...","Are these the scribbles of a madman?","These sketches don't resemble anything.")
+	var/list/success_reads = list("The letters begin to twist and jumble...","It's starting to make sense.","The illustration is staring me right in the eyes!","Have I seen this symbol somewhere else?","This is the place I've been dreaming about!","I've seen this in a recurring dream!","This part is in Galactic Common.","It's like this book is reaching out to me...","Was I destined to read this?",)
 
 /obj/item/forbidden_book/Destroy()
 	last_user = null
@@ -31,18 +32,14 @@
 		return
 	in_use = TRUE
 	if(istype(target,/obj/effect/reality_smash))
-		get_power_from_influence(target,user)
+		//Gives you a charge and destroys a corresponding influence
+		var/obj/effect/reality_smash/RS = target
+		to_chat(target, "<span class='danger'>You start drawing power from influence...</span>")
+		var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
+		if(cultie && do_after(user,10 SECONDS,FALSE,RS))
+			cultie.gain_favor(1)
+			qdel(RS)
 	in_use = FALSE
-
-///Gives you a charge and destroys a corresponding influence
-/obj/item/forbidden_book/proc/get_power_from_influence(atom/target, mob/user)	//why is this a proc? literally not called anywhere else
-	var/obj/effect/reality_smash/RS = target
-	to_chat(target, "<span class='danger'>You start drawing power from influence...</span>")
-	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	if(cultie && do_after(user,10 SECONDS,FALSE,RS))
-		cultie.gain_favor(1)
-		qdel(RS)
-
 
 /obj/item/forbidden_book/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!IS_HERETIC(user))
@@ -54,6 +51,7 @@
 		flick("book_opening",src)
 		ui = new(user, src, "ForbiddenLore")
 		ui.open()
+	return TRUE
 
 /obj/item/forbidden_book/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || IS_HERETIC(user) || in_use)
@@ -62,33 +60,40 @@
 		to_chat(user, "<span class='alert'>You feel the [name] trying to take over your mind!</span>")
 		return FALSE
 	if(user.has_trauma_type(/datum/brain_trauma/fascination))
-		to_chat(user, "<span class='alert'>Reading the [name] will not satisfy our thirst for knowledge!</span>")
+		to_chat(user, "<span class='alert'>Reading the [name] again will not satisfy your thirst for knowledge!</span>")
 		return FALSE
 
-	to_chat(user, "<span class='notice'>You open the [name]...</span>")
+	to_chat(user, "<span class='notice'>You start reading the [name]...</span>")
 	in_use = TRUE
-	for(var/i=1, i<=5, i++)
-		if(!turn_page(user))
+	
+	var/success = FALSE
+	for(var/i=1, i<=3, i++)
+		if (!success)
+			success = prob(10)
+		if(!turn_page(user,success))
 			to_chat(user, "<span class='notice'>You resist temptation and put the [name] down.</span>")
 			in_use = FALSE
-			return
+			return FALSE
 	if(do_after(user,50, user))
-		if (prob(30))
+		if (success)
 			user.gain_trauma(/datum/brain_trauma/fascination,TRAUMA_RESILIENCE_SURGERY)
 		else
 			if (prob(95))
 				to_chat(user, "<span class='notice'>Your sanity slips away...</span>")
-				user.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10, 160)
+				user.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5, 160)
 			else
 				to_chat(user, "<span class='notice'>I must have offended the Gods somehow!</span>")
 				new /mob/living/simple_animal/hostile/netherworld/blankbody(get_turf(user))
-		in_use = FALSE
+	in_use = FALSE
 	return TRUE
 
-/obj/item/forbidden_book/proc/turn_page(mob/user)
+/obj/item/forbidden_book/proc/turn_page(mob/user,var/success)
 	playsound(user, pick('sound/effects/pageturn1.ogg','sound/effects/pageturn2.ogg','sound/effects/pageturn3.ogg'), 30, 1)
 	if(do_after(user,50, user))
-		to_chat(user, "<span class='notice'>[pick(remarks)]</span>")
+		if (success)
+			to_chat(user, "<span class='notice'>[pick(success_reads)]</span>")
+		else
+			to_chat(user, "<span class='notice'>[pick(failure_reads)]</span>")
 		return TRUE
 	return FALSE
 
@@ -97,6 +102,7 @@
 
 /obj/item/forbidden_book/ui_data(mob/user)
 	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/charge = cultie.get_favor_left()
 	var/list/to_know = list()
 	for(var/Y in cultie.get_researchable_knowledge())
 		to_know += new Y
@@ -104,7 +110,7 @@
 	var/list/data = list()
 	var/list/lore = list()
 
-	data["charges"] = cultie.get_favor_left()
+	data["charges"] = charge
 
 	for(var/X in to_know)
 		lore = list()
@@ -112,7 +118,7 @@
 		lore["type"] = EK.type
 		lore["name"] = EK.name
 		lore["cost"] = EK.cost
-		lore["disabled"] = EK.cost <= cultie.get_favor_left() ? FALSE : TRUE
+		lore["disabled"] = EK.cost <= charge ? FALSE : TRUE
 		lore["path"] = EK.route
 		lore["state"] = "Research"
 		lore["flavour"] = EK.gain_text
@@ -162,9 +168,9 @@
 
 /datum/brain_trauma/fascination
 	name = "Delirium"
-	desc = "Patient's deluded into believing that omnipotent extraterestrial entities infiltrated our ranks."
-	scan_desc = "lovecraft madness"
-	gain_text = "I have stared into the void and it stared back!"
+	desc = "Patient is deluded into believing that omnipotent extraterestrial entities meddle in our world."
+	scan_desc = "lovecraftian madness"
+	gain_text = "Ah! A greater purpose."
 	lose_text = "You come to the realization that there are no omnipotent Gods that can save you from the monotony of your day to day job."
 	resilience = TRAUMA_RESILIENCE_SURGERY
 
