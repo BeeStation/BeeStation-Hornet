@@ -50,7 +50,6 @@
 	..()
 	cut_overlays()
 	if(prob(90))
-
 		add_overlay("[icon_state]_open")
 	else
 		add_overlay("[icon_state]_door")
