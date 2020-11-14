@@ -40,7 +40,6 @@
 	var/list/channels = list()  // Map from name (see communications.dm) to on/off. First entry is current department (:h).
 	var/list/secure_radio_connections
 	var/radio_silent = FALSE // If true, radio doesn't make sound effects (ie for Syndicate internal radio implants)
-	var/list/radio_sounds = list('sound/effects/radio1.ogg','sound/effects/radio2.ogg') //Sephora - Radios make small static noises now
 
 /obj/item/radio/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] starts bouncing [src] off [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -213,10 +212,9 @@
 	if(!M.IsVocal())
 		return
 
-	if(LAZYLEN(radio_sounds)) // Radios make small static sounds now.
-		if(!radio_silent)
-			var/sound/radio_sound = pick(radio_sounds)
-			playsound(M.loc, radio_sound, 50, 1)
+	if(!radio_silent)//Radios make small static noises now
+		var/sound/radio_sound = pick("sound/effects/radio1.ogg", "sound/effects/radio2.ogg")
+		playsound(M.loc, radio_sound, 50, 1)
 
 	if(use_command)
 		spans |= SPAN_COMMAND
