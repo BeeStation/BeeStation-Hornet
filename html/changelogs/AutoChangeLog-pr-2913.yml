@@ -1,0 +1,5 @@
+author: Phil Smith, Golgor
+delete-after: true
+changes:
+  - rscadd: The Crazy Hamburger recipe
+  - imageadd: Crazy Hamburger sprite by Golgor
