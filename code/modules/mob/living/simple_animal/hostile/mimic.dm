@@ -48,11 +48,11 @@
 
 /mob/living/simple_animal/hostile/mimic/crate/DestroyPathToTarget()
 	..()
+	cut_overlays()
 	if(prob(90))
-		cut_overlays()
+
 		add_overlay("[icon_state]_open")
 	else
-		cut_overlays()
 		add_overlay("[icon_state]_door")
 
 /mob/living/simple_animal/hostile/mimic/crate/ListTargets()
@@ -82,7 +82,8 @@
 
 /mob/living/simple_animal/hostile/mimic/crate/LoseTarget()
 	..()
-	icon_state = initial(icon_state)
+	cut_overlays()
+	add_overlay("[icon_state]_door")
 
 /mob/living/simple_animal/hostile/mimic/crate/death()
 	var/obj/structure/closet/crate/C = new(get_turf(src))
