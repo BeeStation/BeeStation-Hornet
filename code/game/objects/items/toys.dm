@@ -1606,7 +1606,7 @@
 		var/obj/item/coin/CN = A
 		cash_money = CN.get_item_credit_value()
 
-	if (cash_money == 0)
+	if (!cash_money)
 		to_chat(user, "<span class='warning'>[src] spits out [A] as it is not worth anything!</span>")
 		return .
 	money+=cash_money
