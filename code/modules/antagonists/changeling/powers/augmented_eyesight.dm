@@ -14,7 +14,7 @@
 	..()
 	var/obj/item/organ/eyes/E = user.getorganslot(ORGAN_SLOT_EYES)
 	if (E)
-		E.flash_protect = 2 //Adjust the user's eyes' flash protection
+		E.flash_protect = 2 //Adjust the user's eyes' flash protection.
 		to_chat(user, "We adjust our eyes to protect them from bright lights.")
 	else
 		to_chat(user, "We can't adjust our eyes if we don't have any!")
