@@ -1,4 +1,0 @@
-author: jupyterkat
-delete-after: true
-changes:
-  - bugfix: Stasis beds now stop diseases from progressing
