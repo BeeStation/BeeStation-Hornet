@@ -1495,7 +1495,7 @@
 	..()
 	if(iscyborg(user))
 		var/mob/living/silicon/robot/R = user
-		if(R.cell && R.cell.use(300))
+		if(R.cell?.use(300))
 			populate_deck()
 			to_chat(user, "<span class='notice'>You fabricate a new set of cards.</span>")
 
