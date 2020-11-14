@@ -8,7 +8,7 @@
 	var/antag_hud_name = "heretic"
 	var/give_equipment = TRUE
 	var/list/researched_knowledge = list()
-	var/list/analyzed_artifacts = list()
+	var/list/pantheon = list()
 	var/total_sacrifices = 0
 	var/dread = 0
 	var/favor_earned = 0
@@ -194,34 +194,6 @@
 
 	return parts.Join("<br>")
 
-//////////////
-// Minicult //
-//////////////
-
-/datum/antagonist/heretic/proc/get_max_followers()
-	var/towtal = 0 //a 'w' got lost in here somehow...
-	var/list/knowledge = get_all_knowledge()
-	for(var/X in knowledge)
-		var/datum/eldritch_knowledge/EK = knowledge[X]
-		towtal += EK.followers_increment
-	return towtal
-
-/datum/antagonist/heretic/proc/get_cur_followers()
-	return LAZYLEN(folloers)
-
-/datum/antagonist/heretic/proc/enslave(mob/living/carbon/human/victim)
-	if(get_cur_followers() >= get_max_followers())
-		return 1
-	if(!victim.mind || !victim.client )
-		return 2
-	if (IS_HERETIC(victim) || IS_HERETIC_MONSTER(victim))
-		return 3
-	log_game("[key_name_admin(victim)] has become a follower of [key_name_admin(src)]")
-	victim.faction |= "heretics"
-	var/datum/antagonist/heretic_monster/heretic_monster = victim.mind.add_antag_datum(/datum/antagonist/heretic_monster)
-	heretic_monster.set_owner(src)
-	return 0
-
 ////////////////
 // Knowledge //
 ////////////////
@@ -318,3 +290,45 @@
 	if(!cultie)
 		return FALSE
 	return cultie.total_sacrifices >= target_amount
+
+//////////////
+// Minicult //
+//////////////
+
+/datum/antagonist/heretic/proc/get_max_followers()
+	var/towtal = 0 //a 'w' got lost in here somehow...
+	var/list/knowledge = get_all_knowledge()
+	for(var/X in knowledge)
+		var/datum/eldritch_knowledge/EK = knowledge[X]
+		towtal += EK.followers_increment
+	return towtal
+
+/datum/antagonist/heretic/proc/get_cur_followers()
+	return LAZYLEN(folloers)
+
+/datum/antagonist/heretic/proc/enslave(mob/living/carbon/human/victim)
+	if(get_cur_followers() >= get_max_followers())
+		return 1
+	if(!victim.mind || !victim.client )
+		return 2
+	if (IS_HERETIC(victim) || IS_HERETIC_MONSTER(victim))
+		return 3
+	log_game("[key_name_admin(victim)] has become a follower of [key_name_admin(src)]")
+	victim.faction |= "heretics"
+	var/datum/antagonist/heretic_monster/heretic_monster = victim.mind.add_antag_datum(/datum/antagonist/heretic_monster)
+	heretic_monster.set_owner(src)
+	return 0
+
+//////////////
+// Pantheon //
+//////////////
+
+/datum/antagonist/heretic/proc/gain_deity(intid,godname)
+	if(get_knowledge(godname))
+		return FALSE
+	pantheon[intid] = godname
+	return TRUE
+
+/datum/antagonist/heretic/proc/has_deity(intid)
+	return pantheon[intid]
+

@@ -263,7 +263,7 @@
 					continue
 				//var/obj/item/forbidden_book/FB = X
 				//FB.charge++
-				EC.gain_favor(100,FALSE)
+				EC.gain_favor(8,FALSE)
 				break
 
 		if(!LH.target)
@@ -318,7 +318,7 @@
 	name = "Armorer's ritual"
 	desc = "You can now create eldritch armor using a table and a gas mask."
 	gain_text = "For I am the heir to the throne of doom."
-	cost = 1
+	cost = 2
 	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/flesh_ghoul)
 	required_atoms = list(/obj/structure/table,/obj/item/clothing/mask/gas)
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch)
@@ -327,7 +327,7 @@
 	name = "Priest's ritual"
 	desc = "You can now transmute a tank of water into a bottle of eldritch water."
 	gain_text = "This is an old recipe, i got it from an owl."
-	cost = 1
+	cost = 2
 	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift)
 	required_atoms = list(/obj/structure/reagent_dispensers/watertank)
 	result_atoms = list(/obj/item/reagent_containers/glass/beaker/eldritch)
@@ -336,7 +336,7 @@
 	name = "Ashen Eyes"
 	gain_text = "Piercing eyes may guide me through the mundane."
 	desc = "Allows you to craft thermal vision amulet by transmutating eyes with a glass shard."
-	cost = 1
+	cost = 2
 	next_knowledge = list(/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
 	required_atoms = list(/obj/item/organ/eyes,/obj/item/shard)
 	result_atoms = list(/obj/item/clothing/neck/eldritch_amulet)
@@ -347,7 +347,7 @@
 	name = "Blood Siphon"
 	gain_text = "Our blood is all the same after all, the owl told me."
 	desc = "You gain a spell that drains enemies health and restores yours."
-	cost = 1
+	cost = 2
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/blood_siphon
 	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet,/datum/eldritch_knowledge/spell/area_conversion)
 
@@ -355,7 +355,7 @@
 	name = "Blood Cleave"
 	gain_text = "At first i didn't know these instruments of war, but the priest told me to use them."
 	desc = "Gives AOE spell that causes heavy bleeding and blood loss."
-	cost = 1
+	cost = 2
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/cleave
 	next_knowledge = list(/datum/eldritch_knowledge/spell/rust_wave,/datum/eldritch_knowledge/spell/flame_birth)
 
@@ -365,7 +365,7 @@
 	name = "Dreamgate"
 	gain_text = "Those safe in this world are not safe in others..."
 	desc = "Enter the world of dreams, and fascinate the minds of those that currently inhabit it. Requires a poppy, a tongue and an item that the victim touched  with their bare hands. "
-	cost = 1
+	cost = 2
 	required_atoms = list(/obj/item/organ/tongue,/obj/item/reagent_containers/food/snacks/grown/poppy)
 	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/summon/raw_prophet)
 	timer = 5 MINUTES
@@ -404,10 +404,10 @@
 	name = "Alteration"
 	gain_text = "Mortal bodies, prisons of flesh. Death, a release..."
 	desc = "Place a kidney, a candle and a hatchet onto a rune to start the ritual. Place limbs or sense organs on the rune will be sacrificed to enhance the ritual."
-	cost = 1
+	cost = 2
 	required_atoms = list(/obj/item/organ/liver,/obj/item/candle,/obj/item/hatchet)	//did I confuse kidney and liver?
 	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/spell/area_conversion)
-	timer = 1 MINUTES
+	timer = 2 MINUTES
 	var/list/debuffs = list()
 
 /datum/eldritch_knowledge/curse/alteration/on_finished_recipe(mob/living/user, list/atoms, loc)	//the ritual completed, take the payment and apply the curse
@@ -506,7 +506,7 @@
 	name = "Curse of Corrosion"
 	gain_text = "Cursed land, cursed man, cursed mind."
 	desc = "Curse someone for 2 minutes of vomiting and major organ damage. Using a wirecutter, a spill of blood, a heart, left arm and a right arm, and an item that the victim touched  with their bare hands."
-	cost = 1
+	cost = 2
 	required_atoms = list(/obj/item/wirecutters,/obj/effect/decal/cleanable/blood,/obj/item/organ/heart,/obj/item/bodypart/l_arm,/obj/item/bodypart/r_arm)
 	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/spell/area_conversion)
 	timer = 2 MINUTES
@@ -523,7 +523,7 @@
 	name = "Curse of Paralysis"
 	gain_text = "Corrupt their flesh, make them bleed."
 	desc = "Curse someone for 5 minutes of inability to walk. Using a knife, pool of blood, left leg, right leg, a hatchet and an item that the victim touched  with their bare hands. "
-	cost = 1
+	cost = 2
 	required_atoms = list(/obj/item/kitchen/knife,/obj/effect/decal/cleanable/blood,/obj/item/bodypart/l_leg,/obj/item/bodypart/r_leg,/obj/item/hatchet)
 	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/summon/raw_prophet)
 	timer = 5 MINUTES
@@ -546,7 +546,7 @@
 	name = "Ashen Ritual"
 	gain_text = "I combined principle of hunger with desire of destruction. The eyeful lords have noticed me."
 	desc = "You can now summon an Ash Man by transmutating a pile of ash , a head and a book."
-	cost = 1
+	cost = 2
 	required_atoms = list(/obj/effect/decal/cleanable/ash,/obj/item/bodypart/head,/obj/item/book)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/ash_spirit
 	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/rust_wave)
@@ -555,7 +555,7 @@
 	name = "Rusted Ritual"
 	gain_text = "I combined principle of hunger with desire of corruption. The rusted hills call my name."
 	desc = "You can now summon a Rust Walker transmutating vomit pool, a head and a book."
-	cost = 1
+	cost = 2
 	required_atoms = list(/obj/effect/decal/cleanable/vomit,/obj/item/bodypart/head,/obj/item/book)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/rust_spirit
 	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/flame_birth)

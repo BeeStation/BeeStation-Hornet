@@ -37,7 +37,7 @@
 		to_chat(target, "<span class='danger'>You start drawing power from influence...</span>")
 		var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
 		if(cultie && do_after(user,10 SECONDS,FALSE,RS))
-			cultie.gain_favor(1)
+			cultie.gain_favor(5)
 			qdel(RS)
 	in_use = FALSE
 

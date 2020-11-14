@@ -182,7 +182,7 @@
 	list_reagents = list(/datum/reagent/eldritch = 50)
 
 /obj/item/artifact
-	name = "avatar"
+	name = "strange figurine"
 	desc = "A cobble statuette of some sort."
 	var/deity = 0
 	var/godname = "C'Thulhu"
@@ -237,7 +237,7 @@
 			.+="This is a statue of [godname], one of the forbidden gods."				//forbidden gods on the other side...
 	if (heretic_user)
 		if (!infused)
-			.+="This [src] has not been infused with magic."
+			.+="This [src] is dull and its magic has not been activated."
 		else
 			switch (deity)
 				if (1)
@@ -272,7 +272,7 @@
 					.+="The boon of [godname] will bring madness into one's mind."
 
 		var/datum/antagonist/heretic/her = user.mind.has_antag_datum(/datum/antagonist/heretic)
-		if (her && !her.analyzed_artifacts[deity])
+		if (her.has_god(deity))
 			.+="You have not gained the favor of [godname]."
 
 /obj/item/artifact/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -285,16 +285,17 @@
 	. = ..()
 	if (IS_HERETIC(user))
 		var/datum/antagonist/heretic/her = user.mind.has_antag_datum(/datum/antagonist/heretic)
-		to_chat(user,"<span class='notice'>You start a ritual for [godname] in an atte!</span>")
+		to_chat(user,"<span class='notice'>You start a praying towards [godname]!</span>")
 		if (do_after(user,5 SECONDS))
 			var/result = "The ritual is complete"
 			if (!infused)
 				result += ". You infused the [src] with the blessing of [godname]"
-			if (!her.analyzed_artifacts[deity])
+			if (!her.has_god(deity))
 				result += " and you gained the favor of [godname]"
+				her.gain_favor(1)
 			to_chat(user,"<span class='notice'>[result].</span>")
 			infused = TRUE
-			her.analyzed_artifacts[deity] = godname
+			her.gain_god(deity)
 			return TRUE
 	if (. && do_after(user,30))
 		infuse_blessing(user,user)

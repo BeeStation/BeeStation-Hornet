@@ -112,13 +112,13 @@
 
 /obj/item/book/codex_gigas/proc/do_eldritch_ritual(mob/living/carbon/human/heretic)
 	to_chat(heretic, "<span class='notice'>A daemonic seals prevent mortals from reading the [title]... Our magic is stronger!</span>")
-	while (do_after(heretic,10 SECONDS, src))
+	while (do_after(heretic,15 SECONDS, src))
 		to_chat(heretic, "<span class='notice'>You start researching the forbidden knowledge...</span>")
 		var/datum/antagonist/heretic/cultie = heretic.mind.has_antag_datum(/datum/antagonist/heretic)
-		var/chance = rand(10+cultie.dread*5,100+cultie.dread*10)
+		var/chance = rand(1+ cultie.dread*5,100+cultie.dread*10)
 		var/successful = TRUE
 		switch(chance)
-			if (10 to 39)
+			if (1 to 39)
 				to_chat(heretic, "<span class='notice'>The gods look down upon you.</span>")
 			if(40 to 54)
 				heretic.adjustOrganLoss(ORGAN_SLOT_EYES,5)
@@ -147,6 +147,6 @@
 				successful = FALSE
 		//switch case over
 		if (successful)
-			cultie.gain_favor(50,TRUE)
+			cultie.gain_favor(1,TRUE)
 		to_chat(heretic, "<span class='notice'>Small price to pay, for the forbidden knowledge.</span>")
 		heretic.whisper(pick("hypnos","celephalis","azathoth","dagon","yig","ex oblivione","nyarlathotep","nathicana","arcadia","astrophobos"), language = /datum/language/common)

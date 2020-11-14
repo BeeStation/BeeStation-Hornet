@@ -6,7 +6,7 @@
 	next_knowledge = list(/datum/eldritch_knowledge/flesh_grasp)
 	required_atoms = list(/obj/item/kitchen/knife,/obj/effect/decal/cleanable/blood)
 	result_atoms = list(/obj/item/melee/sickly_blade/flesh)
-	cost = 1
+	cost = 5
 	route = PATH_FLESH
 	followers_increment = 2
 
@@ -14,7 +14,7 @@
 	name = "Imperfect Ritual"
 	desc = "Allows you to resurrect the dead as voiceless dead by sacrificing them on the transmutation rune with a poppy. Voiceless dead are mute and have 50 HP. You can only have 2 at a time."
 	gain_text = "I found notes.. notes of a ritual, it was unfinished and yet i still did it."
-	cost = 1
+	cost = 5
 	required_atoms = list(/mob/living/carbon/human,/obj/item/reagent_containers/food/snacks/grown/poppy)
 	next_knowledge = list(/datum/eldritch_knowledge/flesh_mark,/datum/eldritch_knowledge/armor,/datum/eldritch_knowledge/ashen_eyes)
 	route = PATH_FLESH
@@ -75,7 +75,7 @@
 	name = "Grasp of Flesh"
 	gain_text = "My new found desire, it drove me to do great things! The Priest said."
 	desc = "Empowers your mansus grasp to be able to create a single ghoul out of a dead person. Ghouls have only 25 HP and look like husks."
-	cost = 1
+	cost = 5
 	next_knowledge = list(/datum/eldritch_knowledge/flesh_ghoul)
 	var/ghoul_amt = 1
 	var/list/spooky_scaries
@@ -137,7 +137,7 @@
 	name = "Priest Ascension"
 	gain_text = "I saw them, the marked ones. The screams.. the silence."
 	desc = "Become a Priest of Flesh, which allows you to recruit more disciples. Also, your eldritch blade now applies a mark which, when activated with Mansus Grasph, causes the target to bleed profunely."
-	cost = 2
+	cost = 10
 	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet)
 	banned_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/ash_mark)
 	route = PATH_FLESH
@@ -152,8 +152,8 @@
 /datum/eldritch_knowledge/flesh_blade_upgrade
 	name = "Prophet Ascension"
 	gain_text = "It rained blood, that's when i understood the gravekeeper's advice."
-	desc = "Become a Prophet of Rust, which allows you to recruit more disciples. Enhances your blade to cause additional bleeding."
-	cost = 2
+	desc = "Become a Prophet of Flesh, which allows you to recruit more disciples. Enhances your blade to cause additional bleeding."
+	cost = 10
 	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker)
 	banned_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/rust_blade_upgrade)
 	route = PATH_FLESH
@@ -170,7 +170,7 @@
 	name = "Raw Ritual"
 	gain_text = "Uncanny man, walks alone in the valley, I was able to call his aid."
 	desc = "You can now summon a Raw Prophet using eyes, a left arm, right arm and a pool of blood. Raw prophets have increased seeing range, as well as Xray. But are very fragile and weak."
-	cost = 1
+	cost = 5
 	required_atoms = list(/obj/item/organ/eyes,/obj/item/bodypart/l_arm,/obj/item/bodypart/r_arm,/obj/effect/decal/cleanable/blood)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/raw_prophet
 	next_knowledge = list(/datum/eldritch_knowledge/flesh_blade_upgrade,/datum/eldritch_knowledge/spell/blood_siphon,/datum/eldritch_knowledge/curse/paralysis)
@@ -180,7 +180,7 @@
 	name = "Lonely Ritual"
 	gain_text = "I was able to combine my greed and desires to summon an eldritch beast i have not seen before."
 	desc = "You can now summon a Stalker using a knife, a flower, a pen and a piece of paper. Stalkers can shapeshift into harmeless animals and get close to the victim."
-	cost = 1
+	cost = 5
 	required_atoms = list(/obj/item/kitchen/knife,/obj/item/reagent_containers/food/snacks/grown/poppy,/obj/item/pen,/obj/item/paper)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/stalker
 	next_knowledge = list(/datum/eldritch_knowledge/summon/ashy,/datum/eldritch_knowledge/summon/rusty,/datum/eldritch_knowledge/final/flesh_final)
@@ -191,7 +191,7 @@
 	gain_text = "Man of this world. Hear me! For the time of the lord of arms has come! Emperor of Flesh guides my army!"
 	desc = "Bring 3 bodies onto a transmutation rune to gain the ability of shedding your human form, and gaining untold power."
 	required_atoms = list(/mob/living/carbon/human)
-	cost = 3
+	cost = 15
 	route = PATH_FLESH
 
 /datum/eldritch_knowledge/final/flesh_final/on_finished_recipe(mob/living/user, list/atoms, loc)
