@@ -805,7 +805,7 @@
 					//Hallucinations will appear as regular damage
 					if(BP.stamina_dam && !hallucination)
 						var/mutable_appearance/MA = mutable_appearance('icons/mob/screen_gen.dmi', "[BP.body_zone]stam")
-						MA.alpha = (BP.stamina_dam / BP.max_stamina_damage) * 100
+						MA.alpha = (BP.stamina_dam / BP.max_stamina_damage) * 70 + 30
 						hud_used.healthdoll.add_overlay(MA)
 				for(var/t in get_missing_limbs()) //Missing limbs
 					hud_used.healthdoll.add_overlay(mutable_appearance('icons/mob/screen_gen.dmi', "[t]6"))

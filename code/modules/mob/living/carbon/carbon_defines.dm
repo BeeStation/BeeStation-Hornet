@@ -63,4 +63,4 @@
 	var/drunkenness = 0 //Overall drunkenness - check handle_alcohol() in life.dm for effects
 	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
 	var/stam_paralyzed = FALSE //knocks you down
-	var/stam_heal = 20	//Stamina healed per bodypart per second overall
+	var/stam_heal = 20	//Stamina healed per second overall
