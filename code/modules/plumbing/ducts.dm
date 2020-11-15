@@ -233,7 +233,7 @@ All the important duct code:
 					adjacents += D
 	return adjacents
 
-/obj/machinery/duct/update_icon() //setting connects isnt a parameter because sometimes we make more than one change, overwrite it completely or just add it to the bitfield
+/obj/machinery/duct/update_icon() //setting connects isn't a parameter because sometimes we make more than one change, overwrite it completely or just add it to the bitfield
 	var/temp_icon = initial(icon_state)
 	for(var/D in GLOB.cardinals)
 		if(D & connects)
@@ -282,7 +282,7 @@ All the important duct code:
 		"<span class='italics'>You hear ratcheting.</span>")
 		attempt_connect()
 	return TRUE
-///collection of all the sanity checks to prevent us from stacking ducts that shouldnt be stacked
+///collection of all the sanity checks to prevent us from stacking ducts that shouldn't be stacked
 /obj/machinery/duct/proc/can_anchor(turf/T)
 	if(!T)
 		T = get_turf(src)
@@ -360,7 +360,7 @@ All the important duct code:
 	else
 		connects = EAST | WEST
 
-///don't connect to other multilayered stuff because honestly it shouldnt be done and I dont wanna deal with it
+///don't connect to other multilayered stuff because honestly it shouldn't be done and I dont wanna deal with it
 /obj/machinery/duct/multilayered/connect_duct(obj/machinery/duct/D, direction, ignore_color)
 	if(istype(D, /obj/machinery/duct/multilayered))
 		return

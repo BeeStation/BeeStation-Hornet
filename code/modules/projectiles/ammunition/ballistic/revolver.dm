@@ -42,7 +42,7 @@
 /obj/item/ammo_casing/caseless/mime
 	name = "invisible .38 bullet casing"
 	icon_state = null
-	desc = "You shouldnt be seeing this."
+	desc = "You shouldn't be seeing this."
 	caliber = "mime"
 	projectile_type = /obj/item/projectile/bullet/c38/mime
 

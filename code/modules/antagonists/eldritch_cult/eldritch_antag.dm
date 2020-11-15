@@ -168,7 +168,7 @@
 			count++
 
 	if(ascended)
-		//Ascension isnt technically finishing the objectives, buut it is to be considered a great win.
+		//Ascension isn't technically finishing the objectives, buut it is to be considered a great win.
 		var/client/C = GLOB.directory[ckey(owner.key)]
 		if(C)
 			C.process_greentext()
