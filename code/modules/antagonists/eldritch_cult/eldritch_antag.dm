@@ -40,6 +40,9 @@
 		gain_knowledge(/datum/eldritch_knowledge/living_heart)
 		gain_knowledge(/datum/eldritch_knowledge/codex_cicatrix)
 		gain_knowledge(/datum/eldritch_knowledge/eldritch_avatar)
+		gain_knowledge(/datum/eldritch_knowledge/curse/alteration)//remove after debug
+		gain_knowledge(/datum/eldritch_knowledge/curse/fascination)
+		gain_knowledge(/datum/eldritch_knowledge/dematerialize)
 	current.log_message("has become a heretic", LOG_ATTACK, color="#960000")
 	GLOB.reality_smash_track.AddMind(owner)
 	START_PROCESSING(SSprocessing,src)
@@ -324,11 +327,10 @@
 //////////////
 
 /datum/antagonist/heretic/proc/gain_deity(intid,godname)
-	if(get_knowledge(godname))
+	if(has_deity(intid,godname))
 		return FALSE
 	pantheon[intid] = godname
 	return TRUE
 
-/datum/antagonist/heretic/proc/has_deity(intid)
+/datum/antagonist/heretic/proc/has_deity(intid,godname)
 	return pantheon[intid]
-

@@ -292,7 +292,7 @@
 	desc = "Allows you to create additional living hearts, using a heart, a pool of blood and a poppy. Living hearts when used on a transmutation rune will grant you a person to hunt and sacrifice on the rune. Every sacrifice gives you an additional charge in the book."
 	gain_text = "Gates of mansus open up to your mind."
 	cost = 0
-	required_atoms = list(/obj/item/organ/heart,/obj/effect/decal/cleanable/blood,/obj/item/reagent_containers/food/snacks/grown/poppy)
+	required_atoms = list(/obj/item/organ/heart,/obj/effect/decal/cleanable/blood)
 	result_atoms = list(/obj/item/living_heart)
 	route = "Start"
 
@@ -301,7 +301,7 @@
 	desc = "Allows you to create a spare Codex Cicatrix if you have lost one, using a bible, human skin, a pen and a pair of eyes."
 	gain_text = "Their hand is at your throats, yet you see Them not."
 	cost = 0
-	required_atoms = list(/obj/item/organ/eyes,/obj/item/stack/sheet/animalhide/human,/obj/item/storage/book/bible,/obj/item/pen)
+	required_atoms = list(/obj/item/organ/eyes,/obj/item/storage/book/bible,/obj/item/pen)
 	result_atoms = list(/obj/item/forbidden_book)
 	route = "Start"
 
@@ -319,8 +319,8 @@
 	desc = "You can now create eldritch armor using a table and a gas mask."
 	gain_text = "For I am the heir to the throne of doom."
 	cost = 2
-	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/flesh_ghoul)
-	required_atoms = list(/obj/structure/table,/obj/item/clothing/mask/gas)
+	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
+	required_atoms = list(/obj/structure/table,/obj/item/stack/sheet/animalhide/human,/obj/item/clothing/mask/gas)
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch)
 
 /datum/eldritch_knowledge/essence
@@ -328,7 +328,7 @@
 	desc = "You can now transmute a tank of water into a bottle of eldritch water."
 	gain_text = "This is an old recipe, i got it from an owl."
 	cost = 2
-	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift)
+	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
 	required_atoms = list(/obj/structure/reagent_dispensers/watertank)
 	result_atoms = list(/obj/item/reagent_containers/glass/beaker/eldritch)
 
@@ -337,7 +337,7 @@
 	gain_text = "Piercing eyes may guide me through the mundane."
 	desc = "Allows you to craft thermal vision amulet by transmutating eyes with a glass shard."
 	cost = 2
-	next_knowledge = list(/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
+	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
 	required_atoms = list(/obj/item/organ/eyes,/obj/item/shard)
 	result_atoms = list(/obj/item/clothing/neck/eldritch_amulet)
 
@@ -366,7 +366,7 @@
 	gain_text = "Those safe in this world are not safe in others..."
 	desc = "Enter the world of dreams, and fascinate the minds of those that currently inhabit it. Requires a poppy, a tongue and an item that the victim touched  with their bare hands. "
 	cost = 2
-	required_atoms = list(/obj/item/organ/tongue,/obj/item/reagent_containers/food/snacks/grown/poppy)
+	required_atoms = list(/obj/item/bedsheet,/obj/item/reagent_containers/food/snacks/grown/poppy,/obj/item/candle)
 	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/summon/raw_prophet)
 	timer = 5 MINUTES
 	followers_increment = 1
@@ -388,7 +388,7 @@
 			compiled_list |= human_to_check.real_name
 			compiled_list[human_to_check.real_name] = human_to_check
 
-	if(compiled_list.len == 0)
+	if(!LAZYLEN(compiled_list))
 		to_chat(user, "<span class='warning'>There are no sleepers on this plane.</span>")
 		return FALSE
 
@@ -403,9 +403,9 @@
 /datum/eldritch_knowledge/curse/alteration
 	name = "Alteration"
 	gain_text = "Mortal bodies, prisons of flesh. Death, a release..."
-	desc = "Place a kidney, a candle and a hatchet onto a rune to start the ritual. Place limbs or sense organs on the rune will be sacrificed to enhance the ritual."
+	desc = "A debilitating curse that will cripple one's body for 2 minutes. Start by placing a liver, a candle and a hatchet onto a rune. Add eyes, ears, limbs or tongues to  disable those organs while the curse is in effect."
 	cost = 2
-	required_atoms = list(/obj/item/organ/liver,/obj/item/candle,/obj/item/hatchet)	//did I confuse kidney and liver?
+	required_atoms = list(/obj/item/wirecutters,/obj/item/hatchet)
 	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/spell/area_conversion)
 	timer = 2 MINUTES
 	var/list/debuffs = list()
@@ -416,45 +416,36 @@
 	var/list/extra_atoms = list()
 
 	//check variables
-	for(var/A in range(1, src))
+	for(var/A in range(1, src))	//this
 		var/atom/atom_in_range = A
 		if(istype(atom_in_range,/obj/item/bodypart/r_leg))
-			extra_atoms |= A
-			debuffs |= "r_leg"
+			extra_atoms[0] = A
+			debuffs[0] = "r_leg"
 		else if(istype(atom_in_range,/obj/item/bodypart/l_leg))
-			extra_atoms |= A
-			debuffs |= "l_leg"
+			extra_atoms[1] = A
+			debuffs[1] = "l_leg"
 		else if(istype(atom_in_range,/obj/item/bodypart/r_arm))
-			extra_atoms |= A
-			debuffs |= "r_arm"
+			extra_atoms[2] = A
+			debuffs[2] = "r_arm"
 		else if(istype(atom_in_range,/obj/item/bodypart/l_arm))
-			extra_atoms |= A
-			debuffs |= "l_arm"
+			extra_atoms[3] = A
+			debuffs[3] = "l_arm"
 		else if(istype(atom_in_range,/obj/item/organ/tongue))
-			extra_atoms |= A
-			debuffs |= "tongue"
+			extra_atoms[4] = A
+			debuffs[4] = "tongue"
 		else if(istype(atom_in_range,/obj/item/organ/eyes))
-			extra_atoms |= A
-			debuffs |= "eyes"
+			extra_atoms[5] = A
+			debuffs[5] = "eyes"
 		else if(istype(atom_in_range,/obj/item/organ/ears))
-			extra_atoms |= A
-			debuffs |= "ears"
+			extra_atoms[6] = A
+			debuffs[6] = "ears"
 		else if(istype(atom_in_range,/obj/item/organ/liver) || istype(atom_in_range,/obj/item/organ/lungs) || istype(atom_in_range,/obj/item/organ/appendix) || istype(atom_in_range,/obj/item/organ/heart))
-			extra_atoms |= A
-			debuffs |= "organs"
-		else
-			continue
-		extra_atoms += atom_in_range
-
-	if (LAZYLEN(debuffs)==0)
-		to_chat(user, "<span class='warning'>Ritual aborted.</span>")
+			extra_atoms[7] = A
+			debuffs[7] = "organs"
+	if (!LAZYLEN(debuffs))
 		return FALSE
-
 	. = ..()
-
 	cleanup_atoms(extra_atoms)
-	qdel(debuffs) // how to clear list
-
 	return .
 
 /datum/eldritch_knowledge/curse/alteration/curse(mob/living/chosen_mob)
@@ -559,3 +550,5 @@
 	required_atoms = list(/obj/effect/decal/cleanable/vomit,/obj/item/bodypart/head,/obj/item/book)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/rust_spirit
 	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/flame_birth)
+
+	//NOTE TO SELF -> FIX DESCRIPTIONS AND NEXT_KNOWLEDGES

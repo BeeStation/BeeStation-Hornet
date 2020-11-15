@@ -183,7 +183,8 @@
 
 /obj/item/artifact
 	name = "strange figurine"
-	desc = "A cobble statuette of some sort."
+	desc = "A stone statuette of some sort."
+	var/inUse = FALSE
 	var/deity = 0
 	var/godname = "C'Thulhu"
 	var/infused = FALSE
@@ -241,7 +242,7 @@
 		else
 			switch (deity)
 				if (1)
-					.+="The boon of [godname] will snap one's mind back to reality."
+					.+="The boon of [godname] will fix one's insides."
 				if (2)
 					.+="The boon of [godname] will bring back one's vision."
 				if (3)
@@ -272,43 +273,44 @@
 					.+="The boon of [godname] will bring madness into one's mind."
 
 		var/datum/antagonist/heretic/her = user.mind.has_antag_datum(/datum/antagonist/heretic)
-		if (her.has_god(deity))
+		if (!her.has_deity(deity))
 			.+="You have not gained the favor of [godname]."
 
 /obj/item/artifact/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if (. && do_after(user,10,target))
+	if(proximity_flag)
 		infuse_blessing(user,target)
-	return .
 
 /obj/item/artifact/attack_self(mob/user)
 	. = ..()
-	if (IS_HERETIC(user))
-		var/datum/antagonist/heretic/her = user.mind.has_antag_datum(/datum/antagonist/heretic)
-		to_chat(user,"<span class='notice'>You start a praying towards [godname]!</span>")
-		if (do_after(user,5 SECONDS))
-			var/result = "The ritual is complete"
-			if (!infused)
-				result += ". You infused the [src] with the blessing of [godname]"
-			if (!her.has_god(deity))
-				result += " and you gained the favor of [godname]"
-				her.gain_favor(1)
-			to_chat(user,"<span class='notice'>[result].</span>")
-			infused = TRUE
-			her.gain_god(deity)
-			return TRUE
-	if (. && do_after(user,30))
-		infuse_blessing(user,user)
-	return .
+	if (!inUse)
+		inUse = TRUE
+		if (!infused && IS_HERETIC(user))
+			var/datum/antagonist/heretic/her = user.mind.has_antag_datum(/datum/antagonist/heretic)
+			to_chat(user,"<span class='notice'>You start a praying towards [godname]!</span>")
+			if (do_after(user,5 SECONDS))
+				var/result = "The prayer is complete"
+				if (!infused)
+					result += ". You infused the [src] with the blessing of [godname]"
+				if (!her.has_deity(deity))
+					result += " and you gained the favor of [godname]"
+					her.gain_favor(1)
+				to_chat(user,"<span class='notice'>[result].</span>")
+				infused = TRUE
+				her.gain_deity(deity,godname)
+				return TRUE
+		else if (infuse_blessing(user,user))
+			user.visible_message("<span class='notice'>You strike [target] with the blessing of [godname]!</span>","<span class='danger'>[user] performs a strange ritual with the [src]!</span>")
+		inUse = FALSE
 
-/obj/item/artifact/proc/infuse_blessing(mob/living/carbon/human/target)
-	if (!infused || !istype(target) || QDELETED(target) || target.stat == DEAD)
-		return
-
-	to_chat(target,"<span class='warning'>[src] lights up and you hear a whisper saying, '[godname]'.</span>")
+/obj/item/artifact/proc/infuse_blessing(mob/living/user,mob/living/carbon/human/target)
+	if (!infused || !istype(target))
+		return FALSE
 	switch (deity)
 		if (1)
-			target.SetSleeping(0)
+			target.adjustOrganLoss(ORGAN_SLOT_HEART,-5)
+			target.adjustOrganLoss(ORGAN_SLOT_LIVER,-5)
+			target.adjustOrganLoss(ORGAN_SLOT_STOMACH,-5)
 		if (2)
 			target.adjustOrganLoss(ORGAN_SLOT_EYES,-10)
 		if (3)
@@ -342,6 +344,7 @@
 		if (15)
 			if(HAS_TRAIT(target, TRAIT_PACIFISM))
 				REMOVE_TRAIT(target, TRAIT_PACIFISM,TRAIT_GENERIC)	//remove any and all?
+	return TRUE
 
 /obj/item/artifact/proc/to_ashes(mob/living/usr)
 	infused = TRUE
@@ -364,37 +367,32 @@
 	infused = TRUE
 	ashes = TRUE
 
-/obj/item/artifact/ashes/Initialize()
-	..()
-
-/obj/item/artifact/ashes/afterattack(atom/target, mob/user, proximity)
-	. = ..()
-	if (.)
-		infuse_blessing(user,target)
+/obj/item/artifact/ashes/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if (proximity_flag && user && target && infuse_blessing(user,target))
+		user.visible_message("<span class='notice'>You throw the [src] at [target]!</span>","<span class='notice'>[user] throws something at [target]!</span>")
 		qdel(src)
-	return .
 
 /obj/item/artifact/ashes/attack_self(mob/user)
 	. = ..()
-	if (.)
-		infuse_blessing(user,user)
-		qdel(src)
-	return .
+	infuse_blessing(user,user)
+	qdel(src)
 
 /obj/item/artifact/ashes/to_ashes(mob/living/usr)
 	return
 
 /obj/item/artifact/ashes/infuse_blessing(mob/living/user,mob/living/carbon/human/target)
-	if (!istype(target) || QDELETED(target) || target.stat == DEAD)
-		return
-	//no tochat, this one is stealthy
+	if (!istype(target))
+		return FALSE
 	switch (deity)
 		if (1)
-			target.SetSleeping(10 SECONDS)
+			target.adjustOrganLoss(ORGAN_SLOT_HEART,-100)
+			target.adjustOrganLoss(ORGAN_SLOT_LIVER,-100)
+			target.adjustOrganLoss(ORGAN_SLOT_STOMACH,-100)
 		if (2)
 			target.adjustOrganLoss(ORGAN_SLOT_EYES,-80)
 		if (3)
 			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,-50)
+			target.SetSleeping(0)
 		if (4)
 			target.adjustToxLoss(-50)
 		if (5)
@@ -429,3 +427,4 @@
 			var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
 			if (master)
 				master.enslave(target)
+	return TRUE

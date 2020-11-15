@@ -16,7 +16,7 @@
 	gain_text = "I found notes.. notes of a ritual, it was unfinished and yet i still did it."
 	cost = 5
 	required_atoms = list(/mob/living/carbon/human,/obj/item/reagent_containers/food/snacks/grown/poppy)
-	next_knowledge = list(/datum/eldritch_knowledge/flesh_mark,/datum/eldritch_knowledge/armor,/datum/eldritch_knowledge/ashen_eyes)
+	next_knowledge = list(/datum/eldritch_knowledge/flesh_mark,/datum/eldritch_knowledge/armor,/datum/eldritch_knowledge/ashen_eyes,/datum/eldritch_knowledge/essence)
 	route = PATH_FLESH
 	var/max_amt = 2
 	var/current_amt = 0
@@ -173,7 +173,7 @@
 	cost = 5
 	required_atoms = list(/obj/item/organ/eyes,/obj/item/bodypart/l_arm,/obj/item/bodypart/r_arm,/obj/effect/decal/cleanable/blood)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/raw_prophet
-	next_knowledge = list(/datum/eldritch_knowledge/flesh_blade_upgrade,/datum/eldritch_knowledge/spell/blood_siphon,/datum/eldritch_knowledge/curse/paralysis)
+	next_knowledge = list(/datum/eldritch_knowledge/flesh_blade_upgrade,/datum/eldritch_knowledge/spell/blood_siphon,/datum/eldritch_knowledge/curse/alteration,/datum/eldritch_knowledge/curse/fascination)
 	route = PATH_FLESH
 
 /datum/eldritch_knowledge/summon/stalker
@@ -183,7 +183,7 @@
 	cost = 5
 	required_atoms = list(/obj/item/kitchen/knife,/obj/item/reagent_containers/food/snacks/grown/poppy,/obj/item/pen,/obj/item/paper)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/stalker
-	next_knowledge = list(/datum/eldritch_knowledge/summon/ashy,/datum/eldritch_knowledge/summon/rusty,/datum/eldritch_knowledge/final/flesh_final)
+	next_knowledge = list(/datum/eldritch_knowledge/summon/ashy,/datum/eldritch_knowledge/summon/rusty,/datum/eldritch_knowledge/spell/cleave,/datum/eldritch_knowledge/final/flesh_final)
 	route = PATH_FLESH
 
 /datum/eldritch_knowledge/final/flesh_final

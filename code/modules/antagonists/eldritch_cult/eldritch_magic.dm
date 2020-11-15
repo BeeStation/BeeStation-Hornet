@@ -73,15 +73,16 @@
 		C.adjustStaminaLoss(80)
 	else if (istype(target,/obj/item/artifact) && cultie.get_knowledge(/datum/eldritch_knowledge/dematerialize))
 		var/obj/item/artifact/target_artifact = target
-		target_artifact.to_ashes()
+		target_artifact.to_ashes(user)
+		return TRUE
 	else if(istype(target,/obj/effect/eldritch))
 		remove_rune(target,user)
-		return
+		return FALSE
 	else if(istype(target,/turf/open))
 		var/mob/caster = user
 		if (caster.a_intent != INTENT_HARM)
 			draw_rune(target,user)
-			return
+			return FALSE
 
 	if (ishuman(target))
 		var/mob/living/carbon/human/victim = target

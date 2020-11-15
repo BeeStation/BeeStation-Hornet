@@ -16,7 +16,7 @@
 	desc = "Short range jaunt that can help you escape from bad situations."
 	cost = 5
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash
-	next_knowledge = list(/datum/eldritch_knowledge/ash_mark,/datum/eldritch_knowledge/essence,/datum/eldritch_knowledge/ashen_eyes)
+	next_knowledge = list(/datum/eldritch_knowledge/ash_mark,/datum/eldritch_knowledge/essence,/datum/eldritch_knowledge/ashen_eyes,/datum/eldritch_knowledge/armor)
 	route = PATH_ASH
 
 /datum/eldritch_knowledge/ashen_grasp
@@ -53,7 +53,7 @@
 	gain_text = "Spread the famine."
 	desc = "Become a Priest of Ash, which allows you to recruit more disciples. Also, your eldritch blade now applies a mark which, when activated with Mansus Grasph, causes stamina loss, and fire damage, and spreads to a nearby carbons."
 	cost = 10
-	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness)
+	next_knowledge = list(/datum/eldritch_knowledge/dematerialize)
 	banned_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/flesh_mark)
 	route = PATH_ASH
 	followers_increment = 1
@@ -85,9 +85,9 @@
 /datum/eldritch_knowledge/dematerialize
 	name = "Dematerialzie"
 	gain_text = "God's anger, my weapon!"
-	desc = "Your Mansus Grasp can shred avatars into dust. The dust can be thrown at mortals to inflict a stronger curse."
+	desc = "Your Mansus Grasp can shred strange figurines into ash. This will anger their Gods, and those who are struck with the resulting ashes will experience their wraith."
 	cost = 5
-	next_knowledge = list(/datum/eldritch_knowledge/spell/ashen_shift)
+	next_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/curse/alteration,/datum/eldritch_knowledge/curse/fascination,/datum/eldritch_knowledge/spell/blood_siphon)
 	route = PATH_ASH
 
 /datum/eldritch_knowledge/spell/flame_birth
@@ -96,7 +96,7 @@
 	desc = "Short range spell that allows you to curse someone with massive sanity loss."
 	cost = 5
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/fiery_rebirth
-	next_knowledge = list(/datum/eldritch_knowledge/spell/cleave,/datum/eldritch_knowledge/summon/ashy,/datum/eldritch_knowledge/final/ash_final)
+	next_knowledge = list(/datum/eldritch_knowledge/spell/cleave,/datum/eldritch_knowledge/summon/ashy,/datum/eldritch_knowledge/summon/rusty,/datum/eldritch_knowledge/final/ash_final)
 	route = PATH_ASH
 
 /datum/eldritch_knowledge/ash_blade_upgrade
