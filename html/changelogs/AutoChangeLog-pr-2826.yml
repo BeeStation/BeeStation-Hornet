@@ -1,0 +1,8 @@
+author: BeloneX
+delete-after: true
+changes:
+  - tweak: xeno queens can smack the emergency shuttle console to clear the xeno hostile
+      environment rather than waiting it out
+  - tweak: Xeno queens will delay the escape shuttle for a while unless they are killed
+  - tweak: the shuttle will get auto called at the end of the timer if the queen is
+      alive and it hasn't been called already to prevent super xeno extended rounds
