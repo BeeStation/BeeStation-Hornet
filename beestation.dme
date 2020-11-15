@@ -1546,6 +1546,7 @@
 #include "code\modules\atmospherics\gasmixtures\gas_types.dm"
 #include "code\modules\atmospherics\gasmixtures\immutable_mixtures.dm"
 #include "code\modules\atmospherics\gasmixtures\reactions.dm"
+#include "code\modules\atmospherics\machinery\airalarm.dm"
 #include "code\modules\atmospherics\machinery\atmosmachinery.dm"
 #include "code\modules\atmospherics\machinery\datum_pipeline.dm"
 #include "code\modules\atmospherics\machinery\components\components_base.dm"
@@ -3171,5 +3172,4 @@
 #include "interface\menu.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
-#include "C:\Users\mrmbr\Desktop\airalarm.dm"
 // END_INCLUDE
