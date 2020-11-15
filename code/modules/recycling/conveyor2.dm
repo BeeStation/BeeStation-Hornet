@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	id = "round_end_belt"
 
 
-/obj/machinery/conveyor/inverted //Directions inverted so you can use different corner peices.
+/obj/machinery/conveyor/inverted //Directions inverted so you can use different corner pieces.
 	icon_state = "conveyor_map_inverted"
 	verted = -1
 

@@ -111,7 +111,7 @@
 	path = /obj/item/clothing/suit/jacket/letterman_red
 
 /datum/gear/suit/jacket/letterman_nanotrasen
-	display_name = "letterman jacket, NanoTrasen blue"
+	display_name = "letterman jacket, Nanotrasen blue"
 	path = /obj/item/clothing/suit/jacket/letterman_nanotrasen
 	cost = 5000
 
