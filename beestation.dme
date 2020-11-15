@@ -1376,6 +1376,7 @@
 #include "code\modules\antagonists\clock_cult\ratvarian_cyborg_modules.dm"
 #include "code\modules\antagonists\clock_cult\ratvarian_language.dm"
 #include "code\modules\antagonists\clock_cult\servant_of_ratvar.dm"
+#include "code\modules\antagonists\clock_cult\helpers\battle_of_the_gods.dm"
 #include "code\modules\antagonists\clock_cult\helpers\clockcult_ending.dm"
 #include "code\modules\antagonists\clock_cult\helpers\clockwork_conversion_tracker.dm"
 #include "code\modules\antagonists\clock_cult\helpers\servant_warp.dm"
