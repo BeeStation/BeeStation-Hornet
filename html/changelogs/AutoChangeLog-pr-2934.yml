@@ -1,0 +1,6 @@
+author: Ohagi-Chan
+delete-after: true
+changes:
+  - tweak: Science outpost doors now allow miners to travel a little more freely.
+  - tweak: Hermits no longer wake up to discover that their cave is flooded with toxic
+      gas.
