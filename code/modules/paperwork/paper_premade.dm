@@ -40,7 +40,7 @@
 	name = "paper- Smelting Operations Closed"
 	info = "<B>**NOTICE**</B><BR><BR>Smelting operations moved on-station.<BR><BR>Take your unrefined ore to the Redemption Machine in the Delivery Office to redeem points.<BR><BR>--SS13 Command"
 
-/obj/item/paper/fluff/jobs/security/court_judgement
+/obj/item/paper/fluff/jobs/security/court_judgment
 	name = "paper- 'Judgement'"
 	info = "For crimes against the station, the offender is sentenced to:<BR>\n<BR>\n"
 

@@ -11,7 +11,7 @@
 
 
 GLOBAL_LIST_EMPTY(explosions)
-//Against my better judgement, I will return the explosion datum
+//Against my better judgment, I will return the explosion datum
 //If I see any GC errors for it I will find you
 //and I will gib you
 /proc/explosion(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = TRUE, ignorecap = FALSE, flame_range = 0, silent = FALSE, smoke = FALSE)

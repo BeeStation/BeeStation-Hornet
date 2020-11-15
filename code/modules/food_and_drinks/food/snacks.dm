@@ -328,7 +328,7 @@ All foods are distributed among various categories. Use common sense.
 			L.taste(reagents) // why should carbons get all the fun?
 			if(bitecount >= 5)
 				var/satisfaction_text = pick("burps from enjoyment.", "yaps for more.", "woofs twice.", "looks at the area where \the [src] was.")
-				if(sattisfaction_text)
+				if(satisfaction_text)
 					M.emote("me", 1, "[satisfaction_text]")
 				qdel(src)
 

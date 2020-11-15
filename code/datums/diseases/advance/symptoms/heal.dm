@@ -430,7 +430,7 @@ obj/effect/sweatsplash/proc/splash()
 					to_chat(M, "<span class='userwarning'>The lukewarm temperature makes you feel strange!</span>")
 			if(cooldowntimer == 0 && ((M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT + telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTHEAT)) || (M.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT - telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTCOLD)) || (burnheal && M.getFireLoss() > 60 + telethreshold)))
 				do_sparks(5,FALSE,M)
-				to_chat(M, "<span class='userdanger'>The change in temperature shocks you back to a previous spacial state!</span>")
+				to_chat(M, "<span class='userdanger'>The change in temperature shocks you back to a previous spatial state!</span>")
 				do_teleport(M, location_return, 0, asoundin = 'sound/effects/phasein.ogg') //Teleports home
 				do_sparks(5,FALSE,M)
 				cooldowntimer = 10

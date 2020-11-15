@@ -877,7 +877,7 @@
 /mob/proc/activate_hand(selhand)
 	return
 
-/mob/proc/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null) //For sec bot threat assessment
+/mob/proc/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null) //For sec bot threat assessment
 	return 0
 
 ///Get the ghost of this mob (from the mind)

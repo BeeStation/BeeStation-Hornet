@@ -170,7 +170,7 @@
 	alert_type = null
 	var/obj/item/reagent_containers/syringe/syringe = null
 	var/injectmult = 1
-	
+
 /datum/status_effect/syringe/on_creation(mob/living/new_owner, obj/item/reagent_containers/syringe/origin, mult)
 	syringe = origin
 	injectmult = mult
@@ -223,7 +223,7 @@
 				syringe.reagents.trans_to(C, amount)
 				syringe.forceMove(C.loc)
 				qdel(syringestatus)
-		if(!C.has_status_effect(STATUS_EFFECT_SYRINGE))	
+		if(!C.has_status_effect(STATUS_EFFECT_SYRINGE))
 			C.clear_alert("syringealert")
 
 
@@ -393,7 +393,7 @@
 		new /obj/effect/temp_visual/bleed/explode(T)
 		for(var/d in GLOB.alldirs)
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(T, d)
-		playsound(T, "desceration", 200, 1, -1)
+		playsound(T, "desecration", 200, 1, -1)
 		owner.adjustBruteLoss(bleed_damage)
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))

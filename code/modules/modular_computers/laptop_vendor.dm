@@ -264,7 +264,7 @@
 			say("Insufficient money on card to purchase!")
 			return
 		credits += target_credits
-		say("$[target_credits] has been desposited from your account.")
+		say("$[target_credits] has been deposited from your account.")
 		return
 	return ..()
 

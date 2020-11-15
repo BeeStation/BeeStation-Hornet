@@ -78,7 +78,7 @@
 	autolinkers = list("h_relay")
 	icon = 'icons/obj/clockwork_objects.dmi'
 	icon_state = "relay"
-	broadcasting = FALSE	//It only recieves
+	broadcasting = FALSE	//It only receives
 
 //Generic preset relay
 /obj/machinery/telecomms/relay/preset/auto

@@ -225,21 +225,20 @@
 /mob/living/attack_animal(mob/living/simple_animal/M)
 	M.face_atom(src)
 	if(M.melee_damage == 0)
-		M.visible_message("<span class='notice'>\The [M] [M.friendly] [src]!</span>", \
-						"<span class='notice'>\The [M] [M.friendly] you!</span>")
+		visible_message("<span class='notice'>\The [M] [M.friendly] [src]!</span>", \
+						"<span class='notice'>\The [M] [M.friendly] you!</span>", null, COMBAT_MESSAGE_RANGE)
 		return FALSE
-	else
-		if(HAS_TRAIT(M, TRAIT_PACIFISM))
-			to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
-			return FALSE
+	if(HAS_TRAIT(M, TRAIT_PACIFISM))
+		to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
+		return FALSE
 
-		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
-						"<span class='userdanger'>\The [M] [M.attacktext] you!</span>", null, COMBAT_MESSAGE_RANGE)
-		log_combat(M, src, "attacked")
-		return TRUE
+	if(M.attack_sound)
+		playsound(loc, M.attack_sound, 50, 1, 1)
+	M.do_attack_animation(src)
+	visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
+					"<span class='userdanger'>\The [M] [M.attacktext] you!</span>", null, COMBAT_MESSAGE_RANGE)
+	log_combat(M, src, "attacked")
+	return TRUE
 
 
 /mob/living/attack_paw(mob/living/carbon/monkey/M)
@@ -259,7 +258,7 @@
 		log_combat(M, src, "attacked")
 		playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
 		visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
-				"<span class='userdanger'>[M.name] bites you!</span>", null, COMBAT_MESSAGE_RANGE)
+						"<span class='userdanger'>[M.name] bites you!</span>", null, COMBAT_MESSAGE_RANGE)
 		return TRUE
 	return FALSE
 
@@ -408,7 +407,7 @@
 		else
 			E.extrapolate(src, diseases, user)
 		return TRUE
-	else 
+	else
 		return FALSE
 
 

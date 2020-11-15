@@ -102,7 +102,7 @@
 		return FALSE
 	return TRUE
 
-/mob/living/carbon/true_devil/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null)
+/mob/living/carbon/true_devil/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null)
 	return 666
 
 /mob/living/carbon/true_devil/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)

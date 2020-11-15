@@ -200,7 +200,7 @@
 				to_chat(user, "<span class='notice'>You install the power cell.</span>")
 				playsound(src, 'sound/items/screwdriver2.ogg', 50, FALSE)
 				cell = C
-				log_message("Powercell installed", LOG_MECHA)
+				log_message("Power cell installed", LOG_MECHA)
 			else
 				to_chat(user, "<span class='notice'>There's already a power cell installed.</span>")
 		return

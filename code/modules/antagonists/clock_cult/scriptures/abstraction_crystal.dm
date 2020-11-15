@@ -10,7 +10,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 /datum/clockcult/scripture/create_structure/abstraction_crystal
 	name = "Abstraction Crystal"
 	desc = "Summons an Abstraction Crystal, which allows servants to manifest themself to protect the nearby area."
-	tip = "Upon your manifestation taking damage, you will only recieve 40% of the damage."
+	tip = "Upon your manifestation taking damage, you will only receive 40% of the damage."
 	button_icon_state = "Clockwork Obelisk"
 	power_cost = 750
 	invokation_time = 50
@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 
 //=============
 // A human that can do human things, however it is linked to a crystal
-// Instead of recieving damage normally, damage is applied to the crystal
+// Instead of receiving damage normally, damage is applied to the crystal
 // and this mobs health is equal to the health of the crystal
 //=============
 

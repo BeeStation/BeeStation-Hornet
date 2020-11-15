@@ -448,7 +448,7 @@
 
 obj/item/organ/lungs/apid
 	name = "apid lungs"
-	desc = "Lungs from an apid, or beeperson. Thanks to the many spiracles an apid has, these lungs are capable of gathering more oxygen from low-pressure enviroments."
+	desc = "Lungs from an apid, or beeperson. Thanks to the many spiracles an apid has, these lungs are capable of gathering more oxygen from low-pressure environments."
 	icon_state = "lungs"
 	safe_oxygen_min = 8
 

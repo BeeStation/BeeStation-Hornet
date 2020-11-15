@@ -71,7 +71,7 @@
 	desc = "Subject is easily terrified, and may suffer from hallucinations."
 	quality = NEGATIVE
 	text_gain_indication = "<span class='danger'>You feel screams echo through your mind...</span>"
-	text_lose_indication = "<span class'notice'>The screaming in your mind fades.</span>"
+	text_lose_indication = "<span class='notice'>The screaming in your mind fades.</span>"
 
 /datum/mutation/human/paranoia/on_life()
 	if(prob(5) && owner.stat == CONSCIOUS)
@@ -251,7 +251,7 @@
 	desc = "The user's skin will randomly combust, but is generally alot more resilient to burning."
 	quality = NEGATIVE
 	text_gain_indication = "<span class='warning'>You feel hot.</span>"
-	text_lose_indication = "<span class'notice'>You feel a lot cooler.</span>"
+	text_lose_indication = "<span class='notice'>You feel a lot cooler.</span>"
 	difficulty = 14
 	synchronizer_coeff = 1
 	power_coeff = 1
@@ -276,7 +276,7 @@
 	desc = "The victim of the mutation has a very weak link to spatial reality, and may be displaced. Often causes extreme nausea."
 	quality = NEGATIVE
 	text_gain_indication = "<span class='warning'>The space around you twists sickeningly.</span>"
-	text_lose_indication = "<span class'notice'>The space around you settles back to normal.</span>"
+	text_lose_indication = "<span class='notice'>The space around you settles back to normal.</span>"
 	difficulty = 18//high so it's hard to unlock and abuse
 	instability = 10
 	synchronizer_coeff = 1
@@ -306,7 +306,7 @@
 	desc = "Subject has acidic chemicals building up underneath their skin. This is often lethal."
 	quality = NEGATIVE
 	text_gain_indication = "<span class='userdanger'>A horrible burning sensation envelops you as your flesh turns to acid!</span>"
-	text_lose_indication = "<span class'notice'>A feeling of relief covers you as your flesh goes back to normal.</span>"
+	text_lose_indication = "<span class='notice'>A feeling of relief covers you as your flesh goes back to normal.</span>"
 	difficulty = 18//high so it's hard to unlock and use on others
 	var/msgcooldown = 0
 
@@ -346,7 +346,7 @@
 	desc = "Subject suffers from muscle spasms."
 	quality = NEGATIVE
 	text_gain_indication = "<span class='warning'>You flinch.</span>"
-	text_lose_indication = "<span class'notice'>Your flinching subsides.</span>"
+	text_lose_indication = "<span class='notice'>Your flinching subsides.</span>"
 	difficulty = 16
 
 /datum/mutation/human/spastic/on_acquiring()
@@ -364,7 +364,7 @@
 	desc = "A mutation that replaces the right foot with another left foot. It makes standing up after getting knocked down very difficult."
 	quality = NEGATIVE
 	text_gain_indication = "<span class='warning'>Your right foot feels... left.</span>"
-	text_lose_indication = "<span class'notice'>Your right foot feels alright.</span>"
+	text_lose_indication = "<span class='notice'>Your right foot feels alright.</span>"
 	difficulty = 16
 	var/stun_cooldown = 0
 
