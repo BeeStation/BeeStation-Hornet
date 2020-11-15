@@ -68,6 +68,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 /obj/structure/slime_crystal/Destroy()
 	STOP_PROCESSING(SSobj,src)
+	for(var/X in affected_mobs)
+		on_mob_leave(X)
 	return ..()
 
 /obj/structure/slime_crystal/process()
@@ -171,10 +173,14 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 /obj/structure/slime_crystal/metal
 	colour = "metal"
 
-/obj/structure/slime_crystal/metal/process()
-	for(var/obj/item/stack/S in range(1,src))
-		if(prob(5))
-			S.add(1)
+	var/heal_amt = 1
+
+/obj/structure/slime_crystal/metal/on_mob_effect(mob/living/affected_mob)
+	. = ..()
+	if(!iscyborg(affected_mob))
+		return
+	var/mob/living/silicon/borgo = affected_mob
+	borgo.adjustBruteLoss(-heal_amt)
 
 /obj/structure/slime_crystal/yellow
 	colour = "yellow"
@@ -259,7 +265,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		return ..()
 
 	if(local_bs_list.len == 1)
-		do_teleport(local_bs_list[1],user)
+		do_teleport(user ,local_bs_list[1])
 		return
 
 	in_use = TRUE
@@ -285,19 +291,28 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(!chosen_input)
 		return
 
-	do_teleport(assoc_list[chosen_input],user)
+	do_teleport(user ,assoc_list[chosen_input])
 
 /obj/structure/slime_crystal/sepia
 	colour = "sepia"
 
 /obj/structure/slime_crystal/sepia/on_mob_enter(mob/living/affected_mob)
 	. = ..()
-	affected_mob.SetStasis(TRUE)
+	ADD_TRAIT(affected_mob,TRAIT_NOBREATH,type)
+	ADD_TRAIT(affected_mob,TRAIT_NOCRITDAMAGE,type)
+	ADD_TRAIT(affected_mob,TRAIT_RESISTLOWPRESSURE,type)
+	ADD_TRAIT(affected_mob,TRAIT_RESISTHIGHPRESSURE,type)
+	ADD_TRAIT(affected_mob,TRAIT_NOSOFTCRIT,type)
+	ADD_TRAIT(affected_mob,TRAIT_NOHARDCRIT,type)
 
 /obj/structure/slime_crystal/sepia/on_mob_leave(mob/living/affected_mob)
 	. = ..()
-	affected_mob.SetStasis(FALSE)
-
+	REMOVE_TRAIT(affected_mob,TRAIT_NOBREATH,type)
+	REMOVE_TRAIT(affected_mob,TRAIT_NOCRITDAMAGE,type)
+	REMOVE_TRAIT(affected_mob,TRAIT_RESISTLOWPRESSURE,type)
+	REMOVE_TRAIT(affected_mob,TRAIT_RESISTHIGHPRESSURE,type)
+	REMOVE_TRAIT(affected_mob,TRAIT_NOSOFTCRIT,type)
+	REMOVE_TRAIT(affected_mob,TRAIT_NOHARDCRIT,type)
 
 /obj/structure/cerulean_slime_crystal
 	name = "Cerulean slime poly-crystal"
@@ -327,7 +342,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/matrix/M = new
 	M.Scale(1/(max_stage-1) * stage)
 
-	animate(src,transform = M, time = 60 SECONDS)
+	animate(src,transform = matrix(), time = 60 SECONDS)
 
 	addtimer(CALLBACK(src,.proc/stage_growth),60 SECONDS)
 
@@ -340,7 +355,10 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 /obj/structure/slime_crystal/cerulean/process()
 	for(var/turf/T in orange(1,src))
-		if(prob(10) && !(locate(/obj/structure/cerulean_slime_crystal) in T.contents))
+		if(prob(10))
+			var/obj/structure/cerulean_slime_crystal/CSC = locate() in T
+			if(CSC)
+				continue
 			new /obj/structure/cerulean_slime_crystal()
 
 /obj/structure/slime_crystal/pyrite
@@ -534,7 +552,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		if(!isopenturf(T))
 			continue
 		var/turf/open/turf_in_range = T
-		turf_in_range.MakeSlippery(TURF_WET_LUBE)
+		turf_in_range.MakeSlippery(TURF_WET_LUBE,5 SECONDS)
 
 /obj/structure/slime_crystal/black
 	colour = "black"
@@ -544,7 +562,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(!ishuman(affected_mob) || isjellyperson(affected_mob))
 		return
 
-	if(affected_mobs[affected_mob] < 60 SECONDS)
+	if(affected_mobs[affected_mob] < 60) //Around 2 minutes
 		return
 
 	var/mob/living/carbon/human/human_transformed = affected_mob
@@ -556,7 +574,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 /obj/structure/slime_crystal/lightpink/attack_ghost(mob/user)
 	. = ..()
 	var/mob/living/simple_animal/hostile/lightgeist/L = new(get_turf(src))
-	user.mind.transfer_to(L,TRUE)
+	L.ckey = user.ckey
 	affected_mobs[L] = 0
 
 /obj/structure/slime_crystal/lightpink/on_mob_leave(mob/living/affected_mob)
@@ -567,17 +585,22 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 /obj/structure/slime_crystal/adamantine
 	colour = "adamantine"
-	var/list/affected_datums = list()
 
-/obj/structure/slime_crystal/adamantine/process()
+/obj/structure/slime_crystal/adamantine/on_mob_enter(mob/living/affected_mob)
 	. = ..()
-	for(var/obj/item/I in range(3,src))
-		if(!I.throwing || (I.throwing && (I.throwing in affected_datums)))
-			continue
-		var/datum/thrownthing/TT = I.throwing
-		TT.force *= 0.5
-		TT.speed *= 0.5
-		affected_datums += TT
+	if(!ishuman(affected_mob))
+		return
+
+	var/mob/living/carbon/human/human = affected_mob
+	human.dna.species.brutemod *= 0.9
+
+/obj/structure/slime_crystal/adamantine/on_mob_leave(mob/living/affected_mob)
+	. = ..()
+	if(!ishuman(affected_mob))
+		return
+
+	var/mob/living/carbon/human/human = affected_mob
+	human.dna.species.brutemod /= 0.9
 
 /obj/structure/slime_crystal/rainbow
 	colour = "rainbow"
