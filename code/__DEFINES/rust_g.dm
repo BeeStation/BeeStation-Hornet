@@ -42,14 +42,14 @@
 #define RUSTG_JOB_NO_SUCH_JOB "NO SUCH JOB"
 #define RUSTG_JOB_ERROR "JOB PANICKED"
 
-#define rustg_dmi_strip_metadata(fname) call(RUST_G, "dmi_strip_metadata")(fname)
+#define rustg_dmi_strip_metadata(fname) call(RUST_G, "dmi_strip_metadata")("[fname]")
 #define rustg_dmi_create_png(path, width, height, data) call(RUST_G, "dmi_create_png")(path, width, height, data)
 #define rustg_dmi_resize_png(path, width, height, resizetype) call(RUST_G, "dmi_resize_png")(path, width, height, resizetype)
 
-#define rustg_file_read(fname) call(RUST_G, "file_read")(fname)
-#define rustg_file_exists(fname) call(RUST_G, "file_exists")(fname)
-#define rustg_file_write(text, fname) call(RUST_G, "file_write")(text, fname)
-#define rustg_file_append(text, fname) call(RUST_G, "file_append")(text, fname)
+#define rustg_file_read(fname) call(RUST_G, "file_read")("[fname]")
+#define rustg_file_exists(fname) call(RUST_G, "file_exists")("[fname]")
+#define rustg_file_write(text, fname) call(RUST_G, "file_write")(text, "[fname]")
+#define rustg_file_append(text, fname) call(RUST_G, "file_append")(text, "[fname]")
 
 #ifdef RUSTG_OVERRIDE_BUILTINS
     #define file2text(fname) rustg_file_read("[fname]")
@@ -60,7 +60,7 @@
 #define rustg_git_commit_date(rev) call(RUST_G, "rg_git_commit_date")(rev)
 
 #define rustg_hash_string(algorithm, text) call(RUST_G, "hash_string")(algorithm, text)
-#define rustg_hash_file(algorithm, fname) call(RUST_G, "hash_file")(algorithm, fname)
+#define rustg_hash_file(algorithm, fname) call(RUST_G, "hash_file")(algorithm, "[fname]")
 
 #define RUSTG_HASH_MD5 "md5"
 #define RUSTG_HASH_SHA1 "sha1"
@@ -82,7 +82,7 @@
 #define rustg_http_check_request(req_id) call(RUST_G, "http_check_request")(req_id)
 
 #define rustg_json_is_valid(text) (call(RUST_G, "json_is_valid")(text) == "true")
-#define rustg_log_write(fname, text, format) call(RUST_G, "log_write")(fname, text, format)
+#define rustg_log_write(fname, text, format) call(RUST_G, "log_write")("[fname]", text, format)
 /proc/rustg_log_close_all() return call(RUST_G, "log_close_all")()
 
 #define rustg_noise_get_at_coordinates(seed, x, y) call(RUST_G, "noise_get_at_coordinates")(seed, x, y)
