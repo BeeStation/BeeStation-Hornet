@@ -2,9 +2,9 @@
 
 #define CHECK_DNA_AND_SPECIES(C) if((!(C.dna)) || (!(C.dna.species))) return
 
-//Defines copying names of mutations in all cases, make sure to change this if you change mutation's type
+// Defines copying names of mutations in all cases, make sure to change this if you change mutation's type
 #define HULK		/datum/mutation/human/hulk
-#define XRAY		/datum/mutation/human/x_ray
+#define XRAY		/datum/mutation/human/thermal/x_ray
 #define SPACEMUT	/datum/mutation/human/space_adaptation
 #define TK			/datum/mutation/human/telekinesis
 #define NERVOUS		/datum/mutation/human/nervousness
@@ -31,11 +31,13 @@
 #define ELVIS		/datum/mutation/human/elvis
 #define RADIOACTIVE	/datum/mutation/human/radioactive
 #define GLOWY		/datum/mutation/human/glow
+#define ANTIGLOWY	/datum/mutation/human/glow/anti
 #define TELEPATHY	/datum/mutation/human/telepathy
 #define FIREBREATH	/datum/mutation/human/firebreath
 #define VOID		/datum/mutation/human/void
 #define STRONG    	/datum/mutation/human/strong
 #define FIRESWEAT	/datum/mutation/human/fire
+#define THERMAL		/datum/mutation/human/thermal
 #define ANTENNA		/datum/mutation/human/antenna
 #define PARANOIA	/datum/mutation/human/paranoia
 #define MINDREAD	/datum/mutation/human/mindreader
@@ -57,18 +59,18 @@
 
 // String identifiers for associative list lookup
 
-//Types of usual mutations
+// Types of usual mutations
 #define	POSITIVE 			1
 #define	NEGATIVE			2
 #define	MINOR_NEGATIVE		4
 
 
-//Mutation classes. Normal being on them, extra being additional mutations with instability and other being stuff you dont want people to fuck with like wizard mutate
+// Mutation classes. Normal being on them, extra being additional mutations with instability and other being stuff you dont want people to fuck with like wizard mutate
 #define MUT_NORMAL 1
 #define MUT_EXTRA 2
 #define MUT_OTHER 3
 
-//DNA - Because fuck you and your magic numbers being all over the codebase.
+// DNA - Because fuck you and your magic numbers being all over the codebase.
 #define DNA_BLOCK_SIZE				3
 
 #define DNA_UNI_IDENTITY_BLOCKS		7
@@ -98,7 +100,7 @@
 #define CLONER_FRESH_CLONE "fresh"
 #define CLONER_MATURE_CLONE "mature"
 
-//species traits for mutantraces
+//! ## species traits for mutantraces
 #define MUTCOLORS		1
 #define HAIR			2
 #define FACEHAIR		3
@@ -106,18 +108,25 @@
 #define LIPS			5
 #define NOBLOOD			6
 #define NOTRANSSTING	7
-#define MUTCOLORS_PARTSONLY	8	//Used if we want the mutant colour to be only used by mutant bodyparts. Don't combine this with MUTCOLORS, or it will be useless.
+#define MUTCOLORS_PARTSONLY	8	//! Used if we want the mutant colour to be only used by mutant bodyparts. Don't combine this with MUTCOLORS, or it will be useless.
 #define NOZOMBIE		9
-#define DIGITIGRADE		10	//Uses weird leg sprites. Optional for Lizards, required for ashwalkers. Don't give it to other races unless you make sprites for this (see human_parts_greyscale.dmi)
+#define DIGITIGRADE		10	//! Uses weird leg sprites. Optional for Lizards, required for ashwalkers. Don't give it to other races unless you make sprites for this (see human_parts_greyscale.dmi)
 #define NO_UNDERWEAR	11
 #define NOLIVER			12
 #define NOSTOMACH		13
 #define NO_DNA_COPY     14
 #define DRINKSBLOOD		15
-#define NOEYES			16
-#define DYNCOLORS		17 //Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting
+#define NOFLASH			16
+#define DYNCOLORS		17 //! Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting
 #define AGENDER			18
+#define NOEYESPRITES	19 //! Do not draw eyes or eyeless overlay
+#define NOREAGENTS     20 //! DO NOT PROCESS REAGENTS
+#define REVIVESBYHEALING 21 // Will revive on heal when healing and total HP > 0.
+#define NOHUSK			22 // Can't be husked.
+#define ROBOTIC_LIMBS	23 //limbs start out as robotic; but also use organic icons. If you want to use the default ones, you'll have to use on_species_gain
+#define NOMOUTH			24
 
+//organ slots
 #define ORGAN_SLOT_BRAIN "brain"
 #define ORGAN_SLOT_APPENDIX "appendix"
 #define ORGAN_SLOT_RIGHT_ARM_AUG "r_arm_device"
@@ -140,9 +149,18 @@
 #define ORGAN_SLOT_BRAIN_ANTIDROP "brain_antidrop"
 #define ORGAN_SLOT_BRAIN_ANTISTUN "brain_antistun"
 #define ORGAN_SLOT_TAIL "tail"
+#define ORGAN_SLOT_WINGS "wings"
 
+//organ defines
+#define STANDARD_ORGAN_THRESHOLD 	100
+#define STANDARD_ORGAN_HEALING 		0.001
+#define STANDARD_ORGAN_DECAY		0.00074	//designed to fail organs when left to decay for ~45 minutes
 
-//used for the can_chromosome var on mutations
+// used for the can_chromosome var on mutations
 #define CHROMOSOME_NEVER 0
 #define CHROMOSOME_NONE 1
 #define CHROMOSOME_USED 2
+
+#define G_MALE 1
+#define G_FEMALE 2
+#define G_PLURAL 3

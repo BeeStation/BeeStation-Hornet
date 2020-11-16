@@ -37,16 +37,19 @@
 	one_use = TRUE
 
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
-	heldname = stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
+	heldname = sanitize_name(stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN))
+	log_game("[key_name(user)] have set \"[heldname]\" as a name in a cyborg reclassification board at [loc_name(user)]")
 
-/obj/item/borg/upgrade/rename/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/rename/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		var/oldname = R.real_name
+		var/oldkeyname = key_name(R)
 		R.custom_name = heldname
 		R.updatename()
 		if(oldname == R.real_name)
 			R.notify_ai(RENAME, oldname, R.real_name)
+		log_game("[key_name(user)] have used a cyborg reclassification board to rename [oldkeyname] to [key_name(R)] at [loc_name(user)]")
 
 /obj/item/borg/upgrade/restart
 	name = "cyborg emergency reboot module"
@@ -193,6 +196,26 @@
 		R.module.basic_modules += S
 		R.module.add_module(S, FALSE, TRUE)
 
+/obj/item/borg/upgrade/cutter
+	name = "mining cyborg plasma cutter"
+	desc = "An upgrade to the mining module granting a self-recharging plasma cutter."
+	icon_state = "cyborg_upgrade3"
+	require_module = 1
+	module_type = /obj/item/robot_module/miner
+
+/obj/item/borg/upgrade/cutter/action(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if(.)
+		var/obj/item/gun/energy/plasmacutter/cyborg/P = new(R.module)
+		R.module.basic_modules += P
+		R.module.add_module(P, FALSE, TRUE)
+
+/obj/item/borg/upgrade/cutter/deactivate(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if (.)
+		var/obj/item/gun/energy/plasmacutter/cyborg/P = locate() in R.module
+		R.module.remove_module(P, TRUE)
+
 /obj/item/borg/upgrade/tboh
 	name = "janitor cyborg trash bag of holding"
 	desc = "A trash bag of holding replacement for the janiborg's standard trash bag."
@@ -269,8 +292,8 @@
 		R.SetEmagged(FALSE)
 
 /obj/item/borg/upgrade/lavaproof
-	name = "mining cyborg lavaproof tracks"
-	desc = "An upgrade kit to apply specialized coolant systems and insulation layers to mining cyborg tracks, enabling them to withstand exposure to molten rock."
+	name = "mining cyborg lavaproof chassis"
+	desc = "An upgrade kit to apply specialized coolant systems and insulation layers to a mining cyborg's chassis, enabling them to withstand exposure to molten rock."
 	icon_state = "ash_plating"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	require_module = 1
@@ -426,9 +449,9 @@
 	name = "medical cyborg expanded hypospray"
 	desc = "An upgrade to the Medical module's hypospray, allowing it \
 		to treat a wider range of conditions and problems."
-	additional_reagents = list("mannitol", "oculine", "inacusiate",
-		"mutadone", "haloperidol", "oxandrolone", "sal_acid", "rezadone",
-		"pen_acid")
+	additional_reagents = list(/datum/reagent/medicine/mannitol, /datum/reagent/medicine/oculine, /datum/reagent/medicine/inacusiate,
+		/datum/reagent/medicine/mutadone, /datum/reagent/medicine/haloperidol, /datum/reagent/medicine/oxandrolone, /datum/reagent/medicine/sal_acid, /datum/reagent/medicine/rezadone,
+		/datum/reagent/medicine/pen_acid)
 
 /obj/item/borg/upgrade/piercing_hypospray
 	name = "cyborg piercing hypospray"
@@ -590,17 +613,18 @@
 
 /obj/item/borg/upgrade/pinpointer
 	name = "medical cyborg crew pinpointer"
-	desc = "A crew pinpointer module for the medical cyborg."
+	desc = "A crew pinpointer module for the medical cyborg. Permits remote access to the crew monitor."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinpointer_crew"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
+	var/datum/action/crew_monitor
 
 /obj/item/borg/upgrade/pinpointer/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 
-		var/obj/item/pinpointer/crew/PP = locate() in R
+		var/obj/item/pinpointer/crew/PP = locate() in R.module
 		if(PP)
 			to_chat(user, "<span class='warning'>This unit is already equipped with a pinpointer module.</span>")
 			return FALSE
@@ -608,13 +632,26 @@
 		PP = new(R.module)
 		R.module.basic_modules += PP
 		R.module.add_module(PP, FALSE, TRUE)
+		crew_monitor = new /datum/action/item_action/crew_monitor(src)
+		crew_monitor.Grant(R)
+		icon_state = "scanner"
+
 
 /obj/item/borg/upgrade/pinpointer/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
+		icon_state = "pinpointer_crew"
+		crew_monitor.Remove(R)
+		QDEL_NULL(crew_monitor)
 		var/obj/item/pinpointer/crew/PP = locate() in R.module
-		if (PP)
-			R.module.remove_module(PP, TRUE)
+		R.module.remove_module(PP, TRUE)
+
+/obj/item/borg/upgrade/pinpointer/ui_action_click()
+	if(..())
+		return
+	var/mob/living/silicon/robot/Cyborg = usr
+	GLOB.crewmonitor.show(Cyborg,Cyborg)
+
 
 /obj/item/borg/upgrade/transform
 	name = "borg module picker (Standard)"
@@ -632,3 +669,55 @@
 	desc = "Allows you to to turn a cyborg into a clown, honk."
 	icon_state = "cyborg_upgrade3"
 	new_module = /obj/item/robot_module/clown
+
+/obj/item/borg/upgrade/circuit_app
+	name = "circuit manipulation apparatus"
+	desc = "An engineering cyborg upgrade allowing for manipulation of circuit boards."
+	icon_state = "cyborg_upgrade3"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/engineering
+
+/obj/item/borg/upgrade/circuit_app/action(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if(.)
+		var/obj/item/borg/apparatus/circuit/C = locate() in R.module.modules
+		if(C)
+			to_chat(user, "<span class='warning'>This unit is already equipped with a circuit apparatus.</span>")
+			return FALSE
+
+		C = new(R.module)
+		R.module.basic_modules += C
+		R.module.add_module(C, FALSE, TRUE)
+
+/obj/item/borg/upgrade/circuit_app/deactivate(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if (.)
+		var/obj/item/borg/apparatus/circuit/C = locate() in R.module.modules
+		if (C)
+			R.module.remove_module(C, TRUE)
+
+/obj/item/borg/upgrade/beaker_app
+	name = "beaker storage apparatus"
+	desc = "A supplementary beaker storage apparatus for medical cyborgs."
+	icon_state = "cyborg_upgrade3"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/medical
+
+/obj/item/borg/upgrade/beaker_app/action(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if(.)
+		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
+		if(E)
+			to_chat(user, "<span class='warning'>This unit has no room for additional beaker storage.</span>")
+			return FALSE
+
+		E = new(R.module)
+		R.module.basic_modules += E
+		R.module.add_module(E, FALSE, TRUE)
+
+/obj/item/borg/upgrade/beaker_app/deactivate(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if (.)
+		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
+		if (E)
+			R.module.remove_module(E, TRUE)

@@ -62,31 +62,43 @@
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
 
 #define MONKEY_BODYPART "monkey"
+#define TERATOMA_BODYPART "teratoma"
 #define ALIEN_BODYPART "alien"
 #define LARVA_BODYPART "larva"
 #define DEVIL_BODYPART "devil"
+
+//Reagent Metabolization flags, defines the type of reagents that affect this mob
+#define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
+#define PROCESS_SYNTHETIC 2		//Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
+
+// Reagent type flags, defines the types of mobs this reagent will affect
+#define ORGANIC 1
+#define SYNTHETIC 2
+
 /*see __DEFINES/inventory.dm for bodypart bitflag defines*/
 
 // Health/damage defines for carbon mobs
 #define HUMAN_MAX_OXYLOSS 3
 #define HUMAN_CRIT_MAX_OXYLOSS (SSmobs.wait/30)
 
-#define HEAT_DAMAGE_LEVEL_1 2 //Amount of damage applied when your body temperature just passes the 360.15k safety point
-#define HEAT_DAMAGE_LEVEL_2 3 //Amount of damage applied when your body temperature passes the 400K point
-#define HEAT_DAMAGE_LEVEL_3 8 //Amount of damage applied when your body temperature passes the 460K point and you are on fire
+#define STAMINA_REGEN_BLOCK_TIME (10 SECONDS)
 
-#define COLD_DAMAGE_LEVEL_1 0.5 //Amount of damage applied when your body temperature just passes the 260.15k safety point
-#define COLD_DAMAGE_LEVEL_2 1.5 //Amount of damage applied when your body temperature passes the 200K point
-#define COLD_DAMAGE_LEVEL_3 3 //Amount of damage applied when your body temperature passes the 120K point
+#define HEAT_DAMAGE_LEVEL_1 2 //! Amount of damage applied when your body temperature just passes the 360.15k safety point
+#define HEAT_DAMAGE_LEVEL_2 3 //! Amount of damage applied when your body temperature passes the 400K point
+#define HEAT_DAMAGE_LEVEL_3 8 //! Amount of damage applied when your body temperature passes the 460K point and you are on fire
+
+#define COLD_DAMAGE_LEVEL_1 0.5 //! Amount of damage applied when your body temperature just passes the 260.15k safety point
+#define COLD_DAMAGE_LEVEL_2 1.5 //! Amount of damage applied when your body temperature passes the 200K point
+#define COLD_DAMAGE_LEVEL_3 3 //! Amount of damage applied when your body temperature passes the 120K point
 
 //Note that gas heat damage is only applied once every FOUR ticks.
-#define HEAT_GAS_DAMAGE_LEVEL_1 2 //Amount of damage applied when the current breath's temperature just passes the 360.15k safety point
-#define HEAT_GAS_DAMAGE_LEVEL_2 4 //Amount of damage applied when the current breath's temperature passes the 400K point
-#define HEAT_GAS_DAMAGE_LEVEL_3 8 //Amount of damage applied when the current breath's temperature passes the 1000K point
+#define HEAT_GAS_DAMAGE_LEVEL_1 2 //! Amount of damage applied when the current breath's temperature just passes the 360.15k safety point
+#define HEAT_GAS_DAMAGE_LEVEL_2 4 //! Amount of damage applied when the current breath's temperature passes the 400K point
+#define HEAT_GAS_DAMAGE_LEVEL_3 8 //! Amount of damage applied when the current breath's temperature passes the 1000K point
 
-#define COLD_GAS_DAMAGE_LEVEL_1 0.5 //Amount of damage applied when the current breath's temperature just passes the 260.15k safety point
-#define COLD_GAS_DAMAGE_LEVEL_2 1.5 //Amount of damage applied when the current breath's temperature passes the 200K point
-#define COLD_GAS_DAMAGE_LEVEL_3 3 //Amount of damage applied when the current breath's temperature passes the 120K point
+#define COLD_GAS_DAMAGE_LEVEL_1 0.5 //! Amount of damage applied when the current breath's temperature just passes the 260.15k safety point
+#define COLD_GAS_DAMAGE_LEVEL_2 1.5 //! Amount of damage applied when the current breath's temperature passes the 200K point
+#define COLD_GAS_DAMAGE_LEVEL_3 3 //! Amount of damage applied when the current breath's temperature passes the 120K point
 
 //Brain Damage defines
 #define BRAIN_DAMAGE_MILD 20
@@ -98,11 +110,11 @@
 #define BRAIN_TRAUMA_SPECIAL /datum/brain_trauma/special
 #define BRAIN_TRAUMA_MAGIC /datum/brain_trauma/magic
 
-#define TRAUMA_RESILIENCE_BASIC 1      //Curable with chems
-#define TRAUMA_RESILIENCE_SURGERY 2    //Curable with brain surgery
-#define TRAUMA_RESILIENCE_LOBOTOMY 3   //Curable with lobotomy
-#define TRAUMA_RESILIENCE_MAGIC 4      //Curable only with magic
-#define TRAUMA_RESILIENCE_ABSOLUTE 5   //This is here to stay
+#define TRAUMA_RESILIENCE_BASIC 1      //! Curable with chems
+#define TRAUMA_RESILIENCE_SURGERY 2    //! Curable with brain surgery
+#define TRAUMA_RESILIENCE_LOBOTOMY 3   //! Curable with lobotomy
+#define TRAUMA_RESILIENCE_MAGIC 4      //! Curable only with magic
+#define TRAUMA_RESILIENCE_ABSOLUTE 5   //! This is here to stay
 
 //Limit of traumas for each resilience tier
 #define TRAUMA_LIMIT_BASIC 3
@@ -112,6 +124,12 @@
 #define TRAUMA_LIMIT_ABSOLUTE INFINITY
 
 #define BRAIN_DAMAGE_INTEGRITY_MULTIPLIER 0.5
+
+//wing defines
+#define WINGS_COSMETIC 0 //Absolutely fucking useless
+#define WINGS_FLIGHTLESS 1 //can't generate lift, will only fly in 0-G, while atmos is present
+#define WINGS_FLYING 2 //can generate lift and fly if atmos is present
+#define WINGS_MAGIC 3 //can fly regardless of atmos
 
 //Surgery Defines
 #define BIOWARE_GENERIC "generic"
@@ -132,11 +150,12 @@
 #define MOOD_LEVEL_HAPPY1 2
 #define MOOD_LEVEL_NEUTRAL 0
 #define MOOD_LEVEL_SAD1 -3
-#define MOOD_LEVEL_SAD2 -12
-#define MOOD_LEVEL_SAD3 -18
-#define MOOD_LEVEL_SAD4 -25
+#define MOOD_LEVEL_SAD2 -7
+#define MOOD_LEVEL_SAD3 -15
+#define MOOD_LEVEL_SAD4 -20
 
 //Sanity levels for humans
+#define SANITY_MAXIMUM 150
 #define SANITY_GREAT 125
 #define SANITY_NEUTRAL 100
 #define SANITY_DISTURBED 75
@@ -183,13 +202,13 @@
 #define SLIME_EXTRACT_CROSSING_REQUIRED 10
 
 //Slime commands defines
-#define SLIME_FRIENDSHIP_FOLLOW 			3 //Min friendship to order it to follow
-#define SLIME_FRIENDSHIP_STOPEAT 			5 //Min friendship to order it to stop eating someone
-#define SLIME_FRIENDSHIP_STOPEAT_NOANGRY	7 //Min friendship to order it to stop eating someone without it losing friendship
-#define SLIME_FRIENDSHIP_STOPCHASE			4 //Min friendship to order it to stop chasing someone (their target)
-#define SLIME_FRIENDSHIP_STOPCHASE_NOANGRY	6 //Min friendship to order it to stop chasing someone (their target) without it losing friendship
-#define SLIME_FRIENDSHIP_STAY				3 //Min friendship to order it to stay
-#define SLIME_FRIENDSHIP_ATTACK				8 //Min friendship to order it to attack
+#define SLIME_FRIENDSHIP_FOLLOW 			3 //! Min friendship to order it to follow
+#define SLIME_FRIENDSHIP_STOPEAT 			5 //! Min friendship to order it to stop eating someone
+#define SLIME_FRIENDSHIP_STOPEAT_NOANGRY	7 //! Min friendship to order it to stop eating someone without it losing friendship
+#define SLIME_FRIENDSHIP_STOPCHASE			4 //! Min friendship to order it to stop chasing someone (their target)
+#define SLIME_FRIENDSHIP_STOPCHASE_NOANGRY	6 //! Min friendship to order it to stop chasing someone (their target) without it losing friendship
+#define SLIME_FRIENDSHIP_STAY				3 //! Min friendship to order it to stay
+#define SLIME_FRIENDSHIP_ATTACK				8 //! Min friendship to order it to attack
 
 //Sentience types, to prevent things like sentience potions from giving bosses sentience
 #define SENTIENCE_ORGANIC 1
@@ -218,14 +237,19 @@
 #define GALOSHES_DONT_HELP		(1<<2)
 #define SLIDE_ICE				(1<<3)
 
-#define MAX_CHICKENS 50
-
-#define UNHEALING_EAR_DAMAGE 100
-
+///Flags used by the flags parameter of electrocute act.
+///Makes it so that the shock doesn't take gloves into account.
+#define SHOCK_NOGLOVES (1 << 0)
+///Used when the shock is from a tesla bolt.
+#define SHOCK_TESLA (1 << 1)
+///Used when an illusion shocks something. Makes the shock deal stamina damage and not trigger certain secondary effects.
+#define SHOCK_ILLUSION (1 << 2)
+///The shock doesn't stun.
+#define SHOCK_NOSTUN (1 << 3)
 
 #define INCORPOREAL_MOVE_BASIC 1
-#define INCORPOREAL_MOVE_SHADOW 2 // leaves a trail of shadows
-#define INCORPOREAL_MOVE_JAUNT 3 // is blocked by holy water/salt
+#define INCORPOREAL_MOVE_SHADOW 2 //!  leaves a trail of shadows
+#define INCORPOREAL_MOVE_JAUNT 3 //! is blocked by holy water/salt
 
 //Secbot and ED209 judgement criteria bitflag values
 #define JUDGE_EMAGGED		(1<<0)
@@ -234,8 +258,6 @@
 #define JUDGE_RECORDCHECK	(1<<3)
 //ED209's ignore monkeys
 #define JUDGE_IGNOREMONKEYS	(1<<4)
-
-#define MEGAFAUNA_DEFAULT_RECOVERY_TIME 5
 
 #define SHADOW_SPECIES_LIGHT_THRESHOLD 0.2
 
@@ -257,27 +279,27 @@
 #define OFFSET_NECK "neck"
 
 //MINOR TWEAKS/MISC
-#define AGE_MIN				17	//youngest a character can be
-#define AGE_MAX				85	//oldest a character can be
-#define WIZARD_AGE_MIN		30	//youngest a wizard can be
-#define APPRENTICE_AGE_MIN	29	//youngest an apprentice can be
-#define SHOES_SLOWDOWN		0	//How much shoes slow you down by default. Negative values speed you up
-#define POCKET_STRIP_DELAY			40	//time taken (in deciseconds) to search somebody's pockets
-#define DOOR_CRUSH_DAMAGE	15	//the amount of damage that airlocks deal when they crush you
+#define AGE_MIN				17	//! youngest a character can be
+#define AGE_MAX				85	//! oldest a character can be
+#define WIZARD_AGE_MIN		30	//! youngest a wizard can be
+#define APPRENTICE_AGE_MIN	29	//! youngest an apprentice can be
+#define SHOES_SLOWDOWN		0	//! How much shoes slow you down by default. Negative values speed you up
+#define POCKET_STRIP_DELAY			40	//! time taken (in deciseconds) to search somebody's pockets
+#define DOOR_CRUSH_DAMAGE	15	//! the amount of damage that airlocks deal when they crush you
 
-#define	HUNGER_FACTOR		0.1	//factor at which mob nutrition decreases
-#define	ETHEREAL_CHARGE_FACTOR	0.12 //factor at which ethereal's charge decreases
-#define	HYGIENE_FACTOR  0.1	//factor at which mob hygiene decreases
-#define	REAGENTS_METABOLISM 0.4	//How many units of reagent are consumed per tick, by default.
-#define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4)	// By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
+#define	HUNGER_FACTOR		0.1	//! factor at which mob nutrition decreases
+#define	ETHEREAL_CHARGE_FACTOR	0.1 //! factor at which ethereal's charge decreases
+#define	HYGIENE_FACTOR  0.1	//! factor at which mob hygiene decreases
+#define	REAGENTS_METABOLISM 0.4	//! How many units of reagent are consumed per tick, by default.
+#define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4)	//! By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
 
 // Roundstart trait system
 
-#define MAX_QUIRKS 6 //The maximum amount of quirks one character can have at roundstart
+#define MAX_QUIRKS 6 //! The maximum amount of quirks one character can have at roundstart
 
 // AI Toggles
 #define AI_CAMERA_LUMINOSITY	5
-#define AI_VOX // Comment out if you don't want VOX to be enabled and have players download the voice sounds.
+#define AI_VOX //! Comment out if you don't want VOX to be enabled and have players download the voice sounds.
 
 // /obj/item/bodypart on_mob_life() retval flag
 #define BODYPART_LIFE_UPDATE_HEALTH (1<<0)
@@ -291,18 +313,25 @@
 #define GRAB_PIXEL_SHIFT_AGGRESSIVE 12
 #define GRAB_PIXEL_SHIFT_NECK 16
 
-//Flags that control what things can spawn species (whitelist)
-//Badmin magic mirror
+#define PULL_PRONE_SLOWDOWN 1.5
+#define HUMAN_CARRY_SLOWDOWN 0.35
+
+//! ## control what things can spawn species
+/// Badmin magic mirror
 #define MIRROR_BADMIN (1<<0)
-//Standard magic mirror (wizard)
+/// Standard magic mirror (wizard)
 #define MIRROR_MAGIC  (1<<1)
-//Pride ruin mirror
+/// Pride ruin mirror
 #define MIRROR_PRIDE  (1<<2)
-//Race swap wizard event
+/// Race swap wizard event
 #define RACE_SWAP     (1<<3)
-//ERT spawn template (avoid races that don't function without correct gear)
+/// ERT spawn template (avoid races that don't function without correct gear)
 #define ERT_SPAWN     (1<<4)
-//xenobio black crossbreed
+/// xenobio black crossbreed
 #define SLIME_EXTRACT (1<<5)
-//Wabbacjack staff projectiles
+/// Wabbacjack staff projectiles
 #define WABBAJACK     (1<<6)
+
+#define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
+
+#define SILENCE_RANGED_MESSAGE (1<<0)

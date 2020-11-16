@@ -13,6 +13,12 @@
 	buckle_requires_restraints = 1
 	buckle_lying = -1
 
+	FASTDMM_PROP(\
+		set_instance_vars(\
+			icon_state = INSTANCE_VAR_DEFAULT\
+        ),\
+    )
+
 /obj/machinery/atmospherics/pipe/New()
 	add_atom_colour(pipe_color, FIXED_COLOUR_PRIORITY)
 	volume = 35 * device_type
@@ -51,6 +57,9 @@
 /obj/machinery/atmospherics/pipe/return_air()
 	return parent.air
 
+/obj/machinery/atmospherics/pipe/return_analyzable_air()
+	return parent.air
+
 /obj/machinery/atmospherics/pipe/remove_air(amount)
 	return parent.air.remove(amount)
 
@@ -61,9 +70,6 @@
 		meter.setAttachLayer(piping_layer)
 	else
 		return ..()
-
-/obj/machinery/atmospherics/pipe/analyzer_act(mob/living/user, obj/item/I)
-	atmosanalyzer_scan(parent.air, user, src)
 
 /obj/machinery/atmospherics/pipe/returnPipenet()
 	return parent

@@ -1,5 +1,6 @@
 /client
-	var/list/keys_held = list() // A list of any keys held currently
+	/// A list of any keys held currently
+	var/list/keys_held = list() 
 	// These next two vars are to apply movement for keypresses and releases made while move delayed.
 	// Because discarding that input makes the game less responsive.
 	var/next_move_dir_add // On next move, add this dir to the move that would otherwise be done

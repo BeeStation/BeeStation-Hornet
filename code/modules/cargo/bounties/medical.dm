@@ -57,3 +57,9 @@
 	description = "Central Command has run out of heavy duty pipe cleaners. Can you ship over a cat tail to help us out?"
 	reward = 3000
 	wanted_types = list(/obj/item/organ/tail/cat)
+
+/datum/bounty/item/medical/moth_wings
+	name = "Pair of Moth Wings"
+	description = "Central Command's moth janitor has had its wings burnt off. Care to ship a replacement pair?"
+	reward = 3000
+	wanted_types = list(/obj/item/organ/wings/moth)

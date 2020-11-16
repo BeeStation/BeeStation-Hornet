@@ -36,9 +36,6 @@
 	var/text_buffer = ""
 
 	var/static/list/graffiti = list("amyjon","face","matt","revolution","engie","guy","end","dwarf","uboa","body","cyka","star","poseur tag","prolizard","antilizard")
-	var/static/list/letters = list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
-	var/static/list/punctuation = list("!","?",".",",","/","+","-","=","%","#","&")
-	var/static/list/numerals = list("0","1","2","3","4","5","6","7","8","9")
 	var/static/list/symbols = list("danger","firedanger","electricdanger","biohazard","radiation","safe","evac","space","med","trade","shop","food","peace","like","skull","nay","heart","credit")
 	var/static/list/drawings = list("smallbrush","brush","largebrush","splatter","snake","stickman","carp","ghost","clown","taser","disk","fireaxe","toolbox","corgi","cat","toilet","blueprint","beepsky","scroll","bottle","shotgun")
 	var/static/list/oriented = list("arrow","line","thinline","shortline","body","chevron","footprint","clawprint","pawprint") // These turn to face the same way as the drawer
@@ -47,7 +44,7 @@
 		RANDOM_NUMBER, RANDOM_GRAFFITI, RANDOM_LETTER, RANDOM_SYMBOL, RANDOM_PUNCTUATION, RANDOM_DRAWING)
 	var/static/list/graffiti_large_h = list("yiffhell", "secborg", "paint")
 
-	var/static/list/all_drawables = graffiti + letters + punctuation + numerals + symbols + drawings + oriented + runes + graffiti_large_h
+	var/static/list/all_drawables = graffiti + symbols + drawings + oriented + runes + graffiti_large_h
 
 	var/paint_mode = PAINT_NORMAL
 
@@ -62,7 +59,7 @@
 
 	var/edible = TRUE // That doesn't mean eating it is a good idea
 
-	var/list/reagent_contents = list("nutriment" = 1)
+	var/list/reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5)
 	// If the user can toggle the colour, a la vanilla spraycan
 	var/can_change_colour = FALSE
 
@@ -71,6 +68,8 @@
 
 	var/pre_noise = FALSE
 	var/post_noise = FALSE
+
+	var/datum/team/gang/gang //For marking territory, spraycans are gang-locked to their initial gang due to colors
 
 /obj/item/toy/crayon/proc/isValidSurface(surface)
 	return istype(surface, /turf/open/floor)
@@ -140,13 +139,16 @@
 		to_chat(user, "<span class='warning'>There is not enough of [src] left!</span>")
 		. = TRUE
 
-/obj/item/toy/crayon/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.hands_state)
+
+/obj/item/toy/crayon/ui_state(mob/user)
+	return GLOB.hands_state
+
+/obj/item/toy/crayon/ui_interact(mob/user, datum/tgui/ui)
 	// tgui is a plague upon this codebase
 
-	SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "crayon", name, 600, 600,
-			master_ui, state)
+		ui = new(user, src, "Crayon")
 		ui.open()
 
 /obj/item/toy/crayon/spraycan/AltClick(mob/user)
@@ -169,21 +171,6 @@
 	. += list(list("name" = "Graffiti Large Horizontal", "items" = glh_items))
 	for(var/glh in graffiti_large_h)
 		glh_items += list(list("item" = glh))
-
-	var/list/L_items = list()
-	. += list(list("name" = "Letters", "items" = L_items))
-	for(var/L in letters)
-		L_items += list(list("item" = L))
-
-	var/list/P_items = list()
-	. += list(list("name" = "Punctuation", "items" = P_items))
-	for(var/P in punctuation)
-		P_items += list(list("item" = P))
-
-	var/list/N_items = list()
-	. += list(list(name = "Numerals", "items" = N_items))
-	for(var/N in numerals)
-		N_items += list(list("item" = N))
 
 	var/list/S_items = list()
 	. += list(list("name" = "Symbols", "items" = S_items))
@@ -241,6 +228,7 @@
 			if(stencil in all_drawables + randoms)
 				drawtype = stencil
 				. = TRUE
+				text_buffer = ""
 			if(stencil in graffiti_large_h)
 				paint_mode = PAINT_LARGE_HORIZONTAL
 				text_buffer = ""
@@ -248,8 +236,13 @@
 				paint_mode = PAINT_NORMAL
 		if("select_colour")
 			if(can_change_colour)
-				paint_color = input(usr,"","Choose Color",paint_color) as color|null
-				. = TRUE
+				var/chosen_colour = input(usr,"","Choose Color",paint_color) as color|null
+
+				if (!isnull(chosen_colour))
+					paint_color = chosen_colour
+					. = TRUE
+				else
+					. = FALSE
 		if("enter_text")
 			var/txt = stripped_input(usr,"Choose what to write.",
 				"Scribbles",default = text_buffer)
@@ -260,17 +253,15 @@
 	update_icon()
 
 /obj/item/toy/crayon/proc/crayon_text_strip(text)
-	var/list/base = string2charlist(lowertext(text))
-	var/list/out = list()
-	for(var/a in base)
-		if(a in (letters|numerals|punctuation))
-			out += a
-	return jointext(out,"")
+	var/static/regex/crayon_r = new /regex(@"[^\w!?,.=%#&+\/\-]")
+	return replacetext(lowertext(text), crayon_r, "")
 
 /obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
 	if(!proximity || !check_allowed_items(target))
 		return
+
+	var/static/list/punctuation = list("!","?",".",",","/","+","-","=","%","#","&")
 
 	var/cost = 1
 	if(paint_mode == PAINT_LARGE_HORIZONTAL)
@@ -279,12 +270,14 @@
 		cost = 0
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if (H.has_trait(TRAIT_TAGGER))
+		if (HAS_TRAIT(H, TRAIT_TAGGER))
 			cost *= 0.5
+	/* hippie start -- moved to the end of the proc, after the crayon is actually used.
 	var/charges_used = use_charges(user, cost)
 	if(!charges_used)
 		return
 	. = charges_used
+	hippie end */
 
 	if(istype(target, /obj/effect/decal/cleanable))
 		target = target.loc
@@ -295,7 +288,7 @@
 	var/drawing = drawtype
 	switch(drawtype)
 		if(RANDOM_LETTER)
-			drawing = pick(letters)
+			drawing = ascii2text(rand(97, 122)) // a-z
 		if(RANDOM_PUNCTUATION)
 			drawing = pick(punctuation)
 		if(RANDOM_SYMBOL)
@@ -309,13 +302,16 @@
 		if(RANDOM_ORIENTED)
 			drawing = pick(oriented)
 		if(RANDOM_NUMBER)
-			drawing = pick(numerals)
+			drawing = ascii2text(rand(48, 57)) // 0-9
 		if(RANDOM_ANY)
 			drawing = pick(all_drawables)
 
+
 	var/temp = "rune"
-	if(drawing in letters)
+	if(is_alpha(drawing))
 		temp = "letter"
+	else if(is_digit(drawing))
+		temp = "number"
 	else if(drawing in punctuation)
 		temp = "punctuation mark"
 	else if(drawing in symbols)
@@ -324,9 +320,9 @@
 		temp = "drawing"
 	else if(drawing in graffiti|oriented)
 		temp = "graffiti"
-	else if(drawing in numerals)
-		temp = "number"
-
+	var/gang_check = hippie_gang_check(user,target) // hippie start -- gang check and temp setting
+	if(!gang_check) return
+	else if(gang_check == "gang graffiti") temp = gang_check // hippie end
 
 	var/graf_rot
 	if(drawing in oriented)
@@ -349,7 +345,7 @@
 		clicky = CLAMP(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
 
 	if(!instant)
-		to_chat(user, "<span class='notice'>You start drawing a [temp] on the	[target.name]...</span>")
+		to_chat(user, "<span class='notice'>You start drawing a [temp] on the [target.name]...</span>") // hippie -- removed a weird tab that had no reason to be here
 
 	if(pre_noise)
 		audible_message("<span class='notice'>You hear spraying.</span>")
@@ -358,17 +354,22 @@
 	var/wait_time = 50
 	if(paint_mode == PAINT_LARGE_HORIZONTAL)
 		wait_time *= 3
-
+	if(gang) instant = FALSE // hippie -- gang spraying must not be instant, balance reasons
 	if(!instant)
 		if(!do_after(user, 50, target = target))
 			return
 
 	if(length(text_buffer))
-		drawing = copytext(text_buffer,1,2)
+		drawing = text_buffer[1]
 
 
 	var/list/turf/affected_turfs = list()
 
+	if(gang) // hippie start -- gang spraying is done differently
+		if(gang_final(user, target, affected_turfs))
+			return
+		actually_paints = FALSE // skip the next if check
+	// hippie end
 	if(actually_paints)
 		switch(paint_mode)
 			if(PAINT_NORMAL)
@@ -395,13 +396,19 @@
 	else
 		to_chat(user, "<span class='notice'>You spray a [temp] on \the [target.name]</span>")
 
-	if(length(text_buffer))
-		text_buffer = copytext(text_buffer,2)
+	if(length(text_buffer) > 1)
+		text_buffer = copytext(text_buffer, length(text_buffer[1]) + 1)
+		SStgui.update_uis(src)
 
 	if(post_noise)
 		audible_message("<span class='notice'>You hear spraying.</span>")
 		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
-
+	// hippie start -- using changes moved to the end of the proc, so it won't use charges if the spraying fails for any reason.
+	var/charges_used = use_charges(user, cost)
+	if(!charges_used)
+		return
+	. = charges_used
+	// hippie end
 	var/fraction = min(1, . / reagents.maximum_volume)
 	if(affected_turfs.len)
 		fraction /= affected_turfs.len
@@ -427,63 +434,63 @@
 	icon_state = "crayonred"
 	paint_color = "#DA0000"
 	item_color = "red"
-	reagent_contents = list("nutriment" = 1, "redcrayonpowder" = 1)
+	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent/powder/red/crayon = 1.5)
 
 /obj/item/toy/crayon/orange
 	icon_state = "crayonorange"
 	paint_color = "#FF9300"
 	item_color = "orange"
-	reagent_contents = list("nutriment" = 1, "orangecrayonpowder" = 1)
+	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent/powder/orange/crayon = 1.5)
 
 /obj/item/toy/crayon/yellow
 	icon_state = "crayonyellow"
 	paint_color = "#FFF200"
 	item_color = "yellow"
-	reagent_contents = list("nutriment" = 1, "yellowcrayonpowder" = 1)
+	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent/powder/yellow/crayon = 1.5)
 
 /obj/item/toy/crayon/green
 	icon_state = "crayongreen"
 	paint_color = "#A8E61D"
 	item_color = "green"
-	reagent_contents = list("nutriment" = 1, "greencrayonpowder" = 1)
+	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent/powder/green/crayon = 1.5)
 
 /obj/item/toy/crayon/blue
 	icon_state = "crayonblue"
 	paint_color = "#00B7EF"
 	item_color = "blue"
-	reagent_contents = list("nutriment" = 1, "bluecrayonpowder" = 1)
+	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent/powder/blue/crayon = 1.5)
 
 /obj/item/toy/crayon/purple
 	icon_state = "crayonpurple"
 	paint_color = "#DA00FF"
 	item_color = "purple"
-	reagent_contents = list("nutriment" = 1, "purplecrayonpowder" = 1)
+	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent/powder/purple/crayon = 1.5)
 
 /obj/item/toy/crayon/black
 	icon_state = "crayonblack"
 	paint_color = "#1C1C1C" //Not completely black because total black looks bad. So Mostly Black.
 	item_color = "black"
-	reagent_contents = list("nutriment" = 1, "blackcrayonpowder" = 1)
+	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent/powder/black/crayon = 1.5)
 
 /obj/item/toy/crayon/white
 	icon_state = "crayonwhite"
 	paint_color = "#FFFFFF"
 	item_color = "white"
-	reagent_contents = list("nutriment" = 1, "whitecrayonpowder" = 1)
+	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5,  /datum/reagent/colorful_reagent/powder/white/crayon = 1.5)
 
 /obj/item/toy/crayon/mime
 	icon_state = "crayonmime"
 	desc = "A very sad-looking crayon."
 	paint_color = "#FFFFFF"
 	item_color = "mime"
-	reagent_contents = list("nutriment" = 1, "invisiblecrayonpowder" = 1)
+	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent/powder/invisible = 1.5)
 	charges = -1
 
 /obj/item/toy/crayon/rainbow
 	icon_state = "crayonrainbow"
 	paint_color = "#FFF000"
 	item_color = "rainbow"
-	reagent_contents = list("nutriment" = 1, "colorful_reagent" = 1)
+	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent = 1.5)
 	drawtype = RANDOM_ANY // just the default starter.
 
 	charges = -1
@@ -505,7 +512,7 @@
 
 /obj/item/storage/crayons/Initialize()
 	. = ..()
-	GET_COMPONENT(STR, /datum/component/storage)
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 7
 	STR.can_hold = typecacheof(list(/obj/item/toy/crayon))
 
@@ -562,7 +569,7 @@
 	self_contained = FALSE // Don't disappear when they're empty
 	can_change_colour = TRUE
 
-	reagent_contents = list("welding_fuel" = 1, "ethanol" = 1)
+	reagent_contents = list(/datum/reagent/fuel = 1, /datum/reagent/consumable/ethanol = 1)
 
 	pre_noise = TRUE
 	post_noise = FALSE
@@ -609,12 +616,12 @@
 /obj/item/toy/crayon/spraycan/examine(mob/user)
 	. = ..()
 	if(charges_left)
-		to_chat(user, "It has [charges_left] use\s left.")
+		. += "It has [charges_left] use\s left."
 	else
-		to_chat(user, "It is empty.")
-	to_chat(user, "<span class='notice'>Alt-click [src] to [ is_capped ? "take the cap off" : "put the cap on"].</span>")
+		. += "It is empty."
+	. += "<span class='notice'>Alt-click [src] to [ is_capped ? "take the cap off" : "put the cap on"].</span>"
 
-/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/toy/crayon/spraycan/pre_attack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 
@@ -636,7 +643,7 @@
 		if(C.client)
 			C.blur_eyes(3)
 			C.blind_eyes(1)
-		if(C.get_eye_protection() <= 0) // no eye protection? ARGH IT BURNS.
+		if(!C.is_eyes_covered()) // no eye protection? ARGH IT BURNS.
 			C.confused = max(C.confused, 3)
 			C.Paralyze(60)
 		if(ishuman(C) && actually_paints)
@@ -653,12 +660,34 @@
 
 	if(isobj(target))
 		if(actually_paints)
+			if(color_hex2num(paint_color) < 350 && !istype(target, /obj/structure/window)) //Colors too dark are rejected
+				if(istype(target, /obj/item/clothing))
+					var/obj/item/clothing/C = target
+					if(((C.flags_cover & HEADCOVERSEYES) || (C.flags_cover & MASKCOVERSEYES) || (C.flags_cover & GLASSESCOVERSEYES)) && !HAS_TRAIT(C, TRAIT_SPRAYPAINTED))
+						C.flash_protect += 1
+						C.tint += 2
+						to_chat(usr, "<span class='warning'>You spray the [C] down, making it harder to see through!</span>")
+						ADD_TRAIT(C, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
+						if(ishuman(usr))
+							var/mob/living/carbon/human/H = usr
+							H.update_tint()
+					else
+						to_chat(usr, "<span class='warning'>A colour that dark on an object like this? Surely not...</span>")
+						return FALSE
+				else
+					to_chat(usr, "<span class='warning'>A colour that dark on an object like this? Surely not...</span>")
+					return FALSE
+
 			target.add_atom_colour(paint_color, WASHABLE_COLOUR_PRIORITY)
-			if(color_hex2num(paint_color) < 255 && istype(target, /obj/structure/window))
-				target.set_opacity(255)
-			else
-				target.set_opacity(initial(target.opacity))
+			if(istype(target, /obj/structure/window))
+				if(color_hex2num(paint_color) < 255)
+					target.set_opacity(255)
+				else
+					target.set_opacity(initial(target.opacity))
+
 		. = use_charges(user, 2)
+		if(!.)
+			return FALSE
 		var/fraction = min(1, . / reagents.maximum_volume)
 		reagents.reaction(target, TOUCH, fraction * volume_multiplier)
 		reagents.trans_to(target, ., volume_multiplier, transfered_by = user)
@@ -666,7 +695,7 @@
 		if(pre_noise || post_noise)
 			playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
 		user.visible_message("[user] coats [target] with spray paint!", "<span class='notice'>You coat [target] with spray paint.</span>")
-		return
+		return FALSE
 
 	. = ..()
 
@@ -712,7 +741,7 @@
 
 	volume_multiplier = 25
 	charges = 100
-	reagent_contents = list("clf3" = 1)
+	reagent_contents = list(/datum/reagent/clf3 = 1)
 	actually_paints = FALSE
 	paint_color = "#000000"
 
@@ -724,7 +753,7 @@
 	icon_uncapped = "clowncan2"
 	use_overlays = FALSE
 
-	reagent_contents = list("lube" = 1, "banana" = 1)
+	reagent_contents = list(/datum/reagent/lube = 1, /datum/reagent/consumable/banana = 1)
 	volume_multiplier = 5
 
 /obj/item/toy/crayon/spraycan/lubecan/isValidSurface(surface)
@@ -743,7 +772,99 @@
 
 	pre_noise = FALSE
 	post_noise = FALSE
-	reagent_contents = list("nothing" = 1, "mutetoxin" = 1)
+	reagent_contents = list(/datum/reagent/consumable/nothing = 1, /datum/reagent/toxin/mutetoxin = 1)
+
+
+// HIPPIE GANG HIPPIE GANG
+
+/obj/item/toy/crayon/proc/hippie_gang_check(mob/user, atom/target) // hooked into afterattack
+	var/gang_mode = FALSE
+	if(gang && user.mind)
+		var/datum/antagonist/gang/G = user.mind.has_antag_datum(/datum/antagonist/gang)
+		if(G)
+			if(G.gang != gang)
+				to_chat(user, "<span class='danger'>This spraycan's color isn't your gang's one! You cannot use it.</span>")
+				return FALSE
+			gang_mode = TRUE
+			instant = FALSE
+			. = "graffiti"
+	// discontinue if we're not in gang modethe area isn't valid for tagging because gang "honour"
+	if(gang_mode && (!can_claim_for_gang(user, target)))
+		return FALSE
+	return TRUE
+
+/obj/item/toy/crayon/proc/gang_final(mob/user, atom/target, list/affected_turfs) // hooked into afterattack
+	// Double check it wasn't tagged in the meanwhile
+	if(!can_claim_for_gang(user, target))
+		return TRUE
+	tag_for_gang(user, target)
+	affected_turfs += target
+
+/obj/item/toy/crayon/proc/can_claim_for_gang(mob/user, atom/target)
+	// Check area validity.
+	// Reject space, player-created areas, and non-station z-levels.
+	var/area/A = get_area(target)
+	if(!A || (!is_station_level(A.z)) || !A.valid_territory)
+		to_chat(user, "<span class='warning'>[A] is unsuitable for tagging.</span>")
+		return FALSE
+
+	var/spraying_over = FALSE
+	for(var/G in target)
+		var/obj/effect/decal/cleanable/crayon/gang/gangtag = G
+		if(istype(gangtag))
+			var/datum/antagonist/gang/GA = user.mind.has_antag_datum(/datum/antagonist/gang)
+			if(gangtag.gang != GA.gang)
+				spraying_over = TRUE
+				break
+
+	for(var/obj/machinery/power/apc in target)
+		to_chat(user, "<span class='warning'>You can't tag an APC.</span>")
+		return FALSE
+
+	var/occupying_gang = territory_claimed(A, user)
+	if(occupying_gang && !spraying_over)
+		to_chat(user, "<span class='danger'>[A] has already been tagged by the [occupying_gang] gang! You must get rid of or spray over the old tag first!</span>")
+		return FALSE
+
+	// If you pass the gaunlet of checks, you're good to proceed
+	return TRUE
+
+/obj/item/toy/crayon/proc/territory_claimed(area/territory, mob/user)
+	for(var/datum/team/gang/G in GLOB.gangs)
+		if(territory.type in (G.territories|G.new_territories))
+			. = G.name
+			break
+
+/obj/item/toy/crayon/proc/tag_for_gang(mob/user, atom/target)
+	//Delete any old markings on this tile, including other gang tags
+	for(var/obj/effect/decal/cleanable/crayon/old_marking in target)
+		qdel(old_marking)
+
+	var/datum/antagonist/gang/G = user.mind.has_antag_datum(/datum/antagonist/gang)
+	var/area/territory = get_area(target)
+	new /obj/effect/decal/cleanable/crayon/gang(target,G.gang,"graffiti",0,user)
+	to_chat(user, "<span class='notice'>You tagged [territory] for your gang!</span>")
+
+/obj/item/toy/crayon/spraycan/gang
+	//desc = "A modified container containing suspicious paint."
+	charges = 20
+	gang = TRUE
+	pre_noise = FALSE
+	post_noise = TRUE
+
+/obj/item/toy/crayon/spraycan/gang/Initialize(loc, datum/team/gang/G)
+	.=..()
+	if(G)
+		gang = G
+		paint_color = G.color
+		update_icon()
+
+/obj/item/toy/crayon/spraycan/gang/examine(mob/user)
+	. = ..()
+	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/gang) || isobserver(user))
+		to_chat(user, "This spraycan has been specially modified for tagging territory.")
+
+
 
 #undef RANDOM_GRAFFITI
 #undef RANDOM_LETTER

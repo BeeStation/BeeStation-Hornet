@@ -98,7 +98,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "Tiny Freighter APC";
-	pixel_x = -24;
+	pixel_x = -25;
 	req_access = null;
 	start_charge = 0
 	},
@@ -244,7 +244,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "Tiny Freighter APC";
-	pixel_x = -24;
+	pixel_x = -25;
 	req_access = null;
 	start_charge = 0
 	},
@@ -310,7 +310,7 @@
 /turf/template_noop,
 /area/template_noop)
 "br" = (
-/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/iron,
 /turf/template_noop,
 /area/template_noop)
 "bs" = (
@@ -362,7 +362,7 @@
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "ex" = (
-/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/iron,
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "eG" = (
@@ -1194,7 +1194,7 @@
 /obj/effect/turf_decal/bot_white,
 /obj/structure/closet/crate/secure/gear,
 /obj/item/storage/belt/bandolier,
-/obj/item/storage/belt/holster,
+/obj/item/clothing/accessory/holster,
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter2)
 "jZ" = (

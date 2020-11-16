@@ -1,8 +1,12 @@
+#define DISCONNECTED 0
+#define CLAMPED_OFF 1
+#define OPERATING 2
+
 // Powersink - used to drain station power
 
 /obj/item/powersink
-	desc = "A nulling power sink which drains energy from electrical systems."
 	name = "power sink"
+	desc = "A nulling power sink which drains energy from electrical systems."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "powersink0"
 	item_state = "electronic"
@@ -13,16 +17,12 @@
 	throwforce = 5
 	throw_speed = 1
 	throw_range = 2
-	materials = list(MAT_METAL=750)
+	materials = list(/datum/material/iron=750)
 	var/drain_rate = 2000000	// amount of power to drain per tick
 	var/power_drained = 0 		// has drained this much power
 	var/max_power = 6e8		// maximum power that can be drained before exploding
 	var/mode = 0		// 0 = off, 1=clamped (off), 2=operating
 	var/admins_warned = FALSE // stop spam, only warn the admins once that we are about to boom
-
-	var/const/DISCONNECTED = 0
-	var/const/CLAMPED_OFF = 1
-	var/const/OPERATING = 2
 
 	var/obj/structure/cable/attached		// the attached cable
 
@@ -60,27 +60,32 @@
 	set_light(0)
 
 /obj/item/powersink/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_SCREWDRIVER)
+	if(I.tool_behaviour == TOOL_WRENCH)
 		if(mode == DISCONNECTED)
 			var/turf/T = loc
 			if(isturf(T) && !T.intact)
 				attached = locate() in T
 				if(!attached)
-					to_chat(user, "<span class='warning'>This device must be placed over an exposed, powered cable node!</span>")
+					to_chat(user, "<span class='warning'>\The [src] must be placed over an exposed, powered cable node!</span>")
 				else
 					set_mode(CLAMPED_OFF)
 					user.visible_message( \
 						"[user] attaches \the [src] to the cable.", \
-						"<span class='notice'>You attach \the [src] to the cable.</span>",
+						"<span class='notice'>You bolt \the [src] into the floor and connect it to the cable.</span>",
 						"<span class='italics'>You hear some wires being connected to something.</span>")
 			else
-				to_chat(user, "<span class='warning'>This device must be placed over an exposed, powered cable node!</span>")
+				to_chat(user, "<span class='warning'>\The [src] must be placed over an exposed, powered cable node!</span>")
 		else
 			set_mode(DISCONNECTED)
 			user.visible_message( \
 				"[user] detaches \the [src] from the cable.", \
-				"<span class='notice'>You detach \the [src] from the cable.</span>",
+				"<span class='notice'>You unbolt \the [src] from the floor and detach it from the cable.</span>",
 				"<span class='italics'>You hear some wires being disconnected from something.</span>")
+
+	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
+		user.visible_message( \
+			"[user] messes with \the [src] for a bit.", \
+			"<span class='notice'>You can't fit the screwdriver into \the [src]'s bolts! Try using a wrench.</span>")
 	else
 		return ..()
 
@@ -136,8 +141,8 @@
 				if(istype(T.master, /obj/machinery/power/apc))
 					var/obj/machinery/power/apc/A = T.master
 					if(A.operating && A.cell)
+						power_drained += min(A.cell.charge, 50)
 						A.cell.charge = max(0, A.cell.charge - 50)
-						power_drained += 50
 						if(A.charging == 2) // If the cell was full
 							A.charging = 1 // It's no longer full
 				if(drained >= drain_rate)
@@ -153,3 +158,7 @@
 		STOP_PROCESSING(SSobj, src)
 		explosion(src.loc, 4,8,16,32)
 		qdel(src)
+
+#undef DISCONNECTED
+#undef CLAMPED_OFF
+#undef OPERATING

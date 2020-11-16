@@ -116,13 +116,6 @@
 /obj/machinery/status_display/evac,
 /turf/closed/wall/rust,
 /area/shuttle/escape)
-"at" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Glorious Leaders";
-	req_access_txt = "19"
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
 "au" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -196,13 +189,6 @@
 "aH" = (
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"aI" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Emergency Shuttle Brig";
-	req_access_txt = "2"
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
 "aJ" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -229,13 +215,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /mob/living/simple_animal/hostile/bear/fightpit,
 /turf/open/floor/engine,
-/area/shuttle/escape)
-"aO" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Emergency Shuttle Airlock";
-	req_access_txt = "2"
-	},
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "aP" = (
 /obj/structure/chair/comfy/shuttle{
@@ -273,16 +252,6 @@
 /obj/item/kitchen/fork,
 /mob/living/simple_animal/hostile/bear/fightpit,
 /turf/open/floor/engine,
-/area/shuttle/escape)
-"aW" = (
-/obj/docking_port/mobile/emergency{
-	height = 15;
-	name = "Box emergency shuttle"
-	},
-/obj/machinery/door/airlock/security/glass{
-	name = "Emergency Shuttle Airlock"
-	},
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "aX" = (
 /obj/structure/extinguisher_cabinet{
@@ -416,12 +385,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
-"br" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Emergency Shuttle Airlock"
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "bs" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
@@ -436,21 +399,9 @@
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
-"bu" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Emergency Shuttle Cargo"
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
 "bv" = (
 /obj/machinery/status_display/evac,
 /turf/closed/wall,
-/area/shuttle/escape)
-"bw" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Emergency Shuttle Infirmary"
-	},
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "bx" = (
 /turf/open/floor/plating,
@@ -487,17 +438,8 @@
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "bD" = (
-/obj/machinery/sleeper{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
-"bE" = (
-/obj/machinery/sleeper{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/stasis,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "bF" = (
@@ -584,6 +526,100 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
+"hP" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Emergency Shuttle Airlock";
+	req_access_txt = "2"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"iJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/storage/backpack/duffelbag/med/surgery,
+/obj/item/clothing/gloves/fingerless,
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"sP" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"wq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/optable,
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"Dd" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Emergency Shuttle Cargo"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"Ge" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"OL" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Emergency Shuttle Infirmary"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"OT" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Glorious Leaders";
+	req_access_txt = "19"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"SF" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Emergency Shuttle Brig";
+	req_access_txt = "2"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"Vh" = (
+/obj/docking_port/mobile/emergency{
+	height = 15;
+	name = "Box emergency shuttle"
+	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"Xw" = (
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
@@ -593,17 +629,17 @@ aa
 ad
 ab
 ad
-aO
+hP
 ab
-aW
+Vh
 ad
-ac
-ac
-ac
+sP
+sP
+sP
 ad
-br
+Ge
 ad
-br
+Ge
 ad
 aa
 aa
@@ -674,7 +710,7 @@ bc
 bc
 bc
 aR
-bu
+Dd
 bx
 bx
 bG
@@ -688,7 +724,7 @@ ai
 an
 ad
 ac
-aI
+SF
 ac
 ad
 bN
@@ -706,7 +742,7 @@ bK
 bL
 "}
 (6,1,1) = {"
-ac
+sP
 ae
 aj
 ao
@@ -730,11 +766,11 @@ bK
 bL
 "}
 (7,1,1) = {"
-ac
+sP
 af
 ak
 ak
-at
+OT
 ax
 aJ
 aJ
@@ -754,7 +790,7 @@ bK
 bL
 "}
 (8,1,1) = {"
-ac
+sP
 ag
 ak
 ap
@@ -778,7 +814,7 @@ bK
 bL
 "}
 (9,1,1) = {"
-ac
+sP
 af
 al
 aq
@@ -788,7 +824,7 @@ aK
 aQ
 aA
 aZ
-ax
+Xw
 ax
 bl
 ax
@@ -796,13 +832,13 @@ ax
 ax
 ad
 bA
-bE
+bD
 bA
 bK
 bL
 "}
 (10,1,1) = {"
-ac
+sP
 ah
 ak
 aq
@@ -842,10 +878,10 @@ bm
 bo
 ax
 ax
-bw
+OL
 bB
 bB
-bB
+bF
 bK
 bL
 "}
@@ -892,7 +928,7 @@ ax
 ax
 ad
 bC
-bF
+iJ
 ad
 ad
 aa
@@ -915,7 +951,7 @@ bk
 bP
 bt
 ab
-bD
+wq
 ab
 ad
 aa
@@ -933,13 +969,13 @@ aE
 aE
 aE
 ad
-ac
-ac
-ac
+sP
+sP
+sP
 ad
 ad
 ad
-ac
+sP
 ad
 aa
 aa

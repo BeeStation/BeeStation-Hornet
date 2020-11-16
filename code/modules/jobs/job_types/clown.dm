@@ -8,6 +8,7 @@
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
+	chat_color = "#FF83D7"
 
 	outfit = /datum/outfit/job/clown
 
@@ -27,8 +28,10 @@
 	name = "Clown"
 	jobtype = /datum/job/clown
 
+	id = /obj/item/card/id/job/clown
 	belt = /obj/item/pda/clown
-	uniform = /obj/item/clothing/under/rank/clown
+	ears = /obj/item/radio/headset/headset_srv
+	uniform = /obj/item/clothing/under/rank/civilian/clown
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	mask = /obj/item/clothing/mask/gas/clown_hat
 	l_pocket = /obj/item/bikehorn

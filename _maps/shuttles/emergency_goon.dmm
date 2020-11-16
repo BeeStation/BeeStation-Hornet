@@ -24,24 +24,30 @@
 /obj/machinery/status_display/evac,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"g" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
+"j" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Emergency Shuttle Brig";
+	req_access_txt = "2"
 	},
-/turf/open/floor/plating,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"h" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
+"k" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Emergency Shuttle Infirmary"
 	},
-/obj/docking_port/mobile/emergency{
-	dheight = 0;
-	dir = 2;
-	dwidth = 9;
-	name = "NES Port";
-	width = 19
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
 	},
-/turf/open/floor/plating,
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "l" = (
 /obj/machinery/vending/wallmed,
@@ -67,9 +73,7 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "q" = (
-/obj/machinery/sleeper{
-	dir = 4
-	},
+/obj/machinery/stasis,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "r" = (
@@ -98,12 +102,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
-"w" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Emergency Shuttle Infirmary"
-	},
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/escape)
 "y" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/emergency,
@@ -129,6 +127,11 @@
 /obj/item/radio,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
+"C" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "D" = (
 /obj/structure/chair/comfy/brown{
 	dir = 4
@@ -137,11 +140,18 @@
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "E" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Emergency Shuttle Cockpit";
-	req_access_txt = "19"
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock"
 	},
-/turf/open/floor/mineral/titanium/yellow,
+/obj/docking_port/mobile/emergency{
+	dheight = 0;
+	dir = 2;
+	dwidth = 9;
+	name = "NES Port";
+	width = 19
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "F" = (
 /turf/open/floor/mineral/titanium/yellow,
@@ -173,18 +183,31 @@
 "J" = (
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"K" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Emergency Shuttle Brig";
-	req_access_txt = "2"
-	},
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
 "L" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
 /obj/structure/window/reinforced,
 /turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/escape)
+"M" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Emergency Shuttle Cockpit";
+	req_access_txt = "19"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/escape)
+"P" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "Q" = (
 /obj/machinery/light,
@@ -291,18 +314,18 @@ d
 T
 J
 H
-d
+l
 d
 "}
 (5,1,1) = {"
 d
 d
 d
-w
+k
 f
-d
+l
 f
-K
+j
 d
 d
 d
@@ -322,7 +345,7 @@ a
 "}
 (7,1,1) = {"
 a
-m
+C
 s
 r
 s
@@ -330,7 +353,7 @@ s
 s
 r
 s
-m
+C
 a
 "}
 (8,1,1) = {"
@@ -347,7 +370,7 @@ d
 d
 "}
 (9,1,1) = {"
-g
+P
 r
 r
 r
@@ -357,10 +380,10 @@ r
 r
 r
 r
-g
+P
 "}
 (10,1,1) = {"
-h
+E
 r
 r
 r
@@ -370,7 +393,7 @@ r
 r
 r
 r
-g
+P
 "}
 (11,1,1) = {"
 d
@@ -387,7 +410,7 @@ d
 "}
 (12,1,1) = {"
 a
-m
+C
 s
 s
 s
@@ -395,12 +418,12 @@ r
 s
 s
 s
-m
+C
 a
 "}
 (13,1,1) = {"
 a
-m
+C
 s
 s
 s
@@ -408,7 +431,7 @@ r
 s
 s
 s
-m
+C
 a
 "}
 (14,1,1) = {"
@@ -430,7 +453,7 @@ d
 d
 m
 d
-E
+M
 f
 m
 d
@@ -440,13 +463,13 @@ a
 (16,1,1) = {"
 a
 a
-m
+C
 y
 A
 F
 A
 L
-m
+C
 a
 a
 "}
@@ -467,11 +490,11 @@ a
 a
 a
 a
-m
+C
 B
 G
 I
-m
+C
 a
 a
 a
@@ -481,9 +504,9 @@ a
 a
 a
 d
-m
-m
-m
+C
+C
+C
 d
 a
 a

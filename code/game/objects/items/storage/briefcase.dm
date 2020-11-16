@@ -9,6 +9,7 @@
 	hitsound = "swing_hit"
 	throw_speed = 2
 	throw_range = 4
+	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 	resistance_flags = FLAMMABLE
@@ -17,7 +18,7 @@
 
 /obj/item/storage/briefcase/ComponentInitialize()
 	. = ..()
-	GET_COMPONENT(STR, /datum/component/storage)
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
 	STR.max_combined_w_class = 21
 

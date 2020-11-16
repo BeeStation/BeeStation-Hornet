@@ -135,6 +135,10 @@
 	new /obj/item/geiger_counter(src)
 	new /obj/item/clothing/suit/radiation(src)
 	new /obj/item/clothing/head/radiation(src)
+	if(prob(50))
+		new /obj/item/storage/firstaid/radbgone(src)
+	else
+		new /obj/item/storage/pill_bottle/antirad(src)
 
 /*
  * Bombsuit closet
@@ -153,7 +157,7 @@
 
 /obj/structure/closet/bombcloset/security/PopulateContents()
 	new /obj/item/clothing/suit/bomb_suit/security(src)
-	new /obj/item/clothing/under/rank/security(src)
+	new /obj/item/clothing/under/rank/security/officer(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/head/bomb_hood/security(src)
 

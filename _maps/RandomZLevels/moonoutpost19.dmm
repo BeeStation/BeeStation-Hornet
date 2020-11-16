@@ -164,7 +164,7 @@
 /obj/structure/bed/nest,
 /obj/effect/decal/cleanable/blood/gibs,
 /obj/item/clothing/mask/facehugger/impregnated,
-/obj/item/clothing/under/rank/security,
+/obj/item/clothing/under/rank/security/officer,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/melee/baton/loaded,
 /obj/item/clothing/head/helmet,
@@ -1410,7 +1410,7 @@
 	dir = 2;
 	locked = 1;
 	name = "Worn-out APC";
-	pixel_y = -25;
+	pixel_y = -23;
 	req_access = null;
 	req_access_txt = "150";
 	start_charge = 0
@@ -1586,7 +1586,7 @@
 /area/awaymission/moonoutpost19/syndicate)
 "cY" = (
 /obj/structure/closet/crate,
-/obj/item/stack/sheet/metal{
+/obj/item/stack/sheet/iron{
 	amount = 12
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3413,7 +3413,7 @@
 	dir = 4;
 	locked = 0;
 	name = "Worn-out APC";
-	pixel_x = 25;
+	pixel_x = 24;
 	req_access = null;
 	start_charge = 100
 	},
@@ -3528,7 +3528,7 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "gP" = (
-/obj/structure/chair/office/dark,
+/obj/structure/chair/office,
 /turf/open/floor/plasteel{
 	heat_capacity = 1e+006
 	},
@@ -4980,7 +4980,7 @@
 	dir = 1;
 	locked = 0;
 	name = "Worn-out APC";
-	pixel_y = 25;
+	pixel_y = 23;
 	req_access = null;
 	start_charge = 100
 	},
@@ -5633,7 +5633,7 @@
 	locked = 0;
 	req_access_txt = "201"
 	},
-/obj/item/clothing/under/suit_jacket/navy,
+/obj/item/clothing/under/suit/navy,
 /turf/open/floor/carpet{
 	heat_capacity = 1e+006
 	},
@@ -5921,7 +5921,7 @@
 	name = "Kitchen Crate"
 	},
 /obj/item/storage/box/mousetraps,
-/obj/item/clothing/under/waiter,
+/obj/item/clothing/under/suit/waiter,
 /turf/open/floor/plasteel/showroomfloor{
 	heat_capacity = 1e+006;
 	temperature = 273.15
@@ -6196,8 +6196,7 @@
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "mn" = (
-/obj/structure/closet/secure_closet{
-	icon_state = "freezer";
+/obj/structure/closet/secure_closet/freezer{
 	locked = 0;
 	name = "meat fridge";
 	req_access_txt = "201"
@@ -6212,8 +6211,7 @@
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "mo" = (
-/obj/structure/closet/secure_closet{
-	icon_state = "freezer";
+/obj/structure/closet/secure_closet/freezer{
 	locked = 0;
 	name = "refrigerator";
 	req_access_txt = "201"
@@ -6566,7 +6564,7 @@
 	locked = 0;
 	req_access_txt = "201"
 	},
-/obj/item/clothing/under/assistantformal,
+/obj/item/clothing/under/misc/assistantformal,
 /turf/open/floor/carpet{
 	heat_capacity = 1e+006
 	},
@@ -6734,7 +6732,7 @@
 /obj/structure/table,
 /obj/structure/bedsheetbin,
 /obj/item/clothing/neck/tie/black,
-/obj/item/clothing/under/lawyer/blacksuit,
+/obj/item/clothing/under/suit/black,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -6976,7 +6974,7 @@
 	locked = 0;
 	req_access_txt = "201"
 	},
-/obj/item/clothing/under/suit_jacket/burgundy,
+/obj/item/clothing/under/suit/burgundy,
 /turf/open/floor/carpet{
 	heat_capacity = 1e+006
 	},

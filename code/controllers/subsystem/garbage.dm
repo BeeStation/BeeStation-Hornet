@@ -98,7 +98,7 @@ SUBSYSTEM_DEF(garbage)
 					state = SS_RUNNING
 				break
 
-	
+
 
 
 /datum/controller/subsystem/garbage/proc/HandleQueue(level = GC_QUEUE_CHECK)
@@ -266,8 +266,8 @@ SUBSYSTEM_DEF(garbage)
 		D.gc_destroyed = GC_CURRENTLY_BEING_QDELETED
 		var/start_time = world.time
 		var/start_tick = world.tick_usage
+		SEND_SIGNAL(D, COMSIG_PARENT_QDELETING, force) // Let the (remaining) components know about the result of Destroy
 		var/hint = D.Destroy(arglist(args.Copy(2))) // Let our friend know they're about to get fucked up.
-		SEND_SIGNAL(D, COMSIG_PARENT_QDELETED, force, hint) // Let the (remaining) components know about the result of Destroy
 		if(world.time != start_time)
 			I.slept_destroy++
 		else
@@ -332,7 +332,7 @@ SUBSYSTEM_DEF(garbage)
 
 /datum/proc/find_references(skip_alert)
 	running_find_references = type
-	if(usr && usr.client)
+	if(usr?.client)
 		if(usr.client.running_find_references)
 			testing("CANCELLED search for references to a [usr.client.running_find_references].")
 			usr.client.running_find_references = null
@@ -422,7 +422,7 @@ SUBSYSTEM_DEF(garbage)
 			if (I == src)
 				testing("Found [src.type] \ref[src] in list [Xname].")
 
-			else if (I && !isnum(I) && normal && X[I] == src)
+			else if (I && !isnum_safe(I) && normal && X[I] == src)
 				testing("Found [src.type] \ref[src] in list [Xname]\[[I]\]")
 
 			else if (islist(I))

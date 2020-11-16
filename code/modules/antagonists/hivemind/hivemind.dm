@@ -161,6 +161,7 @@
 	to_chat(real_C, "<span class='userdanger'>[user_warning]!</span>")
 
 /datum/antagonist/hivemind/proc/destroy_hive()
+	go_back_to_sleep()
 	hivemembers = list()
 	calc_size()
 	for(var/power in upgrade_tiers)
@@ -178,12 +179,33 @@
 	if(!C)
 		return
 	owner.AddSpell(new/obj/effect/proc_holder/spell/self/hive_comms)
-	C.add_trait(TRAIT_STUNIMMUNE, HIVEMIND_ONE_MIND_TRAIT)
-	C.add_trait(TRAIT_SLEEPIMMUNE, HIVEMIND_ONE_MIND_TRAIT)
-	C.add_trait(TRAIT_VIRUSIMMUNE, HIVEMIND_ONE_MIND_TRAIT)
-	C.add_trait(TRAIT_NOLIMBDISABLE, HIVEMIND_ONE_MIND_TRAIT)
-	C.add_trait(TRAIT_NOHUNGER, HIVEMIND_ONE_MIND_TRAIT)
-	C.add_trait(TRAIT_NODISMEMBER, HIVEMIND_ONE_MIND_TRAIT)
+	ADD_TRAIT(C, TRAIT_STUNIMMUNE, HIVEMIND_ONE_MIND_TRAIT)
+	ADD_TRAIT(C, TRAIT_SLEEPIMMUNE, HIVEMIND_ONE_MIND_TRAIT)
+	ADD_TRAIT(C, TRAIT_VIRUSIMMUNE, HIVEMIND_ONE_MIND_TRAIT)
+	ADD_TRAIT(C, TRAIT_NOLIMBDISABLE, HIVEMIND_ONE_MIND_TRAIT)
+	ADD_TRAIT(C, TRAIT_NOHUNGER, HIVEMIND_ONE_MIND_TRAIT)
+	ADD_TRAIT(C, TRAIT_NODISMEMBER, HIVEMIND_ONE_MIND_TRAIT)
+	log_game("[key_name(owner)] has awakened vessels.")
+
+/datum/antagonist/hivemind/proc/go_back_to_sleep()
+	if(!active_one_mind)
+		return
+	for(var/datum/mind/M in hivemembers)
+		M.remove_antag_datum(/datum/antagonist/hivevessel)
+		active_one_mind.remove_member(M)
+	if(!(owner?.current))
+		return
+	var/mob/living/carbon/C = owner.current.get_real_hivehost()
+	if(!C)
+		return
+	owner.RemoveSpell(new/obj/effect/proc_holder/spell/self/hive_comms)
+	REMOVE_TRAIT(C, TRAIT_STUNIMMUNE, HIVEMIND_ONE_MIND_TRAIT)
+	REMOVE_TRAIT(C, TRAIT_SLEEPIMMUNE, HIVEMIND_ONE_MIND_TRAIT)
+	REMOVE_TRAIT(C, TRAIT_VIRUSIMMUNE, HIVEMIND_ONE_MIND_TRAIT)
+	REMOVE_TRAIT(C, TRAIT_NOLIMBDISABLE, HIVEMIND_ONE_MIND_TRAIT)
+	REMOVE_TRAIT(C, TRAIT_NOHUNGER, HIVEMIND_ONE_MIND_TRAIT)
+	REMOVE_TRAIT(C, TRAIT_NODISMEMBER, HIVEMIND_ONE_MIND_TRAIT)
+	active_one_mind.Destroy()
 
 /datum/antagonist/hivemind/on_gain()
 	owner.special_role = special_role
@@ -226,18 +248,22 @@
 		var/datum/objective/hivemind/hivesize/size_objective = new
 		size_objective.owner = owner
 		objectives += size_objective
+		log_objective(owner, size_objective.explanation_text)
 	else if(prob(70))
 		var/datum/objective/hivemind/hiveescape/hive_escape_objective = new
 		hive_escape_objective.owner = owner
 		objectives += hive_escape_objective
+		log_objective(owner, hive_escape_objective.explanation_text)
 	else
 		var/datum/objective/hivemind/biggest/biggest_objective = new
 		biggest_objective.owner = owner
 		objectives += biggest_objective
+		log_objective(owner, biggest_objective.explanation_text)
 
 	var/datum/objective/escape/escape_objective = new
 	escape_objective.owner = owner
 	objectives += escape_objective
+	log_objective(owner, escape_objective.explanation_text)
 
 	return
 

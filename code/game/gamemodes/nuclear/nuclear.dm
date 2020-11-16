@@ -1,3 +1,5 @@
+#define FLUKEOPS_TIME_DELAY 12000 // 20 minutes, how long before the credits stop calling the nukies flukeops
+
 /datum/game_mode/nuclear
 	name = "nuclear emergency"
 	config_tag = "nuclear"
@@ -13,6 +15,8 @@
 	announce_text = "Syndicate forces are approaching the station in an attempt to destroy it!\n\
 	<span class='danger'>Operatives</span>: Secure the nuclear authentication disk and use your nuke to destroy the station.\n\
 	<span class='notice'>Crew</span>: Defend the nuclear authentication disk and ensure that it leaves with you on the emergency shuttle."
+
+	title_icon = "nukeops"
 
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
 	var/nukes_left = 1 // Call 3714-PRAY right now and order more nukes! Limited offer!
@@ -108,7 +112,7 @@
 			can activate this explosive is on your station. Ensure that it is protected at all times, and remain alert for possible intruders."
 
 /proc/is_nuclear_operative(mob/M)
-	return M && istype(M) && M.mind && M.mind.has_antag_datum(/datum/antagonist/nukeop)
+	return M?.mind?.has_antag_datum(/datum/antagonist/nukeop)
 
 /datum/outfit/syndicate
 	name = "Syndicate Operative - Basic"
@@ -137,6 +141,7 @@
 	command_radio = TRUE
 
 /datum/outfit/syndicate/no_crystals
+	name = "Syndicate Operative - Reinforcement"
 	tc = 0
 
 /datum/outfit/syndicate/post_equip(mob/living/carbon/human/H)
@@ -146,14 +151,14 @@
 	if(command_radio)
 		R.command = TRUE
 
-	if(tc)
+	if(ispath(uplink_type, /obj/item/uplink/nuclear) || tc) // /obj/item/uplink/nuclear understands 0 tc
 		var/obj/item/U = new uplink_type(H, H.key, tc)
 		H.equip_to_slot_or_del(U, SLOT_IN_BACKPACK)
 
-	var/obj/item/implant/weapons_auth/W = new/obj/item/implant/weapons_auth(H)
-	W.implant(H)
 	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(H)
 	E.implant(H)
+	var/obj/item/implant/weapons_auth/W = new/obj/item/implant/weapons_auth(H)
+	W.implant(H)
 	H.faction |= ROLE_SYNDICATE
 	H.update_icons()
 
@@ -171,3 +176,22 @@
 		/obj/item/tank/jetpack/oxygen/harness=1,\
 		/obj/item/gun/ballistic/automatic/pistol=1,\
 		/obj/item/kitchen/knife/combat/survival)
+
+
+/datum/game_mode/nuclear/generate_credit_text()
+	var/list/round_credits = list()
+	var/len_before_addition
+
+	if((world.time-SSticker.round_start_time) < (FLUKEOPS_TIME_DELAY)) // If the nukies died super early, they're basically a massive disappointment
+		title_icon = "flukeops"
+
+	round_credits += "<center><h1>The [syndicate_name()] Operatives:</h1>"
+	len_before_addition = round_credits.len
+	for(var/datum/mind/operative in nuke_team.members)
+		round_credits += "<center><h2>[operative.name] as a nuclear operative</h2>"
+	if(len_before_addition == round_credits.len)
+		round_credits += list("<center><h2>The operatives blew themselves up!</h2>", "<center><h2>Their remains could not be identified!</h2>")
+		round_credits += "<br>"
+
+	round_credits += ..()
+	return round_credits

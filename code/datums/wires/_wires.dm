@@ -38,7 +38,6 @@
 	..()
 	if(!istype(holder, holder_type))
 		CRASH("Wire holder is not of the expected type!")
-		return
 
 	src.holder = holder
 	if(randomize)
@@ -124,7 +123,7 @@
 		return TRUE
 
 /datum/wires/proc/is_dud(wire)
-	return dd_hasprefix(wire, WIRE_DUD_PREFIX)
+	return findtext(wire, WIRE_DUD_PREFIX, 1, length(WIRE_DUD_PREFIX) + 1)
 
 /datum/wires/proc/is_dud_color(color)
 	return is_dud(get_wire(color))
@@ -218,11 +217,13 @@
 		return ..()
 	return UI_CLOSE
 
-/datum/wires/ui_interact(mob/user, ui_key = "wires", datum/tgui/ui = null, force_open = FALSE, \
-							datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/wires/ui_state(mob/user)
+	return GLOB.physical_state
+
+/datum/wires/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
-		ui = new(user, src, ui_key, "wires", "[holder.name] wires", 350, 150 + wires.len * 30, master_ui, state)
+		ui = new(user, src, "Wires", "Wires")
 		ui.open()
 
 /datum/wires/ui_data(mob/user)

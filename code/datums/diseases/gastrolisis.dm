@@ -8,7 +8,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 1
 	disease_flags = CURABLE
-	cures = list("sodiumchloride",  "mutadone")
+	cures = list(/datum/reagent/consumable/sodiumchloride,  /datum/reagent/medicine/mutadone)
 
 /datum/disease/gastrolosis/stage_act()
 	..()
@@ -52,7 +52,7 @@
 			if(!tongue && prob(5))
 				var/obj/item/organ/tongue/snail/new_tongue = new()
 				new_tongue.Insert(affected_mob)
-				to_chat(affected_mob, "<span class='userdanger'>You feel your speech slow down</span>")
+				to_chat(affected_mob, "<span class='userdanger'>You feel your speech slow down.</span>")
 				return
 			if(shell && eyes && tongue && prob(5))
 				affected_mob.set_species(/datum/species/snail)

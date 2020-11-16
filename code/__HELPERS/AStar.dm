@@ -1,46 +1,55 @@
-/*
-A Star pathfinding algorithm
-Returns a list of tiles forming a path from A to B, taking dense objects as well as walls, and the orientation of
-windows along the route into account.
-Use:
+/*!
+### A Star pathfinding algorithm
+
+Returns a list of tiles forming a path from A to B, taking dense objects as well as walls, and the orientation of windows along the route into account.
+
+**Use:**
+
+```
 your_list = AStar(start location, end location, moving atom, distance proc, max nodes, maximum node depth, minimum distance to target, adjacent proc, atom id, turfs to exclude, check only simulated)
+```
 
 Optional extras to add on (in order):
-Distance proc : the distance used in every A* calculation (length of path and heuristic)
-MaxNodes: The maximum number of nodes the returned path can be (0 = infinite)
-Maxnodedepth: The maximum number of nodes to search (default: 30, 0 = infinite)
-Mintargetdist: Minimum distance to the target before path returns, could be used to get
-near a target, but not right to it - for an AI mob with a gun, for example.
-Adjacent proc : returns the turfs to consider around the actually processed node
-Simulated only : whether to consider unsimulated turfs or not (used by some Adjacent proc)
+- Distance proc: the distance used in every A* calculation (length of path and heuristic)
+- MaxNodes: The maximum number of nodes the returned path can be (0 = infinite)
+- Maxnodedepth: The maximum number of nodes to search (default: 30, 0 = infinite)
+- Mintargetdist: Minimum distance to the target before path returns, could be used to get near a target, but not right to it - for an AI mob with a gun, for example.
+- Adjacent proc: returns the turfs to consider around the actually processed node
+- Simulated only: whether to consider unsimulated turfs or not (used by some Adjacent proc)
 
 Also added 'exclude' turf to avoid travelling over; defaults to null
 
 Actual Adjacent procs :
 
-	/turf/proc/reachableAdjacentTurfs : returns reachable turfs in cardinal directions (uses simulated_only)
+- `/turf/proc/reachableAdjacentTurfs`: returns reachable turfs in cardinal directions (uses simulated_only)
 
-	/turf/proc/reachableAdjacentAtmosTurfs : returns turfs in cardinal directions reachable via atmos
+- `/turf/proc/reachableAdjacentAtmosTurfs`: returns turfs in cardinal directions reachable via atmos
 
 */
+
+/// Tiebreker weight.To help to choose between equal paths
 #define PF_TIEBREAKER 0.005
-//tiebreker weight.To help to choose between equal paths
-//////////////////////
-//datum/PathNode object
-//////////////////////
+
 #define MASK_ODD 85
 #define MASK_EVEN 170
 
 
-//A* nodes variables
+//! ### A* nodes variables
 /datum/PathNode
-	var/turf/source //turf associated with the PathNode
-	var/datum/PathNode/prevNode //link to the parent PathNode
-	var/f		//A* Node weight (f = g + h)
-	var/g		//A* movement cost variable
-	var/h		//A* heuristic variable
-	var/nt		//count the number of Nodes traversed
-	var/bf		//bitflag for dir to expand.Some sufficiently advanced motherfuckery
+	/// turf associated with the PathNode
+	var/turf/source
+	/// link to the parent PathNode
+	var/datum/PathNode/prevNode
+	/// A* Node weight `(f = g + h)`
+	var/f
+	/// A* movement cost variable
+	var/g
+	/// A* heuristic variable
+	var/h
+	/// count the number of Nodes traversed
+	var/nt
+	/// bitflag for dir to expand.Some sufficiently advanced motherfuckery
+	var/bf
 
 /datum/PathNode/New(s,p,pg,ph,pnt,_bf)
 	source = s
@@ -65,7 +74,7 @@ Actual Adjacent procs :
 //A* procs
 //////////////////////
 
-//the weighting function, used in the A* algorithm
+/// the weighting function, used in the A* algorithm
 /proc/PathWeightCompare(datum/PathNode/a, datum/PathNode/b)
 	return a.f - b.f
 
@@ -204,6 +213,9 @@ Actual Adjacent procs :
 			return TRUE
 	for(var/obj/O in T)
 		if(!O.CanAStarPass(ID, rdir, caller))
+			return TRUE
+	for(var/obj/machinery/door/firedoor/border_only/W in src)
+		if(!W.CanAStarPass(ID, adir, caller))
 			return TRUE
 
 	return FALSE

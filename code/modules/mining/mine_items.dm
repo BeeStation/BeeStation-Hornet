@@ -28,9 +28,15 @@
 	new /obj/item/storage/backpack/duffelbag(src)
 	new /obj/item/storage/backpack/explorer(src)
 	new /obj/item/storage/backpack/satchel/explorer(src)
-	new /obj/item/clothing/under/rank/miner/lavaland(src)
-	new /obj/item/clothing/under/rank/miner/lavaland(src)
-	new /obj/item/clothing/under/rank/miner/lavaland(src)
+	new /obj/item/clothing/under/plasmaman/mining(src)
+	new /obj/item/clothing/under/plasmaman/mining(src)
+	new /obj/item/clothing/under/plasmaman/mining(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/replacement/mining(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/replacement/mining(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/replacement/mining(src)
+	new /obj/item/clothing/under/rank/cargo/miner/lavaland(src)
+	new /obj/item/clothing/under/rank/cargo/miner/lavaland(src)
+	new /obj/item/clothing/under/rank/cargo/miner/lavaland(src)
 	new /obj/item/clothing/shoes/workboots/mining(src)
 	new /obj/item/clothing/shoes/workboots/mining(src)
 	new /obj/item/clothing/shoes/workboots/mining(src)
@@ -72,7 +78,7 @@
 	shuttleId = "mining"
 	possible_destinations = "mining_home;mining_away;landing_zone_dock;mining_public"
 	no_destination_swap = 1
-	var/global/list/dumb_rev_heads = list()
+	var/static/list/dumb_rev_heads = list()
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/machinery/computer/shuttle/mining/attack_hand(mob/user)
@@ -81,6 +87,15 @@
 		dumb_rev_heads += user.mind
 		return
 	. = ..()
+
+//It is on lavaland, soooo....
+/obj/machinery/computer/shuttle/science
+	name = "science outpost shuttle console"
+	desc = "Used to call and send the science shuttle."
+	circuit = /obj/item/circuitboard/computer/science_shuttle
+	shuttleId = "science"
+	possible_destinations = "science_station;science_outpost"
+	no_destination_swap = 1
 
 /**********************Mining car (Crate like thing, not the rail car)**************************/
 

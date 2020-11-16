@@ -34,6 +34,7 @@
 	var/lip_style = null
 	var/lip_color = "white"
 
+	var/mouth = TRUE
 
 /obj/item/bodypart/head/Destroy()
 	QDEL_NULL(brainmob) //order is sensitive, see warning in handle_atom_del() below
@@ -62,32 +63,32 @@
 	return ..()
 
 /obj/item/bodypart/head/examine(mob/user)
-	..()
+	. = ..()
 	if(status == BODYPART_ORGANIC)
 		if(!brain)
-			to_chat(user, "<span class='info'>The brain has been removed from [src].</span>")
+			. += "<span class='info'>The brain has been removed from [src].</span>"
 		else if(brain.suicided || brainmob?.suiciding)
-			to_chat(user, "<span class='info'>There's a pretty dumb expression on [real_name]'s face; they must have really hated life. There is no hope of recovery.</span>")
+			. += "<span class='info'>There's a pretty dumb expression on [real_name]'s face; they must have really hated life. There is no hope of recovery.</span>"
 		else if(brain.brain_death || brainmob?.health <= HEALTH_THRESHOLD_DEAD)
-			to_chat(user, "<span class='info'>It seems to be leaking some kind of... clear fluid? The brain inside must be in pretty bad shape... There is no coming back from that.</span>")
+			. += "<span class='info'>It seems to be leaking some kind of... clear fluid? The brain inside must be in pretty bad shape... There is no coming back from that.</span>"
 		else if(brainmob)
 			if(brainmob.get_ghost(FALSE, TRUE))
-				to_chat(user, "<span class='info'>It's muscles are still twitching slightly... It still seems to have a bit of life left to it.</span>")
+				. += "<span class='info'>Its muscles are still twitching slightly... It still seems to have a bit of life left to it.</span>"
 			else
-				to_chat(user, "<span class='info'>It seems seems particularly lifeless. Perhaps there'll be a chance for them later.</span>")
+				. += "<span class='info'>It seems seems particularly lifeless. Perhaps there'll be a chance for them later.</span>"
 		else if(brain?.decoy_override)
-			to_chat(user, "<span class='info'>It seems seems particularly lifeless. Perhaps there'll be a chance for them later.</span>")
+			. += "<span class='info'>It seems particularly lifeless. Perhaps there'll be a chance for them later.</span>"
 		else
-			to_chat(user, "<span class='info'>It seems completely devoid of life.</span>")
+			. += "<span class='info'>It seems completely devoid of life.</span>"
 
 		if(!eyes)
-			to_chat(user, "<span class='info'>[real_name]'s eyes appear to have been removed.</span>")
+			. += "<span class='info'>[real_name]'s eyes appear to have been removed.</span>"
 
 		if(!ears)
-			to_chat(user, "<span class='info'>[real_name]'s ears appear to have been removed.</span>")
+			. += "<span class='info'>[real_name]'s ears appear to have been removed.</span>"
 
 		if(!tongue)
-			to_chat(user, "<span class='info'>[real_name]'s tongue appears to have been removed.</span>")
+			. += "<span class='info'>[real_name]'s tongue appears to have been removed.</span>"
 
 
 /obj/item/bodypart/head/can_dismember(obj/item/I)
@@ -110,7 +111,7 @@
 				brainmob = null
 			if(violent_removal && prob(rand(80, 100))) //ghetto surgery can damage the brain.
 				to_chat(user, "<span class='warning'>[brain] was damaged in the process!</span>")
-				brain.damaged_brain = TRUE
+				brain.setOrganDamage(brain.maxHealth)
 			brain.forceMove(T)
 			brain = null
 			update_icon_dropped()
@@ -131,7 +132,7 @@
 		C = owner
 
 	real_name = C.real_name
-	if(C.has_trait(TRAIT_HUSK))
+	if(HAS_TRAIT(C, TRAIT_HUSK))
 		real_name = "Unknown"
 		hair_style = "Bald"
 		facial_hair_style = "Shaved"
@@ -147,6 +148,8 @@
 			if(S.hair_color)
 				if(S.hair_color == "mutcolor")
 					facial_hair_color = H.dna.features["mcolor"]
+				else if(S.hair_color == "fixedmutcolor")
+					facial_hair_color = "#[S.fixed_mut_color]"
 				else
 					facial_hair_color = S.hair_color
 			else
@@ -162,6 +165,8 @@
 			if(S.hair_color)
 				if(S.hair_color == "mutcolor")
 					hair_color = H.dna.features["mcolor"]
+				else if(S.hair_color == "fixedmutcolor")
+					hair_color = "#[S.fixed_mut_color]"
 				else
 					hair_color = S.hair_color
 			else
@@ -246,6 +251,10 @@
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "default_monkey_head"
 	animal_origin = MONKEY_BODYPART
+
+/obj/item/bodypart/head/monkey/teratoma
+	icon_state = "teratoma_head"
+	animal_origin = TERATOMA_BODYPART
 
 /obj/item/bodypart/head/alien
 	icon = 'icons/mob/animal_parts.dmi'

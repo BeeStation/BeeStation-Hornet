@@ -20,8 +20,8 @@ RSF
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/rsf/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>It currently holds [matter]/30 fabrication-units.</span>")
+	. = ..()
+	. += "<span class='notice'>It currently holds [matter]/30 fabrication-units.</span>"
 
 /obj/item/rsf/cyborg
 	matter = 30
@@ -42,6 +42,16 @@ RSF
 	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
 	switch(mode)
 		if(5)
+			mode = 1
+			if(iscyborg(user))
+				var/mob/living/silicon/robot/R = user
+				if(R.emagged)
+					mode = 6
+			if (mode==1)
+				to_chat(user, "Changed dispensing mode to 'Drinking Glass'")
+			else
+				to_chat(user, "Changed dispensing mode to 'Explosive Cigarette'")
+		if(6)
 			mode = 1
 			to_chat(user, "Changed dispensing mode to 'Drinking Glass'")
 		if(1)
@@ -97,6 +107,10 @@ RSF
 			to_chat(user, "Dispensing Cigarette...")
 			new /obj/item/clothing/mask/cigarette(T)
 			use_matter(10, user)
+		if(6)
+			to_chat(user, "Dispensing Explosive Cigarette...")
+			new /obj/item/clothing/mask/cigarette/plasma(T)
+			use_matter(20, user)
 
 /obj/item/rsf/proc/use_matter(charge, mob/user)
 	if (iscyborg(user))
@@ -120,8 +134,8 @@ RSF
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/cookiesynth/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>It currently holds [matter]/10 cookie-units.</span>")
+	. = ..()
+	. += "<span class='notice'>It currently holds [matter]/10 cookie-units.</span>"
 
 /obj/item/cookiesynth/attackby()
 	return
@@ -173,7 +187,7 @@ RSF
 	to_chat(user, "Fabricating Cookie..")
 	var/obj/item/reagent_containers/food/snacks/cookie/S = new /obj/item/reagent_containers/food/snacks/cookie(T)
 	if(toxin)
-		S.reagents.add_reagent("chloralhydratedelayed", 10)
+		S.reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 10)
 	if (iscyborg(user))
 		var/mob/living/silicon/robot/R = user
 		R.cell.charge -= 100

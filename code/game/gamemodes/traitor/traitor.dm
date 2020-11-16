@@ -12,7 +12,7 @@
 	antag_flag = ROLE_TRAITOR
 	false_report_weight = 20 //Reports of traitors are pretty common.
 	restricted_jobs = list("Cyborg")//They are part of the AI if he is traitor so are they, they use to get double chances
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Brig Physician")
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
@@ -23,6 +23,8 @@
 	announce_text = "There are Syndicate agents on the station!\n\
 	<span class='danger'>Traitors</span>: Accomplish your objectives.\n\
 	<span class='notice'>Crew</span>: Do not let the traitors succeed!"
+
+	title_icon = "traitor"
 
 	var/list/datum/mind/pre_traitors = list()
 	var/traitors_possible = 4 //hard limit on traitors if scaling is turned off
@@ -39,6 +41,9 @@
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		restricted_jobs += "Assistant"
 
+	if(CONFIG_GET(flag/protect_heads_from_antagonist))
+		restricted_jobs += GLOB.command_positions
+
 	var/num_traitors = 1
 
 	var/tsc = CONFIG_GET(number/traitor_scaling_coeff)
@@ -50,7 +55,7 @@
 	for(var/j = 0, j < num_traitors, j++)
 		if (!antag_candidates.len)
 			break
-		var/datum/mind/traitor = antag_pick(antag_candidates)
+		var/datum/mind/traitor = antag_pick(antag_candidates, ROLE_TRAITOR)
 		pre_traitors += traitor
 		traitor.special_role = traitor_name
 		traitor.restricted_roles = restricted_jobs
@@ -98,3 +103,19 @@
 /datum/game_mode/traitor/generate_report()
 	return "Although more specific threats are commonplace, you should always remain vigilant for Syndicate agents aboard your station. Syndicate communications have implied that many \
 		Nanotrasen employees are Syndicate agents with hidden memories that may be activated at a moment's notice, so it's possible that these agents might not even know their positions."
+
+
+/datum/game_mode/traitor/generate_credit_text()
+	var/list/round_credits = list()
+	var/len_before_addition
+
+	round_credits += "<center><h1>The [syndicate_name()] Spies:</h1>"
+	len_before_addition = round_credits.len
+	for(var/datum/mind/traitor in traitors)
+		round_credits += "<center><h2>[traitor.name] as a [syndicate_name()] traitor</h2>"
+	if(len_before_addition == round_credits.len)
+		round_credits += list("<center><h2>The traitors have concealed their treachery!</h2>", "<center><h2>We couldn't locate them!</h2>")
+	round_credits += "<br>"
+
+	round_credits += ..()
+	return round_credits

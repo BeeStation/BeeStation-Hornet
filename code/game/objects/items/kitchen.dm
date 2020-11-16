@@ -6,6 +6,7 @@
  *		Butcher's cleaver
  *		Combat Knife
  *		Rolling Pins
+ *      Poison Knife
  */
 
 /obj/item/kitchen
@@ -22,7 +23,7 @@
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 5
-	materials = list(MAT_METAL=80)
+	materials = list(/datum/material/iron=80)
 	flags_1 = CONDUCT_1
 	attack_verb = list("attacked", "stabbed", "poked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -41,20 +42,62 @@
 	if(forkload)
 		if(M == user)
 			M.visible_message("<span class='notice'>[user] eats a delicious forkful of omelette!</span>")
-			M.reagents.add_reagent(forkload.id, 1)
+			M.reagents.add_reagent(forkload.type, 1)
 		else
 			M.visible_message("<span class='notice'>[user] feeds [M] a delicious forkful of omelette!</span>")
-			M.reagents.add_reagent(forkload.id, 1)
+			M.reagents.add_reagent(forkload.type, 1)
 		icon_state = "fork"
 		forkload = null
 
 	else if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
-		if(user.has_trait(TRAIT_CLUMSY) && prob(50))
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 			M = user
 		return eyestab(M,user)
 	else
 		return ..()
 
+/obj/item/kitchen/knife/poison
+	name = "venom knife"
+	icon_state = "poisonknife"
+	force = 12
+	throwforce = 15
+	throw_speed = 5
+	throw_range = 7
+	var/amount_per_transfer_from_this = 5
+	var/list/possible_transfer_amounts
+	desc = "An infamous knife of syndicate design, it has a tiny hole going through the blade to the handle which stores toxins."
+	materials = null
+
+/obj/item/kitchen/knife/poison/Initialize()
+	. = ..()
+	create_reagents(40,OPENCONTAINER)
+	possible_transfer_amounts = list(3,5)
+
+/obj/item/kitchen/knife/poison/attack_self(mob/user)
+	if(possible_transfer_amounts.len)
+		var/i=0
+		for(var/A in possible_transfer_amounts)
+			i++
+			if(A == amount_per_transfer_from_this)
+				if(i<possible_transfer_amounts.len)
+					amount_per_transfer_from_this = possible_transfer_amounts[i+1]
+				else
+					amount_per_transfer_from_this = possible_transfer_amounts[1]
+				to_chat(user, "<span class='notice'>[src]'s transfer amount is now [amount_per_transfer_from_this] units.</span>")
+				return
+
+/obj/item/kitchen/knife/poison/attack(mob/living/M, mob/user)
+	if (!istype(M))
+		return
+	. = ..()
+	if (!reagents.total_volume || !M.reagents)
+		return
+	var/amount_inject = amount_per_transfer_from_this
+	if(!M.can_inject(user, 1))
+		amount_inject = 1
+	var/amount = min(amount_inject/reagents.total_volume,1)
+	reagents.reaction(M,INJECT,amount)
+	reagents.trans_to(M,amount_inject)
 
 /obj/item/kitchen/knife
 	name = "kitchen knife"
@@ -66,10 +109,12 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	block_upgrade_walk = 1
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	throw_speed = 3
 	throw_range = 6
-	materials = list(MAT_METAL=12000)
-	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	materials = list(/datum/material/iron=12000)
+	attack_verb = list("slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	sharpness = IS_SHARP_ACCURATE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	var/bayonet = FALSE	//Can this be attached to a gun?
@@ -81,7 +126,7 @@
 
 /obj/item/kitchen/knife/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
-		if(user.has_trait(TRAIT_CLUMSY) && prob(50))
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 			M = user
 		return eyestab(M,user)
 	else
@@ -110,8 +155,8 @@
 	flags_1 = CONDUCT_1
 	force = 15
 	throwforce = 10
-	materials = list(MAT_METAL=18000)
-	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	materials = list(/datum/material/iron=18000)
+	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_price = 60
 
@@ -122,7 +167,7 @@
 	embedding = list("embedded_pain_multiplier" = 4, "embed_chance" = 65, "embedded_fall_chance" = 10, "embedded_ignore_throwspeed_threshold" = TRUE)
 	force = 20
 	throwforce = 20
-	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
+	attack_verb = list("slashed", "stabbed", "sliced", "tore", "ripped", "cut")
 	bayonet = TRUE
 
 /obj/item/kitchen/knife/combat/survival
@@ -149,7 +194,7 @@
 /obj/item/kitchen/knife/combat/cyborg
 	name = "cyborg knife"
 	icon = 'icons/obj/items_cyborg.dmi'
-	icon_state = "knife"
+	icon_state = "knife_cyborg"
 	desc = "A cyborg-mounted plasteel knife. Extremely sharp and durable."
 
 /obj/item/kitchen/knife/carrotshiv

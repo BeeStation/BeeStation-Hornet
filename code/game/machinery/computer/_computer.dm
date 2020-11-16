@@ -9,7 +9,7 @@
 	max_integrity = 200
 	integrity_failure = 100
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20)
-	var/brightness_on = 1
+	var/brightness_on = 2
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
 	var/clockwork = FALSE
@@ -35,9 +35,9 @@
 /obj/machinery/computer/ratvar_act()
 	if(!clockwork)
 		clockwork = TRUE
-		icon_screen = "ratvar[rand(1, 4)]"
-		icon_keyboard = "ratvar_key[rand(1, 6)]"
-		icon_state = "ratvarcomputer[rand(1, 4)]"
+		icon_screen = "ratvar[rand(1, 3)]"
+		icon_keyboard = "ratvar_key[rand(1, 2)]"
+		icon_state = "ratvarcomputer"
 		update_icon()
 
 /obj/machinery/computer/narsie_act()
@@ -67,9 +67,9 @@
 /obj/machinery/computer/power_change()
 	..()
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light(0, 0)
 	else
-		set_light(brightness_on)
+		set_light(brightness_on, 2)
 	update_icon()
 	return
 

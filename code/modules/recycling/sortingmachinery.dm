@@ -30,13 +30,13 @@
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 			to_chat(user, "<span class='notice'>*[tag]*</span>")
 			sortTag = O.currTag
-			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
+			playsound(loc, 'sound/machines/twobeep_high.ogg', 100, 1)
 
 	else if(istype(W, /obj/item/pen))
 		if(!user.is_literate())
 			to_chat(user, "<span class='notice'>You scribble illegibly on the side of [src]!</span>")
 			return
-		var/str = copytext(sanitize(input(user,"Label text?","Set label","")),1,MAX_NAME_LEN)
+		var/str = stripped_input(user, "Label text?", "Set label", "", MAX_NAME_LEN)
 		if(!user.canUseTopic(src, BE_CLOSE))
 			return
 		if(!str || !length(str))
@@ -117,13 +117,13 @@
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 			to_chat(user, "<span class='notice'>*[tag]*</span>")
 			sortTag = O.currTag
-			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
+			playsound(loc, 'sound/machines/twobeep_high.ogg', 100, 1)
 
 	else if(istype(W, /obj/item/pen))
 		if(!user.is_literate())
 			to_chat(user, "<span class='notice'>You scribble illegibly on the side of [src]!</span>")
 			return
-		var/str = copytext(sanitize(input(user,"Label text?","Set label","")),1,MAX_NAME_LEN)
+		var/str = stripped_input(user, "Label text?", "Set label", "", MAX_NAME_LEN)
 		if(!user.canUseTopic(src, BE_CLOSE))
 			return
 		if(!str || !length(str))
@@ -166,7 +166,7 @@
 		to_chat(user, "<span class='notice'>*HELL*</span>")//lizard nerf
 	else
 		to_chat(user, "<span class='notice'>*HEAVEN*</span>")
-	playsound(src, 'sound/machines/twobeep.ogg', 100, 1)
+	playsound(src, 'sound/machines/twobeep_high.ogg', 100, 1)
 	return BRUTELOSS
 
 /obj/item/destTagger/proc/openwindow(mob/user)

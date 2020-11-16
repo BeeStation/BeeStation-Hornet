@@ -84,7 +84,7 @@ Possible to do for anyone motivated enough:
 		return
 	if(replay_mode)
 		replay_stop()
-	else if(disk && disk.record)
+	else if(disk?.record)
 		replay_start()
 
 /obj/machinery/holopad/tutorial/HasProximity(atom/movable/AM)
@@ -143,9 +143,9 @@ Possible to do for anyone motivated enough:
 	holo_range = holograph_range
 
 /obj/machinery/holopad/examine(mob/user)
-	..()
+	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		to_chat(user, "<span class='notice'>The status display reads: Current projection range: <b>[holo_range]</b> units.<span>")
+		. += "<span class='notice'>The status display reads: Current projection range: <b>[holo_range]</b> units.<span>"
 
 /obj/machinery/holopad/attackby(obj/item/P, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "holopad_open", "holopad0", P))
@@ -228,7 +228,6 @@ Possible to do for anyone motivated enough:
 
 	var/datum/browser/popup = new(user, "holopad", name, 300, 175)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 //Stop ringing the AI!!
@@ -271,7 +270,7 @@ Possible to do for anyone motivated enough:
 					LAZYADD(callnames[A], I)
 			callnames -= get_area(src)
 
-			var/result = input(usr, "Choose an area to call", "Holocall") as null|anything in callnames
+			var/result = input(usr, "Choose an area to call", "Holocall") as null|anything in sortNames(callnames)
 			if(QDELETED(usr) || !result || outgoing_call)
 				return
 
@@ -395,7 +394,6 @@ Possible to do for anyone motivated enough:
 			Hologram.add_atom_colour("#77abff", FIXED_COLOUR_PRIORITY)
 			Hologram.Impersonation = user
 
-		Hologram.copy_known_languages_from(user,replace = TRUE)
 		Hologram.mouse_opacity = MOUSE_OPACITY_TRANSPARENT//So you can't click on it.
 		Hologram.layer = FLY_LAYER//Above all the other objects/mobs. Or the vast majority of them.
 		Hologram.setAnchored(TRUE)//So space wind cannot drag it.
@@ -552,9 +550,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	Hologram.alpha = 170
 	Hologram.add_atom_colour("#77abff", FIXED_COLOUR_PRIORITY)
 	Hologram.dir = SOUTH //for now
-	Hologram.grant_all_languages(omnitongue=TRUE)
 	var/datum/language_holder/holder = Hologram.get_language_holder()
-	holder.selected_default_language = record.language
+	holder.selected_language = record.language
 	Hologram.mouse_opacity = MOUSE_OPACITY_TRANSPARENT//So you can't click on it.
 	Hologram.layer = FLY_LAYER//Above all the other objects/mobs. Or the vast majority of them.
 	Hologram.setAnchored(TRUE)//So space wind cannot drag it.
@@ -646,7 +643,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 			return
 		if(HOLORECORD_LANGUAGE)
 			var/datum/language_holder/holder = replay_holo.get_language_holder()
-			holder.selected_default_language = entry[2]
+			holder.selected_language = entry[2]
 		if(HOLORECORD_PRESET)
 			var/preset_type = entry[2]
 			var/datum/preset_holoimage/H = new preset_type
@@ -669,6 +666,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	updateDialog()
 
 /obj/effect/overlay/holo_pad_hologram
+	initial_language_holder = /datum/language_holder/universal
 	var/mob/living/Impersonation
 	var/datum/holocall/HC
 

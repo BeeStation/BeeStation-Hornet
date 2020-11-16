@@ -7,7 +7,7 @@
 	density = TRUE
 	move_resist = MOVE_FORCE_VERY_STRONG
 	layer = OPEN_DOOR_LAYER
-	power_channel = ENVIRON
+	power_channel = AREA_USAGE_ENVIRON
 	max_integrity = 350
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70)
 	CanAtmosPass = ATMOS_PASS_DENSITY
@@ -16,6 +16,7 @@
 
 	interaction_flags_atom = INTERACT_ATOM_UI_INTERACT
 
+	var/air_tight = FALSE	//TRUE means density will be set as soon as the door begins to close
 	var/secondsElectrified = MACHINE_NOT_ELECTRIFIED
 	var/shockedby
 	var/visible = TRUE
@@ -34,18 +35,19 @@
 	var/datum/effect_system/spark_spread/spark_system
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/red_alert_access = FALSE //if TRUE, this door will always open on red alert
-	var/poddoor = FALSE
+	var/poddoor = FALSE	
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
+	var/open_speed = 5
 
 /obj/machinery/door/examine(mob/user)
-	..()
+	. = ..()
 	if(red_alert_access)
 		if(GLOB.security_level >= SEC_LEVEL_RED)
-			to_chat(user, "<span class='notice'>Due to a security threat, its access requirements have been lifted!</span>")
+			. += "<span class='notice'>Due to a security threat, its access requirements have been lifted!</span>"
 		else
-			to_chat(user, "<span class='notice'>In the event of a red alert, its access requirements will automatically lift.</span>")
+			. += "<span class='notice'>In the event of a red alert, its access requirements will automatically lift.</span>"
 	if(!poddoor)
-		to_chat(user, "<span class='notice'>Its maintenance panel is <b>screwed</b> in place.</span>")
+		. += "<span class='notice'>Its maintenance panel is <b>screwed</b> in place.</span>"
 
 /obj/machinery/door/check_access_list(list/access_list)
 	if(red_alert_access && GLOB.security_level >= SEC_LEVEL_RED)
@@ -84,6 +86,7 @@
 	return ..()
 
 /obj/machinery/door/Bumped(atom/movable/AM)
+	. = ..()
 	if(operating || (obj_flags & EMAGGED))
 		return
 	if(ismob(AM))
@@ -112,7 +115,16 @@
 			else
 				do_animate("deny")
 		return
-	return
+
+	if(isitem(AM))
+		var/obj/item/I = AM
+		if(!density)
+			return
+		if(check_access(I))
+			open()
+		else
+			do_animate("deny")
+		return
 
 /obj/machinery/door/Move()
 	var/turf/T = loc
@@ -160,7 +172,7 @@
 			open()
 		else
 			close()
-		return
+		return TRUE
 	if(density)
 		do_animate("deny")
 
@@ -179,6 +191,31 @@
 
 /obj/machinery/door/proc/try_to_crowbar(obj/item/I, mob/user)
 	return
+
+/obj/machinery/door/proc/is_holding_pressure()
+	var/turf/open/T = loc
+	if(!T)
+		return FALSE
+	if(!density)
+		return FALSE
+	// alrighty now we check for how much pressure we're holding back
+	var/min_moles = T.air.total_moles()
+	var/max_moles = min_moles
+	// okay this is a bit hacky. First, we set density to 0 and recalculate our adjacent turfs
+	density = FALSE
+	T.ImmediateCalculateAdjacentTurfs()
+	// then we use those adjacent turfs to figure out what the difference between the lowest and highest pressures we'd be holding is
+	for(var/turf/open/T2 in T.atmos_adjacent_turfs)
+		if((flags_1 & ON_BORDER_1) && get_dir(src, T2) != dir)
+			continue
+		var/moles = T2.air.total_moles()
+		if(moles < min_moles)
+			min_moles = moles
+		if(moles > max_moles)
+			max_moles = moles
+	density = TRUE
+	T.ImmediateCalculateAdjacentTurfs() // alright lets put it back
+	return max_moles - min_moles > 20
 
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent != INTENT_HARM && (I.tool_behaviour == TOOL_CROWBAR || istype(I, /obj/item/twohanded/fireaxe)))
@@ -256,9 +293,9 @@
 	operating = TRUE
 	do_animate("opening")
 	set_opacity(0)
-	sleep(5)
+	sleep(open_speed)
 	density = FALSE
-	sleep(5)
+	sleep(open_speed)
 	layer = initial(layer)
 	update_icon()
 	set_opacity(0)
@@ -286,9 +323,11 @@
 
 	do_animate("closing")
 	layer = closingLayer
-	sleep(5)
+	if(air_tight)
+		density = TRUE
+	sleep(open_speed)
 	density = TRUE
-	sleep(5)
+	sleep(open_speed)
 	update_icon()
 	if(visible && !glass)
 		set_opacity(1)
@@ -297,7 +336,7 @@
 	update_freelook_sight()
 	if(safe)
 		CheckForMobs()
-	else
+	else if(!(flags_1 & ON_BORDER_1))
 		crush()
 	return 1
 
@@ -324,9 +363,10 @@
 		var/turf/location = get_turf(src)
 		//add_blood doesn't work for borgs/xenos, but add_blood_floor does.
 		L.add_splatter_floor(location)
+		log_combat(src, L, "crushed")
 	for(var/obj/mecha/M in get_turf(src))
 		M.take_damage(DOOR_CRUSH_DAMAGE)
-
+		log_combat(src, M, "crushed")
 /obj/machinery/door/proc/autoclose()
 	if(!QDELETED(src) && !density && !operating && !locked && !welded && autoclose)
 		close()

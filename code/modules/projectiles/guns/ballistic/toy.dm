@@ -7,11 +7,13 @@
 	fire_sound = 'sound/weapons/gunshot_smg.ogg'
 	force = 0
 	throwforce = 0
-	burst_size = 3
 	can_suppress = TRUE
 	clumsy_check = 0
 	item_flags = NONE
 	casing_ejector = FALSE
+	fire_rate = 3
+	weapon_weight = WEAPON_LIGHT
+	block_upgrade_walk = 1
 
 /obj/item/gun/ballistic/automatic/toy/update_icon()
 	. = ..()
@@ -30,6 +32,7 @@
 	fire_sound = 'sound/weapons/gunshot.ogg'
 	burst_size = 1
 	fire_delay = 0
+	automatic = 0
 	actions_types = list()
 
 /obj/item/gun/ballistic/automatic/toy/pistol/riot
@@ -55,6 +58,8 @@
 	item_flags = NONE
 	casing_ejector = FALSE
 	can_suppress = FALSE
+	pb_knockback = 0
+	recoil = 0
 
 /obj/item/gun/ballistic/shotgun/toy/update_icon()
 	. = ..()

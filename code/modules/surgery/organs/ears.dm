@@ -6,14 +6,21 @@
 	slot = ORGAN_SLOT_EARS
 	gender = PLURAL
 
+	healing_factor = STANDARD_ORGAN_HEALING
+	decay_factor = STANDARD_ORGAN_DECAY
+
+	low_threshold_passed = "<span class='info'>Your ears begin to resonate with an internal ring sometimes.</span>"
+	now_failing = "<span class='warning'>You are unable to hear at all!</span>"
+	now_fixed = "<span class='info'>Noise slowly begins filling your ears once more.</span>"
+	low_threshold_cleared = "<span class='info'>The ringing in your ears has died down.</span>"
+
 	// `deaf` measures "ticks" of deafness. While > 0, the person is unable
 	// to hear anything.
 	var/deaf = 0
 
-	// `ear_damage` measures long term damage to the ears, if too high,
+	// `damage` in this case measures long term damage to the ears, if too high,
 	// the person will not have either `deaf` or `ear_damage` decrease
 	// without external aid (earmuffs, drugs)
-	var/ear_damage = 0
 
 	//Resistance against loud noises
 	var/bang_protect = 0
@@ -23,25 +30,34 @@
 /obj/item/organ/ears/on_life()
 	if(!iscarbon(owner))
 		return
+	..()
 	var/mob/living/carbon/C = owner
+	if((damage < maxHealth) && (organ_flags & ORGAN_FAILING))	//ear damage can be repaired from the failing condition
+		organ_flags &= ~ORGAN_FAILING
 	// genetic deafness prevents the body from using the ears, even if healthy
-	if(C.has_trait(TRAIT_DEAF))
+	if(HAS_TRAIT(C, TRAIT_DEAF))
 		deaf = max(deaf, 1)
-	else if(ear_damage < UNHEALING_EAR_DAMAGE) // if higher than UNHEALING_EAR_DAMAGE, no natural healing occurs.
-		ear_damage = max(ear_damage - 0.05, 0)
+	else if(!(organ_flags & ORGAN_FAILING)) // if this organ is failing, do not clear deaf stacks.
 		deaf = max(deaf - 1, 0)
+		if(prob(damage / 20) && (damage > low_threshold))
+			adjustEarDamage(0, 4)
+			SEND_SOUND(C, sound('sound/weapons/flash_ring.ogg'))
+			to_chat(C, "<span class='warning'>The ringing in your ears grows louder, blocking out any external noises for a moment.</span>")
+	else if((organ_flags & ORGAN_FAILING) && (deaf == 0))
+		deaf = 1	//stop being not deaf you deaf idiot
 
 /obj/item/organ/ears/proc/restoreEars()
 	deaf = 0
-	ear_damage = 0
+	damage = 0
+	organ_flags &= ~ORGAN_FAILING
 
 	var/mob/living/carbon/C = owner
 
-	if(iscarbon(owner) && C.has_trait(TRAIT_DEAF))
+	if(iscarbon(owner) && HAS_TRAIT(C, TRAIT_DEAF))
 		deaf = 1
 
 /obj/item/organ/ears/proc/adjustEarDamage(ddmg, ddeaf)
-	ear_damage = max(ear_damage + (ddmg*damage_multiplier), 0)
+	damage = max(damage + (ddmg*damage_multiplier), 0)
 	deaf = max(deaf + (ddeaf*damage_multiplier), 0)
 
 /obj/item/organ/ears/proc/minimumDeafTicks(value)
@@ -77,7 +93,7 @@
 	name = "cat ears"
 	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "kitty"
-	damage_multiplier = 2
+	bang_protect = -2
 
 /obj/item/organ/ears/cat/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
 	..()
@@ -116,5 +132,28 @@
 	name = "tin ears"
 	desc = "The robust ears of a bronze golem. "
 	damage_multiplier = 0.1 //STRONK
-	bang_protect = 1 //Fear me weaklings. 
+	bang_protect = 1 //Fear me weaklings.
 
+/obj/item/organ/ears/robot
+	name = "auditory sensors"
+	icon_state = "robotic_ears"
+	desc = "A pair of microphones intended to be installed in an IPC head, that grant the ability to hear."
+	zone = "head"
+	slot = "ears"
+	gender = PLURAL
+	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_SYNTHETIC
+
+/obj/item/organ/ears/robot/emp_act(severity)
+	switch(severity)
+		if(1)
+			owner.Jitter(30)
+			owner.Dizzy(30)
+			owner.Knockdown(200)
+			deaf = 30
+			to_chat(owner, "<span class='warning'>Your robotic ears are ringing, uselessly.</span>")
+		if(2)
+			owner.Jitter(15)
+			owner.Dizzy(15)
+			owner.Knockdown(100)
+			to_chat(owner, "<span class='warning'>Your robotic ears buzz.</span>") 

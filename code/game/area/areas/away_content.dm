@@ -8,7 +8,7 @@ Unused icons for new areas are "awaycontent1" ~ "awaycontent30"
 	name = "Strange Location"
 	icon_state = "away"
 	has_gravity = STANDARD_GRAVITY
-	ambientsounds = AWAY_MISSION
+	ambient_effects = AWAY_MISSION
 
 /area/awaymission/beach
 	name = "Beach"
@@ -16,7 +16,7 @@ Unused icons for new areas are "awaycontent1" ~ "awaycontent30"
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
-	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
+	ambient_effects = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
 
 /area/awaymission/errorroom
 	name = "Super Secret Room"
@@ -26,3 +26,7 @@ Unused icons for new areas are "awaycontent1" ~ "awaycontent30"
 /area/awaymission/vr
 	name = "Virtual Reality"
 	icon_state = "awaycontent1"
+	requires_power = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	var/pacifist = TRUE // if when you enter this zone, you become a pacifist or not
+	var/death = FALSE // if when you enter this zone, you die

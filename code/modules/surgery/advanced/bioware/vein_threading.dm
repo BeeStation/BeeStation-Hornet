@@ -10,6 +10,7 @@
 				/datum/surgery_step/close)
 	possible_locs = list(BODY_ZONE_CHEST)
 	bioware_target = BIOWARE_CIRCULATION
+	self_operable = TRUE
 
 /datum/surgery_step/thread_veins
 	name = "thread veins"
@@ -17,10 +18,14 @@
 	time = 125
 
 /datum/surgery_step/thread_veins/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("[user] starts weaving [target]'s circulatory system.", "<span class='notice'>You start weaving [target]'s circulatory system.</span>")
+	display_results(user, target, "<span class='notice'>You start weaving [target]'s circulatory system.</span>",
+		"[user] starts weaving [target]'s circulatory system.",
+		"[user] starts manipulating [target]'s circulatory system.")
 
 /datum/surgery_step/thread_veins/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("[user] weaves [target]'s circulatory system into a resistant mesh!", "<span class='notice'>You weave [target]'s circulatory system into a resistant mesh!</span>")
+	display_results(user, target, "<span class='notice'>You weave [target]'s circulatory system into a resistant mesh!</span>",
+		"[user] weaves [target]'s circulatory system into a resistant mesh!",
+		"[user] finishes manipulating [target]'s circulatory system.")
 	new /datum/bioware/threaded_veins(target)
 	return TRUE
 
@@ -36,3 +41,4 @@
 /datum/bioware/threaded_veins/on_lose()
 	..()
 	owner.physiology.bleed_mod *= 4
+

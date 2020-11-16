@@ -23,14 +23,21 @@ Bonus
 	stage_speed = 2
 	transmittable = 2
 	level = 2
-	severity = 2
+	severity = 0
 	symptom_delay_min = 10
 	symptom_delay_max = 30
 	var/unsafe = FALSE //over the cold threshold
 	threshold_desc = "<b>Stage Speed 5:</b> Increases cooling speed; the host can fall below safe temperature levels.<br>\
 					  <b>Stage Speed 10:</b> Further increases cooling speed."
 
-/datum/symptom/fever/Start(datum/disease/advance/A)
+/datum/symptom/shivering/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.properties["stage_rate"] >= 5) //dangerous cold
+		severity += 1
+	if(A.properties["stage_rate"] >= 10)
+		severity += 1
+
+/datum/symptom/shivering/Start(datum/disease/advance/A)
 	if(!..())
 		return
 	if(A.properties["stage_rate"] >= 5) //dangerous cold

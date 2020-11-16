@@ -33,6 +33,9 @@
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		restricted_jobs += "Assistant"
 
+	if(CONFIG_GET(flag/protect_heads_from_antagonist))
+		restricted_jobs += GLOB.command_positions
+
 	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
 
 	var/num_changelings = 1
@@ -47,7 +50,7 @@
 		for(var/j = 0, j < num_changelings, j++)
 			if(!possible_changelings.len)
 				break
-			var/datum/mind/changeling = antag_pick(possible_changelings)
+			var/datum/mind/changeling = antag_pick(possible_changelings, ROLE_CHANGELING)
 			antag_candidates -= changeling
 			possible_changelings -= changeling
 			changeling.special_role = ROLE_CHANGELING
@@ -83,3 +86,8 @@
 	return "The Syndicate has started some experimental research regarding humanoid shapeshifting.  There are rumors that this technology will be field tested on a Nanotrasen station \
 			for infiltration purposes.  Be advised that support personel may also be deployed to defend these shapeshifters. Trust nobody - suspect everybody. Do not announce this to the crew, \
 			as paranoia may spread and inhibit workplace efficiency."
+
+/datum/game_mode/traitor/changeling/trustnobody
+	name = "traitor + lings + no protected roles"
+	config_tag = "trustnobody"
+	protected_jobs = list()

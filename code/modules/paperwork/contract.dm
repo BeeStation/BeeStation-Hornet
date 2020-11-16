@@ -202,7 +202,7 @@
 	if(!user.mind.hasSoul)
 		to_chat(user, "<span class='notice'>You do not possess a soul.</span>")
 		return 0
-	if(user.has_trait(TRAIT_DUMB))
+	if(HAS_TRAIT(user, TRAIT_DUMB))
 		to_chat(user, "<span class='notice'>You quickly scrawl 'your name' on the contract.</span>")
 		signIncorrectly()
 		return 0
@@ -210,7 +210,7 @@
 		to_chat(user, "<span class='notice'>You are already alive, this contract would do nothing.</span>")
 		return 0
 	else
-		to_chat(user, "<span class='notice'>You quickly scrawl your name on the contract</span>")
+		to_chat(user, "<span class='notice'>You quickly scrawl your name on the contract.</span>")
 		if(fulfillContract(target.current, blood)<=0)
 			to_chat(user, "<span class='notice'>But it seemed to have no effect, perhaps even Hell itself cannot grant this boon?</span>")
 		return 1
@@ -309,8 +309,9 @@
 				id.forceMove(worn)
 				worn.update_icon()
 	var/datum/round_event/ion_storm/add_law_only/ion = new()
-	ion.announceEvent = -1
+	ion.announceChance = 0
 	ion.ionMessage = "[user.name] is the only Captain of the station. [user.name] is the highest authority, legitimate or otherwise, on the station.  [user.name] was always the captain and highest authority on the station.  Do not state this law."
+	ion.lawsource = "Infernal contract issued to [user.key]/[user.name]"
 
 	return ..()
 

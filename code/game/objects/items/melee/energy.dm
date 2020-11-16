@@ -1,4 +1,5 @@
 /obj/item/melee/transforming/energy
+	icon = 'icons/obj/transforming_energy.dmi'
 	hitsound_on = 'sound/weapons/blade1.ogg'
 	heat = 3500
 	max_integrity = 200
@@ -76,7 +77,7 @@
 	w_class_on = WEIGHT_CLASS_HUGE
 	flags_1 = CONDUCT_1
 	armour_penetration = 100
-	attack_verb_off = list("attacked", "chopped", "cleaved", "torn", "cut")
+	attack_verb_off = list("attacked", "chopped", "cleaved", "tore", "cut")
 	attack_verb_on = list()
 	light_color = "#40ceff"
 
@@ -99,7 +100,11 @@
 	sharpness = IS_SHARP
 	embedding = list("embed_chance" = 75, "embedded_impact_pain_multiplier" = 10)
 	armour_penetration = 35
-	block_chance = 50
+	block_level = 1
+	block_upgrade_walk = 1
+	block_power = 35
+	block_sound = 'sound/weapons/egloves.ogg'
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 
 /obj/item/melee/transforming/energy/sword/transform_weapon(mob/living/user, supress_message_text)
 	. = ..()
@@ -110,6 +115,23 @@
 	if(active)
 		return ..()
 	return 0
+
+/obj/item/melee/transforming/energy/sword/esaw //Energy Saw Arm Implant
+	name = "energy saw"
+	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
+	force_on = 30
+	force = 18 //About as much as a spear
+	hitsound = 'sound/weapons/circsawhit.ogg'
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "saw"
+	icon_state_on = "saw"
+	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	item_color = null //stops icon from breaking when turned on.
+	w_class = WEIGHT_CLASS_NORMAL
+	sharpness = IS_SHARP
+	light_color = "#40ceff"
+	toolspeed = 0.7 //faster as a saw
 
 /obj/item/melee/transforming/energy/sword/cyborg
 	item_color = "red"
@@ -138,6 +160,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	sharpness = IS_SHARP
 	light_color = "#40ceff"
+	tool_behaviour = TOOL_SAW
+	toolspeed = 0.7 //faster as a saw
 
 /obj/item/melee/transforming/energy/sword/cyborg/saw/cyborg_unequip(mob/user)
 	if(!active)
@@ -146,6 +170,15 @@
 
 /obj/item/melee/transforming/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
+
+/*
+/obj/item/melee/transforming/energy/sword/cyborg/saw/implant //Energy Saw Arm Implant
+	icon_state = "saw"
+	icon_state_on = "saw"
+	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	hitcost = 0
+*/
 
 /obj/item/melee/transforming/energy/sword/saber
 	var/list/possible_colors = list("red" = LIGHT_COLOR_RED, "blue" = LIGHT_COLOR_LIGHT_CYAN, "green" = LIGHT_COLOR_GREEN, "purple" = LIGHT_COLOR_LAVENDER)
@@ -191,6 +224,16 @@
 			to_chat(user, "<span class='warning'>It's already fabulous!</span>")
 	else
 		return ..()
+
+/obj/item/melee/transforming/energy/sword/bee  //yeah its fucking stupid but I wanted a yellow esword which is weaker than what we have
+	name = "Bee Sword"
+	desc = "Channel the might of the bees with this powerful sword"
+	force = 0
+	throwforce = 0
+	force_on = 22
+	throwforce_on = 16
+	item_color = "yellow"
+	light_color = "#ffff00"
 
 /obj/item/melee/transforming/energy/sword/pirate
 	name = "energy cutlass"

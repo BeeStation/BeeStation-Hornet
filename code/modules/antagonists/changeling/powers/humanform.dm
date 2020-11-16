@@ -1,8 +1,8 @@
 /datum/action/changeling/humanform
 	name = "Human Form"
-	desc = "We change into a human. Costs 5 chemicals."
+	desc = "We change into a human. Costs 10 chemicals."
 	button_icon_state = "human_form"
-	chemical_cost = 5
+	chemical_cost = 10
 	req_dna = 1
 
 //Transform into a human.
@@ -12,7 +12,7 @@
 	for(var/datum/changelingprofile/prof in changeling.stored_profiles)
 		names += "[prof.name]"
 
-	var/chosen_name = input("Select the target DNA: ", "Target DNA", null) as null|anything in names
+	var/chosen_name = input("Select the target DNA: ", "Target DNA", null) as null|anything in sortList(names)
 	if(!chosen_name)
 		return
 

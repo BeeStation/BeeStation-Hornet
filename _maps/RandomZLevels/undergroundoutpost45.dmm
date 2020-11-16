@@ -300,7 +300,7 @@
 	locked = 0;
 	req_access_txt = "201"
 	},
-/obj/item/clothing/under/pj/blue,
+/obj/item/clothing/under/misc/pj/blue,
 /turf/open/floor/carpet{
 	heat_capacity = 1e+006
 	},
@@ -347,7 +347,7 @@
 	locked = 0;
 	req_access_txt = "201"
 	},
-/obj/item/clothing/under/suit_jacket/female,
+/obj/item/clothing/under/suit/black/skirt,
 /turf/open/floor/carpet{
 	heat_capacity = 1e+006
 	},
@@ -1760,8 +1760,7 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/monkey,
 /obj/item/reagent_containers/food/snacks/meat/slab/monkey,
 /obj/item/reagent_containers/food/snacks/meat/slab/monkey,
-/obj/structure/closet/secure_closet{
-	icon_state = "freezer";
+/obj/structure/closet/secure_closet/freezer{
 	locked = 0;
 	name = "meat fridge";
 	req_access_txt = "201"
@@ -1784,8 +1783,7 @@
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/storage/fancy/egg_box,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/secure_closet{
-	icon_state = "freezer";
+/obj/structure/closet/secure_closet/freezer{
 	locked = 0;
 	name = "refrigerator";
 	req_access_txt = "201"
@@ -2118,7 +2116,7 @@
 	},
 /area/awaymission/undergroundoutpost45/caves)
 "ev" = (
-/obj/item/clothing/under/pj/red,
+/obj/item/clothing/under/misc/pj,
 /obj/structure/closet/secure_closet/personal/cabinet{
 	locked = 0;
 	req_access_txt = "201"
@@ -2168,7 +2166,7 @@
 	},
 /area/awaymission/undergroundoutpost45/central)
 "ez" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral,
@@ -2192,7 +2190,7 @@
 	},
 /area/awaymission/undergroundoutpost45/central)
 "eC" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -2292,7 +2290,7 @@
 	},
 /area/awaymission/undergroundoutpost45/central)
 "eL" = (
-/obj/structure/chair/office/dark{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red,
@@ -2319,7 +2317,7 @@
 	},
 /area/awaymission/undergroundoutpost45/central)
 "eN" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2551,7 +2549,7 @@
 	dir = 2;
 	locked = 0;
 	name = "Hydroponics APC";
-	pixel_y = -25;
+	pixel_y = -23;
 	req_access = null;
 	start_charge = 100
 	},
@@ -3110,7 +3108,7 @@
 	name = "Kitchen Crate"
 	},
 /obj/item/storage/box/mousetraps,
-/obj/item/clothing/under/waiter,
+/obj/item/clothing/under/suit/waiter,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/showroomfloor{
 	heat_capacity = 1e+006
@@ -3295,7 +3293,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/metal{
+/obj/item/stack/sheet/iron{
 	amount = 23
 	},
 /turf/open/floor/plasteel/white/side{
@@ -5015,7 +5013,7 @@
 	dir = 1;
 	locked = 0;
 	name = "UO45 Bar APC";
-	pixel_y = 25;
+	pixel_y = 23;
 	req_access = null;
 	start_charge = 100
 	},
@@ -5243,7 +5241,7 @@
 	},
 /area/awaymission/undergroundoutpost45/gateway)
 "km" = (
-/obj/item/clothing/under/suit_jacket/navy,
+/obj/item/clothing/under/suit/navy,
 /obj/structure/closet/secure_closet/personal/cabinet{
 	locked = 0;
 	req_access_txt = "201"
@@ -6163,7 +6161,7 @@
 	dir = 2;
 	locked = 0;
 	name = "UO45 Research Division APC";
-	pixel_y = -25;
+	pixel_y = -23;
 	req_access = null;
 	start_charge = 100
 	},
@@ -6668,7 +6666,7 @@
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "mz" = (
 /obj/structure/closet/crate,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/rods/fifty,
 /turf/open/floor/plating{
@@ -6721,7 +6719,7 @@
 	dir = 2;
 	locked = 0;
 	name = "UO45 Gateway APC";
-	pixel_y = -25;
+	pixel_y = -23;
 	req_access = null;
 	start_charge = 100
 	},
@@ -7123,7 +7121,7 @@
 	},
 /area/awaymission/undergroundoutpost45/research)
 "np" = (
-/obj/structure/chair/office/dark{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /turf/open/floor/plasteel{
@@ -9675,7 +9673,7 @@
 	locked = 0;
 	req_access_txt = "201"
 	},
-/obj/item/clothing/under/pj/red,
+/obj/item/clothing/under/misc/pj,
 /turf/open/floor/carpet{
 	heat_capacity = 1e+006
 	},
@@ -10229,7 +10227,7 @@
 	dir = 2;
 	locked = 0;
 	name = "UO45 Mining APC";
-	pixel_y = -25;
+	pixel_y = -23;
 	req_access = null;
 	start_charge = 100
 	},
@@ -10603,7 +10601,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/structure/chair/office/dark{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
@@ -11782,7 +11780,7 @@
 	dir = 5;
 	level = 1
 	},
-/obj/structure/chair/office/dark{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/open/floor/plasteel{
@@ -12774,7 +12772,7 @@
 	},
 /area/awaymission/undergroundoutpost45/engineering)
 "wH" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -13537,7 +13535,7 @@
 	dir = 4
 	},
 /obj/structure/closet/crate,
-/obj/item/stack/sheet/metal{
+/obj/item/stack/sheet/iron{
 	amount = 26
 	},
 /obj/item/stack/sheet/glass{

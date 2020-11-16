@@ -23,9 +23,6 @@
 		to_chat(user, "<span class='notice'>We have revived ourselves.</span>")
 	else
 		to_chat(user, "<span class='notice'>We begin our stasis, preparing energy to arise once more.</span>")
-		if(user.stat != DEAD)
-			user.emote("deathgasp")
-			user.tod = station_time_timestamp()
 		user.fakedeath("changeling") //play dead
 		user.update_stat()
 		user.update_mobility()
@@ -37,24 +34,12 @@
 		return
 	user.cure_fakedeath("changeling")
 	user.revive(full_heal = TRUE)
-	var/list/missing = user.get_missing_limbs()
-	missing -= BODY_ZONE_HEAD // headless changelings are funny
-	if(missing.len)
-		playsound(user, 'sound/magic/demon_consume.ogg', 50, 1)
-		user.visible_message("<span class='warning'>[user]'s missing limbs \
-			reform, making a loud, grotesque sound!</span>",
-			"<span class='userdanger'>Your limbs regrow, making a \
-			loud, crunchy sound and giving you great pain!</span>",
-			"<span class='italics'>You hear organic matter ripping \
-			and tearing!</span>")
-		user.emote("scream")
-		user.regenerate_limbs(0, list(BODY_ZONE_HEAD))
 	user.regenerate_organs()
 
 /datum/action/changeling/fakedeath/proc/ready_to_regenerate(mob/user)
-	if(user && user.mind)
+	if(user?.mind)
 		var/datum/antagonist/changeling/C = user.mind.has_antag_datum(/datum/antagonist/changeling)
-		if(C && C.purchasedpowers)
+		if(C?.purchasedpowers)
 			to_chat(user, "<span class='notice'>We are ready to revive.</span>")
 			name = "Revive"
 			desc = "We arise once more."
@@ -64,7 +49,10 @@
 			revive_ready = TRUE
 
 /datum/action/changeling/fakedeath/can_sting(mob/living/user)
-	if(user.has_trait(TRAIT_DEATHCOMA, "changeling") && !revive_ready)
+	if(HAS_TRAIT(user, TRAIT_HUSK))
+		to_chat(user, "<span class='warning'>This body is too damaged to revive!.</span>")
+		return
+	if(HAS_TRAIT_FROM(user, TRAIT_DEATHCOMA, "changeling") && !revive_ready)
 		to_chat(user, "<span class='warning'>We are already reviving.</span>")
 		return
 	if(!user.stat && !revive_ready) //Confirmation for living changelings if they want to fake their death

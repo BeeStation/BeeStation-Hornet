@@ -3,7 +3,7 @@
 // Data from the seeds carry over to these grown foods
 // ***********************************************************
 
-// Base type. Subtypes are found in /grown dir.
+// Base type. Subtypes are found in /grown dir. Lavaland-based subtypes can be found in mining/ash_flora.dm
 /obj/item/reagent_containers/food/snacks/grown
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	var/obj/item/seeds/seed = null // type path, gets converted to item on New(). It's safe to assume it's always a seed item.
@@ -56,11 +56,11 @@
 	return 0
 
 /obj/item/reagent_containers/food/snacks/grown/examine(user)
-	..()
+	. = ..()
 	if(seed)
 		for(var/datum/plant_gene/trait/T in seed.genes)
 			if(T.examine_line)
-				to_chat(user, T.examine_line)
+				. += T.examine_line
 
 /obj/item/reagent_containers/food/snacks/grown/attackby(obj/item/O, mob/user, params)
 	..()
@@ -117,11 +117,18 @@
 	if(seed)
 		for(var/datum/plant_gene/trait/trait in seed.genes)
 			trait.on_squash(src, target)
-
-	reagents.reaction(T)
-	for(var/A in T)
-		reagents.reaction(A)
-
+	if(!seed.get_gene(/datum/plant_gene/trait/noreact))
+		reagents.reaction(T)
+		for(var/A in T)
+			reagents.reaction(A)
+		qdel(src)
+	if(seed.get_gene(/datum/plant_gene/trait/noreact))
+		visible_message("<span class='warning'>[src] crumples, and bubbles ominously as its contents mix.</span>")
+		addtimer(CALLBACK(src, .proc/squashreact), 20)
+		
+/obj/item/reagent_containers/food/snacks/grown/proc/squashreact()
+	for(var/datum/plant_gene/trait/trait in seed.genes)
+		trait.on_squashreact(src)
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/grown/On_Consume()
@@ -132,7 +139,7 @@
 	..()
 
 /obj/item/reagent_containers/food/snacks/grown/generate_trash(atom/location)
-	if(trash && ispath(trash, /obj/item/grown))
+	if(trash && (ispath(trash, /obj/item/grown) || ispath(trash, /obj/item/reagent_containers/food/snacks/grown)))
 		. = new trash(location, seed)
 		trash = null
 		return
@@ -145,22 +152,30 @@
 	return TRUE
 
 /obj/item/reagent_containers/food/snacks/grown/on_grind()
-	var/nutriment = reagents.get_reagent_amount("nutriment")
+	var/nutriment = reagents.get_reagent_amount(/datum/reagent/consumable/nutriment)
 	if(grind_results&&grind_results.len)
 		for(var/i in 1 to grind_results.len)
 			grind_results[grind_results[i]] = nutriment
-		reagents.del_reagent("nutriment")
-		reagents.del_reagent("vitamin")
+		reagents.del_reagent(/datum/reagent/consumable/nutriment)
+		reagents.del_reagent(/datum/reagent/consumable/nutriment/vitamin)
 
 /obj/item/reagent_containers/food/snacks/grown/on_juice()
-	var/nutriment = reagents.get_reagent_amount("nutriment")
-	if(juice_results&&juice_results.len)
+	var/nutriment = reagents.get_reagent_amount(/datum/reagent/consumable/nutriment)
+	if(juice_results?.len)
 		for(var/i in 1 to juice_results.len)
 			juice_results[juice_results[i]] = nutriment
-		reagents.del_reagent("nutriment")
-		reagents.del_reagent("vitamin")
+		reagents.del_reagent(/datum/reagent/consumable/nutriment)
+		reagents.del_reagent(/datum/reagent/consumable/nutriment/vitamin)
 
-// For item-containing growns such as eggy or gatfruit
+/*
+ * Attack self for growns
+ *
+ * Spawns the trash item at the growns drop_location()
+ *
+ * Then deletes the grown object
+ *
+ * Then puts trash item into the hand of user attack selfing, or drops it back on the ground
+ */
 /obj/item/reagent_containers/food/snacks/grown/shell/attack_self(mob/user)
 	var/obj/item/T
 	if(trash)

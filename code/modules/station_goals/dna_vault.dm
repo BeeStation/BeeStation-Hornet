@@ -101,7 +101,7 @@
 		if(isanimal(target))
 			var/mob/living/simple_animal/A = target
 			if(!A.healable)//simple approximation of being animal not a robot or similar
-				to_chat(user, "<span class='warning'>No compatible DNA detected</span>")
+				to_chat(user, "<span class='warning'>No compatible DNA detected.</span>")
 				return
 		if(animals[target.type])
 			to_chat(user, "<span class='notice'>Animal data already present in local storage.</span>")
@@ -131,6 +131,8 @@
 	light_range = 3
 	light_power = 1.5
 	light_color = LIGHT_COLOR_CYAN
+
+
 
 
 	//High defaults so it's not completed automatically if there's no station goal
@@ -175,11 +177,15 @@
 	. = ..()
 
 
-/obj/machinery/dna_vault/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/dna_vault/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/machinery/dna_vault/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		roll_powers(user)
-		ui = new(user, src, ui_key, "dna_vault", name, 350, 400, master_ui, state)
+		ui = new(user, src, "DnaVault")
 		ui.open()
 
 
@@ -206,7 +212,7 @@
 	data["choiceB"] = ""
 	if(user && completed)
 		var/list/L = power_lottery[user]
-		if(L && L.len)
+		if(L?.len)
 			data["used"] = FALSE
 			data["choiceA"] = L[1]
 			data["choiceB"] = L[2]
@@ -246,8 +252,6 @@
 	else
 		return ..()
 
-
-
 /obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/H,upgrade_type)
 	if(!(upgrade_type in power_lottery[H]))
 		return
@@ -259,22 +263,22 @@
 				var/obj/item/organ/lungs/L = H.internal_organs_slot[ORGAN_SLOT_LUNGS]
 				L.tox_breath_dam_min = 0
 				L.tox_breath_dam_max = 0
-			H.add_trait(TRAIT_VIRUSIMMUNE, "dna_vault")
+			ADD_TRAIT(H, TRAIT_VIRUSIMMUNE, "dna_vault")
 		if(VAULT_NOBREATH)
 			to_chat(H, "<span class='notice'>Your lungs feel great.</span>")
-			H.add_trait(TRAIT_NOBREATH, "dna_vault")
+			ADD_TRAIT(H, TRAIT_NOBREATH, "dna_vault")
 		if(VAULT_FIREPROOF)
 			to_chat(H, "<span class='notice'>You feel fireproof.</span>")
 			S.burnmod = 0.5
-			H.add_trait(TRAIT_RESISTHEAT, "dna_vault")
-			H.add_trait(TRAIT_NOFIRE, "dna_vault")
+			ADD_TRAIT(H, TRAIT_RESISTHEAT, "dna_vault")
+			ADD_TRAIT(H, TRAIT_NOFIRE, "dna_vault")
 		if(VAULT_STUNTIME)
 			to_chat(H, "<span class='notice'>Nothing can keep you down for long.</span>")
 			S.stunmod = 0.5
 		if(VAULT_ARMOUR)
 			to_chat(H, "<span class='notice'>You feel tough.</span>")
 			S.armor = 30
-			H.add_trait(TRAIT_PIERCEIMMUNE, "dna_vault")
+			ADD_TRAIT(H, TRAIT_PIERCEIMMUNE, "dna_vault")
 		if(VAULT_SPEED)
 			to_chat(H, "<span class='notice'>Your legs feel faster.</span>")
 			H.add_movespeed_modifier(MOVESPEED_ID_DNA_VAULT, update=TRUE, priority=100, multiplicative_slowdown=-1, blacklisted_movetypes=(FLYING|FLOATING))

@@ -1,0 +1,183 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"h" = (
+/turf/open/floor/monotile/steel,
+/area/space)
+"x" = (
+/turf/open/floor/plasteel/techmaint,
+/area/space)
+"A" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green,
+/turf/open/floor/plasteel/techmaint,
+/area/space)
+"J" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/space)
+"O" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/space)
+
+(1,1,1) = {"
+O
+J
+J
+J
+J
+J
+J
+J
+"}
+(2,1,1) = {"
+x
+h
+h
+h
+h
+h
+h
+x
+"}
+(3,1,1) = {"
+x
+h
+h
+h
+h
+h
+h
+x
+"}
+(4,1,1) = {"
+x
+h
+h
+h
+h
+h
+h
+x
+"}
+(5,1,1) = {"
+x
+h
+h
+h
+h
+h
+h
+x
+"}
+(6,1,1) = {"
+x
+h
+h
+h
+h
+h
+h
+x
+"}
+(7,1,1) = {"
+x
+h
+h
+h
+h
+h
+h
+x
+"}
+(8,1,1) = {"
+x
+h
+h
+h
+h
+h
+h
+x
+"}
+(9,1,1) = {"
+x
+h
+h
+h
+h
+h
+h
+x
+"}
+(10,1,1) = {"
+x
+h
+h
+h
+h
+h
+h
+x
+"}
+(11,1,1) = {"
+x
+h
+h
+h
+h
+h
+h
+x
+"}
+(12,1,1) = {"
+x
+h
+h
+h
+h
+h
+h
+x
+"}
+(13,1,1) = {"
+x
+h
+h
+h
+h
+h
+h
+x
+"}
+(14,1,1) = {"
+x
+h
+h
+h
+h
+h
+h
+x
+"}
+(15,1,1) = {"
+A
+A
+A
+A
+A
+A
+A
+A
+"}

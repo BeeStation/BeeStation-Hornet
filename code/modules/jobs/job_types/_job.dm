@@ -1,5 +1,5 @@
 /datum/job
-	//The name of the job
+	//The name of the job , used for preferences, bans and more. Make sure you know what you're doing before changing this.
 	var/title = "NOPE"
 
 	//Job access. The use of minimal_access or access is determined by a config setting: config.jobs_have_minimal_access
@@ -13,8 +13,8 @@
 	var/list/head_announce = null
 
 	//Bitflags for the job
-	var/flag = NONE
-	var/department_flag = NONE
+	var/flag = NONE //Deprecated
+	var/department_flag = NONE //Deprecated
 	var/auto_deadmin_role_flags = NONE
 
 	//Players will be allowed to spawn in as jobs that are set to "Station"
@@ -35,6 +35,8 @@
 	//Sellection screen color
 	var/selection_color = "#ffffff"
 
+	//Overhead chat message colour
+	var/chat_color = "#ffffff"
 
 	//If this is set to 1, a text is printed to the player when jobs are assigned, telling him that he should let admins know that he has to disconnect.
 	var/req_admin_notify
@@ -60,13 +62,85 @@
 
 	var/display_order = JOB_DISPLAY_ORDER_DEFAULT
 
-//Only override this proc
+	var/tmp/list/gear_leftovers = list()
+	var/gimmick = FALSE //least hacky way i could think of for this
+
+//Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 //H is usually a human unless an /equip override transformed it
+//do actions on H but send messages to M as the key may not have been transferred_yet
 /datum/job/proc/after_spawn(mob/living/H, mob/M, latejoin = FALSE)
 	//do actions on H but send messages to M as the key may not have been transferred_yet
 	if(mind_traits)
 		for(var/t in mind_traits)
-			H.mind.add_trait(t, JOB_TRAIT)
+			ADD_TRAIT(H.mind, t, JOB_TRAIT)
+
+	if(!ishuman(H))
+		return
+	var/mob/living/carbon/human/human = H
+	if(M.client && (M.client.prefs.equipped_gear && M.client.prefs.equipped_gear.len))
+		for(var/gear in M.client.prefs.equipped_gear)
+			var/datum/gear/G = GLOB.gear_datums[gear]
+			if(G)
+				var/permitted = FALSE
+
+				if(G.allowed_roles && H.mind && (H.mind.assigned_role in G.allowed_roles))
+					permitted = TRUE
+				else if(!G.allowed_roles)
+					permitted = TRUE
+				else
+					permitted = FALSE
+
+				if(G.species_blacklist && (human.dna.species.id in G.species_blacklist))
+					permitted = FALSE
+
+				if(G.species_whitelist && !(human.dna.species.id in G.species_whitelist))
+					permitted = FALSE
+
+				if(!permitted)
+					to_chat(M, "<span class='warning'>Your current species or role does not permit you to spawn with [gear]!</span>")
+					continue
+
+				if(G.slot)
+					if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot))
+						to_chat(M, "<span class='notice'>Equipping you with [gear]!</span>")
+					else
+						gear_leftovers += G
+				else
+					gear_leftovers += G
+
+			else
+				M.client.prefs.equipped_gear -= gear
+
+	if(gear_leftovers.len)
+		for(var/datum/gear/G in gear_leftovers)
+			var/metadata = M.client.prefs.equipped_gear[G.display_name]
+			var/item = G.spawn_item(null, metadata)
+			var/atom/placed_in = human.equip_or_collect(item)
+
+			if(istype(placed_in))
+				if(isturf(placed_in))
+					to_chat(M, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")
+				else
+					to_chat(M, "<span class='noticed'>Placing [G.display_name] in [placed_in.name]]")
+				continue
+
+			if(H.equip_to_appropriate_slot(item))
+				to_chat(M, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")
+				continue
+			if(H.put_in_hands(item))
+				to_chat(M, "<span class='notice'>Placing [G.display_name] in your hands!</span>")
+				continue
+
+			var/obj/item/storage/B = (locate() in H)
+			if(B)
+				G.spawn_item(B, metadata)
+				to_chat(M, "<span class='notice'>Placing [G.display_name] in [B.name]!</span>")
+				continue
+
+			to_chat(M, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
+			qdel(item)
+
+		qdel(gear_leftovers)
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 	if(head_announce)
@@ -80,6 +154,11 @@
 	return TRUE
 
 /datum/job/proc/GetAntagRep()
+	if(CONFIG_GET(flag/equal_job_weight))
+		var/rep_value = CONFIG_GET(number/default_rep_value)
+		if(!rep_value)
+			rep_value = 0
+		return rep_value
 	. = CONFIG_GET(keyed_list/antag_rep)[lowertext(title)]
 	if(. == null)
 		return antag_rep
@@ -88,14 +167,14 @@
 /datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source)
 	if(!H)
 		return FALSE
-	if(!visualsOnly)
-		var/datum/bank_account/bank_account = new(H.real_name, src)
-		bank_account.payday(STARTING_PAYCHECKS, TRUE)
-		H.account_id = bank_account.account_id
 	if(CONFIG_GET(flag/enforce_human_authority) && (title in GLOB.command_positions))
 		if(H.dna.species.id != "human")
 			H.set_species(/datum/species/human)
 			H.apply_pref_name("human", preference_source)
+	if(!visualsOnly)
+		var/datum/bank_account/bank_account = new(H.real_name, src)
+		bank_account.payday(STARTING_PAYCHECKS, TRUE)
+		H.account_id = bank_account.account_id
 
 	//Equip the rest of the gear
 	H.dna.species.before_equip_job(src, H, visualsOnly)
@@ -139,9 +218,9 @@
 		return 0
 	if(!CONFIG_GET(flag/use_age_restriction_for_jobs))
 		return 0
-	if(!isnum(C.player_age))
-		return 0 //This is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced
-	if(!isnum(minimal_player_age))
+	if(!SSdbcore.Connect())
+		return 0 //Without a database connection we can't get a player's age so we'll assume they're old enough for all jobs
+	if(!isnum_safe(minimal_player_age))
 		return 0
 
 	return max(0, minimal_player_age - C.player_age)
@@ -233,4 +312,3 @@
 	if(CONFIG_GET(flag/security_has_maint_access))
 		return list(ACCESS_MAINT_TUNNELS)
 	return list()
-

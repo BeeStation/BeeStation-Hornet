@@ -74,6 +74,8 @@
 
 /obj/effect/proc_holder/spell/aimed/proc/fire_projectile(mob/living/user, atom/target)
 	current_amount--
+	if(!projectile_type)
+		return
 	for(var/i in 1 to projectiles_per_fire)
 		var/obj/item/projectile/P = new projectile_type(user.loc)
 		P.firer = user
@@ -92,13 +94,13 @@
 	name = "Lightning Bolt"
 	desc = "Fire a lightning bolt at your foes! It will jump between targets, but can't knock them down."
 	school = "evocation"
-	charge_max = 200
-	clothes_req = TRUE
+	charge_max = 150
+	clothes_req = FALSE
 	invocation = "UN'LTD P'WAH"
 	invocation_type = "shout"
-	cooldown_min = 30
-	active_icon_state = "lightning"
+	cooldown_min = 50
 	base_icon_state = "lightning"
+	action_icon_state = "lightning0"
 	sound = 'sound/magic/lightningbolt.ogg'
 	active = FALSE
 	projectile_var_overrides = list("tesla_range" = 15, "tesla_power" = 20000, "tesla_flags" = TESLA_MOB_DAMAGE)
@@ -110,12 +112,12 @@
 	name = "Fireball"
 	desc = "This spell fires an explosive fireball at a target."
 	school = "evocation"
-	charge_max = 60
-	clothes_req = FALSE
+	charge_max = 140
+	clothes_req = TRUE
 	invocation = "ONI SOMA"
 	invocation_type = "shout"
 	range = 20
-	cooldown_min = 20 //10 deciseconds reduction per rank
+	cooldown_min = 40 //10 deciseconds reduction per rank
 	projectile_type = /obj/item/projectile/magic/aoe/fireball
 	base_icon_state = "fireball"
 	action_icon_state = "fireball0"
@@ -126,17 +128,19 @@
 
 /obj/effect/proc_holder/spell/aimed/spell_cards
 	name = "Spell Cards"
-	desc = "Blazing hot rapid-fire homing cards. Send your foes to the shadow realm with their mystical power!"
+	desc = "Magically sharpened rapid-fire homing cards. Send your foes to the shadow realm with their mystical power!"
 	school = "evocation"
-	charge_max = 50
+	charge_max = 90
 	clothes_req = FALSE
 	invocation = "Sigi'lu M'Fan 'Tasia"
 	invocation_type = "shout"
 	range = 40
-	cooldown_min = 10
+	cooldown_min = 30
 	projectile_amount = 5
 	projectiles_per_fire = 7
 	projectile_type = /obj/item/projectile/spellcard
+	base_icon_state = "spellcard"
+	action_icon_state = "spellcard0"
 	var/datum/weakref/current_target_weakref
 	var/projectile_turnrate = 10
 	var/projectile_pixel_homing_spread = 32

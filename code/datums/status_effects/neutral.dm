@@ -13,6 +13,7 @@
 /datum/status_effect/crusher_damage //tracks the damage dealt to this mob by kinetic crushers
 	id = "crusher_damage"
 	duration = -1
+	tick_interval = -1
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
 	var/total_damage = 0
@@ -79,11 +80,11 @@
 
 /datum/status_effect/throat_soothed/on_apply()
 	. = ..()
-	owner.add_trait(TRAIT_SOOTHED_THROAT, "[STATUS_EFFECT_TRAIT]_[id]")
+	ADD_TRAIT(owner, TRAIT_SOOTHED_THROAT, "[STATUS_EFFECT_TRAIT]_[id]")
 
 /datum/status_effect/throat_soothed/on_remove()
 	. = ..()
-	owner.remove_trait(TRAIT_SOOTHED_THROAT, "[STATUS_EFFECT_TRAIT]_[id]")
+	REMOVE_TRAIT(owner, TRAIT_SOOTHED_THROAT, "[STATUS_EFFECT_TRAIT]_[id]")
 
 /datum/status_effect/bounty
 	id = "bounty"

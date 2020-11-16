@@ -27,6 +27,20 @@
 	item_state = "enviroslacks"
 	item_color = "enviroslacks"
 
+/obj/item/clothing/under/plasmaman/tux
+	name = "envirotux"
+	desc = "A flashy suit blended into an envirosuit."
+	icon_state = "envirotux"
+	item_state = "envirotux"
+	item_color = "envirotux"
+
+/obj/item/clothing/under/plasmaman/gold //yes, you can sell this for ludicrous mony
+	name = "designer envirosuit"
+	desc = "A flashy gold-trimmed envirosuit, complete with a suit jacket outerwear. This is a designer model, worth a few thousand credits."
+	icon_state = "gold_envirosuit"
+	item_state = "gold_envirosuit"
+	item_color = "gold_envirosuit"
+
 /obj/item/clothing/under/plasmaman/chaplain
 	name = "chaplain's plasma envirosuit"
 	desc = "An envirosuit specially designed for only the most pious of plasmamen."
@@ -49,8 +63,36 @@
 	item_color = "janitor_envirosuit"
 
 /obj/item/clothing/under/plasmaman/botany
-	name = "botany envirosuit"
+	name = "botany plasma envirosuit"
 	desc = "A green and blue envirosuit designed to protect plasmamen from minor plant-related injuries."
 	icon_state = "botany_envirosuit"
 	item_state = "botany_envirosuit"
 	item_color = "botany_envirosuit"
+	
+/obj/item/clothing/under/plasmaman/command //fun fact, captains uniforms don't get the sec uniform defense buff, pretty stupid
+	name = "captains plasma envirosuit"
+	desc = "A blue envirosuit with gold trimmings. A suit made for those who demand respect from their subordinates."
+	icon_state = "command_envirosuit"
+	item_state = "command_envirosuit"
+	item_color = "command_envirosuit"
+	
+/obj/item/clothing/under/plasmaman/hop
+	name = "head of personnel plasma envirosuit"
+	desc = "The head of personnels blue envirosuit, complete with red trimmings and adorned with various medals."
+	icon_state = "hop_envirosuit"
+	item_state = "hop_envirosuit"
+	item_color = "hop_envirosuit"
+
+/obj/item/clothing/under/plasmaman/mime
+	name = "mime envirosuit"
+	desc = "A black and white envirosuit, your bones may rattle but that won't stop your silent shinanigains!."
+	icon_state = "mime_envirosuit"
+	item_state = "mime_envirosuit"
+	item_color = "mime_envirosuit"
+
+/obj/item/clothing/under/plasmaman/honk
+	name = "Clowns plasma envirosuit"
+	desc = "A rainbow colored envirosuit, it reaks of bananas and cheap rubber horns."
+	icon_state = "honk_envirosuit"
+	item_state = "honk_envirosuit"
+	item_color = "honk_envirosuit"

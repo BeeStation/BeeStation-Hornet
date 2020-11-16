@@ -3,7 +3,17 @@
 	ui_interact(user)
 
 // Operates TGUI
-/obj/item/modular_computer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+
+/obj/item/modular_computer/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/item/modular_computer/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/headers),
+		get_asset_datum(/datum/asset/simple/arcade),
+	)
+
+/obj/item/modular_computer/ui_interact(mob/user, datum/tgui/ui)
 	if(!enabled)
 		if(ui)
 			ui.close()
@@ -33,15 +43,12 @@
 		to_chat(user, "<span class='danger'>\The [src] beeps three times, it's screen displaying a \"DISK ERROR\" warning.</span>")
 		return // No HDD, No HDD files list or no stored files. Something is very broken.
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
-		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
-		assets.send(user)
-
-		ui = new(user, src, ui_key, "ntos_main", "NTOS Main menu", 400, 500, master_ui, state)
+		ui = new(user, src, "NtosMain")
 		ui.open()
-		ui.set_autoupdate(state = 1)
-
+		ui.set_autoupdate(TRUE)
+		ui.send_asset(get_asset_datum(/datum/asset/simple/headers))
 
 /obj/item/modular_computer/ui_data(mob/user)
 	var/list/data = get_header_data()
@@ -68,10 +75,10 @@
 	switch(action)
 		if("PC_exit")
 			kill_program()
-			return 1
+			return TRUE
 		if("PC_shutdown")
 			shutdown_computer()
-			return 1
+			return TRUE
 		if("PC_minimize")
 			var/mob/user = usr
 			if(!active_program || !all_components[MC_CPU])
@@ -142,6 +149,7 @@
 				set_light(comp_light_luminosity, 1, comp_light_color)
 			else
 				set_light(0)
+			return TRUE
 
 		if("PC_light_color")
 			var/mob/user = usr
@@ -156,6 +164,7 @@
 			comp_light_color = new_color
 			light_color = new_color
 			update_light()
+			return TRUE
 		else
 			return
 

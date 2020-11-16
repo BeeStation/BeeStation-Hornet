@@ -103,7 +103,7 @@
 	if(mob_override)
 		current = mob_override
 	current.faction |= "cult"
-	current.grant_language(/datum/language/narsie)
+	current.grant_language(/datum/language/narsie, TRUE, TRUE, LANGUAGE_CULTIST)
 	if(!cult_team.cult_master)
 		vote.Grant(current)
 	communion.Grant(current)
@@ -121,7 +121,7 @@
 	if(mob_override)
 		current = mob_override
 	current.faction -= "cult"
-	current.remove_language(/datum/language/narsie)
+	current.remove_language(/datum/language/narsie, TRUE, TRUE, LANGUAGE_CULTIST)
 	vote.Remove(current)
 	communion.Remove(current)
 	magic.Remove(current)
@@ -130,7 +130,7 @@
 		var/mob/living/carbon/human/H = current
 		H.eye_color = initial(H.eye_color)
 		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
-		H.remove_trait(CULT_EYES)
+		REMOVE_TRAIT(H, CULT_EYES, null)
 		H.remove_overlay(HALO_LAYER)
 		H.update_body()
 
@@ -230,7 +230,7 @@
 		var/mob/living/carbon/human/H = current
 		H.eye_color = initial(H.eye_color)
 		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
-		H.remove_trait(CULT_EYES)
+		REMOVE_TRAIT(H, CULT_EYES, null)
 		H.remove_overlay(HALO_LAYER)
 		H.update_body()
 
@@ -282,7 +282,7 @@
 		var/mob/living/carbon/human/H = cultist
 		H.eye_color = "f00"
 		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
-		H.add_trait(CULT_EYES)
+		ADD_TRAIT(H, CULT_EYES, CULT_TRAIT)
 		H.update_body()
 
 /datum/team/cult/proc/ascend(cultist)
@@ -294,16 +294,24 @@
 		H.overlays_standing[HALO_LAYER] = new_halo_overlay
 		H.apply_overlay(HALO_LAYER)
 
-/datum/team/cult/proc/setup_objectives()
-	//SAC OBJECTIVE , todo: move this to objective internals
-	var/list/target_candidates = list()
-	var/datum/objective/sacrifice/sac_objective = new
-	sac_objective.team = src
+/datum/team/cult/proc/make_image(datum/objective/sacrifice/sac_objective)
+	var/datum/job/sacjob = SSjob.GetJob(sac_objective.target.assigned_role)
+	var/datum/preferences/sacface = sac_objective.target.current.client.prefs
+	var/icon/reshape = get_flat_human_icon(null, sacjob, sacface, list(SOUTH))
+	reshape.Shift(SOUTH, 4)
+	reshape.Shift(EAST, 1)
+	reshape.Crop(7,4,26,31)
+	reshape.Crop(-5,-3,26,30)
+	sac_objective.sac_image = reshape
 
+/datum/objective/sacrifice/find_target(dupe_search_range)
+	if(!istype(team, /datum/team/cult))
+		return
+	var/datum/team/cult/C = team
+	var/list/target_candidates = list()
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(player.mind && !player.mind.has_antag_datum(/datum/antagonist/cult) && !is_convertable_to_cult(player) && player.stat != DEAD)
 			target_candidates += player.mind
-
 	if(target_candidates.len == 0)
 		message_admins("Cult Sacrifice: Could not find unconvertible target, checking for convertible target.")
 		for(var/mob/living/carbon/human/player in GLOB.player_list)
@@ -311,33 +319,40 @@
 				target_candidates += player.mind
 	listclearnulls(target_candidates)
 	if(LAZYLEN(target_candidates))
-		sac_objective.target = pick(target_candidates)
-		sac_objective.update_explanation_text()
-
-		var/datum/job/sacjob = SSjob.GetJob(sac_objective.target.assigned_role)
-		var/datum/preferences/sacface = sac_objective.target.current.client.prefs
-		var/icon/reshape = get_flat_human_icon(null, sacjob, sacface, list(SOUTH))
-		reshape.Shift(SOUTH, 4)
-		reshape.Shift(EAST, 1)
-		reshape.Crop(7,4,26,31)
-		reshape.Crop(-5,-3,26,30)
-		sac_objective.sac_image = reshape
-
-		objectives += sac_objective
+		target = pick(target_candidates)
+		update_explanation_text()
 	else
 		message_admins("Cult Sacrifice: Could not find unconvertible or convertible target. WELP!")
+	C.make_image(src)
+	for(var/datum/mind/M in C.members)
+		if(M.current)
+			M.current.clear_alert("bloodsense")
+			M.current.throw_alert("bloodsense", /obj/screen/alert/bloodsense)
 
+/datum/team/cult/proc/setup_objectives()
+	var/datum/objective/sacrifice/sac_objective = new
+	sac_objective.team = src
+	sac_objective.find_target()
+	objectives += sac_objective
 
-	//SUMMON OBJECTIVE
-
-	var/datum/objective/eldergod/summon_objective = new()
+	var/datum/objective/eldergod/summon_objective = new
 	summon_objective.team = src
 	objectives += summon_objective
+
+	for(var/datum/mind/M in members)
+		log_objective(M, sac_objective.explanation_text)
+		log_objective(M, summon_objective.explanation_text)
 
 
 /datum/objective/sacrifice
 	var/sacced = FALSE
 	var/sac_image
+
+/datum/objective/sacrifice/is_valid_target(possible_target)
+	. = ..()
+	var/datum/mind/M = possible_target
+	if(istype(M) && isipc(M.current))
+		return FALSE
 
 /datum/objective/sacrifice/check_completion()
 	return sacced || completed

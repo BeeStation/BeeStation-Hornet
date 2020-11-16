@@ -9,27 +9,24 @@
 	invocation_type = "shout"
 	range = 7
 	cooldown_min = 60 //35 deciseconds reduction per rank
-
 	max_targets = 0
-
-	proj_icon_state = "magicm"
-	proj_name = "a magic missile"
-	proj_lingering = 1
-	proj_type = "/obj/effect/proc_holder/spell/targeted/inflict_handler/magic_missile"
-
-	proj_lifespan = 20
-	proj_step_delay = 5
-
-	proj_trail = TRUE
-	proj_trail_lifespan = 5
-	proj_trail_icon_state = "magicmd"
-
+	proj_type = /obj/item/projectile/magic/spell/magic_missile
 	action_icon_state = "magicm"
 	sound = 'sound/magic/magic_missile.ogg'
 
-/obj/effect/proc_holder/spell/targeted/inflict_handler/magic_missile
-	amt_knockdown = 60
-	sound = 'sound/magic/mm_hit.ogg'
+/obj/item/projectile/magic/spell/magic_missile
+	name = "a magic missile"
+	icon_state = "magicm"
+	range = 20
+	speed = 5
+	trigger_range = 0
+	linger = TRUE
+	paralyze = 60
+	hitsound = 'sound/magic/mm_hit.ogg'
+
+	trail = TRUE
+	trail_lifespan = 5
+	trail_icon_state = "magicmd"
 
 /obj/effect/proc_holder/spell/targeted/genetic/mutate
 	name = "Mutate"
@@ -145,6 +142,7 @@
 	range = -1
 	include_user = TRUE
 	cooldown_min = 200 //100 deciseconds reduction per rank
+	action_icon_state = "teleport"
 
 	smoke_spread = 1
 	smoke_amt = 2
@@ -219,39 +217,12 @@
 	summon_type = list(/mob/living/simple_animal/hostile/netherworld)
 	cast_sound = 'sound/magic/summonitems_generic.ogg'
 
-/obj/effect/proc_holder/spell/targeted/trigger/blind
-	name = "Blind"
-	desc = "This spell temporarily blinds a single target."
-
-	school = "transmutation"
-	charge_max = 300
-	clothes_req = FALSE
-	invocation = "STI KALY"
-	invocation_type = "whisper"
-	message = "<span class='notice'>Your eyes cry out in pain!</span>"
-	cooldown_min = 50 //12 deciseconds reduction per rank
-
-	starting_spells = list("/obj/effect/proc_holder/spell/targeted/inflict_handler/blind","/obj/effect/proc_holder/spell/targeted/genetic/blind")
-
-	action_icon_state = "blind"
-
 /obj/effect/proc_holder/spell/aoe_turf/conjure/creature/cult
 	name = "Summon Creatures (DANGEROUS)"
 	clothes_req = TRUE
 	charge_max = 5000
 	summon_amt = 2
 
-
-
-/obj/effect/proc_holder/spell/targeted/inflict_handler/blind
-	amt_eye_blind = 10
-	amt_eye_blurry = 20
-	sound = 'sound/magic/blind.ogg'
-
-/obj/effect/proc_holder/spell/targeted/genetic/blind
-	mutations = list(BLINDMUT)
-	duration = 300
-	sound = 'sound/magic/blind.ogg'
 /obj/effect/proc_holder/spell/aoe_turf/repulse
 	name = "Repulse"
 	desc = "This spell throws everything around the user away."
@@ -358,6 +329,7 @@
 	clothes_req = TRUE
 	item_type = /obj/item/spellpacket/lightningbolt
 	charge_max = 10
+	action_icon_state = "thrownlightning"
 
 /obj/effect/proc_holder/spell/targeted/conjure_item/spellpacket/cast(list/targets, mob/user = usr)
 	..()

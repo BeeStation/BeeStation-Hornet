@@ -19,6 +19,8 @@
 
 
 /obj/machinery/computer/shuttle/syndicate/Topic(href, href_list)
+	if(!usr.canUseTopic(src))
+		return
 	if(href_list["move"])
 		var/obj/item/circuitboard/computer/syndicate_shuttle/board = circuit
 		if(board.challenge && world.time < SYNDICATE_CHALLENGE_TIMER)
@@ -44,6 +46,8 @@
 	clockwork = TRUE //it'd look weird
 
 /obj/machinery/computer/shuttle/syndicate/drop_pod/Topic(href, href_list)
+	if(!usr.canUseTopic(src))
+		return
 	if(href_list["move"])
 		if(!is_centcom_level(z))
 			to_chat(usr, "<span class='warning'>Pods are one way!</span>")
@@ -59,7 +63,7 @@
 	lock_override = CAMERA_LOCK_STATION
 	shuttlePortId = "syndicate_custom"
 	jumpto_ports = list("syndicate_ne" = 1, "syndicate_nw" = 1, "syndicate_n" = 1, "syndicate_se" = 1, "syndicate_sw" = 1, "syndicate_s" = 1)
-	view_range = 13
+	view_range = 5.5
 	x_offset = -7
 	y_offset = -1
 	see_hidden = TRUE

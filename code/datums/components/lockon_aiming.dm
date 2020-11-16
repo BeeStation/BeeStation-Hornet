@@ -1,4 +1,3 @@
-#define LOCKON_AIMING_MAX_CURSOR_RADIUS 7
 #define LOCKON_IGNORE_RESULT "ignore_my_result"
 #define LOCKON_RANGING_BREAK_CHECK if(current_ranging_id != this_id){return LOCKON_IGNORE_RESULT}
 

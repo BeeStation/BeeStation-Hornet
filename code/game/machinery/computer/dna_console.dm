@@ -36,11 +36,21 @@
 	var/combine
 	var/radduration = 2
 	var/radstrength = 1
-	var/max_chromosomes = 6
-
+	var/max_chromosomes = 5
+	///Amount of mutations we can store
 	var/list/buffer[NUMBER_OF_BUFFERS]
+	///mutations we have stored
 	var/list/stored_mutations = list()
+	///chromosomes we have stored
 	var/list/stored_chromosomes = list()
+	///combinations of injectors for the 'injector selection'. format is list("Elsa" = list(Cryokinesis, Geladikinesis), "The Hulk" = list(Hulk, Gigantism), etc) Glowy and the gang being an initialized datum
+	var/list/injector_selection = list()
+	///max amount of selections you can make
+	var/max_injector_selections = 2
+	///hard-cap on the advanced dna injector
+	var/max_injector_mutations = 10
+	///the max instability of the advanced injector.
+	var/max_injector_instability = 40
 
 	var/injectorready = 0	//world timer cooldown var
 	var/jokerready = 0
@@ -65,19 +75,18 @@
 		if(LAZYLEN(stored_chromosomes) < max_chromosomes)
 			I.forceMove(src)
 			stored_chromosomes += I
-			to_chat(user, "<span class='notice'>You insert [I]</span>")
+			to_chat(user, "<span class='notice'>You insert [I].</span>")
 		else
-			to_chat(user, "<span class='warnning'>You cannot store any more chromosomes.</span>")
+			to_chat(user, "<span class='warning'>You cannot store any more chromosomes.</span>")
 		return
 	if(istype(I, /obj/item/dnainjector/activator))
 		var/obj/item/dnainjector/activator/A = I
 		if(A.used)
 			to_chat(user,"<span class='notice'>Recycled [I].</span>")
-			if(A.research)
+			if(A.filled)
 				var/c_typepath = generate_chromosome()
 				var/obj/item/chromosome/CM = new c_typepath (drop_location())
-				to_chat(user,"<span class='notice'>Recycled [I].</span>")
-				if((LAZYLEN(stored_chromosomes) < max_chromosomes) && prob(60))
+				if(LAZYLEN(stored_chromosomes) < max_chromosomes)
 					CM.forceMove(src)
 					stored_chromosomes += CM
 					to_chat(user,"<span class='notice'>[capitalize(CM.name)] added to storage.</span>")
@@ -100,11 +109,11 @@
 	stored_research = SSresearch.science_tech
 
 /obj/machinery/computer/scan_consolenew/examine(mob/user)
-	..()
+	. = ..()
 	if(jokerready < world.time)
-		to_chat(user, "<span class='notice'>JOKER algorithm available.</span>")
+		. += "<span class='notice'>JOKER algorithm available.</span>"
 	else
-		to_chat(user, "<span class='notice'>JOKER algorithm available in about [round(0.00166666667 * (jokerready - world.time))] minutes.")
+		. += "<span class='notice'>JOKER algorithm available in about [round(0.00166666667 * (jokerready - world.time))] minutes.</span>"
 
 /obj/machinery/computer/scan_consolenew/ui_interact(mob/user, last_change)
 	. = ..()
@@ -114,9 +123,6 @@
 	if(user.client)
 		var/datum/asset/simple/assets =  get_asset_datum(/datum/asset/simple/genetics)
 		assets.send(user.client)
-	if(!(in_range(src, user) || issilicon(user)))
-		popup.close()
-		return
 	popup.add_stylesheet("scannernew", 'html/browser/scannernew.css')
 
 	var/mob/living/carbon/viable_occupant
@@ -126,7 +132,7 @@
 	if(connected && connected.is_operational())
 		if(connected.occupant)	//set occupant_status message
 			viable_occupant = connected.occupant
-			if(viable_occupant.has_dna() && !viable_occupant.has_trait(TRAIT_RADIMMUNE) && !viable_occupant.has_trait(TRAIT_BADDNA) || (connected.scan_level == 3)) //occupant is viable for dna modification
+			if(viable_occupant.has_dna() && !HAS_TRAIT(viable_occupant, TRAIT_RADIMMUNE) && !HAS_TRAIT(viable_occupant, TRAIT_BADDNA) || (connected.scan_level == 3)) //occupant is viable for dna modification
 				occupant_status += "[viable_occupant.name] => "
 				switch(viable_occupant.stat)
 					if(CONSCIOUS)
@@ -171,6 +177,9 @@
 	status += "<div class='line'><div class='statusLabel'>&nbsp;&nbsp;\> Mutation:</div><div class='statusValue'>(-[stddev] to +[stddev] = 68 %) (-[2*stddev] to +[2*stddev] = 95 %)</div></div>"
 	if(connected)
 		stddev = RADIATION_ACCURACY_MULTIPLIER/(radduration + (connected.precision_coeff ** 2))
+		max_storage = 4 + (2*connected.precision_coeff)
+		max_chromosomes = 4 + connected.precision_coeff
+		max_injector_instability = 20 + (20*connected.scan_level)
 	else
 		stddev = RADIATION_ACCURACY_MULTIPLIER/radduration
 	var/chance_to_hit
@@ -215,6 +224,10 @@
 		buttons += "<span class='linkOff'>Unique Identifiers</span>"
 	else
 		buttons += "<a href='?src=[REF(src)];task=screen;text=ui;'>Unique Identifiers</a>"
+	if(current_screen == "advinjector")
+		buttons += "<span class='linkOff'>Adv. Injectors</span>"
+	else
+		buttons += "<a href='?src=[REF(src)];task=screen;text=advinjector;'>Adv. Injectors</a>"
 
 	switch(current_screen)
 		if("working")
@@ -232,13 +245,18 @@
 			var/max_line_len = 7*DNA_BLOCK_SIZE
 			if(viable_occupant)
 				temp_html += "<div class='dnaBlockNumber'>1</div>"
-				var/len = length(viable_occupant.dna.uni_identity)
-				for(var/i=1, i<=len, i++)
-					temp_html += "<a class='dnaBlock' href='?src=[REF(src)];task=pulseui;num=[i];'>[copytext(viable_occupant.dna.uni_identity,i,i+1)]</a>"
-					if ((i % max_line_len) == 0)
+				var/char = ""
+				var/ui_text = viable_occupant.dna.uni_identity
+				var/len_byte = length(ui_text)
+				var/char_it = 0
+				for(var/byte_it = 1, byte_it <= len_byte, byte_it += length(char))
+					char_it++
+					char = ui_text[byte_it]
+					temp_html += "<a class='dnaBlock' href='?src=[REF(src)];task=pulseui;num=[char_it];'>[char]</a>"
+					if((char_it % max_line_len) == 0)
 						temp_html += "</div><div class='clearBoth'>"
-					if((i % DNA_BLOCK_SIZE) == 0 && i < len)
-						temp_html += "<div class='dnaBlockNumber'>[(i / DNA_BLOCK_SIZE) + 1]</div>"
+					if((char_it % DNA_BLOCK_SIZE) == 0 && byte_it < len_byte)
+						temp_html += "<div class='dnaBlockNumber'>[(char_it / DNA_BLOCK_SIZE) + 1]</div>"
 			else
 				temp_html += "---------"
 			temp_html += "</div></div><br><h1>Buffer Menu</h1>"
@@ -370,6 +388,34 @@
 				var/obj/item/chromosome/CM = stored_chromosomes[i]
 				temp_html += "<td><a href='?src=[REF(src)];task=ejectchromosome;num=[i]'>[CM.name]</a></td><br>"
 			temp_html += "</table>"
+		if("advinjector")
+			temp_html += status
+			temp_html += buttons
+			temp_html += "<div class='line'><div class='statusLabel'><b>Advanced Injectors:</b></div></div><br>"
+			temp_html += "<div><a href='?src=[REF(src)];task=add_advinjector;'>New Selection</a></div>"
+			for(var/A in injector_selection)
+				temp_html += "<div class='statusDisplay'><b>[A]</b>"
+				var/list/true_selection = injector_selection[A]
+				temp_html += "<br>"
+				for(var/B in true_selection)
+					var/datum/mutation/human/HM = B
+					var/mutcolor
+					switch(HM.quality)
+						if(POSITIVE)
+							mutcolor = "good"
+						if(MINOR_NEGATIVE)
+							mutcolor = "average"
+						if(NEGATIVE)
+							mutcolor = "bad"
+					temp_html += "<div><span class='[mutcolor]'>[HM.name] </span>"
+					temp_html += "<a href='?src=[REF(src)];task=remove_from_advinjector;injector=[A];path=[HM.type];'>Remove</a></div>"
+				if(injectorready < world.time)
+					temp_html += "<div> <a href='?src=[REF(src)];task=advinjector;injector=[A];'>Print Advanced Injector</a>"
+				else
+					temp_html += "<div><span class='linkOff'>Print Advanced Injector</span>"
+				temp_html += "<a href='?src=[REF(src)];task=remove_advinjector;injector=[A];'>Remove Injector</a></div>"
+				temp_html += "<br></div>"
+
 		else
 			temp_html += status
 			temp_html += buttons
@@ -406,11 +452,11 @@
 	if(mutation == current_mutation)
 		class = "selected"
 	if(location > DNA_MUTATION_BLOCKS)
-		temp_html += "<a class='clean' href='?src=[REF(src)];task=inspect;num=[location];'><img class='[class]' src='dna_extra.png' width = '65'  alt='Extra Mutation'></a>"
+		temp_html += "<a class='clean' href='?src=[REF(src)];task=inspect;num=[location];'><img class='[class]' src='[SSassets.transport.get_asset_url("dna_extra.png")]' width = '65'  alt='Extra Mutation'></a>"
 	else if(mutation in stored_research.discovered_mutations)
-		temp_html += "<a class='clean' href='?src=[REF(src)];task=inspect;num=[location];'><img class='[class]' src='dna_discovered.png' width = '65'  alt='Discovered Mutation'></a>"
+		temp_html += "<a class='clean' href='?src=[REF(src)];task=inspect;num=[location];'><img class='[class]' src='[SSassets.transport.get_asset_url("dna_discovered.png")]' width = '65'  alt='Discovered Mutation'></a>"
 	else
-		temp_html += "<a class='clean' clean href='?src=[REF(src)];task=inspect;num=[location];'><img class='[class]' src='dna_undiscovered.png' width = '65' alt=Undiscovered Mutation'></a>"
+		temp_html += "<a class='clean' clean href='?src=[REF(src)];task=inspect;num=[location];'><img class='[class]' src='[SSassets.transport.get_asset_url("dna_undiscovered.png")]' width = '65' alt=Undiscovered Mutation'></a>"
 	return temp_html
 
 /obj/machinery/computer/scan_consolenew/proc/display_sequence(mutation, storage_slot) //Storage slot is for when viewing from the stored mutations
@@ -456,47 +502,51 @@
 				mutcolor = "bad"
 		if(HM)
 			instability *= GET_MUTATION_STABILIZER(HM)
-		temp_html += "<div class='statusDisplay'><div class='statusLine'><span class='[mutcolor]'><b>[mut_name]</b></span><small> ([alias])</small><br>"
-		temp_html += "<div class='statusLine'>Instability : [round(instability)]</span><br>"
+		temp_html += "<div class='statusDisplay'><div><span class='[mutcolor]'><b>[mut_name]</b></span><small> ([alias])</small><br>"
+		temp_html += "<div>Instability : [round(instability)]</span><br>"
 	else
-		temp_html += "<div class='statusDisplay'><div class='statusLine'><b>[alias]</b><br>"
-	temp_html += "<div class='statusLine'>[mut_desc]<br></div>"
+		temp_html += "<div class='statusDisplay'><div><b>[alias]</b><br>"
+	temp_html += "<div>[mut_desc]<br></div>"
 	if(active && !storage_slot)
 		if(HM?.can_chromosome && (HM in viable_occupant.dna.mutations))
 			var/i = viable_occupant.dna.mutations.Find(HM)
 			var/chromosome_name = "<a href='?src=[REF(src)];task=applychromosome;path=[mutation];num=[i];'>----</a>"
 			if(HM.chromosome_name)
 				chromosome_name = HM.chromosome_name
-			temp_html += "<div class='statusLine'>Chromosome status: [chromosome_name]<br></div>"
-	temp_html += "<div class='statusLine'>Sequence:<br><br></div>"
+			temp_html += "<div>Chromosome status: [chromosome_name]<br></div>"
+	temp_html += "<div>Sequence:<br><br></div>"
 	if(!scrambled)
 		for(var/block in 1 to A.blocks)
 			var/whole_sequence = get_valid_gene_string(mutation)
-			var/sequence = copytext(whole_sequence, 1+(block-1)*(DNA_SEQUENCE_LENGTH*2),(DNA_SEQUENCE_LENGTH*2*block+1))
-			temp_html += "<div class='statusLine'><table class='statusDisplay'><tr>"
+			var/sequence = copytext_char(whole_sequence, 1+(block-1)*(DNA_SEQUENCE_LENGTH*2),(DNA_SEQUENCE_LENGTH*2*block+1))
+			temp_html += "<div><table class='statusDisplay'><tr>"
 			for(var/i in 1 to DNA_SEQUENCE_LENGTH)
 				var/num = 1+(i-1)*2
 				var/genenum = num+(DNA_SEQUENCE_LENGTH*2*(block-1))
-				temp_html += "<td><div class='statusLine'><span class='dnaBlockNumber'><a href='?src=[REF(src)];task=pulsegene;num=[genenum];alias=[alias];'>[sequence[num]]</span></a></div></td>"
+				temp_html += "<td><div><span class='dnaBlockNumber'><a href='?src=[REF(src)];task=pulsegene;num=[genenum];alias=[alias];'>[sequence[num]]</span></a></div></td>"
 			temp_html += "</tr><tr>"
 			for(var/i in 1 to DNA_SEQUENCE_LENGTH)
-				temp_html += "<td><div class='statusLine'>|</div></td>"
+				temp_html += "<td><div>|</div></td>"
 			temp_html += "</tr><tr>"
 			for(var/i in 1 to DNA_SEQUENCE_LENGTH)
 				var/num = i*2
 				var/genenum = num+(DNA_SEQUENCE_LENGTH*2*(block-1))
-				temp_html += "<td><div class='statusLine'><span class='dnaBlockNumber'><a href='?src=[REF(src)];task=pulsegene;num=[genenum];alias=[alias];'>[sequence[num]]</span></a></div></td>"
+				temp_html += "<td><div><span class='dnaBlockNumber'><a href='?src=[REF(src)];task=pulsegene;num=[genenum];alias=[alias];'>[sequence[num]]</span></a></div></td>"
 			temp_html += "</tr></table></div>"
 		temp_html += "<br><br><br><br><br>"
 	else
-		temp_html = "<div class='statusLine'>Sequence unreadable due to unpredictable mutation.</div>"
+		temp_html = "<div>Sequence unreadable due to unpredictable mutation.</div>"
 	if((active || storage_slot) && (injectorready < world.time) && !scrambled)
 		temp_html += "<a href='?src=[REF(src)];task=activator;path=[mutation];slot=[storage_slot];'>Print Activator</a>"
 		temp_html += "<a href='?src=[REF(src)];task=mutator;path=[mutation];slot;=[storage_slot];'>Print Mutator</a>"
 	else
 		temp_html += "<span class='linkOff'>Print Activator</span>"
 		temp_html += "<span class='linkOff'>Print Mutator</span>"
-	temp_html += "<br><div class='statusLine'>"
+	if((active || storage_slot) && !scrambled)
+		temp_html += "<a href='?src=[REF(src)];task=expand_advinjector;path=[mutation];'>Adv. Injector</a>"
+	else
+		temp_html += "<span class='linkOff'>Adv. Injector</span>"
+	temp_html += "<br><div>"
 	if(storage_slot)
 		temp_html += "<a href='?src=[REF(src)];task=deletemut;num=[storage_slot];'>Delete</a>"
 		if((LAZYLEN(stored_mutations) < max_storage) && diskette && !diskette.read_only)
@@ -506,6 +556,7 @@
 		temp_html += "<a href='?src=[REF(src)];task=screen;text=mutations;'>Back</a>"
 	else if(active && !scrambled)
 		temp_html += "<a href='?src=[REF(src)];task=savemut;path=[mutation];'>Store</a>"
+
 	if(extra || scrambled)
 		temp_html += "<a href='?src=[REF(src)];task=nullify;'>Nullify</a>"
 	else
@@ -515,10 +566,6 @@
 
 /obj/machinery/computer/scan_consolenew/Topic(href, href_list)
 	if(..())
-		return
-	if(!isturf(usr.loc))
-		return
-	if(!((isturf(loc) && in_range(src, usr)) || issilicon(usr)))
 		return
 	if(current_screen == "working")
 		return
@@ -552,14 +599,27 @@
 			current_screen = href_list["text"]
 		if("scramble")
 			if(viable_occupant && (scrambleready < world.time))
+				if(prob(1) && prob(1))
+					to_chat(usr,"<span class='bad'>Error: Musa acuminata transformation detected!</span>") //Actually we only share 1% of our functional protein-coding DNA with bananas, but this is mildly amusing so whatever
+					if(viable_occupant.client && viable_occupant.ckey)
+						message_admins("[key_name(viable_occupant)] has been turned into a banana by [key_name(usr)]")
+						log_game("[key_name(viable_occupant)] has been turned into a banana by [key_name(usr)]")
+					if(connected)
+						connected.locked = FALSE
+						connected.open_machine()
+					var/occupant_loc = viable_occupant.loc
+					viable_occupant.Destroy()
+					new /obj/item/reagent_containers/food/snacks/grown/banana(occupant_loc)
+					return
+
 				viable_occupant.dna.remove_all_mutations(list(MUT_NORMAL, MUT_EXTRA))
 				viable_occupant.dna.generate_dna_blocks()
 				scrambleready = world.time + SCRAMBLE_TIMEOUT
-				to_chat(usr,"<span class'notice'>DNA scrambled.</span>")
+				to_chat(usr,"<span class='notice'>DNA scrambled.</span>")
 				viable_occupant.radiation += RADIATION_STRENGTH_MULTIPLIER*50/(connected.damage_coeff ** 2)
 
 		if("setbufferlabel")
-			var/text = sanitize(input(usr, "Input a new label:", "Input a Text", null) as text|null)
+			var/text = stripped_input(usr, "Input a new label:", "Input a Text")
 			if(num && text)
 				num = CLAMP(num, 1, NUMBER_OF_BUFFERS)
 				var/list/buffer_slot = buffer[num]
@@ -653,7 +713,7 @@
 					viable_occupant.radiation += (RADIATION_IRRADIATION_MULTIPLIER*radduration*radstrength)/(connected.damage_coeff ** 2) //Read comment in "transferbuffer" section above for explanation
 					switch(href_list["task"])                                                                                             //Same thing as there but values are even lower, on best part they are about 0.0*, effectively no damage
 						if("pulseui")
-							var/len = length(viable_occupant.dna.uni_identity)
+							var/len = length_char(viable_occupant.dna.uni_identity)
 							num = WRAP(num, 1, len+1)
 							num = randomize_radiation_accuracy(num, radduration + (connected.precision_coeff ** 2), len) //Each manipulator level above 1 makes randomization as accurate as selected time + manipulator lvl^2
                                                                                                                          //Value is this high for the same reason as with laser - not worth the hassle of upgrading if the bonus is low
@@ -661,12 +721,12 @@
 							var/subblock = num - block*DNA_BLOCK_SIZE
 							last_change = "UI #[block]-[subblock]; "
 
-							var/hex = copytext(viable_occupant.dna.uni_identity, num, num+1)
+							var/hex = copytext_char(viable_occupant.dna.uni_identity, num, num+1)
 							last_change += "[hex]"
 							hex = scramble(hex, radstrength, radduration)
 							last_change += "->[hex]"
 
-							viable_occupant.dna.uni_identity = copytext(viable_occupant.dna.uni_identity, 1, num) + hex + copytext(viable_occupant.dna.uni_identity, num+1, 0)
+							viable_occupant.dna.uni_identity = copytext_char(viable_occupant.dna.uni_identity, 1, num) + hex + copytext_char(viable_occupant.dna.uni_identity, num + 1)
 							viable_occupant.updateappearance(mutations_overlay_update=1)
 				else
 					current_screen = "mainmenu"
@@ -686,7 +746,7 @@
 			current_screen = "info"
 		if("savemut")
 			if(viable_occupant)
-				var/succes
+				var/success
 				if(LAZYLEN(stored_mutations) < max_storage)
 					var/mutation = text2path(href_list["path"])
 					if(ispath(mutation, /datum/mutation/human)) //sanity checks
@@ -694,10 +754,10 @@
 						if(HM)
 							var/datum/mutation/human/A = new HM.type()
 							A.copy_mutation(HM)
-							succes = TRUE
+							success = TRUE
 							stored_mutations += A
 							to_chat(usr,"<span class='notice'>Mutation succesfully stored.</span>")
-				if(!succes) //we can exactly return here
+				if(!success) //we can exactly return here
 					to_chat(usr,"<span class='warning'>Mutation storage is full.</span>")
 		if("deletemut")
 			var/datum/mutation/human/HM = stored_mutations[num]
@@ -714,9 +774,12 @@
 						var/obj/item/dnainjector/activator/I = new /obj/item/dnainjector/activator(loc)
 						I.add_mutations += new HM.type (copymut = HM)
 						I.name = "[HM.name] activator"
-						I.damage_coeff = connected.damage_coeff*4
 						I.research = TRUE
-						injectorready = world.time + INJECTOR_TIMEOUT
+						if(connected)
+							I.damage_coeff = connected.damage_coeff*4
+							injectorready = world.time + INJECTOR_TIMEOUT * (1 - 0.1 * connected.precision_coeff) //precision_coeff being the manipulator rating
+						else
+							injectorready = world.time + INJECTOR_TIMEOUT
 		if("mutator")
 			if(injectorready < world.time)
 				var/mutation = text2path(href_list["path"])
@@ -727,8 +790,30 @@
 						I.add_mutations += new HM.type (copymut = HM)
 						I.doitanyway = TRUE
 						I.name = "[HM.name] injector"
-						I.damage_coeff = connected.damage_coeff
-						injectorready = world.time + INJECTOR_TIMEOUT*5
+						if(connected)
+							I.damage_coeff = connected.damage_coeff
+							injectorready = world.time + INJECTOR_TIMEOUT * 5 * (1 - 0.1 * connected.precision_coeff)
+						else
+							injectorready = world.time + INJECTOR_TIMEOUT * 5
+
+		if("advinjector")
+			var/selection = href_list["injector"]
+			if(injectorready < world.time)
+				if(injector_selection.Find(selection))
+					var/list/true_selection = injector_selection[selection]
+					if(LAZYLEN(injector_selection))
+						var/obj/item/dnainjector/activator/I = new /obj/item/dnainjector/activator(loc)
+						for(var/A in true_selection)
+							var/datum/mutation/human/HM = A
+							I.add_mutations += new HM.type (copymut = HM)
+						I.doitanyway = TRUE
+						I.name = "Advanced [selection] injector"
+						if(connected)
+							I.damage_coeff = connected.damage_coeff
+							injectorready = world.time + INJECTOR_TIMEOUT * 8 * (1 - 0.1 * connected.precision_coeff)
+						else
+							injectorready = world.time + INJECTOR_TIMEOUT * 8
+
 		if("nullify")
 			if(viable_occupant)
 				var/datum/mutation/human/A = viable_occupant.dna.get_mutation(current_mutation)
@@ -753,7 +838,7 @@
 							var/true_genes = GET_SEQUENCE(current_mutation)
 							new_gene = true_genes[num]
 							jokerready = world.time + JOKER_TIMEOUT - (JOKER_UPGRADE * (connected.precision_coeff-1))
-						sequence = copytext(sequence, 1, num) + new_gene + copytext(sequence, num+1, length(sequence)+1)
+						sequence = copytext_char(sequence, 1, num) + new_gene + copytext_char(sequence, num + 1)
 						viable_occupant.dna.mutation_index[path] = sequence
 					viable_occupant.radiation += RADIATION_STRENGTH_MULTIPLIER/connected.damage_coeff
 					viable_occupant.domutcheck()
@@ -790,7 +875,7 @@
 						var/result_path = get_mixed_mutation(combine, path)
 						if(result_path)
 							stored_mutations += new result_path()
-							to_chat(usr, "<span class='boldnotice'>Succes! New mutation has been added to storage</span>")
+							to_chat(usr, "<span class='boldnotice'>Success! New mutation has been added to storage.</span>")
 							discover(result_path)
 							combine = null
 						else
@@ -798,15 +883,14 @@
 							combine = null
 					else
 						combine = path
-						to_chat(usr,"<span class='notice'>Selected [A.name] for combining</span>")
+						to_chat(usr,"<span class='notice'>Selected [A.name] for combining.</span>")
 				else
 					to_chat(usr, "<span class='warning'>Not enough space to store potential mutation.</span>")
 		if("ejectchromosome")
-			if(LAZYLEN(stored_chromosomes) <= num)
-				var/obj/item/chromosome/CM = stored_chromosomes[num]
-				CM.forceMove(drop_location())
-				adjust_item_drop_location(CM)
-				stored_chromosomes -= CM
+			var/obj/item/chromosome/CM = stored_chromosomes[num]
+			CM.forceMove(drop_location())
+			adjust_item_drop_location(CM)
+			stored_chromosomes -= CM
 		if("applychromosome")
 			if(viable_occupant && (LAZYLEN(viable_occupant.dna.mutations) <= num))
 				var/datum/mutation/human/HM = viable_occupant.dna.mutations[num]
@@ -815,11 +899,51 @@
 					if(CM.can_apply(HM))
 						chromosomes += CM
 				if(chromosomes.len)
-					var/obj/item/chromosome/CM = input("Select a chromosome to apply", "Apply Chromosome") as null|anything in chromosomes
+					var/obj/item/chromosome/CM = input("Select a chromosome to apply", "Apply Chromosome") as null|anything in sortNames(chromosomes)
 					if(CM)
 						to_chat(usr, "<span class='notice'>You apply [CM] to [HM.name].")
 						stored_chromosomes -= CM
 						CM.apply(HM)
+		if("expand_advinjector")
+			var/mutation = text2path(href_list["path"])
+			var/datum/mutation/human/HM = get_valid_mutation(mutation)
+			if(HM && LAZYLEN(injector_selection))
+				var/which_injector = input(usr, "Select Adv. Injector", "Advanced Injectors") as null|anything in injector_selection
+				if(injector_selection.Find(which_injector))
+					var/list/true_selection = injector_selection[which_injector]
+					var/total_instability
+					for(var/B in true_selection)
+						var/datum/mutation/human/mootacion = B
+						total_instability += mootacion.instability
+					total_instability += HM.instability
+					if((total_instability > max_injector_instability) || (true_selection.len + 1) > max_injector_mutations)
+						to_chat(usr, "<span class='warning'>Adding more mutations would make the advanced injector too unstable!</span>")
+					else
+						true_selection += HM //reminder that this works. because I keep forgetting this works
+		if("remove_from_advinjector")
+			var/mutation = text2path(href_list["path"])
+			var/selection = href_list["injector"]
+			if(injector_selection.Find(selection))
+				var/list/true_selection = injector_selection[selection]
+				for(var/B in true_selection)
+					var/datum/mutation/human/HM = B
+					if(HM.type == mutation)
+						true_selection -= HM
+						break
+
+		if("remove_advinjector")
+			var/selection = href_list["injector"]
+			for(selection in injector_selection)
+				if(selection == selection)
+					injector_selection.Remove(selection)
+
+		if("add_advinjector")
+			if(LAZYLEN(injector_selection) < max_injector_selections)
+				var/new_selection = stripped_input(usr, "Enter Adv. Injector name", "Advanced Injectors")
+				if(new_selection && !(new_selection in injector_selection))
+					injector_selection[new_selection] = list()
+
+
 
 	ui_interact(usr,last_change)
 
@@ -842,7 +966,7 @@
 	var/mob/living/carbon/viable_occupant = null
 	if(connected)
 		viable_occupant = connected.occupant
-		if(!istype(viable_occupant) || !viable_occupant.dna || viable_occupant.has_trait(TRAIT_RADIMMUNE) || viable_occupant.has_trait(TRAIT_BADDNA))
+		if(!istype(viable_occupant) || !viable_occupant.dna || HAS_TRAIT(viable_occupant, TRAIT_RADIMMUNE) || HAS_TRAIT(viable_occupant, TRAIT_BADDNA))
 			viable_occupant = null
 	return viable_occupant
 

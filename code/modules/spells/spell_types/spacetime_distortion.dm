@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/spacetime_dist
 	name = "Spacetime Distortion"
 	desc = "Entangle the strings of space-time in an area around you, randomizing the layout and making proper movement impossible. The strings vibrate..."
-	charge_max = 300
+	charge_max = 450
 	var/duration = 150
 	range = 7
 	var/list/effects
@@ -9,7 +9,11 @@
 	centcom_cancast = FALSE
 	sound = 'sound/effects/magic.ogg'
 	cooldown_min = 300
+	invocation = "ZYAR INCANTUS"
+	invocation_type = "shout"
+	clothes_req = FALSE
 	level_max = 0
+	action_icon_state = "spacetime"
 
 /obj/effect/proc_holder/spell/spacetime_dist/can_cast(mob/user = usr)
 	if(ready)

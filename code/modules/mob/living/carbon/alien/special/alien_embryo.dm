@@ -18,10 +18,11 @@
 
 /obj/item/organ/body_egg/alien_embryo/prepare_eat()
 	var/obj/S = ..()
-	S.reagents.add_reagent("sacid", 10)
+	S.reagents.add_reagent(/datum/reagent/toxin/acid, 10)
 	return S
 
 /obj/item/organ/body_egg/alien_embryo/on_life()
+	. = ..()
 	switch(stage)
 		if(2, 3)
 			if(prob(2))
@@ -46,10 +47,13 @@
 				if(prob(20))
 					owner.adjustToxLoss(1)
 		if(5)
-			to_chat(owner, "<span class='danger'>You feel something tearing its way out of your stomach...</span>")
+			to_chat(owner, "<span class='danger'>You feel something tearing its way out of your stomach.</span>")
 			owner.adjustToxLoss(10)
 
 /obj/item/organ/body_egg/alien_embryo/egg_process()
+	var/mob/living/L = owner
+	if(L.IsInStasis())
+		return
 	if(stage < 5 && prob(3))
 		stage++
 		INVOKE_ASYNC(src, .proc/RefreshInfectionImage)
@@ -130,5 +134,6 @@ Des: Removes all images from the mob infected by this embryo
 	for(var/mob/living/carbon/alien/alien in GLOB.player_list)
 		if(alien.client)
 			for(var/image/I in alien.client.images)
-				if(dd_hasprefix_case(I.icon_state, "infected") && I.loc == owner)
+				var/searchfor = "infected"
+				if(I.loc == owner && findtext(I.icon_state, searchfor, 1, length(searchfor) + 1))
 					qdel(I)

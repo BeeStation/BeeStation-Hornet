@@ -98,7 +98,7 @@
 /turf/Exited(atom/movable/Obj, atom/newloc)
 	. = ..()
 
-	if (Obj && Obj.opacity)
+	if (Obj?.opacity)
 		recalc_atom_opacity() // Make sure to do this before reconsider_lights(), incase we're on instant updates.
 		reconsider_lights()
 
@@ -109,16 +109,6 @@
 				lighting_build_overlay()
 			else
 				lighting_clear_overlay()
-
-/turf/proc/get_corners()
-	if (!IS_DYNAMIC_LIGHTING(src) && !light_sources)
-		return null
-	if (!lighting_corners_initialised)
-		generate_missing_corners()
-	if (has_opaque_atom)
-		return null // Since this proc gets used in a for loop, null won't be looped though.
-
-	return corners
 
 /turf/proc/generate_missing_corners()
 	if (!IS_DYNAMIC_LIGHTING(src) && !light_sources)
@@ -132,5 +122,3 @@
 			continue
 
 		corners[i] = new/datum/lighting_corner(src, GLOB.LIGHTING_CORNER_DIAGONAL[i])
-
-

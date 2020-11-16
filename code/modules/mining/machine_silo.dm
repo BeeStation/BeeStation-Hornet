@@ -16,7 +16,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 /obj/machinery/ore_silo/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/material_container,
-		list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLASTIC),
+		list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/silver, /datum/material/gold, /datum/material/diamond, /datum/material/plasma, /datum/material/uranium, /datum/material/bananium, /datum/material/titanium, /datum/material/bluespace, /datum/material/plastic),
 		INFINITY,
 		FALSE,
 		/obj/item/stack,
@@ -34,13 +34,15 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		var/datum/component/remote_materials/mats = C
 		mats.disconnect_from(src)
 
-	GET_COMPONENT(materials, /datum/component/material_container)
+	connected = null
+
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
 
 	return ..()
 
 /obj/machinery/ore_silo/proc/remote_attackby(obj/machinery/M, mob/user, obj/item/stack/I)
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	// stolen from /datum/component/material_container/proc/OnAttackBy
 	if(user.a_intent != INTENT_HELP)
 		return
@@ -71,19 +73,21 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	popup.open()
 
 /obj/machinery/ore_silo/proc/generate_ui()
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/list/ui = list("<head><title>Ore Silo</title></head><body><div class='statusDisplay'><h2>Stored Material:</h2>")
 	var/any = FALSE
 	for(var/M in materials.materials)
-		var/datum/material/mat = materials.materials[M]
-		var/sheets = round(mat.amount) / MINERAL_MATERIAL_AMOUNT
+		var/datum/material/mat = M
+		var/amount = materials.materials[M]
+		var/sheets = round(amount) / MINERAL_MATERIAL_AMOUNT
+		var/ref = REF(M)
 		if (sheets)
 			if (sheets >= 1)
-				ui += "<a href='?src=[REF(src)];ejectsheet=[mat.id];eject_amt=1'>Eject</a>"
+				ui += "<a href='?src=[REF(src)];ejectsheet=[ref];eject_amt=1'>Eject</a>"
 			else
 				ui += "<span class='linkOff'>Eject</span>"
 			if (sheets >= 20)
-				ui += "<a href='?src=[REF(src)];ejectsheet=[mat.id];eject_amt=20'>20x</a>"
+				ui += "<a href='?src=[REF(src)];ejectsheet=[ref];eject_amt=20'>20x</a>"
 			else
 				ui += "<span class='linkOff'>20x</span>"
 			ui += "<b>[mat.name]</b>: [sheets] sheets<br>"
@@ -97,7 +101,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		var/atom/parent = mats.parent
 		var/hold_key = "[get_area(parent)]/[mats.category]"
 		ui += "<a href='?src=[REF(src)];remove=[REF(mats)]'>Remove</a>"
-		ui += "<a href='?src=[REF(src)];hold[!holds[hold_key]]=[url_encode(hold_key)]'>[holds[hold_key] ? "Allow" : "Hold"]</a>"
+		ui += "<a href='?src=[REF(src)];hold[!holds[hold_key]]=[rustg_url_encode(hold_key)]'>[holds[hold_key] ? "Allow" : "Hold"]</a>"
 		ui += " <b>[parent.name]</b> in [get_area_name(parent, TRUE)]<br>"
 	if(!connected.len)
 		ui += "Nothing!"
@@ -148,8 +152,8 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		updateUsrDialog()
 		return TRUE
 	else if(href_list["ejectsheet"])
-		var/eject_sheet = href_list["ejectsheet"]
-		GET_COMPONENT(materials, /datum/component/material_container)
+		var/datum/material/eject_sheet = locate(href_list["ejectsheet"])
+		var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 		var/count = materials.retrieve_sheets(text2num(href_list["eject_amt"]), eject_sheet, drop_location())
 		var/list/matlist = list()
 		matlist[eject_sheet] = MINERAL_MATERIAL_AMOUNT
@@ -181,8 +185,22 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	flick("silo_active", src)
 
 /obj/machinery/ore_silo/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>[src] can be linked to techfabs, circuit printers and protolathes with a multitool.</span>")
+	. = ..()
+	. += "<span class='notice'>[src] can be linked to techfabs, circuit printers and protolathes with a multitool.</span>"
+
+/obj/machinery/ore_silo/on_object_saved(var/depth = 0)
+	if(depth >= 10)
+		return ""
+	var/dat
+	var/datum/component/material_container/material_holder = GetComponent(/datum/component/material_container)
+	for(var/each in material_holder.materials)
+		var/amount = material_holder.materials[each] / MINERAL_MATERIAL_AMOUNT
+		var/datum/material/material_datum = each
+		while(amount > 0)
+			var/amount_in_stack = max(1, min(50, amount))
+			amount -= amount_in_stack
+			dat += "[dat ? ",\n" : ""][material_datum.sheet_type]{\n\tamount = [amount_in_stack]\n\t}"
+	return dat
 
 /datum/ore_silo_log
 	var/name  // for VV
@@ -227,8 +245,9 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	var/list/msg = list("([timestamp]) <b>[machine_name]</b> in [area_name]<br>[action] [abs(amount)]x [noun]<br>")
 	var/sep = ""
 	for(var/key in materials)
+		var/datum/material/M = key
 		var/val = round(materials[key]) / MINERAL_MATERIAL_AMOUNT
 		msg += sep
 		sep = ", "
-		msg += "[amount < 0 ? "-" : "+"][val] [copytext(key, 2)]"
+		msg += "[amount < 0 ? "-" : "+"][val] [M.name]"
 	formatted = msg.Join()

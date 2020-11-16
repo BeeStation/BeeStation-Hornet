@@ -11,10 +11,9 @@
 
 /obj/structure/transit_tube_pod/Initialize()
 	. = ..()
-	air_contents.add_gases(/datum/gas/oxygen, /datum/gas/nitrogen)
-	air_contents.gases[/datum/gas/oxygen][MOLES] = MOLES_O2STANDARD
-	air_contents.gases[/datum/gas/nitrogen][MOLES] = MOLES_N2STANDARD
-	air_contents.temperature = T20C
+	air_contents.set_moles(/datum/gas/oxygen, MOLES_O2STANDARD)
+	air_contents.set_moles(/datum/gas/nitrogen, MOLES_N2STANDARD)
+	air_contents.set_temperature(T20C)
 
 
 /obj/structure/transit_tube_pod/Destroy()
@@ -153,6 +152,9 @@
 /obj/structure/transit_tube_pod/return_air()
 	return air_contents
 
+/obj/structure/transit_tube_pod/return_analyzable_air()
+	return air_contents
+
 /obj/structure/transit_tube_pod/assume_air(datum/gas_mixture/giver)
 	return air_contents.merge(giver)
 
@@ -183,4 +185,4 @@
 						return
 
 /obj/structure/transit_tube_pod/return_temperature()
-	return air_contents.temperature
+	return air_contents.return_temperature()

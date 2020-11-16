@@ -3,7 +3,7 @@
 /turf/closed/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "b" = (
-/turf/closed/mineral/volcanic/lava_land_surface,
+/turf/closed/wall/mineral/sandstone,
 /area/ruin/powered)
 "c" = (
 /turf/closed/wall/mineral/iron,
@@ -45,12 +45,6 @@
 /area/ruin/powered)
 "k" = (
 /obj/structure/glowshroom/single,
-/turf/open/floor/plating/asteroid{
-	name = "dirt"
-	},
-/area/ruin/powered)
-"l" = (
-/obj/item/storage/toolbox/emergency,
 /turf/open/floor/plating/asteroid{
 	name = "dirt"
 	},
@@ -168,10 +162,25 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/powered)
 "J" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
+/turf/open/floor/mineral/titanium/blue,
+/area/ruin/powered)
+"M" = (
+/obj/item/stack/sheet/iron/twenty,
+/obj/item/storage/toolbox/emergency,
+/turf/open/floor/plating/asteroid{
+	name = "dirt"
 	},
+/area/ruin/powered)
+"P" = (
+/turf/closed/wall/rust,
+/area/ruin/powered)
+"Q" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/pod/dark,
+/area/ruin/powered)
+"W" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/open/floor/plating/asteroid/basalt,
 /area/ruin/powered)
 
 (1,1,1) = {"
@@ -252,8 +261,8 @@ a
 a
 a
 a
-b
 c
+b
 b
 t
 t
@@ -269,8 +278,8 @@ a
 a
 a
 a
-b
-b
+c
+c
 n
 n
 t
@@ -287,7 +296,7 @@ a
 a
 a
 b
-b
+c
 m
 o
 o
@@ -302,9 +311,9 @@ s
 "}
 (8,1,1) = {"
 a
-b
-b
-b
+c
+c
+c
 c
 f
 o
@@ -313,14 +322,14 @@ o
 o
 z
 C
-t
+Q
 s
 s
 s
 "}
 (9,1,1) = {"
-b
-b
+c
+c
 f
 i
 g
@@ -331,7 +340,7 @@ o
 o
 t
 t
-t
+F
 s
 s
 s
@@ -355,16 +364,16 @@ s
 s
 "}
 (11,1,1) = {"
-c
+b
 e
 h
 g
-l
-c
+M
+P
 p
 r
 c
-c
+P
 c
 b
 a
@@ -373,15 +382,15 @@ s
 s
 "}
 (12,1,1) = {"
-b
-b
+c
+c
 f
 k
-f
+W
+c
+c
 b
-b
-b
-b
+c
 a
 a
 a
@@ -392,11 +401,11 @@ E
 "}
 (13,1,1) = {"
 a
-b
-b
-b
-b
-b
+c
+P
+P
+P
+c
 a
 a
 a
@@ -406,7 +415,7 @@ a
 a
 F
 I
-F
+J
 "}
 (14,1,1) = {"
 a
@@ -424,7 +433,7 @@ a
 a
 F
 I
-F
+J
 "}
 (15,1,1) = {"
 a
@@ -442,7 +451,7 @@ a
 a
 G
 J
-G
+J
 "}
 (16,1,1) = {"
 a

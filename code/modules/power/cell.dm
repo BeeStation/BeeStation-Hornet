@@ -13,8 +13,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/charge = 0	// note %age conveted to actual charge in New
 	var/maxcharge = 1000
-	materials = list(MAT_METAL=700, MAT_GLASS=50)
-	grind_results = list("lithium" = 15, "iron" = 5, "silicon" = 5)
+	materials = list(/datum/material/iron=700, /datum/material/glass=50)
+	grind_results = list(/datum/reagent/lithium = 15, /datum/reagent/iron = 5, /datum/reagent/silicon = 5)
 	var/rigged = FALSE	// true if rigged to explode
 	var/chargerate = 100 //how much power is given every tick in a recharger
 	var/self_recharge = 0 //does it self recharge, over time, or not?
@@ -92,18 +92,18 @@
 	return power_used
 
 /obj/item/stock_parts/cell/examine(mob/user)
-	..()
+	. = ..()
 	if(rigged)
-		to_chat(user, "<span class='danger'>This power cell seems to be faulty!</span>")
+		. += "<span class='danger'>This power cell seems to be faulty!</span>"
 	else
-		to_chat(user, "The charge meter reads [round(src.percent() )]%.")
+		. += "The charge meter reads [round(src.percent() )]%."
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (FIRELOSS)
 
 /obj/item/stock_parts/cell/on_reagent_change(changetype)
-	rigged = !isnull(reagents.has_reagent("plasma", 5)) //has_reagent returns the reagent datum
+	rigged = !isnull(reagents.has_reagent(/datum/reagent/toxin/plasma, 5)) //has_reagent returns the reagent datum
 	..()
 
 
@@ -148,6 +148,34 @@
 				if(prob(25))
 					corrupt()
 
+/obj/item/stock_parts/cell/attack_self(mob/user)
+	if(isethereal(user))
+		var/mob/living/carbon/human/H = user
+		var/datum/species/ethereal/E = H.dna.species
+		if(E.drain_time > world.time)
+			return
+		if(charge < 100)
+			to_chat(H, "<span class='warning'>The [src] doesn't have enough power!</span>")
+			return
+		var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+		if(!istype(stomach))
+			to_chat(H, "<span class='warning'>You can't receive charge!</span>")
+			return
+		if(stomach.crystal_charge >= ETHEREAL_CHARGE_FULL)
+			to_chat(H, "<span class='warning'>Your charge is full!</span>")
+			return
+		to_chat(H, "<span class='notice'>You clumsily channel power through the [src] and into your body, wasting some in the process.</span>")
+		E.drain_time = world.time + 20
+		if((charge < 100) || (stomach.crystal_charge >= ETHEREAL_CHARGE_FULL))
+			return
+		if(do_after(user, 20, target = src))
+			to_chat(H, "<span class='notice'>You receive some charge from the [src].</span>")
+			stomach.adjust_charge(3)
+			charge -= 100 //you waste way more than you receive, so that ethereals cant just steal one cell and forget about hunger
+		else
+			to_chat(H, "<span class='warning'>You fail to receive charge from the [src]!</span>")
+	return
+
 
 /obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)
 	ex_act(EXPLODE_DEVASTATE)
@@ -170,7 +198,7 @@
 	name = "\improper Nanotrasen brand rechargeable AA battery"
 	desc = "You can't top the plasma top." //TOTALLY TRADEMARK INFRINGEMENT
 	maxcharge = 500
-	materials = list(MAT_GLASS=40)
+	materials = list(/datum/material/glass=40)
 
 /obj/item/stock_parts/cell/crap/empty/Initialize()
 	. = ..()
@@ -181,7 +209,7 @@
 	name = "upgraded power cell"
 	desc = "A power cell with a slightly higher capacity than normal!"
 	maxcharge = 2500
-	materials = list(MAT_GLASS=50)
+	materials = list(/datum/material/glass=50)
 	chargerate = 1000
 
 /obj/item/stock_parts/cell/upgraded/plus
@@ -192,7 +220,7 @@
 /obj/item/stock_parts/cell/secborg
 	name = "security borg rechargeable D battery"
 	maxcharge = 600	//600 max charge / 100 charge per shot = six shots
-	materials = list(MAT_GLASS=40)
+	materials = list(/datum/material/glass=40)
 
 /obj/item/stock_parts/cell/secborg/empty/Initialize()
 	. = ..()
@@ -216,7 +244,7 @@
 	name = "high-capacity power cell"
 	icon_state = "hcell"
 	maxcharge = 10000
-	materials = list(MAT_GLASS=60)
+	materials = list(/datum/material/glass=60)
 	chargerate = 1500
 
 /obj/item/stock_parts/cell/high/plus
@@ -235,7 +263,7 @@
 	name = "super-capacity power cell"
 	icon_state = "scell"
 	maxcharge = 20000
-	materials = list(MAT_GLASS=300)
+	materials = list(/datum/material/glass=300)
 	chargerate = 2000
 
 /obj/item/stock_parts/cell/super/empty/Initialize()
@@ -247,7 +275,7 @@
 	name = "hyper-capacity power cell"
 	icon_state = "hpcell"
 	maxcharge = 30000
-	materials = list(MAT_GLASS=400)
+	materials = list(/datum/material/glass=400)
 	chargerate = 3000
 
 /obj/item/stock_parts/cell/hyper/empty/Initialize()
@@ -260,7 +288,7 @@
 	desc = "A rechargeable transdimensional power cell."
 	icon_state = "bscell"
 	maxcharge = 40000
-	materials = list(MAT_GLASS=600)
+	materials = list(/datum/material/glass=600)
 	chargerate = 4000
 
 /obj/item/stock_parts/cell/bluespace/empty/Initialize()
@@ -272,7 +300,7 @@
 	name = "infinite-capacity power cell!"
 	icon_state = "icell"
 	maxcharge = 30000
-	materials = list(MAT_GLASS=1000)
+	materials = list(/datum/material/glass=1000)
 	rating = 100
 	chargerate = 30000
 
@@ -347,7 +375,7 @@
 	name = "miniature power cell"
 	desc = "A tiny power cell with a very low power capacity. Used in light fixtures to power them in the event of an outage."
 	maxcharge = 120 //Emergency lights use 0.2 W per tick, meaning ~10 minutes of emergency power from a cell
-	materials = list(MAT_GLASS = 20)
+	materials = list(/datum/material/glass = 20)
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/stock_parts/cell/emergency_light/Initialize()

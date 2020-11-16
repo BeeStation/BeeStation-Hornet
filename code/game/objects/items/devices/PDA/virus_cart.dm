@@ -71,7 +71,7 @@
 				difficulty++ //if cartridge has manifest access it has extra snowflake difficulty
 			else
 				difficulty += 2
-		GET_COMPONENT_FROM(hidden_uplink, /datum/component/uplink, target)
+		var/datum/component/uplink/hidden_uplink = target.GetComponent(/datum/component/uplink)
 		if(!target.detonatable || prob(difficulty * 15) || (hidden_uplink))
 			U.show_message("<span class='danger'>An error flashes on your [src].</span>", 1)
 		else
@@ -94,7 +94,7 @@
 		charges--
 		var/lock_code = "[rand(100,999)] [pick(GLOB.phonetic_alphabet)]"
 		to_chat(U, "<span class='notice'>Virus Sent!  The unlock code to the target is: [lock_code]</span>")
-		GET_COMPONENT_FROM(hidden_uplink, /datum/component/uplink, target)
+		var/datum/component/uplink/hidden_uplink = target.GetComponent(/datum/component/uplink)
 		if(!hidden_uplink)
 			hidden_uplink = target.AddComponent(/datum/component/uplink)
 			hidden_uplink.unlock_code = lock_code

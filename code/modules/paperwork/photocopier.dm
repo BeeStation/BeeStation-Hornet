@@ -16,7 +16,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
 	active_power_usage = 200
-	power_channel = EQUIP
+	power_channel = AREA_USAGE_EQUIP
 	max_integrity = 300
 	integrity_failure = 100
 	var/obj/item/paper/copy = null	//what's in the copier!
@@ -31,7 +31,7 @@
 
 /obj/machinery/photocopier/ui_interact(mob/user)
 	. = ..()
-	var/dat = "Photocopier<BR><BR>"
+	var/list/dat = list("Photocopier<BR><BR>")
 	if(copy || photocopy || doccopy || (ass && (ass.loc == src.loc)))
 		dat += "<a href='byond://?src=[REF(src)];remove=1'>Remove Paper</a><BR>"
 		if(toner)
@@ -48,7 +48,7 @@
 	dat += "Current toner level: [toner]"
 	if(!toner)
 		dat +="<BR>Please insert a new toner cartridge!"
-	user << browse(dat, "window=copier")
+	user << browse(dat.Join(""), "window=copier")
 	onclose(user, "copier")
 
 /obj/machinery/photocopier/Topic(href, href_list)
@@ -77,9 +77,7 @@
 							c.info += copied
 							c.info += "</font>"
 							c.name = copy.name
-							c.fields = copy.fields
 							c.update_icon()
-							c.updateinfolinks()
 							c.stamps = copy.stamps
 							if(copy.stamped)
 								c.stamped = copy.stamped.Copy()
@@ -121,26 +119,21 @@
 					if(isalienadult(ass) || istype(ass, /mob/living/simple_animal/hostile/alien)) //Xenos have their own asses, thanks to Pybro.
 						temp_img = icon('icons/ass/assalien.png')
 					else if(ishuman(ass)) //Suit checks are in check_ass
-						if(ass.gender == MALE)
-							temp_img = icon('icons/ass/assmale.png')
-						else if(ass.gender == FEMALE)
-							temp_img = icon('icons/ass/assfemale.png')
-						else 									//In case anyone ever makes the generic ass. For now I'll be using male asses.
-							temp_img = icon('icons/ass/assmale.png')
+						temp_img = icon(ass.gender == FEMALE ? 'icons/ass/assfemale.png' : 'icons/ass/assmale.png')
 					else if(isdrone(ass)) //Drones are hot
 						temp_img = icon('icons/ass/assdrone.png')
 					else
 						break
-					var/obj/item/photo/p = new /obj/item/photo (loc)
-					p.pixel_x = rand(-10, 10)
-					p.pixel_y = rand(-10, 10)
-					p.picture = new(null, "You see [ass]'s ass on the photo.", temp_img)
-					p.picture.psize_x = 128
-					p.picture.psize_y = 128
-					p.update_icon()
-					toner -= 5
 					busy = TRUE
 					sleep(15)
+					var/obj/item/photo/p = new /obj/item/photo (loc)
+					var/datum/picture/toEmbed = new(name = "[ass]'s Ass", desc = "You see [ass]'s ass on the photo.", image = temp_img)
+					p.pixel_x = rand(-10, 10)
+					p.pixel_y = rand(-10, 10)
+					toEmbed.psize_x = 128
+					toEmbed.psize_y = 128
+					p.set_picture(toEmbed, TRUE, TRUE)
+					toner -= 5
 					busy = FALSE
 				else
 					break
@@ -172,7 +165,7 @@
 		if(toner >= 5 && !busy)
 			var/mob/living/silicon/ai/tempAI = usr
 			if(tempAI.aicamera.stored.len == 0)
-				to_chat(usr, "<span class='boldannounce'>No images saved</span>")
+				to_chat(usr, "<span class='boldannounce'>No images saved.</span>")
 				return
 			var/datum/picture/selection = tempAI.aicamera.selectpicture(usr)
 			var/obj/item/photo/photo = new(loc, selection)
@@ -252,7 +245,7 @@
 			to_chat(user, "<span class='warning'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>")
 
 	else if(istype(O, /obj/item/areaeditor/blueprints))
-		to_chat(user, "<span class='warning'>The Blueprint is too large to put into the copier. You need to find something else to record the document</span>")
+		to_chat(user, "<span class='warning'>The Blueprint is too large to put into the copier. You need to find something else to record the document.</span>")
 	else
 		return ..()
 
@@ -335,6 +328,6 @@
 	name = "toner cartridge"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "tonercartridge"
-	grind_results = list("iodine" = 40, "iron" = 10)
+	grind_results = list(/datum/reagent/iodine = 40, /datum/reagent/iron = 10)
 	var/charges = 5
 	var/max_charges = 5

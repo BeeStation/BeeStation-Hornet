@@ -32,11 +32,12 @@
 					if(A.a_intent == INTENT_GRAB)
 						log_combat(A, D, "grabbed", addition="aggressively")
 						D.visible_message("<span class='warning'>[A] violently grabs [D]!</span>", \
-						  "<span class='userdanger'>[A] violently grabs you!</span>")
-						A.grab_state = GRAB_AGGRESSIVE //Instant aggressive grab
+										"<span class='userdanger'>You're violently grabbed by [A]!</span>", "<span class='hear'>You hear sounds of aggressive fondling!</span>", null, A)
+						to_chat(A, "<span class='danger'>You violently grab [D]!</span>")
+						A.setGrabState(GRAB_AGGRESSIVE) //Instant aggressive grab
 					else
 						log_combat(A, D, "grabbed", addition="passively")
-						A.grab_state = GRAB_PASSIVE
+						A.setGrabState(GRAB_PASSIVE)
 		if(4)
 			A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 			atk_verb = "headbutts"
@@ -46,7 +47,7 @@
 			D.apply_damage(rand(5,10), A.dna.species.attack_type, BODY_ZONE_HEAD)
 			A.apply_damage(rand(5,10), A.dna.species.attack_type, BODY_ZONE_HEAD)
 			if(!istype(D.head,/obj/item/clothing/head/helmet/) && !istype(D.head,/obj/item/clothing/head/hardhat))
-				D.adjustBrainLoss(5)
+				D.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
 			A.Stun(rand(10,45))
 			D.Stun(rand(5,30))
 		if(5,6)

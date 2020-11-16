@@ -16,10 +16,10 @@
 	var/network_destination = null			// Optional string that describes what NTNet server/system this program connects to. Used in default logging.
 	var/available_on_ntnet = 1				// Whether the program can be downloaded from NTNet. Set to 0 to disable.
 	var/available_on_syndinet = 0			// Whether the program can be downloaded from SyndiNet (accessible via emagging the computer). Set to 1 to enable.
-	var/tgui_id								// ID of TG UI interface
-	var/ui_style							// ID of custom TG UI style (optional)
-	var/ui_x = 575							// Default size of TG UI window, in pixels
-	var/ui_y = 700
+	var/tgui_id								// ID of TGUI interface
+	var/ui_style							// ID of custom TGUI style (optional)
+
+
 	var/ui_header = null					// Example: "something.gif" - a header image that will be rendered in computer's UI when this program is running at background. Images are taken from /icons/program_icons. Be careful not to use too large images!
 
 /datum/computer_file/program/New(obj/item/modular_computer/comp = null)
@@ -138,18 +138,20 @@
 		generate_network_log("Connection to [network_destination] closed.")
 	return 1
 
+/datum/computer_file/program/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/headers),
+	)
 
-/datum/computer_file/program/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/computer_file/program/ui_state(mob/user)
+	return GLOB.default_state
+
+/datum/computer_file/program/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui && tgui_id)
-		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
-		assets.send(user)
+		ui = new(user, src, tgui_id, filename)
 
-		ui = new(user, src, ui_key, tgui_id, filedesc, ui_x, ui_y, state = state)
-
-		if(ui_style)
-			ui.set_style(ui_style)
-		ui.set_autoupdate(state = 1)
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 // CONVENTIONS, READ THIS WHEN CREATING NEW PROGRAM AND OVERRIDING THIS PROC:

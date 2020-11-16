@@ -67,11 +67,14 @@
 	to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
 	update_icon()
 
-/obj/structure/tank_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-										datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/structure/tank_dispenser/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/structure/tank_dispenser/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "tank_dispenser", name, 275, 100, master_ui, state)
+		ui = new(user, src, "TankDispenser")
 		ui.open()
 
 /obj/structure/tank_dispenser/ui_data(mob/user)
@@ -87,13 +90,13 @@
 	switch(action)
 		if("plasma")
 			var/obj/item/tank/internals/plasma/tank = locate() in src
-			if(tank && Adjacent(usr))
+			if(tank && Adjacent(usr) && isliving(usr))
 				usr.put_in_hands(tank)
 				plasmatanks--
 			. = TRUE
 		if("oxygen")
 			var/obj/item/tank/internals/oxygen/tank = locate() in src
-			if(tank && Adjacent(usr))
+			if(tank && Adjacent(usr) && isliving(usr))
 				usr.put_in_hands(tank)
 				oxygentanks--
 			. = TRUE
@@ -105,7 +108,7 @@
 		for(var/X in src)
 			var/obj/item/I = X
 			I.forceMove(loc)
-		new /obj/item/stack/sheet/metal (loc, 2)
+		new /obj/item/stack/sheet/iron (loc, 2)
 	qdel(src)
 
 #undef TANK_DISPENSER_CAPACITY

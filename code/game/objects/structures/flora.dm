@@ -309,10 +309,20 @@
 	layer = ABOVE_MOB_LAYER
 	w_class = WEIGHT_CLASS_HUGE
 	force = 10
+	attack_weight = 2
+	force_wielded = 10
 	throwforce = 13
 	throw_speed = 2
 	throw_range = 4
 
+/obj/item/twohanded/required/kirbyplants/Initialize()
+	. = ..()
+	AddComponent(/datum/component/storage/concrete/kirbyplants)
+
+/datum/component/storage/concrete/kirbyplants
+	max_items = 1
+	max_w_class = WEIGHT_CLASS_NORMAL
+	insert_while_closed = FALSE // We don't want clicking plants with items to insert it, you have to alt click then click the slots
 
 /obj/item/twohanded/required/kirbyplants/equipped(mob/living/user)
 	var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)
@@ -340,7 +350,7 @@
 
 /obj/item/twohanded/required/kirbyplants/random/proc/generate_states()
 	states = list()
-	for(var/i in 1 to 25)
+	for(var/i in 1 to 34)
 		var/number
 		if(i < 10)
 			number = "0[i]"

@@ -45,16 +45,20 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/card/emagfake = 1,
 		/obj/item/clothing/shoes/wheelys = 2,
 		/obj/item/clothing/shoes/kindleKicks = 2,
+		/obj/item/toy/plush/moth = 2,
+		/obj/item/storage/box/heretic_asshole = 1,
+		/obj/item/toy/eldrich_book = 1,
 		/obj/item/storage/belt/military/snack = 2))
 
 /obj/machinery/computer/arcade
 	name = "random arcade"
 	desc = "random arcade machine"
 	icon_state = "arcade"
-	icon_keyboard = null
+	icon_keyboard = "no_keyboard"
 	icon_screen = "invaders"
 	clockwork = TRUE //it'd look weird
 	var/list/prize_override
+	var/prizeselect = /obj/item/coin/arcade_token
 	light_color = LIGHT_COLOR_GREEN
 
 /obj/machinery/computer/arcade/proc/Reset()
@@ -65,8 +69,11 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	// If it's a generic arcade machine, pick a random arcade
 	// circuit board for it and make the new machine
 	if(!circuit)
-		var/choice = pick(subtypesof(/obj/item/circuitboard/computer/arcade))
-		var/obj/item/circuitboard/CB = new choice()
+		var/list/gameodds = list(/obj/item/circuitboard/computer/arcade/battle = 49,
+							/obj/item/circuitboard/computer/arcade/orion_trail = 49,
+							/obj/item/circuitboard/computer/arcade/amputation = 2)
+		var/thegame = pickweight(gameodds)
+		var/obj/item/circuitboard/CB = new thegame()
 		new CB.build_path(loc, CB)
 		return INITIALIZE_HINT_QDEL
 	Reset()
@@ -76,19 +83,33 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	if(prob(0.0001)) //1 in a million
 		new /obj/item/gun/energy/pulse/prize(src)
 		SSmedals.UnlockMedal(MEDAL_PULSE, user.client)
-
-	if(!contents.len)
-		var/prizeselect
-		if(prize_override)
-			prizeselect = pickweight(prize_override)
-		else
-			prizeselect = pickweight(GLOB.arcade_prize_pool)
+	else
 		new prizeselect(src)
 
 	var/atom/movable/the_prize = pick(contents)
 	visible_message("<span class='notice'>[src] dispenses [the_prize]!</span>", "<span class='notice'>You hear a chime and a clunk.</span>")
 
 	the_prize.forceMove(get_turf(src))
+
+/obj/machinery/computer/arcade/proc/redeem(mob/user)
+	var/redeemselect
+	if(!contents.len)
+		if(prize_override)
+			redeemselect = pickweight(prize_override)
+		else
+			redeemselect = pickweight(GLOB.arcade_prize_pool)
+
+	new redeemselect(src)
+	var/atom/movable/the_prize = pick(contents)
+	visible_message("<span class='notice'>[src] dispenses [the_prize]!</span>", "<span class='notice'>You hear a chime and a clunk.</span>")
+	the_prize.forceMove(get_turf(src))
+
+/obj/machinery/computer/arcade/attackby(obj/item/W, mob/user)
+	if(istype(W, /obj/item/coin/arcade_token) || istype(W, /obj/item/coin/bananium))
+		to_chat(user, "<span class='notice'>You insert the [W] into the [src].")
+		redeem(user)
+		qdel(W)
+		return
 
 /obj/machinery/computer/arcade/emp_act(severity)
 	. = ..()
@@ -164,7 +185,6 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	dat += "</b></center>"
 	var/datum/browser/popup = new(user, "arcade", "Space Villain 2000")
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
 
 /obj/machinery/computer/arcade/battle/Topic(href, href_list)
@@ -337,6 +357,8 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 #define ORION_TRAIL_COLLISION	"Collision"
 #define ORION_TRAIL_SPACEPORT	"Spaceport"
 #define ORION_TRAIL_BLACKHOLE	"BlackHole"
+#define ORION_TRAIL_OLDSHIP		"Old Ship"
+#define ORION_TRAIL_SEARCH		"Old Ship Search"
 
 #define ORION_STATUS_START		1
 #define ORION_STATUS_NORMAL		2
@@ -366,7 +388,8 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 						   ORION_TRAIL_LING			= 3,
 						   ORION_TRAIL_MALFUNCTION	= 2,
 						   ORION_TRAIL_COLLISION	= 1,
-						   ORION_TRAIL_SPACEPORT	= 2
+						   ORION_TRAIL_SPACEPORT	= 2,
+						   ORION_TRAIL_OLDSHIP		= 2
 						   )
 	var/list/stops = list()
 	var/list/stopblurbs = list()
@@ -432,7 +455,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	var/dat = ""
 	if(gameStatus == ORION_STATUS_GAMEOVER)
 		dat = "<center><h1>Game Over</h1></center>"
-		dat += "Like many before you, your crew never made it to Orion, lost to space... <br><b>Forever</b>."
+		dat += "Like many before you, your crew never made it to Orion, lost to space. <br><b>Forever</b>."
 		if(!settlers.len)
 			dat += "<br>Your entire crew died, and your ship joins the fleet of ghost-ships littering the galaxy."
 		else
@@ -482,7 +505,6 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		dat += "<P ALIGN=Right><a href='byond://?src=[REF(src)];close=1'>Close</a></P>"
 	var/datum/browser/popup = new(user, "arcade", "The Orion Trail",400,700)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
 	return
 
@@ -589,6 +611,10 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			food = 80
 			fuel = 60
 			settlers = list("Harry","Larry","Bob")
+	else if(href_list["search"]) //search old ship
+		if(event == ORION_TRAIL_OLDSHIP)
+			event = ORION_TRAIL_SEARCH
+			event()
 	else if(href_list["slow"]) //slow down
 		if(event == ORION_TRAIL_FLUX)
 			food -= (alive+lings_aboard)*2
@@ -796,6 +822,37 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			eventdat += "<br>What will you do?"
 			eventdat += "<P ALIGN=Right><a href='byond://?src=[REF(src)];slow=1'>Slow Down</a> <a href='byond://?src=[REF(src)];keepspeed=1'>Continue</a></P>"
 			eventdat += "<P ALIGN=Right><a href='byond://?src=[REF(src)];close=1'>Close</a></P>"
+
+		if(ORION_TRAIL_OLDSHIP)
+			eventdat += "<br>Your crew spots an old ship floating through space. It might have some supplies, but then again it looks rather unsafe."
+			eventdat += "<P ALIGN=Right><a href='byond://?src=[REF(src)];search=1'>Search it</a><a href='byond://?src=[REF(src)];eventclose=1'>Leave it</a></P><P ALIGN=Right><a href='byond://?src=[REF(src)];close=1'>Close</a></P>"
+
+		if(ORION_TRAIL_SEARCH)
+			switch(rand(100))
+				if(0 to 15)
+					var/rescued = add_crewmember()
+					var/oldfood = rand(1,7)
+					var/oldfuel = rand(4,10)
+					food += oldfood
+					fuel += oldfuel
+					eventdat += "<br>As you look through it you find some supplies and a living person!"
+					eventdat += "<br>[rescued] was rescued from the abandoned ship!"
+					eventdat += "<br>You found [oldfood] <b>Food</b> and [oldfuel] <b>Fuel</b>."
+				if(15 to 35)
+					var/lfuel = rand(4,7)
+					var/deadname = remove_crewmember()
+					fuel -= lfuel
+					eventdat += "<br>[deadname] was lost deep in the wreckage, and your own vessel lost [lfuel] <b>Fuel</b> maneuvering to the the abandoned ship."
+				if(35 to 65)
+					var/oldfood = rand(5,11)
+					food += oldfood
+					engine++
+					eventdat += "<br>You found [oldfood] <b>Food</b> and some parts amongst the wreck."
+				else
+					eventdat += "<br>As you look through the wreck you cannot find much of use."
+			eventdat += "<P ALIGN=Right><a href='byond://?src=[REF(src)];eventclose=1'>Continue</a></P>"
+			eventdat += "<P ALIGN=Right><a href='byond://?src=[REF(src)];close=1'>Close</a></P>"
+			canContinueEvent = 1
 
 		if(ORION_TRAIL_ILLNESS)
 			eventdat += "A deadly illness has been contracted!"
@@ -1048,7 +1105,9 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	gameStatus = ORION_STATUS_START
 	say("Congratulations, you made it to Orion!")
 	if(obj_flags & EMAGGED)
-		new /obj/item/orion_ship(loc)
+		prizeselect = /obj/item/orion_ship
+		prizevend(user)
+		prizeselect = /obj/item/coin/arcade_token
 		message_admins("[ADMIN_LOOKUPFLW(usr)] made it to Orion on an emagged machine and got an explosive toy ship.")
 		log_game("[key_name(usr)] made it to Orion on an emagged machine and got an explosive toy ship.")
 	else
@@ -1082,13 +1141,13 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	var/active = 0 //if the ship is on
 
 /obj/item/orion_ship/examine(mob/user)
-	..()
+	. = ..()
 	if(!(in_range(user, src)))
 		return
 	if(!active)
-		to_chat(user, "<span class='notice'>There's a little switch on the bottom. It's flipped down.</span>")
+		. += "<span class='notice'>There's a little switch on the bottom. It's flipped down.</span>"
 	else
-		to_chat(user, "<span class='notice'>There's a little switch on the bottom. It's flipped up.</span>")
+		. += "<span class='notice'>There's a little switch on the bottom. It's flipped up.</span>"
 
 /obj/item/orion_ship/attack_self(mob/user) //Minibomb-level explosion. Should probably be more because of how hard it is to survive the machine! Also, just over a 5-second fuse
 	if(active)
@@ -1112,6 +1171,35 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	explosion(loc, 2,4,8, flame_range = 16)
 	qdel(src)
 
+// ** AMPUTATION ** //
+
+/obj/machinery/computer/arcade/amputation
+	name = "Mediborg's Amputation Adventure"
+	desc = "A picture of a blood-soaked medical cyborg flashes on the screen. The mediborg has a speech bubble that says, \"Put your hand in the machine if you aren't a <b>coward!</b>\""
+	icon_state = "arcade"
+	circuit = /obj/item/circuitboard/computer/arcade/amputation
+
+/obj/machinery/computer/arcade/amputation/attack_hand(mob/user)
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/c_user = user
+	if(!c_user.get_bodypart(BODY_ZONE_L_ARM) && !c_user.get_bodypart(BODY_ZONE_R_ARM))
+		return
+	to_chat(c_user, "<span class='warning'>You move your hand towards the machine, and begin to hesitate as a bloodied guillotine emerges from inside of it...</span>")
+	if(do_after(c_user, 50, target = src))
+		to_chat(c_user, "<span class='userdanger'>The guillotine drops on your arm, and the machine sucks it in!</span>")
+		playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+		var/which_hand = BODY_ZONE_L_ARM
+		if(!(c_user.active_hand_index % 2))
+			which_hand = BODY_ZONE_R_ARM
+		var/obj/item/bodypart/chopchop = c_user.get_bodypart(which_hand)
+		chopchop.dismember()
+		qdel(chopchop)
+		playsound(loc, 'sound/arcade/win.ogg', 50, 1, extrarange = -3, falloff = 10)
+		for(var/i=1; i<=rand(3,5); i++)
+			prizevend(user)
+	else
+		to_chat(c_user, "<span class='notice'>You (wisely) decide against putting your hand in the machine.</span>")
 
 #undef ORION_TRAIL_WINTURN
 #undef ORION_TRAIL_RAIDERS
@@ -1124,6 +1212,8 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 #undef ORION_TRAIL_COLLISION
 #undef ORION_TRAIL_SPACEPORT
 #undef ORION_TRAIL_BLACKHOLE
+#undef ORION_TRAIL_OLDSHIP
+#undef ORION_TRAIL_SEARCH
 
 #undef ORION_STATUS_START
 #undef ORION_STATUS_NORMAL

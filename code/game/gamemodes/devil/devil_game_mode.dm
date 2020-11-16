@@ -4,12 +4,13 @@
 	report_type = "devil"
 	antag_flag = ROLE_DEVIL
 	false_report_weight = 1
-	protected_jobs = list("Lawyer", "Curator", "Chaplain", "Head of Security", "Captain", "AI")
+	protected_jobs = list("Lawyer", "Curator", "Chaplain", "Head of Security", "Captain", "AI", "Cyborg", "Security Officer", "Warden", "Detective", "Brig Physician")
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
 	reroll_friendly = 1
 	enemy_minimum_age = 0
+	title_icon = "devil"
 
 	var/traitors_possible = 4 //hard limit on devils if scaling is turned off
 	var/num_modifier = 0 // Used for gamemodes, that are a child of traitor, that need more than the usual.
@@ -25,6 +26,8 @@
 		restricted_jobs += protected_jobs
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		restricted_jobs += "Assistant"
+	if(CONFIG_GET(flag/protect_heads_from_antagonist))
+		restricted_jobs += GLOB.command_positions
 
 	var/num_devils = 1
 
@@ -37,7 +40,7 @@
 	for(var/j = 0, j < num_devils, j++)
 		if (!antag_candidates.len)
 			break
-		var/datum/mind/devil = antag_pick(antag_candidates)
+		var/datum/mind/devil = antag_pick(antag_candidates, ROLE_DEVIL)
 		devils += devil
 		devil.special_role = traitor_name
 		devil.restricted_roles = restricted_jobs
@@ -66,7 +69,7 @@
 	add_devil_objectives(devil,2)
 
 /proc/is_devil(mob/living/M)
-	return M && M.mind && M.mind.has_antag_datum(/datum/antagonist/devil)
+	return M?.mind?.has_antag_datum(/datum/antagonist/devil)
 
 /proc/add_devil(mob/living/L, ascendable = FALSE)
 	if(!L || !L.mind)
@@ -81,3 +84,22 @@
 	var/datum/antagonist/devil_datum = L.mind.has_antag_datum(/datum/antagonist/devil)
 	devil_datum.on_removal()
 	return TRUE
+
+/datum/game_mode/devil/generate_credit_text()
+	var/list/round_credits = list()
+	var/len_before_addition
+
+	round_credits += "<center><h1>The Tempting Devils:</h1>"
+	len_before_addition = round_credits.len
+	var/datum/antagonist/devil/devil_info
+	for(var/datum/mind/devil in devils)
+		devil_info = devil.has_antag_datum(/datum/antagonist/devil)
+		if(devil_info) // This should never fail, but better to be sure
+			round_credits += "<center><h2>[devil_info.truename] in the form of [devil.name]</h2>"
+			devil_info = null
+	if(len_before_addition == round_credits.len)
+		round_credits += list("<center><h2>The devils were all utterly destroyed!</h2>", "<center><h2>The love of Space Jesus shines through!</h2>")
+	round_credits += "<br>"
+
+	round_credits += ..()
+	return round_credits

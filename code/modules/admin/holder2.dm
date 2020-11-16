@@ -28,6 +28,9 @@ GLOBAL_PROTECT(href_token)
 
 	var/deadmined
 
+	//Admin help manager
+	var/datum/admin_help_ui/admin_interface
+
 /datum/admins/New(datum/admin_rank/R, ckey, force_active = FALSE, protected)
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"
@@ -40,11 +43,9 @@ GLOBAL_PROTECT(href_token)
 	if(!ckey)
 		QDEL_IN(src, 0)
 		CRASH("Admin datum created without a ckey")
-		return
 	if(!istype(R))
 		QDEL_IN(src, 0)
 		CRASH("Admin datum created without a rank")
-		return
 	target = ckey
 	name = "[ckey]'s admin datum ([R])"
 	rank = R
@@ -164,7 +165,7 @@ NOTE: it checks usr! not src! So if you're checking somebody's rank in a proc wh
 you will have to do something like if(client.rights & R_ADMIN) yourself.
 */
 /proc/check_rights(rights_required, show_msg=1)
-	if(usr && usr.client)
+	if(usr?.client)
 		if (check_rights_for(usr.client, rights_required))
 			return 1
 		else
@@ -174,7 +175,7 @@ you will have to do something like if(client.rights & R_ADMIN) yourself.
 
 //probably a bit iffy - will hopefully figure out a better solution
 /proc/check_if_greater_rights_than(client/other)
-	if(usr && usr.client)
+	if(usr?.client)
 		if(usr.client.holder)
 			if(!other || !other.holder)
 				return 1

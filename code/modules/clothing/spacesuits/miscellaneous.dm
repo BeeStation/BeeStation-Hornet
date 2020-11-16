@@ -12,6 +12,8 @@ Contains:
  - EVA spacesuit
  - Freedom's spacesuit (freedom from vacuum's oppression)
  - Carp hardsuit
+ - Bounty hunter hardsuit
+ - Emergency skinsuit
 */
 
 	//Death squad armored space suits, not hardsuits!
@@ -56,7 +58,7 @@ Contains:
 /obj/item/clothing/head/helmet/space/beret
 	name = "officer's beret"
 	desc = "An armored beret commonly used by special operations officers. Uses advanced force field technology to protect the head from space."
-	icon_state = "beret_badge"
+	icon_state = "dsberet"
 	dynamic_hair_suffix = "+generic"
 	dynamic_fhair_suffix = "+generic"
 	flags_inv = 0
@@ -68,8 +70,8 @@ Contains:
 /obj/item/clothing/suit/space/officer
 	name = "officer's jacket"
 	desc = "An armored, space-proof jacket used in special operations."
-	icon_state = "detective"
-	item_state = "det_suit"
+	icon_state = "specops"
+	item_state = "specops"
 	blood_overlay_type = "coat"
 	slowdown = 0
 	flags_inv = 0
@@ -171,7 +173,7 @@ Contains:
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize()
 	. = ..()
-	add_trait(TRAIT_NODROP, LOCKED_HELMET_TRAIT)
+	ADD_TRAIT(src, TRAIT_NODROP, LOCKED_HELMET_TRAIT)
 
 /obj/item/clothing/suit/space/hardsuit/ert
 	name = "emergency response team commander hardsuit"
@@ -185,6 +187,7 @@ Contains:
 	strip_delay = 130
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	jetpack = /obj/item/tank/jetpack/suit
 
 	//ERT Security
 /obj/item/clothing/head/helmet/space/hardsuit/ert/sec
@@ -200,6 +203,7 @@ Contains:
 	icon_state = "ert_security"
 	item_state = "ert_security"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/sec
+	jetpack = /obj/item/tank/jetpack/suit
 
 	//ERT Engineering
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engi
@@ -215,6 +219,7 @@ Contains:
 	icon_state = "ert_engineer"
 	item_state = "ert_engineer"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/engi
+	jetpack = /obj/item/tank/jetpack/suit
 
 	//ERT Medical
 /obj/item/clothing/head/helmet/space/hardsuit/ert/med
@@ -230,7 +235,7 @@ Contains:
 	icon_state = "ert_medical"
 	item_state = "ert_medical"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/med
-	species_exception = list(/datum/species/angel)
+	jetpack = /obj/item/tank/jetpack/suit
 
 	//ERT Janitor
 /obj/item/clothing/head/helmet/space/hardsuit/ert/jani
@@ -251,14 +256,14 @@ Contains:
 /obj/item/clothing/suit/space/eva
 	name = "EVA suit"
 	icon_state = "space"
-	item_state = "s_suit"
+	item_state = "eva_suit"
 	desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 20, "fire" = 50, "acid" = 65)
 
 /obj/item/clothing/head/helmet/space/eva
 	name = "EVA helmet"
 	icon_state = "space"
-	item_state = "space"
+	item_state = "eva_helmet"
 	desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
 	flash_protect = 0
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 20, "fire" = 50, "acid" = 65)
@@ -291,22 +296,22 @@ Contains:
 	desc = "Spaceworthy and it looks like a space carp's head, smells like one too."
 	icon_state = "carp_helm"
 	item_state = "syndicate"
-	armor = list("melee" = -20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 75, "fire" = 60, "acid" = 75)	//As whimpy as a space carp
+	armor = list("melee" = 20, "bullet" = 10, "laser" = 20, "energy" = 20, "bomb" = 30, "bio" = 100, "rad" = 75, "fire" = 60, "acid" = 75)
 	brightness_on = 0 //luminosity when on
 	actions_types = list()
 
 /obj/item/clothing/head/helmet/space/hardsuit/carp/Initialize()
 	. = ..()
-	add_trait(TRAIT_NODROP, LOCKED_HELMET_TRAIT)
+	ADD_TRAIT(src, TRAIT_NODROP, LOCKED_HELMET_TRAIT)
 
 /obj/item/clothing/suit/space/hardsuit/carp
 	name = "carp space suit"
-	desc = "A slimming piece of dubious space carp technology, you suspect it won't stand up to hand-to-hand blows."
+	desc = "A slimming piece of dubious space carp technology."
 	icon_state = "carp_suit"
 	item_state = "space_suit_syndicate"
 	slowdown = 0	//Space carp magic, never stop believing
-	armor = list("melee" = -20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 75, "fire" = 60, "acid" = 75) //As whimpy whimpy whoo
-	allowed = list(/obj/item/tank/internals, /obj/item/pneumatic_cannon/speargun)	//I'm giving you a hint here
+	armor = list("melee" = 20, "bullet" = 10, "laser" = 20, "energy" = 20, "bomb" = 30, "bio" = 100, "rad" = 75, "fire" = 60, "acid" = 75)
+	allowed = list(/obj/item/tank/internals, /obj/item/pneumatic_cannon/speargun, /obj/item/toy/plush/carpplushie/dehy_carp, /obj/item/toy/plush/carpplushie, /obj/item/reagent_containers/food/snacks/carpmeat)	//I'm giving you a hint here
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/carp
 
 /obj/item/clothing/head/helmet/space/hardsuit/carp/equipped(mob/living/carbon/human/user, slot)
@@ -371,8 +376,9 @@ Contains:
 	desc = "A bulky, air-tight helmet meant to protect the user during emergency situations. It doesn't look very durable."
 	icon_state = "syndicate-helm-orange"
 	item_state = "syndicate-helm-orange"
-	armor = list("melee" = 5, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 10, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 5, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 10, "fire" = 0, "acid" = 0)
 	strip_delay = 65
+	flash_protect = 0
 
 /obj/item/clothing/suit/space/fragile
 	name = "emergency space suit"
@@ -381,15 +387,92 @@ Contains:
 	icon_state = "syndicate-orange"
 	item_state = "syndicate-orange"
 	slowdown = 2
-	armor = list("melee" = 5, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 10, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 5, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 10, "fire" = 0, "acid" = 0)
 	strip_delay = 65
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clothing/suit/space/fragile/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!torn && prob(50))
 		to_chat(owner, "<span class='warning'>[src] tears from the damage, breaking the air-tight seal!</span>")
 		clothing_flags &= ~STOPSPRESSUREDAMAGE
-		name = "torn [src]."
+		name = "torn [src]"
 		desc = "A bulky suit meant to protect the user during emergency situations, at least until someone tore a hole in the suit."
 		torn = TRUE
 		playsound(loc, 'sound/weapons/slashmiss.ogg', 50, 1)
 		playsound(loc, 'sound/effects/refill.ogg', 50, 1)
+
+/obj/item/clothing/suit/space/hunter
+	name = "bounty hunting suit"
+	desc = "A custom version of the MK.II SWAT suit, modified to look rugged and tough. Works as a space suit, if you can find a helmet."
+	icon_state = "hunter"
+	item_state = "swat_suit"
+	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/kitchen/knife/combat)
+	armor = list(melee = 60, bullet = 40, laser = 40, energy = 50, bomb = 100, bio = 100, rad = 100, fire = 100, acid = 100)
+	strip_delay = 130
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+/obj/item/clothing/head/helmet/space/skinsuit
+	name = "skinsuit helmet"
+	icon = 'icons/obj/clothing/hats.dmi'
+	w_class = WEIGHT_CLASS_SMALL //Don't question it. We want it to fit back in the box
+	alternate_worn_icon = 'icons/mob/head.dmi'
+	icon_state = "skinsuit_helmet"
+	item_state = "skinsuit_helmet"
+	desc = "An airtight helmet meant to protect the wearer during emergency situations."
+	permeability_coefficient = 0.01
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 20, "rad" = 0, "fire" = 0, "acid" = 0)
+	min_cold_protection_temperature = EMERGENCY_HELM_MIN_TEMP_PROTECT
+	heat_protection = NONE
+	flash_protect = 0
+	bang_protect = 0
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR
+	clothing_flags = STOPSPRESSUREDAMAGE | SHOWEROKAY | SNUG_FIT
+	max_heat_protection_temperature = 100
+
+/obj/item/clothing/suit/space/skinsuit
+	name = "skinsuit"
+	desc = "A slim, compression-based spacesuit meant to protect the user during emergency situations. It's only a little warmer than your uniform."
+	icon = 'icons/obj/clothing/suits.dmi'
+	alternate_worn_icon = 'icons/mob/suit.dmi'
+	icon_state = "skinsuit_rolled"
+	slowdown = 3 //Higher is slower
+	w_class = WEIGHT_CLASS_SMALL
+	clothing_flags = STOPSPRESSUREDAMAGE | SHOWEROKAY
+	gas_transfer_coefficient = 0.5
+	permeability_coefficient = 0.5
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	min_cold_protection_temperature = EMERGENCY_SUIT_MIN_TEMP_PROTECT
+	heat_protection = NONE
+	max_heat_protection_temperature = 100
+	var/rolled_up = TRUE
+
+/obj/item/clothing/suit/space/skinsuit/mob_can_equip(mob/M, mob/living/equipper, slot)
+	if(rolled_up && slot == SLOT_WEAR_SUIT)
+		if(equipper)
+			to_chat(equipper, "<span class='warning'>You need to unroll \the [src], silly.</span>")
+		else
+			to_chat(M, "<span class='warning'>You need to unroll \the [src], silly.</span>")
+		return FALSE
+	return ..()
+
+/obj/item/clothing/suit/space/skinsuit/examine(mob/user)
+	. = ..()
+	if(rolled_up)
+		. += "<span class='notice'>It is currently rolled up.</span>"
+	else
+		. += "<span class='notice'>It can be rolled up to fit in a box.</span>"
+
+
+/obj/item/clothing/suit/space/skinsuit/attack_self(mob/user)
+	if(rolled_up)
+		to_chat(user, "<span class='notice'>You unroll \the [src].</span>")
+		icon_state = "skinsuit"
+		update_icon()
+		w_class = WEIGHT_CLASS_NORMAL
+	else
+		to_chat(user, "<span class='notice'>You roll up \the [src].</span>")
+		icon_state = "skinsuit_rolled"
+		update_icon()
+		w_class = WEIGHT_CLASS_SMALL
+
+	rolled_up = !rolled_up

@@ -38,6 +38,7 @@
 	chest = new(src)
 	chest.wired = TRUE
 	chest.cell = new /obj/item/stock_parts/cell/high/plus(chest)
+	update_icon()
 
 /obj/item/robot_suit/update_icon()
 	cut_overlays()
@@ -138,8 +139,8 @@
 
 /obj/item/robot_suit/attackby(obj/item/W, mob/user, params)
 
-	if(istype(W, /obj/item/stack/sheet/metal))
-		var/obj/item/stack/sheet/metal/M = W
+	if(istype(W, /obj/item/stack/sheet/iron))
+		var/obj/item/stack/sheet/iron/M = W
 		if(!l_arm && !r_arm && !l_leg && !r_leg && !chest && !head)
 			if (M.use(1))
 				var/obj/item/bot_assembly/ed209/B = new
@@ -150,7 +151,7 @@
 				if (holding_this)
 					user.put_in_inactive_hand(B)
 			else
-				to_chat(user, "<span class='warning'>You need one sheet of metal to start building ED-209!</span>")
+				to_chat(user, "<span class='warning'>You need one sheet of iron to start building ED-209!</span>")
 				return
 	else if(istype(W, /obj/item/bodypart/l_leg/robot))
 		if(l_leg)
@@ -258,7 +259,7 @@
 				to_chat(user, "<span class='warning'>Sticking a dead brain into the frame would sort of defeat the purpose!</span>")
 				return
 
-			if(M.brain?.damaged_brain)
+			if(M.brain?.organ_flags & ORGAN_FAILING)
 				to_chat(user, "<span class='warning'>The MMI indicates that the brain is damaged!</span>")
 				return
 
@@ -297,8 +298,6 @@
 					O.make_laws()
 
 			SSticker.mode.remove_antag_for_borging(BM.mind)
-			if(!istype(M.laws, /datum/ai_laws/ratvar))
-				remove_servant_of_ratvar(BM, TRUE)
 
 			O.job = "Cyborg"
 
@@ -314,7 +313,7 @@
 
 			BM.mind.transfer_to(O)
 
-			if(O.mind && O.mind.special_role)
+			if(O.mind?.special_role)
 				O.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
 				to_chat(O, "<span class='userdanger'>You have been robotized!</span>")
 				to_chat(O, "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>")
@@ -399,6 +398,7 @@
 			return
 		if(new_name)
 			created_name = new_name
+			log_game("[key_name(usr)] have set \"[new_name]\" as a cyborg shell name at [loc_name(usr)]")
 		else
 			created_name = ""
 

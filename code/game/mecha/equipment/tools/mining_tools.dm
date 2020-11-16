@@ -13,6 +13,8 @@
 	energy_drain = 10
 	force = 15
 	harmful = TRUE
+	tool_behaviour = TOOL_DRILL
+	toolspeed = 0.9
 	var/drill_delay = 7
 	var/drill_level = DRILL_BASIC
 
@@ -98,12 +100,12 @@
 
 /obj/item/mecha_parts/mecha_equipment/drill/attach(obj/mecha/M)
 	..()
-	GET_COMPONENT_FROM(butchering, /datum/component/butchering, src)
+	var/datum/component/butchering/butchering = src.GetComponent(/datum/component/butchering)
 	butchering.butchering_enabled = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/drill/detach(atom/moveto)
 	..()
-	GET_COMPONENT_FROM(butchering, /datum/component/butchering, src)
+	var/datum/component/butchering/butchering = src.GetComponent(/datum/component/butchering)
 	butchering.butchering_enabled = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/drill/proc/drill_mob(mob/living/target, mob/user)
@@ -113,7 +115,7 @@
 	if(target.stat == DEAD && target.getBruteLoss() >= 200)
 		log_combat(user, target, "gibbed", name)
 		if(LAZYLEN(target.butcher_results) || LAZYLEN(target.guaranteed_butcher_results))
-			GET_COMPONENT_FROM(butchering, /datum/component/butchering, src)
+			var/datum/component/butchering/butchering = src.GetComponent(/datum/component/butchering)
 			butchering.Butcher(chassis, target)
 		else
 			target.gib()
@@ -141,6 +143,7 @@
 	drill_delay = 4
 	drill_level = DRILL_HARDENED
 	force = 15
+	toolspeed = 0.7
 
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner

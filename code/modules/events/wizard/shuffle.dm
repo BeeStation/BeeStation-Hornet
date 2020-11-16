@@ -75,7 +75,7 @@
 	name = "Change Minds!"
 	weight = 1
 	typepath = /datum/round_event/wizard/shuffleminds
-	max_occurrences = 3
+	max_occurrences = 0
 	earliest_start = 0 MINUTES
 
 /datum/round_event/wizard/shuffleminds/start()
@@ -84,6 +84,8 @@
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 		if(H.stat || !H.mind || iswizard(H))
 			continue //the wizard(s) are spared on this one
+		if(istype(H.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat) || H.anti_magic_check())
+			continue
 		mobs += H
 
 	if(!mobs)

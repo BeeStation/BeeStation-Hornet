@@ -3,6 +3,8 @@
 	pressure_resistance = 8
 	max_integrity = 300
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
+	layer = BELOW_OBJ_LAYER
+
 	var/climb_time = 20
 	var/climb_stun = 20
 	var/climbable = FALSE
@@ -36,7 +38,7 @@
 		structureclimber.visible_message("<span class='warning'>[structureclimber] has been knocked off [src].", "You're knocked off [src]!", "You see [structureclimber] get knocked off [src].</span>")
 
 /obj/structure/ui_act(action, params)
-	..()
+	. = ..()
 	add_fingerprint(usr)
 
 /obj/structure/MouseDrop_T(atom/movable/O, mob/user)
@@ -72,7 +74,7 @@
 		adjusted_climb_time *= 2
 	if(isalien(user))
 		adjusted_climb_time *= 0.25 //aliens are terrifyingly fast
-	if(user.has_trait(TRAIT_FREERUNNING)) //do you have any idea how fast I am???
+	if(HAS_TRAIT(user, TRAIT_FREERUNNING)) //do you have any idea how fast I am???
 		adjusted_climb_time *= 0.8
 	structureclimber = user
 	if(do_mob(user, user, adjusted_climb_time))
@@ -89,15 +91,15 @@
 	structureclimber = null
 
 /obj/structure/examine(mob/user)
-	..()
+	. = ..()
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)
-			to_chat(user, "<span class='warning'>It's on fire!</span>")
+			. += "<span class='warning'>It's on fire!</span>"
 		if(broken)
-			to_chat(user, "<span class='notice'>It appears to be broken.</span>")
+			. += "<span class='notice'>It appears to be broken.</span>"
 		var/examine_status = examine_status(user)
 		if(examine_status)
-			to_chat(user, examine_status)
+			. += examine_status
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100
@@ -109,3 +111,6 @@
 		if(0 to 25)
 			if(!broken)
 				return  "<span class='warning'>It's falling apart!</span>"
+
+/obj/structure/rust_heretic_act()
+	take_damage(500, BRUTE, "melee", 1)

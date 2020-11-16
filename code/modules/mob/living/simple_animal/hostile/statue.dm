@@ -19,10 +19,8 @@
 	health = 50000
 	healable = 0
 
-	harm_intent_damage = 10
 	obj_damage = 100
-	melee_damage_lower = 68
-	melee_damage_upper = 83
+	melee_damage = 70
 	attacktext = "claws"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 
@@ -47,6 +45,7 @@
 	move_force = MOVE_FORCE_EXTREMELY_STRONG
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	pull_force = MOVE_FORCE_EXTREMELY_STRONG
+	hardattacks = TRUE
 
 	var/cannot_be_seen = 1
 	var/mob/living/creator = null
@@ -124,12 +123,12 @@
 
 	// This loop will, at most, loop twice.
 	for(var/atom/check in check_list)
-		for(var/mob/living/M in viewers(world.view + 1, check) - src)
+		for(var/mob/living/M in viewers(getexpandedview(world.view, 1, 1), check) - src)
 			if(M.client && CanAttack(M) && !M.has_unlimited_silicon_privilege)
 				if(!M.eye_blind)
 					return M
-		for(var/obj/mecha/M in view(world.view + 1, check)) //assuming if you can see them they can see you
-			if(M.occupant && M.occupant.client)
+		for(var/obj/mecha/M in view(getexpandedview(world.view, 1, 1), check)) //assuming if you can see them they can see you
+			if(M.occupant?.client)
 				if(!M.occupant.eye_blind)
 					return M.occupant
 	return null
@@ -190,7 +189,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/blindness/cast(list/targets,mob/user = usr)
 	for(var/mob/living/L in GLOB.alive_mob_list)
 		var/turf/T = get_turf(L.loc)
-		if(T && T in targets)
+		if(T && (T in targets))
 			L.blind_eyes(4)
 	return
 

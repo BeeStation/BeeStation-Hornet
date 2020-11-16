@@ -1,6 +1,6 @@
-#define HIVEMIND_RADAR_MIN_DISTANCE 7 //Very generous, as the targets are only tracked for a few minutes.
+#define HIVEMIND_RADAR_MIN_DISTANCE 0 //Very generous, as the targets are only tracked for a few minutes.
 #define HIVEMIND_RADAR_MAX_DISTANCE 50
-#define HIVEMIND_RADAR_PING_TIME 20 //2s update time.
+#define HIVEMIND_RADAR_PING_TIME 40 //4s update time.
 
 //Modified IA/changeling pinpointer, points to the nearest person who is afflicted with the hive tracker status effect
 /datum/status_effect/agent_pinpointer/hivemind
@@ -50,7 +50,7 @@
 	else
 		scan_target = null
 	if(!trackable_targets_exist)
-		to_chat(owner, "<span class='assimilator'>The psychic energies eminating from afar have died down... for now</span>")
+		to_chat(owner, "<span class='assimilator'>The psychic energies eminating from afar have died down... for now.</span>")
 		owner.remove_status_effect(STATUS_EFFECT_HIVE_RADAR)
 
 //"Trackable" status effect
@@ -65,7 +65,7 @@
 	. = ..()
 	if(.)
 		tracked_by = hunter
-		if(isnum(set_duration))
+		if(isnum_safe(set_duration))
 			duration = world.time + set_duration
 
 //Screen alert

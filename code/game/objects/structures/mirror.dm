@@ -48,8 +48,8 @@
 
 /obj/structure/mirror/examine_status(mob/user)
 	if(broken)
-		return // no message spam
-	..()
+		return list()// no message spam
+	return ..()
 
 /obj/structure/mirror/obj_break(damage_flag, mapload)
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
@@ -105,6 +105,7 @@
 			var/datum/species/S = speciestype
 			if(initial(S.changesource_flags) & MIRROR_MAGIC)
 				choosable_races += initial(S.id)
+		choosable_races = sortList(choosable_races)
 	..()
 
 /obj/structure/mirror/magic/lesser/New()
@@ -134,7 +135,7 @@
 
 	switch(choice)
 		if("name")
-			var/newname = copytext(sanitize(input(H, "Who are we again?", "Name change", H.name) as null|text),1,MAX_NAME_LEN)
+			var/newname = sanitize_name(reject_bad_text(stripped_input(H, "Who are we again?", "Name change", H.name, MAX_NAME_LEN)))
 
 			if(!newname)
 				return

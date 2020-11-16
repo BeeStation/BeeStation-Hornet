@@ -4,7 +4,9 @@
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/clownplanet
+	name = "Clown Planet"
 	icon_state = "dk_yellow"
+	ambient_effects = list('sound/ambience/clown.ogg')
 
 /area/ruin/powered/animal_hospital
 	icon_state = "dk_yellow"
@@ -35,7 +37,7 @@
 /area/ruin/unpowered/syndicate_lava_base
 	name = "Secret Base"
 	icon_state = "dk_yellow"
-	ambientsounds = HIGHSEC
+	ambient_effects = HIGHSEC
 
 /area/ruin/unpowered/syndicate_lava_base/engineering
 	name = "Syndicate Lavaland Engineering"
@@ -69,6 +71,10 @@
 
 /area/ruin/unpowered/syndicate_lava_base/telecomms
 	name = "Syndicate Lavaland Telecommunications"
+
+/area/ruin/unpowered/standruin
+	name = "Forgotten Ruin"
+	icon_state = "dk_yellow"
 
 //Xeno Nest
 

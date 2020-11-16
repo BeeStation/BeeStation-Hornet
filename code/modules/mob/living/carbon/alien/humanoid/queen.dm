@@ -16,6 +16,22 @@
 /mob/living/carbon/alien/humanoid/royal/can_inject()
 	return 0
 
+/mob/living/carbon/alien/humanoid/royal/queen/proc/maidify()
+	name = "alien queen maid"
+	desc = "Lusty, Sexy"
+	icon = 'icons/mob/alienqueen.dmi'
+	icon_state = "alienqmaid"
+	caste = "qmaid"
+	update_icons()
+
+/mob/living/carbon/alien/humanoid/royal/queen/proc/unmaidify()
+	name = "alien queen"
+	desc = ""
+	icon = 'icons/mob/alienqueen.dmi'
+	icon_state = "alienq"
+	caste = "q"
+	update_icons()
+
 /mob/living/carbon/alien/humanoid/royal/queen
 	name = "alien queen"
 	caste = "q"
@@ -25,6 +41,8 @@
 	var/datum/action/small_sprite/smallsprite = new/datum/action/small_sprite/queen()
 
 /mob/living/carbon/alien/humanoid/royal/queen/Initialize()
+	SSshuttle.registerHostileEnvironment(src) //aliens delay shuttle
+	addtimer(CALLBACK(src, .proc/game_end), 30 MINUTES) //time until shuttle is freed/called
 	//there should only be one queen
 	for(var/mob/living/carbon/alien/humanoid/royal/queen/Q in GLOB.carbon_list)
 		if(Q == src)
@@ -48,6 +66,22 @@
 	internal_organs += new /obj/item/organ/alien/acid
 	internal_organs += new /obj/item/organ/alien/neurotoxin
 	internal_organs += new /obj/item/organ/alien/eggsac
+	..()
+
+/mob/living/carbon/alien/humanoid/royal/queen/proc/game_end()
+	if(stat != DEAD)
+		SSshuttle.clearHostileEnvironment(src)
+		if(EMERGENCY_IDLE_OR_RECALLED)
+			priority_announce("Xenomorph infestation detected: crisis shuttle protocols activated - jamming recall signals across all frequencies.")
+			SSshuttle.emergency.request(null, set_coefficient=0.5)
+			SSshuttle.emergencyNoRecall = TRUE
+
+/mob/living/carbon/alien/humanoid/royal/queen/death() //dead queen doesnt stop shuttle
+	SSshuttle.clearHostileEnvironment(src)
+	..()
+
+/mob/living/carbon/alien/humanoid/royal/queen/Destroy()
+	SSshuttle.clearHostileEnvironment(src)
 	..()
 
 //Queen verbs
@@ -108,7 +142,7 @@
 
 /obj/item/queenpromote/Initialize()
 	. = ..()
-	add_trait(TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 /obj/item/queenpromote/attack(mob/living/M, mob/living/carbon/alien/humanoid/user)
 	if(!isalienadult(M) || isalienroyal(M))

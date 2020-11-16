@@ -4,21 +4,23 @@
 #define SEND_SOUND(target, sound) DIRECT_OUTPUT(target, sound)
 #define SEND_TEXT(target, text) DIRECT_OUTPUT(target, text)
 #define WRITE_FILE(file, text) DIRECT_OUTPUT(file, text)
-#define WRITE_LOG(log, text) rustg_log_write(log, text)
+//This is an external call, "true" and "false" are how rust parses out booleans
+#define WRITE_LOG(log, text) rustg_log_write(log, text, "true")
+#define WRITE_LOG_NO_FORMAT(log, text) rustg_log_write(log, text, "false")
 
-//print a warning message to world.log
-#define WARNING(MSG) warning("[MSG] in [__FILE__] at line [__LINE__] src: [src] usr: [usr].")
+/// print a warning message to world.log
+#define WARNING(MSG) warning("[MSG] in [__FILE__] at line [__LINE__] src: [UNLINT(src)] usr: [usr].")
 /proc/warning(msg)
 	msg = "## WARNING: [msg]"
 	log_world(msg)
 
-//not an error or a warning, but worth to mention on the world log, just in case.
+/// not an error or a warning, but worth to mention on the world log, just in case.
 #define NOTICE(MSG) notice(MSG)
 /proc/notice(msg)
 	msg = "## NOTICE: [msg]"
 	log_world(msg)
 
-//print a testing-mode debug message to world.log and world
+/// print a testing-mode debug message to world.log and world
 #ifdef TESTING
 #define testing(msg) log_world("## TESTING: [msg]"); to_chat(world, "## TESTING: [msg]")
 #else
@@ -58,6 +60,10 @@
 	if (CONFIG_GET(flag/log_game))
 		WRITE_LOG(GLOB.world_game_log, "GAME: [text]")
 
+/proc/log_objective(whom, objective, admin_involved)
+	if (CONFIG_GET(flag/log_objective))
+		WRITE_LOG(GLOB.world_objective_log, "OBJ: [key_name(whom)] was assigned the following objective [admin_involved ? "by [key_name(admin_involved)]" : "automatically"]: [objective]")
+
 /proc/log_mecha(text)
 	if (CONFIG_GET(flag/log_mecha))
 		WRITE_LOG(GLOB.world_mecha_log, "MECHA: [text]")
@@ -69,6 +75,13 @@
 /proc/log_cloning(text, mob/initiator)
 	if(CONFIG_GET(flag/log_cloning))
 		WRITE_LOG(GLOB.world_cloning_log, "CLONING: [text]")
+
+/proc/log_id(text)
+	if(CONFIG_GET(flag/log_id))
+		WRITE_LOG(GLOB.world_id_log, "ID: [text]")
+
+/proc/log_paper(text)
+	WRITE_LOG(GLOB.world_paper_log, "PAPER: [text]")
 
 /proc/log_asset(text)
 	WRITE_LOG(GLOB.world_asset_log, "ASSET: [text]")
@@ -165,6 +178,10 @@
 	if (CONFIG_GET(flag/log_job_debug))
 		WRITE_LOG(GLOB.world_job_debug_log, "JOB: [text]")
 
+/proc/log_href_exploit(atom/user)
+	WRITE_LOG(GLOB.href_exploit_attempt_log, "HREF: [key_name(user)] has potentially attempted an href exploit.")
+	message_admins("[key_name_admin(user)] has potentially attempted an href exploit.")
+
 /* Log to both DD and the logfile. */
 /proc/log_world(text)
 #ifdef USE_CUSTOM_ERROR_HANDLER
@@ -181,6 +198,22 @@
 	WRITE_LOG(GLOB.config_error_log, text)
 	SEND_TEXT(world.log, text)
 
+/proc/log_mapping(text)
+	WRITE_LOG(GLOB.world_map_error_log, text)
+
+/* ui logging */
+/proc/log_tgui(user_or_client, text)
+	var/entry = ""
+	if(!user_or_client)
+		entry += "no user"
+	else if(istype(user_or_client, /mob))
+		var/mob/user = user_or_client
+		entry += "[user.ckey] (as [user])"
+	else if(istype(user_or_client, /client))
+		var/client/client = user_or_client
+		entry += "[client.ckey]"
+	entry += ":\n[text]"
+	WRITE_LOG(GLOB.tgui_log, entry)
 
 /* For logging round startup. */
 /proc/start_log(log)
@@ -189,7 +222,6 @@
 /* Close open log handles. This should be called as late as possible, and no logging should hapen after. */
 /proc/shutdown_logging()
 	rustg_log_close_all()
-
 
 /* Helper procs for building detailed log lines */
 /proc/key_name(whom, include_link = null, include_name = TRUE)
@@ -247,7 +279,7 @@
 		include_link = FALSE
 
 	if(key)
-		if(C && C.holder && C.holder.fakekey && !include_name)
+		if(C?.holder?.fakekey && !include_name)
 			if(include_link)
 				. += "<a href='?priv_msg=[C.findStealthKey()]'>"
 			. += "Administrator"

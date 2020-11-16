@@ -14,13 +14,13 @@
 	var/list/add_mutations = list()
 	var/list/remove_mutations = list()
 
-	var/used = 0
+	var/used = FALSE
 
 /obj/item/dnainjector/attack_paw(mob/user)
 	return attack_hand(user)
 
 /obj/item/dnainjector/proc/inject(mob/living/carbon/M, mob/user)
-	if(M.has_dna() && !M.has_trait(TRAIT_RADIMMUNE) && !M.has_trait(TRAIT_BADDNA))
+	if(M.has_dna() && !HAS_TRAIT(M, TRAIT_RADIMMUNE) && !HAS_TRAIT(M, TRAIT_BADDNA))
 		M.radiation += rand(20/(damage_coeff  ** 2),50/(damage_coeff  ** 2))
 		var/log_msg = "[key_name(user)] injected [key_name(M)] with the [name]"
 		for(var/HM in remove_mutations)
@@ -60,11 +60,12 @@
 	log_combat(user, target, "attempted to inject", src)
 
 	if(target != user)
-		target.visible_message("<span class='danger'>[user] is trying to inject [target] with [src]!</span>", "<span class='userdanger'>[user] is trying to inject [target] with [src]!</span>")
+		target.visible_message("<span class='danger'>[user] is trying to inject [target] with [src]!</span>", \
+			"<span class='userdanger'>[user] is trying to inject you with [src]!</span>")
 		if(!do_mob(user, target) || used)
 			return
 		target.visible_message("<span class='danger'>[user] injects [target] with the syringe with [src]!", \
-						"<span class='userdanger'>[user] injects [target] with the syringe with [src]!</span>")
+						"<span class='userdanger'>[user] injects you with the syringe with [src]!</span>")
 
 	else
 		to_chat(user, "<span class='notice'>You inject yourself with [src].</span>")
@@ -74,7 +75,7 @@
 	if(!inject(target, user))	//Now we actually do the heavy lifting.
 		to_chat(user, "<span class='notice'>It appears that [target] does not have compatible DNA.</span>")
 
-	used = 1
+	used = TRUE
 	icon_state = "dnainjector0"
 	desc += " This one is used up."
 
@@ -148,6 +149,16 @@
 /obj/item/dnainjector/anticlumsy
 	name = "\improper DNA injector (Anti-Clumsy)"
 	desc = "Apply this for Security Clown."
+	remove_mutations = list(CLOWNMUT)
+
+/obj/item/dnainjector/cluwnemut
+	name = "\improper DNA injector (Cluwneify)"
+	desc = "This is your last chance to turn back."
+	add_mutations = list(CLOWNMUT)
+
+/obj/item/dnainjector/anticluwne
+	name = "\improper DNA injector (Anti-Cluwne)"
+	desc = "This isn't going to work."
 	remove_mutations = list(CLOWNMUT)
 
 /obj/item/dnainjector/antitour
@@ -415,6 +426,30 @@
 	name = "\improper DNA injector (Anti-Cryokinesis)"
 	remove_mutations = list(CRYOKINESIS)
 
+/obj/item/dnainjector/thermal
+	name = "\improper DNA injector (Thermal Vision)"
+	add_mutations = list(THERMAL)
+
+/obj/item/dnainjector/antithermal
+	name = "\improper DNA injector (Anti-Thermal Vision)"
+	remove_mutations = list(THERMAL)
+
+/obj/item/dnainjector/glow
+	name = "\improper DNA injector (Glowy)"
+	add_mutations = list(GLOWY)
+
+/obj/item/dnainjector/removeglow
+	name = "\improper DNA injector (Anti-Glowy)"
+	remove_mutations = list(GLOWY)
+
+/obj/item/dnainjector/antiglow
+	name = "\improper DNA injector (Antiglowy)"
+	add_mutations = list(ANTIGLOWY)
+
+/obj/item/dnainjector/removeantiglow
+	name = "\improper DNA injector (Anti-Antiglowy)"
+	remove_mutations = list(ANTIGLOWY)
+
 /obj/item/dnainjector/timed
 	var/duration = 600
 
@@ -423,7 +458,7 @@
 		to_chat(user, "<span class='notice'>You can't modify [M]'s DNA while [M.p_theyre()] dead.</span>")
 		return FALSE
 
-	if(M.has_dna() && !(M.has_trait(TRAIT_BADDNA)))
+	if(M.has_dna() && !(HAS_TRAIT(M, TRAIT_BADDNA)))
 		M.radiation += rand(20/(damage_coeff  ** 2),50/(damage_coeff  ** 2))
 		var/log_msg = "[key_name(user)] injected [key_name(M)] with the [name]"
 		var/endtime = world.time+duration
@@ -485,7 +520,7 @@
 	var/filled = FALSE
 
 /obj/item/dnainjector/activator/inject(mob/living/carbon/M, mob/user)
-	if(M.has_dna() && !M.has_trait(TRAIT_RADIMMUNE) && !M.has_trait(TRAIT_BADDNA))
+	if(M.has_dna() && !HAS_TRAIT(M, TRAIT_RADIMMUNE) && !HAS_TRAIT(M, TRAIT_BADDNA))
 		M.radiation += rand(20/(damage_coeff  ** 2),50/(damage_coeff  ** 2))
 		var/log_msg = "[key_name(user)] injected [key_name(M)] with the [name]"
 		for(var/mutation in add_mutations)
@@ -497,14 +532,13 @@
 					log_msg += "(FAILED)"
 				else
 					M.dna.add_mutation(HM, MUT_EXTRA)
-					name = "expended [name]"
 			else if(research && M.client)
 				filled = TRUE
-				name = "filled [name]"
-			else
-				name = "expended [name]"
 			log_msg += "([mutation])"
+		if(filled)
+			name = "filled [name]"
+		else
+			name = "expended [name]"
 		log_attack("[log_msg] [loc_name(user)]")
 		return TRUE
 	return FALSE
-

@@ -1,0 +1,46 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/spawner/structure/window/hollow,
+/turf/template_noop,
+/area/template_noop)
+"b" = (
+/obj/machinery/door/window{
+	dir = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"c" = (
+/obj/machinery/door/window{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
+"d" = (
+/turf/template_noop,
+/area/template_noop)
+"e" = (
+/obj/machinery/door/window{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"f" = (
+/obj/machinery/door/window,
+/turf/template_noop,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+c
+a
+"}
+(2,1,1) = {"
+b
+d
+f
+"}
+(3,1,1) = {"
+a
+e
+a
+"}

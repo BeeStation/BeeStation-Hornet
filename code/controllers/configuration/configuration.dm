@@ -20,6 +20,11 @@
 
 	var/motd
 
+	var/static/regex/ic_filter_regex
+	var/static/regex/ooc_filter_regex
+
+	var/list/fail2topic_whitelisted_ips
+
 /datum/controller/configuration/proc/admin_reload()
 	if(IsAdminAdvancedProcCall())
 		return
@@ -33,6 +38,10 @@
 		return
 	if(_directory)
 		directory = _directory
+
+	if(!fexists("[directory]/config.txt") && fexists("[directory]/example/config.txt"))
+		directory = "[directory]/example"
+
 	if(entries)
 		CRASH("/datum/controller/configuration/Load() called more than once!")
 	InitEntries()
@@ -46,7 +55,12 @@
 					LoadEntries(J)
 				break
 	loadmaplist(CONFIG_MAPS_FILE)
+	LoadTopicRateWhitelist()
 	LoadMOTD()
+	LoadChatFilter()
+
+	if (Master)
+		Master.OnConfigLoad()
 
 /datum/controller/configuration/proc/full_wipe()
 	if(IsAdminAdvancedProcCall())
@@ -106,13 +120,13 @@
 		if(!L)
 			continue
 
-		var/firstchar = copytext(L, 1, 2)
+		var/firstchar = L[1]
 		if(firstchar == "#")
 			continue
 
 		var/lockthis = firstchar == "@"
 		if(lockthis)
-			L = copytext(L, 2)
+			L = copytext(L, length(firstchar) + 1)
 
 		var/pos = findtext(L, " ")
 		var/entry = null
@@ -120,7 +134,7 @@
 
 		if(pos)
 			entry = lowertext(copytext(L, 1, pos))
-			value = copytext(L, pos + 1)
+			value = copytext(L, pos + length(L[pos]))
 		else
 			entry = lowertext(L)
 
@@ -239,7 +253,7 @@
 	votable_modes += "secret"
 
 /datum/controller/configuration/proc/LoadMOTD()
-	motd = file2text("[directory]/motd.txt")
+	motd = rustg_file_read("[directory]/motd.txt")
 	var/tm_info = GLOB.revdata.GetTestMergeInfo()
 	if(motd || tm_info)
 		motd = motd ? "[motd]<br>[tm_info]" : tm_info
@@ -257,7 +271,7 @@
 		t = trim(t)
 		if(length(t) == 0)
 			continue
-		else if(copytext(t, 1, 2) == "#")
+		else if(t[1] == "#")
 			continue
 
 		var/pos = findtext(t, " ")
@@ -266,7 +280,7 @@
 
 		if(pos)
 			command = lowertext(copytext(t, 1, pos))
-			data = copytext(t, pos + 1)
+			data = copytext(t, pos + length(t[pos]))
 		else
 			command = lowertext(t)
 
@@ -290,6 +304,8 @@
 				currentmap.voteweight = text2num(data)
 			if ("default","defaultmap")
 				defaultmap = currentmap
+			if ("votable")
+				currentmap.votable = TRUE
 			if ("endmap")
 				LAZYINITLIST(maplist)
 				maplist[currentmap.map_name] = currentmap
@@ -363,3 +379,56 @@
 				continue
 			runnable_modes[M] = probabilities[M.config_tag]
 	return runnable_modes
+
+/datum/controller/configuration/proc/LoadTopicRateWhitelist()
+	LAZYINITLIST(fail2topic_whitelisted_ips)
+	if(!fexists("[directory]/topic_rate_limit_whitelist.txt"))
+		log_config("Error 404: topic_rate_limit_whitelist.txt not found!")
+		return
+
+	log_config("Loading config file topic_rate_limit_whitelist.txt...")
+
+	for(var/line in world.file2list("[directory]/topic_rate_limit_whitelist.txt"))
+		if(!line)
+			continue
+		if(findtextEx(line,"#",1,2))
+			continue
+
+		fail2topic_whitelisted_ips[line] = 1
+
+/datum/controller/configuration/proc/LoadChatFilter()
+	var/list/in_character_filter = list()
+	var/list/ooc_filter = list()
+
+	if(!fexists("[directory]/ooc_filter.txt"))
+		log_config("Error 404: ooc_filter.txt not found!")
+		return
+
+	if(!fexists("[directory]/in_character_filter.txt"))
+		log_config("Error 404: in_character_filter.txt not found!")
+		return
+
+	log_config("Loading config file ooc_filter.txt...")
+
+	for(var/line in world.file2list("[directory]/ooc_filter.txt"))
+		if(!line)
+			continue
+		if(findtextEx(line,"#",1,2))
+			continue
+		in_character_filter += REGEX_QUOTE(line) //Anything banned in OOC is also probably banned in IC
+		ooc_filter += REGEX_QUOTE(line)
+
+	ooc_filter_regex = ooc_filter.len ? regex("\\b([jointext(ooc_filter, "|")])\\b", "i") : null
+
+
+	log_config("Loading config file in_character_filter.txt...")
+
+	for(var/line in world.file2list("[directory]/in_character_filter.txt"))
+		if(!line)
+			continue
+		if(findtextEx(line,"#",1,2))
+			continue
+		in_character_filter += REGEX_QUOTE(line)
+
+	ic_filter_regex = in_character_filter.len ? regex("\\b([jointext(in_character_filter, "|")])\\b", "i") : null
+

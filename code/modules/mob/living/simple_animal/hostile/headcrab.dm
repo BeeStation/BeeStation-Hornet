@@ -1,7 +1,7 @@
 #define EGG_INCUBATION_TIME 120
 
 /mob/living/simple_animal/hostile/headcrab
-	name = "headslug"
+	name = "headspider"
 	desc = "Absolutely not de-beaked or harmless. Keep away from corpses."
 	icon_state = "headcrab"
 	icon_living = "headcrab"
@@ -9,8 +9,7 @@
 	gender = NEUTER
 	health = 50
 	maxHealth = 50
-	melee_damage_lower = 5
-	melee_damage_upper = 5
+	melee_damage = 10
 	attacktext = "chomps"
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("creature")
@@ -41,8 +40,8 @@
 	if(. && !egg_lain && iscarbon(target) && !ismonkey(target))
 		// Changeling egg can survive in aliens!
 		var/mob/living/carbon/C = target
-		if(C.stat == DEAD)
-			if(C.has_trait(TRAIT_XENO_HOST))
+		if(C.stat >= UNCONSCIOUS)
+			if(HAS_TRAIT(C, TRAIT_XENO_HOST))
 				to_chat(src, "<span class='userdanger'>A foreign presence repels us from this body. Perhaps we should try to infest another?</span>")
 				return
 			Infect(target)
@@ -56,7 +55,10 @@
 	var/time
 
 /obj/item/organ/body_egg/changeling_egg/egg_process()
-	// Changeling eggs grow in dead people
+	// Changeling eggs grow in dead people, but not people in stasis
+	var/mob/living/L = owner
+	if(L.IsInStasis())
+		return
 	time++
 	if(time >= EGG_INCUBATION_TIME)
 		Pop()
@@ -65,7 +67,6 @@
 
 /obj/item/organ/body_egg/changeling_egg/proc/Pop()
 	var/mob/living/carbon/monkey/M = new(owner)
-	owner.stomach_contents += M
 
 	for(var/obj/item/organ/I in src)
 		I.Insert(M, 1)

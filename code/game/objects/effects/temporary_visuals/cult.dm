@@ -61,7 +61,7 @@
 	var/turnedness = 179 //179 turns counterclockwise, 181 turns clockwise
 
 /obj/effect/temp_visual/cult/rune_spawn/Initialize(mapload, set_duration, set_color)
-	if(isnum(set_duration))
+	if(isnum_safe(set_duration))
 		duration = set_duration
 	if(set_color)
 		add_atom_colour(set_color, FIXED_COLOUR_PRIORITY)

@@ -93,7 +93,7 @@
 	icon_state = "ai_camera_room"
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	valid_territory = FALSE
-	ambientsounds = list()
+	ambient_effects = list()
 	blob_allowed = FALSE
 	noteleport = TRUE
 	hidden = TRUE
@@ -130,7 +130,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 	ai_detector_color = COLOR_ORANGE
 
 /mob/camera/aiEye/pic_in_pic/GetViewerClient()
-	if(screen && screen.ai)
+	if(screen?.ai)
 		return screen.ai.client
 
 /mob/camera/aiEye/pic_in_pic/setLoc(turf/T)

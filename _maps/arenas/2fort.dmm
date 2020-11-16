@@ -1,0 +1,176 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"f" = (
+/turf/closed/wall/r_wall,
+/area/space)
+"n" = (
+/turf/open/floor/plasteel,
+/area/space)
+"q" = (
+/turf/open/floor/monofloor{
+	dir = 1
+	},
+/area/space)
+"D" = (
+/obj/structure/barricade/sandbags,
+/turf/open/floor/plating/asteroid,
+/area/space)
+"S" = (
+/turf/open/floor/plating/asteroid,
+/area/space)
+"U" = (
+/turf/open/floor/monofloor,
+/area/space)
+"V" = (
+/turf/open/lava,
+/area/space)
+
+(1,1,1) = {"
+S
+S
+S
+S
+S
+S
+S
+S
+"}
+(2,1,1) = {"
+S
+S
+S
+S
+S
+S
+S
+S
+"}
+(3,1,1) = {"
+D
+D
+f
+n
+n
+f
+D
+D
+"}
+(4,1,1) = {"
+V
+V
+V
+q
+U
+V
+V
+V
+"}
+(5,1,1) = {"
+V
+V
+V
+q
+U
+V
+V
+V
+"}
+(6,1,1) = {"
+V
+V
+V
+q
+U
+V
+V
+V
+"}
+(7,1,1) = {"
+V
+V
+V
+q
+U
+V
+V
+V
+"}
+(8,1,1) = {"
+V
+V
+V
+q
+U
+V
+V
+V
+"}
+(9,1,1) = {"
+V
+V
+V
+q
+U
+V
+V
+V
+"}
+(10,1,1) = {"
+V
+V
+V
+q
+U
+V
+V
+V
+"}
+(11,1,1) = {"
+V
+V
+V
+q
+U
+V
+V
+V
+"}
+(12,1,1) = {"
+V
+V
+V
+q
+U
+V
+V
+V
+"}
+(13,1,1) = {"
+D
+D
+f
+n
+n
+f
+D
+D
+"}
+(14,1,1) = {"
+S
+S
+S
+S
+S
+S
+S
+S
+"}
+(15,1,1) = {"
+S
+S
+S
+S
+S
+S
+S
+S
+"}

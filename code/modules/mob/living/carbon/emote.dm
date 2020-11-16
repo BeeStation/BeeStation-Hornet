@@ -38,7 +38,7 @@
 	key = "gnarl"
 	key_third_person = "gnarls"
 	message = "gnarls and shows its teeth..."
-	mob_type_allowed_typecache = list(/mob/living/carbon/monkey, /mob/living/carbon/alien)
+	mob_type_allowed_typecache = list(/mob/living/carbon/monkey)
 
 /datum/emote/living/carbon/moan
 	key = "moan"
@@ -76,7 +76,7 @@
 
 /datum/emote/living/carbon/sign/select_param(mob/user, params)
 	. = ..()
-	if(!isnum(text2num(params)))
+	if(!isnum_safe(text2num(params)))
 		return message
 
 /datum/emote/living/carbon/sign/signal

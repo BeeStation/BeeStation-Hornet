@@ -11,6 +11,10 @@
 	var/no_destination_swap = 0
 
 /obj/machinery/computer/shuttle/ui_interact(mob/user)
+	//Ash walkers cannot use the console because they are unga bungas
+	if(user.mind?.has_antag_datum(/datum/antagonist/ashwalker))
+		to_chat(user, "<span class='warning'>This computer has been designed to keep the natives like you from meddling with it, you have no hope of using it.</span>")
+		return
 	. = ..()
 	var/list/options = params2list(possible_destinations)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
@@ -33,7 +37,6 @@
 
 	var/datum/browser/popup = new(user, "computer", M ? M.name : "shuttle", 300, 200)
 	popup.set_content("<center>[dat]</center>")
-	popup.set_title_image(usr.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 /obj/machinery/computer/shuttle/Topic(href, href_list)
@@ -57,6 +60,10 @@
 			if(M.mode != SHUTTLE_IDLE)
 				to_chat(usr, "<span class='warning'>Shuttle already in transit.</span>")
 				return
+		if(!(href_list["move"] in params2list(possible_destinations)))
+			log_admin("[usr] attempted to forge a target location through a href exploit on [src]")
+			message_admins("[ADMIN_FULLMONTY(usr)] attempted to forge a target location through a href exploit on [src]")
+			return
 		switch(SSshuttle.moveShuttle(shuttleId, href_list["move"], 1))
 			if(0)
 				say("Shuttle departing. Please stand away from the doors.")

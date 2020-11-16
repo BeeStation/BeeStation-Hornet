@@ -53,7 +53,7 @@
 	var/cartridge_wording = "bullet"
 	var/rack_delay = 5
 	var/recent_rack = 0
-	var/tac_reloads = FALSE //Snowflake mechanic no more.
+	var/tac_reloads = TRUE //Snowflake mechanic no more.
 
 /obj/item/gun/ballistic/Initialize()
 	. = ..()
@@ -156,6 +156,9 @@
 	update_icon()
 
 /obj/item/gun/ballistic/proc/insert_magazine(mob/user, obj/item/ammo_box/magazine/AM, display_message = TRUE)
+	if(!istype(AM, mag_type))
+		to_chat(user, "<span class='warning'>\The [AM] doesn't seem to fit into \the [src]...</span>")
+		return FALSE
 	if(user.transferItemToLoc(AM, src))
 		magazine = AM
 		if (display_message)
@@ -179,12 +182,15 @@
 	magazine.forceMove(drop_location())
 	var/obj/item/ammo_box/magazine/old_mag = magazine
 	if (tac_load)
-		insert_magazine(user, tac_load, FALSE)
-		to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src].")
+		if (insert_magazine(user, tac_load, FALSE))
+			to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src].")
+		else
+			to_chat(user, "<span class='warning'>You dropped the old [magazine_wording], but the new one doesn't fit. How embarassing.</span>")
+			magazine = null
+	else
+		magazine = null
 	user.put_in_hands(old_mag)
 	old_mag.update_icon()
-	if (!tac_load)
-		magazine = null
 	if (display_message)
 		to_chat(user, "<span class='notice'>You pull the [magazine_wording] out of \the [src].</span>")
 	update_icon()
@@ -198,10 +204,10 @@
 		return
 	if (!internal_magazine && istype(A, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/magazine/AM = A
-		if (!magazine && istype(AM, mag_type))
+		if (!magazine)
 			insert_magazine(user, AM)
-		else if (magazine)
-			if(tac_reloads)
+		else
+			if (tac_reloads)
 				eject_magazine(user, FALSE, AM)
 			else
 				to_chat(user, "<span class='notice'>There's already a [magazine_wording] in \the [src].</span>")
@@ -324,15 +330,15 @@
 
 
 /obj/item/gun/ballistic/examine(mob/user)
-	..()
+	. = ..()
 	var/count_chambered = !(bolt_type == BOLT_TYPE_NO_BOLT || bolt_type == BOLT_TYPE_OPEN)
-	to_chat(user, "It has [get_ammo(count_chambered)] round\s remaining.")
+	. += "It has [get_ammo(count_chambered)] round\s remaining."
 	if (!chambered)
-		to_chat(user, "It does not seem to have a round chambered.")
+		. += "It does not seem to have a round chambered."
 	if (bolt_locked)
-		to_chat(user, "The [bolt_wording] is locked back and needs to be released before firing.")
+		. += "The [bolt_wording] is locked back and needs to be released before firing."
 	if (suppressed)
-		to_chat(user, "It has a suppressor attached that can be removed with <b>alt+click</b>.")
+		. += "It has a suppressor attached that can be removed with <b>alt+click</b>."
 
 /obj/item/gun/ballistic/proc/get_ammo(countchambered = TRUE)
 	var/boolets = 0 //mature var names for mature people
@@ -379,7 +385,7 @@
 #undef BRAINS_BLOWN_THROW_RANGE
 
 
-
+//TODO: sawing off guns with TOOL_SAW
 /obj/item/gun/ballistic/proc/sawoff(mob/user)
 	if(sawn_off)
 		to_chat(user, "<span class='warning'>\The [src] is already shortened!</span>")

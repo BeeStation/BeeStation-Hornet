@@ -21,7 +21,7 @@
 
 	var/obj/effect/decal/cleanable/blood/gibs/gib = null
 
-	if(sound_to_play && isnum(sound_vol))
+	if(sound_to_play && isnum_safe(sound_vol))
 		playsound(src, sound_to_play, sound_vol, TRUE)
 
 	if(sparks)
@@ -46,9 +46,6 @@
 			for(var/j = 1, j<= gibamounts[i], j++)
 				var/gibType = gibtypes[i]
 				gib = new gibType(loc, diseases)
-				if(iscarbon(loc))
-					var/mob/living/carbon/digester = loc
-					digester.stomach_contents += gib
 
 				gib.add_blood_DNA(dna_to_add)
 

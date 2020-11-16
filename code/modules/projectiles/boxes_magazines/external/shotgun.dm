@@ -34,3 +34,8 @@
 	name = "shotgun magazine (12g meteor slugs)"
 	icon_state = "m12gbc"
 	ammo_type = /obj/item/ammo_casing/shotgun/meteorslug
+
+/obj/item/ammo_box/magazine/m12g/breacher
+	name = "shotgun magazine (12g breaching slugs)"
+	icon_state = "m12gt" 	//this may need an unique sprite
+	ammo_type = /obj/item/ammo_casing/shotgun/breacher

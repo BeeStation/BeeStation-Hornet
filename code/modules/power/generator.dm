@@ -61,7 +61,7 @@
 			var/cold_air_heat_capacity = cold_air.heat_capacity()
 			var/hot_air_heat_capacity = hot_air.heat_capacity()
 
-			var/delta_temperature = hot_air.temperature - cold_air.temperature
+			var/delta_temperature = hot_air.return_temperature() - cold_air.return_temperature()
 
 
 			if(delta_temperature > 0 && cold_air_heat_capacity > 0 && hot_air_heat_capacity > 0)
@@ -72,8 +72,8 @@
 				var/heat = energy_transfer*(1-efficiency)
 				lastgen += energy_transfer*efficiency
 
-				hot_air.temperature = hot_air.temperature - energy_transfer/hot_air_heat_capacity
-				cold_air.temperature = cold_air.temperature + heat/cold_air_heat_capacity
+				hot_air.set_temperature(hot_air.return_temperature() - energy_transfer/hot_air_heat_capacity)
+				cold_air.set_temperature(cold_air.return_temperature() + heat/cold_air_heat_capacity)
 
 				//add_avail(lastgen) This is done in process now
 		// update icon overlays only if displayed level has changed
@@ -120,11 +120,11 @@
 		t += "<BR>"
 
 		t += "<B><font color='blue'>Cold loop</font></B><BR>"
-		t += "Temperature Inlet: [round(cold_circ_air2.temperature, 0.1)] K / Outlet: [round(cold_circ_air1.temperature, 0.1)] K<BR>"
+		t += "Temperature Inlet: [round(cold_circ_air2.return_temperature(), 0.1)] K / Outlet: [round(cold_circ_air1.return_temperature(), 0.1)] K<BR>"
 		t += "Pressure Inlet: [round(cold_circ_air2.return_pressure(), 0.1)] kPa /  Outlet: [round(cold_circ_air1.return_pressure(), 0.1)] kPa<BR>"
 
 		t += "<B><font color='red'>Hot loop</font></B><BR>"
-		t += "Temperature Inlet: [round(hot_circ_air2.temperature, 0.1)] K / Outlet: [round(hot_circ_air1.temperature, 0.1)] K<BR>"
+		t += "Temperature Inlet: [round(hot_circ_air2.return_temperature(), 0.1)] K / Outlet: [round(hot_circ_air1.return_temperature(), 0.1)] K<BR>"
 		t += "Pressure Inlet: [round(hot_circ_air2.return_pressure(), 0.1)] kPa / Outlet: [round(hot_circ_air1.return_pressure(), 0.1)] kPa<BR>"
 
 		t += "</div>"
@@ -143,7 +143,6 @@
 	. = ..()
 	var/datum/browser/popup = new(user, "teg", "Thermo-Electric Generator", 460, 300)
 	popup.set_content(get_menu())
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 /obj/machinery/power/generator/Topic(href, href_list)
@@ -167,20 +166,20 @@
 	var/circpath = /obj/machinery/atmospherics/components/binary/circulator
 	if(dir == NORTH || dir == SOUTH)
 		C = locate(circpath) in get_step(src, EAST)
-		if(C && C.dir == WEST)
+		if(C?.dir == WEST)
 			circs += C
 
 		C = locate(circpath) in get_step(src, WEST)
-		if(C && C.dir == EAST)
+		if(C?.dir == EAST)
 			circs += C
 
 	else
 		C = locate(circpath) in get_step(src, NORTH)
-		if(C && C.dir == SOUTH)
+		if(C?.dir == SOUTH)
 			circs += C
 
 		C = locate(circpath) in get_step(src, SOUTH)
-		if(C && C.dir == NORTH)
+		if(C?.dir == NORTH)
 			circs += C
 
 	if(circs.len)

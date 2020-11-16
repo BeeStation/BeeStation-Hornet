@@ -8,14 +8,14 @@
 	var/state = 1
 
 /obj/structure/frame/examine(user)
-	..()
+	. = ..()
 	if(circuit)
-		to_chat(user, "It has \a [circuit] installed.")
+		. += "It has \a [circuit] installed."
 
 
 /obj/structure/frame/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
-		new /obj/item/stack/sheet/metal(loc, 5)
+		new /obj/item/stack/sheet/iron(loc, 5)
 		if(circuit)
 			circuit.forceMove(loc)
 			circuit = null
@@ -29,7 +29,7 @@
 	var/list/req_component_names = null // user-friendly names of components
 
 /obj/structure/frame/machine/examine(user)
-	..()
+	. = ..()
 	if(state == 3 && req_components && req_component_names)
 		var/hasContent = 0
 		var/requires = "It requires"
@@ -44,9 +44,9 @@
 			hasContent = 1
 
 		if(hasContent)
-			to_chat(user, requires + ".")
+			. +=  "[requires]."
 		else
-			to_chat(user, "It does not require any more components.")
+			. += "It does not require any more components."
 
 /obj/structure/frame/machine/proc/update_namelist()
 	if(!req_components)
@@ -97,23 +97,23 @@
 				if(P.use_tool(src, user, 40, volume=50))
 					if(state == 1)
 						to_chat(user, "<span class='notice'>You disassemble the frame.</span>")
-						var/obj/item/stack/sheet/metal/M = new (loc, 5)
+						var/obj/item/stack/sheet/iron/M = new (loc, 5)
 						M.add_fingerprint(user)
 						qdel(src)
 				return
 			if(P.tool_behaviour == TOOL_WRENCH)
-				to_chat(user, "<span class='notice'>You start [anchored ? "un" : ""]securing [name]...</span>")
+				to_chat(user, "<span class='notice'>You start [anchored ? "un" : ""]securing [src]...</span>")
 				if(P.use_tool(src, user, 40, volume=75))
 					if(state == 1)
-						to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
+						to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
 						setAnchored(!anchored)
 				return
 
 		if(2)
 			if(P.tool_behaviour == TOOL_WRENCH)
-				to_chat(user, "<span class='notice'>You start [anchored ? "un" : ""]securing [name]...</span>")
+				to_chat(user, "<span class='notice'>You start [anchored ? "un" : ""]securing [src]...</span>")
 				if(P.use_tool(src, user, 40, volume=75))
-					to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
+					to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
 					setAnchored(!anchored)
 				return
 
@@ -166,9 +166,9 @@
 				return
 
 			if(P.tool_behaviour == TOOL_WRENCH && !circuit.needs_anchored)
-				to_chat(user, "<span class='notice'>You start [anchored ? "un" : ""]securing [name]...</span>")
+				to_chat(user, "<span class='notice'>You start [anchored ? "un" : ""]securing [src]...</span>")
 				if(P.use_tool(src, user, 40, volume=75))
-					to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
+					to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
 					setAnchored(!anchored)
 				return
 
@@ -181,6 +181,9 @@
 				if(component_check)
 					P.play_tool_sound(src)
 					var/obj/machinery/new_machine = new circuit.build_path(loc)
+					if(new_machine.circuit)
+						QDEL_NULL(new_machine.circuit)
+					new_machine.circuit = circuit
 					new_machine.setAnchored(anchored)
 					new_machine.on_construction()
 					for(var/obj/O in new_machine.component_parts)
@@ -189,9 +192,6 @@
 					for(var/obj/O in src)
 						O.moveToNullspace()
 						new_machine.component_parts += O
-					if(new_machine.circuit)
-						QDEL_NULL(new_machine.circuit)
-					new_machine.circuit = circuit
 					circuit.moveToNullspace()
 					new_machine.RefreshParts()
 					qdel(src)

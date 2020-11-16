@@ -95,8 +95,8 @@
 		if(delete_dummy)
 			qdel(active_dummy)
 		active_dummy = null
-		can_use = 0
-		spawn(50) can_use = 1
+		can_use = FALSE
+		addtimer(VARSET_CALLBACK(src, can_use, TRUE), 5 SECONDS)
 
 /obj/item/chameleon/proc/eject_all()
 	for(var/atom/movable/A in active_dummy)
@@ -116,7 +116,7 @@
 	appearance = saved_appearance
 	if(istype(M.buckled, /obj/vehicle))
 		var/obj/vehicle/V = M.buckled
-		GET_COMPONENT_FROM(VRD, /datum/component/riding, V)
+		var/datum/component/riding/VRD = V.GetComponent(/datum/component/riding)
 		if(VRD)
 			VRD.force_dismount(M)
 		else

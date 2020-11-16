@@ -39,13 +39,13 @@
 	imp_in.SetUnconscious(0)
 	imp_in.SetParalyzed(0)
 	imp_in.SetImmobilized(0)
-	imp_in.adjustStaminaLoss(-75)
+	imp_in.adjustStaminaLoss(-200)
 	imp_in.set_resting(FALSE)
 	imp_in.update_mobility()
 
-	imp_in.reagents.add_reagent("synaptizine", 10)
-	imp_in.reagents.add_reagent("omnizine", 10)
-	imp_in.reagents.add_reagent("stimulants", 10)
+	imp_in.reagents.add_reagent(/datum/reagent/medicine/synaptizine, 10)
+	imp_in.reagents.add_reagent(/datum/reagent/medicine/omnizine, 10)
+	imp_in.reagents.add_reagent(/datum/reagent/medicine/amphetamine, 10)
 	if(!uses)
 		qdel(src)
 
@@ -96,6 +96,7 @@
 	var/obj/item/radio/radio
 	var/radio_key
 	var/subspace_transmission = FALSE
+	var/radio_silent = TRUE
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "walkietalkie"
 
@@ -112,7 +113,8 @@
 	// "must be in ears to hear" restriction.
 	radio.name = "internal radio"
 	radio.subspace_transmission = subspace_transmission
-	radio.canhear_range = 0
+	radio.canhear_range = -1
+	radio.radio_silent = radio_silent
 	if(radio_key)
 		radio.keyslot = new radio_key
 	radio.recalculateChannels()
@@ -139,6 +141,27 @@
 				<b>Implant Details:</b> Allows user to use an internal radio, useful if user expects equipment loss, or cannot equip conventional radios."}
 	return dat
 
+/obj/item/implant/radio/syndicate/selfdestruct
+	name = "hacked internal radio implant"
+
+/obj/item/implant/radio/syndicate/selfdestruct/on_implanted(mob/living/user)
+	if(!user.mind.has_antag_datum(/datum/antagonist/incursion))
+		user.visible_message("<span class='warning'>[imp_in] starts beeping ominously!</span>", "<span class='userdanger'>You have a sudden feeling of dread. The implant is rigged to explode!</span>")
+		playsound(user, 'sound/items/timer.ogg', 30, 0)
+		sleep(50)
+		playsound(user, 'sound/items/timer.ogg', 30, 0)
+		sleep(40)
+		playsound(user, 'sound/items/timer.ogg', 30, 0)
+		sleep(30)
+		playsound(user, 'sound/items/timer.ogg', 30, 0)
+		sleep(20)
+		playsound(user, 'sound/items/timer.ogg', 30, 0)
+		sleep(10)
+		playsound(user, 'sound/items/timer.ogg', 30, 0)
+		explosion(src,0,0,2,2, flame_range = 2)
+		user.gib(1)
+		qdel(src)
+
 /obj/item/implanter/radio
 	name = "implanter (internal radio)"
 	imp_type = /obj/item/implant/radio
@@ -147,3 +170,6 @@
 	name = "implanter (internal syndicate radio)"
 	imp_type = /obj/item/implant/radio/syndicate
 
+/obj/item/implanter/radio/syndicate/selfdestruct
+	name = "implanter (modified internal syndicate radio)"
+	imp_type = /obj/item/implant/radio/syndicate/selfdestruct

@@ -15,19 +15,24 @@ Bonus
 /datum/symptom/narcolepsy
 	name = "Narcolepsy"
 	desc = "The virus causes a hormone imbalance, making the host sleepy and narcoleptic."
-	stealth = -1
+	stealth = 1
 	resistance = -2
 	stage_speed = -3
-	transmittable = -4
+	transmittable = -2
 	level = 6
-	symptom_delay_min = 15
-	symptom_delay_max = 80
-	severity = 4
+	symptom_delay_min = 10
+	symptom_delay_max = 30
+	severity = 2
 	var/sleep_level = 0
 	var/sleepy_ticks = 0
 	var/stamina = FALSE
 	threshold_desc = "<b>Transmission 7:</b> Also relaxes the muscles, weakening and slowing the host.<br>\
 					  <b>Resistance 10:</b> Causes narcolepsy more often, increasing the chance of the host falling asleep."
+
+/datum/symptom/narcolepsy/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.properties["resistance"] >= 10) //act more often
+		severity += 1
 
 /datum/symptom/narcolepsy/Start(datum/disease/advance/A)
 	if(!..())
@@ -35,8 +40,8 @@ Bonus
 	if(A.properties["transmittable"] >= 7) //stamina damage
 		stamina = TRUE
 	if(A.properties["resistance"] >= 10) //act more often
-		symptom_delay_min = 10
-		symptom_delay_max = 60
+		symptom_delay_min = 5
+		symptom_delay_max = 20
 
 /datum/symptom/narcolepsy/Activate(var/datum/disease/advance/A)
 	var/mob/living/M = A.affected_mob

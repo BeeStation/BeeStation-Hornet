@@ -8,6 +8,7 @@
 	flags_inv = 0
 	armor = list("melee" = 30, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	strip_delay = 80
+	clothing_flags = SNUG_FIT // prevents bypassing the strip delay
 
 /obj/item/clothing/head/powdered_wig
 	name = "powdered wig"
@@ -66,6 +67,7 @@
 	item_state = "syndicate-helm-black-red"
 	desc = "A plastic replica of a Syndicate agent's space helmet. You'll look just like a real murderous Syndicate agent in this! This is a toy, it is not made for use in space!"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/cueball
 	name = "cueball helmet"
@@ -74,6 +76,7 @@
 	item_state="cueball"
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/snowman
 	name = "Snowman Head"
@@ -82,6 +85,7 @@
 	item_state = "snowman_h"
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/justice
 	name = "justice hat"
@@ -90,6 +94,7 @@
 	item_state = "justicered"
 	flags_inv = HIDEHAIR|HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR
 	flags_cover = HEADCOVERSEYES
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/justice/blue
 	icon_state = "justiceblue"
@@ -111,6 +116,7 @@
 	name = "rabbit ears"
 	desc = "Wearing these makes you look useless, and only good for your sex appeal."
 	icon_state = "bunny"
+	clothing_flags = SNUG_FIT
 	dynamic_hair_suffix = ""
 
 	dog_fashion = /datum/dog_fashion/head/rabbit
@@ -136,7 +142,7 @@
 	if(!ishuman(user))
 		return
 	if(slot == SLOT_HEAD)
-		user.grant_language(/datum/language/piratespeak/)
+		user.grant_language(/datum/language/piratespeak/, TRUE, TRUE, LANGUAGE_HAT)
 		to_chat(user, "You suddenly know how to speak like a pirate!")
 
 /obj/item/clothing/head/pirate/dropped(mob/user)
@@ -144,7 +150,7 @@
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(SLOT_HEAD) == src)
-		user.remove_language(/datum/language/piratespeak/)
+		user.remove_language(/datum/language/piratespeak/, TRUE, TRUE, LANGUAGE_HAT)
 		to_chat(user, "You can no longer speak like a pirate.")
 
 /obj/item/clothing/head/pirate/captain
@@ -178,6 +184,7 @@
 	icon_state = "chickenhead"
 	item_state = "chickensuit"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/griffin
 	name = "griffon head"
@@ -185,6 +192,7 @@
 	icon_state = "griffinhat"
 	item_state = "griffinhat"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/bearpelt
 	name = "bear pelt hat"
@@ -198,6 +206,7 @@
 	item_state = "xenos_helm"
 	desc = "A helmet made out of chitinous alien hide."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/fedora
 	name = "fedora"
@@ -242,7 +251,21 @@
 
 /obj/item/clothing/head/sombrero/shamebrero/Initialize()
 	. = ..()
-	add_trait(TRAIT_NODROP, SHAMEBRERO_TRAIT)
+	ADD_TRAIT(src, TRAIT_NODROP, SHAMEBRERO_TRAIT)
+
+/obj/item/clothing/head/flatcap
+	name = "flat cap"
+	desc = "A working man's cap."
+	icon_state = "flat_cap"
+	item_state = "detective"
+
+/obj/item/clothing/head/hunter
+	name = "bounty hunting hat"
+	desc = "Ain't nobody gonna cheat the hangman in my town."
+	icon_state = "hunter"
+	item_state = "hunter"
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/head/cone
 	desc = "This cone is trying to warn you of something!"
@@ -289,6 +312,7 @@
 	desc = "A paper sack with crude holes cut out for eyes. Useful for hiding one's identity or ugliness."
 	icon_state = "papersack"
 	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/papersack/smiley
 	name = "paper sack hat"
@@ -319,6 +343,7 @@
 	desc = "When everything's going to crab, protecting your head is the best choice."
 	icon_state = "lobster_hat"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/drfreezehat
 	name = "doctor freeze's wig"
@@ -344,15 +369,32 @@
 	icon_state = "nemes_headdress"
 	icon_state = "nemes_headdress"
 
+/obj/item/clothing/head/delinquent
+	name = "delinquent hat"
+	desc = "Good grief."
+	icon_state = "delinquent"
+
 /obj/item/clothing/head/frenchberet
 	name = "french beret"
 	desc = "A quality beret, infused with the aroma of chain-smoking, wine-swilling Parisians. You feel less inclined to engage military conflict, for some reason."
 	icon_state = "beret"
 	dynamic_hair_suffix = ""
 
-/obj/item/clothing/head/frenchberet/speechModification(M)
-	if(copytext(M, 1, 2) != "*")
-		M = " [M]"
+/obj/item/clothing/head/frenchberet/equipped(mob/M, slot)
+	. = ..()
+	if (slot == SLOT_HEAD)
+		RegisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
+	else
+		UnregisterSignal(M, COMSIG_MOB_SAY)
+
+/obj/item/clothing/head/frenchberet/dropped(mob/M)
+	. = ..()
+	UnregisterSignal(M, COMSIG_MOB_SAY)
+
+/obj/item/clothing/head/frenchberet/proc/handle_speech(datum/source, mob/speech_args)
+	var/message = speech_args[SPEECH_MESSAGE]
+	if(message[1] != "*")
+		message = " [message]"
 		var/list/french_words = strings("french_replacement.json", "french")
 
 		for(var/key in french_words)
@@ -360,10 +402,43 @@
 			if(islist(value))
 				value = pick(value)
 
-			M = replacetextEx(M, " [uppertext(key)]", " [uppertext(value)]")
-			M = replacetextEx(M, " [capitalize(key)]", " [capitalize(value)]")
-			M = replacetextEx(M, " [key]", " [value]")
+			message = replacetextEx(message, " [uppertext(key)]", " [uppertext(value)]")
+			message = replacetextEx(message, " [capitalize(key)]", " [capitalize(value)]")
+			message = replacetextEx(message, " [key]", " [value]")
 
 		if(prob(3))
-			M += pick(" Honh honh honh!"," Honh!"," Zut Alors!")
-	return trim(M)
+			message += pick(" Honh honh honh!"," Honh!"," Zut Alors!")
+	speech_args[SPEECH_MESSAGE] = trim(message)
+
+/obj/item/clothing/head/clownmitre
+	name = "Hat of the Honkmother"
+	desc = "It's hard for parishoners to see a banana peel on the floor when they're looking up at your glorious chapeau."
+	icon_state = "clownmitre"
+
+/obj/item/clothing/head/kippah
+	name = "kippah"
+	desc = "Signals that you follow the Jewish Halakha. Keeps the head covered and the soul extra-Orthodox."
+	icon_state = "kippah"
+
+/obj/item/clothing/head/medievaljewhat
+	name = "medieval Jew hat"
+	desc = "A silly looking hat, intended to be placed on the heads of the station's oppressed religious minorities."
+	icon_state = "medievaljewhat"
+
+/obj/item/clothing/head/taqiyahwhite
+	name = "white taqiyah"
+	desc = "An extra-mustahabb way of showing your devotion to Allah."
+	icon_state = "taqiyahwhite"
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small
+
+/obj/item/clothing/head/taqiyahred
+	name = "red taqiyah"
+	desc = "An extra-mustahabb way of showing your devotion to Allah."
+	icon_state = "taqiyahred"
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small
+
+/obj/item/clothing/head/intern
+	name = "\improper CentCom Head Intern beancap"
+	desc = "A horrifying mix of beanie and softcap in CentCom green. You'd have to be pretty desperate for power over your peers to agree to wear this."
+	icon_state = "intern_hat"
+	item_state = "intern_hat"

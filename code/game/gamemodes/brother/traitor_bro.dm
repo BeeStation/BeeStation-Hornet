@@ -16,6 +16,7 @@
 	var/list/datum/team/brother_team/pre_brother_teams = list()
 	var/const/team_amount = 2 //hard limit on brother teams if scaling is turned off
 	var/const/min_team_size = 2
+	num_modifier = -4 //Takes out the average number of default traitors to prevent an excessive number of antags at low pops
 	traitors_required = FALSE //Only teams are possible
 
 /datum/game_mode/traitor/bros/pre_setup()
@@ -23,6 +24,8 @@
 		restricted_jobs += protected_jobs
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		restricted_jobs += "Assistant"
+	if(CONFIG_GET(flag/protect_heads_from_antagonist))
+		restricted_jobs += GLOB.command_positions
 
 	var/list/datum/mind/possible_brothers = get_players_for_role(ROLE_BROTHER)
 
@@ -37,7 +40,7 @@
 		var/datum/team/brother_team/team = new
 		var/team_size = prob(10) ? min(3, possible_brothers.len) : 2
 		for(var/k = 1 to team_size)
-			var/datum/mind/bro = antag_pick(possible_brothers)
+			var/datum/mind/bro = antag_pick(possible_brothers, ROLE_BROTHER)
 			possible_brothers -= bro
 			antag_candidates -= bro
 			team.add_member(bro)

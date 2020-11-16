@@ -87,7 +87,7 @@
 		queue_node_flags = queue_node.flags
 
 		if (queue_node_flags & SS_TICKER)
-			if (!(SS_flags & SS_TICKER))
+			if ((SS_flags & (SS_TICKER|SS_BACKGROUND)) != SS_TICKER)
 				continue
 			if (queue_node_priority < SS_priority)
 				break
@@ -155,13 +155,15 @@
 		if(SS_SLEEPING)
 			state = SS_PAUSING
 
+/// Called after the config has been loaded or reloaded.
+/datum/controller/subsystem/proc/OnConfigLoad()
 
 //used to initialize the subsystem AFTER the map has loaded
 /datum/controller/subsystem/Initialize(start_timeofday)
 	initialized = TRUE
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 	var/msg = "Initialized [name] subsystem within [time] second[time == 1 ? "" : "s"]!"
-	to_chat(world, "<span class='boldannounce'>[msg]</span>")
+	testing("[msg]")
 	log_world(msg)
 	return time
 
@@ -215,3 +217,4 @@
 		if ("queued_priority") //editing this breaks things.
 			return 0
 	. = ..()
+

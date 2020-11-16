@@ -44,13 +44,13 @@ Notes:
 		owner = C
 		var/datum/asset/stuff = get_asset_datum(/datum/asset/simple/jquery)
 		stuff.send(owner)
-		owner << browse(file2text('code/modules/tooltip/tooltip.html'), "window=[control]")
+		owner << browse(rustg_file_read('code/modules/tooltip/tooltip.html'), "window=[control]")
 
 	..()
 
 
 /datum/tooltip/proc/show(atom/movable/thing, params = null, title = null, content = null, theme = "default", special = "none")
-	if (!thing || !params || (!title && !content) || !owner || !isnum(world.icon_size))
+	if (!thing || !params || (!title && !content) || !owner || !isnum_safe(world.icon_size))
 		return 0
 	if (!init)
 		//Initialize some vars
@@ -119,7 +119,7 @@ Notes:
 //Includes sanity checks.
 /proc/closeToolTip(mob/user)
 	if(istype(user))
-		if(user.client && user.client.tooltips)
+		if(user.client?.tooltips)
 			user.client.tooltips.hide()
 
 

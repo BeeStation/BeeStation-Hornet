@@ -13,3 +13,9 @@
 	item_state = "atmos_envirosuit"
 	item_color = "atmos_envirosuit"
 
+/obj/item/clothing/under/plasmaman/engineering/ce
+	name = "chief engineers envirosuit"
+	desc = "An air-tight suit designed to be used by plasmamen exployed to overesee the stations engineering division. It protects the user from fire and acid damage."
+	icon_state = "ce_envirosuit"
+	item_state = "ce_envirosuit"
+	item_color = "ce_envirosuit"

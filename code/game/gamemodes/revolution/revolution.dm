@@ -13,7 +13,8 @@
 	report_type = "revolution"
 	antag_flag = ROLE_REV
 	false_report_weight = 10
-	restricted_jobs = list("Security Officer", "Warden", "Detective", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer")
+	restricted_jobs = list("Security Officer", "Warden", "Detective", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Brig Physician")
+	required_jobs = list(list("Captain"=1),list("Head of Personnel"=1),list("Head of Security"=1),list("Chief Engineer"=1),list("Research Director"=1),list("Chief Medical Officer"=1)) //Any head present
 	required_players = 30
 	required_enemies = 2
 	recommended_enemies = 3
@@ -53,7 +54,7 @@
 	for (var/i=1 to max_headrevs)
 		if (antag_candidates.len==0)
 			break
-		var/datum/mind/lenin = antag_pick(antag_candidates)
+		var/datum/mind/lenin = antag_pick(antag_candidates, ROLE_REV_HEAD)
 		antag_candidates -= lenin
 		headrev_candidates += lenin
 		lenin.restricted_roles = restricted_jobs
@@ -147,10 +148,10 @@
 //Deals with converting players to the revolution//
 ///////////////////////////////////////////////////
 /proc/is_revolutionary(mob/M)
-	return M && istype(M) && M.mind && M.mind.has_antag_datum(/datum/antagonist/rev)
+	return M?.mind?.has_antag_datum(/datum/antagonist/rev)
 
 /proc/is_head_revolutionary(mob/M)
-	return M && istype(M) && M.mind && M.mind.has_antag_datum(/datum/antagonist/rev/head)
+	return M?.mind?.has_antag_datum(/datum/antagonist/rev/head)
 
 //////////////////////////
 //Checks for rev victory//
@@ -185,9 +186,9 @@
 //TODO What should be displayed for revs in non-rev rounds
 /datum/game_mode/revolution/special_report()
 	if(finished == 1)
-		return "<span class='redtext big'>The heads of staff were killed or exiled! The revolutionaries win!</span>"
+		return "<div class='panel redborder'><span class='redtext big'>The heads of staff were killed or exiled! The revolutionaries win!</span></div>"
 	else if(finished == 2)
-		return "<span class='redtext big'>The heads of staff managed to stop the revolution!</span>"
+		return "<div class='panel redborder'><span class='redtext big'>The heads of staff managed to stop the revolution!</span></div>"
 
 /datum/game_mode/revolution/generate_report()
 	return "Employee unrest has spiked in recent weeks, with several attempted mutinies on heads of staff. Some crew have been observed using flashbulb devices to blind their colleagues, \
@@ -220,3 +221,21 @@
 					N.timer_set = 200
 					N.set_safety()
 					N.set_active()
+
+
+/datum/game_mode/revolution/generate_credit_text()
+	var/list/round_credits = list()
+	var/len_before_addition
+
+	round_credits += "<center><h1>The Disgruntled Revolutionaries:</h1>"
+	len_before_addition = round_credits.len
+	for(var/datum/mind/headrev in revolution.head_revolutionaries())
+		round_credits += "<center><h2>[headrev.name] as a revolutionary leader</h2>"
+	for(var/datum/mind/grunt in (revolution.members - revolution.head_revolutionaries()))
+		round_credits += "<center><h2>[grunt.name] as a grunt of the revolution</h2>"
+	if(len_before_addition == round_credits.len)
+		round_credits += list("<center><h2>The revolutionaries were all destroyed as martyrs!</h2>", "<center><h2>We couldn't identify their remains!</h2>")
+	round_credits += "<br>"
+
+	round_credits += ..()
+	return round_credits

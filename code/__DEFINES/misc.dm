@@ -11,26 +11,26 @@
 
 
 //Human Overlays Indexes/////////
-#define MUTATIONS_LAYER			29		//mutations. Tk headglows, cold resistance glow, etc
-#define BODY_BEHIND_LAYER		28		//certain mutantrace features (tail when looking south) that must appear behind the body parts
-#define BODYPARTS_LAYER			27		//Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
-#define BODY_ADJ_LAYER			26		//certain mutantrace features (snout, body markings) that must appear above the body parts
-#define BODY_LAYER				25		//underwear, undershirts, socks, eyes, lips(makeup)
-#define FRONT_MUTATIONS_LAYER	24		//mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
-#define DAMAGE_LAYER			23		//damage indicators (cuts and burns)
+#define MUTATIONS_LAYER			29		//! mutations. Tk headglows, cold resistance glow, etc
+#define BODY_BEHIND_LAYER		28		//! certain mutantrace features (tail when looking south) that must appear behind the body parts
+#define BODYPARTS_LAYER			27		//! Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
+#define BODY_ADJ_LAYER			26		//! certain mutantrace features (snout, body markings) that must appear above the body parts
+#define BODY_LAYER				25		//! underwear, undershirts, socks, eyes, lips(makeup)
+#define FRONT_MUTATIONS_LAYER	24		//! mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
+#define DAMAGE_LAYER			23		//! damage indicators (cuts and burns)
 #define UNIFORM_LAYER			22
-#define ID_LAYER				21 //lmao at the idiot who put both ids and hands on the same layer
+#define ID_LAYER				21 		//! lmao at the idiot who put both ids and hands on the same layer
 #define HANDS_PART_LAYER		20
 #define GLOVES_LAYER			19
 #define SHOES_LAYER				18
 #define EARS_LAYER				17
 #define SUIT_LAYER				16
 #define GLASSES_LAYER			15
-#define BELT_LAYER				14		//Possible make this an overlay of somethign required to wear a belt?
+#define BELT_LAYER				14		//! Possible make this an overlay of somethign required to wear a belt?
 #define SUIT_STORE_LAYER		13
 #define NECK_LAYER				12
 #define BACK_LAYER				11
-#define HAIR_LAYER				10		//TODO: make part of head layer?
+#define HAIR_LAYER				10		//! TODO: make part of head layer?
 #define FACEMASK_LAYER			9
 #define HEAD_LAYER				8
 #define HANDCUFF_LAYER			7
@@ -38,9 +38,9 @@
 #define HANDS_LAYER				5
 #define BODY_FRONT_LAYER		4
 #define SMELL_LAYER				3
-#define HALO_LAYER				2		//blood cult ascended halo, because there's currently no better solution for adding/removing
-#define FIRE_LAYER				1		//If you're on fire
-#define TOTAL_LAYERS			29		//KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
+#define HALO_LAYER				2		//! blood cult ascended halo, because there's currently no better solution for adding/removing
+#define FIRE_LAYER				1		//! If you're on fire
+#define TOTAL_LAYERS			29		//! KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
 
 //Human Overlay Index Shortcuts for alternate_worn_layer, layers
 //Because I *KNOW* somebody will think layer+1 means "above"
@@ -68,10 +68,10 @@
 #define MANIFEST_ERROR_CONTENTS		2
 #define MANIFEST_ERROR_ITEM			4
 
-#define TRANSITIONEDGE			7 //Distance from edge to move to another z-level
+#define TRANSITIONEDGE			7 //! Distance from edge to move to another z-level
 
-#define BE_CLOSE TRUE		//in the case of a silicon, to select if they need to be next to the atom
-#define NO_DEXTERY TRUE	//if other mobs (monkeys, aliens, etc) can use this
+#define BE_CLOSE TRUE		//! in the case of a silicon, to select if they need to be next to the atom
+#define NO_DEXTERY TRUE		//! if other mobs (monkeys, aliens, etc) can use this
 #define NO_TK TRUE
 //used by canUseTopic()
 
@@ -81,7 +81,7 @@
 #define STAGE_THREE 5
 #define STAGE_FOUR 7
 #define STAGE_FIVE 9
-#define STAGE_SIX 11 //From supermatter shard
+#define STAGE_SIX 11 //! From supermatter shard
 
 //SSticker.current_state values
 #define GAME_STATE_STARTUP		0
@@ -104,14 +104,14 @@
 #define RESIZE_DEFAULT_SIZE 1
 
 //transfer_ai() defines. Main proc in ai_core.dm
-#define AI_TRANS_TO_CARD	1 //Downloading AI to InteliCard.
-#define AI_TRANS_FROM_CARD	2 //Uploading AI from InteliCard
-#define AI_MECH_HACK		3 //Malfunctioning AI hijacking mecha
+#define AI_TRANS_TO_CARD	1 //! Downloading AI to InteliCard.
+#define AI_TRANS_FROM_CARD	2 //! Uploading AI from InteliCard
+#define AI_MECH_HACK		3 //! Malfunctioning AI hijacking mecha
 
 //check_target_facings() return defines
 #define FACING_SAME_DIR											1
 #define FACING_EACHOTHER										2
-#define FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR	3 //Do I win the most informative but also most stupid define award?
+#define FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR	3 //! Do I win the most informative but also most stupid define award?
 
 
 //Cache of bloody footprint images
@@ -154,8 +154,6 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 #define TURF_WET_PERMAFROST	2
 #define TURF_WET_ICE 4
 #define TURF_WET_LUBE	8
-
-#define IS_WET_OPEN_TURF(O) O.GetComponent(/datum/component/wet_floor)
 
 //Maximum amount of time, (in deciseconds) a tile can be wet for.
 #define MAXIMUM_WET_TIME 5 MINUTES
@@ -217,31 +215,8 @@ GLOBAL_LIST_INIT(ghost_others_options, list(GHOST_OTHERS_SIMPLE, GHOST_OTHERS_DE
 #define ORBITRON	"Orbitron"
 #define SHARE		"Share Tech Mono"
 
-GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
+GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 
-/////////////////////////////////////
-// atom.appearence_flags shortcuts //
-/////////////////////////////////////
-
-/*
-
-// Disabling certain features
-#define APPEARANCE_IGNORE_TRANSFORM			RESET_TRANSFORM
-#define APPEARANCE_IGNORE_COLOUR			RESET_COLOR
-#define	APPEARANCE_IGNORE_CLIENT_COLOUR		NO_CLIENT_COLOR
-#define APPEARANCE_IGNORE_COLOURING			(RESET_COLOR|NO_CLIENT_COLOR)
-#define APPEARANCE_IGNORE_ALPHA				RESET_ALPHA
-#define APPEARANCE_NORMAL_GLIDE				~LONG_GLIDE
-
-// Enabling certain features
-#define APPEARANCE_CONSIDER_TRANSFORM		~RESET_TRANSFORM
-#define APPEARANCE_CONSIDER_COLOUR			~RESET_COLOUR
-#define APPEARANCE_CONSIDER_CLIENT_COLOUR	~NO_CLIENT_COLOR
-#define APPEARANCE_CONSIDER_COLOURING		(~RESET_COLOR|~NO_CLIENT_COLOR)
-#define APPEARANCE_CONSIDER_ALPHA			~RESET_ALPHA
-#define APPEARANCE_LONG_GLIDE				LONG_GLIDE
-
-*/
 
 // Consider these images/atoms as part of the UI/HUD
 #define APPEARANCE_UI_IGNORE_ALPHA			(RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|RESET_ALPHA|PIXEL_SCALE)
@@ -259,7 +234,7 @@ GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 #define MAP_MAXZ 6
 
 // Defib stats
-#define DEFIB_TIME_LIMIT 120
+#define DEFIB_TIME_LIMIT 900
 #define DEFIB_TIME_LOSS 60
 
 // Diagonal movement
@@ -268,6 +243,7 @@ GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 
 #define DEADCHAT_ARRIVALRATTLE "arrivalrattle"
 #define DEADCHAT_DEATHRATTLE "deathrattle"
+#define DEADCHAT_LAWCHANGE "lawchange"
 #define DEADCHAT_REGULAR "regular-deadchat"
 
 // Bluespace shelter deploy checks
@@ -277,12 +253,16 @@ GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 #define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"
 
 //debug printing macros
-#define debug_world(msg) if (GLOB.Debug2) to_chat(world, "DEBUG: [msg]")
-#define debug_usr(msg) if (GLOB.Debug2&&usr) to_chat(usr, "DEBUG: [msg]")
-#define debug_admins(msg) if (GLOB.Debug2) to_chat(GLOB.admins, "DEBUG: [msg]")
+#define debug_world(msg) if (GLOB.Debug2) to_chat(world, \
+	type = MESSAGE_TYPE_DEBUG, \
+	text = "DEBUG: [msg]")
+#define debug_usr(msg) if (GLOB.Debug2&&usr) to_chat(usr, \
+	type = MESSAGE_TYPE_DEBUG, \
+	text = "DEBUG: [msg]")
+#define debug_admins(msg) if (GLOB.Debug2) to_chat(GLOB.admins, \
+	type = MESSAGE_TYPE_DEBUG, \
+	text = "DEBUG: [msg]")
 #define debug_world_log(msg) if (GLOB.Debug2) log_world("DEBUG: [msg]")
-
-#define INCREMENT_TALLY(L, stat) if(L[stat]){L[stat]++}else{L[stat] = 1}
 
 //TODO Move to a pref
 #define STATION_GOAL_BUDGET  1
@@ -293,11 +273,11 @@ GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 #define LUMA_B 0.072
 
 //different types of atom colorations
-#define ADMIN_COLOUR_PRIORITY 		1 //only used by rare effects like greentext coloring mobs and when admins varedit color
-#define TEMPORARY_COLOUR_PRIORITY 	2 //e.g. purple effect of the revenant on a mob, black effect when mob electrocuted
-#define WASHABLE_COLOUR_PRIORITY 	3 //color splashed onto an atom (e.g. paint on turf)
-#define FIXED_COLOUR_PRIORITY 		4 //color inherent to the atom (e.g. blob color)
-#define COLOUR_PRIORITY_AMOUNT 4 //how many priority levels there are.
+#define ADMIN_COLOUR_PRIORITY 		1 //! only used by rare effects like greentext coloring mobs and when admins varedit color
+#define TEMPORARY_COLOUR_PRIORITY 	2 //! e.g. purple effect of the revenant on a mob, black effect when mob electrocuted
+#define WASHABLE_COLOUR_PRIORITY 	3 //! color splashed onto an atom (e.g. paint on turf)
+#define FIXED_COLOUR_PRIORITY 		4 //! color inherent to the atom (e.g. blob color)
+#define COLOUR_PRIORITY_AMOUNT 4 //! how many priority levels there are.
 
 //Endgame Results
 #define NUKE_NEAR_MISS 1
@@ -305,6 +285,8 @@ GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 #define NUKE_SYNDICATE_BASE 3
 #define STATION_DESTROYED_NUKE 4
 #define STATION_EVACUATED 5
+#define GANG_LOSS 6
+#define GANG_TAKEOVER 7
 #define BLOB_WIN 8
 #define BLOB_NUKE 9
 #define BLOB_DESTROYED 10
@@ -382,14 +364,15 @@ GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 #define RIDING_OFFSET_ALL "ALL"
 
 //stack recipe placement check types
-#define STACK_CHECK_CARDINALS "cardinals" //checks if there is an object of the result type in any of the cardinal directions
-#define STACK_CHECK_ADJACENT "adjacent" //checks if there is an object of the result type within one tile
+#define STACK_CHECK_CARDINALS "cardinals" //! checks if there is an object of the result type in any of the cardinal directions
+#define STACK_CHECK_ADJACENT "adjacent" //! checks if there is an object of the result type within one tile
 
 //text files
 #define BRAIN_DAMAGE_FILE "traumas.json"
 #define ION_FILE "ion_laws.json"
 #define PIRATE_NAMES_FILE "pirates.json"
 #define REDPILL_FILE "redpill.json"
+#define WANTED_FILE "wanted_message.json"
 
 
 //Fullscreen overlay resolution in tiles.
@@ -399,20 +382,20 @@ GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 #define SUMMON_GUNS "guns"
 #define SUMMON_MAGIC "magic"
 
-#define TELEPORT_CHANNEL_BLUESPACE "bluespace"	//Classic bluespace teleportation, requires a sender but no receiver
-#define TELEPORT_CHANNEL_QUANTUM "quantum"		//Quantum-based teleportation, requires both sender and receiver, but is free from normal disruption
-#define TELEPORT_CHANNEL_WORMHOLE "wormhole"	//Wormhole teleportation, is not disrupted by bluespace fluctuations but tends to be very random or unsafe
-#define TELEPORT_CHANNEL_MAGIC "magic"			//Magic teleportation, does whatever it wants (unless there's antimagic)
-#define TELEPORT_CHANNEL_CULT "cult"			//Cult teleportation, does whatever it wants (unless there's holiness)
-#define TELEPORT_CHANNEL_FREE "free"			//Anything else
+#define TELEPORT_CHANNEL_BLUESPACE "bluespace"	//! Classic bluespace teleportation, requires a sender but no receiver
+#define TELEPORT_CHANNEL_QUANTUM "quantum"		//! Quantum-based teleportation, requires both sender and receiver, but is free from normal disruption
+#define TELEPORT_CHANNEL_WORMHOLE "wormhole"	//! Wormhole teleportation, is not disrupted by bluespace fluctuations but tends to be very random or unsafe
+#define TELEPORT_CHANNEL_MAGIC "magic"			//! Magic teleportation, does whatever it wants (unless there's antimagic)
+#define TELEPORT_CHANNEL_CULT "cult"			//! Cult teleportation, does whatever it wants (unless there's holiness)
+#define TELEPORT_CHANNEL_FREE "free"			//! Anything else
 
-//Run the world with this parameter to enable a single run though of the game setup and tear down process with unit tests in between
+/// Run the world with this parameter to enable a single run though of the game setup and tear down process with unit tests in between
 #define TEST_RUN_PARAMETER "test-run"
-//Force the log directory to be something specific in the data/logs folder
+/// Force the log directory to be something specific in the data/logs folder
 #define OVERRIDE_LOG_DIRECTORY_PARAMETER "log-directory"
-//Prevent the master controller from starting automatically, overrides TEST_RUN_PARAMETER
+/// Prevent the master controller from starting automatically, overrides TEST_RUN_PARAMETER
 #define NO_INIT_PARAMETER "no-init"
-//Force the config directory to be something other than "config"
+/// Force the config directory to be something other than "config"
 #define OVERRIDE_CONFIG_DIRECTORY_PARAMETER "config-directory"
 
 #define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
@@ -421,11 +404,11 @@ GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 #define PDAIMG(what) {"<span class="pda16x16 [#what]"></span>"}
 
 //Filters
-#define AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, border=4, color="#04080FAA")
+#define AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")
 #define GAUSSIAN_BLUR(filter_size) filter(type="blur", size=filter_size)
 
-#define STANDARD_GRAVITY 1 //Anything above this is high gravity, anything below no grav
-#define GRAVITY_DAMAGE_TRESHOLD 3 //Starting with this value gravity will start to damage mobs
+#define STANDARD_GRAVITY 1 //! Anything above this is high gravity, anything below no grav
+#define GRAVITY_DAMAGE_TRESHOLD 3 //! Starting with this value gravity will start to damage mobs
 
 #define CAMERA_NO_GHOSTS 0
 #define CAMERA_SEE_GHOSTS_BASIC 1
@@ -444,3 +427,25 @@ GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 #define DICE_NOT_RIGGED 1
 #define DICE_BASICALLY_RIGGED 2
 #define DICE_TOTALLY_RIGGED 3
+
+#define VOMIT_TOXIC 1
+#define VOMIT_PURPLE 2
+
+/// Misc text define. Does 4 spaces. Used as a makeshift tabulator.
+#define FOURSPACES "&nbsp;&nbsp;&nbsp;&nbsp;"
+
+//chem grenades defines
+#define GRENADE_EMPTY 1
+#define GRENADE_WIRED 2
+#define GRENADE_READY 3
+
+//guardian themes
+#define GUARDIAN_TECH	"tech"
+#define GUARDIAN_CARP	"carp"
+#define GUARDIAN_MAGIC	"magic"
+#define GUARDIAN_HIVE	"hive"
+
+// possible bitflag return values of intercept_zImpact(atom/movable/AM, levels = 1) calls
+#define FALL_INTERCEPTED		(1<<0) //Stops the movable from falling further and crashing on the ground
+#define FALL_NO_MESSAGE			(1<<1) //Used to suppress the "[A] falls through [old_turf]" messages where it'd make little sense at all, like going downstairs.
+#define FALL_STOP_INTERCEPTING	(1<<2) //Used in situations where halting the whole "intercept" loop would be better, like supermatter dusting (and thus deleting) the atom.

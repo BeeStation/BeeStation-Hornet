@@ -10,12 +10,9 @@ new /datum/disease_ability/action/sneeze,
 new /datum/disease_ability/action/infect,
 new /datum/disease_ability/symptom/mild/cough,
 new /datum/disease_ability/symptom/mild/sneeze,
-new /datum/disease_ability/symptom/medium/shedding,
 new /datum/disease_ability/symptom/medium/beard,
 new /datum/disease_ability/symptom/medium/hallucigen,
-new /datum/disease_ability/symptom/medium/choking,
 new /datum/disease_ability/symptom/medium/confusion,
-new /datum/disease_ability/symptom/medium/youth,
 new /datum/disease_ability/symptom/medium/vomit,
 new /datum/disease_ability/symptom/medium/voice_change,
 new /datum/disease_ability/symptom/medium/visionloss,
@@ -38,16 +35,17 @@ new /datum/disease_ability/symptom/powerful/fire,
 new /datum/disease_ability/symptom/powerful/flesh_eating,
 new /datum/disease_ability/symptom/powerful/genetic_mutation,
 new /datum/disease_ability/symptom/powerful/inorganic_adaptation,
-new /datum/disease_ability/symptom/powerful/heal/starlight,
 new /datum/disease_ability/symptom/powerful/heal/oxygen,
 new /datum/disease_ability/symptom/powerful/heal/chem,
-new /datum/disease_ability/symptom/powerful/heal/metabolism,
-new /datum/disease_ability/symptom/powerful/heal/dark,
-new /datum/disease_ability/symptom/powerful/heal/water,
-new /datum/disease_ability/symptom/powerful/heal/plasma,
-new /datum/disease_ability/symptom/powerful/heal/radiation,
 new /datum/disease_ability/symptom/powerful/heal/coma,
-new /datum/disease_ability/symptom/powerful/heal/youth
+new /datum/disease_ability/symptom/powerful/heal/teleport,
+new /datum/disease_ability/symptom/powerful/heal/growth,
+new /datum/disease_ability/symptom/powerful/heal/EMP,
+new /datum/disease_ability/symptom/powerful/heal/sweat,
+new /datum/disease_ability/symptom/powerful/wizarditis,
+new /datum/disease_ability/symptom/medium/pierrot,
+new /datum/disease_ability/symptom/medium/cockroach,
+new /datum/disease_ability/symptom/powerful/youth
 ))
 
 /datum/disease_ability
@@ -269,7 +267,7 @@ new /datum/disease_ability/symptom/powerful/heal/youth
 
 /*******************BASE SYMPTOM TYPES*******************/
 // cost is for convenience and can be changed. If you're changing req_tot_points then don't use the subtype...
-//healing costs more so you have to techswitch from naughty disease otherwise we'd have friendly disease for easy greentext (no fun!)
+//healing no longer costs more, sans regen coma, due to how healing symptoms have been made scary
 
 /datum/disease_ability/symptom/mild
 	cost = 2
@@ -294,7 +292,6 @@ new /datum/disease_ability/symptom/powerful/heal/youth
 	cost = 8
 	category = "Symptom (Strong+)"
 
-
 /******MILD******/
 
 /datum/disease_ability/symptom/mild/cough
@@ -309,10 +306,7 @@ new /datum/disease_ability/symptom/powerful/heal/youth
 	short_desc = "Cause victims to sneeze intermittently."
 	long_desc = "Cause victims to sneeze intermittently, spreading your infection and also increasing transmissibility and resistance, at the cost of stealth."
 
-
 /******MEDIUM******/
-/datum/disease_ability/symptom/medium/shedding
-	symptoms = list(/datum/symptom/shedding)
 
 /datum/disease_ability/symptom/medium/beard
 	symptoms = list(/datum/symptom/beard)
@@ -324,36 +318,20 @@ new /datum/disease_ability/symptom/powerful/heal/youth
 	short_desc = "Cause victims to hallucinate."
 	long_desc = "Cause victims to hallucinate. Decreases stats, especially resistance."
 
-
-/datum/disease_ability/symptom/medium/choking
-	symptoms = list(/datum/symptom/choking)
-	short_desc = "Cause victims to choke."
-	long_desc = "Cause victims to choke, threatening asphyxiation. Decreases stats, especially transmissibility."
-
-
 /datum/disease_ability/symptom/medium/confusion
 	symptoms = list(/datum/symptom/confusion)
 	short_desc = "Cause victims to become confused."
 	long_desc = "Cause victims to become confused intermittently."
-
-
-/datum/disease_ability/symptom/medium/youth
-	symptoms = list(/datum/symptom/youth)
-	short_desc = "Cause victims to become eternally young."
-	long_desc = "Cause victims to become eternally young. Provides boosts to all stats except transmissibility."
-
 
 /datum/disease_ability/symptom/medium/vomit
 	symptoms = list(/datum/symptom/vomit)
 	short_desc = "Cause victims to vomit."
 	long_desc = "Cause victims to vomit. Slightly increases transmissibility. Vomiting also also causes the victims to lose nutrition and removes some toxin damage."
 
-
 /datum/disease_ability/symptom/medium/voice_change
 	symptoms = list(/datum/symptom/voice_change)
 	short_desc = "Change the voice of victims."
 	long_desc = "Change the voice of victims, causing confusion in communications."
-
 
 /datum/disease_ability/symptom/medium/visionloss
 	symptoms = list(/datum/symptom/visionloss)
@@ -378,7 +356,6 @@ new /datum/disease_ability/symptom/powerful/heal/youth
 /datum/disease_ability/symptom/medium/nano_destroy
 	symptoms = list(/datum/symptom/nano_destroy)
 
-
 /datum/disease_ability/symptom/medium/viraladaptation
 	symptoms = list(/datum/symptom/viraladaptation)
 	short_desc = "Cause your infection to become more resistant to detection and eradication."
@@ -393,12 +370,16 @@ new /datum/disease_ability/symptom/powerful/heal/youth
 /datum/disease_ability/symptom/medium/revitiligo
 	symptoms = list(/datum/symptom/revitiligo)
 
+/datum/disease_ability/symptom/medium/pierrot
+	symptoms = list(/datum/symptom/pierrot)
+
+/datum/disease_ability/symptom/medium/cockroach
+	symptoms = list(/datum/symptom/cockroach)
 
 /datum/disease_ability/symptom/medium/itching
 	symptoms = list(/datum/symptom/itching)
 	short_desc = "Cause victims to itch."
 	long_desc = "Cause victims to itch, increasing all stats except stealth."
-
 
 /datum/disease_ability/symptom/medium/heal/weight_loss
 	symptoms = list(/datum/symptom/weight_loss)
@@ -415,16 +396,17 @@ new /datum/disease_ability/symptom/powerful/heal/youth
 
 /******POWERFUL******/
 
-
 /datum/disease_ability/symptom/powerful/fire
 	symptoms = list(/datum/symptom/fire)
 
 /datum/disease_ability/symptom/powerful/flesh_eating
 	symptoms = list(/datum/symptom/flesh_eating)
 
+/datum/disease_ability/symptom/powerful/wizarditis //strong because it can remove hardsuits and bio protection
+	symptoms = list(/datum/symptom/wizarditis)
+
 /datum/disease_ability/symptom/powerful/genetic_mutation
 	symptoms = list(/datum/symptom/genetic_mutation)
-	cost = 8
 
 /datum/disease_ability/symptom/powerful/inorganic_adaptation
 	symptoms = list(/datum/symptom/inorganic_adaptation)
@@ -432,38 +414,31 @@ new /datum/disease_ability/symptom/powerful/heal/youth
 /datum/disease_ability/symptom/powerful/narcolepsy
 	symptoms = list(/datum/symptom/narcolepsy)
 
-/****HEALING SUBTYPE****/
+/datum/disease_ability/symptom/powerful/youth
+	symptoms = list(/datum/symptom/youth)
+	short_desc = "Cause victims to become eternally young."
+	long_desc = "Cause victims to become eternally young. Provides boosts to all stats except transmissibility."
 
-/datum/disease_ability/symptom/powerful/heal/starlight
-	symptoms = list(/datum/symptom/heal/starlight)
+/****HEALING SUBTYPE****/
 
 /datum/disease_ability/symptom/powerful/heal/oxygen
 	symptoms = list(/datum/symptom/oxygen)
 
 /datum/disease_ability/symptom/powerful/heal/chem
 	symptoms = list(/datum/symptom/heal/chem)
-
-/datum/disease_ability/symptom/powerful/heal/metabolism
-	symptoms = list(/datum/symptom/heal/metabolism)
-	short_desc = "Increase the metabolism of victims, causing them to process chemicals and grow hungry faster."
-	long_desc = "Increase the metabolism of victims, causing them to process chemicals twice as fast and grow hungry more quickly."
-
-/datum/disease_ability/symptom/powerful/heal/dark
-	symptoms = list(/datum/symptom/heal/darkness)
-
-/datum/disease_ability/symptom/powerful/heal/water
-	symptoms = list(/datum/symptom/heal/water)
-
-/datum/disease_ability/symptom/powerful/heal/plasma
-	symptoms = list(/datum/symptom/heal/plasma)
-
-/datum/disease_ability/symptom/powerful/heal/radiation
-	symptoms = list(/datum/symptom/heal/radiation)
+	cost = 4
 
 /datum/disease_ability/symptom/powerful/heal/coma
 	symptoms = list(/datum/symptom/heal/coma)
-	short_desc = "Cause victims to fall into a healing coma when hurt."
-	long_desc = "Cause victims to fall into a healing coma when hurt."
 
-/datum/disease_ability/symptom/powerful/heal/youth
-	symptoms = list(/datum/symptom/youth)
+/datum/disease_ability/symptom/powerful/heal/teleport
+	symptoms = list(/datum/symptom/teleport)
+
+/datum/disease_ability/symptom/powerful/heal/growth
+	symptoms = list(/datum/symptom/growth)
+
+/datum/disease_ability/symptom/powerful/heal/EMP
+	symptoms = list(/datum/symptom/EMP)
+
+/datum/disease_ability/symptom/powerful/heal/sweat
+	symptoms = list(/datum/symptom/sweat)

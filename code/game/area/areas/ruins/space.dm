@@ -22,7 +22,7 @@
 	power_environ = FALSE
 	valid_territory = FALSE
 	outdoors = TRUE
-	ambientsounds = SPACE
+	ambient_effects = SPACE
 	blob_allowed = FALSE
 
 /////////////
@@ -63,7 +63,7 @@
 
 /area/ruin/space/has_grav/powered/aesthetic
 	name = "Aesthetic"
-	ambientsounds = list('sound/ambience/ambivapor1.ogg')
+	ambient_effects = list('sound/ambience/ambivapor1.ogg')
 
 
 //Ruin of Hotel
@@ -381,7 +381,7 @@
 /area/ruin/space/abandoned_tele
 	name = "Abandoned Teleporter"
 	icon_state = "teleporter"
-	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/signal.ogg')
+	ambient_effects = list('sound/ambience/ambimalf.ogg', 'sound/ambience/signal.ogg')
 
 //OLD AI SAT
 
@@ -406,3 +406,41 @@
 /area/ruin/space/has_grav/powered/ancient_shuttle
 	name = "Ancient Shuttle"
 	icon_state = "yellow"
+
+/area/ruin/space/has_grav/powered/macspace
+	name = "Mac Space Restaurant"
+	icon_state = "yellow"
+
+//POWER PUZLE
+
+/area/ruin/space/has_grav/storage/central
+	name = "storage central"
+	icon_state = "hallC"
+
+/area/ruin/space/has_grav/storage/central2
+	name = "storage Vault"
+	icon_state = "red"
+
+/area/ruin/space/has_grav/storage/materials1
+	name = "storage materials fore room"
+	icon_state = "storage_wing"
+
+/area/ruin/space/has_grav/storage/materials2
+	name = "storage Materials secure room"
+	icon_state = "storage"
+
+/area/ruin/space/has_grav/storage/materials3
+	name = "storage materials miscellaneous"
+	icon_state = "yellow"
+
+/area/ruin/space/has_grav/storage/power1
+	name = "storage Enginering central"
+	icon_state = "yellow"
+
+/area/ruin/space/has_grav/storage/power2
+	name = "storage Enginering "
+	icon_state = "engi_storage"
+
+/area/ruin/space/has_grav/storage/power3
+	name = "storage Crates"
+	icon_state = "green"
