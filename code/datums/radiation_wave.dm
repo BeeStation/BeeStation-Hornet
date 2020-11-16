@@ -33,34 +33,48 @@
 	var/ded = TRUE
 	var/list/atoms = list()
 	// The actual distance
-	var/distance = steps
+	var/distance = steps + 1
 	// Represents decreasing radiation power over distance
 	var/falloff = 1 / distance ** 2
 	// Caching
 	var/turf/cmaster_turf = master_turf
-	// Index for old intensity list
-	var/index_old = 0
+	// Index for the intensity list
+	var/index = 0
 	// Original intensity it is using
-	var/list/intensity_old = intensity
-	// New intensity that'll be written; always larger than the previous one
-	var/list/intensity_new = list((steps+2)*4)
+	var/list/cintensity = intensity
 
 	var/turf/place = locate(cmaster_turf.x - distance, cmaster_turf.y + distance, cmaster_turf.z)
 	for(var/dir in list(EAST, SOUTH, WEST, NORTH))
 		for(var/i in 1 to distance * 2)
-			if(intensity_old[++index_old])
+			if(cintensity[++index])
 				atoms = get_rad_contents(place)
-				intensity_old[index_old] *= radiate(atoms, FLOOR(intensity_old[index_old] * falloff, 1))
-				check_obstructions(atoms, index_old)
+				cintensity[index] *= radiate(atoms, FLOOR(cintensity[index] * falloff, 1))
+				check_obstructions(atoms, index)
 				ded = FALSE
 			place = get_step(place, dir)
 	
 	if(ded)
 		qdel(src)
+		return
+
+	raycast() // This proc is cursed
+
+	steps++ // This moves the wave forward
+
+/datum/radiation_wave/proc/raycast()
+
+	var/distance = steps + 1
+	var/falloff = 1 / distance ** 2
 	
 	// Index for new intensity list; I don't want to create ridiculous amount of additions
 	var/index_new = 0
-	index_old = 1
+	// Index for soon-to-be-obsoleted-intensity list
+	var/index_old = 1
+
+	// The soon-to-be-obsoleted-intensity list
+	var/list/intensity_old = intensity
+	// New intensity that'll be written; always larger than the previous one
+	var/list/intensity_new[(distance+1)*8]
 
 	// The candidate before pruning
 	var/candidate
@@ -77,7 +91,8 @@
 
 	// THIS REDUNDANCY IS INTENTIONAL
 	for(var/dir in list(EAST, EAST, SOUTH, SOUTH, WEST, WEST, NORTH, NORTH))
-		intensity_new[++index_new] = intensity_old[index_old]
+		intensity_new[++index_new] = intensity_old[index_old] * falloff > RAD_WAVE_MINIMUM ? intensity_old[index_old] : 0
+
 		loop = 0
 		currentbranch = 0
 		for(var/i in 1 to distance)
@@ -88,7 +103,9 @@
 								intensity_old[index_old++] \
 								: (intensity_old[index_old] + intensity_old[++index_old]) / 2) \
 							: (loop == ++currentbranch ? \
-								(intensity_old[index_old]+intensity_old[++index_old]) / 2 \
+								(index_old == (distance * 8) ? \
+									(intensity_old[index_old]+intensity_old[1]) / 2 \
+									: (intensity_old[index_old]+intensity_old[++index_old]) / 2) \
 								: (loop > currentbranch ? \
 									intensity_old[++index_old] \
 									: intensity_old[index_old++]))
@@ -97,8 +114,6 @@
 				intensity_new[++index_new] = 0
 			else
 				intensity_new[++index_new] = candidate
-
-	steps++ // This moves the wave forward
 
 	intensity = intensity_new //THERE CAN BE ONLY ONE
 
@@ -138,7 +153,7 @@
 			))
 		if(!is_contaminating)
 			continue
-		if(!blacklisted[thing.type])
+		if(blacklisted[thing.type])
 			continue
 		// Insulating objects won't get contaminated
 		if(SEND_SIGNAL(thing, COMSIG_ATOM_RAD_CONTAMINATING, strength) & COMPONENT_BLOCK_CONTAMINATION)
@@ -149,7 +164,7 @@
 			atomlist += thing
 
 	if(atomlist.len)
-		. -= 0.1
+		. -= RAD_CONTAMINATION_BUDGET_SIZE
 		var/affordance = min(FLOOR(contam_strength,RAD_COMPONENT_MINIMUM), atomlist.len)
 		var/contam_strength_divided = contam_strength / affordance
 		for(var/k in 1 to affordance)
@@ -157,7 +172,7 @@
 			poor_thing.AddComponent(/datum/component/radioactive, contam_strength_divided, source)
 
 	if(moblist.len)
-		. -= 0.1
+		. -= RAD_CONTAMINATION_BUDGET_SIZE
 		var/affordance = min(FLOOR(contam_strength,RAD_COMPONENT_MINIMUM), moblist.len)
 		var/contam_strength_divided = contam_strength / affordance
 		for(var/k in 1 to affordance)

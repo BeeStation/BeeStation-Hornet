@@ -40,7 +40,7 @@ Ask ninjanomnom if they're around
 // WARNING: The defines below could have disastrous consequences if tweaked incorrectly. See: The great SM purge of Oct.6.2017
 // contamination_chance = 		[doesn't matter, will always contaminate]
 // contamination_strength = 	strength * RAD_CONTAMINATION_STR_COEFFICIENT
-#define RAD_CONTAMINATION_STR_COEFFICIENT 0.00625	// Higher means higher strength scaling contamination strength
+#define RAD_CONTAMINATION_STR_COEFFICIENT 0.002778	// Higher means higher strength scaling contamination strength
 													// This number represents perservation of radiation
 #define RAD_CONTAMINATION_BUDGET_SIZE 0.1			// Mob and non-mob budgets each gets a share from the radiation as large as this
 													// So this means 10% of the rads is absorbed by non-mobs (if there is a non-mob),
@@ -51,5 +51,5 @@ Ask ninjanomnom if they're around
 
 #define RAD_WAVE_MINIMUM 10							// Radiation waves with less than this amount of power stop spreading
 													// WARNING: Reducing can make rads subsytem more expensive
-#define RAD_COMPONENT_MINIMUM 0.1						// To ensure slow contamination
+#define RAD_COMPONENT_MINIMUM 1						// To ensure slow contamination
 													// WARNING: Reducing can make rads subsytem more expensive

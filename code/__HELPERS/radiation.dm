@@ -26,7 +26,7 @@
 	if(!SSradiation.can_fire)
 		return
 	
-	var/list/things = get_rad_contents(source) //copypasta because I don't want to put special code in waves to handle their origin
+	var/list/things = get_rad_contents(isturf(source) ? source : get_turf(source)) //copypasta because I don't want to put special code in waves to handle their origin
 	for(var/k in 1 to things.len)
 		var/atom/thing = things[k]
 		if(!thing)
