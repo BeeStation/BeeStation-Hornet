@@ -982,6 +982,18 @@ MAT SCANNER
 	throw_speed = 3
 	throw_range = 7
 	materials = list(/datum/material/iron=30, /datum/material/glass=20)
+	var/list/color_list = list(
+		/datum/material/glass= "#60b6ff",
+		/datum/material/gold = "#ffcc4f",
+		/datum/material/silver = "#ccccdb",
+		/datum/material/copper = "#d57e00",
+		/datum/material/diamond = "#d5f5ff",
+		/datum/material/uranium = "#83bf33",
+		/datum/material/plasma = "#ee82ee",
+		/datum/material/bluespace = "#0000ff",
+		/datum/material/bananium = "#ffff00",
+		/datum/material/titanium = "#dddddd",
+	)
 
 /obj/item/material_scanner/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -999,27 +1011,8 @@ MAT SCANNER
 	for(var/R in I.materials)
 		var/datum/material/M = R
 		var/amount =  I.materials[M]
-		var/fcolor = "#696969"	//hehehe
-		if (istype(M,/datum/material/glass))
-			fcolor = "#60b6ff"
-		else if (istype(M,/datum/material/gold))
-			fcolor = "#ffcc4f"
-		else if (istype(M,/datum/material/silver))
-			fcolor = "#ccccdb"
-		else if (istype(M,/datum/material/copper))
-			fcolor = "#d57e00"
-		else if (istype(M,/datum/material/diamond))
-			fcolor = "#d5f5ff"
-		else if (istype(M,/datum/material/uranium))
-			fcolor = "#83bf33"
-		else if (istype(M,/datum/material/plasma))
-			fcolor = "#ee82ee"
-		else if (istype(M,/datum/material/bluespace))
-			fcolor = "#0000ff"
-		else if (istype(M,/datum/material/bananium))
-			fcolor = "#ffff00"
-		else if (istype(M,/datum/material/titanium))
-			fcolor = "#dddddd"
+		var/fcolor = color_list[M]
+		
 		output+= " - <font color='[fcolor]'>[M.name] ([amount])</font>"
 		integ++
 		if (integ>3)
