@@ -161,6 +161,9 @@
 		addtimer(CALLBACK(src, .proc/send_intercept, 0), rand(waittime_l, waittime_h))
 	create_special_antags()
 	generate_station_goals()
+	if(!report) // goals only become purchasable when on_report is called, this also makes a replacement announcement.
+		for(var/datum/station_goal/G in station_goals)
+			G.prepare_report()
 	gamemode_ready = TRUE
 	return 1
 
