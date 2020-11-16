@@ -1088,21 +1088,6 @@
 
 	else
 		to_chat(user, "<span class='alert'>Nothing happens.</span>")
-/*
- * Toy  train
- */
-/obj/item/toy/toytrain
-	name = "toy train"
-	desc = "A little toy train for young spess men. The wheels are attached to a piece of string!"
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "eightball"
-	w_class = WEIGHT_CLASS_SMALL
-
-/obj/item/toy/toytrain/attack_self(mob/user)
-	user.visible_message("<span class='warning'>[user] pulls the string on the bottom of the train.</span>", "<span class='notice'>You pull the string, the wheels begin to spin</span>", "<span class='italics'>The train whires audibly.</span>")
-	playsound(src, 'sound/voice/moth/scream_moth.ogg', 5, 0)
-	
-	
 
 /*
  * Snowballs
