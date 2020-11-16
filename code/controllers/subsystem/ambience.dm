@@ -29,7 +29,7 @@ SUBSYSTEM_DEF(ambience)
 		if (C)
 			var/mob/M = C.mob
 
-			if(M && M.client)
+			if(M?.client)
 				if (istype(M, /mob/dead/new_player)) // Don't play ambience to nerds in the lobby
 					continue
 
