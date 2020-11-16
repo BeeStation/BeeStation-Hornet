@@ -279,8 +279,8 @@
 
 /obj/item/artifact/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(proximity_flag)
-		infuse_blessing(user,target)
+	if(proximity_flag && infuse_blessing(user,target))
+		user.visible_message("<span class='notice'>You hex [target] with the blessing of [godname]!</span>","<span class='danger'>[user] performs a strange ritual with the [src]!</span>")
 
 /obj/item/artifact/attack_self(mob/user)
 	. = ..()
@@ -377,7 +377,7 @@
 
 /obj/item/artifact/ashes
 	name = "goofer dust"
-	desc = "There's something cursed about these ashes... You just know it!"
+	desc = "Ritualistic dust used to throw curses upon people."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "ash"
 	infused = TRUE
