@@ -528,7 +528,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Atmospherics Engine"
 	icon_state = "atmos_engine"
 
-/area/engine/engine_room //donut station/zulu station specific
+/area/engine/engine_room //donut station/endo station specific
 	name = "Engine Room"
 	icon_state = "atmos_engine"
 
