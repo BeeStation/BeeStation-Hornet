@@ -17,7 +17,7 @@ map boxstation
 	votable
 endmap
 
-map zulustation
+map endostation
 	votable
 endmap
 

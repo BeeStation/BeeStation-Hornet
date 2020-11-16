@@ -1,7 +1,7 @@
 {
-    "map_name": "Zulu Station",
-    "map_path": "map_files/ZuluStation",
-    "map_file": "ZuluStation.dmm",
+    "map_name": "Endo Station",
+    "map_path": "map_files/EndoStation",
+    "map_file": "EndoStation.dmm",
     "shuttles": {
 	    "cargo": "cargo_box",
 	    "ferry": "ferry_fancy",
