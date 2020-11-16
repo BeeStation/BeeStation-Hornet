@@ -58,7 +58,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "CentComPodLauncher")
+		ui = new(user, src, "CentcomPodLauncher")
 		ui.open()
 
 /datum/centcom_podlauncher/ui_data(mob/user) //Sends info about the pod to the UI.
@@ -123,7 +123,7 @@
 			bay =  locate(/area/centcom/supplypod/loading/ert) in GLOB.sortedAreas
 			refreshBay()
 			. = TRUE
-		if("teleportCentCom") //Teleports the user to the centcom supply loading facility.
+		if("teleportCentcom") //Teleports the user to the centcom supply loading facility.
 			var/mob/M = holder.mob //We teleport whatever mob the client is attached to at the point of clicking
 			oldTurf = get_turf(M) //Used for the "teleportBack" action
 			var/area/A = locate(bay) in GLOB.sortedAreas

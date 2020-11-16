@@ -80,7 +80,7 @@
 					<li>High-speed Drill</li>
 					</ul>
 				</li>
-				<li><b>Propulsion Device:</b> Power cell-powered electro-hydraulic system.</li>
+				<li><b>Propulsion Device:</b> Cell powered electro-hydraulic system.</li>
 				<li><b>Powercell capacity:</b> Varies.</li>
 				</ul>
 
