@@ -39391,22 +39391,6 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible,
 /turf/closed/wall/r_wall,
 /area/science/mixing/chamber)
-"bIN" = (
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the test chamber.";
-	dir = 4;
-	layer = 4;
-	name = "Test Chamber Telescreen";
-	network = list("toxins");
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/plasteel,
-/area/science/mixing)
 "bIP" = (
 /obj/structure/grille,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -56961,6 +56945,13 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
+"hTl" = (
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	dir = 1
+	},
+/obj/machinery/research/explosive_compressor,
+/turf/open/floor/plasteel,
+/area/science/mixing)
 "hTr" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -59021,7 +59012,9 @@
 /obj/machinery/conveyor_switch{
 	id = "SciLoad"
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -65485,6 +65478,25 @@
 	dir = 1
 	},
 /area/hallway/secondary/exit/departure_lounge)
+"xix" = (
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the test chamber.";
+	dir = 4;
+	layer = 4;
+	name = "Test Chamber Telescreen";
+	network = list("toxins");
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/structure/table/reinforced,
+/obj/item/raw_anomaly_core/random,
+/obj/item/raw_anomaly_core/random,
+/turf/open/floor/plasteel,
+/area/science/mixing)
 "xja" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -109442,8 +109454,8 @@ bwm
 glf
 bFr
 qtA
-noM
-bIN
+hTl
+xix
 dAF
 wUg
 pSX

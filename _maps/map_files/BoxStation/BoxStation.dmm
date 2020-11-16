@@ -30775,12 +30775,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
-"bIW" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/open/floor/plasteel,
-/area/science/mixing)
 "bIX" = (
 /obj/structure/sign/warning/securearea{
 	desc = "A warning sign which reads 'BOMB RANGE";
@@ -32249,18 +32243,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing/chamber)
-"bNz" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/camera/autoname{
-	dir = 9
-	},
-/turf/open/floor/plasteel,
-/area/science/mixing)
 "bNA" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
@@ -49868,6 +49850,13 @@
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
+"hFI" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/research/explosive_compressor,
+/turf/open/floor/plasteel,
+/area/science/mixing)
 "hHp" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -52815,6 +52804,21 @@
 	},
 /turf/open/floor/wood,
 /area/vacant_room/office)
+"lwh" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/camera/autoname{
+	dir = 9
+	},
+/obj/structure/table/reinforced,
+/obj/item/raw_anomaly_core/random,
+/obj/item/raw_anomaly_core/random,
+/turf/open/floor/plasteel,
+/area/science/mixing)
 "lxd" = (
 /obj/machinery/light_switch{
 	pixel_x = -20
@@ -56161,7 +56165,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "pIP" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -58349,7 +58355,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "ssh" = (
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
@@ -112743,7 +112751,7 @@ bGF
 bKa
 dyt
 bMA
-bNz
+lwh
 bOI
 dyt
 bFU
@@ -112991,7 +112999,7 @@ kGS
 bzO
 cYY
 bCl
-bqe
+bEC
 bEC
 bEC
 bEC
@@ -114795,7 +114803,7 @@ sBO
 bEs
 bGd
 bHv
-bIW
+hFI
 lQt
 bLm
 bEs

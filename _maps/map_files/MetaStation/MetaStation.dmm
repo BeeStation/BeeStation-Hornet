@@ -67548,19 +67548,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/science/mixing)
-"cBJ" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel,
-/area/science/mixing)
-"cBK" = (
-/obj/machinery/light/small,
-/obj/machinery/airalarm{
-	dir = 1;
-	pixel_y = -22
-	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel,
-/area/science/mixing)
 "cBL" = (
 /obj/structure/chair{
 	dir = 4
@@ -82754,7 +82741,9 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
 "gjM" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -84184,6 +84173,11 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"lKD" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/research/explosive_compressor,
+/turf/open/floor/plasteel,
+/area/science/mixing)
 "lLy" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -85114,6 +85108,18 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
+"pDo" = (
+/obj/machinery/light/small,
+/obj/machinery/airalarm{
+	dir = 1;
+	pixel_y = -22
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/table/reinforced,
+/obj/item/raw_anomaly_core/random,
+/obj/item/raw_anomaly_core/random,
+/turf/open/floor/plasteel,
+/area/science/mixing)
 "pER" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -123413,7 +123419,7 @@ xVP
 ojg
 czF
 cAN
-cBJ
+lKD
 cAP
 cDs
 czD
@@ -123670,7 +123676,7 @@ pZm
 ojg
 czG
 cAN
-cBK
+pDo
 czD
 cDt
 czD

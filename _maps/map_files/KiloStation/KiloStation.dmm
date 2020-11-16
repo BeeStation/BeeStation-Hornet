@@ -38749,31 +38749,6 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/checkpoint/science/research)
-"bec" = (
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/machinery/light,
-/obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
-	name = "Science RC";
-	pixel_y = -30;
-	receive_ore_updates = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/open/floor/plasteel/showroomfloor,
-/area/science/mixing)
 "bed" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/middle,
 /obj/structure/cable/yellow{
@@ -38870,21 +38845,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
-"bej" = (
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1{
-	dir = 8
-	},
-/turf/open/floor/plasteel/showroomfloor,
-/area/science/mixing)
 "bek" = (
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
@@ -100562,6 +100522,50 @@
 /obj/machinery/autolathe,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
+"hqp" = (
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/research/explosive_compressor,
+/turf/open/floor/plasteel/showroomfloor,
+/area/science/mixing)
+"kkF" = (
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/machinery/light,
+/obj/machinery/requests_console{
+	department = "Science";
+	departmentType = 2;
+	name = "Science RC";
+	pixel_y = -30;
+	receive_ore_updates = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/structure/table/reinforced,
+/obj/item/raw_anomaly_core/random,
+/obj/item/raw_anomaly_core/random,
+/turf/open/floor/plasteel/showroomfloor,
+/area/science/mixing)
 "oOk" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral,
@@ -141334,7 +141338,7 @@ aFN
 aGe
 aLh
 aNq
-bec
+kkF
 bbN
 bba
 bex
@@ -142366,7 +142370,7 @@ bcg
 beH
 bcR
 bdV
-bej
+hqp
 baC
 cbe
 bcD

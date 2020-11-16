@@ -107515,19 +107515,6 @@
 	},
 /turf/open/floor/plasteel/airless/solarpanel,
 /area/solar/starboard/aft)
-"dFz" = (
-/obj/structure/chair/office{
-	dir = 8
-	},
-/obj/item/radio/intercom{
-	pixel_x = -26;
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/plasteel,
-/area/science/misc_lab)
 "dFA" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -109720,13 +109707,6 @@
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/glasses/science,
 /obj/item/clothing/glasses/science,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/science/misc_lab)
-"dJN" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
@@ -123238,7 +123218,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -123406,6 +123388,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmospherics_engine)
+"oHU" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/research/explosive_compressor,
+/turf/open/floor/plasteel,
+/area/science/misc_lab)
 "oIl" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
@@ -125162,6 +125152,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"voX" = (
+/obj/item/radio/intercom{
+	pixel_x = -26;
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/structure/table/reinforced,
+/obj/item/raw_anomaly_core/random,
+/obj/item/raw_anomaly_core/random,
+/turf/open/floor/plasteel,
+/area/science/misc_lab)
 "vqo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -154345,7 +154348,7 @@ cLx
 caE
 aaa
 dEn
-dFz
+voX
 dGY
 dIj
 dJJ
@@ -155376,7 +155379,7 @@ dEn
 dFD
 dHc
 dIn
-dJN
+oHU
 dEn
 dLN
 gSi
