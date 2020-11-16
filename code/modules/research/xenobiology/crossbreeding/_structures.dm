@@ -593,6 +593,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 	var/mob/living/carbon/human/human = affected_mob
 	human.dna.species.brutemod *= 0.9
+	human.dna.species.burnmod *= 0.9
 
 /obj/structure/slime_crystal/adamantine/on_mob_leave(mob/living/affected_mob)
 	. = ..()
@@ -601,6 +602,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 	var/mob/living/carbon/human/human = affected_mob
 	human.dna.species.brutemod /= 0.9
+	human.dna.species.burnmod /= 0.9
 
 /obj/structure/slime_crystal/rainbow
 	colour = "rainbow"
