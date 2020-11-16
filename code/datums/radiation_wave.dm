@@ -29,50 +29,78 @@
 	if(!master_turf)
 		qdel(src)
 		return
+	// If none of the turfs could be irradiated, then the wave is ded
 	var/ded = TRUE
 	var/list/atoms = list()
+	// The actual distance
 	var/distance = steps
-	var/divisor = distance + 1
+	// Represents decreasing radiation power over distance
 	var/falloff = 1 / distance ** 2
-	var/ratio_behind
-	var/ratio_front
-	var/candidate
+	// Caching
 	var/turf/cmaster_turf = master_turf
-	var/old_index = 0
-	var/list/old_intensity = intensity
-	var/list/new_intensity = list((steps+2)*4)
+	// Index for old intensity list
+	var/index_old = 0
+	// Original intensity it is using
+	var/list/intensity_old = intensity
+	// New intensity that'll be written; always larger than the previous one
+	var/list/intensity_new = list((steps+2)*4)
 
 	var/turf/place = locate(cmaster_turf.x - distance, cmaster_turf.y + distance, cmaster_turf.z)
 	for(var/dir in list(EAST, SOUTH, WEST, NORTH))
 		for(var/i in 1 to distance * 2)
-			if(old_intensity[++old_index])
+			if(intensity_old[++index_old])
 				atoms = get_rad_contents(place)
-				old_intensity[old_index] *= radiate(atoms, FLOOR(old_intensity[old_index] * falloff, 1))
-				check_obstructions(atoms, old_index)
+				intensity_old[index_old] *= radiate(atoms, FLOOR(intensity_old[index_old] * falloff, 1))
+				check_obstructions(atoms, index_old)
 				ded = FALSE
 			place = get_step(place, dir)
 	
-	var/new_index = 0 // I don't want to create ridiculous amount of additions
-	old_index = 1
+	if(ded)
+		qdel(src)
+	
+	// Index for new intensity list; I don't want to create ridiculous amount of additions
+	var/index_new = 0
+	index_old = 1
+
+	// The candidate before pruning
+	var/candidate
+	// The size of loop
+	var/loopsize = distance + 2
+	// "Class" it belongs to
+	var/branchclass = 2**round(log(2,distance + 1))
+	// Velocity of loop
+	var/loopspeed = loopsize - branchclass
+	// The looping variable
+	var/loop
+	// The "branch" it currently is on
+	var/currentbranch
 
 	// THIS REDUNDANCY IS INTENTIONAL
 	for(var/dir in list(EAST, EAST, SOUTH, SOUTH, WEST, WEST, NORTH, NORTH))
-		new_intensity[++new_index] = old_intensity[old_index]
-		ratio_behind = divisor
-		ratio_front = 0
+		intensity_new[++index_new] = intensity_old[index_old]
+		loop = 0
+		currentbranch = 0
 		for(var/i in 1 to distance)
-			candidate = old_intensity[old_index]*--ratio_behind*divisor + old_intensity[++old_index]*++ratio_front*divisor
+			// Pure magic happens here
+			loop = (loop + loopspeed) % loopsize
+			candidate = loop >= branchclass ? \
+							(loop == loopsize ? \
+								intensity_old[index_old++] \
+								: (intensity_old[index_old] + intensity_old[++index_old]) / 2) \
+							: (loop == ++currentbranch ? \
+								(intensity_old[index_old]+intensity_old[++index_old]) / 2 \
+								: (loop > currentbranch ? \
+									intensity_old[++index_old] \
+									: intensity_old[index_old++]))
+
 			if(candidate * falloff < RAD_WAVE_MINIMUM)
-				new_intensity[++new_index] = 0
+				intensity_new[++index_new] = 0
 			else
-				new_intensity[++new_index] = candidate
+				intensity_new[++index_new] = candidate
 
-	steps++
+	steps++ // This moves the wave forward
 
-	intensity = new_intensity //THERE CAN BE ONLY ONE
-
-	if(ded)
-		qdel(src)
+	intensity = intensity_new //THERE CAN BE ONLY ONE
 
 /datum/radiation_wave/proc/check_obstructions(list/atoms, index)
 
