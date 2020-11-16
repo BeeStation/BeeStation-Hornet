@@ -416,36 +416,36 @@
 	var/list/extra_atoms = list()
 
 	//check variables
-	for(var/A in range(1, src))	//this
+	for(var/A in range(1, loc))	//this
 		var/atom/atom_in_range = A
+		to_chat(user,"found [A]")//debug
 		if(istype(atom_in_range,/obj/item/bodypart/r_leg))
-			extra_atoms[0] = A
-			debuffs[0] = "r_leg"
+			extra_atoms |= A
+			debuffs |= "r_leg"
 		else if(istype(atom_in_range,/obj/item/bodypart/l_leg))
-			extra_atoms[1] = A
-			debuffs[1] = "l_leg"
+			extra_atoms |= A
+			debuffs |= "l_leg"
 		else if(istype(atom_in_range,/obj/item/bodypart/r_arm))
-			extra_atoms[2] = A
-			debuffs[2] = "r_arm"
+			extra_atoms |= A
+			debuffs |= "r_arm"
 		else if(istype(atom_in_range,/obj/item/bodypart/l_arm))
-			extra_atoms[3] = A
-			debuffs[3] = "l_arm"
+			extra_atoms |= A
+			debuffs |= "l_arm"
 		else if(istype(atom_in_range,/obj/item/organ/tongue))
-			extra_atoms[4] = A
-			debuffs[4] = "tongue"
+			extra_atoms |= A
+			debuffs |= "tongue"
 		else if(istype(atom_in_range,/obj/item/organ/eyes))
-			extra_atoms[5] = A
-			debuffs[5] = "eyes"
+			extra_atoms |= A
+			debuffs |= "eyes"
 		else if(istype(atom_in_range,/obj/item/organ/ears))
-			extra_atoms[6] = A
-			debuffs[6] = "ears"
+			extra_atoms |= A
+			debuffs |= "ears"
 		else if(istype(atom_in_range,/obj/item/organ/liver) || istype(atom_in_range,/obj/item/organ/lungs) || istype(atom_in_range,/obj/item/organ/appendix) || istype(atom_in_range,/obj/item/organ/heart))
-			extra_atoms[7] = A
-			debuffs[7] = "organs"
-	if (!LAZYLEN(debuffs))
-		return FALSE
-	. = ..()
+			extra_atoms |= A
+			debuffs |= "organs"
+
 	cleanup_atoms(extra_atoms)
+	. = ..()
 	return .
 
 /datum/eldritch_knowledge/curse/alteration/curse(mob/living/chosen_mob)
@@ -454,22 +454,26 @@
 		return FALSE
 
 	chosen_mob.apply_status_effect(/datum/status_effect/corrosion_curse)
+	var/db = LAZYLEN(debuffs)
+	chosen_mob.visible_message("found components [db]","found components [db]")
+
 	for(var/X in debuffs)
+		chosen_mob.visible_message("apply [X]","apply [X]")
 		switch (X)
 			if ("r_leg")
-				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,HERETIX_CURSE_TRAIT)
+				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
 			if ("l_leg")
-				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,HERETIX_CURSE_TRAIT)
+				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
 			if ("r_arm")
-				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_ARM,HERETIX_CURSE_TRAIT)
+				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_ARM,MAGIC_TRAIT)
 			if ("l_arm")
-				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_ARM,HERETIX_CURSE_TRAIT)
+				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_ARM,MAGIC_TRAIT)
 			if ("tongue")
-				ADD_TRAIT(chosen_mob, TRAIT_MUTE, HERETIX_CURSE_TRAIT)
+				ADD_TRAIT(chosen_mob, TRAIT_MUTE, MAGIC_TRAIT)
 			if ("eyes")
-				chosen_mob.become_blind(HERETIX_CURSE_TRAIT)
+				chosen_mob.become_blind(MAGIC_TRAIT)
 			if ("ears")
-				ADD_TRAIT(chosen_mob, TRAIT_DEAF, HERETIX_CURSE_TRAIT)
+				ADD_TRAIT(chosen_mob, TRAIT_DEAF, MAGIC_TRAIT)
 	return .
 
 /datum/eldritch_knowledge/curse/alteration/uncurse(mob/living/chosen_mob)
@@ -478,15 +482,15 @@
 	chosen_mob.remove_status_effect(/datum/status_effect/corrosion_curse)
 
 	//CC
-	chosen_mob.cure_blind(HERETIX_CURSE_TRAIT)
-	REMOVE_TRAIT(chosen_mob, TRAIT_MUTE, HERETIX_CURSE_TRAIT)
-	REMOVE_TRAIT(chosen_mob, TRAIT_DEAF, HERETIX_CURSE_TRAIT)
+	chosen_mob.cure_blind(MAGIC_TRAIT)
+	REMOVE_TRAIT(chosen_mob, TRAIT_MUTE, MAGIC_TRAIT)
+	REMOVE_TRAIT(chosen_mob, TRAIT_DEAF, MAGIC_TRAIT)
 
 	//paralysis
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_ARM,HERETIX_CURSE_TRAIT)
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_ARM,HERETIX_CURSE_TRAIT)
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,HERETIX_CURSE_TRAIT)
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,HERETIX_CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_ARM,MAGIC_TRAIT)
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_ARM,MAGIC_TRAIT)
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
 	chosen_mob.update_mobility()
 
 	return .
@@ -521,14 +525,14 @@
 
 /datum/eldritch_knowledge/curse/paralysis/curse(mob/living/chosen_mob)
 	. = ..()
-	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,HERETIX_CURSE_TRAIT)
-	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,HERETIX_CURSE_TRAIT)
+	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
+	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
 	chosen_mob.update_mobility()
 
 /datum/eldritch_knowledge/curse/paralysis/uncurse(mob/living/chosen_mob)
 	. = ..()
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,HERETIX_CURSE_TRAIT)
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,HERETIX_CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
 	chosen_mob.update_mobility()
 
 // Summons //

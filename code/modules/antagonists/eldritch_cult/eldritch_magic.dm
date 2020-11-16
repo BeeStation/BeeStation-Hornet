@@ -117,7 +117,7 @@
 	var/A = get_turf(target)
 	to_chat(user, "<span class='danger'>You start drawing a rune...</span>")
 
-	if(do_after(user,30 SECONDS,FALSE,A))
+	if(do_after(user,16 SECONDS,FALSE,A))
 		new /obj/effect/eldritch/big(A)
 
 
@@ -125,7 +125,7 @@
 /obj/item/melee/touch_attack/mansus_fist/proc/remove_rune(atom/target,mob/user)
 
 	to_chat(user, "<span class='danger'>You start removing a rune...</span>")
-	if(do_after(user,2 SECONDS,user))
+	if(do_after(user,16 SECONDS,user))
 		qdel(target)
 
 /obj/effect/proc_holder/spell/aoe_turf/rust_conversion

@@ -42,6 +42,7 @@
 	in_use = FALSE
 
 /obj/item/forbidden_book/ui_interact(mob/user, datum/tgui/ui = null)
+	to_chat(user,"on UI")
 	if(!IS_HERETIC(user))
 		return FALSE
 	last_user = user
@@ -57,7 +58,7 @@
 	if(!istype(user) || IS_HERETIC(user) || in_use)
 		return FALSE
 	if(HAS_TRAIT(user, TRAIT_MINDSHIELD))
-		to_chat(user, "<span class='alert'>You feel the [name] trying to take over your mind!</span>")
+		to_chat(user, "<span class='alert'>The pages of [src] appear empty to you!</span>")
 		return FALSE
 	if(user.has_trauma_type(/datum/brain_trauma/fascination))
 		to_chat(user, "<span class='alert'>Reading the [name] again will not satisfy your thirst for knowledge!</span>")
@@ -67,14 +68,14 @@
 	in_use = TRUE
 	
 	var/success = FALSE
-	for(var/i=1, i<=3, i++)
+	for(var/i=1, i<=rand(2,5), i++)
 		if (!success)
 			success = prob(10)
 		if(!turn_page(user,success))
 			to_chat(user, "<span class='notice'>You resist temptation and put the [name] down.</span>")
 			in_use = FALSE
 			return FALSE
-	if(do_after(user,50, user))
+	if(do_after(user,3 SECONDS, user))
 		if (success)
 			user.gain_trauma(/datum/brain_trauma/fascination,TRAUMA_RESILIENCE_SURGERY)
 		else
@@ -82,14 +83,14 @@
 				to_chat(user, "<span class='notice'>Your sanity slips away...</span>")
 				user.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5, 160)
 			else
-				to_chat(user, "<span class='notice'>I must have offended the Gods somehow!</span>")
+				to_chat(user, "<span class='notice'>You must have offended the Gods somehow!</span>")
 				new /mob/living/simple_animal/hostile/netherworld/blankbody(get_turf(user))
 	in_use = FALSE
 	return TRUE
 
 /obj/item/forbidden_book/proc/turn_page(mob/user,var/success)
 	playsound(user, pick('sound/effects/pageturn1.ogg','sound/effects/pageturn2.ogg','sound/effects/pageturn3.ogg'), 30, 1)
-	if(do_after(user,50, user))
+	if(do_after(user,3 SECONDS, user))
 		if (success)
 			to_chat(user, "<span class='notice'>[pick(success_reads)]</span>")
 		else
@@ -102,6 +103,7 @@
 
 /obj/item/forbidden_book/ui_data(mob/user)
 	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	
 	var/charge = cultie.get_favor_left()
 	var/list/to_know = list()
 	for(var/Y in cultie.get_researchable_knowledge())
@@ -164,7 +166,6 @@
 	flick("book_closing",src)
 	icon_state = initial(icon_state)
 	return ..()
-
 
 /datum/brain_trauma/fascination
 	name = "Delirium"

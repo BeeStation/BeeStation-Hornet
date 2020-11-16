@@ -230,51 +230,52 @@
 
 /obj/item/artifact/examine(mob/user)
 	. = ..()
-	var/heretic_user = IS_HERETIC(user)
-	if(!ashes && (heretic_user || IS_HERETIC_MONSTER(user) || (user.job in list("Curator"))))
-		if (deity<=6)
-			.+="This is a statue of [godname], one of the earth's weak gods."	//the weak gods of earth watch out for their creations, so they offer beneficial boons
-		else
-			.+="This is a statue of [godname], one of the forbidden gods."				//forbidden gods on the other side...
-	if (heretic_user)
-		if (!infused)
-			.+="This [src] is dull and its magic has not been activated."
-		else
-			switch (deity)
-				if (1)
-					.+="The boon of [godname] will fix one's insides."
-				if (2)
-					.+="The boon of [godname] will bring back one's vision."
-				if (3)
-					.+="The boon of [godname] will restore sanity and mind."
-				if (4)
-					.+="The boon of [godname] will purge one's body of inpurities."
-				if (5)
-					.+="The boon of [godname] will heal one's burned flesh."
-				if (6)
-					.+="The boon of [godname] will bring back one's vision."
-				if (7)
-					.+="The boon of [godname] will make one blind."
-				if (8)
-					.+="The boon of [godname] will halt one's speech."
-				if (9)
-					.+="The boon of [godname] will make one stupid."
-				if (10)
-					.+="The boon of [godname] will inflict wounds."
-				if (11)
-					.+="The boon of [godname] will cause one's skin to burn."
-				if (12)
-					.+="The boon of [godname] will cripple one's legs."
-				if (13)
-					.+="The boon of [godname] will cripple one's hands."
-				if (14)
-					.+="The boon of [godname] will cripple one's hands."
-				if (15)
-					.+="The boon of [godname] will bring madness into one's mind."
+	if (!ashes)		
+		var/heretic_user = IS_HERETIC(user)
+		if(!ashes && (heretic_user || IS_HERETIC_MONSTER(user) || (user.job in list("Curator"))))
+			if (deity<=6)
+				.+="This is a statue of [godname], one of the earth's weak gods."	//the weak gods of earth watch out for their creations, so they offer beneficial boons
+			else
+				.+="This is a statue of [godname], one of the forbidden gods."				//forbidden gods on the other side...
+		if (heretic_user)
+			if (!infused)
+				.+="This [src] is dull and its magic has not been activated."
+			else
+				switch (deity)
+					if (1)
+						.+="The boon of [godname] will fix one's insides."
+					if (2)
+						.+="The boon of [godname] will bring back one's vision."
+					if (3)
+						.+="The boon of [godname] will restore sanity and mind."
+					if (4)
+						.+="The boon of [godname] will purge one's body of inpurities."
+					if (5)
+						.+="The boon of [godname] will heal one's burned flesh."
+					if (6)
+						.+="The boon of [godname] will bring back one's vision."
+					if (7)
+						.+="The boon of [godname] will make one blind."
+					if (8)
+						.+="The boon of [godname] will halt one's speech."
+					if (9)
+						.+="The boon of [godname] will make one stupid."
+					if (10)
+						.+="The boon of [godname] will inflict wounds."
+					if (11)
+						.+="The boon of [godname] will cause one's skin to burn."
+					if (12)
+						.+="The boon of [godname] will cripple one's legs."
+					if (13)
+						.+="The boon of [godname] will cripple one's hands."
+					if (14)
+						.+="The boon of [godname] will cripple one's hands."
+					if (15)
+						.+="The boon of [godname] will bring madness into one's mind."
 
-		var/datum/antagonist/heretic/her = user.mind.has_antag_datum(/datum/antagonist/heretic)
-		if (!her.has_deity(deity))
-			.+="You have not gained the favor of [godname]."
+			var/datum/antagonist/heretic/her = user.mind.has_antag_datum(/datum/antagonist/heretic)
+			if (!ashes && !her.has_deity(deity))
+				.+="You have not gained the favor of [godname]."
 
 /obj/item/artifact/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -297,10 +298,10 @@
 					her.gain_favor(1)
 				to_chat(user,"<span class='notice'>[result].</span>")
 				infused = TRUE
-				her.gain_deity(deity,godname)
+				her.gain_deity(deity)
 				return TRUE
 		else if (infuse_blessing(user,user))
-			user.visible_message("<span class='notice'>You strike [target] with the blessing of [godname]!</span>","<span class='danger'>[user] performs a strange ritual with the [src]!</span>")
+			user.visible_message("<span class='notice'>You strike yourself with the blessing of [godname]!</span>","<span class='danger'>[user] performs a strange ritual with the [src]!</span>")
 		inUse = FALSE
 
 /obj/item/artifact/proc/infuse_blessing(mob/living/user,mob/living/carbon/human/target)
@@ -311,39 +312,54 @@
 			target.adjustOrganLoss(ORGAN_SLOT_HEART,-5)
 			target.adjustOrganLoss(ORGAN_SLOT_LIVER,-5)
 			target.adjustOrganLoss(ORGAN_SLOT_STOMACH,-5)
+			target.adjustOrganLoss(ORGAN_SLOT_LUNGS,-5)
+			to_chat(target,"<span class=notice>You feel younger!</span>")
 		if (2)
 			target.adjustOrganLoss(ORGAN_SLOT_EYES,-10)
+			to_chat(target,"<span class=notice>Your vision feels sharper!</span>")
 		if (3)
 			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,-10)
+			to_chat(target,"<span class=notice>You can think more clearly!</span>")
 		if (4)
 			target.adjustToxLoss(-10)
+			to_chat(target,"<span class=notice>You feel refreshed!</span>")
 		if (5)
 			target.adjustFireLoss(-10)
+			to_chat(target,"<span class=notice>Your skin tickles!</span>")
 		if (6)
 			target.adjustBruteLoss(-10)
+			to_chat(target,"<span class=notice>Your bruises heal!</span>")
 		if (7)
 			target.adjustOrganLoss(ORGAN_SLOT_EYES,15)
+			to_chat(target,"<span class=warning>Your eyes sting!</span>")
 		if (8)
-			target.adjustOrganLoss(ORGAN_SLOT_TONGUE,20)
+			target.silent += 2 SECONDS
 		if (9)
-			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,15)
+			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,10)
+			to_chat(target,"<span class=warning>Your feel confused!</span>")
 		if (10)
 			target.adjustBruteLoss(5)
+			to_chat(target,"<span class=warning>Your flesh hurts!</span>")
 		if (11)
 			target.adjustFireLoss(5)
+			to_chat(target,"<span class=warning>Your skin burns!</span>")
 		if (12)
 			for(var/obj/item/bodypart/organ in target.bodyparts)
 				if(organ.body_part == LEG_RIGHT || organ.body_part == LEG_LEFT)
 					organ.receive_damage(stamina = 5)
+			to_chat(target,"<span class=warning>Your legs tingle!</span>")
 		if (13)
 			for(var/obj/item/bodypart/organ in target.bodyparts)
 				if(organ.body_part == ARM_RIGHT || organ.body_part == ARM_LEFT)
 					organ.receive_damage(stamina = 5)
+			to_chat(target,"<span class=warning>Your arms tingle!</span>")
 		if (14)
 			target.emp_act(EMP_LIGHT)
+			to_chat(target,"<span class=warning>That was weird!</span>")
 		if (15)
 			if(HAS_TRAIT(target, TRAIT_PACIFISM))
 				REMOVE_TRAIT(target, TRAIT_PACIFISM,TRAIT_GENERIC)	//remove any and all?
+			to_chat(target,"<span class=warning>Your feel an evil overcomes you!</span>")
 	return TRUE
 
 /obj/item/artifact/proc/to_ashes(mob/living/usr)
@@ -360,7 +376,7 @@
 	new_item.godname = name
 
 /obj/item/artifact/ashes
-	name = "cursed ashes"
+	name = "goofer dust"
 	desc = "There's something cursed about these ashes... You just know it!"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "ash"
@@ -369,7 +385,12 @@
 
 /obj/item/artifact/ashes/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if (proximity_flag && user && target && infuse_blessing(user,target))
-		user.visible_message("<span class='notice'>You throw the [src] at [target]!</span>","<span class='notice'>[user] throws something at [target]!</span>")
+		user.visible_message("<span class='notice'>You hex [target] with the [src]!</span>","<span class='notice'>[user] throws some dust at [target]!</span>")
+		
+		var/datum/effect_system/smoke_spread/smoke = new
+		smoke.set_up(2, target)
+		smoke.start()
+		
 		qdel(src)
 
 /obj/item/artifact/ashes/attack_self(mob/user)
@@ -388,6 +409,7 @@
 			target.adjustOrganLoss(ORGAN_SLOT_HEART,-100)
 			target.adjustOrganLoss(ORGAN_SLOT_LIVER,-100)
 			target.adjustOrganLoss(ORGAN_SLOT_STOMACH,-100)
+			target.adjustOrganLoss(ORGAN_SLOT_LUNGS,-100)
 		if (2)
 			target.adjustOrganLoss(ORGAN_SLOT_EYES,-80)
 		if (3)
@@ -402,8 +424,9 @@
 		if (7)
 			target.adjustOrganLoss(ORGAN_SLOT_EYES,80)
 		if (8)
-			target.adjustOrganLoss(ORGAN_SLOT_TONGUE,80)
+			target.silent += 20 SECONDS
 		if (9)
+			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,30)
 			target.SetSleeping(10 SECONDS)
 		if (10)
 			target.adjustBruteLoss(30)
@@ -422,6 +445,7 @@
 				if(organ.body_part == ARM_RIGHT || organ.body_part == ARM_LEFT)
 					organ.receive_damage(stamina = 200)
 		if (14)
+			target.electrocute_act(20, safety=TRUE, stun = FALSE)
 			target.emp_act(EMP_HEAVY)	//was gonna make it emag, but I figured this is just as good
 		if (15)
 			var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)

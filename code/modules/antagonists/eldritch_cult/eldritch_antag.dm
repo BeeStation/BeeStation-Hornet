@@ -8,7 +8,7 @@
 	var/antag_hud_name = "heretic"
 	var/give_equipment = TRUE
 	var/list/researched_knowledge = list()
-	var/list/pantheon = list()
+	var/list/pantheon = list(FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,)
 	var/total_sacrifices = 0
 	var/dread = 0
 	var/favor_earned = 0
@@ -36,13 +36,11 @@
 	var/mob/living/current = owner.current
 	if(ishuman(current))
 		forge_primary_objectives()
-		gain_knowledge(/datum/eldritch_knowledge/spell/basic)
 		gain_knowledge(/datum/eldritch_knowledge/living_heart)
 		gain_knowledge(/datum/eldritch_knowledge/codex_cicatrix)
+		gain_knowledge(/datum/eldritch_knowledge/spell/basic)
 		gain_knowledge(/datum/eldritch_knowledge/eldritch_avatar)
 		gain_knowledge(/datum/eldritch_knowledge/curse/alteration)//remove after debug
-		gain_knowledge(/datum/eldritch_knowledge/curse/fascination)
-		gain_knowledge(/datum/eldritch_knowledge/dematerialize)
 	current.log_message("has become a heretic", LOG_ATTACK, color="#960000")
 	GLOB.reality_smash_track.AddMind(owner)
 	START_PROCESSING(SSprocessing,src)
@@ -326,11 +324,11 @@
 // Pantheon //
 //////////////
 
-/datum/antagonist/heretic/proc/gain_deity(intid,godname)
-	if(has_deity(intid,godname))
+/datum/antagonist/heretic/proc/gain_deity(intid)
+	if(has_deity(intid))
 		return FALSE
-	pantheon[intid] = godname
+	pantheon[intid] = TRUE
 	return TRUE
 
-/datum/antagonist/heretic/proc/has_deity(intid,godname)
+/datum/antagonist/heretic/proc/has_deity(intid)
 	return pantheon[intid]
