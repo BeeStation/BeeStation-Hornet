@@ -1,5 +1,0 @@
-author: ike709
-delete-after: true
-changes:
-  - bugfix: Fixed being able to put intercoms and other anchored objects inside of
-      trash bags.
