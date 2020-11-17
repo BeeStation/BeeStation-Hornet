@@ -125,11 +125,12 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 /obj/structure/slime_crystal/orange/process()
 	. = ..()
-	var/turf/open/turf_we_standin_on = get_turf(src)
-	if(!istype(turf_we_standin_on))
+	var/turf/open/T = get_turf(src)
+	if(!istype(T))
 		return
-	turf_we_standin_on.temperature = T0C + 200
-	turf_we_standin_on.air_update_turf()
+	var/datum/gas_mixture/gas = T.return_air()
+	gas.set_temperature(T0C + 200)
+	T.air_update_turf()
 
 /obj/structure/slime_crystal/purple
 	colour = "purple"
@@ -254,6 +255,10 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 /obj/structure/slime_crystal/bluespace/Initialize()
 	. = ..()
 	GLOB.bluespace_slime_crystals += src
+
+/obj/structure/slime_crystal/bluespace/Destroy()
+	GLOB.bluespace_slime_crystals -= src
+	return ..()
 
 /obj/structure/slime_crystal/bluespace/attack_hand(mob/user)
 
@@ -466,7 +471,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 	if(!item_beaker.is_refillable() || (item_beaker.reagents.total_volume + 10 > item_beaker.reagents.maximum_volume))
 		return ..()
-
+	blood_amt -= 10
 	item_beaker.reagents.add_reagent(/datum/reagent/blood,10)
 
 /obj/structure/slime_crystal/green
