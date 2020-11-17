@@ -314,7 +314,7 @@
 /obj/item/artifact/proc/infuse_blessing(mob/living/user,mob/living/carbon/human/target)
 	if (!infused || !istype(target))
 		return FALSE
-	if (is_warded_against(target))
+	if (HAS_TRAIT(target, TRAIT_WARDED))
 		to_chat(user,"<span class='warning'>[target] is warded against your cruse!</span>")
 		to_chat(target,"<span class='warning'>Your crucifix protects you against [user]'s curse!</span>")
 		return TRUE
@@ -470,11 +470,14 @@
 				master.enslave(target)
 	return TRUE
 
-/obj/item/clothing/neck/crucifix
+/obj/item/clothing/neck/eldritch_amulet/crucifix
 	name = "crucifix"
-	desc = "meant to ward against curses and dark magic."
+	desc = "In the eventuality that one of those you falesly accused is, in fact, a real witch, this will ward you against their curses."
+	trait = TRAIT_WARDED
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/obj/item/clothing/neck/crucifix/rosary
+/obj/item/clothing/neck/eldritch_amulet/rosary
 	name = "roosary beads"
+	desc = "A wooden crucifix meant to ward of curses and hexes."
+	trait = TRAIT_WARDED
 	resistance_flags = FLAMMABLE
