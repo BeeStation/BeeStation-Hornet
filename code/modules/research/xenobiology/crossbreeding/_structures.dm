@@ -353,7 +353,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	addtimer(CALLBACK(src,.proc/stage_growth),60 SECONDS)
 
 /obj/structure/cerulean_slime_crystal/Destroy()
-	new /obj/item/cerulean_slime_crystal(get_turf(src),stage)
+	var/obj/item/cerulean_slime_crystal/crystal = new /obj/item/cerulean_slime_crystal(get_turf(src))
+	crystal.amt = stage
 	return ..()
 
 /obj/structure/slime_crystal/cerulean
@@ -364,7 +365,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		var/obj/structure/cerulean_slime_crystal/CSC = locate() in range(1,T)
 		if(CSC)
 			continue
-		new /obj/structure/cerulean_slime_crystal()
+		new /obj/structure/cerulean_slime_crystal(T)
 
 /obj/structure/slime_crystal/pyrite
 	colour = "pyrite"
@@ -495,13 +496,23 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 /obj/structure/slime_crystal/green/on_mob_effect(mob/living/affected_mob)
 	. = ..()
-	if(!ishuman(affected_mob))
+	if(!ishuman(affected_mob) || !stored_mutation)
 		return
 	var/mob/living/carbon/human/human_mob = affected_mob
 	human_mob.dna.add_mutation(stored_mutation)
-	if(!prob(5))
+	if(affected_mobs[affected_mob] % 60 == 0)
 		return
-	var/mutation = pick(human_mob.dna.mutations)
+
+	var/list/mut_list = human_mob.dna.mutations
+	var/list/secondary_list = list()
+
+	for(var/X in mut_list)
+		if(istype(X,stored_mutation))
+			continue
+		var/datum/mutation/t_mutation = X
+		secondary_list += t_mutation.type
+
+	var/datum/mutation/mutation = pick(secondary_list)
 	human_mob.dna.remove_mutation(mutation)
 
 /obj/structure/slime_crystal/green/on_mob_leave(mob/living/affected_mob)

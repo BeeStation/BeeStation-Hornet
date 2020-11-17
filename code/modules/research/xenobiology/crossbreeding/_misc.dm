@@ -316,16 +316,17 @@ Slimecrossing Items
 	icon_state = "cerulean_item_crystal"
 	var/amt = 0
 
-/obj/item/cerulean_slime_crystal/Initialize(amount)
-	. = ..()
-	amt = amount
-
 /obj/item/cerulean_slime_crystal/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!istype(target,/obj/item/stack))
+	if(!istype(target,/obj/item/stack) || !istype(user,/mob/living/carbon) || !proximity_flag)
 		return
-
 	var/obj/item/stack/stack_item = target
 
 	stack_item.add(amt)
+
+	if(istype(stack_item,/obj/item/stack/telecrystal))
+		var/mob/living/carbon/carbie = user
+		to_chat(user,"<span class='big red'> Your greed has been rewarded but at what cost?</span>")
+		carbie.gain_trauma(/datum/brain_trauma/special/beepsky)
+
 	qdel(src)
