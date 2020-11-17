@@ -16,7 +16,10 @@
 
 /datum/antagonist/heretic_monster/greet()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', 100, FALSE, pressure_affected = FALSE)//subject to change
-	to_chat(owner, "<span class='boldannounce'>You became an Eldritch Horror!</span>")
+	if (ishuman(owner))
+		to_chat(owner, "<span class='boldannounce'>You are bound by magic to obey [master], and carry out their devious goals!</span>")
+	else
+		to_chat(owner, "<span class='boldannounce'>You became an Eldritch Horror, servant of [master]!</span>")
 
 /datum/antagonist/heretic_monster/on_removal()
 	if(master)

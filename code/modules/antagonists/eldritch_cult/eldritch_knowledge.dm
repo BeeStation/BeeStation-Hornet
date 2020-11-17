@@ -453,45 +453,44 @@
 	if (chosen_mob.has_status_effect(/datum/status_effect/corrosion_curse))
 		return FALSE
 
-	chosen_mob.apply_status_effect(/datum/status_effect/corrosion_curse)
-	var/db = LAZYLEN(debuffs)
-	chosen_mob.visible_message("found components [db]","found components [db]")
+	var/mob/living/carbon/human/chosen_mortal = chosen_mob
+	chosen_mortal.apply_status_effect(/datum/status_effect/corrosion_curse)	//the purpose of this debuff is to alert the victim they've been cursed
 
-	for(var/X in debuffs)
-		chosen_mob.visible_message("apply [X]","apply [X]")
+	for(var/X in debuffs)	
 		switch (X)
 			if ("r_leg")
-				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
+				ADD_TRAIT(chosen_mortal,TRAIT_PARALYSIS_R_LEG,CURSE_TRAIT)
 			if ("l_leg")
-				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
+				ADD_TRAIT(chosen_mortal,TRAIT_PARALYSIS_L_LEG,CURSE_TRAIT)
 			if ("r_arm")
-				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_ARM,MAGIC_TRAIT)
+				ADD_TRAIT(chosen_mortal,TRAIT_PARALYSIS_R_ARM,CURSE_TRAIT)
 			if ("l_arm")
-				ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_ARM,MAGIC_TRAIT)
+				ADD_TRAIT(chosen_mortal,TRAIT_PARALYSIS_L_ARM,CURSE_TRAIT)
 			if ("tongue")
-				ADD_TRAIT(chosen_mob, TRAIT_MUTE, MAGIC_TRAIT)
+				ADD_TRAIT(chosen_mortal, TRAIT_MUTE, CURSE_TRAIT)
 			if ("eyes")
-				chosen_mob.become_blind(MAGIC_TRAIT)
+				chosen_mortal.become_blind(CURSE_TRAIT)
 			if ("ears")
-				ADD_TRAIT(chosen_mob, TRAIT_DEAF, MAGIC_TRAIT)
+				ADD_TRAIT(chosen_mortal, TRAIT_DEAF, CURSE_TRAIT)
 	return .
 
 /datum/eldritch_knowledge/curse/alteration/uncurse(mob/living/chosen_mob)
 	. = ..()
+	var/mob/living/carbon/human/chosen_mortal = chosen_mob
 	//organ fuckup
-	chosen_mob.remove_status_effect(/datum/status_effect/corrosion_curse)
+	chosen_mortal.remove_status_effect(/datum/status_effect/corrosion_curse)
 
 	//CC
-	chosen_mob.cure_blind(MAGIC_TRAIT)
-	REMOVE_TRAIT(chosen_mob, TRAIT_MUTE, MAGIC_TRAIT)
-	REMOVE_TRAIT(chosen_mob, TRAIT_DEAF, MAGIC_TRAIT)
+	chosen_mortal.cure_blind(CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mortal, TRAIT_MUTE, CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mortal, TRAIT_DEAF, CURSE_TRAIT)
 
 	//paralysis
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_ARM,MAGIC_TRAIT)
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_ARM,MAGIC_TRAIT)
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
-	chosen_mob.update_mobility()
+	REMOVE_TRAIT(chosen_mortal,TRAIT_PARALYSIS_R_ARM,CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mortal,TRAIT_PARALYSIS_L_ARM,CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mortal,TRAIT_PARALYSIS_L_LEG,CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mortal,TRAIT_PARALYSIS_R_LEG,CURSE_TRAIT)
+	chosen_mortal.update_mobility()
 
 	return .
 

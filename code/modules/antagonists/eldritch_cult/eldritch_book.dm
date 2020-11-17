@@ -24,7 +24,7 @@
 	//. += "Hit an influence in the black part with it to gain a charge."
 	//. += "Hit a transmutation rune to destroy it."
 	. += "You can create holes in reality and gain favor by activating influences with the cover of this book."
-	. += "Any mortal that reads this book will gain fascination. Strike them with your Mansus Grasp to turn them into your disciples."
+	. += "Any mortal that reads this book will gain fascination. Baptise them with your Mansus Grasp to turn them into your disciples."
 
 /obj/item/forbidden_book/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -178,6 +178,12 @@
 /datum/brain_trauma/fascination/on_gain()
 	message_admins("[ADMIN_LOOKUPFLW(owner)] has become fascinated.")	//self antag warning?
 	log_game("[key_name(owner)] has become fascinated.")
+	
+	
+	to_chat(owner, "<span class='warning'>Whether it is through your own foolishness, or through a ritual performed by someone practicing the forbidden arts, you have become FASCINATED! \ 
+		Entities of amazing power have reached out to you, but because of your limited knowledge, you were unable to understand and respond to their message!  \ 
+		But there are people who can help! Seek them out, so they can help you find method to your madness! Seek Answers!</span>")
+	to_chat(owner, "<span class='boldwarning'>You are NOT an antagonist, and should not perform evil acts to accomplis your goal.</span>")
 
 	var/obj/screen/alert/hypnosis/hypno_alert = owner.throw_alert("hypnosis", /obj/screen/alert/hypnosis)
 	hypno_alert.desc = "Seek Answers!"
@@ -191,10 +197,23 @@
 	..()
 
 /datum/brain_trauma/fascination/on_life()
-	if(prob(3))
+	if(prob(2))
 		var/message = pick(
-			"I'm not feeling creative now. Will come back later!",
-			"...",
+			"The strange figurines! They must be related to this!",			//strange figurines
+			"I must collect those strange figurines!",
+			"Could those strange figurines be somewhat related?",
+			"Flesh... Ash... Rust... What do all these have in common?",	//refferencing heretics
+			"Follow the trail of rust, it said. Trail of rust?",
+			"The witch of ashes can answer your questions...",
+			"Beautiful creatures forged out of of flesh and bone.",
+			"A book... Written in blood and bile?",							//the book
+			"Codex Cich... Chika... Rex... Cicatrix?",
+			"A hook blade. A hook blade?",									//the items
+			"Those who wear ashen eyes around their neck?",
+			"Mansus... Do you know of the Mansus? What is the Mansus?",
+			"Security is actively trying to suppress my quest!",			//avoid security
+			"Those in command know more then they lead on! And they're trying to hide it!",
+			"Under strange aeons, even death may die!",						//lovecraft refference
 		)
 		to_chat(owner, "<span class='hypnophrase'>[message]</span>")
 

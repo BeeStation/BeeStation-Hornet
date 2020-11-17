@@ -333,6 +333,7 @@
 			target.adjustOrganLoss(ORGAN_SLOT_EYES,15)
 			to_chat(target,"<span class=warning>Your eyes sting!</span>")
 		if (8)
+			target.adjustOrganLoss(ORGAN_SLOT_TONGUE,10)
 			target.silent += 2 SECONDS
 		if (9)
 			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,10)
@@ -424,6 +425,7 @@
 		if (7)
 			target.adjustOrganLoss(ORGAN_SLOT_EYES,80)
 		if (8)
+			target.adjustOrganLoss(ORGAN_SLOT_TONGUE,30)
 			target.silent += 20 SECONDS
 		if (9)
 			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,30)

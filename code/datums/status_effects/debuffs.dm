@@ -170,7 +170,7 @@
 	alert_type = null
 	var/obj/item/reagent_containers/syringe/syringe = null
 	var/injectmult = 1
-	
+
 /datum/status_effect/syringe/on_creation(mob/living/new_owner, obj/item/reagent_containers/syringe/origin, mult)
 	syringe = origin
 	injectmult = mult
@@ -223,7 +223,7 @@
 				syringe.reagents.trans_to(C, amount)
 				syringe.forceMove(C.loc)
 				qdel(syringestatus)
-		if(!C.has_status_effect(STATUS_EFFECT_SYRINGE))	
+		if(!C.has_status_effect(STATUS_EFFECT_SYRINGE))
 			C.clear_alert("syringealert")
 
 
@@ -870,25 +870,38 @@
 	if(!ishuman(owner))
 		return
 	var/mob/living/carbon/human/H = owner
+	if (H.IsSleeping())	//also vulnerable to dreamgate
+		return
 	var/chance = rand(0,100)
+	var/message = prob(33)	//so the victim isn't spammed with messages every 3 seconds
 	switch(chance)
-		if(0 to 19)
-			H.vomit()
-		if(20 to 59)
-			H.Dizzy(10)
-		if(60 to 64)
-			H.adjustOrganLoss(ORGAN_SLOT_STOMACH,10)
-		if(65 to 69)
-			H.adjustOrganLoss(ORGAN_SLOT_HEART,10)
-		if(70 to 74)
-			H.adjustOrganLoss(ORGAN_SLOT_LIVER,10)
+		if(0 to 39)
+			H.adjustStaminaLoss(20)
+			if (message)
+				to_chat(H,"<span class='notice'>You feel tired. Perhaps you should lay down...</span>")
+		if(40 to 59)
+			H.Dizzy(3 SECONDS)
+			if (message)
+				to_chat(H,"<span class='warning'>Your feel light headed.</span>")
+		if(60 to 74)
+			H.confused = 2 SECONDS
+			if (message)
+				to_chat(H,"<span class='warning'>Your feel confused.</span>")
 		if(75 to 79)
-			H.adjustOrganLoss(ORGAN_SLOT_EYES,10)
+			H.adjustOrganLoss(ORGAN_SLOT_STOMACH,15)
+			H.vomit()
+			if (message)
+				to_chat(H,"<span class='warning'>Black bile shoots out of your mouth.</span>")
 		if(80 to 84)
-			H.adjustOrganLoss(ORGAN_SLOT_EARS,10)
+			H.adjustOrganLoss(ORGAN_SLOT_LIVER,15)
+			H.SetKnockdown(10)
+			if (message)
+				to_chat(H,"<span class='warning'>Your feel a terrible pain in your abdomen.</span>")
 		if(85 to 89)
-			H.adjustOrganLoss(ORGAN_SLOT_LUNGS,10)
-		if(90 to 94)
-			H.adjustOrganLoss(ORGAN_SLOT_TONGUE,10)
-		if(95 to 100)
-			H.adjustOrganLoss(ORGAN_SLOT_BRAIN,15)
+			H.adjustOrganLoss(ORGAN_SLOT_EYES,15)
+			if (message)
+				to_chat(H,"<span class='warning'>Your eyes sting.</span>")
+		else
+			H.adjustOrganLoss(ORGAN_SLOT_EARS,15)
+			if (message)
+				to_chat(H,"<span class='warning'>Your inner ear hurts.</span>")
