@@ -392,7 +392,7 @@ Class Procs:
 
 /obj/machinery/contents_explosion(severity, target)
 	if(occupant)
-		occupant.ex_act(severity, target);
+		occupant.ex_act(severity, target)
 
 /obj/machinery/handle_atom_del(atom/A)
 	if(A == occupant)
