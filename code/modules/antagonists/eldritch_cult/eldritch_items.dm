@@ -473,3 +473,8 @@
 /obj/item/clothing/neck/crucifix
 	name = "crucifix"
 	desc = "meant to ward against curses and dark magic."
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	
+/obj/item/clothing/neck/crucifix/rosary
+	name = "roosary beads"
+	resistance_flags = FLAMMABLE

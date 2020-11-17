@@ -118,6 +118,7 @@
 
 	id = /obj/item/card/id/job/chap
 	belt = /obj/item/pda/chaplain
+	neck = /obj/item/clothing/neck/crucifix
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/chaplain
 	backpack_contents = list(/obj/item/camera/spooky = 1)
