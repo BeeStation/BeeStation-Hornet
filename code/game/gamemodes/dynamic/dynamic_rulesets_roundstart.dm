@@ -9,7 +9,7 @@
 	name = "Traitors"
 	persistent = TRUE
 	antag_flag = ROLE_TRAITOR
-	antag_datum = /datum/antagonist/traitor/
+	antag_datum = /datum/antagonist/traitor
 	minimum_required_age = 0
 	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Brig Physician")
 	restricted_roles = list("Cyborg")
