@@ -1,5 +1,0 @@
-author: r1ks-iwnl
-delete-after: true
-changes:
-  - rscadd: Runechat text will be displayed even when inside another object such as
-      lockers or crates.
