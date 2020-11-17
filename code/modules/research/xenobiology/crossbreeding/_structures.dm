@@ -360,12 +360,11 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	colour = "cerulean"
 
 /obj/structure/slime_crystal/cerulean/process()
-	for(var/turf/T in orange(1,src))
-		if(prob(10))
-			var/obj/structure/cerulean_slime_crystal/CSC = locate() in T
-			if(CSC)
-				continue
-			new /obj/structure/cerulean_slime_crystal()
+	for(var/turf/T in orange(2,src))
+		var/obj/structure/cerulean_slime_crystal/CSC = locate() in range(1,T)
+		if(CSC)
+			continue
+		new /obj/structure/cerulean_slime_crystal()
 
 /obj/structure/slime_crystal/pyrite
 	colour = "pyrite"
@@ -381,7 +380,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	for(var/turf/T in RANGE_TURFS(4,src))
 		T.add_atom_colour(get_colour(), FIXED_COLOUR_PRIORITY)
 
-	addtimer(CALLBACK(src,.proc/change_colour),rand(5 SECONDS,20 SECONDS))
+	addtimer(CALLBACK(src,.proc/change_colour),rand(0.75 SECONDS,1.25 SECONDS))
 
 /obj/structure/slime_crystal/pyrite/proc/get_colour()
 	var/itemcolor = "#FFFFFF"
