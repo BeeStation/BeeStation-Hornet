@@ -300,24 +300,17 @@
 				infused = TRUE
 				her.gain_deity(deity)
 				return TRUE
-		else if (infuse_blessing(user,user))
-			user.visible_message("<span class='notice'>You strike yourself with the blessing of [godname]!</span>","<span class='danger'>[user] performs a strange ritual with the [src]!</span>")
+		else if (ishuman(target)
+			if (HAS_TRAIT(target, TRAIT_WARDED))
+				to_chat(user,"<span class='warning'>[target] is warded against your cruse!</span>")
+				to_chat(target,"<span class='warning'>Your crucifix protects you against [user]'s curse!</span>")
+			else if (infuse_blessing(user,user))
+				user.visible_message("<span class='notice'>You strike yourself with the blessing of [godname]!</span>","<span class='danger'>[user] performs a strange ritual with the [src]!</span>")
 		inUse = FALSE
 
-/obj/item/artifact/proc/is_warded_against(mob/living/carbon/human/target)
-	. = ..()
-	if(ishuman(target))
-		var/mob/living/carbon/human/M = target
-		return istype(M.wear_neck, /obj/item/clothing/neck/crucifix)
-	return FALSE
-
 /obj/item/artifact/proc/infuse_blessing(mob/living/user,mob/living/carbon/human/target)
-	if (!infused || !istype(target))
+	if (!infused)
 		return FALSE
-	if (HAS_TRAIT(target, TRAIT_WARDED))
-		to_chat(user,"<span class='warning'>[target] is warded against your cruse!</span>")
-		to_chat(target,"<span class='warning'>Your crucifix protects you against [user]'s curse!</span>")
-		return TRUE
 	switch (deity)
 		if (1)
 			target.adjustOrganLoss(ORGAN_SLOT_HEART,-5)
@@ -414,12 +407,6 @@
 	return
 
 /obj/item/artifact/ashes/infuse_blessing(mob/living/user,mob/living/carbon/human/target)
-	if (!istype(target))
-		return FALSE
-	if (is_warded_against(target))
-		to_chat(user,"<span class='warning'>[target] is warded against your cruse!</span>")
-		to_chat(target,"<span class='warning'>Your crucifix protects you against [user]'s curse!</span>")
-		return TRUE
 	switch (deity)
 		if (1)
 			target.adjustOrganLoss(ORGAN_SLOT_HEART,-100)
