@@ -99,7 +99,7 @@
 	var/list/assasination = list()
 	var/list/protection = list()
 	for(var/i in 1 to 2)
-		var/pck = pick("assasinate","stalk","protect")
+		var/pck = pick("assasinate","assasinate","assasinate","stalk","stalk","protect")
 		switch(pck)
 			if("assasinate")
 				var/datum/objective/assassinate/A = new()

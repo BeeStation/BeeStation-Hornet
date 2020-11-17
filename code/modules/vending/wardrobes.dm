@@ -384,7 +384,7 @@
 					/obj/item/clothing/head/clownmitre = 1)
 	premium = list(/obj/item/clothing/suit/chaplainsuit/bishoprobe = 1,
 					/obj/item/clothing/head/bishopmitre = 1,
-					/obj/item/clothing/neck/crucifix/rosary = 2)
+					/obj/item/clothing/neck/eldritch_amulet/rosary = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/chap_wardrobe
 	payment_department = ACCOUNT_CIV
 /obj/item/vending_refill/wardrobe/chap_wardrobe

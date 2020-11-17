@@ -2657,7 +2657,7 @@
 	cost = 4000	// it costs so much because the Space Church is ran by Space Jews
 	contains = list(/obj/item/reagent_containers/food/drinks/bottle/holywater,
 					/obj/item/reagent_containers/food/drinks/bottle/holywater,
-					/obj/item/clothing/neck/crucifix/rosary,
+					/obj/item/clothing/neck/eldritch_amulet/rosary,
 					/obj/item/storage/book/bible/booze,
 					/obj/item/storage/book/bible/booze,
 					/obj/item/clothing/suit/hooded/chaplain_hoodie,
