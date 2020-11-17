@@ -1,5 +1,0 @@
-author: Sinmero
-delete-after: true
-changes:
-  - tweak: Round will not end the instant all heretics are dead
-  - tweak: Adds heretics to the endgame credits
