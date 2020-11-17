@@ -304,63 +304,74 @@
 			user.visible_message("<span class='notice'>You strike yourself with the blessing of [godname]!</span>","<span class='danger'>[user] performs a strange ritual with the [src]!</span>")
 		inUse = FALSE
 
+/obj/item/artifact/proc/is_warded_against(mob/living/carbon/human/target)
+	. = ..()
+	if(ishuman(target))
+		var/mob/living/carbon/human/M = target
+		return istype(H.wear_neck, /obj/item/clothing/neck/crucifix)
+	return FALSE
+				
 /obj/item/artifact/proc/infuse_blessing(mob/living/user,mob/living/carbon/human/target)
 	if (!infused || !istype(target))
 		return FALSE
+	if (is_warded_against(target))
+		to_chat(user,"<span class='warning'>[target] is warded against your cruse!</span>")
+		to_chat(target,"<span class='warning'>Your crucifix protects you against [user]'s curse!</span>")
+		return TRUE
 	switch (deity)
 		if (1)
 			target.adjustOrganLoss(ORGAN_SLOT_HEART,-5)
 			target.adjustOrganLoss(ORGAN_SLOT_LIVER,-5)
 			target.adjustOrganLoss(ORGAN_SLOT_STOMACH,-5)
 			target.adjustOrganLoss(ORGAN_SLOT_LUNGS,-5)
-			to_chat(target,"<span class=notice>You feel younger!</span>")
+			to_chat(target,"<span class='notice'>You feel younger!</span>")
 		if (2)
 			target.adjustOrganLoss(ORGAN_SLOT_EYES,-10)
-			to_chat(target,"<span class=notice>Your vision feels sharper!</span>")
+			to_chat(target,"<span class='notice'>Your vision feels sharper!</span>")
 		if (3)
 			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,-10)
-			to_chat(target,"<span class=notice>You can think more clearly!</span>")
+			to_chat(target,"<span class='notice'>You can think more clearly!</span>")
 		if (4)
 			target.adjustToxLoss(-10)
-			to_chat(target,"<span class=notice>You feel refreshed!</span>")
+			to_chat(target,"<span class='notice'>You feel refreshed!</span>")
 		if (5)
 			target.adjustFireLoss(-10)
-			to_chat(target,"<span class=notice>Your skin tickles!</span>")
+			to_chat(target,"<span class='notice'>Your skin tickles!</span>")
 		if (6)
 			target.adjustBruteLoss(-10)
-			to_chat(target,"<span class=notice>Your bruises heal!</span>")
+			to_chat(target,"<span class='notice'>Your bruises heal!</span>")
 		if (7)
 			target.adjustOrganLoss(ORGAN_SLOT_EYES,15)
-			to_chat(target,"<span class=warning>Your eyes sting!</span>")
+			to_chat(target,"<span class='warning'>Your eyes sting!</span>")
 		if (8)
 			target.adjustOrganLoss(ORGAN_SLOT_TONGUE,10)
 			target.silent += 2 SECONDS
 		if (9)
 			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,10)
-			to_chat(target,"<span class=warning>Your feel confused!</span>")
+			to_chat(target,"<span class='warning'>Your feel confused!</span>")
 		if (10)
 			target.adjustBruteLoss(5)
-			to_chat(target,"<span class=warning>Your flesh hurts!</span>")
+			to_chat(target,"<span class='warning'>Your flesh hurts!</span>")
 		if (11)
 			target.adjustFireLoss(5)
-			to_chat(target,"<span class=warning>Your skin burns!</span>")
+			to_chat(target,"<span class='warning'>Your skin burns!</span>")
 		if (12)
 			for(var/obj/item/bodypart/organ in target.bodyparts)
 				if(organ.body_part == LEG_RIGHT || organ.body_part == LEG_LEFT)
 					organ.receive_damage(stamina = 5)
-			to_chat(target,"<span class=warning>Your legs tingle!</span>")
+			to_chat(target,"<span class='warning'>Your legs tingle!</span>")
 		if (13)
 			for(var/obj/item/bodypart/organ in target.bodyparts)
 				if(organ.body_part == ARM_RIGHT || organ.body_part == ARM_LEFT)
 					organ.receive_damage(stamina = 5)
-			to_chat(target,"<span class=warning>Your arms tingle!</span>")
+			to_chat(target,"<span class='warning'>Your arms tingle!</span>")
 		if (14)
 			target.emp_act(EMP_LIGHT)
-			to_chat(target,"<span class=warning>That was weird!</span>")
+			to_chat(target,"<span class='warning'>That was weird!</span>")
 		if (15)
 			if(HAS_TRAIT(target, TRAIT_PACIFISM))
 				REMOVE_TRAIT(target, TRAIT_PACIFISM,TRAIT_GENERIC)	//remove any and all?
-			to_chat(target,"<span class=warning>Your feel an evil overcomes you!</span>")
+			to_chat(target,"<span class='warning'>Your feel an evil overcomes you!</span>")
 	return TRUE
 
 /obj/item/artifact/proc/to_ashes(mob/living/usr)
@@ -405,6 +416,10 @@
 /obj/item/artifact/ashes/infuse_blessing(mob/living/user,mob/living/carbon/human/target)
 	if (!istype(target))
 		return FALSE
+	if (is_warded_against(target))
+		to_chat(user,"<span class='warning'>[target] is warded against your cruse!</span>")
+		to_chat(target,"<span class='warning'>Your crucifix protects you against [user]'s curse!</span>")
+		return TRUE
 	switch (deity)
 		if (1)
 			target.adjustOrganLoss(ORGAN_SLOT_HEART,-100)
@@ -454,3 +469,7 @@
 			if (master)
 				master.enslave(target)
 	return TRUE
+	
+/obj/item/clothing/neck/crucifix
+	name = "crucifix"
+	desc = "meant to ward against curses and dark magic."
