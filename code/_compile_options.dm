@@ -20,7 +20,7 @@
 //#define VISUALIZE_ACTIVE_TURFS	//Highlights atmos active turfs in green
 #endif
 
-//#define UNIT_TESTS			//Enables unit tests via TEST_RUN_PARAMETER
+//#define UNIT_TESTS			//If this is uncommented, we do a single run though of the game setup and tear down process with unit tests in between
 
 #ifndef PRELOAD_RSC				//set to:
 #define PRELOAD_RSC	0			//	0 to allow using external resources or on-demand behaviour;
@@ -49,11 +49,11 @@
 #define FIND_REF_NO_CHECK_TICK
 #endif
 
-#ifdef TRAVISBUILDING
+#ifdef CIBUILDING
 #define UNIT_TESTS
 #endif
 
-#ifdef TRAVISTESTING
+#ifdef CITESTING
 #define TESTING
 #endif
 

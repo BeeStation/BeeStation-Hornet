@@ -1,5 +1,5 @@
 /datum/action/changeling/panacea
-	name = "Total purge"
+	name = "Total Purge"
 	desc = "Expels impurities in our form, causing us to heal toxin damage, expel all chemicals, curing most diseases, brain damage, and traumas and resetting our genetic code completely. Costs 20 chemicals."
 	helptext = "Obvious when used, as it sprays all reagents out in a violent manner. Can be used while unconscious."
 	button_icon_state = "panacea"

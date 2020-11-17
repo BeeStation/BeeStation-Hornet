@@ -65,6 +65,10 @@
 /datum/disease/proc/stage_act()
 	var/cure = has_cure()
 
+	var/mob/living/L = affected_mob
+	if(L.IsInStasis())
+		return
+
 	if(carrier && !cure)
 		return
 
