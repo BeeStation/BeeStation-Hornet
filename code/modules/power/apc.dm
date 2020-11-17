@@ -1240,28 +1240,31 @@
 		else if(longtermpower > -10)
 			longtermpower -= 2
 
+		var/power_alert_fine = TRUE
+
 		if(cell.charge <= 0)					// zero charge, turn all off
 			equipment = autoset(equipment, 0)
 			lighting = autoset(lighting, 0)
 			environ = autoset(environ, 0)
-			area.poweralert(0, src)
+			power_alert_fine = FALSE
 		else if(cell.percent() < 15 && longtermpower < 0)	// <15%, turn off lighting & equipment
 			equipment = autoset(equipment, 2)
 			lighting = autoset(lighting, 2)
 			environ = autoset(environ, 1)
-			area.poweralert(0, src)
+			power_alert_fine = FALSE
 		else if(cell.percent() < 30 && longtermpower < 0)			// <30%, turn off equipment
 			equipment = autoset(equipment, 2)
 			lighting = autoset(lighting, 1)
 			environ = autoset(environ, 1)
-			area.poweralert(0, src)
+			power_alert_fine = FALSE
 		else									// otherwise all can be on
 			equipment = autoset(equipment, 1)
 			lighting = autoset(lighting, 1)
 			environ = autoset(environ, 1)
-			area.poweralert(1, src)
-			if(cell.percent() > 75)
-				area.poweralert(1, src)
+
+		if(integration_cog)
+			power_alert_fine = TRUE
+		area.poweralert(power_alert_fine, src)
 
 		// now trickle-charge the cell
 		if(chargemode && charging == APC_CHARGING && operating)

@@ -321,7 +321,6 @@ SUBSYSTEM_DEF(explosions)
 				dist += cached_exp_block[Trajectory]
 
 		var/flame_dist = dist < flame_range
-		var/throw_dist = dist
 
 		if(dist < devastation_range)
 			dist = EXPLODE_DEVASTATE
