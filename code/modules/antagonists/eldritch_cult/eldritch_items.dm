@@ -230,7 +230,7 @@
 
 /obj/item/artifact/examine(mob/user)
 	. = ..()
-	if (!ashes)		
+	if (!ashes)
 		var/heretic_user = IS_HERETIC(user)
 		if(!ashes && (heretic_user || IS_HERETIC_MONSTER(user) || (user.job in list("Curator"))))
 			if (deity<=6)
@@ -308,9 +308,9 @@
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/M = target
-		return istype(H.wear_neck, /obj/item/clothing/neck/crucifix)
+		return istype(M.wear_neck, /obj/item/clothing/neck/crucifix)
 	return FALSE
-				
+
 /obj/item/artifact/proc/infuse_blessing(mob/living/user,mob/living/carbon/human/target)
 	if (!infused || !istype(target))
 		return FALSE
@@ -398,11 +398,11 @@
 /obj/item/artifact/ashes/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if (proximity_flag && user && target && infuse_blessing(user,target))
 		user.visible_message("<span class='notice'>You hex [target] with the [src]!</span>","<span class='notice'>[user] throws some dust at [target]!</span>")
-		
+
 		var/datum/effect_system/smoke_spread/smoke = new
 		smoke.set_up(2, target)
 		smoke.start()
-		
+
 		qdel(src)
 
 /obj/item/artifact/ashes/attack_self(mob/user)
@@ -469,12 +469,12 @@
 			if (master)
 				master.enslave(target)
 	return TRUE
-	
+
 /obj/item/clothing/neck/crucifix
 	name = "crucifix"
 	desc = "meant to ward against curses and dark magic."
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	
+
 /obj/item/clothing/neck/crucifix/rosary
 	name = "roosary beads"
 	resistance_flags = FLAMMABLE

@@ -171,7 +171,7 @@
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/M = target
-		return istype(H.wear_neck, /obj/item/clothing/neck/crucifix)
+		return istype(M.wear_neck, /obj/item/clothing/neck/crucifix)
 	return FALSE
 
 /datum/eldritch_knowledge/curse/proc/curse(mob/living/chosen_mob)
@@ -466,7 +466,7 @@
 	var/mob/living/carbon/human/chosen_mortal = chosen_mob
 	chosen_mortal.apply_status_effect(/datum/status_effect/corrosion_curse)	//the purpose of this debuff is to alert the victim they've been cursed
 
-	for(var/X in debuffs)	
+	for(var/X in debuffs)
 		switch (X)
 			if ("r_leg")
 				ADD_TRAIT(chosen_mortal,TRAIT_PARALYSIS_R_LEG,CURSE_TRAIT)

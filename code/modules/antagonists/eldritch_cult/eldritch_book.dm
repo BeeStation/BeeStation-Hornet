@@ -66,7 +66,7 @@
 
 	to_chat(user, "<span class='notice'>You start reading the [name]...</span>")
 	in_use = TRUE
-	
+
 	var/success = FALSE
 	for(var/i=1, i<=rand(2,5), i++)
 		if (!success)
@@ -103,7 +103,7 @@
 
 /obj/item/forbidden_book/ui_data(mob/user)
 	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	
+
 	var/charge = cultie.get_favor_left()
 	var/list/to_know = list()
 	for(var/Y in cultie.get_researchable_knowledge())
@@ -178,10 +178,10 @@
 /datum/brain_trauma/fascination/on_gain()
 	message_admins("[ADMIN_LOOKUPFLW(owner)] has become fascinated.")	//self antag warning?
 	log_game("[key_name(owner)] has become fascinated.")
-	
-	
-	to_chat(owner, "<span class='warning'>Whether it is through your own foolishness, or through a ritual performed by someone practicing the forbidden arts, you have become FASCINATED! \ 
-		Entities of amazing power have reached out to you, but because of your limited knowledge, you were unable to understand and respond to their message!  \ 
+
+
+	to_chat(owner, "<span class='warning'>Whether it is through your own foolishness, or through a ritual performed by someone practicing the forbidden arts, you have become FASCINATED! \
+		Entities of amazing power have reached out to you, but because of your limited knowledge, you were unable to understand and respond to their message!  \
 		But there are people who can help! Seek them out, so they can help you find method to your madness! Seek Answers!</span>")
 	to_chat(owner, "<span class='boldwarning'>You are NOT an antagonist, and should not perform evil acts to accomplis your goal.</span>")
 
