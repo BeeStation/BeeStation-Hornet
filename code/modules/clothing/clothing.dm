@@ -123,6 +123,17 @@
 			. += "[src] offers the wearer some protection from fire."
 		if (1601 to 35000)
 			. += "[src] offers the wearer robust protection from fire."
+	switch(armor.getRating("stamina"))
+		if(1 to 20)
+			. += "[src] looks like it provides the wearer minor protection against stuns."
+		if(21 to 30)
+			. += "[src] looks like it provides the wearer some protection against stuns."
+		if(31 to 50)
+			. += "[src] looks like it provides the wearer excellent protection against stuns."
+		if(51 to 70)
+			. += "[src] looks like it provides the wearer robust protection against stuns."
+		if(71 to 200)
+			. += "[src] looks like it provides the wearer brilliant protection against stuns."
 	if(damaged_clothes)
 		. += "<span class='warning'>It looks damaged!</span>"
 	var/datum/component/storage/pockets = GetComponent(/datum/component/storage)

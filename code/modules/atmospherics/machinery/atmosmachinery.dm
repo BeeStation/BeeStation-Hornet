@@ -52,7 +52,7 @@
 		normalize_cardinal_directions()
 	nodes = new(device_type)
 	if (!armor)
-		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 70)
+		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 70, "stamina" = 0)
 	..()
 	if(process)
 		SSair.atmos_machinery += src
@@ -212,11 +212,11 @@
 		if(unsafe_wrenching)
 			unsafe_pressure_release(user, internal_pressure)
 
-			
+
 			if (user.client)
 				SSmedals.UnlockMedal(MEDAL_UNWRENCH_HIGH_PRESSURE,user.client)
-			
-			
+
+
 		deconstruct(TRUE)
 	return TRUE
 

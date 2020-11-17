@@ -5,7 +5,7 @@
 	name = "EVA plasma envirosuit"
 	desc = "A special plasma containment suit designed to be space-worthy, as well as worn over other clothing. Like its smaller counterpart, it can automatically extinguish the wearer in a crisis, and holds twice as many charges."
 	allowed = list(/obj/item/gun, /obj/item/ammo_casing, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 75)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 75, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 	icon_state = "plasmaman_suit"
 	item_state = "plasmaman_suit"
@@ -43,7 +43,7 @@
 	strip_delay = 80
 	flash_protect = 2
 	tint = 2
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 75)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 75, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 	var/brightness_on = 4 //luminosity when the light is on
 	var/on = FALSE
@@ -151,7 +151,7 @@
 	desc = "A plasmaman containment helmet designed for security officers, protecting them from being flashed and burning alive, along-side other undesirables."
 	icon_state = "security_envirohelm"
 	item_state = "security_envirohelm"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 75)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 75, "stamina" = 10)
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/warden
 	name = "warden's plasma envirosuit helmet"
@@ -212,7 +212,7 @@
 	desc = "A space-worthy helmet specially designed for engineer plasmamen, the usual purple stripes being replaced by engineering's orange."
 	icon_state = "engineer_envirohelm"
 	item_state = "engineer_envirohelm"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 10, "fire" = 100, "acid" = 75)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 10, "fire" = 100, "acid" = 75, "stamina" = 0)
 
 /obj/item/clothing/head/helmet/space/plasmaman/atmospherics
 	name = "atmospherics plasma envirosuit helmet"
@@ -339,7 +339,7 @@
 	desc = "An outdated containment helmet designed for security officers, lacks the UV shielding a standard helmet possesses."
 	icon_state = "security_envirohelm"
 	item_state = "security_envirohelm"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 75)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 75, "stamina" = 0)
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/medical
 	name = "medical's replacement envirosuit helmet"
@@ -382,7 +382,7 @@
 	desc = "A replacement helmet designed for engineer plasmamen, the usual purple stripes being replaced by engineering's orange, despite its age it has some UV protection for welding.."
 	item_state = "engineer_envirohelm"
 	icon_state = "engineer_envirohelm"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 10, "fire" = 100, "acid" = 75)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 10, "fire" = 100, "acid" = 75, "stamina" = 0)
 	flash_protect = 1
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/atmospherics

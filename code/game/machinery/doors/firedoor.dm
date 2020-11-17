@@ -21,7 +21,7 @@
 	layer = BELOW_OPEN_DOOR_LAYER
 	closingLayer = CLOSED_FIREDOOR_LAYER
 	assemblytype = /obj/structure/firelock_frame
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 70)
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 70, "stamina" = 0)
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	air_tight = TRUE
 	open_speed = 2
@@ -98,17 +98,17 @@
 	. = ..()
 	if(.)
 		return
-	
+
 	if (!welded && !operating)
-		if (stat & NOPOWER) 				
+		if (stat & NOPOWER)
 			user.visible_message("[user] tries to open \the [src] manually.",
 						 "You operate the manual lever on \the [src].")
 			if (!do_after(user, 30, TRUE, src))
 				return FALSE
 		else if (density && !allow_hand_open(user))
 			return FALSE
-	
-		add_fingerprint(user)		
+
+		add_fingerprint(user)
 		if(density)
 			emergency_close_timer = world.time + 15 // prevent it from instaclosing again if in space
 			open()
@@ -117,7 +117,7 @@
 		return TRUE
 	if(operating || !density)
 		return
-	
+
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	user.visible_message("[user] bangs on \the [src].",

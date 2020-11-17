@@ -278,7 +278,7 @@
 	item_state = "hostanclothes"
 	item_color = "hostanclothes"
 	alt_covers_chest = TRUE
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30, "stamina" = 10)
 	strip_delay = 50
 	alt_covers_chest = TRUE
 	sensor_mode = SENSOR_COORDS

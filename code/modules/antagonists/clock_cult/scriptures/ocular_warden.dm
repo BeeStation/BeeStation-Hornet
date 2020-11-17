@@ -32,7 +32,7 @@
 	break_message = "<span class='warning'>A black ooze leaks from the ocular warden as it slowly sinks to the ground.</span>"
 	icon_state = "ocular_warden"
 	max_integrity = 60
-	armor = list("melee" = -80, "bullet" = -50, "laser" = 40, "energy" = 40, "bomb" = 20, "bio" = 0, "rad" = 0)
+	armor = list("melee" = -80, "bullet" = -50, "laser" = 40, "energy" = 40, "bomb" = 20, "bio" = 0, "rad" = 0, "stamina" = 0)
 	var/cooldown
 
 /obj/structure/destructible/clockwork/ocular_warden/process()

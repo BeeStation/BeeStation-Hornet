@@ -22,7 +22,7 @@ Contains:
 	desc = "An advanced tactical space helmet."
 	icon_state = "deathsquad"
 	item_state = "deathsquad"
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 100)
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -37,7 +37,7 @@ Contains:
 	icon_state = "deathsquad"
 	item_state = "swat_suit"
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/kitchen/knife/combat)
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 100)
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -51,7 +51,7 @@ Contains:
 	icon_state = "heavy"
 	item_state = "swat_suit"
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/kitchen/knife/combat)
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30,"energy" = 30, "bomb" = 50, "bio" = 90, "rad" = 20, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 30,"energy" = 30, "bomb" = 50, "bio" = 90, "rad" = 20, "fire" = 100, "acid" = 100, "stamina" = 60)
 	strip_delay = 120
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
@@ -62,7 +62,7 @@ Contains:
 	dynamic_hair_suffix = "+generic"
 	dynamic_fhair_suffix = "+generic"
 	flags_inv = 0
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 100)
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -77,7 +77,7 @@ Contains:
 	flags_inv = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 100)
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -134,7 +134,7 @@ Contains:
 	desc = "Yarr."
 	icon_state = "pirate"
 	item_state = "pirate"
-	armor = list("melee" = 30, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 60, "acid" = 75)
+	armor = list("melee" = 30, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 60, "acid" = 75, "stamina" = 20)
 	flags_inv = HIDEHAIR
 	strip_delay = 40
 	equip_delay_other = 20
@@ -154,7 +154,7 @@ Contains:
 	flags_inv = 0
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/melee/transforming/energy/sword/pirate, /obj/item/clothing/glasses/eyepatch, /obj/item/reagent_containers/food/drinks/bottle/rum)
 	slowdown = 0
-	armor = list("melee" = 30, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 60, "acid" = 75)
+	armor = list("melee" = 30, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 60, "acid" = 75, "stamina" = 20)
 	strip_delay = 40
 	equip_delay_other = 20
 
@@ -165,7 +165,7 @@ Contains:
 	icon_state = "hardsuit0-ert_commander"
 	item_state = "hardsuit0-ert_commander"
 	item_color = "ert_commander"
-	armor = list("melee" = 65, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 80)
+	armor = list("melee" = 65, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 80, "stamina" = 70)
 	strip_delay = 130
 	brightness_on = 7
 	resistance_flags = FIRE_PROOF
@@ -182,7 +182,7 @@ Contains:
 	item_state = "ert_command"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
-	armor = list("melee" = 65, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 80)
+	armor = list("melee" = 65, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 80, "stamina" = 70)
 	slowdown = 0
 	strip_delay = 130
 	resistance_flags = FIRE_PROOF
@@ -258,7 +258,7 @@ Contains:
 	icon_state = "space"
 	item_state = "eva_suit"
 	desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 20, "fire" = 50, "acid" = 65)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 20, "fire" = 50, "acid" = 65, "stamina" = 0)
 
 /obj/item/clothing/head/helmet/space/eva
 	name = "EVA helmet"
@@ -266,14 +266,14 @@ Contains:
 	item_state = "eva_helmet"
 	desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
 	flash_protect = 0
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 20, "fire" = 50, "acid" = 65)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 20, "fire" = 50, "acid" = 65, "stamina" = 0)
 
 /obj/item/clothing/head/helmet/space/freedom
 	name = "eagle helmet"
 	desc = "An advanced, space-proof helmet. It appears to be modeled after an old-world eagle."
 	icon_state = "griffinhat"
 	item_state = "griffinhat"
-	armor = list("melee" = 20, "bullet" = 40, "laser" = 30, "energy" = 25, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 80)
+	armor = list("melee" = 20, "bullet" = 40, "laser" = 30, "energy" = 25, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 80, "stamina" = 10)
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF | FIRE_PROOF
@@ -284,7 +284,7 @@ Contains:
 	icon_state = "freedom"
 	item_state = "freedom"
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
-	armor = list("melee" = 20, "bullet" = 40, "laser" = 30,"energy" = 25, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 80)
+	armor = list("melee" = 20, "bullet" = 40, "laser" = 30,"energy" = 25, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 80, "stamina" = 10)
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF | FIRE_PROOF
@@ -296,7 +296,7 @@ Contains:
 	desc = "Spaceworthy and it looks like a space carp's head, smells like one too."
 	icon_state = "carp_helm"
 	item_state = "syndicate"
-	armor = list("melee" = 20, "bullet" = 10, "laser" = 20, "energy" = 20, "bomb" = 30, "bio" = 100, "rad" = 75, "fire" = 60, "acid" = 75)
+	armor = list("melee" = 20, "bullet" = 10, "laser" = 20, "energy" = 20, "bomb" = 30, "bio" = 100, "rad" = 75, "fire" = 60, "acid" = 75, "stamina" = 40)
 	brightness_on = 0 //luminosity when on
 	actions_types = list()
 
@@ -310,7 +310,7 @@ Contains:
 	icon_state = "carp_suit"
 	item_state = "space_suit_syndicate"
 	slowdown = 0	//Space carp magic, never stop believing
-	armor = list("melee" = 20, "bullet" = 10, "laser" = 20, "energy" = 20, "bomb" = 30, "bio" = 100, "rad" = 75, "fire" = 60, "acid" = 75)
+	armor = list("melee" = 20, "bullet" = 10, "laser" = 20, "energy" = 20, "bomb" = 30, "bio" = 100, "rad" = 75, "fire" = 60, "acid" = 75, "stamina" = 40)
 	allowed = list(/obj/item/tank/internals, /obj/item/pneumatic_cannon/speargun, /obj/item/toy/plush/carpplushie/dehy_carp, /obj/item/toy/plush/carpplushie, /obj/item/reagent_containers/food/snacks/carpmeat)	//I'm giving you a hint here
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/carp
 
@@ -376,7 +376,7 @@ Contains:
 	desc = "A bulky, air-tight helmet meant to protect the user during emergency situations. It doesn't look very durable."
 	icon_state = "syndicate-helm-orange"
 	item_state = "syndicate-helm-orange"
-	armor = list("melee" = 5, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 10, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 5, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 10, "fire" = 0, "acid" = 0, "stamina" = 0)
 	strip_delay = 65
 	flash_protect = 0
 
@@ -387,7 +387,7 @@ Contains:
 	icon_state = "syndicate-orange"
 	item_state = "syndicate-orange"
 	slowdown = 2
-	armor = list("melee" = 5, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 10, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 5, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 10, "fire" = 0, "acid" = 0, "stamina" = 0)
 	strip_delay = 65
 	w_class = WEIGHT_CLASS_NORMAL
 
@@ -407,7 +407,7 @@ Contains:
 	icon_state = "hunter"
 	item_state = "swat_suit"
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/kitchen/knife/combat)
-	armor = list(melee = 60, bullet = 40, laser = 40, energy = 50, bomb = 100, bio = 100, rad = 100, fire = 100, acid = 100)
+	armor = list(melee = 60, bullet = 40, laser = 40, energy = 50, bomb = 100, bio = 100, rad = 100, fire = 100, acid = 100, stun = 70)
 	strip_delay = 130
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
@@ -420,7 +420,7 @@ Contains:
 	item_state = "skinsuit_helmet"
 	desc = "An airtight helmet meant to protect the wearer during emergency situations."
 	permeability_coefficient = 0.01
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 20, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 20, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	min_cold_protection_temperature = EMERGENCY_HELM_MIN_TEMP_PROTECT
 	heat_protection = NONE
 	flash_protect = 0
@@ -440,7 +440,7 @@ Contains:
 	clothing_flags = STOPSPRESSUREDAMAGE | SHOWEROKAY
 	gas_transfer_coefficient = 0.5
 	permeability_coefficient = 0.5
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	min_cold_protection_temperature = EMERGENCY_SUIT_MIN_TEMP_PROTECT
 	heat_protection = NONE
 	max_heat_protection_temperature = 100

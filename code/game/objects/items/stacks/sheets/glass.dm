@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 	icon_state = "sheet-glass"
 	item_state = "sheet-glass"
 	materials = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100, "stamina" = 0)
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/glass
 	grind_results = list(/datum/reagent/silicon = 20)
@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 	icon_state = "sheet-pglass"
 	item_state = "sheet-pglass"
 	materials = list(/datum/material/plasma=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass=MINERAL_MATERIAL_AMOUNT)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 100)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 100, "stamina" = 0)
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/plasmaglass
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/toxin/plasma = 10)
@@ -136,7 +136,7 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	icon_state = "sheet-rglass"
 	item_state = "sheet-rglass"
 	materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass=MINERAL_MATERIAL_AMOUNT)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 100)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 100, "stamina" = 0)
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/rglass
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/iron = 10)
@@ -179,7 +179,7 @@ GLOBAL_LIST_INIT(prglass_recipes, list ( \
 	icon_state = "sheet-prglass"
 	item_state = "sheet-prglass"
 	materials = list(/datum/material/plasma=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass=MINERAL_MATERIAL_AMOUNT, /datum/material/iron = MINERAL_MATERIAL_AMOUNT * 0.5,)
-	armor = list("melee" = 20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
+	armor = list("melee" = 20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100, "stamina" = 0)
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/plasmarglass
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/toxin/plasma = 10, /datum/reagent/iron = 10)
@@ -200,7 +200,7 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	icon_state = "sheet-titaniumglass"
 	item_state = "sheet-titaniumglass"
 	materials = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass=MINERAL_MATERIAL_AMOUNT)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100, "stamina" = 0)
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/titaniumglass
 
@@ -219,7 +219,7 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	icon_state = "sheet-plastitaniumglass"
 	item_state = "sheet-plastitaniumglass"
 	materials = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/plasma=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass=MINERAL_MATERIAL_AMOUNT)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100, "stamina" = 0)
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/plastitaniumglass
 
@@ -242,7 +242,7 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	attack_verb = list("stabbed", "slashed", "sliced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	resistance_flags = ACID_PROOF
-	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
+	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100, "stamina" = 0)
 	max_integrity = 40
 	sharpness = IS_SHARP
 	var/icon_prefix

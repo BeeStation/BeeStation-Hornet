@@ -20,7 +20,7 @@ Slimecrossing Weapons
 	if(prob(20))
 		owner.emote("scream")
 	return ..()
-	
+
 
 //Rainbow knife - Burning Rainbow
 /obj/item/kitchen/knife/rainbowknife
@@ -62,7 +62,7 @@ Slimecrossing Weapons
 	icon_state = "adamshield"
 	item_state = "adamshield"
 	w_class = WEIGHT_CLASS_HUGE
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70, "stamina" = 70)
 	slot_flags = ITEM_SLOT_BACK
 	attack_weight = 2
 	block_power = 75
