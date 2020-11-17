@@ -8,6 +8,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	density = TRUE
 	icon = 'icons/obj/slimecrossing.dmi'
 	icon_state = "slime_pylon"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	///Assoc list of affected mobs, the key is the mob while the value of the map is the amount of ticks spent inside of the zone.
 	var/list/affected_mobs = list()
 	///Used to determine wether we use view or range
@@ -167,7 +168,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		if(isspaceturf(T))
 			continue
 		var/datum/gas_mixture/gas = T.return_air()
-		gas.copy_from_turf(initial(src))
+		gas.parse_gas_string(OPENTURF_DEFAULT_ATMOS)
 		T.air_update_turf()
 
 /obj/structure/slime_crystal/metal
