@@ -19,6 +19,7 @@
 		return
 
 	new crystal_type(user_turf)
+	qdel(src)
 
 /obj/item/slimecross/crystalized/grey
 	crystal_type = /obj/structure/slime_crystal/grey
