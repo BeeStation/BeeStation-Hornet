@@ -71,7 +71,7 @@
 	icon_state = "omnilaser"
 	damage = 35
 	damage_type = STAMINA
-	flag = "stamina"
+	flag = "energy"
 	hitsound = 'sound/weapons/tap.ogg'
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
@@ -125,7 +125,7 @@
 	hitsound = null
 	damage = 0
 	damage_type = STAMINA
-	flag = "stamina"
+	flag = "energy"
 	var/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_BLUE
