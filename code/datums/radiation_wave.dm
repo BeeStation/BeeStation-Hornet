@@ -35,7 +35,7 @@
 	// The actual distance
 	var/distance = steps + 1
 	// Represents decreasing radiation power over distance
-	var/falloff = 1 / distance ** 2
+	var/falloff = 1 / (distance*range_modifier) ** 2
 	// Caching
 	var/turf/cmaster_turf = master_turf
 	// Index for the intensity list
@@ -90,15 +90,14 @@
 	var/currentbranch
 
 	// THIS REDUNDANCY IS INTENTIONAL
-	for(var/dir in list(EAST, EAST, SOUTH, SOUTH, WEST, WEST, NORTH, NORTH))
+	for(var/clock in 1 to 8)
 		intensity_new[++index_new] = intensity_old[index_old] * falloff > RAD_WAVE_MINIMUM ? intensity_old[index_old] : 0
 
 		loop = 0
 		currentbranch = 0
 		for(var/i in 1 to distance)
 			// Pure magic happens here
-			loop = (loop + loopspeed) % loopsize
-			candidate = loop >= branchclass ? \
+			candidate = ((loop += loopspeed) > loopsize ? (loop -= loopsize) : loop) >= branchclass ? \
 							(loop == loopsize ? \
 								intensity_old[index_old++] \
 								: (intensity_old[index_old] + intensity_old[++index_old]) / 2) \
