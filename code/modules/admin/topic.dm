@@ -876,7 +876,7 @@
 			return
 
 		if (SSticker.HasRoundStarted())
-			if(check_rights(R_DBRANKS, 0))
+			if(check_rights(R_DBRANKS, FALSE))
 				if(askuser(usr, "The game has already started. Would you like to save this as the default mode effective next round?", "Save mode", "Yes", "Cancel", Timeout = null) == 1)
 					SSticker.save_mode(href_list["c_mode2"])
 			else
