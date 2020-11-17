@@ -636,6 +636,20 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 /obj/structure/slime_crystal/rainbow/Destroy()
 	for(var/X in inserted_cores)
 		if(inserted_cores[X])
-			var/obj/structure/slime_crystal/SC = X
+			var/obj/structure/slime_crystal/SC = inserted_cores[X]
 			SC.master_crystal_destruction()
 	return ..()
+
+/obj/structure/slime_crystal/rainbow/attack_hand(mob/user)
+	for(var/X in inserted_cores)
+		if(inserted_cores[X])
+			var/obj/structure/slime_crystal/SC = inserted_cores[X]
+			SC.attack_hand(user)
+	. = ..()
+
+/obj/structure/slime_crystal/rainbow/attacked_by(obj/item/I, mob/living/user)
+	for(var/X in inserted_cores)
+		if(inserted_cores[X])
+			var/obj/structure/slime_crystal/SC = inserted_cores[X]
+			SC.attacked_by(user)
+	. = ..()
