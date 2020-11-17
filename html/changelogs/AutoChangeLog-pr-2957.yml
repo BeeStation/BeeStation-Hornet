@@ -1,0 +1,4 @@
+author: Archanial
+delete-after: true
+changes:
+  - bugfix: Brig Physician can no longer be a traitor.
