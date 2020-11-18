@@ -310,8 +310,8 @@
 	route = "Start"
 
 /datum/eldritch_knowledge/eldritch_avatar
-	name = "Avatar Of Gods"
-	desc = "You can transmute a condensed matter cartridge into an avatar of the lesser gods, to gain their favor and lend their power."
+	name = "Avatar Of The Gods"
+	desc = "You can transmute a condensed matter cartridge into a strange figurine resembling the lesser gods, to gain their favor and lend their power."
 	gain_text = "You call the aid of lesser gods."
 	cost = 0
 	required_atoms = list(/obj/item/rcd_ammo)

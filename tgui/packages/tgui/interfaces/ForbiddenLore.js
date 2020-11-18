@@ -24,7 +24,7 @@ export const ForbiddenLore = (props, context) => {
       height={900}>
       <Window.Content scrollable>
         <Section title="Research Eldritch Knowledge">
-          Charges left : {charges}
+          Favor remaining : {charges}
           {SortByPath!== null ? (
             SortByPath.map(knowledge => (
               <Section
