@@ -80,7 +80,7 @@ export const NtosMain = (props, context) => {
                   <Button
                     fluid
                     lineHeight="24px"
-                    color="transparent"
+                    color={program.alert ? 'yellow' : 'transparent'}
                     icon={program.icon}
                     content={program.desc}
                     onClick={() => act('PC_runprogram', {
