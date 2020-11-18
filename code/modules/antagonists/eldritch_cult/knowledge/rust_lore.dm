@@ -8,9 +8,9 @@
 	next_knowledge = list(/datum/eldritch_knowledge/rust_fist)
 	required_atoms = list(/obj/item/kitchen/knife,/obj/item/trash)
 	result_atoms = list(/obj/item/melee/sickly_blade/rust)
-	cost = 5
+	cost = 1
 	route = PATH_RUST
-	followers_increment = 2
+	followers_increment = 1
 
 /datum/eldritch_knowledge/rust_fist
 	name = "Grasp of rust"
@@ -57,7 +57,7 @@
 	next_knowledge = list(/datum/eldritch_knowledge/spell/rust_wave)
 	banned_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/flesh_blade_upgrade)
 	route = PATH_RUST
-	followers_increment = 1
+	followers_increment = 2
 
 /datum/eldritch_knowledge/spell/rust_wave
 	name = "Wave of Rust"

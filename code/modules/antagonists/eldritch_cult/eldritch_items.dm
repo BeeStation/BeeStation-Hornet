@@ -136,12 +136,12 @@
 	icon_state = "eye_medalion"
 	w_class = WEIGHT_CLASS_SMALL
 	///What trait do we want to add upon equipiing
-	var/mortals_use = FALSE
+	var/used_by_unitiated = FALSE
 	var/trait = TRAIT_THERMAL_VISION
 
 /obj/item/clothing/neck/eldritch_amulet/equipped(mob/user, slot)
 	. = ..()
-	if(ishuman(user) && user.mind && slot == SLOT_NECK && (mortals_use || IS_HERETIC(user)))
+	if(ishuman(user) && user.mind && slot == SLOT_NECK && (used_by_unitiated || IS_HERETIC(user)))
 		ADD_TRAIT(user, trait, CLOTHING_TRAIT)
 		user.update_sight()
 
@@ -188,7 +188,7 @@
 	var/inUse = FALSE
 	var/deity = 0
 	var/godname = "C'Thulhu"
-	var/infused = FALSE
+	var/activated = FALSE
 	var/ashes = FALSE
 	icon = 'icons/obj/wizard.dmi'	//temporary
 	icon_state = "voodoo"
@@ -239,7 +239,7 @@
 			else
 				.+="You identify it as an avatar of [godname], one of the forbidden gods."				//forbidden gods on the other side...
 		if (heretic_user)
-			if (!infused)
+			if (!activated)
 				.+="Use in hand to perform a ritual for [godname], granting this [src] magical powers."
 			else
 				var/desc = "The [name] will offer the boon of [godname], "
@@ -296,18 +296,18 @@
 	. = ..()
 	if (!inUse)
 		inUse = TRUE
-		if (!infused && IS_HERETIC(user))
+		if (!activated && IS_HERETIC(user))
 			var/datum/antagonist/heretic/her = user.mind.has_antag_datum(/datum/antagonist/heretic)
 			to_chat(user,"<span class='notice'>You start a praying towards [godname]!</span>")
 			if (do_after(user,5 SECONDS))
 				var/result = "The prayer is complete"
-				if (!infused)
-					result += ". You infused the [src] with the blessing of [godname]"
+				if (!activated)
+					result += ". You activated the [src] with the blessing of [godname]"
 				if (!her.has_deity(deity))
 					result += " and you gained the favor of [godname]"
 					her.gain_favor(1)
 				to_chat(user,"<span class='notice'>[result].</span>")
-				infused = TRUE
+				activated = TRUE
 				her.gain_deity(deity)
 				return TRUE
 		else if (infuse_blessing(user,user))
@@ -317,7 +317,7 @@
 		qdel(src)
 
 /obj/item/artifact/proc/infuse_blessing(mob/living/user,mob/living/carbon/human/target)
-	if (!infused)
+	if (!activated)
 		return FALSE
 	switch (deity)
 		if (1)
@@ -376,8 +376,6 @@
 	return TRUE
 
 /obj/item/artifact/proc/to_ashes(mob/living/usr)
-	infused = TRUE
-
 	var/god = deity
 	var/name = godname
 	to_chat(usr,"<span class='notice'>You crush the [src] into your burning hand. The resulting goofer dust can be used to inflict a stronger effect on the target.</span>")
@@ -393,7 +391,7 @@
 	desc = "Ritualistic dust used to curse mortals."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "ash"
-	infused = TRUE
+	activated = TRUE
 	ashes = TRUE
 
 /obj/item/artifact/ashes/to_ashes(mob/living/usr)
@@ -460,11 +458,11 @@
 	desc = "In the eventuality that one of those you falesly accused is, in fact, a real witch, this will ward you against their curses."
 	trait = TRAIT_WARDED
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	mortals_use = TRUE
+	used_by_unitiated = TRUE
 
 /obj/item/clothing/neck/eldritch_amulet/rosary
 	name = "rosary beads"
 	desc = "A wooden crucifix meant to ward of curses and hexes."
 	trait = TRAIT_WARDED
-	mortals_use = TRUE
+	used_by_unitiated = TRUE
 	resistance_flags = FLAMMABLE

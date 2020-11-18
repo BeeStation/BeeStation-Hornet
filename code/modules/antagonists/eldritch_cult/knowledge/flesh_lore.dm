@@ -8,9 +8,9 @@
 	next_knowledge = list(/datum/eldritch_knowledge/flesh_grasp)
 	required_atoms = list(/obj/item/kitchen/knife,/obj/effect/decal/cleanable/blood)
 	result_atoms = list(/obj/item/melee/sickly_blade/flesh)
-	cost = 5
+	cost = 1
 	route = PATH_FLESH
-	followers_increment = 2
+	followers_increment = 1
 	
 /datum/eldritch_knowledge/flesh_grasp
 	name = "Grasp of Flesh"
@@ -62,7 +62,7 @@
 	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker)
 	banned_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/rust_blade_upgrade)
 	route = PATH_FLESH
-	followers_increment = 1
+	followers_increment = 2
 
 /datum/eldritch_knowledge/summon/stalker
 	name = "Lonely Ritual"

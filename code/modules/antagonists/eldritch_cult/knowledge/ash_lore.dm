@@ -8,9 +8,9 @@
 	next_knowledge = list(/datum/eldritch_knowledge/ashen_grasp)
 	required_atoms = list(/obj/item/kitchen/knife,/obj/item/match)
 	result_atoms = list(/obj/item/melee/sickly_blade/ash)
-	cost = 5
+	cost = 1
 	route = PATH_ASH
-	followers_increment = 2
+	followers_increment = 1
 
 /datum/eldritch_knowledge/ashen_grasp
 	name = "Grasp of Ash"
@@ -55,7 +55,7 @@
 	next_knowledge = list(/datum/eldritch_knowledge/spell/flame_birth)
 	banned_knowledge = list(/datum/eldritch_knowledge/rust_blade_upgrade,/datum/eldritch_knowledge/flesh_blade_upgrade)
 	route = PATH_ASH
-	followers_increment = 1
+	followers_increment = 2
 
 /datum/eldritch_knowledge/spell/flame_birth
 	name = "Flame Birth"

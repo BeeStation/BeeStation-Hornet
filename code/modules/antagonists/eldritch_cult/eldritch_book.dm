@@ -32,7 +32,7 @@
 		if (istype(known))
 			. +=  known.desc
 
-/obj/item/forbidden_book/afterattack(atom/target, mob/user, proximity_flag, click_parameters)	
+/obj/item/forbidden_book/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag || !IS_HERETIC(user) || in_use)
 		return
 	in_use = TRUE
@@ -59,8 +59,11 @@
 		ui.open()
 
 /obj/item/forbidden_book/attack_self(mob/living/carbon/human/user)
-	if(!istype(user) || IS_HERETIC(user) || in_use)
-		return
+	if(!istype(user) || in_use)
+		return FALSE
+	if (IS_HERETIC(user))
+		ui_interact(user)
+		return FALSE
 	if(HAS_TRAIT(user, TRAIT_MINDSHIELD))
 		to_chat(user, "<span class='alert'>The pages of [src] appear empty to you!</span>")
 		return FALSE
@@ -74,7 +77,7 @@
 	var/success = FALSE
 	for(var/i=1, i<=rand(2,5), i++)
 		if (!success)
-			success = prob(10)
+			success = prob(5)
 		if(!turn_page(user,success))
 			to_chat(user, "<span class='notice'>You resist temptation and put the [name] down.</span>")
 			in_use = FALSE
@@ -176,7 +179,7 @@
 	desc = "Patient is deluded into believing that omnipotent extraterestrial entities meddle in our world."
 	scan_desc = "lovecraftian madness"
 	gain_text = "Ah! A greater purpose."
-	lose_text = "You come to the realization that there are no omnipotent Gods that can save you from the monotony of your day to day job."
+	lose_text = "You come to the realization that there are no omnipotent Gods that can save you from the monotony of your day-to-day job."
 	resilience = TRAUMA_RESILIENCE_SURGERY
 
 /datum/brain_trauma/fascination/on_gain()
@@ -184,8 +187,8 @@
 	log_game("[key_name(owner)] has become fascinated.")
 
 
-	to_chat(owner, "<span class='warning'>Whether it is through your own foolishness, or through a ritual performed by someone practicing the forbidden arts, you have become FASCINATED! \
-		Entities of amazing power have reached out to you, but because of your limited knowledge, you were unable to understand and respond to their message!  \
+	to_chat(owner, "<span class='warning'>Whether it is through your own foolishness, or through a ritual performed by someone practicing the forbidden arts, you have become FASCINATED!<br>\
+		Entities of amazing power have reached out to you, but because of your limited knowledge, you were unable to understand and respond to their message!<br>\
 		But there are people who can help! Seek them out, so they can help you find method to your madness! Seek Answers!</span>")
 	to_chat(owner, "<span class='boldwarning'>You are NOT an antagonist, and should not perform evil acts to accomplis your goal.</span>")
 
