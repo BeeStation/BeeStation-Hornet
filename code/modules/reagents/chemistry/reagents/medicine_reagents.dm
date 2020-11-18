@@ -411,7 +411,7 @@
 			if(show_message)
 				to_chat(M, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
-			//Has to be at less than THRESHOLD_UNHUSK burn damage and have 100 instabitaluri (WHAT) before unhusking. Corpses dont metabolize.
+			//Has to be at less than THRESHOLD_UNHUSK burn damage and have 100 synthflesh before unhusking. Corpses dont metabolize.
 			if(HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn") && M.getFireLoss() < THRESHOLD_UNHUSK && M.reagents.has_reagent(/datum/reagent/medicine/synthflesh, 100))
 				M.cure_husk("burn")
 				M.visible_message("<span class='nicegreen'>You successfully replace most of the burnt off flesh of [M].")
