@@ -16,11 +16,13 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	///What color is it?
 	var/colour
 
-/obj/structure/slime_crystal/Initialize(obj/structure/slime_crystal/master_crystal)
+/obj/structure/slime_crystal/New(loc,obj/structure/slime_crystal/master_crystal, ...)
 	. = ..()
 	if(master_crystal)
 		invisibility = INVISIBILITY_MAXIMUM
 
+/obj/structure/slime_crystal/Initialize()
+	. = ..()
 	name =  colour + " slimic pylon"
 	var/itemcolor = "#FFFFFF"
 	switch(colour)
@@ -194,7 +196,6 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	set_light(3)
 
 /obj/structure/slime_crystal/yellow/attacked_by(obj/item/I, mob/living/user)
-	. = ..()
 	if(istype(I,/obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/cell = I
 		//Punishment for greed
@@ -202,7 +203,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 			cell.explode()
 			return
 		cell.give(cell.maxcharge)
-
+		return
+	return ..()
 /obj/structure/slime_crystal/darkpurple
 	colour = "dark purple"
 
