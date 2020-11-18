@@ -27,20 +27,19 @@
 	to_chat(owner, "<span class='boldannounce'>You are the Heretic!</span><br>\
 	<B>The old ones gave you these tasks to fulfill:</B>")
 	owner.announce_objectives()
-	to_chat(owner, "<span class='cult'>The book whispers, the forbidden knowledge walks once again!<br>\
-	Your book allows you to research abilities, read it very carefully! You cannot undo what has been done!<br>\
-	You gain charges by either collecting influences or sacrificing people tracked by the living heart<br> \
+	to_chat(owner, "<span class='cult'>As a heretic, you can gain the favor of the old gods through various acts to enhance your arcane powers1<br>\
+	You can start by seeking out strange figurines to gain the favor of the lesser gods.<br>\
+	When you are ready, carve a Rune of Transmutation and transmute a Codex Cycatrix from a bible, a pair of eyes and a pen, to unlock your true powers.<br> \
 	You can find a basic guide at : https://wiki.beestation13.com/view/Heretics </span>")
 
 /datum/antagonist/heretic/on_gain()
 	var/mob/living/current = owner.current
 	if(ishuman(current))
 		forge_primary_objectives()
-		gain_knowledge(/datum/eldritch_knowledge/living_heart)
 		gain_knowledge(/datum/eldritch_knowledge/codex_cicatrix)
+		gain_knowledge(/datum/eldritch_knowledge/living_heart)
 		gain_knowledge(/datum/eldritch_knowledge/spell/basic)
 		gain_knowledge(/datum/eldritch_knowledge/eldritch_avatar)
-		gain_knowledge(/datum/eldritch_knowledge/curse/alteration)//remove after debug
 	current.log_message("has become a heretic", LOG_ATTACK, color="#960000")
 	GLOB.reality_smash_track.AddMind(owner)
 	START_PROCESSING(SSprocessing,src)

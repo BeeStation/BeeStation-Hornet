@@ -8,6 +8,7 @@
 	var/mob/living/last_user
 	///Is it in use?
 	var/in_use = FALSE
+	var/charge = 0
 	var/list/failure_reads = list("Did something whisper my name?", "It's just shapes and scribbles!","This page is just blank...","Are these the scribbles of a madman?","These sketches don't resemble anything.")
 	var/list/success_reads = list("The letters begin to twist and jumble...","It's starting to make sense.","The illustration is staring me right in the eyes!","Have I seen this symbol somewhere else?","This is the place I've been dreaming about!","I've seen this in a recurring dream!","This part is in Galactic Common.","It's like this book is reaching out to me...","Was I destined to read this?",)
 
@@ -23,11 +24,15 @@
 	//. += "Use it on the floor to create a transmutation rune, used to perform rituals."
 	//. += "Hit an influence in the black part with it to gain a charge."
 	//. += "Hit a transmutation rune to destroy it."
-	. += "You can create holes in reality and gain favor by activating influences with the cover of this book."
 	. += "Any mortal that reads this book will gain fascination. Baptise them with your Mansus Grasp to turn them into your disciples."
+	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	. +=  "You have earned [cultie.get_favor_left()] favor for your deeds."
+	for (var/EK in cultie.get_all_knowledge())
+		var/datum/eldritch_knowledge/known = EK
+		if (istype(known))
+			. +=  known.desc
 
-/obj/item/forbidden_book/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
+/obj/item/forbidden_book/afterattack(atom/target, mob/user, proximity_flag, click_parameters)	
 	if(!proximity_flag || !IS_HERETIC(user) || in_use)
 		return
 	in_use = TRUE
@@ -40,9 +45,9 @@
 			cultie.gain_favor(5)
 			qdel(RS)
 	in_use = FALSE
+	..()
 
 /obj/item/forbidden_book/ui_interact(mob/user, datum/tgui/ui = null)
-	to_chat(user,"on UI")
 	if(!IS_HERETIC(user))
 		return FALSE
 	last_user = user
@@ -52,11 +57,10 @@
 		flick("book_opening",src)
 		ui = new(user, src, "ForbiddenLore")
 		ui.open()
-	return TRUE
 
 /obj/item/forbidden_book/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || IS_HERETIC(user) || in_use)
-		return FALSE
+		return
 	if(HAS_TRAIT(user, TRAIT_MINDSHIELD))
 		to_chat(user, "<span class='alert'>The pages of [src] appear empty to you!</span>")
 		return FALSE

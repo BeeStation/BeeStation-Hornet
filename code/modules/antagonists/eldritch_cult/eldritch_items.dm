@@ -136,11 +136,12 @@
 	icon_state = "eye_medalion"
 	w_class = WEIGHT_CLASS_SMALL
 	///What trait do we want to add upon equipiing
+	var/mortals_use = FALSE
 	var/trait = TRAIT_THERMAL_VISION
 
 /obj/item/clothing/neck/eldritch_amulet/equipped(mob/user, slot)
 	. = ..()
-	if(ishuman(user) && user.mind && slot == SLOT_NECK && IS_HERETIC(user) )
+	if(ishuman(user) && user.mind && slot == SLOT_NECK && (mortals_use || IS_HERETIC(user)))
 		ADD_TRAIT(user, trait, CLOTHING_TRAIT)
 		user.update_sight()
 
@@ -172,7 +173,7 @@
 	allowed = list(/obj/item/melee/sickly_blade, /obj/item/forbidden_book)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	// slightly better than normal cult robes
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 35, "bio" = 20, "rad" = 0, "fire" = 20, "acid" = 20)
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 40, "bio" = 20, "rad" = 0, "fire" = 25, "acid" = 25, "stamina" = 50)
 
 /obj/item/reagent_containers/glass/beaker/eldritch
 	name = "flask of eldritch essence"
@@ -231,56 +232,65 @@
 /obj/item/artifact/examine(mob/user)
 	. = ..()
 	if (!ashes)
-		var/heretic_user = IS_HERETIC(user)
-		if(!ashes && (heretic_user || IS_HERETIC_MONSTER(user) || (user.job in list("Curator"))))
+		var/heretic_user = IS_HERETIC(user) || IS_HERETIC_MONSTER(user)
+		if(!ashes && (heretic_user || (user.job in list("Curator"))))
 			if (deity<=6)
-				.+="This is a statue of [godname], one of the earth's weak gods."	//the weak gods of earth watch out for their creations, so they offer beneficial boons
+				.+="You identify it as an avatar of [godname], one of the earth's weak gods."	//the weak gods of earth watch out for their creations, so they offer beneficial boons
 			else
-				.+="This is a statue of [godname], one of the forbidden gods."				//forbidden gods on the other side...
+				.+="You identify it as an avatar of [godname], one of the forbidden gods."				//forbidden gods on the other side...
 		if (heretic_user)
 			if (!infused)
-				.+="This [src] is dull and its magic has not been activated."
+				.+="Use in hand to perform a ritual for [godname], granting this [src] magical powers."
 			else
+				var/desc = "The [name] will offer the boon of [godname], "
 				switch (deity)
 					if (1)
-						.+="The boon of [godname] will fix one's insides."
+						desc += "fixing one's insides."
 					if (2)
-						.+="The boon of [godname] will bring back one's vision."
+						desc += "bringing back one's vision."
 					if (3)
-						.+="The boon of [godname] will restore sanity and mind."
+						desc += "restoring one's sanity and mind."
 					if (4)
-						.+="The boon of [godname] will purge one's body of inpurities."
+						desc += "purging one's body of inpurities."
 					if (5)
-						.+="The boon of [godname] will heal one's burned flesh."
+						desc += "healing one's burned flesh."
 					if (6)
-						.+="The boon of [godname] will bring back one's vision."
+						desc += "bringing back one's vision."
 					if (7)
-						.+="The boon of [godname] will make one blind."
+						desc += "making one blind."
 					if (8)
-						.+="The boon of [godname] will halt one's speech."
+						desc += "halting one's speech."
 					if (9)
-						.+="The boon of [godname] will make one stupid."
+						desc += "making one stupid."
 					if (10)
-						.+="The boon of [godname] will inflict wounds."
+						desc += "inflicting wounds."
 					if (11)
-						.+="The boon of [godname] will cause one's skin to burn."
+						desc += "causing one's skin to burn."
 					if (12)
-						.+="The boon of [godname] will cripple one's legs."
+						desc += "crippling one's legs."
 					if (13)
-						.+="The boon of [godname] will cripple one's hands."
+						desc += "crippling one's hands."
 					if (14)
-						.+="The boon of [godname] will cripple one's hands."
+						desc += "crippling one's hands."
 					if (15)
-						.+="The boon of [godname] will bring madness into one's mind."
+						desc += "bringing madness into one's mind."
+				.+=desc
 
 			var/datum/antagonist/heretic/her = user.mind.has_antag_datum(/datum/antagonist/heretic)
 			if (!ashes && !her.has_deity(deity))
-				.+="You have not gained the favor of [godname]."
+				.+="Performing a ritual for [godname] will also grant you favor."
 
 /obj/item/artifact/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	if(proximity_flag && infuse_blessing(user,target))
-		user.visible_message("<span class='notice'>You hex [target] with the blessing of [godname]!</span>","<span class='danger'>[user] performs a strange ritual with the [src]!</span>")
+	..()
+	if(proximity_flag)
+		if (HAS_TRAIT(target,TRAIT_WARDED))
+			user.visible_message("<span class='notice'>You hex [target] with the blessing of [godname]!</span>","<span class='danger'>[user] performs a strange ritual with the [src]!</span>")
+			to_chat(user,"<span class='warning'>[target] is warded against your cruse!</span>")
+			to_chat(target,"<span class='warning'>Your crucifix protects you against [user]'s curse!</span>")
+		else if (infuse_blessing(user,target))
+			user.visible_message("<span class='notice'>You hex [target] with the blessing of [godname]!</span>","<span class='danger'>[user] performs a strange ritual with the [src]!</span>")
+		if (ashes)
+			qdel(src)
 
 /obj/item/artifact/attack_self(mob/user)
 	. = ..()
@@ -303,6 +313,8 @@
 		else if (infuse_blessing(user,user))
 			user.visible_message("<span class='notice'>You strike yourself with the blessing of [godname]!</span>","<span class='danger'>[user] performs a strange ritual with the [src]!</span>")
 		inUse = FALSE
+	if (ashes)
+		qdel(src)
 
 /obj/item/artifact/proc/infuse_blessing(mob/living/user,mob/living/carbon/human/target)
 	if (!infused)
@@ -330,13 +342,13 @@
 			target.adjustBruteLoss(-10)
 			to_chat(target,"<span class='notice'>Your bruises heal!</span>")
 		if (7)
-			target.adjustOrganLoss(ORGAN_SLOT_EYES,15)
+			target.adjustOrganLoss(ORGAN_SLOT_EYES,10)
 			to_chat(target,"<span class='warning'>Your eyes sting!</span>")
 		if (8)
-			target.adjustOrganLoss(ORGAN_SLOT_TONGUE,10)
+			target.adjustOrganLoss(ORGAN_SLOT_TONGUE,8)
 			target.silent += 2 SECONDS
 		if (9)
-			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,10)
+			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,8)
 			to_chat(target,"<span class='warning'>Your feel confused!</span>")
 		if (10)
 			target.adjustBruteLoss(5)
@@ -368,7 +380,7 @@
 
 	var/god = deity
 	var/name = godname
-	to_chat(usr,"<span class='notice'>You crush the [src] into your burning hand. The cursed ash can be used to inflict a stronger curse on the target.</span>")
+	to_chat(usr,"<span class='notice'>You crush the [src] into your burning hand. The resulting goofer dust can be used to inflict a stronger effect on the target.</span>")
 
 	qdel(src)
 
@@ -378,26 +390,11 @@
 
 /obj/item/artifact/ashes
 	name = "goofer dust"
-	desc = "Ritualistic dust used to throw curses upon people."
+	desc = "Ritualistic dust used to curse mortals."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "ash"
 	infused = TRUE
 	ashes = TRUE
-
-/obj/item/artifact/ashes/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	if (proximity_flag && user && target && infuse_blessing(user,target))
-		user.visible_message("<span class='notice'>You hex [target] with the [src]!</span>","<span class='notice'>[user] throws some dust at [target]!</span>")
-
-		var/datum/effect_system/smoke_spread/smoke = new
-		smoke.set_up(2, target)
-		smoke.start()
-
-		qdel(src)
-
-/obj/item/artifact/ashes/attack_self(mob/user)
-	. = ..()
-	infuse_blessing(user,user)
-	qdel(src)
 
 /obj/item/artifact/ashes/to_ashes(mob/living/usr)
 	return
@@ -421,20 +418,20 @@
 		if (6)
 			target.adjustBruteLoss(-50)
 		if (7)
-			target.adjustOrganLoss(ORGAN_SLOT_EYES,80)
+			target.adjustOrganLoss(ORGAN_SLOT_EYES,40)
 		if (8)
 			target.adjustOrganLoss(ORGAN_SLOT_TONGUE,30)
 			target.silent += 20 SECONDS
 		if (9)
-			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,30)
+			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,15)
 			target.SetSleeping(10 SECONDS)
 		if (10)
-			target.adjustBruteLoss(30)
+			target.adjustBruteLoss(20)
 			var/atom/throw_target = get_edge_target_turf(target, user.dir)
 			if(!target.anchored)
 				target.throw_at(throw_target, rand(4,8), 14, user)
 		if (11)
-			target.adjustFireLoss(30)
+			target.adjustFireLoss(20)
 			target.IgniteMob()
 		if (12)
 			for(var/obj/item/bodypart/organ in target.bodyparts)
@@ -445,12 +442,17 @@
 				if(organ.body_part == ARM_RIGHT || organ.body_part == ARM_LEFT)
 					organ.receive_damage(stamina = 200)
 		if (14)
-			target.electrocute_act(20, safety=TRUE, stun = FALSE)
+			target.electrocute_act(12, safety=TRUE, stun = FALSE)
 			target.emp_act(EMP_HEAVY)	//was gonna make it emag, but I figured this is just as good
 		if (15)
 			var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
 			if (master)
 				master.enslave(target)
+
+	var/datum/effect_system/smoke_spread/smoke = new
+	smoke.set_up(1, target)
+	smoke.start()
+
 	return TRUE
 
 /obj/item/clothing/neck/eldritch_amulet/crucifix
@@ -458,9 +460,11 @@
 	desc = "In the eventuality that one of those you falesly accused is, in fact, a real witch, this will ward you against their curses."
 	trait = TRAIT_WARDED
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	mortals_use = TRUE
 
 /obj/item/clothing/neck/eldritch_amulet/rosary
-	name = "roosary beads"
+	name = "rosary beads"
 	desc = "A wooden crucifix meant to ward of curses and hexes."
 	trait = TRAIT_WARDED
+	mortals_use = TRUE
 	resistance_flags = FLAMMABLE

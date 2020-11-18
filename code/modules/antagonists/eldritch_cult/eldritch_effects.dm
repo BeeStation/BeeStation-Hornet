@@ -234,6 +234,7 @@
 
 /obj/effect/reality_smash
 	name = "\improper reality smash"
+	desc = "A weak spot in the veil of reality. You can pierce reality by harvesting this with your Codex Cicatrix to gain favor."
 	icon = 'icons/effects/eldritch.dmi'
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
