@@ -48,7 +48,6 @@
 
 	if(strength < RAD_WAVE_MINIMUM)
 		qdel(src)
-		return PROCESS_KILL
 
 /datum/component/radioactive/proc/glow_loop(atom/movable/master)
 	var/filter = master.get_filter("rad_glow")
