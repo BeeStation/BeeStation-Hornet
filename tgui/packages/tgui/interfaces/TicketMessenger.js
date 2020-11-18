@@ -9,7 +9,8 @@ export const TicketMessenger = (props, context) => {
     <Window
       theme="admin"
       width={620}
-      height={500}>
+      height={500}
+      resizable>
       <Window.Content>
         <Section
           height="85px">
