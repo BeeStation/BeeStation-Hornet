@@ -136,28 +136,28 @@
 		return result
 
 	// All conditions met!
-		var/mob/living/carbon/human/podman = new /mob/living/carbon/human(parent.loc)
-		if(realName)
-			podman.real_name = realName
-		else
-			podman.real_name = "Pod Person ([rand(1,999)])"
-		mind.transfer_to(podman)
-		if(ckey)
-			podman.ckey = ckey
-		else
-			podman.ckey = ckey_holder
-		podman.gender = blood_gender
-		podman.faction |= factions
-		if(!features["mcolor"])
-			features["mcolor"] = "#59CE00"
-		for(var/V in quirks)
-			new V(podman)
-		podman.hardset_dna(null,null,podman.real_name,blood_type, new /datum/species/pod,features)//Discard SE's and UI's, podman cloning is inaccurate, and always make them a podman
-		podman.set_cloned_appearance()
-		// On harvest
-		to_chat(podman, "<span class='notice'><b>There is a bright flash!</b><br><i>You feel like a new being.</i></span>")
-		podman.flash_act()
-		log_cloning("[key_name(mind)] cloned as a podman via [src] in [parent] at [AREACOORD(parent)].")
+	var/mob/living/carbon/human/podman = new /mob/living/carbon/human(parent.loc)
+	if(realName)
+		podman.real_name = realName
+	else
+		podman.real_name = "Pod Person ([rand(1,999)])"
+	mind.transfer_to(podman)
+	if(ckey)
+		podman.ckey = ckey
+	else
+		podman.ckey = ckey_holder
+	podman.gender = blood_gender
+	podman.faction |= factions
+	if(!features["mcolor"])
+		features["mcolor"] = "#59CE00"
+	for(var/V in quirks)
+		new V(podman)
+	podman.hardset_dna(null,null,podman.real_name,blood_type, new /datum/species/pod,features)//Discard SE's and UI's, podman cloning is inaccurate, and always make them a podman
+	podman.set_cloned_appearance()
+	// On harvest
+	to_chat(podman, "<span class='notice'><b>There is a bright flash!</b><br><i>You feel like a new being.</i></span>")
+	podman.flash_act()
+	log_cloning("[key_name(mind)] cloned as a podman via [src] in [parent] at [AREACOORD(parent)].")
 
 	parent.update_tray()
 	return result
