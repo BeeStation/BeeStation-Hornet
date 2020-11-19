@@ -133,10 +133,10 @@
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO
 
 /datum/design/conveyor_rcd
-	name = " Conveyor Device"
+	name = "Rapid Conveyor Device"
 	id = "conveyor_rcd"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 13000)
+	materials = list(/datum/material/iron = 8000)
 	build_path = /obj/item/construction/conveyor
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO
