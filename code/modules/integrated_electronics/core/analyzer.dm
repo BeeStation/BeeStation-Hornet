@@ -1,6 +1,6 @@
 /obj/item/integrated_electronics/analyzer
 	name = "circuit analyzer"
-	desc = "This tool can scan an assembly and generate code necessary to recreate it in a circuit printer."
+	desc = "A tool that scans assemblies and gives the user a printout to recreate it in a circuit printer."
 	icon = 'icons/obj/assemblies/electronic_tools.dmi'
 	icon_state = "analyzer"
 	flags_1 = CONDUCT_1

@@ -481,7 +481,7 @@
 	if(is_currently_ejecting)
 		return
 	if(phasing)
-		occupant_message("Unable to interact with objects while phasing")
+		occupant_message("Unable to interact with objects while phasing.")
 		return
 	if(user.incapacitated())
 		return
@@ -576,7 +576,7 @@
 		return 0
 	if(construction_state)
 		if(world.time - last_message > 20)
-			occupant_message("<span class='danger'>Maintenance protocols in effect.</span>")
+			occupant_message("<span class='danger'>Maintenance protocols are in effect.</span>")
 			last_message = world.time
 		return
 	return domove(direction)
@@ -739,7 +739,7 @@
 		var/can_control_mech = 0
 		for(var/obj/item/mecha_parts/mecha_tracking/ai_control/A in trackers)
 			can_control_mech = 1
-			to_chat(user, "<span class='notice'>[icon2html(src, user)] Status of [name]:</span>\n[A.get_mecha_info()]")
+			to_chat(user, "<span class='notice'>[icon2html(src, user)] Status of [name]:</span>\n[A.get_mecha_info()].")
 			break
 		if(!can_control_mech)
 			to_chat(user, "<span class='warning'>You cannot control exosuits without AI control beacons installed.</span>")
