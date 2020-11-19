@@ -51,5 +51,4 @@ map kilostation
     minplayers 30
     maxplayers 80
 	votable
-	disabled
 endmap
