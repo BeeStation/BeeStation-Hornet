@@ -953,3 +953,56 @@ RLD
 #undef GLOW_MODE
 #undef LIGHT_MODE
 #undef REMOVE_MODE
+
+// RAPID CONVEYOR DEVICE
+
+/obj/item/construction/conveyor
+	name = "Rapid Conveyor Device (RLD)"
+	desc = "A device used to rapidly provide lighting sources to an area. Reload with iron, plasteel, glass or compressed matter cartridges."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "rcd"
+	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
+	matter = 200
+	max_matter = 200
+	var/beltcost = 12
+	slot_flags = ITEM_SLOT_BELT
+	var/id = ""
+
+/obj/item/construction/conveyor/attack_self(mob/user)
+	if (id!="")
+		id=""
+		to_chat(user, "<span class='notice'>You unlink the [src].</span>")
+
+///pretty much rcd_create, but named differently to make myself feel less bad for copypasting from a sibling-type
+/obj/item/construction/conveyor/proc/create_machine(atom/A, mob/user)
+	if(!isopenturf(A) || istype(A, /area/shuttle))
+		return FALSE
+	if (id == "")
+		to_chat(user, "<span class='warning'>Error! [src] is not linked!</span>")
+	if (A == user.loc)
+		to_chat(user, "<span class='notice'>Cannot place conveyor below your feet!</span>")
+
+	if(checkResource(beltcost, user))
+		useResource(beltcost, user)
+		activate()
+		playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
+		var/cdir = get_dir(A, user)
+		new/obj/machinery/conveyor(A, cdir, id)
+		return TRUE
+
+/obj/item/construction/conveyor/afterattack(atom/A, mob/user, proximity)	
+	if(!prox_check(proximity))
+		return 
+	if(!istype(A, /obj/machinery/conveyor))
+		create_machine(A, user)
+
+/obj/item/construction/conveyor/attackby(obj/item/I, mob/user, params)
+	..()
+	if(istype(I, /obj/item/stack/conveyor))
+		loadwithsheets(I, beltcost, user)
+		to_chat(user, "<span class='notice'>[src] now holds [matter]/[max_matter] matter-units.</span>")
+	if(istype(I, /obj/item/conveyor_switch_construct))
+		to_chat(user, "<span class='notice'>You link the switch to the conveyor belt assembly.</span>")
+		var/obj/item/conveyor_switch_construct/C = I
+		id = C.id
