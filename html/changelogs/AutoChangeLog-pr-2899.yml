@@ -1,0 +1,6 @@
+author: FriendlyContractor
+delete-after: true
+changes:
+  - tweak: Radio jammer is now part of contractor kit standard loadout
+  - tweak: Tweaks contractor kit starting items pool by removing useless items and
+      adding some new
