@@ -1,0 +1,5 @@
+author: 'TheChosenEvilOne '
+delete-after: true
+changes:
+  - bugfix: Dynamic midround traitor triggered by roundstart traitor ruleset no longer
+      ignores protected roles.
