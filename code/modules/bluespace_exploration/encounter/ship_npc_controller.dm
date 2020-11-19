@@ -34,12 +34,12 @@
 
 /datum/ship_datum/npc/proc/find_target()
 	//Shoot at ships that are in hostile factions
+	var/obj/our_port = SSshuttle.getShuttle(mobile_port_id)
 	for(var/ship_key in SSbluespace_exploration.tracked_ships)
 		var/datum/ship_datum/ship = SSbluespace_exploration.tracked_ships[ship_key]
 		if(ship == src)
 			continue
-		var/obj/shuttle_port = SSshuttle.mobile[ship_key]
-		var/obj/our_port = SSshuttle.mobile[mobile_port_id]
+		var/obj/shuttle_port = SSshuttle.getShuttle(ship_key)
 		if(!shuttle_port || !our_port || shuttle_port.z != our_port.z)
 			continue
 		if(ship in hostile_ships)

@@ -9,10 +9,11 @@
 /obj/effect/proc_holder/spell/set_weapon_target
 	name = "Set target"
 	desc = "Set the weapon's target"
+	panel = ""
 	//Technology don't care about your stupid magic
 	has_action = FALSE
 	clothes_req = FALSE
-	antimagic_allowed = TRUE	//Why would magic stop you from shooting guns
+	antimagic_allowed = TRUE
 	var/obj/machinery/computer/weapons/linked_console
 
 /obj/effect/proc_holder/spell/set_weapon_target/InterceptClickOn(mob/living/caller, params, atom/target)
@@ -39,7 +40,7 @@
 		return FALSE
 	to_chat(caller, "<span class='notice'>Weapon targetted.</span>")
 	var/obj/machinery/shuttle_weapon/weapon = linked_console.selected_weapon_system.resolve()
-	caller.log_message("fired [weapon ? "[weapon] " : ""][linked_console] at [AREACOORD(T)]", LOG_SHUTTLE, color="purple")
+	caller.log_message("fired [weapon ? "[weapon] " : ""][linked_console] at [AREACOORD(T)]", LOG_ATTACK, color="purple")
 	log_shuttle_attack("fired [weapon ? "[weapon] " : ""][linked_console] at [AREACOORD(T)]")
 	linked_console.on_target_location(T)
 	caller.RemoveSpell(/obj/effect/proc_holder/spell/set_weapon_target)

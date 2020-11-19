@@ -19,6 +19,8 @@
 	// Stuff needed to render the map
 	var/map_name
 	var/const/default_map_size = 15
+	//Contents holder to make the turfs clickable :^)
+	var/obj/effect/vis_contents_holder/contents_holder
 	var/obj/screen/cam_screen
 	var/obj/screen/plane_master/lighting/cam_plane_master
 	var/obj/screen/background/cam_background
@@ -27,11 +29,13 @@
 	. = ..()
 	map_name = "weapon_console_[REF(src)]_map"
 	// Initialize map objects
+	contents_holder = new
 	cam_screen = new
 	cam_screen.name = "screen"
 	cam_screen.assigned_map = map_name
 	cam_screen.del_on_map_removal = FALSE
 	cam_screen.screen_loc = "[map_name]:1,1"
+	cam_screen.vis_contents = list(contents_holder)
 	cam_plane_master = new
 	cam_plane_master.name = "plane_master"
 	cam_plane_master.assigned_map = map_name
@@ -44,6 +48,7 @@
 		addtimer(CALLBACK(src, .proc/get_attached_ship), 10)
 
 /obj/machinery/computer/weapons/Destroy()
+	qdel(contents_holder)
 	qdel(cam_screen)
 	qdel(cam_plane_master)
 	qdel(cam_background)
@@ -86,6 +91,9 @@
 	data["selectedShip"] = selected_ship_id
 	data["weapons"] = list()
 	data["ships"] = list()
+	if(!connected_port)
+		log_shuttle("Weapons console linked to [shuttle_id] could not locate a connected port using SSshuttle system.")
+		return data
 	//Enemy Ships
 	for(var/ship_id in SSbluespace_exploration.tracked_ships)
 		var/datum/ship_datum/ship = SSbluespace_exploration.tracked_ships[ship_id]
@@ -93,8 +101,8 @@
 		if(ship.mobile_port_id == shuttle_id)
 			continue
 		//Ignore ships that are on different z-levels#
-		var/obj/target_port = SSshuttle.mobile[ship_id]
-		if(!target_port || !connected_port || target_port.z != connected_port.z)
+		var/obj/target_port = SSshuttle.getShuttle(ship_id)
+		if(!target_port || target_port.z != connected_port.z)
 			continue
 		if(!ship.combat_allowed)
 			continue
@@ -108,7 +116,7 @@
 		)
 		data["ships"] += list(other_ship)
 	var/datum/ship_datum/our_ship = SSbluespace_exploration.tracked_ships[shuttle_id]
-	if(!connected_port || !our_ship || !our_ship.combat_allowed)
+	if(!our_ship || !our_ship.combat_allowed)
 		return data
 	var/list/turfs = connected_port.return_turfs()
 	//Weapons
@@ -138,6 +146,7 @@
 		if("target_ship")
 			var/s_id = params["id"]
 			playsound(src, get_sfx("terminal_type"), 25, FALSE)
+			log_shuttle("Weapons console linked to [shuttle_id] used by [usr] set camera view to ship [s_id]")
 
 			if(!(s_id in SSbluespace_exploration.tracked_ships))
 				show_camera_static()
@@ -160,7 +169,7 @@
 			var/turf/T1 = locate(CLAMP(right+extra_range, 1, world.maxx), CLAMP(bottom-extra_range, 1, world.maxy), target.z)
 			var/list/visible_turfs = block(T0,T1)
 
-			cam_screen.vis_contents = visible_turfs
+			contents_holder.vis_contents = visible_turfs
 			cam_background.icon_state = "clear"
 
 			var/list/bbox = get_bbox_of_atoms(visible_turfs)
@@ -197,7 +206,7 @@
 			return TRUE
 
 /obj/machinery/computer/weapons/proc/show_camera_static()
-	cam_screen.vis_contents.Cut()
+	contents_holder.vis_contents.Cut()
 	cam_background.icon_state = "scanline2"
 	cam_background.fill_rect(1, 1, default_map_size, default_map_size)
 
@@ -235,3 +244,6 @@
 		if(our_turf in M.return_turfs())
 			shuttle_id = M.id
 			break
+
+/obj/effect/vis_contents_holder
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

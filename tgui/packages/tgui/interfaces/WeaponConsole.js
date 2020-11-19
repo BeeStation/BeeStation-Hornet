@@ -28,7 +28,6 @@ export const WeaponConsole = (props, context) => {
           className="WeaponConsole__map"
           params={{
             id: mapRef,
-            parent: config.window,
             type: 'map',
           }} />
       </div>

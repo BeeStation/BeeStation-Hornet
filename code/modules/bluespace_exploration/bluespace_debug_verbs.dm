@@ -30,5 +30,8 @@ GLOBAL_LIST_INIT(bluespace_debug_verbs, list(
 	var/selected = input(usr, "What ship?", "Ship Spawn") as null|anything in ships
 	var/z_level = input(usr, "What Z-level?", "Ship Spawn") as null|num
 	if(selected && z_level)
-		SSbluespace_exploration.spawn_and_register_shuttle(SSbluespace_exploration.spawnable_ships[selected], z_level)
-		message_admins("[key_name_admin(usr)] spawned a hostile ship ([selected] - [SSbluespace_exploration.spawnable_ships[selected]]) on z-level [z_level]")
+		var/datum/map_template/shuttle/ship/S = SSbluespace_exploration.spawnable_ships[selected]
+		if(!istype(S))
+			message_admins("Incorrect ship type!")
+		SSbluespace_exploration.spawn_and_register_shuttle(S, z_level)
+		message_admins("[key_name_admin(usr)] spawned a hostile ship ([S] - [S.type]) on z-level [z_level]")

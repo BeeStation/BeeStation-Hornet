@@ -626,6 +626,6 @@ CUSTOM_SHUTTLE_WEAPONS
 
 ##The amount of levels to have for random generation
 ##3 means that 3 ships will be able to jump to random locations before the next ship needs to wait until the z-level isn't in use anymore
-BLUESPACE_EXPLORATION_LEVELS 3
+BLUESPACE_EXPLORATION_LEVELS 2
 
 ## END BLUESPACE EXPLORATION ##

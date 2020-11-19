@@ -14,27 +14,27 @@ SUBSYSTEM_DEF(bluespace_exploration)
 
 	//Starmap generation
 	var/datum/star_system/current_system = null
-	var/list/star_systems = list()
-	var/list/star_links = list()
+	var/list/star_systems
+	var/list/star_links
 
 	//Ruin generation
-	var/list/ruin_templates = list()
+	var/list/ruin_templates
 	var/obj/docking_port/stationary/away_mission_port
 
 	//=====Factions=====
 	// factions[datum] = new datum
-	var/list/factions = list()
+	var/list/factions
 
 	//=====Ship Tracking=====
-	var/list/spawnable_ships = list()
+	var/list/spawnable_ships
 	//All ships that are able to use the random generation must be tracked
-	var/list/tracked_ships = list()
+	var/list/tracked_ships
 
 	//=====Ship Processing Queue=====
 	// ! Tracks a list of all the ships requesting transit
 	// ! Key (string) - shuttle_id
 	// ! Value (/datum/data_holder/bluespace_exploration) - generation settings
-	var/list/ship_traffic_queue = list()	//The queue for generation is disguised as 'bluespace traffic control'
+	var/list/ship_traffic_queue	//The queue for generation is disguised as 'bluespace traffic control'
 
 	//=====Z-Level Wiping=====
 	//Are we currently processing a z-level wipe
@@ -50,15 +50,27 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	//The queue for z-levels to wipe
 	var/list/z_level_queue
 
+/datum/controller/subsystem/bluespace_exploration/New()
+	. = ..()
+	//Hello lists (Maximum internal arrays exceeded need for this)
+	//Also this has to be done before SSmapping init
+	bluespace_systems = list()
+	z_level_queue = list()
+	ship_traffic_queue = list()
+	tracked_ships = list()
+	spawnable_ships = list()
+	factions = list()
+	star_systems = list()
+	ruin_templates = list()
+	star_links = list()
+
 /datum/controller/subsystem/bluespace_exploration/Initialize(start_timeofday)
 	. = ..()
-	z_level_queue = list()
 	//Create factions
 	for(var/faction_datum in subtypesof(/datum/faction))
 		factions[faction_datum] = new faction_datum
 	//Create z-levels
 	//Todo: Check low mem mode
-	bluespace_systems = list()
 	for(var/i in 1 to CONFIG_GET(number/bluespace_exploration_levels))
 		bluespace_systems[SSmapping.add_new_zlevel("Bluespace Exploration Level [i]", ZTRAITS_BLUESPACE_EXPLORATION)] = FALSE
 
@@ -112,6 +124,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		return
 	if(!LAZYLEN(ship_traffic_queue))
 		return
+	check_free_levels()
 	//Find a system that is empty and jump to it
 	var/datum/space_level/free_level
 	for(var/key in bluespace_systems)
@@ -147,21 +160,17 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	if(QDELETED(SD))
 		return null
 	tracked_ships[shuttle_id] = SD
+	log_shuttle("Shuttle ID :[shuttle_id] added to tracked ships (Total: [tracked_ships.len]).")
 	return SD
 
 //====================================
-//These procs are very expensive
+//These procs are pretty expensive
 //Bluespace Drives take a long time, so loading of the new z_levels
 //can be slowly done in the back ground while in transit.
 //However, it should be noted if the server is under high load,
 //We still want new z_levels to be generated otherwise they will be
 //locked in transit forever.
 //====================================
-
-//Checks the z-level to see if any mobs with minds will be left behind when jumping
-//Returns TRUE if it is safe to warp away from (Mobs are on shuttle)
-/datum/controller/subsystem/bluespace_exploration/proc/check_z_level()
-	return TRUE
 
 //===================CLEARING Z LEVEL PROCS===================
 //These are done so that the spawning is spread evenly over 1 minute.
@@ -405,8 +414,6 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	check_free_levels()
 
 /datum/controller/subsystem/bluespace_exploration/proc/shuttle_translation(shuttle_id, datum/data_holder/bluespace_exploration/data_holder)
-	if(!check_z_level())
-		return FALSE
 	var/obj/docking_port/mobile/shuttle = SSshuttle.getShuttle(shuttle_id)
 	if(!shuttle)
 		return FALSE
@@ -430,9 +437,13 @@ SUBSYSTEM_DEF(bluespace_exploration)
 // Z-Level Free checking
 //====================================
 
+/*
+ * PRIVATE
+ * - Checks a specified Z-level to see if there are any cliented mobs inside of it.
+ * - Updates bluespace_systems[level] = bool (Is the z-level empty)
+ */
 /datum/controller/subsystem/bluespace_exploration/proc/check_free_levels()
 	var/list/levels_in_use
-	//Most efficient way I could think of doing it
 	for(var/mob/living/M in GLOB.player_list)
 		if(!(M.z in levels_in_use))
 			levels_in_use += M.z
