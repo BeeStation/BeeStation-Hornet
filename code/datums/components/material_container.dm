@@ -115,17 +115,19 @@
 /// Proc used for when player inserts materials
 /datum/component/material_container/proc/OnBump(atom/source,obj/item/I)
 	if (bump_loading && istype(I))
-		if(disable_attackby || precondition || precise_insertion || I.item_flags & ABSTRACT ||(I.flags_1 & HOLOGRAM_1) || (I.item_flags & NO_MAT_REDEMPTION) || (allowed_typecache && !is_type_in_typecache(I, allowed_typecache)))
+		if(disable_attackby || precondition || precise_insertion || (I.item_flags & ABSTRACT) ||(I.flags_1 & HOLOGRAM_1) || (I.item_flags & NO_MAT_REDEMPTION) || (allowed_typecache && !is_type_in_typecache(I, allowed_typecache)))
 			return
 		. = COMPONENT_NO_AFTERATTACK
 		var/material_amount = get_item_material_amount(I)
 		if(!material_amount || !has_space(material_amount))
 			return
-		if(insert_item(I))
+			
+		var/inserted = insert_item(I)
+		if(inserted)
 			if(!istype(I, /obj/item/stack))
 				qdel(I)
 			if(after_insert)
-				after_insert.Invoke(I.type, last_inserted_id, inserted)
+				after_insert.Invoke(I.type, last_inserted_id, I)
 
 /// Proc specifically for inserting items, returns the amount of materials entered.
 /datum/component/material_container/proc/insert_item(obj/item/I, var/multiplier = 1, stack_amt)
