@@ -216,7 +216,6 @@ GLOBAL_LIST_EMPTY(explosions)
 				dist += cached_exp_block[Trajectory]
 
 		var/flame_dist = dist < flame_range
-		var/throw_dist = dist
 
 		if(dist < devastation_range)
 			dist = EXPLODE_DEVASTATE
@@ -252,17 +251,11 @@ GLOBAL_LIST_EMPTY(explosions)
 		//--- THROW ITEMS AROUND ---
 
 		var/throw_dir = get_dir(epicenter,T)
-		for(var/obj/item/I in T)
-			if(!I.anchored)
-				var/throw_range = rand(throw_dist, max_range)
-				var/turf/throw_at = get_ranged_target_turf(I, throw_dir, throw_range)
-				I.throw_at(throw_at, throw_range, EXPLOSION_THROW_SPEED)
-
-		for(var/mob/living/L in T)
-			if(!L.anchored)
-				var/throw_range = rand(throw_dist, max_range)
-				var/turf/throw_at = get_ranged_target_turf(L, throw_dir, throw_range)
-				L.throw_at(throw_at, throw_range, EXPLOSION_THROW_SPEED)
+		for(var/atom/movable/A in T)
+			if(!A.anchored)
+				var/throw_range = round(max_range * 1.5)
+				var/turf/throw_at = get_ranged_target_turf(A, throw_dir, throw_range)
+				A.safe_throw_at(throw_at, throw_range, EXPLOSION_THROW_SPEED)
 
 		//wait for the lists to repop
 		var/break_condition
