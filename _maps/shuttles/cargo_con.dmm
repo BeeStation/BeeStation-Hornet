@@ -1,0 +1,57 @@
+"a" = (/turf/template_noop,/area/template_noop)
+"b" = (/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/stripes/corner,/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"c" = (/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/stripes/line{dir = 6},/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"d" = (/obj/machinery/light{dir = 1},/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/stripes/line{dir = 9},/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"e" = (/obj/effect/turf_decal/loading_area/red{dir = 8},/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"f" = (/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/stripes/line{dir = 6},/obj/structure/sign/warning/fire{pixel_x = 32},/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"g" = (/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/stripes/line{dir = 8},/obj/effect/turf_decal/stripes/corner,/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"h" = (/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/stripes/line{dir = 8},/obj/effect/turf_decal/stripes/line{dir = 4},/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"i" = (/obj/structure/sign/nanotrasen{pixel_x = -32; pixel_y = 32},/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/stripes/corner{dir = 1},/obj/effect/turf_decal/stripes/corner{dir = 4},/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"j" = (/obj/effect/turf_decal/loading_area/red{dir = 4},/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"k" = (/obj/machinery/computer/security,/turf/open/floor/mineral/titanium/blue,/area/shuttle/supply)
+"l" = (/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"m" = (/turf/closed/wall/mineral/titanium/nodiagonal,/area/shuttle/supply)
+"n" = (/obj/structure/shuttle/engine/heater,/obj/structure/window/reinforced/spawner/east,/obj/structure/window/reinforced/spawner/north,/turf/open/floor/engine,/area/shuttle/supply)
+"o" = (/turf/closed/wall/mineral/titanium,/area/shuttle/supply)
+"p" = (/obj/structure/shuttle/engine/propulsion,/turf/open/floor/plating/airless,/area/shuttle/supply)
+"q" = (/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/stripes/line{dir = 5},/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"r" = (/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/stripes/line{dir = 4},/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"s" = (/obj/structure/fans/tiny,/obj/machinery/door/airlock/titanium{name = "Supply Shuttle Airlock"},/obj/docking_port/mobile/supply,/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"t" = (/obj/machinery/conveyor{dir = 8; id = "QMLoad"},/obj/machinery/door/poddoor{id = "QMLoaddoor"; name = "supply dock loading door"},/obj/structure/fans/tiny,/turf/open/floor/plating,/area/shuttle/supply)
+"u" = (/obj/structure/shuttle/engine/heater,/obj/structure/window/reinforced/spawner/west,/obj/structure/window/reinforced/spawner/north,/turf/open/floor/engine,/area/shuttle/supply)
+"v" = (/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/stripes/line{dir = 1},/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"w" = (/obj/effect/turf_decal/delivery,/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/stripes/line{dir = 10},/obj/machinery/camera{dir = 5},/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"x" = (/obj/structure/fans/tiny,/obj/machinery/door/airlock/titanium{name = "Supply Shuttle Airlock"},/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"A" = (/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/stripes/corner{dir = 8},/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"B" = (/obj/machinery/door/airlock/titanium{name = "Supply Shuttle Bridge Airlock"},/turf/open/floor/mineral/titanium/blue,/area/shuttle/supply)
+"C" = (/obj/structure/shuttle/engine/propulsion/burst/left,/obj/structure/window/reinforced/spawner/west,/turf/open/floor/plating/airless,/area/shuttle/supply)
+"E" = (/obj/structure/chair/comfy/shuttle{dir = 1},/obj/machinery/camera{dir = 1},/turf/open/floor/mineral/titanium/blue,/area/shuttle/supply)
+"F" = (/obj/machinery/light{dir = 4},/turf/open/floor/mineral/titanium/blue,/area/shuttle/supply)
+"I" = (/obj/structure/shuttle/engine/propulsion/burst/right,/obj/structure/window/reinforced/spawner/east,/turf/open/floor/plating/airless,/area/shuttle/supply)
+"K" = (/obj/effect/turf_decal/delivery,/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/stripes/line{dir = 9},/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"L" = (/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/stripes/line{dir = 8},/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"M" = (/obj/machinery/button/door{id = "QMLoaddoor2"; name = "Loading Doors"; pixel_x = 24; pixel_y = 8},/obj/machinery/button/door{id = "QMLoaddoor"; name = "Loading Doors"; pixel_x = 24; pixel_y = -8},/obj/machinery/light{dir = 4},/obj/effect/turf_decal/stripes/line{dir = 4},/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"N" = (/turf/closed/wall/mineral/titanium/interior,/area/shuttle/supply)
+"O" = (/obj/effect/spawner/structure/window/shuttle,/turf/open/floor/plating,/area/shuttle/supply)
+"P" = (/obj/machinery/conveyor{dir = 4; id = "QMLoad2"},/obj/machinery/door/poddoor{id = "QMLoaddoor2"; name = "supply dock loading door"},/obj/structure/fans/tiny,/turf/open/floor/plating,/area/shuttle/supply)
+"Q" = (/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/stripes/line{dir = 10},/obj/structure/sign/warning/fire{pixel_x = -32},/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"R" = (/obj/machinery/computer,/turf/open/floor/mineral/titanium/blue,/area/shuttle/supply)
+"S" = (/obj/effect/turf_decal/delivery,/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/stripes/line{dir = 8},/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"T" = (/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/stripes/line,/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+"X" = (/obj/structure/shuttle/engine/heater,/obj/structure/window/reinforced/spawner/north,/turf/open/floor/engine,/area/shuttle/supply)
+"Z" = (/obj/machinery/light{dir = 8},/obj/effect/turf_decal/delivery,/obj/effect/turf_decal/tile/blue,/obj/effect/turf_decal/tile/blue{dir = 1},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/stripes/line{dir = 8},/turf/open/floor/mineral/titanium,/area/shuttle/supply)
+
+(1,1,1) = {"
+oOOoooo
+oRkmdqo
+oEFmgco
+omBmhjP
+oKvviqx
+oZlllMo
+oSllbcs
+owAlret
+NNLlrNo
+uNQTfNn
+CoXXXoI
+apppppa
+"}

@@ -3,7 +3,7 @@
     "map_path": "map_files/ConstructionStation",
     "map_file": "constructionstation.dmm",
     "shuttles": {
-	    "cargo": "cargo_box",
+	    "cargo": "cargo_con",
 	    "ferry": "ferry_fancy",
 	    "whiteship": "whiteship_box",
 	    "emergency": "emergency_box"
