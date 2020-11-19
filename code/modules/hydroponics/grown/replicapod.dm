@@ -137,7 +137,6 @@
 		return result
 
 	// All conditions met!
-	if(make_podman)
 		var/mob/living/carbon/human/podman = new /mob/living/carbon/human(parent.loc)
 		if(realName)
 			podman.real_name = realName
