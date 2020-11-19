@@ -128,10 +128,11 @@
 		if(prob(getYield() * 20))
 			seed_count++
 		var/output_loc = parent.Adjacent(user) ? user.loc : parent.loc //needed for TK
-		for(var/i=0,i<seed_count,i++)
+		while(seed_count)
 			var/obj/item/seeds/replicapod/harvestseeds = src.Copy()
 			result.Add(harvestseeds)
 			harvestseeds.forceMove(output_loc)
+			seed_count--
 		parent.update_tray()
 		return result
 
