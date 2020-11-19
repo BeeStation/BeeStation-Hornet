@@ -298,7 +298,7 @@
 	..()
 
 /datum/chemical_reaction/slime/slimecell
-	name = "Slime Power cell"
+	name = "Slime Power Cell"
 	id = "m_cell"
 	required_reagents = list(/datum/reagent/toxin/plasma = 1)
 	required_container = /obj/item/slime_extract/yellow
