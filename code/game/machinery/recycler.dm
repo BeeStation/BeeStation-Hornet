@@ -116,7 +116,7 @@
 				crush_living(AM)
 			else
 				emergency_stop(AM)
-		else if(istype(AM, /obj/item) && !istype(AM0, /obj/item/stack))
+		else if(istype(AM, /obj/item) && !istype(AM, /obj/item/stack))
 			recycle_item(AM)
 			items_recycled++
 		else
