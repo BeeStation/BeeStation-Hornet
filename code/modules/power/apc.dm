@@ -694,7 +694,6 @@
 		return ..()
 
 /obj/machinery/power/apc/AltClick(mob/user)
-	..()
 	if(!user.canUseTopic(src, !issilicon(user)) || !isturf(loc))
 		return
 	else

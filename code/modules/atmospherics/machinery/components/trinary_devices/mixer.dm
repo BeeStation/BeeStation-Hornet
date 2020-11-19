@@ -29,7 +29,7 @@
 	if(can_interact(user))
 		target_pressure = MAX_OUTPUT_PRESSURE
 		update_icon()
-	return ..()
+	return
 
 /obj/machinery/atmospherics/components/trinary/mixer/update_icon()
 	cut_overlays()

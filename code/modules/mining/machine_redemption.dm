@@ -197,7 +197,6 @@
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/AltClick(mob/living/user)
-	..()
 	if(!user.canUseTopic(src, BE_CLOSE))
 		return
 	if (panel_open)

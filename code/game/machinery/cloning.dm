@@ -94,7 +94,6 @@
 	user.examinate(src)
 
 /obj/machinery/clonepod/AltClick(mob/user)
-	. = ..()
 	if (alert(user, "Are you sure you want to empty the cloning pod?", "Empty Reagent Storage:", "Yes", "No") != "Yes")
 		return
 	to_chat(user, "<span class='notice'>You empty \the [src]'s release valve onto the floor.</span>")

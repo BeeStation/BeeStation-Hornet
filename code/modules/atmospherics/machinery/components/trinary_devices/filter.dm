@@ -27,7 +27,7 @@
 	if(can_interact(user))
 		transfer_rate = MAX_TRANSFER_RATE
 		update_icon()
-	return ..()
+	return
 
 /obj/machinery/atmospherics/components/trinary/filter/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
