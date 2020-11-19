@@ -41,7 +41,7 @@
 
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/OnAttackBy)
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/OnExamine)
-	RegisterSignal(parent, COMSIG_ATOM_BUMPED, .proc/OnBumped)
+	RegisterSignal(parent, COMSIG_ATOM_BUMPED, .proc/OnBump)
 
 	for(var/mat in mat_list) //Make the assoc list ref | amount
 		var/datum/material/M = getmaterialref(mat) || mat
@@ -113,19 +113,15 @@
 		user.put_in_active_hand(I)
 
 /// Proc used for when player inserts materials
-/datum/component/material_container/proc/OnBumped(atom/source,obj/item/I)
+/datum/component/material_container/proc/OnBump(atom/source,obj/item/I)
 	if (bump_loading && istype(I))
-		var/list/tc = allowed_typecache
-		if(disable_attackby)
-			return
-		if(I.item_flags & ABSTRACT ||(I.flags_1 & HOLOGRAM_1) || (I.item_flags & NO_MAT_REDEMPTION) || (tc && !is_type_in_typecache(I, tc)) || precondition || precise_insertion)
+		if(disable_attackby || precondition || precise_insertion || I.item_flags & ABSTRACT ||(I.flags_1 & HOLOGRAM_1) || (I.item_flags & NO_MAT_REDEMPTION) || (allowed_typecache && !is_type_in_typecache(I, allowed_typecache)))
 			return
 		. = COMPONENT_NO_AFTERATTACK
 		var/material_amount = get_item_material_amount(I)
 		if(!material_amount || !has_space(material_amount))
 			return
-		var/inserted = insert_item(I)
-		if(inserted)
+		if(insert_item(I))
 			if(!istype(I, /obj/item/stack))
 				qdel(I)
 			if(after_insert)
