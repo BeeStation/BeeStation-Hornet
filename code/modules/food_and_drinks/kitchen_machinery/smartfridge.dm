@@ -12,9 +12,6 @@
 	idle_power_usage = 5
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/smartfridge
-
-
-
 	var/max_n_of_items = 1500
 	var/allow_ai_retrieve = FALSE
 	var/list/initial_contents
@@ -135,18 +132,14 @@
 	else
 		return ..()
 
-
-/obj/machinery/smartfridge/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)	
-	if(!stat)
-		if (istype(AM, /obj/item))		
-			var/obj/item/O = AM
-			if(contents.len < max_n_of_items && accept_check(O))
-				load(O)
-				updateUsrDialog()
-				if (visible_contents)
-					update_icon()
-				return TRUE
-	return ..()
+/obj/machinery/smartfridge/Bumped(atom/movable/AM)
+	if (!stat && LAZYLEN(contents) < max_n_of_items && accept_check(AM))
+		load(AM)
+		updateUsrDialog()
+		if (visible_contents)
+			update_icon()
+		return TRUE
+	return FALSE
 
 
 /obj/machinery/smartfridge/proc/accept_check(obj/item/O)
