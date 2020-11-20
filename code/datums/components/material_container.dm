@@ -19,7 +19,6 @@
 	var/list/allowed_typecache
 	var/last_inserted_id
 	var/precise_insertion = FALSE
-	var/bump_loading = TRUE
 	var/datum/callback/precondition
 	var/datum/callback/after_insert
 
@@ -114,8 +113,8 @@
 
 /// Proc used for when player inserts materials
 /datum/component/material_container/proc/OnBump(atom/source,obj/item/I)
-	if (bump_loading && istype(I))
-		if(disable_attackby || precondition || precise_insertion || (I.item_flags & ABSTRACT) ||(I.flags_1 & HOLOGRAM_1) || (I.item_flags & NO_MAT_REDEMPTION) || (allowed_typecache && !is_type_in_typecache(I, allowed_typecache)))
+	if (istype(I) && !disable_attackby && !precondition && !precise_insertion)
+		if ((I.item_flags & ABSTRACT) ||(I.flags_1 & HOLOGRAM_1) || (I.item_flags & NO_MAT_REDEMPTION) || (allowed_typecache && !is_type_in_typecache(I, allowed_typecache)))
 			return
 		. = COMPONENT_NO_AFTERATTACK
 		var/material_amount = get_item_material_amount(I)
