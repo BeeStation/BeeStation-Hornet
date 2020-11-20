@@ -106,23 +106,8 @@
 		var/list/assasination = list()
 		var/list/protection = list()
 		for(var/i in 1 to 2)
-			var/pck = pick("assasinate","assasinate","assasinate","stalk")
-			switch(pck)
-				if("assasinate")
-					var/datum/objective/assassinate/A = new()
-					A.owner = owner
-					var/list/owners = A.get_owners()
-					A.find_target(owners,protection)
-					assasination += A.target
-					objectives += A
-					log_objective(owner, A.explanation_text)
-				if("stalk")
-					var/datum/objective/stalk/S = new()
-					S.owner = owner
-					S.find_target()
-					objectives += S
-					log_objective(owner, S.explanation_text)
-				if("protect")
+			switch (rand(0,100))
+				if (0 to 4)
 					var/datum/objective/protect/P = new()
 					P.owner = owner
 					var/list/owners = P.get_owners()
@@ -130,6 +115,20 @@
 					protection += P.target
 					objectives += P
 					log_objective(owner, P.explanation_text)
+				if (5 to 35)
+					var/datum/objective/stalk/S = new()
+					S.owner = owner
+					S.find_target()
+					objectives += S
+					log_objective(owner, S.explanation_text)
+				else
+					var/datum/objective/assassinate/A = new()
+					A.owner = owner
+					var/list/owners = A.get_owners()
+					A.find_target(owners,protection)
+					assasination += A.target
+					objectives += A
+					log_objective(owner, A.explanation_text)
 		switch (rand(0,100))
 			if (0 to 15)
 				var/datum/objective/ascend/AE = new()
@@ -367,7 +366,7 @@
 		return 3
 	log_game("[key_name_admin(victim)] has become a follower of [key_name_admin(src)]")
 	victim.faction |= "heretics"
-	var/datum/antagonist/heretic_monster/heretic_monster = victim.mind.add_antag_datum(/datum/antagonist/heretic_monster)
+	var/datum/antagonist/heretic_monster/heretic_monster = victim.mind.add_antag_datum(/datum/antagonist/heretic_monster/disciple)
 	heretic_monster.set_owner(src)
 	return 0
 

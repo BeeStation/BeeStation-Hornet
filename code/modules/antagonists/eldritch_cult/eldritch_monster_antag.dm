@@ -16,14 +16,11 @@
 
 /datum/antagonist/heretic_monster/greet()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', 100, FALSE, pressure_affected = FALSE)//subject to change
-	if (ishuman(owner))
-		to_chat(owner, "<span class='boldannounce'>You are bound by magic to obey [master], and carry out their devious goals!</span>")
-	else
-		to_chat(owner, "<span class='boldannounce'>You became an Eldritch Horror, servant of [master]!</span>")
+	to_chat(owner, "<span class='boldannounce'>You became an Eldritch Horror, servant of [master]!</span>")
 
 /datum/antagonist/heretic_monster/on_removal()
 	if(master)
-		to_chat(owner, "<span class='boldannounce'>Your master is no longer [master.owner.current.real_name]</span>")
+		to_chat(owner, "<span class='boldannounce'>Your no longer bound to your master, [master.owner.current.real_name]</span>")
 		master = null
 	return ..()
 
@@ -44,3 +41,12 @@
 /datum/antagonist/heretic_monster/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	remove_antag_hud(antag_hud_type, owner.current)
+
+/datum/antagonist/heretic_monster/disciple
+	name = "Eldritch Disciples"
+	antagpanel_category = "Heretic Disciples"
+	
+/datum/antagonist/heretic_monster/disciple/greet()
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', 100, FALSE, pressure_affected = FALSE)//subject to change
+	to_chat(owner, "<span class='boldannounce'>You are bound by magic to obey [master], and carry out their devious goals!</span>")
+	
