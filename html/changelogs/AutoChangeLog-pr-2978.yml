@@ -1,4 +1,0 @@
-author: Crossedfall
-delete-after: true
-changes:
-  - server: libmariadb.dll is no longer a required static file
