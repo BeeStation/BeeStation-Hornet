@@ -7,6 +7,7 @@ CONTAINS:
 RCD
 ARCD
 RLD
+ACC
 */
 
 /obj/item/construction
