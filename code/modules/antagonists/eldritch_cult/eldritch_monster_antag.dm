@@ -43,8 +43,7 @@
 	remove_antag_hud(antag_hud_type, owner.current)
 
 /datum/antagonist/heretic_monster/disciple
-	name = "Eldritch Disciples"
-	antagpanel_category = "Heretic Disciples"
+	name = "Disciple"
 	
 /datum/antagonist/heretic_monster/disciple/greet()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', 100, FALSE, pressure_affected = FALSE)//subject to change

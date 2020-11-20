@@ -68,6 +68,7 @@
 	if(!istype(H))
 		return
 	. += ecult_give_item(/obj/item/storage/book/bible, H)
+	. += ecult_give_item(/obj/item/reagent_containers/food/snacks/grown/poppy, H)
 	. += ecult_give_item(/obj/item/artifact, H)
 
 /datum/antagonist/heretic/proc/ecult_give_item(obj/item/item_path, mob/living/carbon/human/H)

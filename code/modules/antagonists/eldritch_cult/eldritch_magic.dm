@@ -31,7 +31,7 @@
 
 /obj/effect/proc_holder/spell/targeted/touch/mansus_grasp
 	name = "Mansus Grasp"
-	desc = "Channel the power of the old gods through you! Strike a mortal to disable them, or carve transmutation runes on the floor."
+	desc = "Channel the power of the old gods through you! You can strike a mortal to disable them or carve transmutation runes on the floor."
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 	school = "evocation"
 	charge_max = 150
@@ -45,7 +45,7 @@
 	desc = "A sinister looking aura that distorts the flow of reality around it. Causes knockdown, major stamina damage aswell as some Brute. It gains additional beneficial effects with certain knowledges you can research."
 	icon_state = "mansus_grasp"
 	item_state = "mansus_grasp"
-	catchphrase = "M'SUS 'N B'N"
+	catchphrase = "R'CH T'H TR'TH"
 	///Where we cannot create the rune?
 	var/static/list/blacklisted_turfs = typecacheof(list(/turf/closed,/turf/open/space,/turf/open/lava))
 
@@ -173,7 +173,7 @@
 	desc = "A sinister looking aura that distorts the flow of reality around it."
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
-	catchphrase = "ST'L"
+	catchphrase = "R'BRTH"
 
 /obj/item/melee/touch_attack/blood_siphon/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)

@@ -293,10 +293,10 @@
 
 /datum/eldritch_knowledge/living_heart
 	name = "Living Heart"
-	desc = "Allows you to create living hearts, using a heart and a pool of blood. Living hearts when used on a transmutation rune will grant you a person to hunt and sacrifice on the rune. Every sacrifice gives you favor."
+	desc = "Allows you to transmute living hearts, using a heart, a poppy and a pool of blood. Living hearts when used on a transmutation rune will grant you a person to hunt and sacrifice on the rune. Every sacrifice gives you favor."
 	gain_text = "Gates of mansus open up to your mind."
 	cost = 0
-	required_atoms = list(/obj/item/organ/heart,/obj/effect/decal/cleanable/blood)
+	required_atoms = list(/obj/item/organ/heart,/obj/effect/decal/cleanable/blood,/obj/item/reagent_containers/food/snacks/grown/poppy)
 	result_atoms = list(/obj/item/living_heart)
 	route = "Start"
 
@@ -368,7 +368,7 @@
 /datum/eldritch_knowledge/curse/fascination
 	name = "Dreamgate"
 	gain_text = "Those safe in this world are not safe in others..."
-	desc = "Transmute a poppy, a tongue and an item that the victim touched with their bare hands to perform a Dreamgate Ritual. Allows you to strike any sleeping or unconcious mind with fascination."
+	desc = "Transmute a poppy, a bedsheet and candle to perform a Dreamgate Ritual. Allows you to strike any sleeping or unconcious mind with fascination."
 	cost = 4
 	required_atoms = list(/obj/item/bedsheet,/obj/item/reagent_containers/food/snacks/grown/poppy,/obj/item/candle)
 	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
@@ -407,7 +407,7 @@
 /datum/eldritch_knowledge/curse/alteration
 	name = "Alteration"
 	gain_text = "Mortal bodies, prisons of flesh. Death, a release..."
-	desc = "Start an alteration ritual by placing a liver, a candle and a hatchet onto a transmutation rune. Inflict a debilitating curse that will cripple your target's body for 2 minutes. Add eyes, ears, limbs or tongues to the mix to disable those organs while the curse is in effect."
+	desc = "Start an alteration ritual by transmuting a wire cutter a hatchet and an item that the victim touched with their bare hands. Inflict a debilitating curse that will cripple your target's body for 2 minutes. Add eyes, ears, limbs or tongues to the mix to disable those organs while the curse is in effect."
 	cost = 4
 	required_atoms = list(/obj/item/wirecutters,/obj/item/hatchet)
 	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet,/datum/eldritch_knowledge/spell/area_conversion,/datum/eldritch_knowledge/dematerialize)
