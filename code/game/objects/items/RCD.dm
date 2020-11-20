@@ -966,7 +966,6 @@ ACC
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	matter = 0
 	max_matter = 300
-	reach = 6
 	var/beltcost = 12
 	slot_flags = ITEM_SLOT_BELT
 	var/id
