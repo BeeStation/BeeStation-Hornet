@@ -39,7 +39,7 @@
 	spawn_dust(just_ash)
 	addtimer(CALLBACK(src, .proc/post_dust), dust_time) // die and delete after animation is complete
 
-/mob/living/proc/post_dust()
+/mob/living/proc/after_dust()
 	death(TRUE)
 	qdel(src)
 
