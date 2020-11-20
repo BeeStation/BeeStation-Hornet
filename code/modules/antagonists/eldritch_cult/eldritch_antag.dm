@@ -107,7 +107,7 @@
 		else
 			var/datum/objective/hijack/hijack_objective = new
 			hijack_objective.owner = owner
-			add_objective(hijack_objective)		
+			hijack_objective.update_explanation_text()
 			objectives += hijack_objective
 			log_objective(owner, hijack_objective.explanation_text)
 	else 
@@ -341,7 +341,7 @@
 	var/datum/antagonist/heretic/cultie = owner.has_antag_datum(/datum/antagonist/heretic)
 	if(!cultie)
 		return FALSE
-	return LAZYLEN(folloers)>=target_amount
+	return LAZYLEN(cultie.folloers)>=target_amount
 
 //////////////
 // Minicult //
