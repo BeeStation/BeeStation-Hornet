@@ -1,0 +1,5 @@
+author: Isy232
+delete-after: true
+changes:
+  - balance: Departmental budget money increases are now static and are no longer
+      exploitable.
