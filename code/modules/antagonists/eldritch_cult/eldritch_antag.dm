@@ -97,11 +97,18 @@
 
 /datum/antagonist/heretic/proc/forge_primary_objectives()
 	if (prob(5))
-		var/datum/objective/hijack/hijack_objective = new
-		hijack_objective.owner = owner
-		add_objective(hijack_objective)		
-		objectives += hijack_objective
-		log_objective(owner, hijack_objective.explanation_text)
+		if (prob(66))
+			var/datum/objective/ascend/AE = new()
+			AE.owner = owner
+			AE.update_explanation_text()
+			objectives += AE
+			log_objective(owner, AE.explanation_text)
+		else
+			var/datum/objective/hijack/hijack_objective = new
+			hijack_objective.owner = owner
+			add_objective(hijack_objective)		
+			objectives += hijack_objective
+			log_objective(owner, hijack_objective.explanation_text)
 	else 
 		var/list/assasination = list()
 		var/list/protection = list()
@@ -129,25 +136,18 @@
 					assasination += A.target
 					objectives += A
 					log_objective(owner, A.explanation_text)
-		switch (rand(0,100))
-			if (0 to 15)
-				var/datum/objective/ascend/AE = new()
-				AE.owner = owner
-				AE.update_explanation_text()
-				objectives += AE
-				log_objective(owner, AE.explanation_text)
-			if (16 to 40)
-				var/datum/objective/minicult/CE = new()
-				CE.owner = owner
-				CE.update_explanation_text()
-				objectives += CE
-				log_objective(owner, CE.explanation_text)
-			else 
-				var/datum/objective/sacrifice_ecult/SE = new()
-				SE.owner = owner
-				SE.update_explanation_text()
-				objectives += SE
-				log_objective(owner, SE.explanation_text)
+		if (prob(20))
+			var/datum/objective/minicult/CE = new()
+			CE.owner = owner
+			CE.update_explanation_text()
+			objectives += CE
+			log_objective(owner, CE.explanation_text)
+		else 
+			var/datum/objective/sacrifice_ecult/SE = new()
+			SE.owner = owner
+			SE.update_explanation_text()
+			objectives += SE
+			log_objective(owner, SE.explanation_text)
 
 /datum/antagonist/heretic/apply_innate_effects(mob/living/mob_override)
 	. = ..()
