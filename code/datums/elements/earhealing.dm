@@ -33,4 +33,4 @@
 			continue
 		ears.deaf = max(ears.deaf - 0.25, (ears.damage < ears.maxHealth ? 0 : 1)) // Do not clear deafness if our ears are too damaged
 		ears.damage = max(ears.damage - 0.025, 0)
-		CHECK_TICK
+		CHECK_TICK	// Reviewer: yes I really am afraid of 1000 clones with earmuffs
