@@ -758,7 +758,7 @@ RLD
 
 
 /obj/item/construction/rld/afterattack(atom/A, mob/user)
-	. = ..()
+	..()
 	if(!range_check(A,user))
 		return
 	var/turf/start = get_turf(src)
@@ -917,7 +917,7 @@ RLD
 			return FALSE
 
 /obj/item/construction/plumbing/afterattack(atom/A, mob/user, proximity)
-	. = ..()
+	..()
 	if(!prox_check(proximity))
 		return
 	if(istype(A, /obj/machinery/plumbing))
@@ -957,43 +957,54 @@ RLD
 // RAPID CONVEYOR DEVICE
 
 /obj/item/construction/conveyor
-	name = "Rapid Conveyor Device (RLD)"
-	desc = "A device used to rapidly provide lighting sources to an area. Reload with iron, plasteel, glass or compressed matter cartridges."
+	name = "Automatic Conveyor Constructor (ACC)"
+	desc = "A device for rapid placement and linking of conveyors."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcd"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	matter = 200
-	max_matter = 200
+	matter = 0
+	max_matter = 300
+	reach = 6
 	var/beltcost = 12
 	slot_flags = ITEM_SLOT_BELT
-	var/id = ""
+	var/id
+	var/obj/machinery/conveyor/last_placed
+
+/obj/item/construction/conveyor/loaded
+	matter = 300
 
 /obj/item/construction/conveyor/attack_self(mob/user)
-	if (id!="")
-		id=""
+	if (!id)
+		id=null
+		last_placed = null
 		to_chat(user, "<span class='notice'>You unlink the [src].</span>")
 
 ///pretty much rcd_create, but named differently to make myself feel less bad for copypasting from a sibling-type
 /obj/item/construction/conveyor/proc/create_machine(atom/A, mob/user)
 	if(!isopenturf(A) || istype(A, /area/shuttle))
-		return FALSE
-	if (id == "")
+		return
+	if (!id)
 		to_chat(user, "<span class='warning'>Error! [src] is not linked!</span>")
+		return
 	if (A == user.loc)
 		to_chat(user, "<span class='notice'>Cannot place conveyor below your feet!</span>")
+		return
 
 	if(checkResource(beltcost, user))
 		useResource(beltcost, user)
 		activate()
 		playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
 		var/cdir = get_dir(A, user)
-		new/obj/machinery/conveyor(A, cdir, id)
-		return TRUE
+		if (last_placed)
+			cdir = get_dir(A, last_placed)
+			last_placed.setDir(get_dir(last_placed, A))
+		last_placed = new/obj/machinery/conveyor(A, cdir, id)
 
-/obj/item/construction/conveyor/afterattack(atom/A, mob/user, proximity)	
-	if(!prox_check(proximity))
-		return 
+/obj/item/construction/conveyor/afterattack(atom/A, mob/user, proximity)
+	..()
+	if(!range_check(A, user))
+		return
 	if(!istype(A, /obj/machinery/conveyor))
 		create_machine(A, user)
 
@@ -1003,6 +1014,6 @@ RLD
 		loadwithsheets(I, beltcost, user)
 		to_chat(user, "<span class='notice'>[src] now holds [matter]/[max_matter] matter-units.</span>")
 	if(istype(I, /obj/item/conveyor_switch_construct))
-		to_chat(user, "<span class='notice'>You link the switch to the conveyor belt assembly.</span>")
+		to_chat(user, "<span class='notice'>You link the switch to the [src].</span>")
 		var/obj/item/conveyor_switch_construct/C = I
 		id = C.id

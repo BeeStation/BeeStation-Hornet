@@ -776,7 +776,7 @@
 	name = "Conveyor Assembly Crate"
 	desc = "Keep production moving along with thirty conveyor belts. Conveyor switch included. If you have any questions, check out the enclosed instruction book."
 	cost = 1500
-	contains = list(/obj/item/stack/conveyor/thirty,
+	contains = list(/obj/item/construction/conveyor/loaded,
 					/obj/item/conveyor_switch_construct,
 					/obj/item/paper/guides/conveyor)
 	crate_name = "conveyor assembly crate"
