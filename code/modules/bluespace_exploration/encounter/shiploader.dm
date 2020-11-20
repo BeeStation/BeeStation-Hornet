@@ -63,7 +63,7 @@
 			T.flags_1 |= NO_RUINS_1
 
 		//AHHHHHH THIS IS SO SLOW WHAT ARE YOU DOING!!!
-		for(var/turf/T in turfs)
+		for(var/turf/T as() in turfs)
 			//Locate the shuttle dock
 			for(var/obj/docking_port/mobile/port in T)
 				port.id = "[port.id][shuttles_spawned++]"
