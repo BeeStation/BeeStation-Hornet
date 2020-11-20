@@ -8,8 +8,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	name = "item"
 	icon = 'icons/obj/items_and_weapons.dmi'
 
-	//The icon file of the object when it is worn, used in belts and clothing.
-	var/wear_icon = 'icons/mob/uniform.dmi'
+	//The icon file of the object when it is worn, used in belts and clothing. Defaults to back, since the most items use back.dmi
+	var/wear_icon = 'icons/mob/back.dmi'
 	/// The icon state for the icons that appear in the players hand while holding it. Gotten from /client/var/lefthand_file and /client/var/righthand_file
 	var/item_state = null
 	/// The icon for holding in hand icon states for the left hand.
