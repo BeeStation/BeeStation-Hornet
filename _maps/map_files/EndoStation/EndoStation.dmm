@@ -77751,11 +77751,14 @@
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/dorms)
 "vIz" = (
-/obj/structure/bed,
-/obj/item/bedsheet/medical,
-/obj/machinery/iv_drip,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
+	},
+/obj/machinery/cryopod{
+	dir = 4
+	},
+/obj/machinery/computer/cryopod{
+	pixel_y = 25
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
@@ -129196,8 +129199,8 @@ tfJ
 tfJ
 tfJ
 tfJ
-kDV
-kDV
+kGR
+kGR
 kGR
 kGR
 eNz
@@ -129453,9 +129456,9 @@ tfJ
 tfJ
 tfJ
 tfJ
-kDV
+kGR
 tfJ
-kDV
+kGR
 tfJ
 eNz
 fbv
@@ -129710,7 +129713,7 @@ tfJ
 tfJ
 tfJ
 tfJ
-kDV
+kGR
 tfJ
 tfJ
 tfJ
@@ -129967,7 +129970,7 @@ tfJ
 tfJ
 tfJ
 tfJ
-kDV
+kGR
 tfJ
 tfJ
 tfJ
@@ -130224,7 +130227,7 @@ tfJ
 tfJ
 tfJ
 tfJ
-kDV
+kGR
 tfJ
 tfJ
 tfJ
@@ -130481,10 +130484,10 @@ tfJ
 tfJ
 tfJ
 tfJ
-kDV
-kDV
-kDV
-kDV
+kGR
+kGR
+kGR
+kGR
 eNz
 fAc
 vED
@@ -130738,7 +130741,7 @@ tfJ
 tfJ
 tfJ
 tfJ
-kDV
+kGR
 tfJ
 tfJ
 tfJ
@@ -130995,7 +130998,7 @@ tfJ
 tfJ
 tfJ
 tfJ
-kDV
+kGR
 tfJ
 tfJ
 tfJ
@@ -131252,7 +131255,7 @@ tfJ
 tfJ
 tfJ
 tfJ
-kDV
+kGR
 tfJ
 tfJ
 tfJ
@@ -131509,7 +131512,7 @@ tfJ
 tfJ
 tfJ
 tfJ
-kDV
+kGR
 tfJ
 tfJ
 tfJ
@@ -131766,7 +131769,7 @@ tfJ
 tfJ
 tfJ
 tfJ
-kDV
+kGR
 tfJ
 tfJ
 tfJ
@@ -132023,9 +132026,9 @@ tfJ
 tfJ
 tfJ
 tfJ
-kDV
-kDV
-kDV
+kGR
+kGR
+kGR
 tfJ
 tfJ
 eNz
@@ -132282,9 +132285,9 @@ tfJ
 tfJ
 tfJ
 tfJ
-kDV
-kDV
-kDV
+kGR
+kGR
+kGR
 eNz
 eNz
 eNz
