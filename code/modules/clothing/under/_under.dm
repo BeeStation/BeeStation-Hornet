@@ -1,5 +1,6 @@
 /obj/item/clothing/under
 	icon = 'icons/obj/clothing/uniforms.dmi'
+	wear_icon = 'icons/mob/uniform.dmi'
 	name = "under"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	permeability_coefficient = 0.9

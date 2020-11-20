@@ -1,5 +1,6 @@
 /obj/item/clothing/suit
 	icon = 'icons/obj/clothing/suits.dmi'
+	wear_icon = 'icons/mob/suit.dmi'
 	name = "suit"
 	var/fire_resist = T0C+100
 	allowed = list(/obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
