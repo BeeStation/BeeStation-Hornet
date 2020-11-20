@@ -83,7 +83,7 @@
 		T.add_blueprints_preround(src)
 
 /obj/Destroy(force=FALSE)
-	if(!ismachinery(src) && datum_flags & DF_ISPROCESSING)
+	if(!ismachinery(src) && (datum_flags & DF_ISPROCESSING))
 		STOP_PROCESSING(SSobj, src)
 	SStgui.close_uis(src)
 	. = ..()
