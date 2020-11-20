@@ -149,7 +149,7 @@
 	return
 
 /obj/machinery/computer/system_map/proc/handle_space_jump(star)
-	say("Calculating hyperlane, please stand back from the doors...")
+	say("Calculating hyperlane jump, please stand back from the doors...")
 	SSbluespace_exploration.request_ship_transit_to(shuttle_id, star)
 
 /obj/machinery/computer/system_map/proc/calculate_distance_to_stationary_port(obj/docking_port/stationary/S)
