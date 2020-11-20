@@ -128,7 +128,7 @@
 /obj/machinery/computer/system_map/proc/locate_bluespace_drive()
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttle_id)
 	if(M)
-		for(var/obj/machinery/bluespace_drive/BSD as anything in GLOB.bluespace_drives)
+		for(var/obj/machinery/bluespace_drive/BSD as() in GLOB.bluespace_drives)
 			if(get_turf(BSD) in M.return_turfs())
 				linked_bluespace_drive = WEAKREF(BSD)
 				return
