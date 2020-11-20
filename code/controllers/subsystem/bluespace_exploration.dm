@@ -184,7 +184,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	z_level_queue.Remove("[z_level]")
 	var/list/turfs = get_area_turfs(/area, z_level, TRUE)
 	var/list/divided_turfs = list()
-	var/section_process_time = CLEAR_TURF_PROCESSING_TIME / 2	//There are 3 processes, cleaing atoms, cleaing turfs and then reseting atmos
+	var/section_process_time = CLEAR_TURF_PROCESSING_TIME * 0.5 //There are 3 processes, cleaing atoms, cleaing turfs and then reseting atmos
 
 	//Divide the turfs into groups
 	var/group_size = FLOOR((turfs.len / section_process_time) + 0.9999, 1)
