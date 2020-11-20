@@ -200,7 +200,7 @@
 	. = ..()
 	if(usr != owner)
 		return
-	if(owner.stat == DEAD)
+	if(owner.stat == DEAD || owner.incapacitated())
 		return
 	var/list/syringes = list()
 	if(iscarbon(owner))
