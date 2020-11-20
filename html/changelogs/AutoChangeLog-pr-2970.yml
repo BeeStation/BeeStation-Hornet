@@ -1,0 +1,4 @@
+author: eeSPee
+delete-after: true
+changes:
+  - tweak: recycler will no longer grind down raw/material stacks
