@@ -15,6 +15,7 @@
 	var/favor_spent = 0
 	var/list/folloers = list()
 	var/ascended = FALSE
+	can_hijack = HIJACK_HIJACKER
 
 /datum/antagonist/heretic/admin_add(datum/mind/new_owner,mob/admin)
 	give_equipment = FALSE
@@ -95,39 +96,59 @@
 		EK.on_life(owner.current)
 
 /datum/antagonist/heretic/proc/forge_primary_objectives()
-	var/list/assasination = list()
-	var/list/protection = list()
-	for(var/i in 1 to 2)
-		var/pck = pick("assasinate","assasinate","assasinate","stalk","stalk","protect")
-		switch(pck)
-			if("assasinate")
-				var/datum/objective/assassinate/A = new()
-				A.owner = owner
-				var/list/owners = A.get_owners()
-				A.find_target(owners,protection)
-				assasination += A.target
-				objectives += A
-				log_objective(owner, A.explanation_text)
-			if("stalk")
-				var/datum/objective/stalk/S = new()
-				S.owner = owner
-				S.find_target()
-				objectives += S
-				log_objective(owner, S.explanation_text)
-			if("protect")
-				var/datum/objective/protect/P = new()
-				P.owner = owner
-				var/list/owners = P.get_owners()
-				P.find_target(owners,assasination)
-				protection += P.target
-				objectives += P
-				log_objective(owner, P.explanation_text)
-
-	var/datum/objective/sacrifice_ecult/SE = new()
-	SE.owner = owner
-	SE.update_explanation_text()
-	objectives += SE
-	log_objective(owner, SE.explanation_text)
+	if (prob(5))
+		var/datum/objective/hijack/hijack_objective = new
+		hijack_objective.owner = owner
+		add_objective(hijack_objective)		
+		objectives += hijack_objective
+		log_objective(owner, hijack_objective.explanation_text)
+	else 
+		var/list/assasination = list()
+		var/list/protection = list()
+		for(var/i in 1 to 2)
+			var/pck = pick("assasinate","assasinate","assasinate","stalk")
+			switch(pck)
+				if("assasinate")
+					var/datum/objective/assassinate/A = new()
+					A.owner = owner
+					var/list/owners = A.get_owners()
+					A.find_target(owners,protection)
+					assasination += A.target
+					objectives += A
+					log_objective(owner, A.explanation_text)
+				if("stalk")
+					var/datum/objective/stalk/S = new()
+					S.owner = owner
+					S.find_target()
+					objectives += S
+					log_objective(owner, S.explanation_text)
+				if("protect")
+					var/datum/objective/protect/P = new()
+					P.owner = owner
+					var/list/owners = P.get_owners()
+					P.find_target(owners,assasination)
+					protection += P.target
+					objectives += P
+					log_objective(owner, P.explanation_text)
+		switch (rand(0,100))
+			if (0 to 15)
+				var/datum/objective/ascend/AE = new()
+				AE.owner = owner
+				AE.update_explanation_text()
+				objectives += AE
+				log_objective(owner, AE.explanation_text)
+			if (16 to 40)
+				var/datum/objective/minicult/CE = new()
+				CE.owner = owner
+				CE.update_explanation_text()
+				objectives += CE
+				log_objective(owner, CE.explanation_text)
+			else 
+				var/datum/objective/sacrifice_ecult/SE = new()
+				SE.owner = owner
+				SE.update_explanation_text()
+				objectives += SE
+				log_objective(owner, SE.explanation_text)
 
 /datum/antagonist/heretic/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -290,6 +311,37 @@
 	if(!cultie)
 		return FALSE
 	return cultie.total_sacrifices >= target_amount
+
+/datum/objective/ascend
+	name = "ascend"
+
+/datum/objective/ascend/update_explanation_text()
+	. = ..()
+	explanation_text = "Applease the Gods and ascend."
+
+/datum/objective/ascend/check_completion()
+	if(!owner)
+		return FALSE
+	var/datum/antagonist/heretic/cultie = owner.has_antag_datum(/datum/antagonist/heretic)
+	if(!cultie)
+		return FALSE
+	return cultie.ascended
+
+/datum/objective/minicult
+	name = "mini cult"
+
+/datum/objective/minicult/update_explanation_text()
+	. = ..()
+	target_amount = rand(2,5)
+	explanation_text = "Raise and maintain a cult of [target_amount] people."
+
+/datum/objective/minicult/check_completion()
+	if(!owner)
+		return FALSE
+	var/datum/antagonist/heretic/cultie = owner.has_antag_datum(/datum/antagonist/heretic)
+	if(!cultie)
+		return FALSE
+	return LAZYLEN(folloers)>=target_amount
 
 //////////////
 // Minicult //
