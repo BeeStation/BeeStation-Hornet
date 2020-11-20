@@ -26,8 +26,11 @@ TGS3.json @crossedfall
 
 # powerfulbacon
 
+/code/controller/subsystem/bluespace_exploration @powerfulbacon
 /code/game/machinery/shuttle @powerfulbacon
+/code/modules/bluespace_exploration @powerfulbacon
 /code/modules/shuttle @powerfulbacon
+/code/modules/shuttle_weapons @powerfulbacon
 
 # zeskorion
 

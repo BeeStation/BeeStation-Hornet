@@ -2881,7 +2881,6 @@
 	height = 21;
 	id = "exploration_home";
 	name = "exploration shuttle bay";
-	json_key = "exploration";
 	width = 20
 	},
 /turf/open/space,

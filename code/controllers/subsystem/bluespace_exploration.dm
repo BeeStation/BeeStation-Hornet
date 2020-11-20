@@ -1,4 +1,4 @@
-#define CLEAR_TURF_PROCESSING_TIME 600
+#define CLEAR_TURF_PROCESSING_TIME 600	//Deciseconds (60 seconds it takes to clear all turfs)
 
 SUBSYSTEM_DEF(bluespace_exploration)
 	name = "Bluespace Exploration"
@@ -70,9 +70,10 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	for(var/faction_datum in subtypesof(/datum/faction))
 		factions[faction_datum] = new faction_datum
 	//Create z-levels
-	//Todo: Check low mem mode
+//#ifdef LOWMEMORYMODE
 	for(var/i in 1 to CONFIG_GET(number/bluespace_exploration_levels))
 		bluespace_systems[SSmapping.add_new_zlevel("Bluespace Exploration Level [i]", ZTRAITS_BLUESPACE_EXPLORATION)] = FALSE
+//#endif
 
 /datum/controller/subsystem/bluespace_exploration/fire(resumed = 0)
 	if(times_fired % 50 == 0)

@@ -62,15 +62,11 @@
 		for(var/turf/T in get_affected_turfs(central_turf, 1))
 			T.flags_1 |= NO_RUINS_1
 
-		//AHHHHHH THIS IS SO SLOW WHAT ARE YOU DOING!!!
 		for(var/turf/T in turfs)
 			//Locate the shuttle dock
-			for(var/obj/docking_port/mobile/port in T)
+			for(var/obj/docking_port/mobile/port in locate(/obj/docking_port/mobile) in T)
 				port.id = "[port.id][shuttles_spawned++]"
 				located_port = port
-			// Initialize shuttle weapons
-			for(var/obj/effect/landmark/exploration_weapon_spawner/weapon_spawner in T)
-				weapon_spawner.do_weapon_spawn()
 		amount_left --
 		return located_port
 	return null

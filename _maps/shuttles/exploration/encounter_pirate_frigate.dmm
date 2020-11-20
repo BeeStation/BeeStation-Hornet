@@ -34,7 +34,6 @@
 /turf/open/floor/pod/light,
 /area/shuttle/exploration/ruin/pirate/frigate)
 "j" = (
-/obj/machinery/holopad/transmission,
 /turf/open/floor/pod/light,
 /area/shuttle/exploration/ruin/pirate/frigate)
 "k" = (

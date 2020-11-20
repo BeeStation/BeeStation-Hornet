@@ -6,10 +6,14 @@
 */
 
 /obj/effect/landmark/exploration_weapon_spawner
-	name = "ship weapon spawner"
+	name = "ship weapon spawner up"
 	icon = 'icons/effects/mapping_arrows.dmi'
 	icon_state = "blue_up"
 	var/spawn_dir = 2	//Where the weapon itself will spawn, direction will be the direction it faces
+
+/obj/effect/landmark/exploration_weapon_spawner/Initialize()
+	. = ..()
+	do_weapon_spawn()
 
 /obj/effect/landmark/exploration_weapon_spawner/proc/do_weapon_spawn()
 	//Pick a weapon type
@@ -31,19 +35,19 @@
 			spawned_weapon.pixel_x = -32
 
 /obj/effect/landmark/exploration_weapon_spawner/down
-	name = "ship weapon spawner"
+	name = "ship weapon spawner down"
 	icon = 'icons/effects/mapping_arrows.dmi'
 	icon_state = "blue_down"
 	spawn_dir = 1
 
 /obj/effect/landmark/exploration_weapon_spawner/left
-	name = "ship weapon spawner"
+	name = "ship weapon spawner left"
 	icon = 'icons/effects/mapping_arrows.dmi'
 	icon_state = "blue_left"
 	spawn_dir = 8
 
 /obj/effect/landmark/exploration_weapon_spawner/right
-	name = "ship weapon spawner"
+	name = "ship weapon spawner right"
 	icon = 'icons/effects/mapping_arrows.dmi'
 	icon_state = "blue_right"
 	spawn_dir = 4

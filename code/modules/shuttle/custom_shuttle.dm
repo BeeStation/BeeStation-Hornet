@@ -186,12 +186,7 @@
 
 /obj/machinery/computer/system_map/custom_shuttle/proc/can_jump(distance)
 	var/obj/docking_port/mobile/linkedShuttle = SSshuttle.getShuttle(shuttle_id)
-	if(!linkedShuttle)
-		return FALSE
-	if(linkedShuttle.mode != SHUTTLE_IDLE)
-		return FALSE
-	//Calculate our speed
-	if(!calculateStats(FALSE, 0, TRUE))
+	if(!linkedShuttle || linkedShuttle.mode != SHUTTLE_IDLE || !calculateStats(FALSE, 0, TRUE))
 		return FALSE
 	if(calculated_fuel_less_thrusters > 0)
 		say("Warning, [calculated_fuel_less_thrusters] do not have enough fuel for this journey, engine output may be limitted.")
@@ -238,6 +233,17 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/custom/placeLandingSpot()
 	if(!shuttleId)
 		return	//Only way this would happen is if someone else delinks the console while in use somehow
+	var/obj/docking_port/stationary/S = SSshuttle.getDock(shuttlePortId)
+	var/sanity = 50
+	//Multi-console support
+	while(S && sanity)
+		S.delete_after = TRUE
+		S.id = null
+		S.name = "Old [my_port.name]"
+		S = null
+		S = SSshuttle.getDock(shuttlePortId)
+		sanity --
+
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	if(M?.mode != SHUTTLE_IDLE)
 		to_chat(usr, "<span class='warning'>You cannot target locations while in transit.</span>")

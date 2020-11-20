@@ -61,7 +61,7 @@
 /obj/structure/destructible/exploration/objective/attack_hand(mob/user)
 	. = ..()
 	if(active || completed)
-		to_chat(user, "<span class='notice'>There is nothing you can do with [src]!</span>")
+		to_chat(user, "<span class='notice'>It looks like it's purpose is already fulfilled.</span>")
 		return
 	activation_tick = world.time
 	active = TRUE

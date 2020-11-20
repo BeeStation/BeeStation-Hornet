@@ -22,6 +22,10 @@ GLOBAL_VAR(main_bluespace_drive)
 	if(prob(5))
 		desc += " The danger of this device is unparalleled, capable of ending the cycle. Do not apply toolbox."
 
+/obj/machinery/bluespace_drive/Destroy()
+	. = ..()
+	GLOB.main_bluespace_drive = null
+
 /obj/machinery/bluespace_drive/proc/engage(datum/star_system/target)
 	if(world.time < cooldown_world_time)
 		say("Bluespace Drive is currently recharging.")
