@@ -100,6 +100,9 @@
 	else
 		..()
 
+/mob/living/simple_animal/hostile/megafauna/dust_animation()
+	return 0 // 32x32 dust animation does not work for megafauna which is usually bigger than that
+
 /mob/living/simple_animal/hostile/megafauna/AttackingTarget()
 	if(recovery_time >= world.time)
 		return

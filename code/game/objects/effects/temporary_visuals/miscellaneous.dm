@@ -288,14 +288,6 @@
 /obj/effect/temp_visual/gib_animation/animal
 	icon = 'icons/mob/animal.dmi'
 
-/obj/effect/temp_visual/dust_animation
-	icon = 'icons/mob/mob.dmi'
-	duration = 15
-
-/obj/effect/temp_visual/dust_animation/Initialize(mapload, dust_icon)
-	icon_state = dust_icon // Before ..() so the correct icon is flick()'d
-	. = ..()
-
 /obj/effect/temp_visual/mummy_animation
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "mummy_revive"
