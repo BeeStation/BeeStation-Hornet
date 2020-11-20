@@ -128,7 +128,7 @@
 /obj/machinery/computer/system_map/proc/locate_bluespace_drive()
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttle_id)
 	if(M)
-		for(var/obj/machinery/bluespace_drive/BSD as anything in GLOB.bluespace_drives)
+		for(var/obj/machinery/bluespace_drive/BSD as() in GLOB.bluespace_drives)
 			if(get_turf(BSD) in M.return_turfs())
 				linked_bluespace_drive = WEAKREF(BSD)
 				return
@@ -149,7 +149,7 @@
 	return
 
 /obj/machinery/computer/system_map/proc/handle_space_jump(star)
-	say("Calculating hyperlane, please stand back from the doors...")
+	say("Calculating hyperlane jump, please stand back from the doors...")
 	SSbluespace_exploration.request_ship_transit_to(shuttle_id, star)
 
 /obj/machinery/computer/system_map/proc/calculate_distance_to_stationary_port(obj/docking_port/stationary/S)

@@ -62,7 +62,7 @@
 		for(var/turf/T in get_affected_turfs(central_turf, 1))
 			T.flags_1 |= NO_RUINS_1
 
-		for(var/turf/T in turfs)
+		for(var/turf/T as() in turfs)
 			//Locate the shuttle dock
 			for(var/obj/docking_port/mobile/port in locate(/obj/docking_port/mobile) in T)
 				port.id = "[port.id][shuttles_spawned++]"

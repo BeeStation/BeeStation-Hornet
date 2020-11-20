@@ -146,7 +146,7 @@
 	linkedShuttle.ignitionTime = CUSTOM_ENGINES_START_TIME
 	var/throwForce = CLAMP((calculated_speed / 2) - 5, 0, 10)
 	linkedShuttle.movement_force = list("KNOCKDOWN" = calculated_speed > 5 ? 3 : 0, "THROW" = throwForce)
-	say("Calculating hyperlane, estimated departure in [LAZYLEN(SSbluespace_exploration.ship_traffic_queue) * 90] seconds.")
+	say("Calculating hyperlane jump, estimated departure in [LAZYLEN(SSbluespace_exploration.ship_traffic_queue) * 90] seconds.")
 	SSbluespace_exploration.request_ship_transit_to(shuttle_id, star)
 
 //=======
