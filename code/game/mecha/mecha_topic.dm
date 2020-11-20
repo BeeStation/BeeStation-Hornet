@@ -67,10 +67,10 @@
 	. =	{"[report_internal_damage()]
 		[integrity<30?"<span class='userdanger'>DAMAGE LEVEL CRITICAL!</span><br>":null]
 		<b>Integrity: </b> [integrity]%<br>
-		<b>Powercell charge: </b>[isnull(cell_charge)?"No power cell installed":"[cell.percent()]%"]<br>
+		<b>Power cell charge: </b>[isnull(cell_charge)?"No power cell installed.":"[cell.percent()]%"]<br>
 		<b>Air source: </b>[internal_tank?"[use_internal_tank?"Internal Airtank":"Environment"]":"Environment"]<br>
-		<b>Airtank pressure: </b>[internal_tank?"[tank_pressure]kPa":"N/A"]<br>
-		<b>Airtank temperature: </b>[internal_tank?"[tank_temperature]&deg;K|[tank_temperature - T0C]&deg;C":"N/A"]<br>
+		<b>Air tank pressure: </b>[internal_tank?"[tank_pressure]kPa":"N/A"]<br>
+		<b>Air tank temperature: </b>[internal_tank?"[tank_temperature]&deg;K|[tank_temperature - T0C]&deg;C":"N/A"]<br>
 		<b>Cabin pressure: </b>[internal_tank?"[cabin_pressure>WARNING_HIGH_PRESSURE ? "<span class='danger'>[cabin_pressure]</span>": cabin_pressure]kPa":"N/A"]<br>
 		<b>Cabin temperature: </b> [internal_tank?"[return_temperature()]&deg;K|[return_temperature() - T0C]&deg;C":"N/A"]<br>
 		[dna_lock?"<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna_lock]</span> \[<a href='?src=[REF(src)];reset_dna=1'>Reset</a>\]<br>":""]<br>"}
@@ -79,12 +79,12 @@
 ///Returns HTML for mech actions. Ideally, this proc would be empty for the base mecha. Segmented for easy refactoring.
 /obj/mecha/proc/get_actions()
 	. = ""
-	. += "[defense_action.owner ? "<b>Defense Mode: </b> [defense_mode ? "Enabled" : "Disabled"]<br>" : ""]"
-	. += "[overload_action.owner ? "<b>Leg Actuators Overload: </b> [leg_overload_mode ? "Enabled" : "Disabled"]<br>" : ""]"
-	. += "[smoke_action.owner ? "<b>Smoke: </b> [smoke]<br>" : ""]"
-	. += "[zoom_action.owner ? "<b>Zoom: </b> [zoom_mode ? "Enabled" : "Disabled"]<br>" : ""]"
-	. += "[switch_damtype_action.owner ? "<b>Damtype: </b> [damtype]<br>" : ""]"
-	. += "[phasing_action.owner ? "<b>Phase Modulator: </b> [phasing ? "Enabled" : "Disabled"]<br>" : ""]"
+	. += "[defense_action.owner ? "<b>Defense Mode: </b> [defense_mode ? "Enabled" : "Disabled"].<br>" : ""]"
+	. += "[overload_action.owner ? "<b>Leg Actuators Overload: </b> [leg_overload_mode ? "Enabled" : "Disabled"].<br>" : ""]"
+	. += "[smoke_action.owner ? "<b>Smoke: </b> [smoke].<br>" : ""]"
+	. += "[zoom_action.owner ? "<b>Zoom: </b> [zoom_mode ? "Enabled" : "Disabled"].<br>" : ""]"
+	. += "[switch_damtype_action.owner ? "<b>Damtype: </b> [damtype].<br>" : ""]"
+	. += "[phasing_action.owner ? "<b>Phase Modulator: </b> [phasing ? "Enabled" : "Disabled"].<br>" : ""]"
 
 ///HTML for internal damage.
 /obj/mecha/proc/report_internal_damage()
