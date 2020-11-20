@@ -317,7 +317,6 @@ SUBSYSTEM_DEF(vote)
 	. += "<a href='?src=[REF(src)];vote=close' style='position:absolute;right:50px'>Close</a>"
 	return .
 
-
 /datum/controller/subsystem/vote/Topic(href,href_list[],hsrc)
 	if(!usr || !usr.client)
 		return	//not necessary but meh...just in-case somebody does something stupid
@@ -368,14 +367,31 @@ SUBSYSTEM_DEF(vote)
 			V.Remove(V.owner)
 	generated_actions = list()
 
-/mob/verb/vote()
-	set category = "OOC"
-	set name = "Vote"
+/datum/controller/subsystem/vote/ui_data()
+	var/list/data = list()
+	var/votes
 
-	var/datum/browser/popup = new(src, "vote", "Voting Panel")
-	popup.set_window_options("can_close=0")
-	popup.set_content(SSvote.interface(client))
-	popup.open(FALSE)
+	for(var/i=1,i<=choices.len,i++)
+		votes = choices[choices[i]]
+		if(!votes)
+			votes = 0
+
+	data["votes"] = votes
+	data["choices"] = choices
+	return data
+
+/datum/controller/subsystem/vote/ui_act(action, params)
+	if(..())
+		return
+	check_nap_violations()
+	if("vote")
+		submit_vote(choice)
+
+/mob/verb/vote()
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Vote")
+		ui.open()
 
 /datum/action/vote
 	name = "Vote!"
