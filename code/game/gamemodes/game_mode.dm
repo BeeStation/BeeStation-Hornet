@@ -262,14 +262,14 @@
 	. = 1
 
 	sleep(rand(600,1800))
+	//somewhere between 1 and 3 minutes from now
 	if(!SSticker.IsRoundInProgress())
 		message_admins("Roundtype conversion cancelled, the game appears to have finished!")
 		round_converted = 0
 		return
-	 //somewhere between 1 and 3 minutes from now
 	if(!CONFIG_GET(keyed_list/midround_antag)[SSticker.mode.config_tag])
 		round_converted = 0
-		return 1
+		return
 	for(var/mob/living/carbon/human/H in antag_candidates)
 		if(H.client)
 			replacementmode.make_antag_chance(H)
@@ -280,7 +280,6 @@
 
 ///Called by the gameSSticker
 /datum/game_mode/process()
-	return 0
 
 //For things that do not die easily
 /datum/game_mode/proc/are_special_antags_dead()

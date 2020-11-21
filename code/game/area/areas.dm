@@ -209,7 +209,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/Destroy()
 	if(GLOB.areas_by_type[type] == src)
 		GLOB.areas_by_type[type] = null
-	STOP_PROCESSING(SSobj, src)
+	if(fire)
+		STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /**
@@ -323,6 +324,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if (!fire)
 		set_fire_alarm_effect()
 		ModifyFiredoors(FALSE)
+		START_PROCESSING(SSobj, src)
 		for(var/item in firealarms)
 			var/obj/machinery/firealarm/F = item
 			F.update_icon()
@@ -340,8 +342,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		var/datum/computer_file/program/alarm_monitor/p = item
 		p.triggerAlarm("Fire", src, cameras, source)
 
-	START_PROCESSING(SSobj, src)
-
 /**
   * Reset the firealarm alert for this area
   *
@@ -354,6 +354,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if (fire)
 		unset_fire_alarm_effects()
 		ModifyFiredoors(TRUE)
+		STOP_PROCESSING(SSobj, src)
 		for(var/item in firealarms)
 			var/obj/machinery/firealarm/F = item
 			F.update_icon()
@@ -370,8 +371,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	for(var/item in GLOB.alarmdisplay)
 		var/datum/computer_file/program/alarm_monitor/p = item
 		p.cancelAlarm("Fire", src, source)
-
-	STOP_PROCESSING(SSobj, src)
 
 /**
   * If 100 ticks has elapsed, toggle all the firedoors closed again
