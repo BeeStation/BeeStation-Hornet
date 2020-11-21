@@ -522,7 +522,6 @@
 	being_built = null
 	icon_state = "autolathe"
 	busy = FALSE
-	updateDialog()
 
 /obj/machinery/autolathe/RefreshParts()
 	var/T = 0
