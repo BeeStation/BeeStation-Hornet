@@ -27,7 +27,7 @@
 	return
 
 /mob/living/dust(just_ash, drop_items, force)
-	death(TRUE)
+	Stun(100, ignore_canstun=TRUE)
 
 	if(drop_items)
 		unequip_everything()
@@ -35,12 +35,17 @@
 	if(buckled)
 		buckled.unbuckle_mob(src, force = TRUE)
 
-	dust_animation()
+	var/dust_time = dust_animation()
 	spawn_dust(just_ash)
-	QDEL_IN(src,5) // since this is sometimes called in the middle of movement, allow half a second for movement to finish, ghosting to happen and animation to play. Looks much nicer and doesn't cause multiple runtimes.
+	addtimer(CALLBACK(src, .proc/after_dust), dust_time) // die and delete after animation is complete
+
+/mob/living/proc/after_dust()
+	death(TRUE)
+	qdel(src)
 
 /mob/living/proc/dust_animation()
-	return
+	var/obj/effect/displacement/D = new /obj/effect/displacement/dust/(loc, src)
+	return D.duration
 
 /mob/living/proc/spawn_dust(just_ash = FALSE)
 	new /obj/effect/decal/cleanable/ash(loc)

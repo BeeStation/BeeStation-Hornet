@@ -137,6 +137,9 @@
 	mob_size = MOB_SIZE_LARGE
 	gold_core_spawnable = NO_SPAWN
 
+/mob/living/simple_animal/hostile/alien/queen/large/dust_animation()
+	return 0
+
 /obj/item/projectile/neurotox
 	name = "neurotoxin"
 	damage = 30
