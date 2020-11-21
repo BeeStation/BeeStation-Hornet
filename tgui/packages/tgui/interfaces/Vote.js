@@ -10,16 +10,16 @@ export const Vote = (props, context) => {
   return (
     <Window width={200} height={100}>
       <Window.Content>
-        {choices.map((choices) => (
+        {choices.map((choice) => (
           <Button
-            key={choices.id}
-            icon="flask"
-            content={choices.name}
-            disabled={!choices.chosen}
+            key={choice.id}
+            icon="flask" // placeholder
+            content={choice.name}
+            disabled={!choice.chosen}
             width="140px"
             onClick={() =>
               act("vote", {
-                choice: choices.id,
+                choice: choice.id,
               })
             }
           />
