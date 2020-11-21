@@ -317,23 +317,74 @@ SUBSYSTEM_DEF(vote)
 	. += "<a href='?src=[REF(src)];vote=close' style='position:absolute;right:50px'>Close</a>"
 	return .
 
-/datum/controller/subsystem/vote/Topic(href,href_list[],hsrc)
-	if(!usr || !usr.client)
-		return	//not necessary but meh...just in-case somebody does something stupid
+/datum/controller/subsystem/vote/proc/remove_action_buttons()
+	for(var/v in generated_actions)
+		var/datum/action/vote/V = v
+		if(!QDELETED(V))
+			V.remove_from_client()
+			V.Remove(V.owner)
+	generated_actions = list()
+
+/mob/verb/vote()
+	set category = "OOC"
+	set name = "Vote"
+	SSvote.ui_interact(usr)
+
+/datum/controller/subsystem/vote/ui_status(mob/user)
+	return UI_INTERACTIVE
+
+/datum/controller/subsystem/vote/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Vote")
+		ui.open()
+
+/datum/controller/subsystem/vote/ui_data()
+	var/list/data = list(
+		"initiator" = initiator,
+		"started_time" = started_time,
+		"time_remaining" = time_remaining,
+		"mode" = mode,
+		"question" = question,
+		"choices" = list(),
+		"voting" = list(),
+		"voted" = list(),
+		"generated_actions" = generated_actions,
+	)
+	for(var/key in choices)
+		data["choices"] += list(list(
+			"name" = key,
+			"votes" = choices[key] || 0,
+		))
+	for(var/client/client in voting)
+		data["voting"] += list(list(
+			"name" = "[client]",
+			"ckey" = client.ckey,
+		))
+	for(var/client/client in voted)
+		data["voted"] += list(list(
+			"name" = "[client]",
+			"ckey" = client.ckey,
+		))
+	return data
+
+/datum/controller/subsystem/vote/ui_act(action, params)
+	. = ..()
+	if(.)
+		return
 
 	var/trialmin = 0
 	if(usr.client.holder)
 		if(check_rights_for(usr.client, R_ADMIN))
 			trialmin = 1
 
-	switch(href_list["vote"])
+	switch(action)
 		if("close")
 			voting -= usr.client
-			usr << browse(null, "window=vote")
-			return
+			// usr << browse(null, "window=vote")
 		if("cancel")
-			if(usr.client.holder)
-				reset()
+			// if(usr.client.holder)
+			reset()
 		if("toggle_restart")
 			if(usr.client.holder && trialmin)
 				CONFIG_SET(flag/allow_vote_restart, !CONFIG_GET(flag/allow_vote_restart))
@@ -355,43 +406,10 @@ SUBSYSTEM_DEF(vote)
 		if("custom")
 			if(usr.client.holder)
 				initiate_vote("custom",usr.key)
-		else
-			submit_vote(round(text2num(href_list["vote"])))
+		if("vote")
+			submit_vote(round(text2num(params["index"])))
 	usr.vote()
-
-/datum/controller/subsystem/vote/proc/remove_action_buttons()
-	for(var/v in generated_actions)
-		var/datum/action/vote/V = v
-		if(!QDELETED(V))
-			V.remove_from_client()
-			V.Remove(V.owner)
-	generated_actions = list()
-
-/datum/controller/subsystem/vote/ui_data()
-	var/list/data = list()
-	var/votes
-
-	for(var/i=1,i<=choices.len,i++)
-		votes = choices[choices[i]]
-		if(!votes)
-			votes = 0
-
-	data["votes"] = votes
-	data["choices"] = choices
-	return data
-
-/datum/controller/subsystem/vote/ui_act(action, params)
-	if(..())
-		return
-	check_nap_violations()
-	if("vote")
-		submit_vote(choice)
-
-/mob/verb/vote()
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "Vote")
-		ui.open()
+	return TRUE
 
 /datum/action/vote
 	name = "Vote!"
