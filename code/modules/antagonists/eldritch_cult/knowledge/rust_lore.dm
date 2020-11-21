@@ -110,9 +110,10 @@
 
 /datum/eldritch_knowledge/rust_blade_upgrade/on_eldritch_blade(target,user,proximity_flag,click_parameters)
 	. = ..()
-	if(iscarbon(target) && user.health>0)
+	var/mob/living/carbon/cuser = user
+	if(iscarbon(target) && cuser.health>0)
 		var/mob/living/carbon/carbon_target = target
-		carbon_target.adjustBruteLoss(user.health/10)
+		carbon_target.adjustBruteLoss(cuser.health/10)
 
 /datum/eldritch_knowledge/final/rust_final/on_finished_recipe(mob/living/user, list/atoms, loc)
 	var/mob/living/carbon/human/H = user

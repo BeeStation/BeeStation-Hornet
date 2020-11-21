@@ -151,7 +151,7 @@
 		return
 	var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	var/POWER = 25
-	if (master.cultie.get_knowledge(/datum/eldritch_knowledge/flesh_blade_upgrade))
+	if (master.get_knowledge(/datum/eldritch_knowledge/flesh_blade_upgrade))
 		POWER = 50
 	
 	if(HAS_TRAIT(human_target, TRAIT_HUSK) && POWER<=25)
