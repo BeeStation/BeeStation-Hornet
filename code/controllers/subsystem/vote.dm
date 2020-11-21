@@ -17,22 +17,13 @@ SUBSYSTEM_DEF(vote)
 	var/list/generated_actions = list()
 
 /datum/controller/subsystem/vote/fire()	//called by master_controller
-	if(mode)
-		time_remaining = round((started_time + CONFIG_GET(number/vote_period) - world.time)/10)
-
-		if(time_remaining < 0)
-			result()
-			for(var/client/C in voting)
-				C << browse(null, "window=vote;can_close=0")
-			reset()
-		else
-			var/datum/browser/client_popup
-			for(var/client/C in voting)
-				client_popup = new(C, "vote", "Voting Panel")
-				client_popup.set_window_options("can_close=0")
-				client_popup.set_content(interface(C))
-				client_popup.open(FALSE)
-
+	if(!mode)
+		return
+	time_remaining = round((started_time + CONFIG_GET(number/vote_period) - world.time)/10)
+	if(time_remaining < 0)
+		result()
+		SStgui.close_uis(src)
+		reset()
 
 /datum/controller/subsystem/vote/proc/reset()
 	initiator = null
@@ -237,7 +228,7 @@ SUBSYSTEM_DEF(vote)
 			text += "\n[question]"
 		log_vote(text)
 		var/vp = CONFIG_GET(number/vote_period)
-		to_chat(world, "\n<font color='purple'><b>[text]</b>\nType <b>vote</b> or click <a href='?src=[REF(src)]'>here</a> to place your votes.\nYou have [DisplayTimeText(vp)] to vote.</font>")
+		to_chat(world, "\n<font color='purple'><b>[text]</b>\nType <b>vote</b> or click <a href='byond://winset?command=vote'>here</a> to place your votes.\nYou have [DisplayTimeText(vp)] to vote.</font>")
 		time_remaining = round(vp/10)
 		for(var/c in GLOB.clients)
 			var/client/C = c
@@ -330,8 +321,8 @@ SUBSYSTEM_DEF(vote)
 	set name = "Vote"
 	SSvote.ui_interact(usr)
 
-/datum/controller/subsystem/vote/ui_status(mob/user)
-	return UI_INTERACTIVE
+/datum/controller/subsystem/vote/ui_state()
+	return GLOB.always_state
 
 /datum/controller/subsystem/vote/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -339,13 +330,14 @@ SUBSYSTEM_DEF(vote)
 		ui = new(user, src, "Vote")
 		ui.open()
 
-/datum/controller/subsystem/vote/ui_data()
+/datum/controller/subsystem/vote/ui_data(mob/user)
 	var/list/data = list(
 		"initiator" = initiator,
 		"started_time" = started_time,
 		"time_remaining" = time_remaining,
 		"mode" = mode,
 		"question" = question,
+		"admin" = !!user.client?.holder,
 		"choices" = list(),
 		"voting" = list(),
 		"voted" = list(),
@@ -379,12 +371,9 @@ SUBSYSTEM_DEF(vote)
 			trialmin = 1
 
 	switch(action)
-		if("close")
-			voting -= usr.client
-			// usr << browse(null, "window=vote")
 		if("cancel")
-			// if(usr.client.holder)
-			reset()
+			if(usr.client.holder)
+				reset()
 		if("toggle_restart")
 			if(usr.client.holder && trialmin)
 				CONFIG_SET(flag/allow_vote_restart, !CONFIG_GET(flag/allow_vote_restart))
@@ -408,8 +397,10 @@ SUBSYSTEM_DEF(vote)
 				initiate_vote("custom",usr.key)
 		if("vote")
 			submit_vote(round(text2num(params["index"])))
-	usr.vote()
 	return TRUE
+
+/datum/controller/subsystem/vote/ui_close(mob/user)
+	voting -= user.client
 
 /datum/action/vote
 	name = "Vote!"

@@ -7,6 +7,7 @@ export const Vote = (props, context) => {
   const {
     choices,
     voting,
+    time_remaining,
   } = data;
   return (
     <Window
@@ -19,10 +20,13 @@ export const Vote = (props, context) => {
             onClick={() => act('restart')}>
             Begin a restart vote
           </Button>
+          <Box fontSize={1.5}>
+            {time_remaining} s
+          </Box>
         </Section>
         <Section title="Choices">
           {choices?.map((choice, i) => (
-            <Box mb={1}>
+            <Box key={i} mb={1}>
               <Button
                 onClick={() => act('vote', {
                   index: i + 1,
