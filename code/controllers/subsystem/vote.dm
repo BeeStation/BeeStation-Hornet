@@ -6,14 +6,15 @@ SUBSYSTEM_DEF(vote)
 
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 
-	var/initiator = null
-	var/started_time = null
+	var/mode
+	var/question
+	var/initiator
+	var/started_time
 	var/time_remaining = 0
-	var/mode = null
-	var/question = null
-	var/list/choices = list()
 	var/list/voted = list()
 	var/list/voting = list()
+	var/list/choices = list()
+	var/list/user_votes = list()
 	var/list/generated_actions = list()
 
 /datum/controller/subsystem/vote/fire()	//called by master_controller
@@ -169,6 +170,7 @@ SUBSYSTEM_DEF(vote)
 		if(!(usr.ckey in voted))
 			if(vote && 1<=vote && vote<=choices.len)
 				voted += usr.ckey
+				choices[user_votes] += usr.ckey
 				choices[choices[vote]]++	//check this
 				return vote
 	return 0
@@ -181,12 +183,12 @@ SUBSYSTEM_DEF(vote)
 				to_chat(usr, "<span class='warning'>There is already a vote in progress! please wait for it to finish.</span>")
 				return 0
 
-			var/admin = FALSE
+			var/lower_admin = FALSE
 			var/ckey = ckey(initiator_key)
 			if(GLOB.admin_datums[ckey] || forced)
-				admin = TRUE
+				lower_admin = TRUE
 
-			if(next_allowed_time > world.time && !admin)
+			if(next_allowed_time > world.time && !lower_admin)
 				to_chat(usr, "<span class='warning'>A vote was initiated recently, you must wait [DisplayTimeText(next_allowed_time-world.time)] before a new vote can be started!</span>")
 				return 0
 
@@ -245,69 +247,6 @@ SUBSYSTEM_DEF(vote)
 		return 1
 	return 0
 
-/datum/controller/subsystem/vote/proc/interface(client/C)
-	if(!C)
-		return
-	var/admin = 0
-	var/trialmin = 0
-	if(C.holder)
-		admin = 1
-		if(check_rights_for(C, R_ADMIN))
-			trialmin = 1
-	voting |= C
-
-	if(mode)
-		if(question)
-			. += "<h2>Vote: '[question]'</h2>"
-		else
-			. += "<h2>Vote: [capitalize(mode)]</h2>"
-		. += "Time Left: [time_remaining] s<hr><ul>"
-		for(var/i=1,i<=choices.len,i++)
-			var/votes = choices[choices[i]]
-			if(!votes)
-				votes = 0
-			. += "<li><a href='?src=[REF(src)];vote=[i]'>[choices[i]]</a> ([votes] votes)</li>"
-		. += "</ul><hr>"
-		if(admin)
-			. += "(<a href='?src=[REF(src)];vote=cancel'>Cancel Vote</a>) "
-	else
-		. += "<h2>Start a vote:</h2><hr><ul><li>"
-		//restart
-		var/avr = CONFIG_GET(flag/allow_vote_restart)
-		if(trialmin || avr)
-			. += "<a href='?src=[REF(src)];vote=restart'>Restart</a>"
-		else
-			. += "<font color='grey'>Restart (Disallowed)</font>"
-		if(trialmin)
-			. += "\t(<a href='?src=[REF(src)];vote=toggle_restart'>[avr ? "Allowed" : "Disallowed"]</a>)"
-		. += "</li><li>"
-		//gamemode
-		var/avm = CONFIG_GET(flag/allow_vote_mode)
-		if(trialmin || avm)
-			. += "<a href='?src=[REF(src)];vote=gamemode'>GameMode</a>"
-		else
-			. += "<font color='grey'>GameMode (Disallowed)</font>"
-		if(trialmin)
-			. += "\t(<a href='?src=[REF(src)];vote=toggle_gamemode'>[avm ? "Allowed" : "Disallowed"]</a>)"
-
-		. += "</li>"
-		//map
-		var/avmap = CONFIG_GET(flag/allow_vote_map)
-		if(trialmin || avmap)
-			. += "<a href='?src=[REF(src)];vote=map'>Map</a>"
-		else
-			. += "<font color='grey'>Map (Disallowed)</font>"
-		if(trialmin)
-			. += "\t(<a href='?src=[REF(src)];vote=toggle_map'>[avmap ? "Allowed" : "Disallowed"]</a>)"
-
-		. += "</li>"
-		//custom
-		if(trialmin)
-			. += "<li><a href='?src=[REF(src)];vote=custom'>Custom</a></li>"
-		. += "</ul><hr>"
-	. += "<a href='?src=[REF(src)];vote=close' style='position:absolute;right:50px'>Close</a>"
-	return .
-
 /datum/controller/subsystem/vote/proc/remove_action_buttons()
 	for(var/v in generated_actions)
 		var/datum/action/vote/V = v
@@ -332,32 +271,30 @@ SUBSYSTEM_DEF(vote)
 
 /datum/controller/subsystem/vote/ui_data(mob/user)
 	var/list/data = list(
+		"mode" = mode,
+		"voted" = voted,
+		"voting" = voting,
+		"choices" = list(),
+		"question" = question,
 		"initiator" = initiator,
+		"user_vote" = user_vote,
 		"started_time" = started_time,
 		"time_remaining" = time_remaining,
-		"mode" = mode,
-		"question" = question,
-		"admin" = !!user.client?.holder,
-		"choices" = list(),
-		"voting" = list(),
-		"voted" = list(),
+		"lower_admin" = !!user.client?.holder,
 		"generated_actions" = generated_actions,
+		"avm" = CONFIG_GET(flag/allow_vote_mode),
+		"avmap" = CONFIG_GET(flag/allow_vote_map),
+		"avr" = CONFIG_GET(flag/allow_vote_restart),
+		"upper_admin" = check_rights_for(user.client, R_ADMIN),
 	)
+
 	for(var/key in choices)
 		data["choices"] += list(list(
 			"name" = key,
 			"votes" = choices[key] || 0,
+			"user_votes" = choices[user_votes],
 		))
-	for(var/client/client in voting)
-		data["voting"] += list(list(
-			"name" = "[client]",
-			"ckey" = client.ckey,
-		))
-	for(var/client/client in voted)
-		data["voted"] += list(list(
-			"name" = "[client]",
-			"ckey" = client.ckey,
-		))
+
 	return data
 
 /datum/controller/subsystem/vote/ui_act(action, params)
@@ -365,23 +302,23 @@ SUBSYSTEM_DEF(vote)
 	if(.)
 		return
 
-	var/trialmin = 0
+	var/upper_admin = 0
 	if(usr.client.holder)
 		if(check_rights_for(usr.client, R_ADMIN))
-			trialmin = 1
+			upper_admin = 1
 
 	switch(action)
 		if("cancel")
 			if(usr.client.holder)
 				reset()
 		if("toggle_restart")
-			if(usr.client.holder && trialmin)
+			if(usr.client.holder && upper_admin)
 				CONFIG_SET(flag/allow_vote_restart, !CONFIG_GET(flag/allow_vote_restart))
 		if("toggle_gamemode")
-			if(usr.client.holder && trialmin)
+			if(usr.client.holder && upper_admin)
 				CONFIG_SET(flag/allow_vote_mode, !CONFIG_GET(flag/allow_vote_mode))
 		if("toggle_map")
-			if(usr.client.holder && trialmin)
+			if(usr.client.holder && upper_admin)
 				CONFIG_SET(flag/allow_vote_map, !CONFIG_GET(flag/allow_vote_map))
 		if("restart")
 			if(CONFIG_GET(flag/allow_vote_restart) || usr.client.holder)
