@@ -10,6 +10,9 @@
 /mob/living/silicon/robot/spawn_dust()
 	new /obj/effect/decal/remains/robot(loc)
 
+/mob/living/silicon/robot/dust_animation()
+	new /obj/effect/temp_visual/dust_animation(loc, "dust-r")
+
 /mob/living/silicon/robot/death(gibbed)
 	if(stat == DEAD)
 		return

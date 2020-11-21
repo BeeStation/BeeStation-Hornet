@@ -5,6 +5,13 @@
 		if("robotic")
 			new /obj/effect/temp_visual/gib_animation(loc, "gibbed-r")
 
+/mob/living/carbon/human/dust_animation()
+	switch(dna.species.species_gibs)
+		if("human")
+			new /obj/effect/temp_visual/dust_animation(loc, "dust-h")
+		if("robotic")
+			new /obj/effect/temp_visual/dust_animation(loc, "dust-r")
+
 /mob/living/carbon/human/spawn_gibs(with_bodyparts)
 	if(with_bodyparts)
 		switch(dna.species.species_gibs)
