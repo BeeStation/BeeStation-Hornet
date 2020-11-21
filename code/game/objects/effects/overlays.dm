@@ -52,6 +52,23 @@
 	vis_flags = NONE
 	var/unused = 0 //When detected to be unused it gets set to world.time, after a while it gets removed
 	var/cache_expiration = 2 MINUTES // overlays which go unused for 2 minutes get cleaned up
+	vis_flags = VIS_INHERIT_ID
+
+/obj/effect/overlay/airlock_part
+	anchored = TRUE
+	plane = FLOAT_PLANE
+	layer = FLOAT_LAYER - 1
+	vis_flags = VIS_INHERIT_ID
+	var/side_id
+	var/open_px = 0
+	var/open_py = 0
+	var/move_start_time = 0 // for opening; closing uses reversed.
+	var/move_end_time = 5
+	var/aperture_angle = 0
+	var/obj/machinery/door/airlock/parent
+// in case some caveman is still using 512
+/obj/effect/overlay/airlock_part/Click()
+	parent.Click(arglist(args))
 
 /obj/effect/overlay/timer
 	name = "timer overlay"

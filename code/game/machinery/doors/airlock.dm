@@ -41,6 +41,7 @@
 	name = "airlock"
 	icon = 'icons/obj/doors/airlocks/station/public.dmi'
 	icon_state = "closed"
+	appearance_flags = TILE_BOUND | LONG_GLIDE | PIXEL_SCALE | KEEP_TOGETHER
 	max_integrity = 300
 	var/normal_integrity = AIRLOCK_INTEGRITY_N
 	integrity_failure = 70
@@ -86,6 +87,14 @@
 	var/airlock_material //material of inner filling; if its an airlock with glass, this should be set to "glass"
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	var/note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi' //Used for papers and photos pinned to the airlock
+	var/mask_file = 'icons/obj/doors/airlocks/mask_32x32.dmi' // because filters aren't allowed to have icon_states :(
+	var/mask_x = 0
+	var/mask_y = 0
+	var/anim_parts = "left=-14,0;right=13,0"
+	var/list/part_overlays
+	var/panel_attachment = "right"
+	var/note_attachment = "left"
+	var/mask_filter
 
 	var/cyclelinkeddir = 0
 	var/obj/machinery/door/airlock/cyclelinkedairlock
@@ -123,6 +132,8 @@
 		diag_hud.add_to_hud(src)
 	diag_hud_set_electrified()
 
+	rebuild_parts()
+
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/door/airlock/LateInitialize()
@@ -155,6 +166,36 @@
 /obj/machinery/door/airlock/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/ntnet_interface)
+
+/obj/machinery/door/airlock/proc/rebuild_parts()
+	if(part_overlays)
+		vis_contents -= part_overlays
+		QDEL_LIST(part_overlays)
+	else
+		part_overlays = list()
+	var/list/parts_desc = params2list(anim_parts)
+	for(var/part_id in parts_desc)
+		var/obj/effect/overlay/airlock_part/P = new
+		P.side_id = part_id
+		var/list/open_offset = splittext(parts_desc[part_id], ",")
+		P.open_px = text2num(open_offset[1])
+		P.open_py = text2num(open_offset[2])
+		if(open_offset.len >= 3)
+			P.move_start_time = text2num(open_offset[3])
+		if(open_offset.len >= 4)
+			P.move_end_time = text2num(open_offset[4])
+		if(open_offset.len >= 5)
+			P.aperture_angle = text2num(open_offset[5])
+		vis_contents += P
+		part_overlays += P
+		P.icon = icon
+		P.icon_state = part_id
+		P.parent = src
+		P.name = name
+	if(mask_filter)
+		filters -= mask_filter
+	mask_filter = filter(type="alpha",icon=mask_file,x=mask_x,y=mask_y)
+	filters += mask_filter
 
 /obj/machinery/door/airlock/proc/update_other_id()
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
@@ -487,144 +528,117 @@
 			icon_state = "nonexistenticonstate" //MADNESS
 	set_airlock_overlays(state)
 
+/obj/machinery/door/airlock/proc/set_side_overlays(obj/effect/overlay/airlock_part/base, show_lights = FALSE)
+	var/side = base.side_id
+	base.icon = icon
+	base.cut_overlays()
+	if(airlock_material)
+		base.add_overlay(get_airlock_overlay("[airlock_material]_[side]", overlays_file))
+	else
+		base.add_overlay(get_airlock_overlay("fill_[side]", icon))
+	if(panel_open && panel_attachment == side)
+		if(security_level)
+			base.add_overlay(get_airlock_overlay("panel_closed_protected", overlays_file))
+		else
+			base.add_overlay(get_airlock_overlay("panel_closed", overlays_file))
+	if(show_lights && lights && hasPower())
+		base.add_overlay(get_airlock_overlay("lights_[side]", overlays_file))
+
+	if(note && note_attachment == "side")
+		var/notetype = note_type()
+		base.add_overlay(get_airlock_overlay(notetype, note_overlay_file))
+
 /obj/machinery/door/airlock/proc/set_airlock_overlays(state)
-	var/mutable_appearance/frame_overlay
-	var/mutable_appearance/filling_overlay
-	var/mutable_appearance/lights_overlay
-	var/mutable_appearance/panel_overlay
-	var/mutable_appearance/weld_overlay
-	var/mutable_appearance/damag_overlay
-	var/mutable_appearance/sparks_overlay
-	var/mutable_appearance/note_overlay
-	var/notetype = note_type()
+
+	for(var/obj/effect/overlay/airlock_part/part in part_overlays)
+		set_side_overlays(part, state == AIRLOCK_CLOSING || state == AIRLOCK_OPENING)
+		if(part.aperture_angle)
+			var/matrix/T
+			if(state == AIRLOCK_OPEN || state == AIRLOCK_OPENING || state == AIRLOCK_CLOSING)
+				T = matrix()
+				T.Translate(-part.open_px,-part.open_py)
+				T.Turn(part.aperture_angle)
+				T.Translate(part.open_px,part.open_py)
+			switch(state)
+				if(AIRLOCK_CLOSED, AIRLOCK_DENY, AIRLOCK_EMAG)
+					part.transform = matrix()
+				if(AIRLOCK_OPEN)
+					part.transform = T
+				if(AIRLOCK_CLOSING)
+					part.transform = T
+					animate(part, transform = T, time = 5 - part.move_end_time, flags = ANIMATION_LINEAR_TRANSFORM)
+					animate(transform = matrix(), time = part.move_end_time - part.move_start_time, flags = ANIMATION_LINEAR_TRANSFORM)
+				if(AIRLOCK_OPENING)
+					part.transform = matrix()
+					animate(part, transform = matrix(), time = part.move_start_time, flags = ANIMATION_LINEAR_TRANSFORM)
+					animate(transform = T, time = part.move_end_time - part.move_start_time, flags = ANIMATION_LINEAR_TRANSFORM)
+		else
+			switch(state)
+				if(AIRLOCK_CLOSED, AIRLOCK_DENY, AIRLOCK_EMAG)
+					part.pixel_x = 0
+					part.pixel_y = 0
+				if(AIRLOCK_OPEN)
+					part.pixel_x = part.open_px
+					part.pixel_y = part.open_py
+				if(AIRLOCK_CLOSING)
+					part.pixel_x = part.open_px
+					part.pixel_y = part.open_py
+					animate(part, pixel_x = part.open_px, pixel_y = part.open_py, time = 5 - part.move_end_time)
+					animate(pixel_x = 0, pixel_y = 0, time = part.move_end_time - part.move_start_time)
+				if(AIRLOCK_OPENING)
+					part.pixel_x = 0
+					part.pixel_y = 0
+					animate(part, pixel_x = 0, pixel_y = 0, time = part.move_start_time)
+					animate(pixel_x = part.open_px, pixel_y = part.open_py, time = part.move_end_time - part.move_start_time)
+
+	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
+
+	SSvis_overlays.add_vis_overlay(src, overlays_file, "frame", FLOAT_LAYER, FLOAT_PLANE, dir)
 
 	switch(state)
 		if(AIRLOCK_CLOSED)
-			frame_overlay = get_airlock_overlay("closed", icon)
-			if(airlock_material)
-				filling_overlay = get_airlock_overlay("[airlock_material]_closed", overlays_file)
-			else
-				filling_overlay = get_airlock_overlay("fill_closed", icon)
-			if(panel_open)
-				if(security_level)
-					panel_overlay = get_airlock_overlay("panel_closed_protected", overlays_file)
-				else
-					panel_overlay = get_airlock_overlay("panel_closed", overlays_file)
-			if(welded)
-				weld_overlay = get_airlock_overlay("welded", overlays_file)
-			if(obj_integrity <integrity_failure)
-				damag_overlay = get_airlock_overlay("sparks_broken", overlays_file)
-			else if(obj_integrity < (0.75 * max_integrity))
-				damag_overlay = get_airlock_overlay("sparks_damaged", overlays_file)
 			if(lights && hasPower())
 				if(locked)
-					lights_overlay = get_airlock_overlay("lights_bolts", overlays_file)
+					SSvis_overlays.add_vis_overlay(src, overlays_file, "lights_bolts", FLOAT_LAYER, FLOAT_PLANE, dir)
 				else if(emergency)
-					lights_overlay = get_airlock_overlay("lights_emergency", overlays_file)
-			if(note)
-				note_overlay = get_airlock_overlay(notetype, note_overlay_file)
+					SSvis_overlays.add_vis_overlay(src, overlays_file, "lights_emergency", FLOAT_LAYER, FLOAT_PLANE, dir)
+			if(welded)
+				SSvis_overlays.add_vis_overlay(src, overlays_file, "welded", FLOAT_LAYER, FLOAT_PLANE, dir)
+			if(obj_integrity <integrity_failure)
+				SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks_broken", FLOAT_LAYER, FLOAT_PLANE, dir)
+			else if(obj_integrity < (0.75 * max_integrity))
+				SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks_damaged", FLOAT_LAYER, FLOAT_PLANE, dir)
 
 		if(AIRLOCK_DENY)
 			if(!hasPower())
 				return
-			frame_overlay = get_airlock_overlay("closed", icon)
-			if(airlock_material)
-				filling_overlay = get_airlock_overlay("[airlock_material]_closed", overlays_file)
-			else
-				filling_overlay = get_airlock_overlay("fill_closed", icon)
-			if(panel_open)
-				if(security_level)
-					panel_overlay = get_airlock_overlay("panel_closed_protected", overlays_file)
-				else
-					panel_overlay = get_airlock_overlay("panel_closed", overlays_file)
-			if(obj_integrity <integrity_failure)
-				damag_overlay = get_airlock_overlay("sparks_broken", overlays_file)
-			else if(obj_integrity < (0.75 * max_integrity))
-				damag_overlay = get_airlock_overlay("sparks_damaged", overlays_file)
+			SSvis_overlays.add_vis_overlay(src, overlays_file, "lights_denied", FLOAT_LAYER, FLOAT_PLANE, dir)
 			if(welded)
-				weld_overlay = get_airlock_overlay("welded", overlays_file)
-			lights_overlay = get_airlock_overlay("lights_denied", overlays_file)
-			if(note)
-				note_overlay = get_airlock_overlay(notetype, note_overlay_file)
+				SSvis_overlays.add_vis_overlay(src, overlays_file, "welded", FLOAT_LAYER, FLOAT_PLANE, dir)
+			if(obj_integrity <integrity_failure)
+				SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks_broken", FLOAT_LAYER, FLOAT_PLANE, dir)
+			else if(obj_integrity < (0.75 * max_integrity))
+				SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks_damaged", FLOAT_LAYER, FLOAT_PLANE, dir)
 
 		if(AIRLOCK_EMAG)
-			frame_overlay = get_airlock_overlay("closed", icon)
-			sparks_overlay = get_airlock_overlay("sparks", overlays_file)
-			if(airlock_material)
-				filling_overlay = get_airlock_overlay("[airlock_material]_closed", overlays_file)
-			else
-				filling_overlay = get_airlock_overlay("fill_closed", icon)
-			if(panel_open)
-				if(security_level)
-					panel_overlay = get_airlock_overlay("panel_closed_protected", overlays_file)
-				else
-					panel_overlay = get_airlock_overlay("panel_closed", overlays_file)
-			if(obj_integrity <integrity_failure)
-				damag_overlay = get_airlock_overlay("sparks_broken", overlays_file)
-			else if(obj_integrity < (0.75 * max_integrity))
-				damag_overlay = get_airlock_overlay("sparks_damaged", overlays_file)
 			if(welded)
-				weld_overlay = get_airlock_overlay("welded", overlays_file)
-			if(note)
-				note_overlay = get_airlock_overlay(notetype, note_overlay_file)
-
+				SSvis_overlays.add_vis_overlay(src, overlays_file, "welded", FLOAT_LAYER, FLOAT_PLANE, dir)
+			SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks", FLOAT_LAYER, FLOAT_PLANE, dir)
+			if(obj_integrity <integrity_failure)
+				SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks_broken", FLOAT_LAYER, FLOAT_PLANE, dir)
+			else if(obj_integrity < (0.75 * max_integrity))
+				SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks_damaged", FLOAT_LAYER, FLOAT_PLANE, dir)
 		if(AIRLOCK_CLOSING)
-			frame_overlay = get_airlock_overlay("closing", icon)
-			if(airlock_material)
-				filling_overlay = get_airlock_overlay("[airlock_material]_closing", overlays_file)
-			else
-				filling_overlay = get_airlock_overlay("fill_closing", icon)
 			if(lights && hasPower())
-				lights_overlay = get_airlock_overlay("lights_closing", overlays_file)
-			if(panel_open)
-				if(security_level)
-					panel_overlay = get_airlock_overlay("panel_closing_protected", overlays_file)
-				else
-					panel_overlay = get_airlock_overlay("panel_closing", overlays_file)
-			if(note)
-				note_overlay = get_airlock_overlay("[notetype]_closing", note_overlay_file)
+				SSvis_overlays.add_vis_overlay(src, overlays_file, "lights_closing", FLOAT_LAYER, FLOAT_PLANE, dir)
 
 		if(AIRLOCK_OPEN)
-			frame_overlay = get_airlock_overlay("open", icon)
-			if(airlock_material)
-				filling_overlay = get_airlock_overlay("[airlock_material]_open", overlays_file)
-			else
-				filling_overlay = get_airlock_overlay("fill_open", icon)
-			if(panel_open)
-				if(security_level)
-					panel_overlay = get_airlock_overlay("panel_open_protected", overlays_file)
-				else
-					panel_overlay = get_airlock_overlay("panel_open", overlays_file)
 			if(obj_integrity < (0.75 * max_integrity))
-				damag_overlay = get_airlock_overlay("sparks_open", overlays_file)
-			if(note)
-				note_overlay = get_airlock_overlay("[notetype]_open", note_overlay_file)
+				SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks_open", FLOAT_LAYER, FLOAT_PLANE, dir)
 
 		if(AIRLOCK_OPENING)
-			frame_overlay = get_airlock_overlay("opening", icon)
-			if(airlock_material)
-				filling_overlay = get_airlock_overlay("[airlock_material]_opening", overlays_file)
-			else
-				filling_overlay = get_airlock_overlay("fill_opening", icon)
 			if(lights && hasPower())
-				lights_overlay = get_airlock_overlay("lights_opening", overlays_file)
-			if(panel_open)
-				if(security_level)
-					panel_overlay = get_airlock_overlay("panel_opening_protected", overlays_file)
-				else
-					panel_overlay = get_airlock_overlay("panel_opening", overlays_file)
-			if(note)
-				note_overlay = get_airlock_overlay("[notetype]_opening", note_overlay_file)
-
-	cut_overlays()
-	add_overlay(frame_overlay)
-	add_overlay(filling_overlay)
-	add_overlay(lights_overlay)
-	add_overlay(panel_overlay)
-	add_overlay(weld_overlay)
-	add_overlay(sparks_overlay)
-	add_overlay(damag_overlay)
-	add_overlay(note_overlay)
+				SSvis_overlays.add_vis_overlay(src, overlays_file, "lights_opening", FLOAT_LAYER, FLOAT_PLANE, dir)
 	check_unres()
 
 /proc/get_airlock_overlay(icon_state, icon_file)
@@ -639,21 +653,25 @@
 	if(hasPower() && unres_sides)
 		if(unres_sides & NORTH)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_n")
+			I.appearance_flags |= KEEP_APART
 			I.pixel_y = 32
 			set_light(l_range = 2, l_power = 1)
 			add_overlay(I)
 		if(unres_sides & SOUTH)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_s")
+			I.appearance_flags |= KEEP_APART
 			I.pixel_y = -32
 			set_light(l_range = 2, l_power = 1)
 			add_overlay(I)
 		if(unres_sides & EAST)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_e")
+			I.appearance_flags |= KEEP_APART
 			I.pixel_x = 32
 			set_light(l_range = 2, l_power = 1)
 			add_overlay(I)
 		if(unres_sides & WEST)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_w")
+			I.appearance_flags |= KEEP_APART
 			I.pixel_x = -32
 			set_light(l_range = 2, l_power = 1)
 			add_overlay(I)

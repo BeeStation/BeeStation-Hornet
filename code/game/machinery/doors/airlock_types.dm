@@ -291,6 +291,7 @@
 	icon = 'icons/obj/doors/airlocks/shuttle/shuttle.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
 	normal_integrity = 400
+	anim_parts = "rightu=11,0;left=-12,0;right=11,0"
 
 /obj/machinery/door/airlock/titanium/glass
 	normal_integrity = 350
@@ -336,6 +337,9 @@
 	overlays_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
 	note_overlay_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_ext
+	anim_parts = "top=0,16;bottom=0,-16"
+	note_attachment = "bottom"
+	panel_attachment = "bottom"
 
 /obj/machinery/door/airlock/arrivals_external
 	name = "arrivals airlock"
@@ -375,6 +379,7 @@
 	name = "vault door"
 	icon = 'icons/obj/doors/airlocks/vault/vault.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/vault/overlays.dmi'
+	anim_parts = "rightpins=15,0;leftpins=-17,0;rightu=13,0;left=-15,0;right=13,0"
 	assemblytype = /obj/structure/door_assembly/door_assembly_vault
 	explosion_block = 2
 	normal_integrity = 400 // reverse engieneerd: 400 * 1.5 (sec lvl 6) = 600 = original
@@ -391,6 +396,10 @@
 	overlays_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	note_overlay_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_hatch
+	//anim_parts = "ul=-9,9;ur=9,9;dl=-9,-9;dr=9,-9"
+	anim_parts = "ul=-15,0,0,5,-90;ur=0,15,0,5,-90;dl=0,-15,0,5,-90;dr=15,0,0,5,-90"
+	note_attachment = "ul"
+	panel_attachment = "dr"
 
 /obj/machinery/door/airlock/maintenance_hatch
 	name = "maintenance hatch"
@@ -398,6 +407,10 @@
 	overlays_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	note_overlay_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_mhatch
+	//anim_parts = "ul=-9,9;ur=9,9;dl=-9,-9;dr=9,-9"
+	anim_parts = "ul=-15,0,0,5,-90;ur=0,15,0,5,-90;dl=0,-15,0,5,-90;dr=15,0,0,5,-90"
+	note_attachment = "ul"
+	panel_attachment = "dr"
 
 //////////////////////////////////
 /*
@@ -408,6 +421,7 @@
 	name = "high tech security airlock"
 	icon = 'icons/obj/doors/airlocks/highsec/highsec.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/highsec/overlays.dmi'
+	anim_parts = "rightu=14,0;left=-14,0;right=14,0"
 	assemblytype = /obj/structure/door_assembly/door_assembly_highsecurity
 	explosion_block = 2
 	normal_integrity = 500
@@ -424,6 +438,7 @@
 	icon = 'icons/obj/doors/airlocks/shuttle/shuttle.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_shuttle
+	anim_parts = "rightu=11,0;left=-12,0;right=11,0"
 
 /obj/machinery/door/airlock/shuttle/glass
 	opacity = 0
@@ -436,6 +451,7 @@
 	overlays_file = 'icons/obj/doors/airlocks/abductor/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_abductor
 	note_overlay_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
+	anim_parts="p1=0,40,0;p2=0,24,2;p3=0,-36,0.5;p4=0,16,3;p5=0,-40,0;p6=0,32,1;p7=0,-24,2" // the door has 7 fucking parts. SEVEN.
 	damage_deflection = 30
 	explosion_block = 3
 	hackProof = TRUE
@@ -563,6 +579,9 @@
 	name = "large glass airlock"
 	icon = 'icons/obj/doors/airlocks/glass_large/glass_large.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
+	mask_file = 'icons/obj/doors/airlocks/mask_64x32.dmi'
+	mask_x = 16 // byond is consistent and sane
+	anim_parts = "left=-21,0;right=21,0;top=0,29"
 	opacity = 0
 	assemblytype = null
 	glass = TRUE

@@ -91,14 +91,14 @@
 	icon_state = "capsulemed"
 	icon = 'icons/obj/mining.dmi'
 	template_id = "shelter_echo"
-	
+
 /obj/item/survivalcapsule/space
 	name = "space shelter capsule"
 	desc = "A spaceworthy shelter designed for emergencies/construction in a bluespace capsule."
 	icon_state = "capsuleeng"
 	icon = 'icons/obj/mining.dmi'
 	template_id = "shelter_eta"
-	
+
 /obj/item/survivalcapsule/barricade
 	name = "barricade capsule"
 	desc = "A 3x3 glass barricade designed for security use with energy weapons."
@@ -143,6 +143,7 @@
 	icon = 'icons/obj/doors/airlocks/survival/survival.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/survival/survival_overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_pod
+	anim_parts = "topbolts=0,6,0,3;bottombolts=0,-6,3,-6;top=0,4,0,2;bottom=0,-4,0,2;rightbolts=14,0,1.5,5;left=-15,0,1.5,5;right=14,0,1.5,5"
 
 /obj/machinery/door/airlock/survival_pod/glass
 	opacity = FALSE
