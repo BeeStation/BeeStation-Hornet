@@ -57,7 +57,7 @@
 /datum/eldritch_knowledge/flesh_blade_upgrade
 	name = "Prophet Ascension"
 	gain_text = "It rained blood, that's when i understood the gravekeeper's advice."
-	desc = "As a Prophet of Flesh, you can recruit more disciples. Enhances your blade to cause additional bleeding."
+	desc = "As a Prophet of Flesh, you can recruit more disciples. Makes your ghouls stronger and allows you to revive fallen ghouls. Enhances your blade to cause additional bleeding."
 	cost = 10
 	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker)
 	banned_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/rust_blade_upgrade)
@@ -149,21 +149,25 @@
 
 	if(QDELETED(human_target) || human_target.stat != DEAD)
 		return
-
-	human_target.grab_ghost()
-
-	if(!human_target.mind || !human_target.client)
-		to_chat(user, "<span class='warning'>There is no soul connected to this body...</span>")
-		return
-
-	if(HAS_TRAIT(human_target, TRAIT_HUSK))
-		to_chat(user, "<span class='warning'>You cannot revive a dead ghoul!</span>")
+	var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/POWER = 25
+	if (master.cultie.get_knowledge(/datum/eldritch_knowledge/flesh_blade_upgrade))
+		POWER = 50
+	
+	if(HAS_TRAIT(human_target, TRAIT_HUSK) && POWER<=25)
+		to_chat(user, "<span class='warning'>You are not strong enough to revive a dead ghoul!</span>")
 		return
 
 	if(LAZYLEN(spooky_scaries) >= ghoul_amt)
 		to_chat(user, "<span class='warning'>Your patron cannot support more ghouls on this plane!</span>")
 		return
 
+	human_target.grab_ghost()
+
+	if(!human_target.mind || !human_target.client)
+		to_chat(user, "<span class='warning'>There is no soul connected to this body...</span>")
+		return
+		
 	LAZYADD(spooky_scaries, human_target)
 	log_game("[key_name_admin(human_target)] has become a ghoul, their master is [user.real_name]")
 	//we change it to true only after we know they passed all the checks
@@ -172,12 +176,11 @@
 	human_target.revive(full_heal = TRUE, admin_revive = TRUE)
 	ADD_TRAIT(human_target, TRAIT_NOSTAMCRIT, MAGIC_TRAIT)
 	ADD_TRAIT(human_target, TRAIT_NOLIMBDISABLE, MAGIC_TRAIT)
-	human_target.setMaxHealth(25)
-	human_target.health = 25
+	human_target.setMaxHealth(POWER)
+	human_target.health = POWER
 	human_target.become_husk()
 	human_target.faction |= "heretics"
 	var/datum/antagonist/heretic_monster/heretic_monster = human_target.mind.add_antag_datum(/datum/antagonist/heretic_monster)
-	var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	heretic_monster.set_owner(master)
 
 /datum/eldritch_knowledge/flesh_grasp/proc/remove_ghoul(datum/source)
@@ -196,7 +199,7 @@
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.bleed_rate+= 2
+		H.bleed_rate+= 1
 
 /datum/eldritch_knowledge/final/flesh_final/on_finished_recipe(mob/living/user, list/atoms, loc)
 	. = ..()

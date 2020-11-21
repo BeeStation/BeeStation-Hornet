@@ -52,7 +52,7 @@
 /datum/eldritch_knowledge/rust_blade_upgrade
 	name = "Prophet Ascension"
 	gain_text = "Let the blade guide you through the flesh."
-	desc = "As a Prophet of Rust, you can recruit more disciples. Enhances your blade to inject toxin to enemies bloodstream."
+	desc = "As a Prophet of Rust, you can recruit more disciples. Enhances your blade to deal bonus damage based on your missing health."
 	cost = 10
 	next_knowledge = list(/datum/eldritch_knowledge/spell/rust_wave)
 	banned_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/flesh_blade_upgrade)
@@ -110,9 +110,9 @@
 
 /datum/eldritch_knowledge/rust_blade_upgrade/on_eldritch_blade(target,user,proximity_flag,click_parameters)
 	. = ..()
-	if(iscarbon(target))
+	if(iscarbon(target) && user.health>0)
 		var/mob/living/carbon/carbon_target = target
-		carbon_target.reagents.add_reagent(/datum/reagent/eldritch, 4)
+		carbon_target.adjustBruteLoss(user.health/10)
 
 /datum/eldritch_knowledge/final/rust_final/on_finished_recipe(mob/living/user, list/atoms, loc)
 	var/mob/living/carbon/human/H = user
