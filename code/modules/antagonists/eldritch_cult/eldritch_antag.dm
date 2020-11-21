@@ -13,7 +13,7 @@
 	var/dread = 0
 	var/favor_earned = 0
 	var/favor_spent = 0
-	var/list/folloers = list()
+	var/list/followers = list()
 	var/ascended = FALSE
 	can_hijack = HIJACK_HIJACKER
 
@@ -341,22 +341,22 @@
 	var/datum/antagonist/heretic/cultie = owner.has_antag_datum(/datum/antagonist/heretic)
 	if(!cultie)
 		return FALSE
-	return LAZYLEN(cultie.folloers)>=target_amount
+	return cultie.get_cur_followers()>=target_amount
 
 //////////////
 // Minicult //
 //////////////
 
 /datum/antagonist/heretic/proc/get_max_followers()
-	var/towtal = 0 //a 'w' got lost in here somehow...
+	var/total = 0
 	var/list/knowledge = get_all_knowledge()
 	for(var/X in knowledge)
 		var/datum/eldritch_knowledge/EK = knowledge[X]
-		towtal += EK.followers_increment
-	return towtal
+		total += EK.followers_increment
+	return total
 
 /datum/antagonist/heretic/proc/get_cur_followers()
-	return LAZYLEN(folloers)
+	return LAZYLEN(followers)
 
 /datum/antagonist/heretic/proc/enslave(mob/living/carbon/human/victim)
 	if(get_cur_followers() >= get_max_followers())
