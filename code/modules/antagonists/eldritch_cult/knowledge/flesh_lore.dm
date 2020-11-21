@@ -119,12 +119,13 @@
 	humie.health = 50 // Voiceless dead are much tougher than ghouls
 	humie.become_husk()
 	humie.faction |= "heretics"
-
-	var/datum/antagonist/heretic_monster/heretic_monster = humie.mind.add_antag_datum(/datum/antagonist/heretic_monster)
-	var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	heretic_monster.set_owner(master)
+	
+	if (!IS_HERETIC_MONSTER(humie))
+		var/datum/antagonist/heretic_monster/heretic_monster = humie.mind.add_antag_datum(/datum/antagonist/heretic_monster)
+		var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
+		heretic_monster.set_owner(master)
+		RegisterSignal(humie,COMSIG_MOB_DEATH,.proc/remove_ghoul)
 	atoms -= humie
-	RegisterSignal(humie,COMSIG_MOB_DEATH,.proc/remove_ghoul)
 	ghouls += humie
 
 /datum/eldritch_knowledge/flesh_ghoul/proc/remove_ghoul(datum/source)
