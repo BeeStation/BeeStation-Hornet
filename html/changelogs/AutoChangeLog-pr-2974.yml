@@ -1,7 +1,0 @@
-author: jlsnow301
-delete-after: true
-changes:
-  - rscadd: Confirmation dialogue on harvesting replica pod seeds without soul
-  - rscadd: You can now scan replica pod seeds with an analyzer (plant/forensic) to
-      read the injected DNA
-  - bugfix: Removed a nonfunctional alert in this process
