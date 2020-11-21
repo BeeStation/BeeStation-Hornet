@@ -33,7 +33,7 @@ SUBSYSTEM_DEF(explosions)
 
 	var/list/explosions = list()
 
-	var/currentpart = SSAIR_PIPENETS
+	var/currentpart = SSAIR_REBUILD_PIPENETS
 
 
 /datum/controller/subsystem/explosions/stat_entry(msg)
