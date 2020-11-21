@@ -12,7 +12,7 @@
 	light_system = MOVABLE_LIGHT
 	light_range = 2
 	light_power = 1
-	light_color = COLOR_SOFT_RED
+	light_color = LIGHT_COLOR_RED
 	ricochets_max = 50	//Honk!
 	ricochet_chance = 80
 	reflectable = REFLECT_NORMAL

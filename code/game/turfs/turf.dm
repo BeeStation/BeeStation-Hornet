@@ -49,10 +49,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	///Lumcount added by sources other than lighting datum objects, such as the overlay lighting component.
 	var/dynamic_lumcount = 0
 
-	var/dynamic_lighting = TRUE
-
-	var/tmp/lighting_corners_initialised = FALSE
-
 	/// Should we used the smooth tiled dirt decal or not
 	var/tiled_dirt = FALSE
 
