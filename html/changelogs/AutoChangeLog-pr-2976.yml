@@ -1,5 +1,0 @@
-author: KreeperHLC
-delete-after: true
-changes:
-  - tweak: AltClick on things that use AltClick no longer opens the contens of the
-      turf
