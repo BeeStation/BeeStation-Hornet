@@ -212,11 +212,11 @@
 		if(unsafe_wrenching)
 			unsafe_pressure_release(user, internal_pressure)
 
-			
+
 			if (user.client)
 				SSmedals.UnlockMedal(MEDAL_UNWRENCH_HIGH_PRESSURE,user.client)
-			
-			
+
+
 		deconstruct(TRUE)
 	return TRUE
 
@@ -325,7 +325,6 @@
 	if(istype(L) && is_type_in_list(src, GLOB.ventcrawl_machinery))
 		L.handle_ventcrawl(src)
 		return
-	..()
 
 
 /obj/machinery/atmospherics/proc/can_crawl_through()

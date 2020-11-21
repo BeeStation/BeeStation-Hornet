@@ -538,7 +538,6 @@ GENE SCANNER
 		to_chat(user, "<span class='info'>Temperature: [round(environment.return_temperature()-T0C, 0.01)] &deg;C ([round(environment.return_temperature(), 0.01)] K)</span>")
 
 /obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
-	..()
 
 	if(user.canUseTopic(src, BE_CLOSE))
 
