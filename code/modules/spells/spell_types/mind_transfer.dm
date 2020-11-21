@@ -83,7 +83,7 @@ Also, you never added distance checking after target is selected. I've went ahea
 
 	if(istype(target, /mob/living/simple_animal/slaughter)) //No.
 		to_chat(user, "<span class='warning'>Your mind recoils from the infernal hellfire of [target]'s soul!</span>")
-		caster.Unconscious(unconscious_amount_caster)
+		user.Unconscious(unconscious_amount_caster)
 		return
 
 	var/mob/living/victim = target//The target of the spell whos body will be transferred to.
