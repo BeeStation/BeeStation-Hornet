@@ -172,6 +172,7 @@
 				locked = FALSE
 				cut_overlays()
 				add_overlay("securecrateg")
+				add_overlay("[icon_state]_door") //needs to put the door overlayer back cause of this snowflake code
 				tamperproof = 0 // set explosion chance to zero, so we dont accidently hit it with a multitool and instantly die
 			else if(!input || !sanitycheck || length(sanitised) != codelen)
 				to_chat(user, "<span class='notice'>You leave the crate alone.</span>")
