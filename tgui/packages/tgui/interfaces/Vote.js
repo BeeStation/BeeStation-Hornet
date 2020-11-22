@@ -12,9 +12,9 @@ export const Vote = (props, context) => {
       title={`Vote${
         mode
           ? `: ${
-              question
-                ? question.replace(/^\w/, (c) => c.toUpperCase())
-                : mode.replace(/^\w/, (c) => c.toUpperCase())
+            question
+              ? question.replace(/^\w/, (c) => c.toUpperCase())
+              : mode.replace(/^\w/, (c) => c.toUpperCase())
             }`
           : ""
       }`}
@@ -45,8 +45,7 @@ const AdminPanel = (props, context) => {
               <Box mb={1}>
                 <Button
                   disabled={!upper_admin || !avmap}
-                  onClick={() => act("map")}
-                >
+                  onClick={() => act("map")}>
                   Map
                 </Button>
                 {upper_admin && (
@@ -54,8 +53,7 @@ const AdminPanel = (props, context) => {
                     ml={1}
                     color="red"
                     checked={!avmap}
-                    onClick={() => act("toggle_map")}
-                  >
+                    onClick={() => act("toggle_map")}>
                     Disable{!avmap ? "d" : ""}
                   </Button.Checkbox>
                 )}
@@ -63,8 +61,7 @@ const AdminPanel = (props, context) => {
               <Box mb={1}>
                 <Button
                   disabled={!upper_admin || !avr}
-                  onClick={() => act("restart")}
-                >
+                  onClick={() => act("restart")}>
                   Restart
                 </Button>
                 {upper_admin && (
@@ -72,8 +69,7 @@ const AdminPanel = (props, context) => {
                     ml={1}
                     color="red"
                     checked={!avr}
-                    onClick={() => act("toggle_restart")}
-                  >
+                    onClick={() => act("toggle_restart")}>
                     Disable{!avr ? "d" : ""}
                   </Button.Checkbox>
                 )}
@@ -81,8 +77,7 @@ const AdminPanel = (props, context) => {
               <Box mb={1}>
                 <Button
                   disabled={!upper_admin || !avm}
-                  onClick={() => act("gamemode")}
-                >
+                  onClick={() => act("gamemode")}>
                   Gamemode
                 </Button>
                 {upper_admin && (
@@ -90,8 +85,7 @@ const AdminPanel = (props, context) => {
                     ml={1}
                     color="red"
                     checked={!avm}
-                    onClick={() => act("toggle_gamemode")}
-                  >
+                    onClick={() => act("toggle_gamemode")}>
                     Disable{!avm ? "d" : ""}
                   </Button.Checkbox>
                 )}
@@ -120,7 +114,7 @@ const ChoicesPanel = (props, context) => {
   const { mode, choices, selectedChoice } = data;
 
   let content;
-  if (choices.length === 0) content = "No choices available!";
+  if (choices.length === 0) (content = "No choices available!");
   // Single box for most normal vote types
   else if ((choices.length < 10) | (mode === "custom"))
     content = choices?.map((choice, i) => (
@@ -133,8 +127,7 @@ const ChoicesPanel = (props, context) => {
                   index: i + 1,
                 });
               }}
-              disabled={choice === choices[selectedChoice - 1]}
-            >
+              disabled={choice === choices[selectedChoice - 1]}>
               {choice.name?.replace(/^\w/, (c) => c.toUpperCase())}
             </Button>
             <Box ml={1} textColor="green">
@@ -164,8 +157,7 @@ const ChoicesPanel = (props, context) => {
                             index: i + 1,
                           });
                         }}
-                        disabled={choice === choices[selectedChoice - 1]}
-                      >
+                        disabled={choice === choices[selectedChoice - 1]}>
                         {choice.name?.replace(/^\w/, (c) => c.toUpperCase())}
                       </Button>
                       <Box ml={1} textColor="green">
@@ -193,8 +185,7 @@ const ChoicesPanel = (props, context) => {
                             index: i + 1,
                           });
                         }}
-                        disabled={choice === choices[selectedChoice - 1]}
-                      >
+                        disabled={choice === choices[selectedChoice - 1]}>
                         {choice.name?.replace(/^\w/, (c) => c.toUpperCase())}
                       </Button>
                       <Box ml={1} textColor="green">
@@ -236,8 +227,7 @@ const TimePanel = (props, context) => {
               onClick={() => {
                 act("cancel");
               }}
-              color="red"
-            >
+              color="red">
               Cancel Vote
             </Button>
           )}
