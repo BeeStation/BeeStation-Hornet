@@ -31,9 +31,11 @@
 		playsound(src, 'sound/items/flashlight_on.ogg', 25, 1)
 	else
 		icon_state = initial(icon_state)
-		set_light(0)
 		playsound(src, 'sound/items/flashlight_off.ogg', 25, 1)
 	set_light_on(on)
+	if(light_system == STATIC_LIGHT)
+		update_light()
+
 
 /obj/item/flashlight/attack_self(mob/user)
 	on = !on

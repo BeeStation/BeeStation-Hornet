@@ -516,12 +516,6 @@
 #define COMSIG_ATOM_SET_LIGHT_ON "atom_set_light_on"
 ///Called right before the atom changes the value of light_flags to a different one, from base atom/set_light_flags(): (new_value)
 #define COMSIG_ATOM_SET_LIGHT_FLAGS "atom_set_light_flags"
-///called for each movable in a turf contents on /turf/zImpact(): (atom/movable/A, levels)
-#define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"
-///called on a movable (NOT living) when someone starts pulling it (atom/movable/puller, state, force)
-#define COMSIG_ATOM_START_PULL "movable_start_pull"
-///called on /living when someone starts pulling it (atom/movable/puller, state, force)
-#define COMSIG_LIVING_START_PULL "living_start_pull"
 ///Called when the movable tries to change its dynamic light color setting, from base atom/movable/lighting_overlay_set_color(): (color)
 #define COMSIG_MOVABLE_LIGHT_OVERLAY_SET_RANGE "movable_light_overlay_set_color"
 ///Called when the movable tries to change its dynamic light power setting, from base atom/movable/lighting_overlay_set_power(): (power)
