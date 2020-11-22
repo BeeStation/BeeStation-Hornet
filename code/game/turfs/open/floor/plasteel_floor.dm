@@ -110,14 +110,8 @@
 /turf/open/floor/plasteel/cult
 	icon_state = "cult"
 	name = "engraved floor"
-	CanAtmosPass = ATMOS_PASS_NO
+	CanAtmosPass = ATMOS_PASS_NO	
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
-
-/turf/open/floor/plasteel/cult/Initialize()
-	..()
-	if (air)
-		air.copy_from_turf(src)
-		update_air_ref()
 
 /turf/open/floor/plasteel/vaporwave
 	icon_state = "pinkblack"
