@@ -34,14 +34,17 @@ export const Vote = (props, context) => {
   return (
     <Window
       resizable
-      title={`Vote: ${
-        question
-          ? question.replace(/^\w/, (c) => c.toUpperCase())
-          : mode.replace(/^\w/, (c) => c.toUpperCase())
+      title={`Vote${
+        mode
+          ? `: (${
+              question
+                ? question.replace(/^\w/, (c) => c.toUpperCase())
+                : mode.replace(/^\w/, (c) => c.toUpperCase())
+            }`)
+          : ""
       }`}
       width={400}
-      height={500}
-    >
+      height={500}>
       <Window.Content>
         <Flex direction="column" height="100%">
           {lower_admin && (
@@ -53,8 +56,7 @@ export const Vote = (props, context) => {
                       <Box mb={1}>
                         <Button
                           disabled={!upper_admin || !avmap}
-                          onClick={() => act("map")}
-                        >
+                          onClick={() => act("map")}>
                           Map
                         </Button>
                         {upper_admin && (
@@ -62,8 +64,7 @@ export const Vote = (props, context) => {
                             ml={1}
                             color="red"
                             checked={!avmap}
-                            onClick={() => act("toggle_map")}
-                          >
+                            onClick={() => act("toggle_map")}>
                             Disable{!avmap ? "d" : ""}
                           </Button.Checkbox>
                         )}
@@ -71,8 +72,7 @@ export const Vote = (props, context) => {
                       <Box mb={1}>
                         <Button
                           disabled={!upper_admin || !avr}
-                          onClick={() => act("restart")}
-                        >
+                          onClick={() => act("restart")}>
                           Restart
                         </Button>
                         {upper_admin && (
@@ -80,8 +80,7 @@ export const Vote = (props, context) => {
                             ml={1}
                             color="red"
                             checked={!avr}
-                            onClick={() => act("toggle_restart")}
-                          >
+                            onClick={() => act("toggle_restart")}>
                             Disable{!avr ? "d" : ""}
                           </Button.Checkbox>
                         )}
@@ -89,8 +88,7 @@ export const Vote = (props, context) => {
                       <Box mb={1}>
                         <Button
                           disabled={!upper_admin || !avm}
-                          onClick={() => act("gamemode")}
-                        >
+                          onClick={() => act("gamemode")}>
                           Gamemode
                         </Button>
                         {upper_admin && (
@@ -98,8 +96,7 @@ export const Vote = (props, context) => {
                             ml={1}
                             color="red"
                             checked={!avm}
-                            onClick={() => act("toggle_gamemode")}
-                          >
+                            onClick={() => act("toggle_gamemode")}>
                             Disable{!avm ? "d" : ""}
                           </Button.Checkbox>
                         )}
@@ -108,8 +105,7 @@ export const Vote = (props, context) => {
                     <Flex.Item>
                       <Button
                         disabled={!upper_admin}
-                        onClick={() => act("custom")}
-                      >
+                        onClick={() => act("custom")}>
                         Create Custom Vote
                       </Button>
                     </Flex.Item>
@@ -137,8 +133,7 @@ export const Vote = (props, context) => {
                               index: i + 1,
                             });
                           }}
-                          disabled={choice === choices[selectedChoice - 1]}
-                        >
+                          disabled={choice === choices[selectedChoice - 1]}>
                           {choice.name?.replace(/^\w/, (c) => c.toUpperCase())}
                         </Button>
                         <Box ml={1} textColor="green">
@@ -168,8 +163,7 @@ export const Vote = (props, context) => {
                                   }}
                                   disabled={
                                     choice === choices[selectedChoice - 1]
-                                  }
-                                >
+                                  }>
                                   {choice.name?.replace(/^\w/, (c) =>
                                     c.toUpperCase()
                                   )}
@@ -201,8 +195,7 @@ export const Vote = (props, context) => {
                                   }}
                                   disabled={
                                     choice === choices[selectedChoice - 1]
-                                  }
-                                >
+                                  }>
                                   {choice.name?.replace(/^\w/, (c) =>
                                     c.toUpperCase()
                                   )}
@@ -231,8 +224,7 @@ export const Vote = (props, context) => {
                     onClick={() => {
                       act("cancel");
                     }}
-                    color="red"
-                  >
+                    color="red">
                     Cancel Vote
                   </Button>
                 )}
