@@ -122,7 +122,7 @@
 					SEND_SOUND(world, 'sound/effects/explosionfar.ogg')
 					to_chat(world, "<span class='narsie'>You really thought you could best me twice?</span>")
 					QDEL_NULL(clashing)
-					for(var/datum/mind/M as anything in GLOB.servants_of_ratvar)
+					for(var/datum/mind/M as() in GLOB.servants_of_ratvar)
 						to_chat(M, "<span class='userdanger'>You feel a stabbing pain in your chest... This can't be happening!</span>")
 						M.current?.dust()
 				return
@@ -232,6 +232,5 @@
 	sleep(11)
 	move_self = 1
 	icon = initial(icon)
-
 
 
