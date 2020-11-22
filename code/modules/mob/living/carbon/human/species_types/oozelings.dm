@@ -148,6 +148,6 @@
 		if(chem.volume > 10)
 			H.reagents.remove_reagent(chem.type, chem.volume - 10)
 			to_chat(H, "<span class='warning'>The water you consumed is melting away your insides!</span>")
-		H.blood_volume += -25
+		H.blood_volume -= 25
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
