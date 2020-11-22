@@ -63,7 +63,7 @@
 	var/open_px = 0
 	var/open_py = 0
 	var/move_start_time = 0 // for opening; closing uses reversed.
-	var/move_end_time = 5
+	var/move_end_time = 3.5
 	var/aperture_angle = 0
 	var/obj/machinery/door/airlock/parent
 // in case some caveman is still using 512
