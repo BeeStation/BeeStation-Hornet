@@ -98,7 +98,7 @@ const AdminPanel = (props, context) => {
           </Flex>
         </Section>
         <Section title="Still Voting">
-          <Collapsible mb={1} title="View List">
+          <Collapsible title="View List">
             {voting}
           </Collapsible>
         </Section>
