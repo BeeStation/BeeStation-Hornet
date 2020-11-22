@@ -46477,7 +46477,6 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bKD" = (
-/obj/effect/landmark/start/atmospheric_technician,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bKE" = (
@@ -83946,7 +83945,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/atmospheric_technician,
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
 "kKE" = (

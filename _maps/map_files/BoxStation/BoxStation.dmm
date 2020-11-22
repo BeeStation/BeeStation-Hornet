@@ -60231,7 +60231,6 @@
 /area/ai_monitored/turret_protected/aisat_interior)
 "uTK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/atmospheric_technician,
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
 "uUf" = (
