@@ -183,7 +183,8 @@
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	if(!(changeling.has_dna(target.dna)))
 		changeling.add_new_profile(target)
-	return TRUE
+		return TRUE
+	return FALSE
 
 /datum/action/changeling/sting/mute
 	name = "Mute Sting"
