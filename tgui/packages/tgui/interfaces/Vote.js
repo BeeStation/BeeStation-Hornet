@@ -13,8 +13,8 @@ export const Vote = (props, context) => {
         mode
           ? (`: ${
             question
-              ? question.replace(/^\w/, (c) => c.toUpperCase())
-              : mode.replace(/^\w/, (c) => c.toUpperCase())
+              ? question.replace(/^\w/, c => c.toUpperCase())
+              : mode.replace(/^\w/, c => c.toUpperCase())
           }`)
           : ""
       }`}
@@ -127,7 +127,7 @@ const ChoicesPanel = (props, context) => {
                 });
               }}
               disabled={choice === choices[selectedChoice - 1]}>
-              {choice.name?.replace(/^\w/, (c) => c.toUpperCase())}
+              {choice.name?.replace(/^\w/, c => c.toUpperCase())}
             </Button>
             <Box ml={1} textColor="green">
               {choice === choices[selectedChoice - 1] && (
@@ -158,7 +158,7 @@ const ChoicesPanel = (props, context) => {
                           });
                         }}
                         disabled={choice === choices[selectedChoice - 1]}>
-                        {choice.name?.replace(/^\w/, (c) => c.toUpperCase())}
+                        {choice.name?.replace(/^\w/, c => c.toUpperCase())}
                       </Button>
                       <Box ml={1} textColor="green">
                         {choice === choices[selectedChoice - 1] && (
@@ -186,7 +186,7 @@ const ChoicesPanel = (props, context) => {
                           });
                         }}
                         disabled={choice === choices[selectedChoice - 1]}>
-                        {choice.name?.replace(/^\w/, (c) => c.toUpperCase())}
+                        {choice.name?.replace(/^\w/, c => c.toUpperCase())}
                       </Button>
                       <Box ml={1} textColor="green">
                         {choice === choices[selectedChoice - 1] && (
