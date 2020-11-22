@@ -799,7 +799,7 @@
 	overdose_threshold = 35
 
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/carbon/M)
-	if(M.health <= 40)
+	if(M.health <= 80)
 		M.adjustToxLoss(-4*REM, 0)
 		M.adjustBruteLoss(-4*REM, 0)
 		M.adjustFireLoss(-4*REM, 0)
