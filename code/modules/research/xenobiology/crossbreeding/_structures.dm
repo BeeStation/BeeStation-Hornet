@@ -22,6 +22,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	. = ..()
 	if(master_crystal)
 		invisibility = INVISIBILITY_MAXIMUM
+		max_integrity = 1000
+		obj_integrity = 1000
 
 /obj/structure/slime_crystal/Initialize()
 	. = ..()
@@ -114,7 +116,6 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	range_type = "view"
 
 /obj/structure/slime_crystal/grey/on_mob_effect(mob/living/affected_mob)
-	. = ..()
 	if(!istype(affected_mob,/mob/living/simple_animal/slime))
 		return
 	var/mob/living/simple_animal/slime/slime_mob = affected_mob
@@ -125,7 +126,6 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	range_type = "view"
 
 /obj/structure/slime_crystal/orange/on_mob_effect(mob/living/affected_mob)
-	. = ..()
 	if(!istype(affected_mob,/mob/living/carbon))
 		return
 	var/mob/living/carbon/carbon_mob = affected_mob
@@ -147,7 +147,6 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/heal_amt = 2
 
 /obj/structure/slime_crystal/purple/on_mob_effect(mob/living/affected_mob)
-	. = ..()
 	if(!istype(affected_mob,/mob/living/carbon))
 		return
 	var/mob/living/carbon/carbon_mob = affected_mob
@@ -187,7 +186,6 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/heal_amt = 1
 
 /obj/structure/slime_crystal/metal/on_mob_effect(mob/living/affected_mob)
-	. = ..()
 	if(!iscyborg(affected_mob))
 		return
 	var/mob/living/silicon/borgo = affected_mob
@@ -313,7 +311,6 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	colour = "sepia"
 
 /obj/structure/slime_crystal/sepia/on_mob_enter(mob/living/affected_mob)
-	. = ..()
 	ADD_TRAIT(affected_mob,TRAIT_NOBREATH,type)
 	ADD_TRAIT(affected_mob,TRAIT_NOCRITDAMAGE,type)
 	ADD_TRAIT(affected_mob,TRAIT_RESISTLOWPRESSURE,type)
@@ -322,7 +319,6 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	ADD_TRAIT(affected_mob,TRAIT_NOHARDCRIT,type)
 
 /obj/structure/slime_crystal/sepia/on_mob_leave(mob/living/affected_mob)
-	. = ..()
 	REMOVE_TRAIT(affected_mob,TRAIT_NOBREATH,type)
 	REMOVE_TRAIT(affected_mob,TRAIT_NOCRITDAMAGE,type)
 	REMOVE_TRAIT(affected_mob,TRAIT_RESISTLOWPRESSURE,type)
@@ -463,7 +459,6 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	stored_mutation = stored_mutation.type
 
 /obj/structure/slime_crystal/green/on_mob_effect(mob/living/affected_mob)
-	. = ..()
 	if(!ishuman(affected_mob) || !stored_mutation || HAS_TRAIT(affected_mob,TRAIT_BADDNA))
 		return
 	var/mob/living/carbon/human/human_mob = affected_mob
@@ -485,7 +480,6 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	human_mob.dna.remove_mutation(mutation)
 
 /obj/structure/slime_crystal/green/on_mob_leave(mob/living/affected_mob)
-	. = ..()
 	if(!ishuman(affected_mob))
 		return
 	var/mob/living/carbon/human/human_mob = affected_mob
@@ -495,11 +489,9 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	colour = "pink"
 
 /obj/structure/slime_crystal/pink/on_mob_enter(mob/living/affected_mob)
-	. = ..()
 	ADD_TRAIT(affected_mob,TRAIT_PACIFISM,type)
 
 /obj/structure/slime_crystal/pink/on_mob_leave(mob/living/affected_mob)
-	. = ..()
 	REMOVE_TRAIT(affected_mob,TRAIT_PACIFISM,type)
 
 /obj/structure/slime_crystal/gold
@@ -516,7 +508,6 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	human_mob.mind.transfer_to(chosen_pet)
 
 /obj/structure/slime_crystal/gold/on_mob_leave(mob/living/affected_mob)
-	. = ..()
 	if(!istype(affected_mob,/mob/living/simple_animal/pet))
 		return
 
@@ -543,7 +534,6 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	colour = "black"
 
 /obj/structure/slime_crystal/black/on_mob_effect(mob/living/affected_mob)
-	. = ..()
 	if(!ishuman(affected_mob) || isjellyperson(affected_mob))
 		return
 
@@ -565,7 +555,6 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	ADD_TRAIT(L,TRAIT_EMOTEMUTE,type)
 
 /obj/structure/slime_crystal/lightpink/on_mob_leave(mob/living/affected_mob)
-	. = ..()
 	if(istype(affected_mob,/mob/living/simple_animal/hostile/lightgeist/slime))
 		affected_mob.ghostize(TRUE)
 		qdel(affected_mob)
@@ -574,7 +563,6 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	colour = "adamantine"
 
 /obj/structure/slime_crystal/adamantine/on_mob_enter(mob/living/affected_mob)
-	. = ..()
 	if(!ishuman(affected_mob))
 		return
 
@@ -583,7 +571,6 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	human.dna.species.burnmod -= 0.1
 
 /obj/structure/slime_crystal/adamantine/on_mob_leave(mob/living/affected_mob)
-	. = ..()
 	if(!ishuman(affected_mob))
 		return
 
