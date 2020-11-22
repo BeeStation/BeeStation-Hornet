@@ -1,6 +1,7 @@
 import { useBackend } from "../backend";
 import { Box, Icon, Flex, Button, Section, Collapsible } from "../components";
 import { Window } from "../layouts";
+import { logger } from "../logging";
 
 export const Vote = (props, context) => {
   const { data } = useBackend(context);
@@ -11,15 +12,15 @@ export const Vote = (props, context) => {
       resizable
       title={`Vote${
         mode
-          ? (`: ${
+          ? `: ${
             question
               ? question.replace(/^\w/, c => c.toUpperCase())
               : mode.replace(/^\w/, c => c.toUpperCase())
-          }`)
+          }`
           : ""
       }`}
       width={400}
-      height={500}>
+      height={500} >
       <Window.Content>
         <Flex direction="column" height="100%">
           {lower_admin && <AdminPanel />}
@@ -36,7 +37,7 @@ const AdminPanel = (props, context) => {
   const { act, data } = useBackend(context);
   const { avm, avr, avmap, voting, upper_admin } = data;
   return (
-    <Flex.Item mb={1}>
+    <Flex.Item>
       <Collapsible title="Admin Options">
         <Section mb={1} title="Start a vote">
           <Flex justify="space-between">
@@ -98,9 +99,7 @@ const AdminPanel = (props, context) => {
           </Flex>
         </Section>
         <Section title="Still Voting">
-          <Collapsible title="View List">
-            {voting}
-          </Collapsible>
+          <Collapsible title="View List">{voting}</Collapsible>
         </Section>
       </Collapsible>
     </Flex.Item>
@@ -109,97 +108,44 @@ const AdminPanel = (props, context) => {
 
 // Display choices as buttons
 const ChoicesPanel = (props, context) => {
-  const { act, data } = useBackend(context);
-  const { mode, choices, selectedChoice } = data;
+  const { data } = useBackend(context);
+  const { mode, choices } = data;
 
   let content;
-  if (choices.length === 0) (content = "No choices available!");
+  if (choices.length === 0) {
+    content = "No choices available!";
+  }
   // Single box for most normal vote types
   else if ((choices.length < 10) | (mode === "custom")) {
-    content = choices?.map((choice, i) => (
-      <Flex justify="space-between" key={i} mb={1}>
-        <Flex.Item mb={1}>
-          <Flex direction="row">
-            <Button
-              onClick={() => {
-                act("vote", {
-                  index: i + 1,
-                });
-              }}
-              disabled={choice === choices[selectedChoice - 1]}>
-              {choice.name?.replace(/^\w/, c => c.toUpperCase())}
-            </Button>
-            <Box ml={1} textColor="green">
-              {choice === choices[selectedChoice - 1] && (
-                <Icon color="green" name="vote-yea" />
-              )}
-            </Box>
-          </Flex>
-        </Flex.Item>
-        <Flex.Item> {` Votes: ${choice.votes}`}</Flex.Item>
-      </Flex>
-    ));
-  }
-  else {
+    content = (
+      <DisplayChoices
+        choices={choices}
+        tally="Votes:"
+        startIndex={0}
+        margin={1} />
+    );
+  } else {
     // If there's both too much content, most likely gamemode
     content = (
-      <Flex justify="space-between" direction="row" mb={1}>
-        <Flex.Item direction="column" mr={1}>
-          {choices?.map(
-            (choice, i) =>
-              i < choices.length / 2 && (
-                <Flex justify="space-between" key={i}>
-                  <Flex.Item>
-                    <Flex direction="row">
-                      <Button
-                        onClick={() => {
-                          act("vote", {
-                            index: i + 1,
-                          });
-                        }}
-                        disabled={choice === choices[selectedChoice - 1]}>
-                        {choice.name?.replace(/^\w/, c => c.toUpperCase())}
-                      </Button>
-                      <Box ml={1} textColor="green">
-                        {choice === choices[selectedChoice - 1] && (
-                          <Icon color="green" name="vote-yea" />
-                        )}
-                      </Box>
-                    </Flex>
-                  </Flex.Item>
-                  <Flex.Item ml={1}> {`| ${choice.votes}`}</Flex.Item>
-                </Flex>
-              )
-          )}
-        </Flex.Item>
-        <Flex.Item direction="column" ml={1}>
-          {choices?.map(
-            (choice, i) =>
-              i > choices.length / 2 && (
-                <Flex justify="space-between" key={i}>
-                  <Flex.Item>
-                    <Flex justify="space-between" direction="row">
-                      <Button
-                        onClick={() => {
-                          act("vote", {
-                            index: i + 1,
-                          });
-                        }}
-                        disabled={choice === choices[selectedChoice - 1]}>
-                        {choice.name?.replace(/^\w/, c => c.toUpperCase())}
-                      </Button>
-                      <Box ml={1} textColor="green">
-                        {choice === choices[selectedChoice - 1] && (
-                          <Icon color="green" name="vote-yea" />
-                        )}
-                      </Box>
-                    </Flex>
-                  </Flex.Item>
-                  <Flex.Item ml={1}>{`| ${choice.votes}`}</Flex.Item>
-                </Flex>
-              )
-          )}
-        </Flex.Item>
+      <Flex justify="space-between" direction="row">
+        <Flex direction="column">
+          <DisplayChoices
+            choices={choices.filter(
+              (choice, index) => index < choices.length / 2
+            )}
+            tally="|"
+            startIndex={0}
+            margin={0} />
+        </Flex>
+        <Flex direction="column" ml={1}>
+          <DisplayChoices
+            choices={choices.filter(
+              (choice, index) => index > choices.length / 2
+            )}
+            tally="|"
+            startIndex={Math.ceil(choices.length / 2)}
+            margin={0} />
+        </Flex>
       </Flex>
     );
   }
@@ -211,6 +157,37 @@ const ChoicesPanel = (props, context) => {
       </Section>
     </Flex.Item>
   );
+};
+
+const DisplayChoices = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { selectedChoice } = data;
+
+  return props.choices?.map((choice, i) => (
+    <Flex justify="space-between" direction="row" key={i} mb={props.margin}>
+      <Flex>
+        <Button
+          onClick={() => {
+            act("vote", {
+              index: i + props.startIndex + 1,
+            });
+          }}
+          disabled={
+            choice === props.choices[selectedChoice - props.startIndex - 1]
+          } >
+          {choice.name?.replace(/^\w/, c => c.toUpperCase())}
+        </Button>
+        <Box ml={1}>
+          {choice === props.choices[selectedChoice - props.startIndex - 1] && (
+            <Icon color="green" name="vote-yea" />
+          )}
+        </Box>
+      </Flex>
+      <Box ml={1}>
+        {props.tally} {choice.votes}
+      </Box>
+    </Flex>
+  ));
 };
 
 // Countdown timer at the bottom. Includes a cancel vote option for admins
@@ -227,7 +204,7 @@ const TimePanel = (props, context) => {
               onClick={() => {
                 act("cancel");
               }}
-              color="red">
+              color="red" >
               Cancel Vote
             </Button>
           )}
