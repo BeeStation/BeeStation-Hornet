@@ -462,7 +462,6 @@
 	button_icon_state = "chitinous_armor"
 	chemical_cost = 20
 	dna_cost = 2
-	req_absorbs = 3
 	req_human = 1
 	recharge_slowdown = 0.25
 
@@ -477,12 +476,11 @@
 	icon_state = "lingarmor"
 	item_flags = DROPDEL
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	armor = list("melee" = 25, "bullet" = 25, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 25, "acid" = 25)
+	armor = list("melee" = 25, "bullet" = 10, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 25, "acid" = 25)
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
 	blocks_shove_knockdown = TRUE
-	slowdown = 0.2
 
 /obj/item/clothing/suit/armor/changeling/Initialize()
 	. = ..()
