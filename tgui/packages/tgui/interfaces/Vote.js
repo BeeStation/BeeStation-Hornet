@@ -35,11 +35,9 @@ export const Vote = (props, context) => {
     <Window
       resizable
       title={`Vote${
-        mode
-          ? mode !== "custom"
-            ? `: ${mode.replace(/^\w/, (c) => c.toUpperCase())}`
-            : `: ${question.replace(/^\w/, (c) => c.toUpperCase())}`
-          : ""
+        mode !== "custom"
+          ? `: ${mode.replace(/^\w/, (c) => c.toUpperCase())}`
+          : `: ${question.replace(/^\w/, (c) => c.toUpperCase())}`
       }`}
       width={400}
       height={500}
