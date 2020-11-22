@@ -46,7 +46,7 @@
 
 	if(H.nutrition <= NUTRITION_LEVEL_HUNGRY)
 		if(H.nutrition <= NUTRITION_LEVEL_STARVING)
-			H.blood_volume += -8
+			H.blood_volume -= 8
 			if(prob(5))
 				to_chat(H, "<span class='info'>You're starving! Get some food!</span>")
 		else
