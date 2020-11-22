@@ -71,7 +71,7 @@
 	//text message
 	C.visible_message("<span class='warning'>[user]'s [BP] detaches itself and takes the form of a snake!</span>",
 			"<span class='userdanger'>Our [BP] forms into a horrifying snake and heads towards our attackers!</span>")
-	BP.dismember()
+	BP.set_disabled(TRUE)
 	BP.Destroy()
 	C.update_mobility()
 	//Deploy limbsnake
