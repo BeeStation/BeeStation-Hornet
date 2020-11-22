@@ -324,7 +324,7 @@ Slimecrossing Items
 
 	if(istype(stack_item,/obj/item/stack/telecrystal))
 		var/mob/living/carbon/carbie = user
-		to_chat(user,"<span class='big red'> Your greed has been rewarded but at what cost?</span>")
+		to_chat(user,"<span class='big red'> You will pay for your hubris!</span>")
 		carbie.gain_trauma(/datum/brain_trauma/special/beepsky,TRAUMA_RESILIENCE_ABSOLUTE)
 		qdel(src)
 		return
