@@ -14,7 +14,7 @@ SUBSYSTEM_DEF(vote)
 	var/list/voted = list()
 	var/list/voting = list()
 	var/list/choices = list()
-	var/list/user_votes = list()
+	var/list/choice_by_ckey = list()
 	var/list/generated_actions = list()
 
 /datum/controller/subsystem/vote/fire()	//called by master_controller
@@ -27,13 +27,15 @@ SUBSYSTEM_DEF(vote)
 		reset()
 
 /datum/controller/subsystem/vote/proc/reset()
-	initiator = null
-	time_remaining = 0
 	mode = null
-	question = null
-	choices.Cut()
 	voted.Cut()
 	voting.Cut()
+	choices.Cut()
+	question = null
+	initiator = null
+	time_remaining = 0
+	choice_by_ckey.Cut()
+
 	remove_action_buttons()
 
 /datum/controller/subsystem/vote/proc/get_result()
@@ -164,16 +166,21 @@ SUBSYSTEM_DEF(vote)
 	return .
 
 /datum/controller/subsystem/vote/proc/submit_vote(vote)
-	if(mode)
-		if(CONFIG_GET(flag/no_dead_vote) && (usr.stat == DEAD && !isnewplayer(usr)) && !usr.client.holder && mode != "map")
-			return 0
-		if(!(usr.ckey in voted))
-			if(vote && 1<=vote && vote<=choices.len)
-				voted += usr.ckey
-				choices[user_votes] += usr.ckey
-				choices[choices[vote]]++	//check this
-				return vote
-	return 0
+	if(!mode)
+		return FALSE
+	if(CONFIG_GET(flag/no_dead_vote) && (usr.stat == DEAD && !isnewplayer(usr)) && !usr.client.holder && mode != "map")
+		return FALSE
+	if(!(vote && 1<=vote && vote<=choices.len))
+		return FALSE
+	// If user has already voted
+	if(usr.ckey in voted)
+		choices[choices[choice_by_ckey[usr.ckey]]]--
+	else
+		voted += usr.ckey
+
+	choice_by_ckey[usr.ckey] = vote
+	choices[choices[vote]]++	//check this
+	return vote
 
 /datum/controller/subsystem/vote/proc/initiate_vote(vote_type, initiator_key, forced=FALSE, popup=FALSE)
 	if(!mode)
@@ -264,6 +271,9 @@ SUBSYSTEM_DEF(vote)
 	return GLOB.always_state
 
 /datum/controller/subsystem/vote/ui_interact(mob/user, datum/tgui/ui)
+	// Tracks who is voting
+	if(!(user.client?.ckey in voting))
+		voting += user.client?.ckey
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Vote")
@@ -277,7 +287,6 @@ SUBSYSTEM_DEF(vote)
 		"choices" = list(),
 		"question" = question,
 		"initiator" = initiator,
-		"user_vote" = user_vote,
 		"started_time" = started_time,
 		"time_remaining" = time_remaining,
 		"lower_admin" = !!user.client?.holder,
@@ -285,14 +294,14 @@ SUBSYSTEM_DEF(vote)
 		"avm" = CONFIG_GET(flag/allow_vote_mode),
 		"avmap" = CONFIG_GET(flag/allow_vote_map),
 		"avr" = CONFIG_GET(flag/allow_vote_restart),
+		"selectedChoice" = choice_by_ckey[user.client?.ckey],
 		"upper_admin" = check_rights_for(user.client, R_ADMIN),
 	)
 
 	for(var/key in choices)
 		data["choices"] += list(list(
 			"name" = key,
-			"votes" = choices[key] || 0,
-			"user_votes" = choices[user_votes],
+			"votes" = choices[key] || 0
 		))
 
 	return data
