@@ -8,7 +8,8 @@
 	req_stat = DEAD
 	ignores_fakedeath = TRUE
 	var/revive_ready = FALSE
-	var/revive_husk_cost = 30
+	var/revive_mend_cost = 10
+	var/revive_spent_dna = 0
 
 //Fake our own death and fully heal. You will appear to be dead but regenerate fully after a short delay.
 /datum/action/changeling/fakedeath/sting_action(mob/living/user)
@@ -24,6 +25,7 @@
 		to_chat(user, "<span class='notice'>We have revived ourselves.</span>")
 	else
 		to_chat(user, "<span class='notice'>We begin our stasis, preparing energy to arise once more.</span>")
+		revive_spent_dna = 0
 		user.fakedeath("changeling") //play dead
 		user.update_stat()
 		user.update_mobility()
@@ -61,8 +63,12 @@
 	if(HAS_TRAIT(user, TRAIT_HUSK))
 		var/datum/antagonist/changeling/dedun = user.mind.has_antag_datum(/datum/antagonist/changeling)
 		if (dedun.chem_charges>=revive_husk_cost)
+			to_chat(user, "<span class='notice'>You spend [revive_husk_cost] chemicals to repair your DNA!.</span>")
 			dedun.chem_charges-=revive_husk_cost
+			revive_spent_dna += revive_husk_cost
+			if (revive_spent_dna<100)
+				return
 		else
-			to_chat(user, "<span class='warning'>You need [revive_husk_cost] chemicals to repair the damage!.</span>")
+			to_chat(user, "<span class='warning'>You need [revive_husk_cost] chemicals to repair your DNA!.</span>")
 			return
 	return ..()
