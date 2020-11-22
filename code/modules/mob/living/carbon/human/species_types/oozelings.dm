@@ -71,7 +71,7 @@
 		if(environment)
 			if(environment.total_moles())
 				if(environment.get_moles(/datum/gas/water_vapor) >= 1)
-					H.blood_volume += -15
+					H.blood_volume -= 15
 					if(prob(50))
 						to_chat(H, "<span class='danger'>Your ooze melts away rapidly in the water vapor!</span>")
 				if(environment.get_moles(/datum/gas/plasma) >= 1)
