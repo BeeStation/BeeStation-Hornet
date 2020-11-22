@@ -181,7 +181,7 @@
 	if(!istype(M))
 		return
 	if(isoozeling(M))
-		M.blood_volume += -30
+		M.blood_volume -= 30
 		to_chat(M, "<span class='warning'>The water causes you to melt away!</span>")
 		return
 	if(method == TOUCH)
