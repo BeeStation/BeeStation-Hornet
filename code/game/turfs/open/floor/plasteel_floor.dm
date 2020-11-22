@@ -112,6 +112,12 @@
 	name = "engraved floor"
 	CanAtmosPass = ATMOS_PASS_NO	
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+	
+/turf/open/floor/plasteel/cult/Initialize()
+	..()
+	var/datum/gas_mixture/auto_atmos = new (initial_gas_mix)
+	assume_air(auto_atmos)
+	update_air_ref()
 
 /turf/open/floor/plasteel/vaporwave
 	icon_state = "pinkblack"
