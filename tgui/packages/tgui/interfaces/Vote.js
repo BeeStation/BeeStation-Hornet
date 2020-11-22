@@ -11,16 +11,15 @@ export const Vote = (props, context) => {
       resizable
       title={`Vote${
         mode
-          ? `: ${
+          ? (`: ${
             question
-              ? question.replace(/^\w/, (c) => c.toUpperCase())
-              : mode.replace(/^\w/, (c) => c.toUpperCase())
-            }`
+              ? (question.replace(/^\w/, (c) => c.toUpperCase()))
+              : (mode.replace(/^\w/, (c) => c.toUpperCase()))
+          }`)
           : ""
       }`}
       width={400}
-      height={500}
-    >
+      height={500}>
       <Window.Content>
         <Flex direction="column" height="100%">
           {lower_admin && <AdminPanel />}
@@ -116,7 +115,7 @@ const ChoicesPanel = (props, context) => {
   let content;
   if (choices.length === 0) (content = "No choices available!");
   // Single box for most normal vote types
-  else if ((choices.length < 10) | (mode === "custom"))
+  else if ((choices.length < 10) | (mode === "custom")){
     content = choices?.map((choice, i) => (
       <Flex justify="space-between" key={i} mb={1}>
         <Flex.Item mb={1}>
@@ -128,7 +127,7 @@ const ChoicesPanel = (props, context) => {
                 });
               }}
               disabled={choice === choices[selectedChoice - 1]}>
-              {choice.name?.replace(/^\w/, (c) => c.toUpperCase())}
+              {(choice.name?.replace(/^\w/, (c) => c.toUpperCase()))}
             </Button>
             <Box ml={1} textColor="green">
               {choice === choices[selectedChoice - 1] && (
@@ -139,7 +138,8 @@ const ChoicesPanel = (props, context) => {
         </Flex.Item>
         <Flex.Item> {` Votes: ${choice.votes}`}</Flex.Item>
       </Flex>
-    ));
+    ))
+  }
   else {
     // If there's both too much content, most likely gamemode
     content = (
@@ -158,7 +158,7 @@ const ChoicesPanel = (props, context) => {
                           });
                         }}
                         disabled={choice === choices[selectedChoice - 1]}>
-                        {choice.name?.replace(/^\w/, (c) => c.toUpperCase())}
+                        {(choice.name?.replace(/^\w/, (c) => c.toUpperCase()))}
                       </Button>
                       <Box ml={1} textColor="green">
                         {choice === choices[selectedChoice - 1] && (
@@ -186,7 +186,7 @@ const ChoicesPanel = (props, context) => {
                           });
                         }}
                         disabled={choice === choices[selectedChoice - 1]}>
-                        {choice.name?.replace(/^\w/, (c) => c.toUpperCase())}
+                        {(choice.name?.replace(/^\w/, (c) => c.toUpperCase()))}
                       </Button>
                       <Box ml={1} textColor="green">
                         {choice === choices[selectedChoice - 1] && (
