@@ -62,13 +62,13 @@
 					return
 	if(HAS_TRAIT(user, TRAIT_HUSK))
 		var/datum/antagonist/changeling/dedun = user.mind.has_antag_datum(/datum/antagonist/changeling)
-		if (dedun.chem_charges>=revive_husk_cost)
-			to_chat(user, "<span class='notice'>You spend [revive_husk_cost] chemicals to repair your DNA!.</span>")
-			dedun.chem_charges-=revive_husk_cost
-			revive_spent_dna += revive_husk_cost
+		if (dedun.chem_charges>=revive_mend_cost)
+			to_chat(user, "<span class='notice'>You spend [revive_mend_cost] chemicals to repair your DNA!.</span>")
+			dedun.chem_charges-=revive_mend_cost
+			revive_spent_dna += revive_mend_cost
 			if (revive_spent_dna<100)
 				return
 		else
-			to_chat(user, "<span class='warning'>You need [revive_husk_cost] chemicals to repair your DNA!.</span>")
+			to_chat(user, "<span class='warning'>You need [revive_mend_cost] chemicals to repair your DNA!.</span>")
 			return
 	return ..()
