@@ -1,0 +1,8 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: Ratvar now fights Narsie
+  - rscadd: Cult will not end the round on summon if clockcult exists.
+  - tweak: Becoming a clockie counts towards the sacrifice objective.
+  - bugfix: Report of clockcult shows 180 seconds instead of 1800 seconds
+  - bugfix: Removes the delay between clockwork gateway opening and rat'var appearing
