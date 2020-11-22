@@ -1,0 +1,5 @@
+author: Victor239
+delete-after: true
+changes:
+  - bugfix: Fixes not being able to use syringes on arms and legs whilst wearing an
+      armour vest.
