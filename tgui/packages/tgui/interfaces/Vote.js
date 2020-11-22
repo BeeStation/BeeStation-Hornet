@@ -36,7 +36,7 @@ export const Vote = (props, context) => {
       resizable
       title={`Vote${
         mode
-          ? `: (${
+          ? (`: ${
               question
                 ? question.replace(/^\w/, (c) => c.toUpperCase())
                 : mode.replace(/^\w/, (c) => c.toUpperCase())
