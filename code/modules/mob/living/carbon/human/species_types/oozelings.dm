@@ -51,7 +51,7 @@
 				to_chat(H, "<span class='info'>You're starving! Get some food!</span>")
 		else
 			if(prob(35))
-				H.blood_volume += -2
+				H.blood_volume -= 2
 				if(prob(5))
 					to_chat(H, "<span class='danger'>You're feeling pretty hungry...</span>")
 
