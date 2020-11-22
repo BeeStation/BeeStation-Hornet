@@ -1832,6 +1832,16 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	cost = 2
 	restricted_species = list("plasmaman")
 
+/datum/uplink_item/stealthy_weapons/martialarts
+	name = "Old Tribal Scroll"
+	desc = "This scroll contains the secrets of an ancient martial arts technique. You will master unarmed combat, \
+			deflecting all ranged weapon fire, but you also refuse to use dishonorable ranged weaponry."
+	item = /obj/item/book/granter/martial/tribal_claw
+	cost = 16
+	surplus = 0
+	surplus_nullcrates = 0
+	restricted_species = list("lizardpeople")
+
 // Role-specific items
 /datum/uplink_item/role_restricted
 	category = "Role-Restricted"

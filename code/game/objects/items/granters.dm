@@ -377,6 +377,23 @@
 		name = "empty scroll"
 		icon_state = "blankscroll"
 
+/obj/item/book/granter/martial/tribal_claw
+	martial = /datum/martial_art/tribal_claw
+	name = "old scroll"
+	martialname = "tribal claw"
+	desc = "A scroll filled with strange markings. It seems to be drawings of some sort of martial art."
+	greet = "<span class='sciradio'>something something tribal claw</span>"
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "scroll2"
+	remarks = list("replace1", "replace2", "replace3", "replace4")
+
+/obj/item/book/granter/martial/tribal_claw/onlearned(mob/living/carbon/user)
+	..()
+	if(oneuse == TRUE)
+		desc = "It's completely blank."
+		name = "empty scroll"
+		icon_state = "blankscroll"
+
 /obj/item/book/granter/martial/plasma_fist
 	martial = /datum/martial_art/plasma_fist
 	name = "frayed scroll"
