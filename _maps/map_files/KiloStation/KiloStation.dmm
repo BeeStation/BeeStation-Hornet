@@ -19460,7 +19460,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/landmark/start/atmospheric_technician,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "aCM" = (
@@ -22618,7 +22617,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
-/obj/effect/landmark/start/atmospheric_technician,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -24729,7 +24727,6 @@
 	dir = 4
 	},
 /obj/structure/chair/stool,
-/obj/effect/landmark/start/atmospheric_technician,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -24979,24 +24976,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
-"aLj" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/cyan/visible,
-/obj/effect/landmark/start/atmospheric_technician,
-/turf/open/floor/plasteel,
-/area/engine/atmos)
 "aLk" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -26128,7 +26107,6 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/effect/landmark/start/atmospheric_technician,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "aMT" = (
@@ -88182,7 +88160,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
 	},
-/obj/effect/landmark/start/atmospheric_technician,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -100078,7 +100055,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
-/obj/effect/landmark/start/atmospheric_technician,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -128539,7 +128515,7 @@ cpT
 cqO
 crZ
 ctn
-aLj
+aGg
 aGg
 aHJ
 btx

@@ -41539,7 +41539,6 @@
 /obj/structure/chair/office{
 	dir = 4
 	},
-/obj/effect/landmark/start/atmospheric_technician,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bAF" = (
@@ -42306,7 +42305,6 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/landmark/start/atmospheric_technician,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -43171,7 +43169,6 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 6
 	},
-/obj/effect/landmark/start/atmospheric_technician,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bEa" = (
@@ -52519,13 +52516,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/dark/visible{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/engine/atmos)
-"bXk" = (
-/obj/effect/landmark/start/atmospheric_technician,
 /obj/machinery/atmospherics/pipe/simple/dark/visible{
 	dir = 4
 	},
@@ -129296,7 +129286,7 @@ bPr
 bxd
 bUA
 bVK
-bXk
+bXm
 bYy
 bZH
 cbg
@@ -130829,7 +130819,7 @@ bDZ
 bFT
 bHz
 bIW
-bKD
+bCi
 dhe
 dhg
 bPu

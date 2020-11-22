@@ -29288,21 +29288,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"bbD" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/atmospheric_technician,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/engine/atmos)
 "bbE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/trinary/filter{
@@ -29336,7 +29321,6 @@
 /area/engine/atmos)
 "bbG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/atmospheric_technician,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -29364,25 +29348,6 @@
 "bbI" = (
 /obj/machinery/pipedispenser/disposal,
 /obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/engine/atmos)
-"bbJ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
-/obj/effect/landmark/start/atmospheric_technician,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -38100,7 +38065,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 2
 	},
-/obj/effect/landmark/start/atmospheric_technician,
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
 	},
@@ -40603,7 +40567,6 @@
 /obj/machinery/atmospherics/pipe/manifold/yellow/visible{
 	dir = 1
 	},
-/obj/effect/landmark/start/atmospheric_technician,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -44096,7 +44059,6 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/holopad,
-/obj/effect/landmark/start/atmospheric_technician,
 /obj/effect/turf_decal/bot,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -149636,7 +149598,7 @@ aUO
 aWE
 aYd
 aZX
-bbD
+aZX
 bde
 bde
 bfX
@@ -152206,7 +152168,7 @@ aUV
 aWM
 aYm
 baf
-bbJ
+aWM
 baf
 baf
 baf

@@ -8590,7 +8590,6 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 6
 	},
-/obj/effect/landmark/start/atmospheric_technician,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "auU" = (
@@ -30716,10 +30715,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
-"bpZ" = (
-/obj/effect/landmark/start/atmospheric_technician,
-/turf/open/floor/plasteel,
-/area/engine/atmos)
 "bqa" = (
 /obj/structure/sink{
 	dir = 8;
@@ -36023,11 +36018,6 @@
 /obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/janitor)
-"bAb" = (
-/obj/effect/landmark/start/atmospheric_technician,
-/obj/structure/chair/stool,
-/turf/open/floor/plasteel,
-/area/engine/atmos)
 "bAc" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -93460,7 +93450,7 @@ bgw
 acj
 bje
 asr
-bAb
+ass
 awL
 avg
 atD
@@ -94752,11 +94742,11 @@ avN
 awi
 brL
 axA
-bpZ
+asr
 asr
 bRs
 asr
-bpZ
+asr
 ayA
 azq
 awf

@@ -9,8 +9,7 @@ GLOBAL_LIST_INIT(command_positions, list(
 
 GLOBAL_LIST_INIT(engineering_positions, list(
 	"Chief Engineer",
-	"Station Engineer",
-	"Atmospheric Technician"))
+	"Station Engineer"))
 
 
 GLOBAL_LIST_INIT(medical_positions, list(
@@ -108,7 +107,6 @@ GLOBAL_PROTECT(exp_specialmap)
 	var/static/regex/qm_expand = new("qm")
 	var/static/regex/sec_expand = new("(?<!security )officer")
 	var/static/regex/engi_expand = new("(?<!station )engineer")
-	var/static/regex/atmos_expand = new("atmos tech")
 	var/static/regex/doc_expand = new("(?<!medical )doctor|medic(?!al)")
 	var/static/regex/mine_expand = new("(?<!shaft )miner")
 	var/static/regex/chef_expand = new("chef")
@@ -124,7 +122,6 @@ GLOBAL_PROTECT(exp_specialmap)
 	job = qm_expand.Replace(job, "quartermaster")
 	job = sec_expand.Replace(job, "security officer")
 	job = engi_expand.Replace(job, "station engineer")
-	job = atmos_expand.Replace(job, "atmospheric technician")
 	job = doc_expand.Replace(job, "medical doctor")
 	job = mine_expand.Replace(job, "shaft miner")
 	job = chef_expand.Replace(job, "cook")

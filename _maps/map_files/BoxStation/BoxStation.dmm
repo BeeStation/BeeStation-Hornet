@@ -33521,7 +33521,6 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/landmark/start/atmospheric_technician,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bRu" = (
@@ -43115,7 +43114,6 @@
 /obj/structure/chair/office{
 	dir = 4
 	},
-/obj/effect/landmark/start/atmospheric_technician,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 10
 	},

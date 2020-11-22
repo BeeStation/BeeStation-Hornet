@@ -42444,7 +42444,6 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/obj/effect/landmark/start/atmospheric_technician,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
@@ -42804,7 +42803,6 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/obj/effect/landmark/start/atmospheric_technician,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
