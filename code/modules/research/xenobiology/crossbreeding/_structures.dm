@@ -235,9 +235,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		open_turf.MakeDry(TURF_WET_LUBE)
 
 	for(var/obj/item/trash/trashie in listie)
-		if(prob(75))
-			continue
-		qdel(trashie)
+		if(prob(25))
+			qdel(trashie)
 
 /obj/structure/slime_crystal/silver
 	colour = "silver"
