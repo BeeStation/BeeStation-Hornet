@@ -268,7 +268,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 	var/list/local_bs_list = GLOB.bluespace_slime_crystals.Copy()
 	local_bs_list -= src
-	if(local_bs_list.len == 0)
+	if(!LAZYLEN(local_bs_list))
 		return ..()
 
 	if(local_bs_list.len == 1)
