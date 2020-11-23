@@ -120,13 +120,20 @@
 	icon_state = "sunhudtoggle"
 
 /obj/item/clothing/glasses/hud/medsec
-	name = "medsec HUD"
+	name = "Hybrid HUD"
 	desc = "A combination HUD, providing the user the use of a Medical and Security HUD."
 	icon_state = "medsechud"
 	hud_type = list(DATA_HUD_SECURITY_ADVANCED, DATA_HUD_MEDICAL_ADVANCED)
 	hud_trait = list(TRAIT_SECURITY_HUD, TRAIT_MEDICAL_HUD)
 
 	glass_colour_type = /datum/client_colour/glass_colour/red
+	
+/obj/item/clothing/glasses/hud/medsec/screwdriver_act(mob/living/user, obj/item/I)		
+	sechud = new /obj/item/clothing/glasses/hud/security (get_turf(src)) 
+	medhud = new /obj/item/clothing/glasses/hud/health (get_turf(src)) 
+	qdel(src)	
+	to_chat(user, "<span class='notice'>You disassemble \the [src].</span>")	
+	return TRUE
 
 /obj/item/clothing/glasses/hud/security/chameleon
 	name = "chameleon security HUD"

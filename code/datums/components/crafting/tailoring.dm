@@ -162,3 +162,12 @@
 				/obj/item/stack/sheet/glass = 1)
 	category = CAT_CLOTHING
 
+
+/datum/crafting_recipe/medsechud
+	name = "Hybrid HUD"
+	result = /obj/item/clothing/glasses/hud/medsec
+	time = 20
+	tools = list(TOOL_SCREWDRIVER)
+	reqs = list(/obj/item/clothing/glasses/hud/health = 1,
+				  /obj/item/clothing/glasses/hud/security = 1)
+	category = CAT_CLOTHING
