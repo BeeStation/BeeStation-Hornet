@@ -31,7 +31,7 @@
 
 /obj/effect/proc_holder/spell/targeted/touch/mansus_grasp
 	name = "Mansus Grasp"
-	desc = "Touch spell that let's you channel the power of the old gods through you."
+	desc = "Channel the power of the old gods through you! You can strike a mortal to disable them or carve transmutation runes on the floor."
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 	school = "evocation"
 	charge_max = 150
@@ -46,17 +46,20 @@
 	icon_state = "mansus_grasp"
 	item_state = "mansus_grasp"
 	catchphrase = "R'CH T'H TR'TH"
+	///Where we cannot create the rune?
+	var/static/list/blacklisted_turfs = typecacheof(list(/turf/closed,/turf/open/space,/turf/open/lava))
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag || target == user)
 		return
 	playsound(user, 'sound/items/welder.ogg', 75, TRUE)
+
 	if(ishuman(target))
 		var/mob/living/carbon/human/tar = target
 		if(tar.check_shields(src,10, "the [tar.name]"))
 			return ..()
 		if(tar.anti_magic_check())
-			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The spell bounces off of you!</span>")
+			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The [src] bounces off of you!</span>")
 			return ..()
 	var/datum/mind/M = user.mind
 	var/datum/antagonist/heretic/cultie = M.has_antag_datum(/datum/antagonist/heretic)
@@ -68,14 +71,62 @@
 		C.adjustBruteLoss(10)
 		C.AdjustKnockdown(5 SECONDS)
 		C.adjustStaminaLoss(80)
-	var/list/knowledge = cultie.get_all_knowledge()
+	else if (istype(target,/obj/item/artifact) && cultie.get_knowledge(/datum/eldritch_knowledge/dematerialize))
+		var/obj/item/artifact/target_artifact = target
+		target_artifact.to_ashes(user)
+		return TRUE
+	else if(istype(target,/obj/effect/eldritch))
+		remove_rune(target,user)
+		return FALSE
+	else if(istype(target,/turf/open))
+		var/mob/caster = user
+		if (caster.a_intent != INTENT_HARM)
+			draw_rune(target,user)
+			return FALSE
 
+	if (ishuman(target))
+		var/mob/living/carbon/human/victim = target
+		if(victim.has_trauma_type(/datum/brain_trauma/fascination) && !QDELETED(victim) && victim.stat != DEAD)
+			switch (cultie.enslave(victim))
+				if (0)
+					victim.SetSleeping(0)
+					to_chat(user,"<span class='warning'>You corrupt the mind of [victim]! He is now bound to do your bidding...</span>")
+					return ..()
+				if (3)
+					to_chat(user,"<span class='warning'>Their mind belongs to someone else!</span>")
+				if (2)
+					to_chat(user,"<span class='notice'>[victim] has no mind to enslave!</span>")
+				if (1)
+					to_chat(user, "<span class='notice'>You sense a weak mind, but your powers are not strong enough to take it over!</span>")
+
+	var/list/knowledge = cultie.get_all_knowledge()
 	for(var/X in knowledge)
 		var/datum/eldritch_knowledge/EK = knowledge[X]
 		if(EK.on_mansus_grasp(target, user, proximity_flag, click_parameters))
 			use_charge = TRUE
 	if(use_charge)
 		return ..()
+
+///Draws a rune on a selected turf
+/obj/item/melee/touch_attack/mansus_fist/proc/draw_rune(atom/target,mob/user)
+
+	for(var/turf/T in range(1,target))
+		if(is_type_in_typecache(T, blacklisted_turfs))
+			to_chat(target, "<span class='warning'>The terrain doesn't support runes!</span>")
+			return
+	var/A = get_turf(target)
+	to_chat(user, "<span class='danger'>You start drawing a rune...</span>")
+
+	if(do_after(user,16 SECONDS,FALSE,A))
+		new /obj/effect/eldritch/big(A)
+
+
+///Removes runes from the selected turf
+/obj/item/melee/touch_attack/mansus_fist/proc/remove_rune(atom/target,mob/user)
+
+	to_chat(user, "<span class='danger'>You start removing a rune...</span>")
+	if(do_after(user,16 SECONDS,user))
+		qdel(target)
 
 /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
 	name = "Aggressive Spread"

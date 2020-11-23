@@ -25,6 +25,8 @@
 	var/list/result_atoms = list()
 	///What path is this on defaults to "Side"
 	var/route = PATH_SIDE
+	//Increases the total amount of followers
+	var/followers_increment = 0
 
 /datum/eldritch_knowledge/New()
 	. = ..()
@@ -158,6 +160,10 @@
 	var/chosen_mob = input("Select the person you wish to curse","Your target") as null|anything in sortList(compiled_list, /proc/cmp_mob_realname_dsc)
 	if(!chosen_mob)
 		return FALSE
+	var/mob/living/living_target = chosen_mob
+	if (istype(living_target) && HAS_TRAIT(living_target, TRAIT_WARDED))
+		to_chat(user, "<span class='warning'>The curse failed! The target is warded against curses.</span>")
+		return FALSE
 	curse(compiled_list[chosen_mob])
 	addtimer(CALLBACK(src, .proc/uncurse, compiled_list[chosen_mob]),timer)
 	return TRUE
@@ -226,7 +232,7 @@
 
 /datum/eldritch_knowledge/spell/basic
 	name = "Break of dawn"
-	desc = "Starts your journey in the mansus. Allows you to select a target using a living heart on a transmutation rune."
+	desc = "You can sacrifice specific targets by placing their dead bodies and the living heart on a transmutation rune, and performing a transmutation ritual."
 	gain_text = "Gates of mansus open up to your mind."
 	next_knowledge = list(/datum/eldritch_knowledge/base_rust,/datum/eldritch_knowledge/base_ash,/datum/eldritch_knowledge/base_flesh)
 	cost = 0
@@ -259,8 +265,9 @@
 			for(var/X in carbon_user.get_all_gear())
 				if(!istype(X,/obj/item/forbidden_book))
 					continue
-				var/obj/item/forbidden_book/FB = X
-				FB.charge++
+				//var/obj/item/forbidden_book/FB = X
+				//FB.charge++
+				EC.gain_favor(8,FALSE)
 				break
 
 		if(!LH.target)
@@ -278,9 +285,15 @@
 /datum/eldritch_knowledge/spell/basic/cleanup_atoms(list/atoms)
 	return
 
+///////////////////////
+///General Knowledge///
+///////////////////////
+
+// Crafting //
+
 /datum/eldritch_knowledge/living_heart
 	name = "Living Heart"
-	desc = "Allows you to create additional living hearts, using a heart, a pool of blood and a poppy. Living hearts when used on a transmutation rune will grant you a person to hunt and sacrifice on the rune. Every sacrifice gives you an additional charge in the book."
+	desc = "Allows you to transmute living hearts, using a heart, a poppy and a pool of blood. Living hearts when used on a transmutation rune will grant you a person to hunt and sacrifice on the rune. Every sacrifice gives you favor."
 	gain_text = "Gates of mansus open up to your mind."
 	cost = 0
 	required_atoms = list(/obj/item/organ/heart,/obj/effect/decal/cleanable/blood,/obj/item/reagent_containers/food/snacks/grown/poppy)
@@ -289,9 +302,260 @@
 
 /datum/eldritch_knowledge/codex_cicatrix
 	name = "Codex Cicatrix"
-	desc = "Allows you to create a spare Codex Cicatrix if you have lost one, using a bible, human skin, a pen and a pair of eyes."
+	desc = "Allows you to create a new Codex Cicatrix if you so require, using a bible, a pen and a pair of eyes on a transmutation rune, and performing a transmutation ritual."
 	gain_text = "Their hand is at your throats, yet you see Them not."
 	cost = 0
-	required_atoms = list(/obj/item/organ/eyes,/obj/item/stack/sheet/animalhide/human,/obj/item/storage/book/bible,/obj/item/pen)
+	required_atoms = list(/obj/item/organ/eyes,/obj/item/storage/book/bible,/obj/item/pen)
 	result_atoms = list(/obj/item/forbidden_book)
 	route = "Start"
+
+/datum/eldritch_knowledge/eldritch_avatar
+	name = "Avatar Of The Gods"
+	desc = "You can transmute a condensed matter cartridge into a strange figurine resembling the lesser gods, to gain their favor and lend their power."
+	gain_text = "You call the aid of lesser gods."
+	cost = 0
+	required_atoms = list(/obj/item/rcd_ammo)
+	result_atoms = list(/obj/item/artifact)
+	route = "Start"
+
+/datum/eldritch_knowledge/armor
+	name = "Armorer's ritual"
+	desc = "You can now create eldritch armor using a table, the skin of a human and a gas mask."
+	gain_text = "For I am the heir to the throne of doom."
+	cost = 4
+	next_knowledge = list(/datum/eldritch_knowledge/spell/area_conversion,/datum/eldritch_knowledge/summon/raw_prophet,/datum/eldritch_knowledge/dematerialize)
+	required_atoms = list(/obj/structure/table,/obj/item/stack/sheet/animalhide/human,/obj/item/clothing/mask/gas)
+	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch)
+
+/datum/eldritch_knowledge/essence
+	name = "Priest's ritual"
+	desc = "You can now transmute a tank of water into a bottle of eldritch water."
+	gain_text = "This is an old recipe, i got it from an owl."
+	cost = 4
+	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
+	required_atoms = list(/obj/structure/reagent_dispensers/watertank)
+	result_atoms = list(/obj/item/reagent_containers/glass/beaker/eldritch)
+
+/datum/eldritch_knowledge/ashen_eyes
+	name = "Ashen Eyes"
+	gain_text = "Piercing eyes may guide me through the mundane."
+	desc = "Allows you to craft thermal vision amulet by transmutating eyes with a glass shard."
+	cost = 4
+	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
+	required_atoms = list(/obj/item/organ/eyes,/obj/item/shard)
+	result_atoms = list(/obj/item/clothing/neck/eldritch_amulet)
+
+// Spells //
+
+/datum/eldritch_knowledge/spell/blood_siphon
+	name = "Blood Siphon"
+	gain_text = "Our blood is all the same after all, the owl told me."
+	desc = "The Blood Siphon spell drains enemies health and restores yours."
+	cost = 4
+	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/blood_siphon
+	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet,/datum/eldritch_knowledge/spell/area_conversion,/datum/eldritch_knowledge/dematerialize)
+
+/datum/eldritch_knowledge/spell/cleave
+	name = "Blood Cleave"
+	gain_text = "At first i didn't know these instruments of war, but the priest told me to use them."
+	desc = "Blood Cleave is an AOE spell that causes heavy bleeding and blood loss."
+	cost = 4
+	spell_to_add = /obj/effect/proc_holder/spell/pointed/cleave
+	next_knowledge = list(/datum/eldritch_knowledge/spell/rust_wave,/datum/eldritch_knowledge/spell/flame_birth,/datum/eldritch_knowledge/summon/stalker)
+
+// Curses //
+
+/datum/eldritch_knowledge/curse/fascination
+	name = "Dreamgate"
+	gain_text = "Those safe in this world are not safe in others..."
+	desc = "Transmute a poppy, a bedsheet and candle to perform a Dreamgate Ritual. Allows you to strike any sleeping or unconcious mind with fascination."
+	cost = 4
+	required_atoms = list(/obj/item/bedsheet,/obj/item/reagent_containers/food/snacks/grown/poppy,/obj/item/candle)
+	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
+	timer = 5 MINUTES
+	followers_increment = 1
+
+/datum/eldritch_knowledge/curse/fascination/curse(mob/living/chosen_mob)
+	. = ..()
+	var/mob/living/carbon/human/sucker = chosen_mob
+	if (istype(sucker) && !IS_HERETIC(chosen_mob) && !IS_HERETIC_MONSTER(chosen_mob))
+		sucker.gain_trauma(/datum/brain_trauma/fascination,TRAUMA_RESILIENCE_SURGERY)
+
+/datum/eldritch_knowledge/curse/fascination/on_finished_recipe(mob/living/user,list/atoms,loc)
+	var/list/compiled_list = list()
+
+	for(var/H in GLOB.carbon_list)
+		if(!ishuman(H))
+			continue
+		var/mob/living/carbon/human/human_to_check = H
+		if((human_to_check.IsUnconscious() || human_to_check.IsSleeping()) && human_to_check.stat != DEAD)
+			compiled_list |= human_to_check.real_name
+			compiled_list[human_to_check.real_name] = human_to_check
+
+	if(!LAZYLEN(compiled_list))
+		to_chat(user, "<span class='warning'>There are no sleepers on this plane.</span>")
+		return FALSE
+
+	var/chosen_mob = input("Select the person you wish to curse","Your target") as null|anything in sortList(compiled_list, /proc/cmp_mob_realname_dsc)
+	if(!chosen_mob)
+		return FALSE
+	curse(compiled_list[chosen_mob])
+	addtimer(CALLBACK(src, .proc/uncurse, compiled_list[chosen_mob]),timer)
+	return TRUE
+
+
+/datum/eldritch_knowledge/curse/alteration
+	name = "Alteration"
+	gain_text = "Mortal bodies, prisons of flesh. Death, a release..."
+	desc = "Start an alteration ritual by transmuting a wire cutter a hatchet and an item that the victim touched with their bare hands. Inflict a debilitating curse that will cripple your target's body for 2 minutes. Add eyes, ears, limbs or tongues to the mix to disable those organs while the curse is in effect."
+	cost = 4
+	required_atoms = list(/obj/item/wirecutters,/obj/item/hatchet)
+	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet,/datum/eldritch_knowledge/spell/area_conversion,/datum/eldritch_knowledge/dematerialize)
+	timer = 2 MINUTES
+	var/list/debuffs = list()
+
+/datum/eldritch_knowledge/curse/alteration/on_finished_recipe(mob/living/user, list/atoms, loc)	//the ritual completed, take the payment and apply the curse
+	//declare
+	debuffs = list()
+	var/list/extra_atoms = list()
+
+	//check variables
+	for(var/A in range(1, loc))	//this
+		var/atom/atom_in_range = A
+		to_chat(user,"found [A]")//debug
+		if(istype(atom_in_range,/obj/item/bodypart/r_leg))
+			extra_atoms |= A
+			debuffs |= "r_leg"
+		else if(istype(atom_in_range,/obj/item/bodypart/l_leg))
+			extra_atoms |= A
+			debuffs |= "l_leg"
+		else if(istype(atom_in_range,/obj/item/bodypart/r_arm))
+			extra_atoms |= A
+			debuffs |= "r_arm"
+		else if(istype(atom_in_range,/obj/item/bodypart/l_arm))
+			extra_atoms |= A
+			debuffs |= "l_arm"
+		else if(istype(atom_in_range,/obj/item/organ/tongue))
+			extra_atoms |= A
+			debuffs |= "tongue"
+		else if(istype(atom_in_range,/obj/item/organ/eyes))
+			extra_atoms |= A
+			debuffs |= "eyes"
+		else if(istype(atom_in_range,/obj/item/organ/ears))
+			extra_atoms |= A
+			debuffs |= "ears"
+		else if(istype(atom_in_range,/obj/item/organ/liver) || istype(atom_in_range,/obj/item/organ/lungs) || istype(atom_in_range,/obj/item/organ/appendix) || istype(atom_in_range,/obj/item/organ/heart))
+			extra_atoms |= A
+			debuffs |= "organs"
+
+	cleanup_atoms(extra_atoms)
+	. = ..()
+	return .
+
+/datum/eldritch_knowledge/curse/alteration/curse(mob/living/chosen_mob)
+	. = ..()
+	if (chosen_mob.has_status_effect(/datum/status_effect/corrosion_curse))
+		return FALSE
+
+	var/mob/living/carbon/human/chosen_mortal = chosen_mob
+	chosen_mortal.apply_status_effect(/datum/status_effect/corrosion_curse)	//the purpose of this debuff is to alert the victim they've been cursed
+
+	for(var/X in debuffs)
+		switch (X)
+			if ("r_leg")
+				ADD_TRAIT(chosen_mortal,TRAIT_PARALYSIS_R_LEG,CURSE_TRAIT)
+			if ("l_leg")
+				ADD_TRAIT(chosen_mortal,TRAIT_PARALYSIS_L_LEG,CURSE_TRAIT)
+			if ("r_arm")
+				ADD_TRAIT(chosen_mortal,TRAIT_PARALYSIS_R_ARM,CURSE_TRAIT)
+			if ("l_arm")
+				ADD_TRAIT(chosen_mortal,TRAIT_PARALYSIS_L_ARM,CURSE_TRAIT)
+			if ("tongue")
+				ADD_TRAIT(chosen_mortal, TRAIT_MUTE, CURSE_TRAIT)
+			if ("eyes")
+				chosen_mortal.become_blind(CURSE_TRAIT)
+			if ("ears")
+				ADD_TRAIT(chosen_mortal, TRAIT_DEAF, CURSE_TRAIT)
+	return .
+
+/datum/eldritch_knowledge/curse/alteration/uncurse(mob/living/chosen_mob)
+	. = ..()
+	var/mob/living/carbon/human/chosen_mortal = chosen_mob
+	//organ fuckup
+	chosen_mortal.remove_status_effect(/datum/status_effect/corrosion_curse)
+
+	//CC
+	chosen_mortal.cure_blind(CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mortal, TRAIT_MUTE, CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mortal, TRAIT_DEAF, CURSE_TRAIT)
+
+	//paralysis
+	REMOVE_TRAIT(chosen_mortal,TRAIT_PARALYSIS_R_ARM,CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mortal,TRAIT_PARALYSIS_L_ARM,CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mortal,TRAIT_PARALYSIS_L_LEG,CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mortal,TRAIT_PARALYSIS_R_LEG,CURSE_TRAIT)
+	chosen_mortal.update_mobility()
+
+	return .
+
+//original curses
+
+/datum/eldritch_knowledge/curse/corrosion
+	name = "Curse of Corrosion"
+	gain_text = "Cursed land, cursed man, cursed mind."
+	desc = "Curse someone for 2 minutes of vomiting and major organ damage. Using a wirecutter, a spill of blood, a heart, left arm and a right arm, and an item that the victim touched  with their bare hands."
+	cost = 4
+	required_atoms = list(/obj/item/wirecutters,/obj/effect/decal/cleanable/blood,/obj/item/organ/heart,/obj/item/bodypart/l_arm,/obj/item/bodypart/r_arm)
+	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/spell/area_conversion)
+	timer = 2 MINUTES
+
+/datum/eldritch_knowledge/curse/corrosion/curse(mob/living/chosen_mob)
+	. = ..()
+	chosen_mob.apply_status_effect(/datum/status_effect/corrosion_curse)
+
+/datum/eldritch_knowledge/curse/corrosion/uncurse(mob/living/chosen_mob)
+	. = ..()
+	chosen_mob.remove_status_effect(/datum/status_effect/corrosion_curse)
+
+/datum/eldritch_knowledge/curse/paralysis
+	name = "Curse of Paralysis"
+	gain_text = "Corrupt their flesh, make them bleed."
+	desc = "Curse someone for 5 minutes of inability to walk. Using a knife, pool of blood, left leg, right leg, a hatchet and an item that the victim touched  with their bare hands. "
+	cost = 4
+	required_atoms = list(/obj/item/kitchen/knife,/obj/effect/decal/cleanable/blood,/obj/item/bodypart/l_leg,/obj/item/bodypart/r_leg,/obj/item/hatchet)
+	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/summon/raw_prophet)
+	timer = 5 MINUTES
+
+/datum/eldritch_knowledge/curse/paralysis/curse(mob/living/chosen_mob)
+	. = ..()
+	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
+	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
+	chosen_mob.update_mobility()
+
+/datum/eldritch_knowledge/curse/paralysis/uncurse(mob/living/chosen_mob)
+	. = ..()
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
+	chosen_mob.update_mobility()
+
+// Summons //
+
+/datum/eldritch_knowledge/summon/ashy
+	name = "Ashen Ritual"
+	gain_text = "I combined principle of hunger with desire of destruction. The eyeful lords have noticed me."
+	desc = "You can summon an Ash Man by transmutating a pile of ash, a head and a book."
+	cost = 4
+	required_atoms = list(/obj/effect/decal/cleanable/ash,/obj/item/bodypart/head,/obj/item/book)
+	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/ash_spirit
+	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/rust_wave)
+
+/datum/eldritch_knowledge/summon/rusty
+	name = "Rusted Ritual"
+	gain_text = "I combined principle of hunger with desire of corruption. The rusted hills call my name."
+	desc = "You can summon a Rust Walker transmutating a vomit pool, a head and a book."
+	cost = 4
+	required_atoms = list(/obj/effect/decal/cleanable/vomit,/obj/item/bodypart/head,/obj/item/book)
+	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/rust_spirit
+	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/flame_birth)
+
+	//NOTE TO SELF -> FIX DESCRIPTIONS AND NEXT_KNOWLEDGES

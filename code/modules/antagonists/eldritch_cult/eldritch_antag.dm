@@ -8,8 +8,14 @@
 	var/antag_hud_name = "heretic"
 	var/give_equipment = TRUE
 	var/list/researched_knowledge = list()
+	var/list/pantheon = list(FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,)
 	var/total_sacrifices = 0
+	var/dread = 0
+	var/favor_earned = 0
+	var/favor_spent = 0
+	var/list/followers = list()
 	var/ascended = FALSE
+	can_hijack = HIJACK_HIJACKER
 
 /datum/antagonist/heretic/admin_add(datum/mind/new_owner,mob/admin)
 	give_equipment = FALSE
@@ -22,18 +28,19 @@
 	to_chat(owner, "<span class='boldannounce'>You are the Heretic!</span><br>\
 	<B>The old ones gave you these tasks to fulfill:</B>")
 	owner.announce_objectives()
-	to_chat(owner, "<span class='cult'>The book whispers, the forbidden knowledge walks once again!<br>\
-	Your book allows you to research abilities, read it very carefully! You cannot undo what has been done!<br>\
-	You gain charges by either collecting influences or sacrificing people tracked by the living heart<br> \
+	to_chat(owner, "<span class='cult'>As a heretic, you can gain the favor of the old gods through various acts to enhance your arcane powers1<br>\
+	You can start by seeking out strange figurines to gain the favor of the lesser gods.<br>\
+	When you are ready, carve a Rune of Transmutation and transmute a Codex Cycatrix from a bible, a pair of eyes and a pen, to unlock your true powers.<br> \
 	You can find a basic guide at : https://wiki.beestation13.com/view/Heretics </span>")
 
 /datum/antagonist/heretic/on_gain()
 	var/mob/living/current = owner.current
 	if(ishuman(current))
 		forge_primary_objectives()
-		gain_knowledge(/datum/eldritch_knowledge/spell/basic)
-		gain_knowledge(/datum/eldritch_knowledge/living_heart)
 		gain_knowledge(/datum/eldritch_knowledge/codex_cicatrix)
+		gain_knowledge(/datum/eldritch_knowledge/living_heart)
+		gain_knowledge(/datum/eldritch_knowledge/spell/basic)
+		gain_knowledge(/datum/eldritch_knowledge/eldritch_avatar)
 	current.log_message("has become a heretic", LOG_ATTACK, color="#960000")
 	GLOB.reality_smash_track.AddMind(owner)
 	START_PROCESSING(SSprocessing,src)
@@ -60,8 +67,9 @@
 	var/mob/living/carbon/H = owner.current
 	if(!istype(H))
 		return
-	. += ecult_give_item(/obj/item/forbidden_book, H)
-	. += ecult_give_item(/obj/item/living_heart, H)
+	. += ecult_give_item(/obj/item/storage/book/bible, H)
+	. += ecult_give_item(/obj/item/reagent_containers/food/snacks/grown/poppy, H)
+	. += ecult_give_item(/obj/item/artifact, H)
 
 /datum/antagonist/heretic/proc/ecult_give_item(obj/item/item_path, mob/living/carbon/human/H)
 	var/list/slots = list(
@@ -89,39 +97,58 @@
 		EK.on_life(owner.current)
 
 /datum/antagonist/heretic/proc/forge_primary_objectives()
-	var/list/assasination = list()
-	var/list/protection = list()
-	for(var/i in 1 to 2)
-		var/pck = pick("assasinate","stalk","protect")
-		switch(pck)
-			if("assasinate")
-				var/datum/objective/assassinate/A = new()
-				A.owner = owner
-				var/list/owners = A.get_owners()
-				A.find_target(owners,protection)
-				assasination += A.target
-				objectives += A
-				log_objective(owner, A.explanation_text)
-			if("stalk")
-				var/datum/objective/stalk/S = new()
-				S.owner = owner
-				S.find_target()
-				objectives += S
-				log_objective(owner, S.explanation_text)
-			if("protect")
-				var/datum/objective/protect/P = new()
-				P.owner = owner
-				var/list/owners = P.get_owners()
-				P.find_target(owners,assasination)
-				protection += P.target
-				objectives += P
-				log_objective(owner, P.explanation_text)
-
-	var/datum/objective/sacrifice_ecult/SE = new()
-	SE.owner = owner
-	SE.update_explanation_text()
-	objectives += SE
-	log_objective(owner, SE.explanation_text)
+	if (prob(5))
+		if (prob(66))
+			var/datum/objective/ascend/AE = new()
+			AE.owner = owner
+			AE.update_explanation_text()
+			objectives += AE
+			log_objective(owner, AE.explanation_text)
+		else
+			var/datum/objective/hijack/hijack_objective = new
+			hijack_objective.owner = owner
+			hijack_objective.update_explanation_text()
+			objectives += hijack_objective
+			log_objective(owner, hijack_objective.explanation_text)
+	else 
+		var/list/assasination = list()
+		var/list/protection = list()
+		for(var/i in 1 to 2)
+			switch (rand(0,100))
+				if (0 to 4)
+					var/datum/objective/protect/P = new()
+					P.owner = owner
+					var/list/owners = P.get_owners()
+					P.find_target(owners,assasination)
+					protection += P.target
+					objectives += P
+					log_objective(owner, P.explanation_text)
+				if (5 to 35)
+					var/datum/objective/stalk/S = new()
+					S.owner = owner
+					S.find_target()
+					objectives += S
+					log_objective(owner, S.explanation_text)
+				else
+					var/datum/objective/assassinate/A = new()
+					A.owner = owner
+					var/list/owners = A.get_owners()
+					A.find_target(owners,protection)
+					assasination += A.target
+					objectives += A
+					log_objective(owner, A.explanation_text)
+		if (prob(20))
+			var/datum/objective/minicult/CE = new()
+			CE.owner = owner
+			CE.update_explanation_text()
+			objectives += CE
+			log_objective(owner, CE.explanation_text)
+		else 
+			var/datum/objective/sacrifice_ecult/SE = new()
+			SE.owner = owner
+			SE.update_explanation_text()
+			objectives += SE
+			log_objective(owner, SE.explanation_text)
 
 /datum/antagonist/heretic/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -187,6 +214,7 @@
 	parts += knowledge_message.Join(", ")
 
 	return parts.Join("<br>")
+
 ////////////////
 // Knowledge //
 ////////////////
@@ -215,6 +243,25 @@
 
 /datum/antagonist/heretic/proc/get_all_knowledge()
 	return researched_knowledge
+
+/////////////
+// Economy //
+/////////////
+
+/datum/antagonist/heretic/proc/gain_favor(points,dread = FALSE)
+	favor_earned+=points
+	if (dread)
+		dread++
+	return TRUE
+
+/datum/antagonist/heretic/proc/spend_favor(points)
+	if (get_favor_left()<points)
+		return FALSE
+	favor_spent-=points
+	return TRUE
+
+/datum/antagonist/heretic/proc/get_favor_left()
+	return favor_earned-favor_spent
 
 ////////////////
 // Objectives //
@@ -264,3 +311,75 @@
 	if(!cultie)
 		return FALSE
 	return cultie.total_sacrifices >= target_amount
+
+/datum/objective/ascend
+	name = "ascend"
+
+/datum/objective/ascend/update_explanation_text()
+	. = ..()
+	explanation_text = "Applease the Gods and ascend."
+
+/datum/objective/ascend/check_completion()
+	if(!owner)
+		return FALSE
+	var/datum/antagonist/heretic/cultie = owner.has_antag_datum(/datum/antagonist/heretic)
+	if(!cultie)
+		return FALSE
+	return cultie.ascended
+
+/datum/objective/minicult
+	name = "mini cult"
+
+/datum/objective/minicult/update_explanation_text()
+	. = ..()
+	target_amount = rand(2,5)
+	explanation_text = "Raise and maintain a cult of [target_amount] people."
+
+/datum/objective/minicult/check_completion()
+	if(!owner)
+		return FALSE
+	var/datum/antagonist/heretic/cultie = owner.has_antag_datum(/datum/antagonist/heretic)
+	if(!cultie)
+		return FALSE
+	return cultie.get_cur_followers()>=target_amount
+
+//////////////
+// Minicult //
+//////////////
+
+/datum/antagonist/heretic/proc/get_max_followers()
+	var/total = 0
+	var/list/knowledge = get_all_knowledge()
+	for(var/X in knowledge)
+		var/datum/eldritch_knowledge/EK = knowledge[X]
+		total += EK.followers_increment
+	return total
+
+/datum/antagonist/heretic/proc/get_cur_followers()
+	return LAZYLEN(followers)
+
+/datum/antagonist/heretic/proc/enslave(mob/living/carbon/human/victim)
+	if(get_cur_followers() >= get_max_followers())
+		return 1
+	if(!victim.mind || !victim.client )
+		return 2
+	if (IS_HERETIC(victim) || IS_HERETIC_MONSTER(victim))
+		return 3
+	log_game("[key_name_admin(victim)] has become a follower of [key_name_admin(src)]")
+	victim.faction |= "heretics"
+	var/datum/antagonist/heretic_monster/heretic_monster = victim.mind.add_antag_datum(/datum/antagonist/heretic_monster/disciple)
+	heretic_monster.set_owner(src)
+	return 0
+
+//////////////
+// Pantheon //
+//////////////
+
+/datum/antagonist/heretic/proc/gain_deity(intid)
+	if(has_deity(intid))
+		return FALSE
+	pantheon[intid] = TRUE
+	return TRUE
+
+/datum/antagonist/heretic/proc/has_deity(intid)
+	return pantheon[intid]

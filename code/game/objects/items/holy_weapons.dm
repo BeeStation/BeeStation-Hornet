@@ -117,6 +117,7 @@
 /obj/item/storage/box/holy/witchhunter/PopulateContents()
 	new /obj/item/clothing/suit/armor/riot/chaplain/witchhunter(src)
 	new /obj/item/clothing/head/helmet/chaplain/witchunter_hat(src)
+	new /obj/item/clothing/neck/eldritch_amulet/crucifix(src)
 
 /obj/item/clothing/suit/armor/riot/chaplain/witchhunter
 	name = "witchunter garb"
