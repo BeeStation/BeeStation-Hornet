@@ -149,7 +149,7 @@
 
 /obj/singularity/narsie/mezzer()
 	for(var/mob/living/carbon/M in viewers(consume_range, src))
-		if(M.stat == (CONSCIOUS || SOFT_CRIT))
+		if(M.stat <= SOFT_CRIT)
 			if(!iscultist(M))
 				to_chat(M, "<span class='cultsmall'>You feel conscious thought crumble away in an instant as you gaze upon [src.name]...</span>")
 				M.apply_effect(60, EFFECT_STUN)

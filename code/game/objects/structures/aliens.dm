@@ -316,7 +316,7 @@
 			return
 
 		var/mob/living/carbon/C = AM
-		if(C.stat == (CONSCIOUS || SOFT_CRIT) && C.getorgan(/obj/item/organ/body_egg/alien_embryo))
+		if(C.stat <= SOFT_CRIT && C.getorgan(/obj/item/organ/body_egg/alien_embryo))
 			return
 
 		Burst(kill=FALSE)
