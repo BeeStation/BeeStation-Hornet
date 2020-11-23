@@ -255,7 +255,7 @@
 	plane = HUD_PLANE
 
 /obj/screen/drop/Click()
-	if(usr.stat == CONSCIOUS)
+	if(usr.stat == (CONSCIOUS || SOFT_CRIT))
 		usr.dropItemToGround(usr.get_active_held_item())
 
 /obj/screen/act_intent

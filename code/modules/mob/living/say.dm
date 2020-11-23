@@ -133,7 +133,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	if(in_critical)
 		if(!(crit_allowed_modes[message_mode]))
-			return
+			message_mode = MODE_WHISPER
 	else if(stat == UNCONSCIOUS)
 		if(!(unconscious_allowed_modes[message_mode]))
 			return
@@ -376,7 +376,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	if(clockslurring)
 		message = clockslur(message)
-   
+
 	// check for and apply punctuation
 	var/end = copytext(message, length(message))
 	if(!(end in list("!", ".", "?", ":", "\"", "-")))

@@ -98,17 +98,17 @@
 	. = ..()
 	if(.)
 		return
-	
+
 	if (!welded && !operating)
-		if (stat & NOPOWER) 				
+		if (stat & NOPOWER)
 			user.visible_message("[user] tries to open \the [src] manually.",
 						 "You operate the manual lever on \the [src].")
 			if (!do_after(user, 30, TRUE, src))
 				return FALSE
 		else if (density && !allow_hand_open(user))
 			return FALSE
-	
-		add_fingerprint(user)		
+
+		add_fingerprint(user)
 		if(density)
 			emergency_close_timer = world.time + 15 // prevent it from instaclosing again if in space
 			open()
@@ -117,7 +117,7 @@
 		return TRUE
 	if(operating || !density)
 		return
-	
+
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	user.visible_message("[user] bangs on \the [src].",
@@ -338,14 +338,14 @@
 	var/turf/T1 = get_turf(src)
 	var/turf/T2 = get_step(T1, dir)
 	for(var/mob/living/M in T1)
-		if(M.stat == CONSCIOUS && M.pulling && M.pulling.loc == T2 && !M.pulling.anchored && M.pulling.move_resist <= M.move_force)
+		if(M.stat == (CONSCIOUS || SOFT_CRIT) && M.pulling && M.pulling.loc == T2 && !M.pulling.anchored && M.pulling.move_resist <= M.move_force)
 			var/mob/living/M2 = M.pulling
 			if(!istype(M2) || !M2.buckled || !M2.buckled.buckle_prevents_pull)
 				to_chat(M, "<span class='notice'>You pull [M.pulling] through [src] right as it closes.</span>")
 				M.pulling.forceMove(T1)
 				M.start_pulling(M2)
 	for(var/mob/living/M in T2)
-		if(M.stat == CONSCIOUS && M.pulling && M.pulling.loc == T1 && !M.pulling.anchored && M.pulling.move_resist <= M.move_force)
+		if(M.stat == (CONSCIOUS || SOFT_CRIT) && M.pulling && M.pulling.loc == T1 && !M.pulling.anchored && M.pulling.move_resist <= M.move_force)
 			var/mob/living/M2 = M.pulling
 			if(!istype(M2) || !M2.buckled || !M2.buckled.buckle_prevents_pull)
 				to_chat(M, "<span class='notice'>You pull [M.pulling] through [src] right as it closes.</span>")

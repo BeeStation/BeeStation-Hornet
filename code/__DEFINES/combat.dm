@@ -41,7 +41,7 @@
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
-#define HEALTH_THRESHOLD_FULLCRIT -40
+#define HEALTH_THRESHOLD_FULLCRIT -50
 #define HEALTH_THRESHOLD_DEAD -100
 
 #define HEALTH_THRESHOLD_NEARDEATH -90 //Not used mechanically, but to determine if someone is so close to death they hear the other side
@@ -71,8 +71,8 @@
 //Grab breakout odds
 #define BASE_GRAB_RESIST_CHANCE 	30
 
-//slowdown when in softcrit. Note that crawling slowdown will also apply at the same time!
-#define SOFTCRIT_ADD_SLOWDOWN 2
+//slowdown when in softcrit.
+#define SOFTCRIT_ADD_SLOWDOWN 8
 //slowdown when crawling
 #define CRAWLING_ADD_SLOWDOWN 4
 

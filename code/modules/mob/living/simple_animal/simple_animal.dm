@@ -367,7 +367,7 @@
 			return FALSE
 	if (isliving(the_target))
 		var/mob/living/L = the_target
-		if(L.stat != CONSCIOUS)
+		if(L.stat != (CONSCIOUS || SOFT_CRIT))
 			return FALSE
 	if (ismecha(the_target))
 		var/obj/mecha/M = the_target

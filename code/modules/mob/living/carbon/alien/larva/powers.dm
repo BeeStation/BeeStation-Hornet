@@ -6,7 +6,7 @@
 	action_icon_state = "alien_hide"
 
 /obj/effect/proc_holder/alien/hide/fire(mob/living/carbon/alien/user)
-	if(user.stat != CONSCIOUS)
+	if(user.stat != (CONSCIOUS || SOFT_CRIT))
 		return
 
 	if (user.layer != ABOVE_NORMAL_TURF_LAYER)

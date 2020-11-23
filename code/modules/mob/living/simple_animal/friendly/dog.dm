@@ -168,7 +168,7 @@
 			shaved = TRUE
 			icon_living = "[initial(icon_living)]_shaved"
 			icon_dead = "[initial(icon_living)]_shaved_dead"
-			if(stat == CONSCIOUS)
+			if(stat == (CONSCIOUS || SOFT_CRIT))
 				icon_state = icon_living
 			else
 				icon_state = icon_dead

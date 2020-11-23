@@ -762,14 +762,43 @@
 		else
 			if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
 				stat = SOFT_CRIT
+				stuttering = 10
+				crit_walk()
 			else
 				stat = CONSCIOUS
+				stuttering = 0
 			adjust_blindness(-1)
 			REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
 		update_mobility()
 	update_damage_hud()
 	update_health_hud()
 	med_hud_set_status()
+
+/// Allows mobs to slowly walk in crit for a short time
+/mob/living/carbon/proc/crit_walk()
+	if(stat != CONSCIOUS)
+		switch(health)
+			if(HEALTH_THRESHOLD_FULLCRIT to -30)
+				if(prob(30))
+					AdjustUnconscious(rand(30, 60), ignore_canstun = TRUE)
+				if(prob(20))
+					emote("gasp")
+			if(-29 to 20)
+				if(prob(20))
+					AdjustUnconscious(rand(20, 50), ignore_canstun = TRUE)
+				if(prob(10))
+					emote("gasp")
+			if(-19 to -10)
+				if(prob(10))
+					AdjustUnconscious(rand(10, 30), ignore_canstun = TRUE)
+				if(prob(20))
+					emote("cough")
+			if(-9 to crit_threshold)
+				if(prob(10))
+					AdjustUnconscious(rand(1, 10), ignore_canstun = TRUE)
+				if(prob(10))
+					emote("cough")
+		update_mobility()
 
 //called when we get cuffed/uncuffed
 /mob/living/carbon/proc/update_handcuffed()
@@ -1017,7 +1046,7 @@
 		return FALSE
 	if(hallucinating())
 		return TRUE
-	
+
 	if(IsSleeping())
 		return TRUE
 	if(HAS_TRAIT(src, TRAIT_DUMB))
