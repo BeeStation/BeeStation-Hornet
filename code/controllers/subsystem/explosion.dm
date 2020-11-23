@@ -349,6 +349,13 @@ SUBSYSTEM_DEF(explosions)
 					if(EXPLODE_LIGHT)
 						SSexplosions.low_mov_atom += movable_thing
 
+		switch(dist)
+			if(EXPLODE_DEVASTATE)
+				SSexplosions.highturf += T
+			if(EXPLODE_HEAVY)
+				SSexplosions.medturf += T
+			if(EXPLODE_LIGHT)
+				SSexplosions.lowturf += T
 
 		if(flame_dist && prob(40) && !isspaceturf(T) && !T.density)
 			flameturf += T
