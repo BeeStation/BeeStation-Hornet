@@ -5,6 +5,7 @@
 	due_date = 0 // Game time in deciseconds
 	unique = 1   // 0  Normal book, 1  Should not be treated as normal book, unable to be copied, unable to be modified
 	var/list/remarks = list() //things to read about while learning.
+	var/list/species_allowed = list() //used for species locked granters
 	var/pages_to_mastery = 3 //Essentially controls how long a mob must keep the book in his hand to actually successfully learn
 	var/reading = FALSE //sanity
 	var/oneuse = TRUE //default this is true, but admins can var this to 0 if we wanna all have a pass around of the rod form book
@@ -378,14 +379,15 @@
 		icon_state = "blankscroll"
 
 /obj/item/book/granter/martial/tribal_claw
-	martial = /datum/martial_art/tribal_claw
-	name = "old scroll"
-	martialname = "tribal claw"
-	desc = "A scroll filled with strange markings. It seems to be drawings of some sort of martial art."
-	greet = "<span class='sciradio'>something something tribal claw</span>"
-	icon = 'icons/obj/wizard.dmi'
-	icon_state = "scroll2"
-	remarks = list("replace1", "replace2", "replace3", "replace4")
+		martial = /datum/martial_art/tribal_claw
+		name = "old scroll"
+		martialname = "tribal claw"
+		desc = "A scroll filled with strange markings. It seems to be drawings of some sort of martial art."
+		greet = "<span class='sciradio'>something something tribal claw</span>"
+		species_allowed = list("lizard")
+		icon = 'icons/obj/wizard.dmi'
+		icon_state = "scroll2"
+		remarks = list("replace1", "replace2", "replace3", "replace4")
 
 /obj/item/book/granter/martial/tribal_claw/onlearned(mob/living/carbon/user)
 	..()
