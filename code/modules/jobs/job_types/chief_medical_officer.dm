@@ -35,13 +35,13 @@
 	jobtype = /datum/job/cmo
 
 	id = /obj/item/card/id/job/cmo
-	belt = /obj/item/pda/heads/cmo
+	belt = /obj/item/storage/belt/medical/cmo/full
 	l_pocket = /obj/item/pinpointer/crew
 	ears = /obj/item/radio/headset/heads/cmo
 	uniform = /obj/item/clothing/under/rank/medical/chief_medical_officer
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	suit = /obj/item/clothing/suit/toggle/labcoat/cmo
-	l_hand = /obj/item/storage/firstaid/medical
+	l_hand = /obj/item/pda/heads/cmo
 	suit_store = /obj/item/flashlight/pen
 	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1)
 

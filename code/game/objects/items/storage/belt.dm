@@ -233,6 +233,21 @@
 		/obj/item/extrapolator
 		))
 
+/obj/item/storage/belt/medical/cmo
+	name = "CMO Medical belt"
+	desc = "Can hold various advanced medical equipment."
+	icon_state = "medicalbelt"
+	item_state = "medical"
+
+/obj/item/storage/belt/medical/cmo/full/PopulateContents()
+	new /obj/item/surgical_drapes(src)
+	new /obj/item/scalpel/advanced(src)
+	new /obj/item/retractor/advanced(src)
+	new /obj/item/surgicaldrill/advanced(src)
+	new	/obj/item/stack/medical/gauze/adv(src)
+	new /obj/item/holosign_creator/medical(src)
+	new	/obj/item/healthanalyzer/advanced(src)
+
 /obj/item/storage/belt/security
 	name = "security belt"
 	desc = "Can hold security gear like handcuffs and flashes."
