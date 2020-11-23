@@ -57,8 +57,8 @@
 		empty_pod()
 
 /obj/structure/transit_tube_pod/contents_explosion(severity, target)
-	for(var/atom/movable/AM in contents)
-		AM.ex_act(severity, target)
+	for(var/thing in contents)
+		thing.ex_act(severity, target)
 
 /obj/structure/transit_tube_pod/singularity_pull(S, current_size)
 	..()

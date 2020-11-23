@@ -19,8 +19,8 @@
 	return ..()
 
 /obj/structure/bigDelivery/contents_explosion(severity, target)
-	for(var/atom/movable/AM in contents)
-		AM.ex_act(severity, target)
+	for(var/thing in contents)
+		thing.ex_act(severity, target)
 
 /obj/structure/bigDelivery/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/destTagger))
@@ -84,8 +84,8 @@
 	var/sortTag = 0
 
 /obj/item/smallDelivery/contents_explosion(severity, target)
-	for(var/atom/movable/AM in contents)
-		AM.ex_act(severity, target)
+	for(var/thing in contents)
+		thing.ex_act(severity, target)
 
 /obj/item/smallDelivery/attack_self(mob/user)
 	user.temporarilyRemoveItemFromInventory(src, TRUE)

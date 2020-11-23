@@ -19,8 +19,8 @@
 	return FALSE
 
 /obj/item/storage/contents_explosion(severity, target)
-	for(var/atom/A in contents)
-		A.ex_act(severity, target)
+	for(var/thing in contents)
+		thing.ex_act(severity, target)
 
 /obj/item/storage/canStrip(mob/who)
 	. = ..()
