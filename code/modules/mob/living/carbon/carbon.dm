@@ -781,16 +781,19 @@
 			if(HEALTH_THRESHOLD_FULLCRIT to -30)
 				if(prob(60))
 					AdjustUnconscious(rand(30, 60), ignore_canstun = TRUE)
+					losebreath++
 				if(prob(20))
 					emote("gasp")
 			if(-29 to 20)
 				if(prob(40))
 					AdjustUnconscious(rand(20, 50), ignore_canstun = TRUE)
+					losebreath++
 				if(prob(10))
 					emote("gasp")
 			if(-19 to -10)
 				if(prob(10))
 					AdjustUnconscious(rand(10, 30), ignore_canstun = TRUE)
+					losebreath++
 				if(prob(20))
 					emote("cough")
 			if(-9 to crit_threshold)
