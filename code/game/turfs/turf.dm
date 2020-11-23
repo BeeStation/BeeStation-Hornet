@@ -452,11 +452,13 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		affecting_level = 1
 
 	for(var/thing in contents)
-		var/atom/movable/movable_thing = thing
-		if(!QDELETED(movable_thing) && movable_thing.level >= affecting_level)
-			if(!movable_thing.ex_check(explosion_id))
-				continue
-		movable_thing.ex_act(severity, target)
+		var/atom/thing = thing
+		if(!QDELETED(thing) && thing.level >= affecting_level)
+			if(ismovableatom(thing))
+				var/atom/movable/movable_thing = thing
+				if(!movable_thing.ex_check(explosion_id))
+					continue
+			thing.ex_act(severity, target)
 
 /turf/narsie_act(force, ignore_mobs, probability = 20)
 	. = (prob(probability) || force)
