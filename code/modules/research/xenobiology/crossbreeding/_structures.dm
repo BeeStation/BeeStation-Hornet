@@ -152,6 +152,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/mob/living/carbon/carbon_mob = affected_mob
 	var/rand_dam_type = rand(0,10)
 
+	new /obj/effect/temp_visual/heal(get_turf(affected_mob), "#e180ff")
+
 	switch(rand_dam_type)
 		if(0)
 			carbon_mob.adjustBruteLoss(-heal_amt)
@@ -206,8 +208,10 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		var/obj/item/stock_parts/cell/cell = I
 		//Punishment for greed
 		if(cell.charge == cell.maxcharge)
+			to_chat("<span class = 'danger'> You try to charge the cell, but it is already fully energized. You are not sure if this was a good idea...")
 			cell.explode()
 			return
+		to_chat("<span class = 'notice'> You charged the [I.name] on [name]!")
 		cell.give(cell.maxcharge)
 		return
 	return ..()
@@ -302,7 +306,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/chosen_input = input(user,"What destination do you want to choose",null) as null|anything in assoc_list
 	in_use = FALSE
 
-	if(!chosen_input)
+	if(!chosen_input || !assoc_list[chosen_input])
 		return
 
 	do_teleport(user ,assoc_list[chosen_input])
