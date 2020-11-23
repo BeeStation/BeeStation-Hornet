@@ -589,6 +589,7 @@ SUBSYSTEM_DEF(ticker)
 	else
 		GLOB.master_mode = "extended"
 	log_game("Master mode is '[GLOB.master_mode]'")
+	log_config("Master mode is '[GLOB.master_mode]'")
 
 /datum/controller/subsystem/ticker/proc/SetRoundEndSound(the_sound)
 	set waitfor = FALSE
