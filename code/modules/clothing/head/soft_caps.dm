@@ -22,7 +22,6 @@
 
 
 /obj/item/clothing/head/soft/AltClick(mob/user)
-	..()
 	if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
 	else

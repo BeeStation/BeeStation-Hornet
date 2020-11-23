@@ -168,7 +168,7 @@
 	id = "syringe"
 	status_type = STATUS_EFFECT_MULTIPLE
 	alert_type = null
-	var/obj/item/reagent_containers/syringe/syringe = null
+	var/obj/item/reagent_containers/syringe/syringe
 	var/injectmult = 1
 
 /datum/status_effect/syringe/on_creation(mob/living/new_owner, obj/item/reagent_containers/syringe/origin, mult)
@@ -199,6 +199,8 @@
 /obj/screen/alert/syringe/Click(location, control, params)
 	. = ..()
 	if(usr != owner)
+		return
+	if(owner.incapacitated())
 		return
 	var/list/syringes = list()
 	if(iscarbon(owner))
