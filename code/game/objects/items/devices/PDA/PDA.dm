@@ -784,8 +784,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 	send_message(U,list(P))
 
 /obj/item/pda/AltClick(mob/user)
-	..()
-
 	if(id)
 		remove_id(user)
 	else

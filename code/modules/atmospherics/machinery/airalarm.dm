@@ -793,7 +793,6 @@
 	return ..()
 
 /obj/machinery/airalarm/AltClick(mob/user)
-	..()
 	if(!user.canUseTopic(src, !issilicon(user)) || !isturf(loc))
 		return
 	else
