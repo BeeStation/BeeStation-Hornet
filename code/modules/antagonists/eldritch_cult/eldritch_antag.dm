@@ -8,7 +8,7 @@
 	var/antag_hud_name = "heretic"
 	var/give_equipment = TRUE
 	var/list/researched_knowledge = list()
-	var/list/pantheon = list(FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,)
+	var/list/pantheon = list(FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE)
 	var/total_sacrifices = 0
 	var/dread = 0
 	var/favor_earned = 0
