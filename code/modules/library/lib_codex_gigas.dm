@@ -116,7 +116,8 @@
 		to_chat(heretic, "<span class='notice'>You start researching the forbidden knowledge...</span>")
 		var/datum/antagonist/heretic/cultie = heretic.mind.has_antag_datum(/datum/antagonist/heretic)
 		var/chance = rand(1+ cultie.dread*5,100+cultie.dread*10)
-		var/successful = TRUE
+		to_chat(heretic, "<span class='notice'>Small price to pay, for the forbidden knowledge.</span>")
+		heretic.whisper(pick("hypnos","celephalis","azathoth","dagon","yig","ex oblivione","nyarlathotep","nathicana","arcadia","astrophobos"), language = /datum/language/common)
 		switch(chance)
 			if (1 to 39)
 				to_chat(heretic, "<span class='notice'>The gods look down upon you.</span>")
@@ -144,9 +145,6 @@
 			else
 				heretic.adjustCloneLoss(5)
 				to_chat(heretic, "<span class='warning'>Something fights back!</span>")
-				successful = FALSE
+				return
 		//switch case over
-		if (successful)
-			cultie.gain_favor(1,TRUE)
-		to_chat(heretic, "<span class='notice'>Small price to pay, for the forbidden knowledge.</span>")
-		heretic.whisper(pick("hypnos","celephalis","azathoth","dagon","yig","ex oblivione","nyarlathotep","nathicana","arcadia","astrophobos"), language = /datum/language/common)
+		cultie.gain_favor(1,TRUE)
