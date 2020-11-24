@@ -2,6 +2,8 @@
 	name ="explosive bolt"
 	icon_state= "bolter"
 	damage = 50
+	embedding = null
+	shrapnel_type = null
 
 /obj/item/projectile/bullet/gyro/on_hit(atom/target, blocked = FALSE)
 	..()
@@ -16,6 +18,8 @@
 	var/anti_armour_damage = 200
 	armour_penetration = 100
 	dismemberment = 100
+	embedding = null
+	shrapnel_type = null
 
 /obj/item/projectile/bullet/a84mm/on_hit(atom/target, blocked = FALSE)
 	..()
@@ -35,6 +39,8 @@
 	icon_state = "missile"
 	damage = 30
 	ricochets_max = 0 //it's a MISSILE
+	embedding = null
+	shrapnel_type = null
 
 /obj/item/projectile/bullet/a84mm_he/on_hit(atom/target, blocked=0)
 	..()

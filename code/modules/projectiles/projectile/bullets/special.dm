@@ -10,6 +10,8 @@
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "banana"
 	range = 200
+	embedding = null
+	shrapnel_type = null
 
 /obj/item/projectile/bullet/honker/Initialize()
 	. = ..()

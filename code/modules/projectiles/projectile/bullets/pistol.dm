@@ -8,6 +8,8 @@
 	name = "9mm armor-piercing bullet"
 	damage = 15
 	armour_penetration = 40
+	embedding = null
+	shrapnel_type = null
 
 /obj/item/projectile/bullet/incendiary/c9mm
 	name = "9mm incendiary bullet"
