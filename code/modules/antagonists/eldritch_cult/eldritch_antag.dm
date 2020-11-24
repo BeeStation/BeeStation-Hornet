@@ -28,7 +28,7 @@
 	to_chat(owner, "<span class='boldannounce'>You are the Heretic!</span><br>\
 	<B>The old ones gave you these tasks to fulfill:</B>")
 	owner.announce_objectives()
-	to_chat(owner, "<span class='cult'>As a heretic, you can gain the favor of the old gods through various acts to enhance your arcane powers1<br>\
+	to_chat(owner, "<span class='cult'>As a heretic, you can gain the favor of the old gods through various acts to enhance your arcane powers<br>\
 	You can start by seeking out strange figurines to gain the favor of the lesser gods.<br>\
 	When you are ready, carve a Rune of Transmutation and transmute a Codex Cycatrix from a bible, a pair of eyes and a pen, to unlock your true powers.<br> \
 	You can find a basic guide at : https://wiki.beestation13.com/view/Heretics </span>")
@@ -114,29 +114,20 @@
 		var/list/assasination = list()
 		var/list/protection = list()
 		for(var/i in 1 to 2)
-			switch (rand(0,100))
-				if (0 to 4)
-					var/datum/objective/protect/P = new()
-					P.owner = owner
-					var/list/owners = P.get_owners()
-					P.find_target(owners,assasination)
-					protection += P.target
-					objectives += P
-					log_objective(owner, P.explanation_text)
-				if (5 to 35)
-					var/datum/objective/stalk/S = new()
-					S.owner = owner
-					S.find_target()
-					objectives += S
-					log_objective(owner, S.explanation_text)
-				else
-					var/datum/objective/assassinate/A = new()
-					A.owner = owner
-					var/list/owners = A.get_owners()
-					A.find_target(owners,protection)
-					assasination += A.target
-					objectives += A
-					log_objective(owner, A.explanation_text)
+			if (prob(35))
+				var/datum/objective/stalk/S = new()
+				S.owner = owner
+				S.find_target()
+				objectives += S
+				log_objective(owner, S.explanation_text)
+			else
+				var/datum/objective/assassinate/A = new()
+				A.owner = owner
+				var/list/owners = A.get_owners()
+				A.find_target(owners,protection)
+				assasination += A.target
+				objectives += A
+				log_objective(owner, A.explanation_text)
 		if (prob(20))
 			var/datum/objective/minicult/CE = new()
 			CE.owner = owner
