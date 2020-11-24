@@ -123,14 +123,14 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
 "at" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "Labor Camp Security APC";
-	pixel_x = 24
-	},
 /obj/machinery/camera{
 	c_tag = "Labor Camp Monitoring";
 	network = list("labor")
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "Labor Camp Security APC";
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -1163,12 +1163,13 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
 "ex" = (
-/obj/machinery/computer{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/structure/frame/computer{
+	anchored = 1;
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/mine/science)
@@ -1309,13 +1310,7 @@
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/mine/science)
-"eW" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on,
-/obj/machinery/computer,
-/turf/open/floor/plasteel,
-/area/mine/science)
 "eX" = (
-/obj/machinery/computer,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light/small{
 	dir = 1
@@ -2564,7 +2559,8 @@
 /turf/open/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "lA" = (
-/obj/machinery/computer{
+/obj/structure/frame/computer{
+	anchored = 1;
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -4074,10 +4070,11 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/computer{
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/frame/computer{
+	anchored = 1;
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
 /area/mine/science)
 "zD" = (
@@ -4451,11 +4448,12 @@
 /turf/open/floor/plasteel,
 /area/mine/science)
 "DI" = (
-/obj/machinery/computer{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light,
+/obj/structure/frame/computer{
+	anchored = 1;
+	dir = 1
+	},
 /turf/open/floor/carpet/royalblue,
 /area/mine/science)
 "DK" = (
@@ -5314,6 +5312,11 @@
 	},
 /turf/open/floor/engine,
 /area/mine/science)
+"MD" = (
+/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window/plasma/reinforced,
+/turf/open/floor/plating,
+/area/mine/laborcamp/security)
 "ME" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/machinery/vending/cigarette,
@@ -5401,10 +5404,11 @@
 /turf/open/floor/plasteel,
 /area/mine/production)
 "Ov" = (
-/obj/machinery/computer{
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/frame/computer{
+	anchored = 1;
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/royalblue,
 /area/mine/science)
 "Ox" = (
@@ -5483,11 +5487,6 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/engine,
-/area/mine/science)
-"Pu" = (
-/obj/machinery/computer,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel,
 /area/mine/science)
 "Pv" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
@@ -13902,7 +13901,7 @@ aG
 aG
 aG
 aG
-fA
+MD
 rU
 HP
 QV
@@ -14159,10 +14158,10 @@ aG
 aG
 aG
 aG
-fA
-fA
-fA
-fA
+MD
+MD
+MD
+MD
 fy
 WA
 Cw
@@ -22923,7 +22922,7 @@ Aj
 BZ
 eG
 Tn
-Pu
+BT
 Ee
 BT
 Lc
@@ -23180,7 +23179,7 @@ BT
 fJ
 eH
 Tn
-eW
+IZ
 tN
 BT
 sz
