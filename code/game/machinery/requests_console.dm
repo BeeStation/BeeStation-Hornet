@@ -66,6 +66,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	var/obj/item/radio/Radio
 	var/emergency //If an emergency has been called by this device. Acts as both a cooldown and lets the responder know where it the emergency was triggered from
 	var/receive_ore_updates = FALSE //If ore redemption machines will send an update when it receives new ores.
+	var/auth_id = "Unknown" //Will contain the name and and job of the person who verified it
 	max_integrity = 300
 	armor = list("melee" = 70, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
 
@@ -218,7 +219,6 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 			CRASH("No UI for src. Screen var is: [screen]")
 		var/datum/browser/popup = new(user, "req_console", "[department] Requests Console", 450, 440)
 		popup.set_content(dat)
-		popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 		popup.open()
 	return
 
@@ -270,7 +270,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		if(isliving(usr))
 			var/mob/living/L = usr
 			message = L.treat_message(message)
-		minor_announce(message, "[department] Announcement:")
+		minor_announce(message, "[department] Announcement:", from = auth_id)
 		GLOB.news_network.SubmitArticle(message, department, "Station Announcements", null)
 		usr.log_talk(message, LOG_SAY, tag="station announcement from [src]")
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has made a station announcement from [src] at [AREACOORD(usr)].")
@@ -430,6 +430,8 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		return
 
 	var/obj/item/card/id/ID = O.GetID()
+	auth_id = "[ID.registered_name] ([ID.assignment])"
+
 	if(ID)
 		if(screen == REQ_SCREEN_AUTHENTICATE)
 			msgVerified = "<font color='green'><b>Verified by [ID.registered_name] ([ID.assignment])</b></font>"

@@ -29,8 +29,8 @@
 	model = "MULE"
 	bot_core_type = /obj/machinery/bot_core/mulebot
 
-	var/ui_x = 350
-	var/ui_y = 425
+
+
 
 	var/id
 
@@ -168,11 +168,14 @@
 			return
 		ui_interact(user)
 
-/mob/living/simple_animal/bot/mulebot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-										datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/mob/living/simple_animal/bot/mulebot/ui_state(mob/user)
+	return GLOB.default_state
+
+/mob/living/simple_animal/bot/mulebot/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Mule", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "Mule")
 		ui.open()
 
 /mob/living/simple_animal/bot/mulebot/ui_data(mob/user)

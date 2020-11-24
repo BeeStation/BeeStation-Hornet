@@ -34,8 +34,12 @@ GLOBAL_LIST(admin_antag_list)
 	stuff.send(owner.current.client)
 	var/datum/browser/popup = new(owner.current, "antagTips", null, 600, 400)
 	popup.set_window_options("titlebar=1;can_minimize=0;can_resize=0")
-	popup.set_content(rustg_file_read(file))
+	//Replaces traitor.png with the appropriate hashed url
+	popup.set_content(replacetext(rustg_file_read(file), regex("\\w*.png", "gm"), /datum/antagonist/proc/get_asset_url_from))
 	popup.open(FALSE)
+
+/datum/antagonist/proc/get_asset_url_from(match)
+	return SSassets.transport.get_asset_url(match)
 
 /datum/antagonist/New()
 	GLOB.antagonists += src

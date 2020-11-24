@@ -206,3 +206,7 @@
 	aggressive = TRUE
 	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
 					 /obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
+
+/mob/living/carbon/monkey/tumor/Initialize()
+	. = ..()
+	dna = null		//prevents teratomas from shoving up in DNA consoles and getting humanized, it just works

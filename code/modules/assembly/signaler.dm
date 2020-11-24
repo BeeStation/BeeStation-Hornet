@@ -8,8 +8,8 @@
 	custom_materials = list(/datum/material/iron=400, /datum/material/glass=120)
 	wires = WIRE_RECEIVE | WIRE_PULSE | WIRE_RADIO_PULSE | WIRE_RADIO_RECEIVE
 	attachable = TRUE
-	var/ui_x = 280
-	var/ui_y = 132
+
+
 	var/code = DEFAULT_SIGNALER_CODE
 	var/frequency = FREQ_SIGNALER
 	var/datum/radio_frequency/radio_connection
@@ -67,11 +67,14 @@
 		return ..()
 	return UI_CLOSE
 
-/obj/item/assembly/signaler/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.hands_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/item/assembly/signaler/ui_state(mob/user)
+	return GLOB.hands_state
+
+/obj/item/assembly/signaler/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Signaler", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "Signaler")
 		ui.open()
 
 /obj/item/assembly/signaler/ui_data(mob/user)

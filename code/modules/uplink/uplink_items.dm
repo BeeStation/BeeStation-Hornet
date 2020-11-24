@@ -250,7 +250,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 40
 	player_minimum = 30
 	starting_crate_value = 125
-	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops, /datum/game_mode/incursion)
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 
 /datum/uplink_item/bundles_TC/surplus/purchase(mob/user, datum/component/uplink/U)
 	var/list/uplink_items = get_uplink_items(SSticker && SSticker.mode? SSticker.mode : null, FALSE, !check_include_modes, check_include_modes)	//If we are allowing all gamemodes, don't get items from nukeops that can't be used
@@ -287,7 +287,21 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/bundles_TC/surplus/random/purchase(mob/user, datum/component/uplink/U)
 	var/index = rand(1, 20)
-	starting_crate_value = FLOOR((0.1 * (index ** 2.1)) + index + 5, 1)
+	starting_crate_value = index * 5
+	if(index == 1)
+		to_chat(user, "<span class='warning'><b>Incomming transmission from the syndicate.</b></span>")
+		to_chat(user, "<span class='warning'>You feel an overwhelming sense of pride and accomplishment.</span>")
+		var/obj/item/clothing/mask/joy/funny_mask = new(get_turf(user))
+		ADD_TRAIT(funny_mask, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+		var/obj/item/I = user.get_item_by_slot(SLOT_WEAR_MASK)
+		if(I)
+			user.dropItemToGround(I, TRUE)
+		user.equip_to_slot_if_possible(funny_mask, SLOT_WEAR_MASK)
+	else if(index == 20)
+		starting_crate_value = 200
+		print_command_report("Congratulations to [user] for being the [rand(4, 9)]th lucky winner of the syndicate lottery! \
+		Dread Admiral Sabertooth has authorised the beaming of your special equipment immediately! Happy hunting operative.",
+		"Syndicate Gambling Division High Command", TRUE)
 	var/obj/item/implant/weapons_auth/W = new
 	W.implant(user)	//Gives them the ability to use restricted weapons
 	. = ..()
@@ -1089,7 +1103,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 4
 
 /datum/uplink_item/explosives/doorCharge
-	name = "Airlock Charge"		
+	name = "Airlock Charge"
 	desc = "A small explosive device that can be used to sabotage airlocks to cause an explosion upon opening. \
 			To apply, remove the airlock's maintenance panel and place it within."
 	item = /obj/item/doorCharge
@@ -1647,6 +1661,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	item = /obj/item/encryptionkey/syndicate
 	cost = 2
 	surplus = 75
+	exclude_modes = list(/datum/game_mode/incursion) //To prevent traitors from immediately outing the hunters to security.
 	restricted = TRUE
 
 /datum/uplink_item/device_tools/syndietome

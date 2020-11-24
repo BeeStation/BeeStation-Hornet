@@ -9,8 +9,8 @@
 	icon_state = "bus"
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/ntnet_relay
-	ui_x = 400
-	ui_y = 300
+
+
 
 	var/datum/ntnet/NTNet = null // This is mostly for backwards reference and to allow varedit modifications from ingame.
 	var/enabled = 1				// Set to 0 if the relay was turned off
@@ -64,12 +64,16 @@
 		SSnetworks.station_network.add_log("Quantum relay switched from overload recovery mode to normal operation mode.")
 	..()
 
-/obj/machinery/ntnet_relay/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/ntnet_relay/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/ntnet_relay/ui_interact(mob/user, datum/tgui/ui)
+
+	ui = SStgui.try_update_ui(user, src, ui)
 
 	if(!ui)
-		ui = new(user, src, ui_key, "NtnetRelay", "NTNet Quantum Relay", ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "NtnetRelay")
 		ui.open()
 
 

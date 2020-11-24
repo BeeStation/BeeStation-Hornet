@@ -22,6 +22,7 @@
  *		Snowballs
  *		Clockwork Watches
  *		Toy Daggers
+ *		Eldrich stuff
  */
 
 
@@ -826,7 +827,6 @@
 		dat += "<A href='?src=[REF(src)];pick=[t]'>A [t].</A><BR>"
 	dat += "Which card will you remove next?"
 	var/datum/browser/popup = new(user, "cardhand", "Hand of Cards", 400, 240)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.set_content(dat)
 	popup.open()
 
@@ -1439,3 +1439,41 @@
 
 /obj/item/toy/dummy/GetVoice()
 	return doll_name
+	
+/*
+ * Eldrich Toys
+ */
+
+/obj/item/toy/eldrich_book
+	name = "Codex Cicatrix"
+	desc = "A toy book that closely resembles the Codex Cicatrix. Covered in fake polyester human flesh and has a huge goggly eye attached to the cover. The runes are gibberish and cannot be used to summon demons... Hopefully?"
+	icon = 'icons/obj/eldritch.dmi'
+	icon_state = "book"
+	w_class = WEIGHT_CLASS_SMALL
+	attack_verb = list("sacrificed", "transmuted", "grasped", "cursed")
+	var/open = FALSE
+	
+/obj/item/toy/eldrich_book/attack_self(mob/user)
+	open = !open
+	update_icon()
+
+/obj/item/toy/eldrich_book/update_icon()
+	icon_state = open ? "book_open" : "book"
+	
+/*
+ * Fake tear
+ */
+ 
+/obj/item/toy/reality_pierce
+	name = "Pierced reality"
+	desc = "Hah. You thought it was the real deal!"
+	icon = 'icons/effects/eldritch.dmi'
+	icon_state = "pierced_illusion"
+
+/obj/item/storage/box/heretic_asshole
+	name = "box of pierced realities"
+	desc = "A box containing toys resembling pierced realities."
+
+/obj/item/storage/box/heretic_asshole/PopulateContents()
+	for(var/i in 1 to rand(1,4))
+		new /obj/item/toy/reality_pierce(src)

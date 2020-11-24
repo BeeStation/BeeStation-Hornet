@@ -56,8 +56,8 @@
 	integrity_failure = 50
 	resistance_flags = FIRE_PROOF
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
-	ui_x = 450
-	ui_y = 460
+
+
 
 	FASTDMM_PROP(\
 		set_instance_vars(\
@@ -660,7 +660,7 @@
 			return
 	else if (istype(W, /obj/item/wallframe/apc) && opened)
 		if (!(stat & BROKEN || opened==APC_COVER_REMOVED || obj_integrity < max_integrity)) // There is nothing to repair
-			to_chat(user, "<span class='warning'>You found no reason for repairing this APC</span>")
+			to_chat(user, "<span class='warning'>You find no reason for repairing this APC.</span>")
 			return
 		if (!(stat & BROKEN) && opened==APC_COVER_REMOVED) // Cover is the only thing broken, we do not need to remove elctronicks to replace cover
 			user.visible_message("[user.name] replaces missing APC's cover.",\
@@ -694,7 +694,6 @@
 		return ..()
 
 /obj/machinery/power/apc/AltClick(mob/user)
-	..()
 	if(!user.canUseTopic(src, !issilicon(user)) || !isturf(loc))
 		return
 	else
@@ -831,12 +830,19 @@
 	if((stat & MAINT) && !opened) //no board; no interface
 		return
 
-/obj/machinery/power/apc/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-										datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/power/apc/ui_state(mob/user)
+	if(isAI(user))
+		var/mob/living/silicon/ai/AI = user
+		if(AI.apc_override == src)
+			return GLOB.conscious_state
+	return GLOB.default_state
+
+/obj/machinery/power/apc/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 
 	if(!ui)
-		ui = new(user, src, ui_key, "Apc", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "Apc")
 		ui.open()
 
 /obj/machinery/power/apc/ui_data(mob/user)
@@ -1014,6 +1020,12 @@
 					INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
 				CHECK_TICK
 	return 1
+
+/obj/machinery/power/apc/ui_close(mob/user)
+	if(isAI(user))
+		var/mob/living/silicon/ai/AI = user
+		if(AI.apc_override == src)
+			AI.apc_override = null
 
 /obj/machinery/power/apc/proc/toggle_breaker(mob/user)
 	if(!is_operational() || failure_timer)
@@ -1227,28 +1239,31 @@
 		else if(longtermpower > -10)
 			longtermpower -= 2
 
+		var/power_alert_fine = TRUE
+
 		if(cell.charge <= 0)					// zero charge, turn all off
 			equipment = autoset(equipment, 0)
 			lighting = autoset(lighting, 0)
 			environ = autoset(environ, 0)
-			area.poweralert(0, src)
+			power_alert_fine = FALSE
 		else if(cell.percent() < 15 && longtermpower < 0)	// <15%, turn off lighting & equipment
 			equipment = autoset(equipment, 2)
 			lighting = autoset(lighting, 2)
 			environ = autoset(environ, 1)
-			area.poweralert(0, src)
+			power_alert_fine = FALSE
 		else if(cell.percent() < 30 && longtermpower < 0)			// <30%, turn off equipment
 			equipment = autoset(equipment, 2)
 			lighting = autoset(lighting, 1)
 			environ = autoset(environ, 1)
-			area.poweralert(0, src)
+			power_alert_fine = FALSE
 		else									// otherwise all can be on
 			equipment = autoset(equipment, 1)
 			lighting = autoset(lighting, 1)
 			environ = autoset(environ, 1)
-			area.poweralert(1, src)
-			if(cell.percent() > 75)
-				area.poweralert(1, src)
+
+		if(integration_cog)
+			power_alert_fine = TRUE
+		area.poweralert(power_alert_fine, src)
 
 		// now trickle-charge the cell
 		if(chargemode && charging == APC_CHARGING && operating)

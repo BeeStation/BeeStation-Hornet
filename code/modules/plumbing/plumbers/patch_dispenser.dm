@@ -11,8 +11,8 @@
 	///max amount of patches allowed on our tile before we start storing them instead
 	var/max_floor_patches = 10
 
-	ui_x = 300
-	ui_y = 120
+
+
 
 /obj/machinery/plumbing/patch_dispenser/examine(mob/user)
 	. = ..()
@@ -41,10 +41,14 @@
 			stored_patches -= AM
 			AM.forceMove(drop_location())
 
-/obj/machinery/plumbing/patch_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/plumbing/patch_dispenser/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/plumbing/patch_dispenser/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PatchDispenser", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "PatchDispenser")
 		ui.open()
 
 /obj/machinery/plumbing/patch_dispenser/ui_data(mob/user)

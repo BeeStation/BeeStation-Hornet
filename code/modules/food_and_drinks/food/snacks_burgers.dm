@@ -383,3 +383,11 @@
 	if(prob(33))
 		icon_state = "cheeseburgeralt"
 
+/obj/item/reagent_containers/food/snacks/burger/crazy
+	name = "crazy hamburger"
+	desc = "Crazy hamburger! It is horrible!"
+	icon_state = "crazyhamburger"
+	tastes = list("bread made in turkey" = 2, "horse meat" = 4, "cheese from sao paulo from brazil" = 3, "red hot chili peppers" = 3, "oil from iraq" = 2, "grass of death" = 3)
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1)
+	foodtype = GRAIN | MEAT | DAIRY | TOXIC | GROSS | FRUIT
+	w_class = WEIGHT_CLASS_NORMAL   // The crazy hamburger in the video was bigger than joker's hand therefore i think this weight class is adequate.

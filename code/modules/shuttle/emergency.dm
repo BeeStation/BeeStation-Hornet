@@ -8,8 +8,8 @@
 	desc = "For shuttle control."
 	icon_screen = "shuttle"
 	icon_keyboard = "tech_key"
-	ui_x = 400
-	ui_y = 350
+
+
 
 	var/auth_need = 3
 	var/list/authorized = list()
@@ -19,11 +19,18 @@
 		say("Please equip your ID card into your ID slot to authenticate.")
 	. = ..()
 
-/obj/machinery/computer/emergency_shuttle/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.human_adjacent_state)
+/obj/machinery/computer/emergency_shuttle/attack_alien(mob/living/carbon/alien/humanoid/royal/queen/user)
+	if(istype(user))
+		SSshuttle.clearHostileEnvironment(user)
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/emergency_shuttle/ui_state(mob/user)
+	return GLOB.human_adjacent_state
+
+/obj/machinery/computer/emergency_shuttle/ui_interact(mob/user, datum/tgui/ui)
+
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "EmergencyShuttleConsole", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "EmergencyShuttleConsole")
 		ui.open()
 
 /obj/machinery/computer/emergency_shuttle/ui_data()
@@ -90,9 +97,9 @@
 		var/repeal = (authorized.len < old_len)
 		var/remaining = max(0, auth_need - authorized.len)
 		if(authorized.len && remaining)
-			minor_announce("[remaining] authorizations needed until shuttle is launched early", null, alert)
+			minor_announce("[remaining] authorizations needed until shuttle is launched early.", null, alert)
 		if(repeal)
-			minor_announce("Early launch authorization revoked, [remaining] authorizations needed")
+			minor_announce("Early launch authorization revoked, [remaining] authorizations needed.")
 
 /obj/machinery/computer/emergency_shuttle/proc/authorize(mob/user, source)
 	var/obj/item/card/id/ID = user.get_idcard(TRUE)
@@ -106,8 +113,8 @@
 
 	authorized += ID
 
-	message_admins("[ADMIN_LOOKUPFLW(user)] has authorized early shuttle launch")
-	log_game("[key_name(user)] has authorized early shuttle launch in [COORD(src)]")
+	message_admins("[ADMIN_LOOKUPFLW(user)] has authorized early shuttle launch.")
+	log_game("[key_name(user)] has authorized early shuttle launch in [COORD(src)].")
 	// Now check if we're on our way
 	. = TRUE
 	process()
@@ -141,11 +148,11 @@
 		return
 
 	if((obj_flags & EMAGGED) || ENGINES_STARTED)	//SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LAUNCH IN 10 SECONDS
-		to_chat(user, "<span class='warning'>The shuttle is already about to launch!</span>")
+		to_chat(user, "<span class='warning'>The shuttle is already launching!</span>")
 		return
 
 	var/time = TIME_LEFT
-	message_admins("[ADMIN_LOOKUPFLW(user.client)] has emagged the emergency shuttle [time] seconds before launch.")
+	message_admins("[ADMIN_LOOKUPFLW(user.client)] has emagged the emergency shuttle, [time] seconds before launch.")
 	log_game("[key_name(user)] has emagged the emergency shuttle in [COORD(src)] [time] seconds before launch.")
 
 	obj_flags |= EMAGGED
@@ -391,7 +398,7 @@
 				mode = SHUTTLE_ESCAPE
 				launch_status = ENDGAME_LAUNCHED
 				setTimer(SSshuttle.emergencyEscapeTime * engine_coeff)
-				priority_announce("The Emergency Shuttle has left the station. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.", null, null, "Priority")
+				priority_announce("The Emergency Shuttle has left the station. Estimate: [timeLeft(600)] minutes until the shuttle docks at Central Command.", null, null, "Priority")
 
 		if(SHUTTLE_STRANDED)
 			SSshuttle.checkHostileEnvironment()
@@ -443,7 +450,7 @@
 	mode = SHUTTLE_ESCAPE
 	launch_status = ENDGAME_LAUNCHED
 	setTimer(SSshuttle.emergencyEscapeTime)
-	priority_announce("The Emergency Shuttle preparing for direct jump. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.", null, null, "Priority")
+	priority_announce("The Emergency Shuttle preparing for direct jump. ETA: [timeLeft(600)] minutes until the shuttle docks at Central Command.", null, null, "Priority")
 
 
 /obj/docking_port/mobile/pod
@@ -486,7 +493,7 @@
 	if(obj_flags & EMAGGED)
 		return
 	obj_flags |= EMAGGED
-	to_chat(user, "<span class='warning'>You fry the pod's alert level checking system.</span>")
+	to_chat(user, "<span class='warning'>You fry the pod's alert level monitoring system.</span>")
 
 /obj/machinery/computer/shuttle/pod/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
 	. = ..()
@@ -519,7 +526,7 @@
 			return
 
 	// Fallback: couldn't find anything
-	WARNING("docking port '[id]' could not be randomly placed in [target_area]: of [original_len] turfs, none were suitable")
+	WARNING("docking port '[id]' could not be randomly placed in [target_area]: of [original_len] turfs, none were suitable.")
 	return INITIALIZE_HINT_QDEL
 
 //Pod suits/pickaxes
@@ -579,7 +586,6 @@
 /obj/item/storage/pod/AltClick(mob/user)
 	if(!can_interact(user))
 		return
-	..()
 
 /obj/item/storage/pod/can_interact(mob/user)
 	if(!..())

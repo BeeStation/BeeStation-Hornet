@@ -14,8 +14,8 @@
 	construction_type = /obj/item/pipe/trinary/flippable
 	pipe_state = "filter"
 
-	ui_x = 390
-	ui_y = 187
+
+
 
 /obj/machinery/atmospherics/components/trinary/filter/CtrlClick(mob/user)
 	if(can_interact(user))
@@ -27,7 +27,7 @@
 	if(can_interact(user))
 		transfer_rate = MAX_TRANSFER_RATE
 		update_icon()
-	return ..()
+	return
 
 /obj/machinery/atmospherics/components/trinary/filter/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -123,11 +123,14 @@
 	set_frequency(frequency)
 	return ..()
 
-/obj/machinery/atmospherics/components/trinary/filter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-																	datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/atmospherics/components/trinary/filter/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/atmospherics/components/trinary/filter/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AtmosFilter", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "AtmosFilter")
 		ui.open()
 
 /obj/machinery/atmospherics/components/trinary/filter/ui_data()

@@ -7,6 +7,7 @@
 	state_open = FALSE
 	density = TRUE
 	req_access = list(ACCESS_KITCHEN)
+	circuit = /obj/item/circuitboard/machine/fat_sucker
 	var/processing = FALSE
 	var/start_at = NUTRITION_LEVEL_WELL_FED
 	var/stop_at = NUTRITION_LEVEL_STARVING
@@ -35,10 +36,13 @@
 /obj/machinery/fat_sucker/RefreshParts()
 	..()
 	var/rating = 0
+	var/nutriment_rating
 	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
 		rating += L.rating
-	bite_size = initial(bite_size) + rating * 5
-	nutrient_to_meat = initial(nutrient_to_meat) - rating * 5
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
+		nutriment_rating += M.rating
+	bite_size = initial(bite_size) + rating * 2.5
+	nutrient_to_meat = initial(nutrient_to_meat) - nutriment_rating * 5
 
 /obj/machinery/fat_sucker/examine(mob/user)
 	. = ..()
