@@ -106,7 +106,6 @@
 	else
 		..()
 
-
 /obj/item/radio/ui_state(mob/user)
 	return GLOB.inventory_state
 
@@ -427,3 +426,20 @@
 /obj/item/radio/off	// Station bounced radios, their only difference is spawning with the speakers off, this was made to help the lag.
 	listening = 0			// And it's nice to have a subtype too for future features.
 	dog_fashion = /datum/dog_fashion/back
+	desc = "A basic handheld radio that communicates with local telecommunication networks.<br/>Alt-click on the station bounced radio to toggle broadcasting.<br/>Ctrl-click on the station bounced radio to toggle speaker"
+
+/obj/item/radio/off/AltClick(mob/user)
+	if(broadcasting)
+		broadcasting = FALSE
+		to_chat(user, "<span class='notice'>You turn radio broadcasting off.</span>")
+	else
+		broadcasting = TRUE
+		to_chat(user, "<span class='notice'>You turn radio broadcasting on.</span>")
+
+/obj/item/radio/off/CtrlClick(mob/user)
+	if(listening)
+		listening = FALSE
+		to_chat(user, "<span class='notice'>You turn radio speaker off.</span>")
+	else
+		listening = TRUE
+		to_chat(user, "<span class='notice'>You turn radio speaker on.</span>")
