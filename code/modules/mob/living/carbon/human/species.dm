@@ -1083,7 +1083,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(H.overeatduration >= 100)
 			to_chat(H, "<span class='danger'>You suddenly feel blubbery!</span>")
 			ADD_TRAIT(H, TRAIT_FAT, OBESITY)
-			H.add_movespeed_modifier(MOVESPEED_ID_FAT, multiplicative_slowdown = 1.5)
+			H.add_movespeed_modifier(MOVESPEED_ID_FAT, multiplicative_slowdown = 1.2)
 			H.update_inv_w_uniform()
 			H.update_inv_wear_suit()
 
@@ -1117,21 +1117,27 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(H.overeatduration > 1)
 			H.overeatduration -= 2 //doubled the unfat rate
 
+	var/metabomism_fat = .75
+	var/metabomism_regular = 1
+	var/metabomism_vigor = 1
+	var/metabomism_hungry = 2
+
+	here
 	//metabolism change
 	if(H.nutrition > NUTRITION_LEVEL_FAT)
-		H.metabolism_efficiency = 1
+		H.metabolism_efficiency = metabomism_fat
 	else if(H.nutrition > NUTRITION_LEVEL_FED && H.satiety > 80)
-		if(H.metabolism_efficiency != 1.25 && !HAS_TRAIT(H, TRAIT_NOHUNGER))
+		if(H.metabolism_efficiency != metabomism_vigor && !HAS_TRAIT(H, TRAIT_NOHUNGER))
 			to_chat(H, "<span class='notice'>You feel vigorous.</span>")
-			H.metabolism_efficiency = 1.25
+			H.metabolism_efficiency = metabomism_vigor
 	else if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
-		if(H.metabolism_efficiency != 0.8)
+		if(H.metabolism_efficiency != metabomism_hungry)
 			to_chat(H, "<span class='notice'>You feel sluggish.</span>")
-		H.metabolism_efficiency = 0.8
+		H.metabolism_efficiency = metabomism_hungry
 	else
-		if(H.metabolism_efficiency == 1.25)
+		if(H.metabolism_efficiency == metabomism_vigor)
 			to_chat(H, "<span class='notice'>You no longer feel vigorous.</span>")
-		H.metabolism_efficiency = 1
+		H.metabolism_efficiency = metabomism_regular
 
 	//Hunger slowdown for if mood isn't enabled
 	if(CONFIG_GET(flag/disable_human_mood))
@@ -1535,6 +1541,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
 	var/weakness = H.check_weakness(I, user)
+	if (I.damtype == STAMINA && HAS_TRAIT(H, TRAIT_FAT))
+		I.force*=2 //stamina fat multiplier under NUTRITION_LEVEL_STARVING
 	apply_damage(I.force * weakness, I.damtype, def_zone, armor_block, H)
 
 	H.send_item_attack_message(I, user, hit_area)

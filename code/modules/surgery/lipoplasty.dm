@@ -5,8 +5,8 @@
 
 /datum/surgery/lipoplasty/can_start(mob/user, mob/living/carbon/target)
 	if(HAS_TRAIT(target, TRAIT_FAT))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 //cut fat
