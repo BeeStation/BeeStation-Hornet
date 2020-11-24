@@ -121,12 +121,10 @@
 				return TRUE
 		user.visible_message("[user] starts recharging [A] with [src].","<span class='notice'>You start recharging [A] with [src].</span>")
 		var/keep_looping = TRUE
-		while(keep_looping)
+		while(O && C)
 			if(do_after(user, 10, target = user) && cell.charge)
 				done_any = TRUE
-				if (!O || !C)
-					keep_looping = FALSE
-				else if(C.charge < C.maxcharge)
+				if(C.charge < C.maxcharge)
 					induce(C, coefficient)					
 				else if(obj_flags & EMAGGED)
 					var/burndamage = min(cell.charge,powertransfer)
@@ -135,17 +133,16 @@
 					O.take_damage(burndamage/10, BURN, "energy")
 					user.visible_message("<span class='warning'>You overcharge the [O].</span>")
 				else
-					keep_looping = FALSE
+					continue
 					
-				if (keep_looping)
-					O.update_icon()
-					do_sparks(1, FALSE, A)
-					if (powertransfer>1000)
-						var/mob/living/carbon/human = user
-						if (human.electrocute_act( (powertransfer-1000)/400,human,stun = TRUE))
-							keep_looping = FALSE
+				O.update_icon()
+				do_sparks(1, FALSE, A)
+				if (powertransfer>1000)
+					var/mob/living/carbon/human = user
+					if (human.electrocute_act( (powertransfer-1000)/400,human,stun = TRUE))
+						continue
 			else
-				keep_looping = FALSE
+				continue
 		if(done_any) // Only show a message if we succeeded at least once
 			user.visible_message("[user] recharged [A]!","<span class='notice'>You recharged [A]!</span>")
 		recharging = FALSE
