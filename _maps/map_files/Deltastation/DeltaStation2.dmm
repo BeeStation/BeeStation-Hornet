@@ -2538,7 +2538,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/airlock/engineering{
 	name = "Auxiliary Construction Storage";
-	req_one_access_txt = "10;32;47;48"
+	req_one_access_txt = "10;72"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
@@ -3294,7 +3294,7 @@
 	id = "construction";
 	name = "Auxiliary Construction Shutters";
 	pixel_x = -26;
-	req_access_txt = "32;47;48"
+	req_access_txt = "72"
 	},
 /obj/machinery/light_switch{
 	pixel_x = -38
@@ -3414,7 +3414,8 @@
 /area/construction/mining/aux_base)
 "agp" = (
 /obj/machinery/door/airlock/external{
-	name = "Auxiliary Base Airlock"
+	name = "Auxiliary Base Airlock";
+	req_one_access_txt = "72"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -3545,7 +3546,7 @@
 "agZ" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Auxiliary Construction Zone";
-	req_one_access_txt = "32;47;48"
+	req_one_access_txt = "72"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -3613,7 +3614,7 @@
 "aht" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Auxiliary Construction Zone";
-	req_one_access_txt = "32;47;48"
+	req_one_access_txt = "72"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -3830,7 +3831,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_one_access_txt = "32;47;48"
+	req_one_access_txt = "72"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
