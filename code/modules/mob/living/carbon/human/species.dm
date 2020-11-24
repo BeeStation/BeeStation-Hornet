@@ -1117,10 +1117,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(H.overeatduration > 1)
 			H.overeatduration -= 2 //doubled the unfat rate
 
-	var/metabomism_fat = 2
+	var/metabomism_fat = .75
 	var/metabomism_regular = 1
 	var/metabomism_vigor = 1
-	var/metabomism_hungry = .75
+	var/metabomism_hungry = 2
 
 	here
 	//metabolism change
