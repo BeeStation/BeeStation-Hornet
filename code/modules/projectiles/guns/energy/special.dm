@@ -436,7 +436,7 @@
 		icon_state = "export_cannon"
 
 /obj/item/gun/energy/railgun/attack_self(mob/living/user as mob)
-	if(rod_loaded > 0)
+	if(rod_loaded)
 		var/obj/item/stack/rods/mylongrod = new /obj/item/stack/rods(get_turf(src))
 		mylongrod.add( 3 - 1 )
 		rod_loaded = FALSE
