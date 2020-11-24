@@ -136,7 +136,7 @@ Class Procs:
 		circuit = new circuit
 		circuit.apply_default_parts(src)
 
-	// Machines with no process() will stop being processed on /datum/process
+	// Machines with no process() will stop being processed on /datum/proc/process
 	if(!speed_process)
 		START_PROCESSING(SSmachines, src)
 	else
