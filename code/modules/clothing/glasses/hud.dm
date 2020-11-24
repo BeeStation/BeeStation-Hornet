@@ -120,14 +120,14 @@
 	icon_state = "sunhudtoggle"
 
 /obj/item/clothing/glasses/hud/medsec
-	name = "Hybrid HUD"
+	name = "medsec HUD"
 	desc = "A combination HUD, providing the user the use of a Medical and Security HUD."
 	icon_state = "medsechud"
 	hud_type = list(DATA_HUD_SECURITY_ADVANCED, DATA_HUD_MEDICAL_ADVANCED)
 	hud_trait = list(TRAIT_SECURITY_HUD, TRAIT_MEDICAL_HUD)
 
 	glass_colour_type = /datum/client_colour/glass_colour/red
-	
+
 /obj/item/clothing/glasses/hud/security/chameleon
 	name = "chameleon security HUD"
 	desc = "A stolen security HUD integrated with Syndicate chameleon technology. Provides flash protection."
