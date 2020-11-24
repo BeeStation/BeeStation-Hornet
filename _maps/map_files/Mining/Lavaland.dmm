@@ -1999,7 +1999,7 @@
 /area/lavaland/surface/outdoors)
 "iL" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = TRUE
 	},
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/brown,
@@ -4600,7 +4600,7 @@
 	pixel_y = -22
 	},
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = TRUE
 	},
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
@@ -6342,7 +6342,7 @@
 /area/mine/science)
 "Yz" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = TRUE
 	},
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -6401,7 +6401,7 @@
 /area/mine/laborcamp/security)
 "YW" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = TRUE
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
