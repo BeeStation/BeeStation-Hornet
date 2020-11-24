@@ -403,7 +403,7 @@
 				qdel(rod_drop)
 
 /obj/item/projectile/bullet/reusable/railgun_rod/handle_drop()
-	if(dropped == FALSE)
+	if(!dropped)
 		var/turf/T = get_turf(src)
 		rod_drop = new ammo_type(T)
 		rod_drop.add(3-1)
