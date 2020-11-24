@@ -5,7 +5,6 @@
 	due_date = 0 // Game time in deciseconds
 	unique = 1   // 0  Normal book, 1  Should not be treated as normal book, unable to be copied, unable to be modified
 	var/list/remarks = list() //things to read about while learning.
-	var/list/species_allowed = list() //used for species locked granters
 	var/pages_to_mastery = 3 //Essentially controls how long a mob must keep the book in his hand to actually successfully learn
 	var/reading = FALSE //sanity
 	var/oneuse = TRUE //default this is true, but admins can var this to 0 if we wanna all have a pass around of the rod form book
@@ -379,15 +378,15 @@
 		icon_state = "blankscroll"
 
 /obj/item/book/granter/martial/tribal_claw
-		martial = /datum/martial_art/tribal_claw
-		name = "old scroll"
-		martialname = "tribal claw"
-		desc = "A scroll filled with strange markings. It seems to be drawings of some sort of martial art."
-		greet = "<span class='sciradio'>something something tribal claw</span>"
-		species_allowed = list("lizard")
-		icon = 'icons/obj/wizard.dmi'
-		icon_state = "scroll2"
-		remarks = list("replace1", "replace2", "replace3", "replace4")
+	martial = /datum/martial_art/tribal_claw
+	name = "old scroll"
+	martialname = "tribal claw"
+	desc = "A scroll filled with ancient draconic markings."
+	greet = "<span class='sciradio'>You have learned the ancient martial art of the Tribal Claw! You are now able to use your tail and claws in a fight much better than before. \
+	Check the combos you are now able to perform using the Recall Teachings verb in the Tribal Claw tab</span>"
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "scroll2"
+	remarks = list("I must prove myself worthy to the masters of the Knoises clan...", "Use your tail to surprise any enemy...", "Your sharp claws can disorient them...", "I don't think this would combine with other martial arts...", "Your moves aren't meant to do damage by themselves...")
 
 /obj/item/book/granter/martial/tribal_claw/onlearned(mob/living/carbon/user)
 	..()

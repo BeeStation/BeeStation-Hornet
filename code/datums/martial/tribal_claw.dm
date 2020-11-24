@@ -1,10 +1,12 @@
 #define TAIL_SWEEP_COMBO "DDGH"
 #define FACE_SCRATCH_COMBO "HD"
 #define TAIL_KNOCKDOWN_COMBO "GDH"
+#define TAIL_GRAB_COMBO "DHHGG"
 
 /datum/martial_art/tribal_claw
     name = "Tribal Claw"
     id = MARTIALART_TRIBALCLAW
+    allow_temp_override = FALSE
     help_verb = /mob/living/carbon/human/proc/tribal_claw_help
 
 /datum/martial_art/tribal_claw/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -20,6 +22,10 @@
         streak = ""
         tailKnockdown(A,D)
         return 1
+    if(findtext(streak,TAIL_GRAB_COMBO))
+        streak = ""
+        tailGrab(A,D)
+        return 1
     return 0
 
 /datum/martial_art/tribal_claw/proc/tailAnimate(mob/living/carbon/human/A)
@@ -31,31 +37,40 @@
         
 
 /datum/martial_art/tribal_claw/proc/tailSweep(mob/living/carbon/human/A, mob/living/carbon/human/D)
-    A.say("plswork", forced="tribal claw")
+    log_combat(A, D, "tail sweeped(Tribal Claw)")
+    D.visible_message("<span class='warning'>[A] sweeps [D]'s legs with their tail!</span>", \
+                        "<span class='userdanger'>[A] sweeps your legs with their tail!</span>")
     tailAnimate(A)
     var/obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon/R = new(null)
     var/list/turfs = list()
     for(var/turf/T in range(1,A))
         turfs.Add(T)
     R.cast(turfs)
-    log_combat(A, D, "tornado sweeped(Plasma Fist)")
     return 1
 
 /datum/martial_art/tribal_claw/proc/faceScratch(mob/living/carbon/human/A, mob/living/carbon/human/D)
-    A.say("plswork", forced="tribal claw")
-    log_combat(A, D, "face scratch (Tribal Claw)")
-    D.visible_message("<span class='warning'>[A] knees [D] in the stomach!</span>", \
-                        "<span class='userdanger'>[A] winds you with a knee in the stomach!</span>")
+    log_combat(A, D, "face scratched (Tribal Claw)")
+    D.visible_message("<span class='warning'>[A] scratches [D]'s face with their claws!</span>", \
+                        "<span class='userdanger'>[A] scratches your face with their claws!</span>")
     D.confused += 5
-    D.blur_eyes(10)
+    D.blur_eyes(5)
+    D.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
     playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, 1, -1)
     return 1 
 
 /datum/martial_art/tribal_claw/proc/tailKnockdown(mob/living/carbon/human/A, mob/living/carbon/human/D)
-    A.say("plswork", forced="tribal claw")
-    log_combat(A, D, "tail knockdown (Tribal Claw)")
+    log_combat(A, D, "tail knockdowned (Tribal Claw)")
+    D.visible_message("<span class='warning'>[A] knocks [D] down with their tail!</span>", \
+                        "<span class='userdanger'>[A] knocks you down with their tail!</span>")
     D.Knockdown(10)
     D.apply_damage(10, BRUTE, pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+    return 1
+
+/datum/martial_art/tribal_claw/proc/tailGrab(mob/living/carbon/human/A, mob/living/carbon/human/D)
+    log_combat(A, D, "tail grabbed (Tribal Claw)")
+    D.visible_message("<span class='warning'>[A] grabs [D] with their tail!</span>", \
+                        "<span class='userdanger'>[A] grabs you with their tail!</span>")
+    A.setGrabState(GRAB_NECK)
     return 1
 
 /datum/martial_art/tribal_claw/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -78,11 +93,12 @@
 
 /mob/living/carbon/human/proc/tribal_claw_help()
     set name = "Recall Teachings"
-    set desc = "Remember the martial techniques of the Tribal Claw clan"
+    set desc = "Remember the martial techniques of the Tribal Claw"
     set category = "Tribal Claw"
 
     to_chat(usr, "<b><i>You retreat inward and recall the teachings of the Tribal Claw...</i></b>")
 
-    to_chat(usr, "<span class='notice'>Tail Sweep</span>: Disarm Disarm Grab Harm. Gonna do something")
-    to_chat(usr, "<span class='notice'>Face Scratch</span>: Harm Disarm. Gonna do something else")
-    to_chat(usr, "<span class='notice'>Tail Knockdown</span>: Grab Disarm Harm. Gonna do something else")
+    to_chat(usr, "<span class='notice'>Tail Sweep</span>: Disarm Disarm Grab Harm. Pushes everyone around you away and knocks them down.")
+    to_chat(usr, "<span class='notice'>Face Scratch</span>: Harm Disarm. Damages your target's eyes and confuses them for a short time.")
+    to_chat(usr, "<span class='notice'>Tail Knockdown</span>: Grab Disarm Harm. Knocks your target down and damages one of their legs.")
+    to_chat(usr, "<span class='notice'>Tail Grab</span>: Disarm Harm Harm Grab Grab. Grabs your target by their neck.")

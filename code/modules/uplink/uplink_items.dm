@@ -1834,12 +1834,11 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 
 /datum/uplink_item/race_restricted/tribal_claw
 	name = "Old Tribal Scroll"
-	desc = "This scroll contains the secrets of an ancient martial arts technique. You will master unarmed combat, \
-			deflecting all ranged weapon fire, but you also refuse to use dishonorable ranged weaponry."
+	desc = "We found this scroll in a abandoned lizard settlement of the Knoises clan. \
+			It teaches you how to use your claws and tails to gain an advantage in combat"
 	item = /obj/item/book/granter/martial/tribal_claw
-	cost = 16
+	cost = 12
 	surplus = 0
-	surplus_nullcrates = 0
 	restricted_species = list("lizard")
 
 // Role-specific items
