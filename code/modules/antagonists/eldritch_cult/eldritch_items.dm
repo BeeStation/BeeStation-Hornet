@@ -186,7 +186,7 @@
 	name = "strange figurine"
 	desc = "A stone statuette of some sort."
 	var/inUse = FALSE
-	var/deity
+	var/deity = 0
 	var/godname = "C'Thulhu"
 	var/activated = FALSE
 	var/ashes = FALSE
