@@ -63,7 +63,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	if(prob(15/severity) && owner)
-		to_chat(owner, "<span class='warning'>[src] is hit by EMP!</span>")
+		to_chat(owner, "<span class='warning'>The electro magnetic pulse causes [src] to malfunction!</span>")
 		// give the owner an idea about why his implant is glitching
 		Retract()
 
@@ -242,7 +242,7 @@
 
 /obj/item/organ/cyberimp/arm/esaw
 	name = "arm-mounted energy saw"
-	desc = "An illegal and highly dangerous implanted carbon-fiber blade that also has a toggleable hard-light edge."
+	desc = "An illegal and highly dangerous implanted carbon-fiber blade with a toggleable hard-light edge."
 	icon_state = "esaw_0"
 	contents = newlist(/obj/item/melee/transforming/energy/sword/esaw)
 

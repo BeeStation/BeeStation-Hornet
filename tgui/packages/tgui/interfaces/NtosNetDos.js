@@ -6,7 +6,10 @@ import { NtosWindow } from "../layouts";
 
 export const NtosNetDos = (props, context) => {
   return (
-    <NtosWindow theme="syndicate">
+    <NtosWindow
+      theme="syndicate"
+      width={400}
+      height={250}>
       <NtosWindow.Content>
         <NtosNetDosContent />
       </NtosWindow.Content>

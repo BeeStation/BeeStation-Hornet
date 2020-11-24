@@ -37,6 +37,8 @@
 	return
 
 /mob/dead/new_player/proc/new_player_panel()
+	var/datum/asset/asset_datum = get_asset_datum(/datum/asset/simple/lobby)
+	asset_datum.send(client)
 	var/output = "<center><p><a href='byond://?src=[REF(src)];show_preferences=1'>Setup Character</a></p>"
 
 	if(SSticker.current_state <= GAME_STATE_PREGAME)
@@ -87,7 +89,6 @@
 
 	output += "</center>"
 
-	//src << browse(output,"window=playersetup;size=210x240;can_close=0")
 	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 250, 265)
 	popup.set_window_options("can_close=0")
 	popup.set_content(output)
@@ -192,12 +193,14 @@
 		vote_on_poll_handler(poll, href_list)
 
 //When you cop out of the round (NB: this HAS A SLEEP FOR PLAYER INPUT IN IT)
-/mob/dead/new_player/proc/make_me_an_observer()
+/mob/dead/new_player/proc/make_me_an_observer(force_observe=FALSE)
 	if(QDELETED(src) || !src.client)
 		ready = PLAYER_NOT_READY
 		return FALSE
 
-	var/this_is_like_playing_right = alert(src,"Are you sure you wish to observe? You will not be able to play this round!","Player Setup","Yes","No")
+	var/this_is_like_playing_right = "Yes"
+	if(!force_observe)
+		this_is_like_playing_right = alert(src,"Are you sure you wish to observe? You will not be able to play this round!","Player Setup","Yes","No")
 
 	if(QDELETED(src) || !src.client || this_is_like_playing_right != "Yes")
 		ready = PLAYER_NOT_READY
@@ -309,7 +312,7 @@
 		if(!arrivals_docked)
 			var/obj/screen/splash/Spl = new(character.client, TRUE)
 			Spl.Fade(TRUE)
-			character.playsound_local(get_turf(character), 'sound/voice/ApproachingTG.ogg', 25)
+			character.playsound_local(get_turf(character), 'sound/voice/welcomeBee.ogg', 50)
 
 		character.update_parallax_teleport()
 

@@ -45,7 +45,7 @@
 
 	imp_in.reagents.add_reagent(/datum/reagent/medicine/synaptizine, 10)
 	imp_in.reagents.add_reagent(/datum/reagent/medicine/omnizine, 10)
-	imp_in.reagents.add_reagent(/datum/reagent/medicine/stimulants, 10)
+	imp_in.reagents.add_reagent(/datum/reagent/medicine/amphetamine, 10)
 	if(!uses)
 		qdel(src)
 
@@ -96,6 +96,7 @@
 	var/obj/item/radio/radio
 	var/radio_key
 	var/subspace_transmission = FALSE
+	var/radio_silent = TRUE
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "walkietalkie"
 
@@ -113,6 +114,7 @@
 	radio.name = "internal radio"
 	radio.subspace_transmission = subspace_transmission
 	radio.canhear_range = -1
+	radio.radio_silent = radio_silent
 	if(radio_key)
 		radio.keyslot = new radio_key
 	radio.recalculateChannels()

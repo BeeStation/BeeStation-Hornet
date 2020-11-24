@@ -49,6 +49,7 @@
 					makelube(M, 80)
 				else
 					makelube(M, 40)
+				M.reagents.add_reagent(/datum/reagent/lube = 1)
 				if(clownshoes)
 					give_clown_shoes(A)
 

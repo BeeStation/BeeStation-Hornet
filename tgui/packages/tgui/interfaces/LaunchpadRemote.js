@@ -10,7 +10,10 @@ export const LaunchpadRemote = (props, context) => {
     pad_closed,
   } = data;
   return (
-    <Window theme="syndicate">
+    <Window
+      theme="syndicate"
+      width={300}
+      height={240}>
       <Window.Content>
         {!has_pad && (
           <NoticeBox>

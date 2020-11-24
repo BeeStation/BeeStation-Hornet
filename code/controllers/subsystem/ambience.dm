@@ -29,9 +29,9 @@ SUBSYSTEM_DEF(ambience)
 		if (C)
 			var/mob/M = C.mob
 
-			if(M)
+			if(M?.client)
 				if (istype(M, /mob/dead/new_player)) // Don't play ambience to nerds in the lobby
-					return
+					continue
 
 				src.update_buzz(M) // Update buzz every fire, or every 1/5th second
 

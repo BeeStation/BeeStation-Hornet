@@ -27,6 +27,7 @@
 					/obj/item/clothing/head/beret/sec = 3,
 					/obj/item/clothing/head/soft/sec = 3,
 					/obj/item/clothing/mask/bandana/red = 3,
+					/obj/item/clothing/mask/gas/sechailer = 6,
 					/obj/item/clothing/under/rank/security/officer/skirt = 3,
 					/obj/item/clothing/under/rank/security/officer/white = 3,
 					/obj/item/clothing/under/pants/khaki = 3,

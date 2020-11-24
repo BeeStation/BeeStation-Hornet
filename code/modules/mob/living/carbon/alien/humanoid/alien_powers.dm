@@ -98,7 +98,7 @@ Doesn't work on other aliens/AI.*/
 	var/msg = stripped_input(usr, "Message:", "Alien Whisper")
 	if(msg)
 		log_directed_talk(user, M, msg, LOG_SAY, tag="alien whisper")
-		to_chat(M, "<span class='noticealien'>You hear a strange, alien voice in your head...</span>[msg]")
+		to_chat(M, "<span class='noticealien'>You hear a strange, alien voice in your head.</span>[msg]")
 		to_chat(user, "<span class='noticealien'>You said: \"[msg]\" to [M]</span>")
 		for(var/ded in GLOB.dead_mob_list)
 			if(!isobserver(ded))
@@ -291,7 +291,7 @@ Doesn't work on other aliens/AI.*/
 		user.alpha = 75 //Still easy to see in lit areas with bright tiles, almost invisible on resin.
 		user.sneaking = 1
 		active = 1
-		to_chat(user, "<span class='noticealien'>You blend into the shadows...</span>")
+		to_chat(user, "<span class='noticealien'>You blend into the shadows.</span>")
 	else
 		user.alpha = initial(user.alpha)
 		user.sneaking = 0

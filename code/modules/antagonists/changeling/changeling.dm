@@ -227,7 +227,7 @@
 
 /datum/antagonist/changeling/proc/can_absorb_dna(mob/living/carbon/human/target, var/verbose=1)
 	var/mob/living/carbon/user = owner.current
-	if(isIPC(target))
+	if(isipc(target))
 		to_chat(user, "<span class='warning'>We cannot absorb mechanical entities!</span>")
 		return
 	if(!istype(user))
@@ -327,7 +327,7 @@
 
 /datum/antagonist/changeling/proc/create_initial_profile()
 	var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
-	if(isIPC(C))
+	if(isipc(C))
 		C.set_species(/datum/species/human)
 		var/replacementName = random_unique_name(C.gender)
 		if(C.client.prefs.custom_names["human"])
@@ -371,7 +371,7 @@
 	//If it seems like they'd be able to do it in play, add a 10% chance to have to escape alone
 
 	var/escape_objective_possible = TRUE
-	switch(competitive_objectives ? (team_mode ? rand(1,2) : rand(1,3)) : 1)
+	switch(competitive_objectives ? rand(1,2) : 1)
 		if(1)
 			var/datum/objective/absorb/absorb_objective = new
 			absorb_objective.owner = owner
@@ -380,11 +380,6 @@
 			log_objective(owner, absorb_objective.explanation_text)
 		if(2)
 			var/datum/objective/absorb_most/ac = new
-			ac.owner = owner
-			objectives += ac
-			log_objective(owner, ac.explanation_text)
-		if(3) //only give the murder other changelings goal if they're not in a team.
-			var/datum/objective/absorb_changeling/ac = new
 			ac.owner = owner
 			objectives += ac
 			log_objective(owner, ac.explanation_text)

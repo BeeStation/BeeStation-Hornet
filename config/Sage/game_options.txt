@@ -86,7 +86,7 @@ ALERT_DELTA Destruction of the station is imminent. All crew are instructed to o
 ## GAME MODES ###
 
 ## Uncomment to not send a roundstart intercept report. Gamemodes may override this.
-#NO_INTERCEPT_REPORT
+NO_INTERCEPT_REPORT
 
 ## Probablities for game modes chosen in 'secret' and 'random' modes.
 ## Default probablity is 1, increase to make that mode more likely to be picked.
@@ -94,6 +94,7 @@ ALERT_DELTA Destruction of the station is imminent. All crew are instructed to o
 
 PROBABILITY TRAITOR 9
 PROBABILITY SECRET_EXTENDED 7
+PROBABILITY DYNAMIC 7
 PROBABILITY CULT 6
 PROBABILITY HERESY 6
 PROBABILITY INTERNAL_AFFAIRS 6
@@ -136,6 +137,7 @@ CONTINUOUS WIZARD
 #CONTINUOUS MONKEY
 CONTINUOUS HIVEMIND
 CONTINUOUS CLOCKCULT
+CONTINUOUS HERESY
 
 #Prevents the death of round-ending antagonist rulesets ending the round immediately.
 
@@ -288,6 +290,9 @@ DEFAULT_REP_VALUE 5
 
 ## Uncomment to allow players to see the set odds of different rounds in secret/random in the get server revision screen. This will NOT tell the current roundtype.
 #SHOW_GAME_TYPE_ODDS
+
+## Uncomment to enable dynamic ruleset config file.
+DYNAMIC_CONFIG_ENABLED
 
 ## RANDOM EVENTS ###
 ## Comment this out to disable random events during the round.

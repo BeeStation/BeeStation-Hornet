@@ -68,7 +68,6 @@
 
 	popup = new(user, "computer", M ? M.name : "shuttle", 350, 450)
 	popup.set_content("<center>[dat]</center>")
-	popup.set_title_image(usr.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 /obj/machinery/computer/custom_shuttle/Topic(href, href_list)
@@ -110,7 +109,7 @@
 
 /obj/machinery/computer/custom_shuttle/proc/calculateStats(var/useFuel = FALSE, var/dist = 0, var/ignore_cooldown = FALSE)
 	if(!ignore_cooldown && stat_calc_cooldown >= world.time)
-		to_chat(usr, "<span>You are using this too fast, please slow down</span>")
+		to_chat(usr, "<span>You are using this too fast, please slow down.</span>")
 		return
 	stat_calc_cooldown = world.time + CALCULATE_STATS_COOLDOWN
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
@@ -198,9 +197,6 @@
 	var/time = min(max(round(dist / calculated_speed), 10), 90)
 	linkedShuttle.callTime = time * 10
 	linkedShuttle.rechargeTime = calculated_cooldown
-	//We need to find the direction of this console to the port
-	linkedShuttle.port_direction = angle2dir(dir2angle(dir) - (dir2angle(linkedShuttle.dir)) + 180)
-	linkedShuttle.preferred_direction = NORTH
 	linkedShuttle.ignitionTime = CUSTOM_ENGINES_START_TIME
 	linkedShuttle.count_engines()
 	linkedShuttle.hyperspace_sound(HYPERSPACE_WARMUP)
@@ -263,6 +259,13 @@
 		return
 	return ..()
 
-/obj/machinery/computer/camera_advanced/shuttle_docker/custom/proc/linkShuttle(var/new_id)
+/obj/machinery/computer/camera_advanced/shuttle_docker/custom/proc/linkShuttle(new_id)
 	shuttleId = new_id
 	shuttlePortId = "shuttle[new_id]_custom"
+
+	//Take info from connected port and calculate amendments
+	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(new_id)
+	var/list/shuttlebounds = M.return_coords()
+	view_range = min(round(max(M.width, M.height)*0.5), 15)
+	x_offset = round((shuttlebounds[1] + shuttlebounds[3])*0.5) - M.x
+	y_offset = round((shuttlebounds[2] + shuttlebounds[4])*0.5) - M.y

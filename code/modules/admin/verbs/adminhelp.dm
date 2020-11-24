@@ -102,11 +102,15 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	admin_datum.admin_interface.ui_interact(user)
 
 //TGUI TICKET THINGS
-/datum/admin_help_ui/ui_interact(mob/user, ui_key = "ticket_panel", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/datum/admin_help_ui/ui_state(mob/user)
+	return GLOB.admin_state
+
+/datum/admin_help_ui/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		log_admin_private("[user.ckey] opened the ticket panel.")
-		ui = new(user, src, ui_key, "TicketBrowser", "ticket browser", 720, 480, master_ui, state)
+		ui = new(user, src, "TicketBrowser", "Ticket Browser")
 		ui.set_autoupdate(TRUE)
 		ui.open()
 
@@ -398,15 +402,17 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 /datum/admin_help/proc/TicketPanel()
 	ui_interact(usr)
 
-/datum/admin_help/ui_interact(mob/user, ui_key = "ticket", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
+/datum/admin_help/ui_interact(mob/user, datum/tgui/ui = null)
 	//Support multiple tickets open at once
-	ui_key = "ticket[id]"
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		log_admin_private("[user.ckey] opened the ticket panel.")
-		ui = new(user, src, ui_key, "TicketMessenger", "ticket messenger", 620, 500, master_ui, state)
+		ui = new(user, src, "TicketMessenger", "Ticket Messenger")
 		ui.set_autoupdate(TRUE)
 		ui.open()
+
+/datum/admin_help/ui_state(mob/user)
+	return GLOB.admin_state
 
 /datum/admin_help/ui_data(mob/user)
 	var/datum/admins/admin_datum = GLOB.admin_datums[user.ckey]
@@ -512,10 +518,14 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		if(X.prefs.toggles & SOUND_ADMINHELP)
 			SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 		window_flash(X, ignorepref = TRUE)
-		to_chat(X, admin_msg)
+		to_chat(X,
+			type = MESSAGE_TYPE_ADMINPM,
+			html = admin_msg)
 
 	//show it to the person adminhelping too
-	to_chat(initiator, "<span class='adminnotice'>PM to-<b>Admins</b>: <span class='linkify'>[msg]</span></span>")
+	to_chat(initiator,
+		type = MESSAGE_TYPE_ADMINPM,
+		html = "<span class='adminnotice'>PM to-<b>Admins</b>: <span class='linkify'>[msg]</span></span>")
 
 //Reopen a closed ticket
 /datum/admin_help/proc/Reopen()

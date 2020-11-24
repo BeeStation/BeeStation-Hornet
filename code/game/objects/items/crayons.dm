@@ -139,13 +139,16 @@
 		to_chat(user, "<span class='warning'>There is not enough of [src] left!</span>")
 		. = TRUE
 
-/obj/item/toy/crayon/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.hands_state)
+
+/obj/item/toy/crayon/ui_state(mob/user)
+	return GLOB.hands_state
+
+/obj/item/toy/crayon/ui_interact(mob/user, datum/tgui/ui)
 	// tgui is a plague upon this codebase
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Crayon", name, 600, 600,
-			master_ui, state)
+		ui = new(user, src, "Crayon")
 		ui.open()
 
 /obj/item/toy/crayon/spraycan/AltClick(mob/user)
@@ -640,7 +643,7 @@
 		if(C.client)
 			C.blur_eyes(3)
 			C.blind_eyes(1)
-		if(C.get_eye_protection() <= 0) // no eye protection? ARGH IT BURNS.
+		if(!C.is_eyes_covered()) // no eye protection? ARGH IT BURNS.
 			C.confused = max(C.confused, 3)
 			C.Paralyze(60)
 		if(ishuman(C) && actually_paints)

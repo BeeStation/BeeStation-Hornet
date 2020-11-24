@@ -28,6 +28,7 @@
 	var/rustle_sound = TRUE							//play rustle sound on interact.
 	var/allow_quick_empty = FALSE					//allow empty verb which allows dumping on the floor of everything inside quickly.
 	var/allow_quick_gather = FALSE					//allow toggle mob verb which toggles collecting all items from a tile.
+	var/insert_while_closed = TRUE					//the user can insert items while the storage is closed, if not the user will have to click/alt click to open it before they can insert items
 
 	var/collection_mode = COLLECT_EVERYTHING
 
@@ -551,7 +552,7 @@
 //This proc return 1 if the item can be picked up and 0 if it can't.
 //Set the stop_messages to stop it from printing messages
 /datum/component/storage/proc/can_be_inserted(obj/item/I, stop_messages = FALSE, mob/M)
-	if(!istype(I) || (I.item_flags & ABSTRACT))
+	if(!istype(I) || I.anchored || (I.item_flags & ABSTRACT))
 		return FALSE //Not an item
 	if(I == parent)
 		return FALSE	//no paradoxes for you
@@ -559,6 +560,8 @@
 	var/atom/host = parent
 	if(real_location == I.loc)
 		return FALSE //Means the item is already in the storage item
+	if(!insert_while_closed && !(M in is_using))
+		return FALSE
 	if(locked)
 		if(M && !stop_messages)
 			host.add_fingerprint(M)

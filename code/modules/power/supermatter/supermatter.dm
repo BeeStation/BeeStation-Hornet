@@ -75,7 +75,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	desc = "A strangely translucent and iridescent crystal."
 	icon = 'icons/obj/supermatter.dmi'
 	icon_state = "darkmatter"
-	layer = 4
+	layer = ABOVE_MOB_LAYER
 	density = TRUE
 	anchored = TRUE
 	var/uid = 1

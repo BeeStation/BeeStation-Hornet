@@ -84,7 +84,6 @@
 		dat = "<a href='?src=[REF(src)];authenticate=1'>Please swipe a valid ID to log in...</a>"
 	var/datum/browser/popup = new(user, "apc_control", name, 600, 400)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
 
 /obj/machinery/computer/apc_control/Topic(href, href_list)

@@ -6,7 +6,7 @@
 	agent = "XY-rhinovirus"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	permeability_mod = 0.5
-	desc = "If left untreated the subject will contract the flu."
+	desc = "If left untreated, the subject will contract the flu."
 	severity = DISEASE_SEVERITY_NONTHREAT
 
 /datum/disease/cold/stage_act()
@@ -28,7 +28,7 @@
 			if(prob(1))
 				to_chat(affected_mob, "<span class='danger'>Your throat feels sore.</span>")
 			if(prob(1))
-				to_chat(affected_mob, "<span class='danger'>Mucous runs down the back of your throat.</span>")
+				to_chat(affected_mob, "<span class='danger'>Mucus runs down the back of your throat.</span>")
 		if(3)
 			if(!(affected_mob.mobility_flags & MOBILITY_STAND) && prob(25))  //changed FROM prob(5) until sleeping is fixed
 				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
@@ -45,7 +45,7 @@
 			if(prob(1))
 				to_chat(affected_mob, "<span class='danger'>Your throat feels sore.</span>")
 			if(prob(1))
-				to_chat(affected_mob, "<span class='danger'>Mucous runs down the back of your throat.</span>")
+				to_chat(affected_mob, "<span class='danger'>Mucus runs down the back of your throat.</span>")
 			if(prob(1) && prob(50))
 				if(!affected_mob.disease_resistances.Find(/datum/disease/flu))
 					var/datum/disease/Flu = new /datum/disease/flu()
