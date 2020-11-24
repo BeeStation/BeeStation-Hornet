@@ -5,7 +5,7 @@
 
 /datum/mood_event/wellfed
 	description = "<span class='nicegreen'>I'm stuffed!</span>\n"
-	mood_change = 8
+	mood_change = 12
 
 /datum/mood_event/fed
 	description = "<span class='nicegreen'>I have recently had some food.</span>\n"

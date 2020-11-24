@@ -1117,10 +1117,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(H.overeatduration > 1)
 			H.overeatduration -= 2 //doubled the unfat rate
 
-	var/metabomism_fat = .75
+	var/metabomism_fat = 2
 	var/metabomism_regular = 1
 	var/metabomism_vigor = 1
-	var/metabomism_hungry = 2
+	var/metabomism_hungry = .75
 
 	here
 	//metabolism change
@@ -1541,7 +1541,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
 	var/weakness = H.check_weakness(I, user)
-	if (I.damtype == STAMINA && HAS_TRAIT(H, TRAIT_FAT))
+	if (I.damtype == STAMINA && H.nutrition < NUTRITION_LEVEL_STARVING)
 		I.force*=2 //stamina fat multiplier under NUTRITION_LEVEL_STARVING
 	apply_damage(I.force * weakness, I.damtype, def_zone, armor_block, H)
 
