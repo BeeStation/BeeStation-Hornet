@@ -49,21 +49,23 @@
     return 1
 
 /datum/martial_art/tribal_claw/proc/faceScratch(mob/living/carbon/human/A, mob/living/carbon/human/D)
+    var/def_check = D.getarmor(BODY_ZONE_HEAD, "melee")
     log_combat(A, D, "face scratched (Tribal Claw)")
     D.visible_message("<span class='warning'>[A] scratches [D]'s face with their claws!</span>", \
                         "<span class='userdanger'>[A] scratches your face with their claws!</span>")
     D.confused += 5
     D.blur_eyes(5)
-    D.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
+    D.apply_damage(10, BRUTE, BODY_ZONE_HEAD, def_check)
     playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, 1, -1)
     return 1 
 
 /datum/martial_art/tribal_claw/proc/tailKnockdown(mob/living/carbon/human/A, mob/living/carbon/human/D)
+    var/def_check = D.getarmor(BODY_ZONE_L_LEG, "melee")
     log_combat(A, D, "tail knockdowned (Tribal Claw)")
     D.visible_message("<span class='warning'>[A] knocks [D] down with their tail!</span>", \
                         "<span class='userdanger'>[A] knocks you down with their tail!</span>")
     D.Knockdown(10)
-    D.apply_damage(10, BRUTE, pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+    D.apply_damage(10, BRUTE, pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG), def_check)
     return 1
 
 /datum/martial_art/tribal_claw/proc/tailGrab(mob/living/carbon/human/A, mob/living/carbon/human/D)
