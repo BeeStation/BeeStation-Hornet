@@ -545,7 +545,7 @@
 	if(show_lights && lights && hasPower())
 		base.add_overlay(get_airlock_overlay("lights_[side]", overlays_file))
 
-	if(note && note_attachment == "side")
+	if(note && note_attachment == side)
 		var/notetype = note_type()
 		base.add_overlay(get_airlock_overlay(notetype, note_overlay_file))
 
