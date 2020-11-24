@@ -124938,6 +124938,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
+"tFv" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "tFH" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -140455,7 +140462,7 @@ aaa
 aad
 aaa
 bVX
-gnx
+tFv
 aad
 aaa
 aad
