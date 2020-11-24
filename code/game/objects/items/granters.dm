@@ -395,6 +395,13 @@
 		name = "empty scroll"
 		icon_state = "blankscroll"
 
+/obj/item/book/granter/martial/tribal_claw/already_known(mob/user)
+	if(islizard(user))
+		return FALSE
+	else
+		to_chat(user, "<span class='notice'>You try to read the scroll but can't comprehend any of it.</span>")
+		return TRUE
+
 /obj/item/book/granter/martial/plasma_fist
 	martial = /datum/martial_art/plasma_fist
 	name = "frayed scroll"

@@ -1834,7 +1834,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 
 /datum/uplink_item/race_restricted/tribal_claw
 	name = "Old Tribal Scroll"
-	desc = "We found this scroll in a abandoned lizard settlement of the Knoises clan. \
+	desc = "(ONLY USABLE BY LIZARDS) We found this scroll in a abandoned lizard settlement of the Knoises clan. \
 			It teaches you how to use your claws and tails to gain an advantage in combat"
 	item = /obj/item/book/granter/martial/tribal_claw
 	cost = 12
