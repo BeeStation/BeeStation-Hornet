@@ -91,6 +91,7 @@
 	var/obj/machinery/door/airlock/cyclelinkedairlock
 	var/shuttledocked = 0
 	var/delayed_close_requested = FALSE // TRUE means the door will automatically close the next time it's opened.
+	var/doorDirection					//for when the aac check() fails roundstart for some reason, 0 interior, 1 exterior
 
 	var/prying_so_hard = FALSE
 	var/protected_door = FALSE // Protects the door against any form of power outage, AI control, screwdrivers and welders.

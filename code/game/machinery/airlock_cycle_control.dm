@@ -561,6 +561,9 @@
 					A.aac = src
 					airlocks[A] = 0
 					if(assume_roles)
+						if(!isnull(A.doorDirection))			//You can set this value in airlocks to bypass the logic check bellow
+							airlocks[A] = A.doorDirection
+							break
 						for(var/adir in GLOB.cardinals)
 							var/turf/check_turf = get_step(T2, adir)
 							if(check_turf.loc != T2.loc)

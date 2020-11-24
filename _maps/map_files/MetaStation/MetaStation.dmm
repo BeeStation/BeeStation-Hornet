@@ -6416,6 +6416,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/external{
+	doorDirection = 1;
 	name = "Solar Maintenance";
 	req_access_txt = "10; 13"
 	},
@@ -30470,8 +30471,12 @@
 /area/engine/break_room)
 "bgc" = (
 /obj/machinery/door/airlock/hatch{
+	doorDirection = 1;
 	name = "MiniSat Space Access Airlock";
 	req_one_access_txt = "32;19"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/aisat)
@@ -30528,8 +30533,12 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/hatch{
+	doorDirection = 0;
 	name = "MiniSat Space Access Airlock";
 	req_one_access_txt = "32;19"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/aisat)
@@ -34567,10 +34576,6 @@
 /turf/open/floor/plasteel/dark,
 /area/aisat)
 "bnq" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 1
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -36959,7 +36964,6 @@
 /turf/open/floor/plasteel/dark,
 /area/aisat)
 "brQ" = (
-/obj/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 5
 	},
@@ -38862,12 +38866,13 @@
 /area/engine/break_room)
 "bvs" = (
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
 /obj/machinery/door/airlock/external{
+	doorDirection = 0;
 	name = "MiniSat Space Access Airlock";
 	req_access_txt = "32"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/break_room)
@@ -39266,15 +39271,16 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "bwl" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
-	},
 /obj/machinery/door/airlock/external{
+	doorDirection = 1;
 	name = "MiniSat Space Access Airlock";
 	req_access_txt = "32"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 9
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/break_room)
@@ -39824,12 +39830,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
-	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 4
 	},
+/obj/machinery/advanced_airlock_controller/directional/north,
 /turf/open/floor/plasteel/dark,
 /area/engine/break_room)
 "bxn" = (
@@ -55237,6 +55241,8 @@
 /area/engine/atmos)
 "ccW" = (
 /obj/machinery/door/airlock/external{
+	doorDirection = 0;
+	name = "Atmospherics Internal Airlock";
 	req_access_txt = "24"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -73856,6 +73862,7 @@
 /area/hallway/secondary/exit/departure_lounge)
 "cNe" = (
 /obj/machinery/door/airlock/external{
+	doorDirection = 0;
 	name = "Auxiliary Escape Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -82825,6 +82832,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
+"grv" = (
+/obj/machinery/door/airlock/external{
+	doorDirection = 0;
+	name = "Departure Lounge Airlock"
+	},
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/plasteel,
+/area/hallway/secondary/exit/departure_lounge)
 "grA" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 8
@@ -85200,6 +85216,7 @@
 /area/science/shuttledock)
 "pSX" = (
 /obj/machinery/door/airlock/external{
+	doorDirection = 1;
 	name = "Auxiliary Escape Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -85442,8 +85459,12 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/hatch{
+	doorDirection = 0;
 	name = "MiniSat Space Access Airlock";
 	req_one_access_txt = "32;19"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/aisat)
@@ -85722,6 +85743,20 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"sht" = (
+/obj/machinery/door/airlock/external{
+	doorDirection = 1;
+	name = "Departure Lounge Airlock"
+	},
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/hallway/secondary/exit/departure_lounge)
 "siF" = (
 /obj/structure/grille,
 /turf/open/floor/plating/airless,
@@ -85872,6 +85907,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/external{
+	doorDirection = 0;
 	name = "Solar Maintenance";
 	req_access_txt = "10; 13"
 	},
@@ -86570,7 +86606,7 @@
 /area/maintenance/starboard/secondary)
 "vUC" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/closed/wall,
+/turf/closed/wall/r_wall,
 /area/space/nearstation)
 "vVq" = (
 /obj/effect/turf_decal/stripes/line,
@@ -86739,6 +86775,7 @@
 /area/hallway/secondary/entry)
 "wxc" = (
 /obj/machinery/door/airlock/external{
+	doorDirection = 1;
 	name = "Atmospherics External Airlock";
 	req_access_txt = "24"
 	},
@@ -112381,9 +112418,9 @@ gJZ
 cPO
 cQm
 cQJ
-cQY
+grv
 efp
-eES
+sht
 aaa
 aaa
 aaa
@@ -139043,7 +139080,7 @@ vUC
 bnq
 bpD
 brQ
-blx
+beq
 anT
 anT
 anT
