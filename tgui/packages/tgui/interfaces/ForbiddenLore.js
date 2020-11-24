@@ -1,4 +1,4 @@
-import { useBackend } from '../backend';
+	import { useBackend } from '../backend';
 import { flow } from 'common/fp';
 import { sortBy } from 'common/collections';
 import { map } from 'common/collections';
@@ -24,7 +24,7 @@ export const ForbiddenLore = (props, context) => {
       height={900}>
       <Window.Content scrollable>
         <Section title="Research Eldritch Knowledge">
-          Favor to Spend : {charges}
+          Charges left : {charges}
           {SortByPath!== null ? (
             SortByPath.map(knowledge => (
               <Section
