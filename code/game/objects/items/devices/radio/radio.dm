@@ -5,7 +5,7 @@
 	name = "station bounced radio"
 	icon_state = "walkietalkie"
 	item_state = "walkietalkie"
-	desc = "A basic handheld radio that communicates with local telecommunication networks."
+	desc = "A basic handheld radio that communicates with local telecommunication networks.<br/>Alt-click on the station bounced radio to toggle broadcasting.<br/>Ctrl-click on the station bounced radio to toggle speaker"
 	dog_fashion = /datum/dog_fashion/back
 
 	flags_1 = CONDUCT_1 | HEAR_1
@@ -98,6 +98,22 @@
 /obj/item/radio/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
+
+/obj/item/radio/AltClick(mob/user)
+	if(broadcasting)
+		broadcasting = FALSE
+		to_chat(user, "<span class='notice'>You turn radio broadcasting off.</span>")
+	else
+		broadcasting = TRUE
+		to_chat(user, "<span class='notice'>You turn radio broadcasting on.</span>")
+
+/obj/item/radio/CtrlClick(mob/user)
+	if(listening)
+		listening = FALSE
+		to_chat(user, "<span class='notice'>You turn radio speaker off.</span>")
+	else
+		listening = TRUE
+		to_chat(user, "<span class='notice'>You turn radio speaker on.</span>")
 
 /obj/item/radio/interact(mob/user)
 	if(unscrewed && !isAI(user))
@@ -426,20 +442,3 @@
 /obj/item/radio/off	// Station bounced radios, their only difference is spawning with the speakers off, this was made to help the lag.
 	listening = 0			// And it's nice to have a subtype too for future features.
 	dog_fashion = /datum/dog_fashion/back
-	desc = "A basic handheld radio that communicates with local telecommunication networks.<br/>Alt-click on the station bounced radio to toggle broadcasting.<br/>Ctrl-click on the station bounced radio to toggle speaker"
-
-/obj/item/radio/off/AltClick(mob/user)
-	if(broadcasting)
-		broadcasting = FALSE
-		to_chat(user, "<span class='notice'>You turn radio broadcasting off.</span>")
-	else
-		broadcasting = TRUE
-		to_chat(user, "<span class='notice'>You turn radio broadcasting on.</span>")
-
-/obj/item/radio/off/CtrlClick(mob/user)
-	if(listening)
-		listening = FALSE
-		to_chat(user, "<span class='notice'>You turn radio speaker off.</span>")
-	else
-		listening = TRUE
-		to_chat(user, "<span class='notice'>You turn radio speaker on.</span>")
