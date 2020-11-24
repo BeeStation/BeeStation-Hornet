@@ -32853,7 +32853,7 @@
 /area/hydroponics)
 "bhG" = (
 /obj/machinery/smartfridge,
-/turf/closed/wall,
+/turf/open/floor/plasteel,
 /area/hydroponics)
 "bhH" = (
 /obj/machinery/light/small{
@@ -32896,7 +32896,7 @@
 /area/hallway/secondary/service)
 "bhK" = (
 /obj/machinery/smartfridge,
-/turf/closed/wall,
+/turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bhL" = (
 /obj/machinery/firealarm{

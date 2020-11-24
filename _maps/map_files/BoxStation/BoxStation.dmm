@@ -16439,7 +16439,7 @@
 /area/crew_quarters/kitchen)
 "aSP" = (
 /obj/machinery/smartfridge,
-/turf/closed/wall,
+/turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "aSQ" = (
 /obj/effect/turf_decal/tile/green{
@@ -22437,7 +22437,7 @@
 /area/medical/medbay/central)
 "bjX" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
-/turf/closed/wall,
+/turf/open/floor/plasteel,
 /area/medical/apothecary)
 "bjY" = (
 /obj/machinery/disposal/bin,
@@ -23401,7 +23401,7 @@
 "bmV" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/smartfridge/chemistry,
-/turf/closed/wall,
+/turf/open/floor/plasteel,
 /area/medical/apothecary)
 "bnb" = (
 /obj/machinery/recharge_station,
@@ -24656,7 +24656,7 @@
 /area/medical/sleeper)
 "bqT" = (
 /obj/machinery/smartfridge/chemistry,
-/turf/closed/wall,
+/turf/open/floor/plasteel,
 /area/medical/sleeper)
 "bqU" = (
 /obj/machinery/light{

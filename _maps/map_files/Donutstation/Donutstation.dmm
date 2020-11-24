@@ -51429,7 +51429,7 @@
 /area/engine/engine_room)
 "eKx" = (
 /obj/machinery/smartfridge/drinks,
-/turf/closed/wall,
+/turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "eLr" = (
 /obj/machinery/button/door{
@@ -51487,7 +51487,7 @@
 /area/maintenance/port/fore)
 "eQp" = (
 /obj/machinery/smartfridge/food,
-/turf/closed/wall,
+/turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "eQq" = (
 /obj/structure/window/reinforced{

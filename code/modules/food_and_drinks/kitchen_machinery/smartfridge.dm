@@ -7,6 +7,7 @@
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "smartfridge"
 	layer = BELOW_OBJ_LAYER
+	opacity = 1
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
@@ -59,8 +60,6 @@
 	else
 		icon_state = "[initial(icon_state)]-off"
 
-
-
 /*******************
 *   Item Adding
 ********************/
@@ -78,6 +77,7 @@
 
 	if(default_unfasten_wrench(user, O))
 		power_change()
+		opacity = anchored ? 1 : 0
 		return
 
 	if(default_deconstruction_crowbar(O))

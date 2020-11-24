@@ -23195,7 +23195,7 @@
 /area/hydroponics)
 "aZZ" = (
 /obj/machinery/smartfridge,
-/turf/closed/wall,
+/turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "baa" = (
 /obj/structure/disposalpipe/segment,
@@ -29955,7 +29955,7 @@
 /area/medical/chemistry)
 "bpX" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
-/turf/closed/wall,
+/turf/open/floor/plasteel,
 /area/medical/chemistry)
 "bpY" = (
 /turf/closed/wall,

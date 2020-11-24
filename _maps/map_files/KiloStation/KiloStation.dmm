@@ -29270,7 +29270,7 @@
 /area/tcommsat/computer)
 "aRn" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
-/turf/closed/wall,
+/turf/open/floor/plasteel,
 /area/medical/chemistry)
 "aRo" = (
 /obj/machinery/light_switch{
@@ -40719,7 +40719,7 @@
 /area/medical/chemistry)
 "bgF" = (
 /obj/machinery/smartfridge/extract/preloaded,
-/turf/closed/wall,
+/turf/open/floor/plasteel,
 /area/science/xenobiology)
 "bgG" = (
 /obj/effect/turf_decal/stripes/line{
@@ -45029,7 +45029,7 @@
 /area/hallway/primary/aft)
 "bmA" = (
 /obj/machinery/smartfridge,
-/turf/closed/wall,
+/turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bmB" = (
 /obj/machinery/status_display/evac,
@@ -45473,7 +45473,7 @@
 /area/quartermaster/sorting)
 "bnj" = (
 /obj/machinery/smartfridge,
-/turf/closed/wall,
+/turf/open/floor/plasteel,
 /area/hydroponics)
 "bnk" = (
 /obj/effect/turf_decal/tile/brown,
