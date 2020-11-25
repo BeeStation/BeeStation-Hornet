@@ -107,6 +107,6 @@
     to_chat(usr, "<b><i>You retreat inward and recall the teachings of the Tribal Claw...</i></b>")
 
     to_chat(usr, "<span class='notice'>Tail Sweep</span>: Disarm Disarm Grab Harm. Pushes everyone around you away and knocks them down.")
-    to_chat(usr, "<span class='notice'>Face Scratch</span>: Harm Disarm. Damages your target's eyes and confuses them for a short time.")
+    to_chat(usr, "<span class='notice'>Face Scratch</span>: Harm Disarm. Damages your target's head and confuses them for a short time.")
     to_chat(usr, "<span class='notice'>Jugular Cut</span>: Grab Disarm Harm. Causes your target to lose blood.")
-    to_chat(usr, "<span class='notice'>Tail Grab</span>: Disarm Harm Grab Grab. Grabs your target by their neck.")
+    to_chat(usr, "<span class='notice'>Tail Grab</span>: Disarm Harm Grab Grab. Grabs your target by their neck and makes them unable to talk for a short time.")
