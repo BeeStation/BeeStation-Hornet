@@ -40,7 +40,7 @@
 	if(can_interact(user))
 		target_pressure = MAX_OUTPUT_PRESSURE
 		update_icon()
-	return ..()
+	return
 
 /obj/machinery/atmospherics/components/binary/pump/Destroy()
 	SSradio.remove_object(src,frequency)
