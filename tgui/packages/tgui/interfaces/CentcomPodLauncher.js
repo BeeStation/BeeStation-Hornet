@@ -509,7 +509,7 @@ const TabPod = (props, context) => {
 
 
 const TabBay = (props, context) => {
-  const { act, data, config } = useBackend(context);
+  const { act, data } = useBackend(context);
   return (
     <>
       <Button
@@ -526,8 +526,7 @@ const TabBay = (props, context) => {
 };
 
 const TabDrop = (props, context) => {
-  const { act, data, config } = useBackend(context);
-  const { mapRef } = data;
+  const { act, data } = useBackend(context);
   return (
     <>
       <Button
@@ -762,22 +761,24 @@ class PresetsPage extends Component {
   }
 
   saveDataToPreset(id, data) {
-    storage.set("podlauncher_preset_"+id, data);
+    storage.set("podlauncher_preset_" + id, data);
   }
 
   async loadDataFromPreset(id, context) {
-    const { act, data } = useBackend(context);
-    act('loadDataFromPreset', { payload: await storage.get("podlauncher_preset_"+id) });
+    const { act } = useBackend(this.context);
+    act("loadDataFromPreset", {
+      payload: await storage.get("podlauncher_preset_" + id),
+    });
   }
 
   newPreset(presetName, hue, data) {
     let { presets } = this.state;
-    if (!presets || presets === undefined) {
+    if (!presets) {
       presets = [];
       presets.push("hi!");
     }
-    let id = createUuid();
-    let thing = { id, title: presetName, hue };
+    const id = createUuid();
+    const thing = { id, title: presetName, hue };
     presets.push(thing);
     storage.set("podlauncher_presetlist", presets);
     this.saveDataToPreset(id, data);
@@ -841,8 +842,8 @@ class PresetsPage extends Component {
               content=""
               icon="upload"
               tooltip="Loads preset"
-              onClick={() => { // Line break to meet line length reqs
-                this.loadDataFromPreset(presetIndex, this.context);
+              onClick={() => {
+                this.loadDataFromPreset(presetIndex);
               }} />
             <Button
               inline
