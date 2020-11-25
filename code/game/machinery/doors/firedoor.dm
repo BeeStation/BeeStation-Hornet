@@ -98,17 +98,17 @@
 	. = ..()
 	if(.)
 		return
-	
+
 	if (!welded && !operating)
-		if (stat & NOPOWER) 				
+		if (stat & NOPOWER)
 			user.visible_message("[user] tries to open \the [src] manually.",
 						 "You operate the manual lever on \the [src].")
 			if (!do_after(user, 30, TRUE, src))
 				return FALSE
 		else if (density && !allow_hand_open(user))
 			return FALSE
-	
-		add_fingerprint(user)		
+
+		add_fingerprint(user)
 		if(density)
 			emergency_close_timer = world.time + 15 // prevent it from instaclosing again if in space
 			open()
@@ -117,7 +117,7 @@
 		return TRUE
 	if(operating || !density)
 		return
-	
+
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	user.visible_message("[user] bangs on \the [src].",
@@ -178,7 +178,7 @@
 			log_game("[key_name(user)] has opened a firelock with a pressure difference at [AREACOORD(loc)]")
 			user.log_message("has opened a firelock with a pressure difference at [AREACOORD(loc)]", LOG_ATTACK)
 			// since we have high-pressure-ness, close all other firedoors on the tile
-			whack_a_mole()
+//			whack_a_mole()
 		if(welded || operating || !density)
 			return // in case things changed during our do_after
 		emergency_close_timer = world.time + 15 // prevent it from instaclosing again if in space
@@ -238,7 +238,7 @@
 /obj/machinery/door/firedoor/close()
 	. = ..()
 	latetoggle()
-
+/* Disabled by comment for now pending change viability checks.
 /obj/machinery/door/firedoor/proc/whack_a_mole(reconsider_immediately = FALSE)
 	set waitfor = 0
 	for(var/cdir in GLOB.cardinals)
@@ -280,20 +280,22 @@
 				turfs[T2] = 1
 	if(turfs.len > 10)
 		return // too big, don't bother
+
 	for(var/obj/machinery/door/firedoor/FD in doors_to_close)
 		FD.emergency_pressure_stop(FALSE)
 		if(reconsider_immediately)
 			var/turf/open/T = FD.loc
 			if(istype(T))
 				T.ImmediateCalculateAdjacentTurfs()
-
+	*/
+/* Disabled by comment for now pending change viability checks.
 /obj/machinery/door/firedoor/proc/emergency_pressure_stop(consider_timer = TRUE)
 	set waitfor = 0
 	if(density || operating || welded)
 		return
 	if(world.time >= emergency_close_timer || !consider_timer)
 		close()
-
+*/
 /obj/machinery/door/firedoor/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		var/obj/structure/firelock_frame/F = new assemblytype(get_turf(src))
@@ -357,7 +359,7 @@
 	var/area/A = get_area(src)
 	if((!A || !A.fire) && !is_holding_pressure())
 		return TRUE
-	whack_a_mole(TRUE) // WOOP WOOP SIDE EFFECTS
+//	whack_a_mole(TRUE) // WOOP WOOP SIDE EFFECTS
 	var/turf/T = loc
 	var/turf/T2 = get_step(T, dir)
 	if(!T || !T2)

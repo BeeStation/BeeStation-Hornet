@@ -297,12 +297,14 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		for(var/FD in firedoors)
 			var/obj/machinery/door/firedoor/D = FD
 			var/cont = !D.welded
-			if(cont && opening)	//don't open if adjacent area is on fire
+			if(cont && opening)	//don't open if adjacent area is on fire or a vacuum
 				for(var/I in D.affecting_areas)
 					var/area/A = I
-					if(A.fire)
+					if(A.fire || A.vacuum)
 						cont = FALSE
 						break
+				if(D.is_holding_pressure()) //If it's holding pressure, leave it closed.
+					continue
 			if(cont && D.is_operational())
 				if(D.operating)
 					D.nextstate = opening ? FIREDOOR_OPEN : FIREDOOR_CLOSED
@@ -445,14 +447,18 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/proc/set_vacuum_alarm_effect() //Just like fire alarm but blue
 	vacuum = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	ModifyFiredoors(FALSE)
 	for(var/obj/machinery/light/L in src)
 		L.update()
+	START_PROCESSING(SSobj, src)
 
 /area/proc/unset_vacuum_alarm_effect()
 	vacuum = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	ModifyFiredoors(TRUE)
 	for(var/obj/machinery/light/L in src)
 		L.update()
+	STOP_PROCESSING(SSobj, src)
 
 /**
   * Update the icon state of the area
