@@ -103,7 +103,6 @@
 
 	var/prying_so_hard = FALSE
 	var/protected_door = FALSE // Protects the door against any form of power outage, AI control, screwdrivers and welders.
-
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
 
@@ -1183,7 +1182,7 @@
 	sleep(1)
 	set_opacity(0)
 	update_freelook_sight()
-	sleep(4)
+	sleep(2.5)
 	density = FALSE
 	air_update_turf(1)
 	sleep(1)
