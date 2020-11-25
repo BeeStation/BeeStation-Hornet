@@ -561,7 +561,7 @@
 /turf/open/floor/circuit/red,
 /area/shuttle/syndicate/hallway)
 "bq" = (
-/obj/machinery/sleeper/syndie{
+/obj/machinery/stasis{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot_white,
