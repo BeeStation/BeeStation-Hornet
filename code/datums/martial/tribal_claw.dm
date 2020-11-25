@@ -13,20 +13,20 @@
     if(findtext(streak,TAIL_SWEEP_COMBO))
         streak = ""
         tailSweep(A,D)
-        return 1
+        return TRUE
     if(findtext(streak,FACE_SCRATCH_COMBO))
         streak = ""
         faceScratch(A,D)
-        return 1
+        return TRUE
     if(findtext(streak,TAIL_KNOCKDOWN_COMBO))
         streak = ""
         tailKnockdown(A,D)
-        return 1
+        return TRUE
     if(findtext(streak,TAIL_GRAB_COMBO))
         streak = ""
         tailGrab(A,D)
-        return 1
-    return 0
+        return TRUE
+    return FALSE
 
 /datum/martial_art/tribal_claw/proc/tailAnimate(mob/living/carbon/human/A)
     set waitfor = FALSE
@@ -41,12 +41,12 @@
     D.visible_message("<span class='warning'>[A] sweeps [D]'s legs with their tail!</span>", \
                         "<span class='userdanger'>[A] sweeps your legs with their tail!</span>")
     tailAnimate(A)
-    var/obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon/R = new(null)
+    var/obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon/R = new
     var/list/turfs = list()
     for(var/turf/T in range(1,A))
         turfs.Add(T)
     R.cast(turfs)
-    return 1
+    return TRUE
 
 /datum/martial_art/tribal_claw/proc/faceScratch(mob/living/carbon/human/A, mob/living/carbon/human/D)
     var/def_check = D.getarmor(BODY_ZONE_HEAD, "melee")
@@ -57,7 +57,7 @@
     D.blur_eyes(5)
     D.apply_damage(10, BRUTE, BODY_ZONE_HEAD, def_check)
     playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, 1, -1)
-    return 1 
+    return TRUE
 
 /datum/martial_art/tribal_claw/proc/tailKnockdown(mob/living/carbon/human/A, mob/living/carbon/human/D)
     var/def_check = D.getarmor(BODY_ZONE_L_LEG, "melee")
@@ -66,32 +66,33 @@
                         "<span class='userdanger'>[A] knocks you down with their tail!</span>")
     D.Knockdown(10)
     D.apply_damage(10, BRUTE, pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG), def_check)
-    return 1
+    return TRUE
 
 /datum/martial_art/tribal_claw/proc/tailGrab(mob/living/carbon/human/A, mob/living/carbon/human/D)
     log_combat(A, D, "tail grabbed (Tribal Claw)")
     D.visible_message("<span class='warning'>[A] grabs [D] with their tail!</span>", \
                         "<span class='userdanger'>[A] grabs you with their tail!</span>")
+    D.grabbedby(A, 1)
     A.setGrabState(GRAB_NECK)
-    return 1
+    return TRUE
 
 /datum/martial_art/tribal_claw/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
     add_to_streak("H",D)
     if(check_streak(A,D))
-        return 1
-    return 0
+        return TRUE
+    return FALSE
 
 /datum/martial_art/tribal_claw/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
     add_to_streak("D",D)
     if(check_streak(A,D))
-        return 1
-    return 0
+        return TRUE
+    return FALSE
 
 /datum/martial_art/tribal_claw/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
     add_to_streak("G",D)
     if(check_streak(A,D))
-        return 1
-    return 0
+        return TRUE
+    return FALSE
 
 /mob/living/carbon/human/proc/tribal_claw_help()
     set name = "Recall Teachings"
