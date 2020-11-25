@@ -1,7 +1,7 @@
 #define TAIL_SWEEP_COMBO "DDGH"
 #define FACE_SCRATCH_COMBO "HD"
-#define TAIL_KNOCKDOWN_COMBO "GDH"
-#define TAIL_GRAB_COMBO "DHHGG"
+#define JUGULAR_CUT_COMBO "GDH"
+#define TAIL_GRAB_COMBO "DHGG"
 
 /datum/martial_art/tribal_claw
     name = "Tribal Claw"
@@ -18,9 +18,9 @@
         streak = ""
         faceScratch(A,D)
         return TRUE
-    if(findtext(streak,TAIL_KNOCKDOWN_COMBO))
+    if(findtext(streak,JUGULAR_CUT_COMBO))
         streak = ""
-        tailKnockdown(A,D)
+        jugularCut(A,D)
         return TRUE
     if(findtext(streak,TAIL_GRAB_COMBO))
         streak = ""
@@ -56,16 +56,18 @@
     D.confused += 5
     D.blur_eyes(5)
     D.apply_damage(10, BRUTE, BODY_ZONE_HEAD, def_check)
+    A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
     playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, 1, -1)
     return TRUE
 
-/datum/martial_art/tribal_claw/proc/tailKnockdown(mob/living/carbon/human/A, mob/living/carbon/human/D)
-    var/def_check = D.getarmor(BODY_ZONE_L_LEG, "melee")
-    log_combat(A, D, "tail knockdowned (Tribal Claw)")
-    D.visible_message("<span class='warning'>[A] knocks [D] down with their tail!</span>", \
-                        "<span class='userdanger'>[A] knocks you down with their tail!</span>")
-    D.Knockdown(10)
-    D.apply_damage(10, BRUTE, pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG), def_check)
+/datum/martial_art/tribal_claw/proc/jugularCut(mob/living/carbon/human/A, mob/living/carbon/human/D)
+    log_combat(A, D, "jugular cut (Tribal Claw)")
+    D.visible_message("<span class='warning'>[A] cuts [D]'s jugular vein with their claws!</span>", \
+                        "<span class='userdanger'>[A] cuts your jugular vein!</span>")
+    D.bleed(50)
+    D.emote("gasp")
+    A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
+    playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, 1, -1)
     return TRUE
 
 /datum/martial_art/tribal_claw/proc/tailGrab(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -73,6 +75,7 @@
     D.visible_message("<span class='warning'>[A] grabs [D] with their tail!</span>", \
                         "<span class='userdanger'>[A] grabs you with their tail!</span>")
     D.grabbedby(A, 1)
+    D.Knockdown(5)
     A.setGrabState(GRAB_NECK)
     return TRUE
 
@@ -103,5 +106,5 @@
 
     to_chat(usr, "<span class='notice'>Tail Sweep</span>: Disarm Disarm Grab Harm. Pushes everyone around you away and knocks them down.")
     to_chat(usr, "<span class='notice'>Face Scratch</span>: Harm Disarm. Damages your target's eyes and confuses them for a short time.")
-    to_chat(usr, "<span class='notice'>Tail Knockdown</span>: Grab Disarm Harm. Knocks your target down and damages one of their legs.")
-    to_chat(usr, "<span class='notice'>Tail Grab</span>: Disarm Harm Harm Grab Grab. Grabs your target by their neck.")
+    to_chat(usr, "<span class='notice'>Jugular Cut</span>: Grab Disarm Harm. Causes your target to lose blood.")
+    to_chat(usr, "<span class='notice'>Tail Grab</span>: Disarm Harm Grab Grab. Grabs your target by their neck.")
