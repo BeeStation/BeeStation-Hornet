@@ -5,7 +5,7 @@
 	name = "station bounced radio"
 	icon_state = "walkietalkie"
 	item_state = "walkietalkie"
-	desc = "A basic handheld radio that communicates with local telecommunication networks.<br/>Alt-click on the station bounced radio to toggle broadcasting.<br/>Ctrl-click on the station bounced radio to toggle speaker"
+	desc = "A basic handheld radio that communicates with local telecommunication networks."
 	dog_fashion = /datum/dog_fashion/back
 
 	flags_1 = CONDUCT_1 | HEAR_1
@@ -20,6 +20,7 @@
 	var/frequency = FREQ_COMMON
 	var/canhear_range = 3  // The range around the radio in which mobs can hear what it receives.
 	var/emped = 0  // Tracks the number of EMPs currently stacked.
+	var/headset = FALSE
 
 	var/broadcasting = FALSE  // Whether the radio will transmit dialogue it hears nearby.
 	var/listening = TRUE  // Whether the radio is currently receiving.
@@ -100,20 +101,20 @@
 	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
 
 /obj/item/radio/AltClick(mob/user)
-	if(broadcasting)
-		broadcasting = FALSE
-		to_chat(user, "<span class='notice'>You turn radio broadcasting off.</span>")
-	else
-		broadcasting = TRUE
-		to_chat(user, "<span class='notice'>You turn radio broadcasting on.</span>")
+	if(!headset)
+		if(broadcasting)
+			to_chat(user, "<span class='notice'>You toggle broadcasting off.</span>")
+		else
+			to_chat(user, "<span class='notice'>You toggle broadcasting on.</span>")
+		broadcasting = !broadcasting
 
 /obj/item/radio/CtrlClick(mob/user)
-	if(listening)
-		listening = FALSE
-		to_chat(user, "<span class='notice'>You turn radio speaker off.</span>")
-	else
-		listening = TRUE
-		to_chat(user, "<span class='notice'>You turn radio speaker on.</span>")
+	if(!headset)
+		if(listening)
+			to_chat(user, "<span class='notice'>You toggle speaker off.</span>")
+		else
+			to_chat(user, "<span class='notice'>You toggle speaker on.</span>")
+		listening = !listening
 
 /obj/item/radio/interact(mob/user)
 	if(unscrewed && !isAI(user))
@@ -350,6 +351,8 @@
 		. += "<span class='notice'>It can be attached and modified.</span>"
 	else
 		. += "<span class='notice'>It cannot be modified or attached.</span>"
+	if (in_range(src, user) && !headset)
+		. += "<span class='info'>Ctrl-click on the [name] to toggle speaker.<br/>Alt-click on the [name] to toggle broadcasting.</span>"
 
 /obj/item/radio/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
