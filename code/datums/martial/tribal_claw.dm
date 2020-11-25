@@ -77,6 +77,8 @@
     D.grabbedby(A, 1)
     D.Knockdown(5)
     A.setGrabState(GRAB_NECK)
+    if(D.silent <= 10)
+        D.silent = CLAMP(D.silent + 10, 0, 10)
     return TRUE
 
 /datum/martial_art/tribal_claw/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
