@@ -65,10 +65,6 @@
 	var/move_start_time = 0 // for opening; closing uses reversed.
 	var/move_end_time = 3.5
 	var/aperture_angle = 0
-	var/obj/machinery/door/airlock/parent
-// in case some caveman is still using 512
-/obj/effect/overlay/airlock_part/Click()
-	parent.Click(arglist(args))
 
 /obj/effect/overlay/timer
 	name = "timer overlay"

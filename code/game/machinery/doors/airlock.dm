@@ -95,6 +95,7 @@
 	var/panel_attachment = "right"
 	var/note_attachment = "left"
 	var/mask_filter
+	var/airlock_delay = 2.5
 
 	var/cyclelinkeddir = 0
 	var/obj/machinery/door/airlock/cyclelinkedairlock
@@ -189,7 +190,6 @@
 		part_overlays += P
 		P.icon = icon
 		P.icon_state = part_id
-		P.parent = src
 		P.name = name
 	if(mask_filter)
 		filters -= mask_filter
@@ -549,7 +549,7 @@
 		base.add_overlay(get_airlock_overlay(notetype, note_overlay_file))
 
 /obj/machinery/door/airlock/proc/set_airlock_overlays(state)
-	for(var/obj/effect/overlay/airlock_part/part in part_overlays)
+	for(var/obj/effect/overlay/airlock_part/part as() in part_overlays)
 		set_side_overlays(part, state == AIRLOCK_CLOSING || state == AIRLOCK_OPENING)
 		if(part.aperture_angle)
 			var/matrix/T
@@ -1182,7 +1182,7 @@
 	sleep(1)
 	set_opacity(0)
 	update_freelook_sight()
-	sleep(2.5)
+	sleep(airlock_delay)
 	density = FALSE
 	air_update_turf(1)
 	sleep(1)
@@ -1232,7 +1232,7 @@
 	if(!air_tight)
 		density = TRUE
 		air_update_turf(1)
-	sleep(4)
+	sleep(airlock_delay)
 	if(!safe)
 		crush()
 	if(visible && !glass)

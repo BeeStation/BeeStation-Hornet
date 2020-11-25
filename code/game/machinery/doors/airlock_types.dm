@@ -347,6 +347,9 @@
 	overlays_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
 	note_overlay_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
 	protected_door = TRUE
+	anim_parts = "top=0,16;bottom=0,-16"
+	note_attachment = "bottom"
+	panel_attachment = "bottom"
 
 /obj/machinery/door/airlock/external/glass
 	opacity = 0
