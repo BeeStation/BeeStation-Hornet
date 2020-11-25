@@ -2840,10 +2840,10 @@
 	dir = 1
 	},
 /obj/machinery/turretid{
+	ailock = 1;
 	control_area = "/area/ruin/unpowered/syndicate_lava_base/main";
 	dir = 1;
 	icon_state = "control_kill";
-	ailock = 1;
 	lethal = 1;
 	name = "Base turret controls";
 	pixel_y = 30;
@@ -4810,11 +4810,9 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "md" = (
-/obj/machinery/sleeper/syndie{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/stasis,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "me" = (
@@ -5169,13 +5167,6 @@
 	dir = 4
 	},
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
-"mZ" = (
-/obj/machinery/sleeper/syndie{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered/syndicate_lava_base/medbay)
 "na" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
@@ -7821,7 +7812,7 @@ kQ
 lG
 md
 mA
-mZ
+lJ
 ny
 oa
 qP

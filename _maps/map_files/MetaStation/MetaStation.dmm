@@ -3924,12 +3924,10 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/sleeper{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/machinery/stasis,
 /turf/open/floor/plasteel/dark,
 /area/medical/sleeper)
 "ahh" = (

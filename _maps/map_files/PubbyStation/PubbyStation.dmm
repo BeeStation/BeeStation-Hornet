@@ -40,9 +40,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -57,10 +54,7 @@
 	dir = 4;
 	network = list("ss13","medbay")
 	},
-/obj/machinery/sleeper{
-	dir = 4;
-	icon_state = "sleeper"
-	},
+/obj/machinery/stasis,
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
 "aag" = (

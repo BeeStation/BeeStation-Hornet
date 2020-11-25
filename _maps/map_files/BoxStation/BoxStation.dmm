@@ -21275,10 +21275,10 @@
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "bhb" = (
-/obj/machinery/sleeper,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/machinery/stasis,
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "bhc" = (
@@ -61019,9 +61019,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/machinery/sleeper{
-	dir = 4
-	},
+/obj/machinery/stasis,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "vIU" = (

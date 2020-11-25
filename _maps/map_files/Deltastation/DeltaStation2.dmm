@@ -298,10 +298,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
-/obj/machinery/sleeper{
-	dir = 4;
-	icon_state = "sleeper"
-	},
+/obj/machinery/stasis,
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "aaJ" = (
@@ -172059,7 +172056,7 @@ cRe
 cNz
 dbr
 dbr
-cNz
+cPy
 dfH
 gNI
 diI

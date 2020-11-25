@@ -27374,9 +27374,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/box,
-/obj/machinery/sleeper{
-	dir = 4
-	},
+/obj/machinery/stasis,
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "aOI" = (
@@ -28029,10 +28027,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/wood,
 /area/maintenance/port)
-"aPx" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/medical/storage)
 "aPy" = (
 /turf/closed/wall/rust,
 /area/medical/storage)
@@ -119230,8 +119224,8 @@ agI
 agL
 abl
 ahc
-aPx
-aPx
+aOZ
+aOZ
 aOZ
 aPD
 aRD
