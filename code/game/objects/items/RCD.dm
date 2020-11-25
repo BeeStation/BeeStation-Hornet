@@ -204,10 +204,23 @@ ACC
 	var/use_one_access = 0 //If the airlock should require ALL or only ONE of the listed accesses.
 	var/delay_mod = 1
 	var/canRturf = FALSE //Variable for R walls to deconstruct them
+	var/id
+	var/obj/machinery/conveyor/last_placed
 
 /obj/item/construction/rcd/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] sets the RCD to 'Wall' and points it down [user.p_their()] throat! It looks like [user.p_theyre()] trying to commit suicide..</span>")
 	return (BRUTELOSS)
+	
+/obj/item/construction/rcd/attackby(obj/item/I, mob/user, params)
+	..()
+	if(upgrade & RCD_UPGRADE_CONVEYORS)
+		if(istype(I, /obj/item/stack/conveyor))
+			loadwithsheets(I, 12, user)
+			to_chat(user, "<span class='notice'>[src] now holds [matter]/[max_matter] matter-units.</span>")
+		if(istype(I, /obj/item/conveyor_switch_construct))
+			to_chat(user, "<span class='notice'>You link the switch to the [src].</span>")
+			var/obj/item/conveyor_switch_construct/C = I
+			id = C.id
 
 /obj/item/construction/rcd/verb/toggle_window_type_verb()
 	set name = "RCD : Toggle Window Type"
@@ -492,6 +505,26 @@ ACC
 					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 					return TRUE
 	qdel(rcd_effect)
+	return FALSE
+	
+/obj/item/construction/rcd/proc/rcd_conveyor(atom/A, mob/user)
+	var/delay = 5
+	var/cost = 12
+	var/obj/effect/constructing_effect/rcd_effect = new(get_turf(A), delay, src.mode)
+	if(checkResource(cost, user))
+		if(do_after(user, delay, target = A))
+			if(checkResource(cost, user))
+				rcd_effect.end_animation()
+				useResource(cost, user)
+				activate()
+				playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+				var/cdir = get_dir(A, user)
+				if (last_placed)
+					cdir = get_dir(A, last_placed)
+					last_placed.setDir(get_dir(last_placed, A))
+				last_placed = new/obj/machinery/conveyor(A, cdir, id)
+				return
+	qdel(rcd_effect)
 
 /obj/item/construction/rcd/Initialize()
 	. = ..()
@@ -514,6 +547,10 @@ ACC
 		"Machine Frames" = image(icon = 'icons/mob/radial.dmi', icon_state = "machine"),
 		"Computer Frames" = image(icon = 'icons/mob/radial.dmi', icon_state = "computer_dir"),
 		"Ladders" = image(icon = 'icons/mob/radial.dmi', icon_state = "ladder")
+		)
+	if(upgrade & RCD_UPGRADE_CONVEYORS)
+		choices += list(
+		"Conveyor" = image(icon = 'icons/obj/recycling.dmi', icon_state = "conveyor_construct")
 		)
 	if(upgrade & RCD_UPGRADE_SILO_LINK)
 		choices += list(
@@ -560,6 +597,10 @@ ACC
 		if("Silo Link")
 			toggle_silo_link(user)
 			return
+		if("Conveyor")
+			mode = RCD_CONVEYOR
+			id = null
+			last_placed = null
 		else
 			return
 	playsound(src, 'sound/effects/pop.ogg', 50, 0)
@@ -573,9 +614,22 @@ ACC
 
 /obj/item/construction/rcd/afterattack(atom/A, mob/user, proximity)
 	. = ..()
-	if(!prox_check(proximity))
-		return
-	rcd_create(A, user)
+	if (mode == RCD_CONVEYOR)	
+		if(!range_check(A, user) || !target_check(A,user)  || istype(A, /obj/machinery/conveyor) || !isopenturf(A) || istype(A, /area/shuttle))
+			to_chat(user, "<span class='warning'>Error! Invalid tile!</span>")
+			return
+		if (!id)
+			to_chat(user, "<span class='warning'>Error! [src] is not linked!</span>")
+			return
+		if (A == user.loc)
+			to_chat(user, "<span class='notice'>Cannot place conveyor below your feet!</span>")
+			return
+
+		rcd_conveyor(A, user)
+	else
+		if(!prox_check(proximity))
+			return
+		rcd_create(A, user)
 
 /obj/item/construction/rcd/proc/detonate_pulse()
 	audible_message("<span class='danger'><b>[src] begins to vibrate and \
@@ -693,7 +747,6 @@ ACC
 	if(target_check(A,user))
 		user.Beam(A,icon_state="rped_upgrade",time=30)
 	rcd_create(A,user)
-
 
 
 // RAPID LIGHTING DEVICE
@@ -951,69 +1004,10 @@ ACC
 	desc = "It contains direct silo connection RCD upgrade."
 	upgrade = RCD_UPGRADE_SILO_LINK
 
+/obj/item/rcd_upgrade/conveyor
+	desc = "The disk warns against building an endless conveyor trap, but we know what you're gonna do."
+	upgrade = RCD_UPGRADE_CONVEYORS
+
 #undef GLOW_MODE
 #undef LIGHT_MODE
 #undef REMOVE_MODE
-
-// RAPID CONVEYOR DEVICE
-
-/obj/item/construction/conveyor
-	name = "Automatic Conveyor Constructor (ACC)"
-	desc = "A device for rapid placement and linking of conveyors."
-	icon = 'icons/obj/tools.dmi'
-	icon_state = "rcd"
-	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	matter = 0
-	max_matter = 300
-	var/beltcost = 12
-	slot_flags = ITEM_SLOT_BELT
-	var/id
-	var/obj/machinery/conveyor/last_placed
-
-/obj/item/construction/conveyor/loaded
-	matter = 300
-
-/obj/item/construction/conveyor/attack_self(mob/user)
-	if (!id)
-		id=null
-		last_placed = null
-		to_chat(user, "<span class='notice'>You unlink the [src].</span>")
-
-///pretty much rcd_create, but named differently to make myself feel less bad for copypasting from a sibling-type
-/obj/item/construction/conveyor/proc/create_machine(atom/A, mob/user)
-	if(!isopenturf(A) || istype(A, /area/shuttle))
-		return
-	if (!id)
-		to_chat(user, "<span class='warning'>Error! [src] is not linked!</span>")
-		return
-	if (A == user.loc)
-		to_chat(user, "<span class='notice'>Cannot place conveyor below your feet!</span>")
-		return
-
-	if(checkResource(beltcost, user))
-		useResource(beltcost, user)
-		activate()
-		playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
-		var/cdir = get_dir(A, user)
-		if (last_placed)
-			cdir = get_dir(A, last_placed)
-			last_placed.setDir(get_dir(last_placed, A))
-		last_placed = new/obj/machinery/conveyor(A, cdir, id)
-
-/obj/item/construction/conveyor/afterattack(atom/A, mob/user, proximity)
-	..()
-	if(!range_check(A, user))
-		return
-	if(!istype(A, /obj/machinery/conveyor))
-		create_machine(A, user)
-
-/obj/item/construction/conveyor/attackby(obj/item/I, mob/user, params)
-	..()
-	if(istype(I, /obj/item/stack/conveyor))
-		loadwithsheets(I, beltcost, user)
-		to_chat(user, "<span class='notice'>[src] now holds [matter]/[max_matter] matter-units.</span>")
-	if(istype(I, /obj/item/conveyor_switch_construct))
-		to_chat(user, "<span class='notice'>You link the switch to the [src].</span>")
-		var/obj/item/conveyor_switch_construct/C = I
-		id = C.id
