@@ -96,6 +96,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		data["Categories"]["Security Level Elevated"] = list(
 			list("Change all maintenance doors to engie/brig access only", "maint_access_engiebrig"),
 			list("Change all maintenance doors to brig access only", "maint_access_brig"),
+			list("Change all maintenance doors to normal access", "maint_access_normal"),
 			list("Remove cap on security officers", "infinite_sec")
 			)
 
@@ -639,6 +640,15 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 					M.req_access = list()
 					M.req_one_access = list(ACCESS_BRIG,ACCESS_ENGINE)
 			message_admins("[key_name_admin(usr)] made all maint doors engineering and brig access-only.")
+		if("maint_access_normal") // allows an admin to revert the effects of maint_access_brig or maint_access_engiebrig
+			if(!check_rights(R_DEBUG))
+				return
+			for(var/obj/machinery/door/airlock/maintenance/M in GLOB.machines)
+				M.check_access()
+				if (ACCESS_MAINT_TUNNELS in M.req_access)
+					M.req_access = list()
+					M.req_one_access = list(ACCESS_MAINT_TUNNELS)
+			message_admins("[key_name_admin(usr)] made all maint doors maint access only")
 		if("infinite_sec")
 			if(!check_rights(R_DEBUG))
 				return
