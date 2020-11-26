@@ -1,0 +1,434 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"dZ" = (
+/turf/open/floor/wood,
+/area/space)
+"eB" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/carpet/royalblack,
+/area/space)
+"gd" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/space)
+"gK" = (
+/obj/structure/chair/stool/bar,
+/turf/open/floor/wood,
+/area/space)
+"hL" = (
+/obj/structure/table_frame/wood,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/space)
+"ig" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/turf/open/floor/wood{
+	icon_state = "wood-broken5"
+	},
+/area/space)
+"iU" = (
+/obj/structure/closet/firecloset/full,
+/turf/open/floor/wood,
+/area/space)
+"ja" = (
+/obj/machinery/door/airlock/wood,
+/turf/open/floor/wood,
+/area/space)
+"lT" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/wood,
+/area/space)
+"nt" = (
+/turf/open/floor/wood{
+	icon_state = "wood-broken5"
+	},
+/area/space)
+"oV" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/space)
+"pb" = (
+/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/structure/rack,
+/turf/open/floor/plasteel/white,
+/area/space)
+"pI" = (
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"qm" = (
+/obj/structure/table_frame/wood,
+/turf/open/floor/carpet/royalblack,
+/area/space)
+"tO" = (
+/obj/effect/landmark/event_spawn,
+/turf/open/floor/carpet/royalblack,
+/area/space)
+"ut" = (
+/obj/item/stack/sheet/mineral/wood,
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"uB" = (
+/turf/open/floor/wood{
+	icon_state = "wood-broken4"
+	},
+/area/space)
+"uE" = (
+/obj/item/stack/tile/carpet/black/fifty,
+/obj/structure/closet,
+/obj/item/stack/tile/wood,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/turf/open/floor/wood,
+/area/space)
+"vw" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/turf/open/floor/carpet/royalblack,
+/area/space)
+"vO" = (
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/plasteel/white,
+/area/space)
+"wa" = (
+/obj/structure/table/wood/fancy/black,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/carpet/royalblack,
+/area/space)
+"wr" = (
+/obj/structure/table/wood/fancy/black,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/turf/open/floor/carpet/royalblack,
+/area/space)
+"xT" = (
+/obj/machinery/light/small,
+/obj/machinery/processor,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"ya" = (
+/obj/machinery/chem_dispenser/drinks/beer,
+/obj/structure/table/wood,
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
+/turf/open/floor/plating,
+/area/space)
+"yn" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plating,
+/area/space)
+"yH" = (
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/space)
+"ze" = (
+/turf/open/floor/plating,
+/area/space)
+"zm" = (
+/obj/structure/table_frame/wood,
+/obj/item/stack/sheet/mineral/wood,
+/turf/open/floor/monotile/steel,
+/area/space)
+"AN" = (
+/obj/machinery/door/airlock/wood,
+/obj/structure/barricade/wooden/crude,
+/turf/open/floor/plating,
+/area/space)
+"AR" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/storage/toolbox/electrical,
+/turf/open/floor/carpet/royalblack,
+/area/space)
+"Bt" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/turf/open/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/space)
+"Bw" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/carpet,
+/area/space)
+"Ch" = (
+/turf/closed/wall,
+/area/space)
+"Dz" = (
+/obj/structure/table_frame/wood,
+/obj/item/stack/sheet/mineral/wood,
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/space)
+"Eg" = (
+/turf/open/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/space)
+"FF" = (
+/obj/structure/sign/warning/nosmoking/circle,
+/turf/closed/wall,
+/area/space)
+"FK" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/obj/machinery/chem_dispenser/drinks,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"Hd" = (
+/obj/structure/table/wood,
+/obj/item/kitchen/knife,
+/turf/open/floor/monotile/steel,
+/area/space)
+"Il" = (
+/turf/open/floor/carpet,
+/area/space)
+"Ly" = (
+/obj/structure/chair/comfy/brown{
+	dir = 8
+	},
+/turf/open/floor/carpet,
+/area/space)
+"Mm" = (
+/turf/open/floor/plasteel/white,
+/area/space)
+"Ny" = (
+/obj/structure/bookcase/random/reference,
+/turf/open/floor/carpet,
+/area/space)
+"Ok" = (
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/space)
+"Os" = (
+/obj/item/chair/wood,
+/turf/open/floor/carpet/royalblack,
+/area/space)
+"Pi" = (
+/obj/machinery/smartfridge/drinks,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"QG" = (
+/obj/machinery/door/airlock/wood,
+/turf/open/floor/plating,
+/area/space)
+"RI" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/carpet/royalblack,
+/area/space)
+"RQ" = (
+/obj/effect/landmark/blobstart,
+/turf/open/floor/plating,
+/area/space)
+"Sl" = (
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"SJ" = (
+/turf/open/floor/carpet/royalblack,
+/area/space)
+"SV" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/open/floor/carpet,
+/area/space)
+"Ue" = (
+/obj/structure/table/wood,
+/turf/open/floor/carpet,
+/area/space)
+"UO" = (
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/table/wood,
+/obj/machinery/microwave,
+/turf/open/floor/monotile/steel,
+/area/space)
+"Wn" = (
+/obj/item/stack/sheet/mineral/wood,
+/turf/open/floor/carpet/royalblack,
+/area/space)
+"XA" = (
+/turf/open/floor/wood{
+	icon_state = "wood-broken7"
+	},
+/area/space)
+"XO" = (
+/obj/structure/closet/crate,
+/obj/item/storage/box/ingredients/sweets,
+/obj/item/storage/box/ingredients/sweets,
+/obj/item/storage/box/ingredients/vegetarian,
+/obj/item/storage/box/ingredients/carnivore,
+/turf/open/floor/plasteel/white,
+/area/space)
+"Yd" = (
+/obj/structure/sign/warning/nosmoking,
+/turf/closed/wall,
+/area/space)
+"Yr" = (
+/obj/structure/table/wood,
+/obj/machinery/microwave,
+/obj/structure/window/reinforced/spawner/west,
+/turf/open/floor/monotile/steel,
+/area/space)
+"Yt" = (
+/obj/machinery/light/small,
+/turf/open/floor/plasteel/white,
+/area/space)
+"Zp" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/turf/open/floor/carpet/royalblack,
+/area/space)
+"ZF" = (
+/obj/structure/closet/secure_closet/freezer/fridge,
+/turf/open/floor/plasteel/white,
+/area/space)
+"ZH" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb{
+	pixel_x = -2;
+	pixel_y = 12
+	},
+/turf/open/floor/carpet/royalblack,
+/area/space)
+
+(1,1,1) = {"
+lT
+Eg
+dZ
+ig
+dZ
+SJ
+wr
+wa
+Wn
+uE
+"}
+(2,1,1) = {"
+dZ
+ZH
+SJ
+AR
+gd
+eB
+vw
+vw
+SJ
+iU
+"}
+(3,1,1) = {"
+uB
+Os
+SJ
+SJ
+dZ
+SJ
+RI
+yH
+SJ
+Eg
+"}
+(4,1,1) = {"
+ze
+Zp
+SJ
+qm
+nt
+Pi
+Ch
+Ch
+QG
+Ch
+"}
+(5,1,1) = {"
+XA
+Dz
+Wn
+tO
+gK
+Hd
+ut
+Sl
+ze
+ze
+"}
+(6,1,1) = {"
+dZ
+oV
+Bt
+dZ
+gK
+hL
+Sl
+ze
+yH
+Sl
+"}
+(7,1,1) = {"
+Yd
+Ch
+Ch
+Yr
+UO
+zm
+RQ
+Ch
+Ch
+Ch
+"}
+(8,1,1) = {"
+pb
+Mm
+AN
+Sl
+Sl
+ze
+Sl
+ja
+SV
+Ny
+"}
+(9,1,1) = {"
+vO
+Yt
+FF
+FK
+yn
+Sl
+xT
+Ch
+Bw
+Ue
+"}
+(10,1,1) = {"
+XO
+ZF
+Ch
+ya
+Sl
+Ok
+pI
+Ch
+Il
+Ly
+"}
