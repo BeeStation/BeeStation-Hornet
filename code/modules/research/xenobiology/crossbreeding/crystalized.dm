@@ -1,7 +1,7 @@
 /obj/item/slimecross/crystalline
 	name = "crystalline extract"
 	desc = "It's crystalline,"
-	effect = "adamantine"
+	effect = "crystalline"
 	icon_state = "crystalline"
 	var/obj/structure/slime_crystal/crystal_type
 
