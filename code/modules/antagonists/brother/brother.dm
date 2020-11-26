@@ -62,6 +62,11 @@
 	give_meeting_area()
 
 /datum/antagonist/brother/proc/finalize_brother()
+	var/obj/item/implant/bloodbrother/I = new /obj/item/implant/bloodbrother()
+	I.implant(owner.current, null, TRUE, TRUE)
+	for(var/datum/mind/M in team.members) // Link the implants of all team members
+		var/obj/item/implant/bloodbrother/T = locate() in M.current.implants
+		I.link_implant(T)
 	SSticker.mode.update_brother_icons_added(owner)
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)
 
