@@ -30,7 +30,7 @@
 
 /datum/martial_art/tribal_claw/proc/tailAnimate(mob/living/carbon/human/A)
     set waitfor = FALSE
-    for(var/i in list(NORTH,SOUTH,EAST,WEST,EAST,SOUTH,NORTH,SOUTH,EAST,WEST,EAST,SOUTH))
+    for(var/i in GLOB.cardinals)
         if(!A)
             break
         A.setDir(i)

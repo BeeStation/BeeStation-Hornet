@@ -40,7 +40,7 @@ map donutstation
 endmap
 
 map runtimestation
-	disabled
+	minplayers 0
 endmap
 
 map multiz_debug
