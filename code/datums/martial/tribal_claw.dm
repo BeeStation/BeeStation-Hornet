@@ -34,7 +34,6 @@
         if(!A)
             break
         A.setDir(i)
-        
 
 /datum/martial_art/tribal_claw/proc/tailSweep(mob/living/carbon/human/A, mob/living/carbon/human/D)
     log_combat(A, D, "tail sweeped(Tribal Claw)")
@@ -46,7 +45,7 @@
     for(var/turf/T in range(1,A))
         turfs.Add(T)
     R.cast(turfs)
-    return TRUE
+    return
 
 /datum/martial_art/tribal_claw/proc/faceScratch(mob/living/carbon/human/A, mob/living/carbon/human/D)
     var/def_check = D.getarmor(BODY_ZONE_HEAD, "melee")
@@ -58,7 +57,7 @@
     D.apply_damage(10, BRUTE, BODY_ZONE_HEAD, def_check)
     A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
     playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, 1, -1)
-    return TRUE
+    return
 
 /datum/martial_art/tribal_claw/proc/jugularCut(mob/living/carbon/human/A, mob/living/carbon/human/D)
     log_combat(A, D, "jugular cut (Tribal Claw)")
@@ -68,7 +67,7 @@
     D.emote("gasp")
     A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
     playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, 1, -1)
-    return TRUE
+    return
 
 /datum/martial_art/tribal_claw/proc/tailGrab(mob/living/carbon/human/A, mob/living/carbon/human/D)
     log_combat(A, D, "tail grabbed (Tribal Claw)")
@@ -79,7 +78,7 @@
     A.setGrabState(GRAB_NECK)
     if(D.silent <= 10)
         D.silent = CLAMP(D.silent + 10, 0, 10)
-    return TRUE
+    return
 
 /datum/martial_art/tribal_claw/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
     add_to_streak("H",D)

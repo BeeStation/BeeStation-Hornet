@@ -390,10 +390,11 @@
 
 /obj/item/book/granter/martial/tribal_claw/onlearned(mob/living/carbon/user)
 	..()
-	if(oneuse == TRUE)
-		desc = "It's completely blank."
-		name = "empty scroll"
-		icon_state = "blankscroll"
+	if(!oneuse)
+		return
+	desc = "It's completely blank."
+	name = "empty scroll"
+	icon_state = "blankscroll"
 
 /obj/item/book/granter/martial/tribal_claw/already_known(mob/user)
 	if(islizard(user))
