@@ -63,32 +63,80 @@
 	item_state = "rapid"
 	transfer_prints = TRUE
 	var/warcry = "AT"
+	var/warcryCharge = "OWATTA!" //Because why not make this work as close as possible to the original reference. Only triggers after a certain chain is reached with on a chance.
+	var/chargeMaxDelayTime = 5 //The max delay in 1/10 seconds between punches for it to be considered "chained".
+	var/chargeChainTrigger = 6 //How many punches need to be chained for the charge to have a chance of triggering
+	var/newClickTime //Defined by a proc related to the item
+	var/oldClickTime //Defined by a proc related to the item
+	var/chainLength = 0 //Length of the current chain
+	var/chargeProb = 15 //The probability of the charge being used on any punch above the chainTrigger
+
 
 /obj/item/clothing/gloves/rapid/Touch(atom/A, proximity)
 	var/mob/living/M = loc
+	newClickTime = world.time
 	if(A in range(1, M))
 		if(isliving(A) && M.a_intent == INTENT_HARM)
 			M.changeNext_move(CLICK_CD_RAPID)
 			if(warcry)
-				M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
-			
+				if(newClickTime - oldClickTime > chargeMaxDelayTime)
+					M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
+					oldClickTime = newClickTime
+					chainLength = 0
+				else if(chainLength < chargeChainTrigger)
+					M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
+					oldClickTime = newClickTime
+					chainLength = chainLength + 1
+				else
+					if(prob(chargeProb))
+						M.say("[warcryCharge]", ignore_spam = TRUE, forced = "north star warcry")
+						oldClickTime = newClickTime
+						chainLength = chainLength + 1
+					else
+						M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
+						oldClickTime = newClickTime
+						chainLength = chainLength + 1
+
 	else if(M.a_intent == INTENT_HARM)
 		for(var/mob/living/L in oview(1, M))
 			L.attack_hand(M)
 			M.changeNext_move(CLICK_CD_RAPID)
 			if(warcry)
-				M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
+				if(newClickTime - oldClickTime > chargeMaxDelayTime)
+					M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
+					oldClickTime = newClickTime
+					chainLength = 0
+				else if(chainLength < chargeChainTrigger)
+					M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
+					oldClickTime = newClickTime
+					chainLength = chainLength + 1
+				else
+					if(prob(chargeProb))
+						M.say("[warcryCharge]", ignore_spam = TRUE, forced = "north star warcry")
+						oldClickTime = newClickTime
+						chainLength = chainLength + 1
+					else
+						M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
+						oldClickTime = newClickTime
+						chainLength = chainLength + 1
 			break
 	.= FALSE
 
 /obj/item/clothing/gloves/rapid/attack_self(mob/user)
-	var/input = stripped_input(user,"What do you want your battlecry to be? Max length of 6 characters.", ,"", 7)
+	var/list/input = stripped_input(user,"What do you want your battlecry to be? Max length of 6 characters.", ,"", 7)
 	if(input == "*me") //If they try to do a *me emote it will stop the attack to prompt them for an emote then they can walk away and enter the emote for a punch from far away
 		to_chat(user, "<span class='warning'>Invalid battlecry, please use another. Battlecry cannot contain *me.</span>")
 	else if(CHAT_FILTER_CHECK(input))
 		to_chat(user, "<span class='warning'>Invalid battlecry, please use another. Battlecry contains prohibited word(s).</span>")
 	else if(input)
 		warcry = input
+	var/input2 = stripped_input(user, "What do you want the charged warcry to be? Max length of 6 characters.", ,"", 7)
+	if(input2 == "*me")//If they try to do a *me emote it will stop the attack to prompt them for an emote then they can walk away and enter the emote for a punch from far away
+		to_chat(user, "<span class='warning'>Invalid battlecry, please use another. Battlecry cannot contain *me.</span>")
+	else if(CHAT_FILTER_CHECK(input2))
+		to_chat(user, "<span class='warning'>Invalid battlecry, please use another. Battlecry contains prohibited word(s).</span>")
+	else if(input)
+		warcryCharge = input2
 
 /obj/item/clothing/gloves/color/white/magic
 	name = "white gloves"
@@ -121,5 +169,4 @@
 			playsound(M, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 			A.attack_hand(M)
 			return 1
-	
-	
+
