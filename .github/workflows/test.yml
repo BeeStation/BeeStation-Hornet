@@ -4,6 +4,7 @@ on:
   push:
     paths-ignore:
     - 'html/changelogs/**'
+    - 'html/changelog.html'
     branches:
     - master
   pull_request:
