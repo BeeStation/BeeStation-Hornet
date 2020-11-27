@@ -57,7 +57,7 @@
 	next_knowledge = list(/datum/eldritch_knowledge/spell/rust_wave)
 	banned_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/flesh_blade_upgrade)
 	route = PATH_RUST
-	followers_increment = 2
+	followers_increment = 1
 
 /datum/eldritch_knowledge/spell/rust_wave
 	name = "Wave of Rust"
@@ -78,6 +78,10 @@
 	var/list/trait_list = list(TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_RESISTLOWPRESSURE)
 	
 //	-	EFFECT	-
+/datum/eldritch_knowledge/base_rush/on_gain(mob/user)
+	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	if (cultie)
+		cultie.path = PATH_RUST
 
 /datum/eldritch_knowledge/rust_fist/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -114,6 +118,11 @@
 	if(iscarbon(target) && cuser.health>0)
 		var/mob/living/carbon/carbon_target = target
 		carbon_target.adjustBruteLoss(cuser.health/10)
+
+/datum/eldritch_knowledge/rust_blade_upgrade/on_mansus_touch(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	target.rust_heretic_act()
+	return TRUE
 
 /datum/eldritch_knowledge/final/rust_final/on_finished_recipe(mob/living/user, list/atoms, loc)
 	var/mob/living/carbon/human/H = user

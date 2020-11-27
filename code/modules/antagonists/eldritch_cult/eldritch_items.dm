@@ -50,7 +50,7 @@
 	return ..()
 
 /datum/action/innate/heretic_shatter/IsAvailable()
-	if(IS_HERETIC(holder) || IS_HERETIC_MONSTER(holder))
+	if(IS_HERETIC(holder) || IS_HERETIC_CULTIST(holder))
 		return TRUE
 	else
 		return FALSE
@@ -86,7 +86,7 @@
 	linked_action = new(src)
 
 /obj/item/melee/sickly_blade/attack(mob/living/M, mob/living/user)
-	if(!(IS_HERETIC(user) || IS_HERETIC_MONSTER(user)))
+	if(!(IS_HERETIC(user) || IS_HERETIC_CULTIST(user)))
 		to_chat(user,"<span class='danger'>You feel a pulse of some alien intellect lash out at your mind!</span>")
 		var/mob/living/carbon/human/human_user = user
 		human_user.AdjustParalyzed(5 SECONDS)
@@ -141,7 +141,7 @@
 
 /obj/item/clothing/neck/eldritch_amulet/equipped(mob/user, slot)
 	. = ..()
-	if(ishuman(user) && user.mind && slot == SLOT_NECK && (used_by_unitiated || IS_HERETIC(user)))
+	if(slot == SLOT_NECK && user.mind && ishuman(user) && (used_by_unitiated || IS_HERETIC(user) || KNOWS_HERETIC_MAGIC(user)))
 		ADD_TRAIT(user, trait, CLOTHING_TRAIT)
 		user.update_sight()
 
@@ -173,7 +173,7 @@
 	allowed = list(/obj/item/melee/sickly_blade, /obj/item/forbidden_book)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	// slightly better than normal cult robes
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 40, "bio" = 20, "rad" = 0, "fire" = 25, "acid" = 25, "stamina" = 50)
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 35, "bio" = 20, "rad" = 0, "fire" = 20, "acid" = 20)
 
 /obj/item/reagent_containers/glass/beaker/eldritch
 	name = "flask of eldritch essence"
@@ -227,18 +227,16 @@
 			godname = "Shabbith-Ka"
 		if (15)	// depacification - eldritch antag
 			godname = "Yomagn'tho"
-	//name = "statue of [godname]"
 
 /obj/item/artifact/examine(mob/user)
 	. = ..()
 	if (!ashes)
-		var/heretic_user = IS_HERETIC(user) || IS_HERETIC_MONSTER(user)
-		if(!ashes && (heretic_user || (user.job in list("Curator"))))
+		if(KNOWS_HERETIC_LORE(user))
 			if (deity<=6)
 				.+="You identify it as an avatar of [godname], one of the earth's weak gods."	//the weak gods of earth watch out for their creations, so they offer beneficial boons
 			else
 				.+="You identify it as an avatar of [godname], one of the forbidden gods."				//forbidden gods on the other side...
-		if (heretic_user)
+		if (IS_HERETIC(user) || KNOWS_HERETIC_MAGIC(user))
 			if (!activated)
 				.+="Use in hand to perform a ritual for [godname], granting this [src] magical powers."
 			else

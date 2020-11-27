@@ -15,6 +15,7 @@
 	var/favor_spent = 0
 	var/list/followers = list()
 	var/ascended = FALSE
+	var/path = "ummm... er..."
 	can_hijack = HIJACK_HIJACKER
 
 /datum/antagonist/heretic/admin_add(datum/mind/new_owner,mob/admin)
@@ -110,7 +111,7 @@
 			hijack_objective.update_explanation_text()
 			objectives += hijack_objective
 			log_objective(owner, hijack_objective.explanation_text)
-	else 
+	else
 		var/list/assasination = list()
 		var/list/protection = list()
 		for(var/i in 1 to 2)
@@ -134,7 +135,7 @@
 			CE.update_explanation_text()
 			objectives += CE
 			log_objective(owner, CE.explanation_text)
-		else 
+		else
 			var/datum/objective/sacrifice_ecult/SE = new()
 			SE.owner = owner
 			SE.update_explanation_text()
@@ -235,25 +236,6 @@
 /datum/antagonist/heretic/proc/get_all_knowledge()
 	return researched_knowledge
 
-/////////////
-// Economy //
-/////////////
-
-/datum/antagonist/heretic/proc/gain_favor(points,dread = FALSE)
-	favor_earned+=points
-	if (dread)
-		dread++
-	return TRUE
-
-/datum/antagonist/heretic/proc/spend_favor(points)
-	if (get_favor_left()<points)
-		return FALSE
-	favor_spent-=points
-	return TRUE
-
-/datum/antagonist/heretic/proc/get_favor_left()
-	return favor_earned-favor_spent
-
 ////////////////
 // Objectives //
 ////////////////
@@ -308,7 +290,7 @@
 
 /datum/objective/ascend/update_explanation_text()
 	. = ..()
-	explanation_text = "Applease the Gods and ascend."
+	explanation_text = "Appease the Gods and ascend."
 
 /datum/objective/ascend/check_completion()
 	if(!owner)
@@ -334,6 +316,25 @@
 		return FALSE
 	return cultie.get_cur_followers()>=target_amount
 
+/////////////
+// Economy //
+/////////////
+
+/datum/antagonist/heretic/proc/gain_favor(points,demonic = FALSE)
+	favor_earned+=points
+	if (demonic)
+		dread++
+	return TRUE
+
+/datum/antagonist/heretic/proc/spend_favor(points)
+	if (get_favor_left()<points)
+		return FALSE
+	favor_spent-=points
+	return TRUE
+
+/datum/antagonist/heretic/proc/get_favor_left()
+	return favor_earned-favor_spent
+
 //////////////
 // Minicult //
 //////////////
@@ -354,13 +355,25 @@
 		return 1
 	if(!victim.mind || !victim.client )
 		return 2
-	if (IS_HERETIC(victim) || IS_HERETIC_MONSTER(victim))
+	if (IS_HERETIC(victim) || IS_HERETIC_CULTIST(victim) || HAS_TRAIT(victim, TRAIT_MINDSHIELD))
 		return 3
 	log_game("[key_name_admin(victim)] has become a follower of [key_name_admin(src)]")
 	victim.faction |= "heretics"
 	var/datum/antagonist/heretic_monster/heretic_monster = victim.mind.add_antag_datum(/datum/antagonist/heretic_monster/disciple)
 	heretic_monster.set_owner(src)
 	return 0
+
+/datum/antagonist/heretic/proc/can_promote_follower(datum/antagonist/heretic_monster/disciple/sucker)
+	if (sucker.master != src)
+		to_chat(owner, "<span class='boldannounce'>Belongs to someone else, doe!</span>")//revise these to sound more... lovecraftian
+		return FALSE
+	if (get_favor_left()<sucker.get_promote_cost())
+		to_chat(owner, "<span class='boldannounce'>We require more ves- FAVOR!</span>")
+		return FALSE
+	if((sucker.tier == 3 && !ascended) || sucker.tier >= get_max_followers())
+		to_chat(owner, "<span class='boldannounce'>Get more level!</span>")
+		return FALSE
+	return TRUE
 
 //////////////
 // Pantheon //

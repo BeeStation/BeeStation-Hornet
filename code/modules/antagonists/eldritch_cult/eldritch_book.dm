@@ -20,6 +20,7 @@
 	. = ..()
 	if(!IS_HERETIC(user))
 		return
+	//revise
 	//. += "The Tome holds [charge] charges."
 	//. += "Use it on the floor to create a transmutation rune, used to perform rituals."
 	//. += "Hit an influence in the black part with it to gain a charge."
@@ -35,14 +36,33 @@
 /obj/item/forbidden_book/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag || !IS_HERETIC(user) || in_use)
 		return
+	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	in_use = TRUE
+	if (ishuman(target))
+		var/mob/living/carbon/human/victim = target
+		to_chat(user,"<span class='warning'>You try to corrupt the mind of [victim]!</span>")
+		icon_state = "book_open"
+		flick("book_opening",src)
+		if(!QDELETED(victim) && do_after(user,15 SECONDS,victim) && victim.stat != DEAD && (victim.IsUnconscious() || victim.IsSleeping()))
+			switch (cultie.enslave(victim))
+				if (0)
+					victim.SetSleeping(0)
+					to_chat(user,"<span class='warning'>You corrupt the mind of [victim]! He is now bound to do your bidding...</span>")
+					return ..()
+				if (3)
+					to_chat(user,"<span class='warning'>Their mind belongs to someone else!</span>")
+				if (2)
+					to_chat(user,"<span class='notice'>[victim] has no mind to enslave!</span>")
+				if (1)
+					to_chat(user, "<span class='notice'>You sense a weak mind, but your powers are not strong enough to take it over!</span>")
+		flick("book_closing",src)
+		icon_state = initial(icon_state)
 	if(istype(target,/obj/effect/reality_smash))
 		//Gives you a charge and destroys a corresponding influence
 		var/obj/effect/reality_smash/RS = target
 		to_chat(target, "<span class='danger'>You start drawing power from influence...</span>")
-		var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
 		if(cultie && do_after(user,10 SECONDS,FALSE,RS))
-			to_chat(target, "<span class='notice'>You rupture the seal between this world and the other, increasing the influence of your Gods!</span>")
+			to_chat(target, "<span class='notice'>You rupture the seal between this world and the other, increasing the influence of your Gods!</span>")	//this is never explained
 			cultie.gain_favor(5)
 			qdel(RS)
 	in_use = FALSE
@@ -59,7 +79,7 @@
 		ui = new(user, src, "ForbiddenLore")
 		ui.open()
 
-/obj/item/forbidden_book/attack_self(mob/living/carbon/human/user)
+/*/obj/item/forbidden_book/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || in_use)
 		return FALSE
 	if (IS_HERETIC(user))
@@ -94,7 +114,7 @@
 				to_chat(user, "<span class='notice'>You must have offended the Gods somehow!</span>")
 				new /mob/living/simple_animal/hostile/netherworld/blankbody(get_turf(user))
 	in_use = FALSE
-	return TRUE
+	return TRUE*/
 
 /obj/item/forbidden_book/proc/turn_page(mob/user,var/success)
 	playsound(user, pick('sound/effects/pageturn1.ogg','sound/effects/pageturn2.ogg','sound/effects/pageturn3.ogg'), 30, 1)
@@ -175,6 +195,7 @@
 	icon_state = initial(icon_state)
 	return ..()
 
+/*	Obsolete
 /datum/brain_trauma/fascination
 	name = "Delirium"
 	desc = "Patient is deluded into believing that omnipotent extraterestrial entities meddle in our world."
@@ -237,4 +258,4 @@
 		if(findtext(raw_message, reg))
 			message = reg.Replace(message, "<span class='phobia'>$1</span>")
 			break
-	return message
+	return message*/

@@ -51,7 +51,7 @@
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag || target == user)
-		return
+		return FALSE
 	playsound(user, 'sound/items/welder.ogg', 75, TRUE)
 
 	if(ishuman(target))
@@ -61,55 +61,55 @@
 		if(tar.anti_magic_check())
 			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The [src] bounces off of you!</span>")
 			return ..()
-	var/datum/mind/M = user.mind
-	var/datum/antagonist/heretic/cultie = M.has_antag_datum(/datum/antagonist/heretic)
-
+	var/datum/antagonist/heretic/cultie =  user.mind.has_antag_datum(/datum/antagonist/heretic)
+	if (!cultie)	//stops here for followers
+		return ..()
 	var/use_charge = FALSE
+	var/use_knowledge = FALSE
 	if(iscarbon(target))
-		use_charge = TRUE
 		var/mob/living/carbon/C = target
-		C.adjustBruteLoss(10)
-		C.AdjustKnockdown(5 SECONDS)
-		C.adjustStaminaLoss(80)
+		var/datum/antagonist/heretic_monster/disciple/sucker = C.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple)
+		if (sucker && cultie.can_promote_follower(sucker))
+			cultie.spend_favor(sucker.get_promote_cost())
+			switch (sucker.tier)
+				if (1)
+					user.whisper("May the secrets of Mansus reveal themselves to you!", language = /datum/language/rlyehian)
+				if (2)
+					user.whisper("Accept part of my power as gratitude for your efforts!", language = /datum/language/rlyehian)
+				else
+					user.whisper("In the name of the Fallen, the Ch'Un and the Unholy Sprit...", language = /datum/language/rlyehian)
+			sucker.promote()
+			C.AdjustKnockdown(2 SECONDS)
+			use_charge = TRUE
+		else
+			use_charge = TRUE
+			C.adjustBruteLoss(10)
+			C.AdjustKnockdown(5 SECONDS)
+			C.adjustStaminaLoss(80)
+			use_knowledge = TRUE
 	else if (istype(target,/obj/item/artifact) && cultie.get_knowledge(/datum/eldritch_knowledge/dematerialize))
 		var/obj/item/artifact/target_artifact = target
 		target_artifact.to_ashes(user)
-		return TRUE
 	else if(istype(target,/obj/effect/eldritch))
 		remove_rune(target,user)
-		return FALSE
 	else if(istype(target,/turf/open))
 		var/mob/caster = user
 		if (caster.a_intent != INTENT_HARM)
 			draw_rune(target,user)
-			return FALSE
+		else
+			use_knowledge = TRUE
 
-	if (ishuman(target))
-		var/mob/living/carbon/human/victim = target
-		if(victim.has_trauma_type(/datum/brain_trauma/fascination) && !QDELETED(victim) && victim.stat != DEAD)
-			switch (cultie.enslave(victim))
-				if (0)
-					victim.SetSleeping(0)
-					to_chat(user,"<span class='warning'>You corrupt the mind of [victim]! He is now bound to do your bidding...</span>")
-					return ..()
-				if (3)
-					to_chat(user,"<span class='warning'>Their mind belongs to someone else!</span>")
-				if (2)
-					to_chat(user,"<span class='notice'>[victim] has no mind to enslave!</span>")
-				if (1)
-					to_chat(user, "<span class='notice'>You sense a weak mind, but your powers are not strong enough to take it over!</span>")
-
-	var/list/knowledge = cultie.get_all_knowledge()
-	for(var/X in knowledge)
-		var/datum/eldritch_knowledge/EK = knowledge[X]
-		if(EK.on_mansus_grasp(target, user, proximity_flag, click_parameters))
-			use_charge = TRUE
+	if (use_knowledge)
+		var/list/knowledge = cultie.get_all_knowledge()
+		for(var/X in knowledge)
+			var/datum/eldritch_knowledge/EK = knowledge[X]
+			if(EK.on_mansus_grasp(target, user, proximity_flag, click_parameters))
+				use_charge = TRUE
 	if(use_charge)
 		return ..()
 
 ///Draws a rune on a selected turf
 /obj/item/melee/touch_attack/mansus_fist/proc/draw_rune(atom/target,mob/user)
-
 	for(var/turf/T in range(1,target))
 		if(is_type_in_typecache(T, blacklisted_turfs))
 			to_chat(target, "<span class='warning'>The terrain doesn't support runes!</span>")
@@ -127,6 +127,39 @@
 	to_chat(user, "<span class='danger'>You start removing a rune...</span>")
 	if(do_after(user,16 SECONDS,user))
 		qdel(target)
+
+
+/obj/effect/proc_holder/spell/targeted/touch/mansus_grasp/lesser
+	name = "Mansus Touch"
+	desc = "A spark of power offered by your master. Stuns your target and inflicts a effect depending on your master's path."
+	hand_path = /obj/item/melee/touch_attack/mansus_fist/lesser
+	charge_max = 30
+
+/obj/item/melee/touch_attack/mansus_fist/lesser
+	name = "Mansus Touch"
+	catchphrase = "C'RU'TH"
+
+/obj/item/melee/touch_attack/mansus_fist/lesser/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(..())
+		var/harm = TRUE
+		var/datum/antagonist/heretic_monster/disciple/sucker = user.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple)
+		if (sucker)
+			if (sucker.master.owner == target && sucker.tier == 4)
+				var/answer = alert(user, "Are you sure you wish to sacrifice your life to revive [target]?", "Second Chance", "Yes", "No")
+				if(answer == "Yes" && do_after(user, 5 SECONDS, target))
+					var/mob/living/TM = target
+					TM.revive(TRUE, TRUE)
+					user.dust()
+					return TRUE
+			var/list/knowledge = sucker.master.get_all_knowledge()
+			for(var/X in knowledge)
+				var/datum/eldritch_knowledge/EK = knowledge[X]
+				if(!EK.on_mansus_touch(target, user, proximity_flag, click_parameters))
+					harm = FALSE
+		if(harm && iscarbon(target))
+			var/mob/living/carbon/C = target
+			C.adjustBruteLoss(5)
+			C.adjustStaminaLoss(50)
 
 /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
 	name = "Aggressive Spread"
@@ -272,7 +305,6 @@
 
 	for(var/mob/living/carbon/human/C in range(1,targets[1]))
 		targets |= C
-
 
 	for(var/X in targets)
 		var/mob/living/carbon/human/target = X
@@ -551,7 +583,7 @@
 		target.forceMove(outside)
 		target.apply_status_effect(STATUS_EFFECT_STASIS,STASIS_ASCENSION_EFFECT)
 		for(var/mob/living/carbon/human/humie in view(9,outside)-target)
-			if(IS_HERETIC(humie) || IS_HERETIC_MONSTER(humie))
+			if(IS_HERETIC(humie) || IS_HERETIC_CULTIST(humie))
 				continue
 			SEND_SIGNAL(humie, COMSIG_ADD_MOOD_EVENT, "gates_of_mansus", /datum/mood_event/gates_of_mansus)
 			///They see the very reality uncoil before their eyes.

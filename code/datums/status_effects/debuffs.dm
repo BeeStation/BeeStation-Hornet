@@ -872,7 +872,7 @@
 	if(!ishuman(owner))
 		return
 	var/mob/living/carbon/human/H = owner
-	if (H.IsSleeping())	//also vulnerable to dreamgate
+	if (H.IsSleeping())
 		return
 	var/chance = rand(0,100)
 	var/message = "Coder did fucky wucky U w U"
@@ -884,7 +884,7 @@
 			H.Dizzy(3 SECONDS)
 			message = "<span class='warning'>Your feel light headed.</span>"
 		if(60 to 74)
-			H.confused = 2 SECONDS
+			H.confused = max(H.confused, 2 SECONDS)
 			message = "<span class='warning'>Your feel confused.</span>"
 		if(75 to 79)
 			H.adjustOrganLoss(ORGAN_SLOT_STOMACH,15)

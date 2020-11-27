@@ -1,4 +1,4 @@
-// - TECH TREE - 
+// - TECH TREE -
 
 /datum/eldritch_knowledge/base_flesh
 	name = "Harbinger of Famine"
@@ -11,7 +11,7 @@
 	cost = 1
 	route = PATH_FLESH
 	followers_increment = 1
-	
+
 /datum/eldritch_knowledge/flesh_grasp
 	name = "Grasp of Flesh"
 	gain_text = "My new found desire, it drove me to do great things! The Priest said."
@@ -62,7 +62,17 @@
 	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker)
 	banned_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/rust_blade_upgrade)
 	route = PATH_FLESH
-	followers_increment = 2
+	followers_increment = 1
+
+/datum/eldritch_knowledge/flesh_blade_upgrade/on_mansus_touch(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	var/mob/living/carbon/t_mob = target
+	if (user.a_intent != INTENT_HARM && (IS_HERETIC_CULTIST(t_mob) || IS_HERETIC(t_mob)))
+		if (istype(t_mob))
+			t_mob.adjustFireLoss(-12)
+			t_mob.adjustBruteLoss(-12)
+		return FALSE
+	return TRUE
 
 /datum/eldritch_knowledge/summon/stalker
 	name = "Lonely Ritual"
@@ -81,8 +91,12 @@
 	required_atoms = list(/mob/living/carbon/human)
 	cost = 15
 	route = PATH_FLESH
-	
+
 //	-	EFFECT	-
+/datum/eldritch_knowledge/base_flesh/on_gain(mob/user)
+	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	if (cultie)
+		cultie.path = PATH_FLESH
 
 /datum/eldritch_knowledge/flesh_ghoul/on_finished_recipe(mob/living/user,list/atoms,loc)
 	var/mob/living/carbon/human/humie = locate() in atoms
@@ -104,7 +118,7 @@
 			return
 		var/mob/dead/observer/C = pick(candidates)
 		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(humie)]) to replace an AFK player.")
-		humie.ghostize(0)		
+		humie.ghostize(0)
 		humie.key = C.key
 
 	log_game("[key_name_admin(humie)] has become a voiceless dead, their master is [user.real_name]")
@@ -119,8 +133,8 @@
 	humie.health = 50 // Voiceless dead are much tougher than ghouls
 	humie.become_husk()
 	humie.faction |= "heretics"
-	
-	if (!IS_HERETIC_MONSTER(humie))
+
+	if (!IS_HERETIC_CULTIST(humie))
 		var/datum/antagonist/heretic_monster/heretic_monster = humie.mind.add_antag_datum(/datum/antagonist/heretic_monster)
 		var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
 		heretic_monster.set_owner(master)
@@ -153,7 +167,7 @@
 	var/POWER = 25
 	if (master.get_knowledge(/datum/eldritch_knowledge/flesh_blade_upgrade))
 		POWER = 50
-	
+
 	if(HAS_TRAIT(human_target, TRAIT_HUSK) && POWER<=25)
 		to_chat(user, "<span class='warning'>You are not strong enough to revive a dead ghoul!</span>")
 		return
@@ -167,7 +181,7 @@
 	if(!human_target.mind || !human_target.client)
 		to_chat(user, "<span class='warning'>There is no soul connected to this body...</span>")
 		return
-		
+
 	LAZYADD(spooky_scaries, human_target)
 	log_game("[key_name_admin(human_target)] has become a ghoul, their master is [user.real_name]")
 	//we change it to true only after we know they passed all the checks

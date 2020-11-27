@@ -1212,5 +1212,5 @@
   *
   * Override this if you want custom behaviour in whatever gets hit by the rust
   */
-/atom/proc/rust_heretic_act()
+/atom/proc/rust_heretic_act(strong)
 	return

@@ -1,4 +1,4 @@
-// - TECH TREE - 
+// - TECH TREE -
 
 /datum/eldritch_knowledge/base_ash
 	name = "Harbinger of Ember"
@@ -42,7 +42,7 @@
 /datum/eldritch_knowledge/dematerialize
 	name = "Goopher Dust"
 	gain_text = "God's anger, my weapon!"
-	desc = "Your Mansus Grasp can shred strange figurines into goopher dust. This dust has a greater effect but can only be used once."
+	desc = "Your Mansus Grasp can shred strange figurines into goopher dust. This dust has a greater effect but can dissipates uponuse."
 	cost = 5
 	next_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/spell/blood_siphon,/datum/eldritch_knowledge/curse/alteration,/datum/eldritch_knowledge/armor)
 	route = PATH_ASH
@@ -55,7 +55,7 @@
 	next_knowledge = list(/datum/eldritch_knowledge/spell/flame_birth)
 	banned_knowledge = list(/datum/eldritch_knowledge/rust_blade_upgrade,/datum/eldritch_knowledge/flesh_blade_upgrade)
 	route = PATH_ASH
-	followers_increment = 2
+	followers_increment = 1
 
 /datum/eldritch_knowledge/spell/flame_birth
 	name = "Flame Birth"
@@ -86,8 +86,12 @@
 	next_knowledge = list(/datum/eldritch_knowledge/curse/corrosion,/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/curse/paralysis)
 	timer = 2 MINUTES
 	route = PATH_ASH
-	
+
 //	-	EFFECT	-
+/datum/eldritch_knowledge/base_ash/on_gain(mob/user)
+	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	if (cultie)
+		cultie.path = PATH_ASH
 
 /datum/eldritch_knowledge/ashen_grasp/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -130,6 +134,14 @@
 		var/mob/living/carbon/C = target
 		C.adjust_fire_stacks(1)
 		C.IgniteMob()
+
+/datum/eldritch_knowledge/ash_blade_upgrade/on_mansus_touch(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	var/mob/living/L = target
+	if (istype(L))
+		var/datum/reagent/oil/R = new ()
+		R.reaction_mob(L, VAPOR, 10, L.get_permeability_protection(), FALSE)
+	return TRUE
 
 /datum/eldritch_knowledge/final/ash_final/on_finished_recipe(mob/living/user, list/atoms, loc)
 	priority_announce("$^@&#*$^@(#&$(@&#^$&#^@# Fear the blaze, for Ashbringer [user.real_name] has come! $^@&#*$^@(#&$(@&#^$&#^@#","#$^@&#*$^@(#&$(@&#^$&#^@#", 'sound/ai/spanomalies.ogg')
