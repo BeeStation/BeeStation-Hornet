@@ -53,6 +53,7 @@
 /datum/game_mode/traitor/bros/post_setup()
 	for(var/datum/team/brother_team/team in pre_brother_teams)
 		team.pick_meeting_area()
+		team.give_freqs()
 		team.forge_brother_objectives()
 		for(var/datum/mind/M in team.members)
 			M.add_antag_datum(/datum/antagonist/brother, team)

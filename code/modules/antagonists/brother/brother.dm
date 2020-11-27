@@ -58,6 +58,7 @@
 	var/brother_text = get_brother_names()
 	to_chat(owner.current, "<span class='alertsyndie'>You are the [owner.special_role] of [brother_text].</span>")
 	to_chat(owner.current, "The Syndicate only accepts those that have proven themselves. Prove yourself and prove your [team.member_name]s by completing your objectives together!")
+	to_chat(owner.current, "You were given a radio with a predefined frequency. Use that to communicate with eachother discretely!")
 	owner.announce_objectives()
 	give_meeting_area()
 
@@ -81,6 +82,7 @@
 	T.add_member(new_owner)
 	T.add_member(bro)
 	T.pick_meeting_area()
+	T.give_freqs()
 	T.forge_brother_objectives()
 	new_owner.add_antag_datum(/datum/antagonist/brother,T)
 	bro.add_antag_datum(/datum/antagonist/brother, T)
@@ -93,6 +95,7 @@
 	member_name = "blood brother"
 	var/meeting_area
 	var/static/meeting_areas = list("The Bar", "Dorms", "Escape Dock", "Arrivals", "Holodeck", "Primary Tool Storage", "Recreation Area", "Chapel", "Library")
+	var/static/valid_frequencies = list(1441,1443,1445,1449,1451,1453,1455,1457,1461,1463,1465,1467,1469,1471,1473,1475,1477,1479,1481,1483,1485,1487,1489)
 
 /datum/team/brother_team/is_solo()
 	return FALSE
@@ -100,6 +103,22 @@
 /datum/team/brother_team/proc/pick_meeting_area()
 	meeting_area = pick(meeting_areas)
 	meeting_areas -= meeting_area
+
+/datum/team/brother_team/proc/give_freqs()
+	var/freq = pick(valid_frequencies)
+	valid_frequencies -= freq
+	for(var/datum/mind/M in members)
+		var/mob/living/carbon/H = M.current
+		if(!istype(H))
+			return
+		var/list/slots = list(
+			"backpack" = SLOT_IN_BACKPACK,
+			"left pocket" = SLOT_L_STORE,
+			"right pocket" = SLOT_R_STORE
+		)
+		var/obj/item/radio/R = new (H)
+		H.equip_in_one_of_slots(R, slots)
+		R.frequency = freq
 
 /datum/team/brother_team/proc/update_name()
 	var/list/last_names = list()
