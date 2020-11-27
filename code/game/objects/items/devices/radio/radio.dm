@@ -108,7 +108,7 @@
 			to_chat(user, "<span class='notice'>You toggle broadcasting on.</span>")
 		broadcasting = !broadcasting
 
-/obj/item/radio/CtrlClick(mob/user)
+/obj/item/radio/CtrlShiftClick(mob/user)
 	if(!headset)
 		if(listening)
 			to_chat(user, "<span class='notice'>You toggle speaker off.</span>")
@@ -352,7 +352,7 @@
 	else
 		. += "<span class='notice'>It cannot be modified or attached.</span>"
 	if (in_range(src, user) && !headset)
-		. += "<span class='info'>Ctrl-click on the [name] to toggle speaker.<br/>Alt-click on the [name] to toggle broadcasting.</span>"
+		. += "<span class='info'>Ctrl-Shift-click on the [name] to toggle speaker.<br/>Alt-click on the [name] to toggle broadcasting.</span>"
 
 /obj/item/radio/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
