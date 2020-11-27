@@ -416,7 +416,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/list/range_objects = range(3,src)
 
 	for(var/obj/effect/decal/cleanable/trail_holder/TH in range_objects)
-		qdel(B)
+		qdel(TH)
 
 		blood_amt++
 		if(blood_amt == max_blood_amt)
