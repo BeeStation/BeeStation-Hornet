@@ -60,6 +60,11 @@ Also, you never added distance checking after target is selected. I've went ahea
 			to_chat(user, "<span class='warning'>You're killing yourself! You can't concentrate enough to do this!</span>")
 		return
 
+	if(HAS_TRAIT(target, TRAIT_MINDSHIELD))
+		if(!silent)
+			to_chat(user, "<span class='warning'>[t_He]'s mind is protected from such magic by an implant. It can be removed by surgery, should you manage to subdue them.")
+		return
+
 	var/datum/mind/TM = target.mind
 	if(target.anti_magic_check() || TM.has_antag_datum(/datum/antagonist/wizard) || TM.has_antag_datum(/datum/antagonist/cult) || TM.has_antag_datum(/datum/antagonist/changeling) || TM.has_antag_datum(/datum/antagonist/rev) || target.key[1] == "@")
 		if(!silent)
