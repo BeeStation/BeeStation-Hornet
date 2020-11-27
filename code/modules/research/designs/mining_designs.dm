@@ -133,7 +133,7 @@
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO
 
 /datum/design/conveyor_rcd
-	name = "RCD Conveyor Upgrade Disk"
+	name = "RCD conveyors designs upgrade"
 	id = "conveyor_rcd"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 8000)
