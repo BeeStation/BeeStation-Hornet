@@ -76,7 +76,7 @@
 	in_use = TRUE
 
 	var/success = FALSE
-	for(var/i=1, i<=rand(2,5), i++)
+	for(var/i in 1 to rand(2,5))
 		if (!success)
 			success = prob(5)
 		if(!turn_page(user,success))
