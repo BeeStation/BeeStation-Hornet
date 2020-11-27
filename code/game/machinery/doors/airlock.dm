@@ -51,6 +51,7 @@
 	assemblytype = /obj/structure/door_assembly
 	normalspeed = 1
 	explosion_block = 1
+	open_speed = 2.5
 	hud_possible = list(DIAG_AIRLOCK_HUD)
 
 	FASTDMM_PROP(\
@@ -95,7 +96,6 @@
 	var/panel_attachment = "right"
 	var/note_attachment = "left"
 	var/mask_filter
-	var/airlock_delay = 2.5
 
 	var/cyclelinkeddir = 0
 	var/obj/machinery/door/airlock/cyclelinkedairlock
@@ -1182,7 +1182,7 @@
 	sleep(1)
 	set_opacity(0)
 	update_freelook_sight()
-	sleep(airlock_delay)
+	sleep(open_speed)
 	density = FALSE
 	air_update_turf(1)
 	sleep(1)
@@ -1232,7 +1232,7 @@
 	if(!air_tight)
 		density = TRUE
 		air_update_turf(1)
-	sleep(airlock_delay)
+	sleep(open_speed)
 	if(!safe)
 		crush()
 	if(visible && !glass)
