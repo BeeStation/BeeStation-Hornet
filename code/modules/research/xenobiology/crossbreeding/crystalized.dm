@@ -7,7 +7,8 @@
 
 /obj/item/slimecross/crystalline/attack_self(mob/user)
 	. = ..()
-	var/obj/structure/slime_crystal/C = locate() in range(6,get_turf(user))
+
+	var/obj/structure/slime_crystal/C = locate(/obj/structure/slime_crystal) in range(6,get_turf(user))
 
 	if(C)
 		to_chat(user,"<span class='notice'>You can't build crystals that close to each other!</span>")

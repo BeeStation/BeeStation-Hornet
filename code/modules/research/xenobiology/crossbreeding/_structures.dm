@@ -185,7 +185,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 /obj/structure/slime_crystal/metal
 	colour = "metal"
 
-	var/heal_amt = 1
+	var/heal_amt = 3
 
 /obj/structure/slime_crystal/metal/on_mob_effect(mob/living/affected_mob)
 	if(!iscyborg(affected_mob))
@@ -255,7 +255,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	for(var/obj/machinery/hydroponics/hydr in range(5,src))
 		hydr.weedlevel = 0
 		hydr.pestlevel = 0
-		hydr.age ++
+		if(prob(10))
+			hydr.age++
 
 /obj/structure/slime_crystal/bluespace
 	colour = "bluespace"
@@ -412,7 +413,16 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(blood_amt == max_blood_amt)
 		return
 
-	for(var/obj/effect/decal/cleanable/blood/B in range(3,src))
+	var/list/range_objects = range(3,src)
+
+	for(/obj/effect/decal/cleanable/trail_holder/TH in range_objects)
+		qdel(B)
+
+		blood_amt++
+		if(blood_amt == max_blood_amt)
+			return
+
+	for(var/obj/effect/decal/cleanable/blood/B in range_objects)
 		qdel(B)
 
 		blood_amt++
