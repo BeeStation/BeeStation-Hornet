@@ -415,7 +415,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 	var/list/range_objects = range(3,src)
 
-	for(/obj/effect/decal/cleanable/trail_holder/TH in range_objects)
+	for(var/obj/effect/decal/cleanable/trail_holder/TH in range_objects)
 		qdel(B)
 
 		blood_amt++
