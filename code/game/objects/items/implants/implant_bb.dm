@@ -47,7 +47,7 @@
 		linked_implants += BB
 		BB.linked_implants += src
 
-/obj/item/implant/chem/get_data()
+/obj/item/implant/bloodbrother/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
 				<b>Name:</b> Donk Corp(tm) Initiate Communication Implant<BR>
 				<b>Life:</b> Indefinite.<BR>
