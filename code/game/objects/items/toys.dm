@@ -1106,7 +1106,8 @@
 		user.visible_message("<span class='notice'>[user] pulls the string on the bottom of the train.</span>", "<span class='notice'>You pull the string, the wheels begin to spin.</span>", "<span class='italics'>The train whires audibly.</span>")
 		playsound(src, 'sound/voice/moth/scream_moth.ogg', 5, 0)
 	
-	
+	else
+		to_chat(user, "<span class='alert'>The wheels are already spinning.</span>")
 
 /*
  * Snowballs
