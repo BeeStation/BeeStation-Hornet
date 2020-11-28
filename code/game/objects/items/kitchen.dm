@@ -56,36 +56,6 @@
 	else
 		return ..()
 
-/obj/item/kitchen/knife/poison
-	name = "venom knife"
-	icon_state = "poisonknife"
-	force = 12
-	throwforce = 15
-	throw_speed = 5
-	throw_range = 7
-	var/amount_per_transfer_from_this = 5
-	var/list/possible_transfer_amounts
-	desc = "An infamous knife of syndicate design, it has a tiny hole going through the blade to the handle which stores toxins."
-	materials = null
-
-/obj/item/kitchen/knife/poison/Initialize()
-	. = ..()
-	create_reagents(40,OPENCONTAINER)
-	possible_transfer_amounts = list(3,5)
-
-/obj/item/kitchen/knife/poison/attack_self(mob/user)
-	if(possible_transfer_amounts.len)
-		var/i=0
-		for(var/A in possible_transfer_amounts)
-			i++
-			if(A == amount_per_transfer_from_this)
-				if(i<possible_transfer_amounts.len)
-					amount_per_transfer_from_this = possible_transfer_amounts[i+1]
-				else
-					amount_per_transfer_from_this = possible_transfer_amounts[1]
-				to_chat(user, "<span class='notice'>[src]'s transfer amount is now [amount_per_transfer_from_this] units.</span>")
-				return
-
 /obj/item/kitchen/knife/poison/attack(mob/living/M, mob/user)
 	if (!istype(M))
 		return
@@ -160,6 +130,36 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_price = 60
 
+/obj/item/kitchen/knife/poison
+	name = "venom knife"
+	icon_state = "poisonknife"
+	force = 12
+	throwforce = 15
+	throw_speed = 5
+	throw_range = 7
+	var/amount_per_transfer_from_this = 5
+	var/list/possible_transfer_amounts
+	desc = "An infamous knife of syndicate design, it has a tiny hole going through the blade to the handle which stores toxins."
+	materials = null
+
+/obj/item/kitchen/knife/poison/Initialize()
+	. = ..()
+	create_reagents(40,OPENCONTAINER)
+	possible_transfer_amounts = list(3,5)
+
+/obj/item/kitchen/knife/poison/attack_self(mob/user)
+	if(possible_transfer_amounts.len)
+		var/i=0
+		for(var/A in possible_transfer_amounts)
+			i++
+			if(A == amount_per_transfer_from_this)
+				if(i<possible_transfer_amounts.len)
+					amount_per_transfer_from_this = possible_transfer_amounts[i+1]
+				else
+					amount_per_transfer_from_this = possible_transfer_amounts[1]
+				to_chat(user, "<span class='notice'>[src]'s transfer amount is now [amount_per_transfer_from_this] units.</span>")
+				return
+
 /obj/item/kitchen/knife/combat
 	name = "combat knife"
 	icon_state = "buckknife"
@@ -225,4 +225,4 @@
 /obj/item/kitchen/rollingpin/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins flattening [user.p_their()] head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
-/* Trays  moved to /obj/item/storage/bag */
+
