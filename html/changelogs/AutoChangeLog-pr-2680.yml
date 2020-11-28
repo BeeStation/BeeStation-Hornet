@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: Ambient fading
+  - rscadd: Sound effect subsystem
