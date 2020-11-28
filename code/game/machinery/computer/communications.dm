@@ -569,7 +569,7 @@
 					if(S.prerequisites)
 						dat += "Prerequisites: [S.prerequisites]<BR>"
 					dat += "<A href='?src=[REF(src)];operation=buyshuttle;chosen_shuttle=[REF(S)]'>(<font color=red><i>Purchase</i></font>)</A><BR><BR>"
-			if(obj_flags & EMAGGED || CM.insecure)
+			if((obj_flags & EMAGGED) || CM.insecure)
 				dat += "<b>NON-CERTIFIED SHUTTLES APPENDED BELOW.</b><BR><BR>"
 				for(var/shuttle_id in SSmapping.shuttle_templates)
 					var/datum/map_template/shuttle/S = SSmapping.shuttle_templates[shuttle_id]
