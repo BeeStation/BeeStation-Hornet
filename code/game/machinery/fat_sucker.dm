@@ -33,6 +33,10 @@
 	soundloop = new(list(src),  FALSE)
 	update_icon()
 
+/obj/machinery/fat_sucker/Destroy()
+	QDEL_NULL(soundloop)
+	return ..()
+
 /obj/machinery/fat_sucker/RefreshParts()
 	..()
 	var/rating = 0

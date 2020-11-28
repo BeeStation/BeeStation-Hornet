@@ -189,7 +189,7 @@
 
 /obj/structure/chair/comfy/shuttle
 	name = "shuttle seat"
-	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system, for smoother flights."
+	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system for smoother flights."
 	icon_state = "shuttle_chair"
 
 /obj/structure/chair/comfy/shuttle/GetArmrest()

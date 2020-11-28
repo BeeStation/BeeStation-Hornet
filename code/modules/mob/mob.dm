@@ -59,6 +59,7 @@
   */
 /mob/Initialize()
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_CREATED, src)
+	mob_properties = list()
 	GLOB.mob_list += src
 	GLOB.mob_directory[tag] = src
 	if(stat == DEAD)
@@ -1282,3 +1283,7 @@
 	for(var/obj/item/I in held_items)
 		if(I.item_flags & SLOWS_WHILE_IN_HAND)
 			. += I.slowdown
+
+// Returns TRUE if the hearer should hear radio noises
+/mob/proc/hears_radio()
+	return TRUE

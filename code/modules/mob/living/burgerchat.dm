@@ -65,7 +65,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	var/datum/language/D = GLOB.language_datum_instances[message_language]
 
 	// create 2 messages, one that appears if you know the language, and one that appears when you don't know the language
-	var/image/I = image(loc = target, layer=FLY_LAYER)
+	var/image/I = image(loc = get_atom_on_turf(target), layer=FLY_LAYER)
 	I.alpha = 0
 	I.maptext_width = 128
 	I.maptext_height = 64
@@ -73,7 +73,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	I.maptext = "<center><span class='chatOverhead' style='[css]'>[message]</span></center>"
 
-	var/image/O = image(loc = target, layer=FLY_LAYER)
+	var/image/O = image(loc = get_atom_on_turf(target), layer=FLY_LAYER)
 	O.alpha = 0
 	O.maptext_width = 128
 	O.maptext_height = 64

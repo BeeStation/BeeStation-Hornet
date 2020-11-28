@@ -128,7 +128,7 @@
 			attached_device = null
 			update_icon()
 		if(href_list["device"])
-			attached_device.attack_self(usr)
+			attached_device.ui_interact(usr)
 
 	attack_self(usr)
 	add_fingerprint(usr)
