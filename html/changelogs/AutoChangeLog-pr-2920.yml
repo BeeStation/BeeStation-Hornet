@@ -1,0 +1,9 @@
+author: Froststahr
+delete-after: true
+changes:
+  - rscadd: Emags allow traitors to anonymously purchase any shuttle they want without
+      ID! Screwdrivers can be used on circuit boards as well, but adequate access
+      is still required in that case.
+  - tweak: The name of the authorizer, not the buyer, is printed on purchase of a
+      shuttle.
+  - tweak: Unsafe shuttles are now unavailable for purchase without emags/hacking.
