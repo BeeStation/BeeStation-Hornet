@@ -1,0 +1,4 @@
+author: jupyterkat
+delete-after: true
+changes:
+  - admin: restart votes check for active deadmins
