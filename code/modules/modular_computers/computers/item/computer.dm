@@ -126,7 +126,6 @@
 			portable_drive.verb_pickup()
 
 /obj/item/modular_computer/AltClick(mob/user)
-	..()
 	if(issilicon(user))
 		return
 

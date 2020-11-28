@@ -66,6 +66,13 @@
 	landingDelay = 20 //Very speedy!
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
+/obj/structure/closet/supplypod/battleroyale
+	style = STYLE_BOX
+	bluespace = FALSE
+	explosionSize = list(0,0,0,0)
+	landingDelay = 40 //Very slow
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	max_integrity = 20
 
 /obj/structure/closet/supplypod/proc/specialisedPod()
 	return 1

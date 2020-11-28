@@ -318,12 +318,12 @@
 /datum/status_effect/sword_spin/on_remove()
 	owner.visible_message("<span class='warning'>[owner]'s inhuman strength dissipates and the sword's runes grow cold!</span>")
 
-
 //Used by changelings to rapidly heal
 //Being on fire will suppress this healing
 /datum/status_effect/fleshmend
 	id = "fleshmend"
 	alert_type = /atom/movable/screen/alert/status_effect/fleshmend
+	duration = 100
 
 /datum/status_effect/fleshmend/tick()
 	if(owner.on_fire)
@@ -331,10 +331,11 @@
 		return
 	else
 		linked_alert.icon_state = "fleshmend"
-	owner.adjustBruteLoss(-1.5, FALSE)
-	owner.adjustFireLoss(-0.25, FALSE)
-	owner.adjustToxLoss(-0.5, FALSE)
-	owner.adjustCloneLoss(-0.5)
+	owner.adjustBruteLoss(-2.5, FALSE)
+	owner.adjustFireLoss(-2.5, FALSE)
+	owner.adjustOxyLoss(-2.5)
+	owner.adjustToxLoss(-2.5, FALSE)
+	owner.adjustCloneLoss(-2.5)
 
 /atom/movable/screen/alert/status_effect/fleshmend
 	name = "Fleshmend"

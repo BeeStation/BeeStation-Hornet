@@ -8,6 +8,7 @@
 	desc = "It's watching you closely."
 	icon_state = "necrocrate"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	door_anim_time = 0
 
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
@@ -363,9 +364,14 @@
 		return
 	if(teleporting)
 		return
+	var/turf/T = get_turf(src)
+	var/area/A1 = get_area(T)
+	var/area/A2 = get_area(linked)
+	if(A1.noteleport || A2.noteleport)
+		to_chat(user, "[src] fizzles gently as it fails to breach the bluespace veil.")
+		return
 	teleporting = TRUE
 	linked.teleporting = TRUE
-	var/turf/T = get_turf(src)
 	new /obj/effect/temp_visual/warp_cube(T, user, teleport_color, TRUE)
 	SSblackbox.record_feedback("tally", "warp_cube", 1, type)
 	new /obj/effect/temp_visual/warp_cube(get_turf(linked), user, linked.teleport_color, FALSE)
