@@ -4,7 +4,7 @@
 	icon_state = "classicbeats"
 	icon_deny = "engi-deny"
 	product_slogans = "Now you too can be the master of the rumba beat!"
-	product_ads = "Chick-Chicky Boom,Chick-Chicky Boom!;Take a lesson from Cuban Pete"
+	product_ads = "Chick-Chicky Boom,Chick-Chicky Boom!;Take a lesson from Cuban Pete!;Its very nice,So full of spice!;Singin a song,All the day long!"
 	vend_reply = "Thank you for choosing Cuban Pete's"
 	light_color = LIGHT_COLOR_SLIME_LAMP
 	req_access = list(ACCESS_THEATRE)
