@@ -58,6 +58,7 @@
 				type=STAT_ATOM,
 			)
 	var/list/all_verbs = sorted_verbs + client.sorted_verbs
+	//Uhm... No?
 	if(selected_tab in all_verbs)
 		for(var/verb in all_verbs[selected_tab])
 			var/procpath/V = verb

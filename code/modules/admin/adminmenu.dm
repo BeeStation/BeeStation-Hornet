@@ -1,4 +1,4 @@
-/client/verb/playerpanel()
+/client/proc/playerpanel()
 	set name = "Player Panel"
 	set desc = "Player Panel"
 	set category = "Admin"

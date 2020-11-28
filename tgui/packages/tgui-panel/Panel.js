@@ -42,22 +42,23 @@ export const Panel = (props, context) => {
     setNumber,
   ] = useLocalState(context, 'number', settings.statSize);
   const dispatch = useDispatch(context);
-  if(number === null)
+  let safenumber = number;
+  if (safenumber === null)
   {
-    //Sanity check
-    number = 40;
+    // Sanity check
+    safenumber = 40;
   }
   return (
     <Pane theme={settings.theme}>
       <Flex
         direction="column"
-        height={(98-number) + '%'}>
+        height={(98-safenumber) + '%'}>
         <StatTabs
           height="100%" />
       </Flex>
       <DraggableControl
         height="1%"
-        value={number}
+        value={safenumber}
         minValue={0}
         maxValue={100}
         dragMatrix={[0, -1]}
@@ -82,7 +83,7 @@ export const Panel = (props, context) => {
       </DraggableControl>
       <Flex
         direction="column"
-        height={(number-1) + '%'}
+        height={(safenumber-1) + '%'}
         mt={1}>
         <Flex.Item>
           <Section fitted>
