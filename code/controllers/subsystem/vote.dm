@@ -159,7 +159,7 @@ SUBSYSTEM_DEF(vote)
 						C.post_status("shuttle")
 	if(restart)
 		var/active_admins = 0
-		for(var/client/C in GLOB.admins)
+		for(var/client/C in GLOB.admins+GLOB.deadmins)
 			if(!C.is_afk() && check_rights_for(C, R_SERVER))
 				active_admins = 1
 				break
