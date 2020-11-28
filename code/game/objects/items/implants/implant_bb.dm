@@ -14,12 +14,14 @@
 	. = ..()
 	if(linked_implants.len)
 		var/input = stripped_input(imp_in, "Enter a message to communicate to your blood brother(s).", "Radio Implant", "")
-		if(!input)
+		if(!input || imp_in.stat == DEAD)
+			return
+		if(CHAT_FILTER_CHECK(input))
+			to_chat(imp_in, "<span class='warning'>The message contains prohibited words!</span>")
 			return
 
-		var/preliminary_message = "<span class='bold'>[input]</span>" //apply basic color/bolding
-		var/my_message = "<font color=\"#ff0000\"><b><i>[imp_in]:</i></b></font> [preliminary_message]" //add source, color source with syndie color
-		var/ghost_message = "<font color=\"#ff0000\"><b><i>[imp_in] -> Blood Brothers:</i></b></font> [preliminary_message]"
+		var/my_message = "<font color=\"#ff0000\"><b><i>[imp_in]:</i></b></font> [input]" //add sender, color source with syndie color
+		var/ghost_message = "<font color=\"#ff0000\"><b><i>[imp_in] -> Blood Brothers:</i></b></font> [input]"
 
 		to_chat(imp_in, my_message) // Sends message to the user
 		for(var/obj/item/implant/bloodbrother/i in linked_implants) // Sends message to all linked implnats
@@ -42,10 +44,8 @@
 	if(BB)
 		if(BB == src) // Don't want to put this implant into itself
 			return
-		if(locate(BB) in linked_implants || locate(src) in BB.linked_implants) // Don't want duplicates in the list
-			return
-		linked_implants += BB
-		BB.linked_implants += src
+		linked_implants |= BB
+		BB.linked_implants |= src
 
 /obj/item/implant/bloodbrother/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
