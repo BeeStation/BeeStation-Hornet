@@ -25984,7 +25984,7 @@
 /area/security/execution/education)
 "aWs" = (
 /obj/structure/sign/warning/securearea{
-	pixel_x = 32
+	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -54158,7 +54158,6 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/hatch{
-	doorDirection = 0;
 	name = "MiniSat Space Access Airlock";
 	req_one_access_txt = "32;19"
 	},
@@ -64874,13 +64873,12 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/airless,
-/area/engine/engineering)
+/area/space/nearstation)
 "cdH" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
 /obj/machinery/door/airlock/external{
-	doorDirection = 1;
 	name = "External Containment Access";
 	req_access_txt = "10; 13"
 	},
@@ -64912,7 +64910,6 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/external{
-	doorDirection = 0;
 	name = "External Containment Access";
 	req_access_txt = "10; 13"
 	},
@@ -81003,13 +81000,12 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/plating/airless,
-/area/engine/engineering)
+/area/space/nearstation)
 "cFM" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
 /obj/machinery/door/airlock/external{
-	doorDirection = 1;
 	name = "External Containment Access";
 	req_access_txt = "10; 13"
 	},
@@ -81039,7 +81035,6 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/external{
-	doorDirection = 0;
 	name = "External Containment Access";
 	req_access_txt = "10; 13"
 	},
@@ -112012,7 +112007,6 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/external{
-	doorDirection = 1;
 	name = "External Airlock";
 	req_access_txt = "13"
 	},
@@ -112037,7 +112031,6 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/external{
-	doorDirection = 0;
 	name = "External Airlock";
 	req_access_txt = "13"
 	},
@@ -119057,7 +119050,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/security/checkpoint/escape)
+/area/hallway/secondary/exit/departure_lounge)
 "eej" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -119070,7 +119063,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/security/checkpoint/escape)
+/area/hallway/secondary/exit/departure_lounge)
 "eek" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -119400,7 +119393,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/security/checkpoint/escape)
+/area/hallway/secondary/exit/departure_lounge)
 "eeS" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -119419,23 +119412,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel,
-/area/security/checkpoint/escape)
-"eeT" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/caution/stand_clear,
-/obj/machinery/atmospherics/components/binary/dp_vent_pump{
-	dir = 8
-	},
-/obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
-	},
-/turf/open/floor/plasteel,
-/area/security/checkpoint/escape)
+/area/hallway/secondary/exit/departure_lounge)
 "eeU" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -119454,7 +119431,7 @@
 	dir = 9
 	},
 /turf/open/floor/plasteel,
-/area/security/checkpoint/escape)
+/area/hallway/secondary/exit/departure_lounge)
 "efe" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -119614,7 +119591,6 @@
 "eft" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/external{
-	doorDirection = 0;
 	name = "External Airlock";
 	req_access_txt = "13"
 	},
@@ -119861,7 +119837,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating,
-/area/security/checkpoint/escape)
+/area/hallway/secondary/exit/departure_lounge)
 "efQ" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -120053,7 +120029,7 @@
 	desc = "A sign that shows there are doors here. There are doors everywhere!";
 	icon_state = "doors";
 	name = "WARNING: EXTERNAL AIRLOCK";
-	pixel_x = 32
+	pixel_x = -32
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
@@ -120271,7 +120247,6 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/external{
-	doorDirection = 1;
 	name = "External Airlock";
 	req_access_txt = "13"
 	},
@@ -120555,7 +120530,7 @@
 "eIL" = (
 /obj/structure/window/reinforced,
 /turf/open/space/basic,
-/area/space)
+/area/space/nearstation)
 "eJc" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible,
 /turf/closed/wall/r_wall,
@@ -121041,6 +121016,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
+"gyB" = (
+/turf/closed/wall/r_wall,
+/area/aisat)
 "gAb" = (
 /obj/structure/sign/departments/minsky/medical/medical2,
 /turf/closed/wall,
@@ -121191,14 +121169,6 @@
 "gSi" = (
 /turf/closed/wall/r_wall,
 /area/science/misc_lab)
-"gTL" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/security/checkpoint/escape)
 "gUH" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -121883,7 +121853,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel/dark,
-/area/space/nearstation)
+/area/aisat)
 "jpa" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -122225,11 +122195,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
-"kmN" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/security/checkpoint/escape)
 "krX" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -122819,7 +122784,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel/dark,
-/area/space)
+/area/aisat)
 "lZF" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/stripes/line,
@@ -123025,7 +122990,6 @@
 /area/medical/medbay/central)
 "mIK" = (
 /obj/machinery/door/airlock/hatch{
-	doorDirection = 1;
 	name = "MiniSat Space Access Airlock";
 	req_one_access_txt = "32;19"
 	},
@@ -123359,7 +123323,7 @@
 "ogg" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall/r_wall,
-/area/science/misc_lab)
+/area/maintenance/port/aft)
 "ohd" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -123400,7 +123364,7 @@
 "omk" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall/r_wall,
-/area/space/nearstation)
+/area/aisat)
 "ooN" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 6
@@ -124212,12 +124176,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
-"qNW" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/turf/closed/wall,
-/area/security/checkpoint/escape)
 "qSt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -124499,6 +124457,9 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"sav" = (
+/turf/open/space/basic,
+/area/space/nearstation)
 "saw" = (
 /turf/closed/wall/r_wall,
 /area/science/misc_lab/range)
@@ -124608,6 +124569,9 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/space)
+"sBW" = (
+/turf/closed/wall/r_wall,
+/area/hallway/secondary/exit/departure_lounge)
 "sEu" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -124866,7 +124830,6 @@
 /area/vacant_room/commissary)
 "tuv" = (
 /obj/machinery/door/airlock/hatch{
-	doorDirection = 0;
 	name = "MiniSat Space Access Airlock";
 	req_one_access_txt = "32;19"
 	},
@@ -124945,25 +124908,6 @@
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
-"tFH" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
-	},
-/obj/machinery/door/airlock/external{
-	doorDirection = 1;
-	name = "External Docking Port"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
-	},
-/turf/open/floor/plasteel,
-/area/hallway/secondary/exit/departure_lounge)
 "tGq" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -125437,6 +125381,26 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
+"vuF" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 10
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/aisat)
 "vwU" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -125575,25 +125539,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port/aft)
-"vQI" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
-/obj/machinery/door/airlock/external{
-	doorDirection = 0;
-	name = "External Docking Port"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/hallway/secondary/exit/departure_lounge)
 "wbe" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -125655,7 +125600,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/hatch{
-	doorDirection = 1;
 	name = "MiniSat Space Access Airlock";
 	req_one_access_txt = "32;19"
 	},
@@ -125969,7 +125913,7 @@
 	dir = 4
 	},
 /turf/closed/wall,
-/area/security/checkpoint/escape)
+/area/hallway/secondary/exit/departure_lounge)
 "xJa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -136602,7 +136546,7 @@ bmD
 bmD
 btJ
 bmD
-aaa
+sav
 bPC
 bRM
 bTD
@@ -137629,7 +137573,7 @@ aaa
 aad
 ajr
 bkE
-bLE
+vuF
 bNC
 bPJ
 bVs
@@ -137885,8 +137829,8 @@ aad
 aaa
 aad
 aad
-aaa
-boj
+sav
+gyB
 bND
 tuv
 omk
@@ -138142,8 +138086,8 @@ aad
 aaa
 aad
 ajr
-ajr
-oKk
+qYo
+gyB
 bNE
 qWH
 tMj
@@ -145882,7 +145826,7 @@ aaa
 aad
 car
 car
-car
+cnI
 cJJ
 caE
 caE
@@ -154658,7 +154602,7 @@ dIj
 dJJ
 dEn
 dLJ
-gSi
+dLY
 vPa
 dOM
 dOM
@@ -154915,7 +154859,7 @@ dIk
 dJK
 dKA
 dLK
-gSi
+dLY
 dOc
 dOM
 dOM
@@ -162392,9 +162336,9 @@ dTA
 edw
 dTw
 dTw
-dTw
-dSz
-dTw
+dST
+oyN
+dST
 aad
 aad
 aaa
@@ -162906,9 +162850,9 @@ ecW
 edx
 edY
 edY
-edY
+dST
 xHS
-egE
+sBW
 aad
 aad
 aaa
@@ -166244,7 +166188,7 @@ gLV
 ecc
 gLV
 gLV
-vQI
+jwi
 eej
 eeS
 efG
@@ -166502,9 +166446,9 @@ aad
 aad
 dST
 ehM
-qNW
-eeT
-kmN
+oyN
+ehM
+dSU
 aad
 aaa
 aaa
@@ -166758,10 +166702,10 @@ aaa
 aaa
 aaa
 dSU
-tFH
-gTL
+dYJ
+sVr
 eeU
-kmN
+dSU
 aaa
 aaa
 aaa
