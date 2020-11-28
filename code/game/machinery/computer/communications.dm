@@ -557,7 +557,7 @@
 			var/obj/item/circuitboard/computer/communications/CM = circuit
 			dat += "Budget: [D.account_balance] Credits.<BR>"
 			dat += "<BR>"
-			if(obj_flags & EMAGGED || CM.insecure)
+			if((obj_flags & EMAGGED) || CM.insecure)
 				dat += "<b>WARNING: Safety features disabled. Non-certified shuttles included. Order at your own peril.</b><BR><BR>" 
 			else 
 				dat += "<b>Safety protocols in effect: These shuttles all fulfill NT safety standards.</b><BR><BR>" //not that they're very high but these won't kill everyone aboard
