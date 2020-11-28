@@ -27,7 +27,7 @@
 	var/low_threshold_cleared
 
 /obj/item/organ/proc/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE)
-	if(!iscarbon(M) || owner == M)
+	if(!iscarbon(M) || owner == M || !creature_accepts_organ(M))
 		return
 
 	var/obj/item/organ/replaced = M.getorganslot(slot)
@@ -48,6 +48,13 @@
 		var/datum/action/A = X
 		A.Grant(M)
 	STOP_PROCESSING(SSobj, src)
+
+/obj/item/organ/proc/creature_accepts_organ(mob/living/carbon/creature)
+	if(ishuman(C) && status == ORGAN_ORGANIC)
+		var/mob/living/carbon/human/H = C
+		if(H.dna && istype(H.dna.species,datum/species/ipc))
+			return FALSE
+	return TRUE
 
 //Special is for instant replacement like autosurgeons
 /obj/item/organ/proc/Remove(mob/living/carbon/M, special = FALSE)
@@ -226,3 +233,4 @@
 		if(!getorganslot(ORGAN_SLOT_EARS))
 			var/obj/item/organ/ears/ears = new()
 			ears.Insert(src)
+

@@ -252,10 +252,7 @@
 	organ_flags = ORGAN_SYNTHETIC
 
 /obj/item/organ/brain/positron/Insert(mob/living/carbon/C, special = 0, no_id_transfer = FALSE)
-	owner = C
-	C.internal_organs |= src
-	C.internal_organs_slot[slot] = src
-	loc = null
+	..()
 
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
