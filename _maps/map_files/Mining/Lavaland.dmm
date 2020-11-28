@@ -1999,7 +1999,7 @@
 /area/lavaland/surface/outdoors)
 "iL" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = TRUE
 	},
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/brown,
@@ -3315,11 +3315,11 @@
 	dir = 8
 	},
 /obj/structure/barricade/wooden/crude,
-/obj/machinery/door/airlock/research{
-	name = "Testing Lab";
-	req_access_txt = "47"
-	},
 /obj/effect/decal/cleanable/oil/slippery,
+/obj/machinery/door/airlock/research/glass{
+	name = "Research Division Atrium";
+	req_one_access_txt = "47,54"
+	},
 /turf/open/floor/plasteel,
 /area/mine/science)
 "pi" = (
@@ -4508,7 +4508,7 @@
 "Ef" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Research Division Atrium";
-	req_access_txt = "47"
+	req_one_access_txt = "47,54"
 	},
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
@@ -4600,7 +4600,7 @@
 	pixel_y = -22
 	},
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = TRUE
 	},
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
@@ -5446,11 +5446,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/door/airlock/research{
-	name = "Outpost Transport Dock";
-	req_access_txt = "47"
-	},
 /obj/effect/decal/cleanable/oil/slippery,
+/obj/machinery/door/airlock/research/glass{
+	name = "Research Division Atrium";
+	req_one_access_txt = "47,54"
+	},
 /turf/open/floor/plasteel,
 /area/mine/science)
 "Pd" = (
@@ -6342,7 +6342,7 @@
 /area/mine/science)
 "Yz" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = TRUE
 	},
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -6401,7 +6401,7 @@
 /area/mine/laborcamp/security)
 "YW" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = TRUE
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,

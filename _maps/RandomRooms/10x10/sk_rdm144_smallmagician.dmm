@@ -1,0 +1,395 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/plating,
+/area/space)
+"b" = (
+/obj/item/trash/boritos,
+/turf/open/floor/carpet/red,
+/area/space)
+"c" = (
+/obj/item/stack/cable_coil/cut,
+/turf/open/floor/plating,
+/area/space)
+"d" = (
+/obj/machinery/vending/boozeomat,
+/obj/structure/window/reinforced/spawner/west,
+/turf/open/floor/plating,
+/area/space)
+"e" = (
+/obj/effect/spawner/lootdrop/crate_spawner,
+/turf/open/floor/plating,
+/area/space)
+"f" = (
+/obj/structure/table_frame/wood,
+/obj/item/stack/sheet/mineral/wood,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/space)
+"g" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = -8;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"h" = (
+/obj/item/trash/popcorn,
+/turf/open/floor/plating,
+/area/space)
+"i" = (
+/obj/structure/mirror{
+	pixel_y = 26
+	},
+/turf/open/floor/carpet,
+/area/space)
+"j" = (
+/obj/effect/landmark/blobstart,
+/turf/open/floor/wood,
+/area/space)
+"k" = (
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/space)
+"l" = (
+/turf/closed/wall,
+/area/space)
+"m" = (
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"n" = (
+/obj/structure/table,
+/obj/machinery/chem_dispenser/drinks/beer,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"o" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plating,
+/area/space)
+"p" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/space)
+"q" = (
+/obj/structure/chair/stool/bar,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/space)
+"r" = (
+/obj/item/trash/can/food/peaches/maint,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/carpet/red,
+/area/space)
+"s" = (
+/obj/effect/decal/cleanable/oil{
+	icon_state = "floor5"
+	},
+/obj/structure/grille/broken,
+/turf/open/floor/plating,
+/area/space)
+"t" = (
+/obj/structure/closet/firecloset/full,
+/turf/open/floor/plating,
+/area/space)
+"u" = (
+/obj/structure/closet,
+/obj/item/storage/toolbox/mechanical,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/lootdrop/gloves,
+/turf/open/floor/carpet,
+/area/space)
+"v" = (
+/obj/structure/closet/crate/trashcart,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/grille/broken,
+/turf/open/floor/plating,
+/area/space)
+"w" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/space)
+"x" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/space)
+"y" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/space)
+"z" = (
+/obj/structure/chair/sofa{
+	dir = 1
+	},
+/turf/open/floor/carpet/red,
+/area/space)
+"A" = (
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/turf/open/floor/plating,
+/area/space)
+"B" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/plating,
+/area/space)
+"C" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/space)
+"D" = (
+/obj/structure/chair/sofa/right{
+	dir = 1
+	},
+/turf/open/floor/carpet/red,
+/area/space)
+"E" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/eight,
+/turf/open/floor/plating,
+/area/space)
+"F" = (
+/obj/structure/table,
+/obj/machinery/chem_dispenser/drinks,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"H" = (
+/obj/machinery/vending/autodrobe,
+/turf/open/floor/wood,
+/area/space)
+"I" = (
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/space)
+"J" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"K" = (
+/obj/machinery/door/airlock/wood,
+/turf/open/floor/plating,
+/area/space)
+"L" = (
+/turf/open/floor/wood,
+/area/space)
+"M" = (
+/obj/structure/table/wood,
+/obj/structure/window/reinforced/spawner/west,
+/obj/effect/spawner/lootdrop/gambling,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"N" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/wood,
+/area/space)
+"O" = (
+/obj/effect/decal/cleanable/insectguts,
+/turf/open/floor/plating,
+/area/space)
+"P" = (
+/obj/structure/chair/stool/bar,
+/turf/open/floor/plating,
+/area/space)
+"Q" = (
+/obj/structure/chair/sofa/left{
+	dir = 1
+	},
+/turf/open/floor/carpet/red,
+/area/space)
+"R" = (
+/turf/open/floor/carpet/red,
+/area/space)
+"S" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/open/floor/plating,
+/area/space)
+"T" = (
+/obj/structure/window/reinforced/tinted/frosted{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/effect/spawner/lootdrop/glowstick,
+/turf/open/floor/carpet,
+/area/space)
+"U" = (
+/obj/effect/landmark/event_spawn,
+/turf/open/floor/wood,
+/area/space)
+"V" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/space)
+"W" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/plating,
+/area/space)
+"X" = (
+/obj/structure/window/reinforced/tinted/frosted{
+	dir = 4
+	},
+/obj/effect/landmark/start/randommaint/magician,
+/obj/structure/chair/stool/bar,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/sign/poster/contraband/syndicate_recruitment{
+	pixel_x = 4;
+	pixel_y = 33
+	},
+/turf/open/floor/carpet,
+/area/space)
+"Y" = (
+/turf/open/floor/monotile/steel,
+/area/space)
+"Z" = (
+/obj/structure/grille/broken,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/space)
+
+(1,1,1) = {"
+S
+a
+C
+s
+a
+a
+a
+o
+a
+a
+"}
+(2,1,1) = {"
+A
+a
+l
+l
+V
+V
+l
+l
+v
+I
+"}
+(3,1,1) = {"
+a
+O
+l
+H
+L
+N
+D
+r
+D
+a
+"}
+(4,1,1) = {"
+Z
+k
+l
+p
+j
+L
+z
+R
+z
+o
+"}
+(5,1,1) = {"
+y
+E
+V
+L
+U
+L
+Q
+b
+Q
+a
+"}
+(6,1,1) = {"
+c
+B
+V
+L
+L
+L
+Y
+Y
+Y
+h
+"}
+(7,1,1) = {"
+a
+W
+l
+K
+l
+l
+d
+M
+g
+P
+"}
+(8,1,1) = {"
+a
+t
+l
+i
+u
+l
+F
+a
+J
+q
+"}
+(9,1,1) = {"
+a
+e
+l
+X
+T
+l
+n
+m
+f
+P
+"}
+(10,1,1) = {"
+a
+a
+Z
+a
+a
+w
+a
+I
+x
+a
+"}

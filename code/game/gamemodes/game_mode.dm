@@ -23,6 +23,7 @@
 	var/list/datum/mind/antag_candidates = list()	// List of possible starting antags goes here
 	var/list/restricted_jobs = list()	// Jobs it doesn't make sense to be.  I.E chaplain or AI cultist
 	var/list/protected_jobs = list()	// Jobs that can't be traitors because
+	var/list/required_jobs = list()		// alternative required job groups eg list(list(cap=1),list(hos=1,sec=2)) translates to one captain OR one hos and two secmans
 	var/required_players = 0
 	var/maximum_players = -1 // -1 is no maximum, positive numbers limit the selection of a mode on overstaffed stations
 	var/required_enemies = 0
@@ -156,10 +157,13 @@
 			)
 			query_round_game_mode.Execute()
 			qdel(query_round_game_mode)
-	if(report)
-		addtimer(CALLBACK(src, .proc/send_intercept, 0), rand(waittime_l, waittime_h))
 	create_special_antags()
 	generate_station_goals()
+	if(report)
+		addtimer(CALLBACK(src, .proc/send_intercept, 0), rand(waittime_l, waittime_h))
+	else // goals only become purchasable when on_report is called, this also makes a replacement announcement.
+		for(var/datum/station_goal/G in station_goals)
+			G.prepare_report()
 	gamemode_ready = TRUE
 	return 1
 

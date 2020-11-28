@@ -7,6 +7,7 @@
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
+	appearance_flags = TILE_BOUND
 	var/level = 2
 
 	///If non-null, overrides a/an/some in all cases
