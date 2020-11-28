@@ -1103,7 +1103,7 @@
 /obj/item/toy/toytrain/attack_self(mob/user)
 	if (cooldown < world.time)
 		cooldown = (world.time + 20) // Sets cooldown at 2 seconds
-		user.visible_message("<span class='warning'>[user] pulls the string on the bottom of the train.</span>", "<span class='notice'>You pull the string, the wheels begin to spin</span>", "<span class='italics'>The train whires audibly.</span>")
+		user.visible_message("<span class='notice'>[user] pulls the string on the bottom of the train.</span>", "<span class='notice'>You pull the string, the wheels begin to spin</span>", "<span class='italics'>The train whires audibly.</span>")
 		playsound(src, 'sound/voice/moth/scream_moth.ogg', 5, 0)
 	
 	
