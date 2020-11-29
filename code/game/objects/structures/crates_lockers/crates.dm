@@ -15,7 +15,7 @@
 	delivery_icon = "deliverycrate"
 	door_anim_time = 2
 	door_anim_angle = 220
-	door_anim_squish = -0.1
+	door_anim_squish = -0.05
 	door_hinge = 3.5
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
