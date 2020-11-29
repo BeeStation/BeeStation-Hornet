@@ -706,6 +706,7 @@
 	var/list/stat_data = list()
 	for(var/obj/effect/proc_holder/spell/S in spells)
 		if(S.can_be_cast_by(src) && current_tab == S.panel)
+			client.stat_update_mode = STAT_MEDIUM_UPDATE
 			switch(S.charge_type)
 				if("recharge")
 					stat_data["[S.name]"] = GENERATE_STAT_TEXT("[S.charge_counter/10.0]/[S.charge_max/10]")

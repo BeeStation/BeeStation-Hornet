@@ -48,6 +48,34 @@ export const StatStatus = (props, context) => {
           </Flex.Item>
         )
         :null}
+      {stat.alert_popup
+        ?(
+          <Flex.Item mt={1}>
+            <div className="StatBorder_infomation">
+              <Section>
+                <Flex
+                  direction="column"
+                  className="stat_infomation">
+                  <Flex.Item bold>
+                    <Button
+                      color="transparent"
+                      icon="times"
+                      onClick={() => dispatch({
+                        type: 'stat/clearAlertPopup',
+                      })} />
+                    <Box inline>
+                      {stat.alert_popup.title}
+                    </Box>
+                  </Flex.Item>
+                  <Flex.Item mt={2}>
+                    {stat.alert_popup.text}
+                  </Flex.Item>
+                </Flex>
+              </Section>
+            </div>
+          </Flex.Item>
+        )
+        :null}
       {stat.antagonist_popup
         ?(
           <Flex.Item mt={1}>

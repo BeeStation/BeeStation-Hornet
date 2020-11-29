@@ -17,6 +17,8 @@
 	if(client && SSticker.state == GAME_STATE_STARTUP)
 		var/obj/screen/splash/S = new(client, TRUE, TRUE)
 		S.Fade(TRUE)
+		if(client.tgui_panel)
+			client.tgui_panel.give_alert_popup("Game Loading", "The server is currently setting up the world, please hang on while the server loads the game.")
 
 	if(length(GLOB.newplayer_start))
 		forceMove(pick(GLOB.newplayer_start))

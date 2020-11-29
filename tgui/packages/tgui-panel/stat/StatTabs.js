@@ -29,7 +29,7 @@ export const StatTabs = (props, context) => {
           <Flex align="center">
             <Flex.Item>
               <Tabs textAlign="center">
-                {Object.keys(statTabs).map(tab => (
+                {statTabs.map(tab => (
                   <Tabs.Tab
                     key={tab}
                     selected={tab === stat.selectedTab}

@@ -1,4 +1,6 @@
 /client
+	var/stat_update_mode = STAT_FAST_UPDATE
+	var/stat_update_time = 0
 	var/selected_stat_tab = "Status"
 	var/list/previous_stat_tabs
 
@@ -6,22 +8,30 @@
  * Overrideable proc which gets the stat content for the selected tab.
  */
 /mob/proc/get_stat(selected_tab)
+	if(IsAdminAdvancedProcCall())
+		message_admins("[key_name(usr)] attempted to do something weird with the stat tab (Most likely attempting to exploit it to gain privillages).")
+		log_game("[key_name(usr)] attempted to do something weird with the stat tab (Most likely attempting to exploit it to gain privillages).")
+		return list()
 	var/list/tab_data = list()
 	var/requires_holder = FALSE
 	switch(selected_tab)
 		// ===== STATUS TAB =====
 		if("Status")
+			client.stat_update_mode = STAT_FAST_UPDATE
 			tab_data = get_stat_tab_status()
 		// ===== MASTER CONTROLLER =====
 		if("MC")
+			client.stat_update_mode = STAT_SLOW_UPDATE
 			requires_holder = TRUE
 			tab_data = get_stat_tab_master_controller()
 		// ===== ADMIN TICKETS =====
 		if("Tickets")
+			client.stat_update_mode = STAT_MEDIUM_UPDATE
 			requires_holder = TRUE
 			tab_data = GLOB.ahelp_tickets.stat_entry()
 		// ===== SDQL2 =====
 		if("SDQL2")
+			client.stat_update_mode = STAT_MEDIUM_UPDATE
 			requires_holder = TRUE
 			tab_data["Access Global SDQL2 List"] = list(
 				text="VIEW VARIABLES (all)",
@@ -34,6 +44,7 @@
 	// ===== NON CONSTANT TABS (Tab names which can change) =====
 	// ===== LISTEDS TURFS =====
 	if(listed_turf && listed_turf.name == selected_tab)
+		client.stat_update_mode = STAT_MEDIUM_UPDATE
 		var/list/overrides = list()
 		for(var/image/I in client.images)
 			if(I.loc && I.loc.loc == listed_turf && I.override)
@@ -58,8 +69,8 @@
 				type=STAT_ATOM,
 			)
 	var/list/all_verbs = sorted_verbs + client.sorted_verbs
-	//Uhm... No?
 	if(selected_tab in all_verbs)
+		client.stat_update_mode = STAT_NO_UPDATE
 		for(var/verb in all_verbs[selected_tab])
 			var/procpath/V = verb
 			tab_data["[V.name]"] = list(
@@ -71,8 +82,8 @@
 		tab_data += get_spell_stat_data(mind.spell_list, selected_tab)
 	tab_data += get_spell_stat_data(mob_spell_list, selected_tab)
 	if(requires_holder && !client.holder)
-		message_admins("[ckey] attempted to access the MC tab without sufficient rights.")
-		log_admin("[ckey] attempted to access the MC tab without sufficient rights.")
+		message_admins("[ckey] attempted to access the [selected_tab] tab without sufficient rights.")
+		log_admin("[ckey] attempted to access the [selected_tab] tab without sufficient rights.")
 		return list()
 	return tab_data
 
@@ -150,7 +161,7 @@
 		if(length(GLOB.sdql2_queries))
 			tabs |= "SDQL2"
 	var/list/additional_tabs = list()
-	additional_tabs |= sorted_verbs + client?.sorted_verbs
+	additional_tabs |= stat_tabs + client?.stat_tabs
 	additional_tabs = sortList(additional_tabs)
 	//Get verbs
 	tabs |= additional_tabs
@@ -160,6 +171,10 @@
  * Called when a stat button is pressed.
  */
 /mob/proc/stat_pressed(button_pressed, params)
+	if(IsAdminAdvancedProcCall())
+		message_admins("[key_name(usr)] called stat_pressed to potentially exploit the stat_pressed system.")
+		log_game("[key_name(usr)] called stat_pressed to potentially exploit the stat_pressed system.")
+		return
 	switch(button_pressed)
 		if("browsetickets")
 			GLOB.ahelp_tickets.BrowseTickets(src)
@@ -227,21 +242,33 @@
 	//Tell tgui panel to udpate our data
 	client.tgui_panel.set_tab_info(tabs)
 
+/*
+ * Called when the tab is changed.
+ */
+/mob/proc/stat_tab_changed()
+	client.stat_update_time = client.stat_update_mode
+
 /**
   * Output an update to the stat panel for the client
   *
   * calculates client ping, round id, server time, time dilation and other data about the round
   * and puts it in the mob status panel on a regular loop
   */
-/mob/proc/UpdateMobStat()
+/mob/proc/UpdateMobStat(forced = FALSE)
 	if(!client.tgui_panel)
 		return
+	//We don't update
+	if(!client.stat_update_mode && !forced)
+		return
+	if(client.stat_update_time > 0)
+		client.stat_update_time --
+		return
+	client.stat_update_time = client.stat_update_mode
 
 	var/list/stat_tabs = get_stat_tabs()
 	if(client.previous_stat_tabs != stat_tabs)
 		update_stat_tabs(stat_tabs)
 	if(!(client.selected_stat_tab in stat_tabs))
 		set_stat_tab(stat_tabs[1])
-
 	var/list/status_data = get_stat(client.selected_stat_tab)
 	client.tgui_panel.set_panel_infomation(status_data)

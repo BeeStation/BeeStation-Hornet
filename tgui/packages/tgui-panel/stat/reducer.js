@@ -1,6 +1,7 @@
 const initialState = {
   selectedTab: 'Status',
   antagonist_popup: null,
+  alert_popup: null,
   dead_popup: false,
   statTabs: [],
   statInfomation: [],
@@ -36,6 +37,18 @@ export const statReducer = (state = initialState, action) => {
     return {
       ...state,
       antagonist_popup: null,
+    };
+  }
+  if (type === 'stat/alertPopup') {
+    return {
+      ...state,
+      alert_popup: payload,
+    };
+  }
+  if (type === 'stat/clearAlertPopup') {
+    return {
+      ...state,
+      alert_popup: null,
     };
   }
   if (type === 'stat/deadPopup') {

@@ -10,17 +10,22 @@
  */
 
 /datum
+	var/list/stat_tabs
 	var/list/sorted_verbs
 
 /datum/proc/add_verb(new_verbs)
+	//Nooooo!!!!!
 	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name(usr)] attempted to edit their verbs.")
 		log_game("[key_name(usr)] attempted to edit their verbs.")
 		return
 	if(!islist(new_verbs))
 		new_verbs = list(new_verbs)
+	//To use less memory
 	if(!islist(sorted_verbs))
 		sorted_verbs = list()
+	if(!islist(stat_tabs))
+		stat_tabs = list()
 	for(var/verb_in_list in new_verbs)
 		var/procpath/V = verb_in_list
 		if(V.category)
@@ -30,6 +35,7 @@
 				sortTim(sorted_verbs["[V.category]"], /proc/cmp_verb_des)
 			else
 				//Add category with verb
+				stat_tabs += V.category
 				sorted_verbs["[V.category]"] = list(V)
 				sortList(sorted_verbs)
 
@@ -51,6 +57,7 @@
 			//Remove the category if necessary
 			if(!LAZYLEN(sorted_verbs["[V.category]"]))
 				sorted_verbs.Remove("[V.category]")
+				stat_tabs -= V.category
 
 /atom/add_verb(new_verbs, tgui_only = FALSE)
 	if(IsAdminAdvancedProcCall())
