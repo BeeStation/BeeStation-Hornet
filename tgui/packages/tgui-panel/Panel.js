@@ -48,6 +48,14 @@ export const Panel = (props, context) => {
     // Sanity check
     safenumber = number;
   }
+  const resizeFunction = (e, value) => {
+    if (value !== null)
+    {
+      dispatch(updateSettings({
+        statSize: value,
+      }));
+    }}
+  };
   return (
     <Pane theme={settings.theme}>
       <Flex
@@ -64,9 +72,7 @@ export const Panel = (props, context) => {
         dragMatrix={[0, -1]}
         step={1}
         stepPixelSize={9}
-        onDrag={(e, value) => dispatch(updateSettings({
-          statSize: value,
-        }))}>
+        onDrag={(e, value) => resizeFunction(e, value)}>
         {control => (
           <Box
             onMouseDown={control.handleDragStart}
