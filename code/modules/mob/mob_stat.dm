@@ -261,7 +261,7 @@
 	//We don't update
 	if(!client.stat_update_mode && !forced)
 		return
-	if(client.stat_update_time > 0)
+	if(client.stat_update_time > 0 && !forced)
 		client.stat_update_time --
 		return
 	client.stat_update_time = client.stat_update_mode

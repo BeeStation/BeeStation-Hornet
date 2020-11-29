@@ -9,10 +9,10 @@
 			client.selected_stat_tab = payload["selectedTab"]
 			//Update the panel they are on
 			client.mob?.UpdateMobStat(TRUE)
+			client.mob?.stat_tab_changed()
 			return TRUE
 		if("stat/pressed")
 			client.mob?.stat_pressed(payload["action_id"], payload["params"])
-			client.mob?.stat_tab_changed()
 			return TRUE
 	return FALSE
 
