@@ -155,6 +155,7 @@
 		to_chat(usr, "You will no longer hear ship ambience.")
 		usr.stop_sound_channel(CHANNEL_AMBIENT_BUZZ)
 		ambient_buzz_playing = FALSE
+		ambient_buzz = null
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ship Ambience", "[prefs.toggles & SOUND_SHIP_AMBIENCE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, I bet you read this comment expecting to see the same thing :^)
 
 /client/verb/toggle_announcement_sound()
