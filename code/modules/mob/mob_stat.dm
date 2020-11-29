@@ -161,7 +161,8 @@
 		if(length(GLOB.sdql2_queries))
 			tabs |= "SDQL2"
 	var/list/additional_tabs = list()
-	additional_tabs |= stat_tabs + client?.stat_tabs
+	additional_tabs |= stat_tabs
+	additional_tabs |= client?.stat_tabs
 	additional_tabs = sortList(additional_tabs)
 	//Get verbs
 	tabs |= additional_tabs
