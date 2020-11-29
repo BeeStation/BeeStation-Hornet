@@ -217,9 +217,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		// Instantiate tgui panel
 	tgui_panel = new(src)
 
-	if(Ssticker.current_state == GAME_STATE_SETTING_UP)
-		tgui_panel?.give_alert_popup("Game Loading", "The server is currently setting up the world, set up your character and press \"Ready\", the game will start shortly..")
-
 	GLOB.ahelp_tickets.ClientLogin(src)
 	var/connecting_admin = FALSE //because de-admined admins connecting should be treated like admins.
 	//Admin Authorisation
