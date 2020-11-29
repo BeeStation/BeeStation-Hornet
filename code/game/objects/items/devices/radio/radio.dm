@@ -103,18 +103,20 @@
 /obj/item/radio/AltClick(mob/user)
 	if(!headset)
 		if(broadcasting)
+			broadcasting = FALSE
 			to_chat(user, "<span class='notice'>You toggle broadcasting off.</span>")
 		else
+			broadcasting = TRUE
 			to_chat(user, "<span class='notice'>You toggle broadcasting on.</span>")
-		broadcasting = !broadcasting
 
 /obj/item/radio/CtrlShiftClick(mob/user)
 	if(!headset)
 		if(listening)
+			listening = FALSE
 			to_chat(user, "<span class='notice'>You toggle speaker off.</span>")
 		else
+			listening = TRUE
 			to_chat(user, "<span class='notice'>You toggle speaker on.</span>")
-		listening = !listening
 
 /obj/item/radio/interact(mob/user)
 	if(unscrewed && !isAI(user))
