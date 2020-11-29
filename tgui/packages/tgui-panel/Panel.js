@@ -42,11 +42,11 @@ export const Panel = (props, context) => {
     setNumber,
   ] = useLocalState(context, 'number', settings.statSize);
   const dispatch = useDispatch(context);
-  let safenumber = number;
-  if (safenumber === null)
+  let safenumber = 40;
+  if (number !== null)
   {
     // Sanity check
-    safenumber = 40;
+    safenumber = number;
   }
   return (
     <Pane theme={settings.theme}>

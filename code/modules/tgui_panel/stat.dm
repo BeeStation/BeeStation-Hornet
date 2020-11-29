@@ -12,6 +12,7 @@
 			client.mob?.stat_tab_changed()
 			return TRUE
 		if("stat/pressed")
+			client.mob?.UpdateMobStat(TRUE)
 			client.mob?.stat_pressed(payload["action_id"], payload["params"])
 			return TRUE
 	return FALSE

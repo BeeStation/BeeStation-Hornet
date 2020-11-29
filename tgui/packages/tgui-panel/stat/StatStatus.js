@@ -39,7 +39,7 @@ export const StatStatus = (props, context) => {
                 <Flex.Item>
                   <Section
                     className="deadsay">
-                    Don&#39t worry, you can still get back into the game
+                    Don&#39;t worry, you can still get back into the game
                     if your body is revived or through ghost roles.
                   </Section>
                 </Flex.Item>
