@@ -69,8 +69,7 @@
 
 /mob/living/simple_animal/hostile/blob/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	if(!overmind)
-		..()
-		return
+		return ..()
 	var/spanned_message = say_quote(message)
 	var/rendered = "<font color=\"#EE4000\"><b>\[Blob Telepathy\] [real_name]</b> [spanned_message]</font>"
 	for(var/M in GLOB.mob_list)
@@ -144,9 +143,7 @@
 	humanize_pod(user)
 
 /mob/living/simple_animal/hostile/blob/blobspore/proc/humanize_pod(mob/user)
-	if((!overmind || istype(src, /mob/living/simple_animal/hostile/blob/blobspore/weak) || istype(src, /mob/living/simple_animal/hostile/blob/blobspore)) && !is_zombie)
-		return
-	if(key || stat)
+	if((!overmind || key || stat || !is_zombie && istype(src, /mob/living/simple_animal/hostile/blob/blobspore) || istype(src, /mob/living/simple_animal/hostile/blob/blobspore/weak)))
 		return
 	var/pod_ask = alert("Become a blob zombie?", "Are you bulbous enough?", "Yes", "No")
 	if(pod_ask == "No" || !src || QDELETED(src))
