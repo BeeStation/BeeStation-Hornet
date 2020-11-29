@@ -1,6 +1,6 @@
 #define TAIL_SWEEP_COMBO "DDGH"
 #define FACE_SCRATCH_COMBO "HD"
-#define JUGULAR_CUT_COMBO "GDH"
+#define JUGULAR_CUT_COMBO "HHG"
 #define TAIL_GRAB_COMBO "DHGG"
 
 /datum/martial_art/tribal_claw
@@ -60,14 +60,18 @@
     return
 
 /datum/martial_art/tribal_claw/proc/jugularCut(mob/living/carbon/human/A, mob/living/carbon/human/D)
-    log_combat(A, D, "jugular cut (Tribal Claw)")
-    D.visible_message("<span class='warning'>[A] cuts [D]'s jugular vein with their claws!</span>", \
-                        "<span class='userdanger'>[A] cuts your jugular vein!</span>")
-    D.bleed(50)
-    D.emote("gasp")
-    A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
-    playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, 1, -1)
-    return
+    var/def_check = D.getarmor(BODY_ZONE_HEAD, "melee")
+    if((D.health <= D.crit_threshold || (A.pulling == D && A.grab_state >= GRAB_NECK) || D.IsSleeping()))
+        log_combat(A, D, "jugular cut (Tribal Claw)")
+        D.visible_message("<span class='warning'>[A] cuts [D]'s jugular vein with their claws!</span>", \
+                            "<span class='userdanger'>[A] cuts your jugular vein!</span>")
+        D.apply_damage(15, BRUTE, BODY_ZONE_HEAD, def_check)
+        D.bleed_rate = CLAMP(D.bleed_rate + 20, 0, 30)
+        D.apply_status_effect(/datum/status_effect/neck_slice)
+        A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
+        playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, 1, -1)
+    else
+        return basic_hit(A,D)
 
 /datum/martial_art/tribal_claw/proc/tailGrab(mob/living/carbon/human/A, mob/living/carbon/human/D)
     log_combat(A, D, "tail grabbed (Tribal Claw)")
@@ -107,5 +111,5 @@
 
     to_chat(usr, "<span class='notice'>Tail Sweep</span>: Disarm Disarm Grab Harm. Pushes everyone around you away and knocks them down.")
     to_chat(usr, "<span class='notice'>Face Scratch</span>: Harm Disarm. Damages your target's head and confuses them for a short time.")
-    to_chat(usr, "<span class='notice'>Jugular Cut</span>: Grab Disarm Harm. Causes your target to lose blood.")
+    to_chat(usr, "<span class='notice'>Jugular Cut</span>: Harm Harm Grab. Causes your target to rapidly lose blood, works only if you grab your target by their neck, if they are sleeping, or in critical condition.")
     to_chat(usr, "<span class='notice'>Tail Grab</span>: Disarm Harm Grab Grab. Grabs your target by their neck and makes them unable to talk for a short time.")
