@@ -9,12 +9,17 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
 	exotic_bloodtype = "U"
 	use_skintones = TRUE
-	mutant_heart = /obj/item/organ/heart/vampire
-	mutanttongue = /obj/item/organ/tongue/vampire
+
 	limbs_id = "human"
 	skinned_type = /obj/item/stack/sheet/animalhide/human
 	var/info_text = "You are a <span class='danger'>Vampire</span>. You will slowly but constantly lose blood if outside of a coffin. If inside a coffin, you will slowly heal. You may gain more blood by grabbing a live victim and using your drain ability."
 	var/obj/effect/proc_holder/spell/targeted/shapeshift/bat/batform //attached to the datum itself to avoid cloning memes, and other duplicates
+
+/datum/species/vampire/get_species_organs()
+	var/list/organs = ..()
+	organs[ORGAN_SLOT_TONGUE] = /obj/item/organ/tongue/vampire
+	organs[ORGAN_SLOT_HEART] = /obj/item/organ/heart/vampire
+	return organs
 
 /datum/species/vampire/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])

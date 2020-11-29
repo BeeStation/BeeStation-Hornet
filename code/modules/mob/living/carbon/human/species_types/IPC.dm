@@ -6,13 +6,6 @@
 	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,NOBLOOD,TRAIT_EASYDISMEMBER,ROBOTIC_LIMBS,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH) //all of these + whatever we inherit from the real species
 	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_NOCRITDAMAGE)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
-	mutant_brain = /obj/item/organ/brain/positron
-	mutanteyes = /obj/item/organ/eyes/robotic
-	mutanttongue = /obj/item/organ/tongue/robot
-	mutantliver = /obj/item/organ/liver/cybernetic/upgraded/ipc
-	mutantstomach = /obj/item/organ/stomach/cell
-	mutantears = /obj/item/organ/ears/robot
-	mutant_organs = list(/obj/item/organ/cyberimp/arm/power_cord)
 	mutant_bodyparts = list("ipc_screen", "ipc_antenna", "ipc_chassis")
 	default_features = list("mcolor" = "#7D7D7D", "ipc_screen" = "Static", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)")
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
@@ -41,6 +34,17 @@
 	species_language_holder = /datum/language_holder/synthetic
 
 	var/datum/action/innate/change_screen/change_screen
+
+/datum/species/ipc/get_species_organs()
+	var/list/organs = ..()
+	organs[ORGAN_SLOT_BRAIN] = /obj/item/organ/brain/positron
+	organs[ORGAN_SLOT_EYES] = /obj/item/organ/eyes/robotic
+	organs[ORGAN_SLOT_EARS] = /obj/item/organ/ears/robot
+	organs[ORGAN_SLOT_TONGUE] = /obj/item/organ/tongue/robot
+	organs[ORGAN_SLOT_LIVER] = /obj/item/organ/liver/cybernetic/upgraded/ipc
+	organs[ORGAN_SLOT_STOMACH] = /obj/item/organ/stomach/cell
+	organs[ORGAN_SLOT_RIGHT_ARM_AUG] = /obj/item/organ/cyberimp/arm/power_cord
+	return organs
 
 /datum/species/ipc/random_name(unique)
 	var/ipc_name = "[pick(GLOB.posibrain_names)]-[rand(100, 999)]"
@@ -155,6 +159,8 @@ datum/species/ipc/on_species_loss(mob/living/carbon/C)
 
 /datum/species/ipc/spec_life(mob/living/carbon/human/H)
 	. = ..()
+	if (!(locate(/obj/item/organ/stomach/cell) in H.internal_organs))
+		H.adjustStaminaLoss(100, 0)
 	if(H.health <= UNCONSCIOUS && H.stat != DEAD) // So they die eventually instead of being stuck in crit limbo.
 		H.adjustFireLoss(6) // After bodypart_robotic resistance this is ~2/second
 		if(prob(5))

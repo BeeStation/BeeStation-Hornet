@@ -6,10 +6,6 @@
 	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_NOBREATH)
 	default_features = list("mcolor" = "FFF", "tail_human" = "None", "ears" = "None", "wings" = "None")
 	use_skintones = TRUE
-	mutant_brain = /obj/item/organ/brain/dullahan
-	mutanteyes = /obj/item/organ/eyes/dullahan
-	mutanttongue = /obj/item/organ/tongue/dullahan
-	mutantears = /obj/item/organ/ears/dullahan
 	limbs_id = "human"
 	skinned_type = /obj/item/stack/sheet/animalhide/human
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
@@ -67,7 +63,7 @@
 	organ_flags = 0
 
 /obj/item/organ/tongue/dullahan
-	zone = "abstract"
+	defzone = "abstract"
 	modifies_speech = TRUE
 
 /obj/item/organ/tongue/dullahan/handle_speech(datum/source, list/speech_args)
@@ -81,13 +77,13 @@
 	speech_args[SPEECH_MESSAGE] = ""
 
 /obj/item/organ/ears/dullahan
-	zone = "abstract"
+	defzone = "abstract"
 
 /obj/item/organ/eyes/dullahan
 	name = "head vision"
 	desc = "An abstraction."
 	actions_types = list(/datum/action/item_action/organ_action/dullahan)
-	zone = "abstract"
+	defzone = "abstract"
 
 /datum/action/item_action/organ_action/dullahan
 	name = "Toggle Perspective"
@@ -139,3 +135,11 @@
 			owner.gib()
 	owner = null
 	..()
+
+/datum/species/dullahan/get_species_organs()
+	var/list/organs = ..()
+	organs[ORGAN_SLOT_EYES] = /obj/item/organ/eyes/dullahan
+	organs[ORGAN_SLOT_EARS] = /obj/item/organ/ears/dullahan
+	organs[ORGAN_SLOT_TONGUE] = /obj/item/organ/tongue/dullahan
+	organs[ORGAN_SLOT_BRAIN] = /obj/item/organ/brain/dullahan
+	return organs

@@ -14,8 +14,6 @@
 	liked_food = VEGETABLES | DAIRY | CLOTH
 	disliked_food = FRUIT | GROSS
 	toxic_food = MEAT | RAW
-	mutanteyes = /obj/item/organ/eyes/moth
-	mutantwings = /obj/item/organ/wings/moth
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/moth
 
@@ -29,6 +27,12 @@
 		randname += " [lastname]"
 
 	return randname
+	
+/datum/species/moth/get_species_organs()
+	var/list/organs = ..()
+	organs[ORGAN_SLOT_EYES] = /obj/item/organ/eyes/moth
+	organs[ORGAN_SLOT_WINGS] = /obj/item/organ/wings/moth
+	return organs
 
 /datum/species/moth/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	. = ..()

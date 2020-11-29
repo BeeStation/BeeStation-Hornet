@@ -21,12 +21,12 @@
 	C.emote("scream")
 	SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "dismembered", /datum/mood_event/dismembered)
 	drop_limb()
-	
+
 	C.update_equipment_speed_mods() // Update in case speed affecting item unequipped by dismemberment
 	var/turf/location = C.loc
 	if(istype(location))
 		C.add_splatter_floor(location)
-	
+
 	if(QDELETED(src)) //Could have dropped into lava/explosion/chasm/whatever
 		return TRUE
 	if(dam_type == BURN)
@@ -62,7 +62,7 @@
 	playsound(get_turf(C), 'sound/misc/splort.ogg', 80, 1)
 	for(var/X in C.internal_organs)
 		var/obj/item/organ/O = X
-		var/org_zone = check_zone(O.zone)
+		var/org_zone = check_zone(O.get_insert_zone(C))
 		if(org_zone != BODY_ZONE_CHEST)
 			continue
 		O.Remove(C)
@@ -118,7 +118,7 @@
 
 		for(var/X in C.internal_organs) //internal organs inside the dismembered limb are dropped.
 			var/obj/item/organ/O = X
-			var/org_zone = check_zone(O.zone)
+			var/org_zone = check_zone(O.get_insert_zone(C))
 			if(org_zone != body_zone)
 				continue
 			O.transfer_to_limb(src, C)

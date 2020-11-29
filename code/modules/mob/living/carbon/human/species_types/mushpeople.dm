@@ -14,7 +14,7 @@
 	inherent_traits = list(TRAIT_NOBREATH)
 	inherent_factions = list("mushroom")
 	speedmod = 1.5 //faster than golems but not by much
-
+	
 	punchdamage = 12
 
 	no_equip = list(SLOT_WEAR_MASK, SLOT_WEAR_SUIT, SLOT_GLOVES, SLOT_SHOES, SLOT_W_UNIFORM)
@@ -22,10 +22,14 @@
 	burnmod = 1.25
 	heatmod = 1.5
 
-	mutanteyes = /obj/item/organ/eyes/night_vision/mushroom
 	use_skintones = FALSE
 	var/datum/martial_art/mushpunch/mush
 	species_language_holder = /datum/language_holder/mushroom
+	
+/datum/species/mush/get_species_organs()
+	var/list/organs = ..()
+	organs[ORGAN_SLOT_EYES] = /obj/item/organ/eyes/night_vision/mushroom
+	return organs
 
 /datum/species/mush/check_roundstart_eligible()
 	return FALSE //hard locked out of roundstart on the order of design lead kor, this can be removed in the future when planetstation is here OR SOMETHING but right now we have a problem with races.

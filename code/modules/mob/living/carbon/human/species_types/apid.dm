@@ -6,7 +6,6 @@
 	default_color = "FFE800"
 	species_traits = list(LIPS, NOEYESPRITES, TRAIT_BEEFRIEND)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
-	mutanttongue = /obj/item/organ/tongue/bee
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
@@ -14,9 +13,6 @@
 	liked_food = VEGETABLES | FRUIT
 	disliked_food = GROSS | DAIRY
 	toxic_food = MEAT | RAW
-	mutanteyes = /obj/item/organ/eyes/apid
-	mutantlungs = /obj/item/organ/lungs/apid
-	mutantwings = /obj/item/organ/wings/bee
 	heatmod = 1.5
 	coldmod = 1.5
 	burnmod = 1.5
@@ -44,3 +40,11 @@
 	if(chem.type == /datum/reagent/toxin/pestkiller)
 		H.adjustToxLoss(3)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
+		
+/datum/species/apid/get_species_organs()
+	var/list/organs = ..()
+	organs[ORGAN_SLOT_LUNGS] = /obj/item/organ/lungs/apid
+	organs[ORGAN_SLOT_EYES] = /obj/item/organ/eyes/apid
+	organs[ORGAN_SLOT_WINGS] = /obj/item/organ/wings/bee
+	organs[ORGAN_SLOT_TONGUE] = /obj/item/organ/tongue/bee
+	return organs

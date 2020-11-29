@@ -1,7 +1,7 @@
 /obj/item/organ/cyberimp/arm
 	name = "arm-mounted implant"
 	desc = "You shouldn't see this! Adminhelp and report this as an issue on github!"
-	zone = BODY_ZONE_R_ARM
+	defzone = BODY_ZONE_R_ARM
 	icon_state = "implant-toolkit"
 	w_class = WEIGHT_CLASS_SMALL
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
@@ -19,39 +19,34 @@
 		holder = new holder(src)
 
 	update_icon()
-	SetSlotFromZone()
 	items_list = contents.Copy()
 
-/obj/item/organ/cyberimp/arm/proc/SetSlotFromZone()
-	switch(zone)
-		if(BODY_ZONE_L_ARM)
-			slot = ORGAN_SLOT_LEFT_ARM_AUG
-		if(BODY_ZONE_R_ARM)
-			slot = ORGAN_SLOT_RIGHT_ARM_AUG
+/obj/item/organ/cyberimp/arm/get_insert_zone(mob/living/carbon/creature) //zone should change dynamically; doesn't make sense to have organ_slot_rightarm in body_zone_larm
+	switch(slot)
+		if(ORGAN_SLOT_LEFT_ARM_AUG)
+			return BODY_ZONE_L_ARM
+		if(ORGAN_SLOT_RIGHT_ARM_AUG)
+			return BODY_ZONE_R_ARM
 		else
 			CRASH("Invalid zone for [type]")
 
 /obj/item/organ/cyberimp/arm/update_icon()
-	if(zone == BODY_ZONE_R_ARM)
+	if(slot == ORGAN_SLOT_RIGHT_ARM_AUG)
 		transform = null
 	else // Mirroring the icon
 		transform = matrix(-1, 0, 0, 0, 1, 0)
 
 /obj/item/organ/cyberimp/arm/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>[src] is assembled in the [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>"
+	. += "<span class='info'>[src] is assembled in the [slot == ORGAN_SLOT_RIGHT_ARM_AUG ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>"
 
 /obj/item/organ/cyberimp/arm/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(.)
 		return TRUE
 	I.play_tool_sound(src)
-	if(zone == BODY_ZONE_R_ARM)
-		zone = BODY_ZONE_L_ARM
-	else
-		zone = BODY_ZONE_R_ARM
-	SetSlotFromZone()
-	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>")
+	slot = ORGAN_SLOT_RIGHT_ARM_AUG ? ORGAN_SLOT_LEFT_ARM_AUG : ORGAN_SLOT_RIGHT_ARM_AUG
+	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [slot == ORGAN_SLOT_RIGHT_ARM_AUG ? "right" : "left"] arm.</span>")
 	update_icon()
 
 /obj/item/organ/cyberimp/arm/Remove(mob/living/carbon/M, special = 0)
@@ -71,8 +66,8 @@
 	if(!holder || (holder in src))
 		return
 
-	owner.visible_message("<span class='notice'>[owner] retracts [holder] back into [owner.p_their()] [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
-		"<span class='notice'>[holder] snaps back into your [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
+	owner.visible_message("<span class='notice'>[owner] retracts [holder] back into [owner.p_their()] [slot == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
+		"<span class='notice'>[holder] snaps back into your [slot == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
 		"<span class='italics'>You hear a short mechanical noise.</span>")
 
 	if(istype(holder, /obj/item/assembly/flash/armimplant))
@@ -107,7 +102,7 @@
 		else
 			to_chat(owner, "<span class='notice'>You drop [arm_item] to activate [src]!</span>")
 
-	var/result = (zone == BODY_ZONE_R_ARM ? owner.put_in_r_hand(holder) : owner.put_in_l_hand(holder))
+	var/result = (slot == BODY_ZONE_R_ARM ? owner.put_in_r_hand(holder) : owner.put_in_l_hand(holder))
 	if(!result)
 		to_chat(owner, "<span class='warning'>Your [name] fails to activate!</span>")
 		return
@@ -115,8 +110,8 @@
 	// Activate the hand that now holds our item.
 	owner.swap_hand(result)//... or the 1st hand if the index gets lost somehow
 
-	owner.visible_message("<span class='notice'>[owner] extends [holder] from [owner.p_their()] [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
-		"<span class='notice'>You extend [holder] from your [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
+	owner.visible_message("<span class='notice'>[owner] extends [holder] from [owner.p_their()] [slot == ORGAN_SLOT_RIGHT_ARM_AUG ? "right" : "left"] arm.</span>",
+		"<span class='notice'>You extend [holder] from your [slot == ORGAN_SLOT_RIGHT_ARM_AUG ? "right" : "left"] arm.</span>",
 		"<span class='italics'>You hear a short mechanical noise.</span>")
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
 
@@ -147,9 +142,9 @@
 		return
 	if(prob(30/severity) && owner && !(organ_flags & ORGAN_FAILING))
 		Retract()
-		owner.visible_message("<span class='danger'>A loud bang comes from [owner]\'s [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm!</span>")
+		owner.visible_message("<span class='danger'>A loud bang comes from [owner]\'s [slot == ORGAN_SLOT_RIGHT_ARM_AUG ? "right" : "left"] arm!</span>")
 		playsound(get_turf(owner), 'sound/weapons/flashbang.ogg', 100, 1)
-		to_chat(owner, "<span class='userdanger'>You feel an explosion erupt inside your [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm as your implant breaks!</span>")
+		to_chat(owner, "<span class='userdanger'>You feel an explosion erupt inside your [slot == ORGAN_SLOT_RIGHT_ARM_AUG ? "right" : "left"] arm as your implant breaks!</span>")
 		owner.adjust_fire_stacks(20)
 		owner.IgniteMob()
 		owner.adjustFireLoss(25)
@@ -163,7 +158,7 @@
 	contents = newlist(/obj/item/gun/energy/laser/mounted)
 
 /obj/item/organ/cyberimp/arm/gun/laser/l
-	zone = BODY_ZONE_L_ARM
+	slot = ORGAN_SLOT_LEFT_ARM_AUG
 
 
 /obj/item/organ/cyberimp/arm/gun/taser
@@ -173,7 +168,7 @@
 	contents = newlist(/obj/item/gun/energy/e_gun/advtaser/mounted)
 
 /obj/item/organ/cyberimp/arm/gun/taser/l
-	zone = BODY_ZONE_L_ARM
+	slot = ORGAN_SLOT_LEFT_ARM_AUG
 
 /obj/item/organ/cyberimp/arm/toolset
 	name = "integrated toolset implant"
@@ -182,7 +177,7 @@
 		/obj/item/crowbar/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/cyborg)
 
 /obj/item/organ/cyberimp/arm/toolset/l
-	zone = BODY_ZONE_L_ARM
+	slot = ORGAN_SLOT_LEFT_ARM_AUG
 
 /obj/item/organ/cyberimp/arm/toolset/emag_act()
 	if(!(locate(/obj/item/melee/hydraulic_blade) in items_list))
@@ -238,7 +233,7 @@
 	name = "power cord implant"
 	desc = "An internal power cord hooked up to a battery. Useful if you run on volts."
 	contents = newlist(/obj/item/apc_powercord)
-	zone = "l_arm"
+	slot = ORGAN_SLOT_LEFT_ARM_AUG
 
 /obj/item/organ/cyberimp/arm/esaw
 	name = "arm-mounted energy saw"
@@ -253,4 +248,4 @@
 	contents = newlist(/obj/item/melee/hydraulic_blade)
 
 /obj/item/organ/cyberimp/arm/hydraulic_blade/l
-	zone = BODY_ZONE_L_ARM
+	slot = ORGAN_SLOT_LEFT_ARM_AUG

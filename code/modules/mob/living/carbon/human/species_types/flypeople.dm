@@ -4,9 +4,6 @@
 	say_mod = "buzzes"
 	species_traits = list(NOEYESPRITES, NO_UNDERWEAR, TRAIT_BEEFRIEND)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
-	mutanttongue = /obj/item/organ/tongue/fly
-	mutantliver = /obj/item/organ/liver/fly
-	mutantstomach = /obj/item/organ/stomach/fly
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/fly
 	mutant_bodyparts = list("insect_type")
 	default_features = list("insect_type" = "housefly")
@@ -48,3 +45,10 @@
 	if(istype(weapon, /obj/item/melee/flyswatter))
 		return 29 //Flyswatters deal 30x damage to flypeople.
 	return 0
+
+/datum/species/fly/get_species_organs()
+	var/list/organs = ..()
+	organs[ORGAN_SLOT_TONGUE] = /obj/item/organ/tongue/fly	
+	organs[ORGAN_SLOT_STOMACH] = /obj/item/organ/stomach/fly
+	organs[ORGAN_SLOT_LIVER] = /obj/item/organ/liver/fly
+	return organs

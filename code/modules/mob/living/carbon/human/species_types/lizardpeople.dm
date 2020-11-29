@@ -7,8 +7,6 @@
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_REPTILE)
 	mutant_bodyparts = list("tail_lizard", "snout", "spines", "horns", "frills", "body_markings", "legs")
-	mutanttongue = /obj/item/organ/tongue/lizard
-	mutanttail = /obj/item/organ/tail/lizard
 	coldmod = 1.5
 	heatmod = 0.67
 	default_features = list("mcolor" = "0F0", "tail_lizard" = "Smooth", "snout" = "Round", "horns" = "None", "frills" = "None", "spines" = "None", "body_markings" = "None", "legs" = "Normal Legs")
@@ -24,6 +22,12 @@
 	inert_mutation = FIREBREATH
 	deathsound = 'sound/voice/lizard/deathsound.ogg'
 	species_language_holder = /datum/language_holder/lizard
+	
+/datum/species/lizard/get_species_organs()
+	var/list/organs = ..()
+	organs[ORGAN_SLOT_TONGUE] = /obj/item/organ/tongue/lizard
+	organs[ORGAN_SLOT_TAIL] = /obj/item/organ/tail/lizard
+	return organs
 
 /datum/species/lizard/random_name(gender,unique,lastname)
 	if(unique)

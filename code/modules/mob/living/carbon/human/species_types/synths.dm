@@ -15,6 +15,7 @@
 	var/list/initial_inherent_traits
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	species_language_holder = /datum/language_holder/synthetic
+	var/list/species_organs
 
 
 /datum/species/synth/New()
@@ -62,7 +63,7 @@
 		miss_sound = S.miss_sound
 		meat = S.meat
 		mutant_bodyparts = S.mutant_bodyparts.Copy()
-		mutant_organs = S.mutant_organs.Copy()
+		species_organs = S.get_species_organs()
 		default_features = S.default_features.Copy()
 		nojumpsuit = S.nojumpsuit
 		no_equip = S.no_equip.Copy()

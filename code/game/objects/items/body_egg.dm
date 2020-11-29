@@ -2,12 +2,12 @@
 	name = "body egg"
 	desc = "All slimy and yuck."
 	icon_state = "innards"
-	zone = BODY_ZONE_CHEST
+	defzone = BODY_ZONE_CHEST
 	slot = "parasite_egg"
 
 /obj/item/organ/body_egg/on_find(mob/living/finder)
 	..()
-	to_chat(finder, "<span class='warning'>You found an unknown alien organism in [owner]'s [zone]!</span>")
+	to_chat(finder, "<span class='warning'>You found an unknown alien organism in [owner]'s [get_insert_zone(owner)]!</span>")
 
 /obj/item/organ/body_egg/New(loc)
 	if(iscarbon(loc))

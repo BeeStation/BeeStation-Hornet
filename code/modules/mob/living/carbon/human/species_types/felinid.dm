@@ -10,8 +10,8 @@
 	mutant_bodyparts = list("ears", "tail_human")
 	default_features = list("mcolor" = "FFF", "tail_human" = "Cat", "ears" = "Cat", "wings" = "None")
 
-	mutantears = /obj/item/organ/ears/cat
-	mutanttail = /obj/item/organ/tail/cat
+	var/mutantears = /obj/item/organ/ears/cat
+	var/mutanttail = /obj/item/organ/tail/cat
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 /datum/species/human/felinid/qualifies_for_rank(rank, list/features)
@@ -65,33 +65,7 @@
 			mutanttail = null
 	return ..()
 
-/datum/species/human/felinid/on_species_loss(mob/living/carbon/H, datum/species/new_species, pref_load)
-	var/obj/item/organ/ears/cat/ears = H.getorgan(/obj/item/organ/ears/cat)
-	var/obj/item/organ/tail/cat/tail = H.getorgan(/obj/item/organ/tail/cat)
-
-	if(ears)
-		var/obj/item/organ/ears/NE
-		if(new_species?.mutantears)
-			// Roundstart cat ears override new_species.mutantears, reset it here.
-			new_species.mutantears = initial(new_species.mutantears)
-			if(new_species.mutantears)
-				NE = new new_species.mutantears
-		if(!NE)
-			// Go with default ears
-			NE = new /obj/item/organ/ears
-		NE.Insert(H, drop_if_replaced = FALSE)
-
-	if(tail)
-		var/obj/item/organ/tail/NT
-		if(new_species && new_species.mutanttail)
-			// Roundstart cat tail overrides new_species.mutanttail, reset it here.
-			new_species.mutanttail = initial(new_species.mutanttail)
-			if(new_species.mutanttail)
-				NT = new new_species.mutanttail
-		if(NT)
-			NT.Insert(H, drop_if_replaced = FALSE)
-		else
-			tail.Remove(H)
+//datum/species/human/felinid/on_species_loss(mob/living/carbon/H, datum/species/new_species, pref_load) - NOW OBSOLETE -
 
 /datum/species/human/felinid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/M)
 	.=..()
@@ -148,3 +122,9 @@
 
 	if(!silent)
 		to_chat(H, "You are no longer a cat.")
+
+/datum/species/human/felinid/get_species_organs()
+	var/list/organs = ..()
+	organs[ORGAN_SLOT_EARS] = mutantears
+	organs[ORGAN_SLOT_TAIL] = mutanttail
+	return organs

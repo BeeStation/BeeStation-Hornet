@@ -7,10 +7,6 @@
 	species_traits = list(NOBLOOD,NOTRANSSTING)
 	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_RADIMMUNE,TRAIT_NOHUNGER,TRAIT_ALWAYS_CLEAN)
 	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
-	mutantlungs = /obj/item/organ/lungs/plasmaman
-	mutanttongue = /obj/item/organ/tongue/bone/plasmaman
-	mutantliver = /obj/item/organ/liver/plasmaman
-	mutantstomach = /obj/item/organ/stomach/plasmaman
 	burnmod = 1.5
 	heatmod = 1.5
 	brutemod = 1.5
@@ -22,6 +18,14 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	outfit_important_for_life = /datum/outfit/plasmaman
 	species_language_holder = /datum/language_holder/skeleton
+
+/datum/species/plasmaman/get_species_organs()
+	var/list/organs = ..()
+	organs[ORGAN_SLOT_LUNGS] = /obj/item/organ/lungs/plasmaman
+	organs[ORGAN_SLOT_TONGUE] = /obj/item/organ/tongue/bone/plasmaman
+	organs[ORGAN_SLOT_LIVER] = /obj/item/organ/liver/plasmaman
+	organs[ORGAN_SLOT_STOMACH] = /obj/item/organ/stomach/plasmaman
+	return organs
 
 /datum/species/plasmaman/spec_life(mob/living/carbon/human/H)
 	var/atmos_sealed = FALSE
@@ -80,7 +84,7 @@
 
 		if("Stage Magician")
 			O = new /datum/outfit/plasmaman/magic
-		
+
 		if("VIP")
 			O = new /datum/outfit/plasmaman/vip
 

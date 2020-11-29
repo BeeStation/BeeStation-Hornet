@@ -5,7 +5,7 @@
 	var/status = ORGAN_ORGANIC
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
-	var/zone = BODY_ZONE_CHEST
+	var/defzone = BODY_ZONE_CHEST
 	var/slot
 	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	var/organ_flags = 0
@@ -27,7 +27,7 @@
 	var/low_threshold_cleared
 
 /obj/item/organ/proc/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE)
-	if(!iscarbon(M) || owner == M || !creature_accepts_organ(M))
+	if(!iscarbon(M) || owner == M)
 		return
 
 	var/obj/item/organ/replaced = M.getorganslot(slot)
@@ -49,12 +49,8 @@
 		A.Grant(M)
 	STOP_PROCESSING(SSobj, src)
 
-/obj/item/organ/proc/creature_accepts_organ(mob/living/carbon/creature)
-	if(ishuman(C) && status == ORGAN_ORGANIC)
-		var/mob/living/carbon/human/H = C
-		if(H.dna && istype(H.dna.species,datum/species/ipc))
-			return FALSE
-	return TRUE
+/obj/item/organ/proc/get_insert_zone(mob/living/carbon/creature)
+	return defzone
 
 //Special is for instant replacement like autosurgeons
 /obj/item/organ/proc/Remove(mob/living/carbon/M, special = FALSE)

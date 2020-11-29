@@ -5,7 +5,7 @@
 	throw_speed = 3
 	throw_range = 5
 	layer = ABOVE_MOB_LAYER
-	zone = BODY_ZONE_HEAD
+	defzone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_BRAIN
 	organ_flags = ORGAN_VITAL
 	attack_verb = list("attacked", "slapped", "whacked")
@@ -26,6 +26,11 @@
 
 
 	var/list/datum/brain_trauma/traumas = list()
+
+/obj/item/organ/brain/get_insert_zone(mob/living/carbon/creature)
+	if (HAS_TRAIT(creature, TRAIT_STOMACHBRAIN))
+		return BODY_ZONE_CHEST
+	return BODY_ZONE_HEAD
 
 /obj/item/organ/brain/Insert(mob/living/carbon/C, special = 0,no_id_transfer = FALSE)
 	..()
@@ -243,8 +248,6 @@
 
 /obj/item/organ/brain/positron
 	name = "positronic brain"
-	slot = "brain"
-	zone = "chest"
 	status = ORGAN_ROBOTIC
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top. In order for this Posibrain to be used as a newly built Positronic Brain, it must be coupled with an MMI."
 	icon = 'icons/obj/assemblies.dmi'

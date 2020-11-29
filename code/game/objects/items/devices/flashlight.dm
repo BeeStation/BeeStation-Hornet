@@ -105,7 +105,7 @@
 
 				var/list/mouth_organs = new
 				for(var/obj/item/organ/O in M.internal_organs)
-					if(O.zone == BODY_ZONE_PRECISE_MOUTH)
+					if(O.get_insert_zone(M) == BODY_ZONE_PRECISE_MOUTH)
 						mouth_organs.Add(O)
 				var/organ_list = ""
 				var/organ_count = LAZYLEN(mouth_organs)

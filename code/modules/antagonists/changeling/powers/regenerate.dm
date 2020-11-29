@@ -26,8 +26,9 @@
 			C.regenerate_limbs(1)
 		if(!user.getorganslot(ORGAN_SLOT_BRAIN))
 			var/obj/item/organ/brain/B
-			if(C.has_dna() && C.dna.species.mutant_brain)
-				B = new C.dna.species.mutant_brain()
+			if(C.has_dna() && C.dna.species.get_species_organs()[ORGAN_SLOT_BRAIN])
+				var/organ = C.dna.species.get_species_organs()[ORGAN_SLOT_BRAIN]
+				B = new organ()
 			else
 				B = new()
 			B.organ_flags &= ~ORGAN_VITAL

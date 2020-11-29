@@ -1,7 +1,7 @@
 /obj/item/organ/appendix
 	name = "appendix"
 	icon_state = "appendix"
-	zone = BODY_ZONE_PRECISE_GROIN
+	defzone = BODY_ZONE_PRECISE_GROIN
 	slot = ORGAN_SLOT_APPENDIX
 
 	healing_factor = STANDARD_ORGAN_HEALING

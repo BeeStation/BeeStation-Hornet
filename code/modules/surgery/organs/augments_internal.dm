@@ -26,7 +26,7 @@
 	desc = "Injectors of extra sub-routines for the brain."
 	icon_state = "brain_implant"
 	implant_overlay = "brain_implant_overlay"
-	zone = BODY_ZONE_HEAD
+	defzone = BODY_ZONE_HEAD
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/organ/cyberimp/brain/emp_act(severity)
@@ -140,7 +140,7 @@
 
 //[[[[MOUTH]]]]
 /obj/item/organ/cyberimp/mouth
-	zone = BODY_ZONE_PRECISE_MOUTH
+	defzone = BODY_ZONE_PRECISE_MOUTH
 
 /obj/item/organ/cyberimp/mouth/breathing_tube
 	name = "breathing tube implant"

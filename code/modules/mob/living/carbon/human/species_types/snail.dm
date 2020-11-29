@@ -15,9 +15,6 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	sexes = FALSE //snails are hermaphrodites
 	var/shell_type = /obj/item/storage/backpack/snail
-
-	mutanteyes = /obj/item/organ/eyes/snail
-	mutanttongue = /obj/item/organ/tongue/snail
 	exotic_blood = /datum/reagent/lube
 
 /datum/species/snail/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
@@ -59,3 +56,9 @@
 /obj/item/storage/backpack/snail/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, "snailshell")
+	
+/datum/species/snail/get_species_organs()
+	var/list/organs = ..()
+	organs[ORGAN_SLOT_EYES] = /obj/item/organ/eyes/snail
+	organs[ORGAN_SLOT_TONGUE] = /obj/item/organ/tongue/snail
+	return organs

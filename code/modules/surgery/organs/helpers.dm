@@ -39,7 +39,7 @@
 
 	for(var/X in internal_organs)
 		var/obj/item/organ/O = X
-		if(zone == O.zone)
+		if(zone == O.get_insert_zone(src))
 			returnorg += O
 	return returnorg
 

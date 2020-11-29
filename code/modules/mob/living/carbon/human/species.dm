@@ -29,7 +29,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/species_language_holder = /datum/language_holder
 	var/list/default_features = list() // Default mutant bodyparts for this species. Don't forget to set one for every mutant bodypart you allow this species to have.
 	var/list/mutant_bodyparts = list() 	// Visible CURRENT bodyparts that are unique to a species. DO NOT USE THIS AS A LIST OF ALL POSSIBLE BODYPARTS AS IT WILL FUCK SHIT UP! Changes to this list for non-species specific bodyparts (ie cat ears and tails) should be assigned at organ level if possible. Layer hiding is handled by handle_mutant_bodyparts() below.
-	var/list/mutant_organs = list()		//Internal organs that are unique to this race.
 	var/speedmod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
 	var/armor = 0		// overall defense for the race... or less defense, if it's negative.
 	var/brutemod = 1	// multiplier for brute damage
@@ -68,21 +67,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/sound/attack_sound = 'sound/weapons/punch1.ogg'
 	var/sound/miss_sound = 'sound/weapons/punchmiss.ogg'
 
-	//Breathing!
-	var/obj/item/organ/lungs/mutantlungs = null
-	var/breathid = "o2"
-
-	var/obj/item/organ/brain/mutant_brain = /obj/item/organ/brain
-	var/obj/item/organ/heart/mutant_heart = /obj/item/organ/heart
-	var/obj/item/organ/eyes/mutanteyes = /obj/item/organ/eyes
-	var/obj/item/organ/ears/mutantears = /obj/item/organ/ears
 	var/obj/item/mutanthands
-	var/obj/item/organ/tongue/mutanttongue = /obj/item/organ/tongue
-	var/obj/item/organ/tail/mutanttail = null
-	var/obj/item/organ/wings/mutantwings = null
-
-	var/obj/item/organ/liver/mutantliver
-	var/obj/item/organ/stomach/mutantstomach
+	//Breathing!
+	var/breathid = "o2"
 	var/override_float = FALSE
 
 	//Bitflag that controls what in game ways can select this species as a spawnable source
@@ -143,130 +130,50 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		return 0
 	return 1
 
+
+/datum/species/proc/get_species_organs()
+	var/list/species_organs = list()	//Internal organs that are unique to this race.
+	species_organs[ORGAN_SLOT_BRAIN] =/obj/item/organ/brain
+	species_organs[ORGAN_SLOT_EYES] =/obj/item/organ/eyes
+	species_organs[ORGAN_SLOT_EARS] =/obj/item/organ/ears
+	species_organs[ORGAN_SLOT_BRAIN] =/obj/item/organ/brain
+	species_organs[ORGAN_SLOT_HEART] = (NOBLOOD in species_traits) ? null : /obj/item/organ/heart
+	species_organs[ORGAN_SLOT_LUNGS] = (TRAIT_NOBREATH in inherent_traits) ? null : /obj/item/organ/lungs
+	species_organs[ORGAN_SLOT_APPENDIX] = (TRAIT_NOHUNGER in inherent_traits) ? null : /obj/item/organ/appendix
+	species_organs[ORGAN_SLOT_TONGUE] =/obj/item/organ/tongue
+	species_organs[ORGAN_SLOT_LIVER] = (TRAIT_NOMETABOLISM in inherent_traits) ? null : /obj/item/organ/liver
+	species_organs[ORGAN_SLOT_STOMACH] = (NOSTOMACH in species_traits) ? null : /obj/item/organ/stomach
+	return species_organs
+	
 //Will regenerate missing organs
 /datum/species/proc/regenerate_organs(mob/living/carbon/C,datum/species/old_species,replace_current=TRUE)
-	var/obj/item/organ/brain/brain = C.getorganslot(ORGAN_SLOT_BRAIN)
-	var/obj/item/organ/heart/heart = C.getorganslot(ORGAN_SLOT_HEART)
-	var/obj/item/organ/lungs/lungs = C.getorganslot(ORGAN_SLOT_LUNGS)
-	var/obj/item/organ/appendix/appendix = C.getorganslot(ORGAN_SLOT_APPENDIX)
-	var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
-	var/obj/item/organ/ears/ears = C.getorganslot(ORGAN_SLOT_EARS)
-	var/obj/item/organ/tongue/tongue = C.getorganslot(ORGAN_SLOT_TONGUE)
-	var/obj/item/organ/liver/liver = C.getorganslot(ORGAN_SLOT_LIVER)
-	var/obj/item/organ/stomach/stomach = C.getorganslot(ORGAN_SLOT_STOMACH)
-	var/obj/item/organ/tail/tail = C.getorganslot(ORGAN_SLOT_TAIL)
-	var/obj/item/organ/wings/wings = C.getorganslot(ORGAN_SLOT_WINGS)
+	var/list/species_organs = get_species_organs()
+	for (var/obj/item/organ/O in species_organs)	//insert/replace organs based on species
+		if (replace_current || C.getorganslot(O.slot)==null)
+			var/obj/item/organ/old_O = C.getorganslot(O.slot)
+			if (old_O)
+				old_O.Remove(C,1)
+				QDEL_NULL(old_O)
+			new O().Insert(C)
 
-	var/should_have_brain = TRUE
-	var/should_have_heart = !(NOBLOOD in species_traits)
-	var/should_have_lungs = !(TRAIT_NOBREATH in inherent_traits)
-	var/should_have_appendix = !(TRAIT_NOHUNGER in inherent_traits)
-	var/should_have_eyes = TRUE
-	var/should_have_ears = TRUE
-	var/should_have_tongue = TRUE
-	var/should_have_liver = !(TRAIT_NOMETABOLISM in inherent_traits)
-	var/should_have_stomach = !(NOSTOMACH in species_traits)
-	var/should_have_tail = mutanttail
-	var/should_have_wings = mutantwings
+	if (replace_current)	//delete extra organs
+		for (var/ORGAN_SLOT in list(ORGAN_SLOT_HEART,ORGAN_SLOT_LUNGS,ORGAN_SLOT_APPENDIX,ORGAN_SLOT_LIVER,ORGAN_SLOT_STOMACH,ORGAN_SLOT_TAIL,ORGAN_SLOT_WINGS))//internal organs
+			if (species_organs[ORGAN_SLOT] == null && C.getorganslot(ORGAN_SLOT)!=null)
+				var/obj/item/organ/O = C.getorganslot(ORGAN_SLOT)
+				O.Remove(C,1)
+				QDEL_NULL(O)
+		if(C.get_bodypart(BODY_ZONE_HEAD))	//head
+			for (var/ORGAN_SLOT in list(ORGAN_SLOT_EYES,ORGAN_SLOT_EARS,ORGAN_SLOT_TONGUE))//head organs
+				if (species_organs[ORGAN_SLOT]== null && C.getorganslot(ORGAN_SLOT)!=null)
+					var/obj/item/organ/O = C.getorganslot(ORGAN_SLOT)
+					O.Remove(C,1)
+					QDEL_NULL(O)
 
-	if(heart && (!should_have_heart || replace_current))
-		heart.Remove(C,1)
-		QDEL_NULL(heart)
-	if(should_have_heart && !heart)
-		heart = new mutant_heart()
-		heart.Insert(C)
-
-	if(lungs && (!should_have_lungs || replace_current))
-		lungs.Remove(C,1)
-		QDEL_NULL(lungs)
-	if(should_have_lungs && !lungs)
-		if(mutantlungs)
-			lungs = new mutantlungs()
-		else
-			lungs = new()
-		lungs.Insert(C)
-
-	if(liver && (!should_have_liver || replace_current))
-		liver.Remove(C,1)
-		QDEL_NULL(liver)
-	if(should_have_liver && !liver)
-		if(mutantliver)
-			liver = new mutantliver()
-		else
-			liver = new()
-		liver.Insert(C)
-
-	if(stomach && (!should_have_stomach || replace_current))
-		stomach.Remove(C,1)
-		QDEL_NULL(stomach)
-	if(should_have_stomach && !stomach)
-		if(mutantstomach)
-			stomach = new mutantstomach()
-		else
-			stomach = new()
-		stomach.Insert(C)
-
-	if(appendix && (!should_have_appendix || replace_current))
-		appendix.Remove(C,1)
-		QDEL_NULL(appendix)
-	if(should_have_appendix && !appendix)
-		appendix = new()
-		appendix.Insert(C)
-
-	if(tail && (!should_have_tail || replace_current))
-		tail.Remove(C,1)
-		QDEL_NULL(tail)
-	if(should_have_tail && !tail)
-		tail = new mutanttail()
-		tail.Insert(C)
-
-	if(wings && (!should_have_wings || replace_current))
-		wings.Remove(C,1)
-		QDEL_NULL(wings)
-	if(should_have_wings && !wings)
-		wings = new mutantwings()
-		wings.Insert(C)
-
-	if(C.get_bodypart(BODY_ZONE_HEAD))
-		if(brain && (replace_current || !should_have_brain))
-			if(!brain.decoy_override)//Just keep it if it's fake
-				brain.Remove(C,TRUE,TRUE)
-				QDEL_NULL(brain)
-		if(should_have_brain && !brain)
-			brain = new mutant_brain()
-			brain.Insert(C, TRUE, TRUE)
-
-		if(eyes && (replace_current || !should_have_eyes))
-			eyes.Remove(C,1)
-			QDEL_NULL(eyes)
-		if(should_have_eyes && !eyes)
-			eyes = new mutanteyes
-			eyes.Insert(C)
-
-		if(ears && (replace_current || !should_have_ears))
-			ears.Remove(C,1)
-			QDEL_NULL(ears)
-		if(should_have_ears && !ears)
-			ears = new mutantears
-			ears.Insert(C)
-
-		if(tongue && (replace_current || !should_have_tongue))
-			tongue.Remove(C,1)
-			QDEL_NULL(tongue)
-		if(should_have_tongue && !tongue)
-			tongue = new mutanttongue
-			tongue.Insert(C)
-
-	if(old_species)
-		for(var/mutantorgan in old_species.mutant_organs)
-			var/obj/item/organ/I = C.getorgan(mutantorgan)
-			if(I)
-				I.Remove(C)
-				QDEL_NULL(I)
-
-	for(var/path in mutant_organs)
-		var/obj/item/organ/I = new path()
-		I.Insert(C)
+			if (species_organs[ORGAN_SLOT_BRAIN]== null && C.getorganslot(ORGAN_SLOT_BRAIN)!=null)	//special case for brain
+				var/obj/item/organ/brain/brian = C.getorganslot(ORGAN_SLOT_BRAIN)
+				if (!brian.decoy_override)//Just keep it if it's fake
+					brian.Remove(C,1)
+					QDEL_NULL(brian)
 
 /datum/species/proc/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	// Drop the items the new species can't wear
