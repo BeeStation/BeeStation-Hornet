@@ -194,6 +194,5 @@
 	volume = 1
 
 /obj/item/tank/internals/emergency_oxygen/clown/populate_gas()
-	air_contents.assert_gases(/datum/gas/oxygen, /datum/gas/nitrous_oxide)
-	air_contents.gases[/datum/gas/oxygen][MOLES] = (9.9*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD
-	air_contents.gases[/datum/gas/nitrous_oxide][MOLES] = (0.1*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD
+	air_contents.set_moles(/datum/gas/oxygen, (9.99*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	air_contents.set_moles(/datum/gas/nitrous_oxide, (0.01*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
