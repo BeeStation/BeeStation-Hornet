@@ -147,7 +147,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 //Will regenerate missing organs
 /datum/species/proc/regenerate_organs(mob/living/carbon/C,datum/species/old_species,replace_current=TRUE)
 	var/list/species_organs = get_species_organs()
-	for (var/ORGAN_SLOT in list(ORGAN_SLOT_HEART,ORGAN_SLOT_LUNGS,ORGAN_SLOT_APPENDIX,ORGAN_SLOT_LIVER,ORGAN_SLOT_STOMACH,ORGAN_SLOT_TAIL,ORGAN_SLOT_WINGS,ORGAN_SLOT_RESONATOR,ORGAN_SLOT_RIGHT_ARM_AUG))
+	for (var/ORGAN_SLOT in list(ORGAN_SLOT_HEART,ORGAN_SLOT_LUNGS,ORGAN_SLOT_APPENDIX,ORGAN_SLOT_LIVER,ORGAN_SLOT_STOMACH,ORGAN_SLOT_TAIL,ORGAN_SLOT_WINGS,ORGAN_SLOT_ADAMANTINE_RESONATOR,ORGAN_SLOT_RIGHT_ARM_AUG))
 		if (replace_current && C.getorganslot(ORGAN_SLOT)!=null)
 			var/obj/item/organ/old_O = C.getorganslot(ORGAN_SLOT)
 			old_O.Remove(C,1)
