@@ -45,7 +45,7 @@
 
 /datum/antagonist/sintouched/greet()
 	owner.announce_objectives()
-	owner.current.client?.tgui_panel?.give_antagonist_popup("You are the [owner.special_role]",
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Sintouched",
 		"You have been corrupted by devilish thought, complete your objectives no matter what.")
 
 /datum/antagonist/sintouched/roundend_report()

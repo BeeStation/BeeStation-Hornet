@@ -6,7 +6,7 @@
 
 /datum/antagonist/revenant/greet()
 	owner.announce_objectives()
-	owner.current.client?.tgui_panel?.give_antagonist_popup("You are the [owner.special_role]",
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Revenant",
 		"You are a spirit that has managed to stay in the mortal realm. Take vengance on those that walk this plane without you.")
 
 /datum/antagonist/revenant/proc/forge_objectives()

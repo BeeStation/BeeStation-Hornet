@@ -38,7 +38,7 @@
 	Activate it in your hand, and it will lead to the nearest target. Attack the nuclear authentication disk with it, and you will store it.</span>")
 
 	owner.announce_objectives()
-	owner.current.client?.tgui_panel?.give_antagonist_popup("You are the [owner.special_role]",
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Highlander",
 		"Locate victims to fall to your sword and claim the nuclear authentication disk for yourself.")
 
 /datum/antagonist/highlander/proc/give_equipment()

@@ -26,7 +26,7 @@
 	Your book allows you to research abilities, read it very carefully! You cannot undo what has been done!<br>\
 	You gain charges by either collecting influences or sacrificing people tracked by the living heart<br> \
 	You can find a basic guide at : https://wiki.beestation13.com/view/Heretics </span>")
-	owner.current.client?.tgui_panel?.give_antagonist_popup("You are the [owner.special_role]",
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Heretic",
 		"Collect influences or sacrafice targets to expand your forbidden knowledge.")
 
 /datum/antagonist/heretic/on_gain()

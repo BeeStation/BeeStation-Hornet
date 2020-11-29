@@ -27,7 +27,7 @@
 
 /datum/antagonist/gang/greet()
 	gang.greet_gangster(owner)
-	owner.current.client?.tgui_panel?.give_antagonist_popup("You are the [owner.special_role]",
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Gangster",
 		"You rule the streets, assist your gang in taking over the station.")
 
 /datum/antagonist/gang/farewell()
