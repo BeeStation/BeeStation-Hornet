@@ -32,7 +32,7 @@
 
 /datum/species/golem/get_species_organs()
 	var/list/organs = ..()
-	organs["resonator"] = /obj/item/organ/adamantine_resonator
+	organs[ORGAN_SLOT_RESONATOR] = /obj/item/organ/adamantine_resonator
 	return organs
 
 /datum/species/golem/random_name(gender,unique,lastname)

@@ -32,7 +32,6 @@
 	var/list/initial_inherent_traits
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
 	species_language_holder = /datum/language_holder/synthetic
-
 	var/datum/action/innate/change_screen/change_screen
 
 /datum/species/ipc/get_species_organs()

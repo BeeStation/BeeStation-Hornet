@@ -147,35 +147,26 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 //Will regenerate missing organs
 /datum/species/proc/regenerate_organs(mob/living/carbon/C,datum/species/old_species,replace_current=TRUE)
 	var/list/species_organs = get_species_organs()
-
-	for (var/ORGAN_SLOT in list(ORGAN_SLOT_HEART,ORGAN_SLOT_LUNGS,ORGAN_SLOT_APPENDIX,ORGAN_SLOT_LIVER,ORGAN_SLOT_STOMACH,ORGAN_SLOT_TAIL,ORGAN_SLOT_WINGS,ORGAN_SLOT_EYES,ORGAN_SLOT_EARS,ORGAN_SLOT_TONGUE,ORGAN_SLOT_BRAIN))
-		if (replace_current || C.getorganslot(ORGAN_SLOT)==null)
+	for (var/ORGAN_SLOT in list(ORGAN_SLOT_HEART,ORGAN_SLOT_LUNGS,ORGAN_SLOT_APPENDIX,ORGAN_SLOT_LIVER,ORGAN_SLOT_STOMACH,ORGAN_SLOT_TAIL,ORGAN_SLOT_WINGS,ORGAN_SLOT_RESONATOR,ORGAN_SLOT_RIGHT_ARM_AUG))
+		if (replace_current && C.getorganslot(ORGAN_SLOT)!=null)
 			var/obj/item/organ/old_O = C.getorganslot(ORGAN_SLOT)
-			if (old_O)
-				old_O.Remove(C,1)
-				QDEL_NULL(old_O)
+			old_O.Remove(C,1)
+			QDEL_NULL(old_O)
+		if (C.getorganslot(ORGAN_SLOT)==null)
 			var/organt = species_organs[ORGAN_SLOT]
 			var/obj/item/organ/new_O = new organt()
 			new_O.Insert(C)
-
-	if (replace_current)	//delete extra organs
-		for (var/ORGAN_SLOT in list(ORGAN_SLOT_HEART,ORGAN_SLOT_LUNGS,ORGAN_SLOT_APPENDIX,ORGAN_SLOT_LIVER,ORGAN_SLOT_STOMACH,ORGAN_SLOT_TAIL,ORGAN_SLOT_WINGS))//internal organs
-			if (species_organs[ORGAN_SLOT] == null && C.getorganslot(ORGAN_SLOT)!=null)
-				var/obj/item/organ/O = C.getorganslot(ORGAN_SLOT)
-				O.Remove(C,1)
-				QDEL_NULL(O)
-		if(C.get_bodypart(BODY_ZONE_HEAD))	//head
-			for (var/ORGAN_SLOT in list(ORGAN_SLOT_EYES,ORGAN_SLOT_EARS,ORGAN_SLOT_TONGUE))//head organs
-				if (species_organs[ORGAN_SLOT]== null && C.getorganslot(ORGAN_SLOT)!=null)
-					var/obj/item/organ/O = C.getorganslot(ORGAN_SLOT)
-					O.Remove(C,1)
-					QDEL_NULL(O)
-
-			if (species_organs[ORGAN_SLOT_BRAIN]== null && C.getorganslot(ORGAN_SLOT_BRAIN)!=null)	//special case for brain
-				var/obj/item/organ/brain/brian = C.getorganslot(ORGAN_SLOT_BRAIN)
-				if (!brian.decoy_override)//Just keep it if it's fake
-					brian.Remove(C,1)
-					QDEL_NULL(brian)
+			
+	if(C.get_bodypart(BODY_ZONE_HEAD))	
+		for (var/ORGAN_SLOT in list(ORGAN_SLOT_EYES,ORGAN_SLOT_EARS,ORGAN_SLOT_TONGUE,ORGAN_SLOT_BRAIN,ORGAN_SLOT_VOICE,ORGAN_SLOT_BRAIN))
+			if (replace_current && C.getorganslot(ORGAN_SLOT)!=null)
+				var/obj/item/organ/old_O = C.getorganslot(ORGAN_SLOT)
+				old_O.Remove(C,1)
+				QDEL_NULL(old_O)
+			if (C.getorganslot(ORGAN_SLOT)==null)
+				var/organt = species_organs[ORGAN_SLOT]
+				var/obj/item/organ/new_O = new organt()
+				new_O.Insert(C)
 
 /datum/species/proc/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	// Drop the items the new species can't wear
