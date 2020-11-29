@@ -1,8 +1,0 @@
-author: IndieanaJones
-delete-after: true
-changes:
-  - rscadd: Blob Zombies can now be controlled by Ghosts
-  - tweak: Blobs cannot understand or speak languages anymore and are default to blob
-      hivemind so no .b anymore for blobber or blob zombie
-  - balance: Makes Blob structurs Lavaproof so no blob kill with lavastaff
-  - tweak: Blob announcement now at size 75 or after 10 minutes
