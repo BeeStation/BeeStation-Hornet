@@ -119,7 +119,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(!istype(affected_mob, /mob/living/simple_animal/slime))
 		return
 	var/mob/living/simple_animal/slime/slime_mob = affected_mob
-	slime_mob.nutrition += 2
+	if((slime_mob.nutrition < 996)||(slime_mob.amount_grown < (SLIME_EVOLUTION_THRESHOLD - 1)))
+		slime_mob.add_nutrition(2)
 
 /obj/structure/slime_crystal/orange
 	colour = "orange"
