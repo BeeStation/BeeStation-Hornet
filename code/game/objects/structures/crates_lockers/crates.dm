@@ -15,6 +15,7 @@
 	delivery_icon = "deliverycrate"
 	door_anim_time = 2
 	door_anim_angle = 220
+	door_anim_squish = -0.1
 	door_hinge = 3.5
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
@@ -90,7 +91,7 @@
 /obj/structure/closet/crate/get_door_transform(azimuth_angle, polar_angle, radius_cr)
 		var/matrix/M = matrix()
 		M.Translate(0, -door_hinge)
-		M.Multiply(matrix(1, -sin(polar_angle)*sin(azimuth_angle)* radius_cr, cos(polar_angle)*radius_cr, 0, radius_cr*cos(azimuth_angle)*sin(polar_angle), 0))
+		M.Multiply(matrix(1, -sin(polar_angle)*sin(azimuth_angle)* radius_cr, 0, cos(polar_angle)*door_anim_squish, radius_cr*cos(azimuth_angle)*sin(polar_angle), 0))
 		M.Translate(0, door_hinge)
 		return M
 
