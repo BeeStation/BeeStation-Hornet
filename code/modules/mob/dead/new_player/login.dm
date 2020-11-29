@@ -32,5 +32,3 @@
 		else
 			postfix = "soon"
 		to_chat(src, "Please set up your character and select \"Ready\". The game will start [postfix].")
-
-	client.tgui_panel?.give_alert_popup("Game Loading", "The server is currently setting up the world, set up your character and press \"Ready\", the game will start shortly..")
