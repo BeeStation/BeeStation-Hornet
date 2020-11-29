@@ -1,0 +1,222 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/spawner/lootdrop/maintenance/five,
+/obj/structure/rack,
+/turf/open/floor/plating,
+/area/space)
+"c" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plating,
+/area/space)
+"d" = (
+/obj/structure/closet/toolcloset,
+/obj/item/clothing/suit/straight_jacket,
+/turf/open/floor/plating,
+/area/space)
+"k" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/table,
+/obj/structure/window/reinforced/spawner/north,
+/obj/item/gun/syringe,
+/turf/open/floor/plating,
+/area/space)
+"l" = (
+/obj/machinery/status_display/ai{
+	pixel_y = -32
+	},
+/turf/open/floor/plating,
+/area/space)
+"o" = (
+/obj/effect/mapping_helpers/dead_body_placer,
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/closet/secure_closet/freezer/meat,
+/turf/open/floor/plating,
+/area/space)
+"u" = (
+/turf/closed/wall,
+/area/space)
+"w" = (
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/space)
+"x" = (
+/obj/machinery/gibber,
+/obj/structure/window/reinforced/spawner/north,
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plating,
+/area/space)
+"y" = (
+/obj/machinery/computer/crew{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/space)
+"z" = (
+/obj/structure/table,
+/obj/machinery/microwave,
+/obj/structure/window/reinforced/spawner/north,
+/turf/open/floor/plating,
+/area/space)
+"B" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/open/floor/plating,
+/area/space)
+"C" = (
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/space)
+"E" = (
+/obj/effect/mapping_helpers/dead_body_placer,
+/obj/structure/closet/secure_closet/freezer/meat,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/space)
+"F" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/space)
+"G" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/five,
+/turf/open/floor/plating,
+/area/space)
+"H" = (
+/obj/effect/landmark/blobstart,
+/turf/open/floor/plating,
+/area/space)
+"J" = (
+/turf/open/floor/plating,
+/area/space)
+"K" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/plating,
+/area/space)
+"L" = (
+/obj/structure/grille/broken,
+/turf/open/floor/plating,
+/area/space)
+"M" = (
+/obj/machinery/door/airlock/maintenance/external/glass,
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/plating,
+/area/space)
+"N" = (
+/obj/effect/mapping_helpers/dead_body_placer,
+/obj/structure/closet/secure_closet/freezer/meat,
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/kitchen/knife/butcher,
+/turf/open/floor/plating,
+/area/space)
+"O" = (
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
+/turf/open/floor/plating,
+/area/space)
+"P" = (
+/obj/structure/bed,
+/turf/open/floor/plating,
+/area/space)
+"Q" = (
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/space)
+"R" = (
+/obj/effect/landmark/event_spawn,
+/turf/open/floor/plating,
+/area/space)
+"S" = (
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/space)
+"W" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/space)
+"X" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/turf/open/floor/plating,
+/area/space)
+"Y" = (
+/obj/machinery/computer/med_data{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/space)
+
+(1,1,1) = {"
+G
+L
+J
+M
+a
+"}
+(2,1,1) = {"
+S
+S
+l
+u
+u
+"}
+(3,1,1) = {"
+O
+x
+F
+Y
+y
+"}
+(4,1,1) = {"
+P
+k
+w
+F
+J
+"}
+(5,1,1) = {"
+J
+z
+H
+c
+F
+"}
+(6,1,1) = {"
+C
+J
+R
+W
+J
+"}
+(7,1,1) = {"
+J
+F
+o
+E
+N
+"}
+(8,1,1) = {"
+Q
+X
+u
+u
+u
+"}
+(9,1,1) = {"
+J
+F
+M
+J
+K
+"}
+(10,1,1) = {"
+w
+J
+u
+d
+B
+"}

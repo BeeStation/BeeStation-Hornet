@@ -60,6 +60,10 @@ God bless America.
 	RefreshParts()
 	fry_loop = new(list(src), FALSE)
 
+/obj/machinery/deepfryer/Destroy()
+	QDEL_NULL(fry_loop)
+	return ..()
+
 /obj/machinery/deepfryer/RefreshParts()
 	var/oil_efficiency
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
