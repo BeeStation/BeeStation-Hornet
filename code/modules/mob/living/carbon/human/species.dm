@@ -159,8 +159,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				new_O.Insert(C,TRUE,FALSE)
 			else 
 				var/obj/item/organ/old_O = C.getorganslot(ORGAN_SLOT)
-				old_O.Remove(C,TRUE)
-				QDEL_NULL(old_O)
+				if (old_O)
+					old_O.Remove(C,TRUE)
+					QDEL_NULL(old_O)
 			
 	if(C.get_bodypart(BODY_ZONE_HEAD))	
 		for (var/ORGAN_SLOT in list(ORGAN_SLOT_EYES,ORGAN_SLOT_EARS,ORGAN_SLOT_TONGUE,ORGAN_SLOT_BRAIN,ORGAN_SLOT_VOICE,ORGAN_SLOT_BRAIN))
@@ -175,8 +176,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					new_O.Insert(C,TRUE,FALSE)
 				else 
 					var/obj/item/organ/old_O = C.getorganslot(ORGAN_SLOT)
-					old_O.Remove(C,TRUE)
-					QDEL_NULL(old_O)
+					if (old_O)
+						old_O.Remove(C,TRUE)
+						QDEL_NULL(old_O)
 
 /datum/species/proc/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	// Drop the items the new species can't wear
