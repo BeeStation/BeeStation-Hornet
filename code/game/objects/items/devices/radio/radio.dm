@@ -101,22 +101,18 @@
 	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
 
 /obj/item/radio/AltClick(mob/user)
-	if(!headset)
-		if(broadcasting)
-			broadcasting = FALSE
-			to_chat(user, "<span class='notice'>You toggle broadcasting off.</span>")
-		else
-			broadcasting = TRUE
-			to_chat(user, "<span class='notice'>You toggle broadcasting on.</span>")
+	if(headset)
+		. = ..()
+	else
+		broadcasting = !broadcasting
+		to_chat(user, "<span class='notice'>You toggle broadcasting [broadcasting ? "on" : "off"].</span>")
 
 /obj/item/radio/CtrlShiftClick(mob/user)
-	if(!headset)
-		if(listening)
-			listening = FALSE
-			to_chat(user, "<span class='notice'>You toggle speaker off.</span>")
-		else
-			listening = TRUE
-			to_chat(user, "<span class='notice'>You toggle speaker on.</span>")
+	if(headset)
+		. = ..()
+	else
+		listening = !listening
+		to_chat(user, "<span class='notice'>You toggle speaker [listening ? "on" : "off"].</span>")
 
 /obj/item/radio/interact(mob/user)
 	if(unscrewed && !isAI(user))
