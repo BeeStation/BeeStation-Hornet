@@ -72,10 +72,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	for(var/atom/movable/AM in src)
 		Entered(AM)
 
-	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		add_overlay(/obj/effect/fullbright)
-
 	if(requires_activation)
 		CALCULATE_ADJACENT_TURFS(src)
 		SSair.add_to_active(src)

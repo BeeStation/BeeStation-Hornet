@@ -90,16 +90,13 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 			return
 		newA = new area_choice
 		newA.setup(str)
-		newA.set_dynamic_lighting()
 		newA.has_gravity = oldA.has_gravity
 	else
 		newA = area_choice
 
 	for(var/i in 1 to turfs.len)
 		var/turf/thing = turfs[i]
-		var/area/old_area = thing.loc
 		newA.contents += thing
-		thing.change_area(old_area, newA)
 
 	newA.reg_in_areas_in_z()
 

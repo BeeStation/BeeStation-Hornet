@@ -1,7 +1,7 @@
 /area/holodeck
 	name = "Holodeck"
 	icon_state = "Holodeck"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+
 	flags_1 = 0
 	hidden = TRUE
 

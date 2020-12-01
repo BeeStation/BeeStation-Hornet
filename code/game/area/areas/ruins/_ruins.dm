@@ -5,7 +5,7 @@
 	icon_state = "away"
 	has_gravity = STANDARD_GRAVITY
 	hidden = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+
 	ambient_effects = RUINS
 
 

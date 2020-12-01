@@ -151,7 +151,6 @@ All ShuttleMove procs go here
 
 	contents -= oldT
 	underlying_old_area.contents += oldT
-	oldT.change_area(src, underlying_old_area)
 	//The old turf has now been given back to the area that turf originaly belonged to
 
 	var/area/old_dest_area = newT.loc
@@ -159,7 +158,6 @@ All ShuttleMove procs go here
 
 	old_dest_area.contents -= newT
 	contents += newT
-	newT.change_area(old_dest_area, src)
 	return TRUE
 
 // Called on areas after everything has been moved
@@ -379,7 +377,7 @@ All ShuttleMove procs go here
 
 /************************************Misc move procs************************************/
 
-/atom/movable/lighting_object/onShuttleMove()
+/atom/movable/lighting_darkness/onShuttleMove()
 	return FALSE
 
 /obj/docking_port/mobile/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)

@@ -26,8 +26,6 @@
 
 	update_light()
 
-#undef NONSENSICAL_VALUE
-
 // Will update the light (duh).
 // Creates or destroys it if needed, makes it update values, makes sure it's got the correct source turf...
 /atom/proc/update_light()
@@ -43,10 +41,10 @@
 		else
 			. = loc
 
-		if (light) // Update the light or create it if it does not exist.
-			light.update(.)
-		else
+		if (!light) // Update the light or create it if it does not exist.
 			light = new/datum/light_source(src, .)
+		else
+			light.set_light(light_range, light_power, light_color)
 
 // If we have opacity, make sure to tell (potentially) affected light sources.
 /atom/movable/Destroy()
