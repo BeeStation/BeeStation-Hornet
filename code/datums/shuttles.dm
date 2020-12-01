@@ -307,6 +307,12 @@
 	credit_cost = 5000
 	description = "A fully functional shuttle including a complete infirmary, storage facilties and regular amenities."
 
+/datum/map_template/shuttle/emergency/corg
+	suffix = "corg"
+	name = "Corg Station Emergency Shuttle"
+	credit_cost = 4000
+	description = "A smaller shuttle with area for cargo, medical and security personnel."
+
 /datum/map_template/shuttle/emergency/mini
 	suffix = "mini"
 	name = "Ministation emergency shuttle"
