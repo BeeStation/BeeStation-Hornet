@@ -1,5 +1,0 @@
-author: MNarath1
-delete-after: true
-changes:
-  - admin: Admins now get a message if the AI or a borg decides to delete Crew mainfest
-      entries
