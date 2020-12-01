@@ -264,4 +264,4 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isinf(x) (isnum((x)) && (((x) == text2num("inf")) || ((x) == text2num("-inf"))))
 
 /// NaN isn't a number, damn it. Infinity is a problem too.
-#define isnum_safe(x) ( isnum((x)) && !isnan((x)) && !isinf((x)) )
+#define isnum_safe(x) ( isnum((x)) && (x) == (x) && !isinf((x)) )
