@@ -3,8 +3,6 @@
 //defaults to box
 //  -Cyberboss
 
-#define FORCE_MAP "_maps/corgstation.json"
-
 /datum/map_config
 	// Metadata
 	var/config_filename = "_maps/boxstation.json"
