@@ -2,7 +2,7 @@
 /area/survivalpod
 	name = "\improper Emergency Shelter"
 	icon_state = "away"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
 	valid_territory = FALSE
@@ -91,14 +91,14 @@
 	icon_state = "capsulemed"
 	icon = 'icons/obj/mining.dmi'
 	template_id = "shelter_echo"
-	
+
 /obj/item/survivalcapsule/space
 	name = "space shelter capsule"
 	desc = "A spaceworthy shelter designed for emergencies/construction in a bluespace capsule."
 	icon_state = "capsuleeng"
 	icon = 'icons/obj/mining.dmi'
 	template_id = "shelter_eta"
-	
+
 /obj/item/survivalcapsule/barricade
 	name = "barricade capsule"
 	desc = "A 3x3 glass barricade designed for security use with energy weapons."

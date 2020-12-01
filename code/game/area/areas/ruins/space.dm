@@ -15,7 +15,7 @@
 	icon_state = "space"
 	requires_power = TRUE
 	always_unpowered = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+
 	has_gravity = FALSE
 	power_light = FALSE
 	power_equip = FALSE

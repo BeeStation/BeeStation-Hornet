@@ -4,7 +4,7 @@
 /area/centcom
 	name = "CentCom"
 	icon_state = "centcom"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
 	noteleport = TRUE
@@ -36,7 +36,7 @@
 /area/centcom/supplypod
 	name = "Supplypod Facility"
 	icon_state = "supplypod"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+
 
 /area/centcom/supplypod/podStorage
 	name = "Supplypod Storage"
@@ -65,7 +65,7 @@
 /area/tdome
 	name = "Thunderdome"
 	icon_state = "yellow"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
@@ -73,12 +73,12 @@
 /area/tdome/arena
 	name = "Thunderdome Arena"
 	icon_state = "thunder"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+
 
 /area/tdome/arena_source
 	name = "Thunderdome Arena Template"
 	icon_state = "thunder"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+
 
 /area/tdome/tdome1
 	name = "Thunderdome (Team 1)"
@@ -103,7 +103,7 @@
 /area/wizard_station
 	name = "Wizard's Den"
 	icon_state = "yellow"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
 	noteleport = TRUE
@@ -132,7 +132,7 @@
 /area/syndicate_mothership/control
 	name = "Syndicate Control Room"
 	icon_state = "syndie-control"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+
 
 /area/syndicate_mothership/elite_squad
 	name = "Syndicate Elite Squad"

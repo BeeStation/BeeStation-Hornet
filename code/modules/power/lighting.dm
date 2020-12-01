@@ -26,15 +26,6 @@
 	result_path = /obj/structure/light_construct/small
 	materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
 
-/obj/item/wallframe/light_fixture/try_build(turf/on_wall, user)
-	if(!..())
-		return
-	var/area/A = get_area(user)
-	if(!IS_DYNAMIC_LIGHTING(A))
-		to_chat(user, "<span class='warning'>You cannot place [src] in this area!</span>")
-		return
-	return TRUE
-
 
 /obj/structure/light_construct
 	name = "light fixture frame"

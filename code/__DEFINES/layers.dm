@@ -89,10 +89,14 @@
 #define LIGHTING_PLANE 15
 #define LIGHTING_LAYER 15
 
+//fuck you im british im not making it color -bacon
+#define LIGHTING_COLOUR_PLANE 16
+#define LIGHTING_COLOUR_LAYER 16
+
 #define RAD_TEXT_LAYER 21
 
-#define ABOVE_LIGHTING_PLANE 16
-#define ABOVE_LIGHTING_LAYER 16
+#define ABOVE_LIGHTING_PLANE 17
+#define ABOVE_LIGHTING_LAYER 17
 
 #define BYOND_LIGHTING_PLANE 18
 #define BYOND_LIGHTING_LAYER 18

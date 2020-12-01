@@ -5,7 +5,7 @@
 /area/shuttle
 	name = "Shuttle"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+
 	has_gravity = STANDARD_GRAVITY
 	always_unpowered = FALSE
 	valid_territory = FALSE
@@ -66,7 +66,7 @@
 
 /area/shuttle/hunter
 	name = "Hunter Shuttle"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+
 	blob_allowed = FALSE
 	canSmoothWithAreas = /area/shuttle/hunter
 
@@ -104,7 +104,7 @@
 /area/shuttle/transit
 	name = "Hyperspace"
 	desc = "Weeeeee"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+
 
 /area/shuttle/custom
 	name = "Custom player shuttle"

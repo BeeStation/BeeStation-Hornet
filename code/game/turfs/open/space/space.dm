@@ -20,7 +20,7 @@
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
 	light_power = 0.25
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+
 	bullet_bounce_sound = null
 
 	vis_flags = VIS_INHERIT_ID	//when this be added to vis_contents of something it be associated with something on clicking, important for visualisation of turf in openspace and interraction with openspace that show you turf.
@@ -39,10 +39,6 @@
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
-
-	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		add_overlay(/obj/effect/fullbright)
 
 	if(requires_activation)
 		SSair.add_to_active(src)
@@ -77,16 +73,6 @@
 
 /turf/open/space/Assimilate_Air()
 	return
-
-/turf/open/space/proc/update_starlight()
-	if(CONFIG_GET(flag/starlight))
-		for(var/t in RANGE_TURFS(1,src)) //RANGE_TURFS is in code\__HELPERS\game.dm
-			if(isspaceturf(t))
-				//let's NOT update this that much pls
-				continue
-			set_light(2)
-			return
-		set_light(0)
 
 /turf/open/space/attack_paw(mob/user)
 	return attack_hand(user)
