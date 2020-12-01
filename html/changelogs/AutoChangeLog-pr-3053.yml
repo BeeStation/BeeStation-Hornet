@@ -1,0 +1,13 @@
+author: ike709
+delete-after: true
+changes:
+  - refactor: A bunch of mob-related code has been improved.
+  - tweak: For performance reasons, animals will only attempt to mate at a maximum
+      rate of once every 5 minutes.
+  - tweak: For performance reasons, cats will only kill mice or play with toys when
+      they move to tiles with mice or toys.
+  - tweak: For performance reasons, Kalo's cleaning range has been halved to 5 turfs.
+      I've also lowered the rate at which he finds things to clean.
+  - tweak: For performance reasons, Cak will only frost a donut when entering a turf
+      with a donut.
+  - tweak: Several other performance tweaks.
