@@ -101,9 +101,17 @@
 	. = ..()
 	linked_action.Remove(user, src)
 
+/obj/item/melee/sickly_blade/proc/get_cultist_user(mob/user)
+	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	if (!cultie)
+		var/datum/antagonist/heretic_monster/disciple/sucker = user.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple)
+		if (sucker)
+			return sucker.master
+	return cultie
+
 /obj/item/melee/sickly_blade/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/cultie = get_cultist_user(user)
 	if(!cultie || !proximity_flag)
 		return
 	var/list/knowledge = cultie.get_all_knowledge()

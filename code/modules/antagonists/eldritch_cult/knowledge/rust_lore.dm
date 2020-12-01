@@ -76,6 +76,7 @@
 	required_atoms = list(/mob/living/carbon/human)
 	route = PATH_RUST
 	var/list/trait_list = list(TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_RESISTLOWPRESSURE)
+	followers_increment = 1
 
 //	-	EFFECT	-
 

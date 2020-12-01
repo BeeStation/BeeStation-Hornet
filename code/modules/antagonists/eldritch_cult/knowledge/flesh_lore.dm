@@ -91,6 +91,7 @@
 	required_atoms = list(/mob/living/carbon/human)
 	cost = 15
 	route = PATH_FLESH
+	followers_increment = 1
 
 //	-	EFFECT	-
 
