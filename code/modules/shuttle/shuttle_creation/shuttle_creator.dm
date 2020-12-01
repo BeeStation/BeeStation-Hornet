@@ -266,7 +266,6 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		return FALSE
 	newS = new /area/shuttle/custom/powered()
 	newS.setup(str)
-	newS.set_dynamic_lighting()
 	//Shuttles always have gravity
 	newS.has_gravity = TRUE
 	newS.requires_power = TRUE
@@ -275,9 +274,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 
 	for(var/i in 1 to loggedTurfs.len)
 		var/turf/turf_holder = loggedTurfs[i]
-		var/area/old_area = turf_holder.loc
 		newS.contents += turf_holder
-		turf_holder.change_area(old_area, newS)
 
 	newS.reg_in_areas_in_z()
 

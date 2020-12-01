@@ -9,6 +9,7 @@
 #define LIGHTING_ROUND_VALUE    (1 / 64) //! Value used to round lumcounts, values smaller than 1/129 don't matter (if they do, thanks sinking points), greater values will make lighting less precise, but in turn increase performance, VERY SLIGHTLY.
 
 #define LIGHTING_ICON 'icons/effects/lighting_object.dmi' //! icon used for lighting shading effects
+#define LIGHTING_ICON_BIG 'icons/effects/lighting_object_big.dmi' //! icon used for lighting shading effects
 
 /// If the max of the lighting lumcounts of each spectrum drops below this, disable luminosity on the lighting objects. Set to zero to disable soft lighting. Luminosity changes then work if it's lit at all.
 #define LIGHTING_SOFT_THRESHOLD 0
@@ -63,13 +64,6 @@
 #define LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE 192
 #define LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE 128 //! For lighting alpha, small amounts lead to big changes. even at 128 its hard to figure out what is dark and what is light, at 64 you almost can't even tell.
 #define LIGHTING_PLANE_ALPHA_INVISIBLE 0
-
-//lighting area defines
-#define DYNAMIC_LIGHTING_DISABLED 0 //! dynamic lighting disabled (area stays at full brightness)
-#define DYNAMIC_LIGHTING_ENABLED 1 //! dynamic lighting enabled
-#define DYNAMIC_LIGHTING_FORCED 2 //! dynamic lighting enabled even if the area doesn't require power
-#define DYNAMIC_LIGHTING_IFSTARLIGHT 3 //! dynamic lighting enabled only if starlight is.
-#define IS_DYNAMIC_LIGHTING(A) A.dynamic_lighting
 
 
 //code assumes higher numbers override lower numbers.
