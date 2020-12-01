@@ -1,4 +1,4 @@
-// - TECH TREE - 
+// - TECH TREE -
 
 /datum/eldritch_knowledge/base_rust
 	name = "Harbinger of Decadence"
@@ -76,26 +76,22 @@
 	required_atoms = list(/mob/living/carbon/human)
 	route = PATH_RUST
 	var/list/trait_list = list(TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_RESISTLOWPRESSURE)
-	
+
 //	-	EFFECT	-
-/datum/eldritch_knowledge/base_rush/on_gain(mob/user)
-	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	if (cultie)
-		cultie.path = PATH_RUST
 
 /datum/eldritch_knowledge/rust_fist/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
+	..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/datum/status_effect/eldritch/E = H.has_status_effect(/datum/status_effect/eldritch/rust) || H.has_status_effect(/datum/status_effect/eldritch/ash) || H.has_status_effect(/datum/status_effect/eldritch/flesh)
 		if(E)
 			E.on_effect()
 			H.adjustOrganLoss(pick(ORGAN_SLOT_BRAIN,ORGAN_SLOT_EARS,ORGAN_SLOT_EYES,ORGAN_SLOT_LIVER,ORGAN_SLOT_LUNGS,ORGAN_SLOT_STOMACH,ORGAN_SLOT_HEART),25)
-	target.rust_heretic_act()
+	target.rust_heretic_act(TRUE)
 	return TRUE
 
 /datum/eldritch_knowledge/rust_regen/on_life(mob/user)
-	. = ..()
+	..()
 	var/turf/user_loc_turf = get_turf(user)
 	if(!istype(user_loc_turf, /turf/open/floor/plating/rust) || !isliving(user))
 		return
@@ -121,7 +117,7 @@
 
 /datum/eldritch_knowledge/rust_blade_upgrade/on_mansus_touch(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	target.rust_heretic_act()
+	target.rust_heretic_act(FALSE)
 	return TRUE
 
 /datum/eldritch_knowledge/final/rust_final/on_finished_recipe(mob/living/user, list/atoms, loc)
@@ -164,7 +160,7 @@
 /datum/rust_spread/New(loc)
 	. = ..()
 	var/turf/turf_loc = get_turf(loc)
-	turf_loc.rust_heretic_act()
+	turf_loc.rust_heretic_act(TRUE)
 	turfs += turf_loc
 	START_PROCESSING(SSprocessing,src)
 
@@ -178,7 +174,7 @@
 	var/turf/T
 	for(var/i in 0 to spread_per_tick)
 		T = pick(edge_turfs)
-		T.rust_heretic_act()
+		T.rust_heretic_act(TRUE)
 		turfs += get_turf(T)
 
 /**

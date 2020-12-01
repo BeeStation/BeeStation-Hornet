@@ -235,9 +235,7 @@
 	if(the_rcd.canRturf)
 		return ..()
 
-/turf/closed/wall/r_wall/rust_heretic_act()
-	if(prob(50))
-		return
+/turf/closed/wall/r_wall/rust_heretic_act(strong)
 	if(prob(70))
 		new /obj/effect/temp_visual/glowing_rune(src)
 	ChangeTurf(/turf/closed/wall/r_wall/rust)

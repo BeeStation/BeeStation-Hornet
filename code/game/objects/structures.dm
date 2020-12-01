@@ -112,5 +112,8 @@
 			if(!broken)
 				return  "<span class='warning'>It's falling apart!</span>"
 
-/obj/structure/rust_heretic_act()
-	take_damage(500, BRUTE, "melee", 1)
+/obj/structure/rust_heretic_act(strong)
+	if (strong)
+		take_damage(500, BRUTE, "melee", 1)
+	else
+		take_damage(100, BRUTE, "melee", 1)

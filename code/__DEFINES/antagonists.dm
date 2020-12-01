@@ -75,8 +75,6 @@
 ///It is faster as a macro than a proc
 #define IS_HERETIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic))
 #define IS_HERETIC_CULTIST(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic_monster))
-#define KNOWS_HERETIC_MAGIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic_monster/disciple)?.can_use_magic())
-#define KNOWS_HERETIC_LORE(mob) ((user.job in list("Curator")) || IS_HERETIC(mob) || mob.mind?.has_antag_datum(/datum/antagonist/heretic_monster/disciple)?.can_read_lore())
 	
 #define PATH_SIDE "Side"
 

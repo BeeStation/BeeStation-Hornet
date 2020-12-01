@@ -10,7 +10,7 @@
 	var/in_use = FALSE
 	var/charge = 0
 	var/list/failure_reads = list("Did something whisper my name?", "It's just shapes and scribbles!","This page is just blank...","Are these the scribbles of a madman?","These sketches don't resemble anything.")
-	var/list/success_reads = list("The letters begin to twist and jumble...","It's starting to make sense.","The illustration is staring me right in the eyes!","Have I seen this symbol somewhere else?","This is the place I've been dreaming about!","I've seen this in a recurring dream!","This part is in Galactic Common.","It's like this book is reaching out to me...","Was I destined to read this?",)
+	var/list/success_reads = list("The letters begin to twist and jumble...","It's starting to make sense.","The illustration is staring me right in the eyes!","Have I seen this symbol somewhere else?","This is the place I've been dreaming about!","I've seen this in a recurring dream!","This part is in Galactic Common.","It's like this book is reaching out to me...","Was I destined to read this?")
 
 /obj/item/forbidden_book/Destroy()
 	last_user = null
@@ -48,7 +48,6 @@
 				if (0)
 					victim.SetSleeping(0)
 					to_chat(user,"<span class='warning'>You corrupt the mind of [victim]! He is now bound to do your bidding...</span>")
-					return ..()
 				if (3)
 					to_chat(user,"<span class='warning'>Their mind belongs to someone else!</span>")
 				if (2)

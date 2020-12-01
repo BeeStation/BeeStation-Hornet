@@ -8,14 +8,14 @@
 	var/antag_hud_name = "heretic"
 	var/give_equipment = TRUE
 	var/list/researched_knowledge = list()
-	var/list/pantheon = list(FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE)
+	var/list/pantheon = list()
 	var/total_sacrifices = 0
 	var/dread = 0
 	var/favor_earned = 0
 	var/favor_spent = 0
 	var/list/followers = list()
 	var/ascended = FALSE
-	var/path = "ummm... er..."
+	var/max_followers = 0
 	can_hijack = HIJACK_HIJACKER
 
 /datum/antagonist/heretic/admin_add(datum/mind/new_owner,mob/admin)
@@ -217,6 +217,8 @@
 	var/datum/eldritch_knowledge/initialized_knowledge = new EK
 	researched_knowledge[initialized_knowledge.type] = initialized_knowledge
 	initialized_knowledge.on_gain(owner.current)
+	if (initialized_knowledge.followers_increment)
+		update_max_followers()
 	return TRUE
 
 /datum/antagonist/heretic/proc/get_researchable_knowledge()
@@ -272,9 +274,11 @@
 /datum/objective/sacrifice_ecult
 	name = "sacrifice"
 
-/datum/objective/sacrifice_ecult/update_explanation_text()
-	. = ..()
+/datum/objective/sacrifice_ecult/New()
+	..()
 	target_amount = rand(2,6)
+
+/datum/objective/sacrifice_ecult/update_explanation_text()
 	explanation_text = "Sacrifice at least [target_amount] people."
 
 /datum/objective/sacrifice_ecult/check_completion()
@@ -289,7 +293,7 @@
 	name = "ascend"
 
 /datum/objective/ascend/update_explanation_text()
-	. = ..()
+	..()
 	explanation_text = "Appease the Gods and ascend."
 
 /datum/objective/ascend/check_completion()
@@ -303,9 +307,12 @@
 /datum/objective/minicult
 	name = "mini cult"
 
+/datum/objective/minicult/New()
+	..()
+	target_amount = rand(1,3)
+
 /datum/objective/minicult/update_explanation_text()
-	. = ..()
-	target_amount = rand(2,5)
+	..()
 	explanation_text = "Raise and maintain a cult of [target_amount] people."
 
 /datum/objective/minicult/check_completion()
@@ -329,7 +336,7 @@
 /datum/antagonist/heretic/proc/spend_favor(points)
 	if (get_favor_left()<points)
 		return FALSE
-	favor_spent-=points
+	favor_spent+=points
 	return TRUE
 
 /datum/antagonist/heretic/proc/get_favor_left()
@@ -339,19 +346,18 @@
 // Minicult //
 //////////////
 
-/datum/antagonist/heretic/proc/get_max_followers()
-	var/total = 0
+/datum/antagonist/heretic/proc/update_max_followers()
+	max_followers = 0
 	var/list/knowledge = get_all_knowledge()
-	for(var/X in knowledge)
+	for(var/X as()  in knowledge)
 		var/datum/eldritch_knowledge/EK = knowledge[X]
-		total += EK.followers_increment
-	return total
+		max_followers += EK.followers_increment
 
 /datum/antagonist/heretic/proc/get_cur_followers()
 	return LAZYLEN(followers)
 
 /datum/antagonist/heretic/proc/enslave(mob/living/carbon/human/victim)
-	if(get_cur_followers() >= get_max_followers())
+	if(get_cur_followers() >= max_followers)
 		return 1
 	if(!victim.mind || !victim.client )
 		return 2
@@ -359,7 +365,8 @@
 		return 3
 	log_game("[key_name_admin(victim)] has become a follower of [key_name_admin(src)]")
 	victim.faction |= "heretics"
-	var/datum/antagonist/heretic_monster/heretic_monster = victim.mind.add_antag_datum(/datum/antagonist/heretic_monster/disciple)
+	victim.mind.add_antag_datum(/datum/antagonist/heretic_monster/disciple)
+	var/datum/antagonist/heretic_monster/heretic_monster = victim.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple)
 	heretic_monster.set_owner(src)
 	return 0
 
@@ -367,10 +374,13 @@
 	if (sucker.master != src)
 		to_chat(owner, "<span class='boldannounce'>Belongs to someone else, doe!</span>")//revise these to sound more... lovecraftian
 		return FALSE
+	if (sucker.tier == 4)
+		to_chat(owner, "<span class='boldannounce'>You cannot promote!</span>")
+		return FALSE
 	if (get_favor_left()<sucker.get_promote_cost())
 		to_chat(owner, "<span class='boldannounce'>We require more ves- FAVOR!</span>")
 		return FALSE
-	if((sucker.tier == 3 && !ascended) || sucker.tier >= get_max_followers())
+	if ((sucker.tier == 3 && !ascended) || sucker.tier >= max_followers)
 		to_chat(owner, "<span class='boldannounce'>Get more level!</span>")
 		return FALSE
 	return TRUE
@@ -379,11 +389,14 @@
 // Pantheon //
 //////////////
 
-/datum/antagonist/heretic/proc/gain_deity(intid)
-	if(has_deity(intid))
+/datum/antagonist/heretic/proc/gain_deity(deity_id)
+	if(has_deity(deity_id))
 		return FALSE
-	pantheon[intid] = TRUE
+	LAZYADD(pantheon,deity_id)
 	return TRUE
 
-/datum/antagonist/heretic/proc/has_deity(intid)
-	return pantheon[intid]
+/datum/antagonist/heretic/proc/has_deity(deity_id)
+	for (var/integ in pantheon)
+		if (integ == deity_id)
+			return TRUE
+	return FALSE

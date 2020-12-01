@@ -88,10 +88,6 @@
 	route = PATH_ASH
 
 //	-	EFFECT	-
-/datum/eldritch_knowledge/base_ash/on_gain(mob/user)
-	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	if (cultie)
-		cultie.path = PATH_ASH
 
 /datum/eldritch_knowledge/ashen_grasp/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -129,18 +125,19 @@
 	chosen_mob.cure_blind(MAGIC_TRAIT)
 
 /datum/eldritch_knowledge/ash_blade_upgrade/on_eldritch_blade(target,user,proximity_flag,click_parameters)
-	. = ..()
+	..()
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		C.adjust_fire_stacks(1)
 		C.IgniteMob()
 
 /datum/eldritch_knowledge/ash_blade_upgrade/on_mansus_touch(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
+	..()
 	var/mob/living/L = target
 	if (istype(L))
 		var/datum/reagent/oil/R = new ()
-		R.reaction_mob(L, VAPOR, 10, L.get_permeability_protection(), FALSE)
+		R.reaction_mob(L, TOUCH, 10, L.get_permeability_protection(), FALSE)
+		qdel(R)
 	return TRUE
 
 /datum/eldritch_knowledge/final/ash_final/on_finished_recipe(mob/living/user, list/atoms, loc)

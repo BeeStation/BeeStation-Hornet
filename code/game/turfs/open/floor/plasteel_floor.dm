@@ -8,7 +8,7 @@
 	. = ..()
 	. += "<span class='notice'>There's a <b>small crack</b> on the edge of it.</span>"
 
-/turf/open/floor/plasteel/rust_heretic_act()
+/turf/open/floor/plasteel/rust_heretic_act(strong)
 	if(prob(70))
 		new /obj/effect/temp_visual/glowing_rune(src)
 	ChangeTurf(/turf/open/floor/plating/rust)

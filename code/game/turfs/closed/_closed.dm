@@ -41,7 +41,7 @@
 /turf/closed/indestructible/singularity_act()
 	return
 
-/turf/closed/indestructible/rust_heretic_act()
+/turf/closed/indestructible/rust_heretic_act(strong)
 	return
 
 /turf/closed/indestructible/oldshuttle

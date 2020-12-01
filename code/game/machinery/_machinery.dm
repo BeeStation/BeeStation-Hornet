@@ -562,5 +562,8 @@ Class Procs:
 	AM.pixel_x = -8 + ((.%3)*8)
 	AM.pixel_y = -8 + (round( . / 3)*8)
 
-/obj/machinery/rust_heretic_act()
-	take_damage(500, BRUTE, "melee", 1)
+/obj/machinery/rust_heretic_act(strong)
+	if (strong)
+		take_damage(500, BRUTE, "melee", 1)
+	else
+		take_damage(100, BRUTE, "melee", 1)

@@ -105,6 +105,7 @@
 
 
 /datum/eldritch_knowledge/proc/on_mansus_touch(atom/target, mob/user, proximity_flag, click_parameters)
+	to_chat(user,"[name] worked!")
 	return FALSE
 
 
@@ -371,7 +372,7 @@
 /datum/eldritch_knowledge/curse/fascination
 	name = "Dreamgate"
 	gain_text = "Those safe in this world are not safe in others..."
-	desc = "Transmute a poppy, a bedsheet and candle to perform a Dreamgate Ritual. Allows you to strike any sleeping or unconcious mind with fascination."
+	desc = "Transmute a poppy, a bedsheet and candle to perform a Dreamgate Ritual. Allows you to gain control of any sleeping mind."
 	cost = 4
 	required_atoms = list(/obj/item/bedsheet,/obj/item/reagent_containers/food/snacks/grown/poppy,/obj/item/candle)
 	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
@@ -380,8 +381,14 @@
 /datum/eldritch_knowledge/curse/fascination/curse(mob/living/chosen_mob)
 	. = ..()
 	//var/mob/living/carbon/human/sucker = chosen_mob
-	//if (istype(sucker) && !IS_HERETIC(chosen_mob) && !IS_HERETIC_CULTIST(chosen_mob))
-	//TBD	sucker.gain_trauma(/datum/brain_trauma/fascination,TRAUMA_RESILIENCE_SURGERY)
+	//if (istype(sucker))
+	//	switch (cultie.enslave(sucker))
+	//		if (0)
+	//			sucker.SetSleeping(0)
+	//			to_chat(user,"<span class='warning'>You corrupt the mind of [sucker]! He is now bound to do your bidding...</span>")
+	//		else
+	//			to_chat(user,"<span class='warning'>You fail to corrupt the mind of [sucker].</span>")
+	//			sucker.SetSleeping(100)
 
 /datum/eldritch_knowledge/curse/fascination/on_finished_recipe(mob/living/user,list/atoms,loc)
 	var/list/compiled_list = list()
@@ -390,7 +397,7 @@
 		if(!ishuman(H))
 			continue
 		var/mob/living/carbon/human/human_to_check = H
-		if((human_to_check.IsUnconscious() || human_to_check.IsSleeping()) && human_to_check.stat != DEAD)
+		if((human_to_check.IsSleeping()) && human_to_check.stat != DEAD)
 			compiled_list |= human_to_check.real_name
 			compiled_list[human_to_check.real_name] = human_to_check
 

@@ -154,8 +154,11 @@
 /obj/mecha/get_cell()
 	return cell
 
-/obj/mecha/rust_heretic_act()
-	take_damage(500,  BRUTE)
+/obj/mecha/rust_heretic_act(strong)
+	if (strong)
+		take_damage(500, BRUTE, "melee", 1)
+	else
+		take_damage(100, BRUTE, "melee", 1)
 
 /obj/mecha/Destroy()
 	if(occupant)
@@ -1150,5 +1153,8 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 		if(user == occupant)
 			user.sight |= occupant_sight_flags
 
-/obj/mecha/rust_heretic_act()
-	take_damage(500,  BRUTE)
+/obj/mecha/rust_heretic_act(strong)
+	if (strong)
+		take_damage(500, BRUTE, "melee", 1)
+	else
+		take_damage(100, BRUTE, "melee", 1)

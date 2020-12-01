@@ -56,10 +56,11 @@
 	icon = 'icons/turf/walls/rusty_wall.dmi'
 	hardness = 45
 
-/turf/closed/wall/rust/rust_heretic_act()
+/turf/closed/wall/rust/rust_heretic_act(strong)
 	if(prob(70))
 		new /obj/effect/temp_visual/glowing_rune(src)
-	ScrapeAway()
+	if (strong)
+		ScrapeAway()
 
 /turf/closed/wall/r_wall/rust
 	name = "rusted reinforced wall"
@@ -67,8 +68,8 @@
 	icon = 'icons/turf/walls/rusty_reinforced_wall.dmi'
 	hardness = 15
 
-/turf/closed/wall/r_wall/rust/rust_heretic_act()
-	if(prob(50))
+/turf/closed/wall/r_wall/rust/rust_heretic_act(strong)
+	if(!strong || prob(25))
 		return
 	if(prob(70))
 		new /obj/effect/temp_visual/glowing_rune(src)

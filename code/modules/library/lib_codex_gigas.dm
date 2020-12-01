@@ -32,7 +32,7 @@
 			return TRUE
 		if(U.check_acedia())
 			to_chat(user, "<span class='notice'>None of this matters, why are you reading this? You put [title] down.</span>")
-			return
+			return FALSE
 	user.visible_message("[user] opens [title] and begins reading intently.")
 	ask_name(user)
 
@@ -111,19 +111,16 @@
 	return data
 
 /obj/item/book/codex_gigas/proc/do_eldritch_ritual(mob/living/carbon/human/heretic)
-	to_chat(heretic, "<span class='notice'>A daemonic seals prevent mortals from reading the [title]... Our magic is stronger!</span>")
+	to_chat(heretic, "<span class='notice'>Demonic seals prevent mortals from reading the [title]... Your magic is stronger!</span>")
 	while (do_after(heretic,15 SECONDS, src))
 		to_chat(heretic, "<span class='notice'>You start researching the forbidden knowledge...</span>")
 		var/datum/antagonist/heretic/cultie = heretic.mind.has_antag_datum(/datum/antagonist/heretic)
-		var/chance = rand(1+ cultie.dread*5,100+cultie.dread*10)
+		var/chance = rand(1+ cultie.dread*5,30+cultie.dread*10)
 		to_chat(heretic, "<span class='notice'>Small price to pay, for the forbidden knowledge.</span>")
 		heretic.whisper(pick("hypnos","celephalis","azathoth","dagon","yig","ex oblivione","nyarlathotep","nathicana","arcadia","astrophobos"), language = /datum/language/common)
 		switch(chance)
 			if (1 to 39)
 				to_chat(heretic, "<span class='notice'>The gods look down upon you.</span>")
-			if(40 to 54)
-				heretic.adjustOrganLoss(ORGAN_SLOT_EYES,5)
-				to_chat(heretic, "<span class='warning'>Your eyes bleed...</span>")
 			if(40 to 54)
 				heretic.adjustOrganLoss(ORGAN_SLOT_EYES,5)
 				to_chat(heretic, "<span class='warning'>Your eyes bleed...</span>")
@@ -134,17 +131,16 @@
 				heretic.adjustToxLoss(5)
 				to_chat(heretic, "<span class='warning'>Your body feels weaker.</span>")
 			if(70 to 79)
-				new /mob/living/simple_animal/hostile/netherworld/blankbody(get_turf(src))
-				to_chat(heretic, "<span class='warning'>You draw unwanted attention...</span>")
-			if(80 to 89)
 				cultie.gain_favor(0,TRUE)
 				to_chat(heretic, "<span class='warning'>A sense of dread overcomes you...</span>")
+			if(80 to 89)
+				new /mob/living/simple_animal/hostile/netherworld/blankbody(get_turf(src))
+				to_chat(heretic, "<span class='warning'>You draw unwanted attention...</span>")
 			if(90 to 99)
 				heretic.adjustOrganLoss(ORGAN_SLOT_BRAIN,5)
 				to_chat(heretic, "<span class='warning'>Your sanity decays...</span>")
 			else
 				heretic.adjustCloneLoss(5)
-				to_chat(heretic, "<span class='warning'>Something fights back!</span>")
-				return
+				to_chat(heretic, "<span class='warning'>Something fights back!</span>")				
 		//switch case over
 		cultie.gain_favor(1,TRUE)

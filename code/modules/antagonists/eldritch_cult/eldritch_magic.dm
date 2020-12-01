@@ -67,20 +67,23 @@
 	var/use_charge = FALSE
 	var/use_knowledge = FALSE
 	if(iscarbon(target))
+		var/mob/caster = user
 		var/mob/living/carbon/C = target
-		var/datum/antagonist/heretic_monster/disciple/sucker = C.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple)
-		if (sucker && cultie.can_promote_follower(sucker))
-			cultie.spend_favor(sucker.get_promote_cost())
-			switch (sucker.tier)
-				if (1)
-					user.whisper("May the secrets of Mansus reveal themselves to you!", language = /datum/language/rlyehian)
-				if (2)
-					user.whisper("Accept part of my power as gratitude for your efforts!", language = /datum/language/rlyehian)
-				else
-					user.whisper("In the name of the Fallen, the Ch'Un and the Unholy Sprit...", language = /datum/language/rlyehian)
-			sucker.promote()
-			C.AdjustKnockdown(2 SECONDS)
-			use_charge = TRUE
+		if (caster.a_intent != INTENT_HARM && C.mind?.has_antag_datum(/datum/antagonist/heretic_monster/disciple))
+			var/datum/antagonist/heretic_monster/disciple/sucker = C.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple)
+			if (cultie.can_promote_follower(sucker))
+				cultie.spend_favor(sucker.get_promote_cost())
+				switch (sucker.tier)
+					if (1)
+						user.whisper("May the secrets of Mansus reveal themselves to you!", language = /datum/language/common)
+					if (2)
+						user.whisper("Accept part of my power as gratitude for your efforts!", language = /datum/language/common)
+					else
+						user.whisper("In the name of the Fallen, the Ch'Un and the Unholy Sprit...", language = /datum/language/common)
+				sucker.promote()
+				to_chat(caster, "<span class='warning'>You promote [target] to the tier of [sucker.name]!</span>")
+				C.AdjustKnockdown(2 SECONDS)
+				use_charge = TRUE
 		else
 			use_charge = TRUE
 			C.adjustBruteLoss(10)
@@ -123,11 +126,9 @@
 
 ///Removes runes from the selected turf
 /obj/item/melee/touch_attack/mansus_fist/proc/remove_rune(atom/target,mob/user)
-
 	to_chat(user, "<span class='danger'>You start removing a rune...</span>")
 	if(do_after(user,16 SECONDS,user))
 		qdel(target)
-
 
 /obj/effect/proc_holder/spell/targeted/touch/mansus_grasp/lesser
 	name = "Mansus Touch"
@@ -137,29 +138,30 @@
 
 /obj/item/melee/touch_attack/mansus_fist/lesser
 	name = "Mansus Touch"
+	desc = "A sinister looking aura that distorts the flow of reality around it. Causes major stamina damage and as some Brute. It gains additional beneficial effects with certain knowledges your master has researched."
 	catchphrase = "C'RU'TH"
 
 /obj/item/melee/touch_attack/mansus_fist/lesser/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	if(..())
-		var/harm = TRUE
-		var/datum/antagonist/heretic_monster/disciple/sucker = user.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple)
-		if (sucker)
-			if (sucker.master.owner == target && sucker.tier == 4)
-				var/answer = alert(user, "Are you sure you wish to sacrifice your life to revive [target]?", "Second Chance", "Yes", "No")
-				if(answer == "Yes" && do_after(user, 5 SECONDS, target))
-					var/mob/living/TM = target
-					TM.revive(TRUE, TRUE)
-					user.dust()
-					return TRUE
-			var/list/knowledge = sucker.master.get_all_knowledge()
-			for(var/X in knowledge)
-				var/datum/eldritch_knowledge/EK = knowledge[X]
-				if(!EK.on_mansus_touch(target, user, proximity_flag, click_parameters))
-					harm = FALSE
-		if(harm && iscarbon(target))
-			var/mob/living/carbon/C = target
-			C.adjustBruteLoss(5)
-			C.adjustStaminaLoss(50)
+	var/harm = TRUE
+	var/datum/antagonist/heretic_monster/disciple/sucker = user.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple)
+	if (sucker)
+		if (sucker.master.owner == target && sucker.tier == 4)
+			var/answer = alert(user, "Are you sure you wish to sacrifice your life to revive [target]?", "Second Chance", "Yes", "No")
+			if(answer == "Yes" && do_after(user, 5 SECONDS, target))
+				var/mob/living/TM = target
+				TM.revive(TRUE, TRUE)
+				user.dust()
+				return FALSE
+		var/list/knowledge = sucker.master.get_all_knowledge()
+		for(var/X in knowledge)
+			var/datum/eldritch_knowledge/EK = knowledge[X]
+			if(!EK.on_mansus_touch(target, user, proximity_flag, click_parameters))
+				harm = FALSE
+	if(harm && iscarbon(target))
+		var/mob/living/carbon/C = target
+		C.adjustBruteLoss(5)
+		C.adjustStaminaLoss(60)
+	..()
 
 /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
 	name = "Aggressive Spread"
@@ -181,7 +183,7 @@
 		var/chance = 100 - (max(get_dist(T,user),1)-1)*100/(range+1)
 		if(!prob(chance))
 			continue
-		T.rust_heretic_act()
+		T.rust_heretic_act(TRUE)
 
 /obj/effect/proc_holder/spell/aoe_turf/rust_conversion/small
 	name = "Rust Conversion"
@@ -272,7 +274,7 @@
 		if(!X || prob(25))
 			continue
 		var/turf/T = X
-		T.rust_heretic_act()
+		T.rust_heretic_act(TRUE)
 
 /obj/effect/proc_holder/spell/targeted/projectile/dumbfire/rust_wave/short
 	name = "Small Patron's Reach"

@@ -65,7 +65,7 @@
 	followers_increment = 1
 
 /datum/eldritch_knowledge/flesh_blade_upgrade/on_mansus_touch(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
+	..()
 	var/mob/living/carbon/t_mob = target
 	if (user.a_intent != INTENT_HARM && (IS_HERETIC_CULTIST(t_mob) || IS_HERETIC(t_mob)))
 		if (istype(t_mob))
@@ -93,10 +93,6 @@
 	route = PATH_FLESH
 
 //	-	EFFECT	-
-/datum/eldritch_knowledge/base_flesh/on_gain(mob/user)
-	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	if (cultie)
-		cultie.path = PATH_FLESH
 
 /datum/eldritch_knowledge/flesh_ghoul/on_finished_recipe(mob/living/user,list/atoms,loc)
 	var/mob/living/carbon/human/humie = locate() in atoms

@@ -139,9 +139,10 @@
 	var/used_by_unitiated = FALSE
 	var/trait = TRAIT_THERMAL_VISION
 
-/obj/item/clothing/neck/eldritch_amulet/equipped(mob/user, slot)
+/obj/item/clothing/neck/eldritch_amulet/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
-	if(slot == SLOT_NECK && user.mind && ishuman(user) && (used_by_unitiated || IS_HERETIC(user) || KNOWS_HERETIC_MAGIC(user)))
+
+	if(slot == SLOT_NECK && user.mind && istype(user) && (used_by_unitiated || IS_HERETIC(user) || user.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple)?.can_use_magic()))
 		ADD_TRAIT(user, trait, CLOTHING_TRAIT)
 		user.update_sight()
 
@@ -231,12 +232,14 @@
 /obj/item/artifact/examine(mob/user)
 	. = ..()
 	if (!ashes)
-		if(KNOWS_HERETIC_LORE(user))
+		var/mob/living/carbon/C = user
+		var/datum/antagonist/heretic_monster/disciple/dantag = C.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple)
+		if((C.job in list("Curator")) || IS_HERETIC(C) || (dantag && dantag.can_read_lore()))
 			if (deity<=6)
 				.+="You identify it as an avatar of [godname], one of the earth's weak gods."	//the weak gods of earth watch out for their creations, so they offer beneficial boons
 			else
 				.+="You identify it as an avatar of [godname], one of the forbidden gods."				//forbidden gods on the other side...
-		if (IS_HERETIC(user) || KNOWS_HERETIC_MAGIC(user))
+		if (IS_HERETIC(C) || (dantag && dantag.can_read_lore().can_use_magic()))
 			if (!activated)
 				.+="Use in hand to perform a ritual for [godname], granting this [src] magical powers."
 			else
