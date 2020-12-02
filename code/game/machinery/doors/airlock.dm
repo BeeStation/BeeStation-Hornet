@@ -192,9 +192,8 @@
 		P.icon_state = part_id
 		P.name = name
 	if(mask_filter)
-		filters -= mask_filter
+		remove_filter("mask_filter")
 	add_filter("mask_filter", 1, list(type="alpha",icon=mask_file,x=mask_x,y=mask_y))
-	filters += mask_filter
 
 /obj/machinery/door/airlock/proc/update_other_id()
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
