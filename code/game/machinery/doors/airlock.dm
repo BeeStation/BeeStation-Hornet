@@ -95,7 +95,7 @@
 	var/list/part_overlays
 	var/panel_attachment = "right"
 	var/note_attachment = "left"
-	var/mask_filter
+	var/mask_filter = null
 
 	var/cyclelinkeddir = 0
 	var/obj/machinery/door/airlock/cyclelinkedairlock
@@ -193,7 +193,7 @@
 		P.name = name
 	if(mask_filter)
 		filters -= mask_filter
-	mask_filter = filter(type="alpha",icon=mask_file,x=mask_x,y=mask_y)
+	add_filter("mask_filter", 1, list(type="alpha",icon=mask_file,x=mask_x,y=mask_y))
 	filters += mask_filter
 
 /obj/machinery/door/airlock/proc/update_other_id()
