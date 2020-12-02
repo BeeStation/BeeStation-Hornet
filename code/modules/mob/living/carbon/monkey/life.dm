@@ -24,7 +24,7 @@
 					if(prob(25) && (mobility_flags & MOBILITY_MOVE) && isturf(loc) && !pulledby)
 						step(src, pick(GLOB.cardinals))
 					else if(prob(1))
-						emote(pick("scratch","jump","roll","tail"))
+						INVOKE_ASYNC(src, /mob.proc/emote, pick("scratch","jump","roll","tail"))
 			else
 				walk_to(src,0)
 
