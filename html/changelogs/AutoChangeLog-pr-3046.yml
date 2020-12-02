@@ -1,0 +1,4 @@
+author: Tiviplus, Rohesie, ninjanomnom, ike709, park66665
+delete-after: true
+changes:
+  - refactor: converted decals from components to elements
