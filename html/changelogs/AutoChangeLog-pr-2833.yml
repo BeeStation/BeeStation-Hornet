@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - rscadd: Traitors now have a low chance of spawning on heretics (60%), devil (15%).
-  - code_imp: Minor antagonist roles can now be configured to optionally use antagonist
-      rep
