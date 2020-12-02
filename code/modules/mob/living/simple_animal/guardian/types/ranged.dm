@@ -23,7 +23,7 @@
 	hive_fluff_string = "<span class='holoparasite'>The mass seems to be able to create more mass and also hide at will.</span>"
 	see_invisible = SEE_INVISIBLE_LIVING
 	see_in_dark = 8
-	toggle_button_type = /obj/screen/guardian/ToggleMode
+	toggle_button_type = /atom/movable/screen/guardian/ToggleMode
 	var/list/snares = list()
 	var/toggle = FALSE
 
