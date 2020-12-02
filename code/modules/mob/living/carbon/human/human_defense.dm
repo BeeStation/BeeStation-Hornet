@@ -237,7 +237,7 @@
 	if(M.a_intent == INTENT_DISARM) //the fact that this fucking works is hilarious to me
 		dna.species.disarm(M, src)
 		return 1
-	
+
 	if(M.limb_destroyer)
 		dismembering_strike(M, affecting.body_zone)
 
@@ -320,6 +320,9 @@
 		var/damage = 20
 		if(M.is_adult)
 			damage = 30
+
+		if(M.transformeffects & SLIME_EFFECT_RED)
+			damage *= 1.1
 
 		if(check_shields(M, damage, "the [M.name]"))
 			return 0
@@ -888,7 +891,7 @@
 
 	for(var/obj/item/I in torn_items)
 		I.take_damage(damage_amount, damage_type, damage_flag, 0)
-	
+
 /mob/living/carbon/human/proc/blockbreak()
 	to_chat(src, "<span class ='userdanger'>Your block was broken!</span>")
 	ADD_TRAIT(src, TRAIT_NOBLOCK, type)

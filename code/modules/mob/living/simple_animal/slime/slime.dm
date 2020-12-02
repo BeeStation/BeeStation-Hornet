@@ -49,8 +49,8 @@
 
 	var/number = 0 // Used to understand when someone is talking to it
 
-	var/mob/living/Target = null // AI variable - tells the slime to hunt this down
-	var/mob/living/Leader = null // AI variable - tells the slime to follow this person
+	var/mob/living/Target // AI variable - tells the slime to hunt this down
+	var/mob/living/Leader // AI variable - tells the slime to follow this person
 
 	var/attacked = 0 // Determines if it's been attacked recently. Can be any number, is a cooloff-ish variable
 	var/rabid = 0 // If set to 1, the slime will attack and eat anything it comes in contact with
@@ -85,6 +85,9 @@
 	var/effectmod //What core modification is being used.
 	var/applied = 0 //How many extracts of the modtype have been applied.
 
+	// Transformative extract effects - get passed down
+	var/transformeffects = SLIME_EFFECT_DEFAULT
+	var/effectsapplied = 0 //for use in the slime scanner
 
 /mob/living/simple_animal/slime/Initialize(mapload, new_colour="grey", new_is_adult=FALSE)
 	GLOB.total_slimes++
@@ -425,7 +428,10 @@
 	qdel(src)
 
 /mob/living/simple_animal/slime/proc/apply_water()
-	adjustBruteLoss(rand(15,20))
+	var/new_damage = rand(15,20)
+	if(transformeffects & SLIME_EFFECT_DARK_BLUE)
+		new_damage *= 0.5
+	adjustBruteLoss(new_damage)
 	if(!client)
 		if(Target) // Like cats
 			Target = null
@@ -510,3 +516,8 @@
 
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
 	. = ..(mapload, pick(slime_colours), prob(50))
+
+/mob/living/simple_animal/slime/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE)
+	if(damage && damagetype == BRUTE && !forced && (transformeffects & SLIME_EFFECT_ADAMANTINE))
+		blocked += 30
+	. = ..(damage, damagetype, def_zone, blocked, forced)
