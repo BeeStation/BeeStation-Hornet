@@ -112,3 +112,6 @@
 		if(ismob(B))
 			var/mob/M = B
 			to_chat(M, "<span class='warning'>[linked_swapper] activates, and you find yourself somewhere else.</span>")
+			//victim ckey is appended which is weird and idk, but I left this here for now.
+			//log_combat(B, "swapped to [AREACOORD(B)], swapper activated by [user.ckey]")
+			log_game("[key_name(B)] has been swapped to [AREACOORD(B)]! Quantum Spin Inverter activated by [key_name(user)].")
