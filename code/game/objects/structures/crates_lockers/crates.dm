@@ -14,7 +14,7 @@
 	climb_stun = 0 //climbing onto crates isn't hard, guys
 	delivery_icon = "deliverycrate"
 	door_anim_time = 2
-	door_anim_angle = 220
+	door_anim_angle = 210
 	door_hinge = 3.5
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
@@ -22,7 +22,7 @@
 	close_sound_volume = 50
 	drag_slowdown = 0
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
-	var/radius_2 = 1.3
+	var/radius_2 = 1.35
 
 /obj/structure/closet/crate/Initialize()
 	. = ..()
@@ -67,7 +67,7 @@
 		var/angle = door_anim_angle * (closing ? 1 - (I/num_steps) : (I/num_steps))
 		var/door_state = angle >= 90 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
 		var/door_layer = angle >= 90 ? FLOAT_LAYER : ABOVE_MOB_LAYER
-		var/azimuth_angle = angle >= 90 ? 145 : 325
+		var/azimuth_angle = angle >= 90 ? 138 : 338
 		var/polar_angle = abs(arcsin(cos(angle)))
 		var/radius_cr = angle >= 90 ? radius_2 : 1
 		var/matrix/M = get_door_transform(azimuth_angle, polar_angle, radius_cr)
