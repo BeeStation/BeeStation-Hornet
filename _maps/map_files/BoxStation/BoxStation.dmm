@@ -7131,7 +7131,7 @@
 /area/maintenance/port/fore)
 "arM" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = TRUE
 	},
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating,
@@ -56572,9 +56572,6 @@
 /turf/open/floor/carpet,
 /area/hallway/secondary/entry)
 "qea" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
