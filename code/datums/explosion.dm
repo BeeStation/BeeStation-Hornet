@@ -1,4 +1,14 @@
 #define EXPLOSION_THROW_SPEED 4
+#define CREAK_DELAY 5 SECONDS //Time taken for the creak to play after explosion, if applicable.
+#define DEVASTATION_PROB 30 //The probability modifier for devistation, maths!
+#define HEAVY_IMPACT_PROB 5 //ditto
+#define FAR_UPPER 60 //Upper limit for the far_volume, distance, clamped.
+#define FAR_LOWER 40 //lower limit for the far_volume, distance, clamped.
+#define PROB_SOUND 75 //The probability modifier for a sound to be an echo, or a far sound. (0-100)
+#define SHAKE_CLAMP 2.5 //The limit for how much the camera can shake for out of view booms.
+#define FREQ_UPPER 40 //The upper limit for the randomly selected frequency.
+#define FREQ_LOWER 25 //The lower of the above.
+
 
 GLOBAL_LIST_EMPTY(explosions)
 //Against my better judgement, I will return the explosion datum
@@ -101,13 +111,21 @@ GLOBAL_LIST_EMPTY(explosions)
 	// 3/7/14 will calculate to 80 + 35
 
 	var/far_dist = 0
-	far_dist += heavy_impact_range * 5
+	far_dist += heavy_impact_range * 15
 	far_dist += devastation_range * 20
 
 	if(!silent)
 		var/frequency = get_rand_frequency()
 		var/sound/explosion_sound = sound(get_sfx("explosion"))
 		var/sound/far_explosion_sound = sound('sound/effects/explosionfar.ogg')
+		var/sound/creaking_explosion_sound = sound(get_sfx("explosion_creaking"))
+		var/sound/hull_creaking_sound = sound(get_sfx("hull_creaking"))
+		var/sound/explosion_echo_sound = sound('sound/effects/explosion_distant.ogg')
+		var/on_station = SSmapping.level_trait(epicenter.z, ZTRAIT_STATION)
+		var/creaking_explosion = FALSE
+
+		if(prob(devastation_range*DEVASTATION_PROB+heavy_impact_range*HEAVY_IMPACT_PROB) && on_station) // Huge explosions are near guaranteed to make the station creak and whine, smaller ones might.
+			creaking_explosion = TRUE // prob over 100 always returns true
 
 		for(var/mob/M in GLOB.player_list)
 			// Double check for client
@@ -117,18 +135,35 @@ GLOBAL_LIST_EMPTY(explosions)
 				var/baseshakeamount
 				if(orig_max_distance - dist > 0)
 					baseshakeamount = sqrt((orig_max_distance - dist)*0.1)
-				// If inside the blast radius + world.view - 2
-				if(dist <= round(max_range + world.view - 2, 1))
+				// If inside the blast radius + world.view (x) - 2
+				if(dist <= round(max_range + getviewsize(world.view)[1] - 2, 1))
 					M.playsound_local(epicenter, null, 100, 1, frequency, falloff = 5, S = explosion_sound)
 					if(baseshakeamount > 0)
 						shake_camera(M, 25, CLAMP(baseshakeamount, 0, 10))
 				// You hear a far explosion if you're outside the blast radius. Small bombs shouldn't be heard all over the station.
 				else if(dist <= far_dist)
-					var/far_volume = CLAMP(far_dist, 30, 50) // Volume is based on explosion size and dist
-					far_volume += (dist <= far_dist * 0.5 ? 50 : 0) // add 50 volume if the mob is pretty close to the explosion
-					M.playsound_local(epicenter, null, far_volume, 1, frequency, falloff = 5, S = far_explosion_sound)
-					if(baseshakeamount > 0)
-						shake_camera(M, 10, CLAMP(baseshakeamount*0.25, 0, 2.5))
+					var/far_volume = clamp(far_dist/2, FAR_LOWER, FAR_UPPER) // Volume is based on explosion size and dist
+					if(creaking_explosion)
+						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = creaking_explosion_sound, turf_source = 0)
+					else if(prob(PROB_SOUND)) // Sound variety during meteor storm/tesloose/other bad event
+						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = far_explosion_sound, turf_source = 0) // Far sound
+					else
+						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = explosion_echo_sound, turf_source = 0) // Echo sound
+
+					if(baseshakeamount > 0 || devastation_range)
+						if(!baseshakeamount) // Devastating explosions rock the station and ground
+							baseshakeamount = devastation_range*3
+						shake_camera(M, 10, clamp(baseshakeamount*0.25, 0, SHAKE_CLAMP))
+				else if(!isspaceturf(get_turf(M)) && heavy_impact_range) // Big enough explosions echo throughout the hull
+					var/echo_volume = 40
+					if(devastation_range)
+						baseshakeamount = devastation_range
+						shake_camera(M, 10, clamp(baseshakeamount*0.25, 0, SHAKE_CLAMP))
+						echo_volume = 60
+					M.playsound_local(epicenter, null, echo_volume, 1, frequency, S = explosion_echo_sound, turf_source = 0)
+
+				if(creaking_explosion) // 5 seconds after the bang, the station begins to creak
+					addtimer(CALLBACK(M, /mob/proc/playsound_local, epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, FALSE, hull_creaking_sound, 0), CREAK_DELAY)
 			EX_PREPROCESS_CHECK_TICK
 
 	//postpone processing for a bit
@@ -181,7 +216,6 @@ GLOBAL_LIST_EMPTY(explosions)
 				dist += cached_exp_block[Trajectory]
 
 		var/flame_dist = dist < flame_range
-		var/throw_dist = dist
 
 		if(dist < devastation_range)
 			dist = EXPLODE_DEVASTATE
@@ -217,17 +251,11 @@ GLOBAL_LIST_EMPTY(explosions)
 		//--- THROW ITEMS AROUND ---
 
 		var/throw_dir = get_dir(epicenter,T)
-		for(var/obj/item/I in T)
-			if(!I.anchored)
-				var/throw_range = rand(throw_dist, max_range)
-				var/turf/throw_at = get_ranged_target_turf(I, throw_dir, throw_range)
-				I.throw_at(throw_at, throw_range, EXPLOSION_THROW_SPEED)
-		
-		for(var/mob/living/L in T)
-			if(!L.anchored)
-				var/throw_range = rand(throw_dist, max_range)
-				var/turf/throw_at = get_ranged_target_turf(L, throw_dir, throw_range)
-				L.throw_at(throw_at, throw_range, EXPLOSION_THROW_SPEED)
+		for(var/atom/movable/A in T)
+			if(!A.anchored)
+				var/throw_range = round(max_range * 1.5)
+				var/turf/throw_at = get_ranged_target_turf(A, throw_dir, throw_range)
+				A.safe_throw_at(throw_at, throw_range, EXPLOSION_THROW_SPEED)
 
 		//wait for the lists to repop
 		var/break_condition
@@ -295,6 +323,8 @@ GLOBAL_LIST_EMPTY(explosions)
 
 #undef EX_PREPROCESS_EXIT_CHECK
 #undef EX_PREPROCESS_CHECK_TICK
+
+
 
 //asyncly populate the affected_turfs list
 /datum/explosion/proc/GatherSpiralTurfs(range, turf/epicenter)
@@ -422,3 +452,12 @@ GLOBAL_LIST_EMPTY(explosions)
 // 10 explosion power is a (1, 3, 6) explosion.
 // 5 explosion power is a (0, 1, 3) explosion.
 // 1 explosion power is a (0, 0, 1) explosion.
+#undef CREAK_DELAY
+#undef DEVASTATION_PROB
+#undef HEAVY_IMPACT_PROB
+#undef FAR_UPPER
+#undef FAR_LOWER
+#undef PROB_SOUND
+#undef SHAKE_CLAMP
+#undef FREQ_UPPER
+#undef FREQ_LOWER

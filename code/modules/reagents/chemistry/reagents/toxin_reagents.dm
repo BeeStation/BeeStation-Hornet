@@ -24,7 +24,7 @@
 	taste_description = "mushroom"
 
 /datum/reagent/toxin/mutagen
-	name = "Unstable mutagen"
+	name = "Unstable Mutagen"
 	description = "Might cause unpredictable mutations. Keep away from children."
 	color = "#00FF00"
 	toxpwr = 0
@@ -171,7 +171,7 @@
 
 /datum/reagent/toxin/ghoulpowder
 	name = "Ghoul Powder"
-	description = "A strong neurotoxin that slows metabolism to a death-like state, while keeping the patient fully active. Causes toxin buildup if used too long."
+	description = "A strong neurotoxin that slows metabolism to a death-like state while keeping the patient fully active. Causes toxin buildup if used too long."
 	reagent_state = SOLID
 	color = "#664700" // rgb: 102, 71, 0
 	toxpwr = 0.8
@@ -192,7 +192,7 @@
 
 /datum/reagent/toxin/mindbreaker
 	name = "Mindbreaker Toxin"
-	description = "A powerful hallucinogen. Not a thing to be messed with. For some mental patients. it counteracts their symptoms and anchors them to reality."
+	description = "A mild hallucinogen. Beneficial to some mental patients."
 	color = "#B31008" // rgb: 139, 166, 233
 	toxpwr = 0
 	taste_description = "sourness"
@@ -433,7 +433,7 @@
 
 /datum/reagent/toxin/fentanyl
 	name = "Fentanyl"
-	description = "Fentanyl will inhibit brain function and cause toxin damage before eventually knocking out its victim."
+	description = "Fentanyl will inhibit brain function and cause toxin damage before eventually incapacitating its victim."
 	reagent_state = LIQUID
 	color = "#64916E"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
@@ -715,43 +715,6 @@
 			animate(whole_screen, transform = matrix(), time = 5, easing = QUAD_EASING)
 	..()
 
-/datum/reagent/toxin/skewium
-	name = "Skewium"
-	description = "A strange, dull coloured liquid that appears to warp back and forth inside its container. Causes any consumer to experience a visual phenomena similar to said warping."
-	silent_toxin = TRUE
-	reagent_state = LIQUID
-	color = "#ADBDCD"
-	metabolization_rate = 0.8 * REAGENTS_METABOLISM
-	toxpwr = 0.25
-	taste_description = "skewing"
-	process_flags = ORGANIC | SYNTHETIC
-
-/datum/reagent/toxin/skewium/on_mob_life(mob/living/carbon/M)
-	if(M.hud_used)
-		if(current_cycle >= 5 && current_cycle % 3 == 0)
-			var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
-			var/matrix/skew = matrix()
-			var/intensity = 8
-			skew.set_skew(rand(-intensity,intensity), rand(-intensity,intensity))
-			var/matrix/newmatrix = skew
-
-			if(prob(33)) // 1/3rd of the time, let's make it stack with the previous matrix! Mwhahahaha!
-				var/obj/screen/plane_master/PM = M.hud_used.plane_masters["[GAME_PLANE]"]
-				newmatrix = skew * PM.transform
-
-			for(var/whole_screen in screens)
-				animate(whole_screen, transform = newmatrix, time = 5, easing = QUAD_EASING, loop = -1)
-				animate(transform = -newmatrix, time = 5, easing = QUAD_EASING)
-	return ..()
-
-/datum/reagent/toxin/skewium/on_mob_end_metabolize(mob/living/M)
-	if(M?.hud_used)
-		var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
-		for(var/whole_screen in screens)
-			animate(whole_screen, transform = matrix(), time = 5, easing = QUAD_EASING)
-	..()
-
-
 /datum/reagent/toxin/anacea
 	name = "Anacea"
 	description = "A toxin that quickly purges medicines and metabolizes very slowly."
@@ -772,7 +735,7 @@
 
 
 /datum/reagent/toxin/acid
-	name = "Sulphuric acid"
+	name = "Sulphuric Acid"
 	description = "A strong mineral acid with the molecular formula H2SO4."
 	color = "#00FF32"
 	toxpwr = 1
@@ -860,7 +823,7 @@
 	overdose_threshold = 50
 
 /datum/reagent/toxin/bonehurtingjuice/on_mob_metabolize(mob/living/carbon/M)
-	M.say("oof ouch my bones", forced = /datum/reagent/toxin/bonehurtingjuice)
+	M.say("Oof ouch my bones!", forced = /datum/reagent/toxin/bonehurtingjuice)
 
 /datum/reagent/toxin/bonehurtingjuice/on_mob_life(mob/living/carbon/M)
 	M.adjustStaminaLoss(7.5, 0)

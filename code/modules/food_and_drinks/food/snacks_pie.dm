@@ -229,10 +229,10 @@
 	tastes = list("pie" = 1, "berries" = 2)
 	foodtype = GRAIN | FRUIT
 
-/obj/item/reagent_containers/food/snacks/pie/cocolavatart
+/obj/item/reagent_containers/food/snacks/pie/cocoalavatart
 	name = "chocolate lava tart"
-	desc = "A tasty dessert made of chocaloate, with a liquid core."
-	icon_state = "cocolavatart"
+	desc = "A tasty dessert made of chocolate, with a liquid core."
+	icon_state = "cocoalavatart"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 4)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 4)
 	tastes = list("pie" = 1, "dark chocolate" = 3)

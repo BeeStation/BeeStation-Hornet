@@ -39,11 +39,6 @@
 	var/info = ""
 	var/show_written_words = TRUE
 
-	/// This REALLY should be a componenet.  Basicly used during, april fools
-	/// to honk at you
-	var/rigged = 0
-	var/spam_flag = 0
-
 	/// The (text for the) stamps on the paper.
 	var/list/stamps			/// Positioning for the stamp in tgui
 	var/list/stamped		/// Overlay info
@@ -219,18 +214,6 @@
 	. = ..()
 	if(.)
 		info = "[stars(info)]"
-
-/// ONLY USED FOR APRIL FOOLS
-/obj/item/paper/proc/reset_spamflag()
-	spam_flag = FALSE
-
-/obj/item/paper/attack_self(mob/user)
-	if(rigged && (SSevents.holidays && SSevents.holidays[APRIL_FOOLS]))
-		if(!spam_flag)
-			spam_flag = TRUE
-			playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
-			addtimer(CALLBACK(src, .proc/reset_spamflag), 20)
-	. = ..()
 
 /obj/item/paper/ui_assets(mob/user)
 	return list(

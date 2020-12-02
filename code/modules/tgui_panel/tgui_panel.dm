@@ -56,7 +56,6 @@
 /datum/tgui_panel/proc/on_initialize_timed_out()
 	// Currently does nothing but sending a message to old chat.
 	SEND_TEXT(client, "<span class=\"userdanger\">Failed to load fancy chat, reverting to old chat. Certain features won't work.</span>")
-	log_tgui("ERROR: [client.ckey] failed to load their fancy chat after a 5 second timeout when loading.")
 
 /**
  * private

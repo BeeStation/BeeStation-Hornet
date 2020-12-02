@@ -23,13 +23,22 @@
 	fieldlimit = 6
 	quick_burst_mod = 1
 
-/obj/item/resonator/attack_self(mob/user)
+/obj/item/resonator/AltClick(mob/user)
 	if(burst_time == 50)
 		burst_time = 30
 		to_chat(user, "<span class='info'>You set the resonator's fields to detonate after 3 seconds.</span>")
 	else
 		burst_time = 50
 		to_chat(user, "<span class='info'>You set the resonator's fields to detonate after 5 seconds.</span>")
+
+/obj/item/resonator/attack_self(mob/user)
+	if(LAZYLEN(fields) == 0)
+		return
+	to_chat(user, "<span class='info'>You detonate all resonator's active fields.</span>")
+	for(var/obj/effect/temp_visual/resonance/F in fields)
+		F.damage_multiplier = quick_burst_mod
+		F.burst()
+
 
 /obj/item/resonator/proc/CreateResonance(target, mob/user)
 	var/turf/T = get_turf(target)
