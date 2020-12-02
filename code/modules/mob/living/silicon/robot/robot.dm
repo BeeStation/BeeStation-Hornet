@@ -387,7 +387,7 @@
 		if (!W.tool_start_check(user, amount=0)) //The welder has 1u of fuel consumed by it's afterattack, so we don't need to worry about taking any away.
 			return
 		if(src == user)
-			visible_message(user, "<span class='notice'>You start fixing yourself.</span>")
+			to_chat(user, "<span class='notice'>You start fixing yourself.</span>")
 			if(!W.use_tool(src, user, 50))
 				return
 
