@@ -85,10 +85,10 @@
 				C.AdjustKnockdown(2 SECONDS)
 				use_charge = TRUE
 		else
-			use_charge = TRUE
 			C.adjustBruteLoss(10)
 			C.AdjustKnockdown(5 SECONDS)
 			C.adjustStaminaLoss(80)
+			use_charge = TRUE
 			use_knowledge = TRUE
 	else if (istype(target,/obj/item/artifact) && cultie.get_knowledge(/datum/eldritch_knowledge/dematerialize))
 		var/obj/item/artifact/target_artifact = target
@@ -99,8 +99,9 @@
 		var/mob/caster = user
 		if (caster.a_intent != INTENT_HARM)
 			draw_rune(target,user)
-		else
-			use_knowledge = TRUE
+	else 
+		use_charge = TRUE
+		use_knowledge = TRUE
 
 	if (use_knowledge)
 		var/list/knowledge = cultie.get_all_knowledge()

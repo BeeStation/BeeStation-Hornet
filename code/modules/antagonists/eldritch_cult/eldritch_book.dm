@@ -9,8 +9,6 @@
 	///Is it in use?
 	var/in_use = FALSE
 	var/charge = 0
-	var/list/failure_reads = list("Did something whisper my name?", "It's just shapes and scribbles!","This page is just blank...","Are these the scribbles of a madman?","These sketches don't resemble anything.")
-	var/list/success_reads = list("The letters begin to twist and jumble...","It's starting to make sense.","The illustration is staring me right in the eyes!","Have I seen this symbol somewhere else?","This is the place I've been dreaming about!","I've seen this in a recurring dream!","This part is in Galactic Common.","It's like this book is reaching out to me...","Was I destined to read this?")
 
 /obj/item/forbidden_book/Destroy()
 	last_user = null
@@ -38,22 +36,30 @@
 		return
 	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	in_use = TRUE
-	if (ishuman(target))
+	if (ishuman(target) && victim.stat != DEAD && cultie.has_knowledge(/datum/eldritch_knowledge/dreamgate))
 		var/mob/living/carbon/human/victim = target
-		to_chat(user,"<span class='warning'>You try to corrupt the mind of [victim]!</span>")
+		var/list/incantation = list("That is not dead which can eternal lie...","And with strange aeons even death may die...")
+		to_chat(user,"<span class='warning'>You open the [src] and begin reading [victim]!</span>")
 		icon_state = "book_open"
 		flick("book_opening",src)
-		if(!QDELETED(victim) && do_after(user,15 SECONDS,victim) && victim.stat != DEAD && (victim.IsUnconscious() || victim.IsSleeping()))
-			switch (cultie.enslave(victim))
-				if (0)
-					victim.SetSleeping(0)
-					to_chat(user,"<span class='warning'>You corrupt the mind of [victim]! He is now bound to do your bidding...</span>")
-				if (3)
-					to_chat(user,"<span class='warning'>Their mind belongs to someone else!</span>")
-				if (2)
-					to_chat(user,"<span class='notice'>[victim] has no mind to enslave!</span>")
-				if (1)
-					to_chat(user, "<span class='notice'>You sense a weak mind, but your powers are not strong enough to take it over!</span>")
+		for (var/dream = 1 to 3)
+			if(!QDELETED(victim) && victim.stat != DEAD && victim.IsSleeping() && do_after(user,10 SECONDS,victim))
+				if (dream == 3)
+					switch (cultie.enslave(victim))
+						if (0)
+							victim.SetSleeping(0)
+							to_chat(user,"<span class='warning'>You corrupt the mind of [victim]! [victim.He] is now bound to do your bidding...</span>")
+						if (3)
+							to_chat(user,"<span class='warning'>You cannot enslave this mind!</span>")
+						if (2)
+							to_chat(user,"<span class='notice'>[victim] has no mind to enslave!</span>")
+						if (1)
+							to_chat(user, "<span class='notice'>You sense a weak mind, but your powers are not strong enough to take it over!</span>")
+				else
+					user.whisper(incantation[dream], language = /datum/language/common)
+					var/dream_text = pick ("a hooded figurine","dead bodies, as far as the eye can see","whispering","opens a third eye","grows tentacles", "the monster of a thousand hands")
+					to_chat(victim, "<span class='warning'>... [dream_text] ...</span>")
+
 		flick("book_closing",src)
 		icon_state = initial(icon_state)
 	if(istype(target,/obj/effect/reality_smash))
@@ -245,16 +251,3 @@
 		)
 		to_chat(owner, "<span class='hypnophrase'>[message]</span>")
 
-/datum/brain_trauma/fascination/on_hear(message, speaker, message_language, raw_message, radio_freq)	//copy paste from phobia, good idea?
-	if(!owner.can_hear())
-		return message
-
-	var/list/trigger_words = list( "heretic","curse","magic","eldritch","god" )
-
-	for(var/word in trigger_words)
-		var/regex/reg = regex("(\\b|\\A)[REGEX_QUOTE(word)]'?s*(\\b|\\Z)", "i")
-
-		if(findtext(raw_message, reg))
-			message = reg.Replace(message, "<span class='phobia'>$1</span>")
-			break
-	return message*/

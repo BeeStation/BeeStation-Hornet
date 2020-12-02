@@ -105,7 +105,6 @@
 
 
 /datum/eldritch_knowledge/proc/on_mansus_touch(atom/target, mob/user, proximity_flag, click_parameters)
-	to_chat(user,"[name] worked!")
 	return FALSE
 
 
@@ -369,49 +368,12 @@
 
 // Curses //
 
-/datum/eldritch_knowledge/curse/fascination
+/datum/eldritch_knowledge/dreamgate
 	name = "Dreamgate"
 	gain_text = "Those safe in this world are not safe in others..."
-	desc = "Transmute a poppy, a bedsheet and candle to perform a Dreamgate Ritual. Allows you to gain control of any sleeping mind."
+	desc = "Allows you to read paragraphs of your codex to mortals that are asleep. You can convert sleeping, non-mindshielded humans into your Followers."
 	cost = 4
-	required_atoms = list(/obj/item/bedsheet,/obj/item/reagent_containers/food/snacks/grown/poppy,/obj/item/candle)
 	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
-	timer = 5 MINUTES
-
-/datum/eldritch_knowledge/curse/fascination/curse(mob/living/chosen_mob)
-	. = ..()
-	//var/mob/living/carbon/human/sucker = chosen_mob
-	//if (istype(sucker))
-	//	switch (cultie.enslave(sucker))
-	//		if (0)
-	//			sucker.SetSleeping(0)
-	//			to_chat(user,"<span class='warning'>You corrupt the mind of [sucker]! He is now bound to do your bidding...</span>")
-	//		else
-	//			to_chat(user,"<span class='warning'>You fail to corrupt the mind of [sucker].</span>")
-	//			sucker.SetSleeping(100)
-
-/datum/eldritch_knowledge/curse/fascination/on_finished_recipe(mob/living/user,list/atoms,loc)
-	var/list/compiled_list = list()
-
-	for(var/H in GLOB.carbon_list)
-		if(!ishuman(H))
-			continue
-		var/mob/living/carbon/human/human_to_check = H
-		if((human_to_check.IsSleeping()) && human_to_check.stat != DEAD)
-			compiled_list |= human_to_check.real_name
-			compiled_list[human_to_check.real_name] = human_to_check
-
-	if(!LAZYLEN(compiled_list))
-		to_chat(user, "<span class='warning'>There are no sleepers on this plane.</span>")
-		return FALSE
-
-	var/chosen_mob = input("Select the person you wish to curse","Your target") as null|anything in sortList(compiled_list, /proc/cmp_mob_realname_dsc)
-	if(!chosen_mob)
-		return FALSE
-	curse(compiled_list[chosen_mob])
-	addtimer(CALLBACK(src, .proc/uncurse, compiled_list[chosen_mob]),timer)
-	return TRUE
-
 
 /datum/eldritch_knowledge/curse/alteration
 	name = "Alteration"
@@ -431,7 +393,6 @@
 	//check variables
 	for(var/A in range(1, loc))	//this
 		var/atom/atom_in_range = A
-		to_chat(user,"found [A]")//debug
 		if(istype(atom_in_range,/obj/item/bodypart/r_leg))
 			extra_atoms |= A
 			debuffs |= "r_leg"
