@@ -387,14 +387,14 @@
 		if (!W.tool_start_check(user, amount=0)) //The welder has 1u of fuel consumed by it's afterattack, so we don't need to worry about taking any away.
 			return
 		if(src == user)
-			to_chat(user, "<span class='notice'>You start fixing yourself.</span>")
+			visible_message(user, "<span class='notice'>You start fixing yourself.</span>")
 			if(!W.use_tool(src, user, 50))
 				return
 
 		adjustBruteLoss(-30)
 		updatehealth()
 		add_fingerprint(user)
-		visible_message("<span class='notice'>[user] has fixed some of the dents on [src].</span>")
+		user.visible_message("[user] has fixed some of the dents on [src].", "<span class='notice'>You fix some of the dents on [src].</span>")
 		return
 
 	else if(istype(W, /obj/item/stack/cable_coil) && wiresexposed)
