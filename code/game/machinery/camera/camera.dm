@@ -26,6 +26,10 @@
 	var/obj/structure/camera_assembly/assembly = null
 	var/area/myarea = null
 
+	FASTDMM_PROP(\
+		pinned_vars = list("name", "network", "c_tag")\
+	)
+
 	//OTHER
 
 	var/view_range = 7
