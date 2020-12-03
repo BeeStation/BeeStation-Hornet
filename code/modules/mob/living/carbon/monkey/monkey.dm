@@ -39,7 +39,7 @@
 			return INITIALIZE_HINT_QDEL
 		SSmobs.cubemonkeys += src
 
-	create_dna(src)
+	create_dna()
 	dna.initialize_dna(random_blood_type())
 
 /mob/living/carbon/monkey/Destroy()
@@ -209,4 +209,8 @@
 
 /mob/living/carbon/monkey/tumor/Initialize()
 	. = ..()
-	dna = null		//prevents teratomas from shoving up in DNA consoles and getting humanized, it just works
+	for(var/datum/mutation/M in dna.mutations)
+		if(istype(M,/datum/mutation/human/race))
+			var/datum/mutation/human/race/R = M
+			R.mutadone_proof = TRUE
+	dna.species.species_traits += NOTRANSSTING

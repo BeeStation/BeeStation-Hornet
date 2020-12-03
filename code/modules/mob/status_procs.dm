@@ -27,8 +27,8 @@
 		eye_blind = max(eye_blind, amount)
 		if(!old_eye_blind)
 			if(stat == CONSCIOUS || stat == SOFT_CRIT)
-				throw_alert("blind", /obj/screen/alert/blind)
-			overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
+				throw_alert("blind", /atom/movable/screen/alert/blind)
+			overlay_fullscreen("blind", /atom/movable/screen/fullscreen/blind)
 
 /**
   * Adjust a mobs blindness by an amount
@@ -41,8 +41,8 @@
 		eye_blind += amount
 		if(!old_eye_blind)
 			if(stat == CONSCIOUS || stat == SOFT_CRIT)
-				throw_alert("blind", /obj/screen/alert/blind)
-			overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
+				throw_alert("blind", /atom/movable/screen/alert/blind)
+			overlay_fullscreen("blind", /atom/movable/screen/fullscreen/blind)
 	else if(eye_blind)
 		var/blind_minimum = 0
 		if((stat != CONSCIOUS && stat != SOFT_CRIT))
@@ -64,8 +64,8 @@
 		eye_blind = amount
 		if(client && !old_eye_blind)
 			if(stat == CONSCIOUS || stat == SOFT_CRIT)
-				throw_alert("blind", /obj/screen/alert/blind)
-			overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
+				throw_alert("blind", /atom/movable/screen/alert/blind)
+			overlay_fullscreen("blind", /atom/movable/screen/fullscreen/blind)
 	else if(eye_blind)
 		var/blind_minimum = 0
 		if(stat != CONSCIOUS && stat != SOFT_CRIT)
@@ -103,8 +103,8 @@
 /mob/proc/update_eye_blur()
 	if(!client)
 		return
-	var/obj/screen/plane_master/floor/OT = locate(/obj/screen/plane_master/floor) in client.screen
-	var/obj/screen/plane_master/game_world/GW = locate(/obj/screen/plane_master/game_world) in client.screen
+	var/atom/movable/screen/plane_master/floor/OT = locate(/atom/movable/screen/plane_master/floor) in client.screen
+	var/atom/movable/screen/plane_master/game_world/GW = locate(/atom/movable/screen/plane_master/game_world) in client.screen
 	GW.backdrop(src)
 	OT.backdrop(src)
 

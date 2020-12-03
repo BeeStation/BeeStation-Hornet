@@ -768,7 +768,8 @@
 /mob/living/carbon/human/replace_records_name(oldname,newname) // Only humans have records right now, move this up if changed.
 	for(var/list/L in list(GLOB.data_core.general,GLOB.data_core.medical,GLOB.data_core.security,GLOB.data_core.locked))
 		var/datum/data/record/R = find_record("name", oldname, L)
-		R.fields["name"] = newname
+		if(R)
+			R.fields["name"] = newname
 
 /mob/living/carbon/human/get_total_tint()
 	. = ..()
