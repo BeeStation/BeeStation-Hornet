@@ -39,7 +39,7 @@
 		if(1-3)
 			to_chat(M, "<span class='notice'>Your skin crawls.</span>")
 		if(4)
-			M.visible_message("<span class='danger'>lumps form on [M]'s skin!</span>", \
+			M.visible_message("<span class='danger'>Lumps form on [M]'s skin!</span>", \
 								  "<span class='userdanger'>You cringe in pain as lumps form and move around on your skin!</span>")
 		if(5)
 			phagecounter -= max(2, A.properties["stage_rate"])
@@ -72,7 +72,6 @@
 			if(D == A)
 				continue
 			phage.infections += D
-	phage.InitializeSkin()
 	M.visible_message("<span class='danger'>A strange creature bursts out of [M]!</span>", \
 	  "<span class='userdanger'>A slimy creature bursts forth from your flesh!</span>")
 	addtimer(CALLBACK(phage, /mob/living/simple_animal/hostile/macrophage.proc/shrivel), 3000)

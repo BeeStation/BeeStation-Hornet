@@ -103,7 +103,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/ambientocclusion = TRUE
 	///Should we automatically fit the viewport?
-	var/auto_fit_viewport = FALSE
+	var/auto_fit_viewport = TRUE
 	///What size should pixels be displayed as? 0 is strech to fit
 	var/pixel_size = 0
 	///What scaling method should we use?
@@ -1422,7 +1422,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						var/new_species_type = GLOB.species_list[result]
 						var/datum/species/new_species = new new_species_type()
 
-						if (!new_species.patron_locked || IS_PATRON(parent.ckey) || parent.holder)
+						if (!CONFIG_GET(keyed_list/paywall_races)[new_species.id] || IS_PATRON(parent.ckey) || parent.holder)
 							pref_species = new_species
 							//Now that we changed our species, we must verify that the mutant colour is still allowed.
 							var/temp_hsv = RGBtoHSV(features["mcolor"])
@@ -1754,7 +1754,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("ambientocclusion")
 					ambientocclusion = !ambientocclusion
 					if(parent && parent.screen && parent.screen.len)
-						var/obj/screen/plane_master/game_world/PM = locate(/obj/screen/plane_master/game_world) in parent.screen
+						var/atom/movable/screen/plane_master/game_world/PM = locate(/atom/movable/screen/plane_master/game_world) in parent.screen
 						PM.backdrop(parent.mob)
 
 				if("auto_fit_viewport")
@@ -1774,6 +1774,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							pixel_size = PIXEL_SCALING_3X
 						if(PIXEL_SCALING_3X)
 							pixel_size = PIXEL_SCALING_AUTO
+					user.client.view_size.setDefault(getScreenSize(user))	//Fix our viewport size so it doesn't reset on change
 					user.client.view_size.apply() //Let's winset() it so it actually works
 
 				if("scaling_method")

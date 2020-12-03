@@ -1,0 +1,272 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/machinery/vending/cigarette,
+/turf/open/floor/plating,
+/area/space)
+"b" = (
+/obj/machinery/door/airlock/maintenance/external/glass,
+/turf/open/floor/plasteel,
+/area/space)
+"c" = (
+/turf/open/floor/plasteel,
+/area/space)
+"f" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/structure/closet/crate,
+/turf/open/floor/plasteel,
+/area/space)
+"g" = (
+/obj/effect/landmark/blobstart,
+/turf/open/floor/plating,
+/area/space)
+"h" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/space)
+"i" = (
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/space)
+"k" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/space)
+"o" = (
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/space)
+"p" = (
+/turf/closed/wall,
+/area/space)
+"q" = (
+/obj/structure/chair/comfy/teal,
+/turf/open/floor/plating,
+/area/space)
+"s" = (
+/obj/effect/landmark/event_spawn,
+/turf/open/floor/plasteel,
+/area/space)
+"t" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/space)
+"v" = (
+/obj/item/storage/pod{
+	pixel_x = 32
+	},
+/turf/open/floor/plating,
+/area/space)
+"x" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/machinery/light,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/turf/open/floor/plasteel,
+/area/space)
+"z" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/structure/sign/nanotrasen{
+	pixel_y = 32
+	},
+/obj/structure/chair/comfy/teal,
+/turf/open/floor/plasteel,
+/area/space)
+"A" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/space)
+"B" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/space)
+"D" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/plating,
+/area/space)
+"G" = (
+/turf/open/floor/plating{
+	icon_state = "platingdmg2"
+	},
+/area/space)
+"H" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/structure/chair/comfy/teal,
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
+/turf/open/floor/plasteel,
+/area/space)
+"I" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/space)
+"J" = (
+/obj/structure/table,
+/obj/item/folder/white,
+/obj/item/wrench/medical,
+/obj/structure/sign/poster/official/moth4{
+	pixel_x = -32
+	},
+/turf/open/floor/plating,
+/area/space)
+"K" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/chair/comfy/teal,
+/turf/open/floor/plasteel,
+/area/space)
+"M" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/space)
+"O" = (
+/obj/machinery/newscaster{
+	pixel_x = 32
+	},
+/turf/open/floor/plating,
+/area/space)
+"S" = (
+/turf/open/floor/plating,
+/area/space)
+"V" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/space)
+"X" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/five,
+/turf/open/floor/plating,
+/area/space)
+
+(1,1,1) = {"
+t
+I
+S
+J
+a
+"}
+(2,1,1) = {"
+H
+S
+o
+c
+f
+"}
+(3,1,1) = {"
+K
+i
+s
+G
+x
+"}
+(4,1,1) = {"
+z
+c
+g
+S
+M
+"}
+(5,1,1) = {"
+q
+i
+G
+c
+M
+"}
+(6,1,1) = {"
+D
+c
+S
+c
+S
+"}
+(7,1,1) = {"
+i
+c
+S
+c
+X
+"}
+(8,1,1) = {"
+A
+V
+c
+v
+X
+"}
+(9,1,1) = {"
+p
+p
+b
+p
+p
+"}
+(10,1,1) = {"
+S
+O
+h
+k
+B
+"}

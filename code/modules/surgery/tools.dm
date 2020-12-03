@@ -80,6 +80,21 @@
 	attack_verb = list("burnt")
 
 
+/obj/item/blood_filter
+	name = "blood filter"
+	desc = "For filtering the blood."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "bloodfilter"
+	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	custom_materials = list(/datum/material/iron=2000, /datum/material/glass=1500, /datum/material/silver=500)
+	flags_1 = CONDUCT_1
+	w_class = WEIGHT_CLASS_NORMAL
+	attack_verb = list("pumps", "siphons")
+	tool_behaviour = TOOL_BLOODFILTER
+	toolspeed = 1
+
+
 /obj/item/surgicaldrill
 	name = "surgical drill"
 	desc = "You can drill using this item. You dig?"
@@ -102,7 +117,7 @@
 	user.SpinAnimation(3, 10)
 	playsound(user, 'sound/machines/juicer.ogg', 20, TRUE)
 	return (MANUAL_SUICIDE)
-	
+
 /obj/item/surgicaldrill/augment
 	name = "surgical drill"
 	desc = "Effectively a small power drill contained within your arm, edges dulled to prevent tissue damage. May or may not pierce the heavens."
@@ -356,6 +371,7 @@
 	hitsound = 'sound/items/welder.ogg'
 	toolspeed = 0.7
 	light_color = LIGHT_COLOR_RED
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/surgicaldrill/advanced/Initialize()
 	. = ..()

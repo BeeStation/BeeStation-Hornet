@@ -46,19 +46,19 @@
 	owner.language_holder.grant_language(/datum/language/ratvar)
 
 /datum/antagonist/servant_of_ratvar/on_removal()
-	. = ..()
 	team.remove_member(owner)
 	GLOB.servants_of_ratvar -= owner
 	GLOB.all_servants_of_ratvar -= owner
 	GLOB.human_servants_of_ratvar -= owner
 	GLOB.cyborg_servants_of_ratvar -= owner
+	. = ..()
 
 /datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)
 	. = ..()
 	owner.current.faction |= "ratvar"
 	transmit_spell = new()
 	transmit_spell.Grant(owner.current)
-	owner.current.throw_alert("clockinfo", /obj/screen/alert/clockwork/clocksense)
+	owner.current.throw_alert("clockinfo", /atom/movable/screen/alert/clockwork/clocksense)
 	SSticker.mode.update_clockcult_icons_added(owner)
 	if(GLOB.gateway_opening && ishuman(owner.current))
 		var/mob/living/carbon/owner_mob = owner.current

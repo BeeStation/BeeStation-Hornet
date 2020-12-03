@@ -77,13 +77,17 @@
 	timeout = 2 MINUTES
 
 /datum/mood_event/table/add_effects()
-	if(ishuman(owner))
-		var/mob/living/carbon/human/H = owner
+	var/datum/component/L = owner //owner is lying about its type, its component/mood while pretending to be mob. You must cast it to use it properly
+	var/mob/living/T = L.parent
+	if(ishuman(T))
+		var/mob/living/carbon/human/H = T
 		if(iscatperson(H))
 			H.dna.species.start_wagging_tail(H)
 			addtimer(CALLBACK(H.dna.species, /datum/species.proc/stop_wagging_tail, H), 30)
 			description =  "<span class='nicegreen'>They want to play on the table!</span>\n"
 			mood_change = 2
+
+
 
 /datum/mood_event/table_headsmash
 	description = "<span class='warning'>My fucking head, that hurt...</span>"

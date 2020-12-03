@@ -13,8 +13,8 @@
 /datum/outfit/clockcult/post_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
 	if(weapon)
-		weapon = new weapon(get_turf(H))
-		H.put_in_inactive_hand(weapon)
+		var/weapon_to_spawn = new weapon(get_turf(H))
+		H.put_in_inactive_hand(weapon_to_spawn)
 
 /datum/outfit/clockcult/armaments
 	name = "Servant of Ratvar - Armaments"

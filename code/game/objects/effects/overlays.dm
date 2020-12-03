@@ -52,8 +52,28 @@
 	vis_flags = NONE
 	var/unused = 0 //When detected to be unused it gets set to world.time, after a while it gets removed
 	var/cache_expiration = 2 MINUTES // overlays which go unused for 2 minutes get cleaned up
+	vis_flags = VIS_INHERIT_ID
+
+/obj/effect/overlay/airlock_part
+	anchored = TRUE
+	plane = FLOAT_PLANE
+	layer = FLOAT_LAYER - 1
+	vis_flags = VIS_INHERIT_ID
+	var/side_id
+	var/open_px = 0
+	var/open_py = 0
+	var/move_start_time = 0 // for opening; closing uses reversed.
+	var/move_end_time = 3.5
+	var/aperture_angle = 0
 
 /obj/effect/overlay/timer
 	name = "timer overlay"
 	icon = 'icons/effects/cooldown.dmi'
 	icon_state = "second"
+
+/obj/effect/overlay/closet_door
+	anchored = TRUE
+	plane = FLOAT_PLANE
+	layer = FLOAT_LAYER
+	vis_flags = VIS_INHERIT_ID
+	appearance_flags = KEEP_TOGETHER | LONG_GLIDE | PIXEL_SCALE

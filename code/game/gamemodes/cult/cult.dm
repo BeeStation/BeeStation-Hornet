@@ -52,6 +52,7 @@
 
 	title_icon = "cult"
 
+
 	var/finished = 0
 
 	var/acolytes_needed = 10 //for the survive objective

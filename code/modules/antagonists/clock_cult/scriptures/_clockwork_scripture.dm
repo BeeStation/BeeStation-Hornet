@@ -29,6 +29,7 @@
 		end_invoke()
 		return
 	GLOB.clockcult_power -= power_cost
+	GLOB.clockcult_vitality -= vitality_cost
 	invoke_success()
 
 /datum/clockcult/scripture/proc/invoke_success()

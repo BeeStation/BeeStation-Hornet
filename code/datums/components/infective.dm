@@ -9,6 +9,9 @@
 		diseases = _diseases
 	else
 		diseases = list(_diseases)
+	if(!diseases.len || isnull(diseases[1]))
+		stack_trace("Infective component initialized without any diseases!")
+		qdel(src)
 	if(expire_in)
 		expire_time = world.time + expire_in
 		QDEL_IN(src, expire_in)

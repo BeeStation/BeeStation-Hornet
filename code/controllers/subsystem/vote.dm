@@ -135,17 +135,17 @@ SUBSYSTEM_DEF(vote)
 
 /datum/controller/subsystem/vote/proc/result()
 	. = announce_result()
-	var/restart = 0
+	var/restart = FALSE
 	if(.)
 		switch(mode)
 			if("restart")
 				if(. == "Restart Round")
-					restart = 1
+					restart = TRUE
 			if("gamemode")
 				if(GLOB.master_mode != .)
 					SSticker.save_mode(.)
 					if(SSticker.HasRoundStarted())
-						restart = 1
+						restart = TRUE
 					else
 						GLOB.master_mode = .
 			if("map")
@@ -158,10 +158,10 @@ SUBSYSTEM_DEF(vote)
 					if(C)
 						C.post_status("shuttle")
 	if(restart)
-		var/active_admins = 0
-		for(var/client/C in GLOB.admins)
+		var/active_admins = FALSE
+		for(var/client/C in GLOB.admins+GLOB.deadmins)
 			if(!C.is_afk() && check_rights_for(C, R_SERVER))
-				active_admins = 1
+				active_admins = TRUE
 				break
 		if(!active_admins)
 			SSticker.Reboot("Restart vote successful.", "restart vote")

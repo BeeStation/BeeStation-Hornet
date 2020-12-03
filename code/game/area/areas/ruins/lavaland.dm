@@ -6,7 +6,7 @@
 /area/ruin/powered/clownplanet
 	name = "Clown Planet"
 	icon_state = "dk_yellow"
-	ambientsounds = list('sound/ambience/clown.ogg')
+	ambient_effects = list('sound/ambience/clown.ogg')
 
 /area/ruin/powered/animal_hospital
 	icon_state = "dk_yellow"
@@ -37,7 +37,7 @@
 /area/ruin/unpowered/syndicate_lava_base
 	name = "Secret Base"
 	icon_state = "dk_yellow"
-	ambientsounds = HIGHSEC
+	ambient_effects = HIGHSEC
 
 /area/ruin/unpowered/syndicate_lava_base/engineering
 	name = "Syndicate Lavaland Engineering"
