@@ -190,7 +190,6 @@
 		P.icon = icon
 		P.icon_state = part_id
 		P.name = name
-	remove_filter("mask_filter")
 	add_filter("mask_filter", 1, list(type="alpha",icon=mask_file,x=mask_x,y=mask_y))
 
 /obj/machinery/door/airlock/proc/update_other_id()
