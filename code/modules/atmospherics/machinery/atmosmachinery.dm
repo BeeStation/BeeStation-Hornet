@@ -327,7 +327,6 @@
 	if(istype(L) && is_type_in_list(src, GLOB.ventcrawl_machinery))
 		L.handle_ventcrawl(src)
 		return
-	..()
 
 
 /obj/machinery/atmospherics/proc/can_crawl_through()
