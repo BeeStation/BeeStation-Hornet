@@ -25,6 +25,7 @@
 		0, 0, 0, 1           \
 	)                        \
 
+#define ALPHA_TO_INTENSITY(alpha) (-(((CLAMP(alpha, 0, 22) - 22) / 6) ** 4) + 255)
 
 //Some defines to generalise colours used in lighting.
 //Important note on colors. Colors can end up significantly different from the basic html picture, especially when saturated
