@@ -583,7 +583,7 @@
 	TT.callback = callback
 	if(!QDELETED(thrower))
 		TT.target_zone = thrower.zone_selected
-	
+
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
 	var/dx = (target.x > src.x) ? EAST : WEST
@@ -904,3 +904,9 @@
 	animate(I, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 3, transform = M, easing = CUBIC_EASING)
 	sleep(1)
 	animate(I, alpha = 0, transform = matrix(), time = 1)
+
+/atom/movable/proc/get_spawner_desc()
+	return name
+
+/atom/movable/proc/get_spawner_flavour_text()
+	return desc

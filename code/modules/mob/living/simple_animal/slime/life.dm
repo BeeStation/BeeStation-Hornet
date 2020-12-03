@@ -10,6 +10,9 @@
 	set invisibility = 0
 	if(notransform)
 		return
+	alpha = 255
+	if(transformeffects & SLIME_EFFECT_BLACK)
+		alpha = 128
 	if(..())
 		if(buckled)
 			handle_feeding()
@@ -44,7 +47,10 @@
 			Target.attack_slime(src)
 			attack_cooldown = world.time + attack_cooldown_time
 	else if(Target in view(7, src))
-		step_to(src, Target)
+		if((transformeffects & SLIME_EFFECT_BLUESPACE) && powerlevel == 10)
+			do_teleport(src, get_turf(Target),null,TRUE,null,null,null,null,TRUE, channel = TELEPORT_CHANNEL_BLUESPACE)
+		else
+			step_to(src, Target)
 	else
 		special_process = FALSE
 		Target = null
@@ -77,8 +83,8 @@
 	if(stat != DEAD)
 		var/bz_percentage = environment.total_moles() ? (environment.get_moles(/datum/gas/bz) / environment.total_moles()) : 0
 		var/stasis = (bz_percentage >= 0.05 && bodytemperature < (T0C + 100)) || force_stasis
-		if(transformeffects & SLIME_EFFECT_SEPIA)
-			var/plas_amt = min(1,environment.get_moles(/datum/gas/plasma))
+		if(transformeffects & SLIME_EFFECT_DARK_PURPLE)
+			var/plas_amt = min(30,environment.get_moles(/datum/gas/plasma))
 			environment.adjust_moles(/datum/gas/plasma, -plas_amt)
 			environment.adjust_moles(/datum/gas/oxygen, plas_amt)
 			adjustBruteLoss(-plas_amt)
@@ -126,15 +132,18 @@
 		if(transformeffects & SLIME_EFFECT_PURPLE)
 			heal += 0.5
 		adjustBruteLoss(-heal)
-	if(transformeffects & SLIME_EFFECT_RAINBOW)
+	if((transformeffects & SLIME_EFFECT_RAINBOW) && prob(5))
 		random_colour()
 
 /mob/living/simple_animal/slime/proc/handle_feeding()
 	if(!isliving(buckled))
 		return
-
+	alpha = 255
 	var/mob/living/M = buckled
-
+	if(transformeffects & SLIME_EFFECT_OIL)
+		var/datum/reagent/fuel/fuel = new
+		fuel.reaction_mob(buckled,TOUCH,20)
+		qdel(fuel)
 	if(M.stat == DEAD)
 		if(client)
 			to_chat(src, "<i>This subject does not have a strong enough life energy anymore...</i>")

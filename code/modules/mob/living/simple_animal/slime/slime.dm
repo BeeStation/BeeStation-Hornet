@@ -87,7 +87,8 @@
 
 	// Transformative extract effects - get passed down
 	var/transformeffects = SLIME_EFFECT_DEFAULT
-	var/effectsapplied = 0 //for use in the slime scanner
+	//var/effectsapplied = 0 //for use in the slime scanner
+	var/mob/master
 
 /mob/living/simple_animal/slime/Initialize(mapload, new_colour="grey", new_is_adult=FALSE)
 	GLOB.total_slimes++
@@ -110,9 +111,13 @@
 	set_nutrition(700)
 
 /mob/living/simple_animal/slime/Destroy()
-	for (var/A in actions)
+	for(var/A in actions)
 		var/datum/action/AC = A
 		AC.Remove(src)
+	master = null
+	for(var/spawner in GLOB.mob_spawners)
+		LAZYREMOVE(GLOB.mob_spawners[spawner], src)
+	GLOB.poi_list -= src
 	return ..()
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
@@ -519,5 +524,29 @@
 
 /mob/living/simple_animal/slime/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE)
 	if(damage && damagetype == BRUTE && !forced && (transformeffects & SLIME_EFFECT_ADAMANTINE))
-		blocked += 30
+		blocked += 50
 	. = ..(damage, damagetype, def_zone, blocked, forced)
+
+/mob/living/simple_animal/slime/attack_ghost(mob/user)
+	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
+		humanize_slime(user)
+
+/mob/living/simple_animal/slime/proc/humanize_slime(mob/user)
+	if(key || stat)
+		return
+	var/slime_ask = alert("Become a slime?", "Slime time?", "Yes", "No")
+	if(slime_ask == "No" || QDELETED(src))
+		return
+	if(key)
+		to_chat(user, "<span class='warning'>Someone else already took this slime!</span>")
+		return
+	key = user.key
+	if(mind && master)
+		mind.store_memory("<b>Serve [master.real_name], your master.</b>")
+	log_game("[key_name(src)] took control of [name].")
+
+/mob/living/simple_animal/slime/get_spawner_desc()
+	return "be a slime[master ? " under the command of [master.real_name]" : ""]."
+
+/mob/living/simple_animal/slime/get_spawner_flavour_text()
+	return "You are a slime born and raised in a laboratory.[master ? " Your duty is to follow the orders of [master.real_name].": ""]"

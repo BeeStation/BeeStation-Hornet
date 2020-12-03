@@ -229,9 +229,9 @@
 #define SLIME_EFFECT_GREEN			(1<<15)//done
 #define SLIME_EFFECT_PINK			(1<<16)//done
 #define SLIME_EFFECT_GOLD			(1<<17)//done
-#define SLIME_EFFECT_OIL			(1<<18)
-#define SLIME_EFFECT_BLACK			(1<<19)
-#define SLIME_EFFECT_LIGHT_PINK		(1<<20)
+#define SLIME_EFFECT_OIL			(1<<18)//done
+#define SLIME_EFFECT_BLACK			(1<<19)//done
+#define SLIME_EFFECT_LIGHT_PINK		(1<<20)//done
 #define SLIME_EFFECT_ADAMANTINE		(1<<21)//done
 #define SLIME_EFFECT_RAINBOW		(1<<22)//done
 
