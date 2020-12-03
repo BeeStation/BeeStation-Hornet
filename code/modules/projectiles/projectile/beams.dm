@@ -14,6 +14,9 @@
 	ricochets_max = 50	//Honk!
 	ricochet_chance = 80
 	reflectable = REFLECT_NORMAL
+	light_power = 2
+	light_range = 1.6
+	light_color = "#00CC33"
 
 /obj/item/projectile/beam/laser
 	tracer_type = /obj/effect/projectile/tracer/laser
