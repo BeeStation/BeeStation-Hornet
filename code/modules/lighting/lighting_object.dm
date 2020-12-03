@@ -20,7 +20,6 @@
 /atom/movable/lighting_darkness/Initialize(mapload)
 	. = ..()
 	verbs.Cut()
-	atom_colours.Cut()
 
 	myturf = loc
 	if (myturf.lighting_object)

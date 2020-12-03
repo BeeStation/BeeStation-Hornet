@@ -203,7 +203,7 @@
 	var/on_gs = FALSE
 	var/static_power_used = 0
 	var/brightness = 10			// luminosity when on, also used in power calculation
-	var/bulb_power = 1			// basically the alpha of the emitted light source
+	var/bulb_power = 0.4			// basically the alpha of the emitted light source
 	var/bulb_colour = "#FFF6ED"	// befault colour of the light.
 	var/status = LIGHT_OK		// LIGHT_OK, _EMPTY, _BURNED or _BROKEN
 	var/flickering = FALSE
