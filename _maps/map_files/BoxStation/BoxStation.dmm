@@ -7122,7 +7122,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/turf/closed/wall/r_wall,
+/turf/closed/wall,
 /area/security/main)
 "arK" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
@@ -41198,6 +41198,9 @@
 	name = "External Access";
 	req_access_txt = "13"
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "cqw" = (
@@ -44259,13 +44262,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"cCZ" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 8
-	},
-/turf/open/space/basic,
-/area/space/nearstation)
 "cDe" = (
 /obj/structure/closet/radiation,
 /turf/open/floor/plasteel,
@@ -45677,6 +45673,11 @@
 	},
 /turf/open/floor/plasteel/airless/solarpanel,
 /area/solar/starboard/aft)
+"cNi" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "cNG" = (
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
@@ -46296,15 +46297,6 @@
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/engine,
 /area/science/explab)
-"cZa" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 8
-	},
-/turf/closed/wall,
-/area/maintenance/starboard/aft)
 "cZK" = (
 /turf/closed/wall,
 /area/medical/sleeper)
@@ -46635,6 +46627,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
+"duJ" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "dvq" = (
 /obj/machinery/airalarm{
 	pixel_y = 23
@@ -52585,6 +52586,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"kZs" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 6
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "laC" = (
 /obj/structure/chair/stool{
 	pixel_y = 8
@@ -53709,12 +53719,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/hallway)
-"mko" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/layer_manifold,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "mlA" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
@@ -53966,14 +53970,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"mAf" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "mAO" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 6
@@ -54174,15 +54170,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"mIZ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 9
-	},
-/turf/closed/wall,
-/area/maintenance/starboard/aft)
 "mJd" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -54618,8 +54605,8 @@
 	name = "External Access";
 	req_access_txt = "13"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 9
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
@@ -54809,6 +54796,14 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
+"nGn" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 5
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "nGv" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -55482,6 +55477,14 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
+"oyU" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "oyY" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -57230,15 +57233,6 @@
 /obj/item/flashlight/lamp/green,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
-"qIW" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 6
-	},
-/turf/closed/wall,
-/area/maintenance/starboard/aft)
 "qJa" = (
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
@@ -60356,9 +60350,6 @@
 /area/quartermaster/miningdock)
 "uRq" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 6
-	},
 /turf/open/space/basic,
 /area/space/nearstation)
 "uRR" = (
@@ -61911,10 +61902,10 @@
 /area/security/processing)
 "wxN" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 5
-	},
 /obj/machinery/door/firedoor/window,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 6
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "wyd" = (
@@ -61926,6 +61917,13 @@
 	},
 /turf/closed/wall,
 /area/maintenance/port/aft)
+"wzO" = (
+/obj/effect/spawner/room/threexthree,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "wAt" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -108322,9 +108320,9 @@ aaa
 aaa
 aaa
 uRq
-mAf
-wxN
 cOT
+wxN
+nGn
 aag
 aaa
 aaa
@@ -108578,7 +108576,7 @@ aaa
 aaa
 aaa
 aaa
-cCZ
+uRq
 cNW
 dKr
 cqu
@@ -108835,10 +108833,10 @@ aaf
 aaf
 aaf
 aaf
-cZa
-mko
-nnV
+cNW
 cOT
+nnV
+oyU
 cOT
 aaa
 aaa
@@ -109091,11 +109089,11 @@ aaa
 aaa
 aaa
 cNW
-qIW
-mIZ
+cNW
+cNW
 cOe
-cOe
-ahO
+duJ
+wzO
 cOT
 aaa
 aaa
@@ -109348,10 +109346,10 @@ cNW
 cNW
 cNW
 cNW
-xrh
+kZs
 cTI
-cOe
-cOe
+cNi
+clu
 cOe
 cOT
 aaa
