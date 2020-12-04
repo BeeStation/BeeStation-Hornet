@@ -50562,7 +50562,6 @@
 	id = "Dorm3";
 	name = "Dormitory Door Lock";
 	normaldoorcontrol = 1;
-	pixel_x = 0;
 	pixel_y = -28;
 	specialfunctions = 4
 	},
@@ -59305,7 +59304,6 @@
 	id = "Dorm4";
 	name = "Dormitory Door Lock";
 	normaldoorcontrol = 1;
-	pixel_x = 0;
 	pixel_y = -28;
 	specialfunctions = 4
 	},
