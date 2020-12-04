@@ -1,4 +1,0 @@
-author: Sinestia
-delete-after: true
-changes:
-  - bugfix: shuttle list hides dangerous shuttles properly now
