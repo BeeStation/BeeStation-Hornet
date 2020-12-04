@@ -19,7 +19,7 @@ transformative extracts:
 		to_chat(user,"<span class='warning'>This slime already has the [colour] transformative effect applied!</span>")
 		return FALSE
 	S.transformeffects = effect_applied //S.transformeffects |= effect_applied
-	effectsapplied = 1 //S.effectsapplied++
+	S.effectsapplied = 1 //S.effectsapplied++
 	to_chat(user,"<span class='notice'>You apply [src] to [target].</span>")
 	do_effect(S, user)
 	qdel(src)
