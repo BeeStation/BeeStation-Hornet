@@ -1,5 +1,0 @@
-author: Alt_Alpha9
-delete-after: true
-changes:
-  - bugfix: If multiple holidays are active, the station name may be derived from
-      any of them instead of a single one.
