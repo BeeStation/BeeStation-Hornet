@@ -386,7 +386,7 @@
 			M.visible_message("<span class='warning'>[src] vanishes on contact with [A]!</span>")
 			qdel(src)
 			return
-		if(!isliving(M) || M.buckled || M.incorporeal_move || M.mob_size > MOB_SIZE_HUMAN)
+		if(!isliving(M) || M.incorporeal_move || M.mob_size > MOB_SIZE_HUMAN)
 			return ..()
 		M.forceMove(src)
 		return FALSE
