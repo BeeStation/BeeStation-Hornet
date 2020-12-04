@@ -66646,7 +66646,7 @@
 	name = "contraband locker";
 	req_access_txt = "3"
 	},
-/obj/effect/spawner/lootdrop/armory_contraband/metastation,
+/obj/effect/spawner/lootdrop/armory_contraband,
 /obj/effect/spawner/lootdrop/maintenance/three,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
