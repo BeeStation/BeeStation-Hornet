@@ -407,9 +407,9 @@
 
 	//Speech starts here
 	if (to_say)
-		say (to_say)
+		INVOKE_ASYNC(src, /atom/movable/proc/say, to_say)
 	else if(prob(1))
-		emote(pick("bounce","sway","light","vibrate","jiggle"))
+		INVOKE_ASYNC(src, /mob.proc/emote, pick("bounce","sway","light","vibrate","jiggle"))
 	else
 		var/t = 10
 		var/slimes_near = 0
@@ -483,7 +483,7 @@
 				if (nutrition < get_hunger_nutrition())
 					phrases += "[M]... feed me..."
 			if(!stat)
-				say (pick(phrases))
+				INVOKE_ASYNC(src, /atom/movable/proc/say, pick(phrases))
 
 /mob/living/simple_animal/slime/proc/get_max_nutrition() // Can't go above it
 	if (is_adult)

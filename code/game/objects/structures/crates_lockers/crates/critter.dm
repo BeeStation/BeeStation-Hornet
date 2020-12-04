@@ -15,6 +15,7 @@
 	var/obj/item/tank/internals/emergency_oxygen/tank
 	door_hinge = 5.5
 	door_anim_angle = 90
+	door_anim_squish = 0.35
 
 /obj/structure/closet/crate/critter/Initialize()
 	. = ..()

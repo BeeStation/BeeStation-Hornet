@@ -46,6 +46,7 @@
 		//SOUND STUFF//
 		///////////////
 	var/ambient_buzz_playing = null // What buzz ambience is currently playing
+	var/ambient_buzz = null
 	var/ambient_effect_last_played = 0 // What was the last time we played an ambient effect noise?
 		////////////
 		//SECURITY//
@@ -70,7 +71,7 @@
 
 	preload_rsc = PRELOAD_RSC
 
-	var/obj/screen/click_catcher/void
+	var/atom/movable/screen/click_catcher/void
 
 	//These two vars are used to make a special mouse cursor, with a unique icon for clicking
 	/// Mouse icon while not clicking
@@ -99,7 +100,7 @@
 	/// These persist between logins/logouts during the same round.
 	var/datum/player_details/player_details
 
-	var/list/char_render_holders			//Should only be a key-value list of north/south/east/west = obj/screen.
+	var/list/char_render_holders			//Should only be a key-value list of north/south/east/west = atom/movable/screen.
 
 	var/client_keysend_amount = 0
 	var/next_keysend_reset = 0
