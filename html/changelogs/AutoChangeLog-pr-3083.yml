@@ -1,5 +1,0 @@
-author: francinum
-delete-after: true
-changes:
-  - admin: VV now works more reliably
-  - bugfix: VV can now show the panel of objects with invalid iconstates
