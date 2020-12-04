@@ -87,7 +87,7 @@
 
 	// Transformative extract effects - get passed down
 	var/transformeffects = SLIME_EFFECT_DEFAULT
-	//var/effectsapplied = 0 //for use in the slime scanner
+	var/effectsapplied = 0 //for use in the slime scanner
 	var/mob/master
 
 /mob/living/simple_animal/slime/Initialize(mapload, new_colour="grey", new_is_adult=FALSE)

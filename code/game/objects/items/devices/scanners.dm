@@ -701,8 +701,7 @@ GENE SCANNER
 		to_chat(user, "<span class = 'notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>")
 	if(T.transformeffects != SLIME_EFFECT_DEFAULT)
 		var/slimeeffects = "\nTransformative extract effects detected: "
-		//var/i = T.effectsapplied - 1
-		var/i = 0
+		var/i = T.effectsapplied - 1
 		if(T.transformeffects & SLIME_EFFECT_GREY)
 			slimeeffects += "grey[(i == 0) ? "" : ", "]"
 			i--
