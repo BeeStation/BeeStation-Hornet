@@ -1398,20 +1398,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
-"apQ" = (
-/obj/structure/table/wood,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/chapel/main/monastery)
 "apW" = (
 /obj/structure/chair{
 	dir = 1
@@ -5034,6 +5020,21 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"bcc" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/item/storage/box/matches,
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "bck" = (
 /obj/machinery/holopad,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
@@ -14561,6 +14562,25 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
+"eHE" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/item/coin/gold,
+/obj/item/coin/gold{
+	pixel_x = 1;
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "eHV" = (
 /obj/effect/landmark/start/bartender,
 /obj/effect/turf_decal/tile/bar{
@@ -23339,6 +23359,29 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"hNX" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/item/storage/book/bible,
+/obj/item/storage/book/bible{
+	pixel_x = 1;
+	pixel_y = 2
+	},
+/obj/item/storage/book/bible{
+	pixel_x = 2;
+	pixel_y = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "hOJ" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -27554,6 +27597,23 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/grass,
 /area/hallway/primary/fore)
+"jcS" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/item/reagent_containers/food/snacks/grown/poppy,
+/obj/item/reagent_containers/food/snacks/grown/poppy,
+/obj/item/reagent_containers/food/snacks/grown/poppy,
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "jdf" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -34394,6 +34454,27 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
+"lyi" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/obj/item/storage/book/bible,
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "lyo" = (
 /obj/item/ammo_casing/shotgun/buckshot{
 	pixel_x = -7;
@@ -37268,20 +37349,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
-"mCW" = (
-/obj/structure/table/wood,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/chapel/main/monastery)
 "mCX" = (
 /obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
@@ -41407,26 +41474,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
-"oeF" = (
-/obj/structure/table/wood,
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/turf/open/floor/plasteel/dark,
-/area/chapel/main/monastery)
 "oeK" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -42269,6 +42316,21 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"oyu" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/item/storage/fancy/candle_box,
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "oyv" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -51670,6 +51732,21 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/on,
 /turf/open/floor/plating/airless,
 /area/engine/atmos)
+"rXo" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/three_course_meal,
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "rXr" = (
 /obj/machinery/washing_machine,
 /obj/effect/turf_decal/tile/green{
@@ -62045,6 +62122,21 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"vGo" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/spawner/lootdrop/three_course_meal,
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "vGI" = (
 /obj/machinery/door/airlock/command{
 	name = "Chief Medical Officer's Office";
@@ -65039,6 +65131,22 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
+"wDE" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/reagent_containers/food/snacks/grown/harebell,
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "wDG" = (
 /turf/closed/wall,
 /area/maintenance/department/science/central)
@@ -90864,7 +90972,7 @@ mkF
 bal
 bal
 mhQ
-oeF
+lyi
 iyk
 mAn
 eHj
@@ -91117,7 +91225,7 @@ anT
 anT
 anT
 mkF
-mCW
+bcc
 kse
 ifp
 bQp
@@ -91126,7 +91234,7 @@ bQp
 bQp
 knY
 kAd
-apQ
+jcS
 mkF
 rcC
 xUR
@@ -91374,7 +91482,7 @@ aMT
 aMT
 aMT
 mkF
-mCW
+rXo
 jVo
 lGg
 gHY
@@ -91383,7 +91491,7 @@ fqH
 kco
 mPJ
 rSu
-apQ
+wDE
 mkF
 cNM
 hrl
@@ -91631,7 +91739,7 @@ aMT
 aMT
 aMT
 mkF
-mCW
+eHE
 jVo
 pxc
 mgp
@@ -91640,7 +91748,7 @@ nUp
 pxc
 mgp
 oej
-apQ
+vGo
 mkF
 luE
 hrl
@@ -91888,7 +91996,7 @@ anT
 anT
 anT
 mkF
-mCW
+hNX
 jVo
 kco
 hNt
@@ -91897,7 +92005,7 @@ fqH
 kco
 hNt
 oej
-apQ
+oyu
 mkF
 nLj
 hrl
