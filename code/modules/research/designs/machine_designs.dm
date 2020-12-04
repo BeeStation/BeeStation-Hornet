@@ -475,14 +475,6 @@
 	category = list ("Misc. Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_ENGINEERING
 
-/datum/design/board/bluespace_miner
-	name = "Machine Design (Bluespace Miner)"
-	desc = "The circuit board for a Bluespace Miner."
-	id = "bluespace_miner"
-	build_path = /obj/item/circuitboard/machine/bluespace_miner
-	category = list ("Misc. Machinery")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_ENGINEERING
-
 /datum/design/board/mining_equipment_vendor
 	name = "Machine Design (Mining Rewards Vendor Board)"
 	desc = "The circuit board for a Mining Rewards Vendor."
@@ -594,14 +586,6 @@
 	build_path = /obj/item/circuitboard/machine/stacking_machine
 	category = list ("Misc. Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_ENGINEERING
-
-/datum/design/board/ore_silo
-	name = "Machine Design (Ore Silo)"
-	desc = "The circuit board for an ore silo."
-	id = "ore_silo"
-	build_path = /obj/item/circuitboard/machine/ore_silo
-	category = list ("Research Machinery")
-	departmental_flags = DEPARTMENTAL_FLAG_CARGO
 
 /datum/design/board/paystand
 	name = "Machine Design (Pay Stand)"
