@@ -398,7 +398,7 @@
 	var/obj/structure/closet/decay/C = new(get_turf(src))
 	if(LAZYLEN(contents))
 		for(var/atom/movable/AM in contents)
-			C.insert_m(AM)
+			AM.forceMove(C)
 		C.welded = TRUE
 		C.update_icon()
 	created = TRUE
@@ -434,13 +434,6 @@
 /obj/structure/closet/decay/after_weld(weld_state)
 	if(weld_state)
 		unmagify()
-
-/obj/structure/closet/decay/proc/insert_m(atom/movable/AM)
-	if(insertion_allowed(AM))
-		AM.forceMove(src)
-		return TRUE
-	else
-		return FALSE
 
 /obj/structure/closet/decay/proc/decay()
 	animate(src, alpha = 0, time = 30)
