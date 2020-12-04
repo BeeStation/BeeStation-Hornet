@@ -41930,9 +41930,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/airalarm/directional/west{
-	TLV = list("pressure" = new /datum/tlv(81.06,91.1925,111.457,121.59), "temperature" = new /datum/tlv(0,0,313.15,339.15), /datum/gas/oxygen = new /datum/tlv(16,19,135,140), /datum/gas/nitrogen = new /datum/tlv(-1,-1,1000,1000), /datum/gas/carbon_dioxide = new /datum/tlv(-1,-1,5,10), /datum/gas/miasma = new /datum/tlv(-1,-1,15,30), /datum/gas/plasma = new /datum/tlv/dangerous(), /datum/gas/nitrous_oxide = new /datum/tlv/dangerous(), /datum/gas/bz = new /datum/tlv/dangerous(), /datum/gas/hypernoblium = new /datum/tlv(-1,-1,1000,1000), /datum/gas/water_vapor = new /datum/tlv/dangerous(), /datum/gas/tritium = new /datum/tlv/dangerous(), /datum/gas/stimulum = new /datum/tlv/dangerous(), /datum/gas/nitryl = new /datum/tlv/dangerous(), /datum/gas/pluoxium = new /datum/tlv(-1,-1,1000,1000))
-	},
+/obj/machinery/airalarm/kitchen_cold_room,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "oph" = (
