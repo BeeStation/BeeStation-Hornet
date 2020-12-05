@@ -689,6 +689,31 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		target_amount = count
 	update_explanation_text()
 
+/datum/objective/bankrupt
+	name = "bankrupt"
+	target_amount = 1000
+	var/target_department = ACCOUNT_CAR
+
+/datum/objective/bankrupt/update_explanation_text()
+	..()
+	explanation_text = "Bankrupt the station by ensuring the [SSeconomy.department_accounts[target_department]] has less than [target_amount] credits at the end of the shift."
+
+/datum/objective/bankrupt/check_completion()
+	var/datum/bank_account/D = SSeconomy.get_dep_account(target_department)
+	if(isnull(D) || D.account_balance <= target_amount)
+		return TRUE
+
+	return FALSE
+
+/datum/objective/bankrupt/admin_edit(mob/admin)
+	var/dep_choice = input(admin, "Which target department?", "Department Selection") as null|anything in SSeconomy.department_accounts
+	if(dep_choice)
+		target_department = dep_choice
+	var/amount = input(admin,"What is the target amount?","Target Amount", target_amount) as num|null
+	if(amount)
+		target_amount = amount
+	update_explanation_text()
+
 /datum/objective/capture
 	name = "capture"
 

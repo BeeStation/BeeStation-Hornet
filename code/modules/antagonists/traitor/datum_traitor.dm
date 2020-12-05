@@ -163,6 +163,12 @@
 			download_objective.owner = owner
 			download_objective.gen_amount_goal()
 			add_objective(download_objective)
+
+		else if(prob(15) && !(locate(/datum/objective/bankrupt) in objectives) && !(owner.assigned_role in list("Captain", "Head of Personnel", "Quartermaster")))
+			var/datum/objective/bankrupt/bankrupt_objective = new
+			bankrupt_objective.owner = owner
+			add_objective(bankrupt_objective)
+
 		else
 			var/datum/objective/steal/steal_objective = new
 			steal_objective.owner = owner
