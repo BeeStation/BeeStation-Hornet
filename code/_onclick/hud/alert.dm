@@ -428,8 +428,8 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	START_PROCESSING(SSprocessing, src)
 
 /atom/movable/screen/alert/clockwork/clocksense/Destroy()
-	. = ..()
 	STOP_PROCESSING(SSprocessing, src)
+	return ..()
 
 /atom/movable/screen/alert/clockwork/clocksense/process()
 	var/datum/antagonist/servant_of_ratvar/servant_antagonist = is_servant_of_ratvar(owner)
@@ -666,8 +666,7 @@ so as to remain in compliance with the most up-to-date laws."
 		return usr.client.Click(master, location, control, params)
 
 /atom/movable/screen/alert/Destroy()
-	. = ..()
 	severity = 0
-	master = null
 	owner = null
 	screen_loc = ""
+	return ..()
