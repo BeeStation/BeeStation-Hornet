@@ -1,0 +1,6 @@
+author: eeSPee
+delete-after: true
+changes:
+  - bugfix: limbsnakes properly disember limbs
+  - tweak: Chimeracost doubled
+  - tweak: biodegrade cost halved
