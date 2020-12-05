@@ -876,8 +876,11 @@
 			return
 
 		if (SSticker.HasRoundStarted())
-			if (askuser(usr, "The game has already started. Would you like to save this as the default mode effective next round?", "Save mode", "Yes", "Cancel", Timeout = null) == 1)
-				SSticker.save_mode(href_list["c_mode2"])
+			if(check_rights(R_DBRANKS, FALSE))
+				if(askuser(usr, "The game has already started. Would you like to save this as the default mode effective next round?", "Save mode", "Yes", "Cancel", Timeout = null) == 1)
+					SSticker.save_mode(href_list["c_mode2"])
+			else
+				to_chat(usr, "<span class='warning'>The round has already started!</span>")
 			HandleCMode()
 			return
 		GLOB.master_mode = href_list["c_mode2"]
@@ -885,8 +888,9 @@
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] set the mode as [GLOB.master_mode].</span>")
 		to_chat(world, "<span class='adminnotice'><b>The mode is now: [GLOB.master_mode]</b></span>")
 		Game() // updates the main game menu
-		if (askuser(usr, "Would you like to save this as the default mode for the server?", "Save mode", "Yes", "No", Timeout = null) == 1)
-			SSticker.save_mode(GLOB.master_mode)
+		if(check_rights(R_DBRANKS, FALSE))
+			if(askuser(usr, "Would you like to save this as the default mode for the server?", "Save mode", "Yes", "No", Timeout = null) == 1)
+				SSticker.save_mode(GLOB.master_mode)
 		HandleCMode()
 
 	else if(href_list["f_secret2"])
@@ -1614,15 +1618,17 @@
 
 		if(pod)
 			new /obj/effect/DPtarget(target, pod)
-
+		
+		var/turf/T = get_turf(usr.loc) // get admin's LOC as a turf
+		
 		if (number == 1)
-			log_admin("[key_name(usr)] created a [english_list(paths)]")
+			log_admin("[key_name(usr)] created a [english_list(paths)] at [AREACOORD(T)]")
 			for(var/path in paths)
 				if(ispath(path, /mob))
 					message_admins("[key_name_admin(usr)] created a [english_list(paths)]")
 					break
 		else
-			log_admin("[key_name(usr)] created [number]ea [english_list(paths)]")
+			log_admin("[key_name(usr)] created [number]ea [english_list(paths)] at [AREACOORD(T)]")
 			for(var/path in paths)
 				if(ispath(path, /mob))
 					message_admins("[key_name_admin(usr)] created [number]ea [english_list(paths)]")
@@ -2024,7 +2030,7 @@
 						dat += sanitize(jobs.Join(", "))
 						dat += "<br>"
 					dat += "<hr>"
-					
+
 		var/datum/browser/popup = new(usr, "centcomlookup-[ckey]", "<div align='center'>Central Command Galactic Ban Database</div>", 700, 600)
 		popup.set_content(dat.Join())
 		popup.open(FALSE)

@@ -129,7 +129,6 @@
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
 
 /obj/machinery/aug_manipulator/AltClick(mob/living/user)
-	..()
 	if(!user.canUseTopic(src, !issilicon(user)))
 		return
 	else

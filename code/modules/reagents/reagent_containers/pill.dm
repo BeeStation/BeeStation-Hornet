@@ -51,8 +51,7 @@
 
 	var/makes_me_think = pick(strings(REDPILL_FILE, "redpill_questions"))
 	if(icon_state == "pill4" && prob(5)) //you take the red pill - you stay in Wonderland, and I show you how deep the rabbit hole goes
-		sleep(50)
-		to_chat(M, "<span class='notice'>[makes_me_think]</span>")
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, M, "<span class='notice'>[makes_me_think]</span>"), 5 SECONDS)
 
 	if(reagents.total_volume)
 		reagents.reaction(M, apply_type)
@@ -205,7 +204,7 @@
 	desc = "Used to treat radition used to counter radiation poisoning."
 	icon_state = "pill18"
 	list_reagents = list(/datum/reagent/medicine/potass_iodide = 30)
-	
+
 
 ///////////////////////////////////////// this pill is used only in a legion mob drop
 /obj/item/reagent_containers/pill/shadowtoxin

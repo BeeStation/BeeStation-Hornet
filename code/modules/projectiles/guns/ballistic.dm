@@ -262,7 +262,7 @@
 		if(suppressed && can_unsuppress)
 			var/obj/item/suppressor/S = suppressed
 			if(!user.is_holding(src))
-				return ..()
+				return
 			to_chat(user, "<span class='notice'>You unscrew \the [suppressed] from \the [src].</span>")
 			user.put_in_hands(suppressed)
 			w_class -= S.w_class
