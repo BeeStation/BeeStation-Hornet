@@ -458,6 +458,10 @@
 	suffix = "kilo"
 	name = "supply shuttle (Kilo)"
 
+/datum/map_template/shuttle/cargo/corg
+	suffix = "corg"
+	name = "supply shuttle (Corg)"
+
 /datum/map_template/shuttle/cargo/birdboat
 	suffix = "birdboat"
 	name = "supply shuttle (Birdboat)"
