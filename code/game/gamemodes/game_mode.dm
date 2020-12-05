@@ -282,9 +282,12 @@
 	round_converted = 2
 	message_admins("-- IMPORTANT: The roundtype has been converted to [replacementmode.name], antagonists may have been created! --")
 
-
-///Called by the gameSSticker
-/datum/game_mode/process()
+/**
+ *  ATTENTION:
+ *  If you make some special process() for your gamemode,
+ *  it'll be called by the SSticker, which ignores your
+ *  return value.
+ */
 
 //For things that do not die easily
 /datum/game_mode/proc/are_special_antags_dead()
