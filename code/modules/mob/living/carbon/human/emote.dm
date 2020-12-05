@@ -26,7 +26,7 @@
 
 /datum/emote/living/carbon/human/handshake
 	key = "handshake"
-	message = "shakes their own hands."
+	message = "shakes their own hand"
 	message_param = "shakes hands with %t."
 	restraint_check = TRUE
 	emote_type = EMOTE_AUDIBLE
