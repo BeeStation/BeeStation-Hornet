@@ -2727,7 +2727,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/chapel/office)
 "aOy" = (
 /obj/structure/closet,
@@ -5560,7 +5560,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/chapel/office)
 "bBK" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
@@ -10632,7 +10632,7 @@
 	dir = 4
 	},
 /obj/machinery/light/small,
-/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/vacant_room/commissary)
 "cVt" = (
 /obj/effect/turf_decal/stripes/line{
@@ -39098,7 +39098,7 @@
 "kKi" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
-/turf/open/space/basic,
+/turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "kKl" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -53128,7 +53128,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/maintenance/department/science)
 "orA" = (
 /obj/machinery/door/airlock/engineering{
@@ -53400,7 +53400,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/maintenance/department/science)
 "ouY" = (
 /obj/effect/turf_decal/tile/purple{
@@ -53583,7 +53583,7 @@
 	freq = 1400;
 	location = "Commissary"
 	},
-/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/vacant_room/commissary)
 "oxe" = (
 /obj/effect/turf_decal/tile/green{
@@ -70407,7 +70407,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Atrium"
 	},
-/turf/open/space/basic,
+/turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "tfs" = (
 /obj/machinery/nanite_chamber,
@@ -78595,9 +78595,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
-	dir = 8
-	},
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -80205,7 +80203,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/turf/open/space/basic,
+/turf/open/floor/wood,
 /area/crew_quarters/bar)
 "vQf" = (
 /obj/structure/table/reinforced,
@@ -82119,7 +82117,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/space/basic,
+/turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "wsM" = (
 /obj/structure/disposalpipe/segment,
@@ -89177,7 +89175,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Atrium"
 	},
-/turf/open/space/basic,
+/turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "yfG" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
