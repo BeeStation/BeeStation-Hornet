@@ -94,7 +94,7 @@
 	 *  while pipes must and will happily wreck and rebuild everything again
 	 *  every time they are qdeleted.
 	 */
-	if(!(reference.other_atmosmch.len || reference.members.len))
+	if(!(reference.other_atmosmch.len || reference.members.len || QDESTROYING(reference)))
 		qdel(reference)
 	parents[i] = null
 
