@@ -956,6 +956,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		/datum/objective/survive,
 		/datum/objective/martyr,
 		/datum/objective/steal,
+		/datum/objective/bankrupt,
 		/datum/objective/download,
 		/datum/objective/nuclear,
 		/datum/objective/capture,
