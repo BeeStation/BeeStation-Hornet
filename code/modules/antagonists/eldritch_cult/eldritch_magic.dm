@@ -69,7 +69,7 @@
 	if(iscarbon(target))
 		var/mob/caster = user
 		var/mob/living/carbon/C = target
-		if (caster.a_intent != INTENT_HARM && C.mind?.has_antag_datum(/datum/antagonist/heretic_monster/disciple))
+		if (caster.a_intent != INTENT_HARM && C.mind && C.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple))
 			var/datum/antagonist/heretic_monster/disciple/sucker = C.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple)
 			if (cultie.can_promote_follower(sucker))
 				cultie.spend_favor(sucker.get_promote_cost())

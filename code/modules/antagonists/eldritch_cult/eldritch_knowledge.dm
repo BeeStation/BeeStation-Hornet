@@ -292,6 +292,39 @@
 ///General Knowledge///
 ///////////////////////
 
+/datum/eldritch_knowledge/convert
+	name = "Break of dawn"
+	desc = "You can sacrifice specific targets by placing their dead bodies and the living heart on a transmutation rune, and performing a transmutation ritual."
+	gain_text = "Gates of mansus open up to your mind."
+	next_knowledge = list(/datum/eldritch_knowledge/base_rust,/datum/eldritch_knowledge/base_ash,/datum/eldritch_knowledge/base_flesh)
+	cost = 0
+	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/mansus_grasp
+	required_atoms = list(/obj/item/forbidden_book)
+	route = "Start"
+
+/datum/eldritch_knowledge/convert/on_finished_recipe(mob/living/user,list/atoms,loc)
+	var/mob/living/carbon/human/victim = locate() in atoms
+	if(QDELETED(victim) || victim.stat == DEAD)
+		return
+	if (!victim.mind)
+		to_chat(user,"<span class='notice'>[victim] has no mind to enslave!</span>")
+		return
+	if (!victim.buckled)
+		return
+	if (!do_after(user,20 SECONDS, victim)))
+		return		
+	if (QDELETED(victim) || !victim.buckled || victim.stat == DEAD))	//check again to see if the victim has not escaped
+		return
+	switch (cultie.enslave(victim))
+		if (0)
+			victim.SetSleeping(0)
+			to_chat(user,"<span class='warning'>You corrupt the mind of [victim]! [victim.He] is now bound to do your bidding...</span>")
+		if (1)
+			to_chat(user, "<span class='notice'>You sense a weak mind, but your powers are not strong enough to take it over!</span>")
+
+/datum/eldritch_knowledge/convert/cleanup_atoms(list/atoms)
+	return
+
 // Crafting //
 
 /datum/eldritch_knowledge/living_heart

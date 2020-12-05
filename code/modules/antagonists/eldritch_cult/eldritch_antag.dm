@@ -41,6 +41,7 @@
 		gain_knowledge(/datum/eldritch_knowledge/codex_cicatrix)
 		gain_knowledge(/datum/eldritch_knowledge/living_heart)
 		gain_knowledge(/datum/eldritch_knowledge/spell/basic)
+		gain_knowledge(/datum/eldritch_knowledge/convert)
 		gain_knowledge(/datum/eldritch_knowledge/eldritch_avatar)
 	current.log_message("has become a heretic", LOG_ATTACK, color="#960000")
 	GLOB.reality_smash_track.AddMind(owner)
