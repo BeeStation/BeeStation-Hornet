@@ -89,7 +89,7 @@
 			var/plas_amt = min(amt,environment.get_moles(/datum/gas/plasma))
 			environment.adjust_moles(/datum/gas/plasma, -plas_amt)
 			environment.adjust_moles(/datum/gas/oxygen, plas_amt)
-			adjustBruteLoss(-plas_amt/2)
+			adjustBruteLoss(plas_amt ? -2 : 0)
 
 		if(stat == CONSCIOUS && stasis)
 			to_chat(src, "<span class='danger'>Nerve gas in the air has put you in stasis!</span>")
