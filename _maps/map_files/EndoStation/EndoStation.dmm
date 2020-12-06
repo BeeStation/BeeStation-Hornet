@@ -31565,6 +31565,20 @@
 /obj/structure/closet/secure_closet/personal,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/dorms)
+"iGi" = (
+/obj/structure/sign/directions/engineering{
+	dir = 4
+	},
+/obj/structure/sign/directions/security{
+	dir = 4;
+	pixel_y = 8
+	},
+/obj/structure/sign/directions/evac{
+	dir = 4;
+	pixel_y = -8
+	},
+/turf/closed/wall,
+/area/hallway/secondary/entry)
 "iGj" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -39150,6 +39164,19 @@
 "kLz" = (
 /turf/closed/wall/r_wall,
 /area/ai_monitored/storage/satellite)
+"kLB" = (
+/obj/structure/sign/directions/supply{
+	pixel_y = 8
+	},
+/obj/structure/sign/directions/science{
+	dir = 4
+	},
+/obj/structure/sign/directions/medical{
+	dir = 4;
+	pixel_y = -8
+	},
+/turf/closed/wall,
+/area/hallway/secondary/entry)
 "kLC" = (
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
@@ -41551,7 +41578,7 @@
 	id = "hopblast";
 	name = "HoP Blast door"
 	},
-/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/crew_quarters/heads/hop)
 "lur" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
@@ -54081,6 +54108,10 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/airalarm{
+	dir = 8;
+	pixel_x = 24
 	},
 /turf/open/floor/plasteel/white/corner,
 /area/hallway/secondary/entry)
@@ -76875,9 +76906,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = 24
+/obj/machinery/status_display/evac{
+	pixel_x = 32
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -78692,9 +78722,6 @@
 "vsN" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
-	},
-/obj/machinery/status_display/evac{
-	pixel_x = 32
 	},
 /obj/machinery/camera/autoname{
 	dir = 8
@@ -83346,6 +83373,10 @@
 "wHB" = (
 /obj/machinery/camera/autoname{
 	dir = 8
+	},
+/obj/machinery/airalarm{
+	dir = 8;
+	pixel_x = 24
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -101650,11 +101681,11 @@ ouV
 oCr
 pSY
 rhw
-rhw
+uTV
 rhw
 ufJ
 vsN
-uTV
+rhw
 wzJ
 pzt
 pzT
@@ -101910,8 +101941,8 @@ mvB
 mvB
 sQC
 uhF
-mvB
-mvB
+iGi
+kLB
 xOm
 sQC
 mvB
