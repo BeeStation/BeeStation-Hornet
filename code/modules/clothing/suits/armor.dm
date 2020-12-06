@@ -62,10 +62,11 @@
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	strip_delay = 80
+	slowdown = 0.1
 
 /obj/item/clothing/suit/armor/hos/trenchcoat
 	name = "armored trenchoat"
-	desc = "A trenchcoat enhanced with a special lightweight kevlar. The epitome of tactical plainclothes."
+	desc = "A trenchcoat enhanced with a special lightweight kevlar designed for casual wear. The epitome of tactical plainclothes."
 	icon_state = "hostrench"
 	item_state = "hostrench"
 	flags_inv = 0
@@ -90,13 +91,15 @@
 
 /obj/item/clothing/suit/armor/vest/leather
 	name = "security overcoat"
-	desc = "Lightly armored leather overcoat meant as casual wear for high-ranking officers. Bears the crest of Nanotrasen Security."
+	desc = "A leather overcoat reinforced with a special alloy for extra protection specially made for high-ranking officers. Bears the crest of Nanotrasen Security."
 	icon_state = "leathercoat-sec"
 	item_state = "hostrench"
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 40, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 90)
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	dog_fashion = null
+	slowdown = 0.1
 
 /obj/item/clothing/suit/armor/vest/capcarapace
 	name = "captain's carapace"
