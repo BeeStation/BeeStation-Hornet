@@ -363,6 +363,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	max_integrity = 100
+	transparent = FALSE
 	slot_flags = null
 	force = 3
 	throwforce = 3
