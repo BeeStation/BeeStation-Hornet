@@ -1891,19 +1891,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"auE" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/structure/table/reinforced,
-/obj/item/flashlight/seclite,
-/obj/item/flashlight/seclite,
-/obj/item/restraints/legcuffs/bola/energy,
-/turf/open/floor/plasteel/dark,
-/area/security/brig)
 "auG" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -6865,18 +6852,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
-"bGy" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Reducation Center";
-	req_access_txt = "3"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/turf/open/floor/plating,
-/area/security/execution/education)
 "bGz" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/bot_white,
@@ -15293,18 +15268,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/chapel/monastery)
-"eCh" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/machinery/door/window/brigdoor/eastleft{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/security/execution/education)
 "eCl" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Bar"
@@ -21664,18 +21627,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
-"gKy" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
 "gKz" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/tile/brown,
@@ -44375,6 +44326,19 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
+"ofn" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Gear Room";
+	req_one_access_txt = "1;4"
+	},
+/turf/open/floor/plasteel,
+/area/security/main)
 "ofu" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -44781,20 +44745,22 @@
 /obj/machinery/light/small,
 /turf/open/floor/noslip/white,
 /area/crew_quarters/toilet)
-"ooU" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
+"ooZ" = (
+/obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/machinery/airalarm/kitchen_cold_room,
-/turf/open/floor/plasteel/dark/telecomms,
-/area/tcommsat/server)
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
+/obj/structure/closet/crate,
+/obj/item/reagent_containers/glass/bottle/chloralhydrate,
+/obj/item/reagent_containers/glass/bottle/chloralhydrate,
+/obj/item/reagent_containers/glass/rag,
+/turf/open/floor/plasteel/dark,
+/area/security/execution/education)
 "opp" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -45736,6 +45702,19 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/fitness/recreation)
+"oGw" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/door/airlock/security{
+	aiControlDisabled = 1;
+	name = "Education Center";
+	req_access_txt = "3"
+	},
+/turf/open/floor/plating,
+/area/security/execution/education)
 "oGx" = (
 /obj/structure/flora/ausbushes/palebush,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
@@ -47141,6 +47120,22 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/medical/storage)
+"pgi" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/structure/table/reinforced,
+/obj/item/flashlight/seclite,
+/obj/item/flashlight/seclite,
+/obj/item/restraints/legcuffs/bola/energy,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/brig)
 "pgt" = (
 /obj/structure/closet/crate,
 /obj/item/stack/ore/plasma,
@@ -53306,6 +53301,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
+"rlX" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/machinery/camera/autoname{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/hallway/secondary/entry)
 "rmm" = (
 /obj/machinery/door/window/northleft{
 	dir = 8;
@@ -66718,19 +66725,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/storage)
-"vJe" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/machinery/camera/autoname{
-	dir = 1
-	},
-/obj/structure/chair/office,
-/turf/open/floor/plating,
-/area/hallway/secondary/entry)
 "vJi" = (
 /turf/closed/wall,
 /area/hallway/secondary/entry)
@@ -68472,6 +68466,21 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tile/red,
+/turf/open/floor/plasteel,
+/area/security/brig)
+"wkh" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "wkm" = (
@@ -74016,6 +74025,23 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
+"yhw" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/machinery/airalarm/server{
+	dir = 4;
+	pixel_x = -26
+	},
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "yhL" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -104941,7 +104967,7 @@ dZs
 wYS
 jmI
 aUu
-ooU
+yhw
 uZf
 pcd
 uDX
@@ -111715,7 +111741,7 @@ ehY
 ehY
 ehY
 ehY
-vJe
+rlX
 vJi
 vJi
 vJi
@@ -114737,7 +114763,7 @@ anT
 aMT
 duF
 ptG
-auE
+pgi
 bKJ
 duF
 vgb
@@ -117328,7 +117354,7 @@ mZc
 vCg
 oRA
 mZR
-urx
+ofn
 mZR
 oRA
 oRA
@@ -118333,7 +118359,7 @@ tnH
 uSo
 plv
 aUp
-bGy
+oGw
 xDU
 kVE
 jXG
@@ -118592,7 +118618,7 @@ kip
 awl
 duF
 jqZ
-gKy
+wkh
 rrT
 uRN
 ykT
@@ -119104,7 +119130,7 @@ hzM
 opW
 ebs
 sjf
-eCh
+ooZ
 bgs
 fOv
 kNJ
