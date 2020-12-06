@@ -12,7 +12,7 @@
 		return
 	alpha = 255
 	if(transformeffects & SLIME_EFFECT_BLACK)
-		alpha = 128
+		alpha = 64
 	if(..())
 		if(buckled)
 			handle_feeding()
@@ -47,8 +47,9 @@
 			Target.attack_slime(src)
 			attack_cooldown = world.time + attack_cooldown_time
 	else if(Target in view(7, src))
-		if((transformeffects & SLIME_EFFECT_BLUESPACE) && powerlevel == 10)
-			do_teleport(src, get_turf(Target),null,TRUE,null,null,null,null,TRUE, channel = TELEPORT_CHANNEL_BLUESPACE)
+		if((transformeffects & SLIME_EFFECT_BLUESPACE) && powerlevel >= 5)
+			do_teleport(src, get_turf(Target), asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
+			powerlevel -= 5
 		else
 			step_to(src, Target)
 	else
@@ -84,11 +85,11 @@
 		var/bz_percentage = environment.total_moles() ? (environment.get_moles(/datum/gas/bz) / environment.total_moles()) : 0
 		var/stasis = (bz_percentage >= 0.05 && bodytemperature < (T0C + 100)) || force_stasis
 		if(transformeffects & SLIME_EFFECT_DARK_PURPLE)
-			var/plas_amt = min(30,environment.get_moles(/datum/gas/plasma))
+			var/amt = is_adult ? 30 : 15
+			var/plas_amt = min(amt,environment.get_moles(/datum/gas/plasma))
 			environment.adjust_moles(/datum/gas/plasma, -plas_amt)
 			environment.adjust_moles(/datum/gas/oxygen, plas_amt)
-			adjustBruteLoss(-plas_amt)
-			to_chat(world, "esta es la cantidad de plasma consumido [plas_amt]")//Evan debug
+			adjustBruteLoss(-plas_amt/2)
 
 		if(stat == CONSCIOUS && stasis)
 			to_chat(src, "<span class='danger'>Nerve gas in the air has put you in stasis!</span>")
@@ -210,7 +211,7 @@
 			Evolve()
 
 /mob/living/simple_animal/slime/proc/add_nutrition(nutrition_to_add = 0)
-	var/gainpower = (transformeffects & SLIME_EFFECT_YELLOW) ? 2 : 1
+	var/gainpower = (transformeffects & SLIME_EFFECT_YELLOW) ? 3 : 1
 	set_nutrition(min((nutrition + nutrition_to_add), get_max_nutrition()))
 	if(nutrition >= get_grow_nutrition())
 		if(powerlevel<10)

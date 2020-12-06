@@ -18,21 +18,26 @@ transformative extracts:
 	if(S.transformeffects & effect_applied)
 		to_chat(user,"<span class='warning'>This slime already has the [colour] transformative effect applied!</span>")
 		return FALSE
-	S.transformeffects = effect_applied //S.transformeffects |= effect_applied
-	S.effectsapplied = 1 //S.effectsapplied++
 	to_chat(user,"<span class='notice'>You apply [src] to [target].</span>")
 	do_effect(S, user)
+	S.transformeffects = effect_applied //S.transformeffects |= effect_applied
+	S.effectsapplied = 1 //S.effectsapplied++
 	qdel(src)
 
 /obj/item/slimecross/transformative/proc/do_effect(mob/living/simple_animal/slime/S, mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	if(S.transformeffects & SLIME_EFFECT_LIGHT_PINK)
-		S.master = null
 		for(var/spawner in GLOB.mob_spawners)
 			LAZYREMOVE(GLOB.mob_spawners[spawner], S)
+		S.master = null
 		GLOB.poi_list -= S
 	if(S.transformeffects & SLIME_EFFECT_METAL)
 		S.maxHealth = round(S.maxHealth/1.3)
+	if(S.transformeffects & SLIME_EFFECT_BLUESPACE)
+		S.verbs -= /mob/living/simple_animal/slime/proc/teleport
+	if(S.transformeffects & SLIME_EFFECT_PINK)
+		var/datum/language_holder/LH = S.get_language_holder()
+		LH.selected_language = /datum/language/slime
 
 /obj/item/slimecross/transformative/grey
 	colour = "grey"
@@ -88,6 +93,10 @@ transformative extracts:
 	effect_applied = SLIME_EFFECT_BLUESPACE
 	effect_desc = "Slimes will teleport to targets when they are at full electric charge."
 
+/obj/item/slimecross/transformative/bluespace/do_effect(mob/living/simple_animal/slime/S, mob/user)
+	..()
+	S.verbs += /mob/living/simple_animal/slime/proc/teleport
+
 /obj/item/slimecross/transformative/sepia
 	colour = "sepia"
 	effect_applied = SLIME_EFFECT_SEPIA
@@ -121,6 +130,8 @@ transformative extracts:
 /obj/item/slimecross/transformative/pink/do_effect(mob/living/simple_animal/slime/S)
 	..()
 	S.grant_language(/datum/language/common, TRUE, TRUE)
+	var/datum/language_holder/LH = S.get_language_holder()
+	LH.selected_language = /datum/language/common
 
 /obj/item/slimecross/transformative/gold
 	colour = "gold"
@@ -145,8 +156,8 @@ transformative extracts:
 /obj/item/slimecross/transformative/lightpink/do_effect(mob/living/simple_animal/slime/S, mob/user)
 	..()
 	GLOB.poi_list |= S
-	LAZYADD(GLOB.mob_spawners[S.name], S)
 	S.master = user
+	LAZYADD(GLOB.mob_spawners["[S.master.real_name]'s slime"], S)
 
 /obj/item/slimecross/transformative/adamantine
 	colour = "adamantine"

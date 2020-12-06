@@ -114,10 +114,10 @@
 	for(var/A in actions)
 		var/datum/action/AC = A
 		AC.Remove(src)
-	master = null
 	for(var/spawner in GLOB.mob_spawners)
 		LAZYREMOVE(GLOB.mob_spawners[spawner], src)
 	GLOB.poi_list -= src
+	master = null
 	return ..()
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)

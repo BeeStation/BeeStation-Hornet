@@ -248,6 +248,14 @@
 		M.health = M.maxHealth
 	if(transformeffects & SLIME_EFFECT_PINK)
 		M.grant_language(/datum/language/common, TRUE, TRUE)
+		var/datum/language_holder/LH = get_language_holder()
+		LH.selected_language = /datum/language/common
+	if(transformeffects & SLIME_EFFECT_BLUESPACE)
+		M.verbs += /mob/living/simple_animal/slime/proc/teleport
+	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
+		GLOB.poi_list |= M
+		M.master = master
+		LAZYADD(GLOB.mob_spawners["[master.real_name]'s slime"], M)
 	M.Friends = Friends.Copy()
 	if(step_away)
 		step_away(M,src)
@@ -257,3 +265,17 @@
 		M.AddComponent(/datum/component/nanites, original_nanites.nanite_volume*0.25)
 		SEND_SIGNAL(M, COMSIG_NANITE_SYNC, original_nanites, TRUE, TRUE) //The trues are to copy activation as well
 	return M
+
+/mob/living/simple_animal/slime/proc/teleport()
+	set category = "Slime"
+	set name = "teleport"
+	set desc = "teleport to random location"
+	if(powerlevel <= 0)
+		to_chat(src, "<span class='warning'>No enough power.</span>")
+	else
+		random_tp()
+
+/mob/living/simple_animal/slime/proc/random_tp()
+	var/power = rand(1,powerlevel)
+	do_teleport(src, get_turf(src), power, asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
+	powerlevel -= power
