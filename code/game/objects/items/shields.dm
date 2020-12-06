@@ -55,7 +55,7 @@
 			if(!W.tool_start_check(user, amount=0))
 				return
 			user.visible_message("[user] is welding the [src].", \
-									"<span class='notice'>You begin repairing the [src]]...</span>")
+									"<span class='notice'>You begin repairing the [src]...</span>")
 			if(W.use_tool(src, user, 40, volume=50))
 				obj_integrity += 10
 				user.visible_message("[user.name] has repaired some dents on [src].", \
@@ -353,5 +353,47 @@
 		throw_speed = 3
 		w_class = WEIGHT_CLASS_NORMAL
 		slot_flags = null
+		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+	add_fingerprint(user)
+
+/obj/item/shield/riot/briefcase_shield //this is for a traitor item which is why the name and description is the same as a regular briefcase
+	name = "briefcase"
+	desc = "It's made of AUTHENTIC faux-leather and has a price-tag still attached. Its owner must be a real professional."
+	icon_state = "caseshield0"
+	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
+	max_integrity = 100
+	slot_flags = null
+	force = 3
+	throwforce = 3
+	throw_speed = 3
+	throw_range = 4
+	w_class = WEIGHT_CLASS_BULKY
+	var/active = 0
+
+/obj/item/shield/riot/briefcase_shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(active)
+		return ..()
+	return 0
+
+/obj/item/shield/riot/briefcase_shield/attack_self(mob/living/user)
+	active = !active
+	icon_state = "caseshield[active]"
+	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
+
+	if(active)
+		force = 8
+		throwforce = 5
+		throw_speed = 2
+		w_class = WEIGHT_CLASS_BULKY
+		slot_flags = ITEM_SLOT_BACK
+		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
+	else
+		force = 3
+		throwforce = 3
+		throw_speed = 3
+		w_class = WEIGHT_CLASS_BULKY
+		slot_flags = null
+		attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
 	add_fingerprint(user)
