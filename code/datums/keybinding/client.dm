@@ -40,7 +40,7 @@
 	key = "\]"
 	name = "zoomin"
 	full_name = "Zoom In"
-	description = "Temporary switch icon scaling mode to 3x until unpressed"
+	description = "Temporary switch icon scaling mode to 4x until unpressed"
 
 /datum/keybinding/client/zoomin/down(client/user)
 	winset(user, "mapwindow.map", "zoom=[PIXEL_SCALING_4X]")
