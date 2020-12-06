@@ -385,14 +385,12 @@
 		force = 8
 		throwforce = 5
 		throw_speed = 2
-		w_class = WEIGHT_CLASS_BULKY
 		slot_flags = ITEM_SLOT_BACK
 		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
 	else
 		force = 3
 		throwforce = 3
 		throw_speed = 3
-		w_class = WEIGHT_CLASS_BULKY
 		slot_flags = null
 		attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
