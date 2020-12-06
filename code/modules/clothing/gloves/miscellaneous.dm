@@ -135,7 +135,7 @@
 		to_chat(user, "<span class='warning'>Invalid battlecry, please use another. Battlecry cannot contain *me.</span>")
 	else if(CHAT_FILTER_CHECK(input2))
 		to_chat(user, "<span class='warning'>Invalid battlecry, please use another. Battlecry contains prohibited word(s).</span>")
-	else if(input)
+	else if(input2)
 		warcryCharge = input2
 
 /obj/item/clothing/gloves/color/white/magic
