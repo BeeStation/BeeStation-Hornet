@@ -1,15 +1,93 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
+/obj/machinery/mineral/stacking_machine/laborstacker{
+	input_dir = 2;
+	output_dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
+"b" = (
+/obj/machinery/mineral/labor_claim_console{
+	machinedir = 1;
+	pixel_x = 30
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
+"e" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
+"h" = (
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_x = -31
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
+"p" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
+"r" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
+"t" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Labor Shuttle Airlock";
 	req_access_txt = "2"
 	},
 /turf/open/floor/mineral/titanium,
-/area/space)
-"f" = (
+/area/shuttle/labor)
+"y" = (
 /turf/closed/wall/mineral/titanium,
-/area/space)
-"j" = (
+/area/shuttle/labor)
+"A" = (
+/obj/machinery/mineral/stacking_unit_console{
+	machinedir = 2;
+	pixel_x = 30;
+	pixel_y = -4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
+"B" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/labor)
+"D" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
+"E" = (
 /obj/machinery/door/airlock/titanium{
 	id_tag = "prisonshuttle";
 	name = "Labor Shuttle Airlock"
@@ -24,19 +102,8 @@
 	width = 8
 	},
 /turf/open/floor/mineral/titanium,
-/area/space)
-"k" = (
-/obj/structure/shuttle/engine/propulsion,
-/turf/open/floor/plating/airless,
-/area/space)
-"n" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/mineral/plastitanium,
-/area/space)
-"o" = (
+/area/shuttle/labor)
+"F" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Labor Shuttle Airlock";
 	req_access_txt = "2"
@@ -45,15 +112,11 @@
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red,
-/area/space)
-"p" = (
-/obj/machinery/computer/shuttle/labor{
-	dir = 4
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/mineral/plastitanium,
-/area/space)
-"s" = (
+/area/shuttle/labor)
+"H" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/labor)
+"I" = (
 /obj/machinery/button/flasher{
 	id = "gulagshuttleflasher";
 	name = "Flash Control";
@@ -66,8 +129,34 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light,
 /turf/open/floor/mineral/plastitanium/red,
-/area/space)
-"t" = (
+/area/shuttle/labor)
+"P" = (
+/obj/machinery/computer/shuttle/labor{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
+"Q" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
+"R" = (
+/obj/structure/shuttle/engine/heater,
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating/airless,
+/area/shuttle/labor)
+"S" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/open/floor/plating/airless,
+/area/shuttle/labor)
+"U" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/labor)
+"V" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
@@ -77,148 +166,62 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/plastitanium/red,
-/area/space)
-"v" = (
-/obj/machinery/mineral/labor_claim_console{
-	machinedir = 1;
-	pixel_x = 30
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/space)
-"A" = (
+/area/shuttle/labor)
+"X" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/plastitanium/red,
-/area/space)
-"C" = (
-/obj/structure/reagent_dispensers/peppertank{
-	pixel_x = -31
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/mineral/plastitanium/red,
-/area/space)
-"E" = (
-/obj/effect/turf_decal/caution/stand_clear{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/space)
-"G" = (
-/obj/structure/shuttle/engine/heater,
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating/airless,
-/area/space)
-"O" = (
-/obj/machinery/mineral/stacking_machine/laborstacker{
-	input_dir = 2;
-	output_dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/space)
-"P" = (
-/obj/effect/turf_decal/caution/stand_clear{
-	dir = 8
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/space)
-"Q" = (
-/turf/closed/wall/mineral/plastitanium,
-/area/space)
-"R" = (
-/obj/machinery/mineral/stacking_unit_console{
-	machinedir = 2;
-	pixel_x = 30;
-	pixel_y = -4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/space)
-"S" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/space)
-"Y" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/space)
-"Z" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/space)
+/area/shuttle/labor)
 
 (1,1,1) = {"
-f
-Y
-f
-f
-Y
-f
-f
-Q
+y
+B
+y
+y
+B
+y
+U
+H
 "}
 (2,1,1) = {"
-Y
-p
-C
-o
-Z
-t
-G
-k
+B
+P
+h
+F
+e
+V
+R
+S
 "}
 (3,1,1) = {"
-Y
-n
-s
-f
+B
+Q
+I
+y
+p
+X
+R
 S
-A
-G
-k
 "}
 (4,1,1) = {"
-Y
-P
+B
+r
+A
+a
+b
+D
 R
-O
-v
-E
-G
-k
+S
 "}
 (5,1,1) = {"
-f
-a
-f
-f
-f
-j
-f
-Q
+y
+t
+y
+y
+y
+E
+U
+H
 "}
