@@ -776,7 +776,7 @@
 
 /// Allows mobs to slowly walk in crit for a short time
 /mob/living/carbon/proc/crit_walk()
-	if(stat != CONSCIOUS)
+	if(stat == SOFT_CRIT)
 		switch(health)
 			if(HEALTH_THRESHOLD_FULLCRIT to -30)
 				if(prob(60))
