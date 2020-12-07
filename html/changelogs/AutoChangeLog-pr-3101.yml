@@ -1,0 +1,6 @@
+author: ike709
+delete-after: true
+changes:
+  - balance: Reduces bumpslams to a 10% chance. The 10% chance has a 5 second cooldown
+      if it fails or a 20 second cooldown if it passes (aka you can't get bumpslammed
+      successfully twice in 20 seconds).
