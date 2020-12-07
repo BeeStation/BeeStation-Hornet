@@ -63,13 +63,14 @@
 	if(buckled || now_pushing)
 		return
 	if(!ismovableatom(A) || is_blocked_turf(A))  // ported from VORE, sue me
-		if((confused || is_blind()) && stat == CONSCIOUS && prob(10) && m_intent == "run" && (mobility_flags & MOBILITY_STAND) && !HAS_MOB_PROPERTY(src, PROP_CANTBUMPSLAM))
-			playsound(get_turf(src), "punch", 25, 1, -1)
-			visible_message("<span class='warning'>[src] [pick("ran", "slammed")] into \the [A]!</span>")
-			apply_damage(5, BRUTE)
-			Paralyze(40)
-			APPLY_MOB_PROPERTY(src, PROP_CANTBUMPSLAM, src.type)
-			addtimer(CALLBACK(src, .proc/can_bumpslam), 100)
+		if((confused || is_blind()) && stat == CONSCIOUS && m_intent == "run" && (mobility_flags & MOBILITY_STAND) && !HAS_MOB_PROPERTY(src, PROP_CANTBUMPSLAM))
+			if(prob(10))
+				playsound(get_turf(src), "punch", 25, 1, -1)
+				visible_message("<span class='warning'>[src] [pick("ran", "slammed")] into \the [A]!</span>")
+				apply_damage(5, BRUTE)
+				Paralyze(40)
+			APPLY_MOB_PROPERTY(src, PROP_CANTBUMPSLAM, src.type) //Bump() is called continuously so ratelimit the check to once every 5 seconds maximum
+			addtimer(CALLBACK(src, .proc/can_bumpslam), 50)
 
 	if(ismob(A))
 		var/mob/M = A
