@@ -821,6 +821,15 @@
 		/obj/item/stack/ore/bluespace_crystal = 3)
 	needs_anchored = FALSE
 
+/obj/item/circuitboard/machine/strange_beacon
+	name = "Strange beacon (Machine Board)"
+	icon_state = "science"
+	build_path = /obj/machinery/strange_beacon
+	req_components = list(
+		/obj/item/stack/ore/bluespace_crystal = 1,
+		/obj/item/stock_parts/scanning_module = 1)
+	def_components = list(/obj/item/stack/ore/bluespace_crystal = /obj/item/stack/ore/bluespace_crystal/artificial)
+
 /obj/item/circuitboard/machine/circuit_imprinter/department/science
 	name = "Departmental Circuit Imprinter - Science (Machine Board)"
 	icon_state = "science"
