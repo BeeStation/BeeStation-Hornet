@@ -784,7 +784,7 @@
 					adjustOxyLoss(2)
 				if(prob(20))
 					emote("gasp")
-			if(-29 to 20)
+			if(-29 to -20)
 				if(prob(40))
 					AdjustUnconscious(rand(20, 50), ignore_canstun = TRUE)
 					adjustOxyLoss(1.5)
