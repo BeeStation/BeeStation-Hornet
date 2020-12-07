@@ -257,7 +257,7 @@
 	plane = HUD_PLANE
 
 
-/obj/screen/drop/Click()
+/atom/movable/screen/drop/Click()
 	if(usr.stat <= SOFT_CRIT)
 		usr.dropItemToGround(usr.get_active_held_item())
 
