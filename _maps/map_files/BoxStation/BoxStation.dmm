@@ -46739,6 +46739,10 @@
 "dGF" = (
 /turf/closed/wall/r_wall,
 /area/science/mixing/chamber)
+"dHp" = (
+/obj/machinery/strange_beacon,
+/turf/open/floor/plasteel/white,
+/area/science/explab)
 "dHG" = (
 /obj/machinery/door/airlock{
 	name = "Custodial Closet";
@@ -113753,7 +113757,7 @@ blO
 bqe
 brP
 xfD
-bvO
+dHp
 orP
 xXe
 bzO

@@ -60551,6 +60551,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/strange_beacon,
 /turf/open/floor/plasteel,
 /area/science/explab)
 "cow" = (

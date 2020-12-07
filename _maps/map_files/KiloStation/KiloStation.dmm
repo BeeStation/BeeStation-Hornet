@@ -100562,6 +100562,15 @@
 /obj/machinery/autolathe,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
+"gBD" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/holopad,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/strange_beacon,
+/turf/open/floor/plasteel/showroomfloor,
+/area/science/xenobiology)
 "oOk" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral,
@@ -138220,7 +138229,7 @@ axR
 afo
 afW
 afO
-age
+gBD
 agn
 aho
 aho
