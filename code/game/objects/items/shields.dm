@@ -388,6 +388,7 @@
 		throw_speed = 2
 		slot_flags = ITEM_SLOT_BACK
 		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
+		user.visible_message("<span class='notice'>[user] folds out a shield from the briefcase!</span>")
 	else
 		force = 3
 		throwforce = 3
@@ -395,4 +396,5 @@
 		slot_flags = null
 		attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+		user.visible_message("<span class='notice'>[user] folds the shield back into a regular briefcase.</span>")
 	add_fingerprint(user)
