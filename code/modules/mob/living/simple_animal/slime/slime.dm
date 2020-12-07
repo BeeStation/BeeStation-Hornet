@@ -543,6 +543,10 @@
 	key = user.key
 	if(mind && master)
 		mind.store_memory("<b>Serve [master.real_name], your master.</b>")
+	for(var/spawner in GLOB.mob_spawners)
+		LAZYREMOVE(GLOB.mob_spawners[spawner], src)
+	src.master = null
+	GLOB.poi_list -= src
 	log_game("[key_name(src)] took control of [name].")
 
 /mob/living/simple_animal/slime/get_spawner_desc()
