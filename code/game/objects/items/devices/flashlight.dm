@@ -238,7 +238,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(!usr.stat)
+	if(usr.stat =< SOFT_CRIT)
 		attack_self(usr)
 
 //Bananalamp

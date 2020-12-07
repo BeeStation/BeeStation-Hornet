@@ -68,7 +68,7 @@
 
 /obj/item/folder/Topic(href, href_list)
 	..()
-	if(usr.stat || usr.restrained())
+	if(usr.stat > SOFT_CRIT || usr.restrained())
 		return
 
 	if(usr.contents.Find(src))

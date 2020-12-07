@@ -833,7 +833,7 @@
 /obj/item/toy/cards/cardhand/Topic(href, href_list)
 	if(..())
 		return
-	if(usr.stat || !ishuman(usr))
+	if(usr.stat > SOFT_CRIT|| !ishuman(usr))
 		return
 	var/mob/living/carbon/human/cardUser = usr
 	if(!(cardUser.mobility_flags & MOBILITY_USE))
@@ -1522,7 +1522,7 @@
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
 		update_icon()
-	
+
 	var/choice = null
 	if(!LAZYLEN(cards))
 		to_chat(user, "<span class='warning'>There are no more cards to draw!</span>")
