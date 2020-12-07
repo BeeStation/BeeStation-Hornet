@@ -20,6 +20,7 @@
 	ambience_index = AMBIENCE_MINING
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/mine/unexplored
 	name = "Mine"
@@ -116,6 +117,7 @@
 	icon_state = "mining"
 	has_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
+	sound_environment = SOUND_AREA_LAVALAND
 
 /area/lavaland/surface
 	name = "Lavaland"

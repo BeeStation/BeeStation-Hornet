@@ -14,6 +14,7 @@
 	unique = FALSE
 	lighting_colour_tube = "#fff0dd"
 	lighting_colour_bulb = "#ffe1c1"
+	sound_environment = SOUND_ENVIRONMENT_ROOM
 
 /area/shuttle/Initialize()
 	if(!canSmoothWithAreas)

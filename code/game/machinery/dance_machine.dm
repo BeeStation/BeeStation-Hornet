@@ -447,7 +447,7 @@
 				continue
 			if(!(M in rangers))
 				rangers += M
-				M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played)
+				M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played, use_reverb = FALSE)
 	else if(active)
 		active = FALSE
 		dance_over()
