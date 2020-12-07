@@ -8549,6 +8549,7 @@
 	dir = 1;
 	pixel_x = -34
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "cqH" = (
@@ -20027,6 +20028,10 @@
 /obj/item/radio/intercom{
 	pixel_y = 26
 	},
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/disposal/bin,
 /turf/open/floor/plating,
 /area/vacant_room/commissary)
 "fzU" = (
@@ -26044,6 +26049,12 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"hel" = (
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/vacant_room/commissary)
 "heD" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -26708,6 +26719,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
+"hos" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/structure/disposalpipe/junction{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/central)
 "hov" = (
 /obj/machinery/atmospherics/pipe/manifold/cyan/visible,
 /obj/effect/turf_decal/stripes/line{
@@ -36863,10 +36886,6 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
 "kgF" = (
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = 20
-	},
 /obj/structure/closet/secure_closet/personal,
 /obj/item/storage/secure/briefcase,
 /obj/machinery/camera/autoname{
@@ -38263,6 +38282,14 @@
 /obj/item/gun/syringe,
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
+"kxD" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/price_tagger,
+/turf/open/floor/plating,
+/area/vacant_room/commissary)
 "kxS" = (
 /obj/machinery/door/airlock/atmos/glass{
 	name = "Atmospherics Monitoring";
@@ -54586,6 +54613,24 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
+"oIw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	id = "commissaryshutter";
+	name = "Vacant Commissary Shutter"
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plasteel,
+/area/vacant_room/commissary)
 "oII" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/disposalpipe/segment{
@@ -83755,6 +83800,10 @@
 /obj/structure/table,
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
+/obj/machinery/airalarm{
+	dir = 8;
+	pixel_x = 20
+	},
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "wLT" = (
@@ -117182,7 +117231,7 @@ hyS
 aUa
 cKe
 cKe
-tqo
+kxD
 tqo
 idS
 mSn
@@ -117436,10 +117485,10 @@ ngc
 ngc
 adu
 hyS
-esf
+hos
 cqF
-wVx
-tqo
+oIw
+hel
 tqo
 lXG
 ppq
