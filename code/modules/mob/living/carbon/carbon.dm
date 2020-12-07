@@ -98,7 +98,7 @@
 
 //Throwing stuff
 /mob/living/carbon/proc/toggle_throw_mode()
-	if(stat)
+	if(stat > SOFT_CRIT)
 		return
 	if(in_throw_mode)
 		throw_mode_off()
@@ -791,14 +791,14 @@
 				if(prob(10))
 					emote("gasp")
 			if(-19 to -10)
-				if(prob(20))
+				if(prob(25))
 					AdjustUnconscious(rand(10, 30), ignore_canstun = TRUE)
 					adjustOxyLoss(1)
 				if(prob(20))
 					emote("cough")
 			if(-9 to crit_threshold)
 				if(prob(20))
-					AdjustUnconscious(rand(1, 10), ignore_canstun = TRUE)
+					AdjustUnconscious(rand(10, 20), ignore_canstun = TRUE)
 				if(prob(10))
 					emote("cough")
 		update_mobility()
