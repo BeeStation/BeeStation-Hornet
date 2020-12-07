@@ -64,7 +64,7 @@
 
 /mob/living/carbon/monkey/proc/battle_screech()
 	if(next_battle_screech < world.time)
-		emote(pick("roar","screech"))
+		INVOKE_ASYNC(src, /mob.proc/emote, pick("roar","screech"))
 		for(var/mob/living/carbon/monkey/M in view(7,src))
 			M.next_battle_screech = world.time + battle_screech_cooldown
 

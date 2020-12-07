@@ -1,0 +1,4 @@
+author: Kmc2000 with BadminJenkins
+delete-after: true
+changes:
+  - rscadd: Added a new roundend sound

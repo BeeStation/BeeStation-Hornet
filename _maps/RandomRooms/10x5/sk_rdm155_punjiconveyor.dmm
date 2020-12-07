@@ -1,0 +1,168 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/space)
+"d" = (
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/space)
+"i" = (
+/obj/machinery/conveyor_switch/oneway{
+	dir = 1;
+	id = "punji_conveyor";
+	name = "punji conveyor switch"
+	},
+/turf/open/floor/plating,
+/area/space)
+"m" = (
+/turf/open/floor/plating,
+/area/space)
+"n" = (
+/obj/structure/punji_sticks,
+/obj/item/restraints/handcuffs/cable,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/space)
+"r" = (
+/obj/item/wirerod,
+/turf/open/floor/plating,
+/area/space)
+"s" = (
+/obj/structure/grille/broken,
+/turf/open/floor/plating,
+/area/space)
+"t" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/space)
+"w" = (
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/space)
+"x" = (
+/obj/item/trash/can/food/beans,
+/turf/open/floor/plating,
+/area/space)
+"z" = (
+/obj/item/stack/sheet/animalhide,
+/turf/open/floor/plating,
+/area/space)
+"B" = (
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/turf/open/floor/plating,
+/area/space)
+"H" = (
+/obj/item/trash/can{
+	pixel_x = -9;
+	pixel_y = 6
+	},
+/turf/open/floor/plating,
+/area/space)
+"I" = (
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "punji_conveyor"
+	},
+/turf/open/floor/plating,
+/area/space)
+"M" = (
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/space)
+"P" = (
+/obj/item/trash/sosjerky{
+	pixel_x = -10;
+	pixel_y = 2
+	},
+/turf/open/floor/plating,
+/area/space)
+"Z" = (
+/obj/structure/closet{
+	name = "beekeeping wardrobe"
+	},
+/obj/item/bedsheet/random,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/space)
+
+(1,1,1) = {"
+a
+B
+m
+B
+a
+"}
+(2,1,1) = {"
+m
+w
+w
+w
+m
+"}
+(3,1,1) = {"
+P
+s
+n
+w
+d
+"}
+(4,1,1) = {"
+m
+i
+I
+w
+d
+"}
+(5,1,1) = {"
+z
+s
+I
+w
+m
+"}
+(6,1,1) = {"
+m
+w
+I
+s
+x
+"}
+(7,1,1) = {"
+M
+s
+I
+s
+d
+"}
+(8,1,1) = {"
+m
+s
+w
+s
+m
+"}
+(9,1,1) = {"
+m
+H
+M
+r
+m
+"}
+(10,1,1) = {"
+Z
+B
+m
+B
+t
+"}
