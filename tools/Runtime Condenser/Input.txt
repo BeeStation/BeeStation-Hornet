@@ -12,9 +12,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Puke Chunks (/mob/living/carbon/human)
   call stack:
 Puke Chunks (/mob/living/carbon/human): db click("belt", 0)
-the belt (/obj/screen): attack hand(Puke Chunks (/mob/living/carbon/human), 0)
-the belt (/obj/screen): DblClick(null, null, null)
-the belt (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=19;left=1;scr...")
+the belt (/atom/movable/screen): attack hand(Puke Chunks (/mob/living/carbon/human), 0)
+the belt (/atom/movable/screen): DblClick(null, null, null)
+the belt (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=19;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1117
@@ -22,9 +22,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Lord Gwyn (/mob/living/carbon/human)
   call stack:
 Lord Gwyn (/mob/living/carbon/human): db click("ears", 0)
-the ears (/obj/screen): attack hand(Lord Gwyn (/mob/living/carbon/human), 0)
-the ears (/obj/screen): DblClick(null, null, null)
-the ears (/obj/screen): Click(null, "mapwindow.map", "icon-x=10;icon-y=28;left=1;scr...")
+the ears (/atom/movable/screen): attack hand(Lord Gwyn (/mob/living/carbon/human), 0)
+the ears (/atom/movable/screen): DblClick(null, null, null)
+the ears (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=10;icon-y=28;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1117
@@ -32,9 +32,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Lord Gwyn (/mob/living/carbon/human)
   call stack:
 Lord Gwyn (/mob/living/carbon/human): db click("ears", 0)
-the ears (/obj/screen): attack hand(Lord Gwyn (/mob/living/carbon/human), 0)
-the ears (/obj/screen): DblClick(null, null, null)
-the ears (/obj/screen): Click(null, "mapwindow.map", "icon-x=16;icon-y=19;left=1;scr...")
+the ears (/atom/movable/screen): attack hand(Lord Gwyn (/mob/living/carbon/human), 0)
+the ears (/atom/movable/screen): DblClick(null, null, null)
+the ears (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=16;icon-y=19;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1117
@@ -42,9 +42,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Lord Gwyn (/mob/living/carbon/human)
   call stack:
 Lord Gwyn (/mob/living/carbon/human): db click("ears", 0)
-the ears (/obj/screen): attack hand(Lord Gwyn (/mob/living/carbon/human), 0)
-the ears (/obj/screen): DblClick(null, null, null)
-the ears (/obj/screen): Click(null, "mapwindow.map", "icon-x=16;icon-y=19;left=1;scr...")
+the ears (/atom/movable/screen): attack hand(Lord Gwyn (/mob/living/carbon/human), 0)
+the ears (/atom/movable/screen): DblClick(null, null, null)
+the ears (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=16;icon-y=19;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1166
@@ -52,9 +52,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Blake Sable (/mob/living/carbon/human)
   call stack:
 Blake Sable (/mob/living/carbon/human): db click("storage2", 0)
-the storage2 (/obj/screen): attack hand(Blake Sable (/mob/living/carbon/human), 0)
-the storage2 (/obj/screen): DblClick(null, null, null)
-the storage2 (/obj/screen): Click(null, "mapwindow.map", "icon-x=10;icon-y=18;left=1;scr...")
+the storage2 (/atom/movable/screen): attack hand(Blake Sable (/mob/living/carbon/human), 0)
+the storage2 (/atom/movable/screen): DblClick(null, null, null)
+the storage2 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=10;icon-y=18;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1166
@@ -62,9 +62,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Donald Mckendrick (/mob/living/carbon/human)
   call stack:
 Donald Mckendrick (/mob/living/carbon/human): db click("storage2", 1)
-the storage2 (/obj/screen): attack hand(Donald Mckendrick (/mob/living/carbon/human), 1)
-the storage2 (/obj/screen): DblClick(null, null, null)
-the storage2 (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=16;left=1;scr...")
+the storage2 (/atom/movable/screen): attack hand(Donald Mckendrick (/mob/living/carbon/human), 1)
+the storage2 (/atom/movable/screen): DblClick(null, null, null)
+the storage2 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1048
@@ -72,9 +72,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Blake Sable (/mob/living/carbon/human)
   call stack:
 Blake Sable (/mob/living/carbon/human): db click("o_clothing", 0)
-the o_clothing (/obj/screen): attack hand(Blake Sable (/mob/living/carbon/human), 0)
-the o_clothing (/obj/screen): DblClick(null, null, null)
-the o_clothing (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=15;left=1;scr...")
+the o_clothing (/atom/movable/screen): attack hand(Blake Sable (/mob/living/carbon/human), 0)
+the o_clothing (/atom/movable/screen): DblClick(null, null, null)
+the o_clothing (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=15;left=1;scr...")
 Fri Jul 13 18:18:09 2012
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
@@ -83,9 +83,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Jeanette DeLisle (/mob/living/carbon/human)
   call stack:
 Jeanette DeLisle (/mob/living/carbon/human): db click("storage1", 1)
-the storage1 (/obj/screen): attack hand(Jeanette DeLisle (/mob/living/carbon/human), 1)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=15;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Jeanette DeLisle (/mob/living/carbon/human), 1)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=15;left=1;scr...")
 runtime error: Cannot read null.total_volume
 proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   source file: Chemistry-Machinery.dm,751
@@ -220,9 +220,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Jack Kasshu (/mob/living/carbon/human)
   call stack:
 Jack Kasshu (/mob/living/carbon/human): db click("storage1", 0)
-the storage1 (/obj/screen): attack hand(Jack Kasshu (/mob/living/carbon/human), 0)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=10;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Jack Kasshu (/mob/living/carbon/human), 0)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=10;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
@@ -230,9 +230,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Slimeria (/mob/living/carbon/human)
   call stack:
 Slimeria (/mob/living/carbon/human): db click("id", 1)
-the id (/obj/screen): attack hand(Slimeria (/mob/living/carbon/human), 1)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=13;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Slimeria (/mob/living/carbon/human), 1)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=13;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
@@ -240,9 +240,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Slimeria (/mob/living/carbon/human)
   call stack:
 Slimeria (/mob/living/carbon/human): db click("id", 1)
-the id (/obj/screen): attack hand(Slimeria (/mob/living/carbon/human), 1)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=20;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Slimeria (/mob/living/carbon/human), 1)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=20;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -250,9 +250,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Alberto Ivanov (/mob/living/carbon/human)
   call stack:
 Alberto Ivanov (/mob/living/carbon/human): db click("storage1", 0)
-the storage1 (/obj/screen): attack hand(Alberto Ivanov (/mob/living/carbon/human), 0)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=13;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Alberto Ivanov (/mob/living/carbon/human), 0)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=13;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -260,9 +260,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Mr. English (/mob/living/carbon/human)
   call stack:
 Mr. English (/mob/living/carbon/human): db click("storage1", 0)
-the storage1 (/obj/screen): attack hand(Mr. English (/mob/living/carbon/human), 0)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=26;icon-y=20;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Mr. English (/mob/living/carbon/human), 0)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=26;icon-y=20;left=1;scr...")
 runtime error: undefined variable /client/var/loc
 proc name: get turf (/proc/get_turf)
   source file: helper_procs.dm,38
@@ -279,9 +279,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Captain Fudge (/mob/living/carbon/human)
   call stack:
 Captain Fudge (/mob/living/carbon/human): db click("storage1", 1)
-the storage1 (/obj/screen): attack hand(Captain Fudge (/mob/living/carbon/human), 1)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=19;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Captain Fudge (/mob/living/carbon/human), 1)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=19;left=1;scr...")
 runtime error: Cannot read null.total_volume
 proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   source file: Chemistry-Machinery.dm,751
@@ -308,9 +308,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Dawson Gibbens (/mob/living/carbon/human)
   call stack:
 Dawson Gibbens (/mob/living/carbon/human): db click("storage1", 0)
-the storage1 (/obj/screen): attack hand(Dawson Gibbens (/mob/living/carbon/human), 0)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=10;icon-y=16;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Dawson Gibbens (/mob/living/carbon/human), 0)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=10;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -318,9 +318,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Jack Kasshu (/mob/living/carbon/human)
   call stack:
 Jack Kasshu (/mob/living/carbon/human): db click("storage1", 0)
-the storage1 (/obj/screen): attack hand(Jack Kasshu (/mob/living/carbon/human), 0)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=20;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Jack Kasshu (/mob/living/carbon/human), 0)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=20;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1166
@@ -328,9 +328,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Josh Morris (/mob/living/carbon/human)
   call stack:
 Josh Morris (/mob/living/carbon/human): db click("storage2", 0)
-the storage2 (/obj/screen): attack hand(Josh Morris (/mob/living/carbon/human), 0)
-the storage2 (/obj/screen): DblClick(null, null, null)
-the storage2 (/obj/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=14;left=1;scr...")
+the storage2 (/atom/movable/screen): attack hand(Josh Morris (/mob/living/carbon/human), 0)
+the storage2 (/atom/movable/screen): DblClick(null, null, null)
+the storage2 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=14;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1166
@@ -338,9 +338,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Josh Morris (/mob/living/carbon/human)
   call stack:
 Josh Morris (/mob/living/carbon/human): db click("storage2", 0)
-the storage2 (/obj/screen): attack hand(Josh Morris (/mob/living/carbon/human), 0)
-the storage2 (/obj/screen): DblClick(null, null, null)
-the storage2 (/obj/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=16;left=1;scr...")
+the storage2 (/atom/movable/screen): attack hand(Josh Morris (/mob/living/carbon/human), 0)
+the storage2 (/atom/movable/screen): DblClick(null, null, null)
+the storage2 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1048
@@ -348,9 +348,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Simon Bonkers (/mob/living/carbon/human)
   call stack:
 Simon Bonkers (/mob/living/carbon/human): db click("o_clothing", 0)
-the o_clothing (/obj/screen): attack hand(Simon Bonkers (/mob/living/carbon/human), 0)
-the o_clothing (/obj/screen): DblClick(null, null, null)
-the o_clothing (/obj/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=14;left=1;scr...")
+the o_clothing (/atom/movable/screen): attack hand(Simon Bonkers (/mob/living/carbon/human), 0)
+the o_clothing (/atom/movable/screen): DblClick(null, null, null)
+the o_clothing (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=14;left=1;scr...")
 Denied access to 'Deamon_Man16' connecting from 108.200.222.182
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
@@ -359,9 +359,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Dave Oneal (/mob/living/carbon/human)
   call stack:
 Dave Oneal (/mob/living/carbon/human): db click("i_clothing", 1)
-the i_clothing (/obj/screen): attack hand(Dave Oneal (/mob/living/carbon/human), 1)
-the i_clothing (/obj/screen): DblClick(null, null, null)
-the i_clothing (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=13;left=1;scr...")
+the i_clothing (/atom/movable/screen): attack hand(Dave Oneal (/mob/living/carbon/human), 1)
+the i_clothing (/atom/movable/screen): DblClick(null, null, null)
+the i_clothing (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=13;left=1;scr...")
 runtime error: Cannot read null.viruses
 proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
@@ -642,9 +642,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Reign Boudash (/mob/living/carbon/human)
   call stack:
 Reign Boudash (/mob/living/carbon/human): db click("storage1", 0)
-the storage1 (/obj/screen): attack hand(Reign Boudash (/mob/living/carbon/human), 0)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=26;icon-y=18;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Reign Boudash (/mob/living/carbon/human), 0)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=26;icon-y=18;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -652,9 +652,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Reign Boudash (/mob/living/carbon/human)
   call stack:
 Reign Boudash (/mob/living/carbon/human): db click("storage1", 0)
-the storage1 (/obj/screen): attack hand(Reign Boudash (/mob/living/carbon/human), 0)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=26;icon-y=18;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Reign Boudash (/mob/living/carbon/human), 0)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=26;icon-y=18;left=1;scr...")
 Fri Jul 13 21:43:15 2012
 runtime error: unexpected stat
 proc name: Stat (/mob/living/silicon/robot/Stat)
@@ -703,9 +703,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Reign Boudash (/mob/living/carbon/human)
   call stack:
 Reign Boudash (/mob/living/carbon/human): db click("id", 1)
-the id (/obj/screen): attack hand(Reign Boudash (/mob/living/carbon/human), 1)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=17;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Reign Boudash (/mob/living/carbon/human), 1)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=17;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1166
@@ -713,9 +713,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Zevin Thusar (/mob/living/carbon/human)
   call stack:
 Zevin Thusar (/mob/living/carbon/human): db click("storage2", 1)
-the storage2 (/obj/screen): attack hand(Zevin Thusar (/mob/living/carbon/human), 1)
-the storage2 (/obj/screen): DblClick(null, null, null)
-the storage2 (/obj/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=16;left=1;scr...")
+the storage2 (/atom/movable/screen): attack hand(Zevin Thusar (/mob/living/carbon/human), 1)
+the storage2 (/atom/movable/screen): DblClick(null, null, null)
+the storage2 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1083
@@ -723,9 +723,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Nick Cave (/mob/living/carbon/human)
   call stack:
 Nick Cave (/mob/living/carbon/human): db click("belt", null)
-the belt (/obj/screen): attack hand(Nick Cave (/mob/living/carbon/human), null)
-the belt (/obj/screen): DblClick(null, null, null)
-the belt (/obj/screen): Click(null, "mapwindow.map", "icon-x=26;icon-y=15;left=1;scr...")
+the belt (/atom/movable/screen): attack hand(Nick Cave (/mob/living/carbon/human), null)
+the belt (/atom/movable/screen): DblClick(null, null, null)
+the belt (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=26;icon-y=15;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1083
@@ -733,9 +733,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Nick Cave (/mob/living/carbon/human)
   call stack:
 Nick Cave (/mob/living/carbon/human): db click("belt", null)
-the belt (/obj/screen): attack hand(Nick Cave (/mob/living/carbon/human), null)
-the belt (/obj/screen): DblClick(null, null, null)
-the belt (/obj/screen): Click(null, "mapwindow.map", "icon-x=23;icon-y=14;left=1;scr...")
+the belt (/atom/movable/screen): attack hand(Nick Cave (/mob/living/carbon/human), null)
+the belt (/atom/movable/screen): DblClick(null, null, null)
+the belt (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=23;icon-y=14;left=1;scr...")
 runtime error: undefined variable /turf/simulated/floor/plating/var/mineral
 proc name: attackby (/turf/simulated/wall/attackby)
   source file: turf.dm,600
@@ -763,9 +763,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Chip Harshman (/mob/living/carbon/human)
   call stack:
 Chip Harshman (/mob/living/carbon/human): db click("id", 0)
-the id (/obj/screen): attack hand(Chip Harshman (/mob/living/carbon/human), 0)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=16;icon-y=20;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Chip Harshman (/mob/living/carbon/human), 0)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=16;icon-y=20;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -773,9 +773,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Chip Harshman (/mob/living/carbon/human)
   call stack:
 Chip Harshman (/mob/living/carbon/human): db click("storage1", 0)
-the storage1 (/obj/screen): attack hand(Chip Harshman (/mob/living/carbon/human), 0)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=16;icon-y=20;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Chip Harshman (/mob/living/carbon/human), 0)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=16;icon-y=20;left=1;scr...")
 runtime error: Cannot read null.blood_DNA
 proc name: update inv w uniform (/mob/living/carbon/human/update_inv_w_uniform)
   source file: update_icons.dm,372
@@ -807,9 +807,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Jack Kasshu (/mob/living/carbon/human)
   call stack:
 Jack Kasshu (/mob/living/carbon/human): db click("eyes", 0)
-the eyes (/obj/screen): attack hand(Jack Kasshu (/mob/living/carbon/human), 0)
-the eyes (/obj/screen): DblClick(null, null, null)
-the eyes (/obj/screen): Click(null, "mapwindow.map", "icon-x=29;icon-y=1;left=1;scre...")
+the eyes (/atom/movable/screen): attack hand(Jack Kasshu (/mob/living/carbon/human), 0)
+the eyes (/atom/movable/screen): DblClick(null, null, null)
+the eyes (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=29;icon-y=1;left=1;scre...")
 Fri Jul 13 23:52:26 2012
 ### VarEdit by Yinadele: /datum/reagents maximum_volume=20
 ### VarEdit by Yinadele: /datum/reagents total_volume=20
@@ -823,9 +823,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Sergei Vladislanikov (/mob/living/carbon/human)
   call stack:
 Sergei Vladislanikov (/mob/living/carbon/human): db click("storage2", 1)
-the storage2 (/obj/screen): attack hand(Sergei Vladislanikov (/mob/living/carbon/human), 1)
-the storage2 (/obj/screen): DblClick(null, null, null)
-the storage2 (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=15;left=1;scr...")
+the storage2 (/atom/movable/screen): attack hand(Sergei Vladislanikov (/mob/living/carbon/human), 1)
+the storage2 (/atom/movable/screen): DblClick(null, null, null)
+the storage2 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=15;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
@@ -833,9 +833,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Sprigg Spooly (/mob/living/carbon/human)
   call stack:
 Sprigg Spooly (/mob/living/carbon/human): db click("id", 0)
-the id (/obj/screen): attack hand(Sprigg Spooly (/mob/living/carbon/human), 0)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=14;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Sprigg Spooly (/mob/living/carbon/human), 0)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=14;left=1;scr...")
 runtime error: unexpected stat
 proc name: Stat (/mob/living/silicon/robot/Stat)
   source file: robot.dm,227
@@ -855,9 +855,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Miku Frost (/mob/living/carbon/human)
   call stack:
 Miku Frost (/mob/living/carbon/human): db click("belt", 0)
-the belt (/obj/screen): attack hand(Miku Frost (/mob/living/carbon/human), 0)
-the belt (/obj/screen): DblClick(null, null, null)
-the belt (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=20;left=1;scr...")
+the belt (/atom/movable/screen): attack hand(Miku Frost (/mob/living/carbon/human), 0)
+the belt (/atom/movable/screen): DblClick(null, null, null)
+the belt (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=20;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1083
@@ -865,9 +865,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Miku Frost (/mob/living/carbon/human)
   call stack:
 Miku Frost (/mob/living/carbon/human): db click("belt", 0)
-the belt (/obj/screen): attack hand(Miku Frost (/mob/living/carbon/human), 0)
-the belt (/obj/screen): DblClick(null, null, null)
-the belt (/obj/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=13;left=1;scr...")
+the belt (/atom/movable/screen): attack hand(Miku Frost (/mob/living/carbon/human), 0)
+the belt (/atom/movable/screen): DblClick(null, null, null)
+the belt (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=13;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
@@ -875,9 +875,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Tood Hoawd (/mob/living/carbon/human)
   call stack:
 Tood Hoawd (/mob/living/carbon/human): db click("id", 1)
-the id (/obj/screen): attack hand(Tood Hoawd (/mob/living/carbon/human), 1)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=17;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Tood Hoawd (/mob/living/carbon/human), 1)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=17;left=1;scr...")
 Sat Jul 14 00:57:29 2012
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
@@ -886,9 +886,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Ellen Quinn (/mob/living/carbon/human)
   call stack:
 Ellen Quinn (/mob/living/carbon/human): db click("back", 0)
-the back (/obj/screen): attack hand(Ellen Quinn (/mob/living/carbon/human), 0)
-the back (/obj/screen): DblClick(null, null, null)
-the back (/obj/screen): Click(null, "mapwindow.map", "icon-x=25;icon-y=22;left=1;scr...")
+the back (/atom/movable/screen): attack hand(Ellen Quinn (/mob/living/carbon/human), 0)
+the back (/atom/movable/screen): DblClick(null, null, null)
+the back (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=25;icon-y=22;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1035
@@ -896,9 +896,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Unknown (/mob/living/carbon/human)
   call stack:
 Unknown (/mob/living/carbon/human): db click("back", null)
-the back (/obj/screen): attack hand(Unknown (/mob/living/carbon/human), null)
-the back (/obj/screen): DblClick(null, null, null)
-the back (/obj/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=14;left=1;scr...")
+the back (/atom/movable/screen): attack hand(Unknown (/mob/living/carbon/human), null)
+the back (/atom/movable/screen): DblClick(null, null, null)
+the back (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=14;left=1;scr...")
 ### VarEdit by Yinadele: /mob/living/carbon/metroid ckey=commissarzoey
 ### VarEdit by Yinadele: /mob/living/carbon/metroid ckey=nodrak
 ### VarEdit by Yinadele: /mob/living/carbon/metroid ckey=dakorok
@@ -963,9 +963,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Ophelia Braun (/mob/living/carbon/human)
   call stack:
 Ophelia Braun (/mob/living/carbon/human): db click("id", 1)
-the id (/obj/screen): attack hand(Ophelia Braun (/mob/living/carbon/human), 1)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=16;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Ophelia Braun (/mob/living/carbon/human), 1)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1083
@@ -973,9 +973,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Helen Lester (/mob/living/carbon/human)
   call stack:
 Helen Lester (/mob/living/carbon/human): db click("belt", null)
-the belt (/obj/screen): attack hand(Helen Lester (/mob/living/carbon/human), null)
-the belt (/obj/screen): DblClick(null, null, null)
-the belt (/obj/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=11;left=1;scr...")
+the belt (/atom/movable/screen): attack hand(Helen Lester (/mob/living/carbon/human), null)
+the belt (/atom/movable/screen): DblClick(null, null, null)
+the belt (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
@@ -983,9 +983,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Dave Oneal (/mob/living/carbon/human)
   call stack:
 Dave Oneal (/mob/living/carbon/human): db click("id", null)
-the id (/obj/screen): attack hand(Dave Oneal (/mob/living/carbon/human), null)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=19;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Dave Oneal (/mob/living/carbon/human), null)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=19;left=1;scr...")
 Sat Jul 14 01:57:46 2012
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
@@ -994,9 +994,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Dat Bass (/mob/living/carbon/human)
   call stack:
 Dat Bass (/mob/living/carbon/human): db click("ears", null)
-the ears (/obj/screen): attack hand(Dat Bass (/mob/living/carbon/human), null)
-the ears (/obj/screen): DblClick(null, null, null)
-the ears (/obj/screen): Click(null, "mapwindow.map", "icon-x=12;icon-y=15;left=1;scr...")
+the ears (/atom/movable/screen): attack hand(Dat Bass (/mob/living/carbon/human), null)
+the ears (/atom/movable/screen): DblClick(null, null, null)
+the ears (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=12;icon-y=15;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
@@ -1004,9 +1004,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Helen Lester (/mob/living/carbon/human)
   call stack:
 Helen Lester (/mob/living/carbon/human): db click("id", 1)
-the id (/obj/screen): attack hand(Helen Lester (/mob/living/carbon/human), 1)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=8;icon-y=12;left=1;scre...")
+the id (/atom/movable/screen): attack hand(Helen Lester (/mob/living/carbon/human), 1)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=8;icon-y=12;left=1;scre...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1083
@@ -1014,9 +1014,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Lila Desminto (/mob/living/carbon/human)
   call stack:
 Lila Desminto (/mob/living/carbon/human): db click("belt", 0)
-the belt (/obj/screen): attack hand(Lila Desminto (/mob/living/carbon/human), 0)
-the belt (/obj/screen): DblClick(null, null, null)
-the belt (/obj/screen): Click(null, "mapwindow.map", "icon-x=10;icon-y=5;left=1;scre...")
+the belt (/atom/movable/screen): attack hand(Lila Desminto (/mob/living/carbon/human), 0)
+the belt (/atom/movable/screen): DblClick(null, null, null)
+the belt (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=10;icon-y=5;left=1;scre...")
 ### VarEdit by Doohl: /obj/effect/new_year_tree name=BODA TREE
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
@@ -1025,9 +1025,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Penny Merriweather (/mob/living/carbon/human)
   call stack:
 Penny Merriweather (/mob/living/carbon/human): db click("id", 1)
-the id (/obj/screen): attack hand(Penny Merriweather (/mob/living/carbon/human), 1)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=16;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Penny Merriweather (/mob/living/carbon/human), 1)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
@@ -1035,9 +1035,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Penny Merriweather (/mob/living/carbon/human)
   call stack:
 Penny Merriweather (/mob/living/carbon/human): db click("id", 1)
-the id (/obj/screen): attack hand(Penny Merriweather (/mob/living/carbon/human), 1)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=16;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Penny Merriweather (/mob/living/carbon/human), 1)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
@@ -1045,9 +1045,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Penny Merriweather (/mob/living/carbon/human)
   call stack:
 Penny Merriweather (/mob/living/carbon/human): db click("id", 1)
-the id (/obj/screen): attack hand(Penny Merriweather (/mob/living/carbon/human), 1)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=16;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Penny Merriweather (/mob/living/carbon/human), 1)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.viruses
 proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
@@ -1368,9 +1368,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Ashley Taylor (/mob/living/carbon/human)
   call stack:
 Ashley Taylor (/mob/living/carbon/human): db click("storage1", 1)
-the storage1 (/obj/screen): attack hand(Ashley Taylor (/mob/living/carbon/human), 1)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=15;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Ashley Taylor (/mob/living/carbon/human), 1)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=15;left=1;scr...")
 Rebooted server.
 Running TG Revision Number: 4060.
 Sat Jul 14 03:10:48 2012
@@ -1381,9 +1381,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Trisha Galade (/mob/living/carbon/human)
   call stack:
 Trisha Galade (/mob/living/carbon/human): db click("head", 0)
-the head (/obj/screen): attack hand(Trisha Galade (/mob/living/carbon/human), 0)
-the head (/obj/screen): DblClick(null, null, null)
-the head (/obj/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=26;left=1;scr...")
+the head (/atom/movable/screen): attack hand(Trisha Galade (/mob/living/carbon/human), 0)
+the head (/atom/movable/screen): DblClick(null, null, null)
+the head (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=26;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
@@ -1391,9 +1391,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Trisha Galade (/mob/living/carbon/human)
   call stack:
 Trisha Galade (/mob/living/carbon/human): db click("id", 1)
-the id (/obj/screen): attack hand(Trisha Galade (/mob/living/carbon/human), 1)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=9;icon-y=14;left=1;scre...")
+the id (/atom/movable/screen): attack hand(Trisha Galade (/mob/living/carbon/human), 1)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=9;icon-y=14;left=1;scre...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
@@ -1401,9 +1401,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Jack Napier (/mob/living/carbon/human)
   call stack:
 Jack Napier (/mob/living/carbon/human): db click("id", 0)
-the id (/obj/screen): attack hand(Jack Napier (/mob/living/carbon/human), 0)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=9;left=1;scre...")
+the id (/atom/movable/screen): attack hand(Jack Napier (/mob/living/carbon/human), 0)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=9;left=1;scre...")
 runtime error: Cannot read null.has_gravity
 proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
@@ -1422,9 +1422,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Flint Steel (/mob/living/carbon/human)
   call stack:
 Flint Steel (/mob/living/carbon/human): db click("shoes", 1)
-the shoes (/obj/screen): attack hand(Flint Steel (/mob/living/carbon/human), 1)
-the shoes (/obj/screen): DblClick(null, null, null)
-the shoes (/obj/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=18;left=1;scr...")
+the shoes (/atom/movable/screen): attack hand(Flint Steel (/mob/living/carbon/human), 1)
+the shoes (/atom/movable/screen): DblClick(null, null, null)
+the shoes (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=18;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1083
@@ -1432,9 +1432,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Flint Steel (/mob/living/carbon/human)
   call stack:
 Flint Steel (/mob/living/carbon/human): db click("belt", 1)
-the belt (/obj/screen): attack hand(Flint Steel (/mob/living/carbon/human), 1)
-the belt (/obj/screen): DblClick(null, null, null)
-the belt (/obj/screen): Click(null, "mapwindow.map", "icon-x=9;icon-y=12;left=1;scre...")
+the belt (/atom/movable/screen): attack hand(Flint Steel (/mob/living/carbon/human), 1)
+the belt (/atom/movable/screen): DblClick(null, null, null)
+the belt (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=9;icon-y=12;left=1;scre...")
 runtime error: Cannot read null.viruses
 proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
@@ -1804,9 +1804,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Trisha Galade (/mob/living/carbon/human)
   call stack:
 Trisha Galade (/mob/living/carbon/human): db click("mask", 0)
-the mask (/obj/screen): attack hand(Trisha Galade (/mob/living/carbon/human), 0)
-the mask (/obj/screen): DblClick(null, null, null)
-the mask (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=16;left=1;scr...")
+the mask (/atom/movable/screen): attack hand(Trisha Galade (/mob/living/carbon/human), 0)
+the mask (/atom/movable/screen): DblClick(null, null, null)
+the mask (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=16;left=1;scr...")
 Rebooted server.
 Sat Jul 14 05:27:37 2012
 Running TG Revision Number: 4060.
@@ -1817,9 +1817,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Ladybug Honks (/mob/living/carbon/human)
   call stack:
 Ladybug Honks (/mob/living/carbon/human): db click("storage2", 1)
-the storage2 (/obj/screen): attack hand(Ladybug Honks (/mob/living/carbon/human), 1)
-the storage2 (/obj/screen): DblClick(null, null, null)
-the storage2 (/obj/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=16;left=1;scr...")
+the storage2 (/atom/movable/screen): attack hand(Ladybug Honks (/mob/living/carbon/human), 1)
+the storage2 (/atom/movable/screen): DblClick(null, null, null)
+the storage2 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1166
@@ -1827,9 +1827,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Ladybug Honks (/mob/living/carbon/human)
   call stack:
 Ladybug Honks (/mob/living/carbon/human): db click("storage2", 1)
-the storage2 (/obj/screen): attack hand(Ladybug Honks (/mob/living/carbon/human), 1)
-the storage2 (/obj/screen): DblClick(null, null, null)
-the storage2 (/obj/screen): Click(null, "mapwindow.map", "icon-x=16;icon-y=12;left=1;scr...")
+the storage2 (/atom/movable/screen): attack hand(Ladybug Honks (/mob/living/carbon/human), 1)
+the storage2 (/atom/movable/screen): DblClick(null, null, null)
+the storage2 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=16;icon-y=12;left=1;scr...")
 Sat Jul 14 06:59:16 2012
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
@@ -1838,9 +1838,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Unknown (/mob/living/carbon/human)
   call stack:
 Unknown (/mob/living/carbon/human): db click("id", 1)
-the id (/obj/screen): attack hand(Unknown (/mob/living/carbon/human), 1)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=10;icon-y=12;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Unknown (/mob/living/carbon/human), 1)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=10;icon-y=12;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1083
@@ -1848,9 +1848,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Malik Graham (/mob/living/carbon/human)
   call stack:
 Malik Graham (/mob/living/carbon/human): db click("belt", 1)
-the belt (/obj/screen): attack hand(Malik Graham (/mob/living/carbon/human), 1)
-the belt (/obj/screen): DblClick(null, null, null)
-the belt (/obj/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=19;left=1;scr...")
+the belt (/atom/movable/screen): attack hand(Malik Graham (/mob/living/carbon/human), 1)
+the belt (/atom/movable/screen): DblClick(null, null, null)
+the belt (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=19;left=1;scr...")
 Rebooted server.
 Running TG Revision Number: 4060.
 runtime error: Cannot read null.slot_flags
@@ -1860,9 +1860,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Rocky McDoughboy XIV (/mob/living/carbon/human)
   call stack:
 Rocky McDoughboy XIV (/mob/living/carbon/human): db click("o_clothing", 1)
-the o_clothing (/obj/screen): attack hand(Rocky McDoughboy XIV (/mob/living/carbon/human), 1)
-the o_clothing (/obj/screen): DblClick(null, null, null)
-the o_clothing (/obj/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=11;left=1;scr...")
+the o_clothing (/atom/movable/screen): attack hand(Rocky McDoughboy XIV (/mob/living/carbon/human), 1)
+the o_clothing (/atom/movable/screen): DblClick(null, null, null)
+the o_clothing (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=11;left=1;scr...")
 Sat Jul 14 08:11:16 2012
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
@@ -1871,9 +1871,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Sly (/mob/living/carbon/human)
   call stack:
 Sly (/mob/living/carbon/human): db click("storage1", 0)
-the storage1 (/obj/screen): attack hand(Sly (/mob/living/carbon/human), 0)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=5;left=1;scre...")
+the storage1 (/atom/movable/screen): attack hand(Sly (/mob/living/carbon/human), 0)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=5;left=1;scre...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -1881,9 +1881,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Sly (/mob/living/carbon/human)
   call stack:
 Sly (/mob/living/carbon/human): db click("storage1", 0)
-the storage1 (/obj/screen): attack hand(Sly (/mob/living/carbon/human), 0)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=11;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Sly (/mob/living/carbon/human), 0)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -1891,9 +1891,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Sly (/mob/living/carbon/human)
   call stack:
 Sly (/mob/living/carbon/human): db click("storage1", 0)
-the storage1 (/obj/screen): attack hand(Sly (/mob/living/carbon/human), 0)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=14;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Sly (/mob/living/carbon/human), 0)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=14;left=1;scr...")
 Rebooted server.
 Running TG Revision Number: 4060.
 runtime error: Cannot read null.slot_flags
@@ -1903,9 +1903,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Sher Thorun (/mob/living/carbon/human)
   call stack:
 Sher Thorun (/mob/living/carbon/human): db click("storage1", null)
-the storage1 (/obj/screen): attack hand(Sher Thorun (/mob/living/carbon/human), null)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=12;icon-y=11;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Sher Thorun (/mob/living/carbon/human), null)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=12;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1127
@@ -1913,9 +1913,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Jono Lionhurt (/mob/living/carbon/human)
   call stack:
 Jono Lionhurt (/mob/living/carbon/human): db click("i_clothing", null)
-the i_clothing (/obj/screen): attack hand(Jono Lionhurt (/mob/living/carbon/human), null)
-the i_clothing (/obj/screen): DblClick(null, null, null)
-the i_clothing (/obj/screen): Click(null, "mapwindow.map", "icon-x=12;icon-y=12;left=1;scr...")
+the i_clothing (/atom/movable/screen): attack hand(Jono Lionhurt (/mob/living/carbon/human), null)
+the i_clothing (/atom/movable/screen): DblClick(null, null, null)
+the i_clothing (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=12;icon-y=12;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -1923,9 +1923,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Hugh Jazz (/mob/living/carbon/human)
   call stack:
 Hugh Jazz (/mob/living/carbon/human): db click("storage1", 1)
-the storage1 (/obj/screen): attack hand(Hugh Jazz (/mob/living/carbon/human), 1)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=16;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Hugh Jazz (/mob/living/carbon/human), 1)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1166
@@ -1933,9 +1933,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Hugh Jazz (/mob/living/carbon/human)
   call stack:
 Hugh Jazz (/mob/living/carbon/human): db click("storage2", 0)
-the storage2 (/obj/screen): attack hand(Hugh Jazz (/mob/living/carbon/human), 0)
-the storage2 (/obj/screen): DblClick(null, null, null)
-the storage2 (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=14;left=1;scr...")
+the storage2 (/atom/movable/screen): attack hand(Hugh Jazz (/mob/living/carbon/human), 0)
+the storage2 (/atom/movable/screen): DblClick(null, null, null)
+the storage2 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=14;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1166
@@ -1943,9 +1943,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Hugh Jazz (/mob/living/carbon/human)
   call stack:
 Hugh Jazz (/mob/living/carbon/human): db click("storage2", 0)
-the storage2 (/obj/screen): attack hand(Hugh Jazz (/mob/living/carbon/human), 0)
-the storage2 (/obj/screen): DblClick(null, null, null)
-the storage2 (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=14;left=1;scr...")
+the storage2 (/atom/movable/screen): attack hand(Hugh Jazz (/mob/living/carbon/human), 0)
+the storage2 (/atom/movable/screen): DblClick(null, null, null)
+the storage2 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=14;left=1;scr...")
 Sat Jul 14 09:17:07 2012
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
@@ -1954,9 +1954,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Hugh Jazz (/mob/living/carbon/human)
   call stack:
 Hugh Jazz (/mob/living/carbon/human): db click("storage2", 1)
-the storage2 (/obj/screen): attack hand(Hugh Jazz (/mob/living/carbon/human), 1)
-the storage2 (/obj/screen): DblClick(null, null, null)
-the storage2 (/obj/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=16;left=1;scr...")
+the storage2 (/atom/movable/screen): attack hand(Hugh Jazz (/mob/living/carbon/human), 1)
+the storage2 (/atom/movable/screen): DblClick(null, null, null)
+the storage2 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1166
@@ -1964,9 +1964,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Hugh Jazz (/mob/living/carbon/human)
   call stack:
 Hugh Jazz (/mob/living/carbon/human): db click("storage2", 1)
-the storage2 (/obj/screen): attack hand(Hugh Jazz (/mob/living/carbon/human), 1)
-the storage2 (/obj/screen): DblClick(null, null, null)
-the storage2 (/obj/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=16;left=1;scr...")
+the storage2 (/atom/movable/screen): attack hand(Hugh Jazz (/mob/living/carbon/human), 1)
+the storage2 (/atom/movable/screen): DblClick(null, null, null)
+the storage2 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=16;left=1;scr...")
 Rebooted server.
 Running TG Revision Number: 4060.
 runtime error: Cannot read null.slot_flags
@@ -1976,9 +1976,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Unknown (/mob/living/carbon/human)
   call stack:
 Unknown (/mob/living/carbon/human): db click("i_clothing", 1)
-the i_clothing (/obj/screen): attack hand(Unknown (/mob/living/carbon/human), 1)
-the i_clothing (/obj/screen): DblClick(null, null, null)
-the i_clothing (/obj/screen): Click(null, "mapwindow.map", "icon-x=31;icon-y=21;left=1;scr...")
+the i_clothing (/atom/movable/screen): attack hand(Unknown (/mob/living/carbon/human), 1)
+the i_clothing (/atom/movable/screen): DblClick(null, null, null)
+the i_clothing (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=31;icon-y=21;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1127
@@ -1986,9 +1986,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Unknown (/mob/living/carbon/human)
   call stack:
 Unknown (/mob/living/carbon/human): db click("i_clothing", 1)
-the i_clothing (/obj/screen): attack hand(Unknown (/mob/living/carbon/human), 1)
-the i_clothing (/obj/screen): DblClick(null, null, null)
-the i_clothing (/obj/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=23;left=1;scr...")
+the i_clothing (/atom/movable/screen): attack hand(Unknown (/mob/living/carbon/human), 1)
+the i_clothing (/atom/movable/screen): DblClick(null, null, null)
+the i_clothing (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=23;left=1;scr...")
 Sat Jul 14 10:37:02 2012
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
@@ -1997,9 +1997,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Lord Jamlamin (/mob/living/carbon/human)
   call stack:
 Lord Jamlamin (/mob/living/carbon/human): db click("head", 0)
-the head (/obj/screen): attack hand(Lord Jamlamin (/mob/living/carbon/human), 0)
-the head (/obj/screen): DblClick(null, null, null)
-the head (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=18;left=1;scr...")
+the head (/atom/movable/screen): attack hand(Lord Jamlamin (/mob/living/carbon/human), 0)
+the head (/atom/movable/screen): DblClick(null, null, null)
+the head (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=18;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1023
@@ -2007,9 +2007,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Jennifer Ketavim (/mob/living/carbon/human)
   call stack:
 Jennifer Ketavim (/mob/living/carbon/human): db click("mask", 1)
-the mask (/obj/screen): attack hand(Jennifer Ketavim (/mob/living/carbon/human), 1)
-the mask (/obj/screen): DblClick(null, null, null)
-the mask (/obj/screen): Click(null, "mapwindow.map", "icon-x=12;icon-y=10;left=1;scr...")
+the mask (/atom/movable/screen): attack hand(Jennifer Ketavim (/mob/living/carbon/human), 1)
+the mask (/atom/movable/screen): DblClick(null, null, null)
+the mask (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=12;icon-y=10;left=1;scr...")
 Rebooted server.
 Running TG Revision Number: 4060.
 runtime error: Cannot read null.slot_flags
@@ -2019,9 +2019,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Unknown (/mob/living/carbon/human)
   call stack:
 Unknown (/mob/living/carbon/human): db click("id", null)
-the id (/obj/screen): attack hand(Unknown (/mob/living/carbon/human), null)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=18;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Unknown (/mob/living/carbon/human), null)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=18;left=1;scr...")
 runtime error: Cannot execute null.dropped().
 proc name: drop l hand (/mob/proc/drop_l_hand)
   source file: inventory.dm,104
@@ -2031,7 +2031,7 @@ proc name: drop l hand (/mob/proc/drop_l_hand)
 Jeb Stone (/mob/living/carbon/human): drop l hand(null)
 Jeb Stone (/mob/living/carbon/human): drop item(null)
 Jeb Stone (/mob/living/carbon/human): drop item v()
-the drop (/obj/screen): Click(null, "mapwindow.map", "icon-x=8;icon-y=16;left=1;scre...")
+the drop (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=8;icon-y=16;left=1;scre...")
 Sat Jul 14 12:01:13 2012
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
@@ -2040,9 +2040,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Thomas Hereford (/mob/living/carbon/human)
   call stack:
 Thomas Hereford (/mob/living/carbon/human): db click("eyes", 1)
-the eyes (/obj/screen): attack hand(Thomas Hereford (/mob/living/carbon/human), 1)
-the eyes (/obj/screen): DblClick(null, null, null)
-the eyes (/obj/screen): Click(null, "mapwindow.map", "icon-x=25;icon-y=27;left=1;scr...")
+the eyes (/atom/movable/screen): attack hand(Thomas Hereford (/mob/living/carbon/human), 1)
+the eyes (/atom/movable/screen): DblClick(null, null, null)
+the eyes (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=25;icon-y=27;left=1;scr...")
 Rebooted server.
 Running TG Revision Number: 4060.
 runtime error: Cannot read null.has_gravity
@@ -2447,9 +2447,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Dat Bass (/mob/living/carbon/human)
   call stack:
 Dat Bass (/mob/living/carbon/human): db click("shoes", 1)
-the shoes (/obj/screen): attack hand(Dat Bass (/mob/living/carbon/human), 1)
-the shoes (/obj/screen): DblClick(null, null, null)
-the shoes (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=17;left=1;scr...")
+the shoes (/atom/movable/screen): attack hand(Dat Bass (/mob/living/carbon/human), 1)
+the shoes (/atom/movable/screen): DblClick(null, null, null)
+the shoes (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=17;left=1;scr...")
 Sat Jul 14 13:19:34 2012
 runtime error: list index out of bounds
 proc name: mergeConnectedNetworksOnTurf (/obj/structure/cable/proc/mergeConnectedNetworksOnTurf)
@@ -2509,9 +2509,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Travis Robinson (/mob/living/carbon/human)
   call stack:
 Travis Robinson (/mob/living/carbon/human): db click("belt", 0)
-the belt (/obj/screen): attack hand(Travis Robinson (/mob/living/carbon/human), 0)
-the belt (/obj/screen): DblClick(null, null, null)
-the belt (/obj/screen): Click(null, "mapwindow.map", "icon-x=8;icon-y=12;left=1;scre...")
+the belt (/atom/movable/screen): attack hand(Travis Robinson (/mob/living/carbon/human), 0)
+the belt (/atom/movable/screen): DblClick(null, null, null)
+the belt (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=8;icon-y=12;left=1;scre...")
 runtime error: Cannot read null.total_volume
 proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   source file: Chemistry-Machinery.dm,751
@@ -2556,9 +2556,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Derrick Cobb (/mob/living/carbon/human)
   call stack:
 Derrick Cobb (/mob/living/carbon/human): db click("id", null)
-the id (/obj/screen): attack hand(Derrick Cobb (/mob/living/carbon/human), null)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=18;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Derrick Cobb (/mob/living/carbon/human), null)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=18;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1103
@@ -2566,9 +2566,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Derrick Cobb (/mob/living/carbon/human)
   call stack:
 Derrick Cobb (/mob/living/carbon/human): db click("head", 1)
-the head (/obj/screen): attack hand(Derrick Cobb (/mob/living/carbon/human), 1)
-the head (/obj/screen): DblClick(null, null, null)
-the head (/obj/screen): Click(null, "mapwindow.map", "icon-x=27;icon-y=1;left=1;scre...")
+the head (/atom/movable/screen): attack hand(Derrick Cobb (/mob/living/carbon/human), 1)
+the head (/atom/movable/screen): DblClick(null, null, null)
+the head (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=27;icon-y=1;left=1;scre...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
@@ -2576,9 +2576,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Aaden Mitchell (/mob/living/carbon/human)
   call stack:
 Aaden Mitchell (/mob/living/carbon/human): db click("id", 0)
-the id (/obj/screen): attack hand(Aaden Mitchell (/mob/living/carbon/human), 0)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=17;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Aaden Mitchell (/mob/living/carbon/human), 0)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=17;left=1;scr...")
 runtime error: Cannot create objects of type null.
 proc name: Topic (/obj/machinery/computer/rdconsole/Topic)
   source file: rdconsole.dm,381
@@ -2600,9 +2600,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Simon Bonkers (/mob/living/carbon/human)
   call stack:
 Simon Bonkers (/mob/living/carbon/human): db click("o_clothing", 0)
-the o_clothing (/obj/screen): attack hand(Simon Bonkers (/mob/living/carbon/human), 0)
-the o_clothing (/obj/screen): DblClick(null, null, null)
-the o_clothing (/obj/screen): Click(null, "mapwindow.map", "icon-x=23;icon-y=24;left=1;scr...")
+the o_clothing (/atom/movable/screen): attack hand(Simon Bonkers (/mob/living/carbon/human), 0)
+the o_clothing (/atom/movable/screen): DblClick(null, null, null)
+the o_clothing (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=23;icon-y=24;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1023
@@ -2610,9 +2610,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Hreri Bright-Eyed (/mob/living/carbon/human)
   call stack:
 Hreri Bright-Eyed (/mob/living/carbon/human): db click("mask", 1)
-the mask (/obj/screen): attack hand(Hreri Bright-Eyed (/mob/living/carbon/human), 1)
-the mask (/obj/screen): DblClick(null, null, null)
-the mask (/obj/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=20;left=1;scr...")
+the mask (/atom/movable/screen): attack hand(Hreri Bright-Eyed (/mob/living/carbon/human), 1)
+the mask (/atom/movable/screen): DblClick(null, null, null)
+the mask (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=20;left=1;scr...")
 Rebooted server.
 Sat Jul 14 16:52:03 2012
 Running TG Revision Number: 4060.
@@ -2623,9 +2623,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Micheal Simpson (/mob/living/carbon/human)
   call stack:
 Micheal Simpson (/mob/living/carbon/human): db click("o_clothing", null)
-the o_clothing (/obj/screen): attack hand(Micheal Simpson (/mob/living/carbon/human), null)
-the o_clothing (/obj/screen): DblClick(null, null, null)
-the o_clothing (/obj/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=12;left=1;scr...")
+the o_clothing (/atom/movable/screen): attack hand(Micheal Simpson (/mob/living/carbon/human), null)
+the o_clothing (/atom/movable/screen): DblClick(null, null, null)
+the o_clothing (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=12;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1048
@@ -2633,9 +2633,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Micheal Simpson (/mob/living/carbon/human)
   call stack:
 Micheal Simpson (/mob/living/carbon/human): db click("o_clothing", null)
-the o_clothing (/obj/screen): attack hand(Micheal Simpson (/mob/living/carbon/human), null)
-the o_clothing (/obj/screen): DblClick(null, null, null)
-the o_clothing (/obj/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=20;left=1;scr...")
+the o_clothing (/atom/movable/screen): attack hand(Micheal Simpson (/mob/living/carbon/human), null)
+the o_clothing (/atom/movable/screen): DblClick(null, null, null)
+the o_clothing (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=20;left=1;scr...")
 runtime error: undefined variable /client/var/loc
 proc name: get turf (/proc/get_turf)
   source file: helper_procs.dm,38
@@ -2654,9 +2654,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Jennifer Ketavim (/mob/living/carbon/human)
   call stack:
 Jennifer Ketavim (/mob/living/carbon/human): db click("belt", 1)
-the belt (/obj/screen): attack hand(Jennifer Ketavim (/mob/living/carbon/human), 1)
-the belt (/obj/screen): DblClick(null, null, null)
-the belt (/obj/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=15;left=1;scr...")
+the belt (/atom/movable/screen): attack hand(Jennifer Ketavim (/mob/living/carbon/human), 1)
+the belt (/atom/movable/screen): DblClick(null, null, null)
+the belt (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=15;left=1;scr...")
 Rebooted server.
 Sat Jul 14 17:57:29 2012
 Running TG Revision Number: 4060.
@@ -2667,9 +2667,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Bubba Bellton (/mob/living/carbon/human)
   call stack:
 Bubba Bellton (/mob/living/carbon/human): db click("id", 1)
-the id (/obj/screen): attack hand(Bubba Bellton (/mob/living/carbon/human), 1)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=23;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Bubba Bellton (/mob/living/carbon/human), 1)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=23;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -2677,9 +2677,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Bubble (/mob/living/carbon/human)
   call stack:
 Bubble (/mob/living/carbon/human): db click("storage1", null)
-the storage1 (/obj/screen): attack hand(Bubble (/mob/living/carbon/human), null)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=16;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Bubble (/mob/living/carbon/human), null)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -2687,9 +2687,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Bubble (/mob/living/carbon/human)
   call stack:
 Bubble (/mob/living/carbon/human): db click("storage1", null)
-the storage1 (/obj/screen): attack hand(Bubble (/mob/living/carbon/human), null)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=16;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Bubble (/mob/living/carbon/human), null)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1023
@@ -2697,9 +2697,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Bartholomew Williams (/mob/living/carbon/human)
   call stack:
 Bartholomew Williams (/mob/living/carbon/human): db click("mask", 0)
-the mask (/obj/screen): attack hand(Bartholomew Williams (/mob/living/carbon/human), 0)
-the mask (/obj/screen): DblClick(null, null, null)
-the mask (/obj/screen): Click(null, "mapwindow.map", "icon-x=13;icon-y=15;left=1;scr...")
+the mask (/atom/movable/screen): attack hand(Bartholomew Williams (/mob/living/carbon/human), 0)
+the mask (/atom/movable/screen): DblClick(null, null, null)
+the mask (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=13;icon-y=15;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1035
@@ -2707,9 +2707,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Rusty Fraser (/mob/living/carbon/human)
   call stack:
 Rusty Fraser (/mob/living/carbon/human): db click("back", null)
-the back (/obj/screen): attack hand(Rusty Fraser (/mob/living/carbon/human), null)
-the back (/obj/screen): DblClick(null, null, null)
-the back (/obj/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=5;left=1;scre...")
+the back (/atom/movable/screen): attack hand(Rusty Fraser (/mob/living/carbon/human), null)
+the back (/atom/movable/screen): DblClick(null, null, null)
+the back (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=5;left=1;scre...")
 Rebooted server.
 Running TG Revision Number: 4060.
 Sat Jul 14 19:13:30 2012
@@ -2720,9 +2720,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Derrick Cobb (/mob/living/carbon/human)
   call stack:
 Derrick Cobb (/mob/living/carbon/human): db click("mask", 1)
-the mask (/obj/screen): attack hand(Derrick Cobb (/mob/living/carbon/human), 1)
-the mask (/obj/screen): DblClick(null, null, null)
-the mask (/obj/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=29;left=1;scr...")
+the mask (/atom/movable/screen): attack hand(Derrick Cobb (/mob/living/carbon/human), 1)
+the mask (/atom/movable/screen): DblClick(null, null, null)
+the mask (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=29;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1035
@@ -2730,9 +2730,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: HoP Man (/mob/living/carbon/human)
   call stack:
 HoP Man (/mob/living/carbon/human): db click("back", 0)
-the back (/obj/screen): attack hand(HoP Man (/mob/living/carbon/human), 0)
-the back (/obj/screen): DblClick(null, null, null)
-the back (/obj/screen): Click(null, "mapwindow.map", "icon-x=4;icon-y=26;left=1;scre...")
+the back (/atom/movable/screen): attack hand(HoP Man (/mob/living/carbon/human), 0)
+the back (/atom/movable/screen): DblClick(null, null, null)
+the back (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=4;icon-y=26;left=1;scre...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1035
@@ -2740,9 +2740,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: HoP Man (/mob/living/carbon/human)
   call stack:
 HoP Man (/mob/living/carbon/human): db click("back", 0)
-the back (/obj/screen): attack hand(HoP Man (/mob/living/carbon/human), 0)
-the back (/obj/screen): DblClick(null, null, null)
-the back (/obj/screen): Click(null, "mapwindow.map", "icon-x=8;icon-y=26;left=1;scre...")
+the back (/atom/movable/screen): attack hand(HoP Man (/mob/living/carbon/human), 0)
+the back (/atom/movable/screen): DblClick(null, null, null)
+the back (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=8;icon-y=26;left=1;scre...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1035
@@ -2750,8 +2750,8 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: HoP Man (/mob/living/carbon/human)
   call stack:
 HoP Man (/mob/living/carbon/human): db click("back", 0)
-the back (/obj/screen): attack hand(HoP Man (/mob/living/carbon/human), 0)
-the back (/obj/screen): DblClick(null, "mapwindow.map", "icon-x=8;icon-y=26;left=1;scre...")
+the back (/atom/movable/screen): attack hand(HoP Man (/mob/living/carbon/human), 0)
+the back (/atom/movable/screen): DblClick(null, "mapwindow.map", "icon-x=8;icon-y=26;left=1;scre...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1035
@@ -2759,9 +2759,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: HoP Man (/mob/living/carbon/human)
   call stack:
 HoP Man (/mob/living/carbon/human): db click("back", 0)
-the back (/obj/screen): attack hand(HoP Man (/mob/living/carbon/human), 0)
-the back (/obj/screen): DblClick(null, null, null)
-the back (/obj/screen): Click(null, "mapwindow.map", "icon-x=8;icon-y=26;left=1;shif...")
+the back (/atom/movable/screen): attack hand(HoP Man (/mob/living/carbon/human), 0)
+the back (/atom/movable/screen): DblClick(null, null, null)
+the back (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=8;icon-y=26;left=1;shif...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1035
@@ -2769,9 +2769,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: HoP Man (/mob/living/carbon/human)
   call stack:
 HoP Man (/mob/living/carbon/human): db click("back", 0)
-the back (/obj/screen): attack hand(HoP Man (/mob/living/carbon/human), 0)
-the back (/obj/screen): DblClick(null, null, null)
-the back (/obj/screen): Click(null, "mapwindow.map", "icon-x=8;icon-y=26;left=1;ctrl...")
+the back (/atom/movable/screen): attack hand(HoP Man (/mob/living/carbon/human), 0)
+the back (/atom/movable/screen): DblClick(null, null, null)
+the back (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=8;icon-y=26;left=1;ctrl...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1035
@@ -2779,9 +2779,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: HoP Man (/mob/living/carbon/human)
   call stack:
 HoP Man (/mob/living/carbon/human): db click("back", 0)
-the back (/obj/screen): attack hand(HoP Man (/mob/living/carbon/human), 0)
-the back (/obj/screen): DblClick(null, null, null)
-the back (/obj/screen): Click(null, "mapwindow.map", "icon-x=3;icon-y=17;left=1;scre...")
+the back (/atom/movable/screen): attack hand(HoP Man (/mob/living/carbon/human), 0)
+the back (/atom/movable/screen): DblClick(null, null, null)
+the back (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=3;icon-y=17;left=1;scre...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1083
@@ -2789,9 +2789,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Earl Swabby (/mob/living/carbon/human)
   call stack:
 Earl Swabby (/mob/living/carbon/human): db click("belt", 1)
-the belt (/obj/screen): attack hand(Earl Swabby (/mob/living/carbon/human), 1)
-the belt (/obj/screen): DblClick(null, null, null)
-the belt (/obj/screen): Click(null, "mapwindow.map", "icon-x=12;icon-y=12;left=1;scr...")
+the belt (/atom/movable/screen): attack hand(Earl Swabby (/mob/living/carbon/human), 1)
+the belt (/atom/movable/screen): DblClick(null, null, null)
+the belt (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=12;icon-y=12;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1048
@@ -2799,9 +2799,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Slimeria (/mob/living/carbon/human)
   call stack:
 Slimeria (/mob/living/carbon/human): db click("o_clothing", 1)
-the o_clothing (/obj/screen): attack hand(Slimeria (/mob/living/carbon/human), 1)
-the o_clothing (/obj/screen): DblClick(null, null, null)
-the o_clothing (/obj/screen): Click(null, "mapwindow.map", "icon-x=28;icon-y=9;left=1;scre...")
+the o_clothing (/atom/movable/screen): attack hand(Slimeria (/mob/living/carbon/human), 1)
+the o_clothing (/atom/movable/screen): DblClick(null, null, null)
+the o_clothing (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=28;icon-y=9;left=1;scre...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
@@ -2809,9 +2809,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: River Pavlov (/mob/living/carbon/human)
   call stack:
 River Pavlov (/mob/living/carbon/human): db click("id", 0)
-the id (/obj/screen): attack hand(River Pavlov (/mob/living/carbon/human), 0)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=10;icon-y=15;left=1;scr...")
+the id (/atom/movable/screen): attack hand(River Pavlov (/mob/living/carbon/human), 0)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=10;icon-y=15;left=1;scr...")
 runtime error: list index out of bounds
 proc name: mergeConnectedNetworksOnTurf (/obj/structure/cable/proc/mergeConnectedNetworksOnTurf)
   source file: cable.dm,501
@@ -2830,9 +2830,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Slimeria (/mob/living/carbon/human)
   call stack:
 Slimeria (/mob/living/carbon/human): db click("belt", 0)
-the belt (/obj/screen): attack hand(Slimeria (/mob/living/carbon/human), 0)
-the belt (/obj/screen): DblClick(null, null, null)
-the belt (/obj/screen): Click(null, "mapwindow.map", "icon-x=13;icon-y=24;left=1;scr...")
+the belt (/atom/movable/screen): attack hand(Slimeria (/mob/living/carbon/human), 0)
+the belt (/atom/movable/screen): DblClick(null, null, null)
+the belt (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=13;icon-y=24;left=1;scr...")
 Sat Jul 14 20:29:42 2012
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
@@ -2841,9 +2841,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Urist McAssistant (/mob/living/carbon/human)
   call stack:
 Urist McAssistant (/mob/living/carbon/human): db click("storage1", 0)
-the storage1 (/obj/screen): attack hand(Urist McAssistant (/mob/living/carbon/human), 0)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=17;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Urist McAssistant (/mob/living/carbon/human), 0)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=17;left=1;scr...")
 Rebooted server.
 Running TG Revision Number: 4060.
 runtime error: Cannot read null.slot_flags
@@ -2853,9 +2853,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Jennifer Ketavim (/mob/living/carbon/human)
   call stack:
 Jennifer Ketavim (/mob/living/carbon/human): db click("o_clothing", 0)
-the o_clothing (/obj/screen): attack hand(Jennifer Ketavim (/mob/living/carbon/human), 0)
-the o_clothing (/obj/screen): DblClick(null, null, null)
-the o_clothing (/obj/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=5;left=1;scre...")
+the o_clothing (/atom/movable/screen): attack hand(Jennifer Ketavim (/mob/living/carbon/human), 0)
+the o_clothing (/atom/movable/screen): DblClick(null, null, null)
+the o_clothing (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=5;left=1;scre...")
 Sat Jul 14 21:49:49 2012
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
@@ -2864,9 +2864,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Jennifer Ketavim (/mob/living/carbon/human)
   call stack:
 Jennifer Ketavim (/mob/living/carbon/human): db click("storage1", 0)
-the storage1 (/obj/screen): attack hand(Jennifer Ketavim (/mob/living/carbon/human), 0)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=30;icon-y=20;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Jennifer Ketavim (/mob/living/carbon/human), 0)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=30;icon-y=20;left=1;scr...")
 runtime error: Cannot read null.fields
 proc name: mergeRecordLists (/proc/mergeRecordLists)
   source file: helpers.dm,263
@@ -3266,9 +3266,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Reuben Garratt (/mob/living/carbon/human)
   call stack:
 Reuben Garratt (/mob/living/carbon/human): db click("id", null)
-the id (/obj/screen): attack hand(Reuben Garratt (/mob/living/carbon/human), null)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=16;icon-y=15;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Reuben Garratt (/mob/living/carbon/human), null)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=16;icon-y=15;left=1;scr...")
 Sat Jul 14 23:05:19 2012
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
@@ -3277,9 +3277,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Alice Ravensdale (/mob/living/carbon/human)
   call stack:
 Alice Ravensdale (/mob/living/carbon/human): db click("storage1", 0)
-the storage1 (/obj/screen): attack hand(Alice Ravensdale (/mob/living/carbon/human), 0)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=18;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Alice Ravensdale (/mob/living/carbon/human), 0)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=18;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1048
@@ -3287,9 +3287,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Eric Hunter (/mob/living/carbon/human)
   call stack:
 Eric Hunter (/mob/living/carbon/human): db click("o_clothing", 1)
-the o_clothing (/obj/screen): attack hand(Eric Hunter (/mob/living/carbon/human), 1)
-the o_clothing (/obj/screen): DblClick(null, null, null)
-the o_clothing (/obj/screen): Click(null, "mapwindow.map", "icon-x=25;icon-y=14;left=1;scr...")
+the o_clothing (/atom/movable/screen): attack hand(Eric Hunter (/mob/living/carbon/human), 1)
+the o_clothing (/atom/movable/screen): DblClick(null, null, null)
+the o_clothing (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=25;icon-y=14;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
@@ -3297,9 +3297,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Samuel York (/mob/living/carbon/human)
   call stack:
 Samuel York (/mob/living/carbon/human): db click("id", 0)
-the id (/obj/screen): attack hand(Samuel York (/mob/living/carbon/human), 0)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=13;icon-y=15;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Samuel York (/mob/living/carbon/human), 0)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=13;icon-y=15;left=1;scr...")
 Rebooted server.
 Running TG Revision Number: 4060.
 runtime error: Cannot read null.slot_flags
@@ -3309,9 +3309,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: MCEyePop (/mob/living/carbon/human)
   call stack:
 MCEyePop (/mob/living/carbon/human): db click("head", 1)
-the head (/obj/screen): attack hand(MCEyePop (/mob/living/carbon/human), 1)
-the head (/obj/screen): DblClick(null, null, null)
-the head (/obj/screen): Click(null, "mapwindow.map", "icon-x=25;icon-y=11;left=1;scr...")
+the head (/atom/movable/screen): attack hand(MCEyePop (/mob/living/carbon/human), 1)
+the head (/atom/movable/screen): DblClick(null, null, null)
+the head (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=25;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
@@ -3319,9 +3319,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Unknown (/mob/living/carbon/human)
   call stack:
 Unknown (/mob/living/carbon/human): db click("id", 0)
-the id (/obj/screen): attack hand(Unknown (/mob/living/carbon/human), 0)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=29;icon-y=17;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Unknown (/mob/living/carbon/human), 0)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=29;icon-y=17;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
@@ -3329,9 +3329,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Unknown (/mob/living/carbon/human)
   call stack:
 Unknown (/mob/living/carbon/human): db click("id", 0)
-the id (/obj/screen): attack hand(Unknown (/mob/living/carbon/human), 0)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=21;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Unknown (/mob/living/carbon/human), 0)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=21;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
@@ -3339,9 +3339,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Unknown (/mob/living/carbon/human)
   call stack:
 Unknown (/mob/living/carbon/human): db click("id", 0)
-the id (/obj/screen): attack hand(Unknown (/mob/living/carbon/human), 0)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=21;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Unknown (/mob/living/carbon/human), 0)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=21;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1083
@@ -3349,9 +3349,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Alexander Delapour (/mob/living/carbon/human)
   call stack:
 Alexander Delapour (/mob/living/carbon/human): db click("belt", 1)
-the belt (/obj/screen): attack hand(Alexander Delapour (/mob/living/carbon/human), 1)
-the belt (/obj/screen): DblClick(null, null, null)
-the belt (/obj/screen): Click(null, "mapwindow.map", "icon-x=23;icon-y=13;left=1;scr...")
+the belt (/atom/movable/screen): attack hand(Alexander Delapour (/mob/living/carbon/human), 1)
+the belt (/atom/movable/screen): DblClick(null, null, null)
+the belt (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=23;icon-y=13;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1035
@@ -3359,9 +3359,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Roman Sheets (/mob/living/carbon/human)
   call stack:
 Roman Sheets (/mob/living/carbon/human): db click("back", null)
-the back (/obj/screen): attack hand(Roman Sheets (/mob/living/carbon/human), null)
-the back (/obj/screen): DblClick(null, null, null)
-the back (/obj/screen): Click(null, "mapwindow.map", "icon-x=10;icon-y=12;left=1;scr...")
+the back (/atom/movable/screen): attack hand(Roman Sheets (/mob/living/carbon/human), null)
+the back (/atom/movable/screen): DblClick(null, null, null)
+the back (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=10;icon-y=12;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1127
@@ -3369,9 +3369,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Roman Sheets (/mob/living/carbon/human)
   call stack:
 Roman Sheets (/mob/living/carbon/human): db click("i_clothing", 0)
-the i_clothing (/obj/screen): attack hand(Roman Sheets (/mob/living/carbon/human), 0)
-the i_clothing (/obj/screen): DblClick(null, null, null)
-the i_clothing (/obj/screen): Click(null, "mapwindow.map", "icon-x=13;icon-y=18;left=1;scr...")
+the i_clothing (/atom/movable/screen): attack hand(Roman Sheets (/mob/living/carbon/human), 0)
+the i_clothing (/atom/movable/screen): DblClick(null, null, null)
+the i_clothing (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=13;icon-y=18;left=1;scr...")
 Sun Jul 15 00:17:04 2012
 runtime error: unexpected stat
 proc name: Stat (/mob/living/silicon/robot/Stat)
@@ -3404,9 +3404,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: MCEyePop (/mob/living/carbon/human)
   call stack:
 MCEyePop (/mob/living/carbon/human): db click("belt", 1)
-the belt (/obj/screen): attack hand(MCEyePop (/mob/living/carbon/human), 1)
-the belt (/obj/screen): DblClick(null, null, null)
-the belt (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=16;left=1;scr...")
+the belt (/atom/movable/screen): attack hand(MCEyePop (/mob/living/carbon/human), 1)
+the belt (/atom/movable/screen): DblClick(null, null, null)
+the belt (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -3414,9 +3414,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: MCEyePop (/mob/living/carbon/human)
   call stack:
 MCEyePop (/mob/living/carbon/human): db click("storage1", 1)
-the storage1 (/obj/screen): attack hand(MCEyePop (/mob/living/carbon/human), 1)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=13;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(MCEyePop (/mob/living/carbon/human), 1)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=13;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1035
@@ -3424,9 +3424,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Roman Sheets as (Petrov Petrov... (/mob/living/carbon/human)
   call stack:
 Roman Sheets as (Petrov Petrov... (/mob/living/carbon/human): db click("back", 1)
-the back (/obj/screen): attack hand(Roman Sheets as (Petrov Petrov... (/mob/living/carbon/human), 1)
-the back (/obj/screen): DblClick(null, null, null)
-the back (/obj/screen): Click(null, "mapwindow.map", "icon-x=16;icon-y=13;left=1;scr...")
+the back (/atom/movable/screen): attack hand(Roman Sheets as (Petrov Petrov... (/mob/living/carbon/human), 1)
+the back (/atom/movable/screen): DblClick(null, null, null)
+the back (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=16;icon-y=13;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -3434,9 +3434,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Earl Swabby (/mob/living/carbon/human)
   call stack:
 Earl Swabby (/mob/living/carbon/human): db click("storage1", null)
-the storage1 (/obj/screen): attack hand(Earl Swabby (/mob/living/carbon/human), null)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=5;icon-y=19;left=1;scre...")
+the storage1 (/atom/movable/screen): attack hand(Earl Swabby (/mob/living/carbon/human), null)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=5;icon-y=19;left=1;scre...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1023
@@ -3444,9 +3444,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Smoke Shaw (/mob/living/carbon/human)
   call stack:
 Smoke Shaw (/mob/living/carbon/human): db click("mask", 0)
-the mask (/obj/screen): attack hand(Smoke Shaw (/mob/living/carbon/human), 0)
-the mask (/obj/screen): DblClick(null, null, null)
-the mask (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=13;left=1;scr...")
+the mask (/atom/movable/screen): attack hand(Smoke Shaw (/mob/living/carbon/human), 0)
+the mask (/atom/movable/screen): DblClick(null, null, null)
+the mask (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=13;left=1;scr...")
 runtime error: Cannot read null.reagents
 proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   source file: Chemistry-Machinery.dm,748
@@ -3880,9 +3880,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Earl Swabby (/mob/living/carbon/human)
   call stack:
 Earl Swabby (/mob/living/carbon/human): db click("storage2", null)
-the storage2 (/obj/screen): attack hand(Earl Swabby (/mob/living/carbon/human), null)
-the storage2 (/obj/screen): DblClick(null, null, null)
-the storage2 (/obj/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=23;left=1;scr...")
+the storage2 (/atom/movable/screen): attack hand(Earl Swabby (/mob/living/carbon/human), null)
+the storage2 (/atom/movable/screen): DblClick(null, null, null)
+the storage2 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=23;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1093
@@ -3890,9 +3890,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Lord Gwyn (/mob/living/carbon/human)
   call stack:
 Lord Gwyn (/mob/living/carbon/human): db click("eyes", 1)
-the eyes (/obj/screen): attack hand(Lord Gwyn (/mob/living/carbon/human), 1)
-the eyes (/obj/screen): DblClick(null, null, null)
-the eyes (/obj/screen): Click(null, "mapwindow.map", "icon-x=9;icon-y=18;left=1;scre...")
+the eyes (/atom/movable/screen): attack hand(Lord Gwyn (/mob/living/carbon/human), 1)
+the eyes (/atom/movable/screen): DblClick(null, null, null)
+the eyes (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=9;icon-y=18;left=1;scre...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -3900,9 +3900,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Crunk Junksworth (/mob/living/carbon/human)
   call stack:
 Crunk Junksworth (/mob/living/carbon/human): db click("storage1", 1)
-the storage1 (/obj/screen): attack hand(Crunk Junksworth (/mob/living/carbon/human), 1)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=20;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Crunk Junksworth (/mob/living/carbon/human), 1)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=20;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -3910,9 +3910,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Crunk Junksworth (/mob/living/carbon/human)
   call stack:
 Crunk Junksworth (/mob/living/carbon/human): db click("storage1", 1)
-the storage1 (/obj/screen): attack hand(Crunk Junksworth (/mob/living/carbon/human), 1)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=19;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Crunk Junksworth (/mob/living/carbon/human), 1)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=19;left=1;scr...")
 Rebooted server.
 Running TG Revision Number: 4060.
 Denied access to 'StevenRodriguez' connecting from 98.64.162.60
@@ -3923,9 +3923,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Coyo (/mob/living/carbon/human)
   call stack:
 Coyo (/mob/living/carbon/human): db click("id", 1)
-the id (/obj/screen): attack hand(Coyo (/mob/living/carbon/human), 1)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=13;icon-y=16;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Coyo (/mob/living/carbon/human), 1)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=13;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -3933,9 +3933,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Yahn Deir (/mob/living/carbon/human)
   call stack:
 Yahn Deir (/mob/living/carbon/human): db click("storage1", 0)
-the storage1 (/obj/screen): attack hand(Yahn Deir (/mob/living/carbon/human), 0)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=22;icon-y=10;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Yahn Deir (/mob/living/carbon/human), 0)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=22;icon-y=10;left=1;scr...")
 Sun Jul 15 03:41:55 2012
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
@@ -3944,9 +3944,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Samuel York (/mob/living/carbon/human)
   call stack:
 Samuel York (/mob/living/carbon/human): db click("o_clothing", 1)
-the o_clothing (/obj/screen): attack hand(Samuel York (/mob/living/carbon/human), 1)
-the o_clothing (/obj/screen): DblClick(null, null, null)
-the o_clothing (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=19;left=1;scr...")
+the o_clothing (/atom/movable/screen): attack hand(Samuel York (/mob/living/carbon/human), 1)
+the o_clothing (/atom/movable/screen): DblClick(null, null, null)
+the o_clothing (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=19;left=1;scr...")
 ### VarEdit by Doohl: /obj/effect/step_trigger/teleporter affect_ghosts=1
 ### VarEdit by Doohl: /obj/effect/step_trigger/teleporter teleport_x=239
 ### VarEdit by Doohl: /obj/effect/step_trigger/teleporter teleport_x=239
@@ -3961,9 +3961,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Bubble (/mob/living/carbon/human)
   call stack:
 Bubble (/mob/living/carbon/human): db click("storage2", 0)
-the storage2 (/obj/screen): attack hand(Bubble (/mob/living/carbon/human), 0)
-the storage2 (/obj/screen): DblClick(null, null, null)
-the storage2 (/obj/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=13;left=1;scr...")
+the storage2 (/atom/movable/screen): attack hand(Bubble (/mob/living/carbon/human), 0)
+the storage2 (/atom/movable/screen): DblClick(null, null, null)
+the storage2 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=13;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -3971,9 +3971,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Tyson Roby (/mob/living/carbon/human)
   call stack:
 Tyson Roby (/mob/living/carbon/human): db click("storage1", 1)
-the storage1 (/obj/screen): attack hand(Tyson Roby (/mob/living/carbon/human), 1)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=17;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Tyson Roby (/mob/living/carbon/human), 1)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=17;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -3981,9 +3981,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Tyson Roby (/mob/living/carbon/human)
   call stack:
 Tyson Roby (/mob/living/carbon/human): db click("storage1", 1)
-the storage1 (/obj/screen): attack hand(Tyson Roby (/mob/living/carbon/human), 1)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=16;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Tyson Roby (/mob/living/carbon/human), 1)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -3991,9 +3991,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Tyson Roby (/mob/living/carbon/human)
   call stack:
 Tyson Roby (/mob/living/carbon/human): db click("storage1", 1)
-the storage1 (/obj/screen): attack hand(Tyson Roby (/mob/living/carbon/human), 1)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=16;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Tyson Roby (/mob/living/carbon/human), 1)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.w_class
 proc name: attackby (/obj/item/weapon/storage/attackby)
   source file: storage.dm,187
@@ -4014,9 +4014,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Unknown (/mob/living/carbon/human)
   call stack:
 Unknown (/mob/living/carbon/human): db click("id", 0)
-the id (/obj/screen): attack hand(Unknown (/mob/living/carbon/human), 0)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=26;icon-y=21;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Unknown (/mob/living/carbon/human), 0)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=26;icon-y=21;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
@@ -4024,9 +4024,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Unknown (/mob/living/carbon/human)
   call stack:
 Unknown (/mob/living/carbon/human): db click("id", 0)
-the id (/obj/screen): attack hand(Unknown (/mob/living/carbon/human), 0)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=20;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Unknown (/mob/living/carbon/human), 0)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=20;left=1;scr...")
 Rebooted server.
 Running TG Revision Number: 4060.
 runtime error: Cannot read null.slot_flags
@@ -4036,9 +4036,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Michigan Slim (/mob/living/carbon/human)
   call stack:
 Michigan Slim (/mob/living/carbon/human): db click("back", 0)
-the back (/obj/screen): attack hand(Michigan Slim (/mob/living/carbon/human), 0)
-the back (/obj/screen): DblClick(null, null, null)
-the back (/obj/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=19;left=1;scr...")
+the back (/atom/movable/screen): attack hand(Michigan Slim (/mob/living/carbon/human), 0)
+the back (/atom/movable/screen): DblClick(null, null, null)
+the back (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=19;left=1;scr...")
 Rebooted server.
 Sun Jul 15 05:48:07 2012
 Running TG Revision Number: 4060.
@@ -4051,9 +4051,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Jimz Ruztlfoot (/mob/living/carbon/human)
   call stack:
 Jimz Ruztlfoot (/mob/living/carbon/human): db click("belt", 0)
-the belt (/obj/screen): attack hand(Jimz Ruztlfoot (/mob/living/carbon/human), 0)
-the belt (/obj/screen): DblClick(null, null, null)
-the belt (/obj/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=10;left=1;scr...")
+the belt (/atom/movable/screen): attack hand(Jimz Ruztlfoot (/mob/living/carbon/human), 0)
+the belt (/atom/movable/screen): DblClick(null, null, null)
+the belt (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=10;left=1;scr...")
 Rebooted server.
 Sun Jul 15 06:57:20 2012
 Running TG Revision Number: 4060.
@@ -4064,9 +4064,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Quinton Bould (/mob/living/carbon/human)
   call stack:
 Quinton Bould (/mob/living/carbon/human): db click("gloves", 1)
-the gloves (/obj/screen): attack hand(Quinton Bould (/mob/living/carbon/human), 1)
-the gloves (/obj/screen): DblClick(null, null, null)
-the gloves (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=19;left=1;scr...")
+the gloves (/atom/movable/screen): attack hand(Quinton Bould (/mob/living/carbon/human), 1)
+the gloves (/atom/movable/screen): DblClick(null, null, null)
+the gloves (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=19;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1023
@@ -4074,9 +4074,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Yahn Deir (/mob/living/carbon/human)
   call stack:
 Yahn Deir (/mob/living/carbon/human): db click("mask", 1)
-the mask (/obj/screen): attack hand(Yahn Deir (/mob/living/carbon/human), 1)
-the mask (/obj/screen): DblClick(null, null, null)
-the mask (/obj/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=20;left=1;scr...")
+the mask (/atom/movable/screen): attack hand(Yahn Deir (/mob/living/carbon/human), 1)
+the mask (/atom/movable/screen): DblClick(null, null, null)
+the mask (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=20;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -4084,9 +4084,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Dutch Hargrave (/mob/living/carbon/human)
   call stack:
 Dutch Hargrave (/mob/living/carbon/human): db click("storage1", 0)
-the storage1 (/obj/screen): attack hand(Dutch Hargrave (/mob/living/carbon/human), 0)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=16;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Dutch Hargrave (/mob/living/carbon/human), 0)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=16;left=1;scr...")
 Sun Jul 15 08:26:36 2012
 runtime error: Cannot read null.nodes
 proc name: merge powernets (/datum/powernet/proc/merge_powernets)
@@ -4123,9 +4123,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Clarisse Holderbach (/mob/living/carbon/human)
   call stack:
 Clarisse Holderbach (/mob/living/carbon/human): db click("storage2", null)
-the storage2 (/obj/screen): attack hand(Clarisse Holderbach (/mob/living/carbon/human), null)
-the storage2 (/obj/screen): DblClick(null, null, null)
-the storage2 (/obj/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=15;left=1;scr...")
+the storage2 (/atom/movable/screen): attack hand(Clarisse Holderbach (/mob/living/carbon/human), null)
+the storage2 (/atom/movable/screen): DblClick(null, null, null)
+the storage2 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=17;icon-y=15;left=1;scr...")
 Sun Jul 15 09:41:02 2012
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
@@ -4134,9 +4134,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Samantha Kendrick (/mob/living/carbon/human)
   call stack:
 Samantha Kendrick (/mob/living/carbon/human): db click("shoes", 1)
-the shoes (/obj/screen): attack hand(Samantha Kendrick (/mob/living/carbon/human), 1)
-the shoes (/obj/screen): DblClick(null, null, null)
-the shoes (/obj/screen): Click(null, "mapwindow.map", "icon-x=16;icon-y=19;left=1;scr...")
+the shoes (/atom/movable/screen): attack hand(Samantha Kendrick (/mob/living/carbon/human), 1)
+the shoes (/atom/movable/screen): DblClick(null, null, null)
+the shoes (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=16;icon-y=19;left=1;scr...")
 ### VarEdit by Scaredofshadows: /mob/living/simple_animal/corgi/Ian ckey=laharlmontgommery
 Sun Jul 15 10:43:09 2012
 ### VarEdit by Scaredofshadows: /mob/living/simple_animal/cat/Runtime ckey=drlareku
@@ -4147,9 +4147,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Rowdy Randy (/mob/living/carbon/human)
   call stack:
 Rowdy Randy (/mob/living/carbon/human): db click("eyes", 0)
-the eyes (/obj/screen): attack hand(Rowdy Randy (/mob/living/carbon/human), 0)
-the eyes (/obj/screen): DblClick(null, null, null)
-the eyes (/obj/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=20;left=1;scr...")
+the eyes (/atom/movable/screen): attack hand(Rowdy Randy (/mob/living/carbon/human), 0)
+the eyes (/atom/movable/screen): DblClick(null, null, null)
+the eyes (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=20;left=1;scr...")
 ### VarEdit by Scaredofshadows: /mob/living/simple_animal/cat/Runtime canmove=1
 ### VarEdit by Scaredofshadows: /mob/living/simple_animal/parrot/DrProfessor ckey=kyora473
 runtime error: Cannot read null.amount
@@ -4168,9 +4168,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Quinton Bould (/mob/living/carbon/human)
   call stack:
 Quinton Bould (/mob/living/carbon/human): db click("head", 1)
-the head (/obj/screen): attack hand(Quinton Bould (/mob/living/carbon/human), 1)
-the head (/obj/screen): DblClick(null, null, null)
-the head (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=28;left=1;scr...")
+the head (/atom/movable/screen): attack hand(Quinton Bould (/mob/living/carbon/human), 1)
+the head (/atom/movable/screen): DblClick(null, null, null)
+the head (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=28;left=1;scr...")
 runtime error: Cannot read null.loc
 proc name: Life (/mob/living/simple_animal/corgi/Ian/Life)
   source file: corgi.dm,304
@@ -4189,9 +4189,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Dat Bass (/mob/living/carbon/human)
   call stack:
 Dat Bass (/mob/living/carbon/human): db click("storage1", 0)
-the storage1 (/obj/screen): attack hand(Dat Bass (/mob/living/carbon/human), 0)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=15;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Dat Bass (/mob/living/carbon/human), 0)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=15;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -4199,9 +4199,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Dat Bass (/mob/living/carbon/human)
   call stack:
 Dat Bass (/mob/living/carbon/human): db click("storage1", 0)
-the storage1 (/obj/screen): attack hand(Dat Bass (/mob/living/carbon/human), 0)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=15;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Dat Bass (/mob/living/carbon/human), 0)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=15;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -4209,9 +4209,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Dat Bass (/mob/living/carbon/human)
   call stack:
 Dat Bass (/mob/living/carbon/human): db click("storage1", 0)
-the storage1 (/obj/screen): attack hand(Dat Bass (/mob/living/carbon/human), 0)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=15;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Dat Bass (/mob/living/carbon/human), 0)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=15;left=1;scr...")
 runtime error: Cannot read null.broadcasting
 proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
@@ -4219,7 +4219,7 @@ proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
   call stack:
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
-the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=13;left=1;scr...")
+the radio (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=13;left=1;scr...")
 runtime error: Cannot read null.broadcasting
 proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
@@ -4227,7 +4227,7 @@ proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
   call stack:
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
-the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=9;left=1;scre...")
+the radio (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=9;left=1;scre...")
 runtime error: Cannot read null.broadcasting
 proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
@@ -4235,7 +4235,7 @@ proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
   call stack:
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
-the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=9;left=1;scre...")
+the radio (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=9;left=1;scre...")
 runtime error: Cannot read null.broadcasting
 proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
@@ -4243,7 +4243,7 @@ proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
   call stack:
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
-the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
+the radio (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.broadcasting
 proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
@@ -4251,7 +4251,7 @@ proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
   call stack:
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
-the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
+the radio (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.broadcasting
 proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
@@ -4259,7 +4259,7 @@ proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
   call stack:
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
-the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
+the radio (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.broadcasting
 proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
@@ -4267,7 +4267,7 @@ proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
   call stack:
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
-the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
+the radio (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.broadcasting
 proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
@@ -4275,7 +4275,7 @@ proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
   call stack:
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
-the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
+the radio (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.broadcasting
 proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
@@ -4283,7 +4283,7 @@ proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
   call stack:
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
-the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=19;left=1;scr...")
+the radio (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=19;left=1;scr...")
 runtime error: Cannot read null.broadcasting
 proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
@@ -4291,7 +4291,7 @@ proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
   call stack:
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
-the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=19;left=1;scr...")
+the radio (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=19;left=1;scr...")
 runtime error: Cannot read null.broadcasting
 proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
@@ -4299,7 +4299,7 @@ proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
   call stack:
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
-the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=20;left=1;scr...")
+the radio (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=20;left=1;scr...")
 runtime error: Cannot read null.broadcasting
 proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
@@ -4307,7 +4307,7 @@ proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
   call stack:
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
-the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=20;left=1;scr...")
+the radio (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=20;left=1;scr...")
 runtime error: Cannot read null.broadcasting
 proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
@@ -4315,7 +4315,7 @@ proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
   call stack:
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
-the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=15;left=1;scr...")
+the radio (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=15;left=1;scr...")
 runtime error: Cannot read null.broadcasting
 proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
@@ -4323,7 +4323,7 @@ proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
   call stack:
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
-the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=15;left=1;scr...")
+the radio (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=15;left=1;scr...")
 runtime error: Cannot read null.broadcasting
 proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
@@ -4331,7 +4331,7 @@ proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
   call stack:
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
-the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=12;left=1;scr...")
+the radio (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=12;left=1;scr...")
 runtime error: Cannot read null.broadcasting
 proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
@@ -4339,7 +4339,7 @@ proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
   call stack:
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
-the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=11;left=1;scr...")
+the radio (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
@@ -4375,9 +4375,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Zeus Geesenheimer (/mob/living/carbon/human)
   call stack:
 Zeus Geesenheimer (/mob/living/carbon/human): db click("id", 0)
-the id (/obj/screen): attack hand(Zeus Geesenheimer (/mob/living/carbon/human), 0)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=13;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Zeus Geesenheimer (/mob/living/carbon/human), 0)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=13;left=1;scr...")
 Rebooted server.
 Running TG Revision Number: 4060.
 Sun Jul 15 13:06:40 2012
@@ -4412,9 +4412,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Unknown (/mob/living/carbon/human)
   call stack:
 Unknown (/mob/living/carbon/human): db click("id", 1)
-the id (/obj/screen): attack hand(Unknown (/mob/living/carbon/human), 1)
-the id (/obj/screen): DblClick(null, null, null)
-the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=14;left=1;scr...")
+the id (/atom/movable/screen): attack hand(Unknown (/mob/living/carbon/human), 1)
+the id (/atom/movable/screen): DblClick(null, null, null)
+the id (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=14;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
@@ -4422,9 +4422,9 @@ proc name: db click (/mob/living/carbon/human/db_click)
   src: Rocky McDoughboy XIV (/mob/living/carbon/human)
   call stack:
 Rocky McDoughboy XIV (/mob/living/carbon/human): db click("storage1", 1)
-the storage1 (/obj/screen): attack hand(Rocky McDoughboy XIV (/mob/living/carbon/human), 1)
-the storage1 (/obj/screen): DblClick(null, null, null)
-the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=14;left=1;scr...")
+the storage1 (/atom/movable/screen): attack hand(Rocky McDoughboy XIV (/mob/living/carbon/human), 1)
+the storage1 (/atom/movable/screen): DblClick(null, null, null)
+the storage1 (/atom/movable/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=14;left=1;scr...")
 runtime error: Cannot read null.loc
 proc name: Life (/mob/living/simple_animal/corgi/Ian/Life)
   source file: corgi.dm,304
@@ -4444,17 +4444,17 @@ Welcome BYOND! (5.0 Beta Version 508.1294)
 Running /tg/ revision:
 2015-10-06
 e2ed83b6a595fe0d6078fa75bfde85b3fa6c392b
-Path : /obj/machinery/mech_bay_recharge_port 
-Failures : 1 
-Path : /obj/effect/landmark/start 
-Failures : 2 
+Path : /obj/machinery/mech_bay_recharge_port
+Failures : 1
+Path : /obj/effect/landmark/start
+Failures : 2
 
 Rebooted server.
 Running /tg/ revision:
 2015-10-06
 e2ed83b6a595fe0d6078fa75bfde85b3fa6c392b
-Path : /obj/effect/landmark/start 
-Failures : 2 
+Path : /obj/effect/landmark/start
+Failures : 2
 
 Rebooted server.
 Running /tg/ revision:

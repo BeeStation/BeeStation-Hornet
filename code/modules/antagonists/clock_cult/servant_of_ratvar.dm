@@ -58,7 +58,7 @@
 	owner.current.faction |= "ratvar"
 	transmit_spell = new()
 	transmit_spell.Grant(owner.current)
-	owner.current.throw_alert("clockinfo", /obj/screen/alert/clockwork/clocksense)
+	owner.current.throw_alert("clockinfo", /atom/movable/screen/alert/clockwork/clocksense)
 	SSticker.mode.update_clockcult_icons_added(owner)
 	if(GLOB.gateway_opening && ishuman(owner.current))
 		var/mob/living/carbon/owner_mob = owner.current

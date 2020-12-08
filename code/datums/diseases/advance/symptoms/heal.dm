@@ -576,7 +576,6 @@ obj/effect/sweatsplash/proc/splash()
 	use_cooldown = TRUE
 	show_flavour = FALSE	//it's handled by antag datum
 
-
 /obj/effect/mob_spawn/teratomamonkey/Initialize()
 	. = ..()
 	var/area/A = get_area(src)
@@ -598,8 +597,3 @@ obj/effect/sweatsplash/proc/splash()
 		qdel(src)
 	else
 		..()
-
-/obj/effect/mob_spawn/teratomamonkey/create(ckey, name)
-	..()
-	var/datum/antagonist/teratoma/hugbox/D = new
-	usr.mind.add_antag_datum(D)
