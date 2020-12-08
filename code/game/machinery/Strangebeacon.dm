@@ -36,5 +36,5 @@
 	if(G.tool_behaviour == TOOL_SCREWDRIVER)
 		deconstruct()
 
-/obj/machinery/strange_beacon/proc/docreate()
+/obj/machinery/strange_beacon/proc/do_create()
 	new /obj/item/relic(loc)
