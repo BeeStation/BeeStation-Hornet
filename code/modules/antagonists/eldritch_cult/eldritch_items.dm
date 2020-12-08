@@ -150,7 +150,13 @@
 /obj/item/clothing/neck/eldritch_amulet/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
 
-	if(slot == SLOT_NECK && user.mind && istype(user) && (used_by_unitiated || IS_HERETIC(user) || (user.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple) && user.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple).can_use_magic())))
+	if(slot == SLOT_NECK && user.mind && istype(user))
+		if (!used_by_unitiated)
+			if (!IS_HERETIC(user))
+				return
+			var/datum/antagonist/heretic_monster/disciple/D = user.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple)
+			if (D && !D.can_use_magic())
+				return
 		ADD_TRAIT(user, trait, CLOTHING_TRAIT)
 		user.update_sight()
 
