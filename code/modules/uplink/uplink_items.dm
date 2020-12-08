@@ -2161,7 +2161,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 /datum/uplink_item/role_restricted/briefcase_shield
 	name = "Fold Out Briefcase Shield"
 	desc = "A fold out shield that can be disguised as a regular briefcase, can be used to shove or deflect melee attacks but does not protect against energy weapons."
-	cost = 6
+	cost = 4
 	item = /obj/item/shield/riot/briefcase_shield
 	restricted_roles = list("Lawyer")
 
