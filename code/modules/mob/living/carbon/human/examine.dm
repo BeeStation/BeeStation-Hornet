@@ -238,8 +238,10 @@
 				msg += "[t_He] [t_is][stun_absorption[i]["examine_message"]]\n"
 
 	if (!skipface)
-		if (src.mind && src.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple) && src.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple).can_use_magic())
-			. += "<span class='warning'><B>[t_He] has weird, pulsating green marks on his forehead!</B></span>"
+		if (mind && mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple))
+			var/datum/antagonist/heretic_monster/disciple/D =  mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple)
+			if (D.can_use_magic())
+				. += "<span class='warning'><B>[t_He] has weird, pulsating green marks on his forehead!</B></span>"
 		if(drunkenness && !appears_dead) //Drunkenness
 			switch(drunkenness)
 				if(11 to 21)

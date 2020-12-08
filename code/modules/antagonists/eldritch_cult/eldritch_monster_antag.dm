@@ -51,9 +51,6 @@
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', 100, FALSE, pressure_affected = FALSE)
 	to_chat(owner, "<span class='boldannounce'>You have become a [name] of [master]. Obey their orders and help them accomplish their goals, as they may reward you with great power!</span>")
 
-/datum/antagonist/heretic_monster/disciple/proc/can_read_lore()
-	return TRUE
-
 /datum/antagonist/heretic_monster/disciple/proc/can_use_magic()
 	return tier>=2
 
