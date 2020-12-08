@@ -25,6 +25,8 @@
 	var/list/result_atoms = list()
 	///What path is this on defaults to "Side"
 	var/route = PATH_SIDE
+	///Cast delay when using the rune
+	var/cast_time = 10	//short delay so you can cancel?
 	//Increases the total amount of followers
 	var/followers_increment = 0
 
@@ -298,29 +300,24 @@
 	gain_text = "Gates of mansus open up to your mind."
 	next_knowledge = list(/datum/eldritch_knowledge/base_rust,/datum/eldritch_knowledge/base_ash,/datum/eldritch_knowledge/base_flesh)
 	cost = 0
-	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/mansus_grasp
+	cast_time = 30 SECONDS
 	required_atoms = list(/obj/item/forbidden_book)
 	route = "Start"
 
 /datum/eldritch_knowledge/convert/on_finished_recipe(mob/living/user,list/atoms,loc)
 	var/mob/living/carbon/human/victim = locate() in atoms
-	if(QDELETED(victim) || victim.stat == DEAD)
-		return
-	if (!victim.mind)
-		to_chat(user,"<span class='notice'>[victim] has no mind to enslave!</span>")
-		return
-	if (!victim.buckled)
-		return
-	if (!do_after(user,20 SECONDS, victim)))
-		return		
-	if (QDELETED(victim) || !victim.buckled || victim.stat == DEAD))	//check again to see if the victim has not escaped
+	var/datum/antagonist/heretic/cultie =  user.mind.has_antag_datum(/datum/antagonist/heretic)
+	if(QDELETED(victim) || victim.stat == DEAD || !cultie || !victim.buckled)
+		to_chat(user,"<span class='notice'>Your victim is missing!</span>")
 		return
 	switch (cultie.enslave(victim))
 		if (0)
 			victim.SetSleeping(0)
-			to_chat(user,"<span class='warning'>You corrupt the mind of [victim]! [victim.He] is now bound to do your bidding...</span>")
+			to_chat(user,"<span class='warning'>You corrupt the mind of [victim] and is now bound to do your bidding...</span>")
 		if (1)
 			to_chat(user, "<span class='notice'>You sense a weak mind, but your powers are not strong enough to take it over!</span>")
+		else
+			to_chat(user,"<span class='notice'>The ritual has failed! [victim] is not a valid target!</span>")
 
 /datum/eldritch_knowledge/convert/cleanup_atoms(list/atoms)
 	return

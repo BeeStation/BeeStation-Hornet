@@ -8,7 +8,7 @@
 	next_knowledge = list(/datum/eldritch_knowledge/ashen_grasp)
 	required_atoms = list(/obj/item/kitchen/knife,/obj/item/match)
 	result_atoms = list(/obj/item/melee/sickly_blade/ash)
-	cost = 1
+	cost = 5
 	route = PATH_ASH
 	followers_increment = 1
 
@@ -26,7 +26,7 @@
 	desc = "Short range jaunt that can help you escape from bad situations."
 	cost = 5
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash
-	next_knowledge = list(/datum/eldritch_knowledge/ash_mark,/datum/eldritch_knowledge/essence,/datum/eldritch_knowledge/ashen_eyes,/datum/eldritch_knowledge/curse/fascination)
+	next_knowledge = list(/datum/eldritch_knowledge/ash_mark,/datum/eldritch_knowledge/essence,/datum/eldritch_knowledge/ashen_eyes,/datum/eldritch_knowledge/dreamgate)
 	route = PATH_ASH
 
 /datum/eldritch_knowledge/ash_mark

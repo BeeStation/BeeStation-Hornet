@@ -8,7 +8,7 @@
 	next_knowledge = list(/datum/eldritch_knowledge/rust_fist)
 	required_atoms = list(/obj/item/kitchen/knife,/obj/item/trash)
 	result_atoms = list(/obj/item/melee/sickly_blade/rust)
-	cost = 1
+	cost = 5
 	route = PATH_RUST
 	followers_increment = 1
 
@@ -27,7 +27,7 @@
 	desc = "You passively heal when you are on rusted tiles."
 	gain_text = "The strength was unparallel, it was unnatural. Blacksmith was smiling."
 	cost = 5
-	next_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/essence,/datum/eldritch_knowledge/ashen_eyes,/datum/eldritch_knowledge/curse/fascination)
+	next_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/essence,/datum/eldritch_knowledge/ashen_eyes,/datum/eldritch_knowledge/dreamgate)
 	route = PATH_RUST
 
 /datum/eldritch_knowledge/rust_mark

@@ -35,30 +35,28 @@
 	if(!proximity_flag || !IS_HERETIC(user) || in_use)
 		return
 	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/mob/living/carbon/human/victim = target
 	in_use = TRUE
-	if (ishuman(target) && victim.stat != DEAD && cultie.has_knowledge(/datum/eldritch_knowledge/dreamgate))
-		var/mob/living/carbon/human/victim = target
-		var/list/incantation = list("That is not dead which can eternal lie...","And with strange aeons even death may die...")
-		to_chat(user,"<span class='warning'>You open the [src] and begin reading [victim]!</span>")
+	if (istype(victim) && victim.stat != DEAD && cultie.get_knowledge(/datum/eldritch_knowledge/dreamgate))
+		to_chat(user,"<span class='warning'>You open the [src] and start assaulting the mind of [victim]!</span>")
 		icon_state = "book_open"
 		flick("book_opening",src)
-		for (var/dream = 1 to 3)
-			if(!QDELETED(victim) && victim.stat != DEAD && victim.IsSleeping() && do_after(user,10 SECONDS,victim))
-				if (dream == 3)
-					switch (cultie.enslave(victim))
-						if (0)
-							victim.SetSleeping(0)
-							to_chat(user,"<span class='warning'>You corrupt the mind of [victim]! [victim.He] is now bound to do your bidding...</span>")
-						if (3)
-							to_chat(user,"<span class='warning'>You cannot enslave this mind!</span>")
-						if (2)
-							to_chat(user,"<span class='notice'>[victim] has no mind to enslave!</span>")
-						if (1)
-							to_chat(user, "<span class='notice'>You sense a weak mind, but your powers are not strong enough to take it over!</span>")
-				else
-					user.whisper(incantation[dream], language = /datum/language/common)
-					var/dream_text = pick ("a hooded figurine","dead bodies, as far as the eye can see","whispering","opens a third eye","grows tentacles", "the monster of a thousand hands","beautiful creatures made out of of flesh and bone","a book... written in blood and bile")	//what remains of fascination mindstate					
-					to_chat(victim, "<span class='warning'>... [dream_text]...</span>")
+		if (do_after(user,10 SECONDS,victim))
+			user.whisper("That is not dead which can eternal lie...", language = /datum/language/common)
+			var/dream_text = pick ("a hooded figurine","dead bodies, as far as the eye can see","whispering","opens a third eye","grows tentacles", "the monster of a thousand hands","beautiful creatures made out of of flesh and bone","a book... written in blood and bile")
+			to_chat(victim, "<span class='warning'>... [dream_text]...</span>")
+			if (do_after(user,10 SECONDS,victim) && !QDELETED(victim) && victim.stat != DEAD && victim.IsSleeping())
+				user.whisper("And with strange aeons even death may die...", language = /datum/language/common)
+				switch (cultie.enslave(victim))
+					if (0)
+						victim.SetSleeping(0)
+						to_chat(user,"<span class='warning'>You corrupt the mind of [victim] and is now bound to do your bidding...</span>")
+					if (3)
+						to_chat(user,"<span class='warning'>You cannot enslave this mind!</span>")
+					if (2)
+						to_chat(user,"<span class='notice'>[victim] has no mind to enslave!</span>")
+					if (1)
+						to_chat(user, "<span class='notice'>You sense a weak mind, but your powers are not strong enough to take it over!</span>")
 
 		flick("book_closing",src)
 		icon_state = initial(icon_state)
@@ -119,7 +117,7 @@
 				to_chat(user, "<span class='notice'>You must have offended the Gods somehow!</span>")
 				new /mob/living/simple_animal/hostile/netherworld/blankbody(get_turf(user))
 	in_use = FALSE
-	return TRUE*/
+	return TRUE
 
 /obj/item/forbidden_book/proc/turn_page(mob/user,var/success)
 	playsound(user, pick('sound/effects/pageturn1.ogg','sound/effects/pageturn2.ogg','sound/effects/pageturn3.ogg'), 30, 1)
@@ -129,7 +127,7 @@
 		else
 			to_chat(user, "<span class='notice'>[pick(failure_reads)]</span>")
 		return TRUE
-	return FALSE
+	return FALSE*/
 
 /obj/item/forbidden_book/ui_state(mob/user)
 	return GLOB.default_state

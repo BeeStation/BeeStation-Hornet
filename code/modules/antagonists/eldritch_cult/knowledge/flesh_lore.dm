@@ -8,7 +8,7 @@
 	next_knowledge = list(/datum/eldritch_knowledge/flesh_grasp)
 	required_atoms = list(/obj/item/kitchen/knife,/obj/effect/decal/cleanable/blood)
 	result_atoms = list(/obj/item/melee/sickly_blade/flesh)
-	cost = 1
+	cost = 5
 	route = PATH_FLESH
 	followers_increment = 1
 
@@ -28,7 +28,7 @@
 	gain_text = "I found notes.. notes of a ritual, it was unfinished and yet i still did it."
 	cost = 5
 	required_atoms = list(/mob/living/carbon/human,/obj/item/reagent_containers/food/snacks/grown/poppy)
-	next_knowledge = list(/datum/eldritch_knowledge/flesh_mark,/datum/eldritch_knowledge/essence,/datum/eldritch_knowledge/ashen_eyes,/datum/eldritch_knowledge/curse/fascination)
+	next_knowledge = list(/datum/eldritch_knowledge/flesh_mark,/datum/eldritch_knowledge/essence,/datum/eldritch_knowledge/ashen_eyes,/datum/eldritch_knowledge/dreamgate)
 	route = PATH_FLESH
 	var/max_amt = 2
 	var/current_amt = 0
