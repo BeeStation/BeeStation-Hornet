@@ -763,9 +763,11 @@
 			if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
 				stat = SOFT_CRIT
 				stuttering = 10
+				glide_size = 2
 			else
 				stat = CONSCIOUS
 				stuttering = 0
+				glide_size = 8
 			adjust_blindness(-1)
 			REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
 		update_mobility()
@@ -782,22 +784,22 @@
 				if(prob(60))
 					duration = 30
 
-				if(prob(55))
+				if(prob(60))
 					INVOKE_ASYNC(src, /mob.proc/emote, "gasp")
 			if(-29 to -20)
-				if(prob(45))
+				if(prob(50))
 					duration = 20
 
 				if(prob(50))
 					INVOKE_ASYNC(src, /mob.proc/emote, "gasp")
 			if(-19 to -10)
-				if(prob(35))
+				if(prob(40))
 					duration = 10
 
 				if(prob(40))
 					INVOKE_ASYNC(src, /mob.proc/emote, "cough")
 			if(-9 to crit_threshold)
-				if(prob(30))
+				if(prob(35))
 					duration = 5
 
 				if(prob(30))
