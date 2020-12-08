@@ -36,5 +36,3 @@
 			if(m_intent == MOVE_INTENT_RUN)
 				adjust_nutrition(-(HUNGER_FACTOR/10))
 
-//	if(stat == SOFT_CRIT)
-//		adjustOxyLoss(0.5)
