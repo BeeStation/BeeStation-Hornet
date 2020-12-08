@@ -22,19 +22,26 @@
 		if(S.rating)
 			coolDown += 3600/S.rating
 
+/obj/machinery/strange_beacon/examine(mob/user)
+	. = ..()
+	if((in_range(user, src) || isobserver(user)) && panel_open)
+		. += "<span class='notice'>The beacon's pannel is open </span>"
+
 /obj/machinery/strange_beacon/interact(mob/user)
 	..()
 	if(lastUse+coolDown < world.time)
+		new /obj/item/relic(loc)
 		playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, TRUE)
 		do_sparks(5,FALSE, src)
-		do_create()
 		lastUse = world.time
 	else
 		to_chat(user, "<span class='notice'>The beacon is still recharging.</span>")
 
 /obj/machinery/strange_beacon/attackby(obj/item/G, mob/user, params)
 	if(G.tool_behaviour == TOOL_SCREWDRIVER)
-		deconstruct()
-
-/obj/machinery/strange_beacon/proc/do_create()
-	new /obj/item/relic(loc)
+		if(panel_open == FALSE)
+			panel_open = TRUE
+		else
+			panel_open = FALSE
+	if(G.tool_behaviour == TOOL_CROWBAR && panel_open)
+		default_deconstruction_crowbar(G)
