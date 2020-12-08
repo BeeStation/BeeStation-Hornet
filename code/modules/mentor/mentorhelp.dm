@@ -97,6 +97,6 @@
 		. += "*no key*"
 
 	if(include_follow)
-		. += " (<a href='?_src_=mentor;mentor_follow=[REF(M)];[MentorHrefToken(TRUE)]'>F</a>)"
-
+		if(isobserver(M))
+			. += " (<a href='?_src_=mentor;mentor_follow=[REF(M)];[MentorHrefToken(TRUE)]'>F</a>)"
 	return .
