@@ -25,6 +25,8 @@
 /obj/machinery/strange_beacon/interact(mob/user)
 	add_fingerprint(user)
 	if(lastUse+coolDown < world.time)
+		playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, TRUE)
+		do_sparks(5,FALSE, src)
 		docreate()
 		lastUse = world.time
 	else
