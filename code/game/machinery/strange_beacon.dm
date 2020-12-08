@@ -27,7 +27,7 @@
 	if(lastUse+coolDown < world.time)
 		playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, TRUE)
 		do_sparks(5,FALSE, src)
-		docreate()
+		do_create()
 		lastUse = world.time
 	else
 		to_chat(user, "<span class='notice'>The beacon is still recharging.</span>")
