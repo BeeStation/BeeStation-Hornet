@@ -121,6 +121,7 @@
 		if(flight_level >= WINGS_FLIGHTLESS && H.bodytemperature >= 800 && H.fire_stacks > 0)
 			flight_level = WINGS_COSMETIC
 			to_chat(H, "<span class='danger'>Your precious wings burn to a crisp!</span>")
+			H.dna.features["original_moth_wings"] = H.dna.features["moth_wings"] //Fire apparently destroys DNA, so let's preserve that elsewhere
 			H.dna.features["moth_wings"] = "Burnt Off"
 			wing_type = "Burnt Off"
 			H.dna.species.handle_mutant_bodyparts(H)
