@@ -776,35 +776,35 @@
 /// Allows mobs to slowly walk in crit for a short time
 /mob/living/carbon/proc/crit_walk(oxy_mult = 1)
 	if(stat == SOFT_CRIT)
+		var/duration = 0
 		switch(health)
 			if(HEALTH_THRESHOLD_FULLCRIT to -30)
 				if(prob(60))
-					visible_message("<span class='danger'>unconcious proc ran!</span>")
-					AdjustUnconscious(rand(30, 60), ignore_canstun = TRUE)
-					adjustOxyLoss(1.5 * oxy_mult)
+					duration = 30
+
 				if(prob(55))
 					INVOKE_ASYNC(src, /mob.proc/emote, "gasp")
 			if(-29 to -20)
 				if(prob(45))
-					visible_message("<span class='danger'>unconcious proc ran!</span>")
-					AdjustUnconscious(rand(20, 40), ignore_canstun = TRUE)
-					adjustOxyLoss(1.5 * oxy_mult)
+					duration = 20
+
 				if(prob(50))
 					INVOKE_ASYNC(src, /mob.proc/emote, "gasp")
 			if(-19 to -10)
 				if(prob(35))
-					visible_message("<span class='danger'>unconcious proc ran!</span>")
-					AdjustUnconscious(rand(10, 20), ignore_canstun = TRUE)
-					adjustOxyLoss(1.5 * oxy_mult)
+					duration = 10
+
 				if(prob(40))
 					INVOKE_ASYNC(src, /mob.proc/emote, "cough")
-			if(-9 to 0)
+			if(-9 to crit_threshold)
 				if(prob(30))
-					visible_message("<span class='danger'>unconcious proc ran!</span>")
-					AdjustUnconscious(rand(1, 10), ignore_canstun = TRUE)
-					adjustOxyLoss(1.5 * oxy_mult)
+					duration = 5
+
 				if(prob(30))
-					INVOKE_ASYNC(src, /mob.proc/emote, "gasp")
+					INVOKE_ASYNC(src, /mob.proc/emote, "cough")
+		if(duration)
+			AdjustUnconscious(rand(duration, duration * 2), ignore_canstun = TRUE)
+			adjustOxyLoss(1.5 * oxy_mult)
 
 //called when we get cuffed/uncuffed
 /mob/living/carbon/proc/update_handcuffed()
