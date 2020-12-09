@@ -10,6 +10,10 @@
 
 	START_PROCESSING(SSprocessing, src)
 
+/datum/component/rot/Destroy()
+	STOP_PROCESSING(SSprocessing, src)
+	return ..()
+
 /datum/component/rot/process()
 	var/atom/A = parent
 
