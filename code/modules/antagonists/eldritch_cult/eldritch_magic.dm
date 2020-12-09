@@ -99,7 +99,7 @@
 		var/mob/caster = user
 		if (caster.a_intent != INTENT_HARM)
 			draw_rune(target,user)
-	else 
+	else
 		use_charge = TRUE
 		use_knowledge = TRUE
 
@@ -218,7 +218,7 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/tar = target
 		if(tar.anti_magic_check())
-			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The spell bounces off of you!</span>")
+			tar.visible_message("<span class='danger'>The spell bounces off of [target]!</span>","<span class='danger'>The spell bounces off of you!</span>")
 			return ..()
 	var/mob/living/carbon/human/C2 = user
 	if(isliving(target))
@@ -235,9 +235,20 @@
 			C2.blood_volume += 20
 		return ..()
 
+/obj/effect/proc_holder/spell/pointed/blood_siphon/can_target(atom/target, mob/user, silent)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(!istype(target,/mob/living))
+		if(!silent)
+			to_chat(user, "<span class='warning'>You are unable to siphon [target]!</span>")
+		return FALSE
+	return TRUE
+
+
 /obj/effect/proc_holder/spell/targeted/projectile/dumbfire/rust_wave
 	name = "Patron's Reach"
-	desc = "Channels energy into your gauntlet - firing it results in a wave of rust being created in it's wake."
+	desc = "Channels energy into your gauntlet- unleashing it creates a wave of rust in its wake."
 	proj_type = /obj/item/projectile/magic/spell/rust_wave
 	charge_max = 350
 	clothes_req = FALSE
@@ -287,7 +298,7 @@
 
 /obj/effect/proc_holder/spell/pointed/cleave
 	name = "Cleave"
-	desc = "Causes severe bleeding on a target and people around them"
+	desc = "Causes severe bleeding on a target and several targets around them."
 	school = "transmutation"
 	charge_max = 350
 	clothes_req = FALSE
@@ -340,7 +351,7 @@
 
 /obj/effect/proc_holder/spell/pointed/ash_final
 	name = "Nightwatcher's Rite"
-	desc = "Powerful spell that releases 5 streams of fire away from you."
+	desc = "A powerful spell that releases 5 streams of fire away from you."
 	school = "transmutation"
 	invocation = "F'RE"
 	invocation_type = INVOCATION_WHISPER
@@ -386,13 +397,13 @@
 
 		for(var/mob/living/L in T.contents)
 			if(L.anti_magic_check())
-				L.visible_message("<span class='danger'>Spell bounces off of [L]!</span>","<span class='danger'>The spell bounces off of you!</span>")
+				L.visible_message("<span class='danger'>The spell bounces off of [L]!</span>","<span class='danger'>The spell bounces off of you!</span>")
 				continue
 			if(L in hit_list || L == source)
 				continue
 			hit_list += L
 			L.adjustFireLoss(20)
-			to_chat(L, "<span class='userdanger'>You're hit by [source]'s fire breath!</span>")
+			to_chat(L, "<span class='userdanger'>You're hit by [source]'s eldritch flames!</span>")
 
 		new /obj/effect/hotspot(T)
 		T.hotspot_expose(700,50,1)
@@ -430,7 +441,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/fire_cascade
 	name = "Fire Cascade"
-	desc = "creates hot turfs around you."
+	desc = "Heats the air around you."
 	school = "transmutation"
 	charge_max = 300 //twice as long as mansus grasp
 	clothes_req = FALSE
@@ -451,6 +462,8 @@
 		for(var/turf/T in spiral_range_turfs(_range,centre))
 			new /obj/effect/hotspot(T)
 			T.hotspot_expose(700,50,1)
+			for(var/mob/living/livies in T.contents - centre)
+				livies.adjustFireLoss(5)
 		_range++
 		sleep(3)
 
@@ -465,7 +478,7 @@
 
 /obj/effect/proc_holder/spell/targeted/fire_sworn
 	name = "Oath of Fire"
-	desc = "For a minute you will passively create a ring of fire around you."
+	desc = "For a minute, you will passively create a ring of fire around you."
 	invocation = "FL'MS"
 	invocation_type = INVOCATION_WHISPER
 	clothes_req = FALSE
@@ -498,11 +511,12 @@
 	for(var/turf/T in range(1,current_user))
 		new /obj/effect/hotspot(T)
 		T.hotspot_expose(700,50,1)
-
+		for(var/mob/living/livies in T.contents - current_user)
+			livies.adjustFireLoss(0.5)
 
 /obj/effect/proc_holder/spell/targeted/worm_contract
 	name = "Force Contract"
-	desc = "Forces all the worm parts to collapse onto a single turf"
+	desc = "Forces your body to contract onto a single tile."
 	invocation_type = "none"
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
@@ -516,6 +530,7 @@
 	. = ..()
 	if(!istype(user,/mob/living/simple_animal/hostile/eldritch/armsy))
 		to_chat(user, "<span class='userdanger'>You try to contract your muscles but nothing happens...</span>")
+		return
 	var/mob/living/simple_animal/hostile/eldritch/armsy/armsy = user
 	armsy.contract_next_chain_into_single_tile()
 
@@ -531,7 +546,7 @@
 
 /obj/effect/proc_holder/spell/targeted/fiery_rebirth
 	name = "Nightwatcher's Rebirth"
-	desc = "Drains nearby alive people that are engulfed in flames. It heals 10 of each damage type per person. If a person is in critical condition it finishes them off."
+	desc = "Drains nearby alive people that are engulfed in flames. It heals 10 of each damage type per person. If a target is in critical condition it drains the last of their vitality, killing them."
 	invocation = "GL'RY T' TH' N'GHT'W'TCH'ER"
 	invocation_type = INVOCATION_WHISPER
 	clothes_req = FALSE
@@ -619,7 +634,7 @@
 
 /obj/effect/proc_holder/spell/pointed/manse_link
 	name = "Mansus Link"
-	desc = "Piercing through reality, connecting minds. This spell allows you to add people to a mansus net, allowing them to communicate with eachother"
+	desc = "Piercing through reality, connecting minds. This spell allows you to add people to a Mansus link, allowing them to communicate with each other from afar."
 	school = "transmutation"
 	charge_max = 300
 	clothes_req = FALSE

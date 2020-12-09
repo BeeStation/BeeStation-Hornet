@@ -75,6 +75,8 @@
 ///It is faster as a macro than a proc
 #define IS_HERETIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic))
 #define IS_HERETIC_CULTIST(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic_monster))
+
+GLOBAL_LIST_INIT(heretic_start_knowledge,list(/datum/eldritch_knowledge/codex_cicatrix,/datum/eldritch_knowledge/living_heart,/datum/eldritch_knowledge/spell/basic,/datum/eldritch_knowledge/convert,/datum/eldritch_knowledge/eldritch_avatar))
 	
 #define PATH_SIDE "Side"
 

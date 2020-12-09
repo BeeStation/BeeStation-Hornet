@@ -82,53 +82,6 @@
 		ui = new(user, src, "ForbiddenLore")
 		ui.open()
 
-/*/obj/item/forbidden_book/attack_self(mob/living/carbon/human/user)
-	if(!istype(user) || in_use)
-		return FALSE
-	if (IS_HERETIC(user))
-		ui_interact(user)
-		return FALSE
-	if(HAS_TRAIT(user, TRAIT_MINDSHIELD))
-		to_chat(user, "<span class='alert'>The pages of [src] appear empty to you!</span>")
-		return FALSE
-	if(user.has_trauma_type(/datum/brain_trauma/fascination))
-		to_chat(user, "<span class='alert'>Reading the [name] again will not satisfy your thirst for knowledge!</span>")
-		return FALSE
-
-	to_chat(user, "<span class='notice'>You start reading the [name]...</span>")
-	in_use = TRUE
-
-	var/success = FALSE
-	for(var/i in 1 to rand(2,5))
-		if (!success)
-			success = prob(5)
-		if(!turn_page(user,success))
-			to_chat(user, "<span class='notice'>You resist temptation and put the [name] down.</span>")
-			in_use = FALSE
-			return FALSE
-	if(do_after(user,3 SECONDS, user))
-		if (success)
-			user.gain_trauma(/datum/brain_trauma/fascination,TRAUMA_RESILIENCE_SURGERY)
-		else
-			if (prob(95))
-				to_chat(user, "<span class='notice'>Your sanity slips away...</span>")
-				user.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5, 160)
-			else
-				to_chat(user, "<span class='notice'>You must have offended the Gods somehow!</span>")
-				new /mob/living/simple_animal/hostile/netherworld/blankbody(get_turf(user))
-	in_use = FALSE
-	return TRUE
-
-/obj/item/forbidden_book/proc/turn_page(mob/user,var/success)
-	playsound(user, pick('sound/effects/pageturn1.ogg','sound/effects/pageturn2.ogg','sound/effects/pageturn3.ogg'), 30, 1)
-	if(do_after(user,3 SECONDS, user))
-		if (success)
-			to_chat(user, "<span class='notice'>[pick(success_reads)]</span>")
-		else
-			to_chat(user, "<span class='notice'>[pick(failure_reads)]</span>")
-		return TRUE
-	return FALSE*/
-
 /obj/item/forbidden_book/ui_state(mob/user)
 	return GLOB.default_state
 

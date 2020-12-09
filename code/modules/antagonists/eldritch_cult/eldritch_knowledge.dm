@@ -70,6 +70,14 @@
 	return TRUE
 
 /**
+ * A proc that handles the code when the mob dies
+ *
+ * This proc is primarily used to end any soundloops when the heretic dies
+ */
+/datum/eldritch_knowledge/proc/on_death(mob/user)
+	return
+
+/**
   * What happens once the recipe is succesfully finished
   *
   * By default this proc creates atoms from result_atoms list. Override this is you want something else to happen.
@@ -118,6 +126,14 @@
 /datum/eldritch_knowledge/proc/on_eldritch_blade(target,user,proximity_flag,click_parameters)
 	return
 
+/**
+ * Sickly blade distant act
+ *
+ * Same as [/datum/eldritch_knowledge/proc/on_eldritch_blade] but works on targets that are not in proximity to you.
+ */
+/datum/eldritch_knowledge/proc/on_ranged_attack_eldritch_blade(atom/target,mob/user,click_parameters)
+	return
+
 //////////////
 ///Subtypes///
 //////////////
@@ -137,6 +153,7 @@
 /datum/eldritch_knowledge/curse
 	var/timer = 5 MINUTES
 	var/list/fingerprints = list()
+	var/list/dna = list()
 
 /datum/eldritch_knowledge/curse/recipe_snowflake_check(list/atoms, loc)
 	fingerprints = list()
@@ -153,15 +170,13 @@
 	var/list/compiled_list = list()
 
 	for(var/H in GLOB.carbon_list)
-		if(!ishuman(H))
-			continue
 		var/mob/living/carbon/human/human_to_check = H
-		if(fingerprints[md5(human_to_check.dna.uni_identity)])
+		if(istype(human_to_check) && fingerprints[md5(human_to_check.dna.uni_identity)])
 			compiled_list |= human_to_check.real_name
 			compiled_list[human_to_check.real_name] = human_to_check
 
 	if(compiled_list.len == 0)
-		to_chat(user, "<span class='warning'>The items don't posses required fingerprints.</span>")
+		to_chat(user, "<span class='warning'>These items don't possess the required fingerprints or DNA.</span>")
 		return FALSE
 
 	var/chosen_mob = input("Select the person you wish to curse","Your target") as null|anything in sortList(compiled_list, /proc/cmp_mob_realname_dsc)
@@ -190,7 +205,7 @@
 	//we need to spawn the mob first so that we can use it in pollCandidatesForMob, we will move it from nullspace down the code
 	var/mob/living/summoned = new mob_to_summon(loc)
 	message_admins("[summoned.name] is being summoned by [user.real_name] in [loc]")
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [summoned.name]", ROLE_HERETIC, null, FALSE, 100, summoned)
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [summoned.real_name]", ROLE_HERETIC, null, FALSE, 100, summoned)
 	if(!LAZYLEN(candidates))
 		to_chat(user,"<span class='warning'>No ghost could be found...</span>")
 		qdel(summoned)

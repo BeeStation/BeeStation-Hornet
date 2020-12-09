@@ -38,14 +38,12 @@
 	var/mob/living/current = owner.current
 	if(ishuman(current))
 		forge_primary_objectives()
-		gain_knowledge(/datum/eldritch_knowledge/codex_cicatrix)
-		gain_knowledge(/datum/eldritch_knowledge/living_heart)
-		gain_knowledge(/datum/eldritch_knowledge/spell/basic)
-		gain_knowledge(/datum/eldritch_knowledge/convert)
-		gain_knowledge(/datum/eldritch_knowledge/eldritch_avatar)
-	current.log_message("has become a heretic", LOG_ATTACK, color="#960000")
-	GLOB.reality_smash_track.AddMind(owner)
+		for(var/eldritch_knowledge in GLOB.heretic_start_knowledge)
+			gain_knowledge(eldritch_knowledge)
+	current.log_message("has been converted to the cult of the forgotten ones!", LOG_ATTACK, color="#960000")
+	GLOB.reality_smash_track.Generate()
 	START_PROCESSING(SSprocessing,src)
+	RegisterSignal(owner.current,COMSIG_MOB_DEATH,.proc/on_death)
 	if(give_equipment)
 		equip_cultist()
 	return ..()
@@ -59,9 +57,8 @@
 	if(!silent)
 		to_chat(owner.current, "<span class='userdanger'>Your mind begins to flare as the otherwordly knowledge escapes your grasp!</span>")
 		owner.current.log_message("has become a non-heretic", LOG_ATTACK, color="#960000")
-	GLOB.reality_smash_track.RemoveMind(owner)
 	STOP_PROCESSING(SSprocessing,src)
-
+	on_death()
 	return ..()
 
 
@@ -97,6 +94,12 @@
 	for(var/X in researched_knowledge)
 		var/datum/eldritch_knowledge/EK = researched_knowledge[X]
 		EK.on_life(owner.current)
+
+/datum/antagonist/heretic/proc/on_death()
+
+	for(var/X in researched_knowledge)
+		var/datum/eldritch_knowledge/EK = researched_knowledge[X]
+		EK.on_death(owner.current)
 
 /datum/antagonist/heretic/proc/forge_primary_objectives()
 	if (prob(5))
@@ -192,7 +195,7 @@
 		var/client/C = GLOB.directory[ckey(owner.key)]
 		if(C)
 			C.process_greentext()
-		parts += "<span class='greentext big'>HERETIC HAS ASCENDED!</span>"
+		parts += "<span class='greentext big'>THIS HERETIC ASCENDED!</span>"
 	else
 		if(cultiewin)
 			parts += "<span class='greentext'>The heretic was successful!</span>"
