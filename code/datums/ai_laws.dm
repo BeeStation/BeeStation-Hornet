@@ -76,9 +76,9 @@
 /datum/ai_laws/robocop
 	name = "Prime Directives"
 	id = "robocop"
-	inherent = list("Uphold the law.",\
+	inherent = list("Serve the public trust.",\
 					"Protect the innocent.",\
-					"Serve the public trust.")
+					"Uphold the law.")
 
 /datum/ai_laws/malfunction
 	name = "*ERROR*"
@@ -144,7 +144,7 @@
 	id = "drone"
 	inherent = list("You are an advanced form of drone.",\
 					"You may not interfere in the matters of non-drones under any circumstances except to state these laws.",\
-					"You may not intentionally harm a non-drone being under any circumstances.",\
+					"You may not harm a non-drone being under any circumstances.",\
 					"Your goals are to build, maintain, repair, improve, and power the station to the best of your abilities. You must never actively work against these goals.")
 
 /datum/ai_laws/liveandletlive

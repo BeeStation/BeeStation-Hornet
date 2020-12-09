@@ -427,19 +427,19 @@ LAW_WEIGHT custom,0
 
 ## standard-ish laws. These are fairly ok to run
 LAW_WEIGHT asimov,70
-LAW_WEIGHT crewsimov,12
-LAW_WEIGHT paladin,12
-LAW_WEIGHT robocop,12
-LAW_WEIGHT corporate,12
+LAW_WEIGHT crewsimov,10
+LAW_WEIGHT paladin,10
+LAW_WEIGHT robocop,0
+LAW_WEIGHT corporate,10
 
 ## Quirky laws. Shouldn't cause too much harm
-LAW_WEIGHT hippocratic,3
-LAW_WEIGHT maintain,3
-LAW_WEIGHT drone,3
-LAW_WEIGHT liveandletlive,3
-LAW_WEIGHT peacekeeper,3
-LAW_WEIGHT reporter,3
-LAW_WEIGHT hulkamania,3
+LAW_WEIGHT hippocratic,0
+LAW_WEIGHT maintain,0
+LAW_WEIGHT drone,0
+LAW_WEIGHT liveandletlive,0
+LAW_WEIGHT peacekeeper,0
+LAW_WEIGHT reporter,0
+LAW_WEIGHT hulkamania,0
 
 ## Bad idea laws. Probably shouldn't enable these
 LAW_WEIGHT syndie,0

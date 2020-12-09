@@ -426,10 +426,10 @@ RANDOM_LAWS corporate
 LAW_WEIGHT custom,3
 
 ## standard-ish laws. These are fairly ok to run
-LAW_WEIGHT crewsimov,80
-LAW_WEIGHT asimovpp,10
+LAW_WEIGHT crewsimov,70
+LAW_WEIGHT asimov,10
 LAW_WEIGHT paladin,10
-LAW_WEIGHT robocop,10
+LAW_WEIGHT robocop,0
 LAW_WEIGHT corporate,10
 
 ## Quirky laws. Shouldn't cause too much harm
