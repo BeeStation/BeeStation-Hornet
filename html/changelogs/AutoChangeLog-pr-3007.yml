@@ -1,6 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - rscadd: Windows in labor camp are plasma (again).
-  - bugfix: APC in labor camp is no longer floating mid air.
-  - bugfix: Generic computers are replaced with computer frames in science outpost.
