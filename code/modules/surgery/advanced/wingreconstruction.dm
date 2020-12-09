@@ -15,7 +15,7 @@
 	name = "start wing reconstruction"
 	implements = list(TOOL_HEMOSTAT = 85, TOOL_SCREWDRIVER = 35, /obj/item/pen = 15)
 	time = 200
-	chems_needed = list(/datum/reagent/medicine/c2/instabitaluri)
+	chems_needed = list(/datum/reagent/medicine/synthflesh)
 	require_all_chems = FALSE
 
 /datum/surgery_step/wing_reconstruction/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
