@@ -7131,7 +7131,7 @@
 /area/maintenance/port/fore)
 "arM" = (
 /obj/structure/closet/crate{
-	opened = TRUE
+	opened = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating,
