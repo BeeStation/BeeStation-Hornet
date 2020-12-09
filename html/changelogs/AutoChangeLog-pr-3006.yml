@@ -1,0 +1,9 @@
+author: Archanial
+delete-after: true
+changes:
+  - rscadd: Delta's AI sat now fastmos compatible.
+  - rscadd: Fixed some AACs not working.
+  - rscadd: Minor improvements to box's AI sat.
+  - rscdel: Removed double stacked windows on pubby's chapel.
+  - rscadd: More firelocks in pubby's chapel.
+  - rscadd: Added tiny fans to ferries.
