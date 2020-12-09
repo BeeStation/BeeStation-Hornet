@@ -102,6 +102,7 @@
 	living_user.adjustToxLoss(-2, FALSE)
 	living_user.adjustOxyLoss(-0.5, FALSE)
 	living_user.adjustStaminaLoss(-2)
+	living_user.AdjustAllImmobility(-5)	
 
 /datum/eldritch_knowledge/rust_mark/on_eldritch_blade(target,user,proximity_flag,click_parameters)
 	. = ..()
@@ -127,21 +128,23 @@
 	H.physiology.burn_mod *= 0.5
 	for(var/X in trait_list)
 		ADD_TRAIT(user,X,MAGIC_TRAIT)
-	priority_announce("$^@&#*$^@(#&$(@&#^$&#^@# Fear the decay, for Rustbringer [user.real_name] has come! $^@&#*$^@(#&$(@&#^$&#^@#","#$^@&#*$^@(#&$(@&#^$&#^@#", 'sound/ai/spanomalies.ogg')
+	priority_announce("$^@&#*$^@(#&$(@&#^$&#^@# Fear the decay, for the Rustbringer, [user.real_name] has ascended! None shall escape the corrosion! $^@&#*$^@(#&$(@&#^$&#^@#","#$^@&#*$^@(#&$(@&#^$&#^@#", 'sound/ai/spanomalies.ogg')
 	new /datum/rust_spread(loc)
 	return ..()
 
 
 /datum/eldritch_knowledge/final/rust_final/on_life(mob/user)
 	. = ..()
-	if(!finished)
+	var/turf/user_loc_turf = get_turf(user)
+	if(!istype(user_loc_turf, /turf/open/floor/plating/rust) || !isliving(user) || !finished)
 		return
 	var/mob/living/carbon/human/human_user = user
-	human_user.adjustBruteLoss(-3, FALSE)
-	human_user.adjustFireLoss(-3, FALSE)
-	human_user.adjustToxLoss(-3, FALSE)
-	human_user.adjustOxyLoss(-1, FALSE)
-	human_user.adjustStaminaLoss(-10)
+	human_user.adjustBruteLoss(-4, FALSE)
+	human_user.adjustFireLoss(-4, FALSE)
+	human_user.adjustToxLoss(-4, FALSE)
+	human_user.adjustOxyLoss(-2, FALSE)
+	human_user.adjustStaminaLoss(-20)
+	human_user.AdjustAllImmobility(-10)
 
 
 /**
@@ -153,6 +156,7 @@
   */
 /datum/rust_spread
 	var/list/edge_turfs = list()
+	var/turf/centre
 	var/list/turfs = list()
 	var/static/list/blacklisted_turfs = typecacheof(list(/turf/open/indestructible,/turf/closed/indestructible,/turf/open/space,/turf/open/lava,/turf/open/chasm))
 	var/spread_per_tick = 6
@@ -160,9 +164,9 @@
 
 /datum/rust_spread/New(loc)
 	. = ..()
-	var/turf/turf_loc = get_turf(loc)
-	turf_loc.rust_heretic_act(TRUE)
-	turfs += turf_loc
+	centre = get_turf(loc)
+	centre.rust_heretic_act()
+	turfs += centre
 	START_PROCESSING(SSprocessing,src)
 
 
@@ -171,12 +175,19 @@
 	return ..()
 
 /datum/rust_spread/process()
-	compile_turfs()
+	var/spread_am = round(spread_per_tick)
+
+	if(edge_turfs.len < spread_am)
+		compile_turfs()
+
 	var/turf/T
-	for(var/i in 0 to spread_per_tick)
+	for(var/i in 0 to spread_am)
+		if(!edge_turfs.len)
+			continue
 		T = pick(edge_turfs)
-		T.rust_heretic_act(TRUE)
-		turfs += get_turf(T)
+		edge_turfs -= T
+		T.rust_heretic_act()
+		turfs += T
 
 /**
   * Compile turfs
@@ -185,13 +196,17 @@
   */
 /datum/rust_spread/proc/compile_turfs()
 	edge_turfs = list()
-	for(var/X in turfs)
-		if(!istype(X,/turf/closed/wall/rust) && !istype(X,/turf/closed/wall/r_wall/rust) && !istype(X,/turf/open/floor/plating/rust))
-			turfs -=X
+	var/list/removal_list = list()
+	var/max_dist = 1
+	for(var/turfie in turfs)
+		if(!istype(turfie,/turf/closed/wall/rust) && !istype(turfie,/turf/closed/wall/r_wall/rust) && !istype(turfie,/turf/open/floor/plating/rust))
+			removal_list +=turfie
+		max_dist = max(max_dist,get_dist(turfie,centre)+1)
+	turfs -= removal_list
+	for(var/turfie in spiral_range_turfs(max_dist,centre,FALSE))
+		if(turfie in turfs || is_type_in_typecache(turfie,blacklisted_turfs))
 			continue
-		for(var/turf/T in range(1,X))
-			if(T in turfs)
-				continue
-			if(is_type_in_typecache(T,blacklisted_turfs))
-				continue
-			edge_turfs += T
+		for(var/line_turfie_owo in getline(turfie,centre))
+			if(get_dist(turfie,line_turfie_owo) <= 1)
+				edge_turfs += turfie
+		CHECK_TICK
