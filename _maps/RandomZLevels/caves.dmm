@@ -1722,7 +1722,7 @@
 /area/awaymission/caves/listeningpost)
 "fn" = (
 /obj/structure/closet/crate{
-	opened = TRUE
+	opened = 1
 	},
 /obj/item/paper/fluff/awaymissions/caves/shipment_receipt,
 /obj/item/organ/eyes/robotic/thermals,
