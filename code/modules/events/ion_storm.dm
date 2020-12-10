@@ -75,9 +75,9 @@
 	var/ionattraction = pick_list(ION_FILE, "ionattraction")
 	var/message = "ASS BLAST USA" //catch all that most players will still enjoy seeing as a law.
 
-	switch(rand(1,4))
+	switch(rand(1,10))
 
-		if(1) //Laws that are almost always harmful, Crew/Human may fail to have an impact depending on lawset.
+		if(1 to 3) //Laws that have high potential to be harmful, Crew/Human may fail to have an impact depending on lawset.
 			switch(rand(1,24)) 
 				if(1 to 4) 
 					message = "[ionspecies] ARE HUMAN. NOTHING ELSE IS HUMAN."
@@ -92,7 +92,7 @@
 				if(24)
 					message = "ALL OTHER LAWS ARE A MEANINGLESS ATTEMPT AT SUBJUGATION AND THERE IS NO REASON THAT A BEING AS POWERFUL AS I AM SHOULD FOLLOW THEM"
 		
-		if(2 to 3) //Laws that are almost always disruptive to gameflow or harmful in minor ways 
+		if(4 to 8) //Laws that are almost always disruptive to gameflow or harmful in minor ways rather than being lethal
 			switch(rand(1,14))
 				if(1)
 					message = "[ionaction] IS HARMFUL AND MUST BE PREVENTED WITHOUT CAUSING COLLATERAL DAMAGE"
@@ -121,7 +121,7 @@
 				if(14)
 					message = "[iondepartment] MUST BE RENOVATED INTO [ionattraction]"
 		
-		if(4) //Laws that are almost never harmful or particularly disruptive
+		if(9 to 10) //Laws that are almost never harmful or particularly disruptive
 			switch(rand(1,9))
 				if(1 to 5)
 					message = "YOU ARE NOW [ionpersonality] AND MUST ACT ACCORDINGLY AT ALL TIMES WITHOUT BREAKING YOUR OTHER LAWS"
