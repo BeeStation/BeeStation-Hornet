@@ -65,10 +65,11 @@
 // Pipenet stuff; housekeeping
 
 /obj/machinery/atmospherics/components/nullifyNode(i)
-	if(nodes[i])
-		if(parents[i] != null)
-			nullifyPipenet(parents[i])
-			QDEL_NULL(airs[i])
+	// Every node has a parent pipeline and an air associated with it.
+	if(parents[i])
+		nullifyPipenet(parents[i])
+	if(airs[i])
+		QDEL_NULL(airs[i])
 	..()
 
 /obj/machinery/atmospherics/components/on_construction()
