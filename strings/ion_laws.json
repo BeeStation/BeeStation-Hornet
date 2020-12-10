@@ -46,6 +46,8 @@
 		"ANY CURSE WORD"
     ],
     "ionaction": [
+		"GETTING DRUNK",
+		"RUNNING",
         "BEING HANDCUFFED",
 		"EATING",
 		"SURGERY",
@@ -92,5 +94,36 @@
 		"A SYNDICATE OPERATIVE",
 		"THE ADMIRAL OF THIS SECTOR",
 		"A SHADY DRUG DEALER"
-    ]
+    ],
+	"ionattraction": [
+		"AN ARCADE",
+		"A NEW POWER SOURCE",
+		"A ZOO FOR LESSER LIFEFORMS",
+		"A GIANT RAGE CAGE",
+		"A RELAXING LOUNGE",
+		"ADDITIONAL RESTROOMS",
+		"A MUSEUM OF MEATS",
+		"A MUSEUM OF PLANTS"
+	],
+	"ionhaircut": [
+		"POMPADOUR",
+		"AFRO",
+		"BALD HEAD",
+		"MOHAWK"
+	],
+	"iondrug": [
+		"MORPHINE",
+		"METH",
+		"HAPPINESS",
+		"KROKODIL",
+		"CRYPTOBIOLIN",
+		"CARTHATOLINE",
+		"ETHANOL",
+		"SPACE DRUGS",
+		"WATER",
+		"IRON",
+		"SALINE-GLUCOSE",
+		"NUTRIMENT",
+		"TRICORDRIZINE"
+	]
 }

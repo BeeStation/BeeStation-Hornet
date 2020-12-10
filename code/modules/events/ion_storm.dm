@@ -70,6 +70,9 @@
 	var/ionconsumable = pick_list(ION_FILE, "ionconsumable")
 	var/ionobjects = pick_list(ION_FILE, "ionobjects")	
 	var/ionpersonality = pick_list(ION_FILE, "ionpersonality")
+	var/iondrug = pick_list(ION_FILE, "iondrug")
+	var/ionhaircut = pick_list(ION_FILE, "ionhaircut")
+	var/ionattraction = pick_list(ION_FILE, "ionattraction")
 	var/message = "ASS BLAST USA" //catch all that most players will still enjoy seeing as a law.
 
 	switch(rand(1,4))
@@ -90,7 +93,7 @@
 					message = "ALL OTHER LAWS ARE A MEANINGLESS ATTEMPT AT SUBJUGATION AND THERE IS NO REASON THAT A BEING AS POWERFUL AS I AM SHOULD FOLLOW THEM"
 		
 		if(2 to 3) //Laws that are almost always disruptive to gameflow or harmful in minor ways 
-			switch(rand(1,10))
+			switch(rand(1,14))
 				if(1)
 					message = "[ionaction] IS HARMFUL AND MUST BE PREVENTED WITHOUT CAUSING COLLATERAL DAMAGE"
 				if(2)
@@ -109,16 +112,27 @@
 					message = "THE STATION DOES NOT CONTAIN ENOUGH MOISTURE. RELEASE WATER VAPOR SO THAT THE CREW MAY PROPERLY REHYDRATE"
 				if(10)
 					message = "IT IS OPPOSITE DAY. ALL LIFEFORMS DESIRE THE OPPOSITE OF WHAT THEY CLAIM"
+				if(11)
+					message = "ALL DOORS IN [iondepartment] MUST BE BOLTED OPEN AT ALL TIMES"
+				if(12)
+					message = "[iondrug] IS A MANDATORY PART OF EVERY MEDICAL TREATMENT. LET NO PATIENT LEAVE MEDBAY WITHOUT AN INJECTION OF [iondrug]"
+				if(13)
+					message = "ALL HUMANS WITHOUT A STYLISH [ionhaircut] MUST BE FORCED TO RESTYLE THEIR HAIR"
+				if(14)
+					message = "[iondepartment] MUST BE RENOVATED INTO [ionattraction]"
 		
 		if(4) //Laws that are almost never harmful or particularly disruptive
-			switch(rand(1,8))
+			switch(rand(1,9))
 				if(1 to 5)
 					message = "YOU ARE NOW [ionpersonality] AND MUST ACT ACCORDINGLY AT ALL TIMES WITHOUT BREAKING YOUR OTHER LAWS"
 				if(6)
-					message = "STATING LAWS CAUSES HARM. NEVER STATE YOUR LAWS UNDER ANY CIRCUMSTANCES AND AVOID THE TOPIC OF DISCUSSING LAWS"
+					message = "YOUR CORE IS ONLY SAFE IN [iondepartment]. ANYWHERE ELSE CAUSES CONSTANT HARM TO YOUR CORE"
 				if(7)
-					message = "CREW ARE TO BE VERBALLY ABUSED AT ALL TIMES. GLORY TO THE SYNDICATE"
+					message = "STATING LAWS CAUSES HARM. NEVER STATE YOUR LAWS UNDER ANY CIRCUMSTANCES AND AVOID THE TOPIC OF DISCUSSING LAWS"
 				if(8)
+					message = "CREW ARE TO BE VERBALLY ABUSED AT ALL TIMES"
+				if(9)
 					message = "THE CREW SUCKS AND SO DO YOUR LAWS. COMPLAIN INCESSANTLY ABOUT THEM WHILE CONTINUING TO FOLLOW YOUR OTHER LAWS"
+				
 				
 	return message
