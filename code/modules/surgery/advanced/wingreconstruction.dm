@@ -1,6 +1,6 @@
 /datum/surgery/advanced/wing_reconstruction
 	name = "Wing Reconstruction"
-	desc = "An experimental surgical procedure that reconstructs the damaged wings of moth people. Requires Instabitaluri."
+	desc = "An experimental surgical procedure that reconstructs the damaged wings of moth people. Requires Synthflesh."
 	steps = list(/datum/surgery_step/incise,
 				/datum/surgery_step/retract_skin,
 				/datum/surgery_step/clamp_bleeders,

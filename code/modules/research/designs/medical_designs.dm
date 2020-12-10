@@ -715,7 +715,7 @@
 
 /datum/design/surgery/wing_reconstruction
 	name = "Wing Reconstruction"
-	desc = "An experimental surgical procedure that reconstructs the damaged wings of moth people. Requires synthflesh."
+	desc = "An experimental surgical procedure that reconstructs the damaged wings of moth people. Requires Synthflesh."
 	id = "surgery_wing_reconstruction"
 	surgery = /datum/surgery/advanced/wing_reconstruction
 	research_icon_state = "surgery_chest"
