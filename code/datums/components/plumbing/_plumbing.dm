@@ -35,9 +35,8 @@
 		create_overlays()
 
 /datum/component/plumbing/process()
-	if(!demand_connects || !reagents)
-		STOP_PROCESSING(SSfluids, src)
-		return
+	if(!demand_connects || !reagents)		// This actually shouldn't happen, but better safe than sorry
+		return PROCESS_KILL
 	if(reagents.total_volume < reagents.maximum_volume)
 		for(var/D in GLOB.cardinals)
 			if(D & demand_connects)

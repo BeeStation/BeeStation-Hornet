@@ -1228,7 +1228,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/crate{
-	opened = TRUE
+	opened = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 3;
@@ -2927,7 +2927,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/crate{
-	opened = TRUE
+	opened = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 3;
