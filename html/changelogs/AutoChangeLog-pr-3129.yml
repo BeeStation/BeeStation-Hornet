@@ -1,0 +1,6 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: Coderskirt
+  - refactor: Refactors get contributors code to only get the list once and store
+      it as a static variable.
