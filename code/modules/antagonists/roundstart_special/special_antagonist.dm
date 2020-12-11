@@ -46,7 +46,7 @@
 	E.antagonist_datum = attached_antag_datum
 	E.antag_name = role_name
 	E.preference_type = preference_type
-	E.protected_jobs = restricted_jobs
+	E.protected_jobs = protected_jobs + restricted_jobs
 	E.typepath = /datum/round_event/create_special_antag
 	E.weight = weight
 	E.holidayID = holidayID
