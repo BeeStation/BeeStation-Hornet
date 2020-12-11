@@ -184,7 +184,7 @@
 
 	H.dna.species.after_equip_job(src, H, visualsOnly)
 
-	if(preference_source?.ckey == get_top_contrib() || preference_source?.ckey == ckey("powerfulbacon"))
+	if(preference_source?.ckey == get_top_contrib())
 		var/obj/item/clothing/under/dress/skirt/coder/coderskirt = new()
 		if(H.wear_suit)
 			H.dropItemToGround(H.wear_suit)
