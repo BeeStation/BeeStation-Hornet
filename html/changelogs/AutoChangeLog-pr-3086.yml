@@ -1,5 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - admin: Admins can now easily see if the objective is currently completed in TP
-      (objective's text will be green).

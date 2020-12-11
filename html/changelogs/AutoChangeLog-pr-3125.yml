@@ -1,5 +1,0 @@
-author: park66665
-delete-after: true
-changes:
-  - bugfix: fixed quite a lot of pipes on every map (except Kilo which only had one
-      trivial problem) to improve experience and performance
