@@ -5502,6 +5502,9 @@
 	dir = 4
 	},
 /obj/structure/dresser,
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/hop)
 "bBe" = (
@@ -15662,6 +15665,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "euK" = (
@@ -19307,6 +19313,9 @@
 	pixel_y = 3
 	},
 /obj/item/toy/figure/ian,
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "fwT" = (
@@ -25583,6 +25592,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "hfg" = (
@@ -30321,6 +30333,12 @@
 	pixel_y = 4
 	},
 /obj/machinery/light,
+/obj/item/radio/intercom{
+	dir = 8;
+	freerange = 1;
+	name = "Station Intercom (Command)";
+	pixel_y = -27
+	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "itf" = (
@@ -37992,6 +38010,9 @@
 	},
 /obj/effect/turf_decal/tile/blue,
 /obj/structure/table/reinforced,
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "kCw" = (
@@ -38062,6 +38083,9 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
+	},
+/obj/item/radio/intercom{
+	pixel_y = 26
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
@@ -40967,6 +40991,24 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/escape)
+"lvt" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/central)
 "lvz" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
 /turf/open/floor/plasteel,
@@ -59151,6 +59193,10 @@
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel,
 /area/hydroponics)
+"qld" = (
+/obj/effect/landmark/carpspawn,
+/turf/open/space,
+/area/space)
 "qlg" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical{
@@ -69429,6 +69475,9 @@
 /obj/structure/dresser,
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_y = 26
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
@@ -80022,6 +80071,9 @@
 /area/crew_quarters/fitness/recreation)
 "whL" = (
 /obj/structure/closet/secure_closet/captains,
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
 "wig" = (
@@ -118424,7 +118476,7 @@ tfJ
 tfJ
 tfJ
 tfJ
-tfJ
+auC
 tfJ
 tfJ
 tfJ
@@ -123911,7 +123963,7 @@ tfJ
 tfJ
 tfJ
 vpR
-hAl
+lvt
 hyS
 ksx
 bSm
@@ -126908,7 +126960,7 @@ tfJ
 cDQ
 cDQ
 cDQ
-cDQ
+qld
 tfJ
 tfJ
 tfJ
@@ -130500,7 +130552,7 @@ tfJ
 tfJ
 tfJ
 tfJ
-auC
+tfJ
 tfJ
 tfJ
 tfJ
@@ -131540,7 +131592,7 @@ tfJ
 tfJ
 tfJ
 tfJ
-tfJ
+auC
 tfJ
 tfJ
 tfJ
