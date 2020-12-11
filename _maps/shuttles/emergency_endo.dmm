@@ -144,6 +144,9 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "aF" = (
@@ -224,6 +227,9 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
@@ -396,12 +402,14 @@
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "bn" = (
-/obj/machinery/shower{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	name = "Common Channel";
+	pixel_x = 27
 	},
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
@@ -603,9 +611,6 @@
 	dir = 1
 	},
 /obj/machinery/vending/boozeomat,
-/obj/item/radio/intercom{
-	pixel_x = -25
-	},
 /obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
@@ -787,6 +792,15 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
+"gb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom{
+	dir = 4;
+	name = "Station Intercom (General)";
+	pixel_y = 27
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
 "gB" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -811,6 +825,17 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
+"hZ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	name = "Common Channel";
+	pixel_x = -27
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
 "iu" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -828,9 +853,27 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
+"kr" = (
+/obj/structure/chair/comfy/shuttle,
+/obj/effect/turf_decal/bot,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
 "kX" = (
 /obj/item/cigbutt,
 /obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"lA" = (
+/obj/effect/turf_decal/tile/bar,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/obj/item/radio/intercom{
+	pixel_x = -25
+	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "lJ" = (
@@ -901,6 +944,12 @@
 /obj/structure/window/shuttle,
 /turf/open/floor/grass,
 /area/shuttle/escape)
+"pE" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
 "pS" = (
 /obj/structure/table,
 /obj/item/scalpel{
@@ -944,6 +993,14 @@
 /obj/machinery/door/firedoor/border_only,
 /obj/machinery/door/firedoor/border_only{
 	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"ty" = (
+/obj/item/radio/intercom{
+	dir = 4;
+	name = "Station Intercom (General)";
+	pixel_y = 27
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
@@ -1011,6 +1068,12 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
+"Du" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
 "DK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/comfy/shuttle{
@@ -1053,6 +1116,14 @@
 	},
 /obj/machinery/door/firedoor/border_only{
 	dir = 4
+	},
+/obj/machinery/door/window/southleft{
+	dir = 8
+	},
+/obj/machinery/door/window/southleft{
+	dir = 4;
+	name = "Bar Delivery";
+	req_access_txt = "25"
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -1109,6 +1180,18 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
+"Mz" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
+/obj/item/radio/intercom{
+	freerange = 1;
+	name = "Common Channel";
+	pixel_x = -27
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
 "MV" = (
 /obj/machinery/door/airlock/command{
 	name = "Emergency Recovery Airlock";
@@ -1136,6 +1219,19 @@
 /area/shuttle/escape)
 "Nv" = (
 /obj/structure/closet/emcloset,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"Nw" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "OG" = (
@@ -1154,6 +1250,9 @@
 /area/shuttle/escape)
 "RY" = (
 /obj/structure/closet/firecloset,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "Sn" = (
@@ -1292,7 +1391,7 @@ LY
 LY
 cO
 ad
-be
+gb
 be
 bf
 "}
@@ -1351,7 +1450,7 @@ ad
 ad
 bX
 ap
-bX
+hZ
 ef
 bu
 ad
@@ -1406,10 +1505,10 @@ aI
 aI
 aI
 bJ
-aq
+pE
 LY
 LY
-Yo
+Nw
 pq
 LY
 bG
@@ -1436,8 +1535,8 @@ ad
 an
 LY
 LY
-LY
-Yo
+Du
+Mz
 aJ
 ar
 aw
@@ -1529,7 +1628,7 @@ LY
 LY
 PE
 Vs
-Xm
+lA
 Xm
 bM
 ad
@@ -1539,9 +1638,9 @@ ao
 LY
 LY
 LY
-Yo
+lJ
 bS
-aw
+kr
 LY
 LY
 PE
@@ -1679,7 +1778,7 @@ fr
 bK
 Ml
 ad
-LY
+ty
 LY
 Ks
 nX
