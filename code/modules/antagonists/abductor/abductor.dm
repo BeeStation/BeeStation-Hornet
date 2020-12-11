@@ -69,6 +69,15 @@
 	to_chat(owner.current, "<span class='notice'>[greet_text]</span>")
 	owner.announce_objectives()
 
+/datum/antagonist/abductor/scientist/onemanteam/greet()
+	to_chat(owner.current, "<span class='notice'>You are the [owner.special_role]!</span>")
+	to_chat(owner.current, "<span class='notice'>Your supposed to have a team member but you dont, kidnap and experiment on station crew members!</span>")
+	to_chat(owner.current, "<span class='notice'>You are both the agent and the scientist, you can use the console to teleport yourself down</span>")
+	to_chat(owner.current, "<span class='notice'>And you can use your teleport implant to zap yourself back up</span>")
+	to_chat(owner.current, "<span class='notice'>Choose a worthy disguise and plan your targets carefully! Humans will kill you on sight.</span>")
+	to_chat(owner.current, "<span class='notice'>[greet_text]</span>")
+	owner.announce_objectives()
+
 /datum/antagonist/abductor/proc/finalize_abductor()
 	//Equip
 	var/mob/living/carbon/human/H = owner.current
