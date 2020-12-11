@@ -109,7 +109,7 @@
 
 /obj/item/clothing/under/dress/skirt/coder/Initialize()
 	. = ..()
-	desc = "It has a tag on it reading \'Pull request approved by [get_top_contrib()].\''"
+	desc = "It has a tag on it reading \'Pull request approved by [sanitize(get_top_contrib())].\''"
 
 /obj/item/clothing/under/dress/skirt/coder/equipped(mob/user, slot)
 	. = ..()
