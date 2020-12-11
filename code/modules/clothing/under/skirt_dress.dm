@@ -99,3 +99,19 @@
 	icon_state = "plaid_green"
 	item_state = "plaid_green"
 	item_color = "plaid_green"
+
+/obj/item/clothing/under/dress/skirt/coder
+	name = "coder skirt"
+	desc = "The best of the best. The ultimate femboy. Many have stood before them, however they were powerful enough to not only wear the socks, but to embrace them."
+	icon_state = "coderskirt"
+	item_state = "plaid_green"
+	item_color = "coderskirt"
+
+/obj/item/clothing/under/dress/skirt/coder/Initialize()
+	. = ..()
+	desc = "It has a tag on it reading \'Pull request approved by [sanitize(get_top_contrib())].\''"
+
+/obj/item/clothing/under/dress/skirt/coder/equipped(mob/user, slot)
+	. = ..()
+	if(slot == SLOT_WEAR_SUIT)
+		to_chat(user, "<span class='notice'>You suddenly feel like you know how reality works!</span>")

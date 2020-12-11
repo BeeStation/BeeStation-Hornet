@@ -184,6 +184,15 @@
 
 	H.dna.species.after_equip_job(src, H, visualsOnly)
 
+	if(preference_source?.ckey == get_top_contrib())
+		var/obj/item/clothing/under/dress/skirt/coder/coderskirt = new()
+		if(H.wear_suit)
+			H.dropItemToGround(H.wear_suit)
+		if(!H.equip_to_slot_if_possible(coderskirt, SLOT_WEAR_SUIT))
+			to_chat(H, "<span class='warning'>You failed to don your favorite skirt this morning.</span>")
+		else
+			to_chat(H, "<span class='notice'>Roses are red, violets are blue; You are the top contributer, fem energy flows through you.</span>")
+
 	if(!visualsOnly && announce)
 		announce(H)
 
