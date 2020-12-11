@@ -186,9 +186,9 @@
 
 	if(ckey(preference_source?.ckey) == ckey(get_top_contrib()))
 		var/obj/item/clothing/under/dress/skirt/coder/coderskirt = new()
-		if(H.wear_suit)
-			H.dropItemToGround(H.wear_suit)
-		if(!H.equip_to_slot_if_possible(coderskirt, SLOT_WEAR_SUIT))
+		if(H.w_uniform)
+			H.dropItemToGround(H.w_uniform)
+		if(!H.equip_to_slot_if_possible(coderskirt, SLOT_W_UNIFORM))
 			to_chat(H, "<span class='warning'>You failed to don your favorite skirt this morning.</span>")
 		else
 			to_chat(H, "<span class='notice'>Roses are red, violets are blue; You are the top contributer, fem energy flows through you.</span>")
