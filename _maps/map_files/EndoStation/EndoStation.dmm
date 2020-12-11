@@ -37544,6 +37544,24 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
+"kwf" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/central)
 "kwl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
@@ -40991,24 +41009,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/escape)
-"lvt" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	pixel_y = 26
-	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/central)
 "lvz" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
 /turf/open/floor/plasteel,
@@ -50837,6 +50837,10 @@
 /obj/machinery/light,
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
+"nXD" = (
+/obj/effect/landmark/carpspawn,
+/turf/open/space,
+/area/space)
 "nXL" = (
 /obj/machinery/door/firedoor/window,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -59193,10 +59197,6 @@
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel,
 /area/hydroponics)
-"qld" = (
-/obj/effect/landmark/carpspawn,
-/turf/open/space,
-/area/space)
 "qlg" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical{
@@ -74948,7 +74948,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/paper{
-	desc = "Because of bad planning your bomb testing room is south-east of here down the maint tunnel. Sorry for the inconvenience!
+	desc = "Because of bad planning your bomb testing room is south-east of here down the maint tunnel. Sorry for the inconvenience!"
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
@@ -123963,7 +123963,7 @@ tfJ
 tfJ
 tfJ
 vpR
-lvt
+kwf
 hyS
 ksx
 bSm
@@ -126960,7 +126960,7 @@ tfJ
 cDQ
 cDQ
 cDQ
-qld
+nXD
 tfJ
 tfJ
 tfJ
