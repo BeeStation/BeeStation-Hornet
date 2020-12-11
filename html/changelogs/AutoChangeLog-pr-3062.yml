@@ -1,0 +1,4 @@
+author: Froststahr
+delete-after: true
+changes:
+  - admin: quantum spin inverter is now logged
