@@ -83,18 +83,13 @@ GLOBAL_LIST(end_titles)
 	. = ..()
 	maptext = null
 
-/proc/get_top_contrib()
-	var/list/contribs = get_contribs()
-	return contribs.len ? contribs[1] : "Beebot"
-
 /proc/get_contribs()
-	var/static/list/top_contributors
-	if(!top_contributors)
-		top_contributors = list()
-		if(fexists("[global.config.directory]/contributors.txt"))
-			top_contributors += world.file2list("[global.config.directory]/contributors.txt")
+	var/list/contribs = list()
 
-		if(length(top_contributors) > 20)
-			top_contributors.Cut(21)
+	if(fexists("[global.config.directory]/contributors.txt"))
+		contribs += world.file2list("[global.config.directory]/contributors.txt")
 
-	return top_contributors
+	if(length(contribs) > 20)
+		contribs.Cut(21)
+
+	return contribs
