@@ -570,6 +570,8 @@
 #include "code\datums\mapgen\_MapGenerator.dm"
 #include "code\datums\mapgen\JungleGenerator.dm"
 #include "code\datums\mapgen\biomes\_biome.dm"
+#include "code\datums\mapgen\CaveGenerator.dm"
+#include "code\datums\mapgen\Cavegens\LavalandGenerator.dm"
 #include "code\datums\martial\_martial.dm"
 #include "code\datums\martial\boxing.dm"
 #include "code\datums\martial\cqc.dm"
