@@ -6502,9 +6502,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "alE" = (
@@ -7408,7 +7406,6 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "anj" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -7893,6 +7890,7 @@
 	dir = 9
 	},
 /obj/structure/closet/radiation,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "aok" = (
@@ -8205,9 +8203,6 @@
 /turf/open/floor/plasteel,
 /area/security/main)
 "aoG" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -9961,9 +9956,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "asn" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 1
-	},
 /obj/machinery/camera{
 	c_tag = "Labor Shuttle Control Desk";
 	dir = 4
@@ -15054,9 +15046,6 @@
 /area/security/brig)
 "aCs" = (
 /obj/structure/table/wood,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
-	dir = 8
-	},
 /obj/machinery/power/apc{
 	areastring = "/area/security/detectives_office";
 	dir = 8;
@@ -33603,7 +33592,6 @@
 /area/aisat)
 "blB" = (
 /obj/machinery/computer/teleporter,
-/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -26
@@ -38670,12 +38658,10 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "bvb" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plasteel/dark/corner,
 /area/hallway/primary/starboard)
 "bvd" = (
@@ -41584,7 +41570,9 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bAL" = (
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer,
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bAM" = (
@@ -51616,7 +51604,6 @@
 /turf/closed/wall,
 /area/hallway/secondary/service)
 "bVA" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/machinery/door/airlock{
 	name = "Service Hall";
 	req_access_txt = "null";
@@ -71871,12 +71858,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "cJy" = (
@@ -82906,7 +82891,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "gKd" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/airlock/public/glass{
 	name = "Cryogenic Lounge"
 	},
@@ -126984,7 +126968,7 @@ bmY
 bhT
 uvc
 bhT
-bvm
+bhT
 bxc
 bxc
 bAA
