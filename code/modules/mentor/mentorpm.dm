@@ -63,7 +63,7 @@
 			to_chat(src, "<span class='mentorto''>Mentor PM to-<b>[key_name_mentor(C, C, 1, 0)]</b>: [msg]</span>")
 
 		else		//recipient is an mentor but sender is not
-			to_chat(C, "<span class='mentorfrom'>Reply PM from-<b>[key_name_mentor(src, C, 0, show_char)]</b>: [msg]</span>")
+			to_chat(C, "<span class='mentorfrom'>Reply PM from-<b>[key_name_mentor(src, C, 1, show_char)]</b>: [msg]</span>")
 			to_chat(src, "<span class='mentorto''>Mentor PM to-<b>[key_name_mentor(C, C, 1, 0)]</b>: [msg]</span>")
 
 	else
