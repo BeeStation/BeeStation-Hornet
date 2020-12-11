@@ -839,7 +839,7 @@
 	roundstart_template = /datum/map_template/shuttle/science;
 	width = 9
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plating/lavaland,
 /area/lavaland/surface/outdoors)
 "dv" = (
 /obj/machinery/atmospherics/pipe/layer_manifold{
@@ -5905,7 +5905,7 @@
 /turf/open/floor/plasteel,
 /area/mine/science)
 "Uh" = (
-/turf/open/floor/plating,
+/turf/open/floor/plating/lavaland,
 /area/lavaland/surface/outdoors)
 "Un" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
