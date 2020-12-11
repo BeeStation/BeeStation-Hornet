@@ -1,4 +1,0 @@
-author: park66665
-delete-after: true
-changes:
-  - bugfix: Protected roles really should no longer get antag at dynameme rounds
