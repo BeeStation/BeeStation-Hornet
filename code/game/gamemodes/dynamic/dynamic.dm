@@ -787,6 +787,12 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			return rand(90, 100)
 
 /datum/game_mode/dynamic/proc/configure_ruleset(datum/dynamic_ruleset/ruleset)
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
+		ruleset.restricted_roles |= ruleset.protected_roles
+	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
+		ruleset.restricted_roles |= "Assistant"
+	if(CONFIG_GET(flag/protect_heads_from_antagonist))
+		ruleset.restricted_roles |= GLOB.command_positions
 	if(configuration)
 		if(!configuration[ruleset.ruletype])
 			return
@@ -798,9 +804,3 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 				stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.ruletype] [ruleset.name].")
 				continue
 			ruleset.vars[variable] = rule_conf[variable]
-		if(CONFIG_GET(flag/protect_roles_from_antagonist))
-			ruleset.restricted_roles |= ruleset.protected_roles
-		if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-			ruleset.restricted_roles |= "Assistant"
-		if(CONFIG_GET(flag/protect_heads_from_antagonist))
-			ruleset.restricted_roles |= GLOB.command_positions
