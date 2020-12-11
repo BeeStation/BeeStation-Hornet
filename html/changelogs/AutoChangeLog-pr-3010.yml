@@ -1,5 +1,0 @@
-author: Sinmero
-delete-after: true
-changes:
-  - tweak: Ctrl-Shift-clicking station bounced radio/intercom will toggle the speakers.
-  - tweak: Alt-clicking station bounced radio/intercom will toggle broadcasting.
