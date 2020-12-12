@@ -558,12 +558,12 @@
 			dat += "Budget: [D.account_balance] Credits.<BR>"
 			dat += "<BR>"
 			if((obj_flags & EMAGGED) || CM.insecure)
-				dat += "<b>WARNING: Safety features disabled. Non-certified shuttles included. Order at your own peril.</b><BR><BR>" 
-			else 
+				dat += "<b>WARNING: Safety features disabled. Non-certified shuttles included. Order at your own peril.</b><BR><BR>"
+			else
 				dat += "<b>Safety protocols in effect: These shuttles all fulfill NT safety standards.</b><BR><BR>" //not that they're very high but these won't kill everyone aboard
 			for(var/shuttle_id in SSmapping.shuttle_templates)
 				var/datum/map_template/shuttle/S = SSmapping.shuttle_templates[shuttle_id]
-				if(S.can_be_bought && S.credit_cost < INFINITY)
+				if(S.can_be_bought && S.credit_cost < INFINITY &! S.illegal_shuttle)
 					dat += "[S.name] | [S.credit_cost] Credits<BR>"
 					dat += "[S.description]<BR>"
 					if(S.prerequisites)

@@ -13,8 +13,8 @@
 	tiled_dirt = FALSE
 
 /turf/open/floor/engine/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>The reinforcement plates are <b>wrenched</b> firmly in place.</span>")
+	. = ..()
+	. += "<span class='notice'>The reinforcement plates are <b>wrenched</b> firmly in place.</span>"
 
 /turf/open/floor/engine/light
 	icon_state = "engine_light"
