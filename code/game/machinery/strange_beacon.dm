@@ -39,7 +39,7 @@
 
 /obj/machinery/strange_beacon/attackby(obj/item/G, mob/user, params)
 	if(G.tool_behaviour == TOOL_SCREWDRIVER)
-		if(panel_open == FALSE)
+		if(!panel_open)
 			panel_open = TRUE
 		else
 			panel_open = FALSE
