@@ -147,8 +147,8 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/pill/patch/silver_sulf = 3,
-		/obj/item/reagent_containers/pill/oxandrolone = 2,
+		/obj/item/reagent_containers/pill/patch/silver_sulf = 4,
+		/obj/item/storage/pill_bottle/kelotane = 1,
 		/obj/item/reagent_containers/hypospray/medipen = 1,
 		/obj/item/healthanalyzer = 1)
 	generate_items_inside(items_inside,src)
@@ -241,6 +241,7 @@
 		return
 	var/static/items_inside = list(
 		/obj/item/reagent_containers/pill/patch/styptic = 4,
+		/obj/item/storage/pill_bottle/bicaridine = 1,
 		/obj/item/stack/medical/gauze = 2,
 		/obj/item/healthanalyzer = 1)
 	generate_items_inside(items_inside,src)
@@ -342,6 +343,22 @@
 /obj/item/storage/pill_bottle/charcoal/PopulateContents()
 	for(var/i in 1 to 7)
 		new /obj/item/reagent_containers/pill/charcoal(src)
+
+/obj/item/storage/pill_bottle/bicaridine
+	name = "bottle of bicaridine pills"
+	desc = "Contains pills used to treat moderate to small brute injuries."
+
+/obj/item/storage/pill_bottle/bicaridine/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/reagent_containers/pill/bicaridine(src)
+
+/obj/item/storage/pill_bottle/kelotane
+	name = "bottle of kelotane pills"
+	desc = "Contains pills used to treat moderate to small burns."
+
+/obj/item/storage/pill_bottle/kelotane/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/reagent_containers/pill/kelotane(src)
 
 /obj/item/storage/pill_bottle/antirad
 	name = "bottle of anti-radiation pills"
