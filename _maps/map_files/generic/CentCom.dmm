@@ -17370,12 +17370,6 @@
 /obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/plasteel/dark,
 /area/ctf)
-"Qd" = (
-/obj/machinery/power/emitter/ctf{
-	dir = 8
-	},
-/turf/open/floor/circuit/telecomms,
-/area/ctf)
 "Qe" = (
 /turf/open/ai_visible,
 /area/ai_multicam_room)
@@ -83186,9 +83180,9 @@ gA
 gR
 gR
 fZ
-Qd
+qM
 hC
-Qd
+qM
 fZ
 aa
 aa
@@ -83958,7 +83952,7 @@ gR
 gR
 fZ
 fZ
-Qd
+qM
 fZ
 aa
 aa

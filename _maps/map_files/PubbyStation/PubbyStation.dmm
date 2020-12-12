@@ -143,9 +143,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "aal" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
@@ -177,10 +174,15 @@
 /area/medical/virology)
 "aao" = (
 /obj/structure/sign/warning/deathsposal,
+/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
+	dir = 6
+	},
 /turf/closed/wall/r_wall,
 /area/medical/virology)
 "aap" = (
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden,
+/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
+	dir = 9
+	},
 /obj/machinery/door/airlock/virology/glass{
 	id_tag = "Viro2";
 	name = "Virology Lab 2";
@@ -251,6 +253,7 @@
 	name = "isolation shutters"
 	},
 /obj/item/extrapolator,
+/obj/machinery/atmospherics/pipe/simple/cyan/hidden,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "aaw" = (
@@ -298,7 +301,7 @@
 	},
 /obj/effect/landmark/start/virologist,
 /obj/machinery/atmospherics/pipe/manifold/cyan/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -427,17 +430,16 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/pipe/simple/cyan/hidden,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "aaK" = (
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 10
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "aaL" = (
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
 	},
@@ -478,6 +480,9 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "viroshutters2";
 	name = "isolation shutters"
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
+	dir = 5
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -3911,7 +3916,6 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -27
@@ -11971,7 +11975,6 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/fore)
 "aBh" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/red,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 26
@@ -13108,7 +13111,6 @@
 /turf/open/floor/grass,
 /area/hallway/primary/fore)
 "aDv" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -54805,7 +54807,6 @@
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "eyv" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/airlock/maintenance,
 /obj/machinery/door/firedoor/border_only,
 /obj/machinery/door/firedoor/border_only{
@@ -57652,7 +57653,6 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Cryogenic Lounge"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -57819,7 +57819,6 @@
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
 "jyb" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/red,
 /obj/machinery/firealarm{
 	dir = 4;
@@ -59487,7 +59486,6 @@
 /turf/open/floor/plating,
 /area/security/checkpoint/engineering)
 "mCZ" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/red,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plasteel,
@@ -63310,7 +63308,6 @@
 /turf/closed/wall,
 /area/maintenance/department/security/brig)
 "thf" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/red,
 /obj/machinery/camera{
 	c_tag = "Medbay Recovery Room";
