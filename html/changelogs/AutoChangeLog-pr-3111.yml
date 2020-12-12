@@ -1,0 +1,5 @@
+author: park66665
+delete-after: true
+changes:
+  - bugfix: improved decal performance
+  - bugfix: decals no longer disappear on shuttle move
