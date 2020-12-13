@@ -468,7 +468,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 /datum/controller/subsystem/bluespace_exploration/proc/check_free_levels()
 	var/list/levels_in_use
 	for(var/mob/living/M in GLOB.player_list)
-		levels_in_use |= M.z
+		levels_in_use |= get_turf(M).z
 	for(var/datum/space_level/level as anything in bluespace_systems)
 		//Run a quick check to check if the system is free
 		//TRUE if the system is in use, false if there are no cliented mobs in the system
