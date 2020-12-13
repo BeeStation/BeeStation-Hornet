@@ -8,3 +8,11 @@
 	port_id = "encounter"
 
 	difficulty = 4
+
+/datum/map_template/shuttle/ship/nanotrasen/raven
+	name = "Raven Cruiser"
+	id = "nanotrasen_raven"
+	suffix = "nanotrasen_raven"
+	port_id = "encounter"
+
+	difficulty = 22
