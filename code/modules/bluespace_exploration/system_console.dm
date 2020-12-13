@@ -119,10 +119,11 @@
 					return
 				//Locate the BS drive and then trigger jump
 				say("Sending engagement request to bluespace drive...")
-				bs_drive.engage(star)
+				if(bs_drive.engage(star))
+					attached_ship.recalculate_star_systems()
 			else
 				handle_space_jump(star)
-			attached_ship.recalculate_star_systems()
+				attached_ship.recalculate_star_systems()
 
 //Do this a few frames after loading everything, since if it loads at the same time as the drive it can fail to be located
 /obj/machinery/computer/system_map/proc/locate_bluespace_drive()

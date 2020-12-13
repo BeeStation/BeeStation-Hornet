@@ -29,8 +29,9 @@ GLOBAL_VAR(main_bluespace_drive)
 /obj/machinery/bluespace_drive/proc/engage(datum/star_system/target)
 	if(world.time < cooldown_world_time)
 		say("Bluespace Drive is currently recharging.")
-		return
+		return FALSE
 	//Find what shuttle we are on
 	cooldown_world_time = world.time + cooldown
 	say("Initiating bluespace translation protocols...")
 	SSbluespace_exploration.request_ship_transit_to(shuttle_id, target)
+	return TRUE
