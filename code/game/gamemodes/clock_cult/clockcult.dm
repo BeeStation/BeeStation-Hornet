@@ -41,6 +41,7 @@ GLOBAL_VAR(clockcult_eminence)
 	<span class='danger'>Servants</span>: Convert more servants and defend the Ark of the Clockwork Justicar!\n\
 	<span class='notice'>Crew</span>: Prepare yourselfs and destroy the Ark of the Clockwork Justicar."
 
+
 	var/clock_cultists = CLOCKCULT_SERVANTS
 	var/list/selected_servants = list()
 
