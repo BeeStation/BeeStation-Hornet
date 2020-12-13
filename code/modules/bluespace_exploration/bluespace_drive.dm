@@ -1,4 +1,4 @@
-GLOBAL_LIST_INIT(bluespace_drives, list())
+GLOBAL_LIST_EMPTY(bluespace_drives)
 GLOBAL_VAR(main_bluespace_drive)
 
 /obj/machinery/bluespace_drive
