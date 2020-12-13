@@ -30,6 +30,7 @@
 	var/health_percentage = SHIP_INTEGRITY_FACTOR
 
 	//Fired upon these factions despite being allied with them. Any ships in that faction will fire upon this ship.
+	// FACTIONS THAT WE ARE ROGUE TO, NOT FACTIONS THAT ARE ROGUE TO US. ADDING TO LIST LIST DECLARES THIS SHIP AS HOSTILE TO THAT FACTION
 	//Note: This will have a butterfly effect and end in an all out war between ships which is pretty funny.
 	//Example:
 	// - Player ship A fires on NPC trading ship

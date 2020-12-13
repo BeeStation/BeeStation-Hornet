@@ -214,6 +214,8 @@
 			var/datum/ship_datum/their_ship = SSbluespace_exploration.tracked_ships[selected_ship_id]
 			if(our_ship && their_ship)
 				SSbluespace_exploration.after_ship_attacked(our_ship, their_ship)
+			else
+				log_shuttle("after_ship_attacked unable to call: [our_ship ? "our ship was valid" : "our ship was null"] ([shuttle_id]) and/but [their_ship ? "their ship was valid" : "their ship was null"] ([selected_ship_id])")
 			return TRUE
 
 /obj/machinery/computer/weapons/proc/show_camera_static()
