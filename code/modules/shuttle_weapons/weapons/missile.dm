@@ -32,18 +32,18 @@
 	cooldown = 220
 	innaccuracy = 2
 
-/obj/item/wallframe/shuttle_weapon/missile/tri
+/obj/item/wallframe/shuttle_weapon/missile/breach
 	name = "Minotaur Mount"
 	result_path = /obj/machinery/shuttle_weapon/missile/breach
 
 //Prometheus
 
-/obj/machinery/shuttle_weapon/missile/breach
+/obj/machinery/shuttle_weapon/missile/fire
 	name = "Prometheus Incediary Missile Launcher"
 	projectile_type = /obj/item/projectile/bullet/shuttle/missile/fire
 	cooldown = 200
 	innaccuracy = 3
 
-/obj/item/wallframe/shuttle_weapon/missile/tri
+/obj/item/wallframe/shuttle_weapon/missile/fire
 	name = "Prometheus Mount"
-	result_path = /obj/machinery/shuttle_weapon/missile/breach
+	result_path = /obj/machinery/shuttle_weapon/missile/fire

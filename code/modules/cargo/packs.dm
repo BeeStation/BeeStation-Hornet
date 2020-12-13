@@ -959,6 +959,20 @@
 	cost = 6000
 	crate_type = /obj/structure/closet/crate/large/shuttle
 
+/datum/supply_pack/engineering/shuttle_weapons
+	name = "Shuttle Weapons Kit"
+	desc = "A crate containing state of the art, military-grade weaponry for combat with powerful forces in hostile space. Requires armory access to open."
+	cost = 4000
+	contains = list(
+		/obj/item/wallframe/shuttle_weapon/missile,
+		/obj/item/wallframe/shuttle_weapon/missile/fire,
+		/obj/item/wallframe/shuttle_weapon/laser/triple,
+		/obj/item/wallframe/shuttle_weapon/laser/triple,
+		/obj/item/wallframe/shuttle_weapon/laser,
+		/obj/item/wallframe/shuttle_weapon/laser
+	)
+	access = ACCESS_ARMORY
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////// Engine Construction /////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
