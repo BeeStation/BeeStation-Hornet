@@ -296,6 +296,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			newT = T
 		else
 			newT = T.ChangeTurf(/turf/open/space)
+		newT.flags_1 -= NO_RUINS_1
 		new_turfs += newT
 	return new_turfs
 

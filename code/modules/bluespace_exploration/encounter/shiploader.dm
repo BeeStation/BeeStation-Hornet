@@ -44,13 +44,6 @@
 
 		testing("Ruin \"[name]\" placed at ([central_turf.x], [central_turf.y], [central_turf.z])")
 
-		for(var/i in get_affected_turfs(central_turf, 1))
-			var/turf/T = i
-			for(var/mob/living/simple_animal/monster in T)
-				qdel(monster)
-			for(var/obj/structure/flora/ash/plant in T)
-				qdel(plant)
-
 		var/list/places = load(central_turf,centered = TRUE)
 		var/list/turfs = block(	locate(places[MAP_MINX], places[MAP_MINY], places[MAP_MINZ]),
 							locate(places[MAP_MAXX], places[MAP_MAXY], places[MAP_MAXZ]))
@@ -67,6 +60,7 @@
 			for(var/obj/docking_port/mobile/port in T)
 				port.id = "[port.id][shuttles_spawned++]"
 				located_port = port
+				break
 			if(located_port)
 				break
 		amount_left --
