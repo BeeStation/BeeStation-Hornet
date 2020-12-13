@@ -309,11 +309,9 @@
 		return FALSE
 	if (freq == FREQ_SYNDICATE && !syndie)
 		return FALSE
+	//Exploration signals can always be recieved
 	if (freq == FREQ_EXPLORATION)
-		//Bluespace exploration radio can recieve on non station levels
-		for(var/level in levels)
-			if(SSmapping.level_has_any_trait(level, list(ZTRAIT_BLUESPACE_EXPLORATION, ZTRAIT_AWAY, ZTRAIT_REEBE)))
-				return TRUE
+		return TRUE
 	if (freq == FREQ_CENTCOM)
 		return independent  // hard-ignores the z-level check
 	if (!(0 in levels))

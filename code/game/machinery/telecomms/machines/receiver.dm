@@ -33,10 +33,9 @@
 		return TRUE
 
 	if (signal.freq == FREQ_EXPLORATION)
-		//Exploration signals can be recieved independantly of the z level
-		for(var/level in signal.levels)
-			if(SSmapping.level_has_any_trait(level, list(ZTRAIT_BLUESPACE_EXPLORATION, ZTRAIT_AWAY, ZTRAIT_REEBE)))
-				return TRUE
+		//Exploration signals can be transmitted independantly of the z level
+		if(SSmapping.level_has_any_trait(signal.source.z, list(ZTRAIT_BLUESPACE_EXPLORATION, ZTRAIT_AWAY, ZTRAIT_REEBE)))
+			return TRUE
 
 	//Check for relays
 	for(var/obj/machinery/telecomms/hub/H in links)
