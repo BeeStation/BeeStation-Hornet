@@ -787,6 +787,8 @@ What a mess.*/
 					if("Delete Record (ALL) Execute")
 						if(active1)
 							investigate_log("[key_name(usr)] has deleted all records for [active1.fields["name"]].", INVESTIGATE_RECORDS)
+							if(isAI(usr) || iscyborg(usr))
+								message_admins("[ADMIN_LOOKUPFLW(usr)] has deleted all records for [active1.fields["name"]] as Borg/AI Player.")
 							for(var/datum/data/record/R in GLOB.data_core.medical)
 								if((R.fields["name"] == active1.fields["name"] || R.fields["id"] == active1.fields["id"]))
 									qdel(R)
