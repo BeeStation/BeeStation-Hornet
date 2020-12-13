@@ -144,6 +144,18 @@
 /area/shuttle/exploration/ruin/felinid/research
 	name = "Free Felinid Research Vessel"
 
+/area/shuttle/exploration/ruin/nanotrasen/raven
+	name = "Nanotrasen Raven Cruiser"
+
+/area/shuttle/exploration/ruin/nanotrasen/prisoner
+	name = "Prisoner Transport Vessel"
+
+/area/shuttle/exploration/ruin/nanotrasen/cargo
+	name = "Secure Cargo Transport"
+
+/area/shuttle/exploration/ruin/syndicate/dropship
+	name = "Syndicate Dropship"
+
 /area/shuttle/exploration/ruin/syndicate/interceptor
 	name = "Syndicate Interceptor"
 

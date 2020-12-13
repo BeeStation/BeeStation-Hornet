@@ -1632,6 +1632,7 @@
 #include "code\modules\bluespace_exploration\encounter\ship_npc_controller.dm"
 #include "code\modules\bluespace_exploration\encounter\shiploader.dm"
 #include "code\modules\bluespace_exploration\encounter\subsystem_spawner.dm"
+#include "code\modules\bluespace_exploration\encounter\templates_felinid.dm"
 #include "code\modules\bluespace_exploration\encounter\templates_golem.dm"
 #include "code\modules\bluespace_exploration\encounter\templates_nanotrasen.dm"
 #include "code\modules\bluespace_exploration\encounter\templates_pirates.dm"

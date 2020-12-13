@@ -1,0 +1,1198 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aE" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/structure/bookcase/manuals/research_and_development,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"br" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"cp" = (
+/mob/living/simple_animal/hostile/cat_butcherer,
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"cK" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/machinery/rnd/production/protolathe{
+	name = "felathe"
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"dL" = (
+/obj/effect/turf_decal/tile/purple,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"fP" = (
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"gV" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"hB" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"jx" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/structure/tank_dispenser/oxygen,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"jT" = (
+/turf/open/floor/carpet/royalblue,
+/area/shuttle/exploration/ruin/felinid/research)
+"ks" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"kP" = (
+/mob/living/simple_animal/pet/cat/space,
+/obj/structure/bed/dogbed,
+/turf/open/floor/carpet/purple,
+/area/shuttle/exploration/ruin/felinid/research)
+"kR" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"lm" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/carpet/royalblue,
+/area/shuttle/exploration/ruin/felinid/research)
+"ln" = (
+/obj/structure/dresser,
+/turf/open/floor/carpet/red,
+/area/shuttle/exploration/ruin/felinid/research)
+"lu" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration/ruin/felinid/research)
+"lw" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"lQ" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 28
+	},
+/obj/structure/chair/comfy/black,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"ma" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/felinid/research)
+"mQ" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
+"nx" = (
+/obj/structure/bed,
+/obj/item/bedsheet/dorms,
+/mob/living/carbon/human/species/felinid,
+/turf/open/floor/carpet/red,
+/area/shuttle/exploration/ruin/felinid/research)
+"nC" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"oy" = (
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"oV" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"qb" = (
+/obj/structure/bed,
+/obj/item/bedsheet/dorms,
+/mob/living/carbon/human/species/felinid,
+/turf/open/floor/carpet/royalblue,
+/area/shuttle/exploration/ruin/felinid/research)
+"qu" = (
+/obj/effect/landmark/exploration_weapon_spawner/left{
+	dir = 1
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration/ruin/felinid/research)
+"qJ" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"qO" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/airlock/science,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"qP" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/carpet/red,
+/area/shuttle/exploration/ruin/felinid/research)
+"rM" = (
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock,
+/turf/open/floor/carpet/royalblue,
+/area/shuttle/exploration/ruin/felinid/research)
+"rO" = (
+/obj/structure/mopbucket,
+/obj/item/reagent_containers/glass/bucket,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"rQ" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"sc" = (
+/obj/machinery/computer/system_map,
+/turf/open/floor/carpet/purple,
+/area/shuttle/exploration/ruin/felinid/research)
+"sk" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"tw" = (
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration/ruin/felinid/research)
+"tL" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"ug" = (
+/turf/template_noop,
+/area/template_noop)
+"uN" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/felinid/research)
+"vZ" = (
+/obj/effect/landmark/exploration_weapon_spawner/right{
+	dir = 1
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration/ruin/felinid/research)
+"wq" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/machinery/computer/rdconsole/core{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"wu" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/felinid/research)
+"wx" = (
+/obj/machinery/door/window/eastright{
+	dir = 1
+	},
+/obj/structure/mirror{
+	pixel_x = 32
+	},
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 13
+	},
+/turf/open/floor/noslip/blue,
+/area/shuttle/exploration/ruin/felinid/research)
+"xF" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"xM" = (
+/obj/machinery/computer/weapons,
+/turf/open/floor/carpet/purple,
+/area/shuttle/exploration/ruin/felinid/research)
+"yu" = (
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"yA" = (
+/obj/structure/reagent_dispensers/watertank/high,
+/obj/item/mop/advanced,
+/obj/item/mop/advanced,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/felinid/research)
+"yU" = (
+/turf/open/floor/carpet/red,
+/area/shuttle/exploration/ruin/felinid/research)
+"zk" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"Ay" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/felinid/research)
+"AG" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/airlock/science,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"AL" = (
+/obj/structure/table/wood,
+/obj/machinery/cell_charger,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/carpet/purple,
+/area/shuttle/exploration/ruin/felinid/research)
+"Cb" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple,
+/mob/living/simple_animal/hostile/cat_butcherer,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"Cw" = (
+/turf/open/floor/carpet/purple,
+/area/shuttle/exploration/ruin/felinid/research)
+"Cx" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/felinid/research)
+"CE" = (
+/obj/structure/chair/wood{
+	dir = 8;
+	pixel_x = -7
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"CL" = (
+/obj/machinery/computer/med_data,
+/turf/open/floor/carpet/purple,
+/area/shuttle/exploration/ruin/felinid/research)
+"CO" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/airlock/science,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"DY" = (
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 26
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"EQ" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"Fa" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"GU" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"GV" = (
+/obj/structure/chair/comfy/black,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"HF" = (
+/obj/structure/table/wood,
+/turf/open/floor/carpet/purple,
+/area/shuttle/exploration/ruin/felinid/research)
+"HK" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration/ruin/felinid/research)
+"Ie" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"Is" = (
+/obj/structure/dresser,
+/turf/open/floor/carpet/royalblue,
+/area/shuttle/exploration/ruin/felinid/research)
+"ID" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/obj/structure/shuttle/engine/heater,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/felinid/research)
+"IK" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/airlock/science,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"Ji" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"JC" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"JF" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"Ki" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"Kx" = (
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"KH" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/machinery/doppler_array/research,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"KX" = (
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"Lt" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/item/pen,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"MX" = (
+/obj/machinery/computer/secure_data,
+/turf/open/floor/carpet/purple,
+/area/shuttle/exploration/ruin/felinid/research)
+"Pi" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/head/collectable/kitty,
+/obj/item/reagent_containers/glass/bottle/chloralhydrate,
+/obj/item/dnainjector/paranoia,
+/obj/item/dnainjector/mindread,
+/turf/open/floor/carpet/royalblue,
+/area/shuttle/exploration/ruin/felinid/research)
+"Qo" = (
+/obj/structure/table/wood,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/carpet/purple,
+/area/shuttle/exploration/ruin/felinid/research)
+"Qq" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"Rz" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"Tk" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"Tq" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/machinery/rnd/destructive_analyzer,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"Tw" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/airlock/science,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"TE" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -26
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"TR" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/item/tank/internals/oxygen,
+/obj/item/clothing/head/collectable/kitty,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"TU" = (
+/obj/machinery/computer/crew,
+/turf/open/floor/carpet/purple,
+/area/shuttle/exploration/ruin/felinid/research)
+"UL" = (
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock,
+/turf/open/floor/carpet/red,
+/area/shuttle/exploration/ruin/felinid/research)
+"UY" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/machinery/vending/plasmaresearch,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"Vz" = (
+/obj/machinery/computer/security,
+/turf/open/floor/carpet/purple,
+/area/shuttle/exploration/ruin/felinid/research)
+"VM" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/machinery/suit_storage_unit/rd,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"XQ" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"Ya" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/science,
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/docking_port/mobile{
+	callTime = 150;
+	dir = 4;
+	dwidth = 13;
+	height = 15;
+	id = "set_by_code";
+	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
+	name = "Pirate Cruiser";
+	port_direction = 8;
+	preferred_direction = 4;
+	width = 21
+	},
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/felinid/research)
+"Yp" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"Yv" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 28
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/research)
+"YI" = (
+/obj/machinery/door/window/eastleft{
+	dir = 1
+	},
+/obj/machinery/shower{
+	dir = 4
+	},
+/obj/item/soap/deluxe,
+/turf/open/floor/noslip/blue,
+/area/shuttle/exploration/ruin/felinid/research)
+
+(1,1,1) = {"
+ug
+ug
+ug
+ug
+ug
+ug
+qu
+tw
+uN
+uN
+tw
+tw
+tw
+Ya
+tw
+tw
+ug
+ug
+ug
+ug
+ug
+ug
+"}
+(2,1,1) = {"
+ug
+ug
+ug
+ug
+tw
+tw
+tw
+wq
+Tq
+cK
+KH
+tw
+TR
+qJ
+VM
+tw
+tw
+tw
+mQ
+ug
+ug
+ug
+"}
+(3,1,1) = {"
+ug
+ug
+tw
+uN
+tw
+aE
+Lt
+Yp
+KX
+KX
+yu
+tw
+jx
+Ki
+Ie
+oV
+GU
+tw
+lu
+uN
+tw
+tw
+"}
+(4,1,1) = {"
+ug
+qu
+tw
+HF
+tw
+gV
+CE
+KX
+KX
+KX
+yu
+IK
+JF
+Ki
+Ki
+Ki
+zk
+tw
+KX
+KX
+ID
+wu
+"}
+(5,1,1) = {"
+tw
+tw
+AL
+Cw
+qO
+gV
+KX
+KX
+KX
+KX
+yu
+tw
+Yv
+Cb
+Ki
+Ki
+zk
+AG
+KX
+KX
+ID
+wu
+"}
+(6,1,1) = {"
+tw
+Vz
+Cw
+Cw
+tw
+JC
+Qq
+Qq
+XQ
+Qq
+UY
+tw
+Tk
+br
+Ji
+br
+Fa
+tw
+lw
+KX
+ID
+wu
+"}
+(7,1,1) = {"
+uN
+xM
+kP
+Cw
+tw
+tw
+tw
+CO
+tw
+tw
+tw
+tw
+tw
+tw
+tw
+tw
+tw
+tw
+Kx
+KX
+tw
+tw
+"}
+(8,1,1) = {"
+uN
+MX
+Cw
+Cw
+Ay
+hB
+kR
+kR
+kR
+kR
+kR
+kR
+kR
+kR
+kR
+kR
+tL
+tw
+lQ
+KX
+ma
+tw
+"}
+(9,1,1) = {"
+uN
+CL
+Cw
+Cw
+Ay
+Rz
+oy
+oy
+oy
+oy
+DY
+oy
+oy
+oy
+oy
+oy
+fP
+tw
+GV
+KX
+yA
+tw
+"}
+(10,1,1) = {"
+uN
+sc
+kP
+Cw
+tw
+tw
+tw
+Tw
+tw
+tw
+tw
+tw
+tw
+tw
+tw
+tw
+tw
+tw
+Kx
+KX
+tw
+tw
+"}
+(11,1,1) = {"
+tw
+TU
+Cw
+Cw
+tw
+TE
+qJ
+qJ
+qJ
+qJ
+sk
+qJ
+qJ
+qJ
+qJ
+qJ
+xF
+tw
+lw
+KX
+ID
+wu
+"}
+(12,1,1) = {"
+tw
+tw
+Qo
+Cw
+qO
+gV
+dL
+Qq
+cp
+Qq
+KX
+Qq
+Qq
+Qq
+Qq
+ks
+zk
+AG
+KX
+KX
+ID
+wu
+"}
+(13,1,1) = {"
+ug
+vZ
+tw
+HF
+tw
+gV
+tw
+tw
+rM
+tw
+tw
+tw
+UL
+tw
+tw
+tw
+zk
+tw
+KX
+rO
+ID
+wu
+"}
+(14,1,1) = {"
+ug
+ug
+tw
+uN
+tw
+rQ
+tw
+Is
+jT
+lm
+tw
+ln
+yU
+qP
+YI
+tw
+nC
+tw
+HK
+uN
+tw
+tw
+"}
+(15,1,1) = {"
+ug
+ug
+ug
+ug
+tw
+tw
+tw
+qb
+jT
+Pi
+tw
+nx
+yU
+yU
+wx
+tw
+tw
+tw
+EQ
+ug
+ug
+ug
+"}
+(16,1,1) = {"
+ug
+ug
+ug
+ug
+ug
+ug
+vZ
+tw
+uN
+tw
+tw
+tw
+uN
+Cx
+tw
+tw
+ug
+ug
+ug
+ug
+ug
+ug
+"}

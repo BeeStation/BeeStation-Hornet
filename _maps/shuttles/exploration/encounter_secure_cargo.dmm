@@ -1,46 +1,47 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/closed/wall/mineral/titanium,
-/area/shuttle/exploration/ruin)
-"c" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"d" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/techstorage/security,
-/obj/effect/spawner/lootdrop/techstorage/rnd,
-/obj/effect/spawner/lootdrop/techstorage/medical,
-/obj/effect/spawner/lootdrop/techstorage/command,
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration/ruin)
-"d" = (
-/mob/living/simple_animal/hostile/nanotrasen/ranged/smg,
-/obj/structure/chair/comfy/shuttle{
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"f" = (
+/obj/effect/landmark/exploration_weapon_spawner/left{
 	dir = 1
 	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"h" = (
 /turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration/ruin)
-"e" = (
-/obj/structure/shuttle/engine/propulsion/burst/cargo,
-/turf/open/floor/plating,
-/area/shuttle/exploration/ruin)
-"f" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/three,
-/obj/item/stack/telecrystal/five,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration/ruin)
-"g" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/snowdin/dungeonlite,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration/ruin)
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
 "i" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"j" = (
+/obj/machinery/computer/weapons,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"m" = (
 /obj/structure/table/reinforced,
 /obj/item/gun/energy/laser,
 /turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration/ruin)
-"j" = (
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"p" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -48,8 +49,115 @@
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/exploration/ruin)
-"k" = (
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"q" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"r" = (
+/obj/structure/shuttle/engine/propulsion/burst/cargo,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"s" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/snowdin/dungeonlite,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"t" = (
+/mob/living/simple_animal/hostile/nanotrasen,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"v" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/firedoor/border_only,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"w" = (
+/mob/living/simple_animal/hostile/nanotrasen/ranged/smg,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"x" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate/secure/loot,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"y" = (
+/turf/template_noop,
+/area/template_noop)
+"z" = (
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"A" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"F" = (
+/obj/structure/table/reinforced,
+/obj/item/paper/crumpled/ruins/bigderelict1/manifest,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"G" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"H" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"I" = (
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"K" = (
+/obj/structure/shuttle/engine/heater,
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"M" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"P" = (
+/obj/machinery/computer/system_map,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"Q" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/techstorage/security,
+/obj/effect/spawner/lootdrop/techstorage/rnd,
+/obj/effect/spawner/lootdrop/techstorage/medical,
+/obj/effect/spawner/lootdrop/techstorage/command,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"R" = (
 /obj/machinery/door/airlock/shuttle,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -59,30 +167,8 @@
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/exploration/ruin)
-"o" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/exploration/ruin)
-"q" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/door/firedoor/border_only,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration/ruin)
-"r" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate/secure/loot,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration/ruin)
-"u" = (
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration/ruin)
-"v" = (
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"U" = (
 /obj/machinery/door/airlock/shuttle,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -103,212 +189,126 @@
 	width = 11
 	},
 /turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/exploration/ruin)
-"w" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/exploration/ruin)
-"x" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/five,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration/ruin)
-"y" = (
-/turf/template_noop,
-/area/template_noop)
-"z" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/exploration/ruin)
-"C" = (
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration/ruin)
-"D" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/exploration/ruin)
-"G" = (
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"V" = (
 /obj/effect/landmark/exploration_weapon_spawner/right{
 	dir = 1
 	},
 /turf/closed/wall/mineral/titanium,
-/area/shuttle/exploration/ruin)
-"H" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/exploration/ruin)
-"J" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/exploration/ruin)
-"K" = (
-/obj/structure/table/reinforced,
-/obj/machinery/recharger,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration/ruin)
-"L" = (
-/obj/effect/landmark/exploration_weapon_spawner/left{
-	dir = 1
-	},
-/turf/closed/wall/mineral/titanium,
-/area/shuttle/exploration/ruin)
-"R" = (
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"W" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/item/stack/telecrystal/five,
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration/ruin)
-"S" = (
-/obj/structure/shuttle/engine/heater,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"X" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/five,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
+"Z" = (
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
-/area/shuttle/exploration/ruin)
-"U" = (
-/obj/machinery/computer/system_map,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration/ruin)
-"V" = (
-/mob/living/simple_animal/hostile/nanotrasen,
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration/ruin)
-"W" = (
-/obj/machinery/computer/weapons,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration/ruin)
-"X" = (
-/obj/structure/table/reinforced,
-/obj/item/paper/crumpled/ruins/bigderelict1/manifest,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration/ruin)
-"Z" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration/ruin)
+/area/shuttle/exploration/ruin/nanotrasen/cargo)
 
 (1,1,1) = {"
 y
-w
-w
-L
-a
-k
-a
-k
-a
-a
-a
+Z
+Z
+f
+z
+R
+z
+R
+z
+z
+z
 y
 "}
 (2,1,1) = {"
-w
-w
-i
-q
-o
-z
-z
-z
-D
 Z
-S
-e
+Z
+m
+v
+H
+q
+q
+q
+i
+M
+K
+r
 "}
 (3,1,1) = {"
-w
-W
-d
-q
-r
-r
-C
-x
-R
 Z
-S
-e
+j
+w
+v
+x
+x
+I
+X
+d
+M
+K
+r
 "}
 (4,1,1) = {"
-w
-K
-u
-q
-C
-C
-C
-C
-C
 Z
-a
-a
+A
+h
+v
+I
+I
+I
+I
+I
+M
+z
+z
 "}
 (5,1,1) = {"
-w
-U
-V
-q
-c
-f
-C
-g
-g
 Z
-S
-e
+P
+t
+v
+Q
+W
+I
+s
+s
+M
+K
+r
 "}
 (6,1,1) = {"
-w
-w
-X
-q
-H
-j
-j
-j
-J
 Z
-S
-e
+Z
+F
+v
+G
+p
+p
+p
+a
+M
+K
+r
 "}
 (7,1,1) = {"
 y
-w
-w
-G
-a
-k
-a
-v
-a
-a
-a
+Z
+Z
+V
+z
+R
+z
+U
+z
+z
+z
 y
 "}

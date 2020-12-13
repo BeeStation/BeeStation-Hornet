@@ -56,26 +56,32 @@
 
 /datum/faction/golems
 	name = "Free Golems"
-	friendly_factions = list(/datum/faction/nanotrasen, /datum/faction/station)
+	friendly_factions = list(/datum/faction/nanotrasen, /datum/faction/station, /datum/faction/felinids)
 	hostile_factions = list(/datum/faction/spider_clan, /datum/faction/syndicate)
 	faction_tag = "GLM"
+
+/datum/faction/felinids
+	name = "United Felinid Alliance"
+	friendly_factions = list(/datum/faction/syndicate/arc, /datum/faction/golems)
+	hostile_factions = list(/datum/faction/spider_clan)
+	faction_tag = "CAT"
 
 /datum/faction/syndicate/cybersun
 	name = "Cybersun Industries"
 	friendly_factions = list(/datum/faction/syndicate/mi_thirteen)
-	hostile_factions = list(/datum/faction/nanotrasen, /datum/faction/station)
+	hostile_factions = list(/datum/faction/nanotrasen, /datum/faction/station, /datum/faction/felinids)
 	faction_tag = "CBS"
 
 /datum/faction/syndicate/mi_thirteen
 	name = "MI13"
 	friendly_factions = list(/datum/faction/syndicate/cybersun)
-	hostile_factions = list(/datum/faction/nanotrasen, /datum/faction/station)
+	hostile_factions = list(/datum/faction/nanotrasen, /datum/faction/station, /datum/faction/felinids)
 	faction_tag = "MI13"
 
 /datum/faction/syndicate/tiger_corp
 	name = "Tiger Cooperative"
 	friendly_factions = list(/datum/faction/syndicate/gorlex)
-	hostile_factions = list(/datum/faction/nanotrasen, /datum/faction/station)
+	hostile_factions = list(/datum/faction/nanotrasen, /datum/faction/station, /datum/faction/felinids)
 	faction_tag = "TGR"
 
 /datum/faction/syndicate/self
@@ -87,7 +93,7 @@
 	faction_tag = "ARC"
 
 /datum/faction/syndicate/gorlex
-	friendly_factions = list(/datum/faction/syndicate/tiger_corp)
+	friendly_factions = list(/datum/faction/syndicate/tiger_corp, /datum/faction/felinids)
 	name = "Gorlex Marauders"
 	faction_tag = "GOR"
 

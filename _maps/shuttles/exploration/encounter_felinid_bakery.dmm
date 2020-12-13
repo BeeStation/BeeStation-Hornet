@@ -17,13 +17,6 @@
 /obj/structure/kitchenspike,
 /turf/open/floor/plasteel/showroomfloor,
 /area/shuttle/exploration/ruin/felinid/bakery)
-"eb" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/poddoor{
-	id = "felinidbakery"
-	},
-/turf/open/floor/plasteel/cafeteria,
-/area/shuttle/exploration/ruin/felinid/bakery)
 "gr" = (
 /obj/machinery/door/airlock/medical,
 /turf/open/floor/wood,
@@ -130,6 +123,13 @@
 /obj/machinery/door/airlock/medical,
 /turf/open/floor/plasteel,
 /area/shuttle/exploration/ruin/felinid/bakery)
+"rn" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/mob/living/simple_animal/pet/cat/space,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/ruin/felinid/bakery)
 "rz" = (
 /obj/effect/spawner/structure/window/shuttle,
 /obj/structure/shuttle/engine/heater,
@@ -210,6 +210,21 @@
 /obj/machinery/computer/system_map,
 /turf/open/floor/plasteel,
 /area/shuttle/exploration/ruin/felinid/bakery)
+"Jr" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	id = "felinidbakery"
+	},
+/obj/docking_port/mobile{
+	dir = 4;
+	dwidth = 8;
+	height = 13;
+	id = "set_by_code";
+	name = "Centcom Raven Cruiser";
+	width = 12
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/shuttle/exploration/ruin/felinid/bakery)
 "JS" = (
 /obj/structure/table,
 /obj/machinery/microwave{
@@ -272,11 +287,6 @@
 	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/exploration/ruin/felinid/bakery)
-"Pf" = (
-/obj/structure/bed,
-/obj/item/bedsheet/hop,
-/turf/open/floor/wood,
-/area/shuttle/exploration/ruin/felinid/bakery)
 "PJ" = (
 /obj/structure/shuttle/engine/heater,
 /obj/effect/spawner/structure/window/shuttle,
@@ -313,11 +323,9 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/shuttle/exploration/ruin/felinid/bakery)
-"SR" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+"VG" = (
+/mob/living/simple_animal/hostile/cat_butcherer,
+/turf/open/floor/plasteel/cafeteria,
 /area/shuttle/exploration/ruin/felinid/bakery)
 "VK" = (
 /obj/structure/table/reinforced,
@@ -339,6 +347,12 @@
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/shuttle/exploration/ruin/felinid/bakery)
+"Xk" = (
+/obj/structure/bed,
+/obj/item/bedsheet/hop,
+/mob/living/carbon/human/species/felinid,
+/turf/open/floor/wood,
+/area/shuttle/exploration/ruin/felinid/bakery)
 "ZH" = (
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
@@ -357,7 +371,7 @@ yj
 vd
 VK
 Qf
-eb
+Jr
 qb
 FB
 FB
@@ -381,12 +395,12 @@ kR
 (3,1,1) = {"
 ZH
 vl
-SR
+rn
 if
 hr
 nA
 nA
-nA
+VG
 nA
 nA
 Dt
@@ -411,7 +425,7 @@ qb
 (5,1,1) = {"
 ZH
 GN
-SR
+rn
 if
 JS
 nA
@@ -476,7 +490,7 @@ RC
 ZH
 PK
 bP
-Pf
+Xk
 ZH
 RC
 ay
