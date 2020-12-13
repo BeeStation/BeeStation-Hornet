@@ -66,3 +66,13 @@
 	build_path = /obj/item/circuitboard/machine/telecomms/broadcaster
 	category = list("Subspace Telecomms")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/exploration_key
+	name = "Exploration Encryption Key"
+	desc = "A highly sensitive encryption key, capable of recieving and decrypting signals from different bluespace planes."
+	id = "exploration_key"
+	build_path = /obj/item/encryptionkey/headset_exp
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 2500, /datum/material/copper = 1000, /datum/material/bluespace = 250)
+	category = list("Subspace Telecomms")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING

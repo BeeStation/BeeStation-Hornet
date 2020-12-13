@@ -304,6 +304,15 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 12500)
 	export_price = 5000
 
+/datum/techweb_node/bluespace_transmission
+	id = "bluespace_transmission"
+	display_name = "Bluespace Transmission"
+	description = "Research the technology required to create and use basic shuttles."
+	prereq_ids = list("micro_bluespace")
+	design_ids = list("exploration_key")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 5000
+
 /////////////////////////robotics tech/////////////////////////
 /datum/techweb_node/robotics
 	id = "robotics"
