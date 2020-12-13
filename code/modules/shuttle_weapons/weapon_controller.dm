@@ -21,9 +21,9 @@
 	var/const/default_map_size = 15
 	//Contents holder to make the turfs clickable :^)
 	var/obj/effect/vis_contents_holder/contents_holder
-	var/obj/screen/cam_screen
-	var/obj/screen/plane_master/lighting/cam_plane_master
-	var/obj/screen/background/cam_background
+	var/atom/movable/screen/cam_screen
+	var/atom/movable/screen/plane_master/lighting/cam_plane_master
+	var/atom/movable/screen/background/cam_background
 
 /obj/machinery/computer/weapons/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()

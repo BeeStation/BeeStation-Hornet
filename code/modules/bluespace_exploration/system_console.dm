@@ -23,9 +23,9 @@
 	. = ..()
 	//Locate the shuttle ID we are attatched to (if we are attatched)
 	if(!shuttle_id)
-		get_attached_shuttle()
+		addtimer(CALLBACK(src, .proc/get_attached_shuttle), 8)
 	//Locate the bluespace drive
-	addtimer(CALLBACK(src, .proc/locate_bluespace_drive), 10)
+	addtimer(CALLBACK(src, .proc/locate_bluespace_drive), 12)
 
 /obj/machinery/computer/system_map/ui_interact(mob/user, datum/tgui/ui)
 	if(!shuttle_id)

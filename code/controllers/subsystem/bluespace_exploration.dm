@@ -296,6 +296,9 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			newT = T
 		else
 			newT = T.ChangeTurf(/turf/open/space)
+		var/newA = new /area/space
+		newA.set_dynamic_lighting()
+		newT.change_area(newT.loc, newA)
 		newT.flags_1 -= NO_RUINS_1
 		new_turfs += newT
 	return new_turfs
@@ -361,6 +364,8 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		CHECK_TICK
 	//=== Spawn Hostile Ships ===
 	var/max_ships = 3
+	//Better Scaling: 2 ships is more than 2x as deadly as 1 ship
+	var/ships_spawned = 0
 	var/threat_left = target_level.calculated_threat
 	while(threat_left > 0 && max_ships > 0)
 		//Pick a ship to spawn
@@ -374,12 +379,15 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			//25% chance for ships to spawn anyway
 			if(!istype(spawnable_ship.faction, system_faction.type) && prob(75))
 				continue
-			if(spawnable_ship.difficulty < threat_left)
+			if(spawnable_ship.difficulty * (ships_spawned + 1) < threat_left)
 				valid_ships += ship_name
 		if(!LAZYLEN(valid_ships))
 			break
-		spawn_and_register_shuttle(spawnable_ships[pick(valid_ships)], data_holder.z_value)
+		var/datum/map_template/shuttle/ship/S = spawnable_ships[pick(valid_ships)]
+		threat_left -= S.difficulty * (ships_spawned + 1)
+		spawn_and_register_shuttle(S, data_holder.z_value)
 		max_ships --
+		ships_spawned ++
 	addtimer(CALLBACK(src, .proc/on_generation_complete, data_holder), 0)
 
 /datum/controller/subsystem/bluespace_exploration/proc/on_generation_complete(datum/data_holder/bluespace_exploration/data_holder)
