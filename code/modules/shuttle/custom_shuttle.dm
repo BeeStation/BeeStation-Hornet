@@ -133,7 +133,7 @@
 //=======
 /obj/machinery/computer/system_map/custom_shuttle/handle_space_jump(star)
 	var/datum/star_system/SS = star
-	var/distance = SS.distance_from_center * 500
+	var/distance = CLAMP(SS.distance_from_center * 500, 0, 2000)
 	if(!can_jump(distance))
 		return
 	var/time = min(max(round(distance / calculated_speed), 10), 90)
@@ -224,6 +224,8 @@
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/custom/Initialize()
 	. = ..()
+	if(GLOB.jam_consoles)
+		jammed = TRUE
 	GLOB.jam_on_wardec += src
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/custom/Destroy()

@@ -147,7 +147,7 @@ export const SystemMap = (props, context) => {
           </Table.Row>
           <Table.Row>
             <Table.Cell>
-              Research Value
+              Research Value (Ruin Density)
             </Table.Cell>
             <Table.Cell bold>
               {system ? system.research_value : "N/A"}
@@ -162,15 +162,6 @@ export const SystemMap = (props, context) => {
             </Table.Cell>
           </Table.Row>
         </Table>
-        <Divider />
-        <Box bold
-          textAlign="center">
-          Detected Signals
-        </Box>
-        <Box
-          textAlign="center">
-          Hostile Signal
-        </Box>
         <Divider />
         <Box
           textAlign="center">

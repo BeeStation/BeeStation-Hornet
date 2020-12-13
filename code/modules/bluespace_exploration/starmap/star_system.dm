@@ -1,14 +1,6 @@
 /datum/star_system
 	var/name = "Sol"
 	var/unique_id = 0
-	var/map_x = 100	//Between 0 and 1000
-	var/map_y = 100 //Between 0 and 1000
-	var/list/linked_stars = list()
-
-	var/visited = FALSE
-	var/star_color = "#ffffff"
-
-	var/is_station_z = FALSE
 
 	//572 possible names
 	var/static/list/first_symbols = list(
@@ -23,8 +15,6 @@
 
 	var/distance_from_center = 0
 
-	var/datum/star_system_data/system_data
-
 	//After generation
 	var/datum/faction/system_alignment
 	var/calculated_threat
@@ -38,8 +28,6 @@
 	distance_from_center = distance
 	var/static/stars = 0
 	unique_id = stars ++
-	//Get a realistic star colour
-	star_color = pick(STAR_COLORS)
 	//Generate a name (We will just use nar'sian names because it sounds ok)
 	name = capitalize("[pick(first_symbols)][pick(second_symbols)]-[pick(GLOB.hex_characters)][pick(GLOB.hex_characters)]")
 	//Generate things
@@ -49,7 +37,7 @@
 	var/zerotoonehundred = normalize_difficulty()
 	//Faction Selection
 	//Base difficulty + random variance
-	switch(rand(0, zerotoonehundred) + rand(-20, 20))
+	switch(rand(0, zerotoonehundred) + rand(-10, 10))
 		if(-INFINITY to 0)
 			//Peaceful faction
 			system_alignment = SSbluespace_exploration.get_faction(/datum/faction/nanotrasen)
@@ -62,8 +50,8 @@
 		if(70 to 100)
 			system_alignment = SSbluespace_exploration.get_faction(/datum/faction/syndicate/elite)
 	//Set other factors
-	calculated_threat = CLAMP(rand(0, zerotoonehundred) + rand(-40, 20), 0, 40)
-	calculated_research_potential = CLAMP(rand(0, zerotoonehundred), 0, 50) - rand(0, 10)
+	calculated_threat = CLAMP(rand(0, zerotoonehundred) + rand(-15, 20), 0, 40)
+	calculated_research_potential = CLAMP(rand(0, zerotoonehundred), 10, 50) - rand(0, 10)
 
 /datum/star_system/proc/normalize_difficulty()
 	return 100 * (1 - sin(TODEGREES(1 / ((distance_from_center / 5) + (0.6369)))))

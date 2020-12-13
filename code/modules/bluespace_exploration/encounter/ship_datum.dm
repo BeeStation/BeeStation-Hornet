@@ -135,5 +135,5 @@
 
 /datum/ship_datum/custom_shuttle
 	bluespace = FALSE
-	//Custom shuttles have to take a really, really heavy beating to be considered destroyed
+	//Custom shuttles have to take a really, really heavy beating to be considered destroyed (it would be mean to nuke player ships)
 	health_percentage = 0.8

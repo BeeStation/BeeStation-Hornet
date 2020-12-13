@@ -43,6 +43,8 @@
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/whiteship/Initialize()
 	. = ..()
+	if(GLOB.jam_consoles)
+		jammed = TRUE
 	GLOB.jam_on_wardec += src
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/whiteship/Destroy()

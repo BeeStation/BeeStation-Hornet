@@ -30,9 +30,6 @@ GLOBAL_VAR(main_bluespace_drive)
 	if(world.time < cooldown_world_time)
 		say("Bluespace Drive is currently recharging.")
 		return
-	if(target.visited)
-		say("Bluespace instability detected. Cannot return to selected sector.")
-		return
 	//Find what shuttle we are on
 	cooldown_world_time = world.time + cooldown
 	say("Initiating bluespace translation protocols...")

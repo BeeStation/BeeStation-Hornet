@@ -64,9 +64,11 @@
 
 		for(var/turf/T as() in turfs)
 			//Locate the shuttle dock
-			for(var/obj/docking_port/mobile/port in locate(/obj/docking_port/mobile) in T)
+			for(var/obj/docking_port/mobile/port in T)
 				port.id = "[port.id][shuttles_spawned++]"
 				located_port = port
+			if(located_port)
+				break
 		amount_left --
 		return located_port
 	return null

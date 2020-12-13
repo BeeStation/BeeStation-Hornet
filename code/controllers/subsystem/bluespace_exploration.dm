@@ -70,7 +70,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	for(var/faction_datum in subtypesof(/datum/faction))
 		factions[faction_datum] = new faction_datum
 	//Create z-levels
-//#ifdef LOWMEMORYMODE
+//#ifndef LOWMEMORYMODE
 	for(var/i in 1 to CONFIG_GET(number/bluespace_exploration_levels))
 		bluespace_systems[SSmapping.add_new_zlevel("Bluespace Exploration Level [i]", ZTRAITS_BLUESPACE_EXPLORATION)] = FALSE
 //#endif
@@ -113,6 +113,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 /datum/controller/subsystem/bluespace_exploration/proc/request_ship_transit(shuttle_id, datum/data_holder/bluespace_exploration/extra_data)
 	if(!shuttle_id)
 		message_admins("Bluespace exploration error: ship transit requested with no shuttle_id, check runtimes")
+		log_shuttle("Bluespace exploration error: ship transit requested with no shuttle_id, check runtimes")
 		CRASH("Bluespace exploration error: ship transit requested with no shuttle_id, check runtimes")
 	if(!extra_data)
 		extra_data = new /datum/data_holder/bluespace_exploration
@@ -159,6 +160,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	SD.ship_faction = new faction
 	SD.update_ship()
 	if(QDELETED(SD))
+		log_shuttle("Bluespace Exploration Error: Register new ship attempted on a qdeleted ship datum.")
 		return null
 	tracked_ships[shuttle_id] = SD
 	log_shuttle("Shuttle ID :[shuttle_id] added to tracked ships (Total: [tracked_ships.len]).")
@@ -254,7 +256,9 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		if(O.resistance_flags & INDESTRUCTIBLE)
 			random_teleport_atom(A)
 			return
-	qdel(A)
+	//Force delete effects and docking ports, normal delete everything else.
+	//Probably gunna cause problems in testing.
+	qdel(A, force = (iseffect(A) || istype(A, /obj/docking_port)))
 
 //Randomly teleports an atom to a random z-level
 //Copy and paste of turf/open/space/transit, could probably be a global proc
@@ -282,6 +286,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/turf/T = locate(_x, _y, _z)
 	AM.forceMove(T)
 
+//TODO: Test if this actually changes area
 /datum/controller/subsystem/bluespace_exploration/proc/reset_turfs(list/turfs)
 	var/list/new_turfs = list()
 	for(var/i in turfs)
@@ -320,13 +325,11 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		var/datum/map_template/ruin/space/R = SSmapping.space_ruins_templates[template_name]
 		standard_valid_ruins += R
 	//Generate Ruins
-	var/cost_limit = 20
+	var/cost_limit = target_level.calculated_research_potential
 	while(cost_limit > 0)
 		if(!LAZYLEN(bluespace_valid_ruins))
 			break
 		var/list/selectable_ruins = list()
-		//TODO: Ruin weighting based on difficulty
-		//TODO: Bluespace ruins
 		if(target_level?.bluespace_ruins)
 			for(var/datum/map_template/ruin/exploration/ruin/R in bluespace_valid_ruins)
 				if(R.cost < cost_limit)
@@ -336,7 +339,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 				if(R.cost < cost_limit)
 					selectable_ruins += R
 		if(!LAZYLEN(selectable_ruins))
-			log_game("Ran out of selectable ruins, with [cost_limit] spawn points left.")
+			log_shuttle("Ran out of selectable ruins, with [cost_limit] spawn points left.")
 			break
 		//Pick a ruin
 		var/datum/map_template/ruin/selected_ruin = pick(selectable_ruins)
@@ -367,8 +370,8 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			if(!spawnable_ship.can_place())
 				continue
 			//Is the ship of the faction of the system?
-			//10% chance for ships to spawn anyway
-			if(!is_type_in_list(spawnable_ship.faction, typesof(system_faction.type)) && prob(90))
+			//25% chance for ships to spawn anyway
+			if(!istype(spawnable_ship.faction, system_faction.type) && prob(75))
 				continue
 			if(spawnable_ship.difficulty < threat_left)
 				valid_ships += ship_name
@@ -412,6 +415,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	else
 		shuttle.destination = shuttle.previous
 		message_admins("Bluespace exploration docking failed, returning shuttle to home (Sanity check failed to place shuttle)")
+		log_shuttle("Bluespace exploration docking failed, returning shuttle to home (Sanity check failed to place shuttle)")
 		log_runtime("Bluespace exploration docking failed, returning shuttle to home (Sanity check failed to place shuttle)")
 	shuttle.setTimer(shuttle.ignitionTime)
 	current_system = data_holder.target_star_system
@@ -475,10 +479,6 @@ SUBSYSTEM_DEF(bluespace_exploration)
 //====================================
 // Utility
 //====================================
-
-/datum/controller/subsystem/bluespace_exploration/proc/get_bse_level_data()
-	return current_system.system_data
-
 
 //====================================
 // Data holder - Simplifys what gets sent as paramaters so we don't have tons of variables some of which won't be used in that proc

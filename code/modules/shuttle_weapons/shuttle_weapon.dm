@@ -14,7 +14,6 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 	anchored = TRUE
 	var/unique_id
 	var/projectile_type = /obj/item/projectile/bullet/shuttle/beam/laser
-	var/ammunition_type = /obj/item/ammo_box/c9mm
 	var/flight_time = 10
 
 	var/shots = 1
@@ -35,14 +34,12 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 	var/offset_turf_x = 0
 	var/offset_turf_y = 0
 
-	var/weapon_desc = "This weapon has had no dsecription set."
-
-/obj/machinery/shuttle_weapon/Initialize()
+/obj/machinery/shuttle_weapon/Initialize(mapload, ndir = 0)
 	. = ..()
 	var/static/weapon_systems = 0
 	unique_id = weapon_systems++
 	GLOB.shuttle_weapons["[unique_id]"] = src
-	set_directional_offset(dir, TRUE)
+	set_directional_offset(ndir || dir, TRUE)
 
 /obj/machinery/shuttle_weapon/setDir(newdir)
 	. = ..()
@@ -101,7 +98,9 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 			missed = TRUE
 	playsound(loc, fire_sound, 75, 1)
 	//Spawn the projectile to make it look like its firing from your end
-	var/obj/item/projectile/P = new projectile_type(get_offset_target_turf(get_turf(src), offset_turf_x, offset_turf_y))
+	var/obj/item/projectile/bullet/shuttle/P = new projectile_type(get_offset_target_turf(get_turf(src), offset_turf_x, offset_turf_y))
+	//Outgoing shots shouldn't hit our own ship because its easier
+	P.miss = TRUE
 	P.fire(dir2angle(dir))
 	addtimer(CALLBACK(src, .proc/spawn_incoming_fire, P, current_target_turf, missed), flight_time)
 	//Multishot cannons
