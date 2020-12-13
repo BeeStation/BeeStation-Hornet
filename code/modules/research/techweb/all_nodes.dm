@@ -318,7 +318,7 @@
 	display_name = "Shuttle Mounted Weaponry"
 	description = "Research into mounting weapons onto the side of moving things."
 	prereq_ids = list("weaponry")
-	design_ids = list("shuttle_laser")
+	design_ids = list("shuttle_laser", "computer_weapons")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 	export_price = 5000
 

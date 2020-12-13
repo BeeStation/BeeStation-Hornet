@@ -414,6 +414,16 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 //=====Shuttle weapons======
+/datum/design/board/weapons
+	name = "Shuttle Weapons Control Computer"
+	desc = "A computer board that allows for the control of weapons on a linked shuttle."
+	id = "computer_weapons"
+	build_type = IMPRINTER
+	materials = list(/datum/material/glass = 1000, /datum/material/copper = 300)
+	build_path = /obj/item/circuitboard/computer/shuttle/weapons
+	category = list("Shuttle Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
 /datum/design/shuttle_weapon
 	name = "Laser Cannon Mount"
 	desc = "A wall mounted laser cannon, designed for use on shuttles."

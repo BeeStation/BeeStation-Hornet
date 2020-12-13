@@ -157,7 +157,7 @@
 	lathe_time_factor = 0.2
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
-//Micro-lasers
+//Micro-laser
 /datum/design/basic_micro_laser
 	name = "Basic Micro-Laser"
 	desc = "A stock part used in the construction of various devices."
