@@ -32,7 +32,7 @@
 	if (z in signal.levels)
 		return TRUE
 
-	if (signal.freq == FREQ_EXPLORATION)
+	if (signal.frequency == FREQ_EXPLORATION)
 		//Exploration signals can be transmitted independantly of the z level
 		if(SSmapping.level_has_any_trait(signal.source.z, list(ZTRAIT_BLUESPACE_EXPLORATION, ZTRAIT_AWAY, ZTRAIT_REEBE)))
 			return TRUE
