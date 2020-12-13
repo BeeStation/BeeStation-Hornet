@@ -244,9 +244,17 @@ SUBSYSTEM_DEF(bluespace_exploration)
 					random_teleport_atom(M)
 					to_chat(M, "<span class='warning'>You feel sick as your body lurches through space and time, the ripples of the starship that brought you here eminate no more and you get the horrible feeling that you have been left behind.</span>")
 				else
-					qdel(thing, force=TRUE)
+					delete_atom(thing)
 			else
-				qdel(thing, force=TRUE)
+				delete_atom(thing)
+
+/datum/controller/subsystem/bluespace_exploration/proc/delete_atom(atom/A)
+	if(isobj(A))
+		var/obj/O = A
+		if(O.resistance_flags & INDESTRUCTIBLE)
+			random_teleport_atom(A)
+			return
+	qdel(A)
 
 //Randomly teleports an atom to a random z-level
 //Copy and paste of turf/open/space/transit, could probably be a global proc

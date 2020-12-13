@@ -1,3 +1,9 @@
+/*
+ * NOTICE: CURRENTLY UNUSED.
+ * Design goals if you want to work on this:
+ * BS Exploration required for advanced researches. These beacons are how you get them.
+ */
+
 #define OBJECTIVE_HOSTILE_TYPE_NONE "none"
 #define OBJECTIVE_HOSTILE_TYPE_SYNDICATE "syndicate"
 #define OBJECTIVE_HOSTILE_TYPE_NANOTRASEN "nanotrasen"
