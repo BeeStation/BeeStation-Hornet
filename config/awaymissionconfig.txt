@@ -23,4 +23,3 @@ _maps/RandomZLevels/SnowCabin.dmm
 _maps/RandomZLevels/VR/murderdome.dmm
 _maps/RandomZLevels/VR/snowdin_VR.dmm
 _maps/RandomZLevels/VR/syndicate_trainer.dmm
-_maps/RandomZLevels/TheFactory.dmm
