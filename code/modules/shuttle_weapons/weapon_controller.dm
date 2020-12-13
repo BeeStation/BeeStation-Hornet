@@ -205,7 +205,6 @@
 			spell.add_ranged_ability(user, "", TRUE)
 			to_chat(usr, "<span class='notice'>Weapon targetting enabled, select target location.</span>")
 			return TRUE
-			return TRUE
 
 /obj/machinery/computer/weapons/proc/show_camera_static()
 	contents_holder.vis_contents.Cut()
