@@ -9,9 +9,10 @@
 
 	var/obj_damage = 0
 	var/miss = FALSE
+	var/force_miss = FALSE
 
 /obj/item/projectile/bullet/shuttle/on_hit(atom/target, blocked)
-	if(miss)
+	if(miss || force_miss)
 		return
 	. = ..()
 

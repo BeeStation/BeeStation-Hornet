@@ -100,7 +100,7 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 	//Spawn the projectile to make it look like its firing from your end
 	var/obj/item/projectile/bullet/shuttle/P = new projectile_type(get_offset_target_turf(get_turf(src), offset_turf_x, offset_turf_y))
 	//Outgoing shots shouldn't hit our own ship because its easier
-	P.miss = TRUE
+	P.force_miss = TRUE
 	P.fire(dir2angle(dir))
 	addtimer(CALLBACK(src, .proc/spawn_incoming_fire, P, current_target_turf, missed), flight_time)
 	//Multishot cannons

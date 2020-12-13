@@ -12,7 +12,7 @@
 	var/fire = -1
 
 /obj/item/projectile/bullet/shuttle/missile/on_hit(atom/target, blocked = FALSE)
-	if(get_turf(target) != original && istype(target, /obj/structure/emergency_shield))
+	if((get_turf(target) != original && istype(target, /obj/structure/emergency_shield)) || force_miss)
 		return FALSE
 	explosion(target, devastation, heavy, light_r, flash, 0, flame_range = fire)
 	qdel(src)

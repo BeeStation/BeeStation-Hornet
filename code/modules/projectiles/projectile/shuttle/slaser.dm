@@ -22,7 +22,7 @@
 		ricochet_chance = 0
 
 /obj/item/projectile/bullet/shuttle/beam/on_hit(atom/target, blocked)
-	if(miss)
+	if(miss || force_miss)
 		return
 	var/turf/T = target
 	//Make it so it can damage turfs
