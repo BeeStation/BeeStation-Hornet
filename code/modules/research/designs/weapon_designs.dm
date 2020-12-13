@@ -412,3 +412,56 @@
 	build_path = /obj/item/flashbulb
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+//=====Shuttle weapons======
+/datum/design/shuttle_weapon
+	name = "Laser Cannon Mount"
+	desc = "A wall mounted laser cannon, designed for use on shuttles."
+	id = "shuttle_laser"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 25000, /datum/material/glass = 10000)
+	category = list("Shuttle Weapons")
+	build_path = /obj/item/wallframe/shuttle_weapon/laser
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/shuttle_weapon/laser_triple
+	name = "Burst Laser MKI Mount"
+	desc=  "A wall mounted burst laser, designed for use on shuttles."
+	id = "shuttle_laser_burst"
+	materials = list(/datum/material/iron = 35000, /datum/material/glass = 10000, /datum/material/gold = 5000)
+	build_path = /obj/item/wallframe/shuttle_weapon/laser/triple
+
+/datum/design/shuttle_weapon/laser_triple_mark2
+	name = "Burst Laser MKII Mount"
+	desc=  "An upgraded version of the wall mounted burst laser, designed for use on shuttles."
+	id = "shuttle_laser_burst_two"
+	materials = list(/datum/material/iron = 40000, /datum/material/glass = 15000, /datum/material/gold = 10000, /datum/material/titanium = 5000)
+	build_path = /obj/item/wallframe/shuttle_weapon/laser/triple/mark2
+
+/datum/design/shuttle_weapon/missile
+	name = "Centaur I Mount"
+	desc=  "A wall mounted missile launcher, designed for use on shuttles."
+	id = "shuttle_missile"
+	materials = list(/datum/material/iron = 30000, /datum/material/gold = 5000
+	build_path = /obj/item/wallframe/shuttle_weapon/missile
+
+/datum/design/shuttle_weapon/tri_missile
+	name = "Centaur II Mount"
+	desc=  "Wall mounted pods containing tri-firing missiles, designed for use on shuttles."
+	id = "shuttle_tri_missile"
+	materials = list(/datum/material/iron = 50000, /datum/material/gold = 15000, /datum/material/diamond = 1000)
+	build_path = /obj/item/wallframe/shuttle_weapon/missile/tri
+
+/datum/design/shuttle_weapon/breach_missile
+	name = "Burst Laser MKI Mount"
+	desc=  "A wall mounted breaching missile launcher, designed for use on shuttles."
+	id = "shuttle_breach_missile"
+	materials = list(/datum/material/iron = 40000, /datum/material/gold = 10000, /datum/material/titanium = 5000)
+	build_path = /obj/item/wallframe/shuttle_weapon/missile/breach
+
+/datum/design/shuttle_weapon/fire_missile
+	name = "Burst Laser MKI Mount"
+	desc=  "A wall mounted incendiary missile launcher, designed for use on shuttles."
+	id = "shuttle_fire_missile"
+	materials = list(/datum/material/iron = 40000, /datum/material/gold = 10000, /datum/material/uranium = 5000)
+	build_path = /obj/item/wallframe/shuttle_weapon/missile/fire

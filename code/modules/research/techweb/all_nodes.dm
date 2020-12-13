@@ -274,7 +274,7 @@
 	description = "Research the technology required to create and use basic shuttles."
 	prereq_ids = list("bluespace_travel", "adv_engi")
 	design_ids = list("shuttle_creator", "engine_plasma", "engine_heater", "shuttle_control", "shuttle_docker", "wingpack")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
 /datum/techweb_node/shuttle_route_upgrade
@@ -307,10 +307,64 @@
 /datum/techweb_node/bluespace_transmission
 	id = "bluespace_transmission"
 	display_name = "Bluespace Transmission"
-	description = "Research the technology required to create and use basic shuttles."
+	description = "Sensitive components that allow for transmitting and receiving messages across space and time."
 	prereq_ids = list("micro_bluespace")
 	design_ids = list("exploration_key")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+	export_price = 5000
+
+/datum/techweb_node/shuttle_weapons_basic
+	id = "shuttle_weapons"
+	display_name = "Shuttle Mounted Weaponry"
+	description = "Research into mounting weapons onto the side of moving things."
+	prereq_ids = list("weaponry")
+	design_ids = list("shuttle_laser")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+	export_price = 5000
+
+/datum/techweb_node/shuttle_weapons_lasers
+	id = "shuttle_lasers"
+	display_name = "Shuttle Laser Weaponry"
+	description = "Research into mounting high-powered lasers onto the side of moving things."
+	prereq_ids = list("shuttle_weapons", "emp_adv")
+	design_ids = list("shuttle_laser_burst")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
+	export_price = 5000
+
+/datum/techweb_node/shuttle_lasers_better
+	id = "shuttle_lasers_better"
+	display_name = "Advanced Shuttle Laser Weaponry"
+	description = "Research into mounting super-high-powered lasers onto the side of moving things."
+	prereq_ids = list("shuttle_lasers", "emp_super")
+	design_ids = list("shuttle_laser_burst_two")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 5000
+
+/datum/techweb_node/shuttle_missiles
+	id = "shuttle_missiles"
+	display_name = "Mounted Missile Launchers"
+	description = "Research into mounting missiles onto the side of moving things."
+	prereq_ids = list("shuttle_weapons", "adv_weaponry")
+	design_ids = list("shuttle_missile")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 5000
+
+/datum/techweb_node/shuttle_tri_missiles
+	id = "shuttle_tri_missiles"
+	display_name = "Mounted Swarm Missile Technology"
+	description = "Research into mounting tri-shot missile launchers onto the side of moving things."
+	prereq_ids = list("shuttle_missiles")
+	design_ids = list("shuttle_tri_missile")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 5000
+
+/datum/techweb_node/shuttle_specialized_missiles
+	id = "specialized_missiles"
+	display_name = "Specialized Missile Technology"
+	description = "Research into mounting specialized missile launchers onto the side of moving things."
+	prereq_ids = list("shuttle_missiles")
+	design_ids = list("shuttle_breach_missile", "shuttle_fire_missile")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
 	export_price = 5000
 
 /////////////////////////robotics tech/////////////////////////
