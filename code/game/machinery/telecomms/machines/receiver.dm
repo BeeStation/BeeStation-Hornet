@@ -38,9 +38,6 @@
 			if(R.can_receive(signal) && (R.z in signal.levels))
 				return TRUE
 
-	//Check if sender was on subspace
-	signal.
-
 	return FALSE
 
 //Preset Receivers
