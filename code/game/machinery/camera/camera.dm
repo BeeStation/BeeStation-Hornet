@@ -214,7 +214,7 @@
 	to_chat(user, "<span class='notice'>You start to weld [src]...</span>")
 	if(I.use_tool(src, user, 100, volume=50))
 		user.visible_message("<span class='warning'>[user] unwelds [src], leaving it as just a frame bolted to the wall.</span>",
-			"<span class='warning'>You unweld [src], leaving it as just a frame bolted to the wall</span>")
+			"<span class='warning'>You unweld [src], leaving it as just a frame bolted to the wall.</span>")
 		deconstruct(TRUE)
 
 	return TRUE
@@ -444,7 +444,7 @@
 
 /obj/machinery/camera/get_remote_view_fullscreens(mob/user)
 	if(view_range == short_range) //unfocused
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
 
 /obj/machinery/camera/update_remote_sight(mob/living/user)
 	user.see_invisible = SEE_INVISIBLE_LIVING //can't see ghosts through cameras

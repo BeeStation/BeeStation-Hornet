@@ -27,8 +27,9 @@
 
 	if(istype(D, /atom))
 		sprite = getFlatIcon(D)
-		hash = md5(sprite)
-		src << browse_rsc(sprite, "vv[hash].png")
+		hash = md5(icon2base64(sprite))
+		if(hash) //Fixes VV shitting it's pants if the icon isn't valid
+			src << browse_rsc(sprite, "vv[hash].png")
 
 	title = "[D] ([REF(D)]) = [type]"
 	var/formatted_type = replacetext("[type]", "/", "<wbr>/")

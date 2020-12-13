@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	var/range = 10
 	var/cooldown = 0
 	var/datum/mind/summoner
-	var/toggle_button_type = /obj/screen/guardian/ToggleMode
+	var/toggle_button_type = /atom/movable/screen/guardian/ToggleMode
 	var/datum/guardian_stats/stats
 	var/summoner_visible = TRUE
 	var/battlecry = "AT"
@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	if(!client)
 		return
 	cut_barriers()
-	if(!summoner?.current || !is_deployed() || (range <= 1 || (stats && stats.range <= 1)) || get_dist_euclidian(summoner.current, src) < (range - world.view))
+	if(!summoner?.current || !is_deployed() || (range <= 1 || (stats && stats.range <= 1)) || get_dist_euclidian(summoner.current, src) < (range - getviewsize(world.view)[2]))
 		return
 	var/sx = summoner.current.x
 	var/sy = summoner.current.y
@@ -391,7 +391,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		if(stats.ability)
 			stats.ability.AfterAttack(target)
 
-/mob/living/simple_animal/hostile/guardian/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
+/mob/living/simple_animal/hostile/guardian/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash)
 	return FALSE
 
 /mob/living/simple_animal/hostile/guardian/death()

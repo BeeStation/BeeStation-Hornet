@@ -41,7 +41,7 @@
 	if(can_interact(user))
 		transfer_rate = MAX_TRANSFER_RATE
 		update_icon()
-	return ..()
+	return
 
 /obj/machinery/atmospherics/components/binary/volume_pump/Destroy()
 	SSradio.remove_object(src,frequency)

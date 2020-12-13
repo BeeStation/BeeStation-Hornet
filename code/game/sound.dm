@@ -12,7 +12,7 @@
 
  	// Looping through the player list has the added bonus of working for mobs inside containers
 	var/sound/S = sound(get_sfx(soundin))
-	var/maxdistance = (world.view + extrarange)
+	var/maxdistance = (getviewsize(world.view)[1] + extrarange)
 	var/z = turf_source.z
 	var/list/listeners = SSmobs.clients_by_zlevel[z]
 	if(!ignore_walls) //these sounds don't carry through walls
@@ -49,7 +49,7 @@
 		//sound volume falloff with distance
 		var/distance = get_dist(T, turf_source)
 
-		S.volume -= max(distance - world.view, 0) * 2 //multiplicative falloff to add on top of natural audio falloff.
+		S.volume -= max(distance - getviewsize(world.view)[1], 0) * 2 //multiplicative falloff to add on top of natural audio falloff.
 
 		if(pressure_affected)
 			//Atmosphere affects sound
@@ -117,6 +117,10 @@
 				soundin = pick('sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg')
 			if ("explosion")
 				soundin = pick('sound/effects/explosion1.ogg','sound/effects/explosion2.ogg')
+			if ("explosion_creaking")
+				soundin = pick('sound/effects/explosioncreak1.ogg', 'sound/effects/explosioncreak2.ogg')
+			if ("hull_creaking")
+				soundin = pick('sound/effects/creak1.ogg', 'sound/effects/creak2.ogg', 'sound/effects/creak3.ogg')
 			if ("sparks")
 				soundin = pick('sound/effects/sparks1.ogg','sound/effects/sparks2.ogg','sound/effects/sparks3.ogg','sound/effects/sparks4.ogg')
 			if ("rustle")

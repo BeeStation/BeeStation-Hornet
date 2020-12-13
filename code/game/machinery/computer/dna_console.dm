@@ -746,7 +746,7 @@
 			current_screen = "info"
 		if("savemut")
 			if(viable_occupant)
-				var/succes
+				var/success
 				if(LAZYLEN(stored_mutations) < max_storage)
 					var/mutation = text2path(href_list["path"])
 					if(ispath(mutation, /datum/mutation/human)) //sanity checks
@@ -754,10 +754,10 @@
 						if(HM)
 							var/datum/mutation/human/A = new HM.type()
 							A.copy_mutation(HM)
-							succes = TRUE
+							success = TRUE
 							stored_mutations += A
 							to_chat(usr,"<span class='notice'>Mutation succesfully stored.</span>")
-				if(!succes) //we can exactly return here
+				if(!success) //we can exactly return here
 					to_chat(usr,"<span class='warning'>Mutation storage is full.</span>")
 		if("deletemut")
 			var/datum/mutation/human/HM = stored_mutations[num]

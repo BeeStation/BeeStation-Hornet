@@ -20,6 +20,7 @@
 	var/frequency = FREQ_COMMON
 	var/canhear_range = 3  // The range around the radio in which mobs can hear what it receives.
 	var/emped = 0  // Tracks the number of EMPs currently stacked.
+	var/headset = FALSE
 
 	var/broadcasting = FALSE  // Whether the radio will transmit dialogue it hears nearby.
 	var/listening = TRUE  // Whether the radio is currently receiving.
@@ -39,6 +40,7 @@
 	var/syndie = FALSE  // If true, hears all well-known channels automatically, and can say/hear on the Syndicate channel.
 	var/list/channels = list()  // Map from name (see communications.dm) to on/off. First entry is current department (:h).
 	var/list/secure_radio_connections
+	var/radio_silent = FALSE // If true, radio doesn't make sound effects (ie for Syndicate internal radio implants)
 
 /obj/item/radio/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] starts bouncing [src] off [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -98,13 +100,26 @@
 	. = ..()
 	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
 
+/obj/item/radio/AltClick(mob/user)
+	if(headset)
+		. = ..()
+	else
+		broadcasting = !broadcasting
+		to_chat(user, "<span class='notice'>You toggle broadcasting [broadcasting ? "on" : "off"].</span>")
+
+/obj/item/radio/CtrlShiftClick(mob/user)
+	if(headset)
+		. = ..()
+	else
+		listening = !listening
+		to_chat(user, "<span class='notice'>You toggle speaker [listening ? "on" : "off"].</span>")
+
 /obj/item/radio/interact(mob/user)
 	if(unscrewed && !isAI(user))
 		wires.interact(user)
 		add_fingerprint(user)
 	else
 		..()
-
 
 /obj/item/radio/ui_state(mob/user)
 	return GLOB.inventory_state
@@ -206,6 +221,13 @@
 		return
 	if(!M.IsVocal())
 		return
+
+	if(!radio_silent)//Radios make small static noises now
+		var/mob/sender = loc
+		if(istype(sender) && sender.hears_radio())
+			var/sound/radio_sound = sound(pick("sound/effects/radio1.ogg", "sound/effects/radio2.ogg"), volume = 50)
+			radio_sound.frequency = get_rand_frequency()
+			SEND_SOUND(sender, radio_sound)
 
 	if(use_command)
 		spans |= SPAN_COMMAND
@@ -327,6 +349,8 @@
 		. += "<span class='notice'>It can be attached and modified.</span>"
 	else
 		. += "<span class='notice'>It cannot be modified or attached.</span>"
+	if (in_range(src, user) && !headset)
+		. += "<span class='info'>Ctrl-Shift-click on the [name] to toggle speaker.<br/>Alt-click on the [name] to toggle broadcasting.</span>"
 
 /obj/item/radio/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)

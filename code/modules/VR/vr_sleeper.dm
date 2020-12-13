@@ -120,9 +120,9 @@
 							build_virtual_human(occupant, T, V.vr_outfit)
 							to_chat(vr_human, "<span class='notice'>Transfer successful! You are now playing as [vr_human] in VR!</span>")
 						else
-							to_chat(occupant, "<span class='warning'>Virtual world misconfigured, aborting transfer</span>")
+							to_chat(occupant, "<span class='warning'>Virtual world misconfigured, aborting transfer.</span>")
 					else
-						to_chat(occupant, "<span class='warning'>The virtual world does not support the creation of new virtual avatars, aborting transfer</span>")
+						to_chat(occupant, "<span class='warning'>The virtual world does not support the creation of new virtual avatars, aborting transfer.</span>")
 			return TRUE
 		if("delete_avatar")
 			if(!occupant || usr == occupant)
