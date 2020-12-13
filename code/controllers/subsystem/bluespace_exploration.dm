@@ -296,9 +296,10 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			newT = T
 		else
 			newT = T.ChangeTurf(/turf/open/space)
-		var/newA = new /area/space
-		newA.set_dynamic_lighting()
-		newT.change_area(newT.loc, newA)
+		if(!istype(newT.loc, /area/space))
+			var/area/newA = new /area/space()
+			newA.set_dynamic_lighting()
+			newT.change_area(newT.loc, newA)
 		newT.flags_1 -= NO_RUINS_1
 		new_turfs += newT
 	return new_turfs
