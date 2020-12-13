@@ -6,7 +6,7 @@
 	var/cooldown_world_time
 	var/shuttle_id = "exploration"
 	var/drive_type = BLUESPACE_DRIVE_BSLEVEL
-	var/cooldown = 900
+	var/cooldown = 900	//Cooldown in deciseconds
 
 /obj/machinery/bluespace_drive/regular
 	drive_type = BLUESPACE_DRIVE_SPACELEVEL
