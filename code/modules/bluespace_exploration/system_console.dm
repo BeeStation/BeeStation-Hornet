@@ -14,7 +14,8 @@
 
 	//Overriding
 	//Other jump locations
-	var/list/standard_port_locations = list()
+	//So you can bring your big ships back <3
+	var/list/standard_port_locations = list("whiteship_home")
 
 /obj/machinery/computer/system_map/exploration
 	shuttle_id = "exploration"
