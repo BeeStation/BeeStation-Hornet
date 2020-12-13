@@ -67,6 +67,7 @@
 /obj/item/encryptionkey/headset_exp
 	name = "exploration encryption key"
 	desc = "A highly sensitive encryption key that uses quantum entanglement to recieve signals anywhere. Can only transmit in alter-dimensional space."
+	icon_state = "exp_cypherkey"
 	channels = list(RADIO_CHANNEL_SCIENCE = 1, RADIO_CHANNEL_EXPLORATION = 1)
 
 /obj/item/encryptionkey/headset_medsec
