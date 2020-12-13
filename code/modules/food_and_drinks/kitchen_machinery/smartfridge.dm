@@ -344,6 +344,7 @@
 			dried = new dried(drop_location())
 			if(istype(dried, /obj/item/reagent_containers)) // If the product is a reagent container, transfer reagents
 				var/obj/item/reagent_containers/R = dried
+				R.reagents.clear_reagents()
 				S.reagents.copy_to(R)
 			qdel(S)
 		return TRUE
