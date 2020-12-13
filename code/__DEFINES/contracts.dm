@@ -24,13 +24,12 @@
 #define OBLIGATION_ANNOUNCEKILL "announcekill"
 #define OBLIGATION_ANSWERTONAME "answername"
 
-#define BAN_HURTWOMAN "hurtwoman"
+#define BAN_SALT "salt"
 #define BAN_CHAPEL "chapel"
-#define BAN_HURTPRIEST "hurtpriest"
-#define BAN_AVOIDWATER "avoidwater"
-#define BAN_STRIKEUNCONSCIOUS "strikeunconscious"
-#define BAN_HURTLIZARD "hurtlizard"
-#define BAN_HURTANIMAL "hurtanimal"
+#define BAN_ANIMAL "animal"
+#define BAN_SILVER "silver"
+#define BAN_RUNES "runes"
+#define BAN_TRASH "trash"
 
 #define BANISH_WATER "water"
 #define BANISH_COFFIN "coffin"

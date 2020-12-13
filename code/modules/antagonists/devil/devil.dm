@@ -31,13 +31,12 @@ GLOBAL_LIST_INIT(lawlorify, list (
 			BANE_WHITECLOTHES = "Wearing clean white clothing will help ward off this devil.",
 			BANE_HARVEST = "Presenting the labors of a harvest will disrupt the devil.",
 			BANE_TOOLBOX = "That which holds the means of creation also holds the means of the devil's undoing.",
-			BAN_HURTWOMAN = "This devil seems to prefer hunting men.",
-			BAN_CHAPEL = "This devil avoids holy ground.",
-			BAN_HURTPRIEST = "The annointed clergy appear to be immune to his powers.",
-			BAN_AVOIDWATER = "The devil seems to have some sort of aversion to water, though it does not appear to harm him.",
-			BAN_STRIKEUNCONSCIOUS = "This devil only shows interest in those who are awake.",
-			BAN_HURTLIZARD = "This devil will not strike a lizardman first.",
-			BAN_HURTANIMAL = "This devil avoids hurting animals.",
+			BAN_SALT = "This devil cannot manifest around salt.",
+			BAN_CHAPEL = "This devil cannot manifest inside a chapel.",
+			BAN_ANIMAL = "This devil cannot manifest around animals.",
+			BAN_SILVER = "The devil cannot manifest next to silver objects.",
+			BAN_RUNES = "This devil cannot manifest next to runes.",
+			BAN_TRASH = "This devil cannot manifest next to trash.",
 			BANISH_WATER = "To banish the devil, you must infuse its body with holy water.",
 			BANISH_COFFIN = "This devil will return to life if its remains are not placed within a coffin.",
 			BANISH_FORMALDYHIDE = "To banish the devil, you must inject its lifeless body with embalming fluid.",
@@ -112,6 +111,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 		/obj/effect/proc_holder/spell/targeted/conjure_item/violin,
 		/obj/effect/proc_holder/spell/targeted/summon_dancefloor))
 	var/ascendable = FALSE
+	var/can_jaunt = TRUE
 
 /datum/antagonist/devil/can_be_owned(datum/mind/new_owner)
 	. = ..()
@@ -121,6 +121,8 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	. = ..()
 	.["Toggle ascendable"] = CALLBACK(src,.proc/admin_toggle_ascendable)
 
+/datum/antagonist/devil/proc/set_jaunt(towhat)
+	can_jaunt = towhat
 
 /datum/antagonist/devil/proc/admin_toggle_ascendable(mob/admin)
 	ascendable = !ascendable
@@ -169,7 +171,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	return pick(OBLIGATION_FOOD, OBLIGATION_FIDDLE, OBLIGATION_DANCEOFF, OBLIGATION_GREET, OBLIGATION_PRESENCEKNOWN, OBLIGATION_SAYNAME, OBLIGATION_ANNOUNCEKILL, OBLIGATION_ANSWERTONAME)
 
 /proc/randomdevilban()
-	return pick(BAN_HURTWOMAN, BAN_CHAPEL, BAN_HURTPRIEST, BAN_AVOIDWATER, BAN_STRIKEUNCONSCIOUS, BAN_HURTLIZARD, BAN_HURTANIMAL)
+	return pick(BAN_SALT,BAN_CHAPEL,BAN_ANIMAL,BAN_SILVER,BAN_RUNES,BAN_TRASH)
 
 /proc/randomdevilbane()
 	return pick(BANE_SALT, BANE_LIGHT, BANE_IRON, BANE_WHITECLOTHES, BANE_SILVER, BANE_HARVEST, BANE_TOOLBOX)
@@ -181,6 +183,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	if(soulsOwned.Find(soul))
 		return
 	soulsOwned += soul
+	set_jaunt(TRUE)
 	owner.current.set_nutrition(NUTRITION_LEVEL_FULL)
 	to_chat(owner.current, "<span class='warning'>You feel satiated as you received a new soul.</span>")
 	update_hud()
@@ -344,6 +347,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 /datum/antagonist/devil/proc/give_base_spells()
 	owner.AddSpell(new /obj/effect/proc_holder/spell/aimed/fireball/hellish(null))
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/conjure_item/summon_pitchfork(null))
+	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/infernal_jaunt(null))
 
 /datum/antagonist/devil/proc/give_blood_spells()
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/conjure_item/summon_pitchfork(null))

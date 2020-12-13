@@ -101,13 +101,15 @@
 	action_icon_state = "jaunt"
 	action_background_icon_state = "bg_demon"
 	phase_allowed = TRUE
+	stat_allowed = TRUE
 
 /obj/effect/proc_holder/spell/targeted/infernal_jaunt/cast(list/targets, mob/living/user = usr)
-	if(istype(user))
+	if(istype(user) && user.mind)
+		var/datum/antagonist/devil/satin = user.mind.has_antag_datum(/datum/antagonist/devil)
 		if(istype(user.loc, /obj/effect/dummy/phased_mob/slaughter/))
 			if(valid_location(user))
 				to_chat(user, "<span class='warning'>You are now phasing in.</span>")
-				if(do_mob(user,user,150))
+				if(do_mob(user,user,5 SECONDS))
 					if(valid_location(user))
 						user.infernalphasein()
 					else
@@ -118,27 +120,55 @@
 				revert_cast()
 				return ..()
 		else
-			user.notransform = TRUE
-			user.fakefire()
-			to_chat(src, "<span class='warning'>You begin to phase back into sinful flames.</span>")
-			if(do_mob(user,user,150))
-				user.infernalphaseout()
+			if (satin && satin.can_jaunt)
+				if (!user.stat && !satin.check_banishment(user))
+					to_chat(user, "<span class='warning'>You have been banished from using your powers.</span>")
+					return FALSE
+				user.notransform = TRUE
+				user.fakefire()
+				if(do_mob(user,user,3 SECONDS))
+					to_chat(src, "<span class='warning'>You phase back into sinful flames.</span>")
+					satin.set_jaunt(FALSE)
+					user.infernalphaseout()
+				else
+					user.notransform = FALSE
+					user.fakefireextinguish()
 			else
-				to_chat(user, "<span class='warning'>You must remain still while exiting.</span>")
-				user.notransform = FALSE
-				user.fakefireextinguish()
+				to_chat(user, "<span class='warning'>You must sign a contract before you can jaunt again.</span>")
 		start_recharge()
 		return
 	revert_cast()
 
 /obj/effect/proc_holder/spell/targeted/infernal_jaunt/proc/valid_location(mob/living/user = usr)
-	if(istype(get_area(user), /area/shuttle/)) // Can always phase in in a shuttle.
+	if (!user.mind)
 		return TRUE
-	else
-		for(var/mob/living/C in orange(2, get_turf(user))) //Can also phase in when nearby a potential buyer.
-			if (C.owns_soul())
-				return TRUE
-	return FALSE
+	var/datum/antagonist/devil/satin = user.mind.has_antag_datum(/datum/antagonist/devil)
+	var/pick_range = 10
+	if (satin)
+		switch(satin.ban)
+			if (BAN_SALT)
+				for(var/obj/I in orange(pick_range, get_turf(user)))
+					if (istype(I,/obj/effect/decal/cleanable/food/salt) || istype(I,/obj/item/reagent_containers/food/condiment/saltshaker))
+						return FALSE
+			if (BAN_CHAPEL)
+				var/area/A = get_area(user)
+				if(istype(A, /area/chapel))
+					return FALSE
+			if (BAN_ANIMAL)
+				for(var/mob/living/simple_animal/A in orange(pick_range, get_turf(user)))
+					return FALSE
+			if (BAN_SILVER)
+				for(var/obj/I in orange(pick_range, get_turf(user)))
+					if (istype(I,/obj/structure/mineral_door/silver) || istype(I,/obj/item/coin/silver) || istype(I,/obj/structure/statue/silver) || istype(I,/obj/item/stack/sheet/mineral/silver))
+						return FALSE
+			if (BAN_TRASH)
+				for(var/obj/item/trash/I in orange(pick_range, get_turf(user)))
+					return FALSE
+			if (BAN_RUNES)
+				for(var/obj/effect/decal/cleanable/crayon/C in orange(pick_range, get_turf(user)))
+					if (C.icon_state == "rune1" || C.icon_state == "rune2" || C.icon_state == "rune3" || C.icon_state == "rune4" || C.icon_state == "rune5")
+						return FALSE
+	return TRUE
 
 /mob/living/proc/infernalphaseout()
 	dust_animation()
@@ -156,9 +186,10 @@
 	if(notransform)
 		to_chat(src, "<span class='warning'>You're too busy to jaunt in.</span>")
 		return FALSE
-	fakefire()
+	fakefire()	
 	forceMove(drop_location())
-	client.eye = src
+	revive(TRUE,FALSE)
+	client.eye = src	
 	visible_message("<span class='warning'><B>[src] appears in a fiery blaze!</B></span>")
 	playsound(get_turf(src), 'sound/magic/exit_blood.ogg', 100, 1, -1)
 	addtimer(CALLBACK(src, .proc/fakefireextinguish), 15, TIMER_UNIQUE)
