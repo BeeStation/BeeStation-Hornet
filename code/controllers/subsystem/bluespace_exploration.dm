@@ -50,6 +50,11 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	//The queue for z-levels to wipe
 	var/list/z_level_queue
 
+	//=====Other====
+	//Our main bluespace drive
+	var/main_bluespace_drive
+	var/list/bluespace_drives
+
 /datum/controller/subsystem/bluespace_exploration/New()
 	. = ..()
 	//Hello lists (Maximum internal arrays exceeded need for this)
@@ -63,6 +68,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	star_systems = list()
 	ruin_templates = list()
 	star_links = list()
+	bluespace_drives = list()
 
 /datum/controller/subsystem/bluespace_exploration/Initialize(start_timeofday)
 	. = ..()

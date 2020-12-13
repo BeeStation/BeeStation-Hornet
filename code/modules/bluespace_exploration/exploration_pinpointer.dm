@@ -4,8 +4,8 @@
 
 /obj/item/pinpointer/exploration/Initialize()
 	. = ..()
-	if(GLOB.main_bluespace_drive)
-		target = GLOB.main_bluespace_drive
+	if(SSbluespace_exploration.main_bluespace_drive)
+		target = SSbluespace_exploration.main_bluespace_drive
 
 /obj/item/pinpointer/exploration/attack_obj(obj/O, mob/living/user)
 	. = ..()
