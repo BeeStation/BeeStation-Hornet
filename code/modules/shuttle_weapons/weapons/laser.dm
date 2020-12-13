@@ -8,7 +8,7 @@
 
 /obj/item/wallframe/shuttle_weapon/laser
 	name = "Laser Cannon Mount"
-	result_path = /obj/item/projectile/bullet/shuttle/beam/laser
+	result_path = /obj/machinery/shuttle_weapon/laser
 
 //Triple Laser
 
@@ -20,7 +20,7 @@
 
 /obj/item/wallframe/shuttle_weapon/laser/triple
 	name = "Burst Laser Mount"
-	result_path = /obj/item/projectile/bullet/shuttle/beam/laser/triple
+	result_path = /obj/machinery/shuttle_weapon/laser/triple
 
 //Mark 2 Laser
 
@@ -32,4 +32,4 @@
 
 /obj/item/wallframe/shuttle_weapon/laser/triple/mark2
 	name = "Burst Laser MKII Mount"
-	result_path = /obj/item/projectile/bullet/shuttle/beam/laser/triple/mark2
+	result_path = /obj/machinery/shuttle_weapon/laser/triple/mark2
