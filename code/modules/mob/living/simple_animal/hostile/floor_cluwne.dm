@@ -328,7 +328,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 							forceMove(H.loc)
 				to_chat(H, "<span class='userdanger'>You feel the floor closing in on your feet!</span>")
 				H.Paralyze(300)
-				H.emote("scream")
+				INVOKE_ASYNC(H, /mob.proc/emote, "scream")
 				H.adjustBruteLoss(10)
 				manifested = TRUE
 				Manifest()

@@ -348,6 +348,12 @@
 	icon_state = "alebottle"
 	list_reagents = list(/datum/reagent/consumable/ethanol/ale = 100)
 
+/obj/item/reagent_containers/food/drinks/bottle/homemaderum
+	name = "Cookie's Homemade Rum"
+	desc = "Brewed all the way back on Space Station 3. Might tell you where those basket-hats of fruit keep coming from."
+	icon_state = "moonshinebottle"
+	list_reagents = list(/datum/reagent/consumable/ethanol/rum = 95, /datum/reagent/drug/mushroomhallucinogen = 5)
+
 //////////////////////////JUICES AND STUFF ///////////////////////
 
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice

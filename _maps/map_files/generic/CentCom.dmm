@@ -6976,6 +6976,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
+"qM" = (
+/obj/machinery/power/emitter/ctf{
+	dir = 8
+	},
+/turf/open/floor/circuit,
+/area/ctf)
 "qN" = (
 /obj/structure/mopbucket,
 /obj/item/soap/syndie,
@@ -10832,7 +10838,7 @@
 /area/wizard_station)
 "zp" = (
 /obj/structure/closet/crate{
-	opened = TRUE
+	opened = 1
 	},
 /obj/item/clothing/suit/wizrobe/red,
 /obj/item/clothing/head/wizard/red,
@@ -14617,7 +14623,7 @@
 /area/tdome/tdomeobserve)
 "Hz" = (
 /obj/structure/barricade/security/ctf,
-/turf/open/floor/circuit/telecomms,
+/turf/open/floor/circuit,
 /area/ctf)
 "HA" = (
 /obj/structure/sink{
@@ -17085,7 +17091,7 @@
 /obj/machinery/power/emitter/ctf{
 	dir = 4
 	},
-/turf/open/floor/circuit/telecomms,
+/turf/open/floor/circuit,
 /area/ctf)
 "Oj" = (
 /obj/machinery/door/firedoor,
@@ -17363,12 +17369,6 @@
 /obj/structure/window/reinforced/spawner/north,
 /obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/plasteel/dark,
-/area/ctf)
-"Qd" = (
-/obj/machinery/power/emitter/ctf{
-	dir = 8
-	},
-/turf/open/floor/circuit/telecomms,
 /area/ctf)
 "Qe" = (
 /turf/open/ai_visible,
@@ -18263,7 +18263,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/evac)
 "Wi" = (
-/turf/open/floor/circuit/telecomms,
+/turf/open/floor/circuit,
 /area/ctf)
 "Wj" = (
 /obj/machinery/light/small{
@@ -69025,13 +69025,13 @@ aa
 aa
 aa
 fZ
-Qd
+qM
 gl
 Xu
 Xu
 Xu
 gl
-Qd
+qM
 fZ
 Xu
 Xu
@@ -83180,9 +83180,9 @@ gA
 gR
 gR
 fZ
-Qd
+qM
 hC
-Qd
+qM
 fZ
 aa
 aa
@@ -83952,7 +83952,7 @@ gR
 gR
 fZ
 fZ
-Qd
+qM
 fZ
 aa
 aa
