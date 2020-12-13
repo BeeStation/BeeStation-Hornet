@@ -293,8 +293,7 @@
 	if(shuttle_aim)
 		for(var/ship_key in SSbluespace_exploration.tracked_ships)
 			var/datum/ship_datum/ship = SSbluespace_exploration.tracked_ships[ship_key]
-			var/obj/docking_port/mobile/M = SSshuttle.getShuttle(ship_key)
-			if(M && ship.combat_allowed && M.z == z)
+			if(SSshuttle.getShuttle(ship_key) && ship.combat_allowed)
 				options[ship.ship_name] = ship
 	var/V = input(user,"Select target", "Select target",null) in options|null
 	target = options[V]
