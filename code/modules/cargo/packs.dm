@@ -893,7 +893,7 @@
 
 /datum/supply_pack/engineering/bsa
 	name = "Bluespace Artillery Parts"
-	desc = "The pride of Nanotrasen Naval Command. The legendary Bluespace Artillery Cannon is a devastating feat of human engineering and testament to wartime determination. Highly advanced research is required for proper construction. "
+	desc = "The pride of Nanotrasen Naval Command. The legendary Bluespace Artillery Cannon is a devastating feat of human engineering and testament to wartime determination. Capable of destroying hostile shuttles and designated targets through dimensional shifting. Highly advanced research is required for proper construction. "
 	cost = 15000
 	special = TRUE
 	contains = list(/obj/item/circuitboard/machine/bsa/front,

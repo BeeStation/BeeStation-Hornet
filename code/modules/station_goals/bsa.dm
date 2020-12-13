@@ -6,7 +6,7 @@
 	name = "Bluespace Artillery"
 
 /datum/station_goal/bluespace_cannon/get_report()
-	return {"Our military presence is inadequate in your sector.
+	return {"Our military presence is inadequate in your sector, and the syndicate are ramping up their hostilities.
 	 We need you to construct BSA-[rand(1,99)] Artillery position aboard your station.
 
 	 Base parts are available for shipping via cargo.
