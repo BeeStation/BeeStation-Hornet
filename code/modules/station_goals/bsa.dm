@@ -242,6 +242,7 @@
 	var/notice
 	var/target
 	var/area_aim = FALSE //should also show areas for targeting
+	var/shuttle_aim = TRUE	//Shows bluespace tracked shuttles
 
 
 /obj/machinery/computer/bsa_control/ui_state(mob/user)
@@ -289,6 +290,12 @@
 	var/list/options = gps_locators
 	if(area_aim)
 		options += GLOB.teleportlocs
+	if(shuttle_aim)
+		for(var/ship_key in SSbluespace_exploration.tracked_ships)
+			var/datum/ship_datum/ship = SSbluespace_exploration.tracked_ships[ship_key]
+			var/obj/docking_port/mobile/M = SSshuttle.getShuttle(ship_key)
+			if(M && ship.combat_allowed && M.z == z)
+				options[ship.ship_name] = ship
 	var/V = input(user,"Select target", "Select target",null) in options|null
 	target = options[V]
 
@@ -299,6 +306,9 @@
 	else if(istype(target, /datum/component/gps))
 		var/datum/component/gps/G = target
 		return G.gpstag
+	else if(istype(target, /datum/ship_datum))
+		var/datum/ship_datum/ship = target
+		return ship.ship_name
 
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()
 	if(istype(target, /area))
@@ -306,6 +316,10 @@
 	else if(istype(target, /datum/component/gps))
 		var/datum/component/gps/G = target
 		return get_turf(G.parent)
+	else if(istype(target, /datum/ship_datum))
+		var/datum/ship_datum/ship = target
+		var/obj/docking_port/mobile/M = SSshuttle.getShuttle(ship.mobile_port_id)
+		return pick(M.return_turfs())
 
 /obj/machinery/computer/bsa_control/proc/fire(mob/user)
 	if(cannon.stat)

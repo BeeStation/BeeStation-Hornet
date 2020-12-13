@@ -29,8 +29,9 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 	var/turf/target_turf
 	var/next_shot_world_time = 0
 
+	//For weapons that are side mounted (None after new sprites, but support is still here.)
 	var/side = WEAPON_SIDE_LEFT
-	var/directional_offset = 32
+	var/directional_offset = 0
 	var/offset_turf_x = 0
 	var/offset_turf_y = 0
 

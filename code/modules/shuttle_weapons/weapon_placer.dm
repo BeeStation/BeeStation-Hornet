@@ -2,6 +2,8 @@
 /obj/item/wallframe/shuttle_weapon
 	name = "Shuttle weapon placer"
 	desc = "A mount for placing shuttle weapons onto ships."
+	icon = 'icons/obj/turrets.dmi'
+	icon_state = "syndie_off"
 	//Typepath of the weapon to place
 	result_path = /obj/machinery/shuttle_weapon
 
