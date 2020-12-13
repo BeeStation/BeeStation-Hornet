@@ -429,6 +429,10 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		log_runtime("Bluespace exploration docking failed, returning shuttle to home (Sanity check failed to place shuttle)")
 	shuttle.setTimer(shuttle.ignitionTime)
 	current_system = data_holder.target_star_system
+	for(var/datum/space_level/level as anything in bluespace_systems)
+		if(level.z_value == data_holder.z_value)
+			bluespace_systems[level] = BS_LEVEL_USED
+			break
 	generating = FALSE
 	generating_level = -1
 
@@ -468,7 +472,8 @@ SUBSYSTEM_DEF(bluespace_exploration)
 /datum/controller/subsystem/bluespace_exploration/proc/check_free_levels()
 	var/list/levels_in_use
 	for(var/mob/living/M in GLOB.player_list)
-		levels_in_use |= get_turf(M).z
+		var/turf/T = get_turf(M)
+		levels_in_use |= T.z
 	for(var/datum/space_level/level as anything in bluespace_systems)
 		//Run a quick check to check if the system is free
 		//TRUE if the system is in use, false if there are no cliented mobs in the system

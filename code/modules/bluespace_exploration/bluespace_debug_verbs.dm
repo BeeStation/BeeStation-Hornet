@@ -1,6 +1,7 @@
 GLOBAL_LIST_INIT(bluespace_debug_verbs, list(
 	/client/proc/spawn_ship,
 	/client/proc/check_bluespace_levels,
+	/client/proc/check_level_free,
 ))
 
 /client/proc/enable_exploration_verbs()
@@ -36,6 +37,14 @@ GLOBAL_LIST_INIT(bluespace_debug_verbs, list(
 			message_admins("Incorrect ship type!")
 		SSbluespace_exploration.spawn_and_register_shuttle(S, z_level)
 		message_admins("[key_name_admin(usr)] spawned a hostile ship ([S] - [S.type]) on z-level [z_level]")
+
+/client/proc/check_level_free()
+	set category = "Bluespace Exploration"
+	set name = "Check Free BS Levels"
+	if(!check_rights(R_DEBUG))
+		return
+	SSbluespace_exploration.check_free_levels()
+	check_bluespace_levels()
 
 /client/proc/check_bluespace_levels()
 	set category = "Bluespace Exploration"
