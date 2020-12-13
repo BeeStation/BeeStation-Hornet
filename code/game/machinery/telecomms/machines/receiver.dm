@@ -34,7 +34,8 @@
 
 	if (signal.frequency == FREQ_EXPLORATION)
 		//Exploration signals can be transmitted independantly of the z level
-		if(SSmapping.level_has_any_trait(get_turf(signal.source).z, list(ZTRAIT_BLUESPACE_EXPLORATION, ZTRAIT_AWAY, ZTRAIT_REEBE)))
+		var/turf/source_turf = get_turf(signal.source)
+		if(SSmapping.level_has_any_trait(source_turf.z, list(ZTRAIT_BLUESPACE_EXPLORATION, ZTRAIT_AWAY, ZTRAIT_REEBE)))
 			return TRUE
 
 	//Check for relays
