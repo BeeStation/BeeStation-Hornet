@@ -1,5 +1,6 @@
 GLOBAL_LIST_INIT(bluespace_debug_verbs, list(
-	/client/proc/spawn_ship
+	/client/proc/spawn_ship,
+	/client/proc/check_bluespace_levels,
 ))
 
 /client/proc/enable_exploration_verbs()
@@ -35,3 +36,24 @@ GLOBAL_LIST_INIT(bluespace_debug_verbs, list(
 			message_admins("Incorrect ship type!")
 		SSbluespace_exploration.spawn_and_register_shuttle(S, z_level)
 		message_admins("[key_name_admin(usr)] spawned a hostile ship ([S] - [S.type]) on z-level [z_level]")
+
+/client/proc/check_bluespace_levels()
+	set category = "Bluespace Exploration"
+	set name = "Check Bluespace Exploration"
+	if(!check_rights(R_DEBUG))
+		return
+	to_chat(src, "==== BLUESPACE EXPLORATION OVERVIEW ====")
+	to_chat(src, "Subsystem Status: [SSbluespace_exploration.generating ? "GENERATING IN PROGRESS" : "Not Generating"]")
+	to_chat(src, "Ship Queue Size: [SSbluespace_exploration.ship_traffic_queue.len]")
+	to_chat(src, "Z-Level Wipe Queue Size: [SSbluespace_exploration.z_level_queue.len]")
+	for(var/datum/space_level/level in SSbluespace_exploration.bluespace_systems)
+		var/in_use = SSbluespace_exploration.bluespace_systems[level]
+		var/status = ""
+		switch(in_use)
+			if(BS_LEVEL_IDLE)
+				status = "Idle"
+			if(BS_LEVEL_GENERATING)
+				status = "Generating"
+			if(BS_LEVEL_USED)
+				status = "In Use"
+		to_chat(src, "Z-Level: [level.z_value] ([level.name]): [status]")

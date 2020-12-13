@@ -9,3 +9,8 @@
 
 #define BLUESPACE_DRIVE_BSLEVEL 0
 #define BLUESPACE_DRIVE_SPACELEVEL 1
+
+//Generating status
+#define BS_LEVEL_IDLE 0
+#define BS_LEVEL_GENERATING 1
+#define BS_LEVEL_USED 2

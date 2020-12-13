@@ -72,7 +72,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	//Create z-levels
 //#ifndef LOWMEMORYMODE
 	for(var/i in 1 to CONFIG_GET(number/bluespace_exploration_levels))
-		bluespace_systems[SSmapping.add_new_zlevel("Bluespace Exploration Level [i]", ZTRAITS_BLUESPACE_EXPLORATION)] = FALSE
+		bluespace_systems[SSmapping.add_new_zlevel("Bluespace Exploration Level [i]", ZTRAITS_BLUESPACE_EXPLORATION)] = BS_LEVEL_IDLE
 //#endif
 
 /datum/controller/subsystem/bluespace_exploration/fire(resumed = 0)
@@ -130,11 +130,11 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	//Find a system that is empty and jump to it
 	var/datum/space_level/free_level
 	for(var/key in bluespace_systems)
-		if(!bluespace_systems[key])
+		if(bluespace_systems[key] == BS_LEVEL_IDLE)
 			free_level = key
 			generating_level = free_level.z_value
 			//Mark the system as in use
-			bluespace_systems[key] = TRUE
+			bluespace_systems[key] = BS_LEVEL_GENERATING
 			break	//Don't reserve every BS level like it used to
 	if(!free_level)
 		return
@@ -234,7 +234,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		SSair.remove_from_active(T)
 		// Remove all atoms except abstract mobs
 		var/static/list/ignored_atoms = typecacheof(list(/mob/dead, /mob/camera, /mob/dview))
-		var/list/allowed_contents = typecache_filter_list_reverse(T.GetAllContents(), ignored_atoms)
+		var/list/allowed_contents = typecache_filter_list_reverse(T.contents, ignored_atoms)
 		allowed_contents -= T
 		for(var/i in 1 to allowed_contents.len)
 			var/thing = allowed_contents[i]
@@ -468,12 +468,16 @@ SUBSYSTEM_DEF(bluespace_exploration)
 /datum/controller/subsystem/bluespace_exploration/proc/check_free_levels()
 	var/list/levels_in_use
 	for(var/mob/living/M in GLOB.player_list)
-		if(!(M.z in levels_in_use))
-			levels_in_use += M.z
+		levels_in_use |= M.z
 	for(var/datum/space_level/level as anything in bluespace_systems)
 		//Run a quick check to check if the system is free
 		//TRUE if the system is in use, false if there are no cliented mobs in the system
-		bluespace_systems[level] = (level.z_value in levels_in_use) || level.z_value == generating_level
+		if(level.z_value == generating_level)
+			bluespace_systems[level] = BS_LEVEL_GENERATING
+		else if(level.z_value in levels_in_use)
+			bluespace_systems[level] = BS_LEVEL_USED
+		else
+			bluespace_systems[level] = BS_LEVEL_IDLE
 
 //====================================
 // Factions
