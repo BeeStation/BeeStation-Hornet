@@ -380,8 +380,8 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			if(!spawnable_ship.can_place())
 				continue
 			//Is the ship of the faction of the system?
-			//25% chance for ships to spawn anyway
-			if(!istype(spawnable_ship.faction, system_faction.type) && prob(75))
+			//20% chance for ships to spawn anyway
+			if(prob(80) && !istype(spawnable_ship.faction, system_faction.type))
 				continue
 			if(spawnable_ship.difficulty * (ships_spawned + 1) < threat_left)
 				valid_ships += ship_name
