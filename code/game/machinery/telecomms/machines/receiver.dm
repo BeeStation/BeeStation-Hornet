@@ -28,13 +28,18 @@
 		relay_information(signal, /obj/machinery/telecomms/bus)
 
 /obj/machinery/telecomms/receiver/proc/check_receive_level(datum/signal/subspace/signal)
+	//Check if the reciever is in the z level of sender
 	if (z in signal.levels)
 		return TRUE
 
+	//Check for relays
 	for(var/obj/machinery/telecomms/hub/H in links)
 		for(var/obj/machinery/telecomms/relay/R in H.links)
 			if(R.can_receive(signal) && (R.z in signal.levels))
 				return TRUE
+
+	//Check if sender was on subspace
+	signal.
 
 	return FALSE
 

@@ -303,17 +303,22 @@
 	talk_into(speaker, raw_message, , spans, language=message_language)
 
 // Checks if this radio can receive on the given frequency.
-/obj/item/radio/proc/can_receive(freq, level)
+/obj/item/radio/proc/can_receive(freq, levels)
 	// deny checks
 	if (!on || !listening || wires.is_cut(WIRE_RX))
 		return FALSE
 	if (freq == FREQ_SYNDICATE && !syndie)
 		return FALSE
+	if (freq == FREQ_EXPLORATION)
+		//Bluespace exploration radio can recieve on non station levels
+		for(var/level in levels)
+			if(SSmapping.level_has_any_trait(level, ZTRAIT_BLUESPACE_EXPLORATION))
+				return TRUE
 	if (freq == FREQ_CENTCOM)
 		return independent  // hard-ignores the z-level check
-	if (!(0 in level))
+	if (!(0 in levels))
 		var/turf/position = get_turf(src)
-		if(!position || !(position.z in level))
+		if(!position || !(position.z in levels))
 			return FALSE
 
 	// allow checks: are we listening on that frequency?
