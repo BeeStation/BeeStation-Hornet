@@ -7,7 +7,7 @@
 	suffix = "prisoner_transport"
 	port_id = "encounter"
 
-	difficulty = 4
+	difficulty = 5
 
 /datum/map_template/shuttle/ship/nanotrasen/raven
 	name = "Raven Cruiser"
