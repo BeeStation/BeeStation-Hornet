@@ -312,7 +312,7 @@
 	if (freq == FREQ_EXPLORATION)
 		//Bluespace exploration radio can recieve on non station levels
 		for(var/level in levels)
-			if(SSmapping.level_has_any_trait(level, ZTRAIT_BLUESPACE_EXPLORATION))
+			if(SSmapping.level_has_any_trait(level, list(ZTRAIT_BLUESPACE_EXPLORATION, ZTRAIT_AWAY, ZTRAIT_REEBE)))
 				return TRUE
 	if (freq == FREQ_CENTCOM)
 		return independent  // hard-ignores the z-level check
