@@ -16,3 +16,11 @@
 	port_id = "encounter"
 
 	difficulty = 22
+
+/datum/map_template/shuttle/ship/nanotrasen/cargo
+	name = "Secure Cargo Transport"
+	id = "secure_cargo"
+	suffix = "secure_cargo"
+	port_id = "encounter"
+
+	difficulty = 12
