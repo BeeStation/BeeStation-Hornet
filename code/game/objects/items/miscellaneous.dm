@@ -77,6 +77,37 @@
 			hero_item_list[initial(A.name)] = A
 	return hero_item_list
 
+/obj/item/choice_beacon/mob
+	name = "animal delivery beacon"
+	desc = "There is no faster way."
+	var/default_name = "Vermin"
+	var/obj/mob_choice = /mob/living/simple_animal/pet/cat
+
+/obj/item/choice_beacon/mob/generate_options(mob/living/M)
+	var/input_name = stripped_input(M, "What would you like your new pet to be named?", "New Pet Name", default_name, MAX_NAME_LEN)
+	if(!input_name)
+		return
+	spawn_mob(M,input_name)
+	uses--
+	if(!uses)
+		qdel(src)
+	else
+		to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
+
+/obj/item/choice_beacon/mob/proc/spawn_mob(mob/living/M,name)
+	var/mob/your_pet = new mob_choice()
+	var/obj/structure/closet/supplypod/bluespacepod/pod = new()
+	pod.explosionSize = list(0,0,0,0)
+	your_pet.forceMove(pod)
+	your_pet.name = name
+	var/msg = "<span class=danger>After making your selection, you notice a strange target on the ground. It might be best to step back!</span>"
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(istype(H.ears, /obj/item/radio/headset))
+			msg = "You hear something crackle in your ears for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows: <span class='bold'>One pet delivery straight from Central Command. Stand clear!</span> Message ends.\""
+	to_chat(M, msg)
+
+	new /obj/effect/DPtarget(get_turf(src), pod)
 
 /obj/item/storage/box/hero
 	name = "Courageous Tomb Raider - 1940's."
@@ -111,7 +142,7 @@
 
 /obj/item/storage/box/hero/ghostbuster/PopulateContents()
 	new /obj/item/clothing/glasses/welding/ghostbuster(src)
-	new /obj/item/storage/belt/fannypack/bustin(src)	
+	new /obj/item/storage/belt/fannypack/bustin(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/under/color/khaki/buster(src)
@@ -193,7 +224,7 @@
 			maximum_size = 4
 			to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand].</span>")
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
-	
+
 /obj/item/clothing/head/that/bluespace/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!proximity_flag)

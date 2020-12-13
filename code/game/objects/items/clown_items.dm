@@ -216,3 +216,47 @@
 	desc = "Just looking at this makes you want to giggle."
 	icon_state = "laughter"
 	list_reagents = list(/datum/reagent/consumable/laughter = 50)
+
+/obj/item/choice_beacon/clown
+	name = "amusement beacon"
+	desc = "An armament for pranking."
+	icon_state = "gangtool-purple"
+
+/obj/item/choice_beacon/clown/generate_display_names()
+	var/static/list/items = list()
+	var/list/templist = list(/obj/item/choice_beacon/mob/clown,
+							/obj/item/storage/box/clown/pies,
+							/obj/item/storage/box/clown/toys
+							)
+	for(var/V in templist)
+		var/atom/A = V
+		items[initial(A.name)] = A
+	return items
+
+/obj/item/choice_beacon/mob/clown
+	name = "your very own cake cat"
+	desc = "Word of advice: Keep away from hungry assistants."
+	default_name = "Cookie"
+	mob_choice = /mob/living/simple_animal/pet/cat/cak
+	icon_state = "gangtool-purple"
+
+/obj/item/storage/box/clown/pies
+	name = "Pie Launcher Kit"
+
+/obj/item/storage/box/clown/pies/PopulateContents()
+	new /obj/item/pneumatic_cannon/pie(src)
+	new /obj/item/reagent_containers/food/snacks/pie/cream(src)
+	new /obj/item/reagent_containers/food/snacks/pie/cream(src)
+	new /obj/item/reagent_containers/food/snacks/pie/cream(src)
+	new /obj/item/reagent_containers/food/snacks/pie/cream(src)
+	new /obj/item/reagent_containers/food/snacks/pie/cream(src)
+
+/obj/item/storage/box/clown/toys
+	name = "Arcade Token Kit"
+
+/obj/item/storage/box/clown/toys/PopulateContents()
+	new /obj/item/coin/arcade_token(src)
+	new /obj/item/coin/arcade_token(src)
+	new /obj/item/coin/arcade_token(src)
+	new /obj/item/coin/arcade_token(src)
+	new /obj/item/coin/arcade_token(src)
