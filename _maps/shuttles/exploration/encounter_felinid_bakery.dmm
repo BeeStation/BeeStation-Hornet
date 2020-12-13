@@ -35,6 +35,15 @@
 /obj/machinery/deepfryer,
 /turf/open/floor/plasteel/cafeteria,
 /area/shuttle/exploration/ruin/felinid/bakery)
+"hi" = (
+/obj/machinery/button/door{
+	id = "felinidbakery";
+	name = "Bakesale Offloading Shutters";
+	pixel_x = 25;
+	pixel_y = -7
+	},
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/exploration/ruin/felinid/bakery)
 "hr" = (
 /obj/machinery/vending/dinnerware,
 /turf/open/floor/plasteel/cafeteria,
@@ -75,12 +84,23 @@
 /obj/item/restraints/handcuffs/cable/zipties,
 /turf/open/floor/plasteel,
 /area/shuttle/exploration/ruin/felinid/bakery)
+"ok" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/mask/muzzle,
+/obj/item/restraints/handcuffs,
+/turf/open/floor/wood,
+/area/shuttle/exploration/ruin/felinid/bakery)
 "pp" = (
 /obj/machinery/gibber,
 /turf/open/floor/plasteel/showroomfloor,
 /area/shuttle/exploration/ruin/felinid/bakery)
 "qb" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/exploration/ruin/felinid/bakery)
+"qp" = (
+/obj/structure/bed,
+/obj/item/bedsheet/hos,
+/turf/open/floor/wood,
 /area/shuttle/exploration/ruin/felinid/bakery)
 "qO" = (
 /turf/open/floor/plasteel,
@@ -173,15 +193,6 @@
 /obj/item/reagent_containers/food/condiment/sugar,
 /turf/open/floor/plasteel/cafeteria,
 /area/shuttle/exploration/ruin/felinid/bakery)
-"DI" = (
-/obj/machinery/button/door{
-	id = "felinidbakery";
-	name = "Bakesale Offloading Shutters";
-	pixel_x = 25;
-	pixel_y = -7
-	},
-/turf/template_noop,
-/area/template_noop)
 "DY" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -261,6 +272,11 @@
 	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/exploration/ruin/felinid/bakery)
+"Pf" = (
+/obj/structure/bed,
+/obj/item/bedsheet/hop,
+/turf/open/floor/wood,
+/area/shuttle/exploration/ruin/felinid/bakery)
 "PJ" = (
 /obj/structure/shuttle/engine/heater,
 /obj/effect/spawner/structure/window/shuttle,
@@ -303,12 +319,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/exploration/ruin/felinid/bakery)
-"Ug" = (
-/obj/structure/bed,
-/obj/item/bedsheet/hop,
-/obj/item/restraints/handcuffs,
-/turf/open/floor/wood,
-/area/shuttle/exploration/ruin/felinid/bakery)
 "VK" = (
 /obj/structure/table/reinforced,
 /obj/structure/fans/tiny,
@@ -340,24 +350,9 @@
 
 (1,1,1) = {"
 RC
-RC
-RC
-DI
-RC
-RC
-RC
-RC
-RC
-RC
-RC
-RC
-RC
-"}
-(2,1,1) = {"
-RC
 FB
 FB
-qb
+hi
 yj
 vd
 VK
@@ -368,7 +363,7 @@ FB
 FB
 qb
 "}
-(3,1,1) = {"
+(2,1,1) = {"
 FB
 FB
 nE
@@ -383,7 +378,7 @@ Dt
 rz
 kR
 "}
-(4,1,1) = {"
+(3,1,1) = {"
 ZH
 vl
 SR
@@ -398,7 +393,7 @@ Dt
 rz
 kR
 "}
-(5,1,1) = {"
+(4,1,1) = {"
 ZH
 ti
 qO
@@ -413,7 +408,7 @@ Ff
 qb
 qb
 "}
-(6,1,1) = {"
+(5,1,1) = {"
 ZH
 GN
 SR
@@ -428,7 +423,7 @@ nA
 rz
 kR
 "}
-(7,1,1) = {"
+(6,1,1) = {"
 FB
 FB
 ii
@@ -443,7 +438,7 @@ qX
 rz
 kR
 "}
-(8,1,1) = {"
+(7,1,1) = {"
 RC
 FB
 OB
@@ -458,6 +453,21 @@ FB
 FB
 qb
 "}
+(8,1,1) = {"
+RC
+RC
+RC
+RC
+ZH
+ok
+bP
+qp
+ZH
+RC
+ay
+RC
+RC
+"}
 (9,1,1) = {"
 RC
 RC
@@ -466,7 +476,7 @@ RC
 ZH
 PK
 bP
-Ug
+Pf
 ZH
 RC
 ay

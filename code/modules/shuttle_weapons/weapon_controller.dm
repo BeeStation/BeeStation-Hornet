@@ -210,7 +210,10 @@
 				return
 			found_weapon.fire()
 			//Handle declaring ships rogue
-			
+			var/datum/ship_datum/our_ship = SSbluespace_exploration.tracked_ships[shuttle_id]
+			var/datum/ship_datum/their_ship = SSbluespace_exploration.tracked_ships[selected_ship_id]
+			if(our_ship && their_ship)
+				SSbluespace_exploration.after_ship_attacked(our_ship, their_ship)
 			return TRUE
 
 /obj/machinery/computer/weapons/proc/show_camera_static()

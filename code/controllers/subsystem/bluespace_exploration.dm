@@ -494,12 +494,12 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	return factions[faction_datum]
 
 /datum/controller/subsystem/bluespace_exploration/proc/after_ship_attacked(datum/ship_datum/attacker, datum/ship_datum/victim)
-	var/datum/faction/attacker_faction = attacker.faction
-	var/datum/faction/victim_faction = attacker.faction
+	var/datum/faction/attacker_faction = attacker.ship_faction
+	var/datum/faction/victim_faction = attacker.ship_faction
 	//If the victime doesn't consider the attacker to be hostile, then the attacker ship will be marked as hostile to the victim's faction
 	if(check_faction_alignment(victim_faction, attacker_faction) != FACTION_STATUS_HOSTILE)
 		attacker.rogue_factions |= victim_faction.type
-		log_shuttle("[attacker.name] ([attacker_faction.name]) fired upon neutral/friendly ship [victim.name] ([victim_faction.name]), and was declared hostile to that faction")
+		log_shuttle("[attacker.ship_name] ([attacker_faction.name]) fired upon neutral/friendly ship [victim.ship_name] ([victim_faction.name]), and was declared hostile to that faction")
 
 //====================================
 // Data holder - Simplifys what gets sent as paramaters so we don't have tons of variables some of which won't be used in that proc
