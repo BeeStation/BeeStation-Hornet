@@ -157,9 +157,9 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	if(!istype(SD))
 		SD = new override_type()
 	SD.mobile_port_id = shuttle_id
-	var/datum/faction = new faction
-	SD.ship_faction = faction
-	SD.ship_name = "[faction.tag] [name]"
+	var/datum/instantiated_faction = new faction
+	SD.ship_faction = instantiated_faction
+	SD.ship_name = "[instantiated_faction.tag] [name]"
 	SD.update_ship()
 	if(QDELETED(SD))
 		log_shuttle("Bluespace Exploration Error: Register new ship attempted on a qdeleted ship datum.")
@@ -497,7 +497,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 
 /datum/controller/subsystem/bluespace_exploration/proc/after_ship_attacked(datum/ship_datum/attacker, datum/ship_datum/victim)
 	var/datum/faction/attacker_faction = attacker.ship_faction
-	var/datum/faction/victim_faction = attacker.ship_faction
+	var/datum/faction/victim_faction = victim.ship_faction
 	//If the victime doesn't consider the attacker to be hostile, then the attacker ship will be marked as hostile to the victim's faction
 	if(check_faction_alignment(victim_faction, attacker_faction) != FACTION_STATUS_HOSTILE)
 		attacker.rogue_factions |= victim_faction.type

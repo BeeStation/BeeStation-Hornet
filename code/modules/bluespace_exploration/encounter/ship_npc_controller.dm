@@ -47,7 +47,8 @@
 			continue
 		if(ship in hostile_ships)
 			continue
-		if(check_faction_alignment(ship_faction, ship.ship_faction) == FACTION_STATUS_HOSTILE || (ship_faction in ship.rogue_factions))
+		var/datum/our_faction = ship_faction
+		if(check_faction_alignment(ship_faction, ship.ship_faction) == FACTION_STATUS_HOSTILE || (our_faction.type in ship.rogue_factions))
 			hostile_ships += ship
 	//Pick a target to shoot at, if we aren't already blasting
 	if(target && (target in SSbluespace_exploration.tracked_ships))
@@ -75,6 +76,13 @@
 					break
 				var/list/turfs = port.return_turfs()
 				weapon.fire(pick(turfs))
+				//Handle declaring ships rogue
+				var/datum/ship_datum/our_ship = SSbluespace_exploration.tracked_ships[mobile_port_id]
+				var/datum/ship_datum/their_ship = SSbluespace_exploration.tracked_ships[target.mobile_port_id]
+				if(our_ship && their_ship)
+					SSbluespace_exploration.after_ship_attacked(our_ship, their_ship)
+				else
+					log_shuttle("after_ship_attacked unable to call: [our_ship ? "our ship was valid" : "our ship was null"] ([mobile_port_id]) and/but [their_ship ? "their ship was valid" : "their ship was null"] ([target.mobile_port_id])")
 	if(!has_active_weapons && battle_mode)
 		wants_to_flee = TRUE
 

@@ -470,7 +470,7 @@
 	if(S1)
 		if(initiate_docking(S1) != DOCKING_SUCCESS)
 			WARNING("shuttle \"[id]\" could not enter transit space. Docked at [S0 ? S0.id : "null"]. Transit dock [S1 ? S1.id : "null"].")
-		else
+		else if(S0)
 			if(S0.delete_after)
 				qdel(S0, TRUE)
 			else

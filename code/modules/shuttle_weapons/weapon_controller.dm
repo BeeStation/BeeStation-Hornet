@@ -100,6 +100,9 @@
 	if(!connected_port)
 		log_shuttle("Weapons console linked to [shuttle_id] could not locate a connected port using SSshuttle system.")
 		return data
+	var/datum/ship_datum/our_ship = SSbluespace_exploration.tracked_ships[shuttle_id]
+	if(!our_ship || !our_ship.combat_allowed)
+		return data
 	//Enemy Ships
 	for(var/ship_id in SSbluespace_exploration.tracked_ships)
 		var/datum/ship_datum/ship = SSbluespace_exploration.tracked_ships[ship_id]
@@ -112,6 +115,7 @@
 			continue
 		if(!ship.combat_allowed)
 			continue
+		var/datum/faction/their_faction = ship.ship_faction
 		var/list/other_ship = list(
 			id = ship_id,
 			name = ship.ship_name,
@@ -119,11 +123,10 @@
 			health = ship.integrity_remaining,
 			maxHealth = ship.max_ship_integrity * SHIP_INTEGRITY_FACTOR,
 			critical = ship.critical,
+			//If they consider us hostile (AI works on if we consider them hostile policy, but that is confusing for players to be shot at by 'friendly' ships).
+			hostile = check_faction_alignment(ship.ship_faction, our_ship.ship_faction) == FACTION_STATUS_HOSTILE || (their_faction.type in our_ship.rogue_factions),
 		)
 		data["ships"] += list(other_ship)
-	var/datum/ship_datum/our_ship = SSbluespace_exploration.tracked_ships[shuttle_id]
-	if(!our_ship || !our_ship.combat_allowed)
-		return data
 	var/list/turfs = connected_port.return_turfs()
 	//Weapons
 	for(var/turf/T in turfs)
@@ -202,20 +205,6 @@
 			spell.add_ranged_ability(user, "", TRUE)
 			to_chat(usr, "<span class='notice'>Weapon targetting enabled, select target location.</span>")
 			return TRUE
-		if("fire")
-			var/id = params["id"]
-			var/obj/machinery/shuttle_weapon/found_weapon = GLOB.shuttle_weapons["[id]"]
-			if(!found_weapon)
-				to_chat(usr, "<span class='warning'>Failed to locate weapon system.</span>")
-				return
-			found_weapon.fire()
-			//Handle declaring ships rogue
-			var/datum/ship_datum/our_ship = SSbluespace_exploration.tracked_ships[shuttle_id]
-			var/datum/ship_datum/their_ship = SSbluespace_exploration.tracked_ships[selected_ship_id]
-			if(our_ship && their_ship)
-				SSbluespace_exploration.after_ship_attacked(our_ship, their_ship)
-			else
-				log_shuttle("after_ship_attacked unable to call: [our_ship ? "our ship was valid" : "our ship was null"] ([shuttle_id]) and/but [their_ship ? "their ship was valid" : "their ship was null"] ([selected_ship_id])")
 			return TRUE
 
 /obj/machinery/computer/weapons/proc/show_camera_static()
@@ -245,6 +234,13 @@
 	weapon.target_turf = T
 	INVOKE_ASYNC(weapon, /obj/machinery/shuttle_weapon.proc/fire)
 	to_chat(usr, "<span class='notice'>Weapon target selected successfully.</span>")
+	//Handle declaring ships rogue
+	var/datum/ship_datum/our_ship = SSbluespace_exploration.tracked_ships[shuttle_id]
+	var/datum/ship_datum/their_ship = SSbluespace_exploration.tracked_ships[selected_ship_id]
+	if(our_ship && their_ship)
+		SSbluespace_exploration.after_ship_attacked(our_ship, their_ship)
+	else
+		log_shuttle("after_ship_attacked unable to call: [our_ship ? "our ship was valid" : "our ship was null"] ([shuttle_id]) and/but [their_ship ? "their ship was valid" : "their ship was null"] ([selected_ship_id])")
 
 /obj/machinery/computer/weapons/proc/get_attached_ship()
 	var/turf/our_turf = get_turf(src)

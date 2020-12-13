@@ -143,6 +143,20 @@ export const ShipSearchContent = (props, context) => {
                   Integrity: {ship.health}
                 </ProgressBar>
                 <Divider />
+                {ship.hostile
+                  ? (
+                    <NoticeBox
+                      textAlign="center"
+                      color="red">
+                      HOSTILE
+                    </NoticeBox>
+                  ) : (
+                    <NoticeBox
+                      textAlign="center"
+                      color="green">
+                      Neutral
+                    </NoticeBox>
+                  )}
                 {ship.id === selectedShip
                   ? (
                     <NoticeBox
