@@ -50,7 +50,7 @@
 	desc = "Can be modified using a screwdriver."
 	build_path = /obj/machinery/computer/communications
 	var/lastTimeUsed = 0
-	var/insecure = FALSE // Forbids shuttles that are set as illegal. 
+	var/insecure = FALSE // Forbids shuttles that are set as illegal.
 
 /obj/item/circuitboard/computer/communications/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
@@ -294,14 +294,18 @@
 
 /obj/item/circuitboard/computer/shuttle/flight_control
 	name = "Shuttle Flight Control (Computer Board)"
-	icon_state = "generic"
+	icon_state = "engineering"
 	build_path = /obj/machinery/computer/system_map/custom_shuttle
 
 /obj/item/circuitboard/computer/shuttle/docker
 	name = "Shuttle Navigation Computer (Computer Board)"
-	icon_state = "generic"
+	icon_state = "engineering"
 	build_path = /obj/machinery/computer/camera_advanced/shuttle_docker/custom
 
+/obj/item/circuitboard/computer/shuttle/weapons
+	name = "Shuttle Weapons Control (Computer Board)"
+	icon_state = "security"
+	build_path = /obj/machinery/computer/weapons
 
 //Medical
 

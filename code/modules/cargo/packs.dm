@@ -955,26 +955,9 @@
 
 /datum/supply_pack/engineering/shuttle_construction
 	name = "Shuttle Construction Kit"
-	desc = "A DIY kit for building your own shuttle! Comes with all the parts you need to get your people to the stars!"
+	desc = "A DIY kit for building your own shuttle! Comes with all the parts you need to get your people to the stars and a free laser cannon too, not that you will need it in these friendly parts of space!"
 	cost = 6000
-	contains = list(
-		/obj/machinery/portable_atmospherics/canister/toxins,
-		/obj/item/construction/rcd/loaded,
-		/obj/item/rcd_ammo/large,
-		/obj/item/rcd_ammo/large,
-		/obj/item/shuttle_creator,
-		/obj/item/pipe_dispenser,
-		/obj/item/storage/toolbox/mechanical,
-		/obj/item/storage/toolbox/electrical,
-		/obj/item/circuitboard/computer/shuttle/docker,
-		/obj/item/circuitboard/computer/shuttle/flight_control,
-		/obj/item/circuitboard/machine/shuttle/engine/plasma,
-		/obj/item/circuitboard/machine/shuttle/engine/plasma,
-		/obj/item/circuitboard/machine/shuttle/heater,
-		/obj/item/circuitboard/machine/shuttle/heater
-		)
-	crate_name = "shuttle construction crate"
-	crate_type = /obj/structure/closet/crate/large
+	crate_type = /obj/structure/closet/crate/large/shuttle
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////// Engine Construction /////////////////////////////////

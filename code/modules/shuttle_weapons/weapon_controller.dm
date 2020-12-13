@@ -9,7 +9,7 @@
 	desc = "a computer for controlling the weapon systems of your shuttle."
 	icon_screen = "cameras"
 	icon_keyboard = "security_key"
-	circuit = /obj/item/circuitboard/computer/security
+	circuit = /obj/item/circuitboard/computer/shuttle/weapons
 	light_color = LIGHT_COLOR_RED
 
 	var/list/weapon_weakrefs = list()	//A list of weakrefs to the weapon systems

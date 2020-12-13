@@ -46,3 +46,29 @@
 			to_chat(user, "<span class='warning'>You need a crowbar to pry this open!</span>")
 			return FALSE //Just stop. Do nothing. Don't turn into an invisible sprite. Don't open like a locker.
 					//The large crate has no non-attack interactions other than the crowbar, anyway.
+
+/obj/structure/closet/crate/large/shuttle
+	name = "Shuttle Construction Kit"
+	desc = "An all you can build shuttle construction kit, complete with basic weapon systems."
+
+/obj/structure/closet/crate/large/shuttle/PopulateContents()
+	..()
+	new /obj/machinery/portable_atmospherics/canister/toxins(src)
+	new /obj/item/construction/rcd/loaded(src)
+	new /obj/item/rcd_ammo/large(src)
+	new /obj/item/rcd_ammo/large(src)
+	new /obj/item/shuttle_creator(src)
+	new /obj/item/pipe_dispenser(src)
+	new /obj/item/storage/toolbox/mechanical(src)
+	new /obj/item/storage/toolbox/electrical(src)
+	new /obj/item/circuitboard/computer/shuttle/docker(src)
+	new /obj/item/circuitboard/computer/shuttle/flight_control(src)
+	new /obj/item/circuitboard/machine/shuttle/engine/plasma(src)
+	new /obj/item/circuitboard/machine/shuttle/engine/plasma(src)
+	new /obj/item/circuitboard/machine/shuttle/heater(src)
+	new /obj/item/circuitboard/machine/shuttle/heater(src)
+	new /obj/item/wallframe/shuttle_weapon/laser(src)
+	new /obj/item/storage/part_replacer/bluespace/tier2(src)
+	new /obj/item/electronics/apc(src)
+	new /obj/item/stock_parts/cell/high/plus(src)
+	new /obj/item/circuitboard/computer/shuttle/weapons(src)
