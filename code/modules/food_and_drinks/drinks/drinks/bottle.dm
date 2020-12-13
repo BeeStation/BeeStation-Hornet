@@ -21,10 +21,10 @@
 	if(isliving(hitby))
 		var/mob/living/L = hitby
 		smash(L)
-	else 
+	else
 		smash()
 	return TRUE
-	
+
 
 /obj/item/reagent_containers/food/drinks/bottle/smash(mob/living/target, mob/thrower, ranged = FALSE)
 	//Creates a shattering noise and replaces the bottle with a broken_bottle
@@ -335,6 +335,18 @@
 	desc = "A bottle of pure Fernet Bronca, produced in Cordoba Space Station"
 	icon_state = "fernetbottle"
 	list_reagents = list(/datum/reagent/consumable/ethanol/fernet = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/beer
+	name = "Space Beer"
+	desc = "Beer. In space. In a bigger bottle."
+	icon_state = "beer"
+	list_reagents = list(/datum/reagent/consumable/ethanol/beer = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/ale
+	name = "Magm-Ale"
+	desc = "A true dorf's drink of choice, now in a MANLY bottle."
+	icon_state = "alebottle"
+	list_reagents = list(/datum/reagent/consumable/ethanol/ale = 100)
 
 //////////////////////////JUICES AND STUFF ///////////////////////
 
