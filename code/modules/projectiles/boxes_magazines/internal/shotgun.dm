@@ -46,8 +46,3 @@
 	name = "breaching shotgun internal magazine"
 	ammo_type = /obj/item/ammo_casing/shotgun/breacher
 	max_ammo = 3
-
-/obj/item/ammo_box/magazine/internal/shot/lever
-	name = "lever action shotgun internal magazine"
-	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
-	max_ammo = 5
