@@ -44,7 +44,7 @@
 	switch(A.stage)
 		if(2)
 			if(prob(base_message_chance))
-				to_chat(M, "<span class='notice'>Your skin feels scaly</span>")
+				to_chat(M, "<span class='notice'>Your skin feels scaly.</span>")
 		if(3, 4)
 			if(prob(base_message_chance))
 				to_chat(M, "<span class='notice'>[pick("Your skin is hard.", "You feel stronger.", "You feel powerful.")]</span>")

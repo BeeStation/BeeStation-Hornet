@@ -87,7 +87,6 @@ GENE SCANNER
 	throw_speed = 3
 	throw_range = 7
 	materials = list(/datum/material/iron=200)
-	var/mode = 1
 	var/scanmode = 0
 	var/advanced = FALSE
 
@@ -121,7 +120,7 @@ GENE SCANNER
 						"<span class='notice'>You analyze [M]'s vitals.</span>")
 
 	if(scanmode == 0)
-		healthscan(user, M, mode, advanced)
+		healthscan(user, M, advanced)
 	else if(scanmode == 1)
 		chemscan(user, M)
 
@@ -249,7 +248,7 @@ GENE SCANNER
 
 
 	// Body part damage report
-	if(iscarbon(M) && mode == 1)
+	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		var/list/damaged = C.get_damaged_bodyparts(1,1)
 		if(length(damaged)>0 || oxy_loss>0 || tox_loss>0 || fire_loss>0)
@@ -424,20 +423,6 @@ GENE SCANNER
 			else
 				to_chat(user, "<span class='notice'>Subject is not addicted to any reagents.</span>")
 
-/obj/item/healthanalyzer/verb/toggle_mode()
-	set name = "Switch Verbosity"
-	set category = "Object"
-
-	if(usr.incapacitated())
-		return
-
-	mode = !mode
-	switch (mode)
-		if(1)
-			to_chat(usr, "The scanner now shows specific limb damage.")
-		if(0)
-			to_chat(usr, "The scanner no longer shows limb damage.")
-
 /obj/item/healthanalyzer/advanced
 	name = "advanced health analyzer"
 	icon_state = "health_adv"
@@ -474,6 +459,15 @@ GENE SCANNER
 /obj/item/analyzer/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins to analyze [user.p_them()]self with [src]! The display shows that [user.p_theyre()] dead!</span>")
 	return BRUTELOSS
+
+/obj/item/analyzer/attackby(obj/O, mob/living/user)
+	if(istype(O, /obj/item/bodypart/l_arm/robot) || istype(O, /obj/item/bodypart/r_arm/robot))
+		to_chat(user, "<span class='notice'>You add [O] to [src].</span>")
+		qdel(O)
+		qdel(src)
+		user.put_in_hands(new /obj/item/bot_assembly/atmosbot)
+	else
+		..()
 
 /obj/item/analyzer/attack_self(mob/user)
 	add_fingerprint(user)
@@ -529,7 +523,6 @@ GENE SCANNER
 		to_chat(user, "<span class='info'>Temperature: [round(environment.return_temperature()-T0C, 0.01)] &deg;C ([round(environment.return_temperature(), 0.01)] K)</span>")
 
 /obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
-	..()
 
 	if(user.canUseTopic(src, BE_CLOSE))
 
@@ -863,7 +856,7 @@ GENE SCANNER
 		icon_state = "extrapolator_sample"
 		scan = FALSE
 		to_chat(user, "<span class='notice'>You remove the probe from the device and set it to EXTRACT</span>")
-	else 
+	else
 		icon_state = "extrapolator_scan"
 		scan = TRUE
 		to_chat(user, "<span class='notice'>You put the probe back in the device and set it to SCAN</span>")
@@ -879,10 +872,10 @@ GENE SCANNER
 			. += "<span class='warning'>The extrapolator is still recharging!</span>"
 		else
 			. += "<span class='info'>The extrapolator is ready to use!</span>"
-	
+
 
 /obj/item/extrapolator/attack(atom/AM, mob/living/user)
-	return 
+	return
 
 /obj/item/extrapolator/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -894,7 +887,7 @@ GENE SCANNER
 				to_chat(user, "<span class='notice'>the extrapolator fails to return any data</span>")
 			else
 				to_chat(user, "<span class='notice'>the extrapolator's probe detects no diseases</span>")
-	else 
+	else
 		to_chat(user, "<span class='warning'>the extrapolator has no scanner installed</span>")
 
 /obj/item/extrapolator/proc/scan(atom/AM, var/list/diseases = list(), mob/user)
@@ -926,12 +919,12 @@ GENE SCANNER
 	if(isolate)
 		for(var/datum/symptom/S in A.symptoms)
 			if(S.level <= 6 + scanner.rating)
-				symptoms += S 
+				symptoms += S
 			continue
 		var/datum/symptom/chosen = input(user,"What symptom do you wish to isolate") in null|symptoms
 		var/datum/disease/advance/symptomholder = new
-		if(!symptoms.len || !chosen) 
-			to_chat(user, "<span class='warning'>There are no valid diseases to isolate a symptom from.</span>")	
+		if(!symptoms.len || !chosen)
+			to_chat(user, "<span class='warning'>There are no valid diseases to isolate a symptom from.</span>")
 			return
 		symptomholder.name = chosen.name
 		symptomholder.symptoms += chosen
@@ -956,4 +949,4 @@ GENE SCANNER
 	user.put_in_hands(B)
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 	return TRUE
-	
+

@@ -689,7 +689,7 @@
 	template_height = 3
 	template_width = 3
 	weight = 3
-	
+
 /datum/map_template/random_room/sk_rdm082
 	name = "Maint Chemistry"
 	room_id = "sk_rdm082_maintmedical"
@@ -1161,25 +1161,6 @@
 	template_width = 10
 	weight = 3
 
-
-/datum/map_template/random_room/sk_rdm135 //this room is fun.
-	name = "Cluwne Altar"
-	room_id = "sk_rdm135_cluwnealtar"
-	mappath = "_maps/RandomRooms/10x10/sk_rdm135_cluwnealtar.dmm"
-	centerspawner = FALSE
-	template_height = 10
-	template_width = 10
-	weight = 2 //may be a bit higher than it should be, but the 10x10 pool is very saturated relative to how many spawn, and the art of using this rune will likely be forgotten
-
-/datum/map_template/random_room/sk_rdm136 //this room is fun as well
-	name = "Tiny Cluwne Altar"
-	room_id = "sk_rdm136_tinycluwnealtar"
-	mappath = "_maps/RandomRooms/5x4/sk_rdm136_tinycluwnealtar.dmm"
-	centerspawner = FALSE
-	template_height = 4
-	template_width = 5
-	weight = 1 //but this one is tiny and uncinematic and bad
-
 /datum/map_template/random_room/sk_rdm137
 	name = "Tiny psych ward"
 	room_id = "sk_rdm137_tinyshrink"
@@ -1198,7 +1179,7 @@
 	template_width = 5
 	weight = 4
 
-/datum/map_template/random_room/sk_rdm139 
+/datum/map_template/random_room/sk_rdm139
 	name = "containment cell"
 	room_id = "sk_rdm139_containmentcell"
 	mappath = "_maps/RandomRooms/3x3/containmentcell.dmm"
@@ -1215,3 +1196,148 @@
 	template_height = 5
 	template_width = 3
 	weight = 2
+
+/datum/map_template/random_room/sk_rdm141
+	name = "the place 6 sectors down"
+	room_id = "sk_rdm141_6sectorsdown"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm141_6sectorsdown.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+	weight = 2
+
+/datum/map_template/random_room/sk_rdm142
+	name = "old diner"
+	room_id = "sk_rdm142_olddiner"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm142_olddiner.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+	weight = 4
+
+/datum/map_template/random_room/sk_rdm143
+	name = "gamer cave"
+	room_id = "sk_rdm143_gamercave"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm143_gamercave.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+	weight = 3
+
+/datum/map_template/random_room/sk_rdm144 //has Stage Magician Spawner
+	name = "small stage and bar"
+	room_id = "sk_rdm144_smallmagician"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm144_smallmagician.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+	weight = 3
+
+/datum/map_template/random_room/sk_rdm145 //has tela anchor
+	name = "lady tesla altar"
+	room_id = "sk_rdm145_ladytesla_altar"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm145_ladytesla_altar.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+	weight = 1 //rare
+
+/datum/map_template/random_room/sk_rdm146
+	name = "blastdoor interchange"
+	room_id = "sk_rdm146_blastdoor_interchange"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm146_blastdoor_interchange.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+	weight = 4 //common
+
+/datum/map_template/random_room/sk_rdm147
+	name = "advanced micro botany"
+	room_id = "sk_rdm147_advbotany"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm147_advbotany.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+	weight = 2
+
+/datum/map_template/random_room/sk_rdm148
+	name = "maintenance apiary"
+	room_id = "sk_rdm148_botany_apiary"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm148_botany_apiary.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+	weight = 2
+
+/datum/map_template/random_room/sk_rdm149
+	name = "space window with crates"
+	room_id = "sk_rdm149_cratewindow"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm149_cratewindow.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	weight = 3
+
+/datum/map_template/random_room/sk_rdm150
+	name = "small medical lobby"
+	room_id = "sk_rdm150_smallmedlobby"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm150_smallmedlobby.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	weight = 3 //common
+
+/datum/map_template/random_room/sk_rdm151 //delicious
+	name = "small medical lobby"
+	room_id = "sk_rdm151_ratburger"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm151_ratburger.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	weight = 1 //rare
+
+/datum/map_template/random_room/sk_rdm152
+	name = "old genetics office"
+	room_id = "sk_rdm152_geneticsoffice"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm152_geneticsoffice.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	weight = 2
+
+/datum/map_template/random_room/sk_rdm153 //its a hobo den featuring Peter the pet frog. Includes a debtor spawn
+	name = "peters room"
+	room_id = "sk_rdm153_hobowithpeter"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm153_hobowithpeter.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	weight = 2
+
+/datum/map_template/random_room/sk_rdm154 //rare, has a cleaver.
+	name = "butchers den"
+	room_id = "sk_rdm154_butchersden"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm154_butchersden.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	weight = 1
+
+/datum/map_template/random_room/sk_rdm155
+	name = "punji stick conveyor trap"
+	room_id = "sk_rdm155_punjiconveyor"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm155_punjiconveyor.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	weight = 1
+
+/datum/map_template/random_room/sk_rdm156
+	name = "ancient interchange"
+	room_id = "sk_rdm156_oldairlock_interchange"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm156_oldairlock_interchange.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	weight = 4
+	stock = 2

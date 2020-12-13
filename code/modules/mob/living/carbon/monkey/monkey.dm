@@ -39,7 +39,7 @@
 			return INITIALIZE_HINT_QDEL
 		SSmobs.cubemonkeys += src
 
-	create_dna(src)
+	create_dna()
 	dna.initialize_dna(random_blood_type())
 
 /mob/living/carbon/monkey/Destroy()
@@ -206,3 +206,11 @@
 	aggressive = TRUE
 	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
 					 /obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
+
+/mob/living/carbon/monkey/tumor/Initialize()
+	. = ..()
+	for(var/datum/mutation/M in dna.mutations)
+		if(istype(M,/datum/mutation/human/race))
+			var/datum/mutation/human/race/R = M
+			R.mutadone_proof = TRUE
+	dna.species.species_traits += NOTRANSSTING

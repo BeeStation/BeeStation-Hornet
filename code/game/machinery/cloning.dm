@@ -60,6 +60,7 @@
 	var/mob/living/mob_occupant = occupant
 	go_out()
 	if(mob_occupant)
+		// Random comment: this is a bad situation since breaking the pod ejects the occupant
 		log_cloning("[key_name(mob_occupant)] ejected from [src] at [AREACOORD(src)] due to Destroy().")
 	QDEL_NULL(radio)
 	QDEL_NULL(countdown)
@@ -94,7 +95,6 @@
 	user.examinate(src)
 
 /obj/machinery/clonepod/AltClick(mob/user)
-	. = ..()
 	if (alert(user, "Are you sure you want to empty the cloning pod?", "Empty Reagent Storage:", "Yes", "No") != "Yes")
 		return
 	to_chat(user, "<span class='notice'>You empty \the [src]'s release valve onto the floor.</span>")
@@ -276,7 +276,7 @@
 /obj/machinery/clonepod/process()
 	var/mob/living/mob_occupant = occupant
 
-	if(!is_operational()) //Autoeject if power is lost
+	if(!is_operational()) //Autoeject if power is lost (or the pod is dysfunctional due to whatever reason)
 		if(mob_occupant)
 			go_out()
 			log_cloning("[key_name(mob_occupant)] ejected from [src] at [AREACOORD(src)] due to power loss.")

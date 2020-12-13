@@ -24,7 +24,7 @@
 				qdel(monster)
 			for(var/obj/structure/flora/ash/plant in T)
 				qdel(plant)
-		
+
 		load(central_turf,centered = TRUE)
 		loaded++
 
@@ -50,7 +50,7 @@
 	var/list/ruins = potentialRuins.Copy()
 
 	var/list/forced_ruins = list()		//These go first on the z level associated (same random one by default)
-	var/list/ruins_availible = list()	//we can try these in the current pass
+	var/list/ruins_available = list()	//we can try these in the current pass
 	var/forced_z	//If set we won't pick z level and use this one instead.
 
 	//Set up the starting ruin list
@@ -62,9 +62,9 @@
 			forced_ruins[R] = -1
 		if(R.unpickable)
 			continue
-		ruins_availible[R] = R.placement_weight
+		ruins_available[R] = R.placement_weight
 
-	while(budget > 0 && (ruins_availible.len || forced_ruins.len))
+	while(budget > 0 && (ruins_available.len || forced_ruins.len))
 		var/datum/map_template/ruin/current_pick
 		var/forced = FALSE
 		if(forced_ruins.len) //We have something we need to load right now, so just pick it
@@ -75,7 +75,7 @@
 				forced = TRUE
 				break
 		else //Otherwise just pick random one
-			current_pick = pickweight(ruins_availible)
+			current_pick = pickweight(ruins_available)
 
 		var/placement_tries = PLACEMENT_TRIES
 		var/failed_to_place = TRUE
@@ -94,23 +94,23 @@
 			//TODO : handle forced ruins with multiple variants
 			forced_ruins -= current_pick
 			forced = FALSE
-		
+
 		if(failed_to_place)
-			for(var/datum/map_template/ruin/R in ruins_availible)
+			for(var/datum/map_template/ruin/R in ruins_available)
 				if(R.id == current_pick.id)
-					ruins_availible -= R
+					ruins_available -= R
 			log_world("Failed to place [current_pick.name] ruin.")
 		else
 			budget -= current_pick.cost
 			if(!current_pick.allow_duplicates)
-				for(var/datum/map_template/ruin/R in ruins_availible)
+				for(var/datum/map_template/ruin/R in ruins_available)
 					if(R.id == current_pick.id)
-						ruins_availible -= R
+						ruins_available -= R
 			if(current_pick.never_spawn_with)
 				for(var/blacklisted_type in current_pick.never_spawn_with)
-					for(var/possible_exclusion in ruins_availible)
+					for(var/possible_exclusion in ruins_available)
 						if(istype(possible_exclusion,blacklisted_type))
-							ruins_availible -= possible_exclusion
+							ruins_available -= possible_exclusion
 			if(current_pick.always_spawn_with)
 				for(var/v in current_pick.always_spawn_with)
 					for(var/ruin_name in SSmapping.ruins_templates) //Because we might want to add space templates as linked of lava templates.
@@ -127,9 +127,9 @@
 									forced_ruins[linked] = -1
 		forced_z = 0
 
-		//Update the availible list
-		for(var/datum/map_template/ruin/R in ruins_availible)
+		//Update the available list
+		for(var/datum/map_template/ruin/R in ruins_available)
 			if(R.cost > budget)
-				ruins_availible -= R
-	
+				ruins_available -= R
+
 	log_world("Ruin loader finished with [budget] left to spend.")

@@ -12,7 +12,10 @@ export const CargoHoldTerminal = (props, context) => {
     status_report,
   } = data;
   return (
-    <Window resizable>
+    <Window
+      resizable
+      width={600}
+      height={230}>
       <Window.Content scrollable>
         <Section>
           <LabeledList>

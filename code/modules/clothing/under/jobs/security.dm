@@ -28,6 +28,14 @@
 	item_state = "gy_suit"
 	item_color = "security"
 
+/obj/item/clothing/under/rank/security/officer/corporate
+	name = "corporate security jumpsuit"
+	desc = "A tactical security jumpsuit in black."
+	icon_state = "sec_corporate_s"
+	item_state = "bl_suit"
+	item_color = "sec_corporate_s"
+	can_adjust = FALSE
+
 /obj/item/clothing/under/rank/security/officer/skirt
 	name = "security jumpskirt"
 	desc = "A \"tactical\" security jumpsuit with the legs replaced by a skirt."

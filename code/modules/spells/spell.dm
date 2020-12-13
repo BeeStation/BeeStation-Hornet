@@ -128,6 +128,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	var/level_max = 4 //The max possible level_max is 4
 	var/cooldown_min = 0 //This defines what spell quickened four times has as a cooldown. Make sure to set this for every spell
 	var/player_lock = TRUE //If it can be used by simple mobs
+	var/invocation_time = 0 //Time needed to cast the spell
 
 	var/overlay = 0
 	var/overlay_icon = 'icons/obj/wizard.dmi'
@@ -159,6 +160,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	else
 		if(!(src in user.mob_spell_list))
 			return FALSE
+
+	if(!do_after(user,invocation_time, target = user, progress = 1)) //checks if there is a invocation time set for this spell and cancels the spell if the user is interrupted.
+		to_chat(user, "<span class='notice'>You get interrupted.</span>")
+		return FALSE
 
 	var/turf/T = get_turf(user)
 	if(is_centcom_level(T.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
