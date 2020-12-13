@@ -217,11 +217,11 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	wipe_process_num = 0
 
 /datum/controller/subsystem/bluespace_exploration/proc/continue_wipe(datum/data_holder/bluespace_exploration/data_holder, list/divided_turfs, process_num)
-	var/list_element = (process_num % (CLEAR_TURF_PROCESSING_TIME/2)) + 1
+	var/list_element = (process_num % (CLEAR_TURF_PROCESSING_TIME*0.5)) + 1
 	switch(process_num)
-		if(0 to (CLEAR_TURF_PROCESSING_TIME/2)-1)
+		if(0 to (CLEAR_TURF_PROCESSING_TIME*0.5)-1)
 			reset_turfs(divided_turfs[list_element])
-		if((CLEAR_TURF_PROCESSING_TIME/2) to (CLEAR_TURF_PROCESSING_TIME-1))
+		if((CLEAR_TURF_PROCESSING_TIME*0.5) to (CLEAR_TURF_PROCESSING_TIME-1))
 			clear_turf_atoms(divided_turfs[list_element])
 		else
 			var/datum/data_holder/bluespace_exploration/data = data_holder
