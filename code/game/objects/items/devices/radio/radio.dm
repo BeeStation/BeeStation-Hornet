@@ -39,6 +39,7 @@
 	var/syndie = FALSE  // If true, hears all well-known channels automatically, and can say/hear on the Syndicate channel.
 	var/list/channels = list()  // Map from name (see communications.dm) to on/off. First entry is current department (:h).
 	var/list/secure_radio_connections
+	var/radio_silent = FALSE // If true, radio doesn't make sound effects (ie for Syndicate internal radio implants)
 
 /obj/item/radio/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] starts bouncing [src] off [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -206,6 +207,13 @@
 		return
 	if(!M.IsVocal())
 		return
+
+	if(!radio_silent)//Radios make small static noises now
+		var/mob/sender = loc
+		if(istype(sender) && sender.hears_radio())
+			var/sound/radio_sound = sound(pick("sound/effects/radio1.ogg", "sound/effects/radio2.ogg"), volume = 50)
+			radio_sound.frequency = get_rand_frequency()
+			SEND_SOUND(sender, radio_sound)
 
 	if(use_command)
 		spans |= SPAN_COMMAND

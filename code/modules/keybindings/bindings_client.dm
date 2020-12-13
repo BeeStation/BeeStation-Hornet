@@ -18,7 +18,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	"GamepadStart" = 1, "GamepadSelect" = 1, "Gamepad2Up" = 1, "Gamepad2Down" = 1, "Gamepad2Left" = 1, "Gamepad2Right" = 1, "Gamepad2DownLeft" = 1,
 	"Gamepad2DownRight" = 1, "Gamepad2UpLeft" = 1, "Gamepad2UpRight" = 1, "Gamepad2Face1" = 1, "Gamepad2Face2" = 1, "Gamepad2Face3" = 1, "Gamepad2Face4" = 1,
 	"Gamepad2R1" = 1, "Gamepad2R2" = 1, "Gamepad2R3" = 1, "Gamepad2L1" = 1, "Gamepad2L2" = 1, "Gamepad2L3" = 1,	"Gamepad2Start" = 1, "Gamepad2Select" = 1,
-	"Gamepad3Up" = 1, "Gamepad3Down" = 1, "Gamepad3Left" = 1, "Gamepad3Right" = 1, "Gamepad3DownLeft" = 1, "Gamepad3DownRight" = 1, "Gamepad3UpLeft" = 1, 
+	"Gamepad3Up" = 1, "Gamepad3Down" = 1, "Gamepad3Left" = 1, "Gamepad3Right" = 1, "Gamepad3DownLeft" = 1, "Gamepad3DownRight" = 1, "Gamepad3UpLeft" = 1,
 	"Gamepad3UpRight" = 1, "Gamepad3Face1" = 1, "Gamepad3Face2" = 1, "Gamepad3Face3" = 1, "Gamepad3Face4" = 1, "Gamepad3R1" = 1, "Gamepad3R2" = 1, "Gamepad3R3" = 1,
 	"Gamepad3L1" = 1, "Gamepad3L2" = 1, "Gamepad3L3" = 1, "Gamepad3Start" = 1, "Gamepad3Select" = 1, "Gamepad4Up" = 1, "Gamepad4Down" = 1, "Gamepad4Left" = 1,
 	"Gamepad4Right" = 1, "Gamepad4DownLeft" = 1,"Gamepad4DownRight" = 1, "Gamepad4UpLeft" = 1, "Gamepad4UpRight" = 1, "Gamepad4Face1" = 1, "Gamepad4Face2" = 1,
@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 		message_admins("Mob [(C.mob)] with the ckey [(C.ckey)] just attempted to send an invalid keypress with length over 32 characters, likely malicious.")
 	else
 		log_admin_private("[key_name(C)] just attempted to send an invalid keypress - \"[key]\", possibly malicious.")
-		message_admins("Mob [(C.mob)] with the ckey [(C.ckey)] just attempted to send an invalid keypress - \"[key]\", possibly malicious.")
+		message_admins("Mob [(C.mob)] with the ckey [(C.ckey)] just attempted to send an invalid keypress - \"[sanitize(key)]\", possibly malicious.")
 
 	return TRUE
 

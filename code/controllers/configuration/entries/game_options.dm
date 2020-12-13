@@ -449,6 +449,9 @@
 
 /datum/config_entry/flag/restricted_suicide
 
+
+/datum/config_entry/flag/dynamic_config_enabled
+
 //====Bluespace exploration====
 
 //Can shuttles jump to random levels? If not then random level clearing will be disabled

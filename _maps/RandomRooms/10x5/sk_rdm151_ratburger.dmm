@@ -1,0 +1,292 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/plating,
+/area/space)
+"b" = (
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/rack,
+/obj/item/storage/box/ingredients/carnivore,
+/obj/item/reagent_containers/food/snacks/bun,
+/obj/item/reagent_containers/food/snacks/bun,
+/obj/item/reagent_containers/food/snacks/bun,
+/obj/item/reagent_containers/food/snacks/bun,
+/obj/item/reagent_containers/food/snacks/bun,
+/obj/item/reagent_containers/food/snacks/bun,
+/obj/item/reagent_containers/food/snacks/bun,
+/turf/open/floor/grass,
+/area/space)
+"c" = (
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/turf/open/floor/plating,
+/area/space)
+"d" = (
+/obj/structure/window/reinforced/spawner/north,
+/obj/machinery/deepfryer,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"g" = (
+/obj/structure/window/reinforced/spawner,
+/mob/living/simple_animal/mouse/gray,
+/turf/open/floor/grass,
+/area/space)
+"h" = (
+/obj/machinery/door/window,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"i" = (
+/turf/closed/wall,
+/area/space)
+"l" = (
+/obj/machinery/microwave,
+/obj/structure/window/reinforced/spawner,
+/obj/structure/table,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"n" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/burger/rat{
+	pixel_x = 4;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/snacks/burger/rat,
+/obj/structure/window/reinforced/spawner,
+/turf/open/floor/monotile/steel,
+/area/space)
+"o" = (
+/obj/structure/chair/stool/bar,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/landmark/event_spawn,
+/turf/open/floor/plating,
+/area/space)
+"p" = (
+/obj/structure/sign/nanotrasen,
+/turf/closed/wall,
+/area/space)
+"r" = (
+/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/east,
+/mob/living/simple_animal/mouse/brown,
+/turf/open/floor/grass,
+/area/space)
+"v" = (
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/space)
+"w" = (
+/obj/structure/rack,
+/obj/item/stack/cable_coil/blue,
+/obj/item/stack/cable_coil/blue,
+/obj/item/kitchen/knife/butcher,
+/obj/item/clothing/suit/hooded/wintercoat/security,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/space)
+"z" = (
+/mob/living/simple_animal/mouse/brown,
+/turf/open/floor/grass,
+/area/space)
+"A" = (
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/reagent_dispensers/cooking_oil,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"B" = (
+/mob/living/simple_animal/mouse/white,
+/turf/open/floor/grass,
+/area/space)
+"C" = (
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/east,
+/mob/living/simple_animal/mouse/gray,
+/turf/open/floor/grass,
+/area/space)
+"D" = (
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/beer{
+	pixel_x = -7;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/drinks/beer{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/drinks/beer{
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/drinks/beer{
+	pixel_x = -1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"F" = (
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/burger/rat{
+	pixel_x = 7;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/snacks/burger/rat{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/snacks/burger/rat,
+/turf/open/floor/monotile/steel,
+/area/space)
+"G" = (
+/obj/machinery/light/small,
+/turf/open/floor/plating,
+/area/space)
+"H" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/space)
+"I" = (
+/obj/structure/chair/stool/bar,
+/obj/effect/landmark/blobstart,
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/space)
+"J" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/space)
+"K" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/reagent_containers/food/snacks/bun,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"L" = (
+/obj/machinery/door/window/eastright,
+/mob/living/simple_animal/mouse/gray,
+/turf/open/floor/grass,
+/area/space)
+"M" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/space)
+"N" = (
+/obj/item/trash/popcorn,
+/turf/open/floor/plating,
+/area/space)
+"O" = (
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/space)
+"Q" = (
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"R" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/turf/open/floor/plating,
+/area/space)
+"S" = (
+/obj/structure/sign/barsign{
+	pixel_y = 32
+	},
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/space)
+"T" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plating,
+/area/space)
+"V" = (
+/obj/structure/window/reinforced/spawner/north,
+/mob/living/simple_animal/mouse/white,
+/turf/open/floor/grass,
+/area/space)
+"Y" = (
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/space)
+
+(1,1,1) = {"
+a
+a
+Y
+H
+a
+"}
+(2,1,1) = {"
+c
+i
+p
+i
+c
+"}
+(3,1,1) = {"
+M
+b
+B
+g
+G
+"}
+(4,1,1) = {"
+v
+V
+z
+g
+a
+"}
+(5,1,1) = {"
+O
+C
+L
+r
+Y
+"}
+(6,1,1) = {"
+S
+d
+K
+l
+a
+"}
+(7,1,1) = {"
+a
+A
+Q
+h
+a
+"}
+(8,1,1) = {"
+R
+D
+F
+n
+G
+"}
+(9,1,1) = {"
+a
+w
+o
+I
+N
+"}
+(10,1,1) = {"
+a
+J
+v
+T
+a
+"}

@@ -367,6 +367,15 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
+/datum/techweb_node/cyborg_upg_service
+	id = "cyborg_upg_service"
+	display_name = "Cyborg Upgrades: Service"
+	description = "Allows service borgs to specialize with various modules."
+	prereq_ids = list("cyborg_upg_util")
+	design_ids = list("borg_upgrade_casino", "borg_upgrade_kitchen", "borg_upgrade_botany", "borg_upgrade_party")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500)
+	export_price = 1000
+
 /datum/techweb_node/ai
 	id = "ai"
 	display_name = "Artificial Intelligence"
@@ -933,15 +942,6 @@
 	description = "An advanced piece of mech weaponry"
 	prereq_ids = list("explosive_weapons")
 	design_ids = list("mech_grenade_launcher")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
-	export_price = 5000
-
-/datum/techweb_node/mech_missile_rack
-	id = "mech_missile_rack"
-	display_name = "Exosuit Weapon (SRM-8 Missile Rack)"
-	description = "An advanced piece of mech weaponry"
-	prereq_ids = list("explosive_weapons")
-	design_ids = list("mech_missile_rack")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
