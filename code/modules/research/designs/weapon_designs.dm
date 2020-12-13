@@ -452,7 +452,7 @@
 	name = "Centaur I Mount"
 	desc=  "A wall mounted missile launcher, designed for use on shuttles."
 	id = "shuttle_missile"
-	materials = list(/datum/material/iron = 30000, /datum/material/gold = 5000
+	materials = list(/datum/material/iron = 30000, /datum/material/gold = 5000)
 	build_path = /obj/item/wallframe/shuttle_weapon/missile
 
 /datum/design/shuttle_weapon/tri_missile
