@@ -311,7 +311,7 @@
 
 	if(roundstart_template)
 		var/obj/docking_port/mobile/shuttle = SSshuttle.action_load(roundstart_template, src)
-		SSbluespace_exploration.register_new_ship(shuttle.id)
+		SSbluespace_exploration.register_new_ship(shuttle.id, "Pathfinder")
 
 /obj/docking_port/mobile/proc/register()
 	SSshuttle.mobile += src

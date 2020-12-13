@@ -12,7 +12,11 @@
 
 /datum/map_template/shuttle/ship/New()
 	if(!islist(faction))
-		faction = subtypesof(faction)
+		var/base_faction = faction
+		faction = subtypesof(base_faction)
+		//If no subtypes, revert to default faction
+		if(!LAZYLEN(faction))
+			faction = list(base_faction)
 	. = ..()
 
 /datum/map_template/shuttle/ship/proc/can_place()

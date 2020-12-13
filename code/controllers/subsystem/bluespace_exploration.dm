@@ -150,14 +150,16 @@ SUBSYSTEM_DEF(bluespace_exploration)
 // Ship procs
 //====================================
 
-/datum/controller/subsystem/bluespace_exploration/proc/register_new_ship(shuttle_id, override_type = /datum/ship_datum, faction = /datum/faction/station)
+/datum/controller/subsystem/bluespace_exploration/proc/register_new_ship(shuttle_id, name = "DEBUGGER 9000", override_type = /datum/ship_datum, faction = /datum/faction/station)
 	if(shuttle_id in tracked_ships)
 		return tracked_ships[shuttle_id]
 	var/datum/ship_datum/SD = override_type
 	if(!istype(SD))
 		SD = new override_type()
 	SD.mobile_port_id = shuttle_id
-	SD.ship_faction = new faction
+	var/datum/faction = new faction
+	SD.ship_faction = faction
+	SD.ship_name = "[faction.tag] [name]"
 	SD.update_ship()
 	if(QDELETED(SD))
 		log_shuttle("Bluespace Exploration Error: Register new ship attempted on a qdeleted ship datum.")

@@ -8,4 +8,4 @@
 		return
 	//Register ship
 	log_shuttle("Ship [M.name] spawned successfully.")
-	register_new_ship(M.id, /datum/ship_datum/npc, S.faction || /datum/faction/independant)
+	register_new_ship(M.id, M.name, /datum/ship_datum/npc, pick(S.faction) || /datum/faction/independant)
