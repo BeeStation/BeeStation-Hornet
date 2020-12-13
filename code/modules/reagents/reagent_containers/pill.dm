@@ -114,7 +114,7 @@
 	name = "salbutamol pill"
 	desc = "Used to treat oxygen deprivation."
 	icon_state = "pill16"
-	list_reagents = list(/datum/reagent/medicine/salbutamol = 30)
+	list_reagents = list(/datum/reagent/medicine/salbutamol = 20)
 	rename_with_volume = TRUE
 
 /obj/item/reagent_containers/pill/charcoal
@@ -145,18 +145,32 @@
 	list_reagents = list(/datum/reagent/medicine/mutadone = 50)
 	rename_with_volume = TRUE
 
+/obj/item/reagent_containers/pill/bicaridine
+	name = "bicaridine pill"
+	desc = "Used to stimulate the healing of small brute injuries."
+	icon_state = "pill9"
+	list_reagents = list(/datum/reagent/medicine/bicaridine = 15)
+	rename_with_volume = TRUE
+
+/obj/item/reagent_containers/pill/kelotane
+	name = "kelotane pill"
+	desc = "Used to stimulate the healing of small burns."
+	icon_state = "pill11"
+	list_reagents = list(/datum/reagent/medicine/kelotane = 15)
+	rename_with_volume = TRUE
+
 /obj/item/reagent_containers/pill/salicyclic
 	name = "salicylic acid pill"
 	desc = "Used to dull pain."
 	icon_state = "pill9"
-	list_reagents = list(/datum/reagent/medicine/sal_acid = 24)
+	list_reagents = list(/datum/reagent/medicine/sal_acid = 15)
 	rename_with_volume = TRUE
 
 /obj/item/reagent_containers/pill/oxandrolone
 	name = "oxandrolone pill"
 	desc = "Used to stimulate burn healing."
 	icon_state = "pill11"
-	list_reagents = list(/datum/reagent/medicine/oxandrolone = 24)
+	list_reagents = list(/datum/reagent/medicine/oxandrolone = 15)
 	rename_with_volume = TRUE
 
 /obj/item/reagent_containers/pill/insulin
