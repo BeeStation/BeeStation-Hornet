@@ -1,13 +1,10 @@
 /datum/map_template/shuttle/ship
 	var/faction = /datum/faction/station
 
-	var/allowed_weapons = list()
-
 	var/id = null
 	var/difficulty = 0
 
 	prefix = "_maps/shuttles/exploration/"
-	suffix = null
 
 	can_be_bought = FALSE
 

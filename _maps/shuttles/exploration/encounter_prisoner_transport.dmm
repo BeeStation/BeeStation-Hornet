@@ -1,0 +1,247 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/landmark/exploration_weapon_spawner/left{
+	dir = 1
+	},
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/exploration/ruin)
+"c" = (
+/obj/machinery/computer/system_map,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration/ruin)
+"d" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin)
+"f" = (
+/obj/effect/landmark/exploration_weapon_spawner/right{
+	dir = 1
+	},
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/exploration/ruin)
+"g" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/security,
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 14;
+	height = 4;
+	id = "set_by_code";
+	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
+	name = "Nanotrasen Prisoner Transport Vessel";
+	port_direction = 8;
+	preferred_direction = 4;
+	width = 3
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin)
+"i" = (
+/obj/machinery/computer/weapons,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration/ruin)
+"o" = (
+/obj/machinery/flasher/portable,
+/obj/item/wrench,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/armory_contraband,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin)
+"p" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/mob/living/simple_animal/hostile/nanotrasen,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/newscaster/security_unit{
+	pixel_y = -28
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration/ruin)
+"s" = (
+/obj/structure/shuttle/engine/heater,
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin)
+"u" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration/ruin)
+"v" = (
+/obj/structure/table/reinforced,
+/obj/item/gun/energy/disabler,
+/obj/item/storage/box/handcuffs,
+/obj/item/assembly/flash,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration/ruin)
+"x" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/exploration/ruin)
+"z" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin)
+"C" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/machinery/newscaster{
+	pixel_x = 32
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin)
+"E" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin)
+"H" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin)
+"J" = (
+/obj/machinery/door/airlock/security,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin)
+"M" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration/ruin)
+"N" = (
+/turf/template_noop,
+/area/template_noop)
+"Q" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin)
+"R" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin)
+"T" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/mob/living/simple_animal/hostile/nanotrasen,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/power/apc{
+	name = "Prisoner Transport Vessel APC";
+	pixel_y = -24;
+	req_access = null
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration/ruin)
+"V" = (
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin)
+
+(1,1,1) = {"
+N
+Q
+x
+a
+x
+x
+Q
+x
+x
+x
+"}
+(2,1,1) = {"
+Q
+Q
+i
+T
+x
+R
+o
+H
+s
+d
+"}
+(3,1,1) = {"
+Q
+v
+M
+u
+J
+z
+V
+V
+s
+d
+"}
+(4,1,1) = {"
+Q
+Q
+c
+p
+x
+E
+V
+C
+s
+d
+"}
+(5,1,1) = {"
+N
+Q
+x
+f
+x
+x
+g
+x
+x
+x
+"}

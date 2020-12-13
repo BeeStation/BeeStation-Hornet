@@ -7,8 +7,7 @@
 	suffix = "pirate_cutter"
 	port_id = "encounter"
 
-	difficulty = 5
-	allowed_weapons = list()
+	difficulty = 8
 
 /datum/map_template/shuttle/ship/pirate/cruiser
 	name = "Pirate Cruiser"
@@ -17,7 +16,6 @@
 	port_id = "encounter"
 
 	difficulty = 14
-	allowed_weapons = list()
 
 /datum/map_template/shuttle/ship/pirate/frigate
 	name = "Pirate Frigate"
@@ -26,4 +24,3 @@
 	port_id = "encounter"
 
 	difficulty = 12
-	allowed_weapons = list()

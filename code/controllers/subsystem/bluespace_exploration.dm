@@ -244,6 +244,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 					//If the mob has a key (but is DC) then teleport them to a safe z-level where they can potentially be retrieved.
 					//Since the wiping takes 90 seconds they could potentially still be on the z-level as it is wiping if they reconnect in time
 					random_teleport_atom(M)
+					M.Knockdown(5)
 					to_chat(M, "<span class='warning'>You feel sick as your body lurches through space and time, the ripples of the starship that brought you here eminate no more and you get the horrible feeling that you have been left behind.</span>")
 				else
 					delete_atom(thing)
@@ -470,10 +471,11 @@ SUBSYSTEM_DEF(bluespace_exploration)
  * - Updates bluespace_systems[level] = bool (Is the z-level empty)
  */
 /datum/controller/subsystem/bluespace_exploration/proc/check_free_levels()
-	var/list/levels_in_use
+	var/list/levels_in_use = list()
 	for(var/mob/living/M in GLOB.player_list)
-		var/turf/T = get_turf(M)
-		levels_in_use |= T.z
+		//Dead / Critted mobs don't count - They can't be saved most likely, and if they can can just be teleported away anyway.
+		if(M.stat == CONSCIOUS)
+			levels_in_use |= M.z
 	for(var/datum/space_level/level as anything in bluespace_systems)
 		//Run a quick check to check if the system is free
 		//TRUE if the system is in use, false if there are no cliented mobs in the system
@@ -491,13 +493,13 @@ SUBSYSTEM_DEF(bluespace_exploration)
 /datum/controller/subsystem/bluespace_exploration/proc/get_faction(faction_datum)
 	return factions[faction_datum]
 
-//====================================
-// Starsystem Grabbing
-//====================================
-
-//====================================
-// Utility
-//====================================
+/datum/controller/subsystem/bluespace_exploration/proc/after_ship_attacked(datum/ship_datum/attacker, datum/ship_datum/victim)
+	var/datum/faction/attacker_faction = attacker.faction
+	var/datum/faction/victim_faction = attacker.faction
+	//If the victime doesn't consider the attacker to be hostile, then the attacker ship will be marked as hostile to the victim's faction
+	if(check_faction_alignment(victim_faction, attacker_faction) != FACTION_STATUS_HOSTILE)
+		attacker.rogue_factions |= victim_faction.type
+		log_shuttle("[attacker.name] ([attacker_faction.name]) fired upon neutral/friendly ship [victim.name] ([victim_faction.name]), and was declared hostile to that faction")
 
 //====================================
 // Data holder - Simplifys what gets sent as paramaters so we don't have tons of variables some of which won't be used in that proc

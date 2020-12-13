@@ -7,5 +7,4 @@
 	suffix = "syndicate_fighter"
 	port_id = "encounter"
 
-	difficulty = 3	//These are super easy and super small
-	allowed_weapons = list()
+	difficulty = 6

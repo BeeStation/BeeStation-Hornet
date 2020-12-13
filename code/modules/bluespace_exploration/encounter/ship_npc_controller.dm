@@ -47,7 +47,7 @@
 			continue
 		if(ship in hostile_ships)
 			continue
-		if(check_faction_alignment(ship_faction, ship.ship_faction) == FACTION_STATUS_HOSTILE)
+		if(check_faction_alignment(ship_faction, ship.ship_faction) == FACTION_STATUS_HOSTILE || ship_faction in rogue_factions)
 			hostile_ships += ship
 	//Pick a target to shoot at, if we aren't already blasting
 	if(target && (target in SSbluespace_exploration.tracked_ships))

@@ -29,10 +29,22 @@
 	//How many turfs need to be destroyed before we are considered destroyed
 	var/health_percentage = SHIP_INTEGRITY_FACTOR
 
+	//Fired upon these factions despite being allied with them. Any ships in that faction will fire upon this ship.
+	//Note: This will have a butterfly effect and end in an all out war between ships which is pretty funny.
+	//Example:
+	// - Player ship A fires on NPC trading ship
+	// - Player ship A declared rogue to NPC trading ships
+	// - Another NPC trading faction ship comes across player ship and fires upon it
+	// - That NPC trading ship is now declared hostile to the player ships faction.
+	// - The cycle continues.
+	//Note: Doesn't take into account subtypes.
+	var/rogue_factions
+
 /datum/ship_datum/New()
 	. = ..()
-	//TODO: Make it share a faction for gods sake
+	//Really this should share a faction rather than have a damned new faction for EVERY ship, but this makes it easier to declare hostilities, so meh not on my todo list.
 	ship_faction = new ship_faction
+	rogue_factions = list()
 
 /datum/ship_datum/proc/update_ship()
 	if(critical)

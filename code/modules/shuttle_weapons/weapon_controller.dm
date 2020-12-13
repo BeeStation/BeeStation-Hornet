@@ -1,3 +1,9 @@
+/*
+ * Handles the firing of weapons at hostile ships.
+ * Basically a copy paste of sec camera console, with functionality for weapons, and instead of cameras it looks at tracked docking ports.
+ * Additionally handles declaring ships rogue if they fire upon friendly ships, since its much quicker to see what camera they are on than to find what shuttle a turf is attached to.
+ */
+
 /obj/machinery/computer/weapons
 	name = "weapons control console"
 	desc = "a computer for controlling the weapon systems of your shuttle."
@@ -203,6 +209,8 @@
 				to_chat(usr, "<span class='warning'>Failed to locate weapon system.</span>")
 				return
 			found_weapon.fire()
+			//Handle declaring ships rogue
+			
 			return TRUE
 
 /obj/machinery/computer/weapons/proc/show_camera_static()
