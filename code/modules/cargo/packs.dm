@@ -958,6 +958,7 @@
 	desc = "A DIY kit for building your own shuttle! Comes with all the parts you need to get your people to the stars and a free laser cannon too, not that you will need it in these friendly parts of space!"
 	cost = 6000
 	crate_type = /obj/structure/closet/crate/large/shuttle
+	contains = list(/obj/item/analyzer)
 
 /datum/supply_pack/engineering/shuttle_weapons
 	name = "Shuttle Weapons Kit"
