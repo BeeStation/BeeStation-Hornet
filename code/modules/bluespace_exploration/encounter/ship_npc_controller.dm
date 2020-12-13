@@ -54,6 +54,7 @@
 		return
 	if(LAZYLEN(hostile_ships))
 		target = pick(hostile_ships)
+		log_shuttle("NPC shuttle [ship_name] found target [target.ship_name]")
 		locate_weapons()	//Reset weapons when we find a new target, in case new ones have been build
 
 /datum/ship_datum/npc/proc/update_flee()

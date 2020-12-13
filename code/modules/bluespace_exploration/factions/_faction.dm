@@ -90,5 +90,5 @@
 
 /datum/faction/independant
 	name = "Independant"
-	//Faction alignment
-	hostile_factions = list(/datum/faction/syndicate)
+	//Faction alignment (Starts only hostile to pirates but can become hostile to the syndicate.)
+	hostile_factions = list(/datum/faction/pirates)

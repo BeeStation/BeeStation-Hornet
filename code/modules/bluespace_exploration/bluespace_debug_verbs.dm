@@ -22,7 +22,7 @@ GLOBAL_LIST_INIT(bluespace_debug_verbs, list(
 
 /client/proc/spawn_ship()
 	set category = "Bluespace Exploration"
-	set name = "Spawn Hostile Ship"
+	set name = "Spawn NPC Ship"
 	if(!check_rights(R_DEBUG))
 		return
 	//Pick a ship to spawn
