@@ -196,6 +196,37 @@
 	icon_state = "eldrich_flask"
 	list_reagents = list(/datum/reagent/eldritch = 50)
 
+/obj/item/clothing/neck/eldritch_amulet/crucifix
+	name = "crucifix"
+	desc = "In the eventuality that one of those you falesly accused is, in fact, a real witch, this will ward you against their curses."
+	trait = TRAIT_WARDED
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	used_by_unitiated = TRUE
+
+/obj/item/clothing/neck/eldritch_amulet/rosary
+	name = "rosary beads"
+	desc = "A wooden crucifix meant to ward of curses and hexes."
+	trait = TRAIT_WARDED
+	used_by_unitiated = TRUE
+	resistance_flags = FLAMMABLE
+
+#define GOD_SLEEP 1
+#define GOD_SIGHT 2
+#define GOD_MIND 3
+#define GOD_CLEANSE 4
+#define GOD_MEND 5
+#define GOD_CAUTERIZE 6
+#define GOD_BLIND 7
+#define GOD_MUTE 8
+#define GOD_STUPID 9
+#define GOD_HURT 10
+#define GOD_BURN 11
+#define GOD_PARALIZE 12
+#define GOD_DISABLE 13
+#define GOD_EMP 14
+#define GOD_MADNESS 15
+#define GODS_MAX 15
+
 /obj/item/artifact
 	name = "strange figurine"
 	desc = "A stone statuette of some sort."
@@ -209,37 +240,37 @@
 
 /obj/item/artifact/Initialize()
 	..()
-	deity = rand(1,15)
+	deity = rand(1,GODS_MAX)
 	switch (deity)
-		if (1)	//force awake - sleep
+		if (GOD_SLEEP)	//force awake - sleep
 			godname = "Lobon"
-		if (2)	//eye heal
+		if (GOD_SIGHT)
 			godname = "Nath-Horthath"
-		if (3)	//brain heal
+		if (GOD_MIND)
 			godname = "Oukranos"
-		if (4)	//heal toxin
+		if (GOD_CLEANSE)
 			godname = "Tamash"
-		if (5)	//heal burn
+		if (GOD_MEND)
 			godname = "Karakal"
-		if (6)	// heal brute
+		if (GOD_CAUTERIZE)
 			godname = "D’endrrah"
-		if (7)	// eye damage
+		if (GOD_BLIND)
 			godname = "Azathoth"
-		if (8)	//tongue damage
+		if (GOD_MUTE)
 			godname = "Abhoth"
-		if (9)	//brain damage - induce sleep
+		if (GOD_STUPID)
 			godname = "Aiueb Gnshal"
-		if (10)	//brute
+		if (GOD_HURT)
 			godname = "Ialdagorth"
-		if (11)	//burn
+		if (GOD_BURN)
 			godname = "Tulzscha"
-		if (12)	//paralyze legs
+		if (GOD_PARALIZE)
 			godname = "C'thalpa"
-		if (13)	//paralyze hands
+		if (GOD_DISABLE)
 			godname = "Mh'ithrha"
-		if (14)	//emp - emag
+		if (GOD_EMP)
 			godname = "Shabbith-Ka"
-		if (15)	// depacification - eldritch antag
+		if (GOD_MADNESS)
 			godname = "Yomagn'tho"
 
 /obj/item/artifact/examine(mob/user)
@@ -258,35 +289,35 @@
 			else
 				var/desc = "The [name] will offer the boon of [godname], "
 				switch (deity)
-					if (1)
+					if (GOD_SLEEP)
 						desc += "fixing one's insides."
-					if (2)
+					if (GOD_SIGHT)
 						desc += "bringing back one's vision."
-					if (3)
+					if (GOD_MIND)
 						desc += "restoring one's sanity and mind."
-					if (4)
+					if (GOD_CLEANSE)
 						desc += "purging one's body of inpurities."
-					if (5)
+					if (GOD_MEND)
 						desc += "healing one's burned flesh."
-					if (6)
+					if (GOD_CAUTERIZE)
 						desc += "bringing back one's vision."
-					if (7)
+					if (GOD_BLIND)
 						desc += "making one blind."
-					if (8)
+					if (GOD_MUTE)
 						desc += "halting one's speech."
-					if (9)
+					if (GOD_STUPID)
 						desc += "making one stupid."
-					if (10)
+					if (GOD_HURT)
 						desc += "inflicting wounds."
-					if (11)
+					if (GOD_BURN)
 						desc += "causing one's skin to burn."
-					if (12)
+					if (GOD_PARALIZE)
 						desc += "crippling one's legs."
-					if (13)
+					if (GOD_DISABLE)
 						desc += "crippling one's hands."
-					if (14)
+					if (GOD_EMP)
 						desc += "crippling one's hands."
-					if (15)
+					if (GOD_MADNESS)
 						desc += "bringing madness into one's mind."
 				.+=desc
 
@@ -334,59 +365,59 @@
 	if (!activated)
 		return FALSE
 	switch (deity)
-		if (1)
+		if (GOD_SLEEP)
 			target.adjustOrganLoss(ORGAN_SLOT_HEART,-5)
 			target.adjustOrganLoss(ORGAN_SLOT_LIVER,-5)
 			target.adjustOrganLoss(ORGAN_SLOT_STOMACH,-5)
 			target.adjustOrganLoss(ORGAN_SLOT_LUNGS,-5)
 			to_chat(target,"<span class='notice'>You feel younger!</span>")
-		if (2)
+		if (GOD_SIGHT)
 			target.adjustOrganLoss(ORGAN_SLOT_EYES,-10)
 			to_chat(target,"<span class='notice'>Your vision feels sharper!</span>")
-		if (3)
+		if (GOD_MIND)
 			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,-10)
 			to_chat(target,"<span class='notice'>You can think more clearly!</span>")
-		if (4)
+		if (GOD_CLEANSE)
 			target.adjustToxLoss(-10)
 			to_chat(target,"<span class='notice'>You feel refreshed!</span>")
-		if (5)
+		if (GOD_MEND)
 			target.adjustFireLoss(-10)
 			to_chat(target,"<span class='notice'>Your skin tickles!</span>")
-		if (6)
+		if (GOD_CAUTERIZE)
 			target.adjustBruteLoss(-10)
 			to_chat(target,"<span class='notice'>Your bruises heal!</span>")
-		if (7)
+		if (GOD_BLIND)
 			target.adjustOrganLoss(ORGAN_SLOT_EYES,10)
 			to_chat(target,"<span class='warning'>Your eyes sting!</span>")
-		if (8)
+		if (GOD_MUTE)
 			target.adjustOrganLoss(ORGAN_SLOT_TONGUE,8)
 			target.silent += 2 SECONDS
-		if (9)
+		if (GOD_STUPID)
 			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,8)
 			to_chat(target,"<span class='warning'>Your feel confused!</span>")
-		if (10)
+		if (GOD_HURT)
 			target.adjustBruteLoss(5)
 			to_chat(target,"<span class='warning'>Your flesh hurts!</span>")
-		if (11)
+		if (GOD_BURN)
 			target.adjustFireLoss(5)
 			to_chat(target,"<span class='warning'>Your skin burns!</span>")
-		if (12)
+		if (GOD_PARALIZE)
 			for(var/obj/item/bodypart/organ in target.bodyparts)
 				if(organ.body_part == LEG_RIGHT || organ.body_part == LEG_LEFT)
 					organ.receive_damage(stamina = 5)
 			to_chat(target,"<span class='warning'>Your legs tingle!</span>")
-		if (13)
+		if (GOD_DISABLE)
 			for(var/obj/item/bodypart/organ in target.bodyparts)
 				if(organ.body_part == ARM_RIGHT || organ.body_part == ARM_LEFT)
 					organ.receive_damage(stamina = 5)
 			to_chat(target,"<span class='warning'>Your arms tingle!</span>")
-		if (14)
+		if (GOD_EMP)
 			target.emp_act(EMP_LIGHT)
 			to_chat(target,"<span class='warning'>That was weird!</span>")
-		if (15)
+		if (GOD_MADNESS)
 			if(HAS_TRAIT(target, TRAIT_PACIFISM))
 				REMOVE_TRAIT(target, TRAIT_PACIFISM,TRAIT_GENERIC)	//remove any and all?
-			to_chat(target,"<span class='warning'>Your feel an evil overcomes you!</span>")
+			to_chat(target,"<span class='warning'>Your feel that evil overcomes you!</span>")
 	return TRUE
 
 /obj/item/artifact/proc/to_ashes(mob/living/usr)
@@ -413,50 +444,50 @@
 
 /obj/item/artifact/ashes/infuse_blessing(mob/living/user,mob/living/carbon/human/target)
 	switch (deity)
-		if (1)
+		if (GOD_SLEEP)
 			target.adjustOrganLoss(ORGAN_SLOT_HEART,-100)
 			target.adjustOrganLoss(ORGAN_SLOT_LIVER,-100)
 			target.adjustOrganLoss(ORGAN_SLOT_STOMACH,-100)
 			target.adjustOrganLoss(ORGAN_SLOT_LUNGS,-100)
-		if (2)
+		if (GOD_SIGHT)
 			target.adjustOrganLoss(ORGAN_SLOT_EYES,-80)
-		if (3)
+		if (GOD_MIND)
 			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,-50)
 			target.SetSleeping(0)
-		if (4)
+		if (GOD_CLEANSE)
 			target.adjustToxLoss(-50)
-		if (5)
+		if (GOD_MEND)
 			target.adjustFireLoss(-50)
-		if (6)
+		if (GOD_CAUTERIZE)
 			target.adjustBruteLoss(-50)
-		if (7)
+		if (GOD_BLIND)
 			target.adjustOrganLoss(ORGAN_SLOT_EYES,40)
-		if (8)
+		if (GOD_MUTE)
 			target.adjustOrganLoss(ORGAN_SLOT_TONGUE,30)
 			target.silent += 20 SECONDS
-		if (9)
+		if (GOD_STUPID)
 			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,15)
 			target.SetSleeping(10 SECONDS)
-		if (10)
+		if (GOD_HURT)
 			target.adjustBruteLoss(20)
 			var/atom/throw_target = get_edge_target_turf(target, user.dir)
 			if(!target.anchored)
 				target.throw_at(throw_target, rand(4,8), 14, user)
-		if (11)
+		if (GOD_BURN)
 			target.adjustFireLoss(20)
 			target.IgniteMob()
-		if (12)
+		if (GOD_PARALIZE)
 			for(var/obj/item/bodypart/organ in target.bodyparts)
 				if(organ.body_part == LEG_RIGHT || organ.body_part == LEG_LEFT)
 					organ.receive_damage(stamina = 200)
-		if (13)
+		if (GOD_DISABLE)
 			for(var/obj/item/bodypart/organ in target.bodyparts)
 				if(organ.body_part == ARM_RIGHT || organ.body_part == ARM_LEFT)
 					organ.receive_damage(stamina = 200)
-		if (14)
+		if (GOD_EMP)
 			target.electrocute_act(12, safety=TRUE, stun = FALSE)
 			target.emp_act(EMP_HEAVY)	//was gonna make it emag, but I figured this is just as good
-		if (15)
+		if (GOD_MADNESS)
 			var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
 			if (master)
 				master.enslave(target)
@@ -467,16 +498,19 @@
 
 	return TRUE
 
-/obj/item/clothing/neck/eldritch_amulet/crucifix
-	name = "crucifix"
-	desc = "In the eventuality that one of those you falesly accused is, in fact, a real witch, this will ward you against their curses."
-	trait = TRAIT_WARDED
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	used_by_unitiated = TRUE
-
-/obj/item/clothing/neck/eldritch_amulet/rosary
-	name = "rosary beads"
-	desc = "A wooden crucifix meant to ward of curses and hexes."
-	trait = TRAIT_WARDED
-	used_by_unitiated = TRUE
-	resistance_flags = FLAMMABLE
+#undef GOD_SLEEP 
+#undef GOD_SIGHT 
+#undef GOD_MIND 
+#undef GOD_CLEANSE 
+#undef GOD_MEND 
+#undef GOD_CAUTERIZE 
+#undef GOD_BLIND 
+#undef GOD_MUTE 
+#undef GOD_STUPID 
+#undef GOD_HURT
+#undef GOD_BURN 
+#undef GOD_PARALIZE 
+#undef GOD_DISABLE 
+#undef GOD_EMP 
+#undef GOD_MADNESS 
+#undef GODS_MAX 

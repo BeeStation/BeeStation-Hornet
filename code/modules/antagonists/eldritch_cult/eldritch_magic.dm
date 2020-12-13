@@ -64,10 +64,10 @@
 	var/datum/antagonist/heretic/cultie =  user.mind.has_antag_datum(/datum/antagonist/heretic)
 	if (!cultie)	//stops here for followers
 		return ..()
-	var/use_charge = FALSE
-	var/use_knowledge = FALSE
+	var/mob/caster = user
+	var/use_charge = TRUE
+	var/use_knowledge = TRUE
 	if(iscarbon(target))
-		var/mob/caster = user
 		var/mob/living/carbon/C = target
 		if (caster.a_intent != INTENT_HARM && C.mind && C.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple))
 			var/datum/antagonist/heretic_monster/disciple/sucker = C.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple)
@@ -83,25 +83,25 @@
 				sucker.promote()
 				to_chat(caster, "<span class='warning'>You promote [target] to the tier of [sucker.name]!</span>")
 				C.AdjustKnockdown(2 SECONDS)
-				use_charge = TRUE
+				use_knowledge = FALSE
 		else
 			C.adjustBruteLoss(10)
 			C.AdjustKnockdown(5 SECONDS)
 			C.adjustStaminaLoss(80)
-			use_charge = TRUE
-			use_knowledge = TRUE
 	else if (istype(target,/obj/item/artifact) && cultie.get_knowledge(/datum/eldritch_knowledge/dematerialize))
 		var/obj/item/artifact/target_artifact = target
 		target_artifact.to_ashes(user)
+		use_charge = FALSE
+		use_knowledge = FALSE
 	else if(istype(target,/obj/effect/eldritch))
 		remove_rune(target,user)
+		use_charge = FALSE
+		use_knowledge = FALSE
 	else if(istype(target,/turf/open))
-		var/mob/caster = user
-		if (caster.a_intent != INTENT_HARM)
+		if (caster.a_intent == INTENT_HELP)
 			draw_rune(target,user)
-	else
-		use_charge = TRUE
-		use_knowledge = TRUE
+			use_charge = FALSE
+			use_knowledge = FALSE
 
 	if (use_knowledge)
 		var/list/knowledge = cultie.get_all_knowledge()

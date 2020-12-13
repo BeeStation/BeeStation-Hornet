@@ -66,7 +66,7 @@
 	var/mob/living/carbon/H = owner.current
 	if(!istype(H))
 		return
-	. += ecult_give_item(/obj/item/storage/book/bible, H)
+	. += ecult_give_item(/obj/item/forbidden_book, H)
 	. += ecult_give_item(/obj/item/reagent_containers/food/snacks/grown/poppy, H)
 	. += ecult_give_item(/obj/item/artifact, H)
 

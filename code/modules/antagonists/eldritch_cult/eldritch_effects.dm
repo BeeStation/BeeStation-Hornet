@@ -62,10 +62,10 @@
 		local_required_atoms += current_eldritch_knowledge.required_atoms
 
 		var/list/selected_atoms = list()
-
-		to_chat(user,"<span class='notice'>Your begin a [current_eldritch_knowledge.name] ritual.</span>")
 		if(!current_eldritch_knowledge.recipe_snowflake_check(atoms_in_range,drop_location(),selected_atoms) || !do_after(user,current_eldritch_knowledge.cast_time,src))
 			continue
+
+		to_chat(user,"<span class='notice'>Your begin a [current_eldritch_knowledge.name] ritual.</span>")
 
 		for(var/LR in local_required_atoms)
 			var/list/local_required_atom_list = LR

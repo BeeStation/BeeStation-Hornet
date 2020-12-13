@@ -293,12 +293,16 @@
 		if(!LH.target)
 			var/datum/objective/A = new
 			A.owner = user.mind
-			var/datum/mind/targeted =  A.find_target()//easy way, i dont feel like copy pasting that entire block of code
-			LH.target = targeted.current
+			var/list/targets = list()
+			for(var/i in 0 to 3)
+				var/datum/mind/targeted =  A.find_target()//easy way, i dont feel like copy pasting that entire block of code
+				if(!targeted)
+					break
+				targets[targeted.current.real_name] = targeted.current
+			LH.target = targets[input(user,"Choose your next target","Target") in targets]
 			qdel(A)
 			if(LH.target)
 				to_chat(user,"<span class='warning'>Your new target has been selected, go and sacrifice [LH.target.real_name]!</span>")
-
 			else
 				to_chat(user,"<span class='warning'>target could not be found for living heart.</span>")
 
@@ -310,7 +314,7 @@
 ///////////////////////
 
 /datum/eldritch_knowledge/convert
-	name = "Break of dawn"
+	name = "Conversion"
 	desc = "You can sacrifice specific targets by placing their dead bodies and the living heart on a transmutation rune, and performing a transmutation ritual."
 	gain_text = "Gates of mansus open up to your mind."
 	next_knowledge = list(/datum/eldritch_knowledge/base_rust,/datum/eldritch_knowledge/base_ash,/datum/eldritch_knowledge/base_flesh)
@@ -322,7 +326,7 @@
 /datum/eldritch_knowledge/convert/on_finished_recipe(mob/living/user,list/atoms,loc)
 	var/mob/living/carbon/human/victim = locate() in atoms
 	var/datum/antagonist/heretic/cultie =  user.mind.has_antag_datum(/datum/antagonist/heretic)
-	if(QDELETED(victim) || victim.stat == DEAD || !cultie || !victim.buckled)
+	if(QDELETED(victim) || victim.stat == DEAD || !victim.buckled)
 		to_chat(user,"<span class='notice'>Your victim is missing!</span>")
 		return
 	switch (cultie.enslave(victim))
@@ -350,10 +354,10 @@
 
 /datum/eldritch_knowledge/codex_cicatrix
 	name = "Codex Cicatrix"
-	desc = "Allows you to create a new Codex Cicatrix if you so require, using a bible, a pen and a pair of eyes on a transmutation rune, and performing a transmutation ritual."
+	desc = "Allows you to create a new Codex Cicatrix if you so require, using a bible, a pen, some human skin and a pair of eyes on a transmutation rune, and performing a transmutation ritual."
 	gain_text = "Their hand is at your throats, yet you see Them not."
 	cost = 0
-	required_atoms = list(/obj/item/organ/eyes,/obj/item/storage/book/bible,/obj/item/pen)
+	required_atoms = list(/obj/item/organ/eyes,/obj/item/stack/sheet/animalhide/human,/obj/item/storage/book/bible,/obj/item/pen)
 	result_atoms = list(/obj/item/forbidden_book)
 	route = "Start"
 
