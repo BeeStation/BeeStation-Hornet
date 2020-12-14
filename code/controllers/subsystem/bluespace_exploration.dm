@@ -332,9 +332,11 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/cost_limit = target_level.calculated_research_potential
 	if(target_level?.bluespace_ruins)
 		cost_limit = cost_limit / 10
-	while(cost_limit > 0)
+	var/ruins_left = 5
+	while(cost_limit > 0 && ruins_left > 0)
 		if(!LAZYLEN(bluespace_valid_ruins))
 			break
+		ruins_left --
 		var/list/selectable_ruins = list()
 		if(target_level?.bluespace_ruins)
 			for(var/datum/map_template/ruin/exploration/ruin/R in bluespace_valid_ruins)
@@ -370,6 +372,8 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/ships_spawned = 0
 	var/threat_left = target_level.calculated_threat
 	while(threat_left > 0 && max_ships > 0)
+		//Sanity
+		ships_spawned ++
 		//Pick a ship to spawn
 		var/list/valid_ships = list()
 		for(var/ship_name in spawnable_ships)
@@ -389,7 +393,6 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		threat_left -= S.difficulty * (ships_spawned + 1)
 		spawn_and_register_shuttle(S, data_holder.z_value)
 		max_ships --
-		ships_spawned ++
 	addtimer(CALLBACK(src, .proc/on_generation_complete, data_holder), 0)
 
 /datum/controller/subsystem/bluespace_exploration/proc/on_generation_complete(datum/data_holder/bluespace_exploration/data_holder)
