@@ -18,7 +18,10 @@
 /obj/item/projectile/bullet/sleepy/on_hit(atom/target, blocked = FALSE)
 	if((blocked != 100) && isliving(target))
 		var/mob/living/L = target
-		L.Sleeping(50)
+		if(L.confused)
+			L.Sleeping(50)
+		else
+			L.confused = 80
 	return ..()
 
 /obj/item/projectile/bullet/incendiary/shotgun/dragonsbreath
@@ -40,7 +43,7 @@
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "dust"
 	damage = 20
-	paralyze = 80
+	paralyze = 20
 	hitsound = 'sound/effects/meteorimpact.ogg'
 
 /obj/item/projectile/bullet/shotgun_meteorslug/on_hit(atom/target, blocked = FALSE)
@@ -57,7 +60,7 @@
 /obj/item/projectile/bullet/shotgun_frag12
 	name ="frag12 slug"
 	damage = 25
-	paralyze = 50
+	paralyze = 10
 
 /obj/item/projectile/bullet/shotgun_frag12/on_hit(atom/target, blocked = FALSE)
 	..()
@@ -70,17 +73,18 @@
 
 /obj/item/projectile/bullet/pellet/shotgun_buckshot
 	name = "buckshot pellet"
-	damage = 12.5
+	damage = 9
+	tile_dropoff = 0.5
 
 /obj/item/projectile/bullet/pellet/shotgun_rubbershot
 	name = "rubbershot pellet"
 	damage = 3
-	stamina = 11
+	stamina = 9
 
 /obj/item/projectile/bullet/pellet/shotgun_incapacitate
 	name = "incapacitating pellet"
 	damage = 1
-	stamina = 6
+	stamina = 5
 
 /obj/item/projectile/bullet/pellet/Range()
 	..()
@@ -106,7 +110,7 @@
 // Mech Scattershot
 
 /obj/item/projectile/bullet/scattershot
-	damage = 24
+	damage = 18
 
 //Breaching Ammo
 
