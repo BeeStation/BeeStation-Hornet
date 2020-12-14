@@ -94,8 +94,6 @@
 	for(var/turf/T in M.return_turfs())
 		for(var/obj/machinery/shuttle_weapon/weapon in T)
 			weapon_systems |= weapon
-	if(!LAZYLEN(weapon_systems))
-		message_admins("failed to locate weapons on ship")
 
 /datum/ship_datum/npc/proc/check_mobs_alive()
 	if(!islist(mobs))

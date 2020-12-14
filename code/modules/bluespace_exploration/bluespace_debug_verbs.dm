@@ -2,6 +2,8 @@ GLOBAL_LIST_INIT(bluespace_debug_verbs, list(
 	/client/proc/spawn_ship,
 	/client/proc/check_bluespace_levels,
 	/client/proc/check_level_free,
+	/client/proc/make_all_weapons_accurate,
+	/client/proc/reset_all_weapons_accurate
 ))
 
 /client/proc/enable_exploration_verbs()
@@ -37,6 +39,7 @@ GLOBAL_LIST_INIT(bluespace_debug_verbs, list(
 			message_admins("Incorrect ship type!")
 		SSbluespace_exploration.spawn_and_register_shuttle(S, z_level)
 		message_admins("[key_name_admin(usr)] spawned a hostile ship ([S] - [S.type]) on z-level [z_level]")
+		log_admin("[key_name_admin(usr)] spawned a hostile ship ([S] - [S.type]) on z-level [z_level]")
 
 /client/proc/check_level_free()
 	set category = "Bluespace Exploration"
@@ -66,3 +69,28 @@ GLOBAL_LIST_INIT(bluespace_debug_verbs, list(
 			if(BS_LEVEL_USED)
 				status = "In Use"
 		to_chat(src, "Z-Level: [level.z_value] ([level.name]): [status]")
+
+/client/proc/make_all_weapons_accurate()
+	set category = "Bluespace Exploration"
+	set name = "Make all weapons accurate"
+	if(!check_rights(R_DEBUG))
+		return
+	message_admins("[ADMIN_LOOKUPFLW(usr)] made all weapons accurate for some reason")
+	log_admin("[ADMIN_LOOKUP(usr)] made all weapons accurate for some reason")
+	for(var/id in GLOB.shuttle_weapons)
+		var/obj/machinery/shuttle_weapon/weapon = GLOB.shuttle_weapons[id]
+		weapon.miss_chance = 0
+		weapon.hit_chance = 100
+
+//For fixing when you for some reason press this
+/client/proc/reset_all_weapons_accurate()
+	set category = "Bluespace Exploration"
+	set name = "Reset all weapons accurate"
+	if(!check_rights(R_DEBUG))
+		return
+	message_admins("[ADMIN_LOOKUPFLW(usr)] reset all weapons accurate")
+	log_admin("[ADMIN_LOOKUP(usr)] reset all weapons accurate")
+	for(var/id in GLOB.shuttle_weapons)
+		var/obj/machinery/shuttle_weapon/weapon = GLOB.shuttle_weapons[id]
+		weapon.miss_chance = initial(weapon.miss_chance)
+		weapon.hit_chance = initial(weapon.hit_chance)

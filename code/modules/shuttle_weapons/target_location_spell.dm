@@ -21,23 +21,27 @@
 		to_chat(caller, "<span class='warning'>No linked console.</span>")
 		caller.RemoveSpell(/obj/effect/proc_holder/spell/set_weapon_target)
 		return FALSE
+	CHECK_TICK
 	if(..())
 		caller.RemoveSpell(/obj/effect/proc_holder/spell/set_weapon_target)
 		return FALSE
+	CHECK_TICK
 	if(!linked_console.can_interact(caller))
 		to_chat(caller, "<span class='warning'>You are too far away!</span>")
 		caller.RemoveSpell(/obj/effect/proc_holder/spell/set_weapon_target)
 		return FALSE
+	CHECK_TICK
 	if(!cast_check(FALSE, ranged_ability_user))
 		caller.RemoveSpell(/obj/effect/proc_holder/spell/set_weapon_target)
 		return FALSE
+	CHECK_TICK
 	var/turf/T = target
 	if(!istype(T))
 		T = get_turf(target)
 	if(!T)
-		to_chat(caller, "<span class='warning'>Target invalid.</span>")
 		caller.RemoveSpell(/obj/effect/proc_holder/spell/set_weapon_target)
 		return FALSE
+	CHECK_TICK
 	to_chat(caller, "<span class='notice'>Weapon targetted.</span>")
 	var/obj/machinery/shuttle_weapon/weapon = linked_console.selected_weapon_system.resolve()
 	caller.log_message("fired [weapon ? "[weapon] " : ""][linked_console] at [AREACOORD(T)]", LOG_ATTACK, color="purple")
