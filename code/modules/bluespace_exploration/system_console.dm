@@ -148,6 +148,28 @@
 			break
 
 /obj/machinery/computer/system_map/proc/handle_jump_to_port(static_port_id)
+	if(!static_port_id)
+		return
+	var/obj/docking_port/stationary/targetPort = SSshuttle.getDock(static_port_id)
+	if(!targetPort)
+		return
+	var/obj/docking_port/mobile/linkedShuttle = SSshuttle.getShuttle(shuttle_id)
+	linkedShuttle.rechargeTime = calculated_cooldown
+	linkedShuttle.ignitionTime = CUSTOM_ENGINES_START_TIME
+	linkedShuttle.count_engines()
+	linkedShuttle.hyperspace_sound(HYPERSPACE_WARMUP)
+	if(!(static_port_id in params2list(possible_destinations)))
+		log_admin("[usr] attempted to launch a shuttle that has been affected by href dock exploit on [src] with target location \"[static_port_id]\"")
+		message_admins("[usr] attempted to launch a shuttle that has been affected by href dock exploit on [src] with target location \"[static_port_id]\"")
+		return
+	switch(SSshuttle.moveShuttle(shuttle_id, static_port_id, 1))
+		if(0)
+			consumeFuel(dist)
+			say("Shuttle departing. Please stand away from the doors.")
+		if(1)
+			to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
+		else
+			to_chat(usr, "<span class='notice'>Unable to comply.</span>")
 	return
 
 /obj/machinery/computer/system_map/proc/handle_space_jump(star)

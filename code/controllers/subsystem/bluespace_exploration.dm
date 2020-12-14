@@ -72,7 +72,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 
 /datum/controller/subsystem/bluespace_exploration/Initialize(start_timeofday)
 	. = ..()
-	//Create factions
+	//Create factions (These ones are static, although each ship has its own)
 	for(var/faction_datum in subtypesof(/datum/faction))
 		factions[faction_datum] = new faction_datum
 	//Create z-levels
@@ -387,7 +387,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 				continue
 			//Is the ship of the faction of the system?
 			//20% chance for ships to spawn anyway
-			if(prob(80) && !istype(spawnable_ship.faction, system_faction.type))
+			if(prob(80) && check_faction_alignment(spawnable_ship.faction, system_faction.faction_tag) != FACTION_STATUS_HOSTILE)
 				continue
 			if(spawnable_ship.difficulty * (ships_spawned + 1) < threat_left)
 				valid_ships += ship_name

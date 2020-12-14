@@ -153,36 +153,15 @@
 //Handles jumping to a specific port (or custom location port)
 //=======
 /obj/machinery/computer/system_map/custom_shuttle/handle_jump_to_port(static_port_id)
-	if(!static_port_id)
-		return
-	var/obj/docking_port/stationary/targetPort = SSshuttle.getDock(static_port_id)
-	if(!targetPort)
-		return
 	var/dist = calculate_distance_to_stationary_port(targetPort)
 	if(!can_jump(dist))
 		return
 	var/time = min(max(round(dist / calculated_speed), 10), 90)
+	var/throwForce = CLAMP((calculated_speed / 2) - 5, 0, 10)
 	var/obj/docking_port/mobile/linkedShuttle = SSshuttle.getShuttle(shuttle_id)
 	linkedShuttle.callTime = time * 10
-	linkedShuttle.rechargeTime = calculated_cooldown
-	linkedShuttle.ignitionTime = CUSTOM_ENGINES_START_TIME
-	linkedShuttle.count_engines()
-	linkedShuttle.hyperspace_sound(HYPERSPACE_WARMUP)
-	var/throwForce = CLAMP((calculated_speed / 2) - 5, 0, 10)
 	linkedShuttle.movement_force = list("KNOCKDOWN" = calculated_speed > 5 ? 3 : 0, "THROW" = throwForce)
-	if(!(static_port_id in params2list(possible_destinations)))
-		log_admin("[usr] attempted to launch a shuttle that has been affected by href dock exploit on [src] with target location \"[static_port_id]\"")
-		message_admins("[usr] attempted to launch a shuttle that has been affected by href dock exploit on [src] with target location \"[static_port_id]\"")
-		return
-	switch(SSshuttle.moveShuttle(shuttle_id, static_port_id, 1))
-		if(0)
-			consumeFuel(dist)
-			say("Shuttle departing. Please stand away from the doors.")
-		if(1)
-			to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
-		else
-			to_chat(usr, "<span class='notice'>Unable to comply.</span>")
-	return
+	. = ..()
 
 /obj/machinery/computer/system_map/custom_shuttle/proc/can_jump(distance)
 	var/obj/docking_port/mobile/linkedShuttle = SSshuttle.getShuttle(shuttle_id)
