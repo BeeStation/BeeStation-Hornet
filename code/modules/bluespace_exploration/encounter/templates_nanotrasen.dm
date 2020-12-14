@@ -15,7 +15,8 @@
 	suffix = "nanotrasen_raven"
 	port_id = "encounter"
 
-	difficulty = 22
+	//Massive ship, spawn less often
+	difficulty = 40
 
 /datum/map_template/shuttle/ship/nanotrasen/cargo
 	name = "Secure Cargo Transport"

@@ -306,8 +306,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		else
 			newT = T.ChangeTurf(/turf/open/space)
 		if(!istype(newT.loc, /area/space))
-			var/area/newA = new /area/space()
-			newA.set_dynamic_lighting()
+			var/area/newA = GLOB.areas_by_type[/area/space]
 			newT.change_area(newT.loc, newA)
 		newT.flags_1 -= NO_RUINS_1
 		new_turfs += newT
@@ -331,6 +330,8 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		standard_valid_ruins += R
 	//Generate Ruins
 	var/cost_limit = target_level.calculated_research_potential
+	if(target_level?.bluespace_ruins)
+		cost_limit = cost_limit / 10
 	while(cost_limit > 0)
 		if(!LAZYLEN(bluespace_valid_ruins))
 			break
