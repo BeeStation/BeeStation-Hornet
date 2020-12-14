@@ -1,0 +1,4 @@
+author: eeSPee
+delete-after: true
+changes:
+  - tweak: Xeno abilities tell their plasma cost in the description.
