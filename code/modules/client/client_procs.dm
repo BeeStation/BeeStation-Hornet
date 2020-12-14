@@ -214,6 +214,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		// Instantiate tgui panel
 	tgui_panel = new(src)
 
+	tgui_panel?.send_connected()
+
 	GLOB.ahelp_tickets.ClientLogin(src)
 	var/connecting_admin = FALSE //because de-admined admins connecting should be treated like admins.
 	//Admin Authorisation
