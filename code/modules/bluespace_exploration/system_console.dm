@@ -147,7 +147,7 @@
 			shuttle_id = M.id
 			break
 
-/obj/machinery/computer/system_map/proc/handle_jump_to_port(static_port_id)
+/obj/machinery/computer/system_map/proc/handle_jump_to_port(static_port_id, dist = 0)
 	if(!static_port_id)
 		return
 	var/obj/docking_port/stationary/targetPort = SSshuttle.getDock(static_port_id)
@@ -170,7 +170,7 @@
 			to_chat(usr, "<span class='notice'>Unable to comply.</span>")
 	return
 
-/obj/machinery/computer/system_map/proc/consume_fuel(dist)
+/obj/machinery/computer/system_map/proc/consumeFuel(dist)
 	return
 
 /obj/machinery/computer/system_map/proc/handle_space_jump(star)

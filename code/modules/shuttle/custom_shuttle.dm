@@ -169,7 +169,7 @@
 	linkedShuttle.ignitionTime = CUSTOM_ENGINES_START_TIME
 	linkedShuttle.movement_force = list("KNOCKDOWN" = calculated_speed > 5 ? 3 : 0, "THROW" = throwForce)
 	//Custom stuff setup, go do the jump
-	. = ..()
+	. = ..(static_port_id, dist)
 
 /obj/machinery/computer/system_map/custom_shuttle/proc/can_jump(distance)
 	var/obj/docking_port/mobile/linkedShuttle = SSshuttle.getShuttle(shuttle_id)
