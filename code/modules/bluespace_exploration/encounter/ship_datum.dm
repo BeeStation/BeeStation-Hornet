@@ -124,8 +124,11 @@
 			//No more power
 			A.set_broken()
 	//No explosion, explode anyway
-	if(!exploded)
-		explosion(pick(turfs), 12, 15, 18, -1, FALSE)
+	//Prevents an exploit where you can make a tiny ship to maxcap the station
+	var/turf/any_turf = pick(turfs)
+	if(max_ship_integrity > 20 && !SSmapping.level_has_any_trait(any_turf.z, list(ZTRAIT_STATION)))
+		if(!exploded)
+			explosion(any_turf, 12, 15, 18, -1, FALSE)
 	if(mobile_port_id == "exploration")
 		print_command_report("Sensors of your station's exploration shuttle, The Pathfinder have gone dark. The ship and its crew are assumed lost. Their bodies could potentially be recovered, however their last known sector is known to be dangerous.")
 	qdel(src)
