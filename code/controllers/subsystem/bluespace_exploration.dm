@@ -331,7 +331,8 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	//Generate Ruins
 	var/cost_limit = target_level.calculated_research_potential
 	if(target_level?.bluespace_ruins)
-		cost_limit = cost_limit / 10
+		//Spawn at least 1 ruin
+		cost_limit = max(cost_limit / 10, 1)
 	var/ruins_left = 5
 	while(cost_limit > 0 && ruins_left > 0)
 		if(!LAZYLEN(bluespace_valid_ruins))
@@ -383,7 +384,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 				continue
 			//Is the ship of the faction of the system?
 			//20% chance for ships to spawn anyway
-			if(prob(80) && check_faction_alignment(spawnable_ship.faction, system_faction) != FACTION_STATUS_HOSTILE)
+			if(prob(80) && check_faction_alignment(spawnable_ship.faction, system_faction) == FACTION_STATUS_HOSTILE)
 				continue
 			if(spawnable_ship.difficulty * (ships_spawned + 1) < threat_left)
 				valid_ships += ship_name
