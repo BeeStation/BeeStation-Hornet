@@ -1622,7 +1622,6 @@
 #include "code\modules\awaymissions\mission_code\wildwest.dm"
 #include "code\modules\bluespace_exploration\bluespace_debug_verbs.dm"
 #include "code\modules\bluespace_exploration\bluespace_drive.dm"
-#include "code\modules\bluespace_exploration\exploration_location.dm"
 #include "code\modules\bluespace_exploration\exploration_pinpointer.dm"
 #include "code\modules\bluespace_exploration\system_console.dm"
 #include "code\modules\bluespace_exploration\bluespace_levels\exploration_level.dm"

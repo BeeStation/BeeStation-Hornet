@@ -3,13 +3,11 @@
 	var/limited = TRUE
 	var/min_risk = 0	//0 to 10 for danger
 	var/max_risk = 10	//0 to 10, measure of danger
-	var/list/feature_type = list(FEATURE_DEFAULT)
 
 /datum/map_template/ruin/exploration/ruin/asteroid
 	description = "An asteroid."
 	cost = 2
 	limited = FALSE
-	feature_type = list(FEATURE_ASTEROIDS)
 
 /datum/map_template/ruin/exploration/ruin/asteroid/one
 	id = "asteroid-one"

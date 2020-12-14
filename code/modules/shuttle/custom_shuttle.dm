@@ -110,7 +110,7 @@
 	calculated_speed = (calculated_dforce*1000) / (calculated_mass*100)
 	return TRUE
 
-/obj/machinery/computer/system_map/custom_shuttle/proc/consumeFuel(var/dist)
+/obj/machinery/computer/system_map/custom_shuttle/consumeFuel(dist)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttle_id)
 	if(!M)
 		return FALSE
@@ -153,6 +153,11 @@
 //Handles jumping to a specific port (or custom location port)
 //=======
 /obj/machinery/computer/system_map/custom_shuttle/handle_jump_to_port(static_port_id)
+	if(!static_port_id)
+		return
+	var/obj/docking_port/stationary/targetPort = SSshuttle.getDock(static_port_id)
+	if(!targetPort)
+		return
 	var/dist = calculate_distance_to_stationary_port(targetPort)
 	if(!can_jump(dist))
 		return
@@ -160,7 +165,10 @@
 	var/throwForce = CLAMP((calculated_speed / 2) - 5, 0, 10)
 	var/obj/docking_port/mobile/linkedShuttle = SSshuttle.getShuttle(shuttle_id)
 	linkedShuttle.callTime = time * 10
+	linkedShuttle.rechargeTime = calculated_cooldown
+	linkedShuttle.ignitionTime = CUSTOM_ENGINES_START_TIME
 	linkedShuttle.movement_force = list("KNOCKDOWN" = calculated_speed > 5 ? 3 : 0, "THROW" = throwForce)
+	//Custom stuff setup, go do the jump
 	. = ..()
 
 /obj/machinery/computer/system_map/custom_shuttle/proc/can_jump(distance)

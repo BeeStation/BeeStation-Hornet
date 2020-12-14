@@ -318,19 +318,10 @@ SUBSYSTEM_DEF(bluespace_exploration)
 //TODO: Make this slower and spread over a time limit
 /datum/controller/subsystem/bluespace_exploration/proc/place_ruins(datum/data_holder/bluespace_exploration/data_holder)
 	//(Temp) get randomly created level
-	var/datum/exploration_location/location = new()
-	location.sector_features = list(FEATURE_ASTEROIDS)
 	//===Generate bluespace ruins===
 	var/list/bluespace_valid_ruins = list()
 	for(var/template_name in ruin_templates)
 		var/datum/map_template/ruin/exploration/ruin/R = ruin_templates[template_name]
-		var/valid = TRUE
-		for(var/feature in R.feature_type)
-			if(!(feature in location.sector_features))
-				valid = FALSE
-				break
-		if(!valid)
-			continue
 		bluespace_valid_ruins += R
 	//===Calculate standard ruins
 	var/datum/star_system/target_level = data_holder.target_star_system
