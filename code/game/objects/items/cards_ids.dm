@@ -757,3 +757,78 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/job/lawyer
 	icon_state = "lawyer"
+
+/obj/item/card/id/pass
+	name = "promotion pass"
+	desc = "A card that, when swiped on your ID card, will grant you all the access. Should not substitute your actual ID card."
+	icon_state = "data_1"
+	registered_name = "Unregistered ID"
+	assignment = "Access Pass"
+
+/obj/item/card/id/pass/afterattack(atom/target, mob/user, proximity)
+	. = ..()
+	if (istype(target,/obj/item/card/id) && proximity)
+		var/obj/item/card/id/idcard = target
+		for (var/ac in access)
+			idcard.access |= ac
+		if (assignment!="Access Pass")
+			idcard.assignment = assignment
+		if (name!="Unregistered ID")
+			idcard.name = name
+		to_chat(user, "You upgrade your [idcard] with the [name].")
+		log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
+		qdel(src)
+
+/obj/item/card/id/pass/minisec
+	name = "deputy promotion card"
+	desc = "Swipe it on your ID card to become a Deputy. How does it feel to be at the other side of the stunbaton?"
+	assignment = "Deputy"
+	access = list (ACCESS_SEC_DOORS,ACCESS_MAINT_TUNNELS,ACCESS_COURT,ACCESS_BRIG,ACCESS_WEAPONS)
+
+/obj/item/card/id/pass/genetix
+	name = "genetics promotion card"
+	desc = "Swipe it on your ID card to become a Geneticist."
+	assignment = "Geneticist"
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
+
+/obj/item/card/id/pass/robotix
+	name = "robotics promotion card"
+	desc = "Swipe it on your ID card to become a Roboticist."
+	assignment = "Roboticist"
+	access = list(ACCESS_ROBOTICS, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MECH_SCIENCE, ACCESS_MINERAL_STOREROOM)
+
+/obj/item/card/id/pass/scientist
+	name = "scientist promotion card"
+	desc = "Swipe it on your ID card to become a Scientist."
+	assignment = "Scientist"
+	access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_MECH_SCIENCE, ACCESS_MINERAL_STOREROOM)
+
+/obj/item/card/id/pass/chem
+	name = "chemist promotion card"
+	desc = "Swipe it on your ID card to become a Chemist."
+	assignment = "Chemist"
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_CHEMISTRY, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_APOTHECARY)
+
+/obj/item/card/id/pass/viro
+	name = "virologist promotion card"
+	desc = "Swipe it on your ID card to become a Virologist."
+	assignment = "Virologist"
+	access = list(ACCESS_MEDICAL, ACCESS_VIROLOGY, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
+
+/obj/item/card/id/pass/medic
+	name = "medic promotion card"
+	desc = "Swipe it on your ID card to become a Medical Doctor. Doctorate not included."
+	assignment = "Medical Doctor"
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS, ACCESS_APOTHECARY)
+
+/obj/item/card/id/pass/engineer
+	name = "engineering promotion card"
+	desc = "Swipe it on your ID card to become an Engineer."
+	assignment = "Station Engineer"
+	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_ENGINE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_TCOMSAT, ACCESS_MINERAL_STOREROOM)
+
+/obj/item/card/id/pass/atmosian
+	name = "atmos technician promotion card"
+	desc = "Swipe it on your ID card to become an Atmospheric Technician."
+	assignment = "Atmospheric Technician"
+	access = list(ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_CONSTRUCTION, ACCESS_MECH_ENGINE, ACCESS_MINERAL_STOREROOM)

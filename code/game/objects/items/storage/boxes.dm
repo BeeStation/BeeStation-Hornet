@@ -753,16 +753,6 @@
 	for(var/i in 1 to 7)
 		new /obj/item/light/bulb(src)
 
-
-/obj/item/storage/box/deputy
-	name = "box of deputy armbands"
-	desc = "To be issued to those authorized to act as deputy of security."
-
-/obj/item/storage/box/deputy/PopulateContents()
-	for(var/i in 1 to 4)	//not too many
-		new /obj/item/clothing/accessory/armband/deputy(src)
-		new /obj/item/card/deputy_access_card(src)
-
 /obj/item/storage/box/metalfoam
 	name = "box of metal foam grenades"
 	desc = "To be used to rapidly seal hull breaches."
@@ -1235,3 +1225,50 @@
 		/obj/item/storage/box/beakers/variety=1
 		)
 	generate_items_inside(items_inside,src)
+
+//passes box
+
+/obj/item/storage/box/passes
+	name = "box of promotion passes"
+	desc = "Has so many empty IDs."
+	illustration = "id"
+
+/obj/item/storage/box/ids/PopulateContents()
+	for(var/i in 1 to 10)
+		new /obj/item/card/id/pass(src)
+
+/obj/item/storage/box/deputy
+	name = "box of deputy armbands"
+	desc = "To be issued to those authorized to act as deputy of security."
+
+/obj/item/storage/box/deputy/PopulateContents()
+	for(var/i in 1 to 5)
+		new /obj/item/clothing/accessory/armband/deputy(src)
+		new /obj/item/card/id/pass/minisec(src)
+		
+/obj/item/storage/box/RD
+	desc = "More bodies for the slimes to feed on!"
+
+/obj/item/storage/box/RD/PopulateContents()
+	new /obj/item/card/id/pass/robotix(src)
+	new /obj/item/card/id/pass/genetix(src)
+	for(var/i in 1 to 3)
+		new /obj/item/card/id/pass/scientist(src)
+		
+/obj/item/storage/box/CMO
+	desc = "In case your doctors need... Doctors!"
+
+/obj/item/storage/box/CMO/PopulateContents()
+	new /obj/item/card/id/pass/chem(src)
+	new /obj/item/card/id/pass/viro(src)
+	for(var/i in 1 to 3)
+		new /obj/item/card/id/pass/medic(src)
+		
+/obj/item/storage/box/CE
+	desc = "Ah! A variety of new recruits ready to jump facefirst into the crystal!"
+
+/obj/item/storage/box/CE/PopulateContents()
+	for(var/i in 1 to 3)
+		new /obj/item/card/id/pass/engineer(src)
+	for(var/i in 1 to 3)
+		new /obj/item/card/id/pass/atmosian(src)
