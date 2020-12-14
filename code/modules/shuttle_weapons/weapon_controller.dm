@@ -254,8 +254,8 @@
 	if(!M)
 		log_shuttle("Attempted to fire at [selected_ship_id] although it doesn't exist as a shuttle (likely destroyed).")
 		return
-//	if(!(T in M.return_turfs()))
-//		return
+	if(!(T in M.return_turfs()))
+		return
 	weapon.target_turf = T
 	CHECK_TICK
 	//Fire
