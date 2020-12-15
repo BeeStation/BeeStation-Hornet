@@ -17968,7 +17968,7 @@
 	id = "aux_base_shutters";
 	name = "Public Shutters Control";
 	pixel_y = -24;
-	req_one_access_txt = "32;47;48"
+	req_one_access_txt = "72"
 	},
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
@@ -76915,7 +76915,8 @@
 /area/construction/mining/aux_base)
 "cWM" = (
 /obj/machinery/door/airlock/external{
-	name = "Construction Zone"
+	name = "Construction Zone";
+	req_one_access_txt = "72"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plating,
@@ -77082,7 +77083,7 @@
 	},
 /obj/machinery/door/airlock/engineering{
 	name = "Auxillary Base Construction";
-	req_one_access_txt = "32;47;48"
+	req_one_access_txt = "72"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/cable/yellow{
