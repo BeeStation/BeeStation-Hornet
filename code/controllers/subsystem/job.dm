@@ -363,7 +363,7 @@ SUBSYSTEM_DEF(job)
 		if(!GiveRandomJob(player))
 			if(!AssignRole(player, SSjob.overflow_role)) //If everything is already filled, make them an assistant
 				return FALSE //Living on the edge, the forced antagonist couldn't be assigned to overflow role (bans, client age) - just reroll
-	
+
 	return validate_required_jobs(required_jobs)
 
 /datum/controller/subsystem/job/proc/validate_required_jobs(list/required_jobs)
@@ -465,6 +465,8 @@ SUBSYSTEM_DEF(job)
 		job.radio_help_message(M)
 		if(job.req_admin_notify)
 			to_chat(M, "<b>You are playing a job that is important for Game Progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
+		if(job.special_notice)
+			to_chat(M, "<span class='userdanger'>[job.special_notice]</span>")
 		if(CONFIG_GET(number/minimal_access_threshold))
 			to_chat(M, "<span class='notice'><B>As this station was initially staffed with a [CONFIG_GET(flag/jobs_have_minimal_access) ? "full crew, only your job's necessities" : "skeleton crew, additional access may"] have been added to your ID card.</B></span>")
 	if(ishuman(living_mob))

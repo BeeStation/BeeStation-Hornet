@@ -51,6 +51,9 @@
 	var/exp_type = ""
 	var/exp_type_department = ""
 
+	//A special, very large and noticeable message for certain roles reminding them of something important. Ex: "Captains are not security"
+	var/special_notice = ""
+
 	//The amount of good boy points playing this role will earn you towards a higher chance to roll antagonist next round
 	//can be overridden by antag_rep.txt config
 	var/antag_rep = 10

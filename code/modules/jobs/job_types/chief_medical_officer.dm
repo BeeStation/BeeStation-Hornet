@@ -16,6 +16,7 @@
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_MEDICAL
 	exp_type_department = EXP_TYPE_MEDICAL
+	special_notice = "You are not a security officer. Do not do their job."
 
 	outfit = /datum/outfit/job/cmo
 

@@ -16,6 +16,7 @@
 	exp_requirements = 600
 	exp_type = EXP_TYPE_SERVICE
 	exp_type_department = EXP_TYPE_SERVICE
+	special_notice = "You are not a security officer. Do not do their job."
 
 	outfit = /datum/outfit/job/hop
 
