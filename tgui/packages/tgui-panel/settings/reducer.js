@@ -15,6 +15,7 @@ const initialState = {
   adminMusicVolume: 0.5,
   highlightText: '',
   highlightColor: '#ffdd44',
+  highContrast: false,
   view: {
     visible: false,
     activeTab: SETTINGS_TABS[0].id,
