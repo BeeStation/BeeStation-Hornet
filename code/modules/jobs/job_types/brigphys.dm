@@ -13,7 +13,7 @@
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 	exp_type_department = EXP_TYPE_SECURITY
-	special_notice = "You are a doctor for Security. You are not a security officer. Do not do their job."
+	special_notice = "You are a doctor for Security. You are not a security officer or a combat medic. Do not do their job."
 
 	outfit = /datum/outfit/job/brig_phys
 
