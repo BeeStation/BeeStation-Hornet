@@ -50,7 +50,7 @@
 
 	hitsound = null
 
-	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked"
+	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 	throw_range = 7
 
 /obj/item/powertool/hand_drill/proc/become_screwdriver()
