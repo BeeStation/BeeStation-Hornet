@@ -41,7 +41,7 @@
 	for(var/i in 1 to attempts_to_find_unique_name)
 		. = capitalize(squid_name(genderToFind))
 		if(!findname(.))
-		break
+			break
 
 /datum/species/squid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/datum/action/innate/squid_change/S = new
@@ -76,7 +76,7 @@
 			cooldown = world.time + 50
 			active = TRUE
 		else
-			at(usr, "<span class='danger'>Invalid color. Your color is not bright enough.</span>")
+			to_chat(usr, "<span class='danger'>Invalid color. Your color is not bright enough.</span>")
 	UpdateButtonIcon()
 
 /datum/action/innate/squid_change/Deactivate()
