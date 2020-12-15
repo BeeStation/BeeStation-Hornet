@@ -218,7 +218,7 @@
 	hud_type = list(DATA_HUD_SECURITY_ADVANCED, DATA_HUD_DIAGNOSTIC_BASIC, DATA_HUD_MEDICAL_ADVANCED)
 	hud_trait = list(TRAIT_SECURITY_HUD, TRAIT_MEDICAL_HUD)
 
-/obj/item/soundsynth/ancient
+/obj/item/soundsynth/ancient//the original soundsynth code says it was ported from /vg/station. I guess I should mention it or I'll be sent to Brazil. https://github.com/vgstation-coders/vgstation13/blob/Bleeding-Edge/code/game/objects/items/devices/sound_synth.dm
 	name = "ancient sound synthesizer"
 	desc = "A device that is able to create sounds. This one is an ancient relic and has no restrictions."
 	shiftpitch = 0
@@ -300,7 +300,7 @@
 
 /mob/living/simple_animal/hostile/factory/death(gibbed)
 	var/chosen_sound = pick('sound/creatures/guarddeath.ogg','sound/creatures/guarddeath2.ogg','sound/creatures/guarddeath3.ogg','sound/creatures/guarddeath4.ogg')
-	playsound(get_turf(src), chosen_sound, 100, 0, 0)
+	playsound(get_turf(src), chosen_sound, 100, TRUE, 0)
 	..()
 
 /mob/living/simple_animal/hostile/factory/Aggro()
@@ -414,7 +414,7 @@
 	if (cooldown < world.time)
 		cooldown = world.time + 150
 		summon_backup_nosound(10)
-		playsound(get_turf(src), 'sound/weapons/sniper_rack.ogg', 80, 1)
+		playsound(get_turf(src), 'sound/weapons/sniper_rack.ogg', 80, TRUE)
 		say("I've got you in my scope.")
 	else
 		return
@@ -425,7 +425,7 @@
 	..()
 
 /mob/living/simple_animal/hostile/syndicate/factory/sniper/death(gibbed)
-	playsound(get_turf(src), 'sound/creatures/wardendeath.ogg', 100, 0, 0)
+	playsound(get_turf(src), 'sound/creatures/wardendeath.ogg', 100, TRUE, 0)
 	..()
 
 /mob/living/simple_animal/hostile/psycho
@@ -483,18 +483,18 @@
 
 /mob/living/simple_animal/hostile/psycho/regular/Aggro()
 	..()
-	var/list/possible_sounds = list('sound/creatures/psycaggro1.ogg','sound/creatures/psycaggro2.ogg','sound/creatures/psycaggro3.ogg')
+	var/list/possible_sounds = list('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg')
 	var/chosen_sound = pick(possible_sounds)
 	if (cooldown < world.time)
 		cooldown = world.time + 300
-		playsound(get_turf(src), chosen_sound, 70, 0, 0)
+		playsound(get_turf(src), chosen_sound, 70, TRUE, 0)
 	else
 		return
 
 /mob/living/simple_animal/hostile/psycho/regular/death(gibbed)
-	var/list/possible_sounds = list('sound/creatures/psycdeath1.ogg','sound/creatures/psycdeath2.ogg','sound/creatures/psycdeath3.ogg')
+	var/list/possible_sounds = list('sound/creatures/psycdeath1.ogg','sound/creatures/psycdeath2.ogg')
 	var/chosen_sound = pick(possible_sounds)
-	playsound(get_turf(src), chosen_sound, 70, 0, 0)
+	playsound(get_turf(src), chosen_sound, 70, TRUE, 0)
 	..()
 
 /mob/living/simple_animal/hostile/psycho/fast
@@ -515,31 +515,29 @@
 	speed = 0
 	loot = list(/obj/effect/mob_spawn/human/corpse/psychost/muzzle)
 
+/mob/living/simple_animal/hostile/psycho/muzzle/Initialize()
+	. = ..()
+	idle_sounds = list('sound/creatures/psychidle.ogg','sound/creatures/psychidle2.ogg')
+
 /mob/living/simple_animal/hostile/psycho/muzzle/death(gibbed)
-	var/list/possible_sounds = list('sound/creatures/psychdeath.ogg','sound/creatures/psychdeath2.ogg','sound/creatures/psychdeath3.ogg')
+	var/list/possible_sounds = list('sound/creatures/psychdeath.ogg','sound/creatures/psychdeath2.ogg',)
 	var/chosen_sound = pick(possible_sounds)
-	playsound(get_turf(src), chosen_sound, 70, 0, 0)
+	playsound(get_turf(src), chosen_sound, 70, TRUE, 0)
 	..()
 
 /mob/living/simple_animal/hostile/psycho/muzzle/Aggro()
 	..()
-	var/list/possible_sounds = list('sound/creatures/psychsight2.ogg','sound/creatures/psychsight3.ogg')
+	var/list/possible_sounds = list('sound/creatures/psychsight.ogg','sound/creatures/psychsight2.ogg')
 	var/chosen_sound = pick(possible_sounds)
 	if (cooldown < world.time)
 		cooldown = world.time + 300
-		playsound(get_turf(src), chosen_sound, 70, 0, 0)
+		playsound(get_turf(src), chosen_sound, 70, TRUE, 0)
 	else
 		return
 
 /mob/living/simple_animal/hostile/psycho/muzzle/AttackingTarget()
 	..()
-	var/list/possible_sounds = list('sound/creatures/psychattack1.ogg','sound/creatures/psychattack2.ogg','sound/creatures/psychattack3.ogg')
-	var/chosen_sound = pick(possible_sounds)
-	playsound(get_turf(src), chosen_sound, 70, 0, 0)
-
-/mob/living/simple_animal/hostile/psycho/muzzle/Initialize()
-	. = ..()
-	idle_sounds = list('sound/creatures/psychidle.ogg','sound/creatures/psychidle2.ogg','sound/creatures/psychidle3.ogg','sound/creatures/psychidle4.ogg')
+	playsound(get_turf(src), 'sound/creatures/psychattack1.ogg', 70, TRUE, 0)
 
 /mob/living/simple_animal/hostile/psycho/muzzle/Life()
 	..()
@@ -550,7 +548,7 @@
 			return
 		if(prob(20))
 			var/chosen_sound = pick(idle_sounds)
-			playsound(src, chosen_sound, 50, FALSE)
+			playsound(src, chosen_sound, 50, TRUE)
 
 /mob/living/simple_animal/hostile/psycho/trap
 	desc = "This one has a strange device on his head."
@@ -568,17 +566,17 @@
 
 /mob/living/simple_animal/hostile/psycho/trap/Aggro()
 	..()
-	var/list/possible_sounds = list('sound/creatures/psychsight.ogg','sound/creatures/psychsight2.ogg','sound/creatures/psychsight3.ogg')
+	var/list/possible_sounds = list('sound/creatures/psychsight.ogg','sound/creatures/psychsight2.ogg')
 	var/chosen_sound = pick(possible_sounds)
 	if (cooldown < world.time)
 		cooldown = world.time + 300
-		playsound(get_turf(src), chosen_sound, 70, 0, 0)
+		playsound(get_turf(src), chosen_sound, 70, TRUE, 0)
 	else
 		return
 
 /mob/living/simple_animal/hostile/psycho/trap/Initialize()
 	. = ..()
-	idle_sounds = list('sound/creatures/psychidle.ogg','sound/creatures/psychidle2.ogg','sound/creatures/psychidle3.ogg','sound/creatures/psychidle4.ogg')
+	idle_sounds = list('sound/creatures/psychidle.ogg','sound/creatures/psychidle2.ogg')
 
 /mob/living/simple_animal/hostile/psycho/trap/Life()
 	..()
@@ -597,13 +595,13 @@
 		return
 
 /mob/living/simple_animal/hostile/psycho/trap/AttackingTarget()
-	var/list/possible_sounds = list('sound/creatures/psychhead.ogg','sound/creatures/psychhead2.ogg','sound/creatures/psychhead3.ogg')
+	var/list/possible_sounds = list('sound/creatures/psychhead.ogg','sound/creatures/psychhead2.ogg')
 	var/chosen_sound = pick(possible_sounds)
-	playsound(get_turf(src), chosen_sound, 100, 0, 0)
+	playsound(get_turf(src), chosen_sound, 100, TRUE, 0)
 	..()
 
 /mob/living/simple_animal/hostile/psycho/trap/death(gibbed)
-	var/list/possible_sounds = list('sound/creatures/psychdeath.ogg','sound/creatures/psychdeath2.ogg','sound/creatures/psychdeath3.ogg')
+	var/list/possible_sounds = list('sound/creatures/psychdeath.ogg','sound/creatures/psychdeath2.ogg')
 	var/chosen_sound = pick(possible_sounds)
 	playsound(get_turf(src), chosen_sound, 70, 0, 0)
 	playsound(get_turf(src), 'sound/effects/snap.ogg', 75, TRUE, 0)
@@ -646,11 +644,9 @@
 
 /mob/living/simple_animal/hostile/syndicate/factory/heavy/Aggro()
 	..()
-	var/list/possible_sounds = list('sound/creatures/heavysight1.ogg','sound/creatures/heavysight2.ogg','sound/creatures/heavysight3.ogg')
-	var/chosen_sound = pick(possible_sounds)
 	if (cooldown < world.time)
 		cooldown = world.time + 300
-		playsound(get_turf(src), chosen_sound, 80, 0, 0)
+		playsound(get_turf(src), 'sound/creatures/heavysight1.ogg', 80, 0, 0)
 
 /mob/living/simple_animal/hostile/syndicate/factory/heavy/OpenFire(atom/A)
 	playsound(get_turf(src), 'sound/weapons/heavyminigunstart.ogg', 80, 0, 0)
@@ -674,9 +670,7 @@
 	speed = initial(speed)
 
 /mob/living/simple_animal/hostile/syndicate/factory/heavy/death(gibbed)
-	var/list/possible_sounds = list('sound/creatures/heavydeath1.ogg','sound/creatures/heavydeath2.ogg','sound/creatures/heavydeath3.ogg','sound/creatures/heavydeath4.ogg')
-	var/chosen_sound = pick(possible_sounds)
-	playsound(get_turf(src), chosen_sound, 80, 0, 0)
+	playsound(get_turf(src), 'sound/creatures/heavydeath1.ogg', 80, TRUE, 0)
 	..()
 
 /obj/item/clothing/mask/gas/sechailer/swat/emagged
@@ -708,23 +702,23 @@
 	do_footstep = TRUE
 	hardattacks = TRUE
 
-/mob/living/simple_animal/hostile/zombie_suicide/MoveToTarget(list/possible_targets)
+/mob/living/simple_animal/hostile/zombie_suicide/Aggro()
 	..()
-	var/list/possible_sounds = list('sound/creatures/szombiesight.ogg','sound/creatures/szombiesight2.ogg','sound/creatures/szombiesight3.ogg')
+	var/list/possible_sounds = list('sound/creatures/szombiesight.ogg','sound/creatures/szombiesight2.ogg')
 	var/chosen_sound = pick(possible_sounds)
 	if (cooldown < world.time)
 		cooldown = world.time + 300
-		playsound(get_turf(src), chosen_sound, 50, 0, 0)
+		playsound(get_turf(src), chosen_sound, 50, TRUE, 0)
 	else
 		return
 
 /mob/living/simple_animal/hostile/zombie_suicide/AttackingTarget()
 	if(!active)
 		active = TRUE
-		playsound(src, 'sound/weapons/armbomb.ogg', 100, 1)
-		var/list/possible_sounds = list('sound/creatures/szombiesight.ogg','sound/creatures/szombiesight2.ogg','sound/creatures/szombiesight3.ogg')
+		playsound(src, 'sound/weapons/armbomb.ogg', 100, TRUE)
+		var/list/possible_sounds = list('sound/creatures/szombiesight.ogg','sound/creatures/szombiesight2.ogg')
 		var/chosen_sound = pick(possible_sounds)
-		playsound(get_turf(src), chosen_sound, 50, 0, 0)
+		playsound(get_turf(src), chosen_sound, 50, TRUE, 0)
 		visible_message("<span class='danger'>[src] primes the grenade!.</span>")
 		addtimer(CALLBACK(src, .proc/prime), det_time)
 	else
@@ -736,7 +730,7 @@
 	qdel(src)
 
 /mob/living/simple_animal/hostile/zombie_suicide/death(gibbed)
-	playsound(src, 'sound/creatures/szombiedeath.ogg', 60, 0)
+	playsound(src, 'sound/creatures/szombiedeath.ogg', 60, TRUE)
 	..()
 
 /obj/item/grenade/syndieminibomb/concussion/frag/activated
@@ -809,11 +803,11 @@
 
 /mob/living/simple_animal/hostile/syndicate/factory/boss/Aggro()
 	..()
-	var/list/possible_sounds = list('sound/creatures/bosssight.ogg','sound/creatures/bosssight2.ogg','sound/creatures/bosssight3.ogg')
+	var/list/possible_sounds = list('sound/voice/ed209_20sec.ogg','sound/creatures/bosssight.ogg','sound/creatures/bosssight2.ogg','sound/voice/complionator/harry.ogg','sound/weapons/leveractionrack.ogg')
 	var/chosen_sound = pick(possible_sounds)
 	if (cooldown < world.time)
 		cooldown = world.time + 300
-		playsound(get_turf(src), chosen_sound, 80, 0, 0)
+		playsound(get_turf(src), chosen_sound, 80, TRUE, 0)
 		say("Target!")
 	else
 		return
@@ -825,7 +819,7 @@
 		icon_living = "facboss2"
 		ranged_cooldown_time = 20//less health - faster shooting
 	if(health <= 150)
-		if(prob(5) && Aggro())//5% change to insult the target on low health
+		if(prob(5) && Aggro())//change to insult the target on low health
 			playsound(get_turf(src), 'sound/voice/beepsky/insult.ogg', 100, 0, 0)
 			visible_message("<font color='red' size='4'><b>FUCK YOUR CUNT YOU SHIT EATING COCKSTORM AND EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND POO AND SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT.</b></font>")
 		icon_state = "facboss3"
@@ -837,15 +831,14 @@
 /mob/living/simple_animal/hostile/syndicate/factory/boss/updatehealth()
 	..()
 	if(health <= 300)
-		var/list/possible_sounds = list('sound/creatures/bosspain.ogg','sound/creatures/bosspain2.ogg','sound/creatures/bosspain3.ogg')
+		var/list/possible_sounds = list('sound/creatures/bosspain.ogg','sound/creatures/bosspain2.ogg')
 		var/chosen_sound = pick(possible_sounds)
-		playsound(get_turf(src), chosen_sound, 60, 0, 0)
-	if(health <= 150)
+		playsound(get_turf(src), chosen_sound, 60, TRUE, 0)
 	else
 		return
 
 /mob/living/simple_animal/hostile/syndicate/factory/boss/death(gibbed)
-	playsound(get_turf(src), 'sound/creatures/bossdeath.ogg', 80, 0, 0)
+	playsound(get_turf(src), 'sound/voice/borg_deathsound.ogg', 80, TRUE, 0)
 	visible_message("<span class='boldwarning'>[src] activates its self-destruct system!.</span>")
 	speed = 15
 	move_to_delay = 20
@@ -905,9 +898,3 @@
 /obj/effect/trap/nexus/trickyspawner/clowns
 	mobs = 5
 	spawned = /mob/living/simple_animal/hostile/retaliate/clown
-
-/obj/effect/trap/nexus/trickyspawner/clowns/TrapEffect(AM)
-	..()
-	var/list/possible_sounds = list('sound/effects/clownspawn1.ogg','sound/effects/clownspawn2.ogg','sound/effects/clownspawn3.ogg')
-	var/chosen_sound = pick(possible_sounds)
-	playsound(get_turf(src), chosen_sound, 80, 0, 0)
