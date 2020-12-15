@@ -233,8 +233,8 @@
 	var/error
 
 	//Check for bad inputs
-	var/regex/bad_regex = new("\[^\\w{}:\",.\\-*&+ ='\\(\\)\\[\\]\]", "gi")
-	if(bad_regex.Find(program))
+	var/regex/bad_regex = new("\[^\\w{}:\",.\\-*&+ ='\\(\\)\\[\\]#\]", "gi")
+	if(bad_regex.Replace(program, ''))
 		return "Invalid Input. Non-standard characters are not allows."
 
 	// Block 1. Assembly.
