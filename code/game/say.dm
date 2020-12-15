@@ -72,6 +72,9 @@ GLOBAL_LIST_INIT(freqtospan, list(
 					spanpart2 = "<span class='name [wearer_say_span]'>"
 			else
 				spanpart2 = "<span class='name unknown'>"
+	else if(isliving(speaker))
+		var/mob/living/L = speaker
+		spanpart2 = "<span class='name [L.mobchatspan]'>"
 
 	//End name span.
 	var/endspanpart = "</span>"

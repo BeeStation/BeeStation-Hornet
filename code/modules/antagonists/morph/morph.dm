@@ -50,6 +50,8 @@
 							You can attack any item or dead creature to consume it - creatures will restore your health. \
 							Finally, you can restore yourself to your original form while morphed by shift-clicking yourself.</b>"
 
+	mobchatspan = "blob"
+
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	var/datum/action/innate/morph/stomach/S = new
 	S.Grant(src)
@@ -215,6 +217,12 @@
 	pixel_y = initial(pixel_y)
 	pixel_x = initial(pixel_x)
 	density = target.density
+
+	if(ismob(target))
+		var/mob/M = target
+		mobchatspan = M.mobchatspan
+	else
+		mobchatspan = initial(mobchatspan)
 
 	//Morphed is weaker
 	melee_damage = melee_damage_disguised

@@ -47,6 +47,8 @@
 	var/interaction_range = 7			//wireless control range
 	var/obj/item/pda/aiPDA
 
+	mobchatspan = "centcom"
+
 /mob/living/silicon/Initialize()
 	. = ..()
 	GLOB.silicon_mobs += src
