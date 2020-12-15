@@ -234,8 +234,7 @@
 
 	//Check for bad inputs
 	var/regex/bad_regex = new("\[^\\w{}:\",.\\-*&+ ='\\(\\)\\[\\]#\]", "gi")
-	if(bad_regex.Replace(program, ''))
-		return "Invalid Input. Non-standard characters are not allows."
+	bad_regex.Replace(program, '')
 
 	// Block 1. Assembly.
 	var/list/assembly_params = blocks["assembly"]
