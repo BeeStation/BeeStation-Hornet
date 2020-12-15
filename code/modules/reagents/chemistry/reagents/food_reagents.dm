@@ -46,6 +46,7 @@
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
 	random_unrestricted = TRUE
+	overdose_threshold = 100
 
 	var/brute_heal = 1
 	var/burn_heal = 0
@@ -54,6 +55,12 @@
 	if(prob(50))
 		M.heal_bodypart_damage(brute_heal,burn_heal, 0)
 		. = 1
+	..()
+
+/datum/reagent/consumable/nutriment/overdose_process(mob/living/M)
+	metabolization_rate = 3 * REAGENTS_METABOLISM
+	if (prob(15))
+		M.vomit(5)
 	..()
 
 /datum/reagent/consumable/nutriment/on_new(list/supplied_data)

@@ -124,6 +124,7 @@
 	shot_glass_icon_state = "shotglassclear"
 	process_flags = ORGANIC | SYNTHETIC
 	random_unrestricted = FALSE
+	overdose_threshold = 200
 
 /*
  *	Water reaction to turf
@@ -183,6 +184,15 @@
 	if(method == TOUCH)
 		M.adjust_fire_stacks(-(reac_volume / 10))
 		M.ExtinguishMob()
+	..()
+
+/*
+ *	Water OD
+ */
+
+/datum/reagent/water/overdose_process(mob/living/M)
+	metabolization_rate = 5 * REAGENTS_METABOLISM
+	M.adjustOxyLoss(1.5, 0)
 	..()
 
 /datum/reagent/water/holywater
