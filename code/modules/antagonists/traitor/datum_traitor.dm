@@ -108,6 +108,20 @@
 		return
 
 	else
+		if(prob(50))
+			//Give them a minor flavour objective
+			var/list/datum/objective/minor/minorObjectives = subtypesof(/datum/objective/minor)
+			var/datum/objective/minor/minorObjective
+			while(!minorObjective && minorObjectives.len)
+				var/typePath = pick_n_take(minorObjectives)
+				minorObjective = new typePath
+				minorObjective.owner = owner
+				if(!minorObjective.finalize())
+					qdel(minorObjective)
+					minorObjective = null
+			if(minorObjective)
+				add_objective(minorObjective)
+
 		if(!(locate(/datum/objective/escape) in objectives))
 			var/datum/objective/escape/escape_objective = new
 			escape_objective.owner = owner
