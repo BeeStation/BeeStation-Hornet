@@ -1048,6 +1048,10 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/factory/factoryafter/down/levelthree)
+"aTy" = (
+/obj/effect/spawner/lootdrop/snowdin/dungeonlite,
+/turf/open/floor/plating/asteroid,
+/area/awaymission/factory/secret)
 "aTQ" = (
 /obj/item/instrument/eguitar,
 /turf/open/floor/holofloor/beach/coast_t,
@@ -2641,7 +2645,6 @@
 "clx" = (
 /obj/structure/safe,
 /obj/item/clothing/under/trek/command/ent,
-/obj/item/a_gift/anything,
 /obj/item/reagent_containers/food/drinks/bottle/rum,
 /obj/item/reagent_containers/food/drinks/bottle/rum,
 /obj/item/clothing/glasses/hud/terminator,
@@ -4885,6 +4888,10 @@
 	temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
+"ejF" = (
+/obj/item/organ/tongue/abductor,
+/turf/open/floor/plating/asteroid,
+/area/awaymission/factory/secret)
 "ejP" = (
 /obj/effect/decal/cleanable/vomit/old,
 /turf/open/floor/holofloor/grass,
@@ -4920,7 +4927,7 @@
 /obj/item/paper{
 	info = "<b>You've found a secret!</b>"
 	},
-/obj/item/a_gift/anything,
+/obj/item/nullrod/claymore/chainsaw_sword,
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
 "elJ" = (
@@ -6818,9 +6825,7 @@
 /obj/item/paper{
 	info = "<i>ah mate nice having a good cup oh tea on the loos</i>"
 	},
-/obj/item/a_gift/anything{
-	pixel_y = 5
-	},
+/obj/effect/spawner/lootdrop/snowdin/dungeonmid,
 /turf/open/floor/holofloor/carpet,
 /area/awaymission/factory/secret)
 "fMa" = (
@@ -7652,7 +7657,7 @@
 /obj/structure/table/brass,
 /obj/item/clockwork/integration_cog,
 /obj/effect/clockwork/overlay/floor,
-/obj/item/a_gift/anything,
+/obj/item/storage/toolbox/brass/prefilled,
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
 "guv" = (
@@ -8406,7 +8411,6 @@
 /obj/item/paper{
 	info = "<b>You've found a secret!</b>"
 	},
-/obj/item/a_gift/anything,
 /obj/item/multitool/abductor,
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
@@ -10523,6 +10527,10 @@
 "izV" = (
 /turf/closed/indestructible/fakedoor,
 /area/awaymission/factory/factoryduring/down/levelthree)
+"iBo" = (
+/obj/item/multitool/ai_detect,
+/turf/open/floor/plating/asteroid,
+/area/awaymission/factory/secret)
 "iBH" = (
 /obj/structure/ladder/unbreakable{
 	height = 1;
@@ -11353,7 +11361,7 @@
 /turf/open/floor/monotile/light,
 /area/awaymission/factory/villageafter/hospital)
 "jhA" = (
-/obj/item/a_gift/anything,
+/obj/effect/spawner/lootdrop/maintenance/eight,
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/factoryafter/down)
 "jhK" = (
@@ -18272,6 +18280,10 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood,
 /area/awaymission/factory/villageafter/house)
+"pbB" = (
+/obj/effect/spawner/lootdrop/snowdin/dungeonmid,
+/turf/open/floor/plating/asteroid,
+/area/awaymission/factory/secret)
 "pbT" = (
 /obj/structure/sink{
 	dir = 8;
@@ -18551,7 +18563,6 @@
 "pnY" = (
 /obj/structure/chair/brass,
 /obj/effect/clockwork/overlay/floor,
-/obj/item/a_gift/anything,
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
 "poc" = (
@@ -19349,7 +19360,6 @@
 /obj/item/folder/syndicate/blue,
 /obj/item/gun/ballistic/automatic/pistol/APS,
 /obj/item/clothing/under/trek/command/ent,
-/obj/item/a_gift/anything,
 /obj/item/reagent_containers/food/drinks/bottle/rum,
 /obj/item/reagent_containers/food/drinks/bottle/rum,
 /obj/item/reagent_containers/food/drinks/bottle/rum,
@@ -19565,12 +19575,9 @@
 /turf/open/floor/monotile,
 /area/awaymission/factory/villageduring/hospital)
 "qcE" = (
-/obj/item/a_gift/anything,
+/obj/effect/spawner/lootdrop/donkpockets,
 /turf/open/floor/plating/asteroid,
-/area/ruin/unpowered{
-	ambient_buzz = null;
-	noteleport = 1
-	})
+/area/awaymission/factory/secret)
 "qds" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -19652,7 +19659,6 @@
 /obj/item/paper{
 	info = "<b>You've found a secret!</b>"
 	},
-/obj/item/a_gift/anything,
 /obj/item/clothing/mask/gas/hunter,
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
@@ -22024,7 +22030,6 @@
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "sdy" = (
 /obj/effect/decal/remains/xeno,
-/obj/item/a_gift/anything,
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
 "seB" = (
@@ -22972,9 +22977,7 @@
 /turf/open/floor/plasteel,
 /area/awaymission/factory/factoryduring)
 "sOu" = (
-/obj/item/a_gift/anything{
-	pixel_y = 5
-	},
+/obj/effect/spawner/lootdrop/costume,
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
 "sOC" = (
@@ -23807,7 +23810,8 @@
 /obj/item/flashlight/seclite,
 /obj/item/clothing/under/pants/jeans,
 /obj/item/storage/backpack,
-/obj/item/a_gift/anything,
+/obj/effect/spawner/lootdrop/three_course_meal,
+/obj/effect/spawner/lootdrop/snowdin/dungeonheavy,
 /turf/open/floor/carpet/red,
 /area/awaymission/factory/villageduring/house/start)
 "tCs" = (
@@ -26628,7 +26632,7 @@
 	noteleport = 0
 	})
 "wgS" = (
-/obj/item/a_gift/anything,
+/obj/effect/spawner/lootdrop/aimodule_harmful,
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
 "wgX" = (
@@ -29051,7 +29055,6 @@
 "yaQ" = (
 /obj/item/twohanded/clockwork/brass_spear,
 /obj/effect/clockwork/overlay/floor,
-/obj/item/a_gift/anything,
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
 "yaV" = (
@@ -36546,7 +36549,7 @@ pFC
 gZi
 iFI
 gZi
-sOu
+tev
 phj
 gZi
 kkn
@@ -60502,7 +60505,7 @@ kfX
 iCj
 ubo
 tdS
-sOu
+aCo
 phj
 tdS
 xYs
@@ -61363,7 +61366,7 @@ iLJ
 muw
 iCj
 cPx
-wgS
+aCo
 aCo
 cPx
 cPx
@@ -64492,8 +64495,8 @@ xsu
 xsu
 xsu
 cPx
-aCo
-wgS
+qcE
+sOu
 geg
 cPx
 xsu
@@ -64924,10 +64927,10 @@ aCo
 cPx
 cPx
 piy
+bNn
+bNn
 aCo
-aCo
-aCo
-aCo
+bNn
 piy
 piy
 cPx
@@ -65136,9 +65139,9 @@ cPx
 cPx
 cPx
 piy
-aCo
-wgS
-aCo
+bNn
+bNn
+bNn
 aCo
 piy
 piy
@@ -65348,7 +65351,7 @@ xsu
 xsu
 cPx
 cPx
-aCo
+bNn
 bNn
 aCo
 piy
@@ -65562,7 +65565,7 @@ cPx
 cPx
 aCo
 aCo
-aCo
+bNn
 piy
 cKX
 cKX
@@ -66174,7 +66177,7 @@ cPx
 ips
 cPx
 cPx
-aCo
+iBo
 aCo
 aCo
 aCo
@@ -67261,8 +67264,8 @@ cKX
 cKX
 xsu
 xsu
-aCo
-wgS
+xsu
+xsu
 cKX
 piy
 cPx
@@ -67709,7 +67712,7 @@ hLD
 jei
 nBY
 cPx
-wgS
+pbB
 cPx
 iCj
 iLJ
@@ -69598,7 +69601,7 @@ cPx
 cPx
 xsu
 xsu
-qcE
+xsu
 miq
 tnz
 kGl
@@ -74262,7 +74265,7 @@ cPx
 cPx
 cPx
 aCo
-wgS
+ejF
 wKK
 wKK
 wKK
@@ -74276,7 +74279,7 @@ wKK
 wKK
 wKK
 aCo
-wgS
+aTy
 cPx
 cPx
 piy
