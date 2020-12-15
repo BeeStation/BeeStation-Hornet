@@ -287,7 +287,7 @@
 	begin_month = APRIL
 
 /datum/holiday/anz/getStationPrefix()
-	return pick("Australian","New Zealand","Poppy", "Southern Cross")
+	return pick("Australian", "New Zealand", "Poppy", "Southern Cross")
 
 /datum/holiday/beer
 	name = "Beer Day"
