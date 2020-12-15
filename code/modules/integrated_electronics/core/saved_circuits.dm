@@ -232,6 +232,10 @@
 
 	var/error
 
+	//Check for bad inputs
+	var/regex/bad_regex = new("\[^\\w\{\}\:\"\,\.\-\*\&\+\/]", "gi")
+	if(bad_regex.Find(program))
+		return "Invalid Input. Non-standard characters are not allows."
 
 	// Block 1. Assembly.
 	var/list/assembly_params = blocks["assembly"]
@@ -338,8 +342,6 @@
 	var/obj/item/electronic_assembly/assembly_path = all_assemblies[assembly_params["type"]]
 	var/obj/item/electronic_assembly/assembly = new assembly_path(null)
 	assembly.load(assembly_params)
-
-
 
 	// Block 2. Components.
 	for(var/component_params in blocks["components"])
