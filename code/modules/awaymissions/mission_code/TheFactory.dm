@@ -76,7 +76,7 @@
 /area/awaymission/factory/factoryafter/down/maint
 	ambient_effects = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambimaint3.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambimaint2.ogg')
 
-/area/awaymission/factory/factoryafter/batsecret
+/area/awaymission/factory/factoryafter/down/batsecret
 	name = "The maze"
 	ambient_buzz = ('sound/ambience/ambibasement.ogg')
 	ambient_effects = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambimaint3.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambimaint2.ogg')
