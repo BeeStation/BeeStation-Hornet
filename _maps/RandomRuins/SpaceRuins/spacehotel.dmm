@@ -483,7 +483,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Guest Room APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -531,7 +531,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Guest Room APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -579,7 +579,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Guest Room APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -627,7 +627,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Guest Room APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -1070,7 +1070,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 1;
 	name = "Guest Room APC";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -1131,7 +1131,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 1;
 	name = "Guest Room APC";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -1460,7 +1460,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Laundry APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable,
 /turf/open/floor/plasteel/white,
@@ -1653,7 +1653,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Kitchen APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable,
 /turf/open/floor/plating,
@@ -2496,7 +2496,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Staff Room APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -2540,16 +2540,16 @@
 /area/ruin/space/has_grav/hotel/workroom)
 "hG" = (
 /obj/effect/mob_spawn/human/hotel_staff{
-	icon_state = "sleeper_s";
-	dir = 1
+	dir = 1;
+	icon_state = "sleeper_s"
 	},
 /obj/machinery/light,
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/workroom)
 "hH" = (
 /obj/effect/mob_spawn/human/hotel_staff{
-	icon_state = "sleeper_s";
-	dir = 1
+	dir = 1;
+	icon_state = "sleeper_s"
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/workroom)
@@ -2868,7 +2868,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 1;
 	name = "Power Storage APC";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -3043,7 +3043,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Security APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -3090,7 +3090,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Pool APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -3139,7 +3139,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Dock APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable,
 /turf/open/floor/wood,
@@ -3902,22 +3902,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/pool)
-"kR" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 5
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/ruin/space/has_grav/hotel/pool)
 "kS" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -4064,13 +4048,6 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/ruin/space/has_grav/hotel/pool)
-"li" = (
-/obj/effect/light_emitter,
-/turf/open/floor/plating/beach/water,
-/area/ruin/space/has_grav/hotel/pool)
-"lj" = (
-/turf/open/floor/plating/beach/water,
 /area/ruin/space/has_grav/hotel/pool)
 "lk" = (
 /obj/structure/chair{
@@ -4356,10 +4333,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/security)
-"lP" = (
-/obj/item/bikehorn/rubberducky,
-/turf/open/floor/plating/beach/water,
-/area/ruin/space/has_grav/hotel/pool)
 "lQ" = (
 /obj/structure/table,
 /turf/open/floor/plasteel/showroomfloor,
@@ -4877,7 +4850,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Custodial APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -4892,10 +4865,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/custodial)
-"mK" = (
-/obj/structure/closet/secure_closet/personal,
-/turf/open/floor/plasteel,
-/area/ruin/space/has_grav/hotel/pool)
 "mL" = (
 /obj/machinery/light,
 /obj/structure/table,
@@ -4974,6 +4943,49 @@
 /obj/effect/baseturf_helper/space,
 /turf/closed/wall,
 /area/ruin/space/has_grav/hotel/pool)
+"pg" = (
+/turf/open/indestructible/sound/pool,
+/area/ruin/space/has_grav/hotel/pool)
+"pR" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/pool{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/space/has_grav/hotel/pool)
+"pV" = (
+/obj/effect/light_emitter,
+/turf/open/indestructible/sound/pool/end,
+/area/ruin/space/has_grav/hotel/pool)
+"pY" = (
+/obj/item/twohanded/required/pool/rubber_ring,
+/turf/open/indestructible/sound/pool,
+/area/ruin/space/has_grav/hotel/pool)
+"sb" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/pool{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/space/has_grav/hotel/pool)
 "sN" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/structure/cable{
@@ -4984,6 +4996,163 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel/power)
+"sZ" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 5
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/pool,
+/turf/open/floor/plasteel/dark,
+/area/ruin/space/has_grav/hotel/pool)
+"wM" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/pool,
+/turf/open/floor/plasteel/dark,
+/area/ruin/space/has_grav/hotel/pool)
+"xJ" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/pool/corner{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/space/has_grav/hotel/pool)
+"zZ" = (
+/obj/structure/pool_ladder,
+/turf/open/indestructible/sound/pool/end,
+/area/ruin/space/has_grav/hotel/pool)
+"Ix" = (
+/obj/item/bikehorn/rubberducky,
+/turf/open/indestructible/sound/pool,
+/area/ruin/space/has_grav/hotel/pool)
+"KB" = (
+/obj/structure/closet/secure_closet/personal,
+/obj/item/twohanded/required/pool/pool_noodle,
+/turf/open/floor/plasteel,
+/area/ruin/space/has_grav/hotel/pool)
+"Lm" = (
+/obj/effect/light_emitter,
+/turf/open/indestructible/sound/pool,
+/area/ruin/space/has_grav/hotel/pool)
+"Mk" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/pool,
+/turf/open/floor/plasteel/dark,
+/area/ruin/space/has_grav/hotel/pool)
+"MR" = (
+/turf/open/indestructible/sound/pool/end,
+/area/ruin/space/has_grav/hotel/pool)
+"PD" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/pool/corner,
+/turf/open/floor/plasteel/dark,
+/area/ruin/space/has_grav/hotel/pool)
+"QG" = (
+/obj/machinery/pool_filter,
+/turf/open/indestructible/sound/pool/end,
+/area/ruin/space/has_grav/hotel/pool)
+"RI" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/pool{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/space/has_grav/hotel/pool)
+"Sg" = (
+/obj/item/twohanded/required/pool/pool_noodle,
+/turf/open/indestructible/sound/pool,
+/area/ruin/space/has_grav/hotel/pool)
+"VD" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/pool/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/space/has_grav/hotel/pool)
+"ZE" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/pool/corner{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/space/has_grav/hotel/pool)
 
 (1,1,1) = {"
 aa
@@ -7146,7 +7315,7 @@ jR
 jR
 kT
 jR
-mK
+KB
 jQ
 ac
 ac
@@ -7216,7 +7385,7 @@ lh
 kD
 kD
 jR
-mK
+KB
 mN
 aa
 aa
@@ -7273,20 +7442,20 @@ jt
 jS
 ko
 kD
-kD
-kD
-kD
-kD
-kD
-kD
-kD
-kD
-kD
-kD
-kD
+PD
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+xJ
 kD
 jR
-mK
+KB
 mN
 aa
 aa
@@ -7343,20 +7512,20 @@ jt
 jR
 jR
 kE
-kD
-li
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-li
-kD
+Mk
+pV
+pg
+pg
+pg
+pg
+pg
+pg
+pg
+Lm
+RI
 mC
 jR
-mK
+KB
 mN
 aa
 aa
@@ -7413,20 +7582,20 @@ jt
 jT
 jR
 kE
-kD
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-kD
+Mk
+MR
+pg
+pg
+pg
+pg
+pg
+pg
+pg
+pg
+RI
 mC
 jR
-mK
+KB
 mN
 aa
 aa
@@ -7483,17 +7652,17 @@ jt
 jU
 jR
 kE
-kD
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-kD
+Mk
+zZ
+pg
+pY
+pg
+pg
+pg
+pg
+pg
+pg
+RI
 mC
 jR
 mL
@@ -7553,17 +7722,17 @@ jt
 jR
 jR
 kD
-kD
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-kD
+Mk
+MR
+pg
+pg
+pg
+pg
+pg
+pg
+pg
+pg
+RI
 kD
 jR
 ll
@@ -7623,20 +7792,20 @@ jt
 jV
 jY
 jY
-kD
-lj
-lj
-lj
-lj
-lj
-lP
-lj
-lj
-lj
-kD
+Mk
+MR
+pg
+pg
+pg
+pg
+Ix
+pg
+pg
+pg
+RI
 kD
 jR
-mK
+KB
 mN
 aa
 aa
@@ -7693,20 +7862,20 @@ ju
 jW
 jW
 jY
-kD
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-kD
+Mk
+MR
+pg
+pg
+pg
+pg
+pg
+pg
+pg
+pg
+RI
 mC
 jR
-mK
+KB
 mN
 aa
 aa
@@ -7763,20 +7932,20 @@ jv
 jW
 jW
 jY
-kD
-lj
-lj
-lj
-lj
-li
-lj
-lj
-lj
-lj
-kD
+Mk
+QG
+pg
+pg
+pg
+Lm
+pg
+pg
+pg
+pg
+RI
 mC
 jR
-mK
+KB
 mN
 aa
 aa
@@ -7833,20 +8002,20 @@ jw
 jX
 jX
 kF
-kR
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-kD
+sZ
+MR
+pg
+pg
+pg
+pg
+pg
+pg
+pg
+pg
+RI
 mC
 jR
-mK
+KB
 mN
 aa
 aa
@@ -7903,20 +8072,20 @@ jx
 jY
 jY
 jY
-kS
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-kD
+wM
+MR
+pg
+pg
+pg
+pg
+pg
+pY
+pg
+pg
+RI
 kD
 jR
-mK
+KB
 mN
 aa
 aa
@@ -7973,17 +8142,17 @@ jt
 jZ
 jR
 kD
-kS
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-kD
+wM
+MR
+pg
+pg
+pg
+pg
+pg
+pg
+pg
+pg
+RI
 kD
 jR
 ll
@@ -8043,17 +8212,17 @@ jt
 jU
 jR
 kE
-kS
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-kD
+wM
+zZ
+pg
+Sg
+pg
+pg
+pg
+pg
+pg
+pg
+RI
 mC
 jR
 mM
@@ -8113,20 +8282,20 @@ jt
 jR
 jR
 kE
-kS
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-kD
+wM
+MR
+pg
+pg
+pg
+pg
+pg
+pg
+pg
+pg
+RI
 mC
 jR
-mK
+KB
 mN
 aa
 aa
@@ -8183,20 +8352,20 @@ jt
 jR
 jR
 kE
-kS
-li
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-li
-kD
+wM
+pV
+pg
+pg
+pg
+pg
+pg
+pg
+pg
+Lm
+RI
 mC
 jR
-mK
+KB
 mN
 aa
 aa
@@ -8253,20 +8422,20 @@ jt
 jS
 ko
 kD
-kS
-kD
-kD
-kD
-kD
-kD
-kD
-kD
-kD
-kD
-kD
+ZE
+pR
+pR
+pR
+pR
+pR
+pR
+pR
+pR
+pR
+VD
 kD
 jR
-mK
+KB
 mN
 aa
 aa
@@ -8336,7 +8505,7 @@ lk
 kD
 kD
 jR
-mK
+KB
 mN
 aa
 aa
@@ -8406,7 +8575,7 @@ jR
 jR
 jR
 jR
-mK
+KB
 jQ
 ac
 ac

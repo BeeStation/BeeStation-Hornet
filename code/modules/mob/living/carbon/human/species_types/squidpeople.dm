@@ -21,6 +21,7 @@
     skinned_type = /obj/item/stack/sheet/animalhide/human
     toxic_food = FRIED
     species_language_holder = /datum/language_holder/squid
+	swimming_component = /datum/component/swimming/squid
 
 /mob/living/carbon/human/species/squid
     race = /datum/species/squid
