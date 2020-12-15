@@ -233,8 +233,8 @@
 	var/error
 
 	//Check for bad inputs
-	var/regex/bad_regex = new("\[^\\w{}:\",.\\-*&+ ='\\(\\)\\[\\]#\]", "gi")
-	bad_regex.Replace(program, "")
+	var/regex/bad_regex = new("\[^\\w{}:\",.\\-*&+ =\'\\(\\)\\\[\\\]#\]", "gi")
+	bad_regex.Replace(bad_regex, "")
 
 	// Block 1. Assembly.
 	var/list/assembly_params = blocks["assembly"]
