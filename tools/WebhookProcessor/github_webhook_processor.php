@@ -1011,7 +1011,7 @@ function game_server_send($addr, $port, $str) {
 
 				while($size > 0) { // loop through the entire ASCII string
 					$size--;
-					$unpackstr .= $result{$index}; // add the string position to return string
+					$unpackstr .= $result[$index]; // add the string position to return string
 					$index++;
 				}
 				return $unpackstr;
