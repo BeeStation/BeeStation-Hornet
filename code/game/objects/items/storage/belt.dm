@@ -42,6 +42,7 @@
 	STR.max_combined_w_class = 21
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/crowbar,
+		/obj/item/powertool,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
@@ -126,6 +127,7 @@
 	STR.max_items = 7
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/crowbar,
+		/obj/item/powertool,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
@@ -317,6 +319,7 @@
 	STR.max_combined_w_class = 20
 	STR.can_hold = typecacheof(list(
 		/obj/item/crowbar,
+		/obj/item/powertool,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
