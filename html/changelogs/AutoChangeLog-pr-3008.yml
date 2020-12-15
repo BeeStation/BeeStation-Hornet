@@ -1,0 +1,5 @@
+author: Archanial
+delete-after: true
+changes:
+  - rscadd: Aux base access.
+  - tweak: Curator no longer has construction access.
