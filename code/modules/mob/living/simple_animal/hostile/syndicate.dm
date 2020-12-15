@@ -47,7 +47,7 @@
 	dodging = TRUE
 	rapid_melee = 2
 	do_footstep = TRUE
-	mobchatspan = "syndradio"
+	mobchatspan = "syndmob"
 
 ///////////////Melee////////////
 

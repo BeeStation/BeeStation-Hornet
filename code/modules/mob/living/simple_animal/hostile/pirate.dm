@@ -25,7 +25,7 @@
 			/obj/item/melee/transforming/energy/sword/pirate)
 	del_on_death = 1
 	faction = list("pirate")
-	mobchatspan = "syndradio"
+	mobchatspan = "syndmob"
 
 
 /mob/living/simple_animal/hostile/pirate/melee

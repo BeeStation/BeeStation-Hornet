@@ -34,7 +34,7 @@
 	deathsound = 'sound/voice/hiss6.ogg'
 	deathmessage = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	mobsay_color = "#9EE08F"
-	mobchatspan = "alien"
+	mobchatspan = "alienmobsay"
 
 	do_footstep = TRUE
 

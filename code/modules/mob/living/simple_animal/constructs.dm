@@ -43,7 +43,7 @@
 	var/runetype
 	var/holy = FALSE
 	mobsay_color = "#FF6262"
-	mobchatspan = "cult"
+	mobchatspan = "cultmobsay"
 
 /mob/living/simple_animal/hostile/construct/Initialize()
 	. = ..()

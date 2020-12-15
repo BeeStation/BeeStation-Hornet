@@ -91,6 +91,16 @@ const formatHighContrast = inputHtml => {
     "warden",
     "centcom",
     "prisoner",
+    "blob",
+    "corgi",
+    "fox",
+    "rainbow",
+    "hierosay",
+    "brassmobsay",
+    "syndmob",
+    "alienmobsay",
+    "cultmobsay",
+    "slimemobsay",
   ];
   const spanRegex = new RegExp('(<span[\\w| |\t|=]*[\'|"][\\w| ]*)(?:' + replacementNodes.join('|') + ')([\'|"]>)', 'gi');
   return inputHtml.replace(spanRegex, '$1$2');
