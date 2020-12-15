@@ -1,0 +1,4 @@
+author: nemvar
+delete-after: true
+changes:
+  - bugfix: fixed atmos component code (again)
