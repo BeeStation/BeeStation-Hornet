@@ -9,6 +9,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
+	toolspeed = 0.7
 
 /obj/item/powertool/attack_self(mob/user)
 	toggle_mode(user)
@@ -89,7 +90,6 @@
 	icon_state = "jaws_pry"
 	item_state = "jawsoflife"
 
-	toolspeed = 0.7
 	tool_behaviour = TOOL_CROWBAR
 
 	force = 15
