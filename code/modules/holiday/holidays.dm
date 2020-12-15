@@ -597,3 +597,9 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 
 /datum/holiday/furday/getStationPrefix()
 	return pick("Boop", "Snoot", "Furry", "Artist")
+
+/datum/holiday/furday/greet()
+	. = ..()
+	if(prob(10))
+		mass_purrbation()
+		log_game("Furday randomly mass-purbatted everyone.")
