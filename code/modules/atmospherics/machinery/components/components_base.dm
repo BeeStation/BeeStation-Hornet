@@ -65,7 +65,7 @@
 // Pipenet stuff; housekeeping
 
 /obj/machinery/atmospherics/components/nullifyNode(i)
-	// Every node has a parent pipeline and an air associated with it.
+	// Every node has a parent pipeline and an air associated with it, but we need to accomdate for edge cases like init dir cache building...
 	if(parents[i])
 		nullifyPipenet(parents[i])
 	if(airs[i])
@@ -89,7 +89,7 @@
 	var/i = parents.Find(reference)
 	reference.other_airs -= airs[i]
 	reference.other_atmosmch -= src
-	/** 
+	/**
 	 *  We explicitly qdel pipeline when this particular pipeline
 	 *  is projected to have no member and cause GC problems.
 	 *  We have to do this because components don't qdel pipelines
