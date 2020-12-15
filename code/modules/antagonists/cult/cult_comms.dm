@@ -243,7 +243,6 @@
 	active = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	var/datum/action/innate/cult/master/cultmark/attached_action
-	check_flags = AB_CHECK_CONSCIOUS
 
 /obj/effect/proc_holder/cultmark/Destroy()
 	attached_action = null
