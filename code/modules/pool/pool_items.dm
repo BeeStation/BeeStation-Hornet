@@ -26,7 +26,6 @@
 	color = pick(COLOR_YELLOW, COLOR_LIME, COLOR_RED, COLOR_BLUE_LIGHT, COLOR_CYAN, COLOR_MAGENTA)
 
 /obj/item/twohanded/required/pool/check_float(mob/living/holder)
-	var/wielded = SEND_SIGNAL(src, COMSIG_ITEM_IS_WIELDED) & COMPONENT_WIELDED
 	if(wielded)
 		return TRUE
 	return FALSE
@@ -60,7 +59,6 @@
 
 /obj/item/twohanded/required/pool/pool_noodle/attack(mob/target, mob/living/carbon/human/user)
 	. = ..()
-	var/wielded  = SEND_SIGNAL(src, COMSIG_ITEM_IS_WIELDED) & COMPONENT_WIELDED
 	if(wielded && prob(50))
 		INVOKE_ASYNC(src, .proc/jedi_spin, user)
 
