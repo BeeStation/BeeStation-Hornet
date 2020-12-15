@@ -233,7 +233,7 @@
 	var/error
 
 	//Check for bad inputs
-	var/regex/bad_regex = new("\[^\\w\{\}\:\"\,\.\-\*\&\+\]", "gi")
+	var/regex/bad_regex = new("\[^\\w{}:\",.\-*&+ ='\]", "gi")
 	if(bad_regex.Find(program))
 		return "Invalid Input. Non-standard characters are not allows."
 
