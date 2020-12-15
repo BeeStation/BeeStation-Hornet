@@ -218,9 +218,9 @@
 	pixel_x = initial(pixel_x)
 	density = target.density
 
-	if(ismob(target))
-		var/mob/M = target
-		mobchatspan = M.mobchatspan
+	if(isliving(target))
+		var/mob/living/L = target
+		mobchatspan = L.mobchatspan
 	else
 		mobchatspan = initial(mobchatspan)
 
