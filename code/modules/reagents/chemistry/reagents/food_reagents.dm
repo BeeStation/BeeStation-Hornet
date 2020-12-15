@@ -57,7 +57,7 @@
 		. = 1
 	..()
 
-/datum/reagent/consumable/nutriment/overdose_process(mob/living/M)
+/datum/reagent/consumable/nutriment/overdose_process(mob/living/carbon/M)
 	metabolization_rate = 3 * REAGENTS_METABOLISM
 	if (prob(15))
 		M.vomit(5)
