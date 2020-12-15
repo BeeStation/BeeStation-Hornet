@@ -183,3 +183,15 @@
 	id = /datum/reagent/consumable/bbqsauce
 	results = list(/datum/reagent/consumable/bbqsauce = 5)
 	required_reagents = list(/datum/reagent/ash = 1, /datum/reagent/consumable/tomatojuice = 1, /datum/reagent/medicine/salglu_solution = 3, /datum/reagent/consumable/blackpepper = 1)
+	
+/datum/chemical_reaction/snow
+	name = "snow"
+	id = "snow"
+	required_temp = 273
+	required_reagents = list(/datum/reagent/water = 30)
+	mix_message = "The water freezes into snow."
+
+/datum/chemical_reaction/snow/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i = 1, i <= created_volume, i++)
+		new /obj/item/stack/sheet/mineral/snow(location)

@@ -173,6 +173,12 @@
 		new /obj/item/stack/sheet/wetleather(get_turf(HH), HH.amount)
 		qdel(HH)
 
+/datum/reagent/water/on_mob_life(mob/living/carbon/M)
+	for(var/datum/reagent/R in M.reagents.reagent_list)
+		if(R != src)
+			M.reagents.remove_reagent(R.type,0.25)
+	..()
+
 /*
  *	Water reaction to a mob
  */
