@@ -233,7 +233,6 @@
 	var/error
 
 	//Check for bad inputs
-	var/regex/bad_regex = new("\[^\\w{}:\",.\\-*&+ =\'\\(\\)\\\[\\\]#\]", "g")
 	bad_regex.Replace(program, "")
 
 	// Block 1. Assembly.
