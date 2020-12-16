@@ -457,11 +457,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	Master.UpdateTickRate()
 
 	if(GLOB.ckey_redirects.Find(ckey))
-		if(isliving(mob))
-			GLOB.ckey_redirects -= ckey
-		else
+		if(isnewplayer(M))
 			to_chat(src, "<span class='redtext'>The server is full. You will be redirected to [CONFIG_GET(string/redirect_address)] in 10 seconds.</span>")
 			addtimer(CALLBACK(src, .proc/time_to_redirect), (10 SECONDS))
+		else
+			GLOB.ckey_redirects -= ckey
 
 /client/proc/time_to_redirect()
 	var/redirect_address = CONFIG_GET(string/redirect_address)
