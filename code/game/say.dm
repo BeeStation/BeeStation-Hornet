@@ -72,7 +72,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 					spanpart2 = "<span class='name [wearer_say_span]'>"
 			else
 				spanpart2 = "<span class='name unknown'>"
-	else if(isliving(speaker))
+	else if(isliving(speaker) && !radio_freq)
 		var/mob/living/L = speaker
 		spanpart2 = "<span class='name [L.mobchatspan]'>"
 
