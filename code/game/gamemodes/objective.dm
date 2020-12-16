@@ -1032,38 +1032,54 @@ GLOBAL_LIST_EMPTY(possible_items_special)
   * Choices are: Ian, Runtime, Anadear, Pun pun, Poly, Renault, Autumn.
   */
 /datum/objective/minor/pet/finalize()
-	var/list/pets = list("ian", "runtime", "frank", "pun-pun", "poly", "renault", "kalo")
+	var/list/pets = list("ian", "runtime", "frank", "pun-pun", "poly", "renault", "kalo", "walter", "paperwork", "citrus", "vector")
 	while(pets.len && !Ian)
 		var/pet = rand(1, pets.len)
 		switch(pets[pet])
 			if("ian")
 				Ian = locate(/mob/living/simple_animal/pet/dog/corgi/Ian) in GLOB.mob_living_list
 				name = "Kill Ian."
-				explanation_text = "Assassinate the HoP's assistant, Ian."
+				explanation_text = "Assassinate the HoP's assistant, Ian the corgi."
 			if("runtime")
 				Ian = locate(/mob/living/simple_animal/pet/cat/Runtime) in GLOB.mob_living_list
 				name = "Kill Runtime."
-				explanation_text = "Assassinate the CMO's assistant, Runtime."
+				explanation_text = "Assassinate the CMO's assistant, Runtime the cat."
 			if("frank")
 				Ian = locate(/mob/living/simple_animal/turtle) in GLOB.mob_living_list
 				name = "Kill Frank."
-				explanation_text = "Assassinate the mining outpost mascot, Frank."
+				explanation_text = "Assassinate the mining outpost mascot, Frank the turtle. Good luck with this one, Agent."
 			if("pun-pun")
 				Ian = locate(/mob/living/carbon/monkey/punpun) in GLOB.mob_living_list
 				name = "Kill Pun Pun."
-				explanation_text = "Assassinate the barkeep's assistant, Pun Pun."
+				explanation_text = "Assassinate the barkeep's assistant, Pun Pun the monkey."
 			if("poly")
 				Ian = locate(/mob/living/simple_animal/parrot/Poly) in GLOB.mob_living_list
 				name = "Kill Poly."
-				explanation_text = "Assassinate the CE's assistant, Poly."
+				explanation_text = "Assassinate the CE's assistant, Poly the parrot."
 			if("renault")
 				Ian = locate(/mob/living/simple_animal/pet/fox/Renault) in GLOB.mob_living_list
 				name = "Kill Renault."
-				explanation_text = "Assassinate the Captain's asssistant, Renault."
+				explanation_text = "Assassinate the Captain's asssistant, Renault the fox."
 			if("kalo")
 				Ian = locate(/mob/living/simple_animal/kalo) in GLOB.mob_living_list
-				name = "Kill kalo."
-				explanation_text = "Assassinate the Janitor's pet lizard, Kalo."
+				name = "Kill Kalo."
+				explanation_text = "Assassinate the Janitor's pet lizard, Kalo the lizard."
+			if("walter")
+				Ian = locate(/mob/living/simple_animal/pet/dog/bullterrier/walter) in GLOB.mob_living_list
+				name = "Kill Walter."
+				explanation_text = "Assassinate the Warden's assistant, Walter the bullterrier."
+			if("paperwork")
+				Ian = locate(/mob/living/simple_animal/sloth/paperwork) in GLOB.mob_living_list
+				name = "Kill Paperwork."
+				explanation_text = "Assassinate the Cargo's assistant, Paperwork the sloth."
+			if("citrus")
+				Ian = locate(/mob/living/simple_animal/sloth/citrus) in GLOB.mob_living_list
+				name = "Kill Walter."
+				explanation_text = "Assassinate the Cargo's assistant, Citrus the sloth."
+			if("vector")
+				Ian = locate(/mob/living/simple_animal/pet/hamster/vector) in GLOB.mob_living_list
+				name = "Kill Vector."
+				explanation_text = "Assassinate the Virology's assistant, Vector the hamster."
 		pets -= pets[pet]
 	return Ian
 
