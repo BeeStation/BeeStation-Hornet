@@ -45,6 +45,7 @@
 			light = new/datum/light_source(src, .)
 		else
 			light.set_light(light_range, light_power, light_color)
+			light.change_loc(.)
 
 // If we have opacity, make sure to tell (potentially) affected light sources.
 /atom/movable/Destroy()
@@ -130,3 +131,21 @@
 /mob/living/proc/mob_light(_color, _range, _power, _duration)
 	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = new (src, _color, _range, _power, _duration)
 	return mob_light_obj
+
+/atom/proc/add_vis_contents(atom/thing)
+	return
+
+/turf/add_vis_contents(atom/thing)
+	vis_contents += thing
+
+/atom/movable/add_vis_contents(atom/thing)
+	vis_contents += thing
+
+/atom/proc/remove_vis_contents(atom/thing)
+	return
+
+/turf/remove_vis_contents(atom/thing)
+	vis_contents -= thing
+
+/atom/movable/remove_vis_contents(atom/thing)
+	vis_contents -= thing

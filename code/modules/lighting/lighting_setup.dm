@@ -6,3 +6,4 @@
 			new/atom/movable/lighting_darkness(T)
 			CHECK_TICK
 		CHECK_TICK
+

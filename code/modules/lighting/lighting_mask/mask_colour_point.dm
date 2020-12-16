@@ -8,6 +8,8 @@
 
 	alpha			 = 100
 
+	appearance_flags = RESET_ALPHA
+
 //The hard to destroy mask
 /atom/movable/lighting_mask/colour/Destroy(force)
 	if(force)

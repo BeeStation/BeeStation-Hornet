@@ -11,13 +11,29 @@
 	invisibility     = INVISIBILITY_LIGHTING
 	blend_mode		 = BLEND_ADD
 
+	appearance_flags = RESET_TRANSFORM | RESET_COLOR | RESET_ALPHA
+
 	bound_x = -128
 	bound_y = -128
 	bound_height = 256
 	bound_width = 256
 
+	//Smooth shadows make the triangles as world objects.
+	//This is more expensive on memory, but when an object moves the shadows will be smooth.
+	var/smooth_shadows = FALSE
+
+	var/radius = 0
+
 /atom/movable/lighting_mask/proc/set_radius(radius, transform_time = 0)
 	apply_matrix(get_matrix(radius), transform_time)
+
+	src.radius = radius
+	var/radius_safe = FLOOR(radius + 1, 1) * 32
+	var/diameter = radius_safe * 2
+	bound_x = -radius_safe
+	bound_y = -radius_safe
+	bound_height = diameter
+	bound_width = diameter
 
 /atom/movable/lighting_mask/proc/apply_matrix(matrix/M, transform_time = 0)
 	if(transform_time)
@@ -36,7 +52,37 @@
 	//Translate
 	// - Center the overlay image
 	// - Ok so apparently translate is affected by the scale we already did huh.
-	M.Translate(-128)
+	M.Translate(-128 + (16 * proportion))
 	return M
+
+/atom/movable/lighting_mask/proc/generate_shadows()
+	if(radius < 1.5)
+		return
+	var/icon/base_icon = new(icon, icon_state)
+
+/atom/movable/lighting_mask/proc/get_corner_positions()
+	//Each x and y position is the bottom left of a tile
+	var/list/turf/edges = get_edge_turfs()
+	//Key = x, value = list(y positions)
+	var/list/corner_coords = list()
+	for(var/turf/turf_check in edges)
+		var/corner_left = corner_coords[turf_check.x]
+		var/ignore_corner
+		if(islist(corner_left))
+			corner_left += turf_check.y
+			corner_left += turf_check.y + 1
+		else
+			corner_coords[turf_check.x] = list(turf_check.y, turf_check.y + 1)
+		var/corner_right = corner_coords[turf_check.x + 1]
+		if(islist(corner_right))
+			corner_right += turf_check.y
+			corner_right += turf_check.y + 1
+		else
+			corner_coords[turf_check.x + 1] = list(turf_check.y, turf_check.y + 1)
+	return corner_coords
+
+/atom/movable/lighting_mask/proc/get_edge_turfs()
+	var/list/turf/closed/end_turfs = view(radius, get_turf(src))
+	return end_turfs
 
 #undef LIGHTING_MASK_SPRITE_SIZE
