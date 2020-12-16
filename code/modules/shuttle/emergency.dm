@@ -85,7 +85,7 @@
 		if("repeal")
 			authorized -= ID
 			message_admins("[ADMIN_LOOKUPFLW(user)] has deauthorized early shuttle launch, now [authorized.len] of [auth_need] needed")
-			log_game("[key_name(user)] has deauthorized early shuttle launch in [COORD(src),] [authorized.len] of [auth_need] needed.")
+			log_game("[key_name(user)] has deauthorized early shuttle launch in [COORD(src)], now [authorized.len] of [auth_need] needed.")
 
 		if("abort")
 			if(authorized.len)
@@ -118,8 +118,8 @@
 
 	authorized += ID
 
-	message_admins("[ADMIN_LOOKUPFLW(user)] has authorized early shuttle launch.")
-	log_game("[key_name(user)] has authorized early shuttle launch in [COORD(src)].")
+	message_admins("[ADMIN_LOOKUPFLW(user)] has authorized early shuttle launch, [authorized.len] of [auth_need] needed.")
+	log_game("[key_name(user)] has authorized early shuttle launch in [COORD(src)], [authorized.len] of [auth_need] needed..")
 	// Now check if we're on our way
 	. = TRUE
 	process()
