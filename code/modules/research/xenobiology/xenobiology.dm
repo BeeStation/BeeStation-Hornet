@@ -22,7 +22,7 @@
 	. = ..()
 	if(Uses > 1)
 		. += "It has [Uses] uses remaining."
-	if (sparkly == TRUE)
+	if (sparkly)
 		. += "It looks sparkly."
 
 /obj/item/slime_extract/attackby(obj/item/O, mob/user)
