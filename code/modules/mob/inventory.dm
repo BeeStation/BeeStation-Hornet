@@ -188,6 +188,7 @@
 		update_inv_hands()
 		I.pixel_x = initial(I.pixel_x)
 		I.pixel_y = initial(I.pixel_y)
+		I.update_light()
 		return hand_index || TRUE
 	return FALSE
 
@@ -210,7 +211,6 @@
 //Puts the item into our active hand if possible. returns TRUE on success.
 /mob/proc/put_in_active_hand(obj/item/I, forced = FALSE, ignore_animation = TRUE)
 	return put_in_hand(I, active_hand_index, forced, ignore_animation)
-
 
 //Puts the item into our inactive hand if possible, returns TRUE on success
 /mob/proc/put_in_inactive_hand(obj/item/I)
