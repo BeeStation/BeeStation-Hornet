@@ -227,7 +227,7 @@
 // "requires_upgrades", "unsupported_circuit", "iron_cost", "complexity", "max_complexity", "used_space", "max_space"
 /datum/controller/subsystem/processing/circuit/proc/validate_electronic_assembly(program)
 	//Check for bad inputs
-	bad_regex.Replace(program, "")
+	program = bad_regex.Replace(program, "")
 
 	var/list/blocks = json_decode(program)
 	if(!blocks)
