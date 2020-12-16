@@ -83,6 +83,8 @@
 			. = authorize(user)
 
 		if("repeal")
+			if(!(ID in authorized))
+				return //cannot retract auth if never given originally
 			authorized -= ID
 			message_admins("[ADMIN_LOOKUPFLW(user)] has deauthorized early shuttle launch, now [authorized.len] of [auth_need] needed")
 			log_game("[key_name(user)] has deauthorized early shuttle launch in [COORD(src)], now [authorized.len] of [auth_need] needed.")
