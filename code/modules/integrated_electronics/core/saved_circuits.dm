@@ -233,7 +233,7 @@
 	var/error
 
 	//Check for bad inputs
-	bad_regex.Replace(program, "")
+	program.Replace(bad_regex, "")
 
 	// Block 1. Assembly.
 	var/list/assembly_params = blocks["assembly"]
