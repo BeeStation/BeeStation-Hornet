@@ -529,9 +529,9 @@
 
 /mob/living/simple_animal/slime/attack_ghost(mob/user)
 	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
-		humanize_slime(user)
+		make_sentient(user)
 
-/mob/living/simple_animal/slime/proc/humanize_slime(mob/user)
+/mob/living/simple_animal/slime/proc/make_sentient(mob/user)
 	if(key || stat)
 		return
 	var/slime_ask = alert("Become a slime?", "Slime time?", "Yes", "No")

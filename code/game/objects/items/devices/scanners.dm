@@ -700,74 +700,52 @@ GENE SCANNER
 		to_chat(user, "<span class='notice'>Core mutation in progress: [T.effectmod]</span>")
 		to_chat(user, "<span class = 'notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>")
 	if(T.transformeffects != SLIME_EFFECT_DEFAULT)
-		var/slimeeffects = "\nTransformative extract effects detected: "
-		var/i = T.effectsapplied - 1
+		var/slimeeffect = "\nTransformative extract effect detected: "
 		if(T.transformeffects & SLIME_EFFECT_GREY)
-			slimeeffects += "grey[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "grey"
 		if(T.transformeffects & SLIME_EFFECT_ORANGE)
-			slimeeffects += "orange[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "orange"
 		if(T.transformeffects & SLIME_EFFECT_PURPLE)
-			slimeeffects += "purple[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "purple"
 		if(T.transformeffects & SLIME_EFFECT_BLUE)
-			slimeeffects += "blue[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "blue"
 		if(T.transformeffects & SLIME_EFFECT_METAL)
-			slimeeffects += "metal[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "metal"
 		if(T.transformeffects & SLIME_EFFECT_YELLOW)
-			slimeeffects += "yellow[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "yellow"
 		if(T.transformeffects & SLIME_EFFECT_DARK_PURPLE)
-			slimeeffects += "dark purple[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "dark purple"
 		if(T.transformeffects & SLIME_EFFECT_DARK_BLUE)
-			slimeeffects += "dark blue[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "dark blue"
 		if(T.transformeffects & SLIME_EFFECT_SILVER)
-			slimeeffects += "silver[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "silver"
 		if(T.transformeffects & SLIME_EFFECT_BLUESPACE)
-			slimeeffects += "bluespace[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "bluespace"
 		if(T.transformeffects & SLIME_EFFECT_SEPIA)
-			slimeeffects += "sepia[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "sepia"
 		if(T.transformeffects & SLIME_EFFECT_CERULEAN)
-			slimeeffects += "cerulean[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "cerulean"
 		if(T.transformeffects & SLIME_EFFECT_PYRITE)
-			slimeeffects += "pyrite[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "pyrite"
 		if(T.transformeffects & SLIME_EFFECT_RED)
-			slimeeffects += "red[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "red"
 		if(T.transformeffects & SLIME_EFFECT_GREEN)
-			slimeeffects += "green[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "green"
 		if(T.transformeffects & SLIME_EFFECT_PINK)
-			slimeeffects += "pink[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "pink"
 		if(T.transformeffects & SLIME_EFFECT_GOLD)
-			slimeeffects += "gold[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "gold"
 		if(T.transformeffects & SLIME_EFFECT_OIL)
-			slimeeffects += "oil[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "oil"
 		if(T.transformeffects & SLIME_EFFECT_BLACK)
-			slimeeffects += "black[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "black"
 		if(T.transformeffects & SLIME_EFFECT_LIGHT_PINK)
-			slimeeffects += "light pink[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "light pink"
 		if(T.transformeffects & SLIME_EFFECT_ADAMANTINE)
-			slimeeffects += "adamantine[(i == 0) ? "" : ", "]"
-			i--
+			slimeeffect += "adamantine"
 		if(T.transformeffects & SLIME_EFFECT_RAINBOW)
-			slimeeffects += "rainbow[(i == 0) ? "" : ", "]"
-		to_chat(user, "<span class='notice'>[slimeeffects]</span>")
+			slimeeffect += "rainbow"
+		to_chat(user, "<span class='notice'>[slimeeffect].</span>")
 	to_chat(user, "========================")
 
 

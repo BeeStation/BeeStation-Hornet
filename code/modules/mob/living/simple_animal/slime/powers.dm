@@ -248,7 +248,7 @@
 		M.health = M.maxHealth
 	if(transformeffects & SLIME_EFFECT_PINK)
 		M.grant_language(/datum/language/common, TRUE, TRUE)
-		var/datum/language_holder/LH = get_language_holder()
+		var/datum/language_holder/LH = M.get_language_holder()
 		LH.selected_language = /datum/language/common
 	if(transformeffects & SLIME_EFFECT_BLUESPACE)
 		M.verbs += /mob/living/simple_animal/slime/proc/teleport
