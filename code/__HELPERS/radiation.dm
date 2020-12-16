@@ -8,7 +8,6 @@
 		/mob/living/simple_animal/revenant,
 		/obj/effect,
 		/obj/docking_port,
-		/atom/movable/lighting_darkness,
 		/obj/item/projectile,
 		/obj/structure/chisel_message
 		))

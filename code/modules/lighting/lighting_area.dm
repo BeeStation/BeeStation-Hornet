@@ -8,17 +8,6 @@
 
 	base_lighting = new_base_lighting
 
-	if (!base_lighting)
-		cut_overlay(/obj/effect/fullbright)
-		for (var/turf/T in src)
-			T.lighting_build_overlay()
-
-	else
-		add_overlay(/obj/effect/fullbright)
-		for (var/turf/T in src)
-			if (T.lighting_object)
-				T.lighting_clear_overlay()
-
 	return TRUE
 
 /area/vv_edit_var(var_name, var_value)
