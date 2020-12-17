@@ -575,7 +575,6 @@
 					/obj/item/reagent_containers/food/drinks/bottle/rum,
 					/obj/item/reagent_containers/food/drinks/bottle/applejack)
 	var/need = 0 // How much they crave alcohol at the moment
-	var/check_tick = 6 // how many ticks should pass between a check
 	var/tick_number = 0 // Keeping track of how many ticks have passed between a check
 	var/obj/item/reagent_containers/food/drinks/bottle/drink_instance
 
@@ -590,7 +589,7 @@
 	to_chat(quirk_holder, "<span class='boldnotice'>There is a small bottle of [drink_instance] [where_drink]. You only have a single bottle, might have to find some more...</span>")
 
 datum/quirk/alcoholic/on_process()
-	if(tick_number >= check_tick)
+	if(tick_number >= 6) // how many ticks should pass between a check
 		tick_number = 0
 		var/mob/living/carbon/human/H = quirk_holder
 		if(H.drunkenness > 0) // If they're not drunk, need goes up. else they're satisfied
