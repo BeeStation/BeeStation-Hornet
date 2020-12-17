@@ -745,3 +745,10 @@
 			tab = sanitize(href_list["page"])
 	attack_self(H)
 	return
+
+
+/datum/spellbook_entry/item/potions
+	name = "Wand Assortment"
+	desc = "A collection of wands that allow for a wide variety of utility. Wands have a limited number of charges, so be conservative with their use. Comes in a handy belt."
+	item_path = /obj/item/storage/box/potions
+	category = "Offensive"

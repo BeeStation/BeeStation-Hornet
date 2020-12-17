@@ -42,7 +42,7 @@
 	required_reagents = list(/datum/reagent/bluespace = 1, /datum/reagent/magic = 1)
 
 /datum/chemical_reaction/teleportarium_u
-	name = "Teleportarium"
+	name = "Unstable Teleportarium"
 	id = /datum/reagent/magic/teleportarium/unstable
 	results = list(/datum/reagent/magic/teleportarium/unstable = 2)
 	required_reagents = list(/datum/reagent/consumable/ethanol/whiskey = 1, /datum/reagent/magic/teleportarium = 1)

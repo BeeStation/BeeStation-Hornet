@@ -410,3 +410,53 @@
 /obj/item/reagent_containers/glass/bottle/bromine
 	name = "bromine bottle"
 	list_reagents = list(/datum/reagent/bromine = 30)
+
+//Alchemy
+/obj/item/reagent_containers/glass/bottle/alchemy
+	name = "magic essence bottle"
+	list_reagents = list(/datum/reagent/magic = 30)
+	
+/obj/item/reagent_containers/glass/bottle/oil
+	name = "oil bottle"
+	list_reagents = list(/datum/reagent/oil = 30)
+	
+/obj/item/reagent_containers/glass/bottle/blood
+	name = "blood bottle"
+	list_reagents = list(/datum/reagent/blood = 30)
+	
+/obj/item/reagent_containers/glass/bottle/bluespace
+	name = "bluespace dust bottle"
+	list_reagents = list(/datum/reagent/bluespace = 30)
+	
+//potion bottles	
+/obj/item/reagent_containers/glass/bottle/levitatium
+	name = "levitatium bottle"
+	list_reagents = list(/datum/reagent/magic/levitatium = 30)
+	
+/obj/item/reagent_containers/glass/bottle/berserkium
+	name = "berserkium bottle"
+	list_reagents = list(/datum/reagent/magic/berserkium = 30)
+	
+/obj/item/reagent_containers/glass/bottle/invisibilium
+	name = "invisibilium bottle"
+	list_reagents = list(/datum/reagent/magic/invisibilium = 30)
+	
+/obj/item/reagent_containers/glass/bottle/polymorphine
+	name = "polymorphine bottle"
+	list_reagents = list(/datum/reagent/magic/polymorphine = 30)
+	
+/obj/item/reagent_containers/glass/bottle/polymorphine_u
+	name = "unstable polymorphine bottle"
+	list_reagents = list(/datum/reagent/magic/polymorphine/unstable = 30)
+	
+/obj/item/reagent_containers/glass/bottle/polymorphine_c
+	name = "chaotic polymorphine bottle"
+	list_reagents = list(/datum/reagent/magic/polymorphine/chaotic = 30)
+	
+/obj/item/reagent_containers/glass/bottle/teleportarium
+	name = "teleportarium bottle"
+	list_reagents = list(/datum/reagent/magic/teleportarium = 30)
+	
+/obj/item/reagent_containers/glass/bottle/teleportarium_u
+	name = "unstable teleportarium bottle"
+	list_reagents = list(/datum/reagent/magic/teleportarium/unstable = 30)
