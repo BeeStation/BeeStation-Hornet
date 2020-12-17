@@ -103,7 +103,7 @@
 		stored.mind.transfer_to(shape)
 	stored.forceMove(src)
 	stored.notransform = TRUE
-	if(source.convert_damage)
+	if(!source || source.convert_damage)
 		var/damage_percent = (stored.maxHealth - stored.health)/stored.maxHealth;
 		var/damapply = damage_percent * shape.maxHealth;
 
@@ -134,14 +134,14 @@
 
 /obj/shapeshift_holder/proc/casterDeath()
 	//Something kills the stored caster through direct damage.
-	if(source.revert_on_death)
+	if(!source || source.revert_on_death)
 		restore(death=TRUE)
 	else
 		shape.death()
 
 /obj/shapeshift_holder/proc/shapeDeath()
 	//Shape dies.
-	if(source.die_with_shapeshifted_form)
+	if(!source || source.die_with_shapeshifted_form)
 		if(source.revert_on_death)
 			restore(death=TRUE)
 	else
@@ -156,7 +156,7 @@
 		shape.mind.transfer_to(stored)
 	if(death)
 		stored.death()
-	else if(source.convert_damage)
+	else if(source && source.convert_damage)
 		stored.revive(full_heal = TRUE)
 
 		var/damage_percent = (shape.maxHealth - shape.health)/shape.maxHealth;
