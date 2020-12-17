@@ -3768,7 +3768,7 @@
 "doO" = (
 /obj/structure/table/reinforced,
 /obj/item/paper{
-	info = "<i>I feel something bad gonna happen soon. I'm taking that stuff our squad found and augmenting myself to prevent myself turning into a brainlet subhuman in case someone breaks into mind batterer's chamber. I'm sure I'm going to behave much less like a human and I won't be able to turn it back any more, but I will need to get used to it or else I have a big chance becoming a fucking zombie.</i>';
+	info = "<i>I feel something bad gonna happen soon. I'm taking that stuff our squad found and augmenting myself to prevent myself turning into a brainlet subhuman in case someone breaks into mind batterer's chamber. I'm sure I'm going to behave much less like a human and I won't be able to turn it back any more, but I will need to get used to it or else I have a big chance becoming a fucking zombie.</i>";
 	name = "The Boss' note"
 	},
 /turf/open/floor/circuit/green/anim,
@@ -6725,7 +6725,7 @@
 /mob/living/simple_animal/hostile/retaliate/clown/fleshclown{
 	attack_sound = 'sound/weapons/slap.ogg';
 	deathsound = 'sound/voice/human/wilhelm_scream.ogg';
-	enemies = list(/mob/living/carbon,/mob/living/carbon/human))
+	enemies = list(/mob/living/carbon,/mob/living/carbon/human)
 	},
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/clownplanet)
@@ -8397,7 +8397,6 @@
 "gZd" = (
 /obj/machinery/conveyor/inverted{
 	dir = 5;
-	id = null;
 	operating = 1
 	},
 /turf/open/floor/plating{
@@ -10599,7 +10598,7 @@
 /mob/living/simple_animal/hostile/retaliate/clown/fleshclown{
 	attack_sound = 'sound/weapons/slap.ogg';
 	deathsound = 'sound/voice/human/wilhelm_scream.ogg';
-	enemies = list(/mob/living/carbon,/mob/living/carbon/human))
+	enemies = list(/mob/living/carbon,/mob/living/carbon/human)
 	},
 /turf/open/floor/plasteel/bluespace,
 /area/awaymission/factory/clownplanet)
@@ -11276,7 +11275,7 @@
 /area/awaymission/factory/factoryafter/down/levelthree)
 "jeZ" = (
 /obj/effect/mob_spawn/human/corpse{
-	outfit = /datum/outfit/doctor
+	outfit = /datum/outfit/job/doctor
 	},
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
@@ -13053,7 +13052,7 @@
 "kLT" = (
 /mob/living/simple_animal/hostile/retaliate/clown/banana{
 	aggro_vision_range = 3;
-	enemies = list(/mob/living/carbon,/mob/living/carbon/human));
+	enemies = list(/mob/living/carbon,/mob/living/carbon/human);
 	vision_range = 3;
 	wander = 0
 	},
@@ -18207,7 +18206,7 @@
 "oXR" = (
 /obj/structure/table/reinforced,
 /obj/item/paper{
-	info = "<i>I feel something bad gonna happen soon. I'm taking that stuff our squad found and augmenting myself to prevent myself turning into a brainlet subhuman in case someone breaks into mind batterer's chamber. I'm sure I'm going to behave much less like a human and I won't be able to turn it back any more, but I will need to get used to it or else I have a big chance becoming a fucking zombie.</i>';
+	info = "<i>I feel something bad gonna happen soon. I'm taking that stuff our squad found and augmenting myself to prevent myself turning into a brainlet subhuman in case someone breaks into mind batterer's chamber. I'm sure I'm going to behave much less like a human and I won't be able to turn it back any more, but I will need to get used to it or else I have a big chance becoming a fucking zombie.</i>";
 	name = "The Boss' note"
 	},
 /turf/open/floor/circuit/off,
@@ -19284,7 +19283,6 @@
 "pPs" = (
 /obj/machinery/conveyor/inverted{
 	dir = 5;
-	id = null;
 	operating = 1
 	},
 /turf/open/floor/plating,
@@ -21297,7 +21295,7 @@
 "ryU" = (
 /mob/living/simple_animal/hostile/retaliate/clown/clownhulk/destroyer{
 	desc = "An ancient being born of arcane honking. Only the chosen ones can defeat it.";
-	enemies = list(/mob/living/carbon,/mob/living/carbon/human));
+	enemies = list(/mob/living/carbon,/mob/living/carbon/human);
 	environment_smash = 3;
 	health = 700;
 	loot = list(/obj/item/a_gift/anything,/obj/item/clothing/mask/gas/clown_hat,/obj/effect/gibspawner/human,/obj/effect/particle_effect/foam,/obj/item/soap,/obj/item/clothing/suit/space/hardsuit/shielded/swat/honk,/obj/item/veilrender/honkrender);
@@ -21653,7 +21651,7 @@
 	})
 "rOZ" = (
 /obj/item/paper{
-	info = "Anomaly 7 was actually found nearby. One of the villagers found this bat in a forest. It was literally separated from the world by chasm and it also was placed in a burning bonfire. The villager cut a tree, tall enough to make a bridge and get over the chasm to the bat. Then they threw the bat away because they actually needed the bonfire rather than "some useless piece of wood I can make thousands of them". Several days later the villagers spotted a burning bonfire surrounded by chasm nearby the forest. We decided take the bat here and make a cell for it. We don't want people outside to accidentally fall into an abyss. Anyway the "baseball hole" got filled by some dirt and is now safe to walk over. Maybe.";
+	info = "Anomaly 7 was actually found nearby. One of the villagers found this bat in a forest. It was literally separated from the world by chasm and it also was placed in a burning bonfire. The villager cut a tree, tall enough to make a bridge and get over the chasm to the bat. Then they threw the bat away because they actually needed the bonfire rather than some useless piece of wood, as he said. Several days later the villagers spotted a burning bonfire surrounded by chasm nearby the forest. We decided take the bat here and make a cell for it. We don't want people outside to accidentally fall into an abyss. Anyway the baseball hole got filled by some dirt and is now safe to walk over. Maybe.";
 	name = "Anomaly 7"
 	},
 /turf/open/floor/engine{
@@ -22340,7 +22338,7 @@
 /area/awaymission/factory/villageduring/house)
 "sqV" = (
 /obj/item/paper{
-	info = "Anomaly 7 was actually found nearby. One of the villagers found this bat in a forest. It was literally separated from the world by chasm and it also was placed in a burning bonfire. The villager cut a tree, tall enough to make a bridge and get over the chasm to the bat. Then they threw the bat away because they actually needed the bonfire rather than "some useless piece of wood I can make thousands of them". Several days later the villagers spotted a burning bonfire surrounded by chasm nearby the forest. We decided take the bat here and make a cell for it. We don't want people outside to accidentally fall into an abyss. Anyway the "baseball hole" got filled by some dirt and is now safe to walk over. Maybe.";
+	info = "Anomaly 7 was actually found nearby. One of the villagers found this bat in a forest. It was literally separated from the world by chasm and it also was placed in a burning bonfire. The villager cut a tree, tall enough to make a bridge and get over the chasm to the bat. Then they threw the bat away because they actually needed the bonfire rather than some useless piece of wood, as he said. Several days later the villagers spotted a burning bonfire surrounded by chasm nearby the forest. We decided take the bat here and make a cell for it. We don't want people outside to accidentally fall into an abyss. Anyway the baseball hole got filled by some dirt and is now safe to walk over. Maybe.";
 	name = "Anomaly 7"
 	},
 /turf/open/floor/engine{
@@ -22820,7 +22818,7 @@
 	attack_sound = 'sound/weapons/slap.ogg';
 	deathsound = 'sound/voice/human/wilhelm_scream.ogg';
 	dir = 4;
-	enemies = list(/mob/living/carbon,/mob/living/carbon/human));
+	enemies = list(/mob/living/carbon,/mob/living/carbon/human);
 	wander = 0
 	},
 /obj/structure/chair/wood{
@@ -26333,7 +26331,7 @@
 "vPs" = (
 /mob/living/simple_animal/hostile/retaliate/clown/clownhulk/destroyer{
 	desc = "An ancient being born of arcane honking. Only the chosen ones can defeat it.";
-	enemies = list(/mob/living/carbon,/mob/living/carbon/human));
+	enemies = list(/mob/living/carbon,/mob/living/carbon/human);
 	environment_smash = 3;
 	health = 1200;
 	loot = list(/obj/item/a_gift/anything,/obj/item/clothing/mask/gas/clown_hat,/obj/effect/gibspawner/human,/obj/effect/particle_effect/foam,/obj/item/soap,/obj/item/clothing/suit/space/hardsuit/shielded/swat/honk,/obj/item/veilrender/honkrender);
