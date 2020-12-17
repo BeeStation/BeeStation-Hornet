@@ -9,7 +9,7 @@
 	name = "Berserkium"
 	id = /datum/reagent/magic/berserkium
 	results = list(/datum/reagent/magic/berserkium = 2)
-	required_reagents = list(/datum/consumable/reagent/ethanol/whiskey = 1, /datum/reagent/magic = 1)
+	required_reagents = list(/datum/reagent/consumable/ethanol/whiskey = 1, /datum/reagent/magic = 1)
 
 /datum/chemical_reaction/invisibilium
 	name = "Invisibilium"
