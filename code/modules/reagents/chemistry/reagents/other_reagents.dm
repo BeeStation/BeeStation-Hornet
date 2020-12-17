@@ -138,7 +138,8 @@
 	REMOVE_TRAIT(L, TRAIT_NOBREATH, TRAIT_CORGIUM)
 	//New corgi was deleted, goodbye cruel world.
 	if(QDELETED(new_corgi))
-		qdel(L)
+		if(!QDELETED(L))
+			qdel(L)
 		return
 	//Leave the corgi
 	L.key = new_corgi.key
