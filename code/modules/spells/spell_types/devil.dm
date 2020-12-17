@@ -143,7 +143,7 @@
 	if (!user.mind)
 		return TRUE
 	var/datum/antagonist/devil/satin = user.mind.has_antag_datum(/datum/antagonist/devil)
-	var/pick_range = 10
+	var/pick_range = 4
 	if (satin)
 		switch(satin.ban)
 			if (BAN_SALT)
