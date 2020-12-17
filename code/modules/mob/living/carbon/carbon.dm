@@ -798,7 +798,7 @@
 
 				if(prob(40))
 					INVOKE_ASYNC(src, /mob.proc/emote, "cough")
-			if(-9 to crit_threshold)
+			if(-9 to HEALTH_THRESHOLD_CRIT)
 				if(prob(35))
 					duration = 5
 
