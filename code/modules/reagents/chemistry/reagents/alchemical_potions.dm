@@ -83,9 +83,8 @@
 			range = 7
 
 		var/list/mob/living/targets = list()
-		for(var/mob/M in oview(L, range))
-			if(isliving(M))
-				targets += M
+		for(var/mob/living/M in oview(L, range))
+			targets += M
 		if(LAZYLEN(targets))
 			if(prob(33))
 				L.say("ARGH!", forced = "reagent")
