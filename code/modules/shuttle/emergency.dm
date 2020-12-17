@@ -83,12 +83,18 @@
 			. = authorize(user)
 
 		if("repeal")
+			if(!(ID in authorized))
+				return //cannot retract auth if never given originally
 			authorized -= ID
+			message_admins("[ADMIN_LOOKUPFLW(user)] has deauthorized early shuttle launch, now [authorized.len] of [auth_need] needed")
+			log_game("[key_name(user)] has deauthorized early shuttle launch in [COORD(src)], now [authorized.len] of [auth_need] needed.")
 
 		if("abort")
 			if(authorized.len)
 				// Abort. The action for when heads are fighting over whether
 				// to launch early.
+				message_admins("[ADMIN_LOOKUPFLW(user)] has revoked early shuttle launch.")
+				log_game("[key_name(user)] has revoked early shuttle launch in [COORD(src)].")
 				authorized.Cut()
 				. = TRUE
 
@@ -100,6 +106,7 @@
 			minor_announce("[remaining] authorizations needed until shuttle is launched early.", null, alert)
 		if(repeal)
 			minor_announce("Early launch authorization revoked, [remaining] authorizations needed.")
+			log_game("Early launch authorization revoked, [remaining] authorizations needed.")
 
 /obj/machinery/computer/emergency_shuttle/proc/authorize(mob/user, source)
 	var/obj/item/card/id/ID = user.get_idcard(TRUE)
@@ -113,8 +120,8 @@
 
 	authorized += ID
 
-	message_admins("[ADMIN_LOOKUPFLW(user)] has authorized early shuttle launch.")
-	log_game("[key_name(user)] has authorized early shuttle launch in [COORD(src)].")
+	message_admins("[ADMIN_LOOKUPFLW(user)] has authorized early shuttle launch, [authorized.len] of [auth_need] needed.")
+	log_game("[key_name(user)] has authorized early shuttle launch in [COORD(src)], [authorized.len] of [auth_need] needed..")
 	// Now check if we're on our way
 	. = TRUE
 	process()
