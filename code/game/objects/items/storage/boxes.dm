@@ -1246,29 +1246,3 @@
 		new /obj/item/clothing/accessory/armband/deputy(src)
 		new /obj/item/card/id/pass/minisec(src)
 		
-/obj/item/storage/box/RD
-	desc = "More bodies for the slimes to feed on!"
-
-/obj/item/storage/box/RD/PopulateContents()
-	new /obj/item/card/id/pass/robotix(src)
-	new /obj/item/card/id/pass/genetix(src)
-	for(var/i in 1 to 3)
-		new /obj/item/card/id/pass/scientist(src)
-		
-/obj/item/storage/box/CMO
-	desc = "In case your doctors need... Doctors!"
-
-/obj/item/storage/box/CMO/PopulateContents()
-	new /obj/item/card/id/pass/chem(src)
-	new /obj/item/card/id/pass/viro(src)
-	for(var/i in 1 to 3)
-		new /obj/item/card/id/pass/medic(src)
-		
-/obj/item/storage/box/CE
-	desc = "Ah! A variety of new recruits ready to jump facefirst into the crystal!"
-
-/obj/item/storage/box/CE/PopulateContents()
-	for(var/i in 1 to 3)
-		new /obj/item/card/id/pass/engineer(src)
-	for(var/i in 1 to 3)
-		new /obj/item/card/id/pass/atmosian(src)
