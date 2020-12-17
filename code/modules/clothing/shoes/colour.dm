@@ -109,8 +109,9 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/C = user
 		if(C.shoes == src && chained == 1)
-			to_chat(user, "<span class='warning'>You start taking off your [src]!</span>")			
-			return do_after(user,15 SECONDS, src)
+			to_chat(user, "<span class='warning'>You start taking off your [src]!</span>")
+			if(!do_after(user,15 SECONDS, src))
+				return FALSE
 	return ..()
 
 /obj/item/clothing/shoes/sneakers/orange/MouseDrop(atom/over)
