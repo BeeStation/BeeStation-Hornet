@@ -37,7 +37,7 @@
 	var/mob/living/shape = create_random_mob((get_turf(L)), list_mobs)
 	shapeshiftdata = new(shape,null,L)
 	//CODE HERE
-	addtimer(CALLBACK(src, .proc/on_mob_end_metabolize, L), 15 SECONDS)
+	addtimer(CALLBACK(src, .proc/restore, L), 15 SECONDS)
 
 /datum/reagent/magic/polymorphine/proc/restore(mob/living/L)
 	. = ..()
