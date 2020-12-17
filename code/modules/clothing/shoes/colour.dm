@@ -104,3 +104,20 @@
 		src.slowdown = 15
 		src.icon_state = "orange1"
 	return
+	
+/obj/item/clothing/shoes/sneakers/orange/allow_attack_hand_drop(mob/user)
+	if(ishuman(user))
+		var/mob/living/carbon/human/C = user
+		if(C.shoes == src && chained == 1)
+			to_chat(user, "<span class='warning'>You start taking off your [src]!</span>")			
+			return do_after(user,15 SECONDS, src)
+	return ..()
+
+/obj/item/clothing/shoes/sneakers/orange/MouseDrop(atom/over)
+	var/mob/m = usr
+	if(ishuman(m))
+		var/mob/living/carbon/human/c = m
+		if(c.shoes == src && chained == 1)
+			to_chat(user, "<span class='warning'>You start taking off your [src]!</span>")			
+			return do_after(user,15 SECONDS, src)
+	return ..()
