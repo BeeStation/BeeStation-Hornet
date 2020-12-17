@@ -114,9 +114,7 @@
 	for(var/A in actions)
 		var/datum/action/AC = A
 		AC.Remove(src)
-	for(var/spawner in GLOB.mob_spawners)
-		LAZYREMOVE(GLOB.mob_spawners[spawner], src)
-	GLOB.poi_list -= src
+	remove_form_spawner_menu()
 	master = null
 	return ..()
 
@@ -543,10 +541,7 @@
 	key = user.key
 	if(mind && master)
 		mind.store_memory("<b>Serve [master.real_name], your master.</b>")
-	for(var/spawner in GLOB.mob_spawners)
-		LAZYREMOVE(GLOB.mob_spawners[spawner], src)
-	src.master = null
-	GLOB.poi_list -= src
+	remove_form_spawner_menu()
 	log_game("[key_name(src)] took control of [name].")
 
 /mob/living/simple_animal/slime/get_spawner_desc()
@@ -554,3 +549,12 @@
 
 /mob/living/simple_animal/slime/get_spawner_flavour_text()
 	return "You are a slime born and raised in a laboratory.[master ? " Your duty is to follow the orders of [master.real_name].": ""]"
+
+/mob/living/simple_animal/slime/death(gibbed)
+	remove_form_spawner_menu()
+	. = ..()
+
+/mob/living/simple_animal/slime/proc/remove_form_spawner_menu()
+	for(var/spawner in GLOB.mob_spawners)
+		LAZYREMOVE(GLOB.mob_spawners[spawner], src)
+	GLOB.poi_list -= src
