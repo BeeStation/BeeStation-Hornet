@@ -124,7 +124,7 @@
 	new_corgi = new(get_turf(L))
 	new_corgi.key = L.key
 	new_corgi.name = L.name
-	ADD_TRAIT(L, TRAIT_NOBREATH, TRAIT_CORGIUM)
+	ADD_TRAIT(L, TRAIT_NOBREATH, CORGIUM_TRAIT)
 	L.forceMove(new_corgi)
 
 /datum/reagent/corgium/on_mob_life(mob/living/carbon/M)
