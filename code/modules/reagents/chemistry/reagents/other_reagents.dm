@@ -135,7 +135,7 @@
 
 /datum/reagent/corgium/on_mob_end_metabolize(mob/living/L)
 	. = ..()
-	REMOVE_TRAIT(L, TRAIT_NOBREATH, TRAIT_CORGIUM)
+	REMOVE_TRAIT(L, TRAIT_NOBREATH, CORGIUM_TRAIT)
 	//New corgi was deleted, goodbye cruel world.
 	if(QDELETED(new_corgi))
 		if(!QDELETED(L))
