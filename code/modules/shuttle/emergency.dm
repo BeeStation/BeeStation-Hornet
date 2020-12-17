@@ -113,8 +113,6 @@
 			minor_announce("Early launch authorization revoked, [remaining] authorizations needed.")
 			log_game("Early launch authorization revoked, [remaining] authorizations needed.")
 	acted_recently += user
-	//if(!QDELETED(user))
-	//	ui_interact(user)
 
 /obj/machinery/computer/emergency_shuttle/proc/authorize(mob/user, source)
 	var/obj/item/card/id/ID = user.get_idcard(TRUE)
