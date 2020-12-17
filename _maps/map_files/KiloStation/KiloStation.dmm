@@ -11142,7 +11142,13 @@
 	dir = 4;
 	icon_state = "scrub_map_on-1"
 	},
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/turf/open/floor/plasteel/showroomfloor,
 /area/security/brig)
 "avu" = (
 /obj/structure/sign/warning/explosives/alt,
@@ -12386,12 +12392,18 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "axL" = (
-/obj/structure/bodycontainer/morgue,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
+/obj/machinery/computer/med_data/laptop,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/obj/structure/table,
+/obj/machinery/vending/wallmed/pubby{
+	pixel_x = -25
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/plasteel/showroomfloor,
 /area/security/brig)
 "axM" = (
 /obj/structure/table,
@@ -19790,7 +19802,14 @@
 	dir = 4;
 	pixel_x = -23
 	},
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/turf/open/floor/plasteel/showroomfloor,
 /area/security/brig)
 "aKM" = (
 /obj/structure/chair/sofa/left{
@@ -60635,18 +60654,14 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/brig)
 "cef" = (
-/obj/machinery/computer/med_data/laptop,
-/obj/machinery/vending/wallmed/pubby{
-	pixel_x = 24
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/structure/table,
+/obj/structure/closet/secure_closet/brig_phys,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/brig)
 "cei" = (
