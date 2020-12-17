@@ -577,8 +577,8 @@
 	new /obj/item/clothing/head/helmet/space/orange(src)
 	new /obj/item/clothing/suit/space/orange(src)
 	new /obj/item/clothing/suit/space/orange(src)
-	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/clothing/mask/gas(src)
+	new /obj/item/clothing/mask/gas/old(src)		//emergency means older models
+	new /obj/item/clothing/mask/gas/old(src)
 	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/pickaxe/emergency(src)
