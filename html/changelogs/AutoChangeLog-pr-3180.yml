@@ -1,4 +1,0 @@
-author: Blueturbo47
-delete-after: true
-changes:
-  - bugfix: Some of the maint rooms were marked as the wrong area.
