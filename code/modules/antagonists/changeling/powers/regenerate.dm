@@ -46,7 +46,7 @@
 	helptext = "We reform one of our limbs as an autonomous snake-like creature. This grotesque display may ward off attackers, and the creature will inject them with incapacitating poison."
 	button_icon_state = "limbsnake"
 	chemical_cost = 15
-	dna_cost = 1
+	dna_cost = 2
 	req_human = TRUE
 	req_stat = DEAD
 	ignores_fakedeath = TRUE
@@ -71,7 +71,7 @@
 	//text message
 	C.visible_message("<span class='warning'>[user]'s [BP] detaches itself and takes the form of a snake!</span>",
 			"<span class='userdanger'>Our [BP] forms into a horrifying snake and heads towards our attackers!</span>")
-	BP.set_disabled(TRUE)
+	BP.dismember()
 	BP.Destroy()
 	C.update_mobility()
 	//Deploy limbsnake

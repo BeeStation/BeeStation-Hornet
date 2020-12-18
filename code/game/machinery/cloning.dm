@@ -60,6 +60,7 @@
 	var/mob/living/mob_occupant = occupant
 	go_out()
 	if(mob_occupant)
+		// Random comment: this is a bad situation since breaking the pod ejects the occupant
 		log_cloning("[key_name(mob_occupant)] ejected from [src] at [AREACOORD(src)] due to Destroy().")
 	QDEL_NULL(radio)
 	QDEL_NULL(countdown)
@@ -275,7 +276,7 @@
 /obj/machinery/clonepod/process()
 	var/mob/living/mob_occupant = occupant
 
-	if(!is_operational()) //Autoeject if power is lost
+	if(!is_operational()) //Autoeject if power is lost (or the pod is dysfunctional due to whatever reason)
 		if(mob_occupant)
 			go_out()
 			log_cloning("[key_name(mob_occupant)] ejected from [src] at [AREACOORD(src)] due to power loss.")
@@ -340,7 +341,7 @@
 					var/obj/item/bodypart/BP = I
 					BP.attach_limb(mob_occupant)
 
-			use_power(7500) //This might need tweaking.
+			use_power(5000 * speed_coeff) //This might need tweaking.
 
 		else if(mob_occupant && (mob_occupant.cloneloss <= (100 - heal_level)))
 			connected_message("Cloning Process Complete.")
