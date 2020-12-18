@@ -11048,10 +11048,9 @@
 /area/wizard_station)
 "zO" = (
 /obj/structure/destructible/cult/talisman{
-	name = "Alchemy Lab"
-	desc = "A small lab for basic potion making."
+	desc = "An altar dedicated to the Wizards' Federation"
 	},
-/obj/item/storage/box/alchemy,
+/obj/item/kitchen/knife/ritual,
 /turf/open/floor/engine/cult,
 /area/wizard_station)
 "zP" = (

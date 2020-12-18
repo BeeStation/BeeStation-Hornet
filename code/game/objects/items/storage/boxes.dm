@@ -1240,9 +1240,8 @@
 	name = "box of potions"
 
 /obj/item/storage/box/potions/PopulateContents()
-	var/list/items_inside = new ()
 	for(var/i in 1 to 10)
-		LAZYADD(items_inside,pick(
+		var/potion_type = pick(
 			/obj/item/reagent_containers/glass/bottle/levitatium,
 			/obj/item/reagent_containers/glass/bottle/berserkium,
 			/obj/item/reagent_containers/glass/bottle/invisibilium,
@@ -1251,19 +1250,5 @@
 			/obj/item/reagent_containers/glass/bottle/polymorphine_c,
 			/obj/item/reagent_containers/glass/bottle/teleportarium,
 			/obj/item/reagent_containers/glass/bottle/teleportarium_u,
-		))
-	generate_items_inside(items_inside,src)
-
-/obj/item/storage/box/alchemy
-	name = "box of alchemical components"
-
-/obj/item/storage/box/material/PopulateContents()
-	var/items_inside = list(
-			/obj/item/reagent_containers/glass/beaker = 1,
-			/obj/item/reagent_containers/glass/bottle/alchemy = 3,
-			/obj/item/reagent_containers/glass/bottle/oil = 1,
-			/obj/item/reagent_containers/glass/bottle/blood = 1,
-			/obj/item/reagent_containers/glass/bottle/bluespace = 1,
-			/obj/item/reagent_containers/food/drinks/bottle/whiskey = 1
 		)
-	generate_items_inside(items_inside,src)
+		new potion_type(src)
