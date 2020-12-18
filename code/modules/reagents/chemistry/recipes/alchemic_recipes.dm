@@ -47,3 +47,15 @@
 	results = list(/datum/reagent/magic/teleportarium/unstable = 2)
 	required_reagents = list(/datum/reagent/consumable/ethanol/whiskey = 1, /datum/reagent/magic/teleportarium = 1)
 
+/datum/chemical_reaction/midas
+	name = "Draught of Midas"
+	id = /datum/reagent/magic/midas
+	results = list(/datum/reagent/magic/midas = 2)
+	required_reagents = list(/datum/reagent/liquidgibs = 1, /datum/reagent/magic = 1)
+	
+/datum/chemical_reaction/midas_replicate
+	name = "Draught of Midas"
+	id = /datum/reagent/magic/midas
+	results = list(/datum/reagent/magic/midas = 2)
+	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/magic/midas = 1)
+
