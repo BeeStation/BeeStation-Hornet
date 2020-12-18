@@ -1197,7 +1197,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = null
+	zombiejob = "NOPE"
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -1466,7 +1466,7 @@
 	dir = 1;
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	wander = 0;
-	zombiejob = null
+	zombiejob = "NOPE"
 	},
 /turf/open/floor/holofloor/grass{
 	color = "#A4A4A4"
@@ -2075,7 +2075,8 @@
 /obj/item/assembly/signaler/anomaly/bluespace,
 /turf/open/indestructible/binary{
 	light_color = "#06B70B";
-	light_power = 2
+	light_power = 2;
+	light_range = 1
 	},
 /area/awaymission/factory/transition)
 "bQq" = (
@@ -3760,9 +3761,11 @@
 /turf/open/floor/carpet/black,
 /area/awaymission/factory/villageduring/house)
 "doN" = (
-/turf/open/indestructible/binary{
+/turf/open/indestructible{
+	icon_state = "binary";
 	light_color = "#06B70B";
-	light_power = 2
+	light_power = 2;
+	light_range = 1
 	},
 /area/awaymission/factory/factoryafter/down/levelthree)
 "doO" = (
@@ -3776,7 +3779,7 @@
 "dpL" = (
 /obj/structure/railing{
 	climbable = 0;
-	flags_1 = "NODECONSTRUCT_1";
+	flags_1 = 129;
 	max_integrity = 9000
 	},
 /turf/closed/wall/mineral/wood/nonmetal{
@@ -5037,7 +5040,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = null
+	zombiejob = "NOPE"
 	},
 /obj/machinery/light/small,
 /turf/open/floor/circuit,
@@ -6743,7 +6746,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = null
+	zombiejob = "NOPE"
 	},
 /obj/effect/decal/cleanable/vomit,
 /turf/open/floor/plasteel/dark,
@@ -8527,7 +8530,8 @@
 	},
 /turf/open/indestructible/binary{
 	light_color = "#06B70B";
-	light_power = 2
+	light_power = 2;
+	light_range = 1
 	},
 /area/awaymission/factory/transition)
 "hdI" = (
@@ -8745,7 +8749,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = null
+	zombiejob = "NOPE"
 	},
 /turf/open/floor/grass/snow/basalt{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15";
@@ -10103,7 +10107,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = null
+	zombiejob = "NOPE"
 	},
 /turf/open/floor/holofloor/grass{
 	color = "#A4A4A4"
@@ -11038,7 +11042,7 @@
 	dir = 8;
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	wander = 0;
-	zombiejob = null
+	zombiejob = "NOPE"
 	},
 /turf/open/floor/holofloor/grass{
 	color = "#A4A4A4"
@@ -11226,7 +11230,7 @@
 /obj/structure/railing{
 	climbable = 0;
 	dir = 1;
-	flags_1 = "NODECONSTRUCT_1";
+	flags_1 = 129;
 	max_integrity = 9000
 	},
 /turf/closed/wall/mineral/wood/nonmetal{
@@ -11301,7 +11305,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = null
+	zombiejob = "NOPE"
 	},
 /obj/machinery/light/small,
 /turf/open/floor/circuit,
@@ -12145,8 +12149,8 @@
 /area/awaymission/factory/factoryduring/down/levelthree)
 "jTQ" = (
 /obj/structure/table/reinforced,
-/obj/item/mop/advanced,
 /obj/item/soap/deluxe,
+/obj/item/mop/sharp,
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
 	},
@@ -12297,7 +12301,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = null
+	zombiejob = "NOPE"
 	},
 /turf/open/floor/plating/snowed/smoothed,
 /area/awaymission/factory/villageduring/house)
@@ -12782,7 +12786,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = null
+	zombiejob = "NOPE"
 	},
 /obj/effect/gibspawner/human,
 /obj/effect/decal/cleanable/blood,
@@ -13798,7 +13802,8 @@
 	},
 /turf/open/indestructible/binary{
 	light_color = "#06B70B";
-	light_power = 2
+	light_power = 2;
+	light_range = 1
 	},
 /area/awaymission/factory/transition)
 "lxP" = (
@@ -14562,8 +14567,7 @@
 /area/awaymission/factory/factoryduring)
 "mcs" = (
 /obj/structure/spawner/nether{
-	max_mobs = 0;
-	mob_types = list()
+	max_mobs = 1
 	},
 /turf/open/floor/circuit/off,
 /area/awaymission/factory/factoryafter/down/levelthree)
@@ -16837,7 +16841,8 @@
 /obj/item/disk/cargo/bluespace_pod,
 /turf/open/indestructible/binary{
 	light_color = "#06B70B";
-	light_power = 2
+	light_power = 2;
+	light_range = 1
 	},
 /area/awaymission/factory/transition)
 "nXX" = (
@@ -17139,9 +17144,11 @@
 	id = "timetravel2";
 	name = "strange rune"
 	},
-/turf/open/indestructible/binary{
+/turf/open/indestructible{
+	icon_state = "binary";
 	light_color = "#06B70B";
-	light_power = 2
+	light_power = 2;
+	light_range = 1
 	},
 /area/awaymission/factory/factoryduring/down/levelthree)
 "ojb" = (
@@ -17417,7 +17424,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = null
+	zombiejob = "NOPE"
 	},
 /turf/open/floor/engine/light{
 	baseturfs = /turf/open/floor/plating/asteroid
@@ -18563,7 +18570,10 @@
 /obj/structure/chair/brass,
 /obj/effect/clockwork/overlay/floor,
 /turf/open/floor/plating/asteroid,
-/area/awaymission/factory/secret)
+/area/ruin/unpowered{
+	ambient_buzz = null;
+	noteleport = 1
+	})
 "poc" = (
 /obj/structure/closet/l3closet/virology,
 /obj/item/storage/belt/medical,
@@ -19902,9 +19912,11 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/indestructible/binary{
+/turf/open/indestructible{
+	icon_state = "binary";
 	light_color = "#06B70B";
-	light_power = 2
+	light_power = 2;
+	light_range = 1
 	},
 /area/awaymission/factory/factoryduring/down/levelthree)
 "qsc" = (
@@ -20020,7 +20032,7 @@
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	health = 30;
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = null
+	zombiejob = "NOPE"
 	},
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
@@ -20582,7 +20594,7 @@
 /obj/structure/railing{
 	climbable = 0;
 	dir = 4;
-	flags_1 = "NODECONSTRUCT_1";
+	flags_1 = 129;
 	max_integrity = 9000
 	},
 /turf/closed/wall/mineral/wood/nonmetal{
@@ -20656,7 +20668,7 @@
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	health = 30;
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = null
+	zombiejob = "NOPE"
 	},
 /turf/open/floor/circuit/red/anim,
 /area/awaymission/factory/factoryduring/down/levelthree)
@@ -21183,7 +21195,7 @@
 /obj/structure/railing{
 	climbable = 0;
 	dir = 8;
-	flags_1 = "NODECONSTRUCT_1";
+	flags_1 = 129;
 	max_integrity = 9000
 	},
 /turf/closed/wall/mineral/wood/nonmetal{
@@ -22181,7 +22193,7 @@
 /obj/structure/railing{
 	climbable = 0;
 	dir = 8;
-	flags_1 = "NODECONSTRUCT_1";
+	flags_1 = 129;
 	max_integrity = 9000
 	},
 /turf/closed/wall/mineral/wood/nonmetal{
@@ -23026,9 +23038,11 @@
 	},
 /area/awaymission/factory/factoryafter)
 "sPv" = (
-/turf/open/indestructible/binary{
+/turf/open/indestructible{
+	icon_state = "binary";
 	light_color = "#06B70B";
-	light_power = 2
+	light_power = 2;
+	light_range = 1
 	},
 /area/awaymission/factory/factoryduring/down/levelthree)
 "sPJ" = (
@@ -23489,7 +23503,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = null
+	zombiejob = "NOPE"
 	},
 /turf/open/floor/carpet/royalblack,
 /area/awaymission/factory/villageduring/house)
@@ -25554,7 +25568,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = null
+	zombiejob = "NOPE"
 	},
 /obj/effect/decal/cleanable/vomit,
 /turf/open/floor/monotile/light,
@@ -25749,7 +25763,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = null
+	zombiejob = "NOPE"
 	},
 /turf/open/floor/noslip/white{
 	name = "padded floor"
@@ -25907,9 +25921,11 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/indestructible/binary{
+/turf/open/indestructible{
+	icon_state = "binary";
 	light_color = "#06B70B";
-	light_power = 2
+	light_power = 2;
+	light_range = 1
 	},
 /area/awaymission/factory/factoryafter/down/levelthree)
 "vxj" = (
@@ -26697,7 +26713,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = null
+	zombiejob = "NOPE"
 	},
 /obj/machinery/light/small{
 	brightness = 3;
@@ -27305,7 +27321,8 @@
 	},
 /turf/open/indestructible/binary{
 	light_color = "#06B70B";
-	light_power = 2
+	light_power = 2;
+	light_range = 1
 	},
 /area/awaymission/factory/transition)
 "wGn" = (
@@ -27521,7 +27538,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = null
+	zombiejob = "NOPE"
 	},
 /turf/open/floor/carpet/black,
 /area/awaymission/factory/villageduring/house)
@@ -27818,7 +27835,8 @@
 "xbf" = (
 /turf/open/indestructible/binary{
 	light_color = "#06B70B";
-	light_power = 2
+	light_power = 2;
+	light_range = 1
 	},
 /area/awaymission/factory/transition)
 "xcu" = (
@@ -27885,8 +27903,8 @@
 /area/awaymission/factory/secret)
 "xfi" = (
 /obj/structure/table/reinforced,
-/obj/item/mop/advanced,
 /obj/item/soap/deluxe,
+/obj/item/mop/sharp,
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
 	},
@@ -28346,9 +28364,11 @@
 	id = "timetravel";
 	name = "strange rune"
 	},
-/turf/open/indestructible/binary{
+/turf/open/indestructible{
+	icon_state = "binary";
 	light_color = "#06B70B";
-	light_power = 2
+	light_power = 2;
+	light_range = 1
 	},
 /area/awaymission/factory/factoryafter/down/levelthree)
 "xyS" = (
@@ -28630,7 +28650,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = null
+	zombiejob = "NOPE"
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/factory/factoryduring/down/leveltwo/morgue)
@@ -29054,7 +29074,10 @@
 /obj/item/twohanded/clockwork/brass_spear,
 /obj/effect/clockwork/overlay/floor,
 /turf/open/floor/plating/asteroid,
-/area/awaymission/factory/secret)
+/area/ruin/unpowered{
+	ambient_buzz = null;
+	noteleport = 1
+	})
 "yaV" = (
 /obj/structure/table,
 /obj/item/trash/plate,
@@ -68929,10 +68952,10 @@ fgi
 piy
 cPx
 cPx
-dWT
+pIX
 bWH
 pIX
-pIX
+duU
 pIX
 pIX
 cPx
@@ -69353,7 +69376,7 @@ fgi
 piy
 cPx
 cPx
-dWT
+pIX
 pIX
 gkS
 pIX
@@ -69989,7 +70012,7 @@ fgi
 piy
 cPx
 cPx
-dWT
+duU
 cPx
 cPx
 cPx
@@ -70201,7 +70224,7 @@ fgi
 piy
 cPx
 cPx
-dWT
+pIX
 yaQ
 cPx
 pIX
