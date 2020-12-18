@@ -1,0 +1,5 @@
+author: qwertyquerty
+delete-after: true
+changes:
+  - rscadd: Zoom in keybind (set to ] by default, unbound if you have played before
+      and you'll have to set it up in keybind prefs)
