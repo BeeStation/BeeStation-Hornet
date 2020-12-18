@@ -4,7 +4,7 @@
   "version": "4.2.0",
   "dependencies": {
     "common": "workspace:*",
-    "dompurify": "^2.0.11",
+    "dompurify": "^2.0.17",
     "fg-loadcss": "^2.1.0",
     "inferno": "^7.4.2",
     "inferno-vnode-flags": "^7.4.2",
