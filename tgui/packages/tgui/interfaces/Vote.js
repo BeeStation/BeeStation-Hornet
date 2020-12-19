@@ -6,7 +6,6 @@ import {
   Button,
   Section,
   Collapsible,
-  Table,
 } from "../components";
 import { Window } from "../layouts";
 import { logger } from "../logging";
@@ -14,7 +13,7 @@ import { logger } from "../logging";
 export const Vote = (props, context) => {
   const { data } = useBackend(context);
   const { mode, question, lower_admin } = data;
-
+  
   return (
     <Window
       resizable
@@ -31,7 +30,7 @@ export const Vote = (props, context) => {
       height={500} >
       <Window.Content overflowY="scroll">
         <Flex direction="column" height="100%">
-          {lower_admin && <AdminPanel />}
+          {!!lower_admin && <AdminPanel />}
           <ChoicesPanel />
           <TimePanel />
         </Flex>
@@ -56,7 +55,7 @@ const AdminPanel = (props, context) => {
                   onClick={() => act("map")} >
                   Map
                 </Button>
-                {upper_admin && (
+                {!!upper_admin && (
                   <Button.Checkbox
                     ml={1}
                     color="red"
@@ -72,7 +71,7 @@ const AdminPanel = (props, context) => {
                   onClick={() => act("restart")} >
                   Restart
                 </Button>
-                {upper_admin && (
+                {!!upper_admin && (
                   <Button.Checkbox
                     ml={1}
                     color="red"
@@ -88,7 +87,7 @@ const AdminPanel = (props, context) => {
                   onClick={() => act("gamemode")} >
                   Gamemode
                 </Button>
-                {upper_admin && (
+                {!!upper_admin && (
                   <Button.Checkbox
                     ml={1}
                     color="red"
@@ -107,12 +106,10 @@ const AdminPanel = (props, context) => {
           </Flex>
         </Collapsible>
         <Collapsible title="View Voters">
-          <Box mt={2} height={6} overflowY="scroll">
-            <Table>
-              {voting.map(voter => {
-                return <Table.Cell key={voter}>{voter}</Table.Cell>;
-              })}
-            </Table>
+          <Box mt={2} width="100%" height={6} overflowY="scroll">
+            {voting.map(voter => {
+              return <Box key={voter}>{voter}</Box>;
+            })}
           </Box>
         </Collapsible>
       </Section>
@@ -213,7 +210,7 @@ const TimePanel = (props, context) => {
     <Flex.Item>
       <Section>
         <Flex justify="space-between">
-          {upper_admin && (
+          {!!upper_admin && (
             <Button
               onClick={() => {
                 act("cancel");
