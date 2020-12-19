@@ -9,7 +9,6 @@
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 	chat_color = "#FF83D7"
-	special_notice = "There is a difference between harmless pranks and griefing. Know it."
 
 	outfit = /datum/outfit/job/clown
 

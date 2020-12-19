@@ -13,7 +13,6 @@
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 	exp_type_department = EXP_TYPE_SECURITY
-	special_notice = "You are a doctor for Security and the prisoners, not a combat medic. Do not do Security's job."
 
 	outfit = /datum/outfit/job/brig_phys
 
