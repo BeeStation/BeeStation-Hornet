@@ -613,5 +613,5 @@ ECONOMY
 ## Crew objectives
 ALLOW_CREW_OBJECTIVES
 
-## Uncomment to restrict suiciding. Adds an additional confirmation dialogue, additional logging, and prevents suicide within the first 15 minutes of the round.
+## Uncomment to restrict suiciding.
 RESTRICTED_SUICIDE

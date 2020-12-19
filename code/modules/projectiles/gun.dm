@@ -221,7 +221,7 @@
 	if(!can_shoot()) //Just because you can pull the trigger doesn't mean it can shoot.
 		shoot_with_empty_chamber(user)
 		return
-		
+
 	if (ranged_cooldown>world.time)
 		return
 	//Exclude lasertag guns from the TRAIT_CLUMSY check.
@@ -559,9 +559,10 @@
 	target.visible_message("<span class='warning'>[user] pulls the trigger!</span>", "<span class='userdanger'>[(user == target) ? "You pull" : "[user] pulls"] the trigger!</span>")
 
 	if(chambered?.BB)
-		chambered.BB.damage *= 5
+		chambered.BB.damage *= 10
 
 	process_fire(target, user, TRUE, params)
+	message_admins("[ADMIN_LOOKUPFLW(usr)] has attempted to commit suicide with [src].") //Apply the attack log.
 
 /obj/item/gun/proc/unlock() //used in summon guns and as a convience for admins
 	if(pin)
