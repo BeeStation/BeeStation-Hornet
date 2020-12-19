@@ -1,5 +1,13 @@
 import { useBackend } from "../backend";
-import { Box, Icon, Flex, Button, Section, Collapsible } from "../components";
+import {
+  Box,
+  Icon,
+  Flex,
+  Button,
+  Section,
+  Collapsible,
+  Table,
+} from "../components";
 import { Window } from "../layouts";
 import { logger } from "../logging";
 
@@ -100,7 +108,11 @@ const AdminPanel = (props, context) => {
         </Collapsible>
         <Collapsible title="View Voters">
           <Box mt={2} height={6} overflowY="scroll">
-            {voting.toString().replace(/,(?=[^\s])/g, "\n")}
+            <Table>
+              {voting.map(voter => {
+                return <Table.Cell key={voter}>{voter}</Table.Cell>;
+              })}
+            </Table>
           </Box>
         </Collapsible>
       </Section>
