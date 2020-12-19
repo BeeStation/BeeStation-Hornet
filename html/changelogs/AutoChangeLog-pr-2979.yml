@@ -1,0 +1,6 @@
+author: jlsnow301
+delete-after: true
+changes:
+  - rscadd: Voting panel upgraded to TGUI.
+  - rscadd: Users are now shown which option they voted for.
+  - rscadd: Users can now change their votes.
