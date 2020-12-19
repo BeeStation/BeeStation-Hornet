@@ -613,5 +613,10 @@ ECONOMY
 ## Crew objectives
 ALLOW_CREW_OBJECTIVES
 
+##ONLY UNCOMMENT ONE OF THE BELOW OR SHIT WILL (probably) BREAK!!!!!
+
 ## Uncomment to restrict suiciding.
-RESTRICTED_SUICIDE
+#RESTRICTED_SUICIDE
+
+## Uncomment to disable suiciding.
+DISABLED_SUICIDE

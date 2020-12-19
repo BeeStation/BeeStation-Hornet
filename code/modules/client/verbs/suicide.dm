@@ -269,6 +269,15 @@
 		to_chat(src, "You can't commit suicide whilst immobile! ((You can type Ghost instead however.))")
 		return
 	if(CONFIG_GET(flag/restricted_suicide))
+		if(alert("Commiting suicide is strongly discouraged, and in some cases may be against the rules. Consider entering the cryopods or contacting admins. Are you sure you want to continue?",,"Confirm","Cancel") != "Confirm")
+			return
+		if(world.time < (SSticker.round_start_time + (15 MINUTES)))
+			var/timeleft = ((SSticker.round_start_time + (15 MINUTES)) - world.time)
+			to_chat(src, "<span class='boldannounce'>Committing suicide at the start of the round is not allowed. Time until suicide is possible: [DisplayTimeText(timeleft)].</span>")
+			if(src.job)
+				message_admins("[key_name(src)] (job: [src.job]) attempted to commit suicide at [AREACOORD(src)]. Time until suicide is possible: [DisplayTimeText(timeleft)].")
+			return
+	if(CONFIG_GET(flag/disabled_suicide))
 		(alert("No, enter the cryopods or contact the admins if you have a valid reason."))
 
 	else return TRUE
