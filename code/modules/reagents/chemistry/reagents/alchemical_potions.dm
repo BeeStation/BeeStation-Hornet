@@ -23,7 +23,6 @@
 	taste_description = "a rainbow of tastes"
 	overdose_threshold = 25
 	metabolization_rate = 0.1 * REAGENTS_METABOLISM
-	var/list_mobs = FRIENDLY_SPAWN
 	var/obj/shapeshift_holder/shapeshiftdata
 
 /datum/reagent/magic/polymorphine/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
@@ -40,7 +39,7 @@
 	shapeshiftdata = locate() in L
 	if(shapeshiftdata)
 		return
-	var/mob/living/shape = create_random_mob((get_turf(L)), list_mobs)
+	var/mob/living/shape = make_mob(get_turf(L))
 	shapeshiftdata = new(shape,null,L)
 	addtimer(CALLBACK(shapeshiftdata, /obj/shapeshift_holder.proc/restore), POLYMORPHIUM_DURATION)
 
@@ -50,22 +49,22 @@
 		return
 	shapeshiftdata.restore()
 
+/datum/reagent/magic/polymorphine/proc/make_mob(turf/T)
+	return create_random_mob(T, FRIENDLY_SPAWN)
+
 /datum/reagent/magic/polymorphine/chaotic
 	name = "chaotic polymorphine"
 	description = "Magic potion that transforms you into a hostile creature."
-	list_mobs = HOSTILE_SPAWN
+
+/datum/reagent/magic/polymorphine/chaotic/make_mob(turf/T)
+	return create_random_mob(T, HOSTILE_SPAWN)
 
 /datum/reagent/magic/polymorphine/unstable
 	name = "unstable polymorphine"
 	description = "Magic potion that transforms you into a random creature."
 
-/datum/reagent/magic/polymorphine/unstable/reaction_mob(mob/living/M, method=TOUCH, reac_volume)	
-	list_mobs = prob(50) ? HOSTILE_SPAWN : FRIENDLY_SPAWN
-	..()
-
-/datum/reagent/magic/polymorphine/unstable/on_mob_metabolize(mob/living/L)
-	..()
-	list_mobs = prob(50) ? HOSTILE_SPAWN : FRIENDLY_SPAWN
+/datum/reagent/magic/polymorphine/unstable/make_mob(turf/T)
+	return create_random_mob(T, prob(50) ? HOSTILE_SPAWN : FRIENDLY_SPAWN)
 
 //	----	BERSERKIUM	----
 
