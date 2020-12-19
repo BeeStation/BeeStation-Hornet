@@ -1,8 +1,0 @@
-author: MNarath1
-delete-after: true
-changes:
-  - rscadd: Directional firelocks frames to iron sheet recipe
-  - rscadd: Window firelock frames to reinforced glass sheet recipe
-  - bugfix: a runtime error during firelock construction(only when making them from
-      scratch)
-  - refactor: small changes to the heavy firelock code and var define of firelock_type
