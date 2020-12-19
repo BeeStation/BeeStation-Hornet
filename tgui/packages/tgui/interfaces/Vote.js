@@ -21,7 +21,7 @@ export const Vote = (props, context) => {
       }`}
       width={400}
       height={500} >
-      <Window.Content>
+      <Window.Content overflowY="scroll">
         <Flex direction="column" height="100%">
           {lower_admin && <AdminPanel />}
           <ChoicesPanel />
@@ -38,14 +38,14 @@ const AdminPanel = (props, context) => {
   const { avm, avr, avmap, voting, upper_admin } = data;
   return (
     <Flex.Item>
-      <Collapsible title="Admin Options">
-        <Section mb={1} title="Start a vote">
-          <Flex justify="space-between">
+      <Section mb={1} title="Admin Options">
+        <Collapsible title="Start a Vote">
+          <Flex mt={2} justify="space-between">
             <Flex.Item>
               <Box mb={1}>
                 <Button
                   disabled={!upper_admin || !avmap}
-                  onClick={() => act("map")}>
+                  onClick={() => act("map")} >
                   Map
                 </Button>
                 {upper_admin && (
@@ -53,7 +53,7 @@ const AdminPanel = (props, context) => {
                     ml={1}
                     color="red"
                     checked={!avmap}
-                    onClick={() => act("toggle_map")}>
+                    onClick={() => act("toggle_map")} >
                     Disable{!avmap ? "d" : ""}
                   </Button.Checkbox>
                 )}
@@ -61,7 +61,7 @@ const AdminPanel = (props, context) => {
               <Box mb={1}>
                 <Button
                   disabled={!upper_admin || !avr}
-                  onClick={() => act("restart")}>
+                  onClick={() => act("restart")} >
                   Restart
                 </Button>
                 {upper_admin && (
@@ -69,7 +69,7 @@ const AdminPanel = (props, context) => {
                     ml={1}
                     color="red"
                     checked={!avr}
-                    onClick={() => act("toggle_restart")}>
+                    onClick={() => act("toggle_restart")} >
                     Disable{!avr ? "d" : ""}
                   </Button.Checkbox>
                 )}
@@ -77,7 +77,7 @@ const AdminPanel = (props, context) => {
               <Box mb={1}>
                 <Button
                   disabled={!upper_admin || !avm}
-                  onClick={() => act("gamemode")}>
+                  onClick={() => act("gamemode")} >
                   Gamemode
                 </Button>
                 {upper_admin && (
@@ -85,7 +85,7 @@ const AdminPanel = (props, context) => {
                     ml={1}
                     color="red"
                     checked={!avm}
-                    onClick={() => act("toggle_gamemode")}>
+                    onClick={() => act("toggle_gamemode")} >
                     Disable{!avm ? "d" : ""}
                   </Button.Checkbox>
                 )}
@@ -97,11 +97,13 @@ const AdminPanel = (props, context) => {
               </Button>
             </Flex.Item>
           </Flex>
-        </Section>
-        <Section title="Still Voting">
-          <Collapsible title="View List">{voting}</Collapsible>
-        </Section>
-      </Collapsible>
+        </Collapsible>
+        <Collapsible title="View Voters">
+          <Box mt={2} height={6} overflowY="scroll">
+            {voting.toString().replace(/,(?=[^\s])/g, "\n")}
+          </Box>
+        </Collapsible>
+      </Section>
     </Flex.Item>
   );
 };
@@ -177,7 +179,7 @@ const DisplayChoices = (props, context) => {
           } >
           {choice.name?.replace(/^\w/, c => c.toUpperCase())}
         </Button>
-        <Box ml={1}>
+        <Box mt={0.4} ml={1}>
           {choice === props.choices[selectedChoice - props.startIndex - 1] && (
             <Icon color="green" name="vote-yea" />
           )}

@@ -343,7 +343,7 @@ SUBSYSTEM_DEF(vote)
 	return TRUE
 
 /datum/controller/subsystem/vote/ui_close(mob/user)
-	voting -= user.client
+	voting -= user.client?.ckey
 
 /datum/action/vote
 	name = "Vote!"
