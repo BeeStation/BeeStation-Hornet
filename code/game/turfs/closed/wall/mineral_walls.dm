@@ -178,28 +178,6 @@
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = null
 
-/turf/closed/wall/mineral/wax
-	name = "wax wall"
-	desc = "A wall made of solid beeswax."
-	icon = 'icons/turf/walls/snow_wall.dmi'
-	icon_state = "snow"
-	hardness = 100
-	explosion_block = 0
-	slicing_duration = 15
-	sheet_type = /obj/item/stack/sheet/mineral/wax
-	canSmoothWith = null
-	girder_type = null
-	bullet_sizzle = TRUE
-	bullet_bounce_sound = null
-	var/health = 25
-
-/turf/closed/wall/mineral/wax/attackby(obj/item/W, mob/user, params)
-	. = ..()
-	if(W.force)
-		health - W.force
-	if(health <= 0)
-		dismantle_wall()
-
 
 /turf/closed/wall/mineral/abductor
 	name = "alien wall"

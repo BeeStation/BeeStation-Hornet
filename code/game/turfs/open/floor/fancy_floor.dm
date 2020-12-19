@@ -295,7 +295,7 @@
 
 /turf/open/floor/wax
 	name = "wax"
-	icon_state = 'honeyfloor'
+	icon_state = "honeyfloor"
 	desc = "Hard wax. Makes you feel like part of a hive."
 	floor_tile = /obj/item/stack/tile/mineral/wax
 	footstep = FOOTSTEP_WOOD

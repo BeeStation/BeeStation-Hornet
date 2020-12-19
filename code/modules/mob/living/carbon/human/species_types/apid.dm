@@ -45,6 +45,10 @@
 		H.adjustToxLoss(3)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
 
-/datum/species/apid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
+/datum/species/apid/after_equip_job(datum/job/J, mob/living/carbon/human/H) // For roundstart
+	H.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
+	. = ..()
+
+/datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load) // For transformations
+	C.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
 	. = ..()
