@@ -14,7 +14,6 @@
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
 	exp_type_department = EXP_TYPE_SECURITY
-	special_notice = "You aren't a security officer, do not do their job for them. However, you can help them if they need immediate assistance."
 
 	outfit = /datum/outfit/job/detective
 
