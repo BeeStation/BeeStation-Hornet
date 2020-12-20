@@ -203,29 +203,6 @@ SUBSYSTEM_DEF(vote)
 				choices.Add("Restart Round","Continue Playing")
 			if("gamemode")
 				choices.Add(config.votable_modes)
-			if("gamemode_mystery")
-				var/list/modes = list()
-				message_admins("[length(config.gamemode_cache)]")
-				for(var/datum/game_mode/mode in config.get_runnable_modes())
-					if(mode.probability)
-						modes[mode.name] = mode.probability
-						message_admins("[mode.name]")
-				var/mode_options = length(modes) / 3
-				message_admins("[mode_options]")
-				for(var/category in 1 to mode_options)
-					//Get options in category
-					var/list/options = list()
-					var/total_probablity = 0
-					for(var/option = category, option <= length(modes), option += mode_options)
-						var/mode = modes[option]
-						options += mode
-						total_probablity += modes[mode]
-					message_admins("[options]")
-					//Compile
-					var/vote_name = ""
-					for(var/option_name in options)
-						vote_name = "[vote_name], [option_name] ([(modes[option_name] / total_probablity) * 100]%)"
-					choices.Add(vote_name)
 			if("map")
 				// Randomizes the list so it isn't always METASTATION
 				var/list/maps = list()
@@ -355,7 +332,7 @@ SUBSYSTEM_DEF(vote)
 				initiate_vote("restart",usr.key)
 		if("gamemode")
 			if(CONFIG_GET(flag/allow_vote_mode) || usr.client.holder)
-				initiate_vote("gamemode_mystery",usr.key)
+				initiate_vote("gamemode",usr.key)
 		if("map")
 			if(CONFIG_GET(flag/allow_vote_map) || usr.client.holder)
 				initiate_vote("map",usr.key)
