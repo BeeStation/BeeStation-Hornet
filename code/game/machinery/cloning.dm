@@ -341,7 +341,7 @@
 					var/obj/item/bodypart/BP = I
 					BP.attach_limb(mob_occupant)
 
-			use_power(7500) //This might need tweaking.
+			use_power(5000 * speed_coeff) //This might need tweaking.
 
 		else if(mob_occupant && (mob_occupant.cloneloss <= (100 - heal_level)))
 			connected_message("Cloning Process Complete.")

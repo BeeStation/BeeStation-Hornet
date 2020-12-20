@@ -87,7 +87,6 @@ GENE SCANNER
 	throw_speed = 3
 	throw_range = 7
 	materials = list(/datum/material/iron=200)
-	var/mode = 1
 	var/scanmode = 0
 	var/advanced = FALSE
 
@@ -121,7 +120,7 @@ GENE SCANNER
 						"<span class='notice'>You analyze [M]'s vitals.</span>")
 
 	if(scanmode == 0)
-		healthscan(user, M, mode, advanced)
+		healthscan(user, M, advanced)
 	else if(scanmode == 1)
 		chemscan(user, M)
 
@@ -249,7 +248,7 @@ GENE SCANNER
 
 
 	// Body part damage report
-	if(iscarbon(M) && mode == 1)
+	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		var/list/damaged = C.get_damaged_bodyparts(1,1)
 		if(length(damaged)>0 || oxy_loss>0 || tox_loss>0 || fire_loss>0)
@@ -424,20 +423,6 @@ GENE SCANNER
 			else
 				to_chat(user, "<span class='notice'>Subject is not addicted to any reagents.</span>")
 
-/obj/item/healthanalyzer/verb/toggle_mode()
-	set name = "Switch Verbosity"
-	set category = "Object"
-
-	if(usr.incapacitated())
-		return
-
-	mode = !mode
-	switch (mode)
-		if(1)
-			to_chat(usr, "The scanner now shows specific limb damage.")
-		if(0)
-			to_chat(usr, "The scanner no longer shows limb damage.")
-
 /obj/item/healthanalyzer/advanced
 	name = "advanced health analyzer"
 	icon_state = "health_adv"
@@ -490,52 +475,13 @@ GENE SCANNER
 	if (user.stat || user.eye_blind)
 		return
 
-	var/turf/location = user.loc
+	//Functionality moved down to proc/scan_turf()
+	var/turf/location = get_turf(user)
+
 	if(!istype(location))
 		return
 
-	var/datum/gas_mixture/environment = location.return_air()
-
-	var/pressure = environment.return_pressure()
-	var/total_moles = environment.total_moles()
-
-	to_chat(user, "<span class='info'><B>Results:</B></span>")
-	if(abs(pressure - ONE_ATMOSPHERE) < 10)
-		to_chat(user, "<span class='info'>Pressure: [round(pressure, 0.01)] kPa</span>")
-	else
-		to_chat(user, "<span class='alert'>Pressure: [round(pressure, 0.01)] kPa</span>")
-	if(total_moles)
-		var/o2_concentration = environment.get_moles(/datum/gas/oxygen)/total_moles
-		var/n2_concentration = environment.get_moles(/datum/gas/nitrogen)/total_moles
-		var/co2_concentration = environment.get_moles(/datum/gas/carbon_dioxide)/total_moles
-		var/plasma_concentration = environment.get_moles(/datum/gas/plasma)/total_moles
-
-		if(abs(n2_concentration - N2STANDARD) < 20)
-			to_chat(user, "<span class='info'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/nitrogen), 0.01)] mol)</span>")
-		else
-			to_chat(user, "<span class='alert'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/nitrogen), 0.01)] mol)</span>")
-
-		if(abs(o2_concentration - O2STANDARD) < 2)
-			to_chat(user, "<span class='info'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/oxygen), 0.01)] mol)</span>")
-		else
-			to_chat(user, "<span class='alert'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/oxygen), 0.01)] mol)</span>")
-
-		if(co2_concentration > 0.01)
-			to_chat(user, "<span class='alert'>CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/carbon_dioxide), 0.01)] mol)</span>")
-		else
-			to_chat(user, "<span class='info'>CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/carbon_dioxide), 0.01)] mol)</span>")
-
-		if(plasma_concentration > 0.005)
-			to_chat(user, "<span class='alert'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/plasma), 0.01)] mol)</span>")
-		else
-			to_chat(user, "<span class='info'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/plasma), 0.01)] mol)</span>")
-
-		for(var/id in environment.get_gases())
-			if(id in GLOB.hardcoded_gases)
-				continue
-			var/gas_concentration = environment.get_moles(id)/total_moles
-			to_chat(user, "<span class='alert'>[GLOB.meta_gas_info[id][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(environment.get_moles(id), 0.01)] mol)</span>")
-		to_chat(user, "<span class='info'>Temperature: [round(environment.return_temperature()-T0C, 0.01)] &deg;C ([round(environment.return_temperature(), 0.01)] K)</span>")
+	scan_turf(user, location)
 
 /obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
 
@@ -642,6 +588,64 @@ GENE SCANNER
 			to_chat(user, "<span class='boldnotice'>Large amounts of free neutrons detected in the air indicate that a fusion reaction took place.</span>")
 			to_chat(user, "<span class='notice'>Instability of the last fusion reaction: [instability].</span>")
 	return TRUE
+
+/obj/item/analyzer/proc/scan_turf(mob/user, turf/location)
+	var/datum/gas_mixture/environment = location.return_air()
+
+	var/pressure = environment.return_pressure()
+	var/total_moles = environment.total_moles()
+
+	to_chat(user, "<span class='info'><B>Results:</B></span>")
+	if(abs(pressure - ONE_ATMOSPHERE) < 10)
+		to_chat(user, "<span class='info'>Pressure: [round(pressure, 0.01)] kPa</span>")
+	else
+		to_chat(user, "<span class='alert'>Pressure: [round(pressure, 0.01)] kPa</span>")
+	if(total_moles)
+		var/o2_concentration = environment.get_moles(/datum/gas/oxygen)/total_moles
+		var/n2_concentration = environment.get_moles(/datum/gas/nitrogen)/total_moles
+		var/co2_concentration = environment.get_moles(/datum/gas/carbon_dioxide)/total_moles
+		var/plasma_concentration = environment.get_moles(/datum/gas/plasma)/total_moles
+
+		if(abs(n2_concentration - N2STANDARD) < 20)
+			to_chat(user, "<span class='info'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/nitrogen), 0.01)] mol)</span>")
+		else
+			to_chat(user, "<span class='alert'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/nitrogen), 0.01)] mol)</span>")
+
+		if(abs(o2_concentration - O2STANDARD) < 2)
+			to_chat(user, "<span class='info'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/oxygen), 0.01)] mol)</span>")
+		else
+			to_chat(user, "<span class='alert'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/oxygen), 0.01)] mol)</span>")
+
+		if(co2_concentration > 0.01)
+			to_chat(user, "<span class='alert'>CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/carbon_dioxide), 0.01)] mol)</span>")
+		else
+			to_chat(user, "<span class='info'>CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/carbon_dioxide), 0.01)] mol)</span>")
+
+		if(plasma_concentration > 0.005)
+			to_chat(user, "<span class='alert'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/plasma), 0.01)] mol)</span>")
+		else
+			to_chat(user, "<span class='info'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/plasma), 0.01)] mol)</span>")
+
+		for(var/id in environment.get_gases())
+			if(id in GLOB.hardcoded_gases)
+				continue
+			var/gas_concentration = environment.get_moles(id)/total_moles
+			to_chat(user, "<span class='alert'>[GLOB.meta_gas_info[id][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(environment.get_moles(id), 0.01)] mol)</span>")
+		to_chat(user, "<span class='info'>Temperature: [round(environment.return_temperature()-T0C, 0.01)] &deg;C ([round(environment.return_temperature(), 0.01)] K)</span>")
+
+/obj/item/analyzer/ranged
+	desc = "A hand-held scanner which uses advanced spectroscopy and infrared readings to analyze gases as a distance. Alt-Click to use the built in barometer function."
+	name = "long-range analyzer"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "ranged_analyzer"
+
+/obj/item/analyzer/ranged/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(target.tool_act(user, src, tool_behaviour))
+		return
+	// Tool act didn't scan it, so let's get it's turf.
+	var/turf/location = get_turf(target)
+	scan_turf(user, location)
 
 //slime scanner
 

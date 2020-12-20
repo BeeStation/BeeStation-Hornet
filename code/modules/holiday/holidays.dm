@@ -281,6 +281,14 @@
 /datum/holiday/friendship/greet()
 	return "Have a magical [name]!"
 
+/datum/holiday/anz
+	name = "ANZAC Day"
+	begin_day = 25
+	begin_month = APRIL
+
+/datum/holiday/anz/getStationPrefix()
+	return pick("Australian", "New Zealand", "Poppy", "Southern Cross")
+
 /datum/holiday/beer
 	name = "Beer Day"
 

@@ -3,6 +3,10 @@
 	icon_state = "plating"
 	initial_gas_mix = AIRLESS_ATMOS
 
+/turf/open/floor/plating/lavaland
+	icon_state = "plating"
+	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
+
 /turf/open/floor/plating/abductor
 	name = "alien floor"
 	icon_state = "alienpod1"

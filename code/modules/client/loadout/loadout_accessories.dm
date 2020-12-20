@@ -36,9 +36,17 @@
 	path = /obj/item/clothing/neck/stripedbluescarf
 	cost = 1200
 
+//armbands
 /datum/gear/accessory/armband_red
-	display_name = "armband"
 	path = /obj/item/clothing/accessory/armband
+	cost = 1000
+
+/datum/gear/accessory/armband_blu
+	path = /obj/item/clothing/accessory/armband/blue
+	cost = 1000
+
+/datum/gear/accessory/armband_grn
+	path = /obj/item/clothing/accessory/armband/green
 	cost = 1000
 
 //ties
