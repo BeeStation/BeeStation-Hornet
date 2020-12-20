@@ -2,6 +2,7 @@
 #define ENGINES_START_TIME 100
 #define ENGINES_STARTED (SSshuttle.emergency.mode == SHUTTLE_IGNITING)
 #define IS_DOCKED (SSshuttle.emergency.mode == SHUTTLE_DOCKED || (ENGINES_STARTED))
+#define SHUTTLE_CONSOLE_ACTION_DELAY (5 SECONDS)
 
 /obj/machinery/computer/emergency_shuttle
 	name = "emergency shuttle console"
@@ -13,6 +14,7 @@
 
 	var/auth_need = 3
 	var/list/authorized = list()
+	var/list/acted_recently = list()
 
 /obj/machinery/computer/emergency_shuttle/attackby(obj/item/I, mob/user,params)
 	if(istype(I, /obj/item/card/id))
@@ -27,13 +29,12 @@
 	return GLOB.human_adjacent_state
 
 /obj/machinery/computer/emergency_shuttle/ui_interact(mob/user, datum/tgui/ui)
-
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "EmergencyShuttleConsole")
 		ui.open()
 
-/obj/machinery/computer/emergency_shuttle/ui_data()
+/obj/machinery/computer/emergency_shuttle/ui_data(user)
 	var/list/data = list()
 
 	data["timer_str"] = SSshuttle.emergency.getTimerStr()
@@ -51,7 +52,7 @@
 		A += list(list("name" = name, "job" = job))
 	data["authorizations"] = A
 
-	data["enabled"] = (IS_DOCKED && !ENGINES_STARTED)
+	data["enabled"] = (IS_DOCKED && !ENGINES_STARTED) && !(user in acted_recently)
 	data["emagged"] = obj_flags & EMAGGED ? 1 : 0
 	return data
 
@@ -76,19 +77,29 @@
 		to_chat(user, "<span class='warning'>The access level of your card is not high enough.</span>")
 		return
 
+	if(user in acted_recently)
+		return
+
 	var/old_len = authorized.len
+	addtimer(CALLBACK(src, .proc/clear_recent_action, user), SHUTTLE_CONSOLE_ACTION_DELAY)
 
 	switch(action)
 		if("authorize")
 			. = authorize(user)
 
 		if("repeal")
+			if(!(ID in authorized))
+				return //cannot retract auth if never given originally
 			authorized -= ID
+			message_admins("[ADMIN_LOOKUPFLW(user)] has deauthorized early shuttle launch, now [authorized.len] of [auth_need] needed")
+			log_game("[key_name(user)] has deauthorized early shuttle launch in [COORD(src)], now [authorized.len] of [auth_need] needed.")
 
 		if("abort")
 			if(authorized.len)
 				// Abort. The action for when heads are fighting over whether
 				// to launch early.
+				message_admins("[ADMIN_LOOKUPFLW(user)] has revoked early shuttle launch.")
+				log_game("[key_name(user)] has revoked early shuttle launch in [COORD(src)].")
 				authorized.Cut()
 				. = TRUE
 
@@ -100,6 +111,8 @@
 			minor_announce("[remaining] authorizations needed until shuttle is launched early.", null, alert)
 		if(repeal)
 			minor_announce("Early launch authorization revoked, [remaining] authorizations needed.")
+			log_game("Early launch authorization revoked, [remaining] authorizations needed.")
+	acted_recently += user
 
 /obj/machinery/computer/emergency_shuttle/proc/authorize(mob/user, source)
 	var/obj/item/card/id/ID = user.get_idcard(TRUE)
@@ -113,11 +126,14 @@
 
 	authorized += ID
 
-	message_admins("[ADMIN_LOOKUPFLW(user)] has authorized early shuttle launch.")
-	log_game("[key_name(user)] has authorized early shuttle launch in [COORD(src)].")
+	message_admins("[ADMIN_LOOKUPFLW(user)] has authorized early shuttle launch, [authorized.len] of [auth_need] needed.")
+	log_game("[key_name(user)] has authorized early shuttle launch in [COORD(src)], [authorized.len] of [auth_need] needed..")
 	// Now check if we're on our way
 	. = TRUE
 	process()
+
+/obj/machinery/computer/emergency_shuttle/proc/clear_recent_action(mob/user)
+	acted_recently -= user
 
 /obj/machinery/computer/emergency_shuttle/process()
 	// Launch check is in process in case auth_need changes for some reason
@@ -620,3 +636,4 @@
 #undef ENGINES_START_TIME
 #undef ENGINES_STARTED
 #undef IS_DOCKED
+#undef SHUTTLE_CONSOLE_ACTION_DELAY
