@@ -467,6 +467,7 @@
 	if(grab_ghost_when == CLONER_MATURE_CLONE)
 		mob_occupant.grab_ghost()
 		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br><i>You feel like a new being.</i></span>")
+		to_chat(occupant, "<span class='userdanger'><b>You do not remember anything about the events leading up to your death.</i></span>")
 		mob_occupant.flash_act()
 
 	occupant.forceMove(T)
