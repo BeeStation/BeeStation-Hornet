@@ -1592,5 +1592,7 @@
 		M.adjustFireLoss(-4*REM, 0)
 		M.adjustOxyLoss(-5*REM, 0)
 		. = 1
+	if(prob(20))
+		M.Jitter(5)
 	M.losebreath = 0
 	..()
