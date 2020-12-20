@@ -250,7 +250,7 @@
 //	----	LIVLELY CONCOCTION	----
 
 /datum/reagent/magic/lc
-	name = "Lively Concoction"
+	name = "lively concoction"
 	description = "Magic potion with superior healing properties."
 	color = "#7AC179"
 	metabolization_rate = 10 * REAGENTS_METABOLISM
