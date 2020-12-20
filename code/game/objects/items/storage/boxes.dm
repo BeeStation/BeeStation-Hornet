@@ -1238,11 +1238,14 @@
 
 /obj/item/storage/box/potions
 	name = "box of potions"
+	desc = "A random assortment of magical potions. "
 
 /obj/item/storage/box/potions/PopulateContents()
 	for(var/i in 1 to 10)
 		var/potion_type = pick(
+			/obj/item/reagent_containers/glass/bottle/acceleratium,
 			/obj/item/reagent_containers/glass/bottle/levitatium,
+			/obj/item/reagent_containers/glass/bottle/hastium,
 			/obj/item/reagent_containers/glass/bottle/berserkium,
 			/obj/item/reagent_containers/glass/bottle/invisibilium,
 			/obj/item/reagent_containers/glass/bottle/polymorphine,

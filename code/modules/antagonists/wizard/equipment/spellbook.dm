@@ -746,9 +746,30 @@
 	attack_self(H)
 	return
 
-
 /datum/spellbook_entry/item/potions
-	name = "Wand Assortment"
-	desc = "A collection of wands that allow for a wide variety of utility. Wands have a limited number of charges, so be conservative with their use. Comes in a handy belt."
+	name = "Box Of Potions"
+	desc = "A box of random potions with both offensive and defensive uses. Read the label on each bottle to learn what each potion does."
 	item_path = /obj/item/storage/box/potions
 	category = "Offensive"
+	cost = 1
+
+/datum/spellbook_entry/item/lc
+	name = "Lively Concotion"
+	desc = "Gives you a large bottle of Lively Concotion, a powerful healing potion, and teaches you the recipe, so you can make yourself some more."
+	item_path = /obj/item/reagent_containers/glass/bottle/lc
+	category = "Defensive"
+	cost = 1
+	
+/datum/spellbook_entry/item/lc/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
+	. = ..()
+	if (.)
+		var/datum/chemical_reaction/lc/concotion_recipe = GLOB.chemical_reactions_list[/datum/reagent/magic/lc]
+		if (concotion_recipe && !concotion_recipe.initialized)
+			concotion_recipe.generate_random_elements()
+		var/message = "<br><B>Ingredients for Lively Concotion:</B> "
+		for (var/reagent in concotion_recipe.required_reagents)
+			var/datum/reagent/R = reagent
+			message += "[R.name] "
+		user.mind.memory += message
+		to_chat(user, "<span class='notice'>You were bestowed with the knowledge to craft Lively Concotions!</span>")
+		to_chat(user, "<span class='warning'>[message]</span>")

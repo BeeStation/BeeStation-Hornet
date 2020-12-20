@@ -13,6 +13,7 @@
 	random_unrestricted = FALSE
 	metabolization_rate = 3 * REAGENTS_METABOLISM
 	color = "#1C2EC3"
+	taste_description = "earwax"
 
 //	----	POLYMORPHINE	----
 
@@ -20,7 +21,6 @@
 	name = "polymorphine"
 	description = "Magic potion that transforms you into a harmless animal."
 	color = "#9D5A99"
-	taste_description = "a rainbow of tastes"
 	overdose_threshold = 25
 	metabolization_rate = 0.1 * REAGENTS_METABOLISM
 	var/obj/shapeshift_holder/shapeshiftdata
@@ -72,7 +72,6 @@
 	name = "berserkium"
 	description = "Magic potion that enrages you when drunk."
 	color = "#A14444"
-	taste_description = "something that makes you angry"
 	metabolization_rate = 3 * REAGENTS_METABOLISM
 
 /datum/reagent/magic/berserkium/on_mob_metabolize(mob/living/L)
@@ -110,7 +109,6 @@
 	name = "teleportarium"
 	description = "Magic potion that teleports you a few steps forward."
 	color = "#528698"
-	taste_description = "a random assortment of tastes"
 
 /datum/reagent/magic/teleportarium/reaction_mob(mob/living/L, method=TOUCH, reac_volume)
 	if (reac_volume>=MAGIC_REAGENT_TOUCH && (method == TOUCH || method == VAPOR))
@@ -143,7 +141,6 @@
 	name = "invisibilium"
 	description = "Magic potion that gradually turns you invisible.."
 	color = "#5353C1"
-	taste_description = "nothing"
 	metabolization_rate = REAGENTS_METABOLISM
 	var/original_alpha = 1
 	var/charge = 0
@@ -171,7 +168,7 @@
 	description = "Magic potion that grants levitation."
 	color = "#A0A68F"
 	taste_description = "diet soda"
-	metabolization_rate = 3 * REAGENTS_METABOLISM
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 
 /datum/reagent/magic/levitatium/on_mob_metabolize(mob/living/carbon/human/H)
 	..()
@@ -196,7 +193,6 @@
 	name = "draught of midas"
 	description = "Magic potion that transforms everything that touches into gold."
 	color = "#FFFF91"
-	taste_description = "gold"
 
 /datum/reagent/magic/midas/reaction_obj(obj/O, reac_volume)
 	if(ismob(O.loc))
@@ -234,6 +230,45 @@
 		T.ChangeTurf(/turf/closed/wall/mineral/gold, flags = CHANGETURF_INHERIT_AIR)
 	else if (isopenturf(T))
 		T.ChangeTurf(/turf/open/floor/mineral/gold, flags = CHANGETURF_INHERIT_AIR)
+
+//	----	ACCELERATIUM	----
+
+/datum/reagent/magic/acceleratium
+	name = "acceleratium"
+	description = "Magic potion that increases the speed of whoever drinks it."
+	color = "#94A77D"
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM
+	
+/datum/reagent/magic/acceleratium/on_mob_metabolize(mob/living/L)
+	..()
+	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-1, blacklisted_movetypes=(FLYING|FLOATING))
+
+/datum/reagent/magic/acceleratium/on_mob_end_metabolize(mob/living/L)
+	..()
+	L.remove_movespeed_modifier(type)
+
+/datum/reagent/magic/lc
+	name = "Lively Concoction"
+	description = "Magic potion with superior healing properties."
+	color = "#7AC179"
+	metabolization_rate = 10 * REAGENTS_METABOLISM
+
+/datum/reagent/magic/lc/reaction_mob(mob/living/L, method=TOUCH, reac_volume)
+	if (method == TOUCH)
+		L.heal_bodypart_damage(reac_volume*0.2,reac_volume*0.2,reac_volume*0.2)
+		L.adjustBruteLoss(-reac_volume,0)
+		L.adjustOxyLoss(-reac_volume,0)
+		L.adjustFireLoss(-reac_volume,0)
+		L.adjustToxLoss(-reac_volume,0)		
+	..()
+	
+/datum/reagent/magic/lc/on_mob_metabolize(mob/living/L)
+	..()
+	L.heal_bodypart_damage(5,5,5)
+	L.adjustBruteLoss(-15,0)
+	L.adjustOxyLoss(-15,0)
+	L.adjustFireLoss(-15,0)
+	L.adjustToxLoss(-15,0)
 
 #undef MAGIC_REAGENT_TOUCH
 #undef TELEPORTARIUM_RANGE
