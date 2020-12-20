@@ -2,10 +2,10 @@
 					//Noita Potions
 //////////////////////////////////////////////////////////////////
 
-#define MAGIC_REAGENT_TOUCH 4
+#define MAGIC_REAGENT_TOUCH 5
 #define TELEPORTARIUM_RANGE 4
-#define TELEPORTARIUM_CYCLE 2
-#define POLYMORPHIUM_DURATION 15 SECONDS
+#define TELEPORTARIUM_CYCLE 3
+#define POLYMORPHIUM_DURATION 10 SECONDS
 
 /datum/reagent/magic
 	name = "alchemic precursor"
@@ -21,27 +21,27 @@
 	name = "polymorphine"
 	description = "Magic potion that transforms you into a harmless animal."
 	color = "#9D5A99"
-	overdose_threshold = 25
+	overdose_threshold = 15
 	metabolization_rate = 0.1 * REAGENTS_METABOLISM
 	var/obj/shapeshift_holder/shapeshiftdata
 
 /datum/reagent/magic/polymorphine/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if (reac_volume >= overdose_threshold && (method == TOUCH || method == VAPOR))
-		polymorph_target(M)
+		polymorph_target(M,reac_volume/overdose_threshold)
 	..()
 
 /datum/reagent/magic/polymorphine/overdose_start(mob/living/L)
 	..()
-	polymorph_target(L)
+	polymorph_target(L,volume/overdose_threshold)
 	metabolization_rate = 10 * REAGENTS_METABOLISM
 
-/datum/reagent/magic/polymorphine/proc/polymorph_target(mob/living/L)
+/datum/reagent/magic/polymorphine/proc/polymorph_target(mob/living/L, var/dur)
 	shapeshiftdata = locate() in L
 	if(shapeshiftdata)
 		return
 	var/mob/living/shape = make_mob(get_turf(L))
 	shapeshiftdata = new(shape,null,L)
-	addtimer(CALLBACK(shapeshiftdata, /obj/shapeshift_holder.proc/restore), POLYMORPHIUM_DURATION)
+	addtimer(CALLBACK(shapeshiftdata, /obj/shapeshift_holder.proc/restore), POLYMORPHIUM_DURATION * dur)
 
 /datum/reagent/magic/polymorphine/on_mob_end_metabolize(mob/living/L)
 	..()
@@ -72,7 +72,7 @@
 	name = "berserkium"
 	description = "Magic potion that enrages you when drunk."
 	color = "#A14444"
-	metabolization_rate = 3 * REAGENTS_METABOLISM
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
 /datum/reagent/magic/berserkium/on_mob_metabolize(mob/living/L)
 	. = ..()
@@ -168,7 +168,7 @@
 	description = "Magic potion that grants levitation."
 	color = "#A0A68F"
 	taste_description = "diet soda"
-	metabolization_rate = 2.5 * REAGENTS_METABOLISM
+	metabolization_rate = 1.25 * REAGENTS_METABOLISM
 
 /datum/reagent/magic/levitatium/on_mob_metabolize(mob/living/carbon/human/H)
 	..()
@@ -186,6 +186,22 @@
 			S.toggle_flight(H)
 			to_chat(H, "<span class='notice'>You settle gently back onto the ground...</span>")
 			H.set_resting(FALSE, TRUE)
+
+//	----	ACCELERATIUM	----
+
+/datum/reagent/magic/acceleratium
+	name = "acceleratium"
+	description = "Magic potion that increases the speed of whoever drinks it."
+	color = "#94A77D"
+	metabolization_rate = 1.25 * REAGENTS_METABOLISM
+	
+/datum/reagent/magic/acceleratium/on_mob_metabolize(mob/living/L)
+	..()
+	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-1, blacklisted_movetypes=(FLYING|FLOATING))
+
+/datum/reagent/magic/acceleratium/on_mob_end_metabolize(mob/living/L)
+	..()
+	L.remove_movespeed_modifier(type)
 
 //	----	DRAUGHT OF MIDAS	----
 
@@ -231,21 +247,7 @@
 	else if (isopenturf(T))
 		T.ChangeTurf(/turf/open/floor/mineral/gold, flags = CHANGETURF_INHERIT_AIR)
 
-//	----	ACCELERATIUM	----
-
-/datum/reagent/magic/acceleratium
-	name = "acceleratium"
-	description = "Magic potion that increases the speed of whoever drinks it."
-	color = "#94A77D"
-	metabolization_rate = 2.5 * REAGENTS_METABOLISM
-	
-/datum/reagent/magic/acceleratium/on_mob_metabolize(mob/living/L)
-	..()
-	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-1, blacklisted_movetypes=(FLYING|FLOATING))
-
-/datum/reagent/magic/acceleratium/on_mob_end_metabolize(mob/living/L)
-	..()
-	L.remove_movespeed_modifier(type)
+//	----	LIVLELY CONCOCTION	----
 
 /datum/reagent/magic/lc
 	name = "Lively Concoction"
@@ -255,11 +257,11 @@
 
 /datum/reagent/magic/lc/reaction_mob(mob/living/L, method=TOUCH, reac_volume)
 	if (method == TOUCH)
-		L.heal_bodypart_damage(reac_volume*0.2,reac_volume*0.2,reac_volume*0.2)
-		L.adjustBruteLoss(-reac_volume,0)
-		L.adjustOxyLoss(-reac_volume,0)
-		L.adjustFireLoss(-reac_volume,0)
-		L.adjustToxLoss(-reac_volume,0)		
+		L.heal_bodypart_damage(reac_volume,reac_volume,reac_volume)
+		L.adjustBruteLoss(-reac_volume*3,0)
+		L.adjustOxyLoss(-reac_volume*3,0)
+		L.adjustFireLoss(-reac_volume*3,0)
+		L.adjustToxLoss(-reac_volume*3,0)		
 	..()
 	
 /datum/reagent/magic/lc/on_mob_metabolize(mob/living/L)

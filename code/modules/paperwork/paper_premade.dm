@@ -105,3 +105,7 @@
 	name = "URGENT!"
 	info = "A hastily written note has been scribbled here... <br><br> Please use the ore redemption machine in the cargo office for smelting. PLEASE! <br><br>--The Research Staff"
 
+
+/obj/item/paper/fluff/alchemy
+	name = "Alchemy Recipes"
+	info = "TBD"

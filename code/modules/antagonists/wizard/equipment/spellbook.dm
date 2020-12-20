@@ -753,6 +753,13 @@
 	category = "Offensive"
 	cost = 1
 
+/datum/spellbook_entry/item/alchemy
+	name = "Alchemy Kit"
+	desc = "A bag containing the components required to make the most dangerous alchemic potions."
+	item_path = /obj/item/storage/bag/chemistry/alchemy
+	category = "Assistance"
+	cost = 1
+
 /datum/spellbook_entry/item/lc
 	name = "Lively Concotion"
 	desc = "Gives you a large bottle of Lively Concotion, a powerful healing potion, and teaches you the recipe, so you can make yourself some more."
@@ -773,3 +780,4 @@
 		user.mind.memory += message
 		to_chat(user, "<span class='notice'>You were bestowed with the knowledge to craft Lively Concotions!</span>")
 		to_chat(user, "<span class='warning'>[message]</span>")
+	return .

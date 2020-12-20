@@ -386,3 +386,27 @@
 	STR.max_items = 25
 	STR.insert_preposition = "in"
 	STR.can_hold = typecacheof(list(/obj/item/slime_extract, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/blood, /obj/item/reagent_containers/hypospray/medipen, /obj/item/reagent_containers/food/snacks/deadmouse, /obj/item/reagent_containers/food/snacks/monkeycube, /obj/item/organ, /obj/item/bodypart))
+
+
+/*
+ *	Alchemy bag
+ */
+
+/obj/item/storage/bag/chemistry/alchemy
+	name = "alchemy bag"
+	desc = "A bag loaded with all the required components for making alchemical potions."
+
+/obj/item/storage/bag/chemistry/alchemy/PopulateContents()
+	new /obj/item/paper/fluff/alchemy(src)
+	for (var/i in 1 to 10)
+		new /obj/item/reagent_containers/glass/bottle/alchemy(src)
+	for (var/i in 1 to 5)
+		new /obj/item/reagent_containers/glass/bottle/oil(src)
+	for (var/i in 1 to 5)
+		new /obj/item/reagent_containers/glass/bottle/blood(src)
+	for (var/i in 1 to 3)
+		new /obj/item/reagent_containers/glass/bottle/bluespace(src)
+		
+	new /obj/item/reagent_containers/glass/beaker/large(src)
+	new /obj/item/reagent_containers/food/drinks/bottle/whiskey(src)
+	new /obj/item/reagent_containers/food/drinks/bottle/whiskey(src)
