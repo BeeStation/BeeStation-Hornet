@@ -205,7 +205,7 @@
 			reagent_note += "[R.name] ([num2text(R.volume)])"
 	if(istype(src, /obj/item/projectile/bullet/dart))
 		var/obj/item/projectile/bullet/dart/D = src
-		if(D.syringe && length(D.syringe.reagents?.reagent_list) > 0)
+		if(length(D.syringe?.reagents?.reagent_list) > 0)
 			reagent_note = " REAGENTS:"
 			for(var/datum/reagent/R in D.syringe.reagents.reagent_list)
 				reagent_note += "[R.name] ([num2text(R.volume)])"
