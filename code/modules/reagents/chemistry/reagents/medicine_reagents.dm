@@ -17,6 +17,8 @@
 	name = "Leporazine"
 	description = "Leporazine will effectively regulate a patient's body temperature, ensuring it never leaves safe levels."
 	color = "#C8A5DC" // rgb: 200, 165, 220
+	overdose_threshold = 30
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/leporazine/on_mob_life(mob/living/carbon/M)
 	if(M.bodytemperature > BODYTEMP_NORMAL)
@@ -24,6 +26,14 @@
 	else if(M.bodytemperature < (BODYTEMP_NORMAL + 1))
 		M.adjust_bodytemperature(40 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, BODYTEMP_NORMAL)
 	..()
+
+/datum/reagent/medicine/leporazine/overdose_process(mob/living/M)
+	if(prob(50))
+		M.adjust_bodytemperature(200, 0)
+	else
+		M.adjust_bodytemperature(-200, 0)
+	..()
+	. = 1
 
 /datum/reagent/medicine/adminordrazine //An OP chemical for admins
 	name = "Adminordrazine"
@@ -224,10 +234,11 @@
 //Goon Chems. Ported mainly from Goonstation. Easily mixable (or not so easily) and provide a variety of effects.
 /datum/reagent/medicine/silver_sulfadiazine
 	name = "Silver Sulfadiazine"
-	description = "If used in touch-based applications, immediately restores burn wounds as well as restoring more over time. If ingested through other means, deals minor toxin damage."
+	description = "If used in patch-based applications, immediately restores burn wounds as well as restoring more over time. If ingested through other means, deals minor toxin damage."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	overdose_threshold = 40
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM
+	overdose_threshold = 100
 
 /datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -235,10 +246,9 @@
 			M.adjustToxLoss(0.5*reac_volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You don't feel so good...</span>")
-		else if(M.reagents.has_reagent(/datum/reagent/medicine/silver_sulfadiazine, 40) && M.getFireLoss())
-			to_chat(M, "<span class='danger'>Silver sulfadiazine foams as it fails to heal your burns!</span>")
 		else if(M.getFireLoss())
 			M.adjustFireLoss(-reac_volume)
+			M.adjustStaminaLoss(reac_volume*2)
 			if(show_message)
 				to_chat(M, "<span class='danger'>You feel your burns healing! It stings like hell!</span>")
 			M.emote("scream")
@@ -246,15 +256,12 @@
 	..()
 
 /datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/carbon/M)
-	M.adjustFireLoss(-2*REM, 0)
+	M.adjustFireLoss(-0.5*REM, 0)
 	..()
 	. = 1
 
 /datum/reagent/medicine/silver_sulfadiazine/overdose_process(mob/living/M)
-	M.adjustFireLoss(2*REM, FALSE, FALSE, BODYPART_ORGANIC)
-	if(volume > overdose_threshold+10)
-		if(prob(33))
-			M.adjustToxLoss(1*REM, FALSE, FALSE, BODYPART_ORGANIC)
+	M.adjustOxyLoss(1*REM, 0)
 	..()
 	. = 1
 
@@ -267,25 +274,25 @@
 	overdose_threshold = 25
 
 /datum/reagent/medicine/oxandrolone/on_mob_life(mob/living/carbon/M)
-	if(M.getFireLoss() > 50)
-		M.adjustFireLoss(-4*REM, 0) //Twice as effective as silver sulfadiazine for severe burns
-	else
-		M.adjustFireLoss(-0.5*REM, 0) //But only a quarter as effective for more minor ones
+	M.adjustFireLoss(-3*REM, 0)
+	if(M.getFireLoss() != 0)
+		M.adjustStaminaLoss(3*REM, FALSE)
 	..()
 	. = 1
 
 /datum/reagent/medicine/oxandrolone/overdose_process(mob/living/M)
-	if(M.getFireLoss()) //It only makes existing burns worse
-		M.adjustFireLoss(4.5*REM, FALSE, FALSE, BODYPART_ORGANIC) // it's going to be healing either 4 or 0.5
-		. = 1
+	M.adjustFireLoss(-3*REM, 0)
+	M.adjustToxLoss(3*REM, 0)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2)
 	..()
 
 /datum/reagent/medicine/styptic_powder
 	name = "Styptic Powder"
-	description = "If used in touch-based applications, immediately restores bruising as well as restoring more over time. If ingested through other means, deals minor toxin damage."
+	description = "If used in patch-based applications, immediately restores bruising. If ingested through other means, deals minor toxin damage."
 	reagent_state = LIQUID
 	color = "#FF9696"
-	overdose_threshold = 40
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM
+	overdose_threshold = 100
 
 /datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -293,10 +300,9 @@
 			M.adjustToxLoss(0.5*reac_volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You don't feel so good...</span>")
-		else if(M.reagents.has_reagent(/datum/reagent/medicine/styptic_powder, 40) && M.getBruteLoss())
-			to_chat(M, "<span class='danger'>Styptic powder foams as it fails to heal your bruises!</span>")
 		else if(M.getBruteLoss())
 			M.adjustBruteLoss(-reac_volume)
+			M.adjustStaminaLoss(reac_volume*2)
 			if(show_message)
 				to_chat(M, "<span class='danger'>You feel your bruises healing! It stings like hell!</span>")
 			M.emote("scream")
@@ -305,15 +311,12 @@
 
 
 /datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-2*REM, 0)
+	M.adjustBruteLoss(-0.5*REM, 0)
 	..()
 	. = 1
 
 /datum/reagent/medicine/styptic_powder/overdose_process(mob/living/M)
-	M.adjustBruteLoss(2*REM, 0)
-	if(volume > overdose_threshold+10)
-		if(prob(33))
-			M.adjustToxLoss(1*REM, FALSE, FALSE, BODYPART_ORGANIC)
+	M.adjustOxyLoss(1*REM, 0)
 	..()
 	. = 1
 
@@ -400,14 +403,17 @@
 	description = "Has a 100% chance of instantly healing brute and burn damage. One unit of the chemical will heal one point of damage. Touch application only."
 	reagent_state = LIQUID
 	color = "#FFEBEB"
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM
+	overdose_threshold = 125
 
 /datum/reagent/medicine/synthflesh/reaction_mob(mob/living/M, method=TOUCH, reac_volume,show_message = 1)
 	if(iscarbon(M))
 		if (M.stat == DEAD)
 			show_message = 0
-		if(method in list(PATCH, TOUCH))
-			M.adjustBruteLoss(-1.25 * reac_volume)
-			M.adjustFireLoss(-1.25 * reac_volume)
+		if(method in list(PATCH))
+			M.adjustBruteLoss(-1 * reac_volume)
+			M.adjustFireLoss(-1 * reac_volume)
+			M.adjustStaminaLoss(reac_volume*2)
 			if(show_message)
 				to_chat(M, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
@@ -416,6 +422,17 @@
 				M.cure_husk("burn")
 				M.visible_message("<span class='nicegreen'>You successfully replace most of the burnt off flesh of [M].")
 	..()
+
+/datum/reagent/medicine/synthflesh/on_mob_life(mob/living/carbon/M)
+	M.adjustFireLoss(-0.5*REM, 0)
+	M.adjustBruteLoss(-0.5*REM, 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/synthflesh/overdose_process(mob/living/M)
+	M.adjustToxLoss(2*REM, 0)
+	..()
+	. = 1
 
 /datum/reagent/medicine/charcoal
 	name = "Charcoal"
@@ -546,17 +563,16 @@
 
 
 /datum/reagent/medicine/sal_acid/on_mob_life(mob/living/carbon/M)
-	if(M.getBruteLoss() > 50)
-		M.adjustBruteLoss(-4*REM, 0) //Twice as effective as styptic powder for severe bruising
-	else
-		M.adjustBruteLoss(-0.5*REM, 0) //But only a quarter as effective for more minor ones
+	M.adjustBruteLoss(-3*REM, 0)
+	if(M.getBruteLoss() != 0)
+		M.adjustStaminaLoss(3*REM, FALSE)
 	..()
 	. = 1
 
 /datum/reagent/medicine/sal_acid/overdose_process(mob/living/M)
-	if(M.getBruteLoss()) //It only makes existing bruises worse
-		M.adjustBruteLoss(4.5*REM, FALSE, FALSE, BODYPART_ORGANIC) // it's going to be healing either 4 or 0.5
-		. = 1
+	M.adjustFireLoss(-3*REM, 0)
+	M.adjustToxLoss(3*REM, 0)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2)
 	..()
 
 /datum/reagent/medicine/salbutamol
@@ -564,6 +580,7 @@
 	description = "Rapidly restores oxygen deprivation as well as preventing more of it to an extent."
 	reagent_state = LIQUID
 	color = "#00FFFF"
+	overdose_threshold = 25
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/salbutamol/on_mob_life(mob/living/carbon/M)
@@ -573,18 +590,29 @@
 	..()
 	. = 1
 
+/datum/reagent/medicine/salbutamol/overdose_process(mob/living/M)
+	M.reagents.add_reagent(/datum/reagent/toxin/histamine, 1)
+	M.reagents.remove_reagent(/datum/reagent/medicine/salbutamol, 1)
+	..()
+
 /datum/reagent/medicine/perfluorodecalin
 	name = "Perfluorodecalin"
-	description = "Extremely rapidly restores oxygen deprivation, but inhibits speech. May also heal small amounts of bruising and burns."
+	description = "Extremely rapidly restores oxygen deprivation, but causes minor toxin damage. Overdose causes significant damage to the lungs."
 	reagent_state = LIQUID
 	color = "#FF6464"
+	overdose_threshold = 30
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/perfluorodecalin/on_mob_life(mob/living/carbon/human/M)
-	M.adjustOxyLoss(-12*REM, 0)
-	M.adjustToxLoss(0.3*REM, 0)
+	M.adjustOrganLoss(ORGAN_SLOT_LUNGS, -2)
+	M.adjustOxyLoss(-10*REM, 0)
+	M.adjustToxLoss(1*REM, 0)
 	..()
 	return TRUE
+
+/datum/reagent/medicine/perfluorodecalin/overdose_process(mob/living/M)
+	M.adjustOrganLoss(ORGAN_SLOT_HEART, 2)
+	..()
 
 /datum/reagent/medicine/ephedrine
 	name = "Ephedrine"
@@ -792,27 +820,29 @@
 
 /datum/reagent/medicine/atropine
 	name = "Atropine"
-	description = "If a patient is in critical condition, rapidly heals all damage types as well as regulating oxygen in the body. Excellent for stabilizing wounded patients."
+	description = "If a patient is in critical condition, rapidly heals all damage types as well as regulating oxygen in the body. Excellent for stabilizing wounded patients. Has the side effects of causing minor confusion."
 	reagent_state = LIQUID
 	color = "#000000"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
-	overdose_threshold = 35
+	overdose_threshold = 15
 
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/carbon/M)
-	if(M.health <= M.crit_threshold)
-		M.adjustToxLoss(-2*REM, 0)
-		M.adjustBruteLoss(-2*REM, 0)
-		M.adjustFireLoss(-2*REM, 0)
+	if(M.health <= 80)
+		M.adjustToxLoss(-4*REM, 0)
+		M.adjustBruteLoss(-4*REM, 0)
+		M.adjustFireLoss(-4*REM, 0)
 		M.adjustOxyLoss(-5*REM, 0)
 		. = 1
 	M.losebreath = 0
 	if(prob(20))
 		M.Dizzy(5)
 		M.Jitter(5)
+		M.drop_all_held_items()
 	..()
 
 /datum/reagent/medicine/atropine/overdose_process(mob/living/M)
-	M.adjustToxLoss(0.5*REM, 0)
+	M.reagents.add_reagent(/datum/reagent/toxin/histamine, 3)
+	M.reagents.remove_reagent(/datum/reagent/medicine/atropine, 2)
 	. = 1
 	M.Dizzy(1)
 	M.Jitter(1)
@@ -1044,18 +1074,22 @@
 //Trek Chems, used primarily by medibots. Only heals a specific damage type, but is very efficient.
 /datum/reagent/medicine/bicaridine
 	name = "Bicaridine"
-	description = "Restores bruising. Overdose causes it instead."
+	description = "Restores bruising. Overdose causes liver damage."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 30
 
 /datum/reagent/medicine/bicaridine/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-2*REM, 0)
+	if(M.getBruteLoss() < 50)
+		M.adjustBruteLoss(-1.5*REM, 0)
+	else
+		M.adjustBruteLoss(-0.5*REM, 0)
 	..()
 	. = 1
 
 /datum/reagent/medicine/bicaridine/overdose_process(mob/living/M)
-	M.adjustBruteLoss(4*REM, FALSE, FALSE, BODYPART_ORGANIC)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2)
 	..()
 	. = 1
 
@@ -1067,46 +1101,55 @@
 	overdose_threshold = 30
 
 /datum/reagent/medicine/dexalin/on_mob_life(mob/living/carbon/M)
-	M.adjustOxyLoss(-2*REM, 0)
+	if(M.getOxyLoss() < 50)
+		M.adjustOxyLoss(-1.5*REM, 0)
+	else
+		M.adjustOxyLoss(-0.5*REM, 0)
 	..()
 	. = 1
 
 /datum/reagent/medicine/dexalin/overdose_process(mob/living/M)
-	M.adjustOxyLoss(4*REM, 0)
+	M.adjustOrganLoss(ORGAN_SLOT_HEART, 2)
 	..()
 	. = 1
 
 /datum/reagent/medicine/dexalinp
 	name = "Dexalin Plus"
-	description = "Restores oxygen loss. Overdose causes it instead. It is highly effective."
+	description = "Restores oxygen loss. Overdose causes large amounts of damage to the heart. It is highly effective."
 	reagent_state = LIQUID
 	color = "#0040FF"
 	overdose_threshold = 25
 
 /datum/reagent/medicine/dexalinp/on_mob_life(mob/living/carbon/M)
-	M.adjustOxyLoss(-4*REM, 0)
+	M.adjustOxyLoss(-3*REM, 0)
+	if(M.getOxyLoss() != 0)
+		M.adjustStaminaLoss(3*REM, FALSE)
 	..()
 	. = 1
 
 /datum/reagent/medicine/dexalinp/overdose_process(mob/living/M)
-	M.adjustOxyLoss(8*REM, 0)
+	M.adjustOrganLoss(ORGAN_SLOT_HEART, 4)
 	..()
 	. = 1
 
 /datum/reagent/medicine/kelotane
 	name = "Kelotane"
-	description = "Restores fire damage. Overdose causes it instead."
+	description = "Restores fire damage. Overdose causes liver damage."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 30
 
 /datum/reagent/medicine/kelotane/on_mob_life(mob/living/carbon/M)
-	M.adjustFireLoss(-2*REM, 0)
+	if(M.getFireLoss() < 50)
+		M.adjustFireLoss(-1.5*REM, 0)
+	else
+		M.adjustFireLoss(-0.5*REM, 0)
 	..()
 	. = 1
 
 /datum/reagent/medicine/kelotane/overdose_process(mob/living/M)
-	M.adjustFireLoss(4*REM, FALSE, FALSE, BODYPART_ORGANIC)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2)
 	..()
 	. = 1
 
@@ -1115,18 +1158,20 @@
 	description = "Heals toxin damage and removes toxins in the bloodstream. Overdose causes toxin damage."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 30
 	taste_description = "a roll of gauze"
 
 /datum/reagent/medicine/antitoxin/on_mob_life(mob/living/carbon/M)
-	M.adjustToxLoss(-2*REM, 0)
-	for(var/datum/reagent/toxin/R in M.reagents.reagent_list)
-		M.reagents.remove_reagent(R.type,1)
+	if(M.getToxLoss() < 50)
+		M.adjustToxLoss(-1.5*REM, 0)
+	else
+		M.adjustToxLoss(-0.5*REM, 0)
 	..()
 	. = 1
 
 /datum/reagent/medicine/antitoxin/overdose_process(mob/living/M)
-	M.adjustToxLoss(4*REM, 0) // End result is 2 toxin loss taken, because it heals 2 and then removes 4.
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2)
 	..()
 	. = 1
 
@@ -1135,9 +1180,10 @@
 	description = "Carthatoline is strong evacuant used to treat severe poisoning."
 	reagent_state = LIQUID
 	color = "#225722"
+	overdose_threshold = 25
 
 /datum/reagent/medicine/carthatoline/on_mob_life(mob/living/carbon/M)
-	M.adjustToxLoss(-5*REM, 0)
+	M.adjustToxLoss(-3*REM, 0)
 	if(M.getToxLoss() && prob(10))
 		M.vomit(1)
 	for(var/datum/reagent/toxin/R in M.reagents.reagent_list)
@@ -1146,7 +1192,7 @@
 	. = 1
 
 /datum/reagent/medicine/carthatoline/overdose_process(mob/living/M)
-	M.adjustToxLoss(10*REM, 0) // End result is 5 toxin loss taken, because it heals 5 and then removes 10.
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
 	..()
 	. = 1
 
@@ -1165,13 +1211,12 @@
 	if(L.damage > 0)
 		L.damage = max(L.damage - 4 * repair_strength, 0)
 		M.confused = (2)
-	M.adjustToxLoss(-12)
+	M.adjustToxLoss(-6)
 	..()
 	. = 1
 
 /datum/reagent/medicine/hepanephrodaxon/overdose_process(mob/living/M)
-	var/obj/item/organ/liver/L = M.getorganslot(ORGAN_SLOT_LIVER)
-	L.damage = max(L.damage + 4, 0)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
 	M.confused = (2)
 	..()
 	. = 1
@@ -1189,7 +1234,7 @@
 
 /datum/reagent/medicine/tricordrazine
 	name = "Tricordrazine"
-	description = "Has a high chance to heal all types of damage. Overdose instead causes it."
+	description = "Has a high chance to heal all types of damage. Overdose causes toxin damage and liver damage."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	overdose_threshold = 30
@@ -1206,9 +1251,7 @@
 
 /datum/reagent/medicine/tricordrazine/overdose_process(mob/living/M)
 	M.adjustToxLoss(2*REM, 0)
-	M.adjustOxyLoss(2*REM, 0)
-	M.adjustBruteLoss(2*REM, FALSE, FALSE, BODYPART_ORGANIC)
-	M.adjustFireLoss(2*REM, FALSE, FALSE, BODYPART_ORGANIC)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 3)
 	..()
 	. = 1
 
@@ -1359,11 +1402,13 @@
 	// Heart attack code will not do damage if corazone is present
 	// because it's SPACE MAGIC ASPIRIN
 	name = "Corazone"
-	description = "A medication used to treat pain, fever, and inflammation, along with heart attacks."
+	description = "A medication used to assist in healing the heart and to stabalize the heart and liver."
 	color = "#F5F5F5"
+	overdose_threshold = 20
 	self_consuming = TRUE
 
 /datum/reagent/medicine/corazone/on_mob_metabolize(mob/living/M)
+	M.adjustOrganLoss(ORGAN_SLOT_HEART, -1.5)
 	..()
 	ADD_TRAIT(M, TRAIT_STABLEHEART, type)
 	ADD_TRAIT(M, TRAIT_STABLELIVER, type)
@@ -1371,6 +1416,11 @@
 /datum/reagent/medicine/corazone/on_mob_end_metabolize(mob/living/M)
 	REMOVE_TRAIT(M, TRAIT_STABLEHEART, type)
 	REMOVE_TRAIT(M, TRAIT_STABLELIVER, type)
+	..()
+
+/datum/reagent/medicine/corazone/overdose_process(mob/living/M)
+	M.reagents.add_reagent(/datum/reagent/toxin/histamine, 1)
+	M.reagents.remove_reagent(/datum/reagent/medicine/corazone, 1)
 	..()
 
 /datum/reagent/medicine/muscle_stimulant
