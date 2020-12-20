@@ -278,6 +278,6 @@
 				message_admins("[key_name(src)] (job: [src.job]) attempted to commit suicide at [AREACOORD(src)]. Time until suicide is possible: [DisplayTimeText(timeleft)].")
 			return
 	if(CONFIG_GET(flag/disabled_suicide))
-		alert("No, enter the cryopods or contact the admins if you have a valid reason.")
+		alert("Suiciding is disabled, please exit the game via the cryopods or contact the admins.")
 
 	else return TRUE
