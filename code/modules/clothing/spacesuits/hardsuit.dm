@@ -316,9 +316,6 @@
 
 		linkedsuit.icon_state = "hardsuit[on]-[item_color]"
 		linkedsuit.update_icon()
-		user.update_inv_wear_suit()
-		user.update_inv_w_uniform()
-		user.update_equipment_speed_mods()
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/activate_space_mode()
 	name = initial(name)
@@ -362,6 +359,9 @@
 	for(var/X in syndieHelmet.actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+	//Update icon
+	icon_state = "hardsuit[syndieHelmet.on]-[syndieHelmet.item_color]"
+	update_icon()
 	//Update the suit to non-combat mode
 	activate_combat_mode()
 
@@ -371,6 +371,11 @@
 	slowdown = 1
 	clothing_flags |= STOPSPRESSUREDAMAGE
 	cold_protection |= CHEST | GROIN | LEGS | FEET | ARMS | HANDS
+	if(ishuman(helmet.loc))
+		var/mob/living/carbon/H = helmet.loc
+		H.update_equipment_speed_mods()
+		H.update_inv_wear_suit()
+		H.update_inv_w_uniform()
 
 /obj/item/clothing/suit/space/hardsuit/syndi/proc/activate_combat_mode()
 	name += " (combat)"
@@ -378,6 +383,11 @@
 	slowdown = 0
 	clothing_flags &= ~STOPSPRESSUREDAMAGE
 	cold_protection &= ~(CHEST | GROIN | LEGS | FEET | ARMS | HANDS)
+	if(ishuman(helmet.loc))
+		var/mob/living/carbon/H = helmet.loc
+		H.update_equipment_speed_mods()
+		H.update_inv_wear_suit()
+		H.update_inv_w_uniform()
 
 //Elite Syndie suit
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
