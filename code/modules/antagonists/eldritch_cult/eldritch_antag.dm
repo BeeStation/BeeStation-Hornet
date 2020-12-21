@@ -28,10 +28,10 @@
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', 100, FALSE, pressure_affected = FALSE)//subject to change
 	to_chat(owner, "<span class='boldannounce'>You are the Heretic!</span><br>\
 	<B>The old ones gave you these tasks to fulfill:</B>")
-	owner.announce_objectives()// UPDATE THIS DURING FINISHING TOUCHES
-	to_chat(owner, "<span class='cult'>As a heretic, you can gain the favor of the old gods through various acts to enhance your arcane powers<br>\
+	owner.announce_objectives()
+	to_chat(owner, "<span class='cult'>As a heretic, you can gain the favor of the old gods through various acts and use it to enhance your arcane powers<br>\
 	You can start by seeking out strange figurines to gain the favor of the lesser gods.<br>\
-	When you are ready, carve a Rune of Transmutation and transmute a Codex Cycatrix from a bible, a pair of eyes and a pen, to unlock your true powers.<br> \
+	When you are ready, carve a Rune of Transmutation and corrupt a Bible into Codex Cycatrix to unlock your true powers.<br> \
 	You can find a basic guide at : https://wiki.beestation13.com/view/Heretics </span>")
 
 /datum/antagonist/heretic/on_gain()
@@ -69,7 +69,7 @@
 	var/mob/living/carbon/H = owner.current
 	if(!istype(H))
 		return
-	. += ecult_give_item(/obj/item/forbidden_book, H)
+	. += ecult_give_item(/obj/item/storage/book/bible, H)
 	. += ecult_give_item(/obj/item/reagent_containers/food/snacks/grown/poppy, H)
 	. += ecult_give_item(/obj/item/artifact, H)
 
@@ -195,9 +195,9 @@
 
 	if(ascended)
 		//Ascension isnt technically finishing the objectives, buut it is to be considered a great win.
-		var/client/C = GLOB.directory[ckey(owner.key)]
-		if(C)
-			C.process_greentext()
+		//var/client/C = GLOB.directory[ckey(owner.key)]
+		//if(C)	ASCENSION NO LONGER AUTO GREENTEXT
+		//	C.process_greentext()
 		parts += "<span class='greentext big'>THIS HERETIC ASCENDED!</span>"
 	else
 		if(cultiewin)
@@ -349,7 +349,7 @@
 /datum/antagonist/heretic/proc/update_max_followers()
 	max_followers = 0
 	var/list/knowledge = get_all_knowledge()
-	for(var/X as()  in knowledge)
+	for(var/X in knowledge)
 		var/datum/eldritch_knowledge/EK = knowledge[X]
 		max_followers += EK.followers_increment
 
@@ -372,16 +372,16 @@
 
 /datum/antagonist/heretic/proc/can_promote_follower(datum/antagonist/heretic_monster/disciple/sucker)
 	if (sucker.master != src)
-		to_chat(owner, "<span class='boldannounce'>This follower belongs to someone else, doe!</span>")//revise these to sound more... lovecraftian
+		to_chat(owner, "<span class='boldannounce'>This follower belongs to someone else!</span>")
 		return FALSE
 	if (sucker.tier == 4)
-		to_chat(owner, "<span class='boldannounce'>This follower has reached the highest level!</span>")
+		to_chat(owner, "<span class='notice'>This follower has reached the highest level!</span>")
 		return FALSE
 	if (get_favor_left()<sucker.get_promote_cost())
 		to_chat(owner, "<span class='warning'>You need [sucker.get_promote_cost()] favor to promote this follower!</span>")
 		return FALSE
 	if ((sucker.tier == 3 && !ascended) || sucker.tier >= max_followers)
-		to_chat(owner, "<span class='boldannounce'>You are not powerful enough to promote this follower!</span>")
+		to_chat(owner, "<span class='notice'>You are not powerful enough to promote this follower!</span>")
 		return FALSE
 	return TRUE
 
@@ -392,11 +392,8 @@
 /datum/antagonist/heretic/proc/gain_deity(deity_id)
 	if(has_deity(deity_id))
 		return FALSE
-	LAZYADD(pantheon,deity_id)
+	pantheon[deity_id] = TRUE
 	return TRUE
 
 /datum/antagonist/heretic/proc/has_deity(deity_id)
-	for (var/integ in pantheon)
-		if (integ == deity_id)
-			return TRUE
-	return FALSE
+	return pantheon[deity_id]

@@ -315,8 +315,8 @@
 
 /datum/eldritch_knowledge/convert
 	name = "Conversion"
-	desc = "You can sacrifice specific targets by placing their dead bodies and the living heart on a transmutation rune, and performing a transmutation ritual."
-	gain_text = "Gates of mansus open up to your mind."
+	desc = "By capturing a person and buckling them, and performing a transmutation with the book next to them. Does not work on mindshielded people."
+	gain_text = "Weak minds, yours for the taking."
 	next_knowledge = list(/datum/eldritch_knowledge/base_rust,/datum/eldritch_knowledge/base_ash,/datum/eldritch_knowledge/base_flesh)
 	cost = 0
 	cast_time = 30 SECONDS
@@ -354,10 +354,10 @@
 
 /datum/eldritch_knowledge/codex_cicatrix
 	name = "Codex Cicatrix"
-	desc = "Allows you to create a new Codex Cicatrix if you so require, using a bible, a pen, some human skin and a pair of eyes on a transmutation rune, and performing a transmutation ritual."
+	desc = "Allows you to corrupt a bible into a Codex Cicatrix, by placing it onto the rune and performing a transmutation ritual."
 	gain_text = "Their hand is at your throats, yet you see Them not."
 	cost = 0
-	required_atoms = list(/obj/item/organ/eyes,/obj/item/stack/sheet/animalhide/human,/obj/item/storage/book/bible,/obj/item/pen)
+	required_atoms = list(/obj/item/storage/book/bible)
 	result_atoms = list(/obj/item/forbidden_book)
 	route = "Start"
 
@@ -420,7 +420,7 @@
 /datum/eldritch_knowledge/dreamgate
 	name = "Dreamgate"
 	gain_text = "Those safe in this world are not safe in others..."
-	desc = "Allows you to read paragraphs of your codex to mortals that are asleep. You can convert sleeping, non-mindshielded humans into your Followers."
+	desc = "Allows you to read paragraphs of your codex to mortals that are asleep. You can convert sleeping, non-mindshielded humans into your followers."
 	cost = 4
 	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
 

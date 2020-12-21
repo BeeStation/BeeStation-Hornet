@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash
 	name = "Ashen passage"
-	desc = "Low range spell allowing you to pass through a few walls."
+	desc = "Low range spell allowing you to phase for a short distance."
 	school = "transmutation"
 	invocation = "ASH'N P'SSG'"
 	invocation_type = INVOCATION_WHISPER

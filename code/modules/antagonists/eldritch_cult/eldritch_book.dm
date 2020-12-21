@@ -18,18 +18,9 @@
 	. = ..()
 	if(!IS_HERETIC(user))
 		return
-	// UPDATE THIS DURING FINISHING TOUCHES
-	//. += "The Tome holds [charge] charges."
-	//. += "Use it on the floor to create a transmutation rune, used to perform rituals."
-	//. += "Hit an influence in the black part with it to gain a charge."
-	//. += "Hit a transmutation rune to destroy it."
-	. += "Any mortal that reads this book will gain fascination. Baptise them with your Mansus Grasp to turn them into your disciples."
-	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	. +=  "You have earned [cultie.get_favor_left()] favor for your deeds."
-	for (var/EK in cultie.get_all_knowledge())
-		var/datum/eldritch_knowledge/known = EK
-		if (istype(known))
-			. +=  known.desc
+	. += "As a heretic, you can read the book to find out what rituals you have and research new powers."
+	. += "You can hit a influence with the cover to tear reality and gain favor."
+	. += "You can gain followers by performing a conversion ritual, and promote them with your Mansus touch."
 
 /obj/item/forbidden_book/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag || !IS_HERETIC(user) || in_use)
