@@ -215,10 +215,10 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	if(prob(1))
 		generate_good_drop()
 	//Check tickets
-	if(ticket_count && (GLOB.ahelp_tickets.unclaimed_tickets.len || GLOB.ahelp_tickets.active_tickets.len))
+	if(ticket_count && !GLOB.ahelp_tickets.unclaimed_tickets.len && !GLOB.ahelp_tickets.active_tickets.len)
 		to_chat(world, "<span class='narsie'>SUDDEN DEATH.</span>")
 		to_chat(world, "<span class='warning'>The wall speed has been increased to the maximum speed!</span>")
-		field_delay = 0
+		field_delay = 1
 		ticket_count = FALSE
 	var/living_victims = 0
 	var/mob/winner
@@ -332,11 +332,8 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		var/mob/living/carbon/human/H = new(pod)
 		ADD_TRAIT(H, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
 		H.status_flags |= GODMODE
-		//Assistant gang
-		H.equipOutfit(/datum/outfit/job/assistant)
-		//Give them their gear
-		var/obj/item/choice_beacon/battleroyale/BR_item = new(get_turf(H))
-		H.equip_to_appropriate_slot(BR_item)
+		//Greytide gang
+		H.equipOutfit(/datum/outfit/battle_royale)
 		//Give them a spell
 		H.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock)
 		H.key = key
@@ -477,3 +474,20 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		battle_royale_list["Combat Medkit"] = /obj/item/storage/firstaid/tactical
 		battle_royale_list["Syndicate Balloon"] = /obj/item/toy/syndicateballoon
 	return battle_royale_list
+
+// ===
+// OUTFIT
+// ===
+/datum/outfit/battle_royale
+	name = "Battle Royale Gear"
+
+	uniform = /obj/item/clothing/under/color/grey
+	id = /obj/item/card/id/syndicate
+	ears = /obj/item/radio/headset/syndicate
+	r_pocket =  = /obj/item/pda
+	back = /obj/item/storage/backpack
+	shoes = /obj/item/clothing/shoes/sneakers/black
+	box = /obj/item/storage/box/survival
+	belt = /obj/item/storage/belt/utility/full
+	gloves = /obj/item/clothing/gloves/color/yellow
+	l_pocket = /obj/item/choice_beacon/battleroyale
