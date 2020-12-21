@@ -58,7 +58,7 @@
 	return 1+tier
 
 /datum/antagonist/heretic_monster/disciple/proc/promote()
-	tier = tier+1
+	tier++
 	switch (tier)
 		if (1)
 			to_chat(owner, "<span class='boldannounce'>Huh...</span>")//this should never happen
