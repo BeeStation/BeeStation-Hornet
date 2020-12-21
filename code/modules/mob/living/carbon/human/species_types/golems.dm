@@ -611,12 +611,15 @@
 	. = ..()
 	phase_shift = new
 	phase_shift.charge_counter = 0
+	phase_shift.start_recharge()
 	C.AddSpell(phase_shift)
 	abyssal_gaze = new
 	abyssal_gaze.charge_counter = 0
+	abyssal_gaze.start_recharge()
 	C.AddSpell(abyssal_gaze)
 	dominate = new
 	dominate.charge_counter = 0
+	dominate.start_recharge()
 	C.AddSpell(dominate)
 
 /datum/species/golem/runic/on_species_loss(mob/living/carbon/C)

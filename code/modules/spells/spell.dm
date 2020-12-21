@@ -286,6 +286,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 /obj/effect/proc_holder/spell/proc/start_recharge()
 	recharging = TRUE
+	begin_timer_animation()
 
 /obj/effect/proc_holder/spell/process()
 	if(recharging && charge_type == "recharge" && (charge_counter < charge_max))
@@ -303,11 +304,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	if(user?.ckey)
 		user.log_message("<span class='danger'>cast the spell [name].</span>", LOG_ATTACK)
 	if(recharge)
-		recharging = TRUE
+		start_recharge()
 	if(sound)
 		playMagSound()
 	cast(targets,user=user)
-	begin_timer_animation()
 	after_cast(targets)
 	//Use our spell points
 	switch(charge_type)
@@ -592,11 +592,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		text_overlay = image(loc = action.button, layer=ABOVE_HUD_LAYER)
 		text_overlay.maptext_width = 64
 		text_overlay.maptext_height = 64
-		text_overlay.maptext_x = -2
+		text_overlay.maptext_x = -8
 		text_overlay.maptext_y = -6
 		text_overlay.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
-	if(action.owner.client)
+	if(action.owner?.client)
 		action.owner.client.images += text_overlay
 
 	action.button.add_overlay(timer_overlay, TRUE)
@@ -615,7 +615,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	if(!(action?.button) || !timer_overlay_active)
 		return
 	timer_overlay_active = FALSE
-	if(action.owner.client)
+	if(action.owner?.client)
 		action.owner.client.images -= text_overlay
 	action.button.cut_overlay(timer_overlay, TRUE)
 	timer_overlay = null
