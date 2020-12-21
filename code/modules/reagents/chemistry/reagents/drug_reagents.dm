@@ -496,7 +496,7 @@
 		if(10)
 			to_chat(M, "<span class='warning'>You start to feel tired...</span>" )
 		if(11 to 25)
-			M.drowsyness += 1
+			M.drowsyness ++
 		if(26 to INFINITY)
 			M.Sleeping(60, 0)
 			. = 1
