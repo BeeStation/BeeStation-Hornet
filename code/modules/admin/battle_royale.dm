@@ -261,6 +261,9 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 // INITIALIZATION
 //==================================
 
+/datum/battle_royale_controller/proc/start_async()
+	INVOKE_ASYNC(src, .proc/start)
+
 /datum/battle_royale_controller/proc/start()
 	//Give Verbs to admins
 	for(var/client/C in GLOB.admins)
@@ -323,7 +326,6 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/list/participants = pollGhostCandidates("Would you like to partake in BATTLE ROYALE?")
 	var/turf/spawn_turf = get_safe_random_station_turf()
 	var/obj/structure/closet/supplypod/centcompod/pod = new()
-	pod.setStyle(STYLE_CENTCOM)
 	players = list()
 	for(var/mob/M in participants)
 		var/key = M.key

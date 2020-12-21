@@ -721,7 +721,7 @@
 			message_admins("[key_name(usr)] HAS TRIGGERED BATTLE ROYALE")
 			GLOB.battle_royale = new()
 			GLOB.battle_royale.ticket_count = TRUE
-			INVOKE_ASYNC(GLOB.battle_royale, /datum/battle_royale_controller.proc/start)
+			GLOB.battle_royale.start_async()
 	else
 		if(alert(usr, "Really cancel current round end delay? The reason for the current delay is: \"[SSticker.admin_delay_notice]\"", "Undelay round end", "Yes", "No") != "Yes")
 			return
