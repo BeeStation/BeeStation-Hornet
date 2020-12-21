@@ -83,7 +83,7 @@ GLOBAL_LIST_INIT(battle_royale_good_loot, list(
 		/obj/item/ammo_box/magazine/smgm45 = 1,
 		/obj/item/ammo_box/magazine/pistolm9mm = 1,
 		/obj/item/katana = 1,
-		/obj/item/melee/transforming/energy/sword = 1,
+		/obj/item/melee/transforming/energy/sword/saber = 1,
 		/obj/item/twohanded/dualsaber = 1,
 		/obj/item/twohanded/fireaxe = 1,
 		/obj/item/stack/telecrystal/five = 1,
@@ -475,7 +475,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	if(!battle_royale_list)
 		battle_royale_list = list()
 		battle_royale_list["Operative Hardsuit"] = /obj/item/clothing/suit/space/hardsuit/syndi
-		battle_royale_list["Energy Sword"] = /obj/item/melee/transforming/energy/sword
+		battle_royale_list["Energy Sword"] = /obj/item/melee/transforming/energy/sword/saber
 		battle_royale_list["Combat Medkit"] = /obj/item/storage/firstaid/tactical
 		battle_royale_list["Syndicate Balloon"] = /obj/item/toy/syndicateballoon
 	return battle_royale_list
