@@ -323,7 +323,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/list/participants = pollGhostCandidates("Would you like to partake in BATTLE ROYALE?")
 	var/turf/spawn_turf = get_safe_random_station_turf()
 	var/obj/structure/closet/supplypod/centcompod/pod = new()
-	pod.setStyle()
+	pod.setStyle(STYLE_CENTCOM)
 	players = list()
 	for(var/mob/M in participants)
 		var/key = M.key
@@ -494,4 +494,6 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	box = /obj/item/storage/box/survival
 	belt = /obj/item/storage/belt/utility/full
 	gloves = /obj/item/clothing/gloves/color/yellow
-	l_pocket = /obj/item/choice_beacon/battleroyale
+	backpack_contents = list(
+		/obj/item/choice_beacon/battleroyale = 1
+	)
