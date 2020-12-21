@@ -297,6 +297,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			action.UpdateButtonIcon()
 			charge_counter = charge_max
 			recharging = FALSE
+	else
+		end_timer_animation()
+		action.UpdateButtonIcon()
+		charge_counter = charge_max
+		recharging = FALSE
 
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = TRUE, mob/user = usr) //if recharge is started is important for the trigger spells
 	before_cast(targets)
