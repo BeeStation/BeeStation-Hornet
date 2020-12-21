@@ -101,6 +101,11 @@
 	var/meeting_area
 	var/static/meeting_areas = list("The Bar", "Dorms", "Escape Dock", "Arrivals", "Holodeck", "Primary Tool Storage", "Recreation Area", "Chapel", "Library")
 
+/datum/team/brother_team/New(starting_members)
+	. = ..()
+	var/static/blood_teams
+	team_id = ++blood_teams
+
 /datum/team/brother_team/is_solo()
 	return FALSE
 
