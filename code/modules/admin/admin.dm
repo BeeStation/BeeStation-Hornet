@@ -716,6 +716,12 @@
 		SSticker.admin_delay_notice = input(usr, "Enter a reason for delaying the round end", "Round Delay Reason") as null|text
 		if(isnull(SSticker.admin_delay_notice))
 			return
+		if(check_rights(R_FUN) && !GLOB.battle_royale && alert("Would you like to run battle royale while waiting?", "Battle Royale", "Yes", "No") == "Yes")
+			log_admin("[key_name(usr)] HAS TRIGGERED BATTLE ROYALE")
+			message_admins("[key_name(usr)] HAS TRIGGERED BATTLE ROYALE")
+			GLOB.battle_royale = new()
+			GLOB.battle_royale.ticket_count = TRUE
+			GLOB.battle_royale.start()
 	else
 		if(alert(usr, "Really cancel current round end delay? The reason for the current delay is: \"[SSticker.admin_delay_notice]\"", "Undelay round end", "Yes", "No") != "Yes")
 			return

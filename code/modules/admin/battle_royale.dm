@@ -1,107 +1,106 @@
 //Global lists so they can be editted by admins
 GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
-		/obj/item/soap,
-		/obj/item/kitchen/knife,
-		/obj/item/kitchen/knife/combat,
-		/obj/item/kitchen/knife/poison,
-		/obj/item/throwing_star,
-		/obj/item/syndie_glue,
-		/obj/item/book_of_babel,
-		/obj/item/card/emag,
-		/obj/item/storage/box/emps,
-		/obj/item/storage/box/lethalshot,
-		/obj/item/storage/box/gorillacubes,
-		/obj/item/storage/box/teargas,
-		/obj/item/storage/box/security/radio,
-		/obj/item/storage/box/medsprays,
-		/obj/item/storage/toolbox/syndicate,
-		/obj/item/storage/box/syndie_kit/bee_grenades,
-		/obj/item/storage/box/syndie_kit/centcom_costume,
-		/obj/item/storage/box/syndie_kit/chameleon,
-		/obj/item/storage/box/syndie_kit/chemical,
-		/obj/item/storage/box/syndie_kit/emp,
-		/obj/item/storage/box/syndie_kit/imp_adrenal,
-		/obj/item/storage/box/syndie_kit/imp_freedom,
-		/obj/item/storage/box/syndie_kit/imp_radio,
-		/obj/item/storage/box/syndie_kit/imp_stealth,
-		/obj/item/storage/box/syndie_kit/imp_storage,
-		/obj/item/storage/box/syndie_kit/imp_uplink,
-		/obj/item/storage/box/syndie_kit/origami_bundle,
-		/obj/item/storage/box/syndie_kit/throwing_weapons,
-		/obj/item/storage/box/syndicate/bundle_A,
-		/obj/item/storage/box/syndicate/bundle_B,
-		/obj/item/gun/ballistic/automatic/pistol,
-		/obj/item/gun/energy/disabler,
-		/obj/item/construction/rcd,
-		/obj/item/clothing/glasses/chameleon/flashproof,
-		/obj/item/clothing/glasses/clockwork/wraith_spectacles,
-		/obj/item/clothing/glasses/sunglasses/advanced,
-		/obj/item/clothing/glasses/thermal/eyepatch,
-		/obj/item/clothing/glasses/thermal/syndi,
-		/obj/item/clothing/suit/space,
-		/obj/item/clothing/suit/armor/riot,
-		/obj/item/clothing/suit/armor/vest,
-		/obj/item/clothing/suit/armor/vest/russian_coat,
-		/obj/item/clothing/suit/armor/hos/trenchcoat,
-		/obj/item/clothing/mask/chameleon,
-		/obj/item/clothing/head/centhat,
-		/obj/item/clothing/head/crown,
-		/obj/item/clothing/head/HoS/syndicate,
-		/obj/item/clothing/head/helmet,
-		/obj/item/clothing/head/helmet/clockcult,
-		/obj/item/clothing/head/helmet/space,
-		/obj/item/clothing/head/helmet/sec,
-		/obj/item/clothing/under/syndicate,
-		/obj/item/clothing/gloves/combat,
-		/obj/item/deployablemine/stun,
-		/obj/item/switchblade,
-		/obj/item/club/tailclub,
-		/obj/item/nullrod/tribal_knife,
-		/obj/item/nullrod/fedora,
-		/obj/item/nullrod/godhand,
-		/obj/item/melee/baton/loaded,
-		/obj/item/melee/chainofcommand/tailwhip/kitty,
-		/obj/item/melee/classic_baton,
-		/obj/item/melee/ghost_sword,
-		/obj/item/melee/powerfist,
-		/obj/item/storage/firstaid/advanced,
-		/obj/item/storage/firstaid/brute,
-		/obj/item/storage/firstaid/fire,
-		/obj/item/storage/firstaid/medical,
-		/obj/item/storage/firstaid/tactical,
-		/obj/item/gun/energy/ionrifle,
-		/obj/item/organ/regenerative_core/battle_royale
+		/obj/item/soap = 4,
+		/obj/item/kitchen/knife = 5,
+		/obj/item/kitchen/knife/combat = 3,
+		/obj/item/kitchen/knife/poison = 3,
+		/obj/item/throwing_star = 2,
+		/obj/item/syndie_glue = 4,
+		/obj/item/book_of_babel = 2,
+		/obj/item/card/emag = 2,
+		/obj/item/storage/box/emps = 3,
+		/obj/item/storage/box/lethalshot = 4,
+		/obj/item/storage/box/gorillacubes = 1,
+		/obj/item/storage/box/teargas = 2,
+		/obj/item/storage/box/security/radio = 5,
+		/obj/item/storage/box/medsprays = 5,
+		/obj/item/storage/toolbox/syndicate = 5,
+		/obj/item/storage/box/syndie_kit/bee_grenades = 3,
+		/obj/item/storage/box/syndie_kit/centcom_costume = 4,
+		/obj/item/storage/box/syndie_kit/chameleon = 3,
+		/obj/item/storage/box/syndie_kit/chemical = 3,
+		/obj/item/storage/box/syndie_kit/emp = 2,
+		/obj/item/storage/box/syndie_kit/imp_adrenal = 1,
+		/obj/item/storage/box/syndie_kit/imp_freedom = 1,
+		/obj/item/storage/box/syndie_kit/imp_radio = 1,
+		/obj/item/storage/box/syndie_kit/imp_stealth = 1,
+		/obj/item/storage/box/syndie_kit/imp_storage = 1,
+		/obj/item/storage/box/syndie_kit/imp_uplink = 1,
+		/obj/item/storage/box/syndie_kit/origami_bundle = 2,
+		/obj/item/storage/box/syndie_kit/throwing_weapons = 2,
+		/obj/item/storage/box/syndicate/bundle_A = 1,
+		/obj/item/storage/box/syndicate/bundle_B = 1,
+		/obj/item/gun/ballistic/automatic/pistol = 1,
+		/obj/item/gun/energy/disabler = 2,
+		/obj/item/construction/rcd = 4,
+		/obj/item/clothing/glasses/chameleon/flashproof = 4,
+		/obj/item/clothing/glasses/clockwork/wraith_spectacles = 4,
+		/obj/item/clothing/glasses/sunglasses/advanced = 4,
+		/obj/item/clothing/glasses/thermal/eyepatch = 3,
+		/obj/item/clothing/glasses/thermal/syndi = 3,
+		/obj/item/clothing/suit/space/hardsuit/syndi = 5,
+		/obj/item/clothing/suit/armor/riot = 3,
+		/obj/item/clothing/suit/armor/vest = 5,
+		/obj/item/clothing/suit/armor/vest/russian_coat = 5,
+		/obj/item/clothing/suit/armor/hos/trenchcoat = 5,
+		/obj/item/clothing/mask/chameleon = 3,
+		/obj/item/clothing/head/centhat = 2,
+		/obj/item/clothing/head/crown = 2,
+		/obj/item/clothing/head/HoS/syndicate = 2,
+		/obj/item/clothing/head/helmet = 2,
+		/obj/item/clothing/head/helmet/clockcult = 1,
+		/obj/item/clothing/head/helmet/sec = 5,
+		/obj/item/clothing/under/syndicate = 4,
+		/obj/item/clothing/gloves/combat = 5,
+		/obj/item/deployablemine/stun = 3,
+		/obj/item/switchblade = 5,
+		/obj/item/club/tailclub = 5,
+		/obj/item/nullrod/tribal_knife = 2,
+		/obj/item/nullrod/fedora = 2,
+		/obj/item/nullrod/godhand = 2,
+		/obj/item/melee/baton/loaded = 4,
+		/obj/item/melee/chainofcommand/tailwhip/kitty = 3,
+		/obj/item/melee/classic_baton = 3,
+		/obj/item/melee/ghost_sword = 2,
+		/obj/item/melee/powerfist = 1,
+		/obj/item/storage/firstaid/advanced = 4,
+		/obj/item/storage/firstaid/brute = 4,
+		/obj/item/storage/firstaid/fire = 4,
+		/obj/item/storage/firstaid/medical = 4,
+		/obj/item/storage/firstaid/tactical = 4,
+		/obj/item/gun/energy/ionrifle = 4,
+		/obj/item/organ/regenerative_core/battle_royale = 8
 	))
 
 GLOBAL_LIST_INIT(battle_royale_good_loot, list(
-		/obj/item/hand_tele,
-		/obj/item/gun/ballistic/bow/clockbolt,
-		/obj/item/gun/ballistic/rifle/boltaction,
-		/obj/item/gun/ballistic/shotgun/doublebarrel,
-		/obj/item/gun/energy/laser/captain,
-		/obj/item/gun/ballistic/revolver/mateba,
-		/obj/item/gun/ballistic/automatic/c20r,
-		/obj/item/ammo_box/magazine/smgm45,
-		/obj/item/ammo_box/magazine/pistolm9mm,
-		/obj/item/katana,
-		/obj/item/melee/transforming/energy/sword,
-		/obj/item/twohanded/dualsaber,
-		/obj/item/twohanded/fireaxe,
-		/obj/item/stack/telecrystal/five,
-		/obj/item/stack/telecrystal/twenty,
-		/obj/item/clothing/suit/space/hardsuit/syndi
+		/obj/item/hand_tele = 1,
+		/obj/item/gun/ballistic/bow/clockbolt = 1,
+		/obj/item/gun/ballistic/rifle/boltaction = 1,
+		/obj/item/gun/ballistic/shotgun/doublebarrel = 1,
+		/obj/item/gun/energy/laser/captain = 1,
+		/obj/item/gun/ballistic/revolver/mateba, = 1
+		/obj/item/gun/ballistic/automatic/c20r = 1,
+		/obj/item/ammo_box/magazine/smgm45 = 1,
+		/obj/item/ammo_box/magazine/pistolm9mm = 1,
+		/obj/item/katana = 1,
+		/obj/item/melee/transforming/energy/sword = 1,
+		/obj/item/twohanded/dualsaber = 1,
+		/obj/item/twohanded/fireaxe = 1,
+		/obj/item/stack/telecrystal/five = 1,
+		/obj/item/stack/telecrystal/twenty = 1,
+		/obj/item/clothing/suit/space/hardsuit/syndi = 1
 	))
 
 GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
-		/obj/item/gun/ballistic/automatic/l6_saw/unrestricted,
-		/obj/item/energy_katana,
-		/obj/item/clothing/suit/space/hardsuit/shielded/syndi,
-		/obj/item/his_grace,
-		/obj/mecha/combat/marauder/mauler/loaded,
-		/obj/item/guardiancreator/tech,
-		/obj/item/twohanded/mjollnir,
-		/obj/item/pneumatic_cannon/pie/selfcharge,
-		/obj/item/uplink/nuclear
+		/obj/item/gun/ballistic/automatic/l6_saw/unrestricted = 1,
+		/obj/item/energy_katana = 1,
+		/obj/item/clothing/suit/space/hardsuit/shielded/syndi = 1,
+		/obj/item/his_grace = 1,
+		/obj/mecha/combat/marauder/mauler/loaded = 1, //lol?
+		/obj/item/guardiancreator/tech = 1,
+		/obj/item/twohanded/mjollnir = 1,
+		/obj/item/pneumatic_cannon/pie/selfcharge = 1,
+		/obj/item/uplink/nuclear = 1
 	))
 
 GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
@@ -184,12 +183,18 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 
 /datum/battle_royale_controller
 	var/list/players
-	var/datum/proximity_monitor/advanced/battle_royale/field_wall
+	//Radius of the deathwall
 	var/radius = 118
+	//Process tick
 	var/process_num = 0
+	//Each element of the wall
 	var/list/death_wall
+	//The speed of the wall
 	var/field_delay = 15
+	//Will disable winning
 	var/debug_mode = FALSE
+	//If auto triggered, will speed up the game when tickets are done
+	var/ticket_count = FALSE
 
 /datum/battle_royale_controller/Destroy(force, ...)
 	QDEL_LIST(death_wall)
@@ -209,6 +214,12 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	//Once every 100 seconds.
 	if(prob(1))
 		generate_good_drop()
+	//Check tickets
+	if(ticket_count && (GLOB.ahelp_tickets.unclaimed_tickets.len || GLOB.ahelp_tickets.active_tickets.len))
+		to_chat(world, "<span class='narsie'>SUDDEN DEATH.</span>")
+		to_chat(world, "<span class='warning'>The wall speed has been increased to the maximum speed!</span>")
+		field_delay = 0
+		ticket_count = FALSE
 	var/living_victims = 0
 	var/mob/winner
 	for(var/mob/living/M as() in players)
@@ -237,14 +248,14 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		return
 	//Once every 15 seconsd
 	// 1,920 seconds (about 32 minutes per game)
-	if(process_num % (field_delay) == 0)
+	if(process_num % (field_delay) == 0 && radius > 3)
 		for(var/obj/effect/death_wall/wall as() in death_wall)
 			wall.decrease_size()
 			if(QDELETED(wall))
 				death_wall -= wall
 			CHECK_TICK
 		radius--
-	if(radius < 70 && prob(1))
+	if(radius < 90 && prob(1))
 		generate_endgame_drop()
 
 //==================================
@@ -324,6 +335,9 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		H.status_flags |= GODMODE
 		//Assistant gang
 		H.equipOutfit(/datum/outfit/job/assistant)
+		//Give them their gear
+		var/obj/item/choice_beacon/battleroyale/BR_item = new(get_turf(H))
+		H.equip_to_appropriate_slot(BR_item)
 		//Give them a spell
 		H.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock)
 		H.key = key
@@ -354,18 +368,24 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 
 /datum/battle_royale_controller/proc/generate_basic_loot(amount=1)
 	for(var/i in 1 to amount)
-		send_item(pick(GLOB.battle_royale_basic_loot))
+		var/list/items = list()
+		for(var/i in 1 to rand(2, 4)
+			if(prob(95))
+				items += pickweight(GLOB.battle_royale_basic_loot)
+			else
+				items += pickweight(GLOB.battle_royale_good_loot)
+		send_item(items)
 		stoplag()
 
 /datum/battle_royale_controller/proc/generate_good_drop()
 	var/list/good_drops = list()
 	for(var/i in 1 to rand(1,3))
-		good_drops += pick(GLOB.battle_royale_good_loot)
-	send_item(good_drops, announce = "Incomming extended supply materials.", force_time = 600)
+		good_drops += pickweight(GLOB.battle_royale_good_loot)
+	send_item(good_drops, announce = "Incomming extended supply materials.", force_time = 300)
 
 /datum/battle_royale_controller/proc/generate_endgame_drop()
-	var/obj/item = pick(GLOB.battle_royale_insane_loot)
-	send_item(item, announce = "We found a weird looking package in the back of our warehouse. We have no idea what is in it, but it is marked as incredibily dangerous and could be a superweapon.", force_time = 9000)
+	var/obj/item = pickweight(GLOB.battle_royale_insane_loot)
+	send_item(item, announce = "We found a weird looking package in the back of our warehouse. We have no idea what is in it, but it is marked as incredibily dangerous and could be a superweapon.", force_time = 600)
 
 /datum/battle_royale_controller/proc/send_item(item_path, style = STYLE_BOX, announce=FALSE, force_time = 0)
 	if(!item_path)
@@ -440,3 +460,21 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 // =====
 /obj/item/organ/regenerative_core/battle_royale
 	preserved = TRUE
+
+// ===
+// Kits
+// ===
+
+/obj/item/choice_beacon/battleroyale
+	name = "participant beacon"
+	desc = "Trust me; You will need this."
+
+/obj/item/choice_beacon/battleroyale/generate_display_names()
+	var/static/list/battle_royale_list
+	if(!battle_royale_list)
+		battle_royale_list = list()
+		battle_royale_list["Operative Hardsuit"] = /obj/item/clothing/suit/space/hardsuit/syndi
+		battle_royale_list["Energy Sword"] = /obj/item/melee/transforming/energy/sword
+		battle_royale_list["Combat Medkit"] = /obj/item/storage/firstaid/tactical
+		battle_royale_list["Syndicate Balloon"] = /obj/item/toy/syndicateballoon
+	return battle_royale_list
