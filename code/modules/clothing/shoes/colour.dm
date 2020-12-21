@@ -120,6 +120,6 @@
 		var/mob/living/carbon/human/c = m
 		if(c.shoes == src && chained == 1)
 			to_chat(user, "<span class='warning'>You start taking off your [src]!</span>")			
-			if(!do_after(c,15 SECONDS, src))
+			if(!do_after(C,15 SECONDS, src))
 				return FALSE
 	return ..()
