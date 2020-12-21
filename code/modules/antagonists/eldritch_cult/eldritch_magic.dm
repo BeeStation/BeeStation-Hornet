@@ -72,6 +72,7 @@
 		if (caster.a_intent != INTENT_HARM && C.mind && C.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple))
 			var/datum/antagonist/heretic_monster/disciple/sucker = C.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple)
 			if (cultie.can_promote_follower(sucker))
+				to_chat(user, "<span class='warning'>You spend [sucker.get_promote_cost()] favor to promote [C.name]!</span>")
 				cultie.spend_favor(sucker.get_promote_cost())
 				switch (sucker.tier)
 					if (1)
@@ -161,7 +162,7 @@
 	if(harm && iscarbon(target))
 		var/mob/living/carbon/C = target
 		C.adjustBruteLoss(5)
-		C.adjustStaminaLoss(60)
+		C.adjustStaminaLoss(60)	//maybe staminaloss is neglectable?
 	..()
 
 /obj/effect/proc_holder/spell/aoe_turf/rust_conversion

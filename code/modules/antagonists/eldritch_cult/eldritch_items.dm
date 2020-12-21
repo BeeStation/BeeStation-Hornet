@@ -287,39 +287,39 @@
 			if (!activated)
 				.+="Use in hand to perform a ritual for [godname], granting this [src] magical powers."
 			else
-				var/desc = "The [name] will offer the boon of [godname], "
+				var/boon = "The [name] will offer the boon of [godname], "
 				switch (deity)
 					if (GOD_SLEEP)
-						desc += "fixing one's insides."
+						boon += "fixing one's insides."
 					if (GOD_SIGHT)
-						desc += "bringing back one's vision."
+						boon += "bringing back one's vision."
 					if (GOD_MIND)
-						desc += "restoring one's sanity and mind."
+						boon += "restoring one's sanity and mind."
 					if (GOD_CLEANSE)
-						desc += "purging one's body of inpurities."
+						boon += "purging one's body of inpurities."
 					if (GOD_MEND)
-						desc += "healing one's burned flesh."
+						boon += "healing one's burned flesh."
 					if (GOD_CAUTERIZE)
-						desc += "bringing back one's vision."
+						boon += "bringing back one's vision."
 					if (GOD_BLIND)
-						desc += "making one blind."
+						boon += "making one blind."
 					if (GOD_MUTE)
-						desc += "halting one's speech."
+						boon += "halting one's speech."
 					if (GOD_STUPID)
-						desc += "making one stupid."
+						boon += "making one stupid."
 					if (GOD_HURT)
-						desc += "inflicting wounds."
+						boon += "inflicting wounds."
 					if (GOD_BURN)
-						desc += "causing one's skin to burn."
+						boon += "causing one's skin to burn."
 					if (GOD_PARALIZE)
-						desc += "crippling one's legs."
+						boon += "crippling one's legs."
 					if (GOD_DISABLE)
-						desc += "crippling one's hands."
+						boon += "crippling one's hands."
 					if (GOD_EMP)
-						desc += "crippling one's hands."
+						boon += "crippling one's hands."
 					if (GOD_MADNESS)
-						desc += "bringing madness into one's mind."
-				.+=desc
+						boon += "bringing madness into one's mind."
+				.+=boon
 
 			var/datum/antagonist/heretic/her = user.mind.has_antag_datum(/datum/antagonist/heretic)
 			if (!ashes && !her.has_deity(deity))

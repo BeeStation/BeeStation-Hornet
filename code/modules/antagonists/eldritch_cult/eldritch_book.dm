@@ -18,7 +18,7 @@
 	. = ..()
 	if(!IS_HERETIC(user))
 		return
-	//revise
+	// UPDATE THIS DURING FINISHING TOUCHES
 	//. += "The Tome holds [charge] charges."
 	//. += "Use it on the floor to create a transmutation rune, used to perform rituals."
 	//. += "Hit an influence in the black part with it to gain a charge."
@@ -141,7 +141,7 @@
 				if(initial(EK.name) != ekname)
 					continue
 				if(cultie.gain_knowledge(EK))
-					cultie.spend_favor(text2num(params["cost"]))
+					cultie.spend_favor(EK.cost)
 					return TRUE
 
 	update_icon() // Not applicable to all objects.

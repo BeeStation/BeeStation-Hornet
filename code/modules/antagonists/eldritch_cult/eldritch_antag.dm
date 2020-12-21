@@ -28,7 +28,7 @@
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', 100, FALSE, pressure_affected = FALSE)//subject to change
 	to_chat(owner, "<span class='boldannounce'>You are the Heretic!</span><br>\
 	<B>The old ones gave you these tasks to fulfill:</B>")
-	owner.announce_objectives()
+	owner.announce_objectives()// UPDATE THIS DURING FINISHING TOUCHES
 	to_chat(owner, "<span class='cult'>As a heretic, you can gain the favor of the old gods through various acts to enhance your arcane powers<br>\
 	You can start by seeking out strange figurines to gain the favor of the lesser gods.<br>\
 	When you are ready, carve a Rune of Transmutation and transmute a Codex Cycatrix from a bible, a pair of eyes and a pen, to unlock your true powers.<br> \
@@ -38,9 +38,12 @@
 	var/mob/living/current = owner.current
 	if(ishuman(current))
 		forge_primary_objectives()
-		for(var/eldritch_knowledge in GLOB.heretic_start_knowledge)
-			gain_knowledge(eldritch_knowledge)
-	current.log_message("has been converted to the cult of the forgotten ones!", LOG_ATTACK, color="#960000")
+		gain_knowledge(/datum/eldritch_knowledge/codex_cicatrix)
+		gain_knowledge(/datum/eldritch_knowledge/living_heart)
+		gain_knowledge(/datum/eldritch_knowledge/spell/basic)
+		gain_knowledge(/datum/eldritch_knowledge/convert)
+		gain_knowledge(/datum/eldritch_knowledge/eldritch_avatar)
+	current.log_message("has been turned into a heretic!", LOG_ATTACK, color="#960000")
 	GLOB.reality_smash_track.Generate()
 	START_PROCESSING(SSprocessing,src)
 	RegisterSignal(owner.current,COMSIG_MOB_DEATH,.proc/on_death)
@@ -295,9 +298,6 @@
 
 /datum/objective/ascend
 	name = "ascend"
-
-/datum/objective/ascend/update_explanation_text()
-	..()
 	explanation_text = "Appease the Gods and ascend."
 
 /datum/objective/ascend/check_completion()
@@ -313,7 +313,7 @@
 
 /datum/objective/minicult/New()
 	..()
-	target_amount = rand(1,3)
+	target_amount = rand(2,4)
 
 /datum/objective/minicult/update_explanation_text()
 	..()
@@ -376,16 +376,16 @@
 
 /datum/antagonist/heretic/proc/can_promote_follower(datum/antagonist/heretic_monster/disciple/sucker)
 	if (sucker.master != src)
-		to_chat(owner, "<span class='boldannounce'>Belongs to someone else, doe!</span>")//revise these to sound more... lovecraftian
+		to_chat(owner, "<span class='boldannounce'>This follower belongs to someone else, doe!</span>")//revise these to sound more... lovecraftian
 		return FALSE
 	if (sucker.tier == 4)
-		to_chat(owner, "<span class='boldannounce'>You cannot promote!</span>")
+		to_chat(owner, "<span class='boldannounce'>This follower has reached the highest level!</span>")
 		return FALSE
 	if (get_favor_left()<sucker.get_promote_cost())
-		to_chat(owner, "<span class='boldannounce'>We require more ves- FAVOR!</span>")
+		to_chat(owner, "<span class='warning'>You need [sucker.get_promote_cost()] favor to promote this follower!</span>")
 		return FALSE
 	if ((sucker.tier == 3 && !ascended) || sucker.tier >= max_followers)
-		to_chat(owner, "<span class='boldannounce'>Get more level!</span>")
+		to_chat(owner, "<span class='boldannounce'>You are not powerful enough to promote this follower!</span>")
 		return FALSE
 	return TRUE
 

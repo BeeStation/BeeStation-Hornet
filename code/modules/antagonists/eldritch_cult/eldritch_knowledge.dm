@@ -96,7 +96,7 @@
   *
   * Overide this proc if you dont want ALL ATOMS to be destroyed. useful in many situations.
   */
-/datum/eldritch_knowledge/proc/cleanup_atoms(list/atoms)
+/datum/eldritch_knowledge/proc/cleanup_atoms(list/atoms)	//BUG: crafting something will add to this list and delete ALL of the required components, IE if you have 2 bibles on a rune, and craft a codex, it will make 1 codex and qdel BOTH bibles
 	for(var/X in atoms)
 		var/atom/A = X
 		if(!isliving(A))
