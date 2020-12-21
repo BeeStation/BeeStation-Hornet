@@ -237,7 +237,7 @@
 
 	//Decides what this pipeline should do next tick
 	//Pipenet air reacts here or your connected canisters won't react properly
-	if(total_gas_mixture.react())
+	if(total_gas_mixture.react(pick(PL)))
 		//Might need another reaction next time; immediately set this pipenet for next reconcile_air()
 		. = PIPENET_UPDATE_STATUS_REACT_NEEDED
 	else
