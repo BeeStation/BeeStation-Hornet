@@ -28,19 +28,11 @@
         return TRUE
     return FALSE
 
-/datum/martial_art/tribal_claw/proc/tailAnimate(mob/living/carbon/human/A)
-    set waitfor = FALSE
-    for(var/i in GLOB.cardinals)
-        if(!A)
-            break
-        A.setDir(i)
-
 //Tail Sweep, triggers an effect similar to Space Dragon's tail sweep but only affects stuff 1 tile next to you, basically 3x3.
 /datum/martial_art/tribal_claw/proc/tailSweep(mob/living/carbon/human/A, mob/living/carbon/human/D)
     log_combat(A, D, "tail sweeped(Tribal Claw)")
     D.visible_message("<span class='warning'>[A] sweeps [D]'s legs with their tail!</span>", \
                         "<span class='userdanger'>[A] sweeps your legs with their tail!</span>")
-    tailAnimate(A)
     var/obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon/R = new
     var/list/turfs = list()
     for(var/turf/T in range(1,A))
