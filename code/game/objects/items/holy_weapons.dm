@@ -503,8 +503,8 @@
 /obj/effect/proc_holder/possessed_throw
 	name = "Launch Item"
 	desc = "Gather your energy to throw your possessed item."
-	var/cooldown_time = 30 // Time, in deciseconds, between throws
-	var/cooldown = 0
+	var/cooldown_time = 50 // Time, in deciseconds, between throws
+	var/cooldown
 
 /obj/effect/proc_holder/possessed_throw/Click()
 	var/message
@@ -521,9 +521,6 @@
 	. = ..()
 	if(istype(caller.loc, /obj/item)) // If the shade is possessing something
 		var/obj/item/I = caller.loc
-		if(istype(I.loc, /mob/living)) // If embedded or being held
-			caller.visible_message("[src] rips free of [I.loc]!", "You rip free of [I.loc]!")
-			I.forceMove(get_turf(I.loc)) // Unembed, or drop
 		I.throw_at(target, 10, 4)
 		caller.visible_message("[src] launches [src.p_them()]self!", "You launch your blade!")
 		active = FALSE
