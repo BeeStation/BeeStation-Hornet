@@ -190,7 +190,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	//Each element of the wall
 	var/list/death_wall
 	//The speed of the wall
-	var/field_delay = 15
+	var/field_delay = 10
 	//Will disable winning
 	var/debug_mode = FALSE
 	//If auto triggered, will speed up the game when tickets are done
@@ -246,8 +246,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 			new /obj/item/melee/supermatter_sword(get_turf(winner))
 		qdel(src)
 		return
-	//Once every 15 seconsd
-	// 1,920 seconds (about 32 minutes per game)
+	//Once every 10 seconsd
 	if(process_num % (field_delay) == 0 && radius > 3)
 		for(var/obj/effect/death_wall/wall as() in death_wall)
 			wall.decrease_size()
