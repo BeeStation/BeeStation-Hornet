@@ -517,7 +517,7 @@
 	M.hallucination += 10
 	//Uh Oh Someone is tired
 	if(prob(40))
-		if(!(HAS_TRAIT(M, TRAIT_IGNOREDAMAGESLOWDOWN)))
+		if(HAS_TRAIT(M, TRAIT_IGNOREDAMAGESLOWDOWN))
 			REMOVE_TRAIT(M, TRAIT_IGNOREDAMAGESLOWDOWN, type)
 		if(prob(33))
 			to_chat(M, "<span class='warning'>Your limbs begin to feel heavy...</span>")
