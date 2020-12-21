@@ -240,7 +240,7 @@
 	if (!skipface)
 		if (mind)
 			var/datum/antagonist/heretic_monster/disciple/D =  mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple)
-			if (D && D.can_use_magic())
+			if (D?.can_use_magic())
 				. += "<span class='warning'><B>[t_He] has weird, pulsating green marks on his forehead!</B></span>"
 		if(drunkenness && !appears_dead) //Drunkenness
 			switch(drunkenness)
