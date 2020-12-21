@@ -366,20 +366,20 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 // EVENTS / DROPS
 //==================================
 
-/datum/battle_royale_controller/proc/generate_basic_loot(amount=1)
+/datum/battle_royale_controller/proc/generate_basic_loot(amount = 1)
 	for(var/i in 1 to amount)
-		var/list/items = list()
-		for(var/i in 1 to rand(2, 4)
+		var/list/drops = list()
+		for(var/j in 1 to rand(1, 3))
 			if(prob(95))
-				items += pickweight(GLOB.battle_royale_basic_loot)
+				drops += pickweight(GLOB.battle_royale_basic_loot)
 			else
-				items += pickweight(GLOB.battle_royale_good_loot)
-		send_item(items)
+				drops += pickweight(GLOB.battle_royale_good_loot)
+		send_item(drops)
 		stoplag()
 
 /datum/battle_royale_controller/proc/generate_good_drop()
 	var/list/good_drops = list()
-	for(var/i in 1 to rand(1,3))
+	for(var/i in 1 to rand(2,5))
 		good_drops += pickweight(GLOB.battle_royale_good_loot)
 	send_item(good_drops, announce = "Incomming extended supply materials.", force_time = 300)
 
