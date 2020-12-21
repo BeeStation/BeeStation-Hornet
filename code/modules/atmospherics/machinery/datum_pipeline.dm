@@ -5,7 +5,7 @@
 	var/list/obj/machinery/atmospherics/pipe/members
 	var/list/obj/machinery/atmospherics/components/other_atmosmch
 
-	var/update = TRUE
+	var/update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 /datum/pipeline/New()
 	other_airs = list()
@@ -22,12 +22,6 @@
 	for(var/obj/machinery/atmospherics/components/C in other_atmosmch)
 		C.nullifyPipenet(src)
 	return ..()
-
-/datum/pipeline/process()
-	if(update)
-		update = FALSE
-		reconcile_air()
-	update = air.react(src)
 
 /datum/pipeline/proc/build_pipeline(obj/machinery/atmospherics/base)
 	var/volume = 0
@@ -116,7 +110,7 @@
 	other_airs.Add(E.other_airs)
 	E.members.Cut()
 	E.other_atmosmch.Cut()
-	update = TRUE
+	update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 	qdel(E)
 
 /obj/machinery/atmospherics/proc/addMember(obj/machinery/atmospherics/A)
@@ -198,7 +192,7 @@
 				(partial_heat_capacity*target.heat_capacity/(partial_heat_capacity+target.heat_capacity))
 
 			air.set_temperature(air.return_temperature() - heat/total_heat_capacity)
-	update = TRUE
+	update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 /datum/pipeline/proc/return_air()
 	. = other_airs + air
@@ -216,6 +210,11 @@
 		if(!P)
 			continue
 		GL += P.return_air()
+		if(P != src)
+			//If one of the reconciling pipenet requires full reconcilation, we have to comply
+			update = max(update, P.update)
+			//This prevents redundant reconilations, highlander style: there can be only one (to reconcile)
+			P.update = PIPENET_UPDATE_STATUS_DORMANT
 		for(var/atmosmch in P.other_atmosmch)
 			if (istype(atmosmch, /obj/machinery/atmospherics/components/binary/valve))
 				var/obj/machinery/atmospherics/components/binary/valve/V = atmosmch
@@ -227,6 +226,7 @@
 				if(C.connected_device)
 					GL += C.portableConnectorReturnAir()
 
+	//This builds total_gas_mixture, which is the *only* instance of complete total gas of a superpipnet.
 	var/datum/gas_mixture/total_gas_mixture = new(0)
 	var/total_volume = 0
 
@@ -234,6 +234,18 @@
 		var/datum/gas_mixture/G = i
 		total_gas_mixture.merge(G)
 		total_volume += G.return_volume()
+
+	//Decides what this pipeline should do next tick
+	//Pipenet air reacts here or your connected canisters won't react properly
+	if(total_gas_mixture.react())
+		//Might need another reaction next time; immediately set this pipenet for next reconcile_air()
+		. = PIPENET_UPDATE_STATUS_REACT_NEEDED
+	else
+		. = PIPENET_UPDATE_STATUS_DORMANT
+		//Needs no update and didn't even react? This reconcile_air() can return early since no change was made.
+		//This can only be achieved with self-ending stream of reactions, i.e. pipeline fire that has come to an end.
+		if(update < PIPENET_UPDATE_STATUS_RECONCILE_NEEDED)
+			return
 
 	if(total_volume > 0)
 		//Update individual gas_mixtures by volume ratio

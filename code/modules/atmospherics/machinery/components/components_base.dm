@@ -163,7 +163,7 @@
 		if(!parent)
 			WARNING("Component is missing a pipenet! Rebuilding...")
 			build_network()
-		parent.update = 1
+		parent.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 /obj/machinery/atmospherics/components/returnPipenets()
 	. = list()
