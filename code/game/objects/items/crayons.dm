@@ -313,8 +313,6 @@
 		temp = "drawing"
 	else if(drawing in graffiti|oriented)
 		temp = "graffiti"
-	else if(drawing in numerals)
-		temp = "number"
 
 
 	var/graf_rot
@@ -391,13 +389,6 @@
 	if(post_noise)
 		audible_message("<span class='notice'>You hear spraying.</span>")
 		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
-
-	// hippie start -- using changes moved to the end of the proc, so it won't use charges if the spraying fails for any reason.
-	var/charges_used = use_charges(user, cost)
-	if(!charges_used)
-		return
-	. = charges_used
-	// hippie end
 
 	var/fraction = min(1, . / reagents.maximum_volume)
 	if(affected_turfs.len)
