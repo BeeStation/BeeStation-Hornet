@@ -320,7 +320,6 @@ SUBSYSTEM_DEF(air)
 	if(active_turfs.len)
 		var/starting_ats = active_turfs.len
 		sleep(world.tick_lag)
-		var/timer = world.timeofday
 		log_mapping("There are [starting_ats] active turfs at roundstart caused by a difference of the air between the adjacent turfs. You can see its coordinates using \"Mapping -> Show roundstart AT list\" verb (debug verbs required).")
 		for(var/turf/T in active_turfs)
 			GLOB.active_turfs_startlist += T
