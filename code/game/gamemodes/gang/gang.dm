@@ -15,7 +15,7 @@
 	/// A reference to the handler that is used to run pre_setup(), post_setup(), etc..
 	var/datum/gang_handler/handler
 
-/datum/game_mode/gang/warriors
+/datum/game_mode/gang/warriors // I kinda wanna nuke this since the gamemode list is fukken polluted
 	name = "warriors"
 	config_tag = "warriors"
 	announce_text = "Can you survive this onslaught?"
