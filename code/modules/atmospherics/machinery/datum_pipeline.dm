@@ -77,8 +77,8 @@
 	air.set_volume(volume)
 
 /datum/pipeline/proc/addMachineryMember(obj/machinery/atmospherics/components/C)
-	other_atmosmch |= C
-	var/datum/gas_mixture/G = C.returnPipenetAir(src)
+	other_atmosmch += C
+	var/G = C.returnPipenetAir(src)
 	if(!G)
 		stack_trace("addMachineryMember: Null gasmix added to pipeline datum from [C] which is of type [C.type]. Nearby: ([C.x], [C.y], [C.z])")
 	other_airs |= G

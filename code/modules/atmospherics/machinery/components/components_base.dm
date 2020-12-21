@@ -100,8 +100,15 @@
 		qdel(reference)
 	parents[i] = null
 
+// We should return every air sharing a parent
 /obj/machinery/atmospherics/components/returnPipenetAir(datum/pipeline/reference)
-	return airs[parents.Find(reference)]
+	for(var/i in 1 to device_type)
+		if(parents[i] == reference)
+			if(.)
+				. = list(.)
+				. += airs[i]
+			else
+				. = airs[i]
 
 /obj/machinery/atmospherics/components/pipeline_expansion(datum/pipeline/reference)
 	if(reference)
