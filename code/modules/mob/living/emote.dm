@@ -477,8 +477,8 @@
 /datum/emote/beep
 	key = "beep"
 	key_third_person = "beeps"
-	message = "beeps."
-	message_param = "beeps at %t."
+	message = "beeps"
+	message_param = "beeps at %t"
 	sound = 'sound/machines/twobeep.ogg'
 	mob_type_allowed_typecache = list(/mob/living/brain, /mob/living/silicon)
 
@@ -554,9 +554,9 @@
 /datum/emote/inhale
 	key = "inhale"
 	key_third_person = "inhales"
-	message = "breathes in."
+	message = "breathes in"
 
 /datum/emote/exhale
 	key = "exhale"
 	key_third_person = "exhales"
-	message = "breathes out."
+	message = "breathes out"

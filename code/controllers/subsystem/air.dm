@@ -339,7 +339,7 @@ SUBSYSTEM_DEF(air)
 		while (turfs_to_check.len)
 		var/ending_ats = active_turfs.len
 
-		var/msg = "HEY! LISTEN! [DisplayTimeText(world.timeofday - timer)] were wasted processing [starting_ats] turf(s) (connected to [ending_ats] other turfs) with atmos differences at round start."
+		var/msg = "Processed [starting_ats] turf(s) (connected to [ending_ats] other turfs) with atmos differences at round start."
 		to_chat(world, "<span class='boldannounce'>[msg]</span>")
 		warning(msg)
 

@@ -303,13 +303,14 @@
 		if(R)
 			. += "<span class='deptradio'>Rank:</span> [R.fields["rank"]]\n<a href='?src=[REF(src)];hud=1;photo_front=1'>\[Front photo\]</a><a href='?src=[REF(src)];hud=1;photo_side=1'>\[Side photo\]</a>"
 		if(HAS_TRAIT(user, TRAIT_MEDICAL_HUD))
-			var/cyberimp_detect
+			var/list/cyberimp_detect = list()
 			for(var/obj/item/organ/cyberimp/CI in internal_organs)
 				if(CI.status == ORGAN_ROBOTIC && !CI.syndicate_implant)
-					cyberimp_detect += "[name] is modified with a [CI.name]."
+					cyberimp_detect += CI.name
 			if(cyberimp_detect)
 				. += "Detected cybernetic modifications:"
-				. += cyberimp_detect
+				for(var/name in cyberimp_detect)
+					. += "[name]"
 			if(R)
 				var/health_r = R.fields["p_stat"]
 				. += "<a href='?src=[REF(src)];hud=m;p_stat=1'>\[[health_r]\]</a>"
