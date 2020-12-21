@@ -309,7 +309,7 @@
 	flags_inv = HIDEHAIR|HIDEEARS
 	dynamic_hair_suffix = ""
 
-/obj/item/clothing/suit/hooded/bee_costume/syndie 
+/obj/item/clothing/suit/hooded/bee_costume/syndie
 	name = "BLF costume"
 	armor = list("melee" = 20, "bullet" = 20, "laser" = 20,"energy" = 40, "bomb" = 0, "bio" = 60, "rad" = 0, "fire" = 0, "acid" = 50)
 	hoodtype = /obj/item/clothing/head/hooded/bee_hood/syndie
@@ -660,7 +660,7 @@
 	icon_state = "joker"
 	item_state = "joker"
 	item_color = "joker"
-	can_adjust = FALSE	
+	can_adjust = FALSE
 
 /obj/item/clothing/suit/joker
 	name = "comedian coat"
@@ -668,3 +668,16 @@
 	icon_state = "joker_coat"
 	item_state = "joker_coat"
 	item_color = "joker_coat"
+
+/obj/item/clothing/suit/yakuza
+	name = "tojo clan jacket"
+	desc = "The jacket of a mad dog."
+	icon_state = "MajimaJacket"
+	body_parts_covered = ARMS
+
+/obj/item/clothing/suit/dutch
+	name = "dutch's jacket"
+	desc = "For those long nights on the beach in Tahiti."
+	icon_state = "DutchJacket"
+	body_parts_covered = ARMS
+

@@ -163,7 +163,7 @@
 	item_state = "wardenblueclothes"
 	item_color = "wardenblueclothes"
 	alt_covers_chest = TRUE
-	
+
 /obj/item/clothing/under/rank/security/head_of_security/formal
 	desc = "The insignia on this uniform tells you that this uniform belongs to the Head of Security."
 	name = "head of security's formal uniform"
@@ -205,11 +205,11 @@
 	has_sensor = LOCKED_SENSORS
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
-	
+
 /*
  * Triiodine's security uniforms
  */
- 
+
 
 /obj/item/clothing/under/rank/security/officer/mallcop
 	name = "NT mall cop uniform"
@@ -222,3 +222,9 @@
 /obj/item/clothing/under/rank/security/officer/mallcop/deputy
 	name = "deputy uniform"
 	desc = "A lightly armored formal uniform fit for wannabe security members."
+
+/obj/item/clothing/under/rank/security/officer/beatcop
+	name = "space police uniform"
+	desc = "A police uniform often found in the lines at donut shops."
+	icon_state = "spacepolice_families"
+	can_adjust = FALSE

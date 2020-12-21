@@ -631,3 +631,13 @@
 	new /obj/item/clothing/mask/gas/clown_hat(src)
 	new /obj/item/bikehorn(src)
 	new /obj/item/implanter/sad_trombone(src)
+
+/obj/item/storage/backpack/henchmen
+	name = "wings"
+	desc = "Granted to the henchmen who deserve it. This probably doesn't include you."
+	icon_state = "henchmen"
+
+/obj/item/storage/backpack/duffelbag/cops
+	name = "police bag"
+	desc = "A large duffel bag for holding extra police gear."
+	slowdown = 0

@@ -40,6 +40,7 @@
 #define ROLE_INTERNAL_AFFAIRS	"Internal Affairs Agent"
 #define ROLE_HOLOPARASITE		"Holoparasite"
 #define ROLE_TERATOMA			"Teratoma"
+#define ROLE_FAMILIES			"Family Member"
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
@@ -70,7 +71,8 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_SENTIENCE,
 	ROLE_HOLOPARASITE,
 	ROLE_HERETIC = /datum/game_mode/heretics,
-	ROLE_TERATOMA
+	ROLE_TERATOMA,
+	ROLE_FAMILIES = /datum/game_mode/gang
 ))
 
 //Job defines for what happens when you fail to qualify for any job during job selection

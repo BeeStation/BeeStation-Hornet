@@ -57,6 +57,7 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	var/atom/movable/screen/healths
 	var/atom/movable/screen/healthdoll
 	var/atom/movable/screen/internals
+	var/atom/movable/screen/wanted/wanted_lvl
 
 	// subtypes can override this to force a specific UI style
 	var/ui_style
@@ -101,6 +102,7 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	healths = null
 	healthdoll = null
 	internals = null
+	wanted_lvl = null
 	lingchemdisplay = null
 	devilsouldisplay = null
 	lingstingdisplay = null
