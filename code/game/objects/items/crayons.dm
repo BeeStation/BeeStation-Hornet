@@ -69,8 +69,6 @@
 	var/pre_noise = FALSE
 	var/post_noise = FALSE
 
-	var/datum/team/gang/gang //For marking territory, spraycans are gang-locked to their initial gang due to colors
-
 /obj/item/toy/crayon/proc/isValidSurface(surface)
 	return istype(surface, /turf/open/floor)
 
@@ -261,8 +259,6 @@
 	if(!proximity || !check_allowed_items(target))
 		return
 
-	var/static/list/punctuation = list("!","?",".",",","/","+","-","=","%","#","&")
-
 	var/cost = 1
 	if(paint_mode == PAINT_LARGE_HORIZONTAL)
 		cost = 5
@@ -272,12 +268,10 @@
 		var/mob/living/carbon/human/H = user
 		if (HAS_TRAIT(H, TRAIT_TAGGER))
 			cost *= 0.5
-	/* hippie start -- moved to the end of the proc, after the crayon is actually used.
 	var/charges_used = use_charges(user, cost)
 	if(!charges_used)
 		return
 	. = charges_used
-	hippie end */
 
 	if(istype(target, /obj/effect/decal/cleanable))
 		target = target.loc
@@ -288,7 +282,7 @@
 	var/drawing = drawtype
 	switch(drawtype)
 		if(RANDOM_LETTER)
-			drawing = ascii2text(rand(97, 122)) // a-z
+			drawing = pick(letters)
 		if(RANDOM_PUNCTUATION)
 			drawing = pick(punctuation)
 		if(RANDOM_SYMBOL)
@@ -302,16 +296,13 @@
 		if(RANDOM_ORIENTED)
 			drawing = pick(oriented)
 		if(RANDOM_NUMBER)
-			drawing = ascii2text(rand(48, 57)) // 0-9
+			drawing = pick(numerals)
 		if(RANDOM_ANY)
 			drawing = pick(all_drawables)
 
-
 	var/temp = "rune"
-	if(is_alpha(drawing))
+	if(drawing in letters)
 		temp = "letter"
-	else if(is_digit(drawing))
-		temp = "number"
 	else if(drawing in punctuation)
 		temp = "punctuation mark"
 	else if(drawing in symbols)
@@ -320,9 +311,9 @@
 		temp = "drawing"
 	else if(drawing in graffiti|oriented)
 		temp = "graffiti"
-	var/gang_check = hippie_gang_check(user,target) // hippie start -- gang check and temp setting
-	if(!gang_check) return
-	else if(gang_check == "gang graffiti") temp = gang_check // hippie end
+	else if(drawing in numerals)
+		temp = "number"
+
 
 	var/graf_rot
 	if(drawing in oriented)
@@ -345,7 +336,7 @@
 		clicky = CLAMP(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
 
 	if(!instant)
-		to_chat(user, "<span class='notice'>You start drawing a [temp] on the [target.name]...</span>") // hippie -- removed a weird tab that had no reason to be here
+		to_chat(user, "<span class='notice'>You start drawing a [temp] on the	[target.name]...</span>")
 
 	if(pre_noise)
 		audible_message("<span class='notice'>You hear spraying.</span>")
@@ -354,22 +345,17 @@
 	var/wait_time = 50
 	if(paint_mode == PAINT_LARGE_HORIZONTAL)
 		wait_time *= 3
-	if(gang) instant = FALSE // hippie -- gang spraying must not be instant, balance reasons
+
 	if(!instant)
 		if(!do_after(user, 50, target = target))
 			return
 
 	if(length(text_buffer))
-		drawing = text_buffer[1]
+		drawing = copytext(text_buffer,1,2)
 
 
 	var/list/turf/affected_turfs = list()
 
-	if(gang) // hippie start -- gang spraying is done differently
-		if(gang_final(user, target, affected_turfs))
-			return
-		actually_paints = FALSE // skip the next if check
-	// hippie end
 	if(actually_paints)
 		switch(paint_mode)
 			if(PAINT_NORMAL)
@@ -396,19 +382,13 @@
 	else
 		to_chat(user, "<span class='notice'>You spray a [temp] on \the [target.name]</span>")
 
-	if(length(text_buffer) > 1)
-		text_buffer = copytext(text_buffer, length(text_buffer[1]) + 1)
-		SStgui.update_uis(src)
+	if(length(text_buffer))
+		text_buffer = copytext(text_buffer,2)
 
 	if(post_noise)
 		audible_message("<span class='notice'>You hear spraying.</span>")
 		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
-	// hippie start -- using changes moved to the end of the proc, so it won't use charges if the spraying fails for any reason.
-	var/charges_used = use_charges(user, cost)
-	if(!charges_used)
-		return
-	. = charges_used
-	// hippie end
+
 	var/fraction = min(1, . / reagents.maximum_volume)
 	if(affected_turfs.len)
 		fraction /= affected_turfs.len
@@ -773,98 +753,6 @@
 	pre_noise = FALSE
 	post_noise = FALSE
 	reagent_contents = list(/datum/reagent/consumable/nothing = 1, /datum/reagent/toxin/mutetoxin = 1)
-
-
-// HIPPIE GANG HIPPIE GANG
-
-/obj/item/toy/crayon/proc/hippie_gang_check(mob/user, atom/target) // hooked into afterattack
-	var/gang_mode = FALSE
-	if(gang && user.mind)
-		var/datum/antagonist/gang/G = user.mind.has_antag_datum(/datum/antagonist/gang)
-		if(G)
-			if(G.gang != gang)
-				to_chat(user, "<span class='danger'>This spraycan's color isn't your gang's one! You cannot use it.</span>")
-				return FALSE
-			gang_mode = TRUE
-			instant = FALSE
-			. = "graffiti"
-	// discontinue if we're not in gang modethe area isn't valid for tagging because gang "honour"
-	if(gang_mode && (!can_claim_for_gang(user, target)))
-		return FALSE
-	return TRUE
-
-/obj/item/toy/crayon/proc/gang_final(mob/user, atom/target, list/affected_turfs) // hooked into afterattack
-	// Double check it wasn't tagged in the meanwhile
-	if(!can_claim_for_gang(user, target))
-		return TRUE
-	tag_for_gang(user, target)
-	affected_turfs += target
-
-/obj/item/toy/crayon/proc/can_claim_for_gang(mob/user, atom/target)
-	// Check area validity.
-	// Reject space, player-created areas, and non-station z-levels.
-	var/area/A = get_area(target)
-	if(!A || (!is_station_level(A.z)) || !A.valid_territory)
-		to_chat(user, "<span class='warning'>[A] is unsuitable for tagging.</span>")
-		return FALSE
-
-	var/spraying_over = FALSE
-	for(var/G in target)
-		var/obj/effect/decal/cleanable/crayon/gang/gangtag = G
-		if(istype(gangtag))
-			var/datum/antagonist/gang/GA = user.mind.has_antag_datum(/datum/antagonist/gang)
-			if(gangtag.gang != GA.gang)
-				spraying_over = TRUE
-				break
-
-	for(var/obj/machinery/power/apc in target)
-		to_chat(user, "<span class='warning'>You can't tag an APC.</span>")
-		return FALSE
-
-	var/occupying_gang = territory_claimed(A, user)
-	if(occupying_gang && !spraying_over)
-		to_chat(user, "<span class='danger'>[A] has already been tagged by the [occupying_gang] gang! You must get rid of or spray over the old tag first!</span>")
-		return FALSE
-
-	// If you pass the gaunlet of checks, you're good to proceed
-	return TRUE
-
-/obj/item/toy/crayon/proc/territory_claimed(area/territory, mob/user)
-	for(var/datum/team/gang/G in GLOB.gangs)
-		if(territory.type in (G.territories|G.new_territories))
-			. = G.name
-			break
-
-/obj/item/toy/crayon/proc/tag_for_gang(mob/user, atom/target)
-	//Delete any old markings on this tile, including other gang tags
-	for(var/obj/effect/decal/cleanable/crayon/old_marking in target)
-		qdel(old_marking)
-
-	var/datum/antagonist/gang/G = user.mind.has_antag_datum(/datum/antagonist/gang)
-	var/area/territory = get_area(target)
-	new /obj/effect/decal/cleanable/crayon/gang(target,G.gang,"graffiti",0,user)
-	to_chat(user, "<span class='notice'>You tagged [territory] for your gang!</span>")
-
-/obj/item/toy/crayon/spraycan/gang
-	//desc = "A modified container containing suspicious paint."
-	charges = 20
-	gang = TRUE
-	pre_noise = FALSE
-	post_noise = TRUE
-
-/obj/item/toy/crayon/spraycan/gang/Initialize(loc, datum/team/gang/G)
-	.=..()
-	if(G)
-		gang = G
-		paint_color = G.color
-		update_icon()
-
-/obj/item/toy/crayon/spraycan/gang/examine(mob/user)
-	. = ..()
-	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/gang) || isobserver(user))
-		to_chat(user, "This spraycan has been specially modified for tagging territory.")
-
-
 
 #undef RANDOM_GRAFFITI
 #undef RANDOM_LETTER

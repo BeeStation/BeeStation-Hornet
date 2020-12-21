@@ -47,11 +47,6 @@
 #define TRACKER_BONUS_LARGE 300
 #define TRACKER_BONUS_SMALL 100
 
-//gang dominators
-#define NOT_DOMINATING			-1
-#define MAX_LEADERS_GANG		3
-#define INITIAL_DOM_ATTEMPTS	3
-
 //Syndicate Contracts
 #define CONTRACT_STATUS_INACTIVE 1
 #define CONTRACT_STATUS_ACTIVE 2
