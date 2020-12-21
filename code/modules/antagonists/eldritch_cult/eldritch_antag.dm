@@ -304,9 +304,7 @@
 	if(!owner)
 		return FALSE
 	var/datum/antagonist/heretic/cultie = owner.has_antag_datum(/datum/antagonist/heretic)
-	if(!cultie)
-		return FALSE
-	return cultie.ascended
+	return cultie?.ascended
 
 /datum/objective/minicult
 	name = "mini cult"
@@ -323,9 +321,7 @@
 	if(!owner)
 		return FALSE
 	var/datum/antagonist/heretic/cultie = owner.has_antag_datum(/datum/antagonist/heretic)
-	if(!cultie)
-		return FALSE
-	return cultie.get_cur_followers()>=target_amount
+	return cultie?.get_cur_followers() >= target_amount
 
 /////////////
 // Economy //
