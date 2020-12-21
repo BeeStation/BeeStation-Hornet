@@ -488,6 +488,8 @@
 		S.status_flags |= GODMODE
 		S.copy_languages(user, LANGUAGE_MASTER)	//Make sure the sword can understand and communicate with the user.
 		S.update_atom_languages()
+		var/pt = new /obj/effect/proc_holder/possessed_throw()
+		S.AddAbility(pt)
 		grant_all_languages(FALSE, FALSE, TRUE)	//Grants omnitongue
 		var/input = sanitize_name(stripped_input(S,"What are you named?", ,"", MAX_NAME_LEN))
 
@@ -497,6 +499,38 @@
 	else
 		to_chat(user, "The blade is dormant. Maybe you can try again later.")
 		possessed = FALSE
+
+/obj/effect/proc_holder/possessed_throw
+	name = "Launch Item"
+	desc = "Gather your energy to throw your possessed item."
+	var/cooldown_time = 30 // Time, in deciseconds, between throws
+	var/cooldown = 0
+
+/obj/effect/proc_holder/possessed_throw/Click()
+	var/message
+	if(active)
+		message = "<span class='notice'>You disperse your energy.</span>"
+		remove_ranged_ability(message)
+	else if(cooldown <= world.time)
+		message = "<span class='notice'>You gather your energy. <B>Left-click to throw yourself!</B></span>"
+		add_ranged_ability(usr, message, TRUE)
+	else
+		to_chat(usr, "You are still building up your energy!")
+
+/obj/effect/proc_holder/possessed_throw/InterceptClickOn(mob/living/caller, params, atom/target)
+	. = ..()
+	if(istype(caller.loc, /obj/item)) // If the shade is possessing something
+		var/obj/item/I = caller.loc
+		if(istype(I.loc, /mob/living)) // If embedded or being held
+			caller.visible_message("[src] rips free of [I.loc]!", "You rip free of [I.loc]!")
+			I.forceMove(get_turf(I.loc)) // Unembed, or drop
+		I.throw_at(target, 10, 4)
+		caller.visible_message("[src] launches [src.p_them()]self!", "You launch your blade!")
+		active = FALSE
+		remove_ranged_ability("You use up all of your stored energy.")
+		cooldown = world.time + cooldown_time
+	else
+		to_chat(caller, "You are not possessing anything!")
 
 /obj/item/nullrod/scythe/talking/Destroy()
 	for(var/mob/living/simple_animal/shade/S in contents)
