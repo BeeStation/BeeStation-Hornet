@@ -69,7 +69,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/storage/firstaid/medical = 4,
 		/obj/item/storage/firstaid/tactical = 4,
 		/obj/item/gun/energy/ionrifle = 4,
-		/obj/item/organ/regenerative_core/battle_royale = 8
+		/obj/item/organ/regenerative_core/battle_royale = 8,
 	))
 
 GLOBAL_LIST_INIT(battle_royale_good_loot, list(
@@ -78,7 +78,7 @@ GLOBAL_LIST_INIT(battle_royale_good_loot, list(
 		/obj/item/gun/ballistic/rifle/boltaction = 1,
 		/obj/item/gun/ballistic/shotgun/doublebarrel = 1,
 		/obj/item/gun/energy/laser/captain = 1,
-		/obj/item/gun/ballistic/revolver/mateba, = 1
+		/obj/item/gun/ballistic/revolver/mateba = 1,
 		/obj/item/gun/ballistic/automatic/c20r = 1,
 		/obj/item/ammo_box/magazine/smgm45 = 1,
 		/obj/item/ammo_box/magazine/pistolm9mm = 1,
@@ -88,7 +88,7 @@ GLOBAL_LIST_INIT(battle_royale_good_loot, list(
 		/obj/item/twohanded/fireaxe = 1,
 		/obj/item/stack/telecrystal/five = 1,
 		/obj/item/stack/telecrystal/twenty = 1,
-		/obj/item/clothing/suit/space/hardsuit/syndi = 1
+		/obj/item/clothing/suit/space/hardsuit/syndi = 1,
 	))
 
 GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
@@ -100,7 +100,7 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 		/obj/item/guardiancreator/tech = 1,
 		/obj/item/twohanded/mjollnir = 1,
 		/obj/item/pneumatic_cannon/pie/selfcharge = 1,
-		/obj/item/uplink/nuclear = 1
+		/obj/item/uplink/nuclear = 1,
 	))
 
 GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
@@ -109,7 +109,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	/client/proc/battle_royale_speed,\
 	/client/proc/battle_royale_varedit,\
 	/client/proc/battle_royale_spawn_loot,\
-	/client/proc/battle_royale_spawn_loot_good\
+	/client/proc/battle_royale_spawn_loot_good,\
 )
 
 /client/proc/battle_royale()
