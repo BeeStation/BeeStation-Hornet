@@ -129,8 +129,9 @@
 		for(var/C in my_gang.free_clothes)
 			var/obj/O = new C(owner.current)
 			var/list/slots = list (
-				"backpack" = ITEM_SLOT_BACKPACK,
-				"left pocket" = ITEM_SLOT_POCKET
+				"backpack" = SLOT_IN_BACKPACK,
+				"left pocket" = SLOT_L_STORE,
+				"right pocket" = SLOT_R_STORE
 			)
 			var/mob/living/carbon/human/H = owner.current
 			var/equipped = H.equip_in_one_of_slots(O, slots)
