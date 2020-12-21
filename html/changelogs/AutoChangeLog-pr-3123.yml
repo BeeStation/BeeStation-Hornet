@@ -1,5 +1,0 @@
-author: MNarath1
-delete-after: true
-changes:
-  - bugfix: cult floor is atmos proof again
-  - tweak: makes space ruin version of cult floor non atmos proof again
