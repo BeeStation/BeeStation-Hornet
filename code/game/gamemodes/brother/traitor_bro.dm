@@ -47,6 +47,7 @@
 			bro.special_role = "brother"
 			bro.restricted_roles = restricted_jobs
 			log_game("[key_name(bro)] has been selected as a Brother")
+		team.team_id = j
 		pre_brother_teams += team
 	return ..()
 
