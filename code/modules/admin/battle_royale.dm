@@ -332,6 +332,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		var/mob/living/carbon/human/H = new(pod)
 		ADD_TRAIT(H, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
 		H.status_flags |= GODMODE
+		H.pass_flags |= PASSMOB
 		//Greytide gang
 		H.equipOutfit(/datum/outfit/battle_royale)
 		//Give them a spell
@@ -355,6 +356,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	for(var/mob/M in GLOB.player_list)
 		M.RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/knock)
 		M.status_flags -= GODMODE
+		M.pass_flags &= ~PASSMOB
 		REMOVE_TRAIT(M, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
 		to_chat(M, "<span class='greenannounce'>You are no longer a pacafist. Be the last [M.gender == MALE ? "man" : "woman"] standing.</span>")
 
@@ -454,6 +456,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 //=====
 // Heal
 // =====
+
 /obj/item/organ/regenerative_core/battle_royale
 	preserved = TRUE
 
@@ -478,13 +481,14 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 // ===
 // OUTFIT
 // ===
+
 /datum/outfit/battle_royale
 	name = "Battle Royale Gear"
 
 	uniform = /obj/item/clothing/under/color/grey
 	id = /obj/item/card/id/syndicate
 	ears = /obj/item/radio/headset/syndicate
-	r_pocket =  = /obj/item/pda
+	r_pocket = /obj/item/pda
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	box = /obj/item/storage/box/survival
