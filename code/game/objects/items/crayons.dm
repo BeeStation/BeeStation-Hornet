@@ -259,6 +259,8 @@
 	if(!proximity || !check_allowed_items(target))
 		return
 
+	var/static/list/punctuation = list("!","?",".",",","/","+","-","=","%","#","&")
+
 	var/cost = 1
 	if(paint_mode == PAINT_LARGE_HORIZONTAL)
 		cost = 5
@@ -282,7 +284,7 @@
 	var/drawing = drawtype
 	switch(drawtype)
 		if(RANDOM_LETTER)
-			drawing = pick(letters)
+			drawing = ascii2text(rand(97, 122)) // a-z
 		if(RANDOM_PUNCTUATION)
 			drawing = pick(punctuation)
 		if(RANDOM_SYMBOL)
@@ -296,12 +298,12 @@
 		if(RANDOM_ORIENTED)
 			drawing = pick(oriented)
 		if(RANDOM_NUMBER)
-			drawing = pick(numerals)
+			drawing = ascii2text(rand(48, 57)) // 0-9
 		if(RANDOM_ANY)
 			drawing = pick(all_drawables)
 
 	var/temp = "rune"
-	if(drawing in letters)
+	if(is_alpha(drawing))
 		temp = "letter"
 	else if(drawing in punctuation)
 		temp = "punctuation mark"
@@ -336,7 +338,7 @@
 		clicky = CLAMP(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
 
 	if(!instant)
-		to_chat(user, "<span class='notice'>You start drawing a [temp] on the	[target.name]...</span>")
+		to_chat(user, "<span class='notice'>You start drawing a [temp] on the [target.name]...</span>")
 
 	if(pre_noise)
 		audible_message("<span class='notice'>You hear spraying.</span>")
@@ -351,7 +353,7 @@
 			return
 
 	if(length(text_buffer))
-		drawing = copytext(text_buffer,1,2)
+		drawing = text_buffer[1]
 
 
 	var/list/turf/affected_turfs = list()
@@ -382,12 +384,20 @@
 	else
 		to_chat(user, "<span class='notice'>You spray a [temp] on \the [target.name]</span>")
 
-	if(length(text_buffer))
-		text_buffer = copytext(text_buffer,2)
+	if(length(text_buffer) > 1)
+		text_buffer = copytext(text_buffer, length(text_buffer[1]) + 1)
+		SStgui.update_uis(src)
 
 	if(post_noise)
 		audible_message("<span class='notice'>You hear spraying.</span>")
 		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
+
+	// hippie start -- using changes moved to the end of the proc, so it won't use charges if the spraying fails for any reason.
+	var/charges_used = use_charges(user, cost)
+	if(!charges_used)
+		return
+	. = charges_used
+	// hippie end
 
 	var/fraction = min(1, . / reagents.maximum_volume)
 	if(affected_turfs.len)
