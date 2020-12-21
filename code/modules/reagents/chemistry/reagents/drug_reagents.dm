@@ -510,7 +510,7 @@
 
 /datum/reagent/drug/ketamine/overdose_process(mob/living/M)
 	. = ..()
-	//Dissociative Anaesthetics? Overdosing? Time to dissociate hard.
+	//Dissociative anesthetics? Overdosing? Time to dissociate hard.
 	var/obj/item/organ/brain/B = M.getorgan(/obj/item/organ/brain)
 	if(B.can_gain_trauma(/datum/brain_trauma/severe/split_personality, 5))
 		B.brain_gain_trauma(/datum/brain_trauma/severe/split_personality, 5)
