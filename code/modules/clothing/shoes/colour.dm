@@ -107,19 +107,19 @@
 	
 /obj/item/clothing/shoes/sneakers/orange/allow_attack_hand_drop(mob/user)
 	if(ishuman(user))
-		var/mob/living/carbon/human/C = user
-		if(C.shoes == src && chained == 1)
-			to_chat(user, "<span class='warning'>You start taking off your [src]!</span>")
-			if(!do_after(C,15 SECONDS, src))
+		var/mob/living/carbon/human/hummie = user
+		if(hummie.shoes == src && chained == 1)
+			to_chat(hummie, "<span class='warning'>You start taking off your [src]!</span>")
+			if(!do_after(hummie,15 SECONDS, src))
 				return FALSE
 	return ..()
 
 /obj/item/clothing/shoes/sneakers/orange/MouseDrop(atom/over)
 	var/mob/m = usr
 	if(ishuman(m))
-		var/mob/living/carbon/human/c = m
-		if(c.shoes == src && chained == 1)
-			to_chat(user, "<span class='warning'>You start taking off your [src]!</span>")			
-			if(!do_after(C,15 SECONDS, src))
+		var/mob/living/carbon/human/hummie = m
+		if(hummie.shoes == src && chained == 1)
+			to_chat(hummie, "<span class='warning'>You start taking off your [src]!</span>")			
+			if(!do_after(hummie,15 SECONDS, src))
 				return FALSE
 	return ..()
