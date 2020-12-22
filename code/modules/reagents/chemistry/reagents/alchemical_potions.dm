@@ -2,7 +2,7 @@
 					//Noita Potions
 //////////////////////////////////////////////////////////////////
 
-#define MAGIC_REAGENT_TOUCH 5
+#define MAGIC_REAGENT_TOUCH 10
 #define TELEPORTARIUM_RANGE 4
 #define TELEPORTARIUM_CYCLE 3
 #define POLYMORPHIUM_DURATION 10 SECONDS
@@ -147,27 +147,25 @@
 	metabolization_rate = REAGENTS_METABOLISM
 	var/original_alpha = 1
 	var/charge = 0
+	overdose_threshold = 10
+	
+/datum/reagent/magic/invisibilium/overdose_start(mob/living/L)
+	..()
+	metabolization_rate = 3 * REAGENTS_METABOLISM
 
 /datum/reagent/magic/invisibilium/on_mob_metabolize(mob/living/L)
 	. = ..()
 	original_alpha = 255
-
-/datum/reagent/magic/invisibilium/on_mob_life(mob/living/L)
-	. = ..()
-	if (volume >= 5)
-		charge = 255
-	else
-		charge = volume/5 * 255
-	animate(L,alpha = CLAMP(255 - charge,0,255),time = 10)
+	animate(L,alpha = 0,time = 3 SECONDS)
 
 /datum/reagent/magic/invisibilium/on_mob_end_metabolize(mob/living/L)
 	..()
-	L.alpha = original_alpha
+	animate(L,alpha = original_alpha,time = 2 SECONDS)
 
 //	----	LEVITATIUM	----
 
 /datum/reagent/magic/levitatium
-	name = "polymorphine"
+	name = "levitatium"
 	description = "Magic potion that grants levitation."
 	color = "#A0A68F"
 	taste_description = "diet soda"

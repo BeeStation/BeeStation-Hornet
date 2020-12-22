@@ -10846,6 +10846,10 @@
 	pixel_x = 3;
 	pixel_y = 5
 	},
+/obj/item/reagent_containers/glass/bottle/toxin{
+	pixel_x = -5;
+	pixel_y = 5
+	},
 /obj/item/reagent_containers/glass/bottle/alchemy/large{
 	pixel_x = -5;
 	pixel_y = 6
@@ -10869,7 +10873,7 @@
 	pixel_x = -3;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/glass/bottle/bluespace{
+/obj/item/reagent_containers/glass/bottle/toxin{
 	pixel_x = 6;
 	pixel_y = 5
 	},
