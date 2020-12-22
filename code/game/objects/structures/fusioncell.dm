@@ -38,7 +38,7 @@
 			update_sound()
 			emittingmount = radiation_count/100
 			for(i = 0, 101>i, i++)
-				if(emitting == FALSE)
+				if(!emitting)
 					return
 				if(radiation_count < 3500)
 					visible_message("<span class='warning'>The [src] does not have enough power to continue!!!.</span>",null,null,5)
