@@ -61,7 +61,7 @@
 			return
 
 	/obj/structure/fusioncell/screwdriver_act(mob/living/user, obj/item/I)
-		if(emitting == TRUE)
+		if(emitting)
 			update_sound()
 			I.play_tool_sound(src, 50)
 			visible_message("<span class='warning'>[user] starts to release <b>[radiation_count]</b> rads!!!.</span>",null,null,5)
