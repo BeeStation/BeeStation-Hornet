@@ -20,10 +20,7 @@
 
 	/obj/structure/fusioncell/proc/update_sound()
 		var/datum/looping_sound/geiger/loop = soundloop
-		if(emitting == FALSE)
-			loop.stop()
-			return
-		if(radiation_count < 3500)
+		if(radiation_count < 3500 || !emitting)
 			loop.stop()
 			return
 		loop.start()
