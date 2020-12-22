@@ -81,15 +81,12 @@
 			return
 
 	/obj/structure/fusioncell/examine(mob/user)
-		if(emitting == TRUE)
+		if(emitting)
 			to_chat(user, "<span class='notice'>[src]'s display states that it has stored <b>[radiation_count]</b> rads, and is emitting <b>[emittingmount]</b>.</span>")
-			return
-		if(emitting == FALSE)
+		else
 			to_chat(user, "<span class='notice'>[src]'s display states that it has stored <b>[radiation_count]</b> rads, and is not emitting.</span>")
-			return
 
 	/obj/structure/fusioncell/update_icon()
 		return
-
 
 
