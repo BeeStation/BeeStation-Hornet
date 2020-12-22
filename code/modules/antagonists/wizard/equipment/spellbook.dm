@@ -783,8 +783,8 @@
 		var/message = "<br><B>Ingredients for Lively Concotion:</B> "
 		for (var/reagent in concotion_recipe.required_reagents)//something goes wrong here and it doesn't pass through
 			var/datum/reagent/R = new reagent()
-			message += "[R.name] "
+			message += "[R.name], "
 			qdel(R)
 		to_chat(user, "<span class='notice'>[message]</span>")
-		user.mind.memory += message
+		user.mind.memory += "<BR>[message]<BR>"
 	return .
