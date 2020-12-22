@@ -2106,7 +2106,6 @@ datum/uplink_item/role_restricted/superior_honkrender
 	restricted_roles = list("Mime")
 	surplus = 0
 	
-
 /datum/uplink_item/role_restricted/close_quarters_mimery
 	name = "Blank Scroll"
 	desc = "This scroll was recovered from a temple without sound. \
