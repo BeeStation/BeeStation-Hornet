@@ -111,7 +111,7 @@
 		return
 
 	if(href_list["disposeI"])
-		reagents.del_reagent(reagents.reagent_list[text2num(href_list["disposeI"])].type)
+		reagents.del_reagent(reagents.reagent_list[text2num(href_list["disposeI"])]?.type)
 
 	if(href_list["dispense"])
 		if(stored_food[href_list["dispense"]]-- <= 0)
@@ -132,16 +132,16 @@
 		else
 			var/obj/item/reagent_containers/food/drinks/drinkingglass/DG = new(loc)
 			if(href_list["pour"])
-				reagents.trans_id_to(DG, reagents.reagent_list[text2num(href_list["pour"])].type, portion)
+				reagents.trans_id_to(DG, reagents.reagent_list[text2num(href_list["pour"])]?.type, portion)
 			if(href_list["m_pour"])
-				mixer.reagents.trans_id_to(DG, mixer.reagents.reagent_list[text2num(href_list["m_pour"])].type, portion)
+				mixer.reagents.trans_id_to(DG, mixer.reagents.reagent_list[text2num(href_list["m_pour"])]?.type, portion)
 
 	if(href_list["mix"])
-		if(reagents.trans_id_to(mixer, reagents.reagent_list[text2num(href_list["mix"])].type, portion) == 0)
+		if(reagents.trans_id_to(mixer, reagents.reagent_list[text2num(href_list["mix"])]?.type, portion) == 0)
 			to_chat(usr, "<span class='warning'>[mixer] is full!</span>")
 
 	if(href_list["transfer"])
-		if(mixer.reagents.trans_id_to(src, mixer.reagents.reagent_list[text2num(href_list["transfer"])].type, portion) == 0)
+		if(mixer.reagents.trans_id_to(src, mixer.reagents.reagent_list[text2num(href_list["transfer"])]?.type, portion) == 0)
 			to_chat(usr, "<span class='warning'>[src] is full!</span>")
 
 	updateDialog()
