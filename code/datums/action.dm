@@ -92,9 +92,6 @@
 		return FALSE
 	return TRUE
 
-/datum/action/proc/Process()
-	return
-
 /datum/action/proc/IsAvailable()
 	if(!owner)
 		return FALSE
@@ -640,12 +637,12 @@
 /datum/action/cooldown/process()
 	if(!owner)
 		button.maptext = ""
-		STOP_PROCESSING(SSfastprocess, src)
+		return PROCESS_KILL
 	var/timeleft = max(next_use_time - world.time, 0)
 	if(timeleft == 0)
 		button.maptext = ""
 		UpdateButtonIcon()
-		STOP_PROCESSING(SSfastprocess, src)
+		return PROCESS_KILL
 	else
 		button.maptext = "<b>[round(timeleft/10, 0.1)]</b>"
 

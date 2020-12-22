@@ -34,3 +34,16 @@
 /datum/keybinding/client/toggleminimalhud/down(client/user)
     user.mob.button_pressed_F12()
     return TRUE
+
+
+/datum/keybinding/client/zoomin
+	key = "\]"
+	name = "zoomin"
+	full_name = "Zoom In"
+	description = "Temporary switch icon scaling mode to 4x until unpressed"
+
+/datum/keybinding/client/zoomin/down(client/user)
+	winset(user, "mapwindow.map", "zoom=[PIXEL_SCALING_4X]")
+
+/datum/keybinding/client/zoomin/up(client/user)
+	winset(user, "mapwindow.map", "zoom=[user.prefs.pixel_size]")
