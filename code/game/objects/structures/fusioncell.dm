@@ -74,9 +74,7 @@
 			return
 
 	/obj/structure/fusioncell/rad_act(pulse_strength)
-		if(emitting == TRUE)
-			return
-		if(emitting == FALSE)
+		if(!emitting)
 			radiation_count += pulse_strength/50
 			return
 
@@ -88,5 +86,4 @@
 
 	/obj/structure/fusioncell/update_icon()
 		return
-
 
