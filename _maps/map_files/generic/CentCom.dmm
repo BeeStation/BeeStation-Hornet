@@ -10842,17 +10842,13 @@
 	icon_state = "minibar";
 	name = "alchemy table"
 	},
-/obj/item/paper/fluff/alchemy,
 /obj/item/reagent_containers/glass/beaker{
+	pixel_x = 3;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/glass/bottle/alchemy{
+/obj/item/reagent_containers/glass/bottle/alchemy/large{
 	pixel_x = -5;
-	pixel_y = 4
-	},
-/obj/item/reagent_containers/glass/bottle/alchemy{
-	pixel_x = 5;
-	pixel_y = 4
+	pixel_y = 6
 	},
 /turf/open/floor/engine/cult)
 "Aa" = (
@@ -10862,6 +10858,7 @@
 	name = "alchemy table"
 	},
 /obj/item/reagent_containers/glass/beaker{
+	pixel_x = 3;
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/glass/bottle/oil{
@@ -10870,15 +10867,15 @@
 	},
 /obj/item/reagent_containers/glass/bottle/blood{
 	pixel_x = -3;
-	pixel_y = 4
+	pixel_y = 5
 	},
 /obj/item/reagent_containers/glass/bottle/bluespace{
 	pixel_x = 6;
-	pixel_y = 4
+	pixel_y = 5
 	},
 /obj/item/reagent_containers/food/drinks/bottle/whiskey{
 	pixel_x = -6;
-	pixel_y = 4
+	pixel_y = 6
 	},
 /turf/open/floor/engine/cult)
 "zp" = (
@@ -11091,6 +11088,7 @@
 /obj/machinery/chem_master{
 	name = "Full Metal Alchemist"
 	},
+/obj/item/book/manual/alchemy,
 /turf/open/floor/engine/cult,
 /area/wizard_station)
 "zO" = (

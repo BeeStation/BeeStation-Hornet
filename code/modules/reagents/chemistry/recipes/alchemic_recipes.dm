@@ -15,13 +15,19 @@
 	name = "Levitatium"
 	id = /datum/reagent/magic/levitatium
 	results = list(/datum/reagent/magic/levitatium = 2)
-	required_reagents = list(/datum/reagent/magic/acceleratium = 1, /datum/reagent/oil = 1)
+	required_reagents = list(/datum/reagent/magic/berserkium = 1, /datum/reagent/blood = 1)
 
 /datum/chemical_reaction/invisibilium
 	name = "Invisibilium"
 	id = /datum/reagent/magic/invisibilium
 	results = list(/datum/reagent/magic/invisibilium = 2)
-	required_reagents = list(/datum/reagent/magic/berserkium = 1, /datum/reagent/blood = 1)
+	required_reagents = list(/datum/reagent/magic/acceleratium = 1, /datum/reagent/oil = 1)
+
+/datum/chemical_reaction/hastium
+	name = "Hastium"
+	id = /datum/reagent/magic/levitatium/hastium
+	results = list(/datum/reagent/magic/levitatium/hastium = 2)
+	required_reagents = list(/datum/reagent/magic/acceleratium = 1, /datum/reagent/magic/levitatium = 1)
 
 
 
@@ -60,8 +66,8 @@
 /datum/chemical_reaction/midas
 	name = "Draught of Midas"
 	id = /datum/reagent/magic/midas
-	results = list(/datum/reagent/magic/midas = 2)
-	required_reagents = list(/datum/reagent/liquidgibs = 1, /datum/reagent/magic = 1)
+	results = list(/datum/reagent/magic/midas = 3)
+	required_reagents = list(/datum/reagent/liquidgibs = 1, /datum/reagent/gold = 1, /datum/reagent/magic = 1)
 
 /datum/chemical_reaction/midas_replicate
 	name = "Draught of Midas"

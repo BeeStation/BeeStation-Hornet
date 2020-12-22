@@ -414,7 +414,14 @@
 //Alchemy
 /obj/item/reagent_containers/glass/bottle/alchemy
 	name = "magic essence bottle"
+	desc = "The basic component in all alchemical potions."
 	list_reagents = list(/datum/reagent/magic = 30)
+	
+/obj/item/reagent_containers/glass/bottle/alchemy/large
+	icon = 'icons/obj/drinks.dmi'
+	icon_state = "holyflask"
+	volume = 50
+	list_reagents = list(/datum/reagent/magic = 50)
 
 /obj/item/reagent_containers/glass/bottle/oil
 	name = "oil bottle"
@@ -433,7 +440,7 @@
 	name = "lively concotion potion"
 	desc = "A powerful healing concotion that heals when injested or in contact with the skin."
 	icon = 'icons/obj/drinks.dmi'
-	icon_state = "holyflask"
+	icon_state = "bronze_cup"
 	volume = 50
 	list_reagents = list(/datum/reagent/magic/lc = 50)
 
@@ -450,7 +457,7 @@
 /obj/item/reagent_containers/glass/bottle/hastium
 	name = "hastium potion"
 	desc = "Defensive potion mix that causes the user to levitate and move faster."
-	list_reagents = list(/datum/reagent/magic/acceleratium = 15,/datum/reagent/magic/levitatium = 15)
+	list_reagents = list(/datum/reagent/magic/levitatium/hastium = 30)
 
 /obj/item/reagent_containers/glass/bottle/berserkium
 	name = "berserkium potion"

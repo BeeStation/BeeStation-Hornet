@@ -22,6 +22,7 @@
 	description = "Magic potion that transforms you into a harmless animal."
 	color = "#9D5A99"
 	overdose_threshold = 15
+	taste_description = "savory, yet sweet"
 	metabolization_rate = 0.1 * REAGENTS_METABOLISM
 	var/obj/shapeshift_holder/shapeshiftdata
 
@@ -72,6 +73,7 @@
 	name = "berserkium"
 	description = "Magic potion that enrages you when drunk."
 	color = "#A14444"
+	taste_description = "liquid rage"
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
 /datum/reagent/magic/berserkium/on_mob_metabolize(mob/living/L)
@@ -108,6 +110,7 @@
 /datum/reagent/magic/teleportarium
 	name = "teleportarium"
 	description = "Magic potion that teleports you a few steps forward."
+	taste_description = "a flavor spectrum all over the place"
 	color = "#528698"
 
 /datum/reagent/magic/teleportarium/reaction_mob(mob/living/L, method=TOUCH, reac_volume)
@@ -139,7 +142,7 @@
 
 /datum/reagent/magic/invisibilium
 	name = "invisibilium"
-	description = "Magic potion that gradually turns you invisible.."
+	description = "Magic potion that gradually turns you invisible."
 	color = "#5353C1"
 	metabolization_rate = REAGENTS_METABOLISM
 	var/original_alpha = 1
@@ -203,12 +206,29 @@
 	..()
 	L.remove_movespeed_modifier(type)
 
+//	----	HASTIUM	----
+
+/datum/reagent/magic/levitatium/hastium
+	name = "hastium"
+	description = "Magic potion that increases the speed of whoever drinks it, and grants levitation."
+	color = "#94A77D"
+	metabolization_rate = 1.25 * REAGENTS_METABOLISM
+	
+/datum/reagent/magic/levitatium/hastium/on_mob_metabolize(mob/living/L)
+	..()
+	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-1)
+
+/datum/reagent/magic/levitatium/hastium/on_mob_end_metabolize(mob/living/L)
+	..()
+	L.remove_movespeed_modifier(type)
+
 //	----	DRAUGHT OF MIDAS	----
 
 /datum/reagent/magic/midas
 	name = "draught of midas"
 	description = "Magic potion that transforms everything that touches into gold."
 	color = "#FFFF91"
+	taste_description = "the best beer you've ever had"
 
 /datum/reagent/magic/midas/reaction_obj(obj/O, reac_volume)
 	if(ismob(O.loc))
@@ -254,6 +274,7 @@
 	description = "Magic potion with superior healing properties."
 	color = "#7AC179"
 	metabolization_rate = 10 * REAGENTS_METABOLISM
+	taste_description = "bitter-sweet"
 
 /datum/reagent/magic/lc/reaction_mob(mob/living/L, method=TOUCH, reac_volume)
 	if (method == TOUCH)

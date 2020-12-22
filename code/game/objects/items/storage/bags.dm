@@ -397,7 +397,7 @@
 	desc = "A bag loaded with all the required components for making alchemical potions."
 
 /obj/item/storage/bag/chemistry/alchemy/PopulateContents()
-	new /obj/item/paper/fluff/alchemy(src)
+	new /obj/item/book/manual/alchemy(src)
 	for (var/i in 1 to 10)
 		new /obj/item/reagent_containers/glass/bottle/alchemy(src)
 	for (var/i in 1 to 5)
@@ -406,7 +406,7 @@
 		new /obj/item/reagent_containers/glass/bottle/blood(src)
 	for (var/i in 1 to 3)
 		new /obj/item/reagent_containers/glass/bottle/bluespace(src)
-		
+
 	new /obj/item/reagent_containers/glass/beaker/large(src)
 	new /obj/item/reagent_containers/food/drinks/bottle/whiskey(src)
 	new /obj/item/reagent_containers/food/drinks/bottle/whiskey(src)

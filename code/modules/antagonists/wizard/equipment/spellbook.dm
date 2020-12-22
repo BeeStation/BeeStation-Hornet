@@ -766,18 +766,25 @@
 	item_path = /obj/item/reagent_containers/glass/bottle/lc
 	category = "Defensive"
 	cost = 1
-	
+	refundable = FALSE
+	limit = 1		//so they can't cheese and keep the recipe, but refund the points
+
 /datum/spellbook_entry/item/lc/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
 	. = ..()
 	if (.)
-		var/datum/chemical_reaction/lc/concotion_recipe = GLOB.chemical_reactions_list[/datum/reagent/magic/lc]
-		if (concotion_recipe && !concotion_recipe.initialized)
+		var/list/lc_reactions = GLOB.chemical_reactions_list[/datum/reagent/magic/lc]
+		if (!lc_reactions)
+			return
+		var/datum/chemical_reaction/lc/concotion_recipe = lc_reactions[1]
+		if (!concotion_recipe?.initialized)
 			concotion_recipe.generate_random_elements()
-		var/message = "<br><B>Ingredients for Lively Concotion:</B> "
-		for (var/reagent in concotion_recipe.required_reagents)
-			var/datum/reagent/R = reagent
-			message += "[R.name] "
-		user.mind.memory += message
+
 		to_chat(user, "<span class='notice'>You were bestowed with the knowledge to craft Lively Concotions!</span>")
-		to_chat(user, "<span class='warning'>[message]</span>")
+		var/message = "<br><B>Ingredients for Lively Concotion:</B> "
+		for (var/reagent in concotion_recipe.required_reagents)//something goes wrong here and it doesn't pass through
+			var/datum/reagent/R = new reagent()
+			message += "[R.name] "
+			qdel(R)
+		to_chat(user, "<span class='notice'>[message]</span>")
+		user.mind.memory += message
 	return .

@@ -460,3 +460,83 @@
 	author = "Nanotrasen"
 	title = "Chemical Factories Without Narcotics"
 	page_link = "Guide_to_plumbing"
+
+/obj/item/book/manual/alchemy
+	name = "The Secrets to Alchemy - Part I"
+	icon_state ="booksummons"
+	author = "Xardas, Ylialkemisti"
+	title = "The Secrets to Alchemy - Part I"
+	dat = {"<html>
+				<head>
+				<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+				<style>
+				h1 {font-size: 18px; margin: 15px 0px 5px;}
+				h2 {font-size: 15px; margin: 15px 0px 5px;}
+				li {margin: 2px 0px 2px 15px;}
+				ul {list-style: none; margin: 5px; padding: 0px;}
+				ol {margin: 5px; padding: 0px 15px;}
+				</style>
+				</head>
+				<body>
+				<h1>Foreword</h1>
+				 This book is but the first volume of the series, The Secrets to Alchemy. These potions should be enough for you to cause some chaos and destruction to your desired target. 
+								
+				<h1>Simple Potions</h1>
+				<h2>Berserkium</h2>			
+				<ul>
+				<li><b>Effect:</b> Magic potion that causes anger and uncontrollable rage.</li>
+				<li><b>Recipe:</b> 2 parts whiskey, 1 part alchemic precursor</li>
+				</ul>
+				<h2>Acceleratium</h2>			
+				<ul>
+				<li><b>Effect:</b> Magic potion that increases your speed.</li>
+				<li><b>Recipe:</b> 2 parts toxin, 1 part alchemic precursor</li>
+				</ul>
+				
+				<h1>Reactive Potions</h1>
+				<h2>Polymorphine</h2>			
+				<ul>
+				<li><b>Effect:</b> Magic potion that changes your shape for the duration. Needs 15u to cause transforation, whether injected or splashed.</li>
+				<li><b>Note:</b> Default will turn you into a harmless animal, chaotic into a hostile monster, and unstable is entirely random.</li>
+				<li><b>Recipe:</b> 1 parts oil, 1 parts blood, 1 part alchemic precursor</li>
+				<li><b>Note:</b> Polymorphine reacts with whiskey and toxin, transforming into chaotic or unstable polymorphine, which change its effect.</li>
+				</ul>
+				<h2>Teleportarium</h2>			
+				<ul>
+				<li><b>Effect:</b> Magic potion that teleports you forward every few seconds, or when splashed.</li>
+				<li><b>Recipe:</b> 1 part bluespace dust, 1 part alchemic precursor</li>
+				<li><b>Note:</b> Pouring whiskey into teleportarium will make it unstable, and will teleport you randomly.</li>
+				</ul>
+				
+				<h1>Complex Potions</h1>
+				<h2>Levitatium</h2>			
+				<ul>
+				<li><b>Effect:</b> Magic potion that grants levitation.</li>
+				<li><b>Recipe:</b> 1 part blood, 1 part berserkium</li>
+				</ul>
+				<h2>Invisibilium</h2>			
+				<ul>
+				<li><b>Effect:</b> Magic potion that gradually turns you invisible.</li>
+				<li><b>Recipe:</b> 1 part oil, 1 part acceleratium</li>
+				</ul>
+				<h2>Hastium</h2>			
+				<ul>
+				<li><b>Effect:</b> Combines the effects of both, acceleratium and levitatium.</li>
+				<li><b>Recipe:</b> 1 part acceleratium, 1 part levitatium</li>
+				</ul>
+				<h2>Draught of Midas</h2>			
+				<ul>
+				<li><b>Effect:</b> Curious mix that transforms any object or wall it touches into gold.</li>
+				<li><b>Recipe:</b> 1 part liquid gibs, 1 part gold, 1 part alchemic precursor</li>
+				<li><b>Note:</b> Draught of Midas will turn any water it touches into more Draught of Midas. Keep this in mind if you want to make more.</li>
+				</ul>
+				<h2>Lively Concotion</h2>			
+				<ul>
+				<li><b>Effect:</b> A powerful healing potion that is faster and more efficient than any healing reagent.</li>
+				<li><b>Note:</b> The recipe to this is not written anywhere. Only select few are chosen to know it.</li>
+				</ul>
+
+				</body>
+				</html>
+				"}
+				
