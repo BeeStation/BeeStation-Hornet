@@ -540,3 +540,10 @@
 				</html>
 				"}
 				
+/obj/item/book/manual/alchemy/syndie/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 1
+
+/obj/item/storage/book/alchemy/syndie/PopulateContents()
+	new /obj/item/reagent_containers/glass/bottle/alchemy(src)

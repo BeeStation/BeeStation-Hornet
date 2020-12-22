@@ -493,3 +493,9 @@
 	name = "unstable teleportarium potion"
 	desc = "Offensive potion that teleports someone randomly when splashed or injested."
 	list_reagents = list(/datum/reagent/magic/teleportarium/unstable = 30)
+	
+
+/obj/item/reagent_containers/glass/bottle/invisibilium/ink
+	name = "ink bottle"
+	desc = "A bottle of ink for your various needs."
+	icon_state = "bottle20"

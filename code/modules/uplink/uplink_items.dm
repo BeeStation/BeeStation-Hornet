@@ -1999,6 +1999,13 @@ datum/uplink_item/role_restricted/superior_honkrender
 	restricted_roles = list("Curator")
 	limited_stock = 1 //please don't spam deadchat
 
+/datum/uplink_item/role_restricted/haunted_magic_eightball
+	name = "Bottle of Invisible Ink"
+	desc = "A sneaky little bottle of invisibilium, disguised as ink. This chemical will render you completely invisible when injested for quite a long duration."
+	item = /obj/item/reagent_containers/glass/bottle/invisibilium/ink
+	cost = 1
+	restricted_roles = list("Curator")
+
 /datum/uplink_item/role_restricted/his_grace
 	name = "His Grace"
 	desc = "An incredibly dangerous weapon recovered from a station overcome by the grey tide. Once activated, He will thirst for blood and must be used to kill to sate that thirst. \
@@ -2133,6 +2140,13 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/gun/chem
 	cost = 12
 	restricted_roles = list("Chemist", "Chief Medical Officer")
+
+/datum/uplink_item/role_restricted/alchemy_kit
+	name = "Alchemy Kit"
+	desc = "Contains a manual with all the known alchemic recipes, so you can brew your own magic potions. Inside the manual, we snuck a bottle of alchemic precursor, the base for all alchemical potions. The Wizard Federation sends their best regards."
+	item = /obj/item/book/manual/alchemy/syndie
+	cost = 3
+	restricted_roles = list("Chemist", "Chief Medical Officer", "Xenobiologist", "Curator", "Bartender")
 
 /datum/uplink_item/role_restricted/reverse_bear_trap
 	name = "Reverse Bear Trap"
