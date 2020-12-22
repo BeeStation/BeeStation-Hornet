@@ -4,7 +4,7 @@
 #define ARM_PULL_COMBO "GD" //
 #define MIME_SPECIAL_COMBO "DGHGHD" //
 
-/datum/martial_art/cqm
+/datum/martial_art/close_quarters_mimery
 	name = "Close Quarters Mimery"
 	id = MARTIALART_CQM
 	allow_temp_override = FALSE
