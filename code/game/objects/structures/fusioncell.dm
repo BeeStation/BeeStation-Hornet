@@ -50,7 +50,7 @@
 				visible_message("<span class='warning'>The [src] released a pulse of <b>[emittingmount]</b> rads!!!.</span>",null,null,5)
 				continue
 			return
-		if(emitting == TRUE)
+		else
 			to_chat(user, "You turn the cell off")
 			rad_insulation = RAD_NO_INSULATION
 			icon_state = "oldshieldoff"
@@ -86,4 +86,3 @@
 
 	/obj/structure/fusioncell/update_icon()
 		return
-
