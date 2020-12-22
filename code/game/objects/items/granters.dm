@@ -359,6 +359,33 @@
 	user.adjustFireLoss(6)
 	qdel(src)
 
+/obj/item/book/granter/martial/close_quarters_mimery
+	martial = /datum/martial_art/close_quarters_mimery
+	name = "old scroll"
+	martialname = "close quarters mimery"
+	desc = "A scroll that appears blank, but on closer inspection is written in invisible ink."
+	greet = "<span class='sciradio'>You have learned the ancient martial art Close Quarters Mimery! You are now able to use your new abilities in a fight to silence and confuse your foes! \
+	Check the combos you are now able to perform using the Recall Teachings verb in the Close Quarters Mimery tab.</span>"
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "scroll2"
+	remarks = list("...", "???", "!!!", "?!?", "!?!")
+
+/obj/item/book/granter/martial/close_quarters_mimery/onlearned(mob/living/carbon/user)
+	..()
+	if(!oneuse)
+		return
+	desc = "It's completely blank."
+	name = "empty scroll"
+	icon_state = "blankscroll"
+
+/obj/item/book/granter/martial/close_quarters_mimery/already_known(mob/user)
+	if(usr && usr.mind)
+		if(!usr.mind.miming)
+			to_chat(user, "<span class='warning'>You try to read the scroll but can't comprehend any of it.</span>")
+			return TRUE
+	else
+		return FALSE
+
 /obj/item/book/granter/martial/carp
 	martial = /datum/martial_art/the_sleeping_carp
 	name = "mysterious scroll"
