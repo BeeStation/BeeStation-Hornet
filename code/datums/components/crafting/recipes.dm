@@ -932,3 +932,13 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 	tools = list(TOOL_WIRECUTTER)
+
+/datum/crafting_recipe/fusioncell
+	name = "Fusion Cell"
+	result = /obj/structure/fusioncell
+	time = 30
+	reqs = list(/obj/item/stack/sheet/plasteel = 10,
+				/obj/item/stack/sheet/plasmaglass = 20)
+	category = CAT_MISC
+	tools = list(TOOL_WELDER,TOOL_WRENCH,TOOL_CROWBAR)
+
