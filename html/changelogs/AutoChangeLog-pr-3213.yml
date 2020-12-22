@@ -1,0 +1,5 @@
+author: MNarath1
+delete-after: true
+changes:
+  - rscadd: Adds ranged analyzer to advanced engineering tech node
+  - bugfix: Ranged analyzer not buildable
