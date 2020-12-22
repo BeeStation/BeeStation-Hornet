@@ -37,7 +37,7 @@
 			emitting = TRUE
 			update_sound()
 			emittingmount = radiation_count/100
-			for(i = 0, 101>i, i++)
+			for(var/i in range(0, 100) )
 				if(!emitting)
 					return
 				if(radiation_count < 3500)
