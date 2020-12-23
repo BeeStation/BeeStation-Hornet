@@ -102,7 +102,7 @@ if(!D.stat && !D.IsStun() && !D.IsParalyzed())
 	if(T)
 		T.Remove(D)
 		qdel(T)
-	return 1
+	return TRUE
 
 /datum/martial_art/cqm/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	add_to_streak("H",D)
