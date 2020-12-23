@@ -69,7 +69,7 @@
 			radiation_pulse(src,radiation_count,5,TRUE,TRUE)
 			radiation_count = 0
 			return
-		if(emitting == FALSE)
+		else
 			to_chat(user, "You cannot release the radiation while the cell is off")
 			return
 
