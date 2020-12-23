@@ -31,7 +31,7 @@
 		streak = ""
 		mimeSpecial(A,D)
 		return TRUE
-	return 0
+	return FALSE
 
 //Surprise Spin, confused effect for a some time
 /datum/martial_art/cqm/proc/surpriseSpin(mob/living/carbon/human/A, mob/living/carbon/human/D)
