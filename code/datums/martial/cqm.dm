@@ -100,7 +100,7 @@
 	D.apply_damage(25, BRUTE, BODY_ZONE_HEAD)
 	D.emote("scream")
 	D.Stun(60)
-	D.bleed_rate = CLAMP(D.bleed_rate + 30, 0, 30)
+	D.bleed_rate = CLAMP(D.bleed_rate + 20, 0, 20)
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	playsound(get_turf(A), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	if(T)
