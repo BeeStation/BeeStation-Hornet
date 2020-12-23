@@ -588,8 +588,6 @@
 				if(C.use_tool(src, user, 40, volume=50, amount=1))
 					if(constructionStep != CONSTRUCTION_NOCIRCUIT)
 						return
-					user.visible_message("<span class='notice'>[user] cuts apart [src]!</span>", \
-										 "<span class='notice'>You cut [src] into iron.</span>")
 					var/turf/T = get_turf(src)
 					switch(firelock_type)
 						if(/obj/machinery/door/firedoor/heavy)
