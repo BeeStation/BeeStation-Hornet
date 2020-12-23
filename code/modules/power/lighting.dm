@@ -213,7 +213,7 @@
 	var/static_power_used = 0
 	var/brightness = 10			// luminosity when on, also used in power calculation
 	var/bulb_power = 1			// basically the alpha of the emitted light source
-	var/bulb_colour = "#FFF6ED"	// befault colour of the light.
+	var/bulb_colour = "#FFF6ED"	// default colour of the light.
 	var/status = LIGHT_OK		// LIGHT_OK, _EMPTY, _BURNED or _BROKEN
 	var/flickering = FALSE
 	var/light_type = /obj/item/light/tube		// the type of light item
@@ -241,6 +241,7 @@
 
 	var/bulb_vacuum_colour = "#4F82FF"	// colour of the light when air alarm is set to severe
 	var/bulb_vacuum_brightness = 8
+	var/static/list/lighting_overlays	// dictionary for lighting overlays
 
 /obj/machinery/light/broken
 	status = LIGHT_BROKEN
@@ -350,17 +351,29 @@
 
 /obj/machinery/light/update_overlays()
 	. = ..()
-	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
-	if(on && status == LIGHT_OK)
+	if(on || emergency_mode)
+		if(!lighting_overlays)
+			lighting_overlays = list()
+		var/lighting_overlay_mode
+		//Emergency power mode color doesn't happen til next SSmachines tick, so we have to do this to reduce useless entries
+		var/temp_light_color = light_color
 		if(emergency_mode)
 			//Emergency power mode; dim lighting
-			SSvis_overlays.add_vis_overlay(src, overlayicon, "[base_state]_emergency", layer, plane, dir)
+			lighting_overlay_mode = "emergency"
+			temp_light_color = bulb_emergency_colour
 		else if (nightshift_enabled)
 			//Nightshift lighting; slightly dim lighting
-			SSvis_overlays.add_vis_overlay(src, overlayicon, "[base_state]_nightshift", layer, plane, dir)
+			lighting_overlay_mode = "nightshift"
 		else
 			//Normal lighting, emergency lighting without emergency power mode, and vacuum lighting has the same light power.
-			SSvis_overlays.add_vis_overlay(src, overlayicon, base_state, layer, plane, dir)
+			lighting_overlay_mode = "normal"
+		var/mutable_appearance/LO = lighting_overlays["[lighting_overlay_mode]-[temp_light_color]-[dir]"]
+		if(!LO)
+			var/image/temp_image = image(overlayicon, null, "[base_state]_[lighting_overlay_mode]", layer, dir)
+			LO = new(temp_image)
+			LO.color = light_color
+			lighting_overlays["[lighting_overlay_mode]-[temp_light_color]-[dir]"] = LO
+		. += LO
 
 // update the icon_state and luminosity of the light depending on its state
 /obj/machinery/light/proc/update(trigger = TRUE)
