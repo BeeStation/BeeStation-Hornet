@@ -2106,12 +2106,12 @@ datum/uplink_item/role_restricted/superior_honkrender
 	restricted_roles = list("Mime")
 	surplus = 0
 	
-/datum/uplink_item/role_restricted/close_quarters_mimery
+/datum/uplink_item/role_restricted/cqm
 	name = "Blank Scroll"
 	desc = "This scroll was recovered from a temple without sound. \
 			It teaches you how to silence and confuse your foes, \
 			don't buy this unless you are a mime or plan to give it to one as only they can read and understand the invisible writings and illustrations."
-	item = /obj/item/book/granter/martial/close_quarters_mimery
+	item = /obj/item/book/granter/martial/cqm
 	cost = 9
 	surplus = 0
 	restricted_roles = list("Mime")
