@@ -354,25 +354,13 @@
 	if(on || emergency_mode)
 		if(!lighting_overlays)
 			lighting_overlays = list()
-		var/lighting_overlay_mode
-		//Emergency power mode color doesn't happen til next SSmachines tick, so we have to do this to reduce useless entries
-		var/temp_light_color = light_color
-		if(emergency_mode)
-			//Emergency power mode; dim lighting
-			lighting_overlay_mode = "emergency"
-			temp_light_color = bulb_emergency_colour
-		else if (nightshift_enabled)
-			//Nightshift lighting; slightly dim lighting
-			lighting_overlay_mode = "nightshift"
-		else
-			//Normal lighting, emergency lighting without emergency power mode, and vacuum lighting has the same light power.
-			lighting_overlay_mode = "normal"
-		var/mutable_appearance/LO = lighting_overlays["[lighting_overlay_mode]-[temp_light_color]-[dir]"]
+		var/mutable_appearance/LO = lighting_overlays["[light_power]-[light_color]-[dir]"]
 		if(!LO)
-			var/image/temp_image = image(overlayicon, null, "[base_state]_[lighting_overlay_mode]", layer, dir)
+			var/image/temp_image = image(overlayicon, null, base_state, layer, dir)
 			LO = new(temp_image)
 			LO.color = light_color
-			lighting_overlays["[lighting_overlay_mode]-[temp_light_color]-[dir]"] = LO
+			LO.alpha = clamp(light_power*255, 30, 200)
+			lighting_overlays["[light_power]-[light_color]-[dir]"] = LO
 		. += LO
 
 // update the icon_state and luminosity of the light depending on its state
