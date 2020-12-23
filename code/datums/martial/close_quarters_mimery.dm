@@ -30,7 +30,7 @@
 	if(findtext(streak,MIME_SPECIAL_COMBO))
 		streak = ""
 		mimeSpecial(A,D)
-		return 1
+		return TRUE
 	return 0
 
 //Surprise Spin, confused effect for a some time
