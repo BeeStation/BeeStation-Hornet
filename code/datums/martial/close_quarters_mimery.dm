@@ -57,7 +57,7 @@
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	playsound(get_turf(D), 'sound/weapons/blobattack.ogg', 30, 1, -1)
 	if(D.silent <= 10)
-        	D.silent = CLAMP(D.silent + 10, 0, 10)
+    	D.silent = CLAMP(D.silent + 10, 0, 10)
 	return TRUE
 
 //Throat Punch, Prevents breating for a moment, deals oxygen damage and restricts speech for a some time.
