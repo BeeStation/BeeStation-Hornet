@@ -23,10 +23,11 @@
 	drag_slowdown = 0
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
 	var/radius_2 = 1.35
+	var/animation_math
 
 /obj/structure/closet/crate/Initialize()
 	. = ..()
-
+	animation_list()
 /obj/structure/closet/crate/CanPass(atom/movable/mover, turf/target)
 	if(!istype(mover, /obj/structure/closet))
 		var/obj/structure/closet/crate/locatedcrate = locate(/obj/structure/closet/crate) in get_turf(mover)
@@ -67,10 +68,9 @@
 		var/angle = door_anim_angle * (closing ? 1 - (I/num_steps) : (I/num_steps))
 		var/door_state = angle >= 90 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
 		var/door_layer = angle >= 90 ? FLOAT_LAYER : ABOVE_MOB_LAYER
-		var/azimuth_angle = angle >= 90 ? 138 : 338
-		var/polar_angle = abs(arcsin(cos(angle)))
-		var/radius_cr = angle >= 90 ? radius_2 : 1
-		var/matrix/M = get_door_transform(azimuth_angle, polar_angle, radius_cr)
+		var/crateanim_1 = animation_math[1][closing ? num_steps + 1 - I : I + 1]
+		var/crateanim_2 = animation_math[2][closing ? num_steps + 1 - I : I + 1]
+		var/matrix/M = get_door_transform(crateanim_1, crateanim_2)
 		if(I == 0)
 			door_obj.transform = M
 			door_obj.icon_state = door_state
@@ -87,12 +87,22 @@
 	update_icon()
 	COMPILE_OVERLAYS(src)
 
-/obj/structure/closet/crate/get_door_transform(azimuth_angle, polar_angle, radius_cr)
+/obj/structure/closet/crate/get_door_transform(crateanim_1, crateanim_2)
 		var/matrix/M = matrix()
 		M.Translate(0, -door_hinge)
-		M.Multiply(matrix(1, -sin(polar_angle)*sin(azimuth_angle)* radius_cr, 0, 0, radius_cr*cos(azimuth_angle)*sin(polar_angle), 0))
+		M.Multiply(matrix(1, crateanim_1, 0, 0, crateanim_2, 0))
 		M.Translate(0, door_hinge)
 		return M
+/obj/structure/closet/crate/proc/animation_list() //pre calculates a list of values for the crate animation cause byond not like math
+	var/num_steps_1 = door_anim_time / world.tick_lag
+	animation_math = new/list(2,1+num_steps_1)
+	for(var/I in 0 to num_steps_1)
+		var/angle_1 =  I==0 ? 0 : door_anim_angle * (I/num_steps_1)
+		var/polar_angle = abs(arcsin(cos(angle_1)))
+		var/azimuth_angle = angle_1 >= 90 ? 138 : 0
+		var/radius_cr = angle_1 >= 90 ? radius_2 : 1
+		animation_math[1][I+1] = -sin(polar_angle)*sin(azimuth_angle)*radius_cr
+		animation_math[2][I+1] = radius_cr*cos(azimuth_angle)*sin(polar_angle)
 
 /obj/structure/closet/crate/attack_hand(mob/user)
 	. = ..()
