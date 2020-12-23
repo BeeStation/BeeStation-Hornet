@@ -2,7 +2,7 @@
 #define TOUNGE_PULL_COMBO "GHG"
 #define THROAT_PUNCH_COMBO "HHG"
 #define ARM_PULL_COMBO "GD"
-#define MIME_SPECIAL_COMBO "DGHGHD"
+#define MIME_SPECIAL_COMBO "DHGGHD"
 
 /datum/martial_art/cqm
 	name = "Close Quarters Mimery"
@@ -136,4 +136,4 @@
 	to_chat(usr, "<span class='notice'>Tounge Pull</span>: Grab Harm Grab. Deals some damage to your targets tounge and prevents them from speaking for a short time .")
 	to_chat(usr, "<span class='notice'>Throat Punch</span>: Harm Harm Grab. Prevents your target from speaking for some time and stops them from breating for a moment aswell as dealing slight oxygen damage")
 	to_chat(usr, "<span class='notice'>Arm Pull</span>: Grab Disarm. Deals very minor brute damage to one of your targets arms and disarms them while also stunning them for three seconds.")
-	to_chat(usr, "<span class='notice'>Mime special</span>: Disarm Grab Harm Grab Harm Disarm. Rips your targets tounge out causing causing heavy bleeding and brute damage aswell as destroying their tounge and stunning them.")
+	to_chat(usr, "<span class='notice'>Mime special</span>: Disarm Harm Grab Grab Harm Disarm. Rips your targets tounge out causing causing heavy bleeding and brute damage aswell as destroying their tounge and stunning them.")
