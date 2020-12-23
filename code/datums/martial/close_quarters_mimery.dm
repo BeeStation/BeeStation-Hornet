@@ -4,7 +4,7 @@
 #define ARM_PULL_COMBO "GD"
 #define MIME_SPECIAL_COMBO "DGHGHD"
 
-/datum/martial_art/close_quarters_mimery
+/datum/martial_art/cqm
 	name = "Close Quarters Mimery"
 	id = MARTIALART_CQM
 	allow_temp_override = FALSE
@@ -45,6 +45,8 @@
 		playsound(get_turf(D), 'sound/weapons/thudswoosh.ogg', 30, 1, -1)
 		return TRUE
 
+	return basic_hit(A,D)
+
 //Tounge Pull, Deal 10 brute to the head(reduced by armor(space magic), Deals damage to the targets tounge and restricts speech for a bit.
 /datum/martial_art/cqm/proc/toungePull(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/def_check = D.getarmor(BODY_ZONE_HEAD, "melee")
@@ -52,16 +54,16 @@
 	D.visible_message("<span class='warning'>[A] pulls [D]'s tounge painfully!</span>", \
 		"<span class='userdanger'>[A] pulls your tounge painfully restricting your speech!</span>")
 	D.apply_damage(10, A.dna.species.attack_type, BODY_ZONE_HEAD, def_check)
-	D.adjustOrganLoss(ORGAN_SLOT_TOUNGE, 15, 150)
+	D.adjustOrganLoss(ORGAN_SLOT_TONGUE, 15, 200)
 	D.Jitter(20)
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-	playsound(get_turf(D), 'sound/weapons/blobattack.ogg', 30, 1, -1)
+	playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 30, 1, -1)
 	if(D.silent <= 10)
-    	D.silent = CLAMP(D.silent + 10, 0, 10)
+		D.silent = CLAMP(D.silent + 10, 0, 10)
 	return TRUE
 
 //Throat Punch, Prevents breating for a moment, deals oxygen damage and restricts speech for a some time.
-/datum/martial_art/cqm/proc/toungePull(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/cqm/proc/throatPunch(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	log_combat(A, D, "Throat punched (Close Quarters Mimery)")
 	D.visible_message("<span class='warning'>[A] Punches [D]'s throat!</span>", \
 		"<span class='userdanger'>[A] punches your throat restricting your speech and breathing!</span>")
@@ -74,21 +76,23 @@
 
 //Arm Pull, a weaker wrist wrench that wont grant distance from batons. Disarms and very briefly stuns the target for three seconds as well as dealing 5 brute to either arm.
 /datum/martial_art/cqm/proc/armPull(mob/living/carbon/human/A, mob/living/carbon/human/D)
-if(!D.stat && !D.IsStun() && !D.IsParalyzed())
-	log_combat(A, D, "Arm pulled (Close Quarters Mimery)")
-	D.visible_message("<span class='warning'>[A] grabs [D]'s arm and pulls it sideways painfully!</span>", \
-		"<span class='userdanger'>[A] grabs and pulls your arm painfully to the side!</span>")
-	D.apply_damage(5, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
-	D.dropItemToGround(D.get_active_held_item())
-	D.emote("scream")
-	D.Stun(30)
-	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-	playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-	return TRUE
+	if(!D.stat && !D.IsStun() && !D.IsParalyzed())
+		log_combat(A, D, "Arm pulled (Close Quarters Mimery)")
+		D.visible_message("<span class='warning'>[A] grabs [D]'s arm and pulls it sideways painfully!</span>", \
+			"<span class='userdanger'>[A] grabs and pulls your arm painfully to the side!</span>")
+		playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
+		D.apply_damage(5, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+		D.dropItemToGround(D.get_active_held_item())
+		D.emote("scream")
+		D.Stun(30)
+		return TRUE
 
+	return basic_hit(A,D)
 
 //Mime special, RIP HIS TOUNGE OUT AND CRUSH IT BEFORE HIS EYES! 25 brute to the head and a 6s stun also destroying the targets tounge and making them BLEED!
 /datum/martial_art/cqm/proc/mimeSpecial(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	var/obj/item/organ/tongue/T = D.getorganslot(ORGAN_SLOT_TONGUE)
 	log_combat(A, D, "Mime specialed (Close Quarters Mimery)")
 	D.visible_message("<span class='warning'>[A] grabs [D]'s tounge and violently rips it out and crushes it!</span>", \
 		"<span class='userdanger'>[A] grabs and rips your tounge out and crushes it!</span>")
@@ -97,8 +101,7 @@ if(!D.stat && !D.IsStun() && !D.IsParalyzed())
 	D.Stun(60)
 	D.bleed_rate = CLAMP(D.bleed_rate + 30, 0, 30)
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-	playsound(get_turf(A), 'sound/weapons/blobattack.ogg', 50, 1, -1)
-	var/obj/item/organ/tounge/T = D.getorganslot(ORGAN_SLOT_TOUNGE)
+	playsound(get_turf(A), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	if(T)
 		T.Remove(D)
 		qdel(T)
