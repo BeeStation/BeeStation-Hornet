@@ -66,7 +66,7 @@
 	materials = list(/datum/material/biomass= 150)
 	build_path = /obj/item/reagent_containers/food/condiment/flour
 	category = list("initial","Food")
-	
+
 /datum/design/sugar_sack
 	name = "Sugar Sack"
 	id = "sugar_sack"
@@ -210,3 +210,11 @@
 	materials = list(/datum/material/biomass= 300)
 	build_path = /obj/item/clothing/head/rice_hat
 	category = list("initial","Organic Materials")
+
+/datum/design/carton_soy_milk
+	name = "Soy milk carton"
+	id = "soy_milk_carton"
+	build_type = BIOGENERATOR
+	materials = list(/datum/material/biomass = 100)
+	build_path = /obj/item/reagent_containers/food/condiment/soymilk
+	category = list("initial","Food")
