@@ -59,6 +59,7 @@
 	make_reagents = list(/datum/reagent/consumable/enzyme = 10)
 	category = list("initial","Food")
 
+
 /datum/design/flour_sack
 	name = "Flour Sack"
 	id = "flour_sack"
