@@ -14,7 +14,7 @@
 	if(findtext(streak,SURPRISE_SPIN_COMBO))
 		streak = ""
 		headTwist(A,D)
-		return 1
+		return TRUE
 	if(findtext(streak,TOUNGE_PULL_COMBO))
 		streak = ""
 		toungePull(A,D)
