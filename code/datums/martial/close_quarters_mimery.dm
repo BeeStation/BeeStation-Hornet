@@ -70,7 +70,7 @@
 	D.adjustOxyLoss(10)
 	if(D.silent <= 15)
         	D.silent = CLAMP(D.silent + 15, 0, 15)
-	return 1
+	return TRUE
 
 //Arm Pull, a weaker wrist wrench that wont grant distance from batons. Disarms and very briefly stuns the target for three seconds as well as dealing 5 brute to either arm.
 /datum/martial_art/cqm/proc/armPull(mob/living/carbon/human/A, mob/living/carbon/human/D)
