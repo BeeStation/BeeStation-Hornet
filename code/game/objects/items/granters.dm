@@ -379,8 +379,7 @@
 	icon_state = "blankscroll"
 
 /obj/item/book/granter/martial/close_quarters_mimery/already_known(mob/user)
-	if(usr && usr.mind)
-		if(!usr.mind.miming)
+	if(user.mind && !user.mind.miming)
 			to_chat(user, "<span class='warning'>You try to read the scroll but can't comprehend any of it.</span>")
 			return TRUE
 	else
