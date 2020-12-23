@@ -18,7 +18,7 @@
 	if(findtext(streak,TOUNGE_PULL_COMBO))
 		streak = ""
 		toungePull(A,D)
-		return 1
+		return TRUE
 	if(findtext(streak,THROAT_PUNCH_COMBO))
 		streak = ""
 		throatPunch(A,D)
