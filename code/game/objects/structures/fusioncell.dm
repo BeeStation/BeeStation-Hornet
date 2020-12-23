@@ -29,7 +29,7 @@
 		. = ..()
 		if(.)
 			return
-		if(emitting == FALSE)
+		if(!emitting)
 			to_chat(user, "You turn the cell on")
 			rad_insulation = RAD_FULL_INSULATION //prevents infinite rads ie cant emit rads and gain rads at the same time
 			icon_state = "oldshieldon"
