@@ -3062,10 +3062,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dompurify@npm:^2.0.11":
-  version: 2.0.12
-  resolution: "dompurify@npm:2.0.12"
-  checksum: 72fe758306be02d95c7ac51cecaf9d887dea6291cd83012b1c251d21912545c18d6ccc7140b84da2278a6910517cd1e996258991c7e3dda9b6da34f0b6040b91
+"dompurify@npm:^2.0.12":
+  version: 2.2.6
+  resolution: "dompurify@npm:2.2.6"
+  checksum: dfc77c2c603d84d4385a419acbda3f14777bf97f7a33a1de43d8a4f264171d12c916eda923715bc0199bcece20d3d6d3de730f3470d178c8ffdf25ba7ca18aee
   languageName: node
   linkType: hard
 
