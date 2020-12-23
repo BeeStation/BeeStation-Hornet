@@ -84,7 +84,7 @@ if(!D.stat && !D.IsStun() && !D.IsParalyzed())
 	D.Stun(30)
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-	return 1
+	return TRUE
 
 
 //Mime special, RIP HIS TOUNGE OUT AND CRUSH IT BEFORE HIS EYES! 25 brute to the head and a 6s stun also destroying the targets tounge and making them BLEED!
