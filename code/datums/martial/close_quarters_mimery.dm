@@ -1,8 +1,8 @@
-#define SURPRISE_SPIN_COMBO "DD" //
-#define TOUNGE_PULL_COMBO "GHG" //
-#define THROAT_PUNCH_COMBO "HHG" //
-#define ARM_PULL_COMBO "GD" //
-#define MIME_SPECIAL_COMBO "DGHGHD" //
+#define SURPRISE_SPIN_COMBO "DD"
+#define TOUNGE_PULL_COMBO "GHG"
+#define THROAT_PUNCH_COMBO "HHG"
+#define ARM_PULL_COMBO "GD"
+#define MIME_SPECIAL_COMBO "DGHGHD"
 
 /datum/martial_art/close_quarters_mimery
 	name = "Close Quarters Mimery"
