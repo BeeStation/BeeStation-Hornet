@@ -26,7 +26,7 @@
 	if(findtext(streak,ARM_PULL_COMBO))
 		streak = ""
 		armPull(A,D)
-		return 1
+		return TRUE
 	if(findtext(streak,MIME_SPECIAL_COMBO))
 		streak = ""
 		mimeSpecial(A,D)
