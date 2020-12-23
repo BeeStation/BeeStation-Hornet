@@ -13,7 +13,7 @@
 /datum/martial_art/cqm/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(findtext(streak,SURPRISE_SPIN_COMBO))
 		streak = ""
-		headTwist(A,D)
+		surpriseSpin(A,D)
 		return TRUE
 	if(findtext(streak,TOUNGE_PULL_COMBO))
 		streak = ""
@@ -69,7 +69,7 @@
 	D.losebreath += 3
 	D.adjustOxyLoss(10)
 	if(D.silent <= 15)
-        	D.silent = CLAMP(D.silent + 15, 0, 15)
+		D.silent = CLAMP(D.silent + 15, 0, 15)
 	return TRUE
 
 //Arm Pull, a weaker wrist wrench that wont grant distance from batons. Disarms and very briefly stuns the target for three seconds as well as dealing 5 brute to either arm.
