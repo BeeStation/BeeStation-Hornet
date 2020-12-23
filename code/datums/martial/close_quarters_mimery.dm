@@ -119,7 +119,7 @@ if(!D.stat && !D.IsStun() && !D.IsParalyzed())
 /datum/martial_art/cqm/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	add_to_streak("D",D)
 	if(check_streak(A,D))
-		return 1
+		return TRUE
 	return ..()
 
 /mob/living/carbon/human/proc/cqm_help()
