@@ -28,6 +28,7 @@
 /obj/structure/closet/crate/Initialize()
 	. = ..()
 	animation_list()
+
 /obj/structure/closet/crate/CanPass(atom/movable/mover, turf/target)
 	if(!istype(mover, /obj/structure/closet))
 		var/obj/structure/closet/crate/locatedcrate = locate(/obj/structure/closet/crate) in get_turf(mover)
@@ -93,6 +94,7 @@
 		M.Multiply(matrix(1, crateanim_1, 0, 0, crateanim_2, 0))
 		M.Translate(0, door_hinge)
 		return M
+
 /obj/structure/closet/crate/proc/animation_list() //pre calculates a list of values for the crate animation cause byond not like math
 	var/num_steps_1 = door_anim_time / world.tick_lag
 	animation_math = new/list(2,1+num_steps_1)
