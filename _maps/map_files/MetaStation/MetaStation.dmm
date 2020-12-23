@@ -53234,26 +53234,25 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
-/area/security/checkpoint/medical)
-"bYZ" = (
-/obj/item/pen,
-/obj/structure/table/reinforced,
-/obj/structure/reagent_dispensers/peppertank{
-	pixel_x = 30
-	},
-/obj/item/folder/red,
 /obj/item/book/manual/wiki/security_space_law{
 	pixel_x = 3;
 	pixel_y = 4
-	},
-/obj/machinery/newscaster/security_unit{
-	pixel_y = 32
 	},
 /obj/item/screwdriver{
 	pixel_y = 10
 	},
 /obj/item/radio/off,
+/obj/item/folder/red,
+/obj/item/pen,
+/turf/open/floor/plasteel,
+/area/security/checkpoint/medical)
+"bYZ" = (
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_x = 30
+	},
+/obj/machinery/newscaster/security_unit{
+	pixel_y = 32
+	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -53261,6 +53260,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/machinery/computer/secure_data,
 /turf/open/floor/plasteel,
 /area/security/checkpoint/medical)
 "bZa" = (
@@ -53711,9 +53711,21 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/security/checkpoint/medical)
 "caf" = (
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for monitoring medbay to ensure patient safety.";
+	dir = 1;
+	name = "Medbay Monitor";
+	network = list("medbay");
+	pixel_y = -29
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/security/checkpoint/medical)
 "cag" = (
@@ -53723,6 +53735,13 @@
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
+	},
+/obj/structure/chair/office{
+	dir = 1
+	},
+/obj/effect/landmark/start/depsec/medical,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/medical)
@@ -54667,28 +54686,13 @@
 /turf/closed/wall,
 /area/security/checkpoint/medical)
 "cbQ" = (
-/obj/machinery/computer/secure_data{
-	dir = 4
-	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for monitoring medbay to ensure patient safety.";
-	dir = 1;
-	name = "Medbay Monitor";
-	network = list("medbay");
-	pixel_y = -29
-	},
 /obj/item/radio/intercom{
 	pixel_x = -27;
 	pixel_y = -10
 	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
+/turf/closed/wall,
 /area/security/checkpoint/medical)
 "cbR" = (
-/obj/structure/chair/office,
 /obj/machinery/button/door{
 	desc = "A remote control switch for the medbay foyer.";
 	id = "MedbayFoyer";
@@ -54697,15 +54701,7 @@
 	pixel_x = 24;
 	pixel_y = -24
 	},
-/obj/effect/landmark/start/depsec/medical,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
+/turf/closed/wall,
 /area/security/checkpoint/medical)
 "cbS" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -55382,7 +55378,17 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/machinery/firealarm{
+	pixel_y = 26
+	},
+/turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "cdy" = (
 /obj/structure/cable/yellow{
@@ -55790,22 +55796,11 @@
 	pixel_y = 2
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -26;
-	pixel_y = 28
-	},
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -55824,9 +55819,6 @@
 	normaldoorcontrol = 1;
 	pixel_x = 24;
 	pixel_y = 24
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -56552,6 +56544,10 @@
 	},
 /obj/machinery/door/firedoor/border_only{
 	dir = 4
+	},
+/obj/machinery/door/window/westleft{
+	name = "Medical Desk";
+	req_access_txt = "5"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -66475,6 +66471,10 @@
 	},
 /obj/machinery/door/firedoor/border_only{
 	dir = 4
+	},
+/obj/machinery/door/window/westright{
+	name = "Medical Desk";
+	req_access_txt = "5"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -86089,6 +86089,23 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall,
 /area/maintenance/port)
+"tND" = (
+/obj/machinery/door/window/westleft{
+	name = "Medical Techfab Access";
+	req_access_txt = "5"
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "tOc" = (
 /obj/machinery/atmospherics/components/binary/volume_pump/on{
 	dir = 1;
@@ -86795,6 +86812,21 @@
 "wLz" = (
 /turf/closed/wall,
 /area/crew_quarters/cryopods)
+"wNM" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "wOE" = (
 /turf/open/floor/plating,
 /area/maintenance/aft/secondary)
@@ -111058,7 +111090,7 @@ bXL
 bYX
 cae
 bXL
-cdw
+tND
 cdw
 cdw
 cdw
@@ -111315,7 +111347,7 @@ bXL
 bYY
 caf
 cbQ
-cdw
+wNM
 ceA
 cfQ
 cgX
