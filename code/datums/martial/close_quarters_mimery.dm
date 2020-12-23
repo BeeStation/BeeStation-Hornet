@@ -22,7 +22,7 @@
 	if(findtext(streak,THROAT_PUNCH_COMBO))
 		streak = ""
 		throatPunch(A,D)
-		return 1
+		return TRUE
 	if(findtext(streak,ARM_PULL_COMBO))
 		streak = ""
 		armPull(A,D)
