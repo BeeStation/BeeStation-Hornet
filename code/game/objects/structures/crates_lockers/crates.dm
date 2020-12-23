@@ -23,7 +23,7 @@
 	drag_slowdown = 0
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
 	var/radius_2 = 1.35
-	var/animation_math
+	var/list/animation_math
 
 /obj/structure/closet/crate/Initialize()
 	. = ..()
@@ -69,8 +69,8 @@
 		var/angle = door_anim_angle * (closing ? 1 - (I/num_steps) : (I/num_steps))
 		var/door_state = angle >= 90 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
 		var/door_layer = angle >= 90 ? FLOAT_LAYER : ABOVE_MOB_LAYER
-		var/crateanim_1 = animation_math[1][closing ? num_steps + 1 - I : I + 1]
-		var/crateanim_2 = animation_math[2][closing ? num_steps + 1 - I : I + 1]
+		var/crateanim_1 = animation_math[closing ? num_steps + 1 - I : I + 1]
+		var/crateanim_2 = animation_math[closing ? 2*num_steps + 1 - I : num_steps+ I + 1]
 		var/matrix/M = get_door_transform(crateanim_1, crateanim_2)
 		if(I == 0)
 			door_obj.transform = M
@@ -97,14 +97,14 @@
 
 /obj/structure/closet/crate/proc/animation_list() //pre calculates a list of values for the crate animation cause byond not like math
 	var/num_steps_1 = door_anim_time / world.tick_lag
-	animation_math = new/list(2,1+num_steps_1)
+	animation_math = new/list(num_steps_1*2+1)
 	for(var/I in 0 to num_steps_1)
 		var/angle_1 =  I==0 ? 0 : door_anim_angle * (I/num_steps_1)
 		var/polar_angle = abs(arcsin(cos(angle_1)))
 		var/azimuth_angle = angle_1 >= 90 ? 138 : 0
 		var/radius_cr = angle_1 >= 90 ? radius_2 : 1
-		animation_math[1][I+1] = -sin(polar_angle)*sin(azimuth_angle)*radius_cr
-		animation_math[2][I+1] = radius_cr*cos(azimuth_angle)*sin(polar_angle)
+		animation_math[I+1] = -sin(polar_angle)*sin(azimuth_angle)*radius_cr
+		animation_math[num_steps_1+I+1] = radius_cr*cos(azimuth_angle)*sin(polar_angle)
 
 /obj/structure/closet/crate/attack_hand(mob/user)
 	. = ..()
