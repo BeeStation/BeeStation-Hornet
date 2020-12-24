@@ -102,7 +102,7 @@
 /*The animation_list proc writes into two static lists first animation_math where it creates a new list inside for all the values needed for the crate animation.
 The second list is animation_index this list is an assoziative list where special identify values are saved that are used to determine if there is the need for another list in animation_math or if
 the current lists are sufficent and it is used to get the right index for animation_math for any possible type of crate.
-Next is anindex this variable is just used to save the index for a crate so that you only need to seach for the index once.
+Next is anindex this variable is just used to save the index for a crate so that you only need to search for the index once.
 The last one is the for loop it simply uses all given indexes to save the needed values to the lists inside animation_math if a new list is required*/
 /obj/structure/closet/crate/proc/animation_list() //pre calculates a list of values for the crate animation cause byond not like math
 	if(!animation_index == 0) //cecks if there is even an animation_index list yet to avoid runtimes
