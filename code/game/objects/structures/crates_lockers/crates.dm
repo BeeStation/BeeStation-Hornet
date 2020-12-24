@@ -27,7 +27,8 @@
 
 /obj/structure/closet/crate/Initialize()
 	. = ..()
-	animation_list()
+	if(!door_anim_time == 0)
+		animation_list()
 
 /obj/structure/closet/crate/CanPass(atom/movable/mover, turf/target)
 	if(!istype(mover, /obj/structure/closet))
