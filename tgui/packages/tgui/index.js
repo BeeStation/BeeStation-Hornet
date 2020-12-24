@@ -67,6 +67,8 @@ const setupApp = () => {
     window.update(msg);
   }
 
+  based_winset();
+
   // Enable hot module reloading
   if (module.hot) {
     setupHotReloading();
@@ -78,6 +80,13 @@ const setupApp = () => {
       renderApp();
     });
   }
+};
+
+const based_winset = async (based_on_what = 'output') => {
+  const winget_output = await Byond.winget(based_on_what);
+  Byond.winset('browseroutput', {
+    'size': winget_output["size"],
+  });
 };
 
 setupApp();
