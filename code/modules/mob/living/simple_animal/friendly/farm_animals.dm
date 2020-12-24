@@ -85,7 +85,7 @@
 		eaten = TRUE
 
 	if(eaten && prob(10))
-		say("Nom")
+		INVOKE_ASYNC(src, /atom/movable/proc/say, "Nom")
 
 /mob/living/simple_animal/hostile/retaliate/goat/attackby(obj/item/O, mob/user, params)
 	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))

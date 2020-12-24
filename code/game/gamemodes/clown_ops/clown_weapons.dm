@@ -43,6 +43,10 @@
 	bananium.insert_amount_mat(max_recharge, /datum/material/bananium)
 	START_PROCESSING(SSobj, src)
 
+/obj/item/clothing/shoes/clown_shoes/banana_shoes/combat/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
 /obj/item/clothing/shoes/clown_shoes/banana_shoes/combat/process()
 	var/datum/component/material_container/bananium = GetComponent(/datum/component/material_container)
 	var/bananium_amount = bananium.get_material_amount(/datum/material/bananium)
@@ -152,8 +156,7 @@
 			var/datum/component/slippery/slipper = GetComponent(/datum/component/slippery)
 			slipper.Slip(src, hit_atom)
 		if(thrownby && !caught)
-			sleep(1)
-			throw_at(thrownby, throw_range+2, throw_speed, null, TRUE)
+			addtimer(CALLBACK(src, /atom/movable.proc/throw_at, thrownby, throw_range+2, throw_speed, null, TRUE), 1)
 	else
 		return ..()
 

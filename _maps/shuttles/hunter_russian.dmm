@@ -74,7 +74,7 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /turf/open/floor/plating,
 /area/shuttle/hunter)
@@ -138,7 +138,7 @@
 "B" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /turf/open/floor/plating,
 /area/shuttle/hunter)

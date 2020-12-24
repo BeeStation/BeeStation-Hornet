@@ -682,6 +682,8 @@ Difficulty: Very Hard
 	if(.)
 		death()
 
+/mob/living/simple_animal/hostile/lightgeist/slime
+	name = "crystalline lightgeist"
 
 /obj/machinery/anomalous_crystal/refresher //Deletes and recreates a copy of the item, "refreshing" it.
 	observer_desc = "This crystal \"refreshes\" items that it affects, rendering them as new."

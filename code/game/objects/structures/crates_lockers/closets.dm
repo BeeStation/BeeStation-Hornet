@@ -40,7 +40,7 @@
 	var/is_animating_door = FALSE
 	var/door_anim_squish = 0.30
 	var/door_anim_angle = 136
-	var/door_hinge_x = -6.5
+	var/door_hinge = -6.5
 	var/door_anim_time = 2.0 // set to 0 to make the door not animate at all
 /obj/structure/closet/Initialize(mapload)
 	if(mapload && !opened)		// if closed, any item at the crate's loc is put in the contents
@@ -115,9 +115,9 @@
 
 /obj/structure/closet/proc/get_door_transform(angle)
 	var/matrix/M = matrix()
-	M.Translate(-door_hinge_x, 0)
+	M.Translate(-door_hinge, 0)
 	M.Multiply(matrix(cos(angle), 0, 0, -sin(angle) * door_anim_squish, 1, 0))
-	M.Translate(door_hinge_x, 0)
+	M.Translate(door_hinge, 0)
 	return M
 
 /obj/structure/closet/examine(mob/user)
@@ -326,7 +326,7 @@
 	return
 
 /obj/structure/closet/MouseDrop_T(atom/movable/O, mob/living/user)
-	if(!istype(O) || O.anchored || istype(O, /obj/screen))
+	if(!istype(O) || O.anchored || istype(O, /atom/movable/screen))
 		return
 	if(!istype(user) || user.incapacitated() || !(user.mobility_flags & MOBILITY_STAND))
 		return
@@ -454,7 +454,6 @@
 	open()
 
 /obj/structure/closet/AltClick(mob/user)
-	..()
 	if(!user.canUseTopic(src, BE_CLOSE) || !isturf(loc))
 		return
 	if(opened || !secure)
@@ -495,7 +494,7 @@
 
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 
 /obj/structure/closet/emp_act(severity)
 	. = ..()

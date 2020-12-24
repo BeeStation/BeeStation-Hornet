@@ -498,7 +498,15 @@ structure_check() searches for nearby cultist structures required for the invoca
 	sleep(40)
 	if(src)
 		color = RUNE_COLOR_RED
-	new /obj/singularity/narsie/large/cult(T) //Causes Nar'Sie to spawn even if the rune has been removed
+	if(GLOB.celestial_gateway)
+		SEND_SOUND(world, 'sound/magic/clockwork/narsie_attack.ogg')
+		to_chat(world, "<span class='ratvar'>The dimensional veil is held shut by a powerful electric field.</span>")
+		GLOB.narsie_breaching = TRUE
+		GLOB.narsie_arrival = T
+		var/obj/structure/destructible/clockwork/massive/celestial_gateway/gateway = GLOB.celestial_gateway
+		gateway.open_gateway()
+	else
+		new /obj/singularity/narsie/large/cult(T) //Causes Nar'Sie to spawn even if the rune has been removed
 
 /obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))

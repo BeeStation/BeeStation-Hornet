@@ -31,7 +31,7 @@
 	icon_state = "alienq"
 	caste = "q"
 	update_icons()
-	
+
 /mob/living/carbon/alien/humanoid/royal/queen
 	name = "alien queen"
 	caste = "q"
@@ -41,6 +41,8 @@
 	var/datum/action/small_sprite/smallsprite = new/datum/action/small_sprite/queen()
 
 /mob/living/carbon/alien/humanoid/royal/queen/Initialize()
+	SSshuttle.registerHostileEnvironment(src) //aliens delay shuttle
+	addtimer(CALLBACK(src, .proc/game_end), 30 MINUTES) //time until shuttle is freed/called
 	//there should only be one queen
 	for(var/mob/living/carbon/alien/humanoid/royal/queen/Q in GLOB.carbon_list)
 		if(Q == src)
@@ -66,10 +68,26 @@
 	internal_organs += new /obj/item/organ/alien/eggsac
 	..()
 
+/mob/living/carbon/alien/humanoid/royal/queen/proc/game_end()
+	if(stat != DEAD)
+		SSshuttle.clearHostileEnvironment(src)
+		if(EMERGENCY_IDLE_OR_RECALLED)
+			priority_announce("Xenomorph infestation detected: crisis shuttle protocols activated - jamming recall signals across all frequencies.")
+			SSshuttle.emergency.request(null, set_coefficient=0.5)
+			SSshuttle.emergencyNoRecall = TRUE
+
+/mob/living/carbon/alien/humanoid/royal/queen/death() //dead queen doesnt stop shuttle
+	SSshuttle.clearHostileEnvironment(src)
+	..()
+
+/mob/living/carbon/alien/humanoid/royal/queen/Destroy()
+	SSshuttle.clearHostileEnvironment(src)
+	..()
+
 //Queen verbs
 /obj/effect/proc_holder/alien/lay_egg
 	name = "Lay Egg"
-	desc = "Lay an egg to produce huggers to impregnate prey with."
+	desc = "Lay an egg to produce huggers to impregnate prey with. Costs 75 Plasma."
 	plasma_cost = 75
 	check_turf = TRUE
 	action_icon_state = "alien_egg"
@@ -89,7 +107,7 @@
 //Button to let queen choose her praetorian.
 /obj/effect/proc_holder/alien/royal/queen/promote
 	name = "Create Royal Parasite"
-	desc = "Produce a royal parasite to grant one of your children the honor of being your Praetorian."
+	desc = "Produce a royal parasite to grant one of your children the honor of being your Praetorian. Costs 500 Plasma."
 	plasma_cost = 500 //Plasma cost used on promotion, not spawning the parasite.
 
 	action_icon_state = "alien_queen_promote"
