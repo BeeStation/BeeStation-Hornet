@@ -23,7 +23,7 @@
 	drag_slowdown = 0
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
 	var/radius_2 = 1.35
-	var/open_angle = 138 //azmoth angle for over 90 degree
+	var/open_angle = 138 //azimuth angle for over 90 degree
 	var/list/animation_math
 
 /obj/structure/closet/crate/Initialize()
