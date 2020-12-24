@@ -42,7 +42,7 @@
 		D.emote("spin")
 		if(D.confused <= 20)
 			D.confused = CLAMP(D.confused + 10, 0, 20)
-		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
+		A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
 		playsound(get_turf(D), 'sound/weapons/thudswoosh.ogg', 30, 1, -1)
 		return TRUE
 	return basic_hit(A,D)
