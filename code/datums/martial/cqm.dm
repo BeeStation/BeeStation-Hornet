@@ -49,18 +49,25 @@
 
 //Tounge Pull, Deal 10 brute to the head(reduced by armor(space magic), Deals damage to the targets tounge and restricts speech for a bit.
 /datum/martial_art/cqm/proc/toungePull(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	var/obj/item/organ/tongue/T = D.getorganslot(ORGAN_SLOT_TONGUE)
 	var/def_check = D.getarmor(BODY_ZONE_HEAD, "melee")
-	log_combat(A, D, "Tounge Pulled (Close Quarters Mimery)")
-	D.visible_message("<span class='warning'>[A] pulls [D]'s tounge painfully!</span>", \
-		"<span class='userdanger'>[A] pulls your tounge painfully restricting your speech!</span>")
-	D.apply_damage(10, A.dna.species.attack_type, BODY_ZONE_HEAD, def_check)
-	D.adjustOrganLoss(ORGAN_SLOT_TONGUE, 15, 200)
-	D.Jitter(20)
-	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-	playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 30, 1, -1)
-	if(D.silent <= 10)
-		D.silent = CLAMP(D.silent + 10, 0, 10)
-	return TRUE
+	if(T)
+		log_combat(A, D, "Tounge Pulled (Close Quarters Mimery)")
+		D.visible_message("<span class='warning'>[A] pulls [D]'s tounge painfully!</span>", \
+			"<span class='userdanger'>[A] pulls your tounge painfully restricting your speech!</span>")
+		D.apply_damage(10, A.dna.species.attack_type, BODY_ZONE_HEAD, def_check)
+		D.adjustOrganLoss(ORGAN_SLOT_TONGUE, 15, 200)
+		D.Jitter(20)
+		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
+		playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 30, 1, -1)
+		if(D.silent <= 10)
+			D.silent = CLAMP(D.silent + 10, 0, 10)
+		return TRUE
+	else
+		log_combat(A, D, "Failed a Tounge Pull (Close Quarters Mimery)")
+		D.visible_message("<span class='warning'>[A] attempts to pull [D]'s tounge, but [D] does not have one!</span>", \
+			"<span class='userdanger'>[A] attempts to pull your tounge but fails as you do not have one!</span>")
+	return basic_hit(A,D)
 
 //Throat Punch, Prevents breating for a moment, deals oxygen damage and restricts speech for a some time.
 /datum/martial_art/cqm/proc/throatPunch(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -93,19 +100,24 @@
 //Mime special, RIP HIS TOUNGE OUT AND CRUSH IT BEFORE HIS EYES! 25 brute to the head and a 6s stun also destroying the targets tounge and making them BLEED!
 /datum/martial_art/cqm/proc/mimeSpecial(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/obj/item/organ/tongue/T = D.getorganslot(ORGAN_SLOT_TONGUE)
-	log_combat(A, D, "Mime specialed (Close Quarters Mimery)")
-	D.visible_message("<span class='warning'>[A] grabs [D]'s tounge and violently rips it out and crushes it!</span>", \
-		"<span class='userdanger'>[A] grabs and rips your tounge out and crushes it!</span>")
-	D.apply_damage(25, BRUTE, BODY_ZONE_HEAD)
-	D.emote("scream")
-	D.Stun(60)
-	D.bleed_rate = CLAMP(D.bleed_rate + 20, 0, 20)
-	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-	playsound(get_turf(A), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	if(T)
+		log_combat(A, D, "Mime specialed (Close Quarters Mimery)")
+		D.visible_message("<span class='warning'>[A] grabs [D]'s tounge and violently rips it out and crushes it!</span>", \
+			"<span class='userdanger'>[A] grabs and rips your tounge out and crushes it!</span>")
+		D.apply_damage(25, BRUTE, BODY_ZONE_HEAD)
+		D.emote("scream")
+		D.Stun(60)
+		D.bleed_rate = CLAMP(D.bleed_rate + 30, 0, 30)
+		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
+		playsound(get_turf(A), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 		T.Remove(D)
 		qdel(T)
-	return TRUE
+		return TRUE
+	else
+		log_combat(A, D, "Failed a Mime Special (Close Quarters Mimery)")
+		D.visible_message("<span class='warning'>[A] attempts to rip [D]'s tounge out, but [D] does not have one!</span>", \
+			"<span class='userdanger'>[A] attempts to rip your tounge out but fails as you do not have one!</span>")
+	return basic_hit(A,D)
 
 /datum/martial_art/cqm/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	add_to_streak("H",D)
