@@ -379,7 +379,7 @@
 	icon_state = "blankscroll"
 
 /obj/item/book/granter/martial/cqm/already_known(mob/user)
-	if(user.mind && !user.mind.miming)
+	if(!user.mind.miming)
 		to_chat(user, "<span class='warning'>You try to read the scroll but can't comprehend any of it.</span>")
 		return TRUE
 	else
