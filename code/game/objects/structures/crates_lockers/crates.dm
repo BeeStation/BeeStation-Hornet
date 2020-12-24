@@ -23,6 +23,7 @@
 	drag_slowdown = 0
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
 	var/radius_2 = 1.35
+	var/open_angle = 138 //azmoth angle for over 90 degree
 	var/list/animation_math
 
 /obj/structure/closet/crate/Initialize()
@@ -102,7 +103,7 @@
 	for(var/I in 0 to num_steps_1)
 		var/angle_1 =  I==0 ? 0 : door_anim_angle * (I/num_steps_1)
 		var/polar_angle = abs(arcsin(cos(angle_1)))
-		var/azimuth_angle = angle_1 >= 90 ? 138 : 0
+		var/azimuth_angle = angle_1 >= 90 ? open_angle : 0
 		var/radius_cr = angle_1 >= 90 ? radius_2 : 1
 		animation_math[I+1] = -sin(polar_angle)*sin(azimuth_angle)*radius_cr
 		animation_math[num_steps_1+I+1] = radius_cr*cos(azimuth_angle)*sin(polar_angle)
