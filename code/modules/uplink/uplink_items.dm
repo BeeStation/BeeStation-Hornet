@@ -1907,6 +1907,13 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	restricted_roles = list("Medical Doctor", "Chief Medical Officer", "Roboticist", "Paramedic")
 	cost = 3
 
+/datum/uplink_item/rolerestricted/Syndicate_MMI
+	name = "Syndicate MMI"
+	desc = "An MMI which autmatically applies the Syndimov laws to any borg it is placed in. Great for adding known allies to assist you with a little more stealth than a fully emagged borg."
+	item = /obj/item/mmi/syndie
+	restricted_roles = list("Roboticist", "Research Director")
+	cost = 1
+
 /datum/uplink_item/role_restricted/upgrade_wand
 	name = "Upgrade Wand"
 	desc = "A powerful, single-use wand containing nanomachines that will calibrate the high-tech gadgets commonly employed by magicians to nearly double their potential."
