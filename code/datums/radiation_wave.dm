@@ -2,7 +2,7 @@
 	var/source
 	var/turf/master_turf //The center of the wave
 	var/steps=0 //How far we've moved
-	var/intensity[8] //How strong it was originaly
+	var/intensity[8] //How strong it is
 	var/range_modifier //Higher than 1 makes it drop off faster, 0.5 makes it drop off half etc
 	var/can_contaminate
 
@@ -29,8 +29,9 @@
 	if(!master_turf)
 		qdel(src)
 		return
-	// If none of the turfs could be irradiated, then the wave is ded
-	var/ded = TRUE
+	// If none of the turfs could be irradiated, then the wave should no longer exist
+	var/futile = TRUE
+	// Cache of unlucky atoms
 	var/list/atoms = list()
 	// The actual distance
 	var/distance = steps + 1
@@ -38,83 +39,119 @@
 	var/falloff = 1 / (distance*range_modifier) ** 2
 	// Caching
 	var/turf/cmaster_turf = master_turf
-	// Index for the intensity list
-	var/index = 0
 	// Original intensity it is using
 	var/list/cintensity = intensity
+	// New intensity that'll be written; always larger than the previous one
+	var/list/intensity_new[(distance+1)*8]
+	// "Class" it belongs to
+	var/branchclass = 2**round(log(2,distance))
 
-	var/turf/place = locate(cmaster_turf.x - distance, cmaster_turf.y + distance, cmaster_turf.z)
-	for(var/dir in list(EAST, SOUTH, WEST, NORTH))
-		for(var/i in 1 to distance * 2)
-			if(cintensity[++index])
-				atoms = get_rad_contents(place)
-				cintensity[index] *= radiate(atoms, FLOOR(cintensity[index] * falloff, 1))
-				check_obstructions(atoms, index)
-				ded = FALSE
-			place = get_step(place, dir)
-	
-	if(ded)
+	// These variable are going to be *very* handy
+	var/j // secondary i
+	var/idx // index
+	var/lp // loop position
+	var/vl // velocity of loop
+	var/bt // branch threshold
+
+	for(var/i in 1 to distance * 8)
+		//Culls invalid intensities
+		if(cintensity[i] * falloff < RAD_WAVE_MINIMUM)
+			continue
+		var/xpos
+		var/ypos
+		switch(i / distance)
+			if(0 to 2)
+				//Yes it starts one step off of what you'd expect. Blame BYOND.
+				xpos = cmaster_turf.x + distance - i
+				ypos = cmaster_turf.y + distance
+			if(2 to 4)
+				xpos = cmaster_turf.x - distance
+				ypos = cmaster_turf.y + distance * 3 - i
+			if(4 to 6)
+				xpos = cmaster_turf.x - distance * 5 + i
+				ypos = cmaster_turf.y - distance
+			if(6 to 8)
+				xpos = cmaster_turf.x + distance
+				ypos = cmaster_turf.y - distance * 7 + i
+		//Culls invalid coords
+		if(xpos < 1 || xpos > world.maxx)
+			continue
+		if(ypos < 1 || ypos > world.maxy)
+			continue
+
+		//The radiation is considered alive
+		futile = FALSE
+		var/turf/place = locate(xpos, ypos, cmaster_turf.z)
+		atoms = get_rad_contents(place)
+		check_obstructions(atoms, i)
+
+		//Obstruction has been handled; time to cache it
+		var/current_intensity = cintensity[i]
+
+		//Actual radiation spending
+		current_intensity *= radiate(atoms, FLOOR(current_intensity * falloff, 1))
+
+		/*
+		 * This is what I call pseudo-raytracing. Real raycasting would be ridiculously expensive,
+		 * So this is the solution I came up with. Don't try to understand it by seeing the code.
+		 * You have been warned. If you find yourself having to touch this cursed code,
+		 * consider axing this away before contacting me via git-fu email digging. 
+		 *
+		 * On a side note, this implementation isn't ideal. So please remove this instead of
+		 * trying to improve it when its time has come.
+		 *
+		 * ~Xenomedes, Christmas 2020
+		 */
+
+		(j = i / distance) == (j = round(j)) \
+			? (distance + 1 == branchclass \
+				? (i == distance * 8 \
+					? (intensity_new[j - 1] += (intensity_new[1] += ((intensity_new[(j += i)] = current_intensity) / 2)) && current_intensity / 2) \
+					: (intensity_new[j - 1] += intensity_new[j + 1] = ((intensity_new[(j += i)] = current_intensity) / 2))) \
+				: (intensity_new[i + j] = current_intensity)) \
+			: (distance & 1 \
+				? ((lp = ((idx = i % distance) * (vl = distance - branchclass + 1)) % (distance + 1)) < (bt = branchclass - (idx - round(idx * vl / (distance + 1)))) \
+					? (lp \
+						? (lp + vl > bt \
+							? (intensity_new[i + j + 1] = (intensity_new[i + j] = current_intensity) / 2) \
+							: (intensity_new[i + j] = current_intensity)) \
+						: (vl > bt \
+							? (intensity_new[i + j] += intensity_new[i + j + 1] = current_intensity / 2) \
+							: (intensity_new[i + j] += current_intensity / 2))) \
+					: (lp > branchclass \
+						? (lp - vl < bt \
+							? (intensity_new[i + j] += current_intensity / 2) \
+							: (lp - bt > branchclass \
+								? (intensity_new[i + j + 1] = current_intensity / 2) : null)) \
+						: (lp == branchclass \
+							? (lp - vl < bt \
+								? (intensity_new[i + j] += intensity_new[i + j + 1] = current_intensity / 2) \
+								: (intensity_new[i + j + 1] = current_intensity / 2)) \
+							: (lp - vl < bt \
+								? (intensity_new[i + j] += (intensity_new[i + j + 1] = current_intensity) / 2) \
+								: (intensity_new[i + j + 1] = current_intensity))))) \
+				: ((lp = ((idx = i % distance) * (vl = distance - branchclass + 1)) % (distance + 1)) == (bt = branchclass - (idx - round(idx * vl / (distance + 1)))) \
+					? (intensity_new[i + j + 1] = intensity_new[i + j] = current_intensity) \
+					: (lp > branchclass \
+						? (lp - vl < bt \
+							? (intensity_new[i + j] += current_intensity / 2) \
+							: (lp - bt > branchclass \
+								? (intensity_new[i + j + 1] = current_intensity / 2) : null)) \
+						: (lp < bt \
+							? (lp + vl > bt \
+								? (intensity_new[i + j + 1] = (intensity_new[i + j] = current_intensity) / 2) \
+								: (intensity_new[i + j] = current_intensity)) \
+							: (lp - vl < bt \
+								? (intensity_new[i + j] += (intensity_new[i + j + 1] = current_intensity) / 2) \
+								: (intensity_new[i + j + 1] = current_intensity))))))
+
+	if(futile)
 		qdel(src)
 		return
 
-	raycast() // This proc is cursed
-
-	steps++ // This moves the wave forward
-
-/datum/radiation_wave/proc/raycast()
-
-	var/distance = steps + 1
-	var/falloff = 1 / distance ** 2
-	
-	// Index for new intensity list; I don't want to create ridiculous amount of additions
-	var/index_new = 0
-	// Index for soon-to-be-obsoleted-intensity list
-	var/index_old = 1
-
-	// The soon-to-be-obsoleted-intensity list
-	var/list/intensity_old = intensity
-	// New intensity that'll be written; always larger than the previous one
-	var/list/intensity_new[(distance+1)*8]
-
-	// The candidate before pruning
-	var/candidate
-	// The size of loop
-	var/loopsize = distance + 2
-	// "Class" it belongs to
-	var/branchclass = 2**round(log(2,distance + 1))
-	// Velocity of loop
-	var/loopspeed = loopsize - branchclass
-	// The looping variable
-	var/loop
-	// The "branch" it currently is on
-	var/currentbranch
-
-	// THIS REDUNDANCY IS INTENTIONAL
-	for(var/clock in 1 to 8)
-		intensity_new[++index_new] = intensity_old[index_old] * falloff > RAD_WAVE_MINIMUM ? intensity_old[index_old] : 0
-
-		loop = 0
-		currentbranch = 0
-		for(var/i in 1 to distance)
-			// Pure magic happens here
-			candidate = ((loop += loopspeed) > loopsize ? (loop -= loopsize) : loop) >= branchclass ? \
-							(loop == loopsize ? \
-								intensity_old[index_old++] \
-								: (intensity_old[index_old] + intensity_old[++index_old]) / 2) \
-							: (loop == ++currentbranch ? \
-								(index_old == (distance * 8) ? \
-									(intensity_old[index_old]+intensity_old[1]) / 2 \
-									: (intensity_old[index_old]+intensity_old[++index_old]) / 2) \
-								: (loop > currentbranch ? \
-									intensity_old[++index_old] \
-									: intensity_old[index_old++]))
-
-			if(candidate * falloff < RAD_WAVE_MINIMUM)
-				intensity_new[++index_new] = 0
-			else
-				intensity_new[++index_new] = candidate
-
-	intensity = intensity_new //THERE CAN BE ONLY ONE
+	// Now is time to move forward
+	intensity = intensity_new
+	steps++
 
 /datum/radiation_wave/proc/check_obstructions(list/atoms, index)
 
@@ -162,9 +199,11 @@
 		else
 			atomlist += thing
 
+	// We don't randomly choose one from the list since that can result in zero meaningful contamination
+	
 	if(atomlist.len)
 		. -= RAD_CONTAMINATION_BUDGET_SIZE
-		var/affordance = min(FLOOR(contam_strength,RAD_COMPONENT_MINIMUM), atomlist.len)
+		var/affordance = min(round(contam_strength / RAD_COMPONENT_MINIMUM), atomlist.len)
 		var/contam_strength_divided = contam_strength / affordance
 		for(var/k in 1 to affordance)
 			var/atom/poor_thing = atomlist[k]
@@ -172,7 +211,7 @@
 
 	if(moblist.len)
 		. -= RAD_CONTAMINATION_BUDGET_SIZE
-		var/affordance = min(FLOOR(contam_strength,RAD_COMPONENT_MINIMUM), moblist.len)
+		var/affordance = min(round(contam_strength / RAD_COMPONENT_MINIMUM), moblist.len)
 		var/contam_strength_divided = contam_strength / affordance
 		for(var/k in 1 to affordance)
 			var/mob/poor_mob = moblist[k]
