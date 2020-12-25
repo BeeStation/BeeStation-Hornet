@@ -64,11 +64,11 @@
 		return PROCESS_KILL
 	if(!infinite)
 		wax--
-	if(explosive && !wax)
-		explosion(src.loc,0,2,3,flame_range = 3)
-		qdel(src)
-	if(!wax && !explosive)
-		new /obj/item/trash/candle(loc)
+	if(!wax)
+		if(explosive)
+			explosion(src.loc,0,2,3,flame_range = 3)
+		else
+			new /obj/item/trash/candle(loc)
 		qdel(src)
 	update_icon()
 	open_flame()
