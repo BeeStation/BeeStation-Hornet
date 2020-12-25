@@ -2112,7 +2112,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	cost = 3
 	item = /obj/item/storage/fancy/candle_box/explosive
 	restricted_roles = list("Mime")
-	surplus = 10
+	surplus = 0
 
 /datum/uplink_item/role_restricted/pressure_mod
 	name = "Kinetic Accelerator Pressure Mod"
