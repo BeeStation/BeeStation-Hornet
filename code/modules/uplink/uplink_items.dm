@@ -2106,9 +2106,10 @@ datum/uplink_item/role_restricted/superior_honkrender
 	restricted_roles = list("Mime")
 	surplus = 0
 
-/datum/uplink_item/role_restricted/mimery
+/datum/uplink_item/role_restricted/explosive_candles
 	name = "Trick Candles"
-	desc = "Explosive candles that go boom when they finish burning. A very unexpected explosive with a long fuse."
+	desc = "Explosive candles that go boom when they finish burning. A very unexpected explosive with a long fuse. \
+	Perfect for that long romantic candle lit dinner or when the lights go out."
 	cost = 3
 	item = /obj/item/storage/fancy/candle_box/explosive
 	restricted_roles = list("Mime")
