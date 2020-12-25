@@ -535,6 +535,9 @@
 		stack_trace("Empty message")
 		return
 
+	if(SSticker.current_state == GAME_STATE_FINISHED)
+		return ..()
+
 	// Cannot use the list as a map if the key is a number, so we stringify it (thank you BYOND)
 	var/smessage_type = num2text(message_type)
 
@@ -551,7 +554,7 @@
 			colored_message = "<font color=[color]>[message]</font>"
 		else
 			colored_message = "<font color='[color]'>[message]</font>"
-	
+
 	//This makes readability a bit better for admins.
 	switch(message_type)
 		if(LOG_WHISPER)
@@ -563,7 +566,7 @@
 		if(LOG_EMOTE)
 			colored_message = "(EMOTE) [colored_message]"
 
-	var/list/timestamped_message = list("\[[time_stamp()]\] [key_name(src)] [loc_name(src)]" = colored_message)
+	var/list/timestamped_message = list("\[[time_stamp()]\] ([SSticker.get_game_state_string()]) [key_name(src)] [loc_name(src)]" = colored_message)
 
 	logging[smessage_type] += timestamped_message
 

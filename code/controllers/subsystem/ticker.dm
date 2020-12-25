@@ -642,6 +642,19 @@ SUBSYSTEM_DEF(ticker)
 
 	world.Reboot()
 
+/datum/controller/subsystem/ticker/proc/get_game_state_string()
+	switch(current_state)
+		if(GAME_STATE_FINISHED)
+			return "Finished"
+		if(GAME_STATE_PLAYING)
+			return "Playing"
+		if(GAME_STATE_PREGAME)
+			return "Pregame"
+		if(GAME_STATE_SETTING_UP)
+			return "Setup"
+		if(GAME_STATE_STARTUP)
+			return "Startup"
+
 /datum/controller/subsystem/ticker/Shutdown()
 	gather_newscaster() //called here so we ensure the log is created even upon admin reboot
 	save_admin_data()
