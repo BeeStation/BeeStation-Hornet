@@ -86,16 +86,16 @@
 				else if(chainLength < chargeChainTrigger)
 					M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
 					oldClickTime = newClickTime
-					chainLength = chainLength + 1
+					chainLength = chainLength ++
 				else
 					if(prob(chargeProb))
 						M.say("[warcryCharge]", ignore_spam = TRUE, forced = "north star warcry")
 						oldClickTime = newClickTime
-						chainLength = chainLength + 1
+						chainLength = chainLength ++
 					else
 						M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
 						oldClickTime = newClickTime
-						chainLength = chainLength + 1
+						chainLength = chainLength ++
 
 	else if(M.a_intent == INTENT_HARM)
 		for(var/mob/living/L in oview(1, M))
