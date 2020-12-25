@@ -2106,6 +2106,14 @@ datum/uplink_item/role_restricted/superior_honkrender
 	restricted_roles = list("Mime")
 	surplus = 0
 
+/datum/uplink_item/role_restricted/mimery
+	name = "Trick Candles"
+	desc = "Explosive candles that go boom when they finish burning. A very unexpected explosive with a long fuse."
+	cost = 3
+	item = /obj/item/storage/fancy/candle_box/explosive
+	restricted_roles = list("Mime")
+	surplus = 10
+
 /datum/uplink_item/role_restricted/pressure_mod
 	name = "Kinetic Accelerator Pressure Mod"
 	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. \

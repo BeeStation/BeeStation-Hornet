@@ -119,6 +119,11 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 5
 
+/obj/item/storage/fancy/candle_box/explosive
+	name = "\improper candle pack"
+	desc = "A pack of red candles."
+	spawn_type = /obj/item/candle/explosive
+
 /obj/item/storage/fancy/candle_box/attack_self(mob_user)
 	return
 

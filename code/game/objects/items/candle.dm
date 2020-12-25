@@ -13,6 +13,7 @@
 	var/lit = FALSE
 	var/infinite = FALSE
 	var/start_lit = FALSE
+	var/explosive = FALSE
 
 /obj/item/candle/Initialize()
 	. = ..()
@@ -63,7 +64,10 @@
 		return PROCESS_KILL
 	if(!infinite)
 		wax--
-	if(!wax)
+	if(explosive && !wax)
+		explosion(src.loc,0,2,3,flame_range = 3)
+		qdel(src)
+	if(!wax && !explosive)
 		new /obj/item/trash/candle(loc)
 		qdel(src)
 	update_icon()
@@ -76,5 +80,8 @@
 /obj/item/candle/infinite
 	infinite = TRUE
 	start_lit = TRUE
+
+/obj/item/candle/explosive
+	explosive = TRUE
 
 #undef CANDLE_LUMINOSITY
