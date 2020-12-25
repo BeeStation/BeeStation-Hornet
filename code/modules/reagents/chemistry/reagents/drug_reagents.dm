@@ -509,7 +509,6 @@
 	. = ..()
 
 /datum/reagent/drug/ketamine/overdose_process(mob/living/M)
-	. = ..()
 	//Dissociative anesthetics? Overdosing? Time to dissociate hard.
 	var/obj/item/organ/brain/B = M.getorgan(/obj/item/organ/brain)
 	if(B.can_gain_trauma(/datum/brain_trauma/severe/split_personality, 5))
@@ -527,6 +526,7 @@
 			to_chat(M, "<span class='warning'>You feel like you your limbs won't move...</span>")
 		M.drop_all_held_items()
 		M.Dizzy(5)
+		. = ..()
 
 //Addiction Gradient
 /datum/reagent/drug/ketamine/addiction_act_stage1(mob/living/M)
