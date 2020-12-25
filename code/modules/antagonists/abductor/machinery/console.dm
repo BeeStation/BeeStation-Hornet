@@ -48,7 +48,7 @@
 		dat += "<a href='?src=[REF(src)];dispense=chem_dispenser'>Reagent Synthesizer (2 Credits)</A><br>"
 		dat += "<a href='?src=[REF(src)];dispense=helmet'>Agent Helmet</A><br>"
 		dat += "<a href='?src=[REF(src)];dispense=vest'>Agent Vest</A><br>"
-		dat += "<a href='?src=[REF(src)];dispense=agentid'>Agent ID</a><br>"
+		dat += "<a href='?src=[REF(src)];dispense=agentid'>Alien ID</a><br>"
 		dat += "<a href='?src=[REF(src)];dispense=silencer'>Radio Silencer</A><br>"
 		dat += "<a href='?src=[REF(src)];dispense=tool'>Science Tool</A><br>"
 		dat += "<a href='?src=[REF(src)];dispense=tongue'>Superlingual Matrix</a><br>"
