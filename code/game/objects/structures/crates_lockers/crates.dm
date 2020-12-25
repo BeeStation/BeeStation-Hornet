@@ -105,7 +105,7 @@ the current lists are sufficent and it is used to get the right index for animat
 Next is anindex this variable is just used to save the index for a crate so that you only need to search for the index once.
 The last one is the for loop it simply uses all given indexes to save the needed values to the lists inside animation_math if a new list is required*/
 /obj/structure/closet/crate/proc/animation_list() //pre calculates a list of values for the crate animation cause byond not like math
-	if(animation_index == null) //checks if there is already a list for animation_index if not makes a new list also include animatioN_math cause why not honestly
+	if(animation_index == null) //checks if there is already a list for animation_index if not makes a new list also includes animation_math cause why not honestly
 		animation_index = new/list()
 		animation_math = new/list()
 	anindex = animation_index.Find("[door_anim_time]-[door_anim_angle]-[open_angle]-[radius_2]") //saves index to anindex
