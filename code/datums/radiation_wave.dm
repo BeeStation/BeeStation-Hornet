@@ -87,13 +87,12 @@
 		futile = FALSE
 		var/turf/place = locate(xpos, ypos, cmaster_turf.z)
 		atoms = get_rad_contents(place)
-		check_obstructions(atoms, i)
-
-		//Obstruction has been handled; time to cache it
-		var/current_intensity = cintensity[i]
 
 		//Actual radiation spending
-		current_intensity *= radiate(atoms, FLOOR(current_intensity * falloff, 1))
+		cintensity[i] *= radiate(atoms, cintensity[i] * falloff)
+
+		//Obstruction handling
+		check_obstructions(atoms, i)
 
 		/*
 		 * This is what I call pseudo-raytracing. Real raycasting would be ridiculously expensive,
@@ -112,44 +111,44 @@
 		(j = i / distance) == (j = round(j)) \
 			? (distance + 1 == branchclass * 2 \
 				? (i == distance * 8 \
-					? (intensity_new[j - 1] += (intensity_new[1] += ((intensity_new[(j += i)] = current_intensity) / 2)) && current_intensity / 2) \
-					: (intensity_new[j - 1] += intensity_new[j + 1] = ((intensity_new[(j += i)] = current_intensity) / 2))) \
-				: (intensity_new[i + j] = current_intensity)) \
+					? (intensity_new[j - 1] += (intensity_new[1] += ((intensity_new[(j += i)] = cintensity[i]) / 2)) && cintensity[i] / 2) \
+					: (intensity_new[j - 1] += intensity_new[j + 1] = ((intensity_new[(j += i)] = cintensity[i]) / 2))) \
+				: (intensity_new[i + j] = cintensity[i])) \
 			: (distance & 1 \
 				? ((lp = ((idx = i % distance) * (vl = distance - branchclass + 1)) % (distance + 1)) < (bt = branchclass - (idx - round(idx * vl / (distance + 1)))) \
 					? (lp \
 						? (lp + vl >= bt \
-							? (intensity_new[i + j + 1] = (intensity_new[i + j] = current_intensity) / 2) \
-							: (intensity_new[i + j] = current_intensity)) \
+							? (intensity_new[i + j + 1] = (intensity_new[i + j] = cintensity[i]) / 2) \
+							: (intensity_new[i + j] = cintensity[i])) \
 						: (vl >= bt \
-							? (intensity_new[i + j] += intensity_new[i + j + 1] = current_intensity / 2) \
-							: (intensity_new[i + j] += current_intensity / 2))) \
+							? (intensity_new[i + j] += intensity_new[i + j + 1] = cintensity[i] / 2) \
+							: (intensity_new[i + j] += cintensity[i] / 2))) \
 					: (lp > branchclass \
 						? (lp - vl <= bt  \
-							? (intensity_new[i + j] += current_intensity / 2) \
+							? (intensity_new[i + j] += cintensity[i] / 2) \
 							: (lp - bt > branchclass \
-								? (intensity_new[i + j + 1] = current_intensity / 2) : null)) \
+								? (intensity_new[i + j + 1] = cintensity[i] / 2) : null)) \
 						: (lp == branchclass \
 							? (lp - vl <= bt \
-								? (intensity_new[i + j] += intensity_new[i + j + 1] = current_intensity / 2) \
-								: (intensity_new[i + j + 1] = current_intensity / 2)) \
+								? (intensity_new[i + j] += intensity_new[i + j + 1] = cintensity[i] / 2) \
+								: (intensity_new[i + j + 1] = cintensity[i] / 2)) \
 							: (lp - vl <= bt \
-								? (intensity_new[i + j] += (intensity_new[i + j + 1] = current_intensity) / 2) \
-								: (intensity_new[i + j + 1] = current_intensity))))) \
+								? (intensity_new[i + j] += (intensity_new[i + j + 1] = cintensity[i]) / 2) \
+								: (intensity_new[i + j + 1] = cintensity[i]))))) \
 				: ((lp = ((idx = i % distance) * (vl = distance - branchclass + 1)) % (distance + 1)) == (bt = branchclass - (idx - round(idx * vl / (distance + 1)))) \
-					? (intensity_new[i + j + 1] = intensity_new[i + j] = current_intensity) \
+					? (intensity_new[i + j + 1] = intensity_new[i + j] = cintensity[i]) \
 					: (lp > branchclass \
 						? (lp - vl <= bt \
-							? (intensity_new[i + j] += current_intensity / 2) \
+							? (intensity_new[i + j] += cintensity[i] / 2) \
 							: (lp - bt > branchclass \
-								? (intensity_new[i + j + 1] = current_intensity / 2) : null)) \
+								? (intensity_new[i + j + 1] = cintensity[i] / 2) : null)) \
 						: (lp < bt \
 							? (lp + vl >= bt \
-								? (intensity_new[i + j + 1] = (intensity_new[i + j] = current_intensity) / 2) \
-								: (intensity_new[i + j] = current_intensity)) \
+								? (intensity_new[i + j + 1] = (intensity_new[i + j] = cintensity[i]) / 2) \
+								: (intensity_new[i + j] = cintensity[i])) \
 							: (lp - vl <= bt \
-								? (intensity_new[i + j] += (intensity_new[i + j + 1] = current_intensity) / 2) \
-								: (intensity_new[i + j + 1] = current_intensity))))))
+								? (intensity_new[i + j] += (intensity_new[i + j + 1] = cintensity[i]) / 2) \
+								: (intensity_new[i + j + 1] = cintensity[i]))))))
 		raytracing_cost += TICK_USAGE - cost_start_rt
 
 	if(futile)

@@ -42,6 +42,7 @@ Ask ninjanomnom if they're around
 // contamination_strength = 	strength * RAD_CONTAMINATION_STR_COEFFICIENT
 #define RAD_CONTAMINATION_STR_COEFFICIENT 0.002778	// Higher means higher strength scaling contamination strength
 													// This number represents perservation of radiation
+													// Set to control the most typical situation: clutters around typical radiation sources
 #define RAD_CONTAMINATION_BUDGET_SIZE 0.1			// Mob and non-mob budgets each gets a share from the radiation as large as this
 													// So this means 10% of the rads is absorbed by non-mobs (if there is a non-mob),
 													// and another 10% of the rads is absorbed by mobs (if there is a mob).						
