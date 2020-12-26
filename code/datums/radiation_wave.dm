@@ -53,14 +53,13 @@
 	var/vl // velocity of loop
 	var/bt // branch threshold
 
-	var/ct = "ChoiceTracking: [distance],"
+	var/trc = "TheRadCost ## Intensity One: [cintensity[1]], Dist: [distance], Current Falloff: [falloff], "
 	var/raytracing_cost
 	var/total_step_cost = TICK_USAGE
 
 	for(var/i in 1 to distance * 8)
 		//Culls invalid intensities
 		if(cintensity[i] * falloff < RAD_WAVE_MINIMUM)
-			ct+="X"
 			continue
 		var/xpos
 		var/ypos
@@ -113,44 +112,44 @@
 		(j = i / distance) == (j = round(j)) \
 			? (distance + 1 == branchclass * 2 \
 				? (i == distance * 8 \
-					? ((intensity_new[j - 1] += (intensity_new[1] += ((intensity_new[(j += i)] = current_intensity) / 2)) && current_intensity / 2)?(ct+="FB*"):null) \
-					: ((intensity_new[j - 1] += intensity_new[j + 1] = ((intensity_new[(j += i)] = current_intensity) / 2))?(ct+="FB*"):null)) \
-				: ((intensity_new[i + j] = current_intensity)?(ct+="FB"):null)) \
+					? (intensity_new[j - 1] += (intensity_new[1] += ((intensity_new[(j += i)] = current_intensity) / 2)) && current_intensity / 2) \
+					: (intensity_new[j - 1] += intensity_new[j + 1] = ((intensity_new[(j += i)] = current_intensity) / 2))) \
+				: (intensity_new[i + j] = current_intensity)) \
 			: (distance & 1 \
 				? ((lp = ((idx = i % distance) * (vl = distance - branchclass + 1)) % (distance + 1)) < (bt = branchclass - (idx - round(idx * vl / (distance + 1)))) \
 					? (lp \
 						? (lp + vl >= bt \
-							? ((intensity_new[i + j + 1] = (intensity_new[i + j] = current_intensity) / 2)?(ct+="L*"):null) \
-							: ((intensity_new[i + j] = current_intensity)?(ct+="L"):null)) \
+							? (intensity_new[i + j + 1] = (intensity_new[i + j] = current_intensity) / 2) \
+							: (intensity_new[i + j] = current_intensity)) \
 						: (vl >= bt \
-							? ((intensity_new[i + j] += intensity_new[i + j + 1] = current_intensity / 2)?(ct+="hL*"):null) \
-							: ((intensity_new[i + j] += current_intensity / 2)?(ct+="hL"):null))) \
+							? (intensity_new[i + j] += intensity_new[i + j + 1] = current_intensity / 2) \
+							: (intensity_new[i + j] += current_intensity / 2))) \
 					: (lp > branchclass \
 						? (lp - vl <= bt  \
-							? ((intensity_new[i + j] += current_intensity / 2)?(ct+="NwL"):null) \
+							? (intensity_new[i + j] += current_intensity / 2) \
 							: (lp - bt > branchclass \
-								? ((intensity_new[i + j + 1] = current_intensity / 2)?(ct+="NwR"): null) : (ct+="N"))) \
+								? (intensity_new[i + j + 1] = current_intensity / 2) : null)) \
 						: (lp == branchclass \
 							? (lp - vl <= bt \
-								? ((intensity_new[i + j] += intensity_new[i + j + 1] = current_intensity / 2)?(ct+="hR*"):null) \
-								: ((intensity_new[i + j + 1] = current_intensity / 2)?(ct+="hR"):null)) \
+								? (intensity_new[i + j] += intensity_new[i + j + 1] = current_intensity / 2) \
+								: (intensity_new[i + j + 1] = current_intensity / 2)) \
 							: (lp - vl <= bt \
-								? ((intensity_new[i + j] += (intensity_new[i + j + 1] = current_intensity) / 2)?(ct+="R*"):null) \
-								: ((intensity_new[i + j + 1] = current_intensity)?(ct+="R"):null))))) \
+								? (intensity_new[i + j] += (intensity_new[i + j + 1] = current_intensity) / 2) \
+								: (intensity_new[i + j + 1] = current_intensity))))) \
 				: ((lp = ((idx = i % distance) * (vl = distance - branchclass + 1)) % (distance + 1)) == (bt = branchclass - (idx - round(idx * vl / (distance + 1)))) \
-					? ((intensity_new[i + j + 1] = intensity_new[i + j] = current_intensity)?(ct+="D"):null) \
+					? (intensity_new[i + j + 1] = intensity_new[i + j] = current_intensity) \
 					: (lp > branchclass \
 						? (lp - vl <= bt \
-							? ((intensity_new[i + j] += current_intensity / 2)?(ct+="NwL"):null) \
+							? (intensity_new[i + j] += current_intensity / 2) \
 							: (lp - bt > branchclass \
-								? ((intensity_new[i + j + 1] = current_intensity / 2)?(ct+="NwR"): null) : (ct+="N"))) \
+								? (intensity_new[i + j + 1] = current_intensity / 2) : null)) \
 						: (lp < bt \
 							? (lp + vl >= bt \
-								? ((intensity_new[i + j + 1] = (intensity_new[i + j] = current_intensity) / 2)?(ct+="L*"):null) \
-								: ((intensity_new[i + j] = current_intensity)?(ct+="L"):null)) \
+								? (intensity_new[i + j + 1] = (intensity_new[i + j] = current_intensity) / 2) \
+								: (intensity_new[i + j] = current_intensity)) \
 							: (lp - vl <= bt \
-								? ((intensity_new[i + j] += (intensity_new[i + j + 1] = current_intensity) / 2)?(ct+="R*"):null) \
-								: ((intensity_new[i + j + 1] = current_intensity)?(ct+="R"):null))))))
+								? (intensity_new[i + j] += (intensity_new[i + j + 1] = current_intensity) / 2) \
+								: (intensity_new[i + j + 1] = current_intensity))))))
 		raytracing_cost += TICK_USAGE - cost_start_rt
 
 	if(futile)
@@ -162,8 +161,8 @@
 	steps++
 
 	total_step_cost = TICK_USAGE - total_step_cost
-	ct += ", RTC: [raytracing_cost] TC: [total_step_cost]"
-	log_mapping(ct)
+	trc += "RTC: [raytracing_cost / 2] TC: [total_step_cost / 2]"
+	log_mapping(trc)
 
 /datum/radiation_wave/proc/check_obstructions(list/atoms, index)
 
