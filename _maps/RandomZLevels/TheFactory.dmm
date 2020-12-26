@@ -1048,10 +1048,6 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/factory/factoryafter/down/levelthree)
-"aTy" = (
-/obj/effect/spawner/lootdrop/snowdin/dungeonlite,
-/turf/open/floor/plating/asteroid,
-/area/awaymission/factory/secret)
 "aTQ" = (
 /obj/item/instrument/eguitar,
 /turf/open/floor/holofloor/beach/coast_t,
@@ -2694,6 +2690,7 @@
 	req_access_txt = "46"
 	},
 /obj/item/clothing/shoes/clown_shoes/taeclowndo,
+/obj/item/a_gift/anything,
 /turf/open/floor/holofloor/grass{
 	color = "#1eff00"
 	},
@@ -6828,7 +6825,7 @@
 /obj/item/paper{
 	info = "<i>ah mate nice having a good cup oh tea on the loos</i>"
 	},
-/obj/effect/spawner/lootdrop/snowdin/dungeonmid,
+/obj/item/a_gift/anything,
 /turf/open/floor/holofloor/carpet,
 /area/awaymission/factory/secret)
 "fMa" = (
@@ -18287,7 +18284,7 @@
 /turf/open/floor/wood,
 /area/awaymission/factory/villageafter/house)
 "pbB" = (
-/obj/effect/spawner/lootdrop/snowdin/dungeonmid,
+/obj/item/a_gift/anything,
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
 "pbT" = (
@@ -19668,6 +19665,7 @@
 	info = "<b>You've found a secret!</b>"
 	},
 /obj/item/clothing/mask/gas/hunter,
+/obj/item/a_gift,
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
 "qhl" = (
@@ -24938,6 +24936,11 @@
 /obj/machinery/light/small,
 /turf/open/floor/mineral/titanium,
 /area/awaymission/factory/factoryduring/down)
+"uHy" = (
+/mob/living/simple_animal/pet/dog/corgi/puppy/void,
+/obj/item/a_gift,
+/turf/open/floor/plating/asteroid,
+/area/awaymission/factory/secret)
 "uIj" = (
 /obj/item/chair{
 	pixel_y = -4
@@ -26646,7 +26649,7 @@
 	noteleport = 0
 	})
 "wgS" = (
-/obj/effect/spawner/lootdrop/aimodule_harmful,
+/obj/item/a_gift,
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
 "wgX" = (
@@ -60739,7 +60742,7 @@ hPu
 rTq
 tdS
 xrD
-aCo
+pbB
 tdS
 lRz
 iCj
@@ -61735,7 +61738,7 @@ fgi
 (154,1,1) = {"
 piy
 cPx
-aCo
+wgS
 aCo
 aCo
 aCo
@@ -64729,7 +64732,7 @@ cPx
 xsu
 cPx
 cPx
-aCo
+wgS
 cPx
 cPx
 aCo
@@ -64949,7 +64952,7 @@ cPx
 cPx
 piy
 bNn
-bNn
+uHy
 aCo
 bNn
 piy
@@ -67696,7 +67699,7 @@ cPx
 cPx
 xsu
 aCo
-dVk
+aCo
 aCo
 aCo
 aCo
@@ -68122,7 +68125,7 @@ xsu
 aCo
 aZm
 wBl
-aCo
+pbB
 aCo
 aCo
 xsu
@@ -68334,7 +68337,7 @@ xsu
 aCo
 hbk
 xik
-dVk
+aCo
 aCo
 aCo
 cPx
@@ -74300,7 +74303,7 @@ wKK
 wKK
 wKK
 aCo
-aTy
+pbB
 cPx
 cPx
 piy

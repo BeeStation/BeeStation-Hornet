@@ -895,6 +895,8 @@
 	fire_rate = 5
 	force = 18
 
+//MISC//
+
 /obj/effect/trap/nexus/trickyspawner/clowns
 	mobs = 5
 	spawned = /mob/living/simple_animal/hostile/retaliate/clown
