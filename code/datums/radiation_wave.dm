@@ -113,37 +113,37 @@
 				? ((lp = ((idx = i % distance) * (vl = distance - branchclass + 1)) % (distance + 1)) < (bt = branchclass - (idx - round(idx * vl / (distance + 1)))) \
 					? (lp \
 						? (lp + vl > bt \
-							? (intensity_new[i + j + 1] = (intensity_new[i + j] = current_intensity) / 2) \
-							: (intensity_new[i + j] = current_intensity)) \
+							? (intensity_new[i + j] += (intensity_new[i + j + 1] = current_intensity) / 2) \
+							: (intensity_new[i + j + 1] = current_intensity)) \
 						: (vl > bt \
 							? (intensity_new[i + j] += intensity_new[i + j + 1] = current_intensity / 2) \
-							: (intensity_new[i + j] += current_intensity / 2))) \
+							: (intensity_new[i + j + 1] = current_intensity / 2))) \
 					: (lp > branchclass \
 						? (lp - vl < bt \
-							? (intensity_new[i + j] += current_intensity / 2) \
+							? (intensity_new[i + j + 1] = current_intensity / 2) \
 							: (lp - bt > branchclass \
-								? (intensity_new[i + j + 1] = current_intensity / 2) : null)) \
+								? (intensity_new[i + j] += current_intensity / 2) : null)) \
 						: (lp == branchclass \
 							? (lp - vl < bt \
 								? (intensity_new[i + j] += intensity_new[i + j + 1] = current_intensity / 2) \
-								: (intensity_new[i + j + 1] = current_intensity / 2)) \
+								: (intensity_new[i + j] = current_intensity / 2)) \
 							: (lp - vl < bt \
-								? (intensity_new[i + j] += (intensity_new[i + j + 1] = current_intensity) / 2) \
-								: (intensity_new[i + j + 1] = current_intensity))))) \
+								? (intensity_new[i + j + 1] = (intensity_new[i + j] = current_intensity) / 2) \
+								: (intensity_new[i + j] = current_intensity))))) \
 				: ((lp = ((idx = i % distance) * (vl = distance - branchclass + 1)) % (distance + 1)) == (bt = branchclass - (idx - round(idx * vl / (distance + 1)))) \
 					? (intensity_new[i + j + 1] = intensity_new[i + j] = current_intensity) \
 					: (lp > branchclass \
 						? (lp - vl < bt \
-							? (intensity_new[i + j] += current_intensity / 2) \
+							? (intensity_new[i + j + 1] = current_intensity / 2) \
 							: (lp - bt > branchclass \
-								? (intensity_new[i + j + 1] = current_intensity / 2) : null)) \
+								? (intensity_new[i + j] += current_intensity / 2) : null)) \
 						: (lp < bt \
 							? (lp + vl > bt \
-								? (intensity_new[i + j + 1] = (intensity_new[i + j] = current_intensity) / 2) \
-								: (intensity_new[i + j] = current_intensity)) \
-							: (lp - vl < bt \
 								? (intensity_new[i + j] += (intensity_new[i + j + 1] = current_intensity) / 2) \
-								: (intensity_new[i + j + 1] = current_intensity))))))
+								: (intensity_new[i + j + 1] = current_intensity)) \
+							: (lp - vl < bt \
+								? (intensity_new[i + j + 1] = (intensity_new[i + j] = current_intensity) / 2) \
+								: (intensity_new[i + j] = current_intensity))))))
 
 	if(futile)
 		qdel(src)
