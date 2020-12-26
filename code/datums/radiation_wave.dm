@@ -136,16 +136,18 @@
 			raycasting_cost += TICK_USAGE - cost_start_rt
 			continue
 		
+		var/list/cachecache
+		
 		if(!prc_behavior_cache)
 			prc_behavior_cache = list()
-		if(!prc_behavior_cache[distance - 1])
+		if(!(cachecache = prc_behavior_cache[distance - 1]))
 			var/L[distance - 1]
-			prc_behavior_cache[distance - 1] = L
+			cachecache = prc_behavior_cache[distance - 1] = L
 		
-		var/prc_behavior = prc_behavior_cache[distance][i % distance + 1]
+		var/prc_behavior = cachecache[i % distance + 1]
 
 		if(!prc_behavior)
-			prc_behavior_cache[distance - 1][i % distance + 1] = prc_behavior = distance & 1 \
+			cachecache[i % distance + 1] = prc_behavior = distance & 1 \
 				? ((lp = ((idx = i % distance) * (vl = distance - branchclass + 1)) % (distance + 1)) < (bt = branchclass - (idx - round(idx * vl / (distance + 1)))) \
 					? (lp \
 						? (lp + vl >= bt ? PRC_BEHAVIOR_LSTAR : PRC_BEHAVIOR_L) \
