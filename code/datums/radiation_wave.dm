@@ -44,7 +44,7 @@
 	// New intensity that'll be written; always larger than the previous one
 	var/list/intensity_new[(distance+1)*8]
 	// "Class" it belongs to
-	var/branchclass = 2**round(log(2,distance))
+	var/branchclass = 2**round(log(2,distance+1))
 
 	// These variable are going to be *very* handy
 	var/j // secondary i
@@ -187,12 +187,8 @@
 			/obj/item/implant,
 			/obj/singularity
 			))
-		if(!is_contaminating)
-			continue
-		if(blacklisted[thing.type])
-			continue
 		// Insulating objects won't get contaminated
-		if(SEND_SIGNAL(thing, COMSIG_ATOM_RAD_CONTAMINATING, strength) & COMPONENT_BLOCK_CONTAMINATION)
+		if(!is_contaminating || blacklisted[thing.type] || SEND_SIGNAL(thing, COMSIG_ATOM_RAD_CONTAMINATING, strength) & COMPONENT_BLOCK_CONTAMINATION)
 			continue
 		if(ismob(thing))
 			moblist += thing

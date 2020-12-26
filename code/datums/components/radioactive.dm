@@ -39,8 +39,6 @@
 	return ..()
 
 /datum/component/radioactive/process()
-	if(!prob(50))
-		return
 	if(strength >= RAD_WAVE_MINIMUM)
 		radiation_pulse(parent, strength, RAD_DISTANCE_COEFFICIENT*2, FALSE, can_contaminate)
 	if(!hl3_release_date)
