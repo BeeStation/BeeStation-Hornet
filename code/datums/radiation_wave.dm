@@ -1,3 +1,21 @@
+#define PRT_FLAG_HL		(1<<0)
+#define PRT_FLAG_L		(1<<1)
+#define PRT_FLAG_HR		(1<<2)
+#define PRT_FLAG_R		(1<<3)
+
+#define PRT_BEHAVIOR_N			(1<<4)
+#define PRT_BEHAVIOR_NWL		PRT_FLAG_HL
+#define PRT_BEHAVIOR_NWR		PRT_FLAG_HR
+#define PRT_BEHAVIOR_L			PRT_FLAG_L
+#define PRT_BEHAVIOR_LSTAR		(PRT_FLAG_L|PRT_FLAG_HR)
+#define PRT_BEHAVIOR_R			PRT_FLAG_R
+#define PRT_BEHAVIOR_RSTAR		(PRT_FLAG_R|PRT_FLAG_HL)
+#define PRT_BEHAVIOR_D			(PRT_FLAG_L|PRT_FLAG_R)
+#define PRT_BEHAVIOR_HL			PRT_FLAG_HL
+#define PRT_BEHAVIOR_HLSTAR		(PRT_FLAG_HL|PRT_FLAG_HR)
+#define PRT_BEHAVIOR_HR			PRT_FLAG_HR
+#define PRT_BEHAVIOR_HRSTAR		(PRT_FLAG_HR|PRT_FLAG_HL)
+
 /datum/radiation_wave
 	var/source
 	var/turf/master_turf //The center of the wave
@@ -5,6 +23,7 @@
 	var/intensity[8] //How strong it is
 	var/range_modifier //Higher than 1 makes it drop off faster, 0.5 makes it drop off half etc
 	var/can_contaminate
+	var/static/list/pseudo_raytracing_behavior_cache
 
 /datum/radiation_wave/New(atom/_source, _intensity=0, _range_modifier=RAD_DISTANCE_COEFFICIENT, _can_contaminate=TRUE)
 
@@ -108,47 +127,54 @@
 		
 		var/cost_start_rt = TICK_USAGE
 
-		(j = i / distance) == (j = round(j)) \
-			? (distance + 1 == branchclass * 2 \
-				? (i == distance * 8 \
-					? (intensity_new[j - 1] += (intensity_new[1] += ((intensity_new[(j += i)] = cintensity[i]) / 2)) && cintensity[i] / 2) \
-					: (intensity_new[j - 1] += intensity_new[j + 1] = ((intensity_new[(j += i)] = cintensity[i]) / 2))) \
-				: (intensity_new[i + j] = cintensity[i])) \
-			: (distance & 1 \
+		if((j = i / distance) == (j = round(j)))
+			distance + 1 == branchclass * 2 \
+			? (i == distance * 8 \
+				? (intensity_new[j - 1] += (intensity_new[1] += ((intensity_new[(j += i)] = cintensity[i]) / 2)) && cintensity[i] / 2) \
+				: (intensity_new[j - 1] += intensity_new[j + 1] = ((intensity_new[(j += i)] = cintensity[i]) / 2))) \
+			: (intensity_new[i + j] = cintensity[i])
+			raytracing_cost += TICK_USAGE - cost_start_rt
+			continue
+		
+		if(!pseudo_raytracing_behavior_cache)
+			pseudo_raytracing_behavior_cache = list()
+		if(!pseudo_raytracing_behavior_cache[distance - 1])
+			var/L[distance - 1]
+			pseudo_raytracing_behavior_cache[distance - 1] = L
+		
+		var/prt_behavior = pseudo_raytracing_behavior_cache[distance][i % distance + 1]
+
+		if(!prt_behavior)
+			pseudo_raytracing_behavior_cache[distance - 1][i % distance + 1] = prt_behavior = distance & 1 \
 				? ((lp = ((idx = i % distance) * (vl = distance - branchclass + 1)) % (distance + 1)) < (bt = branchclass - (idx - round(idx * vl / (distance + 1)))) \
 					? (lp \
-						? (lp + vl >= bt \
-							? (intensity_new[i + j + 1] = (intensity_new[i + j] = cintensity[i]) / 2) \
-							: (intensity_new[i + j] = cintensity[i])) \
-						: (vl >= bt \
-							? (intensity_new[i + j] += intensity_new[i + j + 1] = cintensity[i] / 2) \
-							: (intensity_new[i + j] += cintensity[i] / 2))) \
+						? (lp + vl >= bt ? PRT_BEHAVIOR_LSTAR : PRT_BEHAVIOR_L) \
+						: (vl >= bt ? PRT_BEHAVIOR_HLSTAR : PRT_BEHAVIOR_HL)) \
 					: (lp > branchclass \
-						? (lp - vl <= bt  \
-							? (intensity_new[i + j] += cintensity[i] / 2) \
-							: (lp - bt > branchclass \
-								? (intensity_new[i + j + 1] = cintensity[i] / 2) : null)) \
+						? (lp - vl <= bt ? PRT_BEHAVIOR_NWL : (lp - bt > branchclass ? PRT_BEHAVIOR_NWR : PRT_BEHAVIOR_N)) \
 						: (lp == branchclass \
-							? (lp - vl <= bt \
-								? (intensity_new[i + j] += intensity_new[i + j + 1] = cintensity[i] / 2) \
-								: (intensity_new[i + j + 1] = cintensity[i] / 2)) \
-							: (lp - vl <= bt \
-								? (intensity_new[i + j] += (intensity_new[i + j + 1] = cintensity[i]) / 2) \
-								: (intensity_new[i + j + 1] = cintensity[i]))))) \
+							? (lp - vl <= bt ? PRT_BEHAVIOR_HRSTAR : PRT_BEHAVIOR_HR) \
+							: (lp - vl <= bt ? PRT_BEHAVIOR_RSTAR : PRT_BEHAVIOR_R)))) \
 				: ((lp = ((idx = i % distance) * (vl = distance - branchclass + 1)) % (distance + 1)) == (bt = branchclass - (idx - round(idx * vl / (distance + 1)))) \
-					? (intensity_new[i + j + 1] = intensity_new[i + j] = cintensity[i]) \
+					? PRT_BEHAVIOR_D \
 					: (lp > branchclass \
-						? (lp - vl <= bt \
-							? (intensity_new[i + j] += cintensity[i] / 2) \
-							: (lp - bt > branchclass \
-								? (intensity_new[i + j + 1] = cintensity[i] / 2) : null)) \
+						? (lp - vl <= bt ? PRT_BEHAVIOR_NWL : (lp - bt > branchclass ? PRT_BEHAVIOR_NWR : PRT_BEHAVIOR_N)) \
 						: (lp < bt \
-							? (lp + vl >= bt \
-								? (intensity_new[i + j + 1] = (intensity_new[i + j] = cintensity[i]) / 2) \
-								: (intensity_new[i + j] = cintensity[i])) \
-							: (lp - vl <= bt \
-								? (intensity_new[i + j] += (intensity_new[i + j + 1] = cintensity[i]) / 2) \
-								: (intensity_new[i + j + 1] = cintensity[i]))))))
+							? (lp + vl >= bt ? PRT_BEHAVIOR_LSTAR : PRT_BEHAVIOR_L) \
+							: (lp - vl <= bt ? PRT_BEHAVIOR_RSTAR : PRT_BEHAVIOR_R))))
+		
+		prt_behavior & PRT_FLAG_HL \
+		? (intensity_new[i + j] += cintensity[i] / 2) \
+		: (prt_behavior & PRT_FLAG_L \
+		? (intensity_new[i + j] = cintensity[i]) \
+		: null)
+
+		prt_behavior & PRT_FLAG_HR \
+		? (intensity_new[i + j + 1] += cintensity[i] / 2) \
+		: (prt_behavior & PRT_FLAG_R \
+		? (intensity_new[i + j + 1] = cintensity[i]) \
+		: null)
+
 		raytracing_cost += TICK_USAGE - cost_start_rt
 
 	if(futile)
@@ -222,3 +248,20 @@
 		for(var/k in 1 to affordance)
 			var/mob/poor_mob = moblist[k]
 			poor_mob.AddComponent(/datum/component/radioactive, contam_strength_divided, source)
+
+#undef PRT_FLAG_HL
+#undef PRT_FLAG_L
+#undef PRT_FLAG_HR
+#undef PRT_FLAG_R
+#undef PRT_BEHAVIOR_N
+#undef PRT_BEHAVIOR_NWL
+#undef PRT_BEHAVIOR_NWR
+#undef PRT_BEHAVIOR_L
+#undef PRT_BEHAVIOR_LSTAR
+#undef PRT_BEHAVIOR_R
+#undef PRT_BEHAVIOR_RSTAR
+#undef PRT_BEHAVIOR_D
+#undef PRT_BEHAVIOR_HL
+#undef PRT_BEHAVIOR_HLSTAR
+#undef PRT_BEHAVIOR_HR	
+#undef PRT_BEHAVIOR_HRSTAR
