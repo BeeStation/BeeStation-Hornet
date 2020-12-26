@@ -23,7 +23,7 @@
 	var/intensity[8] //How strong it is
 	var/range_modifier //Higher than 1 makes it drop off faster, 0.5 makes it drop off half etc
 	var/can_contaminate
-	var/static/list/pseudo_raytracing_behavior_cache
+	var/static/list/pseudo_raycasting_behavior_cache
 
 /datum/radiation_wave/New(atom/_source, _intensity=0, _range_modifier=RAD_DISTANCE_COEFFICIENT, _can_contaminate=TRUE)
 
@@ -73,7 +73,7 @@
 	var/bt // branch threshold
 
 	var/trc = "TheRadCost ## Intensity One: [cintensity[1]], Dist: [distance], Current Falloff: [falloff], "
-	var/raytracing_cost
+	var/raycasting_cost
 	var/total_step_cost = TICK_USAGE
 
 	for(var/i in 1 to distance * 8)
@@ -114,7 +114,7 @@
 		check_obstructions(atoms, i)
 
 		/*
-		 * This is what I call pseudo-raytracing. Real raycasting would be ridiculously expensive,
+		 * This is what I call pseudo-casting. Real raycasting would be ridiculously expensive,
 		 * So this is the solution I came up with. Don't try to understand it by seeing the code.
 		 * You have been warned. If you find yourself having to touch this cursed code,
 		 * consider axing this away before contacting me via git-fu email digging. 
@@ -133,19 +133,19 @@
 				? (intensity_new[j - 1] += (intensity_new[1] += ((intensity_new[(j += i)] = cintensity[i]) / 2)) && cintensity[i] / 2) \
 				: (intensity_new[j - 1] += intensity_new[j + 1] = ((intensity_new[(j += i)] = cintensity[i]) / 2))) \
 			: (intensity_new[i + j] = cintensity[i])
-			raytracing_cost += TICK_USAGE - cost_start_rt
+			raycasting_cost += TICK_USAGE - cost_start_rt
 			continue
 		
-		if(!pseudo_raytracing_behavior_cache)
-			pseudo_raytracing_behavior_cache = list()
-		if(!pseudo_raytracing_behavior_cache[distance - 1])
+		if(!pseudo_raycasting_behavior_cache)
+			pseudo_raycasting_behavior_cache = list()
+		if(!pseudo_raycasting_behavior_cache[distance - 1])
 			var/L[distance - 1]
-			pseudo_raytracing_behavior_cache[distance - 1] = L
+			pseudo_raycasting_behavior_cache[distance - 1] = L
 		
-		var/prt_behavior = pseudo_raytracing_behavior_cache[distance][i % distance + 1]
+		var/prt_behavior = pseudo_raycasting_behavior_cache[distance][i % distance + 1]
 
 		if(!prt_behavior)
-			pseudo_raytracing_behavior_cache[distance - 1][i % distance + 1] = prt_behavior = distance & 1 \
+			pseudo_raycasting_behavior_cache[distance - 1][i % distance + 1] = prt_behavior = distance & 1 \
 				? ((lp = ((idx = i % distance) * (vl = distance - branchclass + 1)) % (distance + 1)) < (bt = branchclass - (idx - round(idx * vl / (distance + 1)))) \
 					? (lp \
 						? (lp + vl >= bt ? PRT_BEHAVIOR_LSTAR : PRT_BEHAVIOR_L) \
@@ -175,7 +175,7 @@
 		? (intensity_new[i + j + 1] = cintensity[i]) \
 		: null)
 
-		raytracing_cost += TICK_USAGE - cost_start_rt
+		raycasting_cost += TICK_USAGE - cost_start_rt
 
 	if(futile)
 		qdel(src)
@@ -186,7 +186,7 @@
 	steps++
 
 	total_step_cost = TICK_USAGE - total_step_cost
-	trc += "RTC: [raytracing_cost / 2] TC: [total_step_cost / 2]"
+	trc += "RTC: [raycasting_cost / 2] TC: [total_step_cost / 2]"
 	log_mapping(trc)
 
 /datum/radiation_wave/proc/check_obstructions(list/atoms, index)
