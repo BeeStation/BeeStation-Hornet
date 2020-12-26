@@ -1,20 +1,20 @@
-#define PRT_FLAG_HL		(1<<0)
-#define PRT_FLAG_L		(1<<1)
-#define PRT_FLAG_HR		(1<<2)
-#define PRT_FLAG_R		(1<<3)
+#define PRC_FLAG_HL		(1<<0)
+#define PRC_FLAG_L		(1<<1)
+#define PRC_FLAG_HR		(1<<2)
+#define PRC_FLAG_R		(1<<3)
 
-#define PRT_BEHAVIOR_N			(1<<4)
-#define PRT_BEHAVIOR_NWL		PRT_FLAG_HL
-#define PRT_BEHAVIOR_NWR		PRT_FLAG_HR
-#define PRT_BEHAVIOR_L			PRT_FLAG_L
-#define PRT_BEHAVIOR_LSTAR		(PRT_FLAG_L|PRT_FLAG_HR)
-#define PRT_BEHAVIOR_R			PRT_FLAG_R
-#define PRT_BEHAVIOR_RSTAR		(PRT_FLAG_R|PRT_FLAG_HL)
-#define PRT_BEHAVIOR_D			(PRT_FLAG_L|PRT_FLAG_R)
-#define PRT_BEHAVIOR_HL			PRT_FLAG_HL
-#define PRT_BEHAVIOR_HLSTAR		(PRT_FLAG_HL|PRT_FLAG_HR)
-#define PRT_BEHAVIOR_HR			PRT_FLAG_HR
-#define PRT_BEHAVIOR_HRSTAR		(PRT_FLAG_HR|PRT_FLAG_HL)
+#define PRC_BEHAVIOR_N			(1<<4)
+#define PRC_BEHAVIOR_NWL		PRC_FLAG_HL
+#define PRC_BEHAVIOR_NWR		PRC_FLAG_HR
+#define PRC_BEHAVIOR_L			PRC_FLAG_L
+#define PRC_BEHAVIOR_LSTAR		(PRC_FLAG_L|PRC_FLAG_HR)
+#define PRC_BEHAVIOR_R			PRC_FLAG_R
+#define PRC_BEHAVIOR_RSTAR		(PRC_FLAG_R|PRC_FLAG_HL)
+#define PRC_BEHAVIOR_D			(PRC_FLAG_L|PRC_FLAG_R)
+#define PRC_BEHAVIOR_HL			PRC_FLAG_HL
+#define PRC_BEHAVIOR_HLSTAR		(PRC_FLAG_HL|PRC_FLAG_HR)
+#define PRC_BEHAVIOR_HR			PRC_FLAG_HR
+#define PRC_BEHAVIOR_HRSTAR		(PRC_FLAG_HR|PRC_FLAG_HL)
 
 /datum/radiation_wave
 	var/source
@@ -23,7 +23,7 @@
 	var/intensity[8] //How strong it is
 	var/range_modifier //Higher than 1 makes it drop off faster, 0.5 makes it drop off half etc
 	var/can_contaminate
-	var/static/list/pseudo_raycasting_behavior_cache
+	var/static/list/prc_behavior_cache
 
 /datum/radiation_wave/New(atom/_source, _intensity=0, _range_modifier=RAD_DISTANCE_COEFFICIENT, _can_contaminate=TRUE)
 
@@ -114,7 +114,7 @@
 		check_obstructions(atoms, i)
 
 		/*
-		 * This is what I call pseudo-casting. Real raycasting would be ridiculously expensive,
+		 * This is what I call pseudo-raycasting (PRC). Real raycasting would be ridiculously expensive,
 		 * So this is the solution I came up with. Don't try to understand it by seeing the code.
 		 * You have been warned. If you find yourself having to touch this cursed code,
 		 * consider axing this away before contacting me via git-fu email digging. 
@@ -136,42 +136,42 @@
 			raycasting_cost += TICK_USAGE - cost_start_rt
 			continue
 		
-		if(!pseudo_raycasting_behavior_cache)
-			pseudo_raycasting_behavior_cache = list()
-		if(!pseudo_raycasting_behavior_cache[distance - 1])
+		if(!prc_behavior_cache)
+			prc_behavior_cache = list()
+		if(!prc_behavior_cache[distance - 1])
 			var/L[distance - 1]
-			pseudo_raycasting_behavior_cache[distance - 1] = L
+			prc_behavior_cache[distance - 1] = L
 		
-		var/prt_behavior = pseudo_raycasting_behavior_cache[distance][i % distance + 1]
+		var/prc_behavior = prc_behavior_cache[distance][i % distance + 1]
 
-		if(!prt_behavior)
-			pseudo_raycasting_behavior_cache[distance - 1][i % distance + 1] = prt_behavior = distance & 1 \
+		if(!prc_behavior)
+			prc_behavior_cache[distance - 1][i % distance + 1] = prc_behavior = distance & 1 \
 				? ((lp = ((idx = i % distance) * (vl = distance - branchclass + 1)) % (distance + 1)) < (bt = branchclass - (idx - round(idx * vl / (distance + 1)))) \
 					? (lp \
-						? (lp + vl >= bt ? PRT_BEHAVIOR_LSTAR : PRT_BEHAVIOR_L) \
-						: (vl >= bt ? PRT_BEHAVIOR_HLSTAR : PRT_BEHAVIOR_HL)) \
+						? (lp + vl >= bt ? PRC_BEHAVIOR_LSTAR : PRC_BEHAVIOR_L) \
+						: (vl >= bt ? PRC_BEHAVIOR_HLSTAR : PRC_BEHAVIOR_HL)) \
 					: (lp > branchclass \
-						? (lp - vl <= bt ? PRT_BEHAVIOR_NWL : (lp - bt > branchclass ? PRT_BEHAVIOR_NWR : PRT_BEHAVIOR_N)) \
+						? (lp - vl <= bt ? PRC_BEHAVIOR_NWL : (lp - bt > branchclass ? PRC_BEHAVIOR_NWR : PRC_BEHAVIOR_N)) \
 						: (lp == branchclass \
-							? (lp - vl <= bt ? PRT_BEHAVIOR_HRSTAR : PRT_BEHAVIOR_HR) \
-							: (lp - vl <= bt ? PRT_BEHAVIOR_RSTAR : PRT_BEHAVIOR_R)))) \
+							? (lp - vl <= bt ? PRC_BEHAVIOR_HRSTAR : PRC_BEHAVIOR_HR) \
+							: (lp - vl <= bt ? PRC_BEHAVIOR_RSTAR : PRC_BEHAVIOR_R)))) \
 				: ((lp = ((idx = i % distance) * (vl = distance - branchclass + 1)) % (distance + 1)) == (bt = branchclass - (idx - round(idx * vl / (distance + 1)))) \
-					? PRT_BEHAVIOR_D \
+					? PRC_BEHAVIOR_D \
 					: (lp > branchclass \
-						? (lp - vl <= bt ? PRT_BEHAVIOR_NWL : (lp - bt > branchclass ? PRT_BEHAVIOR_NWR : PRT_BEHAVIOR_N)) \
+						? (lp - vl <= bt ? PRC_BEHAVIOR_NWL : (lp - bt > branchclass ? PRC_BEHAVIOR_NWR : PRC_BEHAVIOR_N)) \
 						: (lp < bt \
-							? (lp + vl >= bt ? PRT_BEHAVIOR_LSTAR : PRT_BEHAVIOR_L) \
-							: (lp - vl <= bt ? PRT_BEHAVIOR_RSTAR : PRT_BEHAVIOR_R))))
+							? (lp + vl >= bt ? PRC_BEHAVIOR_LSTAR : PRC_BEHAVIOR_L) \
+							: (lp - vl <= bt ? PRC_BEHAVIOR_RSTAR : PRC_BEHAVIOR_R))))
 		
-		prt_behavior & PRT_FLAG_HL \
+		prc_behavior & PRC_FLAG_HL \
 		? (intensity_new[i + j] += cintensity[i] / 2) \
-		: (prt_behavior & PRT_FLAG_L \
+		: (prc_behavior & PRC_FLAG_L \
 		? (intensity_new[i + j] = cintensity[i]) \
 		: null)
 
-		prt_behavior & PRT_FLAG_HR \
+		prc_behavior & PRC_FLAG_HR \
 		? (intensity_new[i + j + 1] += cintensity[i] / 2) \
-		: (prt_behavior & PRT_FLAG_R \
+		: (prc_behavior & PRC_FLAG_R \
 		? (intensity_new[i + j + 1] = cintensity[i]) \
 		: null)
 
@@ -249,19 +249,19 @@
 			var/mob/poor_mob = moblist[k]
 			poor_mob.AddComponent(/datum/component/radioactive, contam_strength_divided, source)
 
-#undef PRT_FLAG_HL
-#undef PRT_FLAG_L
-#undef PRT_FLAG_HR
-#undef PRT_FLAG_R
-#undef PRT_BEHAVIOR_N
-#undef PRT_BEHAVIOR_NWL
-#undef PRT_BEHAVIOR_NWR
-#undef PRT_BEHAVIOR_L
-#undef PRT_BEHAVIOR_LSTAR
-#undef PRT_BEHAVIOR_R
-#undef PRT_BEHAVIOR_RSTAR
-#undef PRT_BEHAVIOR_D
-#undef PRT_BEHAVIOR_HL
-#undef PRT_BEHAVIOR_HLSTAR
-#undef PRT_BEHAVIOR_HR	
-#undef PRT_BEHAVIOR_HRSTAR
+#undef PRC_FLAG_HL
+#undef PRC_FLAG_L
+#undef PRC_FLAG_HR
+#undef PRC_FLAG_R
+#undef PRC_BEHAVIOR_N
+#undef PRC_BEHAVIOR_NWL
+#undef PRC_BEHAVIOR_NWR
+#undef PRC_BEHAVIOR_L
+#undef PRC_BEHAVIOR_LSTAR
+#undef PRC_BEHAVIOR_R
+#undef PRC_BEHAVIOR_RSTAR
+#undef PRC_BEHAVIOR_D
+#undef PRC_BEHAVIOR_HL
+#undef PRC_BEHAVIOR_HLSTAR
+#undef PRC_BEHAVIOR_HR	
+#undef PRC_BEHAVIOR_HRSTAR
