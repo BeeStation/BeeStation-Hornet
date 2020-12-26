@@ -1,3 +1,15 @@
+/*
+	- CHRONO ERASER -
+	
+	CONTENTS
+		The Backpack (and some code to protect it)
+		The Gun
+		Chrono Beam	(holds people in place, vaporizes people with TA antag datum)
+		Chrono Field (a structure that holds people in place)
+*/
+
+
+
 #define CHRONO_BEAM_RANGE 3
 #define CHRONO_FRAME_COUNT 22
 /obj/item/chrono_eraser
@@ -10,13 +22,20 @@
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
-	slowdown = 1
 	actions_types = list(/datum/action/item_action/equip_unequip_TED_Gun)
 	var/obj/item/gun/energy/chrono_gun/PA = null
-	var/list/erased_minds = list() //a collection of minds from the dead
+	var/protected = FALSE
 
-/obj/item/chrono_eraser/proc/pass_mind(datum/mind/M)
-	erased_minds += M
+/obj/item/chrono_eraser/proc/protection_check(mob/user)
+	if (protected && !user.mind?.has_antag_datum(/datum/antagonist/tca))
+		return FALSE
+	return TRUE
+
+/obj/item/chrono_eraser/equipped(mob/living/user, slot)
+	..()
+	if (!protection_check(user))
+		to_chat(user, "<span class='warning'>As you try to equipt it, the [src] shines blue for a second, then teleports away!</span>")
+		qdel(src)
 
 /obj/item/chrono_eraser/dropped()
 	..()
@@ -49,11 +68,10 @@
 	item_state = "chronogun"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_flags = DROPDEL
-	ammo_type = list(/obj/item/ammo_casing/energy/chrono_beam)
+	ammo_type = list(/obj/item/ammo_casing/energy/chrono_beam,/obj/item/ammo_casing/energy/electrode/spec)
 	can_charge = FALSE
 	fire_delay = 50
 	var/obj/item/chrono_eraser/TED = null
-	var/obj/structure/chrono_field/field = null
 	var/turf/startpos = null
 
 /obj/item/gun/energy/chrono_gun/Initialize()
@@ -68,60 +86,14 @@
 /obj/item/gun/energy/chrono_gun/update_icon()
 	return
 
-/obj/item/gun/energy/chrono_gun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
-	if(field)
-		field_disconnect(field)
-	..()
-
 /obj/item/gun/energy/chrono_gun/Destroy()
 	if(TED)
 		TED.PA = null
 		TED = null
-	if(field)
-		field_disconnect(field)
 	return ..()
 
-/obj/item/gun/energy/chrono_gun/proc/field_connect(obj/structure/chrono_field/F)
-	var/mob/living/user = loc
-	if(F.gun)
-		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='alert'><b>FAIL: <i>[F.captured]</i> already has an existing connection.</b></span>")
-		field_disconnect(F)
-	else
-		startpos = get_turf(src)
-		field = F
-		F.gun = src
-		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='notice'>Connection established with target: <b>[F.captured]</b></span>")
-
-
-/obj/item/gun/energy/chrono_gun/proc/field_disconnect(obj/structure/chrono_field/F)
-	if(F && field == F)
-		var/mob/living/user = loc
-		if(F.gun == src)
-			F.gun = null
-		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='alert'>Disconnected from target: <b>[F.captured]</b></span>")
-	field = null
-	startpos = null
-
-/obj/item/gun/energy/chrono_gun/proc/field_check(obj/structure/chrono_field/F)
-	if(F)
-		if(field == F)
-			var/turf/currentpos = get_turf(src)
-			var/mob/living/user = loc
-			if((currentpos == startpos) && (field in view(CHRONO_BEAM_RANGE, currentpos)) && (user.mobility_flags & MOBILITY_STAND) && (user.stat == CONSCIOUS))
-				return 1
-		field_disconnect(F)
-		return 0
-
-/obj/item/gun/energy/chrono_gun/proc/pass_mind(datum/mind/M)
-	if(TED)
-		TED.pass_mind(M)
-
-
 /obj/item/projectile/energy/chrono_beam
-	name = "eradication beam"
+	name = "eradicate"
 	icon_state = "chronobolt"
 	range = CHRONO_BEAM_RANGE
 	nodamage = TRUE
@@ -135,8 +107,11 @@
 
 /obj/item/projectile/energy/chrono_beam/on_hit(atom/target)
 	if(target && gun && isliving(target))
-		var/obj/structure/chrono_field/F = new(target.loc, target, gun)
-		gun.field_connect(F)
+		var/mob/living/PT = target
+		if (PT.mind?.has_antag_datum(/datum/antagonist/ta))
+			PT.dust()
+		else
+			new /obj/structure/chrono_field(target.loc, target, gun)
 
 
 /obj/item/ammo_casing/energy/chrono_beam
@@ -151,10 +126,6 @@
 		gun = loc
 	. = ..()
 
-
-
-
-
 /obj/structure/chrono_field
 	name = "eradication field"
 	desc = "An aura of time-bluespace energy."
@@ -166,7 +137,6 @@
 	move_resist = INFINITY
 	interaction_flags_atom = NONE
 	var/mob/living/captured = null
-	var/obj/item/gun/energy/chrono_gun/gun = null
 	var/tickstokill = 15
 	var/mutable_appearance/mob_underlay
 	var/preloaded = 0
@@ -192,11 +162,6 @@
 	START_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/structure/chrono_field/Destroy()
-	if(gun && gun.field_check(src))
-		gun.field_disconnect(src)
-	return ..()
-
 /obj/structure/chrono_field/update_icon()
 	var/ttk_frame = 1 - (tickstokill / initial(tickstokill))
 	ttk_frame = CLAMP(CEILING(ttk_frame * CHRONO_FRAME_COUNT, 1), 1, CHRONO_FRAME_COUNT)
@@ -212,40 +177,14 @@
 			for(var/atom/movable/AM in contents)
 				AM.forceMove(drop_location())
 			qdel(src)
-		else if(tickstokill <= 0)
-			to_chat(captured, "<span class='boldnotice'>As the last essence of your being is erased from time, you are taken back to your most enjoyable memory. You feel happy...</span>")
-			var/mob/dead/observer/ghost = captured.ghostize(1)
-			if(captured.mind)
-				if(ghost)
-					ghost.mind = null
-				if(gun)
-					gun.pass_mind(captured.mind)
-			qdel(captured)
-			qdel(src)
 		else
 			captured.Unconscious(80)
 			if(captured.loc != src)
 				captured.forceMove(src)
 			update_icon()
-			if(gun)
-				if(gun.field_check(src))
-					tickstokill--
-				else
-					gun = null
-					return .()
-			else
-				tickstokill++
+			tickstokill++
 	else
 		qdel(src)
-
-/obj/structure/chrono_field/bullet_act(obj/item/projectile/P)
-	if(istype(P, /obj/item/projectile/energy/chrono_beam))
-		var/obj/item/projectile/energy/chrono_beam/beam = P
-		var/obj/item/gun/energy/chrono_gun/Pgun = beam.gun
-		if(Pgun && istype(Pgun))
-			Pgun.field_connect(src)
-	else
-		return BULLET_ACT_HIT
 
 /obj/structure/chrono_field/assume_air()
 	return 0

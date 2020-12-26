@@ -437,15 +437,6 @@
 		/obj/item/gun/grenadelauncher=1,\
 		/obj/item/gun/ballistic/automatic/ar=1)
 
-/datum/outfit/chrono_agent
-	name = "Timeline Eradication Agent"
-	uniform = /obj/item/clothing/under/color/white
-	suit = /obj/item/clothing/suit/space/chronos
-	back = /obj/item/chrono_eraser
-	head = /obj/item/clothing/head/helmet/space/chronos
-	mask = /obj/item/clothing/mask/breath
-	suit_store = /obj/item/tank/internals/oxygen
-
 /datum/outfit/joker
 	name = "Joker"
 	uniform = /obj/item/clothing/under/costume/joker
