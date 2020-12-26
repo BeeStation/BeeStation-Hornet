@@ -99,6 +99,7 @@
 		M.Multiply(matrix(1, crateanim_1, 0, 0, crateanim_2, 0))
 		M.Translate(0, door_hinge)
 		return M
+
 /*The animation_list proc writes into two static lists first animation_math where it creates a new list inside for all the values needed for the crate animation.
 The second list is animation_index this list is an associative list where special identify values are saved that are used to determine if there is the need for another list in animation_math or if
 the current lists are sufficent and it is used to get the right index for animation_math for any possible type of crate.
@@ -109,7 +110,7 @@ The last one is the for loop it simply uses all given indexes to save the needed
 		animation_index = new/list()
 		animation_math = new/list()
 	anindex = animation_index.Find("[door_anim_time]-[door_anim_angle]-[open_angle]-[radius_2]") //saves index to anindex
-	if(animation_index == null || animation_index.Find("[door_anim_time]-[door_anim_angle]-[open_angle]-[radius_2]") == 0)
+	if(animation_index.Find("[door_anim_time]-[door_anim_angle]-[open_angle]-[radius_2]") == 0)
 		var/num_steps_1 = door_anim_time / world.tick_lag
 		animation_index.len = length(animation_index)+1 //increases list size fo animation index
 		animation_index[length(animation_index)] = "[door_anim_time]-[door_anim_angle]-[open_angle]-[radius_2]" //saves the unique value to the asssociative list
