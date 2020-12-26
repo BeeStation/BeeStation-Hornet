@@ -1,0 +1,4 @@
+author: Sinestia
+delete-after: true
+changes:
+  - bugfix: AI interface conforms to 17x15 properly
