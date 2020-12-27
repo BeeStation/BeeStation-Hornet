@@ -1,6 +1,0 @@
-author: cerebrallolzy, jupyterkat
-delete-after: true
-changes:
-  - balance: No longer can run away from explosions.
-  - refactor: Explosions is now a subsystem.
-  - refactor: Nukes now only gibs everyone, unfortunately
