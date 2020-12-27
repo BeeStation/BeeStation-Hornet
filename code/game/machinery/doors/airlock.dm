@@ -1661,7 +1661,7 @@
   */
 /obj/machinery/door/airlock/proc/set_wires()
 	var/area/source_area = get_area(src)
-	return new source_area.airlock_wires(src)
+	return source_area?.airlock_wires ? new source_area.airlock_wires(src) : new /datum/wires/airlock(src)
 
 #undef AIRLOCK_CLOSED
 #undef AIRLOCK_CLOSING
