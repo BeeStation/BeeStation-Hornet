@@ -25,13 +25,12 @@
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
 	var/radius_2 = 1.35
 	var/static/list/animation_math //list with pre calculation animation parameter
-	var/crateexeption = FALSE //Set to true if the crate does not use the normal animation code and does not need a list
 
 /obj/structure/closet/crate/Initialize()
 	. = ..()
 	if(animation_math == null) //checks if there is already a list for animation_index if not makes a new list also includes animation_math cause why not honestly
 		animation_math = new/list()
-	if(!door_anim_time == 0 && crateexeption == FALSE && !animation_math["[door_anim_time]-[door_anim_angle]-[door_anim_squish]-[radius_2]"])
+	if(!door_anim_time == 0 && !animation_math["[door_anim_time]-[door_anim_angle]-[door_anim_squish]-[radius_2]"])
 		animation_list()
 
 /obj/structure/closet/crate/CanPass(atom/movable/mover, turf/target)

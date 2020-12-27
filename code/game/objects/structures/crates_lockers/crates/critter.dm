@@ -16,7 +16,6 @@
 	door_hinge = 5.5
 	door_anim_angle = 90
 	door_anim_squish = 0.35
-	crateexeption = TRUE
 
 /obj/structure/closet/crate/critter/Initialize()
 	. = ..()
@@ -78,3 +77,5 @@
 		return tank.return_analyzable_air()
 	else
 		return null
+
+/obj/structure/closet/crate/critter/animation_list()
