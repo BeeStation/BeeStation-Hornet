@@ -100,7 +100,7 @@
 	if(!(D.mobility_flags & MOBILITY_STAND))
 		bonus_damage += 5
 		picked_hit_type = "stomped"
-	D.apply_damage(rand(1,5) + bonus_damage, STAMINA, affecting, armor_block)
+	D.apply_damage(5 + bonus_damage, STAMINA, affecting, armor_block)
 	if(picked_hit_type == "kicked" || picked_hit_type == "stomped")
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		playsound(get_turf(D), 'sound/effects/hit_kick.ogg', 50, 1, -1)
@@ -123,7 +123,7 @@
 		to_chat(A, "<span class='danger'>You jab [D]!</span>")
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		playsound(D, 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
-		D.apply_damage(rand(1,5), STAMINA, affecting, armor_block)
+		D.apply_damage(5, STAMINA, affecting, armor_block)
 		log_combat(A, D, "punched nonlethally")
 	if(!(D.mobility_flags & MOBILITY_STAND))
 		D.visible_message("<span class='danger'>[A] reprimands [D]!</span>", \
@@ -131,9 +131,6 @@
 		to_chat(A, "<span class='danger'>You stomp [D]!</span>")
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		playsound(D, 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
-		D.apply_damage(rand(5,10), STAMINA, affecting, armor_block)
+		D.apply_damage(10, STAMINA, affecting, armor_block)
 		log_combat(A, D, "stomped nonlethally")
-	if(prob(D.getStaminaLoss()))
-		D.visible_message("<span class='warning'>[D] sputters and recoils in pain!</span>", "<span class='userdanger'>You recoil in pain as you are jabbed in a nerve!</span>")
-		D.drop_all_held_items()
 	return 1

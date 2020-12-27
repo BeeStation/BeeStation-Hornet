@@ -55,6 +55,7 @@
 /obj/machinery/plumbing/synthesizer/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_supply, bolt)
+	shuffle_inplace(dispensable_reagents)
 
 /obj/machinery/plumbing/synthesizer/process()
 	if(stat & NOPOWER || !reagent_id || !amount)
@@ -83,9 +84,12 @@
 		var/datum/reagent/R = GLOB.chemical_reagents_list[A]
 		if(R)
 			var/chemname = R.name
-			if(is_hallucinating && prob(5))
-				chemname = "[pick_list_replacements("hallucination.json", "chemicals")]"
-			chemicals.Add(list(list("title" = chemname, "id" = ckey(R.name))))
+			if(HAS_TRAIT(user, TRAIT_CHEMISTRY))
+				if(is_hallucinating && prob(5))
+					chemname = "[pick_list_replacements("hallucination.json", "chemicals")]"
+				chemicals.Add(list(list("title" = chemname, "id" = ckey(R.name))))
+			else
+				chemicals.Add(list(list("title" = "", "id" = ckey(R.name))))
 	data["chemicals"] = chemicals
 	data["amount"] = amount
 	data["possible_amounts"] = possible_amounts
