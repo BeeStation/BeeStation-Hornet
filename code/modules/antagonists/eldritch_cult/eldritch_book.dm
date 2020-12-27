@@ -26,31 +26,7 @@
 	if(!proximity_flag || !IS_HERETIC(user) || in_use)
 		return
 	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	var/mob/living/carbon/human/victim = target
 	in_use = TRUE
-	if (istype(victim) && victim.stat != DEAD && cultie.get_knowledge(/datum/eldritch_knowledge/dreamgate))
-		to_chat(user,"<span class='warning'>You open the [src] and start assaulting the mind of [victim]!</span>")
-		icon_state = "book_open"
-		flick("book_opening",src)
-		if (do_after(user,10 SECONDS,victim))
-			user.whisper("That is not dead which can eternal lie...", language = /datum/language/common)
-			var/dream_text = pick ("a hooded figurine","dead bodies, as far as the eye can see","whispering","opens a third eye","grows tentacles", "the monster of a thousand hands","beautiful creatures made out of of flesh and bone","a book... written in blood and bile")
-			to_chat(victim, "<span class='warning'>... [dream_text]...</span>")
-			if (do_after(user,10 SECONDS,victim) && !QDELETED(victim) && victim.stat != DEAD && victim.IsSleeping())
-				user.whisper("And with strange aeons even death may die...", language = /datum/language/common)
-				switch (cultie.enslave(victim))
-					if (0)
-						victim.SetSleeping(0)
-						to_chat(user,"<span class='warning'>You corrupt the mind of [victim] and is now bound to do your bidding...</span>")
-					if (3)
-						to_chat(user,"<span class='warning'>You cannot enslave this mind!</span>")
-					if (2)
-						to_chat(user,"<span class='notice'>[victim] has no mind to enslave!</span>")
-					if (1)
-						to_chat(user, "<span class='notice'>You sense a weak mind, but your powers are not strong enough to take it over!</span>")
-
-		flick("book_closing",src)
-		icon_state = initial(icon_state)
 	if(istype(target,/obj/effect/reality_smash))
 		//Gives you a charge and destroys a corresponding influence
 		var/obj/effect/reality_smash/RS = target

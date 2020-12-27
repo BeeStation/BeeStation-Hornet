@@ -27,7 +27,7 @@
 	desc = "You passively heal when you are on rusted tiles."
 	gain_text = "The strength was unparallel, it was unnatural. Blacksmith was smiling."
 	cost = 5
-	next_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/essence,/datum/eldritch_knowledge/ashen_eyes,/datum/eldritch_knowledge/dreamgate)
+	next_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/essence,/datum/eldritch_knowledge/ashen_eyes,/datum/eldritch_knowledge/armor)
 	route = PATH_RUST
 
 /datum/eldritch_knowledge/rust_mark
@@ -46,7 +46,7 @@
 	gain_text = "All men wise know not to touch the bound king."
 	cost = 5
 	spell_to_add = /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
-	next_knowledge = list(/datum/eldritch_knowledge/rust_blade_upgrade,/datum/eldritch_knowledge/spell/blood_siphon,/datum/eldritch_knowledge/curse/alteration,/datum/eldritch_knowledge/armor)
+	next_knowledge = list(/datum/eldritch_knowledge/rust_blade_upgrade,/datum/eldritch_knowledge/spell/blood_siphon,/datum/eldritch_knowledge/curse/alteration,/datum/eldritch_knowledge/dematerialize)
 	route = PATH_RUST
 
 /datum/eldritch_knowledge/rust_blade_upgrade

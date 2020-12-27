@@ -330,10 +330,10 @@
 		to_chat(user,"<span class='notice'>Your victim is missing!</span>")
 		return
 	switch (cultie.enslave(victim))
-		if (0)
+		if (HERETIC_FAILTYPE_SUCCESS)
 			victim.SetSleeping(0)
 			to_chat(user,"<span class='warning'>You corrupt the mind of [victim] and is now bound to do your bidding...</span>")
-		if (1)
+		if (HERETIC_FAILTYPE_INVALID)
 			to_chat(user, "<span class='notice'>You sense a weak mind, but your powers are not strong enough to take it over!</span>")
 		else
 			to_chat(user,"<span class='notice'>The ritual has failed! [victim] is not a valid target!</span>")
@@ -375,7 +375,7 @@
 	desc = "You can now create eldritch armor using a table, the skin of a human and a gas mask."
 	gain_text = "For I am the heir to the throne of doom."
 	cost = 4
-	next_knowledge = list(/datum/eldritch_knowledge/spell/area_conversion,/datum/eldritch_knowledge/summon/raw_prophet,/datum/eldritch_knowledge/dematerialize)
+	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
 	required_atoms = list(/obj/structure/table,/obj/item/stack/sheet/animalhide/human,/obj/item/clothing/mask/gas)
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch)
 
@@ -416,13 +416,6 @@
 	next_knowledge = list(/datum/eldritch_knowledge/spell/rust_wave,/datum/eldritch_knowledge/spell/flame_birth,/datum/eldritch_knowledge/summon/stalker)
 
 // Curses //
-
-/datum/eldritch_knowledge/dreamgate
-	name = "Dreamgate"
-	gain_text = "Those safe in this world are not safe in others..."
-	desc = "Allows you to read paragraphs of your codex to mortals that are asleep. You can convert sleeping, non-mindshielded humans into your followers."
-	cost = 4
-	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
 
 /datum/eldritch_knowledge/curse/alteration
 	name = "Alteration"
@@ -577,4 +570,9 @@
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/rust_spirit
 	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/flame_birth)
 
-	//NOTE TO SELF -> FIX DESCRIPTIONS AND NEXT_KNOWLEDGES
+/datum/eldritch_knowledge/dematerialize
+	name = "Goopher Dust"
+	gain_text = "God's anger, my weapon!"
+	desc = "Your Mansus Grasp can shred strange figurines into goopher dust. This dust inflicts a greater effect but will dissipate upon use."
+	cost = 5
+	next_knowledge = list(/datum/eldritch_knowledge/spell/area_conversion,/datum/eldritch_knowledge/summon/raw_prophet,/datum/eldritch_knowledge/dematerialize)

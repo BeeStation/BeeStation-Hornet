@@ -196,12 +196,68 @@
 	icon_state = "eldrich_flask"
 	list_reagents = list(/datum/reagent/eldritch = 50)
 
+/obj/item/clothing/mask/void_mask
+	name = "Mask Of Madness"
+	desc = "Mask created from the suffering of existance, you can look down it's eyes, and notice something gazing back at you."
+	icon_state = "mad_mask"
+	w_class = WEIGHT_CLASS_SMALL
+	flags_cover = MASKCOVERSEYES
+	resistance_flags = FLAMMABLE
+	flags_inv = HIDEFACE|HIDEFACIALHAIR
+	///Who is wearing this
+	var/mob/living/carbon/human/local_user
+
+/obj/item/clothing/mask/void_mask/equipped(mob/user, slot)
+	. = ..()
+	if(slot != ITEM_SLOT_MASK)
+		return
+	if(ishuman(user) && user.mind && slot == ITEM_SLOT_MASK)
+		local_user = user
+		START_PROCESSING(SSobj,src)
+
+		if(IS_HERETIC(user) || IS_HERETIC_CULTIST(user))
+			return
+		ADD_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
+
+/obj/item/clothing/mask/void_mask/dropped(mob/M)
+	local_user = null
+	STOP_PROCESSING(SSobj,src)
+	REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
+	return ..()
+
+/obj/item/clothing/mask/void_mask/process()
+	if(!local_user)
+		return PROCESS_KILL
+
+	if((IS_HERETIC(local_user) || IS_HERETIC_CULTIST(local_user)) && HAS_TRAIT(src,TRAIT_NODROP))
+		REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
+
+	for(var/mob/living/carbon/human/human_in_range in spiral_range(9,local_user))
+		if(IS_HERETIC(human_in_range) || IS_HERETIC_CULTIST(human_in_range))
+			continue
+
+		SEND_SIGNAL(human_in_range,COMSIG_VOID_MASK_ACT,rand(-1,-10))
+
+		if(prob(60))
+			human_in_range.hallucination += 5
+
+		if(prob(40))
+			human_in_range.Jitter(5)
+
+		if(prob(30))
+			human_in_range.emote(pick("giggle","laugh"))
+			human_in_range.adjustStaminaLoss(10)
+
+		if(prob(25))
+			human_in_range.Dizzy(5)
+
 /obj/item/clothing/neck/eldritch_amulet/crucifix
 	name = "crucifix"
 	desc = "In the eventuality that one of those you falesly accused is, in fact, a real witch, this will ward you against their curses."
 	trait = TRAIT_WARDED
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	used_by_unitiated = TRUE
+	icon_state = "crucifix"
 
 /obj/item/clothing/neck/eldritch_amulet/rosary
 	name = "rosary beads"
@@ -209,8 +265,9 @@
 	trait = TRAIT_WARDED
 	used_by_unitiated = TRUE
 	resistance_flags = FLAMMABLE
+	icon_state = "rosary"
 
-#define GOD_SLEEP 1
+#define GOD_YOUTH 1
 #define GOD_SIGHT 2
 #define GOD_MIND 3
 #define GOD_CLEANSE 4
@@ -235,14 +292,13 @@
 	var/godname = "C'Thulhu"
 	var/activated = FALSE
 	var/ashes = FALSE
-	icon = 'icons/obj/wizard.dmi'	//temporary
 	icon_state = "voodoo"
 
 /obj/item/artifact/Initialize()
 	..()
 	deity = rand(1,GODS_MAX)
 	switch (deity)
-		if (GOD_SLEEP)	//force awake - sleep
+		if (GOD_YOUTH)	
 			godname = "Lobon"
 		if (GOD_SIGHT)
 			godname = "Nath-Horthath"
@@ -289,8 +345,8 @@
 			else
 				var/boon = "The [name] will offer the boon of [godname], "
 				switch (deity)
-					if (GOD_SLEEP)
-						boon += "fixing one's insides."
+					if (GOD_YOUTH)
+						boon += "fixing one's organs."
 					if (GOD_SIGHT)
 						boon += "bringing back one's vision."
 					if (GOD_MIND)
@@ -365,7 +421,7 @@
 	if (!activated)
 		return FALSE
 	switch (deity)
-		if (GOD_SLEEP)
+		if (GOD_YOUTH)
 			target.adjustOrganLoss(ORGAN_SLOT_HEART,-5)
 			target.adjustOrganLoss(ORGAN_SLOT_LIVER,-5)
 			target.adjustOrganLoss(ORGAN_SLOT_STOMACH,-5)
@@ -391,7 +447,7 @@
 			to_chat(target,"<span class='warning'>Your eyes sting!</span>")
 		if (GOD_MUTE)
 			target.adjustOrganLoss(ORGAN_SLOT_TONGUE,8)
-			target.silent += 2 SECONDS
+			target.silent += 3 SECONDS
 		if (GOD_STUPID)
 			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,8)
 			to_chat(target,"<span class='warning'>Your feel confused!</span>")
@@ -463,8 +519,8 @@
 		if (GOD_BLIND)
 			target.adjustOrganLoss(ORGAN_SLOT_EYES,40)
 		if (GOD_MUTE)
-			target.adjustOrganLoss(ORGAN_SLOT_TONGUE,30)
-			target.silent += 20 SECONDS
+			target.adjustOrganLoss(ORGAN_SLOT_TONGUE,50)
+			target.silent += 10 SECONDS
 		if (GOD_STUPID)
 			target.adjustOrganLoss(ORGAN_SLOT_BRAIN,15)
 			target.SetSleeping(10 SECONDS)

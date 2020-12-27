@@ -81,3 +81,11 @@
 #define PATH_ASH "Ash"
 #define PATH_RUST "Rust"
 #define PATH_FLESH "Flesh"
+
+#define HERETIC_FAILTYPE_SUCCESS	0
+#define HERETIC_FAILTYPE_LIMIT		1
+#define HERETIC_FAILTYPE_INVALID	2
+#define HERETIC_FAILTYPE_HERETIC	3
+
+///sent to everyone in range of being affected by mask of madness
+#define COMSIG_VOID_MASK_ACT "void_mask_act"

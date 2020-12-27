@@ -26,7 +26,7 @@
 	desc = "Short range jaunt that can help you escape from bad situations."
 	cost = 5
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash
-	next_knowledge = list(/datum/eldritch_knowledge/ash_mark,/datum/eldritch_knowledge/essence,/datum/eldritch_knowledge/ashen_eyes,/datum/eldritch_knowledge/dreamgate)
+	next_knowledge = list(/datum/eldritch_knowledge/ash_mark,/datum/eldritch_knowledge/essence,/datum/eldritch_knowledge/ashen_eyes,/datum/eldritch_knowledge/armor)
 	route = PATH_ASH
 
 /datum/eldritch_knowledge/ash_mark
@@ -34,17 +34,19 @@
 	gain_text = "Spread the famine."
 	desc = "As a Priest of Ash, you can recruit more disciples. Also, your eldritch blade now applies a mark which, when activated with Mansus Grasph, causes stamina loss, and fire damage, and spreads to a nearby carbons."
 	cost = 10
-	next_knowledge = list(/datum/eldritch_knowledge/dematerialize)
+	next_knowledge = list(/datum/eldritch_knowledge/mad_mask)
 	banned_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/flesh_mark)
 	route = PATH_ASH
 	followers_increment = 1
 
-/datum/eldritch_knowledge/dematerialize
-	name = "Goopher Dust"
-	gain_text = "God's anger, my weapon!"
-	desc = "Your Mansus Grasp can shred strange figurines into goopher dust. This dust has a greater effect but can dissipates uponuse."
+/datum/eldritch_knowledge/mad_mask
+	name = "Mask of Madness"
+	gain_text = "He walks the world, unnoticed by the masses."
+	desc = "Allows you to transmute any mask, with a candle and a pair of eyes, to create a mask of madness, It causes passive stamina damage to everyone around the wearer and hallucinations, can be forced on a non believer to make him unable to take it off..."
 	cost = 5
-	next_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/spell/blood_siphon,/datum/eldritch_knowledge/curse/alteration,/datum/eldritch_knowledge/armor)
+	result_atoms = list(/obj/item/clothing/mask/void_mask)
+	required_atoms = list(/obj/item/organ/eyes,/obj/item/clothing/mask,/obj/item/candle)
+	next_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/spell/blood_siphon,/datum/eldritch_knowledge/curse/alteration,/datum/eldritch_knowledge/dematerialize)
 	route = PATH_ASH
 
 /datum/eldritch_knowledge/ash_blade_upgrade

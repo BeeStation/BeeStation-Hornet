@@ -336,11 +336,11 @@
 /datum/antagonist/heretic/proc/spend_favor(points)
 	if (get_favor_left()<points)
 		return FALSE
-	favor_spent+=points
+	favor_spent += points
 	return TRUE
 
 /datum/antagonist/heretic/proc/get_favor_left()
-	return favor_earned-favor_spent
+	return favor_earned - favor_spent
 
 //////////////
 // Minicult //
@@ -358,17 +358,17 @@
 
 /datum/antagonist/heretic/proc/enslave(mob/living/carbon/human/victim)
 	if(get_cur_followers() >= max_followers)
-		return 1
+		return HERETIC_FAILTYPE_LIMIT
 	if(!victim.mind || !victim.client )
-		return 2
+		return HERETIC_FAILTYPE_INVALID
 	if (IS_HERETIC(victim) || IS_HERETIC_CULTIST(victim) || HAS_TRAIT(victim, TRAIT_MINDSHIELD))
-		return 3
+		return HERETIC_FAILTYPE_HERETIC
 	log_game("[key_name_admin(victim)] has become a follower of [key_name_admin(src)]")
 	victim.faction |= "heretics"
 	victim.mind.add_antag_datum(/datum/antagonist/heretic_monster/disciple)
 	var/datum/antagonist/heretic_monster/heretic_monster = victim.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple)
 	heretic_monster.set_owner(src)
-	return 0
+	return HERETIC_FAILTYPE_SUCCESS
 
 /datum/antagonist/heretic/proc/can_promote_follower(datum/antagonist/heretic_monster/disciple/sucker)
 	if (sucker.master != src)
@@ -377,7 +377,7 @@
 	if (sucker.tier == 4)
 		to_chat(owner, "<span class='notice'>This follower has reached the highest level!</span>")
 		return FALSE
-	if (get_favor_left()<sucker.get_promote_cost())
+	if (get_favor_left() < sucker.get_promote_cost())
 		to_chat(owner, "<span class='warning'>You need [sucker.get_promote_cost()] favor to promote this follower!</span>")
 		return FALSE
 	if ((sucker.tier == 3 && !ascended) || sucker.tier >= max_followers)

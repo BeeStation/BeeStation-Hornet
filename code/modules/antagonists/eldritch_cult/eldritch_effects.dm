@@ -132,7 +132,7 @@
  */
 /datum/reality_smash_tracker/proc/Generate()
 	targets++
-	var/number = max(targets * (4-(targets-1)) - smashes,1)
+	var/number = max(targets * ( 4 - (targets-1) ) - smashes,1)
 
 	for(var/i in 0 to number)
 
@@ -165,15 +165,15 @@
 	I.override = TRUE
 	I.alpha = 255
 	// This was on TG but I'm not sure what the bee equivalent is --- add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/heretics,"pierced_reality",I)
-	addtimer(CALLBACK(src,.proc/dissipate),10 MINUTES)
+	addtimer(CALLBACK(src,.proc/dissipate),15 MINUTES)
 
 ///Makes this obj appear out of nothing
 /obj/effect/broken_illusion/proc/show_presence()
 	animate(src,alpha = 255,time = 15 SECONDS)	//might make this one longer
 	
 /obj/effect/broken_illusion/proc/dissipate()
-	animate(src,alpha = 0,time = 5 SECONDS)
-	sleep(5 SECONDS)
+	animate(src,alpha = 0,time = 2 MINUTES)
+	sleep(2 MINUTES)
 	qdel(src)
 
 /obj/effect/broken_illusion/attack_hand(mob/living/user)

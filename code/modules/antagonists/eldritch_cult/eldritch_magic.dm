@@ -87,7 +87,7 @@
 				use_knowledge = FALSE
 		else
 			C.adjustBruteLoss(10)
-			C.AdjustKnockdown(5 SECONDS)
+			C.AdjustKnockdown(3 SECONDS)
 			C.adjustStaminaLoss(80)
 	else if (istype(target,/obj/item/artifact) && cultie.get_knowledge(/datum/eldritch_knowledge/dematerialize))
 		var/obj/item/artifact/target_artifact = target
@@ -161,8 +161,9 @@
 				harm = FALSE
 	if(harm && iscarbon(target))
 		var/mob/living/carbon/C = target
-		C.adjustBruteLoss(5)
-		C.adjustStaminaLoss(60)	//maybe staminaloss is neglectable?
+		C.adjustBruteLoss(10)
+		C.AdjustKnockdown(5 SECONDS)
+		C.adjustStaminaLoss(80)
 	..()
 
 /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
