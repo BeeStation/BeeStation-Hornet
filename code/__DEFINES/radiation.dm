@@ -55,7 +55,7 @@ Ask ninjanomnom if they're around
 													// WARNING: Reducing can make rads subsytem more expensive
 #define RAD_COMPONENT_MINIMUM 1						// To ensure slow contamination
 													// WARNING: Reducing can make rads subsytem more expensive
-#define RAD_CONTAMINATION_STR_COEFFICIENT (1 / RAD_HALF_LIFE / 8 * RAD_DISTANCE_COEFFICIENT_COMPONENT_MULTIPLIER)
+#define RAD_CONTAMINATION_STR_COEFFICIENT (1 / RAD_HALF_LIFE / 8 * 2 ** (RAD_DISTANCE_COEFFICIENT_COMPONENT_MULTIPLIER - 1))
 													// Higher means higher strength scaling contamination strength
 													// This number represents perservation of radiation
 													// Set to control the most typical situation: clutters around typical radiation sources
