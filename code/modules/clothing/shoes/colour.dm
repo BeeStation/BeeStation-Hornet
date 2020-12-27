@@ -118,7 +118,7 @@
 	var/mob/m = usr
 	if(ishuman(m))
 		var/mob/living/carbon/human/hummie = m
-		if(hummie.shoes == src && chained == 1)
+		if(hummie.shoes == src && chained)
 			to_chat(hummie, "<span class='warning'>You start taking off your [src]!</span>")			
 			if(!do_after(hummie,15 SECONDS, src))
 				return FALSE
