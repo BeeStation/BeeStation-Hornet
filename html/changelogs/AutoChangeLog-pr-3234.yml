@@ -1,0 +1,5 @@
+author: Froststahr
+delete-after: true
+changes:
+  - rscadd: Abductors now start with agent IDs! Just swipe a victim's ID card onto
+      it to copy their access.
