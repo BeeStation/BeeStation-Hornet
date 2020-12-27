@@ -1,0 +1,4 @@
+author: Autisem
+delete-after: true
+changes:
+  - bugfix: Dryed gaia can now be used to make torches
