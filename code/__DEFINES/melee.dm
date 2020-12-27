@@ -10,4 +10,3 @@
 #define MARTIALART_PLASMAFIST "plasma fist"
 #define MARTIALART_KARATE "karate"
 #define MARTIALART_TRIBALCLAW "tribal claw"
-#define MARTIALART_SECURITY "Security CQC"
