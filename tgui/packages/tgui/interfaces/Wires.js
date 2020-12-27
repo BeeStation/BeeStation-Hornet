@@ -11,11 +11,13 @@ export const Wires = (props, context) => {
   return (
     <Window
       width={320}
-      height={150 + (wires.length * 30) + (!!proper_name && 30)}>
+      height={150
+        + (wires.length * 30)
+        + (!!proper_name && 30)}>
       <Window.Content>
       {(!!proper_name && (
           <NoticeBox textAlign="center">
-            { proper_name } Wire Configuration
+            {proper_name} Wire Configuration
           </NoticeBox>
         ))}
         <Section>
