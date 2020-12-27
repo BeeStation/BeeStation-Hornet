@@ -1,5 +1,0 @@
-author: r1ks-iwnl
-delete-after: true
-changes:
-  - bugfix: Fixed Advanced Health Analyzer working exactly like the normal Health
-      Analyzer.
