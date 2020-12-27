@@ -222,10 +222,12 @@ SUBSYSTEM_DEF(ticker)
 	log_world("Starting master mode stuff")
 	if(GLOB.master_mode == "random" || GLOB.master_mode == "secret")
 		runnable_modes = config.get_runnable_modes()
-
+		log_world("if(GLOB.master_mode == \"random\" || GLOB.master_mode == \"secret\")")
 		if(GLOB.master_mode == "secret")
 			hide_mode = 1
+			log_world("if(GLOB.master_mode == \"secret\")")
 			if(GLOB.secret_force_mode != "secret")
+				log_world("if(GLOB.secret_force_mode != \"secret\")")
 				var/datum/game_mode/smode = config.pick_mode(GLOB.secret_force_mode)
 				if(!smode.can_start())
 					message_admins("<span class='notice'>Unable to force secret [GLOB.secret_force_mode]. [smode.required_players] players and [smode.required_enemies] eligible antagonists needed.</span>")
@@ -233,16 +235,21 @@ SUBSYSTEM_DEF(ticker)
 					mode = smode
 
 		if(!mode)
+			log_world("if(!mode)")
 			if(!runnable_modes.len)
+				log_world("if(!runnable_modes.len)")
 				to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
 				return 0
 			mode = pickweight(runnable_modes)
 			if(!mode)	//too few roundtypes all run too recently
+				log_world("if(!mode) x2")
 				mode = pick(runnable_modes)
 
 	else
+		log_world("else")
 		mode = config.pick_mode(GLOB.master_mode)
 		if(!mode.can_start())
+			log_world("if(!mode.can_start())")
 			to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players and [mode.required_enemies] eligible antagonists needed. Reverting to pre-game lobby.")
 			qdel(mode)
 			mode = null
