@@ -1,0 +1,6 @@
+author: DatBoiTim
+delete-after: true
+changes:
+  - tweak: Syndicate MMI is a standalone uplink item. Restricted to Roboticist and
+      RD.
+  - tweak: Increased Syndicate Surgery Duffle Bag cost to 3 TC
