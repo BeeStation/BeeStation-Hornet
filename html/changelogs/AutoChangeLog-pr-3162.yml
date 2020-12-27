@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - code_imp: Adds a validation check when loading jobs.txt
