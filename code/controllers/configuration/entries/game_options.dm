@@ -453,4 +453,4 @@
 
 // Master Mode
 /datum/config_entry/string/master_mode
-	config_entry_value = "secret"
+	config_entry_value = "traitor"
