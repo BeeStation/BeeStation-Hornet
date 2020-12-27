@@ -80,6 +80,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance
 	ambient_effects = MAINTENANCE
 	valid_territory = FALSE
+	airlock_wires = /datum/wires/airlock/maint
 	mood_bonus = -1
 	mood_message = "<span class='nicegreen'>It's kind of cramped in here!\n</span>"
 	lighting_colour_tube = "#ffe5cb"
@@ -294,6 +295,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Bridge"
 	icon_state = "bridge"
 	ambient_effects = list('sound/ambience/signal.ogg')
+	airlock_wires = /datum/wires/airlock/command
 
 	lighting_colour_tube = "#ffce99"
 	lighting_colour_bulb = "#ffdbb4"
@@ -310,6 +312,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/bridge/showroom/corporate
 	name = "Corporate Showroom"
 	icon_state = "showroom"
+
+/area/crew_quarters/heads
+	airlock_wires = /datum/wires/airlock/command
 
 /area/crew_quarters/heads/captain
 	name = "Captain's Office"
@@ -417,6 +422,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "kitchen"
 	lighting_colour_tube = "#e3ffff"
 	lighting_colour_bulb = "#d5ffff"
+	airlock_wires = /datum/wires/airlock/service
 
 /area/crew_quarters/kitchen/coldroom
 	name = "Kitchen Cold Room"
@@ -429,6 +435,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_message = "<span class='nicegreen'>I love being in the bar!\n</span>"
 	lighting_colour_tube = "#fff4d6"
 	lighting_colour_bulb = "#ffebc1"
+	airlock_wires = /datum/wires/airlock/service
 
 /area/crew_quarters/bar/atrium
 	name = "Atrium"
@@ -510,6 +517,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambient_effects = ENGINEERING
 	lighting_colour_tube = "#ffce93"
 	lighting_colour_bulb = "#ffbc6f"
+	airlock_wires = /datum/wires/airlock/engineering
 
 /area/engine/engine_smes
 	name = "Engineering SMES"
@@ -574,6 +582,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	blob_allowed = FALSE
 	flags_1 = NONE
 	ambient_effects = ENGINEERING
+	airlock_wires = /datum/wires/airlock/engineering
 
 /area/solar/fore
 	name = "Fore Solar Array"
@@ -652,11 +661,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Teleporter Room"
 	icon_state = "teleporter"
 	ambient_effects = ENGINEERING
+	airlock_wires = /datum/wires/airlock/command
 
 /area/gateway
 	name = "Gateway"
 	icon_state = "gateway"
 	ambient_effects = ENGINEERING
+	airlock_wires = /datum/wires/airlock/command
 
 //MedBay
 
@@ -668,6 +679,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_message = "<span class='nicegreen'>I feel safe in here!\n</span>"
 	lighting_colour_tube = "#e7f8ff"
 	lighting_colour_bulb = "#d5f2ff"
+	airlock_wires = /datum/wires/airlock/medbay
 
 /area/medical/abandoned
 	name = "Abandoned Medbay"
@@ -761,6 +773,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambient_effects = HIGHSEC
 	lighting_colour_tube = "#ffeee2"
 	lighting_colour_bulb = "#ffdfca"
+	airlock_wires = /datum/wires/airlock/security
 
 /area/security/main
 	name = "Security Office"
@@ -819,10 +832,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/nuke_storage
 	name = "Vault"
 	icon_state = "nuke_storage"
+	airlock_wires = /datum/wires/airlock/command
 
 /area/ai_monitored/nuke_storage
 	name = "Vault"
 	icon_state = "nuke_storage"
+	airlock_wires = /datum/wires/airlock/command
 
 /area/security/checkpoint
 	name = "Security Checkpoint"
@@ -869,6 +884,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "quart"
 	lighting_colour_tube = "#ffe3cc"
 	lighting_colour_bulb = "#ffdbb8"
+	airlock_wires = /datum/wires/airlock/service
 
 /area/quartermaster/sorting
 	name = "Delivery Office"
@@ -904,10 +920,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	flags_1 = NONE
 	mood_bonus = -1
 	mood_message = "<span class='nicegreen'>It feels dirty in here!\n</span>"
+	airlock_wires = /datum/wires/airlock/service
 
 /area/hydroponics
 	name = "Hydroponics"
 	icon_state = "hydro"
+	airlock_wires = /datum/wires/airlock/service
 
 /area/hydroponics/garden
 	name = "Garden"
@@ -931,6 +949,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "toxlab"
 	lighting_colour_tube = "#f0fbff"
 	lighting_colour_bulb = "#e4f7ff"
+	airlock_wires = /datum/wires/airlock/science
 
 /area/science/lab
 	name = "Research and Development"
@@ -1020,11 +1039,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Telecomms Storage"
 	icon_state = "green"
 	valid_territory = FALSE
+	airlock_wires = /datum/wires/airlock/engineering
 
 /area/storage/eva
 	name = "EVA Storage"
 	icon_state = "eva"
 	clockwork_warp_allowed = FALSE
+	airlock_wires = /datum/wires/airlock/engineering
 
 /area/storage/emergency/starboard
 	name = "Starboard Emergency Storage"
@@ -1037,6 +1058,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/storage/tech
 	name = "Technical Storage"
 	icon_state = "auxstorage"
+	airlock_wires = /datum/wires/airlock/engineering
 
 //Construction
 
@@ -1044,6 +1066,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Construction Area"
 	icon_state = "yellow"
 	ambient_effects = ENGINEERING
+	airlock_wires = /datum/wires/airlock/engineering
 
 /area/construction/mining/aux_base
 	name = "Auxiliary Base Construction"
@@ -1074,21 +1097,25 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Armory"
 	icon_state = "armory"
 	ambient_effects = HIGHSEC
+	airlock_wires = /datum/wires/airlock/security
 
 /area/ai_monitored/storage/eva
 	name = "EVA Storage"
 	icon_state = "eva"
 	ambient_effects = HIGHSEC
+	airlock_wires = /datum/wires/airlock/command
 
 /area/ai_monitored/storage/satellite
 	name = "AI Satellite Maint"
 	icon_state = "storage"
 	ambient_effects = HIGHSEC
+	airlock_wires = /datum/wires/airlock/ai
 
 	//Turret_protected
 
 /area/ai_monitored/turret_protected
 	ambient_effects = list('sound/ambience/ambimalf.ogg', 'sound/ambience/ambitech.ogg', 'sound/ambience/ambitech2.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambiatmos2.ogg')
+	airlock_wires = /datum/wires/airlock/ai
 
 /area/ai_monitored/turret_protected/ai_upload
 	name = "AI Upload Chamber"
@@ -1146,6 +1173,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	clockwork_warp_fail = "For safety reasons, warping here is disallowed; the radio and bluespace noise could cause catastrophic results."
 	ambient_effects = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg', 'sound/ambience/ambitech.ogg',\
 											'sound/ambience/ambitech2.ogg', 'sound/ambience/ambitech3.ogg', 'sound/ambience/ambimystery.ogg')
+	airlock_wires = /datum/wires/airlock/engineering
 
 /area/tcommsat/computer
 	name = "Telecomms Control Room"
