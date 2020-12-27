@@ -416,6 +416,9 @@
 
 /atom/movable/proc/forceMove(atom/destination)
 	. = FALSE
+	if(destination == null) //destination destroyed due to explosion
+		return
+
 	if(destination)
 		. = doMove(destination)
 	else
@@ -533,7 +536,7 @@
 		return
 	return throw_at(target, range, speed, thrower, spin, diagonals_first, callback, force)
 
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG) //If this returns FALSE then callback will not be called.
+/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG, quickstart = TRUE) //If this returns FALSE then callback will not be called.
 	. = FALSE
 	if (!target || speed <= 0)
 		return
@@ -581,7 +584,7 @@
 	TT.diagonals_first = diagonals_first
 	TT.force = force
 	TT.callback = callback
-	if(!QDELETED(thrower))
+	if(!QDELETED(thrower) && thrower != null)
 		TT.target_zone = thrower.zone_selected
 
 	var/dist_x = abs(target.x - src.x)
@@ -617,7 +620,9 @@
 	SSthrowing.processing[src] = TT
 	if (SSthrowing.state == SS_PAUSED && length(SSthrowing.currentrun))
 		SSthrowing.currentrun[src] = TT
-	TT.tick()
+
+	if(quickstart)
+		TT.tick()
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc,direct)
 	for(var/m in buckled_mobs)

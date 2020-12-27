@@ -30,51 +30,52 @@
 	update = air.react(src)
 
 /datum/pipeline/proc/build_pipeline(obj/machinery/atmospherics/base)
-	var/volume = 0
-	if(istype(base, /obj/machinery/atmospherics/pipe))
-		var/obj/machinery/atmospherics/pipe/E = base
-		volume = E.volume
-		members += E
-		if(E.air_temporary)
-			air = E.air_temporary
-			E.air_temporary = null
-	else
-		addMachineryMember(base)
-	if(!air)
-		air = new
-	var/list/possible_expansions = list(base)
-	while(possible_expansions.len)
-		for(var/obj/machinery/atmospherics/borderline in possible_expansions)
-			var/list/result = borderline.pipeline_expansion(src)
-			if(result && result.len)
-				for(var/obj/machinery/atmospherics/P in result)
-					if(istype(P, /obj/machinery/atmospherics/pipe))
-						var/obj/machinery/atmospherics/pipe/item = P
-						if(!members.Find(item))
+	if(src != null && base != null)
+		var/volume = 0
+		if(istype(base, /obj/machinery/atmospherics/pipe))
+			var/obj/machinery/atmospherics/pipe/E = base
+			volume = E.volume
+			members += E
+			if(E.air_temporary)
+				air = E.air_temporary
+				E.air_temporary = null
+		else
+			addMachineryMember(base)
+		if(!air)
+			air = new
+		var/list/possible_expansions = list(base)
+		while(possible_expansions.len)
+			for(var/obj/machinery/atmospherics/borderline in possible_expansions)
+				var/list/result = borderline.pipeline_expansion(src)
+				if(result && result.len)
+					for(var/obj/machinery/atmospherics/P in result)
+						if(istype(P, /obj/machinery/atmospherics/pipe))
+							var/obj/machinery/atmospherics/pipe/item = P
+							if(!members.Find(item))
 
-							if(item.parent)
-								var/static/pipenetwarnings = 10
-								if(pipenetwarnings > 0)
-									log_mapping("build_pipeline(): [item.type] added to a pipenet while still having one. (pipes leading to the same spot stacking in one turf) around [AREACOORD(item)].")
-									pipenetwarnings--
-									if(pipenetwarnings == 0)
-										log_mapping("build_pipeline(): further messages about pipenets will be suppressed")
-							members += item
-							possible_expansions += item
+								if(item.parent)
+									var/static/pipenetwarnings = 10
+									if(pipenetwarnings > 0)
+										log_mapping("build_pipeline(): [item.type] added to a pipenet while still having one. (pipes leading to the same spot stacking in one turf) around [AREACOORD(item)].")
+										pipenetwarnings--
+										if(pipenetwarnings == 0)
+											log_mapping("build_pipeline(): further messages about pipenets will be suppressed")
+								members += item
+								possible_expansions += item
 
-							volume += item.volume
-							item.parent = src
+								volume += item.volume
+								item.parent = src
 
-							if(item.air_temporary)
-								air.merge(item.air_temporary)
-								item.air_temporary = null
-					else
-						P.setPipenet(src, borderline)
-						addMachineryMember(P)
+								if(item.air_temporary)
+									air.merge(item.air_temporary)
+									item.air_temporary = null
+						else
+							P.setPipenet(src, borderline)
+							addMachineryMember(P)
 
-			possible_expansions -= borderline
+				possible_expansions -= borderline
 
-	air.set_volume(volume)
+		air.set_volume(volume)
 
 /datum/pipeline/proc/addMachineryMember(obj/machinery/atmospherics/components/C)
 	other_atmosmch |= C

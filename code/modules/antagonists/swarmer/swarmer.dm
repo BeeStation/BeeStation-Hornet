@@ -463,7 +463,6 @@
 	changeNext_move(CLICK_CD_MELEE)
 	target.ex_act(EXPLODE_LIGHT)
 
-
 /mob/living/simple_animal/hostile/swarmer/proc/DisperseTarget(mob/living/target)
 	if(target == src)
 		return
