@@ -250,6 +250,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define HAND_REPLACEMENT_TRAIT "magic-hand"
 #define HOT_POTATO_TRAIT "hot-potato"
 #define SABRE_SUICIDE_TRAIT "sabre-suicide"
+#define CORGIUM_TRAIT "corgium"
 #define ABDUCTOR_VEST_TRAIT "abductor-vest"
 #define CAPTURE_THE_FLAG_TRAIT "capture-the-flag"
 #define EYE_OF_GOD_TRAIT "eye-of-god"

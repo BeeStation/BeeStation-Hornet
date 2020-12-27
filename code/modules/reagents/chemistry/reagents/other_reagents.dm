@@ -112,6 +112,42 @@
 	if(istype(data))
 		src.data |= data.Copy()
 
+/datum/reagent/corgium
+	name = "Corgium"
+	description = "A happy looking liquid that you feel compelled to consume if you want a better life."
+	color = "#ecca7f"
+	taste_description = "dog treats"
+	var/mob/living/simple_animal/pet/dog/corgi/new_corgi
+
+/datum/reagent/corgium/on_mob_metabolize(mob/living/L)
+	. = ..()
+	new_corgi = new(get_turf(L))
+	new_corgi.key = L.key
+	new_corgi.name = L.name
+	ADD_TRAIT(L, TRAIT_NOBREATH, CORGIUM_TRAIT)
+	L.forceMove(new_corgi)
+
+/datum/reagent/corgium/on_mob_life(mob/living/carbon/M)
+	. = ..()
+	//If our corgi died :(
+	if(new_corgi.stat)
+		holder.remove_all_type(type)
+
+/datum/reagent/corgium/on_mob_end_metabolize(mob/living/L)
+	. = ..()
+	REMOVE_TRAIT(L, TRAIT_NOBREATH, CORGIUM_TRAIT)
+	//New corgi was deleted, goodbye cruel world.
+	if(QDELETED(new_corgi))
+		if(!QDELETED(L))
+			qdel(L)
+		return
+	//Leave the corgi
+	L.key = new_corgi.key
+	L.adjustBruteLoss(new_corgi.getBruteLoss())
+	L.adjustFireLoss(new_corgi.getFireLoss())
+	L.forceMove(get_turf(new_corgi))
+	qdel(new_corgi)
+
 /datum/reagent/water
 	name = "Water"
 	description = "An ubiquitous chemical substance that is composed of hydrogen and oxygen."
