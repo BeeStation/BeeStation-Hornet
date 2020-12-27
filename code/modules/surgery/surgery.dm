@@ -120,6 +120,7 @@
 	var/turf/T = get_turf(target)
 	var/selfpenalty = 0
 	var/sleepbonus = 0
+	var/surgical_expertise = 0
 	if(target == user)
 		if(HAS_TRAIT(user, TRAIT_SELF_AWARE) || locate(/obj/structure/mirror) in range(1, user))
 			selfpenalty = 0.4
@@ -137,8 +138,9 @@
 		propability = 0.6
 	else if(locate(/obj/structure/bed, T))
 		propability = 0.5
-
-	return propability + success_multiplier + sleepbonus - selfpenalty
+	else if(HAS_TRAIT(user, TRAIT_SURGICAL_EXPERT))
+		surgical_expertise = 0.15
+	return propability + success_multiplier + sleepbonus + surgical_expertise - selfpenalty
 
 /datum/surgery/advanced
 	name = "advanced surgery"

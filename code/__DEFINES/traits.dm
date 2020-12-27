@@ -145,6 +145,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SURGEON           "surgeon"
 #define TRAIT_WIRESEEING		"wire_seeing" //Having this trait lets you see the labels for wires. Similar to abductor multitool
 #define TRAIT_CHEMISTRY			"chemistry"  //Reagents are labelled when viewing a chem dispenser
+#define TRAIT_SURGICAL_EXPERT	"surgical_expertise"
 #define	TRAIT_STRONG_GRABBER	"strong_grabber"
 #define	TRAIT_CALCIUM_HEALER	"calcium_healer"
 #define	TRAIT_MAGIC_CHOKE		"magic_choke"
