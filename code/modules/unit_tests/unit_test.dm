@@ -49,6 +49,7 @@ GLOBAL_VAR(test_log)
 	LAZYADD(fail_reasons, reason)
 
 /proc/RunUnitTests()
+	log_world("Got this far")
 	CHECK_TICK
 
 	for(var/I in subtypesof(/datum/unit_test))
