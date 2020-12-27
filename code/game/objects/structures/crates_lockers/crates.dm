@@ -28,7 +28,7 @@
 
 /obj/structure/closet/crate/Initialize()
 	. = ..()
-	if(animation_math == null) //checks if there is already a list for animation_index if not makes a new list also includes animation_math cause why not honestly
+	if(animation_math == null) //checks if there is already a list for animation_math if not creates one to avoid runtimes
 		animation_math = new/list()
 	if(!door_anim_time == 0 && !animation_math["[door_anim_time]-[door_anim_angle]-[door_anim_squish]-[radius_2]"])
 		animation_list()
