@@ -87,6 +87,7 @@ GENE SCANNER
 	throw_speed = 3
 	throw_range = 7
 	materials = list(/datum/material/iron=200)
+	var/mode = 1
 	var/scanmode = 0
 	var/advanced = FALSE
 
@@ -120,7 +121,7 @@ GENE SCANNER
 						"<span class='notice'>You analyze [M]'s vitals.</span>")
 
 	if(scanmode == 0)
-		healthscan(user, M, advanced)
+		healthscan(user, M, mode, advanced)
 	else if(scanmode == 1)
 		chemscan(user, M)
 
@@ -248,7 +249,7 @@ GENE SCANNER
 
 
 	// Body part damage report
-	if(iscarbon(M))
+	if(iscarbon(M) && mode == 1)
 		var/mob/living/carbon/C = M
 		var/list/damaged = C.get_damaged_bodyparts(1,1)
 		if(length(damaged)>0 || oxy_loss>0 || tox_loss>0 || fire_loss>0)
