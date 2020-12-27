@@ -236,7 +236,7 @@
 		reveal_wires = TRUE
 
 	// Same for anyone with an abductor multitool.
-	else if(user.is_holding_item_of_type(/obj/item/multitool/abductor))
+	else if(user.is_holding_item_of_type(/obj/item/multitool/abductor)|| HAS_TRAIT(user, WIRE_SEEING))
 		reveal_wires = TRUE
 
 	// Station blueprints do that too, but only if the wires are not randomized.
