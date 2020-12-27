@@ -212,7 +212,7 @@
 	category = list("initial","Organic Materials")
 
 /datum/design/carton_soy_milk
-	name = "Soy milk carton"
+	name = "Soy Milk Carton"
 	id = "soy_milk_carton"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass = 100)
