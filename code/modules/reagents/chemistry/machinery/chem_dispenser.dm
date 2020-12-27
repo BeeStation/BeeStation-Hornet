@@ -91,6 +91,9 @@
 		emagged_reagents = sortList(emagged_reagents, /proc/cmp_reagents_asc)
 	if(upgrade_reagents)
 		upgrade_reagents = sortList(upgrade_reagents, /proc/cmp_reagents_asc)
+	shuffle_inplace(dispensable_reagents)
+	shuffle_inplace(emagged_reagents)
+	shuffle_inplace(upgrade_reagents)
 	update_icon()
 
 /obj/machinery/chem_dispenser/Destroy()
@@ -210,9 +213,12 @@
 		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
 		if(temp)
 			var/chemname = temp.name
-			if(is_hallucinating && prob(5))
-				chemname = "[pick_list_replacements("hallucination.json", "chemicals")]"
-			chemicals.Add(list(list("title" = chemname, "id" = ckey(temp.name))))
+			if(HAS_TRAIT(user, TRAIT_CHEMISTRY))
+				if(is_hallucinating && prob(5))
+					chemname = "[pick_list_replacements("hallucination.json", "chemicals")]"
+				chemicals.Add(list(list("title" = chemname, "id" = ckey(temp.name))))
+			else
+				chemicals.Add(list(list("title" = "", "id" = ckey(temp.name))))
 	data["chemicals"] = chemicals
 	data["recipes"] = saved_recipes
 
