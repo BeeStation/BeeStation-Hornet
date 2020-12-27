@@ -21,17 +21,19 @@
 	open_sound_volume = 35
 	close_sound_volume = 50
 	drag_slowdown = 0
+	door_anim_squish = 138 //in this context the azimuth angle for over 90 degree
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
 	var/radius_2 = 1.35
-	var/open_angle = 138 //azimuth angle for over 90 degree
-	var/static/list/animation_math //List with lists inside that contain all values needed for an animation
-	var/static/list/animation_index //associative list to get the index for the animation_math list that gets saved to anindex
-	var/anindex //index from animation_index for animation_math
+	var/static/list/animation_math //list with pre calculation animation parameter
+	var/static/list/animation_index //index list for animation math
 	var/crateexeption = FALSE //Set to true if the crate does not use the normal animation code and does not need a list
 
 /obj/structure/closet/crate/Initialize()
 	. = ..()
-	if(!door_anim_time == 0&&crateexeption == FALSE)
+	if(animation_index == null) //checks if there is already a list for animation_index if not makes a new list also includes animation_math cause why not honestly
+		animation_index = new/list()
+		animation_math = new/list()
+	if(!door_anim_time == 0 && crateexeption == FALSE && animation_index.Find("[door_anim_time]-[door_anim_angle]-[door_anim_squish]-[radius_2]") == 0)
 		animation_list()
 
 /obj/structure/closet/crate/CanPass(atom/movable/mover, turf/target)
@@ -70,13 +72,12 @@
 	door_obj.icon_state = "[icon_door || icon_state]_door"
 	is_animating_door = TRUE
 	var/num_steps = door_anim_time / world.tick_lag
+	var/list/animation_math_list = animation_math[(animation_index.Find("[door_anim_time]-[door_anim_angle]-[door_anim_squish]-[radius_2]"))]
 	for(var/I in 0 to num_steps)
 		var/angle = door_anim_angle * (closing ? 1 - (I/num_steps) : (I/num_steps))
 		var/door_state = angle >= 90 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
 		var/door_layer = angle >= 90 ? FLOAT_LAYER : ABOVE_MOB_LAYER
-		var/crateanim_1 = animation_math[anindex][closing ? num_steps + 1 - I : I + 1]
-		var/crateanim_2 = animation_math[anindex][closing ? 2*num_steps + 1 - I : num_steps+ I + 1]
-		var/matrix/M = get_door_transform(crateanim_1, crateanim_2)
+		var/matrix/M = get_door_transform(animation_math_list[closing ? num_steps + 1 - I : I + 1], animation_math_list[closing ? 2 * num_steps + 1 - I : num_steps + I + 1])
 		if(I == 0)
 			door_obj.transform = M
 			door_obj.icon_state = door_state
@@ -100,30 +101,20 @@
 		M.Translate(0, door_hinge)
 		return M
 
-/*The animation_list proc writes into two static lists first animation_math where it creates a new list inside for all the values needed for the crate animation.
-The second list is animation_index this list is an associative list where special identify values are saved that are used to determine if there is the need for another list in animation_math or if
-the current lists are sufficent and it is used to get the right index for animation_math for any possible type of crate.
-Next is anindex this variable is just used to save the index for a crate so that you only need to search for the index once.
-The last one is the for loop it simply uses all given indexes to save the needed values to the lists inside animation_math if a new list is required*/
 /obj/structure/closet/crate/proc/animation_list() //pre calculates a list of values for the crate animation cause byond not like math
-	if(animation_index == null) //checks if there is already a list for animation_index if not makes a new list also includes animation_math cause why not honestly
-		animation_index = new/list()
-		animation_math = new/list()
-	anindex = animation_index.Find("[door_anim_time]-[door_anim_angle]-[open_angle]-[radius_2]") //saves index to anindex
-	if(animation_index.Find("[door_anim_time]-[door_anim_angle]-[open_angle]-[radius_2]") == 0)
-		var/num_steps_1 = door_anim_time / world.tick_lag
-		animation_index.len = length(animation_index)+1 //increases list size fo animation index
-		animation_index[length(animation_index)] = "[door_anim_time]-[door_anim_angle]-[open_angle]-[radius_2]" //saves the unique value to the asssociative list
-		anindex = animation_index.Find("[door_anim_time]-[door_anim_angle]-[open_angle]-[radius_2]")
-		animation_math.len = anindex //also just increases the list size
-		animation_math[anindex] = new/list(num_steps_1*2+1) //saves another list into animation_math on the index that just got added
-		for(var/I in 0 to num_steps_1) //loop to save the animation values into the lists
-			var/angle_1 =  I==0 ? 0 : door_anim_angle * (I/num_steps_1)
-			var/polar_angle = abs(arcsin(cos(angle_1)))
-			var/azimuth_angle = angle_1 >= 90 ? open_angle : 0
-			var/radius_cr = angle_1 >= 90 ? radius_2 : 1
-			animation_math[anindex][I+1] = -sin(polar_angle)*sin(azimuth_angle)*radius_cr
-			animation_math[anindex][num_steps_1+I+1] = radius_cr*cos(azimuth_angle)*sin(polar_angle)
+	animation_index.len = length(animation_index)+1
+	animation_math.len = length(animation_math)+1
+	animation_index[length(animation_index)] = "[door_anim_time]-[door_anim_angle]-[door_anim_squish]-[radius_2]"
+	var/num_steps_1 = door_anim_time / world.tick_lag
+	var/list/new_animation_math_sublist[num_steps_1 * 2 + 1]
+	for(var/I in 0 to num_steps_1) //loop to save the animation values into the lists
+		var/angle_1 = I == 0 ? 0 : door_anim_angle * (I / num_steps_1)
+		var/polar_angle = abs(arcsin(cos(angle_1)))
+		var/azimuth_angle = angle_1 >= 90 ? door_anim_squish : 0
+		var/radius_cr = angle_1 >= 90 ? radius_2 : 1
+		new_animation_math_sublist[I+1] = -sin(polar_angle) * sin(azimuth_angle) * radius_cr
+		new_animation_math_sublist[num_steps_1+I+1] = cos(azimuth_angle) * sin(polar_angle) * radius_cr
+	animation_math[(animation_index.Find("[door_anim_time]-[door_anim_angle]-[door_anim_squish]-[radius_2]"))] = new_animation_math_sublist
 
 /obj/structure/closet/crate/attack_hand(mob/user)
 	. = ..()
