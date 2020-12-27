@@ -198,7 +198,7 @@
 	
 /datum/reagent/magic/acceleratium/on_mob_metabolize(mob/living/L)
 	..()
-	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-1, blacklisted_movetypes=(FLYING|FLOATING))
+	L.add_movespeed_modifier(type, update = TRUE, priority = 100, multiplicative_slowdown = -1, blacklisted_movetypes = (FLYING|FLOATING))
 
 /datum/reagent/magic/acceleratium/on_mob_end_metabolize(mob/living/L)
 	..()
@@ -214,7 +214,7 @@
 	
 /datum/reagent/magic/levitatium/hastium/on_mob_metabolize(mob/living/L)
 	..()
-	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-1)
+	L.add_movespeed_modifier(type, update = TRUE, priority = 100, multiplicative_slowdown = -1)
 
 /datum/reagent/magic/levitatium/hastium/on_mob_end_metabolize(mob/living/L)
 	..()
@@ -231,14 +231,14 @@
 /datum/reagent/magic/midas/reaction_obj(obj/O, reac_volume)
 	if(ismob(O.loc))
 		return
-	reac_volume = round(reac_volume,0.1)
+	reac_volume = round(reac_volume, 0.1)
 	if(istype(O, /obj/machinery/door) || (O.type!=/obj/structure/mineral_door/gold && istype(O, /obj/structure/mineral_door)))
 		if (reac_volume<MAGIC_REAGENT_TOUCH)
 			return
 		var/obj/structure/mineral_door/D = new /obj/structure/mineral_door/gold(get_turf(O))
 		qdel(O)
 		D.Open()
-	else if (reac_volume>=MAGIC_REAGENT_TOUCH*0.5)
+	else if (reac_volume>=MAGIC_REAGENT_TOUCH * 0.5)
 		if (O.type == /obj/item/bikehorn)	//bikehorn
 			new /obj/item/bikehorn/golden(get_turf(O))
 		else if (O.type == /obj/item/instrument/violin)
@@ -276,20 +276,20 @@
 
 /datum/reagent/magic/lc/reaction_mob(mob/living/L, method=TOUCH, reac_volume)
 	if (method == TOUCH)
-		L.heal_bodypart_damage(reac_volume,reac_volume,reac_volume)
-		L.adjustBruteLoss(-reac_volume*3,0)
-		L.adjustOxyLoss(-reac_volume*3,0)
-		L.adjustFireLoss(-reac_volume*3,0)
-		L.adjustToxLoss(-reac_volume*3,0)		
+		L.heal_bodypart_damage(reac_volume, reac_volume, reac_volume)
+		L.adjustBruteLoss( -reac_volume * 3, 0 )
+		L.adjustOxyLoss( -reac_volume * 3, 0 )
+		L.adjustFireLoss( -reac_volume * 3, 0 )
+		L.adjustToxLoss( -reac_volume * 3, 0 )	
 	..()
 	
 /datum/reagent/magic/lc/on_mob_metabolize(mob/living/L)
 	..()
-	L.heal_bodypart_damage(5,5,5)
-	L.adjustBruteLoss(-15,0)
-	L.adjustOxyLoss(-15,0)
-	L.adjustFireLoss(-15,0)
-	L.adjustToxLoss(-15,0)
+	L.heal_bodypart_damage( 5, 5, 5 )
+	L.adjustBruteLoss( -15, 0 )
+	L.adjustOxyLoss( -15, 0 )
+	L.adjustFireLoss( -15, 0 )
+	L.adjustToxLoss( -15, 0 )
 
 #undef MAGIC_REAGENT_TOUCH
 #undef TELEPORTARIUM_RANGE
