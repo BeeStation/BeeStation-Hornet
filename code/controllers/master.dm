@@ -220,7 +220,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		world.sleep_offline = FALSE
 	initializations_finished_with_no_players_logged_in = initialized_tod < REALTIMEOFDAY - 10
 	// Loop.
-	testing("Got to the loop")
 	Master.StartProcessing(0)
 
 /datum/controller/master/proc/SetRunLevel(new_runlevel)

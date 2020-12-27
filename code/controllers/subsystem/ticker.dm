@@ -219,6 +219,7 @@ SUBSYSTEM_DEF(ticker)
 	var/init_start = world.timeofday
 		//Create and announce mode
 	var/list/datum/game_mode/runnable_modes
+	log_world("Starting master mode stuff")
 	if(GLOB.master_mode == "random" || GLOB.master_mode == "secret")
 		runnable_modes = config.get_runnable_modes()
 
@@ -247,7 +248,7 @@ SUBSYSTEM_DEF(ticker)
 			mode = null
 			SSjob.ResetOccupations()
 			return 0
-
+	log_world("Master mode PASS")
 	CHECK_TICK
 	//Configure mode and assign player to special mode stuff
 	var/can_continue = 0
