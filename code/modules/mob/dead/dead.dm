@@ -117,12 +117,14 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	var/turf/T = get_turf(src)
 	if (isturf(T))
 		update_z(T.z)
+	GLOB.dead_clients_list += client
 
 /mob/dead/auto_deadmin_on_login()
 	return
 
 /mob/dead/Logout()
 	update_z(null)
+	GLOB.dead_clients_list -= client
 	return ..()
 
 /mob/dead/onTransitZ(old_z,new_z)

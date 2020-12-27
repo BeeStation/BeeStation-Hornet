@@ -27,3 +27,5 @@
 	var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 	if(changeling)
 		changeling.regain_powers()
+
+	GLOB.dead_clients_list -= client

@@ -10,6 +10,7 @@ http://www.byond.com/docs/ref/skinparams.html#Fonts
 
 #define COLOR_JOB_UNKNOWN "#dda583"
 #define COLOR_PERSON_UNKNOWN "#999999"
+#define COLOR_PERSON_GHOST "#8f50ee"
 
 //For jobs that aren't roundstart but still need colours
 GLOBAL_LIST_INIT(job_colors_pastel, list(
@@ -18,42 +19,49 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	"Unknown"=			COLOR_JOB_UNKNOWN,
 ))
 
-/mob/living
+/mob
 	var/list/stored_chat_text = list()
 
-/proc/animate_chat(mob/living/target, message, message_language, message_mode, list/show_to, duration)
+/proc/animate_chat(mob/target, message, message_language, message_mode, list/show_to, duration)
 	var/text_color
 
 	if(message_mode == MODE_WHISPER)
 		return
 
-	var/mob/living/carbon/human/target_as_human = target
-	if(istype(target_as_human))
-		if(target_as_human.wear_id?.GetID())
-			var/obj/item/card/id/idcard = target_as_human.wear_id
-			var/datum/job/wearer_job = SSjob.GetJob(idcard.GetJobName())
-			if(wearer_job)
-				text_color = wearer_job.chat_color
+	var/css = ""
+
+	if(isliving(target))
+		var/mob/living/L = target
+		var/mob/living/carbon/human/target_as_human = target
+		//Work out the colour of the message
+		if(istype(target_as_human))
+			if(target_as_human.wear_id?.GetID())
+				var/obj/item/card/id/idcard = target_as_human.wear_id
+				var/datum/job/wearer_job = SSjob.GetJob(idcard.GetJobName())
+				if(wearer_job)
+					text_color = wearer_job.chat_color
+				else
+					text_color = GLOB.job_colors_pastel[idcard.GetJobName()]
 			else
-				text_color = GLOB.job_colors_pastel[idcard.GetJobName()]
+				text_color = COLOR_PERSON_UNKNOWN
 		else
-			text_color = COLOR_PERSON_UNKNOWN
+			text_color = L.mobsay_color
+
+		//Add Spans
+		if(copytext(message, length(message) - 1) == "!!")
+			css += "font-weight: bold;"
+		if(istype(L.get_active_held_item(), /obj/item/megaphone))
+			css += "font-size: 8px;"
+			if(istype(L.get_active_held_item(), /obj/item/megaphone/clown))
+				text_color = "#ff2abf"
+		else if((message_mode == MODE_WHISPER_CRIT) || (message_mode == MODE_HEADSET) || (message_mode in GLOB.radiochannels))
+			css += "font-size: 6px;"
+
 	else
-		text_color = target.mobsay_color
+		text_color = COLOR_PERSON_GHOST
 
 	if(!text_color)	//Just in case.
 		text_color = COLOR_JOB_UNKNOWN
-
-	var/css = ""
-
-	if(copytext(message, length(message) - 1) == "!!")
-		css += "font-weight: bold;"
-	if(istype(target.get_active_held_item(), /obj/item/megaphone))
-		css += "font-size: 8px;"
-		if(istype(target.get_active_held_item(), /obj/item/megaphone/clown))
-			text_color = "#ff2abf"
-	else if((message_mode == MODE_WHISPER_CRIT) || (message_mode == MODE_HEADSET) || (message_mode in GLOB.radiochannels))
-		css += "font-size: 6px;"
 
 	css += "color: [text_color];"
 
