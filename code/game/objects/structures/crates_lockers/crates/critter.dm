@@ -41,9 +41,9 @@
 	door_obj.icon_state = "[icon_door || icon_state]_door"
 	is_animating_door = TRUE
 	var/num_steps = door_anim_time / world.tick_lag
+	var/list/animation_math_list = animation_math["[door_anim_time]-[door_anim_angle]-[door_anim_squish]-[radius_2]"]
 	for(var/I in 0 to num_steps)
-		var/angle = door_anim_angle * (closing ? 1 - (I/num_steps) : (I/num_steps))
-		var/matrix/M = get_door_transform(angle)
+		var/matrix/M = get_door_transform(animation_math_list[closing ? num_steps + 1 - I : I + 1], animation_math_list[closing ? 2 * num_steps + 1 - I : num_steps + I + 1])
 
 		if(I == 0)
 			door_obj.transform = M
@@ -59,10 +59,10 @@
 	update_icon()
 	COMPILE_OVERLAYS(src)
 
-/obj/structure/closet/crate/critter/get_door_transform(angle)
+/obj/structure/closet/crate/critter/get_door_transform(crateanim_1, crateanim_2)
 	var/matrix/M = matrix()
 	M.Translate(-door_hinge, 0)
-	M.Multiply(matrix(cos(angle), 0, 0, sin(angle) * door_anim_squish, 1, 0))
+	M.Multiply(matrix(crateanim_1, 0, 0, crateanim_2, 1, 0))
 	M.Translate(door_hinge, 0)
 	return M
 
@@ -79,3 +79,10 @@
 		return null
 
 /obj/structure/closet/crate/critter/animation_list()
+	var/num_steps_1 = door_anim_time / world.tick_lag
+	var/list/new_animation_math_sublist[num_steps_1 * 2 + 1]
+	for(var/I in 0 to num_steps_1) //loop to save the animation values into the lists
+		var/angle_1 = I == 0 ? 0 : door_anim_angle * (I / num_steps_1)
+		new_animation_math_sublist[I+1] = cos(angle_1)
+		new_animation_math_sublist[num_steps_1+I+1] = sin(angle_1) * door_anim_squish
+	animation_math["[door_anim_time]-[door_anim_angle]-[door_anim_squish]-[radius_2]"] = new_animation_math_sublist

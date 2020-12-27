@@ -24,7 +24,7 @@
 	door_anim_squish = 138 //in this context the azimuth angle for over 90 degree
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
 	var/radius_2 = 1.35
-	var/static/list/animation_math //list with pre calculation animation parameter
+	var/static/list/animation_math //assoc list with pre calculated values
 
 /obj/structure/closet/crate/Initialize()
 	. = ..()
