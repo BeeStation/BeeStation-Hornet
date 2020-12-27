@@ -298,7 +298,6 @@
 	if(!(flags_1 & NODECONSTRUCT_1))
 		var/obj/structure/firelock_frame/F = new assemblytype(get_turf(src))
 		F.dir = src.dir
-		F.firelock_type = src.type
 		if(disassembled)
 			F.constructionStep = CONSTRUCTION_PANEL_OPEN
 		else
@@ -438,7 +437,7 @@
 	density = TRUE
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
-	var/firelock_type
+	var/firelock_type = /obj/machinery/door/firedoor
 
 /obj/structure/firelock_frame/examine(mob/user)
 	. = ..()
@@ -491,12 +490,9 @@
 				user.visible_message("<span class='notice'>[user] finishes the firelock.</span>", \
 									 "<span class='notice'>You finish the firelock.</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
-				if(reinforced)
-					new /obj/machinery/door/firedoor/heavy(get_turf(src))
-				else
-					var/obj/machinery/door/firedoor/F = new firelock_type(get_turf(src))
-					F.dir = src.dir
-					F.update_icon()
+				var/obj/machinery/door/firedoor/F = new firelock_type(get_turf(src))
+				F.dir = src.dir
+				F.update_icon()
 				qdel(src)
 				return
 			if(istype(C, /obj/item/stack/sheet/plasteel))
@@ -517,7 +513,8 @@
 										 "<span class='notice'>You reinforce [src].</span>")
 					playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 					P.use(2)
-					reinforced = 1
+					reinforced = TRUE
+					firelock_type = /obj/machinery/door/firedoor/heavy
 				return
 
 		if(CONSTRUCTION_WIRES_EXPOSED)
@@ -649,11 +646,13 @@
 /obj/structure/firelock_frame/heavy
 	name = "heavy firelock frame"
 	reinforced = TRUE
+	firelock_type = /obj/machinery/door/firedoor/heavy
 
 /obj/structure/firelock_frame/border
 	name = "firelock frame"
 	icon = 'icons/obj/doors/edge_Doorfire.dmi'
 	icon_state = "door_frame"
+	firelock_type = /obj/machinery/door/firedoor/border_only
 
 /obj/structure/firelock_frame/border/ComponentInitialize()
 	. = ..()
@@ -672,6 +671,7 @@
 	name = "window firelock frame"
 	icon = 'icons/obj/doors/doorfirewindow.dmi'
 	icon_state = "door_frame"
+	firelock_type = /obj/machinery/door/firedoor/window
 
 /obj/structure/firelock_frame/window/update_icon()
 	return

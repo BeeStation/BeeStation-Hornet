@@ -258,7 +258,6 @@ Difficulty: Very Hard
 		target.ex_act(EXPLODE_HEAVY)
 
 
-
 //Black Box
 
 /obj/machinery/smartfridge/black_box

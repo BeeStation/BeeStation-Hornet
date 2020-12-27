@@ -69,7 +69,7 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/plant
 	name = "Plant Weeds"
-	desc = "Plants some alien weeds."
+	desc = "Alien weeds spread resin which heals any alien. Costs 50 Plasma."
 	plasma_cost = 50
 	check_turf = TRUE
 	action_icon_state = "alien_plant"
@@ -84,7 +84,7 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/whisper
 	name = "Whisper"
-	desc = "Whisper to someone."
+	desc = "Whisper to someone through the hivemind. Costs 10 Plasma."
 	plasma_cost = 10
 	action_icon_state = "alien_whisper"
 
@@ -138,7 +138,7 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/acid
 	name = "Corrosive Acid"
-	desc = "Drench an object in acid, destroying it over time."
+	desc = "Drench an object in acid, destroying it over time. Costs 200 Plasma."
 	plasma_cost = 200
 	action_icon_state = "alien_acid"
 
@@ -184,7 +184,7 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/neurotoxin
 	name = "Spit Neurotoxin"
-	desc = "Spits neurotoxin at someone, paralyzing them for a short time."
+	desc = "Activates your Neurotoxin glands. You can shoot paralyzing shots. Each shot costs 50 Plasma."
 	action_icon_state = "alien_neurotoxin_0"
 	active = FALSE
 
@@ -249,7 +249,7 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/resin
 	name = "Secrete Resin"
-	desc = "Secrete tough malleable resin."
+	desc = "Secrete tough malleable resin. Costs 55 Plasma."
 	plasma_cost = 55
 	check_turf = TRUE
 	var/list/structures = list(
