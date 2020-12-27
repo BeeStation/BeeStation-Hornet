@@ -1575,3 +1575,24 @@
 	M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 0.5)
 	..()
 	. = 1
+
+/datum/reagent/medicine/stabilizing_nanites
+	name = "Stabilizing nanites"
+	description = "Rapidly heals a patient out of crit by regenerating damaged cells. Nanites distribution in the blood makes them ineffective against moderately healthy targets."
+	reagent_state = LIQUID
+	color = "#000000"
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
+	overdose_threshold = 15
+	can_synth = FALSE
+
+/datum/reagent/medicine/stabilizing_nanites/on_mob_life(mob/living/carbon/M)
+	if(M.health <= 80)
+		M.adjustToxLoss(-4*REM, 0)
+		M.adjustBruteLoss(-4*REM, 0)
+		M.adjustFireLoss(-4*REM, 0)
+		M.adjustOxyLoss(-5*REM, 0)
+		. = 1
+	if(prob(20))
+		M.Jitter(5)
+	M.losebreath = 0
+	..()
