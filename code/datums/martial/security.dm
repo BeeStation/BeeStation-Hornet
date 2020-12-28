@@ -92,7 +92,6 @@
 /datum/martial_art/security_cqc/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(check_streak(A,D))
 		return 1
-	log_combat(A, D, "punched")
 	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, "melee")
 	var/picked_hit_type = pick("punched", "kicked")
@@ -115,22 +114,5 @@
 /datum/martial_art/security_cqc/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(check_streak(A,D))
 		return 1
-	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.zone_selected))
-	var/armor_block = D.run_armor_check(affecting, "melee")
-	if((D.mobility_flags & MOBILITY_STAND))
-		D.visible_message("<span class='danger'>[A] reprimands [D]!</span>", \
-					"<span class='userdanger'>You're slapped by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, A)
-		to_chat(A, "<span class='danger'>You jab [D]!</span>")
-		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-		playsound(D, 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
-		D.apply_damage(5, STAMINA, affecting, armor_block)
-		log_combat(A, D, "punched nonlethally")
-	if(!(D.mobility_flags & MOBILITY_STAND))
-		D.visible_message("<span class='danger'>[A] reprimands [D]!</span>", \
-					"<span class='userdanger'>You're manhandled by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, A)
-		to_chat(A, "<span class='danger'>You stomp [D]!</span>")
-		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
-		playsound(D, 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
-		D.apply_damage(10, STAMINA, affecting, armor_block)
-		log_combat(A, D, "stomped nonlethally")
-	return 1
+	log_combat(A, D, "shoved (Security CQC)" )
+	..()
