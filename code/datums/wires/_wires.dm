@@ -41,7 +41,7 @@
 		CRASH("Wire holder is not of the expected type!")
 
 	src.holder = holder
-	var/key = dictionary_key ? dictionary_key : holder_type
+	var/key = dictionary_key || holder_type
 	if(randomize)
 		randomize()
 	else
