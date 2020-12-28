@@ -136,7 +136,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				max_save_slots = 8
 	var/loaded_preferences_successfully = load_preferences()
 	if(loaded_preferences_successfully)
-		if("extra character slot" in purchased_gear)
+		if(md5("extra character slot") in purchased_gear)
 			max_save_slots += 1
 		if(load_character())
 			return
