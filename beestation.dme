@@ -329,6 +329,7 @@
 #include "code\datums\mind.dm"
 #include "code\datums\mutable_appearance.dm"
 #include "code\datums\mutations.dm"
+#include "code\datums\noobmode.dm"
 #include "code\datums\numbered_display.dm"
 #include "code\datums\outfit.dm"
 #include "code\datums\position_point_vector.dm"
