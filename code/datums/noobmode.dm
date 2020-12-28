@@ -8,13 +8,13 @@
 	var/obj/item/clothing/head/helmet/space/helmetslot
 	var/obj/item/tank/internals/airslot
 	var/obj/item/storage/box/survBox
-	var/panicked = FALSE
+	var/paniced = FALSE
 
 /datum/action/equipHazard/Trigger()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		testing(panicked)
-		if(!panicked)
+		testing(paniced)
+		if(!paniced)
 			if(pannickEquip(H))
 				toggle()
 		else
@@ -47,10 +47,10 @@
 	return TRUE
 
 /datum/action/equipHazard/proc/toggle()
-	if(panicked)
-		panicked = 0
+	if(paniced)
+		paniced = 0
 	else
-		panicked = 1
+		paniced = 1
 
 /datum/action/equipHazard/Grant(mob/user, obj/item/containBox)
 	. = ..()
@@ -74,7 +74,7 @@
 			survBox.attackby(airslot,USR)
 	return TRUE
 /datum/action/equipHazard/proc/pannickEquip(mob/living/carbon/human/USR,speed = 10)
-	to_chat(USR,"<span class='warning'>You panick and grab your emergency suit</span>")
+	to_chat(USR,"<span class='warning'>You panic and grab your emergency suit!</span>")
 	if(!do_after(USR, speed))
 		return FALSE
 	GatherItems(survBox)
@@ -87,10 +87,10 @@
 		if(helmetslot)
 			if(!USR.equip_to_slot_if_possible(helmetslot,SLOT_HEAD))
 				if(!USR.dropItemToGround(USR.head))
-					to_chat(USR,"Could not dequip [USR.head.name]")
+					to_chat(USR,"Could not dequip [USR.head.name].")
 				else
 					if(!USR.equip_to_slot_if_possible(helmetslot,SLOT_HEAD))
-						to_chat(USR,"<span class='warning'>Could not equip [helmetslot.name]</span>")
+						to_chat(USR,"<span class='warning'>Could not equip [helmetslot.name].</span>")
 		else
 			to_chat(USR,"<span class='warning'>Missing space helmet!</span>")
 	if(!USR.wear_mask || !(USR.wear_mask.clothing_flags & MASKINTERNALS))
@@ -100,7 +100,7 @@
 					to_chat(USR,"Could not dequip [USR.wear_mask.name]")
 				else
 					if(!USR.equip_to_slot_if_possible(maskslot,SLOT_WEAR_MASK))
-						to_chat(USR,"<span class='warning'>Could not equip [maskslot.name]</span>")
+						to_chat(USR,"<span class='warning'>Could not equip [maskslot.name].</span>")
 		else
 			to_chat(USR,"<span class='warning'>Missing breathing mask!</span>")
 	if(!istype(USR.wear_suit, /obj/item/clothing/suit/space))
@@ -109,20 +109,20 @@
 				suitslot.attack_self(USR)
 			if(!USR.equip_to_slot_if_possible(suitslot,SLOT_WEAR_SUIT))
 				if(!USR.dropItemToGround(USR.wear_suit))
-					to_chat(USR,"Could not dequip [USR.wear_suit.name]")
+					to_chat(USR,"Could not dequip [USR.wear_suit.name].")
 				else
 					if(!USR.equip_to_slot_if_possible(suitslot,SLOT_WEAR_SUIT))
 						suitslot.attack_self(USR)
-						to_chat(USR,"<span class='warning'>Could not equip [suitslot.name]</span>")
+						to_chat(USR,"<span class='warning'>Could not equip [suitslot.name].</span>")
 		else
-			to_chat(USR,"<span class='warning'>Missing space suit!</span>")
+			to_chat(USR,"<span class='warning'>Missing space suit!</span>.")
 	if(!USR.internal)
 		if(airslot)
 			if(!USR.equip_to_slot_if_possible(airslot,SLOT_S_STORE))
 				USR.put_in_hands(airslot,FALSE)
 			USR.internal = airslot
 		else
-			to_chat(USR,"<span class='warning'>Missing internals tank!</span>")
+			to_chat(USR,"<span class='warning'>Missing internals tank!</span>.")
 	USR.update_action_buttons_icon()
 	return TRUE
 
