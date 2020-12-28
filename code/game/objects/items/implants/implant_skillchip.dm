@@ -90,6 +90,19 @@
 	REMOVE_TRAIT(source, TRAIT_SURGICAL_EXPERT, "implant")
 	..()
 
+/obj/item/implant/skillchip/surgeon/chiefmedical
+	name = "Chief Medical Officer Skill Chip"
+	desc = "A Skill Chip which includes the ability to read chem dispenser buttons  and employ surgical techniques which give a higher success chance."
+	chipTag = "chiefMed"
+
+/obj/item/implant/skillchip/surgeon/chiefmedical/on_implanted(mob/user)
+	ADD_TRAIT(user, TRAIT_CHEMISTRY, "implant")
+	..()
+
+/obj/item/implant/skillchip/surgeon/chiefmedical/removed(mob/living/source, silent, special)
+	REMOVE_TRAIT(source, TRAIT_CHEMISTRY, "implant")
+	..()
+
 /obj/item/implant/skillchip/martial_arts
 	name = "Martial Arts Skill Chip"
 	desc = "If you are seeing this, something went wrong."
