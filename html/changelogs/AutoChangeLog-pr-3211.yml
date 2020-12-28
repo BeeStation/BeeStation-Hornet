@@ -1,0 +1,5 @@
+author: eeSPee
+delete-after: true
+changes:
+  - balance: Vomit no longer hardstuns you for 2-5 seconds, but knocks you down, and
+      stuns for a really short duration
