@@ -19,10 +19,12 @@
 			return FALSE
 		else if(oldChip.chipTag != chipTag)
 			if(oldChip.chipTag == "Empty")
+				oldChip.Destroy(target)
 				qdel(oldChip)
 				imp_in = target
 				on_implanted(target)
 			else
+				oldChip.Destroy(target)
 				qdel(oldChip)
 				imp_in = target
 				target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3)
@@ -40,13 +42,78 @@
 	chipTag = "barman"
 
 /obj/item/implant/skillchip/bartending/on_implanted(mob/user)
-	ADD_TRAIT(imp_in, TRAIT_BOOZE_SLIDER, "implant")
-	ADD_TRAIT(imp_in, TRAIT_CHEMISTRY, "implant")
+	ADD_TRAIT(user, TRAIT_BOOZE_SLIDER, "implant")
+	ADD_TRAIT(user, TRAIT_CHEMISTRY, "implant")
 	..()
 
 /obj/item/implant/skillchip/bartending/removed(mob/living/source, silent, special)
-	REMOVE_TRAIT(imp_in, TRAIT_CHEMISTRY, "implant")
-	REMOVE_TRAIT(imp_in, TRAIT_BOOZE_SLIDER, "implant")
+	REMOVE_TRAIT(source, TRAIT_CHEMISTRY, "implant")
+	REMOVE_TRAIT(source, TRAIT_BOOZE_SLIDER, "implant")
 	..()
 
+/obj/item/implant/skillchip/engineering
+	name = "Engineering Skill Chip"
+	desc = "A Skill Chip which stores the wire schematics for all doors on station."
+	chipTag = "engineer"
 
+/obj/item/implant/skillchip/engineering/on_implanted(mob/user)
+	ADD_TRAIT(user, TRAIT_WIRESEEING, "implant")
+	..()
+
+/obj/item/implant/skillchip/engineering/removed(mob/living/source, silent, special)
+	REMOVE_TRAIT(source, TRAIT_WIRESEEING, "implant")
+	..()
+
+/obj/item/implant/skillchip/chemistry
+	name = "Chemistry Skill Chip"
+	desc = "A Skill Chip which teaches the user how to read chem dispenser buttons."
+	chipTag = "chemistry"
+
+/obj/item/implant/skillchip/chemistry/on_implanted(mob/user)
+	ADD_TRAIT(user, TRAIT_CHEMISTRY, "implant")
+	..()
+
+/obj/item/implant/skillchip/chemistry/removed(mob/living/source, silent, special)
+	REMOVE_TRAIT(source, TRAIT_CHEMISTRY, "implant")
+	..()
+
+/obj/item/implant/skillchip/surgeon
+	name = "Surgical Skill Chip"
+	desc = "A Skill Chip which teaches the user about surgical techniques which give a higher success chance."
+	chipTag = "surgeon"
+
+/obj/item/implant/skillchip/surgeon/on_implanted(mob/user)
+	ADD_TRAIT(user, TRAIT_SURGICAL_EXPERT, "implant")
+	..()
+
+/obj/item/implant/skillchip/surgeon/removed(mob/living/source, silent, special)
+	REMOVE_TRAIT(source, TRAIT_SURGICAL_EXPERT, "implant")
+	..()
+
+/obj/item/implant/skillchip/martial_arts
+	name = "Martial Arts Skill Chip"
+	desc = "If you are seeing this, something went wrong."
+	chipTag = "martial"
+	var/datum/martial_art/style
+
+/obj/item/implant/skillchip/martial_arts/on_implanted(mob/user)
+	style = new
+	style.teach(user)
+	..()
+
+/obj/item/implant/skillchip/martial_arts/removed(mob/living/source, silent, special)
+	style = new
+	style.remove(source)
+	..()
+
+/obj/item/implant/skillchip/martial_arts/chef
+	name = "Advanced Cooking Skill Chip"
+	desc = "A Skill Chip which teaches you about Close Quarters Cooking."
+	chipTag = "martialChef"
+	style = /datum/martial_art/cqc/under_siege
+
+/obj/item/implant/skillchip/martial_arts/security
+	name = "Security CQC Skill Chip"
+	desc = "A Skill Chip which teaches you Nanotrasen Approved Methods of unarmed takedowns taugh to most members of security staff."
+	chipTag = "martialSec"
+	style = /datum/martial_art/security_cqc
