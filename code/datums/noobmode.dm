@@ -1,6 +1,6 @@
 /datum/action/equipHazard
 	name = "Equip skinsuit"
-	desc = "Equips your skint suit thats inside the emergency box, has a small delay"
+	desc = "hazard gear and internals. Takes a few seconds."
 	icon_icon = 'icons/obj/clothing/suits.dmi'
 	button_icon_state = "skinsuit"
 	var/obj/item/clothing/suit/space/skinsuit/suitslot
