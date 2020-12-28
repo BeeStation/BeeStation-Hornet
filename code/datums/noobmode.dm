@@ -56,7 +56,7 @@
 	. = ..()
 	survBox = containBox
 
-/datum/action/equipHazard/proc/stowEquipment(mob/living/carbon/human/USR,speed = 5)
+/datum/action/equipHazard/proc/stowEquipment(mob/living/carbon/human/USR,speed = 10)
 	to_chat(USR,"<span class='notice'> You stuff the emergency equipment back into the box")
 	if(!do_after(USR, speed))
 		return FALSE
@@ -73,7 +73,7 @@
 		if(airslot in range(1,USR))
 			survBox.attackby(airslot,USR)
 	return TRUE
-/datum/action/equipHazard/proc/pannickEquip(mob/living/carbon/human/USR,speed = 5)
+/datum/action/equipHazard/proc/pannickEquip(mob/living/carbon/human/USR,speed = 10)
 	to_chat(USR,"<span class='warning'>You panick and grab your emergency suit</span>")
 	if(!do_after(USR, speed))
 		return FALSE
