@@ -1,0 +1,7 @@
+author: francinum
+delete-after: true
+changes:
+  - refactor: Beecoin shop items are now referenced by ID.
+  - bugfix: Fixed some shop items being unbuyable.
+  - refactor: Note, this update has unequipped your shop items. They will need to
+      be re-equipped.
