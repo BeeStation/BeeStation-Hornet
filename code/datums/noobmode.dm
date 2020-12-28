@@ -1,8 +1,8 @@
 /datum/action/equipHazard
 	name = "Equip skinsuit"
 	desc = "Equips your skint suit thats inside the emergency box, has a small delay"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
-	button_icon_state = "jetboot"
+	icon_icon = 'icons/obj/clothing/suits.dmi'
+	button_icon_state = "skinsuit"
 	var/obj/item/clothing/suit/space/skinsuit/suitslot
 	var/obj/item/clothing/mask/breath/maskslot
 	var/obj/item/clothing/head/helmet/space/helmetslot
@@ -47,27 +47,54 @@
 
 /datum/action/equipHazard/proc/pannickEquip(mob/living/carbon/human/USR,speed = 5)
 	testing("panick pickup")
-	var/list/obj/item/dequiplist = list()
 	do_mob(USR, USR, speed)
-	if(!GatherItems(survBox))
+	GatherItems(survBox)
+	/*
+		to_chat(USR,"<span class='warning'>You dont have all the needed items inside your box!</span>")
 		return FALSE
+	*/
 	testing("gather check passed")
-	if(!USR.equip_to_slot_if_possible(helmetslot,SLOT_HEAD))
-		dequiplist += USR.head
-		if(helmetslot.mob_can_equip(USR,SLOT_HEAD))
-			to_chat(USR,"Could not dequip [USR.head]")
-	if(!USR.equip_to_slot_if_possible(maskslot,SLOT_WEAR_MASK))
-		dequiplist += USR.wear_mask
-		if(helmetslot.mob_can_equip(USR,SLOT_WEAR_MASK))
-			to_chat(USR,"Could not dequip [USR.wear_mask]")
-	suitslot.attack_self(USR)
-	if(!USR.equip_to_slot_if_possible(suitslot,SLOT_WEAR_SUIT))
-		dequiplist += USR.wear_suit
-		if(helmetslot.mob_can_equip(USR,SLOT_WEAR_SUIT))
-			to_chat(USR,"Could not dequip [USR.wear_suit]")
-	if(!USR.equip_to_slot_if_possible(airslot,SLOT_S_STORE))
-		USR.put_in_hands(airslot,FALSE)
-	USR.internal = airslot
+	if(!istype(USR.head, /obj/item/clothing/head/helmet/space))
+		if(helmetslot)
+			if(!USR.equip_to_slot_if_possible(helmetslot,SLOT_HEAD))
+				if(!USR.dropItemToGround(USR.head))
+					to_chat(USR,"Could not dequip [USR.head.name]")
+				else
+					if(!USR.equip_to_slot_if_possible(helmetslot,SLOT_HEAD))
+						to_chat(USR,"<span class='warning'>Could not equip [helmetslot.name]</span>")
+		else
+			to_chat(USR,"<span class='warning'>Missing space helmet!</span>")
+	if(!(USR.wear_mask.clothing_flags & MASKINTERNALS))
+		if(maskslot)
+			if(!USR.equip_to_slot_if_possible(maskslot,SLOT_WEAR_MASK))
+				if(!USR.dropItemToGround(USR.wear_mask))
+					to_chat(USR,"Could not dequip [USR.wear_mask.name]")
+				else
+					if(!USR.equip_to_slot_if_possible(maskslot,SLOT_WEAR_MASK))
+						to_chat(USR,"<span class='warning'>Could not equip [maskslot.name]</span>")
+		else
+			to_chat(USR,"<span class='warning'>Missing breathing mask!</span>")
+	if(!istype(USR.wear_suit, /obj/item/clothing/suit/space))
+		if(suitslot)
+			if(suitslot.rolled_up)
+				suitslot.attack_self(USR)
+			if(!USR.equip_to_slot_if_possible(suitslot,SLOT_WEAR_SUIT))
+				if(!USR.dropItemToGround(USR.wear_suit))
+					to_chat(USR,"Could not dequip [USR.wear_suit.name]")
+					suitslot.attack_self(USR)
+				else
+					if(!USR.equip_to_slot_if_possible(USR,SLOT_WEAR_SUIT))
+						suitslot.attack_self(USR)
+						to_chat(USR,"<span class='warning'>Could not equip [suitslot.name]</span>")
+		else
+			to_chat(USR,"<span class='warning'>Missing space suit!</span>")
+	if(!USR.internal)
+		if(airslot)
+			if(!USR.equip_to_slot_if_possible(airslot,SLOT_S_STORE))
+				USR.put_in_hands(airslot,FALSE)
+			USR.internal = airslot
+		else
+			to_chat(USR,"<span class='warning'>Missing internals tank!</span>")
 	USR.update_action_buttons_icon()
 	return TRUE
 
