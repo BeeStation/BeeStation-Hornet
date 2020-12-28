@@ -64,7 +64,7 @@
 						to_chat(USR,"<span class='warning'>Could not equip [helmetslot.name]</span>")
 		else
 			to_chat(USR,"<span class='warning'>Missing space helmet!</span>")
-	if(!(USR.wear_mask.clothing_flags & MASKINTERNALS))
+	if(!USR.wear_mask || !(USR.wear_mask.clothing_flags & MASKINTERNALS))
 		if(maskslot)
 			if(!USR.equip_to_slot_if_possible(maskslot,SLOT_WEAR_MASK))
 				if(!USR.dropItemToGround(USR.wear_mask))
@@ -81,9 +81,8 @@
 			if(!USR.equip_to_slot_if_possible(suitslot,SLOT_WEAR_SUIT))
 				if(!USR.dropItemToGround(USR.wear_suit))
 					to_chat(USR,"Could not dequip [USR.wear_suit.name]")
-					suitslot.attack_self(USR)
 				else
-					if(!USR.equip_to_slot_if_possible(USR,SLOT_WEAR_SUIT))
+					if(!USR.equip_to_slot_if_possible(suitslot,SLOT_WEAR_SUIT))
 						suitslot.attack_self(USR)
 						to_chat(USR,"<span class='warning'>Could not equip [suitslot.name]</span>")
 		else
