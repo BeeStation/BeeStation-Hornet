@@ -199,7 +199,7 @@
 		pipe_vision_img.plane = ABOVE_HUD_PLANE
 	return TRUE
 
-/obj/machinery/atmospherics/components/unary/vent_pump/examine(mob/user)
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/examine(mob/user)
 	. = ..()
 	if(welded)
 		. += "It seems welded shut."
