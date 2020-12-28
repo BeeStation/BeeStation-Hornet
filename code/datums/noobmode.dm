@@ -13,13 +13,13 @@
 /datum/action/equipHazard/Trigger()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		testing("triggerd")
+		testing(panicked)
 		if(!panicked)
-			pannickEquip(H)
-			toggle()
+			if(pannickEquip(H))
+				toggle()
 		else
-			stowEquipment(H)
-			toggle()
+			if(stowEquipment(H))
+				toggle()
 		//var/obj/item/held = H.get_active_held_item()
 		/*if(!held)
 			held = H.get_inactive_held_item()
@@ -45,6 +45,7 @@
 	if(!airslot || !helmetslot || !maskslot || !suitslot)
 		return FALSE
 	return TRUE
+
 /datum/action/equipHazard/proc/toggle()
 	if(panicked)
 		panicked = 0
@@ -57,21 +58,25 @@
 
 /datum/action/equipHazard/proc/stowEquipment(mob/living/carbon/human/USR,speed = 5)
 	to_chat(USR,"<span class='notice'> You stuff the emergency equipment back into the box")
-	do_mob(USR, USR, speed)
-	if(helmetslot == USR.head)
+	if(!do_after(USR, speed))
+		return FALSE
+	testing("time passed")
+	if(helmetslot && helmetslot == USR.head)
 		survBox.attackby(helmetslot,USR)
-	if(maskslot == USR.wear_mask)
+	if(maskslot && maskslot == USR.wear_mask)
 		survBox.attackby(maskslot,USR)
-	if(suitslot == USR.wear_suit)
+	if(suitslot && suitslot == USR.wear_suit)
 		if(!suitslot.rolled_up)
 			suitslot.attack_self(USR)
 		survBox.attackby(suitslot,USR)
-	if(airslot.loc != survBox)//instead of checking every pocket we just check the turf
+	if(airslot && airslot.loc != survBox)//instead of checking every pocket we just check the turf
 		if(airslot in range(1,USR))
 			survBox.attackby(airslot,USR)
+	return TRUE
 /datum/action/equipHazard/proc/pannickEquip(mob/living/carbon/human/USR,speed = 5)
 	to_chat(USR,"<span class='warning'>You panick and grab your emergency suit</span>")
-	do_mob(USR, USR, speed)
+	if(!do_after(USR, speed))
+		return FALSE
 	GatherItems(survBox)
 	/*
 		to_chat(USR,"<span class='warning'>You dont have all the needed items inside your box!</span>")
