@@ -72,6 +72,7 @@
 		air.set_volume(volume)
 
 /datum/pipeline/proc/addMachineryMember(obj/machinery/atmospherics/components/C)
+	//Yes we are having duplicate references to components with multiple nodes sharing a parent
 	other_atmosmch += C
 	var/G = C.returnPipenetAir(src)
 	if(!G)
@@ -212,9 +213,9 @@
 			continue
 		GL += P.return_air()
 		if(P != src)
-			//If one of the reconciling pipenet requires full reconcilation, we have to comply
+			//If one of the reconciling pipenet requires full reconciliation, we have to comply
 			update = max(update, P.update)
-			//This prevents redundant reconilations, highlander style: there can be only one (to reconcile)
+			//This prevents redundant reconciliations, highlander style: there can be only one (to reconcile)
 			P.update = PIPENET_UPDATE_STATUS_DORMANT
 		for(var/atmosmch in P.other_atmosmch)
 			if (istype(atmosmch, /obj/machinery/atmospherics/components/binary/valve))

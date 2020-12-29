@@ -162,9 +162,9 @@
 		var/datum/pipeline/parent = parents[i]
 		if(!parent)
 			//WARNING("Component is missing a pipenet! Rebuilding...")
-      //At pre-SSair_rebuild_pipenets times, not having a parent wasn't supposed to happen
+			//At pre-SSair_rebuild_pipenets times, not having a parent wasn't supposed to happen
 			SSair.add_to_rebuild_queue(src)
-      continue
+			continue
 		parent.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 /obj/machinery/atmospherics/components/returnPipenets()
