@@ -56,6 +56,13 @@
 		icon_regular_floor = icon_state
 	if(mapload && prob(33))
 		MakeDirty()
+	if(is_station_level(z))
+		GLOB.station_turfs += src
+
+/turf/open/floor/Destroy()
+	if(is_station_level(z))
+		GLOB.station_turfs -= src
+	..()
 
 /turf/open/floor/ex_act(severity, target)
 	var/shielded = is_shielded()
