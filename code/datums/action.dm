@@ -743,10 +743,6 @@
 /datum/action/small_sprite/megafauna/legion
 	small_icon_state = "dwarf_legion"
 
-/datum/action/small_sprite/megafauna/spacedragon
-	small_icon = 'icons/mob/carp.dmi'
-	small_icon_state = "carp"
-
 /datum/action/small_sprite/Trigger()
 	..()
 	if(!small)
