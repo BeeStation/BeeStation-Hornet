@@ -28,7 +28,7 @@
 	var/obj/machinery/atmospherics/oldN = nodes[i]
 	..()
 	if(oldN)
-		oldN.build_network()
+		SSair.add_to_rebuild_queue(oldN)
 
 /obj/machinery/atmospherics/pipe/destroy_network()
 	QDEL_NULL(parent)
@@ -55,10 +55,12 @@
 		air_update_turf()
 
 /obj/machinery/atmospherics/pipe/return_air()
-	return parent.air
+	if(parent)
+		return parent.air
 
 /obj/machinery/atmospherics/pipe/return_analyzable_air()
-	return parent.air
+	if(parent)
+		return parent.air
 
 /obj/machinery/atmospherics/pipe/remove_air(amount)
 	return parent.air.remove(amount)
@@ -72,7 +74,8 @@
 		return ..()
 
 /obj/machinery/atmospherics/pipe/returnPipenet()
-	return parent
+	if(parent)
+		return parent.air
 
 /obj/machinery/atmospherics/pipe/setPipenet(datum/pipeline/P)
 	parent = P
