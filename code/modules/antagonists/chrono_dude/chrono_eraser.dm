@@ -1,6 +1,6 @@
 /*
 	- CHRONO ERASER -
-	
+
 	CONTENTS
 		The Backpack (and some code to protect it)
 		The Gun
@@ -107,7 +107,6 @@
 
 /obj/item/projectile/energy/chrono_beam/on_hit(atom/target)
 	if(target && gun && isliving(target))
-		var/mob/living/PT = target
 		new /obj/structure/chrono_field(target.loc, target, gun)
 
 
