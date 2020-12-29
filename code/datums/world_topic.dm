@@ -128,8 +128,8 @@
 
 /datum/world_topic/playerlist/Run(list/input, addr)
 	. = list()
-    for(var/client/C as() in GLOB.clients)
-        . += C.ckey
+	for(var/client/C as() in GLOB.clients)
+		. += C.ckey
 
 /datum/world_topic/status
 	keyword = "status"
