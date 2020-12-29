@@ -48,7 +48,7 @@
 
 /datum/action/equipHazard/proc/toggle()
 	if(paniced)
-		paniced = 0
+		paniced = FALSE
 	else
 		paniced = 1
 
@@ -125,5 +125,4 @@
 			to_chat(USR,"<span class='warning'>Missing internals tank!</span>.")
 	USR.update_action_buttons_icon()
 	return TRUE
-
 
