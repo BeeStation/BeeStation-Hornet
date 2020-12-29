@@ -50,7 +50,7 @@
 	if(paniced)
 		paniced = FALSE
 	else
-		paniced = 1
+		paniced = TRUE
 
 /datum/action/equipHazard/Grant(mob/user, obj/item/containBox)
 	. = ..()
@@ -125,4 +125,3 @@
 			to_chat(USR,"<span class='warning'>Missing internals tank!</span>.")
 	USR.update_action_buttons_icon()
 	return TRUE
-
