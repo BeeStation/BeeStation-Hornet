@@ -1,7 +1,7 @@
 PROCESSING_SUBSYSTEM_DEF(radiation)
 	name = "Radiation"
 	flags = SS_NO_INIT | SS_BACKGROUND
-	wait = 20
+	wait = 10
 	var/list/warned_atoms = list()
 
 /datum/controller/subsystem/processing/radiation/proc/warn(datum/component/radioactive/contamination)
