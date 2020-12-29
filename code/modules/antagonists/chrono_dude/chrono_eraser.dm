@@ -108,10 +108,7 @@
 /obj/item/projectile/energy/chrono_beam/on_hit(atom/target)
 	if(target && gun && isliving(target))
 		var/mob/living/PT = target
-		if (PT.mind?.has_antag_datum(/datum/antagonist/ta))
-			PT.dust()
-		else
-			new /obj/structure/chrono_field(target.loc, target, gun)
+		new /obj/structure/chrono_field(target.loc, target, gun)
 
 
 /obj/item/ammo_casing/energy/chrono_beam
@@ -137,7 +134,7 @@
 	move_resist = INFINITY
 	interaction_flags_atom = NONE
 	var/mob/living/captured = null
-	var/tickstokill = 15
+	var/tickstokill = 50
 	var/mutable_appearance/mob_underlay
 	var/preloaded = 0
 	var/RPpos = null
@@ -178,11 +175,14 @@
 				AM.forceMove(drop_location())
 			qdel(src)
 		else
-			captured.Unconscious(80)
-			if(captured.loc != src)
-				captured.forceMove(src)
-			update_icon()
-			tickstokill++
+			if (captured.mind?.has_antag_datum(/datum/antagonist/ta))
+				captured.dust()
+			else
+				captured.Unconscious(80)
+				if(captured.loc != src)
+					captured.forceMove(src)
+				update_icon()
+				tickstokill++
 	else
 		qdel(src)
 

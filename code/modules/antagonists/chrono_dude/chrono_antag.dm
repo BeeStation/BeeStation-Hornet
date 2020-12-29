@@ -39,6 +39,14 @@
 		obj.update_explanation_text()
 		objectives += obj
 		log_objective(owner, obj.explanation_text)
+		
+/datum/antagonist/tca/process()
+	if(owner && owner.current && mission_concluded())
+		to_chat(owner.current, "<span class='userdanger'>Congratulations! Your anomaly was disposed and your mission is complete! Your dystopian timeline has been corrected, and the events that lead you to come here never took place! You will slowly disappear!</span>")		
+		sleep(rand(20, 40) SECONDS)
+		animate(owner.current,alpha = 0,time = 20 SECONDS)
+		sleep(20 SECONDS)
+		qdel(owner.current)
 
 /datum/antagonist/tca/apply_innate_effects()
 	.=..()
