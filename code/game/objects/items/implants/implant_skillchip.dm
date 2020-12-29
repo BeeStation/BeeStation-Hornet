@@ -36,21 +36,6 @@
 		if(user)
 			log_combat(user, target, "implanted", "\a [name]")
 
-/obj/item/implant/skillchip/bartending
-	name = "Bartending Skill Chip"
-	desc = "A Skill Chip which teaches the user how to read chem dispenser buttons and throw drinks without spilling them."
-	chipTag = "barman"
-
-/obj/item/implant/skillchip/bartending/on_implanted(mob/user)
-	ADD_TRAIT(user, TRAIT_BOOZE_SLIDER, "implant")
-	ADD_TRAIT(user, TRAIT_CHEMISTRY, "implant")
-	..()
-
-/obj/item/implant/skillchip/bartending/removed(mob/living/source, silent, special)
-	REMOVE_TRAIT(source, TRAIT_CHEMISTRY, "implant")
-	REMOVE_TRAIT(source, TRAIT_BOOZE_SLIDER, "implant")
-	..()
-
 /obj/item/implant/skillchip/engineering
 	name = "Engineering Skill Chip"
 	desc = "A Skill Chip which stores the wire schematics for all doors on station."
@@ -75,6 +60,19 @@
 
 /obj/item/implant/skillchip/chemistry/removed(mob/living/source, silent, special)
 	REMOVE_TRAIT(source, TRAIT_CHEMISTRY, "implant")
+	..()
+
+/obj/item/implant/skillchip/chemistry/bartending
+	name = "Bartending Skill Chip"
+	desc = "A Skill Chip which teaches the user how to read chem dispenser buttons and throw drinks without spilling them."
+	chipTag = "barman"
+
+/obj/item/implant/skillchip/chemistry/bartending/on_implanted(mob/user)
+	ADD_TRAIT(user, TRAIT_BOOZE_SLIDER, "implant")
+	..()
+
+/obj/item/implant/skillchip/chemistry/bartending/removed(mob/living/source, silent, special)
+	REMOVE_TRAIT(source, TRAIT_BOOZE_SLIDER, "implant")
 	..()
 
 /obj/item/implant/skillchip/surgeon
