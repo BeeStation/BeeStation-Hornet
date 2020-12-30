@@ -241,6 +241,7 @@
 		if(E.icn_id == id)
 			order = E
 			order.purchased = TRUE //Just in case it's polled before deletion
+			break
 
 	if(!order)
 		return
