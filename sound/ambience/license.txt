@@ -2,9 +2,9 @@ ambidet1.ogg is Fast Talking by Kevin Macleod. It has been licensed under the CC
 	It has been cropped for use ingame.
 ambidet2.ogg is Night on the Docks, Piano by Kevin Macleod. It has been licensed under CC-BY 3.0 license, found here: https://creativecommons.org/licenses/by/3.0/
 	It has been cropped for use ingame, and also fades in.
-ambidet3.ogg is Cool Vibes by Kevin Macleod. It has been licensed under CC-BY 4.0 license, found here: https://creativecommons.org/licenses/by/4.0/
+ambidet3.ogg is Cool Vibes by Kevin Macleod. It has been licensed under CC-BY 3.0 license, found here: https://creativecommons.org/licenses/by/3.0/
 	It has been cropped for use ingame, and also fades in and out. 
-ambidet4.ogg is I Knew a Guy by Kevin Macleod. It has been licensed under CC-BY 4.0 license, found here: https://creativecommons.org/licenses/by/4.0/ 
+ambidet4.ogg is I Knew a Guy by Kevin Macleod. It has been licensed under CC-BY 3.0 license, found here: https://creativecommons.org/licenses/by/3.0/
 	It has been cropped for use ingame, and also fades out. 
 aurora_caelus.ogg is Music for Manatees, by Kevin Macleod. It has been licensed under CC-BY 3.0 license, found here: https://creativecommons.org/licenses/by/3.0/
 	It has been cropped for use ingame, and also fades out.
