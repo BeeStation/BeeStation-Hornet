@@ -184,6 +184,7 @@
 	slot = ORGAN_SLOT_SKILLCHIP
 	w_class = WEIGHT_CLASS_SMALL
 	var/applied_traits = list()
+	var/datum/martial_art/style
 
 /obj/item/organ/cyberimp/skillChip/Insert(mob/living/carbon/M, special, drop_if_replaced)
 	if(!iscarbon(M) || owner == M)
@@ -204,6 +205,7 @@
 	M.internal_organs_slot[slot] = src
 	for(var/trait in applied_traits)
 		ADD_TRAIT(M, trait, "skillChip")
+	style.teach(M)
 	moveToNullspace()
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -216,6 +218,7 @@
 		M.internal_organs -= src
 		if(M.internal_organs_slot[slot] == src)
 			M.internal_organs_slot.Remove(slot)
+			style.remove(M)
 			for(var/trait in applied_traits)
 				REMOVE_TRAIT(M, trait, "skillChip")
 			M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3)
