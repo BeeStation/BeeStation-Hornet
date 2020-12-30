@@ -213,6 +213,10 @@
 
 /datum/world_topic/cross_cargo/Run(list/input, addr)
 	. = list()
+
+	if(SSticker.current_state != GAME_STATE_PLAYING)
+		return .
+
 	for(var/datum/icn_export/E as() in GLOB.icn_exports)
 		if(E.purchased)
 			continue
@@ -243,7 +247,7 @@
 			order.purchased = TRUE //Just in case it's polled before deletion
 			break
 
-	if(!order)
+	if(!order) //This should only be feasible if a purchase happens after roundend but before the cache update
 		return
 
 	//Handle payment
