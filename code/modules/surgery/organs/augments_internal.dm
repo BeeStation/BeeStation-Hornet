@@ -178,7 +178,7 @@
 
 //SkillChips
 
-/obj/item/organ/cyberimp/skillChip
+/obj/item/organ/cyberimp/skillChip //Abstraction of the Skillchip Implants.
 	name = "SkillChip"
 	desc = "A piece of bleeding-edge tech which teaches the user various skills when installed."
 	slot = ORGAN_SLOT_SKILLCHIP
@@ -233,3 +233,51 @@
 
 	START_PROCESSING(SSobj, src)
 
+/obj/item/organ/cyberimp/skillChip/chemistry
+	name = "Chemistry SkillChip"
+	desc = "A piece of bleeding-edge tech which teaches the user how to efficiently use a Chem Dispenser."
+	applied_traits = list(TRAIT_CHEMISTRY)
+
+/obj/item/organ/cyberimp/skillChip/bartender
+	name = "Bartending SkillChip"
+	desc = "A piece of bleeding-edge tech which teaches the user how to efficiently use a Chem Dispenser and throw drinks without spilling them"
+	applied_traits = list(TRAIT_CHEMISTRY, TRAIT_BOOZE_SLIDER)
+
+/obj/item/organ/cyberimp/skillChip/engineering
+	name = "Engineering SkillChip"
+	desc = "A piece of bleeding-edge tech which memorizes the wire layouts for each departments doors."
+	applied_traits = list(TRAIT_WIRESEEING)
+
+/obj/item/organ/cyberimp/skillChip/surgical
+	name = "Surgical Skillchip"
+	desc = "A piece of bleeding-edge tech which teaches the user how to employ techniques to improve surgical outcomes."
+	applied_traits = list(TRAIT_SURGICAL_EXPERT)
+
+/obj/item/organ/cyberimp/skillChip/chiefMedical
+	name = "Chief Medical Officer Skillchip"
+	desc = "A piece of bleeding-edge tech which teaches the user how to efficiently use a chem dispenser and employ techniques to improve surgical outcomes."
+	applied_traits = list(TRAIT_SURGICAL_EXPERT, TRAIT_CHEMISTRY)
+
+/obj/item/organ/cyberimp/skillChip/chef
+	name = "Chef SkillChip"
+	desc = "A piece of bleeding-edge tech which teaches the user the art of close quarters cooking."
+	style = /datum/martial_art/cqc/under_siege
+
+/obj/item/organ/cyberimp/skillChip/security
+	name = "Security SkillChip"
+	desc = "A piece of bleeding-edge tech which teaches the user about Nanotrasen approved methods for unarmed takedowns."
+	style = /datum/martial_art/security_cqc
+/obj/item/organ/cyberimp/skillChip/omniChip //Parent type for all omni chips
+	name = "OmniChip"
+	desc = "A piece of bleeding-edge tech which teaches the user all the non-martial arts related skills from other SkillChips."
+	applied_traits = list(TRAIT_CHEMISTRY, TRAIT_SURGICAL_EXPERT, TRAIT_WIRESEEING, TRAIT_BOOZE_SLIDER)
+
+/obj/item/organ/cyberimp/skillChip/omniChip/omniChipChef
+	name = "OmniChip Cooking Edition"
+	desc = "A piece of bleeding-edge tech which teaches the user skills from other SkillChips in addition to close quarters cooking."
+	style = /datum/martial_art/cqc/under_siege
+
+/obj/item/organ/cyberimp/skillChip/omniChip/omniChipSecurity
+	name = "OmniChip Security Edition"
+	desc = "A piece of bleeding-edge tech which teaches the user skills from other SkillChips in addition to Nanotrasen approved methods for unarmed takedowns."
+	style = /datum/martial_art/security_cqc
