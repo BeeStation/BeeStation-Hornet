@@ -1,4 +1,8 @@
 GLOBAL_LIST_EMPTY(icn_exports)
+GLOBAL_LIST_INIT(blacklisted_icn_types, typecacheof(list(
+		/obj/item/onetankbomb,
+		/obj/item/assembly_holder
+	)))
 
 /obj/item/icn_tagger
 	name = "\improper Interstation Cargo Network tagger"
