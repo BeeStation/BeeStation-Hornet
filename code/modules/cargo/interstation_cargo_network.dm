@@ -75,6 +75,10 @@ GLOBAL_LIST_INIT(blacklisted_icn_types, typecacheof(list(
 		E.roundid = GLOB.round_id
 		E.station_name = station_name()
 		E.payment_account = src.payment_account
+		E.icn_id = rustg_hash_string(RUSTG_HASH_MD5, "[user.ckey][E.roundid][world.time]")
+		E.order_no = copytext(E.icn_id,1,7)
+
+		C.name = "\improper ICN Order #[E.order_no] crate"
 
 		to_chat(user, "<span class='notice'>You prepare the crate for ICN export ($[price]). Account ID: [account_name()]</span>")
 
@@ -106,11 +110,25 @@ GLOBAL_LIST_INIT(blacklisted_icn_types, typecacheof(list(
 	if(!crate_contents.len)
 		qdel(C)
 		qdel(src)
+		return
 
 	contents = list()
 
 	for(var/atom/A in crate_contents)
+		if((A.flags_1 & ADMIN_SPAWNED_1))
+			log_game("[seller_ckey] tried to sell an adminspawned [A.name] on the ICN")
+			message_admins("[seller_ckey] tried to sell an adminspawned [A.name] on the ICN")
+			qdel(A)
+			continue
+		if(isobj(A))
+			var/obj/O = A
+			if((O.resistance_flags & INDESTRUCTIBLE))
+				qdel(O)
+				continue
 		if(ismob(A)) //This shouldn't be possible but better safe than sorry
+			qdel(A)
+			continue
+		if(is_type_in_typecache(A, GLOB.blacklisted_icn_types))
 			qdel(A)
 			continue
 
@@ -122,15 +140,25 @@ GLOBAL_LIST_INIT(blacklisted_icn_types, typecacheof(list(
 
 		qdel(A)
 
-	finalize_export()
+	if(!contents.len)
+		//Notify the seller via PDA
+		for (var/obj/item/pda/P as() in GLOB.PDAs)
+			if(P.owner == seller_name)
+				var/datum/signal/subspace/messaging/pda/signal = new(src, list(
+					"name" = "Interstation Cargo Network",
+					"job" = "CentCom",
+					"message" ="Your listing (#[order_no]) has been rejected by the ICN and the crate has been destroyed. No refunds.",
+					"targets" = list("[P.owner] ([P.ownjob])"),
+					"automated" = 1))
+				signal.send_to_receivers()
+		qdel(src)
+	else
+		finalize_export()
 
 /datum/icn_export/proc/finalize_export()
 	if(price < 1000 || price > 100000 || !roundid || !payment_account || !seller_ckey) //This should never happen, but better safe than sorry
 		qdel(src)
 		return
-
-	icn_id = rustg_hash_string(RUSTG_HASH_MD5, "[seller_ckey][roundid][world.time]")
-	order_no = copytext(icn_id,1,7)
 
 	log_game("ICN EXPORT: Export #[order_no] ($[price]) created by [seller_ckey] with the following contents: [jointext(contents, ", ")]")
 
