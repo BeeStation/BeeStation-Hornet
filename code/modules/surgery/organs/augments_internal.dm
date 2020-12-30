@@ -184,6 +184,7 @@
 	slot = ORGAN_SLOT_SKILLCHIP
 	w_class = WEIGHT_CLASS_SMALL
 	applied_traits = list()
+	/var/datum/martial_art/style
 
 /obj/item/organ/cyberimp/skillChip/Insert(mob/living/carbon/M, special, drop_if_replaced)
 	if(!iscarbon(M) || owner == M)
