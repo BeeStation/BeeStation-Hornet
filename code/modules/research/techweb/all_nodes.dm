@@ -363,9 +363,18 @@
 	display_name = "Cyborg Upgrades: Combat"
 	description = "Military grade upgrades for cyborgs."
 	prereq_ids = list("adv_robotics", "adv_engi" , "weaponry")
-	design_ids = list("borg_upgrade_vtec", "borg_upgrade_disablercooler")
+	design_ids = list("borg_upgrade_vtec", "borg_upgrade_disablercooler", )
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
+
+/datum/techweb_node/cyborg_upg_security
+	id ="borg_upg_security"
+	description = "Allows Security to Make cyborgs into weapons of mass disabling."
+	display_name = "Cyborg Upgrade: Security"
+	prereq_ids = list("cyborg_upg_combat", "adv_weaponry", "mech_disabler")
+	design_ids = list("borg_transform_security")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	export_price = 10000
 
 /datum/techweb_node/cyborg_upg_service
 	id = "cyborg_upg_service"
