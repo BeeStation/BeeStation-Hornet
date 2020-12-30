@@ -115,9 +115,9 @@ GLOBAL_LIST_INIT(blacklisted_icn_types, typecacheof(list(
 	contents = list()
 
 	for(var/atom/A in crate_contents)
-		if((A.flags_1 & ADMIN_SPAWNED_1))
-			log_game("[seller_ckey] tried to sell an adminspawned [A.name] on the ICN")
-			message_admins("[seller_ckey] tried to sell an adminspawned [A.name] on the ICN")
+		if((A.flags_1 & ADMIN_SPAWNED_1) || (datum_flags & DF_VAR_EDITED))
+			log_game("[seller_ckey] tried to sell an adminspawned or varedited [A.name] on the ICN")
+			message_admins("[seller_ckey] tried to sell an adminspawned or varedited [A.name] on the ICN")
 			qdel(A)
 			continue
 		if(isobj(A))
