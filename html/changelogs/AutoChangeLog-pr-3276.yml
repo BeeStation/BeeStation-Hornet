@@ -1,0 +1,4 @@
+author: St0rmC4st3r
+delete-after: true
+changes:
+  - bugfix: chloral hydrate bottle now has 30u instead of 15u.
