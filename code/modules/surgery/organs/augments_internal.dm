@@ -183,8 +183,7 @@
 	desc = "A piece of bleeding-edge tech which teaches the user various skills when installed."
 	slot = ORGAN_SLOT_SKILLCHIP
 	w_class = WEIGHT_CLASS_SMALL
-	applied_traits = list()
-	/var/datum/martial_art/style
+	var/applied_traits = list()
 
 /obj/item/organ/cyberimp/skillChip/Insert(mob/living/carbon/M, special, drop_if_replaced)
 	if(!iscarbon(M) || owner == M)
