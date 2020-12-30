@@ -66,8 +66,8 @@
 /datum/chemical_reaction/midas
 	name = "Draught of Midas"
 	id = /datum/reagent/magic/midas
-	results = list(/datum/reagent/magic/midas = 1)
-	required_reagents = list(/datum/reagent/liquidgibs = 5, /datum/reagent/gold = 5, /datum/reagent/magic = 5)
+	results = list(/datum/reagent/magic/midas = 30)
+	required_reagents = list(/datum/reagent/liquidgibs = 30, /datum/reagent/gold = 30, /datum/reagent/magic = 30)
 
 /datum/chemical_reaction/midas_replicate
 	name = "Draught of Midas"

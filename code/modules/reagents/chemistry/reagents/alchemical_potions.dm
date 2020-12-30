@@ -15,6 +15,15 @@
 	color = "#1C2EC3"
 	taste_description = "earwax"
 
+/datum/reagent/magic/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+	if(method == TOUCH || method == VAPOR)
+		M.reagents.add_reagent(src.type, reac_volume)
+
+/datum/reagent/magic/berserkium/on_mob_metabolize(mob/living/L)
+	if(L.anti_magic_check())
+		metabolization_rate = 100 * REAGENTS_METABOLISM
+	..()
+
 //	----	POLYMORPHINE	----
 
 /datum/reagent/magic/polymorphine
@@ -26,17 +35,14 @@
 	metabolization_rate = 0.1 * REAGENTS_METABOLISM
 	var/obj/shapeshift_holder/shapeshiftdata
 
-/datum/reagent/magic/polymorphine/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
-	if (reac_volume >= overdose_threshold && (method == TOUCH || method == VAPOR))
-		polymorph_target(M,reac_volume/overdose_threshold)
-	..()
-
 /datum/reagent/magic/polymorphine/overdose_start(mob/living/L)
 	..()
 	polymorph_target(L,volume/overdose_threshold)
 	metabolization_rate = 10 * REAGENTS_METABOLISM
 
 /datum/reagent/magic/polymorphine/proc/polymorph_target(mob/living/L, var/dur)
+	if(L.anti_magic_check())
+		return
 	shapeshiftdata = locate() in L
 	if(shapeshiftdata)
 		return
@@ -113,11 +119,6 @@
 	taste_description = "a flavor spectrum all over the place"
 	color = "#528698"
 
-/datum/reagent/magic/teleportarium/reaction_mob(mob/living/L, method=TOUCH, reac_volume)
-	if (reac_volume>=MAGIC_REAGENT_TOUCH && (method == TOUCH || method == VAPOR))
-		teleport_sucker(L)
-	..()
-
 /datum/reagent/magic/teleportarium/on_mob_life(mob/living/L)
 	if(current_cycle > TELEPORTARIUM_CYCLE )
 		to_chat(L, "<span class='warning'>You feel out of place...</span>")
@@ -126,6 +127,8 @@
 	..()
 
 /datum/reagent/magic/teleportarium/proc/teleport_sucker(mob/living/carbon/L)
+	if(L.anti_magic_check())
+		return
 	if (istype(L))
 		var/atom/A = get_ranged_target_turf(get_turf(L), L.dir, TELEPORTARIUM_RANGE)
 		do_teleport(L, A, 0, asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_WORMHOLE)
@@ -136,6 +139,8 @@
 	description = "Magic potion that teleports you to a nearby random point."
 
 /datum/reagent/magic/teleportarium/unstable/teleport_sucker(mob/living/L)
+	if(L.anti_magic_check())
+		return
 	do_teleport(L, get_turf(L), TELEPORTARIUM_RANGE, asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_WORMHOLE)
 
 //	----	INVISIBILIUM	----
@@ -273,15 +278,6 @@
 	color = "#7AC179"
 	metabolization_rate = 10 * REAGENTS_METABOLISM
 	taste_description = "bitter-sweet"
-
-/datum/reagent/magic/lc/reaction_mob(mob/living/L, method=TOUCH, reac_volume)
-	if (method == TOUCH)
-		L.heal_bodypart_damage(reac_volume, reac_volume, reac_volume)
-		L.adjustBruteLoss( -reac_volume * 3, 0 )
-		L.adjustOxyLoss( -reac_volume * 3, 0 )
-		L.adjustFireLoss( -reac_volume * 3, 0 )
-		L.adjustToxLoss( -reac_volume * 3, 0 )	
-	..()
 	
 /datum/reagent/magic/lc/on_mob_metabolize(mob/living/L)
 	..()
