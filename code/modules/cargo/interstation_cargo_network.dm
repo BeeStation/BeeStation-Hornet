@@ -84,7 +84,6 @@ GLOBAL_LIST_EMPTY(icn_exports)
 	var/station_name
 	var/payment_account
 	var/list/contents
-	var/list/stacks
 	var/icn_id
 	var/order_no
 	var/purchased = FALSE
@@ -105,7 +104,7 @@ GLOBAL_LIST_EMPTY(icn_exports)
 		qdel(src)
 
 	contents = list()
-	stacks = list()
+
 	for(var/atom/A in crate_contents)
 		if(ismob(A)) //This shouldn't be possible but better safe than sorry
 			qdel(A)
@@ -113,9 +112,9 @@ GLOBAL_LIST_EMPTY(icn_exports)
 
 		if(istype(A, /obj/item/stack)) //We have to care about the amount in a stack
 			var/obj/item/stack/S = A
-			stacks["[S.type]"] += S.amount
+			contents += list("type" = "[A.type]", "name" = "[initial(A.name)]", "amount" = S.amount)
 		else
-			contents += "[A.type]" //We're not *super* concerned about any other vars
+			contents += list("type" = "[A.type]", "name" = "[initial(A.name)]") //We're not *super* concerned about any other vars
 
 		qdel(A)
 
@@ -129,6 +128,6 @@ GLOBAL_LIST_EMPTY(icn_exports)
 	icn_id = rustg_hash_string(RUSTG_HASH_MD5, "[seller_ckey][roundid][world.time]")
 	order_no = copytext(icn_id,1,7)
 
-	log_game("ICN EXPORT: Export #[order_no] ($[price]) created by [seller_ckey] with the following contents: [jointext(contents, ", ")], [jointext(stacks, ", ")]")
+	log_game("ICN EXPORT: Export #[order_no] ($[price]) created by [seller_ckey] with the following contents: [jointext(contents, ", ")]")
 
 	GLOB.icn_exports += src

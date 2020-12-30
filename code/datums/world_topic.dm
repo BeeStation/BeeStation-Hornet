@@ -228,8 +228,7 @@
 			"payment_account" = E.payment_account,
 			"purchased" = FALSE,
 			"station_name" = E.station_name,
-			"contents" = E.contents,
-			"stacks" = E.stacks)
+			"contents" = E.contents)
 
 /datum/world_topic/cross_cargo_buy
 	keyword = "cross_cargo_buy"
