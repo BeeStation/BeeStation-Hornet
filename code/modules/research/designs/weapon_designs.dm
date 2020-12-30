@@ -123,15 +123,6 @@
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
-/datum/design/borg_transform_security
-	name = "Cyborg Upgrade (Security Module)"
-	desc = "A circuitboard which allows cyborgs to become a weapon of mass disabling."
-	id = "borg_transform_security"
-	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 15000, /datum/material/glass = 15000, /datum/material/diamond = 3000)
-	build_path = /obj/item/borg/upgrade/transform/security
-	category = list("Weapons")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 /datum/design/adv_stunmine/sec
 	name = "Smart Stun Mine"
 	desc = "A advanced nonlethal stunning mine. Uses advanced detection software to only trigger when activated by someone without a mindshield implant."
