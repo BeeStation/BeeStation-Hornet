@@ -1,0 +1,5 @@
+author: park66665
+delete-after: true
+changes:
+  - bugfix: forced dynamic rulesets now respect role protection
+  - rscdel: admeme-unrelated sec and/or cap roundstart traitors on dynamic (hopefully)
