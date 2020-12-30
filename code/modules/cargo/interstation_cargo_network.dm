@@ -63,6 +63,9 @@ GLOBAL_LIST_INIT(blacklisted_icn_types, typecacheof(list(
 		return
 
 	if(istype(O, /obj/structure/closet/crate))
+		if(istype(O, /obj/structure/closet/crate/secure))
+			to_chat(user, "<span class='warning'>You can't sell secure crates on the ICN!</span>")
+			return
 		var/obj/structure/closet/crate/C = O
 		var/datum/icn_export/E = C.icn_export
 		if(!E)
@@ -80,7 +83,7 @@ GLOBAL_LIST_INIT(blacklisted_icn_types, typecacheof(list(
 
 		C.name = "\improper ICN Order #[E.order_no] crate"
 
-		to_chat(user, "<span class='notice'>You prepare the crate for ICN export ($[price]). Account ID: [account_name()]</span>")
+		to_chat(user, "<span class='notice'>You prepare the crate for ICN export ($[price]). Account ID: [account_name()].</span>")
 
 		return
 
