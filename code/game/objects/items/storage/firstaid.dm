@@ -328,9 +328,6 @@
 	var/pill_type = "pill_canister_"
 
 /obj/item/storage/pill_bottle/Initialize()
-	var/proper_name = name
-	. = ..()
-	name = proper_name
 	if(prob(pill_variance))
 		icon_state = "[pill_type][rand(0,6)]"
 
