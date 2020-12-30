@@ -327,12 +327,15 @@
 	var/pill_variance = 100 //probability pill_bottle has a different icon state. Put at 0 for no variance
 	var/pill_type = "pill_canister_"
 
-/obj/item/storage/pill_bottle/ComponentInitialize()
+/obj/item/storage/pill_bottle/Initialize()
 	var/proper_name = name
 	. = ..()
 	name = proper_name
 	if(prob(pill_variance))
 		icon_state = "[pill_type][rand(0,6)]"
+
+/obj/item/storage/pill_bottle/ComponentInitialize()
+	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.allow_quick_gather = TRUE
 	STR.click_gather = TRUE
