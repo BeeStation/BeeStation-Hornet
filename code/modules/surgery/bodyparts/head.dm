@@ -19,6 +19,7 @@
 	var/obj/item/organ/eyes/eyes
 	var/obj/item/organ/ears/ears
 	var/obj/item/organ/tongue/tongue
+	var/obj/item/organ/cyberimp/skillChip/skillChip //Currently installed skillChip
 
 	//Limb appearance info:
 	var/real_name = "" //Replacement name

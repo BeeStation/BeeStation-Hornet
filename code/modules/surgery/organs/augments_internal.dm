@@ -175,3 +175,58 @@
 	while(contents.len <= amount)
 		implant = pick(boxed)
 		new implant(src)
+
+//SkillChips
+
+/obj/item/organ/cyberimp/skillChip
+	name = "SkillChip"
+	desc = "A piece of bleeding-edge tech which teaches the user various skills when installed."
+	slot = ORGAN_SLOT_SKILLCHIP
+	w_class = WEIGHT_CLASS_SMALL
+	applied_traits = list()
+
+/obj/item/organ/cyberimp/skillChip/Insert(mob/living/carbon/M, special, drop_if_replaced)
+	if(!iscarbon(M) || owner == M)
+		return
+
+	var/obj/item/organ/replaced = M.getorganslot(slot)
+	if(replaced)
+		replaced.Remove(M, special = 1)
+		if(drop_if_replaced)
+			replaced.forceMove(get_turf(M))
+		else
+			qdel(replaced)
+
+	SEND_SIGNAL(M, COMSIG_CARBON_GAIN_ORGAN, src)
+
+	owner = M
+	M.internal_organs |= src
+	M.internal_organs_slot[slot] = src
+	for(var/trait in applied_traits)
+		ADD_TRAIT(M, trait, "skillChip")
+	moveToNullspace()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.Grant(M)
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/organ/cyberimp/skillChip/Remove(mob/living/carbon/M, special)
+	owner = null
+	if(M)
+		M.internal_organs -= src
+		if(M.internal_organs_slot[slot] == src)
+			M.internal_organs_slot.Remove(slot)
+			for(var/trait in applied_traits)
+				REMOVE_TRAIT(M, trait, "skillChip")
+			M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3)
+			to_chat(M, "<span class='warning>Your brain hurts as your neurons are forcefully rewired.</span>")
+		if((organ_flags & ORGAN_VITAL) && !special && !(M.status_flags & GODMODE))
+			M.death()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.Remove(M)
+
+	SEND_SIGNAL(M, COMSIG_CARBON_LOSE_ORGAN, src)
+
+	START_PROCESSING(SSobj, src)
+
