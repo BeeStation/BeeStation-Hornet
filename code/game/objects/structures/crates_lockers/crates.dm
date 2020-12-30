@@ -23,9 +23,14 @@
 	drag_slowdown = 0
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
 	var/radius_2 = 1.35
+	var/datum/icn_export/icn_export
 
 /obj/structure/closet/crate/Initialize()
 	. = ..()
+
+/obj/structure/closet/crate/Destroy()
+	icn_export = null
+	..()
 
 /obj/structure/closet/crate/CanPass(atom/movable/mover, turf/target)
 	if(!istype(mover, /obj/structure/closet))

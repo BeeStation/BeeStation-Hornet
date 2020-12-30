@@ -1039,3 +1039,11 @@
 	build_path = /obj/item/stack/ducts
 	category = list("initial", "Construction")
 	maxstack = 50
+
+/datum/design/icn
+	name = "Interstation Cargo Network Tagger"
+	id = "icn"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 300, /datum/material/glass = 100)
+	build_path = /obj/item/icn_tagger
+	category = list("initial", "Misc")

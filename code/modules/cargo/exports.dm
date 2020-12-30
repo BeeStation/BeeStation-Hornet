@@ -30,6 +30,13 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 	if(!GLOB.exports_list.len)
 		setupExports()
 
+	if(istype(AM, /obj/structure/closet/crate))
+		var/obj/structure/closet/crate/C = AM
+		if(C.icn_export)
+			C.icn_export.process_crate(C)
+			qdel(C)
+			return
+
 	var/list/contents = AM.GetAllContents()
 
 	var/datum/export_report/report = external_report

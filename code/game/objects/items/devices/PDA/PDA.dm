@@ -1052,7 +1052,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(user, "Turn on your receiver in order to send messages.")
 		return
 
-	for (var/obj/item/pda/P in get_viewable_pdas())
+	for (var/obj/item/pda/P in get_viewable_pdas())//
 		if (P == src)
 			continue
 		else if (P == aiPDA)

@@ -554,3 +554,6 @@ VOTE_AUTOTRANSFER_INTERVAL 18000
 
 ## Ghost role cooldown time after death (In deciseconds)
 GHOST_ROLE_COOLDOWN 3000
+
+## Uncomment with a valid crosscargo api URL to enable crosscargo
+CROSSCARGO_URL http://beestation13.com/api/cross_cargo

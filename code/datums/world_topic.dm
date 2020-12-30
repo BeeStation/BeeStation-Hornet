@@ -208,4 +208,62 @@
 	qdel(query_ckey_lookup)
 	return .
 
+/datum/world_topic/cross_cargo
+	keyword = "cross_cargo"
 
+/datum/world_topic/cross_cargo/Run(list/input, addr)
+	. = list()
+	for(var/datum/icn_export/E as() in GLOB.icn_exports)
+		if(E.purchased)
+			continue
+		.["[E.icn_id]"] = list(
+			"order_no" = E.order_no,
+			"seller_name" = E.seller_name,
+			"price" = E.price,
+			"roundid" = E.roundid,
+			"payment_account" = E.payment_account,
+			"purchased" = FALSE,
+			"station_name" = E.station_name,
+			"contents" = E.contents,
+			"stacks" = E.stacks)
+
+/datum/world_topic/cross_cargo_buy
+	keyword = "cross_cargo_buy"
+	require_comms_key = TRUE
+	log = FALSE
+
+/datum/world_topic/cross_cargo_buy/Run(list/input, addr)
+	var/id = input["id"]
+	var/purchaser = input["purchaser"]
+	var/datum/icn_export/order
+
+	for(var/datum/icn_export/E as() in GLOB.icn_exports)
+		if(E.icn_id == id)
+			order = E
+			order.purchased = TRUE //Just in case it's polled before deletion
+
+	if(!order)
+		return
+
+	//Handle payment
+	var/datum/bank_account/B = SSeconomy.get_dep_account(order.payment_account)
+	var/intended_account = TRUE
+	if(!B) //It's not a department account, it's a personal account
+		B = SSeconomy.get_bank_account(order.payment_account)
+	if(!B) //Give up, just pay it to Cargonia
+		B = SSeconomy.get_dep_account(ACCOUNT_CAR)
+		intended_account = FALSE
+	B.adjust_money(order.price)
+
+	//Notify the seller via PDA
+	for (var/obj/item/pda/P as() in GLOB.PDAs)
+		if(P.owner == order.seller_name)
+			var/datum/signal/subspace/messaging/pda/signal = new(src, list(
+				"name" = "Interstation Cargo Network",
+				"job" = "CentCom",
+				"message" ="ICN Order #[order.order_no] has been purchased by [purchaser]! We have credited $[order.price] to the following account: [intended_account ? order.payment_account : "[ACCOUNT_CAR_NAME]"]",
+				"targets" = list("[P.owner] ([P.ownjob])"),
+				"automated" = 1))
+			signal.send_to_receivers()
+
+	qdel(order)

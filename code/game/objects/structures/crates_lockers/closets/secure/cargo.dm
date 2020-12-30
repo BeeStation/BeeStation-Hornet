@@ -17,6 +17,7 @@
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/clothing/head/soft(src)
 	new /obj/item/export_scanner(src)
+	new /obj/item/icn_tagger(src)
 	new /obj/item/door_remote/quartermaster(src)
 	new /obj/item/circuitboard/machine/techfab/department/cargo(src)
 	new /obj/item/storage/photo_album/QM(src)

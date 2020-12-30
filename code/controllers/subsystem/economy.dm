@@ -12,6 +12,13 @@ SUBSYSTEM_DEF(economy)
 										ACCOUNT_SRV = ACCOUNT_SRV_NAME,
 										ACCOUNT_CAR = ACCOUNT_CAR_NAME,
 										ACCOUNT_SEC = ACCOUNT_SEC_NAME)
+	var/list/department_ids = list(ACCOUNT_CIV_NAME = ACCOUNT_CIV,
+									ACCOUNT_ENG_NAME = ACCOUNT_ENG,
+									ACCOUNT_SCI_NAME = ACCOUNT_SCI,
+									ACCOUNT_MED_NAME = ACCOUNT_MED,
+									ACCOUNT_SRV_NAME = ACCOUNT_SRV,
+									ACCOUNT_CAR_NAME = ACCOUNT_CAR,
+									ACCOUNT_SEC_NAME = ACCOUNT_SEC)
 	var/list/generated_accounts = list()
 	var/full_ancap = FALSE // Enables extra money charges for things that normally would be free, such as sleepers/cryo/cloning.
 							//Take care when enabling, as players will NOT respond well if the economy is set up for low cash flows.
@@ -40,6 +47,11 @@ SUBSYSTEM_DEF(economy)
 	for(var/datum/bank_account/department/D in generated_accounts)
 		if(D.department_id == dep_id)
 			return D
+
+/datum/controller/subsystem/economy/proc/get_bank_account(acc_id)
+	for(var/datum/bank_account/B in SSeconomy.bank_accounts)
+		if(B.account_id == acc_id)
+			return B
 
 /datum/controller/subsystem/economy/proc/boring_eng_payout()
 	var/engineering_cash = 2000
