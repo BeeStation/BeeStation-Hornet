@@ -114,7 +114,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(!(flags_1 & NODECONSTRUCT_1))
 		var/turf/T = get_turf(loc)
 		if(T)
-			var/obj/item/stack/cable_coil/temp_item = new/obj/item/stack/cable_coil(T, d1 ? 2 : 1, cable_color)
+			var/obj/item/stack/cable_coil/temp_item = new /obj/item/stack/cable_coil(T, d1 ? 2 : 1, cable_color)
 			transfer_fingerprints_to(temp_item)
 	..()
 
