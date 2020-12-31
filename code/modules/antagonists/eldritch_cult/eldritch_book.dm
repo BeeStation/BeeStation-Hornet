@@ -18,7 +18,7 @@
 	. = ..()
 	if(!IS_HERETIC(user))
 		return
-	. += "As a heretic, you can read the book to find out what rituals you have and research new powers."
+	. += "As a heretic, you can read the book to find out what powers you have and research new powers."
 	. += "You can hit a influence with the cover to tear reality and gain favor."
 	. += "You can gain followers by performing a conversion ritual, and promote them with your Mansus touch."
 
