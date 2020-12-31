@@ -416,18 +416,15 @@
 	material_drop_amount = 0
 	var/magic_icon = "cursed"
 	var/weakened_icon = "decursed"
-	var/auto_destroy = TRUE
 
 /obj/structure/closet/decay/Initialize()
 	. = ..()
-	if(auto_destroy)
-		addtimer(CALLBACK(src, .proc/bust_open), 5 MINUTES)
 	addtimer(CALLBACK(src, .proc/magicly_lock), 5)
-
 /obj/structure/closet/decay/proc/magicly_lock()
 	if(!welded)
 		addtimer(CALLBACK(src, .proc/decay), 15 SECONDS)
 		return
+	addtimer(CALLBACK(src, .proc/bust_open), 5 MINUTES)
 	icon_state = magic_icon
 	update_icon()
 
