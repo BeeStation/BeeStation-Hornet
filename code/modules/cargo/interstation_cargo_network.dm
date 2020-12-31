@@ -1,8 +1,4 @@
 GLOBAL_LIST_EMPTY(icn_exports)
-GLOBAL_LIST_INIT(blacklisted_icn_types, typecacheof(list(
-		/obj/item/onetankbomb,
-		/obj/item/assembly_holder,
-		/obj/effect)))
 
 /obj/item/icn_tagger
 	name = "\improper Interstation Cargo Network tagger"
@@ -133,7 +129,7 @@ GLOBAL_LIST_INIT(blacklisted_icn_types, typecacheof(list(
 			qdel(A)
 			notify_seller = TRUE
 			continue
-		if((A.flags_1 & HOLOGRAM_1))
+		if((A.flags_1 & HOLOGRAM_1) || (A.datum_flags & DF_ICNBANNED))
 			qdel(A)
 			notify_seller = TRUE
 			continue
@@ -144,10 +140,6 @@ GLOBAL_LIST_INIT(blacklisted_icn_types, typecacheof(list(
 				notify_seller = TRUE
 				continue
 		if(ismob(A)) //This shouldn't be possible but better safe than sorry
-			qdel(A)
-			notify_seller = TRUE
-			continue
-		if(is_type_in_typecache(A, GLOB.blacklisted_icn_types))
 			qdel(A)
 			notify_seller = TRUE
 			continue

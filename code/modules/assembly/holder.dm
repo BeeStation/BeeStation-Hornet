@@ -10,6 +10,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 2
 	throw_range = 7
+	datum_flags = DF_ICNBANNED
 
 	var/obj/item/assembly/a_left = null
 	var/obj/item/assembly/a_right = null
