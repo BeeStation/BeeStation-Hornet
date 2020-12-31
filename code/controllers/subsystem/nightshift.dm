@@ -28,6 +28,11 @@ SUBSYSTEM_DEF(nightshift)
 	var/announcing = TRUE
 	var/time = station_time()
 	var/night_time = (time < nightshift_end_time) || (time > nightshift_start_time)
+	if(!SSmapping.config.allow_night_lighting)
+		if(night_time)
+			night_time = FALSE
+			update_nightshift(night_time, FALSE)
+		return
 	if(high_security_mode != emergency)
 		high_security_mode = emergency
 		if(night_time)
@@ -35,7 +40,7 @@ SUBSYSTEM_DEF(nightshift)
 			if(!emergency)
 				announce("Restoring night lighting configuration to normal operation.")
 			else
-				announce("Disabling night lighting: Station is in a state of emergency.")  
+				announce("Disabling night lighting: Station is in a state of emergency.")
 	if(emergency)
 		night_time = FALSE
 	if(nightshift_active != night_time)
