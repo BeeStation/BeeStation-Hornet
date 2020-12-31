@@ -118,7 +118,7 @@
 /datum/crafting_recipe/honeycomb
 	name = "Honeycomb"
 	result = /obj/item/reagent_containers/food/drinks/honeycomb
-	always_availible = FALSE
+	always_available = FALSE
 	time = 30
 	reqs = list(/datum/reagent/consumable/sugar = 50)
 	category = CAT_DRINK
