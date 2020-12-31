@@ -613,3 +613,6 @@ MAX_SLIMES 100
 
 ## Uncomment to restrict suiciding. Adds an additional confirmation dialogue, additional logging, and prevents suicide within the first 15 minutes of the round.
 #RESTRICTED_SUICIDE
+
+## Uncomment to allow non-server donators to use donator exclusive cosmetics (your loss)
+#DONATOR_ITEMS

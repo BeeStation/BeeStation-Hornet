@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		if(!use_name)
 			WARNING("Loadout - Missing display name: [G]")
 			continue
-		if(!initial(G.cost))
+		if(!initial(G.cost) && !G.donator)
 			WARNING("Loadout - Missing cost: [G]")
 			continue
 		if(!initial(G.path) && use_category != "OOC") //OOC category does not contain actual items
@@ -43,13 +43,14 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	var/display_name       //Name/index. Must be unique.
 	var/description        //Description of this gear. If left blank will default to the description of the pathed item.
 	var/path               //Path to item.
-	var/cost = INFINITY           //Number of metacoins
+	var/cost = INFINITY    //Number of metacoins
 	var/slot               //Slot to equip to.
 	var/list/allowed_roles //Roles that can spawn with this item.
 	var/list/species_blacklist //Stop certain species from receiving this gear
 	var/list/species_whitelist //Only allow certain species to receive this gear
 	var/sort_category = "General"
 	var/subtype_path = /datum/gear //for skipping organizational subtypes (optional)
+	var/donator = FALSE		//for making beestation donator exclusive items
 
 /datum/gear/New()
 	..()

@@ -686,7 +686,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			dat += "<tr><td colspan=4><hr></td></tr>"
 			dat += "<tr><td><b>Name</b></td>"
-			dat += "<td><b>Cost</b></td>"
+			if(!G.cost && G.donator)
+				dat += "<td><b>Donator</b></td>"
+			else
+				dat += "<td><b>Cost</b></td>"
 			dat += "<td><b>Restricted Jobs</b></td>"
 			dat += "<td><b>Description</b></td></tr>"
 			dat += "<tr><td colspan=4><hr></td></tr>"
@@ -1207,7 +1210,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(href_list["preference"] == "gear")
 		if(href_list["purchase_gear"])
 			var/datum/gear/TG = GLOB.gear_datums[href_list["purchase_gear"]]
-			if(TG.cost < user.client.get_metabalance())
+			if(TG.donator)
+				if(IS_PATRON(user.ckey) || !CONFIG_GET(flag/donator_items))
+					purchased_gear += TG.display_name
+					TG.purchase(user.client)
+					save_preferences()
+				else
+					to_chat(user, "<span class='warning'>You need to be a server donator to purchase \the [TG.display_name]!</span>")
+			else if(TG.cost < user.client.get_metabalance())
 				purchased_gear += TG.display_name
 				TG.purchase(user.client)
 				user.client.inc_metabalance((TG.cost * -1), TRUE, "Purchased [TG.display_name].")
