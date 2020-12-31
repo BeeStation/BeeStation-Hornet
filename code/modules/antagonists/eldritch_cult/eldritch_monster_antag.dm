@@ -52,7 +52,7 @@
 	to_chat(owner, "<span class='boldannounce'>You have become a [name] of [master]. Obey their orders and help them accomplish their goals, as they may reward you with great power!</span>")
 
 /datum/antagonist/heretic_monster/disciple/proc/can_use_magic()
-	return tier>=2
+	return tier >= 2
 
 /datum/antagonist/heretic_monster/disciple/proc/get_promote_cost()
 	return 1+tier

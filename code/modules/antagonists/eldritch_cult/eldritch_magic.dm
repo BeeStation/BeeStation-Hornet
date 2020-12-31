@@ -61,7 +61,7 @@
 		if(tar.anti_magic_check())
 			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The [src] bounces off of you!</span>")
 			return ..()
-	var/datum/antagonist/heretic/cultie =  user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	if (!cultie)	//stops here for followers
 		return ..()
 	var/mob/caster = user

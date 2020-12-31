@@ -148,12 +148,12 @@
 
 
 /**
-  * #Rust spread datum
-  *
-  * Simple datum that automatically spreads rust around it
-  *
-  * Simple implementation of automatically growing entity
-  */
+ * #Rust spread datum
+ *
+ * Simple datum that automatically spreads rust around it
+ *
+ * Simple implementation of automatically growing entity
+ */
 /datum/rust_spread
 	var/list/edge_turfs = list()
 	var/turf/centre
@@ -190,17 +190,17 @@
 		turfs += T
 
 /**
-  * Compile turfs
-  *
-  * Recreates all edge_turfs as well as normal turfs.
-  */
+ * Compile turfs
+ *
+ * Recreates all edge_turfs as well as normal turfs.
+ */
 /datum/rust_spread/proc/compile_turfs()
 	edge_turfs = list()
 	var/list/removal_list = list()
 	var/max_dist = 1
 	for(var/turfie in turfs)
 		if(!istype(turfie,/turf/closed/wall/rust) && !istype(turfie,/turf/closed/wall/r_wall/rust) && !istype(turfie,/turf/open/floor/plating/rust))
-			removal_list +=turfie
+			removal_list += turfie
 		max_dist = max(max_dist,get_dist(turfie,centre)+1)
 	turfs -= removal_list
 	for(var/turfie in spiral_range_turfs(max_dist,centre,FALSE))

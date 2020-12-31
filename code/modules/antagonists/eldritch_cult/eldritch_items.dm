@@ -335,13 +335,13 @@
 		var/mob/living/carbon/C = user
 		var/datum/antagonist/heretic_monster/disciple/dantag = C.mind.has_antag_datum(/datum/antagonist/heretic_monster/disciple)
 		if((C.job in list("Curator")) || IS_HERETIC(C) || dantag)
-			if (deity<=6)
-				.+="You identify it as an avatar of [godname], one of the earth's weak gods."	//the weak gods of earth watch out for their creations, so they offer beneficial boons
+			if (deity <= 6)
+				. += "You identify it as an avatar of [godname], one of the earth's weak gods."	//the weak gods of earth watch out for their creations, so they offer beneficial boons
 			else
-				.+="You identify it as an avatar of [godname], one of the forbidden gods."				//forbidden gods on the other side...
+				. += "You identify it as an avatar of [godname], one of the forbidden gods."				//forbidden gods on the other side...
 		if (IS_HERETIC(C) || dantag)
 			if (!activated)
-				.+="Use in hand to perform a ritual for [godname], granting this [src] magical powers."
+				. += "Use in hand to perform a ritual for [godname], granting this [src] magical powers."
 			else
 				var/boon = "The [name] will offer the boon of [godname], "
 				switch (deity)
@@ -375,11 +375,11 @@
 						boon += "crippling one's hands."
 					if (GOD_MADNESS)
 						boon += "bringing madness into one's mind."
-				.+=boon
+				. += boon
 
 			var/datum/antagonist/heretic/her = user.mind.has_antag_datum(/datum/antagonist/heretic)
 			if (!ashes && !her.has_deity(deity))
-				.+="Performing a ritual for [godname] will also grant you favor."
+				. += "Performing a ritual for [godname] will also grant you favor."
 
 /obj/item/artifact/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()

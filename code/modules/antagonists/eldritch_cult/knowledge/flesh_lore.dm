@@ -165,7 +165,7 @@
 	if (master.get_knowledge(/datum/eldritch_knowledge/flesh_blade_upgrade))
 		POWER = 50
 
-	if(HAS_TRAIT(human_target, TRAIT_HUSK) && POWER<=25)
+	if(HAS_TRAIT(human_target, TRAIT_HUSK) && POWER <= 25)
 		to_chat(user, "<span class='warning'>You are not strong enough to revive a dead ghoul!</span>")
 		return
 
@@ -210,7 +210,7 @@
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.bleed_rate+= 1
+		H.bleed_rate += 1
 
 /datum/eldritch_knowledge/final/flesh_final/on_finished_recipe(mob/living/user, list/atoms, loc)
 	. = ..()

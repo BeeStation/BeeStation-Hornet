@@ -1,11 +1,11 @@
 
 /**
-  * #Eldritch Knwoledge
-  *
-  * Datum that makes eldritch cultist interesting.
-  *
-  * Eldritch knowledge aren't instantiated anywhere roundstart, and are initalized and destroyed as the round goes on.
-  */
+ * #Eldritch Knwoledge
+ *
+ * Datum that makes eldritch cultist interesting.
+ *
+ * Eldritch knowledge aren't instantiated anywhere roundstart, and are initalized and destroyed as the round goes on.
+ */
 /datum/eldritch_knowledge
 	///Name of the knowledge
 	var/name = "Basic knowledge"
@@ -39,33 +39,33 @@
 	required_atoms = temp_list
 
 /**
-  * What happens when this is assigned to an antag datum
-  *
-  * This proc is called whenever a new eldritch knowledge is added to an antag datum
-  */
+ * What happens when this is assigned to an antag datum
+ *
+ * This proc is called whenever a new eldritch knowledge is added to an antag datum
+ */
 /datum/eldritch_knowledge/proc/on_gain(mob/user)
 	to_chat(user, "<span class='warning'>[gain_text]</span>")
 	return
 /**
-  * What happens when you loose this
-  *
-  * This proc is called whenever antagonist looses his antag datum, put cleanup code in here
-  */
+ * What happens when you loose this
+ *
+ * This proc is called whenever antagonist looses his antag datum, put cleanup code in here
+ */
 /datum/eldritch_knowledge/proc/on_lose(mob/user)
 	return
 /**
-  * What happens every tick
-  *
-  * This proc is called on SSprocess in eldritch cultist antag datum. SSprocess happens roughly every second
-  */
+ * What happens every tick
+ *
+ * This proc is called on SSprocess in eldritch cultist antag datum. SSprocess happens roughly every second
+ */
 /datum/eldritch_knowledge/proc/on_life(mob/user)
 	return
 
 /**
-  * Special check for recipes
-  *
-  * If you are adding a more complex summoning or something that requires a special check that parses through all the atoms in an area override this.
-  */
+ * Special check for recipes
+ *
+ * If you are adding a more complex summoning or something that requires a special check that parses through all the atoms in an area override this.
+ */
 /datum/eldritch_knowledge/proc/recipe_snowflake_check(list/atoms,loc)
 	return TRUE
 
@@ -78,10 +78,10 @@
 	return
 
 /**
-  * What happens once the recipe is succesfully finished
-  *
-  * By default this proc creates atoms from result_atoms list. Override this is you want something else to happen.
-  */
+ * What happens once the recipe is succesfully finished
+ *
+ * By default this proc creates atoms from result_atoms list. Override this is you want something else to happen.
+ */
 /datum/eldritch_knowledge/proc/on_finished_recipe(mob/living/user,list/atoms,loc)
 	if(result_atoms.len == 0)
 		return FALSE
@@ -92,10 +92,10 @@
 	return TRUE
 
 /**
-  * Used atom cleanup
-  *
-  * Overide this proc if you dont want ALL ATOMS to be destroyed. useful in many situations.
-  */
+ * Used atom cleanup
+ *
+ * Overide this proc if you dont want ALL ATOMS to be destroyed. useful in many situations.
+ */
 /datum/eldritch_knowledge/proc/cleanup_atoms(list/atoms)	//BUG: crafting something will add to this list and delete ALL of the required components, IE if you have 2 bibles on a rune, and craft a codex, it will make 1 codex and qdel BOTH bibles
 	for(var/X in atoms)
 		var/atom/A = X
@@ -105,11 +105,11 @@
 	return
 
 /**
-  * Mansus grasp act
-  *
-  * Gives addtional effects to mansus grasp spell
-  * Gives addtional effects to mansus touch spell of your followers
-  */
+ * Mansus grasp act
+ *
+ * Gives addtional effects to mansus grasp spell
+ * Gives addtional effects to mansus touch spell of your followers
+ */
 /datum/eldritch_knowledge/proc/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
 	return FALSE
 
@@ -119,10 +119,10 @@
 
 
 /**
-  * Sickly blade act
-  *
-  * Gives addtional effects to sickly blade weapon
-  */
+ * Sickly blade act
+ *
+ * Gives addtional effects to sickly blade weapon
+ */
 /datum/eldritch_knowledge/proc/on_eldritch_blade(target,user,proximity_flag,click_parameters)
 	return
 
@@ -295,7 +295,7 @@
 			A.owner = user.mind
 			var/list/targets = list()
 			for(var/i in 0 to 3)
-				var/datum/mind/targeted =  A.find_target()//easy way, i dont feel like copy pasting that entire block of code
+				var/datum/mind/targeted = A.find_target()//easy way, i dont feel like copy pasting that entire block of code
 				if(!targeted)
 					break
 				targets[targeted.current.real_name] = targeted.current
@@ -325,7 +325,7 @@
 
 /datum/eldritch_knowledge/convert/on_finished_recipe(mob/living/user,list/atoms,loc)
 	var/mob/living/carbon/human/victim = locate() in atoms
-	var/datum/antagonist/heretic/cultie =  user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	if(QDELETED(victim) || victim.stat == DEAD || !victim.buckled)
 		to_chat(user,"<span class='notice'>Your victim is missing!</span>")
 		return
@@ -515,7 +515,7 @@
 /datum/eldritch_knowledge/curse/corrosion
 	name = "Curse of Corrosion"
 	gain_text = "Cursed land, cursed man, cursed mind."
-	desc = "Curse someone for 2 minutes of vomiting and major organ damage. Using a wirecutter, a spill of blood, a heart, left arm and a right arm, and an item that the victim touched  with their bare hands."
+	desc = "Curse someone for 2 minutes of vomiting and major organ damage. Using a wirecutter, a spill of blood, a heart, left arm and a right arm, and an item that the victim touched with their bare hands."
 	cost = 4
 	required_atoms = list(/obj/item/wirecutters,/obj/effect/decal/cleanable/blood,/obj/item/organ/heart,/obj/item/bodypart/l_arm,/obj/item/bodypart/r_arm)
 	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/spell/area_conversion)
@@ -532,7 +532,7 @@
 /datum/eldritch_knowledge/curse/paralysis
 	name = "Curse of Paralysis"
 	gain_text = "Corrupt their flesh, make them bleed."
-	desc = "Curse someone for 5 minutes of inability to walk. Using a knife, pool of blood, left leg, right leg, a hatchet and an item that the victim touched  with their bare hands. "
+	desc = "Curse someone for 5 minutes of inability to walk. Using a knife, pool of blood, left leg, right leg, a hatchet and an item that the victim touched with their bare hands. "
 	cost = 4
 	required_atoms = list(/obj/item/kitchen/knife,/obj/effect/decal/cleanable/blood,/obj/item/bodypart/l_leg,/obj/item/bodypart/r_leg,/obj/item/hatchet)
 	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/summon/raw_prophet)

@@ -328,7 +328,7 @@
 /////////////
 
 /datum/antagonist/heretic/proc/gain_favor(points,demonic = FALSE)
-	favor_earned+=points
+	favor_earned += points
 	if (demonic)
 		dread++
 	return TRUE
