@@ -9,6 +9,7 @@
 		/obj/effect,
 		/obj/docking_port,
 		/atom/movable/lighting_object,
+		/obj/item/stock_parts,
 		/obj/item/projectile,
 		/obj/structure/chisel_message
 		))
