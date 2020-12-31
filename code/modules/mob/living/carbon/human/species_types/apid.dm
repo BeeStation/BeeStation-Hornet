@@ -17,13 +17,17 @@
 	mutanteyes = /obj/item/organ/eyes/apid
 	mutantlungs = /obj/item/organ/lungs/apid
 	mutantwings = /obj/item/organ/wings/bee
-	heatmod = 2
-	coldmod = 2
-	burnmod = 2
-	staminamod = 2
+	burnmod = 1.5
+	toxmod = 1.5
+	staminamod = 1.25
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/apid
 	inert_mutation = WAXSALIVA
+
+/datum/species/apid/spec_life(mob/living/carbon/human/H)
+	. = ..()
+	if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT) // Sleep when cold, like bees
+		H.SetSleeping(50)
 
 /datum/species/apid/random_name(gender,unique,lastname)
 	if(unique)

@@ -250,6 +250,8 @@
 	var/fraction = 1/initial(lifetime)
 	reagents.copy_to(C, fraction*reagents.total_volume)
 	reagents.reaction(M, INGEST, fraction)
+	if(isapid(C))
+		C.SetSleeping(50) // Bees sleep when smoked
 	return 1
 
 
