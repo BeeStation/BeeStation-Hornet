@@ -15,25 +15,11 @@
 		var/mob/living/carbon/human/H = owner
 		testing(paniced)
 		if(!paniced)
-			if(pannickEquip(H))
+			if(panicEquip(H))
 				toggle()
 		else
 			if(stowEquipment(H))
 				toggle()
-		//var/obj/item/held = H.get_active_held_item()
-		/*if(!held)
-			held = H.get_inactive_held_item()
-			if(held && istype(held,/obj/item/storage/box/survival))
-				to_chat(H,"<span class='warning'>You are putting on the outfit inside [held], hold still!</span>")
-				pannickEquip(H)
-			else
-				to_chat(H,"<span class='warning'> you must be holding the box!</span>")
-				return
-		else
-			if(held && istype(held,/obj/item/storage/box/survival))
-				to_chat(H,"<span class='warning'>You are putting on the outfit inside [held], hold still!</span>")
-				pannickEquip(H)
-				*/
 
 
 /datum/action/equipHazard/proc/GatherItems(obj/item/storage/CNT)
@@ -73,7 +59,7 @@
 		if(airslot in range(1,USR))
 			survBox.attackby(airslot,USR)
 	return TRUE
-/datum/action/equipHazard/proc/pannickEquip(mob/living/carbon/human/USR,speed = 10)
+/datum/action/equipHazard/proc/panicEquip(mob/living/carbon/human/USR,speed = 10)
 	to_chat(USR,"<span class='warning'>You panic and grab your emergency suit!</span>")
 	if(!do_after(USR, speed))
 		return FALSE
