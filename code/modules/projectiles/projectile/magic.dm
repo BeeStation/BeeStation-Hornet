@@ -419,9 +419,9 @@
 
 /obj/structure/closet/decay/Initialize()
 	. = ..()
-	addtimer(CALLBACK(src, .proc/magicly_lock), 5)
+	addtimer(CALLBACK(src, .proc/locker_magic_timer), 5)
 
-/obj/structure/closet/decay/proc/magicly_lock()
+/obj/structure/closet/decay/proc/locker_magic_timer()
 	if(welded)
 		addtimer(CALLBACK(src, .proc/bust_open), 5 MINUTES)
 		icon_state = magic_icon
