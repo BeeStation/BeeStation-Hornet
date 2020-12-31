@@ -1,8 +1,8 @@
 GLOBAL_LIST_EMPTY(icn_exports)
 GLOBAL_LIST_INIT(blacklisted_icn_types, typecacheof(list(
 		/obj/item/onetankbomb,
-		/obj/item/assembly_holder
-	)))
+		/obj/item/assembly_holder,
+		/obj/effect)))
 
 /obj/item/icn_tagger
 	name = "\improper Interstation Cargo Network tagger"
@@ -118,9 +118,12 @@ GLOBAL_LIST_INIT(blacklisted_icn_types, typecacheof(list(
 	contents = list()
 
 	for(var/atom/A in crate_contents)
-		if((A.flags_1 & ADMIN_SPAWNED_1) || (datum_flags & DF_VAR_EDITED))
+		if((A.flags_1 & ADMIN_SPAWNED_1) || (A.datum_flags & DF_VAR_EDITED))
 			log_game("[seller_ckey] tried to sell an adminspawned or varedited [A.name] on the ICN")
 			message_admins("[seller_ckey] tried to sell an adminspawned or varedited [A.name] on the ICN")
+			qdel(A)
+			continue
+		if((A.flags_1 & HOLOGRAM_1))
 			qdel(A)
 			continue
 		if(isobj(A))
