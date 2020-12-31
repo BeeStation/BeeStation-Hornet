@@ -122,6 +122,6 @@
 				USR.put_in_hands(airslot,FALSE)
 			USR.internal = airslot
 		else
-			to_chat(USR,"<span class='warning'>Missing internals tank!</span>.")
+			to_chat(USR,"<span class='warning'>Missing internals tank!</span>")
 	USR.update_action_buttons_icon()
 	return TRUE
