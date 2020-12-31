@@ -25445,12 +25445,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/maintenance/department/science)
-"hOl" = (
-/obj/structure/cable/white{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plasteel/airless/solarpanel,
-/area/solar/port/fore)
 "hOJ" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -29840,6 +29834,11 @@
 	},
 /turf/open/floor/circuit/telecomms,
 /area/ai_monitored/turret_protected/ai_upload)
+"jba" = (
+/obj/structure/cable/white,
+/obj/machinery/power/solar,
+/turf/open/floor/plasteel/airless/solarpanel,
+/area/solar/starboard/aft)
 "jbc" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -30290,10 +30289,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
-"jgH" = (
-/obj/structure/cable/white,
-/turf/open/floor/plasteel/airless/solarpanel,
-/area/solar/starboard/aft)
 "jgW" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -34004,6 +33999,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
+"kss" = (
+/obj/structure/cable/white,
+/obj/machinery/power/solar,
+/turf/open/floor/plasteel/airless/solarpanel,
+/area/solar/port/fore)
 "ksx" = (
 /obj/structure/cable/white{
 	icon_state = "2-8"
@@ -35434,12 +35434,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
-"kSj" = (
-/obj/structure/cable/white{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plasteel/airless/solarpanel,
-/area/solar/starboard/aft)
 "kSl" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
@@ -42482,6 +42476,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
+"nls" = (
+/obj/structure/cable/white{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/solar,
+/turf/open/floor/plasteel/airless/solarpanel,
+/area/solar/starboard/aft)
 "nlv" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
@@ -65432,10 +65433,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics/cloning)
-"uWU" = (
-/obj/structure/cable/white,
-/turf/open/floor/plasteel/airless/solarpanel,
-/area/solar/port/fore)
 "uWW" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
@@ -66830,6 +66827,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"vtb" = (
+/obj/structure/cable/white{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/solar,
+/turf/open/floor/plasteel/airless/solarpanel,
+/area/solar/port/fore)
 "vtw" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 8
@@ -103254,17 +103258,17 @@ aMT
 kiV
 aMT
 aMT
-hOl
+vtb
 kME
-uWU
+kss
 aMT
-hOl
+vtb
 kME
-uWU
+kss
 aMT
-hOl
+vtb
 kME
-uWU
+kss
 aMT
 anT
 gzj
@@ -103511,17 +103515,17 @@ aMT
 kiV
 anT
 anT
-hOl
+vtb
 dcJ
-uWU
+kss
 aMT
-hOl
+vtb
 dcJ
-uWU
+kss
 aMT
-hOl
+vtb
 dcJ
-uWU
+kss
 aMT
 anT
 iut
@@ -103768,17 +103772,17 @@ aMT
 kiV
 aMT
 aMT
-hOl
+vtb
 dcJ
-uWU
+kss
 aMT
-hOl
+vtb
 dcJ
-uWU
+kss
 aMT
-hOl
+vtb
 dcJ
-uWU
+kss
 aMT
 anT
 anT
@@ -104025,17 +104029,17 @@ aMT
 kiV
 anT
 anT
-hOl
+vtb
 dcJ
-uWU
+kss
 aMT
-hOl
+vtb
 dcJ
-uWU
+kss
 aMT
-hOl
+vtb
 dcJ
-uWU
+kss
 aMT
 aMT
 aMT
@@ -104282,17 +104286,17 @@ kiV
 kiV
 aMT
 aMT
-hOl
+vtb
 dcJ
-uWU
+kss
 aMT
-hOl
+vtb
 dcJ
-uWU
+kss
 aMT
-hOl
+vtb
 dcJ
-uWU
+kss
 aMT
 aMT
 aMT
@@ -105310,17 +105314,17 @@ kiV
 huQ
 anT
 anT
-hOl
+vtb
 kEH
-uWU
+kss
 aMT
-hOl
+vtb
 uDs
-uWU
+kss
 aMT
-hOl
+vtb
 uDs
-uWU
+kss
 aMT
 aMT
 aMT
@@ -105567,17 +105571,17 @@ anT
 aMT
 aMT
 aMT
-hOl
+vtb
 uDs
-uWU
+kss
 aMT
-hOl
+vtb
 uDs
-uWU
+kss
 aMT
-hOl
+vtb
 uDs
-uWU
+kss
 aMT
 aMT
 aMT
@@ -105824,17 +105828,17 @@ anT
 anT
 aMT
 aMT
-hOl
+vtb
 uDs
-uWU
+kss
 aMT
-hOl
+vtb
 uDs
-uWU
+kss
 aMT
-hOl
+vtb
 uDs
-uWU
+kss
 aMT
 aMT
 aMT
@@ -106081,17 +106085,17 @@ aMT
 aMT
 aMT
 aMT
-hOl
+vtb
 uDs
-uWU
+kss
 aMT
-hOl
+vtb
 uDs
-uWU
+kss
 aMT
-hOl
+vtb
 uDs
-uWU
+kss
 aMT
 aMT
 aMT
@@ -106338,17 +106342,17 @@ dZs
 dZs
 aMT
 anT
-hOl
+vtb
 hTD
-uWU
+kss
 aMT
-hOl
+vtb
 vud
-uWU
+kss
 aMT
-hOl
+vtb
 vud
-uWU
+kss
 aMT
 aMT
 aMT
@@ -116240,17 +116244,17 @@ anT
 anT
 anT
 anT
-kSj
+nls
 gIO
-jgH
+jba
 aMT
-kSj
+nls
 gIO
-jgH
+jba
 aMT
-kSj
+nls
 gIO
-jgH
+jba
 aMT
 aMT
 aMT
@@ -116497,17 +116501,17 @@ aMT
 aMT
 anT
 aMT
-kSj
+nls
 vkA
-jgH
+jba
 aMT
-kSj
+nls
 vkA
-jgH
+jba
 aMT
-kSj
+nls
 vkA
-jgH
+jba
 aMT
 aMT
 aMT
@@ -116754,17 +116758,17 @@ aMT
 aMT
 anT
 aMT
-kSj
+nls
 vkA
-jgH
+jba
 aMT
-kSj
+nls
 vkA
-jgH
+jba
 aMT
-kSj
+nls
 vkA
-jgH
+jba
 anT
 anT
 anT
@@ -117011,17 +117015,17 @@ aMT
 aMT
 anT
 aMT
-kSj
+nls
 vkA
-jgH
+jba
 aMT
-kSj
+nls
 vkA
-jgH
+jba
 aMT
-kSj
+nls
 vkA
-jgH
+jba
 aMT
 anT
 aMT
@@ -117268,17 +117272,17 @@ anT
 anT
 anT
 anT
-kSj
+nls
 vkA
-jgH
+jba
 aMT
-kSj
+nls
 vkA
-jgH
+jba
 aMT
-kSj
+nls
 vkA
-jgH
+jba
 aMT
 anT
 anT
@@ -118296,17 +118300,17 @@ aMT
 anT
 aMT
 aMT
-kSj
+nls
 pHN
-jgH
+jba
 aMT
-kSj
+nls
 xqd
-jgH
+jba
 aMT
-kSj
+nls
 xqd
-jgH
+jba
 aMT
 anT
 anT
@@ -118553,17 +118557,17 @@ anT
 anT
 anT
 anT
-kSj
+nls
 xqd
-jgH
+jba
 aMT
-kSj
+nls
 xqd
-jgH
+jba
 aMT
-kSj
+nls
 xqd
-jgH
+jba
 aMT
 anT
 aMT
@@ -118810,17 +118814,17 @@ aMT
 anT
 qiD
 aMT
-kSj
+nls
 xqd
-jgH
+jba
 aMT
-kSj
+nls
 xqd
-jgH
+jba
 aMT
-kSj
+nls
 xqd
-jgH
+jba
 anT
 anT
 anT
@@ -119067,17 +119071,17 @@ anT
 anT
 anT
 anT
-kSj
+nls
 xqd
-jgH
+jba
 aMT
-kSj
+nls
 xqd
-jgH
+jba
 aMT
-kSj
+nls
 xqd
-jgH
+jba
 aMT
 aMT
 aMT
@@ -119324,17 +119328,17 @@ aMT
 anT
 aMT
 aMT
-kSj
+nls
 lSw
-jgH
+jba
 aMT
-kSj
+nls
 rkK
-jgH
+jba
 aMT
-kSj
+nls
 rkK
-jgH
+jba
 aMT
 aMT
 aMT
