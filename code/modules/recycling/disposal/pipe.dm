@@ -155,7 +155,7 @@
 /obj/structure/disposalpipe/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		if(disassembled)
-			new /obj/structure/disposalconstruct(src, null , SOUTH , FALSE , src)
+			new /obj/structure/disposalconstruct(loc, null , SOUTH , FALSE , src)
 		else
 			var/turf/T = get_turf(src)
 			for(var/D in GLOB.cardinals)
