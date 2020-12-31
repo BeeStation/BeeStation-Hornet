@@ -367,15 +367,6 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
-/datum/techweb_node/cyborg_upg_security
-	id ="borg_upg_security"
-	description = "Allows Security to make cyborgs into weapons of mass disabling."
-	display_name = "Cyborg Upgrades: Security"
-	prereq_ids = list("cyborg_upg_combat", "mech_disabler")
-	design_ids = list("borg_transform_security")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
-	export_price = 10000
-
 /datum/techweb_node/cyborg_upg_service
 	id = "cyborg_upg_service"
 	display_name = "Cyborg Upgrades: Service"
@@ -710,8 +701,8 @@
 	id = "adv_weaponry"
 	display_name = "Advanced Weapon Development Technology"
 	description = "Our weapons are breaking the rules of reality by now."
-	prereq_ids = list("adv_engi", "weaponry", "borg_transform_security")
-	design_ids = list("pin_loyalty")
+	prereq_ids = list("adv_engi", "weaponry")
+	design_ids = list("pin_loyalty", "borg_transfrom_security")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
 
