@@ -369,7 +369,7 @@
 
 /datum/techweb_node/cyborg_upg_security
 	id ="borg_upg_security"
-	description = "Allows Security to Make cyborgs into weapons of mass disabling."
+	description = "Allows Security to make cyborgs into weapons of mass disabling."
 	display_name = "Cyborg Upgrades: Security"
 	prereq_ids = list("cyborg_upg_combat", "mech_disabler")
 	design_ids = list("borg_transform_security")
