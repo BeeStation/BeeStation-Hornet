@@ -18,6 +18,7 @@
 /datum/reagent/magic/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR)
 		M.reagents.add_reagent(src.type, reac_volume)
+	..()
 
 /datum/reagent/magic/on_mob_metabolize(mob/living/L)
 	if(L.anti_magic_check())
