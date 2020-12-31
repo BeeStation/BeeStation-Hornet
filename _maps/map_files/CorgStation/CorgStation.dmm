@@ -12381,6 +12381,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/chapel/monastery)
+"dAI" = (
+/obj/structure/cable/white{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/solar,
+/turf/open/floor/plasteel/airless/solarpanel,
+/area/solar/port/fore)
 "dAP" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -29834,11 +29841,6 @@
 	},
 /turf/open/floor/circuit/telecomms,
 /area/ai_monitored/turret_protected/ai_upload)
-"jba" = (
-/obj/structure/cable/white,
-/obj/machinery/power/solar,
-/turf/open/floor/plasteel/airless/solarpanel,
-/area/solar/starboard/aft)
 "jbc" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -33999,11 +34001,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
-"kss" = (
-/obj/structure/cable/white,
-/obj/machinery/power/solar,
-/turf/open/floor/plasteel/airless/solarpanel,
-/area/solar/port/fore)
 "ksx" = (
 /obj/structure/cable/white{
 	icon_state = "2-8"
@@ -35171,6 +35168,13 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engine_room)
+"kMT" = (
+/obj/structure/cable/white{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/solar,
+/turf/open/floor/plasteel/airless/solarpanel,
+/area/solar/starboard/aft)
 "kMU" = (
 /obj/structure/window/reinforced/spawner{
 	dir = 1
@@ -42224,6 +42228,11 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"ngr" = (
+/obj/structure/cable/white,
+/obj/machinery/power/solar,
+/turf/open/floor/plasteel/airless/solarpanel,
+/area/solar/starboard/aft)
 "ngu" = (
 /obj/structure/table/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -42476,13 +42485,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
-"nls" = (
-/obj/structure/cable/white{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/solar,
-/turf/open/floor/plasteel/airless/solarpanel,
-/area/solar/starboard/aft)
 "nlv" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
@@ -46445,6 +46447,19 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
+"oBH" = (
+/obj/machinery/power/supermatter_crystal/shard/engine{
+	anchored = 1
+	},
+/obj/machinery/mass_driver{
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70);
+	critical_machine = 1;
+	dir = 8;
+	id = "smeject";
+	name = "emergency supermatter ejection pad"
+	},
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "oBX" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
 	dir = 1
@@ -53964,6 +53979,11 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
+"rgB" = (
+/obj/structure/cable/white,
+/obj/machinery/power/solar,
+/turf/open/floor/plasteel/airless/solarpanel,
+/area/solar/port/fore)
 "rgM" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/tile/yellow,
@@ -55276,19 +55296,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
-"rHz" = (
-/obj/machinery/power/supermatter_crystal/shard/engine{
-	anchored = 0
-	},
-/obj/machinery/mass_driver{
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70);
-	critical_machine = 1;
-	dir = 8;
-	id = "smeject";
-	name = "emergency supermatter ejection pad"
-	},
-/turf/open/floor/engine,
-/area/engine/supermatter)
 "rHV" = (
 /obj/structure/window/reinforced/spawner{
 	dir = 8
@@ -66827,13 +66834,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"vtb" = (
-/obj/structure/cable/white{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/solar,
-/turf/open/floor/plasteel/airless/solarpanel,
-/area/solar/port/fore)
 "vtw" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 8
@@ -94557,7 +94557,7 @@ aPU
 auG
 aJW
 aCQ
-rHz
+oBH
 asE
 agO
 aju
@@ -103258,17 +103258,17 @@ aMT
 kiV
 aMT
 aMT
-vtb
+dAI
 kME
-kss
+rgB
 aMT
-vtb
+dAI
 kME
-kss
+rgB
 aMT
-vtb
+dAI
 kME
-kss
+rgB
 aMT
 anT
 gzj
@@ -103515,17 +103515,17 @@ aMT
 kiV
 anT
 anT
-vtb
+dAI
 dcJ
-kss
+rgB
 aMT
-vtb
+dAI
 dcJ
-kss
+rgB
 aMT
-vtb
+dAI
 dcJ
-kss
+rgB
 aMT
 anT
 iut
@@ -103772,17 +103772,17 @@ aMT
 kiV
 aMT
 aMT
-vtb
+dAI
 dcJ
-kss
+rgB
 aMT
-vtb
+dAI
 dcJ
-kss
+rgB
 aMT
-vtb
+dAI
 dcJ
-kss
+rgB
 aMT
 anT
 anT
@@ -104029,17 +104029,17 @@ aMT
 kiV
 anT
 anT
-vtb
+dAI
 dcJ
-kss
+rgB
 aMT
-vtb
+dAI
 dcJ
-kss
+rgB
 aMT
-vtb
+dAI
 dcJ
-kss
+rgB
 aMT
 aMT
 aMT
@@ -104286,17 +104286,17 @@ kiV
 kiV
 aMT
 aMT
-vtb
+dAI
 dcJ
-kss
+rgB
 aMT
-vtb
+dAI
 dcJ
-kss
+rgB
 aMT
-vtb
+dAI
 dcJ
-kss
+rgB
 aMT
 aMT
 aMT
@@ -105314,17 +105314,17 @@ kiV
 huQ
 anT
 anT
-vtb
+dAI
 kEH
-kss
+rgB
 aMT
-vtb
+dAI
 uDs
-kss
+rgB
 aMT
-vtb
+dAI
 uDs
-kss
+rgB
 aMT
 aMT
 aMT
@@ -105571,17 +105571,17 @@ anT
 aMT
 aMT
 aMT
-vtb
+dAI
 uDs
-kss
+rgB
 aMT
-vtb
+dAI
 uDs
-kss
+rgB
 aMT
-vtb
+dAI
 uDs
-kss
+rgB
 aMT
 aMT
 aMT
@@ -105828,17 +105828,17 @@ anT
 anT
 aMT
 aMT
-vtb
+dAI
 uDs
-kss
+rgB
 aMT
-vtb
+dAI
 uDs
-kss
+rgB
 aMT
-vtb
+dAI
 uDs
-kss
+rgB
 aMT
 aMT
 aMT
@@ -106085,17 +106085,17 @@ aMT
 aMT
 aMT
 aMT
-vtb
+dAI
 uDs
-kss
+rgB
 aMT
-vtb
+dAI
 uDs
-kss
+rgB
 aMT
-vtb
+dAI
 uDs
-kss
+rgB
 aMT
 aMT
 aMT
@@ -106342,17 +106342,17 @@ dZs
 dZs
 aMT
 anT
-vtb
+dAI
 hTD
-kss
+rgB
 aMT
-vtb
+dAI
 vud
-kss
+rgB
 aMT
-vtb
+dAI
 vud
-kss
+rgB
 aMT
 aMT
 aMT
@@ -116244,17 +116244,17 @@ anT
 anT
 anT
 anT
-nls
+kMT
 gIO
-jba
+ngr
 aMT
-nls
+kMT
 gIO
-jba
+ngr
 aMT
-nls
+kMT
 gIO
-jba
+ngr
 aMT
 aMT
 aMT
@@ -116501,17 +116501,17 @@ aMT
 aMT
 anT
 aMT
-nls
+kMT
 vkA
-jba
+ngr
 aMT
-nls
+kMT
 vkA
-jba
+ngr
 aMT
-nls
+kMT
 vkA
-jba
+ngr
 aMT
 aMT
 aMT
@@ -116758,17 +116758,17 @@ aMT
 aMT
 anT
 aMT
-nls
+kMT
 vkA
-jba
+ngr
 aMT
-nls
+kMT
 vkA
-jba
+ngr
 aMT
-nls
+kMT
 vkA
-jba
+ngr
 anT
 anT
 anT
@@ -117015,17 +117015,17 @@ aMT
 aMT
 anT
 aMT
-nls
+kMT
 vkA
-jba
+ngr
 aMT
-nls
+kMT
 vkA
-jba
+ngr
 aMT
-nls
+kMT
 vkA
-jba
+ngr
 aMT
 anT
 aMT
@@ -117272,17 +117272,17 @@ anT
 anT
 anT
 anT
-nls
+kMT
 vkA
-jba
+ngr
 aMT
-nls
+kMT
 vkA
-jba
+ngr
 aMT
-nls
+kMT
 vkA
-jba
+ngr
 aMT
 anT
 anT
@@ -118300,17 +118300,17 @@ aMT
 anT
 aMT
 aMT
-nls
+kMT
 pHN
-jba
+ngr
 aMT
-nls
+kMT
 xqd
-jba
+ngr
 aMT
-nls
+kMT
 xqd
-jba
+ngr
 aMT
 anT
 anT
@@ -118557,17 +118557,17 @@ anT
 anT
 anT
 anT
-nls
+kMT
 xqd
-jba
+ngr
 aMT
-nls
+kMT
 xqd
-jba
+ngr
 aMT
-nls
+kMT
 xqd
-jba
+ngr
 aMT
 anT
 aMT
@@ -118814,17 +118814,17 @@ aMT
 anT
 qiD
 aMT
-nls
+kMT
 xqd
-jba
+ngr
 aMT
-nls
+kMT
 xqd
-jba
+ngr
 aMT
-nls
+kMT
 xqd
-jba
+ngr
 anT
 anT
 anT
@@ -119071,17 +119071,17 @@ anT
 anT
 anT
 anT
-nls
+kMT
 xqd
-jba
+ngr
 aMT
-nls
+kMT
 xqd
-jba
+ngr
 aMT
-nls
+kMT
 xqd
-jba
+ngr
 aMT
 aMT
 aMT
@@ -119328,17 +119328,17 @@ aMT
 anT
 aMT
 aMT
-nls
+kMT
 lSw
-jba
+ngr
 aMT
-nls
+kMT
 rkK
-jba
+ngr
 aMT
-nls
+kMT
 rkK
-jba
+ngr
 aMT
 aMT
 aMT
