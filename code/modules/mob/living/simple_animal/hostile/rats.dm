@@ -26,6 +26,7 @@
 	faction = list("rat")
 	mobsay_color = "#82AF84"
 	can_be_held = FALSE
+	attack_sound = 'sound/effects/mousesqueek.ogg'
 
 /mob/living/simple_animal/hostile/rat/AttackingTarget()
 	. = ..()
@@ -117,7 +118,7 @@
 	melee_damage = 15
 	obj_damage = 10
 	attacktext = "claws"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = 'sound/weapons/bladeslice.ogg'
 
 	icon_state = "mouse_gray"
 	icon_living = "mouse_gray"
