@@ -19,7 +19,7 @@
 	if(method == TOUCH || method == VAPOR)
 		M.reagents.add_reagent(src.type, reac_volume)
 
-/datum/reagent/magic/berserkium/on_mob_metabolize(mob/living/L)
+/datum/reagent/magic/on_mob_metabolize(mob/living/L)
 	if(L.anti_magic_check())
 		metabolization_rate = 100 * REAGENTS_METABOLISM
 	..()
