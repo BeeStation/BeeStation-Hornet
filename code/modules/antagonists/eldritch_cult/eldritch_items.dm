@@ -292,7 +292,8 @@
 	var/godname = "C'Thulhu"
 	var/activated = FALSE
 	var/ashes = FALSE
-	icon_state = "voodoo"
+	icon = 'icons/obj/eldritch.dmi'
+	icon_state = "figure"
 
 /obj/item/artifact/Initialize()
 	..()
