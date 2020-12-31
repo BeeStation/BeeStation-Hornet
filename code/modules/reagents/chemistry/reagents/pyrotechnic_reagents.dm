@@ -273,7 +273,7 @@
 	shock_timer++
 	if(isoozeling(M) || isjellyperson(M))
 		shock_timer = (rand(0,2))
-		M.electrocute_act(rand(5,20), "Teslium in their body", 1, 1) //Override because it's caused from INSIDE of you
+		M.electrocute_act(rand(5,20), "Energized Jelly overdose in their body", 1, 1) //Override because it's caused from INSIDE of you
 		playsound(M, "sparks", 50, 1)
 	..()
 
