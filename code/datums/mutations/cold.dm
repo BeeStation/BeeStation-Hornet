@@ -33,7 +33,7 @@
 	item_type = /obj/item/stack/sheet/mineral/wax
 	charge_max = 50
 	delete_old = FALSE
-	action_icon_state = "snow"
+	action_icon_state = "honey"
 
 /datum/mutation/human/cryokinesis
 	name = "Cryokinesis"
