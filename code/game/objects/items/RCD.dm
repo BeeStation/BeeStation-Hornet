@@ -520,7 +520,8 @@ RLD
 				var/cdir = get_dir(A, user)
 				if (last_placed)
 					cdir = get_dir(A, last_placed)
-					last_placed.setDir(get_dir(last_placed, A))
+					if (cdir == NORTH || cdir == SOUTH || cdir == EAST || cdir == WEST)
+						last_placed.setDir(get_dir(last_placed, A))
 				last_placed = new/obj/machinery/conveyor(A, cdir, id)
 				return
 	qdel(rcd_effect)
