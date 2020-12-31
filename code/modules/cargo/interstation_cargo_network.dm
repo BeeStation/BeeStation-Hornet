@@ -17,13 +17,18 @@ GLOBAL_LIST_INIT(blacklisted_icn_types, typecacheof(list(
 	siemens_coefficient = 1
 	var/price = 1000
 	var/payment_account = ACCOUNT_CAR
+	var/icn_cooldown = 0
 
 /obj/item/icn_tagger/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use the tagger in your hand to set the price and the account to pay.</span>"
-	. += "<span class='notice'>Use the tagger on a crate then send it on the cargo shuttle to list it on the ICN.</span>"
-	. += "<span class='notice'>The crate contents will be listed automatically; no gaming the system!</span>"
-	. += "<span class='notice'>Price: [price], Account: [account_name()]"
+	if(icn_cooldown > world.time + (5 MINUTES))
+		. += "<span class='notice'>The ICN tagger is still in cooldown for: [DisplayTimeText(icn_cooldown - world.time)].</span>"
+		. += "<span class='notice'>However, you can still edit crates that have already been tagged.</span>"
+	else
+		. += "<span class='notice'>Use the tagger in your hand to set the price and the account to pay.</span>"
+		. += "<span class='notice'>Use the tagger on a crate then send it on the cargo shuttle to list it on the ICN.</span>"
+		. += "<span class='notice'>The crate contents will be listed automatically; no gaming the system!</span>"
+		. += "<span class='notice'>Price: [price], Account: [account_name()]"
 
 /obj/item/icn_tagger/proc/account_name()
 	if(SSeconomy.get_dep_account(src.payment_account))
@@ -69,6 +74,10 @@ GLOBAL_LIST_INIT(blacklisted_icn_types, typecacheof(list(
 		var/obj/structure/closet/crate/C = O
 		var/datum/icn_export/E = C.icn_export
 		if(!E)
+			if(icn_cooldown > world.time) //We only care about the cooldown for new crates, you can still edit the values on already-tagged crates
+				to_chat(user, "<span class='warning'>The ICN tagger is still in cooldown for: [DisplayTimeText(icn_cooldown - world.time)]</span>")
+				return
+			icn_cooldown = world.time + (5 MINUTES)
 			E = new
 			C.icn_export = E
 
@@ -116,26 +125,31 @@ GLOBAL_LIST_INIT(blacklisted_icn_types, typecacheof(list(
 		return
 
 	contents = list()
-
+	var/notify_seller = FALSE
 	for(var/atom/A in crate_contents)
 		if((A.flags_1 & ADMIN_SPAWNED_1) || (A.datum_flags & DF_VAR_EDITED))
 			log_game("[seller_ckey] tried to sell an adminspawned or varedited [A.name] on the ICN")
 			message_admins("[seller_ckey] tried to sell an adminspawned or varedited [A.name] on the ICN")
 			qdel(A)
+			notify_seller = TRUE
 			continue
 		if((A.flags_1 & HOLOGRAM_1))
 			qdel(A)
+			notify_seller = TRUE
 			continue
 		if(isobj(A))
 			var/obj/O = A
 			if((O.resistance_flags & INDESTRUCTIBLE))
 				qdel(O)
+				notify_seller = TRUE
 				continue
 		if(ismob(A)) //This shouldn't be possible but better safe than sorry
 			qdel(A)
+			notify_seller = TRUE
 			continue
 		if(is_type_in_typecache(A, GLOB.blacklisted_icn_types))
 			qdel(A)
+			notify_seller = TRUE
 			continue
 
 		if(istype(A, /obj/item/stack)) //We have to care about the amount in a stack
@@ -146,14 +160,17 @@ GLOBAL_LIST_INIT(blacklisted_icn_types, typecacheof(list(
 
 		qdel(A)
 
-	if(!contents.len)
+	if(notify_seller || !contents.len)
 		//Notify the seller via PDA
+		var/message = "One or more of the items in your listing (#[order_no]) have been seized by ICN Customs Agents. No refunds."
+		if(!contents.len)
+			message = "Your listing (#[order_no]) has been rejected by the ICN and the crate has been destroyed. No refunds."
 		for (var/obj/item/pda/P as() in GLOB.PDAs)
 			if(P.owner == seller_name)
 				var/datum/signal/subspace/messaging/pda/signal = new(src, list(
 					"name" = "Interstation Cargo Network",
 					"job" = "CentCom",
-					"message" ="Your listing (#[order_no]) has been rejected by the ICN and the crate has been destroyed. No refunds.",
+					"message" = message,
 					"targets" = list("[P.owner] ([P.ownjob])"),
 					"automated" = 1))
 				signal.send_to_receivers()

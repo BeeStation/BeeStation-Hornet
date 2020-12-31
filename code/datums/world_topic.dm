@@ -224,9 +224,6 @@
 			"order_no" = E.order_no,
 			"seller_name" = E.seller_name,
 			"price" = E.price,
-			"roundid" = E.roundid,
-			"payment_account" = E.payment_account,
-			"purchased" = FALSE,
 			"station_name" = E.station_name,
 			"contents" = E.contents)
 
@@ -265,7 +262,7 @@
 			var/datum/signal/subspace/messaging/pda/signal = new(src, list(
 				"name" = "Interstation Cargo Network",
 				"job" = "CentCom",
-				"message" ="ICN Order #[order.order_no] has been purchased by [purchaser]! We have credited $[order.price] to the following account: [intended_account ? order.payment_account : "[ACCOUNT_CAR_NAME]"]",
+				"message" ="ICN Order #[order.order_no] has been purchased by [purchaser]! We have credited $[order.price] to the following account: [intended_account ? order.payment_account : "ERROR 404 - ACCOUNT NOT FOUND. Defaulting to [ACCOUNT_CAR_NAME]"].",
 				"targets" = list("[P.owner] ([P.ownjob])"),
 				"automated" = 1))
 			signal.send_to_receivers()
