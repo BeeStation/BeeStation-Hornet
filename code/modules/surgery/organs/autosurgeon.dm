@@ -86,6 +86,24 @@
 	uses = 1
 	starting_organ = /obj/item/organ/cyberimp/eyes/hud/medical
 
+/obj/item/autosurgeon/skillChip
+	uses = 1
+
+/obj/item/autosurgeon/skillChip/securityChip
+	desc = "A single use autosurgeon that contains a security skill chip. A screwdriver can be used to remove it, but implants can't be placed back in."
+	starting_organ = /obj/item/organ/cyberimp/skillChip/security
+
+/obj/item/autosurgeon/skillChip/chefChip
+	desc = "A single use autosurgeon that contains a chef skill chip. A screwdriver can be used to remove it, but implants can't be placed back in"
+	starting_organ = /obj/item/organ/cyberimp/skillChip/chef
+
+/obj/item/autosurgeon/skillChip/chemChip
+	desc = "A single use autosurgeon that contains a chemistry skill chip. A screwdriver can be used to remove it, but implants can't be placed back in"
+	starting_organ = /obj/item/organ/cyberimp/skillChip/chemistry
+
+/obj/item/autosurgeon/skillChip/barchip
+	desc = "A single use autosurgeon that contains a bartending skill chip. A screwdriver can be used to remove it, but implants can't be placed back in"
+
 /obj/item/autosurgeon/syndicate/laser_arm
 	desc = "A single use autosurgeon that contains a combat arms-up laser augment. A screwdriver can be used to remove it, but implants can't be placed back in."
 	uses = 1
