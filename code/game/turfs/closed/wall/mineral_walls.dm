@@ -178,7 +178,6 @@
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = null
 
-
 /turf/closed/wall/mineral/abductor
 	name = "alien wall"
 	desc = "A wall with alien alloy plating."
