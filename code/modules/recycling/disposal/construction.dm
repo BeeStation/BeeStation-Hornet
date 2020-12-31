@@ -21,6 +21,7 @@
 		pipe_type = make_from.type
 		setDir(make_from.dir)
 		anchored = TRUE
+		density = initial(pipe_type.density)
 		make_from.transfer_fingerprints_to(src)
 
 	else

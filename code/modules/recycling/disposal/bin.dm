@@ -230,8 +230,7 @@
 
 /obj/machinery/disposal/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
-		var/obj/structure/disposalconstruct/temp_structure = new /obj/structure/disposalconstruct(loc, null, SOUTH, FALSE, src)
-		temp_structure.density = TRUE //currently the only way disposalconstruct can be dense: deconstructed disposals!
+		new /obj/structure/disposalconstruct(loc, null, SOUTH, FALSE, src)
 	for(var/atom/movable/AM in src) //out, out, darned crowbar!
 		AM.forceMove(loc)
 	..()
