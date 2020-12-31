@@ -88,6 +88,7 @@
 
 /obj/item/autosurgeon/skillChip
 	uses = 1
+	organ_type = /obj/item/organ/cyberimp/skillChip
 
 /obj/item/autosurgeon/skillChip/securityChip
 	desc = "A single use autosurgeon that contains a security skill chip. A screwdriver can be used to remove it, but implants can't be placed back in."
@@ -103,6 +104,23 @@
 
 /obj/item/autosurgeon/skillChip/barchip
 	desc = "A single use autosurgeon that contains a bartending skill chip. A screwdriver can be used to remove it, but implants can't be placed back in"
+	starting_organ = /obj/item/organ/cyberimp/skillChip/bartender
+
+/obj/item/autosurgeon/skillChip/surgicalChip
+	desc = "A single use autosurgeon that contains a surgical skill chip. A screwdriver can be used to remove it, but implants can't be placed back in"
+	starting_organ = /obj/item/organ/cyberimp/skillChip/surgical
+
+/obj/item/autosurgeon/skillChip/cmoChip //Not lathe printable
+	desc = "A single use autosurgeon that contains a Chief Medical Officer skill chip. A screwdriver can be used to remove it, but implants can't be placed back in"
+	starting_organ = /obj/item/organ/cyberimp/skillChip/chiefMedical
+
+/obj/item/autosurgeon/skillChip/engineering
+	desc = "A single use autosurgeon that contains a engineering skill chip. A screwdriver can be used to remove it, but implants can't be placed back in"
+	starting_organ = /obj/item/organ/cyberimp/skillChip/engineering
+
+/obj/item/autosurgeon/skillChip/omni //I will not be adding subtypes. Do the varediting on an unused autosurgeon.
+	desc = "A single use autosurgeon that contains a omni skill chip. A screwdriver can be used to remove it, but implants can't be placed back in"
+	starting_organ = /obj/item/organ/cyberimp/skillChip/omniChip
 
 /obj/item/autosurgeon/syndicate/laser_arm
 	desc = "A single use autosurgeon that contains a combat arms-up laser augment. A screwdriver can be used to remove it, but implants can't be placed back in."
