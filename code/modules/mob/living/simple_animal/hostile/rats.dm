@@ -101,18 +101,18 @@
 					playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
 					C.deconstruct()
 					death()
-			else if(C?.avail())
-				visible_message("<span class='warning'>[src] chews through the [C]. It looks unharmed!</span>")
-				playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
-				C.deconstruct()
+				else
+					visible_message("<span class='warning'>[src] chews through the [C]. It looks unharmed!</span>")
+					playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
+					C.deconstruct()
 
 
 /mob/living/simple_animal/hostile/rat/king
 	name = "rat king"
 	desc = "An evolved rat, self proclaimed king of other rats. It leads nearby rats with deadly efficiency to protect its kingdom. Not technically a king, but don't tell him that."
 	gender = NEUTER
-	maxHealth = 70
-	health = 70
+	maxHealth = 125
+	health = 125
 
 	melee_damage = 15
 	obj_damage = 10
@@ -206,6 +206,13 @@
 					new pickedtrash(get_turf(src))
 		rummaging = FALSE
 		return
+	if(istype(target, /obj/structure/cable))
+		var/obj/structure/cable/C = locate() in F
+		if(C.avail())
+			apply_damage(15) 
+			playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
+		C.deconstruct()
+					
 	if (target.reagents && istype(target,/obj) && target.is_injectable(src,TRUE))
 		src.visible_message("<span class='warning'>[src] starts licking the [target] passionately!</span>","<span class='notice'>You start licking the [target]...</span>")
 		rummaging = TRUE
@@ -226,8 +233,8 @@
 	desc = "Raise an army out of the hordes of mice and pests crawling around the maintenance shafts."
 	charge_max = 12 SECONDS
 	range = 5
-	action_icon = 'icons/mob/actions.dmi'
-	action_icon_state = "screech"
+	action_icon = 'icons/mob/actions/actions_animal.dmi'
+	action_icon_state = "riot"
 	clothes_req = FALSE
 	antimagic_allowed = TRUE
 	invocation_type = "none"
@@ -262,8 +269,8 @@
 	charge_max = 6 SECONDS
 	range = 5
 	message = "<span class='notice'>You feel more at home...</span>"
-	action_icon = 'icons/mob/actions.dmi'
-	action_icon_state = "screech"
+	action_icon = 'icons/mob/actions/actions_animal.dmi'
+	action_icon_state = "domain"
 	clothes_req = FALSE
 	antimagic_allowed = TRUE
 	invocation_type = "none"
@@ -273,7 +280,7 @@
 	. = ..()
 	var/turf/open/T = get_turf(user)
 	if(istype(T))
-		T.atmos_spawn_air("miasma=1;TEMP=[T20C]")
+		T.atmos_spawn_air("miasma=4;TEMP=[T20C]")
 		switch (rand(1,10))
 			if (8)
 				new /obj/effect/decal/cleanable/vomit(T)
@@ -294,14 +301,18 @@
 	reagent_state = LIQUID
 	color = "#C8C8C8"
 	metabolization_rate = 0.03 * REAGENTS_METABOLISM
-	taste_description = "feces"
+	taste_description = "something funny"
+	
+/datum/reagent/rat_spit/on_mob_metabolize(mob/living/L)
+	..()
+	to_chat(L, "<span class='notice'>This food has a funny taste!</span>")
 	
 /datum/reagent/rat_spit/on_mob_life(mob/living/carbon/M)
 	if(prob(15))
-		to_chat(M, "<span class='notice'>Your stomach rumbles!</span>")
+		to_chat(M, "<span class='notice'>That food was awful!</span>")
 		M.adjust_disgust(3)
 	else if(prob(10))
-		to_chat(M, "<span class='warning'>You almost vomit!</span>")
+		to_chat(M, "<span class='warning'>That food did not sit up well!</span>")
 		M.adjust_disgust(5)
 	else if(prob(5))
 		M.vomit()

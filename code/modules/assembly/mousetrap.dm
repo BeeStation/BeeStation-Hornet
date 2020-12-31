@@ -60,6 +60,11 @@
 		var/mob/living/simple_animal/mouse/M = target
 		visible_message("<span class='boldannounce'>SPLAT!</span>")
 		M.splat()
+	else if (istype(target,/mob/living/simple_animal/hostile/rat))
+		var/mob/living/simple_animal/hostile/rat/ratt = target
+		visible_message("<span class='boldannounce'>Clink!</span>")
+		ratt.apply_damage(5) 
+		ratt.Stun(1 SECONDS)
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 	armed = FALSE
 	update_icon()
