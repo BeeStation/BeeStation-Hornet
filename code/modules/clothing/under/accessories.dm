@@ -195,7 +195,7 @@
 /obj/item/clothing/accessory/medal/silver/excellence
 	name = "the head of personnel award for outstanding achievement in the field of excellence"
 	desc = "Nanotrasen's dictionary defines excellence as \"the quality or condition of being excellent\". This is awarded to those rare crewmembers who fit that definition."
-	
+
 /obj/item/clothing/accessory/medal/gold
 	name = "gold medal"
 	desc = "A prestigious golden medal."
@@ -240,10 +240,20 @@
 
 /obj/item/clothing/accessory/armband
 	name = "red armband"
-	desc = "An fancy red armband!"
+	desc = "A fancy red armband!"
 	icon_state = "redband"
 	item_color = "redband"
 	attachment_slot = null
+
+/obj/item/clothing/accessory/armband/blue
+	name = "blue armband"
+	desc = "A fancy blue armband!"
+	color = list(0,0,1, 0,1,0, 1,0,0)
+
+/obj/item/clothing/accessory/armband/green
+	name = "green armband"
+	desc = "A fancy green armband!"
+	color = list(0,1,0, 1,0,0, 0,0,1)
 
 /obj/item/clothing/accessory/armband/deputy
 	name = "security deputy armband"

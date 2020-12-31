@@ -179,4 +179,6 @@
 		return
 	if(!length(blood_DNA))
 		return
-	parent.AddElement(/datum/element/decal/blood)
+	if(isitem(parent))
+		var/obj/item/I = parent
+		I.AddElement(/datum/element/decal/blood, initial(I.icon) || I.icon, initial(I.icon_state) || I.icon_state)
