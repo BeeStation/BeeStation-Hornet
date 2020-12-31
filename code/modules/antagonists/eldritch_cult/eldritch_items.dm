@@ -500,7 +500,7 @@
 
 /obj/item/artifact/ashes/infuse_blessing(mob/living/user,mob/living/carbon/human/target)
 	switch (deity)
-		if (GOD_SLEEP)
+		if (GOD_YOUTH)
 			target.adjustOrganLoss(ORGAN_SLOT_HEART,-100)
 			target.adjustOrganLoss(ORGAN_SLOT_LIVER,-100)
 			target.adjustOrganLoss(ORGAN_SLOT_STOMACH,-100)
@@ -554,7 +554,7 @@
 
 	return TRUE
 
-#undef GOD_SLEEP 
+#undef GOD_YOUTH 
 #undef GOD_SIGHT 
 #undef GOD_MIND 
 #undef GOD_CLEANSE 
