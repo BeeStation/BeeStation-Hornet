@@ -22,6 +22,7 @@
 	burnmod = 1.5
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/apid
+	inert_mutation = WAXSALIVA
 
 /datum/species/apid/random_name(gender,unique,lastname)
 	if(unique)
