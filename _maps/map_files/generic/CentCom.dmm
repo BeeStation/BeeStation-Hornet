@@ -2479,6 +2479,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/item/folder/red,
 /turf/open/floor/plasteel/dark,
 /area/ctf)
 "hh" = (
@@ -2498,9 +2499,6 @@
 /turf/open/floor/plasteel/dark,
 /area/ctf)
 "hv" = (
-/obj/structure/chair/office{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/dark,
 /area/ctf)
@@ -2536,6 +2534,15 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/turf/open/floor/plasteel/dark,
+/area/ctf)
+"hS" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/item/paper_bin,
 /turf/open/floor/plasteel/dark,
 /area/ctf)
 "hV" = (
@@ -4143,11 +4150,6 @@
 /obj/effect/landmark/abductor/agent{
 	team_number = 4
 	},
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
-"lG" = (
-/obj/structure/table/abductor,
-/obj/item/storage/box/alienhandcuffs,
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
 "lH" = (
@@ -6981,6 +6983,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
+"qM" = (
+/obj/machinery/power/emitter/ctf{
+	dir = 8
+	},
+/turf/open/floor/circuit,
+/area/ctf)
 "qN" = (
 /obj/structure/mopbucket,
 /obj/item/soap/syndie,
@@ -8237,6 +8245,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/dark,
 /area/ctf)
 "th" = (
@@ -10605,6 +10614,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
+/obj/item/reagent_containers/food/drinks/britcup,
 /turf/open/floor/plasteel/dark,
 /area/ctf)
 "yU" = (
@@ -10837,7 +10847,7 @@
 /area/wizard_station)
 "zp" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /obj/item/clothing/suit/wizrobe/red,
 /obj/item/clothing/head/wizard/red,
@@ -11364,9 +11374,6 @@
 /turf/open/floor/plasteel/dark,
 /area/ctf)
 "AG" = (
-/obj/structure/chair/office{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -14622,7 +14629,7 @@
 /area/tdome/tdomeobserve)
 "Hz" = (
 /obj/structure/barricade/security/ctf,
-/turf/open/floor/circuit/telecomms,
+/turf/open/floor/circuit,
 /area/ctf)
 "HA" = (
 /obj/structure/sink{
@@ -16746,6 +16753,11 @@
 "Mm" = (
 /turf/open/floor/grass,
 /area/centcom/holding)
+"Mp" = (
+/obj/structure/closet/abductor,
+/obj/item/storage/box/alienhandcuffs,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "Ms" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-10"
@@ -17085,7 +17097,7 @@
 /obj/machinery/power/emitter/ctf{
 	dir = 4
 	},
-/turf/open/floor/circuit/telecomms,
+/turf/open/floor/circuit,
 /area/ctf)
 "Oj" = (
 /obj/machinery/door/firedoor,
@@ -17364,12 +17376,6 @@
 /obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/plasteel/dark,
 /area/ctf)
-"Qd" = (
-/obj/machinery/power/emitter/ctf{
-	dir = 8
-	},
-/turf/open/floor/circuit/telecomms,
-/area/ctf)
 "Qe" = (
 /turf/open/ai_visible,
 /area/ai_multicam_room)
@@ -17385,7 +17391,6 @@
 /turf/open/floor/wood,
 /area/centcom/holding)
 "Qi" = (
-/obj/structure/chair/office,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -17946,6 +17951,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/three)
+"TA" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/item/folder/red{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/turf/open/floor/plasteel/dark,
+/area/ctf)
 "TB" = (
 /obj/structure/reagent_dispensers/cooking_oil,
 /turf/open/floor/plasteel/cafeteria,
@@ -18063,7 +18080,6 @@
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
 "Up" = (
-/obj/structure/chair/office,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -18097,6 +18113,15 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"UL" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/item/clipboard,
+/turf/open/floor/plasteel/dark,
+/area/ctf)
 "UM" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -18131,7 +18156,6 @@
 /turf/open/floor/wood,
 /area/centcom/holding)
 "UX" = (
-/obj/structure/chair/office,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -18263,7 +18287,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/evac)
 "Wi" = (
-/turf/open/floor/circuit/telecomms,
+/turf/open/floor/circuit,
 /area/ctf)
 "Wj" = (
 /obj/machinery/light/small{
@@ -18305,6 +18329,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/four)
+"WB" = (
+/obj/structure/table/abductor,
+/obj/machinery/recharger,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "WJ" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome Administration";
@@ -18592,9 +18621,6 @@
 /turf/open/floor/grass,
 /area/centcom/holding)
 "YO" = (
-/obj/structure/chair/office{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -20767,8 +20793,8 @@ aa
 ks
 kP
 lj
-lG
-lj
+WB
+Mp
 mw
 nf
 aa
@@ -20794,8 +20820,8 @@ aa
 ks
 kP
 lj
-lG
-lj
+WB
+Mp
 mw
 nf
 aa
@@ -20824,8 +20850,8 @@ aa
 ks
 kP
 lj
-lG
-lj
+WB
+Mp
 mw
 nf
 aa
@@ -20851,8 +20877,8 @@ aa
 ks
 kP
 lj
-lG
-lj
+WB
+Mp
 mw
 nf
 aa
@@ -69020,13 +69046,13 @@ aa
 aa
 aa
 fZ
-Qd
+qM
 gl
 Xu
 Xu
 Xu
 gl
-Qd
+qM
 fZ
 Xu
 Xu
@@ -74173,7 +74199,7 @@ Qn
 Bt
 gh
 Up
-hc
+hS
 hv
 gh
 Qq
@@ -74430,7 +74456,7 @@ Qn
 PB
 gh
 Up
-hc
+TA
 hv
 gh
 ge
@@ -74687,7 +74713,7 @@ Qn
 Tw
 gh
 Up
-hc
+UL
 hv
 gh
 ge
@@ -83175,9 +83201,9 @@ gA
 gR
 gR
 fZ
-Qd
+qM
 hC
-Qd
+qM
 fZ
 aa
 aa
@@ -83947,7 +83973,7 @@ gR
 gR
 fZ
 fZ
-Qd
+qM
 fZ
 aa
 aa

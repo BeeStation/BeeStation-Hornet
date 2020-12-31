@@ -21,9 +21,9 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/item/twohanded/required/kirbyplants/random,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/mineral/copper,
+/turf/open/floor/plating,
 /area/template_noop)
 "e" = (
 /obj/structure/table/reinforced,
@@ -312,25 +312,25 @@ C
 J
 "}
 (4,1,1) = {"
-d
+e
 m
 t
 D
 K
 "}
 (5,1,1) = {"
-e
+f
 m
 u
 E
-d
+x
 "}
 (6,1,1) = {"
 f
 f
 v
 C
-L
+d
 "}
 (7,1,1) = {"
 g
@@ -351,7 +351,7 @@ i
 p
 y
 z
-b
+L
 "}
 (10,1,1) = {"
 j

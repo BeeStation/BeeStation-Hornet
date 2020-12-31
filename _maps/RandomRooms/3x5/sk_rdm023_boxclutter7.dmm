@@ -34,9 +34,12 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/item/stack/sheet/mineral/copper,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
@@ -61,7 +64,7 @@
 
 (1,1,1) = {"
 a
-d
+f
 b
 g
 i
@@ -76,7 +79,7 @@ b
 (3,1,1) = {"
 c
 d
-f
+b
 h
 j
 "}

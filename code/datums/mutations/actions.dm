@@ -25,9 +25,9 @@
 /datum/mutation/human/olfaction/on_life()
 	var/hygiene_now = owner.hygiene
 
-	if(hygiene_now < 100 && prob(5))
+	if(hygiene_now < 100 && prob(3))
 		owner.adjust_disgust(GET_MUTATION_SYNCHRONIZER(src) * (rand(3,5)))
-	if(hygiene_now < HYGIENE_LEVEL_DIRTY && prob(50))
+	if(hygiene_now < HYGIENE_LEVEL_DIRTY && prob(15))
 		to_chat(owner,"<span class='danger'>You get a whiff of your stench and feel sick!</span>")
 		owner.adjust_disgust(GET_MUTATION_SYNCHRONIZER(src) * rand(5,10))
 
@@ -59,7 +59,7 @@
 		possible = list()
 		var/list/prints = sniffed.return_fingerprints()
 		for(var/mob/living/carbon/C in GLOB.carbon_list)
-			if(prints[md5(C.dna.uni_identity)])
+			if(prints[rustg_hash_string(RUSTG_HASH_MD5, C.dna.uni_identity)])
 				possible |= C
 		if(!length(possible))
 			to_chat(user,"<span class='warning'>Despite your best efforts, there are no scents to be found on [sniffed]...</span>")

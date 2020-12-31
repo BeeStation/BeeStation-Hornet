@@ -96,6 +96,28 @@
 	)
 	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
 
+/datum/quirk/multilingual
+	name = "Multilingual"
+	desc = "You spent a portion of your life learning to understand an additional language. You may or may not be able to speak it based on your anatomy."
+	value = 1
+	mob_trait = TRAIT_MULTILINGUAL
+	gain_text = "<span class='notice'>You have learned to understand an additional language.</span>"
+	lose_text = "<span class='danger'>You have forgotten how to understand a language.</span>"
+
+/datum/quirk/multilingual/on_spawn()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(H.job != "Curator")
+		var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+		var/list/languages_possible = T.languages_possible
+		languages_possible = languages_possible - typecacheof(/datum/language/codespeak) - typecacheof(/datum/language/narsie) - typecacheof(/datum/language/ratvar)
+		languages_possible = languages_possible - H.language_holder.understood_languages
+		languages_possible = languages_possible - H.language_holder.spoken_languages
+		languages_possible = languages_possible - H.language_holder.blocked_languages
+		if(LAZYLEN(languages_possible))
+			var/datum/language/random_language = pick(languages_possible)
+			H.grant_language(random_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
+//Credit To Yowii/Yoworii/Yorii for a much more streamlined method of language library building
+
 /datum/quirk/night_vision
 	name = "Night Vision"
 	desc = "You can see slightly more clearly in full darkness than most people."
@@ -153,8 +175,8 @@
 
 /datum/quirk/spiritual/on_process()
 	var/comforted = FALSE
-	for(var/mob/living/L in oview(5, quirk_holder))
-		if(L.mind?.isholy && L.stat == CONSCIOUS)
+	for(var/mob/living/carbon/human/H in oview(5, quirk_holder))
+		if(H.mind?.isholy && H.stat == CONSCIOUS)
 			comforted = TRUE
 			break
 	if(comforted)

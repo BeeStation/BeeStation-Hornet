@@ -1511,6 +1511,18 @@
 	name = "Thigh-high (Bee)"
 	icon_state = "bee_thigh"
 
+/datum/sprite_accessory/socks/codersocks_pink
+	name = "Coder Socks (Pink)"
+	icon_state = "codersocks_pink"
+
+/datum/sprite_accessory/socks/codersocks_blue
+	name = "Coder Socks (Blue)"
+	icon_state = "codersocks_blue"
+
+/datum/sprite_accessory/socks/codersocks_trans
+	name = "Coder Socks (Trans)"
+	icon_state = "codersocks_trans"
+
 //////////.//////////////////
 // MutantParts Definitions //
 /////////////////////////////
@@ -1592,6 +1604,18 @@
 	name = "Cat"
 	icon_state = "cat"
 	color_src = HAIR
+
+/datum/sprite_accessory/tails/human/clock
+	name = "Clockwork"
+	icon_state = "clockwork"
+	locked = TRUE
+	color_src = null
+
+/datum/sprite_accessory/tails_animated/human/clock
+	name = "Clockwork"
+	icon_state = "clockwork"
+	locked = TRUE
+	color_src = null
 
 /datum/sprite_accessory/snouts
 	icon = 'icons/mob/mutant_bodyparts.dmi'
@@ -1701,7 +1725,7 @@
 	dimension_x = 46
 	center = TRUE
 	dimension_y = 34
-	
+
 /datum/sprite_accessory/wings_open/apid
 	name = "Bee"
 	icon_state = "apid"
@@ -1717,7 +1741,7 @@
 	dimension_x = 46
 	center = TRUE
 	dimension_y = 34
-	
+
 /datum/sprite_accessory/wings_open/robot
 	name = "Robot"
 	icon_state = "robo"
@@ -1855,6 +1879,11 @@
 /datum/sprite_accessory/moth_wings/whitefly
 	name = "White Fly"
 	icon_state = "whitefly"
+
+/datum/sprite_accessory/moth_wings/clockwork
+	name = "Clockwork"
+	icon_state = "clockwork"
+	locked = TRUE
 
 /datum/sprite_accessory/moth_wings/punished
 	name = "Burnt Off"

@@ -11,6 +11,7 @@
 
 	var/credit_cost = INFINITY
 	var/can_be_bought = TRUE
+	var/illegal_shuttle = FALSE	//makes you able to buy the shuttle at a hacked/emagged comms console even if can_be_bought is FALSE
 
 	var/list/movement_force // If set, overrides default movement_force on shuttle
 
@@ -513,7 +514,7 @@
 	name = "basic syndicate infiltrator"
 
 /datum/map_template/shuttle/infiltrator/advanced
-	suffix = "basic"
+	suffix = "advanced"
 	name = "advanced syndicate infiltrator"
 
 /datum/map_template/shuttle/cargo/delta
@@ -531,6 +532,12 @@
 /datum/map_template/shuttle/mining/large
 	suffix = "large"
 	name = "mining shuttle (Large)"
+
+/datum/map_template/shuttle/science
+	port_id = "science"
+	suffix = "outpost"
+	name = "science outpost shuttle"
+	can_be_bought = FALSE
 
 /datum/map_template/shuttle/labour/delta
 	suffix = "delta"

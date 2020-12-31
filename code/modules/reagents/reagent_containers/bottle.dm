@@ -45,7 +45,7 @@
 	name = "chloral hydrate bottle"
 	desc = "A small bottle of Choral Hydrate. Mickey's Favorite!"
 	icon_state = "bottle20"
-	list_reagents = list(/datum/reagent/toxin/chloralhydrate = 15)
+	list_reagents = list(/datum/reagent/toxin/chloralhydrate = 30)
 
 /obj/item/reagent_containers/glass/bottle/mannitol
 	name = "mannitol bottle"

@@ -9,7 +9,9 @@ export const BottleDispenser = (props, context) => {
     bottle_name,
   } = data;
   return (
-    <Window>
+    <Window
+      width={300}
+      height={120}>
       <Window.Content>
         <Section>
           <LabeledList>

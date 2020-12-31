@@ -45,8 +45,9 @@
 		///////////////
 		//SOUND STUFF//
 		///////////////
-	var/ambience_playing= null
-	var/played			= 0
+	var/ambient_buzz_playing = null // What buzz ambience is currently playing
+	var/ambient_buzz = null
+	var/ambient_effect_last_played = 0 // What was the last time we played an ambient effect noise?
 		////////////
 		//SECURITY//
 		////////////
@@ -70,7 +71,7 @@
 
 	preload_rsc = PRELOAD_RSC
 
-	var/obj/screen/click_catcher/void
+	var/atom/movable/screen/click_catcher/void
 
 	//These two vars are used to make a special mouse cursor, with a unique icon for clicking
 	/// Mouse icon while not clicking
@@ -96,12 +97,10 @@
 	var/list/topiclimiter
 	var/list/clicklimiter
 
-	var/datum/chatOutput/chatOutput
-
 	/// These persist between logins/logouts during the same round.
 	var/datum/player_details/player_details
 
-	var/list/char_render_holders			//Should only be a key-value list of north/south/east/west = obj/screen.
+	var/list/char_render_holders			//Should only be a key-value list of north/south/east/west = atom/movable/screen.
 
 	var/client_keysend_amount = 0
 	var/next_keysend_reset = 0
@@ -109,5 +108,17 @@
 	var/keysend_tripped = FALSE
 
 	var/datum/viewData/view_size
+
+	// List of all asset filenames sent to this client by the asset cache, along with their assoicated md5s
+	var/list/sent_assets = list()
+	/// List of all completed blocking send jobs awaiting acknowledgement by send_asset
+	var/list/completed_asset_jobs = list()
+	/// Last asset send job id.
+	var/last_asset_job = 0
+	var/last_completed_asset_job = 0
+
 	/// rate limiting for the crew manifest
 	var/crew_manifest_delay
+
+	//Tick when ghost roles are useable again
+	var/next_ghost_role_tick = 0

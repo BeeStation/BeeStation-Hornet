@@ -7,7 +7,10 @@ export const ChemMaster = (props, context) => {
   const { data } = useBackend(context);
   const { screen } = data;
   return (
-    <Window resizable>
+    <Window
+      resizable
+      width={465}
+      height={550}>
       <Window.Content scrollable>
         {screen === 'analyze' && (
           <AnalysisResults />

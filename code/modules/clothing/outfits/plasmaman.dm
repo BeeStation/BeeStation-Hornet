@@ -10,6 +10,11 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/hat
 	uniform = /obj/item/clothing/under/plasmaman/tux
 
+/datum/outfit/plasmaman/vip
+	name = "VIP Plasmaman"
+	head = /obj/item/clothing/head/helmet/space/plasmaman/gold
+	uniform = /obj/item/clothing/under/plasmaman/gold
+
 /datum/outfit/plasmaman/hobo
 	name = "Hobo Plasmaman"
 

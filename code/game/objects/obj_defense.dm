@@ -108,7 +108,7 @@
 
 /obj/attack_animal(mob/living/simple_animal/M)
 	if(!M.melee_damage && !M.obj_damage)
-		M.emote("custom", message = "[M.friendly] [src].")
+		INVOKE_ASYNC(M, /mob.proc/emote, "custom", null, "[M.friendly] [src].")
 		return 0
 	else
 		var/play_soundeffect = 1
@@ -185,7 +185,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/proc/acid_processing()
 	. = 1
 	if(!(resistance_flags & ACID_PROOF))
-		for(var/armour_value in armor)
+		for(var/armour_value in armor.getList())
 			if(armour_value != "acid" && armour_value != "fire")
 				armor = armor.modifyAllRatings(0 - round(sqrt(acid_level)*0.1))
 		if(prob(33))

@@ -68,6 +68,8 @@
 	flight_level = WINGS_FLYING
 	wing_type = "Robot"
 	wingsound = 'sound/items/change_jaws.ogg'
+	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_SYNTHETIC
 
 /obj/item/organ/wings/cybernetic/emp_act(severity)
 	. = ..()

@@ -25,6 +25,7 @@
 		/datum/language/ratvar,
 		/datum/language/rlyehian,
 		/datum/language/shadowtongue,
+		/datum/language/slime,
 		/datum/language/sylvan,
 		/datum/language/terrum,
 		/datum/language/uncommon))

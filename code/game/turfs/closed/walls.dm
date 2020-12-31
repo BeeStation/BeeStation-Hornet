@@ -35,6 +35,16 @@
 
 	var/list/dent_decals
 
+/turf/closed/wall/Initialize(mapload)
+	. = ..()
+	if(is_station_level(z))
+		GLOB.station_turfs += src
+
+/turf/closed/wall/Destroy()
+	if(is_station_level(z))
+		GLOB.station_turfs -= src
+	..()
+
 /turf/closed/wall/examine(mob/user)
 	. += ..()
 	. += deconstruction_hints(user)
@@ -317,5 +327,10 @@
 		dent_decals = list(decal)
 
 	add_overlay(dent_decals)
+
+/turf/closed/wall/rust_heretic_act()
+	if(prob(70))
+		new /obj/effect/temp_visual/glowing_rune(src)
+	ChangeTurf(/turf/closed/wall/rust)
 
 #undef MAX_DENT_DECALS

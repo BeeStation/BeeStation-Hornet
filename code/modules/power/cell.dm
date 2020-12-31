@@ -149,32 +149,36 @@
 					corrupt()
 
 /obj/item/stock_parts/cell/attack_self(mob/user)
-	var/mob/living/carbon/human/H = user
-	var/datum/species/ethereal/eth_species = H.dna?.species
-	
-	if(istype(H) && istype(eth_species))			
+	if(isethereal(user))
+		var/mob/living/carbon/human/H = user
+		var/datum/species/ethereal/E = H.dna.species
+		if(E.drain_time > world.time)
+			return
+
 		if(charge < 100)
 			to_chat(H, "<span class='warning'>The [src] doesn't have enough power!</span>")
 			return
-		if(eth_species.ethereal_charge >= ETHEREAL_CHARGE_FULL - 5)
+		var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+		if(!istype(stomach))
+			to_chat(H, "<span class='warning'>You can't receive charge!</span>")
+			return
+		if(stomach.crystal_charge >= ETHEREAL_CHARGE_FULL)
 			to_chat(H, "<span class='warning'>Your charge is full!</span>")
 			return
 		to_chat(H, "<span class='notice'>You clumsily channel power through the [src] and into your body, wasting some in the process.</span>")
-		if(do_after(user, 50, target = src))
-			if((charge >= 100) && (eth_species.ethereal_charge < ETHEREAL_CHARGE_FULL - 5))
-				to_chat(H, "<span class='notice'>You receive some charge from the [src].</span>")
-				eth_species.adjust_charge(5)
-				charge -= 100 //you waste way more than you receive, so that ethereals can't just steal one cell and forget about hunger
-			else
-				to_chat(H, "<span class='warning'>You can't receive charge from the [src]!</span>")
+		E.drain_time = world.time + 20
+		if((charge < 100) || (stomach.crystal_charge >= ETHEREAL_CHARGE_FULL))
 			return
-
-		
-	..()
-
+		if(do_after(user, 20, target = src))
+			to_chat(H, "<span class='notice'>You receive some charge from the [src].</span>")
+			stomach.adjust_charge(3)
+			charge -= 100 //you waste way more than you receive, so that ethereals cant just steal one cell and forget about hunger
+		else
+			to_chat(H, "<span class='warning'>You fail to receive charge from the [src]!</span>")
+	return
 
 /obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)
-	ex_act(EXPLODE_DEVASTATE)
+	src.ex_act(EXPLODE_HEAVY)
 
 /obj/item/stock_parts/cell/proc/get_electrocute_damage()
 	if(charge >= 1000)

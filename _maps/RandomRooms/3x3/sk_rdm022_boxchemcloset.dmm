@@ -4,10 +4,6 @@
 /obj/structure/closet/secure_closet/chemical,
 /turf/open/floor/plating,
 /area/template_noop)
-"b" = (
-/obj/structure/closet/secure_closet/chemical,
-/turf/open/floor/plating,
-/area/template_noop)
 "c" = (
 /obj/structure/closet/secure_closet/medical1,
 /turf/open/floor/plating,
@@ -39,7 +35,7 @@ d
 e
 "}
 (2,1,1) = {"
-b
+d
 N
 f
 "}

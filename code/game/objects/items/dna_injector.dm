@@ -14,7 +14,7 @@
 	var/list/add_mutations = list()
 	var/list/remove_mutations = list()
 
-	var/used = 0
+	var/used = FALSE
 
 /obj/item/dnainjector/attack_paw(mob/user)
 	return attack_hand(user)
@@ -75,7 +75,7 @@
 	if(!inject(target, user))	//Now we actually do the heavy lifting.
 		to_chat(user, "<span class='notice'>It appears that [target] does not have compatible DNA.</span>")
 
-	used = 1
+	used = TRUE
 	icon_state = "dnainjector0"
 	desc += " This one is used up."
 
@@ -150,7 +150,7 @@
 	name = "\improper DNA injector (Anti-Clumsy)"
 	desc = "Apply this for Security Clown."
 	remove_mutations = list(CLOWNMUT)
-	
+
 /obj/item/dnainjector/cluwnemut
 	name = "\improper DNA injector (Cluwneify)"
 	desc = "This is your last chance to turn back."
@@ -532,13 +532,13 @@
 					log_msg += "(FAILED)"
 				else
 					M.dna.add_mutation(HM, MUT_EXTRA)
-					name = "expended [name]"
 			else if(research && M.client)
 				filled = TRUE
-				name = "filled [name]"
-			else
-				name = "expended [name]"
 			log_msg += "([mutation])"
+		if(filled)
+			name = "filled [name]"
+		else
+			name = "expended [name]"
 		log_attack("[log_msg] [loc_name(user)]")
 		return TRUE
 	return FALSE

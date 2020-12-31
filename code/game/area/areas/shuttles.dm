@@ -34,7 +34,7 @@
 /area/shuttle/syndicate
 	name = "Syndicate Infiltrator"
 	blob_allowed = FALSE
-	ambientsounds = HIGHSEC
+	ambient_effects = HIGHSEC
 	canSmoothWithAreas = /area/shuttle/syndicate
 
 /area/shuttle/syndicate/bridge
@@ -135,6 +135,11 @@
 
 /area/shuttle/mining/large
 	name = "Mining Shuttle"
+	blob_allowed = FALSE
+	requires_power = TRUE
+
+/area/shuttle/science
+	name = "Science Shuttle"
 	blob_allowed = FALSE
 	requires_power = TRUE
 

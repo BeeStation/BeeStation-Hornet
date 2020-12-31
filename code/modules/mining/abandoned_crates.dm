@@ -154,7 +154,7 @@
 /obj/structure/closet/crate/secure/loot/attack_hand(mob/user)
 	if(locked)
 		to_chat(user, "<span class='notice'>The crate is locked with a Deca-code lock.</span>")
-		var/input = input(usr, "Enter [codelen] digits. All digits must be unique.", "Deca-Code Lock", "") as text
+		var/input = capped_input(usr, "Enter [codelen] digits. All digits must be unique.", "Deca-Code Lock")
 		if(user.canUseTopic(src, BE_CLOSE))
 			var/list/sanitised = list()
 			var/sanitycheck = TRUE
@@ -172,6 +172,7 @@
 				locked = FALSE
 				cut_overlays()
 				add_overlay("securecrateg")
+				add_overlay("[icon_state]_door") //needs to put the door overlayer back cause of this snowflake code
 				tamperproof = 0 // set explosion chance to zero, so we dont accidently hit it with a multitool and instantly die
 			else if(!input || !sanitycheck || length(sanitised) != codelen)
 				to_chat(user, "<span class='notice'>You leave the crate alone.</span>")

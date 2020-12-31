@@ -8,6 +8,7 @@
 	desc = "It's watching you closely."
 	icon_state = "necrocrate"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	door_anim_time = 0
 
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
@@ -153,7 +154,7 @@
 	desc = "A wooden rod about the size of your forearm with a snake carved around it, winding its way up the sides of the rod. Something about it seems to inspire in you the responsibilty and duty to help others."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "asclepius_dormant"
-	block_upgrade_walk = 1 
+	block_upgrade_walk = 1
 	block_level = 2
 	block_power = 40 //blocks very well to encourage using it. Just because you're a pacifist doesn't mean you can't defend yourself
 	block_flags = null //not active, so it's null
@@ -363,9 +364,14 @@
 		return
 	if(teleporting)
 		return
+	var/turf/T = get_turf(src)
+	var/area/A1 = get_area(T)
+	var/area/A2 = get_area(linked)
+	if(A1.noteleport || A2.noteleport)
+		to_chat(user, "[src] fizzles gently as it fails to breach the bluespace veil.")
+		return
 	teleporting = TRUE
 	linked.teleporting = TRUE
-	var/turf/T = get_turf(src)
 	new /obj/effect/temp_visual/warp_cube(T, user, teleport_color, TRUE)
 	SSblackbox.record_feedback("tally", "warp_cube", 1, type)
 	new /obj/effect/temp_visual/warp_cube(get_turf(linked), user, linked.teleport_color, FALSE)
@@ -679,7 +685,7 @@
 	to_chat(user, "<span class='notice'>You unfold the ladder. It extends much farther than you were expecting.</span>")
 	var/last_ladder = null
 	for(var/i in 1 to world.maxz)
-		if(is_centcom_level(i) || is_reserved_level(i) || is_away_level(i))
+		if(is_centcom_level(i) || is_reserved_level(i) || is_reebe(i) || is_away_level(i))
 			continue
 		var/turf/T2 = locate(ladder_x, ladder_y, i)
 		last_ladder = new /obj/structure/ladder/unbreakable/jacob(T2, null, last_ladder)
@@ -823,7 +829,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 1
 	throwforce = 1
-	block_upgrade_walk = 1 
+	block_upgrade_walk = 1
 	block_level = 1
 	block_power = 20
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY

@@ -140,7 +140,7 @@ Difficulty: Very Hard
 	telegraph()
 	if(health < maxHealth/3)
 		return double_spiral()
-	visible_message("<span class='colossus'>\"<b>Judgement.</b>\"</span>")
+	visible_message("<span class='colossus'>\"<b>Judgment.</b>\"</span>")
 	return spiral_shoot()
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/double_spiral()
@@ -258,7 +258,6 @@ Difficulty: Very Hard
 		target.ex_act(EXPLODE_HEAVY)
 
 
-
 //Black Box
 
 /obj/machinery/smartfridge/black_box
@@ -321,7 +320,7 @@ Difficulty: Very Hard
 		var/json_file = file("data/npc_saves/Blackbox.json")
 		if(!fexists(json_file))
 			return
-		var/list/json = json_decode(file2text(json_file))
+		var/list/json = json_decode(rustg_file_read(json_file))
 		stored_items = json["data"]
 	if(isnull(stored_items))
 		stored_items = list()
@@ -682,6 +681,8 @@ Difficulty: Very Hard
 	if(.)
 		death()
 
+/mob/living/simple_animal/hostile/lightgeist/slime
+	name = "crystalline lightgeist"
 
 /obj/machinery/anomalous_crystal/refresher //Deletes and recreates a copy of the item, "refreshing" it.
 	observer_desc = "This crystal \"refreshes\" items that it affects, rendering them as new."

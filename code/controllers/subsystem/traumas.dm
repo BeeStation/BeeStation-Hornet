@@ -68,7 +68,7 @@ SUBSYSTEM_DEF(traumas)
 												 /obj/item/pda/clown, /obj/item/grown/bananapeel)),
 
 					  "greytide"  = typecacheof(list(/obj/item/clothing/under/color/grey, /obj/item/melee/baton/cattleprod,
-												 /obj/item/twohanded/spear, /obj/item/clothing/mask/gas)),
+												 /obj/item/twohanded/spear, /obj/item/clothing/mask/gas/old)),
 
 					  "lizards"   = typecacheof(list(/obj/item/toy/plush/lizardplushie, /obj/item/reagent_containers/food/snacks/kebab/tail,
 												 /obj/item/organ/tail/lizard, /obj/item/reagent_containers/food/drinks/bottle/lizardwine)),
@@ -113,8 +113,7 @@ SUBSYSTEM_DEF(traumas)
 						/obj/item/clothing/suit/cultrobes, /obj/item/clothing/suit/space/hardsuit/cult,
 						/obj/item/clothing/suit/hooded/cultrobes, /obj/item/clothing/head/hooded/cult_hoodie, /obj/effect/rune,
 						/obj/item/stack/sheet/runed_metal, /obj/machinery/door/airlock/cult, /obj/singularity/narsie,
-						/obj/item/soulstone,
-						/obj/item/clockwork, /obj/item/clothing/suit/armor/clockwork,
+						/obj/item/soulstone, /obj/item/clockwork,
 						/obj/item/stack/tile/brass,
 						/obj/machinery/door/airlock/clockwork,
 						/obj/item/clothing/suit/wizrobe, /obj/item/clothing/head/wizard, /obj/item/spellbook, /obj/item/staff,

@@ -1,6 +1,5 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
@@ -70,6 +69,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance/two,
+/obj/item/toy/cards/deck/syndicate{
+	pixel_y = 6
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "k" = (
@@ -85,13 +87,6 @@
 	},
 /obj/item/stack/spacecash/c100,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/carpet/green,
-/area/template_noop)
-"m" = (
-/obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck/syndicate{
-	pixel_y = 6
-	},
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "n" = (
@@ -118,25 +113,25 @@
 /area/template_noop)
 
 (1,1,1) = {"
-a
+b
 f
 j
 n
 "}
 (2,1,1) = {"
-b
+c
 g
 g
 g
 "}
 (3,1,1) = {"
-c
+d
 h
 k
-o
+p
 "}
 (4,1,1) = {"
-d
+a
 i
 l
 p
@@ -144,6 +139,6 @@ p
 (5,1,1) = {"
 e
 i
-m
+o
 q
 "}

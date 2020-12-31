@@ -390,7 +390,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		dat = "<tt>[header][body]<hr><br></tt>"
 	var/datum/browser/popup = new(user, "id_com", src.name, 900, 620)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 /obj/machinery/computer/card/Topic(href, href_list)
@@ -456,8 +455,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					var/access_allowed = text2num(href_list["allowed"])
 					if(access_type in (istype(src, /obj/machinery/computer/card/centcom)?get_all_centcom_access() : get_all_accesses()))
 						modify.access -= access_type
+						log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [modify] using [scan] at [AREACOORD(usr)].")
 						if(access_allowed == 1)
 							modify.access += access_type
+							log_id("[key_name(usr)] added [get_access_desc(access_type)] to [modify] using [scan] at [AREACOORD(usr)].")
 						playsound(src, "terminal_type", 50, 0)
 		if ("assign")
 			if (authenticated == 2)
@@ -466,9 +467,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					var/newJob = reject_bad_text(input("Enter a custom job assignment.", "Assignment", modify ? modify.assignment : "Unassigned"), MAX_NAME_LEN)
 					if(newJob)
 						t1 = newJob
+						log_id("[key_name(usr)] changed [modify] assignment to [newJob] using [scan] at [AREACOORD(usr)].")
 
 				else if(t1 == "Unassigned")
 					modify.access -= get_all_accesses()
+					log_id("[key_name(usr)] unassigned and stripped all access from [modify] using [scan] at [AREACOORD(usr)].")
 
 				else
 					var/datum/job/jobdatum
@@ -478,20 +481,25 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							jobdatum = J
 							updateUsrDialog()
 							break
+
 					if(!jobdatum)
 						to_chat(usr, "<span class='error'>No log exists for this job.</span>")
 						updateUsrDialog()
 						return
+
 					if(modify.registered_account)
 						modify.registered_account.account_job = jobdatum // this is a terrible idea and people will grief but sure whatever
 
 					modify.access = ( istype(src, /obj/machinery/computer/card/centcom) ? get_centcom_access(t1) : jobdatum.get_access() )
+					log_id("[key_name(usr)] assigned [jobdatum] job to [modify], overriding all previous access using [scan] at [AREACOORD(usr)].")
+
 				if (modify)
 					modify.assignment = t1
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 		if ("demote")
 			if(modify.assignment in head_subordinates || modify.assignment == "Assistant")
 				modify.assignment = "Unassigned"
+				log_id("[key_name(usr)] demoted [modify], unassigning the card without affecting access, using [scan] at [AREACOORD(usr)].")
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 			else
 				to_chat(usr, "<span class='error'>You are not authorized to demote this position.</span>")
@@ -501,6 +509,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if ((authenticated && modify == t2 && (in_range(src, usr) || issilicon(usr)) && isturf(loc)))
 					var/newName = reject_bad_name(href_list["reg"])
 					if(newName)
+						log_id("[key_name(usr)] changed [modify] name to '[newName]', using [scan] at [AREACOORD(usr)].")
 						modify.registered_name = newName
 						playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 					else

@@ -1,0 +1,96 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/closet/emcloset,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"b" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/structure/closet/l3closet,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/structure/closet/emcloset,
+/obj/machinery/light/small/broken{
+	icon_state = "bulb-broken";
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"e" = (
+/obj/structure/closet/firecloset,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/structure/closet/emcloset,
+/obj/machinery/light/small/built{
+	icon_state = "bulb-empty";
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"j" = (
+/obj/machinery/portable_atmospherics/canister/air,
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"k" = (
+/obj/structure/closet/emcloset,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"l" = (
+/obj/machinery/portable_atmospherics/canister/air,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+d
+f
+i
+k
+"}
+(2,1,1) = {"
+b
+b
+g
+b
+b
+"}
+(3,1,1) = {"
+c
+e
+h
+j
+l
+"}

@@ -32,12 +32,18 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"r" = (
-/obj/effect/decal/cleanable/dirt,
+"h" = (
 /obj/effect/decal/cleanable/blood/old,
+/obj/effect/trap/nexus/trickyspawner,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"s" = (
+"i" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/trap,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"r" = (
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plasteel,
 /area/template_noop)
@@ -49,12 +55,12 @@ d
 "}
 (2,1,1) = {"
 a
-s
+h
 e
 "}
 (3,1,1) = {"
 r
-b
+i
 c
 "}
 (4,1,1) = {"

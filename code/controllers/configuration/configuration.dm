@@ -59,6 +59,9 @@
 	LoadMOTD()
 	LoadChatFilter()
 
+	if (Master)
+		Master.OnConfigLoad()
+
 /datum/controller/configuration/proc/full_wipe()
 	if(IsAdminAdvancedProcCall())
 		return
@@ -250,7 +253,7 @@
 	votable_modes += "secret"
 
 /datum/controller/configuration/proc/LoadMOTD()
-	motd = file2text("[directory]/motd.txt")
+	motd = rustg_file_read("[directory]/motd.txt")
 	var/tm_info = GLOB.revdata.GetTestMergeInfo()
 	if(motd || tm_info)
 		motd = motd ? "[motd]<br>[tm_info]" : tm_info
@@ -428,6 +431,4 @@
 		in_character_filter += REGEX_QUOTE(line)
 
 	ic_filter_regex = in_character_filter.len ? regex("\\b([jointext(in_character_filter, "|")])\\b", "i") : null
-
-	syncChatRegexes()
 

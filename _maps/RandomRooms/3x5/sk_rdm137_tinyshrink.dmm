@@ -1,0 +1,108 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/table/wood,
+/obj/item/storage/pill_bottle/happiness{
+	pixel_x = 8;
+	pixel_y = 3
+	},
+/obj/item/paper_bin{
+	pixel_x = -4
+	},
+/obj/item/pen,
+/turf/open/floor/plasteel/white,
+/area/template_noop)
+"p" = (
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+"s" = (
+/obj/structure/chair/sofa/left{
+	dir = 4
+	},
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+"t" = (
+/obj/structure/chair/office,
+/obj/effect/landmark/start/randommaint/shrink,
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+"v" = (
+/turf/closed/wall,
+/area/template_noop)
+"x" = (
+/obj/item/chair,
+/turf/open/floor/plasteel/white,
+/area/template_noop)
+"z" = (
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+"F" = (
+/turf/open/floor/plasteel/white,
+/area/template_noop)
+"I" = (
+/obj/structure/chair/sofa/right{
+	dir = 4
+	},
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+"T" = (
+/obj/machinery/door/airlock/wood,
+/turf/open/floor/plasteel/white,
+/area/template_noop)
+"W" = (
+/obj/item/electropack,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 2;
+	pixel_y = 3
+	},
+/obj/structure/closet,
+/obj/item/storage/pill_bottle/mannitol,
+/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/gun/syringe,
+/obj/item/storage/box/syringes,
+/obj/item/restraints/handcuffs,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/mask/muzzle,
+/obj/item/clothing/glasses/blindfold,
+/obj/item/clothing/head/helmet{
+	desc = "A special helmet, to prevent a psychotic individual from injuring their head.";
+	name = "safety helmet"
+	},
+/obj/item/tape/random,
+/obj/item/tape/random,
+/obj/item/tape/random,
+/obj/item/camera,
+/obj/item/camera_film,
+/obj/item/storage/pill_bottle/happiness{
+	pixel_x = -7
+	},
+/obj/item/storage/pill_bottle/happiness{
+	pixel_x = -7
+	},
+/obj/item/storage/pill_bottle/mannitol,
+/obj/item/clothing/glasses/hud/health,
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+
+(1,1,1) = {"
+s
+I
+z
+v
+a
+"}
+(2,1,1) = {"
+z
+t
+z
+v
+x
+"}
+(3,1,1) = {"
+W
+p
+z
+T
+F
+"}

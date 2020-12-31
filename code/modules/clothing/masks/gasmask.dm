@@ -8,7 +8,7 @@
 	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH | PEPPERPROOF
+	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	resistance_flags = NONE
 
 // **** Welding gas mask ****
@@ -31,6 +31,11 @@
 /obj/item/clothing/mask/gas/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
 
+/obj/item/clothing/mask/gas/welding/up
+
+/obj/item/clothing/mask/gas/welding/up/Initialize()
+	..()
+	visor_toggling()
 
 // ********************************************************************
 
@@ -205,3 +210,8 @@
 	item_state = "hunter"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags_inv = HIDEFACIALHAIR|HIDEFACE|HIDEEYES|HIDEEARS|HIDEHAIR
+
+/obj/item/clothing/mask/gas/old
+	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of the older models."
+	icon_state = "gas_alt_old"
+	item_state = "gas_alt_old"

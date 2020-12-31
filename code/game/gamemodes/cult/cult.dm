@@ -20,6 +20,8 @@
 			return FALSE
 		if(specific_cult && specific_cult.is_sacrifice_target(M.mind))
 			return FALSE
+		if(is_servant_of_ratvar(M))
+			return FALSE
 		if(M.mind.enslaved_to && !iscultist(M.mind.enslaved_to))
 			return FALSE
 		if(M.mind.unconvertable)
@@ -49,6 +51,7 @@
 	<span class='notice'>Crew</span>: Prevent the cult from expanding and drive it out."
 
 	title_icon = "cult"
+
 
 	var/finished = 0
 

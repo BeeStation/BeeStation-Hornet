@@ -19,6 +19,8 @@ SUBSYSTEM_DEF(blackbox)
 
 /datum/controller/subsystem/blackbox/Initialize()
 	triggertime = world.time
+	if(CONFIG_GET(flag/limited_feedback))
+		return ..()
 	record_feedback("amount", "random_seed", Master.random_seed)
 	record_feedback("amount", "dm_version", DM_VERSION)
 	record_feedback("amount", "dm_build", DM_BUILD)
@@ -98,10 +100,12 @@ SUBSYSTEM_DEF(blackbox)
 
 /datum/controller/subsystem/blackbox/Shutdown()
 	sealed = FALSE
+
+	if (CONFIG_GET(flag/limited_feedback) || !SSdbcore.Connect())
+		return
+
 	FinalFeedback()
 
-	if (!SSdbcore.Connect())
-		return
 
 	var/list/special_columns = list(
 		"datetime" = "NOW()"
@@ -118,7 +122,6 @@ SUBSYSTEM_DEF(blackbox)
 
 	if (!length(sqlrowlist))
 		return
-
 	SSdbcore.MassInsert(format_table_name("feedback"), sqlrowlist, ignore_errors = TRUE, delayed = TRUE, special_columns = special_columns)
 
 /datum/controller/subsystem/blackbox/proc/Seal()
@@ -131,7 +134,7 @@ SUBSYSTEM_DEF(blackbox)
 	return TRUE
 
 /datum/controller/subsystem/blackbox/proc/LogBroadcast(freq)
-	if(sealed)
+	if(sealed || CONFIG_GET(flag/limited_feedback))
 		return
 	switch(freq)
 		if(FREQ_COMMON)
@@ -228,7 +231,7 @@ Versioning
 						"gun_fired" = 2)
 */
 /datum/controller/subsystem/blackbox/proc/record_feedback(key_type, key, increment, data, overwrite)
-	if(sealed || !key_type || !istext(key) || !isnum_safe(increment || !data))
+	if(sealed || !key_type || !istext(key) || !isnum_safe(increment || !data) || CONFIG_GET(flag/limited_feedback))
 		return
 	var/datum/feedback_variable/FV = find_feedback_datum(key, key_type)
 	switch(key_type)

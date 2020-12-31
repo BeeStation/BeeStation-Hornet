@@ -13,8 +13,8 @@
 	density = TRUE
 	desc = "A covered turret that shoots at its enemies."
 	use_power = IDLE_POWER_USE				//this turret uses and requires power
-	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
-	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
+	idle_power_usage = 100		//when inactive, this turret takes up constant 50 Equipment power
+	active_power_usage = 600	//when active, this turret takes up constant 300 Equipment power
 	req_access = list(ACCESS_SEC_DOORS)
 	power_channel = AREA_USAGE_EQUIP	//drains power from the EQUIPMENT channel
 
@@ -158,7 +158,11 @@
 	remove_control()
 	return ..()
 
-/obj/machinery/porta_turret/ui_interact(mob/user)
+
+/obj/machinery/porta_turret/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/porta_turret/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
 	var/dat
 	dat += "Status: <a href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</a><br>"
@@ -795,8 +799,8 @@
 	density = FALSE
 	req_access = list(ACCESS_AI_UPLOAD)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	ui_x = 305
-	ui_y = 172
+
+
 	/// Variable dictating if linked turrets are active and will shoot targets
 	var/enabled = TRUE
 	/// Variable dictating if linked turrets will shoot lethal projectiles
@@ -888,11 +892,13 @@
 	else
 		to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
 
-/obj/machinery/turretid/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/turretid/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/turretid/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TurretControl", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "TurretControl")
 		ui.open()
 
 /obj/machinery/turretid/ui_data(mob/user)

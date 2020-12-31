@@ -11,8 +11,8 @@
 	idle_power_usage = 20
 	resistance_flags = ACID_PROOF
 	circuit = /obj/item/circuitboard/computer/pandemic
-	ui_x = 520
-	ui_y = 550
+
+
 
 	var/wait
 	var/datum/symptom/selected_symptom
@@ -38,7 +38,6 @@
 		. += "<span class='info'>Alt-click to eject [is_close ? beaker : "the beaker"].</span>"
 
 /obj/machinery/computer/pandemic/AltClick(mob/user)
-	. = ..()
 	if(user.canUseTopic(src, BE_CLOSE))
 		eject_beaker()
 
@@ -87,11 +86,14 @@
 			this["stealth"] = A.totalStealth()
 			this["stage_speed"] = A.totalStageSpeed()
 			this["transmission"] = A.totalTransmittable()
+			this["symptom_severity"] = A.totalSeverity()
+
 		this["index"] = index++
 		this["agent"] = D.agent
 		this["description"] = D.desc || "none"
 		this["spread"] = D.spread_text || "none"
 		this["cure"] = D.cure_text || "none"
+		this["severity"] = D.severity || "none"
 
 		. += list(this)
 
@@ -107,6 +109,7 @@
 	this["level"] = S.level
 	this["neutered"] = S.neutered
 	this["threshold_desc"] = S.threshold_desc
+	this["severity"] = S.severity
 	. += this
 
 /obj/machinery/computer/pandemic/proc/get_resistance_data(datum/reagent/blood/B)
@@ -145,10 +148,14 @@
 		beaker = null
 		update_icon()
 
-/obj/machinery/computer/pandemic/ui_interact(mob/user, ui_key = "main", datum/tgui/ui, force_open = FALSE, datum/tgui/master_ui, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/computer/pandemic/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/pandemic/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Pandemic", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "Pandemic")
 		ui.open()
 
 /obj/machinery/computer/pandemic/ui_data(mob/user)

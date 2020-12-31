@@ -115,6 +115,9 @@ export const PandemicDiseaseDisplay = (props, context) => {
                 <LabeledList.Item label="Spread">
                   {virus.spread}
                 </LabeledList.Item>
+                <LabeledList.Item label="Severity">
+                  {virus.severity}
+                </LabeledList.Item>
                 <LabeledList.Item label="Possible Cure">
                   {virus.cure}
                 </LabeledList.Item>
@@ -144,6 +147,9 @@ export const PandemicDiseaseDisplay = (props, context) => {
                       </LabeledList.Item>
                       <LabeledList.Item label="Transmissibility">
                         {virus.transmission}
+                      </LabeledList.Item>
+                      <LabeledList.Item label="Severity">
+                        {virus.symptom_severity}
                       </LabeledList.Item>
                     </LabeledList>
                   </Grid.Column>
@@ -179,6 +185,7 @@ export const PandemicSymptomDisplay = (props, context) => {
     resistance,
     stage_speed,
     transmission,
+    severity,
     level,
     neutered,
   } = symptom;
@@ -217,6 +224,9 @@ export const PandemicSymptomDisplay = (props, context) => {
             </LabeledList.Item>
             <LabeledList.Item label="Transmission">
               {transmission}
+            </LabeledList.Item>
+            <LabeledList.Item label="Severity">
+              {severity}
             </LabeledList.Item>
           </LabeledList>
         </Grid.Column>
@@ -276,7 +286,10 @@ export const Pandemic = (props, context) => {
   const { data } = useBackend(context);
 
   return (
-    <Window resizable>
+    <Window
+      resizable
+      width={520}
+      height={550}>
       <Window.Content scrollable>
         <PandemicBeakerDisplay />
         {!!data.has_blood && (

@@ -1,6 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/item/twohanded/required/kirbyplants/random,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "b" = (
@@ -22,9 +25,6 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "f" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/structure/chair/office{
 	dir = 4
 	},
@@ -37,15 +37,8 @@
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "h" = (
-/obj/structure/table/wood,
-/obj/item/storage/briefcase,
-/turf/open/floor/carpet/green,
-/area/template_noop)
-"i" = (
-/obj/structure/table/wood,
-/obj/item/toy/cards/deck/syndicate{
-	pixel_y = 6
-	},
+/obj/effect/trap/nexus/trickyspawner/shitsec,
+/obj/effect/spawner/lootdrop/trap/reusable,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "j" = (
@@ -91,6 +84,12 @@
 	icon_state = "wood-broken4"
 	},
 /area/template_noop)
+"Z" = (
+/obj/structure/table/wood,
+/obj/item/toy/cards/deck,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/carpet/green,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -101,7 +100,7 @@ l
 (2,1,1) = {"
 b
 g
-i
+Z
 m
 "}
 (3,1,1) = {"

@@ -16,8 +16,9 @@
 		/obj/item/reagent_containers/glass/bottle/epinephrine= 3,
 		/obj/item/reagent_containers/glass/bottle/charcoal = 3,
 		/obj/item/storage/box/rxglasses = 1,
-		/obj/item/stack/ducts/fifty = 4,			
-		/obj/item/construction/plumbing = 2)
+		/obj/item/stack/ducts/fifty = 4,
+		/obj/item/construction/plumbing = 2,
+		/obj/item/plunger = 2)
 	generate_items_inside(items_inside,src)
 
 /obj/structure/closet/secure_closet/medical2
@@ -47,6 +48,28 @@
 	new /obj/item/clothing/glasses/hud/health(src)
 	new /obj/item/clothing/glasses/hud/health(src)
 	new /obj/item/clothing/glasses/hud/health(src)
+	return
+
+/obj/structure/closet/secure_closet/medicaldanger
+	name = "group T medical closet"
+	desc = "Filled to the brim with potentially dangerous drugs. Keep away from assistants."
+	req_access = list(ACCESS_MEDICAL)
+	icon_state = "med_secure"
+
+/obj/structure/closet/secure_closet/medicaldanger/PopulateContents()
+	..()
+	new /obj/item/reagent_containers/glass/bottle/formaldehyde(src)
+	new /obj/item/reagent_containers/glass/bottle/formaldehyde(src)
+	new /obj/item/reagent_containers/glass/bottle/charcoal(src)
+	new /obj/item/reagent_containers/glass/bottle/chloralhydrate(src)
+	new /obj/item/reagent_containers/glass/bottle/morphine(src)
+	new /obj/item/reagent_containers/glass/bottle/sodium_thiopental(src)
+	new /obj/item/storage/pill_bottle/epinephrine(src)
+	new /obj/item/storage/pill_bottle/charcoal(src)
+	new /obj/item/reagent_containers/syringe/calomel(src)
+	new /obj/item/reagent_containers/syringe/diphenhydramine(src)
+	new /obj/item/reagent_containers/hypospray/medipen/atropine(src) //just one
+	new /obj/item/storage/box/syringes(src)
 	return
 
 /obj/structure/closet/secure_closet/CMO
@@ -109,9 +132,11 @@
 	new /obj/item/stack/ducts/fifty(src)
 	new /obj/item/stack/ducts/fifty(src)
 	new /obj/item/stack/ducts/fifty(src)
-	new /obj/item/stack/ducts/fifty(src)			
+	new /obj/item/stack/ducts/fifty(src)
 	new /obj/item/construction/plumbing(src)
 	new /obj/item/construction/plumbing(src)
+	new	/obj/item/plunger(src)
+	new	/obj/item/plunger(src)
 
 /obj/structure/closet/secure_closet/chemical/heisenberg //contains one of each beaker, syringe etc.
 	name = "advanced chemical closet"
@@ -126,6 +151,8 @@
 	new /obj/item/stack/ducts/fifty(src)
 	new /obj/item/stack/ducts/fifty(src)
 	new /obj/item/stack/ducts/fifty(src)
-	new /obj/item/stack/ducts/fifty(src)			
+	new /obj/item/stack/ducts/fifty(src)
 	new /obj/item/construction/plumbing(src)
 	new /obj/item/construction/plumbing(src)
+	new	/obj/item/plunger(src)
+	new	/obj/item/plunger(src)

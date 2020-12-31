@@ -269,6 +269,7 @@
 	new /obj/item/card/id/syndicate(src)
 	new /obj/item/storage/fancy/cigarettes/cigpack_syndicate(src)
 	new /obj/item/lighter(src)
+	new /obj/item/jammer(src)
 
 /obj/item/storage/box/syndicate/contract_kit/PopulateContents()
 	new /obj/item/modular_computer/tablet/syndicate_contract_uplink/preset/uplink(src)
@@ -279,21 +280,19 @@
 	var/list/item_list = list(
 		/obj/item/storage/backpack/duffelbag/syndie/x4,
 		/obj/item/storage/box/syndie_kit/throwing_weapons,
-		/obj/item/pen/edagger,
 		/obj/item/pen/sleepy,
 		/obj/item/storage/box/syndie_kit/emp,
 		/obj/item/clothing/shoes/chameleon/noslip,
 		/obj/item/storage/firstaid/tactical,
-		/obj/item/encryptionkey/binary,
 		/obj/item/clothing/glasses/thermal/syndi,
-		/obj/item/slimepotion/slime/sentience/nuclear,
 		/obj/item/storage/box/syndie_kit/imp_radio,
 		/obj/item/clothing/gloves/krav_maga/combatglovesplus,
 		/obj/item/gun/ballistic/automatic/c20r/toy/unrestricted/riot,
 		/obj/item/reagent_containers/hypospray/medipen/pumpup,
 		/obj/item/compressionkit,
-		/obj/item/book/granter/martial/karate,
-		/obj/item/storage/box/syndie_kit/imp_freedom
+		/obj/item/storage/box/syndie_kit/imp_freedom,
+		/obj/item/storage/box/syndie_kit/chameleon,
+		/obj/item/healthanalyzer/rad_laser
 	)
 
 	var/obj/item1 = pick_n_take(item_list)
@@ -322,6 +321,8 @@
 	new /obj/item/book/granter/action/origami(src)
 	for(var/i in 1 to 5)
 		new /obj/item/paper(src)
+	var/obj/item/paper/construction/redpaper = new /obj/item/paper/construction(src)
+	redpaper.color = "#FF0000" //Red paper, for an extra special calling card flair
 
 /obj/item/storage/box/syndie_kit/imp_freedom
 	name = "freedom implant box"
@@ -471,6 +472,9 @@
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/pda/chameleon(src)
+	new /obj/item/razor(src)
+	new /obj/item/handmirror(src)
+	new /obj/item/clothing/head/wig(src)
 
 /obj/item/storage/box/syndie_kit/plasmachameleon
 	name = "plasmaman chameleon kit"
@@ -495,7 +499,7 @@
 	for(var/i in 1 to 5)
 		new /obj/item/throwing_star(src)
 	for(var/i in 1 to 2)
-		new /obj/item/paperplane/syndicate(src)
+		new /obj/item/origami/paperplane/syndicate(src)
 	new /obj/item/restraints/legcuffs/bola/tactical(src)
 	new /obj/item/restraints/legcuffs/bola/tactical(src)
 

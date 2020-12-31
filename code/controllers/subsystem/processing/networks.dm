@@ -43,7 +43,7 @@ PROCESSING_SUBSYSTEM_DEF(networks)
 /datum/controller/subsystem/processing/networks/proc/make_address(string)
 	if(!string)
 		return resolve_collisions? make_address("[num2text(rand(HID_RESTRICTED_END, 999999999), 12)]"):null
-	var/hex = md5(string)
+	var/hex = rustg_hash_string(RUSTG_HASH_MD5, string)
 	if(!hex)
 		return		//errored
 	. = "[copytext_char(hex, 1, 9)]"		//16 ^ 8 possibilities I think.

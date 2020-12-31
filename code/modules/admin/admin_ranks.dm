@@ -128,7 +128,7 @@ GLOBAL_PROTECT(protected_ranks)
 	GLOB.admin_ranks.Cut()
 	GLOB.protected_ranks.Cut()
 	//load text from file and process each entry
-	var/ranks_text = file2text("[global.config.directory]/admin_ranks.txt")
+	var/ranks_text = rustg_file_read("[global.config.directory]/admin_ranks.txt")
 	var/datum/admin_rank/previous_rank
 	var/regex/admin_ranks_regex = new(@"^Name\s*=\s*(.+?)\s*\n+Include\s*=\s*([\l @]*?)\s*\n+Exclude\s*=\s*([\l @]*?)\s*\n+Edit\s*=\s*([\l @]*?)\s*\n*$", "gm")
 	while(admin_ranks_regex.Find(ranks_text))
@@ -172,7 +172,7 @@ GLOBAL_PROTECT(protected_ranks)
 			qdel(query_load_admin_ranks)
 	//load ranks from backup file
 	if(dbfail)
-		var/backup_file = file2text("data/admins_backup.json")
+		var/backup_file = rustg_file_read("data/admins_backup.json")
 		if(!backup_file)
 			log_world("Unable to locate admins backup file.")
 			return FALSE
@@ -222,7 +222,7 @@ GLOBAL_PROTECT(protected_ranks)
 	for(var/datum/admin_rank/R in GLOB.admin_ranks)
 		rank_names[R.name] = R
 	//ckeys listed in admins.txt are always made admins before sql loading is attempted
-	var/admins_text = file2text("[global.config.directory]/admins.txt")
+	var/admins_text = rustg_file_read("[global.config.directory]/admins.txt")
 	var/regex/admins_regex = new(@"^(?!#)(.+?)\s+=\s+(.+)", "gm")
 	while(admins_regex.Find(admins_text))
 		new /datum/admins(rank_names[admins_regex.group[2]], ckey(admins_regex.group[1]), FALSE, TRUE)
@@ -251,7 +251,7 @@ GLOBAL_PROTECT(protected_ranks)
 			if(backup_file_json != null)
 				//already tried
 				return
-			var/backup_file = file2text("data/admins_backup.json")
+			var/backup_file = rustg_file_read("data/admins_backup.json")
 			if(!backup_file)
 				log_world("Unable to locate admins backup file.")
 				return

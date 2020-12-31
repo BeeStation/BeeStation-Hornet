@@ -179,14 +179,17 @@
 	icon_keyboard = "rd_key"
 	req_access = list(ACCESS_RD)
 	circuit = /obj/item/circuitboard/computer/rdservercontrol
-	ui_x = 900
-	ui_y = 750
 
-/obj/machinery/computer/rdservercontrol/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-																	datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+
+
+/obj/machinery/computer/rdservercontrol/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/rdservercontrol/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "RDConsole", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "RDConsole")
 		ui.open()
 
 /obj/machinery/computer/rdservercontrol/ui_data(mob/user)

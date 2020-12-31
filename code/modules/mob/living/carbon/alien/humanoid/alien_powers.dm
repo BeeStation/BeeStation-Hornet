@@ -69,7 +69,7 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/plant
 	name = "Plant Weeds"
-	desc = "Plants some alien weeds."
+	desc = "Alien weeds spread resin which heals any alien. Costs 50 Plasma."
 	plasma_cost = 50
 	check_turf = TRUE
 	action_icon_state = "alien_plant"
@@ -84,7 +84,7 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/whisper
 	name = "Whisper"
-	desc = "Whisper to someone."
+	desc = "Whisper to someone through the hivemind. Costs 10 Plasma."
 	plasma_cost = 10
 	action_icon_state = "alien_whisper"
 
@@ -95,10 +95,10 @@ Doesn't work on other aliens/AI.*/
 	var/mob/living/M = input("Select who to whisper to:","Whisper to?",null) as null|mob in sortNames(options)
 	if(!M)
 		return 0
-	var/msg = sanitize(input("Message:", "Alien Whisper") as text|null)
+	var/msg = stripped_input(usr, "Message:", "Alien Whisper")
 	if(msg)
 		log_directed_talk(user, M, msg, LOG_SAY, tag="alien whisper")
-		to_chat(M, "<span class='noticealien'>You hear a strange, alien voice in your head...</span>[msg]")
+		to_chat(M, "<span class='noticealien'>You hear a strange, alien voice in your head.</span>[msg]")
 		to_chat(user, "<span class='noticealien'>You said: \"[msg]\" to [M]</span>")
 		for(var/ded in GLOB.dead_mob_list)
 			if(!isobserver(ded))
@@ -138,7 +138,7 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/acid
 	name = "Corrosive Acid"
-	desc = "Drench an object in acid, destroying it over time."
+	desc = "Drench an object in acid, destroying it over time. Costs 200 Plasma."
 	plasma_cost = 200
 	action_icon_state = "alien_acid"
 
@@ -184,7 +184,7 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/neurotoxin
 	name = "Spit Neurotoxin"
-	desc = "Spits neurotoxin at someone, paralyzing them for a short time."
+	desc = "Activates your Neurotoxin glands. You can shoot paralyzing shots. Each shot costs 50 Plasma."
 	action_icon_state = "alien_neurotoxin_0"
 	active = FALSE
 
@@ -249,7 +249,7 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/resin
 	name = "Secrete Resin"
-	desc = "Secrete tough malleable resin."
+	desc = "Secrete tough malleable resin. Costs 55 Plasma."
 	plasma_cost = 55
 	check_turf = TRUE
 	var/list/structures = list(
@@ -291,7 +291,7 @@ Doesn't work on other aliens/AI.*/
 		user.alpha = 75 //Still easy to see in lit areas with bright tiles, almost invisible on resin.
 		user.sneaking = 1
 		active = 1
-		to_chat(user, "<span class='noticealien'>You blend into the shadows...</span>")
+		to_chat(user, "<span class='noticealien'>You blend into the shadows.</span>")
 	else
 		user.alpha = initial(user.alpha)
 		user.sneaking = 0

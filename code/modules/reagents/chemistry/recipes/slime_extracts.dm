@@ -3,6 +3,9 @@
 	var/deletes_extract = TRUE
 
 /datum/chemical_reaction/slime/on_reaction(datum/reagents/holder)
+	use_slime_core(holder)
+
+/datum/chemical_reaction/slime/proc/use_slime_core(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, "type")
 	if(deletes_extract)
 		delete_extract(holder)
@@ -49,7 +52,7 @@
 /datum/chemical_reaction/slime/slimemutate
 	name = "Mutation Toxin"
 	id = "slimetoxin"
-	results = list(/datum/reagent/slime_toxin = 1)
+	results = list(/datum/reagent/mutationtoxin/jelly = 5)
 	required_reagents = list(/datum/reagent/toxin/plasma = 1)
 	required_other = TRUE
 	required_container = /obj/item/slime_extract/green
@@ -57,7 +60,7 @@
 /datum/chemical_reaction/slime/unstabletoxin
 	name = "Unstable Mutation Toxin"
 	id = "unstablemuttoxin"
-	results = list(/datum/reagent/mutationtoxin/unstable = 1)
+	results = list(/datum/reagent/mutationtoxin/unstable = 5)
 	required_reagents = list(/datum/reagent/uranium/radium = 1)
 	required_other = TRUE
 	required_container = /obj/item/slime_extract/green
@@ -421,7 +424,7 @@
 /datum/chemical_reaction/slime/slimemutate2
 	name = "Advanced Mutation Toxin"
 	id = "mutationtoxin2"
-	results = list(/datum/reagent/aslimetoxin = 1)
+	results = list(/datum/reagent/aslimetoxin = 5)
 	required_reagents = list(/datum/reagent/toxin/plasma = 1)
 	required_other = TRUE
 	required_container = /obj/item/slime_extract/black
@@ -568,7 +571,9 @@
 	required_other = TRUE
 
 /datum/chemical_reaction/slime/slimestop/on_reaction(datum/reagents/holder)
-	sleep(50)
+	addtimer(CALLBACK(src, .proc/slime_stop, holder), 5 SECONDS)
+
+/datum/chemical_reaction/slime/slimestop/proc/slime_stop(datum/reagents/holder)
 	var/obj/item/slime_extract/sepia/extract = holder.my_atom
 	var/turf/T = get_turf(holder.my_atom)
 	new /obj/effect/timestop(T, null, null, null)
@@ -578,7 +583,7 @@
 			if(lastheld && !lastheld.equip_to_slot_if_possible(extract, SLOT_HANDS, disable_warning = TRUE))
 				extract.forceMove(get_turf(lastheld))
 
-	..()
+	use_slime_core(holder)
 
 /datum/chemical_reaction/slime/slimecamera
 	name = "Slime Camera"

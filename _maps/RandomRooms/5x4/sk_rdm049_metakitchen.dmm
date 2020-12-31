@@ -7,10 +7,6 @@
 /obj/item/reagent_containers/food/condiment/flour,
 /turf/open/floor/plating,
 /area/template_noop)
-"b" = (
-/obj/structure/table,
-/turf/open/floor/plating,
-/area/template_noop)
 "c" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/condiment/saltshaker{
@@ -68,11 +64,6 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"l" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/item/clothing/suit/apron/chef,
-/turf/open/floor/plating,
-/area/template_noop)
 "m" = (
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance,
 /turf/open/floor/plating,
@@ -101,18 +92,18 @@
 
 (1,1,1) = {"
 a
-f
+i
 k
 m
 "}
 (2,1,1) = {"
-b
+c
 g
 i
 n
 "}
 (3,1,1) = {"
-c
+g
 h
 i
 i
@@ -126,6 +117,6 @@ o
 (5,1,1) = {"
 e
 j
-l
+f
 p
 "}

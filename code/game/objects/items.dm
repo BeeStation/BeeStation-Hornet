@@ -471,6 +471,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			blockhand = (locate(/obj/item/bodypart/r_arm) in owner.bodyparts)
 		else
 			blockhand = (locate(/obj/item/bodypart/l_arm) in owner.bodyparts)
+	if(!blockhand)
+		return 0
 	if(blockhand.is_disabled())
 		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack<!/span>")
 		return 0
@@ -573,6 +575,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		qdel(src)
 	item_flags &= ~IN_INVENTORY
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
+	if(item_flags & SLOWS_WHILE_IN_HAND)
+		user.update_equipment_speed_mods()
 	remove_outline()
 
 // called just as an item is picked up (loc is not yet changed)
@@ -595,6 +599,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/datum/action/A = X
 		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
 			A.Grant(user)
+	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
+		user.update_equipment_speed_mods()
 	item_flags |= IN_INVENTORY
 
 //sometimes we only want to grant the item's action if it's equipped in a specific slot.
@@ -719,10 +725,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			itempush = 0 //too light to push anything
 		return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
 
-/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
+/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
+	if(HAS_TRAIT(src, TRAIT_NODROP))
+		return
 	thrownby = thrower
 	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
-	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force)
+	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force, quickstart = quickstart)
 
 
 /obj/item/proc/after_throw(datum/callback/callback)
@@ -895,7 +903,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	remove_outline()
 
 /obj/item/proc/apply_outline(colour = null)
-	if(!(item_flags & IN_INVENTORY || item_flags & IN_STORAGE) || QDELETED(src))
+	if(!(item_flags & IN_INVENTORY || item_flags & IN_STORAGE) || QDELETED(src) || isobserver(usr))
 		return
 	if(usr.client)
 		if(!usr.client.prefs.outline_enabled)
@@ -1004,13 +1012,25 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			dropped(M)
 	return ..()
 
-/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=TRUE, diagonals_first = FALSE, var/datum/callback/callback)
-	if(HAS_TRAIT(src, TRAIT_NODROP))
-		return
-	return ..()
-
 /obj/item/proc/canStrip(mob/stripper, mob/owner)
 	return !HAS_TRAIT(src, TRAIT_NODROP)
 
 /obj/item/proc/doStrip(mob/stripper, mob/owner)
 	return owner.dropItemToGround(src)
+
+/obj/item/ex_act(severity, target)
+	if(resistance_flags & INDESTRUCTIBLE)
+		return
+	..() //contents explosion
+	if(QDELETED(src))
+		return
+	if(target == src)
+		take_damage(INFINITY, BRUTE, "bomb", 0)
+		return
+	switch(severity)
+		if(1)
+			take_damage(250, BRUTE, "bomb", 0)
+		if(2)
+			take_damage(75, BRUTE, "bomb", 0)
+		if(3)
+			take_damage(20, BRUTE, "bomb", 0)
