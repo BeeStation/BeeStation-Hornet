@@ -200,6 +200,7 @@
 	target.make_Traitor()
 	to_chat(target, "<span class='userdanger'>You have been declared an ex-communicate of the syndicate and are being hunted down.</span>")
 	to_chat(target, "<span class='warning'>You have stolen syndicate objective documents, complete the objectives to throw off the syndicate and sabotage their efforts.</span>")
+	target.store_memory("You have been declared an ex-communicate of the syndicate and are being hunted down by a group of traitors. Be careful!")
 	//Create objective
 	var/datum/objective/assassinate/incursion/killchosen = new
 	killchosen.target = target
