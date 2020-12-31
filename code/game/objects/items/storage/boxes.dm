@@ -133,20 +133,19 @@
 	else
 		new /obj/item/tank/internals/plasmaman/belt(src)
 
-/obj/item/storage/box/survival/beginner
-	name = "beginner survival box"
+/obj/item/storage/box/survival
 	var/datum/action/equipHazard/panicButton
 
-/obj/item/storage/box/survival/beginner/Initialize(mapload)
+/obj/item/storage/box/survival/Initialize(mapload)
 	. = ..()
 	panicButton = new /datum/action/equipHazard()
 
-/obj/item/storage/box/survival/beginner/pickup(mob/user)
+/obj/item/storage/box/survival/pickup(mob/user)
 	. = ..()
 	panicButton.Grant(user,src)
 	user.update_icons()
 
-/obj/item/storage/box/survival/beginner/dropped(mob/user)
+/obj/item/storage/box/survival/dropped(mob/user)
 	. = ..()
 	panicButton.Remove(user)
 	user.update_icons()
