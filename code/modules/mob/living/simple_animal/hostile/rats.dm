@@ -138,7 +138,7 @@
 	AddSpell(riot)
 	domain = new /obj/effect/proc_holder/spell/aoe_turf/domain
 	AddSpell(domain)
-	
+
 /mob/living/simple_animal/hostile/rat/king/named/Initialize()
 	var/kingdom = pick("Plague","Miasma","Maintenance","Trash","Garbage","Rat","Vermin","Cheese")
 	var/title = pick("King","Lord","Prince","Emperor","Supreme","Overlord","Master","Shogun","Bojar","Tsar")
@@ -184,7 +184,7 @@
 			. += "<span class='warning'>This is a false king! Strike him down!</span>"
 
 
-/mob/living/simple_animal/hostile/rat/king/AttackingTarget()	
+/mob/living/simple_animal/hostile/rat/king/AttackingTarget()
 	if (rummaging)
 		return
 	if(istype(target, /obj/machinery/disposal))
@@ -207,12 +207,12 @@
 		rummaging = FALSE
 		return
 	if(istype(target, /obj/structure/cable))
-		var/obj/structure/cable/C = locate() in F
+		var/obj/structure/cable/C = target
 		if(C.avail())
-			apply_damage(15) 
+			apply_damage(15)
 			playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
 		C.deconstruct()
-					
+
 	if (target.reagents && istype(target,/obj) && target.is_injectable(src,TRUE))
 		src.visible_message("<span class='warning'>[src] starts licking the [target] passionately!</span>","<span class='notice'>You start licking the [target]...</span>")
 		rummaging = TRUE
@@ -222,7 +222,7 @@
 		rummaging = FALSE
 		return
 	. = ..()
-	
+
 
 /**
  *This spell checks all nearby mice, and converts them into hostile rats. If no mice are nearby, creates a new one.
@@ -294,7 +294,7 @@
 /**
  *Spittle; harmless reagent that is added by rat king, and makes you disgusted.
  */
- 
+
 /datum/reagent/rat_spit
 	name = "Rat Spit"
 	description = "Something coming from a rat. Dear god! Who knows where it's been!"
@@ -302,11 +302,11 @@
 	color = "#C8C8C8"
 	metabolization_rate = 0.03 * REAGENTS_METABOLISM
 	taste_description = "something funny"
-	
+
 /datum/reagent/rat_spit/on_mob_metabolize(mob/living/L)
 	..()
 	to_chat(L, "<span class='notice'>This food has a funny taste!</span>")
-	
+
 /datum/reagent/rat_spit/on_mob_life(mob/living/carbon/M)
 	if(prob(15))
 		to_chat(M, "<span class='notice'>That food was awful!</span>")
