@@ -32,7 +32,7 @@
 /area/template_noop)
 "h" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /obj/item/ammo_box/foambox,
 /obj/item/ammo_box/foambox,

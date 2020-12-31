@@ -1,6 +1,7 @@
 /datum/species/human/supersoldier
 	name = "Super Soldier" //inherited from the real species, for health scanners and things
 	id = "supersoldier"
+	limbs_id = "human"
 	species_traits = list(NOTRANSSTING) //all of these + whatever we inherit from the real species
 	inherent_traits = list(TRAIT_NOLIMBDISABLE,TRAIT_NOHUNGER,TRAIT_PIERCEIMMUNE,TRAIT_NODISMEMBER,TRAIT_IGNORESLOWDOWN,TRAIT_IGNOREDAMAGESLOWDOWN,TRAIT_STUNIMMUNE,TRAIT_CONFUSEIMMUNE,TRAIT_SLEEPIMMUNE,TRAIT_PUSHIMMUNE,TRAIT_VIRUSIMMUNE,TRAIT_NODISMEMBER,TRAIT_NOSLIPALL,TRAIT_THERMAL_VISION,TRAIT_STRONG_GRABBER,TRAIT_LAW_ENFORCEMENT_METABOLISM,TRAIT_ALWAYS_CLEAN,TRAIT_FEARLESS)
 	mutanteyes = /obj/item/organ/eyes/night_vision

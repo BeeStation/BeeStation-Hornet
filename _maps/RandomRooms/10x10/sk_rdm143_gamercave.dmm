@@ -1,0 +1,348 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/rack,
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/effect/decal/cleanable/glass,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/template_noop)
+"g" = (
+/turf/closed/wall,
+/area/template_noop)
+"i" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/soda_cans/space_mountain_wind{
+	pixel_x = -7;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/drinks/soda_cans/cola{
+	pixel_x = 12;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/food/drinks/soda_cans/starkist{
+	pixel_x = 10;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/drinks/soda_cans/space_up,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"j" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/grille/broken,
+/turf/open/floor/plating,
+/area/template_noop)
+"k" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/plating,
+/area/template_noop)
+"l" = (
+/obj/machinery/modular_computer/console/preset/civilian,
+/turf/open/floor/plating,
+/area/template_noop)
+"m" = (
+/obj/structure/curtain,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
+/obj/item/trash/candy,
+/turf/open/floor/carpet,
+/area/template_noop)
+"p" = (
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"q" = (
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/template_noop)
+"r" = (
+/obj/effect/landmark/event_spawn,
+/turf/open/floor/plating,
+/area/template_noop)
+"t" = (
+/obj/structure/closet/firecloset/full,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"u" = (
+/obj/item/wirecutters,
+/obj/structure/rack,
+/obj/item/wirerod,
+/turf/open/floor/carpet,
+/area/template_noop)
+"w" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/soda_cans/shamblers{
+	pixel_x = 9;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/drinks/soda_cans/space_up,
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"x" = (
+/turf/open/floor/carpet,
+/area/template_noop)
+"z" = (
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/plating,
+/area/template_noop)
+"A" = (
+/obj/item/reagent_containers/food/drinks/soda_cans/pwr_game{
+	pixel_x = -7;
+	pixel_y = 10
+	},
+/obj/item/trash/can,
+/turf/open/floor/plating,
+/area/template_noop)
+"B" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"C" = (
+/turf/open/floor/plasteel,
+/area/template_noop)
+"D" = (
+/obj/item/reagent_containers/food/drinks/soda_cans/space_mountain_wind{
+	pixel_x = 4
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"E" = (
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/turf/open/floor/plating,
+/area/template_noop)
+"F" = (
+/obj/item/stack/cable_coil/cut,
+/obj/effect/landmark/blobstart,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"G" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"M" = (
+/obj/structure/bed,
+/obj/item/toy/plush/beeplushie,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"N" = (
+/obj/structure/chair/office{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/carpet,
+/area/template_noop)
+"P" = (
+/obj/machinery/light/small,
+/turf/open/floor/plating,
+/area/template_noop)
+"Q" = (
+/obj/effect/turf_decal/stripes{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/item/trash/can{
+	pixel_x = -10;
+	pixel_y = 11
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"R" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"S" = (
+/obj/structure/falsewall,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"T" = (
+/obj/structure/closet/crate,
+/obj/item/storage/box,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/turf/open/floor/plating,
+/area/template_noop)
+"U" = (
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/template_noop)
+"V" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/eight,
+/turf/open/floor/plating,
+/area/template_noop)
+"W" = (
+/obj/structure/grille/broken,
+/turf/open/floor/plating,
+/area/template_noop)
+"X" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+a
+e
+f
+R
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+g
+g
+g
+g
+g
+g
+g
+q
+W
+"}
+(3,1,1) = {"
+a
+g
+l
+N
+D
+n
+u
+g
+a
+a
+"}
+(4,1,1) = {"
+a
+g
+i
+A
+X
+x
+p
+g
+j
+q
+"}
+(5,1,1) = {"
+z
+g
+g
+m
+g
+g
+S
+g
+a
+a
+"}
+(6,1,1) = {"
+P
+g
+M
+C
+g
+b
+Q
+V
+a
+a
+"}
+(7,1,1) = {"
+a
+g
+w
+B
+g
+k
+F
+C
+a
+f
+"}
+(8,1,1) = {"
+a
+g
+g
+g
+g
+G
+C
+g
+g
+E
+"}
+(9,1,1) = {"
+a
+U
+T
+U
+E
+a
+C
+g
+t
+a
+"}
+(10,1,1) = {"
+a
+W
+R
+W
+a
+a
+a
+E
+R
+r
+"}

@@ -303,8 +303,7 @@
 	if(H.dna.species.id in list("shadow", "nightmare"))
 		return //we're tied with the dark, so we don't get scared of it; don't cleanse outright to avoid cheese
 	var/turf/T = get_turf(quirk_holder)
-	var/lums = T.get_lumcount()
-	if(lums <= 0.2)
+	if(T.get_lumcount() <= 0.2)
 		if(quirk_holder.m_intent == MOVE_INTENT_RUN)
 			to_chat(quirk_holder, "<span class='warning'>Easy, easy, take it slow... you're in the dark...</span>")
 			quirk_holder.toggle_move_intent()
@@ -424,10 +423,7 @@
 		quirk_holder.hallucination = 0
 		return
 	if(prob(2)) //we'll all be mad soon enough
-		madness()
-
-/datum/quirk/insanity/proc/madness()
-	quirk_holder.hallucination += rand(10, 25)
+		quirk_holder.hallucination += rand(10, 25)
 
 /datum/quirk/insanity/post_add() //I don't /think/ we'll need this but for newbies who think "roleplay as insane" = "license to kill" it's probably a good thing to have
 	if(!quirk_holder.mind || quirk_holder.mind.special_role)
@@ -562,6 +558,65 @@
 			SEND_SIGNAL(quirk_holder, COMSIG_CLEAR_MOOD_EVENT, "wrong_cigs")
 			return
 		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "wrong_cigs", /datum/mood_event/wrong_brand)
+
+/datum/quirk/alcoholic
+	name = "Alcoholic"
+	desc = "You can't stand being sober."
+	value = -1
+	gain_text = "<span class='danger'>You could really go for a drink right about now.</span>"
+	lose_text = "<span class='notice'>You feel like you should quit drinking.</span>"
+	medical_record_text = "Patient is an alcohol abuser."
+	var/where_drink //Where the bottle spawned
+	var/drink_types = list(/obj/item/reagent_containers/food/drinks/bottle/ale,
+					/obj/item/reagent_containers/food/drinks/bottle/beer,
+					/obj/item/reagent_containers/food/drinks/bottle/gin,
+		            /obj/item/reagent_containers/food/drinks/bottle/whiskey,
+					/obj/item/reagent_containers/food/drinks/bottle/vodka,
+					/obj/item/reagent_containers/food/drinks/bottle/rum,
+					/obj/item/reagent_containers/food/drinks/bottle/applejack)
+	var/need = 0 // How much they crave alcohol at the moment
+	var/tick_number = 0 // Keeping track of how many ticks have passed between a check
+	var/obj/item/reagent_containers/food/drinks/bottle/drink_instance
+
+/datum/quirk/alcoholic/on_spawn()
+	drink_instance = pick(drink_types)
+	drink_instance = new drink_instance()
+	var/list/slots = list("in your backpack" = SLOT_IN_BACKPACK)
+	var/mob/living/carbon/human/H = quirk_holder
+	where_drink = H.equip_in_one_of_slots(drink_instance, slots, FALSE) || "at your feet"
+
+/datum/quirk/alcoholic/post_add()
+	to_chat(quirk_holder, "<span class='boldnotice'>There is a small bottle of [drink_instance] [where_drink]. You only have a single bottle, might have to find some more...</span>")
+
+datum/quirk/alcoholic/on_process()
+	if(tick_number >= 6) // how many ticks should pass between a check
+		tick_number = 0
+		var/mob/living/carbon/human/H = quirk_holder
+		if(H.drunkenness > 0) // If they're not drunk, need goes up. else they're satisfied
+			need = -15
+		else
+			need++
+
+		switch(need)
+			if(1 to 10)
+				SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "alcoholic", /datum/mood_event/withdrawal_light, "alcohol")
+				if(prob(5))
+					to_chat(H, "<span class='notice'>You could go for a drink right about now.</span>")
+			if(10 to 20)
+				SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "alcoholic", /datum/mood_event/withdrawal_medium, "alcohol")
+				if(prob(5))
+					to_chat(H, "<span class='notice'>You feel like you need alcohol. You just can't stand being sober.</span>")
+			if(20 to 30)
+				SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "alcoholic", /datum/mood_event/withdrawal_severe, "alcohol")
+				if(prob(5))
+					to_chat(H, "<span class='danger'>You have an intense craving for a drink.</span>")
+			if(30 to INFINITY)
+				SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "alcoholic", /datum/mood_event/withdrawal_critical, "Alcohol")
+				if(prob(5))
+					to_chat(H, "<span class='boldannounce'>You're not feeling good at all! You really need some alcohol.</span>")
+			else
+				SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "alcoholic")
+	tick_number++
 
 /datum/quirk/unstable
 	name = "Unstable"
