@@ -17,9 +17,10 @@
 	mutanteyes = /obj/item/organ/eyes/apid
 	mutantlungs = /obj/item/organ/lungs/apid
 	mutantwings = /obj/item/organ/wings/bee
-	heatmod = 1.5
-	coldmod = 1.5
-	burnmod = 1.5
+	heatmod = 2
+	coldmod = 2
+	burnmod = 2
+	staminamod = 2
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/apid
 	inert_mutation = WAXSALIVA
