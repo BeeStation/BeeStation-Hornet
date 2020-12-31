@@ -11,7 +11,8 @@
 		/atom/movable/lighting_object,
 		/obj/item/stock_parts,
 		/obj/item/projectile,
-		/obj/structure/chisel_message
+		/obj/structure/chisel_message,
+		/obj/item/light
 		))
 	var/list/processing_list = list(location)
 	. = list()
