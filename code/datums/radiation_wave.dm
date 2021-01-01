@@ -33,8 +33,8 @@
 /datum/radiation_wave
 	var/source
 	var/turf/master_turf //The center of the wave
-	var/steps=0 //How far we've moved
-	var/intensity[8] //How strong it is
+	var/steps = 0 //How far we've moved
+	var/intensity[8] //How strong it is, except the distance falloff
 	var/range_modifier //Higher than 1 makes it drop off faster, 0.5 makes it drop off half etc
 	var/can_contaminate
 	var/static/list/prc_behavior_cache
@@ -45,6 +45,7 @@
 
 	master_turf = get_turf(_source)
 
+	// Yes, it causes (8 / range_modifier) times the strength you gave to the radiation_pulse().
 	for(var/i in 1 to 8)
 		intensity[i] = _intensity
 	range_modifier = _range_modifier
@@ -59,6 +60,7 @@
 	..()
 
 /datum/radiation_wave/process()
+	// If master_turf is no more, then we can't know where to irradiate. This is a very bad situation.
 	if(!master_turf)
 		qdel(src)
 		return
@@ -69,17 +71,17 @@
 	// The actual distance
 	var/distance = steps + 1
 	// Represents decreasing radiation power over distance
-	var/falloff = 1 / (distance*range_modifier) ** 2
+	var/falloff = 1 / (distance * range_modifier) ** 2
 	// Caching
 	var/turf/cmaster_turf = master_turf
 	// Original intensity it is using
 	var/list/cintensity = intensity
 	// New intensity that'll be written; always larger than the previous one
-	var/list/intensity_new[(distance+1)*8]
+	var/list/intensity_new[(distance + 1) * 8]
 	// "Class" it belongs to
-	var/branchclass = 2**round(log(2,distance))
+	var/branchclass = 2 ** round(log(2, distance))
 
-	// These variable are going to be *very* handy
+	// These variable are going to be handy
 	var/j // secondary i
 	var/idx // index
 	var/lp // loop position
@@ -107,9 +109,7 @@
 				xpos = cmaster_turf.x - distance * 7 + i
 				ypos = cmaster_turf.y + distance
 		//Culls invalid coords
-		if(xpos < 1 || xpos > world.maxx)
-			continue
-		if(ypos < 1 || ypos > world.maxy)
+		if(xpos < 1 || xpos > world.maxx || ypos < 1 || ypos > world.maxy)
 			continue
 
 		//The radiation is considered alive
@@ -209,7 +209,10 @@
 		if (thing.rad_insulation != RAD_NO_INSULATION)
 			intensity[index] *= thing.rad_insulation
 
+// Returns post-radiation strength power scale of a ray
+// If this proc returns a number lower than 1, it means that the some radiation was spent on contaminating something.
 /datum/radiation_wave/proc/radiate(list/atoms, strength)
+	// returning 1 means no radiation was spent on contamination
 	. = 1
 	var/list/moblist = list()
 	var/list/atomlist = list()
