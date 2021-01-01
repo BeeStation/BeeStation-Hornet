@@ -49,16 +49,13 @@ Ask ninjanomnom if they're around
 #define RAD_DISTANCE_COEFFICIENT_COMPONENT_MULTIPLIER 2	// Radiation components have additional penalty at distance coefficient
 														// This is to reduce radiation by contaminated objects, mostly
 
-#define RAD_HALF_LIFE 45							// The half-life of contaminated objects
+#define RAD_HALF_LIFE 90							// The half-life of contaminated objects
 
 #define RAD_WAVE_MINIMUM 10							// Radiation waves with less than this amount of power stop spreading
 													// WARNING: Reducing can make rads subsytem more expensive
 #define RAD_COMPONENT_MINIMUM 1						// To ensure slow contamination
 													// WARNING: Reducing can make rads subsytem more expensive
-#define RAD_COMPONENT_PULSE_FREQUENCY_DIVISOR 2		// This serves to reduce the cost of radiation subsystem
-													// This also obviously lowers the power of radiation from radiation component; I chose not to compensate it
-													// Don't worry, RAD_CONTAMINATION_STR_COEFFICIENT has already got you covered
-#define RAD_CONTAMINATION_STR_COEFFICIENT (1 / RAD_HALF_LIFE / 8 * 2 ** (RAD_DISTANCE_COEFFICIENT_COMPONENT_MULTIPLIER - 1) * RAD_COMPONENT_PULSE_FREQUENCY_DIVISOR)
+#define RAD_CONTAMINATION_STR_COEFFICIENT (1 / RAD_HALF_LIFE / 8 * 2 ** (RAD_DISTANCE_COEFFICIENT_COMPONENT_MULTIPLIER - 1))
 													// Higher means higher strength scaling contamination strength
 													// This number represents perservation of radiation
 													// Set to control the most typical situation: clutters around typical radiation sources
