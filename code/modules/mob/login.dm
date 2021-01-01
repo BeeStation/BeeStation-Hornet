@@ -103,3 +103,34 @@
 		return client.holder.auto_deadmin()
 	if(job)
 		return SSjob.handle_auto_deadmin_roles(client, job)
+
+
+
+/mob/attack_ghost(mob/user)
+	. = ..()
+	if(.)
+		return
+	give_mind(user)
+
+/mob/Topic(href, href_list)
+	if(href_list["activate"])
+		var/mob/dead/observer/ghost = usr
+		if(istype(ghost) && playable)
+			give_mind(ghost)
+			
+/mob/proc/give_mind(mob/user)
+	if(key || !playable || stat)
+		return 0
+	var/question = alert("Control [name]?", "[name]", "Yes", "No")
+	if(question == "No" || !src || QDELETED(src))
+		return TRUE
+	if(key)
+		to_chat(user, "<span class='notice'>Someone else already took [name].</span>")
+		return TRUE
+	key = user.key
+	log_game("[key_name(src)] took control of [name].")
+	return TRUE
+			
+/mob/proc/set_playable(mob/user)
+	playable = TRUE
+	notify_ghosts("[name] can be controlled", null, enter_link="<a href=?src=[REF(S)];activate=1>(Click to play)</a>", source=S, action=NOTIFY_ATTACK, ignore_key = name)

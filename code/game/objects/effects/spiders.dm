@@ -194,8 +194,7 @@
 			S.faction = faction.Copy()
 			S.directive = directive
 			if(player_spiders)
-				S.playable_spider = TRUE
-				notify_ghosts("Spider [S.name] can be controlled", null, enter_link="<a href=?src=[REF(S)];activate=1>(Click to play)</a>", source=S, action=NOTIFY_ATTACK, ignore_key = POLL_IGNORE_SPIDER)
+				S.set_playable()
 			qdel(src)
 
 
