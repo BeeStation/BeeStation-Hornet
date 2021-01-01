@@ -11,6 +11,13 @@
 	size = 5
 	tgui_id = "NtosCyborgRemoteMonitor"
 	program_icon = "project-diagram"
+	var/emagged = FALSE
+
+/datum/computer_file/program/borg_monitor/run_emag()
+	if(emagged)
+		return FALSE
+	emagged = TRUE
+	return TRUE
 
 
 
@@ -88,7 +95,7 @@
 /datum/computer_file/program/borg_monitor/proc/get_id_name()
 	var/obj/item/card/id/ID = computer.GetID()
 	if(!istype(ID))
-		return FALSE
+		return emagged ? "STDERR:UNDF" : FALSE
 	return ID.registered_name
 
 /datum/computer_file/program/borg_monitor/syndicate
@@ -100,6 +107,9 @@
 	available_on_syndinet = TRUE
 	transfer_access = null
 	tgui_id = "NtosCyborgRemoteMonitorSyndicate"
+
+/datum/computer_file/program/borg_monitor/syndicate/run_emag()
+	return FALSE
 
 /datum/computer_file/program/borg_monitor/syndicate/evaluate_borg(mob/living/silicon/robot/R)
 	if((get_turf(computer)).get_virtual_z_level() != (get_turf(R)).get_virtual_z_level())
