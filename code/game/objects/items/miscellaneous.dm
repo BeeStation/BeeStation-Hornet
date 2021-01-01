@@ -310,7 +310,7 @@
 	name = "animal delivery beacon"
 	desc = "There are no faster ways, only more humane."
 	var/default_name = "Bacon"
-	var/mob_choice = /mob/living/simple_animal/pet/dog/exoticcorgi
+	var/mob_choice = /mob/living/simple_animal/pet/dog/corgi/exoticcorgi
 
 /obj/item/choice_beacon/pet/generate_options(mob/living/M)
 	var/input_name = stripped_input(M, "What would you like your new pet to be named?", "New Pet Name", default_name, MAX_NAME_LEN)
