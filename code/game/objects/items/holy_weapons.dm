@@ -488,14 +488,16 @@
 		S.status_flags |= GODMODE
 		S.copy_languages(user, LANGUAGE_MASTER)	//Make sure the sword can understand and communicate with the user.
 		S.update_atom_languages()
-		var/pt = new /obj/effect/proc_holder/possessed_throw()
-		S.AddAbility(pt)
+		S.AddAbility(new /obj/effect/proc_holder/possessed_throw())
+		S.AddAbility(new /obj/effect/proc_holder/possessed_struggle())
 		grant_all_languages(FALSE, FALSE, TRUE)	//Grants omnitongue
 		var/input = sanitize_name(stripped_input(S,"What are you named?", ,"", MAX_NAME_LEN))
 
 		if(src && input)
 			name = input
 			S.fully_replace_character_name(null, "The spirit of [input]")
+		to_chat(S, "<span class='userdanger'>You are completely loyal to [user.real_name], your summoner. Serve them at all costs.</span>")
+		S.mind.store_memory("You are completely loyal to [user.real_name], your summoner. Serve them at all costs.")
 	else
 		to_chat(user, "The blade is dormant. Maybe you can try again later.")
 		possessed = FALSE
@@ -503,7 +505,8 @@
 /obj/effect/proc_holder/possessed_throw
 	name = "Launch Item"
 	desc = "Gather your energy to throw your possessed item."
-	var/cooldown_time = 50 // Time, in deciseconds, between throws
+	action_icon_state = "pos_throw"
+	var/cooldown_time = 40 // Time, in deciseconds, between throws
 	var/cooldown
 
 /obj/effect/proc_holder/possessed_throw/Click()
@@ -528,6 +531,25 @@
 		cooldown = world.time + cooldown_time
 	else
 		to_chat(caller, "You are not possessing anything!")
+
+/obj/effect/proc_holder/possessed_struggle
+	name = "Break Free"
+	desc = "Gather your energy to break free of your wielder's hands"
+	action_icon_state = "pos_struggle"
+	var/cooldown_time = 200 // deciseconds between struggles
+	var/cooldown
+
+/obj/effect/proc_holder/possessed_struggle/Click()
+	if(cooldown <= world.time)
+		var/obj/item/I = usr.loc // getting the sword
+		if(istype(I.loc, /mob/living)) // If being held...
+			usr.visible_message("[usr] rips free of [I.loc]!", "You rip free of [I.loc]!")
+			I.forceMove(get_turf(I.loc)) // drop
+			cooldown = world.time + cooldown_time
+		else
+			to_chat(usr, "You are not being wielded!")
+	else
+		to_chat(usr, "You are still building up your energy!")
 
 /obj/item/nullrod/scythe/talking/Destroy()
 	for(var/mob/living/simple_animal/shade/S in contents)
