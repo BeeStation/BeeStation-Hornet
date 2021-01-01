@@ -49,6 +49,9 @@
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
+"ds" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/escape)
 "dx" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -714,9 +717,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
-"XS" = (
-/turf/open/floor/plating/airless,
-/area/shuttle/escape)
 "Yl" = (
 /obj/machinery/door/firedoor/border_only{
 	dir = 8
@@ -788,7 +788,7 @@ kx
 fT
 kx
 kx
-kx
+ds
 qa
 "}
 (2,1,1) = {"
@@ -812,8 +812,8 @@ kx
 hj
 xq
 KQ
-kx
-kx
+ds
+ds
 "}
 (3,1,1) = {"
 fG
@@ -908,8 +908,8 @@ EK
 kx
 kx
 kx
-kx
-XS
+ds
+ds
 "}
 (7,1,1) = {"
 fG
@@ -1004,8 +1004,8 @@ nw
 oE
 OF
 qP
-kx
-kx
+ds
+ds
 "}
 (11,1,1) = {"
 qa
@@ -1028,6 +1028,6 @@ kx
 kx
 kx
 kx
-kx
+ds
 qa
 "}
