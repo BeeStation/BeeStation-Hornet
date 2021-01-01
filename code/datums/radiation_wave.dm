@@ -81,7 +81,7 @@
 	// "Class" it belongs to
 	var/branchclass = 2 ** round(log(2, distance))
 
-	// These variable are going to be handy
+	// These variables are going to be handy
 	var/j // secondary i
 	var/idx // index
 	var/lp // loop position
