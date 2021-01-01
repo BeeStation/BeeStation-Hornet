@@ -97,12 +97,12 @@
 					permitted = FALSE
 
 				if(!permitted)
-					to_chat(M, "<span class='warning'>Your current species or role does not permit you to spawn with [gear]!</span>")
+					to_chat(M, "<span class='warning'>Your current species or role does not permit you to spawn with [G.display_name]!</span>")
 					continue
 
 				if(G.slot)
 					if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot))
-						to_chat(M, "<span class='notice'>Equipping you with [gear]!</span>")
+						to_chat(M, "<span class='notice'>Equipping you with [G.display_name]!</span>")
 					else
 						gear_leftovers += G
 				else
@@ -113,7 +113,7 @@
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
-			var/metadata = M.client.prefs.equipped_gear[G.display_name]
+			var/metadata = M.client.prefs.equipped_gear[G.id]
 			var/item = G.spawn_item(null, metadata)
 			var/atom/placed_in = human.equip_or_collect(item)
 

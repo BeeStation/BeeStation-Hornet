@@ -131,7 +131,7 @@
 	severity++
 	for(var/X in equipment)
 		var/obj/item/mecha_parts/mecha_equipment/ME = X
-		ME.ex_act(severity,target)
+		ME.ex_act(severity, target)
 	for(var/Y in trackers)
 		var/obj/item/mecha_parts/mecha_tracking/MT = Y
 		MT.ex_act(severity, target)

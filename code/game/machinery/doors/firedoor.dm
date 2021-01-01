@@ -588,12 +588,21 @@
 				if(C.use_tool(src, user, 40, volume=50, amount=1))
 					if(constructionStep != CONSTRUCTION_NOCIRCUIT)
 						return
-					user.visible_message("<span class='notice'>[user] cuts apart [src]!</span>", \
-										 "<span class='notice'>You cut [src] into iron.</span>")
 					var/turf/T = get_turf(src)
-					new /obj/item/stack/sheet/iron(T, 3)
-					if(reinforced)
-						new /obj/item/stack/sheet/plasteel(T, 2)
+					switch(firelock_type)
+						if(/obj/machinery/door/firedoor/heavy)
+							user.visible_message("<span class='notice'>[user] cuts apart [src]!</span>", \
+										 "<span class='notice'>You cut [src] into iron and plasteel.</span>")
+							new /obj/item/stack/sheet/plasteel(T, 2)
+							new /obj/item/stack/sheet/iron(T, 3)
+						if(/obj/machinery/door/firedoor/window)
+							user.visible_message("<span class='notice'>[user] cuts apart [src]!</span>", \
+										 "<span class='notice'>You cut [src] into reinforced glass.</span>")
+							new /obj/item/stack/sheet/rglass(T,2)
+						else
+							user.visible_message("<span class='notice'>[user] cuts apart [src]!</span>", \
+										 "<span class='notice'>You cut [src] into iron.</span>")
+							new /obj/item/stack/sheet/iron(T, 3)
 					qdel(src)
 				return
 			if(istype(C, /obj/item/electronics/firelock))

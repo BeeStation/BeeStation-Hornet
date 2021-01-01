@@ -2479,6 +2479,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/item/folder/red,
 /turf/open/floor/plasteel/dark,
 /area/ctf)
 "hh" = (
@@ -2498,9 +2499,6 @@
 /turf/open/floor/plasteel/dark,
 /area/ctf)
 "hv" = (
-/obj/structure/chair/office{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/dark,
 /area/ctf)
@@ -2536,6 +2534,15 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/turf/open/floor/plasteel/dark,
+/area/ctf)
+"hS" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/item/paper_bin,
 /turf/open/floor/plasteel/dark,
 /area/ctf)
 "hV" = (
@@ -8238,6 +8245,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/dark,
 /area/ctf)
 "th" = (
@@ -10606,6 +10614,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
+/obj/item/reagent_containers/food/drinks/britcup,
 /turf/open/floor/plasteel/dark,
 /area/ctf)
 "yU" = (
@@ -11365,9 +11374,6 @@
 /turf/open/floor/plasteel/dark,
 /area/ctf)
 "AG" = (
-/obj/structure/chair/office{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -17385,7 +17391,6 @@
 /turf/open/floor/wood,
 /area/centcom/holding)
 "Qi" = (
-/obj/structure/chair/office,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -17946,6 +17951,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/three)
+"TA" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/item/folder/red{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/turf/open/floor/plasteel/dark,
+/area/ctf)
 "TB" = (
 /obj/structure/reagent_dispensers/cooking_oil,
 /turf/open/floor/plasteel/cafeteria,
@@ -18063,7 +18080,6 @@
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
 "Up" = (
-/obj/structure/chair/office,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -18097,6 +18113,15 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"UL" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/item/clipboard,
+/turf/open/floor/plasteel/dark,
+/area/ctf)
 "UM" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -18131,7 +18156,6 @@
 /turf/open/floor/wood,
 /area/centcom/holding)
 "UX" = (
-/obj/structure/chair/office,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -18597,9 +18621,6 @@
 /turf/open/floor/grass,
 /area/centcom/holding)
 "YO" = (
-/obj/structure/chair/office{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -74178,7 +74199,7 @@ Qn
 Bt
 gh
 Up
-hc
+hS
 hv
 gh
 Qq
@@ -74435,7 +74456,7 @@ Qn
 PB
 gh
 Up
-hc
+TA
 hv
 gh
 ge
@@ -74692,7 +74713,7 @@ Qn
 Tw
 gh
 Up
-hc
+UL
 hv
 gh
 ge
