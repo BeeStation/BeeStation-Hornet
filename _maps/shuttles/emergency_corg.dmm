@@ -21,6 +21,12 @@
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
+"bP" = (
+/obj/structure/table/reinforced,
+/obj/item/defibrillator/compact/loaded,
+/obj/item/defibrillator/compact/loaded,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
 "bQ" = (
 /obj/machinery/vending/medical,
 /turf/open/floor/mineral/titanium/blue,
@@ -48,9 +54,6 @@
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"ds" = (
-/turf/closed/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "dx" = (
 /obj/effect/turf_decal/tile/purple{
@@ -155,10 +158,6 @@
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"jV" = (
-/obj/machinery/rnd/production/techfab/department/medical,
-/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "kn" = (
 /obj/machinery/computer/emergency_shuttle,
@@ -732,6 +731,9 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
+"Yo" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/escape)
 "Yq" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -788,7 +790,7 @@ kx
 fT
 kx
 kx
-ds
+Yo
 qa
 "}
 (2,1,1) = {"
@@ -812,8 +814,8 @@ kx
 hj
 xq
 KQ
-ds
-ds
+Yo
+Yo
 "}
 (3,1,1) = {"
 fG
@@ -908,8 +910,8 @@ EK
 kx
 kx
 kx
-ds
-ds
+Yo
+Yo
 "}
 (7,1,1) = {"
 fG
@@ -950,7 +952,7 @@ LA
 mX
 VA
 LA
-jV
+bP
 AK
 AK
 AK
@@ -1004,8 +1006,8 @@ nw
 oE
 OF
 qP
-ds
-ds
+Yo
+Yo
 "}
 (11,1,1) = {"
 qa
@@ -1028,6 +1030,6 @@ kx
 kx
 kx
 kx
-ds
+Yo
 qa
 "}
