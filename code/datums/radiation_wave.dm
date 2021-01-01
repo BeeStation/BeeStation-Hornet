@@ -45,7 +45,7 @@
 
 	master_turf = get_turf(_source)
 
-	// Yes, it causes (8 / range_modifier) times the strength you gave to the radiation_pulse().
+	// Yes, it causes (8 / range_modifier ** 2) times the strength you gave to the radiation_pulse().
 	for(var/i in 1 to 8)
 		intensity[i] = _intensity
 	range_modifier = _range_modifier
@@ -80,13 +80,8 @@
 	var/list/intensity_new[(distance + 1) * 8]
 	// "Class" it belongs to
 	var/branchclass = 2 ** round(log(2, distance))
-
-	// These variables are going to be handy
-	var/j // secondary i
-	var/idx // index
-	var/lp // loop position
-	var/vl // velocity of loop
-	var/bt // branch threshold
+	// The secondary i, or the offset for i
+	var/j
 
 	for(var/i in 1 to distance * 8)
 		//Culls invalid intensities
@@ -133,7 +128,7 @@
 		 * This code is responsible just for *keeping the rads going forward* more reasonably
 		 * in regard to obstruction and contamination cost. But, of course, if you are rewriting
 		 * (notwithstanding how questionable rewriting something major of a mature codebase like
-		 * other common SS13 codebases is) the entire radiation code, then this code should be
+		 * every normal SS13 codebase is) the entire radiation code, then this code should be
 		 * considered for deletion.
 		 *
 		 * On a side note, this implementation isn't very ideal. So please remove this instead of
@@ -168,6 +163,13 @@
 		var/prc_behavior = cachecache[i % distance]
 
 		if(!prc_behavior)
+			// Necessary local variables
+			var/idx // index
+			var/lp // loop position
+			var/vl // velocity of loop
+			var/bt // branch threshold
+
+			// The actual behavior calculation
 			cachecache[i % distance] = prc_behavior = distance & 1 \
 				? ((lp = ((idx = i % distance) * (vl = distance - branchclass + 1)) % (distance + 1)) < (bt = branchclass - (idx - round(idx * vl / (distance + 1)))) \
 					? (lp \
