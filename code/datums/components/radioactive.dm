@@ -39,7 +39,7 @@
 	return ..()
 
 /datum/component/radioactive/process()
-	if(prob(50))
+	if(prob(100 / RAD_COMPONENT_PULSE_FREQUENCY_DIVISOR))
 		return
 	if(strength >= RAD_WAVE_MINIMUM)
 		radiation_pulse(parent, strength, RAD_DISTANCE_COEFFICIENT * RAD_DISTANCE_COEFFICIENT_COMPONENT_MULTIPLIER, FALSE, can_contaminate)
