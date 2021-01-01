@@ -1,20 +1,34 @@
-#define PRC_FLAG_HL		(1<<0)
-#define PRC_FLAG_L		(1<<1)
-#define PRC_FLAG_HR		(1<<2)
-#define PRC_FLAG_R		(1<<3)
+#define PRC_FLAG_HL		(1<<0)								// Send half of current strength to the upper "left"
+#define PRC_FLAG_L		(1<<1)								// Send the whole current strength to the upper "left": direct succession
+#define PRC_FLAG_HR		(1<<2)								// Send half of current strength to the upper "right"
+#define PRC_FLAG_R		(1<<3)								// Send the whole current strength to the upper "right": direct succession
 
-#define PRC_BEHAVIOR_N			(1<<4)
-#define PRC_BEHAVIOR_NWL		PRC_FLAG_HL
-#define PRC_BEHAVIOR_NWR		PRC_FLAG_HR
-#define PRC_BEHAVIOR_L			PRC_FLAG_L
-#define PRC_BEHAVIOR_LSTAR		(PRC_FLAG_L|PRC_FLAG_HR)
-#define PRC_BEHAVIOR_R			PRC_FLAG_R
-#define PRC_BEHAVIOR_RSTAR		(PRC_FLAG_R|PRC_FLAG_HL)
-#define PRC_BEHAVIOR_D			(PRC_FLAG_L|PRC_FLAG_R)
-#define PRC_BEHAVIOR_HL			PRC_FLAG_HL
-#define PRC_BEHAVIOR_HLSTAR		(PRC_FLAG_HL|PRC_FLAG_HR)
-#define PRC_BEHAVIOR_HR			PRC_FLAG_HR
-#define PRC_BEHAVIOR_HRSTAR		(PRC_FLAG_HR|PRC_FLAG_HL)
+/**
+ * Crash Course: Understanding PRC_BEHAVIOR
+ * We move forward, and in square-by-square manner, so we need a list 8 entries larger than the current one, and future squares are determined from the current square.
+ * We move clockwise: "left" means intensity_new[i + j], "right" means intensity_new[i + j + 1]. `j` here is offset.
+ * Most squares are on branch: It moves "left"(L) or "right"(R).
+ * But, sometimes, a branch can't decide which way to go; then it splits(D) and merges(HL, HR).
+ * Then there are squares not on branch; those don't go anywhere else(N).
+ * But branchless squares still need to act radiation; does branchless square's does one time transient succession from both of immediate predecessors
+ * ... in contrast to "on-branch" squares where there are only one meaningful predecessor.
+ * Since we are calculating future squares, we need to see if there are any branchless squares needing our attention: (*STAR)
+ * And, of course, branchless squares might have to draw from another preceding branchless squares. (NWL, NWR)
+ */
+
+#define PRC_BEHAVIOR_N			(1<<4)						// Not on branch, and both upper squares are on branch
+															// So we don't calculate prc_behavior every time (setting to 0 would do that)
+#define PRC_BEHAVIOR_NWL		PRC_FLAG_HL					// Not on branch, but will send half of its strength to the "left" since it also is not on branch
+#define PRC_BEHAVIOR_NWR		PRC_FLAG_HR					// Not on branch, but will send half of its strength to the "left" since it also is not on branch
+#define PRC_BEHAVIOR_L			PRC_FLAG_L					// On branch, going "left"
+#define PRC_BEHAVIOR_LSTAR		(PRC_FLAG_L|PRC_FLAG_HR)	// On branch, going "left", but there's branchless square on the "right"
+#define PRC_BEHAVIOR_R			PRC_FLAG_R					// On branch, going "right"
+#define PRC_BEHAVIOR_RSTAR		(PRC_FLAG_R|PRC_FLAG_HL)	// On branch, going "left", but there's branchless square on the "left"
+#define PRC_BEHAVIOR_D			(PRC_FLAG_L|PRC_FLAG_R)		// On branch, double successor.
+#define PRC_BEHAVIOR_HL			PRC_FLAG_HL					// From one of the double successor; single successor on the "left"
+#define PRC_BEHAVIOR_HLSTAR		(PRC_FLAG_HL|PRC_FLAG_HR)	// From one of the double successor; single successor on the "left", but there's branchless square on the "right"
+#define PRC_BEHAVIOR_HR			PRC_FLAG_HR					// From one of the double successor; single successor on the "right"
+#define PRC_BEHAVIOR_HRSTAR		(PRC_FLAG_HR|PRC_FLAG_HL)	// From one of the double successor; single successor on the "right", but there's branchless square on the "left"
 
 /datum/radiation_wave
 	var/source
@@ -72,10 +86,6 @@
 	var/vl // velocity of loop
 	var/bt // branch threshold
 
-	var/trc = "TheRadCost ## Intensity One: [cintensity[1]], Dist: [distance], Current Falloff: [falloff], "
-	var/raycasting_cost
-	var/total_step_cost = TICK_USAGE
-
 	for(var/i in 1 to distance * 8)
 		//Culls invalid intensities
 		if(cintensity[i] * falloff < RAD_WAVE_MINIMUM)
@@ -124,29 +134,30 @@
 		 *
 		 * ~Xenomedes, Christmas 2020
 		 */
-		
-		var/cost_start_rt = TICK_USAGE
 
+		// Handling eight fundamental (read: perfectly straight) branches
 		if((j = i / distance) == (j = round(j)))
 			distance + 1 == branchclass * 2 \
 			? (i == distance * 8 \
 				? (intensity_new[j - 1] += (intensity_new[1] += ((intensity_new[(j += i)] = cintensity[i]) / 2)) && cintensity[i] / 2) \
 				: (intensity_new[j - 1] += intensity_new[j + 1] = ((intensity_new[(j += i)] = cintensity[i]) / 2))) \
 			: (intensity_new[i + j] = cintensity[i])
-			raycasting_cost += TICK_USAGE - cost_start_rt
 			continue
-		
+
 		var/list/cachecache
-		
+
 		if(!prc_behavior_cache)
 			prc_behavior_cache = list()
 		if(length(prc_behavior_cache) < distance)
 			prc_behavior_cache.len++
+			// We don't reserve spaces for fundamental branches
 			var/L[distance - 1]
+			// distance == 1 is where every ray is fundamental branch
 			cachecache = prc_behavior_cache[distance - 1] = L
 		else
 			cachecache = prc_behavior_cache[distance - 1]
-		
+
+		// i % distance == 0 cases were already handled above
 		var/prc_behavior = cachecache[i % distance]
 
 		if(!prc_behavior)
@@ -167,7 +178,7 @@
 						: (lp < bt \
 							? (lp + vl >= bt ? PRC_BEHAVIOR_LSTAR : PRC_BEHAVIOR_L) \
 							: (lp - vl <= bt ? PRC_BEHAVIOR_RSTAR : PRC_BEHAVIOR_R))))
-		
+
 		prc_behavior & PRC_FLAG_HL \
 		? (intensity_new[i + j] += cintensity[i] / 2) \
 		: (prc_behavior & PRC_FLAG_L \
@@ -180,8 +191,6 @@
 		? (intensity_new[i + j + 1] = cintensity[i]) \
 		: null)
 
-		raycasting_cost += TICK_USAGE - cost_start_rt
-
 	if(futile)
 		qdel(src)
 		return
@@ -190,12 +199,7 @@
 	intensity = intensity_new
 	steps++
 
-	total_step_cost = TICK_USAGE - total_step_cost
-	trc += "RTC: [raycasting_cost / 2] TC: [total_step_cost / 2]"
-	log_mapping(trc)
-
 /datum/radiation_wave/proc/check_obstructions(list/atoms, index)
-
 	for(var/k in 1 to atoms.len)
 		var/atom/thing = atoms[k]
 		if(!thing)
@@ -237,7 +241,7 @@
 			atomlist += thing
 
 	// We don't randomly choose one from the list since that can result in zero meaningful contamination
-	
+
 	if(atomlist.len)
 		. -= RAD_CONTAMINATION_BUDGET_SIZE
 		var/affordance = min(round(contam_strength / RAD_COMPONENT_MINIMUM), atomlist.len)
