@@ -41,7 +41,7 @@ Ask ninjanomnom if they're around
 // contamination_chance = 		[doesn't matter, will always contaminate]
 // contamination_strength = 	strength * RAD_CONTAMINATION_STR_COEFFICIENT
 // contamination_threshold =	1 / (RAD_CONTAMINATION_BUDGET_SIZE * RAD_CONTAMINATION_STR_COEFFICIENT)
-#define RAD_CONTAMINATION_BUDGET_SIZE 0.2			// Mob and non-mob budgets each gets a share from the radiation as large as this;
+#define RAD_CONTAMINATION_BUDGET_SIZE 0.1			// Mob and non-mob budgets each gets a share from the radiation as large as this;
 													// So this means 10% of the rads is "absorbed" by non-mobs (if there is a non-mob),
 													// and another 10% of the rads is "absorbed" by mobs (if there is a mob)
 #define RAD_DISTANCE_COEFFICIENT 1					// Lower means further rad spread
