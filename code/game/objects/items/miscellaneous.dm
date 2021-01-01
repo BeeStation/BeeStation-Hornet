@@ -310,7 +310,7 @@
 	name = "animal delivery beacon"
 	desc = "There are no faster ways, only more humane."
 	var/default_name = "Bacon"
-	var/mob_choice = /mob/living/simple_animal/pet/exoticcorgi
+	var/mob_choice = /mob/living/simple_animal/pet/dog/exoticcorgi
 
 /obj/item/choice_beacon/pet/generate_options(mob/living/M)
 	var/input_name = stripped_input(M, "What would you like your new pet to be named?", "New Pet Name", default_name, MAX_NAME_LEN)
@@ -351,7 +351,7 @@
 /obj/item/choice_beacon/pet/corgi
 	name = "corgi delivery beacon"
 	default_name = "Tosha"
-	mob_choice = /mob/living/simple_animal/pet/corgi
+	mob_choice = /mob/living/simple_animal/pet/dog/corgi
 	
 /obj/item/choice_beacon/pet/hamster
 	name = "corgi delivery beacon"
@@ -361,12 +361,12 @@
 /obj/item/choice_beacon/pet/pug
 	name = "corgi delivery beacon"
 	default_name = "Silvestro"
-	mob_choice = /mob/living/simple_animal/pet/pug
+	mob_choice = /mob/living/simple_animal/pet/dog/pug
 	
 /obj/item/choice_beacon/pet/ems
 	name = "emotional support animal delivery beacon"
 	default_name = "Hugsie"
-	mob_choice = /mob/living/simple_animal/pet/kitten
+	mob_choice = /mob/living/simple_animal/pet/cat/kitten
 	
 /obj/item/choice_beacon/pet/pingu
 	name = "penguin delivery beacon"
