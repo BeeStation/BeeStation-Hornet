@@ -126,11 +126,18 @@
 		/*
 		 * This is what I call pseudo-raycasting (PRC). Real raycasting would be ridiculously expensive,
 		 * So this is the solution I came up with. Don't try to understand it by seeing the code.
-		 * You have been warned. If you find yourself having to touch this cursed code,
-		 * consider axing this away before contacting me via git-fu email digging. 
+		 * You have been warned. If you find yourself really having to touch this cursed code,
+		 * consider axing this away before contacting me via git-fu email digging.
 		 *
-		 * On a side note, this implementation isn't ideal. So please remove this instead of
-		 * trying to improve it when its time has come.
+		 * Therefore, I urge you not to hastily assume this code a culprit of your problem.
+		 * This code is responsible just for *keeping the rads going forward* more reasonably
+		 * in regard to obstruction and contamination cost. But, of course, if you are rewriting
+		 * (notwithstanding how questionable rewriting something major of a mature codebase like
+		 * other common SS13 codebases is) the entire radiation code, then this code should be
+		 * considered for deletion.
+		 *
+		 * On a side note, this implementation isn't very ideal. So please remove this instead of
+		 * trying to improve it when its time has come. (i.e. another total overhaul)
 		 *
 		 * ~Xenomedes, Christmas 2020
 		 */
