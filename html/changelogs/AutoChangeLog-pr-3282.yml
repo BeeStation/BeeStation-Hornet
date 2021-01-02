@@ -1,0 +1,5 @@
+author: That0nePerson
+delete-after: true
+changes:
+  - rscadd: Syndicate excommunicates get a note telling them they're an excommunicate,
+      so they don't forget
