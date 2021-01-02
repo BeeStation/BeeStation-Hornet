@@ -69,6 +69,8 @@
 		H.set_cloned_appearance()
 
 		H.set_suicide(FALSE)
+		
+		H.set_playable()
 	attempting = FALSE
 	return CLONING_DELETE_RECORD | CLONING_SUCCESS //so that we don't spam clones with autoprocess unless we leave a body in the scanner
 

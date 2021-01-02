@@ -192,9 +192,6 @@
 
 	///The list of people observing this mob.
 	var/list/observers = null
-	
-	//is mob player controllable
-	var/playable = FALSE
 
 	///List of progress bars this mob is currently seeing for actions
 	var/list/progressbars = null	//for stacking do_after bars
