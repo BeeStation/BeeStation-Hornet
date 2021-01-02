@@ -1399,7 +1399,7 @@
 
 /mob/living/(can_reenter_corpse = TRUE, retain_sentience = FALSE )
 	..()
-	if(key && key[1] != "@" && retain_sentience)
+	if(retain_sentience)
 			set_playable()
 
 /mob/living/attack_ghost(mob/user)
