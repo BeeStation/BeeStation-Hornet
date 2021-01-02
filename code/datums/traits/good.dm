@@ -149,8 +149,8 @@
 		"left pocket" = ITEM_SLOT_LPOCKET,
 		"right pocket" = ITEM_SLOT_RPOCKET,
 		"backpack" = ITEM_SLOT_BACKPACK,
-	)
 		"hands" = ITEM_SLOT_HANDS
+	)
 	H.equip_in_one_of_slots(camera, camera_slots , qdel_on_fail = TRUE)
 	H.regenerate_icons()
 

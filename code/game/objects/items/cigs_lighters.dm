@@ -861,7 +861,6 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			to_chat(user, "<span class='warning'>You need to close the cap first!</span>")
 
 /obj/item/clothing/mask/vape/dropped(mob/user)
-	var/mob/living/carbon/C = user
 	if(user.get_item_by_slot(ITEM_SLOT_MASK) == src)
 		ENABLE_BITFIELD(reagents.flags, NO_REACT)
 		STOP_PROCESSING(SSobj, src)
