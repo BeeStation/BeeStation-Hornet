@@ -41,6 +41,7 @@ jobs:
           bash tools/ci/build_tgui.sh
           bash tools/ci/check_grep.sh
           tools/bootstrap/python -m dmi.test
+          tools/bootstrap/python -m mapmerge2.dmm_test
           ~/dreamchecker
   compile_all_maps:
     runs-on: ubuntu-latest
