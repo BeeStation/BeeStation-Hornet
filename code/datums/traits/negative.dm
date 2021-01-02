@@ -581,7 +581,7 @@
 /datum/quirk/alcoholic/on_spawn()
 	drink_instance = pick(drink_types)
 	drink_instance = new drink_instance()
-	var/list/slots = list("in your backpack" = SLOT_IN_BACKPACK)
+	var/list/slots = list("in your backpack" = ITEM_SLOT_BACKPACK)
 	var/mob/living/carbon/human/H = quirk_holder
 	where_drink = H.equip_in_one_of_slots(drink_instance, slots, FALSE) || "at your feet"
 

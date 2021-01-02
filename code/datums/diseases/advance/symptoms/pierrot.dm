@@ -82,5 +82,5 @@
 				qdel(M.wear_mask)
 		var/obj/item/clothing/C = new /obj/item/clothing/mask/gas/clown_hat(M)
 		ADD_TRAIT(C, TRAIT_NODROP, DISEASE_TRAIT)
-		M.equip_to_slot_or_del(C, SLOT_WEAR_MASK)
+		M.equip_to_slot_or_del(C, ITEM_SLOT_MASK)
 		return

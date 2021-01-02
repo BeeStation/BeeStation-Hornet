@@ -197,7 +197,7 @@
 		return FALSE
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
-		if(istype(H.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if(istype(H.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			to_chat(H, "<span class ='userdanger'>Your trusty tinfoil hat shorts out the implant as it plunges into your skull!</span>")
 			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 75)
 			H.emote("scream")

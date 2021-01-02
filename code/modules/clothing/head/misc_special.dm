@@ -309,7 +309,7 @@
 
 /obj/item/clothing/head/foilhat/equipped(mob/living/carbon/human/user, slot)
 	..()
-	if(slot == SLOT_HEAD)
+	if(slot == ITEM_SLOT_HEAD)
 		user.sec_hud_set_implants()
 		if(paranoia)
 			QDEL_NULL(paranoia)

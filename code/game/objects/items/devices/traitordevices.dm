@@ -190,10 +190,9 @@ effective or pretty fucking useless.
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "utilitybelt"
 	item_state = "utility"
-	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
 
-	var/equipslot = SLOT_BELT
+	var/equipslot = ITEM_SLOT_BELT // im not sure why this is here but I'll leave it
 	var/mob/living/carbon/human/user = null
 	var/charge = 300
 	var/max_charge = 300
@@ -257,9 +256,8 @@ effective or pretty fucking useless.
 	desc = "A magician never reveals his secrets."
 	icon = 'icons/obj/bedsheets.dmi'
 	icon_state = "sheetmagician"
-	slot_flags = ITEM_SLOT_NECK
 	layer = MOB_LAYER
-	equipslot = SLOT_NECK
+	equipslot = ITEM_SLOT_NECK
 	attack_verb = null
 
 /obj/item/shadowcloak/magician/attackby(obj/item/W, mob/user, params)

@@ -14,7 +14,7 @@
 
 /obj/item/clothing/neck/necklace/dope/cursed/equipped(mob/user, slot)
     . = ..()
-    if(slot == SLOT_NECK && linked_ckey && user.ckey != linked_ckey)
+    if(slot == ITEM_SLOT_NECK && linked_ckey && user.ckey != linked_ckey)
         if(user.ckey && user.ckey == linked_ckey)
             hostage_ckey = user.ckey
             user.ghostize(0)

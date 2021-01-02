@@ -149,7 +149,7 @@
 				var/mob/living/carbon/human/H = L
 				if(istype(H.ears, /obj/item/clothing/ears/earmuffs))
 					continue
-				if(istype(H.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+				if(istype(H.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 					continue
 			listeners += L
 

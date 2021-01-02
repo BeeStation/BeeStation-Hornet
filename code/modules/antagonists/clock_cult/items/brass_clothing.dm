@@ -51,7 +51,7 @@
 
 /obj/item/clothing/suit/clockwork/cloak/equipped(mob/user, slot)
 	. = ..()
-	if(slot == SLOT_WEAR_SUIT && !shroud_active)
+	if(slot == ITEM_SLOT_OCLOTHING && !shroud_active)
 		shroud_active = TRUE
 		previous_alpha = user.alpha
 		animate(user, alpha=140, time=30)

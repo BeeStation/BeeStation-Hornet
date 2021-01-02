@@ -101,7 +101,7 @@ There are several things that need to be remembered:
 	remove_overlay(UNIFORM_LAYER)
 
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_W_UNIFORM]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_ICLOTHING]
 		inv.update_icon()
 
 	if(istype(w_uniform, /obj/item/clothing/under))
@@ -148,7 +148,7 @@ There are several things that need to be remembered:
 	remove_overlay(ID_LAYER)
 
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_WEAR_ID]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_ID]
 		inv.update_icon()
 
 	var/mutable_appearance/id_overlay = overlays_standing[ID_LAYER]
@@ -172,8 +172,8 @@ There are several things that need to be remembered:
 /mob/living/carbon/human/update_inv_gloves()
 	remove_overlay(GLOVES_LAYER)
 
-	if(client && hud_used && hud_used.inv_slots[SLOT_GLOVES])
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_GLOVES]
+	if(client && hud_used && hud_used.inv_slots[ITEM_SLOT_GLOVES])
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_GLOVES]
 		inv.update_icon()
 
 	if(!gloves && bloody_hands)
@@ -212,7 +212,7 @@ There are several things that need to be remembered:
 		return
 
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_GLASSES]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_EYES]
 		inv.update_icon()
 
 	if(glasses)
@@ -266,7 +266,7 @@ There are several things that need to be remembered:
 		return
 
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_SHOES]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_FEET]
 		inv.update_icon()
 
 	if(shoes)
@@ -289,7 +289,7 @@ There are several things that need to be remembered:
 	remove_overlay(SUIT_STORE_LAYER)
 
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_S_STORE]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_SUITSTORE]
 		inv.update_icon()
 
 	if(s_store)
@@ -325,7 +325,7 @@ There are several things that need to be remembered:
 	remove_overlay(BELT_LAYER)
 
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_BELT]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_BELT]
 		inv.update_icon()
 
 	if(belt)
@@ -353,7 +353,7 @@ There are several things that need to be remembered:
 	remove_overlay(SUIT_LAYER)
 
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_WEAR_SUIT]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_OCLOTHING]
 		inv.update_icon()
 
 	if(istype(wear_suit, /obj/item/clothing/suit))
