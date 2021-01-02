@@ -1158,6 +1158,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 		if(ADMIN_PUNISHMENT_IMMERSE)
 			immerse_player(target)
+			
+		if(ADMIN_PUNISHMENT_GHOST)
+			target.ghostize(FALSE,TRUE)
 
 	punish_log(target, punishment)
 
