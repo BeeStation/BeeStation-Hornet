@@ -3,6 +3,7 @@
 	var/holy = FALSE
 	var/charges = INFINITY
 	var/blocks_self = TRUE
+	var/allowed_slots = ~ITEM_SLOT_BACKPACK
 	var/datum/callback/reaction
 	var/datum/callback/expire
 
