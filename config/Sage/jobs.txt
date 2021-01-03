@@ -38,7 +38,7 @@ Lawyer=2,2,0,0
 Chaplain=1,1,0,0
 
 Station Engineer=7,5,2,20
-Atmospheric Technician=4,2,0,0
+Atmospheric Technician=2,2,0,0
 
 Medical Doctor=8,6,3,20
 Paramedic=2,1,0,0
