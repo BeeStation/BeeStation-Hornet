@@ -70,7 +70,7 @@
 	var/gimmick = FALSE //least hacky way i could think of for this
 
 /datum/job/proc/calculate_spawn_scaling(population = 0)
-	if(!scaling_amount0)
+	if(!scaling_amount)
 		return
 	spawn_positions = min(spawn_positions, min_spawn_positions + FLOOR(population / scaling_amount, 1))
 
