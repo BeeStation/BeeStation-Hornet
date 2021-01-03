@@ -115,7 +115,7 @@
 		return
 
 	if(client && hud_used && hud_used.inv_slots[ITEM_SLOT_MASK])
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_MASK]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_MASK) + 1]
 		inv.update_icon()
 
 	if(wear_mask)
@@ -129,7 +129,7 @@
 	remove_overlay(NECK_LAYER)
 
 	if(client && hud_used && hud_used.inv_slots[ITEM_SLOT_NECK])
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_NECK]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_NECK) + 1]
 		inv.update_icon()
 
 	if(wear_neck)
@@ -143,7 +143,7 @@
 	remove_overlay(BACK_LAYER)
 
 	if(client && hud_used && hud_used.inv_slots[ITEM_SLOT_BACK])
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_BACK]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BACK) + 1]
 		inv.update_icon()
 
 	if(back)
@@ -159,7 +159,7 @@
 		return
 
 	if(client && hud_used && hud_used.inv_slots[ITEM_SLOT_BACK])
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_HEAD]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_HEAD) + 1]
 		inv.update_icon()
 
 	if(head)
