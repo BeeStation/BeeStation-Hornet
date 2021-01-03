@@ -136,24 +136,6 @@
 		death()
 	..()
 
-/mob/living/simple_animal/hostile/blob/blobspore/attack_ghost(mob/user)
-	. = ..()
-	if(.)
-		return
-	humanize_pod(user)
-
-/mob/living/simple_animal/hostile/blob/blobspore/proc/humanize_pod(mob/user)
-	if((!overmind || key || stat || !is_zombie && istype(src, /mob/living/simple_animal/hostile/blob/blobspore) || istype(src, /mob/living/simple_animal/hostile/blob/blobspore/weak)))
-		return
-	var/pod_ask = alert("Become a blob zombie?", "Are you bulbous enough?", "Yes", "No")
-	if(pod_ask == "No" || !src || QDELETED(src))
-		return
-	if(key)
-		to_chat(user, "<span class='warning'>Someone else already took this blob zombie!</span>")
-		return
-	key = user.key
-	log_game("[key_name(src)] took control of [name].")
-
 /mob/living/simple_animal/hostile/blob/blobspore/proc/Zombify(mob/living/carbon/human/H)
 	is_zombie = 1
 	if(H.wear_suit)
@@ -176,7 +158,7 @@
 	update_icons()
 	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 	if(!key)
-		notify_ghosts("\A [src] has been created in \the [get_area(src)].", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Blob Zombie Created")
+		set_playable()
 
 /mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
 	// On death, create a small smoke of harmful gas (s-Acid)
