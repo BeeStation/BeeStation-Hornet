@@ -158,7 +158,7 @@
 /datum/action/item_action/organ_action/use/bee_dash/Trigger()
 	var/mob/living/carbon/L = owner
 
-	if(!isliving(L))
+	if(L.stat != CONSCIOUS || L.buckling) // Has to be concious and unbuckled
 		return
 	if(recharging_time > world.time)
 		to_chat(L, "<span class='warning'>The wings aren't ready to dash yet!</span>")
@@ -167,22 +167,20 @@
 	if(environment && !(environment.return_pressure() > 30))
 		to_chat(L, "<span class='warning'>The atmosphere is too thin for you to dash!</span>")
 		return
-	if(L.InCritical())
-		L.visible_message("<span class='warning'>[L] weakly flaps [L.p_their()] wings...</span>",\
-			"<span class='warning'>You weakly flap your wings...</span>")
-		return
 
 	var/atom/target = get_edge_target_turf(L, L.dir) //gets the user's direction
 	var/hoppingtable = FALSE // Triggers the trip
 	var/jumpdistancemoved = jumpdistance // temp jumpdistance
-	var/turf/checkjump = L.loc
+	var/turf/checkjump = get_turf(L)
 	for(var/i in 1 to jumpdistance) //This is how hiero club find the tiles in front of it, tell me/fix it if there's a better way
 		if(locate(/obj/structure/table, get_step(checkjump, L.dir))) // If there's a table, trip
 			hoppingtable = TRUE
 			jumpdistancemoved = i
 			break
-		if(locate(/obj/structure/, get_step(checkjump, L.dir))) // breaks if there's anything else in the way, no tripping on tables through walls
-			break
+		for(var/atom/movable/A in get_turf(get_step(checkjump, L.dir))) // breaks if there's anything solid in the way, no tripping on tables through walls
+			to_chat(L, "[A] is being checked, density is [A.density]")
+			if(A.density)
+				break
 		checkjump = get_step(checkjump, L.dir)
 
 	if (L.throw_at(target, jumpdistancemoved, jumpspeed, spin = FALSE, diagonals_first = TRUE, force = MOVE_FORCE_WEAK))
