@@ -1602,3 +1602,14 @@ config_setting should be one of the following:
 /proc/get_final_z(atom/A)
 	var/turf/T = get_turf(A)
 	return T ? T.z : A.z
+
+/proc/invertDir(var/input_dir)
+	switch(input_dir)
+		if(NORTH)
+			return SOUTH
+		if(SOUTH)
+			return NORTH
+		if(EAST)
+			return WEST
+		if(WEST)
+			return EAST
