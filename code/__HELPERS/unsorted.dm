@@ -1605,8 +1605,11 @@ config_setting should be one of the following:
 
 /proc/invertDir(var/input_dir)
 	switch(input_dir)
-		if(UP, DOWN)
-			CRASH("Can't turn vertical directions!")
+		if(UP)
+			return DOWN
+		if(DOWN)
+			return UP
 		if(-INFINITY to 0, 11 to INFINITY)
 			CRASH("Can't turn invalid directions!")
-		else return turn(input_dir, 180)
+			return
+		return turn(input_dir, 180)
