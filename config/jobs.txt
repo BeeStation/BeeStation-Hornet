@@ -41,6 +41,7 @@ Station Engineer=7,5,2,20
 Atmospheric Technician=4,2,0,0
 
 Medical Doctor=8,6,3,20
+Paramedic=2,1,0,0
 Chemist=3,2,0,0
 Geneticist=2,2,0,0
 Virologist=1,1,0,0
@@ -51,6 +52,8 @@ Roboticist=2,2,0,0
 Warden=1,1,0,0
 Detective=1,1,0,0
 Security Officer=10,8,2,10
+Brig Physician=1,1,0,0
+Deputy=0,0,0,0
 
 AI=1,1,0,0
 Cyborg=1,1,0,0
