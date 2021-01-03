@@ -1397,10 +1397,10 @@
 		to_chat(eminence, "<span class='brass'>You select [src].</span>")
 
 
-/mob/living/(can_reenter_corpse = TRUE, retain_sentience = FALSE )
+/mob/living/ghostize(can_reenter_corpse = TRUE, retain_sentience = FALSE )
 	..()
 	if(retain_sentience)
-			set_playable()
+		set_playable()
 
 /mob/living/attack_ghost(mob/user)
 	. = ..()
