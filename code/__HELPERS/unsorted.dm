@@ -1611,4 +1611,4 @@ config_setting should be one of the following:
 			return UP
 		if(-INFINITY to 0, 11 to INFINITY)
 			CRASH("Can't turn invalid directions!")
-		return turn(input_dir, 180)
+	return turn(input_dir, 180)
