@@ -26,6 +26,10 @@
 	//How many players can spawn in as this job
 	var/spawn_positions = 0
 
+	//Calculating high pop scaling
+	var/min_spawn_positions = 0
+	var/scaling_amount = 1
+
 	//How many players have this job
 	var/current_positions = 0
 
@@ -64,6 +68,11 @@
 
 	var/tmp/list/gear_leftovers = list()
 	var/gimmick = FALSE //least hacky way i could think of for this
+
+/datum/job/proc/calculate_spawn_scaling(population = 0)
+	if(!scaling_amount0)
+		return
+	spawn_positions = min(spawn_positions, min_spawn_positions + FLOOR(population / scaling_amount, 1))
 
 //Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 //H is usually a human unless an /equip override transformed it

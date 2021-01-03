@@ -528,6 +528,8 @@ SUBSYSTEM_DEF(job)
 		if(jobs.Find(jobstext))
 			J.total_positions = text2num(jobs.group[1])
 			J.spawn_positions = text2num(jobs.group[2])
+			J.min_spawn_positions = text2num(jobs.group[3])
+			J.scaling_amount = text2num(jobs.group[4])
 		else
 			log_runtime("Error in /datum/controller/subsystem/job/proc/LoadJobs: Failed to locate job of title [J.title] in jobs.txt")
 

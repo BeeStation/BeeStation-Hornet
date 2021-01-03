@@ -1,46 +1,56 @@
 #This allows easy configuration of the number of positions allowed for each job
-#Format is: [Job name]=[total positions],[spawn positions]
+#Format is: [Job name]=[max positions],[max spawn positions],[default spawn positions],[pop per extra position]
 #Job names must be identical to the title var of each job datum
 #Positions can be set to -1 to allow unlimited slots
-Captain=1,1
-Head of Personnel=1,1
-Head of Security=1,1
-Chief Engineer=1,1
-Research Director=1,1
-Chief Medical Officer=1,1
+#If the pop per extra position is set to 0, then scaling will be disabled and the spawn positions will be at maximum
+#Otherwise at 0 pop, the default spawn positions will spawn, then 1 extra job will be added for every (pop per extra position) people
+#capped at the max spawn positions
+# EXAMPLE:
+# Scientist=8,6,3,20
+# Maximum of 8 scientists can late join
+# At pop of 0 there will be 3 scientists
+# At pop of 20 there will be up to 4 roundstart
+# At pop of 40 there will be up to 5 roundstart
+# At pop of 60+ there will be up to 6 roundstart
+Captain=1,1,1,0
+Head of Personnel=1,1,0,0
+Head of Security=1,1,0,0
+Chief Engineer=1,1,0,0
+Research Director=1,1,0,0
+Chief Medical Officer=1,1,0,0
 
-Assistant=-1,-1
+Assistant=-1,-1,0,0
 
-Quartermaster=1,1
-Cargo Technician=6,4
-Shaft Miner=4,4
+Quartermaster=1,1,0,0
+Cargo Technician=6,4,4,20
+Shaft Miner=3,3,0,0
 
-Bartender=2,1
-Cook=2,1
-Botanist=4,3
-Janitor=3,2
+Bartender=2,1,1,40
+Cook=2,1,0,0
+Botanist=4,3,0,0
+Janitor=3,2,0,0
 
-Clown=1,1
-Mime=1,1
-Curator=1,1
-Lawyer=2,2
+Clown=1,1,0,0
+Mime=1,1,0,0
+Curator=1,1,0,0
+Lawyer=2,2,0,0
 
-Chaplain=1,1
+Chaplain=1,1,0,0
 
-Station Engineer=7,5
-Atmospheric Technician=4,2
+Station Engineer=7,5,2,20
+Atmospheric Technician=4,2,0,0
 
-Medical Doctor=8,6
-Chemist=3,2
-Geneticist=3,2
-Virologist=1,1
+Medical Doctor=8,6,3,20
+Chemist=3,2,0,0
+Geneticist=2,2,0,0
+Virologist=1,1,0,0
 
-Scientist=8,6
-Roboticist=2,2
+Scientist=8,6,3,20
+Roboticist=2,2,0,0
 
-Warden=1,1
-Detective=1,1
-Security Officer=10,8
+Warden=1,1,0,0
+Detective=1,1,0,0
+Security Officer=10,8,2,10
 
-AI=1,1
-Cyborg=1,1
+AI=1,1,0,0
+Cyborg=1,1,0,0
