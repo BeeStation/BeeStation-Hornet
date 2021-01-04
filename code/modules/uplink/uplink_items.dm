@@ -1713,6 +1713,12 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	cost = 8
 	player_minimum = 20
 
+/datum/uplink_item/implants/omniChip
+	name = "OmniChip"
+	desc = "A Skillchip implant which will teach you all skills not related to martial arts. Comes with an autosurgeon."
+	item = /obj/item/autosurgeon/skillChip/omni
+	cost = 8 //Subject to Change before full PR Merge
+
 /datum/uplink_item/implants/antistun
 	name = "CNS Rebooter Implant"
 	desc = "This implant will help you get back up on your feet faster after being stunned. Comes with an autosurgeon."
