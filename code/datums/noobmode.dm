@@ -14,12 +14,8 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		testing(paniced)
-		if(!paniced)
-			if(panicEquip(H))
-				toggle()
-		else
-			if(stowEquipment(H))
-				toggle()
+		if(!paniced && panicEquip(H) || stowEquipment(H))
+			toggle()
 
 
 /datum/action/equipHazard/proc/GatherItems(obj/item/storage/CNT)
