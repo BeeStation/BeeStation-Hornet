@@ -177,10 +177,17 @@
 			hoppingtable = TRUE
 			jumpdistancemoved = i
 			break
-		for(var/atom/movable/A in get_turf(get_step(checkjump, L.dir))) // breaks if there's anything solid in the way, no tripping on tables through walls
+		var/turf/T = get_turf(get_step(checkjump, L.dir))
+		if(T.density == TRUE) // If turf has density (wall), break
+			break
+		var/dense_in_the_way = FALSE
+		for(var/atom/movable/A in T) // breaks if there's anything solid in the way, no tripping on tables through walls
 			to_chat(L, "[A] is being checked, density is [A.density]")
-			if(A.density)
+			if(A.density == TRUE)
+				dense_in_the_way = TRUE
 				break
+		if(dense_in_the_way == TRUE)
+			break
 		checkjump = get_step(checkjump, L.dir)
 
 	if (L.throw_at(target, jumpdistancemoved, jumpspeed, spin = FALSE, diagonals_first = TRUE, force = MOVE_FORCE_WEAK))
