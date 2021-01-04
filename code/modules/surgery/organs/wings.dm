@@ -182,7 +182,6 @@
 			break
 		var/dense_in_the_way = FALSE
 		for(var/atom/movable/A in T) // breaks if there's anything solid in the way, no tripping on tables through walls
-			to_chat(L, "[A] is being checked, density is [A.density]")
 			if(A.density == TRUE)
 				dense_in_the_way = TRUE
 				break

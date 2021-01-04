@@ -58,3 +58,7 @@
 /datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load) // For transformations
 	C.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
 	. = ..()
+
+/datum/species/apid/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	C.mind?.forget_crafting_recipe(/datum/crafting_recipe/honeycomb)
+	. = ..()
