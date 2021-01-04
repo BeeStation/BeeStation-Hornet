@@ -1,6 +1,6 @@
 /obj/structure/fusioncell
 	name = "Fusion Cell"
-	desc = "A simple way to store radioactive energy with many capabilities"
+	desc = "A simple way to store radioactive energy with many capabilities."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "oldshieldoff"
 	density = FALSE
@@ -9,6 +9,7 @@
 	var/emitting = FALSE
 	var/radiation_count = 0
 	var/emittingmount = 0
+	var/i
 	var/datum/looping_sound/geiger/soundloop
 
 
@@ -33,12 +34,10 @@
 			emitting = TRUE
 			update_sound()
 			emittingmount = radiation_count/100
-			for(var/i in range(0, 100))
+			for(var/i in range(0, 100) )
 				if(!emitting)
-					update_sound()
 					return
 				if(radiation_count < 3500)
-					update_sound()
 					visible_message("<span class='warning'>The [src] does not have enough power to continue!!!.</span>",null,null,5)
 					return
 				visible_message("<span class='warning'>The [src] starts to release a pulse of <b>[emittingmount]</b> rads!!!.</span>",null,null,5)
@@ -46,6 +45,7 @@
 				radiation_pulse(src,emittingmount,5,TRUE,TRUE)
 				radiation_count -= emittingmount
 				visible_message("<span class='warning'>The [src] released a pulse of <b>[emittingmount]</b> rads!!!.</span>",null,null,5)
+				continue
 			return
 		else
 			to_chat(user, "You turn the cell off")
@@ -76,10 +76,8 @@
 			return
 
 	/obj/structure/fusioncell/examine(mob/user)
-		. = ..()
-
 		if(emitting)
-			to_chat(user, .+= "<span class='notice'> [src]'s display states that it has stored <b>[radiation_count]</b> rads, and is emitting <b>[emittingmount]</b>.</span>")
+			to_chat(user, "<span class='notice'>[src]'s display states that it has stored <b>[radiation_count]</b> rads, and is emitting <b>[emittingmount]</b>.</span>")
 		else
-			to_chat(user, .+= "<span class='notice'> [src]'s display states that it has stored <b>[radiation_count]</b> rads, and is not emitting.</span>")
+			to_chat(user, "<span class='notice'>[src]'s display states that it has stored <b>[radiation_count]</b> rads, and is not emitting.</span>")
 
