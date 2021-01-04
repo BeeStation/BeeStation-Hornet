@@ -1,0 +1,4 @@
+author: froststahr
+delete-after: true
+changes:
+  - server: Improves extools detection for linux
