@@ -12,7 +12,7 @@
 	var/datum/looping_sound/geiger/soundloop
 
 
-/obj/structure/fusioncell/attackby(obj/item/I, mob/user, params)
+	/obj/structure/fusioncell/attackby(obj/item/I, mob/user, params)
 		if(I.tool_behaviour == TOOL_WRENCH)
 			default_unfasten_wrench(user, I, time = 5)
 		return
@@ -83,5 +83,3 @@
 		else
 			to_chat(user, .+= "<span class='notice'> [src]'s display states that it has stored <b>[radiation_count]</b> rads, and is not emitting.</span>")
 
-	/obj/structure/fusioncell/update_icon()
-		return
