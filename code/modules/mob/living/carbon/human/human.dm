@@ -405,7 +405,7 @@
 				to_chat(usr, "<span class='warning'>ERROR: Unable to locate data core entry for target.</span>")
 				return
 			if(href_list["status"])
-				var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Incarcerated", "Paroled", "Discharged", "Cancel")
+				var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "Arrest", "Search", "Monitor", "Incarcerated", "Paroled", "Discharged", "Cancel")
 				if(setcriminal != "Cancel")
 					if(!R)
 						return
@@ -610,7 +610,7 @@
 		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
-				if("*Arrest*")
+				if("Arrest")
 					threatcount += 5
 				if("Incarcerated")
 					threatcount += 2
