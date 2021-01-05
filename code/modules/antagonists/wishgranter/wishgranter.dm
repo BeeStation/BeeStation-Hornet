@@ -8,6 +8,7 @@
 	var/datum/objective/elimination/highlander/elimination_objective = new
 	elimination_objective.owner = owner
 	objectives += elimination_objective
+	log_objective(owner, elimination_objective.explanation_text)
 
 /datum/antagonist/wishgranter/on_gain()
 	owner.special_role = "Avatar of the Wish Granter"
