@@ -35,7 +35,8 @@
 /obj/item/gun/energy/emp_act(severity)
 	. = ..()
 	if(!(. & EMP_PROTECT_CONTENTS))
-		cell.use(round(cell.charge / severity))
+		cell.use( severity * 1000 )
+		ranged_cooldown = max( ranged_cooldown, world.time + severity * 2 SECONDS)
 		chambered = null //we empty the chamber
 		recharge_newshot() //and try to charge a new shot
 		update_icon()
@@ -97,7 +98,7 @@
 
 /obj/item/gun/energy/attackby(obj/item/A, mob/user, params)
 	. = ..()
-	if (.)
+	if (. || !being_worked_on())
 		return
 	if (!internal_cell && istype(A, /obj/item/stock_parts/cell/gun))
 		var/obj/item/stock_parts/cell/gun/C = A
@@ -121,25 +122,36 @@
 		to_chat(user, "<span class='warning'>You cannot seem to get \the [src] out of your hands!</span>")
 		return FALSE
 
-/obj/item/gun/energy/proc/eject_cell(mob/user, obj/item/stock_parts/cell/gun/tac_load = null)
+/obj/item/gun/energy/proc/eject_cell(mob/user)
 	playsound(src, load_sound, sound_volume, load_sound_vary)
-	cell.forceMove(drop_location())
 	var/obj/item/stock_parts/cell/gun/old_cell = cell
-	if (insert_cell(user, tac_load))
-		to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src].</span>")
-	else
-		to_chat(user, "<span class='warning'>You dropped the old cell, but the new one doesn't fit. How embarassing.</span>")
-		cell = null
-	user.put_in_hands(old_cell)
+	cell = null
 	old_cell.update_icon()
-	to_chat(user, "<span class='notice'>You pull the cell out of \the [src].</span>")
 	update_icon()
+	
+/obj/item/gun/energy/work_on()		
+	var/list/possible_items = list()
 
-/obj/item/gun/energy/attack_hand(mob/user)
-	if(!internal_cell && loc == user && user.is_holding(src) && cell)
-		eject_cell(user)
+	if(can_flashlight && gun_light)
+		LAZYADD(possible_items,gun_light)
+	if(can_bayonet && bayonet)
+		LAZYADD(possible_items,bayonet)
+	if(pin)
+		LAZYADD(possible_items,pin)
+	if(cell)
+		LAZYADD(possible_items,cell)
+	
+	var/obj/item/item_to_remove = input(user, "Select an attachment to remove", "Attachment Removal") as null|obj in possible_items
+	if(!item_to_remove || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
-	return ..()
+	if(I.use_tool(src, user, FIRING_PIN_REMOVAL_DELAY, volume = 50))
+		return remove_gun_attachment(user, I, item_to_remove)
+		
+/obj/item/gun/energy/remove_gun_attachment(mob/living/user, obj/item/tool_item, obj/item/item_to_remove, removal_verb)
+	. = ..()
+	if (item_to_remove == cell)
+		eject_cell(user)
+		return TRUE
 
 /obj/item/gun/energy/can_shoot()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]

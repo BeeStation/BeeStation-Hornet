@@ -215,7 +215,7 @@
 	name = "weapon power cell"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "g-cell"
-	maxcharge = 10000
+	maxcharge = 15000
 	custom_materials = list(/datum/material/glass=60)
 	chargerate = 1500
 
@@ -235,14 +235,38 @@
 	else
 		add_overlay("g-cell-o1")
 
-/obj/item/stock_parts/cell/gun/upgraded
-	name = "upgraded weapon power cell"
+/obj/item/stock_parts/cell/gun/super
+	name = "high capacity weapon power cell"
 	icon_state = "ug-cell"
-	maxcharge = 20000
+	maxcharge = 30000
 	custom_materials = list(/datum/material/glass=300)
-	chargerate = 2000
+	chargerate = 1750
 
-/obj/item/stock_parts/cell/gun/upgraded/empty/Initialize()
+/obj/item/stock_parts/cell/gun/super/empty/Initialize()
+	. = ..()
+	charge = 0
+	update_icon()
+
+/obj/item/stock_parts/cell/gun/hicap
+	name = "high capacity weapon power cell"
+	icon_state = "ug-cell"
+	maxcharge = 40000
+	custom_materials = list(/datum/material/glass=300)
+	chargerate = 1000
+
+/obj/item/stock_parts/cell/gun/hicap/empty/Initialize()
+	. = ..()
+	charge = 0
+	update_icon()
+
+/obj/item/stock_parts/cell/gun/frec
+	name = "fast recharge weapon power cell"
+	icon_state = "ug-cell"
+	maxcharge = 10000
+	custom_materials = list(/datum/material/glass=300)
+	chargerate = 3500
+
+/obj/item/stock_parts/cell/gun/frec/empty/Initialize()
 	. = ..()
 	charge = 0
 	update_icon()

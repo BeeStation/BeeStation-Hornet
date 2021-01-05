@@ -6,6 +6,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	modifystate = 1
 	can_flashlight = TRUE
+	w_class = WEIGHT_CLASS_BULKY
 	ammo_x_offset = 3
 	flight_x_offset = 15
 	flight_y_offset = 10
@@ -58,6 +59,7 @@
 	cell_type = /obj/item/stock_parts/cell/gun{charge = 12000; maxcharge = 12000}
 	icon_state = "hoslaser"
 	force = 10
+	w_class = WEIGHT_CLASS_NORMAL
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
