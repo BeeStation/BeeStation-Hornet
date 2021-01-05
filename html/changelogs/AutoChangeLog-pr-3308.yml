@@ -1,0 +1,4 @@
+author: Froststahr
+delete-after: true
+changes:
+  - bugfix: Emergency shuttle console is now indestructible. Xeno queens rejoice.
