@@ -32,10 +32,8 @@ GLOBAL_LIST_EMPTY(icn_exports)
 	else
 		return payment_account
 
-/obj/item/icn_tagger/attack_hand(mob/user)
-	. = ..()
-	if(.)
-		return
+/obj/item/icn_tagger/attack_self(mob/user)
+	..()
 	add_fingerprint(user)
 
 	//I hate creating UIs, enjoy some popups
@@ -44,7 +42,7 @@ GLOBAL_LIST_EMPTY(icn_exports)
 		to_chat(user, "<span class='warning'>Invalid price! Minimum: $1,000. Maximum: $100,000.</span>")
 		return
 	price = temp_price
-	var/acc_type = alert("Select an account type","Department","Personal","Cancel")
+	var/acc_type = alert(user, "Select an account type", "Account Type", "Department", "Personal", "Cancel")
 	if(acc_type == "Personal")
 		var/temp_acc = input(user, "Insert your account ID.", "Account ID") as null|num
 		if(temp_acc < 111111 || temp_acc > 999999 || !isnum_safe(temp_acc)) // Account IDs are rand(111111, 999999)
@@ -52,7 +50,7 @@ GLOBAL_LIST_EMPTY(icn_exports)
 		else
 			payment_account = temp_acc
 	else if(acc_type == "Department")
-		var/choice = input(user,"Select a department account","Account ID") as null|anything in SSeconomy.department_ids
+		var/choice = input(user, "Select a department account","Account ID") as null|anything in SSeconomy.department_ids
 		if(SSeconomy.department_accounts[choice])
 			payment_account = choice
 
@@ -151,6 +149,9 @@ GLOBAL_LIST_EMPTY(icn_exports)
 			contents += list("type" = "[A.type]", "name" = "[initial(A.name)]") //We're not *super* concerned about any other vars
 
 		qdel(A)
+
+	C.contents = null
+	qdel(C)
 
 	if(notify_seller || !contents.len)
 		//Notify the seller via PDA

@@ -225,6 +225,7 @@
 			"seller_name" = E.seller_name,
 			"price" = E.price,
 			"station_name" = E.station_name,
+			"revision" = GLOB.revdata.commit,
 			"contents" = E.contents)
 
 /datum/world_topic/cross_cargo_buy
