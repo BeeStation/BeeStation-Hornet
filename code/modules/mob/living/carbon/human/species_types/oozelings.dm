@@ -139,9 +139,9 @@
 				H.regenerate_limb(healed_limb)
 				limbs_to_heal -= healed_limb
 				H.blood_volume -= 40
-			to_chat(H, "<span class='warning'>...but there is not enough of you to fix everything! You must attain more mass to heal completely!</span>")
+			to_chat(H, "<span class='warning'>...but there is not enough of you to fix everything! You must attain more blood volume to heal completely!</span>")
 		return
-	to_chat(H, "<span class='warning'>...but there is not enough of you to go around! You must attain more mass to heal!</span>")
+	to_chat(H, "<span class='warning'>...but there is not enough of you to go around! You must attain more blood volume to heal!</span>")
 
 
 /datum/species/oozeling/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
