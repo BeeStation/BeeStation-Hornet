@@ -68,7 +68,7 @@
 /datum/supply_pack/emergency/bio
 	name = "Biological Emergency Crate"
 	desc = "This crate holds 2 full bio suits which will protect you from viruses."
-	cost = 1500
+	cost = 20000
 	contains = list(/obj/item/clothing/head/bio_hood,
 					/obj/item/clothing/head/bio_hood,
 					/obj/item/clothing/suit/bio_suit,
@@ -76,6 +76,8 @@
 					/obj/item/storage/bag/bio,
 					/obj/item/reagent_containers/syringe/antiviral,
 					/obj/item/reagent_containers/syringe/antiviral,
+					/obj/item/reagent_containers/syringe/antiviral,
+					/obj/item/reagent_containers/syringe/panacea,
 					/obj/item/clothing/gloves/color/latex/nitrile,
 					/obj/item/clothing/gloves/color/latex/nitrile)
 	crate_name = "bio suit crate"

@@ -1596,3 +1596,30 @@
 		M.Jitter(5)
 	M.losebreath = 0
 	..()
+
+/datum/reagent/medicine/panacea
+	name = "Panacea"
+	description = "The marvel of modern medicine, a miracle cure capable of curing any and all diseases."
+	reagent_state = LIQUID
+	color = "#CC6666"
+	metabolization_rate = REAGENTS_METABOLISM
+	taste_description = "snake oil"
+	process_flags = ORGANIC
+	overdose_threshold = 10
+	random_unrestricted = FALSE
+
+/datum/reagent/medicine/panacea/overdose_start(mob/living/carbon/L)
+	..()
+	metabolization_rate = 0.75 * REAGENTS_METABOLISM
+	for(var/thing in L.diseases)
+		var/datum/disease/D = thing
+		D.cure(FALSE)
+
+/datum/reagent/medicine/panacea/overdose_process(mob/living/M)
+	if (prob(5))
+		M.Dizzy(3 SECONDS)
+	if (prob(15))
+		M.adjustToxLoss(2, 0)
+	if (prob(30))
+		M.adjustStaminaLoss(5)
+	..()

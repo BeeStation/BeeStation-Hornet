@@ -106,6 +106,7 @@
 	new /obj/item/reagent_containers/food/drinks/bottle/synthflesh(src)
 	new /obj/item/card/id/departmental_budget/med(src)
 	new /obj/item/extrapolator(src)
+	new /obj/item/reagent_containers/syringe/panacea(src)
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control"

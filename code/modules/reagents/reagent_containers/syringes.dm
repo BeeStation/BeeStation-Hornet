@@ -231,6 +231,11 @@
 	desc = "Contains charcoal."
 	list_reagents = list(/datum/reagent/medicine/charcoal = 15)
 
+/obj/item/reagent_containers/syringe/panacea
+	name = "syringe (panacea)"
+	desc = "Contains panacea."
+	list_reagents = list(/datum/reagent/medicine/panacea = 15)
+
 /obj/item/reagent_containers/syringe/antitoxin
 	name = "syringe (antitoxin)"
 	desc = "Contains antitoxin."
