@@ -1602,3 +1602,13 @@ config_setting should be one of the following:
 /proc/get_final_z(atom/A)
 	var/turf/T = get_turf(A)
 	return T ? T.z : A.z
+
+/proc/invertDir(var/input_dir)
+	switch(input_dir)
+		if(UP)
+			return DOWN
+		if(DOWN)
+			return UP
+		if(-INFINITY to 0, 11 to INFINITY)
+			CRASH("Can't turn invalid directions!")
+	return turn(input_dir, 180)

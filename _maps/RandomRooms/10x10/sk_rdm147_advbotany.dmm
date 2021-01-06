@@ -1,0 +1,325 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/turf/open/floor/monotile/steel,
+/area/template_noop)
+"e" = (
+/obj/machinery/hydroponics/constructable,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/monotile/steel,
+/area/template_noop)
+"f" = (
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/door/airlock/maintenance/external/glass,
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/structure/reagent_dispensers/watertank/high,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/glass/bucket,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/monotile/steel,
+/area/template_noop)
+"h" = (
+/obj/machinery/vending/hydroseeds{
+	slogan_delay = 700
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/monotile/steel,
+/area/template_noop)
+"i" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/noslip/dark,
+/area/template_noop)
+"j" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/monotile/steel,
+/area/template_noop)
+"m" = (
+/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/structure/rack,
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/emergency,
+/turf/open/floor/plating,
+/area/template_noop)
+"o" = (
+/obj/item/seeds/glowshroom,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"q" = (
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/monotile/steel,
+/area/template_noop)
+"r" = (
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/template_noop)
+"s" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/monotile/steel,
+/area/template_noop)
+"u" = (
+/obj/machinery/door/airlock/maintenance/external/glass,
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/plating,
+/area/template_noop)
+"w" = (
+/turf/closed/wall,
+/area/template_noop)
+"x" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"A" = (
+/obj/structure/table/wood,
+/obj/item/storage/box/drinkingglasses,
+/turf/open/floor/monotile/steel,
+/area/template_noop)
+"C" = (
+/obj/structure/table/wood,
+/obj/item/storage/box/disks_plantgene,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/monotile/steel,
+/area/template_noop)
+"E" = (
+/obj/structure/grille/broken,
+/turf/open/floor/plating,
+/area/template_noop)
+"G" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/landmark/blobstart,
+/turf/open/floor/monotile/steel,
+/area/template_noop)
+"H" = (
+/obj/structure/closet/firecloset/full,
+/obj/item/storage/box/fakesyndiesuit,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"I" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner,
+/obj/effect/landmark/event_spawn,
+/turf/open/floor/monotile/steel,
+/area/template_noop)
+"J" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/noslip/dark,
+/area/template_noop)
+"K" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/noslip/dark,
+/area/template_noop)
+"L" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/monotile/steel,
+/area/template_noop)
+"M" = (
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/turf/open/floor/plating,
+/area/template_noop)
+"O" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/monotile/steel,
+/area/template_noop)
+"Q" = (
+/obj/effect/spawner/lootdrop/glowstick,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"T" = (
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/template_noop)
+"U" = (
+/obj/structure/table/wood,
+/obj/item/storage/toolbox/mechanical,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/monotile/steel,
+/area/template_noop)
+"V" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/monotile/steel,
+/area/template_noop)
+"X" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/plating,
+/area/template_noop)
+"Y" = (
+/obj/machinery/vending/hydronutrients,
+/turf/open/floor/monotile/steel,
+/area/template_noop)
+"Z" = (
+/obj/machinery/light/small,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+w
+C
+A
+U
+d
+a
+w
+X
+a
+"}
+(2,1,1) = {"
+a
+q
+O
+I
+O
+V
+a
+c
+n
+a
+"}
+(3,1,1) = {"
+a
+i
+e
+J
+e
+K
+Z
+w
+H
+a
+"}
+(4,1,1) = {"
+T
+i
+e
+J
+e
+K
+T
+w
+w
+M
+"}
+(5,1,1) = {"
+a
+L
+s
+G
+s
+j
+T
+E
+a
+a
+"}
+(6,1,1) = {"
+Z
+w
+d
+d
+d
+w
+a
+r
+a
+a
+"}
+(7,1,1) = {"
+a
+w
+g
+Y
+h
+w
+f
+w
+w
+M
+"}
+(8,1,1) = {"
+a
+w
+w
+w
+w
+w
+a
+c
+m
+a
+"}
+(9,1,1) = {"
+a
+E
+x
+u
+Q
+r
+Z
+w
+o
+a
+"}
+(10,1,1) = {"
+a
+r
+a
+w
+T
+E
+a
+c
+a
+a
+"}

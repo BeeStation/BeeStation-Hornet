@@ -250,6 +250,7 @@
 	var/fraction = 1/initial(lifetime)
 	reagents.copy_to(C, fraction*reagents.total_volume)
 	reagents.reaction(M, INGEST, fraction)
+	log_attack("Smoke was breathed in by [M] with reagents [english_list(reagents.reagent_list)] at [AREACOORD(src)]")
 	return 1
 
 

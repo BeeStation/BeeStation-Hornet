@@ -313,7 +313,9 @@ class ChatRenderer {
           }
         }
         // Linkify text
-        linkifyNode(node);
+        if (message.allowLinkify) {
+          linkifyNode(node);
+        }
         // Assign an image error handler
         if (now < message.createdAt + IMAGE_RETRY_MESSAGE_AGE) {
           const imgNodes = node.querySelectorAll('img');
