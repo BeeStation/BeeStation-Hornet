@@ -32,7 +32,7 @@
 	var/clumsy_check = TRUE
 	var/obj/item/ammo_casing/chambered = null
 	trigger_guard = TRIGGER_GUARD_NORMAL	//trigger guard on the weapon, hulks can't fire them with their big meaty fingers
-	var/sawn_desc = null				//description change if weapon is sawn-off
+	var/sawn_desc = null				//description change ifweapon is sawn-off
 	var/sawn_off = FALSE
 	var/burst_size = 1					//how large a burst is
 	var/fire_delay = 0					//rate of fire for burst firing and semi auto
@@ -48,12 +48,12 @@
 
 	var/obj/item/firing_pin/pin = /obj/item/firing_pin //standard firing pin for most guns
 
-	var/can_flashlight = FALSE //if a flashlight can be added or removed if it already has one.
+	var/can_flashlight = FALSE //ifa flashlight can be added or removed ifit already has one.
 	var/obj/item/flashlight/seclite/gun_light
 	var/mutable_appearance/flashlight_overlay
 	var/datum/action/item_action/toggle_gunlight/alight
 
-	var/can_bayonet = FALSE //if a bayonet can be added or removed if it already has one.
+	var/can_bayonet = FALSE //ifa bayonet can be added or removed ifit already has one.
 	var/obj/item/kitchen/knife/bayonet
 	var/mutable_appearance/knife_overlay
 	var/knife_x_offset = 0
@@ -114,14 +114,14 @@
 
 	if(gun_light)
 		. += "It has \a [gun_light] [can_flashlight ? "" : "permanently "]mounted on it."
-		if(can_flashlight) //if it has a light and this is false, the light is permanent.
+		if(can_flashlight) //ifit has a light and this is false, the light is permanent.
 			. += "<span class='info'>[gun_light] looks like it can be <b>unscrewed</b> from [src].</span>"
 	else if(can_flashlight)
 		. += "It has a mounting point for a <b>seclite</b>."
 
 	if(bayonet)
 		. += "It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it."
-		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
+		if(can_bayonet) //ifit has a bayonet and this is false, the bayonet is permanent.
 			. += "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>"
 	else if(can_bayonet)
 		. += "It has a <b>bayonet</b> lug on it."
@@ -129,14 +129,14 @@
 /obj/item/gun/equipped(mob/living/user, slot)
 	. = ..()
 	if(zoomed && user.get_active_held_item() != src)
-		zoom(user, FALSE) //we can only stay zoomed in if it's in our hands	//yeah and we only unzoom if we're actually zoomed using the gun!!
+		zoom(user, FALSE) //we can only stay zoomed in ifit's in our hands	//yeah and we only unzoom ifwe're actually zoomed using the gun!!
 
 //called after the gun has successfully fired its chambered ammo.
 /obj/item/gun/proc/process_chamber()
 	return FALSE
 
-//check if there's enough ammo/energy/whatever to shoot one time
-//i.e if clicking would make it shoot
+//check ifthere's enough ammo/energy/whatever to shoot one time
+//i.e ifclicking would make it shoot
 /obj/item/gun/proc/can_shoot()
 	return TRUE
 
@@ -179,7 +179,7 @@
 		if(target == user && user.zone_selected != BODY_ZONE_PRECISE_MOUTH) //so we can't shoot ourselves (unless mouth selected)
 			return
 
-	if(istype(user))//Check if the user can use the gun, if the user isn't alive(turrets) assume it can.
+	if(istype(user))//Check ifthe user can use the gun, ifthe user isn't alive(turrets) assume it can.
 		var/mob/living/L = user
 		if(!can_trigger_gun(L))
 			return
@@ -196,7 +196,7 @@
 	//Exclude lasertag guns from the TRAIT_CLUMSY check.
 	if(clumsy_check)
 		if(istype(user))
-			if (HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
+			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
 				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with [src]!</span>")
 				var/shot_leg = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 				process_fire(user, user, FALSE, params, shot_leg)
@@ -252,7 +252,7 @@
 			firing_burst = FALSE
 			return FALSE
 	if(chambered && chambered.BB)
-		if(HAS_TRAIT(user, TRAIT_PACIFISM)) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
+		if(HAS_TRAIT(user, TRAIT_PACIFISM)) // ifthe user has the pacifist trait, then they won't be able to fire [src] ifthe round chambered inside of [src] is lethal.
 			if(chambered.harmful) // Is the bullet chambered harmful?
 				to_chat(user, "<span class='notice'> [src] is lethally chambered! You don't want to risk harming anyone...</span>")
 				return
@@ -270,7 +270,7 @@
 				shoot_live_shot(user, 1, target, message)
 			else
 				shoot_live_shot(user, 0, target, message)
-			if (iteration >= burst_size)
+			if(iteration >= burst_size)
 				firing_burst = FALSE
 	else
 		shoot_with_empty_chamber(user)
@@ -301,7 +301,7 @@
 			addtimer(CALLBACK(src, .proc/process_burst, user, target, message, params, zone_override, sprd, randomized_gun_spread, randomized_bonus_spread, rand_spr, i), fire_delay * (i - 1))
 	else
 		if(chambered)
-			if(HAS_TRAIT(user, TRAIT_PACIFISM)) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
+			if(HAS_TRAIT(user, TRAIT_PACIFISM)) // ifthe user has the pacifist trait, then they won't be able to fire [src] ifthe round chambered inside of [src] is lethal.
 				if(chambered.harmful) // Is the bullet chambered harmful?
 					to_chat(user, "<span class='notice'> [src] is lethally chambered! You don't want to risk harming anyone...</span>")
 					return
@@ -391,7 +391,18 @@
 /obj/item/gun/proc/being_worked_on()
 	return (!isturf(src.loc) || !(locate(/obj/structure/rack) in src.loc))
 
-/obj/item/gun/proc/work_on()		
+/obj/item/gun/screwdriver_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(.)
+		return
+	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+		return
+	if(!being_worked_on())	
+		to_chat(user, "<span class='warning'>You only modify the [src] on a weapon crafting table!</span>")
+		return FALSE
+	modify(user,I)
+
+/obj/item/gun/proc/modify(mob/living/user, obj/item/I)	
 	var/list/possible_items = list()
 
 	if(can_flashlight && gun_light)
@@ -406,17 +417,6 @@
 		return
 	if(I.use_tool(src, user, FIRING_PIN_REMOVAL_DELAY, volume = 50))
 		return remove_gun_attachment(user, I, item_to_remove)
-
-/obj/item/gun/screwdriver_act(mob/living/user, obj/item/I)
-	. = ..()
-	if(.)
-		return
-	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
-		return
-	if ( being_worked_on() )	
-		to_chat(user, "<span class='warning'>You only modify the [src] on a weapon crafting table!</span>")
-		return FALSE
-	work_on()
 		
 /obj/item/gun/proc/remove_gun_attachment(mob/living/user, obj/item/tool_item, obj/item/item_to_remove, removal_verb)
 	if(tool_item)
@@ -424,16 +424,16 @@
 	to_chat(user, "<span class='notice'>You [removal_verb ? removal_verb : "remove"] [item_to_remove] from [src].</span>")
 	item_to_remove.forceMove(drop_location())
 
-	if (Adjacent(user) && !issilicon(user))
-		put_in_hands(item_to_remove)
+	if(Adjacent(user) && !issilicon(user))
+		user.put_in_hands(item_to_remove)
 
 	if(item_to_remove == bayonet)
 		return clear_bayonet()
-	else if(item_to_remove == gun_light)
+	if(item_to_remove == gun_light)
 		return clear_gunlight()
-	else if(item_to_remove == pin)
+	if(item_to_remove == pin)
 		QDEL_NULL(pin)
-		return TRUE
+	return TRUE
 
 /obj/item/gun/proc/clear_bayonet()
 	if(!bayonet)

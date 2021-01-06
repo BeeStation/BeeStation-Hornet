@@ -19,7 +19,8 @@
 	icon_state = "laser"
 	item_state = "armcannonlase"
 	force = 5
-	selfcharge = 1
+	cell_type = /obj/item/stock_parts/cell/gun/rechargeable
+	internal_cell = TRUE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
 /obj/item/gun/energy/laser/mounted/dropped()

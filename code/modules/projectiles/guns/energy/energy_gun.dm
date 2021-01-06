@@ -103,7 +103,8 @@
 	internal_cell = TRUE
 	ammo_x_offset = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/disabler)
-	selfcharge = 1
+	cell_type = /obj/item/stock_parts/cell/gun/rechargeable
+	internal_cell = TRUE
 	var/reactor_overloaded
 	var/fail_tick = 0
 	var/fail_chance = 0

@@ -52,7 +52,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/flora/yield, /obj/item/ammo_casing/energy/flora/mut)
 	modifystate = 1
 	ammo_x_offset = 1
-	selfcharge = 1
+	cell_type = /obj/item/stock_parts/cell/gun/rechargeable
+	internal_cell = TRUE
 
 /obj/item/gun/energy/meteorgun
 	name = "meteor gun"
@@ -61,9 +62,9 @@
 	item_state = "c20r"
 	w_class = WEIGHT_CLASS_BULKY
 	ammo_type = list(/obj/item/ammo_casing/energy/meteor)
-	cell_type = "/obj/item/stock_parts/cell/potato"
+	cell_type = /obj/item/stock_parts/cell/gun/rechargeable
+	internal_cell = TRUE
 	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
-	selfcharge = 1
 
 /obj/item/gun/energy/meteorgun/pen
 	name = "meteor pen"
@@ -307,7 +308,7 @@
 	icon_state = "freezegun"
 	desc = "A gun that changes temperatures."
 	ammo_type = list(/obj/item/ammo_casing/energy/temp, /obj/item/ammo_casing/energy/temp/hot)
-	cell_type = /obj/item/stock_parts/cell/gun/upgraded
+	cell_type = /obj/item/stock_parts/cell/gun/super
 	pin = null
 
 /obj/item/gun/energy/temperature/security

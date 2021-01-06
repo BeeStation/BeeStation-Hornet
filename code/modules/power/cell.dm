@@ -65,17 +65,6 @@
 	else
 		add_overlay("cell-o1")
 
-/obj/item/stock_parts/cell/gun/update_icon()
-	cut_overlays()
-	if(grown_battery)
-		add_overlay(image('icons/obj/power.dmi',"grown_wires"))
-	if(charge < 0.01)
-		return
-	else if(charge/maxcharge >=0.995)
-		add_overlay("g-cell-o2")
-	else
-		add_overlay("g-cell-o1")
-
 /obj/item/stock_parts/cell/proc/percent()		// return % charge of cell
 	return 100*charge/maxcharge
 
@@ -200,108 +189,6 @@
 	desc = "A power cell with an even higher capacity than the base model!"
 	maxcharge = 5000
 
-/obj/item/stock_parts/cell/secborg
-	name = "security borg rechargeable D battery"
-	maxcharge = 6000	//6000 max charge / 1000 charge per shot = six shots
-	custom_materials = list(/datum/material/glass=40)
-
-/obj/item/stock_parts/cell/secborg/empty/Initialize()
-	. = ..()
-	charge = 0
-	update_icon()
-
-
-/obj/item/stock_parts/cell/gun
-	name = "weapon power cell"
-	icon = 'icons/obj/power.dmi'
-	icon_state = "g-cell"
-	maxcharge = 10000
-	custom_materials = list(/datum/material/glass=60)
-	chargerate = 1500
-
-/obj/item/stock_parts/cell/gun/empty/Initialize()
-	. = ..()
-	charge = 0
-	update_icon()
-
-/obj/item/stock_parts/cell/gun/update_icon()
-	cut_overlays()
-	if(grown_battery)
-		. += mutable_appearance('icons/obj/power.dmi', "grown_wires")
-	if(charge < 0.01)
-		return
-	else if(charge/maxcharge >=0.995)
-		add_overlay("g-cell-o2")
-	else
-		add_overlay("g-cell-o1")
-
-/obj/item/stock_parts/cell/gun/super
-	name = "high capacity weapon power cell"
-	icon_state = "ug-cell"
-	maxcharge = 20000
-	custom_materials = list(/datum/material/glass=300)
-	chargerate = 1750
-
-/obj/item/stock_parts/cell/gun/super/empty/Initialize()
-	. = ..()
-	charge = 0
-	update_icon()
-
-/obj/item/stock_parts/cell/gun/hicap
-	name = "high capacity weapon power cell"
-	icon_state = "ug-cell"
-	maxcharge = 35000
-	custom_materials = list(/datum/material/glass=300)
-	chargerate = 1000
-
-/obj/item/stock_parts/cell/gun/hicap/empty/Initialize()
-	. = ..()
-	charge = 0
-	update_icon()
-
-/obj/item/stock_parts/cell/gun/frec
-	name = "fast recharge weapon power cell"
-	icon_state = "ug-cell"
-	maxcharge = 10000
-	custom_materials = list(/datum/material/glass=300)
-	chargerate = 3500
-
-/obj/item/stock_parts/cell/gun/frec/empty/Initialize()
-	. = ..()
-	charge = 0
-	update_icon()
-
-/obj/item/stock_parts/cell/gun/mini
-	name = "miniature weapon power cell"
-	icon_state = "mg-cell"
-	maxcharge = 50000
-	custom_materials = list(/datum/material/glass=300)
-	chargerate = 1000
-
-/obj/item/stock_parts/cell/gun/mini/empty/Initialize()
-	. = ..()
-	charge = 0
-	update_icon()
-
-/obj/item/stock_parts/cell/gun/mini/update_icon()
-	cut_overlays()
-	if(grown_battery)
-		. += mutable_appearance('icons/obj/power.dmi', "grown_wires")
-	if(charge < 0.01)
-		return
-	else if(charge/maxcharge >=0.995)
-		add_overlay("mg-cell-o2")
-	else
-		add_overlay("mg-cell-o1")
-
-/obj/item/stock_parts/cell/pulse/carbine //25 pulse shots
-	name = "pulse carbine power cell"
-	maxcharge = 50000
-
-/obj/item/stock_parts/cell/pulse/pistol //10 pulse shots
-	name = "pulse pistol power cell"
-	maxcharge = 20000
-
 /obj/item/stock_parts/cell/high
 	name = "high-capacity power cell"
 	icon_state = "hcell"
@@ -380,7 +267,6 @@
 /obj/item/stock_parts/cell/infinite/abductor/update_icon()
 	return
 
-
 /obj/item/stock_parts/cell/potato
 	name = "potato battery"
 	desc = "A rechargeable starch based power cell."
@@ -445,3 +331,135 @@
 	var/area/A = get_area(src)
 	if(!A.lightswitch || !A.light_power)
 		charge = 0 //For naturally depowered areas, we start with no power
+
+//	---------------------
+//		GUN CELLS
+//	---------------------
+
+/obj/item/stock_parts/cell/secborg
+	name = "security borg rechargeable D battery"
+	maxcharge = 600	
+	custom_materials = list(/datum/material/glass=40)
+
+/obj/item/stock_parts/cell/secborg/empty/Initialize()
+	. = ..()
+	charge = 0
+	update_icon()
+
+/obj/item/stock_parts/cell/gun
+	name = "weapon power cell"
+	icon = 'icons/obj/power.dmi'
+	icon_state = "g-cell"
+	maxcharge = 2000
+	custom_materials = list(/datum/material/glass=60)
+	chargerate = 150
+	var/wired = FALSE
+
+/obj/item/stock_parts/cell/gun/update_icon()
+	cut_overlays()
+	if(grown_battery)
+		add_overlay(image('icons/obj/power.dmi',"grown_wires"))
+	if(charge < 0.01)
+		return
+	else if(charge/maxcharge >=0.995)
+		add_overlay("g-cell-o2")
+	else
+		add_overlay("g-cell-o1")
+
+/obj/item/stock_parts/cell/gun/empty/Initialize()
+	. = ..()
+	charge = 0
+	update_icon()
+	
+/obj/item/stock_parts/cell/gun/rechargeable
+	self_recharge = 100
+	
+/obj/item/stock_parts/cell/pulse/carbine //25 pulse shots
+	name = "pulse carbine power cell"
+	maxcharge = 5000
+
+/obj/item/stock_parts/cell/pulse/pistol //10 pulse shots
+	name = "pulse pistol power cell"
+	maxcharge = 2000
+
+/obj/item/stock_parts/cell/gun/update_icon()
+	cut_overlays()
+	if(grown_battery)
+		. += mutable_appearance('icons/obj/power.dmi', "grown_wires")
+	if(charge < 0.01)
+		return
+	else if(charge/maxcharge >=0.995)
+		add_overlay("g-cell-o2")
+	else
+		add_overlay("g-cell-o1")
+
+/obj/item/stock_parts/cell/gun/super
+	name = "improved weapon power cell"
+	maxcharge = 3000
+	custom_materials = list(/datum/material/glass=300)
+	chargerate = 175
+
+/obj/item/stock_parts/cell/gun/super/empty/Initialize()
+	. = ..()
+	charge = 0
+	update_icon()
+
+/obj/item/stock_parts/cell/gun/hicap
+	name = "high capacity weapon power cell"
+	icon_state = "ug-cell"
+	maxcharge = 5000
+	custom_materials = list(/datum/material/glass=300)
+	chargerate = 100
+
+/obj/item/stock_parts/cell/gun/hicap/empty/Initialize()
+	. = ..()
+	charge = 0
+	update_icon()
+
+/obj/item/stock_parts/cell/gun/frec
+	name = "fast recharge weapon power cell"
+	icon_state = "ug-cell"
+	maxcharge = 2000
+	custom_materials = list(/datum/material/glass=300)
+	chargerate = 400
+
+/obj/item/stock_parts/cell/gun/frec/empty/Initialize()
+	. = ..()
+	charge = 0
+	update_icon()
+
+/obj/item/stock_parts/cell/gun/mini
+	name = "compact weapon power cell"
+	icon_state = "mg-cell"
+	maxcharge = 5000
+	custom_materials = list(/datum/material/glass=300)
+	chargerate = 100
+
+/obj/item/stock_parts/cell/gun/mini/empty/Initialize()
+	. = ..()
+	charge = 0
+	update_icon()
+
+/obj/item/stock_parts/cell/gun/mini/update_icon()
+	cut_overlays()
+	if(grown_battery)
+		. += mutable_appearance('icons/obj/power.dmi', "grown_wires")
+	if(charge < 0.01)
+		return
+	else if(charge/maxcharge >=0.995)
+		add_overlay("mg-cell-o2")
+	else
+		add_overlay("mg-cell-o1")
+
+
+/obj/item/stock_parts/cell/gun/atech
+	name = "alien battery"
+	maxcharge = 1000
+	custom_materials = list(/datum/material/glass=60)
+	chargerate = 50
+	
+/obj/item/stock_parts/cell/gun/mini/atech
+	name = "compact alien battery"
+	custom_materials = list(/datum/material/glass=300)
+	maxcharge = 1000
+	self_recharge = 200

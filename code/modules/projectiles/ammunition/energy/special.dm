@@ -26,7 +26,7 @@
 /obj/item/ammo_casing/energy/temp
 	projectile_type = /obj/item/projectile/temp
 	select_name = "freeze"
-	e_cost = 2500
+	e_cost = 250
 	fire_sound = 'sound/weapons/pulse3.ogg'
 
 /obj/item/ammo_casing/energy/temp/hot
@@ -36,7 +36,7 @@
 /obj/item/ammo_casing/energy/meteor
 	projectile_type = /obj/item/projectile/meteor
 	select_name = "goddamn meteor"
-	e_cost = 100
+	e_cost = 1000
 
 /obj/item/ammo_casing/energy/net
 	projectile_type = /obj/item/projectile/energy/net
@@ -63,6 +63,6 @@
 
 /obj/item/ammo_casing/energy/tesla_revolver
 	fire_sound = 'sound/magic/lightningbolt.ogg'
-	e_cost = 2000
+	e_cost = 200
 	select_name = "stun"
 	projectile_type = /obj/item/projectile/energy/tesla/revolver

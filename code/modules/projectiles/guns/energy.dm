@@ -15,7 +15,6 @@
 	ammo_x_offset = 2
 	var/shaded_charge = FALSE //if this gun uses a stateful charge bar for more detail
 	var/old_ratio = 0 // stores the gun's previous ammo "ratio" to see if it needs an updated icon
-	var/selfcharge = 0
 	var/charge_tick = 0
 	var/charge_delay = 4
 	var/use_cyborg_cell = FALSE //whether the gun's cell drains the cyborg user's cell to recharge
@@ -23,8 +22,7 @@
 
 	//Weapon Power Cells
 	var/internal_cell = FALSE ///if the gun's cell cannot be replaced
-	var/small_gun = FALSE ///if the gun is small and can only fit batteries that have less than a certain max charge
-	var/max_charge = 10000 ///if the gun is small, this is the highest amount of charge can be in a battery for it
+	var/small_gun = FALSE
 
 	var/load_sound = 'sound/weapons/gun_magazine_insert_full_3.ogg' //Sound when inserting magazine. 
 	var/eject_sound = 'sound/weapons/gun_magazine_remove_empty_2.ogg' //Sound of ejecting a cell. 
@@ -81,12 +79,11 @@
 	return ..()
 
 /obj/item/gun/energy/process()
-	if(selfcharge && cell && cell.percent() < 100)
+	if(cell && cell.chargerate && cell.percent() < 100)
 		charge_tick++
 		if(charge_tick < charge_delay)
 			return
 		charge_tick = 0
-		cell.give(100)
 		if(!chambered) //if empty chamber we try to charge a new shot
 			recharge_newshot(TRUE)
 		update_icon()
@@ -98,9 +95,11 @@
 
 /obj/item/gun/energy/attackby(obj/item/A, mob/user, params)
 	. = ..()
-	if (. || !being_worked_on())
+	if(. || !being_worked_on())
 		return
-	if (!internal_cell && istype(A, /obj/item/stock_parts/cell/gun))
+	if (internal_cell)
+		to_chat(user, "<span class='notice'>The powercell of [src] cannot be modifierd.</span>")
+	if(istype(A, /obj/item/stock_parts/cell/gun))
 		var/obj/item/stock_parts/cell/gun/C = A
 		if (!cell)
 			insert_cell(user, C)
@@ -129,7 +128,7 @@
 	old_cell.update_icon()
 	update_icon()
 	
-/obj/item/gun/energy/work_on()		
+/obj/item/gun/energy/modify(mob/living/user, obj/item/I)	
 	var/list/possible_items = list()
 
 	if(can_flashlight && gun_light)
@@ -138,7 +137,7 @@
 		LAZYADD(possible_items,bayonet)
 	if(pin)
 		LAZYADD(possible_items,pin)
-	if(cell)
+	if(cell && !internal_cell)
 		LAZYADD(possible_items,cell)
 	
 	var/obj/item/item_to_remove = input(user, "Select an attachment to remove", "Attachment Removal") as null|obj in possible_items
