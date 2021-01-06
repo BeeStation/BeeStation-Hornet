@@ -58,8 +58,8 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/gun_cell
-	name = "Weapon Power Cell"
-	desc = "A a reinforced cell capable of releaseing short, high intensity electricity bursts without exploding."
+	name = "Weapon Power Supply"
+	desc = "A reinforced cell capable of releaseing short, high intensity electricity bursts without exploding. Suitable for enery guns."
 	id = "gun_cell"
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(/datum/material/iron = 700, /datum/material/glass = 70)
@@ -69,8 +69,8 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/gun_cell/mini
-	name = "compact Weapon Power Cell"
-	desc = "A a reinforced cell capable of releaseing short, high intensity electricity bursts without exploding."
+	name = "Compact Power Supply"
+	desc = "A compact power supply, more suitable for smaller energy guns."
 	id = "gun_cell_m"
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 40)
@@ -80,7 +80,7 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/gun_cell/super
-	name = "improved Weapon Power Cell"
+	name = "Improved Power Supply"
 	desc = "A improved weapon power cell, with larger capacity and higher charge rate."
 	id = "gun_cell_u"
 	build_type = PROTOLATHE
@@ -91,7 +91,7 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/gun_cell/hicap
-	name = "high capacity Weapon Power Cell"
+	name = "High Capacity Power Supply"
 	desc = "A weapon power cell that can hold large amounts of electricity, but charges at a slower rate."
 	id = "gun_cell_h"
 	build_type = PROTOLATHE
@@ -102,8 +102,8 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/gun_cell/frec
-	name = "fast recharge Weapon Power Cell"
-	desc = "A weapon power cell that can charge faster, but cannot store as much energy."
+	name = "Fast Recharge Power Supply"
+	desc = "A weapon power cell that can recharge faster, but cannot store as much energy."
 	id = "gun_cell_r"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 700, /datum/material/gold = 150, /datum/material/glass = 80)
@@ -113,22 +113,22 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/gun_cell/atec
-	name = "fast recharge Weapon Power Cell"
-	desc = "A weapon power cell that can charge faster, but cannot store as much energy."
+	name = "Alien Tech Power Supply"
+	desc = "A weapon power cell designed with alien materials. This power cell is capable of charging power on its own."
 	id = "gun_cell_atec"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 700, /datum/material/gold = 150, /datum/material/glass = 80)
+	materials = list(/datum/material/plastic = 2500, /datum/material/plasma = 2000)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/gun/hicap/empty
 	category = list("Misc","Power Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/gun_cell/atec_mini
-	name = "fast recharge Weapon Power Cell"
-	desc = "A weapon power cell that can charge faster, but cannot store as much energy."
+	name = "Compact Alien Tech Power Supply"
+	desc = "A compatct version of the Alien Tech Power Supply, capable of fitting inside energy pistols."
 	id = "gun_cell_atec_mini"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 700, /datum/material/gold = 150, /datum/material/glass = 80)
+	materials = list(/datum/material/plastic = 1500, /datum/material/plasma = 2000)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/gun/hicap/empty
 	category = list("Misc","Power Designs")

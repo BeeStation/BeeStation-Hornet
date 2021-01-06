@@ -362,14 +362,14 @@
 
 /obj/item/stock_parts/cell/secborg
 	name = "security borg rechargeable D battery"
-	maxcharge = 600	
+	maxcharge = 600
 	custom_materials = list(/datum/material/glass=40)
 
 /obj/item/stock_parts/cell/secborg/empty/Initialize()
 	. = ..()
 	charge = 0
 	update_icon()
-	
+
 /obj/item/stock_parts/cell/pulse/carbine //25 pulse shots
 	name = "pulse carbine power cell"
 	maxcharge = 5000
@@ -383,8 +383,8 @@
 //	---------------------
 
 /obj/item/stock_parts/cell/gun
-	name = "weapon power cell"
-	dest = "a reinforced cell capable of releaseing short, high intensity electricity bursts without exploding."
+	name = "power supply"
+	desc = "a reinforced cell capable of releaseing short, high intensity electricity bursts without exploding."
 	icon = 'icons/obj/power.dmi'
 	icon_state = "g-cell"
 	maxcharge = 2000
@@ -418,12 +418,12 @@
 		add_overlay("g-cell-o2")
 	else
 		add_overlay("g-cell-o1")
-	
+
 /obj/item/stock_parts/cell/gun/rechargeable
 	self_recharge = 100
 
 /obj/item/stock_parts/cell/gun/super
-	name = "improved weapon power cell"
+	name = "improved power supply"
 	maxcharge = 3000
 	custom_materials = list(/datum/material/glass=300)
 	chargerate = 175
@@ -434,7 +434,7 @@
 	update_icon()
 
 /obj/item/stock_parts/cell/gun/hicap
-	name = "high capacity weapon power cell"
+	name = "high capacity power supply"
 	icon_state = "ug-cell"
 	maxcharge = 5000
 	custom_materials = list(/datum/material/glass=300)
@@ -446,7 +446,7 @@
 	update_icon()
 
 /obj/item/stock_parts/cell/gun/frec
-	name = "fast recharge weapon power cell"
+	name = "fast recharge power supply"
 	icon_state = "ug-cell"
 	maxcharge = 2000
 	custom_materials = list(/datum/material/glass=300)
@@ -458,7 +458,7 @@
 	update_icon()
 
 /obj/item/stock_parts/cell/gun/mini
-	name = "compact weapon power cell"
+	name = "compact power supply"
 	icon_state = "mg-cell"
 	custom_materials = list(/datum/material/glass=300)
 	maxcharge = 600
@@ -482,13 +482,13 @@
 
 
 /obj/item/stock_parts/cell/gun/atech
-	name = "alien battery"
+	name = "alien power supply"
 	maxcharge = 1000
 	custom_materials = list(/datum/material/glass=60)
 	self_recharge = 100
-	
+
 /obj/item/stock_parts/cell/gun/mini/atech
-	name = "compact alien battery"
+	name = "compact alien power supply"
 	custom_materials = list(/datum/material/glass=300)
 	maxcharge = 300
 	self_recharge = 100
