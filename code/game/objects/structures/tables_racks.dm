@@ -649,7 +649,7 @@
 	name = "weaponsmith"
 	desc = "For easy gun crafting and customization."
 	max_integrity = 100
-	icon_state = "abed"	//temp
+	icon_state = "weaponsmith"
 	
 /obj/structure/rack/smith/deconstruct(disassembled = TRUE)
 	if(!(flags_1&NODECONSTRUCT_1))
@@ -667,7 +667,7 @@
 	name = "weaponsmith parts"
 	desc = "Damn space IKEA and their build-your-own furniture!"
 	icon = 'icons/obj/items_and_weapons.dmi'
-	icon_state = "table_parts"
+	icon_state = "weaponsmith"
 	flags_1 = CONDUCT_1
 	materials = list(/datum/material/iron=2000)
 	var/building = FALSE
