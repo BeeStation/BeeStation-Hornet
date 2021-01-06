@@ -153,7 +153,3 @@
 		H.blood_volume -= 25
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
-
-
-
-/datum/action/oozling/regenerate_limb
