@@ -127,17 +127,19 @@
 		return
 	to_chat(H, "<span class='notice'>You focus intently on your missing [limbs_to_heal.len >= 2 ? "limbs" : "limb"]...</span>")
 	if(H.blood_volume >= 40*limbs_to_heal.len+BLOOD_VOLUME_OKAY)
-		H.regenerate_limbs()
-		H.blood_volume -= 40*limbs_to_heal.len
-		to_chat(H, "<span class='notice'>...and after a moment you finish reforming!</span>")
+		if(do_after(H, 60, target = H))
+			H.regenerate_limbs()
+			H.blood_volume -= 40*limbs_to_heal.len
+			to_chat(H, "<span class='notice'>...and after a moment you finish reforming!</span>")
 		return
 	else if(H.blood_volume >= 40)//We can partially heal some limbs
 		while(H.blood_volume >= BLOOD_VOLUME_OKAY+40 && LAZYLEN(limbs_to_heal))
-			var/healed_limb = pick(limbs_to_heal)
-			H.regenerate_limb(healed_limb)
-			limbs_to_heal -= healed_limb
-			H.blood_volume -= 40
-		to_chat(H, "<span class='warning'>...but there is not enough of you to fix everything! You must attain more mass to heal completely!</span>")
+			if(do_after(H, 30, target = H))
+				var/healed_limb = pick(limbs_to_heal)
+				H.regenerate_limb(healed_limb)
+				limbs_to_heal -= healed_limb
+				H.blood_volume -= 40
+			to_chat(H, "<span class='warning'>...but there is not enough of you to fix everything! You must attain more mass to heal completely!</span>")
 		return
 	to_chat(H, "<span class='warning'>...but there is not enough of you to go around! You must attain more mass to heal!</span>")
 
@@ -151,3 +153,7 @@
 		H.blood_volume -= 25
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
+
+
+
+/datum/action/oozling/regenerate_limb
