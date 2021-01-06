@@ -139,7 +139,7 @@
 	display_name = "Advanced Circuit Research"
 	description = "Advanced designs that expand the possibilities of modular circuits."
 	prereq_ids = list("circuitresearch")
-	design_ids = list("icupgadv", "icupgclo")
+	design_ids = list("icupgadv") //Removed the cloning upgrade "icupgclo" temporarily
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
