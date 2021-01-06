@@ -215,7 +215,7 @@
 	name = "weapon power cell"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "g-cell"
-	maxcharge = 15000
+	maxcharge = 10000
 	custom_materials = list(/datum/material/glass=60)
 	chargerate = 1500
 
@@ -238,7 +238,7 @@
 /obj/item/stock_parts/cell/gun/super
 	name = "high capacity weapon power cell"
 	icon_state = "ug-cell"
-	maxcharge = 30000
+	maxcharge = 20000
 	custom_materials = list(/datum/material/glass=300)
 	chargerate = 1750
 
@@ -250,7 +250,7 @@
 /obj/item/stock_parts/cell/gun/hicap
 	name = "high capacity weapon power cell"
 	icon_state = "ug-cell"
-	maxcharge = 40000
+	maxcharge = 35000
 	custom_materials = list(/datum/material/glass=300)
 	chargerate = 1000
 
