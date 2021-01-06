@@ -647,7 +647,7 @@
  */
 /obj/structure/rack/smith
 	name = "weaponsmith"
-	desc = "Different from the Middle Ages version."
+	desc = "For easy gun crafting and customization."
 	max_integrity = 100
 	icon_state = "abed"	//temp
 	

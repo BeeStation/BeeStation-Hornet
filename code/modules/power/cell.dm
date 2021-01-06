@@ -359,10 +359,6 @@
 	if(!A.lightswitch || !A.light_power)
 		charge = 0 //For naturally depowered areas, we start with no power
 
-//	---------------------
-//		GUN CELLS
-//	---------------------
-
 /obj/item/stock_parts/cell/secborg
 	name = "security borg rechargeable D battery"
 	maxcharge = 600	
@@ -372,9 +368,22 @@
 	. = ..()
 	charge = 0
 	update_icon()
+	
+/obj/item/stock_parts/cell/pulse/carbine //25 pulse shots
+	name = "pulse carbine power cell"
+	maxcharge = 5000
+
+/obj/item/stock_parts/cell/pulse/pistol //10 pulse shots
+	name = "pulse pistol power cell"
+	maxcharge = 2000
+
+//	---------------------
+//		GUN CELLS
+//	---------------------
 
 /obj/item/stock_parts/cell/gun
 	name = "weapon power cell"
+	dest = "a reinforced cell capable of releaseing short, high intensity electricity bursts without exploding."
 	icon = 'icons/obj/power.dmi'
 	icon_state = "g-cell"
 	maxcharge = 2000
@@ -397,17 +406,6 @@
 	. = ..()
 	charge = 0
 	update_icon()
-	
-/obj/item/stock_parts/cell/gun/rechargeable
-	self_recharge = 100
-	
-/obj/item/stock_parts/cell/pulse/carbine //25 pulse shots
-	name = "pulse carbine power cell"
-	maxcharge = 5000
-
-/obj/item/stock_parts/cell/pulse/pistol //10 pulse shots
-	name = "pulse pistol power cell"
-	maxcharge = 2000
 
 /obj/item/stock_parts/cell/gun/update_icon()
 	cut_overlays()
@@ -419,6 +417,9 @@
 		add_overlay("g-cell-o2")
 	else
 		add_overlay("g-cell-o1")
+	
+/obj/item/stock_parts/cell/gun/rechargeable
+	self_recharge = 100
 
 /obj/item/stock_parts/cell/gun/super
 	name = "improved weapon power cell"
@@ -458,7 +459,6 @@
 /obj/item/stock_parts/cell/gun/mini
 	name = "compact weapon power cell"
 	icon_state = "mg-cell"
-	maxcharge = 5000
 	custom_materials = list(/datum/material/glass=300)
 	chargerate = 100
 
@@ -481,12 +481,12 @@
 
 /obj/item/stock_parts/cell/gun/atech
 	name = "alien battery"
-	maxcharge = 1000
+	maxcharge = 2000
 	custom_materials = list(/datum/material/glass=60)
-	chargerate = 50
+	chargerate = 100
 	
 /obj/item/stock_parts/cell/gun/mini/atech
 	name = "compact alien battery"
 	custom_materials = list(/datum/material/glass=300)
 	maxcharge = 1000
-	self_recharge = 200
+	self_recharge = 333

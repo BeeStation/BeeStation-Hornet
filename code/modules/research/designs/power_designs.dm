@@ -24,17 +24,6 @@
 	category = list("Misc","Power Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
-/datum/design/gun_cell
-	name = "Weapon Power Cell"
-	desc = "A power cell for weapons holds 10 MJ of energy."
-	id = "gun_cell"
-	build_type = PROTOLATHE | AUTOLATHE
-	materials = list(/datum/material/iron = 700, /datum/material/glass = 70)
-	construction_time=100
-	build_path = /obj/item/stock_parts/cell/gun/empty
-	category = list("Misc","Power Designs")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SECURITY
-
 /datum/design/super_cell
 	name = "Super-Capacity Power Cell"
 	desc = "A power cell that holds 20 MJ of energy."
@@ -45,17 +34,6 @@
 	build_path = /obj/item/stock_parts/cell/super/empty
 	category = list("Misc","Power Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
-
-/datum/design/gun_cell/upgraded
-	name = "Upgraded Weapon Power Cell"
-	desc = "A upgraded power cell for weapons holds 20 MJ of energy."
-	id = "gun_cell_upgraded"
-	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 700, /datum/material/gold = 150, /datum/material/silver = 150, /datum/material/glass = 80)
-	construction_time=100
-	build_path = /obj/item/stock_parts/cell/gun/upgraded/empty
-	category = list("Misc","Power Designs")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/hyper_cell
 	name = "Hyper-Capacity Power Cell"
@@ -78,6 +56,83 @@
 	build_path = /obj/item/stock_parts/cell/bluespace/empty
 	category = list("Misc","Power Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/gun_cell
+	name = "Weapon Power Cell"
+	desc = "A a reinforced cell capable of releaseing short, high intensity electricity bursts without exploding."
+	id = "gun_cell"
+	build_type = PROTOLATHE | AUTOLATHE
+	materials = list(/datum/material/iron = 700, /datum/material/glass = 70)
+	construction_time=100
+	build_path = /obj/item/stock_parts/cell/gun/empty
+	category = list("Misc","Power Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/gun_cell/mini
+	name = "compact Weapon Power Cell"
+	desc = "A a reinforced cell capable of releaseing short, high intensity electricity bursts without exploding."
+	id = "gun_cell_m"
+	build_type = PROTOLATHE | AUTOLATHE
+	materials = list(/datum/material/iron = 500, /datum/material/glass = 40)
+	construction_time=100
+	build_path = /obj/item/stock_parts/cell/gun/mini/empty
+	category = list("Misc","Power Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/gun_cell/super
+	name = "improved Weapon Power Cell"
+	desc = "A improved weapon power cell, with larger capacity and higher charge rate."
+	id = "gun_cell_u"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 700, /datum/material/plasma = 300, /datum/material/glass = 80)
+	construction_time=100
+	build_path = /obj/item/stock_parts/cell/gun/super/empty
+	category = list("Misc","Power Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/gun_cell/hicap
+	name = "high capacity Weapon Power Cell"
+	desc = "A weapon power cell that can hold large amounts of electricity, but charges at a slower rate."
+	id = "gun_cell_h"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 700, /datum/material/uranium = 150, /datum/material/glass = 80)
+	construction_time=100
+	build_path = /obj/item/stock_parts/cell/gun/hicap/empty
+	category = list("Misc","Power Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/gun_cell/frec
+	name = "fast recharge Weapon Power Cell"
+	desc = "A weapon power cell that can charge faster, but cannot store as much energy."
+	id = "gun_cell_r"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 700, /datum/material/gold = 150, /datum/material/glass = 80)
+	construction_time=100
+	build_path = /obj/item/stock_parts/cell/gun/hicap/empty
+	category = list("Misc","Power Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/gun_cell/atec
+	name = "fast recharge Weapon Power Cell"
+	desc = "A weapon power cell that can charge faster, but cannot store as much energy."
+	id = "gun_cell_a"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 700, /datum/material/gold = 150, /datum/material/glass = 80)
+	construction_time=100
+	build_path = /obj/item/stock_parts/cell/gun/hicap/empty
+	category = list("Misc","Power Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/gun_cell/atec_mini
+	name = "fast recharge Weapon Power Cell"
+	desc = "A weapon power cell that can charge faster, but cannot store as much energy."
+	id = "gun_cell_a"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 700, /datum/material/gold = 150, /datum/material/glass = 80)
+	construction_time=100
+	build_path = /obj/item/stock_parts/cell/gun/hicap/empty
+	category = list("Misc","Power Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/light_replacer
 	name = "Light Replacer"
