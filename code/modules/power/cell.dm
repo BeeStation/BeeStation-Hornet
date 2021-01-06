@@ -460,6 +460,7 @@
 	name = "compact weapon power cell"
 	icon_state = "mg-cell"
 	custom_materials = list(/datum/material/glass=300)
+	maxcharge = 600
 	chargerate = 100
 
 /obj/item/stock_parts/cell/gun/mini/empty/Initialize()
@@ -481,12 +482,12 @@
 
 /obj/item/stock_parts/cell/gun/atech
 	name = "alien battery"
-	maxcharge = 2000
+	maxcharge = 1000
 	custom_materials = list(/datum/material/glass=60)
-	chargerate = 100
+	self_recharge = 100
 	
 /obj/item/stock_parts/cell/gun/mini/atech
 	name = "compact alien battery"
 	custom_materials = list(/datum/material/glass=300)
-	maxcharge = 1000
-	self_recharge = 333
+	maxcharge = 300
+	self_recharge = 100

@@ -115,7 +115,7 @@
 /datum/design/gun_cell/atec
 	name = "fast recharge Weapon Power Cell"
 	desc = "A weapon power cell that can charge faster, but cannot store as much energy."
-	id = "gun_cell_a"
+	id = "gun_cell_atec"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 700, /datum/material/gold = 150, /datum/material/glass = 80)
 	construction_time=100
@@ -126,7 +126,7 @@
 /datum/design/gun_cell/atec_mini
 	name = "fast recharge Weapon Power Cell"
 	desc = "A weapon power cell that can charge faster, but cannot store as much energy."
-	id = "gun_cell_a"
+	id = "gun_cell_atec_mini"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 700, /datum/material/gold = 150, /datum/material/glass = 80)
 	construction_time=100

@@ -675,7 +675,7 @@
 	display_name = "Weapon Development Technology"
 	description = "Our researchers have found new ways to weaponize just about everything now."
 	prereq_ids = list("engineering")
-	design_ids = list("pin_testing", "tele_shield", "sleepy", "gun_cell")
+	design_ids = list("pin_testing", "tele_shield", "sleepy", "gun_cell", "gun_cell_m")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
 
@@ -693,7 +693,7 @@
 	display_name = "Advanced Weapon Development Technology"
 	description = "Our weapons are breaking the rules of reality by now."
 	prereq_ids = list("adv_engi", "weaponry")
-	design_ids = list("pin_loyalty","gun_cell_upgraded")
+	design_ids = list("pin_loyalty","gun_cell_u","gun_cell_h","gun_cell_r")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
 
@@ -1101,7 +1101,7 @@
 	display_name = "Alien Engineering"
 	description = "Alien engineering tools"
 	prereq_ids = list("alientech", "adv_engi")
-	design_ids = list("alien_wrench", "alien_wirecutters", "alien_screwdriver", "alien_crowbar", "alien_welder", "alien_multitool")
+	design_ids = list("alien_wrench", "alien_wirecutters", "alien_screwdriver", "alien_crowbar", "alien_welder", "alien_multitool", "gun_cell_atec", "gun_cell_atec_mini")
 	boost_item_paths = list(/obj/item/screwdriver/abductor, /obj/item/wrench/abductor, /obj/item/crowbar/abductor, /obj/item/multitool/abductor,
 	/obj/item/weldingtool/abductor, /obj/item/wirecutters/abductor, /obj/item/circuitboard/machine/abductor, /obj/item/abductor/baton, /obj/item/abductor)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)

@@ -53,7 +53,7 @@
 	var/mutable_appearance/flashlight_overlay
 	var/datum/action/item_action/toggle_gunlight/alight
 
-	var/can_bayonet = FALSE //if a bayonet can be added or removed ifit already has one.
+	var/can_bayonet = FALSE //if a bayonet can be added or removed if it already has one.
 	var/obj/item/kitchen/knife/bayonet
 	var/mutable_appearance/knife_overlay
 	var/knife_x_offset = 0
@@ -610,7 +610,7 @@
 		gun.zoom(owner, owner.dir, FALSE)
 
 /datum/action/toggle_scope_zoom/Remove(mob/living/L)
-	gun.zoom(L, owner.dir, FALSE)
+	gun.zoom(L, L.dir, FALSE)
 	..()
 
 /obj/item/gun/proc/rotate(atom/thing, old_dir, new_dir)
