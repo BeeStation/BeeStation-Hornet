@@ -54685,24 +54685,6 @@
 	},
 /turf/closed/wall,
 /area/security/checkpoint/medical)
-"cbQ" = (
-/obj/item/radio/intercom{
-	pixel_x = -27;
-	pixel_y = -10
-	},
-/turf/closed/wall,
-/area/security/checkpoint/medical)
-"cbR" = (
-/obj/machinery/button/door{
-	desc = "A remote control switch for the medbay foyer.";
-	id = "MedbayFoyer";
-	name = "Medbay Doors Control";
-	normaldoorcontrol = 1;
-	pixel_x = 24;
-	pixel_y = -24
-	},
-/turf/closed/wall,
-/area/security/checkpoint/medical)
 "cbS" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -55824,6 +55806,12 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/machinery/button/door{
+	id = "med_desk_lock";
+	name = "Medical Desk Lockdown";
+	pixel_x = 24;
+	pixel_y = 36
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "ceC" = (
@@ -56545,9 +56533,13 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 4
 	},
-/obj/machinery/door/window/westleft{
+/obj/machinery/door/window/brigdoor/westleft{
 	name = "Medical Desk";
 	req_access_txt = "5"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "med_desk_lock";
+	name = "Medical Desk Shutters"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -66472,9 +66464,13 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 4
 	},
-/obj/machinery/door/window/westright{
+/obj/machinery/door/window/brigdoor/westright{
 	name = "Medical Desk";
 	req_access_txt = "5"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "med_desk_lock";
+	name = "Medical Desk Shutters"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -86090,10 +86086,6 @@
 /turf/closed/wall,
 /area/maintenance/port)
 "tND" = (
-/obj/machinery/door/window/westleft{
-	name = "Medical Techfab Access";
-	req_access_txt = "5"
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -86104,6 +86096,13 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue,
+/obj/machinery/door/window/brigdoor/westleft{
+	name = "Medical Techfab Access";
+	req_access_txt = "5"
+	},
+/obj/item/radio/intercom{
+	pixel_y = 25
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "tOc" = (
@@ -111346,7 +111345,7 @@ bWj
 bXL
 bYY
 caf
-cbQ
+bXL
 wNM
 ceA
 cfQ
@@ -111603,7 +111602,7 @@ bWj
 bXL
 bYZ
 cag
-cbR
+bXL
 cdx
 ceB
 cfR
