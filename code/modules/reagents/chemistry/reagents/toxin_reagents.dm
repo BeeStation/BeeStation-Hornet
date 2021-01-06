@@ -122,6 +122,25 @@
 		. = 1
 	..()
 
+/datum/reagent/toxin/slimejelly/slimeooze
+	name = "Slime Ooze"
+	description = "A gooey semi-liquid produced from Oozelings"
+	color = "#611e80"
+	toxpwr = 0
+	taste_description = "slime"
+	taste_mult = 1.5
+
+/datum/reagent/toxin/slimejelly/slimeooze/on_mob_life(mob/living/carbon/M)
+	if(prob(10))
+		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
+		M.adjustToxLoss(rand(1,10)*REM, 0)
+		. = 1
+	else if(prob(40))
+		M.heal_bodypart_damage(5*REM)
+		. = 1
+	..()
+
+
 /datum/reagent/toxin/minttoxin
 	name = "Mint Toxin"
 	description = "Useful for dealing with undesirable customers."
