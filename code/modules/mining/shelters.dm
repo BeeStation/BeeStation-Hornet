@@ -58,3 +58,57 @@
 	. = ..()
 	whitelisted_turfs = typecacheof(/turf/closed/mineral)
 	banned_objects = typecacheof(/obj/structure/stone_tile)
+
+/datum/map_template/shelter/charlie
+	name = "Shelter Charlie"
+	shelter_id = "shelter_charlie"
+	description = "A luxury elite shelter which holds an entire bar \
+		along with two vending machines, tables, and a restroom that \
+		also has a sink. This isn't a survival capsule and so you can \
+		expect that this won't save you if you're bleeding out to \
+		death."
+	mappath = "_maps/templates/shelter_3.dmm"
+
+/datum/map_template/shelter/charlie/New()
+	. = ..()
+	whitelisted_turfs = typecacheof(/turf/closed/mineral)
+	banned_objects = typecacheof(/obj/structure/stone_tile) 
+
+/datum/map_template/shelter/delta
+	name = "Shelter Delta"
+	shelter_id = "shelter_delta"
+	description = "A medium-sized mining encampment which contains \
+	a food vendor, a barracks with spare clothes and a floor safe, \
+	a GPS Beacon, and a small building with an equipment vendor."
+	mappath = "_maps/templates/shelter_4.dmm"
+
+/datum/map_template/shelter/delta/New()
+	. = ..()
+	whitelisted_turfs = typecacheof(/turf/closed/mineral)
+	banned_objects = typecacheof(/obj/structure/stone_tile)
+
+/datum/map_template/shelter/echo
+	name = "Shelter Echo"
+	shelter_id = "shelter_echo"
+	description = "A small pod equipped with a sleeper and stasis unit, a \
+	nanomed, and a chemmaster designed for station emergencies."
+	mappath = "_maps/templates/shelter_5.dmm"
+
+/datum/map_template/shelter/eta
+	name = "Shelter Eta"
+	shelter_id = "shelter_eta"
+	description = "A small, spaceworthy shelter with most of the \
+	amenities of a standard bluespace shelter."
+	mappath = "_maps/templates/shelter_6.dmm"
+	
+/datum/map_template/shelter/golf
+	name = "Capsule Barricade"
+	shelter_id = "capsule_barricade"
+	description = "A 3x3 glass barricade, perfect for security and laserguns."
+	mappath = "_maps/templates/capsule_barricade.dmm"
+
+/datum/map_template/shelter/theta
+	name = "Shelter Theta"
+	shelter_id = "shelter_theta"
+	description = "A large party area fit for station parties."
+	mappath = "_maps/templates/shelter_7.dmm"

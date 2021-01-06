@@ -30,6 +30,7 @@
 	var/show_flavour = TRUE
 	var/banType = ROLE_LAVALAND
 	var/ghost_usable = TRUE
+	var/use_cooldown = FALSE
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /obj/effect/mob_spawn/attack_ghost(mob/user)
@@ -42,6 +43,9 @@
 		to_chat(user, "<span class='warning'>You are jobanned!</span>")
 		return
 	if(QDELETED(src) || QDELETED(user))
+		return
+	if(use_cooldown && user.client.next_ghost_role_tick > world.time)
+		to_chat(user, "<span class='warning'>You have died recently, you must wait [(user.client.next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
 		return
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(ghost_role == "No" || !loc)
@@ -107,10 +111,14 @@
 		if(objectives)
 			if(!A)
 				A = MM.add_antag_datum(/datum/antagonist/custom)
+				//Don't delay roundend with ghost role created antags
+				A.delay_roundend = FALSE
+				A.prevent_roundtype_conversion = FALSE
 			for(var/objective in objectives)
 				var/datum/objective/O = new/datum/objective(objective)
 				O.owner = MM
 				A.objectives += O
+				log_objective(O.owner, O.explanation_text)
 		if(assignedrole)
 			M.mind.assigned_role = assignedrole
 		special(M, name)
@@ -195,7 +203,7 @@
 		var/static/list/slots = list("uniform", "r_hand", "l_hand", "suit", "shoes", "gloves", "ears", "glasses", "mask", "head", "belt", "r_pocket", "l_pocket", "back", "id", "neck", "backpack_contents", "suit_store")
 		for(var/slot in slots)
 			var/T = vars[slot]
-			if(!isnum(T))
+			if(!isnum_safe(T))
 				outfit.vars[slot] = T
 		H.equipOutfit(outfit)
 		if(disable_pda)
@@ -329,6 +337,7 @@
 	icon_state = "sleeper"
 	short_desc = "You are a space doctor!"
 	assignedrole = "Space Doctor"
+	use_cooldown = TRUE // Use cooldown
 
 /obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H)
 	..()
@@ -386,14 +395,15 @@
 	flavour_text = "Time to mix drinks and change lives. Smoking space drugs makes it easier to understand your patrons' odd dialect."
 	assignedrole = "Space Bartender"
 	id_job = "Bartender"
+	use_cooldown = TRUE
 
 /datum/outfit/spacebartender
 	name = "Space Bartender"
-	uniform = /obj/item/clothing/under/rank/bartender
+	uniform = /obj/item/clothing/under/rank/civilian/bartender
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	suit = /obj/item/clothing/suit/armor/vest
-	glasses = /obj/item/clothing/glasses/sunglasses/reagent
+	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	id = /obj/item/card/id
 
 /obj/effect/mob_spawn/human/beach
@@ -410,6 +420,7 @@
 	short_desc = "You're, like, totally a dudebro, bruh."
 	flavour_text = "Ch'yea. You came here, like, on spring break, hopin' to pick up some bangin' hot chicks, y'knaw?"
 	assignedrole = "Beach Bum"
+	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/human/beach/alive/lifeguard
 	short_desc = "You're a spunky lifeguard!"
@@ -444,10 +455,10 @@
 /datum/outfit/nanotrasenbridgeofficercorpse
 	name = "Bridge Officer Corpse"
 	ears = /obj/item/radio/headset/heads/hop
-	uniform = /obj/item/clothing/under/rank/centcom_officer
+	uniform = /obj/item/clothing/under/rank/centcom/officer
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	shoes = /obj/item/clothing/shoes/sneakers/black
-	glasses = /obj/item/clothing/glasses/sunglasses
+	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	id = /obj/item/card/id/gold
 
 
@@ -459,7 +470,7 @@
 
 /datum/outfit/nanotrasencommandercorpse
 	name = "Nanotrasen Private Security Commander"
-	uniform = /obj/item/clothing/under/rank/centcom_commander
+	uniform = /obj/item/clothing/under/rank/centcom/commander
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	ears = /obj/item/radio/headset/heads/captain
 	glasses = /obj/item/clothing/glasses/eyepatch
@@ -479,7 +490,7 @@
 
 /datum/outfit/nanotrasensoldiercorpse
 	name = "NT Private Security Officer Corpse"
-	uniform = /obj/item/clothing/under/rank/security
+	uniform = /obj/item/clothing/under/rank/security/officer
 	suit = /obj/item/clothing/suit/armor/vest
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
@@ -497,6 +508,7 @@
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
 	short_desc = "You are a Nanotrasen Commander!"
+	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/human/nanotrasensoldier/alive
 	death = FALSE
@@ -507,6 +519,7 @@
 	icon_state = "sleeper"
 	faction = "nanotrasenprivate"
 	short_desc = "You are a Nanotrasen Private Security Officer!"
+	use_cooldown = TRUE
 
 
 /////////////////Spooky Undead//////////////////////
@@ -525,10 +538,12 @@
 	short_desc = "By unknown powers, your skeletal remains have been reanimated!"
 	flavour_text = "Walk this mortal plain and terrorize all living adventurers who dare cross your path."
 	assignedrole = "Skeleton"
+	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/human/skeleton/alive/equip(mob/living/carbon/human/H)
 	var/obj/item/implant/exile/implant = new/obj/item/implant/exile(H)
 	implant.implant(H)
+	H.set_species(/datum/species/skeleton)
 
 /obj/effect/mob_spawn/human/zombie
 	name = "rotting corpse"
@@ -543,7 +558,7 @@
 	icon_state = "remains"
 	short_desc = "By unknown powers, your rotting remains have been resurrected!"
 	flavour_text = "Walk this mortal plain and terrorize all living adventurers who dare cross your path."
-
+	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/human/abductor
 	name = "abductor"
@@ -577,8 +592,8 @@
 
 /datum/outfit/cryobartender
 	name = "Cryogenic Bartender"
-	uniform = /obj/item/clothing/under/rank/bartender
+	uniform = /obj/item/clothing/under/rank/civilian/bartender
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	suit = /obj/item/clothing/suit/armor/vest
-	glasses = /obj/item/clothing/glasses/sunglasses/reagent
+	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent

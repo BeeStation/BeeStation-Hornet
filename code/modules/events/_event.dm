@@ -26,6 +26,7 @@
 	var/list/gamemode_whitelist = list() // Event will happen ONLY in these gamemodes if not empty
 
 	var/triggering	//admin cancellation
+	var/auto_add = TRUE				//Auto add to the event pool, if not you have to do it yourself!
 
 /datum/round_event_control/New()
 	if(config && !wizardevent) // Magic is unaffected by configs

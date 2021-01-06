@@ -29,6 +29,9 @@ def url2msg(msg):
     "[qmark]": "?",
     "[space]": " ",
     "[quote]": "\"",
+    "[ocurly]" : "{",
+    "[ccurly]" : "}",
+    "[hash]" : "#",
     "@": "(a)", # no @ abuse
     "[nl]": "\n",
     }

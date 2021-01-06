@@ -21,8 +21,7 @@ Difficulty: Medium
 	attack_sound = 'sound/magic/demon_attack1.ogg'
 	speak_emote = list("echoes")
 	armour_penetration = 50
-	melee_damage_lower = 25
-	melee_damage_upper = 25
+	melee_damage = 25
 	speed = 5
 	ranged = TRUE
 	del_on_death = TRUE

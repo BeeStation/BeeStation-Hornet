@@ -18,9 +18,8 @@
 	..()
 	SSair.atmos_machinery += src
 
-	air_contents = new
-	air_contents.volume = volume
-	air_contents.temperature = T20C
+	air_contents = new(volume)
+	air_contents.set_temperature(T20C)
 
 	return 1
 
@@ -127,11 +126,13 @@
 			if(!user.transferItemToLoc(T, src))
 				return
 			to_chat(user, "<span class='notice'>[holding ? "In one smooth motion you pop [holding] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")
+			investigate_log("had its internal [holding] swapped with [T] by [key_name(user)].", INVESTIGATE_ATMOS)
 			replace_tank(user, FALSE, T)
 			update_icon()
 	else if(W.tool_behaviour == TOOL_WRENCH)
 		if(!(stat & BROKEN))
 			if(connected_port)
+				investigate_log("was disconnected from [connected_port] by [key_name(user)].", INVESTIGATE_ATMOS)
 				disconnect()
 				W.play_tool_sound(src)
 				user.visible_message( \
@@ -154,6 +155,7 @@
 					"<span class='notice'>You fasten [src] to the port.</span>", \
 					"<span class='italics'>You hear a ratchet.</span>")
 				update_icon()
+				investigate_log("was connected to [possible_port] by [key_name(user)].", INVESTIGATE_ATMOS)
 	else
 		return ..()
 

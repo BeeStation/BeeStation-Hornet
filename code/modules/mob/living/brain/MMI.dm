@@ -52,6 +52,7 @@
 		if(!B.key)
 			B.notify_ghost_cloning("Someone has put your brain in a MMI!", source = src)
 		user.visible_message("[user] sticks \a [newbrain] into [src].", "<span class='notice'>[src]'s indicator light turn on as you insert [newbrain].</span>")
+		log_attack("[key_name(user)] inserted [newbrain] into \the [src] at [AREACOORD(src)].")
 
 		brainmob = newbrain.brainmob
 		newbrain.brainmob = null
@@ -89,6 +90,7 @@
 		radio.on = !radio.on
 		to_chat(user, "<span class='notice'>You toggle [src]'s radio system [radio.on==1 ? "on" : "off"].</span>")
 	else
+		log_attack("[key_name(user)] ejected \the [brainmob] from \the [src] at [AREACOORD(src)].")
 		eject_brain(user)
 		update_icon()
 		name = initial(name)

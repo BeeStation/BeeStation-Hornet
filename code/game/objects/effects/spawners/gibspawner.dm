@@ -21,7 +21,7 @@
 
 	var/obj/effect/decal/cleanable/blood/gibs/gib = null
 
-	if(sound_to_play && isnum(sound_vol))
+	if(sound_to_play && isnum_safe(sound_vol))
 		playsound(src, sound_to_play, sound_vol, TRUE)
 
 	if(sparks)

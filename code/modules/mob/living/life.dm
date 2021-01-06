@@ -2,40 +2,22 @@
 	set waitfor = FALSE
 	set invisibility = 0
 
-	if(digitalinvis)
-		handle_diginvis() //AI becomes unable to see mob
+	if(digitalinvis) //AI unable to see mob
+		if(!digitaldisguise)
+			src.digitaldisguise = image(loc = src)
+		src.digitaldisguise.override = 1
+		for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
+			AI.client.images |= src.digitaldisguise
 
 	if((movement_type & FLYING) && !(movement_type & FLOATING))	//TODO: Better floating
 		float(on = TRUE)
-
-	if (client)
-		var/turf/T = get_turf(src)
-		if(!T)
-			for(var/obj/effect/landmark/error/E in GLOB.landmarks_list)
-				forceMove(E.loc)
-				break
-			var/msg = "[ADMIN_LOOKUPFLW(src)] was found to have no .loc with an attached client, if the cause is unknown it would be wise to ask how this was accomplished."
-			message_admins(msg)
-			send2irc_adminless_only("Mob", msg, R_ADMIN)
-			log_game("[key_name(src)] was found to have no .loc with an attached client.")
-
-		// This is a temporary error tracker to make sure we've caught everything
-		else if (registered_z != T.z)
-#ifdef TESTING
-			message_admins("[ADMIN_LOOKUPFLW(src)] has somehow ended up in Z-level [T.z] despite being registered in Z-level [registered_z]. If you could ask them how that happened and notify coderbus, it would be appreciated.")
-#endif
-			log_game("Z-TRACKING: [src] has somehow ended up in Z-level [T.z] despite being registered in Z-level [registered_z].")
-			update_z(T.z)
-	else if (registered_z)
-		log_game("Z-TRACKING: [src] of type [src.type] has a Z-registration despite not having a client.")
-		update_z(null)
 
 	if (notransform)
 		return
 	if(!loc)
 		return
 
-	if(!IsInStasis())
+	if(!has_status_effect(STATUS_EFFECT_STASIS))
 
 		if(stat != DEAD)
 			//Mutations and radiation
@@ -59,7 +41,15 @@
 		if(environment)
 			handle_environment(environment)
 
-		handle_gravity()
+		//Handle gravity
+		var/gravity = mob_has_gravity()
+		update_gravity(gravity)
+
+		if(gravity > STANDARD_GRAVITY)
+			if(!get_filter("gravity"))
+				add_filter("gravity",1,list("type"="motion_blur", "x"=0, "y"=0))
+			INVOKE_ASYNC(src, .proc/gravity_pulse_animation)
+			handle_high_gravity(gravity)
 
 		if(stat != DEAD)
 			handle_traits() // eye, ear, brain damages
@@ -83,14 +73,6 @@
 /mob/living/proc/handle_diseases()
 	return
 
-/mob/living/proc/handle_diginvis()
-	if(!digitaldisguise)
-		src.digitaldisguise = image(loc = src)
-	src.digitaldisguise.override = 1
-	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
-		AI.client.images |= src.digitaldisguise
-
-
 /mob/living/proc/handle_random_events()
 	return
 
@@ -108,7 +90,7 @@
 		ExtinguishMob()
 		return TRUE //mob was put out, on_fire = FALSE via ExtinguishMob(), no need to update everything down the chain.
 	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
-	if(!G.gases[/datum/gas/oxygen] || G.gases[/datum/gas/oxygen][MOLES] < 1)
+	if(G.get_moles(/datum/gas/oxygen) < 1)
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
 		return TRUE
 	var/turf/location = get_turf(src)
@@ -136,14 +118,6 @@
 
 /mob/living/proc/update_damage_hud()
 	return
-
-/mob/living/proc/handle_gravity()
-	var/gravity = mob_has_gravity()
-	update_gravity(gravity)
-
-	if(gravity > STANDARD_GRAVITY)
-		gravity_animate()
-		handle_high_gravity(gravity)
 
 /mob/living/proc/gravity_animate()
 	if(!get_filter("gravity"))

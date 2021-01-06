@@ -3,7 +3,7 @@
 	var/list/bad_dts = list()
 	for(var/t in typesof(/datum/component))
 		var/datum/component/comp = t
-		if(!isnum(initial(comp.dupe_mode)))
+		if(!isnum_safe(initial(comp.dupe_mode)))
 			bad_dms += t
 		var/dupe_type = initial(comp.dupe_type)
 		if(dupe_type && !ispath(dupe_type))

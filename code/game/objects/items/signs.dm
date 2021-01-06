@@ -6,6 +6,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("bashed","smacked")
 	resistance_flags = FLAMMABLE
+	
 
 	var/label = ""
 	var/last_wave = 0

@@ -1,24 +1,18 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/effect/decal/cleanable/glitter/pink,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/machinery/igniter,
-/obj/effect/decal/cleanable/glitter/pink,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/template_noop)
-"c" = (
 /obj/item/stack/sheet/iron,
 /obj/item/stack/cable_coil/cut,
 /obj/effect/decal/cleanable/glitter/pink,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/machinery/igniter,
+/obj/effect/decal/cleanable/glitter/pink,
+/turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -28,11 +22,11 @@ a
 "}
 (2,1,1) = {"
 a
-b
+c
 a
 "}
 (3,1,1) = {"
-c
+b
 a
 a
 "}

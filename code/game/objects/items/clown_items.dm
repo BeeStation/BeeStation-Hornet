@@ -123,6 +123,13 @@
 		user.visible_message("[user] begins to clean \the [target.name] with [src]...", "<span class='notice'>You begin to clean \the [target.name] with [src]...</span>")
 		if(do_after(user, src.cleanspeed, target = target))
 			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
+			if(istype(target, /obj/item/clothing) && HAS_TRAIT(target, TRAIT_SPRAYPAINTED))
+				var/obj/item/clothing/C = target
+				var/mob/living/carbon/human/H = user
+				C.flash_protect -= 1
+				C.tint -= 2
+				H.update_tint()
+				REMOVE_TRAIT(target, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
 			for(var/obj/effect/decal/cleanable/C in target)
 				qdel(C)
 			target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)

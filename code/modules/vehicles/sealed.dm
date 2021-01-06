@@ -2,6 +2,10 @@
 	var/enter_delay = 20
 	var/mouse_pointer
 
+/obj/vehicle/sealed/CanPass(atom/movable/mover, turf/target)
+	if(mover in buckled_mobs)
+		return 1
+
 /obj/vehicle/sealed/generate_actions()
 	. = ..()
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/climb_out)
@@ -100,6 +104,7 @@
 		if(iscarbon(i))
 			var/mob/living/carbon/Carbon = i
 			Carbon.Paralyze(40)
+			Carbon.uncuff()
 
 /obj/vehicle/sealed/proc/DumpSpecificMobs(flag, randomstep = TRUE)
 	for(var/i in occupants)
@@ -108,6 +113,7 @@
 			if(iscarbon(i))
 				var/mob/living/carbon/C = i
 				C.Paralyze(40)
+				C.uncuff()
 
 
 /obj/vehicle/sealed/AllowDrop()

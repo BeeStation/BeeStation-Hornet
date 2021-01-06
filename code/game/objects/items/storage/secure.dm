@@ -129,6 +129,7 @@
 	throw_range = 4
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
+	block_upgrade_walk = 1
 
 /obj/item/storage/secure/briefcase/PopulateContents()
 	new /obj/item/paper(src)

@@ -83,12 +83,13 @@
 	return basic_hit(A,D)
 
 /datum/martial_art/the_sleeping_carp/proc/headKick(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	var/def_check = D.getarmor(BODY_ZONE_HEAD, "melee")
 	if(!D.stat && !D.IsParalyzed())
 		log_combat(A, D, "head kicked (Sleeping Carp)")
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		D.visible_message("<span class='warning'>[A] kicks [D] in the head!</span>", \
 						  "<span class='userdanger'>[A] kicks you in the jaw!</span>")
-		D.apply_damage(20, A.dna.species.attack_type, BODY_ZONE_HEAD)
+		D.apply_damage(20, A.dna.species.attack_type, BODY_ZONE_HEAD, blocked = def_check)
 		D.drop_all_held_items()
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
 		D.Stun(80)
@@ -96,6 +97,7 @@
 	return basic_hit(A,D)
 
 /datum/martial_art/the_sleeping_carp/proc/elbowDrop(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	var/def_check = D.getarmor(BODY_ZONE_CHEST, "melee")
 	if(!(D.mobility_flags & MOBILITY_STAND))
 		log_combat(A, D, "elbow dropped (Sleeping Carp)")
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
@@ -103,7 +105,7 @@
 							"<span class='userdanger'>[A] piledrives you with their elbow!</span>")
 		if(D.stat)
 			D.death() //FINISH HIM!
-		D.apply_damage(50, A.dna.species.attack_type, BODY_ZONE_CHEST)
+		D.apply_damage(50, A.dna.species.attack_type, BODY_ZONE_CHEST, blocked = def_check)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
 		return 1
 	return basic_hit(A,D)
@@ -127,6 +129,7 @@
 	return 1
 
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	var/def_check = D.getarmor(BODY_ZONE_CHEST, "melee")
 	add_to_streak("H",D)
 	if(check_streak(A,D))
 		return 1
@@ -134,11 +137,8 @@
 	var/atk_verb = pick("punches", "kicks", "chops", "hits", "slams")
 	D.visible_message("<span class='danger'>[A] [atk_verb] [D]!</span>", \
 					  "<span class='userdanger'>[A] [atk_verb] you!</span>")
-	D.apply_damage(rand(10,15), BRUTE)
+	D.apply_damage(15, BRUTE, blocked = def_check)
 	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, 1, -1)
-	if(prob(D.getBruteLoss()) && (D.mobility_flags & MOBILITY_STAND))
-		D.visible_message("<span class='warning'>[D] stumbles and falls!</span>", "<span class='userdanger'>The blow sends you to the ground!</span>")
-		D.Paralyze(80)
 	log_combat(A, D, "[atk_verb] (Sleeping Carp)")
 	return 1
 
@@ -170,6 +170,8 @@
 	slot_flags = ITEM_SLOT_BACK
 	force_unwielded = 10
 	force_wielded = 24
+	block_power_wielded = 50
+	block_power_unwielded = 25
 	throwforce = 20
 	throw_speed = 2
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
@@ -177,11 +179,12 @@
 	icon_state = "bostaff0"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
-	block_chance = 50
+	block_level = 1
+	block_upgrade_walk = 1
+	block_power = 25
 
-/obj/item/twohanded/bostaff/update_icon()
+/obj/item/twohanded/bostaff/update_icon_state()
 	icon_state = "bostaff[wielded]"
-	return
 
 /obj/item/twohanded/bostaff/attack(mob/target, mob/living/user)
 	add_fingerprint(user)

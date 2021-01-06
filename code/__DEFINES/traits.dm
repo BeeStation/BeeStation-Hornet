@@ -55,8 +55,17 @@
 	} while (0)
 #define HAS_TRAIT(target, trait) (target.status_traits ? (target.status_traits[trait] ? TRUE : FALSE) : FALSE)
 #define HAS_TRAIT_FROM(target, trait, source) (target.status_traits ? (target.status_traits[trait] ? (source in target.status_traits[trait]) : FALSE) : FALSE)
+#define HAS_TRAIT_FROM_ONLY(target, trait, source) (\
+	target.status_traits ?\
+		(target.status_traits[trait] ?\
+			((source in target.status_traits[trait]) && (length(target.status_traits) == 1))\
+			: FALSE)\
+		: FALSE)
+#define HAS_TRAIT_NOT_FROM(target, trait, source) (target.status_traits ? (target.status_traits[trait] ? (length(target.status_traits[trait] - source) > 0) : FALSE) : FALSE)
 
-
+/*
+Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
+*/
 
 //mob traits
 #define TRAIT_BLIND 			"blind"
@@ -127,6 +136,7 @@
 #define TRAIT_CANNOT_OPEN_PRESENTS "cannot-open-presents"
 #define TRAIT_PRESENT_VISION    "present-vision"
 #define TRAIT_DISK_VERIFIER     "disk-verifier"
+#define TRAIT_MULTILINGUAL		"multilingual" //I know another language
 #define TRAIT_NOMOBSWAP         "no-mob-swap"
 #define TRAIT_XRAY_VISION       "xray_vision"
 #define TRAIT_THERMAL_VISION    "thermal_vision"
@@ -148,14 +158,21 @@
 #define TRAIT_MEDICAL_HUD		"med_hud"
 #define TRAIT_SECURITY_HUD		"sec_hud"
 #define TRAIT_MEDIBOTCOMINGTHROUGH "medbot" //Is a medbot healing you
+#define TRAIT_PASSTABLE			"passtable"
+#define TRAIT_ONEWAYROAD	"one-way road"
+#define TRAIT_APPRAISAL			"appraisal"
+#define TRAIT_NOBLOCK			"noblock"
+#define TRAIT_NANITECOMPATIBLE	"nanitecompatible"
 
 //non-mob traits
 #define TRAIT_PARALYSIS			"paralysis" //Used for limb-based paralysis, where replacing the limb will fix it
 
 // item traits
 #define TRAIT_NODROP            "nodrop"
+#define TRAIT_SPRAYPAINTED		"spraypainted"
 #define TRAIT_T_RAY_VISIBLE     "t-ray-visible" // Visible on t-ray scanners if the atom/var/level == 1
 #define TRAIT_NO_TELEPORT		"no-teleport" //you just can't
+#define TRAIT_STARGAZED			"stargazed"	//Affected by a stargazer
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
@@ -201,6 +218,9 @@
 #define ABSTRACT_ITEM_TRAIT "abstract-item"
 #define STATUS_EFFECT_TRAIT "status-effect"
 #define CLOTHING_TRAIT "clothing"
+#define VEHICLE_TRAIT "vehicle" // inherited from riding vehicles
+#define INNATE_TRAIT "innate"
+#define GLASSES_TRAIT "glasses"
 
 // unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"
@@ -242,3 +262,12 @@
 #define VR_ZONE_TRAIT "vr_zone_trait"
 #define GLUED_ITEM_TRAIT "glued-item"
 #define LEGION_CORE_TRAIT "legion_core_trait"
+#define MIRROR_TRAIT "mirror_trait"
+#define CRAYON_TRAIT "crayon_trait"
+#define HOLYWATER_TRAIT "holywater"
+#define VANGUARD_TRAIT "vanguard"
+#define STARGAZER_TRAIT "stargazer"
+#define GUARDIAN_TRAIT	"guardian_trait"
+#define PARRY_TRAIT	"parry_trait"
+#define BATTLE_ROYALE_TRAIT "battleroyale_trait"
+#define MADE_UNCLONEABLE "made-uncloneable"

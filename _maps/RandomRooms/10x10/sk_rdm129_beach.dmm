@@ -1,0 +1,297 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/turf_decal/tile/green,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"b" = (
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"c" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"d" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"e" = (
+/obj/structure/closet/crate,
+/obj/item/clothing/under/shorts/blue,
+/obj/item/clothing/under/shorts/green,
+/obj/item/clothing/under/shorts/red,
+/obj/item/clothing/shoes/sandal,
+/obj/item/clothing/shoes/sandal,
+/obj/item/clothing/shoes/sandal,
+/obj/item/clothing/glasses/sunglasses/advanced,
+/obj/item/clothing/glasses/sunglasses/advanced,
+/obj/item/clothing/glasses/sunglasses/advanced,
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/plating/beach/sand,
+/area/template_noop)
+"f" = (
+/turf/open/floor/plating/beach/sand,
+/area/template_noop)
+"g" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/open/floor/plating/beach/sand,
+/area/template_noop)
+"h" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"i" = (
+/obj/effect/overlay/palmtree_r,
+/turf/open/floor/plating/beach/sand,
+/area/template_noop)
+"j" = (
+/obj/effect/overlay/coconut,
+/turf/open/floor/plating/beach/sand,
+/area/template_noop)
+"k" = (
+/obj/effect/overlay/palmtree_l,
+/turf/open/floor/plating/beach/sand,
+/area/template_noop)
+"l" = (
+/turf/open/floor/plating/beach/coastline_t,
+/area/template_noop)
+"m" = (
+/turf/open/floor/plating/beach/coastline_b,
+/area/template_noop)
+"n" = (
+/turf/open/floor/plating/beach/water,
+/area/template_noop)
+"o" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"p" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"q" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"r" = (
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"s" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"t" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"u" = (
+/obj/item/toy/beach_ball,
+/turf/open/floor/plating/beach/sand,
+/area/template_noop)
+"v" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/machinery/light,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"w" = (
+/mob/living/simple_animal/crab,
+/turf/open/floor/plating/beach/sand,
+/area/template_noop)
+"x" = (
+/obj/item/reagent_containers/spray/spraytan,
+/turf/open/floor/plating/beach/sand,
+/area/template_noop)
+"y" = (
+/obj/effect/landmark/blobstart,
+/turf/open/floor/plating/beach/sand,
+/area/template_noop)
+"D" = (
+/obj/structure/chair,
+/obj/effect/landmark/start/randommaint/celebrity,
+/turf/open/floor/plating/beach/sand,
+/area/template_noop)
+"J" = (
+/obj/structure/closet/crate/freezer{
+	name = "Beer Cooler"
+	},
+/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/food/drinks/beer,
+/turf/open/floor/plating/beach/sand,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+d
+d
+s
+d
+d
+s
+d
+d
+o
+"}
+(2,1,1) = {"
+b
+e
+f
+f
+f
+f
+l
+m
+n
+p
+"}
+(3,1,1) = {"
+b
+f
+g
+f
+f
+f
+l
+m
+n
+p
+"}
+(4,1,1) = {"
+r
+f
+f
+y
+j
+f
+l
+m
+n
+v
+"}
+(5,1,1) = {"
+b
+f
+f
+f
+k
+x
+l
+m
+n
+p
+"}
+(6,1,1) = {"
+b
+f
+f
+w
+u
+D
+l
+m
+n
+p
+"}
+(7,1,1) = {"
+r
+g
+f
+f
+f
+J
+l
+m
+n
+v
+"}
+(8,1,1) = {"
+b
+f
+f
+i
+f
+g
+l
+m
+n
+p
+"}
+(9,1,1) = {"
+b
+f
+f
+f
+f
+f
+l
+m
+n
+p
+"}
+(10,1,1) = {"
+c
+h
+h
+t
+h
+h
+t
+h
+h
+q
+"}

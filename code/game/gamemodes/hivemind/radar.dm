@@ -50,7 +50,7 @@
 	else
 		scan_target = null
 	if(!trackable_targets_exist)
-		to_chat(owner, "<span class='assimilator'>The psychic energies eminating from afar have died down... for now</span>")
+		to_chat(owner, "<span class='assimilator'>The psychic energies eminating from afar have died down... for now.</span>")
 		owner.remove_status_effect(STATUS_EFFECT_HIVE_RADAR)
 
 //"Trackable" status effect
@@ -65,7 +65,7 @@
 	. = ..()
 	if(.)
 		tracked_by = hunter
-		if(isnum(set_duration))
+		if(isnum_safe(set_duration))
 			duration = world.time + set_duration
 
 //Screen alert

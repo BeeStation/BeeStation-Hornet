@@ -8,6 +8,7 @@
 	desc = "It's watching you closely."
 	icon_state = "necrocrate"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	door_anim_time = 0
 
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
@@ -49,7 +50,7 @@
 		if(15)
 			new /obj/item/nullrod/armblade(src)
 		if(16)
-			new /obj/item/guardiancreator(src)
+			new /obj/item/guardiancreator/hive(src)
 		if(17)
 			if(prob(50))
 				new /obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe(src)
@@ -153,6 +154,10 @@
 	desc = "A wooden rod about the size of your forearm with a snake carved around it, winding its way up the sides of the rod. Something about it seems to inspire in you the responsibilty and duty to help others."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "asclepius_dormant"
+	block_upgrade_walk = 1
+	block_level = 2
+	block_power = 40 //blocks very well to encourage using it. Just because you're a pacifist doesn't mean you can't defend yourself
+	block_flags = null //not active, so it's null
 	var/activated = FALSE
 	var/usedHand
 
@@ -331,8 +336,17 @@
 
 // Relic water bottle
 /obj/item/reagent_containers/glass/waterbottle/relic
-	desc = "A bottle of water filled at an old Earth bottling facility. It seems to be radiating some kind of energy."
+	desc = "A bottle of water filled with unknown liquids. It seems to be radiating some kind of energy."
 	flip_chance = 100 // FLIPP
+	list_reagents = list()
+
+/obj/item/reagent_containers/glass/waterbottle/relic/Initialize()
+	var/reagents = volume
+	while(reagents)
+		var/newreagent = rand(1, min(reagents, 30))
+		list_reagents += list(get_unrestricted_random_reagent_id() = newreagent)
+		reagents -= newreagent
+	. = ..()
 
 //Red/Blue Cubes
 /obj/item/warp_cube
@@ -350,9 +364,14 @@
 		return
 	if(teleporting)
 		return
+	var/turf/T = get_turf(src)
+	var/area/A1 = get_area(T)
+	var/area/A2 = get_area(linked)
+	if(A1.noteleport || A2.noteleport)
+		to_chat(user, "[src] fizzles gently as it fails to breach the bluespace veil.")
+		return
 	teleporting = TRUE
 	linked.teleporting = TRUE
-	var/turf/T = get_turf(src)
 	new /obj/effect/temp_visual/warp_cube(T, user, teleport_color, TRUE)
 	SSblackbox.record_feedback("tally", "warp_cube", 1, type)
 	new /obj/effect/temp_visual/warp_cube(get_turf(linked), user, linked.teleport_color, FALSE)
@@ -410,6 +429,7 @@
 	max_charges = 1
 	item_flags = NEEDS_PERMIT | NOBLUDGEON
 	force = 18
+	attack_weight = 2
 
 /obj/item/ammo_casing/magic/hook
 	name = "hook"
@@ -589,7 +609,7 @@
 	if(!user.can_read(src))
 		return FALSE
 	to_chat(user, "You flip through the pages of the book, quickly and conveniently learning every language in existence. Somewhat less conveniently, the aging book crumbles to dust in the process. Whoops.")
-	user.grant_all_languages(omnitongue=TRUE)
+	user.grant_all_languages()
 	new /obj/effect/decal/cleanable/ash(get_turf(user))
 	qdel(src)
 
@@ -614,20 +634,41 @@
 	name = "Flight Potion"
 	description = "Strange mutagenic compound of unknown origins."
 	reagent_state = LIQUID
+	process_flags = ORGANIC | SYNTHETIC
 	color = "#FFEBEB"
 
 /datum/reagent/flightpotion/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
-		if(!ishumanbasic(M) || reac_volume < 5) // implying xenohumans are holy
+		var/mob/living/carbon/C = M
+		var/holycheck = ishumanbasic(C)
+		if(reac_volume < 5) // implying xenohumans are holy //as with all things,
 			if(method == INGEST && show_message)
-				to_chat(M, "<span class='notice'><i>You feel nothing but a terrible aftertaste.</i></span>")
+				to_chat(C, "<span class='notice'><i>You feel nothing but a terrible aftertaste.</i></span>")
 			return ..()
-
-		to_chat(M, "<span class='userdanger'>A terrible pain travels down your back as wings burst out!</span>")
-		M.set_species(/datum/species/angel)
-		playsound(M.loc, 'sound/items/poster_ripped.ogg', 50, 1, -1)
-		M.adjustBruteLoss(20)
-		M.emote("scream")
+		if(ishuman(C))
+			var/mob/living/carbon/human/H = C
+			var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
+			if(H.getorgan(/obj/item/organ/wings))
+				if(wings.flight_level <= WINGS_FLIGHTLESS)
+					wings.flight_level += 1 //upgrade the flight level
+					wings.Refresh(H) //they need to insert to get the flight emote
+			else
+				if(MOB_ROBOTIC in H.mob_biotypes)
+					var/obj/item/organ/wings/cybernetic/newwings = new()
+					newwings.Insert(H)
+				else if(holycheck)
+					var/obj/item/organ/wings/angel/newwings = new()
+					newwings.Insert(H)
+				else
+					var/obj/item/organ/wings/dragon/newwings = new()
+					newwings.Insert(H)
+				to_chat(C, "<span class='userdanger'>A terrible pain travels down your back as wings burst out!</span>")
+				playsound(C.loc, 'sound/items/poster_ripped.ogg', 50, TRUE, -1)
+				C.adjustBruteLoss(20)
+				C.emote("scream")
+		if(holycheck)
+			to_chat(C, "<span class='notice'>You feel blessed!</span>")
+			ADD_TRAIT(C, TRAIT_HOLY, SPECIES_TRAIT)
 	..()
 
 
@@ -674,10 +715,11 @@
 	icon_state = "cleaving_saw"
 	icon_state_on = "cleaving_saw_open"
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb_off = list("attacked", "sawed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb_off = list("attacked", "sawed", "sliced", "tore", "ripped", "diced", "cut")
 	attack_verb_on = list("cleaved", "swiped", "slashed", "chopped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	hitsound_on = 'sound/weapons/bladeslice.ogg'
+	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_BULKY
 	sharpness = IS_SHARP
 	faction_bonus_force = 30
@@ -787,8 +829,12 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 1
 	throwforce = 1
+	block_upgrade_walk = 1
+	block_level = 1
+	block_power = 20
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	hitsound = 'sound/effects/ghost2.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "rended")
 	var/summon_cooldown = 0
 	var/list/mob/dead/observer/spirits
 
@@ -966,7 +1012,7 @@
 			timer = world.time + create_delay + 1
 			if(do_after(user, create_delay, target = T))
 				var/old_name = T.name
-				if(T.TerraformTurf(turf_type))
+				if(T.TerraformTurf(turf_type, flags = CHANGETURF_INHERIT_AIR))
 					user.visible_message("<span class='danger'>[user] turns \the [old_name] into [transform_string]!</span>")
 					message_admins("[ADMIN_LOOKUPFLW(user)] fired the lava staff at [ADMIN_VERBOSEJMP(T)]")
 					log_game("[key_name(user)] fired the lava staff at [AREACOORD(T)].")
@@ -977,7 +1023,7 @@
 			qdel(L)
 		else
 			var/old_name = T.name
-			if(T.TerraformTurf(reset_turf_type))
+			if(T.TerraformTurf(reset_turf_type, flags = CHANGETURF_INHERIT_AIR))
 				user.visible_message("<span class='danger'>[user] turns \the [old_name] into [reset_string]!</span>")
 				timer = world.time + reset_cooldown
 				playsound(T,'sound/magic/fireball.ogg', 200, 1)
@@ -1043,7 +1089,7 @@
 		var/mob/living/L = I
 		da_list[L.real_name] = L
 
-	var/choice = input(user,"Who do you want dead?","Choose Your Victim") as null|anything in da_list
+	var/choice = input(user,"Who do you want dead?","Choose Your Victim") as null|anything in sortNames(da_list)
 
 	choice = da_list[choice]
 

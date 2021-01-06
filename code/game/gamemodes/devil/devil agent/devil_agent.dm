@@ -40,5 +40,6 @@
 		outsellobjective.target = target_mind
 		outsellobjective.update_explanation_text()
 		D.objectives += outsellobjective
+		log_objective(devil, outsellobjective.explanation_text)
 		return 1
 	return 0

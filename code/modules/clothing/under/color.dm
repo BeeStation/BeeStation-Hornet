@@ -88,7 +88,7 @@
 	item_color = "yellow"
 
 /obj/item/clothing/under/color/darkblue
-	name = "darkblue jumpsuit"
+	name = "dark blue jumpsuit"
 	icon_state = "darkblue"
 	item_state = "b_suit"
 	item_color = "darkblue"
@@ -106,13 +106,13 @@
 	item_color = "lightpurple"
 
 /obj/item/clothing/under/color/darkgreen
-	name = "darkgreen jumpsuit"
+	name = "dark green jumpsuit"
 	icon_state = "darkgreen"
 	item_state = "g_suit"
 	item_color = "darkgreen"
 
 /obj/item/clothing/under/color/lightbrown
-	name = "lightbrown jumpsuit"
+	name = "light brown jumpsuit"
 	icon_state = "lightbrown"
 	item_state = "lb_suit"
 	item_color = "lightbrown"

@@ -8,13 +8,13 @@ GLOBAL_LIST(labor_sheet_values)
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	density = FALSE
+
+
+
 	var/obj/machinery/mineral/stacking_machine/laborstacker/stacking_machine = null
 	var/machinedir = SOUTH
-	var/obj/item/card/id/prisoner/inserted_id
-	var/obj/machinery/door/airlock/release_door
-	var/door_tag = "prisonshuttle"
-	var/obj/item/radio/Radio //needed to send messages to sec radio
-
+	//needed to send messages to sec radio
+	var/obj/item/radio/Radio
 
 /obj/machinery/mineral/labor_claim_console/Initialize()
 	. = ..()
@@ -34,42 +34,46 @@ GLOBAL_LIST(labor_sheet_values)
 /proc/cmp_sheet_list(list/a, list/b)
 	return a["value"] - b["value"]
 
-/obj/machinery/mineral/labor_claim_console/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id/prisoner))
-		if(!inserted_id)
-			if(!user.transferItemToLoc(I, src))
-				return
-			inserted_id = I
-			to_chat(user, "<span class='notice'>You insert [I].</span>")
-			return
-		else
-			to_chat(user, "<span class='notice'>There's an ID inserted already.</span>")
-	return ..()
 
-/obj/machinery/mineral/labor_claim_console/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/mineral/labor_claim_console/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/mineral/labor_claim_console/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "labor_claim_console", name, 450, 475, master_ui, state)
+		ui = new(user, src, "LaborClaimConsole")
 		ui.open()
+
+/obj/machinery/mineral/labor_claim_console/ui_static_data(mob/user)
+	var/list/data = list()
+	data["ores"] = GLOB.labor_sheet_values
+	return data
 
 /obj/machinery/mineral/labor_claim_console/ui_data(mob/user)
 	var/list/data = list()
 	var/can_go_home = FALSE
 
-	data["emagged"] = (obj_flags & EMAGGED) ? 1 : 0
-	if(inserted_id)
-		data["id"] = inserted_id
-		data["id_name"] = inserted_id.registered_name
-		data["points"] = inserted_id.points
-		data["goal"] = inserted_id.goal
-	if(check_auth())
+	data["emagged"] = FALSE
+	if(obj_flags & EMAGGED)
+		data["emagged"] = TRUE
 		can_go_home = TRUE
+
+	var/obj/item/card/id/I = user.get_idcard(TRUE)
+	if(istype(I, /obj/item/card/id/prisoner))
+		var/obj/item/card/id/prisoner/P = I
+		data["id_points"] = P.points
+		if(P.points >= P.goal)
+			can_go_home = TRUE
+			data["status_info"] = "Goal met!"
+		else
+			data["status_info"] = "You are [(P.goal - P.points)] points away."
+	else
+		data["status_info"] = "No Prisoner ID detected."
+		data["id_points"] = 0
 
 	if(stacking_machine)
 		data["unclaimed_points"] = stacking_machine.points
 
-	data["ores"] = GLOB.labor_sheet_values
 	data["can_go_home"] = can_go_home
 
 	return data
@@ -77,46 +81,35 @@ GLOBAL_LIST(labor_sheet_values)
 /obj/machinery/mineral/labor_claim_console/ui_act(action, params)
 	if(..())
 		return
+	var/mob/M = usr
 	switch(action)
-		if("handle_id")
-			if(inserted_id)
-				if(!usr.get_active_held_item())
-					usr.put_in_hands(inserted_id)
-					inserted_id = null
-				else
-					inserted_id.forceMove(get_turf(src))
-					inserted_id = null
-			else
-				var/obj/item/I = usr.get_active_held_item()
-				if(istype(I, /obj/item/card/id/prisoner))
-					if(!usr.transferItemToLoc(I, src))
-						return
-					inserted_id = I
 		if("claim_points")
-			inserted_id.points += stacking_machine.points
-			stacking_machine.points = 0
-			to_chat(usr, "Points transferred.")
-		if("move_shuttle")
-			if(!alone_in_area(get_area(src), usr))
-				to_chat(usr, "<span class='warning'>Prisoners are only allowed to be released while alone.</span>")
+			var/obj/item/card/id/I = M.get_idcard(TRUE)
+			if(istype(I, /obj/item/card/id/prisoner))
+				var/obj/item/card/id/prisoner/P = I
+				P.points += stacking_machine.points
+				stacking_machine.points = 0
+				to_chat(M, "<span class='notice'>Points transferred.</span>")
+				return TRUE
 			else
-				switch(SSshuttle.moveShuttle("laborcamp", "laborcamp_home", TRUE))
-					if(1)
-						to_chat(usr, "<span class='notice'>Shuttle not found.</span>")
-					if(2)
-						to_chat(usr, "<span class='notice'>Shuttle already at station.</span>")
-					if(3)
-						to_chat(usr, "<span class='notice'>No permission to dock could be granted.</span>")
-					else
-						if(!(obj_flags & EMAGGED))
-							Radio.set_frequency(FREQ_SECURITY)
-							Radio.talk_into(src, "[inserted_id.registered_name] has returned to the station. Minerals and Prisoner ID card ready for retrieval.", FREQ_SECURITY, get_spans(), get_default_language())
-						to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
-
-/obj/machinery/mineral/labor_claim_console/proc/check_auth()
-	if(obj_flags & EMAGGED)
-		return 1 //Shuttle is emagged, let any ol' person through
-	return (istype(inserted_id) && inserted_id.points >= inserted_id.goal) //Otherwise, only let them out if the prisoner's reached his quota.
+				to_chat(M, "<span class='alert'>No valid id for point transfer detected.</span>")
+		if("move_shuttle")
+			if(!alone_in_area(get_area(src), M))
+				to_chat(M, "<span class='alert'>Prisoners are only allowed to be released while alone.</span>")
+				return
+			switch(SSshuttle.moveShuttle("laborcamp", "laborcamp_home", TRUE))
+				if(1)
+					to_chat(M, "<span class='alert'>Shuttle not found.</span>")
+				if(2)
+					to_chat(M, "<span class='alert'>Shuttle already at station.</span>")
+				if(3)
+					to_chat(M, "<span class='alert'>No permission to dock could be granted.</span>")
+				else
+					if(!(obj_flags & EMAGGED))
+						Radio.set_frequency(FREQ_SECURITY)
+						Radio.talk_into(src, "A prisoner has returned to the station. Minerals and Prisoner ID card ready for retrieval.", FREQ_SECURITY)
+					to_chat(M, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
+					return TRUE
 
 /obj/machinery/mineral/labor_claim_console/proc/locate_stacking_machine()
 	stacking_machine = locate(/obj/machinery/mineral/stacking_machine, get_step(src, machinedir))
@@ -130,9 +123,7 @@ GLOBAL_LIST(labor_sheet_values)
 		obj_flags |= EMAGGED
 		to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
 
-
 /**********************Prisoner Collection Unit**************************/
-
 
 /obj/machinery/mineral/stacking_machine/laborstacker
 	force_connect = TRUE
@@ -143,12 +134,13 @@ GLOBAL_LIST(labor_sheet_values)
 	..()
 
 /obj/machinery/mineral/stacking_machine/laborstacker/attackby(obj/item/I, mob/living/user)
-	if(istype(I, /obj/item/stack/sheet) && user.canUnEquip(I))
+	if(istype(I, /obj/item/stack/sheet) && user.canUnEquip(I) && user.a_intent == INTENT_HELP)
 		var/obj/item/stack/sheet/inp = I
 		points += inp.point_value * inp.amount
 	return ..()
 
 /**********************Point Lookup Console**************************/
+
 /obj/machinery/mineral/labor_points_checker
 	name = "points checking console"
 	desc = "A console used by prisoners to check the progress on their quotas. Simply swipe a prisoner ID."

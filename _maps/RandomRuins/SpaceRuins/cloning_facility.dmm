@@ -294,7 +294,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "N" = (
-/obj/item/book/random/triple,
+/obj/item/book/random,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
 "O" = (

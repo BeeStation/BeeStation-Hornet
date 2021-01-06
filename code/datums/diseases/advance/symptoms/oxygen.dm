@@ -23,6 +23,7 @@ Bonus
 	resistance = -3
 	stage_speed = -3
 	transmittable = -4
+	severity = -1
 	level = 6
 	base_message_chance = 5
 	symptom_delay_min = 1
@@ -50,14 +51,12 @@ Bonus
 			M.losebreath = max(0, M.losebreath - 4)
 			if(regenerate_blood && M.blood_volume < BLOOD_VOLUME_NORMAL)
 				M.blood_volume += 1
-			if(prob(1) && prob(70))
+			if(prob(1) && prob(50))
 				var/turf/open/T = get_turf(M)
 				if(!istype(T))
 					return
 				var/datum/gas_mixture/air = T.return_air()
-				var/list/cached_gases = air.gases
-				ASSERT_GAS(gas_type, air)
-				cached_gases[gas_type][MOLES] += base_moles
+				air.set_moles(gas_type, air.get_moles(gas_type) + base_moles)
 				T.air_update_turf()
 				M.emote(emote)
 		else

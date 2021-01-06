@@ -1,37 +1,36 @@
 name: Compile changelogs
 
 on:
-  push:
-    branches:
-      - master
+  schedule:
+    - cron: "*/15 * * * *"
 
 jobs:
-  compile:
-    name: "Compile changelogs"
+  CompileCL:
     runs-on: ubuntu-latest
+    if: github.repository == 'BeeStation/BeeStation-Hornet'
     steps:
-      - name: "Setup python"
-        uses: actions/setup-python@v1
-        with:
-          python-version: '3.x'
-      - name: "Install deps"
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install pyyaml
-      - name: "Checkout"
+      - name: Checkout
         uses: actions/checkout@v1
         with:
           fetch-depth: 25
-      - name: "Compile"
+      - name: Python setup
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.x'
+      - name: Install depends
         run: |
-          python tools/ss13_genchangelog.py html/changelog.html html/changelogs
+          python -m pip install --upgrade pip
+          pip install pyyaml bs4
+      - name: Compile CL
+        run: python tools/changelog/ss13_genchangelog.py html/changelog.html html/changelogs
       - name: Commit
         run: |
           git config --local user.email "56381746+ss13-beebot@users.noreply.github.com"
           git config --local user.name "ss13-beebot"
           git pull origin master
           git commit -m "Automatic changelog compile [ci skip]" -a || true
-      - name: "Push"
+      - name: Push
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          #github_token: ${{ secrets.GITHUB_TOKEN }} Use this instead if you have unprotected branches
+          github_token: ${{ secrets.CL_TOKEN }}

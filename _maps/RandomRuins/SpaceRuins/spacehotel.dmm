@@ -2148,6 +2148,7 @@
 /area/ruin/space/has_grav/hotel/bar)
 "gC" = (
 /obj/structure/closet/secure_closet/freezer/meat{
+	req_access = null;
 	req_access_txt = "200"
 	},
 /turf/open/floor/plasteel/cafeteria,
@@ -2243,6 +2244,7 @@
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/structure/closet/secure_closet/freezer/fridge{
+	req_access = null;
 	req_access_txt = "200"
 	},
 /turf/open/floor/plasteel/cafeteria,
@@ -4143,7 +4145,7 @@
 "lt" = (
 /obj/structure/table,
 /obj/item/toy/beach_ball,
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/pool)
 "lu" = (
@@ -4898,7 +4900,7 @@
 /obj/machinery/light,
 /obj/structure/table,
 /obj/item/toy/beach_ball,
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/pool)
 "mM" = (

@@ -73,12 +73,12 @@
 	autolinkers = list("r_relay")
 
 /obj/machinery/telecomms/relay/preset/reebe
-	name = "hierophant relay"
-	desc = "An arcane telecommunications relay that ingeniously combines bluespace technology with the Hierophant network to send and receive messages to and from Reebe."
 	id = "Hierophant Relay"
-	icon = 'icons/obj/clockwork_objects.dmi'
-	hide = TRUE
+	hide = 1
 	autolinkers = list("h_relay")
+	icon = 'icons/obj/clockwork_objects.dmi'
+	icon_state = "relay"
+	broadcasting = FALSE	//It only recieves
 
 //Generic preset relay
 /obj/machinery/telecomms/relay/preset/auto

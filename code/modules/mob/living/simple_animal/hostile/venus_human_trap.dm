@@ -54,10 +54,8 @@
 	health = 50
 	maxHealth = 50
 	ranged = 1
-	harm_intent_damage = 5
 	obj_damage = 60
-	melee_damage_lower = 25
-	melee_damage_upper = 25
+	melee_damage = 25
 	a_intent = INTENT_HARM
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -102,7 +100,7 @@
 		if(length(grasping) < max_grasps)
 			grasping:
 				for(var/mob/living/L in view(grasp_range, src))
-					if(L == src || faction_check_mob(L) || L in grasping || L == target)
+					if(L == src || faction_check_mob(L) || (L in grasping) || L == target)
 						continue
 					for(var/turf/T in getline(src,L))
 						if (T.density)

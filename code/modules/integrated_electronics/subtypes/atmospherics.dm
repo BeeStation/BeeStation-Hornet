@@ -71,7 +71,7 @@
 	update_target(amt)
 
 /obj/item/integrated_circuit/atmospherics/pump/proc/update_target(new_amount)
-	if(!isnum(new_amount))
+	if(!isnum_safe(new_amount))
 		new_amount = 0
 	// See in which direction the gas moves
 	if(new_amount < 0)
@@ -115,24 +115,27 @@
 		source_air = air_contents
 
 	// Move gas from one place to another
-	move_gas(source_air, target_air)
+	move_gas(source_air, target_air, (istype(target, /obj/item/tank) ? target : null))
 	air_update_turf()
 
-/obj/item/integrated_circuit/atmospherics/pump/proc/move_gas(datum/gas_mixture/source_air, datum/gas_mixture/target_air)
+/obj/item/integrated_circuit/atmospherics/pump/proc/move_gas(datum/gas_mixture/source_air, datum/gas_mixture/target_air, obj/item/tank/snowflake)
 
 	// No moles = nothing to pump
 	if(source_air.total_moles() <= 0  || target_air.return_pressure() >= PUMP_MAX_PRESSURE)
 		return
 
 	// Negative Kelvin temperatures should never happen and if they do, normalize them
-	if(source_air.temperature < TCMB)
-		source_air.temperature = TCMB
+	if(source_air.return_temperature() < TCMB)
+		source_air.set_temperature(TCMB)
 
 	var/pressure_delta = target_pressure - target_air.return_pressure()
 	if(pressure_delta > 0.1)
-		var/transfer_moles = (pressure_delta*target_air.volume/(source_air.temperature * R_IDEAL_GAS_EQUATION))*PUMP_EFFICIENCY
+		var/transfer_moles = (pressure_delta*target_air.return_volume()/(source_air.return_temperature() * R_IDEAL_GAS_EQUATION))*PUMP_EFFICIENCY
 		var/datum/gas_mixture/removed = source_air.remove(transfer_moles)
-		target_air.merge(removed)
+		if(istype(snowflake)) //Snowflake check for tanks specifically, because tank ruptures are handled in a very snowflakey way that expects all tank interactions to be handled via the tank's procs
+			snowflake.assume_air(removed)
+		else
+			target_air.merge(removed)
 
 
 // - volume pump - // **Works**
@@ -156,7 +159,7 @@
 	power_draw_per_use = 20
 
 /obj/item/integrated_circuit/atmospherics/pump/volume/update_target(new_amount)
-	if(!isnum(new_amount))
+	if(!isnum_safe(new_amount))
 		new_amount = 0
 	// See in which direction the gas moves
 	if(new_amount < 0)
@@ -165,25 +168,27 @@
 		direction = SOURCE_TO_TARGET
 	target_pressure = min(PUMP_MAX_VOLUME,abs(new_amount))
 
-/obj/item/integrated_circuit/atmospherics/pump/volume/move_gas(datum/gas_mixture/source_air, datum/gas_mixture/target_air)
+/obj/item/integrated_circuit/atmospherics/pump/volume/move_gas(datum/gas_mixture/source_air, datum/gas_mixture/target_air, obj/item/tank/snowflake)
 	// No moles = nothing to pump
 	if(source_air.total_moles() <= 0)
 		return
 
 	// Negative Kelvin temperatures should never happen and if they do, normalize them
-	if(source_air.temperature < TCMB)
-		source_air.temperature = TCMB
+	if(source_air.return_temperature() < TCMB)
+		source_air.set_temperature(TCMB)
 
 	if((source_air.return_pressure() < 0.01) || (target_air.return_pressure() >= PUMP_MAX_PRESSURE))
 		return
 
 	//The second part of the min caps the pressure built by the volume pumps to the max pump pressure
-	var/transfer_ratio = min(transfer_rate,target_air.volume*PUMP_MAX_PRESSURE/source_air.return_pressure())/source_air.volume
+	var/transfer_ratio = min(transfer_rate,target_air.return_volume()*PUMP_MAX_PRESSURE/source_air.return_pressure())/source_air.return_volume()
 
 	var/datum/gas_mixture/removed = source_air.remove_ratio(transfer_ratio * PUMP_EFFICIENCY)
 
-	target_air.merge(removed)
-
+	if(istype(snowflake))
+		snowflake.assume_air(removed)
+	else
+		target_air.merge(removed)
 
 // - gas vent - // **works**
 /obj/item/integrated_circuit/atmospherics/pump/vent
@@ -351,10 +356,10 @@ obj/item/integrated_circuit/atmospherics/connector/portableConnectorReturnAir()
 	var/transfer_moles
 
 	//Negative Kelvins are an anomaly and should be normalized if encountered
-	if(source_air.temperature < TCMB)
-		source_air.temperature = TCMB
+	if(source_air.return_temperature() < TCMB)
+		source_air.set_temperature(TCMB)
 
-	transfer_moles = (pressure_delta*contaminated_air.volume/(source_air.temperature * R_IDEAL_GAS_EQUATION))*PUMP_EFFICIENCY
+	transfer_moles = (pressure_delta*contaminated_air.return_volume()/(source_air.return_temperature() * R_IDEAL_GAS_EQUATION))*PUMP_EFFICIENCY
 
 	//If there is nothing to transfer, just return
 	if(transfer_moles <= 0)
@@ -368,22 +373,31 @@ obj/item/integrated_circuit/atmospherics/connector/portableConnectorReturnAir()
 	//This is the gas that will be moved from source to filtered
 	var/datum/gas_mixture/filtered_out = new
 
-	for(var/filtered_gas in removed.gases)
+	for(var/filtered_gas in removed.get_gases())
 		//Get the name of the gas and see if it is in the list
-		if(removed.gases[filtered_gas][GAS_META][META_GAS_NAME] in wanted)
+		if(GLOB.meta_gas_info[filtered_gas][META_GAS_NAME] in wanted)
 			//The gas that is put in all the filtered out gases
-			filtered_out.temperature = removed.temperature
-			filtered_out.add_gas(filtered_gas)
-			filtered_out.gases[filtered_gas][MOLES] = removed.gases[filtered_gas][MOLES]
+			filtered_out.set_temperature(removed.return_temperature())
+			filtered_out.set_moles(filtered_gas, removed.get_moles(filtered_gas))
 
 			//The filtered out gas is entirely removed from the currently filtered gases
-			removed.gases[filtered_gas][MOLES] = 0
-			removed.garbage_collect()
+			removed.set_moles(filtered_gas, 0)
 
 	//Check if the pressure is high enough to put stuff in filtered, or else just put it back in the source
-	var/datum/gas_mixture/target = (filtered_air.return_pressure() < target_pressure ? filtered_air : source_air)
-	target.merge(filtered_out)
-	contaminated_air.merge(removed)
+	if(filtered_air.return_pressure() < target_pressure)
+		if(istype(filtered, /obj/item/tank))
+			filtered.assume_air(filtered_out)
+		else
+			filtered_air.merge(filtered_out)
+	else
+		if(istype(source, /obj/item/tank))
+			source.assume_air(filtered_out)
+		else
+			source_air.merge(filtered_out)
+	if(istype(contaminants, /obj/item/tank))
+		contaminants.assume_air(removed)
+	else
+		contaminated_air.merge(removed)
 
 
 /obj/item/integrated_circuit/atmospherics/pump/filter/Initialize()
@@ -445,16 +459,24 @@ obj/item/integrated_circuit/atmospherics/connector/portableConnectorReturnAir()
 	var/gas_percentage = round(max(min(get_pin_data(IC_INPUT, 4),100),0) / 100)
 
 	//Basically: number of moles = percentage of pressure filled up * efficiency coefficient * (pressure from both gases * volume of output) / (R * Temperature)
-	var/transfer_moles = (get_pin_data(IC_INPUT, 5) / max(1,output_gases.return_pressure())) * PUMP_EFFICIENCY * (source_1_gases.return_pressure() * gas_percentage +  source_2_gases.return_pressure() * (1 - gas_percentage)) * output_gases.volume/ (R_IDEAL_GAS_EQUATION * max(output_gases.temperature,TCMB))
+	var/transfer_moles = (get_pin_data(IC_INPUT, 5) / max(1,output_gases.return_pressure())) * PUMP_EFFICIENCY * (source_1_gases.return_pressure() * gas_percentage +  source_2_gases.return_pressure() * (1 - gas_percentage)) * output_gases.return_volume()/ (R_IDEAL_GAS_EQUATION * max(output_gases.return_temperature(),TCMB))
 
 
 	if(transfer_moles <= 0)
 		return
+		
+	var/snowflakecheck = istype(gas_output, /obj/item/tank)
 
 	var/datum/gas_mixture/mix = source_1_gases.remove(transfer_moles * gas_percentage)
-	output_gases.merge(mix)
+	if(snowflakecheck)
+		gas_output.assume_air(mix)
+	else
+		output_gases.merge(mix)
 	mix = source_2_gases.remove(transfer_moles * (1-gas_percentage))
-	output_gases.merge(mix)
+	if(snowflakecheck)
+		gas_output.assume_air(mix)
+	else
+		output_gases.merge(mix)
 
 
 // - integrated tank - // **works**
@@ -545,10 +567,10 @@ obj/item/integrated_circuit/atmospherics/connector/portableConnectorReturnAir()
 	push_data()
 
 	//Cool the tank if the power is on and the temp is above
-	if(!power_draw_idle || air_contents.temperature < temperature)
+	if(!power_draw_idle || air_contents.return_temperature() < temperature)
 		return
 
-	air_contents.temperature = max(73.15,air_contents.temperature - (air_contents.temperature - temperature) * heater_coefficient)
+	air_contents.set_temperature(max(73.15,air_contents.return_temperature() - (air_contents.return_temperature() - temperature) * heater_coefficient))
 
 
 // - heater tank - // **works**
@@ -575,10 +597,10 @@ obj/item/integrated_circuit/atmospherics/connector/portableConnectorReturnAir()
 	push_data()
 
 	//Heat the tank if the power is on or its temperature is below what is set
-	if(!power_draw_idle || air_contents.temperature > temperature)
+	if(!power_draw_idle || air_contents.return_temperature() > temperature)
 		return
 
-	air_contents.temperature = min(573.15,air_contents.temperature + (temperature - air_contents.temperature) * heater_coefficient)
+	air_contents.set_temperature(min(573.15,air_contents.return_temperature() + (temperature - air_contents.return_temperature()) * heater_coefficient))
 
 
 // - atmospheric cooler - // **works**
@@ -622,11 +644,11 @@ obj/item/integrated_circuit/atmospherics/connector/portableConnectorReturnAir()
 		return
 
 	var/datum/gas_mixture/turf_air = current_turf.return_air()
-	if(!power_draw_idle || turf_air.temperature < temperature)
+	if(!power_draw_idle || turf_air.return_temperature() < temperature)
 		return
 
 	//Cool the gas
-	turf_air.temperature = max(243.15,turf_air.temperature - (turf_air.temperature - temperature) * heater_coefficient)
+	turf_air.set_temperature(max(243.15,turf_air.return_temperature() - (turf_air.return_temperature() - temperature) * heater_coefficient))
 
 
 // - atmospheric heater - // **works**
@@ -651,11 +673,11 @@ obj/item/integrated_circuit/atmospherics/connector/portableConnectorReturnAir()
 		return
 
 	var/datum/gas_mixture/turf_air = current_turf.return_air()
-	if(!power_draw_idle || turf_air.temperature > temperature)
+	if(!power_draw_idle || turf_air.return_temperature() > temperature)
 		return
 
 	//Heat the gas
-	turf_air.temperature = min(323.15,turf_air.temperature + (temperature - turf_air.temperature) * heater_coefficient)
+	turf_air.set_temperature(min(323.15,turf_air.return_temperature() + (temperature - turf_air.return_temperature()) * heater_coefficient))
 
 
 // - tank slot - // **works**

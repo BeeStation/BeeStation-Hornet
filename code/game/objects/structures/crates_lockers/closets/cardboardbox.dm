@@ -13,6 +13,7 @@
 	material_drop = /obj/item/stack/sheet/cardboard
 	delivery_icon = "deliverybox"
 	anchorable = FALSE
+	door_anim_time = 0 // no animation
 	open_sound = 'sound/machines/cardboard_box.ogg'
 	close_sound = 'sound/machines/cardboard_box.ogg'
 	open_sound_volume = 35

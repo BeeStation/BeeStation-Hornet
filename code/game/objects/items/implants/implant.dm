@@ -35,7 +35,7 @@
 /mob/living/simple_animal/can_be_implanted()
 	return healable //Applies to robots and most non-organics, exceptions can override.
 
-
+/obj/item/implant/proc/on_implanted(mob/user)
 
 //What does the implant do upon injection?
 //return 1 if the implant injects
@@ -82,6 +82,8 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.sec_hud_set_implants()
+
+	on_implanted(target)
 
 	if(user)
 		log_combat(user, target, "implanted", "\a [name]")

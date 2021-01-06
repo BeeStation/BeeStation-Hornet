@@ -12,8 +12,8 @@
 	var/obj/item/clothing/suit/space/hardsuit/suit
 	item_color = "engineering" //Determines used sprites: hardsuit[on]-[color] and hardsuit[on]-[color]2 (lying down sprite)
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH	| PEPPERPROOF
-	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	var/rad_count = 0
 	var/rad_record = 0
 	var/grace_count = 0
@@ -221,7 +221,7 @@
 	name = "advanced hardsuit"
 	desc = "An advanced suit that protects against hazardous, low pressure environments. Shines with a high polish."
 	item_state = "ce_hardsuit"
-	armor = list("melee" = 40, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 50, "bio" = 100, "rad" = 90, "fire" = 100, "acid" = 90)
+	armor = list("melee" = 40, "bullet" = 5, "laser" = 10, "energy" = 20, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 90)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine/elite
@@ -859,6 +859,22 @@
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	actions_types = list()
+
+/obj/item/clothing/suit/space/hardsuit/shielded/swat/honk
+	name = "honk squad spacesuit"
+	desc = "A hilarious hardsuit favored by HONK squad troopers for use in special pranks."
+	icon_state = "hardsuit-clown"
+	item_state = "clown_hardsuit"
+	item_color = "clown"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/swat/honk
+
+/obj/item/clothing/head/helmet/space/hardsuit/shielded/swat/honk
+	name = "honk squad helmet"
+	desc = "A hilarious helmet with built in anti-mime propaganda shielding."
+	icon_state = "hardsuit0-clown"
+	item_state = "hardsuit0-clown"
+	item_color = "clown"
+	
 
 // Doomguy ERT version
 /obj/item/clothing/suit/space/hardsuit/shielded/doomguy

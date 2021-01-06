@@ -72,6 +72,8 @@
 	desc = "A modification of the syringe gun design, using a rotating cylinder to store up to six syringes."
 	icon_state = "rapidsyringegun"
 	max_syringes = 6
+	automatic = 1
+	fire_rate = 2
 
 /obj/item/gun/syringe/syndicate
 	name = "dart pistol"
@@ -107,13 +109,15 @@
 		else
 			to_chat(user, "<span class='warning'>[src] cannot hold more syringes!</span>")
 	return FALSE
-	
+
 /obj/item/gun/syringe/blowgun
 	name = "blowgun"
 	desc = "Fire syringes at a short distance."
 	icon_state = "blowgun"
 	item_state = "blowgun"
 	fire_sound = 'sound/items/syringeproj.ogg'
+	no_pin_required = TRUE
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
 /obj/item/gun/syringe/blowgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	visible_message("<span class='danger'>[user] starts aiming with a blowgun!</span>")

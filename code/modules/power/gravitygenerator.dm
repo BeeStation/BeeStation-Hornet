@@ -117,7 +117,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	icon_state = "on_8"
 	idle_power_usage = 0
 	active_power_usage = 3000
-	power_channel = ENVIRON
+	power_channel = AREA_USAGE_ENVIRON
 	sprite_number = 8
 	use_power = IDLE_POWER_USE
 	interaction_flags_machine = INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OFFLINE
@@ -224,40 +224,37 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 				return
 	return ..()
 
-/obj/machinery/gravity_generator/main/ui_interact(mob/user)
-	if(stat & BROKEN)
-		return
-	var/dat = "Gravity Generator Breaker: "
-	if(breaker)
-		dat += "<span class='linkOn'>ON</span> <A href='?src=[REF(src)];gentoggle=1'>OFF</A>"
-	else
-		dat += "<A href='?src=[REF(src)];gentoggle=1'>ON</A> <span class='linkOn'>OFF</span> "
 
-	dat += "<br>Generator Status:<br><div class='statusDisplay'>"
-	if(charging_state != POWER_IDLE)
-		dat += "<font class='bad'>WARNING</font> Radiation Detected. <br>[charging_state == POWER_UP ? "Charging..." : "Discharging..."]"
-	else if(on)
-		dat += "Powered."
-	else
-		dat += "Unpowered."
+/obj/machinery/gravity_generator/main/ui_state(mob/user)
+	return GLOB.default_state
 
-	dat += "<br>Gravity Charge: [charge_count]%</div>"
+/obj/machinery/gravity_generator/main/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "GravityGenerator")
+		ui.open()
 
-	var/datum/browser/popup = new(user, "gravgen", name)
-	popup.set_content(dat)
-	popup.open()
+/obj/machinery/gravity_generator/main/ui_data(mob/user)
+	var/list/data = list()
 
+	data["breaker"] = breaker
+	data["charge_count"] = charge_count
+	data["charging_state"] = charging_state
+	data["on"] = on
+	data["operational"] = (stat & BROKEN) ? FALSE : TRUE
 
-/obj/machinery/gravity_generator/main/Topic(href, href_list)
+	return data
 
+/obj/machinery/gravity_generator/main/ui_act(action, params)
 	if(..())
 		return
 
-	if(href_list["gentoggle"])
-		breaker = !breaker
-		investigate_log("was toggled [breaker ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>"] by [key_name(usr)].", INVESTIGATE_GRAVITY)
-		set_power()
-		src.updateUsrDialog()
+	switch(action)
+		if("gentoggle")
+			breaker = !breaker
+			investigate_log("was toggled [breaker ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>"] by [key_name(usr)].", INVESTIGATE_GRAVITY)
+			set_power()
+			. = TRUE
 
 // Power and Icon States
 

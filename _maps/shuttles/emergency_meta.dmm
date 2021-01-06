@@ -9,28 +9,9 @@
 "ad" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"af" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
-	},
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/escape)
 "ag" = (
 /obj/structure/sign/warning/nosmoking,
 /turf/closed/wall/mineral/titanium,
-/area/shuttle/escape)
-"ah" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
-	},
-/obj/docking_port/mobile/emergency{
-	dir = 2;
-	dwidth = 5;
-	height = 14;
-	name = "Meta emergency shuttle";
-	width = 25
-	},
-/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "al" = (
 /obj/structure/table,
@@ -237,13 +218,6 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
-"aH" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Cockpit";
-	req_access_txt = "19"
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
 "aI" = (
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
@@ -330,37 +304,9 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
-"aW" = (
-/obj/machinery/door/airlock/command{
-	name = "Emergency Recovery Airlock";
-	req_access_txt = "19"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
-"aY" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Brig";
-	req_access_txt = "2"
-	},
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"aZ" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary"
-	},
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/escape)
 "ba" = (
 /obj/structure/sign/departments/medbay/alt,
 /turf/closed/wall/mineral/titanium,
-/area/shuttle/escape)
-"bb" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Cargo Bay Airlock"
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
 /area/shuttle/escape)
 "bd" = (
 /obj/structure/chair/comfy/shuttle{
@@ -521,11 +467,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
-"bC" = (
-/obj/structure/reagent_dispensers/watertank,
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "bD" = (
@@ -713,9 +654,6 @@
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
-"bT" = (
-/turf/closed/wall/mineral/titanium/nodiagonal,
-/area/shuttle/escape)
 "bU" = (
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -836,13 +774,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
-"cc" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
 "cd" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -852,11 +783,152 @@
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
+"cO" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"ef" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Brig";
+	req_access_txt = "2"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"fr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/orange/hidden{
+	dir = 9
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"hJ" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/orange/hidden{
+	dir = 6
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"pq" = (
+/obj/machinery/door/airlock/command{
+	name = "Emergency Recovery Airlock";
+	req_access_txt = "19"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"BN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/components/binary/dp_vent_pump,
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"Ce" = (
+/obj/machinery/atmospherics/pipe/simple/orange/hidden{
+	dir = 10
+	},
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/escape)
+"CQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/orange/hidden,
+/obj/machinery/advanced_airlock_controller{
+	pixel_y = 24
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"DK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/components/unary/tank/air,
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"Gk" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Cockpit";
+	req_access_txt = "19"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"GG" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/escape)
+"Li" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "LY" = (
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
+"Ml" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/docking_port/mobile/emergency{
+	dir = 2;
+	dwidth = 5;
+	height = 14;
+	name = "Meta emergency shuttle";
+	width = 25
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"PE" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/escape)
 "Vs" = (
 /turf/open/floor/mineral/titanium/white,
+/area/shuttle/escape)
+"Xm" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Cargo Bay Airlock"
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"Yo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/orange/hidden,
+/turf/open/floor/plasteel,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -908,7 +980,7 @@ ad
 ad
 "}
 (4,1,1) = {"
-ac
+Li
 al
 aw
 aB
@@ -920,11 +992,11 @@ aJ
 bd
 bd
 bd
-bC
-ac
+DK
+Li
 "}
 (5,1,1) = {"
-ac
+Li
 am
 aq
 aC
@@ -934,13 +1006,13 @@ aq
 aQ
 ad
 be
-cc
-be
-be
+hJ
+BN
+Yo
 bf
 "}
 (6,1,1) = {"
-ac
+Li
 an
 ax
 LY
@@ -950,13 +1022,13 @@ aC
 aR
 ad
 bf
-bT
-be
-be
+Ce
+CQ
+fr
 bf
 "}
 (7,1,1) = {"
-ac
+Li
 ao
 ay
 LY
@@ -964,19 +1036,19 @@ LY
 LY
 bY
 aq
-aW
+pq
 cb
 ad
 by
 by
-ac
+Li
 "}
 (8,1,1) = {"
 ad
 ad
 az
 ad
-aH
+Gk
 ad
 az
 ad
@@ -1004,7 +1076,7 @@ bD
 ad
 "}
 (10,1,1) = {"
-ac
+Li
 LY
 LY
 LY
@@ -1012,12 +1084,12 @@ LY
 LY
 LY
 LY
-aY
+ef
 bU
 bU
 bU
 bE
-ac
+Li
 "}
 (11,1,1) = {"
 ad
@@ -1033,10 +1105,10 @@ bi
 bU
 bU
 bF
-ac
+Li
 "}
 (12,1,1) = {"
-af
+cO
 LY
 LY
 aE
@@ -1068,7 +1140,7 @@ ad
 ad
 "}
 (14,1,1) = {"
-af
+cO
 LY
 LY
 aE
@@ -1097,10 +1169,10 @@ bk
 Vs
 Vs
 bI
-ac
+Li
 "}
 (16,1,1) = {"
-ac
+Li
 ar
 LY
 LY
@@ -1108,15 +1180,15 @@ LY
 LY
 LY
 LY
-aZ
+PE
 Vs
 Vs
 Vs
 bJ
-ac
+Li
 "}
 (17,1,1) = {"
-ac
+Li
 ar
 LY
 aE
@@ -1132,7 +1204,7 @@ bK
 ad
 "}
 (18,1,1) = {"
-ac
+Li
 ar
 LY
 aE
@@ -1143,7 +1215,7 @@ aE
 ba
 ad
 ac
-aZ
+GG
 ba
 ad
 "}
@@ -1164,7 +1236,7 @@ bM
 ad
 "}
 (20,1,1) = {"
-ah
+Ml
 LY
 LY
 aE
@@ -1193,10 +1265,10 @@ bo
 be
 be
 bO
-ac
+Li
 "}
 (22,1,1) = {"
-af
+cO
 LY
 LY
 LY
@@ -1204,12 +1276,12 @@ LY
 LY
 LY
 LY
-bb
+Xm
 bp
 be
 bw
 bP
-ac
+Li
 "}
 (23,1,1) = {"
 ad
@@ -1220,7 +1292,7 @@ LY
 LY
 LY
 LY
-bb
+Xm
 bp
 be
 be
@@ -1246,16 +1318,16 @@ ad
 (25,1,1) = {"
 ad
 ad
-ac
+Li
 ad
-ac
+Li
 ad
-ac
+Li
 ad
 ad
 ad
-ac
-ac
+Li
+Li
 ad
 ad
 "}

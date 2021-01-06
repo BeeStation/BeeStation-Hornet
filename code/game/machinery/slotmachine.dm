@@ -50,8 +50,8 @@
 	toggle_reel_spin(0)
 
 	for(cointype in typesof(/obj/item/coin))
-		var/obj/item/coin/C = cointype
-		coinvalues["[cointype]"] = initial(C.value)
+		var/obj/item/coin/C = new cointype
+		coinvalues["[cointype]"] = C.get_item_credit_value()
 
 /obj/machinery/computer/slot_machine/Destroy()
 	if(balance)
@@ -107,7 +107,7 @@
 			var/obj/item/holochip/H = I
 			if(!user.temporarilyRemoveItemFromInventory(H))
 				return
-			to_chat(user, "<span class='notice'>You insert [H.credits] holocredits into [src]'s!</span>")
+			to_chat(user, "<span class='notice'>You insert [H.credits] holocredits into [src]'s slot!</span>")
 			balance += H.credits
 			qdel(H)
 		else
@@ -163,7 +163,6 @@
 
 	var/datum/browser/popup = new(user, "slotmachine", "Slot Machine")
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
 
 /obj/machinery/computer/slot_machine/Topic(href, href_list)
@@ -334,7 +333,8 @@
 			H.throw_at(target, 3, 10)
 	else
 		var/value = coinvalues["[cointype]"]
-
+		if(value <= 0)
+			CRASH("Coin value of zero, refusing to payout in dispenser")
 		while(amount >= value)
 			var/obj/item/coin/C = new cointype(loc) //DOUBLE THE PAIN
 			amount -= value

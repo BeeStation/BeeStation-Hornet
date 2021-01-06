@@ -6,13 +6,13 @@
 	name = "???"
 	id = "shadow"
 	sexes = 0
-	ignored_by = list(/mob/living/simple_animal/hostile/faithless)
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/shadow
 	species_traits = list(NOBLOOD,NOEYESPRITES,NOFLASH)
 	inherent_traits = list(TRAIT_RADIMMUNE,TRAIT_VIRUSIMMUNE,TRAIT_NOBREATH)
+	inherent_factions = list("faithless")
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
-
 	mutanteyes = /obj/item/organ/eyes/night_vision
+	species_language_holder = /datum/language_holder/shadowpeople
 
 
 /datum/species/shadow/spec_life(mob/living/carbon/human/H)
@@ -161,6 +161,9 @@
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	force = 25
+	block_upgrade_walk = 1
+	block_level = 1
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	armour_penetration = 35
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'

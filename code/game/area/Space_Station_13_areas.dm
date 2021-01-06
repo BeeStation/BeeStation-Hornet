@@ -7,7 +7,7 @@
 	icon = 'ICON FILENAME' 			(defaults to 'icons/turf/areas.dmi')
 	icon_state = "NAME OF ICON" 	(defaults to "unknown" (blank))
 	requires_power = FALSE 				(defaults to true)
-	ambientsounds = list()				(defaults to GENERIC from sound.dm. override it as "ambientsounds = list('sound/ambience/signal.ogg')" or using another define.
+	ambient_effects = list()				(defaults to GENERIC from sound.dm. override it as "ambient_effects = list('sound/ambience/signal.ogg')" or using another define.
 
 NOTE: there are two lists of areas in the end of this file: centcom and station itself. Please maintain these lists valid. --rastaf0
 
@@ -30,8 +30,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	power_environ = FALSE
 	valid_territory = FALSE
 	outdoors = TRUE
-	ambientsounds = SPACE
+	ambient_music = SPACE
 	blob_allowed = FALSE //Eating up space doesn't count for victory as a blob.
+	ambient_buzz = null // Space is pretty quiet
 
 /area/space/nearstation
 	icon_state = "space_near"
@@ -43,6 +44,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	has_gravity = STANDARD_GRAVITY
+	ambient_buzz = null
 
 
 /area/testroom
@@ -59,11 +61,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	has_gravity = STANDARD_GRAVITY
 	blob_allowed = FALSE //Nope, no winning on the asteroid as a blob. Gotta eat the station.
 	valid_territory = FALSE
-	ambientsounds = MINING
+	ambient_effects = MINING
 
 /area/asteroid/nearstation
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
-	ambientsounds = RUINS
+	ambient_effects = RUINS
 	always_unpowered = FALSE
 	requires_power = TRUE
 	blob_allowed = TRUE
@@ -76,11 +78,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 //Maintenance
 
 /area/maintenance
-	ambientsounds = MAINTENANCE
+	ambient_effects = MAINTENANCE
 	valid_territory = FALSE
 	mood_bonus = -1
 	mood_message = "<span class='nicegreen'>It's kind of cramped in here!\n</span>"
-
+	lighting_colour_tube = "#ffe5cb"
+	lighting_colour_bulb = "#ffdbb4"
 
 //Departments
 
@@ -235,6 +238,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 //Hallway
 
+/area/hallway
+	lighting_colour_tube = "#ffce99"
+	lighting_colour_bulb = "#ffdbb4"
+	lighting_brightness_tube = 8
+
+
 /area/hallway/primary/aft
 	name = "Aft Primary Hallway"
 	icon_state = "hallA"
@@ -284,7 +293,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/bridge
 	name = "Bridge"
 	icon_state = "bridge"
-	ambientsounds = list('sound/ambience/signal.ogg')
+	ambient_effects = list('sound/ambience/signal.ogg')
+
+	lighting_colour_tube = "#ffce99"
+	lighting_colour_bulb = "#ffdbb4"
+	lighting_brightness_tube = 8
 
 /area/bridge/meeting_room
 	name = "Heads of Staff Meeting Room"
@@ -329,12 +342,19 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/comms
 	name = "Communications Relay"
 	icon_state = "tcomsatcham"
+	lighting_colour_tube = "#e2feff"
+	lighting_colour_bulb = "#d5fcff"
 
 /area/server
 	name = "Messaging Server Room"
 	icon_state = "server"
 
 //Crew
+
+/area/crew_quarters
+	lighting_colour_tube = "#ffce99"
+	lighting_colour_bulb = "#ffdbb4"
+	lighting_brightness_tube = 8
 
 /area/crew_quarters/dorms
 	name = "Dormitories"
@@ -347,10 +367,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Cryopod Room"
 	safe = TRUE
 	icon_state = "cryopod"
+	lighting_colour_tube = "#e3ffff"
+	lighting_colour_bulb = "#d5ffff"
 
 /area/crew_quarters/toilet
 	name = "Dormitory Toilets"
 	icon_state = "toilet"
+	lighting_colour_tube = "#e3ffff"
+	lighting_colour_bulb = "#d5ffff"
 
 /area/crew_quarters/toilet/auxiliary
 	name = "Auxiliary Restrooms"
@@ -391,6 +415,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/kitchen
 	name = "Kitchen"
 	icon_state = "kitchen"
+	lighting_colour_tube = "#e3ffff"
+	lighting_colour_bulb = "#d5ffff"
 
 /area/crew_quarters/kitchen/coldroom
 	name = "Kitchen Cold Room"
@@ -401,6 +427,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "bar"
 	mood_bonus = 5
 	mood_message = "<span class='nicegreen'>I love being in the bar!\n</span>"
+	lighting_colour_tube = "#fff4d6"
+	lighting_colour_bulb = "#ffebc1"
 
 /area/crew_quarters/bar/atrium
 	name = "Atrium"
@@ -430,6 +458,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "library"
 	flags_1 = NONE
 
+	lighting_colour_tube = "#ffce99"
+	lighting_colour_bulb = "#ffdbb4"
+	lighting_brightness_tube = 8
+
 /area/library/lounge
 	name = "Library Lounge"
 	icon_state = "library"
@@ -441,7 +473,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/chapel
 	icon_state = "chapel"
-	ambientsounds = HOLY
+	ambient_effects = HOLY
 	flags_1 = NONE
 	clockwork_warp_allowed = FALSE
 	clockwork_warp_fail = "The consecration here prevents you from warping in."
@@ -475,7 +507,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 //Engineering
 
 /area/engine
-	ambientsounds = ENGINEERING
+	ambient_effects = ENGINEERING
+	lighting_colour_tube = "#ffce93"
+	lighting_colour_bulb = "#ffbc6f"
 
 /area/engine/engine_smes
 	name = "Engineering SMES"
@@ -539,7 +573,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	valid_territory = FALSE
 	blob_allowed = FALSE
 	flags_1 = NONE
-	ambientsounds = ENGINEERING
+	ambient_effects = ENGINEERING
 
 /area/solar/fore
 	name = "Fore Solar Array"
@@ -617,27 +651,28 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/teleporter
 	name = "Teleporter Room"
 	icon_state = "teleporter"
-	ambientsounds = ENGINEERING
+	ambient_effects = ENGINEERING
 
 /area/gateway
 	name = "Gateway"
 	icon_state = "gateway"
-	ambientsounds = ENGINEERING
+	ambient_effects = ENGINEERING
 
 //MedBay
 
 /area/medical
 	name = "Medical"
 	icon_state = "medbay3"
-	ambientsounds = MEDICAL
+	ambient_effects = MEDICAL
 	mood_bonus = 2
 	mood_message = "<span class='nicegreen'>I feel safe in here!\n</span>"
-
+	lighting_colour_tube = "#e7f8ff"
+	lighting_colour_bulb = "#d5f2ff"
 
 /area/medical/abandoned
 	name = "Abandoned Medbay"
 	icon_state = "medbay3"
-	ambientsounds = list('sound/ambience/signal.ogg')
+	ambient_effects = list('sound/ambience/signal.ogg')
 
 /area/medical/medbay/central
 	name = "Medbay Central"
@@ -681,7 +716,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/medical/morgue
 	name = "Morgue"
 	icon_state = "morgue"
-	ambientsounds = SPOOKY
+	ambient_effects = SPOOKY
 	mood_bonus = -2
 	mood_message = "<span class='nicegreen'>It smells like death in here!\n</span>"
 
@@ -723,7 +758,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security
 	name = "Security"
 	icon_state = "security"
-	ambientsounds = HIGHSEC
+	ambient_effects = HIGHSEC
+	lighting_colour_tube = "#ffeee2"
+	lighting_colour_bulb = "#ffdfca"
 
 /area/security/main
 	name = "Security Office"
@@ -758,7 +795,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/detectives_office
 	name = "Detective's Office"
 	icon_state = "detective"
-	ambientsounds = list('sound/ambience/ambidet1.ogg','sound/ambience/ambidet2.ogg')
+	ambient_effects = list('sound/ambience/ambidet1.ogg','sound/ambience/ambidet2.ogg')
 
 /area/security/detectives_office/private_investigators_office
 	name = "Private Investigator's Office"
@@ -830,6 +867,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/quartermaster
 	name = "Quartermasters"
 	icon_state = "quart"
+	lighting_colour_tube = "#ffe3cc"
+	lighting_colour_bulb = "#ffdbb8"
 
 /area/quartermaster/sorting
 	name = "Delivery Office"
@@ -890,6 +929,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/science
 	name = "Science Division"
 	icon_state = "toxlab"
+	lighting_colour_tube = "#f0fbff"
+	lighting_colour_bulb = "#e4f7ff"
 
 /area/science/lab
 	name = "Research and Development"
@@ -957,6 +998,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Nanite Lab"
 	icon_state = "toxmisc"
 
+/area/science/shuttledock
+	name = "Science Shuttle Dock"
+	icon_state = "toxmisc"
+
 //Storage
 
 /area/storage/tools
@@ -998,7 +1043,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/construction
 	name = "Construction Area"
 	icon_state = "yellow"
-	ambientsounds = ENGINEERING
+	ambient_effects = ENGINEERING
 
 /area/construction/mining/aux_base
 	name = "Auxiliary Base Construction"
@@ -1012,7 +1057,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/vacant_room
 	name = "Vacant Room"
 	icon_state = "yellow"
-	ambientsounds = MAINTENANCE
+	ambient_effects = MAINTENANCE
 	icon_state = "vacant_room"
 
 /area/vacant_room/office
@@ -1028,22 +1073,22 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/ai_monitored/security/armory
 	name = "Armory"
 	icon_state = "armory"
-	ambientsounds = HIGHSEC
+	ambient_effects = HIGHSEC
 
 /area/ai_monitored/storage/eva
 	name = "EVA Storage"
 	icon_state = "eva"
-	ambientsounds = HIGHSEC
+	ambient_effects = HIGHSEC
 
 /area/ai_monitored/storage/satellite
 	name = "AI Satellite Maint"
 	icon_state = "storage"
-	ambientsounds = HIGHSEC
+	ambient_effects = HIGHSEC
 
 	//Turret_protected
 
 /area/ai_monitored/turret_protected
-	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/ambitech.ogg', 'sound/ambience/ambitech2.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambiatmos2.ogg')
+	ambient_effects = list('sound/ambience/ambimalf.ogg', 'sound/ambience/ambitech.ogg', 'sound/ambience/ambitech2.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambiatmos2.ogg')
 
 /area/ai_monitored/turret_protected/ai_upload
 	name = "AI Upload Chamber"
@@ -1099,7 +1144,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/tcommsat
 	clockwork_warp_allowed = FALSE
 	clockwork_warp_fail = "For safety reasons, warping here is disallowed; the radio and bluespace noise could cause catastrophic results."
-	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg', 'sound/ambience/ambitech.ogg',\
+	ambient_effects = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg', 'sound/ambience/ambitech.ogg',\
 											'sound/ambience/ambitech2.ogg', 'sound/ambience/ambitech3.ogg', 'sound/ambience/ambimystery.ogg')
 
 /area/tcommsat/computer

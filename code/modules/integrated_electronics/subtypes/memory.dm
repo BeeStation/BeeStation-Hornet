@@ -92,12 +92,12 @@
 
 /obj/item/integrated_circuit/memory/constant/save_special()
 	var/datum/integrated_io/O = outputs[1]
-	if(istext(O.data) || isnum(O.data))
+	if(istext(O.data) || isnum_safe(O.data))
 		return O.data
 
 /obj/item/integrated_circuit/memory/constant/load_special(special_data)
 	var/datum/integrated_io/O = outputs[1]
-	if(istext(special_data) || isnum(special_data))
+	if(istext(special_data) || isnum_safe(special_data))
 		O.data = special_data
 
 /obj/item/integrated_circuit/memory/constant/attack_self(mob/user)
@@ -117,7 +117,7 @@
 		if("number")
 			accepting_refs = FALSE
 			new_data = input("Now type in a number.","[src] number writing") as null|num
-			if(isnum(new_data) && user.IsAdvancedToolUser())
+			if(isnum_safe(new_data) && user.IsAdvancedToolUser())
 				O.data = new_data
 				to_chat(user, "<span class='notice'>You set \the [src]'s memory to [O.display_data(O.data)].</span>")
 		if("ref")
@@ -137,4 +137,4 @@
 		to_chat(user, "<span class='notice'>You set \the [src]'s memory to a reference to [O.display_data(O.data)].  The ref scanner is \
 		now off.</span>")
 		accepting_refs = FALSE
-		
+

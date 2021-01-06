@@ -1,4 +1,4 @@
-
+// see code/module/crafting/table.dm
 
 ////////////////////////////////////////////////KEBABS////////////////////////////////////////////////
 
@@ -38,7 +38,17 @@
 	result = /obj/item/reagent_containers/food/snacks/kebab/tail
 	subcategory = CAT_MEAT
 
-// see code/module/crafting/table.dm
+/datum/crafting_recipe/food/fiestaskewer
+	name = "Fiesta Skewer"
+	reqs = list(
+		/obj/item/stack/rods = 1,
+		/obj/item/reagent_containers/food/snacks/grown/chili = 1,
+		/obj/item/reagent_containers/food/snacks/meat/cutlet = 1,
+		/obj/item/reagent_containers/food/snacks/grown/corn = 1,
+		/obj/item/reagent_containers/food/snacks/grown/tomato = 1
+	)
+	result = /obj/item/reagent_containers/food/snacks/kebab/fiesta
+	subcategory = CAT_MEAT
 
 ////////////////////////////////////////////////FISH////////////////////////////////////////////////
 
@@ -191,7 +201,7 @@
 	subcategory = CAT_MEAT
 
 /datum/crafting_recipe/food/ricepork
-	name = "Rice and pork"
+	name = "Rice and Pork"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/salad/boiledrice = 1,
 		/obj/item/reagent_containers/food/snacks/meat/cutlet = 2
@@ -208,4 +218,24 @@
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/meat/steak/ashflake
+	subcategory = CAT_MEAT
+
+
+/datum/crafting_recipe/food/ribs
+	name = "BBQ Ribs"
+	reqs = list(
+		/datum/reagent/consumable/bbqsauce = 5,
+		/obj/item/reagent_containers/food/snacks/meat/steak/plain = 2,
+		/obj/item/stack/rods = 2
+	)
+	result = /obj/item/reagent_containers/food/snacks/bbqribs
+	subcategory = CAT_MEAT
+
+/datum/crafting_recipe/food/meatclown
+	name = "Meat Clown"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/meat/steak/plain = 1,
+		/obj/item/reagent_containers/food/snacks/grown/banana = 1
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatclown
 	subcategory = CAT_MEAT

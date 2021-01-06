@@ -4,6 +4,10 @@
 	e_cost = 500
 	fire_sound = 'sound/weapons/genhit.ogg'
 
+/obj/item/ammo_casing/energy/bolt/radbolt
+	projectile_type = /obj/item/projectile/energy/bolt/radbolt
+	select_name = "rad bolt"
+
 /obj/item/ammo_casing/energy/bolt/halloween
 	projectile_type = /obj/item/projectile/energy/bolt/halloween
 

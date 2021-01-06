@@ -17,6 +17,7 @@
 
 	var/gps = null
 	var/obj/effect/light_emitter/tendril/emitted_light
+	var/list/necroseed = list()
 
 
 /obj/structure/spawner/lavaland/goliath
@@ -35,6 +36,17 @@ GLOBAL_LIST_INIT(tendrils, list())
 			M.ScrapeAway(null, CHANGETURF_IGNORE_AIR)
 	AddComponent(/datum/component/gps, "Eerie Signal")
 	GLOB.tendrils += src
+	var/datum/disease/advance/random/necropolis/R = new
+	necroseed += R
+
+/obj/structure/spawner/lavaland/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+	if(!necroseed.len)
+		return FALSE
+	if(scan)
+		E.scan(src, necroseed, user)
+	else
+		E.extrapolate(src, necroseed, user)
+	return TRUE
 
 /obj/structure/spawner/lavaland/deconstruct(disassembled)
 	new /obj/effect/collapse(loc)
@@ -93,5 +105,5 @@ GLOBAL_LIST_INIT(tendrils, list())
 	visible_message("<span class='boldannounce'>The tendril falls inward, the ground around it widening into a yawning chasm!</span>")
 	for(var/turf/T in range(2,src))
 		if(!T.density)
-			T.TerraformTurf(/turf/open/chasm/lavaland, /turf/open/chasm/lavaland)
+			T.TerraformTurf(/turf/open/chasm/lavaland, /turf/open/chasm/lavaland, flags = CHANGETURF_INHERIT_AIR)
 	qdel(src)

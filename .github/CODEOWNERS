@@ -4,77 +4,34 @@
 # In the event that multiple org members are to be informed of changes
 # to the same file or dir, add them to the end under Multiple Owners
 
-# ChangelingRain
+# crossedfall
 
-/code/__DEFINES/clockcult.dm @ChangelingRain
-/code/game/gamemodes/blob/ @ChangelingRain
-/code/game/gamemodes/clock_cult/ @ChangelingRain
-/code/game/gamemodes/miniantags/revenant/ @ChangelingRain
-/code/game/objects/effects/temporary_visuals/ @ChangelingRain
-/code/modules/reagents/chemistry/reagents/blob_reagents.dm @ChangelingRain
+.dockerignore @crossedfall
+.github @crossedfall
+.travis.yml @crossedfall
+appveyor.yml @crossedfall
+/code/modules/tgs @crossedfall
+/config @crossedfall
+dependencies.sh @crossedfall
+Dockerfile @crossedfall
+/SQL @crossedfall
+TGS3.json @crossedfall
+/tools @crossedfall
 
-# Cyberboss
 
-/code/__DATASTRUCTURES/globals.dm @Cyberboss
-/code/__DEFINES/server_tools.config.dm @Cyberboss
-/code/__DEFINES/server_tools.dm @Cyberboss
-/code/controllers/subsystem/atoms.dm @Cyberboss
-/code/controllers/subsystem/mapping.dm @Cyberboss
-/code/controllers/globals.dm @Cyberboss
-/code/datums/helper_datums/getrev.dm @Cyberboss
-/code/datums/map_config.dm @Cyberboss
-/code/datums/forced_movement.dm @Cyberboss
-/code/datums/holocall.dm @Cyberboss
-/code/modules/admin/verbs/adminhelp.dm @Cyberboss
-/code/modules/admin/verbs/adminpm.dm @Cyberboss
-/code/modules/server_tools/ @Cyberboss
-/code/modules/mapping/ @Cyberboss
+# ike709
 
-# duncathan
+/code/modules/client/loadout @ike709
 
-/code/__DEFINES/atmospherics.dm @duncathan
-/code/modules/atmospherics/ @duncathan
 
-# Jordie0608
+# powerfulbacon
 
-/SQL/ @Jordie0608
-/code/controllers/subsystem/dbcore.dm @Jordie0608
-/tools/SQLAlertEmail/ @Jordie0608
+/code/game/machinery/shuttle @powerfulbacon
+/code/modules/shuttle @powerfulbacon
 
-# MrStonedOne
+# zeskorion
 
-/SQL/database_changelog.txt @MrStonedOne
-/code/__DEFINES/MC.dm @MrStonedOne
-/code/__DEFINES/tick.dm @MrStonedOne
-/code/controllers/admin.dm @MrStonedOne
-/code/controllers/master.dm @MrStonedOne
-/code/controllers/failsafe.dm @MrStonedOne
-/code/controllers/subsystem.dm @MrStonedOne
-/code/controllers/subsystem/timer.dm @MrStonedOne
-
-# ninjanomnom
-
-/code/controllers/subsystem/shuttle.dm @ninjanomnom
-/code/modules/shuttle/ @ninjanomnom
-
-# ShizCalev
-
-/_maps/ @ShizCalev
-/icons/ @ShizCalev
-/sound/ @ShizCalev
-
-# stylemistake
-
-/tgui @stylemistake
-/tgui-next @stylemistake
-
-# Qustinnus
-/code/datums/components/mood.dm @Qustinnus
-/code/datums/mood_events/ @Qustinnus
-/code/__DEFINES/mobs.dm @Qustinnus
-
-# Multiple Owners
-
-/code/__DEFINES/components.dm @Cyberboss @ninjanomnom
-/code/controllers/subsystem/air.dm @duncathan @MrStonedOne
-/code/datums/components/ @Cyberboss @ninjanomnom
+/code/__DEFINES/diseases.dm @zeskorion
+/code/controllers/subsystem/disease.dm @zeskorion
+/code/datums/diseases @zeskorion
+/code/modules/antagonists/disease @zeskorion

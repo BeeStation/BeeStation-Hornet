@@ -1,0 +1,296 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall,
+/area/template_noop)
+"c" = (
+/obj/structure/closet/cardboard,
+/obj/item/trash/popcorn,
+/obj/effect/decal/cleanable/shreds,
+/obj/item/toy/cards/singlecard,
+/obj/effect/spawner/lootdrop/maintenance/seven,
+/obj/item/reagent_containers/glass/waterbottle/relic,
+/obj/item/cigbutt,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/effect/decal/cleanable/glass,
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/structure/closet/crate/trashcart,
+/obj/item/trash/cheesie,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/clothing/mask/facehugger/toy,
+/obj/item/toy/figure/hos,
+/obj/item/reagent_containers/syringe,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/effect/decal/cleanable/food/salt,
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/item/trash/semki{
+	pixel_x = 3
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/effect/decal/cleanable/glass,
+/obj/structure/table_frame/wood,
+/obj/item/trash/tray{
+	pixel_x = 3
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/item/wrench/medical,
+/turf/open/floor/plating,
+/area/template_noop)
+"j" = (
+/obj/effect/landmark/start/randommaint/hobo,
+/obj/structure/bed/dogbed,
+/obj/item/bedsheet/random,
+/turf/open/floor/plating,
+/area/template_noop)
+"l" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/computer/arcade/amputation,
+/turf/open/floor/plating,
+/area/template_noop)
+"m" = (
+/obj/structure/closet/crate/trashcart,
+/obj/item/trash/waffles,
+/obj/item/trash/boritos{
+	pixel_y = -9
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/broken_bottle,
+/obj/item/melee/classic_baton/police/deputy{
+	name = "old baton";
+	stamina_damage = 10
+	},
+/obj/item/cigbutt,
+/turf/open/floor/plating,
+/area/template_noop)
+"o" = (
+/obj/structure/mecha_wreckage/ripley,
+/turf/open/floor/plating,
+/area/template_noop)
+"p" = (
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/plating,
+/area/template_noop)
+"s" = (
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/turf/open/floor/plating,
+/area/template_noop)
+"t" = (
+/obj/item/trash/chips{
+	pixel_x = 3;
+	pixel_y = 12
+	},
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating,
+/area/template_noop)
+"v" = (
+/obj/structure/curtain,
+/obj/effect/decal/cleanable/glass,
+/turf/open/floor/plating,
+/area/template_noop)
+"x" = (
+/obj/item/trash/raisins,
+/obj/effect/decal/cleanable/glass,
+/turf/open/floor/plating,
+/area/template_noop)
+"y" = (
+/obj/item/storage/bag/trash{
+	pixel_y = -12;
+	pixel_x = 13
+	},
+/obj/effect/decal/cleanable/food/tomato_smudge,
+/turf/open/floor/plating,
+/area/template_noop)
+"z" = (
+/obj/item/stack/ore/slag{
+	pixel_x = 13;
+	pixel_y = -6
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"B" = (
+/obj/item/trash/can{
+	pixel_x = 4;
+	pixel_y = 6
+	},
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green{
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/wirecutters{
+	pixel_y = -3;
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/syringe,
+/turf/open/floor/plating,
+/area/template_noop)
+"C" = (
+/obj/effect/decal/cleanable/shreds,
+/turf/open/floor/plating,
+/area/template_noop)
+"D" = (
+/obj/item/trash/energybar,
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/decal/cleanable/glass,
+/turf/open/floor/plating,
+/area/template_noop)
+"F" = (
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/cigbutt,
+/turf/open/floor/plating,
+/area/template_noop)
+"G" = (
+/obj/effect/decal/cleanable/shreds,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating,
+/area/template_noop)
+"I" = (
+/obj/item/trash/syndi_cakes,
+/turf/open/floor/plating,
+/area/template_noop)
+"J" = (
+/obj/item/toy/crayon/white,
+/turf/open/floor/plating,
+/area/template_noop)
+"K" = (
+/obj/structure/closet/cardboard,
+/obj/item/storage/toolbox/emergency,
+/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/item/reagent_containers/food/drinks/bottle/hooch,
+/turf/open/floor/plating,
+/area/template_noop)
+"L" = (
+/obj/item/trash/plate,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/cigbutt,
+/turf/open/floor/plating,
+/area/template_noop)
+"M" = (
+/obj/item/trash/popcorn,
+/obj/effect/decal/cleanable/cobweb,
+/turf/open/floor/plating,
+/area/template_noop)
+"N" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"O" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/molten_object/large,
+/turf/open/floor/plating,
+/area/template_noop)
+"P" = (
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating,
+/area/template_noop)
+"S" = (
+/obj/effect/decal/cleanable/blood/innards,
+/turf/open/floor/plating,
+/area/template_noop)
+"U" = (
+/obj/item/trash/can/food,
+/obj/item/cigbutt,
+/turf/open/floor/plating,
+/area/template_noop)
+"W" = (
+/obj/item/broken_bottle,
+/obj/item/cigbutt,
+/turf/open/floor/plating,
+/area/template_noop)
+"X" = (
+/obj/item/broken_bottle,
+/turf/open/floor/plating,
+/area/template_noop)
+"Y" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating,
+/area/template_noop)
+"Z" = (
+/obj/effect/spawner/lootdrop/maintenance/seven,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+M
+d
+G
+B
+a
+"}
+(2,1,1) = {"
+g
+Y
+U
+j
+a
+"}
+(3,1,1) = {"
+N
+K
+a
+a
+a
+"}
+(4,1,1) = {"
+v
+a
+a
+l
+h
+"}
+(5,1,1) = {"
+N
+J
+i
+p
+O
+"}
+(6,1,1) = {"
+Z
+X
+s
+L
+P
+"}
+(7,1,1) = {"
+N
+d
+I
+F
+x
+"}
+(8,1,1) = {"
+y
+p
+s
+D
+c
+"}
+(9,1,1) = {"
+z
+C
+W
+t
+m
+"}
+(10,1,1) = {"
+o
+N
+f
+S
+e
+"}

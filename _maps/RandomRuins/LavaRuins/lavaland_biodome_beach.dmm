@@ -19,9 +19,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/clothing/glasses/sunglasses/big,
-/obj/item/clothing/glasses/sunglasses/big,
-/obj/item/clothing/glasses/sunglasses/big,
+/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses,
 /turf/open/floor/plating,
 /area/ruin/powered/beach)
 "ag" = (

@@ -14,12 +14,14 @@
 	name = "collectable slime cap!"
 	desc = "It just latches right in place!"
 	icon_state = "slime"
+	clothing_flags = SNUG_FIT
 	dynamic_hair_suffix = ""
 
 /obj/item/clothing/head/collectable/xenom
 	name = "collectable xenomorph helmet!"
 	desc = "Hiss hiss hiss!"
 	icon_state = "xenom"
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/collectable/chef
 	name = "collectable chef's hat"
@@ -71,13 +73,14 @@
 	desc = "A collectable welding helmet. Now with 80% less lead! Not for actual welding. Any welding done while wearing this helmet is done so at the owner's own risk!"
 	icon_state = "welding"
 	item_state = "welding"
-	resistance_flags = NONE
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/collectable/slime
 	name = "collectable slime hat"
 	desc = "Just like a real brain slug!"
 	icon_state = "headslime"
 	item_state = "headslime"
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/collectable/flatcap
 	name = "collectable flat cap"
@@ -98,6 +101,7 @@
 	desc = "The fur feels... a bit too realistic."
 	icon_state = "kitty"
 	item_state = "kitty"
+	clothing_flags = SNUG_FIT
 	dynamic_hair_suffix = ""
 
 	dog_fashion = /datum/dog_fashion/head/kitty
@@ -107,6 +111,7 @@
 	desc = "Not as lucky as the feet!"
 	icon_state = "bunny"
 	item_state = "bunny"
+	clothing_flags = SNUG_FIT
 	dynamic_hair_suffix = ""
 
 	dog_fashion = /datum/dog_fashion/head/rabbit
@@ -123,6 +128,7 @@
 	desc = "WARNING! Offers no real protection, or luminosity, but damn, is it fancy!"
 	icon_state = "hardhat0_yellow"
 	item_state = "hardhat0_yellow"
+	clothing_flags = SNUG_FIT
 
 	dog_fashion = /datum/dog_fashion/head
 
@@ -143,7 +149,7 @@
 	desc = "Go Red! I mean Green! I mean Red! No Green!"
 	icon_state = "thunderdome"
 	item_state = "thunderdome"
-	resistance_flags = NONE
+	clothing_flags = SNUG_FIT
 	flags_inv = HIDEHAIR
 
 /obj/item/clothing/head/collectable/swat
@@ -151,5 +157,5 @@
 	desc = "That's not real blood. That's red paint." //Reference to the actual description
 	icon_state = "swat"
 	item_state = "swat"
-	resistance_flags = NONE
+	clothing_flags = SNUG_FIT
 	flags_inv = HIDEHAIR

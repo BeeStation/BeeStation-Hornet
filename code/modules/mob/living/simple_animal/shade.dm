@@ -17,8 +17,7 @@
 	response_disarm = "flails at"
 	response_harm   = "punches"
 	speak_chance = 1
-	melee_damage_lower = 5
-	melee_damage_upper = 12
+	melee_damage = 5
 	attacktext = "metaphysically strikes"
 	minbodytemp = 0
 	maxbodytemp = INFINITY
@@ -31,6 +30,7 @@
 	loot = list(/obj/item/ectoplasm)
 	del_on_death = TRUE
 	initial_language_holder = /datum/language_holder/construct
+	mobsay_color = "#FF6262"
 
 /mob/living/simple_animal/shade/death()
 	deathmessage = "lets out a contented sigh as [p_their()] form unwinds."

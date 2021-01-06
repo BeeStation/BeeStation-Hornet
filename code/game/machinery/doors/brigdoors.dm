@@ -37,8 +37,8 @@
 	maptext_height = 26
 	maptext_width = 32
 	maptext_y = -1
-	ui_x = 300
-	ui_y = 138 
+
+
 
 /obj/machinery/door_timer/Initialize()
 	. = ..()
@@ -82,7 +82,6 @@
 /obj/machinery/door_timer/power_change()
 	..()
 	update_icon()
-
 
 // open/closedoor checks if door_timer has power, if so it checks if the
 // linked door is open/closed (by density) then opens it/closes it.
@@ -144,15 +143,18 @@
 		. /= 10
 
 /obj/machinery/door_timer/proc/set_timer(value)
-	var/new_time = CLAMP(value,0,MAX_TIMER)
+	var/new_time = clamp(value,0,MAX_TIMER)
 	. = new_time == timer_duration //return 1 on no change
 	timer_duration = new_time
 
-/obj/machinery/door_timer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-										datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/door_timer/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/door_timer/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "brig_timer", name, 300, 200, master_ui, state)
+		ui = new(user, src, "BrigTimer")
 		ui.open()
 
 //icon update function
@@ -171,7 +173,7 @@
 	if(timing)
 		var/disp1 = id
 		var/time_left = time_left(seconds = TRUE)
-		var/disp2 = "[add_zero(num2text((time_left / 60) % 60),2)]:[add_zero(num2text(time_left % 60), 2)]"
+		var/disp2 = "[add_leading(num2text((time_left / 60) % 60), 2, "0")]:[add_leading(num2text(time_left % 60), 2, "0")]"
 		if(length(disp2) > CHARS_PER_LINE)
 			disp2 = "Error"
 		update_display(disp1, disp2)

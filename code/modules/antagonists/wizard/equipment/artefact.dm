@@ -11,6 +11,7 @@
 	item_state = "knife"
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
+	block_upgrade_walk = 1
 	force = 15
 	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
@@ -264,7 +265,7 @@
 
 	var/hat = pick(/obj/item/clothing/head/helmet/roman, /obj/item/clothing/head/helmet/roman/legionnaire)
 	H.equip_to_slot_or_del(new hat(H), SLOT_HEAD)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/roman(H), SLOT_W_UNIFORM)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(H), SLOT_W_UNIFORM)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(H), SLOT_SHOES)
 	H.put_in_hands(new /obj/item/shield/riot/roman(H), TRUE)
 	H.put_in_hands(new /obj/item/claymore(H), TRUE)
@@ -319,7 +320,7 @@
 
 /obj/item/voodoo/attack_self(mob/user)
 	if(!target && possible.len)
-		target = input(user, "Select your victim!", "Voodoo") as null|anything in possible
+		target = input(user, "Select your victim!", "Voodoo") as null|anything in sortNames(possible)
 		return
 
 	if(user.zone_selected == BODY_ZONE_CHEST)
@@ -334,7 +335,7 @@
 	if(target && cooldown < world.time)
 		switch(user.zone_selected)
 			if(BODY_ZONE_PRECISE_MOUTH)
-				var/wgw =  sanitize(input(user, "What would you like the victim to say", "Voodoo", null)  as text)
+				var/wgw =  stripped_input(user, "What would you like the victim to say", "Voodoo")
 				target.say(wgw, forced = "voodoo doll")
 				log_game("[key_name(user)] made [key_name(target)] say [wgw] with a voodoo doll.")
 			if(BODY_ZONE_PRECISE_EYES)
@@ -365,7 +366,7 @@
 	if(!length(prints))
 		return FALSE
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
-		if(prints[md5(H.dna.uni_identity)])
+		if(prints[rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)])
 			possible |= H
 
 /obj/item/voodoo/proc/GiveHint(mob/victim,force=0)

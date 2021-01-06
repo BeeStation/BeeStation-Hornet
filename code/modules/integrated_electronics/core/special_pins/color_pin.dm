@@ -33,7 +33,7 @@
 		return
 	var/new_data
 	for(var/i=1;i<=3;i++)
-		var/temp_col = "[num2hex(rand(0,255))]"
+		var/temp_col = "[num2hex(rand(0,255), 2)]"
 		if(length(temp_col )<2)
 			temp_col  = "0[temp_col]"
 		new_data += temp_col

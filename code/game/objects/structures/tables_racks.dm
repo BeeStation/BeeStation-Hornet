@@ -29,10 +29,30 @@
 	var/buildstackamount = 1
 	var/framestackamount = 2
 	var/deconstruction_ready = 1
+	var/last_bump = 0
 	max_integrity = 100
 	integrity_failure = 30
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/obj/structure/table, /obj/structure/table/reinforced)
+
+/obj/structure/table/Bumped(mob/living/carbon/human/H)
+	. = ..()
+	if(!istype(H))
+		return
+	var/feetCover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))
+	if(H.shoes || feetCover || !(H.mobility_flags & MOBILITY_STAND) || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || H.m_intent == MOVE_INTENT_WALK)
+		return
+	if((world.time >= last_bump + 100) && prob(5))
+		to_chat(H, "<span class='warning'>You stub your toe on the [name]!</span>")
+		var/power = 2
+		if(HAS_TRAIT(H, TRAIT_LIGHT_STEP))
+			power = 1
+			H.emote("gasp")
+		else
+			H.emote("scream")
+		H.apply_damage(power, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
+		H.Paralyze(10 * power)
+	last_bump = world.time //do the cooldown here so walking into a table only checks toestubs once
 
 /obj/structure/table/examine(mob/user)
 	. = ..()
@@ -50,11 +70,6 @@
 	var/atom/A = loc
 	qdel(src)
 	new /obj/structure/table/wood(A)
-
-/obj/structure/table/ratvar_act()
-	var/atom/A = loc
-	qdel(src)
-	new /obj/structure/table/reinforced/brass(A)
 
 /obj/structure/table/attack_paw(mob/user)
 	return attack_hand(user)
@@ -381,7 +396,7 @@
 	icon_state = "fancy_table_royalblue"
 	buildstack = /obj/item/stack/tile/carpet/royalblue
 	smooth_icon = 'icons/obj/smooth_structures/fancy_table_royalblue.dmi'
-	
+
 /*
  * Reinforced tables
  */
@@ -421,7 +436,7 @@
 	else
 		. = ..()
 
-/obj/structure/table/reinforced/brass
+/obj/structure/table/brass
 	name = "brass table"
 	desc = "A solid, slightly beveled brass table."
 	icon = 'icons/obj/smooth_structures/brass_table.dmi'
@@ -432,30 +447,19 @@
 	buildstack = /obj/item/stack/tile/brass
 	framestackamount = 1
 	buildstackamount = 1
-	canSmoothWith = list(/obj/structure/table/reinforced/brass, /obj/structure/table/bronze)
+	canSmoothWith = list(/obj/structure/table/brass, /obj/structure/table/bronze)
 
-/obj/structure/table/reinforced/brass/Initialize()
+/obj/structure/table/brass/tablepush(mob/living/user, mob/living/pushed_mob)
 	. = ..()
-	change_construction_value(2)
-
-/obj/structure/table/reinforced/brass/Destroy()
-	change_construction_value(-2)
-	return ..()
-
-/obj/structure/table/reinforced/brass/tablepush(mob/living/user, mob/living/pushed_mob)
-	.= ..()
 	playsound(src, 'sound/magic/clockwork/fellowship_armory.ogg', 50, TRUE)
 
-/obj/structure/table/reinforced/brass/narsie_act()
+/obj/structure/table/brass/narsie_act()
 	take_damage(rand(15, 45), BRUTE)
 	if(src) //do we still exist?
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
 		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
-
-/obj/structure/table/reinforced/brass/ratvar_act()
-	obj_integrity = max_integrity
 
 /obj/structure/table/bronze
 	name = "bronze table"
@@ -464,7 +468,7 @@
 	icon_state = "brass_table"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	buildstack = /obj/item/stack/tile/bronze
-	canSmoothWith = list(/obj/structure/table/reinforced/brass, /obj/structure/table/bronze)
+	canSmoothWith = list(/obj/structure/table/brass, /obj/structure/table/bronze)
 
 /obj/structure/table/bronze/tablepush(mob/living/user, mob/living/pushed_mob)
 	..()

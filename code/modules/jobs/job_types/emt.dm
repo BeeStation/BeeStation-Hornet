@@ -8,11 +8,12 @@
 	spawn_positions = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#d4ebf2"
+	chat_color = "#8FBEB4"
 
 	outfit = /datum/outfit/job/emt
 
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MAINT_TUNNELS)
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
+	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
 	paycheck = PAYCHECK_MEDIUM
 	paycheck_department = ACCOUNT_MED
 
@@ -29,7 +30,7 @@
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	head = /obj/item/clothing/head/soft/emt
 	suit =  /obj/item/clothing/suit/toggle/labcoat/emt
-	l_hand = /obj/item/storage/firstaid/regular
+	l_hand = /obj/item/storage/firstaid/medical
 	l_pocket = /obj/item/pinpointer/crew
 	suit_store = /obj/item/sensor_device
 

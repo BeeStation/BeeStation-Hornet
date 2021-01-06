@@ -44,7 +44,7 @@
 	if(is_banned_from(user.ckey, ROLE_DRONE) || QDELETED(src) || QDELETED(user))
 		return
 	if(CONFIG_GET(flag/use_age_restriction_for_jobs))
-		if(!isnum(user.client.player_age)) //apparently what happens when there's no DB connected. just don't let anybody be a drone without admin intervention
+		if(!isnum_safe(user.client.player_age)) //apparently what happens when there's no DB connected. just don't let anybody be a drone without admin intervention
 			return
 		if(user.client.player_age < DRONE_MINIMUM_AGE)
 			to_chat(user, "<span class='danger'>You're too new to play as a drone! Please try again in [DRONE_MINIMUM_AGE - user.client.player_age] days.</span>")

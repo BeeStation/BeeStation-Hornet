@@ -27,6 +27,9 @@
 	var/dev_printer = 0						// 0: None, 1: Standard
 	var/dev_card = 0						// 0: None, 1: Standard
 
+
+
+
 // Removes all traces of old order and allows you to begin configuration from scratch.
 /obj/machinery/lapvend/proc/reset_order()
 	state = 0
@@ -221,15 +224,19 @@
 			return TRUE
 	return FALSE
 
-/obj/machinery/lapvend/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+
+/obj/machinery/lapvend/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/lapvend/ui_interact(mob/user, datum/tgui/ui)
 	if(stat & (BROKEN | NOPOWER | MAINT))
 		if(ui)
 			ui.close()
 		return FALSE
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
-		ui = new(user, src, ui_key, "computer_fabricator", "Personal Computer Vendor", 500, 400, state = state)
+		ui = new(user, src, "ComputerFabricator")
 		ui.open()
 
 /obj/machinery/lapvend/attackby(obj/item/I, mob/user)
@@ -246,7 +253,7 @@
 		credits += HC.credits
 		visible_message("<span class='info'>[user] inserts a $[HC.credits] holocredit chip into [src].</span>")
 		qdel(HC)
-		return		
+		return
 	else if(istype(I, /obj/item/card/id))
 		if(state != 2)
 			return

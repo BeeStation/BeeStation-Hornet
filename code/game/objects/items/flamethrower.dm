@@ -9,6 +9,7 @@
 	flags_1 = CONDUCT_1
 	force = 3
 	throwforce = 10
+	block_upgrade_walk = 1
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
@@ -205,11 +206,10 @@
 	//TODO: DEFERRED Consider checking to make sure tank pressure is high enough before doing this...
 	//Transfer 5% of current tank air contents to turf
 	var/datum/gas_mixture/air_transfer = ptank.air_contents.remove_ratio(release_amount)
-	if(air_transfer.gases[/datum/gas/plasma])
-		air_transfer.gases[/datum/gas/plasma][MOLES] *= 5
+	air_transfer.set_moles(/datum/gas/plasma, air_transfer.get_moles(/datum/gas/plasma) * 5)
 	target.assume_air(air_transfer)
 	//Burn it based on transfered gas
-	target.hotspot_expose((ptank.air_contents.temperature*2) + 380,500)
+	target.hotspot_expose((ptank.air_contents.return_temperature()*2) + 380,500)
 	//location.hotspot_expose(1000,500,1)
 	SSair.add_to_active(target, 0)
 
@@ -238,7 +238,8 @@
 	var/obj/item/projectile/P = hitby
 	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
 		owner.visible_message("<span class='danger'>\The [attack_text] hits the fueltank on [owner]'s [name], rupturing it! What a shot!</span>")
-		var/target_turf = get_turf(owner)
+		var/turf/target_turf = get_turf(owner)
+		log_game("A projectile ([hitby]) detonated a flamethrower tank held by [key_name(owner)] at [COORD(target_turf)]")
 		igniter.ignite_turf(src,target_turf, release_amount = 100)
 		qdel(ptank)
 		return 1 //It hit the flamethrower, not them

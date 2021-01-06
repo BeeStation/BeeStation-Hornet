@@ -57,6 +57,7 @@
 
 /datum/antagonist/traitor/proc/add_objective(datum/objective/O)
 	objectives += O
+	log_objective(owner, O.explanation_text)
 
 /datum/antagonist/traitor/proc/remove_objective(datum/objective/O)
 	objectives -= O
@@ -217,7 +218,7 @@
 		if(TRAITOR_AI)
 			add_law_zero()
 			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE)
-			owner.current.grant_language(/datum/language/codespeak)
+			owner.current.grant_language(/datum/language/codespeak, TRUE, TRUE, LANGUAGE_MALF)
 		if(TRAITOR_HUMAN)
 			show_tips('html/antagtips/traitor.html')
 			if(should_equip)

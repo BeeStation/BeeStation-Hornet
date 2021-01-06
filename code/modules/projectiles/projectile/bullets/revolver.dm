@@ -53,6 +53,23 @@
 		var/mob/living/M = target
 		M.adjust_bodytemperature(((100-blocked)/100)*(temperature - M.bodytemperature))
 
+/obj/item/projectile/bullet/c38/mime
+	name = "invisible .38 bullet"
+	icon_state = null
+	damage = 0
+	nodamage = TRUE
+
+/obj/item/projectile/bullet/c38/mime/on_hit(atom/target, blocked = FALSE)
+	if(isliving(target))
+		var/mob/living/carbon/human/M = target
+		if(M.job == "Mime")
+			var/defense = M.getarmor(CHEST, "bullet")
+			M.apply_damage(5, BRUTE, CHEST, defense)
+			M.visible_message("<span class='danger'>A bullet wound appears in [M]'s chest!</span>", \
+							"<span class='userdanger'>You get hit with a .38 bullet from a finger gun! Those hurt!...</span>")
+		else 
+			to_chat(M, "<span class='userdanger'>You get shot with the finger gun!</span>")
+
 // .357 (Syndie Revolver)
 
 /obj/item/projectile/bullet/a357

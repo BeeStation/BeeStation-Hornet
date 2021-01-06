@@ -5,7 +5,7 @@
 	icon_state = "recharge_floor"                           //        Some people just want to watch the world burn i guess
 
 /turf/open/floor/mech_bay_recharge_floor/break_tile()
-	ScrapeAway()
+	ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 
 /turf/open/floor/mech_bay_recharge_floor/airless
 	icon_state = "recharge_floor_asteroid"
@@ -34,6 +34,10 @@
 		recharge_console.recharge_port = null
 	return ..()
 
+/obj/machinery/mech_bay_recharge_port/setDir(new_dir)
+	. = ..()
+	recharging_turf = get_step(loc, dir)
+
 /obj/machinery/mech_bay_recharge_port/RefreshParts()
 	var/MC
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
@@ -43,7 +47,7 @@
 /obj/machinery/mech_bay_recharge_port/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Base recharge rate at <b>[max_charge]J</b> per cycle.<span>"
+		. += "<span class='notice'>The status display reads: Base recharge rate at <b>[max_charge]J</b> per cycle.</span>"
 
 /obj/machinery/mech_bay_recharge_port/process()
 	if(stat & NOPOWER || !recharge_console)
@@ -52,7 +56,7 @@
 		recharging_mech = locate(/obj/mecha) in recharging_turf
 		if(recharging_mech)
 			recharge_console.update_icon()
-	if(recharging_mech?.cell)
+	if(recharging_mech && recharging_mech.cell)
 		if(recharging_mech.cell.charge < recharging_mech.cell.maxcharge)
 			var/delta = min(max_charge, recharging_mech.cell.maxcharge - recharging_mech.cell.charge)
 			recharging_mech.give_power(delta)
@@ -82,15 +86,19 @@
 	icon_screen = "recharge_comp"
 	icon_keyboard = "rd_key"
 	circuit = /obj/item/circuitboard/computer/mech_bay_power_console
-	ui_x = 400
-	ui_y = 200
+
+
 	var/obj/machinery/mech_bay_recharge_port/recharge_port
 	light_color = LIGHT_COLOR_PINK
 
-/obj/machinery/computer/mech_bay_power_console/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/computer/mech_bay_power_console/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/mech_bay_power_console/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "mech_bay_power_console", "Mech Bay Power Control Console", 400, 170, master_ui, state)
+		ui = new(user, src, "MechBayPowerConsole")
 		ui.open()
 
 /obj/machinery/computer/mech_bay_power_console/ui_act(action, params)

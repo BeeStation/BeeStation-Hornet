@@ -12,10 +12,6 @@
 			return 0
 		if(i > 1)
 			newshot()
-	if(click_cooldown_override)
-		user.changeNext_move(click_cooldown_override)
-	else
-		user.changeNext_move(CLICK_CD_RANGE)
 	user.newtonian_move(get_dir(target, user))
 	update_icon()
 	return TRUE

@@ -57,14 +57,14 @@
 	var/success = FALSE
 
 	if(target.mind && target.client && target.stat != DEAD)
-		if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield)
+		if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && !istype(target.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			if(HAS_TRAIT(target, TRAIT_MINDSHIELD) && ignore_mindshield)
 				to_chat(user, "<span class='notice'>We bruteforce our way past the mental barriers of [target.name] and begin linking our minds!</span>")
 			else
 				to_chat(user, "<span class='notice'>We begin linking our mind with [target.name]!</span>")
-			if(do_after(user,5*(1.5**get_dist(user, target)),0,user) && target in view(range))
-				if(do_after(user,5*(1.5**get_dist(user, target)),0,user) && target in view(range))
-					if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && target in view(range))
+			if(do_after(user,5*(1.5**get_dist(user, target)),0,user) && (target in view(range)))
+				if(do_after(user,5*(1.5**get_dist(user, target)),0,user) && (target in view(range)))
+					if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && (target in view(range)))
 						to_chat(user, "<span class='notice'>[target.name] was added to the Hive!</span>")
 						success = TRUE
 						hive.add_to_hive(target)
@@ -316,7 +316,7 @@
 		else
 			user.heal_ordered_damage(5, list(CLONE, BURN, BRUTE))
 		if(!user.getBruteLoss() && !user.getFireLoss() && !user.getCloneLoss()) //If we don't have any of these, stop looping
-			to_chat(user, "<span class='warning'>We finish our healing</span>")
+			to_chat(user, "<span class='warning'>We finish our healing.</span>")
 			break
 		iterations++
 	user.setOrganLoss(ORGAN_SLOT_BRAIN, 0)
@@ -797,11 +797,11 @@
 		return
 
 	var/objective = stripped_input(user, "What objective do you want to give to your vessels?", "Objective")
-	
+
 	if(!objective || !hive)
 		revert_cast()
 		return
-	
+
 	hive.threat_level += 6
 	for(var/i = 0, i < 4, i++)
 		var/mob/living/carbon/C = pick_n_take(valid_targets)
@@ -938,6 +938,7 @@
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='assimilator'>There is no you...</span>"), 110)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='bigassimilator'>...there is only us.</span>"), 130)
 		addtimer(CALLBACK(C, /mob/living/proc/hive_awaken, new_objective, one_mind_team), 150)
+		log_objective(M, new_objective.explanation_text)
 
 /obj/effect/proc_holder/spell/self/hive_comms
 	name = "Hive Communication"

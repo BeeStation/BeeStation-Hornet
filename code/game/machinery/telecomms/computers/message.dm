@@ -239,7 +239,6 @@
 	message = defaultmsg
 	var/datum/browser/popup = new(user, "hologram_console", name, 700, 700)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
 
 /obj/machinery/computer/message_monitor/proc/BruteForce(mob/user)
@@ -273,7 +272,7 @@
 				auth = FALSE
 				screen = MSG_MON_SCREEN_MAIN
 			else
-				var/dkey = trim(input(usr, "Please enter the decryption key.") as text|null)
+				var/dkey = capped_input(usr, "Please enter the decryption key.")
 				if(dkey && dkey != "")
 					if(linkedServer.decryptkey == dkey)
 						auth = TRUE
@@ -465,7 +464,6 @@
 
 /obj/item/paper/monitorkey/proc/print(obj/machinery/telecomms/message_server/server)
 	info = "<center><h2>Daily Key Reset</h2></center><br>The new message monitor key is '[server.decryptkey]'.<br>Please keep this a secret and away from the clown.<br>If necessary, change the password to a more secure one."
-	info_links = info
 	add_overlay("paper_words")
 
 /obj/item/paper/monitorkey/LateInitialize()

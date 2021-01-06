@@ -1,0 +1,57 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"b" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"c" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/head/cone,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"d" = (
+/obj/structure/rack,
+/obj/item/toy/gun,
+/obj/item/toy/gun{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"e" = (
+/obj/structure/rack,
+/obj/item/toy/ammo/gun,
+/obj/item/toy/ammo/gun{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/revolver{
+	pixel_y = -32
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+c
+e
+"}
+(2,1,1) = {"
+b
+d
+b
+"}
+(3,1,1) = {"
+c
+b
+e
+"}

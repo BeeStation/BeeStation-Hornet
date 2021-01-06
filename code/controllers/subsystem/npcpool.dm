@@ -30,5 +30,12 @@ SUBSYSTEM_DEF(npcpool)
 				SA.handle_automated_action()
 			if(SA.stat != DEAD)
 				SA.handle_automated_speech()
+		if(SA.special_process)
+			var/mob/living/simple_animal/slime/S = SA
+			if(istype(S))
+				S.special_process = FALSE
+				S.AIprocess()
+			else
+				SA.process()
 		if (MC_TICK_CHECK)
 			return

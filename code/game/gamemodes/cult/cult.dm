@@ -20,13 +20,15 @@
 			return FALSE
 		if(specific_cult && specific_cult.is_sacrifice_target(M.mind))
 			return FALSE
+		if(is_servant_of_ratvar(M))
+			return FALSE
 		if(M.mind.enslaved_to && !iscultist(M.mind.enslaved_to))
 			return FALSE
 		if(M.mind.unconvertable)
 			return FALSE
 	else
 		return FALSE
-	if(HAS_TRAIT(M, TRAIT_MINDSHIELD) || issilicon(M) || isbot(M) || isdrone(M) || is_servant_of_ratvar(M) || !M.client)
+	if(HAS_TRAIT(M, TRAIT_MINDSHIELD) || issilicon(M) || isbot(M) || isdrone(M) || !M.client)
 		return FALSE //can't convert machines, shielded, braindead, or ratvar's dogs
 	return TRUE
 
@@ -66,6 +68,9 @@
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		restricted_jobs += "Assistant"
+
+	if(CONFIG_GET(flag/protect_heads_from_antagonist))
+		restricted_jobs += GLOB.command_positions
 
 	//cult scaling goes here
 	recommended_enemies = 1 + round(num_players()/CULT_SCALING_COEFFICIENT)

@@ -11,7 +11,7 @@
 /datum/action/changeling/resonant_shriek/sting_action(mob/user)
 	..()
 	for(var/mob/living/M in get_hearers_in_view(4, user))
-		if(iscarbon(M))
+		if(iscarbon(M) && M.get_ear_protection() <= 0)
 			var/mob/living/carbon/C = M
 			if(!C.mind || !C.mind.has_antag_datum(/datum/antagonist/changeling))
 				C.adjustEarDamage(0, 30)

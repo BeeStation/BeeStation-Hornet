@@ -1,0 +1,290 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/turf_decal/tile/blue,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"b" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"c" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"d" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"e" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"f" = (
+/turf/open/floor/plating/asteroid/snow,
+/area/template_noop)
+"g" = (
+/obj/effect/spawner/lootdrop/costume,
+/turf/open/floor/plating/asteroid/snow,
+/area/template_noop)
+"h" = (
+/obj/structure/flora/bush,
+/turf/open/floor/plating/asteroid/snow,
+/area/template_noop)
+"i" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"j" = (
+/obj/structure/flora/tree/pine,
+/turf/open/floor/plating/asteroid/snow,
+/area/template_noop)
+"k" = (
+/obj/effect/spawner/lootdrop/gloves,
+/turf/open/floor/plating/asteroid/snow,
+/area/template_noop)
+"l" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"m" = (
+/obj/item/dnainjector/geladikinesis,
+/turf/open/floor/plating/asteroid/snow,
+/area/template_noop)
+"n" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"o" = (
+/obj/item/soap,
+/turf/open/floor/plating/asteroid/snow,
+/area/template_noop)
+"p" = (
+/obj/item/clothing/shoes/winterboots,
+/turf/open/floor/plating/asteroid/snow,
+/area/template_noop)
+"q" = (
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/turf/open/floor/plating/asteroid/snow,
+/area/template_noop)
+"r" = (
+/obj/structure/statue/snow/snowman,
+/turf/open/floor/plating/asteroid/snow,
+/area/template_noop)
+"s" = (
+/obj/effect/trap/trigger/reusable/all,
+/turf/open/floor/plating/asteroid/snow,
+/area/template_noop)
+"t" = (
+/obj/item/clothing/suit/hooded/wintercoat,
+/turf/open/floor/plating/asteroid/snow,
+/area/template_noop)
+"u" = (
+/obj/item/hatchet,
+/turf/open/floor/plating/asteroid/snow,
+/area/template_noop)
+"v" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"w" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"x" = (
+/obj/machinery/light,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"y" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"z" = (
+/obj/effect/trap/nexus/trickyspawner/tree,
+/turf/open/floor/plating/asteroid/snow,
+/area/template_noop)
+"A" = (
+/obj/effect/trap/nexus/darkness,
+/turf/open/floor/plating/asteroid/snow,
+/area/template_noop)
+"B" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/trap/nexus/trickyspawner/tree,
+/turf/open/floor/plating/asteroid/snow,
+/area/template_noop)
+"C" = (
+/obj/item/shovel,
+/turf/open/floor/plating/asteroid/snow,
+/area/template_noop)
+"D" = (
+/obj/item/nullrod/chainsaw,
+/turf/open/floor/plating/asteroid/snow,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+e
+e
+l
+e
+e
+l
+e
+e
+v
+"}
+(2,1,1) = {"
+b
+f
+f
+h
+f
+f
+f
+f
+z
+w
+"}
+(3,1,1) = {"
+b
+g
+j
+f
+A
+f
+q
+j
+f
+w
+"}
+(4,1,1) = {"
+c
+s
+f
+m
+j
+p
+f
+f
+h
+x
+"}
+(5,1,1) = {"
+b
+C
+f
+f
+f
+h
+r
+s
+f
+w
+"}
+(6,1,1) = {"
+b
+z
+h
+f
+f
+f
+f
+t
+h
+w
+"}
+(7,1,1) = {"
+c
+h
+f
+D
+o
+j
+f
+f
+u
+x
+"}
+(8,1,1) = {"
+b
+f
+f
+s
+f
+f
+B
+j
+f
+w
+"}
+(9,1,1) = {"
+b
+f
+k
+j
+h
+f
+f
+f
+f
+w
+"}
+(10,1,1) = {"
+d
+i
+i
+n
+i
+i
+n
+i
+i
+y
+"}

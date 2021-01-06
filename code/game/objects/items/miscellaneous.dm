@@ -38,7 +38,7 @@
 	var/list/display_names = generate_display_names()
 	if(!display_names.len)
 		return
-	var/choice = input(M,"Which item would you like to order?","Select an Item") as null|anything in display_names
+	var/choice = input(M,"Which item would you like to order?","Select an Item") as null|anything in sortList(display_names)
 	if(!choice || !M.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
 
@@ -84,7 +84,7 @@
 /obj/item/storage/box/hero/PopulateContents()
 	new /obj/item/clothing/head/fedora/curator(src)
 	new /obj/item/clothing/suit/curator(src)
-	new /obj/item/clothing/under/rank/curator/treasure_hunter(src)
+	new /obj/item/clothing/under/rank/civilian/curator/treasure_hunter(src)
 	new /obj/item/clothing/shoes/workboots/mining(src)
 	new /obj/item/melee/curator_whip(src)
 
@@ -101,7 +101,7 @@
 	name = "Braveheart, the Scottish rebel - 1300's."
 
 /obj/item/storage/box/hero/scottish/PopulateContents()
-	new /obj/item/clothing/under/kilt(src)
+	new /obj/item/clothing/under/costume/kilt(src)
 	new /obj/item/claymore/weak/ceremonial(src)
 	new /obj/item/toy/crayon/spraycan(src)
 	new /obj/item/clothing/shoes/sandal(src)
@@ -144,6 +144,131 @@
 	new choice(get_turf(M))
 	to_chat(M, "You hear something crackle from the beacon for a moment before a voice speaks.  \"Please stand by for a message from S.E.L.F. Message as follows: <span class='bold'>Item request received. Your package has been transported, use the autosurgeon supplied to apply the upgrade.</span> Message ends.\"")
 
+/obj/item/choice_beacon/magic
+	name = "beacon of summon magic"
+	desc = "Not actually magical."
+
+/obj/item/choice_beacon/magic/generate_display_names()
+	var/static/list/magic_item_list
+	if(!magic_item_list)
+		magic_item_list = list()
+		var/list/templist = typesof(/obj/item/storage/box/magic) //we have to convert type = name to name = type, how lovely!
+		for(var/V in templist)
+			var/atom/A = V
+			magic_item_list[initial(A.name)] = A
+	return magic_item_list
+
+/obj/item/storage/box/magic
+	name = "Tele-Gloves"
+
+/obj/item/storage/box/magic/PopulateContents()
+	new /obj/item/clothing/gloves/color/white/magic(src)
+
+/obj/item/storage/box/magic/cloak
+	name = "Invisibility Cloak"
+
+/obj/item/storage/box/magic/cloak/PopulateContents()
+	new /obj/item/shadowcloak/magician(src)
+
+/obj/item/storage/box/magic/hat
+	name = "Bottomless Top Hat"
+
+/obj/item/storage/box/magic/hat/PopulateContents()
+	new /obj/item/clothing/head/that/bluespace(src)
+
+/obj/item/clothing/head/that/bluespace //code shamelessly ripped from bluespace body bags, cuz that's basically what this is
+	var/itemheld = FALSE
+	var/capacity = 2
+	var/maximum_size = 2 //one human, two pets, unlimited tiny mobs, but no big boys like megafauna
+	var/kidnappingcoefficient = 1
+
+/obj/item/clothing/head/that/bluespace/attackby(obj/item/W, mob/user, params)
+	. = ..()
+	if(istype(W, /obj/item/upgradewand))
+		var/obj/item/upgradewand/wand = W
+		if(!wand.used && kidnappingcoefficient == initial(kidnappingcoefficient))
+			wand.used = TRUE
+			kidnappingcoefficient = 0.5
+			capacity = 4
+			maximum_size = 4
+			to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand].</span>")
+			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
+	
+/obj/item/clothing/head/that/bluespace/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!proximity_flag)
+		return
+	if(isliving(target))
+		var/mob/living/M = target
+		var/kidnaptime = max(10, (M.health * (M.mob_size / 2)))
+		if(iscarbon(target))
+			kidnaptime += 100
+		if(target == user)
+			kidnaptime = 10
+		M.visible_message("<span class='warning'>[user] starts pulling [src] over [M]'s head!</span>", "<span class='userdanger'>[user] starts pulling [src] over your head!</span>")
+		if(do_after_mob(user, M, kidnaptime * kidnappingcoefficient))
+			if(M == user)
+				M.drop_all_held_items()
+				if(HAS_TRAIT(src, TRAIT_NODROP))
+					return
+			if(M.mob_size <= capacity)
+				src.contents += M
+				capacity -= M.mob_size
+				user.visible_message("<span class='warning'>[user] stuffs [M] into the [src]!</span>")
+				to_chat(M, "<span class='userdanger'>[user] stuffs you into the [src]!</span>")
+			else
+				to_chat(user, "[M] will not fit in the tophat!")
+	else if (isitem(target))
+		var/obj/item/I = target
+		if(I in user.contents)
+			return
+		if(!itemheld)
+			src.contents += I
+			itemheld = TRUE
+			user.visible_message("<span class='warning'>[user] stuffs [I] into the [src]!</span>")
+		else
+			to_chat(user, "[I] will not fit in the tophat!")
+
+/obj/item/clothing/head/that/bluespace/attack_self(mob/user)
+	. = ..()
+	capacity = maximum_size
+	itemheld = FALSE
+	for(var/atom/movable/A in contents)
+		A.forceMove(get_turf(src))
+		user.visible_message("<span class='warning'>[user] pulls [A] out of the hat!</span>")
+		if(isliving(A))
+			to_chat(A, "<span class='notice'>You suddenly feel air around you! You're free!</span>")
+		if(isitem(A))
+			var/obj/item/I = A
+			user.put_in_hands(I)
+
+/obj/item/clothing/head/that/bluespace/examine(mob/user)
+	. = ..()
+	if(contents.len)
+		. += "<span class='notice'>You can make out [contents.len] object\s in the hat.</span>"
+
+/obj/item/clothing/head/that/bluespace/Destroy()
+	for(var/atom/movable/A in contents)
+		A.forceMove(get_turf(src))
+		if(isliving(A))
+			to_chat(A, "<span class='notice'>You suddenly feel the space around you tear apart! You're free!</span>")
+	return ..()
+
+/obj/item/clothing/head/that/bluespace/container_resist(mob/living/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't get out while you're restrained like this!</span>")
+		return
+	user.changeNext_move(CLICK_CD_BREAKOUT)
+	user.last_special = world.time + CLICK_CD_BREAKOUT
+	to_chat(user, "<span class='notice'>You claw at the fabric of [src], trying to tear it open...</span>")
+	to_chat(loc, "<span class='warning'>Someone starts trying to break free of [src]!</span>")
+	if(!do_after(user, 100, target = src))
+		to_chat(loc, "<span class='warning'>The pressure subsides. It seems that they've stopped resisting...</span>")
+		return
+	loc.visible_message("<span class='warning'>[user] suddenly appears in front of [loc]!</span>", "<span class='userdanger'>[user] breaks free of [src]!</span>")
+	user.forceMove(get_turf(src))
+	capacity += user.mob_size
+
 /obj/item/skub
 	desc = "It's skub."
 	name = "skub"
@@ -172,3 +297,12 @@
 			var/atom/A = V
 			ouija_spaghetti_list[initial(A.name)] = A
 	return ouija_spaghetti_list
+
+/obj/item/upgradewand
+	desc = "A wand laced with nanotech calibration devices, used to enhance gear commonly used by modern stage magicians."
+	name = "Upgrade Wand"
+	icon = 'icons/obj/guns/magic.dmi'
+	icon_state = "nothingwand"
+	item_state = "wand"
+	w_class = WEIGHT_CLASS_SMALL
+	var/used = FALSE

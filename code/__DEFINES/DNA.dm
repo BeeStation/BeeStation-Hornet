@@ -149,11 +149,12 @@
 #define ORGAN_SLOT_BRAIN_ANTIDROP "brain_antidrop"
 #define ORGAN_SLOT_BRAIN_ANTISTUN "brain_antistun"
 #define ORGAN_SLOT_TAIL "tail"
+#define ORGAN_SLOT_WINGS "wings"
 
 //organ defines
 #define STANDARD_ORGAN_THRESHOLD 	100
 #define STANDARD_ORGAN_HEALING 		0.001
-#define STANDARD_ORGAN_DECAY		0.00222		//designed to fail organs when left to decay for ~15 minutes
+#define STANDARD_ORGAN_DECAY		0.00074	//designed to fail organs when left to decay for ~45 minutes
 
 // used for the can_chromosome var on mutations
 #define CHROMOSOME_NEVER 0

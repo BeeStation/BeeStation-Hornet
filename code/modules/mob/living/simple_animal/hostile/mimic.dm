@@ -14,9 +14,7 @@
 	gender = NEUTER
 	mob_biotypes = list(MOB_INORGANIC)
 
-	harm_intent_damage = 5
-	melee_damage_lower = 8
-	melee_damage_upper = 12
+	melee_damage = 10
 	attacktext = "attacks"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	emote_taunt = list("growls")
@@ -30,6 +28,7 @@
 	move_to_delay = 9
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = 1
+	hardattacks = TRUE
 
 // Aggro when you try to open them. Will also pickup loot when spawns and drop it when dies.
 /mob/living/simple_animal/hostile/mimic/crate
@@ -45,13 +44,15 @@
 	if(mapload)	//eat shit
 		for(var/obj/item/I in loc)
 			I.forceMove(src)
+	add_overlay("[icon_state]_door")
 
 /mob/living/simple_animal/hostile/mimic/crate/DestroyPathToTarget()
 	..()
+	cut_overlays()
 	if(prob(90))
-		icon_state = "[initial(icon_state)]open"
+		add_overlay("[icon_state]_open")
 	else
-		icon_state = initial(icon_state)
+		add_overlay("[icon_state]_door")
 
 /mob/living/simple_animal/hostile/mimic/crate/ListTargets()
 	if(attempt_open)
@@ -66,12 +67,8 @@
 /mob/living/simple_animal/hostile/mimic/crate/AttackingTarget()
 	. = ..()
 	if(.)
-		icon_state = initial(icon_state)
-		if(prob(15) && iscarbon(target))
-			var/mob/living/carbon/C = target
-			C.Paralyze(40)
-			C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", \
-					"<span class='userdanger'>\The [src] knocks you down!</span>")
+		cut_overlays()
+		add_overlay("[icon_state]_door")
 
 /mob/living/simple_animal/hostile/mimic/crate/proc/trigger()
 	if(!attempt_open)
@@ -84,7 +81,8 @@
 
 /mob/living/simple_animal/hostile/mimic/crate/LoseTarget()
 	..()
-	icon_state = initial(icon_state)
+	cut_overlays()
+	add_overlay("[icon_state]_door")
 
 /mob/living/simple_animal/hostile/mimic/crate/death()
 	var/obj/structure/closet/crate/C = new(get_turf(src))
@@ -155,13 +153,11 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 			destroy_objects = 1
 			if(O.density && O.anchored)
 				knockdown_people = 1
-				melee_damage_lower *= 2
-				melee_damage_upper *= 2
+				melee_damage *= 2
 		else if(isitem(O))
 			var/obj/item/I = O
 			health = 15 * I.w_class
-			melee_damage_lower = 2 + I.force
-			melee_damage_upper = 2 + I.force
+			melee_damage = 2 + I.force
 			move_to_delay = 2 * I.w_class + 1
 		maxHealth = health
 		if(user)
@@ -214,8 +210,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		retreat_distance = 1 //just enough to shoot
 		minimum_distance = 6
 		var/obj/item/gun/G = O
-		melee_damage_upper = G.force
-		melee_damage_lower = G.force - max(0, (G.force / 2))
+		melee_damage = G.force
 		move_to_delay = 2 * G.w_class + 1
 		projectilesound = G.fire_sound
 		TrueGun = G

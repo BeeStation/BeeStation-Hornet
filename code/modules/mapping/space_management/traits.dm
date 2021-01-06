@@ -1,6 +1,6 @@
 // Look up levels[z].traits[trait]
 /datum/controller/subsystem/mapping/proc/level_trait(z, trait)
-	if (!isnum(z) || z < 1)
+	if (!isnum_safe(z) || z < 1)
 		return null
 	if (z_list)
 		if (z > z_list.len)

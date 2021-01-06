@@ -6,7 +6,7 @@
 	stage_speed = 1
 	transmittable = 2
 	level = 0
-	severity = 1
+	severity = 0
 	symptom_delay_min = 2
 	symptom_delay_max = 15
 	var/honkspread = FALSE
@@ -15,6 +15,13 @@
 	threshold_desc = "<b>Transmission 10:</b> There's a rare chance the disease is spread everytime the host honks.<br>\
 					  <b>Resistance 10:</b> The host grows a peculiar clown mask.<br>\
 					  <b>Resistance 15:</b>	Host becomes clumsy, similar to a clown."
+
+/datum/symptom/pierrot/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.properties["resistance"] >= 10)
+		severity +=1
+	if(A.properties["resistance"] >= 15)
+		severity += 2
 
 /datum/symptom/pierrot/Start(datum/disease/advance/A)
 	if(!..())
@@ -52,9 +59,9 @@
 				if(clownmask)
 					give_clown_mask(A)
 				if(prob(5))
-					playsound(M.loc, 'sound/items/bikehorn.ogg', 50, 1)
-					if(honkspread && prob(25))
-						A.spread(1)
+					playsound(M.loc, 'sound/items/bikehorn.ogg', 100, 1)
+					if(honkspread)
+						A.spread(5)
 
 /datum/symptom/pierrot/End(datum/disease/advance/A)
 	..()

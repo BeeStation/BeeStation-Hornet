@@ -60,7 +60,7 @@
 		to_chat(user, "<span class='notice'>You build a floor.</span>")
 		var/turf/T = src.loc
 		if(isspaceturf(T))
-			T.PlaceOnTop(/turf/open/floor/plating)
+			T.PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 			qdel(src)
 			return TRUE
 	return FALSE
@@ -68,26 +68,3 @@
 /obj/structure/lattice/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FOUR)
 		deconstruct()
-
-/obj/structure/lattice/clockwork
-	name = "cog lattice"
-	desc = "A lightweight support lattice. These hold the Justicar's station together."
-	icon = 'icons/obj/smooth_structures/lattice_clockwork.dmi'
-
-/obj/structure/lattice/clockwork/Initialize(mapload)
-	canSmoothWith += /turf/open/indestructible/clock_spawn_room //list overrides are a terrible thing
-	. = ..()
-	ratvar_act()
-	if(is_reebe(z))
-		resistance_flags |= INDESTRUCTIBLE
-
-/obj/structure/lattice/clockwork/ratvar_act()
-	if(ISODD(x+y))
-		icon = 'icons/obj/smooth_structures/lattice_clockwork_large.dmi'
-		pixel_x = -9
-		pixel_y = -9
-	else
-		icon = 'icons/obj/smooth_structures/lattice_clockwork.dmi'
-		pixel_x = 0
-		pixel_y = 0
-	return TRUE

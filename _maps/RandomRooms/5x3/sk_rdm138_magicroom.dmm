@@ -1,0 +1,95 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/dresser,
+/turf/open/floor/carpet/black,
+/area/template_noop)
+"c" = (
+/obj/effect/landmark/start/randommaint/magician,
+/turf/open/floor/carpet/black,
+/area/template_noop)
+"g" = (
+/turf/open/floor/carpet/black,
+/area/template_noop)
+"m" = (
+/obj/structure/mirror{
+	pixel_x = 15;
+	pixel_y = 30
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/obj/item/lipstick/random{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/lipstick/random,
+/obj/item/lipstick/random{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/turf/open/floor/carpet/black,
+/area/template_noop)
+"o" = (
+/obj/machinery/vending/autodrobe,
+/turf/open/floor/carpet/black,
+/area/template_noop)
+"B" = (
+/obj/machinery/iv_drip{
+	name = "clothes rack"
+	},
+/obj/effect/spawner/lootdrop/costume,
+/obj/effect/spawner/lootdrop/costume,
+/turf/open/floor/circuit,
+/area/template_noop)
+"D" = (
+/obj/structure/curtain/bounty,
+/turf/open/floor/carpet/black,
+/area/template_noop)
+"F" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/medspray/barber{
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/medspray/dye{
+	pixel_x = -3
+	},
+/turf/open/floor/carpet/black,
+/area/template_noop)
+"O" = (
+/obj/machinery/iv_drip{
+	name = "clothes rack"
+	},
+/obj/effect/spawner/lootdrop/costume,
+/obj/effect/spawner/lootdrop/costume,
+/turf/open/floor/circuit/red,
+/area/template_noop)
+
+(1,1,1) = {"
+m
+g
+a
+"}
+(2,1,1) = {"
+F
+c
+o
+"}
+(3,1,1) = {"
+D
+D
+D
+"}
+(4,1,1) = {"
+B
+g
+O
+"}
+(5,1,1) = {"
+B
+g
+O
+"}

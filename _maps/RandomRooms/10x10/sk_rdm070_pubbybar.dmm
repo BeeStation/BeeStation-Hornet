@@ -1,0 +1,418 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/piano,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"b" = (
+/obj/structure/chair/stool,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"c" = (
+/turf/closed/wall,
+/area/template_noop)
+"d" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/turf/open/floor/plasteel/stairs/left,
+/area/template_noop)
+"f" = (
+/turf/open/floor/plasteel/stairs/right,
+/area/template_noop)
+"g" = (
+/obj/effect/spawner/lootdrop/three_course_meal,
+/obj/effect/spawner/lootdrop/three_course_meal,
+/obj/structure/closet/crate,
+/obj/item/paper/crumpled/beernuke,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/template_noop)
+"h" = (
+/obj/structure/sign/barsign,
+/turf/closed/wall,
+/area/template_noop)
+"i" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 24
+	},
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/template_noop)
+"j" = (
+/turf/open/floor/wood,
+/area/template_noop)
+"k" = (
+/obj/machinery/vending/boozeomat/pubby_maint,
+/turf/closed/wall,
+/area/template_noop)
+"l" = (
+/obj/structure/table,
+/turf/open/floor/plating,
+/area/template_noop)
+"m" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+	pixel_x = 6;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/food/drinks/bottle/tequila{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/drinks/shaker,
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
+/obj/structure/table,
+/obj/machinery/chem_dispenser/drinks/beer,
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"o" = (
+/turf/open/floor/carpet,
+/area/template_noop)
+"p" = (
+/obj/item/chair/stool,
+/turf/open/floor/carpet,
+/area/template_noop)
+"q" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/open/floor/carpet,
+/area/template_noop)
+"r" = (
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/template_noop)
+"s" = (
+/obj/effect/decal/cleanable/oil{
+	icon_state = "floor5"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"t" = (
+/obj/item/cigbutt/cigarbutt,
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/template_noop)
+"u" = (
+/obj/structure/mineral_door/wood,
+/turf/open/floor/plating,
+/area/template_noop)
+"v" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/turf/open/floor/carpet,
+/area/template_noop)
+"w" = (
+/obj/structure/table/wood/poker,
+/obj/item/toy/cards/deck,
+/turf/open/floor/carpet,
+/area/template_noop)
+"x" = (
+/obj/structure/chair/comfy/black{
+	dir = 8
+	},
+/turf/open/floor/carpet,
+/area/template_noop)
+"y" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 4;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/turf/open/floor/plating,
+/area/template_noop)
+"z" = (
+/obj/structure/table,
+/obj/item/storage/fancy/cigarettes/cigars,
+/obj/item/stack/spacecash/c20,
+/turf/open/floor/plating,
+/area/template_noop)
+"A" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/bottle/gin{
+	pixel_y = 8
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"B" = (
+/obj/structure/chair/stool,
+/turf/open/floor/carpet,
+/area/template_noop)
+"C" = (
+/obj/item/cigbutt/roach,
+/turf/open/floor/carpet,
+/area/template_noop)
+"D" = (
+/obj/item/clothing/suit/apron/chef,
+/turf/open/floor/plating,
+/area/template_noop)
+"E" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/template_noop)
+"F" = (
+/turf/open/floor/wood{
+	icon_state = "wood-broken7"
+	},
+/area/template_noop)
+"G" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/wood,
+/area/template_noop)
+"H" = (
+/turf/open/floor/plasteel/stairs/medium,
+/area/template_noop)
+"I" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/turf/open/floor/plasteel/stairs/right,
+/area/template_noop)
+"J" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Pete's Speakeasy";
+	req_access_txt = "0"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"K" = (
+/obj/structure/table,
+/obj/item/clothing/under/costume/maid,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"L" = (
+/obj/item/coin/silver,
+/obj/effect/decal/cleanable/oil{
+	icon_state = "floor5"
+	},
+/obj/structure/light_construct/small{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"M" = (
+/obj/item/clothing/under/rank/civilian/clown/sexy,
+/obj/effect/spawner/lootdrop/clowntrap,
+/obj/effect/spawner/lootdrop/trap,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"N" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/item/stack/spacecash/c10,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"O" = (
+/obj/structure/closet/firecloset,
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
+	},
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/template_noop)
+"P" = (
+/obj/structure/table,
+/obj/item/restraints/legcuffs/beartrap,
+/obj/item/restraints/legcuffs/beartrap,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"Q" = (
+/obj/structure/festivus{
+	anchored = 1;
+	name = "pole"
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"R" = (
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"S" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/obj/effect/decal/cleanable/oil{
+	icon_state = "floor6"
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"T" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/item/clothing/mask/cigarette,
+/turf/open/floor/plating,
+/area/template_noop)
+"U" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/open/floor/plating,
+/area/template_noop)
+"V" = (
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/mop,
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+e
+j
+o
+v
+o
+E
+e
+L
+Q
+"}
+(2,1,1) = {"
+b
+f
+j
+p
+w
+B
+j
+H
+M
+R
+"}
+(3,1,1) = {"
+c
+c
+c
+q
+x
+C
+F
+I
+N
+S
+"}
+(4,1,1) = {"
+d
+g
+c
+c
+c
+j
+j
+c
+c
+c
+"}
+(5,1,1) = {"
+d
+c
+k
+r
+l
+j
+F
+c
+O
+T
+"}
+(6,1,1) = {"
+d
+h
+l
+r
+y
+j
+j
+J
+d
+d
+"}
+(7,1,1) = {"
+d
+c
+m
+s
+z
+j
+j
+c
+c
+c
+"}
+(8,1,1) = {"
+d
+c
+n
+t
+A
+j
+G
+u
+d
+U
+"}
+(9,1,1) = {"
+d
+c
+c
+u
+c
+u
+c
+c
+d
+d
+"}
+(10,1,1) = {"
+d
+i
+d
+d
+d
+D
+c
+K
+P
+V
+"}

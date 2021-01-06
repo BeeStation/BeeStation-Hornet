@@ -22,8 +22,8 @@
 	interaction_flags_machine = INTERACT_MACHINE_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OFFLINE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_dispenser
-	ui_x = 565
-	ui_y = 620
+
+
 
 	var/obj/item/stock_parts/cell/cell
 	var/powerefficiency = 0.1
@@ -166,11 +166,14 @@
 		beaker = null
 		cut_overlays()
 
-/obj/machinery/chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-											datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/chem_dispenser/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/chem_dispenser/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "chem_dispenser", name, 565, 550, master_ui, state)
+		ui = new(user, src, "ChemDispenser")
 		if(user.hallucinating())
 			ui.set_autoupdate(FALSE) //to not ruin the immersion by constantly changing the fake chemicals
 		ui.open()
@@ -251,7 +254,7 @@
 			if(!is_operational() || recording_recipe)
 				return
 			var/amount = text2num(params["amount"])
-			if(beaker && amount in beaker.possible_transfer_amounts)
+			if(beaker && (amount in beaker.possible_transfer_amounts))
 				beaker.reagents.remove_all(amount)
 				work_animation()
 				. = TRUE
@@ -401,7 +404,6 @@
 	return ..()
 
 /obj/machinery/chem_dispenser/AltClick(mob/living/user)
-	..()
 	if(istype(user) && user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		replace_beaker(user)
 
@@ -589,6 +591,31 @@
 	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
 	RefreshParts()
 
+/obj/machinery/chem_dispenser/mutagensaltpetersmall
+	name = "minor botanical chemical dispenser"
+	desc = "A botanical chemical dispenser on a budget."
+	icon_state = "minidispenser"
+	working_state = "minidispenser_working"
+	nopower_state = "minidispenser_nopower"
+	circuit = /obj/item/circuitboard/machine/chem_dispenser/botany
+	dispensable_reagents = list(
+		/datum/reagent/toxin/mutagen,
+		/datum/reagent/saltpetre,
+		/datum/reagent/water)
+	upgrade_reagents = list(
+		/datum/reagent/toxin/plantbgone,
+		/datum/reagent/toxin/plantbgone/weedkiller,
+		/datum/reagent/toxin/pestkiller,
+		/datum/reagent/diethylamine)
+
+/obj/machinery/chem_dispenser/mutagensaltpetersmall/display_beaker()
+	var/mutable_appearance/b_o = beaker_overlay || mutable_appearance(icon, "disp_beaker")
+	b_o.pixel_y = -4
+	b_o.pixel_x = -4
+	return b_o
+
+
+
 /obj/machinery/chem_dispenser/fullupgrade //fully ugpraded stock parts, emagged
 	desc = "Creates and dispenses chemicals. This model has had its safeties shorted out."
 	obj_flags = CAN_BE_HIT | EMAGGED
@@ -654,7 +681,11 @@
 		/datum/reagent/drug/space_drugs,
 		/datum/reagent/toxin,
 		/datum/reagent/toxin/plasma,
-		/datum/reagent/uranium
+		/datum/reagent/uranium,
+		/datum/reagent/toxin/carpotoxin,
+		/datum/reagent/medicine/rezadone,
+		/datum/reagent/medicine/silibinin,
+		/datum/reagent/medicine/polypyr
 	)
 
 /obj/machinery/chem_dispenser/abductor/Initialize()

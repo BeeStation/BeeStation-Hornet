@@ -151,6 +151,7 @@
 	icon_state = "charger_draw"
 	item_flags = NOBLUDGEON
 	var/mode = "draw"
+	var/active = FALSE
 	var/static/list/charge_machines = typecacheof(list(/obj/machinery/cell_charger, /obj/machinery/recharger, /obj/machinery/recharge_station, /obj/machinery/mech_bay_recharge_port))
 	var/static/list/charge_items = typecacheof(list(/obj/item/stock_parts/cell, /obj/item/gun/energy))
 
@@ -176,12 +177,20 @@
 	if(mode == "draw")
 		if(is_type_in_list(target, charge_machines))
 			var/obj/machinery/M = target
+
 			if((M.stat & (NOPOWER|BROKEN)) || !M.anchored)
 				to_chat(user, "<span class='warning'>[M] is unpowered!</span>")
 				return
 
+			if (active) //Prevents charge stacking from the same or multiple targets.
+				to_chat(user, "<span class ='notice'>You're already charging from [target].</span>")
+				return
+
+			active = TRUE
+
 			to_chat(user, "<span class='notice'>You connect to [M]'s power line...</span>")
 			while(do_after(user, 15, target = M, progress = 0))
+
 				if(!user || !user.cell || mode != "draw")
 					return
 
@@ -192,6 +201,8 @@
 					break
 
 				M.use_power(200)
+
+			active = FALSE
 
 			to_chat(user, "<span class='notice'>You stop charging yourself.</span>")
 
@@ -251,9 +262,16 @@
 		if(cell.charge >= cell.maxcharge)
 			to_chat(user, "<span class='warning'>[target] is already charged!</span>")
 
+		if (active) //Prevents stacking charging on the target.
+			to_chat(user, "<span class ='notice'>You're already charging [target].</span>")
+			return
+
 		to_chat(user, "<span class='notice'>You connect to [target]'s power port...</span>")
 
+		active = TRUE
+
 		while(do_after(user, 15, target = target, progress = 0))
+
 			if(!user || !user.cell || mode != "charge")
 				return
 
@@ -269,6 +287,8 @@
 			if(!cell.give(draw))
 				break
 			target.update_icon()
+
+		active = FALSE
 
 		to_chat(user, "<span class='notice'>You stop charging [target].</span>")
 
@@ -492,7 +512,6 @@
 	name = "Gumball"
 	desc = "Why are you seeing this?!"
 	projectile_type = /obj/item/projectile/bullet/reusable/gumball
-	click_cooldown_override = 2
 
 
 /obj/item/projectile/bullet/reusable/gumball
@@ -513,7 +532,6 @@
 	name = "Lollipop"
 	desc = "Why are you seeing this?!"
 	projectile_type = /obj/item/projectile/bullet/reusable/lollipop
-	click_cooldown_override = 2
 
 /obj/item/projectile/bullet/reusable/lollipop
 	name = "lollipop"
@@ -772,7 +790,7 @@
 
 /obj/item/borg/apparatus/Exited(atom/A)
 	if(A == stored) //sanity check
-		UnregisterSignal(stored, COMSIG_OBJ_UPDATE_ICON)
+		UnregisterSignal(stored, COMSIG_ATOM_UPDATE_ICON)
 		stored = null
 	update_icon()
 	. = ..()
@@ -806,7 +824,7 @@
 			var/obj/item/O = A
 			O.forceMove(src)
 			stored = O
-			RegisterSignal(stored, COMSIG_OBJ_UPDATE_ICON, .proc/update_icon)
+			RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, /atom/.proc/update_icon)
 			update_icon()
 			return
 	else
@@ -834,7 +852,7 @@
 /obj/item/borg/apparatus/beaker/Initialize()
 	. = ..()
 	stored = new /obj/item/reagent_containers/glass/beaker/large(src)
-	RegisterSignal(stored, COMSIG_OBJ_UPDATE_ICON, .proc/update_icon)
+	RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, /atom/.proc/update_icon)
 	update_icon()
 
 /obj/item/borg/apparatus/beaker/Destroy()
@@ -928,3 +946,26 @@
 	. = ..()
 	if(istype(A, /obj/item/aiModule) && !stored) //If an admin wants a borg to upload laws, who am I to stop them? Otherwise, we can hint that it fails
 		to_chat(user, "<span class='warning'>This circuit board doesn't seem to have standard robot apparatus pin holes. You're unable to pick it up.</span>")
+		
+////////////////////
+//versatile service holder//
+////////////////////
+
+/obj/item/borg/apparatus/beaker/service
+	name = "versatile service grasper"
+	desc = "Specially designed for carrying glasses, food and seeds. Alt-Z or right-click to drop the stored object."
+	storable = list(/obj/item/reagent_containers/food,
+	/obj/item/seeds,
+	/obj/item/storage/fancy/donut_box,
+	/obj/item/storage/fancy/egg_box,
+	/obj/item/clothing/mask/cigarette,
+	/obj/item/storage/fancy/cigarettes,
+	/obj/item/reagent_containers/glass/beaker,
+	/obj/item/reagent_containers/glass/bottle,
+	/obj/item/reagent_containers/glass/bucket
+	)
+
+/obj/item/borg/apparatus/beaker/service/examine()
+	. = ..()
+	if(stored)
+		. += "You are currently holding [stored]."

@@ -33,7 +33,7 @@
 			copy_values = FALSE
 			copy_id = FALSE
 			new_data = input(user, "Now type in a number.","[src] number writing") as null|num
-			if(isnum(new_data) && user.IsAdvancedToolUser())
+			if(isnum_safe(new_data) && user.IsAdvancedToolUser())
 				data_to_write = new_data
 				to_chat(user, "<span class='notice'>You set \the [src]'s memory to [new_data].</span>")
 		if("ref")

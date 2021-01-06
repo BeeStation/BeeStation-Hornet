@@ -178,6 +178,9 @@
 			move_delay = world.time + 10
 			to_chat(src, "<span class='warning'>You're restrained! You can't move!</span>")
 			return TRUE
+		else if(mob.pulledby.grab_state == GRAB_AGGRESSIVE)
+			move_delay = world.time + 10
+			return TRUE
 		else
 			return mob.resist_grab(1)
 
@@ -459,7 +462,7 @@
 		m_intent = MOVE_INTENT_RUN
 	if(hud_used && hud_used.static_inventory)
 		for(var/obj/screen/mov_intent/selector in hud_used.static_inventory)
-			selector.update_icon(src)
+			selector.update_icon()
 
 ///Moves a mob upwards in z level
 /mob/verb/up()

@@ -1,0 +1,215 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/cable_coil/white,
+/obj/item/stack/cable_coil/white,
+/obj/item/multitool,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"b" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"d" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"e" = (
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/structure/closet/crate/internals,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"f" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"g" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/tank/internals/oxygen,
+/obj/item/radio,
+/obj/item/clothing/mask/breath,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"i" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"j" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"k" = (
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/tank/internals/oxygen,
+/obj/item/radio,
+/obj/item/clothing/mask/breath,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"l" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/suit_storage_unit,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"m" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"n" = (
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"o" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+f
+i
+l
+"}
+(2,1,1) = {"
+b
+g
+j
+m
+"}
+(3,1,1) = {"
+g
+h
+k
+n
+"}
+(4,1,1) = {"
+d
+f
+g
+o
+"}
+(5,1,1) = {"
+e
+f
+l
+l
+"}

@@ -12,6 +12,7 @@
 	density = FALSE
 	state_open = TRUE
 	circuit = /obj/item/circuitboard/machine/sleeper
+
 	var/efficiency = 1
 	var/min_health = -25
 	var/list/available_chems
@@ -127,15 +128,16 @@
 		visible_message("<span class='notice'>[usr] pries open [src].</span>", "<span class='notice'>You pry open [src].</span>")
 		open_machine()
 
-/obj/machinery/sleeper/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.notcontained_state)
 
-	if(controls_inside && state == GLOB.notcontained_state)
-		state = GLOB.default_state // If it has a set of controls on the inside, make it actually controllable by the mob in it.
+/obj/machinery/sleeper/ui_state(mob/user)
+	if(controls_inside)
+		return GLOB.default_state
+	return GLOB.notcontained_state
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/sleeper/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "sleeper", name, 375, 550, master_ui, state)
+		ui = new(user, src, "Sleeper")
 		ui.open()
 
 /obj/machinery/sleeper/AltClick(mob/user)
@@ -275,15 +277,6 @@
 	icon_state = "sleeper_clockwork"
 	enter_message = "<span class='bold inathneq_small'>You hear the gentle hum and click of machinery, and are lulled into a sense of peace.</span>"
 	possible_chems = list(list(/datum/reagent/medicine/epinephrine, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/bicaridine, /datum/reagent/medicine/kelotane, /datum/reagent/medicine/oculine, /datum/reagent/medicine/inacusiate, /datum/reagent/medicine/mannitol))
-
-/obj/machinery/sleeper/clockwork/process()
-	if(occupant && isliving(occupant))
-		var/mob/living/L = occupant
-		if(GLOB.clockwork_vitality) //If there's Vitality, the sleeper has passive healing
-			GLOB.clockwork_vitality = max(0, GLOB.clockwork_vitality - 1)
-			L.adjustBruteLoss(-1)
-			L.adjustFireLoss(-1)
-			L.adjustOxyLoss(-5)
 
 /obj/machinery/sleeper/old
 	icon_state = "oldpod"

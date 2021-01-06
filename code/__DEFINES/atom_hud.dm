@@ -61,6 +61,10 @@
 #define ANTAG_HUD_HIVE			24
 #define ANTAG_HUD_OBSESSED	25
 #define ANTAG_HUD_FUGITIVE	26
+#define ANTAG_HUD_BRAINWASHED   27
+#define ANTAG_HUD_SURVIVALIST   28
+#define ANTAG_HUD_INCURSION 29
+#define ANTAG_HUD_HERETIC	30
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

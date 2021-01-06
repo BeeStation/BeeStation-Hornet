@@ -7,6 +7,9 @@
 	icon_state = "smoke0"
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/smoke_machine
+
+
+
 	var/efficiency = 10
 	var/on = FALSE
 	var/cooldown = 0
@@ -101,11 +104,14 @@
 	reagents.clear_reagents()
 	return ..()
 
-/obj/machinery/smoke_machine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-										datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/smoke_machine/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/smoke_machine/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "smoke_machine", name, 450, 350, master_ui, state)
+		ui = new(user, src, "SmokeMachine")
 		ui.open()
 
 /obj/machinery/smoke_machine/ui_data(mob/user)

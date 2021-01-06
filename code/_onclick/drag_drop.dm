@@ -37,13 +37,6 @@
 /client/MouseDown(object, location, control, params)
 	if (mouse_down_icon)
 		mouse_pointer_icon = mouse_down_icon
-	var/delay = mob.CanMobAutoclick(object, location, params)
-	if(delay)
-		selected_target[1] = object
-		selected_target[2] = params
-		while(selected_target[1])
-			Click(selected_target[1], location, control, selected_target[2])
-			sleep(delay)
 	active_mousedown_item = mob.canMobMousedown(object, location, params)
 	if(active_mousedown_item)
 		active_mousedown_item.onMouseDown(object, location, params, mob)

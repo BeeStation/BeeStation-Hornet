@@ -46,6 +46,7 @@
 
 #define LIGHT_COLOR_HOLY_MAGIC	"#FFF743" //! slightly desaturated bright yellow.
 #define LIGHT_COLOR_BLOOD_MAGIC	"#D00000" //! deep crimson
+#define LIGHT_COLOR_CLOCKWORK 	"#BE8700"
 
 //These ones aren't a direct colour like the ones above, because nothing would fit
 #define LIGHT_COLOR_FIRE       "#FAA019" //! Warm orange color, leaning strongly towards yellow. rgb(250, 160, 25)
@@ -80,3 +81,27 @@
 #define FLASH_LIGHT_DURATION 2
 #define FLASH_LIGHT_POWER 3
 #define FLASH_LIGHT_RANGE 3.8
+
+/// Returns the red part of a #RRGGBB hex sequence as number
+#define GETREDPART(hexa) hex2num(copytext(hexa, 2, 4))
+
+/// Returns the green part of a #RRGGBB hex sequence as number
+#define GETGREENPART(hexa) hex2num(copytext(hexa, 4, 6))
+
+/// Returns the blue part of a #RRGGBB hex sequence as number
+#define GETBLUEPART(hexa) hex2num(copytext(hexa, 6, 8))
+
+/// Parse the hexadecimal color into lumcounts of each perspective.
+#define PARSE_LIGHT_COLOR(source) \
+do { \
+	if (source.light_color) { \
+		var/__light_color = source.light_color; \
+		source.lum_r = GETREDPART(__light_color) / 255; \
+		source.lum_g = GETGREENPART(__light_color) / 255; \
+		source.lum_b = GETBLUEPART(__light_color) / 255; \
+	} else { \
+		source.lum_r = 1; \
+		source.lum_g = 1; \
+		source.lum_b = 1; \
+	}; \
+} while (FALSE)

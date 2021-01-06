@@ -12,6 +12,9 @@
 	idle_power_usage = 5
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/smartfridge
+
+
+
 	var/max_n_of_items = 1500
 	var/allow_ai_retrieve = FALSE
 	var/list/initial_contents
@@ -133,6 +136,18 @@
 		return ..()
 
 
+/obj/machinery/smartfridge/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)	
+	if(!stat)
+		if (istype(AM, /obj/item))		
+			var/obj/item/O = AM
+			if(contents.len < max_n_of_items && accept_check(O))
+				load(O)
+				updateUsrDialog()
+				if (visible_contents)
+					update_icon()
+				return TRUE
+	return ..()
+
 
 /obj/machinery/smartfridge/proc/accept_check(obj/item/O)
 	if(istype(O, /obj/item/reagent_containers/food/snacks/grown/) || istype(O, /obj/item/seeds/) || istype(O, /obj/item/grown/))
@@ -161,10 +176,14 @@
 		adjust_item_drop_location(O)
 
 
-/obj/machinery/smartfridge/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/smartfridge/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/smartfridge/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "smartvend", name, 440, 550, master_ui, state)
+		ui = new(user, src, "SmartVend")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -175,7 +194,7 @@
 	for (var/I in src)
 		var/atom/movable/O = I
 		if (!QDELETED(O))
-			var/md5name = md5(O.name)				// This needs to happen because of a bug in a TGUI component, https://github.com/ractivejs/ractive/issues/744
+			var/md5name = rustg_hash_string(RUSTG_HASH_MD5, O.name)				// This needs to happen because of a bug in a TGUI component, https://github.com/ractivejs/ractive/issues/744
 			if (listofitems[md5name])				// which is fixed in a version we cannot use due to ie8 incompatibility
 				listofitems[md5name]["amount"]++	// The good news is, #30519 made smartfridge UIs non-auto-updating
 			else
@@ -239,9 +258,7 @@
 	desc = "A wooden contraption, used to dry plant products, food and leather."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "drying_rack"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 200
+	use_power = NO_POWER_USE
 	visible_contents = FALSE
 	var/drying = FALSE
 
@@ -281,14 +298,6 @@
 			return TRUE
 	return FALSE
 
-/obj/machinery/smartfridge/drying_rack/power_change()
-	if(powered() && anchored)
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
-		toggle_drying(TRUE)
-	update_icon()
-
 /obj/machinery/smartfridge/drying_rack/load() //For updating the filled overlay
 	..()
 	update_icon()
@@ -320,10 +329,8 @@
 /obj/machinery/smartfridge/drying_rack/proc/toggle_drying(forceoff)
 	if(drying || forceoff)
 		drying = FALSE
-		use_power = IDLE_POWER_USE
 	else
 		drying = TRUE
-		use_power = ACTIVE_POWER_USE
 	update_icon()
 
 /obj/machinery/smartfridge/drying_rack/proc/rack_dry()
@@ -477,7 +484,7 @@
 		/obj/item/reagent_containers/glass/bottle/plasma = 1,
 		/obj/item/reagent_containers/glass/bottle/synaptizine = 1,
 		/obj/item/reagent_containers/glass/bottle/formaldehyde = 1,
-		/obj/item/reagent_containers/glass/bottle/viralbase = 1)
+		/obj/item/reagent_containers/glass/bottle/cryostylane = 1)
 
 // ----------------------------
 // Disk """fridge"""

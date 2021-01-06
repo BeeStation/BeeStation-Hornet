@@ -45,7 +45,7 @@
 		grind_results[/datum/reagent/toxin/slimejelly] = 20
 
 //Effect when activated by a Luminescent. Separated into a minor and major effect. Returns cooldown in deciseconds.
-/obj/item/slime_extract/proc/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/proc/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	to_chat(user, "<span class='notice'>Nothing happened... This slime extract cannot be activated this way.</span>")
 	return 0
 
@@ -80,7 +80,7 @@
 	effectmod = "reproductive"
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
-/obj/item/slime_extract/grey/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/grey/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			var/obj/item/reagent_containers/food/snacks/monkeycube/M = new
@@ -105,7 +105,7 @@
 	effectmod = "symbiont"
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
-/obj/item/slime_extract/gold/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/gold/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			user.visible_message("<span class='warning'>[user] starts shaking!</span>","<span class='notice'>Your [name] starts pulsing gently...</span>")
@@ -134,7 +134,7 @@
 	effectmod = "consuming"
 	activate_reagents = list(/datum/reagent/toxin/plasma,/datum/reagent/water)
 
-/obj/item/slime_extract/silver/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/silver/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			var/food_type = get_random_food()
@@ -159,7 +159,7 @@
 	effectmod = "industrial"
 	activate_reagents = list(/datum/reagent/toxin/plasma,/datum/reagent/water)
 
-/obj/item/slime_extract/metal/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/metal/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			var/obj/item/stack/sheet/glass/O = new(null, 5)
@@ -183,7 +183,7 @@
 	effectmod = "regenerative"
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 
-/obj/item/slime_extract/purple/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/purple/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			user.adjust_nutrition(50)
@@ -202,7 +202,7 @@
 	effectmod = "self-sustaining"
 	activate_reagents = list(/datum/reagent/toxin/plasma)
 
-/obj/item/slime_extract/darkpurple/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/darkpurple/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			var/obj/item/stack/sheet/mineral/plasma/O = new(null, 1)
@@ -225,7 +225,7 @@
 	effectmod = "burning"
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
-/obj/item/slime_extract/orange/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/orange/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='notice'>You activate [src]. You start feeling hot!</span>")
@@ -245,15 +245,23 @@
 	effectmod = "charged"
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
-/obj/item/slime_extract/yellow/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/yellow/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			if(species.glow_intensity != LUMINESCENT_DEFAULT_GLOW)
-				to_chat(user, "<span class='warning'>Your glow is already enhanced!</span>")
-				return
-			species.update_glow(user, 5)
-			addtimer(CALLBACK(species, /datum/species/jelly/luminescent.proc/update_glow, user, LUMINESCENT_DEFAULT_GLOW), 600)
-			to_chat(user, "<span class='notice'>You start glowing brighter.</span>")
+			if(istype(species,/datum/species/jelly/luminescent))
+				var/datum/species/jelly/luminescent/lum_species = species
+				if(lum_species.glow_intensity != LUMINESCENT_DEFAULT_GLOW)
+					to_chat(user, "<span class='warning'>Your glow is already enhanced!</span>")
+					return
+				lum_species.update_glow(user, 5)
+				addtimer(CALLBACK(lum_species, /datum/species/jelly/luminescent.proc/update_glow, user, LUMINESCENT_DEFAULT_GLOW), 600)
+				to_chat(user, "<span class='notice'>You start glowing brighter.</span>")
+				return 600
+			else
+				var/obj/effect/dummy/luminescent_glow/glowth = new(user) //copied from glowy mutation, copied from luminescents
+				glowth.set_light(2.5, 2.5, user.dna.features["mcolor"]) //Weaker than regular luminescents
+				QDEL_IN(glowth, 600)
+				return 600
 
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message("<span class='warning'>[user]'s skin starts flashing intermittently...</span>", "<span class='warning'>Your skin starts flashing intermittently...</span>")
@@ -268,7 +276,7 @@
 	effectmod = "sanguine"
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
-/obj/item/slime_extract/red/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/red/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='notice'>You activate [src]. You start feeling fast!</span>")
@@ -288,7 +296,7 @@
 	effectmod = "stabilized"
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
-/obj/item/slime_extract/blue/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/blue/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='notice'>You activate [src]. Your genome feels more stable!</span>")
@@ -312,7 +320,7 @@
 	effectmod = "chilling"
 	activate_reagents = list(/datum/reagent/toxin/plasma,/datum/reagent/water)
 
-/obj/item/slime_extract/darkblue/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/darkblue/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='notice'>You activate [src]. You start feeling colder!</span>")
@@ -335,7 +343,7 @@
 	effectmod = "gentle"
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 
-/obj/item/slime_extract/pink/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/pink/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			if(user.gender != MALE && user.gender != FEMALE)
@@ -363,14 +371,14 @@
 	effectmod = "mutative"
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/uranium/radium)
 
-/obj/item/slime_extract/green/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/green/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='warning'>You feel yourself reverting to human form...</span>")
 			if(do_after(user, 120, target = user))
 				to_chat(user, "<span class='warning'>You feel human again!</span>")
 				user.set_species(/datum/species/human)
-				return
+				return 600 //This is only for gentle extracts
 			to_chat(user, "<span class='notice'>You stop the transformation.</span>")
 
 		if(SLIME_ACTIVATE_MAJOR)
@@ -378,7 +386,7 @@
 			if(do_after(user, 120, target = user))
 				to_chat(user, "<span class='warning'>You feel different!</span>")
 				user.set_species(pick(/datum/species/jelly/slime, /datum/species/jelly/stargazer))
-				return
+				return 600
 			to_chat(user, "<span class='notice'>You stop the transformation.</span>")
 
 /obj/item/slime_extract/lightpink
@@ -387,7 +395,7 @@
 	effectmod = "loyal"
 	activate_reagents = list(/datum/reagent/toxin/plasma)
 
-/obj/item/slime_extract/lightpink/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/lightpink/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			var/obj/item/slimepotion/slime/renaming/O = new(null, 1)
@@ -411,7 +419,7 @@
 	effectmod = "transformative"
 	activate_reagents = list(/datum/reagent/toxin/plasma)
 
-/obj/item/slime_extract/black/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/black/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='userdanger'>You feel something <i>wrong</i> inside you...</span>")
@@ -423,7 +431,7 @@
 			if(do_after(user, 120, target = user))
 				to_chat(user, "<span class='warning'>You feel a longing for darkness.</span>")
 				user.set_species(pick(/datum/species/shadow))
-				return
+				return 600
 			to_chat(user, "<span class='notice'>You stop feeding [src].</span>")
 
 /obj/item/slime_extract/oil
@@ -432,7 +440,7 @@
 	effectmod = "detonating"
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 
-/obj/item/slime_extract/oil/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/oil/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='warning'>You vomit slippery oil.</span>")
@@ -446,7 +454,7 @@
 				to_chat(user, "<span class='userdanger'>You explode!</span>")
 				explosion(get_turf(user), 1 ,3, 6)
 				user.gib()
-				return
+				return 600
 			to_chat(user, "<span class='notice'>You stop feeding [src], and the feeling passes.</span>")
 
 /obj/item/slime_extract/adamantine
@@ -455,7 +463,7 @@
 	effectmod = "crystalline"
 	activate_reagents = list(/datum/reagent/toxin/plasma)
 
-/obj/item/slime_extract/adamantine/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/adamantine/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			if(species.armor > 0)
@@ -471,10 +479,10 @@
 			if(do_after(user, 120, target = user))
 				to_chat(user, "<span class='warning'>You feel solid.</span>")
 				user.set_species(pick(/datum/species/golem/adamantine))
-				return
+				return 600
 			to_chat(user, "<span class='notice'>You stop feeding [src], and your body returns to its slimelike state.</span>")
 
-/obj/item/slime_extract/adamantine/proc/reset_armor(datum/species/jelly/luminescent/species)
+/obj/item/slime_extract/adamantine/proc/reset_armor(datum/species/species)
 	if(istype(species))
 		species.armor -= 25
 
@@ -488,7 +496,7 @@
 	var/teleport_y = 0
 	var/teleport_z = 0
 
-/obj/item/slime_extract/bluespace/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/bluespace/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='warning'>You feel your body vibrating...</span>")
@@ -520,7 +528,7 @@
 	effectmod = "prismatic"
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 
-/obj/item/slime_extract/pyrite/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/pyrite/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			var/chosen = pick(difflist(subtypesof(/obj/item/toy/crayon),typesof(/obj/item/toy/crayon/spraycan)))
@@ -546,7 +554,7 @@
 	effectmod = "recurring"
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 
-/obj/item/slime_extract/cerulean/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/cerulean/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			user.reagents.add_reagent(/datum/reagent/medicine/salbutamol,15)
@@ -566,7 +574,7 @@
 	effectmod = "lengthened"
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
-/obj/item/slime_extract/sepia/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/sepia/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			var/obj/item/camera/O = new(null, 1)
@@ -588,12 +596,14 @@
 	effectmod = "hyperchromatic"
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,"lesser plasma",/datum/reagent/toxin/slimejelly,"holy water and uranium") //Curse this snowflake reagent list.
 
-/obj/item/slime_extract/rainbow/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+/obj/item/slime_extract/rainbow/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			user.dna.features["mcolor"] = pick("FFFFFF","7F7F7F", "7FFF7F", "7F7FFF", "FF7F7F", "7FFFFF", "FF7FFF", "FFFF7F")
 			user.updateappearance(mutcolor_update=1)
-			species.update_glow(user)
+			if(istype(species,/datum/species/jelly/luminescent))
+				var/datum/species/jelly/luminescent/lum_species = species
+				lum_species.update_glow(user)
 			to_chat(user, "<span class='notice'>You feel different...</span>")
 			return 100
 
@@ -642,7 +652,7 @@
 	M.set_nutrition(700)
 	to_chat(M, "<span class='warning'>You absorb the potion and feel your intense desire to feed melt away.</span>")
 	to_chat(user, "<span class='notice'>You feed the slime the potion, removing its hunger and calming it.</span>")
-	var/newname = copytext(sanitize_name(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text),1,MAX_NAME_LEN)
+	var/newname = sanitize_name(stripped_input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime", MAX_NAME_LEN))
 
 	if (!newname)
 		newname = "pet slime"
@@ -687,7 +697,7 @@
 		if(SM.flags_1 & HOLOGRAM_1) //Check to see if it's a holodeck creature
 			to_chat(SM, "<span class='userdanger'>You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck.</span>")
 		to_chat(user, "<span class='notice'>[SM] accepts [src] and suddenly becomes attentive and aware. It worked!</span>")
-		SM.copy_known_languages_from(user, FALSE)
+		SM.copy_languages(user)
 		after_success(user, SM)
 		qdel(src)
 	else

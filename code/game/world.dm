@@ -5,17 +5,14 @@ GLOBAL_VAR(restart_counter)
 //This happens after the Master subsystem new(s) (it's a global datum)
 //So subsystems globals exist, but are not initialised
 /world/New()
-	if(fexists("byond-extools.dll"))
-		call("byond-extools.dll", "maptick_initialize")()
+	if (fexists(EXTOOLS))
+		call(EXTOOLS, "debug_initialize")()
+		call(EXTOOLS, "maptick_initialize")()
 
 	//Early profile for auto-profiler - will be stopped on profiler init if necessary.
-#if DM_VERSION >= 513 && DM_BUILD >= 1506
 	world.Profile(PROFILE_START)
-#endif
 
 	log_world("World loaded at [time_stamp()]!")
-
-	SetupExternalRSC()
 
 	GLOB.config_error_log = GLOB.world_manifest_log = GLOB.world_pda_log = GLOB.world_job_debug_log = GLOB.sql_error_log = GLOB.world_href_log = GLOB.world_runtime_log = GLOB.world_attack_log = GLOB.world_game_log = "data/logs/config_error.[GUID()].log" //temporary file used to record errors with loading config, moved to log directory once logging is set bl
 
@@ -35,6 +32,7 @@ GLOBAL_VAR(restart_counter)
 	SSdbcore.CheckSchemaVersion()
 	SSdbcore.SetRoundID()
 	SetupLogs()
+	load_poll_data()
 
 	populate_gear_list()
 
@@ -51,7 +49,7 @@ GLOBAL_VAR(restart_counter)
 	GLOB.timezoneOffset = text2num(time2text(0,"hh")) * 36000
 
 	if(fexists(RESTART_COUNTER_PATH))
-		GLOB.restart_counter = text2num(trim(file2text(RESTART_COUNTER_PATH)))
+		GLOB.restart_counter = text2num(trim(rustg_file_read(RESTART_COUNTER_PATH)))
 		fdel(RESTART_COUNTER_PATH)
 
 	if(NO_INIT_PARAMETER in params)
@@ -59,8 +57,9 @@ GLOBAL_VAR(restart_counter)
 
 	Master.Initialize(10, FALSE, TRUE)
 
-	if(TEST_RUN_PARAMETER in params)
-		HandleTestRun()
+	#ifdef UNIT_TESTS
+	HandleTestRun()
+	#endif
 
 /world/proc/HandleTestRun()
 	//trigger things to run the whole process
@@ -74,17 +73,6 @@ GLOBAL_VAR(restart_counter)
 	cb = VARSET_CALLBACK(SSticker, force_ending, TRUE)
 #endif
 	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, /proc/addtimer, cb, 10 SECONDS))
-
-/world/proc/SetupExternalRSC()
-#if (PRELOAD_RSC == 0)
-	GLOB.external_rsc_urls = world.file2list("[global.config.directory]/external_rsc_urls.txt","\n")
-	var/i=1
-	while(i<=GLOB.external_rsc_urls.len)
-		if(GLOB.external_rsc_urls[i])
-			i++
-		else
-			GLOB.external_rsc_urls.Cut(i,i+1)
-#endif
 
 /world/proc/SetupLogs()
 	var/override_dir = params[OVERRIDE_LOG_DIRECTORY_PARAMETER]
@@ -109,9 +97,11 @@ GLOBAL_VAR(restart_counter)
 		GLOB.picture_log_directory = "data/picture_logs/[override_dir]"
 
 	GLOB.world_game_log = "[GLOB.log_directory]/game.log"
+	GLOB.world_objective_log = "[GLOB.log_directory]/objectives.log"
 	GLOB.world_mecha_log = "[GLOB.log_directory]/mecha.log"
 	GLOB.world_virus_log = "[GLOB.log_directory]/virus.log"
 	GLOB.world_cloning_log = "[GLOB.log_directory]/cloning.log"
+	GLOB.world_id_log = "[GLOB.log_directory]/id.log"
 	GLOB.world_asset_log = "[GLOB.log_directory]/asset.log"
 	GLOB.world_attack_log = "[GLOB.log_directory]/attack.log"
 	GLOB.world_pda_log = "[GLOB.log_directory]/pda.log"
@@ -140,6 +130,7 @@ GLOBAL_VAR(restart_counter)
 	start_log(GLOB.world_qdel_log)
 	start_log(GLOB.world_runtime_log)
 	start_log(GLOB.world_job_debug_log)
+	start_log(GLOB.world_id_log)
 	start_log(GLOB.tgui_log)
 
 	GLOB.changelog_hash = md5('html/changelog.html') //for telling if the changelog has changed recently
@@ -156,6 +147,8 @@ GLOBAL_VAR(restart_counter)
 	log_runtime(GLOB.revdata.get_log_message())
 
 /world/Topic(T, addr, master, key)
+	TGS_TOPIC	//*THIS NEEDS TO BE AT THE TOP OF /world/Topic()* - Redirect to server tools if necessary
+
 
 	var/list/response[] = list()
 	if (SSfail2topic?.IsRateLimited(addr))
@@ -167,8 +160,6 @@ GLOBAL_VAR(restart_counter)
 		response["statuscode"] = 413
 		response["response"] = "Payload too large."
 		return json_encode(response)
-
-	TGS_TOPIC	//redirect to server tools if necessary
 
 	var/static/list/topic_handlers = TopicHandlers()
 
@@ -217,7 +208,7 @@ GLOBAL_VAR(restart_counter)
 	else
 		fail_reasons = list("Missing GLOB!")
 	if(!fail_reasons)
-		text2file("Success!", "[GLOB.log_directory]/clean_run.lk")
+		rustg_file_append("Success!", "[GLOB.log_directory]/clean_run.lk")
 	else
 		log_world("Test run failed!\n[fail_reasons.Join("\n")]")
 	sleep(0)	//yes, 0, this'll let Reboot finish and prevent byond memes
@@ -228,16 +219,17 @@ GLOBAL_VAR(restart_counter)
 		if (usr)
 			log_admin("[key_name(usr)] Has requested an immediate world restart via client side debugging tools")
 			message_admins("[key_name_admin(usr)] Has requested an immediate world restart via client side debugging tools")
-		to_chat(world, "<span class='boldannounce'>Rebooting World immediately due to host request</span>")
+		to_chat(world, "<span class='boldannounce'>Rebooting World immediately due to host request.</span>")
 	else
 		to_chat(world, "<span class='boldannounce'>Rebooting world...</span>")
 		Master.Shutdown()	//run SS shutdowns
 
 	TgsReboot()
 
-	if(TEST_RUN_PARAMETER in params)
-		FinishTestRun()
-		return
+	#ifdef UNIT_TESTS
+	FinishTestRun()
+	return
+	#endif
 
 	if(TgsAvailable())
 		var/do_hard_reboot
@@ -252,7 +244,7 @@ GLOBAL_VAR(restart_counter)
 				if(GLOB.restart_counter >= ruhr)
 					do_hard_reboot = TRUE
 				else
-					text2file("[++GLOB.restart_counter]", RESTART_COUNTER_PATH)
+					rustg_file_append("[++GLOB.restart_counter]", RESTART_COUNTER_PATH)
 					do_hard_reboot = FALSE
 
 		if(do_hard_reboot)
@@ -262,6 +254,17 @@ GLOBAL_VAR(restart_counter)
 
 	log_world("World rebooted at [time_stamp()]")
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
+	..()
+
+/world/Del()
+	// memory leaks bad
+	var/num_deleted = 0
+	for(var/datum/gas_mixture/GM)
+		GM.__gasmixture_unregister()
+		num_deleted++
+	log_world("Deallocated [num_deleted] gas mixtures")
+	if(fexists(EXTOOLS))
+		call(EXTOOLS, "cleanup")()
 	..()
 
 /world/proc/update_status()
@@ -321,3 +324,6 @@ GLOBAL_VAR(restart_counter)
 	maxz++
 	SSmobs.MaxZChanged()
 	SSidlenpcpool.MaxZChanged()
+	world.refresh_atmos_grid()
+
+/world/proc/refresh_atmos_grid()

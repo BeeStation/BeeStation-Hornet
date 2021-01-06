@@ -27,8 +27,7 @@
 	icon_gib = "syndicate_gib"
 	maxHealth = 800
 	health = 800
-	melee_damage_lower = 30
-	melee_damage_upper = 30
+	melee_damage = 30
 	armour_penetration = 30
 	attacktext = "beats down on"
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -167,8 +166,7 @@
 	icon_gib = "syndicate_gib"
 	maxHealth = 30
 	health = 30
-	melee_damage_lower = 5
-	melee_damage_upper = 5
+	melee_damage = 5
 	attacktext = "bashes against"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"

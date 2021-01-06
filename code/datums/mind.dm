@@ -56,6 +56,8 @@
 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
 	var/hasSoul = TRUE // If false, renders the character unable to sell their soul.
 	var/isholy = FALSE //is this person a chaplain or admin role allowed to use bibles
+	var/isAntagTarget = FALSE
+	var/no_cloning_at_all = FALSE
 
 	var/mob/living/enslaved_to //If this mind's master is another mob (i.e. adamantine golems)
 	var/datum/language_holder/language_holder
@@ -86,9 +88,7 @@
 
 /datum/mind/proc/get_language_holder()
 	if(!language_holder)
-		var/datum/language_holder/L = current.get_language_holder(shadow=FALSE)
-		language_holder = L.copy(src)
-
+		language_holder = new (src)
 	return language_holder
 
 /datum/mind/proc/transfer_to(mob/new_character, var/force_key_move = 0)
@@ -96,10 +96,6 @@
 		current.mind = null
 		UnregisterSignal(current, COMSIG_MOB_DEATH)
 		SStgui.on_transfer(current, new_character)
-
-	if(!language_holder)
-		var/datum/language_holder/mob_holder = new_character.get_language_holder(shadow = FALSE)
-		language_holder = mob_holder.copy(src)
 
 	if(key)
 		if(new_character.key != key)					//if we're transferring into a body with a key associated which is not ours
@@ -128,6 +124,8 @@
 	RegisterSignal(new_character, COMSIG_MOB_DEATH, .proc/set_death_time)
 	if(active || force_key_move)
 		new_character.key = key		//now transfer the key to link the client to our new body
+	current.update_atom_languages()
+	SEND_SIGNAL(src, COMSIG_MIND_TRANSFER_TO, old_current, new_character)
 
 /datum/mind/proc/set_death_time()
 	last_death = world.time
@@ -186,7 +184,7 @@
 /datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
 	if(!datum_type)
 		return
-	. = FALSE
+
 	for(var/a in antag_datums)
 		var/datum/antagonist/A = a
 		if(check_subtypes && istype(A, datum_type))
@@ -252,7 +250,7 @@
 	remove_rev()
 	SSticker.mode.update_cult_icons_removed(src)
 
-/datum/mind/proc/equip_traitor(employer = "The Syndicate", silent = FALSE, datum/antagonist/uplink_owner)
+/datum/mind/proc/equip_traitor(employer = "The Syndicate", silent = FALSE, datum/antagonist/uplink_owner, telecrystals = 20, datum/game_mode/gamemode)
 	if(!current)
 		return
 	var/mob/living/carbon/human/traitor_mob = current
@@ -306,7 +304,7 @@
 		. = 0
 	else
 		. = uplink_loc
-		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key)
+		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, gamemode, telecrystals)
 		if(!U)
 			CRASH("Uplink creation failed.")
 		U.setup_unlock_code()
@@ -329,12 +327,12 @@
 	if(iscultist(creator))
 		SSticker.mode.add_cultist(src)
 
+	else if(is_servant_of_ratvar(creator))
+		add_servant_of_ratvar(src)
+
 	else if(is_revolutionary(creator))
 		var/datum/antagonist/rev/converter = creator.mind.has_antag_datum(/datum/antagonist/rev,TRUE)
 		converter.add_revolutionary(src,FALSE)
-
-	else if(is_servant_of_ratvar(creator))
-		add_servant_of_ratvar(current)
 
 	else if(is_nuclear_operative(creator))
 		var/datum/antagonist/nukeop/converter = creator.mind.has_antag_datum(/datum/antagonist/nukeop,TRUE)
@@ -398,13 +396,13 @@
 		A.admin_remove(usr)
 
 	if (href_list["role_edit"])
-		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in get_all_jobs()
+		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in sortList(get_all_jobs())
 		if (!new_role)
 			return
 		assigned_role = new_role
 
 	else if (href_list["memory_edit"])
-		var/new_memo = copytext(sanitize(input("Write new memory", "Memory", memory) as null|message),1,MAX_MESSAGE_LEN)
+		var/new_memo = stripped_multiline_input(usr, "Write new memory", "Memory", memory, MAX_MESSAGE_LEN)
 		if (isnull(new_memo))
 			return
 		memory = new_memo
@@ -438,7 +436,7 @@
 					if(1)
 						target_antag = antag_datums[1]
 					else
-						var/datum/antagonist/target = input("Which antagonist gets the objective:", "Antagonist", "(new custom antag)") as null|anything in antag_datums + "(new custom antag)"
+						var/datum/antagonist/target = input("Which antagonist gets the objective:", "Antagonist", "(new custom antag)") as null|anything in sortList(antag_datums) + "(new custom antag)"
 						if (QDELETED(target))
 							return
 						else if(target == "(new custom antag)")
@@ -466,6 +464,7 @@
 			target_antag.objectives += new_objective
 			message_admins("[key_name_admin(usr)] added a new objective for [current]: [new_objective.explanation_text]")
 			log_admin("[key_name(usr)] added a new objective for [current]: [new_objective.explanation_text]")
+			log_objective(new_objective.owner, new_objective.explanation_text, usr)
 		else
 			if(old_objective.type == selected_type)
 				//Edit the old

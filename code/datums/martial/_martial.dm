@@ -33,12 +33,12 @@
 		restraining = 0
 	streak = streak+element
 	if(length(streak) > max_streak_length)
-		streak = copytext(streak,2)
+		streak = copytext(streak, 1 + length(streak[1]))
 	return
 
 /datum/martial_art/proc/basic_hit(mob/living/carbon/human/A,mob/living/carbon/human/D)
 
-	var/damage = rand(A.dna.species.punchdamagelow, A.dna.species.punchdamagehigh)
+	var/damage = A.dna.species.punchdamage
 
 	var/atk_verb = A.dna.species.attack_verb
 	if(!(D.mobility_flags & MOBILITY_STAND))
@@ -72,12 +72,7 @@
 
 	log_combat(A, D, "punched")
 
-	if((D.stat != DEAD) && damage >= A.dna.species.punchstunthreshold)
-		D.visible_message("<span class='danger'>[A] knocks [D] down!!</span>", \
-								"<span class='userdanger'>[A] knocks you down!</span>")
-		D.apply_effect(40, EFFECT_KNOCKDOWN, armor_block)
-		D.forcesay(GLOB.hit_appends)
-	else if(!(D.mobility_flags & MOBILITY_STAND))
+	if(!(D.mobility_flags & MOBILITY_STAND))
 		D.forcesay(GLOB.hit_appends)
 	return 1
 

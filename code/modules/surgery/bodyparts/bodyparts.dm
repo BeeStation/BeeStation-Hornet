@@ -24,7 +24,7 @@
 
 	var/disabled = BODYPART_NOT_DISABLED //If disabled, limb is as good as missing
 	var/body_damage_coeff = 1 //Multiplier of the limb's damage that gets applied to the mob
-	var/stam_damage_coeff = 0.5
+	var/stam_damage_coeff = 0.7
 	var/brutestate = 0
 	var/burnstate = 0
 	var/brute_dam = 0
@@ -148,7 +148,6 @@
 		return FALSE
 	if(owner && (owner.status_flags & GODMODE))
 		return FALSE	//godmode
-
 	if(required_status && (status != required_status))
 		return FALSE
 
@@ -167,7 +166,7 @@
 		if(ALIEN_BODYPART,LARVA_BODYPART) //aliens take double burn //nothing can burn with so much snowflake code around
 			burn *= 2
 
-	var/can_inflict = max_damage - get_damage()
+	var/can_inflict = (max_damage * 2) - get_damage()
 	if(can_inflict <= 0)
 		return FALSE
 
@@ -698,7 +697,7 @@
 	desc = "You put your right leg in, your right leg out. In, out, in, out, \
 		shake it all about. And apparently then it detaches.\n\
 		The hokey pokey has certainly changed a lot since space colonisation."
-	// alternative spellings of 'pokey' are availible
+	// alternative spellings of 'pokey' are available
 	icon_state = "default_human_r_leg"
 	attack_verb = list("kicked", "stomped")
 	max_damage = 50

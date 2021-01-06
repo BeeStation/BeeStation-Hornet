@@ -6,7 +6,7 @@
 	stage_speed = -3
 	transmittable = -1
 	level = 8
-	severity = 5
+	severity = 3
 	symptom_delay_min = 15
 	symptom_delay_max = 60
 	var/lethal = FALSE
@@ -14,12 +14,17 @@
 	threshold_desc = "<b>transmission 12:</b> The disease's damage reaches lethal levels.<br>\
 					  <b>Speed 9:</b> Host's brain develops even more traumas than normal."
 
+/datum/symptom/braindamage/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.properties["transmittable"] >= 12)
+		severity += 1
+
 /datum/symptom/braindamage/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmission"] >= 12)
+	if(A.properties["transmittable"] >= 12)
 		lethal = TRUE
-	if(A.properties["speed"] >= 9)
+	if(A.properties["stage_rate"] >= 9)
 		moretrauma = TRUE
 
 /datum/symptom/braindamage/Activate(datum/disease/advance/A)

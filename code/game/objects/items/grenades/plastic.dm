@@ -145,8 +145,6 @@
 			message_say = "FOR THE HIVE!"
 		else if(UM.has_antag_datum(/datum/antagonist/cult))
 			message_say = "FOR NAR'SIE!"
-		else if(UM.has_antag_datum(/datum/antagonist/clockcult))
-			message_say = "FOR RATVAR!"
 		else if(UM.has_antag_datum(/datum/antagonist/rev))
 			message_say = "VIVA LA REVOLUTION!"
 	M.say(message_say, forced="C4 suicide")
@@ -237,3 +235,5 @@
 	gender = PLURAL
 	directional = TRUE
 	boom_sizes = list(0, 2, 5)
+	can_attach_mob = TRUE
+	full_damage_on_mobs = TRUE

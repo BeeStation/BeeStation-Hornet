@@ -65,10 +65,13 @@
 #define ADMIN_PUNISHMENT_MAZING "Puzzle"
 #define ADMIN_PUNISHMENT_FLOORCLUWNE "Floor Cluwne"
 #define ADMIN_PUNISHMENT_CLUWNE "Make Cluwne"
+#define ADMIN_PUNISHMENT_NUGGET "Nugget"
+#define ADMIN_PUNISHMENT_IMMERSE "Fully Immerse"
 
-#define AHELP_ACTIVE 1
-#define AHELP_CLOSED 2
-#define AHELP_RESOLVED 3
+#define AHELP_UNCLAIMED 1
+#define AHELP_ACTIVE 2
+#define AHELP_CLOSED 3
+#define AHELP_RESOLVED 4
 
 #define ROUNDSTART_LOGOUT_REPORT_TIME	6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
 

@@ -54,6 +54,7 @@
 	volume = 30
 
 	complexity = 20
+	max_allowed = 1
 	cooldown_per_use = 6 SECONDS
 	inputs = list(
 		"target" = IC_PINTYPE_REF,
@@ -89,7 +90,7 @@
 		direction_mode = SYRINGE_DRAW
 	else
 		direction_mode = SYRINGE_INJECT
-	if(isnum(new_amount))
+	if(isnum_safe(new_amount))
 		new_amount = CLAMP(new_amount, 0, volume)
 		transfer_amount = new_amount
 
@@ -217,7 +218,7 @@
 		direction_mode = SYRINGE_DRAW
 	else
 		direction_mode = SYRINGE_INJECT
-	if(isnum(new_amount))
+	if(isnum_safe(new_amount))
 		new_amount = CLAMP(new_amount, 0, 50)
 		transfer_amount = new_amount
 
@@ -340,6 +341,10 @@
 		return FALSE
 	var/obj/item/I = get_pin_data_as_type(IC_INPUT, 1, /obj/item)
 	if(istype(I)&&(I.grind_results)&&check_target(I)&&(I.on_grind(src) != -1))
+		if(istype(I, /obj/item/reagent_containers))
+			var/obj/item/reagent_containers/p = I
+			if(p.prevent_grinding)
+				return FALSE
 		reagents.add_reagent_list(I.grind_results)
 		if(I.reagents)
 			I.reagents.trans_to(src, I.reagents.total_volume)
@@ -461,7 +466,7 @@
 		direction_mode = SYRINGE_DRAW
 	else
 		direction_mode = SYRINGE_INJECT
-	if(isnum(new_amount))
+	if(isnum_safe(new_amount))
 		new_amount = CLAMP(new_amount, 0, 50)
 		transfer_amount = new_amount
 
@@ -526,7 +531,7 @@
 /obj/item/integrated_circuit/reagent/storage/heater/process()
 	if(!power_draw_idle)
 		return
-	var/target_temperature = get_pin_data(IC_INPUT, 1)
+	var/target_temperature = CLAMP(get_pin_data(IC_INPUT, 1), 0, 3000)
 	if(reagents.chem_temp > target_temperature)
 		reagents.chem_temp += min(-1, (target_temperature - reagents.chem_temp) * heater_coefficient)
 	if(reagents.chem_temp < target_temperature)
@@ -615,6 +620,7 @@
 		)
 	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
 	power_draw_per_use = 15
+	max_allowed = 2
 	var/busy = FALSE
 
 /obj/item/integrated_circuit/reagent/extinguisher/Initialize()

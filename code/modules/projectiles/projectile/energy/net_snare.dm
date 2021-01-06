@@ -32,17 +32,32 @@
 /obj/effect/nettingportal/Initialize()
 	. = ..()
 	var/obj/item/beacon/teletarget = null
-	for(var/obj/machinery/computer/teleporter/com in GLOB.machines)
-		if(com.target)
-			if(com.power_station && com.power_station.teleporter_hub && com.power_station.engaged)
-				teletarget = com.target
+	
+	for(var/obj/item/beacon/bea in GLOB.teleportbeacons)
+		if(is_eligible(bea) && bea.nettingportal) //is it quick dragnet beacon?
+			teletarget = bea
 
 	addtimer(CALLBACK(src, .proc/pop, teletarget), 30)
+
+/obj/effect/nettingportal/proc/is_eligible(atom/movable/AM)
+	//this code has to be ported in so it is not abused
+	
+	var/turf/T = get_turf(AM)
+	if(!T)
+		return FALSE
+	
+	var/turf/S = get_turf(src)
+	if (S.z != T.z)	//cannot teleport to another Zlevel
+		return FALSE
+	var/area/A = get_area(T)
+	if(!A || A.noteleport)
+		return FALSE
+	return TRUE
 
 /obj/effect/nettingportal/proc/pop(teletarget)
 	if(teletarget)
 		for(var/mob/living/L in get_turf(src))
-			do_teleport(L, teletarget, 2, channel = TELEPORT_CHANNEL_BLUESPACE)//teleport what's in the tile to the beacon
+			do_teleport(L, teletarget, 0, channel = TELEPORT_CHANNEL_BLUESPACE)//teleport what's in the tile to the beacon
 	else
 		for(var/mob/living/L in get_turf(src))
 			do_teleport(L, L, 15, channel = TELEPORT_CHANNEL_BLUESPACE) //Otherwise it just warps you off somewhere.

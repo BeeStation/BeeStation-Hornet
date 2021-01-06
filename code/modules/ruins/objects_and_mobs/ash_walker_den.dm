@@ -24,6 +24,8 @@
 	var/datum/objective/protect_object/objective = new
 	objective.set_target(src)
 	ashies.objectives += objective
+	for(var/datum/mind/M in ashies.members)
+		log_objective(M, objective.explanation_text)
 	START_PROCESSING(SSprocessing, src)
 
 /obj/structure/lavaland/ash_walker/deconstruct(disassembled)

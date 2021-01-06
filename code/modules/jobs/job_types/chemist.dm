@@ -8,6 +8,7 @@
 	spawn_positions = 2
 	supervisors = "the chief medical officer"
 	selection_color = "#d4ebf2"
+	chat_color = "#82BDCE"
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/chemist
@@ -27,7 +28,7 @@
 	glasses = /obj/item/clothing/glasses/science
 	belt = /obj/item/pda/chemist
 	ears = /obj/item/radio/headset/headset_med
-	uniform = /obj/item/clothing/under/rank/chemist
+	uniform = /obj/item/clothing/under/rank/medical/chemist
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	suit =  /obj/item/clothing/suit/toggle/labcoat/chemist
 	backpack = /obj/item/storage/backpack/chemistry

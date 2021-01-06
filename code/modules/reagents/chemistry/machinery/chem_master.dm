@@ -9,8 +9,8 @@
 	idle_power_usage = 20
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_master
-	ui_x = 465
-	ui_y = 550
+
+
 
 	var/obj/item/reagent_containers/beaker = null
 	var/obj/item/storage/pill_bottle/bottle = null
@@ -139,20 +139,20 @@
 		bottle = null
 	return ..()
 
-/obj/machinery/chem_master/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-										datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		var/datum/asset/assets = get_asset_datum(/datum/asset/spritesheet/simple/pills)
-		assets.send(user)
 
-		ui = new(user, src, ui_key, "chem_master", name, 500, 550, master_ui, state)
+/obj/machinery/chem_master/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/chem_master/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "ChemMaster")
 		ui.open()
 
-//Insert our custom spritesheet css link into the html
-/obj/machinery/chem_master/ui_base_html(html)
-	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/pills)
-	. = replacetext(html, "<!--customheadhtml-->", assets.css_tag())
+/obj/machinery/chem_master/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/simple/pills)
+	)
 
 /obj/machinery/chem_master/ui_data(mob/user)
 	var/list/data = list()
@@ -245,7 +245,7 @@
 			amount = text2num(input(usr,
 				"Max 10. Buffer content will be split evenly.",
 				"How many to make?", 1))
-		amount = CLAMP(round(amount), 0, 10)
+		amount = clamp(round(amount), 0, 10)
 		if (amount <= 0)
 			return FALSE
 		// Get units per item
@@ -271,7 +271,7 @@
 				"Maximum [vol_each_max] units per item.",
 				"How many units to fill?",
 				vol_each_max))
-		vol_each = CLAMP(vol_each, 0, vol_each_max)
+		vol_each = clamp(vol_each, 0, vol_each_max)
 		if(vol_each <= 0)
 			return FALSE
 		// Get item name
@@ -372,7 +372,7 @@
 
 
 /obj/machinery/chem_master/proc/isgoodnumber(num)
-	if(isnum(num))
+	if(isnum_safe(num))
 		if(num > 200)
 			num = 200
 		else if(num < 0)
@@ -397,7 +397,7 @@
 		AM.pixel_y = -8
 		return null
 	else
-		var/md5 = md5(AM.name)
+		var/md5 = rustg_hash_string(RUSTG_HASH_MD5, AM.name)
 		for (var/i in 1 to 32)
 			. += hex2num(md5[i])
 		. = . % 9

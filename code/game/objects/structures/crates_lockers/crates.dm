@@ -13,6 +13,10 @@
 	climb_time = 10 //real fast, because let's be honest stepping into or onto a crate is easy
 	climb_stun = 0 //climbing onto crates isn't hard, guys
 	delivery_icon = "deliverycrate"
+	door_anim_time = 2
+	door_anim_squish = 0.25
+	door_anim_angle = 240
+	door_hinge = 3.5
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
 	open_sound_volume = 35
@@ -22,9 +26,6 @@
 
 /obj/structure/closet/crate/Initialize()
 	. = ..()
-	if(icon_state == "[initial(icon_state)]open")
-		opened = TRUE
-	update_icon()
 
 /obj/structure/closet/crate/CanPass(atom/movable/mover, turf/target)
 	if(!istype(mover, /obj/structure/closet))
@@ -37,11 +38,60 @@
 	return !density
 
 /obj/structure/closet/crate/update_icon()
-	icon_state = "[initial(icon_state)][opened ? "open" : ""]"
-
 	cut_overlays()
-	if(manifest)
-		add_overlay("manifest")
+	if(!opened)
+		layer = OBJ_LAYER
+		if(!is_animating_door)
+			if(icon_door)
+				add_overlay("[icon_door]_door")
+			else
+				add_overlay("[icon_state]_door")
+	else
+		layer = BELOW_OBJ_LAYER
+		if(!is_animating_door)
+			if(icon_door_override)
+				add_overlay("[icon_door]_open")
+			else
+				add_overlay("[icon_state]_open")
+
+/obj/structure/closet/crate/animate_door(var/closing = FALSE)
+	if(!door_anim_time)
+		return
+	if(!door_obj) door_obj = new
+	vis_contents |= door_obj
+	door_obj.icon = icon
+	door_obj.icon_state = "[icon_door || icon_state]_door"
+	is_animating_door = TRUE
+	var/num_steps = door_anim_time / world.tick_lag
+	for(var/I in 0 to num_steps)
+		var/angle = door_anim_angle * (closing ? 1 - (I/num_steps) : (I/num_steps))
+		var/door_state = angle >= 90 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
+		var/door_layer = angle >= 90 ? FLOAT_LAYER : ABOVE_MOB_LAYER
+		var/isbiggercos = angle >= 180 ? TRUE : FALSE
+		var/isbiggersin = angle >= 90 ? TRUE : FALSE
+		var/matrix/M = get_door_transform(angle,isbiggercos,isbiggersin)
+		if(I == 0)
+			door_obj.transform = M
+			door_obj.icon_state = door_state
+			door_obj.layer = door_layer
+		else if(I == 1)
+			animate(door_obj, transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag, flags = ANIMATION_END_NOW)
+		else
+			animate(transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag)
+	addtimer(CALLBACK(src,.proc/end_door_animation),door_anim_time,TIMER_UNIQUE|TIMER_OVERRIDE)
+
+/obj/structure/closet/crate/end_door_animation()
+	is_animating_door = FALSE
+	vis_contents -= door_obj
+	update_icon()
+	COMPILE_OVERLAYS(src)
+
+/obj/structure/closet/crate/get_door_transform(angle, isbiggercos,isbiggersin)
+		var/matrix/M = matrix()
+		M.Translate(0, -door_hinge)
+		M.Multiply(matrix(1, isbiggersin ? -(2 - sin(angle))*door_anim_squish : -sin(angle)* door_anim_squish, 0, 0, isbiggercos ? -2 - cos(angle) : cos(angle), 0))
+		M.Translate(0, door_hinge)
+		return M
 
 /obj/structure/closet/crate/attack_hand(mob/user)
 	. = ..()
@@ -81,6 +131,7 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
 	close_sound_volume = 50
+	door_anim_time = 0
 
 /obj/structure/closet/crate/internals
 	desc = "An internals crate."
@@ -91,6 +142,7 @@
 	desc = "A heavy, metal trashcart with wheels."
 	name = "trash cart"
 	icon_state = "trashcart"
+	door_anim_time = 0
 
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
@@ -101,6 +153,7 @@
 	desc = "A freezer."
 	name = "freezer"
 	icon_state = "freezer"
+	door_hinge = 4.5
 
 //Snowflake organ freezer code
 //Order is important, since we check source, we need to do the check whenever we have all the organs in the crate
@@ -159,7 +212,7 @@
 /obj/structure/closet/crate/radiation
 	desc = "A crate with a radiation sign on it."
 	name = "radiation crate"
-	icon_state = "radiation"
+	icon_state = "radiationcrate"
 
 /obj/structure/closet/crate/hydroponics
 	name = "hydroponics crate"

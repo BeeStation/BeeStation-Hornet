@@ -15,8 +15,6 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		/obj/effect/mob_spawn,
 		/obj/effect/hierophant,
 		/obj/structure/receiving_pad,
-		/obj/effect/clockwork/spatial_gateway,
-		/obj/structure/destructible/clockwork/powered/clockwork_obelisk,
 		/obj/item/warp_cube,
 		/obj/machinery/rnd/production, //print tracking beacons, send shuttle
 		/obj/machinery/autolathe, //same
@@ -180,6 +178,9 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 				matched_bounty = TRUE
 			if(!AM.anchored || istype(AM, /obj/mecha))
 				export_item_and_contents(AM, export_categories , dry_run = FALSE, external_report = ex)
+			else
+				//Exports the contents of things but not the item itself, so you can have conveyor belt that won't get sold
+				export_contents(AM, export_categories , dry_run = FALSE, external_report = ex)
 
 	if(ex.exported_atoms)
 		ex.exported_atoms += "." //ugh

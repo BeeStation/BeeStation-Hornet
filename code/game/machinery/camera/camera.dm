@@ -214,7 +214,7 @@
 	to_chat(user, "<span class='notice'>You start to weld [src]...</span>")
 	if(I.use_tool(src, user, 100, volume=50))
 		user.visible_message("<span class='warning'>[user] unwelds [src], leaving it as just a frame bolted to the wall.</span>",
-			"<span class='warning'>You unweld [src], leaving it as just a frame bolted to the wall</span>")
+			"<span class='warning'>You unweld [src], leaving it as just a frame bolted to the wall.</span>")
 		deconstruct(TRUE)
 
 	return TRUE
@@ -423,14 +423,12 @@
 	for(var/obj/machinery/camera/C in oview(4, M))
 		if(C.can_use())	// check if camera disabled
 			return C
-			break
 	return null
 
 /proc/near_range_camera(var/mob/M)
 	for(var/obj/machinery/camera/C in range(4, M))
 		if(C.can_use())	// check if camera disabled
 			return C
-			break
 
 	return null
 

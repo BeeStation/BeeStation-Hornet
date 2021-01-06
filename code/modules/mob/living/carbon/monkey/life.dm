@@ -36,13 +36,13 @@
 			Paralyze(RAD_MOB_KNOCKDOWN_AMOUNT)
 			to_chat(src, "<span class='danger'>You feel weak.</span>")
 		if(radiation > RAD_MOB_MUTATE)
-			if(prob(1))
+			if(prob(2))
 				to_chat(src, "<span class='danger'>You mutate!</span>")
 				easy_randmut(NEGATIVE+MINOR_NEGATIVE)
 				emote("gasp")
 				domutcheck()
 
-				if(radiation > RAD_MOB_MUTATE * 2 && prob(50))
+				if(radiation > RAD_MOB_MUTATE * 1.5)
 					gorillize()
 					return
 		if(radiation > RAD_MOB_VOMIT && prob(RAD_MOB_VOMIT_PROB))
@@ -50,8 +50,8 @@
 	return ..()
 
 /mob/living/carbon/monkey/handle_breath_temperature(datum/gas_mixture/breath)
-	if(abs(BODYTEMP_NORMAL - breath.temperature) > 50)
-		switch(breath.temperature)
+	if(abs(BODYTEMP_NORMAL - breath.return_temperature()) > 50)
+		switch(breath.return_temperature())
 			if(-INFINITY to 120)
 				adjustFireLoss(3)
 			if(120 to 200)

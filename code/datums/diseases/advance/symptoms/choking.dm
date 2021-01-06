@@ -25,7 +25,7 @@ Bonus
 	stage_speed = -1
 	transmittable = -2
 	level = 9
-	severity = 6
+	severity = 5
 	base_message_chance = 15
 	symptom_delay_min = 14
 	symptom_delay_max = 30
@@ -33,6 +33,11 @@ Bonus
 	threshold_desc = "<b>Stage Speed 8:</b> Additionally synthesizes pancuronium and sodium thiopental inside the host.<br>\
 					  <b>Transmission 8:</b> Doubles the damage caused by the symptom."
 
+/datum/symptom/asphyxiation/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.properties["transmittable"] >= 8)
+		severity += 1
+	return..()
 
 /datum/symptom/asphyxiation/Start(datum/disease/advance/A)
 	if(!..())
@@ -46,6 +51,8 @@ Bonus
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
+	if(HAS_TRAIT(M, TRAIT_NOBREATH)) //if they don't breath, why would being unable to breath kill them?
+		return
 	switch(A.stage)
 		if(3, 4)
 			to_chat(M, "<span class='warning'><b>[pick("Your windpipe feels thin.", "Your lungs feel small.")]</span>")

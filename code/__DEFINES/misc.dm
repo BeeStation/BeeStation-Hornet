@@ -215,7 +215,7 @@ GLOBAL_LIST_INIT(ghost_others_options, list(GHOST_OTHERS_SIMPLE, GHOST_OTHERS_DE
 #define ORBITRON	"Orbitron"
 #define SHARE		"Share Tech Mono"
 
-GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
+GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 
 
 // Consider these images/atoms as part of the UI/HUD
@@ -243,6 +243,7 @@ GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 
 #define DEADCHAT_ARRIVALRATTLE "arrivalrattle"
 #define DEADCHAT_DEATHRATTLE "deathrattle"
+#define DEADCHAT_LAWCHANGE "lawchange"
 #define DEADCHAT_REGULAR "regular-deadchat"
 
 // Bluespace shelter deploy checks
@@ -252,9 +253,15 @@ GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 #define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"
 
 //debug printing macros
-#define debug_world(msg) if (GLOB.Debug2) to_chat(world, "DEBUG: [msg]")
-#define debug_usr(msg) if (GLOB.Debug2&&usr) to_chat(usr, "DEBUG: [msg]")
-#define debug_admins(msg) if (GLOB.Debug2) to_chat(GLOB.admins, "DEBUG: [msg]")
+#define debug_world(msg) if (GLOB.Debug2) to_chat(world, \
+	type = MESSAGE_TYPE_DEBUG, \
+	text = "DEBUG: [msg]")
+#define debug_usr(msg) if (GLOB.Debug2&&usr) to_chat(usr, \
+	type = MESSAGE_TYPE_DEBUG, \
+	text = "DEBUG: [msg]")
+#define debug_admins(msg) if (GLOB.Debug2) to_chat(GLOB.admins, \
+	type = MESSAGE_TYPE_DEBUG, \
+	text = "DEBUG: [msg]")
 #define debug_world_log(msg) if (GLOB.Debug2) log_world("DEBUG: [msg]")
 
 //TODO Move to a pref
@@ -365,6 +372,7 @@ GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 #define ION_FILE "ion_laws.json"
 #define PIRATE_NAMES_FILE "pirates.json"
 #define REDPILL_FILE "redpill.json"
+#define WANTED_FILE "wanted_message.json"
 
 
 //Fullscreen overlay resolution in tiles.
@@ -381,18 +389,16 @@ GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 #define TELEPORT_CHANNEL_CULT "cult"			//! Cult teleportation, does whatever it wants (unless there's holiness)
 #define TELEPORT_CHANNEL_FREE "free"			//! Anything else
 
-/// Run the world with this parameter to enable a single run though of the game setup and tear down process with unit tests in between
-#define TEST_RUN_PARAMETER "test-run"
 /// Force the log directory to be something specific in the data/logs folder
 #define OVERRIDE_LOG_DIRECTORY_PARAMETER "log-directory"
-/// Prevent the master controller from starting automatically, overrides TEST_RUN_PARAMETER
+/// Prevent the master controller from starting automatically
 #define NO_INIT_PARAMETER "no-init"
 /// Force the config directory to be something other than "config"
 #define OVERRIDE_CONFIG_DIRECTORY_PARAMETER "config-directory"
 
 #define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
 
-/// Used by PDA and cartridge code to reduce repetitiveness of spritesheets
+// Used by PDA and cartridge code to reduce repetitiveness of spritesheets
 #define PDAIMG(what) {"<span class="pda16x16 [#what]"></span>"}
 
 //Filters
@@ -430,3 +436,14 @@ GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 #define GRENADE_EMPTY 1
 #define GRENADE_WIRED 2
 #define GRENADE_READY 3
+
+//guardian themes
+#define GUARDIAN_TECH	"tech"
+#define GUARDIAN_CARP	"carp"
+#define GUARDIAN_MAGIC	"magic"
+#define GUARDIAN_HIVE	"hive"
+
+// possible bitflag return values of intercept_zImpact(atom/movable/AM, levels = 1) calls
+#define FALL_INTERCEPTED		(1<<0) //Stops the movable from falling further and crashing on the ground
+#define FALL_NO_MESSAGE			(1<<1) //Used to suppress the "[A] falls through [old_turf]" messages where it'd make little sense at all, like going downstairs.
+#define FALL_STOP_INTERCEPTING	(1<<2) //Used in situations where halting the whole "intercept" loop would be better, like supermatter dusting (and thus deleting) the atom.

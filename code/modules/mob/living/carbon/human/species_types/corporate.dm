@@ -8,9 +8,7 @@
 	burnmod = 0.65//Tough against lasers
 	coldmod = 0
 	heatmod = 0.5//it's a little tough to burn them to death not as hard though.
-	punchdamagelow = 20
-	punchdamagehigh = 30//they are inhumanly strong
-	punchstunthreshold = 25
+	punchdamage = 25//they are inhumanly strong
 	attack_verb = "smash"
 	attack_sound = 'sound/weapons/resonator_blast.ogg'
 	use_skintones = 0

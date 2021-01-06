@@ -26,8 +26,7 @@
 	icon_gib = "syndicate_gib"
 	maxHealth = 800
 	health = 800
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	attacktext = "smashes into the side of"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	throw_message = "merely dinks off of the"
@@ -126,7 +125,7 @@
 			new /obj/effect/temp_visual/hierophant/blast/pandora(t, src)
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/pandora_teleport(target)
-	ranged_cooldown = world.time + cooldown_time
+	ranged_cooldown = world.time + (cooldown_time * 3)
 	var/turf/T = get_turf(target)
 	var/turf/source = get_turf(src)
 	new /obj/effect/temp_visual/hierophant/telegraph(T, src)

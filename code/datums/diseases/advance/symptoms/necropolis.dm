@@ -7,7 +7,7 @@
 	transmittable = -3
 	level = 9
 	base_message_chance = 5
-	severity = 0
+	severity = -1
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 	var/tendrils = FALSE
@@ -19,6 +19,13 @@
 	var/list/cached_tentacle_turfs
 	var/turf/last_location
 	var/tentacle_recheck_cooldown = 100
+
+/datum/symptom/necroseed/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.properties["stealth"] >= 8)
+		severity += 2
+	if(A.properties["resistance"] >= 20)
+		severity -= 1
 
 /datum/symptom/necroseed/Start(datum/disease/advance/A)
 	if(!..())
@@ -37,19 +44,17 @@
 	switch(A.stage)
 		if(2)
 			if(prob(base_message_chance))
-				to_chat(M, "<span class='notice'>Your skin feels scaly</span>")
+				to_chat(M, "<span class='notice'>Your skin feels scaly.</span>")
 		if(3, 4)
 			if(prob(base_message_chance))
 				to_chat(M, "<span class='notice'>[pick("Your skin is hard.", "You feel stronger.", "You feel powerful.")]</span>")
 		if(5)
 			if(tendrils)
 				tendril(A)
-			M.dna.species.punchdamagelow = 5
-			M.dna.species.punchdamagehigh = 15
-			M.dna.species.punchstunthreshold = 11
-			M.dna.species.brutemod = 0.6
-			M.dna.species.burnmod = 0.6
-			M.dna.species.heatmod = 0.6
+			M.dna.species.punchdamage = max(12, M.dna.species.punchdamage)
+			M.dna.species.brutemod = min(0.6, M.dna.species.brutemod)
+			M.dna.species.burnmod = min(0.6, M.dna.species.burnmod)
+			M.dna.species.heatmod = min(0.6, M.dna.species.heatmod)
 			M.add_movespeed_modifier(MOVESPEED_ID_NECRO_VIRUS_SLOWDOWN, update=TRUE, priority=100, multiplicative_slowdown=1)
 			ADD_TRAIT(M, TRAIT_PIERCEIMMUNE, DISEASE_TRAIT)
 			if(fireproof)
@@ -76,7 +81,7 @@
 				LAZYADD(cached_tentacle_turfs, T)
 		for(var/t in cached_tentacle_turfs)
 			if(isopenturf(t))
-				if(prob(10))
+				if(prob(5))
 					new /obj/effect/temp_visual/goliath_tentacle/necro(t, A.affected_mob)
 			else
 				cached_tentacle_turfs -= t
@@ -86,13 +91,11 @@
 		return
 	var/mob/living/carbon/M = A.affected_mob
 	to_chat(M, "<span class='danger'>You feel weak and powerless as the necropolis' blessing leaves your body, leaving you slow and vulnerable.</span>")
-	M.dna.species.punchdamagelow = 1
-	M.dna.species.punchdamagehigh = 5
-	M.dna.species.punchstunthreshold = 10
-	M.dna.species.brutemod = 1.5
-	M.dna.species.burnmod = 1.5
-	M.dna.species.heatmod = 1.5
-	M.dna.species.speedmod = 2
+	M.dna.species.punchdamage = initial(M.dna.species.punchdamage)
+	M.dna.species.brutemod = initial(M.dna.species.heatmod)
+	M.dna.species.burnmod = initial(M.dna.species.heatmod)
+	M.dna.species.heatmod = initial(M.dna.species.heatmod)
+	M.remove_movespeed_modifier(MOVESPEED_ID_NECRO_VIRUS_SLOWDOWN, TRUE)
 	REMOVE_TRAIT(M, TRAIT_PIERCEIMMUNE, DISEASE_TRAIT)
 	if(fireproof)
 		REMOVE_TRAIT(M, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
@@ -107,10 +110,17 @@
 	if(chest && A.stage == 5 && M.mind)
 		to_chat(M, "<span class='danger'>Your soul is ripped from your body!</span>")
 		M.visible_message("<span class='danger'>An unearthly roar shakes the ground as [M] explodes into a shower of gore, leaving behind an ominous, fleshy chest.</span>")
-		new /obj/structure/closet/crate/necropolis/tendril(M.loc)
 		playsound(M.loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, 1, 1)
 		M.hellbound = TRUE
 		M.gib()
+		if(ishuman(M)) //We don't NEED them to be human. However, I want to avoid people making teratoma-farms for necrochests
+			var/mob/living/carbon/human/H = M
+			var/S = H.dna.species
+			if(istype(S, /datum/species/golem) || istype(S, /datum/species/jelly)) //nope. sorry, xenobio.
+				return
+		else
+			return
+		new /obj/structure/closet/crate/necropolis/tendril(M.loc)
 
 /obj/effect/temp_visual/goliath_tentacle/necro
 	name = "fledgling necropolis tendril"

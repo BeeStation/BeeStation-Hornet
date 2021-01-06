@@ -13,6 +13,7 @@
 #define AI_JF			(1<<9)
 #define CYBORG			(1<<10)
 #define BRIG_PHYS		(1<<11)
+#define DEPUTY  		(1<<12)
 
 
 #define MEDSCI			(1<<1)
@@ -43,6 +44,12 @@
 #define CLOWN			(1<<11)
 #define MIME			(1<<12)
 #define ASSISTANT		(1<<13)
+#define GIMMICK 		(1<<14)
+#define BARBER		    (1<<15)
+#define MAGICIAN        (1<<16)
+#define HOBO            (1<<17)
+#define SHRINK          (1<<18)
+#define CELEBRITY       (1<<19)
 
 #define JOB_AVAILABLE 0
 #define JOB_UNAVAILABLE_GENERIC 1
@@ -87,5 +94,6 @@
 #define JOB_DISPLAY_ORDER_DETECTIVE 29
 #define JOB_DISPLAY_ORDER_SECURITY_OFFICER 30
 #define JOB_DISPLAY_ORDER_BRIG_PHYS 31
-#define JOB_DISPLAY_ORDER_AI 32
-#define JOB_DISPLAY_ORDER_CYBORG 33
+#define JOB_DISPLAY_ORDER_DEPUTY 32 
+#define JOB_DISPLAY_ORDER_AI 33
+#define JOB_DISPLAY_ORDER_CYBORG 34

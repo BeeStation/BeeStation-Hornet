@@ -24,8 +24,8 @@
 	icon_screen = "holocontrol"
 	idle_power_usage = 10
 	active_power_usage = 50
-	ui_x = 400
-	ui_y = 500
+
+
 
 	var/area/holodeck/linked
 	var/area/holodeck/program
@@ -67,6 +67,11 @@
 		return
 	else
 		linked.linked = src
+		var/area/my_area = get_area(src)
+		if(my_area)
+			linked.power_usage = my_area.power_usage
+		else
+			linked.power_usage = new /list(AREA_USAGE_LEN)
 
 	generate_program_list()
 	load_program(offline_program, FALSE, FALSE)
@@ -75,16 +80,21 @@
 	emergency_shutdown()
 	if(linked)
 		linked.linked = null
+		linked.power_usage = new /list(AREA_USAGE_LEN)
 	return ..()
 
 /obj/machinery/computer/holodeck/power_change()
 	. = ..()
 	toggle_power(!stat)
 
-/obj/machinery/computer/holodeck/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/computer/holodeck/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/holodeck/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "holodeck", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "Holodeck")
 		ui.open()
 
 /obj/machinery/computer/holodeck/ui_data(mob/user)
@@ -122,6 +132,11 @@
 
 			var/area/A = locate(program_to_load) in GLOB.sortedAreas
 			if(A)
+				if(istype(A, /area/holodeck)) //Admins could technically load a non-holodeck area with some varediting
+					var/area/holodeck/H = A
+					if(H.restricted)
+						message_admins("[key_name(usr)] is loading a restricted (and potentially dangerous) holodeck area: [H.name]")
+						log_game("[key_name(usr)] is loading a restricted (and potentially dangerous) holodeck area: [H.name]")
 				load_program(A)
 		if("safety")
 			if((obj_flags & EMAGGED) && program)

@@ -27,6 +27,8 @@
 	if(method == INGEST)
 		if (quality && !HAS_TRAIT(M, TRAIT_AGEUSIA))
 			switch(quality)
+				if (DRINK_BAD)
+					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
 				if (DRINK_NICE)
 					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_nice)
 				if (DRINK_GOOD)
@@ -114,6 +116,7 @@
 /datum/reagent/consumable/cooking_oil/reaction_obj(obj/O, reac_volume)
 	if(holder && holder.chem_temp >= fry_temperature)
 		if(isitem(O) && !istype(O, /obj/item/reagent_containers/food/snacks/deepfryholder))
+			log_game("[O.name] ([O.type]) has been deep fried by a reaction with cooking oil reagent at [AREACOORD(O)].")
 			O.loc.visible_message("<span class='warning'>[O] rapidly fries as it's splashed with hot oil! Somehow.</span>")
 			var/obj/item/reagent_containers/food/snacks/deepfryholder/F = new(O.drop_location(), O)
 			F.fry(volume)
@@ -171,6 +174,12 @@
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#899613" // rgb: 137, 150, 19
 	taste_description = "watery milk"
+
+/datum/reagent/consumable/virus_food/on_mob_life(mob/living/carbon/M)
+	. = ..()
+	for(var/datum/disease/D in M.diseases)
+		if(prob(D.stage_prob * 10))
+			D.update_stage(min(D.stage += 1, D.max_stages))
 
 /datum/reagent/consumable/soysauce
 	name = "Soysauce"
@@ -261,7 +270,7 @@
 		if(isopenturf(T))
 			var/turf/open/OT = T
 			OT.MakeSlippery(wet_setting=TURF_WET_ICE, min_wet_time=100, wet_time_to_add=reac_volume SECONDS) // Is less effective in high pressure/high heat capacity environments. More effective in low pressure.
-			OT.air.temperature -= MOLES_CELLSTANDARD*100*reac_volume/OT.air.heat_capacity() // reduces environment temperature by 5K per unit.
+			OT.air.set_temperature(OT.air.return_temperature() - MOLES_CELLSTANDARD*100*reac_volume/OT.air.heat_capacity()) // reduces environment temperature by 5K per unit.
 
 /datum/reagent/consumable/condensedcapsaicin
 	name = "Condensed Capsaicin"
@@ -272,24 +281,22 @@
 /datum/reagent/consumable/condensedcapsaicin/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(!ishuman(M) && !ismonkey(M))
 		return
-		
+
 	var/mob/living/carbon/victim = M
 	if(method == TOUCH || method == VAPOR)
-		var/pepper_proof = victim.is_pepper_proof()
-	
 		//check for protection
 		//actually handle the pepperspray effects
-		if (!(pepper_proof)) // you need both eye and mouth protection
-			if(prob(5))
-				victim.emote("scream")
+		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
 			victim.blur_eyes(5) // 10 seconds
 			victim.blind_eyes(3) // 6 seconds
-			victim.confused = max(M.confused, 5) // 10 seconds
 			victim.Knockdown(3 SECONDS)
+			if(prob(5))
+				victim.emote("scream")
+			victim.confused = max(M.confused, 5) // 10 seconds
 			victim.add_movespeed_modifier(MOVESPEED_ID_PEPPER_SPRAY, update=TRUE, priority=100, multiplicative_slowdown=0.25, blacklisted_movetypes=(FLYING|FLOATING))
 			addtimer(CALLBACK(victim, /mob.proc/remove_movespeed_modifier, MOVESPEED_ID_PEPPER_SPRAY), 10 SECONDS)
 		victim.update_damage_hud()
-			
+
 /datum/reagent/consumable/condensedcapsaicin/on_mob_life(mob/living/carbon/M)
 	if(prob(5))
 		M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
@@ -334,14 +341,14 @@
 	// no color (ie, black)
 	taste_description = "pepper"
 
-/datum/reagent/consumable/coco
-	name = "Coco Powder"
-	description = "A fatty, bitter paste made from coco beans."
+/datum/reagent/consumable/cocoa
+	name = "Cocoa Powder"
+	description = "A fatty, bitter paste made from cocoa beans."
 	reagent_state = SOLID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "bitterness"
-/datum/reagent/consumable/coco/on_mob_add(mob/living/carbon/M)
+/datum/reagent/consumable/cocoa/on_mob_add(mob/living/carbon/M)
 	.=..()
 	if(iscatperson(M))
 		to_chat(M, "<span class='warning'>Your insides revolt at the presence of lethal chocolate!</span>")
@@ -349,9 +356,9 @@
 
 
 
-/datum/reagent/consumable/hot_coco
+/datum/reagent/consumable/hot_cocoa
 	name = "Hot Chocolate"
-	description = "Made with love! And coco beans."
+	description = "Made with love! And cocoa beans."
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	color = "#403010" // rgb: 64, 48, 16
 	taste_description = "creamy chocolate"
@@ -359,7 +366,7 @@
 	glass_name = "glass of chocolate"
 	glass_desc = "Tasty."
 
-/datum/reagent/consumable/hot_coco/on_mob_life(mob/living/carbon/M)
+/datum/reagent/consumable/hot_cocoa/on_mob_life(mob/living/carbon/M)
 	M.adjust_bodytemperature(5 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, BODYTEMP_NORMAL)
 	..()
 
@@ -442,7 +449,7 @@
 	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot)
 		var/datum/gas_mixture/lowertemp = T.remove_air(T.air.total_moles())
-		lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)
+		lowertemp.set_temperature(max( min(lowertemp.return_temperature()-2000,lowertemp.return_temperature() / 2) ,0))
 		lowertemp.react(src)
 		T.assume_air(lowertemp)
 		qdel(hotspot)
@@ -510,7 +517,7 @@
 
 /datum/reagent/consumable/rice
 	name = "Rice"
-	description = "tiny nutritious grains"
+	description = "Tiny nutritious grains. A fast and filling meal!"
 	reagent_state = SOLID
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	color = "#FFFFFF" // rgb: 0, 0, 0
@@ -549,7 +556,7 @@
 	..()
 /datum/reagent/consumable/honey
 	name = "Honey"
-	description = "Sweet sweet honey that decays into sugar. Has antibacterial and natural healing properties."
+	description = "Sweet, sweet honey that decays into sugar. Has antibacterial and natural healing properties."
 	color = "#d3a308"
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	metabolization_rate = 1 * REAGENTS_METABOLISM
@@ -625,7 +632,7 @@
 
 /datum/reagent/consumable/nutriment/stabilized
 	name = "Stabilized Nutriment"
-	description = "A bioengineered protien-nutrient structure designed to decompose in high saturation. In layman's terms, it won't get you fat."
+	description = "A bioengineered protein-nutrient structure designed to decompose in high saturation. In layman's terms, it won't get you fat."
 	reagent_state = SOLID
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
@@ -640,7 +647,7 @@
 
 /datum/reagent/consumable/entpoly
 	name = "Entropic Polypnium"
-	description = "An ichor, derived from a certain mushroom, makes for a bad time."
+	description = "An ichor derived from a certain mushroom. Makes for a bad time."
 	color = "#1d043d"
 	taste_description = "bitter mushroom"
 
@@ -733,3 +740,26 @@
 	taste_mult = 2
 	taste_description = "bitter sweetness"
 	reagent_state = SOLID
+
+/datum/reagent/consumable/bbqsauce
+	name = "BBQ Sauce"
+	description = "Sweet, Smokey, Savory, and gets everywhere. Perfect for Grilling."
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#78280A" // rgb: 120 40, 10
+	taste_mult = 2.5 //sugar's 1.5, capsacin's 1.5, so a good middle ground.
+	taste_description = "smokey sweetness"
+
+/datum/reagent/consumable/char
+	name = "Char"
+	description = "Essence of the grill. Has strange properties when overdosed."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#C8C8C8"
+	taste_mult = 6
+	taste_description = "smoke"
+	overdose_threshold = 25
+
+/datum/reagent/consumable/char/overdose_process(mob/living/carbon/M)
+	if(prob(10))
+		M.say(pick("I hate my wife.", "I just want to grill for God's sake.", "I wish I could just go on my lawnmower and cut the grass.", "Yep, Quake. That was a good game...", "Yeah, my PDA has wi-fi. A wife I hate."), forced = /datum/reagent/consumable/char)
+	..()

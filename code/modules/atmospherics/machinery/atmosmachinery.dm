@@ -15,7 +15,7 @@
 	move_resist = INFINITY				//Moving a connected machine without actually doing the normal (dis)connection things will probably cause a LOT of issues.
 	idle_power_usage = 0
 	active_power_usage = 0
-	power_channel = ENVIRON
+	power_channel = AREA_USAGE_ENVIRON
 	layer = GAS_PIPE_HIDDEN_LAYER //under wires
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
@@ -212,11 +212,11 @@
 		if(unsafe_wrenching)
 			unsafe_pressure_release(user, internal_pressure)
 
-			
+
 			if (user.client)
 				SSmedals.UnlockMedal(MEDAL_UNWRENCH_HIGH_PRESSURE,user.client)
-			
-			
+
+
 		deconstruct(TRUE)
 	return TRUE
 
@@ -325,7 +325,6 @@
 	if(istype(L) && is_type_in_list(src, GLOB.ventcrawl_machinery))
 		L.handle_ventcrawl(src)
 		return
-	..()
 
 
 /obj/machinery/atmospherics/proc/can_crawl_through()

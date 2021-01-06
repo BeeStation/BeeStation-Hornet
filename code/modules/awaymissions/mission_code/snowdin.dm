@@ -471,8 +471,8 @@
 
 /obj/effect/spawner/lootdrop/snowdin/dungeonlite
 	name = "dungeon lite"
-	loot = list(/obj/item/melee/classic_baton = 11,
-				/obj/item/melee/classic_baton/telescopic = 12,
+	loot = list(/obj/item/melee/classic_baton/police = 11,
+				/obj/item/melee/classic_baton/police/telescopic = 12,
 				/obj/item/book/granter/spell/smoke = 10,
 				/obj/item/book/granter/spell/blind = 10,
 				/obj/item/storage/firstaid/regular = 45,
@@ -594,6 +594,7 @@
 	short_desc = "You are a syndicate operative recently awoken from cryostasis in an underground outpost."
 	flavour_text = "You are a syndicate operative recently awoken from cryostasis in an underground outpost. Monitor Nanotrasen communications and record information. All intruders should be \
 	disposed of swiftly to assure no gathered information is stolen or lost. Try not to wander too far from the outpost as the caves can be a deadly place even for a trained operative such as yourself."
+	use_cooldown = TRUE
 
 /datum/outfit/snowsyndie
 	name = "Syndicate Snow Operative"

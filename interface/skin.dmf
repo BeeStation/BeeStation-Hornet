@@ -2,21 +2,21 @@ macro "default"
 
 
 menu "menu"
-	elem
+	elem 
 		name = "&File"
 		command = ""
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Quick screenshot\tF2"
 		command = ".screenshot auto"
 		category = "&File"
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Save screenshot as...\tShift+F2"
 		command = ".screenshot"
 		category = "&File"
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = ""
 		command = ""
 		category = "&File"
@@ -26,21 +26,21 @@ menu "menu"
 		command = ".reconnect"
 		category = "&File"
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Quit\tAlt-F4"
 		command = ".quit"
 		category = "&File"
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Help"
 		command = ""
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Admin Help\tF1"
 		command = "adminhelp"
 		category = "&Help"
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Hotkeys"
 		command = "hotkeys-help"
 		category = "&Help"
@@ -50,7 +50,7 @@ menu "menu"
 window "mainwindow"
 	elem "mainwindow"
 		type = MAIN
-		pos = 281,0
+		pos = 372,0
 		size = 640x440
 		anchor1 = none
 		anchor2 = none
@@ -69,46 +69,6 @@ window "mainwindow"
 		left = "mapwindow"
 		right = "infowindow"
 		is-vert = true
-	elem "input"
-		type = INPUT
-		pos = 3,420
-		size = 517x20
-		anchor1 = 0,100
-		anchor2 = 100,100
-		background-color = #d3b5b5
-		is-default = true
-		border = sunken
-		saved-params = "command"
-	elem "saybutton"
-		type = BUTTON
-		pos = 600,420
-		size = 40x20
-		anchor1 = 100,100
-		anchor2 = none
-		saved-params = "is-checked"
-		text = "Chat"
-		command = ".winset \"saybutton.is-checked=true ? input.command=\"!say \\\"\" : input.command=\"\"saybutton.is-checked=true ? mebutton.is-checked=false\"\"saybutton.is-checked=true ? oocbutton.is-checked=false\""
-		button-type = pushbox
-	elem "oocbutton"
-		type = BUTTON
-		pos = 520,420
-		size = 40x20
-		anchor1 = 100,100
-		anchor2 = none
-		saved-params = "is-checked"
-		text = "OOC"
-		command = ".winset \"oocbutton.is-checked=true ? input.command=\"!ooc \\\"\" : input.command=\"\"oocbutton.is-checked=true ? mebutton.is-checked=false\"\"oocbutton.is-checked=true ? saybutton.is-checked=false\""
-		button-type = pushbox
-	elem "mebutton"
-		type = BUTTON
-		pos = 560,420
-		size = 40x20
-		anchor1 = 100,100
-		anchor2 = none
-		saved-params = "is-checked"
-		text = "Me"
-		command = ".winset \"mebutton.is-checked=true ? input.command=\"!me \\\"\" : input.command=\"\"mebutton.is-checked=true ? saybutton.is-checked=false\"\"mebutton.is-checked=true ? oocbutton.is-checked=false\""
-		button-type = pushbox
 	elem "asset_cache_browser"
 		type = BROWSER
 		pos = 0,0
@@ -125,6 +85,46 @@ window "mainwindow"
 		anchor2 = none
 		is-visible = false
 		saved-params = ""
+	elem "input"
+		type = INPUT
+		pos = 3,420
+		size = 517x20
+		anchor1 = 0,100
+		anchor2 = 100,100
+		background-color = #d3b5b5
+		is-default = true
+		border = sunken
+		saved-params = "command"
+	elem "oocbutton"
+		type = BUTTON
+		pos = 520,420
+		size = 40x20
+		anchor1 = 100,100
+		anchor2 = none
+		saved-params = "is-checked"
+		text = "OOC"
+		command = ".winset \"oocbutton.is-checked=true ? input.command=\"!ooc \\\"\" : input.command=\"\"oocbutton.is-checked=true ? mebutton.is-checked=false\"\"oocbutton.is-checked=true ? saybutton.is-checked=false\""
+		button-type = pushbox
+	elem "saybutton"
+		type = BUTTON
+		pos = 600,420
+		size = 40x20
+		anchor1 = 100,100
+		anchor2 = none
+		saved-params = "is-checked"
+		text = "Chat"
+		command = ".winset \"saybutton.is-checked=true ? input.command=\"!say \\\"\" : input.command=\"\"saybutton.is-checked=true ? mebutton.is-checked=false\"\"saybutton.is-checked=true ? oocbutton.is-checked=false\""
+		button-type = pushbox
+	elem "mebutton"
+		type = BUTTON
+		pos = 560,420
+		size = 40x20
+		anchor1 = 100,100
+		anchor2 = none
+		saved-params = "is-checked"
+		text = "Me"
+		command = ".winset \"mebutton.is-checked=true ? input.command=\"!me \\\"\" : input.command=\"\"mebutton.is-checked=true ? saybutton.is-checked=false\"\"mebutton.is-checked=true ? oocbutton.is-checked=false\""
+		button-type = pushbox
 
 window "mapwindow"
 	elem "mapwindow"
@@ -145,8 +145,8 @@ window "mapwindow"
 		font-size = 7
 		text-color = none
 		is-default = true
-		saved-params = "icon-size"
-		zoom-mode = distort
+		saved-params = "zoom;letterbox;zoom-mode"
+		style = ".chatOverhead {font-family: 'Small Fonts'; -dm-text-outline: 1 black; font-size: 7px;}"
 
 window "infowindow"
 	elem "infowindow"
@@ -158,19 +158,11 @@ window "infowindow"
 		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
-	elem "current-map"
-		type = BUTTON
-		pos = 445,3
-		size = 133x20
-		anchor1 = 70,0
-		anchor2 = 90,0
-		background-color = none
-		saved-params = "is-checked"
-		text = "Current Map:"
-		command = "map"
+		outer-size = 656x538
+		inner-size = 640x499
 	elem "discord"
 		type = BUTTON
-		pos = 603,3
+		pos = 607,5
 		size = 20x20
 		anchor1 = 94,0
 		anchor2 = 97,0
@@ -181,7 +173,7 @@ window "infowindow"
 		command = "discord"
 	elem "donate"
 		type = BUTTON
-		pos = 579,3
+		pos = 574,5
 		size = 20x20
 		anchor1 = 90,0
 		anchor2 = 94,0
@@ -203,60 +195,60 @@ window "infowindow"
 		is-vert = false
 	elem "changelog"
 		type = BUTTON
-		pos = 11,3
-		size = 61x20
-		anchor1 = 2,0
-		anchor2 = 11,0
+		pos = 16,5
+		size = 88x20
+		anchor1 = 3,0
+		anchor2 = 19,0
 		background-color = none
 		saved-params = "is-checked"
 		text = "Changelog"
 		command = "changelog"
 	elem "rules"
 		type = BUTTON
-		pos = 73,3
-		size = 72x20
-		anchor1 = 11,0
-		anchor2 = 23,0
+		pos = 104,5
+		size = 88x20
+		anchor1 = 19,0
+		anchor2 = 34,0
 		background-color = none
 		saved-params = "is-checked"
 		text = "Rules"
 		command = "rules"
 	elem "wiki"
 		type = BUTTON
-		pos = 146,3
-		size = 73x20
-		anchor1 = 23,0
-		anchor2 = 34,0
+		pos = 192,5
+		size = 88x20
+		anchor1 = 34,0
+		anchor2 = 50,0
 		background-color = none
 		saved-params = "is-checked"
 		text = "Wiki"
 		command = "wiki"
 	elem "forum"
 		type = BUTTON
-		pos = 221,3
-		size = 75x20
-		anchor1 = 35,0
-		anchor2 = 46,0
+		pos = 280,5
+		size = 88x20
+		anchor1 = 50,0
+		anchor2 = 66,0
 		background-color = none
 		saved-params = "is-checked"
 		text = "Forum"
 		command = "forum"
 	elem "github"
 		type = BUTTON
-		pos = 296,3
-		size = 67x20
-		anchor1 = 46,0
-		anchor2 = 57,0
+		pos = 368,5
+		size = 88x20
+		anchor1 = 66,0
+		anchor2 = 81,0
 		background-color = none
 		saved-params = "is-checked"
 		text = "Github"
 		command = "github"
 	elem "report-issue"
 		type = BUTTON
-		pos = 364,3
-		size = 79x20
-		anchor1 = 57,0
-		anchor2 = 69,0
+		pos = 466,5
+		size = 78x20
+		anchor1 = 81,0
+		anchor2 = 97,0
 		background-color = none
 		saved-params = "is-checked"
 		text = "Report Issue"
@@ -265,7 +257,7 @@ window "infowindow"
 window "outputwindow"
 	elem "outputwindow"
 		type = MAIN
-		pos = 0,0
+		pos = 372,0
 		size = 640x480
 		anchor1 = none
 		anchor2 = none
@@ -281,7 +273,6 @@ window "outputwindow"
 		is-visible = false
 		is-disabled = true
 		saved-params = ""
-		auto-format = false
 	elem "output"
 		type = OUTPUT
 		pos = 0,0
@@ -307,7 +298,6 @@ window "preferences_window"
 		size = 960x1000
 		anchor1 = 0,0
 		anchor2 = 75,100
-		background-color = none
 		saved-params = ""
 	elem "character_preview_map"
 		type = MAP
@@ -321,12 +311,15 @@ window "preferences_window"
 window "statwindow"
 	elem "statwindow"
 		type = MAIN
-		pos = 0,0
+		pos = 281,0
 		size = 640x480
 		anchor1 = none
 		anchor2 = none
+		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
+		outer-size = 656x538
+		inner-size = 640x499
 	elem "stat"
 		type = INFO
 		pos = 0,0
@@ -335,4 +328,5 @@ window "statwindow"
 		anchor2 = 100,100
 		is-default = true
 		saved-params = ""
+		tab-background-color = none
 

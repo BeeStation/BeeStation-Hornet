@@ -33,6 +33,7 @@
 	else
 		var/datum/objective/brainwashing/obj = new(objective)
 		vessel.objectives += obj
+		log_objective(M, obj.explanation_text)
 		var/message = "<span class='deadsay'><b>[M]</b> has been awoken with the following objectives: [objective]."
 		deadchat_broadcast(message, follow_target = M, turf_target = get_turf(M), message_type=DEADCHAT_REGULAR)
 		log_game("[key_name(M)] has been awoken with the following objectives: [objective]")
@@ -79,14 +80,14 @@
 /datum/antagonist/hivevessel/farewell()
 	to_chat(owner, "<span class='assimilator'>Your mind closes up once more...</span>")
 	to_chat(owner, "<big><span class='warning'><b>You feel the weight of your objectives disappear! You no longer have to obey them.</b></span></big>")
-	
+
 /datum/antagonist/hivevessel/roundend_report()
 	if(!owner)
 		CRASH("antagonist datum without owner")
-		
+
 	if(one_mind)
 		return printplayer(owner)
-	
+
 	var/list/report = list()
 	report += printplayer(owner)
 	if(objectives.len)

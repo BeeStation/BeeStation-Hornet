@@ -1,0 +1,98 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/structure/table/wood,
+/obj/effect/decal/cleanable/cobweb,
+/obj/item/toy/katana,
+/obj/item/clothing/shoes/sandal,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/mirror{
+	pixel_y = 26
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"b" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"c" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/structure/dresser,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"d" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"e" = (
+/obj/structure/chair/stool/bar,
+/turf/open/floor/wood{
+	icon_state = "wood-broken5"
+	},
+/area/template_noop)
+"f" = (
+/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/wood,
+/area/template_noop)
+"g" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/machinery/vending/autodrobe/all_access,
+/obj/structure/noticeboard{
+	dir = 4;
+	pixel_x = -27
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"h" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/wood,
+/area/template_noop)
+"i" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/structure/table/wood,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/glasses/eyepatch{
+	pixel_y = 5
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+d
+g
+"}
+(2,1,1) = {"
+b
+e
+h
+"}
+(3,1,1) = {"
+c
+f
+i
+"}

@@ -30,6 +30,13 @@
 	desc = "Designed to quickly reload revolvers. Iceblox bullets contain a cryogenic payload."
 	ammo_type = /obj/item/ammo_casing/c38/iceblox
 
+/obj/item/ammo_box/c38/mime
+	name = "speed loader (.38 finger)"
+	max_ammo = 6
+	desc = "Designed to quickly reload your fingers with lethal rounds."
+	item_flags = DROPDEL
+	ammo_type = /obj/item/ammo_casing/caseless/mime/lethals
+
 /obj/item/ammo_box/c9mm
 	name = "ammo box (9mm)"
 	icon_state = "9mmbox"

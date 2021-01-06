@@ -2,7 +2,7 @@
 #define ANTAG_TOKENS_MINIMUM 0
 
 /client/proc/cmd_admin_mod_antag_tokens(client/C in GLOB.clients, var/operation)
-	set category = "Special Verbs"
+	set category = "Adminbus"
 	set name = "Modify Antagonist Tokens"
 
 	if(!check_rights(R_ADMIN))

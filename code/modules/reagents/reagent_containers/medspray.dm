@@ -91,3 +91,29 @@
 	name = "sterilizer spray"
 	desc = "Spray bottle loaded with non-toxic sterilizer. Useful in preparation for surgery."
 	list_reagents = list(/datum/reagent/space_cleaner/sterilizine = 60)
+
+/obj/item/reagent_containers/medspray/barber
+	name = "hair spray"
+	desc = "Spray bottle loaded with an unknown hair growth agent."
+	icon_state = "hairgrowth"
+	apply_type = TOUCH
+	list_reagents = list(/datum/reagent/barbers_aid = 60)
+	squirt_amount = 1
+	squirt_mode = 1
+
+/obj/item/reagent_containers/medspray/dye
+	name = "hair dye"
+	desc = "Spray bottle loaded with an all-purpose hair dye."
+	icon_state = "hairdye"
+	apply_type = TOUCH
+	list_reagents = list(/datum/reagent/hair_dye = 60)
+	squirt_amount = 1
+	squirt_mode = 1
+
+/obj/item/reagent_containers/medspray/spraytan
+	name = "spray tan"
+	desc = "A spray tan bottle, jury rigged to deliver just too much spray tan per spray."
+	icon_state = "spraytan"
+	apply_type = TOUCH
+	list_reagents = list(/datum/reagent/spraytan = 55)
+	amount_per_transfer_from_this = 11

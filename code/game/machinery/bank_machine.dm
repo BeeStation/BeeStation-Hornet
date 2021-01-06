@@ -57,40 +57,45 @@
 		if(next_warning < world.time && prob(15))
 			var/area/A = get_area(loc)
 			var/message = "Unauthorized credit withdrawal underway in [A.map_name]!!"
-			radio.talk_into(src, message, radio_channel, get_spans())
+			radio.talk_into(src, message, radio_channel)
 			next_warning = world.time + minimum_time_between_warnings
 
-/obj/machinery/computer/bank_machine/get_spans()
-	. = ..() | SPAN_ROBOT
 
-/obj/machinery/computer/bank_machine/ui_interact(mob/user)
-	. = ..()
+/obj/machinery/computer/bank_machine/ui_state(mob/user)
+	return GLOB.default_state
 
-	var/dat = "[station_name()] secure vault. Authorized personnel only.<br>"
+/obj/machinery/computer/bank_machine/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "BankMachine")
+		ui.open()
+
+/obj/machinery/computer/bank_machine/ui_data(mob/user)
+	var/list/data = list()
 	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+
 	if(D)
-		dat += "Current Balance: $[D.account_balance]<br>"
-	if(!siphoning)
-		dat += "<A href='?src=[REF(src)];siphon=1'>Siphon Credits</A><br>"
+		data["current_balance"] = D.account_balance
 	else
-		dat += "<A href='?src=[REF(src)];halt=1'>Halt Credit Siphon</A><br>"
+		data["current_balance"] = 0
+	data["siphoning"] = siphoning
+	data["station_name"] = station_name()
 
-	dat += "<a href='?src=[REF(user)];mach_close=computer'>Close</a>"
+	return data
 
-	var/datum/browser/popup = new(user, "computer", "Bank Vault", 300, 200)
-	popup.set_content("<center>[dat]</center>")
-	popup.set_title_image(usr.browse_rsc_icon(src.icon, src.icon_state))
-	popup.open()
-
-/obj/machinery/computer/bank_machine/Topic(href, href_list)
+/obj/machinery/computer/bank_machine/ui_act(action, params)
 	if(..())
 		return
-	if(href_list["siphon"])
-		say("Siphon of station credits has begun!")
-		siphoning = TRUE
-	if(href_list["halt"])
-		say("Station credit withdrawal halted.")
-		end_syphon()
+
+	switch(action)
+		if("siphon")
+			say("Siphon of station credits has begun!")
+			siphoning = TRUE
+			. = TRUE
+		if("halt")
+			say("Station credit withdrawal halted.")
+			end_syphon()
+			. = TRUE
 
 /obj/machinery/computer/bank_machine/proc/end_syphon()
 	siphoning = FALSE

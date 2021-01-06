@@ -24,7 +24,7 @@
 	taste_description = "mushroom"
 
 /datum/reagent/toxin/mutagen
-	name = "Unstable mutagen"
+	name = "Unstable Mutagen"
 	description = "Might cause unpredictable mutations. Keep away from children."
 	color = "#00FF00"
 	toxpwr = 0
@@ -142,6 +142,11 @@
 	toxpwr = 2
 	taste_description = "fish"
 
+/datum/reagent/toxin/carpotoxin/on_mob_metabolize(mob/living/carbon/L)
+	if(iscatperson(L))
+		toxpwr = 0
+	..()
+
 /datum/reagent/toxin/zombiepowder
 	name = "Zombie Powder"
 	description = "A strong neurotoxin that puts the subject into a death-like state."
@@ -166,7 +171,7 @@
 
 /datum/reagent/toxin/ghoulpowder
 	name = "Ghoul Powder"
-	description = "A strong neurotoxin that slows metabolism to a death-like state, while keeping the patient fully active. Causes toxin buildup if used too long."
+	description = "A strong neurotoxin that slows metabolism to a death-like state while keeping the patient fully active. Causes toxin buildup if used too long."
 	reagent_state = SOLID
 	color = "#664700" // rgb: 102, 71, 0
 	toxpwr = 0.8
@@ -187,7 +192,7 @@
 
 /datum/reagent/toxin/mindbreaker
 	name = "Mindbreaker Toxin"
-	description = "A powerful hallucinogen. Not a thing to be messed with. For some mental patients. it counteracts their symptoms and anchors them to reality."
+	description = "A mild hallucinogen. Beneficial to some mental patients."
 	color = "#B31008" // rgb: 139, 166, 233
 	toxpwr = 0
 	taste_description = "sourness"
@@ -316,7 +321,8 @@
 	description = "Finely shredded tea leaves, used for making tea."
 	reagent_state = SOLID
 	color = "#7F8400" // rgb: 127, 132, 0
-	toxpwr = 0.5
+	toxpwr = 0.1
+	taste_description = "green tea"
 
 /datum/reagent/toxin/mutetoxin //the new zombie powder.
 	name = "Mute Toxin"
@@ -349,12 +355,12 @@
 	description = "An extremely radioactive material in liquid form. Ingestion results in fatal irradiation."
 	reagent_state = LIQUID
 	color = "#787878"
-	metabolization_rate = 0.125 * REAGENTS_METABOLISM
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	toxpwr = 0
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/toxin/polonium/on_mob_life(mob/living/carbon/M)
-	M.radiation += 4
+	M.radiation += 10
 	..()
 
 /datum/reagent/toxin/histamine
@@ -427,7 +433,7 @@
 
 /datum/reagent/toxin/fentanyl
 	name = "Fentanyl"
-	description = "Fentanyl will inhibit brain function and cause toxin damage before eventually knocking out its victim."
+	description = "Fentanyl will inhibit brain function and cause toxin damage before eventually incapacitating its victim."
 	reagent_state = LIQUID
 	color = "#64916E"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
@@ -444,59 +450,20 @@
 
 /datum/reagent/toxin/cyanide
 	name = "Cyanide"
-	description = "An infamous poison known for its use in assassination. Causes headaches and sickness at first,followed by failure of cellular respiration leading to cardiac arrest"
+	description = "An infamous poison known for its use in assassination. Causes small amounts of toxin damage with a small chance of oxygen damage or a stun."
 	reagent_state = LIQUID
 	color = "#00B4FF"
-	metabolization_rate = 0.1 * REAGENTS_METABOLISM
-	toxpwr = 0
+	metabolization_rate = 0.125 * REAGENTS_METABOLISM
+	toxpwr = 1.25
 
 /datum/reagent/toxin/cyanide/on_mob_life(mob/living/carbon/M)
-	switch(current_cycle)
-		if(3 to 16)
-			if(prob(13))
-				M.losebreath += 1
-				to_chat(M, "<font size=3 color=red><b>Your chest is thumping like a jackhammer!</b></font>")
-				M.eye_blurry = max(M.eye_blurry, 4)
-				M.adjustOxyLoss(rand(1,3))
-				. = 1
-			if(prob(8))
-				M.losebreath += 1
-				to_chat(M, "<font size=3 color=red><b>You feel horribly sick!</b></font>")
-				M.adjustOxyLoss(rand(1,3))
-				if(iscarbon(M))
-					var/mob/living/carbon/C = M
-					C.vomit(20, stun = FALSE)
-				M.eye_blurry = max(M.eye_blurry, 4)
-				. = 1
-			if(prob(13))
-				M.losebreath += 1
-				to_chat(M, "<font size=3 color=red><b>Your head feels like it's going to explode!</b></font>")
-				M.adjustOxyLoss(rand(1,3))
-				M.Stun(30,0)
-				M.eye_blurry = max(M.eye_blurry, 4)
-				. = 1
-		if (16 to 35)
-			if(prob(20))
-				to_chat(M, "<font size=3 color=red><b>You feel incredibly weak!</b></font>")
-				M.losebreath += 2
-				M.confused += 2
-				M.Dizzy(5)
-				M.adjustStaminaLoss(14)
-				M.Stun(20,0)
-			if(prob(20))
-				M.adjustOxyLoss(rand(6,8))
-				. = 1
-		if (35 to 36)
-			to_chat(M, "<font size=2 color=red>Weakness overtakes you as your consciousness begins to  slip away...</font>")
-			M.adjustStaminaLoss(40)
-			M.losebreath += 1
-			. = 1
-		if (36 to INFINITY)
-			M.Sleeping(100,0)
-			if(!M.undergoing_cardiac_arrest() && M.can_heartattack())
-				M.set_heartattack(TRUE)
-			. = 1
-	..()
+	if(prob(5))
+		M.losebreath += 1
+	if(prob(8))
+		to_chat(M, "You feel horrendously weak!")
+		M.Stun(40, 0)
+		M.adjustToxLoss(2*REM, 0)
+	return ..()
 
 /datum/reagent/toxin/bad_food
 	name = "Bad Food"
@@ -805,7 +772,7 @@
 
 
 /datum/reagent/toxin/acid
-	name = "Sulphuric acid"
+	name = "Sulphuric Acid"
 	description = "A strong mineral acid with the molecular formula H2SO4."
 	color = "#00FF32"
 	toxpwr = 1
@@ -893,7 +860,7 @@
 	overdose_threshold = 50
 
 /datum/reagent/toxin/bonehurtingjuice/on_mob_metabolize(mob/living/carbon/M)
-	M.say("oof ouch my bones", forced = /datum/reagent/toxin/bonehurtingjuice)
+	M.say("Oof ouch my bones!", forced = /datum/reagent/toxin/bonehurtingjuice)
 
 /datum/reagent/toxin/bonehurtingjuice/on_mob_life(mob/living/carbon/M)
 	M.adjustStaminaLoss(7.5, 0)
@@ -941,3 +908,21 @@
 				to_chat(M, "<span class='warning'>Your missing arm aches from wherever you left it.</span>")
 				M.emote("sigh")
 	return ..()
+
+/datum/reagent/toxin/bungotoxin
+	name = "Bungotoxin"
+	description = "A horrible cardiotoxin that protects the humble bungo pit."
+	silent_toxin = TRUE
+	color = "#EBFF8E"
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	toxpwr = 0
+	taste_description = "tannin"
+
+/datum/reagent/toxin/bungotoxin/on_mob_life(mob/living/carbon/M)
+	M.adjustOrganLoss(ORGAN_SLOT_HEART, 3)
+	M.confused = M.dizziness //add a tertiary effect here if this is isn't an effective poison.
+	if(current_cycle >= 12 && prob(8))
+		var/tox_message = pick("You feel your heart spasm in your chest.", "You feel faint.","You feel you need to catch your breath.","You feel a prickle of pain in your chest.")
+		to_chat(M, "<span class='notice'>[tox_message]</span>")
+	. = 1
+	..()

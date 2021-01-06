@@ -1,14 +1,26 @@
 /datum/plant_gene
 	var/name
+	var/mutability_flags = PLANT_GENE_EXTRACTABLE | PLANT_GENE_REMOVABLE ///These flags tells the genemodder if we want the gene to be extractable, only removable or neither.
 
 /datum/plant_gene/proc/get_name() // Used for manipulator display and gene disk name.
-	return name
+	var/formatted_name
+	if(!(mutability_flags & PLANT_GENE_REMOVABLE && mutability_flags & PLANT_GENE_EXTRACTABLE))
+		if(mutability_flags & PLANT_GENE_REMOVABLE)
+			formatted_name += "Fragile "
+		else if(mutability_flags & PLANT_GENE_EXTRACTABLE)
+			formatted_name += "Essential "
+		else
+			formatted_name += "Immutable "
+	formatted_name += name
+	return formatted_name
 
 /datum/plant_gene/proc/can_add(obj/item/seeds/S)
 	return !istype(S, /obj/item/seeds/sample) // Samples can't accept new genes
 
 /datum/plant_gene/proc/Copy()
-	return new type
+	var/datum/plant_gene/G = new type
+	G.mutability_flags = mutability_flags
+	return G
 
 /datum/plant_gene/proc/apply_vars(obj/item/seeds/S) // currently used for fire resist, can prob. be further refactored
 	return
@@ -101,7 +113,16 @@
 	var/rate = 0.04
 
 /datum/plant_gene/reagent/get_name()
-	return "[name] production [rate*100]%"
+	var/formatted_name
+	if(!(mutability_flags & PLANT_GENE_REMOVABLE && mutability_flags & PLANT_GENE_EXTRACTABLE))
+		if(mutability_flags & PLANT_GENE_REMOVABLE)
+			formatted_name += "Fragile "
+		else if(mutability_flags & PLANT_GENE_EXTRACTABLE)
+			formatted_name += "Essential "
+		else
+			formatted_name += "Immutable "
+	formatted_name += "[name] production [rate*100]%"
+	return formatted_name
 
 /datum/plant_gene/reagent/proc/set_reagent(reag_id)
 	reagent_id = reag_id
@@ -132,8 +153,17 @@
 			return FALSE
 	return TRUE
 
+/datum/plant_gene/reagent/polypyr
+	name = "Polypyrylium Oligomers"
+	reagent_id = /datum/reagent/medicine/polypyr
+	rate = 0.15
 
-// Various traits affecting the product. Each must be somehow useful.
+/datum/plant_gene/reagent/liquidelectricity
+	name = "Liquid Electricity"
+	reagent_id = /datum/reagent/consumable/liquidelectricity
+	rate = 0.1
+
+// Various traits affecting the product.
 /datum/plant_gene/trait
 	var/rate = 0.05
 	var/examine_line = ""
@@ -174,6 +204,10 @@
 	return
 
 /datum/plant_gene/trait/proc/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+	return
+
+///This proc triggers when the tray processes and a roll is sucessful, the success chance scales with production.
+/datum/plant_gene/trait/proc/on_grow(obj/machinery/hydroponics/H)
 	return
 
 /datum/plant_gene/trait/squash
@@ -219,9 +253,13 @@
 	rate = 0.2
 
 /datum/plant_gene/trait/cell_charge/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
-	var/power = G.seed.potency*rate
+	var/power = round(G.seed.potency*rate)
 	if(prob(power))
-		C.electrocute_act(round(power), G, 1, 1)
+		C.electrocute_act(power, G, 1, 1)
+		var/turf/T = get_turf(C)
+		if(C.ckey != G.fingerprintslast)
+			C.investigate_log("[C] has slipped on an electric plant at [AREACOORD(T)]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+			log_combat(C, G, "slipped on and got electrocuted by", null, "with the power of 10. Last fingerprint: [G.fingerprintslast]")
 
 /datum/plant_gene/trait/cell_charge/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(iscarbon(target))
@@ -229,6 +267,9 @@
 		var/power = G.seed.potency*rate
 		if(prob(power))
 			C.electrocute_act(round(power), G, 1, 1)
+			if(C.ckey != G.fingerprintslast)
+				log_combat(G.thrownby, C, "hit and electrocuted", G, "at [AREACOORD(G)] with power of [power]")
+				C.investigate_log("[C] has been hit by an electric plant at [AREACOORD(G)] with power of [power]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 
 /datum/plant_gene/trait/cell_charge/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	if(!G.reagents.total_volume)
@@ -296,14 +337,22 @@
 	if(isliving(target))
 		var/teleport_radius = max(round(G.seed.potency / 10), 1)
 		var/turf/T = get_turf(target)
+		var/mob/living/carbon/C = target
 		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
 		do_teleport(target, T, teleport_radius, channel = TELEPORT_CHANNEL_BLUESPACE)
+		if(C.ckey == G.fingerprintslast)		//what's the point of logging someone attacking himself
+			return
+		log_combat(G.thrownby, C, "hit", G, "at [AREACOORD(T)] teleporting them to [AREACOORD(C)]")
+		C.investigate_log("has been hit by a bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(C)]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 
 /datum/plant_gene/trait/teleport/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
 	var/turf/T = get_turf(C)
 	to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
 	do_teleport(C, T, teleport_radius, channel = TELEPORT_CHANNEL_BLUESPACE)
+	if(C.ckey != G.fingerprintslast)			//what's the point of logging someone attacking himself
+		C.investigate_log("has slipped on bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(C)]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+		log_combat(C, G, "slipped on", null, "teleporting them from [AREACOORD(T)] to [AREACOORD(C)]. Last fingerprint: [G.fingerprintslast].")
 	if(prob(50))
 		do_teleport(G, T, teleport_radius, channel = TELEPORT_CHANNEL_BLUESPACE)
 	else
@@ -374,28 +423,50 @@
 	name = "Hypodermic Prickles"
 
 /datum/plant_gene/trait/stinging/on_slip(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	on_throw_impact(G, target)
+	if(!isliving(target) || !G.reagents || !G.reagents.total_volume)
+		return
+	var/mob/living/L = target
+	if(prick(G, L))
+		if(L.ckey != G.fingerprintslast)
+			var/turf/T = get_turf(L)
+			L.investigate_log("has slipped on plant at [AREACOORD(T)] injecting him with [G.reagents.log_list()]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+			log_combat(L, G, "slipped on the", null, "injecting him with [G.reagents.log_list()]. Last fingerprint: [G.fingerprintslast].")
 
 /datum/plant_gene/trait/stinging/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	if(isliving(target) && G.reagents && G.reagents.total_volume)
-		var/mob/living/L = target
-		if(L.reagents && L.can_inject(null, 0))
-			var/injecting_amount = max(1, G.seed.potency*0.2) // Minimum of 1, max of 20
-			var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
-			G.reagents.reaction(L, INJECT, fraction)
-			G.reagents.trans_to(L, injecting_amount)
-			to_chat(target, "<span class='danger'>You are pricked by [G]!</span>")
+	if(!isliving(target) || !G.reagents || !G.reagents.total_volume)
+		return
+	var/mob/living/L = target
+	if(prick(G, L))
+		if(L.ckey != G.fingerprintslast)			//what's the point of logging someone attacking himself
+			var/turf/T = get_turf(L)
+			log_combat(G.thrownby, L, "hit", G, "at [AREACOORD(T)] injecting them with [G.reagents.log_list()]")
+			L.investigate_log("[L] has been prickled by a plant at [AREACOORD(T)] injecting them with [G.reagents.log_list()]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+
+/datum/plant_gene/trait/stinging/proc/prick(obj/item/reagent_containers/food/snacks/grown/G, mob/living/L)
+	if(!L.reagents && !L.can_inject(null, 0))
+		return FALSE
+
+	var/injecting_amount = max(1, G.seed.potency*0.2) // Minimum of 1, max of 20
+	var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
+	G.reagents.reaction(L, INJECT, fraction)
+	G.reagents.trans_to(L, injecting_amount)
+	to_chat(L, "<span class='danger'>You are pricked by [G]!</span>")
+	return TRUE
 
 /datum/plant_gene/trait/smoke
-	name = "gaseous decomposition"
+	name = "Gaseous Decomposition"
 
 /datum/plant_gene/trait/smoke/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	var/datum/effect_system/smoke_spread/chem/S = new
 	var/splat_location = get_turf(target)
 	var/smoke_amount = round(sqrt(G.seed.potency * 0.1), 1)
+	var/turf/T = get_turf(G)
 	S.attach(splat_location)
 	S.set_up(G.reagents, smoke_amount, splat_location, 0)
 	S.start()
+	log_admin_private("[G.fingerprintslast] has caused a plant to create smoke containing [G.reagents.log_list()] at [AREACOORD(T)]")
+	message_admins("[G.fingerprintslast] has caused a plant to create smoke containing [G.reagents.log_list()] at [ADMIN_VERBOSEJMP(T)]")
+	G.investigate_log(" has created a smoke containing [G.reagents.log_list()] at [AREACOORD(T)]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 	G.reagents.clear_reagents()
 
 /datum/plant_gene/trait/fire_resistance // Lavaland
@@ -409,6 +480,30 @@
 	if(!(G.resistance_flags & FIRE_PROOF))
 		G.resistance_flags |= FIRE_PROOF
 
+///Invasive spreading lets the plant jump to other trays, the spreadinhg plant won't replace plants of the same type.
+/datum/plant_gene/trait/invasive
+	name = "Invasive Spreading"
+
+/datum/plant_gene/trait/invasive/on_grow(obj/machinery/hydroponics/H)
+	for(var/step_dir in GLOB.alldirs)
+		var/obj/machinery/hydroponics/HY = locate() in get_step(H, step_dir)
+		if(HY && prob(15))
+			if(HY.myseed) // check if there is something in the tray.
+				if(HY.myseed.type == H.myseed.type && HY.dead != 0)
+					continue //It should not destroy its owm kind.
+				qdel(HY.myseed)
+				HY.myseed = null
+			HY.myseed = H.myseed.Copy()
+			HY.age = 0
+			HY.dead = 0
+			HY.plant_health = HY.myseed.endurance
+			HY.lastcycle = world.time
+			HY.harvest = 0
+			HY.weedlevel = 0 // Reset
+			HY.pestlevel = 0 // Reset
+			HY.update_icon()
+			HY.visible_message("<span class='warning'>The [H.myseed.plantname] spreads!</span>")
+
 /datum/plant_gene/trait/plant_type // Parent type
 	name = "you shouldn't see this"
 	trait_id = "plant_type"
@@ -421,3 +516,6 @@
 
 /datum/plant_gene/trait/plant_type/alien_properties
 	name ="?????"
+
+/datum/plant_gene/trait/plant_type/carnivory
+	name = "Obligate Carnivory"

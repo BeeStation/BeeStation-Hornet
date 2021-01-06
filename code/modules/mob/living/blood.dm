@@ -143,7 +143,7 @@
 				if(blood_data["viruses"])
 					for(var/thing in blood_data["viruses"])
 						var/datum/disease/D = thing
-						if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
+						if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS)|| (D.spread_flags & DISEASE_SPREAD_FALTERED))
 							continue
 						C.ForceContractDisease(D)
 				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)))
@@ -171,7 +171,7 @@
 			var/datum/disease/D = thing
 			blood_data["viruses"] += D.Copy()
 
-		blood_data["blood_DNA"] = copytext(dna.unique_enzymes,1,0)
+		blood_data["blood_DNA"] = dna.unique_enzymes
 		if(disease_resistances?.len)
 			blood_data["resistances"] = disease_resistances.Copy()
 		var/list/temp_chem = list()
@@ -189,7 +189,7 @@
 
 		if(!suiciding)
 			blood_data["cloneable"] = 1
-		blood_data["blood_type"] = copytext(dna.blood_type,1,0)
+		blood_data["blood_type"] = dna.blood_type
 		blood_data["gender"] = gender
 		blood_data["real_name"] = real_name
 		blood_data["features"] = dna.features

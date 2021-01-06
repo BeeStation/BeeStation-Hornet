@@ -61,7 +61,6 @@
 	var/dimension_x = 32
 	var/dimension_y = 32
 	var/center = FALSE	//Should we center the sprite?
-	var/metacoin_locked = FALSE // if it needs to be bought with metacoins to have it
 	var/limbs_id // The limbs id supplied for full-body replacing features.
 
 //////////////////////
@@ -1455,7 +1454,7 @@
 /datum/sprite_accessory/socks/bee_knee
 	name = "Knee-high (Bee)"
 	icon_state = "bee_knee"
-	
+
 /datum/sprite_accessory/socks/black_norm
 	name = "Normal (Black)"
 	icon_state = "black_norm"
@@ -1511,7 +1510,19 @@
 /datum/sprite_accessory/socks/bee_thigh
 	name = "Thigh-high (Bee)"
 	icon_state = "bee_thigh"
-	
+
+/datum/sprite_accessory/socks/codersocks_pink
+	name = "Coder Socks (Pink)"
+	icon_state = "codersocks_pink"
+
+/datum/sprite_accessory/socks/codersocks_blue
+	name = "Coder Socks (Blue)"
+	icon_state = "codersocks_blue"
+
+/datum/sprite_accessory/socks/codersocks_trans
+	name = "Coder Socks (Trans)"
+	icon_state = "codersocks_trans"
+
 //////////.//////////////////
 // MutantParts Definitions //
 /////////////////////////////
@@ -1594,6 +1605,18 @@
 	icon_state = "cat"
 	color_src = HAIR
 
+/datum/sprite_accessory/tails/human/clock
+	name = "Clockwork"
+	icon_state = "clockwork"
+	locked = TRUE
+	color_src = null
+
+/datum/sprite_accessory/tails_animated/human/clock
+	name = "Clockwork"
+	icon_state = "clockwork"
+	locked = TRUE
+	color_src = null
+
 /datum/sprite_accessory/snouts
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
@@ -1660,14 +1683,6 @@
 /datum/sprite_accessory/wings_open
 	icon = 'icons/mob/wings.dmi'
 
-/datum/sprite_accessory/wings_open/angel
-	name = "Angel"
-	icon_state = "angel"
-	color_src = 0
-	dimension_x = 46
-	center = TRUE
-	dimension_y = 34
-
 /datum/sprite_accessory/wings
 	icon = 'icons/mob/wings.dmi'
 
@@ -1679,6 +1694,61 @@
 	center = TRUE
 	dimension_y = 34
 	locked = TRUE
+
+/datum/sprite_accessory/wings_open/angel
+	name = "Angel"
+	icon_state = "angel"
+	color_src = 0
+	dimension_x = 46
+	center = TRUE
+	dimension_y = 34
+
+/datum/sprite_accessory/wings/dragon
+	name = "Dragon"
+	icon_state = "dragon"
+	dimension_x = 96
+	center = TRUE
+	dimension_y = 32
+	locked = TRUE
+
+/datum/sprite_accessory/wings_open/dragon
+	name = "Dragon"
+	icon_state = "dragon"
+	dimension_x = 96
+	center = TRUE
+	dimension_y = 32
+
+/datum/sprite_accessory/wings/apid
+	name = "Bee"
+	icon_state = "apid"
+	color_src = 0
+	dimension_x = 46
+	center = TRUE
+	dimension_y = 34
+
+/datum/sprite_accessory/wings_open/apid
+	name = "Bee"
+	icon_state = "apid"
+	color_src = 0
+	dimension_x = 46
+	center = TRUE
+	dimension_y = 34
+
+/datum/sprite_accessory/wings/robot
+	name = "Robot"
+	icon_state = "robo"
+	color_src = 0
+	dimension_x = 46
+	center = TRUE
+	dimension_y = 34
+
+/datum/sprite_accessory/wings_open/robot
+	name = "Robot"
+	icon_state = "robo"
+	color_src = 0
+	dimension_x = 46
+	center = TRUE
+	dimension_y = 34
 
 /datum/sprite_accessory/frills
 	icon = 'icons/mob/mutant_bodyparts.dmi'
@@ -1771,7 +1841,7 @@
 	icon_state = "round"
 
 /datum/sprite_accessory/moth_wings
-	icon = 'icons/mob/wings.dmi'
+	icon = 'icons/mob/moth_wings.dmi'
 	color_src = null
 
 /datum/sprite_accessory/moth_wings/plain
@@ -1810,6 +1880,11 @@
 	name = "White Fly"
 	icon_state = "whitefly"
 
+/datum/sprite_accessory/moth_wings/clockwork
+	name = "Clockwork"
+	icon_state = "clockwork"
+	locked = TRUE
+
 /datum/sprite_accessory/moth_wings/punished
 	name = "Burnt Off"
 	icon_state = "punished"
@@ -1846,7 +1921,7 @@
 	dimension_x = 46
 	center = TRUE
 	dimension_y = 34
-	metacoin_locked = TRUE
+	locked = TRUE
 
 // IPC accessories.
 

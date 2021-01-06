@@ -117,7 +117,7 @@
 		return
 	var/datum/map_template/M = arena_templates[arena_template]
 	if(!M)
-		to_chat(user,"<span class='warning'>No such arena</span>")
+		to_chat(user,"<span class='warning'>No such arena.</span>")
 		return
 	clear_arena() //Clear current arena
 	var/turf/A = get_landmark_turf(ARENA_CORNER_A)
@@ -314,7 +314,7 @@
 
 /obj/machinery/computer/arena/proc/load_random_arena(mob/user)
 	if(!length(arena_templates))
-		to_chat(user,"<span class='warning'>No arenas present</span>")
+		to_chat(user,"<span class='warning'>No arenas present.</span>")
 		return
 	var/picked = pick(arena_templates)
 	load_arena(picked,user)
@@ -358,7 +358,7 @@
 	dat += "Current arena: [current_arena_template]"
 	dat += "<h2>Arena List:</h2>"
 	for(var/A in arena_templates)
-		dat += "<a href='?src=[REF(src)];change_arena=[url_encode(A)]'>[A]</a><br>"
+		dat += "<a href='?src=[REF(src)];change_arena=[rustg_url_encode(A)]'>[A]</a><br>"
 	dat += "<hr>"
 	dat += "<a href='?src=[REF(src)];upload=1'>Upload new arena</a><br>"
 	dat += "<hr>"

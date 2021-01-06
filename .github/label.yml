@@ -1,0 +1,28 @@
+tags:
+    fix: &fix_type Fix
+    fixes: *fix_type
+    bugfix: *fix_type
+    rsctweak: &tweak_type Tweak
+    tweak: *tweak_type
+    tweaks: *tweak_type
+    soundadd: Sound
+    sounddel: Sound
+    add: &add_type Feature
+    adds: *add_type
+    rscadd: *add_type
+    del: &del_type Removal
+    dels: *del_type
+    rscdel: *del_type
+    imageadd: Sprites
+    imagedel: Sprites
+    typo: &typo_type Grammar and Formatting
+    spellcheck: *typo_type
+    balance: &balance_type Balance/Rebalance
+    rebalance: *balance_type
+    tgs: TGS
+    code_imp: &code_type Code Improvement
+    code: *code_type
+    refactor: Refactor
+    config: Config Update
+    admin: Administration
+    server: server

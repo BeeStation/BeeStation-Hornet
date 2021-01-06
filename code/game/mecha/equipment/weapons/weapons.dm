@@ -1,6 +1,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon
 	name = "mecha weapon"
-	range = RANGED
+	range = MECHA_RANGED
+	destroy_sound = 'sound/mecha/weapdestr.ogg'
 	var/projectile
 	var/fire_sound
 	var/projectiles_per_shot = 1
@@ -92,6 +93,14 @@
 	projectile = /obj/item/projectile/beam/disabler
 	fire_sound = 'sound/weapons/taser2.ogg'
 
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler/emag_act(mob/user)
+	if(!(obj_flags & EMAGGED))
+		obj_flags |= EMAGGED
+		to_chat(user, "<span class='notice'>You disable [src]'s safety procedures, making it shoot harmful lasers.</span>")
+		projectile = /obj/item/projectile/beam/laser
+		harmful = TRUE
+
+
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
 	equip_cooldown = 15
 	name = "\improper CH-LC \"Solaris\" laser cannon"
@@ -166,7 +175,7 @@
 	icon_state = "mecha_honker"
 	energy_drain = 200
 	equip_cooldown = 150
-	range = MELEE|RANGED
+	range = MECHA_MELEE|MECHA_RANGED
 	kickback = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/honker/can_attach(obj/mecha/combat/honker/M)
@@ -408,7 +417,7 @@
 	icon_state = "mecha_punching_glove"
 	energy_drain = 250
 	equip_cooldown = 20
-	range = MELEE|RANGED
+	range = MECHA_MELEE|MECHA_RANGED
 	missile_range = 5
 	projectile = /obj/item/punching_glove
 	fire_sound = 'sound/items/bikehorn.ogg'

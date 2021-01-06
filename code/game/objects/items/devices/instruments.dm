@@ -10,6 +10,7 @@
 	var/datum/song/handheld/song
 	var/instrumentId = "generic"
 	var/instrumentExt = "mid"
+	block_upgrade_walk = 1
 
 /obj/item/instrument/Initialize()
 	. = ..()
@@ -74,7 +75,7 @@
 	song.instrumentExt = insTypes[name]
 
 /obj/item/instrument/piano_synth/proc/selectInstrument() // Moved here so it can be used by the action and PAI software panel without copypasta
-	var/chosen = input("Choose the type of instrument you want to use", "Instrument Selection", song.instrumentDir) as null|anything in insTypes
+	var/chosen = input("Choose the type of instrument you want to use", "Instrument Selection", song.instrumentDir) as null|anything in sortList(insTypes)
 	if(!insTypes[chosen])
 		return
 	return changeInstrument(chosen)
@@ -215,11 +216,18 @@
 	w_class = WEIGHT_CLASS_SMALL
 	actions_types = list(/datum/action/item_action/instrument)
 
-/obj/item/instrument/harmonica/speechModification(message)
+/obj/item/instrument/harmonica/proc/handle_speech(datum/source, list/speech_args)
 	if(song.playing && ismob(loc))
 		to_chat(loc, "<span class='warning'>You stop playing the harmonica to talk...</span>")
 		song.playing = FALSE
-	return message
+
+/obj/item/instrument/harmonica/equipped(mob/M, slot)
+	. = ..()
+	RegisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
+
+/obj/item/instrument/harmonica/dropped(mob/M)
+	. = ..()
+	UnregisterSignal(M, COMSIG_MOB_SAY)
 
 /obj/item/instrument/bikehorn
 	name = "gilded bike horn"

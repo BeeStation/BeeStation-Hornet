@@ -12,7 +12,7 @@
 /client/proc/centcom_podlauncher() //Creates a verb for admins to open up the ui
 	set name = "Config/Launch Supplypod"
 	set desc = "Configure and launch a Centcom supplypod full of whatever your heart desires!"
-	set category = "Admin"
+	set category = "Adminbus"
 	var/datum/centcom_podlauncher/plaunch  = new(usr)//create the datum
 	plaunch.ui_interact(usr)//datum has a tgui component, here we open the window
 
@@ -50,12 +50,15 @@
 	temp_pod = new(locate(/area/centcom/supplypod/podStorage) in GLOB.sortedAreas) //Create a new temp_pod in the podStorage area on centcom (so users are free to look at it and change other variables if needed)
 	orderedArea = createOrderedArea(bay) //Order all the turfs in the selected bay (top left to bottom right) to a single list. Used for the "ordered" mode (launchChoice = 1)
 
-/datum/centcom_podlauncher/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, \
-force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)//ui_interact is called when the client verb is called.
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/centcom_podlauncher/ui_state(mob/user)
+	return GLOB.admin_state
+
+/datum/centcom_podlauncher/ui_interact(mob/user, datum/tgui/ui)//ui_interact is called when the client verb is called.
+
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "centcom_podlauncher", "Config/Launch Supplypod", 700, 700, master_ui, state)
+		ui = new(user, src, "CentcomPodLauncher")
 		ui.open()
 
 /datum/centcom_podlauncher/ui_data(mob/user) //Sends info about the pod to the UI.
@@ -178,7 +181,7 @@ force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.adm
 				boomInput.Add(input("[expNames[i]] Range", "Enter the [expNames[i]] range of the explosion. WARNING: This ignores the bomb cap!", 0) as null|num)
 				if (isnull(boomInput[i]))
 					return
-				if (!isnum(boomInput[i])) //If the user doesn't input a number, set that specific explosion value to zero
+				if (!isnum_safe(boomInput[i])) //If the user doesn't input a number, set that specific explosion value to zero
 					alert(usr, "That wasnt a number! Value set to default (zero) instead.")
 					boomInput = 0
 			explosionChoice = 1
@@ -200,7 +203,7 @@ force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.adm
 			var/damageInput = input("How much damage to deal", "Enter the amount of brute damage dealt by getting hit", 0) as null|num
 			if (isnull(damageInput))
 				return
-			if (!isnum(damageInput)) //Sanitize the input for damage to deal.s
+			if (!isnum_safe(damageInput)) //Sanitize the input for damage to deal.s
 				alert(usr, "That wasnt a number! Value set to default (zero) instead.")
 				damageInput = 0
 			damageChoice = 1
@@ -284,7 +287,7 @@ force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.adm
 			var/timeInput = input("Enter the duration of the pod's falling animation, in seconds", "Delay Time",  initial(temp_pod.fallDuration) * 0.1) as null|num
 			if (isnull(timeInput))
 				return
-			if (!isnum(timeInput)) //Sanitize input, if it doesnt check out, error and set to default
+			if (!isnum_safe(timeInput)) //Sanitize input, if it doesnt check out, error and set to default
 				alert(usr, "That wasnt a number! Value set to default ([initial(temp_pod.fallDuration)*0.1]) instead.")
 				timeInput = initial(temp_pod.fallDuration)
 			temp_pod.fallDuration = 10 * timeInput
@@ -296,7 +299,7 @@ force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.adm
 			var/timeInput = input("Enter the time it takes for the pod to land, in seconds", "Delay Time", initial(temp_pod.landingDelay) * 0.1) as null|num
 			if (isnull(timeInput))
 				return
-			if (!isnum(timeInput)) //Sanitize input, if it doesnt check out, error and set to default
+			if (!isnum_safe(timeInput)) //Sanitize input, if it doesnt check out, error and set to default
 				alert(usr, "That wasnt a number! Value set to default ([initial(temp_pod.landingDelay)*0.1]) instead.")
 				timeInput = initial(temp_pod.landingDelay)
 			temp_pod.landingDelay = 10 * timeInput
@@ -308,7 +311,7 @@ force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.adm
 			var/timeInput = input("Enter the time it takes for the pod to open after landing, in seconds", "Delay Time", initial(temp_pod.openingDelay) * 0.1) as null|num
 			if (isnull(timeInput))
 				return
-			if (!isnum(timeInput)) //Sanitize input
+			if (!isnum_safe(timeInput)) //Sanitize input
 				alert(usr, "That wasnt a number! Value set to default ([initial(temp_pod.openingDelay)*0.1]) instead.")
 				timeInput = initial(temp_pod.openingDelay)
 			temp_pod.openingDelay = 10 *  timeInput
@@ -320,14 +323,14 @@ force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.adm
 			var/timeInput = input("Enter the time it takes for the pod to leave after opening, in seconds", "Delay Time", initial(temp_pod.departureDelay) * 0.1) as null|num
 			if (isnull(timeInput))
 				return
-			if (!isnum(timeInput))
+			if (!isnum_safe(timeInput))
 				alert(usr, "That wasnt a number! Value set to default ([initial(temp_pod.departureDelay)*0.1]) instead.")
 				timeInput = initial(temp_pod.departureDelay)
 			temp_pod.departureDelay = 10 * timeInput
 			. = TRUE
 
 		////////////////////////////ADMIN SOUNDS//////////////////
-		if("fallingSound") //Admin sound from a local file that plays when the pod lands
+		if("fallSound") //Admin sound from a local file that plays when the pod lands
 			if ((temp_pod.fallingSound) != initial(temp_pod.fallingSound))
 				temp_pod.fallingSound = initial(temp_pod.fallingSound)
 				temp_pod.fallingSoundLength = initial(temp_pod.fallingSoundLength)
@@ -338,7 +341,7 @@ force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.adm
 			var/timeInput =  input(holder, "What is the exact length of the sound file, in seconds. This number will be used to line the sound up so that it finishes right as the pod lands!", "Pick a Sound File", 0.3) as null|num
 			if (isnull(timeInput))
 				return
-			if (!isnum(timeInput))
+			if (!isnum_safe(timeInput))
 				alert(usr, "That wasnt a number! Value set to default ([initial(temp_pod.fallingSoundLength)*0.1]) instead.")
 			temp_pod.fallingSound = soundInput
 			temp_pod.fallingSoundLength = 10 * timeInput
@@ -498,7 +501,6 @@ force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.adm
 	if (isnull(A)) //If theres no supplypod bay mapped into centcom, throw an error
 		to_chat(holder.mob, "No /area/centcom/supplypod/loading/one (or /two or /three or /four) in the world! You can make one yourself (then refresh) for now, but yell at a mapper to fix this, today!")
 		CRASH("No /area/centcom/supplypod/loading/one (or /two or /three or /four) has been mapped into the centcom z-level!")
-		return
 	orderedArea = list()
 	if (!isemptylist(A.contents)) //Go through the area passed into the proc, and figure out the top left and bottom right corners by calculating max and min values
 		var/startX = A.contents[1].x //Create the four values (we do it off a.contents[1] so they have some sort of arbitrary initial value. They should be overwritten in a few moments)

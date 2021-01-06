@@ -6,7 +6,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 60
-	power_channel = EQUIP
+	power_channel = AREA_USAGE_EQUIP
 	circuit = /obj/item/circuitboard/machine/cell_charger
 	pass_flags = PASSTABLE
 	var/obj/item/stock_parts/cell/charging = null
@@ -16,7 +16,6 @@
 /obj/machinery/cell_charger/update_icon()
 	cut_overlays()
 	if(charging)
-		add_overlay(image(charging.icon, charging.icon_state))
 		add_overlay("ccharger-on")
 		if(!(stat & (BROKEN|NOPOWER)))
 			var/newlevel = 	round(charging.percent() * 4 / 100)

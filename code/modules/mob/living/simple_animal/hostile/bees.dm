@@ -20,18 +20,19 @@
 	speak_emote = list("buzzes")
 	emote_hear = list("buzzes")
 	turns_per_move = 0
-	melee_damage_lower = 1
-	melee_damage_upper = 1
+	melee_damage = 1
 	attacktext = "stings"
 	response_help  = "shoos"
 	response_disarm = "swats away"
 	response_harm   = "squashes"
+	harm_intent_damage = 10 //you can swat bees in one hit
 	maxHealth = 10
 	health = 10
 	spacewalk = TRUE
 	faction = list("hostile")
 	move_to_delay = 0
 	obj_damage = 0
+	ventcrawler = VENTCRAWLER_ALWAYS
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
@@ -90,6 +91,7 @@
 	var/col = BEE_DEFAULT_COLOUR
 	if(beegent?.color)
 		col = beegent.color
+	mobsay_color = col
 
 	add_overlay("[icon_base]_base")
 

@@ -430,8 +430,7 @@
 	desc = "This undead fiend looks to be badly decomposed.";
 	environment_smash = 0;
 	health = 60;
-	melee_damage_lower = 11;
-	melee_damage_upper = 11;
+	melee_damage = 11;
 	name = "Rotting Carcass";
 	zombiejob = "Assistant"
 	},
@@ -541,8 +540,7 @@
 	desc = "This undead fiend looks to be badly decomposed.";
 	environment_smash = 0;
 	health = 60;
-	melee_damage_lower = 11;
-	melee_damage_upper = 11;
+	melee_damage = 11;
 	name = "Rotting Carcass"
 	},
 /turf/open/floor/plasteel,
@@ -1145,8 +1143,7 @@
 	desc = "This undead fiend looks to be badly decomposed.";
 	environment_smash = 0;
 	health = 60;
-	melee_damage_lower = 11;
-	melee_damage_upper = 11;
+	melee_damage = 11;
 	name = "Rotting Carcass"
 	},
 /turf/open/floor/plasteel,
@@ -1904,8 +1901,7 @@
 	desc = "This undead fiend looks to be badly decomposed.";
 	environment_smash = 0;
 	health = 60;
-	melee_damage_lower = 11;
-	melee_damage_upper = 11;
+	melee_damage = 11;
 	name = "Rotting Carcass";
 	zombiejob = "Assistant"
 	},
@@ -2121,7 +2117,7 @@
 /obj/structure/rack,
 /obj/item/storage/box/zipties,
 /obj/item/assembly/flash/handheld,
-/obj/item/melee/classic_baton/telescopic,
+/obj/item/melee/classic_baton/police/telescopic,
 /obj/machinery/light/small/built{
 	dir = 8
 	},

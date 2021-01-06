@@ -2,7 +2,8 @@
 
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-resentment.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/contains-technical-debt.svg)](https://user-images.githubusercontent.com/8171642/50290880-ffef5500-043a-11e9-8270-a2e5b697c86c.png) [![forinfinityandbyond](https://user-images.githubusercontent.com/5211576/29499758-4efff304-85e6-11e7-8267-62919c3688a9.gif)](https://www.reddit.com/r/SS13/comments/5oplxp/what_is_the_main_problem_with_byond_as_an_engine/dclbu1a)
-[![Build Status](https://travis-ci.com/BeeStation/BeeStation-Hornet.svg?branch=master)](https://travis-ci.com/BeeStation/BeeStation-Hornet) ![Open Issues](https://isitmaintained.com/badge/open/BeeStation/BeeStation-Hornet.svg)
+[![Build Status](https://github.com/BeeStation/BeeStation-Hornet/workflows/Run%20tests/badge.svg)](https://github.com/BeeStation/BeeStation-Hornet/actions?query=workflow%3A%22Run+tests%22)
+![Open Issues](https://isitmaintained.com/badge/open/BeeStation/BeeStation-Hornet.svg)
 
 **Website:** http://beestation13.com
 **Code:** https://github.com/beestation/beestation-hornet
@@ -33,7 +34,7 @@ First-time installation should be fairly straightforward. First, you'll need
 BYOND installed. You can get it from https://www.byond.com/download. Once you've done
 that, extract the game files to wherever you want to keep them. This is a
 sourcecode-only release, so the next step is to compile the server files.
-Open tgstation.dme by double-clicking it, open the Build menu, and click
+Open beestation.dme by double-clicking it, open the Build menu, and click
 compile. This'll take a little while, and if everything's done right you'll get
 a message like this:
 
@@ -74,7 +75,7 @@ and install it themselves. Directions can be found at the [rust-g
 repo](https://github.com/tgstation/rust-g).
 
 Finally, to start the server, run Dream Daemon and enter the path to your
-compiled tgstation.dmb file. Make sure to set the port to the one you
+compiled beestation.dmb file. Make sure to set the port to the one you
 specified in the config.txt, and set the Security box to 'Safe'. Then press GO
 and the server should start up and be ready to join. It is also recommended that
 you set up the SQL backend (see below).
@@ -117,7 +118,7 @@ Anytime you want to make changes to a map it's imperative you use the [Map Mergi
 
 ## AWAY MISSIONS
 
-/tg/station supports loading away missions however they are disabled by default.
+BeeStation supports loading away missions however they are disabled by default.
 
 Map files for away missions are located in the _maps/RandomZLevels directory. Each away mission includes it's own code definitions located in /code/modules/awaymissions/mission_code. These files must be included and compiled with the server beforehand otherwise the server will crash upon trying to load away missions that lack their code.
 
@@ -125,7 +126,7 @@ To enable an away mission open `config/awaymissionconfig.txt` and uncomment one 
 
 ## SQL SETUP
 
-The SQL backend requires a Mariadb server running 10.2 or later. Mysql is not supported but Mariadb is a drop in replacement for mysql. SQL is required for the library, stats tracking, admin notes, and job-only bans, among other features, mostly related to server administration. Your server details go in /config/dbconfig.txt, and the SQL schema is in /SQL/tgstation_schema.sql and /SQL/tgstation_schema_prefix.sql depending on if you want table prefixes.  More detailed setup instructions are located here: https://wiki.beestation13.com/view/Downloading_the_source_code#Setting_up_the_database
+The SQL backend requires a Mariadb server running 10.2 or later. Mysql is not supported but Mariadb is a drop in replacement for mysql. SQL is required for the library, stats tracking, admin notes, and job-only bans, among other features, mostly related to server administration. Your server details go in /config/dbconfig.txt, and the SQL schema is in /SQL/beestation_schema.sql and /SQL/beestation_schema_prefix.sql depending on if you want table prefixes.  More detailed setup instructions are located here: https://wiki.beestation13.com/view/Downloading_the_source_code#Setting_up_the_database
 
 If you are hosting a testing server on windows you can use a standalone version of MariaDB pre load with a blank (but initialized) tgdb database. Find them here: https://tgstation13.download/database/ Just unzip and run for a working (but insecure) database server. Includes a zipped copy of the data folder for easy resetting back to square one.
 
@@ -135,7 +136,7 @@ Web delivery of game resources makes it quicker for players to join and reduces 
 
 1. Edit compile_options.dm to set the `PRELOAD_RSC` define to `0`
 1. Add a url to config/external_rsc_urls pointing to a .zip file containing the .rsc.
-    * If you keep up to date with BeeStation you could reuse our rsc cdn at https://rsc.beestation13.com/beestation.zip. Otherwise you can use cdn services like CDN77 or cloudflare (requires adding a page rule to enable caching of the zip), or roll your own cdn using route 53 and vps providers.
+    * If you keep up to date with BeeStation you could reuse our rsc cdn at http://rsc.beestation13.buzz/beestation.zip. Otherwise you can use cdn services like CDN77 or cloudflare (requires adding a page rule to enable caching of the zip), or roll your own cdn using route 53 and vps providers.
 	* Regardless even offloading the rsc to a website without a CDN will be a massive improvement over the in game system for transferring files.
 
 ## IRC BOT SETUP
@@ -166,6 +167,8 @@ See tgui/assets/fonts/SIL-OFL-1.1-LICENSE.md for the SIL Open Font License.
 See the footers of code/\_\_DEFINES/server\_tools.dm, code/modules/server\_tools/st\_commands.dm, and code/modules/server\_tools/st\_inteface.dm for the MIT license.
 
 All assets including icons and sound are under a [Creative Commons 3.0 BY-SA license](https://creativecommons.org/licenses/by-sa/3.0/) unless otherwise indicated.
+
+byond-extools.dll is licensed under MIT. See MIT.txt for more details.
 
 # Other Codebase Credits
 - /tg/, for the codebase.

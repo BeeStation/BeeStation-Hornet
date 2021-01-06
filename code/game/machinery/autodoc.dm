@@ -3,8 +3,8 @@
 	desc = "An advanced machine used for inserting organs and implants into the occupant."
 	density = TRUE
 	state_open = FALSE
-	icon = 'icons/obj/machines/fat_sucker.dmi'
-	icon_state = "fat"
+	icon = 'icons/obj/machines/autodoc.dmi'
+	icon_state = "autodoc_machine"
 	verb_say = "states"
 	idle_power_usage = 50
 	circuit = /obj/item/circuitboard/machine/autodoc
@@ -30,7 +30,7 @@
 	if(processing)
 		. += "<span class='notice'>[src] is currently inserting [storedorgan] into [occupant].</span>"
 	else if(storedorgan)
-		. += "<span class='notice'>[src] is prepared to insert [storedorgan].</span>"
+		. += "<span class='notice'>[src] has been prepared to insert [storedorgan].</span>"
 
 /obj/machinery/autodoc/close_machine(mob/user)
 	..()
@@ -40,7 +40,7 @@
 			occupant.forceMove(drop_location())
 			occupant = null
 			return
-		to_chat(occupant, "<span class='notice'>You enter [src]</span>")
+		to_chat(occupant, "<span class='notice'>The doors to [src] clamp shut behind you.</span>")
 
 		dosurgery()
 
@@ -49,7 +49,7 @@
 		to_chat(occupant, "<span class='notice'>[src] currently has no implant stored.</span>")
 		return
 
-	occupant.visible_message("<span class='notice'>[occupant] presses a button on [src], and you hear a mechanical noise.</span>", "<span class='notice'>You feel a sharp sting as [src] starts inserting the organ into your body.</span>")
+	occupant.visible_message("<span class='notice'>[occupant] presses a button on [src]. A mechanical humming can be heard.</span>", "<span class='notice'>You feel a sharp sting as [src] starts inserting the organ into your body.</span>")
 	playsound(get_turf(occupant), 'sound/weapons/circsawhit.ogg', 50, 1)
 	processing = TRUE
 	update_icon()
@@ -78,14 +78,14 @@
 			currentorgan.forceMove(get_turf(src))
 		storedorgan.Insert(occupant)//insert stored organ into the user
 		storedorgan = null
-		occupant.visible_message("<span class='notice'>[src] completes the surgery procedure", "<span class='notice'>[src] inserts the organ into your body.</span>")
+		occupant.visible_message("<span class='notice'>[src] completes the surgery procedure.", "<span class='notice'>[src] inserts the organ into your body.</span>")
 	playsound(src, 'sound/machines/microwave/microwave-end.ogg', 100, 0)
 	processing = FALSE
 	open_machine()
 
 /obj/machinery/autodoc/open_machine(mob/user)
 	if(processing)
-		occupant.visible_message("<span class='notice'>[user] cancels [src]'s procedure", "<span class='notice'>[src] stops inserting the organ into your body.</span>")
+		occupant.visible_message("<span class='notice'>[user] cancels [src]'s procedure.", "<span class='notice'>[src] stops inserting the organ into your body.</span>")
 		processing = FALSE
 	if(occupant)
 		occupant.forceMove(drop_location())
@@ -150,12 +150,12 @@
 		else
 			overlays += "[icon_state]_door_off"
 			if(occupant)
-				if(powered(EQUIP))
+				if(powered(AREA_USAGE_EQUIP))
 					overlays += "[icon_state]_stack"
 					overlays += "[icon_state]_yellow"
 			else
 				overlays += "[icon_state]_red"
-	else if(powered(EQUIP))
+	else if(powered(AREA_USAGE_EQUIP))
 		overlays += "[icon_state]_red"
 	if(panel_open)
 		overlays += "[icon_state]_panel"

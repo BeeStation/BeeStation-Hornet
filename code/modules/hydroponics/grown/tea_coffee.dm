@@ -14,6 +14,7 @@
 	icon_dead = "tea-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/tea/astra)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/toxin/teapowder = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/tea
 	seed = /obj/item/seeds/tea
@@ -21,8 +22,8 @@
 	desc = "These aromatic tips of the tea plant can be dried to make tea."
 	icon_state = "tea_aspera_leaves"
 	filling_color = "#008000"
-	grind_results = list(/datum/reagent/toxin/teapowder = 0)
 	dry_grind = TRUE
+	grind_results = list(/datum/reagent/toxin/teapowder = 0)
 	can_distill = FALSE
 
 // Tea Astra
@@ -39,6 +40,7 @@
 /obj/item/reagent_containers/food/snacks/grown/tea/astra
 	seed = /obj/item/seeds/tea/astra
 	name = "Tea Astra tips"
+	desc = "A special blend of tea to sooth the mind."
 	icon_state = "tea_astra_leaves"
 	filling_color = "#4582B4"
 	grind_results = list(/datum/reagent/toxin/teapowder = 0, /datum/reagent/medicine/salglu_solution = 0)

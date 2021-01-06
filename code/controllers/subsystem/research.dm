@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(research)
 	var/list/point_types = list()				//typecache style type = TRUE list
 	//----------------------------------------------
 	var/list/single_server_income = list(TECHWEB_POINT_TYPE_GENERIC = 54.3)
-	var/multiserver_calculation = FALSE
+	var/multiserver_calculation = TRUE			// Enable this to switch between using servers or the constant
 	var/last_income
 	//^^^^^^^^ ALL OF THESE ARE PER SECOND! ^^^^^^^^
 
@@ -73,7 +73,11 @@ SUBSYSTEM_DEF(research)
 	last_income = world.time
 
 /datum/controller/subsystem/research/proc/calculate_server_coefficient()	//Diminishing returns.
-	var/amt = servers.len
+	var/list/obj/machinery/rnd/server/active = new()
+	for(var/obj/machinery/rnd/server/miner in servers)
+		if(miner.working)
+			active.Add(miner)
+	var/amt = active.len
 	if(!amt)
 		return 0
 	var/coeff = 100
@@ -190,7 +194,7 @@ SUBSYSTEM_DEF(research)
 			var/list/points = N.boost_item_paths[p]
 			if(islist(points))
 				for(var/i in points)
-					if(!isnum(points[i]))
+					if(!isnum_safe(points[i]))
 						node_boost_error(N.id, "[points[i]] is not a valid number.")
 					else if(!point_types[i])
 						node_boost_error(N.id, "[i] is not a valid point type.")

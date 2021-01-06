@@ -90,7 +90,7 @@
 			brainmob.stored_dna = new /datum/dna/stored(brainmob)
 		C.dna.copy_dna(brainmob.stored_dna)
 		if(HAS_TRAIT(L, TRAIT_BADDNA))
-			brainmob.status_traits[TRAIT_BADDNA] = L.status_traits[TRAIT_BADDNA]
+			LAZYSET(brainmob.status_traits, TRAIT_BADDNA, L.status_traits[TRAIT_BADDNA])
 		var/obj/item/organ/zombie_infection/ZI = L.getorganslot(ORGAN_SLOT_ZOMBIE)
 		if(ZI)
 			brainmob.set_species(ZI.old_species)	//For if the brain is cloned
@@ -126,7 +126,7 @@
 
 	if(brainmob) //if we aren't trying to heal the brain, pass the attack onto the brainmob.
 		O.attack(brainmob, user) //Oh noooeeeee
-    
+
   if(O.force != 0 && !(O.item_flags & NOBLUDGEON))
 	  setOrganDamage(maxHealth) //fails the brain as the brain was attacked, they're pretty fragile.
 
@@ -201,15 +201,14 @@
 
 /obj/item/organ/brain/on_life()
 	if(damage >= BRAIN_DAMAGE_DEATH) //rip
-		to_chat(owner, "<span class='userdanger'>The last spark of life in your brain fizzles out...</span>")
+		to_chat(owner, "<span class='userdanger'>The last spark of life in your brain fizzles out.</span>")
 		owner.death()
 		brain_death = TRUE
 
-/obj/item/organ/brain/process()	//needs to run in life AND death
-	..()
+/obj/item/organ/brain/check_damage_thresholds(mob/M)
+	. = ..()
 	//if we're not more injured than before, return without gambling for a trauma
 	if(damage <= prev_damage)
-		prev_damage = damage
 		return
 	damage_delta = damage - prev_damage
 	if(damage > BRAIN_DAMAGE_MILD)
@@ -224,15 +223,18 @@
 
 	if (owner)
 		if(owner.stat < UNCONSCIOUS) //conscious or soft-crit
+			var/brain_message
 			if(prev_damage < BRAIN_DAMAGE_MILD && damage >= BRAIN_DAMAGE_MILD)
-				to_chat(owner, "<span class='warning'>You feel lightheaded.</span>")
+				brain_message = "<span class='warning'>You feel lightheaded.</span>"
 			else if(prev_damage < BRAIN_DAMAGE_SEVERE && damage >= BRAIN_DAMAGE_SEVERE)
-				to_chat(owner, "<span class='warning'>You feel less in control of your thoughts.</span>")
+				brain_message = "<span class='warning'>You feel less in control of your thoughts.</span>"
 			else if(prev_damage < (BRAIN_DAMAGE_DEATH - 20) && damage >= (BRAIN_DAMAGE_DEATH - 20))
-				to_chat(owner, "<span class='warning'>You can feel your mind flickering on and off...</span>")
-	//update our previous damage holder after we've checked our boundaries
-	prev_damage = damage
-	return
+				brain_message = "<span class='warning'>You can feel your mind flickering on and off.</span>"
+
+			if(.)
+				. += "\n[brain_message]"
+			else
+				return brain_message
 
 /obj/item/organ/brain/alien
 	name = "alien brain"
@@ -244,7 +246,7 @@
 	slot = "brain"
 	zone = "chest"
 	status = ORGAN_ROBOTIC
-	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top."
+	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top. In order for this Posibrain to be used as a newly built Positronic Brain, it must be coupled with an MMI."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain-occupied"
 	organ_flags = ORGAN_SYNTHETIC
@@ -268,7 +270,7 @@
 			to_chat(owner, "<span class='warning'>Alert: Posibrain heavily damaged.</span>")
 		if(2)
 			owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 25)
-			to_chat(owner, "<span class='warning'>Alert: Posibrain damaged.</span>") 
+			to_chat(owner, "<span class='warning'>Alert: Posibrain damaged.</span>")
 
 ////////////////////////////////////TRAUMAS////////////////////////////////////////
 
@@ -377,3 +379,4 @@
 	var/list/traumas = get_traumas_type(resilience = resilience)
 	for(var/X in traumas)
 		qdel(X)
+

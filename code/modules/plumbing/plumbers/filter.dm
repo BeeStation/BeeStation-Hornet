@@ -14,14 +14,20 @@
 	var/list/english_right = list()
 
 
+
+
 /obj/machinery/plumbing/filter/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/filter, bolt)
 
-/obj/machinery/plumbing/filter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/plumbing/filter/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/plumbing/filter/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "chemical_filter", name, 500, 300, master_ui, state)
+		ui = new(user, src, "ChemFilter")
 		ui.open()
 
 /obj/machinery/plumbing/filter/ui_data(mob/user)
@@ -36,7 +42,7 @@
 	. = TRUE
 	switch(action)
 		if("add")
-			var/new_chem_name = input("Enter chemical to filter:", name) as text|null
+			var/new_chem_name = params["name"]
 			var/chem_id = get_chem_id(new_chem_name)
 			if(chem_id)
 				switch(params["which"])

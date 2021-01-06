@@ -1,8 +1,7 @@
 //Fire
 /mob/living/simple_animal/hostile/guardian/fire
 	a_intent = INTENT_HELP
-	melee_damage_lower = 7
-	melee_damage_upper = 7
+	melee_damage = 7
 	attack_sound = 'sound/items/welder.ogg'
 	attacktext = "ignites"
 	damage_coeff = list(BRUTE = 0.7, BURN = 0.7, TOX = 0.7, CLONE = 0.7, STAMINA = 0, OXY = 0.7)
@@ -11,6 +10,7 @@
 	magic_fluff_string = "<span class='holoparasite'>..And draw the Wizard, bringer of endless chaos!</span>"
 	tech_fluff_string = "<span class='holoparasite'>Boot sequence complete. Crowd control modules activated. Holoparasite swarm online.</span>"
 	carp_fluff_string = "<span class='holoparasite'>CARP CARP CARP! You caught one! OH GOD, EVERYTHING'S ON FIRE. Except you and the fish.</span>"
+	hive_fluff_string = "<span class='holoparasite'>The mass seems to generate lots of energy, causing everything except its' owner to burn to ash.</span>"
 
 /mob/living/simple_animal/hostile/guardian/fire/Life()
 	. = ..()

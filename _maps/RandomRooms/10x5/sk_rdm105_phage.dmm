@@ -1,0 +1,218 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/plasteel,
+/area/template_noop)
+"b" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/item/caution{
+	desc = "CAUTION! BIOHAZARD QUARANTINE!";
+	name = "biohazard warning sign"
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"j" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"o" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"r" = (
+/obj/structure/sign/warning/biohazard,
+/turf/closed/wall,
+/area/template_noop)
+"t" = (
+/turf/closed/wall,
+/area/template_noop)
+"u" = (
+/mob/living/simple_animal/hostile/macrophage/aggro/vector,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/clothing/gloves/color/yellow,
+/obj/effect/decal/cleanable/blood/gibs/old,
+/turf/open/floor/plating,
+/area/template_noop)
+"x" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/mob_spawn/human/clown/corpse,
+/obj/effect/decal/cleanable/blood/gibs/old,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"y" = (
+/obj/item/caution{
+	desc = "CAUTION! BIOHAZARD QUARANTINE!";
+	name = "biohazard warning sign"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"A" = (
+/obj/item/caution{
+	desc = "CAUTION! BIOHAZARD QUARANTINE!";
+	name = "biohazard warning sign"
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating,
+/area/template_noop)
+"C" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/obj/item/ammo_casing/spent,
+/turf/open/floor/plating,
+/area/template_noop)
+"D" = (
+/obj/effect/mob_spawn/human/corpse/assistant,
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"H" = (
+/obj/item/ammo_casing/spent,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"I" = (
+/obj/machinery/power/floodlight,
+/turf/open/floor/plating,
+/area/template_noop)
+"K" = (
+/obj/structure/barricade/sandbags,
+/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/template_noop)
+"L" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/template_noop)
+"N" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"O" = (
+/obj/structure/barricade/sandbags,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"Q" = (
+/obj/item/ammo_casing/spent,
+/obj/item/ammo_casing/spent{
+	pixel_y = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"S" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/open/floor/plating,
+/area/template_noop)
+"U" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating,
+/area/template_noop)
+"W" = (
+/obj/structure/barricade/sandbags,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/blood/gibs/old,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"Y" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+Y
+r
+U
+h
+a
+"}
+(2,1,1) = {"
+L
+t
+r
+t
+i
+"}
+(3,1,1) = {"
+a
+t
+u
+t
+n
+"}
+(4,1,1) = {"
+y
+t
+x
+r
+y
+"}
+(5,1,1) = {"
+i
+t
+A
+o
+N
+"}
+(6,1,1) = {"
+U
+t
+b
+t
+U
+"}
+(7,1,1) = {"
+S
+r
+j
+t
+t
+"}
+(8,1,1) = {"
+D
+a
+C
+H
+U
+"}
+(9,1,1) = {"
+i
+W
+K
+I
+U
+"}
+(10,1,1) = {"
+N
+O
+Q
+y
+N
+"}

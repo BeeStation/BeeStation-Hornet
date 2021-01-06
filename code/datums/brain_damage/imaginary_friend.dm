@@ -43,6 +43,9 @@
 
 /datum/brain_trauma/special/imaginary_friend/proc/get_ghost()
 	set waitfor = FALSE
+	if(owner.stat == DEAD)
+		qdel(src)
+		return
 	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [owner]'s imaginary friend?", ROLE_PAI, null, null, 75, friend, POLL_IGNORE_IMAGINARYFRIEND)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
@@ -87,7 +90,7 @@
 
 	trauma = _trauma
 	owner = trauma.owner
-	copy_known_languages_from(owner, TRUE)
+	copy_languages(owner, LANGUAGE_FRIEND)
 
 	setup_friend()
 
@@ -149,7 +152,7 @@
 	to_chat(src, compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mode))
 
 /mob/camera/imaginary_friend/proc/friend_talk(message)
-	message = capitalize(trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN)))
+	message = capitalize(trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN)))
 
 	if(!message)
 		return

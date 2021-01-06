@@ -1,10 +1,10 @@
 /datum/action/changeling/chameleon_skin
 	name = "Chameleon Skin"
 	desc = "Our skin pigmentation rapidly changes to suit our current environment. Costs 25 chemicals."
-	helptext = "Allows us to become invisible after a few seconds of standing still. Can be toggled on and off."
+	helptext = "Allows us to become invisible after a few seconds of standing still. Can be toggled on and off. This ability is passive and doesnt cost any chemicals"
 	button_icon_state = "chameleon_skin"
-	dna_cost = 2
-	chemical_cost = 25
+	dna_cost = 1
+	chemical_cost = 0
 	req_human = 1
 
 /datum/action/changeling/chameleon_skin/sting_action(mob/user)

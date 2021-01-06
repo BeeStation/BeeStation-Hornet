@@ -1,0 +1,227 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/alien/weeds,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/structure/alien/weeds,
+/obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner,
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/structure/alien/resin/wall,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/structure/alien/weeds,
+/obj/effect/mob_spawn/facehugger,
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/obj/effect/mob_spawn/human/corpse/damaged,
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/turf/closed/wall,
+/area/template_noop)
+"h" = (
+/obj/structure/alien/weeds,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plating,
+/area/template_noop)
+"j" = (
+/obj/structure/alien/weeds/node,
+/turf/open/floor/plating,
+/area/template_noop)
+"k" = (
+/obj/effect/mob_spawn/facehugger,
+/turf/closed/wall,
+/area/template_noop)
+"l" = (
+/obj/structure/alien/weeds,
+/obj/effect/trap/trigger/reusable/random,
+/turf/open/floor/plating,
+/area/template_noop)
+"m" = (
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
+/obj/structure/alien/weeds,
+/obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner,
+/obj/structure/rack,
+/turf/open/floor/plating,
+/area/template_noop)
+"o" = (
+/obj/structure/alien/weeds,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/structure/rack,
+/turf/open/floor/plating,
+/area/template_noop)
+"p" = (
+/obj/effect/trap/nexus/trickyspawner/xeno{
+	mobs = 3
+	},
+/obj/structure/alien/weeds,
+/turf/open/floor/plating,
+/area/template_noop)
+"q" = (
+/obj/structure/alien/weeds,
+/obj/effect/mob_spawn/facehugger,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plating,
+/area/template_noop)
+"r" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/obj/item/clothing/suit/armor/vest,
+/obj/item/flamethrower,
+/obj/effect/trap/trigger/reusable/random,
+/turf/open/floor/plating,
+/area/template_noop)
+"s" = (
+/obj/structure/alien/weeds,
+/obj/effect/mob_spawn/facehugger,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plating,
+/area/template_noop)
+"t" = (
+/obj/effect/trap/nexus/trickyspawner/xeno{
+	mobs = 3
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+e
+e
+i
+g
+e
+e
+g
+d
+e
+e
+"}
+(2,1,1) = {"
+e
+e
+e
+g
+m
+a
+g
+b
+c
+t
+"}
+(3,1,1) = {"
+e
+g
+b
+k
+c
+a
+c
+j
+r
+e
+"}
+(4,1,1) = {"
+e
+g
+j
+a
+c
+l
+b
+a
+c
+g
+"}
+(5,1,1) = {"
+e
+g
+a
+a
+c
+j
+a
+c
+c
+e
+"}
+(6,1,1) = {"
+e
+g
+c
+l
+h
+a
+a
+p
+g
+e
+"}
+(7,1,1) = {"
+e
+g
+g
+a
+c
+c
+c
+b
+g
+e
+"}
+(8,1,1) = {"
+e
+i
+c
+a
+c
+f
+c
+g
+g
+e
+"}
+(9,1,1) = {"
+e
+i
+g
+a
+n
+o
+c
+q
+s
+e
+"}
+(10,1,1) = {"
+e
+i
+g
+e
+e
+e
+e
+e
+e
+e
+"}

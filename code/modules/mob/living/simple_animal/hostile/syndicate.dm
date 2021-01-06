@@ -33,9 +33,7 @@
 	robust_searching = 1
 	maxHealth = 100
 	health = 100
-	harm_intent_damage = 5
-	melee_damage_lower = 10
-	melee_damage_upper = 10
+	melee_damage = 10
 	attacktext = "punches"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HARM
@@ -76,8 +74,7 @@
 	health = 250
 
 /mob/living/simple_animal/hostile/syndicate/melee //dude with a knife and no shields
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	icon_state = "syndicate_knife"
 	icon_living = "syndicate_knife"
 	loot = list(/obj/effect/gibspawner/human)
@@ -85,6 +82,7 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	status_flags = 0
 	var/projectile_deflect_chance = 0
+	hardattacks = TRUE
 
 /mob/living/simple_animal/hostile/syndicate/melee/space
 	icon_state = "syndicate_space_knife"
@@ -97,6 +95,7 @@
 	speed = 1
 	spacewalk = TRUE
 	projectile_deflect_chance = 50
+	hardattacks = TRUE
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/Initialize()
 	. = ..()
@@ -111,8 +110,7 @@
 	projectile_deflect_chance = 50
 
 /mob/living/simple_animal/hostile/syndicate/melee/sword
-	melee_damage_lower = 30
-	melee_damage_upper = 30
+	melee_damage = 30
 	icon_state = "syndicate_sword"
 	icon_living = "syndicate_sword"
 	attacktext = "slashes"
@@ -121,7 +119,6 @@
 	light_color = LIGHT_COLOR_RED
 	status_flags = 0
 	var/obj/effect/light_emitter/red_energy_sword/sord
-	projectile_deflect_chance = 50
 
 /mob/living/simple_animal/hostile/syndicate/melee/sword/Initialize()
 	. = ..()
@@ -129,12 +126,6 @@
 
 /mob/living/simple_animal/hostile/syndicate/melee/sword/Destroy()
 	QDEL_NULL(sord)
-	return ..()
-
-/mob/living/simple_animal/hostile/syndicate/melee/bullet_act(obj/item/projectile/Proj)
-	if(prob(projectile_deflect_chance))
-		visible_message("<span class='danger'>[src] blocks [Proj] with its shield!</span>")
-		return BULLET_ACT_BLOCK
 	return ..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/sword/space
@@ -147,7 +138,6 @@
 	minbodytemp = 0
 	speed = 1
 	spacewalk = TRUE
-	projectile_deflect_chance = 50
 
 /mob/living/simple_animal/hostile/syndicate/melee/sword/space/Initialize()
 	. = ..()
@@ -164,7 +154,6 @@
 	name = "Syndicate Stormtrooper"
 	maxHealth = 250
 	health = 250
-	projectile_deflect_chance = 50
 
 ///////////////Guns////////////
 
@@ -293,8 +282,7 @@
 	mob_biotypes = list(MOB_ROBOTIC)
 	health = 25
 	maxHealth = 25
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	attacktext = "cuts"

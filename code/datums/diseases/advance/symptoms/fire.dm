@@ -24,7 +24,7 @@ Bonus
 	stage_speed = -3
 	transmittable = -3
 	level = 6
-	severity = 5
+	severity = 4
 	base_message_chance = 20
 	symptom_delay_min = 20
 	symptom_delay_max = 75
@@ -110,7 +110,7 @@ Bonus
 	stage_speed = -2
 	transmittable = -2
 	level = 9
-	severity = 6
+	severity = 5
 	base_message_chance = 100
 	symptom_delay_min = 30
 	symptom_delay_max = 90
@@ -119,6 +119,13 @@ Bonus
 	threshold_desc = "<b>Resistance 9:</b> Doubles the intensity of the effect, but reduces its frequency.<br>\
 					  <b>Stage Speed 8:</b> Increases explosion radius when the host is wet.<br>\
 					  <b>Transmission 8:</b> Additionally synthesizes chlorine trifluoride and napalm inside the host."
+
+/datum/symptom/alkali/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.properties["resistance"] >= 9)
+		severity = 6
+	if(A.properties["stage_rate"] >= 10)
+		severity = 6
 
 /datum/symptom/alkali/Start(datum/disease/advance/A)
 	if(!..())

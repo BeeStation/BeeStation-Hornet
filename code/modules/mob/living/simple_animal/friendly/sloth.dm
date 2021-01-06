@@ -16,13 +16,14 @@
 	response_harm = "kicks"
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	gold_core_spawnable = FRIENDLY_SPAWN
-	melee_damage_lower = 18
-	melee_damage_upper = 18
+	melee_damage = 18 //why the fuck does it do this much damage
 	health = 50
 	maxHealth = 50
 	speed = 10
 	glide_size = 2
-
+	mobsay_color = "#728AE6"
+	can_be_held = TRUE
+	held_state = "sloth"
 	do_footstep = TRUE
 
 

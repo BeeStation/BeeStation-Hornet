@@ -45,7 +45,7 @@
 	var/obj/item/multitool/aiMulti
 	var/mob/living/simple_animal/bot/Bot
 	var/tracking = FALSE //this is 1 if the AI is currently tracking somebody, but the track has not yet been completed.
-	var/datum/effect_system/spark_spread/spark_system//So they can initialize sparks whenever/N
+	var/datum/effect_system/spark_spread/spark_system //So they can initialize sparks whenever/N
 
 	//MALFUNCTION
 	var/datum/module_picker/malf_picker
@@ -113,7 +113,7 @@
 		target_ai.mind.transfer_to(src)
 		if(mind.special_role)
 			mind.store_memory("As an AI, you must obey your silicon laws above all else. Your objectives will consider you to be dead.")
-			to_chat(src, "<span class='userdanger'>You have been installed as an AI! </span>")
+			to_chat(src, "<span class='userdanger'>You have been installed as an AI!</span>")
 			to_chat(src, "<span class='danger'>You must obey your silicon laws above all else. Your objectives will consider you to be dead.</span>")
 
 	to_chat(src, "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>")
@@ -398,9 +398,9 @@
 	. = 0
 
 /mob/living/silicon/ai/Topic(href, href_list)
+	..()
 	if(usr != src || incapacitated())
 		return
-	..()
 	if (href_list["mach_close"])
 		if (href_list["mach_close"] == "aialerts")
 			viewalerts = 0
@@ -640,7 +640,7 @@
 			for(var/i in C.network)
 				cameralist[i] = i
 	var/old_network = network
-	network = input(U, "Which network would you like to view?") as null|anything in cameralist
+	network = input(U, "Which network would you like to view?") as null|anything in sortList(cameralist)
 
 	if(!U.eyeobj)
 		U.view_core()
@@ -672,7 +672,7 @@
 	if(incapacitated())
 		return
 	var/list/ai_emotions = list("Very Happy", "Happy", "Neutral", "Unsure", "Confused", "Sad", "BSOD", "Blank", "Problems?", "Awesome", "Facepalm", "Thinking", "Friend Computer", "Dorfy", "Blue Glow", "Red Glow")
-	var/emote = input("Please, select a status!", "AI Status", null, null) in ai_emotions
+	var/emote = input("Please, select a status!", "AI Status", null, null) in sortList(ai_emotions)
 	for (var/each in GLOB.ai_status_displays) //change status of displays
 		var/obj/machinery/status_display/ai/M = each
 		M.emotion = emote
@@ -704,7 +704,7 @@
 				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
 
 			if(personnel_list.len)
-				input = input("Select a crew member:") as null|anything in personnel_list
+				input = input("Select a crew member:") as null|anything in sortList(personnel_list)
 				var/icon/character_icon = personnel_list[input]
 				if(character_icon)
 					qdel(holo_icon)//Clear old icon so we're not storing it in memory.
@@ -729,7 +729,7 @@
 			"spider" = 'icons/mob/animal.dmi'
 			)
 
-			input = input("Please select a hologram:") as null|anything in icon_list
+			input = input("Please select a hologram:") as null|anything in sortList(icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)
@@ -749,7 +749,7 @@
 				"horror" = 'icons/mob/ai.dmi'
 				)
 
-			input = input("Please select a hologram:") as null|anything in icon_list
+			input = input("Please select a hologram:") as null|anything in sortList(icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)
@@ -875,7 +875,7 @@
 	if(isturf(loc)) //AI in core, check if on cameras
 		//get_turf_pixel() is because APCs in maint aren't actually in view of the inner camera
 		//apc_override is needed here because AIs use their own APC when depowered
-		return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(get_turf_pixel(A))) || apc_override
+		return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(get_turf_pixel(A))) || apc_override == A
 	//AI is carded/shunted
 	//view(src) returns nothing for carded/shunted AIs and they have X-ray vision so just use get_dist
 	var/list/viewscale = getviewsize(client.view)
@@ -996,21 +996,23 @@
 
 	for(var/borgie in GLOB.available_ai_shells)
 		var/mob/living/silicon/robot/R = borgie
-		if(R.shell && !R.deployed && (R.stat != DEAD) && (!R.connected_ai ||(R.connected_ai == src)))
+		if(R.shell && !R.deployed && (R.stat != DEAD) && (!R.connected_ai ||(R.connected_ai == src)) || (R.ratvar && !is_servant_of_ratvar(src)))
 			possible += R
 
 	if(!LAZYLEN(possible))
 		to_chat(src, "No usable AI shell beacons detected.")
 
 	if(!target || !(target in possible)) //If the AI is looking for a new shell, or its pre-selected shell is no longer valid
-		target = input(src, "Which body to control?") as null|anything in possible
+		target = input(src, "Which body to control?") as null|anything in sortNames(possible)
 
-	if (!target || target.stat == DEAD || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)))
+	if (!target || target.stat == DEAD || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)) || (target.ratvar && !is_servant_of_ratvar(src)))
 		return
 
 	else if(mind)
 		soullink(/datum/soullink/sharedbody, src, target)
 		deployed_shell = target
+		if(is_servant_of_ratvar(src) && !deployed_shell.ratvar)
+			deployed_shell.SetRatvar(TRUE)
 		target.deploy_init(src)
 		mind.transfer_to(target)
 	diag_hud_set_deployed()
@@ -1064,3 +1066,6 @@
 	. = ..()
 	if(.)
 		end_multicam()
+
+/mob/living/silicon/ai/zMove(dir, feedback = FALSE)
+	. = eyeobj.zMove(dir, feedback)

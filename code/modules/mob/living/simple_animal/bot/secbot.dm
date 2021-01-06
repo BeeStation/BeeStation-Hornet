@@ -21,6 +21,7 @@
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 	path_image_color = "#FF0000"
 
+	var/noloot = TRUE
 	var/baton_type = /obj/item/melee/baton
 	var/mob/living/carbon/target
 	var/oldtarget_name
@@ -244,10 +245,14 @@ Auto Patrol: []"},
 		back_to_idle()
 
 /mob/living/simple_animal/bot/secbot/proc/stun_attack(mob/living/carbon/C)
+	if(ishuman(C))
+		var/mob/living/carbon/human/H = C
+		if(H.check_shields(src, 0))
+			return
 	var/judgement_criteria = judgement_criteria()
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
-	icon_state = "secbot-c"
-	addtimer(CALLBACK(src, .proc/update_icon), 2)
+	icon_state = "[initial(icon_state)]-c"
+	addtimer(CALLBACK(src, /atom/.proc/update_icon), 2)
 	var/threat = 5
 	if(ishuman(C))
 		C.stuttering = 5
@@ -412,7 +417,8 @@ Auto Patrol: []"},
 	Sa.add_overlay("hs_hole")
 	Sa.created_name = name
 	new /obj/item/assembly/prox_sensor(Tsec)
-	drop_part(baton_type, Tsec)
+	if(!noloot)
+		drop_part(baton_type, Tsec)
 
 	if(prob(50))
 		drop_part(robot_arm, Tsec)

@@ -19,8 +19,7 @@
 	response_disarm = "challenges"
 	response_harm   = "thumps"
 	speed = 1
-	melee_damage_lower = 15
-	melee_damage_upper = 18
+	melee_damage = 16
 	damage_coeff = list(BRUTE = 1, BURN = 1.5, TOX = 1.5, CLONE = 0, STAMINA = 0, OXY = 1.5)
 	obj_damage = 20
 	environment_smash = ENVIRONMENT_SMASH_WALLS
@@ -35,8 +34,10 @@
 	minbodytemp = 270
 	maxbodytemp = 350
 	unique_name = TRUE
+	hardattacks = TRUE
 	var/list/gorilla_overlays[GORILLA_TOTAL_LAYERS]
 	var/oogas = 0
+	var/diseased = FALSE
 
 	do_footstep = TRUE
 
@@ -70,9 +71,13 @@
 		if(prob(80))
 			var/atom/throw_target = get_edge_target_turf(L, dir)
 			L.throw_at(throw_target, rand(1,2), 7, src)
+			if(diseased)
+				var/flesh_wound = ran_zone(CHEST, 40)
+				if(prob(100-L.getarmor(flesh_wound, "melee")))
+					L.ForceContractDisease(new /datum/disease/transformation/jungle_fever())
 		else
-			L.Paralyze(20)
-			visible_message("<span class='danger'>[src] knocks [L] down!</span>")
+			L.Unconscious(20)
+			visible_message("<span class='danger'>[src] knocks [L] out!</span>")
 
 /mob/living/simple_animal/hostile/gorilla/CanAttack(atom/the_target)
 	var/list/parts = target_bodyparts(target)
@@ -108,3 +113,21 @@
 		playsound(src, 'sound/creatures/gorilla.ogg', 50)
 		oogas = 0
 
+/mob/living/simple_animal/hostile/gorilla/rabid
+	name = "Rabid Gorilla"
+	desc = "A mangy looking gorilla."
+	icon_state = "crawling"
+	icon_state = "crawling"
+	icon_living = "crawling"
+	icon_dead = "dead"
+	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	speak_chance = 80
+	maxHealth = 220
+	health = 220
+	loot = list(/obj/effect/gibspawner/generic/animal)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/gorilla = 4)
+	melee_damage = 20
+	damage_coeff = list(BRUTE = 0.8, BURN = 1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 1)
+	obj_damage = 50
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	diseased = TRUE

@@ -122,11 +122,13 @@
 	var/list/seeing_mobs = can_see_contents()
 	for(var/mob/M in seeing_mobs)
 		M.client.screen -= AM
-	if(ismob(parent.loc) && isitem(AM))
+	if(isitem(AM))
 		var/obj/item/I = AM
-		var/mob/M = parent.loc
-		I.dropped(M)
 		I.item_flags &= ~IN_STORAGE
+		I.remove_outline()
+		if(ismob(parent.loc))
+			var/mob/M = parent.loc
+			I.dropped(M)
 	if(new_location)
 		//Reset the items values
 		_removal_reset(AM)
@@ -154,7 +156,7 @@
 	var/datum/component/storage/concrete/master = master()
 	var/atom/parent = src.parent
 	var/moved = FALSE
-	if(!istype(I))
+	if(!istype(I) || I.anchored)
 		return FALSE
 	if(M)
 		if(!M.temporarilyRemoveItemFromInventory(I))

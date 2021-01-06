@@ -16,7 +16,6 @@
 	var/variance = 0							//Variance for inaccuracy fundamental to the casing
 	var/randomspread = 0						//Randomspread for automatics
 	var/delay = 0								//Delay for energy weapons
-	var/click_cooldown_override = 0				//Override this to make your gun have a faster fire rate, in tenths of a second. 4 is the default gun cooldown.
 	var/firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect	//the visual effect appearing when the ammo is fired.
 	var/heavy_metal = TRUE
 	var/harmful = TRUE //pacifism check for boolet, set to FALSE if bullet is non-lethal

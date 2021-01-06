@@ -94,6 +94,16 @@
 	mood_change = 10 //maybe being a cultist isnt that bad after all
 	hidden = TRUE
 
+/datum/mood_event/determined
+	description = "<span class='nicegreen'>I am determined to keep my friends safe.</span>\n"
+	mood_change = 2
+	hidden = TRUE
+
+/datum/mood_event/heretics
+	description = "<span class='nicegreen'>THE HIGHER I RISE , THE MORE I SEE.</span>\n"
+	mood_change = 10 //maybe being a cultist isnt that bad after all
+	hidden = TRUE
+
 /datum/mood_event/family_heirloom
 	description = "<span class='nicegreen'>My family heirloom is safe with me.</span>\n"
 	mood_change = 1
@@ -149,11 +159,11 @@
 	description = "<span class='nicegreen'>The bottle landing like that was satisfying.</span>\n"
 	mood_change = 2
 	timeout = 3 MINUTES
-  
+
 /datum/mood_event/hope_lavaland
 	description = "<span class='nicegreen'>What a peculiar emblem.  It makes me feel hopeful for my future.</span>\n"
 	mood_change = 5
-  
+
 /datum/mood_event/nanite_happiness
 	description = "<span class='nicegreen robot'>+++++++HAPPINESS ENHANCEMENT+++++++</span>\n"
 	mood_change = 7

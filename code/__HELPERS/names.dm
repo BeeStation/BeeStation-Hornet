@@ -1,3 +1,9 @@
+/proc/apid_name(gender)
+	if(gender == MALE)
+		return "[pick(GLOB.apid_names_male)] [pick(GLOB.apid_names_last)]"
+	else
+		return "[pick(GLOB.apid_names_female)] [pick(GLOB.apid_names_last)]"
+
 /proc/lizard_name(gender)
 	if(gender == MALE)
 		return "[pick(GLOB.lizard_names_male)]-[pick(GLOB.lizard_names_male)]"

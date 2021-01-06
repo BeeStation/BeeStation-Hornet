@@ -112,7 +112,7 @@
 	stage_prob = 4
 	visibility_flags = 0
 	agent = "Kongey Vibrion M-909"
-	new_form = /mob/living/carbon/monkey
+	new_form = null
 	bantype = ROLE_MONKEY
 
 
@@ -126,10 +126,14 @@
 /datum/disease/transformation/jungle_fever/do_disease_transformation(mob/living/carbon/affected_mob)
 	if(affected_mob.mind && !is_monkey(affected_mob.mind))
 		add_monkey(affected_mob.mind)
-	if(ishuman(affected_mob))
-		var/mob/living/carbon/monkey/M = affected_mob.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE)
-		M.ventcrawler = VENTCRAWLER_ALWAYS
-
+	if(affected_mob && ishuman(affected_mob))
+		if((is_monkey_leader(affected_mob.mind) || prob(4)))
+			affected_mob.junglegorillize()
+		else
+			var/mob/living/carbon/monkey/M = affected_mob.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPVIRUS | TR_KEEPSE)
+			M.ventcrawler = VENTCRAWLER_ALWAYS
+			var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+			H.add_hud_to(M)
 
 /datum/disease/transformation/jungle_fever/stage_act()
 	..()
@@ -166,7 +170,7 @@
 	cures = list(/datum/reagent/copper)
 	cure_chance = 5
 	agent = "R2D2 Nanomachines"
-	desc = "This disease, actually acute nanomachine infection, converts the victim into a cyborg."
+	desc = "An acute nanomachine infection which converts its host into a cyborg."
 	severity = DISEASE_SEVERITY_BIOHAZARD
 	visibility_flags = 0
 	stage1	= list()
@@ -335,10 +339,10 @@
 
 /datum/disease/transformation/felinid
 	name = "Nano-Feline Assimilative Toxoplasmosis"
-	cure_text = "Something that would kill off the tiny cats." 
+	cure_text = "Something that would kill off the tiny cats."
 	spread_text = "Acute"
 	disease_flags = CURABLE|CAN_CARRY|CAN_RESIST
-	cures = list(/datum/reagent/consumable/coco) //kills all the tiny cats that infected your organism
+	cures = list(/datum/reagent/consumable/cocoa) //kills all the tiny cats that infected your organism
 	cure_chance = 25
 	stage_prob = 3
 	agent = "Nano-feline Toxoplasmosis"
@@ -375,8 +379,12 @@
 				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs out a furball.</span>")
 				to_chat(affected_mob, "<span class='danger'>You cough out a furball.</span>")
 
-/datum/disease/transformation/felinid/speechModification(message) //blatantly stolen from the italian moustache.
-	if(copytext(message, 1, 2) != "*")
+/datum/disease/transformation/felinid/after_add()
+	RegisterSignal(affected_mob, COMSIG_MOB_SAY, .proc/handle_speech)
+
+/datum/disease/transformation/felinid/proc/handle_speech(datum/source, list/speech_args)
+	var/message = speech_args[SPEECH_MESSAGE]
+	if(message[1] != "*")
 		message = " [message]"
 		var/list/whole_words = strings("owo_talk.json", "wowds")
 		var/list/owo_sounds = strings("owo_talk.json", "sounds")
@@ -401,8 +409,15 @@
 
 		if(prob(3))
 			message += pick(" Nya!"," Meow!"," OwO!!", " Nya-nya!")
-	return trim(message)
+	speech_args[SPEECH_MESSAGE] = trim(message)
 
+/datum/disease/transformation/felinid/Destroy()
+	UnregisterSignal(affected_mob, COMSIG_MOB_SAY)
+	return ..()
+
+/datum/disease/transformation/felinid/remove_disease()
+	UnregisterSignal(affected_mob, COMSIG_MOB_SAY)
+	return ..()
 
 /datum/disease/transformation/felinid/contagious
 	spread_text = "Blood, Fluids, Contact"
@@ -427,7 +442,7 @@
 	name = "Necropolis Infestation"
 	cure_text = "The healing Vitrium Froth of some Lavaland flora"
 	cures = list(/datum/reagent/consumable/vitfro)
-	cure_chance = 5 //about 20 seconds/5 units of Froth to heal. Takes a decent gathering period but just shy of the amount that'll fatten you
+	cure_chance = 10 //about 10 seconds/5 units of Froth to heal. Takes a decent gathering period but just shy of the amount that'll fatten you
 	stage_prob = 5
 	agent = "Legion droppings"
 	desc = "Who knew that spreading the primordial goop of a vile entity would take a toll on the body?"

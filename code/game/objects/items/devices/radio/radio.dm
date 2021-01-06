@@ -1,3 +1,5 @@
+#define FREQ_LISTENING (1<<0)
+
 /obj/item/radio
 	icon = 'icons/obj/radio.dmi'
 	name = "station bounced radio"
@@ -37,9 +39,7 @@
 	var/syndie = FALSE  // If true, hears all well-known channels automatically, and can say/hear on the Syndicate channel.
 	var/list/channels = list()  // Map from name (see communications.dm) to on/off. First entry is current department (:h).
 	var/list/secure_radio_connections
-
-	var/const/FREQ_LISTENING = 1
-	//FREQ_BROADCASTING = 2
+	var/radio_silent = FALSE // If true, radio doesn't make sound effects (ie for Syndicate internal radio implants)
 
 /obj/item/radio/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] starts bouncing [src] off [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -106,19 +106,15 @@
 	else
 		..()
 
-/obj/item/radio/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-										datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
+
+/obj/item/radio/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/radio/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		var/ui_width = 360
-		var/ui_height = 106
-		if(subspace_transmission)
-			if (channels.len > 0)
-				ui_height += 6 + channels.len * 21
-			else
-				ui_height += 24
-		ui = new(user, src, ui_key, "radio", name, ui_width, ui_height, master_ui, state)
+		ui = new(user, src, "Radio")
 		ui.open()
 
 /obj/item/radio/ui_data(mob/user)
@@ -137,7 +133,7 @@
 	data["useCommand"] = use_command
 	data["subspace"] = subspace_transmission
 	data["subspaceSwitchable"] = subspace_switchable
-	data["headset"] = istype(src, /obj/item/radio/headset)
+	data["headset"] = FALSE
 
 	return data
 
@@ -196,9 +192,9 @@
 
 /obj/item/radio/talk_into(atom/movable/M, message, channel, list/spans, datum/language/language)
 	if(!spans)
-		spans = M.get_spans()
+		spans = list(M.speech_span)
 	if(!language)
-		language = M.get_default_language()
+		language = M.get_selected_language()
 	INVOKE_ASYNC(src, .proc/talk_into_impl, M, message, channel, spans.Copy(), language)
 	return ITALICS | REDUCE_RANGE
 
@@ -211,6 +207,13 @@
 		return
 	if(!M.IsVocal())
 		return
+
+	if(!radio_silent)//Radios make small static noises now
+		var/mob/sender = loc
+		if(istype(sender) && sender.hears_radio())
+			var/sound/radio_sound = sound(pick("sound/effects/radio1.ogg", "sound/effects/radio2.ogg"), volume = 50)
+			radio_sound.frequency = get_rand_frequency()
+			SEND_SOUND(sender, radio_sound)
 
 	if(use_command)
 		spans |= SPAN_COMMAND
@@ -357,11 +360,14 @@
 	for (var/ch_name in channels)
 		channels[ch_name] = 0
 	on = FALSE
-	spawn(200)
-		if(emped == curremp) //Don't fix it if it's been EMP'd again
-			emped = 0
-			if (!istype(src, /obj/item/radio/intercom)) // intercoms will turn back on on their own
-				on = TRUE
+	addtimer(CALLBACK(src, .proc/end_emp_effect, curremp), 200)
+
+/obj/item/radio/proc/end_emp_effect(curremp)
+	if(emped != curremp) //Don't fix it if it's been EMP'd again
+		return FALSE
+	emped = FALSE
+	on = TRUE
+	return TRUE
 
 ///////////////////////////////
 //////////Borg Radios//////////

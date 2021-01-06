@@ -26,6 +26,7 @@
 	verb_yell = "chitters loudly"
 	var/squish_chance = 50
 	del_on_death = 1
+	mobsay_color = "#BC7658"
 
 /mob/living/simple_animal/cockroach/death(gibbed)
 	if(SSticker.mode && SSticker.mode.station_was_nuked) //If the nuke is going off, then cockroaches are invincible. Keeps the nuke from killing them, cause cockroaches are immune to nukes.

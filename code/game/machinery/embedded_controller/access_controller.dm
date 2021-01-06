@@ -5,7 +5,7 @@
 #define CYCLE_INTERIOR	5
 
 /obj/machinery/doorButtons
-	power_channel = ENVIRON
+	power_channel = AREA_USAGE_ENVIRON
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
@@ -257,7 +257,6 @@
 
 /obj/machinery/doorButtons/airlock_controller/ui_interact(mob/user)
 	var/datum/browser/popup = new(user, "computer", name)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.set_content(returnText())
 	popup.open()
 

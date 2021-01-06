@@ -17,8 +17,8 @@
 /obj/item/storage/fancy
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "donutbox6"
-	name = "donut box"
-	desc = "Mmm. Donuts."
+	name = "null box do not use"
+	desc = "Mmm. Runtimes."
 	resistance_flags = FLAMMABLE
 	var/icon_type = "donut"
 	var/spawn_type = null
@@ -67,6 +67,7 @@
 	icon_state = "donutbox6"
 	icon_type = "donut"
 	name = "donut box"
+	desc = "Mmm. Donuts."
 	spawn_type = /obj/item/reagent_containers/food/snacks/donut
 	fancy_open = TRUE
 
@@ -350,3 +351,18 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 8
 	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/food/snacks/tinychocolate))
+
+
+/obj/item/storage/fancy/nugget_box
+	name = "nugget box"
+	desc = "A cardboard box used for holding chicken nuggies."
+	icon = 'icons/obj/food/containers.dmi'
+	icon_state = "nuggetbox"
+	icon_type = "nugget"
+	spawn_type = /obj/item/reagent_containers/food/snacks/nugget
+
+/obj/item/storage/fancy/nugget_box/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 6
+	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/food/snacks/nugget))

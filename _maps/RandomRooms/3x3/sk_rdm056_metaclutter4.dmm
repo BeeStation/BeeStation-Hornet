@@ -1,0 +1,50 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/item/storage/toolbox/emergency,
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/template_noop)
+"f" = (
+/obj/item/tank/internals/air,
+/obj/item/tank/internals/air,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/machinery/portable_atmospherics/canister/air,
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/structure/closet/firecloset,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+b
+d
+h
+"}
+(2,1,1) = {"
+d
+e
+d
+"}
+(3,1,1) = {"
+c
+f
+i
+"}

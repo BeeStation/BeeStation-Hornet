@@ -4,17 +4,6 @@
 
 //SURGERY STEPS
 
-/datum/surgery_step/replace
-	name = "sever muscles"
-	implements = list(TOOL_SCALPEL = 100, TOOL_WIRECUTTER = 55)
-	time = 32
-
-
-/datum/surgery_step/replace/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, "<span class ='notice'>You begin to sever the muscles on [target]'s [parse_zone(user.zone_selected)]...</span>",
-		"[user] begins to sever the muscles on [target]'s [parse_zone(user.zone_selected)].",
-		"[user] begins an incision on [target]'s [parse_zone(user.zone_selected)].")
-
 /datum/surgery_step/replace_limb
 	name = "replace limb"
 	implements = list(/obj/item/bodypart = 100, /obj/item/organ_storage = 100)
@@ -44,8 +33,8 @@
 //ACTUAL SURGERIES
 
 /datum/surgery/augmentation
-	name = "augmentation"
-	steps = list(/datum/surgery_step/incise, /datum/surgery_step/clamp_bleeders, /datum/surgery_step/retract_skin, /datum/surgery_step/replace, /datum/surgery_step/saw, /datum/surgery_step/replace_limb)
+	name = "Augmentation"
+	steps = list(/datum/surgery_step/incise, /datum/surgery_step/clamp_bleeders, /datum/surgery_step/retract_skin, /datum/surgery_step/replace_limb)
 	target_mobtypes = list(/mob/living/carbon/human)
 	possible_locs = list(BODY_ZONE_R_ARM,BODY_ZONE_L_ARM,BODY_ZONE_R_LEG,BODY_ZONE_L_LEG,BODY_ZONE_CHEST,BODY_ZONE_HEAD)
 	requires_real_bodypart = TRUE

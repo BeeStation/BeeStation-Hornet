@@ -132,7 +132,6 @@
 	dat += "<a href='?src=[REF(src)];refresh=1'>Scan</a>"
 	dat += "<a href='?src=[REF(src)];[state_open ? "close=1'>Close</a>" : "open=1'>Open</a>"]"
 	var/datum/browser/popup = new(user, "experiment", "Probing Console", 300, 300)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.set_content(dat)
 	popup.open()
 
@@ -210,7 +209,6 @@
 		open_machine()
 		SendBack(H)
 		return "<span class='bad'>Specimen braindead - disposed.</span>"
-	return "<span class='bad'>ERROR</span>"
 
 
 /obj/machinery/abductor/experiment/proc/SendBack(mob/living/carbon/human/H)

@@ -39,31 +39,27 @@
 	if(!loaded_tank)
 		return
 	if(!bitcoinmining)
-		if(!loaded_tank.air_contents.gases[/datum/gas/plasma])
+		if(loaded_tank.air_contents.get_moles(/datum/gas/plasma) < 0.0001)
 			investigate_log("<font color='red'>out of fuel</font>.", INVESTIGATE_SINGULO)
 			playsound(src, 'sound/machines/ding.ogg', 50, 1)
 			eject()
 		else
-			var/gasdrained = min(powerproduction_drain*drainratio,loaded_tank.air_contents.gases[/datum/gas/plasma][MOLES])
-			loaded_tank.air_contents.gases[/datum/gas/plasma][MOLES] -= gasdrained
-			loaded_tank.air_contents.assert_gas(/datum/gas/tritium)
-			loaded_tank.air_contents.gases[/datum/gas/tritium][MOLES] += gasdrained
-			loaded_tank.air_contents.garbage_collect()
+			var/gasdrained = min(powerproduction_drain*drainratio,loaded_tank.air_contents.get_moles(/datum/gas/plasma))
+			loaded_tank.air_contents.adjust_moles(/datum/gas/plasma, -gasdrained)
+			loaded_tank.air_contents.adjust_moles(/datum/gas/tritium, gasdrained)
 
 			var/power_produced = RAD_COLLECTOR_OUTPUT
 			add_avail(power_produced)
 			stored_energy-=power_produced
 	else if(is_station_level(z) && SSresearch.science_tech)
-		if(!loaded_tank.air_contents.gases[/datum/gas/tritium] || !loaded_tank.air_contents.gases[/datum/gas/oxygen])
+		if(!loaded_tank.air_contents.get_moles(/datum/gas/tritium) || !loaded_tank.air_contents.get_moles(/datum/gas/oxygen))
 			playsound(src, 'sound/machines/ding.ogg', 50, 1)
 			eject()
 		else
 			var/gasdrained = bitcoinproduction_drain*drainratio
-			loaded_tank.air_contents.gases[/datum/gas/tritium][MOLES] -= gasdrained
-			loaded_tank.air_contents.gases[/datum/gas/oxygen][MOLES] -= gasdrained
-			loaded_tank.air_contents.assert_gas(/datum/gas/carbon_dioxide)
-			loaded_tank.air_contents.gases[/datum/gas/carbon_dioxide][MOLES] += gasdrained*2
-			loaded_tank.air_contents.garbage_collect()
+			loaded_tank.air_contents.adjust_moles(/datum/gas/tritium, -gasdrained)
+			loaded_tank.air_contents.adjust_moles(/datum/gas/oxygen, -gasdrained)
+			loaded_tank.air_contents.adjust_moles(/datum/gas/carbon_dioxide, gasdrained*2)
 			var/bitcoins_mined = RAD_COLLECTOR_OUTPUT
 			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_ENG)
 			if(D)
@@ -77,10 +73,7 @@
 			toggle_power()
 			user.visible_message("[user.name] turns the [src.name] [active? "on":"off"].", \
 			"<span class='notice'>You turn the [src.name] [active? "on":"off"].</span>")
-			var/fuel
-			if(loaded_tank)
-				fuel = loaded_tank.air_contents.gases[/datum/gas/plasma]
-			fuel = fuel ? fuel[MOLES] : 0
+			var/fuel = loaded_tank.air_contents.get_moles(/datum/gas/plasma)
 			investigate_log("turned [active?"<font color='green'>on</font>":"<font color='red'>off</font>"] by [key_name(user)]. [loaded_tank?"Fuel: [round(fuel/0.29)]%":"<font color='red'>It is empty</font>"].", INVESTIGATE_SINGULO)
 			return
 		else
