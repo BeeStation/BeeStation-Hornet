@@ -13,7 +13,7 @@
 	var/total_stamina_damage = 0
 
 /datum/clockcult/scripture/slab/vanguard/click_on(atom/A)
-	return FALSE
+	return EF_FALSE
 
 /datum/clockcult/scripture/slab/vanguard/invoke_success()
 	ADD_TRAIT(invoker, TRAIT_STUNIMMUNE, VANGUARD_TRAIT)

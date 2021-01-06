@@ -63,7 +63,7 @@ All ShuttleMove procs go here
 		var/turf/open/new_open = newT
 		new_open.copy_air_with_tile(src)
 
-	return TRUE
+	return EF_TRUE
 
 // Called on the new turf after everything has been moved
 /turf/proc/afterShuttleMove(turf/oldT, rotation)
@@ -78,7 +78,7 @@ All ShuttleMove procs go here
 	if(rotation)
 		shuttleRotate(rotation) //see shuttle_rotate.dm
 
-	return TRUE
+	return EF_TRUE
 
 /turf/proc/lateShuttleMove(turf/oldT)
 	blocks_air = initial(blocks_air)
@@ -105,7 +105,7 @@ All ShuttleMove procs go here
 
 	loc = newT
 
-	return TRUE
+	return EF_TRUE
 
 // Called on atoms after everything has been moved
 /atom/movable/proc/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
@@ -121,7 +121,7 @@ All ShuttleMove procs go here
 
 	update_parallax_contents()
 
-	return TRUE
+	return EF_TRUE
 
 /atom/movable/proc/lateShuttleMove(turf/oldT, list/movement_force, move_dir)
 	if(!movement_force || anchored)
@@ -147,7 +147,7 @@ All ShuttleMove procs go here
 // Called on areas to move their turf between areas
 /area/proc/onShuttleMove(turf/oldT, turf/newT, area/underlying_old_area)
 	if(newT == oldT) // In case of in place shuttle rotation shenanigans.
-		return TRUE
+		return EF_TRUE
 
 	contents -= oldT
 	underlying_old_area.contents += oldT
@@ -160,12 +160,12 @@ All ShuttleMove procs go here
 	old_dest_area.contents -= newT
 	contents += newT
 	newT.change_area(old_dest_area, src)
-	return TRUE
+	return EF_TRUE
 
 // Called on areas after everything has been moved
 /area/proc/afterShuttleMove(new_parallax_dir)
 	parallax_movedir = new_parallax_dir
-	return TRUE
+	return EF_TRUE
 
 /area/proc/lateShuttleMove()
 	return
@@ -374,13 +374,13 @@ All ShuttleMove procs go here
 /obj/structure/ladder/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock)
 	if (resistance_flags & INDESTRUCTIBLE)
 		// simply don't be moved
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /************************************Misc move procs************************************/
 
 /atom/movable/lighting_object/onShuttleMove()
-	return FALSE
+	return EF_FALSE
 
 /obj/docking_port/mobile/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
 	. = ..()
@@ -389,7 +389,7 @@ All ShuttleMove procs go here
 
 /obj/docking_port/stationary/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock)
 	if(!moving_dock.can_move_docking_ports || old_dock == src)
-		return FALSE
+		return EF_FALSE
 	. = ..()
 
 /obj/docking_port/stationary/public_mining_dock/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock)

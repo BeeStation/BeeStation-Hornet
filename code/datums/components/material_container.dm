@@ -113,7 +113,7 @@
 /// Proc specifically for inserting items, returns the amount of materials entered.
 /datum/component/material_container/proc/insert_item(obj/item/I, var/multiplier = 1, stack_amt)
 	if(!I)
-		return FALSE
+		return EF_FALSE
 	if(istype(I, /obj/item/stack))
 		return insert_stack(I, stack_amt, multiplier)
 
@@ -121,7 +121,7 @@
 
 	var/material_amount = get_item_material_amount(I)
 	if(!material_amount || !has_space(material_amount))
-		return FALSE
+		return EF_FALSE
 
 	last_inserted_id = insert_item_materials(I, multiplier)
 	return material_amount
@@ -137,30 +137,30 @@
 	return primary_mat
 
 /// Proc for putting a stack inside of the container
-/datum/component/material_container/proc/insert_stack(obj/item/stack/S, amt, multiplier = 1) 
+/datum/component/material_container/proc/insert_stack(obj/item/stack/S, amt, multiplier = 1)
 	if(isnull(amt))
 		amt = S.amount
 
 	if(amt <= 0)
-		return FALSE
+		return EF_FALSE
 
 	if(amt > S.amount)
 		amt = S.amount
 
 	var/material_amt = get_item_material_amount(S)
 	if(!material_amt)
-		return FALSE
+		return EF_FALSE
 
 	amt = min(amt, round(((max_amount - total_amount) / material_amt)))
 	if(!amt)
-		return FALSE
+		return EF_FALSE
 
 	last_inserted_id = insert_item_materials(S,amt * multiplier)
 	S.use(amt)
 	return amt
 
 /// For inserting an amount of material
-/datum/component/material_container/proc/insert_amount_mat(amt, var/datum/material/mat) 
+/datum/component/material_container/proc/insert_amount_mat(amt, var/datum/material/mat)
 	if(!istype(mat))
 		mat = getmaterialref(mat)
 	if(amt > 0 && has_space(amt))
@@ -172,10 +172,10 @@
 				materials[i] += amt
 				total_amount += amt
 		return (total_amount - total_amount_saved)
-	return FALSE
+	return EF_FALSE
 
 /// Uses an amount of a specific material, effectively removing it.
-/datum/component/material_container/proc/use_amount_mat(amt, var/datum/material/mat) 
+/datum/component/material_container/proc/use_amount_mat(amt, var/datum/material/mat)
 	if(!istype(mat))
 		mat = getmaterialref(mat)
 	var/amount = materials[mat]
@@ -184,14 +184,14 @@
 			materials[mat] -= amt
 			total_amount -= amt
 			return amt
-	return FALSE
+	return EF_FALSE
 
 /// Proc for transfering materials to another container.
-/datum/component/material_container/proc/transer_amt_to(var/datum/component/material_container/T, amt, var/datum/material/mat) 
+/datum/component/material_container/proc/transer_amt_to(var/datum/component/material_container/T, amt, var/datum/material/mat)
 	if(!istype(mat))
 		mat = getmaterialref(mat)
 	if((amt==0)||(!T)||(!mat))
-		return FALSE
+		return EF_FALSE
 	if(amt<0)
 		return T.transer_amt_to(src, -amt, mat)
 	var/tr = min(amt, materials[mat],T.can_insert_amount_mat(amt, mat))
@@ -199,7 +199,7 @@
 		use_amount_mat(tr, mat)
 		T.insert_amount_mat(tr, mat)
 		return tr
-	return FALSE
+	return EF_FALSE
 
 /// Proc for checking if there is room in the component, returning the amount or else the amount lacking.
 /datum/component/material_container/proc/can_insert_amount_mat(amt, mat)
@@ -215,8 +215,8 @@
 /// For consuming a dictionary of materials. mats is the map of materials to use and the corresponding amounts, example: list(M/datum/material/glass =100, datum/material/iron=200)
 /datum/component/material_container/proc/use_materials(list/mats, multiplier=1)
 	if(!mats || !length(mats))
-		return FALSE
-	
+		return EF_FALSE
+
 	var/list/mats_to_remove = list() //Assoc list MAT | AMOUNT
 
 	for(var/x in mats) //Loop through all required materials
@@ -224,13 +224,13 @@
 		if(!istype(req_mat))
 			req_mat = getmaterialref(req_mat) //Get the ref if necesary
 		if(!materials[req_mat]) //Do we have the resource?
-			return FALSE //Can't afford it
+			return EF_FALSE //Can't afford it
 		var/amount_required = mats[x] * multiplier
 		if(!(materials[req_mat] >= amount_required)) // do we have enough of the resource?
-			return FALSE //Can't afford it
+			return EF_FALSE //Can't afford it
 		mats_to_remove[req_mat] += amount_required //Add it to the assoc list of things to remove
 		continue
-		
+
 	var/total_amount_save = total_amount
 
 	for(var/i in mats_to_remove)
@@ -239,7 +239,7 @@
 	return total_amount_save - total_amount
 
 /// For spawning mineral sheets at a specific location. Used by machines to output sheets.
-/datum/component/material_container/proc/retrieve_sheets(sheet_amt, var/datum/material/M, target = null) 
+/datum/component/material_container/proc/retrieve_sheets(sheet_amt, var/datum/material/M, target = null)
 	if(!M.sheet_type)
 		return 0 //Add greyscale sheet handling here later
 	if(sheet_amt <= 0)
@@ -263,7 +263,7 @@
 
 
 /// Proc to get all the materials and dump them as sheets
-/datum/component/material_container/proc/retrieve_all(target = null) 
+/datum/component/material_container/proc/retrieve_all(target = null)
 	var/result = 0
 	for(var/MAT in materials)
 		var/amount = materials[MAT]
@@ -277,7 +277,7 @@
 /// Checks if its possible to afford a certain amount of materials. Takes a dictionary of materials.
 /datum/component/material_container/proc/has_materials(list/mats, multiplier=1)
 	if(!mats || !mats.len)
-		return FALSE
+		return EF_FALSE
 
 	for(var/x in mats) //Loop through all required materials
 		var/datum/material/req_mat = x
@@ -287,17 +287,17 @@
 
 			else // Its a category. (For example MAT_CATEGORY_RIGID)
 				if(!has_enough_of_category(req_mat, mats[req_mat], multiplier)) //Do we have enough of this category?
-					return FALSE
+					return EF_FALSE
 				else
 					continue
 
 		if(!has_enough_of_material(req_mat, mats[req_mat], multiplier))//Not a category, so just check the normal way
-			return FALSE
+			return EF_FALSE
 
-	return TRUE
+	return EF_TRUE
 
 /// Returns all the categories in a recipe.
-/datum/component/material_container/proc/get_categories(list/mats) 
+/datum/component/material_container/proc/get_categories(list/mats)
 	var/list/categories = list()
 	for(var/x in mats) //Loop through all required materials
 		if(!istext(x)) //This means its not a category
@@ -307,46 +307,46 @@
 
 
 /// Returns TRUE if you have enough of the specified material.
-/datum/component/material_container/proc/has_enough_of_material(var/datum/material/req_mat, amount, multiplier=1) 
+/datum/component/material_container/proc/has_enough_of_material(var/datum/material/req_mat, amount, multiplier=1)
 	if(!materials[req_mat]) //Do we have the resource?
-		return FALSE //Can't afford it
+		return EF_FALSE //Can't afford it
 	var/amount_required = amount * multiplier
 	if(materials[req_mat] >= amount_required) // do we have enough of the resource?
-		return TRUE 
-	return FALSE //Can't afford it
+		return EF_TRUE
+	return EF_FALSE //Can't afford it
 
 /// Returns TRUE if you have enough of a specified material category (Which could be multiple materials)
 /datum/component/material_container/proc/has_enough_of_category(category, amount, multiplier=1)
 	for(var/i in SSmaterials.materials_by_category[category])
 		var/datum/material/mat = i
 		if(materials[mat] >= amount) //we have enough
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /// Turns a material amount into the amount of sheets it should output
-/datum/component/material_container/proc/amount2sheet(amt) 
+/datum/component/material_container/proc/amount2sheet(amt)
 	if(amt >= MINERAL_MATERIAL_AMOUNT)
 		return round(amt / MINERAL_MATERIAL_AMOUNT)
-	return FALSE
+	return EF_FALSE
 
 /// Turns an amount of sheets into the amount of material amount it should output
 /datum/component/material_container/proc/sheet2amount(sheet_amt)
 	if(sheet_amt > 0)
 		return sheet_amt * MINERAL_MATERIAL_AMOUNT
-	return FALSE
+	return EF_FALSE
 
 
 ///returns the amount of material relevant to this container; if this container does not support glass, any glass in 'I' will not be taken into account
 /datum/component/material_container/proc/get_item_material_amount(obj/item/I)
 	if(!istype(I))
-		return FALSE
+		return EF_FALSE
 	var/material_amount = 0
 	for(var/MAT in materials)
 		material_amount += I.materials[MAT]
 	return material_amount
 
 /// Returns the amount of a specific material in this container.
-/datum/component/material_container/proc/get_material_amount(var/datum/material/mat) 
+/datum/component/material_container/proc/get_material_amount(var/datum/material/mat)
 	if(!istype(mat))
 		mat = getmaterialref(mat)
 	return(materials[mat])

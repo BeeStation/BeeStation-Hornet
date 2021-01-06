@@ -1,24 +1,24 @@
 /obj/item/modular_computer/proc/can_install_component(obj/item/computer_hardware/H, mob/living/user = null)
 	if(!H.can_install(src, user))
-		return FALSE
+		return EF_FALSE
 
 	if(H.w_class > max_hardware_size)
 		to_chat(user, "<span class='warning'>This component is too large for \the [src]!</span>")
-		return FALSE
+		return EF_FALSE
 
 	if(all_components[H.device_type])
 		to_chat(user, "<span class='warning'>This computer's hardware slot is already occupied by \the [all_components[H.device_type]].</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 
 // Installs component.
 /obj/item/modular_computer/proc/install_component(obj/item/computer_hardware/H, mob/living/user = null)
 	if(!can_install_component(H, user))
-		return FALSE
+		return EF_FALSE
 
 	if(user && !user.transferItemToLoc(H, src))
-		return FALSE
+		return EF_FALSE
 
 	all_components[H.device_type] = H
 
@@ -31,7 +31,7 @@
 // Uninstalls component.
 /obj/item/modular_computer/proc/uninstall_component(obj/item/computer_hardware/H, mob/living/user = null)
 	if(H.holder != src) // Not our component at all.
-		return FALSE
+		return EF_FALSE
 
 	all_components.Remove(H.device_type)
 

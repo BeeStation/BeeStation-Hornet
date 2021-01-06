@@ -48,7 +48,7 @@
 
 /datum/proximity_monitor/proc/SetRange(range, force_rebuild = FALSE)
 	if(!force_rebuild && range == current_range)
-		return FALSE
+		return EF_FALSE
 	. = TRUE
 
 	current_range = range

@@ -151,8 +151,8 @@
 	if( href_list["close"] )
 		usr << browse(null, "window=teg")
 		usr.unset_machine()
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 
 /obj/machinery/power/generator/power_change()
@@ -200,26 +200,26 @@
 		kill_circs()
 	connect_to_network()
 	to_chat(user, "<span class='notice'>You [anchored?"secure":"unsecure"] [src].</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/power/generator/multitool_act(mob/living/user, obj/item/I)
 	if(!anchored)
 		return
 	find_circs()
 	to_chat(user, "<span class='notice'>You update [src]'s circulator links.</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/power/generator/screwdriver_act(mob/user, obj/item/I)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	panel_open = !panel_open
 	I.play_tool_sound(src)
 	to_chat(user, "<span class='notice'>You [panel_open?"open":"close"] the panel on [src].</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/power/generator/crowbar_act(mob/user, obj/item/I)
 	default_deconstruction_crowbar(I)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/power/generator/on_deconstruction()
 	kill_circs()

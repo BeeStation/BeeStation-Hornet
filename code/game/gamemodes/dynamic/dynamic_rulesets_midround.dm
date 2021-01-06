@@ -76,8 +76,8 @@
 
 		var/threat = round(mode.threat_level/10)
 		if (job_check < required_enemies[threat])
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/midround/from_ghosts/execute()
 	var/list/possible_candidates = list()
@@ -85,13 +85,13 @@
 	possible_candidates.Add(list_observers)
 	send_applications(possible_candidates)
 	if(assigned.len > 0)
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /// This sends a poll to ghosts if they want to be a ghost spawn from a ruleset.
 /datum/dynamic_ruleset/midround/from_ghosts/proc/send_applications(list/possible_volunteers = list())
-	if (possible_volunteers.len <= 0) // This shouldn't happen, as ready() should return FALSE if there is not a single valid candidate
+	if (possible_volunteers.len <= 0) // This shouldn't happen, as ready() should return EF_FALSE if there is not a single valid candidate
 		message_admins("Possible volunteers was 0. This shouldn't appear, because of ready(), unless you forced it!")
 		return
 	message_admins("Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
@@ -181,7 +181,7 @@
 	if ((antag_count < max_traitors) && prob(mode.threat_level))//adding traitors if the antag population is getting low
 		return ..()
 	else
-		return FALSE
+		return EF_FALSE
 
 /datum/dynamic_ruleset/midround/autotraitor/trim_candidates()
 	..()
@@ -197,7 +197,7 @@
 
 /datum/dynamic_ruleset/midround/autotraitor/ready(forced = FALSE)
 	if (required_candidates > living_players.len)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/dynamic_ruleset/midround/autotraitor/execute()
@@ -206,7 +206,7 @@
 	living_players -= M
 	var/datum/antagonist/traitor/newTraitor = new
 	M.mind.add_antag_datum(newTraitor)
-	return TRUE
+	return EF_TRUE
 
 
 //////////////////////////////////////////////
@@ -246,7 +246,7 @@
 
 /datum/dynamic_ruleset/midround/malf/execute()
 	if(!candidates || !candidates.len)
-		return FALSE
+		return EF_FALSE
 	var/mob/living/silicon/ai/M = pick_n_take(candidates)
 	assigned += M.mind
 	var/datum/antagonist/traitor/AI = new
@@ -258,7 +258,7 @@
 			M.replace_random_law(generate_ion_law(), list(LAW_INHERENT, LAW_SUPPLIED, LAW_ION))
 		else
 			M.add_ion_law(generate_ion_law())
-	return TRUE
+	return EF_TRUE
 
 //////////////////////////////////////////////
 //                                          //
@@ -281,11 +281,11 @@
 
 /datum/dynamic_ruleset/midround/from_ghosts/wizard/ready(forced = FALSE)
 	if (required_candidates > (dead_players.len + list_observers.len))
-		return FALSE
+		return EF_FALSE
 	if(GLOB.wizardstart.len == 0)
 		log_admin("Cannot accept Wizard ruleset. Couldn't find any wizard spawn points.")
 		message_admins("Cannot accept Wizard ruleset. Couldn't find any wizard spawn points.")
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/dynamic_ruleset/midround/from_ghosts/wizard/finish_setup(mob/new_character, index)
@@ -315,14 +315,14 @@
 
 /datum/dynamic_ruleset/midround/from_ghosts/nuclear/acceptable(population=0, threat=0)
 	if (locate(/datum/dynamic_ruleset/roundstart/nuclear) in mode.executed_rules)
-		return FALSE // Unavailable if nuke ops were already sent at roundstart
+		return EF_FALSE // Unavailable if nuke ops were already sent at roundstart
 	indice_pop = min(operative_cap.len, round(living_players.len/5)+1)
 	required_candidates = operative_cap[indice_pop]
 	return ..()
 
 /datum/dynamic_ruleset/midround/from_ghosts/nuclear/ready(forced = FALSE)
 	if (required_candidates > (dead_players.len + list_observers.len))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/dynamic_ruleset/midround/from_ghosts/nuclear/finish_setup(mob/new_character, index)
@@ -393,7 +393,7 @@
 			if(temp_vent_parent.other_atmosmch.len > 20)
 				vents += temp_vent
 	if(!vents.len)
-		return FALSE
+		return EF_FALSE
 	. = ..()
 
 /datum/dynamic_ruleset/midround/from_ghosts/xenomorph/generate_ruleset_body(mob/applicant)
@@ -432,7 +432,7 @@
 		if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
 			spawn_locs += T
 	if(!spawn_locs.len)
-		return FALSE
+		return EF_FALSE
 	. = ..()
 
 /datum/dynamic_ruleset/midround/from_ghosts/nightmare/generate_ruleset_body(mob/applicant)
@@ -450,7 +450,7 @@
 	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a Nightmare by the midround ruleset.")
 	log_game("DYNAMIC: [key_name(S)] was spawned as a Nightmare by the midround ruleset.")
 	return S
-	
+
 //////////////////////////////////////////////
 //                                          //
 //           ABDUCTORS    (GHOST)           //
@@ -473,7 +473,7 @@
 
 /datum/dynamic_ruleset/midround/from_ghosts/abductors/ready(forced = FALSE)
 	if (required_candidates > (dead_players.len + list_observers.len))
-		return FALSE
+		return EF_FALSE
 	new_team = new
 	if(new_team.team_number > ABDUCTOR_MAX_TEAMS)
 		return MAP_ERROR

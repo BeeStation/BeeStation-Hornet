@@ -16,7 +16,7 @@
 	. = ..()
 	var/obj/item/organ/brain/B = target.getorganslot(ORGAN_SLOT_BRAIN)
 	if(!B)
-		return FALSE
+		return EF_FALSE
 
 /datum/surgery_step/pacify
 	name = "rewire brain"
@@ -33,11 +33,11 @@
 		"[user] successfully fixes [target]'s brain!",
 		"[user] completes the surgery on [target]'s brain.")
 	target.gain_trauma(/datum/brain_trauma/severe/pacifism, TRAUMA_RESILIENCE_LOBOTOMY)
-	return TRUE
+	return EF_TRUE
 
 /datum/surgery_step/pacify/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='notice'>You screw up, rewiring [target]'s brain the wrong way around...</span>",
 			"<span class='warning'>[user] screws up, causing brain damage!</span>",
 			"[user] completes the surgery on [target]'s brain.")
 	target.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_LOBOTOMY)
-	return FALSE
+	return EF_FALSE

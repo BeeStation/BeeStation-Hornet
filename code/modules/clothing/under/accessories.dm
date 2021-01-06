@@ -14,7 +14,7 @@
 
 /obj/item/clothing/accessory/proc/can_attach_accessory(obj/item/clothing/U, mob/user)
 	if(!attachment_slot || (U && U.body_parts_covered & attachment_slot))
-		return TRUE
+		return EF_TRUE
 	if(user)
 		to_chat(user, "<span class='warning'>There doesn't seem to be anywhere to put [src]...</span>")
 
@@ -22,7 +22,7 @@
 	var/datum/component/storage/storage = GetComponent(/datum/component/storage)
 	if(storage)
 		if(SEND_SIGNAL(U, COMSIG_CONTAINS_STORAGE))
-			return FALSE
+			return EF_FALSE
 		U.TakeComponent(storage)
 		detached_pockets = storage
 	U.attached_accessory = src
@@ -46,7 +46,7 @@
 	if(isliving(user))
 		on_uniform_equip(U, user)
 
-	return TRUE
+	return EF_TRUE
 
 /obj/item/clothing/accessory/proc/detach(obj/item/clothing/under/U, user)
 	if(detached_pockets && detached_pockets.parent == U)

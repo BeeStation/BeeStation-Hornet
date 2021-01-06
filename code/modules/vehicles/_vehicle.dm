@@ -27,7 +27,7 @@
 /obj/vehicle/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /obj/item)) //thrown objects and projectiles bypass vehicles
 		return 1
-	if(HAS_TRAIT(mover, TRAIT_PASSTABLE)) 
+	if(HAS_TRAIT(mover, TRAIT_PASSTABLE))
 		return 1
 	return ..()
 
@@ -88,12 +88,12 @@
 
 /obj/vehicle/proc/add_occupant(mob/M, control_flags)
 	if(!istype(M) || occupants[M])
-		return FALSE
+		return EF_FALSE
 	occupants[M] = NONE
 	add_control_flags(M, control_flags)
 	after_add_occupant(M)
 	grant_passenger_actions(M)
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/proc/after_add_occupant(mob/M)
 	auto_assign_occupant_flags(M)
@@ -104,35 +104,35 @@
 
 /obj/vehicle/proc/remove_occupant(mob/M)
 	if(!istype(M))
-		return FALSE
+		return EF_FALSE
 	remove_control_flags(M, ALL)
 	remove_passenger_actions(M)
 	occupants -= M
 	cleanup_actions_for_mob(M)
 	after_remove_occupant(M)
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/proc/after_remove_occupant(mob/M)
 
 /obj/vehicle/relaymove(mob/user, direction)
 	if(is_driver(user))
 		return driver_move(user, direction)
-	return FALSE
+	return EF_FALSE
 
 /obj/vehicle/proc/driver_move(mob/user, direction)
 	if(key_type && !is_key(inserted_key))
 		to_chat(user, "<span class='warning'>[src] has no key inserted!</span>")
-		return FALSE
+		return EF_FALSE
 	if(!default_driver_move)
 		return
 	if(!canmove)
 		return
 	vehicle_move(direction)
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/proc/vehicle_move(direction)
 	if(lastmove + movedelay > world.time)
-		return FALSE
+		return EF_FALSE
 	lastmove = world.time
 	if(trailer)
 		var/dir_to_move = get_dir(trailer.loc, loc)
@@ -149,21 +149,21 @@
 
 /obj/vehicle/proc/add_control_flags(mob/controller, flags)
 	if(!istype(controller) || !flags)
-		return FALSE
+		return EF_FALSE
 	occupants[controller] |= flags
 	for(var/i in GLOB.bitflags)
 		if(flags & i)
 			grant_controller_actions_by_flag(controller, i)
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/proc/remove_control_flags(mob/controller, flags)
 	if(!istype(controller) || !flags)
-		return FALSE
+		return EF_FALSE
 	occupants[controller] &= ~flags
 	for(var/i in GLOB.bitflags)
 		if(flags & i)
 			remove_controller_actions_by_flag(controller, i)
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/Bump(atom/movable/M)
 	. = ..()

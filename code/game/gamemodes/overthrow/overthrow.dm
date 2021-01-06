@@ -36,8 +36,8 @@
 
 	if(initial_agents.len < required_enemies)
 		setup_error = "Not enough initial sleeping agents candidates"
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/game_mode/overthrow/post_setup()
 	for(var/i in initial_agents) // each agent will have its own team.

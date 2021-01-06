@@ -155,12 +155,12 @@
 
 /obj/effect/decal/cleanable/vomit/old/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 	if(!disease.len)
-		return FALSE
+		return EF_FALSE
 	if(scan)
 		E.scan(src, disease, user)
 	else
 		E.extrapolate(src, disease, user)
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/decal/cleanable/chem_pile
 	name = "chemical pile"

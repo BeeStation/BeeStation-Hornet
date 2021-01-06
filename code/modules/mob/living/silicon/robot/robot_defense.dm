@@ -153,7 +153,7 @@
 		adjustBruteLoss(30)
 	else
 		gib()
-	return TRUE
+	return EF_TRUE
 
 /mob/living/silicon/robot/ex_act(severity, target)
 	switch(severity)

@@ -23,12 +23,12 @@
 	if(!istype(I, /obj/item/stack))
 		if(override)
 			return ..()
-		return FALSE
+		return EF_FALSE
 	var/atom/real_location = real_location()
 	var/obj/item/stack/S = I
 	var/can_insert = min(S.amount, remaining_space())
 	if(!can_insert)
-		return FALSE
+		return EF_FALSE
 	for(var/i in real_location)				//combine.
 		if(QDELETED(I))
 			return
@@ -38,7 +38,7 @@
 		if(_S.merge_type == S.merge_type)
 			_S.add(can_insert)
 			S.use(can_insert, TRUE)
-			return TRUE
+			return EF_TRUE
 	return ..(S.change_stack(null, can_insert), override)
 
 /datum/component/storage/concrete/stack/remove_from_storage(obj/item/I, atom/new_location)

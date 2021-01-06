@@ -251,7 +251,7 @@
 	if (istype(I))
 		to_chat(user, "<span class='notice'>You register [src] in [I]s buffer.</span>")
 		I.buffer = src
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/computer/piratepad_control
 	name = "cargo hold control terminal"
@@ -275,7 +275,7 @@
 	if (istype(I) && istype(I.buffer,/obj/machinery/piratepad))
 		to_chat(user, "<span class='notice'>You link [src] with [I.buffer] in [I] buffer.</span>")
 		pad = I.buffer
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/computer/piratepad_control/LateInitialize()
 	. = ..()

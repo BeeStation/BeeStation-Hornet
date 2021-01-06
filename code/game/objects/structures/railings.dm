@@ -44,7 +44,7 @@
 		to_chat(user, "<span class='warning'>You cut apart the railing.</span>")
 		I.play_tool_sound(src, 100)
 		deconstruct()
-		return TRUE
+		return EF_TRUE
 
 /obj/structure/railing/deconstruct(disassembled)
 	. = ..()
@@ -63,17 +63,17 @@
 	if(I.use_tool(src, user, volume = 75, extra_checks = CALLBACK(src, .proc/check_anchored, anchored)))
 		setAnchored(!anchored)
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor.</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/railing/CanPass(atom/movable/mover, turf/target)
 	..()
 	if(get_dir(loc, target) & dir)
 		return !density
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/railing/corner/CanPass()
 	..()
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/railing/CheckExit(atom/movable/O, turf/target)
 	..()
@@ -87,18 +87,18 @@
 /obj/structure/railing/proc/can_be_rotated(mob/user,rotation_type)
 	if(anchored)
 		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
-		return FALSE
+		return EF_FALSE
 
 	var/target_dir = turn(dir, rotation_type == ROTATION_CLOCKWISE ? -90 : 90)
 
 	if(!valid_window_location(loc, target_dir)) //Expanded to include rails, as well!
 		to_chat(user, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/structure/railing/proc/check_anchored(checked_anchored)
 	if(anchored == checked_anchored)
-		return TRUE
+		return EF_TRUE
 
 /obj/structure/railing/proc/after_rotation(mob/user,rotation_type)
 	air_update_turf(1)

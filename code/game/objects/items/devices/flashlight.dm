@@ -385,10 +385,10 @@
 /obj/item/flashlight/emp/process()
 	charge_tick++
 	if(charge_tick < 10)
-		return FALSE
+		return EF_FALSE
 	charge_tick = 0
 	emp_cur_charges = min(emp_cur_charges+1, emp_max_charges)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/flashlight/emp/attack(mob/living/M, mob/living/user)
 	if(on && (user.zone_selected in list(BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH))) // call original attack when examining organs

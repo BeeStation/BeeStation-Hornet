@@ -23,14 +23,14 @@
 /obj/vehicle/sealed/car/driver_move(mob/user, direction)
 	if(key_type && !is_key(inserted_key))
 		to_chat(user, "<span class='warning'>[src] has no key inserted!</span>")
-		return FALSE
+		return EF_FALSE
 	var/datum/component/riding/R = GetComponent(/datum/component/riding)
 	R.handle_ride(user, direction)
 	if(world.time < last_enginesound_time + engine_sound_length)
 		return
 	last_enginesound_time = world.time
 	playsound(src, engine_sound, 100, TRUE)
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/sealed/car/proc/RunOver(mob/living/carbon/human/H) //pasted right out of mulebot code
 	log_combat(src, H, "run over", null, "(DAMTYPE: [uppertext(BRUTE)])")
@@ -51,7 +51,7 @@
 
 /obj/vehicle/sealed/car/MouseDrop_T(atom/dropping, mob/M)
 	if(M.stat || M.restrained())
-		return FALSE
+		return EF_FALSE
 	if((car_traits & CAN_KIDNAP) && isliving(dropping) && M != dropping)
 		var/mob/living/L = dropping
 		L.visible_message("<span class='warning'>[M] starts forcing [L] into [src]!</span>")
@@ -62,12 +62,12 @@
 	if(M == user && (occupants[M] & VEHICLE_CONTROL_KIDNAPPED))
 		to_chat(user, "<span class='notice'>You push against the back of [src] trunk to try and get out.</span>")
 		if(!do_after(user, escape_time, target = src))
-			return FALSE
+			return EF_FALSE
 		to_chat(user,"<span class='danger'>[user] gets out of [src].</span>")
 		mob_exit(M, silent)
-		return TRUE
+		return EF_TRUE
 	mob_exit(M, silent)
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/sealed/car/attacked_by(obj/item/I, mob/living/user)
 	if(!I.force)
@@ -93,14 +93,14 @@
 
 /obj/vehicle/sealed/car/proc/mob_try_forced_enter(mob/forcer, mob/M, silent = FALSE)
 	if(!istype(M))
-		return FALSE
+		return EF_FALSE
 	if(occupant_amount() >= max_occupants)
-		return FALSE
+		return EF_FALSE
 	var/atom/old_loc = loc
 	if(do_mob(forcer, M, get_enter_delay(M), extra_checks=CALLBACK(src, /obj/vehicle/sealed/car/proc/is_car_stationary, old_loc)))
 		mob_forced_enter(M, silent)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/vehicle/sealed/car/proc/is_car_stationary(atom/old_loc)
 	return (old_loc == loc)

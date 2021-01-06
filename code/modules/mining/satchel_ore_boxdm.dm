@@ -27,7 +27,7 @@
 			"<span class='notice'>You pry apart \the [src].</span>",
 			"<span class='italics'>You hear splitting wood.</span>")
 		deconstruct(TRUE, user)
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/ore_box/examine(mob/living/user)
 	if(Adjacent(user) && istype(user))

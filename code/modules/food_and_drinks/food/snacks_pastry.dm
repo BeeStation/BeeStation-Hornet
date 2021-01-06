@@ -32,7 +32,7 @@
 	icon_state = decorated_icon //delish~!
 	reagents.add_reagent(/datum/reagent/consumable/sprinkles, 1)
 	filling_color = "#FF69B4"
-	return TRUE
+	return EF_TRUE
 
 /obj/item/reagent_containers/food/snacks/donut/checkLiked(fraction, mob/M)	//Sec officers always love donuts
 	if(last_check_time + 50 < world.time)

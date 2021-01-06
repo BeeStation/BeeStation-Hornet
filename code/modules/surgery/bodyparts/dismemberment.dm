@@ -1,19 +1,19 @@
 
 /obj/item/bodypart/proc/can_dismember(obj/item/I)
 	if(dismemberable)
-		return TRUE
+		return EF_TRUE
 
 //Dismember a limb
 /obj/item/bodypart/proc/dismember(dam_type = BRUTE)
 	if(!owner)
-		return FALSE
+		return EF_FALSE
 	var/mob/living/carbon/C = owner
 	if(!dismemberable)
-		return FALSE
+		return EF_FALSE
 	if(C.status_flags & GODMODE)
-		return FALSE
+		return EF_FALSE
 	if(HAS_TRAIT(C, TRAIT_NODISMEMBER))
-		return FALSE
+		return EF_FALSE
 
 	var/obj/item/bodypart/affecting = C.get_bodypart(BODY_ZONE_CHEST)
 	affecting.receive_damage(CLAMP(brute_dam/2 * affecting.body_damage_coeff, 15, 50), CLAMP(burn_dam/2 * affecting.body_damage_coeff, 0, 50)) //Damage the chest based on limb's existing damage
@@ -28,10 +28,10 @@
 		C.add_splatter_floor(location)
 
 	if(QDELETED(src)) //Could have dropped into lava/explosion/chasm/whatever
-		return TRUE
+		return EF_TRUE
 	if(dam_type == BURN)
 		burn()
-		return TRUE
+		return EF_TRUE
 	add_mob_blood(C)
 	var/direction = pick(GLOB.cardinals)
 	var/t_range = rand(2,max(throw_range/2, 2))
@@ -44,17 +44,17 @@
 		if(new_turf.density)
 			break
 	throw_at(target_turf, throw_range, throw_speed)
-	return TRUE
+	return EF_TRUE
 
 
 /obj/item/bodypart/chest/dismember()
 	if(!owner)
-		return FALSE
+		return EF_FALSE
 	var/mob/living/carbon/C = owner
 	if(!dismemberable)
-		return FALSE
+		return EF_FALSE
 	if(HAS_TRAIT(C, TRAIT_NODISMEMBER))
-		return FALSE
+		return EF_FALSE
 	. = list()
 	var/organ_spilled = 0
 	var/turf/T = get_turf(C)

@@ -35,11 +35,11 @@
 
 /datum/action/item_action/hands_free/activate_pill/Trigger()
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	to_chat(owner, "<span class='caution'>You grit your teeth and burst the implanted [target.name]!</span>")
 	log_combat(owner, null, "swallowed an implanted pill", target)
 	if(target.reagents.total_volume)
 		target.reagents.reaction(owner, INGEST)
 		target.reagents.trans_to(owner, target.reagents.total_volume, transfered_by = owner)
 	qdel(target)
-	return TRUE
+	return EF_TRUE

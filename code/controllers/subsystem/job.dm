@@ -80,13 +80,13 @@ SUBSYSTEM_DEF(job)
 	if(player?.mind && rank)
 		var/datum/job/job = GetJob(rank)
 		if(!job)
-			return FALSE
+			return EF_FALSE
 		if(is_banned_from(player.ckey, rank) || QDELETED(player))
-			return FALSE
+			return EF_FALSE
 		if(!job.player_old_enough(player.client))
-			return FALSE
+			return EF_FALSE
 		if(job.required_playtime_remaining(player.client))
-			return FALSE
+			return EF_FALSE
 		var/position_limit = job.total_positions
 		if(!latejoin)
 			position_limit = job.spawn_positions
@@ -94,9 +94,9 @@ SUBSYSTEM_DEF(job)
 		player.mind.assigned_role = rank
 		unassigned -= player
 		job.current_positions++
-		return TRUE
+		return EF_TRUE
 	JobDebug("AR has failed, Player: [player], Rank: [rank]")
-	return FALSE
+	return EF_FALSE
 
 /datum/controller/subsystem/job/proc/FreeRole(rank)
 	if(!rank)
@@ -104,7 +104,7 @@ SUBSYSTEM_DEF(job)
 	JobDebug("Freeing role: [rank]")
 	var/datum/job/job = GetJob(rank)
 	if(!job)
-		return FALSE
+		return EF_FALSE
 	job.current_positions = max(0, job.current_positions - 1)
 
 /datum/controller/subsystem/job/proc/FindOccupationCandidates(datum/job/job, level, flag)
@@ -166,7 +166,7 @@ SUBSYSTEM_DEF(job)
 		if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
 			JobDebug("GRJ Random job given, Player: [player], Job: [job]")
 			if(AssignRole(player, job.title))
-				return TRUE
+				return EF_TRUE
 
 /datum/controller/subsystem/job/proc/ResetOccupations()
 	JobDebug("Occupations reset.")
@@ -362,27 +362,27 @@ SUBSYSTEM_DEF(job)
 	for(var/mob/dead/new_player/player in unassigned) //Players that wanted to back out but couldn't because they're antags (can you feel the edge case?)
 		if(!GiveRandomJob(player))
 			if(!AssignRole(player, SSjob.overflow_role)) //If everything is already filled, make them an assistant
-				return FALSE //Living on the edge, the forced antagonist couldn't be assigned to overflow role (bans, client age) - just reroll
+				return EF_FALSE //Living on the edge, the forced antagonist couldn't be assigned to overflow role (bans, client age) - just reroll
 
 	return validate_required_jobs(required_jobs)
 
 /datum/controller/subsystem/job/proc/validate_required_jobs(list/required_jobs)
 	if(!required_jobs.len)
-		return TRUE
+		return EF_TRUE
 	for(var/required_group in required_jobs)
 		var/group_ok = TRUE
 		for(var/rank in required_group)
 			var/datum/job/J = GetJob(rank)
 			if(!J)
 				SSticker.mode.setup_error = "Invalid job [rank] in gamemode required jobs."
-				return FALSE
+				return EF_FALSE
 			if(J.current_positions < required_group[rank])
 				group_ok = FALSE
 				break
 		if(group_ok)
-			return TRUE
+			return EF_TRUE
 	SSticker.mode.setup_error = "Required jobs not present."
-	return FALSE
+	return EF_FALSE
 
 //We couldn't find a job from prefs for this guy.
 /datum/controller/subsystem/job/proc/HandleUnassigned(mob/dead/new_player/player)
@@ -482,7 +482,7 @@ SUBSYSTEM_DEF(job)
 
 /datum/controller/subsystem/job/proc/handle_auto_deadmin_roles(client/C, rank)
 	if(!C?.holder)
-		return TRUE
+		return EF_TRUE
 	var/datum/job/job = GetJob(rank)
 	if(!job)
 		return

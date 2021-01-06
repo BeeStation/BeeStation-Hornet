@@ -59,7 +59,7 @@
 			stored_extinguisher = I
 			to_chat(user, "<span class='notice'>You place [I] in [src].</span>")
 			update_icon()
-			return TRUE
+			return EF_TRUE
 		else
 			toggle_cabinet(user)
 	else if(user.a_intent != INTENT_HARM)

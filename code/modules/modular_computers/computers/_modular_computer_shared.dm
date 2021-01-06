@@ -6,7 +6,7 @@
 	return null
 
 /obj/item/modular_computer/is_modular_computer()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/modular_computer/get_modular_computer_part(part_type)
 	if(!part_type)
@@ -16,7 +16,7 @@
 
 
 /obj/machinery/modular_computer/is_modular_computer()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/modular_computer/get_modular_computer_part(part_type)
 	if(!part_type)

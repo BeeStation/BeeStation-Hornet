@@ -328,7 +328,7 @@
 
 /mob/living/passenger/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	to_chat(src, "<span class='warning'>You find yourself unable to speak, you aren't in control of your body!</span>")
-	return FALSE
+	return EF_FALSE
 
 /mob/living/passenger/emote(act, m_type = null, message = null, intentional = FALSE)
 	to_chat(src, "<span class='warning'>You find yourself unable to emote, you aren't in control of your body!</span>")
@@ -873,7 +873,7 @@
 
 /obj/effect/forcefield/wizard/hive/CanPass(atom/movable/mover, turf/target)
 	if(mover == wizard)
-		return TRUE
+		return EF_TRUE
 	return  FALSE
 
 /obj/effect/forcefield/wizard/hive/invis

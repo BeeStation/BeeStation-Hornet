@@ -24,7 +24,7 @@
 
 /turf/open/floor/wood/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	return pry_tile(I, user) ? TRUE : FALSE
 
 /turf/open/floor/wood/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
@@ -266,7 +266,7 @@
 	update_icon()
 
 /turf/open/floor/carpet/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	return FALSE
+	return EF_FALSE
 
 
 /turf/open/floor/fakepit
@@ -280,7 +280,7 @@
 /turf/open/floor/fakepit/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
 	underlay_appearance.icon_state = "basalt"
-	return TRUE
+	return EF_TRUE
 
 /turf/open/floor/fakespace
 	icon = 'icons/turf/space.dmi'
@@ -298,5 +298,5 @@
 	underlay_appearance.icon = 'icons/turf/space.dmi'
 	underlay_appearance.icon_state = SPACE_ICON_STATE
 	underlay_appearance.plane = PLANE_SPACE
-	return TRUE
+	return EF_TRUE
 

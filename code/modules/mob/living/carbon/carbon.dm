@@ -237,9 +237,9 @@
 
 /mob/living/carbon/hallucinating()
 	if(hallucination)
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /mob/living/carbon/resist_buckle()
 	if(restrained())
@@ -1009,22 +1009,22 @@
 /mob/living/carbon/has_mouth()
 	for(var/obj/item/bodypart/head/head in bodyparts)
 		if(head.mouth)
-			return TRUE
+			return EF_TRUE
 
 /mob/living/carbon/can_resist()
 	return bodyparts.len > 2 && ..()
 
 /mob/living/carbon/proc/hypnosis_vulnerable()
 	if(HAS_TRAIT(src, TRAIT_MINDSHIELD))
-		return FALSE
+		return EF_FALSE
 	if(hallucinating())
-		return TRUE
+		return EF_TRUE
 
 	if(IsSleeping())
-		return TRUE
+		return EF_TRUE
 	if(HAS_TRAIT(src, TRAIT_DUMB))
-		return TRUE
+		return EF_TRUE
 	var/datum/component/mood/mood = src.GetComponent(/datum/component/mood)
 	if(mood)
 		if(mood.sanity < SANITY_UNSTABLE)
-			return TRUE
+			return EF_TRUE

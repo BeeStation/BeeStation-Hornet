@@ -28,7 +28,7 @@
 		to_chat(user, "<span class='warning'>There's already an item on this wall!</span>")
 		return
 
-	return TRUE
+	return EF_TRUE
 
 /obj/item/wallframe/proc/attach(turf/on_wall, mob/user)
 	if(result_path)
@@ -107,7 +107,7 @@
 			new /obj/item/stack/cable_coil(T, 10)
 			to_chat(user, "<span class='notice'>You cut the cables and disassemble the unused power terminal.</span>")
 			qdel(E)
-	return TRUE
+	return EF_TRUE
 
 
 /obj/item/electronics

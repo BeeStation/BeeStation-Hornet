@@ -207,4 +207,4 @@ SUBSYSTEM_DEF(stickyban)
 		SSdbcore.MassInsert(format_table_name("stickyban_matched_ip"), sqlips, ignore_errors = TRUE)
 
 
-	return TRUE
+	return EF_TRUE

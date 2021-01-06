@@ -6,7 +6,7 @@
 		target.visible_message("<span class='danger'>[target.name] blocks [src] and twists [user]'s arm behind [user.p_their()] back!</span>",
 					"<span class='userdanger'>You block the attack!</span>")
 		user.Stun(40)
-		return TRUE
+		return EF_TRUE
 
 
 /obj/item/melee/chainofcommand
@@ -542,7 +542,7 @@
 /obj/item/melee/supermatter_sword/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
 	qdel(hitby)
 	owner.visible_message("<span class='danger'>[hitby] evaporates in midair!</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/item/melee/supermatter_sword/Initialize()
 	. = ..()
@@ -624,7 +624,7 @@
 	CALCULATE_ADJACENT_TURFS(T)
 
 /obj/item/melee/supermatter_sword/add_blood_DNA(list/blood_dna)
-	return FALSE
+	return EF_FALSE
 
 /obj/item/melee/curator_whip
 	name = "curator's whip"

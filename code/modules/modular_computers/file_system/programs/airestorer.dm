@@ -44,13 +44,13 @@
 		if("PRG_beginReconstruction")
 			if(A && A.health < 100)
 				restoring = TRUE
-			return TRUE
+			return EF_TRUE
 		if("PRG_eject")
 			if(computer.all_components[MC_AI])
 				var/obj/item/computer_hardware/ai_slot/ai_slot = computer.all_components[MC_AI]
 				if(ai_slot?.stored_card)
 					ai_slot.try_eject(0,usr)
-					return TRUE
+					return EF_TRUE
 
 /datum/computer_file/program/aidiag/process_tick()
 	. = ..()
@@ -85,7 +85,7 @@
 		ai_slot.locked = FALSE
 		restoring = FALSE
 
-	return TRUE
+	return EF_TRUE
 
 
 /datum/computer_file/program/aidiag/ui_data(mob/user)

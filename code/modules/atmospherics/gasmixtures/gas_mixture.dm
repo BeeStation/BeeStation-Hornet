@@ -36,7 +36,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 
 /datum/gas_mixture/vv_edit_var(var_name, var_value)
 	if(var_name == "_extools_pointer_gasmixture")
-		return FALSE // please no. segfaults bad.
+		return EF_FALSE // please no. segfaults bad.
 	return ..()
 
 /datum/gas_mixture/proc/__gasmixture_unregister()
@@ -240,8 +240,8 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 		//Actually transfer the gas
 		var/datum/gas_mixture/removed = remove(transfer_moles)
 		output_air.merge(removed)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /// Releases gas from src to output air. This means that it can not transfer air to gas mixture with higher pressure.
 /datum/gas_mixture/proc/release_gas_to(datum/gas_mixture/output_air, target_pressure)
@@ -251,7 +251,7 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 	if(output_starting_pressure >= min(target_pressure,input_starting_pressure-10))
 		//No need to pump gas if target is already reached or input pressure is too low
 		//Need at least 10 KPa difference to overcome friction in the mechanism
-		return FALSE
+		return EF_FALSE
 
 	//Calculate necessary moles to transfer using PV = nRT
 	if((total_moles() > 0) && (return_temperature()>0))
@@ -263,6 +263,6 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 		//Actually transfer the gas
 		var/datum/gas_mixture/removed = remove(transfer_moles)
 		output_air.merge(removed)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 

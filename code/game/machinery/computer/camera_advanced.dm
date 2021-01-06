@@ -92,11 +92,11 @@
 		remove_eye_control(M)
 
 /obj/machinery/computer/camera_advanced/proc/can_use(mob/living/user)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/computer/camera_advanced/abductor/can_use(mob/user)
 	if(!isabductor(user))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /obj/machinery/computer/camera_advanced/attack_hand(mob/user)

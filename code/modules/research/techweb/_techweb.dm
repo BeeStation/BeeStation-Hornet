@@ -144,44 +144,44 @@
 
 /datum/techweb/proc/add_point_type(type, amount)
 	if(!SSresearch.point_types[type] || (amount <= 0))
-		return FALSE
+		return EF_FALSE
 	research_points[type] += amount
-	return TRUE
+	return EF_TRUE
 
 /datum/techweb/proc/modify_point_type(type, amount)
 	if(!SSresearch.point_types[type])
-		return FALSE
+		return EF_FALSE
 	research_points[type] = max(0, research_points[type] + amount)
-	return TRUE
+	return EF_TRUE
 
 /datum/techweb/proc/remove_point_type(type, amount)
 	if(!SSresearch.point_types[type] || (amount <= 0))
-		return FALSE
+		return EF_FALSE
 	research_points[type] = max(0, research_points[type] - amount)
-	return TRUE
+	return EF_TRUE
 
 /datum/techweb/proc/add_design_by_id(id, custom = FALSE)
 	return add_design(SSresearch.techweb_design_by_id(id), custom)
 
 /datum/techweb/proc/add_design(datum/design/design, custom = FALSE)
 	if(!istype(design))
-		return FALSE
+		return EF_FALSE
 	researched_designs[design.id] = TRUE
 	if(custom)
 		custom_designs[design.id] = TRUE
-	return TRUE
+	return EF_TRUE
 
 /datum/techweb/proc/remove_design_by_id(id, custom = FALSE)
 	return remove_design(SSresearch.techweb_design_by_id(id), custom)
 
 /datum/techweb/proc/remove_design(datum/design/design, custom = FALSE)
 	if(!istype(design))
-		return FALSE
+		return EF_FALSE
 	if(custom_designs[design.id] && !custom)
-		return FALSE
+		return EF_FALSE
 	custom_designs -= design.id
 	researched_designs -= design.id
-	return TRUE
+	return EF_TRUE
 
 /datum/techweb/proc/get_point_total(list/pointlist)
 	for(var/i in pointlist)
@@ -190,8 +190,8 @@
 /datum/techweb/proc/can_afford(list/pointlist)
 	for(var/i in pointlist)
 		if(research_points[i] < pointlist[i])
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/techweb/proc/printout_points()
 	return techweb_point_display_generic(research_points)
@@ -201,11 +201,11 @@
 
 /datum/techweb/proc/research_node(datum/techweb_node/node, force = FALSE, auto_adjust_cost = TRUE, get_that_dosh = TRUE)
 	if(!istype(node))
-		return FALSE
+		return EF_FALSE
 	update_node_status(node)
 	if(!force)
 		if(!available_nodes[node.id] || (auto_adjust_cost && (!can_afford(node.get_price(src)))))
-			return FALSE
+			return EF_FALSE
 	if(auto_adjust_cost)
 		remove_point_list(node.get_price(src))
 	researched_nodes[node.id] = TRUE				//Add to our researched list
@@ -215,32 +215,32 @@
 	for(var/id in node.design_ids)
 		add_design_by_id(id)
 	update_node_status(node)
-	return TRUE
+	return EF_TRUE
 
 /datum/techweb/science/research_node(datum/techweb_node/node, force = FALSE, auto_adjust_cost = TRUE, get_that_dosh = TRUE) //When something is researched, triggers the proc for this techweb only
 	. = ..()
 	if(.)
 		node.on_research()
-	
+
 /datum/techweb/proc/unresearch_node_id(id)
 	return unresearch_node(SSresearch.techweb_node_by_id(id))
 
 /datum/techweb/proc/unresearch_node(datum/techweb_node/node)
 	if(!istype(node))
-		return FALSE
+		return EF_FALSE
 	researched_nodes -= node.id
 	recalculate_nodes(TRUE)				//Fully rebuild the tree.
 
 /datum/techweb/proc/boost_with_path(datum/techweb_node/N, itempath)
 	if(!istype(N) || !ispath(itempath))
-		return FALSE
+		return EF_FALSE
 	LAZYINITLIST(boosted_nodes[N.id])
 	for(var/i in N.boost_item_paths[itempath])
 		boosted_nodes[N.id][i] = max(boosted_nodes[N.id][i], N.boost_item_paths[itempath][i])
 	if(N.autounlock_by_boost)
 		hidden_nodes -= N.id
 	update_node_status(N)
-	return TRUE
+	return EF_TRUE
 
 /datum/techweb/proc/update_tiers(datum/techweb_node/base)
 	var/list/current = list(base)
@@ -300,8 +300,8 @@
 	for(var/i in researched_nodes)
 		var/datum/techweb_node/N = SSresearch.techweb_node_by_id(i)
 		if(N.design_ids[D.id])
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/techweb/proc/isDesignResearched(datum/design/D)
 	return isDesignResearchedID(D.id)
@@ -332,7 +332,7 @@
 
 /datum/techweb/specialized/add_design(datum/design/D)
 	if(!(D.build_type & allowed_buildtypes))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/techweb/specialized/autounlocking

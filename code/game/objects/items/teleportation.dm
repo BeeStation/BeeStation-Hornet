@@ -139,15 +139,15 @@
 
 /obj/item/hand_tele/pre_attack(atom/target, mob/user, params)
 	if(try_dispel_portal(target, user))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /obj/item/hand_tele/proc/try_dispel_portal(atom/target, mob/user)
 	if(is_parent_of_portal(target))
 		qdel(target)
 		to_chat(user, "<span class='notice'>You dispel [target] with \the [src]!</span>")
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/item/hand_tele/afterattack(atom/target, mob/user)
 	try_dispel_portal(target, user)
@@ -213,13 +213,13 @@
 
 /obj/item/hand_tele/proc/is_parent_of_portal(obj/effect/portal/P)
 	if(!istype(P))
-		return FALSE
+		return EF_FALSE
 	if(active_portal_pairs[P])
 		return SOURCE_PORTAL
 	for(var/i in active_portal_pairs)
 		if(active_portal_pairs[i] == P)
 			return DESTINATION_PORTAL
-	return FALSE
+	return EF_FALSE
 
 /obj/item/hand_tele/suicide_act(mob/user)
 	if(iscarbon(user))

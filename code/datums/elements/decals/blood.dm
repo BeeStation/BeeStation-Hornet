@@ -20,12 +20,12 @@
 
 /datum/element/decal/blood/generate_appearance(_icon, _icon_state, _dir, _layer, _color, _alpha, source)
 	if(!_icon || !_icon_state)
-		return FALSE
+		return EF_FALSE
 	var/icon/blood_splatter_icon = icon(_icon, _icon_state, , 1)		//we only want to apply blood-splatters to the initial icon_state for each object
 	blood_splatter_icon.Blend("#fff", ICON_ADD) 			//fills the icon_state with white (except where it's transparent)
 	blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
 	pic = mutable_appearance(blood_splatter_icon)
-	return TRUE
+	return EF_TRUE
 
 /datum/element/decal/blood/proc/get_examine_name(datum/source, mob/user, list/override)
 	SIGNAL_HANDLER

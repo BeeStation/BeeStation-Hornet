@@ -52,12 +52,12 @@
 
 /obj/item/reagent_containers/syringe/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 	if(!syringediseases.len)
-		return FALSE
+		return EF_FALSE
 	if(scan)
 		E.scan(src, syringediseases, user)
 	else
 		E.extrapolate(src, syringediseases, user)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user , proximity)
 	. = ..()
@@ -209,11 +209,11 @@
 /obj/item/reagent_containers/syringe/proc/embed(mob/living/carbon/C, injectmult = 1)
 	C.apply_status_effect(STATUS_EFFECT_SYRINGE, src, injectmult)
 	forceMove(C)
-	
+
 /obj/item/reagent_containers/syringe/used
 	name = "used syringe"
 	desc = "A syringe that can hold up to 15 units. This one is old, and it's probably a bad idea to use it"
-	
+
 
 /obj/item/reagent_containers/syringe/used/Initialize()
 	. = ..()
@@ -240,7 +240,7 @@
 	name = "syringe (diphenhydramine)"
 	desc = "Contains diphenhydramine, an antihistamine agent."
 	list_reagents = list(/datum/reagent/medicine/diphenhydramine = 15)
-	
+
 /obj/item/reagent_containers/syringe/calomel
 	name = "syringe (calomel)"
 	desc = "Contains calomel."

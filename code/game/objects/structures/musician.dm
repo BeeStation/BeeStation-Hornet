@@ -86,10 +86,10 @@
 /datum/song/proc/shouldStopPlaying(mob/user)
 	if(instrumentObj)
 		if(!user.canUseTopic(instrumentObj, BE_CLOSE, FALSE, NO_TK))
-			return TRUE
+			return EF_TRUE
 		return !instrumentObj.anchored		// add special cases to stop in subclasses
 	else
-		return TRUE
+		return EF_TRUE
 
 /datum/song/proc/playsong(mob/user)
 	while(repeat >= 0)
@@ -319,7 +319,7 @@
 	if(instrumentObj)
 		return !isliving(instrumentObj.loc)
 	else
-		return TRUE
+		return EF_TRUE
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -383,4 +383,4 @@
 
 /obj/structure/piano/wrench_act(mob/living/user, obj/item/I)
 	default_unfasten_wrench(user, I, 40)
-	return TRUE
+	return EF_TRUE

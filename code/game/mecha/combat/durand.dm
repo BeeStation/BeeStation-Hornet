@@ -74,7 +74,7 @@
 Expects a turf. Returns true if the attack should be blocked, false if not.*/
 /obj/mecha/combat/durand/proc/defense_check(var/turf/aloc)
 	if (!defense_mode || !shield || shield.switching)
-		return FALSE
+		return EF_FALSE
 	. = FALSE
 	switch(dir)
 		if (1)

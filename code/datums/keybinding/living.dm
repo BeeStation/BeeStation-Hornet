@@ -13,4 +13,4 @@
 	if (!isliving(user.mob)) return
 	var/mob/living/L = user.mob
 	L.resist()
-	return TRUE
+	return EF_TRUE

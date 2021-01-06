@@ -79,8 +79,8 @@
 
 /atom/movable/screen/fullscreen/proc/should_show_to(mob/mymob)
 	if(!show_when_dead && mymob.stat == DEAD)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /atom/movable/screen/fullscreen/Destroy()
 	severity = 0

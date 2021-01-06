@@ -31,7 +31,7 @@
 /mob/living/simple_animal/hostile/macrophage/CanAttack(atom/the_target)
 	. = ..()
 	if(!.)
-		return FALSE
+		return EF_FALSE
 	var/alreadyinfected = FALSE
 	if(isliving(the_target))
 		var/mob/living/M = the_target
@@ -43,7 +43,7 @@
 				else
 					alreadyinfected = TRUE
 	if(alreadyinfected)
-		return FALSE
+		return EF_FALSE
 
 /mob/living/simple_animal/hostile/macrophage/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 	if(scan)
@@ -53,7 +53,7 @@
 			dust()
 			user.visible_message("<span class='danger'>[user] stabs [src] with [E], sucking it up!</span>", \
 	 				 "<span class='danger'>You stab [src] with [E]'s probe, destroying it!</span>")
-	return TRUE
+	return EF_TRUE
 
 /mob/living/simple_animal/hostile/macrophage/AttackingTarget()
 	. = ..()

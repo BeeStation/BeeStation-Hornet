@@ -127,7 +127,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 /proc/IsAdminAdvancedProcCall()
 #ifdef TESTING
-	return FALSE
+	return EF_FALSE
 #else
 	return usr && usr.client && GLOB.AdminProcCaller == usr.client.ckey
 #endif

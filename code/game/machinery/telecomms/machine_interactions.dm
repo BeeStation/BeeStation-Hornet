@@ -89,7 +89,7 @@
 	temp = ""
 	user << browse(dat, "window=tcommachine;size=520x500;can_resize=0")
 	onclose(user, "tcommachine")
-	return TRUE
+	return EF_TRUE
 
 // Returns a multitool from a user depending on their mobtype.
 
@@ -271,5 +271,5 @@
 
 /obj/machinery/telecomms/proc/canAccess(mob/user)
 	if(issilicon(user) || in_range(user, src))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE

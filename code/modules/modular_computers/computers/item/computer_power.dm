@@ -1,24 +1,24 @@
 // Tries to draw power from charger or, if no operational charger is present, from power cell.
 /obj/item/modular_computer/proc/use_power(amount = 0)
 	if(check_power_override())
-		return TRUE
+		return EF_TRUE
 
 	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGE]
 
 	if(recharger && recharger.check_functionality())
 		if(recharger.use_power(amount))
-			return TRUE
+			return EF_TRUE
 
 	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
 
 	if(battery_module && battery_module.battery && battery_module.battery.charge)
 		var/obj/item/stock_parts/cell/cell = battery_module.battery
 		if(cell.use(amount * GLOB.CELLRATE))
-			return TRUE
+			return EF_TRUE
 		else // Discharge the cell anyway.
 			cell.use(min(amount*GLOB.CELLRATE, cell.charge))
-			return FALSE
-	return FALSE
+			return EF_FALSE
+	return EF_FALSE
 
 /obj/item/modular_computer/proc/give_power(amount)
 	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
@@ -55,11 +55,11 @@
 
 	if(use_power(power_usage))
 		last_power_usage = power_usage
-		return TRUE
+		return EF_TRUE
 	else
 		power_failure()
-		return FALSE
+		return EF_FALSE
 
 // Used by child types if they have other power source than battery or recharger
 /obj/item/modular_computer/proc/check_power_override()
-	return FALSE
+	return EF_FALSE

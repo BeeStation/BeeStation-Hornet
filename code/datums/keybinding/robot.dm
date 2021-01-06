@@ -13,7 +13,7 @@
 	if(!iscyborg(user.mob)) return
 	var/mob/living/silicon/robot/M = user.mob
 	M.toggle_module(1)
-	return TRUE
+	return EF_TRUE
 
 /datum/keybinding/robot/toggle_module_2
 	key = "2"
@@ -25,7 +25,7 @@
 	if(!iscyborg(user.mob)) return
 	var/mob/living/silicon/robot/M = user.mob
 	M.toggle_module(2)
-	return TRUE
+	return EF_TRUE
 
 
 /datum/keybinding/robot/toggle_module_3
@@ -38,7 +38,7 @@
 	if(!iscyborg(user.mob)) return
 	var/mob/living/silicon/robot/M = user.mob
 	M.toggle_module(3)
-	return TRUE
+	return EF_TRUE
 
 /datum/keybinding/robot/change_intent_robot
 	key = "4"
@@ -50,7 +50,7 @@
 	if(!iscyborg(user.mob)) return
 	var/mob/living/silicon/robot/M = user.mob
 	M.a_intent_change(INTENT_HOTKEY_LEFT)
-	return TRUE
+	return EF_TRUE
 
 
 /datum/keybinding/robot/unequip_module
@@ -63,4 +63,4 @@
 	if(!iscyborg(user.mob)) return
 	var/mob/living/silicon/robot/M = user.mob
 	M.uneq_active()
-	return TRUE
+	return EF_TRUE

@@ -21,7 +21,7 @@
 		guardian.RemoveSpell(spell)
 
 /datum/guardian_ability/proc/CanBuy()
-	return TRUE
+	return EF_TRUE
 
 /datum/guardian_ability/proc/Stat()
 

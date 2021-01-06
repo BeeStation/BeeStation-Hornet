@@ -43,7 +43,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/AttackingTarget()
 	OpenFire()
-	return TRUE
+	return EF_TRUE
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/spawn_crusher_loot()
 	loot += crusher_loot //we don't butcher

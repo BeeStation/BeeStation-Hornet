@@ -91,10 +91,10 @@ All foods are distributed among various categories. Use common sense.
 	if(!reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
 		to_chat(user, "<span class='notice'>None of [src] left, oh no!</span>")
 		qdel(src)
-		return FALSE
+		return EF_FALSE
 	if(iscarbon(M))
 		if(!canconsume(M, user))
-			return FALSE
+			return EF_FALSE
 
 		var/fullness = M.nutrition + 10
 		for(var/datum/reagent/consumable/C in M.reagents.reagent_list) //we add the nutrition value of what we're currently digesting
@@ -103,7 +103,7 @@ All foods are distributed among various categories. Use common sense.
 		if(M == user)								//If you're eating it yourself.
 			if(junkiness && M.satiety < -150 && M.nutrition > NUTRITION_LEVEL_STARVING + 50 && !HAS_TRAIT(user, TRAIT_VORACIOUS))
 				to_chat(M, "<span class='notice'>You don't feel like eating any more junk food at the moment.</span>")
-				return FALSE
+				return EF_FALSE
 			else if(fullness <= 50)
 				user.visible_message("<span class='notice'>[user] hungrily [eatverb]s \the [src], gobbling it down!</span>", "<span class='notice'>You hungrily [eatverb] \the [src], gobbling it down!</span>")
 			else if(fullness > 50 && fullness < 150)
@@ -114,7 +114,7 @@ All foods are distributed among various categories. Use common sense.
 				user.visible_message("<span class='notice'>[user] unwillingly [eatverb]s a bit of \the [src].</span>", "<span class='notice'>You unwillingly [eatverb] a bit of \the [src].</span>")
 			else if(fullness > (600 * (1 + M.overeatduration / 2000)))	// The more you eat - the more you can eat
 				user.visible_message("<span class='warning'>[user] cannot force any more of \the [src] to go down [user.p_their()] throat!</span>", "<span class='warning'>You cannot force any more of \the [src] to go down your throat!</span>")
-				return FALSE
+				return EF_FALSE
 			if(HAS_TRAIT(M, TRAIT_VORACIOUS))
 				M.changeNext_move(CLICK_CD_MELEE * 0.5) //nom nom nom
 		else
@@ -125,7 +125,7 @@ All foods are distributed among various categories. Use common sense.
 				else
 					M.visible_message("<span class='warning'>[user] cannot force any more of [src] down [M]'s throat!</span>", \
 										"<span class='warning'>[user] cannot force any more of [src] down your throat!</span>")
-					return FALSE
+					return EF_FALSE
 
 				if(!do_mob(user, M))
 					return
@@ -149,7 +149,7 @@ All foods are distributed among various categories. Use common sense.
 				bitecount++
 				On_Consume(M)
 				checkLiked(fraction, M)
-				return TRUE
+				return EF_TRUE
 
 	return 0
 
@@ -216,7 +216,7 @@ All foods are distributed among various categories. Use common sense.
 
 /obj/item/reagent_containers/food/snacks/proc/slice(accuracy, obj/item/W, mob/user)
 	if((slices_num <= 0 || !slices_num) || !slice_path) //is the food sliceable?
-		return FALSE
+		return EF_FALSE
 
 	if ( \
 			!isturf(src.loc) || \
@@ -225,7 +225,7 @@ All foods are distributed among various categories. Use common sense.
 			!(locate(/obj/item/storage/bag/tray) in src.loc) \
 		)
 		to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray.</span>")
-		return FALSE
+		return EF_FALSE
 
 	var/slices_lost = 0
 	if (accuracy >= IS_SHARP_ACCURATE)
@@ -245,7 +245,7 @@ All foods are distributed among various categories. Use common sense.
 		var/obj/item/reagent_containers/food/snacks/slice = new slice_path (loc)
 		initialize_slice(slice, reagents_per_slice)
 	qdel(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/reagent_containers/food/snacks/proc/initialize_slice(obj/item/reagent_containers/food/snacks/slice, reagents_per_slice)
 	slice.create_reagents(slice.volume)

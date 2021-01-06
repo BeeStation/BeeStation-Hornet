@@ -43,13 +43,13 @@
 	if(istype(fruit))
 		if(!fruit.can_distill)
 			to_chat(user, "<span class='warning'>You can't distill this into anything...</span>")
-			return TRUE
+			return EF_TRUE
 		else if(!user.transferItemToLoc(I,src))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
-			return TRUE
+			return EF_TRUE
 		to_chat(user, "<span class='notice'>You place [I] into [src] to start the fermentation process.</span>")
 		addtimer(CALLBACK(src, .proc/makeWine, fruit), rand(80, 120) * speed_multiplier)
-		return TRUE
+		return EF_TRUE
 	else
 		return ..()
 

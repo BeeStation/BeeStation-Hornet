@@ -18,7 +18,7 @@
 
 /datum/action/blink/Trigger()
 	if(owner.stat != CONSCIOUS)
-		return FALSE
+		return EF_FALSE
 	owner.emote("blink")
 
 /datum/component/manual_blinking/Initialize()

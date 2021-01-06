@@ -103,7 +103,7 @@
 					locked = null
 					send_byjax(chassis.occupant,"exosuit.browser","[REF(src)]",src.get_equip_info())
 					log_game("[key_name(chassis.occupant)] used a Gravitational Catapult to throw [locked] (From [AREACOORD(orig)]) at [target] ([AREACOORD(targ)]).")
-					return TRUE
+					return EF_TRUE
 				else
 					locked = null
 					occupant_message("Lock on [locked] disengaged.")
@@ -128,7 +128,7 @@
 						sleep(2)
 			var/turf/T = get_turf(target)
 			log_game("[key_name(chassis.occupant)] used a Gravitational Catapult repulse wave on [AREACOORD(T)]")
-			return TRUE
+			return EF_TRUE
 
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/get_equip_info()
@@ -481,7 +481,7 @@
 	for(var/obj/item/I in M.equipment)
 		if(istype(I, src))
 			to_chat(user, "<span class='warning'>[M] already has this thruster package!</span>")
-			return FALSE
+			return EF_FALSE
 	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/thrusters/attach(obj/mecha/M)
@@ -528,9 +528,9 @@
 
 /obj/item/mecha_parts/mecha_equipment/thrusters/proc/thrust(var/movement_dir)
 	if(!chassis)
-		return FALSE
+		return EF_FALSE
 	generate_effect(movement_dir)
-	return TRUE //This parent should never exist in-game outside admeme use, so why not let it be a creative thruster?
+	return EF_TRUE //This parent should never exist in-game outside admeme use, so why not let it be a creative thruster?
 
 /obj/item/mecha_parts/mecha_equipment/thrusters/proc/generate_effect(var/movement_dir)
 	var/obj/effect/particle_effect/E = new effect_type(get_turf(chassis))
@@ -548,19 +548,19 @@
 /obj/item/mecha_parts/mecha_equipment/thrusters/gas/try_attach_part(mob/user, obj/mecha/M)
 	if(!M.internal_tank)
 		to_chat(user, "<span class='warning'>[M] does not have an internal tank and cannot support this upgrade!</span>")
-		return FALSE
+		return EF_FALSE
 	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/thrusters/gas/thrust(var/movement_dir)
 	if(!chassis || !chassis.internal_tank)
-		return FALSE
+		return EF_FALSE
 	var/moles = chassis.internal_tank.air_contents.total_moles()
 	if(moles < move_cost)
 		chassis.internal_tank.air_contents.remove(moles)
-		return FALSE
+		return EF_FALSE
 	chassis.internal_tank.air_contents.remove(move_cost)
 	generate_effect(movement_dir)
-	return TRUE
+	return EF_TRUE
 
 
 
@@ -573,8 +573,8 @@
 
 /obj/item/mecha_parts/mecha_equipment/thrusters/ion/thrust(var/movement_dir)
 	if(!chassis)
-		return FALSE
+		return EF_FALSE
 	if(chassis.use_power(chassis.step_energy_drain))
 		generate_effect(movement_dir)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE

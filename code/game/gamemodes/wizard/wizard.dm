@@ -29,10 +29,10 @@
 	log_game("[key_name(wizard)] has been selected as a Wizard") //TODO: Move these to base antag datum
 	if(GLOB.wizardstart.len == 0)
 		setup_error = "No wizard starting location found"
-		return FALSE
+		return EF_FALSE
 	for(var/datum/mind/wiz in wizards)
 		wiz.current.forceMove(pick(GLOB.wizardstart))
-	return TRUE
+	return EF_TRUE
 
 
 /datum/game_mode/wizard/post_setup()
@@ -48,17 +48,17 @@
 /datum/game_mode/wizard/are_special_antags_dead()
 	for(var/datum/mind/wizard in wizards)
 		if(isliving(wizard.current) && wizard.current.stat!=DEAD)
-			return FALSE
+			return EF_FALSE
 
 	for(var/obj/item/phylactery/P in GLOB.poi_list) //TODO : IsProperlyDead()
 		if(P.mind && P.mind.has_antag_datum(/datum/antagonist/wizard))
-			return FALSE
+			return EF_FALSE
 
 	if(SSevents.wizardmode) //If summon events was active, turn it off
 		SSevents.toggleWizardmode()
 		SSevents.resetFrequency()
 
-	return TRUE
+	return EF_TRUE
 
 /datum/game_mode/wizard/set_round_result()
 	..()

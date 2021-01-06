@@ -877,7 +877,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(!I)
 		if(id && (src in user.contents))
 			remove_id(user)
-			return TRUE
+			return EF_TRUE
 		else
 			var/obj/item/card/id/C = user.get_active_held_item()
 			if(istype(C))
@@ -885,7 +885,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 	if(I?.registered_name)
 		if(!user.transferItemToLoc(I, src))
-			return FALSE
+			return EF_FALSE
 		var/obj/old_id = id
 		id = I
 		if(ishuman(loc))
@@ -896,7 +896,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			user.put_in_hands(old_id)
 		update_icon()
 		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
-	return TRUE
+	return EF_TRUE
 
 // access to status display signals
 /obj/item/pda/attackby(obj/item/C, mob/user, params)

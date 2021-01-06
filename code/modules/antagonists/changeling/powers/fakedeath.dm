@@ -27,7 +27,7 @@
 		user.update_stat()
 		user.update_mobility()
 		addtimer(CALLBACK(src, .proc/ready_to_regenerate, user), LING_FAKEDEATH_TIME, TIMER_UNIQUE)
-	return TRUE
+	return EF_TRUE
 
 /datum/action/changeling/fakedeath/proc/revive(mob/living/user)
 	if(!user || !istype(user))

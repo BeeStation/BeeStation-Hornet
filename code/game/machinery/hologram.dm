@@ -455,12 +455,12 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		AI.current = src
 	SetLightsAndPower()
 	update_holoray(user, get_turf(loc))
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/holopad/proc/clear_holo(mob/living/user)
 	qdel(masters[user]) // Get rid of user's hologram
 	unset_holo(user)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/holopad/proc/unset_holo(mob/living/user)
 	var/mob/living/silicon/ai/AI = user
@@ -470,13 +470,13 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	qdel(holorays[user])
 	LAZYREMOVE(holorays, user)
 	SetLightsAndPower()
-	return TRUE
+	return EF_TRUE
 
 //Try to transfer hologram to another pad that can project on T
 /obj/machinery/holopad/proc/transfer_to_nearby_pad(turf/T,mob/holo_owner)
 	var/obj/effect/overlay/holo_pad_hologram/h = masters[holo_owner]
 	if(!h || h.HC) //Holocalls can't change source.
-		return FALSE
+		return EF_FALSE
 	for(var/pad in holopads)
 		var/obj/machinery/holopad/another = pad
 		if(another == src)
@@ -486,21 +486,21 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 			if(another.masters && another.masters[holo_owner])
 				another.clear_holo(holo_owner)
 			another.set_holo(holo_owner, h)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/holopad/proc/validate_user(mob/living/user)
 	if(QDELETED(user) || user.incapacitated() || !user.client)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 //Can we display holos there
 //Area check instead of line of sight check because this is a called a lot if AI wants to move around.
 /obj/machinery/holopad/proc/validate_location(turf/T,check_los = FALSE)
 	if(T.z == z && get_dist(T, src) <= holo_range && T.loc == get_area(src))
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /obj/machinery/holopad/proc/move_hologram(mob/living/user, turf/new_turf)
 	if(LAZYLEN(masters) && masters[user])
@@ -509,14 +509,14 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		if(!validate_location(new_turf))
 			if(!transfer_to_nearby_pad(new_turf,user))
 				clear_holo(user)
-				return FALSE
+				return EF_FALSE
 			else
 				transfered = TRUE
 		//All is good.
 		holo.forceMove(new_turf)
 		if(!transfered)
 			update_holoray(user,new_turf)
-	return TRUE
+	return EF_TRUE
 
 
 /obj/machinery/holopad/proc/update_holoray(mob/living/user, turf/new_turf)
@@ -677,7 +677,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	return ..()
 
 /obj/effect/overlay/holo_pad_hologram/Process_Spacemove(movement_dir = 0)
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/overlay/holo_pad_hologram/examine(mob/user)
 	if(Impersonation)

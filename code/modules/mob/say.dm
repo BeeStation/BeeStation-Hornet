@@ -83,7 +83,7 @@
 /mob/proc/check_emote(message, forced)
 	if(message[1] == "*")
 		emote(copytext(message, length(message[1]) + 1), intentional = !forced)
-		return TRUE
+		return EF_TRUE
 
 ///Check if the mob has a hivemind channel
 /mob/proc/hivecheck()

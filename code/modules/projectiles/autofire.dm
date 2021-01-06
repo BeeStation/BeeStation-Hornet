@@ -78,11 +78,11 @@ Everything else should be handled for you. Good luck soldier.
 	var/obj/item/gun/G = parent
 	if(!istype(G)) //This should never happen. But let's just be safe.
 		RemoveComponent()
-		return FALSE
+		return EF_FALSE
 	var/mob/living/L = G.loc
 	if(!istype(L))
 		unset_target() //If it was dropped while they still held down. This is an extreme edge case, but still POSSIBLE.
-		return FALSE
+		return EF_FALSE
 	autofire_target = target
 	START_PROCESSING(SSfastprocess, src) //Target acquired. Begin the spam. If we're already processing this is just ignored (see _DEFINES/MC.dm)
 
@@ -94,7 +94,7 @@ Everything else should be handled for you. Good luck soldier.
 	if(!autofire_target)
 		return PROCESS_KILL //They've stopped firing. Don't hog my resources, K?
 	if(world.time < next_process)
-		return FALSE //Cooldown. Prevents the infinite SLAP mechanic.
+		return EF_FALSE //Cooldown. Prevents the infinite SLAP mechanic.
 	//Preconditions: Parent has prototype "gun", the gun stand user is a living mob.
 	var/obj/item/gun/G = parent
 	if(!istype(G)) //This should never happen. But let's just be safe.

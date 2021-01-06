@@ -29,7 +29,7 @@
 	if(I.use_tool(src, user, 0, volume=40))
 		removeOverlays()
 		to_chat(user, "<span class='notice'>You slice off [src]'s uneven chunks of aluminium and scorch marks.</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/item/target/attack_hand(mob/user)
 	. = ..()

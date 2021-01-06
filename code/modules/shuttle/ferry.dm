@@ -12,7 +12,7 @@
 /obj/machinery/computer/shuttle/ferry/emag_act(mob/user)
 	if(!allow_emag)
 		to_chat(user, "<span class='warning'>[src]'s security firewall is far too powerful for you to bypass.</span>")
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /obj/machinery/computer/shuttle/ferry/attack_ai()

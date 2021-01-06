@@ -19,11 +19,11 @@
 	. = ..()
 	if (.)
 		if (!spell)
-			return FALSE
+			return EF_FALSE
 		if (autorobeless && spell.clothes_req)
 			spell.clothes_req = FALSE
 		target.AddSpell(spell)
-		return TRUE
+		return EF_TRUE
 
 /obj/item/implant/spell/removed(mob/target, silent = FALSE, special = 0)
 	. = ..()

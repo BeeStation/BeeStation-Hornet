@@ -63,12 +63,12 @@
 		if(message_cooldown < world.time)
 			to_chat(user, "<span class='warning'>[src] has no key inserted!</span>")
 			message_cooldown = world.time + 5 SECONDS
-		return FALSE
+		return EF_FALSE
 	if(legs_required)
 		var/how_many_legs = user.get_num_legs()
 		if(how_many_legs < legs_required)
 			to_chat(user, "<span class='warning'>You can't seem to manage that with[how_many_legs ? " your leg[how_many_legs > 1 ? "s" : null]" : "out legs"]...</span>")
-			return FALSE
+			return EF_FALSE
 	if(arms_required)
 		var/how_many_arms = user.get_num_arms()
 		if(how_many_arms < arms_required)
@@ -79,20 +79,20 @@
 				if(isliving(user))
 					var/mob/living/L = user
 					L.Stun(30)
-				return FALSE
+				return EF_FALSE
 
 			to_chat(user, "<span class='warning'>You can't seem to manage that with[how_many_arms ? " your arm[how_many_arms > 1 ? "s" : null]" : "out arms"]...</span>")
-			return FALSE
+			return EF_FALSE
 	var/datum/component/riding/R = GetComponent(/datum/component/riding)
 	R.handle_ride(user, direction)
 	return ..()
 
 /obj/vehicle/ridden/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
 	if(!in_range(user, src) || !in_range(M, src))
-		return FALSE
+		return EF_FALSE
 	. = ..(M, user, FALSE)
 
 /obj/vehicle/ridden/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!force && occupant_amount() >= max_occupants)
-		return FALSE
+		return EF_FALSE
 	return ..()

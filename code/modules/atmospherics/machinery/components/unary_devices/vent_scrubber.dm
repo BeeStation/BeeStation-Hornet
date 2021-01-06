@@ -52,7 +52,7 @@
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/auto_use_power()
 	if(!on || welded || !is_operational() || !powered(power_channel))
-		return FALSE
+		return EF_FALSE
 
 	var/amount = idle_power_usage
 
@@ -64,7 +64,7 @@
 	if(widenet)
 		amount += amount * (adjacent_turfs.len * (adjacent_turfs.len / 2))
 	use_power(amount, power_channel)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/update_icon_nopipes()
 	cut_overlays()
@@ -95,7 +95,7 @@
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/proc/broadcast_status()
 	if(!radio_connection)
-		return FALSE
+		return EF_FALSE
 
 	var/list/f_types = list()
 	for(var/path in GLOB.meta_gas_info)
@@ -122,7 +122,7 @@
 	A.air_scrub_info[id_tag] = signal.data
 	radio_connection.post_signal(src, signal, radio_filter_out)
 
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/atmosinit()
 	radio_filter_in = frequency==initial(frequency)?(RADIO_FROM_AIRALARM):null
@@ -136,24 +136,24 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/process_atmos()
 	..()
 	if(welded || !is_operational())
-		return FALSE
+		return EF_FALSE
 	if(!nodes[1] || !on)
 		on = FALSE
-		return FALSE
+		return EF_FALSE
 	scrub(loc)
 	if(widenet)
 		for(var/turf/tile in adjacent_turfs)
 			scrub(tile)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/proc/scrub(var/turf/tile)
 	if(!istype(tile))
-		return FALSE
+		return EF_FALSE
 	var/datum/gas_mixture/environment = tile.return_air()
 	var/datum/gas_mixture/air_contents = airs[1]
 
 	if(air_contents.return_pressure() >= 50*ONE_ATMOSPHERE)
-		return FALSE
+		return EF_FALSE
 
 	if(scrubbing & SCRUBBING)
 		var/transfer_moles = min(1, volume_rate/environment.return_volume())*environment.total_moles()
@@ -163,7 +163,7 @@
 
 		//Nothing left to remove from the tile
 		if(isnull(removed))
-			return FALSE
+			return EF_FALSE
 
 		removed.scrub_into(air_contents, filter_types)
 
@@ -182,7 +182,7 @@
 
 	update_parents()
 
-	return TRUE
+	return EF_TRUE
 
 //There is no easy way for an object to be notified of changes to atmos can pass flags
 //	So we check every machinery process (2 seconds)
@@ -249,7 +249,7 @@
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/welder_act(mob/living/user, obj/item/I)
 	if(!I.tool_start_check(user, amount=0))
-		return TRUE
+		return EF_TRUE
 	to_chat(user, "<span class='notice'>Now welding the scrubber.</span>")
 	if(I.use_tool(src, user, 20, volume=50))
 		if(!welded)
@@ -261,13 +261,13 @@
 		update_icon()
 		pipe_vision_img = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
 		pipe_vision_img.plane = ABOVE_HUD_PLANE
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/can_unwrench(mob/user)
 	. = ..()
 	if(. && on && is_operational())
 		to_chat(user, "<span class='warning'>You cannot unwrench [src], turn it off first!</span>")
-		return FALSE
+		return EF_FALSE
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/examine(mob/user)
 	. = ..()

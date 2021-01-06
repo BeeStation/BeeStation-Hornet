@@ -193,7 +193,7 @@
 
 /datum/bounty/item/assistant/bonfire/applies_to(obj/O)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	var/obj/structure/bonfire/B = O
 	return !!B.burning
 

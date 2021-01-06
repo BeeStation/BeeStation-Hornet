@@ -18,20 +18,20 @@
 	. = ..()
 	var/mob/living/carbon/M = A
 	if(!istype(M))
-		return FALSE
+		return EF_FALSE
 	if(is_servant_of_ratvar(M))
-		return FALSE
+		return EF_FALSE
 	if(M.handcuffed)
 		to_chat(invoker, "<span class='brass'>[M] is already restrained!</span>")
-		return FALSE
+		return EF_FALSE
 	playsound(src, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 	M.visible_message("<span class='danger'>[invoker] forms a well of energy around [M], brass appearing at their wrists!</span>",\
 						"<span class='userdanger'>[invoker] is trying to restrain you!</span>")
 	if(do_after(invoker, 50, target=M))
 		if(M.handcuffed)
-			return FALSE
+			return EF_FALSE
 		//Todo, update with custom cuffs
 		M.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(M)
 		M.update_handcuffed()
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE

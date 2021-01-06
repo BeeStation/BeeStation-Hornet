@@ -203,18 +203,18 @@
 
 /obj/machinery/abductor/console/proc/AddGizmo(obj/item/abductor/gizmo/G)
 	if(G == gizmo && G.console == src)
-		return FALSE
+		return EF_FALSE
 
 	if(G.console)
 		G.console.gizmo = null
 
 	gizmo = G
 	G.console = src
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/abductor/console/proc/AddVest(obj/item/clothing/suit/armor/abductor/vest/V)
 	if(vest == V)
-		return FALSE
+		return EF_FALSE
 
 	for(var/obj/machinery/abductor/console/C in GLOB.machines)
 		if(C.vest == V)
@@ -222,7 +222,7 @@
 			break
 
 	vest = V
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/abductor/console/attackby(obj/O, mob/user, params)
 	if(istype(O, /obj/item/abductor/gizmo) && AddGizmo(O))

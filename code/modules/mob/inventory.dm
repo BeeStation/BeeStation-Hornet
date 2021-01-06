@@ -28,7 +28,7 @@
 /mob/proc/get_item_for_held_index(i)
 	if(i > 0 && i <= held_items.len)
 		return held_items[i]
-	return FALSE
+	return EF_FALSE
 
 
 //Odd = left. Even = right
@@ -40,7 +40,7 @@
 
 //Check we have an organ for this hand slot (Dismemberment), Only relevant for humans
 /mob/proc/has_hand_for_held_index(i)
-	return TRUE
+	return EF_TRUE
 
 
 //Check we have an organ for our active hand slot (Dismemberment),Only relevant for humans
@@ -60,7 +60,7 @@
 	else if(rights[side])
 		start = 2
 	if(!start)
-		return FALSE
+		return EF_FALSE
 	var/list/empty_indexes
 	for(var/i in start to held_items.len step 2)
 		if(!held_items[i])
@@ -82,7 +82,7 @@
 	else if(rights[side])
 		start = 2
 	if(!start)
-		return FALSE
+		return EF_FALSE
 	var/list/holding_items
 	for(var/i in start to held_items.len step 2)
 		var/obj/item/I = held_items[i]
@@ -119,7 +119,7 @@
 	for(var/obj/item/I in held_items)
 		if(istype(I, typepath))
 			return I
-	return FALSE
+	return EF_FALSE
 
 //Checks if we're holding a tool that has given quality
 //Returns the tool that has the best version of this quality
@@ -159,15 +159,15 @@
 //Returns if a certain item can be equipped to a certain slot.
 // Currently invalid for two-handed items - call obj/item/mob_can_equip() instead.
 /mob/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
-	return FALSE
+	return EF_FALSE
 
 /mob/proc/can_put_in_hand(I, hand_index)
 	if(hand_index > held_items.len)
-		return FALSE
+		return EF_FALSE
 	if(!put_in_hand_check(I))
-		return FALSE
+		return EF_FALSE
 	if(!has_hand_for_held_index(hand_index))
-		return FALSE
+		return EF_FALSE
 	return !held_items[hand_index]
 
 /mob/proc/put_in_hand(obj/item/I, hand_index, forced = FALSE, ignore_anim = TRUE)
@@ -175,7 +175,7 @@
 		if(isturf(I.loc) && !ignore_anim)
 			I.do_pickup_animation(src)
 		if(hand_index == null)
-			return FALSE
+			return EF_FALSE
 		if(get_item_for_held_index(hand_index) != null)
 			dropItemToGround(get_item_for_held_index(hand_index), force = TRUE)
 		I.forceMove(src)
@@ -189,7 +189,7 @@
 		I.pixel_x = initial(I.pixel_x)
 		I.pixel_y = initial(I.pixel_y)
 		return hand_index || TRUE
-	return FALSE
+	return EF_FALSE
 
 //Puts the item into the first available left hand if possible and calls all necessary triggers/updates. returns 1 on success.
 /mob/proc/put_in_l_hand(obj/item/I)
@@ -200,12 +200,12 @@
 	return put_in_hand(I, get_empty_held_index_for_side("r"))
 
 /mob/proc/put_in_hand_check(obj/item/I)
-	return FALSE					//nonliving mobs don't have hands
+	return EF_FALSE					//nonliving mobs don't have hands
 
 /mob/living/put_in_hand_check(obj/item/I)
 	if(istype(I) && ((mobility_flags & MOBILITY_PICKUP) || (I.item_flags & ABSTRACT)))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 //Puts the item into our active hand if possible. returns TRUE on success.
 /mob/proc/put_in_active_hand(obj/item/I, forced = FALSE, ignore_animation = TRUE)
@@ -222,7 +222,7 @@
 //This is probably the main one you need to know :)
 /mob/proc/put_in_hands(obj/item/I, del_on_fail = FALSE, merge_stacks = TRUE, forced = FALSE)
 	if(!I)
-		return FALSE
+		return EF_FALSE
 
 	// If the item is a stack and we're already holding a stack then merge
 	if (istype(I, /obj/item/stack))
@@ -230,37 +230,37 @@
 		var/obj/item/stack/active_stack = get_active_held_item()
 
 		if (I_stack.zero_amount())
-			return FALSE
+			return EF_FALSE
 
 		if (merge_stacks)
 			if (istype(active_stack) && istype(I_stack, active_stack.merge_type))
 				if (I_stack.merge(active_stack))
 					to_chat(usr, "<span class='notice'>Your [active_stack.name] stack now contains [active_stack.get_amount()] [active_stack.singular_name]\s.</span>")
-					return TRUE
+					return EF_TRUE
 			else
 				var/obj/item/stack/inactive_stack = get_inactive_held_item()
 				if (istype(inactive_stack) && istype(I_stack, inactive_stack.merge_type))
 					if (I_stack.merge(inactive_stack))
 						to_chat(usr, "<span class='notice'>Your [inactive_stack.name] stack now contains [inactive_stack.get_amount()] [inactive_stack.singular_name]\s.</span>")
-						return TRUE
+						return EF_TRUE
 
 	if(put_in_active_hand(I, forced))
-		return TRUE
+		return EF_TRUE
 
 	var/hand = get_empty_held_index_for_side("l")
 	if(!hand)
 		hand =  get_empty_held_index_for_side("r")
 	if(hand)
 		if(put_in_hand(I, hand, forced))
-			return TRUE
+			return EF_TRUE
 	if(del_on_fail)
 		qdel(I)
-		return FALSE
+		return EF_FALSE
 	I.forceMove(drop_location())
 	I.layer = initial(I.layer)
 	I.plane = initial(I.plane)
 	I.dropped(src)
-	return FALSE
+	return EF_FALSE
 
 /mob/proc/drop_all_held_items()
 	. = FALSE
@@ -271,21 +271,21 @@
 
 /mob/proc/canUnEquip(obj/item/I, force)
 	if(!I)
-		return TRUE
+		return EF_TRUE
 	if(HAS_TRAIT(I, TRAIT_NODROP) && !force)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /mob/proc/putItemFromInventoryInHandIfPossible(obj/item/I, hand_index, force_removal = FALSE)
 	if(!can_put_in_hand(I, hand_index))
-		return FALSE
+		return EF_FALSE
 	if(!temporarilyRemoveItemFromInventory(I, force_removal))
-		return FALSE
+		return EF_FALSE
 	I.remove_item_from_storage(src)
 	if(!put_in_hand(I, hand_index))
 		qdel(I)
 		CRASH("Assertion failure: putItemFromInventoryInHandIfPossible") //should never be possible
-	return TRUE
+	return EF_TRUE
 
 //The following functions are the same save for one small difference
 
@@ -310,10 +310,10 @@
 													//Use no_move if the item is just gonna be immediately moved afterward
 													//Invdrop is used to prevent stuff in pockets dropping. only set to false if it's going to immediately be replaced
 	if(!I) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for TRAIT_NODROP.
-		return TRUE
+		return EF_TRUE
 
 	if(HAS_TRAIT(I, TRAIT_NODROP) && !force)
-		return FALSE
+		return EF_FALSE
 
 	var/hand_index = get_held_index_of_item(I)
 	if(hand_index)
@@ -331,7 +331,7 @@
 			else
 				I.forceMove(newloc)
 		I.dropped(src)
-	return TRUE
+	return EF_TRUE
 
 //Outdated but still in use apparently. This should at least be a human proc.
 //Daily reminder to murder this - Remie.
@@ -417,17 +417,17 @@
 /obj/item/proc/equip_to_best_slot(mob/M)
 	if(src != M.get_active_held_item())
 		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
-		return FALSE
+		return EF_FALSE
 
 	if(M.equip_to_appropriate_slot(src))
 		M.update_inv_hands()
-		return TRUE
+		return EF_TRUE
 	else
 		if(equip_delay_self)
 			return
 
 	if(M.active_storage && M.active_storage.parent && SEND_SIGNAL(M.active_storage.parent, COMSIG_TRY_STORAGE_INSERT, src,M))
-		return TRUE
+		return EF_TRUE
 
 	var/list/obj/item/possible = list(M.get_inactive_held_item(), M.get_item_by_slot(SLOT_BELT), M.get_item_by_slot(SLOT_GENERC_DEXTROUS_STORAGE), M.get_item_by_slot(SLOT_BACK))
 	for(var/i in possible)
@@ -435,10 +435,10 @@
 			continue
 		var/obj/item/I = i
 		if(SEND_SIGNAL(I, COMSIG_TRY_STORAGE_INSERT, src, M))
-			return TRUE
+			return EF_TRUE
 
 	to_chat(M, "<span class='warning'>You are unable to equip that!</span>")
-	return FALSE
+	return EF_FALSE
 
 
 /mob/verb/quick_equip()

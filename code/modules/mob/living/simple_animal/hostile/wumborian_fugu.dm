@@ -52,7 +52,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/fugu/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && wumbo)
-		return FALSE
+		return EF_FALSE
 	. = ..()
 
 /mob/living/simple_animal/hostile/asteroid/fugu/Aggro()
@@ -146,4 +146,4 @@
 		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 6), 4+(rand(1, 5)), /datum/symptom/growth)
 		if(E.create_culture(R, user))
 			qdel(src)
-	return TRUE
+	return EF_TRUE

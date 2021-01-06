@@ -69,20 +69,20 @@
 
 /mob/living/simple_animal/hostile/eldritch/raw_prophet/proc/link_mob(mob/living/mob_linked)
 	if(QDELETED(mob_linked) || mob_linked.stat == DEAD)
-		return FALSE
+		return EF_FALSE
 	if(HAS_TRAIT(mob_linked, TRAIT_MINDSHIELD)) //mindshield implant, no dice
-		return FALSE
+		return EF_FALSE
 	if(mob_linked.anti_magic_check(FALSE, FALSE, TRUE, 0))
-		return FALSE
+		return EF_FALSE
 	if(linked_mobs[mob_linked])
-		return FALSE
+		return EF_FALSE
 
 	to_chat(mob_linked, "<span class='notice'>You feel something new enter your sphere of mind, you hear whispers of people far away, screeches of horror and a huming of welcome to [src]'s Mansus Link.</span>")
 	var/datum/action/innate/mansus_speech/action = new(src)
 	linked_mobs[mob_linked] = action
 	action.Grant(mob_linked)
 	RegisterSignal(mob_linked, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), .proc/unlink_mob)
-	return TRUE
+	return EF_TRUE
 
 /mob/living/simple_animal/hostile/eldritch/raw_prophet/proc/unlink_mob(mob/living/mob_linked)
 
@@ -175,11 +175,11 @@
 
 //we are literally a vessel of otherworldly destruction, we bring our own gravity unto this plane
 /mob/living/simple_animal/hostile/eldritch/armsy/has_gravity(turf/T)
-	return TRUE
+	return EF_TRUE
 
 
 /mob/living/simple_animal/hostile/eldritch/armsy/can_be_pulled()
-	return FALSE
+	return EF_FALSE
 
 ///Updates chain links to force move onto a single tile
 /mob/living/simple_animal/hostile/eldritch/armsy/proc/contract_next_chain_into_single_tile()

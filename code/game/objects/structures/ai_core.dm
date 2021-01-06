@@ -55,22 +55,22 @@
 
 /obj/structure/AIcore/latejoin_inactive/proc/is_available()			//If people still manage to use this feature to spawn-kill AI latejoins ahelp them.
 	if(!available)
-		return FALSE
+		return EF_FALSE
 	if(!safety_checks)
-		return TRUE
+		return EF_TRUE
 	if(!active)
-		return FALSE
+		return EF_FALSE
 	var/turf/T = get_turf(src)
 	var/area/A = get_area(src)
 	if(!A.blob_allowed)
-		return FALSE
+		return EF_FALSE
 	if(!A.power_equip)
-		return FALSE
+		return EF_FALSE
 	if(!SSmapping.level_trait(T.z,ZTRAIT_STATION))
-		return FALSE
+		return EF_FALSE
 	if(!istype(T, /turf/open/floor))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/structure/AIcore/latejoin_inactive/attackby(obj/item/P, mob/user, params)
 	if(P.tool_behaviour == TOOL_MULTITOOL)
@@ -318,8 +318,8 @@ That prevents a few funky behaviors.
 	if(istype(card))
 		if(card.flush)
 			to_chat(user, "<span class='boldannounce'>ERROR</span>: AI flush is in progress, cannot execute transfer protocol.")
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /obj/structure/AIcore/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(state != AI_READY_CORE || !..())

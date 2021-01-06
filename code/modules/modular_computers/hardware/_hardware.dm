@@ -44,7 +44,7 @@
 		return 1
 
 	if(try_insert(I, user))
-		return TRUE
+		return EF_TRUE
 
 	return ..()
 
@@ -52,7 +52,7 @@
 	to_chat(user, "***** DIAGNOSTICS REPORT *****")
 	diagnostics(user)
 	to_chat(user, "******************************")
-	return TRUE
+	return EF_TRUE
 
 // Called on multitool click, prints diagnostic information to the user.
 /obj/item/computer_hardware/proc/diagnostics(var/mob/user)
@@ -61,16 +61,16 @@
 // Handles damage checks
 /obj/item/computer_hardware/proc/check_functionality()
 	if(!enabled) // Disabled.
-		return FALSE
+		return EF_FALSE
 
 	if(damage > damage_failure) // Too damaged to work at all.
-		return FALSE
+		return EF_FALSE
 
 	if(damage > damage_malfunction) // Still working. Well, sometimes...
 		if(prob(malfunction_probability))
-			return FALSE
+			return EF_FALSE
 
-	return TRUE // Good to go.
+	return EF_TRUE // Good to go.
 
 /obj/item/computer_hardware/examine(var/mob/user)
 	. = ..()
@@ -95,8 +95,8 @@
 
 // Called when someone tries to insert something in it - paper in printer, card in card reader, etc.
 /obj/item/computer_hardware/proc/try_insert(obj/item/I, mob/living/user = null)
-	return FALSE
+	return EF_FALSE
 
 // Called when someone tries to eject something from it - card from card reader, etc.
 /obj/item/computer_hardware/proc/try_eject(slot=0, mob/living/user = null, forced = 0)
-	return FALSE
+	return EF_FALSE

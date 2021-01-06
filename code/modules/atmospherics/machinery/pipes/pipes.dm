@@ -119,4 +119,4 @@
 	add_atom_colour(paint_color, FIXED_COLOUR_PRIORITY)
 	pipe_color = paint_color
 	update_node_icon()
-	return TRUE
+	return EF_TRUE

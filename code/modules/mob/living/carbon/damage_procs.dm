@@ -42,7 +42,7 @@
 					update_damage_overlays()
 			else
 				adjustStaminaLoss(damage_amount, forced = forced)
-	return TRUE
+	return EF_TRUE
 
 
 //These procs fetch a cumulative total damage from all bodyparts
@@ -63,7 +63,7 @@
 
 /mob/living/carbon/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, required_status)
 	if(!forced && (status_flags & GODMODE))
-		return FALSE
+		return EF_FALSE
 	if(amount > 0)
 		take_overall_damage(amount, 0, 0, updating_health, required_status)
 	else
@@ -72,7 +72,7 @@
 
 /mob/living/carbon/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE, required_status)
 	if(!forced && (status_flags & GODMODE))
-		return FALSE
+		return EF_FALSE
 	if(amount > 0)
 		take_overall_damage(0, amount, 0, updating_health, required_status)
 	else
@@ -98,7 +98,7 @@
 
 /mob/living/carbon/adjustStaminaLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && (status_flags & GODMODE))
-		return FALSE
+		return EF_FALSE
 	if(amount > 0)
 		take_overall_damage(0, 0, amount, updating_health)
 	else

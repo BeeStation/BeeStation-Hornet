@@ -303,8 +303,8 @@
 	var/turf/T_bug = get_turf(loc)
 	if(!T_bug || T_cam.z != T_bug.z)
 		to_chat(usr, "<span class='warning'>You can't get a signal!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 #undef BUGMODE_LIST
 #undef BUGMODE_MONITOR

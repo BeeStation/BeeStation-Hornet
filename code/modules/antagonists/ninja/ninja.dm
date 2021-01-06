@@ -108,10 +108,10 @@
 
 /proc/remove_ninja(mob/living/L)
 	if(!L || !L.mind)
-		return FALSE
+		return EF_FALSE
 	var/datum/antagonist/datum = L.mind.has_antag_datum(/datum/antagonist/ninja)
 	datum.on_removal()
-	return TRUE
+	return EF_TRUE
 
 /proc/is_ninja(mob/living/M)
 	return M?.mind?.has_antag_datum(/datum/antagonist/ninja)

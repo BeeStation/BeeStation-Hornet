@@ -44,7 +44,7 @@
 			hal_target.playsound_local(A, hal_hitsound, 100, 1)
 		target_on_hit(A)
 	qdel(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/projectile/hallucination/proc/target_on_hit(mob/M)
 	if(M == hal_target)

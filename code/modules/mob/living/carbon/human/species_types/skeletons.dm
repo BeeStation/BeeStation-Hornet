@@ -19,7 +19,7 @@
 
 /datum/species/skeleton/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 //Can still metabolize milk through meme magic
@@ -31,7 +31,7 @@
 			to_chat(H, "<span class='warning'>The excess milk is dripping off your bones!</span>")
 		H.heal_bodypart_damage(1,1, 0)
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
+		return EF_TRUE
 	if(chem.type == /datum/reagent/toxin/bonehurtingjuice)
 		H.adjustStaminaLoss(7.5, 0)
 		H.adjustBruteLoss(0.5, 0)
@@ -56,4 +56,4 @@
 					to_chat(H, "<span class='warning'>Your missing arm aches from wherever you left it.</span>")
 					H.emote("sigh")
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
+		return EF_TRUE

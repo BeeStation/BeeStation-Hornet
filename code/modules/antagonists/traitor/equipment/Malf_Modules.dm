@@ -88,7 +88,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 
 /datum/action/innate/ai/ranged/Activate()
 	linked_ability.toggle(owner)
-	return TRUE
+	return EF_TRUE
 
 //The actual ranged proc holder.
 /obj/effect/proc_holder/ranged_ai
@@ -587,7 +587,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	target.audible_message("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [target]!</span>")
 	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/overload_machine.proc/detonate_machine, target), 50) //kaboom!
 	remove_ranged_ability("<span class='danger'>Overcharging machine...</span>")
-	return TRUE
+	return EF_TRUE
 
 
 //Override Machine: Allows the AI to override a machine, animating it into an angry, living version of itself.
@@ -634,7 +634,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	target.audible_message("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [target]!</span>")
 	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/override_machine.proc/animate_machine, target), 50) //kabeep!
 	remove_ranged_ability("<span class='danger'>Sending override signal...</span>")
-	return TRUE
+	return EF_TRUE
 
 
 //Robotic Factory: Places a large machine that converts humans that go through it into cyborgs. Unlocking this ability removes shunting.

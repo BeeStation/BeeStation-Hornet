@@ -132,7 +132,7 @@
 		sleep(5)
 		open = TRUE
 	changing_openness = FALSE
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/necropolis_gate/locked
 	locked = TRUE

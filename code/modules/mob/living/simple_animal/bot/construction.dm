@@ -27,10 +27,10 @@
 /obj/item/bot_assembly/proc/can_finish_build(obj/item/I, mob/user)
 	if(istype(loc, /obj/item/storage/backpack))
 		to_chat(user, "<span class='warning'>You must take [src] out of [loc] first!</span>")
-		return FALSE
+		return EF_FALSE
 	if(!I || !user || !user.temporarilyRemoveItemFromInventory(I))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 //Cleanbot assembly
 /obj/item/bot_assembly/cleanbot

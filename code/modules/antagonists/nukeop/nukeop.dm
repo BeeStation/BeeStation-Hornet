@@ -40,7 +40,7 @@
 	H.set_species(/datum/species/human) //Plasamen burn up otherwise, and lizards are vulnerable to asimov AIs
 
 	H.equipOutfit(nukeop_outfit)
-	return TRUE
+	return EF_TRUE
 
 /datum/antagonist/nukeop/greet()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ops.ogg',100,0)
@@ -272,23 +272,23 @@
 		//If emergency shuttle is in transit disk is only safe on it
 		if(SSshuttle.emergency.mode == SHUTTLE_ESCAPE)
 			if(!SSshuttle.emergency.is_in_shuttle_bounds(D))
-				return FALSE
+				return EF_FALSE
 		//If shuttle escaped check if it's on centcom side
 		else if(SSshuttle.emergency.mode == SHUTTLE_ENDGAME)
 			if(!D.onCentCom())
-				return FALSE
+				return EF_FALSE
 		else //Otherwise disk is safe when on station
 			var/turf/T = get_turf(D)
 			if(!T || !is_station_level(T.z))
-				return FALSE
-	return TRUE
+				return EF_FALSE
+	return EF_TRUE
 
 /datum/team/nuclear/proc/operatives_dead()
 	for(var/I in members)
 		var/datum/mind/operative_mind = I
 		if(ishuman(operative_mind.current) && (operative_mind.current.stat != DEAD))
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/team/nuclear/proc/syndies_escaped()
 	var/obj/docking_port/mobile/S = SSshuttle.getShuttle("syndicate")

@@ -173,7 +173,7 @@
 	var/datum/antagonist/A = has_antag_datum(datum_type)
 	if(A)
 		A.on_removal()
-		return TRUE
+		return EF_TRUE
 
 
 /datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
@@ -688,7 +688,7 @@
 	for(var/datum/antagonist/A in antag_datums)
 		for(var/O in A.objectives)
 			if(istype(O,objective_type))
-				return TRUE
+				return EF_TRUE
 
 /mob/proc/sync_mind()
 	mind_initialize()	//updates the mind (or creates and initializes one if one doesn't exist)
@@ -697,7 +697,7 @@
 /datum/mind/proc/has_martialart(var/string)
 	if(martial_art && martial_art.id == string)
 		return martial_art
-	return FALSE
+	return EF_FALSE
 
 /mob/dead/new_player/sync_mind()
 	return

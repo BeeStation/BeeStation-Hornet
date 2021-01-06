@@ -117,7 +117,7 @@
 		if("load_program")
 			var/program_to_load = text2path(params["type"])
 			if(!ispath(program_to_load))
-				return FALSE
+				return EF_FALSE
 			var/valid = FALSE
 			var/list/checked = program_cache.Copy()
 			if(obj_flags & EMAGGED)
@@ -128,7 +128,7 @@
 					valid = TRUE
 					break
 			if(!valid)
-				return FALSE
+				return EF_FALSE
 
 			var/area/A = locate(program_to_load) in GLOB.sortedAreas
 			if(A)
@@ -238,8 +238,8 @@
 /obj/machinery/computer/holodeck/proc/floorcheck()
 	for(var/turf/T in linked)
 		if(!T.intact || isspaceturf(T))
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/computer/holodeck/proc/nerf(active)
 	for(var/obj/item/I in spawned)

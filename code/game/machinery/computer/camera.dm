@@ -124,7 +124,7 @@
 		// Show static if can't use the camera
 		if(!active_camera?.can_use())
 			show_camera_static()
-			return TRUE
+			return EF_TRUE
 
 		var/list/visible_turfs = list()
 		for(var/turf/T in (C.isXRay() \
@@ -140,7 +140,7 @@
 		cam_background.icon_state = "clear"
 		cam_background.fill_rect(1, 1, size_x, size_y)
 
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/computer/security/ui_close(mob/user)
 	var/user_ref = REF(user)

@@ -43,10 +43,10 @@ GLOBAL_PROTECT(exp_to_update)
 
 /proc/job_is_xp_locked(jobtitle)
 	if(!CONFIG_GET(flag/use_exp_restrictions_heads) && (jobtitle in (GLOB.command_positions | list("AI"))))
-		return FALSE
+		return EF_FALSE
 	if(!CONFIG_GET(flag/use_exp_restrictions_other) && !(jobtitle in (GLOB.command_positions | list("AI"))))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /client/proc/calc_exp_type(exptype)
 	var/list/explist = prefs.exp.Copy()
@@ -280,7 +280,7 @@ GLOBAL_PROTECT(exp_to_update)
 //ALWAYS call this at beginning to any proc touching player flags, or your database admin will probably be mad
 /client/proc/set_db_player_flags()
 	if(!SSdbcore.Connect())
-		return FALSE
+		return EF_FALSE
 
 	var/datum/DBQuery/flags_read = SSdbcore.NewQuery(
 		"SELECT flags FROM [format_table_name("player")] WHERE ckey=:ckey",
@@ -289,11 +289,11 @@ GLOBAL_PROTECT(exp_to_update)
 
 	if(!flags_read.Execute(async = TRUE))
 		qdel(flags_read)
-		return FALSE
+		return EF_FALSE
 
 	if(flags_read.NextRow())
 		prefs.db_flags = text2num(flags_read.item[1])
 	else if(isnull(prefs.db_flags))
 		prefs.db_flags = 0	//This PROBABLY won't happen, but better safe than sorry.
 	qdel(flags_read)
-	return TRUE
+	return EF_TRUE

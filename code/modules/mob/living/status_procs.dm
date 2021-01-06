@@ -357,7 +357,7 @@
 
 /mob/living/proc/absorb_stun(amount, ignoring_flag_presence)
 	if(amount < 0 || stat || ignoring_flag_presence || !islist(stun_absorption))
-		return FALSE
+		return EF_FALSE
 	if(!amount)
 		amount = 0
 	var/priority_absorb_key
@@ -376,7 +376,7 @@
 				else if(priority_absorb_key["self_message"])
 					to_chat(src, "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
 			priority_absorb_key["stuns_absorbed"] += amount
-		return TRUE
+		return EF_TRUE
 
 /////////////////////////////////// STASIS ///////////////////////////////////
 
@@ -395,20 +395,20 @@
 	if(!SSquirks || !SSquirks.quirks[qname])
 		return
 	new quirktype (src, spawn_effects)
-	return TRUE
+	return EF_TRUE
 
 /mob/living/proc/remove_quirk(quirktype)
 	for(var/datum/quirk/Q in roundstart_quirks)
 		if(Q.type == quirktype)
 			qdel(Q)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /mob/living/proc/has_quirk(quirktype)
 	for(var/datum/quirk/Q in roundstart_quirks)
 		if(Q.type == quirktype)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /////////////////////////////////// TRAIT PROCS ////////////////////////////////////
 
@@ -437,7 +437,7 @@
 	if(!HAS_TRAIT(src, TRAIT_HUSK))
 		REMOVE_TRAIT(src, TRAIT_DISFIGURED, "husk")
 		update_body()
-		return TRUE
+		return EF_TRUE
 
 /mob/living/proc/become_husk(source)
 	if(!HAS_TRAIT(src, TRAIT_HUSK))

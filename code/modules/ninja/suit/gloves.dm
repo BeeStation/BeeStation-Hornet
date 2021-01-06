@@ -40,20 +40,20 @@
 
 /obj/item/clothing/gloves/space_ninja/Touch(atom/A,proximity)
 	if(!candrain || draining)
-		return FALSE
+		return EF_FALSE
 	if(!ishuman(loc))
-		return FALSE	//Only works while worn
+		return EF_FALSE	//Only works while worn
 
 	var/mob/living/carbon/human/H = loc
 
 	var/obj/item/clothing/suit/space/space_ninja/suit = H.wear_suit
 	if(!istype(suit))
-		return FALSE
+		return EF_FALSE
 	if(isturf(A))
-		return FALSE
+		return EF_FALSE
 
 	if(!proximity)
-		return FALSE
+		return EF_FALSE
 
 	A.add_fingerprint(H)
 

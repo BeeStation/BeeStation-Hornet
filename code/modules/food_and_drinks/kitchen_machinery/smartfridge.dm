@@ -91,7 +91,7 @@
 
 		if(contents.len >= max_n_of_items)
 			to_chat(user, "<span class='warning'>\The [src] is full!</span>")
-			return FALSE
+			return EF_FALSE
 
 		if(accept_check(O))
 			load(O)
@@ -99,7 +99,7 @@
 			updateUsrDialog()
 			if (visible_contents)
 				update_icon()
-			return TRUE
+			return EF_TRUE
 
 		if(istype(O, /obj/item/storage/bag))
 			var/obj/item/storage/P = O
@@ -123,15 +123,15 @@
 					to_chat(user, "<span class='warning'>Some items are refused.</span>")
 				if (visible_contents)
 					update_icon()
-				return TRUE
+				return EF_TRUE
 			else
 				to_chat(user, "<span class='warning'>There is nothing in [O] to put in [src]!</span>")
-				return FALSE
+				return EF_FALSE
 
 	if(user.a_intent != INTENT_HARM)
 		to_chat(user, "<span class='warning'>\The [src] smartly refuses [O].</span>")
 		updateUsrDialog()
-		return FALSE
+		return EF_FALSE
 	else
 		return ..()
 
@@ -145,29 +145,29 @@
 				updateUsrDialog()
 				if (visible_contents)
 					update_icon()
-				return TRUE
+				return EF_TRUE
 	return ..()
 
 
 /obj/machinery/smartfridge/proc/accept_check(obj/item/O)
 	if(istype(O, /obj/item/reagent_containers/food/snacks/grown/) || istype(O, /obj/item/seeds/) || istype(O, /obj/item/grown/))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/smartfridge/proc/load(obj/item/O)
 	if(ismob(O.loc))
 		var/mob/M = O.loc
 		if(!M.transferItemToLoc(O, src))
 			to_chat(usr, "<span class='warning'>\the [O] is stuck to your hand, you cannot put it in \the [src]!</span>")
-			return FALSE
+			return EF_FALSE
 		else
-			return TRUE
+			return EF_TRUE
 	else
 		if(SEND_SIGNAL(O.loc, COMSIG_CONTAINS_STORAGE))
 			return SEND_SIGNAL(O.loc, COMSIG_TRY_STORAGE_TAKE, O, src)
 		else
 			O.forceMove(src)
-			return TRUE
+			return EF_TRUE
 
 ///Really simple proc, just moves the object "O" into the hands of mob "M" if able, done so I could modify the proc a little for the organ fridge
 /obj/machinery/smartfridge/proc/dispense(obj/item/O, var/mob/M)
@@ -227,7 +227,7 @@
 				desired = input("How many items?", "How many items would you like to take out?", 1) as null|num
 
 			if(QDELETED(src) || QDELETED(usr) || !usr.Adjacent(src)) // Sanity checkin' in case stupid stuff happens while we wait for input()
-				return FALSE
+				return EF_FALSE
 
 			if(desired == 1 && Adjacent(usr) && !issilicon(usr))
 				for(var/obj/item/O in src)
@@ -236,7 +236,7 @@
 						break
 				if (visible_contents)
 					update_icon()
-				return TRUE
+				return EF_TRUE
 
 			for(var/obj/item/O in src)
 				if(desired <= 0)
@@ -246,8 +246,8 @@
 					desired--
 			if (visible_contents)
 				update_icon()
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 
 // ----------------------------
@@ -295,8 +295,8 @@
 	switch(action)
 		if("Dry")
 			toggle_drying(FALSE)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/smartfridge/drying_rack/load() //For updating the filled overlay
 	..()
@@ -321,10 +321,10 @@
 	if(istype(O, /obj/item/reagent_containers/food/snacks/))
 		var/obj/item/reagent_containers/food/snacks/S = O
 		if(S.dried_type)
-			return TRUE
+			return EF_TRUE
 	if(istype(O, /obj/item/stack/sheet/wetleather/))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/smartfridge/drying_rack/proc/toggle_drying(forceoff)
 	if(drying || forceoff)
@@ -347,12 +347,12 @@
 				R.reagents.clear_reagents()
 				S.reagents.copy_to(R)
 			qdel(S)
-		return TRUE
+		return EF_TRUE
 	for(var/obj/item/stack/sheet/wetleather/WL in src)
 		new /obj/item/stack/sheet/leather(drop_location(), WL.amount)
 		qdel(WL)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/smartfridge/drying_rack/emp_act(severity)
 	. = ..()
@@ -370,9 +370,9 @@
 
 /obj/machinery/smartfridge/drinks/accept_check(obj/item/O)
 	if(!istype(O, /obj/item/reagent_containers) || (O.item_flags & ABSTRACT) || !O.reagents || !O.reagents.reagent_list.len)
-		return FALSE
+		return EF_FALSE
 	if(istype(O, /obj/item/reagent_containers/glass) || istype(O, /obj/item/reagent_containers/food/drinks) || istype(O, /obj/item/reagent_containers/food/condiment))
-		return TRUE
+		return EF_TRUE
 
 // ----------------------------
 //  Food smartfridge
@@ -382,8 +382,8 @@
 
 /obj/machinery/smartfridge/food/accept_check(obj/item/O)
 	if(istype(O, /obj/item/reagent_containers/food/snacks/))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 // -------------------------------------
 // Xenobiology Slime-Extract Smartfridge
@@ -394,10 +394,10 @@
 
 /obj/machinery/smartfridge/extract/accept_check(obj/item/O)
 	if(istype(O, /obj/item/slime_extract))
-		return TRUE
+		return EF_TRUE
 	if(istype(O, /obj/item/slime_scanner))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/smartfridge/extract/preloaded
 	initial_contents = list(/obj/item/slime_scanner = 2)
@@ -413,8 +413,8 @@
 
 /obj/machinery/smartfridge/organ/accept_check(obj/item/O)
 	if(istype(O, /obj/item/organ))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/smartfridge/organ/load(obj/item/O)
 	. = ..()
@@ -452,18 +452,18 @@
 		if(O.contents.len)
 			for(var/obj/item/I in O)
 				if(!accept_check(I))
-					return FALSE
-			return TRUE
-		return FALSE
+					return EF_FALSE
+			return EF_TRUE
+		return EF_FALSE
 	if(!istype(O, /obj/item/reagent_containers) || (O.item_flags & ABSTRACT))
-		return FALSE
+		return EF_FALSE
 	if(istype(O, /obj/item/reagent_containers/pill)) // empty pill prank ok
-		return TRUE
+		return EF_TRUE
 	if(!O.reagents || !O.reagents.reagent_list.len) // other empty containers not accepted
-		return FALSE
+		return EF_FALSE
 	if(istype(O, /obj/item/reagent_containers/syringe) || istype(O, /obj/item/reagent_containers/glass/bottle) || istype(O, /obj/item/reagent_containers/glass/beaker) || istype(O, /obj/item/reagent_containers/spray) || istype(O, /obj/item/reagent_containers/medspray))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/smartfridge/chemistry/preloaded
 	initial_contents = list(
@@ -502,6 +502,6 @@
 
 /obj/machinery/smartfridge/disks/accept_check(obj/item/O)
 	if(istype(O, /obj/item/disk/))
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE

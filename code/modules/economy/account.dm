@@ -43,15 +43,15 @@
 /datum/bank_account/proc/adjust_money(amt)
 	if((amt < 0 && has_money(-amt)) || amt > 0)
 		_adjust_money(amt)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/bank_account/proc/transfer_money(datum/bank_account/from, amount)
 	if(from.has_money(amount))
 		adjust_money(amount)
 		from.adjust_money(-amount)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/bank_account/proc/payday(amt_of_paychecks, free = FALSE)
 	var/money_to_transfer = paycheck_amount * amt_of_paychecks
@@ -71,15 +71,15 @@
 		if(D)
 			if(!transfer_money(D, money_to_transfer))
 				bank_card_talk("ERROR: Payday aborted, departmental funds insufficient.")
-				return FALSE
+				return EF_FALSE
 			else
 				bank_card_talk("Payday processed, account now holds $[account_balance].")
 				//The bonus only resets once it goes through.
 				if(paycheck_bonus > 0) //And we're not getting rid of debt
 					paycheck_bonus = 0
-				return TRUE
+				return EF_TRUE
 	bank_card_talk("ERROR: Payday aborted, unable to contact departmental account.")
-	return FALSE
+	return EF_FALSE
 
 /datum/bank_account/proc/bank_card_talk(message, force)
 	if(!message || !bank_cards.len)

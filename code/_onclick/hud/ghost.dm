@@ -83,7 +83,7 @@
 	var/mob/dead/observer/O = mymob
 	if (istype(O) && O.observetarget)
 		plane_masters_update()
-		return FALSE
+		return EF_FALSE
 
 	. = ..()
 	if(!.)

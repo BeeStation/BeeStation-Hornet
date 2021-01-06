@@ -82,10 +82,10 @@
 
 /obj/machinery/launchpad/proc/isAvailable()
 	if(stat & NOPOWER)
-		return FALSE
+		return EF_FALSE
 	if(panel_open)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/launchpad/proc/update_indicator()
 	var/image/holder = hud_list[DIAG_LAUNCHPAD_HUD]
@@ -237,7 +237,7 @@
 
 /obj/machinery/launchpad/briefcase/isAvailable()
 	if(closed)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /obj/machinery/launchpad/briefcase/MouseDrop(over_object, src_location, over_location)

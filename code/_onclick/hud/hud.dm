@@ -127,10 +127,10 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 //Version denotes which style should be displayed. blank or 0 means "next version"
 /datum/hud/proc/show_hud(version = 0, mob/viewmob)
 	if(!ismob(mymob))
-		return FALSE
+		return EF_FALSE
 	var/mob/screenmob = viewmob || mymob
 	if(!screenmob.client)
-		return FALSE
+		return EF_FALSE
 
 	screenmob.client.screen = list()
 	screenmob.client.apply_clickcatcher()
@@ -204,7 +204,7 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	else if (viewmob.hud_used)
 		viewmob.hud_used.plane_masters_update()
 
-	return TRUE
+	return EF_TRUE
 
 /datum/hud/proc/plane_masters_update()
 	// Plane masters are always shown to OUR mob, never to observers

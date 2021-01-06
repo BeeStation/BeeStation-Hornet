@@ -186,7 +186,7 @@
 	. = ..()
 	if(. && on && is_operational())
 		to_chat(user, "<span class='warning'>You cannot unwrench [src], turn it off first!</span>")
-		return FALSE
+		return EF_FALSE
 
 /obj/machinery/atmospherics/components/binary/volume_pump/multitool_act(mob/living/user, obj/item/I)
 	if(!overclocked)
@@ -195,7 +195,7 @@
 	else
 		overclocked = FALSE
 		to_chat(user, "The pump quiets down as you turn its limiters back on.")
-	return TRUE
+	return EF_TRUE
 
 // mapping
 

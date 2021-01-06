@@ -86,9 +86,9 @@ new /datum/disease_ability/symptom/powerful/youth
 
 /datum/disease_ability/proc/CanBuy(mob/camera/disease/D)
 	if(world.time < D.next_adaptation_time)
-		return FALSE
+		return EF_FALSE
 	if(!D.unpurchased_abilities[src])
-		return FALSE
+		return EF_FALSE
 	return (D.points >= cost) && (D.total_points >= required_total_points)
 
 /datum/disease_ability/proc/Buy(mob/camera/disease/D, silent = FALSE, trigger_cooldown = TRUE)
@@ -115,7 +115,7 @@ new /datum/disease_ability/symptom/powerful/youth
 
 /datum/disease_ability/proc/CanRefund(mob/camera/disease/D)
 	if(world.time < D.next_adaptation_time)
-		return FALSE
+		return EF_FALSE
 	return D.purchased_abilities[src]
 
 /datum/disease_ability/proc/Refund(mob/camera/disease/D, silent = FALSE, trigger_cooldown = TRUE)
@@ -170,21 +170,21 @@ new /datum/disease_ability/symptom/powerful/youth
 
 /datum/action/cooldown/disease_cough/Trigger()
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	var/mob/camera/disease/D = owner
 	var/mob/living/L = D.following_host
 	if(!L)
-		return FALSE
+		return EF_FALSE
 	if(L.stat != CONSCIOUS)
 		to_chat(D, "<span class='warning'>Your host must be conscious to cough.</span>")
-		return FALSE
+		return EF_FALSE
 	to_chat(D, "<span class='notice'>You force [L.real_name] to cough.</span>")
 	L.emote("cough")
 	if(L.CanSpreadAirborneDisease()) //don't spread germs if they covered their mouth
 		var/datum/disease/advance/sentient_disease/SD = D.hosts[L]
 		SD.spread(2)
 	StartCooldown()
-	return TRUE
+	return EF_TRUE
 
 
 /datum/disease_ability/action/sneeze
@@ -204,14 +204,14 @@ new /datum/disease_ability/symptom/powerful/youth
 
 /datum/action/cooldown/disease_sneeze/Trigger()
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	var/mob/camera/disease/D = owner
 	var/mob/living/L = D.following_host
 	if(!L)
-		return FALSE
+		return EF_FALSE
 	if(L.stat != CONSCIOUS)
 		to_chat(D, "<span class='warning'>Your host must be conscious to sneeze.</span>")
-		return FALSE
+		return EF_FALSE
 	to_chat(D, "<span class='notice'>You force [L.real_name] to sneeze.</span>")
 	L.emote("sneeze")
 	if(L.CanSpreadAirborneDisease()) //don't spread germs if they covered their mouth
@@ -222,7 +222,7 @@ new /datum/disease_ability/symptom/powerful/youth
 				M.AirborneContractDisease(SD, TRUE)
 
 	StartCooldown()
-	return TRUE
+	return EF_TRUE
 
 
 /datum/disease_ability/action/infect
@@ -242,11 +242,11 @@ new /datum/disease_ability/symptom/powerful/youth
 
 /datum/action/cooldown/disease_infect/Trigger()
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	var/mob/camera/disease/D = owner
 	var/mob/living/carbon/human/H = D.following_host
 	if(!H)
-		return FALSE
+		return EF_FALSE
 	for(var/V in H.get_equipped_items(FALSE))
 		var/obj/O = V
 		O.AddComponent(/datum/component/infective, D.disease_template, 300)
@@ -263,7 +263,7 @@ new /datum/disease_ability/symptom/powerful/youth
 			var/obj/O = V
 			O.AddComponent(/datum/component/infective, D.disease_template, 300)
 	StartCooldown()
-	return TRUE
+	return EF_TRUE
 
 /*******************BASE SYMPTOM TYPES*******************/
 // cost is for convenience and can be changed. If you're changing req_tot_points then don't use the subtype...

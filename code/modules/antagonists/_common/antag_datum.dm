@@ -56,11 +56,11 @@ GLOBAL_LIST(admin_antag_list)
 	. = TRUE
 	var/datum/mind/tested = new_owner || owner
 	if(tested.has_antag_datum(type))
-		return FALSE
+		return EF_FALSE
 	for(var/i in tested.antag_datums)
 		var/datum/antagonist/A = i
 		if(is_type_in_typecache(src, A.typecache_datum_blacklist))
-			return FALSE
+			return EF_FALSE
 
 //This will be called in add_antag_datum before owner assignment.
 //Should return antag datum without owner.
@@ -98,7 +98,7 @@ GLOBAL_LIST(admin_antag_list)
 
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)
-		return FALSE
+		return EF_FALSE
 	. = (is_banned_from(M.ckey, list(ROLE_SYNDICATE, job_rank)) || QDELETED(M))
 
 /datum/antagonist/proc/replace_banned_player()
@@ -203,10 +203,10 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/enabled_in_preferences(datum/mind/M)
 	if(job_rank)
 		if(M.current && M.current.client && (job_rank in M.current.client.prefs.be_special))
-			return TRUE
+			return EF_TRUE
 		else
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 // List if ["Command"] = CALLBACK(), user will be appeneded to callback arguments on execution
 /datum/antagonist/proc/get_admin_commands()

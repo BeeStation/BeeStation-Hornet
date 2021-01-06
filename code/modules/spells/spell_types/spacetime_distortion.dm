@@ -18,7 +18,7 @@
 /obj/effect/proc_holder/spell/spacetime_dist/can_cast(mob/user = usr)
 	if(ready)
 		return ..()
-	return FALSE
+	return EF_FALSE
 
 /obj/effect/proc_holder/spell/spacetime_dist/choose_targets(mob/user = usr)
 	var/list/turfs = spiral_range_turfs(range, user)

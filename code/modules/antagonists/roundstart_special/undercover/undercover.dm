@@ -85,7 +85,7 @@
 
 /datum/objective/saveshuttle/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
-		return FALSE
+		return EF_FALSE
 	var/count = 0
 	for(var/mob/living/carbon/human/person in get_living_crew())
 		if(get_area(person) in SSshuttle.emergency.shuttle_areas)
@@ -116,9 +116,9 @@
 /datum/objective/protect_sm/get_target()
 	for(var/obj/machinery/power/supermatter_crystal/S in GLOB.machines)
 		target_sm = WEAKREF(S)
-		return TRUE
+		return EF_TRUE
 	log_runtime("Failed to find a supermatter crystal for the supermatter objective.")
-	return FALSE
+	return EF_FALSE
 
 /datum/objective/protect_sm/update_explanation_text()
 	var/obj/machinery/power/supermatter_crystal/S = target_sm.resolve()
@@ -127,5 +127,5 @@
 /datum/objective/protect_sm/check_completion()
 	var/obj/machinery/power/supermatter_crystal/S = target_sm.resolve()
 	if(!S)
-		return FALSE
+		return EF_FALSE
 	return S.get_integrity() > target_amount

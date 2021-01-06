@@ -253,7 +253,7 @@
 /mob/living/proc/canSuicide()
 	switch(stat)
 		if(CONSCIOUS)
-			return TRUE
+			return EF_TRUE
 		if(SOFT_CRIT)
 			to_chat(src, "You can't commit suicide while in a critical condition!")
 		if(UNCONSCIOUS)
@@ -278,4 +278,4 @@
 				message_admins("[key_name(src)] (job: [src.job]) attempted to commit suicide at [AREACOORD(src)]. Time until suicide is possible: [DisplayTimeText(timeleft)].")
 			return
 
-	return TRUE
+	return EF_TRUE

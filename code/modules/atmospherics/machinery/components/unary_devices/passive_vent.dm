@@ -44,7 +44,7 @@
 	update_parents()
 
 /obj/machinery/atmospherics/components/unary/passive_vent/can_crawl_through()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/atmospherics/components/unary/passive_vent/layer1
 	piping_layer = 1

@@ -135,11 +135,11 @@
 
 /obj/machinery/mecha_part_fabricator/proc/check_resources(datum/design/D)
 	if(D.reagents_list.len) // No reagents storage - no reagent designs.
-		return FALSE
+		return EF_FALSE
 	var/datum/component/material_container/materials = rmat.mat_container
 	if(materials.has_materials(get_resources_w_coeff(D)))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/mecha_part_fabricator/proc/build_part(datum/design/D)
 	var/list/res_coef = get_resources_w_coeff(D)
@@ -147,13 +147,13 @@
 	var/datum/component/material_container/materials = rmat.mat_container
 	if (!materials)
 		say("No access to material storage, please contact the quartermaster.")
-		return FALSE
+		return EF_FALSE
 	if (rmat.on_hold())
 		say("Mineral access is on hold, please contact the quartermaster.")
-		return FALSE
+		return EF_FALSE
 	if(!check_resources(D))
 		say("Not enough resources. Queue processing stopped.")
-		return FALSE
+		return EF_FALSE
 	being_built = D
 	desc = "It's building \a [initial(D.name)]."
 	materials.use_materials(res_coef)
@@ -174,7 +174,7 @@
 	being_built = null
 
 	updateUsrDialog()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/mecha_part_fabricator/proc/update_queue_on_page()
 	send_byjax(usr,"mecha_fabricator.browser","queue",list_queue())
@@ -197,9 +197,9 @@
 
 /obj/machinery/mecha_part_fabricator/proc/remove_from_queue(index)
 	if(!isnum_safe(index) || !ISINTEGER(index) || !istype(queue) || (index<1 || index>queue.len))
-		return FALSE
+		return EF_FALSE
 	queue.Cut(index,++index)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/mecha_part_fabricator/proc/process_queue()
 	var/datum/design/D = queue[1]
@@ -212,11 +212,11 @@
 	temp = null
 	while(D)
 		if(stat&(NOPOWER|BROKEN))
-			return FALSE
+			return EF_FALSE
 		if(build_part(D))
 			remove_from_queue(1)
 		else
-			return FALSE
+			return EF_FALSE
 		D = listgetindex(queue, 1)
 	say("Queue processing finished successfully.")
 
@@ -406,7 +406,7 @@
 
 /obj/machinery/mecha_part_fabricator/proc/do_process_queue()
 	if(processing_queue || being_built)
-		return FALSE
+		return EF_FALSE
 	processing_queue = 1
 	process_queue()
 	processing_queue = 0
@@ -433,10 +433,10 @@
 
 /obj/machinery/mecha_part_fabricator/attackby(obj/item/W, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "fab-o", "fab-idle", W))
-		return TRUE
+		return EF_TRUE
 
 	if(default_deconstruction_crowbar(W))
-		return TRUE
+		return EF_TRUE
 
 	return ..()
 
@@ -444,12 +444,12 @@
 /obj/machinery/mecha_part_fabricator/proc/is_insertion_ready(mob/user)
 	if(panel_open)
 		to_chat(user, "<span class='warning'>You can't load [src] while it's opened!</span>")
-		return FALSE
+		return EF_FALSE
 	if(being_built)
 		to_chat(user, "<span class='warning'>\The [src] is currently processing! Please wait until completion.</span>")
-		return FALSE
+		return EF_FALSE
 
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/mecha_part_fabricator/maint
 	link_on_init = FALSE

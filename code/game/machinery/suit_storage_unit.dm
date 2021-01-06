@@ -410,7 +410,7 @@
 /obj/machinery/suit_storage_unit/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	if(!(flags_1 & NODECONSTRUCT_1) && I.tool_behaviour == TOOL_SCREWDRIVER && uv)
 		to_chat(user, "<span class='warning'>It might not be wise to fiddle with [src] while it's running...</span>")
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 

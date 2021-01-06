@@ -78,7 +78,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	// receive information from linked machinery
 
 /obj/machinery/telecomms/proc/is_freq_listening(datum/signal/signal)
-	// return TRUE if found, FALSE if not found
+	// return EF_TRUE if found, FALSE if not found
 	return signal && (!freq_listening.len || (signal.frequency in freq_listening))
 
 /obj/machinery/telecomms/Initialize(mapload)

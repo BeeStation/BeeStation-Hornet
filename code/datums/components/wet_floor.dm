@@ -158,7 +158,7 @@
 /datum/component/wet_floor/proc/add_wet(type, duration_minimum = 0, duration_add = 0, duration_maximum = MAXIMUM_WET_TIME, _permanent = FALSE)
 	var/static/list/allowed_types = list(TURF_WET_WATER, TURF_WET_LUBE, TURF_WET_ICE, TURF_WET_PERMAFROST)
 	if(duration_minimum <= 0 || !type)
-		return FALSE
+		return EF_FALSE
 	if(type in allowed_types)
 		return _do_add_wet(type, duration_minimum, duration_add, duration_maximum)
 	else
@@ -179,7 +179,7 @@
 		time = min(duration_minimum, duration_maximum)
 	LAZYSET(time_left_list, "[type]", time)
 	check(TRUE)
-	return TRUE
+	return EF_TRUE
 
 /datum/component/wet_floor/proc/gc(on_init = FALSE)
 	if(!LAZYLEN(time_left_list))
@@ -187,8 +187,8 @@
 			var/turf/T = parent
 			stack_trace("Warning: Wet floor component gc'd right after initialization! What a waste of time and CPU! Type = [T? T.type : "ERROR - NO PARENT"], Location = [istype(T)? AREACOORD(T) : "ERROR - INVALID PARENT"].")
 		qdel(src)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/component/wet_floor/proc/check(force_update = FALSE)
 	var/changed = FALSE

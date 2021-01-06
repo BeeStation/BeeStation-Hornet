@@ -29,16 +29,16 @@
 	oldposition = null
 	STOP_PROCESSING(SSfastprocess, src)
 	active = FALSE
-	return TRUE
+	return EF_TRUE
 
 /datum/effect_system/trail_follow/start()
 	oldposition = get_turf(holder)
 	if(!check_conditions())
-		return FALSE
+		return EF_FALSE
 	if(auto_process)
 		START_PROCESSING(SSfastprocess, src)
 	active = TRUE
-	return TRUE
+	return EF_TRUE
 
 /datum/effect_system/trail_follow/process()
 	generate_effect()
@@ -59,8 +59,8 @@
 
 /datum/effect_system/trail_follow/proc/check_conditions()
 	if(!get_turf(holder))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/effect_system/trail_follow/steam
 	effect_type = /obj/effect/particle_effect/steam

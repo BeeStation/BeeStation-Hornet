@@ -39,7 +39,7 @@
 
 /obj/effect/proc_holder/spell/targeted/touch/charge_check(mob/user,silent = FALSE)
 	if(!QDELETED(attached_hand)) //Charge doesn't matter when putting the hand away.
-		return TRUE
+		return EF_TRUE
 	else
 		return ..()
 
@@ -52,9 +52,9 @@
 			to_chat(user, "<span class='warning'>You dont have any usable hands!</span>")
 		else
 			to_chat(user, "<span class='warning'>Your hands are full!</span>")
-		return FALSE
+		return EF_FALSE
 	to_chat(user, "<span class='notice'>[drawmessage]</span>")
-	return TRUE
+	return EF_TRUE
 
 
 /obj/effect/proc_holder/spell/targeted/touch/disintegrate

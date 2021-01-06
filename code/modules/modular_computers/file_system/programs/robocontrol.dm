@@ -57,7 +57,7 @@
 
 /datum/computer_file/program/robocontrol/ui_act(action, list/params)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	var/obj/item/computer_hardware/card_slot/card_slot
 	var/obj/item/card/id/id_card
 	if(computer)

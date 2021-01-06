@@ -33,10 +33,10 @@
 	invoke_success()
 
 /datum/clockcult/scripture/proc/invoke_success()
-	return TRUE
+	return EF_TRUE
 
 /datum/clockcult/scripture/proc/invoke_fail()
-	return TRUE
+	return EF_TRUE
 
 /datum/clockcult/scripture/proc/recital()
 	if(!LAZYLEN(invokation_text))
@@ -74,10 +74,10 @@
 /datum/clockcult/scripture/proc/check_special_requirements()
 	if(!invoker || !invoking_slab)
 		message_admins("No invoker for [name]")
-		return FALSE
+		return EF_FALSE
 	if(invoker.get_active_held_item() != invoking_slab && !iscyborg(invoker))
 		to_chat(invoker, "<span class='brass'>You fail to invoke [name].</span>")
-		return FALSE
+		return EF_FALSE
 	var/invokers
 	for(var/mob/living/M in view(invoker))
 		if(M.stat)
@@ -86,8 +86,8 @@
 			invokers++
 	if(invokers < invokers_required)
 		to_chat(invoker, "<span class='brass'>You need [invokers_required] servants to channel [name]!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/clockcult/scripture/proc/begin_invoke(mob/living/M, obj/item/clockwork/clockwork_slab/slab, bypass_unlock_checks = FALSE)
 	if(M.get_active_held_item() != slab && !iscyborg(M))
@@ -129,11 +129,11 @@
 
 /datum/clockcult/scripture/create_structure/check_special_requirements()
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	for(var/obj/structure/destructible/clockwork/structure in get_turf(invoker))
 		to_chat(invoker, "<span class='brass'>You cannot invoke that here, the tile is occupied by [structure].</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/clockcult/scripture/create_structure/invoke_success()
 	var/created_structure = new summoned_structure(get_turf(invoker))
@@ -221,7 +221,7 @@
 	end_invoke()
 
 /datum/clockcult/scripture/slab/proc/apply_effects(atom/A)
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/proc_holder/slab
 	var/datum/clockcult/scripture/slab/parent_scripture
@@ -267,7 +267,7 @@
 
 /datum/action/innate/clockcult/quick_bind/IsAvailable()
 	if(!is_servant_of_ratvar(owner) || owner.incapacitated())
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/action/innate/clockcult/quick_bind/Activate()
@@ -289,9 +289,9 @@
 /datum/action/innate/clockcult/transmit/IsAvailable()
 	if(!is_servant_of_ratvar(owner))
 		Remove(owner)
-		return FALSE
+		return EF_FALSE
 	if(owner.incapacitated())
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/action/innate/clockcult/transmit/Activate()

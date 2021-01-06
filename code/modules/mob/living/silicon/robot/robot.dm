@@ -285,7 +285,7 @@
 		return
 
 	cell.charge -= 10
-	return TRUE
+	return EF_TRUE
 
 /mob/living/silicon/robot/proc/toggle_ionpulse()
 	if(!ionpulse)
@@ -365,11 +365,11 @@
 
 /mob/living/silicon/robot/can_interact_with(atom/A)
 	if (low_power_mode)
-		return FALSE
+		return EF_FALSE
 	var/turf/T0 = get_turf(src)
 	var/turf/T1 = get_turf(A)
 	if (!T0 || ! T1)
-		return FALSE
+		return EF_FALSE
 	return ISINRANGE(T1.x, T0.x - interaction_range, T0.x + interaction_range) && ISINRANGE(T1.y, T0.y - interaction_range, T0.y + interaction_range)
 
 /mob/living/silicon/robot/AltClick(mob/user)
@@ -899,11 +899,11 @@
 /mob/living/silicon/robot/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
 	if(stat || lockcharge || low_power_mode)
 		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
-		return FALSE
+		return EF_FALSE
 	if(be_close && !in_range(M, src))
 		to_chat(src, "<span class='warning'>You are too far away!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /mob/living/silicon/robot/updatehealth()
 	..()
@@ -1126,11 +1126,11 @@
 
 /datum/action/innate/undeployment/Trigger()
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	var/mob/living/silicon/robot/R = owner
 
 	R.undeploy()
-	return TRUE
+	return EF_TRUE
 
 
 /mob/living/silicon/robot/proc/undeploy()
@@ -1164,7 +1164,7 @@
 /mob/living/silicon/robot/mouse_buckle_handling(mob/living/M, mob/living/user)
 	if(can_buckle && istype(M) && !(M in buckled_mobs) && ((user!=src)||(a_intent != INTENT_HARM)))
 		if(buckle_mob(M))
-			return TRUE
+			return EF_TRUE
 
 /mob/living/silicon/robot/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!is_type_in_typecache(M, can_ride_typecache))
@@ -1208,9 +1208,9 @@
 		connected_ai.connected_robots += src
 		lawsync()
 		lawupdate = 1
-		return TRUE
+		return EF_TRUE
 	picturesync()
-	return FALSE
+	return EF_FALSE
 
 /mob/living/silicon/robot/proc/picturesync()
 	if(connected_ai && connected_ai.aicamera && aicamera)

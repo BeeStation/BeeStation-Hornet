@@ -142,7 +142,7 @@
 			user.visible_message("<span class='notice'>[user] scans [target] with [src].</span>", "<span class='danger'>You project [src]'s stored radiation into [target]!</span>")
 			target.rad_act(radiation_count)
 			radiation_count = 0
-		return TRUE
+		return EF_TRUE
 
 /obj/item/geiger_counter/proc/scan(atom/A, mob/user)
 	var/rad_strength = 0

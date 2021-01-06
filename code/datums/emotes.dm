@@ -42,7 +42,7 @@
 /datum/emote/proc/run_emote(mob/user, params, type_override, intentional = FALSE)
 	. = TRUE
 	if(!can_run_emote(user, TRUE, intentional))
-		return FALSE
+		return EF_FALSE
 	var/msg = select_message_type(user, intentional)
 	if(params && message_param)
 		msg = select_param(user, params)
@@ -120,13 +120,13 @@
 /datum/emote/proc/can_run_emote(mob/user, status_check = TRUE, intentional = FALSE)
 	. = TRUE
 	if(!is_type_in_typecache(user, mob_type_allowed_typecache))
-		return FALSE
+		return EF_FALSE
 	if(is_type_in_typecache(user, mob_type_blacklist_typecache))
-		return FALSE
+		return EF_FALSE
 	if(status_check && !is_type_in_typecache(user, mob_type_ignore_stat_typecache))
 		if(user.stat > stat_allowed)
 			if(!intentional)
-				return FALSE
+				return EF_FALSE
 			switch(user.stat)
 				if(SOFT_CRIT)
 					to_chat(user, "<span class='notice'>You cannot [key] while in a critical condition.</span>")
@@ -134,22 +134,22 @@
 					to_chat(user, "<span class='notice'>You cannot [key] while unconscious.</span>")
 				if(DEAD)
 					to_chat(user, "<span class='notice'>You cannot [key] while dead.</span>")
-			return FALSE
+			return EF_FALSE
 		if(restraint_check)
 			if(isliving(user))
 				var/mob/living/L = user
 				if(L.IsParalyzed() || L.IsStun())
 					if(!intentional)
-						return FALSE
+						return EF_FALSE
 					to_chat(user, "<span class='notice'>You cannot [key] while stunned.</span>")
-					return FALSE
+					return EF_FALSE
 		if(restraint_check && user.restrained())
 			if(!intentional)
-				return FALSE
+				return EF_FALSE
 			to_chat(user, "<span class='notice'>You cannot [key] while restrained.</span>")
-			return FALSE
+			return EF_FALSE
 
 	if(isliving(user))
 		var/mob/living/L = user
 		if(HAS_TRAIT(L, TRAIT_EMOTEMUTE))
-			return FALSE
+			return EF_FALSE

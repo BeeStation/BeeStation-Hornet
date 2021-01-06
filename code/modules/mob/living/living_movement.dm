@@ -4,17 +4,17 @@
 
 /mob/living/CanPass(atom/movable/mover, turf/target)
 	if((mover.pass_flags & PASSMOB))
-		return TRUE
+		return EF_TRUE
 	if(istype(mover, /obj/item/projectile))
 		var/obj/item/projectile/P = mover
 		return !P.can_hit_target(src, P.permutated, src == P.original, TRUE)
 	if(mover.throwing)
 		return (!density || !(mobility_flags & MOBILITY_STAND) || (mover.throwing.thrower == src && !ismob(mover)))
 	if(buckled == mover)
-		return TRUE
+		return EF_TRUE
 	if(ismob(mover))
 		if(mover in buckled_mobs)
-			return TRUE
+			return EF_TRUE
 	return (!mover.density || !density || !(mobility_flags & MOBILITY_STAND))
 
 /mob/living/toggle_move_intent()

@@ -132,8 +132,8 @@
 			client.sent_assets[new_asset_name] = ACI.hash
 
 		addtimer(CALLBACK(client, /client/proc/asset_cache_update_json), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 
 /// Precache files without clogging up the browse() queue, used for passively sending files on connection start.
@@ -151,4 +151,4 @@
 /// Check the config is valid to load this transport
 /// Returns TRUE or FALSE
 /datum/asset_transport/proc/validate_config(log = TRUE)
-	return TRUE
+	return EF_TRUE

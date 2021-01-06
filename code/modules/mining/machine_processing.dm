@@ -185,7 +185,7 @@
 
 /obj/machinery/mineral/processing_unit/proc/can_smelt(datum/design/D)
 	if(D.make_reagents.len)
-		return FALSE
+		return EF_FALSE
 
 	var/build_amount = SMELT_AMOUNT
 

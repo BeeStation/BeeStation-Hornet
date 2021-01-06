@@ -16,22 +16,22 @@
 
 /datum/action/innate/cult/create_rune/IsAvailable()
 	if(!rune_type || cooldown > world.time)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/action/innate/cult/create_rune/proc/turf_check(turf/T)
 	if(!T)
-		return FALSE
+		return EF_FALSE
 	if(isspaceturf(T))
 		to_chat(owner, "<span class='warning'>You cannot scribe runes in space!</span>")
-		return FALSE
+		return EF_FALSE
 	if(locate(/obj/effect/rune) in T)
 		to_chat(owner, "<span class='cult'>There is already a rune here.</span>")
-		return FALSE
+		return EF_FALSE
 	if(!is_station_level(T.z) && !is_mining_level(T.z))
 		to_chat(owner, "<span class='warning'>The veil is not weak enough here.</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 
 /datum/action/innate/cult/create_rune/Activate()

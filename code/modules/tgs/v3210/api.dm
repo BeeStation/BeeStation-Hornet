@@ -78,7 +78,7 @@
 	ListServiceCustomCommands(TRUE)
 	var/datum/tgs_version/api_version = ApiVersion()
 	ExportService("[SERVICE_REQUEST_API_VERSION] [api_version.deprefixed_parameter]", TRUE)
-	return TRUE
+	return EF_TRUE
 
 //nothing to do for v3
 /datum/tgs_api/v3210/OnInitializationComplete()
@@ -93,13 +93,13 @@
 		TGS_ERROR_LOG("Service parameter present but no interface DLL detected. This is symptomatic of running a service less than version 3.1! Please upgrade.")
 		return
 	call(SERVICE_INTERFACE_DLL, SERVICE_INTERFACE_FUNCTION)(instance_name, command)	//trust no retval
-	return TRUE
+	return EF_TRUE
 
 /datum/tgs_api/v3210/OnTopic(T)
 	var/list/params = params2list(T)
 	var/their_sCK = params[SERVICE_CMD_PARAM_KEY]
 	if(!their_sCK)
-		return FALSE	//continue world/Topic
+		return EF_FALSE	//continue world/Topic
 
 	if(their_sCK != comms_key)
 		return "Invalid comms key!";

@@ -136,9 +136,9 @@
 			for(var/A in K.kinetic_gun.get_modkits())
 				var/obj/item/borg/upgrade/modkit/M = A
 				if(istype(M, /obj/item/borg/upgrade/modkit/minebot_passthrough))
-					return TRUE
+					return EF_TRUE
 	if(istype(O, /obj/item/projectile/destabilizer))
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /mob/living/simple_animal/hostile/mining_drone/proc/SetCollectBehavior()

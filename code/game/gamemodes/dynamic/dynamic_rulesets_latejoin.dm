@@ -39,7 +39,7 @@
 
 		var/threat = round(mode.threat_level/10)
 		if (job_check < required_enemies[threat])
-			return FALSE
+			return EF_FALSE
 	return ..()
 
 /datum/dynamic_ruleset/latejoin/execute()
@@ -47,7 +47,7 @@
 	assigned += M.mind
 	M.mind.special_role = antag_flag
 	M.mind.add_antag_datum(antag_datum)
-	return TRUE
+	return EF_TRUE
 
 //////////////////////////////////////////////
 //                                          //
@@ -100,7 +100,7 @@
 	if (forced)
 		required_heads_of_staff = 1
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	var/head_check = 0
 	for(var/mob/player in mode.current_players[CURRENT_LIVING_PLAYERS])
 		if (player.mind.assigned_role in GLOB.command_positions)
@@ -121,11 +121,11 @@
 		revolution.update_objectives()
 		revolution.update_heads()
 		SSshuttle.registerHostileEnvironment(src)
-		return TRUE
+		return EF_TRUE
 	else
 		log_game("DYNAMIC: [ruletype] [name] discarded [M.name] from head revolutionary due to ineligibility.")
 		log_game("DYNAMIC: [ruletype] [name] failed to get any eligible headrevs. Refunding [cost] threat.")
-		return FALSE
+		return EF_FALSE
 
 /datum/dynamic_ruleset/latejoin/provocateur/rule_process()
 	if(check_rev_victory())
@@ -156,28 +156,28 @@
 /datum/dynamic_ruleset/latejoin/provocateur/proc/check_eligible(var/datum/mind/M)
 	var/turf/T = get_turf(M.current)
 	if(!considered_afk(M) && considered_alive(M) && is_station_level(T.z) && !M.antag_datums?.len && !HAS_TRAIT(M, TRAIT_MINDSHIELD))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/dynamic_ruleset/latejoin/provocateur/check_finished()
 	if(finished == REVOLUTION_VICTORY)
-		return TRUE
+		return EF_TRUE
 	else
 		return ..()
 
 /datum/dynamic_ruleset/latejoin/provocateur/proc/check_rev_victory()
 	for(var/datum/objective/mutiny/objective in revolution.objectives)
 		if(!(objective.check_completion()))
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/latejoin/provocateur/proc/check_heads_victory()
 	for(var/datum/mind/rev_mind in revolution.head_revolutionaries())
 		var/turf/T = get_turf(rev_mind.current)
 		if(!considered_afk(rev_mind) && considered_alive(rev_mind) && is_station_level(T.z))
 			if(ishuman(rev_mind.current) || ismonkey(rev_mind.current))
-				return FALSE
-	return TRUE
+				return EF_FALSE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/latejoin/provocateur/round_result()
 	if(finished == REVOLUTION_VICTORY)

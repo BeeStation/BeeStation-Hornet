@@ -13,12 +13,12 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/can_attach(obj/mecha/M)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	if(istype(M, /obj/mecha/combat))
-		return TRUE
+		return EF_TRUE
 	if((locate(/obj/item/mecha_parts/concealed_weapon_bay) in M.contents) && !(locate(/obj/item/mecha_parts/mecha_equipment/weapon) in M.equipment))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/proc/get_shot_amount()
 	return projectiles_per_shot

@@ -79,7 +79,7 @@
 
 			if(!.)
 				if(recursive)
-					return FALSE
+					return EF_FALSE
 				else
 					. = TryMove(TRUE)
 

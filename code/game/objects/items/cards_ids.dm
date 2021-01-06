@@ -188,10 +188,10 @@
 /obj/item/card/id/proc/mass_insert_money(list/money, mob/user)
 	if(!registered_account)
 		to_chat(user, "<span class='warning'>[src] doesn't have a linked account to deposit into!</span>")
-		return FALSE
+		return EF_FALSE
 
 	if (!money || !money.len)
-		return FALSE
+		return EF_FALSE
 
 	var/total = 0
 
@@ -211,7 +211,7 @@
 	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
 
-	return TRUE
+	return EF_TRUE
 
 // Returns true if new account was set.
 /obj/item/card/id/proc/set_new_account(mob/living/user)
@@ -239,7 +239,7 @@
 			registered_account = B
 			to_chat(user, "<span class='notice'>The provided account has been linked to this ID card.</span>")
 
-			return TRUE
+			return EF_TRUE
 
 	to_chat(user, "<span class='warning'>The account ID number provided is invalid.</span>")
 	return

@@ -23,7 +23,7 @@
 		smash(L)
 	else
 		smash()
-	return TRUE
+	return EF_TRUE
 
 
 /obj/item/reagent_containers/food/drinks/bottle/smash(mob/living/target, mob/thrower, ranged = FALSE)

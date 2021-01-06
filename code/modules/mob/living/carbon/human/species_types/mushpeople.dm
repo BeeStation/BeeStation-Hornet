@@ -28,7 +28,7 @@
 	species_language_holder = /datum/language_holder/mushroom
 
 /datum/species/mush/check_roundstart_eligible()
-	return FALSE //hard locked out of roundstart on the order of design lead kor, this can be removed in the future when planetstation is here OR SOMETHING but right now we have a problem with races.
+	return EF_FALSE //hard locked out of roundstart on the order of design lead kor, this can be removed in the future when planetstation is here OR SOMETHING but right now we have a problem with races.
 
 /datum/species/mush/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
@@ -49,7 +49,7 @@
 	if(chem.type == /datum/reagent/toxin/plantbgone/weedkiller)
 		H.adjustToxLoss(3)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
-		return TRUE
+		return EF_TRUE
 
 /datum/species/mush/handle_mutant_bodyparts(mob/living/carbon/human/H, forced_colour)
 	forced_colour = FALSE

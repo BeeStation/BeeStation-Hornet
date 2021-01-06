@@ -167,19 +167,19 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 /obj/item/clockwork/clockwork_slab/ui_act(action, params)
 	var/mob/living/M = usr
 	if(!istype(M))
-		return FALSE
+		return EF_FALSE
 	switch(action)
 		if("invoke")
 			var/datum/clockcult/scripture/S = GLOB.clockcult_all_scriptures[params["scriptureName"]]
 			if(!S)
-				return FALSE
+				return EF_FALSE
 			if(S.type in purchased_scriptures)
 				if(invoking_scripture)
 					to_chat(M, "<span class='brass'>You fail to invoke [name].</span>")
-					return FALSE
+					return EF_FALSE
 				if(S.power_cost > GLOB.clockcult_power)
 					to_chat(M, "<span class='neovgre'>You need [S.power_cost]W to invoke [S.name].</span>")
-					return FALSE
+					return EF_FALSE
 				var/datum/clockcult/scripture/new_scripture = new S.type()
 				//Create a new scripture temporarilly to process, when it's done it will be qdeleted.
 				new_scripture.qdel_on_completion = TRUE
@@ -192,11 +192,11 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 				else
 					to_chat(M, "<span class='brass'>You need [S.cogs_required] cogs to unlock [S.name], you only have [cogs] left!</span>")
 					to_chat(M, "<span class='brass'><b>Tip:</b> Invoke integration cog and insert the cog into APCs to get more.</span>")
-			return TRUE
+			return EF_TRUE
 		if("quickbind")
 			var/datum/clockcult/scripture/S = GLOB.clockcult_all_scriptures[params["scriptureName"]]
 			if(!S)
-				return FALSE
+				return EF_FALSE
 			var/list/positions = list()
 			for(var/i in 1 to 5)
 				var/datum/clockcult/scripture/QB = quick_bound_scriptures[i]
@@ -206,7 +206,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 					positions += "([i]) - [QB.name]"
 			var/position = input("Where to quickbind to?", "Quickbind Slot", null) as null|anything in positions
 			if(!position)
-				return FALSE
+				return EF_FALSE
 			//Create and assign the quickbind
 			var/datum/clockcult/scripture/new_scripture = new S.type()
 			bind_spell(M, new_scripture, positions.Find(position))

@@ -21,8 +21,8 @@
 		existing_tubes +=1
 		if(existing_tubes >= 2)
 			to_chat(user, "<span class='warning'>You cannot wrench anymore transit tubes!</span> ")
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /obj/structure/c_transit_tube/ComponentInitialize()
 	. = ..()
@@ -49,7 +49,7 @@
 		var/obj/structure/transit_tube/R = new build_type(loc, dir)
 		transfer_fingerprints_to(R)
 		qdel(src)
-	return TRUE
+	return EF_TRUE
 
 // transit tube station
 /obj/structure/c_transit_tube/station

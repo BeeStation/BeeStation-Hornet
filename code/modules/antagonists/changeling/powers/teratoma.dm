@@ -17,7 +17,7 @@
 		user.visible_message("<span class='danger'>Something horrible bursts out of [user]'s chest!</span>", \
 								"<span class='danger'>Living teratoma bursts out of your chest!</span>", \
 								"<span class='hear'>You hear flesh tearing!</span>", COMBAT_MESSAGE_RANGE)
-	return FALSE		//create_teratoma() handles the chemicals anyway so there is no reason to take them again
+	return EF_FALSE		//create_teratoma() handles the chemicals anyway so there is no reason to take them again
 
 /datum/action/changeling/teratoma/proc/create_teratoma(mob/user)
 	var/datum/antagonist/changeling/c = user.mind.has_antag_datum(/datum/antagonist/changeling)
@@ -27,7 +27,7 @@
 	if(!LAZYLEN(candidates)) //if we got at least one candidate, they're teratoma now
 		to_chat(usr, "<span class='warning'>You fail at creating a tumor. Perhaps you should try again later?</span>")
 		c.chem_charges += chemical_cost				//If it fails we want to refund the chemicals
-		return FALSE
+		return EF_FALSE
 	var/mob/living/carbon/monkey/tumor/T = new /mob/living/carbon/monkey/tumor(A)
 	var/mob/dead/observer/C = pick(candidates)
 	T.key = C.key
@@ -35,4 +35,4 @@
 	T.mind.add_antag_datum(D)
 	to_chat(T, "<span='notice'>You burst out from [user]'s chest!</span>")
 	SEND_SOUND(T, sound('sound/effects/blobattack.ogg'))
-	return TRUE
+	return EF_TRUE

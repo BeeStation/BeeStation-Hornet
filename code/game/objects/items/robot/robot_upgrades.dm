@@ -17,17 +17,17 @@
 /obj/item/borg/upgrade/proc/action(mob/living/silicon/robot/R, user = usr)
 	if(R.stat == DEAD)
 		to_chat(user, "<span class='notice'>[src] will not function on a deceased cyborg.</span>")
-		return FALSE
+		return EF_FALSE
 	if(module_type && !istype(R.module, module_type))
 		to_chat(R, "Upgrade mounting error!  No suitable hardpoint detected!")
 		to_chat(user, "There's no mounting point for the module!")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/item/borg/upgrade/proc/deactivate(mob/living/silicon/robot/R, user = usr)
 	if (!(src in R.upgrades))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/item/borg/upgrade/rename
 	name = "cyborg reclassification board"
@@ -60,7 +60,7 @@
 /obj/item/borg/upgrade/restart/action(mob/living/silicon/robot/R, user = usr)
 	if(R.health < 0)
 		to_chat(user, "<span class='warning'>You have to repair the cyborg before using this module!</span>")
-		return FALSE
+		return EF_FALSE
 
 	if(R.mind)
 		R.mind.grab_ghost()
@@ -80,7 +80,7 @@
 		if(R.speed < 0)
 			to_chat(R, "<span class='notice'>A VTEC unit is already installed!</span>")
 			to_chat(user, "<span class='notice'>There's no room for another VTEC unit!</span>")
-			return FALSE
+			return EF_FALSE
 
 		R.speed = -2 // Gotta go fast.
 
@@ -102,11 +102,11 @@
 		var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
 		if(!T)
 			to_chat(user, "<span class='notice'>There's no disabler in this unit!</span>")
-			return FALSE
+			return EF_FALSE
 		if(T.charge_delay <= 2)
 			to_chat(R, "<span class='notice'>A cooling unit is already installed!</span>")
 			to_chat(user, "<span class='notice'>There's no room for another cooling unit!</span>")
-			return FALSE
+			return EF_FALSE
 
 		T.charge_delay = max(2 , T.charge_delay - 4)
 
@@ -115,7 +115,7 @@
 	if (.)
 		var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
 		if(!T)
-			return FALSE
+			return EF_FALSE
 		T.charge_delay = initial(T.charge_delay)
 
 /obj/item/borg/upgrade/thrusters
@@ -128,7 +128,7 @@
 	if(.)
 		if(R.ionpulse)
 			to_chat(user, "<span class='notice'>This unit already has ion thrusters installed!</span>")
-			return FALSE
+			return EF_FALSE
 
 		R.ionpulse = TRUE
 
@@ -280,11 +280,11 @@
 	. = ..()
 	if(.)
 		if(R.emagged)
-			return FALSE
+			return EF_FALSE
 
 		R.SetEmagged(1)
 
-		return TRUE
+		return EF_TRUE
 
 /obj/item/borg/upgrade/syndicate/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
@@ -328,7 +328,7 @@
 		var/obj/item/borg/upgrade/selfrepair/U = locate() in R
 		if(U)
 			to_chat(user, "<span class='warning'>This unit is already equipped with a self-repair module.</span>")
-			return FALSE
+			return EF_FALSE
 
 		cyborg = R
 		icon_state = "selfrepair_off"
@@ -468,7 +468,7 @@
 			found_hypo = TRUE
 
 		if(!found_hypo)
-			return FALSE
+			return EF_FALSE
 
 /obj/item/borg/upgrade/piercing_hypospray/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
@@ -529,10 +529,10 @@
 	if(.)
 		if(R.shell)
 			to_chat(user, "<span class='warning'>This unit is already an AI shell!</span>")
-			return FALSE
+			return EF_FALSE
 		if(R.key) //You cannot replace a player unless the key is completely removed.
 			to_chat(user, "<span class='warning'>Intelligence patterns detected in this [R.braintype]. Aborting.</span>")
-			return FALSE
+			return EF_FALSE
 
 		R.make_shell(src)
 
@@ -554,7 +554,7 @@
 
 		if(R.hasExpanded)
 			to_chat(usr, "<span class='notice'>This unit already has an expand module installed!</span>")
-			return FALSE
+			return EF_FALSE
 
 		R.notransform = TRUE
 		var/prev_lockcharge = R.lockcharge
@@ -598,7 +598,7 @@
 		var/obj/item/storage/part_replacer/cyborg/RPED = locate() in R
 		if(RPED)
 			to_chat(user, "<span class='warning'>This unit is already equipped with a RPED module.</span>")
-			return FALSE
+			return EF_FALSE
 
 		RPED = new(R.module)
 		R.module.basic_modules += RPED
@@ -627,7 +627,7 @@
 		var/obj/item/pinpointer/crew/PP = locate() in R.module
 		if(PP)
 			to_chat(user, "<span class='warning'>This unit is already equipped with a pinpointer module.</span>")
-			return FALSE
+			return EF_FALSE
 
 		PP = new(R.module)
 		R.module.basic_modules += PP
@@ -679,7 +679,7 @@
 /obj/item/borg/upgrade/transform/security/action(mob/living/silicon/robot/R, user = usr)
 	if(CONFIG_GET(flag/disable_secborg))
 		to_chat(user, "<span class='warning'>Nanotrasen policy disallows the use of weapons of mass destruction.</span>")
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /obj/item/borg/upgrade/circuit_app
@@ -695,7 +695,7 @@
 		var/obj/item/borg/apparatus/circuit/C = locate() in R.module.modules
 		if(C)
 			to_chat(user, "<span class='warning'>This unit is already equipped with a circuit apparatus.</span>")
-			return FALSE
+			return EF_FALSE
 
 		C = new(R.module)
 		R.module.basic_modules += C
@@ -721,7 +721,7 @@
 		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
 		if(E)
 			to_chat(user, "<span class='warning'>This unit has no room for additional beaker storage.</span>")
-			return FALSE
+			return EF_FALSE
 
 		E = new(R.module)
 		R.module.basic_modules += E
@@ -760,7 +760,7 @@
 				nmodule = new module(R.module)
 				R.module.basic_modules += nmodule
 				R.module.add_module(nmodule, FALSE, TRUE)
-				
+
 		for(var/obj/item/reagent_containers/borghypo/borgshaker/H in R.module.modules)
 			for(var/re in additional_reagents)
 				H.add_reagent(re)

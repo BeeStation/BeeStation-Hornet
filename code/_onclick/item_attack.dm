@@ -18,7 +18,7 @@
 //Checks if the item can work as a tool, calling the appropriate tool behavior on the target
 /obj/item/proc/tool_attack_chain(mob/user, atom/target)
 	if(!tool_behaviour)
-		return FALSE
+		return EF_FALSE
 
 	return target.tool_act(user, src, tool_behaviour)
 
@@ -31,21 +31,21 @@
 
 /obj/item/proc/pre_attack(atom/A, mob/living/user, params) //do stuff before attackby!
 	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACK, A, user, params) & COMPONENT_NO_ATTACK)
-		return FALSE
-	return TRUE //return FALSE to avoid calling attackby after this proc does stuff
+		return EF_FALSE
+	return EF_TRUE //return EF_FALSE to avoid calling attackby after this proc does stuff
 
 // No comment
 /atom/proc/attackby(obj/item/W, mob/user, params)
 	if(SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, W, user, params) & COMPONENT_NO_AFTERATTACK)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/attackby(obj/item/I, mob/living/user, params)
 	return ..() || ((obj_flags & CAN_BE_HIT) && I.attack_obj(src, user))
 
 /mob/living/attackby(obj/item/I, mob/living/user, params)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(user.a_intent == INTENT_HARM && stat == DEAD && (butcher_results || guaranteed_butcher_results)) //can we butcher it?
 		var/datum/component/butchering/butchering = I.GetComponent(/datum/component/butchering)
@@ -123,7 +123,7 @@
 					if(ishuman(user))
 						var/mob/living/carbon/human/dirtyboy = user
 						dirtyboy.adjust_hygiene(-10)
-		return TRUE //successful attack
+		return EF_TRUE //successful attack
 
 /mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
 	if(I.force < force_threshold || I.damtype == STAMINA)

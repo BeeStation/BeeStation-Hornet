@@ -24,7 +24,7 @@
 	return (BRUTELOSS|FIRELOSS)
 
 /obj/item/melee/transforming/energy/add_blood_DNA(list/blood_dna)
-	return FALSE
+	return EF_FALSE
 
 /obj/item/melee/transforming/energy/is_sharp()
 	return active * sharpness

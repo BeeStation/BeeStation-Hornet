@@ -18,11 +18,11 @@
 
 /datum/bounty/item/applies_to(obj/O)
 	if(!include_subtypes && !(O.type in wanted_types))
-		return FALSE
+		return EF_FALSE
 	if(include_subtypes && (!is_type_in_typecache(O, wanted_types) || is_type_in_typecache(O, exclude_types)))
-		return FALSE
+		return EF_FALSE
 	if(O.flags_1 & HOLOGRAM_1)
-		return FALSE
+		return EF_FALSE
 	return shipped_count < required_count
 
 /datum/bounty/item/ship(obj/O)

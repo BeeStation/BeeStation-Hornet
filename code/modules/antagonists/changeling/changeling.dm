@@ -147,8 +147,8 @@
 	for(var/P in purchasedpowers)
 		var/datum/action/changeling/otherpower = P
 		if(initial(power.name) == otherpower.name)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 
 /datum/antagonist/changeling/proc/purchase_power(sting_name)
@@ -222,8 +222,8 @@
 /datum/antagonist/changeling/proc/has_dna(datum/dna/tDNA)
 	for(var/datum/changelingprofile/prof in stored_profiles)
 		if(tDNA.is_same_as(prof.dna))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/antagonist/changeling/proc/can_absorb_dna(mob/living/carbon/human/target, var/verbose=1)
 	var/mob/living/carbon/user = owner.current

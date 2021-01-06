@@ -20,15 +20,15 @@
 	eyeobj.use_static = USE_STATIC_NONE
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/is_operational()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/can_interact(mob/user)
 	if(!isliving(user))
-		return FALSE
+		return EF_FALSE
 	var/mob/living/L = user
 	if(L.incapacitated())
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/GrantActions(mob/living/user)
 	..(user)

@@ -406,7 +406,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		user.dropItemToGround(src)
 
 /obj/item/proc/allow_attack_hand_drop(mob/user)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/attack_paw(mob/user)
 	if(!user)
@@ -562,7 +562,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	owner.apply_damage(attackforce, STAMINA, blockhand, block_power)
 	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
 		owner.blockbreak()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language)
 	return ITALICS | REDUCE_RANGE
@@ -606,8 +606,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 //sometimes we only want to grant the item's action if it's equipped in a specific slot.
 /obj/item/proc/item_action_slot_check(slot, mob/user)
 	if(slot == SLOT_IN_BACKPACK || slot == SLOT_LEGCUFFED) //these aren't true slots, so avoid granting actions there
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 //the mob M is attempting to equip this item into the slot passed through as 'slot'. Return 1 if it can do this and 0 if it can't.
 //if this is being done by a mob other than M, it will include the mob equipper, who is trying to equip the item to mob M. equipper will be null otherwise.
@@ -615,7 +615,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 //Set disable_warning to TRUE if you wish it to not give you outputs.
 /obj/item/proc/mob_can_equip(mob/living/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
 	if(!M)
-		return FALSE
+		return EF_FALSE
 
 	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self)
 
@@ -740,10 +740,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
 	if(!newLoc)
-		return FALSE
+		return EF_FALSE
 	if(SEND_SIGNAL(loc, COMSIG_CONTAINS_STORAGE))
 		return SEND_SIGNAL(loc, COMSIG_TRY_STORAGE_TAKE, src, newLoc, TRUE)
-	return FALSE
+	return EF_FALSE
 
 /obj/item/proc/get_belt_overlay() //Returns the icon used for overlaying the object on a belt
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', icon_state)
@@ -848,7 +848,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/on_mob_death(mob/living/L, gibbed)
 
 /obj/item/proc/grind_requirements(obj/machinery/reagentgrinder/R) //Used to check for extra requirements for grinding an object
-	return TRUE
+	return EF_TRUE
 
  //Called BEFORE the object is ground up - use this to change grind results based on conditions
  //Use "return -1" to prevent the grinding from occurring
@@ -963,7 +963,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(delay >= MIN_TOOL_SOUND_DELAY)
 		play_tool_sound(target, volume)
 
-	return TRUE
+	return EF_TRUE
 
 // Called before use_tool if there is a delay, or by use_tool if there isn't.
 // Only ever used by welding tools and stacks, so it's not added on any other use_tool checks.

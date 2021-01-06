@@ -46,11 +46,11 @@
 	to_chat(user, "<span class='notice'>You begin removing plates...</span>")
 	if(I.use_tool(src, user, 30, volume=80))
 		if(!istype(src, /turf/open/floor/engine))
-			return TRUE
+			return EF_TRUE
 		if(floor_tile)
 			new floor_tile(src, 1)
 		ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-	return TRUE
+	return EF_TRUE
 
 /turf/open/floor/engine/acid_act(acidpwr, acid_volume)
 	acidpwr = min(acidpwr, 50) //we reduce the power so reinf floor never get melted.

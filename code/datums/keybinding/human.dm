@@ -13,7 +13,7 @@
 	if (!ishuman(user.mob)) return
 	var/mob/living/carbon/human/H = user.mob
 	H.quick_equip()
-	return TRUE
+	return EF_TRUE
 
 
 /datum/keybinding/human/quick_equip_belt
@@ -30,28 +30,28 @@
 	if(!equipped_belt) // We also let you equip a belt like this
 		if(!thing)
 			to_chat(user, "<span class='notice'>You have no belt to take something out of.</span>")
-			return TRUE
+			return EF_TRUE
 		if(H.equip_to_slot_if_possible(thing, SLOT_BELT))
 			H.update_inv_hands()
-		return TRUE
+		return EF_TRUE
 	if(!SEND_SIGNAL(equipped_belt, COMSIG_CONTAINS_STORAGE)) // not a storage item
 		if(!thing)
 			equipped_belt.attack_hand(H)
 		else
 			to_chat(user, "<span class='notice'>You can't fit anything in.</span>")
-		return TRUE
+		return EF_TRUE
 	if(thing) // put thing in belt
 		if(!SEND_SIGNAL(equipped_belt, COMSIG_TRY_STORAGE_INSERT, thing, user.mob))
 			to_chat(user, "<span class='notice'>You can't fit anything in.</span>")
-		return TRUE
+		return EF_TRUE
 	if(!equipped_belt.contents.len) // nothing to take out
 		to_chat(user, "<span class='notice'>There's nothing in your belt to take out.</span>")
-		return TRUE
+		return EF_TRUE
 	var/obj/item/stored = equipped_belt.contents[equipped_belt.contents.len]
 	if(!stored || stored.on_found(H))
-		return TRUE
+		return EF_TRUE
 	stored.attack_hand(H) // take out thing from belt
-	return TRUE
+	return EF_TRUE
 
 
 /datum/keybinding/human/quick_equip_backpack

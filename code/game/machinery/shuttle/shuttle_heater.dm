@@ -51,7 +51,7 @@
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/default_change_direction_wrench(mob/user, obj/item/I)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	SetInitDirections()
 	var/obj/machinery/atmospherics/node = nodes[1]
 	if(node)
@@ -67,7 +67,7 @@
 		node.atmosinit()
 		node.addMember(src)
 	build_network()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/RefreshParts()
 	var/cap = 0

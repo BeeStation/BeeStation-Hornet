@@ -8,7 +8,7 @@
 /datum/proc/ntnet_send(datum/netdata/data, netid)
 	var/datum/component/ntnet_interface/NIC = GetComponent(/datum/component/ntnet_interface)
 	if(!NIC)
-		return FALSE
+		return EF_FALSE
 	return NIC.__network_send(data, netid)
 
 /datum/component/ntnet_interface
@@ -44,23 +44,23 @@
 		if(networks_connected_by_id[netid])
 			var/datum/ntnet/net = networks_connected_by_id[netid]
 			return net.process_data_transmit(src, data)
-		return FALSE
+		return EF_FALSE
 	for(var/i in networks_connected_by_id)
 		var/datum/ntnet/net = networks_connected_by_id[i]
 		net.process_data_transmit(src, data)
-	return TRUE
+	return EF_TRUE
 
 /datum/component/ntnet_interface/proc/register_connection(datum/ntnet/net)
 	if(net.interface_connect(src))
 		networks_connected_by_id[net.network_id] = net
-	return TRUE
+	return EF_TRUE
 
 /datum/component/ntnet_interface/proc/unregister_all_connections()
 	for(var/i in networks_connected_by_id)
 		unregister_connection(networks_connected_by_id[i])
-	return TRUE
+	return EF_TRUE
 
 /datum/component/ntnet_interface/proc/unregister_connection(datum/ntnet/net)
 	net.interface_disconnect(src)
 	networks_connected_by_id -= net.network_id
-	return TRUE
+	return EF_TRUE

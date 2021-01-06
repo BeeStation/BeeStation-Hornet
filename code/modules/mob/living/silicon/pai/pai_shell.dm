@@ -2,15 +2,15 @@
 /mob/living/silicon/pai/proc/fold_out(force = FALSE)
 	if(emitterhealth < 0)
 		to_chat(src, "<span class='warning'>Your holochassis emitters are still too unstable! Please wait for automatic repair.</span>")
-		return FALSE
+		return EF_FALSE
 
 	if(istype(remote_control,/obj/item/integrated_circuit/input/pAI_connector))
 		to_chat(src,"<span class='notice'>The connector is too small to allow you to change form in it.</span>")
-		return FALSE
+		return EF_FALSE
 
 	if(!canholo && !force)
 		to_chat(src, "<span class='warning'>Your master or another force has disabled your holochassis emitters!</span>")
-		return FALSE
+		return EF_FALSE
 
 	if(holoform)
 		. = fold_in(force)
@@ -18,7 +18,7 @@
 
 	if(emittersemicd)
 		to_chat(src, "<span class='warning'>Error: Holochassis emitters recycling. Please try again later.</span>")
-		return FALSE
+		return EF_FALSE
 
 	emittersemicd = TRUE
 	addtimer(CALLBACK(src, .proc/emittercool), emittercd)
@@ -32,7 +32,7 @@
 		var/mob/living/L = card.loc
 		if(!L.temporarilyRemoveItemFromInventory(card))
 			to_chat(src, "<span class='warning'>Error: Unable to expand to mobile form. Chassis is restrained by some device or person.</span>")
-			return FALSE
+			return EF_FALSE
 	forceMove(get_turf(card))
 	card.forceMove(src)
 	if(client)
@@ -74,10 +74,10 @@
 /mob/living/silicon/pai/proc/choose_chassis()
 	if(!isturf(loc) && loc != card)
 		to_chat(src, "<span class='boldwarning'>You can not change your holochassis composite while not on the ground or in your card!</span>")
-		return FALSE
+		return EF_FALSE
 	var/choice = input(src, "What would you like to use for your holochassis composite?") as null|anything in sortList(possible_chassis)
 	if(!choice)
-		return FALSE
+		return EF_FALSE
 	chassis = choice
 	icon_state = "[chassis]"
 	held_state = "[chassis]"
@@ -94,7 +94,7 @@
 		visible_message("<span class='notice'>[src] [resting? "lays down for a moment." : "perks up from the ground."]</span>")
 
 /mob/living/silicon/pai/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
-	return FALSE
+	return EF_FALSE
 
 /mob/living/silicon/pai/proc/toggle_integrated_light()
 	if(!light_range)
@@ -107,5 +107,5 @@
 /mob/living/silicon/pai/mob_try_pickup(mob/living/user)
 	if(!possible_chassis[chassis])
 		to_chat(user, "<span class='warning'>[src]'s current form isn't able to be carried!</span>")
-		return FALSE
+		return EF_FALSE
 	return ..()

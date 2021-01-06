@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning",
 	if(!istype(H))
 		return
 	if(!H.can_read(src))
-		return FALSE
+		return EF_FALSE
 	// If H is the Chaplain, we can set the icon_state of the bible (but only once!)
 	if(!GLOB.bible_icon_state && H.job == "Chaplain")
 		var/dat = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>Pick Bible Style</title></head><body><center><h2>Pick a bible style</h2></center><table>"
@@ -258,4 +258,4 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning",
 		return ..(M,user,heal_mode = FALSE)
 
 /obj/item/storage/book/bible/syndicate/add_blood_DNA(list/blood_dna)
-	return FALSE
+	return EF_FALSE

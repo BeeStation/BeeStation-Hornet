@@ -21,7 +21,7 @@
 		pop()
 
 /obj/effect/fun_balloon/proc/check()
-	return FALSE
+	return EF_FALSE
 
 /obj/effect/fun_balloon/proc/effect()
 	return

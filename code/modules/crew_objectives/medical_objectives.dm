@@ -10,8 +10,8 @@
 		/area/medical/sleeper, /area/medical/storage))
 	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
 		if(H.stat == DEAD && is_station_level(H.z) && is_type_in_typecache(get_area(H), medical_areas)) // If person is dead and corpse is in one of these areas
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/objective/crew/emtmorgue
 	explanation_text = "Ensure that no corpses remain outside of Medbay when the shift ends."
@@ -23,8 +23,8 @@
 		/area/medical/sleeper, /area/medical/storage, /area/medical/morgue))
 	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
 		if(H.stat == DEAD && is_station_level(H.z) && !is_type_in_typecache(get_area(H), medical_areas_morgue)) // If person is dead and corpse is NOT in one of these areas
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/objective/crew/chems //Ported from old Hippie
 	var/targetchem = "none"
@@ -50,9 +50,9 @@
 	if(owner.current)
 		if(!owner.current.stat == DEAD && owner.current.reagents)
 			if(owner.current.reagents.has_reagent(targetchem))
-				return TRUE
+				return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /datum/objective/crew/druglordchem //ported from old Hippie with adjustments
 	var/targetchem = "none"
@@ -84,9 +84,9 @@
 				if(P.reagents.has_reagent(targetchem, chemamount))
 					pillcount--
 	if(pillcount <= 0)
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /datum/objective/crew/noinfections
 	explanation_text = "Make sure there are no crew members with harmful diseases at the end of the shift."
@@ -97,5 +97,5 @@
 		if(!H.stat == DEAD)
 			if((H.z in SSmapping.levels_by_trait(ZTRAIT_STATION)) || SSshuttle.emergency.shuttle_areas[get_area(H)])
 				if(H.check_virus() == 2) //Harmful viruses only
-					return FALSE
-	return TRUE
+					return EF_FALSE
+	return EF_TRUE

@@ -26,7 +26,7 @@
 		"[user] successfully reroutes [target]'s nervous system!",
 		"[user] finishes manipulating [target]'s nervous system.")
 	new /datum/bioware/grounded_nerves(target)
-	return TRUE
+	return EF_TRUE
 
 /datum/bioware/grounded_nerves
 	name = "Grounded Nerves"

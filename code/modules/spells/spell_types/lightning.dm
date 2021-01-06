@@ -19,7 +19,7 @@
 /obj/effect/proc_holder/spell/targeted/tesla/Click()
 	if(!ready && cast_check())
 		StartChargeup()
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/proc_holder/spell/targeted/tesla/proc/StartChargeup(mob/user = usr)
 	ready = TRUE

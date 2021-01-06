@@ -90,7 +90,7 @@ GLOBAL_LIST(labor_sheet_values)
 				P.points += stacking_machine.points
 				stacking_machine.points = 0
 				to_chat(M, "<span class='notice'>Points transferred.</span>")
-				return TRUE
+				return EF_TRUE
 			else
 				to_chat(M, "<span class='alert'>No valid id for point transfer detected.</span>")
 		if("move_shuttle")
@@ -109,7 +109,7 @@ GLOBAL_LIST(labor_sheet_values)
 						Radio.set_frequency(FREQ_SECURITY)
 						Radio.talk_into(src, "A prisoner has returned to the station. Minerals and Prisoner ID card ready for retrieval.", FREQ_SECURITY)
 					to_chat(M, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
-					return TRUE
+					return EF_TRUE
 
 /obj/machinery/mineral/labor_claim_console/proc/locate_stacking_machine()
 	stacking_machine = locate(/obj/machinery/mineral/stacking_machine, get_step(src, machinedir))

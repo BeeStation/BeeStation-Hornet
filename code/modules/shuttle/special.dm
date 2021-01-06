@@ -197,11 +197,11 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.mind?.assigned_role == "Bartender")
-			return TRUE
+			return EF_TRUE
 
 	var/obj/item/card/id/ID = user.get_idcard(FALSE)
 	if(ID && (ACCESS_CENT_BAR in ID.access))
-		return TRUE
+		return EF_TRUE
 
 //Luxury Shuttle Blockers
 
@@ -216,12 +216,12 @@
 
 /obj/effect/forcefield/luxury_shuttle/CanPass(atom/movable/mover, turf/target)
 	if(mover in approved_passengers)
-		return TRUE
+		return EF_TRUE
 
 	if(!isliving(mover)) //No stowaways
-		return FALSE
+		return EF_FALSE
 
-	return FALSE
+	return EF_FALSE
 
 
 #define LUXURY_MESSAGE_COOLDOWN 100

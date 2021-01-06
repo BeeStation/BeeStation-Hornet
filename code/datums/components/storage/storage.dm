@@ -126,13 +126,13 @@
 
 /datum/component/storage/proc/change_master(datum/component/storage/concrete/new_master)
 	if(new_master == src || (!isnull(new_master) && !istype(new_master)))
-		return FALSE
+		return EF_FALSE
 	if(master)
 		master.on_slave_unlink(src)
 	master = new_master
 	if(master)
 		master.on_slave_link(src)
-	return TRUE
+	return EF_TRUE
 
 /datum/component/storage/proc/master()
 	if(master == src)
@@ -162,17 +162,17 @@
 /datum/component/storage/proc/attack_self(datum/source, mob/M)
 	if(locked)
 		to_chat(M, "<span class='warning'>[parent] seems to be locked!</span>")
-		return FALSE
+		return EF_FALSE
 	if((M.get_active_held_item() == parent) && allow_quick_empty)
 		quick_empty(M)
 
 /datum/component/storage/proc/preattack_intercept(datum/source, obj/O, mob/M, params)
 	if(!isitem(O) || !click_gather || SEND_SIGNAL(O, COMSIG_CONTAINS_STORAGE))
-		return FALSE
+		return EF_FALSE
 	. = COMPONENT_NO_ATTACK
 	if(locked)
 		to_chat(M, "<span class='warning'>[parent] seems to be locked!</span>")
-		return FALSE
+		return EF_FALSE
 	var/obj/item/I = O
 	if(collection_mode == COLLECT_ONE)
 		if(can_be_inserted(I, null, M))
@@ -207,10 +207,10 @@
 			handle_item_insertion(I, TRUE, user)
 		if (TICK_CHECK)
 			progress.update(progress.goal - things.len)
-			return TRUE
+			return EF_TRUE
 
 	progress.update(progress.goal - things.len)
-	return FALSE
+	return EF_FALSE
 
 /datum/component/storage/proc/handle_mass_pickup(list/things, atom/thing_loc, list/rejections, datum/progressbar/progress)
 	var/atom/real_location = real_location()
@@ -230,10 +230,10 @@
 
 		if (TICK_CHECK)
 			progress.update(progress.goal - things.len)
-			return TRUE
+			return EF_TRUE
 
 	progress.update(progress.goal - things.len)
-	return FALSE
+	return EF_FALSE
 
 /datum/component/storage/proc/quick_empty(mob/M)
 	var/atom/A = parent
@@ -241,7 +241,7 @@
 		return
 	if(locked)
 		to_chat(M, "<span class='warning'>[parent] seems to be locked!</span>")
-		return FALSE
+		return EF_FALSE
 	A.add_fingerprint(M)
 	to_chat(M, "<span class='notice'>You start dumping out [parent].</span>")
 	var/turf/T = get_turf(A)
@@ -259,12 +259,12 @@
 			continue
 		remove_from_storage(I, target)
 		if(trigger_on_found && I.on_found())
-			return FALSE
+			return EF_FALSE
 		if(TICK_CHECK)
 			progress.update(progress.goal - length(things))
-			return TRUE
+			return EF_TRUE
 	progress.update(progress.goal - length(things))
-	return FALSE
+	return EF_FALSE
 
 /datum/component/storage/proc/do_quick_empty(atom/_target)
 	if(!_target)
@@ -277,7 +277,7 @@
 		if(I.loc != real_location)
 			continue
 		remove_from_storage(I, _target)
-	return TRUE
+	return EF_TRUE
 
 /datum/component/storage/proc/set_locked(datum/source, new_state)
 	locked = new_state
@@ -350,12 +350,12 @@
 
 /datum/component/storage/proc/show_to(mob/M)
 	if(!M.client)
-		return FALSE
+		return EF_FALSE
 	var/atom/real_location = real_location()
 	if(M.active_storage != src && (M.stat == CONSCIOUS))
 		for(var/obj/item/I in real_location)
 			if(I.on_found(M))
-				return FALSE
+				return EF_FALSE
 	if(M.active_storage)
 		M.active_storage.hide_from(M)
 	orient2hud()
@@ -364,11 +364,11 @@
 	M.client.screen |= real_location.contents
 	M.active_storage = src
 	LAZYOR(is_using, M)
-	return TRUE
+	return EF_TRUE
 
 /datum/component/storage/proc/hide_from(mob/M)
 	if(!M.client)
-		return TRUE
+		return EF_TRUE
 	var/atom/real_location = real_location()
 	M.client.screen -= boxes
 	M.client.screen -= closer
@@ -376,7 +376,7 @@
 	if(M.active_storage == src)
 		M.active_storage = null
 	LAZYREMOVE(is_using, M)
-	return TRUE
+	return EF_TRUE
 
 /datum/component/storage/proc/close(mob/M)
 	hide_from(M)
@@ -415,10 +415,10 @@
 //Resets something that is being removed from storage.
 /datum/component/storage/proc/_removal_reset(atom/movable/thing)
 	if(!istype(thing))
-		return FALSE
+		return EF_FALSE
 	var/datum/component/storage/concrete/master = master()
 	if(!istype(master))
-		return FALSE
+		return EF_FALSE
 	return master._removal_reset(thing)
 
 /datum/component/storage/proc/_remove_and_refresh(datum/source, atom/movable/thing)
@@ -428,17 +428,17 @@
 //Call this proc to handle the removal of an item from the storage item. The item will be moved to the new_location target, if that is null it's being deleted
 /datum/component/storage/proc/remove_from_storage(atom/movable/AM, atom/new_location)
 	if(!istype(AM))
-		return FALSE
+		return EF_FALSE
 	var/datum/component/storage/concrete/master = master()
 	if(!istype(master))
-		return FALSE
+		return EF_FALSE
 	return master.remove_from_storage(AM, new_location)
 
 /datum/component/storage/proc/refresh_mob_views()
 	var/list/seeing = can_see_contents()
 	for(var/i in seeing)
 		show_to(i)
-	return TRUE
+	return EF_TRUE
 
 /datum/component/storage/proc/can_see_contents()
 	var/list/cansee = list()
@@ -456,26 +456,26 @@
 	if(A.Adjacent(M) && dump_destination && M.Adjacent(dump_destination))
 		if(locked)
 			to_chat(M, "<span class='warning'>[parent] seems to be locked!</span>")
-			return FALSE
+			return EF_FALSE
 		if(dump_destination.storage_contents_dump_act(src, M))
 			playsound(A, "rustle", 50, 1, -5)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 //This proc is called when you want to place an item into the storage item.
 /datum/component/storage/proc/attackby(datum/source, obj/item/I, mob/M, params)
 	if(istype(I, /obj/item/hand_labeler))
 		var/obj/item/hand_labeler/labeler = I
 		if(labeler.mode)
-			return FALSE
+			return EF_FALSE
 	. = TRUE //no afterattack
 	if(iscyborg(M))
 		return
 	if(!can_be_inserted(I, FALSE, M))
 		var/atom/real_location = real_location()
 		if(real_location.contents.len >= max_items) //don't use items on the backpack if they don't fit
-			return TRUE
-		return FALSE
+			return EF_TRUE
+		return EF_FALSE
 	handle_item_insertion(I, FALSE, M)
 
 /datum/component/storage/proc/return_inv(recursive)
@@ -494,9 +494,9 @@
 //Abuses the fact that lists are just references, or something like that.
 /datum/component/storage/proc/signal_return_inv(datum/source, list/interface, recursive = TRUE)
 	if(!islist(interface))
-		return FALSE
+		return EF_FALSE
 	interface |= return_inv(recursive)
-	return TRUE
+	return EF_TRUE
 
 /datum/component/storage/proc/mousedrop_onto(datum/source, atom/over_object, mob/M)
 	set waitfor = FALSE
@@ -532,11 +532,11 @@
 /datum/component/storage/proc/user_show_to_mob(mob/M, force = FALSE)
 	var/atom/A = parent
 	if(!istype(M))
-		return FALSE
+		return EF_FALSE
 	A.add_fingerprint(M)
 	if(locked && !force)
 		to_chat(M, "<span class='warning'>[parent] seems to be locked!</span>")
-		return FALSE
+		return EF_FALSE
 	if(force || M.CanReach(parent, view_only = TRUE))
 		show_to(M)
 
@@ -553,62 +553,62 @@
 //Set the stop_messages to stop it from printing messages
 /datum/component/storage/proc/can_be_inserted(obj/item/I, stop_messages = FALSE, mob/M)
 	if(!istype(I) || I.anchored || (I.item_flags & ABSTRACT))
-		return FALSE //Not an item
+		return EF_FALSE //Not an item
 	if(I == parent)
-		return FALSE	//no paradoxes for you
+		return EF_FALSE	//no paradoxes for you
 	var/atom/real_location = real_location()
 	var/atom/host = parent
 	if(real_location == I.loc)
-		return FALSE //Means the item is already in the storage item
+		return EF_FALSE //Means the item is already in the storage item
 	if(!insert_while_closed && !(M in is_using))
-		return FALSE
+		return EF_FALSE
 	if(locked)
 		if(M && !stop_messages)
 			host.add_fingerprint(M)
 			to_chat(M, "<span class='warning'>[host] seems to be locked!</span>")
-		return FALSE
+		return EF_FALSE
 	if(real_location.contents.len >= max_items)
 		if(!stop_messages)
 			to_chat(M, "<span class='warning'>[host] is full, make some space!</span>")
-		return FALSE //Storage item is full
+		return EF_FALSE //Storage item is full
 	if(length(can_hold))
 		if(!is_type_in_typecache(I, can_hold))
 			if(!stop_messages)
 				to_chat(M, "<span class='warning'>[host] cannot hold [I]!</span>")
-			return FALSE
+			return EF_FALSE
 	if(is_type_in_typecache(I, cant_hold)) //Check for specific items which this container can't hold.
 		if(!stop_messages)
 			to_chat(M, "<span class='warning'>[host] cannot hold [I]!</span>")
-		return FALSE
+		return EF_FALSE
 	if(I.w_class > max_w_class)
 		if(!stop_messages)
 			to_chat(M, "<span class='warning'>[I] is too big for [host]!</span>")
-		return FALSE
+		return EF_FALSE
 	var/sum_w_class = I.w_class
 	for(var/obj/item/_I in real_location)
 		sum_w_class += _I.w_class //Adds up the combined w_classes which will be in the storage item if the item is added to it.
 	if(sum_w_class > max_combined_w_class)
 		if(!stop_messages)
 			to_chat(M, "<span class='warning'>[I] won't fit in [host], make some space!</span>")
-		return FALSE
+		return EF_FALSE
 	if(isitem(host))
 		var/obj/item/IP = host
 		var/datum/component/storage/STR_I = I.GetComponent(/datum/component/storage)
 		if((I.w_class >= IP.w_class) && STR_I && !allow_big_nesting)
 			if(!stop_messages)
 				to_chat(M, "<span class='warning'>[IP] cannot hold [I] as it's a storage item of the same size!</span>")
-			return FALSE //To prevent the stacking of same sized storage items.
+			return EF_FALSE //To prevent the stacking of same sized storage items.
 	if(HAS_TRAIT(I, TRAIT_NODROP)) //SHOULD be handled in unEquip, but better safe than sorry.
 		if(!stop_messages)
 			to_chat(M, "<span class='warning'>\the [I] is stuck to your hand, you can't put it in \the [host]!</span>")
-		return FALSE
+		return EF_FALSE
 	var/datum/component/storage/concrete/master = master()
 	if(!istype(master))
-		return FALSE
+		return EF_FALSE
 	return master.slave_can_insert_object(src, I, stop_messages, M)
 
 /datum/component/storage/proc/_insert_physical_item(obj/item/I, override = FALSE)
-	return FALSE
+	return EF_FALSE
 
 //This proc handles items being inserted. It does not perform any checks of whether an item can or can't be inserted. That's done by can_be_inserted()
 //The prevent_warning parameter will stop the insertion message from being displayed. It is intended for cases where you are inserting multiple items at once,
@@ -617,7 +617,7 @@
 	var/atom/parent = src.parent
 	var/datum/component/storage/concrete/master = master()
 	if(!istype(master))
-		return FALSE
+		return EF_FALSE
 	if(silent)
 		prevent_warning = TRUE
 	if(M)
@@ -644,7 +644,7 @@
 
 /datum/component/storage/proc/signal_insertion_attempt(datum/source, obj/item/I, mob/M, silent = FALSE, force = FALSE)
 	if((!force && !can_be_inserted(I, TRUE, M)) || (I == parent))
-		return FALSE
+		return EF_FALSE
 	return handle_item_insertion(I, silent, M)
 
 /datum/component/storage/proc/signal_can_insert(datum/source, obj/item/I, mob/M, silent = FALSE)
@@ -657,7 +657,7 @@
 	return user_show_to_mob(showto, force)
 
 /datum/component/storage/proc/on_check()
-	return TRUE
+	return EF_TRUE
 
 /datum/component/storage/proc/check_locked()
 	return locked
@@ -666,7 +666,7 @@
 	if(!force)
 		if(check_adjacent)
 			if(!user || !user.CanReach(destination) || !user.CanReach(parent))
-				return FALSE
+				return EF_FALSE
 	var/list/taking = typecache_filter_list(contents(), typecacheof(type))
 	if(taking.len > amount)
 		taking.len = amount
@@ -677,7 +677,7 @@
 	else
 		for(var/i in taking)
 			remove_from_storage(i, destination)
-	return TRUE
+	return EF_TRUE
 
 /datum/component/storage/proc/remaining_space_items()
 	var/atom/real_location = real_location()
@@ -690,7 +690,7 @@
 	for(var/i in 1 to amount)
 		handle_item_insertion(new type(real_location), TRUE)
 		CHECK_TICK
-	return TRUE
+	return EF_TRUE
 
 /datum/component/storage/proc/on_attack_hand(datum/source, mob/user)
 	var/atom/A = parent
@@ -734,7 +734,7 @@
 
 /datum/component/storage/proc/signal_take_obj(datum/source, atom/movable/AM, new_loc, force = FALSE)
 	if(!(AM in real_location()))
-		return FALSE
+		return EF_FALSE
 	return remove_from_storage(AM, new_loc)
 
 /datum/component/storage/proc/signal_quick_empty(datum/source, atom/loctarget)

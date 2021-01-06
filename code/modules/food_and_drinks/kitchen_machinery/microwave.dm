@@ -115,7 +115,7 @@
 
 	if(panel_open && is_wire_tool(O))
 		wires.interact(user)
-		return TRUE
+		return EF_TRUE
 
 	if(broken > 0)
 		if(broken == 2 && O.tool_behaviour == TOOL_WIRECUTTER) // If it's broken and they're using a screwdriver
@@ -129,10 +129,10 @@
 				user.visible_message("[user] fixes \the [src].", "<span class='notice'>You fix \the [src].</span>")
 				broken = 0
 				update_icon()
-				return FALSE //to use some fuel
+				return EF_FALSE //to use some fuel
 		else
 			to_chat(user, "<span class='warning'>It's broken!</span>")
-			return TRUE
+			return EF_TRUE
 		return
 
 	if(istype(O, /obj/item/reagent_containers/spray))
@@ -145,7 +145,7 @@
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>You need more space cleaner!</span>")
-		return TRUE
+		return EF_TRUE
 
 	if(istype(O, /obj/item/soap) || istype(O, /obj/item/reagent_containers/glass/rag))
 		var/cleanspeed = 50
@@ -157,11 +157,11 @@
 			user.visible_message("[user] has cleaned \the [src].", "<span class='notice'>You clean \the [src].</span>")
 			dirty = 0
 			update_icon()
-		return TRUE
+		return EF_TRUE
 
 	if(dirty == 100) // The microwave is all dirty so can't be used!
 		to_chat(user, "<span class='warning'>\The [src] is dirty!</span>")
-		return TRUE
+		return EF_TRUE
 
 	if(istype(O, /obj/item/storage/bag/tray))
 		var/obj/item/storage/T = O
@@ -169,7 +169,7 @@
 		for(var/obj/item/reagent_containers/food/snacks/S in T.contents)
 			if(ingredients.len >= max_n_of_items)
 				to_chat(user, "<span class='warning'>\The [src] is full, you can't put anything in!</span>")
-				return TRUE
+				return EF_TRUE
 			if(SEND_SIGNAL(T, COMSIG_TRY_STORAGE_TAKE, S, src))
 				loaded++
 				ingredients += S
@@ -180,10 +180,10 @@
 	if(O.w_class <= WEIGHT_CLASS_NORMAL && !istype(O, /obj/item/storage) && user.a_intent == INTENT_HELP)
 		if(ingredients.len >= max_n_of_items)
 			to_chat(user, "<span class='warning'>\The [src] is full, you can't put anything in!</span>")
-			return TRUE
+			return EF_TRUE
 		if(!user.transferItemToLoc(O, src))
 			to_chat(user, "<span class='warning'>\The [O] is stuck to your hand!</span>")
-			return FALSE
+			return EF_FALSE
 
 		ingredients += O
 		user.visible_message("[user] has added \a [O] to \the [src].", "<span class='notice'>You add [O] to \the [src].</span>")

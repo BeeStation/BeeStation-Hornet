@@ -364,7 +364,7 @@
 		return
 	var/list/prints = voodoo_link.return_fingerprints()
 	if(!length(prints))
-		return FALSE
+		return EF_FALSE
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 		if(prints[rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)])
 			possible |= H
@@ -409,8 +409,8 @@
 /obj/item/warpwhistle/proc/interrupted(mob/living/carbon/user)
 	if(!user || QDELETED(src) || user.notransform)
 		on_cooldown = FALSE
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/item/warpwhistle/proc/end_effect(mob/living/carbon/user)
 	user.invisibility = initial(user.invisibility)

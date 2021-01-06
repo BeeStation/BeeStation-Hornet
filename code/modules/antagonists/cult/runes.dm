@@ -262,7 +262,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/convert/proc/do_sacrifice(mob/living/sacrificial, list/invokers)
 	var/mob/living/first_invoker = invokers[1]
 	if(!first_invoker)
-		return FALSE
+		return EF_FALSE
 	var/datum/antagonist/cult/C = first_invoker.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
 	if(!C)
 		return
@@ -273,7 +273,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		for(var/M in invokers)
 			to_chat(M, "<span class='cult italic'>[sacrificial] is too greatly linked to the world! You need three acolytes!</span>")
 		log_game("Offer rune failed - not enough acolytes and target is living or sac target")
-		return FALSE
+		return EF_FALSE
 	if(sacrificial.mind)
 		GLOB.sacrificed += sacrificial.mind
 		for(var/datum/objective/sacrifice/sac_objective in C.cult_team.objectives)
@@ -307,7 +307,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		else
 			playsound(sacrificial, 'sound/magic/disintegrate.ogg', 100, 1)
 			sacrificial.gib()
-	return TRUE
+	return EF_TRUE
 
 
 
@@ -594,16 +594,16 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/raise_dead/proc/validness_checks(mob/living/target_mob, mob/living/user)
 	var/turf/T = get_turf(src)
 	if(QDELETED(user))
-		return FALSE
+		return EF_FALSE
 	if(!Adjacent(user) || user.incapacitated())
-		return FALSE
+		return EF_FALSE
 	if(QDELETED(target_mob))
-		return FALSE
+		return EF_FALSE
 	if(!(target_mob in T.contents))
 		to_chat(user, "<span class='cult italic'>The cultist to revive has been moved!</span>")
 		log_game("Raise Dead rune failed - revival target moved")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/effect/rune/raise_dead/fail_invoke()
 	..()

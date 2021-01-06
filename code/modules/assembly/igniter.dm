@@ -25,12 +25,12 @@
 
 /obj/item/assembly/igniter/activate()
 	if(!..())
-		return FALSE//Cooldown check
+		return EF_FALSE//Cooldown check
 	var/turf/location = get_turf(loc)
 	if(location)
 		location.hotspot_expose(1000,1000)
 	sparks.start()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/assembly/igniter/attack_self(mob/user)
 	activate()

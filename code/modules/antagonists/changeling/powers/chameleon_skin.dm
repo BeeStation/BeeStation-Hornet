@@ -16,7 +16,7 @@
 		H.dna.remove_mutation(CHAMELEON)
 	else
 		H.dna.add_mutation(CHAMELEON)
-	return TRUE
+	return EF_TRUE
 
 /datum/action/changeling/chameleon_skin/Remove(mob/user)
 	if(user.has_dna())

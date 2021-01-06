@@ -432,15 +432,15 @@
 
 /datum/dna/proc/activate_mutation(mutation) //note that this returns a boolean and not a new mob
 	if(!mutation)
-		return FALSE
+		return EF_FALSE
 	var/mutation_type = mutation
 	if(istype(mutation, /datum/mutation/human))
 		var/datum/mutation/human/M = mutation
 		mutation_type = M.type
 	if(!mutation_in_sequence(mutation_type)) //cant activate what we dont have, use add_mutation
-		return FALSE
+		return EF_FALSE
 	add_mutation(mutation, MUT_NORMAL)
-	return TRUE
+	return EF_TRUE
 
 /////////////////////////// DNA HELPER-PROCS //////////////////////////////
 
@@ -466,9 +466,9 @@
 	if(istype(mutation, /datum/mutation/human))
 		var/datum/mutation/human/HM = mutation
 		if(HM.type in mutation_index)
-			return TRUE
+			return EF_TRUE
 	else if(mutation in mutation_index)
-		return TRUE
+		return EF_TRUE
 
 
 /mob/living/carbon/proc/randmut(list/candidates, difficulty = 2)
@@ -500,7 +500,7 @@
 			var/datum/mutation/human/HM = dna.get_mutation(mutation)
 			if(HM)
 				HM.scrambled = TRUE
-		return TRUE
+		return EF_TRUE
 
 /mob/living/carbon/proc/randmuti()
 	if(!has_dna())

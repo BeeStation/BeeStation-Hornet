@@ -189,15 +189,15 @@
 /obj/item/gun/energy/plasmacutter/tool_use_check(mob/living/user, amount)
 	if(QDELETED(cell))
 		to_chat(user, "<span class='warning'>[src] does not have a cell, and cannot be used!</span>")
-		return FALSE
+		return EF_FALSE
 	// Amount cannot be used if drain is made continuous, e.g. amount = 5, charge_weld = 25
 	// Then it'll drain 125 at first and 25 periodically, but fail if charge dips below 125 even though it still can finish action
 	// Alternately it'll need to drain amount*charge_weld every period, which is either obscene or makes it free for other uses
 	if(amount ? cell.charge < charge_weld * amount : cell.charge < charge_weld)
 		to_chat(user, "<span class='warning'>You need more charge to complete this task!</span>")
-		return FALSE
+		return EF_FALSE
 
-	return TRUE
+	return EF_TRUE
 
 /obj/item/gun/energy/plasmacutter/use(amount)
 	return (!QDELETED(cell) && cell.use(amount ? amount * charge_weld : charge_weld))
@@ -237,8 +237,8 @@
 	can_charge = FALSE
 	use_cyborg_cell = TRUE
 	tool_behaviour = null //because it will drain the cutters cell and not the borgs.
-	
-	
+
+
 /obj/item/gun/energy/wormhole_projector
 	name = "bluespace wormhole projector"
 	desc = "A projector that emits high density quantum-coupled bluespace beams."
@@ -275,13 +275,13 @@
 
 /obj/item/gun/energy/wormhole_projector/proc/has_blue_portal()
 	if(istype(p_blue) && !QDELETED(p_blue))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/item/gun/energy/wormhole_projector/proc/has_orange_portal()
 	if(istype(p_orange) && !QDELETED(p_orange))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/item/gun/energy/wormhole_projector/proc/crosslink()
 	if(!has_blue_portal() && !has_orange_portal())

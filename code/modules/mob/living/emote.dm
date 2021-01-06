@@ -61,7 +61,7 @@
 /datum/emote/living/cough/can_run_emote(mob/user, status_check = TRUE , intentional)
 	. = ..()
 	if(HAS_TRAIT(user, TRAIT_SOOTHED_THROAT))
-		return FALSE
+		return EF_FALSE
 
 /datum/emote/living/dance
 	key = "dance"
@@ -405,23 +405,23 @@
 	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")
 	if(stop_bad_mime.Find(input, 1, 1))
 		to_chat(user, "<span class='danger'>Invalid emote.</span>")
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/emote/living/custom/can_run_emote(mob/user, status_check, intentional)
 	. = ..() && intentional
 
 /datum/emote/living/custom/run_emote(mob/user, params, type_override = null, intentional = FALSE)
 	if(!can_run_emote(user, TRUE, intentional))
-		return FALSE
+		return EF_FALSE
 	if(is_banned_from(user.ckey, "Emote"))
 		to_chat(user, "You cannot send custom emotes (banned).")
-		return FALSE
+		return EF_FALSE
 	else if(QDELETED(user))
-		return FALSE
+		return EF_FALSE
 	else if(user.client && user.client.prefs.muted & MUTE_IC)
 		to_chat(user, "You cannot send IC messages (muted).")
-		return FALSE
+		return EF_FALSE
 	else if(!params)
 		var/custom_emote = stripped_input(usr, "Choose an emote to display.")
 		if(custom_emote && !check_invalid(user, custom_emote))

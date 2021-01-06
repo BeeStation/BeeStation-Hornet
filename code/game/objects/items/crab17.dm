@@ -13,13 +13,13 @@
 		return
 	if(dumped)
 		to_chat(user, "<span class='warning'>You already activated Protocol CRAB-17.</span>")
-		return FALSE
+		return EF_FALSE
 	if(alert(user, "Are you sure you want to crash this market with no survivors?", "Protocol CRAB-17", "Yes", "No") == "Yes")
 		if(dumped || QDELETED(src)) //Prevents fuckers from cheesing alert
-			return FALSE
+			return EF_FALSE
 		var/turf/targetturf = get_safe_random_station_turf()
 		if (!targetturf)
-			return FALSE
+			return EF_FALSE
 		new /obj/effect/dumpeetTarget(targetturf, user)
 		dumped = TRUE
 
@@ -46,8 +46,8 @@
 	for(var/i in accounts_to_rob)
 		var/datum/bank_account/B = i
 		if (B.being_dumped)
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /obj/structure/checkoutmachine/attackby(obj/item/W, mob/user, params)
 	if(check_if_finished())
@@ -169,7 +169,7 @@
 			continue
 		var/amount = B.account_balance * percentage_lost
 		var/datum/bank_account/account = bogdanoff.get_bank_account()
-		if (account) // get_bank_account() may return FALSE
+		if (account) // get_bank_account() may return EF_FALSE
 			account.transfer_money(B, amount)
 			B.bank_card_talk("You have lost [percentage_lost * 100]% of your funds! A spacecoin credit deposit machine is located at: [get_area(src).name].")
 	addtimer(CALLBACK(src, .proc/dump), 150) //Drain every 15 seconds

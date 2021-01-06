@@ -66,9 +66,9 @@
 
 	if(!enough_tators)
 		setup_error = "Not enough traitor candidates"
-		return FALSE
+		return EF_FALSE
 	else
-		return TRUE
+		return EF_TRUE
 
 
 /datum/game_mode/traitor/post_setup()
@@ -82,7 +82,7 @@
 	//We're not actually ready until all traitors are assigned.
 	gamemode_ready = FALSE
 	addtimer(VARSET_CALLBACK(src, gamemode_ready, TRUE), 101)
-	return TRUE
+	return EF_TRUE
 
 /datum/game_mode/traitor/make_antag_chance(mob/living/carbon/human/character) //Assigns traitor to latejoiners
 	var/tsc = CONFIG_GET(number/traitor_scaling_coeff)

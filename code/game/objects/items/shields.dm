@@ -11,7 +11,7 @@
 
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(transparent && (hitby.pass_flags & PASSGLASS))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /obj/item/shield/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
@@ -43,9 +43,9 @@
 			T.visible_message("<span class='warning'>[hitby] destroys [src]!</span>")
 			obj_integrity = 1
 			shatter(owner)
-			return FALSE
+			return EF_FALSE
 		take_damage(attackforce * ((100-(block_power))/100))
-		return TRUE
+		return EF_TRUE
 	else
 		return ..()
 

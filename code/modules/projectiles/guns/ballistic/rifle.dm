@@ -33,7 +33,7 @@ obj/item/gun/ballistic/rifle/rack(mob/user = null)
 
 obj/item/gun/ballistic/rifle/can_shoot()
 	if (bolt_locked)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 obj/item/gun/ballistic/rifle/attackby(obj/item/A, mob/user, params)

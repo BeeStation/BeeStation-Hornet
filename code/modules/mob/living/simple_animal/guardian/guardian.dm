@@ -221,7 +221,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 				new /obj/effect/temp_visual/guardian/phase(loc)
 
 /mob/living/simple_animal/hostile/guardian/canSuicide()
-	return FALSE
+	return EF_FALSE
 
 /mob/living/simple_animal/hostile/guardian/proc/is_deployed()
 	return loc != summoner
@@ -229,7 +229,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 /mob/living/simple_animal/hostile/guardian/AttackingTarget()
 	if(!is_deployed())
 		to_chat(src, "<span class='danger'><B>You must be manifested to attack!</span></B>")
-		return FALSE
+		return EF_FALSE
 	else
 		return ..()
 
@@ -253,7 +253,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	. = amount
 	if(summoner)
 		if(loc == summoner)
-			return FALSE
+			return EF_FALSE
 		summoner.adjustBruteLoss(amount)
 		if(amount > 0)
 			to_chat(summoner, "<span class='danger'><B>Your [name] is under attack! You take damage!</span></B>")
@@ -284,9 +284,9 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /mob/living/simple_animal/hostile/guardian/equip_to_slot(obj/item/I, slot)
 	if(!slot)
-		return FALSE
+		return EF_FALSE
 	if(!istype(I))
-		return FALSE
+		return EF_FALSE
 
 	. = TRUE
 	var/index = get_held_index_of_item(I)
@@ -356,23 +356,23 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /mob/living/simple_animal/hostile/guardian/proc/Manifest(forced)
 	if(istype(summoner.loc, /obj/effect) || (cooldown > world.time && !forced))
-		return FALSE
+		return EF_FALSE
 	if(loc == summoner)
 		forceMove(summoner.loc)
 		new /obj/effect/temp_visual/guardian/phase(loc)
 		cooldown = world.time + 10
 		reset_perspective()
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /mob/living/simple_animal/hostile/guardian/proc/Recall(forced)
 	if(!summoner || loc == summoner || (cooldown > world.time && !forced))
-		return FALSE
+		return EF_FALSE
 	new /obj/effect/temp_visual/guardian/phase/out(loc)
 
 	forceMove(summoner)
 	cooldown = world.time + 10
-	return TRUE
+	return EF_TRUE
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, "<span class='danger'><B>You don't have another mode!</span></B>")

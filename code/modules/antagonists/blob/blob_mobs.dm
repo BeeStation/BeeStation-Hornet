@@ -124,7 +124,7 @@
 			dust()
 			user.visible_message("<span class='danger'>[user] stabs [src] with [E], sucking it up!</span>", \
 	 				 "<span class='danger'>You stab [src] with [E]'s probe, destroying it!</span>")
-	return TRUE
+	return EF_TRUE
 
 /mob/living/simple_animal/hostile/blob/blobspore/Life()
 	if(!is_zombie && isturf(src.loc))

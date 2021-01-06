@@ -48,13 +48,13 @@
 
 /datum/ntnet/proc/interface_connect(datum/component/ntnet_interface/I)
 	if(connected_interfaces_by_id[I.hardware_id])
-		return FALSE
+		return EF_FALSE
 	connected_interfaces_by_id[I.hardware_id] = I
-	return TRUE
+	return EF_TRUE
 
 /datum/ntnet/proc/interface_disconnect(datum/component/ntnet_interface/I)
 	connected_interfaces_by_id -= I.hardware_id
-	return TRUE
+	return EF_TRUE
 
 /datum/ntnet/proc/find_interface_id(id)
 	return connected_interfaces_by_id[id]
@@ -67,24 +67,24 @@
 
 /datum/ntnet/proc/register_service(datum/ntnet_service/S)
 	if(!istype(S))
-		return FALSE
+		return EF_FALSE
 	if(services_by_path[S.type] || services_by_id[S.id])
-		return FALSE
+		return EF_FALSE
 	services_by_path[S.type] = S
 	services_by_id[S.id] = S
-	return TRUE
+	return EF_TRUE
 
 /datum/ntnet/proc/unregister_service(datum/ntnet_service/S)
 	if(!istype(S))
-		return FALSE
+		return EF_FALSE
 	services_by_path -= S.type
 	services_by_id -= S.id
-	return TRUE
+	return EF_TRUE
 
 /datum/ntnet/proc/create_service(type)
 	var/datum/ntnet_service/S = new type
 	if(!istype(S))
-		return FALSE
+		return EF_FALSE
 	. = S.connect(src)
 	if(!.)
 		qdel(S)
@@ -92,14 +92,14 @@
 /datum/ntnet/proc/destroy_service(type)
 	var/datum/ntnet_service/S = find_service_path(type)
 	if(!istype(S))
-		return FALSE
+		return EF_FALSE
 	. = S.disconnect(src)
 	if(.)
 		qdel(src)
 
 /datum/ntnet/proc/process_data_transmit(datum/component/ntnet_interface/sender, datum/netdata/data)
 	if(!check_relay_operation())
-		return FALSE
+		return EF_FALSE
 	data.network_id = src
 	log_data_transfer(data)
 	var/list/datum/component/ntnet_interface/receiving = list()
@@ -121,7 +121,7 @@
 		var/datum/ntnet_service/serv = services_by_id[i]
 		serv.ntnet_intercept(data, src, sender)
 
-	return TRUE
+	return EF_TRUE
 
 /datum/ntnet/proc/check_relay_operation(zlevel)	//can be expanded later but right now it's true/false.
 	for(var/i in relays)
@@ -129,8 +129,8 @@
 		if(zlevel && n.z != zlevel)
 			continue
 		if(n.is_operational())
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/ntnet/proc/log_data_transfer(datum/netdata/data)
 	logs += "[station_time_timestamp()] - [data.generate_netlog()]"
@@ -156,14 +156,14 @@
 // Checks whether NTNet operates. If parameter is passed checks whether specific function is enabled.
 /datum/ntnet/proc/check_function(specific_action = 0)
 	if(!relays || !relays.len) // No relays found. NTNet is down
-		return FALSE
+		return EF_FALSE
 
 	// Check all relays. If we have at least one working relay, network is up.
 	if(!check_relay_operation())
-		return FALSE
+		return EF_FALSE
 
 	if(setting_disabled)
-		return FALSE
+		return EF_FALSE
 
 	switch(specific_action)
 		if(NTNET_SOFTWAREDOWNLOAD)
@@ -174,7 +174,7 @@
 			return setting_communication
 		if(NTNET_SYSTEMCONTROL)
 			return setting_systemcontrol
-	return TRUE
+	return EF_TRUE
 
 // Builds lists that contain downloadable software.
 /datum/ntnet/proc/build_software_lists()
@@ -223,7 +223,7 @@
 // Updates maximal amount of stored logs. Use this instead of setting the number, it performs required checks.
 /datum/ntnet/proc/update_max_log_count(lognumber)
 	if(!lognumber)
-		return FALSE
+		return EF_FALSE
 	// Trim the value if necessary
 	lognumber = max(MIN_NTNET_LOGS, min(lognumber, MAX_NTNET_LOGS))
 	setting_maxlogcount = lognumber

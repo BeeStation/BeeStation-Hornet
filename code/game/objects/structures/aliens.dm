@@ -151,7 +151,7 @@
 	var/turf/U = get_turf(src)
 	if(is_type_in_typecache(U, blacklisted_turfs))
 		qdel(src)
-		return FALSE
+		return EF_FALSE
 
 	for(var/turf/T in U.GetAtmosAdjacentTurfs())
 		if((locate(/obj/structure/alien/weeds) in T))
@@ -161,7 +161,7 @@
 			continue
 
 		new /obj/structure/alien/weeds(T)
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/alien/weeds/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)

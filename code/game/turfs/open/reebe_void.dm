@@ -39,12 +39,12 @@
 
 /turf/open/indestructible/reebe_void/Enter(atom/movable/AM, atom/old_loc)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	else
 		if(istype(AM, /obj/structure/window))
-			return FALSE
+			return EF_FALSE
 		if(istype(AM, /obj/item/projectile))
-			return TRUE
+			return EF_TRUE
 		if((locate(/obj/structure/lattice) in src))
-			return TRUE
-		return FALSE
+			return EF_TRUE
+		return EF_FALSE

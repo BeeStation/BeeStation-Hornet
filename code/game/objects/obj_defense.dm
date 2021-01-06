@@ -122,11 +122,11 @@
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 
 /obj/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
-	return TRUE
+	return EF_TRUE
 
 /obj/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	collision_damage(pusher, force, direction)
-	return TRUE
+	return EF_TRUE
 
 /obj/proc/collision_damage(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	var/amt = max(0, ((force - (move_resist * MOVE_FORCE_CRUSH_RATIO)) / (move_resist * MOVE_FORCE_CRUSH_RATIO)) * 10)
@@ -281,8 +281,8 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 	if(can_break && integrity_failure && current_integrity <= integrity_failure)
 		obj_break(damage_type)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 //returns how much the object blocks an explosion
 /obj/proc/GetExplosionBlock()

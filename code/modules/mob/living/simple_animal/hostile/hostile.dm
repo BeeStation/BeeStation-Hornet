@@ -191,54 +191,54 @@
 // Please do not add one-off mob AIs here, but override this function for your mob
 /mob/living/simple_animal/hostile/CanAttack(atom/the_target)//Can we actually attack a possible target?
 	if(isturf(the_target) || !the_target || the_target.type == /atom/movable/lighting_object) // bail out on invalids
-		return FALSE
+		return EF_FALSE
 
 	if(ismob(the_target)) //Target is in godmode, ignore it.
 		var/mob/M = the_target
 		if(M.status_flags & GODMODE)
-			return FALSE
+			return EF_FALSE
 
 	if(see_invisible < the_target.invisibility)//Target's invisible to us, forget it
-		return FALSE
+		return EF_FALSE
 	if(search_objects < 2)
 		if(isliving(the_target))
 			var/mob/living/L = the_target
 			var/faction_check = faction_check_mob(L)
 			if(robust_searching)
 				if(faction_check && !attack_same)
-					return FALSE
+					return EF_FALSE
 				if(L.stat == UNCONSCIOUS && HAS_TRAIT(L, TRAIT_FAKEDEATH) && stat_attack < 3 )//Simplemobs don't see through fake death if you're out cold and they don't attack already dead mobs
-					return FALSE
+					return EF_FALSE
 				if(L.stat > stat_attack)
-					return FALSE
+					return EF_FALSE
 				if(L in friends)
-					return FALSE
+					return EF_FALSE
 			else
 				if((faction_check && !attack_same) || L.stat)
-					return FALSE
-			return TRUE
+					return EF_FALSE
+			return EF_TRUE
 
 		if(ismecha(the_target))
 			var/obj/mecha/M = the_target
 			if(M.occupant)//Just so we don't attack empty mechs
 				if(CanAttack(M.occupant))
-					return TRUE
+					return EF_TRUE
 
 		if(istype(the_target, /obj/machinery/porta_turret))
 			var/obj/machinery/porta_turret/P = the_target
 			if(P.in_faction(src)) //Don't attack if the turret is in the same faction
-				return FALSE
+				return EF_FALSE
 			if(P.has_cover &&!P.raised) //Don't attack invincible turrets
-				return FALSE
+				return EF_FALSE
 			if(P.stat & BROKEN) //Or turrets that are already broken
-				return FALSE
-			return TRUE
+				return EF_FALSE
+			return EF_TRUE
 
 	if(isobj(the_target))
 		if(attack_all_objects || is_type_in_typecache(the_target, wanted_objects))
-			return TRUE
+			return EF_TRUE
 
-	return FALSE
+	return EF_FALSE
 
 /mob/living/simple_animal/hostile/proc/GiveTarget(new_target)//Step 4, give us our selected target
 	target = new_target
@@ -378,7 +378,7 @@
 				if(L == src || L == A)
 					continue
 				if(faction_check_mob(L) && !attack_same)
-					return TRUE
+					return EF_TRUE
 
 /mob/living/simple_animal/hostile/proc/OpenFire(atom/A)
 	if(CheckFriendlyFire(A))

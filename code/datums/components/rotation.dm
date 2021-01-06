@@ -129,8 +129,8 @@
 
 /datum/component/simple_rotation/proc/default_can_user_rotate(mob/living/user, rotation_type)
 	if(!istype(user) || !user.canUseTopic(parent, BE_CLOSE, NO_DEXTERY))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/component/simple_rotation/proc/default_can_be_rotated(mob/user, rotation_type)
 	var/atom/movable/AM = parent

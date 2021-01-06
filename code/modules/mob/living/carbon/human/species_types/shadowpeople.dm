@@ -27,7 +27,7 @@
 
 /datum/species/shadow/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /datum/species/shadow/nightmare
@@ -62,7 +62,7 @@
 	return ..()
 
 /datum/species/shadow/nightmare/check_roundstart_eligible()
-	return FALSE
+	return EF_FALSE
 
 //Organs
 

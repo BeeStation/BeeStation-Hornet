@@ -183,14 +183,14 @@
 #define SDQL2_OPTIONS_DEFAULT		(SDQL2_OPTION_SELECT_OUTPUT_SKIP_NULLS)
 
 #define SDQL2_IS_RUNNING (state == SDQL2_STATE_EXECUTING || state == SDQL2_STATE_SEARCHING || state == SDQL2_STATE_SWITCHING || state == SDQL2_STATE_PRESEARCH)
-#define SDQL2_HALT_CHECK if(!SDQL2_IS_RUNNING) {state = SDQL2_STATE_HALTING; return FALSE;};
+#define SDQL2_HALT_CHECK if(!SDQL2_IS_RUNNING) {state = SDQL2_STATE_HALTING; return EF_FALSE;};
 
 #define SDQL2_TICK_CHECK ((options & SDQL2_OPTION_HIGH_PRIORITY)? CHECK_TICK_HIGH_PRIORITY : CHECK_TICK)
 
 #define SDQL2_STAGE_SWITCH_CHECK if(state != SDQL2_STATE_SWITCHING){\
 		if(state == SDQL2_STATE_HALTING){\
 			state = SDQL2_STATE_IDLE;\
-			return FALSE}\
+			return EF_FALSE}\
 		state = SDQL2_STATE_ERROR;\
 		CRASH("SDQL2 fatal error");};
 
@@ -199,7 +199,7 @@
 	if(!check_rights(R_DEBUG))  //Shouldn't happen... but just to be safe.
 		message_admins("<span class='danger'>ERROR: Non-admin [key_name(usr)] attempted to execute a SDQL query!</span>")
 		log_admin("Non-admin [key_name(usr)] attempted to execute a SDQL query!")
-		return FALSE
+		return EF_FALSE
 	var/list/results = world.SDQL2_query(query_text, key_name_admin(usr), "[key_name(usr)]")
 	if(length(results) == 3)
 		for(var/I in 1 to 3)
@@ -459,7 +459,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 
 /datum/SDQL2_query/proc/Run()
 	if(SDQL2_IS_RUNNING)
-		return FALSE
+		return EF_FALSE
 	if(query_tree["options"])
 		for(var/name in query_tree["options"])
 			var/value = query_tree["options"][name]
@@ -729,14 +729,14 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 
 /datum/SDQL2_query/CanProcCall()
 	if(!allow_admin_interact)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/SDQL2_query/vv_edit_var(var_name, var_value)
 	if(!allow_admin_interact)
-		return FALSE
+		return EF_FALSE
 	if(var_name == NAMEOF(src, superuser) || var_name == NAMEOF(src, allow_admin_interact) || var_name == NAMEOF(src, query_tree))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/SDQL2_query/proc/SDQL_internal_vv(d, list/set_list)

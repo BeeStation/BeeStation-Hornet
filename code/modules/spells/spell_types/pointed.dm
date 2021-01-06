@@ -54,14 +54,14 @@
 
 /obj/effect/proc_holder/spell/pointed/InterceptClickOn(mob/living/caller, params, atom/target)
 	if(..())
-		return FALSE
+		return EF_FALSE
 	if(!intercept_check(ranged_ability_user, target))
-		return FALSE
+		return EF_FALSE
 	if(!cast_check(user = ranged_ability_user))
-		return FALSE
+		return EF_FALSE
 	perform(list(target), user = ranged_ability_user)
 	remove_ranged_ability()
-	return TRUE
+	return EF_TRUE
 
  /**
   *
@@ -72,4 +72,4 @@
   *
  **/
 /obj/effect/proc_holder/spell/pointed/proc/intercept_check(mob/user, atom/target)
-	return TRUE
+	return EF_TRUE

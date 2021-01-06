@@ -19,9 +19,9 @@
 /datum/wires/airlock/interactable(mob/user)
 	var/obj/machinery/door/airlock/A = holder
 	if(!issilicon(user) && A.isElectrified() && A.shock(user, 100))
-		return FALSE
+		return EF_FALSE
 	if(A.panel_open)
-		return TRUE
+		return EF_TRUE
 
 /datum/wires/airlock/get_status()
 	var/obj/machinery/door/airlock/A = holder

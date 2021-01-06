@@ -108,7 +108,7 @@
 		burnt = FALSE
 		broken = FALSE
 
-	return TRUE
+	return EF_TRUE
 
 /turf/open/floor/plating/make_plating()
 	return
@@ -158,8 +158,8 @@
 	if(passed_mode == RCD_FLOORWALL)
 		to_chat(user, "<span class='notice'>You build a floor.</span>")
 		ChangeTurf(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /turf/open/floor/plating/foam/ex_act()
 	..()

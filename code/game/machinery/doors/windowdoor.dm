@@ -104,13 +104,13 @@
 	if(istype(mover, /obj/structure/window))
 		var/obj/structure/window/W = mover
 		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
+			return EF_FALSE
 	else if(istype(mover, /obj/structure/windoor_assembly))
 		var/obj/structure/windoor_assembly/W = mover
 		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
+			return EF_FALSE
 	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
-		return FALSE
+		return EF_FALSE
 	else
 		return 1
 
@@ -388,12 +388,12 @@
 		open()
 
 /obj/machinery/door/window/clockwork/hasPower()
-	return TRUE //yup that's power all right
+	return EF_TRUE //yup that's power all right
 
 /obj/machinery/door/window/clockwork/allowed(mob/M)
 	if(is_servant_of_ratvar(M))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/door/window/clockwork/narsie_act()
 	take_damage(rand(30, 60), BRUTE)

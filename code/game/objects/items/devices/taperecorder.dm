@@ -67,8 +67,8 @@
 /obj/item/taperecorder/proc/can_use(mob/user)
 	if(user && ismob(user))
 		if(!user.incapacitated())
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 
 /obj/item/taperecorder/verb/ejectverb()

@@ -21,20 +21,20 @@
 
 /datum/bounty/virus/applies_to(obj/O)
 	if(shipped)
-		return FALSE
+		return EF_FALSE
 	if(O.flags_1 & HOLOGRAM_1)
-		return FALSE
+		return EF_FALSE
 	if(!istype(O, /obj/item/reagent_containers || !O.reagents || !O.reagents.reagent_list))
-		return FALSE
+		return EF_FALSE
 	var/datum/reagent/blood/B = locate() in O.reagents.reagent_list
 	if(!B)
-		return FALSE
+		return EF_FALSE
 	for(var/V in B.get_diseases())
 		if(!istype(V, /datum/disease/advance))
 			continue
 		if(accepts_virus(V))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/bounty/virus/ship(obj/O)
 	if(!applies_to(O))
@@ -43,13 +43,13 @@
 
 /datum/bounty/virus/compatible_with(datum/other_bounty)
 	if(!istype(other_bounty, /datum/bounty/virus))
-		return TRUE
+		return EF_TRUE
 	var/datum/bounty/virus/V = other_bounty
 	return type != V.type || stat_value != V.stat_value
 
 
 /datum/bounty/virus/proc/accepts_virus(V)
-	return TRUE
+	return EF_TRUE
 
 /datum/bounty/virus/resistance
 	stat_name = "resistance"

@@ -39,11 +39,11 @@
 
 /obj/item/assembly/infra/activate()
 	if(!..())
-		return FALSE //Cooldown check
+		return EF_FALSE //Cooldown check
 	on = !on
 	refreshBeam()
 	update_icon()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/assembly/infra/toggle_secure()
 	secured = !secured
@@ -149,7 +149,7 @@
 	refreshBeam()
 	switchListener(location)
 	if(!secured || !on || next_activate > world.time)
-		return FALSE
+		return EF_FALSE
 	pulse(FALSE)
 	audible_message("[icon2html(src, hearers(src))] *beep* *beep* *beep*", null, hearing_range)
 	for(var/CHM in get_hearers_in_view(hearing_range, src))

@@ -133,7 +133,7 @@
 
 /obj/structure/mineral_door/wrench_act(mob/living/user, obj/item/I)
 	default_unfasten_wrench(user, I, 40)
-	return TRUE
+	return EF_TRUE
 
 
 /////////////////////// TOOL OVERRIDES ///////////////////////
@@ -339,7 +339,7 @@
 			obj_integrity = min(obj_integrity+4,max_integrity)
 			qdel(I)
 			user.visible_message("[user] patches some of the holes in [src].", "<span class='notice'>You patch some of the holes in [src]!</span>")
-			return TRUE
+			return EF_TRUE
 
 	return ..()
 

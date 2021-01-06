@@ -50,31 +50,31 @@ SUBSYSTEM_DEF(fail2topic)
 	var/last_attempt = rate_limiting[ip]
 
 	if (config.fail2topic_whitelisted_ips[ip])
-		return FALSE
+		return EF_FALSE
 
 	if (active_bans[ip])
-		return TRUE
+		return EF_TRUE
 
 	rate_limiting[ip] = world.time
 
 	if (isnull(last_attempt))
-		return FALSE
+		return EF_FALSE
 
 	if (world.time - last_attempt > rate_limit)
 		fail_counts -= ip
-		return FALSE
+		return EF_FALSE
 	else
 		var/failures = fail_counts[ip]
 
 		if (isnull(failures))
 			fail_counts[ip] = 1
-			return TRUE
+			return EF_TRUE
 		else if (failures > max_fails)
 			BanFromFirewall(ip)
-			return TRUE
+			return EF_TRUE
 		else
 			fail_counts[ip] = failures + 1
-			return TRUE
+			return EF_TRUE
 
 /datum/controller/subsystem/fail2topic/proc/BanFromFirewall(ip)
 	if (!enabled)

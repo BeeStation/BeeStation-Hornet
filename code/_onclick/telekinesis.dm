@@ -154,7 +154,7 @@
 	if(d > TK_MAXRANGE)
 		to_chat(user, "<span class ='warning'>Your mind won't reach that far.</span>")
 		return
-	return TRUE
+	return EF_TRUE
 
 /obj/item/tk_grab/attack(mob/living/M, mob/living/user, def_zone)
 	return
@@ -165,7 +165,7 @@
 	focus = target
 	update_icon()
 	apply_focus_overlay()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/tk_grab/proc/check_if_focusable(obj/target)
 	if(!tk_user || !istype(tk_user) || QDELETED(target) || !istype(target) || !tk_user.dna.check_mutation(TK))
@@ -174,7 +174,7 @@
 	if(!tkMaxRangeCheck(tk_user, target) || target.anchored || !isturf(target.loc))
 		qdel(src)
 		return
-	return TRUE
+	return EF_TRUE
 
 /obj/item/tk_grab/proc/apply_focus_overlay()
 	if(!focus)

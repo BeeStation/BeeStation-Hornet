@@ -10,8 +10,8 @@ PROCESSING_SUBSYSTEM_DEF(nanites)
 
 /datum/controller/subsystem/processing/nanites/proc/check_hardware(datum/nanite_cloud_backup/backup)
 	if(QDELETED(backup.storage) || (backup.storage.stat & (NOPOWER|BROKEN)))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/controller/subsystem/processing/nanites/proc/get_cloud_backup(cloud_id, force = FALSE)
 	for(var/I in cloud_backups)

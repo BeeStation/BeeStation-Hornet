@@ -175,29 +175,29 @@ SUBSYSTEM_DEF(shuttle)
 	var/srd = CONFIG_GET(number/shuttle_refuel_delay)
 	if(world.time - SSticker.round_start_time < srd)
 		to_chat(user, "<span class='alert'>The emergency shuttle is refueling. Please wait [DisplayTimeText(srd - (world.time - SSticker.round_start_time))] before trying again.</span>")
-		return FALSE
+		return EF_FALSE
 
 	switch(emergency.mode)
 		if(SHUTTLE_RECALL)
 			to_chat(user, "<span class='alert'>The emergency shuttle may not be called while returning to CentCom.</span>")
-			return FALSE
+			return EF_FALSE
 		if(SHUTTLE_CALL)
 			to_chat(user, "<span class='alert'>The emergency shuttle is already on its way.</span>")
-			return FALSE
+			return EF_FALSE
 		if(SHUTTLE_DOCKED)
 			to_chat(user, "<span class='alert'>The emergency shuttle is already here.</span>")
-			return FALSE
+			return EF_FALSE
 		if(SHUTTLE_IGNITING)
 			to_chat(user, "<span class='alert'>The emergency shuttle is firing its engines to leave.</span>")
-			return FALSE
+			return EF_FALSE
 		if(SHUTTLE_ESCAPE)
 			to_chat(user, "<span class='alert'>The emergency shuttle is moving away to a safe distance.</span>")
-			return FALSE
+			return EF_FALSE
 		if(SHUTTLE_STRANDED)
 			to_chat(user, "<span class='alert'>The emergency shuttle has been disabled by CentCom.</span>")
-			return FALSE
+			return EF_FALSE
 
-	return TRUE
+	return EF_TRUE
 
 /datum/controller/subsystem/shuttle/proc/requestEvac(mob/user, call_reason)
 	if(!emergency)
@@ -464,7 +464,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/datum/turf_reservation/proposal = SSmapping.RequestBlockReservation(transit_width, transit_height, null, /datum/turf_reservation/transit, transit_path)
 
 	if(!istype(proposal))
-		return FALSE
+		return EF_FALSE
 
 	var/turf/bottomleft = locate(proposal.bottom_left_coords[1], proposal.bottom_left_coords[2], proposal.bottom_left_coords[3])
 	// Then create a transit docking port in the middle
@@ -490,7 +490,7 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/turf/midpoint = locate(transit_x, transit_y, bottomleft.z)
 	if(!midpoint)
-		return FALSE
+		return EF_FALSE
 	var/area/shuttle/transit/A = new()
 	A.parallax_movedir = travel_dir
 	A.contents = proposal.reserved_turfs
@@ -571,10 +571,10 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/is_in_shuttle_bounds(atom/A)
 	var/area/current = get_area(A)
 	if(istype(current, /area/shuttle) && !istype(current, /area/shuttle/transit))
-		return TRUE
+		return EF_TRUE
 	for(var/obj/docking_port/mobile/M in mobile)
 		if(M.is_in_shuttle_bounds(A))
-			return TRUE
+			return EF_TRUE
 
 /datum/controller/subsystem/shuttle/proc/get_containing_shuttle(atom/A)
 	var/list/mobile_cache = mobile
@@ -745,7 +745,7 @@ SUBSYSTEM_DEF(shuttle)
 		return
 	//Everything fine
 	S.post_load(preview_shuttle)
-	return TRUE
+	return EF_TRUE
 
 /datum/controller/subsystem/shuttle/proc/unload_preview()
 	if(preview_shuttle)

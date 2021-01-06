@@ -152,7 +152,7 @@
 	playsound(target, 'sound/effects/blobattack.ogg', 30, 1)
 
 	addtimer(CALLBACK(src, .proc/remove_fake, target, blade), 600)
-	return TRUE
+	return EF_TRUE
 
 /datum/action/changeling/sting/false_armblade/proc/remove_fake(mob/target, obj/item/melee/arm_blade/false/blade)
 	playsound(target, 'sound/effects/blobattack.ogg', 30, 1)
@@ -183,7 +183,7 @@
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	if(!(changeling.has_dna(target.dna)))
 		changeling.add_new_profile(target)
-	return TRUE
+	return EF_TRUE
 
 /datum/action/changeling/sting/mute
 	name = "Mute Sting"
@@ -196,7 +196,7 @@
 /datum/action/changeling/sting/mute/sting_action(mob/user, mob/living/carbon/target)
 	log_combat(user, target, "stung", "mute sting")
 	target.silent += 30
-	return TRUE
+	return EF_TRUE
 
 /datum/action/changeling/sting/blind
 	name = "Blind Sting"
@@ -212,7 +212,7 @@
 	target.become_nearsighted(EYE_DAMAGE)
 	target.blind_eyes(20)
 	target.blur_eyes(40)
-	return TRUE
+	return EF_TRUE
 
 /datum/action/changeling/sting/LSD
 	name = "Hallucination Sting"
@@ -226,7 +226,7 @@
 /datum/action/changeling/sting/LSD/sting_action(mob/user, mob/living/carbon/target)
 	log_combat(user, target, "stung", "LSD sting")
 	addtimer(CALLBACK(src, .proc/hallucination_time, target), rand(300,600))
-	return TRUE
+	return EF_TRUE
 
 /datum/action/changeling/sting/LSD/proc/hallucination_time(mob/living/carbon/target)
 	if(target)
@@ -245,4 +245,4 @@
 	log_combat(user, target, "stung", "cryo sting")
 	if(target.reagents)
 		target.reagents.add_reagent(/datum/reagent/consumable/frostoil, 20)
-	return TRUE
+	return EF_TRUE

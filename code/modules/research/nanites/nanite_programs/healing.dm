@@ -8,12 +8,12 @@
 
 /datum/nanite_program/regenerative/check_conditions()
 	if(!host_mob.getBruteLoss() && !host_mob.getFireLoss())
-		return FALSE
+		return EF_FALSE
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
 		var/list/parts = C.get_damaged_bodyparts(TRUE,TRUE, status = BODYPART_ORGANIC)
 		if(!parts.len)
-			return FALSE
+			return EF_FALSE
 	return ..()
 
 /datum/nanite_program/regenerative/active_effect()
@@ -37,7 +37,7 @@
 
 /datum/nanite_program/temperature/check_conditions()
 	if(host_mob.bodytemperature > (BODYTEMP_NORMAL - 30) && host_mob.bodytemperature < (BODYTEMP_NORMAL + 30))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/nanite_program/temperature/active_effect()
@@ -55,7 +55,7 @@
 /datum/nanite_program/purging/check_conditions()
 	var/foreign_reagent = length(host_mob.reagents?.reagent_list)
 	if(!host_mob.getToxLoss() && !foreign_reagent)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/nanite_program/purging/active_effect()
@@ -95,9 +95,9 @@
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
 		if(C.blood_volume >= BLOOD_VOLUME_SAFE)
-			return FALSE
+			return EF_FALSE
 	else
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/nanite_program/blood_restoring/active_effect()
@@ -113,16 +113,16 @@
 
 /datum/nanite_program/repairing/check_conditions()
 	if(!host_mob.getBruteLoss() && !host_mob.getFireLoss())
-		return FALSE
+		return EF_FALSE
 
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
 		var/list/parts = C.get_damaged_bodyparts(TRUE, TRUE, status = BODYPART_ROBOTIC)
 		if(!parts.len)
-			return FALSE
+			return EF_FALSE
 	else
 		if(!(host_mob.mob_biotypes & MOB_ROBOTIC))
-			return FALSE
+			return EF_FALSE
 	return ..()
 
 /datum/nanite_program/repairing/active_effect(mob/living/M)
@@ -154,7 +154,7 @@
 		foreign_reagent = TRUE
 		break
 	if(!host_mob.getToxLoss() && !foreign_reagent)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/nanite_program/purging_advanced/active_effect()
@@ -221,22 +221,22 @@
 
 /datum/nanite_program/defib/proc/check_revivable()
 	if(!iscarbon(host_mob)) //nonstandard biology
-		return FALSE
+		return EF_FALSE
 	var/mob/living/carbon/C = host_mob
 	if(C.suiciding || C.hellbound || HAS_TRAIT(C, TRAIT_HUSK)) //can't revive
-		return FALSE
+		return EF_FALSE
 	if((world.time - C.timeofdeath) > 1800) //too late
-		return FALSE
+		return EF_FALSE
 	if((C.getBruteLoss() >= MAX_REVIVE_BRUTE_DAMAGE) || (C.getFireLoss() >= MAX_REVIVE_FIRE_DAMAGE) || !C.can_be_revived()) //too damaged
-		return FALSE
+		return EF_FALSE
 	if(!C.getorgan(/obj/item/organ/heart)) //what are we even shocking
-		return FALSE
+		return EF_FALSE
 	var/obj/item/organ/brain/BR = C.getorgan(/obj/item/organ/brain)
 	if(QDELETED(BR) || BR.brain_death || (BR.organ_flags & ORGAN_FAILING) || BR.suicided)
-		return FALSE
+		return EF_FALSE
 	if(C.get_ghost())
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/nanite_program/defib/proc/zap()
 	var/mob/living/carbon/C = host_mob

@@ -303,7 +303,7 @@
 
 /mob/living/simple_animal/bot/atmosbot/Topic(href, href_list)
 	if(..())
-		return TRUE
+		return EF_TRUE
 
 	if(href_list["set_breach_pressure"])
 		var/new_breach_pressure = input(usr, "Pressure to scan for breaches at? (0 to 100)", "Breach Pressure") as num

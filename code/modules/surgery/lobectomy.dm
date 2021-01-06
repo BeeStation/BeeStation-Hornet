@@ -8,8 +8,8 @@
 	var/obj/item/organ/lungs/L = target.getorganslot(ORGAN_SLOT_LUNGS)
 	if(L)
 		if(L.damage > 60 && !L.operated)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 
 //lobectomy, removes the most damaged lung lobe with a 95% base success chance
@@ -33,7 +33,7 @@
 		display_results(user, target, "<span class='notice'>You successfully excise [H]'s most damaged lobe.</span>",
 			"Successfully removes a piece of [H]'s lungs.",
 			"")
-	return TRUE
+	return EF_TRUE
 
 /datum/surgery_step/lobectomy/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(ishuman(target))
@@ -43,4 +43,4 @@
 			"<span class='warning'>[user] screws up!</span>")
 		H.losebreath += 4
 		H.adjustOrganLoss(ORGAN_SLOT_LUNGS, 10)
-	return FALSE
+	return EF_FALSE

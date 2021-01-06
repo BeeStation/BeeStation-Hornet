@@ -163,7 +163,7 @@
 			if(fabricate)
 				fabricated_tablet.install_component(new/obj/item/computer_hardware/card_slot)
 		return total_price
-	return FALSE
+	return EF_FALSE
 
 
 
@@ -171,58 +171,58 @@
 
 /obj/machinery/lapvend/ui_act(action, params)
 	if(..())
-		return TRUE
+		return EF_TRUE
 
 	switch(action)
 		if("pick_device")
 			if(state) // We've already picked a device type
-				return FALSE
+				return EF_FALSE
 			devtype = text2num(params["pick"])
 			state = 1
 			fabricate_and_recalc_price(FALSE)
-			return TRUE
+			return EF_TRUE
 		if("clean_order")
 			reset_order()
-			return TRUE
+			return EF_TRUE
 		if("purchase")
 			try_purchase()
-			return TRUE
+			return EF_TRUE
 	if((state != 1) && devtype) // Following IFs should only be usable when in the Select Loadout mode
-		return FALSE
+		return EF_FALSE
 	switch(action)
 		if("confirm_order")
 			state = 2 // Wait for ID swipe for payment processing
 			fabricate_and_recalc_price(FALSE)
-			return TRUE
+			return EF_TRUE
 		if("hw_cpu")
 			dev_cpu = text2num(params["cpu"])
 			fabricate_and_recalc_price(FALSE)
-			return TRUE
+			return EF_TRUE
 		if("hw_battery")
 			dev_battery = text2num(params["battery"])
 			fabricate_and_recalc_price(FALSE)
-			return TRUE
+			return EF_TRUE
 		if("hw_disk")
 			dev_disk = text2num(params["disk"])
 			fabricate_and_recalc_price(FALSE)
-			return TRUE
+			return EF_TRUE
 		if("hw_netcard")
 			dev_netcard = text2num(params["netcard"])
 			fabricate_and_recalc_price(FALSE)
-			return TRUE
+			return EF_TRUE
 		if("hw_tesla")
 			dev_apc_recharger = text2num(params["tesla"])
 			fabricate_and_recalc_price(FALSE)
-			return TRUE
+			return EF_TRUE
 		if("hw_nanoprint")
 			dev_printer = text2num(params["print"])
 			fabricate_and_recalc_price(FALSE)
-			return TRUE
+			return EF_TRUE
 		if("hw_card")
 			dev_card = text2num(params["card"])
 			fabricate_and_recalc_price(FALSE)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 
 /obj/machinery/lapvend/ui_state(mob/user)
@@ -232,7 +232,7 @@
 	if(stat & (BROKEN | NOPOWER | MAINT))
 		if(ui)
 			ui.close()
-		return FALSE
+		return EF_FALSE
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
@@ -272,9 +272,9 @@
 /obj/machinery/lapvend/proc/process_payment()
 	if(total_price > credits)
 		say("Insufficient credits.")
-		return FALSE
+		return EF_FALSE
 	else
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/lapvend/ui_data(mob/user)
 
@@ -311,5 +311,5 @@
 			say("Enjoy your new product!")
 			state = 3
 			addtimer(CALLBACK(src, .proc/reset_order), 100)
-			return TRUE
-		return FALSE
+			return EF_TRUE
+		return EF_FALSE

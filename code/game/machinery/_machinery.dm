@@ -236,38 +236,38 @@ Class Procs:
 	var/living = isliving(user)
 
 	if((stat & (NOPOWER|BROKEN)) && !(interaction_flags_machine & INTERACT_MACHINE_OFFLINE)) // Check if the machine is broken, and if we can still interact with it if so
-		return FALSE
+		return EF_FALSE
 
 	if(panel_open && !(interaction_flags_machine & INTERACT_MACHINE_OPEN)) // Check if we can interact with an open panel machine, if the panel is open
 		if(!silicon || !(interaction_flags_machine & INTERACT_MACHINE_OPEN_SILICON))
-			return FALSE
+			return EF_FALSE
 
 	if(silicon || admin_ghost) // If we are an AI or adminghsot, make sure the machine allows silicons to interact
 		if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON))
-			return FALSE
+			return EF_FALSE
 
 	else if(living) // If we are a living human
 		var/mob/living/L = user
 
 		if(interaction_flags_machine & INTERACT_MACHINE_REQUIRES_SILICON) // First make sure the machine doesn't require silicon interaction
-			return FALSE
+			return EF_FALSE
 
 		if(!Adjacent(user)) // Next make sure we are next to the machine unless we have telekinesis
 			var/mob/living/carbon/H = L
 			if(!(istype(H) && H.has_dna() && H.dna.check_mutation(TK)))
-				return FALSE
+				return EF_FALSE
 
 		if(L.incapacitated()) // Finally make sure we aren't incapacitated
-			return FALSE
+			return EF_FALSE
 
 	else // If we aren't a silicon, living, or admin ghost, bad!
-		return FALSE
+		return EF_FALSE
 
-	return TRUE // If we pass all these checks, woohoo! We can interact
+	return EF_TRUE // If we pass all these checks, woohoo! We can interact
 
 /obj/machinery/proc/check_nap_violations()
 	if(!SSeconomy.full_ancap)
-		return TRUE
+		return EF_TRUE
 	if(occupant && !state_open)
 		if(ishuman(occupant))
 			var/mob/living/carbon/human/H = occupant
@@ -277,20 +277,20 @@ Class Procs:
 				if(!insurance)
 					say("[market_verb] NAP Violation: No bank account found.")
 					nap_violation(occupant)
-					return FALSE
+					return EF_FALSE
 				else
 					if(!insurance.adjust_money(-fair_market_price))
 						say("[market_verb] NAP Violation: Unable to pay.")
 						nap_violation(occupant)
-						return FALSE
+						return EF_FALSE
 					var/datum/bank_account/D = SSeconomy.get_dep_account(payment_department)
 					if(D)
 						D.adjust_money(fair_market_price)
 			else
 				say("[market_verb] NAP Violation: No ID card found.")
 				nap_violation(occupant)
-				return FALSE
-	return TRUE
+				return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/proc/nap_violation(mob/violator)
 	return
@@ -329,12 +329,12 @@ Class Procs:
 
 /obj/machinery/attack_robot(mob/user)
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
-		return FALSE
+		return EF_FALSE
 	return _try_interact(user)
 
 /obj/machinery/attack_ai(mob/user)
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
-		return FALSE
+		return EF_FALSE
 	if(iscyborg(user))// For some reason attack_robot doesn't work
 		return attack_robot(user)
 	else
@@ -342,7 +342,7 @@ Class Procs:
 
 /obj/machinery/_try_interact(mob/user)
 	if((interaction_flags_machine & INTERACT_MACHINE_WIRES_IF_OPEN) && panel_open && (attempt_wire_interaction(user) == WIRE_INTERACTION_BLOCK))
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /obj/machinery/CheckParts(list/parts_list)
@@ -453,16 +453,16 @@ Class Procs:
 
 /obj/proc/unfasten_wrench_check(prev_anchored, mob/user) //for the do_after, this checks if unfastening conditions are still valid
 	if(anchored != prev_anchored)
-		return FALSE
+		return EF_FALSE
 	if(can_be_unfasten_wrench(user, TRUE) != SUCCESSFUL_UNFASTEN) //if we aren't explicitly successful, cancel the fuck out
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	if(!istype(W))
-		return FALSE
+		return EF_FALSE
 	if((flags_1 & NODECONSTRUCT_1) && !W.works_from_distance)
-		return FALSE
+		return EF_FALSE
 	var/shouldplaysound = 0
 	if(component_parts)
 		if(panel_open || W.works_from_distance)
@@ -500,8 +500,8 @@ Class Procs:
 			to_chat(user, display_parts(user))
 		if(shouldplaysound)
 			W.play_rped_sound()
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/proc/display_parts(mob/user)
 	. = list()

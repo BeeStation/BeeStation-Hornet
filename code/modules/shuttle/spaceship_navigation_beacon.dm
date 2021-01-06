@@ -54,7 +54,7 @@ obj/machinery/spaceship_navigation_beacon/emp_act()
 	else
 		locked = !locked
 		to_chat(user, "<span class='notice'>You [locked ? "" : "un"]lock [src].</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/spaceship_navigation_beacon/examine()
 	. = ..()

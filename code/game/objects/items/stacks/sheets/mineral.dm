@@ -513,7 +513,7 @@ GLOBAL_LIST_INIT(abductor_recipes, list ( \
 		message_admins("Coal ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
 		log_game("Coal ignited by [key_name(user)] in [AREACOORD(T)]")
 		fire_act(W.is_hot())
-		return TRUE
+		return EF_TRUE
 	else
 		return ..()
 

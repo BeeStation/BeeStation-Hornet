@@ -359,7 +359,7 @@
 
 /obj/item/modular_computer/proc/add_log(text)
 	if(!get_ntnet_status())
-		return FALSE
+		return EF_FALSE
 	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
 	return SSnetworks.station_network.add_log(text, network_card)
 

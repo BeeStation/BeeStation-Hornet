@@ -68,13 +68,13 @@
 
 /obj/structure/mirror/welder_act(mob/living/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
-		return FALSE
+		return EF_FALSE
 
 	if(!broken)
-		return TRUE
+		return EF_TRUE
 
 	if(!I.tool_start_check(user, amount=0))
-		return TRUE
+		return EF_TRUE
 
 	to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
 	if(I.use_tool(src, user, 10, volume=50))
@@ -83,7 +83,7 @@
 		icon_state = initial(icon_state)
 		desc = initial(desc)
 
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/mirror/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

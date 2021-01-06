@@ -82,7 +82,7 @@
 		fire_stacks = max(0, fire_stacks)
 	else
 		ExtinguishMob()
-		return TRUE
+		return EF_TRUE
 
 	//adjustFireLoss(3)
 

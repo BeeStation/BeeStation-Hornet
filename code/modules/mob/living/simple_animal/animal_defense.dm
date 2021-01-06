@@ -23,19 +23,19 @@
 			attack_threshold_check(harm_intent_damage)
 			log_combat(M, src, "attacked")
 			updatehealth()
-			return TRUE
+			return EF_TRUE
 
 /mob/living/simple_animal/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
 	if(user.a_intent == INTENT_HARM)
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, "<span class='notice'>You don't want to hurt [src]!</span>")
-			return FALSE
+			return EF_FALSE
 		..(user, 1)
 		playsound(loc, "punch", 25, 1, -1)
 		visible_message("<span class='danger'>[user] punches [src]!</span>", \
 			"<span class='userdanger'>[user] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
 		adjustBruteLoss(15)
-		return TRUE
+		return EF_TRUE
 
 /mob/living/simple_animal/attack_paw(mob/living/carbon/monkey/M)
 	if(..()) //successful monkey bite.
@@ -101,10 +101,10 @@
 
 	if(temp_damage >= 0 && temp_damage <= force_threshold)
 		visible_message("<span class='warning'>[src] looks unharmed.</span>")
-		return FALSE
+		return EF_FALSE
 	else
 		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
-		return TRUE
+		return EF_TRUE
 
 /mob/living/simple_animal/bullet_act(obj/item/projectile/Proj)
 	apply_damage(Proj.damage, Proj.damage_type)

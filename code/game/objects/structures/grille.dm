@@ -55,22 +55,22 @@
 				return list("mode" = RCD_WINDOWGRILLE, "delay" = 40, "cost" = 12)
 			else
 				return list("mode" = RCD_WINDOWGRILLE, "delay" = 20, "cost" = 8)
-	return FALSE
+	return EF_FALSE
 
 /obj/structure/grille/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_DECONSTRUCT)
 			to_chat(user, "<span class='notice'>You deconstruct the grille.</span>")
 			qdel(src)
-			return TRUE
+			return EF_TRUE
 		if(RCD_WINDOWGRILLE)
 			if(locate(/obj/structure/window) in loc)
-				return FALSE
+				return EF_FALSE
 			to_chat(user, "<span class='notice'>You construct the window.</span>")
 			var/obj/structure/window/WD = new the_rcd.window_type(drop_location())
 			WD.setAnchored(TRUE)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/structure/grille/ratvar_act()
 	if(broken)
@@ -102,7 +102,7 @@
 	if(user.a_intent == INTENT_HARM)
 		if(!shock(user, 70))
 			..(user, 1)
-		return TRUE
+		return EF_TRUE
 
 /obj/structure/grille/attack_hand(mob/living/user)
 	. = ..()
@@ -125,7 +125,7 @@
 
 /obj/structure/grille/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && (mover.pass_flags & PASSGRILLE))
-		return TRUE
+		return EF_TRUE
 	else
 		if(istype(mover, /obj/item/projectile) && density)
 			return prob(30)
@@ -240,11 +240,11 @@
 
 /obj/structure/grille/proc/shock(mob/user, prb)
 	if(!anchored || broken)		// anchored/broken grilles are never connected
-		return FALSE
+		return EF_FALSE
 	if(!prob(prb))
-		return FALSE
+		return EF_FALSE
 	if(!in_range(src, user))//To prevent TK and mech users from getting shocked
-		return FALSE
+		return EF_FALSE
 	var/turf/T = get_turf(src)
 	var/obj/structure/cable/C = T.get_cable_node()
 	if(C)
@@ -252,10 +252,10 @@
 			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 			s.set_up(3, 1, src)
 			s.start()
-			return TRUE
+			return EF_TRUE
 		else
-			return FALSE
-	return FALSE
+			return EF_FALSE
+	return EF_FALSE
 
 /obj/structure/grille/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(!broken)

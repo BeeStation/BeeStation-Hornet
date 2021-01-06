@@ -314,8 +314,8 @@
 		marked_underlay.pixel_x = -owner.pixel_x
 		marked_underlay.pixel_y = -owner.pixel_y
 		owner.underlays += marked_underlay
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/status_effect/crusher_mark/Destroy()
 	hammer_synced = null
@@ -350,7 +350,7 @@
 
 /datum/status_effect/saw_bleed/on_apply()
 	if(owner.stat == DEAD)
-		return FALSE
+		return EF_FALSE
 	bleed_overlay = mutable_appearance('icons/effects/bleed.dmi', "bleed[bleed_amount]")
 	bleed_underlay = mutable_appearance('icons/effects/bleed.dmi', "bleed[bleed_amount]")
 	var/icon/I = icon(owner.icon, owner.icon_state, owner.dir)
@@ -541,14 +541,14 @@
 
 /datum/status_effect/trance/on_apply()
 	if(!iscarbon(owner))
-		return FALSE
+		return EF_FALSE
 	RegisterSignal(owner, COMSIG_MOVABLE_HEAR, .proc/hypnotize)
 	ADD_TRAIT(owner, TRAIT_MUTE, "trance")
 	if(!owner.has_quirk(/datum/quirk/monochromatic))
 		owner.add_client_colour(/datum/client_colour/monochrome)
 	owner.visible_message("[stun ? "<span class='warning'>[owner] stands still as [owner.p_their()] eyes seem to focus on a distant point.</span>" : ""]", \
 	"<span class='warning'>[pick("You feel your thoughts slow down...", "You suddenly feel extremely dizzy...", "You feel like you're in the middle of a dream...","You feel incredibly relaxed...")]</span>")
-	return TRUE
+	return EF_TRUE
 
 /datum/status_effect/trance/on_creation(mob/living/new_owner, _duration, _stun = TRUE)
 	duration = _duration
@@ -788,8 +788,8 @@
 	if(owner.mob_size >= MOB_SIZE_HUMAN)
 		owner.add_overlay(marked_underlay)
 		owner.update_icon()
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/status_effect/eldritch/on_remove()
 	owner.cut_overlay(marked_underlay)

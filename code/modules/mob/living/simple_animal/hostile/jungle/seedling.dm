@@ -50,7 +50,7 @@
 	if(isliving(A))
 		var/mob/living/L = A
 		if("jungle" in L.faction)
-			return FALSE
+			return EF_FALSE
 	return ..()
 
 /obj/effect/temp_visual/solarbeam_killsat

@@ -301,7 +301,7 @@ SUBSYSTEM_DEF(tgui)
 /datum/controller/subsystem/tgui/proc/on_close(datum/tgui/ui)
 	var/key = "[REF(ui.src_object)]"
 	if(isnull(open_uis_by_src[key]) || !istype(open_uis_by_src[key], /list))
-		return FALSE
+		return EF_FALSE
 	// Remove it from the list of processing UIs.
 	open_uis.Remove(ui)
 	// If the user exists, remove it from them too.
@@ -311,7 +311,7 @@ SUBSYSTEM_DEF(tgui)
 	uis.Remove(ui)
 	if(length(uis) == 0)
 		open_uis_by_src.Remove(key)
-	return TRUE
+	return EF_TRUE
 
 /**
  * private
@@ -338,7 +338,7 @@ SUBSYSTEM_DEF(tgui)
 /datum/controller/subsystem/tgui/proc/on_transfer(mob/source, mob/target)
 	// The old mob had no open UIs.
 	if(length(source?.tgui_open_uis) == 0)
-		return FALSE
+		return EF_FALSE
 	if(isnull(target.tgui_open_uis) || !istype(target.tgui_open_uis, /list))
 		target.tgui_open_uis = list()
 	// Transfer all the UIs.
@@ -348,4 +348,4 @@ SUBSYSTEM_DEF(tgui)
 		target.tgui_open_uis.Add(ui)
 	// Clear the old list.
 	source.tgui_open_uis.Cut()
-	return TRUE
+	return EF_TRUE

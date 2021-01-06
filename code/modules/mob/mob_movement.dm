@@ -1,6 +1,6 @@
 ///Can the atom pass this mob (always true for /mob)
 /mob/CanPass(atom/movable/mover, turf/target)
-	return TRUE				//There's almost no cases where non /living mobs should be used in game as actual mobs, other than ghosts.
+	return EF_TRUE				//There's almost no cases where non /living mobs should be used in game as actual mobs, other than ghosts.
 
 /**
   * Get the current movespeed delay of the mob
@@ -82,32 +82,32 @@
   */
 /client/Move(n, direct)
 	if(world.time < move_delay) //do not move anything ahead of this check please
-		return FALSE
+		return EF_FALSE
 	else
 		next_move_dir_add = 0
 		next_move_dir_sub = 0
 	var/old_move_delay = move_delay
 	move_delay = world.time + world.tick_lag //this is here because Move() can now be called mutiple times per tick
 	if(!mob || !mob.loc)
-		return FALSE
+		return EF_FALSE
 	if(!n || !direct)
-		return FALSE
+		return EF_FALSE
 	if(mob.notransform)
-		return FALSE	//This is sota the goto stop mobs from moving var
+		return EF_FALSE	//This is sota the goto stop mobs from moving var
 	if(mob.control_object)
 		return Move_object(direct)
 	if(!isliving(mob))
 		return mob.Move(n, direct)
 	if(mob.stat == DEAD)
 		mob.ghostize()
-		return FALSE
+		return EF_FALSE
 	if(mob.force_moving)
-		return FALSE
+		return EF_FALSE
 
 	var/mob/living/L = mob  //Already checked for isliving earlier
 	if(L.incorporeal_move)	//Move though walls
 		Process_Incorpmove(direct)
-		return FALSE
+		return EF_FALSE
 
 	if(mob.remote_control)					//we're controlling something, our movement is relayed to it
 		return mob.remote_control.relaymove(mob, direct)
@@ -122,14 +122,14 @@
 		return mob.buckled.relaymove(mob, direct)
 
 	if(!(L.mobility_flags & MOBILITY_MOVE))
-		return FALSE
+		return EF_FALSE
 
 	if(isobj(mob.loc) || ismob(mob.loc))	//Inside an object, tell it we moved
 		var/atom/O = mob.loc
 		return O.relaymove(mob, direct)
 
 	if(!mob.Process_Spacemove(direct))
-		return FALSE
+		return EF_FALSE
 	//We are now going to move
 	var/add_delay = mob.movement_delay()
 	if(old_move_delay + (add_delay*MOVEMENT_DELAY_BUFFER_DELTA) + MOVEMENT_DELAY_BUFFER > world.time)
@@ -173,14 +173,14 @@
 			return
 		if(mob.incapacitated(ignore_restraints = 1))
 			move_delay = world.time + 10
-			return TRUE
+			return EF_TRUE
 		else if(mob.restrained(ignore_grab = 1))
 			move_delay = world.time + 10
 			to_chat(src, "<span class='warning'>You're restrained! You can't move!</span>")
-			return TRUE
+			return EF_TRUE
 		else if(mob.pulledby.grab_state == GRAB_AGGRESSIVE)
 			move_delay = world.time + 10
-			return TRUE
+			return EF_TRUE
 		else
 			return mob.resist_grab(1)
 
@@ -269,7 +269,7 @@
 
 				L.forceMove(stepTurf)
 			L.setDir(direct)
-	return TRUE
+	return EF_TRUE
 
 
 /**
@@ -277,20 +277,20 @@
   *
   * Called by /client/Move()
   *
-  * return TRUE for movement or FALSE for none
+  * return EF_TRUE for movement or FALSE for none
   *
   * You can move in space if you have a spacewalk ability
   */
 /mob/Process_Spacemove(movement_dir = 0)
 	if(spacewalk || ..())
-		return TRUE
+		return EF_TRUE
 	var/atom/movable/backup = get_spacemove_backup()
 	if(backup)
 		if(istype(backup) && movement_dir && !backup.anchored)
 			if(backup.newtonian_move(turn(movement_dir, 180))) //You're pushing off something movable, so it moves
 				to_chat(src, "<span class='info'>You push off of [backup] to propel yourself.</span>")
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /**
   * Find movable atoms? near a mob that are viable for pushing off when moving
@@ -333,7 +333,7 @@
   * Does this mob ignore gravity
   */
 /mob/proc/mob_negates_gravity()
-	return FALSE
+	return EF_FALSE
 
 /// Called when this mob slips over, override as needed
 /mob/proc/slip(knockdown, paralyze, forcedrop, w_amount, obj/O, lube)
@@ -483,19 +483,19 @@
 ///Move a mob between z levels, if it's valid to move z's on this turf
 /mob/proc/zMove(dir, feedback = FALSE)
 	if(dir != UP && dir != DOWN)
-		return FALSE
+		return EF_FALSE
 	var/turf/target = get_step_multiz(src, dir)
 	if(!target)
 		if(feedback)
 			to_chat(src, "<span class='warning'>There's nothing in that direction!</span>")
-		return FALSE
+		return EF_FALSE
 	if(!canZMove(dir, target))
 		if(feedback)
 			to_chat(src, "<span class='warning'>You couldn't move there!</span>")
-		return FALSE
+		return EF_FALSE
 	forceMove(target)
-	return TRUE
+	return EF_TRUE
 
 /// Can this mob move between z levels
 /mob/proc/canZMove(direction, turf/target)
-	return FALSE
+	return EF_FALSE

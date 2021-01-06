@@ -358,7 +358,7 @@
 		update_icon()
 		user.update_inv_head()
 		QDEL_NULL(alight)
-		return TRUE
+		return EF_TRUE
 
 /obj/item/clothing/head/helmet/proc/toggle_helmlight()
 	set name = "Toggle Helmetlight"

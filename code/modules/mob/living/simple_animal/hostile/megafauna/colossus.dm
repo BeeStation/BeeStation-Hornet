@@ -279,11 +279,11 @@ Difficulty: Very Hard
 
 /obj/machinery/smartfridge/black_box/accept_check(obj/item/O)
 	if(!istype(O))
-		return FALSE
+		return EF_FALSE
 	if(blacklist[O])
 		visible_message("<span class='boldwarning'>[src] ripples as it rejects [O]. The device will not accept items that have been removed from it.</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/smartfridge/black_box/Initialize()
 	. = ..()
@@ -433,14 +433,14 @@ Difficulty: Very Hard
 
 /obj/machinery/anomalous_crystal/proc/ActivationReaction(mob/user, method, damtype)
 	if(world.time < last_use_timer)
-		return FALSE
+		return EF_FALSE
 	if(activation_damage_type && activation_damage_type != damtype)
-		return FALSE
+		return EF_FALSE
 	if(method != activation_method)
-		return FALSE
+		return EF_FALSE
 	last_use_timer = (world.time + cooldown_add)
 	playsound(user, activation_sound, 100, 1)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/anomalous_crystal/Bumped(atom/movable/AM)
 	..()

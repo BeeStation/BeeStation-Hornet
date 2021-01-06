@@ -24,14 +24,14 @@
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/machinery/field/containment/attack_hand(mob/user)
 	if(get_dist(src, user) > 1)
-		return FALSE
+		return EF_FALSE
 	else
 		shock(user)
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/field/containment/attackby(obj/item/W, mob/user, params)
 	shock(user)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/field/containment/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -41,10 +41,10 @@
 			playsound(loc, 'sound/effects/empulse.ogg', 75, 1)
 
 /obj/machinery/field/containment/blob_act(obj/structure/blob/B)
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/field/containment/ex_act(severity, target)
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/field/containment/attack_animal(mob/living/simple_animal/M)
 	if(!FG1 || !FG2)
@@ -66,20 +66,20 @@
 
 /obj/machinery/field/containment/proc/set_master(master1,master2)
 	if(!master1 || !master2)
-		return FALSE
+		return EF_FALSE
 	FG1 = master1
 	FG2 = master2
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/field/containment/shock(mob/living/user)
 	if(!FG1 || !FG2)
 		qdel(src)
-		return FALSE
+		return EF_FALSE
 	..()
 
 /obj/machinery/field/containment/Move()
 	qdel(src)
-	return FALSE
+	return EF_FALSE
 
 
 // Abstract Field Class
@@ -101,7 +101,7 @@
 
 /obj/machinery/field/CanPass(atom/movable/mover, turf/target)
 	if(hasShocked || isliving(mover) || ismachinery(mover) || isstructure(mover) || ismecha(mover))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /obj/machinery/field/proc/shock(mob/living/user)
@@ -127,7 +127,7 @@
 
 /obj/machinery/field/proc/bump_field(atom/movable/AM as mob|obj)
 	if(hasShocked)
-		return FALSE
+		return EF_FALSE
 	hasShocked = TRUE
 	do_sparks(5, TRUE, AM.loc)
 	var/atom/target = get_edge_target_turf(AM, get_dir(src, get_step_away(AM, src)))

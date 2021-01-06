@@ -53,18 +53,18 @@
 	if(istype(O, /obj/item/disk/integrated_circuit/upgrade/advanced))
 		if(upgraded)
 			to_chat(user, "<span class='warning'>[src] already has this upgrade. </span>")
-			return TRUE
+			return EF_TRUE
 		to_chat(user, "<span class='notice'>You install [O] into [src]. </span>")
 		upgraded = TRUE
-		return TRUE
+		return EF_TRUE
 
 	if(istype(O, /obj/item/disk/integrated_circuit/upgrade/clone))
 		if(fast_clone)
 			to_chat(user, "<span class='warning'>[src] already has this upgrade. </span>")
-			return TRUE
+			return EF_TRUE
 		to_chat(user, "<span class='notice'>You install [O] into [src]. Circuit cloning will now be instant. </span>")
 		fast_clone = TRUE
-		return TRUE
+		return EF_TRUE
 
 	if(istype(O, /obj/item/electronic_assembly))
 		var/obj/item/electronic_assembly/EA = O //microtransactions not included
@@ -102,7 +102,7 @@
 			to_chat(user, "<span class='notice'>You recycle all the components[EA.assembly_components.len ? " you could " : " "]from [EA]!</span>")
 			playsound(src, 'sound/items/electronic_assembly_empty.ogg', 50, TRUE)
 			recycling = FALSE
-			return TRUE
+			return EF_TRUE
 
 	if(istype(O, /obj/item/integrated_electronics/debugger))
 		var/obj/item/integrated_electronics/debugger/debugger = O
@@ -202,7 +202,7 @@
 	if(!check_interactivity(usr))
 		return
 	if(..())
-		return TRUE
+		return EF_TRUE
 	add_fingerprint(usr)
 
 	if(href_list["id-lock"])
@@ -214,7 +214,7 @@
 	if(href_list["build"])
 		var/build_type = text2path(href_list["build"])
 		if(!build_type || !ispath(build_type))
-			return TRUE
+			return EF_TRUE
 
 		var/cost = 400
 		if(ispath(build_type, /obj/item/electronic_assembly))
@@ -231,7 +231,7 @@
 
 		if(!debug && !materials.use_amount_mat(cost, /datum/material/iron))
 			to_chat(usr, "<span class='warning'>You need [cost] iron to build that!</span>")
-			return TRUE
+			return EF_TRUE
 
 		var/obj/item/built = new build_type(drop_location())
 		usr.put_in_hands(built)

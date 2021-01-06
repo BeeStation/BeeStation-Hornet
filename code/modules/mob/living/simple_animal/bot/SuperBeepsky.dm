@@ -52,7 +52,7 @@
 	if(prob(block_chance))
 		visible_message("[src] deflects [user]'s attack with his energy swords!")
 		playsound(src, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
-		return TRUE
+		return EF_TRUE
 
 /mob/living/simple_animal/bot/secbot/grievous/stun_attack(mob/living/carbon/C) //Criminals don't deserve to live
 	weapon.attack(C, src)

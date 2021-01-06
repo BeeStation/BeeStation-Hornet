@@ -48,17 +48,17 @@
 		announce(AI)
 
 /datum/job/ai/override_latejoin_spawn()
-	return TRUE
+	return EF_TRUE
 
 /datum/job/ai/special_check_latejoin(client/C)
 	if(!do_special_check)
-		return TRUE
+		return EF_TRUE
 	for(var/i in GLOB.latejoin_ai_cores)
 		var/obj/structure/AIcore/latejoin_inactive/LAI = i
 		if(istype(LAI))
 			if(LAI.is_available())
-				return TRUE
-	return FALSE
+				return EF_TRUE
+	return EF_FALSE
 
 /datum/job/ai/announce(mob/living/silicon/ai/AI)
 	. = ..()

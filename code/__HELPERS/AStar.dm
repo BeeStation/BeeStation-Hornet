@@ -112,13 +112,13 @@ Actual Adjacent procs :
 	var/turf/start = get_turf(caller)
 	if(!start || !end)
 		stack_trace("Invalid A* start or destination")
-		return FALSE
+		return EF_FALSE
 	if( start.z != end.z || start == end ) //no pathfinding between z levels
-		return FALSE
+		return EF_FALSE
 	if(maxnodes)
 		//if start turf is farther than maxnodes from end turf, no need to do anything
 		if(call(start, dist)(end) > maxnodes)
-			return FALSE
+			return EF_FALSE
 		maxnodedepth = maxnodes //no need to consider path longer than maxnodes
 	var/datum/Heap/open = new /datum/Heap(/proc/HeapPathWeightCompare) //the open list
 	var/list/openc = new() //open list for node check
@@ -196,7 +196,7 @@ Actual Adjacent procs :
 
 /turf/proc/reachableTurftest(caller, var/turf/T, ID, simulated_only)
 	if(T && !T.density && !(simulated_only && SSpathfinder.space_type_cache[T.type]) && !LinkBlockedWithAccess(T,caller, ID))
-		return TRUE
+		return EF_TRUE
 
 //Returns adjacent turfs in cardinal directions that are reachable via atmos
 /turf/proc/reachableAdjacentAtmosTurfs()
@@ -207,15 +207,15 @@ Actual Adjacent procs :
 	var/rdir = ((adir & MASK_ODD)<<1)|((adir & MASK_EVEN)>>1)
 	for(var/obj/structure/window/W in src)
 		if(!W.CanAStarPass(ID, adir))
-			return TRUE
+			return EF_TRUE
 	for(var/obj/machinery/door/window/W in src)
 		if(!W.CanAStarPass(ID, adir))
-			return TRUE
+			return EF_TRUE
 	for(var/obj/O in T)
 		if(!O.CanAStarPass(ID, rdir, caller))
-			return TRUE
+			return EF_TRUE
 	for(var/obj/machinery/door/firedoor/border_only/W in src)
 		if(!W.CanAStarPass(ID, adir, caller))
-			return TRUE
+			return EF_TRUE
 
-	return FALSE
+	return EF_FALSE

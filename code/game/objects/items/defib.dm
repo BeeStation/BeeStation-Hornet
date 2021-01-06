@@ -218,10 +218,10 @@
 			update_icon()
 		if(cell.use(chrgdeductamt))
 			update_icon()
-			return TRUE
+			return EF_TRUE
 		else
 			update_icon()
-			return FALSE
+			return EF_FALSE
 
 
 /obj/item/defibrillator/proc/cooldowncheck(mob/user)
@@ -249,7 +249,7 @@
 
 /obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user)
 	if(slot == user.getBeltSlot())
-		return TRUE
+		return EF_TRUE
 
 /obj/item/defibrillator/compact/loaded/Initialize()
 	. = ..()
@@ -393,12 +393,12 @@
 
 /obj/item/twohanded/shockpaddles/proc/check_defib_exists(mainunit, mob/living/carbon/M, obj/O)
 	if(!req_defib)
-		return TRUE //If it doesn't need a defib, just say it exists
+		return EF_TRUE //If it doesn't need a defib, just say it exists
 	if (!mainunit || !istype(mainunit, /obj/item/defibrillator))	//To avoid weird issues from admin spawns
 		qdel(O)
-		return FALSE
+		return EF_FALSE
 	else
-		return TRUE
+		return EF_TRUE
 
 /obj/item/twohanded/shockpaddles/attack(mob/M, mob/user)
 
@@ -463,7 +463,7 @@
 	var/obj/item/organ/brain/BR = H.getorgan(/obj/item/organ/brain)
 	if(QDELETED(BR) || BR.brain_death || (BR.organ_flags & ORGAN_FAILING) || BR.suicided)
 		return
-	return TRUE
+	return EF_TRUE
 
 /obj/item/twohanded/shockpaddles/proc/shock_touching(dmg, mob/H)
 	if(isliving(H.pulledby))		//CLEAR!

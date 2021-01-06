@@ -36,10 +36,10 @@
 			new_op.assigned_role = "Nuclear Operative"
 			new_op.special_role = "Nuclear Operative"
 			log_game("[key_name(new_op)] has been selected as a nuclear operative")
-		return TRUE
+		return EF_TRUE
 	else
 		setup_error = "Not enough nuke op candidates"
-		return FALSE
+		return EF_FALSE
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -60,7 +60,7 @@
 
 /datum/game_mode/nuclear/check_win()
 	if (nukes_left == 0)
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /datum/game_mode/nuclear/check_finished()
@@ -68,7 +68,7 @@
 	if(nuke_team.operatives_dead())
 		for(var/obj/machinery/nuclearbomb/N in GLOB.nuke_list)
 			if(N.proper_bomb && (N.timing || N.exploding))
-				return FALSE
+				return EF_FALSE
 	return ..()
 
 /datum/game_mode/nuclear/set_round_result()

@@ -32,7 +32,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 			.[sourceT] |= dir
 			.[checkT] |= turn(dir, 180)
 			if(break_if_found[checkT.type] || break_if_found[checkT.loc.type])
-				return FALSE
+				return EF_FALSE
 			var/static/list/cardinal_cache = list("[NORTH]"=TRUE, "[EAST]"=TRUE, "[SOUTH]"=TRUE, "[WEST]"=TRUE)
 			if(!cardinal_cache["[dir]"] || checkT.blocks_air || !CANATMOSPASS(sourceT, checkT))
 				continue
@@ -44,13 +44,13 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 		/turf/open/space,
 		/area/shuttle,
 		))
-		
+
 	if(creator)
 		if(creator.create_area_cooldown >= world.time)
 			to_chat(creator, "<span class='warning'>You're trying to create a new area a little too fast.</span>")
 			return
 		creator.create_area_cooldown = world.time + 10
-		
+
 	// Ignore these areas and dont let people expand them. They can expand into them though
 	var/static/blacklisted_areas = typecacheof(list(
 		/area/space,
@@ -109,6 +109,6 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 		FD.CalculateAffectingAreas()
 
 	to_chat(creator, "<span class='notice'>You have created a new area, named [newA.name]. It is now weather proof, and constructing an APC will allow it to be powered.</span>")
-	return TRUE
+	return EF_TRUE
 
 #undef BP_MAX_ROOM_SIZE

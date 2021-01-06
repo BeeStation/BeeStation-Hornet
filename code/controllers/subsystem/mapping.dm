@@ -340,7 +340,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		return
 
 	next_map_config = VM
-	return TRUE
+	return EF_TRUE
 
 /datum/controller/subsystem/mapping/proc/preloadTemplates(path = "_maps/templates/") //see master controller setup
 	var/list/filelist = flist(path)

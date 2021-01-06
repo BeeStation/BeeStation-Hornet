@@ -37,7 +37,7 @@
 	if(istype(target, /mob/living/simple_animal/hostile))
 		var/mob/living/simple_animal/hostile/M = target
 		if(faction_check_mob(M))
-			return FALSE
+			return EF_FALSE
 	if(istype(target, /obj/structure/elite_tumor))
 		var/obj/structure/elite_tumor/T = target
 		if(T.mychild == src && T.activity == TUMOR_PASSIVE)
@@ -48,7 +48,7 @@
 			T.activity = TUMOR_INACTIVE
 			T.icon_state = "advanced_tumor"
 			qdel(src)
-			return FALSE
+			return EF_FALSE
 	. = ..()
 	if(ismineralturf(target))
 		var/turf/closed/mineral/M = target
@@ -58,8 +58,8 @@
 /mob/living/simple_animal/hostile/asteroid/elite/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	if(can_talk)
 		. = ..()
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /*Basic setup for elite attacks, based on Whoneedspace's megafauna attack setup.
 While using this makes the system rely on OnFire, it still gives options for timers not tied to OnFire, and it makes using attacks consistent accross the board for player-controlled elites.*/
@@ -77,7 +77,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(istype(L, /mob/living/simple_animal/hostile/asteroid/elite))
 		M = L
 		return ..()
-	return FALSE
+	return EF_FALSE
 
 /datum/action/innate/elite_attack/Activate()
 	M.chosen_attack = chosen_attack_num
@@ -225,7 +225,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		light_range = 6
 		desc = "[desc]  This one seems to glow with a strong intensity."
 		qdel(core)
-		return TRUE
+		return EF_TRUE
 
 /obj/structure/elite_tumor/proc/arena_checks()
 	if(activity != TUMOR_ACTIVE || QDELETED(src))
@@ -356,6 +356,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/effect/temp_visual/elite_tumor_wall/CanPass(atom/movable/mover, turf/target)
 	if(mover == ourelite || mover == activator)
-		return FALSE
+		return EF_FALSE
 	else
-		return TRUE
+		return EF_TRUE

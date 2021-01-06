@@ -101,12 +101,12 @@
 
 		// Suit sensors must be on maximum.
 		if(!U.has_sensor || (U.sensor_mode < SENSOR_COORDS && !ignore_suit_sensor_level))
-			return FALSE
+			return EF_FALSE
 
 		var/turf/there = get_turf(H)
 		return (H.z != 0 || (there && ((there.z == here.z) || (is_station_level(there.z) && is_station_level(here.z)))))
 
-	return FALSE
+	return EF_FALSE
 
 /obj/item/pinpointer/crew/attack_self(mob/living/user)
 	if(active)

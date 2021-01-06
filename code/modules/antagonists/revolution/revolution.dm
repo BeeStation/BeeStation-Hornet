@@ -14,11 +14,11 @@
 	. = ..()
 	if(.)
 		if(new_owner.assigned_role in GLOB.command_positions)
-			return FALSE
+			return EF_FALSE
 		if(new_owner.unconvertable)
-			return FALSE
+			return EF_FALSE
 		if(new_owner.current && HAS_TRAIT(new_owner.current, TRAIT_MINDSHIELD))
-			return FALSE
+			return EF_FALSE
 
 /datum/antagonist/rev/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/M = mob_override || owner.current
@@ -171,17 +171,17 @@
 
 /datum/antagonist/rev/proc/can_be_converted(mob/living/candidate)
 	if(!candidate.mind)
-		return FALSE
+		return EF_FALSE
 	if(!can_be_owned(candidate.mind))
-		return FALSE
+		return EF_FALSE
 	var/mob/living/carbon/C = candidate //Check to see if the potential rev is implanted
 	if(!istype(C)) //Can't convert simple animals
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/antagonist/rev/proc/add_revolutionary(datum/mind/rev_mind,stun = TRUE)
 	if(!can_be_converted(rev_mind.current))
-		return FALSE
+		return EF_FALSE
 	if(stun)
 		if(iscarbon(rev_mind.current))
 			var/mob/living/carbon/carbon_mob = rev_mind.current
@@ -190,7 +190,7 @@
 		rev_mind.current.Stun(100)
 	rev_mind.add_antag_datum(/datum/antagonist/rev,rev_team)
 	rev_mind.special_role = ROLE_REV
-	return TRUE
+	return EF_TRUE
 
 /datum/antagonist/rev/head/proc/demote()
 	var/datum/mind/old_owner = owner

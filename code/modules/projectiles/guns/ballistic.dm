@@ -158,7 +158,7 @@
 /obj/item/gun/ballistic/proc/insert_magazine(mob/user, obj/item/ammo_box/magazine/AM, display_message = TRUE)
 	if(!istype(AM, mag_type))
 		to_chat(user, "<span class='warning'>\The [AM] doesn't seem to fit into \the [src]...</span>")
-		return FALSE
+		return EF_FALSE
 	if(user.transferItemToLoc(AM, src))
 		magazine = AM
 		if (display_message)
@@ -167,10 +167,10 @@
 		if (bolt_type == BOLT_TYPE_OPEN && !bolt_locked)
 			chamber_round(TRUE)
 		update_icon()
-		return TRUE
+		return EF_TRUE
 	else
 		to_chat(user, "<span class='warning'>You cannot seem to get \the [src] out of your hands!</span>")
-		return FALSE
+		return EF_FALSE
 
 /obj/item/gun/ballistic/proc/eject_magazine(mob/user, display_message = TRUE, obj/item/ammo_box/magazine/tac_load = null)
 	if(bolt_type == BOLT_TYPE_OPEN)
@@ -241,7 +241,7 @@
 			to_chat(user, "<span class='notice'>You screw \the [S] onto \the [src].</span>")
 			install_suppressor(A)
 			return
-	return FALSE
+	return EF_FALSE
 
 /obj/item/gun/ballistic/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	if (sawn_off)
@@ -411,7 +411,7 @@
 		recoil = SAWN_OFF_RECOIL
 		sawn_off = TRUE
 		update_icon()
-		return TRUE
+		return EF_TRUE
 
 // Sawing guns related proc
 /obj/item/gun/ballistic/proc/blow_up(mob/user)

@@ -446,7 +446,7 @@
 	if(current_cycle >= 18)
 		M.Sleeping(40, 0)
 	..()
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/toxin/cyanide
 	name = "Cyanide"
@@ -569,7 +569,7 @@
 		M.Sleeping(40, 0)
 	M.adjustStaminaLoss(10*REM, 0)
 	..()
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/toxin/sulfonal
 	name = "Sulfonal"

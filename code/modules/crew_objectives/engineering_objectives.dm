@@ -18,9 +18,9 @@
 	end_state.count()
 	var/station_integrity = min(PERCENT(GLOB.start_state.score(end_state)), 100)
 	if(!SSticker.mode.station_was_nuked && station_integrity >= target_amount)
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /datum/objective/crew/poly
 	explanation_text = "Make sure Poly keeps his headset, and stays alive until the end of the shift."
@@ -30,5 +30,5 @@
 	for(var/mob/living/simple_animal/parrot/Poly/dumbbird in GLOB.mob_list)
 		if(!(dumbbird.stat == DEAD) && dumbbird.ears)
 			if(istype(dumbbird.ears, /obj/item/radio/headset))
-				return TRUE
-	return FALSE
+				return EF_TRUE
+	return EF_FALSE

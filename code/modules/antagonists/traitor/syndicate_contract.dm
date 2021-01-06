@@ -53,9 +53,9 @@
 		if (free_location)
 			// We've got a valid location, launch.
 			launch_extraction_pod(free_location)
-			return TRUE
+			return EF_TRUE
 
-	return FALSE
+	return EF_FALSE
 
 // Launch the pod to collect our victim.
 /datum/syndicate_contract/proc/launch_extraction_pod(turf/empty_pod_turf)

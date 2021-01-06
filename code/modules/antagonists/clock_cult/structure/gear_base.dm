@@ -26,7 +26,7 @@
 	if(do_after(user, 40, target=src))
 		anchored = !anchored
 		update_icon_state()
-		return TRUE
+		return EF_TRUE
 	else
 		return ..()
 
@@ -56,31 +56,31 @@
 		if(GLOB.clockcult_power > minimum_power && LAZYLEN(transmission_sigils))
 			repowered()
 			depowered = FALSE
-			return TRUE
-		return FALSE
+			return EF_TRUE
+		return EF_FALSE
 	else
 		if(GLOB.clockcult_power <= minimum_power || !LAZYLEN(transmission_sigils))
 			depowered()
 			depowered = TRUE
-			return FALSE
-		return TRUE
+			return EF_FALSE
+		return EF_TRUE
 
 /obj/structure/destructible/clockwork/gear_base/proc/check_power(amount)
 	if(!LAZYLEN(transmission_sigils))
-		return FALSE
+		return EF_FALSE
 	if(depowered)
-		return FALSE
+		return EF_FALSE
 	if(GLOB.clockcult_power < amount)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/structure/destructible/clockwork/gear_base/proc/use_power(amount)
 	update_power()
 	if(!check_power(amount))
-		return FALSE
+		return EF_FALSE
 	GLOB.clockcult_power -= amount
 	update_power()
-	return TRUE
+	return EF_TRUE
 
 //We lost power
 /obj/structure/destructible/clockwork/gear_base/proc/depowered()

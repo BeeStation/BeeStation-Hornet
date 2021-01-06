@@ -87,7 +87,7 @@
 
 				update_cut_status()
 
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/fence/proc/update_cut_status()
 	if(!cuttable)
@@ -125,7 +125,7 @@
 	if(can_open(user))
 		toggle(user)
 
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/fence/door/proc/toggle(mob/user)
 	open = !open
@@ -138,7 +138,7 @@
 	icon_state = density ? "door_closed" : "door_opened"
 
 /obj/structure/fence/door/proc/can_open(mob/user)
-	return TRUE
+	return EF_TRUE
 
 #undef CUT_TIME
 #undef CLIMB_TIME

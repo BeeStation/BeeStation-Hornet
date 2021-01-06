@@ -71,15 +71,15 @@
 	switch(the_rcd.mode)
 		if(RCD_DECONSTRUCT)
 			return list("mode" = RCD_DECONSTRUCT, "delay" = 20, "cost" = 5)
-	return FALSE
+	return EF_FALSE
 
 /obj/structure/window/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd)
 	switch(the_rcd.mode)
 		if(RCD_DECONSTRUCT)
 			to_chat(user, "<span class='notice'>You deconstruct the window.</span>")
 			qdel(src)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/structure/window/narsie_act()
 	add_atom_colour(NARSIE_WINDOW_COLOUR, FIXED_COLOUR_PRIORITY)
@@ -105,13 +105,13 @@
 	if(istype(mover, /obj/structure/window))
 		var/obj/structure/window/W = mover
 		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
+			return EF_FALSE
 	else if(istype(mover, /obj/structure/windoor_assembly))
 		var/obj/structure/windoor_assembly/W = mover
 		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
+			return EF_FALSE
 	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
-		return FALSE
+		return EF_FALSE
 	return 1
 
 /obj/structure/window/CheckExit(atom/movable/O, turf/target)
@@ -221,11 +221,11 @@
 
 /obj/structure/window/proc/check_state(checked_state)
 	if(state == checked_state)
-		return TRUE
+		return EF_TRUE
 
 /obj/structure/window/proc/check_anchored(checked_anchored)
 	if(anchored == checked_anchored)
-		return TRUE
+		return EF_TRUE
 
 /obj/structure/window/proc/check_state_and_anchored(checked_state, checked_anchored)
 	return check_state(checked_state) && check_anchored(checked_anchored)
@@ -282,14 +282,14 @@
 /obj/structure/window/proc/can_be_rotated(mob/user,rotation_type)
 	if(anchored)
 		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
-		return FALSE
+		return EF_FALSE
 
 	var/target_dir = turn(dir, rotation_type == ROTATION_CLOCKWISE ? -90 : 90)
 
 	if(!valid_window_location(loc, target_dir))
 		to_chat(user, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/structure/window/proc/after_rotation(mob/user,rotation_type)
 	air_update_turf(1)
@@ -311,7 +311,7 @@
 
 /obj/structure/window/CanAtmosPass(turf/T)
 	if(!anchored || !density)
-		return TRUE
+		return EF_TRUE
 	return !(FULLTILE_WINDOW_DIR == dir || dir == get_dir(loc, T))
 
 //This proc is used to update the icons of nearby windows.

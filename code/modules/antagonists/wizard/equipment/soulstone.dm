@@ -161,15 +161,15 @@
 	switch(choice)
 		if("FORCE")
 			if(!iscarbon(target))		//TODO: Add sacrifice stoning for non-organics, just because you have no body doesnt mean you dont have a soul
-				return FALSE
+				return EF_FALSE
 			if(contents.len)
-				return FALSE
+				return EF_FALSE
 			var/mob/living/carbon/T = target
 			if(T.client != null)
 				for(var/obj/item/W in T)
 					T.dropItemToGround(W)
 				init_shade(T, user)
-				return TRUE
+				return EF_TRUE
 			else
 				to_chat(user, "<span class='userdanger'>Capture failed!</span>: The soul has already fled its mortal frame. You attempt to bring it back...")
 				return getCultGhost(T,user)
@@ -182,7 +182,7 @@
 					to_chat(user, "<span class='cult'><b>\"This soul is mine.</b></span> <span class='cultlarge'>SACRIFICE THEM!\"</span>")
 				else
 					to_chat(user, "<span class='danger'>The soulstone seems to reject this soul.</span>")
-				return FALSE
+				return EF_FALSE
 			if(contents.len)
 				to_chat(user, "<span class='userdanger'>Capture failed!</span>: The soulstone is full! Free an existing soul to make room.")
 			else
@@ -330,15 +330,15 @@
 		if(consenting_candidates.len)
 			chosen_ghost = pick(consenting_candidates)
 	if(!T)
-		return FALSE
+		return EF_FALSE
 	if(!chosen_ghost)
 		to_chat(U, "<span class='danger'>There were no spirits willing to become a shade.</span>")
-		return FALSE
+		return EF_FALSE
 	if(contents.len) //If they used the soulstone on someone else in the meantime
-		return FALSE
+		return EF_FALSE
 	T.ckey = chosen_ghost.ckey
 	for(var/obj/item/W in T)
 		T.dropItemToGround(W)
 	init_shade(T, U)
 	qdel(T)
-	return TRUE
+	return EF_TRUE

@@ -76,12 +76,12 @@
 		if (!disk)
 			if(!user.transferItemToLoc(I, src))
 				to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
-				return TRUE
+				return EF_TRUE
 			to_chat(user, "<span class='notice'>You slide [I] into the back of [src].</span>")
 			disk = I
 		else
 			to_chat(user, "<span class='warning'>There's already a disk inside [src].</span>")
-		return TRUE //no afterattack
+		return EF_TRUE //no afterattack
 	..()
 
 /obj/item/camera/examine(mob/user)
@@ -91,21 +91,21 @@
 //user can be atom or mob
 /obj/item/camera/proc/can_target(atom/target, mob/user, prox_flag)
 	if(!on || blending || !pictures_left)
-		return FALSE
+		return EF_FALSE
 	var/turf/T = get_turf(target)
 	if(!T)
-		return FALSE
+		return EF_FALSE
 	if(istype(user))
 		if(isAI(user) && !GLOB.cameranet.checkTurfVis(T))
-			return FALSE
+			return EF_FALSE
 		else if(user.client && !(get_turf(target) in get_hear(user.client.view, user)))
-			return FALSE
+			return EF_FALSE
 		else if(!(get_turf(target) in get_hear(world.view, user)))
-			return FALSE
+			return EF_FALSE
 	else					//user is an atom
 		if(!(get_turf(target) in view(world.view, user)))
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /obj/item/camera/afterattack(atom/target, mob/user, flag)
 	if (disk)
@@ -155,7 +155,7 @@
 	var/turf/target_turf = get_turf(target)
 	if(!isturf(target_turf))
 		blending = FALSE
-		return FALSE
+		return EF_FALSE
 	size_x = CLAMP(size_x, 0, CAMERA_PICTURE_SIZE_HARD_LIMIT)
 	size_y = CLAMP(size_y, 0, CAMERA_PICTURE_SIZE_HARD_LIMIT)
 	var/list/desc = list("This is a photo of an area of [size_x+1] meters by [size_y+1] meters.")
@@ -177,7 +177,7 @@
 			T = SSmapping.get_turf_below(T)
 			if(!T)
 				break
-		
+
 		if(T && ((ai_user && GLOB.cameranet.checkTurfVis(placeholder)) || (placeholder in seen)))
 			turfs += T
 			for(var/mob/M in T)

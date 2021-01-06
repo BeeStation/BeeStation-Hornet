@@ -15,7 +15,7 @@
 		var/mob/living/carbon/human/H = M
 		if(H.check_shields(src, 0, "[M]'s [name]", MELEE_ATTACK))
 			playsound(M, 'sound/weapons/genhit.ogg', 50, 1)
-			return FALSE
+			return EF_FALSE
 	if(iscyborg(user))
 		var/mob/living/silicon/robot/R = user
 		if(!R.cell.use(charge_cost))
@@ -400,14 +400,14 @@
 /obj/item/borg/lollipop/proc/dispense(atom/A, mob/user)
 	if(candy <= 0)
 		to_chat(user, "<span class='warning'>No treats left in storage!</span>")
-		return FALSE
+		return EF_FALSE
 	var/turf/T = get_turf(A)
 	if(!T || !istype(T) || !isopenturf(T))
-		return FALSE
+		return EF_FALSE
 	if(isobj(A))
 		var/obj/O = A
 		if(O.density)
-			return FALSE
+			return EF_FALSE
 
 	var/obj/item/reagent_containers/food/snacks/L
 	switch(mode)
@@ -433,12 +433,12 @@
 		user.visible_message("<span class='notice'>[user] dispenses a treat.</span>", "<span class='notice'>You dispense a treat.</span>", "<span class='italics'>You hear a click.</span>")
 
 	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/borg/lollipop/proc/shootL(atom/target, mob/living/user, params)
 	if(candy <= 0)
 		to_chat(user, "<span class='warning'>Not enough lollipops left!</span>")
-		return FALSE
+		return EF_FALSE
 	candy--
 	var/obj/item/ammo_casing/caseless/lollipop/A = new /obj/item/ammo_casing/caseless/lollipop(src)
 	A.BB.damage = hitdamage
@@ -453,7 +453,7 @@
 /obj/item/borg/lollipop/proc/shootG(atom/target, mob/living/user, params)	//Most certainly a good idea.
 	if(candy <= 0)
 		to_chat(user, "<span class='warning'>Not enough gumballs left!</span>")
-		return FALSE
+		return EF_FALSE
 	candy--
 	var/obj/item/ammo_casing/caseless/gumball/A = new /obj/item/ammo_casing/caseless/gumball(src)
 	A.BB.damage = hitdamage
@@ -473,13 +473,13 @@
 		var/mob/living/silicon/robot/R = user
 		if(!R.cell.use(12))
 			to_chat(user, "<span class='warning'>Not enough power.</span>")
-			return FALSE
+			return EF_FALSE
 		if(R.emagged)
 			hitdamage = emaggedhitdamage
 	switch(mode)
 		if(DISPENSE_LOLLIPOP_MODE, DISPENSE_ICECREAM_MODE)
 			if(!proximity)
-				return FALSE
+				return EF_FALSE
 			dispense(target, user)
 		if(THROW_LOLLIPOP_MODE)
 			shootL(target, user, click_params)
@@ -946,7 +946,7 @@
 	. = ..()
 	if(istype(A, /obj/item/aiModule) && !stored) //If an admin wants a borg to upload laws, who am I to stop them? Otherwise, we can hint that it fails
 		to_chat(user, "<span class='warning'>This circuit board doesn't seem to have standard robot apparatus pin holes. You're unable to pick it up.</span>")
-		
+
 ////////////////////
 //versatile service holder//
 ////////////////////

@@ -109,17 +109,17 @@
 		return
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
 		return
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/sleeper/wrench_act(mob/living/user, obj/item/I)
 	if(default_change_direction_wrench(user, I))
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/sleeper/crowbar_act(mob/living/user, obj/item/I)
 	if(default_pry_open(I))
-		return TRUE
+		return EF_TRUE
 	if(default_deconstruction_crowbar(I))
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/sleeper/default_pry_open(obj/item/I) //wew
 	. = !(state_open || panel_open || (flags_1 & NODECONSTRUCT_1)) && I.tool_behaviour == TOOL_CROWBAR
@@ -234,7 +234,7 @@
 		if(user)
 			log_combat(user, occupant, "injected [chem] into", addition = "via [src]")
 		use_power(100)
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/sleeper/proc/chem_allowed(chem)
 	var/mob/living/mob_occupant = occupant

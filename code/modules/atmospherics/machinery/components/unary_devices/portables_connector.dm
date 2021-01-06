@@ -40,7 +40,7 @@
 	. = ..()
 	if(. && connected_device)
 		to_chat(user, "<span class='warning'>You cannot unwrench [src], detach [connected_device] first!</span>")
-		return FALSE
+		return EF_FALSE
 
 /obj/machinery/atmospherics/components/unary/portables_connector/portableConnectorReturnAir()
 	return connected_device.portableConnectorReturnAir()

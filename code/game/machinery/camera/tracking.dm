@@ -122,14 +122,14 @@
 
 /proc/near_camera(mob/living/M)
 	if (!isturf(M.loc))
-		return FALSE
+		return EF_FALSE
 	if(issilicon(M))
 		var/mob/living/silicon/S = M
 		if((QDELETED(S.builtInCamera) || !S.builtInCamera.can_use()) && !GLOB.cameranet.checkCameraVis(M))
-			return FALSE
+			return EF_FALSE
 	else if(!GLOB.cameranet.checkCameraVis(M))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/camera/attack_ai(mob/living/silicon/ai/user)
 	if (!istype(user))

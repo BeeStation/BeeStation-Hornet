@@ -52,19 +52,19 @@
 /obj/item/reagent_containers/food/snacks/grown/nettle/pickup(mob/living/user)
 	..()
 	if(!iscarbon(user))
-		return FALSE
+		return EF_FALSE
 	var/mob/living/carbon/C = user
 	if(C.gloves)
-		return FALSE
+		return EF_FALSE
 	if(HAS_TRAIT(C, TRAIT_PIERCEIMMUNE))
-		return FALSE
+		return EF_FALSE
 	var/hit_zone = (C.held_index_to_dir(C.active_hand_index) == "l" ? "l_":"r_") + "arm"
 	var/obj/item/bodypart/affecting = C.get_bodypart(hit_zone)
 	if(affecting)
 		if(affecting.receive_damage(0, force))
 			C.update_damage_overlays()
 	to_chat(C, "<span class='userdanger'>The nettle burns your bare hand!</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/item/reagent_containers/food/snacks/grown/nettle/afterattack(atom/A as mob|obj, mob/user,proximity)
 	. = ..()

@@ -49,4 +49,4 @@
 				if(A.properties["resistance"] >= 12)
 					continue
 			D.cure(FALSE)
-	return TRUE
+	return EF_TRUE

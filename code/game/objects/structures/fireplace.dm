@@ -27,15 +27,15 @@
 /obj/structure/fireplace/proc/try_light(obj/item/O, mob/user)
 	if(lit)
 		to_chat(user, "<span class='warning'>It's already lit!</span>")
-		return FALSE
+		return EF_FALSE
 	if(!fuel_added)
 		to_chat(user, "<span class='warning'>[src] needs some fuel to burn!</span>")
-		return FALSE
+		return EF_FALSE
 	var/msg = O.ignition_effect(src, user)
 	if(msg)
 		visible_message(msg)
 		ignite()
-		return TRUE
+		return EF_TRUE
 
 /obj/structure/fireplace/attackby(obj/item/T, mob/user)
 	if(istype(T, /obj/item/stack/sheet/mineral/wood))

@@ -229,7 +229,7 @@
 	if(!locked)
 		return ..()
 	to_chat(user, "<span class='notice'>That seems like a stupid idea.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/structure/closet/crate/secure/loot/emag_act(mob/user)
 	if(locked)

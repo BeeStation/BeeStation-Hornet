@@ -32,8 +32,8 @@
 			T.flags_1 |= NO_RUINS_1
 
 		new /obj/effect/landmark/ruin(central_turf, src)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 
 /proc/seedRuins(list/z_levels = null, budget = 0, whitelist = /area/space, list/potentialRuins)

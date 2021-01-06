@@ -97,7 +97,7 @@
 		next_trombone_allowed = world.time + 50
 		to_chat(user, "You slap the two swords together. Sadly, they do not seem to fit.")
 		playsound(src, 'sound/misc/sadtrombone.ogg', 50)
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /obj/item/melee/transforming/energy/sword/bananium/transform_weapon(mob/living/user, supress_message_text)
@@ -242,8 +242,8 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/banana_mortar/bombanana/can_attach(obj/mecha/combat/honker/M)
 	if(..())
 		if(istype(M))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang/tearstache
 	name = "\improper HONKeR-6 grenade launcher"
@@ -260,8 +260,8 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang/tearstache/can_attach(obj/mecha/combat/honker/M)
 	if(..())
 		if(istype(M))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/mecha/combat/honker/dark
 	desc = "Produced by \"Tyranny of Honk, INC\", this exosuit is designed as heavy clown-support. This one has been painted black for maximum fun. HONK!"

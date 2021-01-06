@@ -104,8 +104,8 @@
 	if(istype(O, /obj/item/transfer_valve))
 		var/obj/item/transfer_valve/T = O
 		if(!T.tank_one || !T.tank_two || !T.attached_device)
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/rnd/experimentor/Insert_Item(obj/item/O, mob/user)
 	if(user.a_intent != INTENT_HARM)

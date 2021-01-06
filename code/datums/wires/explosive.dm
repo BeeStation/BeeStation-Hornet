@@ -23,7 +23,7 @@
 /datum/wires/explosive/chem_grenade/interactable(mob/user)
 	var/obj/item/grenade/chem_grenade/G = holder
 	if(G.stage == GRENADE_WIRED)
-		return TRUE
+		return EF_TRUE
 
 /datum/wires/explosive/chem_grenade/attach_assembly(color, obj/item/assembly/S)
 	if(istype(S,/obj/item/assembly/timer))
@@ -43,7 +43,7 @@
 	message_admins("\An [assembly] has pulsed a grenade, which was installed by [fingerprint].")
 	log_game("\An [assembly] has pulsed a grenade, which was installed by [fingerprint].")
 	var/mob/M = get_mob_by_ckey(fingerprint)
-	var/turf/T = get_turf(M)	
+	var/turf/T = get_turf(M)
 	G.log_grenade(M, T)
 	G.prime()
 
@@ -64,7 +64,7 @@
 /datum/wires/explosive/c4/interactable(mob/user)
 	var/obj/item/grenade/plastic/c4/P = holder
 	if(P.open_panel)
-		return TRUE
+		return EF_TRUE
 
 /datum/wires/explosive/c4/explode()
 	var/obj/item/grenade/plastic/c4/P = holder
@@ -85,7 +85,7 @@
 /datum/wires/explosive/pizza/interactable(mob/user)
 	var/obj/item/pizzabox/P = holder
 	if(P.open && P.bomb)
-		return TRUE
+		return EF_TRUE
 
 /datum/wires/explosive/pizza/get_status()
 	var/obj/item/pizzabox/P = holder

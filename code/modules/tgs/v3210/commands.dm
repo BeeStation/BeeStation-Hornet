@@ -38,7 +38,7 @@
 
 	var/command_type = cached_custom_tgs_chat_commands[command]
 	if(!command_type)
-		return FALSE
+		return EF_FALSE
 	var/datum/tgs_chat_command/stc = new command_type
 	var/datum/tgs_chat_user/user = new
 	user.friendly_name = sender

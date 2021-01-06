@@ -55,10 +55,10 @@
 
 /turf/open/assume_air(datum/gas_mixture/giver) //use this for machines to adjust air
 	if(!giver)
-		return FALSE
+		return EF_FALSE
 	air.merge(giver)
 	update_visuals()
-	return TRUE
+	return EF_TRUE
 
 /turf/open/remove_air(amount)
 	var/datum/gas_mixture/ours = return_air()
@@ -297,7 +297,7 @@
 	//Make sure still hot enough to continue conducting heat
 	if(temp < MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION)
 		SSair.active_super_conductivity -= src
-		return FALSE
+		return EF_FALSE
 
 /turf/open/finish_superconduction()
 	//Conduct with air on my tile if I have it
@@ -307,21 +307,21 @@
 
 /turf/proc/consider_superconductivity()
 	if(!thermal_conductivity)
-		return FALSE
+		return EF_FALSE
 
 	SSair.active_super_conductivity |= src
-	return TRUE
+	return EF_TRUE
 
 /turf/open/consider_superconductivity(starting)
 	if(air.return_temperature() < (starting?MINIMUM_TEMPERATURE_START_SUPERCONDUCTION:MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION))
-		return FALSE
+		return EF_FALSE
 	if(air.heat_capacity() < M_CELL_WITH_RATIO) // Was: MOLES_CELLSTANDARD*0.1*0.05 Since there are no variables here we can make this a constant.
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /turf/closed/consider_superconductivity(starting)
 	if(temperature < (starting?MINIMUM_TEMPERATURE_START_SUPERCONDUCTION:MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /turf/proc/radiate_to_spess() //Radiate excess tile heat to space

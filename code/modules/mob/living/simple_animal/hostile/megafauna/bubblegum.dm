@@ -203,8 +203,8 @@ Difficulty: Hard
 	var/list/targets = get_mobs_on_blood()
 	if(targets.len)
 		INVOKE_ASYNC(src, .proc/bloodattack, targets, prob(50))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/bloodattack(list/targets, handedness)
 	var/mob/living/target_one = pick_n_take(targets)
@@ -273,16 +273,16 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/blood_warp()
 	if(Adjacent(target))
-		return FALSE
+		return EF_FALSE
 	var/list/can_jaunt = get_pools(get_turf(src), 1)
 	if(!can_jaunt.len)
-		return FALSE
+		return EF_FALSE
 
 	var/list/pools = get_pools(get_turf(target), 5)
 	var/list/pools_to_remove = get_pools(get_turf(target), 4)
 	pools -= pools_to_remove
 	if(!pools.len)
-		return FALSE
+		return EF_FALSE
 
 	var/obj/effect/temp_visual/decoy/DA = new /obj/effect/temp_visual/decoy(loc,src)
 	DA.color = "#FF0000"
@@ -306,16 +306,16 @@ Difficulty: Hard
 		playsound(get_turf(src), 'sound/magic/exit_blood.ogg', 100, 1, -1)
 		visible_message("<span class='danger'>And springs back out!</span>")
 		blood_enrage()
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/be_aggressive()
 	if(BUBBLEGUM_IS_ENRAGED)
-		return TRUE
+		return EF_TRUE
 	if(isliving(target))
 		var/mob/living/livingtarget = target
 		return (livingtarget.stat != CONSCIOUS || !(livingtarget.mobility_flags & MOBILITY_STAND))
-	return FALSE
+	return EF_FALSE
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/get_retreat_distance()
 	return (be_aggressive() ? null : initial(retreat_distance))
@@ -329,7 +329,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/blood_enrage()
 	if(!BUBBLEGUM_CAN_ENRAGE)
-		return FALSE
+		return EF_FALSE
 	enrage_till = world.time + enrage_time
 	update_approach()
 	change_move_delay(3.75)
@@ -358,7 +358,7 @@ Difficulty: Hard
 	bloodiness = 0
 
 /obj/effect/decal/cleanable/blood/bubblegum/can_bloodcrawl_in()
-	return TRUE
+	return EF_TRUE
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/hallucination_charge_around(var/times = 4, var/delay = 6, var/chargepast = 0, var/useoriginal = 1, var/radius)
 	var/startingangle = rand(1, 360)
@@ -409,7 +409,7 @@ Difficulty: Hard
 	bloodiness = 20
 
 /obj/effect/decal/cleanable/blood/gibs/bubblegum/can_bloodcrawl_in()
-	return TRUE
+	return EF_TRUE
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/grant_achievement(medaltype,scoretype)
 	. = ..()
@@ -441,7 +441,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination))
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Goto(target, delay, minimum_distance)
@@ -455,7 +455,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Move()
 	update_approach()
 	if(revving_charge)
-		return FALSE
+		return EF_FALSE
 	if(charging)
 		new /obj/effect/temp_visual/decoy/fading(loc,src)
 		DestroySurroundings()
@@ -539,7 +539,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /mob/living/simple_animal/hostile/megafauna/bubblegum)) // hallucinations should not be stopping bubblegum or eachother
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Life()
@@ -582,5 +582,5 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/slaughter/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /mob/living/simple_animal/hostile/megafauna/bubblegum))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE

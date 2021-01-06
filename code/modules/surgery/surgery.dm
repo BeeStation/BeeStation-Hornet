@@ -41,16 +41,16 @@
 /datum/surgery/proc/can_start(mob/user, mob/living/carbon/target) //FALSE to not show in list
 	. = TRUE
 	if(replaced_by == /datum/surgery)
-		return FALSE
+		return EF_FALSE
 
 	if(HAS_TRAIT(user, TRAIT_SURGEON))
 		if(replaced_by)
-			return FALSE
+			return EF_FALSE
 		else
-			return TRUE
+			return EF_TRUE
 
 	if(!requires_tech && !replaced_by)
-		return TRUE
+		return EF_TRUE
 	// True surgeons (like abductor scientists) need no instructions
 
 	if(requires_tech)
@@ -62,7 +62,7 @@
 		if(!SP || (replaced_by in SP.advanced_surgeries))
 			return .
 		if(type in SP.advanced_surgeries)
-			return TRUE
+			return EF_TRUE
 
 
 	var/turf/T = get_turf(target)
@@ -73,20 +73,20 @@
 		if(table.computer.stat & (NOPOWER|BROKEN) || (replaced_by in table.computer.advanced_surgeries))
 			return .
 		if(type in table.computer.advanced_surgeries)
-			return TRUE
+			return EF_TRUE
 
 	var/obj/machinery/stasis/the_stasis_bed = locate(/obj/machinery/stasis, T)
 	if(the_stasis_bed?.op_computer)
 		if(the_stasis_bed.op_computer.stat & (NOPOWER|BROKEN))
 			return .
 		if(replaced_by in the_stasis_bed.op_computer.advanced_surgeries)
-			return FALSE
+			return EF_FALSE
 		if(type in the_stasis_bed.op_computer.advanced_surgeries)
-			return TRUE
+			return EF_TRUE
 
 /datum/surgery/proc/next_step(mob/user, intent)
 	if(step_in_progress)
-		return TRUE
+		return EF_TRUE
 
 	var/try_to_fail = FALSE
 	if(intent == INTENT_DISARM)
@@ -95,10 +95,10 @@
 	var/datum/surgery_step/S = get_surgery_step()
 	if(S)
 		if(S.try_op(user, target, user.zone_selected, user.get_active_held_item(), src, try_to_fail))
-			return TRUE
+			return EF_TRUE
 		if(iscyborg(user) && user.a_intent != INTENT_HARM) //to save asimov borgs a LOT of heartache
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/surgery/proc/get_surgery_step()
 	var/step_type = steps[status]
@@ -146,27 +146,27 @@
 
 /datum/surgery/advanced/can_start(mob/user, mob/living/carbon/target)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	// True surgeons (like abductor scientists) need no instructions
 	if(HAS_TRAIT(user, TRAIT_SURGEON) || HAS_TRAIT(user.mind, TRAIT_SURGEON))
-		return TRUE
+		return EF_TRUE
 
 	if(iscyborg(user))
 		var/mob/living/silicon/robot/R = user
 		var/obj/item/surgical_processor/SP = locate() in R.module.modules
 		if(!SP)
-			return FALSE
+			return EF_FALSE
 		if(type in SP.advanced_surgeries)
-			return TRUE
+			return EF_TRUE
 
 	var/turf/T = get_turf(target)
 	var/obj/structure/table/optable/table = locate(/obj/structure/table/optable, T)
 	if(!table || !table.computer)
-		return FALSE
+		return EF_FALSE
 	if(table.computer.stat & (NOPOWER|BROKEN))
-		return FALSE
+		return EF_FALSE
 	if(type in table.computer.advanced_surgeries)
-		return TRUE
+		return EF_TRUE
 
 /obj/item/disk/surgery
 	name = "Surgery Procedure Disk"

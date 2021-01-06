@@ -37,4 +37,4 @@
 				consoles += C
 			console = pick(consoles)
 			home = console.pad
-		return TRUE
+		return EF_TRUE

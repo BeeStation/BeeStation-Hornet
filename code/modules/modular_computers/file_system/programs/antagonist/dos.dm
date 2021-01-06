@@ -49,14 +49,14 @@
 				if("[R.uid]" == params["targid"])
 					target = R
 					break
-			return TRUE
+			return EF_TRUE
 		if("PRG_reset")
 			if(target)
 				target.dos_sources.Remove(src)
 				target = null
 			executed = FALSE
 			error = ""
-			return TRUE
+			return EF_TRUE
 		if("PRG_execute")
 			if(target)
 				executed = TRUE
@@ -65,7 +65,7 @@
 					var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
 					SSnetworks.station_network.add_log("IDS WARNING - Excess traffic flood targeting relay [target.uid] detected from device: [network_card.get_network_tag()]")
 					SSnetworks.station_network.intrusion_detection_alarm = TRUE
-			return TRUE
+			return EF_TRUE
 
 /datum/computer_file/program/ntnet_dos/ui_data(mob/user)
 	if(!SSnetworks.station_network)

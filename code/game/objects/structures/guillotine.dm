@@ -179,15 +179,15 @@
 /obj/structure/guillotine/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if (!anchored)
 		to_chat(usr, "<span class='warning'>The [src] needs to be wrenched to the floor!</span>")
-		return FALSE
+		return EF_FALSE
 
 	if (!istype(M, /mob/living/carbon/human))
 		to_chat(usr, "<span class='warning'>It doesn't look like [M.p_they()] can fit into this properly!</span>")
-		return FALSE // Can't decapitate non-humans
+		return EF_FALSE // Can't decapitate non-humans
 
 	if (blade_status != GUILLOTINE_BLADE_RAISED)
 		to_chat(usr, "<span class='warning'>You need to raise the blade before buckling someone in!</span>")
-		return FALSE
+		return EF_FALSE
 
 	return ..(M, force, FALSE)
 
@@ -242,7 +242,7 @@
 		current_action = 0
 		default_unfasten_wrench(user, I, 0)
 		setDir(SOUTH)
-		return TRUE
+		return EF_TRUE
 	else
 		current_action = 0
 

@@ -318,7 +318,7 @@
 		if(isethereal(H))
 			HandleCharge(H)
 		if(HAS_TRAIT(H, TRAIT_NOHUNGER))
-			return FALSE //no mood events for nutrition
+			return EF_FALSE //no mood events for nutrition
 	switch(L.nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)
 			if (!HAS_TRAIT(L, TRAIT_VORACIOUS))

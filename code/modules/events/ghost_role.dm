@@ -53,7 +53,7 @@
 /datum/round_event/ghost_role/proc/spawn_role()
 	// Return true if role was successfully spawned, false if insufficent
 	// players could be found, and just runtime if anything else happens
-	return TRUE
+	return EF_TRUE
 
 /datum/round_event/ghost_role/proc/get_candidates(jobban, gametypecheck, be_special)
 	// Returns a list of candidates in priority order, with candidates from

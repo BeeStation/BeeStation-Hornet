@@ -24,13 +24,13 @@
 	activate("action_button")
 
 /obj/item/implant/proc/can_be_implanted_in(mob/living/target) // for human-only and other special requirements
-	return TRUE
+	return EF_TRUE
 
 /mob/living/proc/can_be_implanted()
-	return TRUE
+	return EF_TRUE
 
 /mob/living/silicon/can_be_implanted()
-	return FALSE
+	return EF_FALSE
 
 /mob/living/simple_animal/can_be_implanted()
 	return healable //Applies to robots and most non-organics, exceptions can override.
@@ -45,20 +45,20 @@
 		return
 	LAZYINITLIST(target.implants)
 	if(!force && (!target.can_be_implanted() || !can_be_implanted_in(target)))
-		return FALSE
+		return EF_FALSE
 	for(var/X in target.implants)
 		var/obj/item/implant/imp_e = X
 		var/flags = SEND_SIGNAL(imp_e, COMSIG_IMPLANT_OTHER, args, src)
 		if(flags & COMPONENT_DELETE_NEW_IMPLANT)
 			UNSETEMPTY(target.implants)
 			qdel(src)
-			return TRUE
+			return EF_TRUE
 		if(flags & COMPONENT_DELETE_OLD_IMPLANT)
 			qdel(imp_e)
 			continue
 		if(flags & COMPONENT_STOP_IMPLANTING)
 			UNSETEMPTY(target.implants)
-			return FALSE
+			return EF_FALSE
 
 		if(istype(imp_e, type))
 			if(!allow_multiple)
@@ -68,9 +68,9 @@
 					else
 						imp_e.uses = min(imp_e.uses + uses, initial(imp_e.uses)*2)
 					qdel(src)
-					return TRUE
+					return EF_TRUE
 				else
-					return FALSE
+					return EF_FALSE
 
 	forceMove(target)
 	imp_in = target
@@ -88,7 +88,7 @@
 	if(user)
 		log_combat(user, target, "implanted", "\a [name]")
 
-	return TRUE
+	return EF_TRUE
 
 /obj/item/implant/proc/removed(mob/living/source, silent = FALSE, special = 0)
 	moveToNullspace()

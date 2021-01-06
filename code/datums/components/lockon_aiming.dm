@@ -162,7 +162,7 @@
 /datum/component/lockon_aiming/proc/autolock()
 	var/mob/M = parent
 	if(!M.client)
-		return FALSE
+		return EF_FALSE
 	var/datum/position/current = mouse_absolute_datum_map_position_from_client(M.client)
 	var/turf/target = current.return_turf()
 	var/list/atom/targets = get_nearest(target, target_typecache, lock_amount, lock_cursor_range)

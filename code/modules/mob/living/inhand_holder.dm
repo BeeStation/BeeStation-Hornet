@@ -32,14 +32,14 @@
 
 /obj/item/clothing/head/mob_holder/proc/deposit(mob/living/L)
 	if(!istype(L))
-		return FALSE
+		return EF_FALSE
 	L.setDir(SOUTH)
 	update_visuals(L)
 	held_mob = L
 	L.forceMove(src)
 	name = L.name
 	desc = L.desc
-	return TRUE
+	return EF_TRUE
 
 /obj/item/clothing/head/mob_holder/proc/update_visuals(mob/living/L)
 	appearance = L.appearance
@@ -53,7 +53,7 @@
 	if(!held_mob)
 		if(del_on_release && !destroying)
 			qdel(src)
-		return FALSE
+		return EF_FALSE
 	if(isliving(loc))
 		var/mob/living/L = loc
 		to_chat(L, "<span class='warning'>[held_mob] wriggles free!</span>")
@@ -65,7 +65,7 @@
 	held_mob = null
 	if(del_on_release && !destroying)
 		qdel(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/clothing/head/mob_holder/relaymove(mob/user)
 	release()

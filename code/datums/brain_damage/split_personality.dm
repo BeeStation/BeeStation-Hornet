@@ -143,7 +143,7 @@
 
 /mob/living/split_personality/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	to_chat(src, "<span class='warning'>You cannot speak, your other self is controlling your body!</span>")
-	return FALSE
+	return EF_FALSE
 
 /mob/living/split_personality/emote(act, m_type = null, message = null, intentional = FALSE)
 	return

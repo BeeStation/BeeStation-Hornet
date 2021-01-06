@@ -38,7 +38,7 @@ GLOBAL_PROTECT(mentor_href_token)
 	if(CONFIG_GET(flag/debug_admin_hrefs))
 		message_admins("Debug mode enabled, call not blocked. Please ask your coders to review this round's logs.")
 		log_world("UAH: [href]")
-		return TRUE
+		return EF_TRUE
 	log_admin_private("[key_name(usr)] clicked an href with [msg] authorization key! [href]")
 
 /proc/RawMentorHrefToken(forceGlobal = FALSE)

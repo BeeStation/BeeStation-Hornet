@@ -29,10 +29,10 @@
 	var/turf/T0 = get_turf(neighbor)
 
 	if(T0 == src) //same turf
-		return TRUE
+		return EF_TRUE
 
 	if(get_dist(src, T0) > 1 || z != T0.z) //too far
-		return FALSE
+		return EF_FALSE
 
 	// Non diagonal case
 	if(T0.x == x || T0.y == y)
@@ -67,13 +67,13 @@
 */
 /atom/movable/Adjacent(var/atom/neighbor)
 	if(neighbor == loc)
-		return TRUE
+		return EF_TRUE
 	var/turf/T = loc
 	if(!istype(T))
-		return FALSE
+		return EF_FALSE
 	if(T.Adjacent(neighbor,target = neighbor, mover = src))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 // This is necessary for storage items not on your person.
 /obj/item/Adjacent(var/atom/neighbor, var/recurse = 1)

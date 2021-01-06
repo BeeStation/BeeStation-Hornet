@@ -27,12 +27,12 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 /datum/controller/global_vars/stat_entry()
 	if(!statclick)
 		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
-	
+
 	stat("Globals:", statclick.update("Edit"))
 
 /datum/controller/global_vars/vv_edit_var(var_name, var_value)
 	if(gvars_datum_protected_varlist[var_name])
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/controller/global_vars/Initialize()

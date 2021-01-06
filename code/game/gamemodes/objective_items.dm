@@ -12,7 +12,7 @@
 	return 1
 
 /datum/objective_item/proc/TargetExists()
-	return TRUE
+	return EF_TRUE
 
 /datum/objective_item/steal/New()
 	..()
@@ -148,12 +148,12 @@
 
 /datum/objective_item/steal/blueprints/check_special_completion(obj/item/I)
 	if(istype(I, /obj/item/areaeditor/blueprints))
-		return TRUE
+		return EF_TRUE
 	if(istype(I, /obj/item/photo))
 		var/obj/item/photo/P = I
 		if(P.picture.has_blueprints)	//if the blueprints are in frame
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/objective_item/steal/slime
 	name = "an unused sample of slime extract."

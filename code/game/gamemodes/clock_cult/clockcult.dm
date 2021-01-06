@@ -54,7 +54,7 @@ GLOBAL_VAR(clockcult_eminence)
 	if(errorList.len)
 		message_admins("Reebe failed to load")
 		log_game("Reebe failed to load")
-		return FALSE
+		return EF_FALSE
 	for(var/datum/parsed_map/map in reebe)
 		map.initTemplateBounds()
 	//Generate cultists
@@ -70,7 +70,7 @@ GLOBAL_VAR(clockcult_eminence)
 	for(var/categorypath in typesof(/datum/clockcult/scripture))
 		var/datum/clockcult/scripture/S = new categorypath
 		GLOB.clockcult_all_scriptures[S.name] = S
-	return TRUE
+	return EF_TRUE
 
 /datum/game_mode/clockcult/post_setup(report)
 	var/list/spawns = GLOB.servant_spawns.Copy()
@@ -153,24 +153,24 @@ GLOBAL_VAR(clockcult_eminence)
 //Similar to cultist one, except silicons are allowed
 /proc/is_convertable_to_clockcult(mob/living/M)
 	if(!istype(M))
-		return FALSE
+		return EF_FALSE
 	if(!M.mind)
-		return FALSE
+		return EF_FALSE
 	if(ishuman(M) && (M.mind.assigned_role in list("Captain", "Chaplain")))
-		return FALSE
+		return EF_FALSE
 	if(istype(M.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
-		return FALSE
+		return EF_FALSE
 	if(is_servant_of_ratvar(M))
-		return FALSE
+		return EF_FALSE
 	if(M.mind.enslaved_to && !is_servant_of_ratvar(M.mind.enslaved_to))
-		return FALSE
+		return EF_FALSE
 	if(M.mind.unconvertable)
-		return FALSE
+		return EF_FALSE
 	if(iscultist(M) || isconstruct(M) || ispAI(M))
-		return FALSE
+		return EF_FALSE
 	if(HAS_TRAIT(M, TRAIT_MINDSHIELD))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /proc/flee_reebe()
 	for(var/mob/living/M in GLOB.mob_list)
@@ -193,11 +193,11 @@ GLOBAL_VAR(clockcult_eminence)
 	if(sender?.reagents)
 		if(sender.reagents.has_reagent(/datum/reagent/water/holywater, 1))
 			to_chat(sender, "<span class='nezbere'>[pick("You fail to transmit your cries for help.", "Your calls into the void go unanswered.", "You try to transmit your message, but the hierophant network is silent.")]</span>")
-			return FALSE
+			return EF_FALSE
 	if(!msg)
 		if(sender)
 			to_chat(sender, "<span class='brass'>You cannot transmit nothing!</span>")
-		return FALSE
+		return EF_FALSE
 	if(use_sanitisation)
 		msg = sanitize(msg)
 	if(sender)

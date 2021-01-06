@@ -61,7 +61,7 @@
 	var/list/parts = target_bodyparts(target)
 	if(parts)
 		if(!parts.len)
-			return FALSE
+			return EF_FALSE
 		var/obj/item/bodypart/BP = pick(parts)
 		BP.dismember()
 		return ..()
@@ -104,7 +104,7 @@
 
 /mob/living/simple_animal/hostile/gorilla/can_use_guns(obj/item/G)
 	to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
-	return FALSE
+	return EF_FALSE
 
 
 /mob/living/simple_animal/hostile/gorilla/proc/oogaooga()

@@ -17,14 +17,14 @@
 				direction = get_original_direction(text2num(A)) //we need it relative to the direction, so filters don't change when we turn the filter
 				break
 		if(!direction)
-			return FALSE
+			return EF_FALSE
 		if(reagent)
 			if(!can_give_in_direction(direction, reagent))
-				return FALSE
+				return EF_FALSE
 
 /datum/component/plumbing/filter/transfer_to(datum/component/plumbing/target, amount, reagent, datum/ductnet/net)
 	if(!reagents || !target || !target.reagents)
-		return FALSE
+		return EF_FALSE
 	var/direction
 	for(var/A in ducts)
 		if(ducts[A] == net)
@@ -50,10 +50,10 @@
 	switch(dir)
 		if(SOUTH) //straight
 			if(!F.left.Find(reagent) && !F.right.Find(reagent))
-				return TRUE
+				return EF_TRUE
 		if(WEST) //right
 			if(F.right.Find(reagent))
-				return TRUE
+				return EF_TRUE
 		if(EAST) //left
 			if(F.left.Find(reagent))
-				return TRUE
+				return EF_TRUE

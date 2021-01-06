@@ -113,8 +113,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/check_roundstart_eligible()
 	if(id in (CONFIG_GET(keyed_list/roundstart_races)))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/species/proc/random_name(gender,unique,lastname)
 	if(unique)
@@ -833,7 +833,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /datum/species/proc/can_equip(obj/item/I, slot, disable_warning, mob/living/carbon/human/H, bypass_equip_delay_self = FALSE)
 	if(slot in no_equip)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
-			return FALSE
+			return EF_FALSE
 
 	var/num_arms = H.get_num_arms(FALSE)
 	var/num_legs = H.get_num_legs(FALSE)
@@ -841,191 +841,191 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	switch(slot)
 		if(SLOT_HANDS)
 			if(H.get_empty_held_indexes())
-				return TRUE
-			return FALSE
+				return EF_TRUE
+			return EF_FALSE
 		if(SLOT_WEAR_MASK)
 			if(H.wear_mask)
-				return FALSE
+				return EF_FALSE
 			if(!(I.slot_flags & ITEM_SLOT_MASK))
-				return FALSE
+				return EF_FALSE
 			if(!H.get_bodypart(BODY_ZONE_HEAD))
-				return FALSE
+				return EF_FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(SLOT_NECK)
 			if(H.wear_neck)
-				return FALSE
+				return EF_FALSE
 			if( !(I.slot_flags & ITEM_SLOT_NECK) )
-				return FALSE
-			return TRUE
+				return EF_FALSE
+			return EF_TRUE
 		if(SLOT_BACK)
 			if(H.back)
-				return FALSE
+				return EF_FALSE
 			if( !(I.slot_flags & ITEM_SLOT_BACK) )
-				return FALSE
+				return EF_FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(SLOT_WEAR_SUIT)
 			if(H.wear_suit)
-				return FALSE
+				return EF_FALSE
 			if( !(I.slot_flags & ITEM_SLOT_OCLOTHING) )
-				return FALSE
+				return EF_FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(SLOT_GLOVES)
 			if(H.gloves)
-				return FALSE
+				return EF_FALSE
 			if( !(I.slot_flags & ITEM_SLOT_GLOVES) )
-				return FALSE
+				return EF_FALSE
 			if(num_arms < 2)
-				return FALSE
+				return EF_FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(SLOT_SHOES)
 			if(H.shoes)
-				return FALSE
+				return EF_FALSE
 			if( !(I.slot_flags & ITEM_SLOT_FEET) )
-				return FALSE
+				return EF_FALSE
 			if(num_legs < 2)
-				return FALSE
+				return EF_FALSE
 			if(DIGITIGRADE in species_traits)
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>The footwear around here isn't compatible with your feet!</span>")
-				return FALSE
+				return EF_FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(SLOT_BELT)
 			if(H.belt)
-				return FALSE
+				return EF_FALSE
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_CHEST)
 
 			if(!H.w_uniform && !nojumpsuit && (!O || O.status != BODYPART_ROBOTIC))
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [I.name]!</span>")
-				return FALSE
+				return EF_FALSE
 			if(!(I.slot_flags & ITEM_SLOT_BELT))
 				return
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(SLOT_GLASSES)
 			if(H.glasses)
-				return FALSE
+				return EF_FALSE
 			if(!(I.slot_flags & ITEM_SLOT_EYES))
-				return FALSE
+				return EF_FALSE
 			if(!H.get_bodypart(BODY_ZONE_HEAD))
-				return FALSE
+				return EF_FALSE
 			var/obj/item/organ/eyes/E = H.getorganslot(ORGAN_SLOT_EYES)
 			if(E?.no_glasses)
-				return FALSE
+				return EF_FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(SLOT_HEAD)
 			if(H.head)
-				return FALSE
+				return EF_FALSE
 			if(!(I.slot_flags & ITEM_SLOT_HEAD))
-				return FALSE
+				return EF_FALSE
 			if(!H.get_bodypart(BODY_ZONE_HEAD))
-				return FALSE
+				return EF_FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(SLOT_EARS)
 			if(H.ears)
-				return FALSE
+				return EF_FALSE
 			if(!(I.slot_flags & ITEM_SLOT_EARS))
-				return FALSE
+				return EF_FALSE
 			if(!H.get_bodypart(BODY_ZONE_HEAD))
-				return FALSE
+				return EF_FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(SLOT_W_UNIFORM)
 			if(H.w_uniform)
-				return FALSE
+				return EF_FALSE
 			if( !(I.slot_flags & ITEM_SLOT_ICLOTHING) )
-				return FALSE
+				return EF_FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(SLOT_WEAR_ID)
 			if(H.wear_id)
-				return FALSE
+				return EF_FALSE
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_CHEST)
 			if(!H.w_uniform && !nojumpsuit && (!O || O.status != BODYPART_ROBOTIC))
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [I.name]!</span>")
-				return FALSE
+				return EF_FALSE
 			if( !(I.slot_flags & ITEM_SLOT_ID) )
-				return FALSE
+				return EF_FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(SLOT_L_STORE)
 			if(HAS_TRAIT(I, TRAIT_NODROP)) //Pockets aren't visible, so you can't move TRAIT_NODROP items into them.
-				return FALSE
+				return EF_FALSE
 			if(H.l_store)
-				return FALSE
+				return EF_FALSE
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_L_LEG)
 
 			if(!H.w_uniform && !nojumpsuit && (!O || O.status != BODYPART_ROBOTIC))
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [I.name]!</span>")
-				return FALSE
+				return EF_FALSE
 			if(I.slot_flags & ITEM_SLOT_DENYPOCKET)
-				return FALSE
+				return EF_FALSE
 			if( I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & ITEM_SLOT_POCKET) )
-				return TRUE
+				return EF_TRUE
 		if(SLOT_R_STORE)
 			if(HAS_TRAIT(I, TRAIT_NODROP))
-				return FALSE
+				return EF_FALSE
 			if(H.r_store)
-				return FALSE
+				return EF_FALSE
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_R_LEG)
 
 			if(!H.w_uniform && !nojumpsuit && (!O || O.status != BODYPART_ROBOTIC))
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [I.name]!</span>")
-				return FALSE
+				return EF_FALSE
 			if(I.slot_flags & ITEM_SLOT_DENYPOCKET)
-				return FALSE
+				return EF_FALSE
 			if( I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & ITEM_SLOT_POCKET) )
-				return TRUE
-			return FALSE
+				return EF_TRUE
+			return EF_FALSE
 		if(SLOT_S_STORE)
 			if(HAS_TRAIT(I, TRAIT_NODROP))
-				return FALSE
+				return EF_FALSE
 			if(H.s_store)
-				return FALSE
+				return EF_FALSE
 			if(!H.wear_suit)
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You need a suit before you can attach this [I.name]!</span>")
-				return FALSE
+				return EF_FALSE
 			if(!H.wear_suit.allowed)
 				if(!disable_warning)
 					to_chat(H, "You somehow have a suit with no defined allowed items for suit storage, stop that.")
-				return FALSE
+				return EF_FALSE
 			if(I.w_class > WEIGHT_CLASS_BULKY)
 				if(!disable_warning)
 					to_chat(H, "The [I.name] is too big to attach.") //should be src?
-				return FALSE
+				return EF_FALSE
 			if( istype(I, /obj/item/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, H.wear_suit.allowed) )
-				return TRUE
-			return FALSE
+				return EF_TRUE
+			return EF_FALSE
 		if(SLOT_HANDCUFFED)
 			if(H.handcuffed)
-				return FALSE
+				return EF_FALSE
 			if(!istype(I, /obj/item/restraints/handcuffs))
-				return FALSE
+				return EF_FALSE
 			if(num_arms < 2)
-				return FALSE
-			return TRUE
+				return EF_FALSE
+			return EF_TRUE
 		if(SLOT_LEGCUFFED)
 			if(H.legcuffed)
-				return FALSE
+				return EF_FALSE
 			if(!istype(I, /obj/item/restraints/legcuffs))
-				return FALSE
+				return EF_FALSE
 			if(num_legs < 2)
-				return FALSE
-			return TRUE
+				return EF_FALSE
+			return EF_TRUE
 		if(SLOT_IN_BACKPACK)
 			if(H.back)
 				if(SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_CAN_INSERT, I, H, TRUE))
-					return TRUE
-			return FALSE
-	return FALSE //Unsupported slot
+					return EF_TRUE
+			return EF_FALSE
+	return EF_FALSE //Unsupported slot
 
 /datum/species/proc/equip_delay_self_check(obj/item/I, mob/living/carbon/human/H, bypass_equip_delay_self)
 	if(!I.equip_delay_self || bypass_equip_delay_self)
-		return TRUE
+		return EF_TRUE
 	H.visible_message("<span class='notice'>[H] start putting on [I].</span>", "<span class='notice'>You start putting on [I].</span>")
 	return do_after(H, I.equip_delay_self, target = H)
 
@@ -1040,7 +1040,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		H.blood_volume = min(H.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
 		H.reagents.del_reagent(chem.type)
 		return 1
-	return FALSE
+	return EF_FALSE
 
 // Do species-specific reagent handling here
 // Return 1 if it should do normal processing too
@@ -1050,8 +1050,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(R.type == exotic_blood)
 		H.blood_volume = min(H.blood_volume + round(R.volume, 0.1), BLOOD_VOLUME_NORMAL)
 		H.reagents.del_reagent(R.type)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/species/proc/check_species_weakness(obj/item, mob/living/attacker)
 	return 0 //This is not a boolean, it's the multiplier for the damage that the user takes from the item.It is added onto the check_weakness value of the mob, and then the force of the item is multiplied by this value
@@ -1169,7 +1169,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	if(HAS_TRAIT(H, TRAIT_RADIMMUNE))
 		radiation = 0
-		return TRUE
+		return EF_TRUE
 
 	if(radiation > RAD_MOB_KNOCKDOWN && prob(RAD_MOB_KNOCKDOWN_PROB))
 		if(!H.IsParalyzed())
@@ -1281,13 +1281,13 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(HAS_TRAIT(target, TRAIT_ONEWAYROAD))
 		user.visible_message("<span class='userdanger'>Your wrist twists unnaturally as you attempt to grab [target]!</span>", "<span class='warning'>[user]'s wrist twists unnaturally away from [target]!</span>")
 		user.apply_damage(rand(15, 25), BRUTE, pick(list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)))
-		return FALSE
+		return EF_FALSE
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>", \
 							"<span class='userdanger'>You block [user]'s grab attempt!</span>")
 		return 0
 	if(attacker_style && attacker_style.grab_act(user,target))
-		return TRUE
+		return EF_TRUE
 	else
 		//Steal them shoes
 		if(!(target.mobility_flags & MOBILITY_STAND) && (user.zone_selected == BODY_ZONE_L_LEG || user.zone_selected == BODY_ZONE_R_LEG) && user.a_intent == INTENT_GRAB && target.shoes)
@@ -1300,22 +1300,22 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				user.visible_message("<span class='warning'>[user] stole your [I]!</span>",
 									"<span class='warning'>You steal [target]'s [I]!</span>")
 		target.grabbedby(user)
-		return TRUE
+		return EF_TRUE
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(HAS_TRAIT(target, TRAIT_ONEWAYROAD))
 		user.visible_message("<span class='userdanger'>Your wrist twists unnaturally as you attempt to hit [target]!</span>", "<span class='warning'>[user]'s wrist twists unnaturally away from [target]!</span>")
 		user.apply_damage(rand(15, 25), BRUTE, pick(list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)))
-		return FALSE
+		return EF_FALSE
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
-		return FALSE
+		return EF_FALSE
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>", \
 							"<span class='userdanger'>You block [user]'s attack!</span>")
-		return FALSE
+		return EF_FALSE
 	if(attacker_style && attacker_style.harm_act(user,target))
-		return TRUE
+		return EF_TRUE
 	else
 
 		var/atk_verb = user.dna.species.attack_verb
@@ -1341,7 +1341,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			target.visible_message("<span class='danger'>[user]'s [atk_verb] misses [target]!</span>",\
 			"<span class='userdanger'>[user]'s [atk_verb] misses you!</span>", null, COMBAT_MESSAGE_RANGE)
 			log_combat(user, target, "attempted to punch")
-			return FALSE
+			return EF_FALSE
 
 		var/armor_block = target.run_armor_check(affecting, "melee")
 
@@ -1372,19 +1372,19 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(HAS_TRAIT(target, TRAIT_ONEWAYROAD))
 		user.visible_message("<span class='userdanger'>Your wrist twists unnaturally as you attempt to shove [target]!</span>", "<span class='warning'>[user]'s wrist twists unnaturally away from [target]!</span>")
 		user.apply_damage(15, BRUTE, pick(list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)))
-		return FALSE
+		return EF_FALSE
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s shoving attempt!</span>", \
 							"<span class='userdanger'>You block [user]'s shoving attempt!</span>")
-		return FALSE
+		return EF_FALSE
 	if(attacker_style && attacker_style.disarm_act(user,target))
-		return TRUE
+		return EF_TRUE
 	if(user.resting || user.IsKnockdown())
-		return FALSE
+		return EF_FALSE
 	if(user == target)
-		return FALSE
+		return EF_FALSE
 	if(user.loc == target.loc)
-		return FALSE
+		return EF_FALSE
 	else
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 		playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
@@ -1602,7 +1602,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 		if(Iforce > 10 || Iforce >= 5 && prob(33))
 			H.forcesay(GLOB.hit_appends)	//forcesay checks stat already.
-	return TRUE
+	return EF_TRUE
 
 /datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE)
 	SEND_SIGNAL(H, COMSIG_MOB_APPLY_DAMGE, damage, damagetype, def_zone)
@@ -1677,7 +1677,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
-		return TRUE
+		return EF_TRUE
 
 
 /datum/species/proc/handle_environment(datum/gas_mixture/environment, mob/living/carbon/human/H)
@@ -1791,7 +1791,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/handle_fire(mob/living/carbon/human/H, no_protection = FALSE)
 	if(!CanIgniteMob(H))
-		return TRUE
+		return EF_TRUE
 	if(H.on_fire)
 		//the fire tries to damage the exposed clothes and items
 		var/list/burning_items = list()
@@ -1853,8 +1853,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/CanIgniteMob(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_NOFIRE))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/species/proc/ExtinguishMob(mob/living/carbon/human/H)
 	return
@@ -1884,25 +1884,25 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(wings.flight_level == WINGS_FLIGHTLESS)
 			var/datum/gas_mixture/current = H.loc.return_air()
 			if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
-				return TRUE
+				return EF_TRUE
 	if(H.movement_type & FLYING)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/species/proc/negates_gravity(mob/living/carbon/human/H)
 	if(H.movement_type & FLYING)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 ////////////////
 //Tail Wagging//
 ////////////////
 
 /datum/species/proc/can_wag_tail(mob/living/carbon/human/H)
-	return FALSE
+	return EF_FALSE
 
 /datum/species/proc/is_wagging_tail(mob/living/carbon/human/H)
-	return FALSE
+	return EF_FALSE
 
 /datum/species/proc/start_wagging_tail(mob/living/carbon/human/H)
 
@@ -1916,27 +1916,27 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(H.movement_type & FLYING)
 		if(!CanFly(H))
 			toggle_flight(H)
-			return FALSE
-		return TRUE
+			return EF_FALSE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /datum/species/proc/CanFly(mob/living/carbon/human/H)
 	var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
 	if(!H.getorgan(/obj/item/organ/wings))
-		return FALSE
+		return EF_FALSE
 	if(H.stat || !(H.mobility_flags & MOBILITY_STAND))
-		return FALSE
+		return EF_FALSE
 	var/turf/T = get_turf(H)
 	if(!T)
-		return FALSE
+		return EF_FALSE
 
 	var/datum/gas_mixture/environment = T.return_air()
 	if(environment && !(environment.return_pressure() > 30) && wings.flight_level <= WINGS_FLYING)
 		to_chat(H, "<span class='warning'>The atmosphere is too thin for you to fly!</span>")
-		return FALSE
+		return EF_FALSE
 	else
-		return TRUE
+		return EF_TRUE
 
 /datum/species/proc/flyslip(mob/living/carbon/human/H)
 	var/obj/buckled_obj
@@ -1956,7 +1956,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		step(buckled_obj, olddir)
 	else
 		new /datum/forced_movement(H, get_ranged_target_turf(H, olddir, 4), 1, FALSE, CALLBACK(H, /mob/living/carbon/.proc/spin, 1, 1))
-	return TRUE
+	return EF_TRUE
 
 //UNSAFE PROC, should only be called through the Activate or other sources that check for CanFly
 /datum/species/proc/toggle_flight(mob/living/carbon/human/H)

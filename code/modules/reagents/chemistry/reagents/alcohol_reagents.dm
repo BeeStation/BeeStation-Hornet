@@ -1662,7 +1662,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			mighty_shield = theshield
 			mighty_shield.block_power += 15
 			to_chat(thehuman, "<span class='notice'>[theshield] appears polished, although you don't recall polishing it.</span>")
-			return TRUE
+			return EF_TRUE
 
 /datum/reagent/consumable/ethanol/alexander/on_mob_life(mob/living/L)
 	..()

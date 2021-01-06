@@ -27,8 +27,8 @@
 
 /obj/effect/proc_holder/spell/pointed/trigger/blind/intercept_check(mob/user, atom/target)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	if(!isliving(target))
 		to_chat(user, "<span class='warning'>You can only blind living beings!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE

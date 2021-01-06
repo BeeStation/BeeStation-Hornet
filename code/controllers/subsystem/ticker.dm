@@ -313,7 +313,7 @@ SUBSYSTEM_DEF(ticker)
 
 	PostSetup()
 
-	return TRUE
+	return EF_TRUE
 
 /datum/controller/subsystem/ticker/proc/PostSetup()
 	set waitfor = FALSE

@@ -19,22 +19,22 @@ PROCESSING_SUBSYSTEM_DEF(networks)
 /datum/controller/subsystem/processing/networks/proc/register_network(datum/ntnet/network)
 	if(!networks_by_id[network.network_id])
 		networks_by_id[network.network_id] = network
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/controller/subsystem/processing/networks/proc/unregister_network(datum/ntnet/network)
 	networks_by_id -= network.network_id
-	return TRUE
+	return EF_TRUE
 
 /datum/controller/subsystem/processing/networks/proc/register_interface(datum/component/ntnet_interface/D)
 	if(!interfaces_by_id[D.hardware_id])
 		interfaces_by_id[D.hardware_id] = D
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/controller/subsystem/processing/networks/proc/unregister_interface(datum/component/ntnet_interface/D)
 	interfaces_by_id -= D.hardware_id
-	return TRUE
+	return EF_TRUE
 
 /datum/controller/subsystem/processing/networks/proc/get_next_HID()
 	var/string = "[num2text(assignment_hardware_id++, 12)]"

@@ -394,7 +394,7 @@
 			return M.current.stat != DEAD && !issilicon(M.current) && !isbrain(M.current) && (!H || H.dna.species.id != "memezombies" && H.dna.species.id != "memezombiesfast")
 		else if(isliving(M.current))
 			return M.current.stat != DEAD
-	return FALSE
+	return EF_FALSE
 
 /proc/considered_afk(datum/mind/M)
 	return !M || !M.current || !M.current.client || M.current.client.is_afk()
@@ -628,7 +628,7 @@
 
 	// Need at least one free location.
 	if (possible_loc.len < 1)
-		return FALSE
+		return EF_FALSE
 
 	return pick(possible_loc)
 

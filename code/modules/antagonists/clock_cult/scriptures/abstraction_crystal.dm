@@ -21,14 +21,14 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 
 /datum/clockcult/scripture/create_structure/abstraction_crystal/check_special_requirements()
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	for(var/obj/structure/destructible/clockwork/structure in get_turf(invoker))
 		to_chat(invoker, "<span class='brass'>You cannot invoke that here, the tile is occupied by [structure].</span>")
-		return FALSE
+		return EF_FALSE
 	for(var/obj/structure/destructible/clockwork/abstraction_crystal/AC in range(5))
 		to_chat(invoker, "<span class='brass'>There is an Abstraction Crystal nearby, you cannot place this here.</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/clockcult/scripture/create_structure/abstraction_crystal/invoke_success()
 	var/created_structure = new summoned_structure(get_turf(invoker))
@@ -71,7 +71,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 
 /mob/living/carbon/human/abstraction_hologram/Move(NewLoc, direct)
 	if(get_dist(NewLoc, linked_crystal) > ABSTRACTION_CRYSTAL_RANGE)
-		return FALSE
+		return EF_FALSE
 	. = ..()
 
 /mob/living/carbon/human/abstraction_hologram/Life()

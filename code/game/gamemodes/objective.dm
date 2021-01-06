@@ -52,16 +52,16 @@ GLOBAL_LIST_EMPTY(objectives)
 
 /datum/objective/proc/considered_escaped(datum/mind/M)
 	if(!considered_alive(M))
-		return FALSE
+		return EF_FALSE
 	if(M.force_escaped)
-		return TRUE
+		return EF_TRUE
 	if(SSticker.force_ending || SSticker.mode.station_was_nuked) // Just let them win.
-		return TRUE
+		return EF_TRUE
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
-		return FALSE
+		return EF_FALSE
 	var/turf/location = get_turf(M.current)
 	if(!location || istype(location, /turf/open/floor/plasteel/shuttle/red) || istype(location, /turf/open/floor/mineral/plastitanium/red/brig)) // Fails if they are in the shuttle brig
-		return FALSE
+		return EF_FALSE
 	return location.onCentCom() || location.onSyndieBase()
 
 /datum/objective/proc/check_completion()
@@ -85,8 +85,8 @@ GLOBAL_LIST_EMPTY(objectives)
 			objectives_to_compare = T.objectives
 		for(var/datum/objective/O in objectives_to_compare)
 			if(istype(O, type) && O.get_target() == possible_target)
-				return FALSE
-	return TRUE
+				return EF_FALSE
+	return EF_TRUE
 
 /datum/objective/proc/get_target()
 	return target
@@ -129,7 +129,7 @@ GLOBAL_LIST_EMPTY(objectives)
 	return target
 
 /datum/objective/proc/is_valid_target(possible_target)
-	return TRUE
+	return EF_TRUE
 
 /datum/objective/proc/find_target_by_role(role, role_type=FALSE,invert=FALSE)//Option sets either to check assigned role or special role. Default to assigned., invert inverts the check, eg: "Don't choose a Ling"
 	var/list/datum/mind/owners = get_owners()
@@ -218,7 +218,7 @@ GLOBAL_LIST_EMPTY(objectives)
 
 /datum/objective/mutiny/check_completion()
 	if(!target || !considered_alive(target) || considered_afk(target))
-		return TRUE
+		return EF_TRUE
 	var/turf/T = get_turf(target.current)
 	return !T || !is_station_level(T.z)
 
@@ -262,9 +262,9 @@ GLOBAL_LIST_EMPTY(objectives)
 
 /datum/objective/debrain/check_completion()
 	if(!target)//If it's a free objective.
-		return TRUE
+		return EF_TRUE
 	if(!target.current || !isbrain(target.current))
-		return FALSE
+		return EF_FALSE
 	var/atom/A = target.current
 	var/list/datum/mind/owners = get_owners()
 
@@ -272,8 +272,8 @@ GLOBAL_LIST_EMPTY(objectives)
 		A = A.loc
 		for(var/datum/mind/M in owners)
 			if(M.current && M.current.stat != DEAD && A == M.current)
-				return TRUE
-	return FALSE
+				return EF_TRUE
+	return EF_FALSE
 
 /datum/objective/debrain/update_explanation_text()
 	..()
@@ -326,11 +326,11 @@ GLOBAL_LIST_EMPTY(objectives)
 
 /datum/objective/hijack/check_completion() // Requires all owners to escape.
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
-		return FALSE
+		return EF_FALSE
 	var/list/datum/mind/owners = get_owners()
 	for(var/datum/mind/M in owners)
 		if(!considered_alive(M) || !SSshuttle.emergency.shuttle_areas[get_area(M.current)])
-			return FALSE
+			return EF_FALSE
 	return SSshuttle.emergency.is_hijacked()
 
 /datum/objective/hijack/single
@@ -341,7 +341,7 @@ GLOBAL_LIST_EMPTY(objectives)
 
 /datum/objective/hijack/single/check_completion() // Requires all owners to escape.
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
-		return FALSE
+		return EF_FALSE
 	var/list/datum/mind/owners = get_owners()
 	var/single_escape = FALSE
 	for(var/datum/mind/M in owners)
@@ -349,7 +349,7 @@ GLOBAL_LIST_EMPTY(objectives)
 			single_escape = TRUE
 			break
 	if(!single_escape)
-		return FALSE
+		return EF_FALSE
 	return SSshuttle.emergency.is_hijacked()
 
 /datum/objective/block
@@ -359,12 +359,12 @@ GLOBAL_LIST_EMPTY(objectives)
 
 /datum/objective/block/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
-		return TRUE
+		return EF_TRUE
 	for(var/mob/living/player in GLOB.player_list)
 		if(player.mind && player.stat != DEAD && !issilicon(player))
 			if(get_area(player) in SSshuttle.emergency.shuttle_areas)
-				return FALSE
-	return TRUE
+				return EF_FALSE
+	return EF_TRUE
 
 /datum/objective/purge
 	name = "no mutants on shuttle"
@@ -373,13 +373,13 @@ GLOBAL_LIST_EMPTY(objectives)
 
 /datum/objective/purge/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
-		return TRUE
+		return EF_TRUE
 	for(var/mob/living/player in GLOB.player_list)
 		if((get_area(player) in SSshuttle.emergency.shuttle_areas) && player.mind && player.stat != DEAD && ishuman(player))
 			var/mob/living/carbon/human/H = player
 			if(H.dna.species.id != "human")
-				return FALSE
-	return TRUE
+				return EF_FALSE
+	return EF_TRUE
 
 /datum/objective/robot_army
 	name = "robot army"
@@ -408,8 +408,8 @@ GLOBAL_LIST_EMPTY(objectives)
 	var/list/datum/mind/owners = get_owners()
 	for(var/datum/mind/M in owners)
 		if(!considered_escaped(M))
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/objective/escape/single
 	name = "escape"
@@ -421,8 +421,8 @@ GLOBAL_LIST_EMPTY(objectives)
 	var/list/datum/mind/owners = get_owners()
 	for(var/datum/mind/M in owners)
 		if(considered_escaped(M))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/objective/escape/escape_with_identity
 	name = "escape with identity"
@@ -442,8 +442,8 @@ GLOBAL_LIST_EMPTY(objectives)
 			continue
 		var/datum/mind/T = possible_target
 		if(!istype(T) || isipc(T.current))
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/objective/escape/escape_with_identity/update_explanation_text()
 	if(target && target.current)
@@ -463,15 +463,15 @@ GLOBAL_LIST_EMPTY(objectives)
 
 /datum/objective/escape/escape_with_identity/check_completion()
 	if(!target || !target_real_name)
-		return TRUE
+		return EF_TRUE
 	var/list/datum/mind/owners = get_owners()
 	for(var/datum/mind/M in owners)
 		if(!ishuman(M.current) || !considered_escaped(M))
 			continue
 		var/mob/living/carbon/human/H = M.current
 		if(H.dna.real_name == target_real_name && (H.get_id_name() == target_real_name || target_missing_id))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/objective/escape/escape_with_identity/admin_edit(mob/admin)
 	admin_simple_target_pick(admin)
@@ -484,8 +484,8 @@ GLOBAL_LIST_EMPTY(objectives)
 	var/list/datum/mind/owners = get_owners()
 	for(var/datum/mind/M in owners)
 		if(!considered_alive(M))
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/objective/survive/exist //Like survive, but works for silicons and zombies and such.
 	name = "survive nonhuman"
@@ -494,8 +494,8 @@ GLOBAL_LIST_EMPTY(objectives)
 	var/list/datum/mind/owners = get_owners()
 	for(var/datum/mind/M in owners)
 		if(!considered_alive(M, FALSE))
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/objective/martyr
 	name = "martyr"
@@ -505,10 +505,10 @@ GLOBAL_LIST_EMPTY(objectives)
 	var/list/datum/mind/owners = get_owners()
 	for(var/datum/mind/M in owners)
 		if(considered_alive(M))
-			return FALSE
+			return EF_FALSE
 		if(M.current?.suiciding) //killing yourself ISN'T glorious.
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/objective/nuclear
 	name = "nuclear"
@@ -517,8 +517,8 @@ GLOBAL_LIST_EMPTY(objectives)
 
 /datum/objective/nuclear/check_completion()
 	if(SSticker && SSticker.mode && SSticker.mode.station_was_nuked)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 GLOBAL_LIST_EMPTY(possible_items)
 /datum/objective/steal
@@ -586,7 +586,7 @@ GLOBAL_LIST_EMPTY(possible_items)
 /datum/objective/steal/check_completion()
 	var/list/datum/mind/owners = get_owners()
 	if(!steal_target)
-		return TRUE
+		return EF_TRUE
 	for(var/datum/mind/M in owners)
 		if(!isliving(M.current))
 			continue
@@ -596,14 +596,14 @@ GLOBAL_LIST_EMPTY(possible_items)
 		for(var/obj/I in all_items) //Check for items
 			if(istype(I, steal_target))
 				if(!targetinfo) //If there's no targetinfo, then that means it was a custom objective. At this point, we know you have the item, so return 1.
-					return TRUE
+					return EF_TRUE
 				else if(targetinfo.check_special_completion(I))//Returns 1 by default. Items with special checks will return 1 if the conditions are fulfilled.
-					return TRUE
+					return EF_TRUE
 
 			if(targetinfo && (I.type in targetinfo.altitems)) //Ok, so you don't have the item. Do you have an alternative, at least?
 				if(targetinfo.check_special_completion(I))//Yeah, we do! Don't return 0 if we don't though - then you could fail if you had 1 item that didn't pass and got checked first!
-					return TRUE
-	return FALSE
+					return EF_TRUE
+	return EF_FALSE
 
 GLOBAL_LIST_EMPTY(possible_items_special)
 /datum/objective/steal/special //ninjas are so special they get their own subtype good for them
@@ -815,8 +815,8 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	for(var/datum/antagonist/changeling/changeling2 in GLOB.antagonists)
 		if(!changeling2.owner || changeling2.owner == owner || !changeling2.stored_profiles || changeling2.absorbedcount < absorbedcount)
 			continue
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 //Teratoma objective
 
@@ -825,7 +825,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	explanation_text = "Spread misery and chaos upon the station."
 
 /datum/objective/chaos/check_completion()
-	return TRUE
+	return EF_TRUE
 //End Changeling Objectives
 
 /datum/objective/destroy
@@ -842,7 +842,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 /datum/objective/destroy/check_completion()
 	if(target && target.current)
 		return target.current.stat == DEAD || target.current.z > 6 || !target.current.ckey //Borgs/brains/AIs count as dead for traitor objectives.
-	return TRUE
+	return EF_TRUE
 
 /datum/objective/destroy/update_explanation_text()
 	..()

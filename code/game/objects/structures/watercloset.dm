@@ -182,7 +182,7 @@
 
 /obj/structure/urinal/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	to_chat(user, "<span class='notice'>You start to [exposed ? "screw the cap back into place" : "unscrew the cap to the drain protector"]...</span>")
 	playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, 1)
 	if(I.use_tool(src, user, 20))
@@ -190,7 +190,7 @@
 			"<span class='notice'>You [exposed ? "screw the cap back into place" : "unscrew the cap on the drain"]!</span>",
 			"<span class='italics'>You hear metal and squishing noises.</span>")
 		exposed = !exposed
-	return TRUE
+	return EF_TRUE
 
 
 /obj/item/reagent_containers/food/snacks/urinalcake
@@ -280,9 +280,9 @@
 			if(!RG.reagents.holder_full())
 				RG.reagents.add_reagent(dispensedreagent, min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
 				to_chat(user, "<span class='notice'>You fill [RG] from [src].</span>")
-				return TRUE
+				return EF_TRUE
 			to_chat(user, "<span class='notice'>\The [RG] is full.</span>")
-			return FALSE
+			return EF_FALSE
 
 	if(istype(O, /obj/item/melee/baton))
 		var/obj/item/melee/baton/B = O
@@ -409,11 +409,11 @@
 
 /obj/structure/curtain/wrench_act(mob/living/user, obj/item/I)
 	default_unfasten_wrench(user, I, 50)
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/curtain/wirecutter_act(mob/living/user, obj/item/I)
 	if(anchored)
-		return TRUE
+		return EF_TRUE
 
 	user.visible_message("<span class='warning'>[user] cuts apart [src].</span>",
 		"<span class='notice'>You start to cut apart [src].</span>", "You hear cutting.")
@@ -421,7 +421,7 @@
 		to_chat(user, "<span class='notice'>You cut apart [src].</span>")
 		deconstruct()
 
-	return TRUE
+	return EF_TRUE
 
 
 /obj/structure/curtain/attack_hand(mob/user)

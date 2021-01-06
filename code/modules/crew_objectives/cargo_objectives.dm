@@ -25,9 +25,9 @@
 				if(istype(H.wear_neck, /obj/item/clothing/neck/petcollar))
 					petcount--
 	if(petcount <= 0)
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /datum/objective/crew/points //ported from old hippie
 	explanation_text = "Make sure the station has at least (Something broke, yell on GitHub) station credits at the end of the shift."
@@ -44,9 +44,9 @@
 
 /datum/objective/crew/points/check_completion()
 	if(SSshuttle.points >= target_amount)
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /datum/objective/crew/bubblegum
 	explanation_text = "Ensure Bubblegum is dead at the end of the shift."
@@ -55,8 +55,8 @@
 /datum/objective/crew/bubblegum/check_completion()
 	for(var/mob/living/simple_animal/hostile/megafauna/bubblegum/B in GLOB.mob_list)
 		if(!(B.stat == DEAD))
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/objective/crew/fatstacks //ported from old hippie
 	explanation_text = "Have at least (something broke, report this on GitHub) mining points on your ID at the end of the shift."
@@ -77,5 +77,5 @@
 		var/obj/item/card/id/theID = H.get_idcard()
 		if(istype(theID))
 			if(theID.mining_points >= target_amount)
-				return TRUE
-	return FALSE
+				return EF_TRUE
+	return EF_FALSE

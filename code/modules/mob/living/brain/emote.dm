@@ -6,7 +6,7 @@
 	. = ..()
 	var/mob/living/brain/B = user
 	if(!istype(B) || (!(B.container && istype(B.container, /obj/item/mmi))))
-		return FALSE
+		return EF_FALSE
 
 /datum/emote/brain/alarm
 	key = "alarm"

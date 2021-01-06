@@ -84,16 +84,16 @@
 	switch(action)
 		if("scan_teleporter")
 			teleporter = findteleporter()
-			return TRUE
+			return EF_TRUE
 		if("scan_beacon")
 			beacon = findbeacon()
-			return TRUE
+			return EF_TRUE
 		if("handle_id")
 			if(contained_id)
 				id_eject(usr)
 			else
 				id_insert(usr)
-			return TRUE
+			return EF_TRUE
 		if("set_goal")
 			var/new_goal = text2num(params["value"])
 			if(!isnum_safe(new_goal))
@@ -101,24 +101,24 @@
 			if(!new_goal)
 				new_goal = default_goal
 			contained_id.goal = clamp(new_goal, 0, 1000) //maximum 1000 points
-			return TRUE
+			return EF_TRUE
 		if("toggle_open")
 			if(teleporter.locked)
 				to_chat(usr, "<span class='alert'>The teleporter must be unlocked first.</span>")
 				return
 			teleporter.toggle_open()
-			return TRUE
+			return EF_TRUE
 		if("teleporter_lock")
 			if(teleporter.state_open)
 				to_chat(usr, "<span class='alert'>The teleporter must be closed first.</span>")
 				return
 			teleporter.locked = !teleporter.locked
-			return TRUE
+			return EF_TRUE
 		if("teleport")
 			if(!teleporter || !beacon)
 				return
 			addtimer(CALLBACK(src, .proc/teleport, usr), 5)
-			return TRUE
+			return EF_TRUE
 
 /obj/machinery/computer/prisoner/gulag_teleporter_computer/proc/scan_machinery()
 	teleporter = findteleporter()

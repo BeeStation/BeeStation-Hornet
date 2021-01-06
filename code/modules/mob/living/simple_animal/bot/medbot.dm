@@ -305,8 +305,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	. = FALSE
 	//Time to see if they need medical help!
 	if(C.stat == DEAD || (HAS_TRAIT(C, TRAIT_FAKEDEATH)))
-		return FALSE	//welp too late for them!
-	
+		return EF_FALSE	//welp too late for them!
+
 	var/can_inject = FALSE
 	for(var/X in C.bodyparts)
 		var/obj/item/bodypart/part = X
@@ -316,19 +316,19 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		return 0
 
 	if(!(loc == C.loc) && !(isturf(C.loc) && isturf(loc)))
-		return FALSE
+		return EF_FALSE
 
 	if(C.suiciding)
-		return FALSE //Kevorkian school of robotic medical assistants.
+		return EF_FALSE //Kevorkian school of robotic medical assistants.
 
 	if(istype(C.dna.species, /datum/species/ipc))
-		return FALSE
+		return EF_FALSE
 
 	if(emagged == 2) //Everyone needs our medicine. (Our medicine is toxins)
-		return TRUE
+		return EF_TRUE
 
 	if(HAS_TRAIT(C,TRAIT_MEDIBOTCOMINGTHROUGH) && !HAS_TRAIT_FROM(C,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)) //someone is healing them already sweetie
-		return FALSE
+		return EF_FALSE
 
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
@@ -336,23 +336,23 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			var/obj/item/clothing/CS = H.wear_suit
 			var/obj/item/clothing/CH = H.head
 			if (CS.clothing_flags & CH.clothing_flags & THICKMATERIAL)
-				return FALSE // Skip over them if they have no exposed flesh.
+				return EF_FALSE // Skip over them if they have no exposed flesh.
 
 	if(declare_crit && C.health <= 0) //Critical condition! Call for help!
 		declare(C)
 
 	//They're injured enough for it!
 	if(C.getBruteLoss() >= heal_threshold)
-		return TRUE //If they're already medicated don't bother!
+		return EF_TRUE //If they're already medicated don't bother!
 
 	if(C.getOxyLoss() >= (5 + heal_threshold))
-		return TRUE
+		return EF_TRUE
 
 	if(C.getFireLoss() >= heal_threshold)
-		return TRUE
+		return EF_TRUE
 
 	if(C.getToxLoss() >= heal_threshold)
-		return TRUE
+		return EF_TRUE
 
 /mob/living/simple_animal/bot/medbot/UnarmedAttack(atom/A)
 	if(iscarbon(A))

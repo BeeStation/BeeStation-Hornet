@@ -42,18 +42,18 @@
 				return initiate(user, target, target_zone, tool, surgery, try_to_fail)
 			else
 				to_chat(user, "<span class='warning'>You need to expose [target]'s [parse_zone(target_zone)] to perform surgery on it!</span>")
-				return TRUE	//returns TRUE so we don't stab the guy in the dick or wherever.
+				return EF_TRUE	//returns TRUE so we don't stab the guy in the dick or wherever.
 
 	if(repeatable)
 		var/datum/surgery_step/next_step = surgery.get_surgery_next_step()
 		if(next_step)
 			surgery.status++
 			if(next_step.try_op(user, target, user.zone_selected, user.get_active_held_item(), surgery))
-				return TRUE
+				return EF_TRUE
 			else
 				surgery.status--
 
-	return FALSE
+	return EF_FALSE
 
 
 /datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
@@ -63,7 +63,7 @@
 
 	if(preop(user, target, target_zone, tool, surgery) == -1)
 		surgery.step_in_progress = FALSE
-		return FALSE
+		return EF_FALSE
 
 	if(tool)
 		speed_mod = tool.toolspeed
@@ -100,7 +100,7 @@
 	display_results(user, target, "<span class='notice'>You succeed.</span>",
 		"<span class='notice'>[user] succeeds!</span>",
 		"<span class='notice'>[user] finishes.</span>")
-	return TRUE
+	return EF_TRUE
 
 /datum/surgery_step/proc/failure(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, var/fail_prob = 0)
 	var/screwedmessage = ""
@@ -115,25 +115,25 @@
 	display_results(user, target, "<span class='warning'>You screw up![screwedmessage]</span>",
 		"<span class='warning'>[user] screws up!</span>",
 		"<span class='notice'>[user] finishes.</span>", TRUE) //By default the patient will notice if the wrong thing has been cut
-	return FALSE
+	return EF_FALSE
 
 /datum/surgery_step/proc/tool_check(mob/user, obj/item/tool)
-	return TRUE
+	return EF_TRUE
 
 /datum/surgery_step/proc/chem_check(mob/living/carbon/target)
 	if(!LAZYLEN(chems_needed))
-		return TRUE
+		return EF_TRUE
 
 	if(require_all_chems)
 		. = TRUE
 		for(var/R in chems_needed)
 			if(!target.reagents.has_reagent(R))
-				return FALSE
+				return EF_FALSE
 	else
 		. = FALSE
 		for(var/R in chems_needed)
 			if(target.reagents.has_reagent(R))
-				return TRUE
+				return EF_TRUE
 
 /datum/surgery_step/proc/get_chem_list()
 	if(!LAZYLEN(chems_needed))

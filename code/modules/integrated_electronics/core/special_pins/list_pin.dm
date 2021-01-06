@@ -126,7 +126,7 @@
 	if(!holder.check_interactivity(usr))
 		return
 	if(..())
-		return TRUE
+		return EF_TRUE
 
 	if(href_list["add"])
 		add_to_list(usr)

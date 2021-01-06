@@ -77,7 +77,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/CanPass(atom/A, turf/target)
-	return TRUE
+	return EF_TRUE
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/Life()
@@ -137,7 +137,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/CanAttack(atom/the_target)//you will not escape
-	return TRUE
+	return EF_TRUE
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/AttackingTarget()
@@ -149,7 +149,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = 0, tesla_shock = 0, illusion = 0, stun = TRUE)//prevents runtimes with machine fuckery
-	return FALSE
+	return EF_FALSE
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Found_You()
 	for(var/obj/structure/closet/hiding_spot in orange(7,src))
@@ -157,8 +157,8 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 			hiding_spot.bust_open()
 			current_victim.Paralyze(40)
 			to_chat(current_victim, "<span class='warning'>...edih t'nac uoY</span>")
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Acquire_Victim(specific)
 	for(var/I in GLOB.player_list)//better than a potential recursive loop

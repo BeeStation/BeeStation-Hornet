@@ -102,13 +102,13 @@
 /obj/item/robot_suit/proc/put_in_hand_or_drop(mob/living/user, obj/item/I) //normal put_in_hands() drops the item ontop of the player, this drops it at the suit's loc
 	if(!user.put_in_hands(I))
 		I.forceMove(drop_location())
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/item/robot_suit/screwdriver_act(mob/living/user, obj/item/I) //Swaps the power cell if you're holding a new one in your other hand.
 	. = ..()
 	if(.)
-		return TRUE
+		return EF_TRUE
 
 	if(!chest) //can't remove a cell if there's no chest to remove it from.
 		to_chat(user, "<span class='notice'>[src] has no attached torso.</span>")
@@ -135,7 +135,7 @@
 
 	to_chat(user, "<span class='notice'>You [chest.cell ? "replace [src]'s [chest.cell.name] with [temp_cell]" : "insert [temp_cell] into [src]"].</span>")
 	chest.cell = temp_cell
-	return TRUE
+	return EF_TRUE
 
 /obj/item/robot_suit/attackby(obj/item/W, mob/user, params)
 

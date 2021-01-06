@@ -110,7 +110,7 @@
 
 /datum/emote/living/carbon/human/wag/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	var/mob/living/carbon/human/H = user
 	return H.dna && H.dna.species && H.dna.species.can_wag_tail(user)
 
@@ -143,19 +143,19 @@
 
 /datum/emote/living/carbon/human/wing/can_run_emote(mob/user, status_check = TRUE, intentional)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	var/mob/living/carbon/human/H = user
 	if(H.dna && H.dna.species && (H.dna.features["wings"] != "None"))
-		return TRUE
+		return EF_TRUE
 
 /mob/living/carbon/human/proc/Togglewings()
 	if(!dna || !dna.species)
-		return FALSE
+		return EF_FALSE
 	var/obj/item/organ/wings/wings = getorganslot(ORGAN_SLOT_WINGS)
 	if(getorgan(/obj/item/organ/wings))
 		if(wings.toggleopen(src))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 
 /datum/emote/living/carbon/human/fart
@@ -176,10 +176,10 @@
 
 /datum/emote/living/carbon/human/robot_tongue/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	var/obj/item/organ/tongue/T = user.getorganslot("tongue")
 	if(T.status == ORGAN_ROBOTIC)
-		return TRUE
+		return EF_TRUE
 
 /datum/emote/living/carbon/human/robot_tongue/beep
 	key = "beep"
@@ -232,9 +232,9 @@
 
 /datum/emote/living/carbon/human/robot_tongue/clown/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	if(user.mind.assigned_role == "Clown")
-		return TRUE
+		return EF_TRUE
 
 /datum/emote/living/carbon/human/robot_tongue/clown/honk
 	key = "honk"

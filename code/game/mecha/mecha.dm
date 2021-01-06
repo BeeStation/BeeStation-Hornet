@@ -543,7 +543,7 @@
 /obj/mecha/Process_Spacemove(var/movement_dir = 0)
 	. = ..()
 	if(.)
-		return TRUE
+		return EF_TRUE
 
 	var/atom/movable/backup = get_spacemove_backup()
 	if(backup)
@@ -552,13 +552,13 @@
 				step_silent = TRUE
 				if(occupant)
 					to_chat(occupant, "<span class='info'>You push off of [backup] to propel yourself.</span>")
-		return TRUE
+		return EF_TRUE
 
 	if(can_move <= world.time && active_thrusters && movement_dir && active_thrusters.thrust(movement_dir))
 		step_silent = TRUE
-		return TRUE
+		return EF_TRUE
 
-	return FALSE
+	return EF_FALSE
 
 /obj/mecha/relaymove(mob/user,direction)
 	if(completely_disabled)
@@ -953,16 +953,16 @@
 /obj/mecha/proc/mmi_move_inside(obj/item/mmi/mmi_as_oc, mob/user)
 	if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 		to_chat(user, "<span class='warning'>Consciousness matrix not detected!</span>")
-		return FALSE
+		return EF_FALSE
 	else if(mmi_as_oc.brainmob.stat)
 		to_chat(user, "<span class='warning'>Beta-rhythm below acceptable level!</span>")
-		return FALSE
+		return EF_FALSE
 	else if(occupant)
 		to_chat(user, "<span class='warning'>Occupant detected!</span>")
-		return FALSE
+		return EF_FALSE
 	else if(dna_lock && (!mmi_as_oc.brainmob.stored_dna || (dna_lock != mmi_as_oc.brainmob.stored_dna.unique_enzymes)))
 		to_chat(user, "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>")
-		return FALSE
+		return EF_FALSE
 
 	visible_message("<span class='notice'>[user] starts to insert an MMI into [name].</span>")
 
@@ -973,20 +973,20 @@
 			to_chat(user, "<span class='warning'>Occupant detected!</span>")
 	else
 		to_chat(user, "<span class='notice'>You stop inserting the MMI.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/mecha/proc/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
 	if(!(Adjacent(mmi_as_oc) && Adjacent(user)))
-		return FALSE
+		return EF_FALSE
 	if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 		to_chat(user, "<span class='notice'>Consciousness matrix not detected!</span>")
-		return FALSE
+		return EF_FALSE
 	else if(mmi_as_oc.brainmob.stat)
 		to_chat(user, "<span class='warning'>Beta-rhythm below acceptable level!</span>")
-		return FALSE
+		return EF_FALSE
 	if(!user.transferItemToLoc(mmi_as_oc, src))
 		to_chat(user, "<span class='warning'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]!</span>")
-		return FALSE
+		return EF_FALSE
 	var/mob/living/brainmob = mmi_as_oc.brainmob
 	mmi_as_oc.mecha = src
 	occupant = brainmob
@@ -1003,7 +1003,7 @@
 	if(!internal_damage)
 		SEND_SOUND(occupant, sound('sound/mecha/nominal.ogg',volume=50))
 	GrantActions(brainmob)
-	return TRUE
+	return EF_TRUE
 
 /obj/mecha/container_resist(mob/living/user)
 	is_currently_ejecting = TRUE

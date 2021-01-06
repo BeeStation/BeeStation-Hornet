@@ -70,7 +70,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 
 /obj/machinery/rnd/destructive_analyzer/proc/destroy_item(obj/item/thing, innermode = FALSE)
 	if(QDELETED(thing) || QDELETED(src) || QDELETED(linked_console))
-		return FALSE
+		return EF_FALSE
 	if(!innermode)
 		flick("d_analyzer_process", src)
 		busy = TRUE
@@ -95,16 +95,16 @@ Note: Must be placed within 3 tiles of the R&D Console
 		qdel(thing)
 	if (!innermode)
 		update_icon()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/rnd/destructive_analyzer/proc/user_try_decon_id(id, mob/user)
 	if(!istype(loaded_item) || !istype(linked_console))
-		return FALSE
+		return EF_FALSE
 
 	if (id && id != RESEARCH_MATERIAL_RECLAMATION_ID)
 		var/datum/techweb_node/TN = SSresearch.techweb_node_by_id(id)
 		if(!istype(TN))
-			return FALSE
+			return EF_FALSE
 		var/dpath = loaded_item.type
 		var/list/worths = TN.boost_item_paths[dpath]
 		var/list/differences = list()
@@ -115,12 +115,12 @@ Note: Must be placed within 3 tiles of the R&D Console
 			if(value > 0)
 				differences[i] = value
 		if(length(worths) && !length(differences))
-			return FALSE
+			return EF_FALSE
 		var/choice = input("Are you sure you want to destroy [loaded_item] to [!length(worths) ? "reveal [TN.display_name]" : "boost [TN.display_name] by [json_encode(differences)] point\s"]?") in list("Proceed", "Cancel")
 		if(choice == "Cancel")
-			return FALSE
+			return EF_FALSE
 		if(QDELETED(loaded_item) || QDELETED(linked_console) || !user.Adjacent(linked_console) || QDELETED(src))
-			return FALSE
+			return EF_FALSE
 		SSblackbox.record_feedback("nested tally", "item_deconstructed", 1, list("[TN.id]", "[loaded_item.type]"))
 		if(destroy_item(loaded_item))
 			linked_console.stored_research.boost_with_path(SSresearch.techweb_node_by_id(TN.id), dpath)
@@ -136,19 +136,19 @@ Note: Must be placed within 3 tiles of the R&D Console
 			user_mode_string = " for material reclamation"
 		var/choice = input("Are you sure you want to destroy [loaded_item][user_mode_string]?") in list("Proceed", "Cancel")
 		if(choice == "Cancel")
-			return FALSE
+			return EF_FALSE
 		if(QDELETED(loaded_item) || QDELETED(linked_console) || !user.Adjacent(linked_console) || QDELETED(src))
-			return FALSE
+			return EF_FALSE
 		var/loaded_type = loaded_item.type
 		if(destroy_item(loaded_item))
 			linked_console.stored_research.add_point_list(point_value)
 			linked_console.stored_research.deconstructed_items[loaded_type] = point_value
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/rnd/destructive_analyzer/proc/unload_item()
 	if(!loaded_item)
-		return FALSE
+		return EF_FALSE
 	loaded_item.forceMove(get_turf(src))
 	loaded_item = null
 	update_icon()
-	return TRUE
+	return EF_TRUE

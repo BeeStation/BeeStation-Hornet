@@ -21,7 +21,7 @@
 /datum/wires/airalarm/interactable(mob/user)
 	var/obj/machinery/airalarm/A = holder
 	if(A.panel_open && A.buildstage == 2)
-		return TRUE
+		return EF_TRUE
 
 /datum/wires/airalarm/get_status()
 	var/obj/machinery/airalarm/A = holder

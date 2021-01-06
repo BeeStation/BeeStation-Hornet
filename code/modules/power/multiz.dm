@@ -29,7 +29,7 @@
 		if(!anchored && broken_status == RELAY_OK)
 			break_connections()
 			return
-		return FALSE
+		return EF_FALSE
 
 	if(istype(I, /obj/item/stack/cable_coil) && broken_status == RELAY_ADD_CABLE)
 		var/obj/item/stack/C = I
@@ -93,17 +93,17 @@
 /obj/machinery/power/deck_relay/multitool_act(mob/user, obj/item/I)
 	if(!anchored)
 		to_chat(user, "<span class='danger'>You need to wrench this into place before getting a reading!</span>")
-		return TRUE
+		return EF_TRUE
 	if(broken_status == RELAY_ADD_CABLE || broken_status == RELAY_ADD_METAL)
 		to_chat(user, "<span class='danger'>The [src] isn't in proper shape to get a reading!</span>")
-		return TRUE
+		return EF_TRUE
 	if(powernet && (above || below))//we have a powernet and at least one connected relay
 		to_chat(user, "<span class='danger'>Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nExcess power: [DisplayPower(surplus())]</span>")
 	if(!above && !below)
 		to_chat(user, "<span class='danger'>Cannot access valid powernet. Attempting to re-establish. Ensure any relays above and below are aligned properly and on cable nodes.</span>")
 		find_relays()
 		addtimer(CALLBACK(src, .proc/refresh), 20) //Wait a bit so we can find the one below, then get powering
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/power/deck_relay/Initialize()
 	. = ..()
@@ -132,7 +132,7 @@
 /obj/machinery/power/deck_relay/proc/find_relays()
 	var/turf/T = get_turf(src)
 	if(!T || !istype(T))
-		return FALSE
+		return EF_FALSE
 	below = null //in case we're re-establishing
 	above = null
 	var/obj/structure/cable/C = T.get_cable_node() //check if we have a node cable on the machine turf, the first found is picked
@@ -143,4 +143,4 @@
 	above = locate(/obj/machinery/power/deck_relay) in(SSmapping.get_turf_above(T))
 	if(below || above)
 		icon_state = "cablerelay-on"
-	return TRUE
+	return EF_TRUE

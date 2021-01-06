@@ -46,12 +46,12 @@
 		podType = /obj/structure/closet/supplypod/bluespacepod//doesnt effect circuit board, making reversal possible
 		to_chat(user, "<span class='notice'>You insert the disk into [src], allowing for advanced supply delivery vehicles.</span>")
 		qdel(W)
-		return TRUE
+		return EF_TRUE
 	else if(istype(W, /obj/item/supplypod_beacon))
 		var/obj/item/supplypod_beacon/sb = W
 		if (sb.express_console != src)
 			sb.link_console(src, user)
-			return TRUE
+			return EF_TRUE
 		else
 			to_chat(user, "<span class='notice'>[src] is already linked to [sb].</span>")
 	..()

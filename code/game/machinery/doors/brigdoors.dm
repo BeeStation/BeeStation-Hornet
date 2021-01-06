@@ -221,7 +221,7 @@
 
 	if(!allowed(usr))
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
-		return FALSE
+		return EF_FALSE
 
 	switch(action)
 		if("time")

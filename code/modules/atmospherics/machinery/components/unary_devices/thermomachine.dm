@@ -146,7 +146,7 @@
 
 /obj/machinery/atmospherics/components/unary/thermomachine/default_change_direction_wrench(mob/user, obj/item/I)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	SetInitDirections()
 	var/obj/machinery/atmospherics/node = nodes[1]
 	if(node)
@@ -160,7 +160,7 @@
 		node.atmosinit()
 		node.addMember(src)
 	SSair.add_to_rebuild_queue(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/atmospherics/components/unary/thermomachine/ui_status(mob/user)
 	if(interactive)

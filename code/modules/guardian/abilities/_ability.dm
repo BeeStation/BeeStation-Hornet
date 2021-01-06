@@ -32,8 +32,8 @@
 	if(!isliving(t))
 		to_chat(caller, "<span class='warning'>You may only use this ability on living things!</span>")
 		revert_cast()
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/effect/proc_holder/spell/targeted/guardian/revert_cast()
 	. = ..()

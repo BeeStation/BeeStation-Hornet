@@ -32,7 +32,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 
 /obj/machinery/gateway/proc/detect()
 	if(!can_link)
-		return FALSE
+		return EF_FALSE
 	linked = list()	//clear the list
 	var/turf/T = loc
 	var/ready = FALSE
@@ -71,7 +71,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	toggleoff()
 
 /obj/machinery/gateway/proc/toggleon(mob/user)
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/gateway/safe_throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG)
 	return
@@ -164,7 +164,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	else
 		to_chat(user, "<span class='boldnotice'>Recalibration successful!</span>: \black This gate's systems have been fine tuned.  Travel to this gate will now be on target.")
 		calibrated = TRUE
-	return TRUE
+	return EF_TRUE
 
 /////////////////////////////////////Away////////////////////////
 
@@ -205,8 +205,8 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 /obj/machinery/gateway/centeraway/proc/check_exile_implant(mob/living/L)
 	for(var/obj/item/implant/exile/E in L.implants)//Checking that there is an exile implant
 		to_chat(L, "\black The station gate has detected your exile implant and is blocking your entry.")
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/gateway/centeraway/Bumped(atom/movable/AM)
 	if(!detect())
@@ -245,7 +245,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 		stationgate.awaygate = src
 
 /obj/machinery/gateway/centeraway/admin/detect()
-	return TRUE
+	return EF_TRUE
 
 
 /obj/item/paper/fluff/gateway

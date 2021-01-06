@@ -78,13 +78,13 @@
 		if(allow_hand_open(user))
 			add_fingerprint(user)
 			open()
-			return TRUE
+			return EF_TRUE
 	if(ismecha(AM))
 		var/obj/mecha/M = AM
 		if(M.occupant && allow_hand_open(M.occupant))
 			open()
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 
 /obj/machinery/door/firedoor/power_change()
@@ -98,26 +98,26 @@
 	. = ..()
 	if(.)
 		return
-	
+
 	if (!welded && !operating)
-		if (stat & NOPOWER) 				
+		if (stat & NOPOWER)
 			user.visible_message("[user] tries to open \the [src] manually.",
 						 "You operate the manual lever on \the [src].")
 			if (!do_after(user, 30, TRUE, src))
-				return FALSE
+				return EF_FALSE
 		else if (density && !allow_hand_open(user))
-			return FALSE
-	
-		add_fingerprint(user)		
+			return EF_FALSE
+
+		add_fingerprint(user)
 		if(density)
 			emergency_close_timer = world.time + 15 // prevent it from instaclosing again if in space
 			open()
 		else
 			close()
-		return TRUE
+		return EF_TRUE
 	if(operating || !density)
 		return
-	
+
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	user.visible_message("[user] bangs on \the [src].",
@@ -190,18 +190,18 @@
 /obj/machinery/door/firedoor/proc/allow_hand_open(mob/user)
 	var/area/A = get_area(src)
 	if(A && A.fire)
-		return FALSE
+		return EF_FALSE
 	return !is_holding_pressure()
 
 /obj/machinery/door/firedoor/attack_ai(mob/user)
 	add_fingerprint(user)
 	if(welded || operating || stat & NOPOWER)
-		return TRUE
+		return EF_TRUE
 	if(density)
 		open()
 	else
 		close()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/door/firedoor/attack_robot(mob/user)
 	return attack_ai(user)
@@ -331,7 +331,7 @@
 
 /obj/machinery/door/firedoor/border_only/close()
 	if(density)
-		return TRUE
+		return EF_TRUE
 	if(operating || welded)
 		return
 	var/turf/T1 = get_turf(src)
@@ -355,7 +355,7 @@
 /obj/machinery/door/firedoor/border_only/allow_hand_open(mob/user)
 	var/area/A = get_area(src)
 	if((!A || !A.fire) && !is_holding_pressure())
-		return TRUE
+		return EF_TRUE
 	whack_a_mole(TRUE) // WOOP WOOP SIDE EFFECTS
 	var/turf/T = loc
 	var/turf/T2 = get_step(T, dir)
@@ -365,8 +365,8 @@
 	var/status2 = check_door_side(T2)
 	if((status1 == 1 && status2 == -1) || (status1 == -1 && status2 == 1))
 		to_chat(user, "<span class='warning'>Access denied. Try closing another firedoor to minimize decompression, or using a crowbar.</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/door/firedoor/border_only/proc/check_door_side(turf/open/start_point)
 	var/list/turfs = list()
@@ -383,25 +383,25 @@
 
 /obj/machinery/door/firedoor/border_only/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && (mover.pass_flags & PASSGLASS))
-		return TRUE
+		return EF_TRUE
 	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
 		return !density
 	else
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/door/firedoor/border_only/CheckExit(atom/movable/mover as mob|obj, turf/target)
 	if(istype(mover) && (mover.pass_flags & PASSGLASS))
-		return TRUE
+		return EF_TRUE
 	if(get_dir(loc, target) == dir)
 		return !density
 	else
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/door/firedoor/border_only/CanAtmosPass(turf/T)
 	if(get_dir(loc, T) == dir)
 		return !density
 	else
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/door/firedoor/heavy
 	name = "heavy firelock"
@@ -636,7 +636,7 @@
 		return list("mode" = RCD_DECONSTRUCT, "delay" = 50, "cost" = 16)
 	else if((constructionStep == CONSTRUCTION_NOCIRCUIT) && (the_rcd.upgrade & RCD_UPGRADE_SIMPLE_CIRCUITS))
 		return list("mode" = RCD_UPGRADE_SIMPLE_CIRCUITS, "delay" = 20, "cost" = 1)
-	return FALSE
+	return EF_FALSE
 
 /obj/structure/firelock_frame/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
@@ -645,12 +645,12 @@
 			"<span class='notice'>You adapt a firelock circuit and slot it into the assembly.</span>")
 			constructionStep = CONSTRUCTION_GUTTED
 			update_icon()
-			return TRUE
+			return EF_TRUE
 		if(RCD_DECONSTRUCT)
 			to_chat(user, "<span class='notice'>You deconstruct [src].</span>")
 			qdel(src)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/structure/firelock_frame/heavy
 	name = "heavy firelock frame"
@@ -670,8 +670,8 @@
 /obj/structure/firelock_frame/border/proc/can_be_rotated(mob/user, rotation_type)
 	if (anchored)
 		to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/structure/firelock_frame/border/update_icon()
 	return

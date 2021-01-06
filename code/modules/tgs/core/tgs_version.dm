@@ -13,9 +13,9 @@
 
 /datum/tgs_version/proc/Valid(allow_wildcards = FALSE)
 	if(suite == null)
-		return FALSE
+		return EF_FALSE
 	if(allow_wildcards)
-		return TRUE
+		return EF_TRUE
 	return !Wildcard()
 
 /datum/tgs_version/Wildcard()
@@ -23,6 +23,6 @@
 
 /datum/tgs_version/Equals(datum/tgs_version/other_version)
 	if(!istype(other_version))
-		return FALSE
+		return EF_FALSE
 
 	return suite == other_version.suite && minor == other_version.minor && patch == other_version.patch && deprecated_patch == other_version.deprecated_patch

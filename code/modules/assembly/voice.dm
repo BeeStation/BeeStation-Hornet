@@ -76,20 +76,20 @@
 	to_chat(user, "<span class='notice'>You set [src] into [modes[mode]] mode.</span>")
 	listening = FALSE
 	recorded = ""
-	return TRUE
+	return EF_TRUE
 
 /obj/item/assembly/voice/activate()
 	if(!secured || holder)
-		return FALSE
+		return EF_FALSE
 	listening = !listening
 	say("[listening ? "Now" : "No longer"] recording input.")
-	return TRUE
+	return EF_TRUE
 
 /obj/item/assembly/voice/attack_self(mob/user)
 	if(!user)
-		return FALSE
+		return EF_FALSE
 	activate()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/assembly/voice/toggle_secure()
 	. = ..()

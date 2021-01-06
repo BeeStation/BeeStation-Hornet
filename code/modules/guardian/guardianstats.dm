@@ -47,8 +47,8 @@
 /datum/guardian_stats/proc/HasMinorAbility(typepath)
 	for(var/datum/guardian_ability/minor/minor in minor_abilities)
 		if(istype(minor, typepath))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/guardian_stats/proc/AddMinorAbility(typepath)
 	var/datum/guardian_ability/minor/minor_ability = new typepath

@@ -106,11 +106,11 @@
 /obj/item/antag_spawner/nuke_ops/proc/check_usability(mob/user)
 	if(used)
 		to_chat(user, "<span class='warning'>[src] is out of power!</span>")
-		return FALSE
+		return EF_FALSE
 	if(!user.mind.has_antag_datum(/datum/antagonist/nukeop,TRUE))
 		to_chat(user, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 
 /obj/item/antag_spawner/nuke_ops/attack_self(mob/user)

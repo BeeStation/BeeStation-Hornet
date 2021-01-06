@@ -126,7 +126,7 @@
 				H.update_inv_w_uniform()
 				H.update_inv_wear_suit()
 
-			return TRUE
+			return EF_TRUE
 
 /obj/item/clothing/under/proc/remove_accessory(mob/user)
 	if(!isliving(user))

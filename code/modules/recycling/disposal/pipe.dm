@@ -141,20 +141,20 @@
 //welding tool: unfasten and convert to obj/disposalconstruct
 /obj/structure/disposalpipe/welder_act(mob/living/user, obj/item/I)
 	if(!can_be_deconstructed(user))
-		return TRUE
+		return EF_TRUE
 
 	if(!I.tool_start_check(user, amount=0))
-		return TRUE
+		return EF_TRUE
 
 	to_chat(user, "<span class='notice'>You start slicing [src]...</span>")
 	if(I.use_tool(src, user, 30, volume=50))
 		deconstruct()
 		to_chat(user, "<span class='notice'>You slice [src].</span>")
-	return TRUE
+	return EF_TRUE
 
 //checks if something is blocking the deconstruction (e.g. trunk with a bin still linked to it)
 /obj/structure/disposalpipe/proc/can_be_deconstructed()
-	return TRUE
+	return EF_TRUE
 
 // called when pipe is cut with welder
 /obj/structure/disposalpipe/deconstruct(disassembled = TRUE)
@@ -273,8 +273,8 @@
 /obj/structure/disposalpipe/trunk/can_be_deconstructed(mob/user)
 	if(linked)
 		to_chat(user, "<span class='warning'>You need to deconstruct disposal machinery above this pipe!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 // would transfer to next pipe segment, but we are in a trunk
 // if not entering from disposal bin,

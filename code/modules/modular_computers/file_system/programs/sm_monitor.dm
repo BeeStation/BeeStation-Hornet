@@ -109,18 +109,18 @@
 
 /datum/computer_file/program/supermatter_monitor/ui_act(action, params)
 	if(..())
-		return TRUE
+		return EF_TRUE
 
 	switch(action)
 		if("PRG_clear")
 			active = null
-			return TRUE
+			return EF_TRUE
 		if("PRG_refresh")
 			refresh()
-			return TRUE
+			return EF_TRUE
 		if("PRG_set")
 			var/newuid = text2num(params["target"])
 			for(var/obj/machinery/power/supermatter_crystal/S in supermatters)
 				if(S.uid == newuid)
 					active = S
-			return TRUE
+			return EF_TRUE

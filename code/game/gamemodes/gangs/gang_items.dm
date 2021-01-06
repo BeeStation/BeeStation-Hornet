@@ -10,19 +10,19 @@
 
 /datum/gang_item/proc/purchase(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool, check_canbuy = TRUE)
 	if(check_canbuy && !can_buy(user, gang, gangtool))
-		return FALSE
+		return EF_FALSE
 	var/real_cost = get_cost(user, gang, gangtool)
 	if(!spawn_item(user, gang, gangtool))
 		gang.adjust_influence(-real_cost)
 		to_chat(user, "<span class='notice'>You bought \the [name].</span>")
-		return TRUE
+		return EF_TRUE
 
 /datum/gang_item/proc/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool) // If this returns anything other than null, something fucked up and influence won't lower.
 	if(item_path)
 		var/obj/item/O = new item_path(user.loc)
 		user.put_in_hands(O)
 	else
-		return TRUE
+		return EF_TRUE
 	if(spawn_msg)
 		to_chat(user, spawn_msg)
 
@@ -30,7 +30,7 @@
 	return gang && (gang.influence >= get_cost(user, gang, gangtool)) && can_see(user, gang, gangtool)
 
 /datum/gang_item/proc/can_see(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	return TRUE
+	return EF_TRUE
 
 /datum/gang_item/proc/get_cost(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	return cost
@@ -96,8 +96,8 @@
 /datum/gang_item/essentials/pen/purchase(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	if(..())
 		gangtool.free_pen = FALSE
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/gang_item/essentials/pen/get_cost(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	if(gangtool?.free_pen)
@@ -120,7 +120,7 @@
 
 /datum/gang_item/essentials/dominator/can_buy(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	if(!gang || !gang.dom_attempts)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/gang_item/essentials/dominator/get_name_display(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
@@ -141,11 +141,11 @@
 	var/area/userarea = get_area(user)
 	if(!(userarea.type in gang.territories|gang.new_territories))
 		to_chat(user,"<span class='warning'>The <b>dominator</b> can be spawned only on territory controlled by your gang!</span>")
-		return FALSE
+		return EF_FALSE
 	for(var/obj/obj in get_turf(user))
 		if(obj.density)
 			to_chat(user, "<span class='warning'>There's not enough room here!</span>")
-			return FALSE
+			return EF_FALSE
 
 	return ..()
 
@@ -176,7 +176,7 @@
 			user.put_in_hands(O)
 			to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence")
 			return
-	return TRUE
+	return EF_TRUE
 
 /datum/gang_item/clothing/suit
 	name = "Gang Armored Outerwear"
@@ -193,7 +193,7 @@
 			user.put_in_hands(O)
 			to_chat(user, "<span class='notice'> This is your gang's official outerwear, wearing it will increase your influence")
 			return
-	return TRUE
+	return EF_TRUE
 
 
 /datum/gang_item/clothing/hat

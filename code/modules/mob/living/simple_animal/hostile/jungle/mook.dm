@@ -36,7 +36,7 @@
 	if(istype(O, /mob/living/simple_animal/hostile/jungle/mook))
 		var/mob/living/simple_animal/hostile/jungle/mook/M = O
 		if(M.attack_state == MOOK_ATTACK_ACTIVE && M.throwing)
-			return TRUE
+			return EF_TRUE
 	return ..()
 
 /mob/living/simple_animal/hostile/jungle/mook/death()

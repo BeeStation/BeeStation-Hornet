@@ -73,7 +73,7 @@
 
 /obj/item/forbidden_book/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!IS_HERETIC(user))
-		return FALSE
+		return EF_FALSE
 	last_user = user
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -140,7 +140,7 @@
 					continue
 				if(cultie.gain_knowledge(EK))
 					charge -= text2num(params["cost"])
-					return TRUE
+					return EF_TRUE
 
 	update_icon() // Not applicable to all objects.
 

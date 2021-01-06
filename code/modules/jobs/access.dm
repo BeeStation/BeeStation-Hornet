@@ -3,31 +3,31 @@
 /obj/proc/allowed(mob/M)
 	//check if it doesn't require any access at all
 	if(src.check_access(null))
-		return TRUE
+		return EF_TRUE
 	if(issilicon(M))
 		if(ispAI(M))
-			return FALSE
-		return TRUE	//AI can do whatever it wants
+			return EF_FALSE
+		return EF_TRUE	//AI can do whatever it wants
 	if(IsAdminGhost(M))
 		//Access can't stop the abuse
-		return TRUE
+		return EF_TRUE
 	else if(istype(M) && SEND_SIGNAL(M, COMSIG_MOB_ALLOWED, src))
-		return TRUE
+		return EF_TRUE
 	else if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		//if they are holding or wearing a card that has access, that works
 		if(check_access(H.get_active_held_item()) || src.check_access(H.wear_id))
-			return TRUE
+			return EF_TRUE
 	else if(ismonkey(M) || isalienadult(M))
 		var/mob/living/carbon/george = M
 		//they can only hold things :(
 		if(check_access(george.get_active_held_item()))
-			return TRUE
+			return EF_TRUE
 	else if(isanimal(M))
 		var/mob/living/simple_animal/A = M
 		if(check_access(A.get_active_held_item()) || check_access(A.access_card))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/item/proc/GetAccess()
 	return list()
@@ -65,24 +65,24 @@
 	gen_access()
 
 	if(!islist(req_access)) //something's very wrong
-		return TRUE
+		return EF_TRUE
 
 	if(!req_access.len && !length(req_one_access))
-		return TRUE
+		return EF_TRUE
 
 	if(!length(access_list) || !islist(access_list))
-		return FALSE
+		return EF_FALSE
 
 	for(var/req in req_access)
 		if(!(req in access_list)) //doesn't have this access
-			return FALSE
+			return EF_FALSE
 
 	if(length(req_one_access))
 		for(var/req in req_one_access)
 			if(req in access_list) //has an access from the single access list
-				return TRUE
-		return FALSE
-	return TRUE
+				return EF_TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/proc/check_access_ntnet(datum/netdata/data)
 	return check_access_list(data.passkey)

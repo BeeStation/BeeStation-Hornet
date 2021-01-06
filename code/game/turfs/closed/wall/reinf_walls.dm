@@ -55,12 +55,12 @@
 		to_chat(user, "<span class='notice'>You begin to smash though [src]...</span>")
 		if(do_after(user, 50, target = src))
 			if(!istype(src, /turf/closed/wall/r_wall))
-				return TRUE
+				return EF_TRUE
 			I.play_tool_sound(src)
 			visible_message("<span class='warning'>[user] smashes through [src] with [I]!</span>", "<span class='italics'>You hear the grinding of metal.</span>")
 			dismantle_wall()
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /turf/closed/wall/r_wall/try_decon(obj/item/W, mob/user, turf/T)
 	//DECONSTRUCTION
@@ -131,7 +131,7 @@
 				to_chat(user, "<span class='notice'>You begin welding the metal cover back to the frame...</span>")
 				if(W.use_tool(src, user, 60, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != CUT_COVER)
-						return TRUE
+						return EF_TRUE
 					d_state = COVER
 					update_icon()
 					to_chat(user, "<span class='notice'>The metal cover has been welded securely to the frame.</span>")
@@ -198,7 +198,7 @@
 				to_chat(user, "<span class='notice'>You begin welding the support rods back together...</span>")
 				if(W.use_tool(src, user, 100, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SHEATH)
-						return TRUE
+						return EF_TRUE
 					d_state = SUPPORT_RODS
 					update_icon()
 					to_chat(user, "<span class='notice'>You weld the support rods back together.</span>")
@@ -253,7 +253,7 @@
 	canSmoothWith = list(/turf/closed/wall/r_wall/syndicate, /turf/closed/wall/mineral/plastitanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/plastitanium, /obj/structure/shuttle/engine, /obj/structure/falsewall/plastitanium)
 
 /turf/closed/wall/r_wall/syndicate/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
-	return FALSE
+	return EF_FALSE
 
 /turf/closed/wall/r_wall/syndicate/nodiagonal
 	smooth = SMOOTH_MORE

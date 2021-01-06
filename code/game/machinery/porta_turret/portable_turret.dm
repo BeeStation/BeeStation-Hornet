@@ -509,8 +509,8 @@
 /obj/machinery/porta_turret/proc/in_faction(mob/target)
 	for(var/faction1 in faction)
 		if(faction1 in target.faction)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/porta_turret/proc/target(atom/movable/target)
 	if(target)
@@ -602,7 +602,7 @@
 
 /obj/machinery/porta_turret/proc/give_control(mob/A)
 	if(manual_control || !can_interact(A))
-		return FALSE
+		return EF_FALSE
 	remote_controller = A
 	if(!quit_action)
 		quit_action = new(src)
@@ -615,11 +615,11 @@
 	manual_control = TRUE
 	always_up = TRUE
 	popUp()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/porta_turret/proc/remove_control(warning_message = TRUE)
 	if(!manual_control)
-		return FALSE
+		return EF_FALSE
 	if(remote_controller)
 		if(warning_message)
 			to_chat(remote_controller, "<span class='warning'>Your uplink to [src] has been severed!</span>")
@@ -630,17 +630,17 @@
 	always_up = initial(always_up)
 	manual_control = FALSE
 	remote_controller = null
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/porta_turret/proc/InterceptClickOn(mob/living/caller, params, atom/A)
 	if(!manual_control)
-		return FALSE
+		return EF_FALSE
 	if(!can_interact(caller))
 		remove_control()
-		return FALSE
+		return EF_FALSE
 	log_combat(caller,A,"fired with manual turret control at")
 	target(A)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/porta_turret/syndicate
 	installation = null
@@ -721,7 +721,7 @@
 		addtimer(CALLBACK(src, .proc/shootAt, target), 5)
 		addtimer(CALLBACK(src, .proc/shootAt, target), 10)
 		addtimer(CALLBACK(src, .proc/shootAt, target), 15)
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/porta_turret/ai
 	faction = list("silicon")
@@ -923,16 +923,16 @@
 				to_chat(usr, "<span class='warning'>The turret control is unresponsive!</span>")
 				return
 			locked = !locked
-			return TRUE
+			return EF_TRUE
 		if("power")
 			toggle_on(usr)
-			return TRUE
+			return EF_TRUE
 		if("mode")
 			toggle_lethal(usr)
-			return TRUE
+			return EF_TRUE
 		if("shoot_silicons")
 			shoot_silicons(usr)
-			return TRUE
+			return EF_TRUE
 
 /obj/machinery/turretid/proc/toggle_lethal(mob/user)
 	lethal = !lethal

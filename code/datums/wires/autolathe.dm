@@ -13,7 +13,7 @@
 /datum/wires/autolathe/interactable(mob/user)
 	var/obj/machinery/autolathe/A = holder
 	if(A.panel_open)
-		return TRUE
+		return EF_TRUE
 
 /datum/wires/autolathe/get_status()
 	var/obj/machinery/autolathe/A = holder

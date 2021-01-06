@@ -170,8 +170,8 @@
 					set_pin_data(IC_OUTPUT, 1, WEAKREF(assembly.collw))
 					push_data()
 					activate_pin(3)
-					return FALSE
-	return FALSE
+					return EF_FALSE
+	return EF_FALSE
 
 /obj/item/integrated_circuit/manipulation/grenade
 	name = "grenade primer"
@@ -310,7 +310,7 @@
 			if(3)
 				if(!check_target(O))
 					activate_pin(2)
-					return FALSE
+					return EF_FALSE
 
 				else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
 					if(!TR.myseed)
@@ -559,7 +559,7 @@
 	push_data()
 
 /obj/item/integrated_circuit/manipulation/matman/proc/is_insertion_ready(mob/user)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/integrated_circuit/manipulation/matman/do_work(ord)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)

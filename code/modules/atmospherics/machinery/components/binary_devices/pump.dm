@@ -158,7 +158,7 @@
 	. = ..()
 	if(. && on && is_operational())
 		to_chat(user, "<span class='warning'>You cannot unwrench [src], turn it off first!</span>")
-		return FALSE
+		return EF_FALSE
 
 
 /obj/machinery/atmospherics/components/binary/pump/layer1

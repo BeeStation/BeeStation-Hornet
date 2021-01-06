@@ -11,7 +11,7 @@
 
 /datum/keybinding/client/get_help/down(client/user)
     user.get_adminhelp()
-    return TRUE
+    return EF_TRUE
 
 
 /datum/keybinding/client/screenshot
@@ -22,7 +22,7 @@
 
 /datum/keybinding/client/screenshot/down(client/user)
     winset(user, null, "command=.screenshot [!user.keys_held["shift"] ? "auto" : ""]")
-    return TRUE
+    return EF_TRUE
 
 
 /datum/keybinding/client/toggleminimalhud
@@ -33,7 +33,7 @@
 
 /datum/keybinding/client/toggleminimalhud/down(client/user)
     user.mob.button_pressed_F12()
-    return TRUE
+    return EF_TRUE
 
 
 /datum/keybinding/client/zoomin

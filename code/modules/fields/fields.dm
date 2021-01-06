@@ -96,12 +96,12 @@
 	if(!use_host_turf)
 		if(host.loc != last_host_loc)
 			last_host_loc = host.loc
-			return TRUE
+			return EF_TRUE
 	else
 		if(get_turf(host) != last_host_loc)
 			last_host_loc = get_turf(host)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/proximity_monitor/advanced/proc/recalculate_field(ignore_movement_check = FALSE)	//Call every time the field moves (done automatically if you use update_center) or a setup specification is changed.
 	if(!(ignore_movement_check || check_movement()) && (field_shape != FIELD_NO_SHAPE))
@@ -127,28 +127,28 @@
 			CHECK_TICK
 
 /datum/proximity_monitor/advanced/proc/field_turf_canpass(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_turf/F, turf/entering)
-	return TRUE
+	return EF_TRUE
 
 /datum/proximity_monitor/advanced/proc/field_turf_uncross(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_turf/F)
-	return TRUE
+	return EF_TRUE
 
 /datum/proximity_monitor/advanced/proc/field_turf_crossed(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_turf/F)
-	return TRUE
+	return EF_TRUE
 
 /datum/proximity_monitor/advanced/proc/field_turf_uncrossed(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_turf/F)
-	return TRUE
+	return EF_TRUE
 
 /datum/proximity_monitor/advanced/proc/field_edge_canpass(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_edge/F, turf/entering)
-	return TRUE
+	return EF_TRUE
 
 /datum/proximity_monitor/advanced/proc/field_edge_uncross(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_edge/F)
-	return TRUE
+	return EF_TRUE
 
 /datum/proximity_monitor/advanced/proc/field_edge_crossed(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_edge/F)
-	return TRUE
+	return EF_TRUE
 
 /datum/proximity_monitor/advanced/proc/field_edge_uncrossed(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_edge/F)
-	return TRUE
+	return EF_TRUE
 
 /datum/proximity_monitor/advanced/HandleMove()
 	var/atom/_host = host
@@ -185,13 +185,13 @@
 
 /datum/proximity_monitor/advanced/proc/update_new_turfs()
 	if(!istype(host))
-		return FALSE
+		return EF_FALSE
 	var/turf/center = get_turf(host)
 	field_turfs_new = list()
 	edge_turfs_new = list()
 	switch(field_shape)
 		if(FIELD_NO_SHAPE)
-			return FALSE
+			return EF_FALSE
 		if(FIELD_SHAPE_RADIUS_SQUARE)
 			for(var/turf/T in block(locate(center.x-current_range,center.y-current_range,center.z-square_depth_down),locate(center.x+current_range, center.y+current_range,center.z+square_depth_up)))
 				field_turfs_new += T

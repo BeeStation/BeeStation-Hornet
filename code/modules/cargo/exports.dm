@@ -133,16 +133,16 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 // Checks if the item is fit for export datum.
 /datum/export/proc/applies_to(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
 	if((allowed_categories & export_category) != export_category)
-		return FALSE
+		return EF_FALSE
 	if(!include_subtypes && !(O.type in export_types))
-		return FALSE
+		return EF_FALSE
 	if(include_subtypes && (!is_type_in_typecache(O, export_types) || is_type_in_typecache(O, exclude_types)))
-		return FALSE
+		return EF_FALSE
 	if(!get_cost(O, allowed_categories , apply_elastic))
-		return FALSE
+		return EF_FALSE
 	if(O.flags_1 & HOLOGRAM_1)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 // Called only once, when the object is actually sold by the datum.
 // Adds item's cost and amount to the current export cycle.
@@ -152,7 +152,7 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 	var/amount = get_amount(O)
 
 	if(amount <=0 || the_cost <=0)
-		return FALSE
+		return EF_FALSE
 
 	report.total_value[src] += the_cost
 
@@ -165,7 +165,7 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 		if(apply_elastic)
 			cost *= NUM_E**(-1*k_elasticity*amount)		//marginal cost modifier
 		SSblackbox.record_feedback("nested tally", "export_sold_cost", 1, list("[O.type]", "[the_cost]"))
-	return TRUE
+	return EF_TRUE
 
 // Total printout for the cargo console.
 // Called before the end of current export cycle.

@@ -70,4 +70,4 @@
 
 
 /mob/living/simple_animal/hostile/illusion/escape/AttackingTarget()
-	return FALSE
+	return EF_FALSE

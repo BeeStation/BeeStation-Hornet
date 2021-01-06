@@ -18,7 +18,7 @@
 
 /datum/action/innate/cult/blood_magic/IsAvailable()
 	if(!iscultist(owner))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/action/innate/cult/blood_magic/proc/Positioning()
@@ -116,7 +116,7 @@
 
 /datum/action/innate/cult/blood_spell/IsAvailable()
 	if(!iscultist(owner) || owner.incapacitated()  || !charges)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/action/innate/cult/blood_spell/Activate()
@@ -230,7 +230,7 @@
 
 /datum/action/innate/cult/blood_spell/horror/Activate()
 	PH.toggle(owner) //the important bit
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/proc_holder/horror
 	active = FALSE
@@ -257,7 +257,7 @@
 		return
 	var/turf/T = get_turf(ranged_ability_user)
 	if(!isturf(T))
-		return FALSE
+		return EF_FALSE
 	if(target in view(7, get_turf(ranged_ability_user)))
 		if(!ishuman(target) || iscultist(target))
 			return

@@ -52,11 +52,11 @@
 
 /datum/station_goal/dna_vault/check_completion()
 	if(..())
-		return TRUE
+		return EF_TRUE
 	for(var/obj/machinery/dna_vault/V in GLOB.machines)
 		if(V.animals.len >= animal_count && V.plants.len >= plant_count && V.dna.len >= human_count)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 
 /obj/item/dna_probe

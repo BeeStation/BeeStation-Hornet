@@ -11,7 +11,7 @@
 
 /datum/action/innate/clockcult/warp/IsAvailable()
 	if(!is_servant_of_ratvar(owner) || owner.incapacitated())
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/action/innate/clockcult/warp/Activate()
@@ -77,7 +77,7 @@
 /obj/machinery/computer/camera_advanced/ratvar/can_use(mob/living/user)
 	. = ..()
 	if(!is_servant_of_ratvar(user) || iscogscarab(user))
-		return FALSE
+		return EF_FALSE
 
 /obj/machinery/computer/camera_advanced/ratvar/GrantActions(mob/living/user)
 	. = ..()

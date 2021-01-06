@@ -59,19 +59,19 @@
 	var/static/list/disallowed_centcom_areas = typecacheof(list(/area/abductor_ship, /area/awaymission/errorroom))
 	var/turf/T = get_turf(parent)
 	if (!T)
-		return FALSE
+		return EF_FALSE
 	var/area/A = T.loc
 	if (is_station_level(T.z))
-		return TRUE
+		return EF_TRUE
 	if (is_centcom_level(T.z))
 		if (is_type_in_typecache(A, disallowed_centcom_areas))
-			return FALSE
-		return TRUE
+			return EF_FALSE
+		return EF_TRUE
 	if (is_reserved_level(T.z))
 		if (is_type_in_typecache(A, allowed_shuttles))
-			return TRUE
+			return EF_TRUE
 
-	return FALSE
+	return EF_FALSE
 
 /datum/component/stationloving/proc/check_deletion(datum/source, force) // TRUE = interrupt deletion, FALSE = proceed with deletion
 
@@ -86,5 +86,5 @@
 		log_game("[parent] has been destroyed in [loc_name(T)]. Moving it to [loc_name(targetturf)].")
 		if(inform_admins)
 			message_admins("[parent] has been destroyed in [ADMIN_VERBOSEJMP(T)]. Moving it to [ADMIN_VERBOSEJMP(targetturf)].")
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE

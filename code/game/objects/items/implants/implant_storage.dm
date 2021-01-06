@@ -29,8 +29,8 @@
 			if(!STR || (STR && STR.max_items < max_slot_stacking))
 				imp_e.AddComponent(/datum/component/storage/concrete/implant)
 				qdel(src)
-				return TRUE
-			return FALSE
+				return EF_TRUE
+			return EF_FALSE
 	AddComponent(/datum/component/storage/concrete/implant)
 
 	return ..()

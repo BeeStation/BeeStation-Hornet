@@ -213,10 +213,10 @@
 		admin_key = capped_input(usr, "New admin's key","Admin key")
 		. = ckey(admin_key)
 	if(!.)
-		return FALSE
+		return EF_FALSE
 	if(!admin_ckey && (. in GLOB.admin_datums+GLOB.deadmins))
 		to_chat(usr, "<span class='danger'>[admin_key] is already an admin.</span>")
-		return FALSE
+		return EF_FALSE
 	if(use_db)
 		//if an admin exists without a datum they won't be caught by the above
 		var/datum/DBQuery/query_admin_in_db = SSdbcore.NewQuery(
@@ -225,11 +225,11 @@
 		)
 		if(!query_admin_in_db.warn_execute())
 			qdel(query_admin_in_db)
-			return FALSE
+			return EF_FALSE
 		if(query_admin_in_db.NextRow())
 			qdel(query_admin_in_db)
 			to_chat(usr, "<span class='danger'>[admin_key] already listed in admin database. Check the Management tab if they don't appear in the list of admins.</span>")
-			return FALSE
+			return EF_FALSE
 		qdel(query_admin_in_db)
 		var/datum/DBQuery/query_add_admin = SSdbcore.NewQuery(
 			"INSERT INTO [format_table_name("admin")] (ckey, `rank`) VALUES (:ckey, 'NEW ADMIN')",
@@ -237,7 +237,7 @@
 		)
 		if(!query_add_admin.warn_execute())
 			qdel(query_add_admin)
-			return FALSE
+			return EF_FALSE
 		qdel(query_add_admin)
 		var/datum/DBQuery/query_add_admin_log = SSdbcore.NewQuery({"
 			INSERT INTO [format_table_name("admin_log")] (datetime, round_id, adminckey, adminip, operation, target, log)
@@ -245,7 +245,7 @@
 		"}, list("time" = SQLtime(), "round_id" = "[GLOB.round_id]", "adminckey" = usr.ckey, "adminip" = usr.client.address, "target" = .))
 		if(!query_add_admin_log.warn_execute())
 			qdel(query_add_admin_log)
-			return FALSE
+			return EF_FALSE
 		qdel(query_add_admin_log)
 
 /datum/admins/proc/remove_admin(admin_ckey, admin_key, use_db, datum/admins/D)
@@ -297,7 +297,7 @@
 	deactivate()
 	message_admins("[old_owner] deadmined via auto-deadmin config.")
 	log_admin("[old_owner] deadmined via auto-deadmin config.")
-	return TRUE
+	return EF_TRUE
 
 /datum/admins/proc/change_admin_rank(admin_ckey, admin_key, use_db, datum/admins/D, legacy_only)
 	var/datum/admin_rank/R

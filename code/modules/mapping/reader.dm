@@ -220,7 +220,7 @@
 	if(did_expand)
 		world.refresh_atmos_grid()
 
-	return TRUE
+	return EF_TRUE
 
 /datum/parsed_map/proc/build_cache(no_changeturf, bad_paths=null)
 	if(modelCache && !bad_paths)

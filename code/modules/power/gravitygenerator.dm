@@ -30,7 +30,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	var/ztrait //Set to a valid ZTRAIT define to have the gravgen provide gravity to all of the zlevels with said trait. Ex: ZTRAIT_STATION
 
 /obj/machinery/gravity_generator/safe_throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG)
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/gravity_generator/ex_act(severity, target)
 	if(severity == 1) // Very sturdy.

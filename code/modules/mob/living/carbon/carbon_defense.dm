@@ -44,7 +44,7 @@
 
 /mob/living/carbon/is_mouth_covered(head_only = 0, mask_only = 0)
 	if( (!mask_only && head && (head.flags_cover & HEADCOVERSMOUTH)) || (!head_only && wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH)) )
-		return TRUE
+		return EF_TRUE
 
 /mob/living/carbon/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
 	if(check_head && head && (head.flags_cover & HEADCOVERSEYES))
@@ -69,7 +69,7 @@
 		return
 	if(restrained())
 		return
-	return TRUE
+	return EF_TRUE
 
 /mob/living/carbon/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(!skipcatch)	//ugly, but easy
@@ -123,12 +123,12 @@
 		if(I.sharpness)
 			dismemberthreshold = min(((affecting.max_damage * 2) - affecting.get_damage()), dismemberthreshold) //makes it so limbs wont become immune to being dismembered if the item is sharp
 			if(stat == DEAD)
-				dismemberthreshold = dismemberthreshold / 3 
+				dismemberthreshold = dismemberthreshold / 3
 		if(I.force >= dismemberthreshold && I.force >= 10)
 			if(affecting.dismember(I.damtype))
 				I.add_mob_blood(src)
 				playsound(get_turf(src), I.get_dismember_sound(), 80, 1)
-		return TRUE //successful attack
+		return EF_TRUE //successful attack
 
 /mob/living/carbon/attack_drone(mob/living/simple_animal/drone/user)
 	return //so we don't call the carbon's attack_hand().
@@ -232,9 +232,9 @@
 
 /mob/living/carbon/electrocute_act(shock_damage, source, siemens_coeff = 1, safety = 0, override = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
 	if(tesla_shock && (flags_1 & TESLA_IGNORE_1))
-		return FALSE
+		return EF_FALSE
 	if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
-		return FALSE
+		return EF_FALSE
 	shock_damage *= siemens_coeff
 	if(dna?.species)
 		shock_damage *= dna.species.siemens_coeff

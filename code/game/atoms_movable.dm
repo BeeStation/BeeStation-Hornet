@@ -47,11 +47,11 @@
 	if(!source)
 		source = get_turf(src)
 		if(!source)
-			return FALSE
+			return EF_FALSE
 	if(!target)
 		target = get_step_multiz(source, direction)
 		if(!target)
-			return FALSE
+			return EF_FALSE
 	return !(movement_type & FLYING) && has_gravity(src) && !throwing
 
 /atom/movable/proc/onZImpact(turf/T, levels)
@@ -65,79 +65,79 @@
 				highest = A
 	INVOKE_ASYNC(src, .proc/SpinAnimation, 5, 2)
 	throw_impact(highest)
-	return TRUE
+	return EF_TRUE
 
 //For physical constraints to travelling up/down.
 /atom/movable/proc/can_zTravel(turf/destination, direction)
 	var/turf/T = get_turf(src)
 	if(!T)
-		return FALSE
+		return EF_FALSE
 	if(!direction)
 		if(!destination)
-			return FALSE
+			return EF_FALSE
 		direction = get_dir(T, destination)
 	if(direction != UP && direction != DOWN)
-		return FALSE
+		return EF_FALSE
 	if(!destination)
 		destination = get_step_multiz(src, direction)
 		if(!destination)
-			return FALSE
+			return EF_FALSE
 	return T.zPassOut(src, direction, destination) && destination.zPassIn(src, direction, T)
 
 /atom/movable/vv_edit_var(var_name, var_value)
 	var/static/list/banned_edits = list("step_x", "step_y", "step_size", "bounds")
 	var/static/list/careful_edits = list("bound_x", "bound_y", "bound_width", "bound_height")
 	if(var_name in banned_edits)
-		return FALSE	//PLEASE no.
+		return EF_FALSE	//PLEASE no.
 	if((var_name in careful_edits) && (var_value % world.icon_size) != 0)
-		return FALSE
+		return EF_FALSE
 	switch(var_name)
 		if("x")
 			var/turf/T = locate(var_value, y, z)
 			if(T)
 				forceMove(T)
-				return TRUE
-			return FALSE
+				return EF_TRUE
+			return EF_FALSE
 		if("y")
 			var/turf/T = locate(x, var_value, z)
 			if(T)
 				forceMove(T)
-				return TRUE
-			return FALSE
+				return EF_TRUE
+			return EF_FALSE
 		if("z")
 			var/turf/T = locate(x, y, var_value)
 			if(T)
 				forceMove(T)
-				return TRUE
-			return FALSE
+				return EF_TRUE
+			return EF_FALSE
 		if("loc")
 			if(istype(var_value, /atom))
 				forceMove(var_value)
-				return TRUE
+				return EF_TRUE
 			else if(isnull(var_value))
 				moveToNullspace()
-				return TRUE
-			return FALSE
+				return EF_TRUE
+			return EF_FALSE
 	return ..()
 
 /atom/movable/proc/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
 	if(QDELETED(AM))
-		return FALSE
+		return EF_FALSE
 	if(!(AM.can_be_pulled(src, state, force)))
-		return FALSE
+		return EF_FALSE
 
 	// If we're pulling something then drop what we're currently pulling and pull this instead.
 	if(pulling)
 		if(state == 0)
 			stop_pulling()
-			return FALSE
+			return EF_FALSE
 		// Are we trying to pull something we are already pulling? Then enter grab cycle and end.
 		if(AM == pulling)
 			setGrabState(state)
 			if(istype(AM,/mob/living))
 				var/mob/living/AMob = AM
 				AMob.grabbedby(src)
-			return TRUE
+			return EF_TRUE
 		stop_pulling()
 	if(AM.pulledby)
 		log_combat(AM, AM.pulledby, "pulled from", src)
@@ -151,7 +151,7 @@
 		if(!supress_message)
 			M.visible_message("<span class='warning'>[src] grabs [M] passively.</span>", \
 				"<span class='danger'>[src] grabs you passively.</span>")
-	return TRUE
+	return EF_TRUE
 
 /atom/movable/proc/stop_pulling()
 	if(pulling)
@@ -179,7 +179,7 @@
 	if(!Process_Spacemove(get_dir(pulling.loc, A)))
 		return
 	step(pulling, get_dir(pulling.loc, A))
-	return TRUE
+	return EF_TRUE
 
 /mob/living/Move_Pulled(atom/A)
 	. = ..()
@@ -263,7 +263,7 @@
 	if(!moving_from_pull)
 		check_pulling()
 	if(!loc || !newloc)
-		return FALSE
+		return EF_FALSE
 	var/atom/oldloc = loc
 
 	if(loc != newloc)
@@ -344,7 +344,7 @@
 	last_move = direct
 	setDir(direct)
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc,direct)) //movement failed due to buckled mob(s)
-		return FALSE
+		return EF_FALSE
 
 //Called after a successful Move(). By this point, we've already moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
@@ -355,7 +355,7 @@
 	if (length(client_mobs_in_contents))
 		update_parallax_contents()
 
-	return TRUE
+	return EF_TRUE
 
 /atom/movable/Destroy(force)
 	QDEL_NULL(proximity_monitor)
@@ -395,9 +395,9 @@
 /atom/movable/Uncross(atom/movable/AM, atom/newloc)
 	. = ..()
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_UNCROSS, AM) & COMPONENT_MOVABLE_BLOCK_UNCROSS)
-		return FALSE
+		return EF_FALSE
 	if(isturf(newloc) && !CheckExit(AM, newloc))
-		return FALSE
+		return EF_FALSE
 
 /atom/movable/Uncrossed(atom/movable/AM)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_UNCROSSED, AM)
@@ -636,7 +636,7 @@
 	return 1
 
 /atom/movable/proc/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
-	return FALSE
+	return EF_FALSE
 
 /atom/movable/proc/force_push(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.force_pushed(src, force, direction)
@@ -649,7 +649,7 @@
 		visible_message("<span class='danger'>[src] crushes past [AM]!</span>", "<span class='danger'>You crush [AM]!</span>")
 
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
-	return FALSE
+	return EF_FALSE
 
 /atom/movable/CanPass(atom/movable/mover, turf/target)
 	if(mover in buckled_mobs)
@@ -754,12 +754,12 @@
 
 /atom/movable/proc/ex_check(ex_id)
 	if(!ex_id)
-		return TRUE
+		return EF_TRUE
 	LAZYINITLIST(acted_explosions)
 	if(ex_id in acted_explosions)
-		return FALSE
+		return EF_FALSE
 	acted_explosions += ex_id
-	return TRUE
+	return EF_TRUE
 
 //TODO: Better floating
 /atom/movable/proc/float(on)
@@ -824,7 +824,7 @@
 
 /// Returns the result of tongue specific limitations on spoken languages.
 /atom/movable/proc/could_speak_language(language)
-	return TRUE
+	return EF_TRUE
 
 /// Returns selected language, if it can be spoken, or finds, sets and returns a new selected language if possible.
 /atom/movable/proc/get_selected_language()
@@ -865,12 +865,12 @@
 
 /atom/movable/proc/can_be_pulled(user, grab_state, force)
 	if(src == user || !isturf(loc))
-		return FALSE
+		return EF_FALSE
 	if(anchored || throwing)
-		return FALSE
+		return EF_FALSE
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /// Updates the grab state of the movable
 /// This exists to act as a hook for behaviour

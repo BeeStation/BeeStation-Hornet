@@ -55,7 +55,7 @@
 /mob/living/simple_animal/hostile/asteroid/curseblob/proc/check_for_target()
 	if(QDELETED(set_target) || set_target.stat != CONSCIOUS || z != set_target.z)
 		qdel(src)
-		return TRUE
+		return EF_TRUE
 
 /mob/living/simple_animal/hostile/asteroid/curseblob/GiveTarget(new_target)
 	if(check_for_target())
@@ -71,12 +71,12 @@
 //if it's not our target, we ignore it
 /mob/living/simple_animal/hostile/asteroid/curseblob/CanPass(atom/movable/mover, turf/target)
 	if(mover == set_target)
-		return FALSE
+		return EF_FALSE
 	if(istype(mover, /obj/item/projectile))
 		var/obj/item/projectile/P = mover
 		if(P.firer == set_target)
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 #define IGNORE_PROC_IF_NOT_TARGET(X) /mob/living/simple_animal/hostile/asteroid/curseblob/##X(AM) { if (AM == set_target) return ..(); }
 

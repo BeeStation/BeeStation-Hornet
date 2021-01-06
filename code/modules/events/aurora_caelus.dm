@@ -7,7 +7,7 @@
 
 /datum/round_event_control/aurora_caelus/canSpawnEvent(players, gamemode)
 	if(!CONFIG_GET(flag/starlight))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/round_event/aurora_caelus

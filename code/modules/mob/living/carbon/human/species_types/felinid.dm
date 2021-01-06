@@ -15,7 +15,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 /datum/species/human/felinid/qualifies_for_rank(rank, list/features)
-	return TRUE
+	return EF_TRUE
 
 //Curiosity killed the cat's wagging tail.
 /datum/species/human/felinid/spec_death(gibbed, mob/living/carbon/human/H)
@@ -106,7 +106,7 @@
 		if(prob(15))
 			var/obj/item/organ/guts = pick(M.internal_organs)
 			guts.applyOrganDamage(15)
-		return FALSE
+		return EF_FALSE
 
 
 /proc/mass_purrbation()

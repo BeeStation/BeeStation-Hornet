@@ -169,7 +169,7 @@
 			ConnectionFailure(H)
 
 	if(QDELETED(src))
-		return FALSE
+		return EF_FALSE
 
 	. = !QDELETED(user) && !user.incapacitated() && !QDELETED(calling_holopad) && calling_holopad.is_operational() && user.loc == calling_holopad.loc
 

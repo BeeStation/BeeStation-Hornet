@@ -28,14 +28,14 @@
 
 /obj/machinery/rnd/proc/shock(mob/user, prb)
 	if(stat & (BROKEN|NOPOWER))		// unpowered, no shock
-		return FALSE
+		return EF_FALSE
 	if(!prob(prb))
-		return FALSE
+		return EF_FALSE
 	do_sparks(5, TRUE, src)
 	if (electrocute_mob(user, get_area(src), src, 0.7, TRUE))
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /obj/machinery/rnd/attackby(obj/item/O, mob/user, params)
 	if (default_deconstruction_screwdriver(user, "[initial(icon_state)]_t", initial(icon_state), O))
@@ -46,11 +46,11 @@
 		return
 	if(panel_open && is_wire_tool(O))
 		wires.interact(user)
-		return TRUE
+		return EF_TRUE
 	if(is_refillable() && O.is_drainable())
-		return FALSE //inserting reagents into the machine
+		return EF_FALSE //inserting reagents into the machine
 	if(Insert_Item(O, user))
-		return TRUE
+		return EF_TRUE
 	else
 		return ..()
 
@@ -66,26 +66,26 @@
 /obj/machinery/rnd/proc/is_insertion_ready(mob/user)
 	if(panel_open)
 		to_chat(user, "<span class='warning'>You can't load [src] while it's opened!</span>")
-		return FALSE
+		return EF_FALSE
 	if(disabled)
 		to_chat(user, "<span class='warning'>The insertion belts of [src] won't engage!</span>")
-		return FALSE
+		return EF_FALSE
 	if(requires_console && !linked_console)
 		to_chat(user, "<span class='warning'>[src] must be linked to an R&D console first!</span>")
-		return FALSE
+		return EF_FALSE
 	if(busy)
 		to_chat(user, "<span class='warning'>[src] is busy right now.</span>")
-		return FALSE
+		return EF_FALSE
 	if(stat & BROKEN)
 		to_chat(user, "<span class='warning'>[src] is broken.</span>")
-		return FALSE
+		return EF_FALSE
 	if(stat & NOPOWER)
 		to_chat(user, "<span class='warning'>[src] has no power.</span>")
-		return FALSE
+		return EF_FALSE
 	if(loaded_item)
 		to_chat(user, "<span class='warning'>[src] is already loaded.</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 //we eject the loaded item when deconstructing the machine
 /obj/machinery/rnd/on_deconstruction()

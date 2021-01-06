@@ -27,7 +27,7 @@
 	for(var/obj/machinery/light/L in range(4, user))
 		L.on = 1
 		L.break_light_tube()
-	return TRUE
+	return EF_TRUE
 
 /datum/action/changeling/dissonant_shriek
 	name = "Dissonant Shriek"
@@ -42,4 +42,4 @@
 		L.on = 1
 		L.break_light_tube()
 	empulse(get_turf(user), 2, 5, 1)
-	return TRUE
+	return EF_TRUE

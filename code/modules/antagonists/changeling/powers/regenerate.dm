@@ -38,7 +38,7 @@
 		var/mob/living/carbon/human/H = user
 		H.restore_blood()
 		H.remove_all_embedded_objects()
-	return TRUE
+	return EF_TRUE
 
 /datum/action/changeling/limbsnake
 	name = "Chimera"
@@ -78,7 +78,7 @@
 	var/mob/living/snek = new /mob/living/simple_animal/hostile/poison/limbsnake(get_turf(user))
 	//assign faction
 	snek.faction |= "[REF(C)]"
-	return TRUE
+	return EF_TRUE
 
 /mob/living/simple_animal/hostile/poison/limbsnake
 	name = "limb snake"

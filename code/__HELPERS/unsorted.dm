@@ -178,15 +178,15 @@ Turf and target are separate in case you want to teleport some distance from a t
 /// Returns whether or not a player is a guest using their ckey as an input
 /proc/IsGuestKey(key)
 	if (findtext(key, "Guest-", 1, 7) != 1) //was findtextEx
-		return FALSE
+		return EF_FALSE
 
 	var/i, ch, len = length(key)
 
 	for (i = 7, i <= len, ++i) //we know the first 6 chars are Guest-
 		ch = text2ascii(key, i)
 		if (ch < 48 || ch > 57) //0-9
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 //// Generalised helper proc for letting mobs rename themselves. Used to be clname() and ainame()
 /mob/proc/apply_pref_name(role, client/C)
@@ -213,7 +213,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 				if("ai")
 					newname = pick(GLOB.ai_names)
 				else
-					return FALSE
+					return EF_FALSE
 
 		for(var/mob/living/M in GLOB.player_list)
 			if(M == src)
@@ -227,8 +227,8 @@ Turf and target are separate in case you want to teleport some distance from a t
 
 	if(newname)
 		fully_replace_character_name(oldname,newname)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 
 /// Picks a string of symbols to display as the law number for hacked or ion laws
@@ -832,7 +832,7 @@ GLOBAL_LIST_INIT(WALLITEMS_INVERSE, typecacheof(list(
 	That said, this proc should not be used if the change facing proc of the click code is overridden at the same time*/
 	if(!ismob(target) || !(target.mobility_flags & MOBILITY_STAND))
 	//Make sure we are not doing this for things that can't have a logical direction to the players given that the target would be on their side
-		return FALSE
+		return EF_FALSE
 	if(initator.dir == target.dir) //mobs are facing the same direction
 		return FACING_SAME_DIR
 	if(is_A_facing_B(initator,target) && is_A_facing_B(target,initator)) //mobs are facing each other
@@ -904,18 +904,18 @@ GLOBAL_LIST_INIT(WALLITEMS_INVERSE, typecacheof(list(
 //If one of them is a match, then A is facing B
 /proc/is_A_facing_B(atom/A,atom/B)
 	if(!istype(A) || !istype(B))
-		return FALSE
+		return EF_FALSE
 	if(isliving(A))
 		var/mob/living/LA = A
 		if(!(LA.mobility_flags & MOBILITY_STAND))
-			return FALSE
+			return EF_FALSE
 	var/goal_dir = get_dir(A,B)
 	var/clockwise_A_dir = turn(A.dir, -45)
 	var/anticlockwise_A_dir = turn(A.dir, 45)
 
 	if(A.dir == goal_dir || clockwise_A_dir == goal_dir || anticlockwise_A_dir == goal_dir)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 
 /*
@@ -1327,23 +1327,23 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 //can a window be here, or is there a window blocking it?
 /proc/valid_window_location(turf/T, dir_to_check)
 	if(!T)
-		return FALSE
+		return EF_FALSE
 	for(var/obj/O in T)
 		if(istype(O, /obj/machinery/door/window) && (O.dir == dir_to_check || dir_to_check == FULLTILE_WINDOW_DIR))
-			return FALSE
+			return EF_FALSE
 		if(istype(O, /obj/structure/windoor_assembly))
 			var/obj/structure/windoor_assembly/W = O
 			if(W.ini_dir == dir_to_check || dir_to_check == FULLTILE_WINDOW_DIR)
-				return FALSE
+				return EF_FALSE
 		if(istype(O, /obj/structure/window))
 			var/obj/structure/window/W = O
 			if(W.ini_dir == dir_to_check || W.ini_dir == FULLTILE_WINDOW_DIR || dir_to_check == FULLTILE_WINDOW_DIR)
-				return FALSE
+				return EF_FALSE
 		if(istype(O, /obj/structure/railing))
 			var/obj/structure/railing/rail = O
 			if(rail.ini_dir == dir_to_check || rail.ini_dir == FULLTILE_WINDOW_DIR || dir_to_check == FULLTILE_WINDOW_DIR)
-				return FALSE
-	return TRUE
+				return EF_FALSE
+	return EF_TRUE
 
 #define UNTIL(X) while(!(X)) stoplag()
 
@@ -1376,7 +1376,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /// same as do_mob except for movables and it allows both to drift and doesn't draw progressbar
 /proc/do_atom(atom/movable/user , atom/movable/target, time = 30, uninterruptible = 0,datum/callback/extra_checks = null)
 	if(!user || !target)
-		return TRUE
+		return EF_TRUE
 	var/user_loc = user.loc
 
 	var/drifting = FALSE

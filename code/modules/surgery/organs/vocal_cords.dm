@@ -14,7 +14,7 @@
 	var/list/spans = null
 
 /obj/item/organ/vocal_cords/proc/can_speak_with() //if there is any limitation to speaking with these cords
-	return TRUE
+	return EF_TRUE
 
 /obj/item/organ/vocal_cords/proc/speak_with(message) //do what the organ does
 	return
@@ -75,17 +75,17 @@
 
 /datum/action/item_action/organ_action/colossus/IsAvailable()
 	if(world.time < cords.next_command)
-		return FALSE
+		return EF_FALSE
 	if(!owner)
-		return FALSE
+		return EF_FALSE
 	if(isliving(owner))
 		var/mob/living/L = owner
 		if(!L.can_speak_vocal())
-			return FALSE
+			return EF_FALSE
 	if(check_flags & AB_CHECK_CONSCIOUS)
 		if(owner.stat)
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/action/item_action/organ_action/colossus/Trigger()
 	. = ..()
@@ -103,13 +103,13 @@
 /obj/item/organ/vocal_cords/colossus/can_speak_with()
 	if(world.time < next_command)
 		to_chat(owner, "<span class='notice'>You must wait [DisplayTimeText(next_command - world.time)] before Speaking again.</span>")
-		return FALSE
+		return EF_FALSE
 	if(!owner)
-		return FALSE
+		return EF_FALSE
 	if(!owner.can_speak_vocal())
 		to_chat(owner, "<span class='warning'>You are unable to speak!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/item/organ/vocal_cords/colossus/handle_speech(message)
 	playsound(get_turf(owner), 'sound/magic/clockwork/invoke_general.ogg', 300, 1, 5)

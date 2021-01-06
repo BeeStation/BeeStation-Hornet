@@ -19,11 +19,11 @@
 
 /datum/surgery/advanced/brainwashing/can_start(mob/user, mob/living/carbon/target)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	var/obj/item/organ/brain/B = target.getorganslot(ORGAN_SLOT_BRAIN)
 	if(!B)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/surgery_step/brainwash
 	name = "brainwash"
@@ -42,10 +42,10 @@
 /datum/surgery_step/brainwash/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!target.mind)
 		to_chat(user, "<span class='warning'>[target] doesn't respond to the brainwashing, as if [target.p_they()] lacked a mind...</span>")
-		return FALSE
+		return EF_FALSE
 	if(HAS_TRAIT(target, TRAIT_MINDSHIELD))
 		to_chat(user, "<span class='warning'>You hear a faint buzzing from a device inside [target]'s brain, and the brainwashing is erased.</span>")
-		return FALSE
+		return EF_FALSE
 	display_results(user, target, "<span class='notice'>You succeed in brainwashing [target].</span>",
 		"[user] successfully fixes [target]'s brain!",
 		"[user] completes the surgery on [target]'s brain.")
@@ -53,7 +53,7 @@
 	brainwash(target, objective)
 	message_admins("[ADMIN_LOOKUPFLW(user)] surgically brainwashed [ADMIN_LOOKUPFLW(target)] with the objective '[objective]'.")
 	log_game("[key_name(user)] surgically brainwashed [key_name(target)] with the objective '[objective]'.")
-	return TRUE
+	return EF_TRUE
 
 /datum/surgery_step/brainwash/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(target.getorganslot(ORGAN_SLOT_BRAIN))
@@ -63,4 +63,4 @@
 		target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 40)
 	else
 		user.visible_message("<span class='warning'>[user] suddenly notices that the brain [user.p_they()] [user.p_were()] working on is not there anymore.", "<span class='warning'>You suddenly notice that the brain you were working on is not there anymore.</span>")
-	return FALSE
+	return EF_FALSE

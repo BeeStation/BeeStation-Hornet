@@ -12,7 +12,7 @@
 /datum/keybinding/admin/admin_say/down(client/user)
 	if (!user.holder) return
 	user.get_admin_say()
-	return TRUE
+	return EF_TRUE
 
 
 /datum/keybinding/admin/mentor_say
@@ -24,7 +24,7 @@
 /datum/keybinding/admin/mentor_say/down(client/user)
 	if (!user.holder) return
 	user.get_mentor_say()
-	return TRUE
+	return EF_TRUE
 
 
 /datum/keybinding/admin/admin_ghost
@@ -36,7 +36,7 @@
 /datum/keybinding/admin/admin_ghost/down(client/user)
 	if (!user.holder) return
 	user.admin_ghost()
-	return TRUE
+	return EF_TRUE
 
 
 /datum/keybinding/admin/player_panel
@@ -48,7 +48,7 @@
 /datum/keybinding/admin/player_panel/down(client/user)
 	if (!user.holder) return
 	user.holder.player_panel_new()
-	return TRUE
+	return EF_TRUE
 
 
 /datum/keybinding/admin/build_mode
@@ -60,7 +60,7 @@
 /datum/keybinding/admin/build_mode/down(client/user)
 	if (!user.holder) return
 	user.togglebuildmodeself()
-	return TRUE
+	return EF_TRUE
 
 
 /datum/keybinding/admin/invismin
@@ -72,7 +72,7 @@
 /datum/keybinding/admin/invismin/down(client/user)
 	if (!user.holder) return
 	user.invisimin()
-	return TRUE
+	return EF_TRUE
 
 
 /datum/keybinding/admin/dead_say
@@ -83,4 +83,4 @@
 
 /datum/keybinding/admin/dead_say/down(client/user)
 	user.get_dead_say()
-	return TRUE
+	return EF_TRUE

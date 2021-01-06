@@ -132,7 +132,7 @@
 		return BODY_ZONE_CHEST
 
 /obj/item/projectile/proc/prehit(atom/target)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/projectile/proc/on_hit(atom/target, blocked = FALSE)
 	if(fired_from)
@@ -243,7 +243,7 @@
 			range = decayedRange
 			if(hitscan)
 				store_hitscan_collision(pcache)
-			return TRUE
+			return EF_TRUE
 
 	var/distance = get_dist(T, starting) // Get the distance between the turf shot from and the mob we hit and use that for the calculations.
 	def_zone = ran_zone(def_zone, max(100-(7*distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
@@ -318,17 +318,17 @@
 
 /obj/item/projectile/proc/check_ricochet()
 	if(prob(ricochet_chance))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/item/projectile/proc/check_ricochet_flag(atom/A)
 	if(A.flags_1 & CHECK_RICOCHET_1)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/item/projectile/proc/return_predicted_turf_after_moves(moves, forced_angle)		//I say predicted because there's no telling that the projectile won't change direction/location in flight.
 	if(!trajectory && isnull(forced_angle) && isnull(Angle))
-		return FALSE
+		return EF_FALSE
 	var/datum/point/vector/current = trajectory
 	if(!current)
 		var/turf/T = get_turf(src)
@@ -342,7 +342,7 @@
 	return getline(current, ending)
 
 /obj/item/projectile/Process_Spacemove(movement_dir = 0)
-	return TRUE	//Bullets don't drift in space
+	return EF_TRUE	//Bullets don't drift in space
 
 /obj/item/projectile/process()
 	last_process = world.time
@@ -415,7 +415,7 @@
 		transform = M
 	if(trajectory)
 		trajectory.set_angle(new_angle)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/projectile/forceMove(atom/target)
 	if(!isloc(target) || !isloc(loc) || !z)
@@ -442,15 +442,15 @@
 	switch(var_name)
 		if(NAMEOF(src, Angle))
 			setAngle(var_value)
-			return TRUE
+			return EF_TRUE
 		else
 			return ..()
 
 /obj/item/projectile/proc/set_pixel_speed(new_speed)
 	if(trajectory)
 		trajectory.set_speed(new_speed)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/item/projectile/proc/record_hitscan_start(datum/point/pcache)
 	if(pcache)
@@ -515,7 +515,7 @@
 
 /obj/item/projectile/proc/process_homing()			//may need speeding up in the future performance wise.
 	if(!homing_target)
-		return FALSE
+		return EF_FALSE
 	var/datum/point/PT = RETURN_PRECISE_POINT(homing_target)
 	PT.x += CLAMP(homing_offset_x, 1, world.maxx)
 	PT.y += CLAMP(homing_offset_y, 1, world.maxy)
@@ -524,7 +524,7 @@
 
 /obj/item/projectile/proc/set_homing_target(atom/A)
 	if(!A || (!isturf(A) && !isturf(A.loc)))
-		return FALSE
+		return EF_FALSE
 	homing = TRUE
 	homing_target = A
 	homing_offset_x = rand(homing_inaccuracy_min, homing_inaccuracy_max)
@@ -538,26 +538,26 @@
 //If direct target is true it's the originally clicked target.
 /obj/item/projectile/proc/can_hit_target(atom/target, list/passthrough, direct_target = FALSE, ignore_loc = FALSE)
 	if(QDELETED(target))
-		return FALSE
+		return EF_FALSE
 	if(!ignore_source_check && firer)
 		var/mob/M = firer
 		if((target == firer) || ((target == firer.loc) && ismecha(firer.loc)) || (target in firer.buckled_mobs) || (istype(M) && (M.buckled == target)))
-			return FALSE
+			return EF_FALSE
 	if(!ignore_loc && (loc != target.loc))
-		return FALSE
+		return EF_FALSE
 	if(target in passthrough)
-		return FALSE
+		return EF_FALSE
 	if(target.density)		//This thing blocks projectiles, hit it regardless of layer/mob stuns/etc.
-		return TRUE
+		return EF_TRUE
 	if(!isliving(target))
 		if(target.layer < PROJECTILE_HIT_THRESHHOLD_LAYER)
-			return FALSE
+			return EF_FALSE
 	else
 		var/mob/living/L = target
 		if(!direct_target)
 			if(!CHECK_BITFIELD(L.mobility_flags, MOBILITY_USE | MOBILITY_STAND | MOBILITY_MOVE) || !(L.stat == CONSCIOUS))		//If they're able to 1. stand or 2. use items or 3. move, AND they are not softcrit,  they are not stunned enough to dodge projectiles passing over.
-				return FALSE
-	return TRUE
+				return EF_FALSE
+	return EF_TRUE
 
 //Spread is FORCED!
 /obj/item/projectile/proc/preparePixelProjectile(atom/target, atom/source, params, spread = 0)

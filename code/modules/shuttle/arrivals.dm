@@ -108,25 +108,25 @@
 		var/turf/open/T = get_turf(I)
 		var/pressure = T.air.return_pressure()
 		if(pressure < HAZARD_LOW_PRESSURE || pressure > HAZARD_HIGH_PRESSURE)	//simple safety check
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/docking_port/mobile/arrivals/proc/PersonCheck()
 	for(var/V in GLOB.player_list)
 		var/mob/M = V
 		if((get_area(M) in areas) && M.stat != DEAD)
 			if(!iscameramob(M))
-				return TRUE
+				return EF_TRUE
 			var/mob/camera/C = M
 			if(C.move_on_shuttle)
-				return TRUE
-	return FALSE
+				return EF_TRUE
+	return EF_FALSE
 
 /obj/docking_port/mobile/arrivals/proc/NukeDiskCheck()
 	for (var/obj/item/disk/nuclear/N in GLOB.poi_list)
 		if (get_area(N) in areas)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/docking_port/mobile/arrivals/proc/SendToStation()
 	var/dockTime = CONFIG_GET(number/arrivals_shuttle_dock_window)

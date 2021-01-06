@@ -408,7 +408,7 @@
 		qdel(query_vote_option)
 		return
 	qdel(query_vote_option)
-	return TRUE
+	return EF_TRUE
 
 /**
   * Processes response form data and saves results to the database for a text response type poll.
@@ -440,7 +440,7 @@
 		qdel(query_vote_text)
 		return
 	qdel(query_vote_text)
-	return TRUE
+	return EF_TRUE
 
 /**
   * Processes vote form data and saves results to the database for a rating type poll.
@@ -483,7 +483,7 @@
 			"rating" = href_list[h]
 		))
 	SSdbcore.MassInsert(format_table_name("poll_vote"), sql_votes, duplicate_key = TRUE, special_columns = special_columns)
-	return TRUE
+	return EF_TRUE
 
 /**
   * Processes vote form data and saves results to the database for a multiple choice type poll.
@@ -530,7 +530,7 @@
 		return
 	qdel(query_delete_multi_votes)
 	SSdbcore.MassInsert(format_table_name("poll_vote"), sql_votes, special_columns = special_columns)
-	return TRUE
+	return EF_TRUE
 
 /**
   * Processes vote form data and saves results to the database for an IRV type poll.
@@ -570,4 +570,4 @@
 		return
 	qdel(query_delete_irv_votes)
 	SSdbcore.MassInsert(format_table_name("poll_vote"), sql_votes, special_columns = special_columns)
-	return TRUE
+	return EF_TRUE

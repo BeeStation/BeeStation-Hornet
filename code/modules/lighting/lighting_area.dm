@@ -4,7 +4,7 @@
 
 /area/proc/set_dynamic_lighting(var/new_dynamic_lighting = DYNAMIC_LIGHTING_ENABLED)
 	if (new_dynamic_lighting == dynamic_lighting)
-		return FALSE
+		return EF_FALSE
 
 	dynamic_lighting = new_dynamic_lighting
 
@@ -20,11 +20,11 @@
 			if (T.lighting_object)
 				T.lighting_clear_overlay()
 
-	return TRUE
+	return EF_TRUE
 
 /area/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if("dynamic_lighting")
 			set_dynamic_lighting(var_value)
-			return TRUE
+			return EF_TRUE
 	return ..()

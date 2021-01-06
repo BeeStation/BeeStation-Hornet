@@ -19,11 +19,11 @@
 
 /datum/station_goal/bluespace_cannon/check_completion()
 	if(..())
-		return TRUE
+		return EF_TRUE
 	var/obj/machinery/bsa/full/B = locate()
 	if(B && !B.stat)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/bsa
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
@@ -33,7 +33,7 @@
 /obj/machinery/bsa/wrench_act(mob/living/user, obj/item/I)
 	..()
 	default_unfasten_wrench(user, I, 10)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/bsa/back
 	name = "Bluespace Artillery Generator"
@@ -46,7 +46,7 @@
 	var/obj/item/multitool/M = I
 	M.buffer = src
 	to_chat(user, "<span class='notice'>You store linkage information in [I]'s buffer.</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/bsa/front
 	name = "Bluespace Artillery Bore"
@@ -59,7 +59,7 @@
 	var/obj/item/multitool/M = I
 	M.buffer = src
 	to_chat(user, "<span class='notice'>You store linkage information in [I]'s buffer.</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/bsa/middle
 	name = "Bluespace Artillery Fusor"
@@ -83,7 +83,7 @@
 			to_chat(user, "<span class='notice'>You link [src] with [front].</span>")
 	else
 		to_chat(user, "<span class='warning'>[I]'s data buffer is empty!</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/bsa/middle/proc/check_completion()
 	if(!front || !back)
@@ -109,8 +109,8 @@
 
 	for(var/turf/T in block(locate(x_min,y-1,z),locate(x_max,y+1,z)))
 		if(T.density || isspaceturf(T))
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/bsa/middle/proc/get_cannon_direction()
 	if(front.x > x && back.x < x)
@@ -135,7 +135,7 @@
 	appearance_flags = NONE //Removes default TILE_BOUND
 
 /obj/machinery/bsa/full/wrench_act(mob/living/user, obj/item/I)
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/bsa/full/proc/get_front_turf()
 	switch(dir)

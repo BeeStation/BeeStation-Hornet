@@ -3,19 +3,19 @@
 	for(var/thing in diseases)
 		var/datum/disease/DD = thing
 		if(D.IsSame(DD))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 
 /mob/living/proc/CanContractDisease(datum/disease/D)
 	if(stat == DEAD && !D.process_dead)
-		return FALSE
+		return EF_FALSE
 
 	if(D.GetDiseaseID() in disease_resistances)
-		return FALSE
+		return EF_FALSE
 
 	if(HasDisease(D))
-		return FALSE
+		return EF_FALSE
 
 	var/can_infect = FALSE
 	for(var/host_type in D.infectable_biotypes)
@@ -23,23 +23,23 @@
 			can_infect = TRUE
 			break
 	if(!can_infect)
-		return FALSE
+		return EF_FALSE
 
 	if(!(type in D.viable_mobtypes))
-		return FALSE
+		return EF_FALSE
 
-	return TRUE
+	return EF_TRUE
 
 
 /mob/living/proc/ContactContractDisease(datum/disease/D)
 	if(!CanContractDisease(D))
-		return FALSE
+		return EF_FALSE
 	D.try_infect(src)
 
 
 /mob/living/carbon/ContactContractDisease(datum/disease/D, target_zone)
 	if(!CanContractDisease(D))
-		return FALSE
+		return EF_FALSE
 
 	var/obj/item/clothing/Cl = null
 	var/passed = TRUE
@@ -127,22 +127,22 @@
 	if(!CanContractDisease(D))
 		if(del_on_fail)
 			qdel(D)
-		return FALSE
+		return EF_FALSE
 	if(!D.try_infect(src, make_copy))
 		if(del_on_fail)
 			qdel(D)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 
 /mob/living/carbon/human/CanContractDisease(datum/disease/D)
 	if(dna)
 		if(HAS_TRAIT(src, TRAIT_VIRUSIMMUNE) && !D.bypasses_immunity)
-			return FALSE
+			return EF_FALSE
 
 	for(var/thing in D.required_organs)
 		if(!((locate(thing) in bodyparts) || (locate(thing) in internal_organs)))
-			return FALSE
+			return EF_FALSE
 	return ..()
 
 /mob/living/proc/CanSpreadAirborneDisease()

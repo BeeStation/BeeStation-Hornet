@@ -18,7 +18,7 @@
 
 /datum/species/zombie/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /datum/species/zombie/infectious
@@ -34,7 +34,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 
 /datum/species/zombie/infectious/check_roundstart_eligible()
-	return FALSE
+	return EF_FALSE
 
 
 /datum/species/zombie/infectious/spec_stun(mob/living/carbon/human/H,amount)
@@ -48,7 +48,7 @@
 /datum/species/zombie/infectious/spec_life(mob/living/carbon/C)
 	. = ..()
 	C.a_intent = INTENT_HARM // THE SUFFERING MUST FLOW
-	
+
 	//Zombies never actually die, they just fall down until they regenerate enough to rise back up.
 	//They must be restrained, beheaded or gibbed to stop being a threat.
 	if(regen_cooldown < world.time)
@@ -59,7 +59,7 @@
 		C.adjustToxLoss(-heal_amt)
 	if(!C.InCritical() && prob(4))
 		playsound(C, pick(spooks), 50, TRUE, 10)
-		
+
 //Congrats you somehow died so hard you stopped being a zombie
 /datum/species/zombie/infectious/spec_death(mob/living/carbon/C)
 	. = ..()

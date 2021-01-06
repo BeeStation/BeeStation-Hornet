@@ -48,24 +48,24 @@ Doesn't work on other aliens/AI.*/
 	if(user.stat)
 		if(!silent)
 			to_chat(user, "<span class='noticealien'>You must be conscious to do this.</span>")
-		return FALSE
+		return EF_FALSE
 	if(user.getPlasma() < plasma_cost)
 		if(!silent)
 			to_chat(user, "<span class='noticealien'>Not enough plasma stored.</span>")
-		return FALSE
+		return EF_FALSE
 	if(check_turf && (!isturf(user.loc) || isspaceturf(user.loc)))
 		if(!silent)
 			to_chat(user, "<span class='noticealien'>Bad place for a garden!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/effect/proc_holder/alien/proc/check_vent_block(mob/living/user)
 	var/obj/machinery/atmospherics/components/unary/atmos_thing = locate() in user.loc
 	if(atmos_thing)
 		var/rusure = alert(user, "Laying eggs and shaping resin here would block access to [atmos_thing]. Do you want to continue?", "Blocking Atmospheric Component", "Yes", "No")
 		if(rusure != "Yes")
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /obj/effect/proc_holder/alien/plant
 	name = "Plant Weeds"
@@ -219,7 +219,7 @@ Doesn't work on other aliens/AI.*/
 	var/turf/T = user.loc
 	var/turf/U = get_step(user, user.dir) // Get the tile infront of the move, based on their direction
 	if(!isturf(U) || !isturf(T))
-		return FALSE
+		return EF_FALSE
 
 	user.visible_message("<span class='danger'>[user] spits neurotoxin!", "<span class='alertalien'>You spit neurotoxin.</span>")
 	var/obj/item/projectile/bullet/neurotoxin/A = new /obj/item/projectile/bullet/neurotoxin(user.loc)
@@ -228,7 +228,7 @@ Doesn't work on other aliens/AI.*/
 	user.newtonian_move(get_dir(U, T))
 	user.adjustPlasma(-p_cost)
 
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/proc_holder/alien/neurotoxin/on_lose(mob/living/carbon/user)
 	remove_ranged_ability()
@@ -262,22 +262,22 @@ Doesn't work on other aliens/AI.*/
 /obj/effect/proc_holder/alien/resin/fire(mob/living/carbon/user)
 	if(locate(/obj/structure/alien/resin) in user.loc)
 		to_chat(user, "<span class='danger'>There is already a resin structure there.</span>")
-		return FALSE
+		return EF_FALSE
 
 	if(!check_vent_block(user))
-		return FALSE
+		return EF_FALSE
 
 	var/choice = input("Choose what you wish to shape.","Resin building") as null|anything in structures
 	if(!choice)
-		return FALSE
+		return EF_FALSE
 	if (!cost_check(check_turf,user))
-		return FALSE
+		return EF_FALSE
 	to_chat(user, "<span class='notice'>You shape a [choice].</span>")
 	user.visible_message("<span class='notice'>[user] vomits up a thick purple substance and begins to shape it.</span>")
 
 	choice = structures[choice]
 	new choice(user.loc)
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/proc_holder/alien/sneak
 	name = "Sneak"

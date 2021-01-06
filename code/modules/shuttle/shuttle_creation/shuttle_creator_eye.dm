@@ -16,7 +16,7 @@
 	user.sight = BLIND|SEE_TURFS
 	user.lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 	user.sync_lighting_plane_alpha()
-	return TRUE
+	return EF_TRUE
 
 /mob/camera/aiEye/remote/shuttle_creation/relaymove(mob/user, direct)
 	dir = direct //This camera eye is visible as a drone, and needs to keep the dir updated

@@ -17,7 +17,7 @@
 	var/toggle = TRUE
 
 /obj/item/transfer_valve/IsAssemblyHolder()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/transfer_valve/attackby(obj/item/item, mob/user, params)
 	if(istype(item, /obj/item/tank))

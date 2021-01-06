@@ -15,15 +15,15 @@
 
 /obj/item/chromosome/proc/can_apply(datum/mutation/human/HM)
 	if(!HM || !(HM.can_chromosome == CHROMOSOME_NONE))
-		return FALSE
+		return EF_FALSE
 	if((stabilizer_coeff != 1) && (HM.stabilizer_coeff != -1)) //if the chromosome is 1, we dont change anything. If the mutation is -1, we cant change it. sorry
-		return TRUE
+		return EF_TRUE
 	if((synchronizer_coeff != 1) && (HM.synchronizer_coeff != -1))
-		return TRUE
+		return EF_TRUE
 	if((power_coeff != 1) && (HM.power_coeff != -1))
-		return TRUE
+		return EF_TRUE
 	if((energy_coeff != 1) && (HM.energy_coeff != -1))
-		return TRUE
+		return EF_TRUE
 
 /obj/item/chromosome/proc/apply(datum/mutation/human/HM)
 	if(HM.stabilizer_coeff != -1)
@@ -84,7 +84,7 @@
 
 /obj/item/chromosome/reinforcer/can_apply(datum/mutation/human/HM)
 	if(!HM || !(HM.can_chromosome == CHROMOSOME_NONE))
-		return FALSE
+		return EF_FALSE
 	return !HM.mutadone_proof
 
 /obj/item/chromosome/reinforcer/apply(datum/mutation/human/HM)

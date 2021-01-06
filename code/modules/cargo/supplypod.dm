@@ -108,7 +108,7 @@
 
 /obj/structure/closet/supplypod/tool_interact(obj/item/W, mob/user)
 	if(bluespace) //We dont want to worry about interacting with bluespace pods, as they are due to delete themselves soon anyways.
-		return FALSE
+		return EF_FALSE
 	else
 		..()
 
@@ -119,7 +119,7 @@
 	return
 
 /obj/structure/closet/supplypod/prevent_content_explosion() //Useful for preventing epicenter explosions from damaging contents
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/closet/supplypod/toggle(mob/living/user) //Supplypods shouldn't be able to be manually opened under any circumstances, as the open() proc generates supply order datums
 	return

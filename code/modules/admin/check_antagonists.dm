@@ -79,10 +79,10 @@
 
 //Moves them to the top of the list if TRUE
 /datum/antagonist/proc/is_gamemode_hero()
-	return FALSE
+	return EF_FALSE
 
 /datum/team/proc/is_gamemode_hero()
-	return FALSE
+	return EF_FALSE
 
 /datum/admins/proc/build_antag_listing()
 	var/list/sections = list()

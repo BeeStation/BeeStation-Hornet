@@ -36,7 +36,7 @@
 	desc = "It's Vector the hamster. Definitely not a source of deadly diseases."
 	var/datum/disease/vector_disease
 	var/list/extrapolatordisease = list()
-	
+
 
 /mob/living/simple_animal/pet/hamster/vector/Initialize()
 	. = ..()
@@ -50,12 +50,12 @@
 
 /mob/living/simple_animal/pet/hamster/vector/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 	if(!extrapolatordisease.len)
-		return FALSE
+		return EF_FALSE
 	if(scan)
 		E.scan(src, extrapolatordisease, user)
 	else
 		E.extrapolate(src, extrapolatordisease, user)
-	return TRUE
+	return EF_TRUE
 
 /mob/living/simple_animal/pet/hamster/vector/Crossed(M as mob)
 	if(isliving(M) && !isnull(vector_disease) && prob(20))

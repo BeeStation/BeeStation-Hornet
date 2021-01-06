@@ -22,7 +22,7 @@
 			unbuckle_mob(H)
 			S.buckle_mob(H)
 		qdel(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/ridden/scooter/Moved()
 	. = ..()
@@ -35,10 +35,10 @@
 
 /obj/vehicle/ridden/scooter/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!istype(M))
-		return FALSE
+		return EF_FALSE
 	if(M.get_num_legs() < legs_required && M.get_num_arms() < arms_required)
 		to_chat(M, "<span class='warning'>You don't think it'd be a good idea trying to ride \the [src]...</span>")
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /obj/vehicle/ridden/scooter/skateboard
@@ -79,7 +79,7 @@
 
 /obj/vehicle/ridden/scooter/skateboard/relaymove()
 	if (grinding || world.time < next_crash)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /obj/vehicle/ridden/scooter/skateboard/generate_actions()
@@ -176,7 +176,7 @@
 	board_icon = "hoverboard_red"
 
 /obj/vehicle/ridden/scooter/skateboard/hoverboard/screwdriver_act(mob/living/user, obj/item/I)
-	return FALSE
+	return EF_FALSE
 
 /obj/vehicle/ridden/scooter/skateboard/hoverboard/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/rods))
@@ -217,7 +217,7 @@
 	new /obj/item/stack/rods(drop_location(), 10)
 	I.play_tool_sound(src)
 	qdel(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/ridden/scooter/skateboard/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/rods))
@@ -237,7 +237,7 @@
 
 /obj/vehicle/ridden/scooter/skateboard/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	to_chat(user, "<span class='notice'>You begin to deconstruct and remove the wheels on [src]...</span>")
 	if(I.use_tool(src, user, 20, volume=50))
 		to_chat(user, "<span class='notice'>You deconstruct the wheels on [src].</span>")
@@ -247,7 +247,7 @@
 			var/mob/living/carbon/H = buckled_mobs[1]
 			unbuckle_mob(H)
 		qdel(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/ridden/scooter/skateboard/wrench_act(mob/living/user, obj/item/I)
 	return

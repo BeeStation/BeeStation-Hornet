@@ -8,8 +8,8 @@
 	var/obj/item/organ/heart/H = target.getorganslot(ORGAN_SLOT_HEART)
 	if(H)
 		if(H.damage > 60 && !H.operated)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 
 //an incision but with greater bleed, and a 90% base success chance
@@ -33,7 +33,7 @@
 				"")
 			H.bleed_rate += 10
 			H.adjustBruteLoss(10)
-	return TRUE
+	return EF_TRUE
 
 /datum/surgery_step/incise_heart/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(ishuman(target))
@@ -64,7 +64,7 @@
 	display_results(user, target, "<span class='notice'>You successfully graft a bypass onto [target]'s heart.</span>",
 			"[user] finishes grafting something onto [target]'s heart.",
 			"[user] finishes grafting something onto [target]'s heart.")
-	return TRUE
+	return EF_TRUE
 
 /datum/surgery_step/coronary_bypass/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(ishuman(target))
@@ -74,4 +74,4 @@
 			"<span class='warning'>[user] screws up, causing blood to spurt out of [H]'s chest profusely!</span>")
 		H.adjustOrganLoss(ORGAN_SLOT_HEART, 20)
 		H.bleed_rate += 30
-	return FALSE
+	return EF_FALSE

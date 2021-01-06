@@ -749,13 +749,13 @@
 /mob/living/carbon/human/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
 	if(!(mobility_flags & MOBILITY_UI))
 		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
-		return FALSE
+		return EF_FALSE
 	if(!Adjacent(M) && (M.loc != src))
 		if((be_close == FALSE) || (!no_tk && (dna.check_mutation(TK) && tkMaxRangeCheck(src, M))))
-			return TRUE
+			return EF_TRUE
 		to_chat(src, "<span class='warning'>You are too far away!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /mob/living/carbon/human/resist_restraints()
 	if(wear_suit && wear_suit.breakouttime)
@@ -842,10 +842,10 @@
 		. += dna.species.check_species_weakness(weapon, attacker)
 
 /mob/living/carbon/human/is_literate()
-	return TRUE
+	return EF_TRUE
 
 /mob/living/carbon/human/can_hold_items()
-	return TRUE
+	return EF_TRUE
 
 /mob/living/carbon/human/update_gravity(has_gravity,override = 0)
 	if(dna && dna.species) //prevents a runtime while a human is being monkeyfied
@@ -1113,8 +1113,8 @@
 		if(istype(bp, /obj/item/clothing))
 			var/obj/item/clothing/C = bp
 			if(C.blocks_shove_knockdown)
-				return TRUE
-	return FALSE
+				return EF_TRUE
+	return EF_FALSE
 
 /mob/living/carbon/human/proc/clear_shove_slowdown()
 	remove_movespeed_modifier(MOVESPEED_ID_SHOVE)
@@ -1144,12 +1144,12 @@
 
 /mob/living/carbon/human/adjust_nutrition(var/change) //Honestly FUCK the oldcoders for putting nutrition on /mob someone else can move it up because holy hell I'd have to fix SO many typechecks
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /mob/living/carbon/human/set_nutrition(var/change) //Seriously fuck you oldcoders.
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /mob/living/carbon/human/species

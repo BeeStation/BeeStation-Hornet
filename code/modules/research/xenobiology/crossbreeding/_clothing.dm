@@ -40,7 +40,7 @@ Slimecrossing Armor
 
 /obj/item/clothing/glasses/prism_glasses/item_action_slot_check(slot)
 	if(slot == SLOT_GLASSES)
-		return TRUE
+		return EF_TRUE
 
 /obj/structure/light_prism
 	name = "light prism"
@@ -146,6 +146,6 @@ Slimecrossing Armor
 
 /obj/item/clothing/suit/armor/heavy/adamantine/IsReflect(def_zone)
 	if(def_zone in list(BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG) && prob(hit_reflect_chance))
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE

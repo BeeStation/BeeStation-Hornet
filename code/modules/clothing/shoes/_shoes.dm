@@ -88,4 +88,4 @@
 		M.update_inv_shoes()
 
 /obj/item/proc/negates_gravity()
-	return FALSE
+	return EF_FALSE

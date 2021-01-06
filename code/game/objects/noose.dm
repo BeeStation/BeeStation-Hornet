@@ -2,7 +2,7 @@
 	if(R.result_type == /obj/structure/chair/noose)
 		if(!(locate(/obj/structure/chair) in get_turf(usr)))
 			to_chat(usr, "<span class='warning'>You have to be standing on top of a chair to make a noose!</span>")
-			return FALSE
+			return EF_FALSE
 	return ..()
 
 /obj/structure/chair/noose //It's a "chair".
@@ -85,14 +85,14 @@
 
 /obj/structure/chair/noose/user_buckle_mob(mob/living/carbon/human/M, mob/user)
 	if(!in_range(user, src) || user.stat || user.restrained() || !iscarbon(M))
-		return FALSE
+		return EF_FALSE
 
 	if (!M.get_bodypart("head"))
 		to_chat(user, "<span class='warning'>[M] has no head!</span>")
-		return FALSE
+		return EF_FALSE
 
 	if(M.loc != src.loc)
-		return FALSE //Can only noose someone if they're on the same tile as noose
+		return EF_FALSE //Can only noose someone if they're on the same tile as noose
 
 	add_fingerprint(user)
 	log_combat(user, M, "Attempted to Hang", src)
@@ -108,10 +108,10 @@
 				to_chat(M, "<span class='userdanger'>[user] ties \the [src] over your neck!</span>")
 			playsound(user.loc, 'sound/effects/noosed.ogg', 50, 1, -1)
 			log_combat(user, M, "hanged", src)
-			return TRUE
+			return EF_TRUE
 	user.visible_message("<span class='warning'>[user] fails to tie \the [src] over [M]'s neck!</span>")
 	to_chat(user, "<span class='warning'>You fail to tie \the [src] over [M]'s neck!</span>")
-	return FALSE
+	return EF_FALSE
 
 
 /obj/structure/chair/noose/process()

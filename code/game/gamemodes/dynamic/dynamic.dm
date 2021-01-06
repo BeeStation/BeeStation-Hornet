@@ -236,15 +236,15 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 // Yes, this is copy pasted from game_mode
 /datum/game_mode/dynamic/check_finished(force_ending)
 	if(!SSticker.setup_done || !gamemode_ready)
-		return FALSE
+		return EF_FALSE
 	if(replacementmode && round_converted == 2)
 		return replacementmode.check_finished()
 	if(SSshuttle.emergency && (SSshuttle.emergency.mode == SHUTTLE_ENDGAME))
-		return TRUE
+		return EF_TRUE
 	if(station_was_nuked)
-		return TRUE
+		return EF_TRUE
 	if(force_ending)
-		return TRUE
+		return EF_TRUE
 	for(var/datum/dynamic_ruleset/rule in executed_rules)
 		if(rule.flags & HIGHLANDER_RULESET)
 			return rule.check_finished()
@@ -296,7 +296,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	midround_injection_cooldown = round(CLAMP(EXP_DISTRIBUTION(midround_injection_cooldown_middle), GLOB.dynamic_midround_delay_min, GLOB.dynamic_midround_delay_max)) + world.time
 	message_admins("Dynamic Mode initialized with a Threat Level of... [threat_level]!")
 	log_game("DYNAMIC: Dynamic Mode initialized with a Threat Level of... [threat_level]!")
-	return TRUE
+	return EF_TRUE
 
 /datum/game_mode/dynamic/pre_setup()
 	if(CONFIG_GET(flag/dynamic_config_enabled))
@@ -332,10 +332,10 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	log_game("DYNAMIC: Listing [roundstart_rules.len] round start rulesets, and [candidates.len] players ready.")
 	if (candidates.len <= 0)
 		log_game("DYNAMIC: [candidates.len] candidates.")
-		return TRUE
+		return EF_TRUE
 	if (roundstart_rules.len <= 0)
 		log_game("DYNAMIC: [roundstart_rules.len] rules.")
-		return TRUE
+		return EF_TRUE
 
 	if(GLOB.dynamic_forced_roundstart_ruleset.len > 0)
 		rigged_roundstart()
@@ -347,7 +347,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		starting_rulesets += "[DR.name], "
 	log_game("DYNAMIC: Picked the following roundstart rules: [starting_rulesets]")
 	candidates.Cut()
-	return TRUE
+	return EF_TRUE
 
 /datum/game_mode/dynamic/post_setup(report)
 	update_playercounts()
@@ -376,7 +376,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 /datum/game_mode/dynamic/proc/roundstart()
 	if (GLOB.dynamic_forced_extended)
 		log_game("DYNAMIC: Starting a round of forced extended.")
-		return TRUE
+		return EF_TRUE
 	var/list/drafted_rules = list()
 	for (var/datum/dynamic_ruleset/roundstart/rule in roundstart_rules)
 		if (rule.acceptable(roundstart_pop_ready, threat_level) && threat >= rule.cost)	// If we got the population and threat required
@@ -419,26 +419,26 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		if(threat >= 10)
 			message_admins("DYNAMIC: Picking first roundstart ruleset failed. You should report this.")
 		log_game("DYNAMIC: Picking first roundstart ruleset failed. drafted_rules.len = [drafted_rules.len] and threat = [threat]/[threat_level]")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /// Picks a random roundstart rule from the list given as an argument and executes it.
 /datum/game_mode/dynamic/proc/picking_roundstart_rule(list/drafted_rules = list(), forced = FALSE)
 	var/datum/dynamic_ruleset/roundstart/starting_rule = pickweight(drafted_rules)
 	if(!starting_rule)
 		log_game("DYNAMIC: Couldn't pick a starting ruleset. No rulesets available")
-		return FALSE
+		return EF_FALSE
 
 	if(!forced)
 		if(only_ruleset_executed)
 			log_game("DYNAMIC: Picking [starting_rule.name] failed due to only_ruleset_executed.")
-			return FALSE
+			return EF_FALSE
 		// Check if a blocking ruleset has been executed.
 		else if(check_blocking(starting_rule.blocking_rules, executed_rules))	// Should already be filtered out, but making sure. Check filtering at end of proc if reported.
 			drafted_rules -= starting_rule
 			if(drafted_rules.len <= 0)
 				log_game("DYNAMIC: Picking [starting_rule.name] failed due to blocking_rules and no more rulesets available. Report this.")
-				return FALSE
+				return EF_FALSE
 			starting_rule = pickweight(drafted_rules)
 		// Check if the ruleset is highlander and if a highlander ruleset has been executed
 		else if(starting_rule.flags & HIGHLANDER_RULESET)	// Should already be filtered out, but making sure. Check filtering at end of proc if reported.
@@ -447,14 +447,14 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 					drafted_rules -= starting_rule
 					if(drafted_rules.len <= 0)
 						log_game("DYNAMIC: Picking [starting_rule.name] failed due to no highlander stacking and no more rulesets available. Report this.")
-						return FALSE
+						return EF_FALSE
 					starting_rule = pickweight(drafted_rules)
 		// With low pop and high threat there might be rulesets that get executed with no valid candidates.
 		else if(!starting_rule.ready())	// Should already be filtered out, but making sure. Check filtering at end of proc if reported.
 			drafted_rules -= starting_rule
 			if(drafted_rules.len <= 0)
 				log_game("DYNAMIC: Picking [starting_rule.name] failed because there were not enough candidates and no more rulesets available. Report this.")
-				return FALSE
+				return EF_FALSE
 			starting_rule = pickweight(drafted_rules)
 
 	log_game("DYNAMIC: Picked a ruleset: [starting_rule.name]")
@@ -481,10 +481,10 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			if(!rule.ready())
 				drafted_rules -= rule // And removing rules that are no longer eligible
 
-		return TRUE
+		return EF_TRUE
 	else
 		stack_trace("The starting rule \"[starting_rule.name]\" failed to pre_execute.")
-	return FALSE
+	return EF_FALSE
 
 /// Mainly here to facilitate delayed rulesets. All roundstart rulesets are executed with a timered callback to this proc.
 /datum/game_mode/dynamic/proc/execute_roundstart_rule(sent_rule)
@@ -492,27 +492,27 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	if(rule.execute())
 		if(rule.persistent)
 			current_rules += rule
-		return TRUE
+		return EF_TRUE
 	rule.clean_up()	// Refund threat, delete teams and so on.
 	executed_rules -= rule
 	stack_trace("The starting rule \"[rule.name]\" failed to execute.")
-	return FALSE
+	return EF_FALSE
 
 /// Picks a random midround OR latejoin rule from the list given as an argument and executes it.
 /// Also this could be named better.
 /datum/game_mode/dynamic/proc/picking_midround_latejoin_rule(list/drafted_rules = list(), forced = FALSE)
 	var/datum/dynamic_ruleset/rule = pickweight(drafted_rules)
 	if(!rule)
-		return FALSE
+		return EF_FALSE
 
 	if(!forced)
 		if(only_ruleset_executed)
-			return FALSE
+			return EF_FALSE
 		// Check if a blocking ruleset has been executed.
 		else if(check_blocking(rule.blocking_rules, executed_rules))
 			drafted_rules -= rule
 			if(drafted_rules.len <= 0)
-				return FALSE
+				return EF_FALSE
 			rule = pickweight(drafted_rules)
 		// Check if the ruleset is highlander and if a highlander ruleset has been executed
 		else if(rule.flags & HIGHLANDER_RULESET)
@@ -520,7 +520,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 				if(highlander_executed)
 					drafted_rules -= rule
 					if(drafted_rules.len <= 0)
-						return FALSE
+						return EF_FALSE
 					rule = pickweight(drafted_rules)
 
 	if(!rule.repeatable)
@@ -530,7 +530,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			midround_rules = remove_from_list(midround_rules, rule.type)
 
 	addtimer(CALLBACK(src, /datum/game_mode/dynamic/.proc/execute_midround_latejoin_rule, rule), rule.delay)
-	return TRUE
+	return EF_TRUE
 
 /// An experimental proc to allow admins to call rules on the fly or have rules call other rules.
 /datum/game_mode/dynamic/proc/picking_specific_rule(ruletype, forced = FALSE)
@@ -541,22 +541,22 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	else if(istype(ruletype, /datum/dynamic_ruleset))
 		new_rule = ruletype
 	else
-		return FALSE
+		return EF_FALSE
 
 	if(!new_rule)
-		return FALSE
+		return EF_FALSE
 
 	if(!forced)
 		if(only_ruleset_executed)
-			return FALSE
+			return EF_FALSE
 		// Check if a blocking ruleset has been executed.
 		else if(check_blocking(new_rule.blocking_rules, executed_rules))
-			return FALSE
+			return EF_FALSE
 		// Check if the ruleset is highlander and if a highlander ruleset has been executed
 		else if(new_rule.flags & HIGHLANDER_RULESET)
 			if(threat_level > GLOB.dynamic_stacking_limit && GLOB.dynamic_no_stacking)
 				if(highlander_executed)
-					return FALSE
+					return EF_FALSE
 
 	update_playercounts()
 	if ((forced || (new_rule.acceptable(current_players[CURRENT_LIVING_PLAYERS].len, threat_level) && new_rule.cost <= threat)))
@@ -573,10 +573,10 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 				executed_rules += new_rule
 				if (new_rule.persistent)
 					current_rules += new_rule
-				return TRUE
+				return EF_TRUE
 		else if (forced)
 			log_game("DYNAMIC: The ruleset [new_rule.name] couldn't be executed due to lack of elligible players.")
-	return FALSE
+	return EF_FALSE
 
 /// Mainly here to facilitate delayed rulesets. All midround/latejoin rulesets are executed with a timered callback to this proc.
 /datum/game_mode/dynamic/proc/execute_midround_latejoin_rule(sent_rule)
@@ -597,10 +597,10 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		rule.candidates.Cut()
 		if (rule.persistent)
 			current_rules += rule
-		return TRUE
+		return EF_TRUE
 	rule.clean_up()
 	stack_trace("The [rule.ruletype] rule \"[rule.name]\" failed to execute.")
-	return FALSE
+	return EF_FALSE
 
 /datum/game_mode/dynamic/process()
 	if (pop_last_updated < world.time - (60 SECONDS))
@@ -700,17 +700,17 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		for(var/blocking in blocking_list)
 			for(var/datum/executed in rule_list)
 				if(blocking == executed.type)
-					return TRUE
-	return FALSE
+					return EF_TRUE
+	return EF_FALSE
 
 /// Checks if client age is age or older.
 /datum/game_mode/dynamic/proc/check_age(client/C, age)
 	enemy_minimum_age = age
 	if(get_remaining_days(C) == 0)
 		enemy_minimum_age = initial(enemy_minimum_age)
-		return TRUE // Available in 0 days = available right now = player is old enough to play.
+		return EF_TRUE // Available in 0 days = available right now = player is old enough to play.
 	enemy_minimum_age = initial(enemy_minimum_age)
-	return FALSE
+	return EF_FALSE
 
 /datum/game_mode/dynamic/make_antag_chance(mob/living/carbon/human/newPlayer)
 	if (GLOB.dynamic_forced_extended)

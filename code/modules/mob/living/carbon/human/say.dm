@@ -27,10 +27,10 @@
 /mob/living/carbon/human/IsVocal()
 	// how do species that don't breathe talk? magic, that's what.
 	if(!HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT) && !getorganslot(ORGAN_SLOT_LUNGS))
-		return FALSE
+		return EF_FALSE
 	if(mind)
 		return !mind.miming
-	return TRUE
+	return EF_TRUE
 
 /mob/living/carbon/human/proc/SetSpecialVoice(new_voice)
 	if(new_voice)
@@ -48,9 +48,9 @@
 	if(ears)
 		var/obj/item/radio/headset/dongle = ears
 		if(!istype(dongle))
-			return FALSE
+			return EF_FALSE
 		if(dongle.translate_binary)
-			return TRUE
+			return EF_TRUE
 
 /mob/living/carbon/human/radio(message, message_mode, list/spans, language)
 	. = ..()

@@ -16,11 +16,11 @@
 	update_air_ref()
 
 /turf/closed/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	return FALSE
+	return EF_FALSE
 
 /turf/closed/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && (mover.pass_flags & PASSCLOSEDTURF))
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /turf/closed/indestructible
@@ -168,7 +168,7 @@
 /turf/closed/indestructible/necropolis/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
 	underlay_appearance.icon_state = "necro1"
-	return TRUE
+	return EF_TRUE
 
 /turf/closed/indestructible/riveted/boss
 	name = "necropolis wall"
@@ -185,7 +185,7 @@
 /turf/closed/indestructible/riveted/boss/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
 	underlay_appearance.icon_state = "basalt"
-	return TRUE
+	return EF_TRUE
 
 /turf/closed/indestructible/riveted/hierophant
 	name = "wall"

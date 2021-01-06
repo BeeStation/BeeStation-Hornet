@@ -127,7 +127,7 @@
 /obj/machinery/seed_extractor/ui_interact(mob/user)
 	. = ..()
 	if (stat)
-		return FALSE
+		return EF_FALSE
 
 	var/dat = "<b>Stored seeds:</b><br>"
 
@@ -179,16 +179,16 @@
 /obj/machinery/seed_extractor/proc/add_seed(obj/item/seeds/O)
 	if(contents.len >= 999)
 		to_chat(usr, "<span class='notice'>\The [src] is full.</span>")
-		return FALSE
+		return EF_FALSE
 
 	var/datum/component/storage/STR = O.loc.GetComponent(/datum/component/storage)
 	if(STR)
 		if(!STR.remove_from_storage(O,src))
-			return FALSE
+			return EF_FALSE
 	else if(ismob(O.loc))
 		var/mob/M = O.loc
 		if(!M.transferItemToLoc(O, src))
-			return FALSE
+			return EF_FALSE
 
 	. = TRUE
 	for (var/datum/seed_pile/N in piles)

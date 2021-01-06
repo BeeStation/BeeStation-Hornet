@@ -192,7 +192,7 @@
 			if(item_name in buyable_items)
 				var/datum/uplink_item/I = buyable_items[item_name]
 				MakePurchase(usr, I)
-				return TRUE
+				return EF_TRUE
 		if("lock")
 			active = FALSE
 			locked = TRUE
@@ -201,10 +201,10 @@
 			SStgui.close_uis(src)
 		if("select")
 			selected_cat = params["category"]
-			return TRUE
+			return EF_TRUE
 		if("compact_toggle")
 			compact_mode = !compact_mode
-			return TRUE
+			return EF_TRUE
 
 /datum/component/uplink/proc/MakePurchase(mob/user, datum/uplink_item/U)
 	if(!istype(U))
@@ -222,7 +222,7 @@
 		U.limited_stock -= 1
 
 	SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(U.name)]", "[U.cost]"))
-	return TRUE
+	return EF_TRUE
 
 // Implant signal responses
 

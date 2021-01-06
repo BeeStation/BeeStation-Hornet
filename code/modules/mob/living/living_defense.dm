@@ -34,10 +34,10 @@
 	return 0
 
 /mob/living/proc/is_mouth_covered(head_only = 0, mask_only = 0)
-	return FALSE
+	return EF_FALSE
 
 /mob/living/proc/is_eyes_covered(check_glasses = 1, check_head = 1, check_mask = 1)
-	return FALSE
+	return EF_FALSE
 /mob/living/proc/on_hit(obj/item/projectile/P)
 	return BULLET_ACT_HIT
 
@@ -128,18 +128,18 @@
 
 /mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE)
 	if(user == src || anchored || !isturf(user.loc))
-		return FALSE
+		return EF_FALSE
 	if(!user.pulling || user.pulling != src)
 		user.start_pulling(src, supress_message = supress_message)
 		return
 
 	if(!(status_flags & CANPUSH) || HAS_TRAIT(src, TRAIT_PUSHIMMUNE))
 		to_chat(user, "<span class='warning'>[src] can't be grabbed more aggressively!</span>")
-		return FALSE
+		return EF_FALSE
 
 	if(user.grab_state >= GRAB_AGGRESSIVE && HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='notice'>You don't want to risk hurting [src]!</span>")
-		return FALSE
+		return EF_FALSE
 	grippedby(user)
 
 //proc to upgrade a simple pull into a more aggressive grab.
@@ -213,25 +213,25 @@
 
 	if(HAS_TRAIT(src, TRAIT_PACIFISM))
 		to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
-		return FALSE
+		return EF_FALSE
 
 	if (stat != DEAD)
 		log_combat(M, src, "attacked")
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>\The [M.name] glomps [src]!</span>", \
 				"<span class='userdanger'>\The [M.name] glomps you!</span>", null, COMBAT_MESSAGE_RANGE)
-		return TRUE
+		return EF_TRUE
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
 	M.face_atom(src)
 	if(M.melee_damage == 0)
 		M.visible_message("<span class='notice'>\The [M] [M.friendly] [src]!</span>", \
 						"<span class='notice'>\The [M] [M.friendly] you!</span>")
-		return FALSE
+		return EF_FALSE
 	else
 		if(HAS_TRAIT(M, TRAIT_PACIFISM))
 			to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
-			return FALSE
+			return EF_FALSE
 
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
@@ -239,36 +239,36 @@
 		visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
 						"<span class='userdanger'>\The [M] [M.attacktext] you!</span>", null, COMBAT_MESSAGE_RANGE)
 		log_combat(M, src, "attacked")
-		return TRUE
+		return EF_TRUE
 
 
 /mob/living/attack_paw(mob/living/carbon/monkey/M)
 	if(isturf(loc) && istype(loc.loc, /area/start))
 		to_chat(M, "No attacking people at spawn, you jackass.")
-		return FALSE
+		return EF_FALSE
 
 	if (M.a_intent == INTENT_HARM)
 		if(HAS_TRAIT(M, TRAIT_PACIFISM))
 			to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
-			return FALSE
+			return EF_FALSE
 
 		if(M.is_muzzled() || M.is_mouth_covered(FALSE, TRUE))
 			to_chat(M, "<span class='warning'>You can't bite with your mouth covered!</span>")
-			return FALSE
+			return EF_FALSE
 		M.do_attack_animation(src, ATTACK_EFFECT_BITE)
 		log_combat(M, src, "attacked")
 		playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
 		visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
 				"<span class='userdanger'>[M.name] bites you!</span>", null, COMBAT_MESSAGE_RANGE)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /mob/living/attack_larva(mob/living/carbon/alien/larva/L)
 	switch(L.a_intent)
 		if("help")
 			visible_message("<span class='notice'>[L.name] rubs its head against [src].</span>", \
 							"<span class='notice'>[L.name] rubs its head against you.</span>")
-			return FALSE
+			return EF_FALSE
 
 		else
 			if(HAS_TRAIT(L, TRAIT_PACIFISM))
@@ -281,30 +281,30 @@
 				visible_message("<span class='danger'>[L.name] bites [src]!</span>", \
 								"<span class='userdanger'>[L.name] bites you!</span>", null, COMBAT_MESSAGE_RANGE)
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-				return TRUE
+				return EF_TRUE
 			else
 				visible_message("<span class='danger'>[L.name]'s bite misses [src]!</span>", \
 								"<span class='userdanger'>[L.name]'s bite misses you!</span>", null, COMBAT_MESSAGE_RANGE)
-	return FALSE
+	return EF_FALSE
 
 /mob/living/attack_alien(mob/living/carbon/alien/humanoid/M)
 	switch(M.a_intent)
 		if ("help")
 			visible_message("<span class='notice'>[M] caresses [src] with its scythe-like arm.</span>", \
 				"<span class='notice'>[M] caresses you with its scythe-like arm.</span>")
-			return FALSE
+			return EF_FALSE
 		if ("grab")
 			grabbedby(M)
-			return FALSE
+			return EF_FALSE
 		if("harm")
 			if(HAS_TRAIT(M, TRAIT_PACIFISM))
 				to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
-				return FALSE
+				return EF_FALSE
 			M.do_attack_animation(src)
-			return TRUE
+			return EF_TRUE
 		if("disarm")
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
-			return TRUE
+			return EF_TRUE
 
 /mob/living/ex_act(severity, target, origin)
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
@@ -320,9 +320,9 @@
 /mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, safety = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
 	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
 	if(tesla_shock && (flags_1 & TESLA_IGNORE_1))
-		return FALSE
+		return EF_FALSE
 	if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
-		return FALSE
+		return EF_FALSE
 	if(shock_damage > 0)
 		if(!illusion)
 			adjustFireLoss(shock_damage)
@@ -375,7 +375,7 @@
 				new /mob/living/simple_animal/hostile/construct/builder/hostile(get_turf(src))
 	spawn_dust()
 	gib()
-	return TRUE
+	return EF_TRUE
 
 
 //called when the mob receives a bright flash
@@ -383,8 +383,8 @@
 	if(get_eye_protection() < intensity && (override_blindness_check || !(HAS_TRAIT(src, TRAIT_BLIND))))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 25)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 //called when the mob receives a loud bang
 /mob/living/proc/soundbang_act()
@@ -407,8 +407,8 @@
 			E.scan(src, diseases, user)
 		else
 			E.extrapolate(src, diseases, user)
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 

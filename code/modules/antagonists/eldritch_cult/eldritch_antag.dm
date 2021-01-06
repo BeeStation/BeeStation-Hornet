@@ -75,12 +75,12 @@
 	var/where = H.equip_in_one_of_slots(T, slots)
 	if(!where)
 		to_chat(H, "<span class='userdanger'>Unfortunately, you weren't able to get a [item_name]. This is very bad and you should adminhelp immediately (press F1).</span>")
-		return FALSE
+		return EF_FALSE
 	else
 		to_chat(H, "<span class='danger'>You have a [item_name] in your [where].</span>")
 		if(where == "backpack")
 			SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_SHOW, H)
-		return TRUE
+		return EF_TRUE
 
 /datum/antagonist/heretic/process()
 
@@ -193,11 +193,11 @@
 
 /datum/antagonist/heretic/proc/gain_knowledge(datum/eldritch_knowledge/EK)
 	if(get_knowledge(EK))
-		return FALSE
+		return EF_FALSE
 	var/datum/eldritch_knowledge/initialized_knowledge = new EK
 	researched_knowledge[initialized_knowledge.type] = initialized_knowledge
 	initialized_knowledge.on_gain(owner.current)
-	return TRUE
+	return EF_TRUE
 
 /datum/antagonist/heretic/proc/get_researchable_knowledge()
 	var/list/researchable_knowledge = list()
@@ -259,8 +259,8 @@
 
 /datum/objective/sacrifice_ecult/check_completion()
 	if(!owner)
-		return FALSE
+		return EF_FALSE
 	var/datum/antagonist/heretic/cultie = owner.has_antag_datum(/datum/antagonist/heretic)
 	if(!cultie)
-		return FALSE
+		return EF_FALSE
 	return cultie.total_sacrifices >= target_amount

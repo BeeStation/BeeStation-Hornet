@@ -46,12 +46,12 @@
 		return ..()
 	if(!isobserver(AM) && isTerminator() && (get_dir(src, newloc) == dir))
 		stair_ascend(AM)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /obj/structure/stairs/Cross(atom/movable/AM)
 	if(isTerminator() && (get_dir(src, AM) == dir))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /obj/structure/stairs/update_icon()
@@ -120,11 +120,11 @@
 		return (terminator_mode == STAIR_TERMINATOR_YES)
 	var/turf/T = get_turf(src)
 	if(!T)
-		return FALSE
+		return EF_FALSE
 	var/turf/them = get_step(T, dir)
 	if(!them)
-		return FALSE
+		return EF_FALSE
 	for(var/obj/structure/stairs/S in them)
 		if(S.dir == dir)
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE

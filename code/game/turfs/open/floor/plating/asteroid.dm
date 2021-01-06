@@ -37,7 +37,7 @@
 
 /turf/open/floor/plating/asteroid/proc/can_dig(mob/user)
 	if(!dug)
-		return TRUE
+		return EF_TRUE
 	if(user)
 		to_chat(user, "<span class='notice'>Looks like someone has dug here already.</span>")
 
@@ -58,7 +58,7 @@
 	if(!.)
 		if(W.tool_behaviour == TOOL_SHOVEL || W.tool_behaviour == TOOL_MINING)
 			if(!can_dig(user))
-				return TRUE
+				return EF_TRUE
 
 			if(!isturf(user.loc))
 				return
@@ -67,11 +67,11 @@
 
 			if(W.use_tool(src, user, 40, volume=50))
 				if(!can_dig(user))
-					return TRUE
+					return EF_TRUE
 				to_chat(user, "<span class='notice'>You dig a hole.</span>")
 				getDug()
 				SSblackbox.record_feedback("tally", "pick_used_mining", 1, W.type)
-				return TRUE
+				return EF_TRUE
 		else if(istype(W, /obj/item/storage/bag/ore))
 			for(var/obj/item/stack/ore/O in src)
 				SEND_SIGNAL(W, COMSIG_PARENT_ATTACKBY, O)
@@ -328,8 +328,8 @@
 		slowdown = 0
 		burnt = TRUE
 		icon_state = "snow_dug"
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /turf/open/floor/plating/asteroid/snow/ice
 	name = "icy snow"
@@ -346,7 +346,7 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/open/floor/plating/asteroid/snow/ice/burn_tile()
-	return FALSE
+	return EF_FALSE
 
 /turf/open/floor/plating/asteroid/snow/airless
 	initial_gas_mix = AIRLESS_ATMOS

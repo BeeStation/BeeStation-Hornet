@@ -35,7 +35,7 @@
 				obj_integrity += min(10, max_integrity-obj_integrity)
 				if(obj_integrity == max_integrity)
 					to_chat(user, "<span class='notice'>It looks to be fully repaired now.</span>")
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /obj/vehicle/ridden/secway/obj_destruction()
@@ -50,5 +50,5 @@
 	if(prob(60) && buckled_mobs)
 		for(var/mob/M in buckled_mobs)
 			M.bullet_act(P)
-		return TRUE
+		return EF_TRUE
 	return ..()

@@ -33,7 +33,7 @@
 
 /datum/status_effect/syphon_mark/on_apply()
 	if(owner.stat == DEAD)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/status_effect/syphon_mark/proc/get_kill()

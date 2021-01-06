@@ -196,7 +196,7 @@
 /mob/dead/new_player/proc/make_me_an_observer(force_observe=FALSE)
 	if(QDELETED(src) || !src.client)
 		ready = PLAYER_NOT_READY
-		return FALSE
+		return EF_FALSE
 
 	var/this_is_like_playing_right = "Yes"
 	if(!force_observe)
@@ -206,7 +206,7 @@
 		ready = PLAYER_NOT_READY
 		src << browse(null, "window=playersetup") //closes the player setup window
 		new_player_panel()
-		return FALSE
+		return EF_FALSE
 
 	var/mob/dead/observer/observer = new()
 	spawning = TRUE
@@ -230,7 +230,7 @@
 	observer.stop_sound_channel(CHANNEL_LOBBYMUSIC)
 	QDEL_NULL(mind)
 	qdel(src)
-	return TRUE
+	return EF_TRUE
 
 /proc/get_job_unavailable_error_message(retval, jobtitle)
 	switch(retval)
@@ -277,18 +277,18 @@
 	var/error = IsJobUnavailable(rank)
 	if(error != JOB_AVAILABLE)
 		alert(src, get_job_unavailable_error_message(error, rank))
-		return FALSE
+		return EF_FALSE
 
 	if(SSticker.late_join_disabled)
 		alert(src, "An administrator has disabled late join spawning.")
-		return FALSE
+		return EF_FALSE
 
 	var/arrivals_docked = TRUE
 	if(SSshuttle.arrivals)
 		close_spawn_windows()	//In case we get held up
 		if(SSshuttle.arrivals.damaged && CONFIG_GET(flag/arrivals_shuttle_require_safe_latejoin))
 			src << alert("The arrivals shuttle is currently malfunctioning! You cannot join.")
-			return FALSE
+			return EF_FALSE
 
 		if(CONFIG_GET(flag/arrivals_shuttle_require_undocked))
 			SSshuttle.arrivals.RequireUndocked(src)

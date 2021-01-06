@@ -1,7 +1,7 @@
 
 /mob/living/simple_animal/proc/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && (status_flags & GODMODE))
-		return FALSE
+		return EF_FALSE
 	bruteloss = round(CLAMP(bruteloss + amount, 0, maxHealth),DAMAGE_PRECISION)
 	if(updating_health)
 		updatehealth()

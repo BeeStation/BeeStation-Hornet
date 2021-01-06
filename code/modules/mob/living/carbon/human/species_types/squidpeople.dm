@@ -26,7 +26,7 @@
     race = /datum/species/squid
 
 /datum/species/squid/qualifies_for_rank(rank, list/features)
-    return TRUE
+    return EF_TRUE
 
 /datum/species/squid/random_name(gender,unique,lastname)
 	if(unique)
@@ -61,7 +61,7 @@
 
 /datum/action/innate/squid_change/IsAvailable()
     if(cooldown > world.time)
-        return FALSE
+        return EF_FALSE
     return ..()
 
 /datum/action/innate/squid_change/Activate()

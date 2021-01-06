@@ -99,7 +99,7 @@
 		var/datum/soullink/S = s
 		S.sharerDies(gibbed)
 
-	return TRUE
+	return EF_TRUE
 
 /mob/living/carbon/death(gibbed)
 	. = ..()

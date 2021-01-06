@@ -53,4 +53,4 @@
 				if("side")
 					transfer_side = value
 				else
-					return FALSE
+					return EF_FALSE

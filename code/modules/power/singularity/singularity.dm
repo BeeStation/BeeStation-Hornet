@@ -62,7 +62,7 @@
 
 /obj/singularity/attack_hand(mob/user)
 	consume(user)
-	return TRUE
+	return EF_TRUE
 
 /obj/singularity/attack_paw(mob/user)
 	consume(user)
@@ -319,7 +319,7 @@
 		for(var/i in GLOB.cardinals)
 			if(step(src, i))			//Move in each direction.
 				if(check_cardinals_range(steps, FALSE))		//New location passes, return true.
-					return TRUE
+					return EF_TRUE
 	. = !.
 
 /obj/singularity/proc/check_turfs_in(direction = 0, step = 0)

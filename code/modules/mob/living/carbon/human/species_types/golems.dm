@@ -208,7 +208,7 @@
 	special_names = null
 
 /datum/species/golem/plasteel/negates_gravity(mob/living/carbon/human/H)
-	return TRUE
+	return EF_TRUE
 
 /datum/species/golem/plasteel/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
@@ -718,7 +718,7 @@
 
 /datum/species/golem/cloth/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /datum/species/golem/cloth/random_name(gender,unique,lastname)
@@ -913,21 +913,21 @@
 /datum/species/golem/cardboard/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
 	. = ..()
 	if(user != H)
-		return FALSE //forced reproduction is rape.
+		return EF_FALSE //forced reproduction is rape.
 	if(istype(I, /obj/item/stack/sheet/cardboard))
 		var/obj/item/stack/sheet/cardboard/C = I
 		if(last_creation + brother_creation_cooldown > world.time) //no cheesing dork
 			return
 		if(C.amount < 10)
 			to_chat(H, "<span class='warning'>You do not have enough cardboard!</span>")
-			return FALSE
+			return EF_FALSE
 		to_chat(H, "<span class='notice'>You attempt to create a new cardboard brother.</span>")
 		if(do_after(user, 30, target = user))
 			if(last_creation + brother_creation_cooldown > world.time) //no cheesing dork
 				return
 			if(!C.use(10))
 				to_chat(H, "<span class='warning'>You do not have enough cardboard!</span>")
-				return FALSE
+				return EF_FALSE
 			to_chat(H, "<span class='notice'>You create a new cardboard golem shell.</span>")
 			create_brother(H.loc)
 
@@ -999,12 +999,12 @@
 			to_chat(H, "<span class='warning'>The excess milk is dripping off your bones!</span>")
 		H.heal_bodypart_damage(1.5,0, 0)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
-		return TRUE
+		return EF_TRUE
 
 	if(chem.type == /datum/reagent/toxin/bonehurtingjuice)
 		H.adjustBruteLoss(0.5, 0)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
-		return TRUE
+		return EF_TRUE
 
 /datum/action/innate/bonechill
 	name = "Bone Chill"

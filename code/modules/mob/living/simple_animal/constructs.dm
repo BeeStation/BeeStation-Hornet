@@ -381,11 +381,11 @@
 			C.Paralyze(60)
 			visible_message("<span class='danger'>[src] knocks [C] down!</span>")
 			to_chat(src, "<span class='cultlarge'>\"Bring [C.p_them()] to me.\"</span>")
-			return FALSE
+			return EF_FALSE
 		do_attack_animation(C)
 		var/obj/item/bodypart/BP = pick(parts)
 		BP.dismember()
-		return FALSE
+		return EF_FALSE
 	. = ..()
 
 /mob/living/simple_animal/hostile/construct/harvester/Initialize()

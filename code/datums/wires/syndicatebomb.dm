@@ -12,7 +12,7 @@
 /datum/wires/syndicatebomb/interactable(mob/user)
 	var/obj/machinery/syndicatebomb/P = holder
 	if(P.open_panel)
-		return TRUE
+		return EF_TRUE
 
 /datum/wires/syndicatebomb/on_pulse(wire)
 	var/obj/machinery/syndicatebomb/B = holder

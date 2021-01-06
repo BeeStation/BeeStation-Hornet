@@ -17,17 +17,17 @@
 	no_coexistance_typecache = typecacheof(no_coexistance_typecache)
 
 /datum/spellbook_entry/proc/IsAvailable() // For config prefs / gamemode restrictions - these are round applied
-	return TRUE
+	return EF_TRUE
 
 /datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user,obj/item/spellbook/book) // Specific circumstances
 	if(book.uses<cost || limit == 0)
-		return FALSE
+		return EF_FALSE
 	for(var/spell in user.mind.spell_list)
 		if(is_type_in_typecache(spell, no_coexistance_typecache))
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
-/datum/spellbook_entry/proc/Buy(mob/living/carbon/human/user,obj/item/spellbook/book) //return TRUE on success
+/datum/spellbook_entry/proc/Buy(mob/living/carbon/human/user,obj/item/spellbook/book) //return EF_TRUE on success
 	if(!S || QDELETED(S))
 		S = new spell_type()
 	//Check if we got the spell already
@@ -35,7 +35,7 @@
 		if(initial(S.name) == initial(aspell.name)) // Not using directly in case it was learned from one spellbook then upgraded in another
 			if(aspell.spell_level >= aspell.level_max)
 				to_chat(user,  "<span class='warning'>This spell cannot be improved further.</span>")
-				return FALSE
+				return EF_FALSE
 			else
 				aspell.name = initial(aspell.name)
 				aspell.spell_level++
@@ -58,22 +58,22 @@
 				if(aspell.spell_level >= aspell.level_max)
 					to_chat(user, "<span class='notice'>This spell cannot be strengthened any further.</span>")
 				SSblackbox.record_feedback("nested tally", "wizard_spell_improved", 1, list("[name]", "[aspell.spell_level]"))
-				return TRUE
+				return EF_TRUE
 	//No same spell found - just learn it
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	user.mind.AddSpell(S)
 	to_chat(user, "<span class='notice'>You have learned [S.name].</span>")
-	return TRUE
+	return EF_TRUE
 
 /datum/spellbook_entry/proc/CanRefund(mob/living/carbon/human/user,obj/item/spellbook/book)
 	if(!refundable)
-		return FALSE
+		return EF_FALSE
 	if(!S)
 		S = new spell_type()
 	for(var/obj/effect/proc_holder/spell/aspell in user.mind.spell_list)
 		if(initial(S.name) == initial(aspell.name))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/spellbook_entry/proc/Refund(mob/living/carbon/human/user,obj/item/spellbook/book) //return point value or -1 for failure
 	var/area/wizard_station/A = GLOB.areas_by_type[/area/wizard_station]
@@ -216,7 +216,7 @@
 	name = "Lightning Bolt"
 	spell_type = /obj/effect/proc_holder/spell/aimed/lightningbolt
 
-/datum/spellbook_entry/lightningbolt/Buy(mob/living/carbon/human/user,obj/item/spellbook/book) //return TRUE on success
+/datum/spellbook_entry/lightningbolt/Buy(mob/living/carbon/human/user,obj/item/spellbook/book) //return EF_TRUE on success
 	. = ..()
 	user.flags_1 |= TESLA_IGNORE_1
 
@@ -276,7 +276,7 @@
 /datum/spellbook_entry/item/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
 	new item_path(get_turf(user))
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
-	return TRUE
+	return EF_TRUE
 
 /datum/spellbook_entry/item/GetInfo()
 	var/dat =""
@@ -466,9 +466,9 @@
 
 /datum/spellbook_entry/summon/ghosts/IsAvailable()
 	if(!SSticker.mode)
-		return FALSE
+		return EF_FALSE
 	else
-		return TRUE
+		return EF_TRUE
 
 /datum/spellbook_entry/summon/ghosts/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
@@ -476,7 +476,7 @@
 	active = TRUE
 	to_chat(user, "<span class='notice'>You have cast summon ghosts!</span>")
 	playsound(get_turf(user), 'sound/effects/ghost2.ogg', 50, 1)
-	return TRUE
+	return EF_TRUE
 
 /datum/spellbook_entry/summon/guns
 	name = "Summon Guns"
@@ -484,9 +484,9 @@
 
 /datum/spellbook_entry/summon/guns/IsAvailable()
 	if(!SSticker.mode) // In case spellbook is placed on map
-		return FALSE
+		return EF_FALSE
 	if(istype(SSticker.mode, /datum/game_mode/dynamic)) // Disable events on dynamic
-		return FALSE
+		return EF_FALSE
 	return !CONFIG_GET(flag/no_summon_guns)
 
 /datum/spellbook_entry/summon/guns/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
@@ -495,7 +495,7 @@
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, 1)
 	to_chat(user, "<span class='notice'>You have cast summon guns!</span>")
-	return TRUE
+	return EF_TRUE
 
 /datum/spellbook_entry/summon/magic
 	name = "Summon Magic"
@@ -503,9 +503,9 @@
 
 /datum/spellbook_entry/summon/magic/IsAvailable()
 	if(!SSticker.mode) // In case spellbook is placed on map
-		return FALSE
+		return EF_FALSE
 	if(istype(SSticker.mode, /datum/game_mode/dynamic)) // Disable events on dynamic
-		return FALSE
+		return EF_FALSE
 	return !CONFIG_GET(flag/no_summon_magic)
 
 /datum/spellbook_entry/summon/magic/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
@@ -514,7 +514,7 @@
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, 1)
 	to_chat(user, "<span class='notice'>You have cast summon magic!</span>")
-	return TRUE
+	return EF_TRUE
 
 /datum/spellbook_entry/summon/events
 	name = "Summon Events"
@@ -523,9 +523,9 @@
 
 /datum/spellbook_entry/summon/events/IsAvailable()
 	if(!SSticker.mode) // In case spellbook is placed on map
-		return FALSE
+		return EF_FALSE
 	if(istype(SSticker.mode, /datum/game_mode/dynamic)) // Disable events on dynamic
-		return FALSE
+		return EF_FALSE
 	return !CONFIG_GET(flag/no_summon_events)
 
 /datum/spellbook_entry/summon/events/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
@@ -534,7 +534,7 @@
 	times++
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, 1)
 	to_chat(user, "<span class='notice'>You have cast summon events.</span>")
-	return TRUE
+	return EF_TRUE
 
 /datum/spellbook_entry/summon/events/GetInfo()
 	. = ..()
@@ -552,11 +552,11 @@
 	active = TRUE
 	var/message = stripped_input(user, "Whisper a secret truth to drive your victims to madness.", "Whispers of Madness")
 	if(!message)
-		return FALSE
+		return EF_FALSE
 	curse_of_madness(user, message)
 	to_chat(user, "<span class='notice'>You have cast the curse of insanity!</span>")
 	playsound(user, 'sound/magic/mandswap.ogg', 50, 1)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/spellbook
 	name = "spell book"
@@ -717,7 +717,7 @@
 	if(H.stat || H.restrained())
 		return
 	if(!ishuman(H))
-		return TRUE
+		return EF_TRUE
 
 	if(H.mind.special_role == "apprentice")
 		temp = "If you got caught sneaking a peek from your teacher's spellbook, you'd likely be expelled from the Wizard Academy. Better not."

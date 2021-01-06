@@ -32,10 +32,10 @@
 		set_pin_data(IC_OUTPUT, 2, null)
 
 	else
-		return FALSE
+		return EF_FALSE
 
 	set_pin_data(IC_OUTPUT, 3, passkey)
 
 	push_data()
 	activate_pin(1)
-	return TRUE
+	return EF_TRUE

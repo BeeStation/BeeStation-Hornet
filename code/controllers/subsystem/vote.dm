@@ -164,11 +164,11 @@ SUBSYSTEM_DEF(vote)
 
 /datum/controller/subsystem/vote/proc/submit_vote(vote)
 	if(!mode)
-		return FALSE
+		return EF_FALSE
 	if(CONFIG_GET(flag/no_dead_vote) && (usr.stat == DEAD && !isnewplayer(usr)) && !usr.client.holder && mode != "map")
-		return FALSE
+		return EF_FALSE
 	if(!(vote && 1<=vote && vote<=choices.len))
-		return FALSE
+		return EF_FALSE
 	// If user has already voted
 	if(usr.ckey in voted)
 		choices[choices[choice_by_ckey[usr.ckey]]]--
@@ -340,7 +340,7 @@ SUBSYSTEM_DEF(vote)
 				initiate_vote("custom",usr.key)
 		if("vote")
 			submit_vote(round(text2num(params["index"])))
-	return TRUE
+	return EF_TRUE
 
 /datum/controller/subsystem/vote/ui_close(mob/user)
 	voting -= user.client?.ckey

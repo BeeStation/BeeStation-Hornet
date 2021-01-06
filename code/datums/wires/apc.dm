@@ -13,7 +13,7 @@
 /datum/wires/apc/interactable(mob/user)
 	var/obj/machinery/power/apc/A = holder
 	if(A.panel_open && !A.opened)
-		return TRUE
+		return EF_TRUE
 
 /datum/wires/apc/get_status()
 	var/obj/machinery/power/apc/A = holder

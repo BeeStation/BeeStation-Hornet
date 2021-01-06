@@ -394,10 +394,10 @@
 
 /obj/effect/proc_holder/wrap/Click()
 	if(!istype(usr, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
-		return TRUE
+		return EF_TRUE
 	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/user = usr
 	activate(user)
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/proc_holder/wrap/proc/activate(mob/living/user)
 	var/message
@@ -425,7 +425,7 @@
 		user.cocoon_target = target_atom
 		INVOKE_ASYNC(user, /mob/living/simple_animal/hostile/poison/giant_spider/nurse/.proc/cocoon)
 		remove_ranged_ability()
-		return TRUE
+		return EF_TRUE
 
 /obj/effect/proc_holder/wrap/on_lose(mob/living/carbon/user)
 	remove_ranged_ability()
@@ -484,11 +484,11 @@
 /datum/action/innate/spider/set_directive/IsAvailable()
 	if(..())
 		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider))
-			return FALSE
+			return EF_FALSE
 		var/mob/living/simple_animal/hostile/poison/giant_spider/S = owner
 		if(S.playable_spider)
-			return FALSE
-		return TRUE
+			return EF_FALSE
+		return EF_TRUE
 
 /datum/action/innate/spider/set_directive/Activate()
 	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
@@ -514,15 +514,15 @@
 
 /datum/action/innate/spider/comm/IsAvailable()
 	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/action/innate/spider/comm/Trigger()
 	var/input = stripped_input(owner, "Input a command for your legions to follow.", "Command", "")
 	if(QDELETED(src) || !input || !IsAvailable())
-		return FALSE
+		return EF_FALSE
 	spider_command(owner, input)
-	return TRUE
+	return EF_TRUE
 
 /datum/action/innate/spider/comm/proc/spider_command(mob/living/user, message)
 	if(!message)

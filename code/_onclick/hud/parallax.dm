@@ -67,25 +67,25 @@
 			if (PARALLAX_INSANE)
 				C.parallax_throttle = FALSE
 				C.parallax_layers_max = 5
-				return TRUE
+				return EF_TRUE
 
 			if (PARALLAX_MED)
 				C.parallax_throttle = PARALLAX_DELAY_MED
 				C.parallax_layers_max = 3
-				return TRUE
+				return EF_TRUE
 
 			if (PARALLAX_LOW)
 				C.parallax_throttle = PARALLAX_DELAY_LOW
 				C.parallax_layers_max = 1
-				return TRUE
+				return EF_TRUE
 
 			if (PARALLAX_DISABLE)
-				return FALSE
+				return EF_FALSE
 
 	//This is high parallax.
 	C.parallax_throttle = PARALLAX_DELAY_DEFAULT
 	C.parallax_layers_max = 4
-	return TRUE
+	return EF_TRUE
 
 /datum/hud/proc/update_parallax_pref(mob/viewmob)
 	remove_parallax(viewmob)

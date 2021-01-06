@@ -30,12 +30,12 @@
 
 /obj/machinery/camera/proc/newTarget(mob/target)
 	if(isAI(target))
-		return FALSE
+		return EF_FALSE
 	if (detectTime == 0)
 		detectTime = world.time // start the clock
 	var/list/targets = getTargetList()
 	targets |= WEAKREF(target)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/camera/Destroy()
 	var/area/ai_monitored/A = get_area(src)
@@ -58,17 +58,17 @@
 			if (status)
 				aiPlayer.cancelAlarm("Motion", get_area(src), src)
 	detectTime = 0
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/camera/proc/triggerAlarm()
 	if (!detectTime)
-		return FALSE
+		return EF_FALSE
 	for (var/mob/living/silicon/aiPlayer in GLOB.player_list)
 		if (status)
 			aiPlayer.triggerAlarm("Motion", get_area(src), list(src), src)
 			visible_message("<span class='warning'>A red light flashes on the [src]!</span>")
 	detectTime = -1
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/camera/HasProximity(atom/movable/AM as mob|obj)
 	// Motion cameras outside of an "ai monitored" area will use this to detect stuff.

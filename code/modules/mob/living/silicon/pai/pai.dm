@@ -86,10 +86,10 @@
 	var/brightness_power = 5
 
 /mob/living/silicon/pai/can_unbuckle()
-	return FALSE
+	return EF_FALSE
 
 /mob/living/silicon/pai/can_buckle()
-	return FALSE
+	return EF_FALSE
 
 /mob/living/silicon/pai/Destroy()
 	QDEL_NULL(internal_instrument)
@@ -158,7 +158,7 @@
 
 /mob/living/silicon/pai/make_laws()
 	laws = new /datum/ai_laws/pai()
-	return TRUE
+	return EF_TRUE
 
 /mob/living/silicon/pai/Login()
 	..()
@@ -186,8 +186,8 @@
 /mob/living/silicon/pai/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
 	if(be_close && !in_range(M, src))
 		to_chat(src, "<span class='warning'>You are too far away!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /mob/proc/makePAI(delold)
 	var/obj/item/paicard/card = new /obj/item/paicard(get_turf(src))
@@ -261,9 +261,9 @@
 	. = ..()
 	if(!.)
 		add_movespeed_modifier(MOVESPEED_ID_PAI_SPACEWALK_SPEEDMOD, TRUE, 100, multiplicative_slowdown = 2)
-		return TRUE
+		return EF_TRUE
 	remove_movespeed_modifier(MOVESPEED_ID_PAI_SPACEWALK_SPEEDMOD, TRUE)
-	return TRUE
+	return EF_TRUE
 
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()

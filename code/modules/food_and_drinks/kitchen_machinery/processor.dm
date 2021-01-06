@@ -46,7 +46,7 @@
 /obj/machinery/processor/attackby(obj/item/O, mob/user, params)
 	if(processing)
 		to_chat(user, "<span class='warning'>[src] is in the process of processing!</span>")
-		return TRUE
+		return EF_TRUE
 	if(default_deconstruction_screwdriver(user, "processor", "processor1", O))
 		return
 
@@ -88,7 +88,7 @@
 /obj/machinery/processor/interact(mob/user)
 	if(processing)
 		to_chat(user, "<span class='warning'>[src] is in the process of processing!</span>")
-		return TRUE
+		return EF_TRUE
 	if(user.a_intent == INTENT_GRAB && ismob(user.pulling) && select_recipe(user.pulling))
 		if(user.grab_state < GRAB_AGGRESSIVE)
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
@@ -100,7 +100,7 @@
 		return
 	if(contents.len == 0)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
-		return TRUE
+		return EF_TRUE
 	processing = TRUE
 	user.visible_message("[user] turns on [src].", \
 		"<span class='notice'>You turn on [src].</span>", \

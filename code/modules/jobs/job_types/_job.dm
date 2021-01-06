@@ -147,11 +147,11 @@
 		announce_head(H, head_announce)
 
 /datum/job/proc/override_latejoin_spawn(mob/living/carbon/human/H)		//Return TRUE to force latejoining to not automatically place the person in latejoin shuttle/whatever.
-	return FALSE
+	return EF_FALSE
 
 //Used for a special check of whether to allow a client to latejoin as this job.
 /datum/job/proc/special_check_latejoin(client/C)
-	return TRUE
+	return EF_TRUE
 
 /datum/job/proc/GetAntagRep()
 	if(CONFIG_GET(flag/equal_job_weight))
@@ -166,7 +166,7 @@
 //Don't override this unless the job transforms into a non-human (Silicons do this for example)
 /datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source)
 	if(!H)
-		return FALSE
+		return EF_FALSE
 	if(CONFIG_GET(flag/enforce_human_authority) && (title in GLOB.command_positions))
 		if(H.dna.species.id != "human")
 			H.set_species(/datum/species/human)
@@ -209,8 +209,8 @@
 //If the configuration option is set to require players to be logged as old enough to play certain jobs, then this proc checks that they are, otherwise it just returns 1
 /datum/job/proc/player_old_enough(client/C)
 	if(available_in_days(C) == 0)
-		return TRUE	//Available in 0 days = available right now = player is old enough to play.
-	return FALSE
+		return EF_TRUE	//Available in 0 days = available right now = player is old enough to play.
+	return EF_FALSE
 
 
 /datum/job/proc/available_in_days(client/C)
@@ -226,10 +226,10 @@
 	return max(0, minimal_player_age - C.player_age)
 
 /datum/job/proc/config_check()
-	return TRUE
+	return EF_TRUE
 
 /datum/job/proc/map_check()
-	return TRUE
+	return EF_TRUE
 
 /datum/job/proc/radio_help_message(mob/M)
 	to_chat(M, "<b>Prefix your message with :h to speak on your department's radio. To see other prefixes, look closely at your headset.</b>")

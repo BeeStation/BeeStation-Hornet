@@ -114,26 +114,26 @@
 
 /obj/machinery/rnd/production/proc/user_try_print_id(id, amount)
 	if((!istype(linked_console) && requires_console) || !id)
-		return FALSE
+		return EF_FALSE
 	if(istext(amount))
 		amount = text2num(amount)
 	if(isnull(amount))
 		amount = 1
 	var/datum/design/D = (linked_console || requires_console)? (linked_console.stored_research.researched_designs[id]? SSresearch.techweb_design_by_id(id) : null) : SSresearch.techweb_design_by_id(id)
 	if(!istype(D))
-		return FALSE
+		return EF_FALSE
 	if(!(isnull(allowed_department_flags) || (D.departmental_flags & allowed_department_flags)))
 		say("Warning: Printing failed: This fabricator does not have the necessary keys to decrypt design schematics. Please update the research data with the on-screen button and contact Nanotrasen Support!")
-		return FALSE
+		return EF_FALSE
 	if(D.build_type && !(D.build_type & allowed_buildtypes))
 		say("This machine does not have the necessary manipulation systems for this design. Please contact Nanotrasen Support!")
-		return FALSE
+		return EF_FALSE
 	if(!materials.mat_container)
 		say("No connection to material storage, please contact the quartermaster.")
-		return FALSE
+		return EF_FALSE
 	if(materials.on_hold())
 		say("Mineral access is on hold, please contact the quartermaster.")
-		return FALSE
+		return EF_FALSE
 	var/power = 1000
 	amount = CLAMP(amount, 1, 50)
 	for(var/M in D.materials)
@@ -146,11 +146,11 @@
 		efficient_mats[MAT] = D.materials[MAT]/coeff
 	if(!materials.mat_container.has_materials(efficient_mats, amount))
 		say("Not enough materials to complete prototype[amount > 1? "s" : ""].")
-		return FALSE
+		return EF_FALSE
 	for(var/R in D.reagents_list)
 		if(!reagents.has_reagent(R, D.reagents_list[R]*amount/coeff))
 			say("Not enough reagents to complete prototype[amount > 1? "s" : ""].")
-			return FALSE
+			return EF_FALSE
 	materials.mat_container.use_materials(efficient_mats, amount)
 	materials.silo_log(src, "built", -amount, "[D.name]", efficient_mats)
 	for(var/R in D.reagents_list)
@@ -161,7 +161,7 @@
 	var/timecoeff = D.lathe_time_factor / efficiency_coeff
 	addtimer(CALLBACK(src, .proc/reset_busy), (30 * timecoeff * amount) ** 0.5)
 	addtimer(CALLBACK(src, .proc/do_print, D.build_path, amount, efficient_mats, D.dangerous_construction), (32 * timecoeff * amount) ** 0.8)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/rnd/production/proc/search(string)
 	matching_designs.Cut()

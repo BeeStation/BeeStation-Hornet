@@ -84,7 +84,7 @@ Key procs
 		grant_language(language, understood, spoken, source)
 	if(grant_omnitongue)	// Overrides tongue limitations.
 		omnitongue = TRUE
-	return TRUE
+	return EF_TRUE
 
 /// Removes a single language or source, removing all sources returns the pre-removal state of the language.
 /datum/language_holder/proc/remove_language(language, understood = TRUE, spoken = TRUE, source = LANGUAGE_ALL)
@@ -112,7 +112,7 @@ Key procs
 		remove_language(language, TRUE, TRUE, source)
 	if(remove_omnitongue)
 		omnitongue = FALSE
-	return TRUE
+	return EF_TRUE
 
 /// Adds a single language or list of languages to the blocked language list.
 /datum/language_holder/proc/add_blocked_language(languages, source = LANGUAGE_MIND)
@@ -122,7 +122,7 @@ Key procs
 		if(!blocked_languages[language])
 			blocked_languages[language] = list()
 		blocked_languages[language] |= source
-	return TRUE
+	return EF_TRUE
 
 /// Removes a single language or list of languages from the blocked language list.
 /datum/language_holder/proc/remove_blocked_language(languages, source = LANGUAGE_MIND)
@@ -136,12 +136,12 @@ Key procs
 				blocked_languages[language] -= source
 				if(!length(blocked_languages[language]))
 					blocked_languages -= language
-	return TRUE
+	return EF_TRUE
 
 /// Checks if you have the language. If spoken is true, only checks if you can speak the language.
 /datum/language_holder/proc/has_language(language, spoken = FALSE)
 	if(language in blocked_languages)
-		return FALSE
+		return EF_FALSE
 	if(spoken)
 		return language in spoken_languages
 	return language in understood_languages
@@ -151,8 +151,8 @@ Key procs
 	var/atom/movable/ouratom = get_atom()
 	var/tongue = ouratom.could_speak_language(language)
 	if((omnitongue || tongue) && has_language(language, TRUE))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /// Returns selected language if it can be spoken, or decides, sets and returns a new selected language if possible.
 /datum/language_holder/proc/get_selected_language()
@@ -190,13 +190,13 @@ Key procs
 			var/datum/mind/M = owner
 			return M.current
 		return owner
-	return FALSE
+	return EF_FALSE
 
 /// Empties out the atom specific languages and updates them according to the supplied atoms language holder.
 /datum/language_holder/proc/update_atom_languages(atom/movable/thing)
 	var/datum/language_holder/from_atom = thing.get_language_holder(FALSE)	//Gets the atoms language holder
 	if(from_atom == src)	//This could happen if called on an atom without a mind.
-		return FALSE
+		return EF_FALSE
 	for(var/language in understood_languages)
 		remove_language(language, TRUE, FALSE, LANGUAGE_ATOM)
 	for(var/language in spoken_languages)
@@ -206,7 +206,7 @@ Key procs
 
 	copy_languages(from_atom)
 	get_selected_language()
-	return TRUE
+	return EF_TRUE
 
 /// Copies all languages from the supplied atom/language holder. Source should be overridden when you
 /// do not want the language overwritten by later atom updates or want to avoid blocked languages.
@@ -223,7 +223,7 @@ Key procs
 			grant_language(language, FALSE, TRUE, from_holder.spoken_languages[language])
 		for(var/language in from_holder.blocked_languages)
 			add_blocked_language(language, from_holder.blocked_languages[language])
-	return TRUE
+	return EF_TRUE
 
 
 //************************************************

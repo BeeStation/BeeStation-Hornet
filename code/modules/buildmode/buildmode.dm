@@ -140,7 +140,7 @@
 
 /datum/buildmode/proc/InterceptClickOn(mob/user, params, atom/object)
 	mode.handle_click(user.client, params, object)
-	return TRUE // no doing underlying actions
+	return EF_TRUE // no doing underlying actions
 
 /proc/togglebuildmode(mob/M as mob in GLOB.player_list)
 	set name = "Toggle Build Mode"

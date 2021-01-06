@@ -95,7 +95,7 @@
   */
 /obj/item/mecha_parts/mecha_tracking/proc/get_mecha_info()
 	if(!chassis)
-		return FALSE
+		return EF_FALSE
 
 	var/cell_charge = chassis.get_charge()
 	var/answer = {"<b>Name:</b> [chassis.name]<br>

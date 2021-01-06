@@ -106,7 +106,7 @@
 	return ..()
 
 /obj/structure/table/attack_tk()
-	return FALSE
+	return EF_FALSE
 
 /obj/structure/table/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && (mover.pass_flags & PASSTABLE))
@@ -515,10 +515,10 @@
 	if(M)
 		if(M.resting)
 			patient = M
-			return TRUE
+			return EF_TRUE
 	else
 		patient = null
-		return FALSE
+		return EF_FALSE
 
 /*
  * Racks

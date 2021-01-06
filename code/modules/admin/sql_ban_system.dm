@@ -13,9 +13,9 @@
 		if(islist(roles))
 			for(var/R in roles)
 				if(R in C.ban_cache)
-					return TRUE //they're banned from at least one role, no need to keep checking
+					return EF_TRUE //they're banned from at least one role, no need to keep checking
 		else if(roles in C.ban_cache)
-			return TRUE
+			return EF_TRUE
 	else
 		var/values = list(
 			"player_ckey" = player_ckey,
@@ -52,7 +52,7 @@
 			return
 		if(query_check_ban.NextRow())
 			qdel(query_check_ban)
-			return TRUE
+			return EF_TRUE
 		qdel(query_check_ban)
 
 //checks DB ban table if a ckey, ip and/or cid is banned from a specific role

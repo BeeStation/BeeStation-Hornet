@@ -62,7 +62,7 @@
 /obj/machinery/food_cart/attackby(obj/item/O, mob/user, params)
 	if(O.tool_behaviour == TOOL_WRENCH)
 		default_unfasten_wrench(user, O, 0)
-		return TRUE
+		return EF_TRUE
 	if(istype(O, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		var/obj/item/reagent_containers/food/drinks/drinkingglass/DG = O
 		if(!DG.reagents.total_volume) //glass is empty

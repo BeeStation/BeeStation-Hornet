@@ -63,7 +63,7 @@
   * If you are adding a more complex summoning or something that requires a special check that parses through all the atoms in an area override this.
   */
 /datum/eldritch_knowledge/proc/recipe_snowflake_check(list/atoms,loc)
-	return TRUE
+	return EF_TRUE
 
 /**
   * What happens once the recipe is succesfully finished
@@ -72,12 +72,12 @@
   */
 /datum/eldritch_knowledge/proc/on_finished_recipe(mob/living/user,list/atoms,loc)
 	if(result_atoms.len == 0)
-		return FALSE
+		return EF_FALSE
 
 	for(var/A in result_atoms)
 		new A(loc)
 
-	return TRUE
+	return EF_TRUE
 
 /**
   * Used atom cleanup
@@ -98,7 +98,7 @@
   * Gives addtional effects to mansus grasp spell
   */
 /datum/eldritch_knowledge/proc/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
-	return FALSE
+	return EF_FALSE
 
 
 /**
@@ -136,8 +136,8 @@
 		fingerprints |= A.return_fingerprints()
 	listclearnulls(fingerprints)
 	if(fingerprints.len == 0)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/eldritch_knowledge/curse/on_finished_recipe(mob/living/user,list/atoms,loc)
 
@@ -153,14 +153,14 @@
 
 	if(compiled_list.len == 0)
 		to_chat(user, "<span class='warning'>The items don't posses required fingerprints.</span>")
-		return FALSE
+		return EF_FALSE
 
 	var/chosen_mob = input("Select the person you wish to curse","Your target") as null|anything in sortList(compiled_list, /proc/cmp_mob_realname_dsc)
 	if(!chosen_mob)
-		return FALSE
+		return EF_FALSE
 	curse(compiled_list[chosen_mob])
 	addtimer(CALLBACK(src, .proc/uncurse, compiled_list[chosen_mob]),timer)
-	return TRUE
+	return EF_TRUE
 
 /datum/eldritch_knowledge/curse/proc/curse(mob/living/chosen_mob)
 	return
@@ -181,7 +181,7 @@
 	if(!LAZYLEN(candidates))
 		to_chat(user,"<span class='warning'>No ghost could be found...</span>")
 		qdel(summoned)
-		return FALSE
+		return EF_FALSE
 	var/mob/dead/observer/C = pick(candidates)
 	log_game("[key_name_admin(C)] has taken control of ([key_name_admin(summoned)]), their master is [user.real_name]")
 	summoned.ghostize(FALSE)
@@ -190,7 +190,7 @@
 	var/datum/antagonist/heretic_monster/heretic_monster = summoned.mind.has_antag_datum(/datum/antagonist/heretic_monster)
 	var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	heretic_monster.set_owner(master)
-	return TRUE
+	return EF_TRUE
 
 //Ascension knowledge
 /datum/eldritch_knowledge/final
@@ -198,20 +198,20 @@
 
 /datum/eldritch_knowledge/final/recipe_snowflake_check(list/atoms, loc,selected_atoms)
 	if(finished)
-		return FALSE
+		return EF_FALSE
 	var/counter = 0
 	for(var/mob/living/carbon/human/H in atoms)
 		selected_atoms |= H
 		counter++
 		if(counter == 3)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/eldritch_knowledge/final/on_finished_recipe(mob/living/user, list/atoms, loc)
 	finished = TRUE
 	var/datum/antagonist/heretic/ascension = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	ascension.ascended = TRUE
-	return TRUE
+	return EF_TRUE
 
 /datum/eldritch_knowledge/final/cleanup_atoms(list/atoms)
 	. = ..()
@@ -238,10 +238,10 @@
 	. = ..()
 	for(var/obj/item/living_heart/LH in atoms)
 		if(!LH.target)
-			return TRUE
+			return EF_TRUE
 		if(LH.target in atoms)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/eldritch_knowledge/spell/basic/on_finished_recipe(mob/living/user, list/atoms, loc)
 	. = TRUE

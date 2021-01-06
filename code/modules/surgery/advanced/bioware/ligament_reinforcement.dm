@@ -27,7 +27,7 @@
 		"[user] reinforces [target]'s ligaments!",
 		"[user] finishes manipulating [target]'s ligaments.")
 	new /datum/bioware/reinforced_ligaments(target)
-	return TRUE
+	return EF_TRUE
 
 /datum/bioware/reinforced_ligaments
 	name = "Reinforced Ligaments"

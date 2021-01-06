@@ -26,10 +26,10 @@
 
 /obj/item/areaeditor/Topic(href, href_list)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	if(!usr.canUseTopic(src))
 		usr << browse(null, "window=blueprints")
-		return TRUE
+		return EF_TRUE
 	if(href_list["create_area"])
 		if(in_use)
 			return
@@ -198,7 +198,7 @@
 	log_game("[key_name(usr)] has renamed [prevname] to [str]")
 	A.update_areasize()
 	interact()
-	return TRUE
+	return EF_TRUE
 
 //Blueprint Subtypes
 
@@ -219,7 +219,7 @@
 			var/obj/machinery/door/firedoor/FD = D
 			FD.CalculateAffectingAreas()
 	A.update_areasize()
-	return TRUE
+	return EF_TRUE
 
 
 /proc/set_area_machinery_title(area/A, title, oldtitle)

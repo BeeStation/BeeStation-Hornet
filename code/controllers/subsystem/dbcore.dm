@@ -55,18 +55,18 @@ SUBSYSTEM_DEF(dbcore)
 
 /datum/controller/subsystem/dbcore/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, connection))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/controller/subsystem/dbcore/proc/Connect()
 	if(IsConnected())
-		return TRUE
+		return EF_TRUE
 
 	if(failed_connections > 5)	//If it failed to establish a connection more than 5 times in a row, don't bother attempting to connect anymore.
-		return FALSE
+		return EF_FALSE
 
 	if(!CONFIG_GET(flag/sql_enabled))
-		return FALSE
+		return EF_FALSE
 
 	var/user = CONFIG_GET(string/feedback_login)
 	var/pass = CONFIG_GET(string/feedback_password)
@@ -168,9 +168,9 @@ SUBSYSTEM_DEF(dbcore)
 
 /datum/controller/subsystem/dbcore/proc/IsConnected()
 	if (!CONFIG_GET(flag/sql_enabled))
-		return FALSE
+		return EF_FALSE
 	if (!connection)
-		return FALSE
+		return EF_FALSE
 	return json_decode(rustg_sql_connected(connection))["status"] == "online"
 
 /datum/controller/subsystem/dbcore/proc/ErrorMsg()
@@ -185,7 +185,7 @@ SUBSYSTEM_DEF(dbcore)
 	if(IsAdminAdvancedProcCall())
 		log_admin_private("ERROR: Advanced admin proc call led to sql query: [sql_query]. Query has been blocked")
 		message_admins("ERROR: Advanced admin proc call led to sql query. Query has been blocked")
-		return FALSE
+		return EF_FALSE
 	return new /datum/DBQuery(connection, sql_query, arguments)
 
 /datum/controller/subsystem/dbcore/proc/QuerySelect(list/querys, warn = FALSE, qdel = FALSE)
@@ -317,7 +317,7 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 
 /datum/DBQuery/CanProcCall(proc_name)
 	//fuck off kevinz
-	return FALSE
+	return EF_FALSE
 
 /datum/DBQuery/proc/Activity(activity)
 	last_activity = activity
@@ -335,7 +335,7 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 
 	if(!SSdbcore.IsConnected())
 		last_error = "No connection!"
-		return FALSE
+		return EF_FALSE
 
 	var/start_time
 	if(!async)
@@ -364,7 +364,7 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 
 		if (job_result_str == RUSTG_JOB_ERROR)
 			last_error = job_result_str
-			return FALSE
+			return EF_FALSE
 	else
 		job_result_str = rustg_sql_query_blocking(connection, sql, json_encode(arguments))
 
@@ -374,13 +374,13 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 			rows = result["rows"]
 			affected = result["affected"]
 			last_insert_id = result["last_insert_id"]
-			return TRUE
+			return EF_TRUE
 		if ("err")
 			last_error = result["data"]
-			return FALSE
+			return EF_FALSE
 		if ("offline")
 			last_error = "offline"
-			return FALSE
+			return EF_FALSE
 
 /datum/DBQuery/proc/slow_query_check()
 	message_admins("HEY! A database query timed out. Did the server just hang? <a href='?_src_=holder;[HrefToken()];slowquery=yes'>\[YES\]</a>|<a href='?_src_=holder;[HrefToken()];slowquery=no'>\[NO\]</a>")
@@ -393,7 +393,7 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 		next_row_to_take++
 		return !!item
 	else
-		return FALSE
+		return EF_FALSE
 
 /datum/DBQuery/proc/ErrorMsg()
 	return last_error

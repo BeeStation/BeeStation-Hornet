@@ -122,32 +122,32 @@
 	// valid targets: carbons except aliens and devils
 	// facehugger state early exit checks
 	if(stat != CONSCIOUS)
-		return FALSE
+		return EF_FALSE
 	if(attached)
-		return FALSE
+		return EF_FALSE
 	if(iscarbon(M))
 		// disallowed carbons
 		if(isalien(M) || isdevil(M))
-			return FALSE
+			return EF_FALSE
 		var/mob/living/carbon/target = M
 		// gotta have a head to be implanted (no changelings or sentient plants)
 		if(!target.get_bodypart(BODY_ZONE_HEAD))
-			return FALSE
+			return EF_FALSE
 		// gotta be able to have the xeno implanted
 		if(HAS_TRAIT(target, TRAIT_XENO_IMMUNE))
-			return FALSE
+			return EF_FALSE
 		// carbon, has head, not alien or devil, has no hivenode or embryo: valid
-		return TRUE
+		return EF_TRUE
 
-	return FALSE
+	return EF_FALSE
 
 /obj/item/clothing/mask/facehugger/proc/Leap(mob/living/M)
 	if(!valid_to_attach(M))
-		return FALSE
+		return EF_FALSE
 	if(iscarbon(M))
 		var/mob/living/carbon/target = M
 		if(target.wear_mask && istype(target.wear_mask, /obj/item/clothing/mask/facehugger))
-			return FALSE
+			return EF_FALSE
 	// passed initial checks - time to leap!
 	M.visible_message("<span class='danger'>[src] leaps at [M]'s face!</span>", \
 							"<span class='userdanger'>[src] leaps at your face!</span>")
@@ -162,7 +162,7 @@
 				H.visible_message("<span class='danger'>[src] smashes against [H]'s [H.head]!</span>", \
 									"<span class='userdanger'>[src] smashes against your [H.head]!</span>")
 				Die()
-				return FALSE
+				return EF_FALSE
 
 		if(target.wear_mask)
 			var/obj/item/clothing/W = target.wear_mask
@@ -170,7 +170,7 @@
 				target.visible_message("<span class='danger'>[src] tears [W] off of [target]'s face!</span>", \
 									"<span class='userdanger'>[src] tears [W] off of your face!</span>")
 		target.equip_to_slot_if_possible(src, SLOT_WEAR_MASK, 0, 1, 1)
-	return TRUE // time for a smoke
+	return EF_TRUE // time for a smoke
 
 /obj/item/clothing/mask/facehugger/proc/Attach(mob/living/M)
 	if(!valid_to_attach(M))

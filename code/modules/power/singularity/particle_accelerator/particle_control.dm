@@ -40,7 +40,7 @@
 	. = ..()
 	if(construction_state == PA_CONSTRUCTION_PANEL_OPEN)
 		wires.interact(user)
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/particle_accelerator/control_box/proc/update_state()
 	if(construction_state < PA_CONSTRUCTION_COMPLETE)
@@ -132,43 +132,43 @@
 
 	var/obj/structure/particle_accelerator/fuel_chamber/F = locate() in orange(1,src)
 	if(!F)
-		return FALSE
+		return EF_FALSE
 
 	setDir(F.dir)
 	connected_parts.Cut()
 
 	T = get_step(T,rdir)
 	if(!check_part(T, /obj/structure/particle_accelerator/fuel_chamber))
-		return FALSE
+		return EF_FALSE
 	T = get_step(T,odir)
 	if(!check_part(T, /obj/structure/particle_accelerator/end_cap))
-		return FALSE
+		return EF_FALSE
 	T = get_step(T,dir)
 	T = get_step(T,dir)
 	if(!check_part(T, /obj/structure/particle_accelerator/power_box))
-		return FALSE
+		return EF_FALSE
 	T = get_step(T,dir)
 	if(!check_part(T, /obj/structure/particle_accelerator/particle_emitter/center))
-		return FALSE
+		return EF_FALSE
 	T = get_step(T,ldir)
 	if(!check_part(T, /obj/structure/particle_accelerator/particle_emitter/left))
-		return FALSE
+		return EF_FALSE
 	T = get_step(T,rdir)
 	T = get_step(T,rdir)
 	if(!check_part(T, /obj/structure/particle_accelerator/particle_emitter/right))
-		return FALSE
+		return EF_FALSE
 
 	assembled = TRUE
 	critical_machine = TRUE	//Only counts if the PA is actually assembled.
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/particle_accelerator/control_box/proc/check_part(turf/T, type)
 	var/obj/structure/particle_accelerator/PA = locate(/obj/structure/particle_accelerator) in T
 	if(istype(PA, type) && (PA.construction_state == PA_CONSTRUCTION_COMPLETE))
 		if(PA.connect_master(src))
 			connected_parts.Add(PA)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/particle_accelerator/control_box/proc/toggle_power()
 	active = !active
@@ -189,7 +189,7 @@
 			part.strength = null
 			part.powered = FALSE
 			part.update_icon()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/particle_accelerator/control_box/examine(mob/user)
 	. = ..()
@@ -267,10 +267,10 @@
 /obj/machinery/particle_accelerator/control_box/proc/is_interactive(mob/user)
 	if(!interface_control)
 		to_chat(user, "<span class='alert'>ERROR: Request timed out. Check wire contacts.</span>")
-		return FALSE
+		return EF_FALSE
 	if(construction_state != PA_CONSTRUCTION_COMPLETE)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/particle_accelerator/control_box/ui_status(mob/user)
 	if(is_interactive(user))

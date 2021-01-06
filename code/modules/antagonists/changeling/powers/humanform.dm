@@ -28,4 +28,4 @@
 	var/newmob = user.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE)
 
 	changeling_transform(newmob, chosen_prof)
-	return TRUE
+	return EF_TRUE

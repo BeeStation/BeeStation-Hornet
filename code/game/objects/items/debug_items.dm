@@ -37,10 +37,10 @@
 
 /obj/item/debug/omnitool/proc/check_menu(mob/user)
 	if(!istype(user))
-		return FALSE
+		return EF_FALSE
 	if(user.incapacitated() || !user.Adjacent(src))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/item/debug/omnitool/attack(mob/living/M, mob/living/user)
 	if(tool_behaviour == "drapes")

@@ -22,7 +22,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	return INITIALIZE_HINT_NORMAL
 
 /mob/dead/canUseStorage()
-	return FALSE
+	return EF_FALSE
 
 /mob/dead/dust(just_ash, drop_items, force)	//ghosts can't be vaporised.
 	return

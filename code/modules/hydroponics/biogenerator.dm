@@ -125,7 +125,7 @@
 				to_chat(user, "<span class='info'>You empty the plant bag into the biogenerator, filling it to its capacity.</span>")
 			else
 				to_chat(user, "<span class='info'>You fill the biogenerator to its capacity.</span>")
-		return TRUE //no afterattack
+		return EF_TRUE //no afterattack
 
 	else if(istype(O, /obj/item/reagent_containers/food/snacks/grown))
 		var/i = 0
@@ -136,7 +136,7 @@
 		else
 			if(user.transferItemToLoc(O, src))
 				to_chat(user, "<span class='info'>You put [O.name] in [src.name]</span>")
-		return TRUE //no afterattack
+		return EF_TRUE //no afterattack
 	else if (istype(O, /obj/item/disk/design_disk))
 		user.visible_message("[user] begins to load \the [O] in \the [src]...",
 			"You begin to load a design from \the [O]...",
@@ -148,7 +148,7 @@
 				if(B)
 					stored_research.add_design(B)
 		processing = FALSE
-		return TRUE
+		return EF_TRUE
 	else
 		to_chat(user, "<span class='warning'>You cannot put this in [src.name]!</span>")
 
@@ -189,14 +189,14 @@
 
 /obj/machinery/biogenerator/proc/check_cost(list/materials, multiplier = 1, remove_points = TRUE)
 	if(materials.len != 1 || materials[1] != getmaterialref(/datum/material/biomass))
-		return FALSE
+		return EF_FALSE
 	if (materials[getmaterialref(/datum/material/biomass)]*multiplier/efficiency > points)
-		return FALSE
+		return EF_FALSE
 	else
 		if(remove_points)
 			points -= materials[getmaterialref(/datum/material/biomass)]*multiplier/efficiency
 		update_icon()
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/biogenerator/proc/check_container_volume(list/reagents, multiplier = 1)
 	var/sum_reagents = 0
@@ -205,19 +205,19 @@
 	sum_reagents *= multiplier
 
 	if(beaker.reagents.total_volume + sum_reagents > beaker.reagents.maximum_volume)
-		return FALSE
+		return EF_FALSE
 
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/biogenerator/proc/create_product(datum/design/D, amount)
 	if(!beaker || !loc)
-		return FALSE
+		return EF_FALSE
 
 	if(ispath(D.build_path, /obj/item/stack))
 		if(!check_container_volume(D.make_reagents, amount))
-			return FALSE
+			return EF_FALSE
 		if(!check_cost(D.materials, amount))
-			return FALSE
+			return EF_FALSE
 
 		new D.build_path(drop_location(), amount)
 		for(var/R in D.make_reagents)
@@ -311,10 +311,10 @@
 	switch(action)
 		if("activate")
 			activate(usr)
-			return TRUE
+			return EF_TRUE
 		if("detach")
 			detach(usr)
-			return TRUE
+			return EF_TRUE
 		if("create")
 			var/amount = text2num(params["amount"])
 			amount = clamp(amount, 1, 10)
@@ -330,7 +330,7 @@
 			else
 				stack_trace("ID could not be turned into a valid techweb design datum [id]")
 				return
-			return TRUE
+			return EF_TRUE
 		if("select")
 			selected_cat = params["category"]
-			return TRUE
+			return EF_TRUE

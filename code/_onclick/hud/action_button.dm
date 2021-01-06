@@ -21,7 +21,7 @@
 		var/mob/dead/observer/O = user
 		return !O.observetarget
 	else
-		return TRUE
+		return EF_TRUE
 
 /atom/movable/screen/movable/action_button/MouseDrop(over_object)
 	if(!can_use(usr))
@@ -49,16 +49,16 @@
 	if(modifiers["shift"])
 		if(locked)
 			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
-			return TRUE
+			return EF_TRUE
 		moved = 0
 		usr.update_action_buttons() //redraw buttons that are no longer considered "moved"
-		return TRUE
+		return EF_TRUE
 	if(modifiers["ctrl"])
 		locked = !locked
 		to_chat(usr, "<span class='notice'>Action button \"[name]\" [locked ? "" : "un"]locked.</span>")
 		if(id && usr.client) //try to (un)remember position
 			usr.client.prefs.action_buttons_screen_locs["[name]_[id]"] = locked ? moved : null
-		return TRUE
+		return EF_TRUE
 	if(usr.next_click > world.time)
 		return
 	usr.next_click = world.time + 1
@@ -67,7 +67,7 @@
 	transform = turn(matrix() * 0.9, pick(-8, 8))
 	alpha = 200
 	animate(src, transform = matrix(), time=4, alpha=255)
-	return TRUE
+	return EF_TRUE
 
 //Hide/Show Action Buttons ... Button
 /atom/movable/screen/movable/action_button/hide_toggle
@@ -88,16 +88,16 @@
 	if(modifiers["shift"])
 		if(locked)
 			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
-			return TRUE
+			return EF_TRUE
 		moved = FALSE
 		usr.update_action_buttons(TRUE)
-		return TRUE
+		return EF_TRUE
 	if(modifiers["ctrl"])
 		locked = !locked
 		to_chat(usr, "<span class='notice'>Action button \"[name]\" [locked ? "" : "un"]locked.</span>")
 		if(id && usr.client) //try to (un)remember position
 			usr.client.prefs.action_buttons_screen_locs["[name]_[id]"] = locked ? moved : null
-		return TRUE
+		return EF_TRUE
 	if(modifiers["alt"])
 		for(var/V in usr.actions)
 			var/datum/action/A = V
@@ -112,7 +112,7 @@
 			usr.client.prefs.action_buttons_screen_locs["[name]_[id]"] = null
 		usr.update_action_buttons(TRUE)
 		to_chat(usr, "<span class='notice'>Action button positions have been reset.</span>")
-		return TRUE
+		return EF_TRUE
 	usr.hud_used.action_buttons_hidden = !usr.hud_used.action_buttons_hidden
 
 	hidden = usr.hud_used.action_buttons_hidden

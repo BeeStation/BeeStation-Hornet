@@ -44,17 +44,17 @@
 
 /obj/item/computer_hardware/card_slot/try_insert(obj/item/I, mob/living/user = null)
 	if(!holder)
-		return FALSE
+		return EF_FALSE
 
 	if(!istype(I, /obj/item/card/id))
-		return FALSE
+		return EF_FALSE
 
 	if(stored_card && stored_card2)
 		to_chat(user, "<span class='warning'>You try to insert \the [I] into \the [src], but its slots are occupied.</span>")
-		return FALSE
+		return EF_FALSE
 	if(user)
 		if(!user.transferItemToLoc(I, src))
-			return FALSE
+			return EF_FALSE
 	else
 		I.forceMove(src)
 
@@ -68,13 +68,13 @@
 		var/mob/living/carbon/human/H = user
 		H.sec_hud_set_ID()
 
-	return TRUE
+	return EF_TRUE
 
 
 /obj/item/computer_hardware/card_slot/try_eject(slot=0, mob/living/user = null, forced = 0)
 	if(!stored_card && !stored_card2)
 		to_chat(user, "<span class='warning'>There are no cards in \the [src].</span>")
-		return FALSE
+		return EF_FALSE
 
 	var/ejected = 0
 	if(stored_card && (!slot || slot == 1))
@@ -106,8 +106,8 @@
 			H.sec_hud_set_ID()
 		to_chat(user, "<span class='notice'>You remove the card[ejected>1 ? "s" : ""] from \the [src].</span>")
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/item/computer_hardware/card_slot/attackby(obj/item/I, mob/living/user)
 	if(..())

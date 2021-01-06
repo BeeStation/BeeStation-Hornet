@@ -639,8 +639,8 @@
 
 /datum/reagents/proc/holder_full()
 	if(total_volume >= maximum_volume)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 //Returns the average specific heat for all reagents currently in this holder.
 /datum/reagents/proc/specific_heat()
@@ -657,22 +657,22 @@
 
 /datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = 300, no_react = 0)
 	if(!isnum_safe(amount) || !amount)
-		return FALSE
+		return EF_FALSE
 
 	if(amount <= 0)
-		return FALSE
+		return EF_FALSE
 
 	var/datum/reagent/D = GLOB.chemical_reagents_list[reagent]
 	if(!D)
 		WARNING("[my_atom] attempted to add a reagent called '[reagent]' which doesn't exist. ([usr])")
-		return FALSE
+		return EF_FALSE
 
 	update_total()
 	var/cached_total = total_volume
 	if(cached_total + amount > maximum_volume)
 		amount = (maximum_volume - cached_total) //Doesnt fit in. Make it disappear. Shouldnt happen. Will happen.
 		if(amount <= 0)
-			return FALSE
+			return EF_FALSE
 	var/new_total = cached_total + amount
 	var/cached_temp = chem_temp
 	var/list/cached_reagents = reagent_list
@@ -700,7 +700,7 @@
 			R.on_merge(data, amount)
 			if(!no_react)
 				handle_reactions()
-			return TRUE
+			return EF_TRUE
 
 	//otherwise make a new one
 	var/datum/reagent/R = new D.type(data)
@@ -718,7 +718,7 @@
 		my_atom.on_reagent_change(ADD_REAGENT)
 	if(!no_react)
 		handle_reactions()
-	return TRUE
+	return EF_TRUE
 
 /datum/reagents/proc/add_reagent_list(list/list_reagents, list/data=null) // Like add_reagent but you can enter a list. Format it like this: list(/datum/reagent/toxin = 10, "beer" = 15)
 	for(var/r_id in list_reagents)
@@ -732,10 +732,10 @@
 		CRASH("null amount passed to reagent code")
 
 	if(!isnum_safe(amount))
-		return FALSE
+		return EF_FALSE
 
 	if(amount < 0)
-		return FALSE
+		return EF_FALSE
 
 	var/list/cached_reagents = reagent_list
 
@@ -751,9 +751,9 @@
 				handle_reactions()
 			if(my_atom)
 				my_atom.on_reagent_change(REM_REAGENT)
-			return TRUE
+			return EF_TRUE
 
-	return FALSE
+	return EF_FALSE
 
 /datum/reagents/proc/has_reagent(reagent, amount = -1, needs_metabolizing = FALSE)
 	var/list/cached_reagents = reagent_list

@@ -15,7 +15,7 @@
  * optional ui datum/tgui The UI to be updated, if it exists.
  */
 /datum/proc/ui_interact(mob/user, datum/tgui/ui)
-	return FALSE // Not implemented.
+	return EF_FALSE // Not implemented.
 
 /**
  * public
@@ -171,7 +171,7 @@
 /proc/tgui_Topic(href_list)
 	// Skip non-tgui topics
 	if(!href_list["tgui"])
-		return FALSE
+		return EF_FALSE
 	var/type = href_list["type"]
 	// Unconditionally collect tgui logs
 	if(type == "log")
@@ -179,7 +179,7 @@
 	// Reload all tgui windows
 	if(type == "cacheReloaded")
 		if(!check_rights(R_ADMIN) || usr.client.tgui_cache_reloaded)
-			return TRUE
+			return EF_TRUE
 		// Mark as reloaded
 		usr.client.tgui_cache_reloaded = TRUE
 		// Notify windows
@@ -188,7 +188,7 @@
 			var/datum/tgui_window/window = windows[window_id]
 			if (window.status == TGUI_WINDOW_READY)
 				window.on_message(type, null, href_list)
-		return TRUE
+		return EF_TRUE
 	// Locate window
 	var/window_id = href_list["window_id"]
 	var/datum/tgui_window/window
@@ -197,7 +197,7 @@
 		if(!window)
 			log_tgui(usr, "Error: Couldn't find the window datum, force closing.")
 			SStgui.force_close_window(usr, window_id)
-			return TRUE
+			return EF_TRUE
 	// Decode payload
 	var/payload
 	if(href_list["payload"])
@@ -205,4 +205,4 @@
 	// Pass message to window
 	if(window)
 		window.on_message(type, payload, href_list)
-	return TRUE
+	return EF_TRUE

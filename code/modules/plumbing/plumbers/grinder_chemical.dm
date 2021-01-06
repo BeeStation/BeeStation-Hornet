@@ -24,7 +24,7 @@
 		return
 	var/move_dir = get_dir(loc, AM.loc)
 	if(move_dir == eat_dir)
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/plumbing/grinder_chemical/Crossed(atom/movable/AM)
 	. = ..()

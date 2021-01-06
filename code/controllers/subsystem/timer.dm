@@ -502,19 +502,19 @@ SUBSYSTEM_DEF(timer)
 
 /proc/deltimer(id)
 	if (!id)
-		return FALSE
+		return EF_FALSE
 	if (id == TIMER_ID_NULL)
 		CRASH("Tried to delete a null timerid. Use TIMER_STOPPABLE flag")
 	if (!istext(id))
 		if (istype(id, /datum/timedevent))
 			qdel(id)
-			return TRUE
+			return EF_TRUE
 	//id is string
 	var/datum/timedevent/timer = SStimer.timer_id_dict[id]
 	if (timer && !timer.spent)
 		qdel(timer)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 
 #undef BUCKET_LEN

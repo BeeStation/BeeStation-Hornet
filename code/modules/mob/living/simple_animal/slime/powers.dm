@@ -46,62 +46,62 @@
 
 /mob/living/simple_animal/slime/proc/CanFeedon(mob/living/M, silent = FALSE)
 	if(!Adjacent(M))
-		return FALSE
+		return EF_FALSE
 
 	if(buckled)
 		Feedstop()
-		return FALSE
+		return EF_FALSE
 
 	if(issilicon(M))
-		return FALSE
+		return EF_FALSE
 
 	if(isanimal(M))
 		var/mob/living/simple_animal/S = M
 		if(S.damage_coeff[TOX] <= 0 && S.damage_coeff[CLONE] <= 0) //The creature wouldn't take any damage, it must be too weird even for us.
 			if(silent)
-				return FALSE
+				return EF_FALSE
 			to_chat(src, "<span class='warning'>[pick("This subject is incompatible", \
 			"This subject does not have life energy", "This subject is empty", \
 			"I am not satisified", "I can not feed from this subject", \
 			"I do not feel nourished", "This subject is not food")]!</span>")
-			return FALSE
+			return EF_FALSE
 
 	if(isslime(M))
 		if(silent)
-			return FALSE
+			return EF_FALSE
 		to_chat(src, "<span class='warning'><i>I can't latch onto another slime...</i></span>")
-		return FALSE
+		return EF_FALSE
 
 	if(isipc(M))
 		if(silent)
-			return FALSE
+			return EF_FALSE
 		to_chat(src, "<span class='warning'><i>This subject does not have life energy...</i></span>")
-		return FALSE
+		return EF_FALSE
 
 	if(docile)
 		if(silent)
-			return FALSE
+			return EF_FALSE
 		to_chat(src, "<span class='notice'><i>I'm not hungry anymore...</i></span>")
-		return FALSE
+		return EF_FALSE
 
 	if(stat)
 		if(silent)
-			return FALSE
+			return EF_FALSE
 		to_chat(src, "<span class='warning'><i>I must be conscious to do this...</i></span>")
-		return FALSE
+		return EF_FALSE
 
 	if(M.stat == DEAD)
 		if(silent)
-			return FALSE
+			return EF_FALSE
 		to_chat(src, "<span class='warning'><i>This subject does not have a strong enough life energy...</i></span>")
-		return FALSE
+		return EF_FALSE
 
 	if(locate(/mob/living/simple_animal/slime) in M.buckled_mobs)
 		if(silent)
-			return FALSE
+			return EF_FALSE
 		to_chat(src, "<span class='warning'><i>Another slime is already feeding on this subject...</i></span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /mob/living/simple_animal/slime/proc/Feedon(mob/living/M)
 	M.unbuckle_all_mobs(force=1) //Slimes rip other mobs (eg: shoulder parrots) off (Slimes Vs Slimes is already handled in CanFeedon())
@@ -198,7 +198,7 @@
 				babies += M
 				M.mutation_chance = CLAMP(mutation_chance+(rand(5,-5)),0,100)
 				SSblackbox.record_feedback("tally", "slime_babies_born", 1, M.colour)
-				
+
 				if(original_nanites)
 					M.AddComponent(/datum/component/nanites, original_nanites.nanite_volume*0.25)
 					SEND_SIGNAL(M, COMSIG_NANITE_SYNC, original_nanites, TRUE, TRUE) //The trues are to copy activation as well

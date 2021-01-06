@@ -138,7 +138,7 @@
 
 /datum/nanite_program/pyro/check_conditions()
 	if(host_mob.fire_stacks >= 10 && host_mob.on_fire)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/nanite_program/pyro/active_effect()
@@ -153,7 +153,7 @@
 
 /datum/nanite_program/cryo/check_conditions()
 	if(host_mob.bodytemperature <= 70)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/nanite_program/cryo/active_effect()

@@ -205,11 +205,11 @@
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
 		update_icon()
 		return
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/fat_sucker/crowbar_act(mob/living/user, obj/item/I)
 	if(default_deconstruction_crowbar(I))
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/fat_sucker/emag_act(mob/living/user)
 	if(obj_flags & EMAGGED)

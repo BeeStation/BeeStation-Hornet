@@ -482,20 +482,20 @@
 /obj/item/mecha_parts/mecha_equipment/ripleyupgrade/can_attach(obj/mecha/working/ripley/M)
 	if(M.type != /obj/mecha/working/ripley)
 		to_chat(loc, "<span class='warning'>This conversion kit can only be applied to APLU MK-I models.</span>")
-		return FALSE
+		return EF_FALSE
 	if(M.cargo.len)
 		to_chat(loc, "<span class='warning'>[M]'s cargo hold must be empty before this conversion kit can be applied.</span>")
-		return FALSE
+		return EF_FALSE
 	if(!M.maint_access) //non-removable upgrade, so lets make sure the pilot or owner has their say.
 		to_chat(loc, "<span class='warning'>[M] must have maintenance protocols active in order to allow this conversion kit.</span>")
-		return FALSE
+		return EF_FALSE
 	if(M.occupant) //We're actualy making a new mech and swapping things over, it might get weird if players are involved
 		to_chat(loc, "<span class='warning'>[M] must be unoccupied before this conversion kit can be applied.</span>")
-		return FALSE
+		return EF_FALSE
 	if(!M.cell) //Turns out things break if the cell is missing
 		to_chat(loc, "<span class='warning'>The conversion process requires a cell installed.</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/item/mecha_parts/mecha_equipment/ripleyupgrade/attach(obj/mecha/M)
 	var/obj/mecha/working/ripley/mkii/N = new /obj/mecha/working/ripley/mkii(get_turf(M),1)

@@ -124,7 +124,7 @@
 	// When eating a crayon, check_empty() can be called twice producing
 	// two messages unless we check for being deleted first
 	if(QDELETED(src))
-		return TRUE
+		return EF_TRUE
 
 	. = FALSE
 	// -1 is unlimited charges
@@ -673,10 +673,10 @@
 							H.update_tint()
 					else
 						to_chat(usr, "<span class='warning'>A colour that dark on an object like this? Surely not...</span>")
-						return FALSE
+						return EF_FALSE
 				else
 					to_chat(usr, "<span class='warning'>A colour that dark on an object like this? Surely not...</span>")
-					return FALSE
+					return EF_FALSE
 
 			target.add_atom_colour(paint_color, WASHABLE_COLOUR_PRIORITY)
 			if(istype(target, /obj/structure/window))
@@ -687,7 +687,7 @@
 
 		. = use_charges(user, 2)
 		if(!.)
-			return FALSE
+			return EF_FALSE
 		var/fraction = min(1, . / reagents.maximum_volume)
 		reagents.reaction(target, TOUCH, fraction * volume_multiplier)
 		reagents.trans_to(target, ., volume_multiplier, transfered_by = user)
@@ -695,7 +695,7 @@
 		if(pre_noise || post_noise)
 			playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
 		user.visible_message("[user] coats [target] with spray paint!", "<span class='notice'>You coat [target] with spray paint.</span>")
-		return FALSE
+		return EF_FALSE
 
 	. = ..()
 
@@ -717,7 +717,7 @@
 	if(!iscyborg(user))
 		to_chat(user, "<span class='notice'>How did you get this?</span>")
 		qdel(src)
-		return FALSE
+		return EF_FALSE
 
 	var/mob/living/silicon/robot/borgy = user
 
@@ -784,19 +784,19 @@
 		if(G)
 			if(G.gang != gang)
 				to_chat(user, "<span class='danger'>This spraycan's color isn't your gang's one! You cannot use it.</span>")
-				return FALSE
+				return EF_FALSE
 			gang_mode = TRUE
 			instant = FALSE
 			. = "graffiti"
 	// discontinue if we're not in gang modethe area isn't valid for tagging because gang "honour"
 	if(gang_mode && (!can_claim_for_gang(user, target)))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/item/toy/crayon/proc/gang_final(mob/user, atom/target, list/affected_turfs) // hooked into afterattack
 	// Double check it wasn't tagged in the meanwhile
 	if(!can_claim_for_gang(user, target))
-		return TRUE
+		return EF_TRUE
 	tag_for_gang(user, target)
 	affected_turfs += target
 
@@ -806,7 +806,7 @@
 	var/area/A = get_area(target)
 	if(!A || (!is_station_level(A.z)) || !A.valid_territory)
 		to_chat(user, "<span class='warning'>[A] is unsuitable for tagging.</span>")
-		return FALSE
+		return EF_FALSE
 
 	var/spraying_over = FALSE
 	for(var/G in target)
@@ -819,15 +819,15 @@
 
 	for(var/obj/machinery/power/apc in target)
 		to_chat(user, "<span class='warning'>You can't tag an APC.</span>")
-		return FALSE
+		return EF_FALSE
 
 	var/occupying_gang = territory_claimed(A, user)
 	if(occupying_gang && !spraying_over)
 		to_chat(user, "<span class='danger'>[A] has already been tagged by the [occupying_gang] gang! You must get rid of or spray over the old tag first!</span>")
-		return FALSE
+		return EF_FALSE
 
 	// If you pass the gaunlet of checks, you're good to proceed
-	return TRUE
+	return EF_TRUE
 
 /obj/item/toy/crayon/proc/territory_claimed(area/territory, mob/user)
 	for(var/datum/team/gang/G in GLOB.gangs)

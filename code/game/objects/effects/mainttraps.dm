@@ -12,7 +12,7 @@
 	var/inuse = FALSE //used to make sure it dont get used when it shouldnt
 
 /obj/effect/trap/proc/TrapEffect(AM)
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/trap/trigger //this only triggers other traps
 	name = "pressure pad"
@@ -43,15 +43,15 @@
 
 /obj/effect/trap/trigger/TrapEffect(AM)
 	if(inuse)
-		return FALSE
-	else 
+		return EF_FALSE
+	else
 		inuse = TRUE
 	if(!LAZYLEN(possibletraps))
 		for(var/obj/effect/trap/nexus/payload in view(10, src))
 			possibletraps += payload
 		if(!LAZYLEN(possibletraps))
 			qdel(src)
-			return FALSE
+			return EF_FALSE
 	switch(pick_style)
 		if(PICK_STYLE_RANDOM)
 			var/obj/effect/trap/nexus/chosen = pick(possibletraps)
@@ -59,14 +59,14 @@
 				if(!chosen.reusable)
 					qdel(chosen)
 				inuse = FALSE
-				return TRUE
+				return EF_TRUE
 		if(PICK_STYLE_ORDERED)
 			for(var/obj/effect/trap/nexus/chosen in possibletraps)
 				if(chosen.TrapEffect(AM))
 					if(!chosen.reusable)
 						qdel(chosen)
 					inuse = FALSE
-					return TRUE
+					return EF_TRUE
 		if(PICK_STYLE_ALL)
 			var/success = FALSE
 			for(var/obj/effect/trap/nexus/chosen in possibletraps)
@@ -77,9 +77,9 @@
 				stoplag()
 			if(success)
 				inuse = FALSE
-				return TRUE
+				return EF_TRUE
 	inuse = FALSE
-	return FALSE
+	return EF_FALSE
 
 /obj/effect/trap/trigger/all
 	pick_style = PICK_STYLE_ALL
@@ -98,7 +98,7 @@
 	pick_style = PICK_STYLE_RANDOM
 
 /obj/effect/trap/nexus //this trap is triggered by pressurepads. doesnt do anything alone
-	icon_state = "madeyoulook" 
+	icon_state = "madeyoulook"
 
 /obj/effect/trap/nexus/doorbolt //a nasty little trap to put in a room with a simplemob
 	name = "door bolter"
@@ -107,8 +107,8 @@
 
 /obj/effect/trap/nexus/doorbolt/TrapEffect(AM)
 	if(inuse)
-		return FALSE
-	else 
+		return EF_FALSE
+	else
 		inuse = TRUE
 	var/list/airlocks = list()
 	for(var/obj/machinery/door/airlock/airlock in view(10, src))
@@ -124,7 +124,7 @@
 	for(var/obj/machinery/door/airlock/airlock in airlocks)
 		airlock.unbolt()
 	inuse = FALSE
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/trap/nexus/cluwnecurse
 	name = "honk :0)"
@@ -139,8 +139,8 @@
 			FC.dontkill = TRUE
 			FC.delete_after_target_killed = TRUE //it only affects the one to walk on the rune. when he dies, the rune is no longer usable
 			playsound(C,'sound/misc/honk_echo_distant.ogg', 30, 1)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/effect/trap/nexus/darkness
 	name = "lightbreaker"
@@ -152,7 +152,7 @@
 		L.break_light_tube()
 		L.on = FALSE
 		stoplag()
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/trap/nexus/trickyspawner //attempts to spawn a simplemob somewhere out of sight, aggroed to the target
 	name = "tricky little bastard"
@@ -170,19 +170,19 @@
 /obj/effect/trap/nexus/trickyspawner/TrapEffect(AM)
 	crossed ++
 	if(crossed <= crossattempts)
-		return FALSE
+		return EF_FALSE
 	var/list/turfs = list()
 	var/list/mobss = list()
 	var/list/validturfs = list()
 	var/turf/T = get_turf(src)
 	for(var/atom/I in view(7, src))
 		if(isopenturf(I))
-			turfs += I 
-			continue 
+			turfs += I
+			continue
 		if(isliving(I))
 			var/mob/living/L = I
 			if(L.mind)
-				mobss += L 
+				mobss += L
 				continue
 	for(var/turf/turf in turfs)
 		var/visible = FALSE
@@ -201,19 +201,19 @@
 		spawninstance.target = AM
 		if(istype(spawninstance, /mob/living/simple_animal/hostile/retaliate))
 			var/mob/living/simple_animal/hostile/retaliate/R = spawninstance
-			R.enemies += AM 
+			R.enemies += AM
 		mobs--
 		crossattempts = rand(1, 5)
 		if(!mobs)
 			reusable = FALSE
-		return TRUE
-	return TRUE
+		return EF_TRUE
+	return EF_TRUE
 
 /obj/effect/trap/nexus/trickyspawner/catbutcher
 	spawned = /mob/living/simple_animal/hostile/cat_butcherer/hugbox
 
 /obj/effect/trap/nexus/trickyspawner/faithless
-	spawned = /mob/living/simple_animal/hostile/faithless 
+	spawned = /mob/living/simple_animal/hostile/faithless
 
 /obj/effect/trap/nexus/trickyspawner/shitsec
 	spawned = /mob/living/simple_animal/hostile/nanotrasen/hugbox
@@ -231,7 +231,7 @@
 	spawned = /mob/living/simple_animal/hostile/alien/hugbox
 
 /obj/effect/trap/nexus/trickyspawner/honkling
-	mobs = 5 //honklings are annoying, but nearly harmless. 
+	mobs = 5 //honklings are annoying, but nearly harmless.
 	spawned = /mob/living/simple_animal/hostile/retaliate/clown/honkling
 
 /obj/effect/trap/nexus/trickyspawner/clownmutant
@@ -255,7 +255,7 @@
 
 /mob/living/simple_animal/hostile/alien/hugbox
 	health = 60 //they go down easy, to lull the player into a sense of false security
-	maxHealth = 60 
+	maxHealth = 60
 
 /mob/living/simple_animal/hostile/cat_butcherer/hugbox //a cat butcher without a melee speed buff or a syringe gun. he's not too hard to take down, but can still go on catification rampages
 	ranged = FALSE
@@ -269,7 +269,7 @@
 	cultist_name = "Invocation rune"
 	cultist_desc = "tears apart dimensional barriers, allowing a powerful elder being to exert its will upon the world. Requires at least nine invokers" //only shown to cultists, it does not actually require nine invokers if not used by cultists
 	invocation = "HONK!!"
-	req_cultists = 9//if a cultist invokes this, it acts like an invocation rune by asking them to check this. 
+	req_cultists = 9//if a cultist invokes this, it acts like an invocation rune by asking them to check this.
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "Cluwne"
 	color = RUNE_COLOR_SUMMON
@@ -354,7 +354,7 @@
 /obj/effect/rune/cluwne/invoke(var/list/invokers)
 	..()
 	rune_in_use = TRUE
-	for(var/mob/living/simple_animal/hostile/floor_cluwne/FC in range(5, src)) //we unleash the floor cluwne 
+	for(var/mob/living/simple_animal/hostile/floor_cluwne/FC in range(5, src)) //we unleash the floor cluwne
 		FC.dontkill = FALSE
 		FC.delete_after_target_killed = FALSE
 		FC.interest = 300

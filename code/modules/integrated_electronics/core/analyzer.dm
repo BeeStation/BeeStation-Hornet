@@ -12,7 +12,7 @@
 		var/obj/item/electronic_assembly/EA = A
 		if(EA.idlock)
 			to_chat(user, "<span class='notice'>[A] is currently identity-locked and can't be analyzed.</span>")
-			return FALSE
+			return EF_FALSE
 
 		var/saved = "[A.name] analyzed! On circuit printers with cloning enabled, you may use the code below to clone the circuit:<br><br><code>[SScircuit.save_electronic_assembly(A)]</code>"
 		if(saved)

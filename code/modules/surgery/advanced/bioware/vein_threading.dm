@@ -27,7 +27,7 @@
 		"[user] weaves [target]'s circulatory system into a resistant mesh!",
 		"[user] finishes manipulating [target]'s circulatory system.")
 	new /datum/bioware/threaded_veins(target)
-	return TRUE
+	return EF_TRUE
 
 /datum/bioware/threaded_veins
 	name = "Threaded Veins"

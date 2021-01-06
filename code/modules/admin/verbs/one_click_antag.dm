@@ -29,17 +29,17 @@
 
 /datum/admins/proc/isReadytoRumble(mob/living/carbon/human/applicant, targetrole, onstation = TRUE, conscious = TRUE)
 	if(applicant.mind.special_role)
-		return FALSE
+		return EF_FALSE
 	if(!(targetrole in applicant.client.prefs.be_special))
-		return FALSE
+		return EF_FALSE
 	if(onstation)
 		var/turf/T = get_turf(applicant)
 		if(!is_station_level(T.z))
-			return FALSE
+			return EF_FALSE
 	if(conscious && applicant.stat) //incase you don't care about a certain antag being unconcious when made, ie if they have selfhealing abilities.
-		return FALSE
+		return EF_FALSE
 	if(!considered_alive(applicant.mind) || considered_afk(applicant.mind)) //makes sure the player isn't a zombie, brain, or just afk all together
-		return FALSE
+		return EF_FALSE
 	return !is_banned_from(applicant.ckey, list(targetrole, ROLE_SYNDICATE))
 
 
@@ -148,7 +148,7 @@
 
 	var/mob/living/carbon/human/new_character = makeBody(selected)
 	new_character.mind.make_Wizard()
-	return TRUE
+	return EF_TRUE
 
 
 /datum/admins/proc/makeCult()
@@ -236,7 +236,7 @@
 	// TODO The fact we have to do this rather than just have events start
 	// when we ask them to, is bad.
 	E.processing = TRUE
-	return TRUE
+	return EF_TRUE
 
 /datum/admins/proc/makeSpaceNinja()
 	new /datum/round_event/ghost_role/ninja()
@@ -333,7 +333,7 @@
 	var/list/prefreturn = presentpreflikepicker(usr,"Customize ERT", "Customize ERT", Button1="Ok", width = 600, StealFocus = 1,Timeout = 0, settings=settings)
 
 	if (isnull(prefreturn))
-		return FALSE
+		return EF_FALSE
 
 	if (prefreturn["button"] == 1)
 		var/list/prefs = settings["mainsettings"]
@@ -416,9 +416,9 @@
 				for(var/obj/machinery/door/poddoor/ert/door in GLOB.airlocks)
 					door.open()
 					CHECK_TICK
-			return TRUE
+			return EF_TRUE
 		else
-			return FALSE
+			return EF_FALSE
 
 	return
 

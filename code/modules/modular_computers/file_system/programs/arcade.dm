@@ -96,7 +96,7 @@
 
 /datum/computer_file/program/arcade/ui_act(action, list/params)
 	if(..())
-		return TRUE
+		return EF_TRUE
 
 	// TODO: Has no supports for "skills" (tg skill leveling mechanics)
 	switch(action)
@@ -111,7 +111,7 @@
 			sleep(10)
 			game_check()
 			enemy_check()
-			return TRUE
+			return EF_TRUE
 		if("Heal")
 			var/healamt = 0 //More Spam Prevention.
 			var/healcost = 0
@@ -126,7 +126,7 @@
 			sleep(10)
 			game_check()
 			enemy_check()
-			return TRUE
+			return EF_TRUE
 		if("Recharge_Power")
 			var/rechargeamt = 0 //As above.
 			if(pause_state == FALSE)
@@ -138,7 +138,7 @@
 			sleep(10)
 			game_check()
 			enemy_check()
-			return TRUE
+			return EF_TRUE
 		if("Start_Game")
 			game_active = TRUE
 			boss_hp = 45

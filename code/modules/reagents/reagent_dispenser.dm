@@ -105,10 +105,10 @@
 		else
 			user.visible_message("<span class='warning'>[user] catastrophically fails at refilling [user.p_their()] [I.name]!</span>", "<span class='userdanger'>That was stupid of you.</span>")
 			log_bomber(user, "detonated a", src, "via welding tool")
-			
+
 			if (user.client)
 				SSmedals.UnlockMedal(MEDAL_DETONATE_WELDERBOMB,user.client)
-			
+
 			boom()
 		return
 	return ..()
@@ -194,7 +194,7 @@
 
 /obj/structure/reagent_dispensers/plumbed/wrench_act(mob/living/user, obj/item/I)
 	default_unfasten_wrench(user, I)
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/reagent_dispensers/plumbed/ComponentInitialize()
 	AddComponent(/datum/component/plumbing/simple_supply)

@@ -47,7 +47,7 @@
 
 /datum/plant_gene/core/can_add(obj/item/seeds/S)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	return S.get_gene(src.type)
 
 /datum/plant_gene/core/lifespan
@@ -147,11 +147,11 @@
 
 /datum/plant_gene/reagent/can_add(obj/item/seeds/S)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	for(var/datum/plant_gene/reagent/R in S.genes)
 		if(R.reagent_id == reagent_id)
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/plant_gene/reagent/polypyr
 	name = "Polypyrylium Oligomers"
@@ -176,14 +176,14 @@
 
 /datum/plant_gene/trait/can_add(obj/item/seeds/S)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 
 	for(var/datum/plant_gene/trait/R in S.genes)
 		if(trait_id && R.trait_id == trait_id)
-			return FALSE
+			return EF_FALSE
 		if(type == R.type)
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/plant_gene/trait/proc/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
 	return
@@ -386,10 +386,10 @@
 
 /datum/plant_gene/trait/repeated_harvest/can_add(obj/item/seeds/S)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	if(istype(S, /obj/item/seeds/replicapod))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/plant_gene/trait/battery
 	name = "Capacitive Cell Production"
@@ -444,14 +444,14 @@
 
 /datum/plant_gene/trait/stinging/proc/prick(obj/item/reagent_containers/food/snacks/grown/G, mob/living/L)
 	if(!L.reagents && !L.can_inject(null, 0))
-		return FALSE
+		return EF_FALSE
 
 	var/injecting_amount = max(1, G.seed.potency*0.2) // Minimum of 1, max of 20
 	var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
 	G.reagents.reaction(L, INJECT, fraction)
 	G.reagents.trans_to(L, injecting_amount)
 	to_chat(L, "<span class='danger'>You are pricked by [G]!</span>")
-	return TRUE
+	return EF_TRUE
 
 /datum/plant_gene/trait/smoke
 	name = "Gaseous Decomposition"

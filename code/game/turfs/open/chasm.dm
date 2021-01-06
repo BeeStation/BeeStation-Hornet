@@ -32,20 +32,20 @@
 	switch(the_rcd.mode)
 		if(RCD_FLOORWALL)
 			return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 3)
-	return FALSE
+	return EF_FALSE
 
 /turf/open/chasm/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_FLOORWALL)
 			to_chat(user, "<span class='notice'>You build a floor.</span>")
 			PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /turf/open/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
 	underlay_appearance.icon_state = "basalt"
-	return TRUE
+	return EF_TRUE
 
 /turf/open/chasm/attackby(obj/item/C, mob/user, params, area/area_restriction)
 	..()
@@ -99,4 +99,4 @@
 /turf/open/chasm/jungle/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
 	underlay_appearance.icon_state = "dirt"
-	return TRUE
+	return EF_TRUE

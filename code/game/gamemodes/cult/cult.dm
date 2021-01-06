@@ -9,28 +9,28 @@
 /datum/team/cult/proc/is_sacrifice_target(datum/mind/mind)
 	for(var/datum/objective/sacrifice/sac_objective in objectives)
 		if(mind == sac_objective.target)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /proc/is_convertable_to_cult(mob/living/M,datum/team/cult/specific_cult)
 	if(!istype(M))
-		return FALSE
+		return EF_FALSE
 	if(M.mind)
 		if(ishuman(M) && (M.mind.assigned_role in list("Captain", "Chaplain")))
-			return FALSE
+			return EF_FALSE
 		if(specific_cult && specific_cult.is_sacrifice_target(M.mind))
-			return FALSE
+			return EF_FALSE
 		if(is_servant_of_ratvar(M))
-			return FALSE
+			return EF_FALSE
 		if(M.mind.enslaved_to && !iscultist(M.mind.enslaved_to))
-			return FALSE
+			return EF_FALSE
 		if(M.mind.unconvertable)
-			return FALSE
+			return EF_FALSE
 	else
-		return FALSE
+		return EF_FALSE
 	if(HAS_TRAIT(M, TRAIT_MINDSHIELD) || issilicon(M) || isbot(M) || isdrone(M) || !M.client)
-		return FALSE //can't convert machines, shielded, braindead, or ratvar's dogs
-	return TRUE
+		return EF_FALSE //can't convert machines, shielded, braindead, or ratvar's dogs
+	return EF_TRUE
 
 /datum/game_mode/cult
 	name = "cult"
@@ -91,10 +91,10 @@
 		log_game("[key_name(cultist)] has been selected as a cultist")
 
 	if(cultists_to_cult.len>=required_enemies)
-		return TRUE
+		return EF_TRUE
 	else
 		setup_error = "Not enough cultist candidates"
-		return FALSE
+		return EF_FALSE
 
 
 /datum/game_mode/cult/post_setup()
@@ -109,7 +109,7 @@
 
 /datum/game_mode/proc/add_cultist(datum/mind/cult_mind, stun , equip = FALSE, datum/team/cult/cult_team = null)
 	if (!istype(cult_mind))
-		return FALSE
+		return EF_FALSE
 
 	var/datum/antagonist/cult/new_cultist = new()
 	new_cultist.give_equipment = equip
@@ -117,18 +117,18 @@
 	if(cult_mind.add_antag_datum(new_cultist,cult_team))
 		if(stun)
 			cult_mind.current.Unconscious(100)
-		return TRUE
+		return EF_TRUE
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, silent, stun)
 	if(cult_mind.current)
 		var/datum/antagonist/cult/cult_datum = cult_mind.has_antag_datum(/datum/antagonist/cult)
 		if(!cult_datum)
-			return FALSE
+			return EF_FALSE
 		cult_datum.silent = silent
 		cult_datum.on_removal()
 		if(stun)
 			cult_mind.current.Unconscious(100)
-		return TRUE
+		return EF_TRUE
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
 	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CULT]

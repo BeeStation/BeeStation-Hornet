@@ -36,18 +36,18 @@
 
 /datum/component/forensics/proc/wipe_fingerprints()
 	fingerprints = null
-	return TRUE
+	return EF_TRUE
 
 /datum/component/forensics/proc/wipe_hiddenprints()
 	return	//no.
 
 /datum/component/forensics/proc/wipe_blood_DNA()
 	blood_DNA = null
-	return TRUE
+	return EF_TRUE
 
 /datum/component/forensics/proc/wipe_fibers()
 	fibers = null
-	return TRUE
+	return EF_TRUE
 
 /datum/component/forensics/proc/clean_act(datum/source, strength)
 	if(strength >= CLEAN_STRENGTH_FINGERPRINTS)
@@ -63,7 +63,7 @@
 	LAZYINITLIST(fingerprints)
 	for(var/i in _fingerprints)	//We use an associative list, make sure we don't just merge a non-associative list into ours.
 		fingerprints[i] = i
-	return TRUE
+	return EF_TRUE
 
 /datum/component/forensics/proc/add_fingerprint(mob/living/M, ignoregloves = FALSE)
 	if(!isliving(M))
@@ -87,7 +87,7 @@
 				return
 		var/full_print = rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)
 		LAZYSET(fingerprints, full_print, full_print)
-	return TRUE
+	return EF_TRUE
 
 /datum/component/forensics/proc/add_fiber_list(list/_fibertext)		//list(text)
 	if(!length(_fibertext))
@@ -95,7 +95,7 @@
 	LAZYINITLIST(fibers)
 	for(var/i in _fibertext)	//We use an associative list, make sure we don't just merge a non-associative list into ours.
 		fibers[i] = i
-	return TRUE
+	return EF_TRUE
 
 /datum/component/forensics/proc/add_fibers(mob/living/carbon/human/M)
 	var/fibertext
@@ -127,7 +127,7 @@
 		fibertext = "Material from a pair of [M.gloves.name]."
 		if(prob(20*item_multiplier) && !LAZYACCESS(fibers, fibertext))
 			LAZYSET(fibers, fibertext, fibertext)
-	return TRUE
+	return EF_TRUE
 
 /datum/component/forensics/proc/add_hiddenprint_list(list/_hiddenprints)	//list(ckey = text)
 	if(!length(_hiddenprints))
@@ -135,7 +135,7 @@
 	LAZYINITLIST(hiddenprints)
 	for(var/i in _hiddenprints)	//We use an associative list, make sure we don't just merge a non-associative list into ours.
 		hiddenprints[i] = _hiddenprints[i]
-	return TRUE
+	return EF_TRUE
 
 /datum/component/forensics/proc/add_hiddenprint(mob/M)
 	if(!isliving(M))
@@ -163,7 +163,7 @@
 		hiddenprints[M.key] += " Last: [M.real_name]\[[current_time]\][hasgloves]. Ckey: [M.ckey]"	//made sure to be existing by if(!LAZYACCESS);else
 	var/atom/A = parent
 	A.fingerprintslast = M.ckey
-	return TRUE
+	return EF_TRUE
 
 /datum/component/forensics/proc/add_blood_DNA(list/dna)		//list(dna_enzymes = type)
 	if(!length(dna))
@@ -172,7 +172,7 @@
 	for(var/i in dna)
 		blood_DNA[i] = dna[i]
 	check_blood()
-	return TRUE
+	return EF_TRUE
 
 /datum/component/forensics/proc/check_blood()
 	if(!isitem(parent))

@@ -96,7 +96,7 @@
 	plank_name = "rods"
 
 /obj/item/grown/log/steel/CheckAccepted(obj/item/I)
-	return FALSE
+	return EF_FALSE
 obj/item/seeds/bamboo
 	name = "pack of bamboo seeds"
 	desc = "Plant known for their flexible and resistant logs."
@@ -124,7 +124,7 @@ obj/item/seeds/bamboo
 	plank_name = "bamboo sticks"
 
 /obj/item/grown/log/bamboo/CheckAccepted(obj/item/I)
-	return FALSE
+	return EF_FALSE
 
 /obj/structure/punji_sticks
 	name = "punji sticks"
@@ -169,9 +169,9 @@ obj/item/seeds/bamboo
 
 /obj/structure/bonfire/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && (mover.pass_flags & PASSTABLE))
-		return TRUE
+		return EF_TRUE
 	if(mover.throwing)
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /obj/structure/bonfire/attackby(obj/item/W, mob/user, params)
@@ -233,8 +233,8 @@ obj/item/seeds/bamboo
 		var/turf/open/O = loc
 		if(O.air)
 			if(O.air.get_moles(/datum/gas/oxygen) > 13)
-				return TRUE
-	return FALSE
+				return EF_TRUE
+	return EF_FALSE
 
 /obj/structure/bonfire/proc/StartBurning()
 	if(!burning && (!needs_oxygen || CheckOxygen()))

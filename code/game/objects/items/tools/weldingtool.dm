@@ -161,16 +161,16 @@
 // Uses fuel from the welding tool.
 /obj/item/weldingtool/use(used = 0)
 	if(!isOn() || !check_fuel())
-		return FALSE
+		return EF_FALSE
 
 	if(used)
 		burned_fuel_for = 0
 	if(get_fuel() >= used)
 		reagents.remove_reagent(/datum/reagent/fuel, used)
 		check_fuel()
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 
 //Turns off the welder if there is no more fuel (does this really need to be its own proc?)
@@ -251,13 +251,13 @@
 /obj/item/weldingtool/tool_use_check(mob/living/user, amount)
 	if(!isOn() || !check_fuel())
 		to_chat(user, "<span class='warning'>[src] has to be on to complete this task!</span>")
-		return FALSE
+		return EF_FALSE
 
 	if(get_fuel() >= amount)
-		return TRUE
+		return EF_TRUE
 	else
 		to_chat(user, "<span class='warning'>You need more welding fuel to complete this task!</span>")
-		return FALSE
+		return EF_FALSE
 
 
 /obj/item/weldingtool/proc/flamethrower_screwdriver(obj/item/I, mob/user)
@@ -301,7 +301,7 @@
 	materials = list(/datum/material/glass=60)
 
 /obj/item/weldingtool/largetank/flamethrower_screwdriver()
-	return	
+	return
 
 /obj/item/weldingtool/largetank/cyborg
 	name = "integrated welding tool"

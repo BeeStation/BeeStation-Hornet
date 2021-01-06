@@ -28,10 +28,10 @@
 
 /obj/item/organ/heart/gland/proc/ownerCheck()
 	if(ishuman(owner))
-		return TRUE
+		return EF_TRUE
 	if(!human_only && iscarbon(owner))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/item/organ/heart/gland/proc/Start()
 	active = 1

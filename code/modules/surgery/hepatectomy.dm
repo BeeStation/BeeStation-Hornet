@@ -15,7 +15,7 @@
 /datum/surgery/hepatectomy/can_start(mob/user, mob/living/carbon/target)
 	var/obj/item/organ/liver/L = target.getorganslot(ORGAN_SLOT_LIVER)
 	if(L?.damage > 50 && !(L.organ_flags & ORGAN_FAILING))
-		return TRUE
+		return EF_TRUE
 
 ////hepatectomy, removes damaged parts of the liver so that the liver may regenerate properly
 //95% chance of success, not 100 because organs are delicate
@@ -36,7 +36,7 @@
 	display_results(user, target, "<span class='notice'>You successfully remove the damaged part of [target]'s liver.</span>",
 		"<span class='notice'>[user] successfullly removes the damaged part of [target]'s liver.",
 		"<span class='notice'>[user] successfullly removes the damaged part of [target]'s liver.")
-	return TRUE
+	return EF_TRUE
 
 /datum/surgery_step/hepatectomy/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery)
 	var/mob/living/carbon/human/H = target

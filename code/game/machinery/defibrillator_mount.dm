@@ -98,10 +98,10 @@
 /obj/machinery/defibrillator_mount/multitool_act(mob/living/user, obj/item/multitool)
 	if(!defib)
 		to_chat(user, "<span class='warning'>There isn't any defibrillator to clamp in!</span>")
-		return TRUE
+		return EF_TRUE
 	if(!clamps_locked)
 		to_chat(user, "<span class='warning'>[src]'s clamps are disengaged!</span>")
-		return TRUE
+		return EF_TRUE
 	user.visible_message("<span class='notice'>[user] presses [multitool] into [src]'s ID slot...</span>", \
 	"<span class='notice'>You begin overriding the clamps on [src]...</span>")
 	playsound(src, 'sound/machines/click.ogg', 50, TRUE)
@@ -112,7 +112,7 @@
 	playsound(src, 'sound/machines/locktoggle.ogg', 50, TRUE)
 	clamps_locked = FALSE
 	update_icon()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/defibrillator_mount/AltClick(mob/living/carbon/user)
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE))

@@ -48,21 +48,21 @@
 
 /obj/effect/proc_holder/spell/aimed/InterceptClickOn(mob/living/caller, params, atom/target)
 	if(..())
-		return FALSE
+		return EF_FALSE
 	var/ran_out = (current_amount <= 0)
 	if(!cast_check(!ran_out, ranged_ability_user))
 		remove_ranged_ability()
-		return FALSE
+		return EF_FALSE
 	var/list/targets = list(target)
 	perform(targets, ran_out, user = ranged_ability_user)
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/proc_holder/spell/aimed/cast(list/targets, mob/living/user)
 	var/target = targets[1]
 	var/turf/T = user.loc
 	var/turf/U = get_step(user, user.dir) // Get the tile infront of the move, based on their direction
 	if(!isturf(U) || !isturf(T))
-		return FALSE
+		return EF_FALSE
 	fire_projectile(user, target)
 	user.newtonian_move(get_dir(U, T))
 	if(current_amount <= 0)
@@ -70,7 +70,7 @@
 		charge_counter = 0
 		start_recharge()
 		on_deactivation(user)
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/proc_holder/spell/aimed/proc/fire_projectile(mob/living/user, atom/target)
 	current_amount--
@@ -85,7 +85,7 @@
 				P.vv_edit_var(V, projectile_var_overrides[V])
 		ready_projectile(P, target, user, i)
 		P.fire()
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/proc_holder/spell/aimed/proc/ready_projectile(obj/item/projectile/P, atom/target, mob/user, iteration)
 	return

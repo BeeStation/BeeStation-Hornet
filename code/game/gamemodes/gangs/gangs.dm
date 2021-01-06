@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(gangs)
 	if(gangboss_candidates.len < 1) //Need at least one gangs
 		return
 
-	return TRUE
+	return EF_TRUE
 
 /datum/game_mode/gang/post_setup()
 	set waitfor = FALSE

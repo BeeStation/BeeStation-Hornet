@@ -13,7 +13,7 @@
 /datum/wires/suit_storage_unit/interactable(mob/user)
 	var/obj/machinery/suit_storage_unit/SSU = holder
 	if(SSU.panel_open)
-		return TRUE
+		return EF_TRUE
 
 /datum/wires/suit_storage_unit/get_status()
 	var/obj/machinery/suit_storage_unit/SSU = holder

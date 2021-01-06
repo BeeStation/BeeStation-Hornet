@@ -23,10 +23,10 @@
 
 /datum/station_goal/station_shield/check_completion()
 	if(..())
-		return TRUE
+		return EF_TRUE
 	if(get_coverage() >= coverage_goal)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/station_goal/proc/get_coverage()
 	var/list/coverage = list()
@@ -113,7 +113,7 @@
 	if(!active && !isinspace())
 		if(user)
 			to_chat(user, "<span class='warning'>You can only activate [src] in space.</span>")
-		return FALSE
+		return EF_FALSE
 	if(user)
 		to_chat(user, "<span class='notice'>You [active ? "deactivate": "activate"] [src].</span>")
 	active = !active
@@ -130,7 +130,7 @@
 
 /obj/machinery/satellite/multitool_act(mob/living/user, obj/item/I)
 	to_chat(user, "<span class='notice'>// NTSAT-[id] // Mode : [active ? "PRIMARY" : "STANDBY"] //[(obj_flags & EMAGGED) ? "DEBUG_MODE //" : ""]</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/satellite/meteor_shield
 	name = "\improper Meteor Shield Satellite"
@@ -142,8 +142,8 @@
 /obj/machinery/satellite/meteor_shield/proc/space_los(meteor)
 	for(var/turf/T in getline(src,meteor))
 		if(!isspaceturf(T))
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/satellite/meteor_shield/process()
 	if(!active)
@@ -159,7 +159,7 @@
 
 /obj/machinery/satellite/meteor_shield/toggle(user)
 	if(!..(user))
-		return FALSE
+		return EF_FALSE
 	if(obj_flags & EMAGGED)
 		if(active)
 			change_meteor_chance(2)

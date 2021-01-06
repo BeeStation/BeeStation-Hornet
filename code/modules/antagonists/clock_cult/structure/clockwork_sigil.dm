@@ -54,11 +54,11 @@
 /obj/structure/destructible/clockwork/sigil/proc/can_affect(atom/movable/AM)
 	var/mob/living/M = AM
 	if(!istype(M))
-		return FALSE
+		return EF_FALSE
 	var/amc = M.anti_magic_check()
 	if(amc)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/structure/destructible/clockwork/sigil/proc/fail_invokation()
 	active_timer = null
@@ -71,7 +71,7 @@
 /obj/structure/destructible/clockwork/sigil/proc/apply_effects(atom/movable/AM)
 	if(!can_affect(AM))
 		fail_invokation()
-		return FALSE
+		return EF_FALSE
 	color = pulse_color
 	transform = matrix() * 1.2
 	alpha = SIGIL_INVOKED_ALPHA
@@ -82,7 +82,7 @@
 		active_timer = null
 		currently_affecting = null
 		animate(src, transform=matrix(), color=idle_color, alpha = initial(alpha), time=5)
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/destructible/clockwork/sigil/proc/dispell()
 	animate(src, transform = matrix() * 1.5, alpha = 0, time = 3)
@@ -102,14 +102,14 @@
 
 /obj/structure/destructible/clockwork/sigil/transgression/can_affect(mob/living/M)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	if(is_servant_of_ratvar(M))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/structure/destructible/clockwork/sigil/transgression/apply_effects(mob/living/M)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	M.Paralyze(60)
 	M.blind_eyes(120)
 	var/mob/living/carbon/C = M

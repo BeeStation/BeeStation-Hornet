@@ -19,7 +19,7 @@
 		))
 	if(delete_atoms[teleatom.type])
 		qdel(teleatom)
-		return FALSE
+		return EF_FALSE
 
 	// argument handling
 	// if the precision is not specified, default to 0, but apply BoH penalties
@@ -52,15 +52,15 @@
 	var/turf/destturf = get_teleport_turf(get_turf(destination), precision)
 
 	if(!destturf || !curturf || destturf.is_transition_turf())
-		return FALSE
+		return EF_FALSE
 
 	var/area/A = get_area(curturf)
 	var/area/B = get_area(destturf)
 	if(!forced && (HAS_TRAIT(teleatom, TRAIT_NO_TELEPORT) || A.noteleport || B.noteleport))
-		return FALSE
+		return EF_FALSE
 
 	if(SEND_SIGNAL(destturf, COMSIG_ATOM_INTERCEPT_TELEPORT, channel, curturf, destturf))
-		return FALSE
+		return EF_FALSE
 
 	tele_play_specials(teleatom, curturf, effectin, asoundin)
 	var/success = forceMove ? teleatom.forceMove(destturf) : teleatom.Move(destturf)
@@ -76,7 +76,7 @@
 
 	teleatom.teleport_act()
 
-	return TRUE
+	return EF_TRUE
 
 /proc/tele_play_specials(atom/movable/teleatom, atom/location, datum/effect_system/effect, sound)
 	if (location && !isobserver(teleatom))

@@ -75,7 +75,7 @@
 
 /obj/structure/holosign/barrier/wetsign/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /obj/vehicle/ridden/janicart))
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /obj/structure/holosign/barrier/engineering
@@ -128,7 +128,7 @@
 /obj/structure/holosign/barrier/medical/CanPass(atom/movable/mover, turf/target)
 	icon_state = "holo_medical"
 	if(force_allaccess)
-		return TRUE
+		return EF_TRUE
 	if(ishuman(mover))
 		var/mob/living/carbon/human/sickboi = mover
 		var/threat = sickboi.check_virus()
@@ -137,10 +137,10 @@
 				playsound(get_turf(src),'sound/machines/buzz-sigh.ogg',65,1,4)
 				buzzcd = (world.time + 60)
 			icon_state = "holo_medical-deny"
-			return FALSE
+			return EF_FALSE
 		else
-			return TRUE //nice or benign diseases!
-	return TRUE
+			return EF_TRUE //nice or benign diseases!
+	return EF_TRUE
 
 /obj/structure/holosign/barrier/medical/attack_hand(mob/living/user)
 	if(CanPass(user) && user.a_intent == INTENT_HELP)

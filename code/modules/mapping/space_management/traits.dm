@@ -19,15 +19,15 @@
 /datum/controller/subsystem/mapping/proc/level_has_any_trait(z, list/traits)
 	for (var/I in traits)
 		if (level_trait(z, I))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 // Check if levels[z] has all of the specified traits
 /datum/controller/subsystem/mapping/proc/level_has_all_traits(z, list/traits)
 	for (var/I in traits)
 		if (!level_trait(z, I))
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 // Get a list of all z which have the specified trait
 /datum/controller/subsystem/mapping/proc/levels_by_trait(trait)

@@ -5,7 +5,7 @@
 
 /datum/mapGeneratorModule/bottomLayer/repairFloorPlasteel/place(turf/T)
 	if(isclosedturf(T) && !ignore_wall)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/mapGeneratorModule/bottomLayer/repairFloorPlasteel/flatten

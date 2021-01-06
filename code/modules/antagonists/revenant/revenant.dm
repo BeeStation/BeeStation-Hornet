@@ -78,7 +78,7 @@
 	random_revenant_name()
 
 /mob/living/simple_animal/revenant/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
-	return FALSE
+	return EF_FALSE
 
 /mob/living/simple_animal/revenant/proc/random_revenant_name()
 	var/built_name = ""
@@ -200,7 +200,7 @@
 
 /mob/living/simple_animal/revenant/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && !revealed)
-		return FALSE
+		return EF_FALSE
 	. = amount
 	essence = max(0, essence-amount)
 	if(updating_health)
@@ -288,25 +288,25 @@
 	var/turf/T = get_turf(src)
 	if(isclosedturf(T))
 		to_chat(src, "<span class='revenwarning'>You cannot use abilities from inside of a wall.</span>")
-		return FALSE
+		return EF_FALSE
 	for(var/obj/O in T)
 		if(O.density && !O.CanPass(src, T))
 			to_chat(src, "<span class='revenwarning'>You cannot use abilities inside of a dense object.</span>")
-			return FALSE
+			return EF_FALSE
 	if(inhibited)
 		to_chat(src, "<span class='revenwarning'>Your powers have been suppressed by nulling energy!</span>")
-		return FALSE
+		return EF_FALSE
 	if(!change_essence_amount(essence_cost, TRUE))
 		to_chat(src, "<span class='revenwarning'>You lack the essence to use that ability.</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /mob/living/simple_animal/revenant/proc/unlock(essence_cost)
 	if(essence_excess < essence_cost)
-		return FALSE
+		return EF_FALSE
 	essence_excess -= essence_cost
 	update_action_buttons_icon()
-	return TRUE
+	return EF_TRUE
 
 /mob/living/simple_animal/revenant/proc/change_essence_amount(essence_amt, silent = FALSE, source = null)
 	if(!src)
@@ -451,14 +451,14 @@
 
 /datum/objective/revenant/check_completion()
 	if(!isrevenant(owner.current))
-		return FALSE
+		return EF_FALSE
 	var/mob/living/simple_animal/revenant/R = owner.current
 	if(!R || R.stat == DEAD)
-		return FALSE
+		return EF_FALSE
 	var/essence_stolen = R.essence_accumulated
 	if(essence_stolen < targetAmount)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/objective/revenantFluff
 
@@ -478,4 +478,4 @@
 	..()
 
 /datum/objective/revenantFluff/check_completion()
-	return TRUE
+	return EF_TRUE

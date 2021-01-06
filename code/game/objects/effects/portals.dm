@@ -41,13 +41,13 @@
 /obj/effect/portal/Move(newloc)
 	for(var/T in newloc)
 		if(istype(T, /obj/effect/portal))
-			return FALSE
+			return EF_FALSE
 	return ..()
 
 /obj/effect/portal/attackby(obj/item/W, mob/user, params)
 	if(user && Adjacent(user))
 		user.forceMove(get_turf(src))
-		return TRUE
+		return EF_TRUE
 
 /obj/effect/portal/Crossed(atom/movable/AM, oldloc, force_stop = 0)
 	if(force_stop)
@@ -102,7 +102,7 @@
 	if(atmos_source || atmos_destination)
 		unlink_atmos()
 	if(!isopenturf(get_turf(src)))
-		return FALSE
+		return EF_FALSE
 	if(linked)
 		if(isopenturf(get_turf(linked)))
 			atmos_source = get_turf(src)
@@ -112,13 +112,13 @@
 			atmos_source = get_turf(src)
 			atmos_destination = hard_target
 	else
-		return FALSE
+		return EF_FALSE
 	if(!istype(atmos_source) || !istype(atmos_destination))
-		return FALSE
+		return EF_FALSE
 	LAZYINITLIST(atmos_source.atmos_adjacent_turfs)
 	LAZYINITLIST(atmos_destination.atmos_adjacent_turfs)
 	if(atmos_source.atmos_adjacent_turfs[atmos_destination] || atmos_destination.atmos_adjacent_turfs[atmos_source])	//Already linked!
-		return FALSE
+		return EF_FALSE
 	atmos_source.atmos_adjacent_turfs[atmos_destination] = TRUE
 	atmos_destination.atmos_adjacent_turfs[atmos_source] = TRUE
 	atmos_source.air_update_turf(FALSE)
@@ -155,7 +155,7 @@
 		return
 	var/turf/real_target = get_link_target_turf()
 	if(!istype(real_target))
-		return FALSE
+		return EF_FALSE
 	if(!force && (!ismecha(M) && !istype(M, /obj/item/projectile) && M.anchored && !allow_anchored))
 		return
 	if(ismegafauna(M))
@@ -169,8 +169,8 @@
 		if(istype(M, /obj/item/projectile))
 			var/obj/item/projectile/P = M
 			P.ignore_source_check = TRUE
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/effect/portal/proc/get_link_target_turf()
 	var/turf/real_target

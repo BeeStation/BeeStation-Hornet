@@ -207,7 +207,7 @@
 		added_modules += i
 		old_module.added_modules -= i
 	did_feedback = old_module.did_feedback
-	return TRUE
+	return EF_TRUE
 
 /obj/item/robot_module/proc/do_transform_animation()
 	var/mob/living/silicon/robot/R = loc
@@ -546,7 +546,7 @@
 	var/mob/living/silicon/robot/R = loc
 	var/borg_icon = input(R, "Select an icon!", "Robot Icon", null) as null|anything in sortList(list("Waitress", "Butler", "Tophat", "Kent", "Bro"))
 	if(!borg_icon)
-		return FALSE
+		return EF_FALSE
 	switch(borg_icon)
 		if("Waitress")
 			cyborg_base_icon = "service_f"
@@ -604,7 +604,7 @@
 	var/mob/living/silicon/robot/R = loc
 	var/borg_icon = input(R, "Select an icon!", "Robot Icon", null) as null|anything in sortList(list("Lavaland Miner", "Asteroid Miner", "Spider Miner"))
 	if(!borg_icon)
-		return FALSE
+		return EF_FALSE
 	switch(borg_icon)
 		if("Lavaland Miner")
 			cyborg_base_icon = "miner"

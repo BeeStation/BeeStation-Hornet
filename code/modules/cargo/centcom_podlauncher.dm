@@ -461,7 +461,7 @@
 	if (launcherActivated)
 		//Clicking on UI elements shouldn't launch a pod
 		if(istype(target,/atom/movable/screen))
-			return FALSE
+			return EF_FALSE
 
 		. = TRUE
 

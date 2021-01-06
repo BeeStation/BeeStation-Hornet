@@ -29,14 +29,14 @@
 
 /obj/machinery/telecomms/receiver/proc/check_receive_level(datum/signal/subspace/signal)
 	if (z in signal.levels)
-		return TRUE
+		return EF_TRUE
 
 	for(var/obj/machinery/telecomms/hub/H in links)
 		for(var/obj/machinery/telecomms/relay/R in H.links)
 			if(R.can_receive(signal) && (R.z in signal.levels))
-				return TRUE
+				return EF_TRUE
 
-	return FALSE
+	return EF_FALSE
 
 //Preset Receivers
 

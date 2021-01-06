@@ -340,12 +340,12 @@
 
 /obj/item/reagent_containers/glass/waterbottle/is_refillable()
 	if(cap_on)
-		return FALSE
+		return EF_FALSE
 	. = ..()
 
 /obj/item/reagent_containers/glass/waterbottle/is_drainable()
 	if(cap_on)
-		return FALSE
+		return EF_FALSE
 	. = ..()
 
 /obj/item/reagent_containers/glass/waterbottle/attack(mob/M, mob/user, obj/target)

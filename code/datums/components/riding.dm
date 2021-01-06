@@ -65,7 +65,7 @@
 		M.visible_message("<span class='warning'>[M] falls off of [AM]!</span>", \
 						"<span class='warning'>You fall off of [AM]!</span>")
 		AM.unbuckle_mob(M)
-	return TRUE
+	return EF_TRUE
 
 /datum/component/riding/proc/force_dismount(mob/living/M)
 	var/atom/movable/AM = parent
@@ -118,7 +118,7 @@
 
 /datum/component/riding/proc/set_riding_offsets(index, list/offsets)
 	if(!islist(offsets))
-		return FALSE
+		return EF_FALSE
 	riding_offsets["[index]"] = offsets
 
 //Override this to set the passengers/riders dir based on which passenger they are.
@@ -145,7 +145,7 @@
 		return (allow_one_away_from_valid_turf && allowed_turf_typecache[current.type])
 	else if(forbid_turf_typecache && forbid_turf_typecache[next.type])
 		return (allow_one_away_from_valid_turf && !forbid_turf_typecache[current.type])
-	return TRUE
+	return EF_TRUE
 
 /datum/component/riding/proc/handle_ride(mob/user, direction)
 	var/atom/movable/AM = parent
@@ -324,10 +324,10 @@
 		else
 			break
 	if(amount_equipped >= amount_required)
-		return TRUE
+		return EF_TRUE
 	else
 		unequip_buckle_inhands(user)
-		return FALSE
+		return EF_FALSE
 
 /datum/component/riding/proc/unequip_buckle_inhands(mob/living/carbon/user)
 	var/atom/movable/AM = parent
@@ -338,7 +338,7 @@
 			continue
 		else
 			qdel(O)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/riding_offhand
 	name = "offhand"

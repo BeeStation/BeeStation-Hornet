@@ -133,15 +133,15 @@
 
 /obj/machinery/atmospherics/proc/connection_check(obj/machinery/atmospherics/target, given_layer)
 	if(isConnectable(target, given_layer) && target.isConnectable(src, given_layer) && (target.initialize_directions & get_dir(target,src)))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/atmospherics/proc/isConnectable(obj/machinery/atmospherics/target, given_layer)
 	if(isnull(given_layer))
 		given_layer = piping_layer
 	if((target.piping_layer == given_layer) || (target.pipe_flags & PIPING_ALL_LAYER))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/atmospherics/proc/pipeline_expansion()
 	return nodes
@@ -177,7 +177,7 @@
 		var/obj/item/pipe/pipe = W
 		if(user.dropItemToGround(pipe))
 			pipe.setPipingLayer(piping_layer) //align it with us
-			return TRUE
+			return EF_TRUE
 	else
 		return ..()
 
@@ -188,7 +188,7 @@
 	var/turf/T = get_turf(src)
 	if (level==1 && isturf(T) && T.intact)
 		to_chat(user, "<span class='warning'>You must remove the plating first!</span>")
-		return TRUE
+		return EF_TRUE
 
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
@@ -220,7 +220,7 @@
 
 
 		deconstruct(TRUE)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/atmospherics/proc/can_unwrench(mob/user)
 	return can_unwrench
@@ -330,7 +330,7 @@
 
 
 /obj/machinery/atmospherics/proc/can_crawl_through()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/atmospherics/proc/returnPipenets()
 	return list()
@@ -340,7 +340,7 @@
 
 //Used for certain children of obj/machinery/atmospherics to not show pipe vision when mob is inside it.
 /obj/machinery/atmospherics/proc/can_see_pipes()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/atmospherics/proc/update_layer()
 	layer = initial(layer) + (piping_layer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_LCHANGE

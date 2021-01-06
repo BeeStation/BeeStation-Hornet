@@ -125,7 +125,7 @@
 		. += "The sword appears to be quite lifeless."
 
 /obj/item/twohanded/required/cult_bastard/can_be_pulled(user)
-	return FALSE
+	return EF_FALSE
 
 /obj/item/twohanded/required/cult_bastard/attack_self(mob/user)
 	dash_toggled = !dash_toggled
@@ -156,12 +156,12 @@
 		if(attack_type == PROJECTILE_ATTACK)
 			owner.visible_message("<span class='danger'>[owner] deflects [attack_text] with [src]!</span>")
 			playsound(src, pick('sound/weapons/effects/ric1.ogg', 'sound/weapons/effects/ric2.ogg', 'sound/weapons/effects/ric3.ogg', 'sound/weapons/effects/ric4.ogg', 'sound/weapons/effects/ric5.ogg'), 100, 1)
-			return TRUE
+			return EF_TRUE
 		else
 			playsound(src, 'sound/weapons/parry.ogg', 75, 1)
 			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/item/twohanded/required/cult_bastard/afterattack(atom/target, mob/user, proximity, click_parameters)
 	. = ..()
@@ -195,9 +195,9 @@
 
 /datum/action/innate/dash/cult/IsAvailable()
 	if(iscultist(holder) && current_charges)
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 
 
@@ -217,9 +217,9 @@
 
 /datum/action/innate/cult/spin2win/IsAvailable()
 	if(iscultist(holder) && cooldown <= world.time)
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /datum/action/innate/cult/spin2win/Activate()
 	cooldown = world.time + sword.spin_cooldown
@@ -681,12 +681,12 @@
 		if(attack_type == PROJECTILE_ATTACK)
 			owner.visible_message("<span class='danger'>[owner] deflects [attack_text] with [src]!</span>")
 			playsound(src, pick('sound/weapons/effects/ric1.ogg', 'sound/weapons/effects/ric2.ogg', 'sound/weapons/effects/ric3.ogg', 'sound/weapons/effects/ric4.ogg', 'sound/weapons/effects/ric5.ogg'), 100, 1)
-			return TRUE
+			return EF_TRUE
 		else
 			playsound(src, 'sound/weapons/parry.ogg', 100, 1)
 			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/action/innate/cult/spear
 	name = "Bloody Bond"
@@ -905,7 +905,7 @@
 					E.Copy_Parent(owner, 70, 10)
 					E.GiveTarget(owner)
 					E.Goto(owner, owner.movement_delay(), E.minimum_distance)
-			return TRUE
+			return EF_TRUE
 	else
 		if(prob(50))
 			var/mob/living/simple_animal/hostile/illusion/H = new(owner.loc)
@@ -914,7 +914,7 @@
 			H.GiveTarget(owner)
 			H.move_to_delay = owner.movement_delay()
 			to_chat(owner, "<span class='danger'><b>[src] betrays you!</b></span>")
-		return FALSE
+		return EF_FALSE
 
 /obj/item/shield/mirror/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/turf/T = get_turf(hit_atom)

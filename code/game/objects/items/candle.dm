@@ -52,7 +52,7 @@
 	lit = FALSE
 	update_icon()
 	set_light(0)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/candle/extinguish()
 	put_out_candle()

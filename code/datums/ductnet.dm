@@ -21,13 +21,13 @@
 ///add a plumbing object to either demanders or suppliers
 /datum/ductnet/proc/add_plumber(datum/component/plumbing/P, dir)
 	if(!P.can_add(src, dir))
-		return FALSE
+		return EF_FALSE
 	P.ducts[num2text(dir)] = src
 	if(dir & P.supply_connects)
 		suppliers += P
 	else if(dir & P.demand_connects)
 		demanders += P
-	return TRUE
+	return EF_TRUE
 ///remove a plumber. we dont delete ourselves because ductnets dont persist through plumbing objects
 /datum/ductnet/proc/remove_plumber(datum/component/plumbing/P)
 	suppliers.Remove(P) //we're probably only in one of these, but Remove() is inherently sane so this is fine

@@ -48,12 +48,12 @@
 //Return TRUE/FALSE to return the soullink/null in soullink()
 /datum/soullink/proc/parseArgs(mob/living/owner, mob/living/sharer)
 	if(!owner || !sharer)
-		return FALSE
+		return EF_FALSE
 	soulowner = owner
 	soulsharer = sharer
 	LAZYADD(owner.ownedSoullinks, src)
 	LAZYADD(sharer.sharedSoullinks, src)
-	return TRUE
+	return EF_TRUE
 
 //Runs after /living death()
 //Override this for content
@@ -80,14 +80,14 @@
 
 /datum/soullink/multisharer/parseArgs(mob/living/owner, list/sharers)
 	if(!owner || !LAZYLEN(sharers))
-		return FALSE
+		return EF_FALSE
 	soulowner = owner
 	soulsharers = sharers
 	LAZYADD(owner.ownedSoullinks, src)
 	for(var/l in sharers)
 		var/mob/living/L = l
 		LAZYADD(L.sharedSoullinks, src)
-	return TRUE
+	return EF_TRUE
 
 /datum/soullink/multisharer/removeSoulsharer(mob/living/sharer)
 	LAZYREMOVE(soulsharers, sharer)

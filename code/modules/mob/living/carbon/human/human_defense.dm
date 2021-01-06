@@ -117,20 +117,20 @@
 				return 1
 	if(wear_suit)
 		if(wear_suit.hit_reaction(src, AM, attack_text, damage, attack_type))
-			return TRUE
+			return EF_TRUE
 	if(w_uniform)
 		if(w_uniform.hit_reaction(src, AM, attack_text, damage, attack_type))
-			return TRUE
+			return EF_TRUE
 	if(wear_neck)
 		if(wear_neck.hit_reaction(src, AM, attack_text, damage, attack_type))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /mob/living/carbon/human/proc/check_block()
 	if(mind)
 		if(mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(dna && dna.species)
@@ -304,10 +304,10 @@
 	if(.)
 		var/damage = M.melee_damage
 		if(check_shields(M, damage, "the [M.name]", MELEE_ATTACK, M.armour_penetration))
-			return FALSE
+			return EF_FALSE
 		var/dam_zone = dismembering_strike(M, pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 		if(!dam_zone) //Dismemberment successful
-			return TRUE
+			return EF_TRUE
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
 		if(!affecting)
 			affecting = get_bodypart(BODY_ZONE_CHEST)

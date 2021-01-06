@@ -7,9 +7,9 @@
 	if (..()) //successfully firing
 		moveToNullspace()
 		QDEL_NULL(src)
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /obj/item/ammo_casing/caseless/update_icon()
 	..()

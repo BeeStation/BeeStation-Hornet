@@ -20,13 +20,13 @@
 		var/datum/antagonist/overthrow/UO = user_mind.has_antag_datum(/datum/antagonist/overthrow)
 		if(!UO)
 			to_chat(user, "<span class='danger'>You don't know how to use this thing!</span>") // It needs a valid team to work, if you aren't an antag don't use this thing
-			return FALSE
+			return EF_FALSE
 		if(TO)
 			to_chat(user, "<span class='notice'>[target.name] woke up already, the implant would be ineffective against him!</span>")
-			return FALSE
+			return EF_FALSE
 		target_mind.add_antag_datum(/datum/antagonist/overthrow, UO.team)
 		log_combat(user, target, "implanted", "\a [name]")
-		return TRUE
+		return EF_TRUE
 
 /obj/item/overthrow_converter/attack(mob/living/carbon/human/M, mob/living/carbon/human/user)
 	if(!istype(M) || !istype(user))

@@ -413,22 +413,22 @@
 
 /obj/machinery/door/airlock/proc/isElectrified()
 	if(secondsElectrified != MACHINE_NOT_ELECTRIFIED)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/door/airlock/proc/canAIControl(mob/user)
 	if(protected_door)
-		return FALSE
+		return EF_FALSE
 	return ((aiControlDisabled != 1) && !isAllPowerCut())
 
 /obj/machinery/door/airlock/proc/canAIHack()
 	if(protected_door)
-		return FALSE
+		return EF_FALSE
 	return ((aiControlDisabled==1) && (!hackProof) && (!isAllPowerCut()));
 
 /obj/machinery/door/airlock/hasPower()
 	if(protected_door)
-		return TRUE
+		return EF_TRUE
 	return ((!secondsMainPowerLost || !secondsBackupPowerLost) && !(stat & NOPOWER))
 
 /obj/machinery/door/airlock/requiresID()
@@ -436,9 +436,9 @@
 
 /obj/machinery/door/airlock/proc/isAllPowerCut()
 	if(protected_door)
-		return FALSE
+		return EF_FALSE
 	if((wires.is_cut(WIRE_POWER1) || wires.is_cut(WIRE_POWER2)) && (wires.is_cut(WIRE_BACKUP1) || wires.is_cut(WIRE_BACKUP2)))
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/door/airlock/proc/regainMainPower()
 	if(secondsMainPowerLost > 0)
@@ -494,18 +494,18 @@
 // The preceding comment was borrowed from the grille's shock script
 /obj/machinery/door/airlock/proc/shock(mob/user, prb)
 	if(!hasPower())		// unpowered, no shock
-		return FALSE
+		return EF_FALSE
 	if(shockCooldown > world.time)
-		return FALSE	//Already shocked someone recently?
+		return EF_FALSE	//Already shocked someone recently?
 	if(!prob(prb))
-		return FALSE //you lucked out, no shock for you
+		return EF_FALSE //you lucked out, no shock for you
 	do_sparks(5, TRUE, src)
 	var/check_range = TRUE
 	if(electrocute_mob(user, get_area(src), src, 1, check_range))
 		shockCooldown = world.time + 10
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /obj/machinery/door/airlock/update_icon(state=0, override=0)
 	cut_overlays() // Needed without it you get like 300 unres indicator overlayers over time
@@ -1139,10 +1139,10 @@
 
 /obj/machinery/door/airlock/open(forced=0)
 	if( operating || welded || locked )
-		return FALSE
+		return EF_FALSE
 	if(!forced)
 		if(!hasPower() || wires.is_cut(WIRE_OPEN))
-			return FALSE
+			return EF_FALSE
 	if(charge && !detonated)
 		panel_open = TRUE
 		update_icon(AIRLOCK_OPENING)
@@ -1159,7 +1159,7 @@
 		return
 	if(forced < 2)
 		if(obj_flags & EMAGGED)
-			return FALSE
+			return EF_FALSE
 		if(!protected_door)
 			use_power(50)
 		playsound(src, doorOpen, 30, 1)
@@ -1172,7 +1172,7 @@
 		autoclose_in(normalspeed ? 150 : 15)
 
 	if(!density)
-		return TRUE
+		return EF_TRUE
 	operating = TRUE
 	update_icon(AIRLOCK_OPENING, 1)
 	sleep(1)
@@ -1188,14 +1188,14 @@
 	if(delayed_close_requested)
 		delayed_close_requested = FALSE
 		addtimer(CALLBACK(src, .proc/close), 1)
-	return TRUE
+	return EF_TRUE
 
 
 /obj/machinery/door/airlock/close(forced=0)
 	if(operating || welded || locked)
 		return
 	if(density)
-		return TRUE
+		return EF_TRUE
 	if(!forced)
 		if(!hasPower() || wires.is_cut(WIRE_BOLTS))
 			return
@@ -1240,7 +1240,7 @@
 	delayed_close_requested = FALSE
 	if(safe)
 		CheckForMobs()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/door/airlock/proc/prison_open()
 	if(obj_flags & EMAGGED)
@@ -1474,17 +1474,17 @@
 		if(RCD_DECONSTRUCT)
 			if(security_level != AIRLOCK_SECURITY_NONE)
 				to_chat(user, "<span class='notice'>[src]'s reinforcement needs to be removed first.</span>")
-				return FALSE
+				return EF_FALSE
 			return list("mode" = RCD_DECONSTRUCT, "delay" = 50, "cost" = 32)
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/door/airlock/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_DECONSTRUCT)
 			to_chat(user, "<span class='notice'>You deconstruct the airlock.</span>")
 			qdel(src)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/door/airlock/proc/note_type() //Returns a string representing the type of note pinned to this airlock
 	if(!note)
@@ -1503,7 +1503,7 @@
 	if(!ui)
 		ui = new(user, src, "AiAirlock")
 		ui.open()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/door/airlock/ui_data()
 	var/list/data = list()

@@ -2,33 +2,33 @@
 	switch(slot)
 		if(SLOT_HANDS)
 			if(get_empty_held_indexes())
-				return TRUE
-			return FALSE
+				return EF_TRUE
+			return EF_FALSE
 		if(SLOT_WEAR_MASK)
 			if(wear_mask)
-				return FALSE
+				return EF_FALSE
 			if( !(I.slot_flags & ITEM_SLOT_MASK) )
-				return FALSE
-			return TRUE
+				return EF_FALSE
+			return EF_TRUE
 		if(SLOT_NECK)
 			if(wear_neck)
-				return FALSE
+				return EF_FALSE
 			if( !(I.slot_flags & ITEM_SLOT_NECK) )
-				return FALSE
-			return TRUE
+				return EF_FALSE
+			return EF_TRUE
 		if(SLOT_HEAD)
 			if(head)
-				return FALSE
+				return EF_FALSE
 			if( !(I.slot_flags & ITEM_SLOT_HEAD) )
-				return FALSE
-			return TRUE
+				return EF_FALSE
+			return EF_TRUE
 		if(SLOT_BACK)
 			if(back)
-				return FALSE
+				return EF_FALSE
 			if( !(I.slot_flags & ITEM_SLOT_BACK) )
-				return FALSE
-			return TRUE
-	return FALSE //Unsupported slot
+				return EF_FALSE
+			return EF_TRUE
+	return EF_FALSE //Unsupported slot
 
 
 

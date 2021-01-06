@@ -165,7 +165,7 @@
 
 /obj/item/paper/can_interact(mob/user)
 	if(in_contents_of(/obj/machinery/door/airlock))
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 

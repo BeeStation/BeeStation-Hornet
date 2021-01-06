@@ -249,4 +249,4 @@
 	if(isturf(loc))
 		new/obj/machinery/am_shielding(loc)
 		qdel(src)
-		return TRUE
+		return EF_TRUE

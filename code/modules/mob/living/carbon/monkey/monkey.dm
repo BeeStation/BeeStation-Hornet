@@ -107,14 +107,14 @@
 
 /mob/living/carbon/monkey/IsAdvancedToolUser()//Unless its monkey mode monkeys cant use advanced tools
 	if(mind && is_monkey(mind))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /mob/living/carbon/monkey/reagent_check(datum/reagent/R) //can metabolize all reagents
-	return FALSE
+	return EF_FALSE
 
 /mob/living/carbon/monkey/canBeHandcuffed()
-	return TRUE
+	return EF_TRUE
 
 /mob/living/carbon/monkey/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null)
 	if(judgement_criteria & JUDGE_EMAGGED)
@@ -167,7 +167,7 @@
 	return 1
 
 /mob/living/carbon/monkey/can_use_guns(obj/item/G)
-	return TRUE
+	return EF_TRUE
 
 /mob/living/carbon/monkey/angry
 	aggressive = TRUE

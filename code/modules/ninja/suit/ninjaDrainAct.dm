@@ -10,7 +10,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 */
 
 
-//Needs to return the amount drained from the atom, if no drain on a power object, return FALSE, otherwise, return a define.
+//Needs to return the amount drained from the atom, if no drain on a power object, return EF_FALSE, otherwise, return a define.
 /atom/proc/ninjadrain_act()
 	return INVALID_DRAIN
 

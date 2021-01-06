@@ -48,7 +48,7 @@
 		return QDEL_HINT_LETMELIVE
 
 /obj/docking_port/has_gravity(turf/T)
-	return FALSE
+	return EF_FALSE
 
 /obj/docking_port/take_damage()
 	return
@@ -154,17 +154,17 @@
 /obj/docking_port/proc/is_in_shuttle_bounds(atom/A)
 	var/turf/T = get_turf(A)
 	if(T.z != z)
-		return FALSE
+		return EF_FALSE
 	var/list/bounds = return_coords()
 	var/x0 = bounds[1]
 	var/y0 = bounds[2]
 	var/x1 = bounds[3]
 	var/y1 = bounds[4]
 	if(!ISINRANGE(T.x, min(x0, x1), max(x0, x1)))
-		return FALSE
+		return EF_FALSE
 	if(!ISINRANGE(T.y, min(y0, y1), max(y0, y1)))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/docking_port/stationary
 	name = "dock"
@@ -352,7 +352,7 @@
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
 /obj/docking_port/mobile/proc/canMove()
-	return TRUE
+	return EF_TRUE
 
 //this is to check if this shuttle can physically dock at dock S
 /obj/docking_port/mobile/proc/canDock(obj/docking_port/stationary/S)
@@ -390,14 +390,14 @@
 /obj/docking_port/mobile/proc/check_dock(obj/docking_port/stationary/S, silent=FALSE)
 	var/status = canDock(S)
 	if(status == SHUTTLE_CAN_DOCK)
-		return TRUE
+		return EF_TRUE
 	else
 		if(status != SHUTTLE_ALREADY_DOCKED && !silent) // SHUTTLE_ALREADY_DOCKED is no cause for error
 			var/msg = "Shuttle [src] cannot dock at [S], error: [status]"
 			message_admins(msg)
 		// We're already docked there, don't need to do anything.
 		// Triggering shuttle movement code in place is weird
-		return FALSE
+		return EF_FALSE
 
 /obj/docking_port/mobile/proc/transit_failure()
 	message_admins("Shuttle [src] repeatedly failed to create transit zone.")
@@ -557,7 +557,7 @@
 
 // Never move the shuttle import landmark, otherwise things get WEIRD
 /obj/effect/landmark/shuttle_import/onShuttleMove()
-	return FALSE
+	return EF_FALSE
 
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
@@ -852,18 +852,18 @@
 /obj/docking_port/mobile/proc/in_flight()
 	switch(mode)
 		if(SHUTTLE_CALL,SHUTTLE_RECALL,SHUTTLE_PREARRIVAL)
-			return TRUE
+			return EF_TRUE
 		if(SHUTTLE_IDLE,SHUTTLE_IGNITING)
-			return FALSE
+			return EF_FALSE
 		else
-			return FALSE // hmm
+			return EF_FALSE // hmm
 
 /obj/docking_port/mobile/emergency/in_flight()
 	switch(mode)
 		if(SHUTTLE_ESCAPE)
-			return TRUE
+			return EF_TRUE
 		if(SHUTTLE_STRANDED,SHUTTLE_ENDGAME)
-			return FALSE
+			return EF_FALSE
 		else
 			return ..()
 

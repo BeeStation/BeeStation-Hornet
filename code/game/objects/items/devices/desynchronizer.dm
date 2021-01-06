@@ -85,4 +85,4 @@
 	return ..()
 
 /obj/effect/abstract/sync_holder/AllowDrop()
-	return TRUE //no dropping spaghetti out of your spacetime pocket
+	return EF_TRUE //no dropping spaghetti out of your spacetime pocket

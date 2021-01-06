@@ -65,7 +65,7 @@
 		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 		user.visible_message("[user] takes the glass off [src].", "<span class='notice'>You take the glass off [src].</span>")
 		deconstruct(TRUE)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/power/solar/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -378,8 +378,8 @@
 			currentdir = CLAMP((360 + value) % 360, 0, 359)
 			targetdir = currentdir
 			set_panels(currentdir)
-			return TRUE
-		return FALSE
+			return EF_TRUE
+		return EF_FALSE
 	if(action == "rate")
 		var/adjust = text2num(params["adjust"])
 		var/value = text2num(params["value"])
@@ -389,8 +389,8 @@
 			trackrate = CLAMP(value, -7200, 7200)
 			if(trackrate)
 				nexttime = world.time + 36000 / abs(trackrate)
-			return TRUE
-		return FALSE
+			return EF_TRUE
+		return EF_FALSE
 	if(action == "tracking")
 		var/mode = text2num(params["mode"])
 		track = mode
@@ -402,14 +402,14 @@
 			if(trackrate)
 				nexttime = world.time + 36000 / abs(trackrate)
 			set_panels(targetdir)
-		return TRUE
+		return EF_TRUE
 	if(action == "refresh")
 		search_for_connected()
 		if(connected_tracker && track == 2)
 			connected_tracker.set_angle(SSsun.angle)
 		set_panels(currentdir)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/power/solar_control/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)

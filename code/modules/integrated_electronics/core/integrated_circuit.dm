@@ -255,7 +255,7 @@ a creative player the means to solve many problems.  Circuits are held inside an
 	if(!check_interactivity(usr))
 		return
 	if(..())
-		return TRUE
+		return EF_TRUE
 
 	var/update = TRUE
 	var/update_to_assembly = FALSE
@@ -324,25 +324,25 @@ a creative player the means to solve many problems.  Circuits are held inside an
 // Returns true if there's enough power to work().
 /obj/item/integrated_circuit/proc/check_power()
 	if(!assembly)
-		return FALSE // Not in an assembly, therefore no power.
+		return EF_FALSE // Not in an assembly, therefore no power.
 	if(assembly.draw_power(power_draw_per_use))
-		return TRUE // Battery has enough.
-	return FALSE // Not enough power.
+		return EF_TRUE // Battery has enough.
+	return EF_FALSE // Not enough power.
 
 /obj/item/integrated_circuit/proc/check_then_do_work(ord,var/ignore_power = FALSE)
 	if(world.time < next_use) 	// All intergrated circuits have an internal cooldown, to protect from spam.
-		return FALSE
+		return EF_FALSE
 	if(assembly && ext_cooldown && (world.time < assembly.ext_next_use)) 	// Some circuits have external cooldown, to protect from spam.
-		return FALSE
+		return EF_FALSE
 	if(power_draw_per_use && !ignore_power)
 		if(!check_power())
 			power_fail()
-			return FALSE
+			return EF_FALSE
 	next_use = world.time + cooldown_per_use
 	if(assembly)
 		assembly.ext_next_use = world.time + ext_cooldown
 	do_work(ord)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/integrated_circuit/proc/do_work(ord)
 	return
@@ -388,27 +388,27 @@ a creative player the means to solve many problems.  Circuits are held inside an
 // Checks if the target object is reachable. Useful for various manipulators and manipulator-like objects.
 /obj/item/integrated_circuit/proc/check_target(atom/target, exclude_contents = FALSE, exclude_components = FALSE, exclude_self = FALSE)
 	if(!target)
-		return FALSE
+		return EF_FALSE
 
 	var/atom/movable/acting_object = get_object()
 
 	if(exclude_self && target == acting_object)
-		return FALSE
+		return EF_FALSE
 
 	if(exclude_components && assembly)
 		if(target in assembly.assembly_components)
-			return FALSE
+			return EF_FALSE
 
 		if(target == assembly.battery)
-			return FALSE
+			return EF_FALSE
 
 	if(target.Adjacent(acting_object) && isturf(target.loc))
-		return TRUE
+		return EF_TRUE
 
 	if(!exclude_contents && (target in acting_object.GetAllContents()))
-		return TRUE
+		return EF_TRUE
 
 	if(target in acting_object.loc)
-		return TRUE
+		return EF_TRUE
 
-	return FALSE
+	return EF_FALSE

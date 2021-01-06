@@ -100,7 +100,7 @@
 	member_name = "incursion member"
 
 /datum/team/incursion/is_solo()
-	return FALSE
+	return EF_FALSE
 
 /datum/team/incursion/roundend_report()
 	var/list/parts = list()

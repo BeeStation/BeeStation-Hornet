@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 			return ..(freq, level)
 	else if(AIuser)
 		return ..(freq, level)
-	return FALSE
+	return EF_FALSE
 
 /obj/item/radio/headset/ui_data(mob/user)
 	. = ..()

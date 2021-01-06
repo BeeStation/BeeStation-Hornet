@@ -148,7 +148,7 @@ GLOBAL_PROTECT(href_token)
 	return 0
 
 /datum/admins/vv_edit_var(var_name, var_value)
-	return FALSE //nice try trialmin
+	return EF_FALSE //nice try trialmin
 
 /*
 checks if usr is an admin with at least ONE of the flags in rights_required. (Note, they don't need all the flags)

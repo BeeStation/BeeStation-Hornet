@@ -19,10 +19,10 @@
 
 /mob/living/silicon/ai/radio(message, message_mode, list/spans, language)
 	if(incapacitated())
-		return FALSE
+		return EF_FALSE
 	if(!radio_enabled) //AI cannot speak if radio is disabled (via intellicard) or depowered.
 		to_chat(src, "<span class='danger'>Your radio transmitter is offline!</span>")
-		return FALSE
+		return EF_FALSE
 	..()
 
 /mob/living/silicon/ai/get_message_mode(message)

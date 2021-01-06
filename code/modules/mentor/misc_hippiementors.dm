@@ -7,7 +7,7 @@ GLOBAL_PROTECT(mentors)
 
 /client/proc/is_mentor() // admins are mentors too.
     if(mentor_datum || check_rights_for(src, R_ADMIN,0))
-        return TRUE
+        return EF_TRUE
 
 /client/proc/hippie_client_procs(href_list)
     if(href_list["mentor_msg"])
@@ -16,7 +16,7 @@ GLOBAL_PROTECT(mentors)
             cmd_mentor_pm(M,null)
         else
             cmd_mentor_pm(href_list["mentor_msg"],null)
-        return TRUE
+        return EF_TRUE
 
 
 /client/proc/mentor_datum_set(admin)

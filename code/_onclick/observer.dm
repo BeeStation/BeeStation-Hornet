@@ -1,6 +1,6 @@
 /mob/dead/observer/DblClickOn(atom/A, params)
 	if(check_click_intercept(params, A))
-		return	
+		return
 
 	if(can_reenter_corpse && mind && mind.current)
 		if(A == mind.current || (mind.current in A)) // double click your corpse or whatever holds it
@@ -49,15 +49,15 @@
 // Oh by the way this didn't work with old click code which is why clicking shit didn't spam you
 /atom/proc/attack_ghost(mob/dead/observer/user)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_NO_ATTACK_HAND)
-		return TRUE
+		return EF_TRUE
 	if(user.client)
 		if(user.gas_scan && atmosanalyzer_scan(user, src))
-			return TRUE
+			return EF_TRUE
 		else if(IsAdminGhost(user))
 			attack_ai(user)
 		else if(user.client.prefs.inquisitive_ghost)
 			user.examinate(src)
-	return FALSE
+	return EF_FALSE
 
 /mob/living/attack_ghost(mob/dead/observer/user)
 	if(user.client && user.health_scan)

@@ -27,7 +27,7 @@
 		"[user] reshapes [target]'s ligaments into a connective hook!",
 		"[user] finishes manipulating [target]'s ligaments.")
 	new /datum/bioware/hooked_ligaments(target)
-	return TRUE
+	return EF_TRUE
 
 /datum/bioware/hooked_ligaments
 	name = "Hooked Ligaments"

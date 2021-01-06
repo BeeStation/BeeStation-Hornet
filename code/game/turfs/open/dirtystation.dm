@@ -127,4 +127,4 @@
 			new /obj/effect/decal/cleanable/greenglow/filled(src)	//this cleans itself up but it might startle you when you see it.
 		return
 
-	return TRUE
+	return EF_TRUE

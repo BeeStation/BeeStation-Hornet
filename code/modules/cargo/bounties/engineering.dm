@@ -8,7 +8,7 @@
 
 /datum/bounty/item/engineering/gas/applies_to(obj/O)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	var/obj/item/tank/T = O
 	return T.air_contents.get_moles(gas_type) >= moles_required
 
@@ -30,6 +30,6 @@
 
 /datum/bounty/item/engineering/energy_ball/applies_to(obj/O)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	var/obj/singularity/energy_ball/T = O
 	return !T.miniball

@@ -90,7 +90,7 @@
 /obj/machinery/mineral/ore_redemption/proc/can_smelt_alloy(datum/design/D)
 	var/datum/component/material_container/mat_container = materials.mat_container
 	if(!mat_container || D.make_reagents.len)
-		return FALSE
+		return EF_FALSE
 
 	var/build_amount = 0
 
@@ -99,12 +99,12 @@
 		var/datum/material/redemption_mat_amount = mat_container.materials[mat]
 
 		if(!amount || !redemption_mat_amount)
-			return FALSE
+			return EF_FALSE
 
 		var/smeltable_sheets = FLOOR(redemption_mat_amount / amount, 1)
 
 		if(!smeltable_sheets)
-			return FALSE
+			return EF_FALSE
 
 		if(!build_amount)
 			build_amount = smeltable_sheets
@@ -186,7 +186,7 @@
 	if(istype(W, /obj/item/disk/design_disk))
 		if(user.transferItemToLoc(W, src))
 			inserted_disk = W
-			return TRUE
+			return EF_TRUE
 
 	var/obj/item/stack/ore/O = W
 	if(istype(O))
@@ -203,7 +203,7 @@
 		input_dir = turn(input_dir, -90)
 		output_dir = turn(output_dir, -90)
 		to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
-		return TRUE
+		return EF_TRUE
 
 
 /obj/machinery/mineral/ore_redemption/ui_state(mob/user)
@@ -268,7 +268,7 @@
 					to_chat(usr, "<span class='warning'>No ID detected.</span>")
 			else
 				to_chat(usr, "<span class='warning'>No points to claim.</span>")
-			return TRUE
+			return EF_TRUE
 		if("Release")
 			if(!mat_container)
 				return
@@ -302,7 +302,7 @@
 				mats[mat] = MINERAL_MATERIAL_AMOUNT
 				materials.silo_log(src, "released", -count, "sheets", mats)
 				//Logging deleted for quick coding
-			return TRUE
+			return EF_TRUE
 		if("diskInsert")
 			var/obj/item/disk/design_disk/disk = usr.get_active_held_item()
 			if(istype(disk))
@@ -311,17 +311,17 @@
 				inserted_disk = disk
 			else
 				to_chat(usr, "<span class='warning'>Not a valid Design Disk!</span>")
-			return TRUE
+			return EF_TRUE
 		if("diskEject")
 			if(inserted_disk)
 				usr.put_in_hands(inserted_disk)
 				inserted_disk = null
-			return TRUE
+			return EF_TRUE
 		if("diskUpload")
 			var/n = text2num(params["design"])
 			if(inserted_disk && inserted_disk.blueprints && inserted_disk.blueprints[n])
 				stored_research.add_design(inserted_disk.blueprints[n])
-			return TRUE
+			return EF_TRUE
 		if("Smelt")
 			if(!mat_container)
 				return
@@ -348,7 +348,7 @@
 				unload_mineral(output)
 			else
 				to_chat(usr, "<span class='warning'>Required access not found.</span>")
-			return TRUE
+			return EF_TRUE
 
 /obj/machinery/mineral/ore_redemption/ex_act(severity, target)
 	do_sparks(5, TRUE, src)

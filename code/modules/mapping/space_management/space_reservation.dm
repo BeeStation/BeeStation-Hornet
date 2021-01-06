@@ -22,7 +22,7 @@
 
 /datum/turf_reservation/proc/Reserve(width, height, zlevel)
 	if(width > world.maxx || height > world.maxy || width < 1 || height < 1)
-		return FALSE
+		return EF_FALSE
 	var/list/avail = SSmapping.unused_turfs["[zlevel]"]
 	var/turf/BL
 	var/turf/TR
@@ -51,7 +51,7 @@
 			continue
 		break
 	if(!passing || !istype(BL) || !istype(TR))
-		return FALSE
+		return EF_FALSE
 	bottom_left_coords = list(BL.x, BL.y, BL.z)
 	top_right_coords = list(TR.x, TR.y, TR.z)
 	for(var/i in final)
@@ -63,7 +63,7 @@
 		T.ChangeTurf(turf_type, turf_type)
 	src.width = width
 	src.height = height
-	return TRUE
+	return EF_TRUE
 
 /datum/turf_reservation/New()
 	LAZYADD(SSmapping.turf_reservations, src)

@@ -59,4 +59,4 @@
 	H.Knockdown(100)
 
 	gangster_mind.add_antag_datum(/datum/antagonist/gang, gang)
-	return TRUE
+	return EF_TRUE

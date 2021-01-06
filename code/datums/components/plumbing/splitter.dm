@@ -5,7 +5,7 @@
 /datum/component/plumbing/splitter/Initialize()
 	. = ..()
 	if(. && !istype(parent, /obj/machinery/plumbing/splitter))
-		return FALSE
+		return EF_FALSE
 
 /datum/component/plumbing/splitter/can_give(amount, reagent, datum/ductnet/net)
 	. = ..()
@@ -22,11 +22,11 @@
 		if(SOUTH)
 			if(S.turn_straight && S.transfer_straight <= amount)
 				S.turn_straight = FALSE
-				return TRUE
+				return EF_TRUE
 		if(EAST)
 			if(!S.turn_straight && S.transfer_side <= amount)
 				S.turn_straight = TRUE
-				return TRUE
+				return EF_TRUE
 
 /datum/component/plumbing/splitter/transfer_to(datum/component/plumbing/target, amount, reagent, datum/ductnet/net)
 	var/direction

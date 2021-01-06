@@ -20,7 +20,7 @@
 	var/extra_desc = ""
 
 /datum/map_template/shuttle/proc/prerequisites_met()
-	return TRUE
+	return EF_TRUE
 
 /datum/map_template/shuttle/New()
 	shuttle_id = "[port_id]_[suffix]"
@@ -248,8 +248,8 @@
 
 /datum/map_template/shuttle/emergency/arena/prerequisites_met()
 	if(SHUTTLE_UNLOCK_BUBBLEGUM in SSshuttle.shuttle_purchase_requirements_met)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/map_template/shuttle/emergency/birdboat
 	suffix = "birdboat"
@@ -486,8 +486,8 @@
 
 /datum/map_template/shuttle/emergency/zeta/prerequisites_met()
 	if(SHUTTLE_UNLOCK_ALIENTECH in SSshuttle.shuttle_purchase_requirements_met)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/map_template/shuttle/arrival/box
 	suffix = "box"

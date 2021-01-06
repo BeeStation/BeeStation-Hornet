@@ -52,7 +52,7 @@
 			if(C.stat && (!HAS_TRAIT(C, TRAIT_NOMETABOLISM) || !istype(C.dna.species, /datum/species/ipc)))//unless they need healing
 				return ..()
 			else
-				return FALSE 
+				return EF_FALSE
 	return ..()
 
 /mob/living/simple_animal/hostile/cat_butcherer/AttackingTarget()
@@ -89,7 +89,7 @@
 			if(L.mind && maxHealth <= 300) //if he robusts a tider, he becomes stronger
 				maxHealth += 20
 			adjustHealth(-(maxHealth)) //he heals whenever he finishes
-		else if(L.stat) //quickly heal them up and move on to our next target! 
+		else if(L.stat) //quickly heal them up and move on to our next target!
 			visible_message("[src] injects [L] with an unknown medicine!", "<span class='notice'>You inject [L] with medicine.</span>")
 			L.SetSleeping(0, FALSE)
 			L.SetUnconscious(0, FALSE)

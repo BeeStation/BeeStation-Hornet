@@ -37,8 +37,8 @@
 /obj/machinery/computer/launchpad/proc/pad_exists(number)
 	var/obj/machinery/launchpad/pad = launchpads[number]
 	if(QDELETED(pad))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/computer/launchpad/proc/teleport(mob/user, obj/machinery/launchpad/pad, sending)
 	if(QDELETED(pad))

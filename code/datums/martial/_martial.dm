@@ -24,7 +24,7 @@
 	return 0
 
 /datum/martial_art/proc/can_use(mob/living/carbon/human/H)
-	return TRUE
+	return EF_TRUE
 
 /datum/martial_art/proc/add_to_streak(element,mob/living/carbon/human/D)
 	if(D != current_target)
@@ -78,11 +78,11 @@
 
 /datum/martial_art/proc/teach(mob/living/carbon/human/H,make_temporary=0)
 	if(!istype(H) || !H.mind)
-		return FALSE
+		return EF_FALSE
 	if(H.mind.martial_art)
 		if(make_temporary)
 			if(!H.mind.martial_art.allow_temp_override)
-				return FALSE
+				return EF_FALSE
 			store(H.mind.martial_art,H)
 		else
 			H.mind.martial_art.on_remove(H)
@@ -91,7 +91,7 @@
 	if(help_verb)
 		H.verbs += help_verb
 	H.mind.martial_art = src
-	return TRUE
+	return EF_TRUE
 
 /datum/martial_art/proc/store(datum/martial_art/M,mob/living/carbon/human/H)
 	M.on_remove(H)

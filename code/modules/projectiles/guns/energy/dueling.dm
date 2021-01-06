@@ -1,6 +1,6 @@
 #define DUEL_IDLE 1
 #define DUEL_PREPARATION 2
-#define DUEL_READY 3 
+#define DUEL_READY 3
 #define DUEL_COUNTDOWN 4
 #define DUEL_FIRING 5
 
@@ -106,27 +106,27 @@
 
 /datum/duel/proc/check_fired()
 	if(fired.len == 2)
-		return TRUE
+		return EF_TRUE
 	//Let's say if gun was dropped/stowed the user is finished
 	if(!get_duelist(gun_A))
-		return TRUE
+		return EF_TRUE
 	if(!get_duelist(gun_B))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/duel/proc/check_positioning()
 	var/mob/living/A = get_duelist(gun_A)
 	var/mob/living/B = get_duelist(gun_B)
 	if(!A || !B)
-		return FALSE
+		return EF_FALSE
 	if(!isturf(A.loc) || !isturf(B.loc))
-		return FALSE
+		return EF_FALSE
 	if(get_dist(A,B) != required_distance)
-		return FALSE
+		return EF_FALSE
 	for(var/turf/T in getline(get_turf(A),get_turf(B)))
 		if(is_blocked_turf(T,TRUE))
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /obj/item/gun/energy/dueling
 	name = "dueling pistol"
@@ -199,14 +199,14 @@
 			return .
 		else
 			to_chat(user,"<span class='warning'>[src] is locked. Wait for FIRE signal before shooting.</span>")
-			return FALSE
+			return EF_FALSE
 
 /obj/item/gun/energy/dueling/proc/is_duelist(mob/living/L)
 	if(!istype(L))
-		return FALSE
+		return EF_FALSE
 	if(!L.is_holding(duel.other_gun(src)))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/item/gun/energy/dueling/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
 	if(duel.state == DUEL_READY)
@@ -219,7 +219,7 @@
 	else
 		duel.fired[src] = TRUE
 		. = ..()
-	
+
 /obj/item/gun/energy/dueling/before_firing(target,user)
 	var/obj/item/ammo_casing/energy/duel/D = chambered
 	D.setting = setting
@@ -297,7 +297,7 @@
 	var/mob/living/L = target
 	if(!istype(target))
 		return BULLET_ACT_BLOCK
-	
+
 	var/obj/item/bodypart/B = L.get_bodypart(BODY_ZONE_HEAD)
 	B.dismember()
 	qdel(B)

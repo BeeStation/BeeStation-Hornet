@@ -88,5 +88,5 @@
 /proc/is_special_type(var/datum/mind/M, var/datum/antagonist/special/A)
 	for(var/i in M.antag_datums)
 		if(istype(i, A))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE

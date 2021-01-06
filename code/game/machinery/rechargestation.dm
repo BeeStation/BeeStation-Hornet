@@ -70,7 +70,7 @@
 
 /obj/machinery/recharge_station/interact(mob/user)
 	toggle_open()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/recharge_station/proc/toggle_open()
 	if(state_open)

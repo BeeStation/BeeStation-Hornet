@@ -96,4 +96,4 @@
 		report.tag = "mapreport_[++report.tag_number]"
 		report.crashed = FALSE
 	else
-		return FALSE
+		return EF_FALSE

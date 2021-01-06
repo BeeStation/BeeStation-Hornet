@@ -89,9 +89,9 @@
 /obj/machinery/nuclearbomb/proc/disk_check(obj/item/disk/nuclear/D)
 	if(D.fake)
 		say("Authentication failure; disk not recognised.")
-		return FALSE
+		return EF_FALSE
 	else
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/nuclearbomb/attackby(obj/item/I, mob/user, params)
 	if (istype(I, /obj/item/disk/nuclear))
@@ -160,7 +160,7 @@
 				to_chat(user, "<span class='notice'>You remove [src]'s front panel.</span>")
 				deconstruction_state = NUKESTATE_PANEL_REMOVED
 				update_icon()
-			return TRUE
+			return EF_TRUE
 		if(NUKESTATE_WELDED)
 			to_chat(user, "<span class='notice'>You start prying off [src]'s inner plate...</span>")
 			if(tool.use_tool(src, user, 30, volume=100))
@@ -168,7 +168,7 @@
 				deconstruction_state = NUKESTATE_CORE_EXPOSED
 				update_icon()
 				START_PROCESSING(SSobj, core)
-			return TRUE
+			return EF_TRUE
 
 /obj/machinery/nuclearbomb/proc/get_nuke_state()
 	if(exploding)
@@ -529,10 +529,10 @@
 /obj/machinery/nuclearbomb/beer/attackby(obj/item/W, mob/user, params)
 	if(W.is_refillable())
 		W.afterattack(keg, user, TRUE) 	// redirect refillable containers to the keg, allowing them to be filled
-		return TRUE 										// pretend we handled the attack, too.
+		return EF_TRUE 										// pretend we handled the attack, too.
 	if(istype(W, /obj/item/nuke_core_container))
 		to_chat(user, "<span class='notice'>[src] has had its plutonium core removed as a part of being decommissioned.</span>")
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /obj/machinery/nuclearbomb/beer/actually_explode()
@@ -678,7 +678,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 		user.visible_message("<span class='warning'>[user] captures [src]!</span>", "<span class='userdanger'>You've got the disk! Defend it with your life!</span>")
 		forceMove(H)
 		H.nuke_disk = src
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /obj/item/disk/nuclear/Destroy(force=FALSE)

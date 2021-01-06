@@ -181,18 +181,18 @@
 /client/proc/channel_in_use(channel)
 	for (var/sound/S in src.SoundQuery())
 		if (S.channel == channel)
-			return TRUE
+			return EF_TRUE
 
-	return FALSE
+	return EF_FALSE
 
 /mob/proc/can_hear_ambience()
 	if (!src.can_hear()) // If they can't hear they can't hear
-		return FALSE
+		return EF_FALSE
 
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/hearer_env = T.return_air()
 
 	if (!hearer_env || hearer_env.return_pressure() < SOUND_MINIMUM_PRESSURE) // They can't hear ambience if there isn't enough pressure
-		return FALSE
+		return EF_FALSE
 
-	return TRUE
+	return EF_TRUE

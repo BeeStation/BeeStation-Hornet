@@ -29,7 +29,7 @@
 	landmark_type = /obj/effect/landmark/abductor/scientist
 	greet_text = "Use your experimental console and surgical equipment to monitor your agent and experiment upon abducted humans."
 	show_in_antagpanel = TRUE
-	
+
 /datum/antagonist/abductor/scientist/onemanteam
 	name = "Abductor Solo"
 	outfit = /datum/outfit/abductor/scientist/onemanteam
@@ -145,7 +145,7 @@
 	add_objective(new/datum/objective/experiment)
 
 /datum/team/abductor_team/is_solo()
-	return FALSE
+	return EF_FALSE
 
 /datum/team/abductor_team/proc/add_objective(datum/objective/O)
 	O.team = src
@@ -222,11 +222,11 @@
 /datum/objective/experiment/check_completion()
 	for(var/obj/machinery/abductor/experiment/E in GLOB.machines)
 		if(!istype(team, /datum/team/abductor_team))
-			return FALSE
+			return EF_FALSE
 		var/datum/team/abductor_team/T = team
 		if(E.team_number == T.team_number)
 			return E.points >= target_amount
-	return FALSE
+	return EF_FALSE
 
 /datum/antagonist/proc/update_abductor_icons_added(datum/mind/alien_mind,hud_type)
 	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_ABDUCTOR]

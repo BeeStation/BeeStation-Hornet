@@ -56,19 +56,19 @@
 
 /datum/mutation/human/proc/on_acquiring(mob/living/carbon/human/H)
 	if(!H || !istype(H) || H.stat == DEAD || (src in H.dna.mutations))
-		return TRUE
+		return EF_TRUE
 	if(species_allowed.len && !species_allowed.Find(H.dna.species.id))
-		return TRUE
+		return EF_TRUE
 	if(health_req && H.health < health_req)
-		return TRUE
+		return EF_TRUE
 	if(limb_req && !H.get_bodypart(limb_req))
-		return TRUE
+		return EF_TRUE
 	for(var/M in H.dna.mutations)//check for conflicting powers
 		var/datum/mutation/human/mewtayshun = M
 		if(!(mewtayshun.type in conflicts) && !(type in mewtayshun.conflicts))
 			continue
 		to_chat(H, "<span class='warning'>You feel your genes resisting something.</span>")
-		return TRUE
+		return EF_TRUE
 	owner = H
 	dna = H.dna
 	dna.mutations += src
@@ -175,10 +175,10 @@
 
 /datum/mutation/human/proc/grant_spell()
 	if(!ispath(power) || !owner)
-		return FALSE
+		return EF_FALSE
 
 	power = new power()
 	power.action_background_icon_state = "bg_tech_blue_on"
 	power.panel = "Genetic"
 	owner.AddSpell(power)
-	return TRUE
+	return EF_TRUE

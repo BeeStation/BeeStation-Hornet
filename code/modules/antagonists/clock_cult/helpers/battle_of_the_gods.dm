@@ -7,8 +7,8 @@ GLOBAL_VAR(narsie_arrival)
 		if(!GLOB.gods_battling)
 			GLOB.gods_battling = TRUE
 			trigger_battle_of_the_gods()
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /proc/trigger_battle_of_the_gods()
 	//Oh dear god what have you done.

@@ -6,7 +6,7 @@
 	var/power_efficiency = 1
 	var/power_usage = 100
 	var/panel_open = FALSE
-	var/list/required_parts = list(/obj/item/stock_parts/manipulator, 
+	var/list/required_parts = list(/obj/item/stock_parts/manipulator,
 							/obj/item/stock_parts/manipulator,
 							/obj/item/stock_parts/capacitor)
 	var/obj/item/stock_parts/cell/power_cell
@@ -36,22 +36,22 @@
 /obj/vehicle/ridden/wheelchair/motorized/driver_move(mob/living/user, direction)
 	if(istype(user))
 		if(!canmove)
-			return FALSE
+			return EF_FALSE
 		if(!power_cell)
 			to_chat(user, "<span class='warning'>There seems to be no cell installed in [src].</span>")
 			canmove = FALSE
 			addtimer(VARSET_CALLBACK(src, canmove, TRUE), 20)
-			return FALSE
-		if(power_cell.charge < power_usage / max(power_efficiency, 1))			
+			return EF_FALSE
+		if(power_cell.charge < power_usage / max(power_efficiency, 1))
 			to_chat(user, "<span class='warning'>The display on [src] blinks 'Out of Power'.</span>")
 			canmove = FALSE
 			addtimer(VARSET_CALLBACK(src, canmove, TRUE), 20)
-			return FALSE
+			return EF_FALSE
 		if(user.get_num_arms() < arms_required)
 			to_chat(user, "<span class='warning'>You don't have enough arms to operate the motor controller!</span>")
 			canmove = FALSE
 			addtimer(VARSET_CALLBACK(src, canmove, TRUE), 20)
-			return FALSE
+			return EF_FALSE
 		power_cell.use(power_usage / max(power_efficiency, 1))
 	return ..()
 
@@ -74,7 +74,7 @@
 		to_chat(user, "<span class='notice'>You remove the power cell from [src].</span>")
 		return
 	return ..()
-	
+
 /obj/vehicle/ridden/wheelchair/motorized/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		I.play_tool_sound(src)
@@ -122,7 +122,7 @@
 				var/mob/living/L = A
 				L.update_mobility()
 		qdel(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/ridden/wheelchair/motorized/examine(mob/user)
 	. = ..()

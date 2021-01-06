@@ -42,7 +42,7 @@
 			to_chat(user, "<span class='warning'>You don't have enough arms to operate the wheels!</span>")
 			canmove = FALSE
 			addtimer(VARSET_CALLBACK(src, canmove, TRUE), 20)
-			return FALSE
+			return EF_FALSE
 		set_move_delay(user)
 	return ..()
 
@@ -79,7 +79,7 @@
 		new /obj/item/stack/rods(drop_location(), 6)
 		new /obj/item/stack/sheet/iron(drop_location(), 4)
 		qdel(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/ridden/wheelchair/proc/handle_rotation(direction)
 	if(has_buckled_mobs())
@@ -96,16 +96,16 @@
 
 
 /obj/vehicle/ridden/wheelchair/proc/can_be_rotated(mob/living/user)
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/ridden/wheelchair/proc/can_user_rotate(mob/living/user)
 	var/mob/living/L = user
 	if(istype(L))
 		if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
-			return FALSE
+			return EF_FALSE
 	if(isobserver(user) && CONFIG_GET(flag/ghost_interaction))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/vehicle/ridden/wheelchair/the_whip/driver_move(mob/living/user, direction)
 	if(istype(user))

@@ -38,12 +38,12 @@
 		if(prob(50))
 			to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
 			preprime(user, 5, FALSE)
-			return FALSE
+			return EF_FALSE
 	else if(!clumsy && (clumsy_check == GRENADE_NONCLUMSY_FUMBLE))
 		to_chat(user, "<span class='warning'>You pull the pin on [src]. Attached to it is a pink ribbon that says, \"<span class='clown'>HONK</span>\"</span>")
 		preprime(user, 5, FALSE)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 
 /obj/item/grenade/examine(mob/user)
@@ -113,7 +113,7 @@
 		log_game("A projectile ([hitby]) detonated a grenade held by [key_name(owner)] at [COORD(T)]")
 		message_admins("A projectile ([hitby]) detonated a grenade held by [key_name_admin(owner)] at [ADMIN_COORDJMP(T)]")
 		prime()
-		return TRUE //It hit the grenade, not them
+		return EF_TRUE //It hit the grenade, not them
 
 /obj/item/grenade/afterattack(atom/target, mob/user)
 	. = ..()

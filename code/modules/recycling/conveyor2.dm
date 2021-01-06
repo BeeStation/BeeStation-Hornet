@@ -412,7 +412,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		id = C.id
 
 /obj/item/stack/conveyor/update_weight()
-	return FALSE
+	return EF_FALSE
 
 /obj/item/stack/conveyor/thirty
 	amount = 30

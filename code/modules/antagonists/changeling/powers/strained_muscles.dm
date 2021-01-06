@@ -27,7 +27,7 @@
 
 	INVOKE_ASYNC(src, .proc/muscle_loop, user)
 
-	return TRUE
+	return EF_TRUE
 
 /datum/action/changeling/strained_muscles/proc/muscle_loop(mob/living/carbon/user)
 	while(active)

@@ -334,7 +334,7 @@
 
 /obj/structure/foamedmetal/resin/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && (mover.pass_flags & PASSGLASS))
-		return TRUE
+		return EF_TRUE
 	. = ..()
 
 #undef ALUMINUM_FOAM

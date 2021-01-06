@@ -28,7 +28,7 @@
 	..()
 
 /obj/item/integrated_circuit/logic/binary/proc/do_compare(var/datum/integrated_io/A, var/datum/integrated_io/B)
-	return FALSE
+	return EF_FALSE
 
 /obj/item/integrated_circuit/logic/binary/proc/comparable(var/datum/integrated_io/A, var/datum/integrated_io/B)
 	return (isnum_safe(A.data) && isnum_safe(B.data)) || (istext(A.data) && istext(B.data))
@@ -45,7 +45,7 @@
 	activate_pin(2)
 
 /obj/item/integrated_circuit/logic/unary/proc/do_check(var/datum/integrated_io/A)
-	return FALSE
+	return EF_FALSE
 
 /obj/item/integrated_circuit/logic/binary/equals
 	name = "equal gate"

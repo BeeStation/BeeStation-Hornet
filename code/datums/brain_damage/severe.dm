@@ -166,13 +166,13 @@
 
 /datum/brain_trauma/severe/monophobia/proc/check_alone()
 	if(HAS_TRAIT(owner, TRAIT_BLIND))
-		return TRUE
+		return EF_TRUE
 	for(var/mob/M in oview(owner, 7))
 		if(!isliving(M)) //ghosts ain't people
 			continue
 		if((istype(M, /mob/living/simple_animal/pet)) || M.ckey)
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/brain_trauma/severe/monophobia/proc/stress_reaction()
 	if(owner.stat != CONSCIOUS)

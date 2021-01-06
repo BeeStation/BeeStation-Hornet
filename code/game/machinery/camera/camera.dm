@@ -181,35 +181,35 @@
 // Construction/Deconstruction
 /obj/machinery/camera/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	panel_open = !panel_open
 	to_chat(user, "<span class='notice'>You screw the camera's panel [panel_open ? "open" : "closed"].</span>")
 	I.play_tool_sound(src)
 	update_icon()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/camera/wirecutter_act(mob/living/user, obj/item/I)
 	if(!panel_open)
-		return FALSE
+		return EF_FALSE
 	toggle_cam(user, 1)
 	obj_integrity = max_integrity //this is a pretty simplistic way to heal the camera, but there's no reason for this to be complex.
 	I.play_tool_sound(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/camera/multitool_act(mob/living/user, obj/item/I)
 	if(!panel_open)
-		return FALSE
+		return EF_FALSE
 
 	setViewRange((view_range == initial(view_range)) ? short_range : initial(view_range))
 	to_chat(user, "<span class='notice'>You [(view_range == initial(view_range)) ? "restore" : "mess up"] the camera's focus.</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/camera/welder_act(mob/living/user, obj/item/I)
 	if(!panel_open)
-		return FALSE
+		return EF_FALSE
 
 	if(!I.tool_start_check(user, amount=0))
-		return TRUE
+		return EF_TRUE
 
 	to_chat(user, "<span class='notice'>You start to weld [src]...</span>")
 	if(I.use_tool(src, user, 100, volume=50))
@@ -217,7 +217,7 @@
 			"<span class='warning'>You unweld [src], leaving it as just a frame bolted to the wall.</span>")
 		deconstruct(TRUE)
 
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/camera/attackby(obj/item/I, mob/living/user, params)
 	// UPGRADES
@@ -394,10 +394,10 @@
 
 /obj/machinery/camera/proc/can_use()
 	if(!status)
-		return FALSE
+		return EF_FALSE
 	if(stat & EMPED)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/camera/proc/can_see()
 	var/list/see = null

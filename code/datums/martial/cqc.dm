@@ -22,37 +22,37 @@
 /datum/martial_art/cqc/can_use(mob/living/carbon/human/H)
 	var/area/A = get_area(H)
 	if(just_a_cook && !(istype(A, /area/crew_quarters/kitchen)))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/martial_art/cqc/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
-		return FALSE
+		return EF_FALSE
 	if(findtext(streak,SLAM_COMBO))
 		streak = ""
 		Slam(A,D)
-		return TRUE
+		return EF_TRUE
 	if(findtext(streak,KICK_COMBO))
 		streak = ""
 		Kick(A,D)
-		return TRUE
+		return EF_TRUE
 	if(findtext(streak,RESTRAIN_COMBO))
 		streak = ""
 		Restrain(A,D)
-		return TRUE
+		return EF_TRUE
 	if(findtext(streak,PRESSURE_COMBO))
 		streak = ""
 		Pressure(A,D)
-		return TRUE
+		return EF_TRUE
 	if(findtext(streak,CONSECUTIVE_COMBO))
 		streak = ""
 		Consecutive(A,D)
-	return FALSE
+	return EF_FALSE
 
 /datum/martial_art/cqc/proc/Slam(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, "melee")
 	if(!can_use(A))
-		return FALSE
+		return EF_FALSE
 	if(D.mobility_flags & MOBILITY_STAND)
 		D.visible_message("<span class='warning'>[A] slams [D] into the ground!</span>", \
 						  	"<span class='userdanger'>[A] slams you into the ground!</span>")
@@ -60,12 +60,12 @@
 		D.apply_damage(10, BRUTE, blocked = def_check)
 		D.Paralyze(120)
 		log_combat(A, D, "slammed (CQC)")
-	return TRUE
+	return EF_TRUE
 
 /datum/martial_art/cqc/proc/Kick(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, "melee")
 	if(!can_use(A))
-		return FALSE
+		return EF_FALSE
 	if(!D.stat || !D.IsParalyzed())
 		D.visible_message("<span class='warning'>[A] kicks [D] back!</span>", \
 							"<span class='userdanger'>[A] kicks you back!</span>", null, COMBAT_MESSAGE_RANGE)
@@ -81,23 +81,23 @@
 		playsound(get_turf(A), 'sound/weapons/genhit1.ogg', 50, 1, -1)
 		D.SetSleeping(300)
 		D.adjustOrganLoss(ORGAN_SLOT_BRAIN, 15, 150)
-	return TRUE
+	return EF_TRUE
 
 /datum/martial_art/cqc/proc/Pressure(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
-		return FALSE
+		return EF_FALSE
 	log_combat(A, D, "pressured (CQC)")
 	D.visible_message("<span class='danger'>[A] punches [D]'s neck!</span>", \
 					"<span class='userdanger'>[A] punches your neck!</span>", null, COMBAT_MESSAGE_RANGE)
 	D.adjustStaminaLoss(60)
 	playsound(get_turf(A), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
-	return TRUE
+	return EF_TRUE
 
 /datum/martial_art/cqc/proc/Restrain(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(restraining)
 		return
 	if(!can_use(A))
-		return FALSE
+		return EF_FALSE
 	if(!D.stat)
 		log_combat(A, D, "restrained (CQC)")
 		D.visible_message("<span class='warning'>[A] locks [D] into a restraining position!</span>", \
@@ -106,12 +106,12 @@
 		D.Stun(100)
 		restraining = TRUE
 		addtimer(CALLBACK(src, .proc/drop_restraining), 50, TIMER_UNIQUE)
-	return TRUE
+	return EF_TRUE
 
 /datum/martial_art/cqc/proc/Consecutive(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, "melee")
 	if(!can_use(A))
-		return FALSE
+		return EF_FALSE
 	if(!D.stat)
 		log_combat(A, D, "consecutive CQC'd (CQC)")
 		D.visible_message("<span class='warning'>[A] strikes [D]'s abdomen, neck and back consecutively.</span>", \
@@ -122,17 +122,17 @@
 			A.put_in_hands(I)
 		D.adjustStaminaLoss(50)
 		D.apply_damage(25, A.dna.species.attack_type, blocked = def_check)
-	return TRUE
+	return EF_TRUE
 
 /datum/martial_art/cqc/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
-		return FALSE
+		return EF_FALSE
 	if(A==D)
-		return FALSE //prevents grabbing yourself
+		return EF_FALSE //prevents grabbing yourself
 	if(A.a_intent == INTENT_GRAB)
 		add_to_streak("G",D)
 		if(check_streak(A,D)) //doing combos is prioritized over upgrading grabs
-			return TRUE
+			return EF_TRUE
 		D.grabbedby(A, 1)
 		if(A.grab_state == GRAB_PASSIVE)
 			D.drop_all_held_items()
@@ -142,15 +142,15 @@
 								"<span class='userdanger'>[A] violently grabs you!</span>")
 	else
 		D.grabbedby(A, 1)
-	return TRUE
+	return EF_TRUE
 
 /datum/martial_art/cqc/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, "melee")
 	if(!can_use(A))
-		return FALSE
+		return EF_FALSE
 	add_to_streak("H",D)
 	if(check_streak(A,D))
-		return TRUE
+		return EF_TRUE
 	log_combat(A, D, "attacked (CQC)")
 	A.do_attack_animation(D)
 	var/picked_hit_type = pick("CQC'd", "Big Bossed")
@@ -173,16 +173,16 @@
 		D.apply_damage(10, BRUTE, blocked = def_check)
 		D.Paralyze(60)
 		log_combat(A, D, "sweeped (CQC)")
-	return TRUE
+	return EF_TRUE
 
 /datum/martial_art/cqc/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, "melee")
 	if(!can_use(A))
-		return FALSE
+		return EF_FALSE
 	add_to_streak("D",D)
 	var/obj/item/I = null
 	if(check_streak(A,D))
-		return TRUE
+		return EF_TRUE
 	if(prob(65))
 		if(!D.stat || !D.IsParalyzed() || !restraining)
 			I = D.get_active_held_item()
@@ -208,8 +208,8 @@
 			A.setGrabState(GRAB_NECK)
 	else
 		restraining = FALSE
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /mob/living/carbon/human/proc/CQC_help()
 	set name = "Remember The Basics"

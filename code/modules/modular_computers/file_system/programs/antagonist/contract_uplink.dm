@@ -21,7 +21,7 @@
 
 /datum/computer_file/program/contract_uplink/ui_act(action, params)
 	if(..())
-		return TRUE
+		return EF_TRUE
 
 	var/mob/living/user = usr
 	var/obj/item/computer_hardware/hard_drive/small/syndicate/hard_drive = computer.all_components[MC_HDD]
@@ -35,7 +35,7 @@
 			hard_drive.traitor_data.contractor_hub.current_contract = hard_drive.traitor_data.contractor_hub.assigned_contracts[contract_id]
 
 			program_icon_state = "single_contract"
-			return TRUE
+			return EF_TRUE
 		if("PRG_login")
 			var/datum/antagonist/traitor/traitor_data = user.mind.has_antag_datum(/datum/antagonist/traitor)
 
@@ -59,7 +59,7 @@
 					assigned = TRUE
 			else
 				error = "UNAUTHORIZED USER"
-			return TRUE
+			return EF_TRUE
 		if("PRG_call_extraction")
 			if (hard_drive.traitor_data.contractor_hub.current_contract.status != CONTRACT_STATUS_EXTRACTING)
 				if (hard_drive.traitor_data.contractor_hub.current_contract.handle_extraction(user))
@@ -74,7 +74,7 @@
 				user.playsound_local(user, 'sound/machines/uplinkerror.ogg', 50)
 				error = "Already extracting... Place the target into the pod. If the pod was destroyed, this contract is no longer possible."
 
-			return TRUE
+			return EF_TRUE
 		if("PRG_contract_abort")
 			var/contract_id = hard_drive.traitor_data.contractor_hub.current_contract.id
 
@@ -83,7 +83,7 @@
 
 			program_icon_state = "contracts"
 
-			return TRUE
+			return EF_TRUE
 		if("PRG_redeem_TC")
 			if (hard_drive.traitor_data.contractor_hub.contract_TC_to_redeem)
 				var/obj/item/stack/telecrystal/crystals = new /obj/item/stack/telecrystal(get_turf(user),
@@ -97,19 +97,19 @@
 
 				hard_drive.traitor_data.contractor_hub.contract_TC_payed_out += hard_drive.traitor_data.contractor_hub.contract_TC_to_redeem
 				hard_drive.traitor_data.contractor_hub.contract_TC_to_redeem = 0
-				return TRUE
+				return EF_TRUE
 			else
 				user.playsound_local(user, 'sound/machines/uplinkerror.ogg', 50)
-			return TRUE
+			return EF_TRUE
 		if ("PRG_clear_error")
 			error = ""
-			return TRUE
+			return EF_TRUE
 		if("PRG_set_first_load_finished")
 			first_load = FALSE
-			return TRUE
+			return EF_TRUE
 		if("PRG_toggle_info")
 			info_screen = !info_screen
-			return TRUE
+			return EF_TRUE
 		if ("buy_hub")
 			if (hard_drive.traitor_data.owner.current == user)
 				var/item = params["item"]

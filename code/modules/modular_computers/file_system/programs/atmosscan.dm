@@ -29,4 +29,4 @@
 
 /datum/computer_file/program/atmosscan/ui_act(action, list/params)
 	if(..())
-		return TRUE
+		return EF_TRUE

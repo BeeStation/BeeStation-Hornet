@@ -47,7 +47,7 @@
 	else
 		beaker = null
 	update_icon()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/chem_heater/RefreshParts()
 	heater_coefficient = 0.1

@@ -5,11 +5,11 @@
 		return
 
 	if(I.tool_behaviour == TOOL_WIRECUTTER || I.tool_behaviour == TOOL_MULTITOOL)
-		return TRUE
+		return EF_TRUE
 	if(istype(I, /obj/item/assembly))
 		var/obj/item/assembly/A = I
 		if(A.attachable)
-			return TRUE
+			return EF_TRUE
 
 /atom
 	var/datum/wires/wires = null
@@ -110,7 +110,7 @@
 
 /datum/wires/proc/is_attached(color)
 	if(assemblies[color])
-		return TRUE
+		return EF_TRUE
 
 /datum/wires/proc/is_cut(wire)
 	return (wire in cut_wires)
@@ -120,7 +120,7 @@
 
 /datum/wires/proc/is_all_cut()
 	if(cut_wires.len == wires.len)
-		return TRUE
+		return EF_TRUE
 
 /datum/wires/proc/is_dud(wire)
 	return findtext(wire, WIRE_DUD_PREFIX, 1, length(WIRE_DUD_PREFIX) + 1)
@@ -158,7 +158,7 @@
 	for(var/color in assemblies)
 		if(S == assemblies[color])
 			pulse_color(color)
-			return TRUE
+			return EF_TRUE
 
 /datum/wires/proc/attach_assembly(color, obj/item/assembly/S)
 	if(S && istype(S) && S.attachable && !is_attached(color))
@@ -188,7 +188,7 @@
 
 // Overridable Procs
 /datum/wires/proc/interactable(mob/user)
-	return TRUE
+	return EF_TRUE
 
 /datum/wires/proc/get_status()
 	return list()

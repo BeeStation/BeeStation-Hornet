@@ -17,8 +17,8 @@
 /obj/effect/proc_holder/spell/voice_of_god/can_cast(mob/user = usr)
 	if(!user.can_speak())
 		to_chat(user, "<span class='warning'>You are unable to speak!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/effect/proc_holder/spell/voice_of_god/choose_targets(mob/user = usr)
 	perform(user=user)

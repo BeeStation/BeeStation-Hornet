@@ -606,12 +606,12 @@
 
 /obj/item/clothing/suit/space/hardsuit/clown/mob_can_equip(mob/M, slot)
 	if(!..() || !ishuman(M))
-		return FALSE
+		return EF_FALSE
 	var/mob/living/carbon/human/H = M
 	if(H.mind.assigned_role == "Clown")
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 	//Old Prototype
 /obj/item/clothing/head/helmet/space/hardsuit/ancient
@@ -875,7 +875,7 @@
 	icon_state = "hardsuit0-clown"
 	item_state = "hardsuit0-clown"
 	item_color = "clown"
-	
+
 
 // Doomguy ERT version
 /obj/item/clothing/suit/space/hardsuit/shielded/doomguy

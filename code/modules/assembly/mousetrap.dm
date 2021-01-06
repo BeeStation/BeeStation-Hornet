@@ -43,7 +43,7 @@
 			armed = FALSE
 			update_icon()
 			pulse(FALSE)
-			return FALSE
+			return EF_FALSE
 		switch(type)
 			if("feet")
 				if(!H.shoes)
@@ -122,12 +122,12 @@
 			finder.visible_message("<span class='warning'>[finder] accidentally sets off [src], breaking their fingers.</span>", \
 							   "<span class='warning'>You accidentally trigger [src]!</span>")
 			triggered(finder, (finder.active_hand_index % 2 == 0) ? BODY_ZONE_PRECISE_R_HAND : BODY_ZONE_PRECISE_L_HAND)
-			return TRUE	//end the search!
+			return EF_TRUE	//end the search!
 		else
 			visible_message("<span class='warning'>[src] snaps shut!</span>")
 			triggered(loc)
-			return FALSE
-	return FALSE
+			return EF_FALSE
+	return EF_FALSE
 
 
 /obj/item/assembly/mousetrap/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)

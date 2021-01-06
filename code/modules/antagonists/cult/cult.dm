@@ -95,7 +95,7 @@
 		to_chat(mob, "<span class='danger'>You have a [item_name] in your [where].</span>")
 		if(where == "backpack")
 			SEND_SIGNAL(mob.back, COMSIG_TRY_STORAGE_SHOW, mob)
-		return TRUE
+		return EF_TRUE
 
 /datum/antagonist/cult/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -352,12 +352,12 @@
 	. = ..()
 	var/datum/mind/M = possible_target
 	if(istype(M) && isipc(M.current))
-		return FALSE
+		return EF_FALSE
 
 /datum/objective/sacrifice/check_completion()
 	//Target's a clockie
 	if(target?.has_antag_datum(/datum/antagonist/servant_of_ratvar))
-		return TRUE
+		return EF_TRUE
 	return sacced || completed
 
 /datum/objective/sacrifice/update_explanation_text()
@@ -389,8 +389,8 @@
 /datum/team/cult/proc/check_cult_victory()
 	for(var/datum/objective/O in objectives)
 		if(!O.check_completion())
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/team/cult/roundend_report()
 	var/list/parts = list()

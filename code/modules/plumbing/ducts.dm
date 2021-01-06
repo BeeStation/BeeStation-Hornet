@@ -103,7 +103,7 @@ All the important duct code:
 
 		D.add_connects(opposite_dir)
 		D.update_icon()
-		return TRUE //tell the current pipe to also update it's sprite
+		return EF_TRUE //tell the current pipe to also update it's sprite
 	if(!(D in neighbours)) //we cool
 		if((duct_color != D.duct_color) && !(ignore_colors || D.ignore_colors))
 			return
@@ -125,13 +125,13 @@ All the important duct code:
 	//tell our buddy its time to pass on the torch of connecting to pipes. This shouldn't ever infinitely loop since it only works on pipes that havent been inductrinated
 	D.attempt_connect()
 
-	return TRUE
+	return EF_TRUE
 
 ///connect to a plumbing object
 /obj/machinery/duct/proc/connect_plumber(datum/component/plumbing/P, direction)
 	var/opposite_dir = turn(direction, 180)
 	if(duct_layer != DUCT_LAYER_DEFAULT) //plumbing devices don't support multilayering. 3 is the default layer so we only use that. We can change this later
-		return FALSE
+		return EF_FALSE
 
 	if(!P.active)
 		return
@@ -142,7 +142,7 @@ All the important duct code:
 			create_duct()
 		if(duct.add_plumber(P, opposite_dir))
 			neighbours[P.parent] = direction
-			return TRUE
+			return EF_TRUE
 
 ///we disconnect ourself from our neighbours. we also destroy our ductnet and tell our neighbours to make a new one
 /obj/machinery/duct/proc/disconnect_duct()
@@ -281,7 +281,7 @@ All the important duct code:
 		"<span class='notice'>You fasten \the [src].</span>", \
 		"<span class='italics'>You hear ratcheting.</span>")
 		attempt_connect()
-	return TRUE
+	return EF_TRUE
 ///collection of all the sanity checks to prevent us from stacking ducts that shouldnt be stacked
 /obj/machinery/duct/proc/can_anchor(turf/T)
 	if(!T)
@@ -291,8 +291,8 @@ All the important duct code:
 			continue
 		for(var/A in GLOB.cardinals)
 			if(A & connects && A & D.connects)
-				return FALSE
-	return TRUE
+				return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/duct/doMove(destination)
 	. = ..()

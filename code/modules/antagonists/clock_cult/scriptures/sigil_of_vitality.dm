@@ -29,19 +29,19 @@
 
 /obj/structure/destructible/clockwork/sigil/vitality/can_affect(mob/living/M)
 	if(is_servant_of_ratvar(M))
-		return TRUE
+		return EF_TRUE
 	if(M.stat == DEAD)
-		return FALSE
+		return EF_FALSE
 	var/amc = M.anti_magic_check()
 	if(amc)
-		return FALSE
+		return EF_FALSE
 	if(HAS_TRAIT(M, TRAIT_NODEATH))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/structure/destructible/clockwork/sigil/vitality/apply_effects(mob/living/M)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	if(is_servant_of_ratvar(M))
 		if(M.stat == DEAD)
 			var/damage_healed = 20 + ((M.maxHealth - M.health) * 0.6)

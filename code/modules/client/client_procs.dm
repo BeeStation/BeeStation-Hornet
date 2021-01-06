@@ -475,14 +475,14 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(IsAdminAdvancedProcCall())
 		log_admin("Attempted admin generate_uuid() proc call blocked.")
 		message_admins("Attempted admin generate_uuid() proc call blocked.")
-		return FALSE
+		return EF_FALSE
 
 	var/fiftyfifty = prob(50) ? FEMALE : MALE
 	var/hashtext = "[ckey][rand(0,9999)][world.realtime][rand(0,9999)][random_unique_name(fiftyfifty)][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)][GLOB.round_id]"
 	var/uuid = "[rustg_hash_string(RUSTG_HASH_SHA256, hashtext)]"
 
 	if(!SSdbcore.Connect())
-		return FALSE
+		return EF_FALSE
 
 	var/datum/DBQuery/query_update_uuid = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET uuid = :uuid WHERE ckey = :ckey",
@@ -497,10 +497,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(IsAdminAdvancedProcCall())
 		log_admin("Attempted admin fetch_uuid() proc call blocked.")
 		message_admins("Attempted admin fetch_uuid() proc call blocked.")
-		return FALSE
+		return EF_FALSE
 
 	if(!SSdbcore.Connect())
-		return FALSE
+		return EF_FALSE
 
 	var/datum/DBQuery/query_get_uuid = SSdbcore.NewQuery(
 		"SELECT uuid FROM [format_table_name("player")] WHERE ckey = :ckey",
@@ -508,7 +508,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	)
 	if(!query_get_uuid.Execute())
 		qdel(query_get_uuid)
-		return FALSE
+		return EF_FALSE
 	var/uuid = null
 	if(query_get_uuid.NextRow())
 		uuid = query_get_uuid.item[1]
@@ -770,7 +770,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			log_access("Forced disconnect: [key] [computer_id] [address] - CID randomizer check")
 
 			qdel(src)
-			return TRUE
+			return EF_TRUE
 
 		if (oldcid != computer_id && computer_id != lastcid) //IT CHANGED!!!
 			cidcheck -= ckey //so they can try again after removing the cid randomizer.
@@ -787,7 +787,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			log_access("Failed Login: [key] [computer_id] [address] - CID randomizer confirmed (oldcid: [oldcid])")
 
 			qdel(src)
-			return TRUE
+			return EF_TRUE
 		else
 			if (cidcheck_failedckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
@@ -807,7 +807,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		log_access("Forced disconnect: [key] [computer_id] [address] - CID randomizer check")
 
 		qdel(src)
-		return TRUE
+		return EF_TRUE
 
 /client/proc/cid_check_reconnect()
 	var/token = rustg_hash_string(RUSTG_HASH_MD5, "[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
@@ -928,7 +928,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 /client/proc/is_afk(duration = CONFIG_GET(number/inactivity_period))
 	if(inactivity > duration)
 		return inactivity
-	return FALSE
+	return EF_FALSE
 
 /// Send resources to the client.
 /// Sends both game resources and browser assets.
@@ -962,14 +962,14 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 /client/vv_edit_var(var_name, var_value)
 	switch (var_name)
 		if ("holder")
-			return FALSE
+			return EF_FALSE
 		if ("ckey")
-			return FALSE
+			return EF_FALSE
 		if ("key")
-			return FALSE
+			return EF_FALSE
 		if("view")
 			view_size.setDefault(var_value)
-			return TRUE
+			return EF_TRUE
 	. = ..()
 
 /client/proc/rescale_view(change, min, max)

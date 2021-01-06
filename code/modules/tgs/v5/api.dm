@@ -29,12 +29,12 @@
 	var/list/bridge_response = Bridge(DMAPI5_BRIDGE_COMMAND_STARTUP, list(DMAPI5_BRIDGE_PARAMETER_MINIMUM_SECURITY_LEVEL = minimum_required_security_level, DMAPI5_BRIDGE_PARAMETER_VERSION = api_version.raw_parameter, DMAPI5_PARAMETER_CUSTOM_COMMANDS = ListCustomCommands()))
 	if(!istype(bridge_response))
 		TGS_ERROR_LOG("Failed initial bridge request!")
-		return FALSE
+		return EF_FALSE
 
 	var/list/runtime_information = bridge_response[DMAPI5_BRIDGE_RESPONSE_RUNTIME_INFORMATION]
 	if(!istype(runtime_information))
 		TGS_ERROR_LOG("Failed to decode runtime information from bridge response: [json_encode(bridge_response)]!")
-		return FALSE
+		return EF_FALSE
 
 	if(runtime_information[DMAPI5_RUNTIME_INFORMATION_API_VALIDATE_ONLY])
 		TGS_INFO_LOG("DMAPI validation, exiting...")
@@ -82,7 +82,7 @@
 	DecodeChannels(runtime_information)
 
 	initialized = TRUE
-	return TRUE
+	return EF_TRUE
 
 /datum/tgs_api/v5/proc/RequireInitialBridgeResponse()
 	while(!version)
@@ -101,7 +101,7 @@
 	var/list/params = params2list(T)
 	var/json = params[DMAPI5_TOPIC_DATA]
 	if(!json)
-		return FALSE // continue to /world/Topic
+		return EF_FALSE // continue to /world/Topic
 
 	var/list/topic_parameters = json_decode(json)
 	if(!topic_parameters)
@@ -109,7 +109,7 @@
 
 	if(!initialized)
 		TGS_WARNING_LOG("Missed topic due to not being initialized: [T]")
-		return TRUE	// too early to handle, but it's still our responsibility
+		return EF_TRUE	// too early to handle, but it's still our responsibility
 
 	var/their_sCK = topic_parameters[DMAPI5_PARAMETER_ACCESS_IDENTIFIER]
 	if(their_sCK != access_identifier)

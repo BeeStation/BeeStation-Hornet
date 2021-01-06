@@ -84,7 +84,7 @@
 				break
 
 		if(needed_amount > 0)
-			return FALSE
+			return EF_FALSE
 
 		// Store the instances of what we will use for R.check_requirements() for requirement_path
 		var/list/instances_list = list()
@@ -96,7 +96,7 @@
 
 	for(var/requirement_path in R.chem_catalysts)
 		if(contents[requirement_path] < R.chem_catalysts[requirement_path])
-			return FALSE
+			return EF_FALSE
 
 	return R.check_requirements(a, requirements_list)
 
@@ -138,7 +138,7 @@
 
 /datum/component/personal_crafting/proc/check_tools(atom/a, datum/crafting_recipe/R, list/contents)
 	if(!R.tools.len)
-		return TRUE
+		return EF_TRUE
 	var/list/possible_tools = list()
 	var/list/present_qualities = list()
 	present_qualities |= contents["tool_behaviour"]
@@ -164,8 +164,8 @@
 				for(var/I in possible_tools)
 					if(ispath(I, A))
 						continue main_loop
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/component/personal_crafting/proc/construct_item(atom/a, datum/crafting_recipe/R)
 	var/list/contents = get_surroundings(a,R.blacklist)

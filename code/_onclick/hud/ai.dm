@@ -3,7 +3,7 @@
 
 /atom/movable/screen/ai/Click()
 	if(isobserver(usr) || usr.incapacitated())
-		return TRUE
+		return EF_TRUE
 
 /atom/movable/screen/ai/aicore
 	name = "AI core"

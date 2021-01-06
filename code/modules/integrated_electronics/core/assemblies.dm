@@ -418,7 +418,7 @@
 	ckeys_allowed_to_scan[ckey] = TRUE
 
 /obj/item/electronic_assembly/proc/can_move()
-	return FALSE
+	return EF_FALSE
 
 /obj/item/electronic_assembly/update_icon()
 	if(opened)
@@ -448,11 +448,11 @@
 /obj/item/electronic_assembly/proc/try_add_component(obj/item/integrated_circuit/IC, mob/user)
 	if(!opened)
 		to_chat(user, "<span class='warning'>\The [src]'s hatch is closed, you can't put anything inside.</span>")
-		return FALSE
+		return EF_FALSE
 
 	if(IC.w_class > w_class)
 		to_chat(user, "<span class='warning'>\The [IC] is way too big to fit into \the [src].</span>")
-		return FALSE
+		return EF_FALSE
 
 	var/total_part_size = return_total_size()
 	var/total_complexity = return_total_complexity()
@@ -464,20 +464,20 @@
 				current_components++
 		if(current_components >= IC.max_allowed)
 			to_chat(user, "<span class='warning'>You can't seem to add the '[IC]', as there are too many installed already.</span>")
-			return FALSE
+			return EF_FALSE
 
 	if((total_part_size + IC.size) > max_components)
 		to_chat(user, "<span class='warning'>You can't seem to add the '[IC]', as there's insufficient space.</span>")
-		return FALSE
+		return EF_FALSE
 	if((total_complexity + IC.complexity) > max_complexity)
 		to_chat(user, "<span class='warning'>You can't seem to add the '[IC]', since this setup's too complicated for the case.</span>")
-		return FALSE
+		return EF_FALSE
 	if((allowed_circuit_action_flags & IC.action_flags) != IC.action_flags)
 		to_chat(user, "<span class='warning'>You can't seem to add the '[IC]', since the case doesn't support the circuit type.</span>")
-		return FALSE
+		return EF_FALSE
 
 	if(!user.transferItemToLoc(IC, src))
-		return FALSE
+		return EF_FALSE
 
 	to_chat(user, "<span class='notice'>You slide [IC] inside [src].</span>")
 	playsound(src, 'sound/items/Deconstruct.ogg', 50, 1)
@@ -485,7 +485,7 @@
 	investigate_log("had [IC]([IC.type]) inserted by [key_name(user)].", INVESTIGATE_CIRCUIT)
 
 	add_component(IC)
-	return TRUE
+	return EF_TRUE
 
 
 // Actually puts the circuit inside, doesn't perform any checks.
@@ -509,12 +509,12 @@
 	if(!opened)
 		if(!silent)
 			to_chat(user, "<span class='warning'>[src]'s hatch is closed, so you can't fiddle with the internal components.</span>")
-		return FALSE
+		return EF_FALSE
 
 	if(!IC.removable)
 		if(!silent)
 			to_chat(user, "<span class='warning'>[src] is permanently attached to the case.</span>")
-		return FALSE
+		return EF_FALSE
 
 	remove_component(IC)
 	if(!silent)
@@ -524,7 +524,7 @@
 	add_allowed_scanner(user.ckey)
 	investigate_log("had [IC]([IC.type]) removed by [key_name(user)].", INVESTIGATE_CIRCUIT)
 
-	return TRUE
+	return EF_TRUE
 
 // Actually removes the component, doesn't perform any checks.
 /obj/item/electronic_assembly/proc/remove_component(obj/item/integrated_circuit/component)
@@ -555,14 +555,14 @@
 /obj/item/electronic_assembly/screwdriver_act(mob/living/user, obj/item/I)
 	if(sealed)
 		to_chat(user,"<span class='notice'>The assembly is sealed. Any attempt to force it open would break it.</span>")
-		return FALSE
+		return EF_FALSE
 	if(..())
-		return TRUE
+		return EF_TRUE
 	I.play_tool_sound(src)
 	opened = !opened
 	to_chat(user, "<span class='notice'>You [opened ? "open" : "close"] the maintenance hatch of [src].</span>")
 	update_icon()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/electronic_assembly/welder_act(mob/living/user, obj/item/I)
 	var/type_to_use
@@ -580,22 +580,22 @@
 				to_chat(world,"Integrity: [obj_integrity] / [max_integrity]")
 				to_chat(user,"<span class='notice'>You fix the dents and scratches of the assembly.</span>")
 				to_chat(world,user)
-				return TRUE
+				return EF_TRUE
 
 			else
 				to_chat(user,"<span class='notice'>The assembly is already in impeccable condition.</span>")
-				return FALSE
+				return EF_FALSE
 
 		if("seal")
 			if(!opened)
 				sealed = TRUE
 				if(I.use_tool(src, user, 50, volume=100, amount=3))
 					to_chat(user,"<span class='notice'>You seal the assembly, making it impossible to be opened.</span>")
-					return TRUE
+					return EF_TRUE
 
 			else
 				to_chat(user,"<span class='notice'>You need to close the assembly first before sealing it indefinitely!</span>")
-				return FALSE
+				return EF_FALSE
 
 		if("unseal")
 			to_chat(user,"<span class='notice'>You start unsealing the assembly carefully...</span>")
@@ -606,7 +606,7 @@
 
 				to_chat(user,"<span class='notice'>You unsealed the assembly.</span>")
 				sealed = FALSE
-				return TRUE
+				return EF_TRUE
 
 /obj/item/electronic_assembly/attackby(obj/item/I, mob/living/user)
 	if(can_anchor && default_unfasten_wrench(user, I, 20))
@@ -635,9 +635,9 @@
 
 	if(istype(I, /obj/item/integrated_circuit))
 		if(!user.canUnEquip(I))
-			return FALSE
+			return EF_FALSE
 		if(try_add_component(I, user))
-			return TRUE
+			return EF_TRUE
 		else
 			for(var/obj/item/integrated_circuit/input/S in assembly_components)
 				S.attackby_react(I,user,user.a_intent)
@@ -646,7 +646,7 @@
 	else if(I.tool_behaviour == TOOL_MULTITOOL || istype(I, /obj/item/integrated_electronics/wirer) || istype(I, /obj/item/integrated_electronics/debugger))
 		if(opened)
 			interact(user)
-			return TRUE
+			return EF_TRUE
 		else
 			to_chat(user, "<span class='warning'>[src]'s hatch is closed, so you can't fiddle with the internal components.</span>")
 			for(var/obj/item/integrated_circuit/input/S in assembly_components)
@@ -669,7 +669,7 @@
 		diag_hud_set_circuitstat() //update diagnostic hud
 		playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>You slot the [I] inside \the [src]'s power supplier.</span>")
-		return TRUE
+		return EF_TRUE
 
 	else if(istype(I, /obj/item/integrated_electronics/detailer))
 		var/obj/item/integrated_electronics/detailer/D = I
@@ -761,14 +761,14 @@
 // Returns true if power was successfully drawn.
 /obj/item/electronic_assembly/proc/draw_power(amount)
 	if(battery && battery.use(amount * GLOB.CELLRATE))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 // Ditto for giving.
 /obj/item/electronic_assembly/proc/give_power(amount)
 	if(battery && battery.give(amount * GLOB.CELLRATE))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/item/electronic_assembly/Moved(oldLoc, dir)
 	for(var/I in assembly_components)
@@ -957,7 +957,7 @@
 	can_anchor = FALSE
 
 /obj/item/electronic_assembly/drone/can_move()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/electronic_assembly/drone/default
 	name = "type-a electronic drone"

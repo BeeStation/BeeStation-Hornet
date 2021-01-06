@@ -23,7 +23,7 @@
   * collected_requirements: A list of lists of /obj/item instances that satisfy reqs. Top level list is keyed by requirement path.
   */
 /datum/crafting_recipe/proc/check_requirements(mob/user, list/collected_requirements)
-	return TRUE
+	return EF_TRUE
 
 /datum/crafting_recipe/pin_removal
 	name = "Pin Removal"

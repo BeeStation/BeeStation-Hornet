@@ -651,8 +651,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 /obj/effect/hallucination/fake_door_lock/CanPass(atom/movable/mover, turf/_target)
 	if(mover == target && airlock.density)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/hallucination/chat
 

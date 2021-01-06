@@ -311,7 +311,7 @@
 				to_chat(user, "You are too far to set the plaque's text.")
 
 		SSpersistence.SaveTrophy(src)
-		return TRUE
+		return EF_TRUE
 
 	else
 		to_chat(user, "<span class='warning'>\The [W] is stuck to your hand, you can't put it in the [src.name]!</span>")

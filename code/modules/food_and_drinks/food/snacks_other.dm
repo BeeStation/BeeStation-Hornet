@@ -533,7 +533,7 @@
 		if(!R && replace)
 			user.put_in_hands(new_item)
 		qdel(src)
-		return TRUE
+		return EF_TRUE
 	..()
 
 /obj/item/reagent_containers/food/snacks/butter/on_a_stick //there's something so special about putting it on a stick.

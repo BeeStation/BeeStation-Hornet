@@ -97,7 +97,7 @@
 	spreadFire(M)
 
 	if(now_pushing)
-		return TRUE
+		return EF_TRUE
 
 	var/they_can_move = TRUE
 	if(isliving(M))
@@ -118,7 +118,7 @@
 		if(L.pulledby && L.pulledby != src && L.restrained())
 			if(!(world.time % 5))
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
-			return TRUE
+			return EF_TRUE
 
 		if(L.pulling)
 			if(ismob(L.pulling))
@@ -126,10 +126,10 @@
 				if(P.restrained())
 					if(!(world.time % 5))
 						to_chat(src, "<span class='warning'>[L] is restraining [P], you cannot push past.</span>")
-					return TRUE
+					return EF_TRUE
 
 	if(moving_diagonally)//no mob swap during diagonal moves.
-		return TRUE
+		return EF_TRUE
 
 	if(!M.buckled && !M.has_buckled_mobs())
 		var/mob_swap = FALSE
@@ -150,7 +150,7 @@
 		if(mob_swap)
 			//switch our position with M
 			if(loc && !loc.Adjacent(M.loc))
-				return TRUE
+				return EF_TRUE
 			now_pushing = 1
 			var/oldloc = loc
 			var/oldMloc = M.loc
@@ -174,19 +174,19 @@
 			now_pushing = 0
 
 			if(!move_failed)
-				return TRUE
+				return EF_TRUE
 
 	//okay, so we didn't switch. but should we push?
 	//not if he's not CANPUSH of course
 	if(!(M.status_flags & CANPUSH))
-		return TRUE
+		return EF_TRUE
 	if(isliving(M))
 		var/mob/living/L = M
 		if(HAS_TRAIT(L, TRAIT_PUSHIMMUNE))
-			return TRUE
+			return EF_TRUE
 	//If they're a human, and they're not in help intent, block pushing
 	if(ishuman(M) && (M.a_intent != INTENT_HELP))
-		return TRUE
+		return EF_TRUE
 	//anti-riot equipment is also anti-push
 	for(var/obj/item/I in M.held_items)
 		if(!istype(M, /obj/item/clothing))
@@ -216,9 +216,9 @@
 //Called when we want to push an atom/movable
 /mob/living/proc/PushAM(atom/movable/AM, force = move_force)
 	if(now_pushing)
-		return TRUE
+		return EF_TRUE
 	if(moving_diagonally)// no pushing during diagonal moves.
-		return TRUE
+		return EF_TRUE
 	if(!client && (mob_size < MOB_SIZE_SMALL))
 		return
 	now_pushing = TRUE
@@ -252,11 +252,11 @@
 
 /mob/living/start_pulling(atom/movable/AM, state, force = pull_force, supress_message = FALSE)
 	if(!AM || !src)
-		return FALSE
+		return EF_FALSE
 	if(!(AM.can_be_pulled(src, state, force)))
-		return FALSE
+		return EF_FALSE
 	if(throwing || !(mobility_flags & MOBILITY_PULL))
-		return FALSE
+		return EF_FALSE
 
 	AM.add_fingerprint(src)
 
@@ -385,13 +385,13 @@
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
 	if(incapacitated())
-		return FALSE
+		return EF_FALSE
 	if(HAS_TRAIT(src, TRAIT_DEATHCOMA))
-		return FALSE
+		return EF_FALSE
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	visible_message("<b>[src]</b> points at [A].", "<span class='notice'>You point at [A].</span>")
-	return TRUE
+	return EF_TRUE
 
 /mob/living/verb/succumb(whispered as null)
 	set hidden = TRUE
@@ -409,12 +409,12 @@
 
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, check_immobilized = FALSE, ignore_stasis = FALSE)
 	if(stat || IsUnconscious() || IsStun() || IsParalyzed() || (check_immobilized && IsImmobilized()) || (!ignore_restraints && restrained(ignore_grab)) || (!ignore_stasis && IsInStasis()))
-		return TRUE
+		return EF_TRUE
 
 /mob/living/canUseStorage()
 	if (get_num_arms() <= 0)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /mob/living/proc/InCritical()
 	return (health <= crit_threshold && (stat == SOFT_CRIT || stat == UNCONSCIOUS))
@@ -508,12 +508,12 @@
 
 	for(var/obj/B in L)
 		if(B.type == A)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 // Living mobs use can_inject() to make sure that the mob is not syringe-proof in general.
 /mob/living/proc/can_inject()
-	return TRUE
+	return EF_TRUE
 
 /mob/living/is_injectable(mob/user, allowmobs = TRUE)
 	return (allowmobs && reagents && can_inject(user))
@@ -778,14 +778,14 @@
 			visible_message("<span class='danger'>[src] has broken free of [pulledby]'s grip!</span>")
 			log_combat(pulledby, src, "broke grab")
 			pulledby.stop_pulling()
-			return FALSE
+			return EF_FALSE
 		else
 			visible_message("<span class='danger'>[src] struggles as they fail to break free of [pulledby]'s grip!</span>")
 		if(moving_resist && client) //we resisted by trying to move
 			client.move_delay = world.time + 20
 	else
 		pulledby.stop_pulling()
-		return FALSE
+		return EF_FALSE
 
 /mob/living/proc/resist_buckle()
 	buckled.user_unbuckle_mob(src,src)
@@ -964,20 +964,20 @@
 /mob/living/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
 	if(incapacitated())
 		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
-		return FALSE
+		return EF_FALSE
 	if(be_close && !in_range(M, src))
 		to_chat(src, "<span class='warning'>You are too far away!</span>")
-		return FALSE
+		return EF_FALSE
 	if(!no_dextery)
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /mob/living/proc/can_use_guns(obj/item/G)//actually used for more than guns!
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser())
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /mob/living/proc/update_stamina()
 	return
@@ -988,7 +988,7 @@
 /mob/living/proc/owns_soul()
 	if(mind)
 		return mind.soulOwner == mind
-	return TRUE
+	return EF_TRUE
 
 /mob/living/proc/return_soul()
 	hellbound = 0
@@ -1009,8 +1009,8 @@
 
 /mob/living/proc/check_acedia()
 	if(mind && mind.has_objective(/datum/objective/sintouched/acedia))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /mob/living/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, quickstart = TRUE)
 	stop_pulling()
@@ -1073,8 +1073,8 @@
 		throw_alert("fire", /atom/movable/screen/alert/fire)
 		update_fire()
 		SEND_SIGNAL(src, COMSIG_LIVING_IGNITED,src)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /mob/living/proc/ExtinguishMob()
 	if(on_fire)
@@ -1304,15 +1304,15 @@
 		return
 	if(user.get_active_held_item())
 		to_chat(user, "<span class='warning'>Your hands are full!</span>")
-		return FALSE
+		return EF_FALSE
 	if(buckled)
 		to_chat(user, "<span class='warning'>[src] is buckled to something!</span>")
-		return FALSE
+		return EF_FALSE
 	user.visible_message("<span class='notice'>[user] starts trying to scoop up [src]!</span>")
 	if(!do_after(user, 20, target = src))
-		return FALSE
+		return EF_FALSE
 	mob_pickup(user)
-	return TRUE
+	return EF_TRUE
 
 /mob/living/proc/get_static_viruses() //used when creating blood and other infective objects
 	if(!LAZYLEN(diseases))
@@ -1342,7 +1342,7 @@
 	switch(var_name)
 		if ("maxHealth")
 			if (!isnum_safe(var_value) || var_value <= 0)
-				return FALSE
+				return EF_FALSE
 		if("stat")
 			if((stat == DEAD) && (var_value < DEAD))//Bringing the dead back to life
 				GLOB.dead_mob_list -= src

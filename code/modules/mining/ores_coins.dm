@@ -41,13 +41,13 @@
 
 /obj/item/stack/ore/welder_act(mob/living/user, obj/item/I)
 	if(!refined_type)
-		return TRUE
+		return EF_TRUE
 
 	if(I.use_tool(src, user, 0, volume=50, amount=15))
 		new refined_type(drop_location())
 		use(1)
 
-	return TRUE
+	return EF_TRUE
 
 /obj/item/stack/ore/fire_act(exposed_temperature, exposed_volume)
 	. = ..()
@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/plasma/welder_act(mob/living/user, obj/item/I)
 	to_chat(user, "<span class='warning'>You can't hit a high enough temperature to smelt [src] properly!</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/item/stack/ore/copper
 	name = "copper ore"
@@ -467,19 +467,19 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/coin/wirecutter_act(mob/living/user, obj/item/I)
 	if(!string_attached)
-		return TRUE
+		return EF_TRUE
 
 	new /obj/item/stack/cable_coil(drop_location(), 1)
 	overlays = list()
 	string_attached = null
 	to_chat(user, "<span class='notice'>You detach the string from the coin.</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/item/coin/attack_self(mob/user)
 	if(cooldown < world.time)
 		if(string_attached) //does the coin have a wire attached
 			to_chat(user, "<span class='warning'>The coin won't flip very well with something attached!</span>" )
-			return FALSE//do not flip the coin
+			return EF_FALSE//do not flip the coin
 		coinflip = pick(sideslist)
 		cooldown = world.time + 15
 		flick("coin_[cmineral]_flip", src)
@@ -491,7 +491,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			user.visible_message("[user] has flipped [src]. It lands on [coinflip].", \
  							 "<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
 							 "<span class='italics'>You hear the clattering of loose change.</span>")
-	return TRUE//did the coin flip? useful for suicide_act
+	return EF_TRUE//did the coin flip? useful for suicide_act
 
 
 #undef ORESTACK_OVERLAYS_MAX

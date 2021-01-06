@@ -11,11 +11,11 @@
 
 /datum/bounty/reagent/applies_to(obj/O)
 	if(!istype(O, /obj/item/reagent_containers))
-		return FALSE
+		return EF_FALSE
 	if(!O.reagents || !O.reagents.has_reagent(wanted_reagent.type))
-		return FALSE
+		return EF_FALSE
 	if(O.flags_1 & HOLOGRAM_1)
-		return FALSE
+		return EF_FALSE
 	return shipped_volume < required_volume
 
 /datum/bounty/reagent/ship(obj/O)
@@ -27,7 +27,7 @@
 
 /datum/bounty/reagent/compatible_with(other_bounty)
 	if(!istype(other_bounty, /datum/bounty/reagent))
-		return TRUE
+		return EF_TRUE
 	var/datum/bounty/reagent/R = other_bounty
 	return wanted_reagent.type != R.wanted_reagent.type
 

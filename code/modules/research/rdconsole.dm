@@ -141,11 +141,11 @@ Nothing else in the console has ID requirements.
 /obj/machinery/computer/rdconsole/proc/research_node(id, mob/user)
 	if(!stored_research.available_nodes[id] || stored_research.researched_nodes[id])
 		say("Node unlock failed: Either already researched or not available!")
-		return FALSE
+		return EF_FALSE
 	var/datum/techweb_node/TN = SSresearch.techweb_node_by_id(id)
 	if(!istype(TN))
 		say("Node unlock failed: Unknown error.")
-		return FALSE
+		return EF_FALSE
 	var/list/price = TN.get_price(stored_research)
 	if(stored_research.can_afford(price))
 		investigate_log("[key_name(user)] researched [id]([json_encode(price)]) on techweb id [stored_research.id].", INVESTIGATE_RESEARCH)
@@ -170,12 +170,12 @@ Nothing else in the console has ID requirements.
 			var/i = stored_research.research_logs.len
 			stored_research.research_logs += null
 			stored_research.research_logs[++i] = list(TN.display_name, price["General Research"], logname, "[get_area(src)] ([src.x],[src.y],[src.z])")
-			return TRUE
+			return EF_TRUE
 		else
 			say("Failed to research node: Internal database error!")
-			return FALSE
+			return EF_FALSE
 	say("Not enough research points...")
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/computer/rdconsole/on_deconstruction()
 	if(linked_destroy)
@@ -1101,20 +1101,20 @@ Nothing else in the console has ID requirements.
 	var/amount = 50
 	if(buildtype == IMPRINTER)
 		if(QDELETED(linked_imprinter))
-			return FALSE
+			return EF_FALSE
 		for(var/M in D.materials + D.reagents_list)
 			amount = min(amount, linked_imprinter.check_mat(D, M))
 			if(amount < 1)
-				return FALSE
+				return EF_FALSE
 	else if(buildtype == PROTOLATHE)
 		if(QDELETED(linked_lathe))
-			return FALSE
+			return EF_FALSE
 		for(var/M in D.materials + D.reagents_list)
 			amount = min(amount, linked_lathe.check_mat(D, M))
 			if(amount < 1)
-				return FALSE
+				return EF_FALSE
 	else
-		return FALSE
+		return EF_FALSE
 	return amount
 
 /obj/machinery/computer/rdconsole/proc/lock_console(mob/user)

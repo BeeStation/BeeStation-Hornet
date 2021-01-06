@@ -121,8 +121,8 @@
 		if (M.HasDisease(D) && (M.onCentCom() || M.onSyndieBase()))
 			escaped_monkeys++
 	if(escaped_monkeys >= monkeys_to_win)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/team/monkey
 	name = "Monkeys"
@@ -139,40 +139,40 @@
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()
 	for(var/mob/living/carbon/monkey/M in GLOB.alive_mob_list)
 		if(M.HasDisease(D))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/team/monkey/proc/infected_monkeys_escaped()
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()
 	for(var/mob/living/carbon/monkey/M in GLOB.alive_mob_list)
 		if(M.HasDisease(D) && (M.onCentCom() || M.onSyndieBase()))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/team/monkey/proc/infected_gorillas_alive()
 	for(var/mob/living/simple_animal/hostile/gorilla/rabid/M in GLOB.alive_mob_list)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/team/monkey/proc/infected_gorillas_escaped()
 	for(var/mob/living/simple_animal/hostile/gorilla/rabid/M in GLOB.alive_mob_list)
 		if(M.onCentCom() || M.onSyndieBase())
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/team/monkey/proc/infected_humans_escaped()
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()
 	for(var/mob/living/carbon/human/M in GLOB.alive_mob_list)
 		if(M.HasDisease(D) && (M.onCentCom() || M.onSyndieBase()))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/team/monkey/proc/infected_humans_alive()
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()
 	for(var/mob/living/carbon/human/M in GLOB.alive_mob_list)
 		if(M.HasDisease(D))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/team/monkey/proc/get_result()
 	if(infected_monkeys_escaped() || infected_gorillas_escaped())

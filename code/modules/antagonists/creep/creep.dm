@@ -243,7 +243,7 @@
 /datum/objective/hug/check_completion()
 	var/datum/antagonist/obsessed/creeper = owner.has_antag_datum(/datum/antagonist/obsessed)
 	if(!creeper || !creeper.trauma || !hugs_needed)
-		return TRUE//free objective
+		return EF_TRUE//free objective
 	return creeper.trauma.obsession_hug_count >= hugs_needed
 
 /datum/objective/polaroid //take a picture of the target with you in it.
@@ -266,8 +266,8 @@
 			if(istype(I, /obj/item/photo))
 				var/obj/item/photo/P = I
 				if(P.picture && (target.current in P.picture.mobs_seen) && !(target.current in P.picture.dead_seen)) //Does the picture exist and is the target in it and is the target not dead
-					return TRUE
-	return FALSE
+					return EF_TRUE
+	return EF_FALSE
 
 
 /datum/objective/steal/heirloom_thief //exactly what it sounds like, steal someone's heirloom.

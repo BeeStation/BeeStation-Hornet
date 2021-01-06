@@ -41,12 +41,12 @@ GLOBAL_LIST_INIT(tendrils, list())
 
 /obj/structure/spawner/lavaland/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 	if(!necroseed.len)
-		return FALSE
+		return EF_FALSE
 	if(scan)
 		E.scan(src, necroseed, user)
 	else
 		E.extrapolate(src, necroseed, user)
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/spawner/lavaland/deconstruct(disassembled)
 	new /obj/effect/collapse(loc)

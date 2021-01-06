@@ -276,7 +276,7 @@
 			flash2 = null
 	else
 		to_chat(user, "<span class='warning'>There is no flash to remove from [src].</span>")
-	return TRUE
+	return EF_TRUE
 
 
 /obj/item/bodypart/head/robot/drop_organs(mob/user, violent_removal)

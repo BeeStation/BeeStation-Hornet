@@ -40,20 +40,20 @@
 // Admin-created events override this.
 /datum/round_event_control/proc/canSpawnEvent(var/players_amt, var/gamemode)
 	if(occurrences >= max_occurrences)
-		return FALSE
+		return EF_FALSE
 	if(earliest_start >= world.time-SSticker.round_start_time)
-		return FALSE
+		return EF_FALSE
 	if(wizardevent != SSevents.wizardmode)
-		return FALSE
+		return EF_FALSE
 	if(players_amt < min_players)
-		return FALSE
+		return EF_FALSE
 	if(gamemode_blacklist.len && (gamemode in gamemode_blacklist))
-		return FALSE
+		return EF_FALSE
 	if(gamemode_whitelist.len && !(gamemode in gamemode_whitelist))
-		return FALSE
+		return EF_FALSE
 	if(holidayID && (!SSevents.holidays || !SSevents.holidays[holidayID]))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/round_event_control/proc/preRunEvent()
 	if(!ispath(typepath, /datum/round_event))

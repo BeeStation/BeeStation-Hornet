@@ -479,7 +479,7 @@
 	owner.bodytemperature = BODYTEMP_NORMAL
 	owner.restoreEars()
 	duration = rand(150, 450) * power
-	return TRUE
+	return EF_TRUE
 
 /datum/status_effect/regenerative_core/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "legion_core_trait")

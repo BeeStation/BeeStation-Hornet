@@ -87,31 +87,31 @@
 
 /datum/action/proc/Trigger()
 	if(!IsAvailable())
-		return FALSE
+		return EF_FALSE
 	if(SEND_SIGNAL(src, COMSIG_ACTION_TRIGGER, src) & COMPONENT_ACTION_BLOCK_TRIGGER)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/action/proc/IsAvailable()
 	if(!owner)
-		return FALSE
+		return EF_FALSE
 	if(check_flags & AB_CHECK_RESTRAINED)
 		if(owner.restrained())
-			return FALSE
+			return EF_FALSE
 	if(check_flags & AB_CHECK_STUN)
 		if(isliving(owner))
 			var/mob/living/L = owner
 			if(L.IsParalyzed() || L.IsStun())
-				return FALSE
+				return EF_FALSE
 	if(check_flags & AB_CHECK_LYING)
 		if(isliving(owner))
 			var/mob/living/L = owner
 			if(!(L.mobility_flags & MOBILITY_STAND))
-				return FALSE
+				return EF_FALSE
 	if(check_flags & AB_CHECK_CONSCIOUS)
 		if(owner.stat)
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/action/proc/UpdateButtonIcon(status_only = FALSE, force = FALSE)
 	if(button)
@@ -517,7 +517,7 @@
 /datum/action/item_action/agent_box/Trigger()
 	. = ..()
 	if(!.)
-		return FALSE
+		return EF_FALSE
 	if(istype(owner.loc, /obj/structure/closet/cardboard/agent))
 		var/obj/structure/closet/cardboard/agent/box = owner.loc
 		owner.playsound_local(box, 'sound/misc/box_deploy.ogg', 50, TRUE)
@@ -556,36 +556,36 @@
 
 /datum/action/spell_action/Trigger()
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	if(target)
 		var/obj/effect/proc_holder/S = target
 		S.Click()
-		return TRUE
+		return EF_TRUE
 
 /datum/action/spell_action/IsAvailable()
 	if(!target)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/action/spell_action/spell
 
 /datum/action/spell_action/spell/IsAvailable()
 	if(!target)
-		return FALSE
+		return EF_FALSE
 	var/obj/effect/proc_holder/spell/S = target
 	if(owner)
 		return S.can_cast(owner)
-	return FALSE
+	return EF_FALSE
 
 /datum/action/spell_action/alien
 
 /datum/action/spell_action/alien/IsAvailable()
 	if(!target)
-		return FALSE
+		return EF_FALSE
 	var/obj/effect/proc_holder/alien/ab = target
 	if(owner)
 		return ab.cost_check(ab.check_turf,owner,1)
-	return FALSE
+	return EF_FALSE
 
 
 
@@ -682,7 +682,7 @@
 
 /datum/action/language_menu/Trigger()
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	if(ismob(owner))
 		var/mob/M = owner
 		var/datum/language_holder/H = M.get_language_holder()

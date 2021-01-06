@@ -57,13 +57,13 @@
 
 /obj/item/nuke_core_container/proc/load(obj/item/nuke_core/ncore, mob/user)
 	if(core || !istype(ncore))
-		return FALSE
+		return EF_FALSE
 	ncore.forceMove(src)
 	core = ncore
 	icon_state = "core_container_loaded"
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
 	addtimer(CALLBACK(src, .proc/seal), 50)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/nuke_core_container/proc/seal()
 	if(istype(core))
@@ -126,17 +126,17 @@
 	pulseicon = "supermatter_sliver_pulse"
 
 /obj/item/nuke_core/supermatter_sliver/attack_tk() // no TK dusting memes
-	return FALSE
+	return EF_FALSE
 
 /obj/item/nuke_core/supermatter_sliver/can_be_pulled(user) // no drag memes
-	return FALSE
+	return EF_FALSE
 
 /obj/item/nuke_core/supermatter_sliver/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/hemostat/supermatter))
 		var/obj/item/hemostat/supermatter/tongs = W
 		if (tongs.sliver)
 			to_chat(user, "<span class='notice'>\The [tongs] is already holding a supermatter sliver!</span>")
-			return FALSE
+			return EF_FALSE
 		forceMove(tongs)
 		tongs.sliver = src
 		tongs.update_icon()
@@ -153,7 +153,7 @@
 /obj/item/nuke_core/supermatter_sliver/pickup(mob/living/user)
 	..()
 	if(!iscarbon(user))
-		return FALSE
+		return EF_FALSE
 	var/mob/ded = user
 	user.visible_message("<span class='danger'>[ded] reaches out and tries to pick up [src]. [ded.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",\
 			"<span class='userdanger'>You reach for [src] with your hands. That was dumb.</span>",\
@@ -173,7 +173,7 @@
 
 /obj/item/nuke_core_container/supermatter/load(obj/item/hemostat/supermatter/T, mob/user)
 	if(!istype(T) || !T.sliver)
-		return FALSE
+		return EF_FALSE
 	T.sliver.forceMove(src)
 	sliver = T.sliver
 	T.sliver = null
@@ -181,7 +181,7 @@
 	icon_state = "core_container_loaded"
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
 	addtimer(CALLBACK(src, .proc/seal), 50)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/nuke_core_container/supermatter/seal()
 	if(istype(sliver))

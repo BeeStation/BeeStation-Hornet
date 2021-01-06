@@ -33,7 +33,7 @@
 			if(O.BlockSuperconductivity()) 	//the direction and open/closed are already checked on CanAtmosPass() so there are no arguments
 				atmos_supeconductivity |= dir
 				T.atmos_supeconductivity |= opp
-				return FALSE						//no need to keep going, we got all we asked
+				return EF_FALSE						//no need to keep going, we got all we asked
 
 	atmos_supeconductivity &= ~dir
 	T.atmos_supeconductivity &= ~opp
@@ -41,7 +41,7 @@
 	return !R
 
 /atom/movable/proc/BlockSuperconductivity() // objects that block air and don't let superconductivity act. Only firelocks atm.
-	return FALSE
+	return EF_FALSE
 
 /turf/proc/ImmediateCalculateAdjacentTurfs()
 	var/canpass = CANATMOSPASS(src, src)

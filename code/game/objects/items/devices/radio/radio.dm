@@ -320,25 +320,25 @@
 /obj/item/radio/proc/can_receive(freq, level)
 	// deny checks
 	if (!on || !listening || wires.is_cut(WIRE_RX))
-		return FALSE
+		return EF_FALSE
 	if (freq == FREQ_SYNDICATE && !syndie)
-		return FALSE
+		return EF_FALSE
 	if (freq == FREQ_CENTCOM)
 		return independent  // hard-ignores the z-level check
 	if (!(0 in level))
 		var/turf/position = get_turf(src)
 		if(!position || !(position.z in level))
-			return FALSE
+			return EF_FALSE
 
 	// allow checks: are we listening on that frequency?
 	if (freq == frequency)
-		return TRUE
+		return EF_TRUE
 	for(var/ch_name in channels)
 		if(channels[ch_name] & FREQ_LISTENING)
 			//the GLOB.radiochannels list is located in communications.dm
 			if(GLOB.radiochannels[ch_name] == text2num(freq) || syndie)
-				return TRUE
-	return FALSE
+				return EF_TRUE
+	return EF_FALSE
 
 
 /obj/item/radio/examine(mob/user)
@@ -380,10 +380,10 @@
 
 /obj/item/radio/proc/end_emp_effect(curremp)
 	if(emped != curremp) //Don't fix it if it's been EMP'd again
-		return FALSE
+		return EF_FALSE
 	emped = FALSE
 	on = TRUE
-	return TRUE
+	return EF_TRUE
 
 ///////////////////////////////
 //////////Borg Radios//////////

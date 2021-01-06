@@ -105,14 +105,14 @@ D [1]/  ||
 		switch(action)
 			if("wire")
 				multitool.wire(src, user)
-				return TRUE
+				return EF_TRUE
 			if("unwire")
 				if(linked_pin)
 					multitool.unwire(src, linked_pin, user)
-					return TRUE
+					return EF_TRUE
 			if("data")
 				ask_for_pin_data(user)
-				return TRUE
+				return EF_TRUE
 
 	else if(istype(tool, /obj/item/integrated_electronics/wirer))
 		var/obj/item/integrated_electronics/wirer/wirer = tool
@@ -124,9 +124,9 @@ D [1]/  ||
 	else if(istype(tool, /obj/item/integrated_electronics/debugger))
 		var/obj/item/integrated_electronics/debugger/debugger = tool
 		debugger.write_data(src, user)
-		return TRUE
+		return EF_TRUE
 
-	return FALSE
+	return EF_FALSE
 
 /datum/integrated_io/proc/write_data_to_pin(new_data)
 	if(isnull(new_data) || isnum_safe(new_data) || istext(new_data) || isweakref(new_data))

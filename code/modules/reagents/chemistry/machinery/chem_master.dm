@@ -129,7 +129,7 @@
 	else
 		beaker = null
 	update_icon()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/chem_master/on_deconstruction()
 	replace_beaker()
@@ -192,19 +192,19 @@
 
 	if(action == "eject")
 		replace_beaker(usr)
-		return TRUE
+		return EF_TRUE
 
 	if(action == "ejectPillBottle")
 		if(!bottle)
-			return FALSE
+			return EF_FALSE
 		bottle.forceMove(drop_location())
 		adjust_item_drop_location(bottle)
 		bottle = null
-		return TRUE
+		return EF_TRUE
 
 	if(action == "transfer")
 		if(!beaker)
-			return FALSE
+			return EF_FALSE
 		var/reagent = GLOB.name2reagent[params["id"]]
 		var/amount = text2num(params["amount"])
 		var/to_container = params["to"]
@@ -214,30 +214,30 @@
 				"Enter the amount you want to transfer:",
 				name, ""))
 		if (amount == null || amount <= 0)
-			return FALSE
+			return EF_FALSE
 		if (to_container == "buffer")
 			beaker.reagents.trans_id_to(src, reagent, amount)
-			return TRUE
+			return EF_TRUE
 		if (to_container == "beaker" && mode)
 			reagents.trans_id_to(beaker, reagent, amount)
-			return TRUE
+			return EF_TRUE
 		if (to_container == "beaker" && !mode)
 			reagents.remove_reagent(reagent, amount)
-			return TRUE
-		return FALSE
+			return EF_TRUE
+		return EF_FALSE
 
 	if(action == "toggleMode")
 		mode = !mode
-		return TRUE
+		return EF_TRUE
 
 	if(action == "pillStyle")
 		var/id = text2num(params["id"])
 		chosenPillStyle = id
-		return TRUE
+		return EF_TRUE
 
 	if(action == "create")
 		if(reagents.total_volume == 0)
-			return FALSE
+			return EF_FALSE
 		var/item_type = params["type"]
 		// Get amount of items
 		var/amount = text2num(params["amount"])
@@ -247,7 +247,7 @@
 				"How many to make?", 1))
 		amount = clamp(round(amount), 0, 10)
 		if (amount <= 0)
-			return FALSE
+			return EF_FALSE
 		// Get units per item
 		var/vol_each = text2num(params["volume"])
 		var/vol_each_text = params["volume"]
@@ -263,7 +263,7 @@
 		else if (item_type == "condimentBottle")
 			vol_each_max = min(50, vol_each_max)
 		else
-			return FALSE
+			return EF_FALSE
 		if(vol_each_text == "auto")
 			vol_each = vol_each_max
 		if(vol_each == null)
@@ -273,7 +273,7 @@
 				vol_each_max))
 		vol_each = clamp(vol_each, 0, vol_each_max)
 		if(vol_each <= 0)
-			return FALSE
+			return EF_FALSE
 		// Get item name
 		var/name = params["name"]
 		var/name_has_units = item_type == "pill" || item_type == "patch"
@@ -287,7 +287,7 @@
 				name_default,
 				MAX_NAME_LEN)
 		if(!name || !reagents.total_volume || !src || QDELETED(src) || !usr.canUseTopic(src, !issilicon(usr)))
-			return FALSE
+			return EF_FALSE
 		// Start filling
 		if(item_type == "pill")
 			var/obj/item/reagent_containers/pill/P
@@ -312,7 +312,7 @@
 					P.desc = "A tablet or capsule, but not just any, a red one, one taken by the ones not scared of knowledge, freedom, uncertainty and the brutal truths of reality."
 				adjust_item_drop_location(P)
 				reagents.trans_to(P, vol_each, transfered_by = usr)
-			return TRUE
+			return EF_TRUE
 		if(item_type == "patch")
 			var/obj/item/reagent_containers/pill/patch/P
 			for(var/i = 0; i < amount; i++)
@@ -320,7 +320,7 @@
 				P.name = trim("[name] patch")
 				adjust_item_drop_location(P)
 				reagents.trans_to(P, vol_each, transfered_by = usr)
-			return TRUE
+			return EF_TRUE
 		if(item_type == "bottle")
 			var/obj/item/reagent_containers/glass/bottle/P
 			for(var/i = 0; i < amount; i++)
@@ -328,7 +328,7 @@
 				P.name = trim("[name] bottle")
 				adjust_item_drop_location(P)
 				reagents.trans_to(P, vol_each, transfered_by = usr)
-			return TRUE
+			return EF_TRUE
 		if(item_type == "condimentPack")
 			var/obj/item/reagent_containers/food/condiment/pack/P
 			for(var/i = 0; i < amount; i++)
@@ -337,7 +337,7 @@
 				P.name = trim("[name] pack")
 				P.desc = "A small condiment pack. The label says it contains [name]."
 				reagents.trans_to(P, vol_each, transfered_by = usr)
-			return TRUE
+			return EF_TRUE
 		if(item_type == "condimentBottle")
 			var/obj/item/reagent_containers/food/condiment/P
 			for(var/i = 0; i < amount; i++)
@@ -345,8 +345,8 @@
 				P.originalname = name
 				P.name = trim("[name] bottle")
 				reagents.trans_to(P, vol_each, transfered_by = usr)
-			return TRUE
-		return FALSE
+			return EF_TRUE
+		return EF_FALSE
 
 	if(action == "analyze")
 		var/datum/reagent/R = GLOB.name2reagent[params["id"]]
@@ -362,13 +362,13 @@
 			var/T = initial(R.metabolization_rate) * (60 / P)
 			analyzeVars = list("name" = initial(R.name), "state" = state, "color" = initial(R.color), "description" = initial(R.description), "metaRate" = T, "overD" = initial(R.overdose_threshold), "addicD" = initial(R.addiction_threshold))
 			screen = "analyze"
-			return TRUE
+			return EF_TRUE
 
 	if(action == "goScreen")
 		screen = params["screen"]
-		return TRUE
+		return EF_TRUE
 
-	return FALSE
+	return EF_FALSE
 
 
 /obj/machinery/chem_master/proc/isgoodnumber(num)

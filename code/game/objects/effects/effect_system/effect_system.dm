@@ -21,7 +21,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	return ..()
 
 /obj/effect/particle_effect/newtonian_move() // Prevents effects from getting registered for SSspacedrift
-	return TRUE
+	return EF_TRUE
 
 /datum/effect_system
 	var/number = 3

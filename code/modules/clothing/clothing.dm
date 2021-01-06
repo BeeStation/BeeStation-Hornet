@@ -280,7 +280,7 @@ BLIND     // can't see anything
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
 	if(!can_use(user))
-		return FALSE
+		return EF_FALSE
 
 	visor_toggling()
 
@@ -292,7 +292,7 @@ BLIND     // can't see anything
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/clothing/proc/visor_toggling() //handles all the actual toggling of flags
 	up = !up

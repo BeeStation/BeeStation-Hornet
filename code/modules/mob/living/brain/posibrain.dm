@@ -74,12 +74,12 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 
 /obj/item/mmi/posibrain/proc/is_occupied()
 	if(brainmob.key)
-		return TRUE
+		return EF_TRUE
 	if(iscyborg(loc))
 		var/mob/living/silicon/robot/R = loc
 		if(R.mmi == src)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 //Two ways to activate a positronic brain. A clickable link in the ghost notif, or simply clicking the object itself.
 /obj/item/mmi/posibrain/proc/activate(mob/user)
@@ -121,7 +121,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 		return
 	if(is_occupied()) //Prevents hostile takeover if two ghosts get the prompt or link for the same brain.
 		to_chat(candidate, "<span class='warning'>This [name] was taken over before you could get to it! Perhaps it might be available later?</span>")
-		return FALSE
+		return EF_FALSE
 	if(candidate.mind && !isobserver(candidate))
 		candidate.mind.transfer_to(brainmob)
 	else
@@ -135,7 +135,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 
 	visible_message(new_mob_message)
 	check_success()
-	return TRUE
+	return EF_TRUE
 
 
 /obj/item/mmi/posibrain/examine(mob/user)

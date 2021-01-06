@@ -1,7 +1,7 @@
 /obj/item/clothing/suit/space/space_ninja/proc/toggle_on_off()
 	if(s_busy)
 		to_chat(loc, "<span class='userdanger'>ERROR</span>: You cannot use this function at this time.")
-		return FALSE
+		return EF_FALSE
 	if(s_initialized)
 		deinitialize()
 	else

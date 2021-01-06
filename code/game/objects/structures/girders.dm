@@ -209,7 +209,7 @@
 // Screwdriver behavior for girders
 /obj/structure/girder/screwdriver_act(mob/user, obj/item/tool)
 	if(..())
-		return TRUE
+		return EF_TRUE
 
 	. = FALSE
 	if(state == GIRDER_DISPLACED)
@@ -224,7 +224,7 @@
 			var/obj/item/stack/sheet/iron/M = new (loc, 2)
 			M.add_fingerprint(user)
 			qdel(src)
-		return TRUE
+		return EF_TRUE
 
 	else if(state == GIRDER_REINF)
 		to_chat(user, "<span class='notice'>You start unsecuring support struts...</span>")
@@ -233,7 +233,7 @@
 				return
 			to_chat(user, "<span class='notice'>You unsecure the support struts.</span>")
 			state = GIRDER_REINF_STRUTS
-		return TRUE
+		return EF_TRUE
 
 	else if(state == GIRDER_REINF_STRUTS)
 		to_chat(user, "<span class='notice'>You start securing support struts...</span>")
@@ -242,7 +242,7 @@
 				return
 			to_chat(user, "<span class='notice'>You secure the support struts.</span>")
 			state = GIRDER_REINF
-		return TRUE
+		return EF_TRUE
 
 // Wirecutter behavior for girders
 /obj/structure/girder/wirecutter_act(mob/user, obj/item/tool)
@@ -255,7 +255,7 @@
 			var/obj/structure/girder/G = new (loc)
 			transfer_fingerprints_to(G)
 			qdel(src)
-		return TRUE
+		return EF_TRUE
 
 /obj/structure/girder/wrench_act(mob/user, obj/item/tool)
 	. = FALSE
@@ -269,7 +269,7 @@
 			var/obj/structure/girder/G = new (loc)
 			transfer_fingerprints_to(G)
 			qdel(src)
-		return TRUE
+		return EF_TRUE
 	else if(state == GIRDER_NORMAL && can_displace)
 		to_chat(user, "<span class='notice'>You start unsecuring the girder...</span>")
 		if(tool.use_tool(src, user, 40, volume=100))
@@ -277,7 +277,7 @@
 			var/obj/structure/girder/displaced/D = new (loc)
 			transfer_fingerprints_to(D)
 			qdel(src)
-		return TRUE
+		return EF_TRUE
 
 /obj/structure/girder/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && (mover.pass_flags & PASSGRILLE))
@@ -387,7 +387,7 @@
 			return list("mode" = RCD_FLOORWALL, "delay" = 20, "cost" = 8)
 		if(RCD_DECONSTRUCT)
 			return list("mode" = RCD_DECONSTRUCT, "delay" = 20, "cost" = 13)
-	return FALSE
+	return EF_FALSE
 
 /obj/structure/girder/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	var/turf/T = get_turf(src)
@@ -396,12 +396,12 @@
 			to_chat(user, "<span class='notice'>You finish a wall.</span>")
 			T.PlaceOnTop(/turf/closed/wall)
 			qdel(src)
-			return TRUE
+			return EF_TRUE
 		if(RCD_DECONSTRUCT)
 			to_chat(user, "<span class='notice'>You deconstruct the girder.</span>")
 			qdel(src)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/structure/girder/bronze
 	name = "wall gear"

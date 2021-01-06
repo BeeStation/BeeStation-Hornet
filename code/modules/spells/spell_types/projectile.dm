@@ -43,13 +43,13 @@
 /obj/item/projectile/magic/spell/can_hit_target(atom/target, list/passthrough, direct_target = FALSE, ignore_loc = FALSE)
 	. = ..()
 	if(linger && target != original)
-		return FALSE
+		return EF_FALSE
 	if(ismob(target) && !direct_target) //Unsure about the direct target, i guess it could always skip these.
 		var/mob/M = target
 		if(M.anti_magic_check(check_antimagic, check_holy))
-			return FALSE
+			return EF_FALSE
 		if(ignored_factions?.len && faction_check(M.faction,ignored_factions))
-			return FALSE
+			return EF_FALSE
 
 
 //NEEDS MAJOR CODE CLEANUP.
@@ -58,11 +58,11 @@
 	name = "Projectile"
 	desc = "This spell summons projectiles which try to hit the targets."
 
-	
+
 
 	var/proj_type =  /obj/item/projectile/magic/spell //IMPORTANT use only subtypes of this
-	
-	
+
+
 	var/update_projectile = FALSE //So you want to admin abuse magic bullets ? This is for you
 	//Below only apply if update_projectile is true
 	var/proj_icon = 'icons/obj/projectiles.dmi'
@@ -84,7 +84,7 @@
 
 /obj/effect/proc_holder/spell/targeted/projectile/proc/fire_projectile(atom/target, mob/user)
 	var/obj/item/projectile/magic/spell/projectile = new proj_type()
-	
+
 	if(update_projectile)
 		//Generally these should already be set on the projectile, this is mostly here for varedited spells.
 		projectile.icon = proj_icon

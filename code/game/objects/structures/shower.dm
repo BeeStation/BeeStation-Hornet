@@ -62,7 +62,7 @@
 		user.log_message("has wrenched a shower at [AREACOORD(src)] to [current_temperature].", LOG_ATTACK)
 		add_hiddenprint(user)
 	handle_mist()
-	return TRUE
+	return EF_TRUE
 
 
 /obj/machinery/shower/update_icon()
@@ -232,7 +232,7 @@
 		// Do not check underclothing if the over-suit is suitable.
 		// This stops people feeling dumb if they're showering
 		// with a radiation suit on.
-		return FALSE
+		return EF_FALSE
 
 	. = FALSE
 	if(H.wear_suit && !(H.wear_suit.clothing_flags & SHOWEROKAY))

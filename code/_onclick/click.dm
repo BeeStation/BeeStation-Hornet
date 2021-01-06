@@ -161,20 +161,20 @@
 //Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it
 /atom/proc/IsObscured()
 	if(!isturf(loc)) //This only makes sense for things directly on turfs for now
-		return FALSE
+		return EF_FALSE
 	var/turf/T = get_turf_pixel(src)
 	if(!T)
-		return FALSE
+		return EF_FALSE
 	for(var/atom/movable/AM in T)
 		if(AM.flags_1 & PREVENT_CLICK_UNDER_1 && AM.density && AM.layer > layer)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /turf/IsObscured()
 	for(var/atom/movable/AM in src)
 		if(AM.flags_1 & PREVENT_CLICK_UNDER_1 && AM.density)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /atom/movable/proc/CanReach(atom/ultimate_target, obj/item/tool, view_only = FALSE)
 	// A backwards depth-limited breadth-first-search to see if the target is
@@ -194,7 +194,7 @@
 			closed[target] = TRUE
 			if(isturf(target) || isturf(target.loc) || (target in direct_access)) //Directly accessible atoms
 				if(Adjacent(target) || (tool && CheckToolReach(src, target, tool.reach))) //Adjacent or reaching attacks
-					return TRUE
+					return EF_TRUE
 
 			if (!target.loc)
 				continue
@@ -203,7 +203,7 @@
 				next += target.loc
 
 		checking = next
-	return FALSE
+	return EF_FALSE
 
 /atom/movable/proc/DirectAccess()
 	return list(src, loc)
@@ -215,19 +215,19 @@
 	return ..() + GetAllContents()
 
 /atom/proc/AllowClick()
-	return FALSE
+	return EF_FALSE
 
 /turf/AllowClick()
-	return TRUE
+	return EF_TRUE
 
 /proc/CheckToolReach(atom/movable/here, atom/movable/there, reach)
 	if(!here || !there)
 		return
 	switch(reach)
 		if(0)
-			return FALSE
+			return EF_FALSE
 		if(1)
-			return FALSE //here.Adjacent(there)
+			return EF_FALSE //here.Adjacent(there)
 		if(2 to INFINITY)
 			var/obj/dummy = new(get_turf(here))
 			dummy.pass_flags |= PASSTABLE
@@ -236,7 +236,7 @@
 				var/turf/T = get_step(dummy, get_dir(dummy, there))
 				if(dummy.CanReach(there))
 					qdel(dummy)
-					return TRUE
+					return EF_TRUE
 				if(!dummy.Move(T)) //we're blocked!
 					qdel(dummy)
 					return
@@ -338,7 +338,7 @@
 /mob/living/carbon/human/CtrlClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated())
 		if(world.time < user.next_move)
-			return FALSE
+			return EF_FALSE
 		var/mob/living/carbon/human/H = user
 		H.dna.species.grab(H, src, H.mind.martial_art)
 		H.changeNext_move(CLICK_CD_MELEE)
@@ -508,11 +508,11 @@
 	//Client level intercept
 	if(client && client.click_intercept)
 		if(call(client.click_intercept, "InterceptClickOn")(src, params, A))
-			return TRUE
+			return EF_TRUE
 
 	//Mob level intercept
 	if(click_intercept)
 		if(call(click_intercept, "InterceptClickOn")(src, params, A))
-			return TRUE
+			return EF_TRUE
 
-	return FALSE
+	return EF_FALSE

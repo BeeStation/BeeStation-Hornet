@@ -34,7 +34,7 @@
 			SEND_SIGNAL(T, COMSIG_TRY_STORAGE_INSERT, O, user, TRUE)
 		T.update_icon()
 		do_animate()
-		return TRUE
+		return EF_TRUE
 	else
 		return ..()
 

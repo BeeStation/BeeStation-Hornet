@@ -55,7 +55,7 @@
 	var/area/A = get_area(src)
 	switch(requires_power)
 		if(NONE)
-			return FALSE
+			return EF_FALSE
 		if(POWER_REQ_ALL)
 			return !T || !A || ((!A.power_equip || isspaceturf(T)) && !is_type_in_list(loc, list(/obj/item, /obj/mecha)))
 

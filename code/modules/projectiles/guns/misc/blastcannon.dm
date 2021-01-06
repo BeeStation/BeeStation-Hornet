@@ -60,14 +60,14 @@
 		var/obj/item/transfer_valve/T = O
 		if(!T.tank_one || !T.tank_two)
 			to_chat(user, "<span class='warning'>What good would an incomplete bomb do?</span>")
-			return FALSE
+			return EF_FALSE
 		if(!user.transferItemToLoc(T, src))
 			to_chat(user, "<span class='warning'>[T] seems to be stuck to your hand!</span>")
-			return FALSE
+			return EF_FALSE
 		user.visible_message("<span class='warning'>[user] attaches [T] to [src]!</span>")
 		bomb = T
 		update_icon()
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 //returns the third value of a bomb blast

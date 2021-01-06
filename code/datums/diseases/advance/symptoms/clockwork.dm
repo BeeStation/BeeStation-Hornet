@@ -67,21 +67,21 @@
 				H.emote("scream")
 				ownermind.transfer_to(H)
 				H.grab_ghost()
-				return TRUE
+				return EF_TRUE
 			if(ORGAN_SLOT_STOMACH)
 				var/obj/item/organ/stomach/clockwork/organ = new()
 				organ.Insert(H, TRUE, FALSE)
 				if(prob(40))
 					to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
 					H.emote("scream")
-				return TRUE
+				return EF_TRUE
 			if(ORGAN_SLOT_EARS)
 				var/obj/item/organ/ears/robot/clockwork/organ = new()
 				if(robustbits)
 					organ.damage_multiplier = 0.5
 				organ.Insert(H, TRUE, FALSE)
 				to_chat(H, "<span class='warning'>Your ears pop.</span>")
-				return TRUE
+				return EF_TRUE
 			if(ORGAN_SLOT_EYES)
 				var/obj/item/organ/eyes/robotic/clockwork/organ = new()
 				if(robustbits)
@@ -90,7 +90,7 @@
 				if(prob(40))
 					to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your eyeballs!</span>")
 					H.emote("scream")
-				return TRUE
+				return EF_TRUE
 			if(ORGAN_SLOT_LUNGS)
 				var/obj/item/organ/lungs/clockwork/organ = new()
 				if(robustbits)
@@ -104,13 +104,13 @@
 				if(prob(40))
 					to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your chest!</span>")
 					H.emote("scream")
-				return TRUE
+				return EF_TRUE
 			if(ORGAN_SLOT_HEART)
 				var/obj/item/organ/heart/clockwork/organ = new()
 				organ.Insert(H, TRUE, FALSE)
 				to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your chest!</span>")
 				H.emote("scream")
-				return TRUE
+				return EF_TRUE
 			if(ORGAN_SLOT_LIVER)
 				var/obj/item/organ/liver/clockwork/organ = new()
 				if(robustbits)
@@ -119,27 +119,27 @@
 				if(prob(40))
 					to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
 					H.emote("scream")
-				return TRUE
+				return EF_TRUE
 			if(ORGAN_SLOT_TONGUE)
 				if(robustbits)
 					var/obj/item/organ/tongue/robot/clockwork/better/organ = new()
 					organ.Insert(H, TRUE, FALSE)
-					return TRUE
+					return EF_TRUE
 				else
 					var/obj/item/organ/tongue/robot/clockwork/organ = new()
 					organ.Insert(H, TRUE, FALSE)
-					return TRUE
+					return EF_TRUE
 			if(ORGAN_SLOT_TAIL)
 				var/obj/item/organ/tail/clockwork/organ = new()
 				organ.Insert(H, TRUE, FALSE)
-				return TRUE
+				return EF_TRUE
 			if(ORGAN_SLOT_WINGS)
 				var/obj/item/organ/wings/cybernetic/clockwork/organ = new()
 				if(robustbits)
 					organ.flight_level = WINGS_FLYING
 				organ.Insert(H, TRUE, FALSE)
 				to_chat(H, "<span class='warning'>Your wings feel stiff.</span>")
-				return TRUE
+				return EF_TRUE
 	if(replacebody)
 		for(var/obj/item/bodypart/O in H.bodyparts)
 			if(O.status == BODYPART_ROBOTIC)
@@ -147,16 +147,16 @@
 					O.burn_reduction = max(2, O.burn_reduction)
 					O.brute_reduction = max(3, O.brute_reduction)
 				continue
-			switch(O.body_zone) 
+			switch(O.body_zone)
 				if(BODY_ZONE_HEAD)
 					var/obj/item/bodypart/head/robot/clockwork/B = new()
-					if(robustbits) 
+					if(robustbits)
 						B.brute_reduction = 3 //this is just below the amount that lets augs ignore space damage.
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
 					H.visible_message("<span class='notice'>[H]'s head shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your head feels numb, and cold.</span>")
 					qdel(O)
-					return TRUE
+					return EF_TRUE
 				if(BODY_ZONE_CHEST)
 					var/obj/item/bodypart/chest/robot/clockwork/B = new()
 					if(robustbits)
@@ -165,7 +165,7 @@
 					B.replace_limb(H, TRUE)
 					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
-					return TRUE
+					return EF_TRUE
 				if(BODY_ZONE_L_ARM)
 					var/obj/item/bodypart/l_arm/robot/clockwork/B = new()
 					if(robustbits)
@@ -174,7 +174,7 @@
 					B.replace_limb(H, TRUE)
 					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
-					return TRUE
+					return EF_TRUE
 				if(BODY_ZONE_R_ARM)
 					var/obj/item/bodypart/r_arm/robot/clockwork/B = new()
 					if(robustbits)
@@ -183,7 +183,7 @@
 					B.replace_limb(H, TRUE)
 					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
-					return TRUE
+					return EF_TRUE
 				if(BODY_ZONE_L_LEG)
 					var/obj/item/bodypart/l_leg/robot/clockwork/B = new()
 					if(robustbits)
@@ -192,7 +192,7 @@
 					B.replace_limb(H, TRUE)
 					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
-					return TRUE
+					return EF_TRUE
 				if(BODY_ZONE_R_LEG)
 					var/obj/item/bodypart/r_leg/robot/clockwork/B = new()
 					if(robustbits)
@@ -201,8 +201,8 @@
 					B.replace_limb(H, TRUE)
 					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
-					return TRUE
-	return FALSE
+					return EF_TRUE
+	return EF_FALSE
 
 /datum/symptom/robotic_adaptation/End(datum/disease/advance/A)
 	if(!..())

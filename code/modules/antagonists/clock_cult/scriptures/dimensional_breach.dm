@@ -18,15 +18,15 @@
 
 /datum/clockcult/scripture/ark_activation/check_special_requirements()
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	if(!is_reebe(get_area(invoker).z))
 		to_chat(invoker, "<span class='brass'>You need to be near the gateway to channel its energy!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/clockcult/scripture/ark_activation/invoke_success()
 	var/obj/structure/destructible/clockwork/massive/celestial_gateway/gateway = GLOB.celestial_gateway
 	if(!gateway)
 		to_chat(invoker, "<span class='brass'>No celestial gateway located, contact the admins.</span>")
-		return FALSE
+		return EF_FALSE
 	gateway.open_gateway()

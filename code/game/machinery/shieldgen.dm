@@ -319,7 +319,7 @@
 	for(var/i in 1 to steps) //creates each field tile
 		T = get_step(T, opposite_direction)
 		new/obj/machinery/shieldwall(T, src, G)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/shieldwallgen/proc/cleanup_field(direction)
 	var/obj/machinery/shieldwall/F

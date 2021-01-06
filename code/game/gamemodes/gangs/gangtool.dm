@@ -205,7 +205,7 @@
 	message_admins("[key_name_admin(user)] has tried to recall the shuttle with a gangtool.", 1)
 	if(SSshuttle.cancelEvac(user))
 		gang.recalls--
-		return TRUE
+		return EF_TRUE
 
 	to_chat(user, "<span class='info'>[icon2html(src, loc)]No response recieved. Emergency shuttle cannot be recalled at this time.</span>")
 	return
@@ -230,7 +230,7 @@
 		to_chat(user, "<span class='warning'>[icon2html(src, user)]Error: Device out of range of station communication arrays.</span>")
 		recalling = FALSE
 		return
-	return TRUE
+	return EF_TRUE
 
 /obj/item/device/gangtool/proc/can_use(mob/living/carbon/human/user)
 	if(!istype(user))
@@ -248,7 +248,7 @@
 	if(!isnull(gang) && G.gang != gang)
 		to_chat(user, "<span class='danger'>You cannot use gang tools owned by enemy gangs!</span>")
 		return
-	return TRUE
+	return EF_TRUE
 
 
 /obj/item/device/gangtool/spare

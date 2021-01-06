@@ -16,7 +16,7 @@
 	qdel(src)
 
 /datum/nanite_rule/proc/check_rule()
-	return TRUE
+	return EF_TRUE
 
 /datum/nanite_rule/proc/display()
 	return name
@@ -35,11 +35,11 @@
 	var/health_percent = program.host_mob.health / program.host_mob.maxHealth * 100
 	if(above)
 		if(health_percent >= threshold)
-			return TRUE
+			return EF_TRUE
 	else
 		if(health_percent < threshold)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/nanite_rule/health/display()
 	return "[name] [above ? ">" : "<"] [threshold]%"
@@ -56,8 +56,8 @@
 
 /datum/nanite_rule/crit/check_rule()
 	if(program.host_mob.InCritical())
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/nanite_rule/death
 	name = "Death"
@@ -65,8 +65,8 @@
 
 /datum/nanite_rule/death/check_rule()
 	if(program.host_mob.stat == DEAD || HAS_TRAIT(program.host_mob, TRAIT_FAKEDEATH))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/nanite_rule/cloud_sync
 	name = "Cloud Sync"
@@ -97,11 +97,11 @@
 	var/nanite_percent = (program.nanites.nanite_volume - program.nanites.safety_threshold)/(program.nanites.max_nanites - program.nanites.safety_threshold)*100
 	if(above)
 		if(nanite_percent >= threshold)
-			return TRUE
+			return EF_TRUE
 	else
 		if(nanite_percent < threshold)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/nanite_rule/nanites/copy_to(datum/nanite_program/new_program)
 	var/datum/nanite_rule/nanites/rule = new(new_program)
@@ -135,11 +135,11 @@
 
 	if(above)
 		if(damage_amt >= threshold)
-			return TRUE
+			return EF_TRUE
 	else
 		if(damage_amt < threshold)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/nanite_rule/damage/copy_to(datum/nanite_program/new_program)
 	var/datum/nanite_rule/damage/rule = new(new_program)

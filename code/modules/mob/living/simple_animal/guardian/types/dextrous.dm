@@ -30,7 +30,7 @@
 
 /mob/living/simple_animal/hostile/guardian/dextrous/Recall(forced)
 	if(!summoner || loc == summoner || (cooldown > world.time && !forced))
-		return FALSE
+		return EF_FALSE
 	drop_all_held_items()
 	return ..() //lose items, then return
 

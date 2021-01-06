@@ -137,31 +137,31 @@
 
 /obj/structure/closet/CanPass(atom/movable/mover, turf/target)
 	if(wall_mounted)
-		return TRUE
+		return EF_TRUE
 	return !density
 
 /obj/structure/closet/proc/can_open(mob/living/user)
 	if(welded || locked)
-		return FALSE
+		return EF_FALSE
 	var/turf/T = get_turf(src)
 	for(var/mob/living/L in T)
 		if(L.anchored || horizontal && L.mob_size > MOB_SIZE_TINY && L.density)
 			if(user)
 				to_chat(user, "<span class='danger'>There's something large on top of [src], preventing it from opening.</span>" )
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /obj/structure/closet/proc/can_close(mob/living/user)
 	var/turf/T = get_turf(src)
 	for(var/obj/structure/closet/closet in T)
 		if(closet != src && !closet.wall_mounted)
-			return FALSE
+			return EF_FALSE
 	for(var/mob/living/L in T)
 		if(L.anchored || horizontal && L.mob_size > MOB_SIZE_TINY && L.density)
 			if(user)
 				to_chat(user, "<span class='danger'>There's something too large in [src], preventing it from closing.</span>")
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /obj/structure/closet/proc/dump_contents()
 	var/atom/L = drop_location()
@@ -196,45 +196,45 @@
 		return -1
 	if(insertion_allowed(AM))
 		AM.forceMove(src)
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /obj/structure/closet/proc/insertion_allowed(atom/movable/AM)
 	if(ismob(AM))
 		if(!isliving(AM)) //let's not put ghosts or camera mobs inside closets...
-			return FALSE
+			return EF_FALSE
 		var/mob/living/L = AM
 		if(L.anchored || L.buckled || L.incorporeal_move || L.has_buckled_mobs())
-			return FALSE
+			return EF_FALSE
 		if(L.mob_size > MOB_SIZE_TINY) // Tiny mobs are treated as items.
 			if(horizontal && L.density)
-				return FALSE
+				return EF_FALSE
 			if(L.mob_size > max_mob_size)
-				return FALSE
+				return EF_FALSE
 			var/mobs_stored = 0
 			for(var/mob/living/M in contents)
 				if(++mobs_stored >= mob_storage_capacity)
-					return FALSE
+					return EF_FALSE
 		L.stop_pulling()
 
 	else if(istype(AM, /obj/structure/closet))
-		return FALSE
+		return EF_FALSE
 	else if(isobj(AM))
 		if((!allow_dense && AM.density) || AM.anchored || AM.has_buckled_mobs())
-			return FALSE
+			return EF_FALSE
 		else if(isitem(AM) && !HAS_TRAIT(AM, TRAIT_NODROP))
-			return TRUE
+			return EF_TRUE
 		else if(!allow_objects && !istype(AM, /obj/effect/dummy/chameleon))
-			return FALSE
+			return EF_FALSE
 	else
-		return FALSE
+		return EF_FALSE
 
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/closet/proc/close(mob/living/user)
 	if(!opened || !can_close(user))
-		return FALSE
+		return EF_FALSE
 	take_contents()
 	playsound(loc, close_sound, close_sound_volume, 1, -3)
 	climb_time = initial(climb_time)
@@ -242,7 +242,7 @@
 	density = TRUE
 	animate_door(TRUE)
 	update_icon()
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/closet/proc/toggle(mob/living/user)
 	if(opened)
@@ -316,11 +316,11 @@
 	else if(user.a_intent != INTENT_HARM)
 		var/item_is_id = W.GetID()
 		if(!item_is_id)
-			return FALSE
+			return EF_FALSE
 		if(item_is_id || !toggle(user))
 			togglelock(user)
 	else
-		return FALSE
+		return EF_FALSE
 
 /obj/structure/closet/proc/after_weld(weld_state)
 	return
@@ -529,7 +529,7 @@
 	..()
 
 /obj/structure/closet/AllowDrop()
-	return TRUE
+	return EF_TRUE
 
 
 /obj/structure/closet/return_temperature()

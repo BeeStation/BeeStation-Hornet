@@ -78,9 +78,9 @@
 			if(totalTransmittable() > competition.totalResistance())
 				competition.cure(FALSE)
 			else
-				return FALSE //we are not strong enough to bully our way in
+				return EF_FALSE //we are not strong enough to bully our way in
 	infect(infectee, make_copy)
-	return TRUE
+	return EF_TRUE
 
 // Randomly pick a symptom to activate.
 /datum/disease/advance/stage_act()

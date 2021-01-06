@@ -15,34 +15,34 @@
 		var/obj/item/bodypart/L = hand_bodyparts[i]
 		if(L && !L.disabled)
 			return L
-	return FALSE
+	return EF_FALSE
 
 
 
 
 /mob/proc/has_left_hand(check_disabled = TRUE)
-	return TRUE
+	return EF_TRUE
 
 /mob/living/carbon/has_left_hand(check_disabled = TRUE)
 	for(var/obj/item/bodypart/L in hand_bodyparts)
 		if(L.held_index % 2)
 			if(!check_disabled || !L.disabled)
-				return TRUE
-	return FALSE
+				return EF_TRUE
+	return EF_FALSE
 
 /mob/living/carbon/alien/larva/has_left_hand()
 	return 1
 
 
 /mob/proc/has_right_hand(check_disabled = TRUE)
-	return TRUE
+	return EF_TRUE
 
 /mob/living/carbon/has_right_hand(check_disabled = TRUE)
 	for(var/obj/item/bodypart/L in hand_bodyparts)
 		if(!(L.held_index % 2))
 			if(!check_disabled || !L.disabled)
-				return TRUE
-	return FALSE
+				return EF_TRUE
+	return EF_FALSE
 
 /mob/living/carbon/alien/larva/has_right_hand()
 	return 1
@@ -89,15 +89,15 @@
 
 //sometimes we want to ignore that we don't have the required amount of legs.
 /mob/proc/get_leg_ignore()
-	return FALSE
+	return EF_FALSE
 
 /mob/living/carbon/alien/larva/get_leg_ignore()
-	return TRUE
+	return EF_TRUE
 
 /mob/living/carbon/human/get_leg_ignore()
 	if(movement_type & (FLYING | FLOATING))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /mob/living/proc/get_missing_limbs()
 	return list()
@@ -158,7 +158,7 @@
 			return 1
 ///Get the bodypart for whatever hand we have active, Only relevant for carbons
 /mob/proc/get_active_hand()
-	return FALSE
+	return EF_FALSE
 
 /mob/living/carbon/get_active_hand()
 	var/which_hand = BODY_ZONE_PRECISE_L_HAND

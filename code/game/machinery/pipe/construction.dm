@@ -128,7 +128,7 @@ Buildable meters
 
 /obj/item/pipe/wrench_act(mob/living/user, obj/item/wrench/W)
 	if(!isturf(loc))
-		return TRUE
+		return EF_TRUE
 
 	add_fingerprint(user)
 
@@ -137,12 +137,12 @@ Buildable meters
 	for(var/obj/machinery/atmospherics/M in loc)
 		if((M.pipe_flags & flags & PIPING_ONE_PER_TURF))	//Only one dense/requires density object per tile, eg connectors/cryo/heater/coolers.
 			to_chat(user, "<span class='warning'>Something is hogging the tile!</span>")
-			return TRUE
+			return EF_TRUE
 		if((M.piping_layer != piping_layer) && !((M.pipe_flags | flags) & PIPING_ALL_LAYER)) //don't continue if either pipe goes across all layers
 			continue
 		if(M.GetInitDirections() & SSair.get_init_dirs(pipe_type, fixed_dir()))	// matches at least one direction on either type of pipe
 			to_chat(user, "<span class='warning'>There is already a pipe at that location!</span>")
-			return TRUE
+			return EF_TRUE
 	// no conflicts found
 
 	var/obj/machinery/atmospherics/A = new pipe_type(loc)
@@ -204,7 +204,7 @@ Buildable meters
 			break
 	if(!pipe)
 		to_chat(user, "<span class='warning'>You need to fasten it to a pipe!</span>")
-		return TRUE
+		return EF_TRUE
 	new /obj/machinery/meter(loc, piping_layer)
 	W.play_tool_sound(src)
 	to_chat(user, "<span class='notice'>You fasten the meter to the pipe.</span>")
@@ -213,11 +213,11 @@ Buildable meters
 /obj/item/pipe_meter/screwdriver_act(mob/living/user, obj/item/S)
 	. = ..()
 	if(.)
-		return TRUE
+		return EF_TRUE
 
 	if(!isturf(loc))
 		to_chat(user, "<span class='warning'>You need to fasten it to the floor!</span>")
-		return TRUE
+		return EF_TRUE
 
 	new /obj/machinery/meter/turf(loc, piping_layer)
 	S.play_tool_sound(src)

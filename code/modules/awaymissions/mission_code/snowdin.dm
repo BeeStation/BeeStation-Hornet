@@ -178,7 +178,7 @@
 	. = 0
 
 	if(is_safe())
-		return FALSE
+		return EF_FALSE
 
 	var/thing_to_check = src
 	if (AM)

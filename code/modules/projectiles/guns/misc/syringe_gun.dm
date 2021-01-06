@@ -58,14 +58,14 @@
 	if(istype(A, /obj/item/reagent_containers/syringe))
 		if(syringes.len < max_syringes)
 			if(!user.transferItemToLoc(A, src))
-				return FALSE
+				return EF_FALSE
 			to_chat(user, "<span class='notice'>You load [A] into \the [src].</span>")
 			syringes += A
 			recharge_newshot()
-			return TRUE
+			return EF_TRUE
 		else
 			to_chat(user, "<span class='warning'>[src] cannot hold more syringes!</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/item/gun/syringe/rapidsyringe
 	name = "rapid syringe gun"
@@ -101,14 +101,14 @@
 			return
 		if(syringes.len < max_syringes)
 			if(!user.transferItemToLoc(D, src))
-				return FALSE
+				return EF_FALSE
 			to_chat(user, "<span class='notice'>You load \the [D] into \the [src].</span>")
 			syringes += D
 			recharge_newshot()
-			return TRUE
+			return EF_TRUE
 		else
 			to_chat(user, "<span class='warning'>[src] cannot hold more syringes!</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/item/gun/syringe/blowgun
 	name = "blowgun"

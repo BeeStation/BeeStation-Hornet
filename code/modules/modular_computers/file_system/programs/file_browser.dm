@@ -27,7 +27,7 @@
 			if(!file || file.undeletable)
 				return
 			HDD.remove_file(file)
-			return TRUE
+			return EF_TRUE
 		if("PRG_usbdeletefile")
 			if(!RHDD)
 				return
@@ -35,7 +35,7 @@
 			if(!file || file.undeletable)
 				return
 			RHDD.remove_file(file)
-			return TRUE
+			return EF_TRUE
 		if("PRG_rename")
 			if(!HDD)
 				return
@@ -46,7 +46,7 @@
 			if(!newname)
 				return
 			file.filename = newname
-			return TRUE
+			return EF_TRUE
 		if("PRG_copytousb")
 			if(!HDD || !RHDD)
 				return
@@ -55,7 +55,7 @@
 				return
 			var/datum/computer_file/C = F.clone(FALSE)
 			RHDD.store_file(C)
-			return TRUE
+			return EF_TRUE
 		if("PRG_copyfromusb")
 			if(!HDD || !RHDD)
 				return
@@ -64,7 +64,7 @@
 				return
 			var/datum/computer_file/C = F.clone(FALSE)
 			HDD.store_file(C)
-			return TRUE
+			return EF_TRUE
 
 /datum/computer_file/program/filemanager/ui_data(mob/user)
 	var/list/data = get_header_data()

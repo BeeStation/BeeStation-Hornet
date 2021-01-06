@@ -335,27 +335,27 @@
 	if(ACCESS_SECURITY in O.GetAccess() && !(obj_flags & EMAGGED))
 		security_interface_locked = !security_interface_locked
 		to_chat(user, "<span class='warning'>You [security_interface_locked?"lock":"unlock"] the security controls of [src].</span>")
-		return TRUE
+		return EF_TRUE
 
 	if (busy)
 		to_chat(user, "<span class=\"alert\">The autolathe is busy. Please wait for completion of previous operation.</span>")
-		return TRUE
+		return EF_TRUE
 
 	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", O))
-		return TRUE
+		return EF_TRUE
 
 	if(default_deconstruction_crowbar(O))
-		return TRUE
+		return EF_TRUE
 
 	if(panel_open && is_wire_tool(O))
 		wires.interact(user)
-		return TRUE
+		return EF_TRUE
 
 	if(user.a_intent == INTENT_HARM) //so we can hit the machine
 		return ..()
 
 	if(stat)
-		return TRUE
+		return EF_TRUE
 
 	if(istype(O, /obj/item/disk/design_disk))
 		user.visible_message("[user] loads \the [O] into \the [src]...",
@@ -364,7 +364,7 @@
 		inserted_disk = O
 		O.forceMove(src)
 		update_viewer_statics()
-		return TRUE
+		return EF_TRUE
 
 	return ..()
 
@@ -542,7 +542,7 @@
 
 /obj/machinery/autolathe/proc/can_build(datum/design/D, amount = 1)
 	if(D.make_reagents.len)
-		return FALSE
+		return EF_FALSE
 
 	var/coeff = (ispath(D.build_path, /obj/item/stack) ? 1 : prod_coeff)
 
@@ -569,16 +569,16 @@
 
 /obj/machinery/autolathe/proc/shock(mob/user, prb)
 	if(stat & (BROKEN|NOPOWER))		// unpowered, no shock
-		return FALSE
+		return EF_FALSE
 	if(!prob(prb))
-		return FALSE
+		return EF_FALSE
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(5, 1, src)
 	s.start()
 	if (electrocute_mob(user, get_area(src), src, 0.7, TRUE))
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /obj/machinery/autolathe/proc/adjust_hacked(state)
 	hacked = state

@@ -46,11 +46,11 @@
 	if(!active)
 		return
 	if(!dir || !D)
-		return FALSE
+		return EF_FALSE
 	if(num2text(dir) in ducts)
-		return FALSE
+		return EF_FALSE
 
-	return TRUE
+	return EF_TRUE
 ///called from in process(). only calls process_request(), but can be overwritten for children with special behaviour
 /datum/component/plumbing/proc/send_request(dir)
 	process_request(amount = MACHINE_REAGENT_TRANSFER, reagent = null, dir = dir)
@@ -77,13 +77,13 @@
 		for(var/A in reagents.reagent_list)
 			var/datum/reagent/R = A
 			if(R.type == reagent)
-				return TRUE
+				return EF_TRUE
 	else if(reagents.total_volume > 0) //take whatever
-		return TRUE
+		return EF_TRUE
 ///this is where the reagent is actually transferred and is thus the finish point of our process()
 /datum/component/plumbing/proc/transfer_to(datum/component/plumbing/target, amount, reagent, datum/ductnet/net)
 	if(!reagents || !target || !target.reagents)
-		return FALSE
+		return EF_FALSE
 	if(reagent)
 		reagents.trans_id_to(target.parent, reagent, amount)
 	else

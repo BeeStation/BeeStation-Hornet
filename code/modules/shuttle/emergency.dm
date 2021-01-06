@@ -119,11 +119,11 @@
 	var/obj/item/card/id/ID = user.get_idcard(TRUE)
 
 	if(ID in authorized)
-		return FALSE
+		return EF_FALSE
 	for(var/i in authorized)
 		var/obj/item/card/id/other = i
 		if(other.registered_name == ID.registered_name)
-			return FALSE // No using IDs with the same name
+			return EF_FALSE // No using IDs with the same name
 
 	authorized += ID
 
@@ -287,7 +287,7 @@
 					var/location = get_turf(player.mind.current)
 					//Non-antag present. Can't hijack.
 					if(!(player.mind.has_antag_datum(/datum/antagonist)) && !istype(location, /turf/open/floor/plasteel/shuttle/red) && !istype(location, /turf/open/floor/mineral/plastitanium/red/brig))
-						return FALSE
+						return EF_FALSE
 					//Antag present, doesn't stop but let's see if we actually want to hijack
 					var/prevent = FALSE
 					for(var/datum/antagonist/A in player.mind.antag_datums)
@@ -298,7 +298,7 @@
 						else if(A.can_hijack == HIJACK_PREVENT)
 							prevent = TRUE
 					if(prevent)
-						return FALSE
+						return EF_FALSE
 
 
 	return has_people && hijacker_present
@@ -315,7 +315,7 @@
 		if(shuttle_areas[get_area(player)])
 			//Non-xeno present. Can't hijack.
 			if(!istype(player, /mob/living/carbon/alien))
-				return FALSE
+				return EF_FALSE
 			has_xenos = TRUE
 
 	return has_xenos
@@ -488,7 +488,7 @@
 			return ..()
 	else
 		to_chat(usr, "<span class='warning'>Escape pods will only launch during \"Code Red\" security alert.</span>")
-		return TRUE
+		return EF_TRUE
 
 /obj/docking_port/mobile/pod/cancel()
 	return
@@ -594,7 +594,7 @@
 /obj/item/storage/pod/attack_hand(mob/user)
 	if (can_interact(user))
 		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SHOW, user)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/storage/pod/MouseDrop(over_object, src_location, over_location)
 	if(can_interact(usr))
@@ -606,9 +606,9 @@
 
 /obj/item/storage/pod/can_interact(mob/user)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	if(GLOB.security_level >= SEC_LEVEL_RED || unlocked)
-		return TRUE
+		return EF_TRUE
 	to_chat(user, "The storage unit will only unlock during a Red or Delta security alert.")
 
 /obj/docking_port/mobile/emergency/backup

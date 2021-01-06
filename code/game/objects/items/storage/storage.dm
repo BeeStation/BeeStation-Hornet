@@ -16,7 +16,7 @@
 	AddComponent(component_type)
 
 /obj/item/storage/AllowDrop()
-	return FALSE
+	return EF_FALSE
 
 /obj/item/storage/contents_explosion(severity, target)
 	for(var/thing in contents)
@@ -31,13 +31,13 @@
 /obj/item/storage/canStrip(mob/who)
 	. = ..()
 	if(!. && rummage_if_nodrop)
-		return TRUE
+		return EF_TRUE
 
 /obj/item/storage/doStrip(mob/who)
 	if(HAS_TRAIT(src, TRAIT_NODROP) && rummage_if_nodrop)
 		var/datum/component/storage/CP = GetComponent(/datum/component/storage)
 		CP.do_quick_empty()
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /obj/item/storage/contents_explosion(severity, target)

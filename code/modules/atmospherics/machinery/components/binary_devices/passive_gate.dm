@@ -158,7 +158,7 @@ Passive gate is similar to the regular pump except:
 	. = ..()
 	if(. && on)
 		to_chat(user, "<span class='warning'>You cannot unwrench [src], turn it off first!</span>")
-		return FALSE
+		return EF_FALSE
 
 
 /obj/machinery/atmospherics/components/binary/passive_gate/layer1

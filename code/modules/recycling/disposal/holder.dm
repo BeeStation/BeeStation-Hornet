@@ -128,7 +128,7 @@
 	T.air_update_turf()
 
 /obj/structure/disposalholder/AllowDrop()
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/disposalholder/ex_act(severity, target)
 	return

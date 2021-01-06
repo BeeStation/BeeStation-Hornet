@@ -16,10 +16,10 @@
 		return
 	if (intel <= CONFIG_GET(number/ipintel_rating_bad))
 		if (world.realtime < cacherealtime + (CONFIG_GET(number/ipintel_save_good) * 60 * 60 * 10))
-			return TRUE
+			return EF_TRUE
 	else
 		if (world.realtime < cacherealtime + (CONFIG_GET(number/ipintel_save_bad) * 60 * 60 * 10))
-			return TRUE
+			return EF_TRUE
 
 /proc/get_ip_intel(ip, bypasscache = FALSE, updatecache = TRUE)
 	var/datum/ipintel/res = new()

@@ -51,7 +51,7 @@
 		for(var/P in pods)
 			var/obj/machinery/clonepod/pod = P
 			if(pod.is_operational() && pod.efficiency > 5)
-				return TRUE
+				return EF_TRUE
 
 /obj/machinery/computer/cloning/proc/GetAvailableEfficientPod(mind = null)
 	if(pods)

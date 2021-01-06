@@ -44,17 +44,17 @@
 		return interact(user)
 	if(can_interact(user))
 		return interact(user)
-	return FALSE
+	return EF_FALSE
 
 /atom/proc/can_interact(mob/user)
 	if(!user.can_interact_with(src))
-		return FALSE
+		return EF_FALSE
 	if((interaction_flags_atom & INTERACT_ATOM_REQUIRES_DEXTERITY) && !user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return FALSE
+		return EF_FALSE
 	if(!(interaction_flags_atom & INTERACT_ATOM_IGNORE_INCAPACITATED) && user.incapacitated((interaction_flags_atom & INTERACT_ATOM_IGNORE_RESTRAINED), !(interaction_flags_atom & INTERACT_ATOM_CHECK_GRAB)))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /atom/ui_status(mob/user)
 	. = ..()
@@ -66,7 +66,7 @@
 	if(!.)
 		return
 	if(!anchored && (interaction_flags_atom & INTERACT_ATOM_REQUIRES_ANCHORED))
-		return FALSE
+		return EF_FALSE
 
 /atom/proc/interact(mob/user)
 	if(interaction_flags_atom & INTERACT_ATOM_NO_FINGERPRINT_INTERACT)
@@ -75,7 +75,7 @@
 		add_fingerprint(user)
 	if(interaction_flags_atom & INTERACT_ATOM_UI_INTERACT)
 		return ui_interact(user)
-	return FALSE
+	return EF_FALSE
 
 /*
 /mob/living/carbon/human/RestrainedClickOn(var/atom/A) ---carbons will handle this
@@ -119,8 +119,8 @@
 
 /atom/proc/attack_paw(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_PAW, user) & COMPONENT_NO_ATTACK_HAND)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /*
 	Monkey RestrainedClickOn() was apparently the

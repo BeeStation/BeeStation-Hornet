@@ -29,7 +29,7 @@
 		assigned += M.mind
 		M.mind.special_role = ROLE_TRAITOR
 		M.mind.restricted_roles = restricted_roles
-	return TRUE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/roundstart/traitor/rule_process()
 	if (autotraitor_cooldown > 0)
@@ -76,7 +76,7 @@
 			bro.mind.special_role = "brother"
 			bro.mind.restricted_roles = restricted_roles
 		pre_brother_teams += team
-	return TRUE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/roundstart/traitorbro/execute()
 	for(var/datum/team/brother_team/team in pre_brother_teams)
@@ -86,7 +86,7 @@
 			M.add_antag_datum(/datum/antagonist/brother, team)
 		team.update_name()
 	mode.brother_teams += pre_brother_teams
-	return TRUE
+	return EF_TRUE
 
 //////////////////////////////////////////////
 //                                          //
@@ -115,13 +115,13 @@
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
 		M.mind.special_role = ROLE_CHANGELING
-	return TRUE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/roundstart/changeling/execute()
 	for(var/datum/mind/changeling in assigned)
 		var/datum/antagonist/changeling/new_antag = new antag_datum()
 		changeling.add_antag_datum(new_antag)
-	return TRUE
+	return EF_TRUE
 
 //////////////////////////////////////////////
 //                                          //
@@ -149,7 +149,7 @@
 		assigned += picked_candidate.mind
 		picked_candidate.mind.restricted_roles = restricted_roles
 		picked_candidate.mind.special_role = ROLE_HERETIC
-	return TRUE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/roundstart/heretics/execute()
 
@@ -158,7 +158,7 @@
 		var/datum/antagonist/heretic/new_antag = new antag_datum()
 		cultie.add_antag_datum(new_antag)
 
-	return TRUE
+	return EF_TRUE
 
 
 //////////////////////////////////////////////
@@ -185,12 +185,12 @@
 	if(GLOB.wizardstart.len == 0)
 		log_admin("Cannot accept Wizard ruleset. Couldn't find any wizard spawn points.")
 		message_admins("Cannot accept Wizard ruleset. Couldn't find any wizard spawn points.")
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/dynamic_ruleset/roundstart/wizard/pre_execute()
 	if(GLOB.wizardstart.len == 0)
-		return FALSE
+		return EF_FALSE
 	mode.antags_rolled += 1
 	var/mob/M = pick_n_take(candidates)
 	if (M)
@@ -198,13 +198,13 @@
 		M.mind.assigned_role = ROLE_WIZARD
 		M.mind.special_role = ROLE_WIZARD
 
-	return TRUE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/roundstart/wizard/execute()
 	for(var/datum/mind/M in assigned)
 		M.current.forceMove(pick(GLOB.wizardstart))
 		M.add_antag_datum(new antag_datum())
-	return TRUE
+	return EF_TRUE
 
 //////////////////////////////////////////////
 //                                          //
@@ -241,7 +241,7 @@
 		assigned += M.mind
 		M.mind.special_role = ROLE_CULTIST
 		M.mind.restricted_roles = restricted_roles
-	return TRUE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/roundstart/bloodcult/execute()
 	main_cult = new
@@ -251,7 +251,7 @@
 		new_cultist.give_equipment = TRUE
 		M.add_antag_datum(new_cultist)
 	main_cult.setup_objectives()
-	return TRUE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/roundstart/bloodcult/round_result()
 	..()
@@ -299,7 +299,7 @@
 		assigned += M.mind
 		M.mind.assigned_role = "Nuclear Operative"
 		M.mind.special_role = "Nuclear Operative"
-	return TRUE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/roundstart/nuclear/execute()
 	var/leader = TRUE
@@ -311,7 +311,7 @@
 		else
 			var/datum/antagonist/nukeop/new_op = new antag_datum()
 			M.add_antag_datum(new_op)
-	return TRUE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/roundstart/nuclear/round_result()
 	var result = nuke_team.get_result()
@@ -385,7 +385,7 @@
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
 		M.mind.special_role = antag_flag
-	return TRUE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/roundstart/revs/execute()
 	revolution = new()
@@ -403,9 +403,9 @@
 		revolution.update_objectives()
 		revolution.update_heads()
 		SSshuttle.registerHostileEnvironment(src)
-		return TRUE
+		return EF_TRUE
 	log_game("DYNAMIC: [ruletype] [name] failed to get any eligible headrevs. Refunding [cost] threat.")
-	return FALSE
+	return EF_FALSE
 
 /datum/dynamic_ruleset/roundstart/revs/clean_up()
 	qdel(revolution)
@@ -441,28 +441,28 @@
 /datum/dynamic_ruleset/roundstart/revs/proc/check_eligible(var/datum/mind/M)
 	var/turf/T = get_turf(M.current)
 	if(!considered_afk(M) && considered_alive(M) && is_station_level(T.z) && !M.antag_datums?.len && !HAS_TRAIT(M, TRAIT_MINDSHIELD))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/dynamic_ruleset/roundstart/revs/check_finished()
 	if(finished == REVOLUTION_VICTORY)
-		return TRUE
+		return EF_TRUE
 	else
 		return ..()
 
 /datum/dynamic_ruleset/roundstart/revs/proc/check_rev_victory()
 	for(var/datum/objective/mutiny/objective in revolution.objectives)
 		if(!(objective.check_completion()))
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/roundstart/revs/proc/check_heads_victory()
 	for(var/datum/mind/rev_mind in revolution.head_revolutionaries())
 		var/turf/T = get_turf(rev_mind.current)
 		if(!considered_afk(rev_mind) && considered_alive(rev_mind) && is_station_level(T.z))
 			if(ishuman(rev_mind.current) || ismonkey(rev_mind.current))
-				return FALSE
-	return TRUE
+				return EF_FALSE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/roundstart/revs/round_result()
 	if(finished == REVOLUTION_VICTORY)
@@ -496,7 +496,7 @@
 	log_game("Starting a round of extended.")
 	mode.spend_threat(mode.threat)
 	mode.threat_log += "[worldtime2text()]: Extended ruleset set threat to 0."
-	return TRUE
+	return EF_TRUE
 
 //////////////////////////////////////////////
 //                                          //
@@ -554,13 +554,13 @@
 		devil.mind.restricted_roles = restricted_roles
 
 		log_game("[key_name(devil)] has been selected as a devil")
-	return TRUE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/roundstart/devil/execute()
 	for(var/datum/mind/devil in assigned)
 		add_devil(devil.current, ascendable = TRUE)
 		add_devil_objectives(devil,2)
-	return TRUE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/roundstart/devil/proc/add_devil_objectives(datum/mind/devil_mind, quantity)
 	var/list/validtypes = list(/datum/objective/devil/soulquantity, /datum/objective/devil/soulquality, /datum/objective/devil/sintouch, /datum/objective/devil/buy_target)
@@ -609,27 +609,27 @@
 		carrier.mind.special_role = "Monkey Leader"
 		carrier.mind.restricted_roles = restricted_roles
 		log_game("[key_name(carrier)] has been selected as a Jungle Fever carrier")
-	return TRUE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/roundstart/monkey/execute()
 	for(var/datum/mind/carrier in assigned)
 		var/datum/antagonist/monkey/M = add_monkey_leader(carrier)
 		if(M)
 			monkey_team = M.monkey_team
-	return TRUE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/roundstart/monkey/proc/check_monkey_victory()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
-		return FALSE
+		return EF_FALSE
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()
 	for(var/mob/living/carbon/monkey/M in GLOB.alive_mob_list)
 		if (M.HasDisease(D))
 			if(M.onCentCom() || M.onSyndieBase())
 				escaped_monkeys++
 	if(escaped_monkeys >= monkeys_to_win)
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 // This does not get called. Look into making it work.
 /datum/dynamic_ruleset/roundstart/monkey/round_result()
@@ -692,7 +692,7 @@
 	flags = HIGHLANDER_RULESET
 	var/datum/team/clock_cult/main_cult
 	var/list/selected_servants = list()
-	
+
 /datum/dynamic_ruleset/roundstart/clockcult/pre_execute()
 	//Load Reebe
 	var/list/errorList = list()
@@ -700,7 +700,7 @@
 	if(errorList.len)
 		message_admins("Reebe failed to load")
 		log_game("Reebe failed to load")
-		return FALSE
+		return EF_FALSE
 	for(var/datum/parsed_map/map in reebe)
 		map.initTemplateBounds()
 	//Make cultists
@@ -719,7 +719,7 @@
 	for(var/categorypath in typesof(/datum/clockcult/scripture))
 		var/datum/clockcult/scripture/S = new categorypath
 		GLOB.clockcult_all_scriptures[S.name] = S
-	return TRUE
+	return EF_TRUE
 
 /datum/dynamic_ruleset/roundstart/clockcult/execute()
 	var/list/spawns = GLOB.servant_spawns.Copy()

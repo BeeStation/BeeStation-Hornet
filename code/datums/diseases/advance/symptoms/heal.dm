@@ -15,10 +15,10 @@
 
 /datum/symptom/heal/Start(datum/disease/advance/A)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	if(A.properties["stage_rate"] >= 6) //stronger healing
 		power = 2
-	return TRUE //For super calls of subclasses
+	return EF_TRUE //For super calls of subclasses
 
 /datum/symptom/heal/Activate(datum/disease/advance/A)
 	if(!..())
@@ -39,10 +39,10 @@
 	return power
 
 /datum/symptom/heal/proc/Heal(mob/living/M, datum/disease/advance/A, actual_power)
-	return TRUE
+	return EF_TRUE
 
 /datum/symptom/heal/proc/passive_message_condition(mob/living/M)
-	return TRUE
+	return EF_TRUE
 
 /datum/symptom/heal/chem
 	name = "Toxolysis"
@@ -104,10 +104,10 @@
 
 /datum/symptom/heal/coma/on_stage_change(new_stage, datum/disease/advance/A)  //mostly copy+pasted from the code for self-respiration's TRAIT_NOBREATH stuff
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	if(A.stage <= 3)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_NOCRITDAMAGE, DISEASE_TRAIT)
-	return TRUE
+	return EF_TRUE
 
 /datum/symptom/heal/coma/End(datum/disease/advance/A)
 	if(!..())
@@ -166,8 +166,8 @@
 
 /datum/symptom/heal/coma/passive_message_condition(mob/living/M)
 	if((M.getBruteLoss() + M.getFireLoss()) > 30)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/symptom/heal/surface
 	name = "Superficial Healing"

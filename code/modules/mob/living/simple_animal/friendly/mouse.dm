@@ -44,12 +44,12 @@
 
 /mob/living/simple_animal/mouse/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 	if(!ratdisease.len)
-		return FALSE
+		return EF_FALSE
 	if(scan)
 		E.scan(src, ratdisease, user)
 	else
 		E.extrapolate(src, ratdisease, user)
-	return TRUE
+	return EF_TRUE
 
 
 /mob/living/simple_animal/mouse/proc/splat()

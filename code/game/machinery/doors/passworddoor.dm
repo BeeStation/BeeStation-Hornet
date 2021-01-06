@@ -63,8 +63,8 @@
 /obj/machinery/door/password/proc/ask_for_pass(mob/user)
 	var/guess = stripped_input(user,"Enter the password:", "Password", "")
 	if(guess == password)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/door/password/emp_act(severity)
 	return

@@ -13,20 +13,20 @@
     if(findtext(streak,TAIL_SWEEP_COMBO))
         streak = ""
         tailSweep(A,D)
-        return TRUE
+        return EF_TRUE
     if(findtext(streak,FACE_SCRATCH_COMBO))
         streak = ""
         faceScratch(A,D)
-        return TRUE
+        return EF_TRUE
     if(findtext(streak,JUGULAR_CUT_COMBO))
         streak = ""
         jugularCut(A,D)
-        return TRUE
+        return EF_TRUE
     if(findtext(streak,TAIL_GRAB_COMBO))
         streak = ""
         tailGrab(A,D)
-        return TRUE
-    return FALSE
+        return EF_TRUE
+    return EF_FALSE
 
 //Tail Sweep, triggers an effect similar to Space Dragon's tail sweep but only affects stuff 1 tile next to you, basically 3x3.
 /datum/martial_art/tribal_claw/proc/tailSweep(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -86,20 +86,20 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 /datum/martial_art/tribal_claw/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
     add_to_streak("H",D)
     if(check_streak(A,D))
-        return TRUE
-    return FALSE
+        return EF_TRUE
+    return EF_FALSE
 
 /datum/martial_art/tribal_claw/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
     add_to_streak("D",D)
     if(check_streak(A,D))
-        return TRUE
-    return FALSE
+        return EF_TRUE
+    return EF_FALSE
 
 /datum/martial_art/tribal_claw/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
     add_to_streak("G",D)
     if(check_streak(A,D))
-        return TRUE
-    return FALSE
+        return EF_TRUE
+    return EF_FALSE
 
 /mob/living/carbon/human/proc/tribal_claw_help()
     set name = "Recall Teachings"

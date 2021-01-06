@@ -14,7 +14,7 @@
 	var/obj/item/tank/bombtank = null //the second part of the bomb is a plasma tank
 
 /obj/item/onetankbomb/IsSpecialAssembly()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/onetankbomb/examine(mob/user)
 	return bombtank.examine(user)
@@ -40,7 +40,7 @@
 		bombtank.master = null
 		bombtank = null
 	qdel(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/onetankbomb/welder_act(mob/living/user, obj/item/I)
 	. = FALSE
@@ -54,7 +54,7 @@
 		log_bomber(user, "welded a single tank bomb,", src, "| Temp: [bombtank.air_contents.return_temperature()-T0C]")
 		to_chat(user, "<span class='notice'>A pressure hole has been bored to [bombtank] valve. \The [bombtank] can now be ignited.</span>")
 		add_fingerprint(user)
-		return TRUE
+		return EF_TRUE
 
 /obj/item/onetankbomb/attack_self(mob/user) //pressing the bomb accesses its assembly
 	bombassembly.attack_self(user, TRUE)

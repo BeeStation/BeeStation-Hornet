@@ -42,8 +42,8 @@
 
 	if(!carriers.len)
 		setup_error = "No monkey candidates"
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 
 /datum/game_mode/monkey/announce()
@@ -59,13 +59,13 @@
 
 /datum/game_mode/monkey/check_finished()
 	if((SSshuttle.emergency.mode == SHUTTLE_ENDGAME) || station_was_nuked)
-		return TRUE
+		return EF_TRUE
 
 	if(!round_converted)
 		for(var/datum/mind/monkey_mind in ape_infectees)
 			continuous_sanity_checked = TRUE
 			if(monkey_mind.current && monkey_mind.current.stat != DEAD)
-				return FALSE
+				return EF_FALSE
 
 		var/datum/disease/D = new /datum/disease/transformation/jungle_fever() //ugly but unfortunately needed
 		for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
@@ -73,22 +73,22 @@
 				continue
 			if(H.mind && H.client && H.stat != DEAD)
 				if(H.HasDisease(D))
-					return FALSE
+					return EF_FALSE
 
 	return ..()
 
 /datum/game_mode/monkey/proc/check_monkey_victory()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
-		return FALSE
+		return EF_FALSE
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()
 	for(var/mob/living/carbon/monkey/M in GLOB.alive_mob_list)
 		if (M.HasDisease(D))
 			if(M.onCentCom() || M.onSyndieBase())
 				escaped_monkeys++
 	if(escaped_monkeys >= monkeys_to_win)
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 
 /datum/game_mode/monkey/set_round_result()
@@ -109,22 +109,22 @@
 
 /proc/add_monkey_leader(datum/mind/monkey_mind)
 	if(is_monkey_leader(monkey_mind))
-		return FALSE
+		return EF_FALSE
 	var/datum/antagonist/monkey/leader/M = monkey_mind.add_antag_datum(/datum/antagonist/monkey/leader)
 	return M
 
 /proc/add_monkey(datum/mind/monkey_mind)
 	if(is_monkey(monkey_mind))
-		return FALSE
+		return EF_FALSE
 	var/datum/antagonist/monkey/M = monkey_mind.add_antag_datum(/datum/antagonist/monkey)
 	return M
 
 /proc/remove_monkey(datum/mind/monkey_mind)
 	if(!is_monkey(monkey_mind))
-		return FALSE
+		return EF_FALSE
 	var/datum/antagonist/monkey/M = monkey_mind.has_antag_datum(/datum/antagonist/monkey)
 	M.on_removal()
-	return TRUE
+	return EF_TRUE
 
 /proc/is_monkey_leader(datum/mind/monkey_mind)
 	return monkey_mind && monkey_mind.has_antag_datum(/datum/antagonist/monkey/leader)

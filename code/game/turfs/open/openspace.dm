@@ -27,7 +27,7 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 
 /turf/open/openspace/debug/update_multiz()
 	..()
-	return TRUE
+	return EF_TRUE
 
 /turf/open/openspace/Initialize() // handle plane and layer here so that they don't cover other obs/turfs in Dream Maker
 	. = ..()
@@ -47,8 +47,8 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 
 /turf/open/openspace/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /turf/open/openspace/update_multiz(prune_on_fail = FALSE, init = FALSE)
 	. = ..()
@@ -57,10 +57,10 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 		vis_contents.len = 0
 		if(prune_on_fail)
 			ChangeTurf(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
-		return FALSE
+		return EF_FALSE
 	if(init)
 		vis_contents += T
-	return TRUE
+	return EF_TRUE
 
 /turf/open/openspace/multiz_turf_del(turf/T, dir)
 	if(dir != DOWN)
@@ -73,21 +73,21 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	update_multiz()
 
 /turf/open/openspace/zAirIn()
-	return TRUE
+	return EF_TRUE
 
 /turf/open/openspace/zAirOut()
-	return TRUE
+	return EF_TRUE
 
 /turf/open/openspace/zPassIn(atom/movable/A, direction, turf/source)
-	return TRUE
+	return EF_TRUE
 
 /turf/open/openspace/zPassOut(atom/movable/A, direction, turf/destination)
 	if(A.anchored)
-		return FALSE
+		return EF_FALSE
 	for(var/obj/O in contents)
 		if(O.obj_flags & BLOCK_Z_FALL)
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /turf/open/openspace/proc/CanCoverUp()
 	return can_cover_up
@@ -139,7 +139,7 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 
 /turf/open/openspace/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	if(!CanBuildHere())
-		return FALSE
+		return EF_FALSE
 
 	switch(the_rcd.mode)
 		if(RCD_FLOORWALL)
@@ -148,12 +148,12 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 				return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 1)
 			else
 				return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 3)
-	return FALSE
+	return EF_FALSE
 
 /turf/open/openspace/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_FLOORWALL)
 			to_chat(user, "<span class='notice'>You build a floor.</span>")
 			PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE

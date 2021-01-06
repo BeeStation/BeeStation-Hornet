@@ -37,8 +37,8 @@
 /obj/machinery/computer/communications/proc/checkCCcooldown()
 	var/obj/item/circuitboard/computer/communications/CM = circuit
 	if(CM.lastTimeUsed + 600 > world.time)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/computer/communications/Initialize()
 	. = ..()

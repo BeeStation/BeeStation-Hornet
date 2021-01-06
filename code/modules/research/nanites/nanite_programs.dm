@@ -196,8 +196,8 @@
 	for(var/R in rules)
 		var/datum/nanite_rule/rule = R
 		if(!rule.check_rule())
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 //Constantly procs as long as the program is active
 /datum/nanite_program/proc/active_effect()

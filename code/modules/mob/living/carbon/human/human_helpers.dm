@@ -5,9 +5,9 @@
 
 /mob/living/carbon/human/canBeHandcuffed()
 	if(get_num_arms(FALSE) >= 2)
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 //gets assignment from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
@@ -116,8 +116,8 @@
 
 /mob/living/carbon/human/IsAdvancedToolUser()
 	if(HAS_TRAIT(src, TRAIT_MONKEYLIKE))
-		return FALSE
-	return TRUE//Humans can use guns and such
+		return EF_FALSE
+	return EF_TRUE//Humans can use guns and such
 
 /mob/living/carbon/human/reagent_check(datum/reagent/R)
 	return dna.species.handle_chemicals(R,src)
@@ -160,14 +160,14 @@
 	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
 		if(src.dna.check_mutation(HULK))
 			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
-			return FALSE
+			return EF_FALSE
 		if(HAS_TRAIT(src, TRAIT_NOGUNS))
 			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
-			return FALSE
+			return EF_FALSE
 	if(mind)
 		if(mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
 			to_chat(src, "<span class='warning'>Use of ranged weaponry would bring dishonor to the clan.</span>")
-			return FALSE
+			return EF_FALSE
 
 	return .
 
@@ -180,4 +180,4 @@
 		account = I.registered_account
 		return account
 
-	return FALSE
+	return EF_FALSE

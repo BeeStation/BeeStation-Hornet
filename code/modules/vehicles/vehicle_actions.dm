@@ -22,24 +22,24 @@
 
 /obj/vehicle/proc/grant_action_type_to_mob(actiontype, mob/m)
 	if(isnull(occupants[m]) || !actiontype)
-		return FALSE
+		return EF_FALSE
 	LAZYINITLIST(occupant_actions[m])
 	if(occupant_actions[m][actiontype])
-		return TRUE
+		return EF_TRUE
 	var/datum/action/action = generate_action_type(actiontype)
 	action.Grant(m)
 	occupant_actions[m][action.type] = action
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/proc/remove_action_type_from_mob(actiontype, mob/m)
 	if(isnull(occupants[m]) || !actiontype)
-		return FALSE
+		return EF_FALSE
 	LAZYINITLIST(occupant_actions[m])
 	if(occupant_actions[m][actiontype])
 		var/datum/action/action = occupant_actions[m][actiontype]
 		action.Remove(m)
 		occupant_actions[m] -= actiontype
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/proc/grant_passenger_actions(mob/M)
 	for(var/v in autogrant_actions_passenger)
@@ -51,43 +51,43 @@
 
 /obj/vehicle/proc/grant_controller_actions(mob/M)
 	if(!istype(M) || isnull(occupants[M]))
-		return FALSE
+		return EF_FALSE
 	for(var/i in GLOB.bitflags)
 		if(occupants[M] & i)
 			grant_controller_actions_by_flag(M, i)
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/proc/remove_controller_actions(mob/M)
 	if(!istype(M) || isnull(occupants[M]))
-		return FALSE
+		return EF_FALSE
 	for(var/i in GLOB.bitflags)
 		remove_controller_actions_by_flag(M, i)
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/proc/grant_controller_actions_by_flag(mob/M, flag)
 	if(!istype(M))
-		return FALSE
+		return EF_FALSE
 	for(var/v in autogrant_actions_controller["[flag]"])
 		grant_action_type_to_mob(v, M)
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/proc/remove_controller_actions_by_flag(mob/M, flag)
 	if(!istype(M))
-		return FALSE
+		return EF_FALSE
 	for(var/v in autogrant_actions_controller["[flag]"])
 		remove_action_type_from_mob(v, M)
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/proc/cleanup_actions_for_mob(mob/M)
 	if(!istype(M))
-		return FALSE
+		return EF_FALSE
 	for(var/path in occupant_actions[M])
 		stack_trace("Leftover action type [path] in vehicle type [type] for mob type [M.type] - THIS SHOULD NOT BE HAPPENING!")
 		var/datum/action/action = occupant_actions[M][path]
 		action.Remove(M)
 		occupant_actions[M] -= path
 	occupant_actions -= M
-	return TRUE
+	return EF_TRUE
 
 //ACTION DATUMS
 

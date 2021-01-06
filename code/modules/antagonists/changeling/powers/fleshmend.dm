@@ -16,6 +16,6 @@
 	..()
 	to_chat(user, "<span class='notice'>We begin to heal rapidly.</span>")
 	user.apply_status_effect(STATUS_EFFECT_FLESHMEND)
-	return TRUE
+	return EF_TRUE
 
 //Check buffs.dm for the fleshmend status effect code

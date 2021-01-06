@@ -171,7 +171,7 @@
 
 /datum/component/nanites/proc/consume_nanites(amount, force = FALSE)
 	if(!force && safety_threshold && (nanite_volume - amount < safety_threshold))
-		return FALSE
+		return EF_FALSE
 	adjust_nanites(null, -amount)
 	return (nanite_volume > 0)
 
@@ -246,8 +246,8 @@
 		if(access_program.activated)
 			return O.check_access_list(access_program.access)
 		else
-			return FALSE
-	return FALSE
+			return EF_FALSE
+	return EF_FALSE
 
 /datum/component/nanites/proc/set_volume(datum/source, amount)
 	nanite_volume = clamp(amount, 0, max_nanites)
@@ -274,7 +274,7 @@
 	regen_rate = amount
 
 /datum/component/nanites/proc/confirm_nanites()
-	return TRUE //yup i exist
+	return EF_TRUE //yup i exist
 
 /datum/component/nanites/proc/get_data(list/nanite_data)
 	nanite_data["nanite_volume"] = nanite_volume
@@ -305,7 +305,7 @@
 		if(!stealth)
 			to_chat(user, "<span class='notice'><b>Nanites Detected</b></span>")
 			to_chat(user, "<span class='notice'>Saturation: [nanite_volume]/[max_nanites]</span>")
-			return TRUE
+			return EF_TRUE
 	else
 		to_chat(user, "<span class='info'>NANITES DETECTED</span>")
 		to_chat(user, "<span class='info'>================</span>")
@@ -321,7 +321,7 @@
 			for(var/X in programs)
 				var/datum/nanite_program/NP = X
 				to_chat(user, "<span class='info'><b>[NP.name]</b> | [NP.activated ? "Active" : "Inactive"]</span>")
-		return TRUE
+		return EF_TRUE
 
 /datum/component/nanites/proc/nanite_ui_data(datum/source, list/data, scan_level)
 	data["has_nanites"] = TRUE

@@ -1046,7 +1046,7 @@
 /obj/machinery/computer/scan_consolenew/proc/discover(mutation)
 	if(stored_research && !(mutation in stored_research.discovered_mutations))
 		stored_research.discovered_mutations += mutation
-		return TRUE
+		return EF_TRUE
 /////////////////////////// DNA MACHINES
 #undef INJECTOR_TIMEOUT
 #undef NUMBER_OF_BUFFERS

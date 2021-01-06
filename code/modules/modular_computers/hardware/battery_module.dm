@@ -23,32 +23,32 @@
 
 /obj/item/computer_hardware/battery/try_insert(obj/item/I, mob/living/user = null)
 	if(!holder)
-		return FALSE
+		return EF_FALSE
 
 	if(!istype(I, /obj/item/stock_parts/cell))
-		return FALSE
+		return EF_FALSE
 
 	if(battery)
 		to_chat(user, "<span class='warning'>You try to connect \the [I] to \the [src], but its connectors are occupied.</span>")
-		return FALSE
+		return EF_FALSE
 
 	if(I.w_class > holder.max_hardware_size)
 		to_chat(user, "<span class='warning'>This power cell is too large for \the [holder]!</span>")
-		return FALSE
+		return EF_FALSE
 
 	if(user && !user.transferItemToLoc(I, src))
-		return FALSE
+		return EF_FALSE
 
 	battery = I
 	to_chat(user, "<span class='notice'>You connect \the [I] to \the [src].</span>")
 
-	return TRUE
+	return EF_TRUE
 
 
 /obj/item/computer_hardware/battery/try_eject(slot=0, mob/living/user = null, forced = 0)
 	if(!battery)
 		to_chat(user, "<span class='warning'>There is no power cell connected to \the [src].</span>")
-		return FALSE
+		return EF_FALSE
 	else
 		if(user)
 			user.put_in_hands(battery)
@@ -61,7 +61,7 @@
 			if(holder.enabled && !holder.use_power())
 				holder.shutdown_computer()
 
-		return TRUE
+		return EF_TRUE
 
 
 

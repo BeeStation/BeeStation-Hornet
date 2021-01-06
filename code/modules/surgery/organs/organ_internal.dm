@@ -147,7 +147,7 @@
 	for(var/datum/surgery/S in H.surgeries)
 		if(S.location == H.zone_selected)
 			return	TRUE			//no snacks mid surgery
-	return FALSE
+	return EF_FALSE
 
 /obj/item/organ/item_action_slot_check(slot,mob/user)
 	return //so we don't grant the organ's action to mobs who pick up the organ.

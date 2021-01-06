@@ -17,7 +17,7 @@
 
 // Sorting check, to be overridden in subtypes
 /obj/structure/disposalpipe/sorting/proc/check_sorting(obj/structure/disposalholder/H)
-	return FALSE
+	return EF_FALSE
 
 
 

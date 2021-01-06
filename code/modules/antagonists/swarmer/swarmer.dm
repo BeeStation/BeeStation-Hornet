@@ -161,25 +161,25 @@
 
 /atom/proc/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisIntegrate(src)
-	return TRUE //return TRUE/FALSE whether or not an AI swarmer should try this swarmer_act() again, NOT whether it succeeded.
+	return EF_TRUE //return EF_TRUE/FALSE whether or not an AI swarmer should try this swarmer_act() again, NOT whether it succeeded.
 
 /obj/effect/mob_spawn/swarmer/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.Integrate(src)
-	return FALSE //would logically be TRUE, but we don't want AI swarmers eating player spawn chances.
+	return EF_FALSE //would logically be TRUE, but we don't want AI swarmers eating player spawn chances.
 
 /obj/effect/mob_spawn/swarmer/IntegrateAmount()
 	return 50
 
 /turf/closed/indestructible/swarmer_act()
-	return FALSE
+	return EF_FALSE
 
 /obj/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	if(resistance_flags & INDESTRUCTIBLE)
-		return FALSE
+		return EF_FALSE
 	for(var/mob/living/L in contents)
 		if(!issilicon(L) && !isbrain(L))
 			to_chat(S, "<span class='warning'>An organism has been detected inside this object. Aborting.</span>")
-			return FALSE
+			return EF_FALSE
 	return ..()
 
 /obj/item/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
@@ -194,7 +194,7 @@
 	return ..()
 
 /obj/item/gun/swarmer_act()//Stops you from eating the entire armory
-	return FALSE
+	return EF_FALSE
 
 /obj/item/clockwork/alloy_shards/IntegrateAmount()
 	return 10
@@ -215,46 +215,46 @@
 	return 1
 
 /turf/open/swarmer_act()//ex_act() on turf calls it on its contents, this is to prevent attacking mobs by DisIntegrate()'ing the floor
-	return FALSE
+	return EF_FALSE
 
 /obj/structure/lattice/catwalk/swarmer_catwalk/swarmer_act()
-	return FALSE
+	return EF_FALSE
 
 /obj/structure/swarmer/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	if(S.AIStatus == AI_ON)
-		return FALSE
+		return EF_FALSE
 	else
 		return ..()
 
 /obj/effect/swarmer_act()
-	return FALSE
+	return EF_FALSE
 
 /obj/effect/decal/cleanable/robot_debris/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisIntegrate(src)
 	qdel(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/flora/swarmer_act()
-	return FALSE
+	return EF_FALSE
 
 /turf/open/lava/swarmer_act()
 	if(!is_safe())
 		new /obj/structure/lattice/catwalk/swarmer_catwalk(src)
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/atmospherics/swarmer_act()
-	return FALSE
+	return EF_FALSE
 
 /obj/structure/disposalpipe/swarmer_act()
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DismantleMachine(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/light/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisIntegrate(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/door/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	var/isonshuttle = istype(get_area(src), /area/shuttle)
@@ -263,78 +263,78 @@
 		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
 			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 			S.target = null
-			return FALSE
+			return EF_FALSE
 		else if(istype(A, /area/engine/supermatter))
 			to_chat(S, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
 			S.target = null
-			return FALSE
+			return EF_FALSE
 	S.DisIntegrate(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/camera/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisIntegrate(src)
 	toggle_cam(S, 0)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/particle_accelerator/control_box/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisIntegrate(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/field/generator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisIntegrate(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/gravity_generator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisIntegrate(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/vending/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)//It's more visually interesting than dismantling the machine
 	S.DisIntegrate(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/turretid/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisIntegrate(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/chem_dispenser/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>The volatile chemicals in this machine would destroy us. Aborting.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/nuclearbomb/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This device's destruction would result in the extermination of everything in the area. Aborting.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/effect/rune/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Searching... sensor malfunction! Target lost. Aborting.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/structure/reagent_dispensers/fueltank/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Destroying this object would cause a chain reaction. Aborting.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/structure/cable/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/portable_atmospherics/canister/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/telecomms/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This communications relay should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/deepfryer/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This kitchen appliance should be preserved, it will make delicious unhealthy snacks for our masters in the future. Aborting.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/power/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/gateway/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This bluespace source will be important to us later. Aborting.</span>")
-	return FALSE
+	return EF_FALSE
 
 /turf/closed/wall/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	var/isonshuttle = istype(loc, /area/shuttle)
@@ -343,11 +343,11 @@
 		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
 			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 			S.target = null
-			return TRUE
+			return EF_TRUE
 		else if(istype(A, /area/engine/supermatter))
 			to_chat(S, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
 			S.target = null
-			return TRUE
+			return EF_TRUE
 	return ..()
 
 /obj/structure/window/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
@@ -357,36 +357,36 @@
 		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
 			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 			S.target = null
-			return TRUE
+			return EF_TRUE
 		else if(istype(A, /area/engine/supermatter))
 			to_chat(S, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
 			S.target = null
-			return TRUE
+			return EF_TRUE
 	return ..()
 
 /obj/item/stack/cable_coil/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)//Wiring would be too effective as a resource
 	to_chat(S, "<span class='warning'>This object does not contain enough materials to work with.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/porta_turret/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Attempting to dismantle this machine would result in an immediate counterattack. Aborting.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/porta_turret_cover/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Attempting to dismantle this machine would result in an immediate counterattack. Aborting.</span>")
-	return FALSE
+	return EF_FALSE
 
 /mob/living/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisperseTarget(src)
-	return TRUE
+	return EF_TRUE
 
 /mob/living/simple_animal/slime/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This biological resource is somehow resisting our bluespace transceiver. Aborting.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/droneDispenser/swarmer/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This object is receiving unactivated swarmer shells to help us. Aborting.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/structure/lattice/catwalk/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	. = ..()
@@ -395,30 +395,30 @@
 		var/obj/structure/cable/C = A
 		if(istype(C))
 			to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
-			return FALSE
+			return EF_FALSE
 
 /obj/item/deactivated_swarmer/IntegrateAmount()
 	return 50
 
 /obj/machinery/hydroponics/soil/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This object does not contain enough materials to work with.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/field/generator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Destroying this object would cause a catastrophic chain reaction. Aborting.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/field/containment/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This object does not contain solid matter. Aborting.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/shieldwallgen/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Destroying this object would have an unpredictable effect on structure integrity. Aborting.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/shieldwall/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This object does not contain solid matter. Aborting.</span>")
-	return FALSE
+	return EF_FALSE
 
 ////END CTRL CLICK FOR SWARMERS////
 
@@ -436,7 +436,7 @@
 	var/resource_gain = target.IntegrateAmount()
 	if(resources + resource_gain > max_resources)
 		to_chat(src, "<span class='warning'>We cannot hold more materials!</span>")
-		return TRUE
+		return EF_TRUE
 	if(resource_gain)
 		resources += resource_gain
 		do_attack_animation(target)
@@ -449,12 +449,12 @@
 			var/obj/item/stack/S = target
 			S.use(1)
 			if(S.amount)
-				return TRUE
+				return EF_TRUE
 		qdel(target)
-		return TRUE
+		return EF_TRUE
 	else
 		to_chat(src, "<span class='warning'>[target] is incompatible with our internal matter recycler.</span>")
-	return FALSE
+	return EF_FALSE
 
 
 /mob/living/simple_animal/hostile/swarmer/proc/DisIntegrate(atom/movable/target)
@@ -498,7 +498,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, source, siemens_coeff = 1, safety = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
 	if(!tesla_shock)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /mob/living/simple_animal/hostile/swarmer/proc/DismantleMachine(obj/machinery/target)

@@ -332,11 +332,11 @@
 	if(ismob(A))
 		var/mob/B = A
 		return B.eye_blind
-	return FALSE
+	return EF_FALSE
 
 ///Is the mob hallucinating?
 /mob/proc/hallucinating()
-	return FALSE
+	return EF_FALSE
 
 
 // moved out of admins.dm because things other than admin procs were calling this.
@@ -348,17 +348,17 @@
   */
 /proc/is_special_character(mob/M)
 	if(!SSticker.HasRoundStarted())
-		return FALSE
+		return EF_FALSE
 	if(!istype(M))
-		return FALSE
+		return EF_FALSE
 	if(issilicon(M))
 		if(iscyborg(M)) //For cyborgs, returns 1 if the cyborg has a law 0 and special_role. Returns 0 if the borg is merely slaved to an AI traitor.
-			return FALSE
+			return EF_FALSE
 		else if(isAI(M))
 			var/mob/living/silicon/ai/A = M
 			if(A.laws && A.laws.zeroth && A.mind && A.mind.special_role)
-				return TRUE
-		return FALSE
+				return EF_TRUE
+		return EF_FALSE
 	if(M.mind && M.mind.special_role)//If they have a mind and special role, they are some type of traitor or antagonist.
 		switch(SSticker.mode.config_tag)
 			if("revolution")
@@ -384,10 +384,10 @@
 					var/mob/living/L = M
 					if(L.diseases && (locate(/datum/disease/transformation/jungle_fever) in L.diseases))
 						return 2
-		return TRUE
+		return EF_TRUE
 	if(M.mind && LAZYLEN(M.mind.antag_datums)) //they have an antag datum!
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 
 /mob/proc/reagent_check(datum/reagent/R) // utilized in the species code
@@ -477,7 +477,7 @@
 		return
 	if(!user.client.AI_Interact) // Do they have it enabled?
 		return
-	return TRUE
+	return EF_TRUE
 
 /**
   * Offer control of the passed in mob to dead player
@@ -506,11 +506,11 @@
 		message_admins("[key_name_admin(C)] has taken control of ([ADMIN_LOOKUPFLW(M)])")
 		M.ghostize(0)
 		M.key = C.key
-		return TRUE
+		return EF_TRUE
 	else
 		to_chat(M, "There were no ghosts willing to take control.")
 		message_admins("No ghosts were willing to take control of [ADMIN_LOOKUPFLW(M)])")
-		return FALSE
+		return EF_FALSE
 
 ///Is the mob a flying mob
 /mob/proc/is_flying(mob/M = src)
@@ -551,7 +551,7 @@
 			colored_message = "<font color=[color]>[message]</font>"
 		else
 			colored_message = "<font color='[color]'>[message]</font>"
-	
+
 	//This makes readability a bit better for admins.
 	switch(message_type)
 		if(LOG_WHISPER)
@@ -577,7 +577,7 @@
 	. = TRUE
 
 /mob/proc/has_mouth()
-	return FALSE
+	return EF_FALSE
 
 /**
   * Examine text for traits shared by multiple types.

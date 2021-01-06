@@ -17,7 +17,7 @@
 
 /datum/surgery_step/handle_cavity/tool_check(mob/user, obj/item/tool)
 	if(istype(tool, /obj/item/cautery) || istype(tool, /obj/item/gun/energy/laser))
-		return FALSE
+		return EF_FALSE
 	return !tool.is_hot()
 
 /datum/surgery_step/handle_cavity/preop(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

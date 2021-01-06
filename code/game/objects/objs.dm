@@ -48,14 +48,14 @@
 	switch(vname)
 		if("anchored")
 			setAnchored(vval)
-			return TRUE
+			return EF_TRUE
 		if("obj_flags")
 			if ((obj_flags & DANGEROUS_POSSESSION) && !(vval & DANGEROUS_POSSESSION))
-				return FALSE
+				return EF_FALSE
 		if("control_object")
 			var/obj/O = vval
 			if(istype(O) && (O.obj_flags & DANGEROUS_POSSESSION))
-				return FALSE
+				return EF_FALSE
 	return ..()
 
 /obj/Initialize()
@@ -328,7 +328,7 @@
 
 /obj/analyzer_act(mob/living/user, obj/item/I)
 	if(atmosanalyzer_scan(user, src))
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /obj/proc/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)

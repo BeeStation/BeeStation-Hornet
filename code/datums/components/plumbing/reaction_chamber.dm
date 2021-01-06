@@ -11,7 +11,7 @@
 	. = ..()
 	var/obj/machinery/plumbing/reaction_chamber/RC = parent
 	if(!. || !RC.emptying)
-		return FALSE
+		return EF_FALSE
 
 /datum/component/plumbing/reaction_chamber/send_request(dir)
 	var/obj/machinery/plumbing/reaction_chamber/RC = parent
@@ -41,7 +41,7 @@
 	. = ..()
 	var/obj/machinery/plumbing/reaction_chamber/RC = parent
 	if(!. || !RC.emptying)
-		return FALSE
+		return EF_FALSE
 
 
 

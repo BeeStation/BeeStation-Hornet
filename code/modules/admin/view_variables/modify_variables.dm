@@ -22,13 +22,13 @@ GLOBAL_PROTECT(VVpixelmovement)
 		return
 	var/list/subtypes = subtypesof(type)
 	if (!subtypes || !subtypes.len)
-		return FALSE
+		return EF_FALSE
 	if (subtypes && subtypes.len)
 		switch(alert("Strict object type detection?", "Type detection", "Strictly this type","This type and subtypes", "Cancel"))
 			if("Strictly this type")
-				return FALSE
+				return EF_FALSE
 			if("This type and subtypes")
-				return TRUE
+				return EF_TRUE
 			else
 				return
 
@@ -278,14 +278,14 @@ GLOBAL_PROTECT(VVpixelmovement)
 /proc/vv_varname_lockcheck(param_var_name)
 	if(param_var_name in GLOB.VVlocked)
 		if(!check_rights(R_DEBUG))
-			return FALSE
+			return EF_FALSE
 	if(param_var_name in GLOB.VVckey_edit)
 		if(!check_rights(R_SPAWN|R_DEBUG))
-			return FALSE
+			return EF_FALSE
 	if(param_var_name in GLOB.VVicon_edit_lock)
 		if(!check_rights(R_FUN|R_DEBUG))
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /client/proc/modify_variables(atom/O, param_var_name = null, autodetect_class = 0)
 	if(!check_rights(R_VAREDIT))
@@ -386,4 +386,4 @@ GLOBAL_PROTECT(VVpixelmovement)
 	var/msg = "[key_name_admin(src)] modified [original_name]'s [variable] from [var_value] to [var_new]"
 	message_admins(msg)
 	admin_ticket_log(O, msg)
-	return TRUE
+	return EF_TRUE

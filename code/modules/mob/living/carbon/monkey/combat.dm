@@ -70,11 +70,11 @@
 
 /mob/living/carbon/monkey/proc/equip_item(obj/item/I)
 	if(I.loc == src)
-		return TRUE
+		return EF_TRUE
 
 	if(I.anchored)
 		blacklistItems[I] ++
-		return FALSE
+		return EF_FALSE
 
 	// WEAPONS
 	if(istype(I, /obj/item))
@@ -82,23 +82,23 @@
 		if(W.force >= best_force)
 			put_in_hands(W)
 			best_force = W.force
-			return TRUE
+			return EF_TRUE
 
 	// CLOTHING
 	else if(istype(I, /obj/item/clothing))
 		var/obj/item/clothing/C = I
 		monkeyDrop(C)
 		addtimer(CALLBACK(src, .proc/pickup_and_wear, C), 5)
-		return TRUE
+		return EF_TRUE
 
 	// EVERYTHING ELSE
 	else
 		if(!get_item_for_held_index(1) || !get_item_for_held_index(2))
 			put_in_hands(I)
-			return TRUE
+			return EF_TRUE
 
 	blacklistItems[I] ++
-	return FALSE
+	return EF_FALSE
 
 /mob/living/carbon/monkey/proc/pickup_and_wear(var/obj/item/clothing/C)
 	if(!equip_to_appropriate_slot(C))
@@ -118,16 +118,16 @@
 
 /mob/living/carbon/monkey/proc/should_target(var/mob/living/L)
 	if(HAS_TRAIT(src, TRAIT_PACIFISM))
-		return FALSE
+		return EF_FALSE
 
 	if(enemies[L])
-		return TRUE
+		return EF_TRUE
 
 	// target non-monkey mobs when aggressive, with a small probability of monkey v monkey
 	if(aggressive && (!istype(L, /mob/living/carbon/monkey/) || prob(MONKEY_AGGRESSIVE_MVM_PROB)))
-		return TRUE
+		return EF_TRUE
 
-	return FALSE
+	return EF_FALSE
 
 /mob/living/carbon/monkey/proc/handle_combat()
 	if(pickupTarget)
@@ -153,7 +153,7 @@
 							pickpocketing = TRUE
 							M.visible_message("[src] starts trying to take [pickupTarget] from [M]", "[src] tries to take [pickupTarget]!")
 							INVOKE_ASYNC(src, .proc/pickpocket, M)
-			return TRUE
+			return EF_TRUE
 
 	switch(mode)
 		if(MONKEY_IDLE)		// idle
@@ -164,13 +164,13 @@
 						if(L.stat == CONSCIOUS)
 							battle_screech()
 							retaliate(L)
-							return TRUE
+							return EF_TRUE
 						else
 							bodyDisposal = locate(/obj/machinery/disposal/) in around
 							if(bodyDisposal)
 								target = L
 								mode = MONKEY_DISPOSE
-								return TRUE
+								return EF_TRUE
 
 			// pickup any nearby objects
 			if(!pickupTarget)
@@ -185,7 +185,7 @@
 		if(MONKEY_HUNT)		// hunting for attacker
 			if(health < MONKEY_FLEE_HEALTH)
 				mode = MONKEY_FLEE
-				return TRUE
+				return EF_TRUE
 
 			if(target != null)
 				INVOKE_ASYNC(src, .proc/walk2derpless, target)
@@ -210,12 +210,12 @@
 			for(var/mob/living/L in around)
 				if(L != target && should_target(L) && L.stat == CONSCIOUS && prob(MONKEY_SWITCH_TARGET_PROB))
 					target = L
-					return TRUE
+					return EF_TRUE
 
 			// if can't reach target for long enough, go idle
 			if(frustration >= MONKEY_HUNT_FRUSTRATION_LIMIT)
 				back_to_idle()
-				return TRUE
+				return EF_TRUE
 
 			if(target && target.stat == CONSCIOUS)		// make sure target exists
 				if(Adjacent(target) && isturf(target.loc) && !IsDeadOrIncap())	// if right next to perp
@@ -237,7 +237,7 @@
 						a_intent = INTENT_HARM
 						monkey_attack(target)
 
-					return TRUE
+					return EF_TRUE
 
 				else								// not next to perp
 					var/turf/olddist = get_dist(src, target)
@@ -262,14 +262,14 @@
 			else
 				back_to_idle()
 
-			return TRUE
+			return EF_TRUE
 
 		if(MONKEY_DISPOSE)
 
 			// if can't dispose of body go back to idle
 			if(!target || !bodyDisposal || frustration >= MONKEY_DISPOSE_FRUSTRATION_LIMIT)
 				back_to_idle()
-				return TRUE
+				return EF_TRUE
 
 			if(target.pulledby != src && !istype(target.pulledby, /mob/living/carbon/monkey/))
 
@@ -299,7 +299,7 @@
 					else
 						frustration = 0
 
-			return TRUE
+			return EF_TRUE
 
 	return IsStandingStill()
 
@@ -429,6 +429,6 @@
 			a_intent = INTENT_DISARM
 			monkey_attack(pulledby)
 			retaliate(pulledby)
-			return TRUE
+			return EF_TRUE
 
 #undef MAX_RANGE_FIND

@@ -14,7 +14,7 @@
 	. = ..()
 	var/obj/item/organ/zombie_infection/ZI = target.getorganslot(ORGAN_SLOT_ZOMBIE)
 	if(ZI)
-		return FALSE
+		return EF_FALSE
 
 /datum/surgery_step/bionecrosis
 	name = "start bionecrosis"
@@ -35,4 +35,4 @@
 	if(!target.getorganslot(ORGAN_SLOT_ZOMBIE))
 		var/obj/item/organ/zombie_infection/ZI = new()
 		ZI.Insert(target)
-	return TRUE
+	return EF_TRUE

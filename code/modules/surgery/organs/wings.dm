@@ -22,7 +22,7 @@
 	if(istype(H))
 		Refresh(H)
 
-/obj/item/organ/wings/proc/Refresh(mob/living/carbon/human/H)	
+/obj/item/organ/wings/proc/Refresh(mob/living/carbon/human/H)
 	if(!(basewings in H.dna.species.mutant_bodyparts))
 		H.dna.species.mutant_bodyparts |= basewings
 		H.dna.features[basewings] = wing_type
@@ -45,7 +45,7 @@
 
 /obj/item/organ/wings/proc/toggleopen(mob/living/carbon/human/H) //opening and closing wings are purely cosmetic
 	if(!canopen)
-		return FALSE
+		return EF_FALSE
 	if(wingsound)
 		playsound(H, wingsound, 100, 7)
 	if(basewings == "wings")
@@ -58,8 +58,8 @@
 		else //it appears we don't actually have wing icons. apply them!!
 			Refresh(H)
 		H.update_body()
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/item/organ/wings/cybernetic
 	name = "cybernetic wingpack"
@@ -86,12 +86,12 @@
 					H.throw_at(throw_target, 5, 4)
 					if(prob(10))
 						S.toggle_flight(H)
-				else 
+				else
 					S.toggle_flight(H)
 					if(prob(50))
 						stoplag(5)
 						S.toggle_flight(H)
-			else 
+			else
 				H.Togglewings()
 			outofcontrol --
 			stoplag(5)
@@ -99,7 +99,7 @@
 /obj/item/organ/wings/cybernetic/ayy
 	name = "advanced cybernetic wingpack"
 	desc = "A compact pair of mechanical wings. They are equipped with miniaturized void engines, and can fly in any atmosphere, or lack thereof."
-	flight_level = WINGS_MAGIC	
+	flight_level = WINGS_MAGIC
 
 /obj/item/organ/wings/moth
 	name = "pair of moth wings"
@@ -124,7 +124,7 @@
 			H.dna.features["moth_wings"] = "Burnt Off"
 			wing_type = "Burnt Off"
 			H.dna.species.handle_mutant_bodyparts(H)
-		
+
 /obj/item/organ/wings/angel
 	name = "pair of feathered wings"
 	desc = "A pair of feathered wings. They seem robust enough for flight"

@@ -93,13 +93,13 @@
 
 /datum/action/chameleon_outfit/proc/select_outfit(mob/user)
 	if(!user || !IsAvailable())
-		return FALSE
+		return EF_FALSE
 	var/selected = input("Select outfit to change into", "Chameleon Outfit") as null|anything in outfit_options
 	if(!IsAvailable() || QDELETED(src) || QDELETED(user))
-		return FALSE
+		return EF_FALSE
 	var/outfit_type = outfit_options[selected]
 	if(!outfit_type)
-		return FALSE
+		return EF_FALSE
 	var/datum/outfit/O = new outfit_type()
 	var/list/outfit_types = O.get_chameleon_disguise_info()
 
@@ -132,7 +132,7 @@
 				var/obj/item/clothing/head/chameleon/hat = H.head
 				hat.chameleon_action.update_look(user, helmet_type)
 	qdel(O)
-	return TRUE
+	return EF_TRUE
 
 
 /datum/action/item_action/chameleon/change
@@ -446,7 +446,7 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	bang_protect = 1
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH 
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 /obj/item/clothing/head/chameleon/drone
 	// The camohat, I mean, holographic hat projection, is part of the

@@ -607,7 +607,7 @@
 
 /obj/item/book_of_babel/attack_self(mob/user)
 	if(!user.can_read(src))
-		return FALSE
+		return EF_FALSE
 	to_chat(user, "You flip through the pages of the book, quickly and conveniently learning every language in existence. Somewhat less conveniently, the aging book crumbles to dust in the process. Whoops.")
 	user.grant_all_languages()
 	new /obj/effect/decal/cleanable/ash(get_turf(user))
@@ -741,7 +741,7 @@
 
 /obj/item/melee/transforming/cleaving_saw/transform_weapon(mob/living/user, supress_message_text)
 	if(transform_cooldown > world.time)
-		return FALSE
+		return EF_FALSE
 	. = ..()
 	if(.)
 		transform_cooldown = world.time + (CLICK_CD_MELEE * 0.5)

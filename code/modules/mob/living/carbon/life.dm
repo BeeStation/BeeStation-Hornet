@@ -145,8 +145,8 @@
 
 /mob/living/carbon/proc/has_smoke_protection()
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 
 //Third link in a breath chain, calls handle_breath_temperature()
@@ -325,7 +325,7 @@
 			update_internals_hud_icon(1)
 			. = internal.remove_air_volume(volume_needed)
 			if(!.)
-				return FALSE //to differentiate between no internals and active, but empty internals
+				return EF_FALSE //to differentiate between no internals and active, but empty internals
 
 /mob/living/carbon/proc/handle_blood()
 	return
@@ -594,7 +594,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 /mob/living/carbon/proc/undergoing_liver_failure()
 	var/obj/item/organ/liver/liver = getorganslot(ORGAN_SLOT_LIVER)
 	if(liver && (liver.organ_flags & ORGAN_FAILING))
-		return TRUE
+		return EF_TRUE
 
 /mob/living/carbon/proc/liver_failure()
 	reagents.end_metabolization(src, keep_liverless = TRUE) //Stops trait-based effects on reagents, to prevent permanent buffs
@@ -611,18 +611,18 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 
 /mob/living/carbon/proc/can_heartattack()
 	if(!needs_heart())
-		return FALSE
+		return EF_FALSE
 	var/obj/item/organ/heart/heart = getorganslot(ORGAN_SLOT_HEART)
 	if(!heart || (heart.organ_flags & ORGAN_SYNTHETIC))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /mob/living/carbon/proc/needs_heart()
 	if(HAS_TRAIT(src, TRAIT_STABLEHEART))
-		return FALSE
+		return EF_FALSE
 	if(dna && dna.species && (NOBLOOD in dna.species.species_traits)) //not all carbons have species!
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /*
  * The mob is having a heart attack
@@ -634,14 +634,14 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 /mob/living/carbon/proc/undergoing_cardiac_arrest()
 	var/obj/item/organ/heart/heart = getorganslot(ORGAN_SLOT_HEART)
 	if(istype(heart) && heart.beating)
-		return FALSE
+		return EF_FALSE
 	else if(!needs_heart())
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /mob/living/carbon/proc/set_heartattack(status)
 	if(!can_heartattack())
-		return FALSE
+		return EF_FALSE
 
 	var/obj/item/organ/heart/heart = getorganslot(ORGAN_SLOT_HEART)
 	if(!istype(heart))

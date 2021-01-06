@@ -42,6 +42,7 @@
 #include "code\__DEFINES\diseases.dm"
 #include "code\__DEFINES\DNA.dm"
 #include "code\__DEFINES\economy.dm"
+#include "code\__DEFINES\efficiency.dm"
 #include "code\__DEFINES\events.dm"
 #include "code\__DEFINES\exports.dm"
 #include "code\__DEFINES\fastdmm2.dm"

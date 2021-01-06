@@ -15,9 +15,9 @@
 
 /obj/item/assembly/health/activate()
 	if(!..())
-		return FALSE//Cooldown check
+		return EF_FALSE//Cooldown check
 	toggle_scan()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/assembly/health/toggle_secure()
 	secured = !secured
@@ -36,7 +36,7 @@
 	else
 		alarm_health = HEALTH_THRESHOLD_CRIT
 		to_chat(user, "<span class='notice'>You toggle [src] to \"detect critical state\" mode.</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/item/assembly/health/process()
 	if(!scanning || !secured)
@@ -73,7 +73,7 @@
 	. = ..()
 	if(!secured)
 		user.show_message("<span class='warning'>The [name] is unsecured!</span>")
-		return FALSE
+		return EF_FALSE
 	var/dat = "<TT><B>Health Sensor</B></TT>"
 	dat += "<BR><A href='?src=[REF(src)];scanning=1'>[scanning?"On":"Off"]</A>"
 	if(scanning && health_scan)

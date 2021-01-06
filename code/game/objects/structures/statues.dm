@@ -19,7 +19,7 @@
 			return
 		if(W.tool_behaviour == TOOL_WELDER)
 			if(!W.tool_start_check(user, amount=0))
-				return FALSE
+				return EF_FALSE
 
 			user.visible_message("[user] is slicing apart the [name].", \
 								"<span class='notice'>You are slicing apart the [name]...</span>")

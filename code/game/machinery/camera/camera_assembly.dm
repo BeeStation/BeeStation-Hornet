@@ -191,7 +191,7 @@
 
 /obj/structure/camera_assembly/crowbar_act(mob/user, obj/item/tool)
 	if(state != STATE_WIRED)
-		return FALSE
+		return EF_FALSE
 	var/list/droppable_parts = list()
 	if(xray_module)
 		droppable_parts += xray_module
@@ -207,14 +207,14 @@
 	to_chat(user, "<span class='notice'>You remove [choice] from [src].</span>")
 	drop_upgrade(choice)
 	tool.play_tool_sound(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/camera_assembly/screwdriver_act(mob/user, obj/item/tool)
 	. = ..()
 	if(.)
-		return TRUE
+		return EF_TRUE
 	if(state != STATE_WIRED)
-		return FALSE
+		return EF_FALSE
 
 	tool.play_tool_sound(src)
 	var/input = stripped_input(user, "Which networks would you like to connect this camera to? Separate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret ", "Set Network", "SS13")
@@ -236,21 +236,21 @@
 	C.network = tempnetwork
 	var/area/A = get_area(src)
 	C.c_tag = "[A.name] ([rand(1, 999)])"
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/camera_assembly/wirecutter_act(mob/user, obj/item/I)
 	if(state != STATE_WIRED)
-		return FALSE
+		return EF_FALSE
 
 	new /obj/item/stack/cable_coil(drop_location(), 2)
 	I.play_tool_sound(src)
 	to_chat(user, "<span class='notice'>You cut the wires from the circuits.</span>")
 	state = STATE_WELDED
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/camera_assembly/wrench_act(mob/user, obj/item/I)
 	if(state != STATE_WRENCHED)
-		return FALSE
+		return EF_FALSE
 	I.play_tool_sound(src)
 	to_chat(user, "<span class='notice'>You detach [src] from its place.</span>")
 	new /obj/item/wallframe/camera(drop_location())
@@ -263,15 +263,15 @@
 		drop_upgrade(proxy_module)
 
 	qdel(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/camera_assembly/proc/weld(obj/item/weldingtool/W, mob/living/user)
 	if(!W.tool_start_check(user, amount=3))
-		return FALSE
+		return EF_FALSE
 	to_chat(user, "<span class='notice'>You start to weld [src]...</span>")
 	if(W.use_tool(src, user, 20, amount=3, volume = 50))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/structure/camera_assembly/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))

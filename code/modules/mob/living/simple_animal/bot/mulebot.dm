@@ -403,8 +403,8 @@
 		passenger = M
 		load = M
 		can_buckle = FALSE
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /mob/living/simple_animal/bot/mulebot/post_buckle_mob(mob/living/M)
 	M.pixel_y = initial(M.pixel_y) + 9

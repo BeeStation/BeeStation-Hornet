@@ -13,7 +13,7 @@
 /datum/wires/rnd/interactable(mob/user)
 	var/obj/machinery/rnd/R = holder
 	if(R.panel_open)
-		return TRUE
+		return EF_TRUE
 
 /datum/wires/rnd/get_status()
 	var/obj/machinery/rnd/R = holder

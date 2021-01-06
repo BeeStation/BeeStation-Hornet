@@ -116,11 +116,11 @@
 
 /datum/antagonist/hivemind/proc/is_carbon_member(mob/living/carbon/C)
 	if(!hivemembers || !C || !iscarbon(C))
-		return FALSE
+		return EF_FALSE
 	var/datum/mind/M = C.mind
 	if(!M || !hivemembers.Find(M))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/antagonist/hivemind/proc/remove_from_hive(mob/living/carbon/C)
 	var/datum/mind/M = C.mind

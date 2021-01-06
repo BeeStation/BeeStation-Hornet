@@ -293,7 +293,7 @@
 
 /datum/component/construction/mecha/ripley/custom_action(obj/item/I, mob/living/user, diff)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 
 	switch(index)
 		if(1)
@@ -393,7 +393,7 @@
 				user.visible_message("[user] welds the external armor layer to [parent].", "<span class='notice'>You weld the external armor layer to [parent].</span>")
 			else
 				user.visible_message("[user] unfastens the external armor layer.", "<span class='notice'>You unfasten the external armor layer.</span>")
-	return TRUE
+	return EF_TRUE
 
 /datum/component/construction/unordered/mecha_chassis/gygax
 	result = /datum/component/construction/mecha/gygax
@@ -425,7 +425,7 @@
 
 /datum/component/construction/mecha/gygax/custom_action(obj/item/I, mob/living/user, diff)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 
 	switch(index)
 		if(1)
@@ -535,7 +535,7 @@
 				user.visible_message("[user] welds Gygax Armor Plates to [parent].", "<span class='notice'>You weld Gygax Armor Plates to [parent].</span>")
 			else
 				user.visible_message("[user] unfastens Gygax Armor Plates.", "<span class='notice'>You unfasten Gygax Armor Plates.</span>")
-	return TRUE
+	return EF_TRUE
 
 /datum/component/construction/unordered/mecha_chassis/firefighter
 	result = /datum/component/construction/mecha/firefighter
@@ -586,7 +586,7 @@
 
 /datum/component/construction/mecha/firefighter/custom_action(obj/item/I, mob/living/user, diff)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 
 	//TODO: better messages.
 	switch(index)
@@ -692,7 +692,7 @@
 				user.visible_message("[user] welds the external armor layer to [parent].", "<span class='notice'>You weld the external armor layer to [parent].</span>")
 			else
 				user.visible_message("[user] unfastens the external armor layer.", "<span class='notice'>You unfasten the external armor layer.</span>")
-	return TRUE
+	return EF_TRUE
 
 /datum/component/construction/unordered/mecha_chassis/honker
 	result = /datum/component/construction/mecha/honker
@@ -782,7 +782,7 @@
 
 /datum/component/construction/mecha/honker/custom_action(obj/item/I, mob/living/user, diff)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 
 	if(istype(I, /obj/item/bikehorn))
 		playsound(parent, 'sound/items/bikehorn.ogg', 50, 1)
@@ -806,7 +806,7 @@
 			user.visible_message("[user] puts [I] on [parent].", "<span class='notice'>You put [I] on [parent].</span>")
 		if(16)
 			user.visible_message("[user] puts [I] on [parent].", "<span class='notice'>You put [I] on [parent].</span>")
-	return TRUE
+	return EF_TRUE
 
 /datum/component/construction/unordered/mecha_chassis/durand
 	result = /datum/component/construction/mecha/durand
@@ -835,7 +835,7 @@
 
 /datum/component/construction/mecha/durand/custom_action(obj/item/I, mob/living/user, diff)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 
 	//TODO: better messages.
 	switch(index)
@@ -946,7 +946,7 @@
 				user.visible_message("[user] welds Durand Armor Plates to [parent].", "<span class='notice'>You weld Durand Armor Plates to [parent].</span>")
 			else
 				user.visible_message("[user] unfastens Durand Armor Plates.", "<span class='notice'>You unfasten Durand Armor Plates.</span>")
-	return TRUE
+	return EF_TRUE
 
 //PHAZON
 
@@ -1061,7 +1061,7 @@
 
 /datum/component/construction/mecha/phazon/custom_action(obj/item/I, mob/living/user, diff)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 
 	//TODO: better messages.
 	switch(index)
@@ -1191,7 +1191,7 @@
 			if(diff==FORWARD)
 				user.visible_message("[user] carefully inserts the anomaly core into [parent] and secures it.",
 					"<span class='notice'>You slowly place the anomaly core into its socket and close its chamber.</span>")
-	return TRUE
+	return EF_TRUE
 
 //ODYSSEUS
 
@@ -1221,7 +1221,7 @@
 
 /datum/component/construction/mecha/odysseus/custom_action(obj/item/I, mob/living/user, diff)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 
 	//TODO: better messages.
 	switch(index)
@@ -1322,4 +1322,4 @@
 				user.visible_message("[user] welds the external armor layer to [parent].", "<span class='notice'>You weld the external armor layer to [parent].</span>")
 			else
 				user.visible_message("[user] unfastens the external armor layer.", "<span class='notice'>You unfasten the external armor layer.</span>")
-	return TRUE
+	return EF_TRUE

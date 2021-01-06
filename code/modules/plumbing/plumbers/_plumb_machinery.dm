@@ -31,8 +31,8 @@
 /obj/machinery/plumbing/proc/can_be_rotated(mob/user, rotation_type)
 	if(anchored)
 		to_chat(user, "<span class='warning'>[src] is fastened to the floor!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/plumbing/examine(mob/user)
 	. = ..()
@@ -41,7 +41,7 @@
 /obj/machinery/plumbing/wrench_act(mob/living/user, obj/item/I)
 	..()
 	default_unfasten_wrench(user, I)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/plumbing/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
 	to_chat(user, "<span class='notice'>You start furiously plunging [name].")
@@ -59,7 +59,7 @@
 		if(I.use_tool(src, user, rcd_delay * 2, volume=50))
 			deconstruct(TRUE)
 			to_chat(user, "<span class='notice'>You slice the [name] apart.</span")
-			return TRUE
+			return EF_TRUE
 
 ///We can empty beakers in here and everything
 /obj/machinery/plumbing/input

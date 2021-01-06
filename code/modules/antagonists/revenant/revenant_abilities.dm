@@ -137,17 +137,17 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/can_cast(mob/living/simple_animal/revenant/user = usr)
 	if(charge_counter < charge_max)
-		return FALSE
+		return EF_FALSE
 	if(!istype(user)) //Badmins, no. Badmins, don't do it.
-		return TRUE
+		return EF_TRUE
 	if(user.inhibited)
-		return FALSE
+		return EF_FALSE
 	if(locked)
 		if(user.essence_excess <= unlock_amount)
-			return FALSE
+			return EF_FALSE
 	if(user.essence <= cast_amount)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/proc/attempt_cast(mob/living/simple_animal/revenant/user = usr)
 	if(!istype(user)) //If you're not a revenant, it works. Please, please, please don't give this to a non-revenant.
@@ -155,26 +155,26 @@
 		if(locked)
 			panel = "Revenant Abilities"
 			locked = FALSE
-		return TRUE
+		return EF_TRUE
 	if(locked)
 		if (!user.unlock(unlock_amount))
 			charge_counter = charge_max
-			return FALSE
+			return EF_FALSE
 		name = "[initial(name)] ([cast_amount]E)"
 		to_chat(user, "<span class='revennotice'>You have unlocked [initial(name)]!</span>")
 		panel = "Revenant Abilities"
 		locked = FALSE
 		charge_counter = charge_max
-		return FALSE
+		return EF_FALSE
 	if(!user.castcheck(-cast_amount))
 		charge_counter = charge_max
-		return FALSE
+		return EF_FALSE
 	name = "[initial(name)] ([cast_amount]E)"
 	user.reveal(reveal)
 	user.stun(stun)
 	if(action)
 		action.UpdateButtonIcon()
-	return TRUE
+	return EF_TRUE
 
 //Overload Light: Breaks a light that's online and sends out lightning bolts to all nearby people.
 /obj/effect/proc_holder/spell/aoe_turf/revenant/overload

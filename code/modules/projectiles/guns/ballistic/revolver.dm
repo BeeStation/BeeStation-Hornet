@@ -105,17 +105,17 @@
 
 /obj/item/gun/ballistic/revolver/detective/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	if(magazine.caliber == "38")
 		to_chat(user, "<span class='notice'>You begin to reinforce the barrel of [src]...</span>")
 		if(magazine.ammo_count())
 			afterattack(user, user)	//you know the drill
 			user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
-			return TRUE
+			return EF_TRUE
 		if(I.use_tool(src, user, 30))
 			if(magazine.ammo_count())
 				to_chat(user, "<span class='warning'>You can't modify it!</span>")
-				return TRUE
+				return EF_TRUE
 			magazine.caliber = "357"
 			fire_rate = 1 //worse than a nromal .357
 			fire_sound = 'sound/weapons/revolver357shot.ogg'
@@ -126,7 +126,7 @@
 		if(magazine.ammo_count())
 			afterattack(user, user)	//and again
 			user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
-			return TRUE
+			return EF_TRUE
 		if(I.use_tool(src, user, 30))
 			if(magazine.ammo_count())
 				to_chat(user, "<span class='warning'>You can't modify it!</span>")
@@ -136,7 +136,7 @@
 			fire_sound = 'sound/weapons/revolver38shot.ogg'
 			desc = initial(desc)
 			to_chat(user, "<span class='notice'>You remove the modifications on [src]. Now it will fire .38 rounds.</span>")
-	return TRUE
+	return EF_TRUE
 
 
 /obj/item/gun/ballistic/revolver/mateba

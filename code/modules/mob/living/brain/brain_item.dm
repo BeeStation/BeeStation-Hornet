@@ -291,14 +291,14 @@
 	if(!ispath(trauma))
 		trauma = trauma.type
 	if(!initial(trauma.can_gain))
-		return FALSE
+		return EF_FALSE
 	if(!resilience)
 		resilience = initial(trauma.resilience)
 
 	var/resilience_tier_count = 0
 	for(var/X in traumas)
 		if(istype(X, trauma))
-			return FALSE
+			return EF_FALSE
 		var/datum/brain_trauma/T = X
 		if(resilience == T.resilience)
 			resilience_tier_count++
@@ -317,8 +317,8 @@
 			max_traumas = TRAUMA_LIMIT_ABSOLUTE
 
 	if(resilience_tier_count >= max_traumas)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 //Proc to use when directly adding a trauma to the brain, so extra args can be given
 /obj/item/organ/brain/proc/gain_trauma(datum/brain_trauma/trauma, resilience, ...)

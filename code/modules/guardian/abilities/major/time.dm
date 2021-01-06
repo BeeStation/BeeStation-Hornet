@@ -52,8 +52,8 @@
 
 /datum/atom_hud/alternate_appearance/basic/decoy/mobShouldSee(mob/M)
 	if(M in immune)
-		return TRUE // They see the thing as a ghost
-	return FALSE
+		return EF_TRUE // They see the thing as a ghost
+	return EF_FALSE
 
 /mob/living/simple_animal/hostile/illusion/doppelganger
 	melee_damage = 0

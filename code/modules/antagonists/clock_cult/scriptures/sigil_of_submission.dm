@@ -27,13 +27,13 @@
 
 /obj/structure/destructible/clockwork/sigil/submission/can_affect(mob/living/M)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	return is_convertable_to_clockcult(M)
 
 /obj/structure/destructible/clockwork/sigil/submission/apply_effects(mob/living/M)
 	if(!..())
 		M.visible_message("<span class='warning'>[M] resists conversion!</span>")
-		return FALSE
+		return EF_FALSE
 	M.Paralyze(50)
 	if(M.client)
 		var/previous_colour = M.client.color

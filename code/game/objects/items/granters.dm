@@ -17,13 +17,13 @@
 			to_chat(user, "<span class='notice'>[pick(remarks)]</span>")
 		else
 			to_chat(user, "<span class='notice'>You keep reading...</span>")
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/item/book/granter/proc/recoil(mob/user) //nothing so some books can just return
 
 /obj/item/book/granter/proc/already_known(mob/user)
-	return FALSE
+	return EF_FALSE
 
 /obj/item/book/granter/proc/on_reading_start(mob/user)
 	to_chat(user, "<span class='notice'>You start reading [name]...</span>")
@@ -41,15 +41,15 @@
 /obj/item/book/granter/attack_self(mob/user)
 	if(reading)
 		to_chat(user, "<span class='warning'>You're already reading this!</span>")
-		return FALSE
+		return EF_FALSE
 	if(!user.can_read(src))
-		return FALSE
+		return EF_FALSE
 	if(already_known(user))
-		return FALSE
+		return EF_FALSE
 	if(used)
 		if(oneuse)
 			recoil(user)
-		return FALSE
+		return EF_FALSE
 	on_reading_start(user)
 	reading = TRUE
 	for(var/i=1, i<=pages_to_mastery, i++)
@@ -60,7 +60,7 @@
 	if(do_after(user,50, user))
 		on_reading_finished(user)
 		reading = FALSE
-	return TRUE
+	return EF_TRUE
 
 ///ACTION BUTTONS///
 
@@ -70,12 +70,12 @@
 
 /obj/item/book/granter/action/already_known(mob/user)
 	if(!granted_action)
-		return TRUE
+		return EF_TRUE
 	for(var/datum/action/A in user.actions)
 		if(A.type == granted_action)
 			to_chat(user, "<span class='notice'>You already know all about [actionname].</span>")
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/item/book/granter/action/on_reading_start(mob/user)
 	to_chat(user, "<span class='notice'>You start reading about [actionname]...</span>")
@@ -121,7 +121,7 @@
 
 /obj/item/book/granter/spell/already_known(mob/user)
 	if(!spell)
-		return TRUE
+		return EF_TRUE
 	for(var/obj/effect/proc_holder/spell/knownspell in user.mind.spell_list)
 		if(knownspell.type == spell)
 			if(user.mind)
@@ -129,8 +129,8 @@
 					to_chat(user,"<span class='notice'>You're already far more versed in this spell than this flimsy how-to book can provide.</span>")
 				else
 					to_chat(user,"<span class='notice'>You've already read this one.</span>")
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/item/book/granter/spell/on_reading_start(mob/user)
 	to_chat(user, "<span class='notice'>You start reading about casting [spellname]...</span>")
@@ -320,12 +320,12 @@
 
 /obj/item/book/granter/martial/already_known(mob/user)
 	if(!martial)
-		return TRUE
+		return EF_TRUE
 	var/datum/martial_art/MA = martial
 	if(user.mind.has_martialart(initial(MA.id)))
 		to_chat(user,"<span class='warning'>You already know [martialname]!</span>")
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/item/book/granter/martial/on_reading_start(mob/user)
 	to_chat(user, "<span class='notice'>You start reading about [martialname]...</span>")
@@ -398,10 +398,10 @@
 
 /obj/item/book/granter/martial/tribal_claw/already_known(mob/user)
 	if(islizard(user))
-		return FALSE
+		return EF_FALSE
 	else
 		to_chat(user, "<span class='warning'>You try to read the scroll but can't comprehend any of it.</span>")
-		return TRUE
+		return EF_TRUE
 
 /obj/item/book/granter/martial/plasma_fist
 	martial = /datum/martial_art/plasma_fist

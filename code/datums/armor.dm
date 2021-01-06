@@ -63,7 +63,7 @@
 
 /datum/armor/vv_edit_var(var_name, var_value)
   if (var_name == NAMEOF(src, tag))
-    return FALSE
+    return EF_FALSE
   . = ..()
   tag = ARMORID // update tag in case armor values were edited
 

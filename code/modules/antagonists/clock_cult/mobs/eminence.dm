@@ -78,7 +78,7 @@
 		hierophant_message(message, src, span="<span class='large_brass'>", say=FALSE)
 
 /mob/living/simple_animal/eminence/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced)
-	return FALSE
+	return EF_FALSE
 
 /mob/living/simple_animal/eminence/Move(atom/newloc, direct)
 	if(istype(get_area(newloc), /area/chapel))
@@ -143,32 +143,32 @@
 
 /obj/effect/proc_holder/spell/targeted/eminence/reagent_purge/can_cast(mob/user)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	var/mob/living/simple_animal/eminence/E = user
 	if(!istype(E))
-		return FALSE
+		return EF_FALSE
 	if(E.selected_mob && is_servant_of_ratvar(E.selected_mob))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/effect/proc_holder/spell/targeted/eminence/reagent_purge/cast(list/targets, mob/living/user)
 	var/mob/living/simple_animal/eminence/E = user
 	if(!istype(E))
 		revert_cast(user)
-		return FALSE
+		return EF_FALSE
 	if(!E.selected_mob || !is_servant_of_ratvar(E.selected_mob))
 		E.selected_mob = null
 		to_chat(user, "<span class='neovgre'>You need to select a valid target by clicking on them.</span>")
 		revert_cast(user)
-		return FALSE
+		return EF_FALSE
 	var/mob/living/L = E.selected_mob
 	if(!istype(L))
 		revert_cast(user)
-		return FALSE
+		return EF_FALSE
 	L.reagents?.clear_reagents()
 	to_chat(user, "<span class='inathneq'>You clear the reagents from [L]!</span>")
 	to_chat(L, "<span class='inathneq'>The Eminence has purified your blood!</span>")
-	return TRUE
+	return EF_TRUE
 
 //=====Linked Abscond=====
 /obj/effect/proc_holder/spell/targeted/eminence/linked_asbcond
@@ -179,30 +179,30 @@
 
 /obj/effect/proc_holder/spell/targeted/eminence/linked_asbcond/can_cast(mob/user)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	var/mob/living/simple_animal/eminence/E = user
 	if(!istype(E))
-		return FALSE
+		return EF_FALSE
 	if(E.selected_mob && is_servant_of_ratvar(E.selected_mob))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/effect/proc_holder/spell/targeted/eminence/linked_asbcond/cast(list/targets, mob/living/user)
 	var/mob/living/simple_animal/eminence/E = user
 	if(!istype(E))
 		to_chat(E, "<span class='brass'>You are not the Eminence! (This is a bug)</span>")
 		revert_cast(user)
-		return FALSE
+		return EF_FALSE
 	if(!E.selected_mob || !is_servant_of_ratvar(E.selected_mob))
 		E.selected_mob = null
 		to_chat(user, "<span class='neovgre'>You need to select a valid target by clicking on them.</span>")
 		revert_cast(user)
-		return FALSE
+		return EF_FALSE
 	var/mob/living/L = E.selected_mob
 	if(!istype(L))
 		to_chat(E, "<span class='brass'>You cannot do that on this mob!</span>")
 		revert_cast(user)
-		return FALSE
+		return EF_FALSE
 	to_chat(E, "<span class='brass'>You begin recalling [L]...</span>")
 	to_chat(L, "<span class='brass'>The Eminence is summoning you...</span>")
 	L.visible_message("<span class='warning'>[L] flares briefly.</span>")
@@ -210,8 +210,8 @@
 		L.visible_message("<span class='warning'>[L] phases out of existance!</span>")
 		var/turf/T = get_turf(pick(GLOB.servant_spawns))
 		try_warp_servant(L, T, FALSE)
-		return TRUE
+		return EF_TRUE
 	else
 		to_chat(E, "<span class='brass'>You fail to recall [L].</span>")
 		revert_cast(user)
-		return FALSE
+		return EF_FALSE

@@ -31,12 +31,12 @@
 
 /obj/effect/decal/cleanable/blood/old/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 	if(!disease.len)
-		return FALSE
+		return EF_FALSE
 	if(scan)
 		E.scan(src, disease, user)
 	else
 		E.extrapolate(src, disease, user)
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/decal/cleanable/blood/splatter
 	icon_state = "gibbl1"
@@ -55,7 +55,7 @@
 	var/list/existing_dirs = list()
 
 /obj/effect/decal/cleanable/trail_holder/can_bloodcrawl_in()
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"
@@ -144,12 +144,12 @@
 
 /obj/effect/decal/cleanable/blood/gibs/old/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 	if(!disease.len)
-		return FALSE
+		return EF_FALSE
 	if(scan)
 		E.scan(src, disease, user)
 	else
 		E.extrapolate(src, disease, user)
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/decal/cleanable/blood/drip
 	name = "drips of blood"
@@ -160,7 +160,7 @@
 	var/drips = 1
 
 /obj/effect/decal/cleanable/blood/drip/can_bloodcrawl_in()
-	return TRUE
+	return EF_TRUE
 
 
 //BLOODY FOOTPRINTS

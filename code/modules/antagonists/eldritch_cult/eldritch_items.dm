@@ -50,9 +50,9 @@
 
 /datum/action/innate/heretic_shatter/IsAvailable()
 	if(IS_HERETIC(holder) || IS_HERETIC_MONSTER(holder))
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /datum/action/innate/heretic_shatter/Activate()
 	var/turf/safe_turf = find_safe_turf(zlevels = sword.z, extended_safety_checks = TRUE)
@@ -89,7 +89,7 @@
 		to_chat(user,"<span class='danger'>You feel a pulse of some alien intellect lash out at your mind!</span>")
 		var/mob/living/carbon/human/human_user = user
 		human_user.AdjustParalyzed(5 SECONDS)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /obj/item/melee/sickly_blade/pickup(mob/user)

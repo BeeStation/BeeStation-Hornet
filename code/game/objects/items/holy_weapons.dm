@@ -37,7 +37,7 @@
 		return ..()
 	else
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 40, 1)
-		return FALSE
+		return EF_FALSE
 
 /obj/item/choice_beacon/holy/generate_display_names()
 	var/static/list/holy_item_list

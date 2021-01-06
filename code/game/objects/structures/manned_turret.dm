@@ -74,10 +74,10 @@
 
 /obj/machinery/manned_turret/proc/update_positioning()
 	if (!LAZYLEN(buckled_mobs))
-		return FALSE
+		return EF_FALSE
 	var/mob/living/controller = buckled_mobs[1]
 	if(!istype(controller))
-		return FALSE
+		return EF_FALSE
 	var/client/C = controller.client
 	if(C)
 		var/atom/A = C.mouseObject
@@ -196,7 +196,7 @@
 	..()
 
 /obj/item/gun_control/CanItemAutoclick()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/gun_control/attack_obj(obj/O, mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)

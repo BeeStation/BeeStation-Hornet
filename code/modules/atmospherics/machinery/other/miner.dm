@@ -39,34 +39,34 @@
 
 /obj/machinery/atmospherics/miner/proc/check_operation()
 	if(!active)
-		return FALSE
+		return EF_FALSE
 	var/turf/T = get_turf(src)
 	if(!isopenturf(T))
 		broken_message = "<span class='boldnotice'>VENT BLOCKED</span>"
 		set_broken(TRUE)
-		return FALSE
+		return EF_FALSE
 	var/turf/open/OT = T
 	if(OT.planetary_atmos)
 		broken_message = "<span class='boldwarning'>DEVICE NOT ENCLOSED IN A PRESSURIZED ENVIRONMENT</span>"
 		set_broken(TRUE)
-		return FALSE
+		return EF_FALSE
 	if(isspaceturf(T))
 		broken_message = "<span class='boldnotice'>AIR VENTING TO SPACE</span>"
 		set_broken(TRUE)
-		return FALSE
+		return EF_FALSE
 	var/datum/gas_mixture/G = OT.return_air()
 	if(G.return_pressure() > (max_ext_kpa - ((spawn_mol*spawn_temp*R_IDEAL_GAS_EQUATION)/(CELL_VOLUME))))
 		broken_message = "<span class='boldwarning'>EXTERNAL PRESSURE OVER THRESHOLD</span>"
 		set_broken(TRUE)
-		return FALSE
+		return EF_FALSE
 	if(G.total_moles() > max_ext_mol)
 		broken_message = "<span class='boldwarning'>EXTERNAL AIR CONCENTRATION OVER THRESHOLD</span>"
 		set_broken(TRUE)
-		return FALSE
+		return EF_FALSE
 	if(broken)
 		set_broken(FALSE)
 		broken_message = ""
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/atmospherics/miner/proc/set_active(setting)
 	if(active != setting)
@@ -102,11 +102,11 @@
 		var/obj/structure/cable/C = T.get_cable_node() //check if we have a node cable on the machine turf, the first found is picked
 		if(C && C.powernet && (C.powernet.avail > amount))
 			C.powernet.load += amount
-			return TRUE
+			return EF_TRUE
 	if(powered())
 		use_power(amount)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/atmospherics/miner/update_icon()
 	cut_overlays()
@@ -122,14 +122,14 @@
 	check_operation()
 	if(active && !broken)
 		if(isnull(spawn_id))
-			return FALSE
+			return EF_FALSE
 		if(do_use_power(active_power_usage))
 			mine_gas()
 
 /obj/machinery/atmospherics/miner/proc/mine_gas()
 	var/turf/open/O = get_turf(src)
 	if(!isopenturf(O))
-		return FALSE
+		return EF_FALSE
 	var/datum/gas_mixture/merger = new
 	merger.set_moles(spawn_id, spawn_mol)
 	merger.set_temperature(spawn_temp)

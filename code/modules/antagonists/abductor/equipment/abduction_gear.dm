@@ -62,7 +62,7 @@
 
 /obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
 	if(slot == SLOT_WEAR_SUIT) //we only give the mob the ability to activate the vest if he's actually wearing it.
-		return TRUE
+		return EF_TRUE
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/SetDisguise(datum/icon_snapshot/entry)
 	disguise = entry
@@ -144,11 +144,11 @@
 
 /obj/item/abductor/proc/AbductorCheck(mob/user)
 	if (HAS_TRAIT(user, TRAIT_ABDUCTOR_TRAINING))
-		return TRUE
+		return EF_TRUE
 	if (istype(user) && user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING))
-		return TRUE
+		return EF_TRUE
 	to_chat(user, "<span class='warning'>You can't figure how this works!</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/item/abductor/proc/ScientistCheck(mob/user)
 	var/training = HAS_TRAIT(user, TRAIT_ABDUCTOR_TRAINING) || (user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING))
@@ -489,7 +489,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		var/mob/living/carbon/human/H = L
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 			playsound(H, 'sound/weapons/genhit.ogg', 50, TRUE)
-			return FALSE
+			return EF_FALSE
 
 	switch (mode)
 		if(BATON_STUN)

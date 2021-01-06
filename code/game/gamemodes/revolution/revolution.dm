@@ -61,9 +61,9 @@
 
 	if(headrev_candidates.len < required_enemies)
 		setup_error = "Not enough headrev candidates"
-		return FALSE
+		return EF_FALSE
 
-	return TRUE
+	return EF_TRUE
 
 /datum/game_mode/revolution/post_setup()
 	var/list/heads = SSjob.get_living_heads()
@@ -138,7 +138,7 @@
 			SSshuttle.clearHostileEnvironment(src)
 		return ..()
 	if(finished && end_when_heads_dead)
-		return TRUE
+		return EF_TRUE
 	else
 		return ..()
 
@@ -157,8 +157,8 @@
 /datum/game_mode/revolution/proc/check_rev_victory()
 	for(var/datum/objective/mutiny/objective in revolution.objectives)
 		if(!(objective.check_completion()))
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /////////////////////////////
 //Checks for a head victory//
@@ -168,8 +168,8 @@
 		var/turf/T = get_turf(rev_mind.current)
 		if(!considered_afk(rev_mind) && considered_alive(rev_mind) && is_station_level(T.z))
 			if(ishuman(rev_mind.current) || ismonkey(rev_mind.current))
-				return FALSE
-	return TRUE
+				return EF_FALSE
+	return EF_TRUE
 
 
 /datum/game_mode/revolution/set_round_result()

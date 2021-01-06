@@ -169,13 +169,13 @@
 	. = ..()
 	if(terminal && panel_open)
 		terminal.dismantle(user, I)
-		return TRUE
+		return EF_TRUE
 
 
 /obj/machinery/power/smes/default_deconstruction_crowbar(obj/item/crowbar/C)
 	if(istype(C) && terminal)
 		to_chat(usr, "<span class='warning'>You must first remove the power terminal!</span>")
-		return FALSE
+		return EF_FALSE
 
 	return ..()
 

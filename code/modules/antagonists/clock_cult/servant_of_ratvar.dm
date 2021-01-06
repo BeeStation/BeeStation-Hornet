@@ -106,7 +106,7 @@
 		H.handcuffed.forceMove(get_turf(H))
 		H.handcuffed = null
 		H.update_handcuffed()
-	return FALSE
+	return EF_FALSE
 
 //Grant access to the clockwork tools.
 //If AI, disconnect all active borgs and make it only able to control converted shells

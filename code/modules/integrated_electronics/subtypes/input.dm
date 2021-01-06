@@ -963,19 +963,19 @@
 
 /obj/item/integrated_circuit/input/sensor/sense(atom/A, mob/user, prox)
 	if(!prox || !A || (ismob(A) && !isliving(A)))
-		return FALSE
+		return EF_FALSE
 	if(!check_then_do_work())
-		return FALSE
+		return EF_FALSE
 	var/ignore_bags = get_pin_data(IC_INPUT, 1)
 	if(ignore_bags)
 		var/datum/component/storage/STR = A.GetComponent(/datum/component/storage)
 		if(STR)
-			return FALSE
+			return EF_FALSE
 	set_pin_data(IC_OUTPUT, 1, WEAKREF(A))
 	push_data()
 	to_chat(user, "<span class='notice'>You scan [A] with [assembly].</span>")
 	activate_pin(1)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/integrated_circuit/input/sensor/ranged
 	name = "ranged sensor"
@@ -991,24 +991,24 @@
 
 /obj/item/integrated_circuit/input/sensor/ranged/sense(atom/A, mob/user)
 	if(!user || !A || (ismob(A) && !isliving(A)))
-		return FALSE
+		return EF_FALSE
 	if(user.client)
 		if(!(A in view(user.client)))
-			return FALSE
+			return EF_FALSE
 	else
 		if(!(A in view(user)))
-			return FALSE
+			return EF_FALSE
 	if(!check_then_do_work())
-		return FALSE
+		return EF_FALSE
 	var/ignore_bags = get_pin_data(IC_INPUT, 1)
 	if(ignore_bags)
 		if(istype(A, /obj/item/storage))
-			return FALSE
+			return EF_FALSE
 	set_pin_data(IC_OUTPUT, 1, WEAKREF(A))
 	push_data()
 	to_chat(user, "<span class='notice'>You scan [A] with [assembly].</span>")
 	activate_pin(1)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/integrated_circuit/input/obj_scanner
 	name = "scanner"
@@ -1025,9 +1025,9 @@
 
 /obj/item/integrated_circuit/input/obj_scanner/attackby_react(var/atom/A,var/mob/user,intent)
 	if(intent!=INTENT_HELP)
-		return FALSE
+		return EF_FALSE
 	if(!check_then_do_work())
-		return FALSE
+		return EF_FALSE
 	var/pu = get_pin_data(IC_INPUT, 1)
 	if(pu)
 		user.transferItemToLoc(A,drop_location())
@@ -1035,7 +1035,7 @@
 	push_data()
 	to_chat(user, "<span class='notice'>You let [assembly] scan [A].</span>")
 	activate_pin(1)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/integrated_circuit/input/internalbm
 	name = "internal battery monitor"
@@ -1292,8 +1292,8 @@
 			push_data()
 			activate_pin(2)
 	else
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 //Adding some color to cards aswell, because why not
 /obj/item/card/data/attackby(obj/item/I, mob/living/user)

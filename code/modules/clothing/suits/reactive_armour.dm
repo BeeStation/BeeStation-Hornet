@@ -169,7 +169,7 @@
 
 /obj/item/clothing/suit/armor/reactive/tesla/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
-		return FALSE
+		return EF_FALSE
 	if(prob(hit_reaction_chance))
 		if(world.time < reactivearmor_cooldown)
 			var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
@@ -180,7 +180,7 @@
 		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out arcs of lightning!</span>")
 		tesla_zap(owner, tesla_range, tesla_power, tesla_flags)
 		reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
-		return TRUE
+		return EF_TRUE
 
 //Repulse
 

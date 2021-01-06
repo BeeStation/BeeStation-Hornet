@@ -83,13 +83,13 @@
 
 /datum/component/storage/concrete/proc/on_slave_link(datum/component/storage/S)
 	if(S == src)
-		return FALSE
+		return EF_FALSE
 	slaves += S
-	return TRUE
+	return EF_TRUE
 
 /datum/component/storage/concrete/proc/on_slave_unlink(datum/component/storage/S)
 	slaves -= S
-	return FALSE
+	return EF_FALSE
 
 /datum/component/storage/concrete/proc/on_contents_del(datum/source, atom/A)
 	var/atom/real_location = parent
@@ -142,10 +142,10 @@
 	if(isobj(parent))
 		var/obj/O = parent
 		O.update_icon()
-	return TRUE
+	return EF_TRUE
 
 /datum/component/storage/concrete/proc/slave_can_insert_object(datum/component/storage/slave, obj/item/I, stop_messages = FALSE, mob/M)
-	return TRUE
+	return EF_TRUE
 
 /datum/component/storage/concrete/proc/handle_item_insertion_from_slave(datum/component/storage/slave, obj/item/I, prevent_warning = FALSE, M)
 	. = handle_item_insertion(I, prevent_warning, M, slave)
@@ -157,10 +157,10 @@
 	var/atom/parent = src.parent
 	var/moved = FALSE
 	if(!istype(I) || I.anchored)
-		return FALSE
+		return EF_FALSE
 	if(M)
 		if(!M.temporarilyRemoveItemFromInventory(I))
-			return FALSE
+			return EF_FALSE
 		else
 			moved = TRUE			//At this point if the proc fails we need to manually move the object back to the turf/mob/whatever.
 	if(I.pulledby)
@@ -174,7 +174,7 @@
 					I.forceMove(parent.drop_location())
 			else
 				I.forceMove(parent.drop_location())
-		return FALSE
+		return EF_FALSE
 	I.on_enter_storage(master)
 	I.item_flags |= IN_STORAGE
 	refresh_mob_views()
@@ -192,7 +192,7 @@
 			if(!prevent_warning)
 				mob_item_insertion_feedback(usr, M, I)
 	update_icon()
-	return TRUE
+	return EF_TRUE
 
 /datum/component/storage/concrete/update_icon()
 	if(isobj(parent))

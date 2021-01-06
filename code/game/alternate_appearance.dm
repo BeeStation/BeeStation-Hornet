@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 		add_hud_to(M)
 
 /datum/atom_hud/alternate_appearance/proc/mobShouldSee(mob/M)
-	return FALSE
+	return EF_FALSE
 
 /datum/atom_hud/alternate_appearance/add_to_hud(atom/A, image/I)
 	. = ..()
@@ -120,8 +120,8 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 
 /datum/atom_hud/alternate_appearance/basic/silicons/mobShouldSee(mob/M)
 	if(issilicon(M))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/atom_hud/alternate_appearance/basic/observers
 	add_ghost_version = FALSE //just in case, to prevent infinite loops
@@ -145,8 +145,8 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 
 /datum/atom_hud/alternate_appearance/basic/noncult/mobShouldSee(mob/M)
 	if(!iscultist(M))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/atom_hud/alternate_appearance/basic/cult
 
@@ -158,8 +158,8 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 
 /datum/atom_hud/alternate_appearance/basic/cult/mobShouldSee(mob/M)
 	if(iscultist(M))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/atom_hud/alternate_appearance/basic/blessedAware
 
@@ -171,20 +171,20 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 
 /datum/atom_hud/alternate_appearance/basic/blessedAware/mobShouldSee(mob/M)
 	if(M.mind && (M.mind.assigned_role == "Chaplain"))
-		return TRUE
+		return EF_TRUE
 	if (istype(M, /mob/living/simple_animal/hostile/construct/wraith))
-		return TRUE
+		return EF_TRUE
 	if(isrevenant(M) || iswizard(M))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 datum/atom_hud/alternate_appearance/basic/onePerson
 	var/mob/seer
 
 /datum/atom_hud/alternate_appearance/basic/onePerson/mobShouldSee(mob/M)
 	if(M == seer)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/atom_hud/alternate_appearance/basic/onePerson/New(key, image/I, mob/living/M)
 	..(key, I, FALSE)

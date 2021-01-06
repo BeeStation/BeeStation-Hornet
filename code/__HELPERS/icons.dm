@@ -1110,7 +1110,7 @@ GLOBAL_DATUM_INIT(dummySave, /savefile, new("tmp/dummySave.sav")) //Cache of ico
   */
 /proc/icon2base64(icon/icon)
 	if (!isicon(icon))
-		return FALSE
+		return EF_FALSE
 	WRITE_FILE(GLOB.dummySave["dummy"], icon)
 	var/iconData = GLOB.dummySave.ExportText("dummy")
 	var/list/partial = splittext(iconData, "{")

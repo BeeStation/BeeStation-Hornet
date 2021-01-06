@@ -78,11 +78,11 @@ SUBSYSTEM_DEF(blackbox)
 /datum/controller/subsystem/blackbox/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if("feedback")
-			return FALSE
+			return EF_FALSE
 		if("sealed")
 			if(var_value)
 				return Seal()
-			return FALSE
+			return EF_FALSE
 	return ..()
 
 //Recorded on subsystem shutdown
@@ -126,12 +126,12 @@ SUBSYSTEM_DEF(blackbox)
 
 /datum/controller/subsystem/blackbox/proc/Seal()
 	if(sealed)
-		return FALSE
+		return EF_FALSE
 	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name_admin(usr)] sealed the blackbox!")
 	log_game("Blackbox sealed[IsAdminAdvancedProcCall() ? " by [key_name(usr)]" : ""].")
 	sealed = TRUE
-	return TRUE
+	return EF_TRUE
 
 /datum/controller/subsystem/blackbox/proc/LogBroadcast(freq)
 	if(sealed || CONFIG_GET(flag/limited_feedback))

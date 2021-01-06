@@ -13,9 +13,9 @@
 /datum/wires/vending/interactable(mob/user)
 	var/obj/machinery/vending/V = holder
 	if(!issilicon(user) && V.seconds_electrified && V.shock(user, 100))
-		return FALSE
+		return EF_FALSE
 	if(V.panel_open)
-		return TRUE
+		return EF_TRUE
 
 /datum/wires/vending/get_status()
 	var/obj/machinery/vending/V = holder

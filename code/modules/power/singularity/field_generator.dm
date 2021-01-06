@@ -106,12 +106,12 @@ field_generator power level display
 
 /obj/machinery/field/generator/wrench_act(mob/living/user, obj/item/I)
 	default_unfasten_wrench(user, I)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/field/generator/welder_act(mob/living/user, obj/item/I)
 	if(active)
 		to_chat(user, "<span class='warning'>[src] needs to be off!</span>")
-		return TRUE
+		return EF_TRUE
 
 	switch(state)
 		if(FG_UNSECURED)
@@ -119,7 +119,7 @@ field_generator power level display
 
 		if(FG_SECURED)
 			if(!I.tool_start_check(user, amount=0))
-				return TRUE
+				return EF_TRUE
 			user.visible_message("[user] starts to weld [src] to the floor.", \
 				"<span class='notice'>You start to weld \the [src] to the floor...</span>", \
 				"<span class='italics'>You hear welding.</span>")
@@ -129,7 +129,7 @@ field_generator power level display
 
 		if(FG_WELDED)
 			if(!I.tool_start_check(user, amount=0))
-				return TRUE
+				return EF_TRUE
 			user.visible_message("[user] starts to cut [src] free from the floor.", \
 				"<span class='notice'>You start to cut \the [src] free from the floor...</span>", \
 				"<span class='italics'>You hear welding.</span>")
@@ -137,7 +137,7 @@ field_generator power level display
 				state = FG_SECURED
 				to_chat(user, "<span class='notice'>You cut \the [src] free from the floor.</span>")
 
-	return TRUE
+	return EF_TRUE
 
 
 /obj/machinery/field/generator/attack_animal(mob/living/simple_animal/M)

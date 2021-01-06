@@ -78,7 +78,7 @@
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_atom(atom/movable/A)
 	if(immune[A] || global_frozen_atoms[A] || !istype(A))
-		return FALSE
+		return EF_FALSE
 	var/frozen = TRUE
 	if(isliving(A))
 		freeze_mob(A)
@@ -101,7 +101,7 @@
 	RegisterSignal(A, COMSIG_MOVABLE_PRE_MOVE, .proc/unfreeze_atom)
 	RegisterSignal(A, COMSIG_ITEM_PICKUP, .proc/unfreeze_atom)
 
-	return TRUE
+	return EF_TRUE
 
 /datum/proximity_monitor/advanced/timestop/proc/unfreeze_all()
 	for(var/i in frozen_things)

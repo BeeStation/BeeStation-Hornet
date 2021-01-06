@@ -96,11 +96,11 @@
 /mob/living/carbon/true_devil/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
 	if(incapacitated())
 		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
-		return FALSE
+		return EF_FALSE
 	if(be_close && !in_range(M, src))
 		to_chat(src, "<span class='warning'>You are too far away!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /mob/living/carbon/true_devil/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null)
 	return 666
@@ -134,7 +134,7 @@
 	if(message_verb)
 		visible_message("<span class='danger'>[attack_message]</span>",
 		"<span class='userdanger'>[attack_message]</span>", null, COMBAT_MESSAGE_RANGE)
-	return TRUE
+	return EF_TRUE
 
 /mob/living/carbon/true_devil/singularity_act()
 	if(ascended)
@@ -193,7 +193,7 @@
 	// devils do not need to breathe
 
 /mob/living/carbon/true_devil/is_literate()
-	return TRUE
+	return EF_TRUE
 
 /mob/living/carbon/true_devil/ex_act(severity, ex_target)
 	if(!ascended)

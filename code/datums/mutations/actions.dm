@@ -140,7 +140,7 @@
 			C.adjust_fire_stacks(2)
 			C.IgniteMob()
 			to_chat(C,"<span class='warning'>Something in front of your mouth caught fire!</span>")
-			return FALSE
+			return EF_FALSE
 
 /obj/effect/proc_holder/spell/aimed/firebreath/ready_projectile(obj/item/projectile/P, atom/target, mob/user, iteration)
 	if(!istype(P, /obj/item/projectile/magic/aoe/fireball))
@@ -189,7 +189,7 @@
 /obj/effect/proc_holder/spell/self/void/can_cast(mob/user = usr)
 	. = ..()
 	if(!isturf(user.loc))
-		return FALSE
+		return EF_FALSE
 
 /obj/effect/proc_holder/spell/self/void/cast(mob/user = usr)
 	. = ..()

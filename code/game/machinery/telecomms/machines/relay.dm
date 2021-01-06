@@ -29,19 +29,19 @@
 
 /obj/machinery/telecomms/relay/proc/can(datum/signal/signal)
 	if(!on)
-		return FALSE
+		return EF_FALSE
 	if(!is_freq_listening(signal))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/telecomms/relay/proc/can_send(datum/signal/signal)
 	if(!can(signal))
-		return FALSE
+		return EF_FALSE
 	return broadcasting
 
 /obj/machinery/telecomms/relay/proc/can_receive(datum/signal/signal)
 	if(!can(signal))
-		return FALSE
+		return EF_FALSE
 	return receiving
 
 //Preset Relay

@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(bounties_list)
 
 // If an item sent in the cargo shuttle can satisfy the bounty.
 /datum/bounty/proc/applies_to(obj/O)
-	return FALSE
+	return EF_FALSE
 
 // Called when an object is shipped on the cargo shuttle.
 /datum/bounty/proc/ship(obj/O)
@@ -37,7 +37,7 @@ GLOBAL_LIST_EMPTY(bounties_list)
 // When randomly generating the bounty list, duplicate bounties must be avoided.
 // This proc is used to determine if two bounties are duplicates, or incompatible in general.
 /datum/bounty/proc/compatible_with(other_bounty)
-	return TRUE
+	return EF_TRUE
 
 /datum/bounty/proc/mark_high_priority(scale_reward = 2)
 	if(high_priority)
@@ -67,13 +67,13 @@ GLOBAL_LIST_EMPTY(bounties_list)
 // Returns FALSE if the bounty is incompatible with the current bounties.
 /proc/try_add_bounty(datum/bounty/new_bounty)
 	if(!new_bounty || !new_bounty.name || !new_bounty.description)
-		return FALSE
+		return EF_FALSE
 	for(var/i in GLOB.bounties_list)
 		var/datum/bounty/B = i
 		if(!B.compatible_with(new_bounty) || !new_bounty.compatible_with(B))
-			return FALSE
+			return EF_FALSE
 	GLOB.bounties_list += new_bounty
-	return TRUE
+	return EF_TRUE
 
 // Returns a new bounty of random type, but does not add it to GLOB.bounties_list.
 /proc/random_bounty()

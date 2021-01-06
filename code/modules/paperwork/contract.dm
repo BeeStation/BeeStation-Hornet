@@ -261,7 +261,7 @@
 	update_text(user.real_name, blood)
 	to_chat(user, "<span class='notice'>A profound emptiness washes over you as you lose ownership of your soul.</span>")
 	to_chat(user, "<span class='boldnotice'>This does NOT make you an antagonist if you were not already.</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/item/paper/contract/infernal/proc/signIncorrectly(mob/living/carbon/human/user = target.current, blood = FALSE)
 	signed = 1

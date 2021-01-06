@@ -26,7 +26,7 @@
 		"[user] reshapes [target]'s circulatory system, adding a muscled membrane!",
 		"[user] finishes manipulating [target]'s circulatory system.")
 	new /datum/bioware/muscled_veins(target)
-	return TRUE
+	return EF_TRUE
 
 /datum/bioware/muscled_veins
 	name = "Threaded Veins"

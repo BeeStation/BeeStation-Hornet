@@ -150,7 +150,7 @@
 
 /obj/machinery/public_nanite_chamber/close_machine(mob/living/carbon/user, mob/living/attacker)
 	if(!state_open)
-		return FALSE
+		return EF_FALSE
 
 	..()
 
@@ -171,11 +171,11 @@
 
 /obj/machinery/public_nanite_chamber/open_machine()
 	if(state_open)
-		return FALSE
+		return EF_FALSE
 
 	..()
 
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/public_nanite_chamber/relaymove(mob/user as mob)
 	if(user.stat || locked)

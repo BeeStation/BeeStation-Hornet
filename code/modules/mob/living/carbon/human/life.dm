@@ -157,7 +157,7 @@
 		else if(S.breathid == "n2")
 			throw_alert("not_enough_nitro", /atom/movable/screen/alert/not_enough_nitro)
 
-		return FALSE
+		return EF_FALSE
 	else
 		if(istype(L, /obj/item/organ/lungs))
 			var/obj/item/organ/lungs/lun = L
@@ -333,14 +333,14 @@
 /mob/living/carbon/human/has_smoke_protection()
 	if(wear_mask)
 		if(wear_mask.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)
-			return TRUE
+			return EF_TRUE
 	if(glasses)
 		if(glasses.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)
-			return TRUE
+			return EF_TRUE
 	if(head && istype(head, /obj/item/clothing))
 		var/obj/item/clothing/CH = head
 		if(CH.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)
-			return TRUE
+			return EF_TRUE
 	return ..()
 
 #undef THERMAL_PROTECTION_HEAD

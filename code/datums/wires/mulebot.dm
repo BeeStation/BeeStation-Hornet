@@ -14,7 +14,7 @@
 /datum/wires/mulebot/interactable(mob/user)
 	var/mob/living/simple_animal/bot/mulebot/M = holder
 	if(M.open)
-		return TRUE
+		return EF_TRUE
 
 /datum/wires/mulebot/on_pulse(wire)
 	var/mob/living/simple_animal/bot/mulebot/M = holder

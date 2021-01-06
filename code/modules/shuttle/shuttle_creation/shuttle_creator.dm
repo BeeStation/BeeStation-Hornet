@@ -96,7 +96,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 //=========== shuttle designation actions ============
 /obj/item/shuttle_creator/proc/calculate_bounds(obj/docking_port/mobile/port)
 	if(!port || !istype(port, /obj/docking_port/mobile))
-		return FALSE
+		return EF_FALSE
 	//Heights is the distance away from the port
 	//width is the distance perpendicular to the port
 	var/minX = INFINITY
@@ -110,7 +110,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		maxY = max(T.y, maxY)
 	//Make sure shuttle was actually found.
 	if(maxX == INFINITY || maxY == INFINITY)
-		return FALSE
+		return EF_FALSE
 	minX--
 	minY--
 	var/width = maxX - minX
@@ -138,7 +138,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 			port.height = width
 			port.dwidth = offset_y - 1
 			port.dheight = width - offset_x
-	return TRUE
+	return EF_TRUE
 
 //Go through all the all_turfs and check which direction doesn't have the shuttle
 /obj/item/shuttle_creator/proc/getNonShuttleDirection(turf/targetTurf)
@@ -165,7 +165,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 
 	if(loggedTurfs.len == 0 || !recorded_shuttle_area)
 		to_chat(user, "<span class='warning'>Invalid shuttle, restarting bluespace systems...</span>")
-		return FALSE
+		return EF_FALSE
 
 	var/datum/map_template/shuttle/new_shuttle = new /datum/map_template/shuttle()
 
@@ -192,7 +192,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		port.Destroy()
 		stationary_port.Destroy()
 		linkedShuttleId = null
-		return FALSE
+		return EF_FALSE
 	port.dir = invertedDir
 	port.port_direction = portDirection
 
@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		port.Destroy()
 		stationary_port.Destroy()
 		linkedShuttleId = null
-		return FALSE
+		return EF_FALSE
 
 	port.shuttle_areas = list()
 	//var/list/all_turfs = port.return_ordered_turfs(port.x, port.y, port.z, port.dir)
@@ -239,31 +239,31 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	GLOB.custom_shuttle_count ++
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a new shuttle with a [src] at [ADMIN_VERBOSEJMP(user)] with a name [recorded_shuttle_area.name] ([GLOB.custom_shuttle_count] custom shuttles, limit is [CUSTOM_SHUTTLE_LIMIT])")
 	log_game("[key_name(user)] created a new shuttle with a [src] at [AREACOORD(user)] with a name [recorded_shuttle_area.name] ([GLOB.custom_shuttle_count] custom shuttles, limit is [CUSTOM_SHUTTLE_LIMIT])")
-	return TRUE
+	return EF_TRUE
 
 /obj/item/shuttle_creator/proc/create_shuttle_area(mob/user)
 	//Check to see if the user can make a new area to prevent spamming
 	if(user)
 		if(user.create_area_cooldown >= world.time)
 			to_chat(user, "<span class='warning'>Smoke vents from the [src], maybe you should let it cooldown before using it again.</span>")
-			return FALSE
+			return EF_FALSE
 		user.create_area_cooldown = world.time + 10
 	if(!loggedTurfs)
-		return FALSE
+		return EF_FALSE
 	if(!check_area(loggedTurfs, FALSE))	//Makes sure nothing (Shuttles) has moved into the area during creation
-		return FALSE
+		return EF_FALSE
 	//Create the new area
 	var/area/shuttle/custom/powered/newS
 	var/area/oldA = loggedOldArea
 	var/str = stripped_input(user, "Shuttle Name:", "Blueprint Editing", "", MAX_NAME_LEN)
 	if(!str || !length(str))
-		return FALSE
+		return EF_FALSE
 	if(length(str) > 50)
 		to_chat(user, "<span class='warning'>The provided ship name is too long, blares the [src].</span>")
-		return FALSE
+		return EF_FALSE
 	if(OOC_FILTER_CHECK(str))
 		to_chat(user, "<span class='warning'>Nanotrasen prohibited words are in use in this shuttle name, blares the [src] in a slightly offended tone.</span>")
-		return FALSE
+		return EF_FALSE
 	newS = new /area/shuttle/custom/powered()
 	newS.setup(str)
 	newS.set_dynamic_lighting()
@@ -285,13 +285,13 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	for(var/door in firedoors)
 		var/obj/machinery/door/firedoor/FD = door
 		FD.CalculateAffectingAreas()
-	return TRUE
+	return EF_TRUE
 
 //Select shuttle fly direction.
 /obj/item/shuttle_creator/proc/select_preferred_direction(mob/user)
 	var/obj/docking_port/mobile/port = SSshuttle.getShuttle(linkedShuttleId)
 	if(!port || !istype(port, /obj/docking_port/mobile))
-		return FALSE
+		return EF_FALSE
 	var/static/list/choice = list("NORTH" = NORTH, "SOUTH" = SOUTH, "EAST" = EAST, "WEST" = WEST)
 	var/Pdir = input(user, "Shuttle Fly Direction:", "Blueprint Editing", "NORTH") as null|anything in list("NORTH", "SOUTH", "EAST", "WEST")
 	if(Pdir)
@@ -301,47 +301,47 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 /obj/item/shuttle_creator/proc/check_area(list/turfs, addingTurfs = TRUE)
 	if(!turfs)
 		to_chat(usr, "<span class='warning'>Shuttles must be created in an airtight space, ensure that the shuttle is airtight, including corners.</span>")
-		return FALSE
+		return EF_FALSE
 	if(turfs.len + (addingTurfs ? loggedTurfs.len : 0) > SHUTTLE_CREATOR_MAX_SIZE)
 		to_chat(usr, "<span class='warning'>The [src]'s internal cooling system wizzes violently and a message appears on the screen, \"Caution, this device can only handle the creation of shuttles up to [SHUTTLE_CREATOR_MAX_SIZE] units in size. Please reduce your shuttle by [turfs.len-SHUTTLE_CREATOR_MAX_SIZE]. Sorry for the inconvinience\"</span>")
-		return FALSE
+		return EF_FALSE
 	//Check to see if it's a valid shuttle
 	for(var/i in 1 to turfs.len)
 		var/area/place = get_area(turfs[i])
 		//If any of the turfs are on station / not in space, a shuttle cannot be forced there
 		if(!place)
 			to_chat(usr, "<span class='warning'>You can't seem to overpower the bluespace harmonics in this location, try somewhere else.</span>")
-			return FALSE
+			return EF_FALSE
 		if(istype(place, /area/space))
 			overwritten_area = /area/space
 		else if(istype(place, /area/lavaland/surface/outdoors))
 			overwritten_area = /area/lavaland/surface/outdoors
 		else
 			to_chat(usr, "<span class='warning'>Caution, shuttle must not use any material connected to the station. Your shuttle is currenly overlapping with [place.name].</span>")
-			return FALSE
+			return EF_FALSE
 	//Finally, check to see if the area is actually attached
 	if(!LAZYLEN(loggedTurfs))
-		return TRUE
+		return EF_TRUE
 	for(var/turf/T in turfs)
 		if(turf_connected_to_saved_turfs(T))
-			return TRUE
+			return EF_TRUE
 		CHECK_TICK
 	to_chat(usr, "<span class='warning'>Caution, new areas of the shuttle must be connected to the other areas of the shuttle.</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/item/shuttle_creator/proc/turf_connected_to_saved_turfs(turf/T)
 	for(var/i in 1 to 4)
 		var/turf/adjacentT = get_offset_target_turf(T, CARDINAL_DIRECTIONS_X[i], CARDINAL_DIRECTIONS_Y[i])
 		if(adjacentT in loggedTurfs)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/item/shuttle_creator/proc/turf_in_list(turf/T)
 	return loggedTurfs.Find(T)
 
 /obj/item/shuttle_creator/proc/add_single_turf(turf/T)
 	if(!check_area(list(T)))
-		return FALSE
+		return EF_FALSE
 	loggedTurfs |= T
 	loggedOldArea = get_area(T)
 	overlay_holder.highlight_turf(T)
@@ -354,7 +354,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	//Detect the turfs connected in the curerrent enclosed area
 	var/list/turfs = detect_room(get_turf(user), area_or_turf_fail_types)
 	if(!check_area(turfs))
-		return FALSE
+		return EF_FALSE
 	loggedOldArea = get_area(get_turf(user))
 	loggedTurfs |= turfs
 	overlay_holder.highlight_area(turfs)

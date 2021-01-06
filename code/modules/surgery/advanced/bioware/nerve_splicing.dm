@@ -26,7 +26,7 @@
 		"[user] successfully splices [target]'s nervous system!",
 		"[user] finishes manipulating [target]'s nervous system.")
 	new /datum/bioware/spliced_nerves(target)
-	return TRUE
+	return EF_TRUE
 
 /datum/bioware/spliced_nerves
 	name = "Spliced Nerves"

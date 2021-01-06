@@ -78,7 +78,7 @@
 	output.outputs |= parent
 
 /datum/component/clockwork_trap/proc/trigger()
-	return TRUE
+	return EF_TRUE
 
 /datum/component/clockwork_trap/proc/clicked(mob/user)
 	return

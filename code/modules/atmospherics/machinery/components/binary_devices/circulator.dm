@@ -118,7 +118,7 @@
 			node2.addMember(src)
 		SSair.add_to_rebuild_queue(src)
 
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/atmospherics/components/binary/circulator/SetInitDirections()
 	switch(dir)
@@ -135,26 +135,26 @@
 /obj/machinery/atmospherics/components/binary/circulator/can_be_node(obj/machinery/atmospherics/target)
 	if(anchored)
 		return ..(target)
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/atmospherics/components/binary/circulator/multitool_act(mob/living/user, obj/item/I)
 	if(generator)
 		disconnectFromGenerator()
 	mode = !mode
 	to_chat(user, "<span class='notice'>You set [src] to [mode?"cold":"hot"] mode.</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/atmospherics/components/binary/circulator/screwdriver_act(mob/user, obj/item/I)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	panel_open = !panel_open
 	I.play_tool_sound(src)
 	to_chat(user, "<span class='notice'>You [panel_open?"open":"close"] the panel on [src].</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/atmospherics/components/binary/circulator/crowbar_act(mob/user, obj/item/I)
 	default_deconstruction_crowbar(I)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/atmospherics/components/binary/circulator/on_deconstruction()
 	if(generator)

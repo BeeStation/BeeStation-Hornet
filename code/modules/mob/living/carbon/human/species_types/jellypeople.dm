@@ -349,30 +349,30 @@
 /datum/action/innate/swap_body/proc/can_swap(mob/living/carbon/human/dupe)
 	var/mob/living/carbon/human/H = owner
 	if(!isslimeperson(H))
-		return FALSE
+		return EF_FALSE
 	var/datum/species/jelly/slime/SS = H.dna.species
 
 	if(QDELETED(dupe)) 					//Is there a body?
 		SS.bodies -= dupe
-		return FALSE
+		return EF_FALSE
 
 	if(!isslimeperson(dupe)) 			//Is it a slimeperson?
 		SS.bodies -= dupe
-		return FALSE
+		return EF_FALSE
 
 	if(dupe.stat == DEAD) 				//Is it alive?
-		return FALSE
+		return EF_FALSE
 
 	if(dupe.stat != CONSCIOUS) 			//Is it awake?
-		return FALSE
+		return EF_FALSE
 
 	if(dupe.mind && dupe.mind.active) 	//Is it unoccupied?
-		return FALSE
+		return EF_FALSE
 
 	if(!(dupe in SS.bodies))			//Do we actually own it?
-		return FALSE
+		return EF_FALSE
 
-	return TRUE
+	return EF_TRUE
 
 /datum/action/innate/swap_body/proc/swap_to_dupe(datum/mind/M, mob/living/carbon/human/dupe)
 	if(!can_swap(dupe)) //sanity check
@@ -532,8 +532,8 @@
 /datum/action/innate/use_extract/IsAvailable()
 	if(..())
 		if(species && species.current_extract && (world.time > species.extract_cooldown))
-			return TRUE
-		return FALSE
+			return EF_TRUE
+		return EF_FALSE
 
 /datum/action/innate/use_extract/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force)
 	..(current_button, TRUE)
@@ -596,21 +596,21 @@
 
 /datum/species/jelly/stargazer/proc/link_mob(mob/living/M)
 	if(QDELETED(M) || M.stat == DEAD)
-		return FALSE
+		return EF_FALSE
 	if(HAS_TRAIT(M, TRAIT_MINDSHIELD)) //mindshield implant, no dice
-		return FALSE
+		return EF_FALSE
 	if(istype(M.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		to_chat(M, "<span class='danger'>[slimelink_owner.real_name]'s no-good syndicate mind-slime is blocked by your protective headgear!</span>")
 
-		return FALSE
+		return EF_FALSE
 	if(M in linked_mobs)
-		return FALSE
+		return EF_FALSE
 	linked_mobs.Add(M)
 	to_chat(M, "<span class='notice'>You are now connected to [slimelink_owner.real_name]'s Slime Link.</span>")
 	var/datum/action/innate/linked_speech/action = new(src)
 	linked_actions.Add(action)
 	action.Grant(M)
-	return TRUE
+	return EF_TRUE
 
 /datum/species/jelly/stargazer/proc/unlink_mob(mob/living/M)
 	var/link_id = linked_mobs.Find(M)

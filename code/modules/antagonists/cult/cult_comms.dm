@@ -8,7 +8,7 @@
 
 /datum/action/innate/cult/IsAvailable()
 	if(!iscultist(owner))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/action/innate/cult/comm
@@ -56,7 +56,7 @@
 
 /datum/action/innate/cult/comm/spirit/IsAvailable()
 	if(iscultist(owner.mind.current))
-		return TRUE
+		return EF_TRUE
 
 /datum/action/innate/cult/comm/spirit/cultist_commune(mob/living/user, message)
 	var/my_message
@@ -78,7 +78,7 @@
 /datum/action/innate/cult/mastervote/IsAvailable()
 	var/datum/antagonist/cult/C = owner.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
 	if(!C || C.cult_team.cult_vote_called || !ishuman(owner))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/action/innate/cult/mastervote/Activate()
@@ -112,7 +112,7 @@
 				B.current.update_action_buttons_icon()
 				if(!B.current.incapacitated())
 					to_chat(B.current,"<span class='cultlarge'>[Nominee] has died in the process of attempting to win the cult's support!</span>")
-		return FALSE
+		return EF_FALSE
 	if(!Nominee.mind)
 		team.cult_vote_called = FALSE
 		for(var/datum/mind/B in team.members)
@@ -120,7 +120,7 @@
 				B.current.update_action_buttons_icon()
 				if(!B.current.incapacitated())
 					to_chat(B.current,"<span class='cultlarge'>[Nominee] has gone catatonic in the process of attempting to win the cult's support!</span>")
-		return FALSE
+		return EF_FALSE
 	if(LAZYLEN(yes_voters) <= LAZYLEN(asked_cultists) * 0.5)
 		team.cult_vote_called = FALSE
 		for(var/datum/mind/B in team.members)
@@ -128,7 +128,7 @@
 				B.current.update_action_buttons_icon()
 				if(!B.current.incapacitated())
 					to_chat(B.current, "<span class='cultlarge'>[Nominee] could not win the cult's support and shall continue to serve as an acolyte.</span>")
-		return FALSE
+		return EF_FALSE
 	team.cult_master = Nominee
 	SSticker.mode.remove_cultist(Nominee.mind, TRUE)
 	Nominee.mind.add_antag_datum(/datum/antagonist/cult/master)
@@ -138,7 +138,7 @@
 				vote.Remove(B.current)
 			if(!B.current.incapacitated())
 				to_chat(B.current,"<span class='cultlarge'>[Nominee] has won the cult's support and is now their master. Follow [Nominee.p_their()] orders to the best of your ability!</span>")
-	return TRUE
+	return EF_TRUE
 
 /datum/action/innate/cult/master/IsAvailable()
 	if(!owner.mind || !owner.mind.has_antag_datum(/datum/antagonist/cult/master) || GLOB.cult_narsie)
@@ -228,7 +228,7 @@
 	if(cooldown > world.time)
 		if(!CM.active)
 			to_chat(owner, "<span class='cultlarge'><b>You need to wait [DisplayTimeText(cooldown - world.time)] before you can mark another target!</b></span>")
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/action/innate/cult/master/cultmark/Destroy()
@@ -237,7 +237,7 @@
 
 /datum/action/innate/cult/master/cultmark/Activate()
 	CM.toggle(owner) //the important bit
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/proc_holder/cultmark
 	active = FALSE
@@ -262,14 +262,14 @@
 		return
 	var/turf/T = get_turf(ranged_ability_user)
 	if(!isturf(T))
-		return FALSE
+		return EF_FALSE
 
 	var/datum/antagonist/cult/C = caller.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
 
 	if(target in view(7, get_turf(ranged_ability_user)))
 		if(C.cult_team.blood_target)
 			to_chat(ranged_ability_user, "<span class='cult'>The cult has already designated a target!</span>")
-			return FALSE
+			return EF_FALSE
 		C.cult_team.blood_target = target
 		var/area/A = get_area(target)
 		attached_action.cooldown = world.time + attached_action.base_cooldown
@@ -286,8 +286,8 @@
 		attached_action.owner.update_action_buttons_icon()
 		remove_ranged_ability("<span class='cult'>The marking rite is complete! It will last for 90 seconds.</span>")
 		C.cult_team.blood_target_reset_timer = addtimer(CALLBACK(GLOBAL_PROC, .proc/reset_blood_target,C.cult_team), 900, TIMER_STOPPABLE)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /proc/reset_blood_target(datum/team/cult/team)
 	for(var/datum/mind/B in team.members)
@@ -305,7 +305,7 @@
 
 /datum/action/innate/cult/master/cultmark/ghost/IsAvailable()
 	if(istype(owner, /mob/dead/observer) && iscultist(owner.mind.current))
-		return TRUE
+		return EF_TRUE
 	else
 		qdel(src)
 
@@ -319,7 +319,7 @@
 
 /datum/action/innate/cult/ghostmark/IsAvailable()
 	if(istype(owner, /mob/dead/observer) && iscultist(owner.mind.current))
-		return TRUE
+		return EF_TRUE
 	else
 		qdel(src)
 
@@ -395,11 +395,11 @@
 
 /datum/action/innate/cult/master/pulse/IsAvailable()
 	if(!owner.mind || !owner.mind.has_antag_datum(/datum/antagonist/cult/master))
-		return FALSE
+		return EF_FALSE
 	if(cooldown > world.time)
 		if(!PM.active)
 			to_chat(owner, "<span class='cultlarge'><b>You need to wait [DisplayTimeText(cooldown - world.time)] before you can pulse again!</b></span>")
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/action/innate/cult/master/pulse/Destroy()
@@ -410,7 +410,7 @@
 
 /datum/action/innate/cult/master/pulse/Activate()
 	PM.toggle(owner) //the important bit
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/proc_holder/pulse
 	active = FALSE
@@ -437,7 +437,7 @@
 		return
 	var/turf/T = get_turf(ranged_ability_user)
 	if(!isturf(T))
-		return FALSE
+		return EF_FALSE
 	if(target in view(7, get_turf(ranged_ability_user)))
 		if((!(iscultist(target) || istype(target, /obj/structure/destructible/cult)) || target == caller) && !(attached_action.throwing))
 			return

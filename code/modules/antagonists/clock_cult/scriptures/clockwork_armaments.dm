@@ -17,7 +17,7 @@
 	var/choice = input(M,"What weapon do you want to call upon?", "Clockwork Armaments") as anything in list("Brass Spear","Brass Battlehammer","Brass Sword", "Brass Bow")
 	var/datum/antagonist/servant_of_ratvar/servant = is_servant_of_ratvar(M)
 	if(!servant)
-		return FALSE
+		return EF_FALSE
 	//Equip mob with gamer gear
 	var/static/datum/outfit/clockcult/armaments/armaments_spear = new
 	var/static/datum/outfit/clockcult/armaments/hammer/armaments_hammer = new

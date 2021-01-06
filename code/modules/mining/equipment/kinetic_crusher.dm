@@ -218,17 +218,17 @@
 		var/obj/item/crusher_trophy/T = t
 		if(istype(T, denied_type) || istype(src, T.denied_type))
 			to_chat(user, "<span class='warning'>You can't seem to attach [src] to [H]. Maybe remove a few trophies?</span>")
-			return FALSE
+			return EF_FALSE
 	if(!user.transferItemToLoc(src, H))
 		return
 	H.trophies += src
 	to_chat(user, "<span class='notice'>You attach [src] to [H].</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/item/crusher_trophy/proc/remove_from(obj/item/twohanded/kinetic_crusher/H, mob/living/user)
 	forceMove(get_turf(H))
 	H.trophies -= src
-	return TRUE
+	return EF_TRUE
 
 /obj/item/crusher_trophy/proc/on_melee_hit(mob/living/target, mob/living/user) //the target and the user
 /obj/item/crusher_trophy/proc/on_projectile_fire(obj/item/projectile/destabilizer/marker, mob/living/user) //the projectile fired and the user

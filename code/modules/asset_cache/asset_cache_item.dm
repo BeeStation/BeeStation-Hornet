@@ -37,7 +37,7 @@
 	resource = file
 
 /datum/asset_cache_item/vv_edit_var(var_name, var_value)
-	return FALSE
+	return EF_FALSE
 
 /datum/asset_cache_item/CanProcCall(procname)
-	return FALSE
+	return EF_FALSE

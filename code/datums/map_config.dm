@@ -129,7 +129,7 @@
 	allow_custom_shuttles = json["allow_custom_shuttles"] != FALSE
 
 	defaulted = FALSE
-	return TRUE
+	return EF_TRUE
 #undef CHECK_EXISTS
 
 /datum/map_config/proc/GetFullMapPaths()

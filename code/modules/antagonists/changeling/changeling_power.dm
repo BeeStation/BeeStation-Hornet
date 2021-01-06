@@ -79,7 +79,7 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 	if(!user || QDELETED(user))
 		return 0
 	if(!ishuman(user) && !ismonkey(user))
-		return FALSE
+		return EF_FALSE
 	if(req_human && !ishuman(user))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE

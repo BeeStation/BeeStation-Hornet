@@ -82,8 +82,8 @@
 /datum/objective/disease_infect/check_completion()
 	var/mob/camera/disease/D = owner.current
 	if(istype(D) && D.hosts.len) //theoretically it should not exist if it has no hosts, but better safe than sorry.
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 
 /datum/objective/disease_infect_centcom
@@ -92,9 +92,9 @@
 /datum/objective/disease_infect_centcom/check_completion()
 	var/mob/camera/disease/D = owner.current
 	if(!istype(D))
-		return FALSE
+		return EF_FALSE
 	for(var/V in D.hosts)
 		var/mob/living/L = V
 		if(L.onCentCom() || L.onSyndieBase())
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE

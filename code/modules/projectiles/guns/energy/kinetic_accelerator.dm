@@ -256,10 +256,10 @@
 	if(minebot_upgrade)
 		if(minebot_exclusive && !istype(KA.loc, /mob/living/simple_animal/hostile/mining_drone))
 			to_chat(user, "<span class='notice'>The modkit you're trying to install is only rated for minebot use.</span>")
-			return FALSE
+			return EF_FALSE
 	else if(istype(KA.loc, /mob/living/simple_animal/hostile/mining_drone))
 		to_chat(user, "<span class='notice'>The modkit you're trying to install is not rated for minebot use.</span>")
-		return FALSE
+		return EF_FALSE
 	if(denied_type)
 		var/number_of_denied = 0
 		for(var/A in KA.get_modkits())

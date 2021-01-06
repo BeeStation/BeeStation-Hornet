@@ -82,7 +82,7 @@
 // So basically if this returns true the tile is unlit black.
 /turf/proc/is_softly_lit()
 	if (!lighting_object)
-		return FALSE
+		return EF_FALSE
 
 	return !lighting_object.luminosity
 

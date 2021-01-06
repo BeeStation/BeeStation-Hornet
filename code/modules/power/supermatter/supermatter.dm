@@ -526,7 +526,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 /obj/machinery/power/supermatter_crystal/bullet_act(obj/item/projectile/Proj)
 	var/turf/L = loc
 	if(!istype(L))
-		return FALSE
+		return EF_FALSE
 	if(!istype(Proj.firer, /obj/machinery/power/emitter))
 		investigate_log("has been hit by [Proj] fired by [key_name(Proj.firer)]", INVESTIGATE_SUPERMATTER)
 	if(Proj.flag != "bullet")
@@ -676,7 +676,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 /obj/machinery/power/supermatter_crystal/wrench_act(mob/user, obj/item/tool)
 	if (moveable)
 		default_unfasten_wrench(user, tool, time = 20)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/power/supermatter_crystal/Bumped(atom/movable/AM)
 	if(isliving(AM))
@@ -735,7 +735,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	return
 
 /obj/machinery/power/supermatter_crystal/prevent_content_explosion()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/power/supermatter_crystal/engine
 	is_main_engine = TRUE

@@ -21,7 +21,7 @@
 		ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_FLIP | ROTATION_VERBS)
 
 /obj/item/assembly_holder/IsAssemblyHolder()
-	return TRUE
+	return EF_TRUE
 
 
 /obj/item/assembly_holder/proc/assemble(obj/item/assembly/A, obj/item/assembly/A2, mob/user)
@@ -104,7 +104,7 @@
 
 /obj/item/assembly_holder/screwdriver_act(mob/user, obj/item/tool)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	to_chat(user, "<span class='notice'>You disassemble [src]!</span>")
 	if(a_left)
 		a_left.on_detach()
@@ -113,7 +113,7 @@
 		a_right.on_detach()
 		a_right = null
 	qdel(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/assembly_holder/attack_self(mob/user)
 	src.add_fingerprint(user)
@@ -134,7 +134,7 @@
 
 /obj/item/assembly_holder/proc/process_activation(obj/D, normal = 1, special = 1)
 	if(!D)
-		return FALSE
+		return EF_FALSE
 	if((normal) && (a_right) && (a_left))
 		if(a_right != D)
 			a_right.pulsed(FALSE)
@@ -142,4 +142,4 @@
 			a_left.pulsed(FALSE)
 	if(master)
 		master.receive_signal()
-	return TRUE
+	return EF_TRUE

@@ -120,8 +120,8 @@
 		QDEL_NULL(wiring_gui_menu)
 		unwield(user)
 		active = wielded
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/item/twohanded/rcl/pickup(mob/user)
 	..()

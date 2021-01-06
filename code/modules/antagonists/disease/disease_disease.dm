@@ -31,8 +31,8 @@
 	if(istype(D, /datum/disease/advance/sentient_disease))
 		var/datum/disease/advance/sentient_disease/V = D
 		if(V.overmind == overmind)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 
 /datum/disease/advance/sentient_disease/Copy()

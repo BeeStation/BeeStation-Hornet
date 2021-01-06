@@ -138,10 +138,10 @@
 
 /datum/nanite_program/metabolic_synthesis/check_conditions()
 	if(!iscarbon(host_mob))
-		return FALSE
+		return EF_FALSE
 	var/mob/living/carbon/C = host_mob
 	if(C.nutrition <= NUTRITION_LEVEL_WELL_FED)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/nanite_program/metabolic_synthesis/active_effect()

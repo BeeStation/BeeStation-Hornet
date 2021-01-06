@@ -57,11 +57,11 @@
 /obj/machinery/portable_atmospherics/proc/connect(obj/machinery/atmospherics/components/unary/portables_connector/new_port)
 	//Make sure not already connected to something else
 	if(connected_port || !new_port || new_port.connected_device)
-		return FALSE
+		return EF_FALSE
 
 	//Make sure are close enough for a valid connection
 	if(new_port.loc != get_turf(src))
-		return FALSE
+		return EF_FALSE
 
 	//Perform the connection
 	connected_port = new_port
@@ -73,7 +73,7 @@
 	pixel_x = new_port.pixel_x
 	pixel_y = new_port.pixel_y
 	update_icon()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/portable_atmospherics/Move()
 	. = ..()
@@ -82,14 +82,14 @@
 
 /obj/machinery/portable_atmospherics/proc/disconnect()
 	if(!connected_port)
-		return FALSE
+		return EF_FALSE
 	anchored = FALSE
 	connected_port.connected_device = null
 	connected_port = null
 	pixel_x = 0
 	pixel_y = 0
 	update_icon()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/portable_atmospherics/portableConnectorReturnAir()
 	return air_contents
@@ -117,7 +117,7 @@
 	else
 		holding = null
 	update_icon()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/portable_atmospherics/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank))

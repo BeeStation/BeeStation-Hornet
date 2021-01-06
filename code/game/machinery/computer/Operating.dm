@@ -38,7 +38,7 @@
 		var/obj/item/disk/surgery/D = O
 		if(do_after(user, 10, target = src))
 			advanced_surgeries |= D.surgeries
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /obj/machinery/computer/operating/proc/sync_surgeries()

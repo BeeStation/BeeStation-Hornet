@@ -140,7 +140,7 @@
 	if(!user)
 		user = current_user
 	if(!user || !user.client)
-		return FALSE
+		return EF_FALSE
 	user.client.view_size.zoomIn()
 	zoom_current_view_increase = 0
 	zooming_angle = 0
@@ -220,8 +220,8 @@
 		if(automatic_cleanup)
 			stop_aiming()
 			set_user(null)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/item/gun/energy/beam_rifle/proc/process_aim()
 	if(istype(current_user) && current_user.client && current_user.client.mouseParams)
@@ -386,12 +386,12 @@
 /obj/item/ammo_casing/energy/beam_rifle/throw_proj(atom/target, turf/targloc, mob/living/user, params, spread)
 	var/turf/curloc = get_turf(user)
 	if(!istype(curloc) || !BB)
-		return FALSE
+		return EF_FALSE
 	var/obj/item/gun/energy/beam_rifle/gun = loc
 	if(!targloc && gun)
 		targloc = get_turf_in_angle(gun.lastangle, curloc, 10)
 	else if(!targloc)
-		return FALSE
+		return EF_FALSE
 	var/firing_dir
 	if(BB.firer)
 		firing_dir = BB.firer.dir
@@ -400,7 +400,7 @@
 	BB.preparePixelProjectile(target, user, params, spread)
 	BB.fire(gun? gun.lastangle : null, null)
 	BB = null
-	return TRUE
+	return EF_TRUE
 
 /obj/item/ammo_casing/energy/beam_rifle/hitscan
 	projectile_type = /obj/item/projectile/beam/beam_rifle/hitscan
@@ -455,9 +455,9 @@
 
 /obj/item/projectile/beam/beam_rifle/proc/check_pierce(atom/target)
 	if(!do_pierce)
-		return FALSE
+		return EF_FALSE
 	if(pierced[target])		//we already pierced them go away
-		return TRUE
+		return EF_TRUE
 	if(isclosedturf(target))
 		if(wall_pierce++ < wall_pierce_amount)
 			if(prob(wall_devastate))
@@ -466,7 +466,7 @@
 					W.dismantle_wall(TRUE, TRUE)
 				else
 					target.ex_act(EXPLODE_HEAVY)
-			return TRUE
+			return EF_TRUE
 	if(ismovableatom(target))
 		var/atom/movable/AM = target
 		if(AM.density && !AM.CanPass(src, get_turf(target)) && !ismob(AM))
@@ -476,8 +476,8 @@
 					O.take_damage((impact_structure_damage + aoe_structure_damage) * structure_bleed_coeff * get_damage_coeff(AM), BURN, "energy", FALSE)
 				pierced[AM] = TRUE
 				structure_pierce++
-				return TRUE
-	return FALSE
+				return EF_TRUE
+	return EF_FALSE
 
 /obj/item/projectile/beam/beam_rifle/proc/get_damage_coeff(atom/target)
 	if(istype(target, /obj/machinery/door))
@@ -500,7 +500,7 @@
 	if(!cached && !QDELETED(target))
 		cached = get_turf(target)
 	if(nodamage)
-		return FALSE
+		return EF_FALSE
 	playsound(cached, 'sound/effects/explosion3.ogg', 100, 1)
 	AOE(cached)
 	if(!QDELETED(target))
@@ -512,7 +512,7 @@
 		trajectory_ignore_forcemove = TRUE
 		forceMove(target.loc)
 		trajectory_ignore_forcemove = FALSE
-		return FALSE
+		return EF_FALSE
 	if(!QDELETED(target))
 		cached = get_turf(target)
 	return ..()
@@ -560,7 +560,7 @@
 
 /obj/item/projectile/beam/beam_rifle/hitscan/aiming_beam/prehit(atom/target)
 	qdel(src)
-	return FALSE
+	return EF_FALSE
 
 /obj/item/projectile/beam/beam_rifle/hitscan/aiming_beam/on_hit()
 	qdel(src)

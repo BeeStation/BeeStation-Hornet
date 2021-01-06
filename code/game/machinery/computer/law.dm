@@ -31,8 +31,8 @@
 
 /obj/machinery/computer/upload/proc/can_upload_to(mob/living/silicon/S)
 	if(S.stat == DEAD)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/computer/upload/ai
 	name = "\improper AI upload console"
@@ -49,9 +49,9 @@
 
 /obj/machinery/computer/upload/ai/can_upload_to(mob/living/silicon/ai/A)
 	if(!A || !isAI(A))
-		return FALSE
+		return EF_FALSE
 	if(A.control_disabled)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 
@@ -70,7 +70,7 @@
 
 /obj/machinery/computer/upload/borg/can_upload_to(mob/living/silicon/robot/B)
 	if(!B || !iscyborg(B))
-		return FALSE
+		return EF_FALSE
 	if(B.scrambledcodes || B.emagged)
-		return FALSE
+		return EF_FALSE
 	return ..()

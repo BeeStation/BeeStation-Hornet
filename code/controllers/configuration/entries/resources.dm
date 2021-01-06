@@ -13,7 +13,7 @@
 
 /datum/config_entry/string/asset_cdn_webroot/ValidateAndSet(str_var)
 	if (!str_var || trim(str_var) == "")
-		return FALSE
+		return EF_FALSE
 	if (str_var && str_var[length(str_var)] != "/")
 		str_var += "/"
 	return ..(str_var)
@@ -24,7 +24,7 @@
 
 /datum/config_entry/string/asset_cdn_url/ValidateAndSet(str_var)
 	if (!str_var || trim(str_var) == "")
-		return FALSE
+		return EF_FALSE
 	if (str_var && str_var[length(str_var)] != "/")
 		str_var += "/"
 	return ..(str_var)

@@ -423,7 +423,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/hierophant/CanAttack(atom/the_target)
 	. = ..()
 	if(istype(the_target, /mob/living/simple_animal/hostile/asteroid/hivelordbrood)) //ignore temporary targets in favor of more permanent targets
-		return FALSE
+		return EF_FALSE
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/GiveTarget(new_target)
 	var/targets_the_same = (new_target == target)
@@ -526,16 +526,16 @@ Difficulty: Hard
 
 /obj/effect/temp_visual/hierophant/wall/CanPass(atom/movable/mover, turf/target)
 	if(QDELETED(caster))
-		return FALSE
+		return EF_FALSE
 	if(mover == caster.pulledby)
-		return TRUE
+		return EF_TRUE
 	if(istype(mover, /obj/item/projectile))
 		var/obj/item/projectile/P = mover
 		if(P.firer == caster)
-			return TRUE
+			return EF_TRUE
 	if(mover == caster)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/effect/temp_visual/hierophant/chaser //a hierophant's chaser. follows target around, moving and producing a blast every speed deciseconds.
 	duration = 98

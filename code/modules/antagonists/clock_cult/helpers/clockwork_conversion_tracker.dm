@@ -35,7 +35,7 @@ GLOBAL_VAR_INIT(conversion_warning_stage, CONVERSION_WARNING_NONE)
 	if(cult_mind.current)
 		var/datum/antagonist/servant_of_ratvar/cult_datum = cult_mind.has_antag_datum(/datum/antagonist/servant_of_ratvar)
 		if(!cult_datum)
-			return FALSE
+			return EF_FALSE
 		to_chat(cult_mind, "<span class='large_brass'>Never forget th...[text2ratvar("e will of Eng'ine!")]...</span>")
 		to_chat(cult_mind, "<span class='warning'>The quiet ticking in the back of your mind slowly fades away...</span>")
 		cult_datum.silent = silent
@@ -43,7 +43,7 @@ GLOBAL_VAR_INIT(conversion_warning_stage, CONVERSION_WARNING_NONE)
 		cult_mind.special_role = null
 		if(stun)
 			cult_mind.current.Unconscious(100)
-		return TRUE
+		return EF_TRUE
 
 /proc/calculate_clockcult_values()
 	var/playercount = get_active_player_count()
@@ -56,13 +56,13 @@ GLOBAL_VAR_INIT(conversion_warning_stage, CONVERSION_WARNING_NONE)
 		return
 	//Cogscarabs will not trigger the gateway to open
 	if(GLOB.human_servants_of_ratvar.len < GLOB.critical_servant_count)
-		return FALSE
+		return EF_FALSE
 	for(var/datum/mind/M in GLOB.servants_of_ratvar)
 		SEND_SOUND(M.current, 'sound/magic/clockwork/scripture_tier_up.ogg')
 	hierophant_message("The Ark's many cogs suddenly whir to life, steam gushing out of its many crevices; it will open in 5 minutes!", null, "<span class='large_brass'>")
 	addtimer(CALLBACK(GLOBAL_PROC, .proc/force_open_ark), 3000)
 	GLOB.ark_transport_triggered = TRUE
-	return TRUE
+	return EF_TRUE
 
 /proc/force_open_ark()
 	var/obj/structure/destructible/clockwork/massive/celestial_gateway/gateway = GLOB.celestial_gateway

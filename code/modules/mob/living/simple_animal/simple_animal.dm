@@ -360,26 +360,26 @@
 
 /mob/living/simple_animal/proc/CanAttack(atom/the_target)
 	if(see_invisible < the_target.invisibility)
-		return FALSE
+		return EF_FALSE
 	if(ismob(the_target))
 		var/mob/M = the_target
 		if(M.status_flags & GODMODE)
-			return FALSE
+			return EF_FALSE
 	if (isliving(the_target))
 		var/mob/living/L = the_target
 		if(L.stat != CONSCIOUS)
-			return FALSE
+			return EF_FALSE
 	if (ismecha(the_target))
 		var/obj/mecha/M = the_target
 		if (M.occupant)
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /mob/living/simple_animal/handle_fire()
-	return TRUE
+	return EF_TRUE
 
 /mob/living/simple_animal/IgniteMob()
-	return FALSE
+	return EF_FALSE
 
 /mob/living/simple_animal/ExtinguishMob()
 	return
@@ -426,14 +426,14 @@
 /mob/living/simple_animal/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
 	if(incapacitated())
 		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
-		return FALSE
+		return EF_FALSE
 	if(be_close && !in_range(M, src))
 		to_chat(src, "<span class='warning'>You are too far away!</span>")
-		return FALSE
+		return EF_FALSE
 	if(!(no_dextery || dextrous))
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /mob/living/simple_animal/stripPanelUnequip(obj/item/what, mob/who, where)
 	if(!canUseTopic(who, BE_CLOSE))

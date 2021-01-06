@@ -16,8 +16,8 @@
 /datum/objective/crew/enjoyyourstay/check_completion()
 	if(owner?.current)
 		if(owner.current.stat != DEAD)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/objective/crew/nomanleftbehind
 	explanation_text = "Ensure no prisoners are left in the brig when the shift ends."
@@ -26,8 +26,8 @@
 /datum/objective/crew/nomanleftbehind/check_completion()
 	for(var/mob/living/carbon/M in GLOB.alive_mob_list)
 		if(!(M.mind.assigned_role in GLOB.security_positions) && istype(get_area(M), /area/security/prison)) //there's no list of incarcerated players, so we just assume any non-security people in prison are prisoners, and assume that any security people aren't prisoners
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /datum/objective/crew/justicemed
 	explanation_text = "Ensure there are no dead bodies in the security wing when the shift ends."
@@ -37,5 +37,5 @@
 	var/list/security_areas = typecacheof(list(/area/security, /area/security/brig, /area/security/main, /area/security/prison, /area/security/processing))
 	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
 		if(H.stat == DEAD && is_station_level(H.z) && is_type_in_typecache(get_area(H), security_areas)) // If person is dead and corpse is in one of these areas
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE

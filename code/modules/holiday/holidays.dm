@@ -29,7 +29,7 @@
 // Return 1 if this holidy should be celebrated today
 /datum/holiday/proc/shouldCelebrate(dd, mm, yy, ww, ddd)
 	if(always_celebrate)
-		return TRUE
+		return EF_TRUE
 
 	if(!end_day)
 		end_day = begin_day
@@ -37,30 +37,30 @@
 		end_month = begin_month
 	if(begin_week && begin_weekday)
 		if(begin_week == ww && begin_weekday == ddd && begin_month == mm)
-			return TRUE
+			return EF_TRUE
 	if(end_month > begin_month) //holiday spans multiple months in one year
 		if(mm == end_month) //in final month
 			if(dd <= end_day)
-				return TRUE
+				return EF_TRUE
 
 		else if(mm == begin_month)//in first month
 			if(dd >= begin_day)
-				return TRUE
+				return EF_TRUE
 
 		else if(mm in begin_month to end_month) //holiday spans 3+ months and we're in the middle, day doesn't matter at all
-			return TRUE
+			return EF_TRUE
 
 	else if(end_month == begin_month) // starts and stops in same month, simplest case
 		if(mm == begin_month && (dd in begin_day to end_day))
-			return TRUE
+			return EF_TRUE
 
 	else // starts in one year, ends in the next
 		if(mm >= begin_month && dd >= begin_day) // Holiday ends next year
-			return TRUE
+			return EF_TRUE
 		if(mm <= end_month && dd <= end_day) // Holiday started last year
-			return TRUE
+			return EF_TRUE
 
-	return FALSE
+	return EF_FALSE
 
 // The actual holidays
 
@@ -294,8 +294,8 @@
 
 /datum/holiday/beer/shouldCelebrate(dd, mm, yy, ww, ddd)
 	if(mm == 8 && ddd == FRIDAY && ww == 1) //First Friday in August
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/holiday/beer/getStationPrefix()
 	return pick("Stout","Porter","Lager","Ale","Malt","Bock","Doppelbock","Hefeweizen","Pilsner","IPA","Lite") //I'm sorry for the last one
@@ -476,8 +476,8 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 
 /datum/holiday/ramadan/shouldCelebrate(dd, mm, yy, ww, ddd)
 	if (round(((world.realtime - 285984000) / 864000) % 354.373435326843) == 0)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/holiday/ramadan/getStationPrefix()
 	return pick("Harm","Halaal","Jihad","Muslim")
@@ -487,8 +487,8 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 
 /datum/holiday/ramadan/end/shouldCelebrate(dd, mm, yy, ww, ddd)
 	if (round(((world.realtime - 312768000) / 864000) % 354.373435326843) == 0)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/holiday/lifeday
 	name = "Life Day"
@@ -550,8 +550,8 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 
 /datum/holiday/friday_thirteenth/shouldCelebrate(dd, mm, yy, ww, ddd)
 	if(dd == 13 && ddd == FRIDAY)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/holiday/friday_thirteenth/getStationPrefix()
 	return pick("Mike","Friday","Evil","Myers","Murder","Deathly","Stabby")

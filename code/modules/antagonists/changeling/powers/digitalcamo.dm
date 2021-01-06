@@ -16,7 +16,7 @@
 		to_chat(user, "<span class='notice'>We distort our form to hide from the AI.</span>")
 		user.digitalcamo = 1
 		user.digitalinvis = 1
-	return TRUE
+	return EF_TRUE
 
 /datum/action/changeling/digitalcamo/Remove(mob/user)
 	user.digitalcamo = FALSE

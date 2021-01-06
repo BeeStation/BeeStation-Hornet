@@ -215,9 +215,9 @@
 /obj/effect/proc_holder/spell/pointed/cleave/cast(list/targets, mob/user)
 	if(!targets.len)
 		to_chat(user, "<span class='warning'>No target found in range!</span>")
-		return FALSE
+		return EF_FALSE
 	if(!can_target(targets[1], user))
-		return FALSE
+		return EF_FALSE
 
 	for(var/mob/living/carbon/human/C in range(1,targets[1]))
 		targets |= C
@@ -242,12 +242,12 @@
 /obj/effect/proc_holder/spell/pointed/cleave/can_target(atom/target, mob/user, silent)
 	. = ..()
 	if(!.)
-		return FALSE
+		return EF_FALSE
 	if(!istype(target,/mob/living/carbon/human))
 		if(!silent)
 			to_chat(user, "<span class='warning'>You are unable to cleave [target]!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/effect/proc_holder/spell/pointed/cleave/long
 	charge_max = 650
@@ -546,8 +546,8 @@
 
 /obj/effect/proc_holder/spell/pointed/manse_link/can_target(atom/target, mob/user, silent)
 	if(!isliving(target))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/effect/proc_holder/spell/pointed/manse_link/cast(list/targets, mob/user)
 	var/mob/living/simple_animal/hostile/eldritch/raw_prophet/originator = user

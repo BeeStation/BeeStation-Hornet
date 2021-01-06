@@ -165,7 +165,7 @@ the new instance inside the host to be updated to the template's stats.
 
 /mob/camera/disease/proc/infect_random_patient_zero(del_on_fail = TRUE)
 	if(!freemove)
-		return FALSE
+		return EF_FALSE
 	var/list/possible_hosts = list()
 	var/list/afk_possible_hosts = list()
 	for(var/mob/living/carbon/human/H in GLOB.carbon_list)
@@ -183,13 +183,13 @@ the new instance inside the host to be updated to the template's stats.
 	while(possible_hosts.len)
 		var/mob/living/carbon/human/target = possible_hosts[1]
 		if(force_infect(target))
-			return TRUE
+			return EF_TRUE
 		possible_hosts.Cut(1, 2)
 
 	if(del_on_fail)
 		to_chat(src, "<span class=userdanger'>No hosts were available for your disease to infect.</span>")
 		qdel(src)
-	return FALSE
+	return EF_FALSE
 
 /mob/camera/disease/proc/force_infect(mob/living/L)
 	var/datum/disease/advance/sentient_disease/V = disease_template.Copy()

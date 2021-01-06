@@ -104,7 +104,7 @@
 		if(!A.key || A.stat == DEAD) //Only living aliens with a ckey are valid.
 			continue
 		return A
-	return FALSE
+	return EF_FALSE
 
 
 /mob/living/carbon/alien/humanoid/check_breath(datum/gas_mixture/breath)

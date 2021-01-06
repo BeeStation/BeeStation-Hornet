@@ -61,22 +61,22 @@
 
 /mob/living/simple_animal/hostile/mushroom/CanAttack(atom/the_target) // Mushroom-specific version of CanAttack to handle stupid attack_same = 2 crap so we don't have to do it for literally every single simple_animal/hostile because this shit never gets spawned
 	if(!the_target || isturf(the_target) || istype(the_target, /atom/movable/lighting_object))
-		return FALSE
+		return EF_FALSE
 
 	if(see_invisible < the_target.invisibility)//Target's invisible to us, forget it
-		return FALSE
+		return EF_FALSE
 
 	if(isliving(the_target))
 		var/mob/living/L = the_target
 
 		if (!faction_check_mob(L) && attack_same == 2)
-			return FALSE
+			return EF_FALSE
 		if(L.stat > stat_attack)
-			return FALSE
+			return EF_FALSE
 
-		return TRUE
+		return EF_TRUE
 
-	return FALSE
+	return EF_FALSE
 
 /mob/living/simple_animal/hostile/mushroom/adjustHealth(amount, updating_health = TRUE, forced = FALSE) //Possibility to flee from a fight just to make it more visually interesting
 	if(!retreat_distance && prob(33))
@@ -93,7 +93,7 @@
 		if(faint_ticker < 2)
 			M.visible_message("[M] chews a bit on [src].")
 			faint_ticker++
-			return TRUE
+			return EF_TRUE
 		M.visible_message("<span class='warning'>[M] devours [src]!</span>")
 		var/level_gain = (powerlevel - M.powerlevel)
 		if(level_gain >= -1 && !bruised && !M.ckey)//Player shrooms can't level up to become robust gods.
@@ -102,7 +102,7 @@
 			M.LevelUp(level_gain)
 		M.adjustBruteLoss(-M.maxHealth)
 		qdel(src)
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /mob/living/simple_animal/hostile/mushroom/revive(full_heal = 0, admin_revive = 0)

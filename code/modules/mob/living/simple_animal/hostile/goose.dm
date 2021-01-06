@@ -165,12 +165,12 @@
 
 /datum/action/cooldown/vomit/Trigger()
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	if(!istype(owner, /mob/living/simple_animal/hostile/retaliate/goose/vomit))
-		return FALSE
+		return EF_FALSE
 	var/mob/living/simple_animal/hostile/retaliate/goose/vomit/vomit = owner
 	if(!vomit.vomiting)
 		vomit.vomit_prestart(vomit.vomitTimeBonus + 25)
 		vomit.vomitCoefficient = 1
 		vomit.vomitTimeBonus = 0
-	return TRUE
+	return EF_TRUE

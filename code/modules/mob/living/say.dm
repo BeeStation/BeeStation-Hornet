@@ -315,7 +315,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 				C.images -= I
 
 /mob/proc/binarycheck()
-	return FALSE
+	return EF_FALSE
 
 /mob/living/can_speak(message) //For use outside of Say()
 	if(can_speak_basic(message) && can_speak_vocal(message))
@@ -376,7 +376,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	if(clockslurring)
 		message = clockslur(message)
-   
+
 	// check for and apply punctuation
 	var/end = copytext(message, length(message))
 	if(!(end in list("!", ".", "?", ":", "\"", "-")))

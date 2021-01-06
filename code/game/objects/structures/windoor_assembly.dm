@@ -58,13 +58,13 @@
 	if(istype(mover, /obj/structure/window))
 		var/obj/structure/window/W = mover
 		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
+			return EF_FALSE
 	else if(istype(mover, /obj/structure/windoor_assembly))
 		var/obj/structure/windoor_assembly/W = mover
 		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
+			return EF_FALSE
 	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
-		return FALSE
+		return EF_FALSE
 	return 1
 
 /obj/structure/windoor_assembly/CanAtmosPass(turf/T)
@@ -326,13 +326,13 @@
 /obj/structure/windoor_assembly/proc/can_be_rotated(mob/user,rotation_type)
 	if(anchored)
 		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
-		return FALSE
+		return EF_FALSE
 	var/target_dir = turn(dir, rotation_type == ROTATION_CLOCKWISE ? -90 : 90)
 
 	if(!valid_window_location(loc, target_dir))
 		to_chat(user, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/structure/windoor_assembly/proc/after_rotation(mob/user)
 	ini_dir = dir

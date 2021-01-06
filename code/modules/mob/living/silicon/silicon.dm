@@ -73,7 +73,7 @@
 	return
 
 /mob/living/silicon/prevent_content_explosion()
-	return TRUE
+	return EF_TRUE
 
 /mob/living/silicon/proc/cancelAlarm()
 	return
@@ -157,17 +157,17 @@
 /mob/living/silicon/can_inject(mob/user, error_msg)
 	if(error_msg)
 		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
-	return FALSE
+	return EF_FALSE
 
 /mob/living/silicon/IsAdvancedToolUser()
-	return TRUE
+	return EF_TRUE
 
 /proc/islinked(mob/living/silicon/robot/bot, mob/living/silicon/ai/ai)
 	if(!istype(bot) || !istype(ai))
-		return FALSE
+		return EF_FALSE
 	if(bot.connected_ai == ai)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /mob/living/silicon/Topic(href, href_list)
 	if (href_list["lawc"]) // Toggling whether or not a law gets stated by the State Laws verb --NeoFite
@@ -419,10 +419,10 @@
 	return ..()
 
 /mob/living/silicon/is_literate()
-	return TRUE
+	return EF_TRUE
 
 /mob/living/silicon/get_inactive_held_item()
-	return FALSE
+	return EF_FALSE
 
 /mob/living/silicon/handle_high_gravity(gravity)
 	return
@@ -431,4 +431,4 @@
 	adjustBruteLoss(500)
 
 /mob/living/silicon/hears_radio()
-	return FALSE
+	return EF_FALSE

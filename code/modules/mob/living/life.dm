@@ -83,16 +83,16 @@
 	if(fire_stacks < 0) //If we've doused ourselves in water to avoid fire, dry off slowly
 		fire_stacks = min(0, fire_stacks + 1)//So we dry ourselves back to default, nonflammable.
 	if(!on_fire)
-		return TRUE //the mob is no longer on fire, no need to do the rest.
+		return EF_TRUE //the mob is no longer on fire, no need to do the rest.
 	if(fire_stacks > 0)
 		adjust_fire_stacks(-0.1) //the fire is slowly consumed
 	else
 		ExtinguishMob()
-		return TRUE //mob was put out, on_fire = FALSE via ExtinguishMob(), no need to update everything down the chain.
+		return EF_TRUE //mob was put out, on_fire = FALSE via ExtinguishMob(), no need to update everything down the chain.
 	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
 	if(G.get_moles(/datum/gas/oxygen) < 1)
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
-		return TRUE
+		return EF_TRUE
 	var/turf/location = get_turf(src)
 	location.hotspot_expose(700, 50, 1)
 

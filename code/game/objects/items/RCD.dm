@@ -128,23 +128,23 @@ RLD
 		if(matter < amount)
 			if(user)
 				to_chat(user, no_ammo_message)
-			return FALSE
+			return EF_FALSE
 		matter -= amount
 		update_icon()
-		return TRUE
+		return EF_TRUE
 	else
 		if(silo_mats.on_hold())
 			if(user)
 				to_chat(user, "Mineral access is on hold, please contact the quartermaster.")
-			return FALSE
+			return EF_FALSE
 		if(!silo_mats.mat_container.has_materials(list(/datum/material/iron = 500), amount))
 			if(user)
 				to_chat(user, no_ammo_message)
-			return FALSE
+			return EF_FALSE
 
 		silo_mats.mat_container.use_materials(list(/datum/material/iron = 500), amount)
 		silo_mats.silo_log(src, "consume", -amount, "build", list(/datum/material/iron = 500))
-		return TRUE
+		return EF_TRUE
 
 /obj/item/construction/proc/checkResource(amount, mob/user)
 	if(!silo_mats || !silo_link)
@@ -153,7 +153,7 @@ RLD
 		if(silo_mats.on_hold())
 			if(user)
 				to_chat(user, "Mineral access is on hold, please contact the quartermaster.")
-			return FALSE
+			return EF_FALSE
 		. = silo_mats.mat_container.has_materials(list(/datum/material/iron = 500), amount)
 	if(!. && user)
 		to_chat(user, no_ammo_message)
@@ -164,22 +164,22 @@ RLD
 /obj/item/construction/proc/range_check(atom/A, mob/user)
 	if(!(A in view(7, get_turf(user))))
 		to_chat(user, "<span class='warning'>The \'Out of Range\' light on [src] blinks red.</span>")
-		return FALSE
+		return EF_FALSE
 	else
-		return TRUE
+		return EF_TRUE
 
 /obj/item/construction/proc/prox_check(proximity)
 	if(proximity)
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /obj/item/construction/proc/check_menu(mob/living/user)
 	if(!istype(user))
-		return FALSE
+		return EF_FALSE
 	if(user.incapacitated() || !user.Adjacent(src))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/item/construction/rcd
 	name = "rapid-construction-device (RCD)"
@@ -478,7 +478,7 @@ RLD
 /obj/item/construction/rcd/proc/rcd_create(atom/A, mob/user)
 	var/list/rcd_results = A.rcd_vals(user, src)
 	if(!rcd_results)
-		return FALSE
+		return EF_FALSE
 	var/delay = rcd_results["delay"] * delay_mod
 	var/obj/effect/constructing_effect/rcd_effect = new(get_turf(A), delay, src.mode)
 	if(checkResource(rcd_results["cost"], user))
@@ -489,7 +489,7 @@ RLD
 					useResource(rcd_results["cost"], user)
 					activate()
 					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-					return TRUE
+					return EF_TRUE
 	qdel(rcd_effect)
 
 /obj/item/construction/rcd/Initialize()
@@ -566,9 +566,9 @@ RLD
 
 /obj/item/construction/rcd/proc/target_check(atom/A, mob/user) // only returns true for stuff the device can actually work with
 	if((isturf(A) && A.density && mode==RCD_DECONSTRUCT) || (isturf(A) && !A.density) || (istype(A, /obj/machinery/door/airlock) && mode==RCD_DECONSTRUCT) || istype(A, /obj/structure/grille) || (istype(A, /obj/structure/window) && mode==RCD_DECONSTRUCT) || istype(A, /obj/structure/girder || istype(A, /obj/structure/ladder)))
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /obj/item/construction/rcd/afterattack(atom/A, mob/user, proximity)
 	. = ..()
@@ -774,8 +774,8 @@ RLD
 							return 0
 						activate()
 						qdel(A)
-						return TRUE
-				return FALSE
+						return EF_TRUE
+				return EF_FALSE
 		if(LIGHT_MODE)
 			if(iswallturf(A))
 				var/turf/closed/wall/W = A
@@ -786,7 +786,7 @@ RLD
 					playsound(src.loc, 'sound/effects/light_flicker.ogg', 50, 0)
 					if(do_after(user, floordelay, target = A))
 						if(!istype(W))
-							return FALSE
+							return EF_FALSE
 						var/list/candidates = list()
 						var/turf/open/winner = null
 						var/winning_dist = null
@@ -798,7 +798,7 @@ RLD
 						if(!candidates.len)
 							to_chat(user, "<span class='warning'>Valid target not found...</span>")
 							playsound(src.loc, 'sound/misc/compiler-failure.ogg', 30, 1)
-							return FALSE
+							return EF_FALSE
 						for(var/turf/open/O in candidates)
 							if(istype(O))
 								var/x0 = O.x
@@ -813,15 +813,15 @@ RLD
 										winning_dist = contender
 						activate()
 						if(!useResource(wallcost, user))
-							return FALSE
+							return EF_FALSE
 						var/light = get_turf(winner)
 						var/align = get_dir(winner, A)
 						var/obj/machinery/light/L = new /obj/machinery/light(light)
 						L.setDir(align)
 						L.color = color_choice
 						L.light_color = L.color
-						return TRUE
-				return FALSE
+						return EF_TRUE
+				return EF_FALSE
 
 			if(isfloorturf(A))
 				var/turf/open/floor/F = A
@@ -840,8 +840,8 @@ RLD
 						var/obj/machinery/light/floor/FL = new /obj/machinery/light/floor(destination)
 						FL.color = color_choice
 						FL.light_color = FL.color
-						return TRUE
-				return FALSE
+						return EF_TRUE
+				return EF_FALSE
 
 		if(GLOW_MODE)
 			if(useResource(launchcost, user))
@@ -853,8 +853,8 @@ RLD
 				G.throw_at(A, 9, 3, user)
 				G.on = TRUE
 				G.update_brightness()
-				return TRUE
-			return FALSE
+				return EF_TRUE
+			return EF_FALSE
 
 /obj/item/construction/plumbing
 	name = "Plumbing Constructor"
@@ -897,7 +897,7 @@ RLD
 ///pretty much rcd_create, but named differently to make myself feel less bad for copypasting from a sibling-type
 /obj/item/construction/plumbing/proc/create_machine(atom/A, mob/user)
 	if(!machinery_data || !isopenturf(A))
-		return FALSE
+		return EF_FALSE
 
 	if(checkResource(machinery_data["cost"][blueprint], user) && blueprint)
 		if(do_after(user, machinery_data["delay"][blueprint], target = A))
@@ -906,15 +906,15 @@ RLD
 				activate()
 				playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
 				new blueprint (A, FALSE, FALSE)
-				return TRUE
+				return EF_TRUE
 
 /obj/item/construction/plumbing/proc/canPlace(turf/T)
 	if(!isopenturf(T))
-		return FALSE
+		return EF_FALSE
 	. = TRUE
 	for(var/obj/O in T.contents)
 		if(O.density) //let's not built ontop of dense stuff, like big machines and other obstacles, it kills my immershion
-			return FALSE
+			return EF_FALSE
 
 /obj/item/construction/plumbing/afterattack(atom/A, mob/user, proximity)
 	. = ..()

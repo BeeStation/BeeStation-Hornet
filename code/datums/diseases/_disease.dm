@@ -43,7 +43,7 @@
 //add this disease if the host does not already have too many
 /datum/disease/proc/try_infect(var/mob/living/infectee, make_copy = TRUE)
 	infect(infectee, make_copy)
-	return TRUE
+	return EF_TRUE
 
 //add the disease with no checks
 /datum/disease/proc/infect(var/mob/living/infectee, make_copy = TRUE)
@@ -90,14 +90,14 @@
 
 /datum/disease/proc/has_cure()
 	if(!(disease_flags & CURABLE))
-		return FALSE
+		return EF_FALSE
 
 	. = cures.len
 	for(var/C_id in cures)
 		if(!affected_mob.reagents.has_reagent(C_id))
 			.--
 	if(!. || (needs_all_cures && . < cures.len))
-		return FALSE
+		return EF_FALSE
 
 //Airborne spreading
 /datum/disease/proc/spread(force_spread = 0)
@@ -124,13 +124,13 @@
 
 /proc/disease_air_spread_walk(turf/start, turf/end)
 	if(!start || !end)
-		return FALSE
+		return EF_FALSE
 	while(TRUE)
 		if(end == start)
-			return TRUE
+			return EF_TRUE
 		var/turf/Temp = get_step_towards(end, start)
 		if(!CANATMOSPASS(end, Temp))
-			return FALSE
+			return EF_FALSE
 		end = Temp
 
 
@@ -142,8 +142,8 @@
 
 /datum/disease/proc/IsSame(datum/disease/D)
 	if(istype(D, type))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 
 /datum/disease/proc/Copy()

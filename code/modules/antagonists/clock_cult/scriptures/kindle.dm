@@ -19,11 +19,11 @@
 /datum/clockcult/scripture/slab/kindle/apply_effects(atom/A)
 	var/mob/living/M = A
 	if(!istype(M))
-		return FALSE
+		return EF_FALSE
 	if(!is_servant_of_ratvar(invoker))
 		M = invoker
 	if(is_servant_of_ratvar(M))
-		return FALSE
+		return EF_FALSE
 	//Anti magic abilities
 	var/anti_magic_source = M.anti_magic_check()
 	if(anti_magic_source)
@@ -34,7 +34,7 @@
 		M.visible_message("<span class='warning'>[M] stares blankly, as a field of energy flows around them.</span>", \
 									   "<span class='userdanger'>You feel a slight shock as a wave of energy flows past you.</span>")
 		playsound(invoker, 'sound/magic/mm_hit.ogg', 50, TRUE)
-		return TRUE
+		return EF_TRUE
 	//Blood Cultist Effect
 	if(iscultist(M))
 		M.mob_light(_color = LIGHT_COLOR_BLOOD_MAGIC, _range = 2, _duration = 300)
@@ -46,7 +46,7 @@
 		M.say("Fwebar uloft'gib mirlig yro'fara!")
 		to_chat(invoker, "<span class='brass'>You fail to stun [M]!</span>")
 		playsound(invoker, 'sound/magic/mm_hit.ogg', 50, TRUE)
-		return TRUE
+		return EF_TRUE
 	//Successful Invokation
 	invoker.mob_light(_color = LIGHT_COLOR_CLOCKWORK, _range = 2, _duration = 10)
 	if(!is_reebe(invoker.z))
@@ -68,4 +68,4 @@
 		M.client.color = "#BE8700"
 		animate(M.client, color = client_color, time = 25)
 	playsound(invoker, 'sound/magic/staff_animation.ogg', 50, TRUE)
-	return TRUE
+	return EF_TRUE

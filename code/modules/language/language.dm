@@ -30,10 +30,10 @@
 /datum/language/proc/display_icon(atom/movable/hearer)
 	var/understands = hearer.has_language(src.type)
 	if(flags & LANGUAGE_HIDE_ICON_IF_UNDERSTOOD && understands)
-		return FALSE
+		return EF_FALSE
 	if(flags & LANGUAGE_HIDE_ICON_IF_NOT_UNDERSTOOD && !understands)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/language/proc/get_icon()
 	var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/chat)

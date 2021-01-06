@@ -314,11 +314,11 @@
 		return
 
 	if ((ai.z != target.z) && !is_station_level(ai.z))
-		return FALSE
+		return EF_FALSE
 
 	if (istype(loc, /obj/item/aicard))
 		if (!ai || !target)
-			return FALSE
+			return EF_FALSE
 		return ISINRANGE(target.x, ai.x - interaction_range, ai.x + interaction_range) && ISINRANGE(target.y, ai.y - interaction_range, ai.y + interaction_range)
 	else
 		return GLOB.cameranet.checkTurfVis(get_turf(A))
@@ -491,7 +491,7 @@
 
 /mob/living/silicon/ai/proc/switchCamera(obj/machinery/camera/C)
 	if(QDELETED(C))
-		return FALSE
+		return EF_FALSE
 
 	if(!tracking)
 		cameraFollow = null
@@ -501,7 +501,7 @@
 		return
 	// ok, we're alive, camera is good and in our network...
 	eyeobj.setLoc(get_turf(C))
-	return TRUE
+	return EF_TRUE
 
 /mob/living/silicon/ai/proc/botcall()
 	set category = "AI Commands"
@@ -859,16 +859,16 @@
 
 /mob/living/silicon/ai/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, check_immobilized = FALSE, ignore_stasis = FALSE)
 	if(aiRestorePowerRoutine)
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /mob/living/silicon/ai/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
 	if(control_disabled || incapacitated())
 		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
-		return FALSE
+		return EF_FALSE
 	if(be_close && !in_range(M, src))
 		to_chat(src, "<span class='warning'>You are too far away!</span>")
-		return FALSE
+		return EF_FALSE
 	return can_see(M) //stop AIs from leaving windows open and using then after they lose vision
 
 /mob/living/silicon/ai/proc/can_see(atom/A)

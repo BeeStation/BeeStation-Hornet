@@ -141,7 +141,7 @@
 
 /mob/living/simple_animal/bot/firebot/Topic(href, href_list)
 	if(..())
-		return TRUE
+		return EF_TRUE
 
 	switch(href_list["operation"])
 		if("extinguish_fires")
@@ -158,14 +158,14 @@
 	if(ismob(target))
 		var/mob/living/M = target
 		if(M.on_fire || (emagged == 2 && !M.on_fire))
-			return TRUE
+			return EF_TRUE
 
 	else if(isturf(target))
 		var/turf/open/T = target
 		if(T.active_hotspot)
-			return TRUE
+			return EF_TRUE
 
-	return FALSE
+	return EF_FALSE
 
 /mob/living/simple_animal/bot/firebot/handle_automated_action()
 	if(!..())

@@ -153,12 +153,12 @@
 
 //called after the gun has successfully fired its chambered ammo.
 /obj/item/gun/proc/process_chamber()
-	return FALSE
+	return EF_FALSE
 
 //check if there's enough ammo/energy/whatever to shoot one time
 //i.e if clicking would make it shoot
 /obj/item/gun/proc/can_shoot()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	to_chat(user, "<span class='danger'>*click*</span>")
@@ -221,7 +221,7 @@
 	if(!can_shoot()) //Just because you can pull the trigger doesn't mean it can shoot.
 		shoot_with_empty_chamber(user)
 		return
-		
+
 	if (ranged_cooldown>world.time)
 		return
 	//Exclude lasertag guns from the TRAIT_CLUMSY check.
@@ -258,20 +258,20 @@
 /obj/item/gun/can_trigger_gun(mob/living/user)
 	. = ..()
 	if(!handle_pins(user))
-		return FALSE
+		return EF_FALSE
 
 /obj/item/gun/proc/handle_pins(mob/living/user)
 	if(no_pin_required)
-		return TRUE
+		return EF_TRUE
 	if(pin)
 		if(pin.pin_auth(user) || (pin.obj_flags & EMAGGED))
-			return TRUE
+			return EF_TRUE
 		else
 			pin.auth_fail(user)
-			return FALSE
+			return EF_FALSE
 	else
 		to_chat(user, "<span class='warning'>[src]'s trigger is locked. This weapon doesn't have a firing pin installed!</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/item/gun/proc/recharge_newshot()
 	return
@@ -279,11 +279,11 @@
 /obj/item/gun/proc/process_burst(mob/living/user, atom/target, message = TRUE, params=null, zone_override = "", sprd = 0, randomized_gun_spread = 0, randomized_bonus_spread = 0, rand_spr = 0, iteration = 0)
 	if(!user || !firing_burst)
 		firing_burst = FALSE
-		return FALSE
+		return EF_FALSE
 	if(!issilicon(user))
 		if(iteration > 1 && !(user.is_holding(src))) //for burst firing
 			firing_burst = FALSE
-			return FALSE
+			return EF_FALSE
 	if(chambered && chambered.BB)
 		if(HAS_TRAIT(user, TRAIT_PACIFISM)) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
 			if(chambered.harmful) // Is the bullet chambered harmful?
@@ -297,7 +297,7 @@
 		if(!chambered.fire_casing(target, user, params, ,suppressed, zone_override, sprd, src))
 			shoot_with_empty_chamber(user)
 			firing_burst = FALSE
-			return FALSE
+			return EF_FALSE
 		else
 			if(get_dist(user, target) <= 1) //Making sure whether the target is in vicinity for the pointblank shot
 				shoot_live_shot(user, 1, target, message)
@@ -308,10 +308,10 @@
 	else
 		shoot_with_empty_chamber(user)
 		firing_burst = FALSE
-		return FALSE
+		return EF_FALSE
 	process_chamber()
 	update_icon()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	add_fingerprint(user)
@@ -362,7 +362,7 @@
 	if(user)
 		user.update_inv_hands()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/gun/update_icon()
 	..()
@@ -464,7 +464,7 @@
 	if(knife_overlay)
 		cut_overlay(knife_overlay, TRUE)
 		knife_overlay = null
-	return TRUE
+	return EF_TRUE
 
 /obj/item/gun/proc/clear_gunlight()
 	if(!gun_light)
@@ -474,7 +474,7 @@
 	update_gunlight()
 	removed_light.update_brightness()
 	QDEL_NULL(alight)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/gun/ui_action_click(mob/user, actiontype)
 	if(istype(actiontype, alight))

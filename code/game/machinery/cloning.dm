@@ -428,13 +428,13 @@
 //Put messages in the connected computer's temp var for display.
 /obj/machinery/clonepod/proc/connected_message(message)
 	if ((isnull(connected)) || (!istype(connected, /obj/machinery/computer/cloning)))
-		return FALSE
+		return EF_FALSE
 	if (!message)
-		return FALSE
+		return EF_FALSE
 
 	connected.temp = message
 	connected.updateUsrDialog()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/clonepod/proc/go_out()
 	countdown.stop()

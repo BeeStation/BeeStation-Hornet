@@ -20,7 +20,7 @@
 	if(mode)
 		if(target == guardian)
 			to_chat(guardian, "<span class='danger bold'>You can't heal yourself!</span>")
-			return TRUE
+			return EF_TRUE
 		if(isliving(target))
 			var/mob/living/L = target
 			guardian.do_attack_animation(L)
@@ -37,11 +37,11 @@
 				guardian.update_health_hud()
 				guardian.med_hud_set_health()
 				guardian.med_hud_set_status()
-			return TRUE
+			return EF_TRUE
 		else if(isobj(target))
 			var/obj/O = target
 			guardian.do_attack_animation(O)
 			O.obj_integrity = min(O.obj_integrity + (O.max_integrity * 0.1), O.max_integrity)
 			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(O))
 			H.color = guardian.guardiancolor
-			return TRUE
+			return EF_TRUE

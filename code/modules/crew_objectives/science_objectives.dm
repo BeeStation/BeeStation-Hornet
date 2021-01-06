@@ -19,9 +19,9 @@
 		if(!(R.stat == DEAD))
 			borgcount--
 	if(borgcount <= 0)
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 //TODO: make the research objective work with techwebs
 /*
@@ -43,6 +43,6 @@
 	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
 		if(S?.files?.known_designs)
 			if(targetdesign in S.files.known_designs)
-				return TRUE
-	return FALSE
+				return EF_TRUE
+	return EF_FALSE
 */

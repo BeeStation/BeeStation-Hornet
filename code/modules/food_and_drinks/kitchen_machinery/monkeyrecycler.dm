@@ -98,4 +98,4 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	if(istype(I))
 		to_chat(user, "<span class='notice'>You log [src] in the multitool's buffer.</span>")
 		I.buffer = src
-		return TRUE
+		return EF_TRUE

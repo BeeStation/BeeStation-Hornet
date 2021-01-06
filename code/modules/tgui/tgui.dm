@@ -289,7 +289,7 @@
 		process_status()
 		if(src_object.ui_act(copytext(type, 5), payload, src, state))
 			SStgui.update_uis(src_object)
-		return FALSE
+		return EF_FALSE
 	switch(type)
 		if("ready")
 			initialized = TRUE

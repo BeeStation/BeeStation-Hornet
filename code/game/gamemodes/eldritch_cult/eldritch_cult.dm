@@ -52,9 +52,9 @@
 
 	if(!LAZYLEN(culties))
 		setup_error = "Not enough heretic candidates"
-		return FALSE
+		return EF_FALSE
 	else
-		return TRUE
+		return EF_TRUE
 
 /datum/game_mode/heretics/post_setup()
 	for(var/c in culties)

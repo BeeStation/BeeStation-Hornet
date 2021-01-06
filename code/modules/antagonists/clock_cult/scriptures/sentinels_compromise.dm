@@ -27,7 +27,7 @@
 
 /datum/clockcult/scripture/slab/sentinelscompromise/apply_effects(mob/living/M)
 	if(M.stat == DEAD)
-		return FALSE
+		return EF_FALSE
 	var/total_damage = (M.getBruteLoss() + M.getFireLoss() + M.getOxyLoss() + M.getCloneLoss()) * 0.6
 	M.adjustBruteLoss(-M.getBruteLoss() * 0.6, FALSE)
 	M.adjustFireLoss(-M.getFireLoss() * 0.6, FALSE)
@@ -46,4 +46,4 @@
 	M.hallucination = 0
 	new /obj/effect/temp_visual/heal(get_turf(M), "#f8d984")
 	invoker.adjustToxLoss(min(total_damage/2, 80))
-	return TRUE
+	return EF_TRUE

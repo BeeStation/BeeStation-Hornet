@@ -14,7 +14,7 @@
 /datum/objective/hivemind/hivesize/check_completion()
 	var/datum/antagonist/hivemind/host = owner.has_antag_datum(/datum/antagonist/hivemind)
 	if(!host)
-		return FALSE
+		return EF_FALSE
 	return host.hive_size >= target_amount
 
 /datum/objective/hivemind/hiveescape
@@ -32,7 +32,7 @@
 	var/count = 0
 	var/datum/antagonist/hivemind/host = owner.has_antag_datum(/datum/antagonist/hivemind)
 	if(!host)
-		return FALSE
+		return EF_FALSE
 	for(var/datum/mind/M in host.hivemembers)
 		if(considered_escaped(M))
 			count++
@@ -44,10 +44,10 @@
 /datum/objective/hivemind/biggest/check_completion()
 	var/datum/antagonist/hivemind/host = owner.has_antag_datum(/datum/antagonist/hivemind)
 	if(!host)
-		return FALSE
+		return EF_FALSE
 	for(var/datum/antagonist/hivemind/H in GLOB.antagonists)
 		if(H == host)
 			continue
 		if(H.hive_size >= host.hive_size)
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE

@@ -102,7 +102,7 @@
 
 /obj/item/pneumatic_cannon/proc/can_load_item(obj/item/I, mob/user)
 	if(!istype(I))			//Players can't load non items, this allows for admin varedit inserts.
-		return TRUE
+		return EF_TRUE
 	if(allowed_typecache && !is_type_in_typecache(I, allowed_typecache))
 		if(user)
 			to_chat(user, "<span class='warning'>[I] won't fit into [src]!</span>")
@@ -110,25 +110,25 @@
 	if((loadedWeightClass + I.w_class) > maxWeightClass)	//Only make messages if there's a user
 		if(user)
 			to_chat(user, "<span class='warning'>\The [I] won't fit into \the [src]!</span>")
-		return FALSE
+		return EF_FALSE
 	if(I.w_class > w_class)
 		if(user)
 			to_chat(user, "<span class='warning'>\The [I] is too large to fit into \the [src]!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/item/pneumatic_cannon/proc/load_item(obj/item/I, mob/user)
 	if(!can_load_item(I, user))
-		return FALSE
+		return EF_FALSE
 	if(user)		//Only use transfer proc if there's a user, otherwise just set loc.
 		if(!user.transferItemToLoc(I, src))
-			return FALSE
+			return EF_FALSE
 		to_chat(user, "<span class='notice'>You load \the [I] into \the [src].</span>")
 	else
 		I.forceMove(src)
 	loadedItems += I
 	loadedWeightClass += I.w_class
-	return TRUE
+	return EF_TRUE
 
 /obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/user, flag, params)
 	. = ..()
@@ -194,12 +194,12 @@
 
 /obj/item/pneumatic_cannon/proc/throw_item(turf/target, obj/item/I, mob/user)
 	if(!istype(I))
-		return FALSE
+		return EF_FALSE
 	loadedItems -= I
 	loadedWeightClass -= I.w_class
 	I.forceMove(get_turf(src))
 	I.throw_at(target, pressureSetting * 10 * range_multiplier, pressureSetting * 2, user, spin_item)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/pneumatic_cannon/proc/get_target(turf/target, turf/starting)
 	if(range_multiplier == 1)
@@ -254,7 +254,7 @@
 
 /obj/item/pneumatic_cannon/proc/fill_with_type(type, amount)
 	if(!ispath(type, /obj) && !ispath(type, /mob))
-		return FALSE
+		return EF_FALSE
 	var/loaded = 0
 	for(var/i in 1 to amount)
 		var/obj/item/I = new type

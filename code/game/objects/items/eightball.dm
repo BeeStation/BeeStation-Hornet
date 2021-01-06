@@ -112,7 +112,7 @@
 	. = ..()
 
 /obj/item/toy/eightball/haunted/MakeHaunted()
-	return FALSE
+	return EF_FALSE
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /obj/item/toy/eightball/haunted/attack_ghost(mob/user)

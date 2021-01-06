@@ -16,11 +16,11 @@
 		if("resetIDS")
 			if(SSnetworks.station_network)
 				SSnetworks.station_network.resetIDS()
-			return TRUE
+			return EF_TRUE
 		if("toggleIDS")
 			if(SSnetworks.station_network)
 				SSnetworks.station_network.toggleIDS()
-			return TRUE
+			return EF_TRUE
 		if("toggleWireless")
 			if(!SSnetworks.station_network)
 				return
@@ -28,24 +28,24 @@
 			// NTNet is disabled. Enabling can be done without user prompt
 			if(SSnetworks.station_network.setting_disabled)
 				SSnetworks.station_network.setting_disabled = FALSE
-				return TRUE
+				return EF_TRUE
 
 			SSnetworks.station_network.setting_disabled = TRUE
-			return TRUE
+			return EF_TRUE
 		if("purgelogs")
 			if(SSnetworks.station_network)
 				SSnetworks.station_network.purge_logs()
-			return TRUE
+			return EF_TRUE
 		if("updatemaxlogs")
 			var/logcount = params["new_number"]
 			if(SSnetworks.station_network)
 				SSnetworks.station_network.update_max_log_count(logcount)
-			return TRUE
+			return EF_TRUE
 		if("toggle_function")
 			if(!SSnetworks.station_network)
 				return
 			SSnetworks.station_network.toggle_function(text2num(params["id"]))
-			return TRUE
+			return EF_TRUE
 
 /datum/computer_file/program/ntnetmonitor/ui_data(mob/user)
 	if(!SSnetworks.station_network)

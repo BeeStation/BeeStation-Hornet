@@ -42,4 +42,4 @@
 		stoplag(1) // Lock up the caller until this is received.
 		t++
 	if (t < timeout_time)
-		return TRUE
+		return EF_TRUE

@@ -101,8 +101,8 @@
 
 /mob/living/silicon/robot/proc/activated(obj/item/O)
 	if(O in held_items)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 //Helper procs for cyborg modules on the UI.
 //These are hackish but they help clean up code elsewhere.
@@ -114,12 +114,12 @@
 //module_active(module) - Checks whether there is a module active in the slot specified by "module".
 /mob/living/silicon/robot/proc/module_active(module) //Module is 1-3
 	if(module < 1 || module > 3)
-		return FALSE
+		return EF_FALSE
 
 	if(LAZYLEN(held_items) >= module)
 		if(held_items[module])
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 //get_selected_module() - Returns the slot number of the currently selected module.  Returns 0 if no modules are selected.
 /mob/living/silicon/robot/proc/get_selected_module()

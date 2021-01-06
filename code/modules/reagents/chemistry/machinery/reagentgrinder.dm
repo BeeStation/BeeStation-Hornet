@@ -106,7 +106,7 @@
 	else
 		beaker = null
 	update_icon()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/reagentgrinder/attackby(obj/item/I, mob/user, params)
 	//You can only screw open empty grinder
@@ -120,7 +120,7 @@
 		return
 
 	if(panel_open) //Can't insert objects when its screwed open
-		return TRUE
+		return EF_TRUE
 
 	if (istype(I, /obj/item/reagent_containers) && !(I.item_flags & ABSTRACT) && I.is_open_container())
 		var/obj/item/reagent_containers/B = I
@@ -130,11 +130,11 @@
 		replace_beaker(user, B)
 		to_chat(user, "<span class='notice'>You add [B] to [src].</span>")
 		update_icon()
-		return TRUE //no afterattack
+		return EF_TRUE //no afterattack
 
 	if(holdingitems.len >= limit)
 		to_chat(user, "<span class='warning'>[src] is filled to capacity!</span>")
-		return TRUE
+		return EF_TRUE
 
 	//Fill machine with a bag!
 	if(istype(I, /obj/item/storage/bag))
@@ -146,14 +146,14 @@
 				to_chat(user, "<span class='notice'>You empty [I] into [src].</span>")
 			else
 				to_chat(user, "<span class='notice'>You fill [src] to the brim.</span>")
-		return TRUE
+		return EF_TRUE
 
 	if(!I.grind_results && !I.juice_results)
 		if(user.a_intent == INTENT_HARM)
 			return ..()
 		else
 			to_chat(user, "<span class='warning'>You cannot grind [I] into reagents!</span>")
-			return TRUE
+			return EF_TRUE
 
 	if(!I.grind_requirements(src)) //Error messages should be in the objects' definitions
 		return
@@ -161,7 +161,7 @@
 	if(user.transferItemToLoc(I, src))
 		to_chat(user, "<span class='notice'>You add [I] to [src].</span>")
 		holdingitems[I] = TRUE
-		return FALSE
+		return EF_FALSE
 
 /obj/machinery/reagentgrinder/ui_interact(mob/user) // The microwave Menu //I am reasonably certain that this is not a microwave
 	. = ..()

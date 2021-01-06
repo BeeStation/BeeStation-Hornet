@@ -495,10 +495,10 @@
 		update_icon()
 
 /obj/machinery/door/airlock/cult/isElectrified()
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/door/airlock/cult/hasPower()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/door/airlock/cult/allowed(mob/living/L)
 	if(!density)

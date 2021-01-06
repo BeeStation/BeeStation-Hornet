@@ -62,7 +62,7 @@
 	. = D.add_hiddenprint(M)
 
 /atom/proc/add_blood_DNA(list/dna)						//ASSOC LIST DNA = BLOODTYPE
-	return FALSE
+	return EF_FALSE
 
 /obj/add_blood_DNA(list/dna)
 	. = ..()
@@ -78,7 +78,7 @@
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src, diseases)
 	B.add_blood_DNA(blood_dna) //give blood info to the blood decal.
-	return TRUE //we bloodied the floor
+	return EF_TRUE //we bloodied the floor
 
 /mob/living/carbon/human/add_blood_DNA(list/blood_dna, list/datum/disease/diseases)
 	if(wear_suit)
@@ -94,7 +94,7 @@
 		AddComponent(/datum/component/forensics, null, null, blood_dna)
 		bloody_hands = rand(2, 4)
 	update_inv_gloves()	//handles bloody hands overlays and updating
-	return TRUE
+	return EF_TRUE
 
 /atom/proc/transfer_fingerprints_to(atom/A)
 	A.add_fingerprint_list(return_fingerprints())

@@ -386,7 +386,7 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && (swooping & SWOOP_INVULNERABLE))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/visible_message()

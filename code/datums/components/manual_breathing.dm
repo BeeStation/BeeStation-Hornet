@@ -19,7 +19,7 @@
 
 /datum/action/breathe/Trigger()
 	if(owner.stat != CONSCIOUS)
-		return FALSE
+		return EF_FALSE
 	owner.emote(next_emote)
 
 /datum/action/breathe/proc/update_status(emote)

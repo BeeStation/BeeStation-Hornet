@@ -16,14 +16,14 @@
 
 /datum/clockcult/scripture/create_structure/ocular_warden/check_special_requirements()
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	for(var/obj/structure/destructible/clockwork/structure in get_turf(invoker))
 		to_chat(invoker, "<span class='brass'>You cannot invoke that here, the tile is occupied by [structure].</span>")
-		return FALSE
+		return EF_FALSE
 	for(var/obj/structure/destructible/clockwork/ocular_warden/AC in range(OCULAR_WARDEN_PLACE_RANGE))
 		to_chat(invoker, "<span class='nezbere'>There is another ocular warden nearby, placing them too close will cause them to fight!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/structure/destructible/clockwork/ocular_warden
 	name = "ocular warden"

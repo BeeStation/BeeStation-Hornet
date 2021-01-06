@@ -13,12 +13,12 @@
 /datum/surgery/advanced/experimental_dissection/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
 	if(HAS_TRAIT(target, TRAIT_DISSECTED))
-		return FALSE
+		return EF_FALSE
 	if(iscyborg(user))
-		return FALSE //robots cannot be creative
+		return EF_FALSE //robots cannot be creative
 						//(also this surgery shouldn't be consistently successful, and cyborgs have a 100% success rate on surgery)
 	if(target.stat != DEAD)
-		return FALSE
+		return EF_FALSE
 
 /datum/surgery_step/dissection
 	name = "dissection"
@@ -52,7 +52,7 @@
 	var/obj/item/bodypart/L = target.get_bodypart(BODY_ZONE_CHEST)
 	target.apply_damage(80, BRUTE, L)
 	ADD_TRAIT(target, TRAIT_DISSECTED, "surgery")
-	return TRUE
+	return EF_TRUE
 
 /datum/surgery_step/dissection/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("[user] dissects [target]!", "<span class='notice'>You dissect [target], but do not find anything particularly interesting.</span>")
@@ -60,4 +60,4 @@
 	var/obj/item/bodypart/L = target.get_bodypart(BODY_ZONE_CHEST)
 	target.apply_damage(80, BRUTE, L)
 	ADD_TRAIT(target, TRAIT_DISSECTED, "surgery")
-	return TRUE
+	return EF_TRUE

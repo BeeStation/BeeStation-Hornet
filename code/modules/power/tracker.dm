@@ -66,7 +66,7 @@
 		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 		user.visible_message("[user] takes the glass off [src].", "<span class='notice'>You take the glass off [src].</span>")
 		deconstruct(TRUE)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/power/tracker/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(flags_1 & NODECONSTRUCT_1))

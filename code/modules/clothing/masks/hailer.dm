@@ -47,7 +47,7 @@
 
 /obj/item/clothing/mask/gas/sechailer/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	switch(aggressiveness)
 		if(1)
 			to_chat(user, "<span class='notice'>You set the restrictor to the middle position.</span>")
@@ -60,13 +60,13 @@
 			aggressiveness = 1
 		if(4)
 			to_chat(user, "<span class='danger'>You adjust the restrictor but nothing happens, probably because it's broken.</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/item/clothing/mask/gas/sechailer/wirecutter_act(mob/living/user, obj/item/I)
 	if(aggressiveness != 4)
 		to_chat(user, "<span class='danger'>You broke the restrictor!</span>")
 		aggressiveness = 4
-	return TRUE
+	return EF_TRUE
 
 /obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/halt))

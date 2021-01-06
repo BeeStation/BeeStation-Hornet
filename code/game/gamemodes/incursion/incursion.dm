@@ -53,7 +53,7 @@
 		log_game("[key_name(incursion)] has been selected as a member of the incursion")
 	pre_incursionist_team = team
 	gamemode_ready = TRUE
-	return TRUE
+	return EF_TRUE
 
 /datum/game_mode/incursion/post_setup()
 	var/datum/team/incursion/team = pre_incursionist_team

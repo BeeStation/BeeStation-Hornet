@@ -91,7 +91,7 @@
  */
 /client/proc/clear_map(map_name)
 	if(!map_name || !(map_name in screen_maps))
-		return FALSE
+		return EF_FALSE
 	for(var/atom/movable/screen/screen_obj in screen_maps[map_name])
 		screen_maps[map_name] -= screen_obj
 		if(screen_obj.del_on_map_removal)

@@ -103,7 +103,7 @@
 		sleep(30)
 
 	if(!victim)
-		return FALSE
+		return EF_FALSE
 
 	if(victim.reagents && victim.reagents.has_reagent(/datum/reagent/consumable/ethanol/devilskiss, needs_metabolizing = TRUE))
 		to_chat(src, "<span class='warning'><b>AAH! THEIR FLESH! IT BURNS!</b></span>")
@@ -121,7 +121,7 @@
 			victim.forceMove(get_turf(victim))
 			victim.visible_message("<span class='warning'>[victim] appears from nowhere, covered in blood!</span>")
 			victim.exit_blood_effect()
-		return TRUE
+		return EF_TRUE
 
 	to_chat(src, "<span class='danger'>You devour [victim]. Your health is fully restored.</span>")
 	src.revive(full_heal = 1)
@@ -130,7 +130,7 @@
 	victim.adjustBruteLoss(1000)
 	victim.death()
 	bloodcrawl_swallow(victim)
-	return TRUE
+	return EF_TRUE
 
 /mob/living/proc/bloodcrawl_swallow(var/mob/living/victim)
 	qdel(victim)

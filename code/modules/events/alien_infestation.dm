@@ -12,7 +12,7 @@
 
 	for(var/mob/living/carbon/alien/A in GLOB.player_list)
 		if(A.stat != DEAD)
-			return FALSE
+			return EF_FALSE
 
 /datum/round_event/ghost_role/alien_infestation
 	announceWhen	= 400

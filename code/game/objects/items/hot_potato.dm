@@ -100,7 +100,7 @@
 
 /obj/item/hot_potato/proc/force_onto(mob/living/victim, mob/user)
 	if(!istype(victim) || user != loc || victim == user)
-		return FALSE
+		return EF_FALSE
 	if(!victim.client)
 		to_chat(user, "<span class='boldwarning'>[src] refuses to attach to a non-sapient creature!</span>")
 	if(victim.stat != CONSCIOUS || !victim.get_num_legs())

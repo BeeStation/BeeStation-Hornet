@@ -63,7 +63,7 @@
 
 /obj/item/autosurgeon/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	if(!storedorgan)
 		to_chat(user, "<span class='notice'>There's no implant in [src] for you to remove.</span>")
 	else
@@ -79,7 +79,7 @@
 			uses--
 		if(!uses)
 			desc = "[initial(desc)] Looks like it's been used up."
-	return TRUE
+	return EF_TRUE
 
 /obj/item/autosurgeon/cmo
 	desc = "A single use autosurgeon that contains a medical heads-up display augment. A screwdriver can be used to remove it, but implants can't be placed back in."

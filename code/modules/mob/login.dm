@@ -96,7 +96,7 @@
   */
 /mob/proc/auto_deadmin_on_login() //return true if they're not an admin at the end.
 	if(!client?.holder)
-		return TRUE
+		return EF_TRUE
 	if(CONFIG_GET(flag/auto_deadmin_players) || (client.prefs?.toggles & DEADMIN_ALWAYS))
 		return client.holder.auto_deadmin()
 	if(mind.has_antag_datum(/datum/antagonist) && (CONFIG_GET(flag/auto_deadmin_antagonists) || client.prefs?.toggles & DEADMIN_ANTAGONIST))

@@ -63,7 +63,7 @@
 	var/datum/parsed_map/parsed = load_map(file(mappath), x, y, level.z_value, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=TRUE)
 	var/list/bounds = parsed.bounds
 	if(!bounds)
-		return FALSE
+		return EF_FALSE
 
 	repopulate_sorted_areas()
 

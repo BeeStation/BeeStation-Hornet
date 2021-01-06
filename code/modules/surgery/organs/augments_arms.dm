@@ -44,7 +44,7 @@
 /obj/item/organ/cyberimp/arm/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(.)
-		return TRUE
+		return EF_TRUE
 	I.play_tool_sound(src)
 	if(zone == BODY_ZONE_R_ARM)
 		zone = BODY_ZONE_L_ARM

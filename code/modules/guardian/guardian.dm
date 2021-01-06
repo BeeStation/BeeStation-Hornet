@@ -334,7 +334,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		moveToNullspace()
 
 /mob/living/simple_animal/hostile/guardian/canSuicide()
-	return FALSE
+	return EF_FALSE
 
 /mob/living/simple_animal/hostile/guardian/proc/is_deployed()
 	return loc != summoner?.current
@@ -370,19 +370,19 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 /mob/living/simple_animal/hostile/guardian/AttackingTarget()
 	if(transforming)
 		to_chat(src, "<span class='holoparasite italics'>No... no... you can't!</span>")
-		return FALSE
+		return EF_FALSE
 	if(stats.ability && stats.ability.Attack(target))
-		return FALSE
+		return EF_FALSE
 	if(!is_deployed())
 		to_chat(src, "<span class='danger'><B>You must be manifested to attack!</span></B>")
-		return FALSE
+		return EF_FALSE
 	else
 		if(target == src)
 			to_chat(src, "<span class='danger'><B>You can't attack yourself!</span></B>")
-			return FALSE
+			return EF_FALSE
 		else if(target == summoner?.current)
 			to_chat(src, "<span class='danger'><B>You can't attack your summoner!</span></B>")
-			return FALSE
+			return EF_FALSE
 		. = ..()
 		if(isliving(target))
 			say("[battlecry]!!", ignore_spam = TRUE)
@@ -392,7 +392,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			stats.ability.AfterAttack(target)
 
 /mob/living/simple_animal/hostile/guardian/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash)
-	return FALSE
+	return EF_FALSE
 
 /mob/living/simple_animal/hostile/guardian/death()
 	. = ..()
@@ -417,7 +417,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	. = amount
 	if(summoner?.current)
 		if(!is_deployed())
-			return FALSE
+			return EF_FALSE
 		summoner.current.adjustBruteLoss(amount)
 		if(amount > 0)
 			to_chat(summoner.current, "<span class='danger'><B>Your [name] is under attack! You take damage!</span></B>")
@@ -474,11 +474,11 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /mob/living/simple_animal/hostile/guardian/proc/Manifest(forced)
 	if(!summoner?.current)
-		return FALSE
+		return EF_FALSE
 	if(istype(summoner.current.loc, /obj/effect) || istype(summoner.current.loc, /obj/machinery/clonepod) || (cooldown > world.time && !forced))
-		return FALSE
+		return EF_FALSE
 	if(stats.ability && stats.ability.Manifest())
-		return TRUE
+		return EF_TRUE
 	if(!is_deployed())
 		forceMove(summoner.current.loc)
 		if(do_the_cool_invisible_thing)
@@ -487,8 +487,8 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		cooldown = world.time + 10
 		reset_perspective()
 		setup_barriers()
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /mob/living/simple_animal/hostile/guardian/proc/Recall(forced)
 	if(!berserk && (QDELETED(summoner?.current) || summoner.current.stat == DEAD))
@@ -496,21 +496,21 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		return
 	if(transforming)
 		to_chat(src, "<span class='holoparasite italics'>No... no... you can't!</span>")
-		return FALSE
+		return EF_FALSE
 	if(!is_deployed() || (cooldown > world.time && !forced))
-		return FALSE
+		return EF_FALSE
 	if(stats.ability && stats.ability.Recall())
-		return TRUE
+		return EF_TRUE
 	new /obj/effect/temp_visual/guardian/phase/out(loc)
 	forceMove(summoner.current)
 	cooldown = world.time + 10
 	cut_barriers()
-	return TRUE
+	return EF_TRUE
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	if(transforming)
 		to_chat(src, "<span class='holoparasite italics'>No... no... you can't!</span>")
-		return FALSE
+		return EF_FALSE
 	if(cooldown > world.time)
 		return
 	if(!stats.ability || !stats.ability.has_mode)

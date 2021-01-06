@@ -36,22 +36,22 @@
 
 /obj/item/assembly/proc/on_detach() //call this when detaching it from a device. handles any special functions that need to be updated ex post facto
 	if(!holder)
-		return FALSE
+		return EF_FALSE
 	forceMove(holder.drop_location())
 	holder = null
-	return TRUE
+	return EF_TRUE
 
 /obj/item/assembly/proc/holder_movement()							//Called when the holder is moved
 	if(!holder)
-		return FALSE
+		return EF_FALSE
 	setDir(holder.dir)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/assembly/proc/is_secured(mob/user)
 	if(!secured)
 		to_chat(user, "<span class='warning'>The [name] is unsecured!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 
 //Called when another assembly acts on this one, var/radio will determine where it came from for wire calcs
@@ -60,27 +60,27 @@
 		INVOKE_ASYNC(src, .proc/activate)
 	if(radio && (wire_type & WIRE_RADIO_RECEIVE))
 		INVOKE_ASYNC(src, .proc/activate)
-	return TRUE
+	return EF_TRUE
 
 
 //Called when this device attempts to act on another device, var/radio determines if it was sent via radio or direct
 /obj/item/assembly/proc/pulse(radio = FALSE)
 	if(connected && wire_type)
 		connected.pulse_assembly(src)
-		return TRUE
+		return EF_TRUE
 	if(holder && (wire_type & WIRE_PULSE))
 		holder.process_activation(src, 1, 0)
 	if(holder && (wire_type & WIRE_PULSE_SPECIAL))
 		holder.process_activation(src, 0, 1)
-	return TRUE
+	return EF_TRUE
 
 
 // What the device does when turned on
 /obj/item/assembly/proc/activate()
 	if(QDELETED(src) || !secured || (next_activate > world.time))
-		return FALSE
+		return EF_FALSE
 	next_activate = world.time + activate_delay
-	return TRUE
+	return EF_TRUE
 
 
 /obj/item/assembly/proc/toggle_secure()
@@ -103,13 +103,13 @@
 
 /obj/item/assembly/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	if(toggle_secure())
 		to_chat(user, "<span class='notice'>\The [src] is ready!</span>")
 	else
 		to_chat(user, "<span class='notice'>\The [src] can now be attached!</span>")
 	add_fingerprint(user)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/assembly/examine(mob/user)
 	. = ..()
@@ -118,10 +118,10 @@
 
 /obj/item/assembly/attack_self(mob/user)
 	if(!user)
-		return FALSE
+		return EF_FALSE
 	user.set_machine(src)
 	interact(user)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/assembly/interact(mob/user)
 	return ui_interact(user)

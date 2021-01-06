@@ -17,7 +17,7 @@ GLOBAL_PROTECT(whitelist)
 
 /proc/check_whitelist(var/ckey)
 	if(!GLOB.whitelist)
-		return FALSE
+		return EF_FALSE
 	. = (ckey in GLOB.whitelist)
 
 #undef WHITELISTFILE

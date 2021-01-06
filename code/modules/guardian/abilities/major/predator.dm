@@ -31,7 +31,7 @@
 						if(!(H in can_track))
 							to_chat(guardian, "<span class='notice italics'>We learn the identity of [H.real_name].</span>")
 							can_track += H
-			return TRUE
+			return EF_TRUE
 		if(isobj(target))
 			guardian.visible_message("<span class='notice'>[guardian] picks up [target], and looks at it for a second, before setting it down.</span>")
 			var/obj/O = target
@@ -49,7 +49,7 @@
 						if(!(H in can_track))
 							to_chat(guardian, "<span class='notice italics'>We learn the identity of [H.real_name].</span>")
 							can_track += H
-			return TRUE
+			return EF_TRUE
 
 /obj/effect/proc_holder/spell/self/predator
 	name = "All-Seeing Predator"

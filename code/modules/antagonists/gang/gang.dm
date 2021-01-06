@@ -12,7 +12,7 @@
 	. = ..()
 	if(.)
 		if(new_owner.unconvertable)
-			return FALSE
+			return EF_FALSE
 
 /datum/antagonist/gang/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/M = mob_override || owner.current
@@ -78,13 +78,13 @@
 
 /datum/antagonist/gang/proc/can_be_converted(mob/living/candidate)
 	if(!candidate.mind)
-		return FALSE
+		return EF_FALSE
 	if(!can_be_owned(candidate.mind))
-		return FALSE
+		return EF_FALSE
 	var/mob/living/carbon/human/H = candidate
 	if(!istype(H)) //Can't nonhumans
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/antagonist/gang/proc/promote() // Bump up to boss
 	var/datum/team/gang/old_gang = gang
@@ -132,7 +132,7 @@
 		else
 			gang = existinggang
 	..()
-	return TRUE
+	return EF_TRUE
 
 /datum/antagonist/gang/proc/admin_promote(mob/admin)
 	message_admins("[key_name_admin(admin)] has promoted [owner] to gang boss.")
@@ -474,4 +474,4 @@
 	return round(diff * 0.1)
 
 #undef MAXIMUM_RECALLS
-#undef INFLUENCE_INTERVAL 
+#undef INFLUENCE_INTERVAL

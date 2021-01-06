@@ -87,7 +87,7 @@
 			H.throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
 		else if(safe_nitro_min)
 			H.throw_alert("not_enough_nitro", /atom/movable/screen/alert/not_enough_nitro)
-		return FALSE
+		return EF_FALSE
 
 	var/gas_breathed = 0
 
@@ -335,13 +335,13 @@
 			SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "smell")
 
 		handle_breath_temperature(breath, H)
-	return TRUE
+	return EF_TRUE
 
 
 /obj/item/organ/lungs/proc/handle_too_little_breath(mob/living/carbon/human/H = null, breath_pp = 0, safe_breath_min = 0, true_pp = 0)
 	. = 0
 	if(!H || !safe_breath_min) //the other args are either: Ok being 0 or Specifically handled.
-		return FALSE
+		return EF_FALSE
 
 	if(prob(20))
 		H.emote("gasp")

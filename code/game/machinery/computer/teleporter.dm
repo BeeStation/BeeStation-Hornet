@@ -105,10 +105,10 @@
 
 /obj/machinery/computer/teleporter/proc/check_hub_connection()
 	if(!power_station)
-		return FALSE
+		return EF_FALSE
 	if(!power_station.teleporter_hub)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/computer/teleporter/proc/reset_regime()
 	target = null
@@ -173,10 +173,10 @@
 /obj/machinery/computer/teleporter/proc/is_eligible(atom/movable/AM)
 	var/turf/T = get_turf(AM)
 	if(!T)
-		return FALSE
+		return EF_FALSE
 	if(is_centcom_level(T.z) || is_away_level(T.z))
-		return FALSE
+		return EF_FALSE
 	var/area/A = get_area(T)
 	if(!A || A.noteleport)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE

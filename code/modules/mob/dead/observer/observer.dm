@@ -341,7 +341,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	client.view_size.setDefault(getScreenSize(src))//Let's reset so people can't become allseeing gods
 	SStgui.on_transfer(src, mind.current) // Transfer NanoUIs.
 	mind.current.key = key
-	return TRUE
+	return EF_TRUE
 
 /mob/dead/observer/verb/stay_dead()
 	set category = "Ghost"
@@ -350,7 +350,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	if(!can_reenter_corpse)
 		to_chat(usr, "<span class='warning'>You're already stuck out of your body!</span>")
-		return FALSE
+		return EF_FALSE
 
 	var/response = alert(src, "Are you sure you want to prevent (almost) all means of resuscitation? This cannot be undone. ","Are you sure you want to stay dead?","DNR","Save Me")
 	if(response != "DNR")
@@ -358,7 +358,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	can_reenter_corpse = FALSE
 	to_chat(src, "You can no longer be brought back into your body.")
-	return TRUE
+	return EF_TRUE
 
 /mob/dead/observer/proc/notify_cloning(var/message, var/sound, var/atom/source, flashwindow = TRUE)
 	if(flashwindow)
@@ -768,7 +768,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return IsAdminGhost(usr)
 
 /mob/dead/observer/is_literate()
-	return TRUE
+	return EF_TRUE
 
 /mob/dead/observer/vv_edit_var(var_name, var_value)
 	. = ..()

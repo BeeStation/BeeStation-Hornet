@@ -6,12 +6,12 @@
 
 /atom/movable/screen/pai/Click()
 	if(isobserver(usr) || usr.incapacitated())
-		return FALSE
+		return EF_FALSE
 	var/mob/living/silicon/pai/pAI = usr
 	if(required_software && !pAI.software.Find(required_software))
 		to_chat(pAI, PAI_MISSING_SOFTWARE_MESSAGE)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /atom/movable/screen/pai/software
 	name = "Software Interface"

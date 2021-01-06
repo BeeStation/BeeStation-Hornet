@@ -47,16 +47,16 @@
 	switch(action)
 		if("PRG_arm")
 			armed = !armed
-			return TRUE
+			return EF_TRUE
 		if("PRG_activate")
 			activate()
-			return TRUE
+			return EF_TRUE
 		if("PRG_obfuscate")
 			var/newname = params["new_name"]
 			if(!newname)
 				return
 			filedesc = newname
-			return TRUE
+			return EF_TRUE
 
 
 /datum/computer_file/program/revelation/clone()

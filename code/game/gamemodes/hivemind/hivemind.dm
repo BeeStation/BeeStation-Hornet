@@ -30,10 +30,10 @@
 			continue
 		var/obj/effect/proc_holder/spell/target_hive/hive_control/the_spell = locate(/obj/effect/proc_holder/spell/target_hive/hive_control) in hive.owner.spell_list
 		if((!the_spell || !the_spell.active ) && mind == hive.owner)
-			return TRUE
+			return EF_TRUE
 		if(the_spell?.active && the_spell.original_body == src)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /mob/living/proc/get_real_hivehost() //Returns src unless it's under mind control, then it returns the original body
 	var/mob/living/M = src
@@ -48,14 +48,14 @@
 
 /proc/is_hivemember(mob/living/L)
 	if(!L)
-		return FALSE
+		return EF_FALSE
 	var/datum/mind/M = L.mind
 	if(!M)
-		return FALSE
+		return EF_FALSE
 	for(var/datum/antagonist/hivemind/H in GLOB.antagonists)
 		if(H.hivemembers.Find(M))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /proc/remove_hivemember(mob/living/L) //Removes somebody from all hives as opposed to the antag proc remove_from_hive()
 	var/datum/mind/M = L?.mind
@@ -94,9 +94,9 @@
 
 	if(hosts.len < required_enemies)
 		setup_error = "Not enough host candidates"
-		return FALSE
+		return EF_FALSE
 	else
-		return TRUE
+		return EF_TRUE
 
 
 /datum/game_mode/hivemind/post_setup()

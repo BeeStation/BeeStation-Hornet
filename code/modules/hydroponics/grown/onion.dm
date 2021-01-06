@@ -54,7 +54,7 @@
 	S.set_up(reagents, 0, splat_location, 0)
 	if(..())
 		S.start()
-		return TRUE
+		return EF_TRUE
 	qdel(S)
 
 /obj/item/reagent_containers/food/snacks/onion_slice

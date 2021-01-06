@@ -29,10 +29,10 @@
 
 /obj/item/choice_beacon/proc/canUseBeacon(mob/living/user)
 	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
-		return TRUE
+		return EF_TRUE
 	else
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 40, 1)
-		return FALSE
+		return EF_FALSE
 
 /obj/item/choice_beacon/proc/generate_options(mob/living/M)
 	var/list/display_names = generate_display_names()
@@ -111,7 +111,7 @@
 
 /obj/item/storage/box/hero/ghostbuster/PopulateContents()
 	new /obj/item/clothing/glasses/welding/ghostbuster(src)
-	new /obj/item/storage/belt/fannypack/bustin(src)	
+	new /obj/item/storage/belt/fannypack/bustin(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/under/color/khaki/buster(src)
@@ -193,7 +193,7 @@
 			maximum_size = 4
 			to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand].</span>")
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
-	
+
 /obj/item/clothing/head/that/bluespace/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!proximity_flag)

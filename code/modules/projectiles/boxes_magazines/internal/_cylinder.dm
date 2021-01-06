@@ -34,7 +34,7 @@
 
 /obj/item/ammo_box/magazine/internal/cylinder/give_round(obj/item/ammo_casing/R, replace_spent = 0)
 	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
-		return FALSE
+		return EF_FALSE
 
 	for(var/i in 1 to stored_ammo.len)
 		var/obj/item/ammo_casing/bullet = stored_ammo[i]
@@ -44,9 +44,9 @@
 
 			if(bullet)
 				bullet.forceMove(drop_location())
-			return TRUE
+			return EF_TRUE
 
-	return FALSE
+	return EF_FALSE
 
 /obj/item/ammo_box/magazine/internal/cylinder/mime
 	name = "fingergun cylinder"

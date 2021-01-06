@@ -32,7 +32,7 @@
 /datum/martial_art/karate/proc/floorKick(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/def_check = D.getarmor(BODY_ZONE_HEAD, "melee")
 	if(!can_use(A))
-		return FALSE
+		return EF_FALSE
 	if(!(D.mobility_flags & MOBILITY_STAND))
 		log_combat(A, D, "floor stomped (Karate)")
 		D.visible_message("<span class='warning'>[A] stomped [D] in the head!</span>", \
@@ -48,7 +48,7 @@
 /datum/martial_art/karate/proc/calfKick(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/def_check = D.getarmor(BODY_ZONE_L_LEG, "melee")
 	if(!can_use(A))
-		return FALSE
+		return EF_FALSE
 	if(!D.stat)
 		log_combat(A, D, "calf kicked (Karate)")
 		D.visible_message("<span class='warning'>[A] roundhouse kicked [D] in the calf!</span>", \
@@ -63,7 +63,7 @@
 /datum/martial_art/karate/proc/jumpingKnee(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/def_check = D.getarmor(BODY_ZONE_HEAD, "melee")
 	if(!can_use(A))
-		return FALSE
+		return EF_FALSE
 	if(!D.stat)
 		log_combat(A, D, "jumped kneed (Karate)")
 		D.visible_message("<span class='warning'>[A] jumping kneed [D] in the stomach!</span>", \
@@ -79,7 +79,7 @@
 // Karate Chop - short confusion and blurred eyes
 /datum/martial_art/karate/proc/karateChop(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
-		return FALSE
+		return EF_FALSE
 	if(!D.stat)
 		log_combat(A, D, "karate chopped (Karate)")
 		D.visible_message("<span class='warning'>[A] karate chopped [D] in the neck!</span>", \

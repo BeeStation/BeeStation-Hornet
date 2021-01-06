@@ -172,12 +172,12 @@
 	if(current_user.client)
 		current_user.client.images += the_eye.placed_images
 		to_chat(current_user, "<span class='notice'>Transit location designated.</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/canDesignateTarget()
 	if(!designating_target_loc || !current_user || (eyeobj.loc != designating_target_loc) || (stat & (NOPOWER|BROKEN)) )
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/rotateLandingSpot()
 	var/mob/camera/aiEye/remote/shuttle_docker/the_eye = eyeobj
@@ -289,7 +289,7 @@
 	user.sight = BLIND|SEE_TURFS
 	user.lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 	user.sync_lighting_plane_alpha()
-	return TRUE
+	return EF_TRUE
 
 /datum/action/innate/shuttledocker_rotate
 	name = "Rotate"

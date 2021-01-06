@@ -177,11 +177,11 @@
 
 /mob/camera/imaginary_friend/Move(NewLoc, Dir = 0)
 	if(world.time < move_delay)
-		return FALSE
+		return EF_FALSE
 	if(get_dist(src, owner) > 9)
 		recall()
 		move_delay = world.time + 10
-		return FALSE
+		return EF_FALSE
 	forceMove(NewLoc)
 	move_delay = world.time + 1
 
@@ -192,7 +192,7 @@
 
 /mob/camera/imaginary_friend/proc/recall()
 	if(!owner || loc == owner)
-		return FALSE
+		return EF_FALSE
 	forceMove(owner)
 
 /datum/action/innate/imaginary_join

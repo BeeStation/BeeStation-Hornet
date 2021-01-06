@@ -15,15 +15,15 @@
 
 /datum/surgery/advanced/revival/can_start(mob/user, mob/living/carbon/target)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	if(target.stat != DEAD)
-		return FALSE
+		return EF_FALSE
 	if(target.suiciding || target.hellbound || HAS_TRAIT(target, TRAIT_HUSK))
-		return FALSE
+		return EF_FALSE
 	var/obj/item/organ/brain/B = target.getorganslot(ORGAN_SLOT_BRAIN)
 	if(!B)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/surgery_step/revive
 	name = "revive body"
@@ -36,19 +36,19 @@
 		var/obj/item/twohanded/shockpaddles/S = tool
 		if((S.req_defib && !S.defib.powered) || !S.wielded || S.cooldown || S.busy)
 			to_chat(user, "<span class='warning'>You need to wield both paddles, and [S.defib] must be powered!</span>")
-			return FALSE
+			return EF_FALSE
 	if(istype(tool, /obj/item/melee/baton))
 		var/obj/item/melee/baton/B = tool
 		if(!B.turned_on)
 			to_chat(user, "<span class='warning'>[B] needs to be active!</span>")
-			return FALSE
+			return EF_FALSE
 	if(istype(tool, /obj/item/gun/energy))
 		var/obj/item/gun/energy/E = tool
 		if(E.chambered && istype(E.chambered, /obj/item/ammo_casing/energy/electrode))
-			return TRUE
+			return EF_TRUE
 		else
 			to_chat(user, "<span class='warning'>You need an electrode for this!</span>")
-			return FALSE
+			return EF_FALSE
 
 /datum/surgery_step/revive/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='notice'>You prepare to give [target]'s brain the spark of life with [tool].</span>",
@@ -68,10 +68,10 @@
 		target.visible_message("...[target] wakes up, alive and aware!")
 		target.emote("gasp")
 		target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 50, 199) //MAD SCIENCE
-		return TRUE
+		return EF_TRUE
 	else
 		target.visible_message("...[target.p_they()] convulses, then lies still.")
-		return FALSE
+		return EF_FALSE
 
 /datum/surgery_step/revive/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='notice'>You shock [target]'s brain with [tool], but [target.p_they()] doesn't react.</span>",
@@ -79,4 +79,4 @@
 		"[user] send a powerful shock to [target]'s brain with [tool], but [target.p_they()] doesn't react.")
 	playsound(get_turf(target), 'sound/magic/lightningbolt.ogg', 50, 1)
 	target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 15, 180)
-	return FALSE
+	return EF_FALSE

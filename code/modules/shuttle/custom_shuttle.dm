@@ -114,7 +114,7 @@
 	stat_calc_cooldown = world.time + CALCULATE_STATS_COOLDOWN
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	if(!M)
-		return FALSE
+		return EF_FALSE
 	//Reset data
 	calculated_mass = 0
 	calculated_dforce = 0
@@ -144,14 +144,14 @@
 			calculated_cooldown = max(calculated_cooldown, E.cooldown)
 	//This should really be accelleration, but its a 2d spessman game so who cares
 	if(calculated_mass == 0)
-		return FALSE
+		return EF_FALSE
 	calculated_speed = (calculated_dforce*1000) / (calculated_mass*100)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/computer/custom_shuttle/proc/consumeFuel(var/dist)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	if(!M)
-		return FALSE
+		return EF_FALSE
 	//Calculate all the data
 	for(var/obj/machinery/shuttle/engine/shuttle_machine in GLOB.custom_shuttle_machines)
 		shuttle_machine.check_setup()

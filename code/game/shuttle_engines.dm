@@ -36,7 +36,7 @@
 
 /obj/structure/shuttle/engine/wrench_act(mob/living/user, obj/item/I)
 	default_unfasten_wrench(user, I)
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/shuttle/engine/welder_act(mob/living/user, obj/item/I)
 	switch(state)
@@ -44,7 +44,7 @@
 			to_chat(user, "<span class='warning'>The [src.name] needs to be wrenched to the floor!</span>")
 		if(ENGINE_WRENCHED)
 			if(!I.tool_start_check(user, amount=0))
-				return TRUE
+				return EF_TRUE
 
 			user.visible_message("[user.name] starts to weld the [name] to the floor.", \
 				"<span class='notice'>You start to weld \the [src] to the floor...</span>", \
@@ -57,7 +57,7 @@
 
 		if(ENGINE_WELDED)
 			if(!I.tool_start_check(user, amount=0))
-				return TRUE
+				return EF_TRUE
 
 			user.visible_message("[user.name] starts to cut the [name] free from the floor.", \
 				"<span class='notice'>You start to cut \the [src] free from the floor...</span>", \
@@ -67,7 +67,7 @@
 				state = ENGINE_WRENCHED
 				to_chat(user, "<span class='notice'>You cut \the [src] free from the floor.</span>")
 				alter_engine_power(-engine_power)
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/shuttle/engine/Destroy()
 	if(state == ENGINE_WELDED)

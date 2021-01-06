@@ -139,7 +139,7 @@
 		return
 	..()
 	changeling_transform(user, chosen_prof)
-	return TRUE
+	return EF_TRUE
 
 /datum/antagonist/changeling/proc/select_dna(var/prompt, var/title)
 	var/mob/living/carbon/user = owner.current

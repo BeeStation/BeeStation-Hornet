@@ -211,14 +211,14 @@
 
 /obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)
 	if(flags_1 & NODECONSTRUCT_1)
-		return TRUE
+		return EF_TRUE
 
 	user.visible_message("<span class='warning'>[user] disassembles [src].</span>",
 		"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
 	if(I.use_tool(src, user, 20, volume=50))
 		new /obj/item/gps(loc)
 		qdel(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/gps/computer/attack_hand(mob/user)
 	. = ..()
@@ -290,13 +290,13 @@
 
 /obj/structure/fans/wrench_act(mob/living/user, obj/item/I)
 	if(flags_1 & NODECONSTRUCT_1)
-		return TRUE
+		return EF_TRUE
 
 	user.visible_message("<span class='warning'>[user] disassembles [src].</span>",
 		"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
 	if(I.use_tool(src, user, 20, volume=50))
 		deconstruct()
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/fans/tiny
 	name = "tiny fan"

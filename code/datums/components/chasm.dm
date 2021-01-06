@@ -50,7 +50,7 @@
 /datum/component/chasm/proc/drop_stuff(AM)
 	. = 0
 	if (is_safe())
-		return FALSE
+		return EF_FALSE
 
 	var/atom/parent = src.parent
 	var/to_check = AM ? list(AM) : parent.contents
@@ -62,20 +62,20 @@
 /datum/component/chasm/proc/droppable(atom/movable/AM)
 	// avoid an infinite loop, but allow falling a large distance
 	if(falling_atoms[AM] && falling_atoms[AM] > 30)
-		return FALSE
+		return EF_FALSE
 	if(!isliving(AM) && !isobj(AM))
-		return FALSE
+		return EF_FALSE
 	if(is_type_in_typecache(AM, forbidden_types) || AM.throwing || (AM.movement_type & FLOATING))
-		return FALSE
+		return EF_FALSE
 	//Flies right over the chasm
 	if(ismob(AM))
 		var/mob/M = AM
 		if(M.buckled)		//middle statement to prevent infinite loops just in case!
 			var/mob/buckled_to = M.buckled
 			if((!ismob(M.buckled) || (buckled_to.buckled != M)) && !droppable(M.buckled))
-				return FALSE
+				return EF_FALSE
 		if(M.is_flying())
-			return FALSE
+			return EF_FALSE
 		if(ishuman(AM))
 			var/mob/living/carbon/human/H = AM
 			if(istype(H.belt, /obj/item/wormhole_jaunter))
@@ -83,8 +83,8 @@
 				//To freak out any bystanders
 				H.visible_message("<span class='boldwarning'>[H] falls into [parent]!</span>")
 				J.chasm_react(H)
-				return FALSE
-	return TRUE
+				return EF_FALSE
+	return EF_TRUE
 
 /datum/component/chasm/proc/drop(atom/movable/AM)
 	//Make sure the item is still there after our sleep

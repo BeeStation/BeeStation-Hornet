@@ -93,12 +93,12 @@
 		var/obj/item/implant/P = I
 		if(P.implant(M))
 			visible_message("<span class='warning'>[M] has been implanted by [src].</span>")
-			return TRUE
+			return EF_TRUE
 	else if(istype(I, /obj/item/organ))
 		var/obj/item/organ/P = I
 		P.Insert(M, FALSE, FALSE)
 		visible_message("<span class='warning'>[M] has been implanted by [src].</span>")
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/implantchair/update_icon()
 	icon_state = initial(icon_state)
@@ -186,23 +186,23 @@
 
 /obj/machinery/implantchair/brainwash/implant_action(mob/living/C,mob/user)
 	if(!istype(C) || !C.mind) // I don't know how this makes any sense for silicons but laws trump objectives anyway.
-		return FALSE
+		return EF_FALSE
 	if(custom)
 		if(!user || !user.Adjacent(src))
-			return FALSE
+			return EF_FALSE
 		objective = stripped_input(usr,"What order do you want to imprint on [C]?","Enter the order","",120)
 		message_admins("[ADMIN_LOOKUPFLW(user)] set brainwash machine objective to '[objective]'.")
 		log_game("[key_name(user)] set brainwash machine objective to '[objective]'.")
 	if(HAS_TRAIT(C, TRAIT_MINDSHIELD))
-		return FALSE
+		return EF_FALSE
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(istype(H.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			to_chat(H, "<span class ='userdanger'>Your trusty tinfoil hat shorts out the implant as it plunges into your skull!</span>")
 			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 75)
 			H.emote("scream")
-			return TRUE
+			return EF_TRUE
 	brainwash(C, objective)
 	message_admins("[ADMIN_LOOKUPFLW(user)] brainwashed [key_name_admin(C)] with objective '[objective]'.")
 	log_game("[key_name(user)] brainwashed [key_name(C)] with objective '[objective]'.")
-	return TRUE
+	return EF_TRUE

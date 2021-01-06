@@ -43,7 +43,7 @@
 	var/obj/item/multitool/M = I
 	M.buffer = src
 	to_chat(user, "<span class='notice'>You store linkage information in [I]'s buffer.</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/mineral/stacking_unit_console/Topic(href, href_list)
 	if(..())
@@ -102,7 +102,7 @@
 			CONSOLE = M.buffer
 			CONSOLE.machine = src
 			to_chat(user, "<span class='notice'>You link [src] to the console in [M]'s buffer.</span>")
-			return TRUE
+			return EF_TRUE
 
 /obj/machinery/mineral/stacking_machine/proc/process_sheet(obj/item/stack/sheet/inp)
 	var/key = inp.merge_type

@@ -8,12 +8,12 @@
 
 /datum/export/manifest_correct/applies_to(obj/O)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 
 	var/obj/item/paper/fluff/jobs/cargo/manifest/M = O
 	if(M.is_approved() && !M.errors)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 // Correctly denied manifest.
 // Refunds the package cost minus the cost of crate.
@@ -25,12 +25,12 @@
 
 /datum/export/manifest_error_denied/applies_to(obj/O)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 
 	var/obj/item/paper/fluff/jobs/cargo/manifest/M = O
 	if(M.is_denied() && M.errors)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/export/manifest_error_denied/get_cost(obj/O)
 	var/obj/item/paper/fluff/jobs/cargo/manifest/M = O
@@ -45,12 +45,12 @@
 
 /datum/export/manifest_error/applies_to(obj/O)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 
 	var/obj/item/paper/fluff/jobs/cargo/manifest/M = O
 	if(M.is_approved() && M.errors)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/export/manifest_error/get_cost(obj/O)
 	var/obj/item/paper/fluff/jobs/cargo/manifest/M = O
@@ -66,12 +66,12 @@
 
 /datum/export/manifest_correct_denied/applies_to(obj/O)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 
 	var/obj/item/paper/fluff/jobs/cargo/manifest/M = O
 	if(M.is_denied() && !M.errors)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/export/manifest_correct_denied/get_cost(obj/O)
 	var/obj/item/paper/fluff/jobs/cargo/manifest/M = O

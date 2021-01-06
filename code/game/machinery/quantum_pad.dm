@@ -56,7 +56,7 @@
 		return
 	else if(panel_open && I.tool_behaviour == TOOL_WIRECUTTER)
 		wires.interact(user)
-		return TRUE
+		return EF_TRUE
 
 	if(panel_open)
 		if(I.tool_behaviour == TOOL_MULTITOOL)
@@ -65,7 +65,7 @@
 			var/obj/item/multitool/M = I
 			M.buffer = src
 			to_chat(user, "<span class='notice'>You save the data in [I]'s buffer. It can now be saved to pads with closed panels.</span>")
-			return TRUE
+			return EF_TRUE
 	else if(I.tool_behaviour == TOOL_MULTITOOL)
 		if(!multitool_check_buffer(user, I))
 			return
@@ -73,14 +73,14 @@
 		if(istype(M.buffer, /obj/machinery/quantumpad))
 			if(M.buffer == src)
 				to_chat(user, "<span class='warning'>You cannot link a pad to itself!</span>")
-				return TRUE
+				return EF_TRUE
 			else
 				linked_pad = M.buffer
 				to_chat(user, "<span class='notice'>You link [src] to the one in [I]'s buffer.</span>")
-				return TRUE
+				return EF_TRUE
 		else
 			to_chat(user, "<span class='warning'>There is no quantum pad data saved in [I]'s buffer!</span>")
-			return TRUE
+			return EF_TRUE
 
 	else if(istype(I, /obj/item/quantum_keycard))
 		var/obj/item/quantum_keycard/K = I

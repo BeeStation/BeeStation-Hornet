@@ -96,20 +96,20 @@ Contents:
 //This proc prevents the suit from being taken off.
 /obj/item/clothing/suit/space/space_ninja/proc/lock_suit(mob/living/carbon/human/H)
 	if(!istype(H))
-		return FALSE
+		return EF_FALSE
 	if(!is_ninja(H))
 		to_chat(H, "<span class='danger'><B>fÄTaL ÈÈRRoR</B>: 382200-*#00CÖDE <B>RED</B>\nUNAUHORIZED USÈ DETÈCeD\nCoMMÈNCING SUB-R0UIN3 13...\nTÈRMInATING U-U-USÈR...</span>")
 		H.gib()
-		return FALSE
+		return EF_FALSE
 	if(!istype(H.head, /obj/item/clothing/head/helmet/space/space_ninja))
 		to_chat(H, "<span class='userdanger'>ERROR</span>: 100113 UNABLE TO LOCATE HEAD GEAR\nABORTING...")
-		return FALSE
+		return EF_FALSE
 	if(!istype(H.shoes, /obj/item/clothing/shoes/space_ninja))
 		to_chat(H, "<span class='userdanger'>ERROR</span>: 122011 UNABLE TO LOCATE FOOT GEAR\nABORTING...")
-		return FALSE
+		return EF_FALSE
 	if(!istype(H.gloves, /obj/item/clothing/gloves/space_ninja))
 		to_chat(H, "<span class='userdanger'>ERROR</span>: 110223 UNABLE TO LOCATE HAND GEAR\nABORTING...")
-		return FALSE
+		return EF_FALSE
 	affecting = H
 	ADD_TRAIT(src, TRAIT_NODROP, NINJA_SUIT_TRAIT)
 	slowdown = 0
@@ -120,7 +120,7 @@ Contents:
 	n_shoes.slowdown--
 	n_gloves = H.gloves
 	ADD_TRAIT(n_gloves, TRAIT_NODROP, NINJA_SUIT_TRAIT)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/clothing/suit/space/space_ninja/proc/lockIcons(mob/living/carbon/human/H)
 	icon_state = H.gender==FEMALE ? "s-ninjanf" : "s-ninjan"
@@ -159,32 +159,32 @@ Contents:
 /obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/initialize_ninja_suit))
 		toggle_on_off()
-		return TRUE
+		return EF_TRUE
 	if(!s_initialized)
 		to_chat(user, "<span class='warning'><b>ERROR</b>: suit offline.  Please activate suit.</span>")
-		return FALSE
+		return EF_FALSE
 	if(istype(action, /datum/action/item_action/ninjasmoke))
 		ninjasmoke()
-		return TRUE
+		return EF_TRUE
 	if(istype(action, /datum/action/item_action/ninjaboost))
 		ninjaboost()
-		return TRUE
+		return EF_TRUE
 	if(istype(action, /datum/action/item_action/ninjapulse))
 		ninjapulse()
-		return TRUE
+		return EF_TRUE
 	if(istype(action, /datum/action/item_action/ninjastar))
 		ninjastar()
-		return TRUE
+		return EF_TRUE
 	if(istype(action, /datum/action/item_action/ninjanet))
 		ninjanet()
-		return TRUE
+		return EF_TRUE
 	if(istype(action, /datum/action/item_action/ninja_sword_recall))
 		ninja_sword_recall()
-		return TRUE
+		return EF_TRUE
 	if(istype(action, /datum/action/item_action/ninja_stealth))
 		stealth()
-		return TRUE
+		return EF_TRUE
 	if(istype(action, /datum/action/item_action/toggle_glove))
 		n_gloves.toggledrain()
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE

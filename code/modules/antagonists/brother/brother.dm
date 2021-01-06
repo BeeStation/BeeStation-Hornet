@@ -100,7 +100,7 @@
 	var/static/meeting_areas = list("The Bar", "Dorms", "Escape Dock", "Arrivals", "Holodeck", "Primary Tool Storage", "Recreation Area", "Chapel", "Library")
 
 /datum/team/brother_team/is_solo()
-	return FALSE
+	return EF_FALSE
 
 /datum/team/brother_team/proc/pick_meeting_area()
 	meeting_area = pick(meeting_areas)

@@ -34,7 +34,7 @@
 			return get_step(center,SOUTH)
 		if(9)
 			return get_step(center,SOUTHEAST)
-		
+
 /obj/effect/sliding_puzzle/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
@@ -47,16 +47,16 @@
 	for(var/id in 1 to 9)
 		var/turf/T = get_turf_for_id(id)
 		if(!T)
-			return FALSE
+			return EF_FALSE
 		if(istype(T,/turf/closed/indestructible))
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 
 /obj/effect/sliding_puzzle/proc/validate()
 	if(finished)
 		return
-	
+
 	if(elements.len < 8) //Someone broke it
 		qdel(src)
 
@@ -86,7 +86,7 @@
 		shake_camera(M, COLLAPSE_DURATION , 1)
 	for(var/obj/structure/puzzle_element/E in elements)
 		E.collapse()
-	
+
 	dispense_reward()
 
 /obj/effect/sliding_puzzle/proc/dispense_reward()
@@ -103,7 +103,7 @@
 		for(var/j in i to current_ordering.len)
 			if(current_ordering[j] < checked_value)
 				swap_tally++
-	
+
 	return swap_tally % 2 == 0
 
 //swap two tiles in same row
@@ -113,13 +113,13 @@
 	if(empty_tile_id == 1 || empty_tile_id == 2) //Can't swap with empty one so just grab some in second row
 		first_tile_id = 4
 		other_tile_id = 5
-	
+
 	var/turf/T1 = get_turf_for_id(first_tile_id)
 	var/turf/T2 = get_turf_for_id(other_tile_id)
-	
+
 	var/obj/structure/puzzle_element/E1 = locate() in T1
 	var/obj/structure/puzzle_element/E2 = locate() in T2
-	
+
 	E1.forceMove(T2)
 	E2.forceMove(T1)
 
@@ -326,7 +326,7 @@
 	var/obj/effect/sliding_puzzle/prison/cube = new(T)
 	if(!cube.check_setup_location())
 		qdel(cube)
-		return FALSE
+		return EF_FALSE
 
 	//First grab the prisoner and move them temporarily into the generator so they won't get thrown around.
 	prisoner.notransform = TRUE
@@ -342,7 +342,7 @@
 	for(var/atom/movable/AM in things_to_throw)
 		var/throwtarget = get_edge_target_turf(T, get_dir(T, get_step_away(AM, T)))
 		AM.throw_at(throwtarget, 2, 3)
-	
+
 	//Create puzzle itself
 	cube.prisoner = prisoner
 	cube.setup()
@@ -350,4 +350,4 @@
 	//Move them into random block
 	var/obj/structure/puzzle_element/E = pick(cube.elements)
 	prisoner.forceMove(E)
-	return TRUE
+	return EF_TRUE

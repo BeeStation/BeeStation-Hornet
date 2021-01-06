@@ -69,11 +69,11 @@ GLOBAL_LIST_INIT(huds, list(
 
 /datum/atom_hud/proc/remove_from_hud(atom/A)
 	if(!A)
-		return FALSE
+		return EF_FALSE
 	for(var/mob/M in hudusers)
 		remove_from_single_hud(M, A)
 	hudatoms -= A
-	return TRUE
+	return EF_TRUE
 
 /datum/atom_hud/proc/remove_from_single_hud(mob/M, atom/A) //unsafe, no sanity apart from client
 	if(!M || !M.client || !A)
@@ -106,12 +106,12 @@ GLOBAL_LIST_INIT(huds, list(
 
 /datum/atom_hud/proc/add_to_hud(atom/A)
 	if(!A)
-		return FALSE
+		return EF_FALSE
 	hudatoms |= A
 	for(var/mob/M in hudusers)
 		if(!queued_to_see[M])
 			add_to_single_hud(M, A)
-	return TRUE
+	return EF_TRUE
 
 /datum/atom_hud/proc/add_to_single_hud(mob/M, atom/A) //unsafe, no sanity apart from client
 	if(!M || !M.client || !A)

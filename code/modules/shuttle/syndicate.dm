@@ -31,7 +31,7 @@
 
 /obj/machinery/computer/shuttle/syndicate/allowed(mob/M)
 	if(issilicon(M) && !(ROLE_SYNDICATE in M.faction))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /obj/machinery/computer/shuttle/syndicate/drop_pod

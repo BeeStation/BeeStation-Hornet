@@ -7,7 +7,7 @@
 
 /datum/action/innate/shuttle_creator/Activate()
 	if(!target)
-		return TRUE
+		return EF_TRUE
 	C = owner
 	remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = target

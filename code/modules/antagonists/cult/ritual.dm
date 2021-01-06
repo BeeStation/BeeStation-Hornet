@@ -30,7 +30,7 @@ This file contains the cult dagger and rune list code
 			M.reagents.del_reagent(/datum/reagent/water/holywater)
 			M.reagents.add_reagent(/datum/reagent/fuel/unholywater,holy2unholy)
 			log_combat(user, M, "smacked", src, " removing the holy water from them")
-		return FALSE
+		return EF_FALSE
 	. = ..()
 
 /obj/item/melee/cultblade/dagger/attack_self(mob/user)
@@ -140,12 +140,12 @@ This file contains the cult dagger and rune list code
 /obj/item/melee/cultblade/dagger/proc/check_rune_turf(turf/T, mob/user)
 	if(isspaceturf(T))
 		to_chat(user, "<span class='warning'>You cannot scribe runes in space!</span>")
-		return FALSE
+		return EF_FALSE
 	if(locate(/obj/effect/rune) in T)
 		to_chat(user, "<span class='cult'>There is already a rune here.</span>")
-		return FALSE
+		return EF_FALSE
 	var/area/A = get_area(T)
 	if((!is_station_level(T.z) && !is_mining_level(T.z)) || (A && !A.blob_allowed))
 		to_chat(user, "<span class='warning'>The veil is not weak enough here.</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE

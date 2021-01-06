@@ -787,8 +787,8 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	return
 /obj/item/proc/can_trigger_gun(mob/living/user)
 	if(!user.can_use_guns(src))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/item/extendohand
 	name = "extendo-hand"

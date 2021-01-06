@@ -99,13 +99,13 @@
 	if(istype(W, /obj/item/tank/internals/plasma))
 		if(!anchored)
 			to_chat(user, "<span class='warning'>[src] needs to be secured to the floor first!</span>")
-			return TRUE
+			return EF_TRUE
 		if(loaded_tank)
 			to_chat(user, "<span class='warning'>There's already a plasma tank loaded!</span>")
-			return TRUE
+			return EF_TRUE
 		if(panel_open)
 			to_chat(user, "<span class='warning'>Close the maintenance panel first!</span>")
-			return TRUE
+			return EF_TRUE
 		if(!user.transferItemToLoc(W, src))
 			return
 		loaded_tank = W
@@ -119,48 +119,48 @@
 				to_chat(user, "<span class='warning'>The controls can only be locked when \the [src] is active!</span>")
 		else
 			to_chat(user, "<span class='danger'>Access denied.</span>")
-			return TRUE
+			return EF_TRUE
 	else
 		return ..()
 
 /obj/machinery/power/rad_collector/wrench_act(mob/living/user, obj/item/I)
 	default_unfasten_wrench(user, I)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/power/rad_collector/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	if(loaded_tank)
 		to_chat(user, "<span class='warning'>Remove the plasma tank first!</span>")
 	else
 		default_deconstruction_screwdriver(user, icon_state, icon_state, I)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/power/rad_collector/crowbar_act(mob/living/user, obj/item/I)
 	if(loaded_tank)
 		if(locked)
 			to_chat(user, "<span class='warning'>The controls are locked!</span>")
-			return TRUE
+			return EF_TRUE
 		eject()
-		return TRUE
+		return EF_TRUE
 	if(default_deconstruction_crowbar(I))
-		return TRUE
+		return EF_TRUE
 	to_chat(user, "<span class='warning'>There isn't a tank loaded!</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/power/rad_collector/multitool_act(mob/living/user, obj/item/I)
 	if(!is_station_level(z) && !SSresearch.science_tech)
 		to_chat(user, "<span class='warning'>[src] isn't linked to a research system!</span>")
-		return TRUE
+		return EF_TRUE
 	if(locked)
 		to_chat(user, "<span class='warning'>[src] is locked!</span>")
-		return TRUE
+		return EF_TRUE
 	if(active)
 		to_chat(user, "<span class='warning'>[src] is currently active, producing [bitcoinmining ? "research points":"power"].</span>")
-		return TRUE
+		return EF_TRUE
 	bitcoinmining = !bitcoinmining
 	to_chat(user, "<span class='warning'>You [bitcoinmining ? "enable":"disable"] the research point production feature of [src].</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/power/rad_collector/return_analyzable_air()
 	if(loaded_tank)

@@ -83,7 +83,7 @@
 	var/turf/T = get_turf(user)
 	T.assume_air(removed)
 
-	return TRUE
+	return EF_TRUE
 
 /obj/item/tank/jetpack/suicide_act(mob/user)
 	if (istype(user, /mob/living/carbon/human/))
@@ -122,7 +122,7 @@
 	var/turf/T = get_turf(user)
 	T.assume_air(removed)
 
-	return TRUE
+	return EF_TRUE
 
 /obj/item/tank/jetpack/void
 	name = "void jetpack (oxygen)"

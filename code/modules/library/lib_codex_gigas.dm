@@ -22,7 +22,7 @@
 
 /obj/item/book/codex_gigas/attack_self(mob/user)
 	if(!user.can_read(src))
-		return FALSE
+		return EF_FALSE
 	if(inUse)
 		to_chat(user, "<span class='notice'>Someone else is reading it.</span>")
 	if(ishuman(user))
@@ -68,13 +68,13 @@
 	if(..())
 		return
 	if(!action)
-		return FALSE
+		return EF_FALSE
 	if(action == "search")
 		SStgui.close_uis(src)
 		addtimer(CALLBACK(src, .proc/perform_research, usr, currentName), 0)
 		currentName = ""
 		currentSection = PRE_TITLE
-		return FALSE
+		return EF_FALSE
 	else
 		currentName += action
 	var/oldSection = currentSection

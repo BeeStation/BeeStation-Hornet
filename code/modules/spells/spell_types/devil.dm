@@ -133,12 +133,12 @@
 
 /obj/effect/proc_holder/spell/targeted/infernal_jaunt/proc/valid_location(mob/living/user = usr)
 	if(istype(get_area(user), /area/shuttle/)) // Can always phase in in a shuttle.
-		return TRUE
+		return EF_TRUE
 	else
 		for(var/mob/living/C in orange(2, get_turf(user))) //Can also phase in when nearby a potential buyer.
 			if (C.owns_soul())
-				return TRUE
-	return FALSE
+				return EF_TRUE
+	return EF_FALSE
 
 /mob/living/proc/infernalphaseout()
 	dust_animation()
@@ -155,7 +155,7 @@
 /mob/living/proc/infernalphasein()
 	if(notransform)
 		to_chat(src, "<span class='warning'>You're too busy to jaunt in.</span>")
-		return FALSE
+		return EF_FALSE
 	fakefire()
 	forceMove(drop_location())
 	client.eye = src

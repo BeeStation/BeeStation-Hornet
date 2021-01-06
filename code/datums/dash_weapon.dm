@@ -21,9 +21,9 @@
 
 /datum/action/innate/dash/IsAvailable()
 	if(current_charges > 0)
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /datum/action/innate/dash/Activate()
 	dashing_item.attack_self(holder) //Used to toggle dash behavior in the dashing item

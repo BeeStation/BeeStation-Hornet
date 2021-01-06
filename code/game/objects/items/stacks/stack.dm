@@ -32,7 +32,7 @@
 	if(is_cyborg)
 		to_chat(usr, "<span class='danger'>[src] is electronically synthesized in your chassis and can't be ground up!</span>")
 		return
-	return TRUE
+	return EF_TRUE
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -239,20 +239,20 @@
 			to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.req_amount*multiplier] [R.title]\s!</span>")
 		else
 			to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.title]!</span>")
-		return FALSE
+		return EF_FALSE
 	var/turf/T = get_turf(usr)
 
 	var/obj/D = R.result_type
 	if(R.window_checks && !valid_window_location(T, initial(D.dir) == FULLTILE_WINDOW_DIR ? FULLTILE_WINDOW_DIR : usr.dir))
 		to_chat(usr, "<span class='warning'>The [R.title] won't fit here!</span>")
-		return FALSE
+		return EF_FALSE
 	if(R.one_per_turf && (locate(R.result_type) in T))
 		to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
-		return FALSE
+		return EF_FALSE
 	if(R.on_floor)
 		if(!isfloorturf(T))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
-			return FALSE
+			return EF_FALSE
 		for(var/obj/AM in T)
 			if(istype(AM,/obj/structure/grille))
 				continue
@@ -264,7 +264,7 @@
 					continue
 			if(AM.density)
 				to_chat(usr, "<span class='warning'>Theres a [AM.name] here. You cant make a [R.title] here!</span>")
-				return FALSE
+				return EF_FALSE
 	if(R.placement_checks)
 		switch(R.placement_checks)
 			if(STACK_CHECK_CARDINALS)
@@ -273,26 +273,26 @@
 					step = get_step(T, direction)
 					if(locate(R.result_type) in step)
 						to_chat(usr, "<span class='warning'>\The [R.title] must not be built directly adjacent to another!</span>")
-						return FALSE
+						return EF_FALSE
 			if(STACK_CHECK_ADJACENT)
 				if(locate(R.result_type) in range(1, T))
 					to_chat(usr, "<span class='warning'>\The [R.title] must be constructed at least one tile away from others of its type!</span>")
-					return FALSE
-	return TRUE
+					return EF_FALSE
+	return EF_TRUE
 
 /obj/item/stack/use(used, transfer = FALSE, check = TRUE) // return 0 = borked; return 1 = had enough
 	if(check && zero_amount())
-		return FALSE
+		return EF_FALSE
 	if (is_cyborg)
 		return source.use_charge(used * cost)
 	if (amount < used)
-		return FALSE
+		return EF_FALSE
 	amount -= used
 	if(check)
 		zero_amount()
 	update_icon()
 	update_weight()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/stack/tool_use_check(mob/living/user, amount)
 	if(get_amount() < amount)
@@ -304,9 +304,9 @@
 		else
 			to_chat(user, "<span class='warning'>You need at least [amount] to do this!</span>")
 
-		return FALSE
+		return EF_FALSE
 
-	return TRUE
+	return EF_TRUE
 
 /obj/item/stack/proc/zero_amount()
 	if(is_cyborg)
@@ -380,7 +380,7 @@
 
 /obj/item/stack/proc/change_stack(mob/user, amount)
 	if(!use(amount, TRUE, FALSE))
-		return FALSE
+		return EF_FALSE
 	var/obj/item/stack/F = new type(user? user : drop_location(), amount, FALSE)
 	. = F
 	F.copy_evidences(src)
@@ -402,12 +402,12 @@
 /obj/item/stack/proc/merge_check(obj/o)
 	if(istype(o,merge_type))
 		if(!istype(o,/obj/item/stack)) //Not a stack, but can be stacked.
-			return TRUE
+			return EF_TRUE
 		else
 			var/obj/item/stack/ostack = o
 			if(istype(src,ostack.merge_type)) //Merge types have to go in both directions, so inheritance != stackable together
-				return TRUE
-	return FALSE
+				return EF_TRUE
+	return EF_FALSE
 
 /obj/item/stack/proc/copy_evidences(obj/item/stack/from)
 	add_blood_DNA(from.return_blood_DNA())

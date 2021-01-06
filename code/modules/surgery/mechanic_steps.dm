@@ -15,9 +15,9 @@
 
 /datum/surgery_step/mechanic_incise/tool_check(mob/user, obj/item/tool)
 	if(implement_type == /obj/item && !tool.is_sharp())
-		return FALSE
+		return EF_FALSE
 
-	return TRUE
+	return EF_TRUE
 
 //close shell
 /datum/surgery_step/mechanic_close
@@ -36,9 +36,9 @@
 
 /datum/surgery_step/mechanic_close/tool_check(mob/user, obj/item/tool)
 	if(implement_type == /obj/item && !tool.is_sharp())
-		return FALSE
+		return EF_FALSE
 
-	return TRUE
+	return EF_TRUE
 
 //prepare electronics
 /datum/surgery_step/prepare_electronics

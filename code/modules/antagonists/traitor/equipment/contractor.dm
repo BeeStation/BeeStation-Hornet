@@ -251,12 +251,12 @@
 	if (hub.contract_rep >= cost)
 		hub.contract_rep -= cost
 	else
-		return FALSE
+		return EF_FALSE
 
 	if (limited >= 1)
 		limited -= 1
 	else if (limited == 0)
-		return FALSE
+		return EF_FALSE
 
 	hub.purchased_items.Add(src)
 
@@ -271,7 +271,7 @@
 			to_chat(user, "<span class='notice'>Your purchase materializes onto the floor.</span>")
 
 		return item_to_create
-	return TRUE
+	return EF_TRUE
 
 /obj/item/pinpointer/crew/contractor
 	name = "contractor pinpointer"

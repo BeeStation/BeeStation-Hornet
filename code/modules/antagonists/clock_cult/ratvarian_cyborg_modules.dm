@@ -28,12 +28,12 @@
 		return
 	if(internal_slab.invoking_scripture)
 		to_chat(user, "<span class='brass'>You fail to invoke [name].</span>")
-		return FALSE
+		return EF_FALSE
 	var/datum/clockcult/scripture/new_scripture = new scripture_datum
 	if(new_scripture.power_cost > GLOB.clockcult_power)
 		to_chat(user, "<span class='neovgre'>You need [new_scripture.power_cost]W to invoke [new_scripture.name].</span>")
 		qdel(new_scripture)
-		return FALSE
+		return EF_FALSE
 	//Create a new scripture temporarilly to process, when it's done it will be qdeleted.
 	new_scripture.qdel_on_completion = TRUE
 	new_scripture.begin_invoke(user, internal_slab, TRUE)

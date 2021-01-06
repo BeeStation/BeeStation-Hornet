@@ -94,8 +94,8 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 /mob/camera/blob/proc/is_valid_turf(turf/T)
 	var/area/A = get_area(T)
 	if((A && !A.blob_allowed) || !T || !is_station_level(T.z) || isspaceturf(T))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /mob/camera/blob/process()
 	if(!blob_core)

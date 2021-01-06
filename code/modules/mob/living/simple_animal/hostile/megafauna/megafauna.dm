@@ -65,7 +65,7 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/prevent_content_explosion()
-	return TRUE
+	return EF_TRUE
 
 /mob/living/simple_animal/hostile/megafauna/death(gibbed, var/list/force_grant)
 	if(health > 0)
@@ -117,14 +117,14 @@
 
 /mob/living/simple_animal/hostile/megafauna/proc/devour(mob/living/L)
 	if(!L)
-		return FALSE
+		return EF_FALSE
 	visible_message(
 		"<span class='danger'>[src] devours [L]!</span>",
 		"<span class='userdanger'>You feast on [L], restoring your health!</span>")
 	if(!is_station_level(z) || client) //NPC monsters won't heal while on station
 		adjustBruteLoss(-L.maxHealth/2)
 	L.gib()
-	return TRUE
+	return EF_TRUE
 
 /mob/living/simple_animal/hostile/megafauna/ex_act(severity, target)
 	switch (severity)
@@ -143,7 +143,7 @@
 
 /mob/living/simple_animal/hostile/megafauna/proc/grant_achievement(medaltype, scoretype, crusher_kill, var/list/grant_achievement = list())
 	if(!medal_type || (flags_1 & ADMIN_SPAWNED_1) || !SSmedals.hub_enabled) //Don't award medals if the medal type isn't set
-		return FALSE
+		return EF_FALSE
 	if(!grant_achievement.len)
 		for(var/mob/living/L in view(7,src))
 			grant_achievement += L
@@ -157,7 +157,7 @@
 			SSmedals.UnlockMedal("[medaltype] [BOSS_KILL_MEDAL_CRUSHER]", C)
 		SSmedals.SetScore(BOSS_SCORE, C, 1)
 		SSmedals.SetScore(score_type, C, 1)
-	return TRUE
+	return EF_TRUE
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"
@@ -171,7 +171,7 @@
 	if(istype(L, /mob/living/simple_animal/hostile/megafauna))
 		M = L
 		return ..()
-	return FALSE
+	return EF_FALSE
 
 /datum/action/innate/megafauna_attack/Activate()
 	M.chosen_attack = chosen_attack_num

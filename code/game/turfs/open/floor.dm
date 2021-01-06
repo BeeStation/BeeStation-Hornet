@@ -250,22 +250,22 @@
 			return list("mode" = RCD_MACHINE, "delay" = 20, "cost" = 25)
 		if(RCD_COMPUTER)
 			return list("mode" = RCD_COMPUTER, "delay" = 20, "cost" = 25)
-	return FALSE
+	return EF_FALSE
 
 /turf/open/floor/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_FLOORWALL)
 			to_chat(user, "<span class='notice'>You build a wall.</span>")
 			PlaceOnTop(/turf/closed/wall)
-			return TRUE
+			return EF_TRUE
 		if(RCD_LADDER)
 			to_chat(user, "<span class='notice'>You build a ladder.</span>")
 			var/obj/structure/ladder/L = new(src)
 			L.anchored = TRUE
-			return TRUE
+			return EF_TRUE
 		if(RCD_AIRLOCK)
 			if(locate(/obj/machinery/door/airlock) in src)
-				return FALSE
+				return EF_FALSE
 			to_chat(user, "<span class='notice'>You build an airlock.</span>")
 			var/obj/machinery/door/airlock/A = new the_rcd.airlock_type(src)
 
@@ -280,34 +280,34 @@
 			else
 				A.req_access = A.electronics.accesses
 			A.autoclose = TRUE
-			return TRUE
+			return EF_TRUE
 		if(RCD_DECONSTRUCT)
 			if(ScrapeAway(flags = CHANGETURF_INHERIT_AIR) == src)
-				return FALSE
+				return EF_FALSE
 			to_chat(user, "<span class='notice'>You deconstruct [src].</span>")
-			return TRUE
+			return EF_TRUE
 		if(RCD_WINDOWGRILLE)
 			if(locate(/obj/structure/grille) in src)
-				return FALSE
+				return EF_FALSE
 			to_chat(user, "<span class='notice'>You construct the grille.</span>")
 			var/obj/structure/grille/G = new(src)
 			G.anchored = TRUE
-			return TRUE
+			return EF_TRUE
 		if(RCD_MACHINE)
 			if(locate(/obj/structure/frame/machine) in src)
-				return FALSE
+				return EF_FALSE
 			var/obj/structure/frame/machine/M = new(src)
 			M.state = 2
 			M.icon_state = "box_1"
 			M.anchored = TRUE
-			return TRUE
+			return EF_TRUE
 		if(RCD_COMPUTER)
 			if(locate(/obj/structure/frame/computer) in src)
-				return FALSE
+				return EF_FALSE
 			var/obj/structure/frame/computer/C = new(src)
 			C.anchored = TRUE
 			C.state = 1
 			C.setDir(the_rcd.computer_dir)
-			return TRUE
+			return EF_TRUE
 
-	return FALSE
+	return EF_FALSE

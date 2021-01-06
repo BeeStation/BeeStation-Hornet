@@ -16,7 +16,7 @@ SUBSYSTEM_DEF(pai)
 			return
 		if(istype(card, /obj/item/paicard) && istype(candidate, /datum/paiCandidate))
 			if(check_ready(candidate) != candidate)
-				return FALSE
+				return EF_FALSE
 			var/mob/living/silicon/pai/pai = new(card)
 			if(!candidate.name)
 				pai.name = pick(GLOB.ninja_names)
@@ -134,11 +134,11 @@ SUBSYSTEM_DEF(pai)
 
 /datum/controller/subsystem/pai/proc/check_ready(var/datum/paiCandidate/C)
 	if(!C.ready)
-		return FALSE
+		return EF_FALSE
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(O.key == C.key)
 			return C
-	return FALSE
+	return EF_FALSE
 
 /datum/controller/subsystem/pai/proc/findPAI(obj/item/paicard/p, mob/user)
 	if(!ghost_spam)

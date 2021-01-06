@@ -33,7 +33,7 @@
 	if(!IS_DYNAMIC_LIGHTING(A))
 		to_chat(user, "<span class='warning'>You cannot place [src] in this area!</span>")
 		return
-	return TRUE
+	return EF_TRUE
 
 
 /obj/structure/light_construct
@@ -593,21 +593,21 @@
 // can also return if it has access to a certain amount of that power
 /obj/machinery/light/proc/has_emergency_power(pwr)
 	if(no_emergency || !cell)
-		return FALSE
+		return EF_FALSE
 	if(pwr ? cell.charge >= pwr : cell.charge)
 		return status == LIGHT_OK
 
 // attempts to use power from the installed emergency cell, returns true if it does and false if it doesn't
 /obj/machinery/light/proc/use_emergency_power(pwr = LIGHT_EMERGENCY_POWER_USE)
 	if(!has_emergency_power(pwr))
-		return FALSE
+		return EF_FALSE
 	if(cell.charge > 300) //it's meant to handle 120 W, ya doofus
 		visible_message("<span class='warning'>[src] short-circuits from too powerful of a power cell!</span>")
 		burn_out()
-		return FALSE
+		return EF_FALSE
 	cell.use(pwr)
 	set_light(brightness * bulb_emergency_brightness_mul, max(bulb_emergency_pow_min, bulb_emergency_pow_mul * (cell.charge / cell.maxcharge)), bulb_emergency_colour)
-	return TRUE
+	return EF_TRUE
 
 
 /obj/machinery/light/proc/flicker(var/amount = rand(10, 20))

@@ -163,14 +163,14 @@
 		var/mob/living/carbon/human/H = target
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
 			playsound(H, 'sound/weapons/genhit.ogg', 50, TRUE)
-			return FALSE
+			return EF_FALSE
 	if(iscyborg(loc))
 		var/mob/living/silicon/robot/R = loc
 		if(!R || !R.cell || !R.cell.use(hitcost))
-			return FALSE
+			return EF_FALSE
 	else
 		if(!deductcharge(hitcost))
-			return FALSE
+			return EF_FALSE
 
 	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.zone_selected))
 	var/armor_block = target.run_armor_check(affecting, "energy")

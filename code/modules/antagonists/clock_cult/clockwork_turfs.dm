@@ -196,14 +196,14 @@
 /turf/open/floor/clockwork/crowbar_act(mob/living/user, obj/item/I)
 	if(islist(baseturfs))
 		if(type in baseturfs)
-			return TRUE
+			return EF_TRUE
 	else if(baseturfs == type)
-		return TRUE
+		return EF_TRUE
 	user.visible_message("<span class='notice'>[user] begins slowly prying up [src]...</span>", "<span class='notice'>You begin painstakingly prying up [src]...</span>")
 	if(I.use_tool(src, user, 70, volume=80))
 		user.visible_message("<span class='notice'>[user] pries up [src]!</span>", "<span class='notice'>You pry up [src]!</span>")
 		make_plating()
-	return TRUE
+	return EF_TRUE
 
 /turf/open/floor/clockwork/make_plating()
 	if(!dropped_brass)
@@ -294,7 +294,7 @@
 		icon = 'icons/obj/smooth_structures/lattice_clockwork.dmi'
 		pixel_x = 0
 		pixel_y = 0
-	return TRUE
+	return EF_TRUE
 
 //=================================================
 //Clockwork Catwalk: Ratvarians choice of catwalk
@@ -327,7 +327,7 @@
 		icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
 		pixel_x = 0
 		pixel_y = 0
-	return TRUE
+	return EF_TRUE
 
 //=================================================
 //Pinion airlocks: Clockwork doors that only let servants of Ratvar through.
@@ -388,11 +388,11 @@
 
 /obj/machinery/door/airlock/clockwork/allowed(mob/M)
 	if(is_servant_of_ratvar(M))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/door/airlock/clockwork/hasPower()
-	return TRUE //yes we do have power
+	return EF_TRUE //yes we do have power
 
 /obj/machinery/door/airlock/clockwork/obj_break(damage_flag)
 	return
@@ -459,7 +459,7 @@
 
 /obj/effect/clockwork/servant_blocker/CanPass(atom/movable/mover, turf/target)
 	if(is_servant_of_ratvar(mover))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 //=================================================

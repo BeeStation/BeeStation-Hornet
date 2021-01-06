@@ -177,7 +177,7 @@
 
 /obj/machinery/scanner_gate/can_interact(mob/user)
 	if(locked)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 

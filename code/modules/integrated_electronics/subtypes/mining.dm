@@ -96,9 +96,9 @@
 /obj/item/integrated_circuit/mining/mining_drill/proc/drill()
 	busy = FALSE
 	// The assembly was moved, hence stopping the mining OR the rock was mined before
-	if(usedx != assembly.loc.x || usedy != assembly.loc.y || !rock)	
+	if(usedx != assembly.loc.x || usedy != assembly.loc.y || !rock)
 		activate_pin(3)
-		return FALSE
+		return EF_FALSE
 
 	activate_pin(2)
 	rock.gets_drilled()

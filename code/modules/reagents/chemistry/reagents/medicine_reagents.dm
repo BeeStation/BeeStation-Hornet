@@ -373,7 +373,7 @@
 	C.adjustBruteLoss(-0.25*REM, 0)
 	C.adjustFireLoss(-0.25*REM, 0)
 	..()
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/medicine/mine_salve/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -608,7 +608,7 @@
 	M.adjustOxyLoss(-10*REM, 0)
 	M.adjustToxLoss(1*REM, 0)
 	..()
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/medicine/perfluorodecalin/overdose_process(mob/living/M)
 	M.adjustOrganLoss(ORGAN_SLOT_HEART, 2)
@@ -641,7 +641,7 @@
 	M.AdjustAllImmobility(-20, FALSE)
 	M.adjustStaminaLoss(-10*REM, FALSE)
 	..()
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/medicine/ephedrine/overdose_process(mob/living/M)
 	if(prob(2) && iscarbon(M))
@@ -657,7 +657,7 @@
 		M.adjustToxLoss(1*REM, 0)
 		M.losebreath++
 		. = 1
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/medicine/ephedrine/addiction_act_stage1(mob/living/M)
 	if(prob(3) && iscarbon(M))
@@ -1035,7 +1035,7 @@
 	M.adjustStaminaLoss(-80, 0)
 	M.Jitter(300)
 	..()
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/medicine/pumpup/on_mob_metabolize(mob/living/L)
 	..()
@@ -1340,7 +1340,7 @@
 		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1*REM, 50)
 	M.adjustStaminaLoss(2.5*REM, 0)
 	..()
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/medicine/lavaland_extract
 	name = "Lavaland Extract"
@@ -1352,14 +1352,14 @@
 /datum/reagent/medicine/lavaland_extract/on_mob_life(mob/living/carbon/M)
 	M.heal_bodypart_damage(5,5)
 	..()
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/medicine/lavaland_extract/overdose_process(mob/living/M)
 	M.adjustBruteLoss(3*REM, 0, FALSE, BODYPART_ORGANIC)
 	M.adjustFireLoss(3*REM, 0, FALSE, BODYPART_ORGANIC)
 	M.adjustToxLoss(3*REM, 0)
 	..()
-	return TRUE
+	return EF_TRUE
 
 //used for changeling's adrenaline power
 /datum/reagent/medicine/changelingadrenaline
@@ -1372,12 +1372,12 @@
 	M.AdjustAllImmobility(-20, FALSE)
 	M.adjustStaminaLoss(-20, 0)
 	..()
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/medicine/changelingadrenaline/overdose_process(mob/living/M as mob)
 	M.adjustToxLoss(2, 0)
 	..()
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/medicine/changelinghaste
 	name = "Changeling Haste"
@@ -1396,7 +1396,7 @@
 /datum/reagent/medicine/changelinghaste/on_mob_life(mob/living/carbon/M)
 	M.adjustToxLoss(2, 0)
 	..()
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/medicine/corazone
 	// Heart attack code will not do damage if corazone is present
@@ -1497,7 +1497,7 @@
 			M.adjustOxyLoss(1.5*REM, 0)
 			M.adjustStaminaLoss(1.5*REM, 0)
 	..()
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/medicine/psicodine
 	name = "Psicodine"

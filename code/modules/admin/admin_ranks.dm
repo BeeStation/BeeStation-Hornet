@@ -42,7 +42,7 @@ GLOBAL_PROTECT(protected_ranks)
 	. = ..()
 
 /datum/admin_rank/vv_edit_var(var_name, var_value)
-	return FALSE
+	return EF_FALSE
 
 // Adds/removes rights to this admin_rank
 /datum/admin_rank/proc/process_keyword(group, group_count, datum/admin_rank/previous_rank)
@@ -175,7 +175,7 @@ GLOBAL_PROTECT(protected_ranks)
 		var/backup_file = rustg_file_read("data/admins_backup.json")
 		if(!backup_file)
 			log_world("Unable to locate admins backup file.")
-			return FALSE
+			return EF_FALSE
 		var/list/json = json_decode(backup_file)
 		for(var/J in json["ranks"])
 			var/skip

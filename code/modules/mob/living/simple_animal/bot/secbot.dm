@@ -131,9 +131,9 @@ Auto Patrol: []"},
 
 /mob/living/simple_animal/bot/secbot/Topic(href, href_list)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	if(!issilicon(usr) && !IsAdminGhost(usr) && !(bot_core.allowed(usr) || !locked))
-		return TRUE
+		return EF_TRUE
 	switch(href_list["operation"])
 		if("idcheck")
 			idcheck = !idcheck
@@ -403,8 +403,8 @@ Auto Patrol: []"},
 
 /mob/living/simple_animal/bot/secbot/proc/check_for_weapons(var/obj/item/slot_item)
 	if(slot_item && (slot_item.item_flags & NEEDS_PERMIT))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /mob/living/simple_animal/bot/secbot/explode()
 

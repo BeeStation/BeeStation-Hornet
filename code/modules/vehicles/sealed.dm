@@ -30,32 +30,32 @@
 
 /obj/vehicle/sealed/proc/mob_try_enter(mob/M)
 	if(!istype(M))
-		return FALSE
+		return EF_FALSE
 	if(occupant_amount() >= max_occupants)
-		return FALSE
+		return EF_FALSE
 	if(do_after(M, get_enter_delay(M), FALSE, src, TRUE))
 		mob_enter(M)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/vehicle/sealed/proc/get_enter_delay(mob/M)
 	return enter_delay
 
 /obj/vehicle/sealed/proc/mob_enter(mob/M, silent = FALSE)
 	if(!istype(M))
-		return FALSE
+		return EF_FALSE
 	if(!silent)
 		M.visible_message("<span class='notice'>[M] climbs into \the [src]!</span>")
 	M.forceMove(src)
 	add_occupant(M)
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/sealed/proc/mob_try_exit(mob/M, mob/user, silent = FALSE, randomstep = FALSE)
 	mob_exit(M, silent, randomstep)
 
 /obj/vehicle/sealed/proc/mob_exit(mob/M, silent = FALSE, randomstep = FALSE)
 	if(!istype(M))
-		return FALSE
+		return EF_FALSE
 	remove_occupant(M)
 	M.forceMove(exit_location(M))
 	if(randomstep)
@@ -64,7 +64,7 @@
 
 	if(!silent)
 		M.visible_message("<span class='notice'>[M] drops out of \the [src]!</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/vehicle/sealed/proc/exit_location(M)
 	return drop_location()
@@ -117,4 +117,4 @@
 
 
 /obj/vehicle/sealed/AllowDrop()
-	return FALSE
+	return EF_FALSE

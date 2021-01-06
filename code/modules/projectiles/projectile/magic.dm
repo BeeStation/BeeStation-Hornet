@@ -394,7 +394,7 @@
 		if(!locker_temp_instance.insertion_allowed(M))
 			return ..()
 		M.forceMove(src)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /obj/item/projectile/magic/locker/on_hit(target)

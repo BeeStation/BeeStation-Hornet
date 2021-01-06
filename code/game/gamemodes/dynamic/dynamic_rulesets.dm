@@ -100,9 +100,9 @@
 /// If your rule has extra checks, such as counting security officers, do that in ready() instead
 /datum/dynamic_ruleset/proc/acceptable(population = 0, threat_level = 0)
 	if(minimum_players > population)
-		return FALSE
+		return EF_FALSE
 	if(maximum_players > 0 && population > maximum_players)
-		return FALSE
+		return EF_FALSE
 	if (population >= GLOB.dynamic_high_pop_limit)
 		indice_pop = 10
 		return (threat_level >= high_population_requirement)
@@ -141,22 +141,22 @@
 /// Do everything you need to do before job is assigned here.
 /// IMPORTANT: ASSIGN special_role HERE
 /datum/dynamic_ruleset/proc/pre_execute()
-	return TRUE
+	return EF_TRUE
 
 /// Called on post_setup on roundstart and when the rule executes on midround and latejoin.
 /// Give your candidates or assignees equipment and antag datum here.
 /datum/dynamic_ruleset/proc/execute()
 	for(var/datum/mind/M in assigned)
 		M.add_antag_datum(antag_datum)
-	return TRUE
+	return EF_TRUE
 
 /// Here you can perform any additional checks you want. (such as checking the map etc)
 /// Remember that on roundstart no one knows what their job is at this point.
 /// IMPORTANT: If ready() returns TRUE, that means pre_execute() or execute() should never fail!
 /datum/dynamic_ruleset/proc/ready(forced = 0)
 	if (required_candidates > candidates.len)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /// Runs from gamemode process() if ruleset fails to start, like delayed rulesets not getting valid candidates.
 /// This one only handles refunding the threat, override in ruleset to clean up the rest.
@@ -187,7 +187,7 @@
 /// Checks if round is finished, return true to end the round.
 /// Only called if ruleset is flagged as HIGHLANDER_RULESET
 /datum/dynamic_ruleset/proc/check_finished()
-	return FALSE
+	return EF_FALSE
 
 //////////////////////////////////////////////
 //                                          //

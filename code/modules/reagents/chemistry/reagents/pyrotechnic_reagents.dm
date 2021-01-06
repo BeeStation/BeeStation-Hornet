@@ -14,7 +14,7 @@
 /datum/reagent/thermite/on_mob_life(mob/living/carbon/M)
 	M.adjustFireLoss(1, 0)
 	..()
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/nitroglycerin
 	name = "Nitroglycerin"
@@ -44,7 +44,7 @@
 	var/burndmg = max(0.3*M.fire_stacks, 0.3)
 	M.adjustFireLoss(burndmg, 0)
 	..()
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/clf3/reaction_turf(turf/T, reac_volume)
 	if(isplatingturf(T))
@@ -150,7 +150,7 @@
 	var/burndmg = max(0.3*M.fire_stacks, 0.3)
 	M.adjustFireLoss(burndmg, 0)
 	..()
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/napalm
 	name = "Napalm"

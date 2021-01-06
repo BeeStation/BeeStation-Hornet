@@ -24,4 +24,4 @@
 	alert_drones("<i>Drone Chat: <span class='name'>[name]</span> <span class='message'>[say_quote(msg)]</span></i>", TRUE)
 
 /mob/living/simple_animal/drone/binarycheck()
-	return TRUE
+	return EF_TRUE

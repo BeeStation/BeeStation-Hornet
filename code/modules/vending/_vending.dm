@@ -355,20 +355,20 @@ GLOBAL_LIST_EMPTY(vending_products)
 
 /obj/machinery/vending/crowbar_act(mob/living/user, obj/item/I)
 	if(!component_parts)
-		return FALSE
+		return EF_FALSE
 	default_deconstruction_crowbar(I)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/vending/wrench_act(mob/living/user, obj/item/I)
 	..()
 	if(panel_open)
 		default_unfasten_wrench(user, I, time = 60)
 		unbuckle_all_mobs(TRUE)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/vending/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	if(anchored)
 		default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 		cut_overlays()
@@ -377,7 +377,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 		updateUsrDialog()
 	else
 		to_chat(user, "<span class='warning'>You must first secure [src].</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/vending/attackby(obj/item/I, mob/user, params)
 	if(panel_open && is_wire_tool(I))
@@ -555,7 +555,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 /obj/machinery/vending/proc/loadingAttempt(obj/item/I, mob/user)
 	. = TRUE
 	if(!user.transferItemToLoc(I, src))
-		return FALSE
+		return EF_FALSE
 	if(vending_machine_input[format_text(I.name)])
 		vending_machine_input[format_text(I.name)]++
 	else
@@ -576,7 +576,7 @@ GLOBAL_LIST_EMPTY(vending_products)
   */
 /obj/machinery/vending/proc/compartmentLoadAccessCheck(mob/user)
 	if(!canload_access_list)
-		return TRUE
+		return EF_TRUE
 	else
 		var/do_you_have_access = FALSE
 		var/req_access_txt_holder = req_access_txt
@@ -589,18 +589,18 @@ GLOBAL_LIST_EMPTY(vending_products)
 				break //you passed don't bother looping anymore
 		req_access_txt = req_access_txt_holder // revert to normal (before the proc ran)
 		if(do_you_have_access)
-			return TRUE
+			return EF_TRUE
 		else
 			to_chat(user, "<span class='warning'>[src]'s input compartment blinks red: Access denied.</span>")
-			return FALSE
+			return EF_FALSE
 
 /obj/machinery/vending/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	if(!istype(W))
-		return FALSE
+		return EF_FALSE
 	if((flags_1 & NODECONSTRUCT_1) && !W.works_from_distance)
-		return FALSE
+		return EF_FALSE
 	if(!component_parts || !refill_canister)
-		return FALSE
+		return EF_FALSE
 
 	var/moved = 0
 	if(panel_open || W.works_from_distance)
@@ -614,7 +614,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	if(moved)
 		to_chat(user, "<span class='notice'>[moved] items restocked.</span>")
 		W.play_rped_sound()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/vending/on_deconstruction()
 	update_canister()
@@ -888,15 +888,15 @@ GLOBAL_LIST_EMPTY(vending_products)
   */
 /obj/machinery/vending/proc/shock(mob/user, prb)
 	if(stat & (BROKEN|NOPOWER))		// unpowered, no shock
-		return FALSE
+		return EF_FALSE
 	if(!prob(prb))
-		return FALSE
+		return EF_FALSE
 	do_sparks(5, TRUE, src)
 	var/check_range = TRUE
 	if(electrocute_mob(user, get_area(src), src, 0.7, check_range))
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 /**
   * Are we able to load the item passed in
   *
@@ -905,7 +905,7 @@ GLOBAL_LIST_EMPTY(vending_products)
   * * user - the user doing the loading
   */
 /obj/machinery/vending/proc/canLoadItem(obj/item/I, mob/user)
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/vending/onTransitZ()
 	return
@@ -932,7 +932,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 		H = user
 		C = H.get_idcard(FALSE)
 		if(C?.registered_account && C.registered_account == private_a)
-			return TRUE
+			return EF_TRUE
 
 /obj/machinery/vending/custom/canLoadItem(obj/item/I, mob/user)
 	. = FALSE
@@ -943,7 +943,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 		say("Loose items may cause problems, try use it inside wrapping paper.")
 		return
 	if(I.custom_price)
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/vending/custom/ui_data(mob/user)
 	. = ..()
@@ -1062,7 +1062,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	return ..()
 
 /obj/machinery/vending/custom/crowbar_act(mob/living/user, obj/item/I)
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/vending/custom/Destroy()
 	unbuckle_all_mobs(TRUE)

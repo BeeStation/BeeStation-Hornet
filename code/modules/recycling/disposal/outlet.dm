@@ -68,7 +68,7 @@
 
 /obj/structure/disposaloutlet/welder_act(mob/living/user, obj/item/I)
 	if(!I.tool_start_check(user, amount=0))
-		return TRUE
+		return EF_TRUE
 
 	playsound(src, 'sound/items/welder2.ogg', 100, 1)
 	to_chat(user, "<span class='notice'>You start slicing the floorweld off [src]...</span>")
@@ -78,4 +78,4 @@
 		transfer_fingerprints_to(stored)
 		stored = null
 		qdel(src)
-	return TRUE
+	return EF_TRUE

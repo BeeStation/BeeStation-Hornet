@@ -13,11 +13,11 @@
 
 /datum/bounty/item/syndicate_documents/applies_to(obj/O)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	if(istype(O, /obj/item/documents/photocopy))
 		var/obj/item/documents/photocopy/Copy = O
 		return (Copy.copy_type && ispath(Copy.copy_type, /obj/item/documents/syndicate))
-	return TRUE
+	return EF_TRUE
 
 /datum/bounty/item/adamantine
 	name = "Adamantine"

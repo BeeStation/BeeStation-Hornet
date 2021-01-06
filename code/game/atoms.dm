@@ -237,7 +237,7 @@
 /atom/proc/onCentCom()
 	var/turf/T = get_turf(src)
 	if(!T)
-		return FALSE
+		return EF_FALSE
 
 	if(is_reserved_level(T.z))
 		for(var/A in SSshuttle.mobile)
@@ -246,14 +246,14 @@
 				for(var/place in M.shuttle_areas)
 					var/area/shuttle/shuttle_area = place
 					if(T in shuttle_area)
-						return TRUE
+						return EF_TRUE
 
 	if(!is_centcom_level(T.z))//if not, don't bother
-		return FALSE
+		return EF_FALSE
 
 	//Check for centcom itself
 	if(istype(T.loc, /area/centcom))
-		return TRUE
+		return EF_TRUE
 
 	//Check for centcom shuttles
 	for(var/A in SSshuttle.mobile)
@@ -262,7 +262,7 @@
 			for(var/place in M.shuttle_areas)
 				var/area/shuttle/shuttle_area = place
 				if(T in shuttle_area)
-					return TRUE
+					return EF_TRUE
 
 /**
   * Is the atom in any of the centcom syndicate areas
@@ -274,15 +274,15 @@
 /atom/proc/onSyndieBase()
 	var/turf/T = get_turf(src)
 	if(!T)
-		return FALSE
+		return EF_FALSE
 
 	if(!is_centcom_level(T.z))//if not, don't bother
-		return FALSE
+		return EF_FALSE
 
 	if(istype(T.loc, /area/shuttle/syndicate) || istype(T.loc, /area/syndicate_mothership) || istype(T.loc, /area/shuttle/assault_pod))
-		return TRUE
+		return EF_TRUE
 
-	return FALSE
+	return EF_FALSE
 
 ///This atom has been hit by a hulkified mob in hulk mode (user)
 /atom/proc/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
@@ -321,7 +321,7 @@
 
 ///Hook for multiz???
 /atom/proc/update_multiz(prune_on_fail = FALSE)
-	return FALSE
+	return EF_FALSE
 
 ///Take air from the passed in gas mixture datum
 /atom/proc/assume_air(datum/gas_mixture/giver)
@@ -373,7 +373,7 @@
 
 /// Are you allowed to drop this atom
 /atom/proc/AllowDrop()
-	return FALSE
+	return EF_FALSE
 
 /atom/proc/CheckExit()
 	return 1
@@ -411,10 +411,10 @@
 /atom/proc/in_contents_of(container)//can take class or object instance as argument
 	if(ispath(container))
 		if(istype(src.loc, container))
-			return TRUE
+			return EF_TRUE
 	else if(src in container)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /**
   * Get the name of this object for examine
@@ -513,7 +513,7 @@
 
 /// Return true if this atoms contents should not have ex_act called on ex_act
 /atom/proc/prevent_content_explosion()
-	return FALSE
+	return EF_FALSE
 
 /// Handle what happens when your contents are exploded by a bomb
 /atom/proc/contents_explosion(severity, target)
@@ -616,32 +616,32 @@
 	// Returns 0 if we have that blood already
 	var/new_blood_dna = L.get_blood_dna_list()
 	if(!new_blood_dna)
-		return FALSE
+		return EF_FALSE
 	var/old_length = blood_DNA_length()
 	add_blood_DNA(new_blood_dna)
 	if(blood_DNA_length() == old_length)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 ///to add blood from a mob onto something, and transfer their dna info
 /atom/proc/add_mob_blood(mob/living/M)
 	var/list/blood_dna = M.get_blood_dna_list()
 	if(!blood_dna)
-		return FALSE
+		return EF_FALSE
 	return add_blood_DNA(blood_dna)
 
 ///wash cream off this object
 ///
 ///(for the love of space jesus please make this a component)
 /atom/proc/wash_cream()
-	return TRUE
+	return EF_TRUE
 
 ///Is this atom in space
 /atom/proc/isinspace()
 	if(isspaceturf(get_turf(src)))
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 ///Called when gravity returns after floating I think
 /atom/proc/handle_fall()
@@ -710,17 +710,17 @@
 
 ///Return the values you get when an RCD eats you?
 /atom/proc/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
-	return FALSE
+	return EF_FALSE
 
 
 /**
   * Respond to an RCD acting on our item
   *
-  * Default behaviour is to send COMSIG_ATOM_RCD_ACT and return FALSE
+  * Default behaviour is to send COMSIG_ATOM_RCD_ACT and return EF_FALSE
   */
 /atom/proc/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	SEND_SIGNAL(src, COMSIG_ATOM_RCD_ACT, user, the_rcd, passed_mode)
-	return FALSE
+	return EF_FALSE
 
 /**
   * Respond to our atom being teleported
@@ -733,11 +733,11 @@
 /**
   * Respond to our atom being checked by a virus extrapolator
   *
-  * Default behaviour is to send COMSIG_ATOM_EXTRAPOLATOR_ACT and return FALSE
+  * Default behaviour is to send COMSIG_ATOM_EXTRAPOLATOR_ACT and return EF_FALSE
   */
 /atom/proc/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 	SEND_SIGNAL(src,COMSIG_ATOM_EXTRAPOLATOR_ACT, user, E, scan)
-	return FALSE
+	return EF_FALSE
 /**
   * Implement the behaviour for when a user click drags a storage object to your atom
   *
@@ -750,7 +750,7 @@
 /atom/proc/storage_contents_dump_act(obj/item/storage/src_object, mob/user)
 	if(GetComponent(/datum/component/storage))
 		return component_storage_contents_dump_act(src_object, user)
-	return FALSE
+	return EF_FALSE
 
 /**
   * Implement the behaviour for when a user click drags another storage item to you
@@ -774,7 +774,7 @@
 	if(user.active_storage) //refresh the HUD to show the transfered contents
 		user.active_storage.close(user)
 		user.active_storage.show_to(user)
-	return TRUE
+	return EF_TRUE
 
 ///Get the best place to dump the items contained in the source storage item?
 /atom/proc/get_dumping_location(obj/item/storage/source,mob/user)
@@ -1021,7 +1021,7 @@
 /atom/Exit(atom/movable/AM, atom/newLoc)
 	. = ..()
 	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, AM, newLoc) & COMPONENT_ATOM_BLOCK_EXIT)
-		return FALSE
+		return EF_FALSE
 
 /**
   * An atom has exited this atom's contents
@@ -1075,8 +1075,8 @@
 	if(!istype(I, /obj/item/multitool))
 		if(user && !silent)
 			to_chat(user, "<span class='warning'>[I] has no data buffer!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 ///Screwdriver act
 /atom/proc/screwdriver_act(mob/living/user, obj/item/I)

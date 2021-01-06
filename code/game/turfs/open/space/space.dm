@@ -92,7 +92,7 @@
 	return attack_hand(user)
 
 /turf/open/space/proc/CanBuildHere()
-	return TRUE
+	return EF_TRUE
 
 /turf/open/space/handle_slip()
 	return
@@ -199,12 +199,12 @@
 	underlay_appearance.icon = 'icons/turf/space.dmi'
 	underlay_appearance.icon_state = SPACE_ICON_STATE
 	underlay_appearance.plane = PLANE_SPACE
-	return TRUE
+	return EF_TRUE
 
 
 /turf/open/space/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	if(!CanBuildHere())
-		return FALSE
+		return EF_FALSE
 
 	switch(the_rcd.mode)
 		if(RCD_FLOORWALL)
@@ -213,15 +213,15 @@
 				return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 1)
 			else
 				return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 3)
-	return FALSE
+	return EF_FALSE
 
 /turf/open/space/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_FLOORWALL)
 			to_chat(user, "<span class='notice'>You build a floor.</span>")
 			PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /turf/open/space/ReplaceWithLattice()
 	var/dest_x = destination_x

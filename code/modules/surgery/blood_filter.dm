@@ -20,7 +20,7 @@
 
 /datum/surgery/blood_filter/can_start(mob/user, mob/living/carbon/target)
 	if(HAS_TRAIT(target, TRAIT_HUSK) || target.reagents.total_volume==0) //Can't filter husk or 0 regent body
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/surgery_step/filter_blood/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -52,7 +52,7 @@
 	if(istype(surgery, /datum/surgery/blood_filter))
 		var/datum/surgery/blood_filter/the_surgery = surgery
 		the_surgery.antispam = TRUE
-	return TRUE
+	return EF_TRUE
 
 /datum/surgery_step/filter_blood/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='warning'>You screw up, brusing [target]'s chest!</span>",

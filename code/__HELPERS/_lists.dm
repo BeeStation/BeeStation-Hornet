@@ -90,17 +90,17 @@
 /// Checks if the list is empty
 /proc/isemptylist(list/L)
 	if(!L.len)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /// Checks for specific types in a list
 /proc/is_type_in_list(atom/A, list/L)
 	if(!LAZYLEN(L) || !A)
-		return FALSE
+		return EF_FALSE
 	for(var/type in L)
 		if(istype(A, type))
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /// Checks for specific types in specifically structured (Assoc "type" = TRUE) lists ('typecaches')
 #define is_type_in_typecache(A, L) (A && length(L) && L[(ispath(A) ? A : A:type)])
@@ -111,7 +111,7 @@
 		return
 	for(var/V in L)
 		if(string == V)
-			return TRUE
+			return EF_TRUE
 	return
 
 /// Removes a string from a list
@@ -409,7 +409,7 @@
 	for(var/datum/data/record/R in L)
 		if(R.fields[field] == value)
 			return R
-	return FALSE
+	return EF_FALSE
 
 
 /**
@@ -618,13 +618,13 @@
 
 /proc/compare_list(list/l,list/d)
 	if(!islist(l) || !islist(d))
-		return FALSE
+		return EF_FALSE
 
 	if(l.len != d.len)
-		return FALSE
+		return EF_FALSE
 
 	for(var/i in 1 to l.len)
 		if(l[i] != d[i])
-			return FALSE
+			return EF_FALSE
 
-	return TRUE
+	return EF_TRUE

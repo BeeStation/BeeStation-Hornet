@@ -13,7 +13,7 @@
 /datum/wires/particle_accelerator/control_box/interactable(mob/user)
 	var/obj/machinery/particle_accelerator/control_box/C = holder
 	if(C.construction_state == 2)
-		return TRUE
+		return EF_TRUE
 
 /datum/wires/particle_accelerator/control_box/on_pulse(wire)
 	var/obj/machinery/particle_accelerator/control_box/C = holder

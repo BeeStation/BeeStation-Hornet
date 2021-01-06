@@ -319,7 +319,7 @@
 		M.adjustOxyLoss(2, 0)
 		M.adjustBruteLoss(2, 0)
 	holder.remove_reagent(type, 1)
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/hellwater			//if someone has this in their system they've really pissed off an eldrich god
 	name = "Hell Water"
@@ -570,13 +570,13 @@
 		var/species_type = pick(subtypesof(/datum/species/jelly))
 		H.set_species(species_type)
 		H.reagents.del_reagent(type)
-		return TRUE
+		return EF_TRUE
 	if(current_cycle >= cycles_to_turn) //overwrite since we want subtypes of jelly
 		var/datum/species/species_type = pick(subtypesof(race))
 		H.set_species(species_type)
 		H.reagents.del_reagent(type)
 		to_chat(H, "<span class='warning'>You've become \a [initial(species_type.name)]!</span>")
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /datum/reagent/mutationtoxin/golem
@@ -1041,7 +1041,7 @@
 /datum/reagent/fuel/on_mob_life(mob/living/carbon/M)
 	M.adjustToxLoss(1, 0)
 	..()
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/space_cleaner
 	name = "Space Cleaner"
@@ -1055,7 +1055,7 @@
 	if(toxic)//don't drink space cleaner, dumbass
 		M.adjustToxLoss(1, 0)
 	..()
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, reac_volume)
 	if(istype(O, /obj/effect/decal/cleanable))

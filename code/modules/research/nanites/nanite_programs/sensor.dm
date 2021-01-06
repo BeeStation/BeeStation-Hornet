@@ -8,7 +8,7 @@
 	extra_settings[NES_SENT_CODE] = new /datum/nanite_extra_setting/number(0, 1, 9999)
 
 /datum/nanite_program/sensor/proc/check_event()
-	return FALSE
+	return EF_FALSE
 
 /datum/nanite_program/sensor/proc/send_code()
 	if(activated)
@@ -89,11 +89,11 @@
 	if(detected)
 		if(!spent)
 			spent = TRUE
-			return TRUE
-		return FALSE
+			return EF_TRUE
+		return EF_FALSE
 	else
 		spent = FALSE
-		return FALSE
+		return EF_FALSE
 
 /datum/nanite_program/sensor/health/make_rule(datum/nanite_program/target)
 	var/datum/nanite_rule/health/rule = new(target)
@@ -113,11 +113,11 @@
 	if(host_mob.InCritical())
 		if(!spent)
 			spent = TRUE
-			return TRUE
-		return FALSE
+			return EF_TRUE
+		return EF_FALSE
 	else
 		spent = FALSE
-		return FALSE
+		return EF_FALSE
 
 /datum/nanite_program/sensor/crit/make_rule(datum/nanite_program/target)
 	var/datum/nanite_rule/crit/rule = new(target)
@@ -162,11 +162,11 @@
 	if(detected)
 		if(!spent)
 			spent = TRUE
-			return TRUE
-		return FALSE
+			return EF_TRUE
+		return EF_FALSE
 	else
 		spent = FALSE
-		return FALSE
+		return EF_FALSE
 
 /datum/nanite_program/sensor/nanite_volume/make_rule(datum/nanite_program/target)
 	var/datum/nanite_rule/nanites/rule = new(target)
@@ -217,11 +217,11 @@
 	if(reached_threshold)
 		if(!spent)
 			spent = TRUE
-			return TRUE
-		return FALSE
+			return EF_TRUE
+		return EF_FALSE
 	else
 		spent = FALSE
-		return FALSE
+		return EF_FALSE
 
 /datum/nanite_program/sensor/damage/make_rule(datum/nanite_program/target)
 	var/datum/nanite_rule/damage/rule = new(target)

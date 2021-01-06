@@ -81,7 +81,7 @@ input. The input's `action` and `params` are passed to the proc.
   if(action == "change_color")
     var/new_color = params["color"]
     if(!(color in allowed_coors))
-      return FALSE
+      return EF_FALSE
     color = new_color
     . = TRUE
   update_icon()

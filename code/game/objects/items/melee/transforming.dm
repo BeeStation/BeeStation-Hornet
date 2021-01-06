@@ -18,7 +18,7 @@
 	if(active)
 		return ..()
 	return 0
-	
+
 
 /obj/item/melee/transforming/Initialize()
 	. = ..()
@@ -77,7 +77,7 @@
 			BT.butchering_enabled = FALSE
 	transform_messages(user, supress_message_text)
 	add_fingerprint(user)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/melee/transforming/proc/nemesis_effects(mob/living/user, mob/living/target)
 	return

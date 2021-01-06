@@ -37,19 +37,19 @@
 
 /datum/http_request/proc/is_complete()
 	if (isnull(id))
-		return TRUE
+		return EF_TRUE
 
 	if (!in_progress)
-		return TRUE
+		return EF_TRUE
 
 	var/r = rustg_http_check_request(id)
 
 	if (r == RUSTG_JOB_NO_RESULTS_YET)
-		return FALSE
+		return EF_FALSE
 	else
 		_raw_response = r
 		in_progress = FALSE
-		return TRUE
+		return EF_TRUE
 
 /datum/http_request/proc/into_response()
 	var/datum/http_response/R = new()

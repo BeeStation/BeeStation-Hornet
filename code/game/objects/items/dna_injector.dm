@@ -43,8 +43,8 @@
 				M.dna.uni_identity = merge_text(M.dna.uni_identity, fields["UI"])
 				M.updateappearance(mutations_overlay_update=1)
 		log_attack("[log_msg] [loc_name(user)]")
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/item/dnainjector/attack(mob/target, mob/user)
 	if(!user.IsAdvancedToolUser())
@@ -456,7 +456,7 @@
 /obj/item/dnainjector/timed/inject(mob/living/carbon/M, mob/user)
 	if(M.stat == DEAD)	//prevents dead people from having their DNA changed
 		to_chat(user, "<span class='notice'>You can't modify [M]'s DNA while [M.p_theyre()] dead.</span>")
-		return FALSE
+		return EF_FALSE
 
 	if(M.has_dna() && !(HAS_TRAIT(M, TRAIT_BADDNA)))
 		M.radiation += rand(20/(damage_coeff  ** 2),50/(damage_coeff  ** 2))
@@ -498,9 +498,9 @@
 				M.updateappearance(mutations_overlay_update=1)
 				M.dna.temporary_mutations[UI_CHANGED] = endtime
 		log_attack("[log_msg] [loc_name(user)]")
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /obj/item/dnainjector/timed/hulk
 	name = "\improper DNA injector (Hulk)"
@@ -540,5 +540,5 @@
 		else
 			name = "expended [name]"
 		log_attack("[log_msg] [loc_name(user)]")
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE

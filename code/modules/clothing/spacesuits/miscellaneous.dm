@@ -452,7 +452,7 @@ Contains:
 			to_chat(equipper, "<span class='warning'>You need to unroll \the [src], silly.</span>")
 		else
 			to_chat(M, "<span class='warning'>You need to unroll \the [src], silly.</span>")
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /obj/item/clothing/suit/space/skinsuit/examine(mob/user)

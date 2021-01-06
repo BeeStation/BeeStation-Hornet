@@ -80,7 +80,7 @@
 
 		if("Stage Magician")
 			O = new /datum/outfit/plasmaman/magic
-		
+
 		if("VIP")
 			O = new /datum/outfit/plasmaman/vip
 
@@ -193,7 +193,7 @@
 			to_chat(H, "<span class='warning'>The excess milk is dripping off your bones!</span>")
 		H.heal_bodypart_damage(1.5,0, 0)
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
+		return EF_TRUE
 	if(chem.type == /datum/reagent/toxin/bonehurtingjuice)
 		H.adjustStaminaLoss(7.5, 0)
 		H.adjustBruteLoss(0.5, 0)
@@ -218,4 +218,4 @@
 					to_chat(H, "<span class='warning'>Your missing arm aches from wherever you left it.</span>")
 					H.emote("sigh")
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
+		return EF_TRUE

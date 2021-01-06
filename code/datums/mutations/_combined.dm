@@ -4,9 +4,9 @@
 
 /proc/get_mixed_mutation(mutation1, mutation2)
 	if(!mutation1 || !mutation2)
-		return FALSE
+		return EF_FALSE
 	if(mutation1 == mutation2) //this could otherwise be bad
-		return FALSE
+		return EF_FALSE
 	for(var/A in GLOB.mutation_recipes)
 		if(findtext(A, "[mutation1]") && findtext(A, "[mutation2]"))
 			return GLOB.mutation_recipes[A]

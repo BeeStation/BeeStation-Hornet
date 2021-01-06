@@ -26,7 +26,7 @@
 
 /obj/structure/plasticflaps/screwdriver_act(mob/living/user, obj/item/W)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	add_fingerprint(user)
 	var/action = anchored ? "unscrews [src] from" : "screws [src] to"
 	var/uraction = anchored ? "unscrew [src] from " : "screw [src] to"
@@ -34,41 +34,41 @@
 	if(W.use_tool(src, user, 100, volume=100, extra_checks = CALLBACK(src, .proc/check_anchored_state, anchored)))
 		setAnchored(!anchored)
 		to_chat(user, "<span class='notice'> You [anchored ? "unscrew" : "screw"] [src] from the floor.</span>")
-		return TRUE
+		return EF_TRUE
 	else
-		return TRUE
+		return EF_TRUE
 
 /obj/structure/plasticflaps/wirecutter_act(mob/living/user, obj/item/W)
 	if(!anchored)
 		user.visible_message("<span class='warning'>[user] cuts apart [src].</span>", "<span class='notice'>You start to cut apart [src].</span>", "You hear cutting.")
 		if(W.use_tool(src, user, 50, volume=100))
 			if(anchored)
-				return TRUE
+				return EF_TRUE
 			to_chat(user, "<span class='notice'>You cut apart [src].</span>")
 			var/obj/item/stack/sheet/plastic/five/P = new(loc)
 			P.add_fingerprint(user)
 			qdel(src)
-			return TRUE
+			return EF_TRUE
 		else
-			return TRUE
+			return EF_TRUE
 
 /obj/structure/plasticflaps/proc/check_anchored_state(check_anchored)
 	if(anchored != check_anchored)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/structure/plasticflaps/CanAStarPass(ID, to_dir, caller)
 	if(isliving(caller))
 		if(isbot(caller))
-			return TRUE
+			return EF_TRUE
 
 		var/mob/living/M = caller
 		if(!M.ventcrawler && M.mob_size != MOB_SIZE_TINY)
-			return FALSE
+			return EF_FALSE
 	var/atom/movable/M = caller
 	if(M?.pulling)
 		return CanAStarPass(ID, to_dir, M.pulling)
-	return TRUE //diseases, stings, etc can pass
+	return EF_TRUE //diseases, stings, etc can pass
 
 /obj/structure/plasticflaps/CanPass(atom/movable/A, turf/T)
 	if(istype(A) && (A.pass_flags & PASSGLASS))
@@ -76,24 +76,24 @@
 
 	var/obj/structure/bed/B = A
 	if(istype(A, /obj/structure/bed) && (B.has_buckled_mobs() || B.density))//if it's a bed/chair and is dense or someone is buckled, it will not pass
-		return FALSE
+		return EF_FALSE
 
 	if(istype(A, /obj/structure/closet/cardboard))
 		var/obj/structure/closet/cardboard/C = A
 		if(C.move_delay)
-			return FALSE
+			return EF_FALSE
 
 	if(ismecha(A))
-		return FALSE
+		return EF_FALSE
 
 	else if(isliving(A)) // You Shall Not Pass!
 		var/mob/living/M = A
 		if(isbot(A)) //Bots understand the secrets
-			return TRUE
+			return EF_TRUE
 		if(M.buckled && istype(M.buckled, /mob/living/simple_animal/bot/mulebot)) // mulebot passenger gets a free pass.
-			return TRUE
+			return EF_TRUE
 		if((M.mobility_flags & MOBILITY_STAND) && !M.ventcrawler && M.mob_size != MOB_SIZE_TINY)	//If your not laying down, or a ventcrawler or a small creature, no pass.
-			return FALSE
+			return EF_FALSE
 	return ..()
 
 /obj/structure/plasticflaps/deconstruct(disassembled = TRUE)

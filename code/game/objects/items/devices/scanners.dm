@@ -548,7 +548,7 @@ GENE SCANNER
 /proc/atmosanalyzer_scan(mob/user, atom/target, silent=FALSE)
 	var/mixture = target.return_analyzable_air()
 	if(!mixture)
-		return FALSE
+		return EF_FALSE
 
 	var/icon = target
 	if(!silent && isliving(user))
@@ -587,7 +587,7 @@ GENE SCANNER
 			var/instability = round(cached_scan_results["fusion"], 0.01)
 			to_chat(user, "<span class='boldnotice'>Large amounts of free neutrons detected in the air indicate that a fusion reaction took place.</span>")
 			to_chat(user, "<span class='notice'>Instability of the last fusion reaction: [instability].</span>")
-	return TRUE
+	return EF_TRUE
 
 /obj/item/analyzer/proc/scan_turf(mob/user, turf/location)
 	var/datum/gas_mixture/environment = location.return_air()
@@ -958,7 +958,7 @@ GENE SCANNER
 /obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user)
 	if(cooldown > world.time - (1200 / scanner.rating))
 		to_chat(user, "<span class='warning'>The extrapolator is still recharging!</span>")
-		return FALSE
+		return EF_FALSE
 	var/list/data = list("viruses" = list(A))
 	var/obj/item/reagent_containers/glass/bottle/B = new(user.loc)
 	cooldown = world.time
@@ -967,5 +967,5 @@ GENE SCANNER
 	B.reagents.add_reagent(/datum/reagent/blood, 20, data)
 	user.put_in_hands(B)
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
-	return TRUE
+	return EF_TRUE
 

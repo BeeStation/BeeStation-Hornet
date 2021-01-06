@@ -1,4 +1,4 @@
-/// CDN Webroot asset transport. 
+/// CDN Webroot asset transport.
 /datum/asset_transport/webroot
 	name = "CDN Webroot asset transport"
 
@@ -59,7 +59,7 @@
 	if (!islist(asset_list))
 		asset_list = list(asset_list)
 	for (var/asset_name in asset_list)
-		var/datum/asset_cache_item/ACI = asset_list[asset_name] 
+		var/datum/asset_cache_item/ACI = asset_list[asset_name]
 		if (!istype(ACI))
 			ACI = SSassets.cache[asset_name]
 		if (!ACI)
@@ -69,19 +69,19 @@
 			legacy_assets[asset_name] = ACI
 	if (length(legacy_assets))
 		. = ..(client, legacy_assets)
-	
+
 
 /// webroot slow asset sending - does nothing.
 /datum/asset_transport/webroot/send_assets_slow(client/client, list/files, filerate)
-	return FALSE
+	return EF_FALSE
 
 /datum/asset_transport/webroot/validate_config(log = TRUE)
 	if (!CONFIG_GET(string/asset_cdn_url))
 		if (log)
 			log_asset("ERROR: [type]: Invalid Config: ASSET_CDN_URL")
-		return FALSE
+		return EF_FALSE
 	if (!CONFIG_GET(string/asset_cdn_webroot))
 		if (log)
 			log_asset("ERROR: [type]: Invalid Config: ASSET_CDN_WEBROOT")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE

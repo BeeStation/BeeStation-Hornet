@@ -228,7 +228,7 @@
 				I.implant(H, null, TRUE)
 
 	H.update_body()
-	return TRUE
+	return EF_TRUE
 
 /**
   * Apply a fingerprint from the passed in human to all items in the outfit
@@ -358,4 +358,4 @@
 		if(imptype)
 			implants += imptype
 	accessory = text2path(outfit_data["accessory"])
-	return TRUE
+	return EF_TRUE

@@ -31,10 +31,10 @@
 		return
 	if(!isturf(user.loc))
 		to_chat(user, "<span class='warning'>You need more space to plant [src].</span>")
-		return FALSE
+		return EF_FALSE
 	if(locate(/obj/structure/spacevine) in user.loc)
 		to_chat(user, "<span class='warning'>There is too much kudzu here to plant [src].</span>")
-		return FALSE
+		return EF_FALSE
 	to_chat(user, "<span class='notice'>You plant [src].</span>")
 	message_admins("Kudzu planted by [ADMIN_LOOKUPFLW(user)] at [ADMIN_VERBOSEJMP(user)]")
 	investigate_log("was planted by [key_name(user)] at [AREACOORD(user)]", INVESTIGATE_BOTANY)

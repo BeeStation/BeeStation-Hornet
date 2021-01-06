@@ -60,7 +60,7 @@ SUBSYSTEM_DEF(atoms)
 	var/the_type = A.type
 	if(QDELING(A))
 		BadInitializeCalls[the_type] |= BAD_INIT_QDEL_BEFORE
-		return TRUE
+		return EF_TRUE
 
 	var/start_tick = world.time
 

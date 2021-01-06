@@ -199,5 +199,5 @@
 /mob/proc/using_power_flow_console()
 	for(var/obj/machinery/computer/apc_control/A in range(1, src))
 		if(A.operator && A.operator == src && !A.stat)
-			return TRUE
+			return EF_TRUE
 	return

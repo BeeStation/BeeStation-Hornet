@@ -101,8 +101,8 @@
 /obj/machinery/power/emitter/proc/can_be_rotated(mob/user,rotation_type)
 	if (anchored)
 		to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/power/emitter/Destroy()
 	if(SSticker.IsRoundInProgress())
@@ -128,7 +128,7 @@
 	if(state == EMITTER_WELDED)
 		if(!powernet)
 			to_chat(user, "<span class='warning'>\The [src] isn't connected to a wire!</span>")
-			return TRUE
+			return EF_TRUE
 		if(!locked && allow_switch_interact)
 			if(active == TRUE)
 				active = FALSE
@@ -149,7 +149,7 @@
 			to_chat(user, "<span class='warning'>The controls are locked!</span>")
 	else
 		to_chat(user, "<span class='warning'>[src] needs to be firmly secured to the floor first!</span>")
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/power/emitter/attack_animal(mob/living/simple_animal/M)
 	if(ismegafauna(M) && anchored)
@@ -185,19 +185,19 @@
 		if(charge <= 80)
 			charge += 5
 		if(!check_delay() || manual == TRUE)
-			return FALSE
+			return EF_FALSE
 		fire_beam()
 
 /obj/machinery/power/emitter/proc/check_delay()
 	if((src.last_shot + src.fire_delay) <= world.time)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/power/emitter/proc/fire_beam_pulse()
 	if(!check_delay())
-		return FALSE
+		return EF_FALSE
 	if(state != EMITTER_WELDED)
-		return FALSE
+		return EF_FALSE
 	if(surplus() >= active_power_usage)
 		add_load(active_power_usage)
 		fire_beam()
@@ -248,19 +248,19 @@
 
 /obj/machinery/power/emitter/wrench_act(mob/living/user, obj/item/I)
 	default_unfasten_wrench(user, I)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/power/emitter/welder_act(mob/living/user, obj/item/I)
 	if(active)
 		to_chat(user, "Turn \the [src] off first.")
-		return TRUE
+		return EF_TRUE
 
 	switch(state)
 		if(EMITTER_UNWRENCHED)
 			to_chat(user, "<span class='warning'>The [src.name] needs to be wrenched to the floor!</span>")
 		if(EMITTER_WRENCHED)
 			if(!I.tool_start_check(user, amount=0))
-				return TRUE
+				return EF_TRUE
 			user.visible_message("[user.name] starts to weld the [name] to the floor.", \
 				"<span class='notice'>You start to weld \the [src] to the floor...</span>", \
 				"<span class='italics'>You hear welding.</span>")
@@ -270,7 +270,7 @@
 				connect_to_network()
 		if(EMITTER_WELDED)
 			if(!I.tool_start_check(user, amount=0))
-				return TRUE
+				return EF_TRUE
 			user.visible_message("[user.name] starts to cut the [name] free from the floor.", \
 				"<span class='notice'>You start to cut \the [src] free from the floor...</span>", \
 				"<span class='italics'>You hear welding.</span>")
@@ -279,19 +279,19 @@
 				to_chat(user, "<span class='notice'>You cut \the [src] free from the floor.</span>")
 				disconnect_from_network()
 
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/power/emitter/crowbar_act(mob/living/user, obj/item/I)
 	if(panel_open && gun)
 		return remove_gun(user)
 	default_deconstruction_crowbar(I)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/power/emitter/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	default_deconstruction_screwdriver(user, "emitter_open", "emitter", I)
-	return TRUE
+	return EF_TRUE
 
 
 /obj/machinery/power/emitter/attackby(obj/item/I, mob/user, params)
@@ -324,7 +324,7 @@
 		gun = E
 		gun_properties = gun.get_turret_properties()
 		set_projectile()
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/power/emitter/proc/remove_gun(mob/user)
 	if(!gun)
@@ -334,7 +334,7 @@
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 	gun_properties = list()
 	set_projectile()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/power/emitter/proc/set_projectile()
 	if(LAZYLEN(gun_properties))

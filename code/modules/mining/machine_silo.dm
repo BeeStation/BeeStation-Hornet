@@ -59,7 +59,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	var/amount = I.amount
 	materials.user_insert(I, user)
 	silo_log(M, "deposited", amount, "sheets", item_mats)
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/ore_silo/attackby(obj/item/W, mob/user, params)
 	if (istype(W, /obj/item/stack))
@@ -142,15 +142,15 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 			mats.disconnect_from(src)
 			connected -= mats
 			updateUsrDialog()
-			return TRUE
+			return EF_TRUE
 	else if(href_list["hold1"])
 		holds[href_list["hold1"]] = TRUE
 		updateUsrDialog()
-		return TRUE
+		return EF_TRUE
 	else if(href_list["hold0"])
 		holds -= href_list["hold0"]
 		updateUsrDialog()
-		return TRUE
+		return EF_TRUE
 	else if(href_list["ejectsheet"])
 		var/datum/material/eject_sheet = locate(href_list["ejectsheet"])
 		var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
@@ -158,17 +158,17 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		var/list/matlist = list()
 		matlist[eject_sheet] = MINERAL_MATERIAL_AMOUNT
 		silo_log(src, "ejected", -count, "sheets", matlist)
-		return TRUE
+		return EF_TRUE
 	else if(href_list["page"])
 		log_page = text2num(href_list["page"]) || 1
 		updateUsrDialog()
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/ore_silo/multitool_act(mob/living/user, obj/item/multitool/I)
 	if (istype(I))
 		to_chat(user, "<span class='notice'>You log [src] in the multitool's buffer.</span>")
 		I.buffer = src
-		return TRUE
+		return EF_TRUE
 
 /obj/machinery/ore_silo/proc/silo_log(obj/machinery/M, action, amount, noun, list/mats)
 	if (!length(mats))
@@ -228,16 +228,16 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 
 /datum/ore_silo_log/proc/merge(datum/ore_silo_log/other)
 	if (other == src || action != other.action || noun != other.noun)
-		return FALSE
+		return EF_FALSE
 	if (machine_name != other.machine_name || area_name != other.area_name)
-		return FALSE
+		return EF_FALSE
 
 	timestamp = other.timestamp
 	amount += other.amount
 	for(var/each in other.materials)
 		materials[each] += other.materials[each]
 	format()
-	return TRUE
+	return EF_TRUE
 
 /datum/ore_silo_log/proc/format()
 	name = "[machine_name]: [action] [amount]x [noun]"

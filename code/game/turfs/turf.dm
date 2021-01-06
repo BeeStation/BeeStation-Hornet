@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
 	if(var_name in banned_edits)
-		return FALSE
+		return EF_FALSE
 	. = ..()
 
 /turf/Initialize(mapload)
@@ -142,19 +142,19 @@ GLOBAL_LIST_EMPTY(station_turfs)
 //zPassIn doesn't necessarily pass an atom!
 //direction is direction of travel of air
 /turf/proc/zPassIn(atom/movable/A, direction, turf/source)
-	return FALSE
+	return EF_FALSE
 
 //direction is direction of travel of air
 /turf/proc/zPassOut(atom/movable/A, direction, turf/destination)
-	return FALSE
+	return EF_FALSE
 
 //direction is direction of travel of air
 /turf/proc/zAirIn(direction, turf/source)
-	return FALSE
+	return EF_FALSE
 
 //direction is direction of travel of air
 /turf/proc/zAirOut(direction, turf/source)
-	return FALSE
+	return EF_FALSE
 
 /turf/proc/zImpact(atom/movable/A, levels = 1, turf/prev_turf)
 	var/flags = NONE
@@ -169,10 +169,10 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(flags & FALL_INTERCEPTED)
 		return
 	if(zFall(A, ++levels))
-		return FALSE
+		return EF_FALSE
 	A.visible_message("<span class='danger'>[A] crashes into [src]!</span>")
 	A.onZImpact(src, levels)
-	return TRUE
+	return EF_TRUE
 
 /turf/proc/can_zFall(atom/movable/A, levels = 1, turf/target)
 	return zPassOut(A, DOWN, target) && target.zPassIn(A, DOWN, src)
@@ -180,14 +180,14 @@ GLOBAL_LIST_EMPTY(station_turfs)
 /turf/proc/zFall(atom/movable/A, levels = 1, force = FALSE)
 	var/turf/target = get_step_multiz(src, DOWN)
 	if(!target || (!isobj(A) && !ismob(A)))
-		return FALSE
+		return EF_FALSE
 	if(!force && (!can_zFall(A, levels, target) || !A.can_zFall(src, levels, target, DOWN)))
-		return FALSE
+		return EF_FALSE
 	A.zfalling = TRUE
 	A.forceMove(target)
 	A.zfalling = FALSE
 	target.zImpact(A, levels, src)
-	return TRUE
+	return EF_TRUE
 
 /turf/proc/handleRCL(obj/item/twohanded/rcl/C, mob/user)
 	if(C.loaded)
@@ -202,7 +202,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 /turf/attackby(obj/item/C, mob/user, params)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	if(can_lay_cable() && istype(C, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = C
 		for(var/obj/structure/cable/LC in src)
@@ -210,22 +210,22 @@ GLOBAL_LIST_EMPTY(station_turfs)
 				LC.attackby(C,user)
 				return
 		coil.place_turf(src, user)
-		return TRUE
+		return EF_TRUE
 
 	else if(istype(C, /obj/item/twohanded/rcl))
 		handleRCL(C, user)
 
-	return FALSE
+	return EF_FALSE
 
 /turf/CanPass(atom/movable/mover, turf/target)
 	if(!target)
-		return FALSE
+		return EF_FALSE
 
 	if(istype(mover)) // turf/Enter(...) will perform more advanced checks
 		return !density
 
 	stack_trace("Non movable passed to turf CanPass : [mover]")
-	return FALSE
+	return EF_FALSE
 
 //There's a lot of QDELETED() calls here if someone can figure out how to optimize this but not runtime when something gets deleted by a Bump/CanPass/Cross call, lemme know or go ahead and fix this mess - kevinz000
 /turf/Enter(atom/movable/mover, atom/oldloc)
@@ -238,13 +238,13 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(canPassSelf || CHECK_BITFIELD(mover.movement_type, UNSTOPPABLE))
 		for(var/i in contents)
 			if(QDELETED(mover))
-				return FALSE		//We were deleted, do not attempt to proceed with movement.
+				return EF_FALSE		//We were deleted, do not attempt to proceed with movement.
 			if(i == mover || i == mover.loc) // Multi tile objects and moving out of other objects
 				continue
 			var/atom/movable/thing = i
 			if(!thing.Cross(mover))
 				if(QDELETED(mover))		//Mover deleted from Cross/CanPass, do not proceed.
-					return FALSE
+					return EF_FALSE
 				if(CHECK_BITFIELD(mover.movement_type, UNSTOPPABLE))
 					mover.Bump(thing)
 					continue
@@ -252,18 +252,18 @@ GLOBAL_LIST_EMPTY(station_turfs)
 					if(!firstbump || ((thing.layer > firstbump.layer || thing.flags_1 & ON_BORDER_1) && !(firstbump.flags_1 & ON_BORDER_1)))
 						firstbump = thing
 	if(QDELETED(mover))					//Mover deleted from Cross/CanPass/Bump, do not proceed.
-		return FALSE
+		return EF_FALSE
 	if(!canPassSelf)	//Even if mover is unstoppable they need to bump us.
 		firstbump = src
 	if(firstbump)
 		mover.Bump(firstbump)
 		return CHECK_BITFIELD(mover.movement_type, UNSTOPPABLE)
-	return TRUE
+	return EF_TRUE
 
 /turf/Exit(atom/movable/mover, atom/newloc)
 	. = ..()
 	if(!. || QDELETED(mover))
-		return FALSE
+		return EF_FALSE
 	for(var/i in contents)
 		if(i == mover)
 			continue
@@ -272,9 +272,9 @@ GLOBAL_LIST_EMPTY(station_turfs)
 			if(thing.flags_1 & ON_BORDER_1)
 				mover.Bump(thing)
 			if(!CHECK_BITFIELD(mover.movement_type, UNSTOPPABLE))
-				return FALSE
+				return EF_FALSE
 		if(QDELETED(mover))
-			return FALSE		//We were deleted.
+			return EF_FALSE		//We were deleted.
 
 /turf/Entered(atom/movable/AM)
 	..()
@@ -294,7 +294,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		zFall(AM)
 
 /turf/proc/is_plasteel_floor()
-	return FALSE
+	return EF_FALSE
 
 // A proc in case it needs to be recreated or badmins want to change the baseturfs
 /turf/proc/assemble_baseturfs(turf/fake_baseturf_type)
@@ -381,7 +381,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(length(src_object.contents()))
 		to_chat(usr, "<span class='notice'>You start dumping out the contents...</span>")
 		if(!do_after(usr,20,target=src_object.parent))
-			return FALSE
+			return EF_FALSE
 
 	var/list/things = src_object.contents()
 	var/datum/progressbar/progress = new(user, things.len, src)
@@ -389,7 +389,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		stoplag(1)
 	qdel(progress)
 
-	return TRUE
+	return EF_TRUE
 
 //////////////////////////////
 //Distance procs
@@ -404,7 +404,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 //  for bots and anything else that only moves in cardinal dirs.
 /turf/proc/Distance_cardinal(turf/T)
 	if(!src || !T)
-		return FALSE
+		return EF_FALSE
 	return abs(x - T.x) + abs(y - T.y)
 
 ////////////////////////////////////////////////////
@@ -420,7 +420,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	return(2)
 
 /turf/proc/can_have_cabling()
-	return TRUE
+	return EF_TRUE
 
 /turf/proc/can_lay_cable()
 	return can_have_cabling() & !intact
@@ -482,7 +482,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	underlay_appearance.icon = icon
 	underlay_appearance.icon_state = icon_state
 	underlay_appearance.dir = adjacency_dir
-	return TRUE
+	return EF_TRUE
 
 /turf/proc/add_blueprints(atom/movable/AM)
 	var/image/I = new
@@ -544,7 +544,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	return I
 
 /turf/AllowDrop()
-	return TRUE
+	return EF_TRUE
 
 /turf/proc/add_vomit_floor(mob/living/M, toxvomit = NONE)
 

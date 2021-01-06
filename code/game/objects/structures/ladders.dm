@@ -120,8 +120,8 @@
 
 /obj/structure/ladder/proc/check_menu(mob/user)
 	if(user.incapacitated() || !user.Adjacent(src))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/structure/ladder/attack_hand(mob/user)
 	. = ..()
@@ -136,20 +136,20 @@
 	switch(the_rcd.mode)
 		if(RCD_DECONSTRUCT)
 			return list("mode" = RCD_DECONSTRUCT, "delay" = 30, "cost" = 15)
-	return FALSE
+	return EF_FALSE
 
 /obj/structure/ladder/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_DECONSTRUCT)
 			to_chat(user, "<span class='notice'>You deconstruct the ladder.</span>")
 			qdel(src)
-			return TRUE
+			return EF_TRUE
 
 /obj/structure/ladder/unbreakable/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_DECONSTRUCT)
 			to_chat(user, "<span class='warning'>[src] seems to resist all attempts to deconstruct it!</span>")
-			return FALSE
+			return EF_FALSE
 
 /obj/structure/ladder/attackby(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -157,8 +157,8 @@
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(I.tool_behaviour == TOOL_WELDER)
 			if(!I.tool_start_check(user, amount=0))
-				return FALSE
-		
+				return EF_FALSE
+
 			to_chat(user, "<span class='notice'>You begin cutting [src]...</span>")
 			if(I.use_tool(src, user, 50, volume=100))
 				user.visible_message("<span class='notice'>[user] cuts [src].</span>", \
@@ -167,10 +167,10 @@
 				var/obj/R = new /obj/item/stack/rods(drop_location(), 10)
 				transfer_fingerprints_to(R)
 				qdel(src)
-				return TRUE
+				return EF_TRUE
 	else
 		to_chat(user, "<span class='warning'>[src] seems to resist all attempts to deconstruct it!</span>")
-		return FALSE
+		return EF_FALSE
 
 /obj/structure/ladder/attack_robot(mob/living/silicon/robot/R)
 	if(R.Adjacent(src))

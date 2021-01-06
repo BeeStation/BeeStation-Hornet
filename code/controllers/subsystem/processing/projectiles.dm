@@ -18,6 +18,6 @@ PROCESSING_SUBSYSTEM_DEF(projectiles)
 	switch(var_name)
 		if(NAMEOF(src, global_pixel_speed))
 			set_pixel_speed(var_value)
-			return TRUE
+			return EF_TRUE
 		else
 			return ..()

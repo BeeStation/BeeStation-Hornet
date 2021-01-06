@@ -13,7 +13,7 @@
 	if(!user.mob) return
 	var/mob/M = user.mob
 	M.northface()
-	return TRUE
+	return EF_TRUE
 
 
 /datum/keybinding/mob/face_east
@@ -26,7 +26,7 @@
 	if(!user.mob) return
 	var/mob/M = user.mob
 	M.eastface()
-	return TRUE
+	return EF_TRUE
 
 
 /datum/keybinding/mob/face_south
@@ -39,7 +39,7 @@
 	if(!user.mob) return
 	var/mob/M = user.mob
 	M.southface()
-	return TRUE
+	return EF_TRUE
 
 /datum/keybinding/mob/face_west
 	key = "Ctrl-A"
@@ -51,7 +51,7 @@
 	if(!user.mob) return
 	var/mob/M = user.mob
 	M.westface()
-	return TRUE
+	return EF_TRUE
 
 /datum/keybinding/mob/stop_pulling
 	key = "H"
@@ -66,7 +66,7 @@
 		to_chat(user, "<span class='notice'>You are not pulling anything.</span>")
 	else
 		M.stop_pulling()
-	return TRUE
+	return EF_TRUE
 
 /datum/keybinding/mob/cycle_intent_right
 	key = "Home"
@@ -78,7 +78,7 @@
 	if(!user.mob) return
 	var/mob/M = user.mob
 	M.a_intent_change(INTENT_HOTKEY_RIGHT)
-	return TRUE
+	return EF_TRUE
 
 /datum/keybinding/mob/cycle_intent_left
 	key = "Insert"
@@ -90,7 +90,7 @@
 	if(!user.mob) return
 	var/mob/M = user.mob
 	M.a_intent_change(INTENT_HOTKEY_LEFT)
-	return TRUE
+	return EF_TRUE
 
 /datum/keybinding/mob/swap_hands
 	key = "X"
@@ -101,7 +101,7 @@
 /datum/keybinding/mob/swap_hands/down(client/user)
 	if(!user.mob) return
 	user.mob.swap_hand()
-	return TRUE
+	return EF_TRUE
 
 /datum/keybinding/mob/activate_inhand
 	key = "Z"
@@ -113,7 +113,7 @@
 	if(!user.mob) return
 	var/mob/M = user.mob
 	M.mode()
-	return TRUE
+	return EF_TRUE
 
 /datum/keybinding/mob/drop_item
 	key = "Q"
@@ -129,7 +129,7 @@
 		to_chat(user, "<span class='warning'>You have nothing to drop in your hand!</span>")
 	else
 		user.mob.dropItemToGround(I)
-	return TRUE
+	return EF_TRUE
 
 /datum/keybinding/mob/toggle_move_intent
 	key = "Alt"
@@ -141,13 +141,13 @@
 	if(!user.mob) return
 	var/mob/M = user.mob
 	M.toggle_move_intent()
-	return TRUE
+	return EF_TRUE
 
 /datum/keybinding/mob/toggle_move_intent/up(client/user)
 	if(!user.mob) return
 	var/mob/M = user.mob
 	M.toggle_move_intent()
-	return TRUE
+	return EF_TRUE
 
 /datum/keybinding/mob/target_head_cycle
 	key = "Numpad8"
@@ -158,7 +158,7 @@
 /datum/keybinding/mob/target_head_cycle/down(client/user)
 	if(!user.mob) return
 	user.body_toggle_head()
-	return TRUE
+	return EF_TRUE
 
 /datum/keybinding/mob/target_r_arm
 	key = "Numpad4"
@@ -169,7 +169,7 @@
 /datum/keybinding/mob/target_r_arm/down(client/user)
 	if(!user.mob) return
 	user.body_r_arm()
-	return TRUE
+	return EF_TRUE
 
 /datum/keybinding/mob/target_body_chest
 	key = "Numpad5"
@@ -180,7 +180,7 @@
 /datum/keybinding/mob/target_body_chest/down(client/user)
 	if(!user.mob) return
 	user.body_chest()
-	return TRUE
+	return EF_TRUE
 
 /datum/keybinding/mob/target_left_arm
 	key = "Numpad6"
@@ -191,7 +191,7 @@
 /datum/keybinding/mob/target_left_arm/down(client/user)
 	if(!user.mob) return
 	user.body_l_arm()
-	return TRUE
+	return EF_TRUE
 
 /datum/keybinding/mob/target_right_leg
 	key = "Numpad1"
@@ -202,7 +202,7 @@
 /datum/keybinding/mob/target_right_leg/down(client/user)
 	if(!user.mob) return
 	user.body_r_leg()
-	return TRUE
+	return EF_TRUE
 
 /datum/keybinding/mob/target_body_groin
 	key = "Numpad2"
@@ -213,7 +213,7 @@
 /datum/keybinding/mob/target_body_groin/down(client/user)
 	if(!user.mob) return
 	user.body_groin()
-	return TRUE
+	return EF_TRUE
 
 /datum/keybinding/mob/target_left_leg
 	key = "Numpad3"
@@ -224,4 +224,4 @@
 /datum/keybinding/mob/target_left_leg/down(client/user)
 	if(!user.mob) return
 	user.body_l_leg()
-	return TRUE
+	return EF_TRUE

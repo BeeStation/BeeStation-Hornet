@@ -181,12 +181,12 @@
 /mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/A)
 	if(morphed && !eat_while_disguised)
 		to_chat(src, "<span class='warning'>You can not eat anything while you are disguised!</span>")
-		return FALSE
+		return EF_FALSE
 	if(A && A.loc != src)
 		visible_message("<span class='warning'>[src] swallows [A] whole!</span>")
 		A.forceMove(src)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /mob/living/simple_animal/hostile/morph/ShiftClickOn(atom/movable/A)
 	if(morph_time <= world.time && !stat)
@@ -289,7 +289,7 @@
 
 /mob/living/simple_animal/hostile/morph/can_track(mob/living/user)
 	if(morphed)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /mob/living/simple_animal/hostile/morph/AttackingTarget()

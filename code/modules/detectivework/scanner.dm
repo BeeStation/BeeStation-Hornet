@@ -60,7 +60,7 @@
 /obj/item/detective_scanner/afterattack(atom/A, mob/user, params)
 	. = ..()
 	scan(A, user)
-	return FALSE
+	return EF_FALSE
 
 /obj/item/detective_scanner/proc/scan(atom/A, mob/user)
 	set waitfor = 0

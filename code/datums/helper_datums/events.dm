@@ -20,8 +20,8 @@
 /datum/events/proc/addEventType(event_type as text)
 	if(!(event_type in events) || !islist(events[event_type]))
 		events[event_type] = list()
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 //	Arguments: event_type as text, proc_holder as datum, proc_name as text
 //	Returns: New event, null on error.
@@ -47,8 +47,8 @@
 
 /datum/events/proc/clearEvent(event_type as text, datum/callback/cb)
 	if(!event_type || !cb)
-		return FALSE
+		return EF_FALSE
 	var/list/event = listgetindex(events,event_type)
 	event -= cb
 	qdel(cb)
-	return TRUE
+	return EF_TRUE

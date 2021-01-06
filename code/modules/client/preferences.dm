@@ -990,7 +990,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 /datum/preferences/proc/SetJobPreferenceLevel(datum/job/job, level)
 	if (!job)
-		return FALSE
+		return EF_FALSE
 
 	if (level == JP_HIGH) // to high
 		//Set all other high to medium
@@ -1000,7 +1000,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				//technically break here
 
 	job_preferences[job.title] = level
-	return TRUE
+	return EF_TRUE
 
 
 
@@ -1202,7 +1202,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				SetQuirks(user)
 			else
 				SetQuirks(user)
-		return TRUE
+		return EF_TRUE
 
 	if(href_list["preference"] == "gear")
 		if(href_list["purchase_gear"])

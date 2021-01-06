@@ -21,7 +21,7 @@
 			return
 	if(R.scrambledcodes)
 		return
-	return TRUE
+	return EF_TRUE
 
 
 /obj/machinery/computer/robotics/ui_state(mob/user)

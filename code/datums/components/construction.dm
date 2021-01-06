@@ -40,8 +40,8 @@
 	var/diff = is_right_key(I)
 	if(diff && custom_action(I, user, diff))
 		update_index(diff)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/component/construction/proc/is_right_key(obj/item/I) // returns index step
 	var/list/L = steps[index]
@@ -49,19 +49,19 @@
 		return FORWARD //to the first step -> forward
 	else if(check_used_item(I, L["back_key"]))
 		return BACKWARD //to the last step -> backwards
-	return FALSE
+	return EF_FALSE
 
 /datum/component/construction/proc/check_used_item(obj/item/I, key)
 	if(!key)
-		return FALSE
+		return EF_FALSE
 
 	if(ispath(key) && istype(I, key))
-		return TRUE
+		return EF_TRUE
 
 	else if(I.tool_behaviour == key)
-		return TRUE
+		return EF_TRUE
 
-	return FALSE
+	return EF_FALSE
 
 /datum/component/construction/proc/custom_action(obj/item/I, mob/living/user, diff)
 	var/target_index = index + diff
@@ -141,8 +141,8 @@
 		if(istype(I, typepath) && custom_action(I, user, typepath))
 			steps -= typepath
 			on_step()
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/component/construction/unordered/on_step()
 	if(!steps.len)
@@ -154,4 +154,4 @@
 	return
 
 /datum/component/construction/unordered/custom_action(obj/item/I, mob/living/user, typepath)
-	return TRUE
+	return EF_TRUE

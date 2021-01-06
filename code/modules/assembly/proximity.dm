@@ -27,13 +27,13 @@
 
 /obj/item/assembly/prox_sensor/activate()
 	if(!..())
-		return FALSE //Cooldown check
+		return EF_FALSE //Cooldown check
 	if(!scanning)
 		timing = !timing
 	else
 		scanning = FALSE
 	update_icon()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/assembly/prox_sensor/on_detach()
 	. = ..()
@@ -63,7 +63,7 @@
 
 /obj/item/assembly/prox_sensor/proc/sense()
 	if(!scanning || !secured || next_activate > world.time)
-		return FALSE
+		return EF_FALSE
 	pulse(FALSE)
 	audible_message("[icon2html(src, hearers(src))] *beep* *beep* *beep*", null, hearing_range)
 	for(var/CHM in get_hearers_in_view(hearing_range, src))
@@ -71,7 +71,7 @@
 			var/mob/LM = CHM
 			LM.playsound_local(get_turf(src), 'sound/machines/triple_beep.ogg', ASSEMBLY_BEEP_VOLUME, TRUE)
 	next_activate = world.time + 30
-	return TRUE
+	return EF_TRUE
 
 /obj/item/assembly/prox_sensor/process()
 	if(!timing)
@@ -84,7 +84,7 @@
 
 /obj/item/assembly/prox_sensor/proc/toggle_scan(scan)
 	if(!secured)
-		return FALSE
+		return EF_FALSE
 	scanning = scan
 	proximity_monitor.SetRange(scanning ? sensitivity : 0)
 	update_icon()

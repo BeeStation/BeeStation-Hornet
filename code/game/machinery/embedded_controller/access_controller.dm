@@ -161,19 +161,19 @@
 /obj/machinery/doorButtons/airlock_controller/proc/closeDoor(obj/machinery/door/airlock/A)
 	if(A.density)
 		goIdle()
-		return FALSE
+		return EF_FALSE
 	update_icon()
 	A.safe = FALSE //Door crushies, manual door after all. Set every time in case someone changed it, safe doors can end up waiting forever.
 	A.unbolt()
 	if(A.close())
 		if(stat & NOPOWER || lostPower || !A || QDELETED(A))
 			goIdle(TRUE)
-			return FALSE
+			return EF_FALSE
 		A.bolt()
 		goIdle(TRUE)
-		return TRUE
+		return EF_TRUE
 	goIdle(TRUE)
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/doorButtons/airlock_controller/proc/cycleClose(obj/machinery/door/airlock/A)
 	if(!A || !exteriorAirlock || !interiorAirlock)

@@ -40,16 +40,16 @@
 		if((job.total_positions <= length(GLOB.player_list) * (max_relative_positions / 100)))
 			var/delta = (world.time / 10) - GLOB.time_last_changed_position
 			if((change_position_cooldown < delta) || (opened_positions[job.title] < 0))
-				return TRUE
-	return FALSE
+				return EF_TRUE
+	return EF_FALSE
 
 /datum/computer_file/program/job_management/proc/can_close_job(datum/job/job)
 	if(!(job?.title in blacklisted))
 		if(job.total_positions > length(GLOB.player_list) * (max_relative_positions / 100))
 			var/delta = (world.time / 10) - GLOB.time_last_changed_position
 			if((change_position_cooldown < delta) || (opened_positions[job.title] > 0))
-				return TRUE
-	return FALSE
+				return EF_TRUE
+	return EF_FALSE
 
 /datum/computer_file/program/job_management/ui_act(action, params, datum/tgui/ui)
 	if(..())
@@ -76,7 +76,7 @@
 			j.total_positions++
 			opened_positions[edit_job_target]++
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
-			return TRUE
+			return EF_TRUE
 		if("PRG_close_job")
 			var/edit_job_target = params["target"]
 			var/datum/job/j = SSjob.GetJob(edit_job_target)
@@ -88,7 +88,7 @@
 			j.total_positions--
 			opened_positions[edit_job_target]--
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
-			return TRUE
+			return EF_TRUE
 		if("PRG_priority")
 			if(length(SSjob.prioritized_jobs) >= 5)
 				return
@@ -103,7 +103,7 @@
 			else
 				SSjob.prioritized_jobs += j
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
-			return TRUE
+			return EF_TRUE
 
 
 /datum/computer_file/program/job_management/ui_data(mob/user)

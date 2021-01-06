@@ -10,7 +10,7 @@
 		return ..()
 
 /obj/effect/clockwork/overlay/ex_act()
-	return FALSE
+	return EF_FALSE
 
 /obj/effect/clockwork/overlay/singularity_act()
 	return

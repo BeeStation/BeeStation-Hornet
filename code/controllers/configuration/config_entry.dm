@@ -45,7 +45,7 @@
 	var/static/list/banned_edits = list(NAMEOF(src, name), NAMEOF(src, vv_VAS), NAMEOF(src, default), NAMEOF(src, resident_file), NAMEOF(src, protection), NAMEOF(src, abstract_type), NAMEOF(src, modified), NAMEOF(src, dupes_allowed))
 	if(var_name == NAMEOF(src, config_entry_value))
 		if(protection & CONFIG_ENTRY_LOCKED)
-			return FALSE
+			return EF_FALSE
 		if(vv_VAS)
 			. = ValidateAndSet("[var_value]")
 			if(.)
@@ -54,7 +54,7 @@
 		else
 			return ..()
 	if(var_name in banned_edits)
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /datum/config_entry/proc/VASProcCallGuard(str_val)
@@ -67,7 +67,7 @@
 	CRASH("Invalid config entry type!")
 
 /datum/config_entry/proc/ValidateListEntry(key_name, key_value)
-	return TRUE
+	return EF_TRUE
 
 /datum/config_entry/proc/DeprecationUpdate(value)
 	return
@@ -82,9 +82,9 @@
 
 /datum/config_entry/string/ValidateAndSet(str_val)
 	if(!VASProcCallGuard(str_val))
-		return FALSE
+		return EF_FALSE
 	config_entry_value = auto_trim ? trim(str_val) : str_val
-	return TRUE
+	return EF_TRUE
 
 /datum/config_entry/number
 	config_entry_value = 0
@@ -95,14 +95,14 @@
 
 /datum/config_entry/number/ValidateAndSet(str_val)
 	if(!VASProcCallGuard(str_val))
-		return FALSE
+		return EF_FALSE
 	var/temp = text2num(trim(str_val))
 	if(!isnull(temp))
 		config_entry_value = CLAMP(integer ? round(temp) : temp, min_val, max_val)
 		if(config_entry_value != temp && !(datum_flags & DF_VAR_EDITED))
 			log_config("Changing [name] from [temp] to [config_entry_value]!")
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /datum/config_entry/number/vv_edit_var(var_name, var_value)
 	var/static/list/banned_edits = list("max_val", "min_val", "integer")
@@ -114,9 +114,9 @@
 
 /datum/config_entry/flag/ValidateAndSet(str_val)
 	if(!VASProcCallGuard(str_val))
-		return FALSE
+		return EF_FALSE
 	config_entry_value = text2num(trim(str_val)) != 0
-	return TRUE
+	return EF_TRUE
 
 /datum/config_entry/number_list
 	abstract_type = /datum/config_entry/number_list
@@ -124,19 +124,19 @@
 
 /datum/config_entry/number_list/ValidateAndSet(str_val)
 	if(!VASProcCallGuard(str_val))
-		return FALSE
+		return EF_FALSE
 	str_val = trim(str_val)
 	var/list/new_list = list()
 	var/list/values = splittext(str_val," ")
 	for(var/I in values)
 		var/temp = text2num(I)
 		if(isnull(temp))
-			return FALSE
+			return EF_FALSE
 		new_list += temp
 	if(!new_list.len)
-		return FALSE
+		return EF_FALSE
 	config_entry_value = new_list
-	return TRUE
+	return EF_TRUE
 
 /datum/config_entry/keyed_list
 	abstract_type = /datum/config_entry/keyed_list
@@ -154,7 +154,7 @@
 
 /datum/config_entry/keyed_list/ValidateAndSet(str_val)
 	if(!VASProcCallGuard(str_val))
-		return FALSE
+		return EF_FALSE
 
 	str_val = trim(str_val)
 	var/key_pos = findtext(str_val, splitter)
@@ -190,8 +190,8 @@
 				continue_check_value = new_value
 		if(continue_check_value && continue_check_key && ValidateListEntry(new_key, new_value))
 			config_entry_value[new_key] = new_value
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /datum/config_entry/keyed_list/vv_edit_var(var_name, var_value)
 	return var_name != "splitter" && ..()

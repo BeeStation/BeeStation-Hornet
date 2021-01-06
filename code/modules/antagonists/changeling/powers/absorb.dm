@@ -143,4 +143,4 @@
 
 	target.death(0)
 	target.Drain()
-	return TRUE
+	return EF_TRUE

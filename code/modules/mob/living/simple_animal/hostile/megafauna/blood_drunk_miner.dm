@@ -130,7 +130,7 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Move(atom/newloc)
 	if(dashing || (newloc && newloc.z == z && (islava(newloc) || ischasm(newloc)))) //we're not stupid!
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/ex_act(severity, target)
@@ -159,12 +159,12 @@ Difficulty: Medium
 				else
 					adjustHealth(-(L.maxHealth * 0.5))
 			L.gib()
-			return TRUE
+			return EF_TRUE
 	changeNext_move(CLICK_CD_MELEE)
 	miner_saw.melee_attack_chain(src, target)
 	if(guidance)
 		adjustHealth(-2)
-	return TRUE
+	return EF_TRUE
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!used_item && !isturf(A))
@@ -239,7 +239,7 @@ Difficulty: Medium
 	playsound(target_turf, 'sound/weapons/punchmiss.ogg', 40, 1, -1)
 	SLEEP_CHECK_DEATH(1)
 	dashing = FALSE
-	return TRUE
+	return EF_TRUE
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/transform_weapon()
 	if(time_until_next_transform <= world.time)

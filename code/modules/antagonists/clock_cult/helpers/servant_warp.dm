@@ -1,6 +1,6 @@
 /proc/try_warp_servant(mob/living/servant, turf/target_location, bring_dragging = FALSE)
 	if(!is_servant_of_ratvar(servant))
-		return FALSE
+		return EF_FALSE
 	var/mob/living/M = servant
 	var/mob/living/P = M.pulling
 	playsound(servant, 'sound/magic/magic_missile.ogg', 50, TRUE)

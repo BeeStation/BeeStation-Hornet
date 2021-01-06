@@ -104,7 +104,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 /obj/effect/meteor/Move()
 	if(z != z_original || loc == dest)
 		qdel(src)
-		return FALSE
+		return EF_FALSE
 
 	. = ..() //process movement...
 

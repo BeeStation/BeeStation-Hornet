@@ -53,9 +53,9 @@
 
 /obj/item/assembly/signaler/activate()
 	if(!..())//cooldown processing
-		return FALSE
+		return EF_FALSE
 	signal()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/assembly/signaler/update_icon()
 	if(holder)
@@ -149,7 +149,7 @@
 		if(ismob(CHM))
 			var/mob/LM = CHM
 			LM.playsound_local(get_turf(src), 'sound/machines/triple_beep.ogg', ASSEMBLY_BEEP_VOLUME, TRUE)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/assembly/signaler/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -168,7 +168,7 @@
 
 /obj/item/assembly/signaler/receiver/activate()
 	toggle_safety()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/assembly/signaler/receiver/examine(mob/user)
 	. = ..()
@@ -192,14 +192,14 @@
 
 /obj/item/assembly/signaler/anomaly/receive_signal(datum/signal/signal)
 	if(!signal)
-		return FALSE
+		return EF_FALSE
 	if(signal.data["code"] != code)
-		return FALSE
+		return EF_FALSE
 	if(suicider)
 		manual_suicide(suicider)
 	for(var/obj/effect/anomaly/A in get_turf(src))
 		A.anomalyNeutralize()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/assembly/signaler/anomaly/manual_suicide(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user]'s [src] is reacting to the radio signal, warping [user.p_their()] body!</span>")

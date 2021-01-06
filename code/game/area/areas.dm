@@ -635,7 +635,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   */
 /area/proc/update_areasize()
 	if(outdoors)
-		return FALSE
+		return EF_FALSE
 	areasize = 0
 	for(var/turf/open/T in contents)
 		areasize++

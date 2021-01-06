@@ -19,9 +19,9 @@
 
 /obj/item/computer_hardware/printer/proc/print_text(var/text_to_print, var/paper_title = "")
 	if(!stored_paper)
-		return FALSE
+		return EF_FALSE
 	if(!check_functionality())
-		return FALSE
+		return EF_FALSE
 
 	var/obj/item/paper/P = new/obj/item/paper(holder.drop_location())
 
@@ -35,21 +35,21 @@
 	P.update_icon()
 	stored_paper--
 	P = null
-	return TRUE
+	return EF_TRUE
 
 /obj/item/computer_hardware/printer/try_insert(obj/item/I, mob/living/user = null)
 	if(istype(I, /obj/item/paper))
 		if(stored_paper >= max_paper)
 			to_chat(user, "<span class='warning'>You try to add \the [I] into [src], but its paper bin is full!</span>")
-			return FALSE
+			return EF_FALSE
 
 		if(user && !user.temporarilyRemoveItemFromInventory(I))
-			return FALSE
+			return EF_FALSE
 		to_chat(user, "<span class='notice'>You insert \the [I] into [src]'s paper recycler.</span>")
 		qdel(I)
 		stored_paper++
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/item/computer_hardware/printer/mini
 	name = "miniprinter"

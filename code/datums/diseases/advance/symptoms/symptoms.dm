@@ -41,9 +41,9 @@
 // Called when processing of the advance disease, which holds this symptom, starts.
 /datum/symptom/proc/Start(datum/disease/advance/A)
 	if(neutered)
-		return FALSE
+		return EF_FALSE
 	next_activation = world.time + rand(symptom_delay_min * 10, symptom_delay_max * 10) //so it doesn't instantly activate on infection
-	return TRUE
+	return EF_TRUE
 
 //called when a disease first tries to infect someone.
 /datum/symptom/proc/severityset(datum/disease/advance/A)
@@ -52,24 +52,24 @@
 // Called when the advance disease is going to be deleted or when the advance disease stops processing.
 /datum/symptom/proc/End(datum/disease/advance/A)
 	if(neutered)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/symptom/proc/Activate(datum/disease/advance/A)
 	if(!A)
-		return FALSE //prevents a niche runtime where a disease procs on the same tick it is cured
+		return EF_FALSE //prevents a niche runtime where a disease procs on the same tick it is cured
 	if(neutered)
-		return FALSE
+		return EF_FALSE
 	if(world.time < next_activation)
-		return FALSE
+		return EF_FALSE
 	else
 		next_activation = world.time + rand(symptom_delay_min * 10, symptom_delay_max * 10)
-		return TRUE
+		return EF_TRUE
 
 /datum/symptom/proc/on_stage_change(new_stage, datum/disease/advance/A)
 	if(neutered)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/symptom/proc/Copy()
 	var/datum/symptom/new_symp = new type

@@ -109,7 +109,7 @@
 
 		cached_test_merges += tm
 
-	return TRUE
+	return EF_TRUE
 
 /datum/tgs_api/v4/OnInitializationComplete()
 	Export(TGS4_COMM_SERVER_PRIMED)
@@ -118,7 +118,7 @@
 	var/list/params = params2list(T)
 	var/their_sCK = params[TGS4_INTEROP_ACCESS_IDENTIFIER]
 	if(!their_sCK)
-		return FALSE	//continue world/Topic
+		return EF_FALSE	//continue world/Topic
 
 	if(their_sCK != access_identifier)
 		return "Invalid comms key!";

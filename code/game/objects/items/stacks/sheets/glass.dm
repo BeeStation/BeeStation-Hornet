@@ -311,7 +311,7 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 			G.attackby(NG, user)
 		to_chat(user, "<span class='notice'>You add the newly-formed glass to the stack. It now contains [NG.amount] sheet\s.</span>")
 		qdel(src)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/shard/Crossed(mob/living/L)
 	if(istype(L) && has_gravity(loc))

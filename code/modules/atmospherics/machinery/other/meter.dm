@@ -121,7 +121,7 @@
 			"<span class='notice'>You unfasten \the [src].</span>",
 			"<span class='italics'>You hear ratchet.</span>")
 		deconstruct()
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/meter/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))

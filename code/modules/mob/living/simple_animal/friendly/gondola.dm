@@ -57,7 +57,7 @@
 	add_overlay(moustache_overlay)
 
 /mob/living/simple_animal/pet/gondola/IsVocal() //Gondolas are the silent walker.
-	return FALSE
+	return EF_FALSE
 
 #undef GONDOLA_HEIGHT
 #undef GONDOLA_COLOR

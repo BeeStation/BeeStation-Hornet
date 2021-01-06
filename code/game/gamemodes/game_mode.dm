@@ -291,18 +291,18 @@
 
 //For things that do not die easily
 /datum/game_mode/proc/are_special_antags_dead()
-	return TRUE
+	return EF_TRUE
 
 
 /datum/game_mode/proc/check_finished(force_ending) //to be called by SSticker
 	if(!SSticker.setup_done || !gamemode_ready)
-		return FALSE
+		return EF_FALSE
 	if(replacementmode && round_converted == 2)
 		return replacementmode.check_finished()
 	if(SSshuttle.emergency && (SSshuttle.emergency.mode == SHUTTLE_ENDGAME))
-		return TRUE
+		return EF_TRUE
 	if(station_was_nuked)
-		return TRUE
+		return EF_TRUE
 	var/list/continuous = CONFIG_GET(keyed_list/continuous)
 	var/list/midround_antag = CONFIG_GET(keyed_list/midround_antag)
 	if(!round_converted && (!continuous[config_tag] || (continuous[config_tag] && midround_antag[config_tag]))) //Non-continuous or continous with replacement antags
@@ -313,11 +313,11 @@
 				//Gamemodes like revs do not give antag status, but special roles instead.
 				if(Player.mind.special_role && !LAZYLEN(Player.mind.antag_datums))
 					continuous_sanity_checked = TRUE
-					return FALSE
+					return EF_FALSE
 				for(var/datum/antagonist/A in Player.mind.antag_datums)
 					if(A.delay_roundend)
 						continuous_sanity_checked = TRUE
-						return FALSE
+						return EF_FALSE
 			if(!continuous_sanity_checked)
 				message_admins("The roundtype ([config_tag]) has no antagonists, continuous round has been defaulted to on and midround_antag has been defaulted to off.")
 				continuous[config_tag] = TRUE
@@ -337,7 +337,7 @@
 						return 0
 
 		if(!are_special_antags_dead())
-			return FALSE
+			return EF_FALSE
 
 		if(!continuous[config_tag] || force_ending)
 			return 1

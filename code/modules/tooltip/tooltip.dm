@@ -94,7 +94,7 @@ Notes:
 
 	queueHide = showing ? TRUE : FALSE
 
-	return TRUE
+	return EF_TRUE
 
 /datum/tooltip/proc/do_hide()
 	winshow(owner, control, FALSE)

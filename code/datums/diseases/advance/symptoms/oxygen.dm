@@ -66,11 +66,11 @@ Bonus
 
 /datum/symptom/oxygen/on_stage_change(new_stage, datum/disease/advance/A)
 	if(!..())
-		return FALSE
+		return EF_FALSE
 	var/mob/living/carbon/M = A.affected_mob
 	if(A.stage <= 3)
 		REMOVE_TRAIT(M, TRAIT_NOBREATH, DISEASE_TRAIT)
-	return TRUE
+	return EF_TRUE
 
 /datum/symptom/oxygen/End(datum/disease/advance/A)
 	if(!..())

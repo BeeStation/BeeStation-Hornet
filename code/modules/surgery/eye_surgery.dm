@@ -15,8 +15,8 @@
 	var/obj/item/organ/eyes/E = target.getorganslot(ORGAN_SLOT_EYES)
 	if(!E)
 		to_chat(user, "It's hard to do surgery on someone's eyes when [target.p_they()] [target.p_do()]n't have any.")
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/surgery_step/fix_eyes/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='notice'>You begin to fix [target]'s eyes...</span>",
@@ -34,7 +34,7 @@
 	target.cure_nearsighted(list(EYE_DAMAGE))
 	target.blur_eyes(35)	//this will fix itself slowly.
 	E.setOrganDamage(0)
-	return TRUE
+	return EF_TRUE
 
 /datum/surgery_step/fix_eyes/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(target.getorgan(/obj/item/organ/brain))
@@ -46,4 +46,4 @@
 		display_results(user, target, "<span class='warning'>You accidentally stab [target] right in the brain! Or would have, if [target] had a brain.</span>",
 			"<span class='warning'>[user] accidentally stabs [target] right in the brain! Or would have, if [target] had a brain.</span>",
 			"<span class='warning'>[user] accidentally stabs [target] right in the brain!</span>")
-	return FALSE
+	return EF_FALSE

@@ -54,7 +54,7 @@
 /datum/computer_file/program/power_monitor/proc/get_powernet() //keep in sync with /obj/machinery/computer/monitor's version
 	if(attached_wire || (local_apc && local_apc.terminal))
 		return attached_wire ? attached_wire.powernet : local_apc.terminal.powernet
-	return FALSE
+	return EF_FALSE
 
 /datum/computer_file/program/power_monitor/proc/record() //keep in sync with /obj/machinery/computer/monitor's version
 	if(world.time >= next_record)

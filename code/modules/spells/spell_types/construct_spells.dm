@@ -173,10 +173,10 @@
 /obj/item/projectile/magic/spell/magic_missile/lesser
 	color = "red" //Looks more culty this way
 	range = 10
-	
+
 /obj/item/projectile/magic/spell/magic_missile/lesser/can_hit_target(atom/target, list/passthrough, direct_target = FALSE, ignore_loc = FALSE)
 	if (iscultist(target))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /obj/effect/proc_holder/spell/targeted/smoke/disable
@@ -298,10 +298,10 @@
 
 /obj/effect/proc_holder/spell/targeted/dominate/can_target(mob/living/target)
 	if(!isanimal(target) || target.stat)
-		return FALSE
+		return EF_FALSE
 	if("cult" in target.faction)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/golem
 	charge_max = 800

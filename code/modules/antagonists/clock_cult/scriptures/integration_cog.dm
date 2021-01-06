@@ -19,4 +19,4 @@
 		playsound(src, 'sound/machines/click.ogg', 50)
 	else
 		to_chat(invoker, "<span class='brass'>You need to have your inactive hand free to summon an integration cog!</span>")
-		return FALSE
+		return EF_FALSE

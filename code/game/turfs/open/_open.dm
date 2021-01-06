@@ -109,7 +109,7 @@
 /turf/open/indestructible/hierophant/two
 
 /turf/open/indestructible/hierophant/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	return FALSE
+	return EF_FALSE
 
 /turf/open/indestructible/paper
 	name = "notebook floor"
@@ -182,7 +182,7 @@
 	for(var/obj/effect/O in src)
 		if(is_cleanable(O))
 			qdel(O)
-	return TRUE
+	return EF_TRUE
 
 /turf/open/handle_slip(mob/living/carbon/C, knockdown_amount, obj/O, lube, paralyze_amount, force_drop)
 	if(C.movement_type & FLYING)

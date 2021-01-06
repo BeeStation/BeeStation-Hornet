@@ -283,16 +283,16 @@
   */
 /mob/proc/equip_to_slot_if_possible(obj/item/W, slot, qdel_on_fail = FALSE, disable_warning = FALSE, redraw_mob = TRUE, bypass_equip_delay_self = FALSE)
 	if(!istype(W))
-		return FALSE
+		return EF_FALSE
 	if(!W.mob_can_equip(src, null, slot, disable_warning, bypass_equip_delay_self))
 		if(qdel_on_fail)
 			qdel(W)
 		else
 			if(!disable_warning)
 				to_chat(src, "<span class='warning'>You are unable to equip that!</span>")
-		return FALSE
+		return EF_FALSE
 	equip_to_slot(W, slot, redraw_mob) //This proc should not ever fail.
-	return TRUE
+	return EF_TRUE
 
 /**
   * Actually equips an item to a slot (UNSAFE)
@@ -454,23 +454,23 @@
 	set category = "Object"
 
 	if(!src || !isturf(src.loc) || !(A in view(src.loc)))
-		return FALSE
+		return EF_FALSE
 	if(istype(A, /obj/effect/temp_visual/point))
-		return FALSE
+		return EF_FALSE
 
 	var/turf/tile = get_turf(A)
 	if (!tile)
-		return FALSE
+		return EF_FALSE
 
 	var/turf/our_tile = get_turf(src)
 	var/obj/visual = new /obj/effect/temp_visual/point(our_tile, invisibility)
 	animate(visual, pixel_x = (tile.x - our_tile.x) * world.icon_size + A.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + A.pixel_y, time = 1.7, easing = EASE_OUT)
 
-	return TRUE
+	return EF_TRUE
 
 ///Can this mob resist (default FALSE)
 /mob/proc/can_resist()
-	return FALSE		//overridden in living.dm
+	return EF_FALSE		//overridden in living.dm
 
 ///Spin this mob around it's central axis
 /mob/proc/spin(spintime, speed)
@@ -812,65 +812,65 @@
   */
 /mob/proc/canface()
 	if(world.time < client.last_turn)
-		return FALSE
+		return EF_FALSE
 	if(stat == DEAD || stat == UNCONSCIOUS)
-		return FALSE
+		return EF_FALSE
 	if(anchored)
-		return FALSE
+		return EF_FALSE
 	if(notransform)
-		return FALSE
+		return EF_FALSE
 	if(restrained())
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 ///Checks mobility move as well as parent checks
 /mob/living/canface()
 	if(!(mobility_flags & MOBILITY_MOVE))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /mob/dead/observer/canface()
-	return TRUE
+	return EF_TRUE
 
 ///Hidden verb to turn east
 /mob/verb/eastface()
 	set hidden = TRUE
 	if(!canface())
-		return FALSE
+		return EF_FALSE
 	setDir(EAST)
 	client.last_turn = world.time + MOB_FACE_DIRECTION_DELAY
-	return TRUE
+	return EF_TRUE
 
 ///Hidden verb to turn west
 /mob/verb/westface()
 	set hidden = TRUE
 	if(!canface())
-		return FALSE
+		return EF_FALSE
 	setDir(WEST)
 	client.last_turn = world.time + MOB_FACE_DIRECTION_DELAY
-	return TRUE
+	return EF_TRUE
 
 ///Hidden verb to turn north
 /mob/verb/northface()
 	set hidden = TRUE
 	if(!canface())
-		return FALSE
+		return EF_FALSE
 	setDir(NORTH)
 	client.last_turn = world.time + MOB_FACE_DIRECTION_DELAY
-	return TRUE
+	return EF_TRUE
 
 ///Hidden verb to turn south
 /mob/verb/southface()
 	set hidden = TRUE
 	if(!canface())
-		return FALSE
+		return EF_FALSE
 	setDir(SOUTH)
 	client.last_turn = world.time + MOB_FACE_DIRECTION_DELAY
-	return TRUE
+	return EF_TRUE
 
 ///This might need a rename but it should replace the can this mob use things check
 /mob/proc/IsAdvancedToolUser()
-	return FALSE
+	return EF_FALSE
 
 /mob/proc/swap_hand()
 	return
@@ -1003,7 +1003,7 @@
 
 ///Can this mob use storage
 /mob/proc/canUseStorage()
-	return FALSE
+	return EF_FALSE
 /**
   * Check if the other mob has any factions the same as us
   *
@@ -1034,7 +1034,7 @@
 	else
 		match_list = faction_A&faction_B
 		return LAZYLEN(match_list)
-	return FALSE
+	return EF_FALSE
 
 
 /**
@@ -1138,7 +1138,7 @@
 
 ///This mob is abile to read books
 /mob/proc/is_literate()
-	return FALSE
+	return EF_FALSE
 
 ///Can this mob read (is literate and not blind)
 /mob/proc/can_read(obj/O)
@@ -1148,11 +1148,11 @@
 	if(!is_literate())
 		to_chat(src, "<span class='notice'>You try to read [O], but can't comprehend any of it.</span>")
 		return
-	return TRUE
+	return EF_TRUE
 
 ///Can this mob hold items
 /mob/proc/can_hold_items()
-	return FALSE
+	return EF_FALSE
 
 ///Get the id card on this mob
 /mob/proc/get_idcard(hand_first)
@@ -1286,4 +1286,4 @@
 
 // Returns TRUE if the hearer should hear radio noises
 /mob/proc/hears_radio()
-	return TRUE
+	return EF_TRUE

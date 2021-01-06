@@ -70,7 +70,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	chosen_dna.copy_profile(uploaded_dna)
 	GLOB.hivemind_bank += uploaded_dna
 	to_chat(user, "<span class='notice'>We channel the DNA of [chosen_name] to the air.</span>")
-	return TRUE
+	return EF_TRUE
 
 /datum/action/changeling/hivemind_download
 	name = "Hive Absorb DNA"
@@ -114,4 +114,4 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	chosen_prof.copy_profile(downloaded_prof)
 	changeling.add_profile(downloaded_prof)
 	to_chat(user, "<span class='notice'>We absorb the DNA of [S] from the air.</span>")
-	return TRUE
+	return EF_TRUE

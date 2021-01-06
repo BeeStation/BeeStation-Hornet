@@ -27,13 +27,13 @@
 /atom/movable/proc/mouse_buckle_handling(mob/living/M, mob/living/user)
 	if(can_buckle && istype(M) && istype(user))
 		if(user_buckle_mob(M, user))
-			return TRUE
+			return EF_TRUE
 
 /atom/movable/proc/has_buckled_mobs()
 	if(!buckled_mobs)
-		return FALSE
+		return EF_FALSE
 	if(buckled_mobs.len)
-		return TRUE
+		return EF_TRUE
 
 //procs that handle the actual buckling and unbuckling
 /atom/movable/proc/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
@@ -41,13 +41,13 @@
 		buckled_mobs = list()
 
 	if(!istype(M))
-		return FALSE
+		return EF_FALSE
 
 	if(check_loc && M.loc != loc)
-		return FALSE
+		return EF_FALSE
 
 	if((!can_buckle && !force) || M.buckled || (buckled_mobs.len >= max_buckled_mobs) || (buckle_requires_restraints && !M.restrained()) || M == src)
-		return FALSE
+		return EF_FALSE
 	M.buckling = src
 	if(!M.can_buckle() && !force)
 		if(M == usr)
@@ -55,7 +55,7 @@
 		else
 			to_chat(usr, "<span class='warning'>You are unable to buckle [M] to [src]!</span>")
 		M.buckling = null
-		return FALSE
+		return EF_FALSE
 
 	if(M.pulledby)
 		if(buckle_prevents_pull)
@@ -76,7 +76,7 @@
 	post_buckle_mob(M)
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, M, force)
-	return TRUE
+	return EF_TRUE
 
 /obj/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	. = ..()
@@ -113,7 +113,7 @@
 //Wrapper procs that handle sanity and user feedback
 /atom/movable/proc/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
 	if(!in_range(user, src) || !isturf(user.loc) || user.incapacitated() || M.anchored)
-		return FALSE
+		return EF_FALSE
 
 	add_fingerprint(user)
 	. = buckle_mob(M, check_loc = check_loc)

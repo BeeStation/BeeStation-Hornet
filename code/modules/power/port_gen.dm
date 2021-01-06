@@ -29,11 +29,11 @@
 
 /obj/machinery/power/port_gen/connect_to_network()
 	if(!anchored)
-		return FALSE
+		return EF_FALSE
 	. = ..()
 
 /obj/machinery/power/port_gen/proc/HasFuel() //Placeholder for fuel check.
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/power/port_gen/proc/UseFuel() //Placeholder for fuel use.
 	return
@@ -125,8 +125,8 @@
 
 /obj/machinery/power/port_gen/pacman/HasFuel()
 	if(sheets >= 1 / (time_per_sheet / power_output) - sheet_left)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/power/port_gen/pacman/DropFuel()
 	if(sheets)

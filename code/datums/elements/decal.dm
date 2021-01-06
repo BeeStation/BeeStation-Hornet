@@ -39,12 +39,12 @@
 
 /datum/element/decal/proc/generate_appearance(_icon, _icon_state, _dir, _layer, _color, _alpha, source)
 	if(!_icon || !_icon_state)
-		return FALSE
+		return EF_FALSE
 	var/temp_image = image(_icon, null, _icon_state, _layer, _dir)
 	pic = new(temp_image)
 	pic.color = _color
 	pic.alpha = _alpha
-	return TRUE
+	return EF_TRUE
 
 /datum/element/decal/Detach(atom/source, force)
 	UnregisterSignal(source, list(COMSIG_ATOM_DIR_CHANGE, COMSIG_COMPONENT_CLEAN_ACT, COMSIG_PARENT_EXAMINE, COMSIG_ATOM_UPDATE_OVERLAYS,COMSIG_TURF_AFTER_SHUTTLE_MOVE))
@@ -84,7 +84,7 @@
 
 	if(clean_types & cleanable)
 		Detach(source)
-		return TRUE
+		return EF_TRUE
 	return NONE
 
 /datum/element/decal/proc/examine(datum/source, mob/user, list/examine_list)

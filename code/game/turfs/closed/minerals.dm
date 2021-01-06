@@ -42,7 +42,7 @@
 	if(turf_type)
 		underlay_appearance.icon = initial(turf_type.icon)
 		underlay_appearance.icon_state = initial(turf_type.icon_state)
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 

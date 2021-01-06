@@ -61,10 +61,10 @@
 	var/face_angle = dir2angle(face_direction)
 	var/incidence_s = GET_ANGLE_OF_INCIDENCE(face_angle, (P.Angle + 180))
 	if(abs(incidence_s) > 90 && abs(incidence_s) < 270)
-		return FALSE
+		return EF_FALSE
 	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
 	P.setAngle(new_angle_s)
-	return TRUE
+	return EF_TRUE
 
 /turf/closed/wall/proc/dismantle_wall(devastated=0, explode=0)
 	if(devastated)
@@ -135,7 +135,7 @@
 			playsound(src, 'sound/items/welder.ogg', 100, 1)
 		if(TOX)
 			playsound(src, 'sound/effects/spray2.ogg', 100, 1)
-			return FALSE
+			return EF_FALSE
 
 /turf/closed/wall/attack_paw(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -163,7 +163,7 @@
 					"<span class='danger'>You smash \the [src]!</span>", \
 					"<span class='italics'>You hear a booming smash!</span>")
 
-	return TRUE
+	return EF_TRUE
 
 /turf/closed/wall/attack_hand(mob/user)
 	. = ..()
@@ -196,11 +196,11 @@
 
 /turf/closed/wall/proc/try_clean(obj/item/W, mob/user, turf/T)
 	if((user.a_intent != INTENT_HELP) || !LAZYLEN(dent_decals))
-		return FALSE
+		return EF_FALSE
 
 	if(W.tool_behaviour == TOOL_WELDER)
 		if(!W.tool_start_check(user, amount=0))
-			return FALSE
+			return EF_FALSE
 
 		to_chat(user, "<span class='notice'>You begin fixing dents on the wall...</span>")
 		if(W.use_tool(src, user, 0, volume=100))
@@ -208,9 +208,9 @@
 				to_chat(user, "<span class='notice'>You fix some dents on the wall.</span>")
 				cut_overlay(dent_decals)
 				dent_decals.Cut()
-			return TRUE
+			return EF_TRUE
 
-	return FALSE
+	return EF_FALSE
 
 /turf/closed/wall/proc/try_wallmount(obj/item/W, mob/user, turf/T)
 	//check for wall mounted frames
@@ -218,45 +218,45 @@
 		var/obj/item/wallframe/F = W
 		if(F.try_build(src, user))
 			F.attach(src, user)
-		return TRUE
+		return EF_TRUE
 	//Poster stuff
 	else if(istype(W, /obj/item/poster))
 		place_poster(W,user)
-		return TRUE
+		return EF_TRUE
 	else if(istype(W, /obj/item/electronic_assembly/wallmount)) // circuit wallmount
 		var/obj/item/electronic_assembly/wallmount/A = W
 		A.mount_assembly(src, user)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 
 /turf/closed/wall/proc/try_decon(obj/item/I, mob/user, turf/T)
 	if(I.tool_behaviour == TOOL_WELDER)
 		if(!I.tool_start_check(user, amount=0))
-			return FALSE
+			return EF_FALSE
 
 		to_chat(user, "<span class='notice'>You begin slicing through the outer plating...</span>")
 		if(I.use_tool(src, user, slicing_duration, volume=100))
 			if(iswallturf(src))
 				to_chat(user, "<span class='notice'>You remove the outer plating.</span>")
 				dismantle_wall()
-			return TRUE
+			return EF_TRUE
 
-	return FALSE
+	return EF_FALSE
 
 
 /turf/closed/wall/proc/try_destroy(obj/item/I, mob/user, turf/T)
 	if(istype(I, /obj/item/pickaxe/drill/jackhammer))
 		if(!iswallturf(src))
-			return TRUE
+			return EF_TRUE
 		if(user.loc == T)
 			I.play_tool_sound(src)
 			dismantle_wall()
 			user.visible_message("<span class='warning'>[user] smashes through [src] with [I]!</span>", \
 								"<span class='warning'>You smash through [src] with [I]!</span>", \
 								"<span class='italics'>You hear the grinding of metal.</span>")
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /turf/closed/wall/singularity_pull(S, current_size)
 	..()
@@ -296,15 +296,15 @@
 	switch(the_rcd.mode)
 		if(RCD_DECONSTRUCT)
 			return list("mode" = RCD_DECONSTRUCT, "delay" = 40, "cost" = 26)
-	return FALSE
+	return EF_FALSE
 
 /turf/closed/wall/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_DECONSTRUCT)
 			to_chat(user, "<span class='notice'>You deconstruct the wall.</span>")
 			ScrapeAway()
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /turf/closed/wall/proc/add_dent(denttype, x=rand(-8, 8), y=rand(-8, 8))
 	if(LAZYLEN(dent_decals) >= MAX_DENT_DECALS)

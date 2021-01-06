@@ -12,10 +12,10 @@
 /datum/component/plumbing/acclimator/can_give(amount, reagent)
 	. = ..()
 	if(. && AC.emptying)
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 ///We're overriding process and not send_request, because all process does is do the requests, so we might aswell cut out the middle man and save some code from running
 /datum/component/plumbing/acclimator/process()
 	if(AC.emptying)
-		return 
+		return
 	. = ..()

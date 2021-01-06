@@ -493,7 +493,7 @@
 
 /obj/machinery/power/apc/screwdriver_act(mob/living/user, obj/item/W)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	. = TRUE
 	if(opened)
 		if(cell)
@@ -532,7 +532,7 @@
 /obj/machinery/power/apc/wirecutter_act(mob/living/user, obj/item/W)
 	if (terminal && opened)
 		terminal.dismantle(user, W)
-		return TRUE
+		return EF_TRUE
 
 
 /obj/machinery/power/apc/welder_act(mob/living/user, obj/item/W)
@@ -554,7 +554,7 @@
 					"[user.name] has cut [src] from the wall with [W].",\
 					"<span class='notice'>You cut the APC frame from the wall.</span>")
 			qdel(src)
-			return TRUE
+			return EF_TRUE
 
 /obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)
 
@@ -927,7 +927,7 @@
 
 /obj/machinery/power/apc/proc/can_use(mob/user, loud = 0) //used by attack_hand() and Topic()
 	if(IsAdminGhost(user))
-		return TRUE
+		return EF_TRUE
 	if(user.has_unlimited_silicon_privilege)
 		var/mob/living/silicon/ai/AI = user
 		var/mob/living/silicon/robot/robot = user
@@ -941,8 +941,8 @@
 		)
 			if(!loud)
 				to_chat(user, "<span class='danger'>\The [src] has eee disabled!</span>")
-			return FALSE
-	return TRUE
+			return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/power/apc/can_interact(mob/user)
 	. = ..()

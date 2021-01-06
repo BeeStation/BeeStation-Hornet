@@ -75,14 +75,14 @@
 		for(var/i in cat_recipes)
 			var/datum/pipe_info/info = i
 			if (path == info.id)
-				return TRUE
-	return FALSE
+				return EF_TRUE
+	return EF_FALSE
 
 /obj/machinery/pipedispenser/wrench_act(mob/living/user, obj/item/I)
 	if(default_unfasten_wrench(user, I, 40))
 		user << browse(null, "window=pipedispenser")
 
-	return TRUE
+	return EF_TRUE
 
 
 /obj/machinery/pipedispenser/disposal

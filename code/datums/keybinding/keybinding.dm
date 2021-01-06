@@ -7,7 +7,7 @@
     var/weight = WEIGHT_LOWEST
 
 /datum/keybinding/proc/down(client/user)
-    return FALSE
-    
+    return EF_FALSE
+
 /datum/keybinding/proc/up(client/user)
-    return FALSE
+    return EF_FALSE

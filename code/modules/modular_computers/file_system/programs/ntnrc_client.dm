@@ -41,12 +41,12 @@
 			if(channel.password && !(src in channel.clients))
 				if(channel.password == message)
 					channel.add_client(src)
-					return TRUE
+					return EF_TRUE
 
 			channel.add_message(message, username)
 			var/mob/living/user = usr
 			user.log_talk(message, LOG_CHAT, tag="as [username] to channel [channel.title]")
-			return TRUE
+			return EF_TRUE
 		if("PRG_joinchannel")
 			var/new_target = text2num(params["id"])
 			if(isnull(new_target) || new_target == active_channel)
@@ -54,18 +54,18 @@
 
 			if(netadmin_mode)
 				active_channel = new_target // Bypasses normal leave/join and passwords. Technically makes the user invisible to others.
-				return TRUE
+				return EF_TRUE
 
 			active_channel =  new_target
 			channel = SSnetworks.station_network.get_chat_channel_by_id(new_target)
 			if(!(src in channel.clients) && !channel.password)
 				channel.add_client(src)
-			return TRUE
+			return EF_TRUE
 		if("PRG_leavechannel")
 			if(channel)
 				channel.remove_client(src)
 				active_channel = null
-				return TRUE
+				return EF_TRUE
 		if("PRG_newchannel")
 			var/channel_title = reject_bad_text(params["new_channel_name"])
 			if(!channel_title)
@@ -75,20 +75,20 @@
 			C.operator = src
 			C.title = channel_title
 			active_channel = C.id
-			return TRUE
+			return EF_TRUE
 		if("PRG_toggleadmin")
 			if(netadmin_mode)
 				netadmin_mode = FALSE
 				if(channel)
 					channel.remove_client(src) // We shouldn't be in channel's user list, but just in case...
-				return TRUE
+				return EF_TRUE
 			var/mob/living/user = usr
 			if(can_run(user, TRUE, ACCESS_NETWORK))
 				for(var/C in SSnetworks.station_network.chat_channels)
 					var/datum/ntnet_conversation/chan = C
 					chan.remove_client(src)
 				netadmin_mode = TRUE
-				return TRUE
+				return EF_TRUE
 		if("PRG_changename")
 			var/newname = sanitize(params["new_name"])
 			if(!newname)
@@ -98,7 +98,7 @@
 				if(src in chan.clients)
 					chan.add_status_message("[username] is now known as [newname].")
 			username = newname
-			return TRUE
+			return EF_TRUE
 		if("PRG_savelog")
 			if(!channel)
 				return
@@ -122,7 +122,7 @@
 					computer.visible_message("<span class='warning'>\The [computer] shows an \"I/O Error - Hard drive connection error\" warning.</span>")
 				else	// In 99.9% cases this will mean our HDD is full
 					computer.visible_message("<span class='warning'>\The [computer] shows an \"I/O Error - Hard drive may be full. Please free some space and try again. Required space: [logfile.size]GQ\" warning.</span>")
-			return TRUE
+			return EF_TRUE
 		if("PRG_renamechannel")
 			if(!authed)
 				return
@@ -131,12 +131,12 @@
 				return
 			channel.add_status_message("Channel renamed from [channel.title] to [newname] by operator.")
 			channel.title = newname
-			return TRUE
+			return EF_TRUE
 		if("PRG_deletechannel")
 			if(authed)
 				qdel(channel)
 				active_channel = null
-				return TRUE
+				return EF_TRUE
 		if("PRG_setpassword")
 			if(!authed)
 				return
@@ -146,7 +146,7 @@
 				return
 
 			channel.password = new_password
-			return TRUE
+			return EF_TRUE
 
 /datum/computer_file/program/chatclient/process_tick()
 	. = ..()
@@ -158,7 +158,7 @@
 			last_message = length(channel.messages) ? channel.messages[length(channel.messages)] : null
 		else
 			last_message = null
-		return TRUE
+		return EF_TRUE
 	if(channel?.messages?.len)
 		ui_header = last_message == channel.messages[length(channel.messages)] ? "ntnrc_idle.gif" : "ntnrc_new.gif"
 	else

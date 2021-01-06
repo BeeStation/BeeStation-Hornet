@@ -75,4 +75,4 @@
 
 /obj/machinery/power/terminal/wirecutter_act(mob/living/user, obj/item/I)
 	dismantle(user, I)
-	return TRUE
+	return EF_TRUE

@@ -93,7 +93,7 @@
 
 /obj/item/bodypart/head/can_dismember(obj/item/I)
 	if(!((owner.stat == DEAD) || owner.InFullCritical()))
-		return FALSE
+		return EF_FALSE
 	return ..()
 
 /obj/item/bodypart/head/drop_organs(mob/user, violent_removal)

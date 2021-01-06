@@ -73,20 +73,20 @@
 
 /obj/item/radio/intercom/can_receive(freq, level)
 	if(!on)
-		return FALSE
+		return EF_FALSE
 	if(wires.is_cut(WIRE_RX))
-		return FALSE
+		return EF_FALSE
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
 		if(isnull(position) || !(position.z in level))
-			return FALSE
+			return EF_FALSE
 	if(!listening)
-		return FALSE
+		return EF_FALSE
 	if(freq == FREQ_SYNDICATE)
 		if(!(syndie))
-			return FALSE//Prevents broadcast of messages over devices lacking the encryption
+			return EF_FALSE//Prevents broadcast of messages over devices lacking the encryption
 
-	return TRUE
+	return EF_TRUE
 
 
 /obj/item/radio/intercom/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, list/spans, message_mode)
@@ -125,7 +125,7 @@
 	update_icon()
 
 /obj/item/radio/intercom/add_blood_DNA(list/blood_dna)
-	return FALSE
+	return EF_FALSE
 
 //Created through the autolathe or through deconstructing intercoms. Can be applied to wall to make a new intercom on it!
 /obj/item/wallframe/intercom

@@ -135,7 +135,7 @@
 
 /datum/action/innate/aux_base/Activate()
 	if(!target)
-		return TRUE
+		return EF_TRUE
 	C = owner
 	remote_eye = C.remote_control
 	B = target
@@ -149,13 +149,13 @@
 
 	if(!istype(build_area, /area/shuttle/auxillary_base))
 		to_chat(owner, "<span class='warning'>You can only build within the mining base!</span>")
-		return FALSE
+		return EF_FALSE
 
 	if(!is_station_level(build_target.z))
 		to_chat(owner, "<span class='warning'>The mining base has launched and can no longer be modified.</span>")
-		return FALSE
+		return EF_FALSE
 
-	return TRUE
+	return EF_TRUE
 
 /datum/action/innate/camera_off/base_construction
 	name = "Log out"

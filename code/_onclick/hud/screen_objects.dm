@@ -76,11 +76,11 @@
 
 /atom/movable/screen/area_creator/Click()
 	if(usr.incapacitated() || (isobserver(usr) && !IsAdminGhost(usr)))
-		return TRUE
+		return EF_TRUE
 	var/area/A = get_area(usr)
 	if(!A.outdoors)
 		to_chat(usr, "<span class='warning'>There is already a defined structure here.</span>")
-		return TRUE
+		return EF_TRUE
 	create_area(usr)
 
 /atom/movable/screen/language_menu
@@ -106,12 +106,12 @@
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
 	// We don't even know if it's a middle click
 	if(world.time <= usr.next_move)
-		return TRUE
+		return EF_TRUE
 
 	if(usr.incapacitated())
-		return TRUE
+		return EF_TRUE
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
-		return TRUE
+		return EF_TRUE
 
 	//This is where putting stuff into hands is handled
 	if(hud?.mymob && slot_id)
@@ -122,7 +122,7 @@
 	//Putting into something (if its not in us)
 	if(usr.attack_ui(slot_id))
 		usr.update_inv_hands()
-	return TRUE
+	return EF_TRUE
 
 /atom/movable/screen/inventory/MouseEntered()
 	..()
@@ -218,13 +218,13 @@
 	// We don't even know if it's a middle click
 	var/mob/user = hud?.mymob
 	if(usr != user)
-		return TRUE
+		return EF_TRUE
 	if(world.time <= user.next_move)
-		return TRUE
+		return EF_TRUE
 	if(user.incapacitated())
-		return TRUE
+		return EF_TRUE
 	if (ismecha(user.loc)) // stops inventory actions in a mech
-		return TRUE
+		return EF_TRUE
 
 	if(user.active_hand_index == held_index)
 		var/obj/item/I = user.get_active_held_item()
@@ -232,7 +232,7 @@
 			I.Click(location, control, params)
 	else
 		user.swap_hand(held_index)
-	return TRUE
+	return EF_TRUE
 
 /atom/movable/screen/close
 	name = "close"
@@ -247,7 +247,7 @@
 /atom/movable/screen/close/Click()
 	var/datum/component/storage/S = master
 	S.hide_from(usr)
-	return TRUE
+	return EF_TRUE
 
 /atom/movable/screen/drop
 	name = "drop"
@@ -438,16 +438,16 @@
 
 /atom/movable/screen/storage/Click(location, control, params)
 	if(world.time <= usr.next_move)
-		return TRUE
+		return EF_TRUE
 	if(usr.incapacitated())
-		return TRUE
+		return EF_TRUE
 	if (ismecha(usr.loc)) // stops inventory actions in a mech
-		return TRUE
+		return EF_TRUE
 	if(master)
 		var/obj/item/I = usr.get_active_held_item()
 		if(I)
 			master.attackby(null, I, usr, params)
-	return TRUE
+	return EF_TRUE
 
 /atom/movable/screen/throw_catch
 	name = "throw/catch"
@@ -564,7 +564,7 @@
 		selecting = choice
 		update_icon()
 
-	return TRUE
+	return EF_TRUE
 
 /atom/movable/screen/zone_sel/update_icon()
 	. = ..()

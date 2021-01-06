@@ -7,7 +7,7 @@
 	to_chat(A, "<span class='spider'>You begin to wind up an attack...</span>")
 	if(!do_after(A, 25, target = D))
 		to_chat(A, "<span class='spider'><b>Your attack was interrupted!</b></span>")
-		return TRUE //martial art code was a mistake
+		return EF_TRUE //martial art code was a mistake
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	atk_verb = pick("punches", "smashes", "ruptures", "cracks")
 	D.visible_message("<span class='danger'>[A] [atk_verb] [D] with inhuman strength, sending [D.p_them()] flying backwards!</span>", \
@@ -19,7 +19,7 @@
 	D.Paralyze(20)
 	if(atk_verb)
 		log_combat(A, D, "[atk_verb] (Mushroom Punch)")
-	return TRUE
+	return EF_TRUE
 
 /obj/item/mushpunch
 	name = "odd mushroom"

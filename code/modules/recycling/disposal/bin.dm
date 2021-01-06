@@ -259,7 +259,7 @@
 			if(I.on_found(user))
 				return
 		src_object.remove_from_storage(I, src)
-	return TRUE
+	return EF_TRUE
 
 // Disposal bin
 // Holds items for disposal into pipe system
@@ -494,7 +494,7 @@
 	flush()
 
 /atom/movable/proc/CanEnterDisposals()
-	return TRUE
+	return EF_TRUE
 
 /obj/item/projectile/CanEnterDisposals()
 	return

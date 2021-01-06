@@ -75,17 +75,17 @@
 
 /proc/add_devil(mob/living/L, ascendable = FALSE)
 	if(!L || !L.mind)
-		return FALSE
+		return EF_FALSE
 	var/datum/antagonist/devil/devil_datum = L.mind.add_antag_datum(/datum/antagonist/devil)
 	devil_datum.ascendable = ascendable
 	return devil_datum
 
 /proc/remove_devil(mob/living/L)
 	if(!L || !L.mind)
-		return FALSE
+		return EF_FALSE
 	var/datum/antagonist/devil_datum = L.mind.has_antag_datum(/datum/antagonist/devil)
 	devil_datum.on_removal()
-	return TRUE
+	return EF_TRUE
 
 /datum/game_mode/devil/generate_credit_text()
 	var/list/round_credits = list()

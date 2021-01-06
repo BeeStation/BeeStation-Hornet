@@ -75,12 +75,12 @@
 
 /obj/machinery/computer/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
-		return TRUE
+		return EF_TRUE
 	if(circuit && !(flags_1&NODECONSTRUCT_1))
 		to_chat(user, "<span class='notice'>You start to disconnect the monitor...</span>")
 		if(I.use_tool(src, user, time_to_scewdrive, volume=50))
 			deconstruct(TRUE, user)
-	return TRUE
+	return EF_TRUE
 
 
 /obj/machinery/computer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

@@ -125,7 +125,7 @@
 	if(seed.get_gene(/datum/plant_gene/trait/noreact))
 		visible_message("<span class='warning'>[src] crumples, and bubbles ominously as its contents mix.</span>")
 		addtimer(CALLBACK(src, .proc/squashreact), 20)
-		
+
 /obj/item/reagent_containers/food/snacks/grown/proc/squashreact()
 	for(var/datum/plant_gene/trait/trait in seed.genes)
 		trait.on_squashreact(src)
@@ -149,7 +149,7 @@
 	if(dry_grind && !dry)
 		to_chat(usr, "<span class='warning'>[src] needs to be dry before it can be ground up!</span>")
 		return
-	return TRUE
+	return EF_TRUE
 
 /obj/item/reagent_containers/food/snacks/grown/on_grind()
 	var/nutriment = reagents.get_reagent_amount(/datum/reagent/consumable/nutriment)

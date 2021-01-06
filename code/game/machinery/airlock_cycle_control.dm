@@ -271,9 +271,9 @@
 /obj/machinery/advanced_airlock_controller/proc/coerce_door(obj/machinery/door/airlock/door, target_density = 0)
 	if(door.density == target_density && !door.operating)
 		door.bolt()
-		return TRUE
+		return EF_TRUE
 	if(door.operating || door.welded || !door.hasPower() || door.wires.is_cut(WIRE_BOLTS))
-		return FALSE
+		return EF_FALSE
 	door.unbolt()
 	if(door.density != target_density)
 		if(target_density)
@@ -284,7 +284,7 @@
 			spawn(0)
 				door.open()
 				door.bolt()
-	return FALSE
+	return EF_FALSE
 
 /obj/machinery/advanced_airlock_controller/proc/unbolt_door(obj/machinery/door/airlock/door)
 	if(!door.wires.is_cut(WIRE_BOLTS))

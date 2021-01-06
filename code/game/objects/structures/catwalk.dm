@@ -21,12 +21,12 @@
 		return
 	if(C.tool_behaviour == TOOL_WELDER)
 		if(!C.tool_start_check(user, amount=0))
-			return FALSE
+			return EF_FALSE
 		to_chat(user, "<span class='notice'>You begin slicing through the outer plating...</span>")
 		if(C.use_tool(src, user, 25, volume=100))
 			to_chat(user, "<span class='notice'>You slice off [src]</span>")
 			deconstruct()
-			return TRUE
+			return EF_TRUE
 
 /obj/structure/lattice/catwalk/ratvar_act()
 	new /obj/structure/lattice/catwalk/clockwork(loc)

@@ -159,13 +159,13 @@
 /obj/structure/reflector/proc/rotate(mob/user)
 	if (!can_rotate || admin)
 		to_chat(user, "<span class='warning'>The rotation is locked!</span>")
-		return FALSE
+		return EF_FALSE
 	var/new_angle = input(user, "Input a new angle for primary reflection face.", "Reflector Angle", rotation_angle) as null|num
 	if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
 	if(!isnull(new_angle))
 		setAngle(SIMPLIFY_DEGREES(new_angle))
-	return TRUE
+	return EF_TRUE
 
 /obj/structure/reflector/AltClick(mob/user)
 	if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
@@ -197,7 +197,7 @@
 /obj/structure/reflector/single/auto_reflect(obj/item/projectile/P, pdir, turf/ploc, pangle)
 	var/incidence = GET_ANGLE_OF_INCIDENCE(rotation_angle, (P.Angle + 180))
 	if(abs(incidence) > 90 && abs(incidence) < 270)
-		return FALSE
+		return EF_FALSE
 	var/new_angle = SIMPLIFY_DEGREES(rotation_angle + incidence)
 	P.setAngle(new_angle)
 	return ..()

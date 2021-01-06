@@ -28,12 +28,12 @@
 // TODO: Implement more logic here. For now it's only a placeholder.
 /obj/machinery/ntnet_relay/is_operational()
 	if(stat & (BROKEN | NOPOWER | EMPED))
-		return FALSE
+		return EF_FALSE
 	if(dos_failure)
-		return FALSE
+		return EF_FALSE
 	if(!enabled)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/machinery/ntnet_relay/update_icon()
 	if(is_operational())
@@ -95,12 +95,12 @@
 			dos_failure = 0
 			update_icon()
 			SSnetworks.station_network.add_log("Quantum relay manually restarted from overload recovery mode to normal operation mode.")
-			return TRUE
+			return EF_TRUE
 		if("toggle")
 			enabled = !enabled
 			SSnetworks.station_network.add_log("Quantum relay manually [enabled ? "enabled" : "disabled"].")
 			update_icon()
-			return TRUE
+			return EF_TRUE
 
 /obj/machinery/ntnet_relay/Initialize()
 	uid = gl_uid++

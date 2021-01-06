@@ -129,8 +129,8 @@
 /obj/item/assembly/flash/proc/clown_check(mob/living/carbon/human/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		flash_carbon(user, user, 15, 0)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/item/assembly/flash/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
 	if(!burnt_out)
@@ -146,25 +146,25 @@
 /obj/item/assembly/flash/wirecutter_act(mob/living/user, obj/item/I)
 	if(!bulb)
 		to_chat(user, "<span class='notice'>There is no bulb in \the [src].</span>")
-		return FALSE
+		return EF_FALSE
 	bulb.forceMove(drop_location())
 	user.put_in_hands(bulb)
 	bulb.update_icon()
 	bulb = null
 	to_chat(user, "<span class='notice'>You remove the bulb from \the [src].</span>")
 	update_icon()
-	return TRUE
+	return EF_TRUE
 
 //BYPASS CHECKS ALSO PREVENTS BURNOUT!
 /obj/item/assembly/flash/proc/AOE_flash(bypass_checks = FALSE, range = 3, power = 5, targeted = FALSE, mob/user)
 	if(!bypass_checks && !try_use_flash())
-		return FALSE
+		return EF_FALSE
 	var/list/mob/targets = get_flash_targets(get_turf(src), range, FALSE)
 	if(user)
 		targets -= user
 	for(var/mob/living/carbon/C in targets)
 		flash_carbon(C, user, power, targeted, TRUE)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/assembly/flash/proc/get_flash_targets(atom/target_loc, range = 3, override_vision_checks = FALSE)
 	if(!target_loc)
@@ -178,10 +178,10 @@
 
 /obj/item/assembly/flash/proc/try_use_flash(mob/user = null)
 	if(!bulb || (world.time < last_trigger + cooldown))
-		return FALSE
+		return EF_FALSE
 	switch(bulb.use_flashbulb())
 		if(FLASH_FAIL)
-			return FALSE
+			return EF_FALSE
 		if(FLASH_USE_BURNOUT)
 			burn_out()
 	last_trigger = world.time
@@ -189,8 +189,8 @@
 	flash_lighting_fx(FLASH_LIGHT_RANGE, light_power, light_color)
 	update_icon(TRUE)
 	if(user && !clown_check(user))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/item/assembly/flash/proc/flash_carbon(mob/living/carbon/M, mob/user, power = 15, targeted = TRUE, generic_message = FALSE)
 	if(!istype(M))
@@ -223,10 +223,10 @@
 
 /obj/item/assembly/flash/attack(mob/living/M, mob/user)
 	if(!try_use_flash(user))
-		return FALSE
+		return EF_FALSE
 	if(iscarbon(M))
 		flash_carbon(M, user, 5, 1)
-		return TRUE
+		return EF_TRUE
 	else if(issilicon(M))
 		var/mob/living/silicon/robot/R = M
 		log_combat(user, R, "flashed", src)
@@ -234,15 +234,15 @@
 		R.Paralyze(70)
 		R.flash_act(affect_silicon = 1, type = /atom/movable/screen/fullscreen/flash/static)
 		user.visible_message("<span class='disarm'>[user] overloads [R]'s sensors with the flash!</span>", "<span class='danger'>You overload [R]'s sensors with the flash!</span>")
-		return TRUE
+		return EF_TRUE
 
 	user.visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>", "<span class='warning'>You fail to blind [M] with the flash!</span>")
 
 /obj/item/assembly/flash/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(holder)
-		return FALSE
+		return EF_FALSE
 	if(!AOE_flash(FALSE, 3, 5, FALSE, user))
-		return FALSE
+		return EF_FALSE
 	to_chat(user, "<span class='danger'>[src] emits a blinding light!</span>")
 
 /obj/item/assembly/flash/emp_act(severity)
@@ -322,12 +322,12 @@
 	if(overheat)
 		if(I?.owner)
 			to_chat(I.owner, "<span class='warning'>Your photon projector is running too hot to be used again so quickly!</span>")
-		return FALSE
+		return EF_FALSE
 	overheat = TRUE
 	addtimer(CALLBACK(src, .proc/cooldown), flashcd)
 	playsound(src, 'sound/weapons/flash.ogg', 100, TRUE)
 	update_icon(1)
-	return TRUE
+	return EF_TRUE
 
 
 /obj/item/assembly/flash/armimplant/proc/cooldown()

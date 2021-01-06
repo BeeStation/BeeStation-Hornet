@@ -134,11 +134,11 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 				if(!L.is_safe())
 					StartAction(20)
 					new /obj/structure/lattice/catwalk/swarmer_catwalk(newloc)
-					return FALSE
+					return EF_FALSE
 
 			if(ischasm(newloc) && !throwing)
 				throw_at(get_edge_target_turf(src, get_dir(src, newloc)), 7 , 3, src, FALSE) //my planet needs me
-				return FALSE
+				return EF_FALSE
 
 		return ..()
 
@@ -182,9 +182,9 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 
 	//GENERAL CASES:
 	if(is_type_in_typecache(the_target, sharedIgnore)) //always ignore
-		return FALSE
+		return EF_FALSE
 	if(is_type_in_typecache(the_target, sharedWanted)) //always eat
-		return TRUE
+		return EF_TRUE
 
 	return ..()	//else, have a nibble, see if it's food
 
@@ -197,10 +197,10 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 /mob/living/simple_animal/hostile/swarmer/ai/resource/AttackingTarget()
 	if(target.swarmer_act(src))
 		add_type_to_wanted(target.type)
-		return TRUE
+		return EF_TRUE
 	else
 		add_type_to_ignore(target.type)
-		return FALSE
+		return EF_FALSE
 
 
 /mob/living/simple_animal/hostile/swarmer/ai/resource/handle_automated_action()
@@ -270,7 +270,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 			var/mob/living/L = target
 			L.attack_animal(src)
 			L.electrocute_act(10, src, safety = TRUE) //safety = TRUE means we don't check gloves... Ok?
-		return TRUE
+		return EF_TRUE
 	else
 		return ..()
 

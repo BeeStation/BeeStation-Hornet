@@ -46,7 +46,7 @@
 			is_charge = FALSE
 	else
 		is_charge=FALSE
-	return FALSE
+	return EF_FALSE
 
 // For fat machines that need fat power, like drones.
 /obj/item/integrated_circuit/passive/power/relay

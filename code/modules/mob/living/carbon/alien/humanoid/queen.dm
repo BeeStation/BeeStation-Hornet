@@ -95,14 +95,14 @@
 /obj/effect/proc_holder/alien/lay_egg/fire(mob/living/carbon/user)
 	if(locate(/obj/structure/alien/egg) in get_turf(user))
 		to_chat(user, "<span class='alertalien'>There's already an egg here.</span>")
-		return FALSE
+		return EF_FALSE
 
 	if(!check_vent_block(user))
-		return FALSE
+		return EF_FALSE
 
 	user.visible_message("<span class='alertalien'>[user] has laid an egg!</span>")
 	new /obj/structure/alien/egg(user.loc)
-	return TRUE
+	return EF_TRUE
 
 //Button to let queen choose her praetorian.
 /obj/effect/proc_holder/alien/royal/queen/promote

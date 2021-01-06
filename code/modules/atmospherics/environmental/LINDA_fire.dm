@@ -202,7 +202,7 @@
 
 	if(location.heat_capacity && temperature > location.heat_capacity)
 		location.to_be_destroyed = TRUE
-	return TRUE
+	return EF_TRUE
 
 /obj/effect/hotspot/Destroy()
 	set_light(0)

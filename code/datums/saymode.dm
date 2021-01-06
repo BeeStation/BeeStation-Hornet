@@ -2,12 +2,12 @@
 	var/key
 	var/mode
 
-//Return FALSE if you have handled the message. Otherwise, return TRUE and saycode will continue doing saycode things.
+//Return FALSE if you have handled the message. Otherwise, return EF_TRUE and saycode will continue doing saycode things.
 //user = whoever said the message
 //message = the message
 //language = the language.
 /datum/saymode/proc/handle_message(mob/living/user, message, datum/language/language)
-	return TRUE
+	return EF_TRUE
 
 
 /datum/saymode/changeling
@@ -38,7 +38,7 @@
 		if(LINGHIVE_LING)
 			if (HAS_TRAIT(user, CHANGELING_HIVEMIND_MUTE))
 				to_chat(user, "<span class='warning'>The poison in the air hinders our ability to interact with the hivemind.</span>")
-				return FALSE
+				return EF_FALSE
 			var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 			var/msg = "<span class='changeling'><b>[changeling.changelingID]:</b> [message]</span>"
 			user.log_talk(message, LOG_SAY, tag="changeling [changeling.changelingID]")
@@ -61,7 +61,7 @@
 									to_chat(M, "<span class='changeling'>We can faintly sense another of our kind trying to communicate through the hivemind...</span>")
 		if(LINGHIVE_OUTSIDER)
 			to_chat(user, "<span class='changeling'>Our senses have not evolved enough to be able to communicate this way...</span>")
-	return FALSE
+	return EF_FALSE
 
 
 /datum/saymode/xeno
@@ -71,7 +71,7 @@
 /datum/saymode/xeno/handle_message(mob/living/user, message, datum/language/language)
 	if(user.hivecheck())
 		user.alien_talk(message)
-	return FALSE
+	return EF_FALSE
 
 
 /datum/saymode/vocalcords
@@ -85,7 +85,7 @@
 		if(V && V.can_speak_with())
 			V.handle_speech(message) //message
 			V.speak_with(message) //action
-	return FALSE
+	return EF_FALSE
 
 
 /datum/saymode/binary //everything that uses .b (silicons, drones, swarmers)
@@ -96,15 +96,15 @@
 	if(isswarmer(user))
 		var/mob/living/simple_animal/hostile/swarmer/S = user
 		S.swarmer_chat(message)
-		return FALSE
+		return EF_FALSE
 	if(isdrone(user))
 		var/mob/living/simple_animal/drone/D = user
 		D.drone_chat(message)
-		return FALSE
+		return EF_FALSE
 	if(user.binarycheck())
 		user.robot_talk(message)
-		return FALSE
-	return FALSE
+		return EF_FALSE
+	return EF_FALSE
 
 
 /datum/saymode/holopad
@@ -115,8 +115,8 @@
 	if(isAI(user))
 		var/mob/living/silicon/ai/AI = user
 		AI.holopad_talk(message, language)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/saymode/monkey
 	key = "k"
@@ -125,7 +125,7 @@
 /datum/saymode/monkey/handle_message(mob/living/user, message, datum/language/language)
 	var/datum/mind = user.mind
 	if(!mind)
-		return TRUE
+		return EF_TRUE
 	if(is_monkey_leader(mind) || (ismonkey(user) && is_monkey(mind)))
 		user.log_talk(message, LOG_SAY, tag="monkey")
 		if(prob(75) && ismonkey(user))
@@ -138,4 +138,4 @@
 				to_chat(M, "[link] [msg]")
 			if((is_monkey_leader(M.mind) || ismonkey(M)) && (M.mind in SSticker.mode.ape_infectees))
 				to_chat(M, msg)
-		return FALSE
+		return EF_FALSE

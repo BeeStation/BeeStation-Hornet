@@ -77,7 +77,7 @@
 
 /datum/objective/overthrow/heads/check_completion()
 	if(!targets.len)
-		return TRUE
+		return EF_TRUE
 	. = ..()
 
 // Amount of points = foreach head, result += head basepoints * modifier.
@@ -126,7 +126,7 @@
 
 /datum/objective/overthrow/AI/check_completion()
 	if(!GLOB.ai_list.len)
-		return TRUE
+		return EF_TRUE
 	. = ..()
 
 // Overthrow target objective. A crewmember in particular has a certain bond with some centcom officials, and the Syndicate want you to target him in particular, even though he's not a head.
@@ -138,14 +138,14 @@
 	else
 		explanation_text = "Nothing."
 
-/datum/objective/overthrow/target/is_unique_objective(datum/mind/possible_target,dupe_search_range) 
+/datum/objective/overthrow/target/is_unique_objective(datum/mind/possible_target,dupe_search_range)
 	if(possible_target.assigned_role in GLOB.command_positions)
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /datum/objective/overthrow/target/check_completion()
 	if(!target)
-		return TRUE
+		return EF_TRUE
 	. = ..()
 
 /datum/objective/overthrow/target/get_points()

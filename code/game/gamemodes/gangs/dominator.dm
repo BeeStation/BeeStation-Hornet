@@ -201,14 +201,14 @@
 /obj/machinery/dominator/proc/excessive_walls_check() // why the fuck was this even a global proc...
 	var/open = FALSE
 	if(isclosedturf(loc))
-		return TRUE
+		return EF_TRUE
 	for(var/turf/T in view(3, src))
 		if(!isclosedturf(T))
 			open++
 	if(open < DOM_REQUIRED_TURFS)
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /obj/machinery/dominator/proc/set_broken()
 	if(gang)

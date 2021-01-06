@@ -48,16 +48,16 @@
 /obj/item/inducer/proc/cantbeused(mob/user)
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to use [src]!</span>")
-		return TRUE
+		return EF_TRUE
 
 	if(!cell)
 		to_chat(user, "<span class='warning'>[src] doesn't have a power cell installed!</span>")
-		return TRUE
+		return EF_TRUE
 
 	if(!cell.charge)
 		to_chat(user, "<span class='warning'>[src]'s battery is dead!</span>")
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 
 /obj/item/inducer/attackby(obj/item/W, mob/user)
@@ -96,9 +96,9 @@
 
 /obj/item/inducer/proc/recharge(atom/movable/A, mob/user)
 	if(!isturf(A) && user.loc == A)
-		return FALSE
+		return EF_FALSE
 	if(recharging)
-		return TRUE
+		return EF_TRUE
 	else
 		recharging = TRUE
 	var/obj/item/stock_parts/cell/C = A.get_cell()
@@ -106,7 +106,7 @@
 	var/coefficient = 1
 	if(istype(A, /obj/item/gun/energy))
 		to_chat(user,"Error unable to interface with device")
-		return FALSE
+		return EF_FALSE
 	if(istype(A, /obj))
 		O = A
 	if(C)
@@ -114,7 +114,7 @@
 		if(C.charge >= C.maxcharge)
 			to_chat(user, "<span class='notice'>[A] is fully charged!</span>")
 			recharging = FALSE
-			return TRUE
+			return EF_TRUE
 		user.visible_message("[user] starts recharging [A] with [src].","<span class='notice'>You start recharging [A] with [src].</span>")
 		while(C.charge < C.maxcharge)
 			if(do_after(user, 10, target = user) && cell.charge)
@@ -128,7 +128,7 @@
 		if(done_any) // Only show a message if we succeeded at least once
 			user.visible_message("[user] recharged [A]!","<span class='notice'>You recharged [A]!</span>")
 		recharging = FALSE
-		return TRUE
+		return EF_TRUE
 	recharging = FALSE
 
 

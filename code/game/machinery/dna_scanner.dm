@@ -96,7 +96,7 @@
 
 /obj/machinery/dna_scannernew/close_machine(mob/living/carbon/user)
 	if(!state_open)
-		return FALSE
+		return EF_FALSE
 
 	..(user)
 
@@ -106,15 +106,15 @@
 		if(console)
 			console.on_scanner_close()
 
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/dna_scannernew/open_machine()
 	if(state_open)
-		return FALSE
+		return EF_FALSE
 
 	..()
 
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/dna_scannernew/relaymove(mob/user as mob)
 	if(user.stat || locked)

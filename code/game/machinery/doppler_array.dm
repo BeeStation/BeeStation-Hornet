@@ -75,13 +75,13 @@
 			if(!records || !(record in records))
 				return
 			records -= record
-			return TRUE
+			return EF_TRUE
 		if("print_record")
 			var/datum/data/tachyon_record/record  = locate(params["ref"]) in records
 			if(!records || !(record in records))
 				return
 			print(usr, record)
-			return TRUE
+			return EF_TRUE
 
 /obj/machinery/doppler_array/proc/print(mob/user, datum/data/tachyon_record/record)
 	if(!record)
@@ -137,22 +137,22 @@
 /obj/machinery/doppler_array/proc/sense_explosion(datum/source,turf/epicenter,devastation_range,heavy_impact_range,light_impact_range,
 												  took,orig_dev_range,orig_heavy_range,orig_light_range)
 	if(stat & NOPOWER)
-		return FALSE
+		return EF_FALSE
 	var/turf/zone = get_turf(src)
 	if(zone.z != epicenter.z)
-		return FALSE
+		return EF_FALSE
 
 	if(next_announce > world.time)
-		return FALSE
+		return EF_FALSE
 	next_announce = world.time + cooldown
 
 	var/distance = get_dist(epicenter, zone)
 	var/direct = get_dir(zone, epicenter)
 
 	if(distance > max_dist)
-		return FALSE
+		return EF_FALSE
 	if(!(direct & dir) && !integrated)
-		return FALSE
+		return EF_FALSE
 
 	var/datum/data/tachyon_record/R = new /datum/data/tachyon_record()
 	R.name = "Log Recording #[record_number]"
@@ -179,7 +179,7 @@
 
 	record_number++
 	records += R
-	return TRUE
+	return EF_TRUE
 
 /obj/machinery/doppler_array/power_change()
 	if(stat & BROKEN)

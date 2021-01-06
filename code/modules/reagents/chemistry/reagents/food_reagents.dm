@@ -137,7 +137,7 @@
 			M.adjustFireLoss(min(35, oil_damage * reac_volume)) //Damage caps at 35
 	else
 		..()
-	return TRUE
+	return EF_TRUE
 
 /datum/reagent/consumable/cooking_oil/reaction_turf(turf/open/T, reac_volume)
 	if(!istype(T) || isgroundlessturf(T))

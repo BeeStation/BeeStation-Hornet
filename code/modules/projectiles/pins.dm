@@ -56,7 +56,7 @@
 	return
 
 /obj/item/firing_pin/proc/pin_auth(mob/living/user)
-	return TRUE
+	return EF_TRUE
 
 /obj/item/firing_pin/proc/auth_fail(mob/living/user)
 	if(user)
@@ -85,10 +85,10 @@
 
 /obj/item/firing_pin/test_range/pin_auth(mob/living/user)
 	if(!istype(user))
-		return FALSE
+		return EF_FALSE
 	for(var/obj/machinery/magnetic_controller/M in range(user, 3))
-		return TRUE
-	return FALSE
+		return EF_TRUE
+	return EF_FALSE
 
 
 // Implant pin, checks for implant
@@ -102,8 +102,8 @@
 	if(user)
 		for(var/obj/item/implant/I in user.implants)
 			if(req_implant && I.type == req_implant)
-				return TRUE
-	return FALSE
+				return EF_TRUE
+	return EF_FALSE
 
 /obj/item/firing_pin/implant/mindshield
 	name = "mindshield firing pin"
@@ -129,15 +129,15 @@
 
 /obj/item/firing_pin/clown/pin_auth(mob/living/user)
 	playsound(src, 'sound/items/bikehorn.ogg', 50, 1)
-	return FALSE
+	return EF_FALSE
 
 // Ultra-honk pin, clown's deadly joke item.
 // A gun with ultra-honk pin is useful for clown and useless for everyone else.
 /obj/item/firing_pin/clown/ultra/pin_auth(mob/living/user)
 	playsound(src.loc, 'sound/items/bikehorn.ogg', 50, 1)
 	if(user && (!(HAS_TRAIT(user, TRAIT_CLUMSY)) && !(user.mind && user.mind.assigned_role == "Clown")))
-		return FALSE
-	return TRUE
+		return EF_FALSE
+	return EF_TRUE
 
 /obj/item/firing_pin/clown/ultra/gun_insert(mob/living/user, obj/item/gun/G)
 	..()
@@ -173,8 +173,8 @@
 /obj/item/firing_pin/dna/pin_auth(mob/living/carbon/user)
 	if(user && user.dna && user.dna.unique_enzymes)
 		if(user.dna.unique_enzymes == unique_enzymes)
-			return TRUE
-	return FALSE
+			return EF_TRUE
+	return EF_FALSE
 
 /obj/item/firing_pin/dna/auth_fail(mob/living/carbon/user)
 	if(!unique_enzymes)
@@ -258,7 +258,7 @@
 
 /obj/item/firing_pin/paywall/pin_auth(mob/living/user)
 	if(!istype(user))//nice try commie
-		return FALSE
+		return EF_FALSE
 	if(ishuman(user))
 		var/datum/bank_account/credit_card_details
 		var/mob/living/carbon/human/H = user
@@ -268,16 +268,16 @@
 			if(multi_payment && credit_card_details)
 				if(credit_card_details.adjust_money(-payment_amount))
 					pin_owner.registered_account.adjust_money(payment_amount)
-					return TRUE
+					return EF_TRUE
 				to_chat(user, "<span class='warning'>ERROR: User balance insufficent for successful transaction!</span>")
-				return FALSE
-			return TRUE
+				return EF_FALSE
+			return EF_TRUE
 		if(credit_card_details && !active_prompt)
 			var/license_request = alert(usr, "Do you wish to pay [payment_amount] credit[( payment_amount > 1 ) ? "s" : ""] for [( multi_payment ) ? "each shot of [gun.name]" : "usage license of [gun.name]"]?", "Weapon Purchase", "Yes", "No")
 			active_prompt = TRUE
 			if(!user.canUseTopic(src, BE_CLOSE))
 				active_prompt = FALSE
-				return FALSE
+				return EF_FALSE
 			switch(license_request)
 				if("Yes")
 					if(credit_card_details.adjust_money(-payment_amount))
@@ -285,14 +285,14 @@
 						gun_owners += H
 						to_chat(user, "<span class='notice'>Gun license purchased, have a secure day!</span>")
 						active_prompt = FALSE
-						return FALSE //we return false here so you don't click initially to fire, get the prompt, accept the prompt, and THEN the gun
+						return EF_FALSE //we return false here so you don't click initially to fire, get the prompt, accept the prompt, and THEN the gun
 					to_chat(user, "<span class='warning'>ERROR: User balance insufficent for successful transaction!</span>")
-					return FALSE
+					return EF_FALSE
 				if("No")
 					to_chat(user, "<span class='warning'>ERROR: User has declined to purchase gun license!</span>")
-					return FALSE
+					return EF_FALSE
 		to_chat(user, "<span class='warning'>ERROR: User has no valid bank account to substract neccesary funds from!</span>")
-		return FALSE
+		return EF_FALSE
 
 
 // Laser tag pins
@@ -307,9 +307,9 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/M = user
 		if(istype(M.wear_suit, suit_requirement))
-			return TRUE
+			return EF_TRUE
 	to_chat(user, "<span class='warning'>You need to be wearing [tagcolor] laser tag armor!</span>")
-	return FALSE
+	return EF_FALSE
 
 /obj/item/firing_pin/tag/red
 	name = "red laser tag firing pin"

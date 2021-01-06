@@ -127,7 +127,7 @@
 
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	changeling.chem_recharge_slowdown += recharge_slowdown
-	return TRUE
+	return EF_TRUE
 
 
 //fancy headers yo

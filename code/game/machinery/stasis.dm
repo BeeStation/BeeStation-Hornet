@@ -125,9 +125,9 @@
 
 /obj/machinery/stasis/proc/check_patient()
 	if(occupant)
-		return TRUE
+		return EF_TRUE
 	else
-		return FALSE
+		return EF_FALSE
 
 /obj/machinery/stasis/post_unbuckle_mob(mob/living/L)
 	thaw_them(L)

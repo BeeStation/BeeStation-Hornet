@@ -35,7 +35,7 @@
 	var/datum/effect_system/spark_spread/spark_system
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/red_alert_access = FALSE //if TRUE, this door will always open on red alert
-	var/poddoor = FALSE	
+	var/poddoor = FALSE
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
 	var/open_speed = 5
 
@@ -51,7 +51,7 @@
 
 /obj/machinery/door/check_access_list(list/access_list)
 	if(red_alert_access && GLOB.security_level >= SEC_LEVEL_RED)
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /obj/machinery/door/Initialize()
@@ -172,15 +172,15 @@
 			open()
 		else
 			close()
-		return TRUE
+		return EF_TRUE
 	if(density)
 		do_animate("deny")
 
 /obj/machinery/door/allowed(mob/M)
 	if(emergency)
-		return TRUE
+		return EF_TRUE
 	if(unrestricted_side(M))
-		return TRUE
+		return EF_TRUE
 	return ..()
 
 /obj/machinery/door/proc/unrestricted_side(mob/M) //Allows for specific side of airlocks to be unrestrected (IE, can exit maint freely, but need access to enter)
@@ -195,9 +195,9 @@
 /obj/machinery/door/proc/is_holding_pressure()
 	var/turf/open/T = loc
 	if(!T)
-		return FALSE
+		return EF_FALSE
 	if(!density)
-		return FALSE
+		return EF_FALSE
 	// alrighty now we check for how much pressure we're holding back
 	var/min_moles = T.air.total_moles()
 	var/max_moles = min_moles
@@ -309,7 +309,7 @@
 
 /obj/machinery/door/proc/close()
 	if(density)
-		return TRUE
+		return EF_TRUE
 	if(operating || welded)
 		return
 	if(safe)
