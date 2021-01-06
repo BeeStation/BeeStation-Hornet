@@ -52,7 +52,7 @@
 		cell.give(cell.maxcharge)
 	update_ammo_types()
 	recharge_newshot(TRUE)
-	if(selfcharge)
+	if(cell.chargerate > 0)
 		START_PROCESSING(SSobj, src)
 	update_icon()
 
@@ -112,7 +112,9 @@
 		to_chat(user, "<span class='warning'>\The [C] doesn't seem to fit into \the [src]...</span>")
 		return FALSE
 	if(user.transferItemToLoc(C, src))
-		cell = C
+		cell = C		
+		if(cell.chargerate > 0)
+			START_PROCESSING(SSobj, src)
 		to_chat(user, "<span class='notice'>You load the [C] into \the [src].</span>")
 		playsound(src, load_sound, sound_volume, load_sound_vary)
 		update_icon()
@@ -127,6 +129,7 @@
 	cell = null
 	old_cell.update_icon()
 	update_icon()
+	STOP_PROCESSING(SSobj, src)
 	
 /obj/item/gun/energy/modify(mob/living/user, obj/item/I)	
 	var/list/possible_items = list()
@@ -143,7 +146,7 @@
 	var/obj/item/item_to_remove = input(user, "Select an attachment to remove", "Attachment Removal") as null|obj in possible_items
 	if(!item_to_remove || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
-	if(I.use_tool(src, user, FIRING_PIN_REMOVAL_DELAY, volume = 50))
+	if(I.use_tool(src, user, 3 SECONDS, volume = 50))
 		return remove_gun_attachment(user, I, item_to_remove)
 		
 /obj/item/gun/energy/remove_gun_attachment(mob/living/user, obj/item/tool_item, obj/item/item_to_remove, removal_verb)

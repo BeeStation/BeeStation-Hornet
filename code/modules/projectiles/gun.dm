@@ -1,6 +1,5 @@
 
 #define DUALWIELD_PENALTY_EXTRA_MULTIPLIER 1.4
-#define FIRING_PIN_REMOVAL_DELAY 50
 
 /obj/item/gun
 	name = "gun"
@@ -54,7 +53,7 @@
 	var/mutable_appearance/flashlight_overlay
 	var/datum/action/item_action/toggle_gunlight/alight
 
-	var/can_bayonet = FALSE //ifa bayonet can be added or removed ifit already has one.
+	var/can_bayonet = FALSE //if a bayonet can be added or removed ifit already has one.
 	var/obj/item/kitchen/knife/bayonet
 	var/mutable_appearance/knife_overlay
 	var/knife_x_offset = 0
@@ -168,7 +167,7 @@
 	playsound(src, dry_fire_sound, 30, TRUE)
 
 
-/obj/item/gun/proc/shoot_live_shot(mob/living/user as mob|obj, pointblank = 0, mob/pbtarget = null, message = 1)
+/obj/item/gun/proc/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
 	if(recoil)
 		shake_camera(user, recoil + 1, recoil)
 
@@ -430,7 +429,7 @@
 		return ..()
 
 /obj/item/gun/proc/being_worked_on()
-	return (!isturf(src.loc) || !(locate(/obj/structure/rack) in src.loc))
+	return (!isturf(src.loc) || !(locate(/obj/structure/rack/smith) in src.loc))
 
 /obj/item/gun/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -456,7 +455,7 @@
 	var/obj/item/item_to_remove = input(user, "Select an attachment to remove", "Attachment Removal") as null|obj in possible_items
 	if(!item_to_remove || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
-	if(I.use_tool(src, user, FIRING_PIN_REMOVAL_DELAY, volume = 50))
+	if(I.use_tool(src, user, 3 SECONDS, volume = 50))
 		return remove_gun_attachment(user, I, item_to_remove)
 		
 /obj/item/gun/proc/remove_gun_attachment(mob/living/user, obj/item/tool_item, obj/item/item_to_remove, removal_verb)
@@ -645,5 +644,4 @@
 		azoom = new()
 		azoom.gun = src
 
-#undef FIRING_PIN_REMOVAL_DELAY
 #undef DUALWIELD_PENALTY_EXTRA_MULTIPLIER

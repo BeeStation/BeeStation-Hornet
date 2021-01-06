@@ -641,3 +641,48 @@
 		R.add_fingerprint(user)
 		qdel(src)
 	building = FALSE
+
+/*
+ * weaponsmith
+ */
+/obj/structure/rack/smith
+	name = "weaponsmith"
+	desc = "Different from the Middle Ages version."
+	max_integrity = 100
+	icon_state = "abed"	//temp
+	
+/obj/structure/rack/smith/deconstruct(disassembled = TRUE)
+	if(!(flags_1&NODECONSTRUCT_1))
+		density = FALSE
+		var/obj/item/smith_parts/newparts = new(loc)
+		transfer_fingerprints_to(newparts)
+	qdel(src)
+
+
+/*
+ * Rack Parts
+ */
+
+/obj/item/smith_parts
+	name = "weaponsmith parts"
+	desc = "Damn space IKEA and their build-your-own furniture!"
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "table_parts"
+	flags_1 = CONDUCT_1
+	materials = list(/datum/material/iron=2000)
+	var/building = FALSE
+
+/obj/item/rack_parts/attack_self(mob/user)
+	if(building)
+		return
+	building = TRUE
+	to_chat(user, "<span class='notice'>You start constructing a rack...</span>")
+	if(do_after(user, 50, target = user, progress=TRUE))
+		if(!user.temporarilyRemoveItemFromInventory(src))
+			return
+		var/obj/structure/rack/R = new /obj/structure/rack/smith(user.loc)
+		user.visible_message("<span class='notice'>[user] assembles \a [R].\
+			</span>", "<span class='notice'>You assemble \a [R].</span>")
+		R.add_fingerprint(user)
+		qdel(src)
+	building = FALSE

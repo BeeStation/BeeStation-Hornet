@@ -5,7 +5,8 @@
 	icon_state = "taser"
 	item_state = "armcannonstun4"
 	force = 5
-	selfcharge = 1
+	cell_type = /obj/item/stock_parts/cell/gun/rechargeable
+	internal_cell = TRUE
 	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses neural signals instead
 

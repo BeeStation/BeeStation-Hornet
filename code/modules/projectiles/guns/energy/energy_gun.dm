@@ -9,8 +9,10 @@
 	w_class = WEIGHT_CLASS_BULKY
 	ammo_x_offset = 3
 	flight_x_offset = 15
-	flight_y_offset = 10
+	flight_y_offset = 10	
+	weapon_weight = WEAPON_MEDIUM
 	dual_wield_spread = 60
+	block_upgrade_walk = 1
 
 /obj/item/gun/energy/e_gun/mini
 	name = "miniature energy gun"
@@ -57,7 +59,6 @@
 /obj/item/gun/energy/e_gun/hos
 	name = "\improper X-01 MultiPhase Energy Gun"
 	desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
-	cell_type = /obj/item/stock_parts/cell/gun{charge = 12000; maxcharge = 12000}
 	icon_state = "hoslaser"
 	force = 10
 	automatic = 1
@@ -94,11 +95,15 @@
 	icon_state = "turretlaser"
 	item_state = "turretlaser"
 	slot_flags = null
+	w_class = WEIGHT_CLASS_HUGE
+	cell_type = /obj/item/stock_parts/cell{charge = 10000; maxcharge = 10000}
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
 	weapon_weight = WEAPON_HEAVY
 	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
+	automatic = 1
+	fire_rate = 5
 
 /obj/item/gun/energy/e_gun/nuclear
 	name = "advanced energy gun"

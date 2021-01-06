@@ -5,12 +5,15 @@
 	item_state = null
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
+	block_upgrade_walk = 1
 	modifystate = TRUE
 	flags_1 =  CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse, /obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
 	internal_cell = TRUE //prevents you from giving it an OP cell
-	cell_type = "/obj/item/stock_parts/cell/pulse"
+	cell_type = /obj/item/stock_parts/cell/pulse
+	fire_rate = 3
+	automatic = 1
 
 /obj/item/gun/energy/pulse/emp_act(severity)
 	return
@@ -42,7 +45,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_carbine"
 	item_state = null
-	cell_type = "/obj/item/stock_parts/cell/pulse/carbine"
+	cell_type = /obj/item/stock_parts/cell/pulse/carbine
 	can_flashlight = TRUE
 	flight_x_offset = 18
 	flight_y_offset = 12
@@ -57,7 +60,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_carbine"
 	item_state = null
-	cell_type = "/obj/item/stock_parts/cell/pulse/carbine"
+	cell_type = /obj/item/stock_parts/cell/pulse/carbine
 	can_flashlight = TRUE
 	flight_x_offset = 18
 	flight_y_offset = 12
@@ -70,7 +73,10 @@
 	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_pistol"
 	item_state = "gun"
-	cell_type = "/obj/item/stock_parts/cell/pulse/pistol"
+	cell_type = /obj/item/stock_parts/cell/pulse/pistol
+	automatic = 0
+	fire_rate = 1.5
+	weapon_weight = WEAPON_LIGHT
 
 /obj/item/gun/energy/pulse/pistol/loyalpin
 	pin = /obj/item/firing_pin/implant/mindshield
@@ -78,7 +84,7 @@
 /obj/item/gun/energy/pulse/destroyer
 	name = "pulse destroyer"
 	desc = "A heavy-duty energy rifle built for pure destruction."
-	cell_type = "/obj/item/stock_parts/cell/infinite"
+	cell_type = /obj/item/stock_parts/cell/infinite
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
 
 /obj/item/gun/energy/pulse/destroyer/attack_self(mob/living/user)
@@ -89,4 +95,4 @@
 	desc = "A compact pulse core in a classic handgun frame for Nanotrasen officers. It's not the size of the gun, it's the size of the hole it puts through people."
 	icon_state = "m1911"
 	item_state = "gun"
-	cell_type = "/obj/item/stock_parts/cell/infinite"
+	cell_type = /obj/item/stock_parts/cell/infinite

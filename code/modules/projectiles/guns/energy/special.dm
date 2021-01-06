@@ -11,6 +11,7 @@
 	ammo_x_offset = 3
 	flight_x_offset = 17
 	flight_y_offset = 9
+	block_upgrade_walk = 1
 
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
@@ -80,7 +81,8 @@
 	name = "\improper Mind Flayer"
 	desc = "A prototype weapon recovered from the ruins of Research-Station Epsilon."
 	icon_state = "xray"
-	item_state = null
+	item_state = null	
+	block_upgrade_walk = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
 	ammo_x_offset = 2
 
@@ -100,6 +102,14 @@
 	unique_frequency = TRUE
 	can_flashlight = FALSE
 	max_mod_capacity = 0
+
+/obj/item/gun/energy/kinetic_accelerator/crossbow/radbow
+	name = "gamma bow"
+	desc = "A weapon favored by Madmen."
+	icon_state = "crossbow"
+	item_state = "crossbow"
+	ammo_type = list(/obj/item/ammo_casing/energy/bolt/radbolt)
+	overheat_time = 250
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/halloween
 	name = "candy corn crossbow"
@@ -127,9 +137,11 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	flags_1 = CONDUCT_1
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
-	force = 12
+	force = 12	
+	block_upgrade_walk = 1
 	sharpness = IS_SHARP
 	can_charge = FALSE
+	dead_cell = TRUE
 
 	heat = 3800
 	usesound = list('sound/items/welder.ogg', 'sound/items/welder2.ogg')
@@ -139,6 +151,9 @@
 	var/progress_flash_divisor = 10  //copypasta is best pasta
 	var/light_intensity = 1
 	var/charge_weld = 25 //amount of charge used up to start action (multiplied by amount) and per progress_flash_divisor ticks of welding
+	weapon_weight = WEAPON_LIGHT
+	fire_rate = 3
+	automatic = 1
 
 /obj/item/gun/energy/plasmacutter/Initialize()
 	. = ..()
@@ -160,7 +175,7 @@
 			to_chat(user, "<span class='notice'>You try to insert [I] into [src], but it's fully charged.</span>") //my cell is round and full
 			return
 		I.use(1)
-		cell.give(500*charge_multiplier)
+		cell.give(50*charge_multiplier)
 		to_chat(user, "<span class='notice'>You insert [I] in [src], recharging it.</span>")
 	else
 		..()
@@ -217,6 +232,14 @@
 	item_state = "adv_plasmacutter"
 	force = 15
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
+	
+/obj/item/gun/energy/plasmacutter/cyborg
+	name = "cyborg plasma cutter"
+	desc = "An integrated plasma cutter."
+	dead_cell = FALSE
+	can_charge = FALSE
+	use_cyborg_cell = TRUE
+	tool_behaviour = null //because it will drain the cutters cell and not the borgs.
 
 /obj/item/gun/energy/wormhole_projector
 	name = "bluespace wormhole projector"
@@ -292,10 +315,12 @@
 	desc = "An LMG that fires 3D-printed flechettes. They are slowly resupplied using the cyborg's internal power source."
 	icon_state = "l6_cyborg"
 	icon = 'icons/obj/guns/projectile.dmi'
-	cell_type = "/obj/item/stock_parts/cell/secborg"
+	cell_type = /obj/item/stock_parts/cell/secborg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = FALSE
 	use_cyborg_cell = TRUE
+	automatic = 1
+	fire_rate = 6
 
 /obj/item/gun/energy/printer/update_icon()
 	return
@@ -308,8 +333,17 @@
 	icon_state = "freezegun"
 	desc = "A gun that changes temperatures."
 	ammo_type = list(/obj/item/ammo_casing/energy/temp, /obj/item/ammo_casing/energy/temp/hot)
+	automatic = 1
+	fire_rate = 4
 	cell_type = /obj/item/stock_parts/cell/gun/super
 	pin = null
+	block_upgrade_walk = 1
+
+/obj/item/gun/energy/temperature/security
+	name = "security temperature gun"
+	desc = "A weapon that can only be used to its full potential by the truly robust."
+	pin = /obj/item/firing_pin
+	block_upgrade_walk = 1
 
 /obj/item/gun/energy/temperature/security
 	name = "security temperature gun"
@@ -323,6 +357,7 @@
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit."
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
+	block_upgrade_walk = 1
 
 /obj/item/gun/energy/laser/instakill/red
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit. This one has a red design."
