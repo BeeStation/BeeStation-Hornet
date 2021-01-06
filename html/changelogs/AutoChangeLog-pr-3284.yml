@@ -1,0 +1,4 @@
+author: That0nePerson
+delete-after: true
+changes:
+  - bugfix: Fixes IPC and squid mutation toxin recipes being swapped
