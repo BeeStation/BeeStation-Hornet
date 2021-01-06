@@ -23,6 +23,7 @@
 	ammo_x_offset = 2
 	charge_sections = 3
 	can_flashlight = FALSE // Can't attach or detach the flashlight, and override it's icon update
+	weapon_weight = WEAPON_LIGHT
 
 /obj/item/gun/energy/e_gun/mini/Initialize()
 	gun_light = new /obj/item/flashlight/seclite(src)
@@ -59,8 +60,11 @@
 	cell_type = /obj/item/stock_parts/cell/gun{charge = 12000; maxcharge = 12000}
 	icon_state = "hoslaser"
 	force = 10
+	automatic = 1
+	fire_rate = 3
+	full_auto = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/disabler)
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/disabler/hos)
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
@@ -74,11 +78,15 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/net, /obj/item/ammo_casing/energy/trap)
 	can_flashlight = FALSE
 	ammo_x_offset = 1
+	fire_rate = 1.5
 
 /obj/item/gun/energy/e_gun/dragnet/snare
 	name = "Energy Snare Launcher"
 	desc = "Fires an energy snare that slows the target down."
+	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = list(/obj/item/ammo_casing/energy/trap)
+	automatic = 1
+	fire_rate = 5
 
 /obj/item/gun/energy/e_gun/turret
 	name = "hybrid turret gun"
