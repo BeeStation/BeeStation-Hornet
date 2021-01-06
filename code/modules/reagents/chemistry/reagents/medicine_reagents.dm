@@ -1608,15 +1608,15 @@
 	random_unrestricted = FALSE
 
 /datum/reagent/medicine/panacea/on_mob_life(mob/living/M)
-	if (volume>10)
-		for(var/thing in L.diseases)
+	if(volume>10)
+		for(var/thing in M.diseases)
 			var/datum/disease/D = thing
 			D.cure(FALSE)
 			
-	if (prob(5))
+	if(prob(5))
 		M.Dizzy(3 SECONDS)
-	if (prob(15))
+	if(prob(15))
 		M.adjustToxLoss(2, 0)
-	if (prob(30))
+	if(prob(30))
 		M.adjustStaminaLoss(5)
 	..()
