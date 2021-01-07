@@ -253,7 +253,7 @@
 	force = 3
 	throwforce = 3
 	throw_speed = 3
-	max_integrity = 50
+	max_integrity = 150
 	block_sound = 'sound/weapons/egloves.ogg'
 	var/base_icon_state = "eshield" // [base_icon_state]1 for expanded, [base_icon_state]0 for contracted
 	var/on_force = 10

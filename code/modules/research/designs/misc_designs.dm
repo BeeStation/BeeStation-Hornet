@@ -491,3 +491,33 @@
 	build_path = /obj/item/construction/plumbing
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/accessory_softpadding
+	name = "Soft Padding"
+	desc = "A soft padding meant to cushion the wearer from melee harm."
+	id = "accessory_softpadding"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 5000, /datum/material/glass = 1000, /datum/material/plasma = 1000)
+	build_path = /obj/item/clothing/accessory/softpadding
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/accessory_kevlar
+	name = "Kevlar Padding"
+	desc = "A layered kevlar padding meant to cushion the wearer from ballistic harm."
+	id = "accessory_kevlar"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 5000, /datum/material/glass = 1000, /datum/material/plasma = 1000)
+	build_path = /obj/item/clothing/accessory/kevlar
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/accessory_plastics
+	name = "Ablative Padding"
+	desc = "A thin ultra-refractory composite plastics padding meant to cushion the wearer from energy lasers harm."
+	id = "accessory_plastics"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 5000, /datum/material/glass = 1000, /datum/material/plasma = 1000)
+	build_path = /obj/item/clothing/accessory/plastics
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY

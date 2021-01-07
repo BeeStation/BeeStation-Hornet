@@ -1403,10 +1403,38 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	cost = 1
 	surplus = 30
 
-//Space Suits and Hardsuits
+//Space Suits, Hardsuits and Armor
 /datum/uplink_item/suits
-	category = "Space Suits"
+	category = "Space Suits, Hardsuits and Clothing"
 	surplus = 40
+
+/datum/uplink_item/suits/turtlenck
+	name = "Tactical Turtleneck"
+	desc = "A slightly armored suit that has no sensor on them, if someone sees you in this hope they think its a fake."
+	item = /obj/item/clothing/under/syndicate
+	cost = 1
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops) //They already get these
+
+/datum/uplink_item/suits/padding
+	name = "Soft Padding"
+	desc = "An inconspicious soft padding meant to be worn underneath jumpsuits, will cushion the user from melee harm."
+	item = /obj/item/clothing/accessory/softpadding/syndicate
+	cost = 2
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
+
+/datum/uplink_item/suits/kevlar
+	name = "Kevlar Padding"
+	desc = "An inconspicious kevlar padding meant to be worn underneath jumpsuits, will cushion the wearer from ballistic harm."
+	item = /obj/item/clothing/accessory/kevlar/syndicate
+	cost = 2
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
+
+/datum/uplink_item/suits/plastic
+	name = "Ablative Padding"
+	desc = "An inconspicious ablative padding meant to be worn underneath jumpsuits, will cushion the wearer from energy lasers harm."
+	item = /obj/item/clothing/accessory/plastics/syndicate
+	cost = 2
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 
 /datum/uplink_item/suits/space_suit
 	name = "Syndicate Space Suit"
@@ -1414,7 +1442,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 			fits inside bags, and has a weapon slot. Nanotrasen crew members are trained to report red space suit \
 			sightings, however."
 	item = /obj/item/storage/box/syndie_kit/space
-	cost = 3
+	cost = 2
 
 /datum/uplink_item/suits/hardsuit
 	name = "Syndicate Hardsuit"
