@@ -35,7 +35,7 @@
 			return 0
 	return ..()
 
-/mob/living/carbon/human/has_gravity()
+/mob/living/carbon/human/has_gravity(turf/T)
 	return ..() || mob_negates_gravity()
 
 /mob/living/carbon/human/mob_negates_gravity()

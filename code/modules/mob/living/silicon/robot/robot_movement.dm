@@ -7,9 +7,9 @@
 	return FALSE
 
 /mob/living/silicon/robot/mob_negates_gravity()
-	return isspaceturf(get_turf(src)) ? FALSE : magpulse
+	return isspaceturf(get_turf(src)) ? FALSE : magpulse //We don't mimick gravity on space turfs
 
-/mob/living/silicon/robot/has_gravity()
+/mob/living/silicon/robot/has_gravity(turf/T)
 	return ..() || mob_negates_gravity()
 
 /mob/living/silicon/robot/experience_pressure_difference(pressure_difference, direction)
