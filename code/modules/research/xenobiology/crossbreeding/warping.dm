@@ -569,14 +569,20 @@ GLOBAL_DATUM_INIT(blue_storage, /obj/item/storage/backpack/holding/bluespace, ne
 
 /obj/effect/warped_rune/goldspace/do_effect(mob/user)
 	var/price = 0
+	var/list/valuable_items = list()
 	for(var/obj/item/I in rune_turf)
 		var/datum/export_report/ex = export_item_and_contents(I, dry_run=TRUE)
 		for(var/x in ex.total_amount)
-			price += ex.total_value[x]
+			if(ex.total_value[x])
+				price += ex.total_value[x]
+				valuable_items |= I
 	if(price >= target_value)
 		deleteme = TRUE
 		var/path = pick(RARE_ITEM_LIST)
 		var/atom/movable/A = new path(rune_turf)
+		for(var/obj/item/I in valuable_items)
+			I.loc = null
+			qdel(I)
 		to_chat(user, "<spawn class='notice'>[src] shines and [A] appears before you.</span>")
 	else
 		to_chat(user, "<span class='warning'>The sacrifice is insufficient.</span>")
