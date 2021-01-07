@@ -19,7 +19,6 @@
 	species_language_holder = /datum/language_holder/oozeling
 	limbs_id = "jelly"
 
-
 /datum/species/oozeling/on_species_loss(mob/living/carbon/C)
 	if(regenerate_limbs)
 		regenerate_limbs.Remove(C)
@@ -76,7 +75,6 @@
 				if(environment.get_moles(/datum/gas/plasma) >= 1)
 					if(H.blood_volume <= 672)
 						H.blood_volume += 15
-
 
 	if(H.blood_volume < BLOOD_VOLUME_OKAY)
 		if(prob(5))
@@ -141,7 +139,6 @@
 			to_chat(H, "<span class='warning'>...but there is not enough of you to fix everything! You must attain more blood volume to heal completely!</span>")
 		return
 	to_chat(H, "<span class='warning'>...but there is not enough of you to go around! You must attain more blood volume to heal!</span>")
-
 
 /datum/species/oozeling/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	. = ..()
