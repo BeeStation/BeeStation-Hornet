@@ -55,10 +55,10 @@
 					to_chat(H, "<span class='danger'>You're feeling pretty hungry...</span>")
 
 	var/atmos_sealed = FALSE
-	if (H.wear_suit && H.head && istype(H.wear_suit, /obj/item/clothing) && istype(H.head, /obj/item/clothing))
+	if(H.wear_suit && H.head && istype(H.wear_suit, /obj/item/clothing) && istype(H.head, /obj/item/clothing))
 		var/obj/item/clothing/CS = H.wear_suit
 		var/obj/item/clothing/CH = H.head
-		if (CS.clothing_flags & CH.clothing_flags & STOPSPRESSUREDAMAGE)
+		if(CS.clothing_flags & CH.clothing_flags & STOPSPRESSUREDAMAGE)
 			atmos_sealed = TRUE
 	if(H.w_uniform && H.head)
 		var/obj/item/clothing/CU = H.w_uniform
