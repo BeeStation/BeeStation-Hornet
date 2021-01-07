@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(icn_cache)
+
 /obj/machinery/computer/cargo
 	name = "supply console"
 	desc = "Used to order supplies, approve requests, and control the shuttle."
@@ -17,6 +19,8 @@
 	var/obj/item/radio/headset/radio
 	/// var that tracks message cooldown
 	var/message_cooldown
+
+	var/icn_cooldown = 0
 
 	light_color = "#E2853D"//orange
 
@@ -263,3 +267,30 @@
 
 	var/datum/signal/status_signal = new(list("command" = command))
 	frequency.post_signal(src, status_signal)
+
+/obj/machinery/computer/cargo/proc/get_icn_data()
+	set waitfor = FALSE
+	
+	if(icn_cooldown > world.time)
+		return
+	var/url = CONFIG_GET(string/crosscargo_url)
+	if(!url)
+		return
+
+	// Make the request
+	var/datum/http_request/request = new()
+	request.prepare(RUSTG_HTTP_METHOD_GET, "[url]", "", "")
+	request.begin_async()
+	UNTIL(request.is_complete())
+
+	var/datum/http_response/response = request.into_response()
+
+	if(response.errored || response.status_code != 200)
+		return
+	icn_cooldown = world.time + (10 SECONDS)
+
+	var/list/servers = json_decode(response["body"])
+	for(var/list/order in servers)
+		if(GLOB.icn_cache[order])
+			continue
+
