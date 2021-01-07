@@ -277,7 +277,6 @@
 		playsound(M, "sparks", 50, 1)
 	..()
 
-
 /datum/reagent/firefighting_foam
 	name = "Firefighting Foam"
 	description = "A historical fire suppressant. Originally believed to simply displace oxygen to starve fires, it actually interferes with the combustion reaction itself. Vastly superior to the cheap water-based extinguishers found on NT vessels."
