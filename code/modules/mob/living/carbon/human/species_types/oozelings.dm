@@ -32,7 +32,7 @@
 		regenerate_limbs.Grant(C)
 
 /datum/species/oozeling/spec_life(mob/living/carbon/human/H)
-
+	..()
 	if(H.stat == DEAD) //can't farm slime jelly from a dead slime/jelly person indefinitely
 		return
 	if(!H.blood_volume)
