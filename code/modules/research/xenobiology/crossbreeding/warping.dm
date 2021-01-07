@@ -573,7 +573,7 @@ GLOBAL_DATUM_INIT(blue_storage, /obj/item/storage/backpack/holding/bluespace, ne
 		var/datum/export_report/ex = export_item_and_contents(I, dry_run=TRUE)
 		for(var/x in ex.total_amount)
 			price += ex.total_value[x]
-	if(price => target_value)
+	if(price >= target_value)
 		deleteme = TRUE
 		var/path = pick(RARE_ITEM_LIST)
 		var/atom/movable/A = new path(rune_turf)
