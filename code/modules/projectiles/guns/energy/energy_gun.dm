@@ -84,7 +84,6 @@
 /obj/item/gun/energy/e_gun/dragnet/snare
 	name = "Energy Snare Launcher"
 	desc = "Fires an energy snare that slows the target down."
-	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = list(/obj/item/ammo_casing/energy/trap)
 	automatic = 1
 	fire_rate = 5
@@ -113,7 +112,6 @@
 	charge_delay = 5
 	pin = null
 	can_charge = FALSE
-	internal_cell = TRUE
 	ammo_x_offset = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/disabler)
 	cell_type = /obj/item/stock_parts/cell/gun/rechargeable
