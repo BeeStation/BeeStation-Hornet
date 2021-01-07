@@ -63,6 +63,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 ///nearly all runes use their turf in some way so we set rune_turf to their turf automatically, the rune also start on cooldown if it uses one.
 /obj/effect/warped_rune/Initialize()
 	. = ..()
+	add_overlay("blank", TRUE)
 	rune_turf = get_turf(src)
 	RegisterSignal(rune_turf, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_rune)
 
@@ -96,9 +97,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		return
 
 	if(do_after(user, drawing_time,target = target))
-		if(warp_charge >= 1 && !locate(/obj/effect/warped_rune) in target) //check one last time if a rune has been drawn during the do_after and if there's enough charges left
-			if(!check_cd(user))
-				return
+		if(warp_charge >= 1 && (!locate(/obj/effect/warped_rune) in target) && check_cd(user)) //check one last time if a rune has been drawn during the do_after and if there's enough charges left
 			warping_crossbreed_spawn(target,user)
 			make_cd()
 
@@ -116,7 +115,6 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	//to_chat(user, "<span class='notice'>You store the rune in [src].</span>")
 	qdel(target)
 	warp_charge++
-	return
 
 /obj/item/slimecross/warping/proc/check_cd(user)
 	if(world.time < cooldown)
@@ -446,7 +444,6 @@ GLOBAL_DATUM_INIT(blue_storage, /obj/item/storage/backpack/holding/bluespace, ne
 
 	if(!length(recent_speech)) //lazy lists don't work here for whatever reason so we set it to null manually if the list is empty.
 		recent_speech = null
-		return
 
 ///destroys the hologram with the rune
 /obj/effect/warped_rune/ceruleanspace/Destroy()
