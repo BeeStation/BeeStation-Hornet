@@ -672,7 +672,7 @@
 	materials = list(/datum/material/iron=2000)
 	var/building = FALSE
 
-/obj/item/rack_parts/attack_self(mob/user)
+/obj/item/smith_parts/attack_self(mob/user)
 	if(building)
 		return
 	building = TRUE

@@ -429,7 +429,7 @@
 		return ..()
 
 /obj/item/gun/proc/being_worked_on()
-	return (!isturf(src.loc) || !(locate(/obj/structure/rack/smith) in src.loc))
+	return (isturf(src.loc) && (locate(/obj/structure/rack/smith) in src.loc))
 
 /obj/item/gun/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()

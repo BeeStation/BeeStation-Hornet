@@ -387,7 +387,7 @@
 	desc = "a reinforced cell capable of releaseing short, high intensity electricity bursts without exploding."
 	icon = 'icons/obj/power.dmi'
 	icon_state = "g-cell"
-	maxcharge = 2000
+	maxcharge = 1500
 	custom_materials = list(/datum/material/glass=60)
 	chargerate = 150
 	var/wired = FALSE
@@ -424,7 +424,7 @@
 
 /obj/item/stock_parts/cell/gun/super
 	name = "improved power supply"
-	maxcharge = 3000
+	maxcharge = 2000
 	custom_materials = list(/datum/material/glass=300)
 	chargerate = 175
 
@@ -436,7 +436,7 @@
 /obj/item/stock_parts/cell/gun/hicap
 	name = "high capacity power supply"
 	icon_state = "ug-cell"
-	maxcharge = 5000
+	maxcharge = 3000
 	custom_materials = list(/datum/material/glass=300)
 	chargerate = 100
 
@@ -448,7 +448,7 @@
 /obj/item/stock_parts/cell/gun/frec
 	name = "fast recharge power supply"
 	icon_state = "ug-cell"
-	maxcharge = 2000
+	maxcharge = 1500
 	custom_materials = list(/datum/material/glass=300)
 	chargerate = 400
 
