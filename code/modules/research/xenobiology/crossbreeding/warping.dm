@@ -580,7 +580,7 @@ GLOBAL_DATUM_INIT(blue_storage, /obj/item/storage/backpack/holding/bluespace, ne
 		deleteme = TRUE
 		var/path = pick(RARE_ITEM_LIST)
 		var/atom/movable/A = new path(rune_turf)
-		to_chat(user, "<spawn class='notice'>[src] shines and [A] appears before you. ")
+		to_chat(user, "<spawn class='notice'>[src] shines and [A] appears before you.</span>")
 	else
 		to_chat(user, "<span class='warning'>The sacrifice is insufficient.</span>")
 	. = ..()
