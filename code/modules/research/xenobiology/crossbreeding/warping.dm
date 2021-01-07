@@ -565,7 +565,7 @@ GLOBAL_DATUM_INIT(blue_storage, /obj/item/storage/backpack/holding/bluespace, ne
 	icon_state = "rune_gold"
 	desc = "This can be activated to transmute valuable items into a random item."
 	deleteme = FALSE
-	var/target_value = 1000
+	var/target_value = 5000
 
 /obj/effect/warped_rune/goldspace/do_effect(mob/user)
 	var/price = 0
@@ -573,7 +573,7 @@ GLOBAL_DATUM_INIT(blue_storage, /obj/item/storage/backpack/holding/bluespace, ne
 		var/datum/export_report/ex = export_item_and_contents(I, dry_run=TRUE)
 		for(var/x in ex.total_amount)
 			price += ex.total_value[x]
-	if(price > target_value)
+	if(price => target_value)
 		deleteme = TRUE
 		var/path = pick(RARE_ITEM_LIST)
 		var/atom/movable/A = new path(rune_turf)
