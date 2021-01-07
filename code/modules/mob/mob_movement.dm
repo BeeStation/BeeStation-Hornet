@@ -301,8 +301,6 @@
 			continue
 		else if(isturf(A))
 			var/turf/turf = A
-			if(isspaceturf(turf))
-				continue
 			if(!turf.density)
 				continue
 			return A
