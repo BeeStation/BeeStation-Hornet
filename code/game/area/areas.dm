@@ -56,9 +56,8 @@
 
 	var/parallax_movedir = 0
 
-	var/list/ambient_music = null // OOC, doesn't require the user to actually be able to hear it
-	var/list/ambient_effects = GENERIC // IC, requires the user to actually be able to hear it, will play spontaneously
-	var/ambient_buzz = 'sound/ambience/shipambience.ogg' // Ambient buzz of the station, plays repeatedly, also IC
+	var/ambience_index = AMBIENCE_GENERIC
+	var/list/ambientsounds
 
 	flags_1 = CAN_BE_DIRTY_1
 
@@ -138,6 +137,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	layer = AREA_LAYER
 	map_name = name // Save the initial (the name set in the map) name of the area.
 	canSmoothWithAreas = typecacheof(canSmoothWithAreas)
+
+	if(!ambientsounds)
+		ambientsounds = GLOB.ambience_assoc[ambience_index]
 
 	if(requires_power)
 		luminosity = 0

@@ -17,7 +17,7 @@
 	power_light = FALSE
 	outdoors = TRUE
 	flags_1 = NONE
-	ambient_effects = MINING
+	ambience_index = AMBIENCE_MINING
 
 /area/mine/unexplored
 	name = "Mine"
@@ -30,7 +30,7 @@
 	power_light = FALSE
 	outdoors = TRUE
 	flags_1 = NONE
-	ambient_effects = MINING
+	ambience_index = AMBIENCE_MINING
 
 /area/mine/lobby
 	name = "Mining Station"
@@ -73,7 +73,7 @@
 /area/mine/laborcamp/security
 	name = "Labor Camp Security"
 	icon_state = "security"
-	ambient_effects = HIGHSEC
+	ambience_index = AMBIENCE_DANGER
 
 //This is a placeholder for the lavaland sci area. Whoever is here after me, I have made you some additional areas to work with.
 //You are free to rename these and change their icons. My job is done here.
@@ -122,7 +122,7 @@
 	power_equip = FALSE
 	power_light = FALSE
 	requires_power = TRUE
-	ambient_effects = MINING
+	ambience_index = AMBIENCE_MINING
 
 /area/lavaland/underground
 	name = "Lavaland Caves"
@@ -133,7 +133,7 @@
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE
-	ambient_effects = MINING
+	ambience_index = AMBIENCE_MINING
 
 
 /area/lavaland/surface/outdoors
