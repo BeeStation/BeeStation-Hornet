@@ -66,5 +66,6 @@
 
 /datum/light_source/proc/change_loc(atom/movable/new_loc)
 	top_atom.remove_vis_contents(our_mask)
+	our_mask.generate_shadows()
 	top_atom = new_loc
 	top_atom.add_vis_contents(our_mask)
