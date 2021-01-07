@@ -1,0 +1,5 @@
+author: park66665
+delete-after: true
+changes:
+  - bugfix: magboots no longer make you feel gravity in space
+  - code_imp: removed legacy mob_has_gravity() to reduce overhead
