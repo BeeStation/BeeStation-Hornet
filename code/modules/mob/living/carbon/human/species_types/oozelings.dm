@@ -40,9 +40,8 @@
 		H.adjustBruteLoss(5)
 		to_chat(H, "<span class='danger'>You feel empty!</span>")
 
-	if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
-		if(H.blood_volume <= 672)
-			H.blood_volume += 1
+	if(H.nutrition >= NUTRITION_LEVEL_WELL_FED && H.blood_volume <= 672)
+		H.blood_volume += 1
 
 	if(H.nutrition <= NUTRITION_LEVEL_HUNGRY)
 		if(H.nutrition <= NUTRITION_LEVEL_STARVING)
