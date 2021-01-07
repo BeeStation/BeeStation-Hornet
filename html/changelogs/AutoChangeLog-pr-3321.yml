@@ -1,0 +1,5 @@
+author: MNarath1
+delete-after: true
+changes:
+  - admin: logs the shooter and circuit name of the weapon circuit in the attack log
+      of the victim
