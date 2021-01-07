@@ -140,7 +140,6 @@
 		. = 1
 	..()
 
-
 /datum/reagent/toxin/minttoxin
 	name = "Mint Toxin"
 	description = "Useful for dealing with undesirable customers."
