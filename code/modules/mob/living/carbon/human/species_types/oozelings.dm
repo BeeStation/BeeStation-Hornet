@@ -38,10 +38,8 @@
 		H.blood_volume += 5
 		H.adjustBruteLoss(5)
 		to_chat(H, "<span class='danger'>You feel empty!</span>")
-
 	if(H.nutrition >= NUTRITION_LEVEL_WELL_FED && H.blood_volume <= 672)
 		H.blood_volume += 1
-
 	if(H.nutrition <= NUTRITION_LEVEL_HUNGRY)
 		if(H.nutrition <= NUTRITION_LEVEL_STARVING)
 			H.blood_volume -= 8
@@ -52,7 +50,6 @@
 				H.blood_volume -= 2
 				if(prob(5))
 					to_chat(H, "<span class='danger'>You're feeling pretty hungry...</span>")
-
 	var/atmos_sealed = FALSE
 	if(H.wear_suit && H.head && istype(H.wear_suit, /obj/item/clothing) && istype(H.head, /obj/item/clothing))
 		var/obj/item/clothing/CS = H.wear_suit
@@ -75,7 +72,6 @@
 				if(environment.get_moles(/datum/gas/plasma) >= 1)
 					if(H.blood_volume <= 672)
 						H.blood_volume += 15
-
 	if(H.blood_volume < BLOOD_VOLUME_OKAY)
 		if(prob(5))
 			to_chat(H, "<span class='danger'>You feel drained!</span>")
