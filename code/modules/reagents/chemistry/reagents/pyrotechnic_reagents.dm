@@ -245,7 +245,6 @@
 			L.extract_cooldown = max(0, L.extract_cooldown - 20)
 	..()
 
-
 /datum/reagent/teslium/energized_jelly/energized_ooze
 	name = "Energized Ooze"
 	description = "Electrically-charged Ooze. Boosts Oozeling's nervous system, but only shocks other lifeforms."
