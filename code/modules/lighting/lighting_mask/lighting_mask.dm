@@ -55,34 +55,41 @@
 	M.Translate(-128 + (16 * proportion))
 	return M
 
+//kinda slow but 5head
 /atom/movable/lighting_mask/proc/generate_shadows()
 	if(radius < 1.5)
 		return
 	var/icon/base_icon = new(icon, icon_state)
+	var/list/corners = get_corner_positions()
+	message_admins(list2params(corners))
 
+//Very slow and r worded
 /atom/movable/lighting_mask/proc/get_corner_positions()
 	//Each x and y position is the bottom left of a tile
-	var/list/turf/edges = get_edge_turfs()
+	var/list/edges = get_edge_turfs()
+	message_admins("Edge turfs: [edges.len]")
 	//Key = x, value = list(y positions)
 	var/list/corner_coords = list()
-	for(var/turf/turf_check in edges)
+	for(var/turf/closed/turf_check in edges)
 		var/corner_left = corner_coords[turf_check.x]
 		var/ignore_corner
 		if(islist(corner_left))
 			corner_left += turf_check.y
 			corner_left += turf_check.y + 1
 		else
-			corner_coords[turf_check.x] = list(turf_check.y, turf_check.y + 1)
+			corner_coords["[turf_check.x]"] = list(turf_check.y, turf_check.y + 1)
 		var/corner_right = corner_coords[turf_check.x + 1]
 		if(islist(corner_right))
 			corner_right += turf_check.y
 			corner_right += turf_check.y + 1
 		else
-			corner_coords[turf_check.x + 1] = list(turf_check.y, turf_check.y + 1)
+			corner_coords["[turf_check.x + 1]"] = list(turf_check.y, turf_check.y + 1)
 	return corner_coords
 
+//wtf slow
 /atom/movable/lighting_mask/proc/get_edge_turfs()
-	var/list/turf/closed/end_turfs = view(radius, get_turf(src))
+	//This is so slow too
+	var/list/end_turfs = view(radius, get_turf(src))
 	return end_turfs
 
 #undef LIGHTING_MASK_SPRITE_SIZE
