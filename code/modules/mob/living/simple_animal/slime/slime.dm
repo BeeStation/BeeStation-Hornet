@@ -106,6 +106,9 @@
 	. = ..()
 	set_nutrition(700)
 
+/mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_colour="rainbow", new_is_adult)
+	. = ..(mapload, new_colour, new_is_adult)
+
 /mob/living/simple_animal/slime/Destroy()
 	for (var/A in actions)
 		var/datum/action/AC = A
