@@ -7,7 +7,7 @@
 	icon_state = "circuit_printer"
 	w_class = WEIGHT_CLASS_BULKY
 	var/upgraded = FALSE		// When hit with an upgrade disk, will turn true, allowing it to print the higher tier circuits.
-	var/can_clone = FALSE		// Allows the printer to clone circuits, either instantly or over time depending on upgrade. Set to FALSE to disable entirely. -Set To false to remove cloning from all but debug.
+	var/can_clone = TRUE		// Allows the printer to clone circuits, either instantly or over time depending on upgrade. Set to FALSE to disable entirely. -Set To false to remove cloning from all but debug.
 	var/fast_clone = FALSE		// If this is false, then cloning will take an amount of deciseconds equal to the iron cost divided by 100.
 	var/debug = FALSE			// If it's upgraded and can clone, even without config settings.
 	var/current_category = null
@@ -21,14 +21,14 @@
 
 /obj/item/integrated_circuit_printer/upgraded
 	upgraded = TRUE
-	can_clone = FALSE //Set to False to remove cloning temporarily.
-	fast_clone = FALSE //Set to False to remove cloning temporarily.
+	can_clone = TRUE
+	fast_clone = TRUE
 
 /obj/item/integrated_circuit_printer/debug //translation: "integrated_circuit_printer/local_server"
 	name = "debug circuit printer"
 	debug = TRUE
 	upgraded = TRUE
-	can_clone = TRUE // Left as true due to being admin only debug item
+	can_clone = TRUE
 	fast_clone = TRUE
 	w_class = WEIGHT_CLASS_TINY
 
