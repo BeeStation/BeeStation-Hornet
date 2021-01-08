@@ -233,7 +233,7 @@
 	name = "Sniper"
 	uniform = /obj/item/clothing/under/syndicate/camo
 	suit = /obj/item/clothing/suit/armor/bulletproof
-	shoes = /obj/item/clothing/shoes/combat/swat
+	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
 	belt = /obj/item/storage/belt/military/assault
 	mask = /obj/item/clothing/mask/cigarette/cigar
@@ -306,7 +306,7 @@
 	mask = /obj/item/clothing/mask/gas/cyborg
 	uniform = /obj/item/clothing/under/pants/camo
 	belt = /obj/item/storage/belt/bandolier
-	shoes = /obj/item/clothing/shoes/combat/swat
+	shoes = /obj/item/clothing/shoes/combat
 
 /obj/effect/mob_spawn/human/corpse/facboss
 	name = "Factory boss"
@@ -316,6 +316,7 @@
 	hair_style = "Crewcut"
 	facial_hair_style = "Shaved"
 	skin_tone = "caucasian1"
+	mob_gender = MALE
 	outfit = /datum/outfit/facboss
 
 /datum/outfit/facboss
