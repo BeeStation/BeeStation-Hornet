@@ -1617,11 +1617,6 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "It'll either knock the drunkenness out of you or knock you out cold. Both, probably."
 	random_unrestricted = TRUE
 
-/datum/reagent/consumable/ethanol/crevice_spike/on_mob_life(mob/living/carbon/M)
-	if(HAS_TRAIT(M, TRAIT_LIGHT_DRINKER))
-			booze_power = 65
-	..()
-
 /datum/reagent/consumable/ethanol/crevice_spike/on_mob_metabolize(mob/living/L) //damage only applies when drink first enters system and won't again until drink metabolizes out
 	L.adjustBruteLoss(3 * min(5,volume)) //minimum 3 brute damage on ingestion to limit non-drink means of injury - a full 5 unit gulp of the drink trucks you for the full 15
 
