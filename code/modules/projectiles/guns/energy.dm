@@ -52,7 +52,7 @@
 		cell.use(cell.maxcharge)
 	update_ammo_types()
 	recharge_newshot(TRUE)
-	if(cell.chargerate > 0)
+	if(cell.chargerate)
 		START_PROCESSING(SSobj, src)
 	update_icon()
 
@@ -110,7 +110,7 @@
 		return FALSE
 	if(user.transferItemToLoc(C, src))
 		cell = C		
-		if(cell.chargerate > 0)
+		if(cell.chargerate)
 			START_PROCESSING(SSobj, src)
 		to_chat(user, "<span class='notice'>You load the [C] into \the [src].</span>")
 		playsound(src, load_sound, sound_volume, load_sound_vary)
