@@ -269,7 +269,7 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "aaJ" = (
-/obj/structure/toilet{
+/obj/structure/toilet/contraband{
 	dir = 4
 	},
 /obj/structure/window/reinforced/tinted,
@@ -12579,7 +12579,7 @@
 /turf/open/floor/plasteel/freezer,
 /area/security/prison)
 "aDS" = (
-/obj/structure/toilet,
+/obj/structure/toilet/contraband,
 /turf/open/floor/plasteel/freezer,
 /area/security/prison)
 "aDT" = (
@@ -44318,7 +44318,7 @@
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "bQn" = (
-/obj/structure/toilet{
+/obj/structure/toilet/contraband{
 	dir = 8
 	},
 /obj/structure/window/reinforced/tinted,
@@ -51086,7 +51086,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/twohanded/required/kirbyplants/random/contraband,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
 "dEx" = (
@@ -53591,7 +53591,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/twohanded/required/kirbyplants/random/contraband,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
 "mpC" = (
@@ -54155,7 +54155,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/twohanded/required/kirbyplants/random/contraband,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "nVf" = (
@@ -54219,7 +54219,7 @@
 /area/engine/atmos)
 "oij" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/twohanded/required/kirbyplants/random/contraband,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
 "okf" = (
@@ -54298,7 +54298,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/twohanded/required/kirbyplants/random/contraband,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
 "oAn" = (
@@ -54914,7 +54914,7 @@
 /area/medical/virology)
 "qxz" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/twohanded/required/kirbyplants/random/contraband,
 /obj/machinery/button/door{
 	dir = 2;
 	id = "supermatter_external";
@@ -54933,7 +54933,7 @@
 	dir = 4;
 	pixel_x = -23
 	},
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/twohanded/required/kirbyplants/random/contraband,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
 "qxZ" = (

@@ -15,7 +15,36 @@
 	. = ..()
 	open = round(rand(0, 1))
 	update_icon()
-
+	
+/obj/structure/toilet/contraband/Initialize(mapload)
+	..()
+	if(!open && mapload && prob(10))
+		var/ctype = pick( /obj/item/crowbar,
+				/obj/item/assembly/flash/handheld,
+				/obj/item/restraints/handcuffs/cable/zipties,
+				/obj/item/reagent_containers/syringe/contraband/space_drugs,
+				/obj/item/reagent_containers/syringe/contraband/krokodil,
+				/obj/item/reagent_containers/syringe/contraband/crank,
+				/obj/item/reagent_containers/syringe/contraband/methamphetamine,
+				/obj/item/reagent_containers/syringe/contraband/bath_salts,
+				/obj/item/reagent_containers/syringe/contraband/fentanyl,
+				/obj/item/reagent_containers/syringe/contraband/morphine,
+				/obj/item/grenade/smokebomb,
+				/obj/item/melee/shank,
+				/obj/item/kitchen/knife/carrotshiv,
+				/obj/item/kitchen/knife,
+				/obj/item/club/tailclub,
+				/obj/item/storage/pill_bottle/zoom,
+				/obj/item/storage/pill_bottle/happy,
+				/obj/item/storage/pill_bottle/lsd,
+				/obj/item/storage/pill_bottle/aranesp,
+				/obj/item/storage/pill_bottle/stimulant,
+				/obj/item/storage/pill_bottle/psicodine,
+				/obj/item/toy/cards/deck/syndicate,
+				/obj/item/reagent_containers/food/drinks/bottle/absinthe,
+				/obj/item/clothing/mask/gas/syndicate)
+		var/obj/item/I = new ctype(src)
+		w_items += I.w_class
 
 /obj/structure/toilet/attack_hand(mob/living/user)
 	. = ..()

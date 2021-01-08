@@ -1242,7 +1242,7 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
 "eM" = (
-/obj/structure/toilet{
+/obj/structure/toilet/contraband{
 	dir = 8
 	},
 /obj/machinery/light/small{
@@ -1307,7 +1307,7 @@
 /turf/open/floor/plasteel,
 /area/mine/science)
 "eV" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/twohanded/required/kirbyplants/random/contraband,
 /turf/open/floor/plasteel,
 /area/mine/science)
 "eX" = (
@@ -4052,7 +4052,7 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
 "zl" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/twohanded/required/kirbyplants/random/contraband,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
@@ -4624,7 +4624,7 @@
 /turf/open/floor/plasteel,
 /area/mine/production)
 "EZ" = (
-/obj/structure/toilet{
+/obj/structure/toilet/contraband{
 	dir = 8
 	},
 /turf/open/floor/plasteel/freezer,
@@ -4833,7 +4833,7 @@
 /turf/open/floor/plasteel,
 /area/mine/eva)
 "HA" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/twohanded/required/kirbyplants/random/contraband,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -5293,7 +5293,7 @@
 /area/mine/production)
 "LY" = (
 /obj/structure/window/reinforced,
-/obj/item/twohanded/required/kirbyplants/random{
+/obj/item/twohanded/required/kirbyplants/random/contraband{
 	pixel_y = 4
 	},
 /turf/open/floor/plasteel,

@@ -8451,7 +8451,7 @@
 	pixel_x = -12;
 	pixel_y = 2
 	},
-/obj/structure/toilet{
+/obj/structure/toilet/contraband{
 	pixel_y = 16
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -61884,7 +61884,7 @@
 /area/security/courtroom)
 "bKT" = (
 /obj/effect/turf_decal/box,
-/obj/structure/toilet{
+/obj/structure/toilet/contraband{
 	dir = 8;
 	icon_state = "toilet00"
 	},
@@ -61918,7 +61918,7 @@
 /area/crew_quarters/toilet/restrooms)
 "bKU" = (
 /obj/effect/turf_decal/box,
-/obj/structure/toilet{
+/obj/structure/toilet/contraband{
 	dir = 8;
 	icon_state = "toilet00"
 	},
@@ -95358,7 +95358,7 @@
 	pixel_x = -12;
 	pixel_y = 2
 	},
-/obj/structure/toilet{
+/obj/structure/toilet/contraband{
 	pixel_y = 16
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -95824,7 +95824,7 @@
 	pixel_x = -12;
 	pixel_y = 2
 	},
-/obj/structure/toilet{
+/obj/structure/toilet/contraband{
 	pixel_y = 16
 	},
 /obj/effect/turf_decal/tile/neutral{

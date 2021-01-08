@@ -4895,7 +4895,7 @@
 /turf/closed/indestructible/riveted,
 /area/centcom/ferry)
 "nj" = (
-/obj/structure/toilet{
+/obj/structure/toilet/contraband{
 	dir = 4
 	},
 /obj/machinery/light{
@@ -7735,7 +7735,7 @@
 /turf/open/floor/wood,
 /area/syndicate_mothership/control)
 "sj" = (
-/obj/structure/toilet{
+/obj/structure/toilet/contraband{
 	dir = 8
 	},
 /obj/structure/window/reinforced/tinted{
@@ -9949,7 +9949,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/bar,
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/twohanded/required/kirbyplants/random/contraband,
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
 "xc" = (
@@ -13174,7 +13174,7 @@
 /turf/open/floor/plasteel/white,
 /area/wizard_station)
 "En" = (
-/obj/structure/toilet{
+/obj/structure/toilet/contraband{
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
@@ -17463,7 +17463,7 @@
 /turf/open/floor/plasteel/white,
 /area/centcom/holding)
 "QI" = (
-/obj/structure/toilet{
+/obj/structure/toilet/contraband{
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,

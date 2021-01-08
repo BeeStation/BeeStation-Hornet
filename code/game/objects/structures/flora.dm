@@ -360,6 +360,48 @@
 	states += "applebush"
 
 
+/obj/item/twohanded/required/kirbyplants/random/contraband/Initialize()
+	. = ..()
+	if(prob(3))
+		var/ctype = pick( /obj/item/clothing/mask/cigarette/space_cigarette,
+							/obj/item/clothing/mask/cigarette/robust,
+							/obj/item/clothing/mask/cigarette/carp,
+							/obj/item/clothing/mask/cigarette/uplift,
+							/obj/item/clothing/mask/cigarette/dromedary,
+							/obj/item/clothing/mask/cigarette/robustgold,
+							/obj/item/storage/fancy/cigarettes/cigpack_uplift,
+							/obj/item/storage/fancy/cigarettes,
+							/obj/item/clothing/mask/cigarette/rollie/cannabis,
+							/obj/item/toy/crayon/spraycan,
+							/obj/item/crowbar,
+							/obj/item/assembly/flash/handheld,
+							/obj/item/restraints/handcuffs/cable/zipties,
+							/obj/item/restraints/handcuffs,
+							/obj/item/radio/off,
+							/obj/item/reagent_containers/syringe/contraband/space_drugs,
+							/obj/item/reagent_containers/syringe/contraband/krokodil,
+							/obj/item/reagent_containers/syringe/contraband/crank,
+							/obj/item/reagent_containers/syringe/contraband/methamphetamine,
+							/obj/item/reagent_containers/syringe/contraband/bath_salts,
+							/obj/item/reagent_containers/syringe/contraband/fentanyl,
+							/obj/item/reagent_containers/syringe/contraband/morphine,
+							/obj/item/reagent_containers/food/drinks/beer,
+							/obj/item/reagent_containers/food/drinks/bottle/whiskey,
+							/obj/item/grenade/smokebomb,
+							/obj/item/flashlight/seclite,
+							/obj/item/club/tailclub,
+							/obj/item/melee/shank,
+							/obj/item/kitchen/knife/carrotshiv,
+							/obj/item/kitchen/knife,
+							/obj/item/storage/pill_bottle/zoom,
+							/obj/item/storage/pill_bottle/happy,
+							/obj/item/storage/pill_bottle/lsd,
+							/obj/item/storage/pill_bottle/aranesp,
+							/obj/item/storage/pill_bottle/stimulant,
+							/obj/item/storage/pill_bottle/psicodine,
+							/obj/item/poster/random_contraband)
+		new ctype(src)
+
 /obj/item/twohanded/required/kirbyplants/dead
 	name = "RD's potted plant"
 	desc = "A gift from the botanical staff, presented after the RD's reassignment. There's a tag on it that says \"Y'all come back now, y'hear?\"\nIt doesn't look very healthy..."
