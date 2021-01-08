@@ -25,6 +25,7 @@
 	if(L)
 		if(L.is_disabled() == BODYPART_DISABLED_PARALYSIS)
 			to_chat(user, "<span class='warning'>You can't augment a limb with paralysis!</span>")
+			return -1
 		else
 			display_results(user, target, "<span class ='notice'>You begin to augment [target]'s [parse_zone(user.zone_selected)]...</span>",
 				"[user] begins to augment [target]'s [parse_zone(user.zone_selected)] with [aug].",
