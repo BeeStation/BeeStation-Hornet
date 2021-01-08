@@ -1,5 +1,0 @@
-author: ike709
-delete-after: true
-changes:
-  - code_imp: Optimized get_mob_by_ckey().
-  - code_imp: Removed get_mob_by_key().
