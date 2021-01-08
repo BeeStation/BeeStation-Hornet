@@ -138,6 +138,9 @@
 	list_reagents = list(/datum/reagent/medicine/mannitol = 50)
 	rename_with_volume = TRUE
 
+/obj/item/reagent_containers/pill/mannitol/braintumor //For the brain tumor quirk
+	list_reagents = list(/datum/reagent/medicine/mannitol = 20)
+
 /obj/item/reagent_containers/pill/mutadone
 	name = "mutadone pill"
 	desc = "Used to treat genetic damage."

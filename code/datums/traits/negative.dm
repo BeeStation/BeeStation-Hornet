@@ -63,7 +63,7 @@
 
 /datum/quirk/brainproblems/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	var/obj/item/storage/pill_bottle/mannitol/P = new(get_turf(H))
+	var/obj/item/storage/pill_bottle/mannitol/braintumor/P = new(get_turf(H))
 
 	var/slot = H.equip_in_one_of_slots(P, list(SLOT_L_STORE, SLOT_R_STORE, SLOT_IN_BACKPACK), FALSE)
 	if(slot)
