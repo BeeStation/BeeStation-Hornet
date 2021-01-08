@@ -1607,7 +1607,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/crevice_spike
 	name = "Crevice Spike"
-	description = "Sour, bitter, and smashingly sobering."
+	description = "Sour, bitter, and smashingly sobering. Doesn't sober up light drinkers."
 	color = "#5BD231"
 	boozepwr = -10 //sobers you up - ideally, one would drink to get hit with brute damage now to avoid alcohol problems later
 	quality = DRINK_VERYGOOD
@@ -1616,6 +1616,11 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_name = "Crevice Spike"
 	glass_desc = "It'll either knock the drunkenness out of you or knock you out cold. Both, probably."
 	random_unrestricted = TRUE
+
+/datum/reagent/consumable/ethanol/crevice_spike/on_mob_life(mob/living/carbon/M)
+	if(HAS_TRAIT(M, TRAIT_LIGHT_DRINKER))
+			booze_power = 65
+	..()
 
 /datum/reagent/consumable/ethanol/crevice_spike/on_mob_metabolize(mob/living/L) //damage only applies when drink first enters system and won't again until drink metabolizes out
 	L.adjustBruteLoss(3 * min(5,volume)) //minimum 3 brute damage on ingestion to limit non-drink means of injury - a full 5 unit gulp of the drink trucks you for the full 15
@@ -1772,7 +1777,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/fanciulli
 
 	name = "Fanciulli"
-	description = "What if the Manhattan coctail ACTUALLY used a bitter herb liquour? Helps you sobers up." //also causes a bit of stamina damage to symbolize the afterdrink lazyness
+	description = "What if the Manhattan coctail ACTUALLY used a bitter herb liquour? Helps you sobers up. Doesn't sober up light drinkers." //also causes a bit of stamina damage to symbolize the afterdrink lazyness
 	color = "#CA933F" // rgb: 202, 147, 63
 	boozepwr = -10
 	quality = DRINK_NICE
