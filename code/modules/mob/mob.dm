@@ -173,7 +173,7 @@
 	var/range = 7
 	if(vision_distance)
 		range = vision_distance
-	for(var/mob/M in hearers(range, src))
+	for(var/mob/M as() in hearers(range, src))
 		if(!M.client)
 			continue
 		if(M in ignored_mobs)
@@ -213,7 +213,7 @@
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
-	for(var/mob/M in hearers(range, src))
+	for(var/mob/M as() in hearers(range, src))
 		var/msg = message
 		if(self_message && M==src)
 			msg = self_message
@@ -233,7 +233,7 @@
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
-	for(var/mob/M in hearers(range, src))
+	for(var/mob/M as() in hearers(range, src))
 		M.show_message( message, 2, deaf_message, 1)
 
 ///Get the item on the mob in the storage slot identified by the id passed in
