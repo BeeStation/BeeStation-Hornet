@@ -377,11 +377,10 @@
 		if(AM.Move(get_step(T, direction)))
 			break
 
-/proc/get_mob_by_key(key)
-	var/ckey = ckey(key)
-	for(var/i in GLOB.player_list)
-		var/mob/M = i
-		if(M.ckey == ckey)
+/proc/get_mob_by_ckey(key)
+	var/ckey = ckey(key) //just to be safe
+	for(var/mob/M as() in GLOB.player_list)
+		if(M?.ckey == ckey)
 			return M
 	return null
 

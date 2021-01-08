@@ -288,7 +288,7 @@
 
 		var/where = "[AREACOORD(location)]"
 		if(carry.my_atom.fingerprintslast)
-			var/mob/M = get_mob_by_key(carry.my_atom.fingerprintslast)
+			var/mob/M = get_mob_by_ckey(carry.my_atom.fingerprintslast)
 			var/more = ""
 			if(M)
 				more = "[ADMIN_LOOKUPFLW(M)] "
