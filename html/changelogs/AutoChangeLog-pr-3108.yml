@@ -1,0 +1,5 @@
+author: MCHSL, Rohesie, LemonInTheDark
+delete-after: true
+changes:
+  - rscadd: Reference tracking, which can be enabled via compile options; ported frontend
+      from tg
