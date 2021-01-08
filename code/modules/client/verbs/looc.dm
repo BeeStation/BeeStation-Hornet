@@ -59,8 +59,8 @@ GLOBAL_VAR_INIT(looc_allowed, 1)
 
     mob.log_talk(raw_msg, LOG_OOC, tag="LOOC")
 
-    var/list/heard = get_hearers_in_view(7, get_top_level_mob(src.mob))
-    for(var/mob/M in heard)
+    var/list/heard = hearers(7, get_top_level_mob(src.mob))
+    for(var/mob/M as() in heard)
         if(!M.client)
             continue
         var/client/C = M.client
