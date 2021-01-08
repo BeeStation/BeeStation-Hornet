@@ -374,7 +374,6 @@
 							/obj/item/clothing/mask/cigarette/rollie/cannabis,
 							/obj/item/toy/crayon/spraycan,
 							/obj/item/crowbar,
-							/obj/item/assembly/flash/handheld,
 							/obj/item/restraints/handcuffs/cable/zipties,
 							/obj/item/restraints/handcuffs,
 							/obj/item/radio/off,
