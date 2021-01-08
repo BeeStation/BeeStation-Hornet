@@ -1,0 +1,4 @@
+author: ike709
+delete-after: true
+changes:
+  - code_imp: Improved performance of get_hearers_in_view() by quite a bit.
