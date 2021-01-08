@@ -765,7 +765,7 @@
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stock_parts/manipulator/femto = 3,
 		/obj/item/stock_parts/scanning_module = 1,
-		/obj/item/stack/ore/bluespace_crystal = 10)
+		/obj/item/stack/ore/bluespace_crystal = 11)
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/circuit_imprinter/department/science
