@@ -41,33 +41,33 @@
 		efficiency += P.rating
 	
 	switch (efficiency)
-		if (5 to 10)
+		if (10 to 19)
 			ore_rates = list(
-				/datum/material/iron = 1, 
-				/datum/material/glass = 1,
-				/datum/material/copper = 0.5, 
-				/datum/material/silver = 0.2, 
+				/datum/material/iron = 5, 
+				/datum/material/glass = 5,
+				/datum/material/copper = 3, 
+				/datum/material/silver = 1, 
 			)
-		if (10 to 15)
+		if (20 to 29)
 			ore_rates = list(
-				/datum/material/iron = 1, 
-				/datum/material/glass = 1,
-				/datum/material/copper = 0.4, 
-				/datum/material/silver = 0.3, 
-				/datum/material/gold = 0.2, 
-				/datum/material/plasma = 0.2,
+				/datum/material/iron = 5, 
+				/datum/material/glass = 5,
+				/datum/material/copper = 3, 
+				/datum/material/silver = 2, 
+				/datum/material/gold = 1, 
+				/datum/material/plasma = 1,
 			)
-		if (15 to INFINITY)	//and beyond
+		if (30 to INFINITY)	//and beyond
 			ore_rates = list(
-				/datum/material/iron = 1, 
-				/datum/material/glass = 1, 
-				/datum/material/copper = 0.6, 
-				/datum/material/silver = 0.4, 
-				/datum/material/gold = 0.33, 
-				/datum/material/plasma = 0.33,
-				/datum/material/titanium = 0.25, 
-				/datum/material/uranium = 0.25, 
-				/datum/material/diamond = 0.25
+				/datum/material/iron = 4, 
+				/datum/material/glass = 4, 
+				/datum/material/copper = 2.4, 
+				/datum/material/silver = 1.6, 
+				/datum/material/gold = 1.2, 
+				/datum/material/plasma = 1.2,
+				/datum/material/titanium = 1, 
+				/datum/material/uranium = 1, 
+				/datum/material/diamond = 1
 			)
 		else 
 			ore_rates = list(
@@ -81,6 +81,5 @@
 	var/datum/component/material_container/mat_container = materials.mat_container
 	if(!mat_container || panel_open || !powered())
 		return
-	if (prob(33))
-		var/datum/material/ore = pick(ore_rates)
-		mat_container.insert_amount_mat((ore_rates[ore] * 1000), ore)
+	var/datum/material/ore = pick(ore_rates)
+	mat_container.insert_amount_mat((ore_rates[ore] * rand (200,400)), ore)
