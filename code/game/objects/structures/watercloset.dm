@@ -32,8 +32,6 @@
 				/obj/item/grenade/smokebomb,
 				/obj/item/melee/shank,
 				/obj/item/kitchen/knife/carrotshiv,
-				/obj/item/kitchen/knife,
-				/obj/item/club/tailclub,
 				/obj/item/storage/pill_bottle/zoom,
 				/obj/item/storage/pill_bottle/happy,
 				/obj/item/storage/pill_bottle/lsd,
