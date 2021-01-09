@@ -45,15 +45,17 @@ SUBSYSTEM_DEF(stat)
 			overlay_hash = "[overlay_hash][I.icon_state]"
 		what_to_search = "[M.type][M.name][overlay_hash]"
 	//Makes it shorter
-	what_to_search = md5(what_to_search)
-	if(flat_icon_cache.Find(what_to_search))
-		return flat_icon_cache[what_to_search]
+	what_to_search = sha1(what_to_search)
+	thing = flat_icon_cache[what_to_search]
+	if(thing)
+		return thing
 	//Adding a new icon
 	//If the list gets too big just remove the first thing
 	if(flat_icon_cache.len > FLAT_ICON_CACHE_MAX_SIZE)
 		flat_icon_cache.Cut(1, 2)
-	flat_icon_cache[what_to_search] = icon2base64(getFlatIcon(A, no_anim=TRUE))
-	return flat_icon_cache[what_to_search]
+	thing = icon2base64(getFlatIcon(A, no_anim=TRUE))
+	flat_icon_cache[what_to_search] = thing
+	return thing
 
 /datum/controller/subsystem/stat/proc/send_global_alert(title, message)
 	for(var/client/C in GLOB.clients)
