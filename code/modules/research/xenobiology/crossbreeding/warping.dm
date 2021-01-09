@@ -76,18 +76,18 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	if(!proximity)
 		return
 
+	if(istype(target, runepath)) //checks if the target is a rune and then if you can store it
+		if(do_after(user, storing_time,target = target))
+			warping_crossbreed_absorb(target, user)
+		return
+
 	if(isturf(target) && locate(/obj/effect/warped_rune) in target) //check if the target is a floor and if there's a rune on said floor
 		to_chat(user, "<span class='warning'>There is already a bluespace rune here!</span>")
 		return
 
-	if(!istype(target,/turf/open/floor) && !istype(target, runepath))
+	if(!istype(target,/turf/open/floor))
 		to_chat(user, "<span class='warning'>you cannot draw a rune here!</span>")
 		return
-
-	if(istype(target, runepath)) //checks if the target is a rune and then if you can store it
-		if(do_after(user, storing_time,target = target) && warp_charge)
-			warping_crossbreed_absorb(target, user)
-			return
 
 	if(warp_charge < 1) //check if we have at least 1 charge left.
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
