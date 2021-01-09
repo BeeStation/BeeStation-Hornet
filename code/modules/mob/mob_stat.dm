@@ -68,7 +68,7 @@
 				icon=icon2base64(getFlatIcon(A, no_anim=TRUE)),	//TODO: Cache this shit
 				type=STAT_ATOM,
 			)
-	var/list/all_verbs = sorted_verbs + client.sorted_verbs
+	var/list/all_verbs = get_all_verbs()
 	if(selected_tab in all_verbs)
 		client.stat_update_mode = STAT_NO_UPDATE
 		for(var/verb in all_verbs[selected_tab])
@@ -86,6 +86,17 @@
 		log_admin("[ckey] attempted to access the [selected_tab] tab without sufficient rights.")
 		return list()
 	return tab_data
+
+/mob/proc/get_all_verbs()
+	var/list/all_verbs = list()
+	all_verbs += sorted_verbs + client.sorted_verbs
+	for(var/atom/A as() in contents)
+		//As an optimisation we will make it so all verbs on objects will go into the object tab.
+		//If you don't want this to happen change this.
+		if(!all_verbs.Find("Object"))
+			all_verbs["Object"] = list()
+		all_verbs["Object"]
+	return all_verbs
 
 /*
  * Gets the stat tab contents for the status tab
