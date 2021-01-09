@@ -43,28 +43,28 @@
 	switch (efficiency)
 		if (10 to 19)
 			ore_rates = list(
-				/datum/material/iron = 5, 
-				/datum/material/glass = 5,
-				/datum/material/copper = 3, 
+				/datum/material/iron = 3, 
+				/datum/material/glass = 3,
+				/datum/material/copper = 2, 
 				/datum/material/silver = 1, 
 			)
 		if (20 to 29)
 			ore_rates = list(
-				/datum/material/iron = 5, 
-				/datum/material/glass = 5,
-				/datum/material/copper = 3, 
+				/datum/material/iron = 6, 
+				/datum/material/glass = 6,
+				/datum/material/copper = 4, 
 				/datum/material/silver = 2, 
 				/datum/material/gold = 1, 
-				/datum/material/plasma = 1,
+				/datum/material/plasma = 2,
 			)
 		if (30 to INFINITY)	//and beyond
 			ore_rates = list(
-				/datum/material/iron = 4, 
-				/datum/material/glass = 4, 
-				/datum/material/copper = 2.4, 
-				/datum/material/silver = 1.6, 
-				/datum/material/gold = 1.2, 
-				/datum/material/plasma = 1.2,
+				/datum/material/iron = 6, 
+				/datum/material/glass = 6, 
+				/datum/material/copper = 4, 
+				/datum/material/silver = 2, 
+				/datum/material/gold = 1, 
+				/datum/material/plasma = 2,
 				/datum/material/titanium = 1, 
 				/datum/material/uranium = 1, 
 				/datum/material/diamond = 1
