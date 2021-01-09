@@ -173,7 +173,7 @@
 	var/range = 7
 	if(vision_distance)
 		range = vision_distance
-	for(var/mob/M as() in hearers(range, src))
+	for(var/mob/M as() in hearers(range, T))
 		if(!M.client)
 			continue
 		if(M in ignored_mobs)
