@@ -163,6 +163,16 @@
 		H.bleed_rate+= 2
 
 
+/datum/eldritch_knowledge/summon/raw_prophet
+	name = "Raw Ritual"
+	gain_text = "Uncanny man, walks alone in the valley, I was able to call his aid."
+	desc = "You can now summon a Raw Prophet using eyes, a left arm, right arm and a pool of blood. Raw prophets have increased seeing range, as well as Xray. But are very fragile and weak."
+	cost = 1
+	required_atoms = list(/obj/item/organ/eyes,/obj/item/bodypart/l_arm,/obj/item/bodypart/r_arm,/obj/effect/decal/cleanable/blood)
+	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/raw_prophet
+	next_knowledge = list(/datum/eldritch_knowledge/flesh_blade_upgrade,/datum/eldritch_knowledge/spell/blood_siphon,/datum/eldritch_knowledge/curse/paralysis)
+	route = PATH_FLESH
+
 /datum/eldritch_knowledge/summon/stalker
 	name = "Lonely Ritual"
 	gain_text = "I was able to combine my greed and desires to summon an eldritch beast i have not seen before."
@@ -172,6 +182,15 @@
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/stalker
 	next_knowledge = list(/datum/eldritch_knowledge/summon/ashy,/datum/eldritch_knowledge/summon/rusty,/datum/eldritch_knowledge/final/flesh_final)
 	route = PATH_FLESH
+
+/datum/eldritch_knowledge/summon/ashy
+	name = "Ashen Ritual"
+	gain_text = "I combined principle of hunger with desire of destruction. The eyeful lords have noticed me."
+	desc = "You can now summon an Ash Man by transmutating a pile of ash , a head and a book."
+	cost = 1
+	required_atoms = list(/obj/effect/decal/cleanable/ash,/obj/item/bodypart/head,/obj/item/book)
+	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/ash_spirit
+	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/rust_wave)
 
 /datum/eldritch_knowledge/summon/rusty
 	name = "Rusted Ritual"
