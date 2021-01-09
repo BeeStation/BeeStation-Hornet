@@ -1,4 +1,4 @@
-#define FLAT_ICON_CACHE_MAX_SIZE 100
+#define FLAT_ICON_CACHE_MAX_SIZE 250
 
 SUBSYSTEM_DEF(stat)
 	name = "Stat"
@@ -44,6 +44,8 @@ SUBSYSTEM_DEF(stat)
 		for(var/image/I as() in M.overlays)
 			overlay_hash = "[overlay_hash][I.icon_state]"
 		what_to_search = "[M.type][M.name][overlay_hash]"
+	//Makes it shorter
+	what_to_search = md5(what_to_search)
 	if(flat_icon_cache.Find(what_to_search))
 		return flat_icon_cache[what_to_search]
 	//Adding a new icon
