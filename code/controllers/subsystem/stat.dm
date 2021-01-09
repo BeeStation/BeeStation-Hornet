@@ -49,7 +49,7 @@ SUBSYSTEM_DEF(stat)
 	//Adding a new icon
 	//If the list gets too big just remove the first thing
 	if(flat_icon_cache.len > FLAT_ICON_CACHE_MAX_SIZE)
-		flat_icon_cache.Cut(0, 1)
+		flat_icon_cache.Cut(1, 2)
 	flat_icon_cache[what_to_search] = icon2base64(getFlatIcon(A, no_anim=TRUE))
 	return flat_icon_cache[what_to_search]
 
