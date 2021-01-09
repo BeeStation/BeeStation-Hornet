@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(stat)
 	init_order = INIT_ORDER_STAT
 	flags = SS_NO_INIT | SS_BACKGROUND
 
+	var/list/flat_icon_cache = list()	//Assoc list, datum = flat icon
 	var/list/currentrun = list()
 
 /datum/controller/subsystem/stat/fire(resumed = 0)
@@ -14,6 +15,10 @@ SUBSYSTEM_DEF(stat)
 
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
+
+	//Clear this every 5 minutes, infrequently used icons should pop up less.
+	if(times_fired % 150 == 0)
+		flat_icon_cache.Cut()
 
 	while(currentrun.len)
 		var/client/C = currentrun[currentrun.len]
@@ -27,6 +32,24 @@ SUBSYSTEM_DEF(stat)
 
 		if (MC_TICK_CHECK)
 			return
+
+//Note: Doesn't account for decals on items.
+//Whoever examins an item with a decal first, everyone else will see that items decals.
+//Significantly reduces server lag though, like MASSIVELY!
+/datum/controller/subsystem/stat/proc/get_flat_icon(atom/A)
+	var/what_to_search = "[A.type][A.icon_state]"
+	//Mobs are more important than items.
+	//Mob icons will change if their name changes, their type changes or their overlays change.
+	if(istype(A, /mob))
+		var/mob/M = A
+		var/overlay_hash = ""
+		for(var/image/I as() in M.overlays)
+			overlay_hash = "[overlay_hash][I.icon_state]"
+		what_to_search = "[M.type][M.name][overlay_hash]"
+	if(flat_icon_cache.Find(what_to_search))
+		return flat_icon_cache[what_to_search]
+	flat_icon_cache[what_to_search] = icon2base64(getFlatIcon(A, no_anim=TRUE))
+	return flat_icon_cache[what_to_search]
 
 /datum/controller/subsystem/stat/proc/send_global_alert(title, message)
 	for(var/client/C in GLOB.clients)

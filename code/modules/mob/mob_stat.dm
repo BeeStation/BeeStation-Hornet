@@ -7,6 +7,7 @@
 /*
  * Overrideable proc which gets the stat content for the selected tab.
  */
+ //33.774 CPU time
 /mob/proc/get_stat(selected_tab)
 	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name(usr)] attempted to do something weird with the stat tab (Most likely attempting to exploit it to gain privillages).")
@@ -18,17 +19,17 @@
 		// ===== STATUS TAB =====
 		if("Status")
 			client.stat_update_mode = STAT_FAST_UPDATE
-			tab_data = get_stat_tab_status()
+			tab_data = get_stat_tab_status()						// ~ 0.525 CPU Time [15000 CALLS] (Depends on which tabs are selected)
 		// ===== MASTER CONTROLLER =====
 		if("MC")
 			client.stat_update_mode = STAT_SLOW_UPDATE
 			requires_holder = TRUE
-			tab_data = get_stat_tab_master_controller()
+			tab_data = get_stat_tab_master_controller()				// ~ 0.037 CPU Time [33 CALLS]
 		// ===== ADMIN TICKETS =====
 		if("Tickets")
 			client.stat_update_mode = STAT_MEDIUM_UPDATE
 			requires_holder = TRUE
-			tab_data = GLOB.ahelp_tickets.stat_entry()
+			tab_data = GLOB.ahelp_tickets.stat_entry()				//  ~ 0 CPU Time [1 CALL]
 		// ===== SDQL2 =====
 		if("SDQL2")
 			client.stat_update_mode = STAT_MEDIUM_UPDATE
@@ -41,46 +42,47 @@
 			for(var/i in GLOB.sdql2_queries)
 				var/datum/SDQL2_query/Q = i
 				tab_data += Q.generate_stat()
-	// ===== NON CONSTANT TABS (Tab names which can change) =====
-	// ===== LISTEDS TURFS =====
-	if(listed_turf && listed_turf.name == selected_tab)
-		client.stat_update_mode = STAT_MEDIUM_UPDATE
-		var/list/overrides = list()
-		for(var/image/I in client.images)
-			if(I.loc && I.loc.loc == listed_turf && I.override)
-				overrides += I.loc
-		tab_data[REF(listed_turf)] = list(
-			text="[listed_turf.name]",
-			icon=icon2base64(getFlatIcon(listed_turf, no_anim=TRUE)),	//TODO: Cache this shit
-			type=STAT_ATOM,
-		)
-		for(var/atom/A in listed_turf)
-			if(!A.mouse_opacity)
-				continue
-			if(A.invisibility > see_invisible)
-				continue
-			if(overrides.len && (A in overrides))
-				continue
-			if(A.IsObscured())
-				continue
-			tab_data[REF(A)] = list(
-				text="[A.name]",
-				icon=icon2base64(getFlatIcon(A, no_anim=TRUE)),	//TODO: Cache this shit
-				type=STAT_ATOM,
-			)
-	var/list/all_verbs = get_all_verbs()
-	if(selected_tab in all_verbs)
-		client.stat_update_mode = STAT_SLOW_UPDATE
-		for(var/verb in all_verbs[selected_tab])
-			var/procpath/V = verb
-			tab_data["[V.name]"] = list(
-				action = "verb",
-				params = list("verb" = V.name),
-				type=STAT_VERB,
-			)
-	if(mind)
-		tab_data += get_spell_stat_data(mind.spell_list, selected_tab)
-	tab_data += get_spell_stat_data(mob_spell_list, selected_tab)
+		else
+			// ===== NON CONSTANT TABS (Tab names which can change) =====
+			// ===== LISTEDS TURFS =====
+			if(listed_turf && listed_turf.name == selected_tab)
+				client.stat_update_mode = STAT_MEDIUM_UPDATE
+				var/list/overrides = list()
+				for(var/image/I in client.images)
+					if(I.loc && I.loc.loc == listed_turf && I.override)
+						overrides += I.loc
+				tab_data[REF(listed_turf)] = list(
+					text="[listed_turf.name]",
+					icon=SSstat.get_flat_icon(listed_turf),	//TODO: Cache this shit (VERY EXPENSIVE) ~ 1.940 CPU Time [1400 CALLS] !!!!!
+					type=STAT_ATOM,
+				)
+				for(var/atom/A in listed_turf)
+					if(!A.mouse_opacity)
+						continue
+					if(A.invisibility > see_invisible)
+						continue
+					if(overrides.len && (A in overrides))
+						continue
+					if(A.IsObscured())
+						continue
+					tab_data[REF(A)] = list(
+						text="[A.name]",
+						icon=SSstat.get_flat_icon(A),	//TODO: Cache this shit AGAIN!!! WHY!!!!!
+						type=STAT_ATOM,
+					)
+			var/list/all_verbs = get_all_verbs()								// ~0.252 CPU Time [14000 CALLS]
+			if(selected_tab in all_verbs)
+				client.stat_update_mode = STAT_SLOW_UPDATE
+				for(var/verb in all_verbs[selected_tab])
+					var/procpath/V = verb
+					tab_data["[V.name]"] = list(
+						action = "verb",
+						params = list("verb" = V.name),
+						type=STAT_VERB,
+					)
+			if(mind)
+				tab_data += get_spell_stat_data(mind.spell_list, selected_tab)
+			tab_data += get_spell_stat_data(mob_spell_list, selected_tab)
 	if(requires_holder && !client.holder)
 		message_admins("[ckey] attempted to access the [selected_tab] tab without sufficient rights.")
 		log_admin("[ckey] attempted to access the [selected_tab] tab without sufficient rights.")
