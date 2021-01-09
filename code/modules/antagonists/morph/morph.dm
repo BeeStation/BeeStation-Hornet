@@ -37,7 +37,7 @@
 	var/atom/movable/form = null
 	var/morph_time = 0
 	var/static/list/blacklist_typecache = typecacheof(list(
-	/obj/screen,
+	/atom/movable/screen,
 	/obj/singularity,
 	/mob/living/simple_animal/hostile/morph,
 	/obj/effect))
@@ -151,7 +151,7 @@
 		throwatom = null
 		playsound(src, 'sound/effects/splat.ogg', 50, 1)
 	. = ..()
-	
+
 
 /mob/living/simple_animal/hostile/morph/examine(mob/user)
 	if(morphed)

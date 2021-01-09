@@ -14,8 +14,7 @@
 	climb_stun = 0 //climbing onto crates isn't hard, guys
 	delivery_icon = "deliverycrate"
 	door_anim_time = 2
-	door_anim_squish = 0.25
-	door_anim_angle = 240
+	door_anim_angle = 210
 	door_hinge = 3.5
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
@@ -23,6 +22,7 @@
 	close_sound_volume = 50
 	drag_slowdown = 0
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
+	var/radius_2 = 1.35
 
 /obj/structure/closet/crate/Initialize()
 	. = ..()
@@ -67,9 +67,10 @@
 		var/angle = door_anim_angle * (closing ? 1 - (I/num_steps) : (I/num_steps))
 		var/door_state = angle >= 90 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
 		var/door_layer = angle >= 90 ? FLOAT_LAYER : ABOVE_MOB_LAYER
-		var/isbiggercos = angle >= 180 ? TRUE : FALSE
-		var/isbiggersin = angle >= 90 ? TRUE : FALSE
-		var/matrix/M = get_door_transform(angle,isbiggercos,isbiggersin)
+		var/azimuth_angle = angle >= 90 ? 138 : 338
+		var/polar_angle = abs(arcsin(cos(angle)))
+		var/radius_cr = angle >= 90 ? radius_2 : 1
+		var/matrix/M = get_door_transform(azimuth_angle, polar_angle, radius_cr)
 		if(I == 0)
 			door_obj.transform = M
 			door_obj.icon_state = door_state
@@ -86,10 +87,10 @@
 	update_icon()
 	COMPILE_OVERLAYS(src)
 
-/obj/structure/closet/crate/get_door_transform(angle, isbiggercos,isbiggersin)
+/obj/structure/closet/crate/get_door_transform(azimuth_angle, polar_angle, radius_cr)
 		var/matrix/M = matrix()
 		M.Translate(0, -door_hinge)
-		M.Multiply(matrix(1, isbiggersin ? -(2 - sin(angle))*door_anim_squish : -sin(angle)* door_anim_squish, 0, 0, isbiggercos ? -2 - cos(angle) : cos(angle), 0))
+		M.Multiply(matrix(1, -sin(polar_angle)*sin(azimuth_angle)* radius_cr, 0, 0, radius_cr*cos(azimuth_angle)*sin(polar_angle), 0))
 		M.Translate(0, door_hinge)
 		return M
 

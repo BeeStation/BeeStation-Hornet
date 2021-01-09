@@ -62,8 +62,10 @@
 /datum/symptom/blobspores/OnDeath(datum/disease/advance/A)
 	var/mob/living/M = A.affected_mob
 	M.visible_message("<span class='danger'>[M] starts swelling grotesquely!</span>")
-	sleep(10 SECONDS)
-	if(!A && !M)
+	addtimer(CALLBACK(src, .proc/blob_the_mob, A, M), 10 SECONDS)
+
+/datum/symptom/blobspores/proc/blob_the_mob(datum/disease/advance/A, mob/living/M)
+	if(!A || !M)
 		return
 	var/list/blob_options = list(/obj/structure/blob/normal)
 	if(factory_blob)
