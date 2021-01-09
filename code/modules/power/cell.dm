@@ -484,11 +484,12 @@
 /obj/item/stock_parts/cell/gun/atech
 	name = "alien power supply"
 	maxcharge = 1000
-	custom_materials = list(/datum/material/glass=60)
-	self_recharge = 100
+	custom_materials = list(/datum/material/glass=300)
+	chargerate = 100
+	self_recharge = TRUE
 
 /obj/item/stock_parts/cell/gun/mini/atech
 	name = "compact alien power supply"
-	custom_materials = list(/datum/material/glass=300)
-	maxcharge = 300
-	self_recharge = 100
+	custom_materials = list(/datum/material/glass=60)
+	chargerate = 100
+	self_recharge = TRUE
