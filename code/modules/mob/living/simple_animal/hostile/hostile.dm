@@ -129,13 +129,8 @@
 
 /mob/living/simple_animal/hostile/proc/ListTargets()//Step 1, find out what we can see
 	if(!search_objects)
-		. = hearers(vision_range, targets_from) - src //Remove self, so we don't suicide
-
-		var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha))
-
-		for(var/HM in typecache_filter_list(range(vision_range, targets_from), hostile_machines))
-			if(can_see(targets_from, HM, vision_range))
-				. += HM
+		var/static/target_list = typecacheof(list(/mob, /obj/machinery/porta_turret, /obj/mecha))
+		return typecache_filter_list(view(vision_range, targets_from), target_list) - src
 	else
 		. = list()
 		for (var/atom/movable/A in oview(vision_range, targets_from))
