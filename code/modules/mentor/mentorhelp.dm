@@ -39,7 +39,7 @@
 		else
 			.["present"]++
 
-/proc/key_name_mentor(var/whom, var/include_link = null, var/include_name = 0, var/include_follow = 0, var/char_name_only = 0)
+/proc/key_name_mentor(var/whom, var/include_link = null, var/include_name = 0, var/char_name_only = 0)
 	var/mob/M
 	var/client/C
 	var/key
@@ -95,8 +95,5 @@
 			. += "</a>"
 	else
 		. += "*no key*"
-
-	if(include_follow)
-		. += " (<a href='?_src_=mentor;mentor_follow=[REF(M)];[MentorHrefToken(TRUE)]'>F</a>)"
 
 	return .

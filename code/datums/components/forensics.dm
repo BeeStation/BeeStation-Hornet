@@ -43,8 +43,6 @@
 
 /datum/component/forensics/proc/wipe_blood_DNA()
 	blood_DNA = null
-	if(isitem(parent))
-		qdel(parent.GetComponent(/datum/component/decal/blood))
 	return TRUE
 
 /datum/component/forensics/proc/wipe_fibers()
@@ -181,4 +179,6 @@
 		return
 	if(!length(blood_DNA))
 		return
-	parent.LoadComponent(/datum/component/decal/blood)
+	if(isitem(parent))
+		var/obj/item/I = parent
+		I.AddElement(/datum/element/decal/blood, initial(I.icon) || I.icon, initial(I.icon_state) || I.icon_state)

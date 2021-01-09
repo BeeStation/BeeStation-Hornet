@@ -251,8 +251,8 @@
 
 /datum/objective/polaroid/update_explanation_text()
 	..()
-	if(target?.current)
-		explanation_text = "Take a photo with [target.name] while they're alive."
+	if(target && target.current)
+		explanation_text = "Take a photo of [target.name] while they're alive."
 	else
 		explanation_text = "Free Objective"
 
@@ -265,7 +265,7 @@
 		for(var/obj/I in all_items) //Check for wanted items
 			if(istype(I, /obj/item/photo))
 				var/obj/item/photo/P = I
-				if(P.picture.mobs_seen.Find(owner) && P.picture.mobs_seen.Find(target) && !P.picture.dead_seen.Find(target))//you are in the picture, they are but they are not dead.
+				if(P.picture && (target.current in P.picture.mobs_seen) && !(target.current in P.picture.dead_seen)) //Does the picture exist and is the target in it and is the target not dead
 					return TRUE
 	return FALSE
 
