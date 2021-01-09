@@ -34,8 +34,8 @@
 		gain_knowledge(/datum/eldritch_knowledge/spell/basic)
 		gain_knowledge(/datum/eldritch_knowledge/living_heart)
 		gain_knowledge(/datum/eldritch_knowledge/codex_cicatrix)
-	current.log_message("has become a heretic", LOG_ATTACK, color="#960000")
-	GLOB.reality_smash_track.AddMind(owner)
+	current.log_message("has been turned into a heretic!", LOG_ATTACK, color="#960000")
+	GLOB.reality_smash_track.Generate()
 	START_PROCESSING(SSprocessing,src)
 	if(give_equipment)
 		equip_cultist()
@@ -50,7 +50,6 @@
 	if(!silent)
 		to_chat(owner.current, "<span class='userdanger'>Your mind begins to flare as the otherwordly knowledge escapes your grasp!</span>")
 		owner.current.log_message("has become a non-heretic", LOG_ATTACK, color="#960000")
-	GLOB.reality_smash_track.RemoveMind(owner)
 	STOP_PROCESSING(SSprocessing,src)
 
 	return ..()

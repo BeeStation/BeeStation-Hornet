@@ -278,6 +278,9 @@
 /datum/eldritch_knowledge/spell/basic/cleanup_atoms(list/atoms)
 	return
 
+///Every lore///
+////////////////
+
 /datum/eldritch_knowledge/living_heart
 	name = "Living Heart"
 	desc = "Allows you to create additional living hearts, using a heart, a pool of blood and a poppy. Living hearts when used on a transmutation rune will grant you a person to hunt and sacrifice on the rune. Every sacrifice gives you an additional charge in the book."
@@ -295,3 +298,96 @@
 	required_atoms = list(/obj/item/organ/eyes,/obj/item/stack/sheet/animalhide/human,/obj/item/storage/book/bible,/obj/item/pen)
 	result_atoms = list(/obj/item/forbidden_book)
 	route = "Start"
+
+///Crafting lore///
+///////////////////
+
+/datum/eldritch_knowledge/ashen_eyes
+	name = "Ashen Eyes"
+	gain_text = "Piercing eyes may guide me through the mundane."
+	desc = "Allows you to craft thermal vision amulet by transmutating eyes with a glass shard."
+	cost = 1
+	next_knowledge = list(/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
+	required_atoms = list(/obj/item/organ/eyes,/obj/item/shard)
+	result_atoms = list(/obj/item/clothing/neck/eldritch_amulet)
+
+/datum/eldritch_knowledge/armor
+	name = "Armorer's ritual"
+	desc = "You can now create eldritch armor using a table and a gas mask."
+	gain_text = "For I am the heir to the throne of doom."
+	cost = 1
+	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/flesh_ghoul)
+	required_atoms = list(/obj/structure/table,/obj/item/clothing/mask/gas)
+	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch)
+
+/datum/eldritch_knowledge/essence
+	name = "Priest's ritual"
+	desc = "You can now transmute a tank of water into a bottle of eldritch water."
+	gain_text = "This is an old recipe, i got it from an owl."
+	cost = 1
+	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift)
+	required_atoms = list(/obj/structure/reagent_dispensers/watertank)
+	result_atoms = list(/obj/item/reagent_containers/glass/beaker/eldritch)
+	
+///Creature lore///
+///////////////////
+
+/datum/eldritch_knowledge/summon/raw_prophet
+	name = "Raw Ritual"
+	gain_text = "Uncanny man, walks alone in the valley, I was able to call his aid."
+	desc = "You can now summon a Raw Prophet using eyes, a left arm, right arm and a pool of blood. Raw prophets have increased seeing range, as well as Xray. But are very fragile and weak."
+	cost = 1
+	required_atoms = list(/obj/item/organ/eyes,/obj/item/bodypart/l_arm,/obj/item/bodypart/r_arm,/obj/effect/decal/cleanable/blood)
+	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/raw_prophet
+	next_knowledge = list(/datum/eldritch_knowledge/flesh_blade_upgrade,/datum/eldritch_knowledge/spell/blood_siphon,/datum/eldritch_knowledge/curse/paralysis)
+	route = PATH_FLESH
+
+/datum/eldritch_knowledge/summon/ashy
+	name = "Ashen Ritual"
+	gain_text = "I combined principle of hunger with desire of destruction. The eyeful lords have noticed me."
+	desc = "You can now summon an Ash Man by transmutating a pile of ash , a head and a book."
+	cost = 1
+	required_atoms = list(/obj/effect/decal/cleanable/ash,/obj/item/bodypart/head,/obj/item/book)
+	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/ash_spirit
+	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/rust_wave)
+	
+///Curse lore///
+////////////////
+
+/datum/eldritch_knowledge/curse/corrosion
+	name = "Curse of Corrosion"
+	gain_text = "Cursed land, cursed man, cursed mind."
+	desc = "Curse someone for 2 minutes of vomiting and major organ damage. Using a wirecutter, a spill of blood, a heart, left arm and a right arm, and an item that the victim touched  with their bare hands."
+	cost = 1
+	required_atoms = list(/obj/item/wirecutters,/obj/effect/decal/cleanable/blood,/obj/item/organ/heart,/obj/item/bodypart/l_arm,/obj/item/bodypart/r_arm)
+	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/spell/area_conversion)
+	timer = 2 MINUTES
+
+/datum/eldritch_knowledge/curse/corrosion/curse(mob/living/chosen_mob)
+	. = ..()
+	chosen_mob.apply_status_effect(/datum/status_effect/corrosion_curse)
+
+/datum/eldritch_knowledge/curse/corrosion/uncurse(mob/living/chosen_mob)
+	. = ..()
+	chosen_mob.remove_status_effect(/datum/status_effect/corrosion_curse)
+
+/datum/eldritch_knowledge/curse/paralysis
+	name = "Curse of Paralysis"
+	gain_text = "Corrupt their flesh, make them bleed."
+	desc = "Curse someone for 5 minutes of inability to walk. Using a knife, pool of blood, left leg, right leg, a hatchet and an item that the victim touched  with their bare hands. "
+	cost = 1
+	required_atoms = list(/obj/item/kitchen/knife,/obj/effect/decal/cleanable/blood,/obj/item/bodypart/l_leg,/obj/item/bodypart/r_leg,/obj/item/hatchet)
+	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/summon/raw_prophet)
+	timer = 5 MINUTES
+
+/datum/eldritch_knowledge/curse/paralysis/curse(mob/living/chosen_mob)
+	. = ..()
+	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
+	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
+	chosen_mob.update_mobility()
+
+/datum/eldritch_knowledge/curse/paralysis/uncurse(mob/living/chosen_mob)
+	. = ..()
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
+	chosen_mob.update_mobility()
