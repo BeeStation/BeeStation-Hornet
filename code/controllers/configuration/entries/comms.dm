@@ -4,6 +4,14 @@
 /datum/config_entry/string/comms_key/ValidateAndSet(str_val)
 	return str_val != "default_pwd" && length(str_val) > 6 && ..()
 
+/datum/config_entry/string/comms_key_insecure
+	protection = CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/string/comms_key_insecure/ValidateAndSet(str_val)
+	return str_val != "default_pwd" && length(str_val) > 6 && ..()
+
+/datum/config_entry/number/insecure_topic_cooldown
+
 /datum/config_entry/keyed_list/cross_server
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_TEXT

@@ -24,11 +24,15 @@
 	var/log = TRUE
 	var/key_valid
 	var/require_comms_key = FALSE
+	var/permit_insecure = FALSE
 
 /datum/world_topic/proc/TryRun(list/input, addr)
-	key_valid = config && (CONFIG_GET(string/comms_key) == input["key"])
+	key_valid = config && ((CONFIG_GET(string/comms_key) == input["key"]) || (permit_insecure && CONFIG_GET(string/comms_key_insecure) == input["key"]))
 	if(require_comms_key && !key_valid)
 		return "Bad Key"
+	var/delta = world.time - GLOB.topic_cooldown
+	if(permit_insecure && (delta < CONFIG_GET(number/insecure_topic_cooldown)))
+		return "Rate Limited"
 	input -= "key"
 	. = Run(input, addr)
 	if(islist(.))
@@ -84,6 +88,7 @@
 /datum/world_topic/comms_console
 	keyword = "Comms_Console"
 	require_comms_key = TRUE
+	permit_insecure = TRUE
 
 /datum/world_topic/comms_console/Run(list/input, addr)
 	minor_announce(input["message"], "Incoming message from [input["message_sender"]]")
@@ -210,5 +215,3 @@
 		.["identified_ckey"] = query_ckey_lookup.item[1]
 	qdel(query_ckey_lookup)
 	return .
-
-
