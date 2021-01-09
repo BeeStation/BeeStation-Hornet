@@ -1,3 +1,5 @@
+#define FLAT_ICON_CACHE_MAX_SIZE 100
+
 SUBSYSTEM_DEF(stat)
 	name = "Stat"
 	wait = 2 SECONDS
@@ -15,10 +17,6 @@ SUBSYSTEM_DEF(stat)
 
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
-
-	//Clear this every 5 minutes, infrequently used icons should pop up less.
-	if(times_fired % 150 == 0)
-		flat_icon_cache.Cut()
 
 	while(currentrun.len)
 		var/client/C = currentrun[currentrun.len]
@@ -48,6 +46,10 @@ SUBSYSTEM_DEF(stat)
 		what_to_search = "[M.type][M.name][overlay_hash]"
 	if(flat_icon_cache.Find(what_to_search))
 		return flat_icon_cache[what_to_search]
+	//Adding a new icon
+	//If the list gets too big just remove the first thing
+	if(flat_icon_cache.len > FLAT_ICON_CACHE_MAX_SIZE)
+		flat_icon_cache.Cut(0, 1)
 	flat_icon_cache[what_to_search] = icon2base64(getFlatIcon(A, no_anim=TRUE))
 	return flat_icon_cache[what_to_search]
 
@@ -60,3 +62,5 @@ SUBSYSTEM_DEF(stat)
 	for(var/client/C in GLOB.clients)
 		if(C?.tgui_panel)
 			C.tgui_panel.clear_alert_popup()
+
+#undef FLAT_ICON_CACHE_MAX_SIZE
