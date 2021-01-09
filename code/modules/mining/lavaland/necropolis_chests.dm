@@ -9,16 +9,15 @@
 	icon_state = "necrocrate"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	door_anim_time = 0
-	var/need_key = FALSE
 
 /obj/structure/closet/crate/necropolis/update_icon()
 	. = ..()
-	if(need_key)
+	if(locked && !opened)
 		add_overlay("necrocrate_lock")
 
 /obj/structure/closet/crate/necropolis/proc/update_desc()
 	desc = "It's watching you suspiciously."
-	if(need_key)
+	if(locked)
 		desc += " It seems like it needs a key to unlock..."
 
 /obj/structure/closet/crate/necropolis/Initialize()
@@ -26,19 +25,36 @@
 	update_desc()
 
 /obj/structure/closet/crate/necropolis/attack_hand(mob/user)
-	if(need_key)
-		to_chat(user, "<span class='warning'>It seems that this chest is locked!</span>")
-		return
 	. = ..()
+	if(.)
+		return
+	if(!opened && locked)
+		// user failed to do access the chest; warning time
+		to_chat(user, "<span class='warning'>It seems that this chest is locked in a different way; you are going to need a special key for this...</span>")
+		return
 
 /obj/structure/closet/crate/necropolis/attackby(obj/item/W, mob/user, params)
 	. = ..()
-	if(W.type == /obj/item/chest_key)
-		need_key = FALSE
+	if(istype(W, /obj/item/chest_key))
+		locked = FALSE
 		update_icon()
 		update_desc()
 		qdel(W)
 		visible_message("The [src] unlocks, destroying the key in the process!")
+
+/obj/structure/closet/crate/necropolis/emag_act(mob/user)
+	if(locked)
+		to_chat(user, "<span class='notice'>You... hit the metal lock with the card. Nothing happens. What did you expect?</span>")
+	return // No emagging a physcial lock
+
+/obj/structure/closet/crate/necropolis/bust_open()
+	if(locked)
+		for(var/obj/item/I as() in contents)
+			qdel(I)
+			new /obj/effect/decal/cleanable/ash(loc)
+		visible_message("<span class ='warning'>The necropolis chest lets out a wave of flame as it breaks open!</span>")
+		explosion(get_turf(src), 0, 0, 0, 3, TRUE, FALSE, 4)
+	. = ..()
 
 /obj/item/chest_key
 	name = "Mann-brand Necropolis Chest Key"
@@ -50,7 +66,8 @@
 
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
-	need_key = TRUE
+	locked = TRUE
+	secure = FALSE
 
 /obj/structure/closet/crate/necropolis/tendril/PopulateContents()
 	var/loot = rand(1,30)
