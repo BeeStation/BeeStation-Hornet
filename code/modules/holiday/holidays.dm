@@ -281,6 +281,14 @@
 /datum/holiday/friendship/greet()
 	return "Have a magical [name]!"
 
+/datum/holiday/anz
+	name = "ANZAC Day"
+	begin_day = 25
+	begin_month = APRIL
+
+/datum/holiday/anz/getStationPrefix()
+	return pick("Australian", "New Zealand", "Poppy", "Southern Cross")
+
 /datum/holiday/beer
 	name = "Beer Day"
 
@@ -498,9 +506,9 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 
 /datum/holiday/xmas
 	name = CHRISTMAS
-	begin_day = 22
+	begin_day = 24
 	begin_month = DECEMBER
-	end_day = 27
+	end_day = 26
 	drone_hat = /obj/item/clothing/head/santa
 
 /datum/holiday/xmas/greet()

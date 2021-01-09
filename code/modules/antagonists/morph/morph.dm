@@ -40,7 +40,9 @@
 	/atom/movable/screen,
 	/obj/singularity,
 	/mob/living/simple_animal/hostile/morph,
-	/obj/effect))
+	/obj/effect,
+	/mob/camera
+	))
 	var/atom/movable/throwatom = null
 
 	var/playstyle_string = "<span class='big bold'>You are a morph,</span></b> an abomination of science created primarily with changeling cells. \

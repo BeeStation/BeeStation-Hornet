@@ -48,7 +48,7 @@
 	id = "Fake CBZ"
 	results = list(/datum/reagent/fake_cbz = 1)
 	required_reagents = list(/datum/reagent/concentrated_bz = 1, /datum/reagent/medicine/neurine = 3)
-	
+
 /datum/chemical_reaction/cryptobiolin
 	name = "Cryptobiolin"
 	id = /datum/reagent/cryptobiolin
@@ -608,12 +608,15 @@
 	name = "corgium"
 	id = "corgium"
 	required_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/colorful_reagent = 1, /datum/reagent/medicine/strange_reagent = 1, /datum/reagent/blood = 1)
-	required_temp = 374
 
 /datum/chemical_reaction/corgium/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	for(var/i = rand(1, created_volume), i <= created_volume, i++) // More lulz.
-		new /mob/living/simple_animal/pet/dog/corgi(location)
+	if(isliving(holder.my_atom) && !iscorgi(holder.my_atom))
+		var/mob/living/L = holder
+		L.reagents.add_reagent(/datum/reagent/corgium, created_volume)
+	else
+		var/location = get_turf(holder.my_atom)
+		for(var/i in rand(1, created_volume) to created_volume) // More lulz.
+			new /mob/living/simple_animal/pet/dog/corgi(location)
 	..()
 
 /datum/chemical_reaction/hair_dye
@@ -736,13 +739,13 @@
 	name = /datum/reagent/mutationtoxin/squid
 	id = /datum/reagent/mutationtoxin/squid
 	results = list(/datum/reagent/mutationtoxin/squid = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/teslium = 20)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/consumable/sodiumchloride = 10, /datum/reagent/water = 20)
 
 /datum/chemical_reaction/mutationtoxin/ipc
 	name = /datum/reagent/mutationtoxin/ipc
 	id = /datum/reagent/mutationtoxin/ipc
 	results = list(/datum/reagent/mutationtoxin/ipc = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/consumable/sodiumchloride = 10, /datum/reagent/water = 20)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/teslium = 20)
 
 //////////////Mutatuion toxins made out of advanced toxin/////////////
 

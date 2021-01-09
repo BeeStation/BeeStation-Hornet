@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/clothing/head/that = 1,
 	/obj/item/clothing/head/ushanka = 1,
 	/obj/item/clothing/head/welding = 1,
-	/obj/item/clothing/mask/gas = 15,
+	/obj/item/clothing/mask/gas/old = 15,		//greytide
 	/obj/item/clothing/suit/hazardvest = 1,
 	/obj/item/clothing/under/misc/vice_officer = 1,
 	/obj/item/clothing/suit/hooded/flashsuit = 2,

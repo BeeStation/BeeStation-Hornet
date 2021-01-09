@@ -1652,7 +1652,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	desc = "The Syndicate surgery duffel bag is a toolkit containing all surgery tools, surgical drapes, \
 			a Syndicate brand MMI, a straitjacket, and a muzzle."
 	item = /obj/item/storage/backpack/duffelbag/syndie/surgery
-	cost = 2
+	cost = 3
 
 /datum/uplink_item/device_tools/encryptionkey
 	name = "Syndicate Encryption Key"
@@ -1752,6 +1752,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 			Used just like a regular headset, but can be disabled to use external headsets normally and to avoid detection."
 	item = /obj/item/storage/box/syndie_kit/imp_radio
 	cost = 4
+	exclude_modes = list(/datum/game_mode/incursion) //To prevent traitors from immediately outing the hunters to security.
 	restricted = TRUE
 
 /datum/uplink_item/implants/reviver
@@ -1832,6 +1833,16 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	cost = 2
 	restricted_species = list("plasmaman")
 
+/datum/uplink_item/race_restricted/tribal_claw
+	name = "Old Tribal Scroll"
+	desc = "We found this scroll in a abandoned lizard settlement of the Knoises clan. \
+			It teaches you how to use your claws and tail to gain an advantage in combat, \
+			don't buy this unless you are a lizard or plan to give it to one as only they can understand the ancient draconic words."
+	item = /obj/item/book/granter/martial/tribal_claw
+	cost = 14
+	surplus = 0
+	restricted_species = list("lizard")
+
 // Role-specific items
 /datum/uplink_item/role_restricted
 	category = "Role-Restricted"
@@ -1896,6 +1907,13 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	item = /obj/item/healthanalyzer/rad_laser
 	restricted_roles = list("Medical Doctor", "Chief Medical Officer", "Roboticist", "Paramedic")
 	cost = 3
+
+/datum/uplink_item/rolerestricted/Syndicate_MMI
+	name = "Syndicate MMI"
+	desc = "An MMI which autmatically applies the Syndimov laws to any borg it is placed in. Great for adding known allies to assist you with a little more stealth than a fully emagged borg."
+	item = /obj/item/mmi/syndie
+	restricted_roles = list("Roboticist", "Research Director")
+	cost = 2
 
 /datum/uplink_item/role_restricted/upgrade_wand
 	name = "Upgrade Wand"

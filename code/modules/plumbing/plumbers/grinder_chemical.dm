@@ -7,6 +7,7 @@
 	rcd_cost = 30
 	rcd_delay = 30
 	buffer = 400
+	active_power_usage = 80
 	var/eat_dir = SOUTH
 
 /obj/machinery/plumbing/grinder_chemical/Initialize(mapload, bolt)

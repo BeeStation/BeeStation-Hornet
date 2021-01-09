@@ -443,7 +443,7 @@
 	var/lastkey = holder.my_atom.fingerprintslast
 	var/touch_msg = "N/A"
 	if(lastkey)
-		var/mob/toucher = get_mob_by_key(lastkey)
+		var/mob/toucher = get_mob_by_ckey(lastkey)
 		touch_msg = "[ADMIN_LOOKUPFLW(toucher)]."
 	message_admins("Slime Explosion reaction started at [ADMIN_VERBOSEJMP(T)]. Last Fingerprint: [touch_msg]")
 	log_game("Slime Explosion reaction started at [AREACOORD(T)]. Last Fingerprint: [lastkey ? lastkey : "N/A"].")
@@ -579,7 +579,7 @@
 	new /obj/effect/timestop(T, null, null, null)
 	if(istype(extract))
 		if(extract.Uses > 0)
-			var/mob/lastheld = get_mob_by_key(holder.my_atom.fingerprintslast)
+			var/mob/lastheld = get_mob_by_ckey(holder.my_atom.fingerprintslast)
 			if(lastheld && !lastheld.equip_to_slot_if_possible(extract, SLOT_HANDS, disable_warning = TRUE))
 				extract.forceMove(get_turf(lastheld))
 
