@@ -43,10 +43,10 @@
 	switch (efficiency)
 		if (19 to 28)
 			ore_rates = list(
-				/datum/material/iron = .6, 
-				/datum/material/glass = .6,
-				/datum/material/copper = .2, 
-				/datum/material/silver = .1, 
+				/datum/material/iron = 0.6, 
+				/datum/material/glass = 0.6,
+				/datum/material/copper = 0.2, 
+				/datum/material/silver = 0.1, 
 			)
 		if (29 to 38)
 			ore_rates = list(
