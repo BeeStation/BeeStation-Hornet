@@ -243,9 +243,9 @@
 	new /obj/item/surgical_drapes(src)
 	new /obj/item/scalpel/advanced(src)
 	new /obj/item/retractor/advanced(src)
-	new /obj/item/surgicaldrill/advanced(src)
+	new /obj/item/cautery(src)
+	new /obj/item/reagent_containers/medspray/sterilizine(src)
 	new	/obj/item/stack/medical/gauze/adv(src)
-	new /obj/item/holosign_creator/medical(src)
 	new	/obj/item/healthanalyzer/advanced(src)
 
 /obj/item/storage/belt/security
