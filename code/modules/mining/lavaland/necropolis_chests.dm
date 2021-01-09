@@ -5,13 +5,52 @@
 
 /obj/structure/closet/crate/necropolis
 	name = "necropolis chest"
-	desc = "It's watching you closely."
+	desc = "It's watching you suspiciously."
 	icon_state = "necrocrate"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	door_anim_time = 0
+	var/need_key = FALSE
+
+/obj/structure/closet/crate/necropolis/update_icon()
+	. = ..()
+	if(need_key == TRUE)
+		add_overlay("necrocrate_lock")
+
+/obj/structure/closet/crate/necropolis/proc/update_desc()
+	desc = "It's watching you suspiciously."
+	if(need_key == TRUE)
+		desc += " It seems like it needs a key to unlock..."
+
+/obj/structure/closet/crate/necropolis/Initialize()
+	. = ..()
+	update_desc()
+
+/obj/structure/closet/crate/necropolis/attack_hand(mob/user)
+	if(need_key == TRUE)
+		to_chat(user, "<span class='warning'>It seems that this chest is locked!</span>")
+		return
+	. = ..()
+
+/obj/structure/closet/crate/necropolis/attackby(obj/item/W, mob/user, params)
+	. = ..()
+	if(W.type == /obj/item/chest_key)
+		need_key = FALSE
+		update_icon()
+		update_desc()
+		qdel(W)
+		visible_message("The [src] unlocks, destroying the key in the process!")
+
+/obj/item/chest_key
+	name = "Mann-brand Necropolis Chest Key"
+	desc = "A key sold to Nanotrasen by Mann Co., specifically made to unlock Necropolis chests."
+	w_class = WEIGHT_CLASS_SMALL
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "mann_key"
+	item_state = "mann_key"
 
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
+	need_key = TRUE
 
 /obj/structure/closet/crate/necropolis/tendril/PopulateContents()
 	var/loot = rand(1,30)
@@ -84,6 +123,25 @@
 			new /obj/item/reagent_containers/glass/waterbottle/relic(src)
 		if(30)
 			new /obj/item/reagent_containers/glass/bottle/necropolis_seed(src)
+	if(prob(10)) // Low chance to give you a hat, funny tf2
+		var/hat = pick(list(
+			/obj/item/clothing/head/beanie,
+			/obj/item/clothing/head/helmet/gladiator,
+			/obj/item/clothing/head/flatcap,
+			/obj/item/clothing/head/pirate,
+			/obj/item/clothing/head/beret,
+			/obj/item/clothing/head/plaguedoctorhat,
+			/obj/item/clothing/head/ushanka,
+			/obj/item/clothing/head/bowler,
+			/obj/item/clothing/head/that,
+			/obj/item/clothing/head/bandana,
+			/obj/item/clothing/head/fedora,
+			/obj/item/clothing/head/chefhat,
+			/obj/item/clothing/head/hardhat,
+			/obj/item/clothing/head/crown,
+			/obj/item/clothing/head/festive
+			))
+		new hat(src)
 
 //KA modkit design discs
 /obj/item/disk/design_disk/modkit_disc
