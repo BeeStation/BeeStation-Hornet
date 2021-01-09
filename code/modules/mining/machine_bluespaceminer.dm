@@ -41,38 +41,38 @@
 		efficiency += P.rating
 	
 	switch (efficiency)
-		if (10 to 19)
+		if (19 to 28)
 			ore_rates = list(
-				/datum/material/iron = 3, 
-				/datum/material/glass = 3,
-				/datum/material/copper = 2, 
-				/datum/material/silver = 1, 
+				/datum/material/iron = .6, 
+				/datum/material/glass = .6,
+				/datum/material/copper = .2, 
+				/datum/material/silver = .1, 
 			)
-		if (20 to 29)
+		if (29 to 38)
 			ore_rates = list(
-				/datum/material/iron = 6, 
-				/datum/material/glass = 6,
-				/datum/material/copper = 4, 
-				/datum/material/silver = 2, 
-				/datum/material/gold = 1, 
-				/datum/material/plasma = 2,
+				/datum/material/iron = 0.6, 
+				/datum/material/glass = 0.6,
+				/datum/material/copper = 0.4, 
+				/datum/material/silver = 0.2, 
+				/datum/material/gold = 0.1, 
+				/datum/material/plasma = 0.2,
 			)
-		if (30 to INFINITY)	//and beyond
+		if (39 to INFINITY)	//and beyond
 			ore_rates = list(
-				/datum/material/iron = 6, 
-				/datum/material/glass = 6, 
-				/datum/material/copper = 4, 
-				/datum/material/silver = 2, 
-				/datum/material/gold = 1, 
-				/datum/material/plasma = 2,
-				/datum/material/titanium = 1, 
-				/datum/material/uranium = 1, 
-				/datum/material/diamond = 1
+				/datum/material/iron = 0.6, 
+				/datum/material/glass = 0.6, 
+				/datum/material/copper = 0.4, 
+				/datum/material/silver = 0.2, 
+				/datum/material/gold = 0.1, 
+				/datum/material/plasma = 0.2,
+				/datum/material/titanium = 0.1, 
+				/datum/material/uranium = 0.1, 
+				/datum/material/diamond = 0.1
 			)
 		else 
 			ore_rates = list(
-				/datum/material/iron = 1, 
-				/datum/material/glass = 1,
+				/datum/material/iron = 0.6, 
+				/datum/material/glass = 0.6,
 			)
 
 /obj/machinery/mineral/bluespace_miner/process()
