@@ -37,6 +37,7 @@ export const Panel = (props, context) => {
       );
     }
   }
+
   const [
     number,
     setNumber,
@@ -44,11 +45,27 @@ export const Panel = (props, context) => {
   const dispatch = useDispatch(context);
   let safenumber = number !== null ? number : 40;
   const resizeFunction = (e, value) => {
-    if (value !== null)
+    try
     {
-      dispatch(updateSettings({
-        statSize: Math.max(Math.min(value, 90), 10),
-      }));
+      if (typeof value === 'number')
+      {
+        dispatch(updateSettings({
+          statSize: Math.max(Math.min(value, 90), 10),
+        }));
+      }
+    }
+    catch
+    {
+      // This is stupid.
+      dispatch({
+        type: 'stat/alertPopup',
+        payload: 'Hey! There was an error on your TGUI panel \
+        when trying to update the size. Luckily I have caught \
+        the issue for you and you are free to resume with your day. \
+        You should probably report this, especiall if \
+        something else bad happens, like you can\'t resize or the chat \
+        looks all messed up and wacky.',
+      });
     }
   };
   return (
