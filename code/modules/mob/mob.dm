@@ -233,7 +233,7 @@
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
-	for(var/mob/M as() in hearers(range, src))
+	for(var/mob/M as() in hearers(range, get_turf(src)))
 		M.show_message( message, 2, deaf_message, 1)
 
 ///Get the item on the mob in the storage slot identified by the id passed in
