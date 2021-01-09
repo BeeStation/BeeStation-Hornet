@@ -171,7 +171,7 @@
 		tabs |= "Tickets"
 		if(length(GLOB.sdql2_queries))
 			tabs |= "SDQL2"
-	var/list/additional_tabs = get_all_verbs()
+	var/list/additional_tabs = list()
 	//Performance increase from only adding keys is better than adding values too.
 	for(var/i in get_all_verbs())
 		additional_tabs |= i

@@ -2,6 +2,7 @@ import { toFixed } from 'common/math';
 import { useDispatch, useSelector } from 'common/redux';
 import { Fragment } from 'inferno';
 import { Button, Flex, Knob, Tabs, Section } from 'tgui/components';
+import { Box } from '../../tgui/components';
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
 import { StatStatus } from './StatStatus';
