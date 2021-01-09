@@ -1,3 +1,5 @@
+#define MAX_ICONS_PER_TILE 50
+
 /client
 	var/stat_update_mode = STAT_FAST_UPDATE
 	var/stat_update_time = 0
@@ -56,6 +58,7 @@
 					icon=SSstat.get_flat_icon(listed_turf),	//TODO: Cache this shit (VERY EXPENSIVE) ~ 1.940 CPU Time [1400 CALLS] !!!!!
 					type=STAT_ATOM,
 				)
+				var/sanity = MAX_ICONS_PER_TILE
 				for(var/atom/A in listed_turf)
 					if(!A.mouse_opacity)
 						continue
@@ -65,11 +68,14 @@
 						continue
 					if(A.IsObscured())
 						continue
+					sanity --
 					tab_data[REF(A)] = list(
 						text="[A.name]",
 						icon=SSstat.get_flat_icon(A),	//TODO: Cache this shit AGAIN!!! WHY!!!!!
 						type=STAT_ATOM,
 					)
+					if(sanity < 0)
+						break
 			var/list/all_verbs = get_all_verbs()								// ~0.252 CPU Time [14000 CALLS]
 			if(selected_tab in all_verbs)
 				client.stat_update_mode = STAT_SLOW_UPDATE
@@ -294,3 +300,5 @@
 		set_stat_tab(stat_tabs[1])
 	var/list/status_data = get_stat(client.selected_stat_tab)
 	client.tgui_panel.set_panel_infomation(status_data)
+
+#undef MAX_ICONS_PER_TILE
