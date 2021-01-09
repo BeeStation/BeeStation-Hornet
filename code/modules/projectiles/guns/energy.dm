@@ -79,11 +79,7 @@
 	return ..()
 
 /obj/item/gun/energy/process()
-	if(cell && cell.chargerate && cell.percent() < 100)
-		charge_tick++
-		if(charge_tick < charge_delay)
-			return
-		charge_tick = 0
+	if(cell?.self_recharge)
 		if(!chambered) //if empty chamber we try to charge a new shot
 			recharge_newshot(TRUE)
 		update_icon()
