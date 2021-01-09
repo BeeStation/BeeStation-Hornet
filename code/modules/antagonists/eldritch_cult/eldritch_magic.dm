@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash
-	name = "Ashen passage"
-	desc = "Low range spell allowing you to phase for a short distance."
+	name = "Ashen Passage"
+	desc = "A short range spell allowing you to pass unimpeded through a few walls."
 	school = "transmutation"
 	invocation = "ASH'N P'SSG'"
 	invocation_type = INVOCATION_WHISPER
@@ -31,7 +31,7 @@
 
 /obj/effect/proc_holder/spell/targeted/touch/mansus_grasp
 	name = "Mansus Grasp"
-	desc = "Channel the power of the old gods through you! You can strike a mortal to disable them or carve transmutation runes on the floor."
+	desc = "A touch spell that lets you channel the power of the Old Gods through your grip."
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 	school = "evocation"
 	charge_max = 150
@@ -42,7 +42,7 @@
 
 /obj/item/melee/touch_attack/mansus_fist
 	name = "Mansus Grasp"
-	desc = "A sinister looking aura that distorts the flow of reality around it. Causes knockdown, major stamina damage aswell as some Brute. It gains additional beneficial effects with certain knowledges you can research."
+	desc = "A sinister looking aura that distorts the flow of reality around it. Causes knockdown and major stamina damage in addition to some brute. It gains additional beneficial effects as you expand your knowledge of the Mansus."
 	icon_state = "mansus_grasp"
 	item_state = "mansus_grasp"
 	catchphrase = "R'CH T'H TR'TH"
@@ -140,7 +140,6 @@
 
 /obj/item/melee/touch_attack/mansus_fist/lesser
 	name = "Mansus Touch"
-	desc = "A sinister looking aura that distorts the flow of reality around it. Causes major stamina damage and as some Brute. It gains additional beneficial effects with certain knowledges your master has researched."
 	catchphrase = "C'RU'TH"
 
 /obj/item/melee/touch_attack/mansus_fist/lesser/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -168,7 +167,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
 	name = "Aggressive Spread"
-	desc = "Spreads rust onto nearby turfs."
+	desc = "Spreads rust onto nearby surfaces."
 	school = "transmutation"
 	charge_max = 300 //twice as long as mansus grasp
 	clothes_req = FALSE
@@ -195,7 +194,7 @@
 
 /obj/effect/proc_holder/spell/targeted/touch/blood_siphon
 	name = "Blood Siphon"
-	desc = "Touch spell that heals you while damaging the enemy."
+	desc = "A touch spell that heals your wounds while damaging the enemy. It has a chance to transfer wounds between you and your enemy."
 	hand_path = /obj/item/melee/touch_attack/blood_siphon
 	school = "evocation"
 	charge_max = 150
@@ -285,7 +284,7 @@
 	turflist += T1
 	turflist += get_step(T1,turn(dir,-90))
 	for(var/X in turflist)
-		if(!X || prob(25))
+		if(!X || prob(33))
 			continue
 		var/turf/T = X
 		T.rust_heretic_act(TRUE)
@@ -350,6 +349,7 @@
 
 /obj/effect/proc_holder/spell/pointed/cleave/long
 	charge_max = 650
+
 
 /obj/effect/proc_holder/spell/pointed/ash_final
 	name = "Nightwatcher's Rite"
@@ -417,30 +417,6 @@
 			M.take_damage(45, BURN, "melee", 1)
 		sleep(1.5)
 
-/obj/effect/proc_holder/spell/targeted/shapeshift/eldritch
-	invocation = "SH'PE"
-	invocation_type = INVOCATION_WHISPER
-	clothes_req = FALSE
-	action_background_icon_state = "bg_ecult"
-	possible_shapes = list(/mob/living/simple_animal/mouse,\
-		/mob/living/simple_animal/pet/dog/corgi,\
-		/mob/living/simple_animal/hostile/carp,\
-		/mob/living/simple_animal/bot/secbot, \
-		/mob/living/simple_animal/pet/fox,\
-		/mob/living/simple_animal/pet/cat )
-
-/obj/effect/proc_holder/spell/targeted/emplosion/eldritch
-	name = "Energetic Pulse"
-	invocation = "E'P"
-	invocation_type = INVOCATION_WHISPER
-	clothes_req = FALSE
-	action_background_icon_state = "bg_ecult"
-	range = -1
-	include_user = TRUE
-	charge_max = 300
-	emp_heavy = 6
-	emp_light = 10
-
 /obj/effect/proc_holder/spell/aoe_turf/fire_cascade
 	name = "Fire Cascade"
 	desc = "Heats the air around you."
@@ -471,12 +447,6 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/fire_cascade/big
 	range = 6
-
-/obj/effect/proc_holder/spell/targeted/telepathy/eldritch
-	invocation = ""
-	invocation_type = INVOCATION_WHISPER
-	clothes_req = FALSE
-	action_background_icon_state = "bg_ecult"
 
 /obj/effect/proc_holder/spell/targeted/fire_sworn
 	name = "Oath of Fire"
@@ -515,6 +485,36 @@
 		T.hotspot_expose(700,50,1)
 		for(var/mob/living/livies in T.contents - current_user)
 			livies.adjustFireLoss(0.5)
+
+/obj/effect/proc_holder/spell/targeted/shapeshift/eldritch
+	invocation = "SH'PE"
+	invocation_type = INVOCATION_WHISPER
+	clothes_req = FALSE
+	action_background_icon_state = "bg_ecult"
+	possible_shapes = list(/mob/living/simple_animal/mouse,\
+		/mob/living/simple_animal/pet/dog/corgi,\
+		/mob/living/simple_animal/hostile/carp,\
+		/mob/living/simple_animal/bot/secbot, \
+		/mob/living/simple_animal/pet/fox,\
+		/mob/living/simple_animal/pet/cat )
+
+/obj/effect/proc_holder/spell/targeted/emplosion/eldritch
+	name = "Energetic Pulse"
+	invocation = "E'P"
+	invocation_type = INVOCATION_WHISPER
+	clothes_req = FALSE
+	action_background_icon_state = "bg_ecult"
+	range = -1
+	include_user = TRUE
+	charge_max = 300
+	emp_heavy = 6
+	emp_light = 10
+
+/obj/effect/proc_holder/spell/targeted/telepathy/eldritch
+	invocation = ""
+	invocation_type = INVOCATION_WHISPER
+	clothes_req = FALSE
+	action_background_icon_state = "bg_ecult"
 
 /obj/effect/proc_holder/spell/targeted/worm_contract
 	name = "Force Contract"
@@ -707,3 +707,92 @@
 	range = 10
 	invocation = "E'E'S"
 	action_background_icon_state = "bg_ecult"
+
+
+/obj/effect/proc_holder/spell/pointed/void_blink
+	name = "Void Phase"
+	desc = "Let's you blink to your pointed destination, causes 3x3 aoe damage bubble around your pointed destination and your current location. It has a minimum range of 3 tiles and a maximum range of 9 tiles."
+	invocation_type = INVOCATION_WHISPER
+	invocation = "RE'L'TY PH'S'E"
+	clothes_req = FALSE
+	range = 9
+	action_background_icon_state = "bg_ecult"
+	charge_max = 300
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "voidblink"
+	selection_type = "range"
+
+/obj/effect/proc_holder/spell/pointed/void_blink/can_target(atom/target, mob/user, silent)
+	. = ..()
+	if(get_dist(get_turf(user),get_turf(target)) < 3 )
+		return FALSE
+
+/obj/effect/proc_holder/spell/pointed/void_blink/cast(list/targets, mob/user)
+	. = ..()
+	var/target = targets[1]
+	var/turf/targeted_turf = get_turf(target)
+
+	playsound(user,'sound/magic/voidblink.ogg',100)
+	playsound(targeted_turf,'sound/magic/voidblink.ogg',100)
+
+	new /obj/effect/temp_visual/voidin(user.drop_location())
+	new /obj/effect/temp_visual/voidout(targeted_turf)
+
+	for(var/mob/living/living_mob in range(1,user)-user)
+		if(IS_HERETIC(living_mob) || IS_HERETIC_CULTIST(living_mob))
+			continue
+		living_mob.adjustBruteLoss(40)
+
+	for(var/mob/living/living_mob in range(1,targeted_turf)-user)
+		if(IS_HERETIC(living_mob) || IS_HERETIC_CULTIST(living_mob))
+			continue
+		living_mob.adjustBruteLoss(40)
+
+	do_teleport(user,targeted_turf,TRUE,no_effects = TRUE)
+
+/obj/effect/temp_visual/voidin
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "void_blink_in"
+	alpha = 150
+	duration = 6
+	pixel_x = -32
+	pixel_y = -32
+
+/obj/effect/temp_visual/voidout
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "void_blink_out"
+	alpha = 150
+	duration = 6
+	pixel_x = -32
+	pixel_y = -32
+
+/obj/effect/proc_holder/spell/targeted/void_pull
+	name = "Void Pull"
+	desc = "Call the void, this pulls all nearby people closer to you, damages people already around you. If they are 4 tiles or closer they are also knocked down and a micro-stun is applied."
+	invocation_type = INVOCATION_WHISPER
+	invocation = "BR'NG F'RTH TH'M T' M'"
+	clothes_req = FALSE
+	action_background_icon_state = "bg_ecult"
+	range = -1
+	include_user = TRUE
+	charge_max = 400
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "voidpull"
+
+/obj/effect/proc_holder/spell/targeted/void_pull/cast(list/targets, mob/user)
+	. = ..()
+	for(var/mob/living/living_mob in range(1,user)-user)
+		if(IS_HERETIC(living_mob) || IS_HERETIC_CULTIST(living_mob))
+			continue
+		living_mob.adjustBruteLoss(30)
+
+	playsound(user,'sound/magic/voidblink.ogg',100)
+	new /obj/effect/temp_visual/voidin(user.drop_location())
+	for(var/mob/living/livies in view(7,user)-user)
+
+		if(get_dist(user,livies) < 4)
+			livies.AdjustKnockdown(3 SECONDS)
+			livies.AdjustParalyzed(0.5 SECONDS)
+
+		for(var/i in 1 to 3)
+			livies.forceMove(get_step_towards(livies,user))

@@ -2,7 +2,7 @@
 
 /datum/eldritch_knowledge/base_rust
 	name = "Harbinger of Decadence"
-	desc = "You choose the path of rust. Allows you to transmute a knife with any trash item into a rusty blade. Allows you to recruit disciples."
+	desc = "Opens up the Path of Rust to you. Allows you to transmute a kitchen knife, or its derivatives, with any trash item into a Rusty Blade. Increases the number of disciples you can recruit."
 	gain_text = "Let me tell you a story, blacksmith said as he glazed into his rusty blade."
 	banned_knowledge = list(/datum/eldritch_knowledge/base_ash,/datum/eldritch_knowledge/base_flesh,/datum/eldritch_knowledge/final/ash_final,/datum/eldritch_knowledge/final/flesh_final)
 	next_knowledge = list(/datum/eldritch_knowledge/rust_fist)
@@ -14,36 +14,70 @@
 
 /datum/eldritch_knowledge/rust_fist
 	name = "Grasp of rust"
-	desc = "Empowers your mansus grasp to deal 500 damage to non-living matter and rust any turf it touches. Destroys already rusted turfs."
-	gain_text = "Rust grows on the ceiling of the mansus."
+	desc = "Empowers your Mansus Grasp to deal 500 damage to non-living matter and rust any surface it touches. Already rusted surfaces are destroyed. Reinforced walls may resist this."
+	gain_text = "On the ceiling of the Mansus, rust grows as moss does on a stone."
 	cost = 5
 	next_knowledge = list(/datum/eldritch_knowledge/rust_regen)
 	var/rust_force = 500
 	var/static/list/blacklisted_turfs = typecacheof(list(/turf/closed,/turf/open/space,/turf/open/lava,/turf/open/chasm,/turf/open/floor/plating/rust))
 	route = PATH_RUST
+	
+/datum/eldritch_knowledge/rust_fist/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
+	..()
+	target.rust_heretic_act(TRUE)
+	return TRUE
+	
+/datum/eldritch_knowledge/rust_fist/on_eldritch_blade(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/datum/status_effect/eldritch/E = H.has_status_effect(/datum/status_effect/eldritch/rust) || H.has_status_effect(/datum/status_effect/eldritch/ash) || H.has_status_effect(/datum/status_effect/eldritch/flesh)  || H.has_status_effect(/datum/status_effect/eldritch/void)
+		if(E)
+			H.silent = max(H.silent, 4 SECONDS)
+			E.on_effect()
+			H.adjustOrganLoss(pick(ORGAN_SLOT_BRAIN,ORGAN_SLOT_EARS,ORGAN_SLOT_EYES,ORGAN_SLOT_LIVER,ORGAN_SLOT_LUNGS,ORGAN_SLOT_STOMACH,ORGAN_SLOT_HEART),25)
 
 /datum/eldritch_knowledge/rust_regen
 	name = "Leeching Walk"
-	desc = "You passively heal when you are on rusted tiles."
-	gain_text = "The strength was unparallel, it was unnatural. Blacksmith was smiling."
+	desc = "Passively heals you when you are on rusted tiles."
+	gain_text = "The strength was unparalleled, unnatural. The Blacksmith was smiling."
 	cost = 5
 	next_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/essence,/datum/eldritch_knowledge/ashen_eyes,/datum/eldritch_knowledge/armor)
 	route = PATH_RUST
 
+/datum/eldritch_knowledge/rust_regen/on_life(mob/user)
+	..()
+	var/turf/user_loc_turf = get_turf(user)
+	if(!istype(user_loc_turf, /turf/open/floor/plating/rust) || !isliving(user))
+		return
+	var/mob/living/living_user = user
+	living_user.adjustBruteLoss(-2, FALSE)
+	living_user.adjustFireLoss(-2, FALSE)
+	living_user.adjustToxLoss(-2, FALSE)
+	living_user.adjustOxyLoss(-0.5, FALSE)
+	living_user.adjustStaminaLoss(-2)
+	living_user.AdjustAllImmobility(-5)	
+
 /datum/eldritch_knowledge/rust_mark
 	name = "Priest Ascension"
-	gain_text = "Lords of the depths help those in dire need at a cost."
-	desc = "As a Priest of Rust, you can recruit more disciples. Also, your eldritch blade now applies a mark which, when activated with Mansus Grasph, damages the equipment the target wears."
+	gain_text = "Rusted Hills help those in dire need at a cost."
+	desc = "As a Priest of Rust, you can recruit more disciples. Also, yYour Mansus Grasp now applies the Mark of Rust on hit. Attack the afflicted with your Sickly Blade to detonate the mark. Upon detonation, the Mark of Rust has a chance to deal between 0 to 200 damage to 75% of your enemy's held items."
 	cost = 10
 	next_knowledge = list(/datum/eldritch_knowledge/spell/area_conversion)
 	banned_knowledge = list(/datum/eldritch_knowledge/ash_mark,/datum/eldritch_knowledge/flesh_mark)
 	route = PATH_RUST
 	followers_increment = 1
 
+/datum/eldritch_knowledge/rust_mark/on_mansus_grasp(target,user,proximity_flag,click_parameters)
+	. = ..()
+	if(isliving(target))
+		var/mob/living/living_target = target
+		living_target.apply_status_effect(/datum/status_effect/eldritch/rust)
+
 /datum/eldritch_knowledge/spell/area_conversion
 	name = "Agressive Spread"
-	desc = "Agressive Spread is a spell that spreads rust to nearby turfs. Destroys already rusted walls."
-	gain_text = "All men wise know not to touch the bound king."
+	desc = "Spreads rust to nearby surfaces. Already rusted surfaces are destroyed."
+	gain_text = "All wise men know well not to touch the Bound King."
 	cost = 5
 	spell_to_add = /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
 	next_knowledge = list(/datum/eldritch_knowledge/rust_blade_upgrade,/datum/eldritch_knowledge/spell/blood_siphon,/datum/eldritch_knowledge/curse/alteration,/datum/eldritch_knowledge/dematerialize)
@@ -59,57 +93,6 @@
 	route = PATH_RUST
 	followers_increment = 1
 
-/datum/eldritch_knowledge/spell/rust_wave
-	name = "Wave of Rust"
-	desc = "Wave of Rust sends a projectile that converts an area into rust."
-	gain_text = "Messenger's of hope fear the rustbringer!"
-	cost = 5
-	spell_to_add = /obj/effect/proc_holder/spell/targeted/projectile/dumbfire/rust_wave
-	next_knowledge = list(/datum/eldritch_knowledge/final/rust_final,/datum/eldritch_knowledge/summon/ashy,/datum/eldritch_knowledge/summon/rusty,/datum/eldritch_knowledge/spell/cleave)
-	route = PATH_RUST
-
-/datum/eldritch_knowledge/final/rust_final
-	name = "Rustbringer's Oath"
-	desc = "Bring 3 corpses onto the transmutation rune. After you finish the ritual rust will now automatically spread from the rune. Your healing on rust is also tripled, while you become more resillient overall and spaceproof."
-	gain_text = "Champion of rust. Corruptor of steel. Fear the dark for Rustbringer has come!"
-	cost = 15
-	required_atoms = list(/mob/living/carbon/human)
-	route = PATH_RUST
-	var/list/trait_list = list(TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_RESISTLOWPRESSURE)
-	followers_increment = 1
-
-//	-	EFFECT	-
-
-/datum/eldritch_knowledge/rust_fist/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
-	..()
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/datum/status_effect/eldritch/E = H.has_status_effect(/datum/status_effect/eldritch/rust) || H.has_status_effect(/datum/status_effect/eldritch/ash) || H.has_status_effect(/datum/status_effect/eldritch/flesh)
-		if(E)
-			E.on_effect()
-			H.adjustOrganLoss(pick(ORGAN_SLOT_BRAIN,ORGAN_SLOT_EARS,ORGAN_SLOT_EYES,ORGAN_SLOT_LIVER,ORGAN_SLOT_LUNGS,ORGAN_SLOT_STOMACH,ORGAN_SLOT_HEART),25)
-	target.rust_heretic_act(TRUE)
-	return TRUE
-
-/datum/eldritch_knowledge/rust_regen/on_life(mob/user)
-	..()
-	var/turf/user_loc_turf = get_turf(user)
-	if(!istype(user_loc_turf, /turf/open/floor/plating/rust) || !isliving(user))
-		return
-	var/mob/living/living_user = user
-	living_user.adjustBruteLoss(-2, FALSE)
-	living_user.adjustFireLoss(-2, FALSE)
-	living_user.adjustToxLoss(-2, FALSE)
-	living_user.adjustOxyLoss(-0.5, FALSE)
-	living_user.adjustStaminaLoss(-2)
-	living_user.AdjustAllImmobility(-5)	
-
-/datum/eldritch_knowledge/rust_mark/on_eldritch_blade(target,user,proximity_flag,click_parameters)
-	. = ..()
-	if(isliving(target))
-		var/mob/living/living_target = target
-		living_target.apply_status_effect(/datum/status_effect/eldritch/rust)
-
 /datum/eldritch_knowledge/rust_blade_upgrade/on_eldritch_blade(target,user,proximity_flag,click_parameters)
 	. = ..()
 	var/mob/living/carbon/cuser = user
@@ -121,6 +104,27 @@
 	. = ..()
 	target.rust_heretic_act(FALSE)
 	return TRUE
+
+/datum/eldritch_knowledge/spell/rust_wave
+	name = "Wave of Rust"
+	desc = "Wave of Rust sends a projectile that converts an area into rust."
+	gain_text = "Messenger's of hope fear the rustbringer!"
+	cost = 5
+	spell_to_add = /obj/effect/proc_holder/spell/targeted/projectile/dumbfire/rust_wave
+	next_knowledge = list(/datum/eldritch_knowledge/final/rust_final,/datum/eldritch_knowledge/summon/ashy,/datum/eldritch_knowledge/summon/rusty,/datum/eldritch_knowledge/spell/cleave)
+	route = PATH_RUST
+
+/datum/eldritch_knowledge/final/rust_final
+	name = "Rustbringer's Oath"
+	desc = "Bring 3 corpses onto the transmutation rune. After you finish the ritual rust will now automatically spread from the rune. Your healing on rust is also tripled, while you become more resillient overall."
+	gain_text = "Champion of rust. Corruptor of steel. Fear the dark for the Rustbringer has come! Rusted Hills, CALL MY NAME!"
+	cost = 15
+	required_atoms = list(/mob/living/carbon/human)
+	route = PATH_RUST
+	var/list/trait_list = list(TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_RESISTLOWPRESSURE)
+	followers_increment = 1
+
+//	-	EFFECT	-
 
 /datum/eldritch_knowledge/final/rust_final/on_finished_recipe(mob/living/user, list/atoms, loc)
 	var/mob/living/carbon/human/H = user

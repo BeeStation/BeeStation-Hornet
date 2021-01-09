@@ -81,6 +81,7 @@
 #define PATH_ASH "Ash"
 #define PATH_RUST "Rust"
 #define PATH_FLESH "Flesh"
+#define PATH_VOID "Void"
 
 #define HERETIC_FAILTYPE_SUCCESS	0
 #define HERETIC_FAILTYPE_LIMIT		1
