@@ -27,12 +27,16 @@
 	var/permit_insecure = FALSE
 
 /datum/world_topic/proc/TryRun(list/input, addr)
-	key_valid = config && ((CONFIG_GET(string/comms_key) == input["key"]) || (permit_insecure && CONFIG_GET(string/comms_key_insecure) == input["key"]))
+	key_valid = config && (CONFIG_GET(string/comms_key) == input["key"])
+	if(!key_valid && permit_insecure)
+		key_valid = config && (CONFIG_GET(string/comms_key_insecure) == input["key"])
 	if(require_comms_key && !key_valid)
 		return "Bad Key"
 	var/delta = world.time - GLOB.topic_cooldown
-	if(permit_insecure && (delta < CONFIG_GET(number/insecure_topic_cooldown)))
-		return "Rate Limited"
+	if(permit_insecure && (CONFIG_GET(string/comms_key) != input["key"])) // ignore the rate limiting if using true comms key
+		if(delta < CONFIG_GET(number/insecure_topic_cooldown))
+			return "Rate Limited"
+		GLOB.topic_cooldown = world.time
 	input -= "key"
 	. = Run(input, addr)
 	if(islist(.))

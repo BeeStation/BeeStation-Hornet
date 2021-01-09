@@ -7,12 +7,16 @@
 #COMMS_KEY_INSECURE defaultinsecurekey
 
 ## Minimum time between Topics recieved with the insecure key, in deciseconds. Default is 30 seconds
-#INSECURE_TOPIC_COOLDOWN 300
+INSECURE_TOPIC_COOLDOWN 300
 
 ## World address and port for server receiving cross server messages
 ## Use '+' to denote spaces in ServerName
 ## Repeat this entry to add more servers
-#CROSS_SERVER ServerName byond:\\address:port
+#CROSS_SERVER ServerName byond://address:port
+
+## World address and port for servers we can contact using the insecure comms key
+## Same as above, other than that
+#INSECURE_CROSS_SERVER ServerName byond://address:port
 
 ## Name that the server calls itself in communications
 #CROSS_COMMS_NAME
