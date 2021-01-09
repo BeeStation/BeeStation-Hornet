@@ -213,7 +213,7 @@
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
-	for(var/mob/M as() in hearers(range, src))
+	for(var/mob/M as() in hearers(range, get_turf(src)))
 		var/msg = message
 		if(self_message && M==src)
 			msg = self_message
