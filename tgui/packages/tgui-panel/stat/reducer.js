@@ -5,6 +5,7 @@ const initialState = {
   dead_popup: false,
   statTabs: [],
   statInfomation: [],
+  statTabMode: "Scroll",
 };
 
 export const statReducer = (state = initialState, action) => {

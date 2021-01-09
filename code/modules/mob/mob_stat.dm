@@ -70,7 +70,7 @@
 			)
 	var/list/all_verbs = get_all_verbs()
 	if(selected_tab in all_verbs)
-		client.stat_update_mode = STAT_NO_UPDATE
+		client.stat_update_mode = STAT_SLOW_UPDATE
 		for(var/verb in all_verbs[selected_tab])
 			var/procpath/V = verb
 			tab_data["[V.name]"] = list(
@@ -95,7 +95,7 @@
 		//If you don't want this to happen change this.
 		if(!all_verbs.Find("Object"))
 			all_verbs["Object"] = list()
-		all_verbs["Object"]
+		all_verbs["Object"] += A.verbs
 	return all_verbs
 
 /*
@@ -171,9 +171,10 @@
 		tabs |= "Tickets"
 		if(length(GLOB.sdql2_queries))
 			tabs |= "SDQL2"
-	var/list/additional_tabs = list()
-	additional_tabs |= stat_tabs
-	additional_tabs |= client?.stat_tabs
+	var/list/additional_tabs = get_all_verbs()
+	//Performance increase from only adding keys is better than adding values too.
+	for(var/i in get_all_verbs())
+		additional_tabs |= i
 	additional_tabs = sortList(additional_tabs)
 	//Get verbs
 	tabs |= additional_tabs
@@ -269,9 +270,9 @@
 /mob/proc/UpdateMobStat(forced = FALSE)
 	if(!client.tgui_panel)
 		return
-	//We don't update
-	if(!client.stat_update_mode && !forced)
-		return
+	//It would be nice if we could have things not update,
+	//But if the stat panel gets reloaded through fix-chat
+	//or other means then nothing will ever appear in the panel.
 	if(client.stat_update_time > 0 && !forced)
 		client.stat_update_time --
 		return

@@ -42,19 +42,14 @@ export const Panel = (props, context) => {
     setNumber,
   ] = useLocalState(context, 'number', settings.statSize);
   const dispatch = useDispatch(context);
-  let safenumber = 40;
-  if (number !== null)
-  {
-    // Sanity check
-    safenumber = number;
-  }
+  let safenumber = number !== null ? number : 40;
   const resizeFunction = (e, value) => {
     if (value !== null)
     {
       dispatch(updateSettings({
-        statSize: value,
+        statSize: Math.max(Math.min(value, 90), 10),
       }));
-    }}
+    }
   };
   return (
     <Pane theme={settings.theme}>
@@ -72,7 +67,8 @@ export const Panel = (props, context) => {
         dragMatrix={[0, -1]}
         step={1}
         stepPixelSize={9}
-        onDrag={(e, value) => resizeFunction(e, value)}>
+        onDrag={(e, value) => resizeFunction(e, value)}
+        updateRate={5}>
         {control => (
           <Box
             onMouseDown={control.handleDragStart}

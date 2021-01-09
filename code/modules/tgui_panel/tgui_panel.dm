@@ -65,6 +65,9 @@
  * Callback for handling incoming tgui messages.
  */
 /datum/tgui_panel/proc/on_message(type, payload)
+	if(client.mob && type == "log" && href_list["fatal"])
+		client.fix_tgui_panel()
+		message_admins("[ADMINLOOKUPFLW(client.mob)] had a fatal error occur on their TGUI Chat. Automatically reloading for them.")
 	if(type == "ready")
 		broken = FALSE
 		window.send_message("update", list(

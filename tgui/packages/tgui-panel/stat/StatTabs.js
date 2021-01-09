@@ -9,41 +9,21 @@ import { StatText } from './StatText';
 
 export const StatTabs = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
-  const dispatch = useDispatch(context);
+  const settings = useSettings(context);
   let statSection = (<StatText />);
   switch (stat.selectedTab) {
     case 'Status':
       statSection = (<StatStatus />);
       break;
   }
-  // Map the input data into tabs, then filter out extra_data
-  let statTabs = stat.statTabs;
   return (
     <Flex
       height="100%"
       direction="column">
       <Flex.Item>
-        <Section
-          fitted
-          overflowX="auto">
-          <Flex align="center">
-            <Flex.Item>
-              <Tabs textAlign="center">
-                {statTabs.map(tab => (
-                  <Tabs.Tab
-                    key={tab}
-                    selected={tab === stat.selectedTab}
-                    onClick={() => dispatch({
-                      type: 'stat/setTab',
-                      payload: tab,
-                    })}>
-                    {tab}
-                  </Tabs.Tab>
-                ))}
-              </Tabs>
-            </Flex.Item>
-          </Flex>
-        </Section>
+        {settings.statTabMode === "Scroll"
+          ? <StatTabScroll />
+          : <StatTabWrap />}
       </Flex.Item>
       <Flex.Item
         overflowY="scroll"
@@ -52,5 +32,60 @@ export const StatTabs = (props, context) => {
         {statSection}
       </Flex.Item>
     </Flex>
+  );
+};
+
+export const StatTabScroll = (props, context) => {
+  const stat = useSelector(context, selectStatPanel);
+  const dispatch = useDispatch(context);
+  // Map the input data into tabs, then filter out extra_data
+  let statTabs = stat.statTabs;
+  return (
+    <Section
+      fitted
+      overflowX="auto">
+      <Flex align="center">
+        <Flex.Item>
+          <Tabs textAlign="center">
+            {statTabs.map(tab => (
+              <Tabs.Tab
+                key={tab}
+                selected={tab === stat.selectedTab}
+                onClick={() => dispatch({
+                  type: 'stat/setTab',
+                  payload: tab,
+                })}>
+                {tab}
+              </Tabs.Tab>
+            ))}
+          </Tabs>
+        </Flex.Item>
+      </Flex>
+    </Section>
+  );
+};
+
+export const StatTabWrap = (props, context) => {
+  const stat = useSelector(context, selectStatPanel);
+  const dispatch = useDispatch(context);
+  // Map the input data into tabs, then filter out extra_data
+  let statTabs = stat.statTabs;
+  return (
+    <Section
+      fitted
+      overflowX="auto">
+      {statTabs.map(tab => (
+        <Button
+          key={tab}
+          color="transparent"
+          selected={tab === stat.selectedTab}
+          onClick={() => dispatch({
+            type: 'stat/setTab',
+            payload: tab,
+          })}>
+          {tab}
+        </Button>
+      ))}
+    </Section>
   );
 };

@@ -6,7 +6,6 @@
 #define STAT_DIVIDER 3
 #define STAT_VERB 4	//Similar to button, but multiple on 1 line
 
-#define STAT_NO_UPDATE 0	//Never!
-#define STAT_SLOW_UPDATE 5	//Once every 10 seconds
-#define STAT_MEDIUM_UPDATE 3	//Once every 6 seconds
+#define STAT_SLOW_UPDATE 3	//Once every 6 seconds
+#define STAT_MEDIUM_UPDATE 2	//Once every 4 seconds
 #define STAT_FAST_UPDATE 1	//Once every 2 seconds
