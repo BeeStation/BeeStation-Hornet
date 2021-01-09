@@ -41,7 +41,7 @@
 			return
 		var/mob/dead/observer/C = pick(candidates)
 		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(humie)]) to replace an AFK player.")
-		humie.ghostize(0)		
+		humie.ghostize(0)
 		humie.key = C.key
 
 	log_game("[key_name_admin(humie)] has become a voiceless dead, their master is [user.real_name]")
@@ -132,16 +132,26 @@
 	humie.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
 	UnregisterSignal(source, COMSIG_MOB_DEATH)
 
+/datum/eldritch_knowledge/flesh_grasp/on_eldritch_blade(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/C = target
+	var/datum/status_effect/eldritch/E = C.has_status_effect(/datum/status_effect/eldritch/rust) || C.has_status_effect(/datum/status_effect/eldritch/ash) || C.has_status_effect(/datum/status_effect/eldritch/flesh)
+	if(E)
+		C.silent = max(C.silent, 4 SECONDS)
+		E.on_effect()
+
 /datum/eldritch_knowledge/flesh_mark
 	name = "Mark of flesh"
 	gain_text = "I saw them, the marked ones. The screams.. the silence."
-	desc = "Your sickly blade now applies mark of flesh status effect. To proc the mark, use your mansus grasp on the marked. Mark of flesh when procced causeds additional bleeding."
+	desc = "Your mansus grasp now applies flesh mark on hit. Use your sickly blade to proc the mark and silence the target. Mark of Ash causes additional bleeding when procced."
 	cost = 2
 	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet)
 	banned_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/ash_mark)
 	route = PATH_FLESH
 
-/datum/eldritch_knowledge/flesh_mark/on_eldritch_blade(target,user,proximity_flag,click_parameters)
+/datum/eldritch_knowledge/flesh_mark/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/living_target = target

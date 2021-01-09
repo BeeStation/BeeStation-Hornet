@@ -21,7 +21,7 @@
 /datum/eldritch_knowledge/ashen_grasp
 	name = "Grasp of Ash"
 	gain_text = "Gates have opened, minds have flooded, I remain."
-	desc = "Empowers your mansus grasp to throw away enemies."
+	desc = "Empowers your mansus grasp to blind opponents you touch with it."
 	cost = 1
 	next_knowledge = list(/datum/eldritch_knowledge/spell/ashen_shift)
 	route = PATH_ASH
@@ -41,22 +41,37 @@
 				continue
 			var/obj/effect/proc_holder/spell/targeted/touch/mansus_grasp/MG = X
 			MG.charge_counter = min(round(MG.charge_counter + MG.charge_max * 0.75),MG.charge_max) // refunds 75% of charge.
-	var/atom/throw_target = get_edge_target_turf(C, user.dir)
-	if(!C.anchored)
-		. = TRUE
-		C.throw_at(throw_target, rand(4,8), 14, user)
+	to_chat(C, "<span class='danger'>Your eyes burn horrifically!</span>") //pocket sand!
+	C.become_nearsighted(EYE_DAMAGE)
+	C.blind_eyes(5)
+	C.blur_eyes(10)
 	return
+
+/datum/eldritch_knowledge/ashen_grasp/on_eldritch_blade(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!iscarbon(target))
+		return
+	var/mob/living/carbon/C = target
+	var/datum/status_effect/eldritch/E = C.has_status_effect(/datum/status_effect/eldritch/rust) || C.has_status_effect(/datum/status_effect/eldritch/ash) || C.has_status_effect(/datum/status_effect/eldritch/flesh)
+	if(E)
+		C.silent = max(C.silent, 4 SECONDS)
+		E.on_effect()
+		for(var/X in user.mind.spell_list)
+			if(!istype(X,/obj/effect/proc_holder/spell/targeted/touch/mansus_grasp))
+				continue
+			var/obj/effect/proc_holder/spell/targeted/touch/mansus_grasp/MG = X
+			MG.charge_counter = min(round(MG.charge_counter + MG.charge_max * 0.75),MG.charge_max) // refunds 75% of charge.
 
 /datum/eldritch_knowledge/ash_mark
 	name = "Mark of ash"
 	gain_text = "Spread the famine."
-	desc = "Your sickly blade now applies ash mark on hit. Use your mansus grasp to proc the mark. Mark of Ash causes stamina damage, and fire loss, and spreads to a nearby carbon. Damage decreases with how many times the mark has spread."
+	desc = "Your mansus grasp now applies ash mark on hit. Use your sickly blade to proc the mark and silence the target. Mark of Ash causes stamina damage, and fire loss, and spreads to a nearby carbon. Damage decreases with how many times the mark has spread."
 	cost = 2
 	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness)
 	banned_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/flesh_mark)
 	route = PATH_ASH
 
-/datum/eldritch_knowledge/ash_mark/on_eldritch_blade(target,user,proximity_flag,click_parameters)
+/datum/eldritch_knowledge/ash_mark/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/living_target = target

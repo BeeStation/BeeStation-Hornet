@@ -74,8 +74,8 @@
 	flags_1 = CONDUCT_1
 	sharpness = IS_SHARP
 	w_class = WEIGHT_CLASS_NORMAL
-	force = 17
-	throwforce = 10
+	force = 27
+	throwforce = 30
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
 	var/datum/action/innate/heretic_shatter/linked_action
