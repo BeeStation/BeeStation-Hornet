@@ -13,12 +13,12 @@
 
 /obj/structure/closet/crate/necropolis/update_icon()
 	. = ..()
-	if(need_key == TRUE)
+	if(need_key)
 		add_overlay("necrocrate_lock")
 
 /obj/structure/closet/crate/necropolis/proc/update_desc()
 	desc = "It's watching you suspiciously."
-	if(need_key == TRUE)
+	if(need_key)
 		desc += " It seems like it needs a key to unlock..."
 
 /obj/structure/closet/crate/necropolis/Initialize()
@@ -26,7 +26,7 @@
 	update_desc()
 
 /obj/structure/closet/crate/necropolis/attack_hand(mob/user)
-	if(need_key == TRUE)
+	if(need_key)
 		to_chat(user, "<span class='warning'>It seems that this chest is locked!</span>")
 		return
 	. = ..()
@@ -124,7 +124,7 @@
 		if(30)
 			new /obj/item/reagent_containers/glass/bottle/necropolis_seed(src)
 	if(prob(10)) // Low chance to give you a hat, funny tf2
-		var/hat = pick(list(
+		var/static/list/necropolis_hat_drops = list(
 			/obj/item/clothing/head/beanie,
 			/obj/item/clothing/head/helmet/gladiator,
 			/obj/item/clothing/head/flatcap,
@@ -140,7 +140,8 @@
 			/obj/item/clothing/head/hardhat,
 			/obj/item/clothing/head/crown,
 			/obj/item/clothing/head/festive
-			))
+			)
+		var/hat = pick(necropolis_hat_drops)
 		new hat(src)
 
 //KA modkit design discs
