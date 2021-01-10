@@ -1193,7 +1193,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = "NOPE"
+	zombiejob = "Assistant"
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -1462,7 +1462,7 @@
 	dir = 1;
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	wander = 0;
-	zombiejob = "NOPE"
+	zombiejob = "Assistant"
 	},
 /turf/open/floor/holofloor/grass{
 	color = "#A4A4A4"
@@ -5037,7 +5037,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = "NOPE"
+	zombiejob = "Assistant"
 	},
 /obj/machinery/light/small,
 /turf/open/floor/circuit,
@@ -6743,7 +6743,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = "NOPE"
+	zombiejob = "Assistant"
 	},
 /obj/effect/decal/cleanable/vomit,
 /turf/open/floor/plasteel/dark,
@@ -8746,7 +8746,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = "NOPE"
+	zombiejob = "Assistant"
 	},
 /turf/open/floor/grass/snow/basalt{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15";
@@ -10104,7 +10104,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = "NOPE"
+	zombiejob = "Assistant"
 	},
 /turf/open/floor/holofloor/grass{
 	color = "#A4A4A4"
@@ -11039,7 +11039,7 @@
 	dir = 8;
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	wander = 0;
-	zombiejob = "NOPE"
+	zombiejob = "Assistant"
 	},
 /turf/open/floor/holofloor/grass{
 	color = "#A4A4A4"
@@ -11302,7 +11302,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = "NOPE"
+	zombiejob = "Assistant"
 	},
 /obj/machinery/light/small,
 /turf/open/floor/circuit,
@@ -12298,7 +12298,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = "NOPE"
+	zombiejob = "Assistant"
 	},
 /turf/open/floor/plating/snowed/smoothed,
 /area/awaymission/factory/villageduring/house)
@@ -12783,7 +12783,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = "NOPE"
+	zombiejob = "Assistant"
 	},
 /obj/effect/gibspawner/human,
 /obj/effect/decal/cleanable/blood,
@@ -17421,7 +17421,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = "NOPE"
+	zombiejob = "Assistant"
 	},
 /turf/open/floor/engine/light{
 	baseturfs = /turf/open/floor/plating/asteroid
@@ -20030,7 +20030,7 @@
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	health = 30;
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = "NOPE"
+	zombiejob = "Assistant"
 	},
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
@@ -20666,7 +20666,7 @@
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	health = 30;
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = "NOPE"
+	zombiejob = "Assistant"
 	},
 /turf/open/floor/circuit/red/anim,
 /area/awaymission/factory/factoryduring/down/levelthree)
@@ -23501,7 +23501,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = "NOPE"
+	zombiejob = "Assistant"
 	},
 /turf/open/floor/carpet/royalblack,
 /area/awaymission/factory/villageduring/house)
@@ -25571,7 +25571,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = "NOPE"
+	zombiejob = "Assistant"
 	},
 /obj/effect/decal/cleanable/vomit,
 /turf/open/floor/monotile/light,
@@ -25766,7 +25766,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = "NOPE"
+	zombiejob = "Assistant"
 	},
 /turf/open/floor/noslip/white{
 	name = "padded floor"
@@ -26716,7 +26716,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = "NOPE"
+	zombiejob = "Assistant"
 	},
 /obj/machinery/light/small{
 	brightness = 3;
@@ -27541,7 +27541,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = "NOPE"
+	zombiejob = "Assistant"
 	},
 /turf/open/floor/carpet/black,
 /area/awaymission/factory/villageduring/house)
@@ -28653,7 +28653,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = "NOPE"
+	zombiejob = "Assistant"
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/factory/factoryduring/down/leveltwo/morgue)
