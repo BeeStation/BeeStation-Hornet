@@ -16,6 +16,7 @@ INSECURE_TOPIC_COOLDOWN 300
 
 ## World address and port for servers we can contact using the insecure comms key
 ## Same as above, other than that
+## Note: Servers should be either secure (normal) or insecure, but NOT both at the same time.
 #INSECURE_CROSS_SERVER ServerName byond://address:port
 
 ## Name that the server calls itself in communications

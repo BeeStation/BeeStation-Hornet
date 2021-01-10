@@ -26,7 +26,7 @@
 		config_entry_value = newv
 
 /datum/config_entry/keyed_list/cross_server/ValidateListEntry(key_name, key_value)
-	return key_value != "byond:\\address:port" && ..()
+	return key_value != "byond://address:port" && ..()
 
 /datum/config_entry/keyed_list/insecure_cross_server
 	key_mode = KEY_MODE_TEXT
@@ -42,7 +42,7 @@
 		config_entry_value = newv
 
 /datum/config_entry/keyed_list/insecure_cross_server/ValidateListEntry(key_name, key_value)
-	return key_value != "byond:\\address:port" && ..()
+	return key_value != "byond://address:port" && ..()
 
 /datum/config_entry/string/cross_comms_name
 
