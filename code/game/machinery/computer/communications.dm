@@ -750,19 +750,18 @@
 	messages += new_message
 
 /obj/machinery/computer/communications/proc/cross_server(msg)
-	var/comms_key = CONFIG_GET(string/comms_key)
-	if(!comms_key)
-		return
 	var/list/message = list()
 	message["message_sender"] = station_name()
 	message["message"] = msg
 	message["source"] = "([CONFIG_GET(string/cross_comms_name)])"
-	message["key"] = comms_key
 	message += "Comms_Console"
 
-	var/list/servers = CONFIG_GET(keyed_list/cross_server)
-	for(var/I in servers)
-		world.Export("[servers[I]]?[list2params(message)]")
+	var/comms_key = CONFIG_GET(string/comms_key)
+	if(comms_key)
+		message["key"] = comms_key
+		var/list/servers = CONFIG_GET(keyed_list/cross_server)
+		for(var/I in servers)
+			world.Export("[servers[I]]?[list2params(message)]")
 
 	comms_key = CONFIG_GET(string/comms_key_insecure)
 	if(comms_key)
