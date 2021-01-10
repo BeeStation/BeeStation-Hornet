@@ -344,7 +344,7 @@
 	mob_choice = /mob/living/simple_animal/pet/cat
 
 /obj/item/choice_beacon/pet/mouse
-	name = "cat delivery beacon"
+	name = "mouse delivery beacon"
 	default_name = "Jerry"
 	mob_choice = /mob/living/simple_animal/mouse
 	
@@ -354,12 +354,12 @@
 	mob_choice = /mob/living/simple_animal/pet/dog/corgi
 	
 /obj/item/choice_beacon/pet/hamster
-	name = "corgi delivery beacon"
+	name = "hamster delivery beacon"
 	default_name = "Doctor"
 	mob_choice = /mob/living/simple_animal/pet/hamster
 	
 /obj/item/choice_beacon/pet/pug
-	name = "corgi delivery beacon"
+	name = "pug delivery beacon"
 	default_name = "Silvestro"
 	mob_choice = /mob/living/simple_animal/pet/dog/pug
 	
