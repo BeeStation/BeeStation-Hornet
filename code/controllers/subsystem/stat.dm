@@ -45,15 +45,18 @@ SUBSYSTEM_DEF(stat)
 			overlay_hash = "[overlay_hash][I.icon_state]"
 		what_to_search = "[M.type][M.name][overlay_hash]"
 	//Makes it shorter
-	what_to_search = sha1(what_to_search)
-	thing = flat_icon_cache[what_to_search]
+	what_to_search = md5(what_to_search)
+	var/thing = flat_icon_cache[what_to_search]
 	if(thing)
 		return thing
 	//Adding a new icon
 	//If the list gets too big just remove the first thing
 	if(flat_icon_cache.len > FLAT_ICON_CACHE_MAX_SIZE)
 		flat_icon_cache.Cut(1, 2)
-	thing = icon2base64(getFlatIcon(A, no_anim=TRUE))
+	//We are only going to apply overlays to mobs.
+	//Massively faster, getFlatIcon is a bit of a sucky proc.
+	//Thi
+	thing = icon2base64(getStillIcon(A))
 	flat_icon_cache[what_to_search] = thing
 	return thing
 
