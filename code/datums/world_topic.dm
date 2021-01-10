@@ -97,6 +97,8 @@
 	permit_insecure = TRUE
 
 /datum/world_topic/comms_console/Run(list/input, addr)
+	if(CHAT_FILTER_CHECK(input["message"])) // prevents any.. diplomatic incidents
+		return
 	minor_announce(input["message"], "Incoming message from [input["message_sender"]]")
 	for(var/obj/machinery/computer/communications/CM in GLOB.machines)
 		CM.overrideCooldown()
