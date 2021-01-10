@@ -766,7 +766,7 @@
 	comms_key = CONFIG_GET(string/comms_key_insecure)
 	if(comms_key)
 		message["key"] = comms_key
-		servers = CONFIG_GET(keyed_list/insecure_cross_server)
+		var/list/servers = CONFIG_GET(keyed_list/insecure_cross_server)
 		for(var/I in servers)
 			world.Export("[servers[I]]?[list2params(message)]")
 
