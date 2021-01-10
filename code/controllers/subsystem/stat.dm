@@ -35,17 +35,16 @@ SUBSYSTEM_DEF(stat)
 //Whoever examins an item with a decal first, everyone else will see that items decals.
 //Significantly reduces server lag though, like MASSIVELY!
 /datum/controller/subsystem/stat/proc/get_flat_icon(atom/A)
-	var/what_to_search = "[A.type][A.icon_state]"
+	var/what_to_search = "[A.type][A.icon_state[1]]"
 	//Mobs are more important than items.
 	//Mob icons will change if their name changes, their type changes or their overlays change.
 	if(istype(A, /mob))
 		var/mob/M = A
 		var/overlay_hash = ""
 		for(var/image/I as() in M.overlays)
-			overlay_hash = "[overlay_hash][I.icon_state]"
+			overlay_hash = "[overlay_hash][I.icon_state[1]]"
 		what_to_search = "[M.type][M.name][overlay_hash]"
 	//Makes it shorter
-	what_to_search = md5(what_to_search)
 	var/thing = flat_icon_cache[what_to_search]
 	if(thing)
 		return thing
