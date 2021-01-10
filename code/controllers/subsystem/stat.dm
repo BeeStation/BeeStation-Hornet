@@ -42,7 +42,7 @@ SUBSYSTEM_DEF(stat)
 		var/mob/M = A
 		var/overlay_hash = ""
 		for(var/image/I as() in M.overlays)
-			if(istext(I.icon_state))
+			if(istext(I.icon_state) && length(I.icon_state) >= 1)
 				overlay_hash = "[overlay_hash][I.icon_state[1]]"
 			else
 				overlay_hash = "[overlay_hash]*"	//Just to make changes known when lengths change. Doesn't have to be accurate per-say.
