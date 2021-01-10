@@ -73,7 +73,6 @@ export const StatTabWrap = (props, context) => {
   let statTabs = stat.statTabs;
   return (
     <Section
-      fitted
       overflowX="auto">
       {statTabs.map(tab => (
         <Button

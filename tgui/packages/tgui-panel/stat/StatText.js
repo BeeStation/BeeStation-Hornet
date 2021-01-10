@@ -93,13 +93,10 @@ export const StatTextButton = (props, context) => {
     action_id,
     params = [],
   } = props;
+  const settings = useSettings(context);
   return (
     <Flex.Item mt={1}>
-      <b>
-        {title}: 
-      </b>
       <Button
-        content={text}
         onClick={() => sendMessage({
           type: 'stat/pressed',
           payload: {
@@ -107,7 +104,14 @@ export const StatTextButton = (props, context) => {
             params: params,
           },
         })}
-        color="transparent" />
+        color="transparent">
+        <font color={settings.statButtonColour}>
+          <b>
+            {title}:{" "}
+          </b>
+          {text}
+        </font>
+      </Button>
     </Flex.Item>
   );
 };

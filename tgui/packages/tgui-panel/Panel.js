@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { Button, Flex, Section } from 'tgui/components';
+import { Button, Flex, Section, NoticeBox } from 'tgui/components';
 import { Pane } from 'tgui/layouts';
 import { useDispatch } from 'common/redux';
 import { NowPlayingWidget, useAudio } from './audio';
@@ -42,49 +42,33 @@ export const Panel = (props, context) => {
     number,
     setNumber,
   ] = useLocalState(context, 'number', settings.statSize);
+  const [
+    erroring,
+    setErroring,
+  ] = useLocalState(context, 'erroring', false);
   const dispatch = useDispatch(context);
-  let safenumber = number !== null ? number : 40;
-  const resizeFunction = (e, value) => {
-    try
-    {
-      if (typeof value === 'number')
-      {
-        dispatch(updateSettings({
-          statSize: Math.max(Math.min(value, 90), 10),
-        }));
-      }
-    }
-    catch
-    {
-      // This is stupid.
-      dispatch({
-        type: 'stat/alertPopup',
-        payload: 'Hey! There was an error on your TGUI panel \
-        when trying to update the size. Luckily I have caught \
-        the issue for you and you are free to resume with your day. \
-        You should probably report this, especiall if \
-        something else bad happens, like you can\'t resize or the chat \
-        looks all messed up and wacky.',
-      });
-    }
+  const resizeFunction = value => {
+    dispatch(updateSettings({
+      statSize: Math.max(Math.min(value, 90), 10),
+    }));
   };
   return (
     <Pane theme={settings.theme}>
       <Flex
         direction="column"
-        height={(98-safenumber) + '%'}>
+        height={(98-number) + '%'}>
         <StatTabs
           height="100%" />
       </Flex>
       <DraggableControl
+        value={number}
         height="1%"
-        value={safenumber}
         minValue={0}
         maxValue={100}
         dragMatrix={[0, -1]}
         step={1}
         stepPixelSize={9}
-        onDrag={(e, value) => resizeFunction(e, value)}
+        onDrag={(e, value) => resizeFunction(value)}
         updateRate={5}>
         {control => (
           <Box
@@ -96,13 +80,14 @@ export const Panel = (props, context) => {
               backgroundColor="grey"
               top="3px">
               <Divider />
+              {control.inputElement}
             </Box>
           </Box>
         )}
       </DraggableControl>
       <Flex
         direction="column"
-        height={(safenumber-1) + '%'}
+        height={(number-1) + '%'}
         mt={1}>
         <Flex.Item>
           <Section fitted>
@@ -170,6 +155,20 @@ export const Panel = (props, context) => {
                 <Notifications.Item>
                   The connection has been closed because the server is
                   restarting. Please wait while you automatically reconnect.
+                </Notifications.Item>
+              )}
+              {erroring && (
+                <Notifications.Item
+                  rightSlot={(
+                    <Button
+                      color="white"
+                      onClick={() => setErroring(false)}>
+                      Close
+                    </Button>
+                  )}>
+                  Caution: The stat panel experienced an exception attempting
+                  to handle resizing. This has been fixed, however should be
+                  reported.
                 </Notifications.Item>
               )}
             </Notifications>
