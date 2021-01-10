@@ -34,7 +34,7 @@
 		insecure_key = key_valid
 	if(require_comms_key && !key_valid)
 		return "Bad Key"
-	if(permit_insecure && insecure_key) // ignore the rate limiting if using true comms key
+	if(insecure_key) // ignore the rate limiting if using true comms key
 		var/delta = world.time - GLOB.topic_cooldown
 		if(delta < CONFIG_GET(number/insecure_topic_cooldown))
 			return "Rate Limited"
