@@ -8,6 +8,9 @@ GLOBAL_VAR(restart_counter)
 	if (fexists(EXTOOLS))
 		call(EXTOOLS, "debug_initialize")()
 		call(EXTOOLS, "maptick_initialize")()
+		#ifdef REFERENCE_TRACKING
+		call(EXTOOLS, "ref_tracking_initialize")()
+		#endif
 
 	//Early profile for auto-profiler - will be stopped on profiler init if necessary.
 	world.Profile(PROFILE_START)

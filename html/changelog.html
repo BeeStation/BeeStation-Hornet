@@ -56,6 +56,83 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">09 January 2021</h2>
+			<h3 class="author">Alt_Alpha9 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added international garbage day, say thanks to your local janitor</li>
+			</ul>
+			<h3 class="author">That0nePerson updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">Moved smoke logging to mob logs</li>
+			</ul>
+			<h3 class="author">bloons3 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">makes General Griefsky a member of the Syndicate</li>
+			</ul>
+
+			<h2 class="date">08 January 2021</h2>
+			<h3 class="author">MCHSL, Rohesie, LemonInTheDark updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Reference tracking, which can be enabled via compile options; ported frontend from tg</li>
+			</ul>
+			<h3 class="author">Naevii updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="imageadd">Updates CMO cloak sprite</li>
+				<li class="imageadd">Updates CE cloak sprite.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">BOH nullspacing bug</li>
+			</ul>
+			<h3 class="author">Sinestia updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">tiny fan to luxury shuttle poverty department</li>
+			</ul>
+			<h3 class="author">eeSPee updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Pet beacons!</li>
+			</ul>
+			<h3 class="author">ike709 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Optimized get_mob_by_ckey().</li>
+				<li class="code_imp">Removed get_mob_by_key().</li>
+				<li class="code_imp">Improved performance of get_hearers_in_view() by quite a bit.</li>
+			</ul>
+
+			<h2 class="date">07 January 2021</h2>
+			<h3 class="author">MNarath1 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">logs the shooter and circuit name of the weapon circuit in the attack log of the victim</li>
+			</ul>
+			<h3 class="author">Raven-Industries updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="soundadd">adds 2 new ambience tracks for detective's office</li>
+			</ul>
+			<h3 class="author">Ryll/Shaps updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">Fixed an issue with player logs becoming confused when someone triggers multiple events within one second (like being attacked by two people at the same time) that would cause holes in the logs</li>
+			</ul>
+			<h3 class="author">park66665 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">magboots no longer make you feel gravity in space</li>
+				<li class="code_imp">removed legacy mob_has_gravity() to reduce overhead</li>
+			</ul>
+
+			<h2 class="date">06 January 2021</h2>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Adds missing jobs to jobs.txt on sage</li>
+			</ul>
+			<h3 class="author">That0nePerson updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes IPC and squid mutation toxin recipes being swapped</li>
+				<li class="admin">Added logging for chemical smoke</li>
+			</ul>
+			<h3 class="author">bloons3 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">morph cannot impersonate cameras</li>
+			</ul>
+
 			<h2 class="date">05 January 2021</h2>
 			<h3 class="author">Froststahr updated:</h3>
 			<ul class="changes bgimages16">
@@ -973,76 +1050,6 @@
 			<h3 class="author">super12pl updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="balance">Makes searing tools small sized item</li>
-			</ul>
-
-			<h2 class="date">08 November 2020</h2>
-			<h3 class="author">Archanial updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Cyborgs no longer get confused after getting flashed/flashbanged.</li>
-			</ul>
-			<h3 class="author">PerishedFraud updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Some new items in the mining vendor.</li>
-				<li class="tweak">Some prices changed in the mining vendor, can also eat through explorer mask.</li>
-			</ul>
-			<h3 class="author">eeSPee updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Guns no longer use changeNext_move</li>
-			</ul>
-			<h3 class="author">park66665 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">no more with exponential thermal energy, fusion now correctly produces heat: supply plasma to your nuclear fusion 'reactor', dammit!</li>
-				<li class="balance">in an attempt to preserve fun, I tweaked some numbers and logics in fusion to create some healthy fun</li>
-				<li class="rscdel">e30 fusion</li>
-				<li class="balance">rad now scales with fusion temperature, which means that you will get meager rads if you are bad at fusion (e.g. canister fusion), or stronger rads than before if you manage to keep a strong and robust fusion</li>
-				<li class="rscadd">in order to help you gauge the strength of your fusion, fusion-derived nuclear particles (aka radballs) are color-coded; and adjective-coded, so you can also gauge how damned you are after being hit by a radball</li>
-				<li class="refactor">lightly refactored fusion code in general</li>
-			</ul>
-
-			<h2 class="date">07 November 2020</h2>
-			<h3 class="author">Archanial updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Major and minor crimes are gone.</li>
-				<li class="tweak">Adding a crime recond in sechuds in only 1 pop-up now.</li>
-				<li class="rscadd">You can add details to a crime separately.</li>
-				<li class="refactor">Cleaned up sec console code and hud glasses code.</li>
-			</ul>
-
-			<h2 class="date">06 November 2020</h2>
-			<h3 class="author">Autisem updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">assembly's now can be interacted with while inside other objects like TTV</li>
-			</ul>
-			<h3 class="author">Victor239 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">The name and job of the announcer are now shown on announcements.</li>
-			</ul>
-			<h3 class="author">zeskorion updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">pepper proofing now checks eye and mouth covering instead of a snowflake flag</li>
-				<li class="bugfix">spraypaint now uses eye covering instead of flash protection</li>
-			</ul>
-
-			<h2 class="date">05 November 2020</h2>
-			<h3 class="author">Krysonism updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed a gulag stacking machine exploit that would let you farm points with minimal or no ores mined.</li>
-			</ul>
-			<h3 class="author">NotRanged, Gandalf2k15 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Changed explosion sound code to be more noticeable and terrifying throughout the station during siginificant explosive events.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removed the old autolathe UI</li>
-				<li class="rscadd">TGUI autolathe UI</li>
-				<li class="tweak">Multiple users can browse autolathe UI without seeing the same tabs.</li>
-				<li class="rscadd">You can now eject materials from an autolathe</li>
-				<li class="rscadd">You can now queue items in an autolathe</li>
-				<li class="rscadd">You can now toggle continuous fabrication mode on an autolathe queue, or an item in the autolathe queue meaning it will build repeatedly until the autolathe runs out of materials.</li>
-				<li class="rscadd">Trigger build wire on autolathes</li>
-				<li class="rscadd">Autolathe queue</li>
-				<li class="rscadd">Autolathe ejection direction.</li>
 			</ul>
 		</div>
 

@@ -160,7 +160,7 @@
 	if(GLOB.total_cube_monkeys >= CONFIG_GET(number/max_cube_monkeys))
 		visible_message("<span class='warning'>[src] refuses to expand!</span>")
 		return
-	var/mob/spammer = get_mob_by_key(fingerprintslast)
+	var/mob/spammer = get_mob_by_ckey(fingerprintslast)
 	var/mob/living/bananas = new spawned_mob(drop_location(), TRUE, spammer)
 	if(faction)
 		bananas.faction = faction

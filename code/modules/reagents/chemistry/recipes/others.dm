@@ -739,13 +739,13 @@
 	name = /datum/reagent/mutationtoxin/squid
 	id = /datum/reagent/mutationtoxin/squid
 	results = list(/datum/reagent/mutationtoxin/squid = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/teslium = 20)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/consumable/sodiumchloride = 10, /datum/reagent/water = 20)
 
 /datum/chemical_reaction/mutationtoxin/ipc
 	name = /datum/reagent/mutationtoxin/ipc
 	id = /datum/reagent/mutationtoxin/ipc
 	results = list(/datum/reagent/mutationtoxin/ipc = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/consumable/sodiumchloride = 10, /datum/reagent/water = 20)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/teslium = 20)
 
 //////////////Mutatuion toxins made out of advanced toxin/////////////
 
