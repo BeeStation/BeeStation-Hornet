@@ -49,7 +49,7 @@
 
 /obj/structure/closet/crate/necropolis/bust_open()
 	if(locked)
-		for(var/i in contents)
+		for(var/I in contents)
 			qdel(I)
 			new /obj/effect/decal/cleanable/ash(loc)
 		visible_message("<span class ='warning'>The necropolis chest lets out a wave of flame as it breaks open!</span>")
