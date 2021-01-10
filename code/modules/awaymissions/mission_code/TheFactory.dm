@@ -25,7 +25,7 @@
 
 /area/awaymission/factory/villageafter
 	name = "The Village"
-	ambient_effects = list('sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambiearth.ogg','sound/ambience/ambiearth2.ogg','sound/ambience/ambiwind.ogg','sound/ambience/ambimine.ogg')
+	ambient_effects = list('sound/ambience/seag1.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/ambiodd.ogg', 'sound/ambience/ambimystery.ogg', 'sound/ambience/ambiearth.ogg', 'sound/ambience/ambiwind.ogg', 'sound/ambience/ambimine.ogg')
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	requires_power = FALSE
 
