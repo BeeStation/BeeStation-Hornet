@@ -1,0 +1,4 @@
+author: eeSPee
+delete-after: true
+changes:
+  - bugfix: pet beacons are named properly
