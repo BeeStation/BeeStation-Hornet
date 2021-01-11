@@ -359,11 +359,11 @@
 	for(var/X in syndieHelmet.actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+	//Update the suit to non-combat mode
+	activate_combat_mode()
 	//Update icon
 	icon_state = "hardsuit[syndieHelmet.on]-[syndieHelmet.item_color]"
 	update_icon()
-	//Update the suit to non-combat mode
-	activate_combat_mode()
 
 /obj/item/clothing/suit/space/hardsuit/syndi/proc/activate_space_mode()
 	name = initial(name)
