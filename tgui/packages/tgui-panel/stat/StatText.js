@@ -104,13 +104,12 @@ export const StatTextButton = (props, context) => {
             params: params,
           },
         })}
-        color="transparent">
-        <font color={settings.statButtonColour}>
-          <b>
-            {title}:{" "}
-          </b>
-          {text}
-        </font>
+        color="transparent"
+        textColor={settings.statButtonColour}>
+        <b>
+          {title}:{" "}
+        </b>
+        {text}
       </Button>
     </Flex.Item>
   );
@@ -165,6 +164,7 @@ export const StatTextVerb = (props, context) => {
     action_id,
     params = [],
   } = props;
+  const settings = useSettings(context);
   return (
     <Flex.Item
       shrink={1}
@@ -179,6 +179,7 @@ export const StatTextVerb = (props, context) => {
           },
         })}
         color="transparent"
+        textColor={settings.statButtonColour}
         fluid />
     </Flex.Item>
   );
