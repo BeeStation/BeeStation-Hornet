@@ -51,6 +51,6 @@
 	var/chosen_box = pick(possible_boxes)
 	var/obj/item/storage/box/I = new chosen_box(src)
 	H.equip_to_slot_or_del(I,SLOT_IN_BACKPACK)
-	var/datum/martial_art/cqc/under_siege/justacook = new
-	justacook.teach(H)
+	var/obj/item/organ/cyberimp/skillChip/chef/chefChip
+	chefChip.Insert(H)
 
