@@ -1,4 +1,0 @@
-author: MCterra
-delete-after: true
-changes:
-  - bugfix: fixed a bug with teleporting out of the cloner not updating status properly.
