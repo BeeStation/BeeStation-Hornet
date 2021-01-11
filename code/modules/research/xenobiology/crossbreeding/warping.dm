@@ -139,7 +139,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 /obj/effect/warped_rune/Crossed(atom/movable/AM, oldloc)
 	SHOULD_CALL_PARENT(TRUE)
 	. = ..()
-	if(deleteme && activated)
+	if(activated)
 		visible_message("<span class='notice'>[src] fades.</span>")
 		qdel(src)
 
@@ -277,6 +277,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 /obj/effect/warped_rune/yellowspace
 	desc = "Be careful with taking power cells with you!"
 	icon_state = "rune_yellow"
+	deleteme = FALSE
 
 /obj/effect/warped_rune/yellowspace/Crossed(atom/movable/AM, oldloc)
 	var/obj/item/stock_parts/cell/C = AM.get_cell()
@@ -288,8 +289,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 				break
 	if(C && C.charge)
 		do_sparks(5,FALSE,C)
-		for(var/mob/living/L in rune_turf)
-			electrocute_mob(L, C, src)
+		empulse(rune_turf, 1, 1)
 		C.use(C.charge)
 		activated = TRUE
 	. = ..()
@@ -303,6 +303,10 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	icon = 'icons/obj/slimecrossing.dmi'
 	icon_state = "rune_dark_purple"
 	desc = "To gain something you must sacrifice something else in return."
+	var/static/list/materials = list(/obj/item/stack/sheet/iron, /obj/item/stack/sheet/glass, /obj/item/stack/sheet/mineral/silver,
+									/obj/item/stack/sheet/mineral/gold, /obj/item/stack/sheet/mineral/diamond, /obj/item/stack/sheet/mineral/uranium,
+									/obj/item/stack/sheet/mineral/titanium, /obj/item/stack/sheet/mineral/copper, /obj/item/stack/sheet/mineral/uranium,
+									/obj/item/stack/sheet/bluespace_crystal)
 
 /obj/effect/warped_rune/darkpurplespace/do_effect(mob/user)
 	if(locate(/obj/item/stack/sheet/mineral/plasma) in rune_turf)
@@ -310,7 +314,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		for(var/obj/item/stack/sheet/mineral/plasma/P in rune_turf)
 			amt += P.amount
 			qdel(P)
-		var/path_material = pick(subtypesof(/obj/item/stack/sheet/mineral) - /obj/item/stack/sheet/mineral/plasma)
+		var/path_material = pick(materials)
 		new path_material(rune_turf, amt)
 		. = ..()
 	else
@@ -332,7 +336,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		activated = TRUE
 	. = ..()
 
-GLOBAL_DATUM_INIT(blue_storage, /obj/item/storage/backpack/holding/bluespace, new)
+GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 
 /obj/item/storage/backpack/holding/bluespace
 	name = "warped rune"
@@ -464,21 +468,7 @@ GLOBAL_DATUM_INIT(blue_storage, /obj/item/storage/backpack/holding/bluespace, ne
 
 /obj/effect/warped_rune/pyritespace/Initialize()
 	. = ..()
-	switch(rand(1,8))
-		if(1)
-			colour = "#FF0000"
-		if(2)
-			colour = "#FFA500"
-		if(3)
-			colour = "#FFFF00"
-		if(4)
-			colour = "#00FF00"
-		if(5)
-			colour = "#0000FF"
-		if(6)
-			colour = "#4B0082"
-		if(7)
-			colour = "#FF00FF"
+	color = pick("#FFFFFF", "#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#FF00FF")
 
 /obj/effect/warped_rune/pyritespace/Crossed(atom/movable/AM, oldloc)
 	if(isliving(AM))
@@ -549,22 +539,20 @@ GLOBAL_DATUM_INIT(blue_storage, /obj/item/storage/backpack/holding/bluespace, ne
 	runepath = /obj/effect/warped_rune/goldspace
 	effect_desc = "Draw a rune that exchanges objects of this dimension for objects of a parallel dimension."
 
-#define RARE_ITEM_LIST list(/mob/living/simple_animal/pet/dog/corgi/puppy/void,\
-							/obj/item/card/emagfake,\
-							/obj/item/clothing/head/speedwagon/cursed,\
-							/obj/structure/closet/crate/necropolis,\
-							/obj/item/gun/ballistic/revolver/reverse,\
-							/obj/item/grenade/gluon,\
-							/obj/item/sharpener,\
-							/obj/item/flashlight/flashdark,\
-							/mob/living/simple_animal/slime/rainbow,\
-							/obj/item/storage/belt/sabre,\
-							)
-
 /obj/effect/warped_rune/goldspace
 	icon_state = "rune_gold"
 	desc = "This can be activated to transmute valuable items into a random item."
 	deleteme = FALSE
+	var/static/list/rare_items = list(/mob/living/simple_animal/pet/dog/corgi/puppy/void,
+							/obj/item/card/emagfake,
+							/obj/item/clothing/head/speedwagon/cursed,
+							/obj/structure/closet/crate/necropolis,
+							/obj/item/gun/ballistic/revolver/reverse,
+							/obj/item/grenade/gluon,
+							/obj/item/sharpener,
+							/obj/item/flashlight/flashdark,
+							/mob/living/simple_animal/slime/rainbow,
+							/obj/item/storage/belt/sabre)
 	var/target_value = 5000
 
 /obj/effect/warped_rune/goldspace/do_effect(mob/user)
@@ -578,7 +566,7 @@ GLOBAL_DATUM_INIT(blue_storage, /obj/item/storage/backpack/holding/bluespace, ne
 				valuable_items |= I
 	if(price >= target_value)
 		deleteme = TRUE
-		var/path = pick(RARE_ITEM_LIST)
+		var/path = pick(rare_items)
 		var/atom/movable/A = new path(rune_turf)
 		for(var/obj/item/I in valuable_items)
 			I.loc = null
@@ -678,6 +666,9 @@ GLOBAL_DATUM_INIT(blue_storage, /obj/item/storage/backpack/holding/bluespace, ne
 	. = ..()
 
 
+///the template of the warped_room map
+GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
+
 /* Used to teleport anything over it to a unique room similar to hilbert's hotel.*/
 
 /obj/item/slimecross/warping/rainbow
@@ -689,13 +680,6 @@ GLOBAL_DATUM_INIT(blue_storage, /obj/item/storage/backpack/holding/bluespace, ne
 	icon_state = "rune_rainbow"
 	desc = "This is where I go when I want to be alone. Yet they keep clawing at the walls until everything crumbles."
 	deleteme = FALSE
-	///current x,y,z location of the reserved space for the rune room
-	var/datum/turf_reservation/room_reservation
-	///the template of the warped_room map
-	var/datum/map_template/warped_room/rune_room
-	///list of people that teleported into the rune_room. The room will dissapear if the list is empty and the rune is destroyed.
-	var/list/customer_list
-
 
 /obj/effect/warped_room_exit
 	name = "warped_rune"
@@ -704,23 +688,13 @@ GLOBAL_DATUM_INIT(blue_storage, /obj/item/storage/backpack/holding/bluespace, ne
 	desc = "Use this rune if you want to leave this place. You will have to leave eventually."
 	move_resist = INFINITY
 	anchored = TRUE
-	///where the rune will teleport you back.
-	var/turf/exit_turf
-	///rune linked to the exit rune
-	var/obj/effect/warped_rune/rainbowspace/enter_rune
-
-
-/obj/effect/warped_room_exit/Destroy() //reminder that the exit rune is destroyed when the room is destroyed too
-	if(!locate(enter_rune) in exit_turf)
-		exit_turf = null
-		enter_rune = null
-	else if(!QDELETED(enter_rune))
-		QDEL_NULL(enter_rune) //here to avoid having a useless rune teleporting you to the void
-	return ..()
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /datum/map_template/warped_room
 	name = "Warped room"
 	mappath = '_maps/templates/warped_room.dmm'
+	var/obj/effect/warped_room_exit/exit_rune
+	var/list/rainbow_runes = list()
 
 /area/warped_room
 	name = "warped room"
@@ -730,54 +704,38 @@ GLOBAL_DATUM_INIT(blue_storage, /obj/item/storage/backpack/holding/bluespace, ne
 	has_gravity = TRUE
 	noteleport = TRUE
 
-
 ///creates the warped room and place an exit rune to exit the room
 /obj/effect/warped_rune/rainbowspace/Initialize()
 	. = ..()
-	rune_room = new()
-	room_reservation = SSmapping.RequestBlockReservation(rune_room.width, rune_room.height) //monkey sees valid location
-	rune_room.load(locate(room_reservation.bottom_left_coords[1], room_reservation.bottom_left_coords[2], room_reservation.bottom_left_coords[3]))//monkey room activate
-	var/obj/effect/warped_room_exit/exit_rune = new(locate(room_reservation.bottom_left_coords[1] + 3, room_reservation.bottom_left_coords[2] + 6, room_reservation.bottom_left_coords[3]))
-	exit_rune.exit_turf = rune_turf
-	exit_rune.enter_rune = src
-
-
-///here to check if anyone's being transported in or out of the room with the user.
-/obj/effect/warped_rune/rainbowspace/proc/customer_check(atom/person_checked, smuggle_in)
-	var/list/hidden_customers = person_checked.GetAllContents(/mob/living/carbon/human)
-	if(!LAZYLEN(hidden_customers))
-		return
-	for(var/mob/living/carbon/human/customer in hidden_customers)
-		if(smuggle_in)
-			LAZYADD(customer_list, customer) //if they enter the room
-		else
-			LAZYREMOVE(customer_list, customer) //if they exit the room
-
+	if(!GLOB.warped_room)
+		GLOB.warped_room = new
+		///current x,y,z location of the reserved space for the rune room
+		var/datum/turf_reservation/room_reservation = SSmapping.RequestBlockReservation(GLOB.warped_room.width, GLOB.warped_room.height) //monkey sees valid location
+		GLOB.warped_room.load(locate(room_reservation.bottom_left_coords[1], room_reservation.bottom_left_coords[2], room_reservation.bottom_left_coords[3]))//monkey room activate
+		GLOB.warped_room.exit_rune = new (locate(room_reservation.bottom_left_coords[1] + 3, room_reservation.bottom_left_coords[2] + 6, room_reservation.bottom_left_coords[3]))
+	GLOB.warped_room.rainbow_runes += src
 
 /obj/effect/warped_rune/rainbowspace/do_effect(mob/user)
-	. = ..()
 	for(var/mob/living/carbon/human/customer in rune_turf)
-		customer.forceMove(locate(room_reservation.bottom_left_coords[1] + 3, room_reservation.bottom_left_coords[2] + 6, room_reservation.bottom_left_coords[3]))
-		customer_check(customer, TRUE)
-
+		customer.forceMove(get_turf(GLOB.warped_room.exit_rune))
+	. = ..()
 
 ///Will delete the room when the rune is destroyed if no customer is left in the room.
 /obj/effect/warped_rune/rainbowspace/Destroy()
-	if(!LAZYLEN(customer_list))
-		QDEL_NULL(room_reservation)
-		customer_list = null
-		rune_room = null
+	if(GLOB.warped_room)
+		GLOB.warped_room.rainbow_runes -= src
 	return ..()
-
 
 ///anyone on the exit rune when it is used will be teleported to the rune that was used to teleport to the warped room
 /obj/effect/warped_room_exit/attack_hand(mob/living/user)
 	. = ..()
+	var/exit_turf
 	for(var/mob/living/carbon/human/customer in get_turf(src))
-		customer.forceMove(exit_turf)
 		do_sparks(3, FALSE, get_turf(src))
-		enter_rune.customer_check(customer, FALSE)
-
-	if(!LAZYLEN(enter_rune.customer_list) && !locate(enter_rune) in exit_turf) //deletes the room if the rune doesn't exist anymore and all customers have left
-		qdel(enter_rune.room_reservation)
-
+		if(!exit_turf)
+			if(GLOB.warped_room && GLOB.warped_room.rainbow_runes.len)
+				var/obj/effect/warped_rune/WR = pick(GLOB.warped_room.rainbow_runes)
+				exit_turf = WR.rune_turf
+			else
+				exit_turf = find_safe_turf()
+		customer.forceMove(exit_turf)
