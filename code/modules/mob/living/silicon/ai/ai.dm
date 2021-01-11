@@ -166,8 +166,14 @@
 	builtInCamera.network = list("ss13")
 
 /mob/living/silicon/ai/key_down(_key, client/user)
+	var/heldctrl = client.keys_held["Ctrl"]
 	if(findtext(_key, "numpad")) //if it's a numpad number, we can convert it to just the number
-		_key = _key[7] //strings, lists, same thing really
+		if(heldctrl)
+			_key = _key[12] //strings, lists, same thing really
+		else
+			_key = _key[7]
+	else if(heldctrl && length(_key) >= 6)  //for non-numpad
+		_key = _key[6]
 	switch(_key)
 		if("`", "0")
 			if(cam_prev)
@@ -175,7 +181,7 @@
 			return
 		if("1", "2", "3", "4", "5", "6", "7", "8", "9")
 			_key = text2num(_key)
-			if(client.keys_held["Ctrl"]) //do we assign a new hotkey?
+			if(heldctrl) //do we assign a new hotkey?
 				cam_hotkeys[_key] = eyeobj.loc
 				to_chat(src, "Location saved to Camera Group [_key].")
 				return
