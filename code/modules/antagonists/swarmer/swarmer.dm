@@ -105,7 +105,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/Initialize()
 	. = ..()
-	verbs -= /mob/living/verb/pulled
+	remove_verb(/mob/living/verb/pulled)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 
@@ -121,10 +121,10 @@
 	holder.pixel_y = I.Height() - world.icon_size
 	holder.icon_state = "hudstat"
 
-/mob/living/simple_animal/hostile/swarmer/Stat()
-	..()
-	if(statpanel("Status"))
-		stat(null ,"Resources: [resources]")
+/mob/living/simple_animal/hostile/swarmer/get_stat_tab_status()
+	var/list/tab_data = ..()
+	tab_data["Resources"] = GENERATE_STAT_TEXT("[resources]")
+	return tab_data
 
 /mob/living/simple_animal/hostile/swarmer/emp_act()
 	. = ..()
