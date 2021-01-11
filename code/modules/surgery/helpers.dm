@@ -85,27 +85,22 @@
 	var/selected_zone = user.zone_selected
 	if(S.status == 1)
 		M.surgeries -= S
-		user.visible_message("<span class='notice'>[user] removes [I] from [M]'s [parse_zone(selected_zone)].</span>", \
+		user.visible_message("[user] removes [I] from [M]'s [parse_zone(selected_zone)].", \
 			"<span class='notice'>You remove [I] from [M]'s [parse_zone(selected_zone)].</span>")
 		qdel(S)
-		return
-
-	if(S.can_cancel)
+	else if(S.can_cancel)
 		var/required_tool_type = TOOL_CAUTERY
 		var/obj/item/close_tool = user.get_inactive_held_item()
 		var/is_robotic = S.requires_bodypart_type == BODYPART_ROBOTIC
-
 		if(is_robotic)
 			required_tool_type = TOOL_SCREWDRIVER
-
-		if(iscyborg(user))
-			close_tool = locate(/obj/item/cautery) in user.held_items
-			if(!close_tool)
-				to_chat(user, "<span class='warning'>You need to equip a cautery in an inactive slot to stop [M]'s surgery!</span>")
-				return
-		else if(!close_tool || close_tool.tool_behaviour != required_tool_type)
+		if(close_tool?.tool_behaviour == required_tool_type || iscyborg(user))
+			M.surgeries -= S
+			user.visible_message("[user] closes [M]'s [parse_zone(selected_zone)] with [close_tool] and removes [I].", \
+				"<span class='notice'>You close [M]'s [parse_zone(selected_zone)] with [close_tool] and remove [I].</span>")
+			qdel(S)
+		else
 			to_chat(user, "<span class='warning'>You need to hold a [is_robotic ? "screwdriver" : "cautery"] in your inactive hand to stop [M]'s surgery!</span>")
-			return
 
 /proc/get_location_modifier(mob/M)
 	var/turf/T = get_turf(M)
