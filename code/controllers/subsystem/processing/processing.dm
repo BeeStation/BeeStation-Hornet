@@ -30,6 +30,7 @@ SUBSYSTEM_DEF(processing)
 		if (MC_TICK_CHECK)
 			return
 
+// Every aimless process should reach *here* and die; better not write another instakiller like this
 /datum/proc/process()
 	set waitfor = 0
 	return PROCESS_KILL

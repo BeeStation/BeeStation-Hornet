@@ -123,6 +123,14 @@
 /datum/world_topic/adminwho/Run(list/input, addr)
 	return ircadminwho()
 
+/datum/world_topic/playerlist
+	keyword = "playerlist"
+
+/datum/world_topic/playerlist/Run(list/input, addr)
+	. = list()
+	for(var/client/C as() in GLOB.clients)
+		. += C.ckey
+
 /datum/world_topic/status
 	keyword = "status"
 
@@ -140,11 +148,6 @@
 	.["revision"] = GLOB.revdata.commit
 	.["revision_date"] = GLOB.revdata.date
 	.["hub"] = GLOB.hub_visibility
-
-	var/client_num = 0
-	for(var/client/C in GLOB.clients)
-		.["client[client_num]"] = C.key
-		client_num++
 
 	var/list/adm = get_admin_counts()
 	var/list/presentmins = adm["present"]

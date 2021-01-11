@@ -88,7 +88,7 @@
 	var/chnotify = 0
 
 	var/multicam_on = FALSE
-	var/obj/screen/movable/pic_in_pic/ai/master_multicam
+	var/atom/movable/screen/movable/pic_in_pic/ai/master_multicam
 	var/list/multicam_screens = list()
 	var/list/all_eyes = list()
 	var/max_multicams = 6
@@ -1055,9 +1055,9 @@
 	return
 
 /mob/living/silicon/ai/spawned/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
-	. = ..()
 	if(!target_ai)
 		target_ai = src //cheat! just give... ourselves as the spawned AI, because that's technically correct
+	. = ..() //This needs to be lower so we have a chance to actually update the assigned target_ai.
 
 /mob/living/silicon/ai/proc/camera_visibility(mob/camera/aiEye/moved_eye)
 	GLOB.cameranet.visibility(moved_eye, client, all_eyes, USE_STATIC_OPAQUE)

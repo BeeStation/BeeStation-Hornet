@@ -31,10 +31,12 @@
 	target.forceMove(holder)
 	target.reset_perspective(holder)
 	target.notransform=0 //mob is safely inside holder now, no need for protection.
+	target.ignore_slowdown(JAUNT_TRAIT)
 	jaunt_steam(mobloc)
 
 	sleep(jaunt_duration)
 
+	target.unignore_slowdown(JAUNT_TRAIT)
 	if(target.loc != holder) //mob warped out of the warp
 		qdel(holder)
 		return

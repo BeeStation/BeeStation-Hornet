@@ -152,7 +152,7 @@
 		if(((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedding.embedded_ignore_throwspeed_threshold)
 			if(can_embed(I))
 				if(prob(I.embedding.embed_chance) && !HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
-					throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+					throw_alert("embeddedobject", /atom/movable/screen/alert/embeddedobject)
 					var/obj/item/bodypart/L = pick(bodyparts)
 					L.embedded_objects |= I
 					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
@@ -391,9 +391,14 @@
 	switch (severity)
 		if (EXPLODE_DEVASTATE)
 			if(bomb_armor < EXPLODE_GIB_THRESHOLD) //gibs the mob if their bomb armor is lower than EXPLODE_GIB_THRESHOLD
-				for(var/I in contents)
-					var/atom/A = I
-					A.ex_act(severity)
+				for(var/thing in contents)
+					switch(severity)
+						if(EXPLODE_DEVASTATE)
+							SSexplosions.high_mov_atom += thing
+						if(EXPLODE_HEAVY)
+							SSexplosions.med_mov_atom += thing
+						if(EXPLODE_LIGHT)
+							SSexplosions.low_mov_atom += thing
 				gib()
 				return
 			else

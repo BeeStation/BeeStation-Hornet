@@ -137,10 +137,8 @@
 			if(can_see(targets_from, HM, vision_range))
 				. += HM
 	else
-		. = list() // The following code is only very slightly slower than just returning oview(vision_range, targets_from), but it saves us much more work down the line, particularly when bees are involved
-		for (var/obj/A in oview(vision_range, targets_from))
-			. += A
-		for (var/mob/A in oview(vision_range, targets_from))
+		. = list()
+		for (var/atom/movable/A in oview(vision_range, targets_from))
 			. += A
 
 /mob/living/simple_animal/hostile/proc/FindTarget(var/list/possible_targets, var/HasTargetsList = 0)//Step 2, filter down possible targets to things we actually care about
@@ -341,7 +339,7 @@
 /mob/living/simple_animal/hostile/proc/Aggro()
 	vision_range = aggro_vision_range
 	if(target && emote_taunt.len && prob(taunt_chance))
-		emote("me", 1, "[pick(emote_taunt)] at [target].")
+		INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "[pick(emote_taunt)] at [target].")
 		taunt_chance = max(taunt_chance-7,2)
 
 

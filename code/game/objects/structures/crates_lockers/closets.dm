@@ -326,7 +326,7 @@
 	return
 
 /obj/structure/closet/MouseDrop_T(atom/movable/O, mob/living/user)
-	if(!istype(O) || O.anchored || istype(O, /obj/screen))
+	if(!istype(O) || O.anchored || istype(O, /atom/movable/screen))
 		return
 	if(!istype(user) || user.incapacitated() || !(user.mobility_flags & MOBILITY_STAND))
 		return
@@ -494,7 +494,7 @@
 
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 
 /obj/structure/closet/emp_act(severity)
 	. = ..()
@@ -515,9 +515,14 @@
 				req_access += pick(get_all_accesses())
 
 /obj/structure/closet/contents_explosion(severity, target)
-	for(var/atom/A in contents)
-		A.ex_act(severity, target)
-		CHECK_TICK
+	for(var/thing in contents)
+		switch(severity)
+			if(EXPLODE_DEVASTATE)
+				SSexplosions.high_mov_atom += thing
+			if(EXPLODE_HEAVY)
+				SSexplosions.med_mov_atom += thing
+			if(EXPLODE_LIGHT)
+				SSexplosions.low_mov_atom += thing
 
 /obj/structure/closet/singularity_act()
 	dump_contents()

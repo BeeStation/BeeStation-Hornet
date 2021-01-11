@@ -216,7 +216,7 @@
 			admin_attachment_message = " with [attachment] attached by [attacher ? ADMIN_LOOKUPFLW(attacher) : "Unknown"]"
 			attachment_message = " with [attachment] attached by [attacher ? key_name_admin(attacher) : "Unknown"]"
 
-		var/mob/bomber = get_mob_by_key(fingerprintslast)
+		var/mob/bomber = get_mob_by_ckey(fingerprintslast)
 		var/admin_bomber_message
 		var/bomber_message
 		if(bomber)

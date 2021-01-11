@@ -47,6 +47,9 @@
 	///vis overlays managed by SSvis_overlays to automaticaly turn them like other overlays
 	var/list/managed_vis_overlays
 
+	///overlays managed by update_overlays() to prevent removing overlays that weren't added by the same proc
+	var/list/managed_overlays
+
 	///Proximity monitor associated with this atom
 	var/datum/proximity_monitor/proximity_monitor
 	///Cooldown tick timer for buckle messages
@@ -478,9 +481,23 @@
 	var/signalOut = SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON)
 	if(!(signalOut & COMSIG_ATOM_NO_UPDATE_ICON_STATE))
 		update_icon_state()
+	if(!(signalOut & COMSIG_ATOM_NO_UPDATE_OVERLAYS))
+		var/list/new_overlays = update_overlays()
+		if(managed_overlays)
+			cut_overlay(managed_overlays)
+			managed_overlays = null
+		if(length(new_overlays))
+			managed_overlays = new_overlays
+			add_overlay(new_overlays)
 
 /// Updates the icon state of the atom
 /atom/proc/update_icon_state()
+
+/// Updates the overlays of the atom
+/atom/proc/update_overlays()
+	SHOULD_CALL_PARENT(TRUE)
+	. = list()
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, .)
 
 /**
   * An atom we are buckled or is contained within us has tried to move
@@ -500,6 +517,25 @@
 
 /// Handle what happens when your contents are exploded by a bomb
 /atom/proc/contents_explosion(severity, target)
+	if(target == null)
+		target = src
+	if(isturf(target))
+		switch(severity)
+			if(EXPLODE_DEVASTATE)
+				SSexplosions.highturf += target
+			if(EXPLODE_HEAVY)
+				SSexplosions.medturf += target
+			if(EXPLODE_LIGHT)
+				SSexplosions.lowturf += target
+
+	if(isobj(target))
+		switch(severity)
+			if(EXPLODE_DEVASTATE)
+				SSexplosions.low_mov_atom += target
+			if(EXPLODE_HEAVY)
+				SSexplosions.med_mov_atom += target
+			if(EXPLODE_LIGHT)
+				SSexplosions.low_mov_atom += target
 	return //For handling the effects of explosions on contents that would not normally be effected
 
 /**
