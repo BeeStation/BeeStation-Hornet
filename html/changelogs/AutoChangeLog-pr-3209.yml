@@ -1,0 +1,5 @@
+author: Sarchutar
+delete-after: true
+changes:
+  - bugfix: AIs can now save camera locations with CTRL + 1-9 again and jump to them
+      later with 1-9
