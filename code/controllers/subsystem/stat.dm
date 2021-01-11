@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(stat)
 //Whoever examins an item with a decal first, everyone else will see that items decals.
 //Significantly reduces server lag though, like MASSIVELY!
 /datum/controller/subsystem/stat/proc/get_flat_icon(atom/A)
-	var/what_to_search = "[A.type][A.icon_state[1]]"
+	var/what_to_search = "[A.type][A.icon_state ? A.icon_state[1] : "*"]"
 	//Mobs are more important than items.
 	//Mob icons will change if their name changes, their type changes or their overlays change.
 	if(istype(A, /mob))
