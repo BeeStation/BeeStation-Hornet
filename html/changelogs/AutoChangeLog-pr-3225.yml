@@ -1,7 +1,0 @@
-author: MNarath1
-delete-after: true
-changes:
-  - bugfix: crate animation looking broken
-  - code_imp: Move animation math into a extra proc to pre calculate it
-  - refactor: Adding a association list to allow easy adding of additional crates
-      with unique values while still keeping the amount of actual lists to a minimum.
