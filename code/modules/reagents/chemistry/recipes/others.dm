@@ -41,7 +41,7 @@
 	name = "Concentrated BZ"
 	id = "Concentrated BZ"
 	results = list(/datum/reagent/concentrated_bz = 10)
-	required_reagents = list(/datum/reagent/toxin/plasma = 40, /datum/reagent/nitrous_oxide = 10)
+	required_reagents = list(/datum/reagent/toxin/plasma = 4, /datum/reagent/nitrous_oxide = 1, /datum/reagent/toxin/anacea = 1)
 
 /datum/chemical_reaction/fake_cbz
 	name = "Fake CBZ"

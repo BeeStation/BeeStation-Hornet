@@ -1923,15 +1923,16 @@
 	if(L.mind)
 		var/datum/antagonist/changeling/changeling = L.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
-			changeling.chem_charges = max(changeling.chem_charges-2, 0)
 			if(prob(30))
-				L.losebreath += 1
-				L.adjustOxyLoss(3,5)
-				L.emote("gasp")
-				to_chat(L, "<font size=3 color=red><b>You can't breathe!</b></font>")
-
-		L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)
-	return ..()
+				L.adjustStaminaLoss(3,5)
+				L.emote("scream")
+				to_chat(L, "<font size=3 color=red><b>The chemicals burn our senses!</b></font>")
+				L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)
+		else
+			L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5, 200)
+			if(prob(30))
+				to_chat(L, "<font size=3 color=red><b>Your head feels like it's on fire!</b></font>")
+	..()
 
 /datum/reagent/fake_cbz
 	name = "Concentrated BZ"
@@ -1941,9 +1942,17 @@
 	random_unrestricted = FALSE
 
 /datum/reagent/fake_cbz/on_mob_life(mob/living/L)
-	L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)
-	if(prob(15))
-		to_chat(L, "You don't feel much of anything")
+	if(L.mind)
+		var/datum/antagonist/changeling/changeling = L.mind.has_antag_datum(/datum/antagonist/changeling)
+		if(changeling)
+			L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)
+			if(prob(30))
+				to_chat(L, "<font size=3 color=red><b>We feel a little sore, but nothing too bad.</b></font>")
+		else
+			L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5, 200)
+			if(prob(30))
+				to_chat(L, "<font size=3 color=red><b>Your head feels like it's on fire!</b></font>")
+	..()
 
 /datum/reagent/pax/peaceborg
 	name = "Synthpax"
