@@ -70,9 +70,9 @@ GLOBAL_LIST_INIT(valid_keys, list(
 			break
 
 	if(holder)
-		holder.key_down(_key, src)
+		holder.key_down(full_key, src)
 	if(mob.focus)
-		mob.focus.key_down(_key, src)
+		mob.focus.key_down(full_key, src)
 
 /client/verb/keyUp(_key as text)
 	set instant = TRUE
