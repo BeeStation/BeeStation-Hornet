@@ -4,9 +4,9 @@
 /obj/item/clothing/gloves/space_ninja/proc/ninjafabricate(var/mob/living/carbon/human/user)
 	if(fabrication_charges > 0)
 		var/choice = input(user,"Which item would you like to fabricate?","Select an Item") as null|anything in sortList(fabrication_options)
-		new choice(user)
-		if(user.put_in_hands(choice))
-			to_chat(user, "<span class='notice'>A [choice] has been created in your hand! The gloves have [fabrication_charges] left.</span>")
+		var/obj/new_item = new choice()
+		if(user.put_in_hands(new_item))
+			to_chat(user, "<span class='notice'>A [new_item] has been created in your hand! The gloves have [fabrication_charges] left.</span>")
 			fabrication_charges--
 		else
 			qdel(choice)

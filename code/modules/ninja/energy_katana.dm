@@ -62,9 +62,8 @@
 	if(ishuman(hit_atom))
 		var/mob/living/carbon/human/H = hit_atom
 		if(istype(H.gloves, /obj/item/clothing/gloves/space_ninja))
-			var/obj/item/clothing/gloves/space_ninja/SN = H.gloves
-				returnToOwner(H, 0, 1)
-				return
+			returnToOwner(H, 0, 1)
+			return
 
 	..()
 
