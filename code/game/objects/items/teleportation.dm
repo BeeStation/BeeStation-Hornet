@@ -348,7 +348,7 @@
 			continue	//putting them at the edge is dumb
 		if(T.y > world.maxy-saving_throw_distance || T.y < saving_throw_distance)
 			continue
-		if(!tile_check(T))
+		if(istype(T, /turf/closed))
 			continue // We are only looking for safe tiles on the saving throw, since we are nice
 		turfs += T
 		found_turf = TRUE
