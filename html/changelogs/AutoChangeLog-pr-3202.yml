@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Syndi hardsuit will now automatically engage combat mode when the helmet
-      is lowered.
