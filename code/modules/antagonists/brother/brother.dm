@@ -60,6 +60,8 @@
 	to_chat(owner.current, "The Syndicate only accepts those that have proven themselves. Prove yourself and prove your [team.member_name]s by completing your objectives together! You and your team are outfitted with communication implants allowing for direct, encrypted communication.")
 	owner.announce_objectives()
 	give_meeting_area()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Blood Brother",
+		"The Syndicate only accepts those that have proven themselves. Prove yourself and prove your [team.member_name]s by completing your objectives together!")
 
 /datum/antagonist/brother/proc/finalize_brother()
 	var/obj/item/implant/bloodbrother/I = new /obj/item/implant/bloodbrother()
