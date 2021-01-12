@@ -146,6 +146,11 @@ export const ListInput = (props, context) => {
                       setSelectedButton(button);
                     }
                     setLastCharCode(null);
+                  }}
+                  onComponentDidMount={node => {
+                    if (selectedButton === button) {
+                      node.focus();
+                    }
                   }}>
                   {button}
                 </Button>
