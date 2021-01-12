@@ -616,6 +616,10 @@
 					threatcount += 2
 				if("Paroled")
 					threatcount += 2
+				if("Monitor")
+					threatcount += 1
+				if("Search")
+					threatcount += 2
 
 	//Check for dresscode violations
 	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/hardsuit/wizard))
