@@ -1,6 +1,4 @@
-import { toFixed } from 'common/math';
-import { useDispatch, useSelector } from 'common/redux';
-import { Fragment } from 'inferno';
+import { useSelector } from 'common/redux';
 import { Button, Flex, Knob, Tabs, Box, Section } from 'tgui/components';
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
@@ -82,7 +80,7 @@ export const StatTextText = (props, context) => {
   return (
     <Flex.Item mt={1}>
       <b>
-      {title}:{" "}
+        {title}:{" "}
       </b>
       {text}
     </Flex.Item>
@@ -186,9 +184,9 @@ export const StatTextVerb = (props, context) => {
   );
 };
 
-//=======================
+// =======================
 // Non-Flex Support
-//=======================
+// =======================
 
 export const HoboStatText = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
@@ -254,7 +252,7 @@ export const HoboStatTextText = (props, context) => {
   return (
     <Box>
       <b>
-      {title}:{" "}
+        {title}:{" "}
       </b>
       {text}
     </Box>

@@ -1,17 +1,14 @@
-import { toFixed } from 'common/math';
 import { useDispatch, useSelector } from 'common/redux';
-import { Fragment } from 'inferno';
 import { Button, Flex, Knob, Tabs, Section } from 'tgui/components';
 import { Box, ScrollableBox } from '../../tgui/components';
-import { Layout } from '../../tgui/layouts';
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
 import { StatStatus, HoboStatStatus } from './StatStatus';
 import { StatText, HoboStatText } from './StatText';
 
-//=======================
+// =======================
 // Flex Supported
-//=======================
+// =======================
 
 export const StatTabs = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
@@ -94,9 +91,9 @@ export const StatTabWrap = (props, context) => {
   );
 };
 
-//=======================
+// =======================
 // Non-Flex Support
-//=======================
+// =======================
 
 export const HoboStatTabs = (props, context) => {
   const stat = useSelector(context, selectStatPanel);

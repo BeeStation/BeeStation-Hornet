@@ -1,8 +1,5 @@
-import { toFixed } from 'common/math';
 import { useDispatch, useSelector } from 'common/redux';
-import { Fragment } from 'inferno';
-import { Button, Flex, Knob, Tabs, Box, Section } from 'tgui/components';
-import { useSettings } from '../settings';
+import { Button, Flex, Box, Section } from 'tgui/components';
 import { selectStatPanel } from './selectors';
 import { StatText } from './StatText';
 
@@ -109,9 +106,9 @@ export const StatStatus = (props, context) => {
   );
 };
 
-//=======================
+// =======================
 // Non-Flex Support
-//=======================
+// =======================
 
 export const HoboStatStatus = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
@@ -156,18 +153,18 @@ export const HoboStatStatus = (props, context) => {
           <div className="StatBorder_infomation">
             <Section>
               <Box className="stat_infomation">
-                  <Button
-                    color="transparent"
-                    icon="times"
-                    onClick={() => dispatch({
-                      type: 'stat/clearAlertPopup',
-                    })} />
-                  <Box inline>
-                    {stat.alert_popup.title}
-                  </Box>
-                  <Box>
-                    {stat.alert_popup.text}
-                  </Box>
+                <Button
+                  color="transparent"
+                  icon="times"
+                  onClick={() => dispatch({
+                    type: 'stat/clearAlertPopup',
+                  })} />
+                <Box inline>
+                  {stat.alert_popup.title}
+                </Box>
+                <Box>
+                  {stat.alert_popup.text}
+                </Box>
               </Box>
             </Section>
           </div>
