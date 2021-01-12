@@ -31,14 +31,16 @@
 /datum/reagent/shiftium/overdose_start(mob/living/L)
 	..()
 	var/datum/antagonist/changeling/changeling = L.mind?.has_antag_datum(/datum/antagonist/changeling)
-	if(changeling)
-		playsound(L, 'sound/magic/demon_consume.ogg', 30, 1)
-		L.visible_message("<span class='warning'>[L]'s body uncontrolably transforms into an abomination!</span>", "<span class='boldwarning'>Your body uncontrolably transforms into an abomination, revealing your true form!</span>")
-		
-		polymorph_target(L,volume/overdose_threshold)
-		
+	if(changeling)		
 		metabolization_rate = 10 * REAGENTS_METABOLISM
 		ADD_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
+		to_chat(L,"<span class='boldwarning'>SO... MUCH... POWAH!!!</span>")
+		sleep(rand (2,5) SECONDS)
+		
+		playsound(L, 'sound/magic/demon_consume.ogg', 30, 1)
+		L.visible_message("<span class='warning'>[L]'s body uncontrolably transforms into an abomination!</span>", "<span class='boldwarning'>Your body uncontrolably transforms, revealing your true form!</span>")
+		
+		polymorph_target(L,volume/overdose_threshold)
 
 /datum/reagent/shiftium/overdose_process(mob/living/M as mob)
 	M.adjustStaminaLoss(5, 0)
