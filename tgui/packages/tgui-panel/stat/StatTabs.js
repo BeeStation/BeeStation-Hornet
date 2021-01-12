@@ -2,7 +2,8 @@ import { toFixed } from 'common/math';
 import { useDispatch, useSelector } from 'common/redux';
 import { Fragment } from 'inferno';
 import { Button, Flex, Knob, Tabs, Section } from 'tgui/components';
-import { Box } from '../../tgui/components';
+import { Box, ScrollableBox } from '../../tgui/components';
+import { Layout } from '../../tgui/layouts';
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
 import { StatStatus, HoboStatStatus } from './StatStatus';
@@ -30,12 +31,12 @@ export const StatTabs = (props, context) => {
           ? <StatTabScroll />
           : <StatTabWrap />}
       </Flex.Item>
-      <Flex.Item
+      <ScrollableBox
         overflowY="scroll"
         grow={1}
         mt={1}>
         {statSection}
-      </Flex.Item>
+      </ScrollableBox>
     </Flex>
   );
 };

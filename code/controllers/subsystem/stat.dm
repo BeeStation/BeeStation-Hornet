@@ -54,12 +54,8 @@ SUBSYSTEM_DEF(stat)
 		if (C)
 			var/mob/M = C.mob
 			if(M)
-				//Handle listed turfs seperately
-				if(M.listed_turf?.name == C.selected_stat_tab)
-					currentrun_listed += C
-				else
-					//Auto-update, not forced
-					M.UpdateMobStat(FALSE)
+				//Auto-update, not forced
+				M.UpdateMobStat(FALSE)
 
 		if (MC_TICK_CHECK)
 			return
