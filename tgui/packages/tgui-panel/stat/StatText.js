@@ -12,59 +12,49 @@ export const StatText = (props, context) => {
   if (!statPanelData)
   {
     return (
-      <Flex.Item color="red">
+      <Box color="red">
         Passed stat panel data was null contant coderman (or coderwoman).
-      </Flex.Item>
+      </Box>
     );
   }
   let verbs = Object.keys(statPanelData)
     .filter(element => !!statPanelData[element]
       && statPanelData[element].type === STAT_VERB);
   return (
-    <Flex.Item mt={1}>
-      <Flex direction="column">
-        <div className="StatBorder">
-          <Section>
-            {statPanelData
-              ? Object.keys(statPanelData).map(key => (
-                !!statPanelData[key] && (
-                  statPanelData[key].type === STAT_TEXT && <StatTextText
-                    title={key}
-                    text={statPanelData[key].text} />
-                  || statPanelData[key].type === STAT_BUTTON && <StatTextButton
-                    title={key}
-                    text={statPanelData[key].text}
-                    action_id={statPanelData[key].action}
-                    params={statPanelData[key].params} />
-                  || statPanelData[key].type === STAT_ATOM && <StatTextAtom
-                    atom_ref={key}
-                    atom_name={statPanelData[key].text}
-                    atom_icon={statPanelData[key].icon} />
-                  || statPanelData[key].type === STAT_DIVIDER
-                  && <StatTextDivider />
-                  || null
-                )
-              ))
-              : "No data"}
-            {!!verbs.length && (
-              <Flex.Item>
-                <Flex
-                  wrap="wrap"
-                  align="left">
-                  {verbs.map(verb => (
-                    <StatTextVerb
-                      key={verb}
-                      title={verb}
-                      action_id={statPanelData[verb].action}
-                      params={statPanelData[verb].params} />
-                  ))}
-                </Flex>
-              </Flex.Item>
-            )}
-          </Section>
-        </div>
-      </Flex>
-    </Flex.Item>
+    <div className="StatBorder">
+      <Section>
+        {statPanelData
+          ? Object.keys(statPanelData).map(key => (
+            !!statPanelData[key] && (
+              statPanelData[key].type === STAT_TEXT && <StatTextText
+                title={key}
+                text={statPanelData[key].text} />
+              || statPanelData[key].type === STAT_BUTTON && <StatTextButton
+                title={key}
+                text={statPanelData[key].text}
+                action_id={statPanelData[key].action}
+                params={statPanelData[key].params} />
+              || statPanelData[key].type === STAT_ATOM && <StatTextAtom
+                atom_ref={key}
+                atom_name={statPanelData[key].text}
+                atom_icon={statPanelData[key].icon} />
+              || statPanelData[key].type === STAT_DIVIDER
+              && <StatTextDivider />
+              || null
+            )
+          ))
+          : "No data"}
+        {!!verbs.length && (
+          verbs.map(verb => (
+            <StatTextVerb
+              key={verb}
+              title={verb}
+              action_id={statPanelData[verb].action}
+              params={statPanelData[verb].params} />
+          ))
+        )}
+      </Section>
+    </div>
   );
 };
 
@@ -164,11 +154,11 @@ export const StatTextVerb = (props, context) => {
     action_id,
     params = [],
   } = props;
-  const settings = useSettings(context);
   return (
-    <Flex.Item
+    <Box
       shrink={1}
-      basis="200px">
+      inline
+      width="200px">
       <Button
         content={title}
         onClick={() => sendMessage({
@@ -180,7 +170,7 @@ export const StatTextVerb = (props, context) => {
         })}
         color="transparent"
         fluid />
-    </Flex.Item>
+    </Box>
   );
 };
 
@@ -231,7 +221,7 @@ export const HoboStatText = (props, context) => {
             wrap="wrap"
             align="left">
             {verbs.map(verb => (
-              <HoboStatTextVerb
+              <StatTextVerb
                 key={verb}
                 title={verb}
                 action_id={statPanelData[verb].action}
@@ -322,32 +312,6 @@ export const HoboStatTextAtom = (props, context) => {
           </Table.Row>
         </Table>
       </Button>
-    </Box>
-  );
-};
-
-export const HoboStatTextVerb = (props, context) => {
-  const {
-    title,
-    action_id,
-    params = [],
-  } = props;
-  return (
-    <Box
-      shrink={1}
-      inline
-      width="200px">
-      <Button
-        content={title}
-        onClick={() => sendMessage({
-          type: 'stat/pressed',
-          payload: {
-            action_id: action_id,
-            params: params,
-          },
-        })}
-        color="transparent"
-        fluid />
     </Box>
   );
 };

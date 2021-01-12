@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'common/redux';
 import { Button, Flex, Knob, Tabs, Section } from 'tgui/components';
-import { Box, ScrollableBox } from '../../tgui/components';
+import { Box, ScrollableBox, Fragment } from '../../tgui/components';
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
 import { StatStatus, HoboStatStatus } from './StatStatus';
@@ -20,21 +20,18 @@ export const StatTabs = (props, context) => {
       break;
   }
   return (
-    <Flex
-      height="100%"
-      direction="column">
-      <Flex.Item>
+    <Fragment>
+      <Flex.Item shrink={0}>
         {settings.statTabMode === "Scroll"
           ? <StatTabScroll />
           : <StatTabWrap />}
       </Flex.Item>
-      <ScrollableBox
-        overflowY="scroll"
-        grow={1}
-        mt={1}>
-        {statSection}
+      <ScrollableBox overflowY="scroll">
+        <Flex.Item>
+          {statSection}
+        </Flex.Item>
       </ScrollableBox>
-    </Flex>
+    </Fragment>
   );
 };
 
@@ -79,6 +76,9 @@ export const StatTabWrap = (props, context) => {
       {statTabs.map(tab => (
         <Button
           key={tab}
+          color="transparent"
+          pr={1.5}
+          pl={1.5}
           selected={tab === stat.selectedTab}
           onClick={() => dispatch({
             type: 'stat/setTab',

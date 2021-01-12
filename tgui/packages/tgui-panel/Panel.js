@@ -51,10 +51,12 @@ export const Panel = (props, context) => {
   return (
     <Pane theme={settings.theme}>
       <Flex
+        height={(98-number) + '%'}
         direction="column"
-        height={(98-number) + '%'}>
+        grow={0}
+        shrink={0}>
         <StatTabs
-          height="100%" />
+          direction="column"/>
       </Flex>
       <DraggableControl
         value={number}
@@ -82,9 +84,9 @@ export const Panel = (props, context) => {
         )}
       </DraggableControl>
       <Flex
+        mt={1}
         direction="column"
-        height={(number-1) + '%'}
-        mt={1}>
+        height={(number-1) + '%'}>
         <Flex.Item>
           <Section fitted>
             <Flex mx={0.5} align="center">
