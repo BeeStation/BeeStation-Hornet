@@ -24,7 +24,7 @@
 			tab_data = get_stat_tab_status()						// ~ 0.525 CPU Time [15000 CALLS] (Depends on which tabs are selected)
 		// ===== MASTER CONTROLLER =====
 		if("MC")
-			client.stat_update_mode = STAT_SLOW_UPDATE
+			client.stat_update_mode = STAT_FAST_UPDATE
 			requires_holder = TRUE
 			tab_data = get_stat_tab_master_controller()				// ~ 0.037 CPU Time [33 CALLS]
 		// ===== ADMIN TICKETS =====
