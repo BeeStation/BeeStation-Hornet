@@ -1996,8 +1996,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				purchased_gear += AG.id
 				AG.purchase(user)
 		save_preferences()
-		return
-	if(req_donator) // if this user is not a patron and donator functions are enabled, remove their gear
+	else
 		if(purchased_gear.len || equipped_gear.len)
 			for(var/key in DLC.gear)
 				var/datum/gear/donator/RG = GLOB.gear_datums[key]
