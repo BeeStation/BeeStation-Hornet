@@ -5,8 +5,12 @@ import { Button, Flex, Knob, Tabs, Section } from 'tgui/components';
 import { Box } from '../../tgui/components';
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
-import { StatStatus } from './StatStatus';
-import { StatText } from './StatText';
+import { StatStatus, HoboStatStatus } from './StatStatus';
+import { StatText, HoboStatText } from './StatText';
+
+//=======================
+// Flex Supported
+//=======================
 
 export const StatTabs = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
@@ -86,5 +90,29 @@ export const StatTabWrap = (props, context) => {
         </Button>
       ))}
     </Section>
+  );
+};
+
+//=======================
+// Non-Flex Support
+//=======================
+
+export const HoboStatTabs = (props, context) => {
+  const stat = useSelector(context, selectStatPanel);
+  const settings = useSettings(context);
+  let statSection = (<HoboStatText />);
+  switch (stat.selectedTab) {
+    case 'Status':
+      statSection = (<HoboStatStatus />);
+      break;
+  }
+  return (
+    <Box>
+      <StatTabWrap />
+      <Box
+        grow={1}>
+        {statSection}
+      </Box>
+    </Box>
   );
 };
