@@ -29,6 +29,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	anchored = TRUE
 	layer = MID_TURF_LAYER
 	resistance_flags = FIRE_PROOF
+	var/dir_sound = 'sound/effects/phasein.ogg'
 	var/activated = FALSE
 	///is only used for bluespace crystal erasing as of now
 	var/storing_time = 5 SECONDS
@@ -133,6 +134,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 /obj/effect/warped_rune/proc/do_effect(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	if(deleteme)
+		playsound(rune_turf, dir_sound, 20, TRUE)
 		to_chat(user, ("<span class='notice'>[src] fades.</span>"))
 		qdel(src)
 
@@ -140,6 +142,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	SHOULD_CALL_PARENT(TRUE)
 	. = ..()
 	if(activated)
+		playsound(rune_turf, dir_sound, 20, TRUE)
 		visible_message("<span class='notice'>[src] fades.</span>")
 		qdel(src)
 
@@ -166,15 +169,14 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		if(extract.color_slime == extractype || !extractype) //check if the extract is the first one or of the right color.
 			extractype = extract.color_slime
 			qdel(extract) //vores the slime extract
-			playsound(rune_turf, 'sound/effects/splat.ogg', 20, TRUE)
 			req_extracts--
 			if(req_extracts <= 0)
-				playsound(rune_turf, 'sound/effects/splat.ogg', 20, TRUE)
 				new /mob/living/simple_animal/slime (rune_turf, extractype) //spawn a slime from the extract's color
 				req_extracts = initial(req_extracts)
 				extractype = null // reset extractype to FALSE to allow a new extract type
 				. = ..()
 				break
+			playsound(rune_turf, 'sound/effects/splat.ogg', 20, TRUE)
 		else
 			to_chat(user, "<span class='warning'>Requires a [extractype ? "[extractype] extracts" : "slime extract"].</span>")
 
@@ -262,11 +264,10 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 /obj/effect/warped_rune/metalspace
 	desc = "This can be activated to to create a 3x3 block of invisible walls."
 	icon_state = "rune_metal"
-	density = TRUE
 
 /obj/effect/warped_rune/metalspace/do_effect(mob/user)
 	for(var/turf/open/T in RANGE_TURFS(1, src))
-		new /obj/effect/forcefield/mime(T)
+		new /obj/effect/forcefield/mime(T, 150)
 	. = ..()
 
 /obj/item/slimecross/warping/yellow
@@ -328,6 +329,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 /obj/effect/warped_rune/silverspace
 	desc = "This feeds whoever steps on it."
 	icon_state = "rune_silver"
+	deleteme = FALSE
 
 /obj/effect/warped_rune/silverspace/Crossed(atom/movable/AM, oldloc)
 	if(iscarbon(AM))
@@ -361,6 +363,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	GLOB.blue_storage.loc = loc
 	var/datum/component/storage/STR = GLOB.blue_storage.GetComponent(/datum/component/storage)
 	STR.show_to(user)
+	playsound(rune_turf, dir_sound, 20, TRUE)
 	. = ..()
 
 /obj/item/slimecross/warping/sepia
@@ -371,6 +374,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/effect/warped_rune/sepiaspace
 	desc = "stepping on it stops time around it."
 	icon_state = "rune_sepia"
+	deleteme = FALSE
 
 /obj/effect/warped_rune/sepiaspace/Crossed(atom/movable/AM, oldloc)
 	new /obj/effect/timestop(rune_turf, null, null, null)
@@ -409,6 +413,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	if(holo_host && !holotile)
 		holo_creation()
 		deleteme = TRUE
+		playsound(rune_turf, dir_sound, 20, TRUE)
 
 /obj/effect/warped_rune/ceruleanspace/proc/holo_creation()
 	addtimer(CALLBACK(src, .proc/holo_talk), 10 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
@@ -463,12 +468,13 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 
 /obj/effect/warped_rune/pyritespace
 	desc = "Who shall we be today? they asked, but not even the canvas would answer."
-	icon_state = "rune_sprite"
+	icon_state = "rune_pyrite"
+	deleteme = FALSE
 	var/colour = "#FFFFFF"
 
 /obj/effect/warped_rune/pyritespace/Initialize()
 	. = ..()
-	color = pick("#FFFFFF", "#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#FF00FF")
+	colour = pick("#FFFFFF", "#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#FF00FF")
 
 /obj/effect/warped_rune/pyritespace/Crossed(atom/movable/AM, oldloc)
 	if(isliving(AM))
@@ -485,6 +491,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/effect/warped_rune/redspace
 	desc = "watch out for blood!"
 	icon_state = "rune_red"
+	deleteme = FALSE
 
 /obj/effect/warped_rune/redspace/Crossed(atom/movable/AM, oldloc)
 	if(ishuman(AM))
@@ -508,6 +515,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/effect/warped_rune/greenspace
 	desc = "Warning: don't step on this if you want to keep your genes."
 	icon_state = "rune_green"
+	deleteme = FALSE
 
 /obj/effect/warped_rune/greenspace/Crossed(atom/movable/AM, oldloc)
 	if(ishuman(AM))
@@ -524,6 +532,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/effect/warped_rune/pinkspace
 	desc = "Love is the only reliable source of happiness we have left. But like everything, it comes with a price."
 	icon_state = "rune_pink"
+	deleteme = FALSE
 
 ///adds the jolly mood effect along with hug sound effect.
 /obj/effect/warped_rune/pinkspace/Crossed(atom/movable/AM, oldloc)
@@ -585,6 +594,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/effect/warped_rune/oilspace
 	icon_state = "rune_oil"
 	desc = "This is basically a mine."
+	deleteme = FALSE
 
 /obj/effect/warped_rune/oilspace/Crossed(atom/movable/AM, oldloc)
 	if(iscarbon(AM))
@@ -639,6 +649,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/effect/warped_rune/lightpinkspace
 	desc = "Peace and love."
 	icon_state = "rune_light_pink"
+	deleteme = FALSE
 
 /obj/effect/warped_rune/lightpinkspace/Crossed(atom/movable/AM, oldloc)
 	if(iscarbon(AM))
@@ -656,9 +667,14 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	desc = "This can be activated to summon reflective fields."
 	icon_state = "rune_adamantine"
 
+/obj/structure/reflector/box/anchored/mob_pass/CanPass(atom/movable/mover, turf/target)
+	. = ..()
+	if(isliving(mover))
+		. = TRUE
+
 /obj/effect/warped_rune/adamantinespace/do_effect(mob/user)
 	for(var/turf/open/T in RANGE_TURFS(1, src) - rune_turf)
-		var/obj/structure/reflector/box/anchored/D = new (T)
+		var/obj/structure/reflector/box/anchored/mob_pass/D = new (T)
 		D.setAngle(dir2angle(get_dir(src, D)))
 		D.admin = TRUE
 		QDEL_IN(D, 300)
@@ -716,8 +732,12 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 	GLOB.warped_room.rainbow_runes += src
 
 /obj/effect/warped_rune/rainbowspace/do_effect(mob/user)
+	var/tp_mob = FALSE
 	for(var/mob/living/carbon/human/customer in rune_turf)
+		tp_mob = TRUE
 		customer.forceMove(get_turf(GLOB.warped_room.exit_rune))
+	if(tp_mob)
+		playsound(rune_turf, dir_sound, 20, TRUE)
 	. = ..()
 
 ///Will delete the room when the rune is destroyed if no customer is left in the room.
@@ -730,6 +750,7 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 /obj/effect/warped_room_exit/attack_hand(mob/living/user)
 	. = ..()
 	var/exit_turf
+	var/tp_mob = FALSE
 	for(var/mob/living/carbon/human/customer in get_turf(src))
 		do_sparks(3, FALSE, get_turf(src))
 		if(!exit_turf)
@@ -739,3 +760,6 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 			else
 				exit_turf = find_safe_turf()
 		customer.forceMove(exit_turf)
+		tp_mob = TRUE
+	if(tp_mob)
+		playsound(get_turf(src), 'sound/effects/phasein.ogg', 20, TRUE)
