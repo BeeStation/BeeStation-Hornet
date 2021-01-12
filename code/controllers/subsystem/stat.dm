@@ -14,6 +14,10 @@ SUBSYSTEM_DEF(stat)
 	var/list/currentrun = list()
 	//The run of clients updating alt clicked turfs
 	var/list/currentrun_listed = list()
+	//List of icon requests
+	var/list/icon_requests = list()
+	//List of people who need re-updating after icon requests are processed
+	var/list/currentrun_aftericon = list()
 
 /datum/controller/subsystem/stat/fire(resumed = 0)
 	if (!resumed)
@@ -22,6 +26,8 @@ SUBSYSTEM_DEF(stat)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	var/list/currentrun_listed = src.currentrun_listed
+	var/list/icon_requests = src.icon_requests
+	var/list/currentrun_aftericon = src.currentrun_aftericon
 
 	while(currentrun.len)
 		var/client/C = currentrun[currentrun.len]
@@ -60,10 +66,55 @@ SUBSYSTEM_DEF(stat)
 		if (MC_TICK_CHECK)
 			return
 
+	if(MC_TICK_CHECK)
+		return
+
+	//Process icon requests
+	while(icon_requests.len)
+		var/A_name = icon_requests[icon_requests.len]
+		var/datum/weakref/A_ref = icon_requests[A_name]
+		var/atom/A = A_ref.resolve()
+		icon_requests.len--
+
+		//Adding a new icon
+		//If the list gets too big just remove the first thing
+		if(flat_icon_cache.len > FLAT_ICON_CACHE_MAX_SIZE)
+			flat_icon_cache.Cut(1, 2)
+		//We are only going to apply overlays to mobs.
+		//Massively faster, getFlatIcon is a bit of a sucky proc.
+		flat_icon_cache[A_name] = icon2base64(getStillIcon(A))
+
+		if (MC_TICK_CHECK)
+			return
+
+	//Process clients that just got an item and need to update now.
+	//Client list will empty if the system overruns, since they will get updated anyway.
+	if(MC_TICK_CHECK)
+		src.currentrun_aftericon = list()
+		return
+
+	while(currentrun_aftericon.len)
+		var/client/C = currentrun_aftericon[currentrun_aftericon.len]
+		currentrun_aftericon.len--
+
+		if (C)
+			var/mob/M = C.mob
+			if(M)
+				//Auto-update, not forced
+				M.UpdateMobStat(FALSE)
+
+		if (MC_TICK_CHECK)
+			src.currentrun_aftericon = list()
+			return
+
+	if(MC_TICK_CHECK)
+		src.currentrun_aftericon = list()
+		return
+
 //Note: Doesn't account for decals on items.
 //Whoever examins an item with a decal first, everyone else will see that items decals.
 //Significantly reduces server lag though, like MASSIVELY!
-/datum/controller/subsystem/stat/proc/get_flat_icon(atom/A)
+/datum/controller/subsystem/stat/proc/get_flat_icon(client/requester, atom/A)
 	var/what_to_search = "[A.type][(istext(A.icon_state) && length(A.icon_state)) ? A.icon_state[1] : "*"]"
 	//Mobs are more important than items.
 	//Mob icons will change if their name changes, their type changes or their overlays change.
@@ -80,16 +131,10 @@ SUBSYSTEM_DEF(stat)
 	var/thing = flat_icon_cache[what_to_search]
 	if(thing)
 		return thing
-	//Adding a new icon
-	//If the list gets too big just remove the first thing
-	if(flat_icon_cache.len > FLAT_ICON_CACHE_MAX_SIZE)
-		flat_icon_cache.Cut(1, 2)
-	//We are only going to apply overlays to mobs.
-	//Massively faster, getFlatIcon is a bit of a sucky proc.
-	//Thi
-	thing = icon2base64(getStillIcon(A))
-	flat_icon_cache[what_to_search] = thing
-	return thing
+	//Start queuing with the subsystem.
+	icon_requests["[what_to_search]"] = WEAKREF(A)
+	src.currentrun_aftericon |= requester
+	return null
 
 /datum/controller/subsystem/stat/proc/send_global_alert(title, message)
 	for(var/client/C in GLOB.clients)
