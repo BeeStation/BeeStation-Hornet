@@ -247,8 +247,8 @@
 
 /obj/item/clothing/neck/bizzarescarf
 	name = "bizzare scarf"
-	desc = ""
+	desc = "Your next line is-"
 
 /obj/item/clothing/neck/conductivescarf
 	name = "conductive scarf"
-	desc = ""
+	desc = "Made out of 30,000 scarabs. Use with caution"

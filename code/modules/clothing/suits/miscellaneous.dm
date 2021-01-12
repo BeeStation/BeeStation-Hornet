@@ -309,7 +309,7 @@
 	flags_inv = HIDEHAIR|HIDEEARS
 	dynamic_hair_suffix = ""
 
-/obj/item/clothing/suit/hooded/bee_costume/syndie 
+/obj/item/clothing/suit/hooded/bee_costume/syndie
 	name = "BLF costume"
 	armor = list("melee" = 20, "bullet" = 20, "laser" = 20,"energy" = 40, "bomb" = 0, "bio" = 60, "rad" = 0, "fire" = 0, "acid" = 50)
 	hoodtype = /obj/item/clothing/head/hooded/bee_hood/syndie
@@ -341,6 +341,32 @@
 	icon_state = "officertanjacket"
 	item_state = "officertanjacket"
 	body_parts_covered = CHEST|ARMS
+
+/////////////////
+//DONATOR ITEMS//
+/////////////////
+
+/obj/item/clothing/suit/delinquent
+	name = "deliquent jacket"
+	desc = "Yare yare daze"
+	icon_state = "jocoat"
+
+/obj/item/clothing/suit/madsci
+	name = "mad scientist labcoat"
+	desc = "El psy congroo"
+	icon_state = "madsci"
+
+/obj/item/clothing/suit/hooded/renault_costume
+	name = "renault costume"
+	desc = "The cutest pair of pajamas you've ever seen"
+	icon_state = "renault_suit"
+	hoodtype = /obj/item/clothing/head/hooded/renault_hood
+
+/obj/item/clothing/head/hooded/renault_hood
+	name = "renault hoodie"
+	desc = "An adorable hoodie vaguely resembling renault"
+	icon_state = "renault_hoodie"
+	flags_inv = HIDEEARS
 
 /*
  * Misc
@@ -660,7 +686,7 @@
 	icon_state = "joker"
 	item_state = "joker"
 	item_color = "joker"
-	can_adjust = FALSE	
+	can_adjust = FALSE
 
 /obj/item/clothing/suit/joker
 	name = "comedian coat"

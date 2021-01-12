@@ -30,7 +30,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		if(use_id in used_ids)
 			WARNING("Loadout - ID Already Exists: [G], with ID:[use_id], Conflicts with: [used_ids[use_id]]")
 			continue
-		if(!initial(G.cost) && !G.donator)
+		if(!initial(G.cost) && use_category != "Donator")
 			WARNING("Loadout - Missing cost: [G]")
 			continue
 		if(!initial(G.path) && use_category != "OOC") //OOC category does not contain actual items
@@ -45,7 +45,6 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		LC.gear[use_id] = GLOB.gear_datums[use_id]
 
 	GLOB.loadout_categories = sortAssoc(GLOB.loadout_categories)
-	return 1
 
 /datum/gear
 	var/display_name       //Name. Should be unique.
@@ -59,7 +58,6 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	var/list/species_whitelist //Only allow certain species to receive this gear
 	var/sort_category = "General"
 	var/subtype_path = /datum/gear //for skipping organizational subtypes (optional)
-	var/donator = FALSE		//for making beestation donator exclusive items
 
 /datum/gear/New()
 	..()

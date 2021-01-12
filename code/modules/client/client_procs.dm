@@ -252,6 +252,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	prefs.last_id = computer_id			//these are gonna be used for banning
 	fps = prefs.clientfps
 
+	prefs.handle_donator_items(src)
+
 	if(fexists(roundend_report_file()))
 		verbs += /client/proc/show_previous_roundend_report
 
@@ -1081,3 +1083,4 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			message_admins("[key_name(src)] was removed from the game due to a ban from BeeStation.")
 			qdel(src)
 			return
+
