@@ -9,7 +9,11 @@ SUBSYSTEM_DEF(stat)
 	flags = SS_NO_INIT | SS_BACKGROUND
 
 	var/list/flat_icon_cache = list()	//Assoc list, datum = flat icon
+
+	//The run of clients updating normally
 	var/list/currentrun = list()
+	//The run of clients updating alt clicked turfs
+	var/list/currentrun_listed = list()
 
 /datum/controller/subsystem/stat/fire(resumed = 0)
 	if (!resumed)
@@ -17,6 +21,7 @@ SUBSYSTEM_DEF(stat)
 
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
+	var/list/currentrun_listed = src.currentrun_listed
 
 	while(currentrun.len)
 		var/client/C = currentrun[currentrun.len]
@@ -25,8 +30,36 @@ SUBSYSTEM_DEF(stat)
 		if (C)
 			var/mob/M = C.mob
 			if(M)
-				//Auto-update, not forced
-				M.UpdateMobStat(FALSE)
+				//Handle listed turfs seperately
+				if(M.listed_turf?.name == C.selected_stat_tab)
+					currentrun_listed += C
+				else
+					//Auto-update, not forced
+					M.UpdateMobStat(FALSE)
+
+		if (MC_TICK_CHECK)
+			src.currentrun_listed = currentrun_listed
+			return
+
+	if(MC_TICK_CHECK)
+		src.currentrun_listed = currentrun_listed
+		return
+
+	//Handle clients on listed turfs as low priority, if they run over then we will give our processing time
+	//back to the people not on listed turfs (listed turfs is slightly more laggy)
+	while(currentrun_listed.len)
+		var/client/C = currentrun_listed[currentrun_listed.len]
+		currentrun_listed.len--
+
+		if (C)
+			var/mob/M = C.mob
+			if(M)
+				//Handle listed turfs seperately
+				if(M.listed_turf?.name == C.selected_stat_tab)
+					currentrun_listed += C
+				else
+					//Auto-update, not forced
+					M.UpdateMobStat(FALSE)
 
 		if (MC_TICK_CHECK)
 			return
