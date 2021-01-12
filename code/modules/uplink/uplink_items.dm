@@ -1571,6 +1571,15 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	item = /obj/item/assembly/flash/hypnotic
 	cost = 7
 
+/datum/uplink_item/device_tools/syndicate_teleporter
+	name = "Experimental Syndicate Teleporter"
+	desc = "The Syndicate teleporter is a handheld device that teleports the user 4-8 meters forward. \
+			Beware, teleporting into a wall will make the teleporter do a parallel emergency teleport, \
+			but if that emergency teleport fails, it will kill you instantly. \
+			Has 4 charges, recharges automatically. Warranty voided if exposed to EMP."
+	item = /obj/item/storage/box/syndie_kit/teleporter
+	cost = 8
+
 /datum/uplink_item/device_tools/compressionkit
 	name = "Bluespace Compression Kit"
 	desc = "A modified version of a BSRPED that can be used to reduce the size of most items while retaining their original functions! \
