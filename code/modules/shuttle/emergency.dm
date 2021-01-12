@@ -9,6 +9,7 @@
 	desc = "For shuttle control."
 	icon_screen = "shuttle"
 	icon_keyboard = "tech_key"
+	resistance_flags = INDESTRUCTIBLE
 
 
 

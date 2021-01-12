@@ -381,14 +381,6 @@ Turf and target are separate in case you want to teleport some distance from a t
 	// means that one unit is 1 kJ.
 	return DisplayJoules(units * SSmachines.wait * 0.1 / GLOB.CELLRATE)
 
-/proc/get_mob_by_ckey(key)
-	if(!key)
-		return
-	var/list/mobs = sortmobs()
-	for(var/mob/M in mobs)
-		if(M.ckey == key)
-			return M
-
 //Returns the atom sitting on the turf.
 //For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
 //Optional arg 'type' to stop once it reaches a specific type instead of a turf.
@@ -1602,3 +1594,13 @@ config_setting should be one of the following:
 /proc/get_final_z(atom/A)
 	var/turf/T = get_turf(A)
 	return T ? T.z : A.z
+
+/proc/invertDir(var/input_dir)
+	switch(input_dir)
+		if(UP)
+			return DOWN
+		if(DOWN)
+			return UP
+		if(-INFINITY to 0, 11 to INFINITY)
+			CRASH("Can't turn invalid directions!")
+	return turn(input_dir, 180)
