@@ -61,9 +61,8 @@
 /obj/item/energy_katana/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(ishuman(hit_atom))
 		var/mob/living/carbon/human/H = hit_atom
-		if(istype(H.wear_suit, /obj/item/clothing/suit/space/space_ninja))
-			var/obj/item/clothing/suit/space/space_ninja/SN = H.wear_suit
-			if(SN.energyKatana == src)
+		if(istype(H.gloves, /obj/item/clothing/gloves/space_ninja))
+			var/obj/item/clothing/gloves/space_ninja/SN = H.gloves
 				returnToOwner(H, 0, 1)
 				return
 

@@ -1,15 +1,18 @@
 
 
 //Creates a throwing star
-/obj/item/clothing/suit/space/space_ninja/proc/ninjastar()
-	if(!ninjacost(10))
-		var/mob/living/carbon/human/H = affecting
-		var/obj/item/throwing_star/ninja/N = new(H)
-		if(H.put_in_hands(N))
-			to_chat(H, "<span class='notice'>A throwing star has been created in your hand!</span>")
+/obj/item/clothing/gloves/space_ninja/proc/ninjafabricate(var/mob/living/carbon/human/user)
+	if(fabrication_charges > 0)
+		var/choice = input(user,"Which item would you like to fabricate?","Select an Item") as null|anything in sortList(fabrication_options)
+		new choice(user)
+		if(user.put_in_hands(choice))
+			to_chat(user, "<span class='notice'>A [choice] has been created in your hand! The gloves have [fabrication_charges] left.</span>")
+			fabrication_charges--
 		else
-			qdel(N)
-		H.throw_mode_on() //So they can quickly throw it.
+			qdel(choice)
+		user.throw_mode_on() //So they can quickly throw it.
+	else 
+		to_chat(user, "<span class='warning'>No charges left!</span>")
 
 
 /obj/item/throwing_star/ninja

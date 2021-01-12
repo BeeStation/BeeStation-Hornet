@@ -8,18 +8,9 @@
 	ears = /obj/item/radio/headset
 	shoes = /obj/item/clothing/shoes/space_ninja
 	gloves = /obj/item/clothing/gloves/space_ninja
-	back = /obj/item/tank/jetpack/carbondioxide
+	back = /obj/item/energy_katana
 	l_pocket = /obj/item/grenade/plastic/x4
 	r_pocket = /obj/item/tank/internals/emergency_oxygen
 	internals_slot = SLOT_R_STORE
-	belt = /obj/item/energy_katana
+	belt = /obj/item/shadowcloak
 	implants = list(/obj/item/implant/explosive)
-
-
-/datum/outfit/ninja/post_equip(mob/living/carbon/human/H)
-	if(istype(H.wear_suit, suit))
-		var/obj/item/clothing/suit/space/space_ninja/S = H.wear_suit
-		if(istype(H.belt, belt))
-			S.energyKatana = H.belt
-		S.randomize_param()
-
