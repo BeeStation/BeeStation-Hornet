@@ -21,17 +21,17 @@
 	var/rust_force = 500
 	var/static/list/blacklisted_turfs = typecacheof(list(/turf/closed,/turf/open/space,/turf/open/lava,/turf/open/chasm,/turf/open/floor/plating/rust))
 	route = PATH_RUST
-	
+
 /datum/eldritch_knowledge/rust_fist/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
 	target.rust_heretic_act(TRUE)
 	return TRUE
-	
+
 /datum/eldritch_knowledge/rust_fist/on_eldritch_blade(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		var/datum/status_effect/eldritch/E = H.has_status_effect(/datum/status_effect/eldritch/rust) || H.has_status_effect(/datum/status_effect/eldritch/ash) || H.has_status_effect(/datum/status_effect/eldritch/flesh)  || H.has_status_effect(/datum/status_effect/eldritch/void)
+		var/datum/status_effect/eldritch/E = H.has_status_effect(/datum/status_effect/eldritch/rust) || H.has_status_effect(/datum/status_effect/eldritch/ash) || H.has_status_effect(/datum/status_effect/eldritch/flesh)
 		if(E)
 			H.silent = max(H.silent, 4 SECONDS)
 			E.on_effect()
@@ -56,7 +56,7 @@
 	living_user.adjustToxLoss(-2, FALSE)
 	living_user.adjustOxyLoss(-0.5, FALSE)
 	living_user.adjustStaminaLoss(-2)
-	living_user.AdjustAllImmobility(-5)	
+	living_user.AdjustAllImmobility(-5)
 
 /datum/eldritch_knowledge/rust_mark
 	name = "Priest Ascension"

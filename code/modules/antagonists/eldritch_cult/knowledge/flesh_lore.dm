@@ -26,11 +26,11 @@
 	. = ..()
 	if(!ishuman(target) || target == user)
 		return
-		
+
 	var/mob/living/carbon/human/human_target = target
 	if(QDELETED(human_target) || human_target.stat != DEAD)
 		return
-	
+
 	var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
 
 	if(HAS_TRAIT(human_target, TRAIT_HUSK) && !master.get_knowledge(/datum/eldritch_knowledge/flesh_blade_upgrade))
@@ -73,7 +73,7 @@
 	if(!ishuman(target))
 		return
 	var/mob/living/carbon/C = target
-	var/datum/status_effect/eldritch/E = C.has_status_effect(/datum/status_effect/eldritch/rust) || C.has_status_effect(/datum/status_effect/eldritch/ash) || C.has_status_effect(/datum/status_effect/eldritch/flesh)  || H.has_status_effect(/datum/status_effect/eldritch/void)
+	var/datum/status_effect/eldritch/E = C.has_status_effect(/datum/status_effect/eldritch/rust) || C.has_status_effect(/datum/status_effect/eldritch/ash) || C.has_status_effect(/datum/status_effect/eldritch/flesh)
 	if(E)
 		C.silent = max(C.silent, 4 SECONDS)
 		E.on_effect()
@@ -149,7 +149,7 @@
 	banned_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/ash_mark)
 	route = PATH_FLESH
 	followers_increment = 1
-	
+
 /datum/eldritch_knowledge/flesh_mark/on_mansus_grasp(target,user,proximity_flag,click_parameters)
 	. = ..()
 	if(isliving(target))

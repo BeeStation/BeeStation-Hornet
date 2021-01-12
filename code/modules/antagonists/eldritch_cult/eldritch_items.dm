@@ -248,6 +248,7 @@
 
 		if(prob(25))
 			human_in_range.Dizzy(5)
+
 /obj/item/clothing/head/hooded/cult_hoodie/void
 	name = "void hood"
 	icon_state = "void_cloak"
@@ -261,14 +262,12 @@
 	name = "void cloak"
 	desc = "Black like tar, doesn't reflect any light. Runic symbols line the outside, with each flash you loose comprehension of what you are seeing."
 	icon_state = "void_cloak"
-	inhand_icon_state = "void_cloak"
+	item_state = "void_cloak"
 	allowed = list(/obj/item/melee/sickly_blade, /obj/item/forbidden_book, /obj/item/living_heart)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/void
 	flags_inv = NONE
 	// slightly worse than normal cult robes
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30,ENERGY = 30, BOMB = 15, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/void_cloak
-	alternative_mode = TRUE
 
 /obj/item/clothing/suit/hooded/cultrobes/void/ToggleHood()
 	if(!iscarbon(loc))
@@ -285,78 +284,19 @@
 	else
 		to_chat(carbon_user,"<span class='danger'>You can't force the hood onto your head!</span>")
 
-
-/obj/item/clothing/mask/void_mask
-	name = "Abyssal Mask"
-	desc = "Mask created from the suffering of existance, you can look down it's eyes, and notice something gazing back at you."
-	icon_state = "mad_mask"
-	inhand_icon_state = "mad_mask"
-	w_class = WEIGHT_CLASS_SMALL
-	flags_cover = MASKCOVERSEYES
-	resistance_flags = FLAMMABLE
-	flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
-	///Who is wearing this
-	var/mob/living/carbon/human/local_user
-
-/obj/item/clothing/mask/void_mask/equipped(mob/user, slot)
-	. = ..()
-	if(slot != ITEM_SLOT_MASK)
-		return
-	if(ishuman(user) && user.mind && slot == ITEM_SLOT_MASK)
-		local_user = user
-		START_PROCESSING(SSobj,src)
-
-		if(IS_HERETIC(user) || IS_HERETIC_CULTIST(user))
-			return
-		ADD_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
-
-/obj/item/clothing/mask/void_mask/dropped(mob/M)
-	local_user = null
-	STOP_PROCESSING(SSobj,src)
-	REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
-	return ..()
-
-/obj/item/clothing/mask/void_mask/process(delta_time)
-	if(!local_user)
-		return PROCESS_KILL
-
-	if((IS_HERETIC(local_user) || IS_HERETIC_CULTIST(local_user)) && HAS_TRAIT(src,TRAIT_NODROP))
-		REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
-
-	for(var/mob/living/carbon/human/human_in_range in spiral_range(9,local_user))
-		if(IS_HERETIC(human_in_range) || IS_HERETIC_CULTIST(human_in_range))
-			continue
-
-		SEND_SIGNAL(human_in_range,COMSIG_VOID_MASK_ACT,rand(-2,-20)*delta_time)
-
-		if(DT_PROB(60,delta_time))
-			human_in_range.hallucination += 5
-
-		if(DT_PROB(40,delta_time))
-			human_in_range.Jitter(5)
-
-		if(DT_PROB(30,delta_time))
-			human_in_range.emote(pick("giggle","laugh"))
-			human_in_range.adjustStaminaLoss(10)
-
-		if(DT_PROB(25,delta_time))
-			human_in_range.Dizzy(5)
-
 /obj/item/melee/rune_knife
 	name = "Carving Knife"
 	desc = "Cold Steel, pure, perfect, this knife can carve the floor in many ways, but only few can evoke the dangers that lurk beneath reality."
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "rune_carver"
 	flags_1 = CONDUCT_1
-	sharpness = SHARP_EDGED
+	sharpness = IS_SHARP
 	w_class = WEIGHT_CLASS_SMALL
-	wound_bonus = 20
 	force = 10
 	throwforce = 20
 	embedding = list(embed_chance=75, jostle_chance=2, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.4, pain_mult=3, jostle_pain_mult=5, rip_time=15)
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
-	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "rend")
+	attack_verb = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
 	///turfs that you cannot draw carvings on
 	var/static/list/blacklisted_turfs = typecacheof(list(/turf/closed,/turf/open/space,/turf/open/lava))
 	///A check to see if you are in process of drawing a rune
@@ -498,7 +438,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "crucifix"
-	icon_state = "eye_medalion"	
+	icon_state = "eye_medalion"
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/neck/crucifix/equipped(mob/living/carbon/human/user, slot)
@@ -514,7 +454,7 @@
 
 /obj/item/clothing/neck/crucifix/rosary
 	name = "rosary beads"
-	desc = "A wooden crucifix meant to ward of curses and hexes."	
+	desc = "A wooden crucifix meant to ward of curses and hexes."
 	resistance_flags = FLAMMABLE
 	icon_state = "rosary"
 
@@ -550,7 +490,7 @@
 	..()
 	deity = rand(1,GODS_MAX)
 	switch (deity)
-		if (GOD_YOUTH)	
+		if (GOD_YOUTH)
 			godname = "Lobon"
 		if (GOD_SIGHT)
 			godname = "Nath-Horthath"
@@ -806,19 +746,19 @@
 
 	return TRUE
 
-#undef GOD_YOUTH 
-#undef GOD_SIGHT 
-#undef GOD_MIND 
-#undef GOD_CLEANSE 
-#undef GOD_MEND 
-#undef GOD_CAUTERIZE 
-#undef GOD_BLIND 
-#undef GOD_MUTE 
-#undef GOD_STUPID 
+#undef GOD_YOUTH
+#undef GOD_SIGHT
+#undef GOD_MIND
+#undef GOD_CLEANSE
+#undef GOD_MEND
+#undef GOD_CAUTERIZE
+#undef GOD_BLIND
+#undef GOD_MUTE
+#undef GOD_STUPID
 #undef GOD_HURT
-#undef GOD_BURN 
-#undef GOD_PARALIZE 
-#undef GOD_DISABLE 
-#undef GOD_EMP 
-#undef GOD_MADNESS 
-#undef GODS_MAX 
+#undef GOD_BURN
+#undef GOD_PARALIZE
+#undef GOD_DISABLE
+#undef GOD_EMP
+#undef GOD_MADNESS
+#undef GODS_MAX

@@ -1,8 +1,38 @@
+/obj/structure/eldritch_crucible
+	name = "Mawed Crucible"
+	desc = "Immortalized cast iron, the steel-like teeth holding it in place, it's vile extract has the power of rebirthing things, remaking them from the very beginning."
+	icon = 'icons/obj/eldritch.dmi'
+	icon_state = "crucible"
+	anchored = FALSE
+	density = TRUE
+	///How much mass this currently holds
+	var/current_mass = 5
+	///Maximum amount of mass
+	var/max_mass = 5
+	///Check to see if it is currently being used.
+	var/in_use = FALSE
 
+/obj/structure/eldritch_crucible/examine(mob/user)
+	. = ..()
+	if(!IS_HERETIC(user) && !IS_HERETIC_CULTIST(user))
+		return
+	if(current_mass < max_mass)
+		. += "The Crucible requires [max_mass - current_mass] more organs or bodyparts!"
+	else
+		. += "The Crucible is ready to be used!"
+
+	. += "You can anchor and reanchor it using Codex Cicatrix!"
+	. += "It is currently [anchored == FALSE ? "unanchored" : "anchored"]"
+	. += "This structure can brew 'Brew of Crucible soul' - when used it gives you the ability to phase through matter for 15 seconds, after the time elapses it teleports you back to your original location"
+	. += "This structure can brew 'Brew of Dusk and Dawn' - when used it gives you xray for 1 minute"
+	. += "This structure can brew 'Brew of Wounded Soldier' - when used it makes you immune to damage slowdown, additionally you start healing for every wound you have, quickly outpacing the damage caused by them."
+
+/obj/structure/eldritch_crucible/attacked_by(obj/item/I, mob/living/user)
+	if(istype(I,/obj/item/nullrod))
 		qdel(src)
 		return
 
-	if(!IS_HERETIC(user) && !IS_HERETIC_MONSTER(user))
+	if(!IS_HERETIC(user) && !IS_HERETIC_CULTIST(user))
 		if(iscarbon(user))
 			devour(user)
 		return
@@ -32,7 +62,7 @@
 	return ..()
 
 /obj/structure/eldritch_crucible/attack_hand(mob/user)
-	if(!IS_HERETIC(user) && !IS_HERETIC_MONSTER(user))
+	if(!IS_HERETIC(user) && !IS_HERETIC_CULTIST(user))
 		if(iscarbon(user))
 			devour(user)
 		return
@@ -88,7 +118,7 @@
 	if(!isliving(AM))
 		return ..()
 	var/mob/living/living_mob = AM
-	if(living_mob == owner?.resolve() || IS_HERETIC(living_mob) || IS_HERETIC_MONSTER(living_mob))
+	if(living_mob == owner?.resolve() || IS_HERETIC(living_mob) || IS_HERETIC_CULTIST(living_mob))
 		return
 	return ..()
 
