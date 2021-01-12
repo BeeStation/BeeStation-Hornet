@@ -19,7 +19,7 @@
 //LIGHTERS & CIGARETTES
 
 /datum/gear/misc/lighter
-	display_name = "zippo lighter"
+	display_name = "Zippo lighter"
 	path = /obj/item/lighter
 	cost = 1500
 
