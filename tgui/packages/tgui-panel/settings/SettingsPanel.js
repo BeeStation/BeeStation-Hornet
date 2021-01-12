@@ -132,29 +132,6 @@ export const SettingsStat = (props, context) => {
               statTabMode: value,
             }))} />
         </LabeledList.Item>
-        <LabeledList.Item label="Button Colour">
-          <Dropdown
-            selected={settings.statButtonColour}
-            options={[
-              "grey",
-              "green",
-              "blue",
-              "red",
-              "yellow",
-              "purple",
-              "orange",
-              "olive",
-              "teal",
-              "violet",
-              "pink",
-              "brown",
-              "black",
-              "white",
-            ]}
-            onSelected={value => dispatch(updateSettings({
-              statButtonColour: value,
-            }))} />
-        </LabeledList.Item>
       </LabeledList>
     </Section>
   );

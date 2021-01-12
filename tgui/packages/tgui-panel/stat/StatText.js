@@ -14,8 +14,7 @@ export const StatText = (props, context) => {
   if (!statPanelData)
   {
     return (
-      <Flex.Item
-        color="red">
+      <Flex.Item color="red">
         Passed stat panel data was null contant coderman (or coderwoman).
       </Flex.Item>
     );
@@ -25,51 +24,57 @@ export const StatText = (props, context) => {
       && statPanelData[element].type === STAT_VERB);
   return (
     <Flex.Item mt={1}>
-      <Flex direction="column">
-        <div className="StatBorder">
-          <Section>
-            {statPanelData
-              ? Object.keys(statPanelData).map(key => (
-                !!statPanelData[key] && (
-                  statPanelData[key].type === STAT_TEXT && <StatTextText
-                    title={key}
-                    text={statPanelData[key].text} />
-                  || statPanelData[key].type === STAT_BUTTON && <StatTextButton
-                    title={key}
-                    text={statPanelData[key].text}
-                    action_id={statPanelData[key].action}
-                    params={statPanelData[key].params} />
-                  || statPanelData[key].type === STAT_ATOM && <StatTextAtom
-                    atom_ref={key}
-                    atom_name={statPanelData[key].text}
-                    atom_icon={statPanelData[key].icon} />
-                  || statPanelData[key].type === STAT_DIVIDER
-                  && <StatTextDivider />
-                  || null
-                )
-              ))
-              : "No data"}
-            {!!verbs.length && (
-              <Flex.Item>
-                <Flex
-                  wrap="wrap"
-                  align="left">
-                  {verbs.map(verb => (
-                    <StatTextVerb
-                      key={verb}
-                      title={verb}
-                      action_id={statPanelData[verb].action}
-                      params={statPanelData[verb].params} />
-                  ))}
-                </Flex>
-              </Flex.Item>
-            )}
-          </Section>
-        </div>
-      </Flex>
+      <Table direction="column">
+        <Table.Row>
+          <div className="StatBorder">
+            <Section>
+              {statPanelData
+                ? Object.keys(statPanelData).map(key => (
+                  !!statPanelData[key] && (
+                    statPanelData[key].type === STAT_TEXT && <StatTextText
+                      title={key}
+                      text={statPanelData[key].text} />
+                    || statPanelData[key].type === STAT_BUTTON && <StatTextButton
+                      title={key}
+                      text={statPanelData[key].text}
+                      action_id={statPanelData[key].action}
+                      params={statPanelData[key].params} />
+                    || statPanelData[key].type === STAT_ATOM && <StatTextAtom
+                      atom_ref={key}
+                      atom_name={statPanelData[key].text}
+                      atom_icon={statPanelData[key].icon} />
+                    || statPanelData[key].type === STAT_DIVIDER
+                    && <StatTextDivider />
+                    || null
+                  )
+                ))
+                : "No data"}
+              {!!verbs.length && (
+                <Table.Cell>
+                  <Flex
+                    wrap="wrap"
+                    align="left">
+                    {verbs.map(verb => (
+                      <StatTextVerb
+                        key={verb}
+                        title={verb}
+                        action_id={statPanelData[verb].action}
+                        params={statPanelData[verb].params} />
+                    ))}
+                  </Flex>
+                </Table.Cell>
+              )}
+            </Section>
+          </div>
+        </Table.Row>
+      </Table>
     </Flex.Item>
   );
 };
+
+/*
+ * FLEX COMPATIBLE
+*/
 
 export const StatTextText = (props, context) => {
   const {
@@ -78,10 +83,10 @@ export const StatTextText = (props, context) => {
   } = props;
   return (
     <Flex.Item mt={1}>
-      {title}:
       <b>
-        {text}
+      {title}:{" "}
       </b>
+      {text}
     </Flex.Item>
   );
 };
@@ -104,8 +109,7 @@ export const StatTextButton = (props, context) => {
             params: params,
           },
         })}
-        color="transparent"
-        textColor={settings.statButtonColour}>
+        color="transparent">
         <b>
           {title}:{" "}
         </b>
@@ -179,7 +183,6 @@ export const StatTextVerb = (props, context) => {
           },
         })}
         color="transparent"
-        textColor={settings.statButtonColour}
         fluid />
     </Flex.Item>
   );

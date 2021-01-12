@@ -77,7 +77,6 @@ export const StatTabWrap = (props, context) => {
       {statTabs.map(tab => (
         <Button
           key={tab}
-          color="transparent"
           selected={tab === stat.selectedTab}
           onClick={() => dispatch({
             type: 'stat/setTab',
