@@ -1,0 +1,4 @@
+author: MCterra
+delete-after: true
+changes:
+  - server: new restricted-use comms key for cross-community comms
