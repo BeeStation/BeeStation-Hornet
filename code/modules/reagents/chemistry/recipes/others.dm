@@ -772,3 +772,9 @@
 	id = /datum/reagent/mutationtoxin/plasma
 	results = list(/datum/reagent/mutationtoxin/plasma = 5)
 	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/toxin/plasma = 60, /datum/reagent/uranium = 20)
+
+/datum/chemical_reaction/shiftium
+	name = "Shiftium"
+	id = "shiftium"
+	results = list(/datum/reagent/shiftium = 10)
+	required_reagents = list(/datum/reagent/toxin/plasma = 25, /datum/reagent/liquidgibs = 25, /datum/reagent/nitrous_oxide = 10)

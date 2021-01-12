@@ -405,3 +405,8 @@
 /obj/item/reagent_containers/glass/bottle/bromine
 	name = "bromine bottle"
 	list_reagents = list(/datum/reagent/bromine = 30)
+
+/obj/item/reagent_containers/glass/bottle/shiftium
+	name = "shiftium bottle"
+	desc = "A small bottle of shiftium"
+	list_reagents = list(/datum/reagent/shiftium = 30)

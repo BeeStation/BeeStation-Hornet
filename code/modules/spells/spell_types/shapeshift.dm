@@ -58,7 +58,7 @@
 		return
 
 	var/mob/living/shape = new shapeshift_type(caster.loc)
-	H = new(shape,src,caster)
+	H = new(shape,src,caster,convert_damage,convert_damage_type, die_with_shapeshifted_form, revert_on_death)
 
 	clothes_req = FALSE
 	human_req = FALSE
@@ -89,12 +89,20 @@
 	var/mob/living/stored
 	var/mob/living/shape
 	var/restoring = FALSE
+	var/convert_damage
+	var/convert_damage_type = BRUTE
+	var/die_with_shapeshifted_form = TRUE
+	var/revert_on_death = TRUE
 	var/datum/soullink/shapeshift/slink
 	var/obj/effect/proc_holder/spell/targeted/shapeshift/source
 
-/obj/shapeshift_holder/Initialize(mapload,obj/effect/proc_holder/spell/targeted/shapeshift/source,mob/living/caster)
+/obj/shapeshift_holder/Initialize(mapload,obj/effect/proc_holder/spell/targeted/shapeshift/source,mob/living/caster,convert_damage = TRUE,convert_damage_type = BRUTE, die_with_shapeshifted_form = TRUE, revert_on_death = TRUE)
 	. = ..()
 	src.source = source
+	src.convert_damage = convert_damage
+	src.convert_damage_type = convert_damage_type
+	src.die_with_shapeshifted_form = die_with_shapeshifted_form 
+	src.revert_on_death = revert_on_death
 	shape = loc
 	if(!istype(shape))
 		CRASH("shapeshift holder created outside mob/living")
@@ -103,14 +111,15 @@
 		stored.mind.transfer_to(shape)
 	stored.forceMove(src)
 	stored.notransform = TRUE
-	if(source.convert_damage)
+	if(convert_damage)
 		var/damage_percent = (stored.maxHealth - stored.health)/stored.maxHealth;
 		var/damapply = damage_percent * shape.maxHealth;
 
-		shape.apply_damage(damapply, source.convert_damage_type, forced = TRUE);
+		shape.apply_damage(damapply, convert_damage_type, forced = TRUE);
 
 	slink = soullink(/datum/soullink/shapeshift, stored , shape)
 	slink.source = src
+
 
 /obj/shapeshift_holder/Destroy()
 	if(!restoring)
@@ -134,15 +143,15 @@
 
 /obj/shapeshift_holder/proc/casterDeath()
 	//Something kills the stored caster through direct damage.
-	if(source.revert_on_death)
+	if(revert_on_death)
 		restore(death=TRUE)
 	else
 		shape.death()
 
 /obj/shapeshift_holder/proc/shapeDeath()
 	//Shape dies.
-	if(source.die_with_shapeshifted_form)
-		if(source.revert_on_death)
+	if (die_with_shapeshifted_form)
+		if(revert_on_death)
 			restore(death=TRUE)
 	else
 		restore()
@@ -156,13 +165,13 @@
 		shape.mind.transfer_to(stored)
 	if(death)
 		stored.death()
-	else if(source.convert_damage)
+	else if(convert_damage)
 		stored.revive(full_heal = TRUE)
 
 		var/damage_percent = (shape.maxHealth - shape.health)/shape.maxHealth;
 		var/damapply = stored.maxHealth * damage_percent
 
-		stored.apply_damage(damapply, source.convert_damage_type, forced = TRUE)
+		stored.apply_damage(damapply, convert_damage_type, forced = TRUE)
 	qdel(shape)
 	qdel(src)
 
