@@ -56,7 +56,7 @@ export const Panel = (props, context) => {
         grow={0}
         shrink={0}>
         <StatTabs
-          direction="column"/>
+          direction="column" />
       </Flex>
       <DraggableControl
         value={number}
