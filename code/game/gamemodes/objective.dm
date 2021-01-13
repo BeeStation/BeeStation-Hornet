@@ -37,7 +37,7 @@ GLOBAL_LIST_EMPTY(objectives)
 	if(target?.current)
 		def_value = target.current
 
-	var/mob/new_target = input(admin,"Select target:", "Objective target", def_value) as null|anything in sortNames(possible_targets)
+	var/mob/new_target = tgui_input_list(admin,"Select target:", "Objective target", sortNames(possible_targets))
 	if (!new_target)
 		return
 
