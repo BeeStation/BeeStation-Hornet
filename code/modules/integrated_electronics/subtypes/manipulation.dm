@@ -131,6 +131,8 @@
 	installed_gun.cell.use(shot.e_cost)
 	//Shooting Code:
 	A.preparePixelProjectile(target, src)
+	A.ignore_source_check = TRUE //needed else writing into firer will mess with the projectile collision
+	A.firer = "[usr.ckey]/[usr] trough [assembly]/[REF(assembly)] circuit"
 	A.fire()
 	log_attack("[assembly] [REF(assembly)] has fired [installed_gun].")
 	return A

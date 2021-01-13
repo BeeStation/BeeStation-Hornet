@@ -701,8 +701,8 @@
 	id = "adv_weaponry"
 	display_name = "Advanced Weapon Development Technology"
 	description = "Our weapons are breaking the rules of reality by now."
-	prereq_ids = list("adv_engi", "weaponry", "borg_transform_security")
-	design_ids = list("pin_loyalty")
+	prereq_ids = list("adv_engi", "weaponry")
+	design_ids = list("pin_loyalty", "borg_transform_security")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
 

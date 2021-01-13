@@ -53,6 +53,8 @@
 	to_chat(owner.current, "You have formed a team of Syndicate members with a similar mindset and must infiltrate the ranks of the station!")
 	to_chat(owner.current, "You have been implanted with a syndicate headset for communication with your team. This headset can only be heard by you directly and if those pigs at Nanotrasen try to steal it they will violently explode!")
 	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Incursion",
+		"Work with your team members to complete your objectives.")
 
 /datum/antagonist/incursion/apply_innate_effects(mob/living/mob_override)
 	if(issilicon(owner))
@@ -200,6 +202,7 @@
 	target.make_Traitor()
 	to_chat(target, "<span class='userdanger'>You have been declared an ex-communicate of the syndicate and are being hunted down.</span>")
 	to_chat(target, "<span class='warning'>You have stolen syndicate objective documents, complete the objectives to throw off the syndicate and sabotage their efforts.</span>")
+	target.store_memory("You have been declared an ex-communicate of the syndicate and are being hunted down by a group of traitors. Be careful!")
 	//Create objective
 	var/datum/objective/assassinate/incursion/killchosen = new
 	killchosen.target = target
