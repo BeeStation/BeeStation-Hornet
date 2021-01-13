@@ -258,10 +258,6 @@
 	var/max_charges = 4
 	var/saving_throw_distance = 3
 
-/obj/item/teleporter/Initialize(mapload, ...)
-	. = ..()
-	START_PROCESSING(SSobj, src)
-
 /obj/item/teleporter/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -292,7 +288,7 @@
 
 /obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
 	if(!charges)
-		to_chat(user, "<span class='warning'>The [src] is recharging still.</span>")
+		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 		return
 		
 	var/turf/current_location = get_turf(user)//What turf is the user on?		
