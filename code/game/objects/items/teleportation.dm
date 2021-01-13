@@ -317,6 +317,7 @@
 			telefrag(destination, user)
 			do_teleport(C, destination, channel = TELEPORT_CHANNEL_FREE)
 			charges--
+			START_PROCESSING(SSobj, src)
 			new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 			new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
 			playsound(destination, 'sound/effects/phasein.ogg', 25, 1)
