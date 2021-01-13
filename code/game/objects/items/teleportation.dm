@@ -274,9 +274,11 @@
 	attempt_teleport(user, FALSE)
 
 /obj/item/teleporter/process()
-	if(prob(10) && charges < max_charges)
-		charges++
-
+	if(charges < max_charges)
+		if(prob(10))
+			charges++
+	else
+		STOP_PROCESSING(SSobj, src)
 /obj/item/teleporter/emp_act(severity)
 	if(prob(50 / severity))
 		if(istype(loc, /mob/living/carbon/human))
