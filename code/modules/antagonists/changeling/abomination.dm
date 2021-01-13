@@ -31,9 +31,9 @@
 		to_chat(L,"<span class='danger'>You struggle to maintain your form!</span>")
 	..()
 
-/datum/reagent/shiftium/overdose_process(mob/living/M as mob)
-	M.adjustStaminaLoss(5, 0)
-	if (prob(volume*2))		
+/datum/reagent/shiftium/overdose_process(mob/living/L)
+	L.adjustStaminaLoss(5, 0)
+	if (prob(volume/2 * REM))		
 		var/datum/antagonist/changeling/changeling = L.mind?.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)		
 			metabolization_rate = 10 * REAGENTS_METABOLISM
@@ -78,6 +78,6 @@
 	ranged_message = "launches a tentacle"
 	deathmessage = "falls down limp, and reverts to the original form."
 	ranged = TRUE
-	ranged_cooldown = 2 SECONDS
+	ranged_cooldown = 6 SECONDS
 	projectilesound = 'sound/effects/splat.ogg'
 	projectiletype = /obj/item/projectile/tentacle
