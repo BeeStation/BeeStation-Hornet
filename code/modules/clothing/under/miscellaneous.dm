@@ -155,7 +155,7 @@
 /////////////////
 
 /obj/item/clothing/under/gangster
-	name = "gangster suit"
+	name = "gangstar suit"
 	desc = "Those who carry on the will of those who passed must keep moving forward."
 	icon_state = "gangster"
 	can_adjust = FALSE
