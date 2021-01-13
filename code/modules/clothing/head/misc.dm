@@ -449,7 +449,7 @@
 
 /obj/item/clothing/head/gangsterwig
 	name = "gangster wig"
-	desc = "Turn up the bass!"
+	desc = "Like father like son."
 	icon_state = "gangster_wig"
 	flags_inv = HIDEHAIR
 
