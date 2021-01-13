@@ -169,6 +169,10 @@
 	name = "WELCOME TO HELL"
 	payload = /obj/item/grenade/chem_grenade/clf3
 
+/obj/item/grenade/clusterbuster/caltrops
+	name = "Caltrop Scatter Grenade"
+	payload = /obj/item/grenade/spawnergrenade/caltrops
+
 //random clusterbuster spawner
 /obj/item/grenade/clusterbuster/random
 	icon_state = "random_clusterbang"

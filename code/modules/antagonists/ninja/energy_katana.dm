@@ -20,40 +20,20 @@
 	max_integrity = 200
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/datum/effect_system/spark_spread/spark_system
-	var/datum/action/innate/dash/ninja/jaunt
-	var/dash_toggled = TRUE
 
 /obj/item/energy_katana/Initialize()
 	. = ..()
-	jaunt = new(src)
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-/obj/item/energy_katana/attack_self(mob/user)
-	dash_toggled = !dash_toggled
-	to_chat(user, "<span class='notice'>You [dash_toggled ? "enable" : "disable"] the dash function on [src].</span>")
-
 /obj/item/energy_katana/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(dash_toggled)
-		jaunt.Teleport(user, target)
 	if(proximity_flag && (isobj(target) || issilicon(target)))
 		spark_system.start()
 		playsound(user, "sparks", 50, 1)
 		playsound(user, 'sound/weapons/blade1.ogg', 50, 1)
 		target.emag_act(user)
-
-/obj/item/energy_katana/pickup(mob/living/user)
-	. = ..()
-	jaunt.Grant(user, src)
-	user.update_icons()
-	playsound(src, 'sound/items/unsheath.ogg', 25, 1)
-
-/obj/item/energy_katana/dropped(mob/user)
-	. = ..()
-	jaunt.Remove(user)
-	user.update_icons()
 
 //If we hit the Ninja who owns this Katana, they catch it.
 //Works for if the Ninja throws it or it throws itself or someone tries
@@ -99,8 +79,38 @@
 	QDEL_NULL(spark_system)
 	return ..()
 
+/obj/item/energy_katana/dash
+	name = "energy katana of speed"
+	desc = "A katana infused with strong energy and the power to dash, wielded by the fastest of spider clan operatives."
+	var/datum/action/innate/dash/ninja/jaunt
+	var/dash_toggled = TRUE
+
+/obj/item/energy_katana/dash/Initialize()
+	. = ..()
+	jaunt = new(src)
+
+/obj/item/energy_katana/dash/attack_self(mob/user)
+	dash_toggled = !dash_toggled
+	to_chat(user, "<span class='notice'>You [dash_toggled ? "enable" : "disable"] the dash function on [src].</span>")
+
+/obj/item/energy_katana/dash/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(dash_toggled)
+		jaunt.Teleport(user, target)
+
+/obj/item/energy_katana/dash/pickup(mob/living/user)
+	. = ..()
+	jaunt.Grant(user, src)
+	user.update_icons()
+	playsound(src, 'sound/items/unsheath.ogg', 25, 1)
+
+/obj/item/energy_katana/dash/dropped(mob/user)
+	. = ..()
+	jaunt.Remove(user)
+	user.update_icons()
+
 /datum/action/innate/dash/ninja
-	current_charges = 3
-	max_charges = 3
-	charge_rate = 30
+	current_charges = 2
+	max_charges = 2
+	charge_rate = 10
 	recharge_sound = null

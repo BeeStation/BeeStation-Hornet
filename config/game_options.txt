@@ -101,6 +101,7 @@ PROBABILITY TRAITORCHAN 5
 PROBABILITY CHANGELING 5
 PROBABILITY INCURSION 4
 PROBABILITY REVOLUTION 4
+PROBABILITY NINJA_INCURSION 4
 PROBABILITY INTERNAL_AFFAIRS 3
 PROBABILITY TRAITORBRO 3
 PROBABILITY WIZARD 2
@@ -138,6 +139,7 @@ CONTINUOUS WIZARD
 CONTINUOUS HIVEMIND
 CONTINUOUS CLOCKCULT
 CONTINUOUS HERESY
+CONTINUOUS NINJA_INCURSION
 
 #Prevents the death of round-ending antagonist rulesets ending the round immediately.
 
@@ -163,7 +165,7 @@ MIDROUND_ANTAG INTERNAL_AFFAIRS
 MIDROUND_ANTAG CULT
 MIDROUND_ANTAG CHANGELING
 MIDROUND_ANTAG WIZARD
-#MIDROUND_ANTAG  MONKEY
+#MIDROUND_ANTAG MONKEY
 
 ## Uncomment these for overrides of the minimum / maximum number of players in a round type.
 ## If you set any of these occasionally check to see if you still need them as the modes
@@ -219,6 +221,9 @@ MAX_POP INCURSION -1
 
 MIN_POP CLOCKCULT 32
 MAX_POP CLOCKCULT -1
+
+MIN_POP NINJA_INCURSION 0 ##Set to 20 when it's working
+MAX_POP NINJA_INCURSION -1
 
 ## The amount of time it takes for the emergency shuttle to be called, from round start.
 SHUTTLE_REFUEL_DELAY 12000

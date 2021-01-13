@@ -14,7 +14,7 @@
 	var/obj/item/energy_katana/energyKatana
 	var/recall_charges = 3
 	var/fabrication_charges = 10
-	var/fabrication_options = list(/obj/item/restraints/legcuffs/bola/energy, /obj/item/throwing_star, /obj/item/grenade/smokebomb)
+	var/fabrication_options = list(/obj/item/restraints/legcuffs/bola/energy, /obj/item/caltrops, /obj/item/grenade/smokebomb)
 	actions_types = list(/datum/action/item_action/ninjafabricate, /datum/action/item_action/ninja_sword_recall)
 
 	/obj/item/clothing/gloves/space_ninja/attackby(obj/I, mob/user, params)
@@ -35,4 +35,4 @@
 	name = "smart ninja gloves"
 	desc = "Advanced ninja gloves with a wider variety of better quality fabrications."
 	fabrication_charges = 15
-	fabrication_options = list(/obj/item/restraints/legcuffs/bola/tactical, /obj/item/throwing_star/ninja, /obj/item/grenade/clusterbuster/smoke)
+	fabrication_options = list(/obj/item/restraints/legcuffs/bola/tactical, /obj/item/grenade/smokebomb, /obj/item/grenade/clusterbuster/caltrops)
