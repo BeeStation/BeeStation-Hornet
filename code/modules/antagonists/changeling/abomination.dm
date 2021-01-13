@@ -10,15 +10,13 @@
 	name = "shiftium"
 	description = "A strange stimulant."
 	color = "#9D5A99"
-	overdose_threshold = 12
+	overdose_threshold = 10
 	taste_description = "savory with a bit of blood"
 	metabolization_rate = 0.3 * REAGENTS_METABOLISM
 	var/obj/shapeshift_holder/shapeshiftdata
 
 /datum/reagent/shiftium/on_mob_metabolize(mob/living/L)
 	L.adjustStaminaLoss(-5, 0)
-	if (prob (5*volume) && L.mind?.has_antag_datum(/datum/antagonist/changeling))
-		to_chat(L,"<span class='danger'>You struggle to maintain your form!</span>")
 	..()
 
 /datum/reagent/shiftium/on_mob_end_metabolize(mob/living/L)
@@ -29,21 +27,22 @@
 	REMOVE_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
 	
 /datum/reagent/shiftium/overdose_start(mob/living/L)
+	if (L.mind?.has_antag_datum(/datum/antagonist/changeling))
+		to_chat(L,"<span class='danger'>You struggle to maintain your form!</span>")
 	..()
-	var/datum/antagonist/changeling/changeling = L.mind?.has_antag_datum(/datum/antagonist/changeling)
-	if(changeling)		
-		metabolization_rate = 10 * REAGENTS_METABOLISM
-		ADD_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
-		to_chat(L,"<span class='boldwarning'>SO... MUCH... POWAH!!!</span>")
-		sleep(rand (2,5) SECONDS)
-		
-		playsound(L, 'sound/magic/demon_consume.ogg', 30, 1)
-		L.visible_message("<span class='warning'>[L]'s body uncontrolably transforms into an abomination!</span>", "<span class='boldwarning'>Your body uncontrolably transforms, revealing your true form!</span>")
-		
-		polymorph_target(L,volume/overdose_threshold)
 
 /datum/reagent/shiftium/overdose_process(mob/living/M as mob)
 	M.adjustStaminaLoss(5, 0)
+	if (prob(volume*2))		
+		var/datum/antagonist/changeling/changeling = L.mind?.has_antag_datum(/datum/antagonist/changeling)
+		if(changeling)		
+			metabolization_rate = 10 * REAGENTS_METABOLISM
+			ADD_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
+									
+			playsound(L, 'sound/magic/demon_consume.ogg', 30, 1)
+			L.visible_message("<span class='warning'>[L]'s body uncontrolably transforms into an abomination!</span>", "<span class='boldwarning'>Your body uncontrolably transforms, revealing your true form!</span>")
+			
+			polymorph_target(L,volume/overdose_threshold)
 	..()
 
 /datum/reagent/shiftium/proc/polymorph_target(mob/living/L, var/dur)
@@ -54,7 +53,7 @@
 		return
 	var/mob/living/simple_animal/hostile/cling_horror/shape = new (get_turf(L))
 	shapeshiftdata = new(shape,null,L)
-	addtimer(CALLBACK(shapeshiftdata, /obj/shapeshift_holder.proc/restore), 25 SECONDS * dur)
+	addtimer(CALLBACK(shapeshiftdata, /obj/shapeshift_holder.proc/restore), 60 SECONDS * dur)
 
 //	THE CREATURE
 	
