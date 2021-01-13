@@ -222,7 +222,7 @@ MAX_POP INCURSION -1
 MIN_POP CLOCKCULT 32
 MAX_POP CLOCKCULT -1
 
-MIN_POP NINJA_INCURSION 0
+MIN_POP NINJA_INCURSION 20
 MAX_POP NINJA_INCURSION -1
 
 ## The amount of time it takes for the emergency shuttle to be called, from round start.

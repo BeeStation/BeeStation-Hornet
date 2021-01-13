@@ -13,9 +13,3 @@
 		user.throw_mode_on() //So they can quickly throw it.
 	else 
 		to_chat(user, "<span class='warning'>No charges left!</span>")
-
-
-/obj/item/throwing_star/ninja
-	name = "ninja throwing star"
-	throwforce = 30
-	embedding = list("embedded_pain_multiplier" = 6, "embed_chance" = 100, "embedded_fall_chance" = 0)

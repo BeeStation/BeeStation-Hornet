@@ -5,6 +5,11 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "caltrops"
 
+/obj/item/throwing_star/ninja
+	name = "ninja throwing star"
+	throwforce = 30
+	embedding = list("embedded_pain_multiplier" = 6, "embed_chance" = 100, "embedded_fall_chance" = 0)
+
 /obj/item/shadowcloak/ninja
 	name = "ninja cloaking belt"
 
@@ -56,6 +61,7 @@
 /obj/item/storage/box/syndi_kit/ninja/silence/PopulateContents()
 	new /obj/item/shadowcloak/ninja/silence(src)
 	new /obj/item/pen/sleepy(src)
+	new /obj/item/throwing_star/ninja(src)
 
 /obj/item/storage/box/syndi_kit/ninja/wisdom
 	name = "path of wisdom"
