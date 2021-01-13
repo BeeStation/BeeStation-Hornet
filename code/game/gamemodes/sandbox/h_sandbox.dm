@@ -60,7 +60,6 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 			"Spawn Inf. Capacity Power Cell"	= "hsbspawn&path=[/obj/item/stock_parts/cell/infinite]",
 			"Spawn Rapid Construction Device"	= "hsbrcd",
 			"Spawn RCD Ammo"					= "hsb_safespawn&path=[/obj/item/rcd_ammo]",
-			"Spawn Airlock"						= "hsbairlock",
 
 			"Miscellaneous",
 			"Spawn Air Scrubber"				= "hsbscrubber",
