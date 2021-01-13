@@ -7,14 +7,19 @@
 	var/vote_active = FALSE
 	var/vote_timer
 	var/obj/effect/stargazer_light/light
+	var/end_time
 
 /obj/structure/destructible/clockwork/heralds_beacon/Initialize()
 	. = ..()
 	light = new get_turf(src)
+	end_time = world.time + 5 MINUTES
 
 /obj/structure/destructible/clockwork/heralds_beacon/attack_hand(mob/user)
 	. = ..()
 	if(!is_servant_of_ratvar(user))
+		return
+	if(world.time > end_time)
+		to_chat(user, "<span class='warning'>It is too late to call upon the Gods now.</span>")
 		return
 	if(vote_active)
 		deltimer(vote_timer)
