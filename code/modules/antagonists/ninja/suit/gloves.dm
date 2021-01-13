@@ -33,6 +33,21 @@
 
 /obj/item/clothing/gloves/space_ninja/wisdom
 	name = "smart ninja gloves"
-	desc = "Advanced ninja gloves with a wider variety of better quality fabrications."
+	desc = "Advanced ninja gloves with a wider variety of better quality fabrications. Also teaches the user Krav Maga."
 	fabrication_charges = 15
 	fabrication_options = list(/obj/item/restraints/legcuffs/bola/tactical = "heavy bola", /obj/item/grenade/clusterbuster/smoke = "large smoke bomb", /obj/item/grenade/clusterbuster/caltrops = "caltrop scatter grenade")
+	var/datum/martial_art/krav_maga/style = new
+
+/obj/item/clothing/gloves/space_ninja/wisdom/equipped(mob/user, slot)
+	if(!ishuman(user))
+		return
+	if(slot == SLOT_GLOVES)
+		var/mob/living/carbon/human/H = user
+		style.teach(H,1)
+
+/obj/item/clothing/gloves/space_ninja/wisdom/dropped(mob/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.get_item_by_slot(SLOT_GLOVES) == src)
+		style.remove(H)
