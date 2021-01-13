@@ -19,7 +19,7 @@
 		new /datum/data/mining_equipment("Brute Healing Kit",			/obj/item/storage/firstaid/brute,									600),
 		new /datum/data/mining_equipment("Burn Healing Kit",			/obj/item/storage/firstaid/fire,									600),
 		new /datum/data/mining_equipment("Advanced Healing Kit",		/obj/item/storage/firstaid/advanced,								1200),
-		new /datum/data/mining_equipment("Necropolis Chest Key",		/obj/item/chest_key,												2000),
+		new /datum/data/mining_equipment("Necropolis Chest Key",		/obj/item/chest_key,												1000),
 		new /datum/data/mining_equipment("Fulton Beacon",				/obj/item/fulton_core,												500),
 		new /datum/data/mining_equipment("Fulton Extraction Pack",		/obj/item/extraction_pack,											1000),
 		new /datum/data/mining_equipment("Jaunter",						/obj/item/wormhole_jaunter,											750),

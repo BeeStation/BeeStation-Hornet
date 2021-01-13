@@ -66,8 +66,6 @@
 
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
-	locked = TRUE
-	secure = FALSE
 
 /obj/structure/closet/crate/necropolis/tendril/PopulateContents()
 	var/loot = rand(1,30)
@@ -160,6 +158,10 @@
 			)
 		var/hat = pick(necropolis_hat_drops)
 		new hat(src)
+
+/obj/structure/closet/crate/necropolis/tendril/locked
+	locked = TRUE
+	secure = FALSE
 
 //KA modkit design discs
 /obj/item/disk/design_disk/modkit_disc
