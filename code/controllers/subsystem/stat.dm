@@ -10,7 +10,6 @@ SUBSYSTEM_DEF(stat)
 
 	var/list/flat_icon_cache = list()	//Assoc list, datum = flat icon
 
-	var/list/debug_simulated_clients = 0
 	//The run of clients updating normally
 	var/list/currentrun = list()
 	//The run of clients updating alt clicked turfs
@@ -23,10 +22,6 @@ SUBSYSTEM_DEF(stat)
 /datum/controller/subsystem/stat/fire(resumed = 0)
 	if (!resumed)
 		src.currentrun = GLOB.clients.Copy()
-		if(debug_simulated_clients)
-			message_admins("STAT SUBSYSTEM SET TO SIMULATE CLIENTS. INTENDED TO INVESTIGATE LARGE SCALE TESTING. DO NOT USE ON THE PRIMARY SERVER.")
-			for(var/i in 1 to debug_simulated_clients)
-				src.currentrun += GLOB.clients[1]
 
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
