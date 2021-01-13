@@ -230,9 +230,9 @@
 				to_chat(user, "<span class='holoparasite'><font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> has been caught!</span>")
 			if(GUARDIAN_HIVE)
 				to_chat(user, "<span class='holoparasite'><font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> has been created from the core!</span>")
-		user.verbs += /mob/living/proc/guardian_comm
-		user.verbs += /mob/living/proc/guardian_recall
-		user.verbs += /mob/living/proc/guardian_reset
+		user.add_verb(/mob/living/proc/guardian_comm)
+		user.add_verb(/mob/living/proc/guardian_recall)
+		user.add_verb(/mob/living/proc/guardian_reset)
 		return TRUE
 	else
 		to_chat(user, "[failure_message]")

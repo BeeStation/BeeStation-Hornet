@@ -108,6 +108,8 @@
 	to_chat(owner.current, "Surprise is my weapon. Shadows are my armor. Without them, I am nothing. (//choose a path from the beacon to gain your gadgets and equipment)!")
 	to_chat(owner.current, "My cloak recharges in darkness, and quickly fades in the light. I must knock out the lights to remain unseen.")
 	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Ninja",
+		"Infiltrate the station and complete your assigned objectives.")
 	movetospawn()
 	return
 

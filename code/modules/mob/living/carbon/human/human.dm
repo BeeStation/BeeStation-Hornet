@@ -6,8 +6,8 @@
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
 
 /mob/living/carbon/human/Initialize()
-	verbs += /mob/living/proc/mob_sleep
-	verbs += /mob/living/proc/lay_down
+	add_verb(/mob/living/proc/mob_sleep)
+	add_verb(/mob/living/proc/lay_down)
 
 	icon_state = ""		//Remove the inherent human icon that is visible on the map editor. We're rendering ourselves limb by limb, having it still be there results in a bug where the basic human icon appears below as south in all directions and generally looks nasty.
 
@@ -54,30 +54,71 @@
 	//...and display them.
 	add_to_all_human_data_huds()
 
-/mob/living/carbon/human/Stat()
-	..()
+/mob/living/carbon/human/get_stat_tabs()
+	var/list/tabs = ..()
+	if(istype(wear_suit, /obj/item/clothing/suit/space/space_ninja))
+		tabs.Insert(1, "SpiderOS")
+	return tabs
 
-	if(statpanel("Status"))
-		stat(null, "Intent: [a_intent]")
-		stat(null, "Move Mode: [m_intent]")
-		if (internal)
-			if (!internal.air_contents)
-				qdel(internal)
-			else
-				stat(null, "Internal Atmosphere Info: [internal.name]")
-				stat(null, "Tank Pressure: [internal.air_contents.return_pressure()]")
-				stat(null, "Distribution Pressure: [internal.distribute_pressure]")
+//Ninja Code
+/mob/living/carbon/human/get_stat(selected_tab)
+	if(selected_tab == "SpiderOS")
+		var/list/tab_data = list()
+		var/obj/item/clothing/suit/space/space_ninja/SN = wear_suit
+		if(!SN)
+			return
+		tab_data["SpiderOS Status"] = GENERATE_STAT_TEXT("[SN.s_initialized ? "Initialized" : "Disabled"]")
+		tab_data["Current Time"] = GENERATE_STAT_TEXT("[station_time_timestamp()]")
+		tab_data["divider_spideros"] = GENERATE_STAT_DIVIDER
+		if(SN.s_initialized)
+			//Suit gear
+			tab_data["Energy Charge"] = GENERATE_STAT_TEXT("[round(SN.cell.charge/100)]%")
+			tab_data["Smoke Bombs"] = GENERATE_STAT_TEXT("[SN.s_bombs]")
+			//Ninja status
+			tab_data["Fingerprints"] = GENERATE_STAT_TEXT("[rustg_hash_string(RUSTG_HASH_MD5, dna.uni_identity)]")
+			tab_data["Unique Identity"] = GENERATE_STAT_TEXT("[dna.unique_enzymes]")
+			tab_data["Overall Status"] = GENERATE_STAT_TEXT("[stat > 1 ? "dead" : "[health]% healthy"]")
+			tab_data["Nutrition Status"] = GENERATE_STAT_TEXT("[nutrition]")
+			tab_data["Oxygen Loss"] = GENERATE_STAT_TEXT("[getOxyLoss()]")
+			tab_data["Toxin Levels"] = GENERATE_STAT_TEXT("[getToxLoss()]")
+			tab_data["Burn Severity"] = GENERATE_STAT_TEXT("[getFireLoss()]")
+			tab_data["Brute Trauma"] = GENERATE_STAT_TEXT("[getBruteLoss()]")
+			tab_data["Radiation Levels"] = GENERATE_STAT_TEXT("[radiation] rad")
+			tab_data["Body Temperature"] = GENERATE_STAT_TEXT("[bodytemperature-T0C] degrees C ([bodytemperature*1.8-459.67] degrees F)")
 
-		if(mind)
-			var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
-			if(changeling)
-				stat(null, "Chemical Storage: [changeling.chem_charges]/[changeling.chem_storage]")
-				stat(null, "Absorbed DNA: [changeling.absorbedcount]")
-			var/datum/antagonist/hivemind/hivemind = mind.has_antag_datum(/datum/antagonist/hivemind)
-			if(hivemind)
-				stat(null, "Hivemind Vessels: [hivemind.hive_size] (+[hivemind.size_mod])")
-				stat(null, "Psychic Link Duration: [(hivemind.track_bonus + TRACKER_DEFAULT_TIME)/10] seconds")
+			//Diseases
+			if(diseases.len)
+				tab_data["DivSpiderOs2"] = GENERATE_STAT_DIVIDER
+				tab_data["Viruses"] = GENERATE_STAT_TEXT("")
+				for(var/thing in diseases)
+					var/datum/disease/D = thing
+					tab_data["* [D.name]"] = GENERATE_STAT_TEXT("Type: [D.spread_text], Stage: [D.stage]/[D.max_stages], Possible Cure: [D.cure_text]")
+		return tab_data
+	return ..()
 
+/mob/living/carbon/human/get_stat_tab_status()
+	var/list/tab_data = ..()
+
+	tab_data["Intent"] = GENERATE_STAT_TEXT("[a_intent]")
+	tab_data["Move Mode"] = GENERATE_STAT_TEXT("[m_intent]")
+	if (internal)
+		if (!internal.air_contents)
+			qdel(internal)
+			tab_data["Internal Atmosphere Info"] = GENERATE_STAT_TEXT("[internal.name]")
+		else
+			tab_data["Tank Pressure"] = GENERATE_STAT_TEXT("[internal.air_contents.return_pressure()]")
+			tab_data["Distribution Pressure"] = GENERATE_STAT_TEXT("[internal.distribute_pressure]")
+
+	if(mind)
+		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
+		if(changeling)
+			tab_data["Absorbed DNA"] = GENERATE_STAT_TEXT("[changeling.absorbedcount]")
+			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.chem_storage]")
+		var/datum/antagonist/hivemind/hivemind = mind.has_antag_datum(/datum/antagonist/hivemind)
+		if(hivemind)
+			tab_data["Hivemind Vessels"] = GENERATE_STAT_TEXT("[hivemind.hive_size] (+[hivemind.size_mod])")
+			tab_data["Psychic Link Duration"] = GENERATE_STAT_TEXT("[(hivemind.track_bonus + TRACKER_DEFAULT_TIME)/10] seconds")
+	return tab_data
 
 /mob/living/carbon/human/show_inv(mob/user)
 	user.set_machine(src)
