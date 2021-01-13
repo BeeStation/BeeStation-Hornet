@@ -28,14 +28,9 @@ GLOBAL_LIST_EMPTY(objectives)
 //Shared by few objective types
 /datum/objective/proc/admin_simple_target_pick(mob/admin)
 	var/list/possible_targets = list("Free objective","Random")
-	var/def_value
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if ((possible_target != src) && ishuman(possible_target.current))
 			possible_targets += possible_target.current
-
-
-	if(target?.current)
-		def_value = target.current
 
 	var/mob/new_target = tgui_input_list(admin,"Select target:", "Objective target", sortNames(possible_targets))
 	if (!new_target)

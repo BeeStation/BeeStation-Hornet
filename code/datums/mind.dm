@@ -409,7 +409,6 @@
 
 	else if (href_list["obj_edit"] || href_list["obj_add"])
 		var/objective_pos //Edited objectives need to keep same order in antag objective list
-		var/def_value
 		var/datum/antagonist/target_antag
 		var/datum/objective/old_objective //The old objective we're replacing/editing
 		var/datum/objective/new_objective //New objective we're be adding
