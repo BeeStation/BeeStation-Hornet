@@ -176,6 +176,4 @@
 		new /obj/item/clothing/shoes/winterboots(src)
 	if(prob(40))
 		new /obj/item/clothing/suit/toggle/softshell(src)
-	if(prob(40))
-		new /obj/item/clothing/suit/toggle/softshell(src)
 	return
