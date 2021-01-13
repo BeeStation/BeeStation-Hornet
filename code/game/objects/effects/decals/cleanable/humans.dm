@@ -67,14 +67,16 @@
 	mergeable_decal = FALSE
 
 	var/already_rotting = FALSE
+	var/can_rot = TRUE
 
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/liquidgibs, 5)
-	if(already_rotting)
-		start_rotting(rename=FALSE)
-	else
-		addtimer(CALLBACK(src, .proc/start_rotting), 2 MINUTES)
+	if (can_rot)
+		if(already_rotting)
+			start_rotting(rename=FALSE)
+		else
+			addtimer(CALLBACK(src, .proc/start_rotting), 2 MINUTES)
 
 /obj/effect/decal/cleanable/blood/gibs/proc/start_rotting(rename=TRUE)
 	if(rename)

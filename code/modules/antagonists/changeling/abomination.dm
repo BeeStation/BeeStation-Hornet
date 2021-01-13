@@ -1,6 +1,6 @@
-/*	
+/*
 	- CHANGELING ABOMINATION -
-	
+
 	Contents:
 		Reagent
 		Monster
@@ -25,7 +25,7 @@
 		return
 	shapeshiftdata.restore()
 	REMOVE_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
-	
+
 /datum/reagent/shiftium/overdose_start(mob/living/L)
 	if (L.mind?.has_antag_datum(/datum/antagonist/changeling))
 		to_chat(L,"<span class='danger'>You struggle to maintain your form!</span>")
@@ -33,15 +33,15 @@
 
 /datum/reagent/shiftium/overdose_process(mob/living/L)
 	L.adjustStaminaLoss(5, 0)
-	if (prob(volume/2 * REM))		
+	if (prob(volume/2))
 		var/datum/antagonist/changeling/changeling = L.mind?.has_antag_datum(/datum/antagonist/changeling)
-		if(changeling)		
+		if(changeling)
 			metabolization_rate = 10 * REAGENTS_METABOLISM
 			ADD_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
-									
+
 			playsound(L, 'sound/magic/demon_consume.ogg', 30, 1)
 			L.visible_message("<span class='warning'>[L]'s body uncontrolably transforms into an abomination!</span>", "<span class='boldwarning'>Your body uncontrolably transforms, revealing your true form!</span>")
-			
+
 			polymorph_target(L,volume/overdose_threshold)
 	..()
 
@@ -55,8 +55,27 @@
 	shapeshiftdata = new(shape,null,L)
 	addtimer(CALLBACK(shapeshiftdata, /obj/shapeshift_holder.proc/restore), 60 SECONDS * dur)
 
+//	CLING GIBS
+
+/obj/effect/decal/cleanable/blood/gibs/changeling
+	icon_state = "gib1"
+	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6","gibup1","gibdown1")
+	can_rot = FALSE
+
+/obj/effect/decal/cleanable/blood/gibs/changeling/Initialize(mapload, list/datum/disease/diseases)
+	. = ..()
+	reagents.remove_reagent(/datum/reagent/liquidgibs, 5)
+	reagents.add_reagent(/datum/reagent/clinggibs, 10)
+
+/datum/reagent/clinggibs
+	name = "Changeling matter"
+	color = "#FF9966"
+	description = "You don't even want to think about what's in here."
+	taste_description = "gross iron"
+	shot_glass_icon_state = "shotglassred"
+
 //	THE CREATURE
-	
+
 /mob/living/simple_animal/hostile/cling_horror
 	name = "true changeling"
 	desc = "A grotesque congeries of flesh and bone, barely resembling a human, and with myriads of temporary eyes and mouths forming and un-forming as pustules of meat."

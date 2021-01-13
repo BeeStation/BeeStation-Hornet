@@ -164,6 +164,11 @@
 	name = "monkey meat"
 	foodtype = RAW | MEAT
 
+/obj/item/reagent_containers/food/snacks/meat/slab/teratoma
+	name = "changeling meat"
+	foodtype = RAW | MEAT
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/clinggibs = 15)
+
 /obj/item/reagent_containers/food/snacks/meat/slab/mouse
 	name = "mouse meat"
 	desc = "A slab of mouse meat. Best not eat it raw."

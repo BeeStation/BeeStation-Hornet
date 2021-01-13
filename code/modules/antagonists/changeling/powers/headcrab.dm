@@ -32,6 +32,8 @@
 		S.Paralyze(60)
 	var/turf = get_turf(user)
 	user.gib()
+	if (prob(15))
+		new /obj/effect/decal/cleanable/blood/gibs/changeling(turf)
 	. = TRUE
 	sleep(8) // So it's not killed in explosion
 	var/mob/living/simple_animal/hostile/headcrab/crab = new(turf)
