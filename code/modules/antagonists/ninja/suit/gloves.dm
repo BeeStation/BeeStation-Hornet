@@ -35,4 +35,4 @@
 	name = "smart ninja gloves"
 	desc = "Advanced ninja gloves with a wider variety of better quality fabrications."
 	fabrication_charges = 15
-	fabrication_options = list(/obj/item/restraints/legcuffs/bola/tactical, /obj/item/grenade/smokebomb, /obj/item/grenade/clusterbuster/caltrops)
+	fabrication_options = list(/obj/item/restraints/legcuffs/bola/tactical, /obj/item/grenade/clusterbuster/smoke, /obj/item/grenade/clusterbuster/caltrops)

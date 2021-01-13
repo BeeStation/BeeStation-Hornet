@@ -10848,12 +10848,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/evac)
-"zn" = (
-/obj/machinery/computer/teleporter{
-	dir = 8
-	},
-/turf/open/floor/wood,
-/area/centcom/holding)
 "zo" = (
 /obj/structure/destructible/cult/tome,
 /turf/open/floor/engine/cult,
@@ -17096,15 +17090,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
-"Oe" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/rack,
-/obj/item/twohanded/binoculars,
-/obj/item/storage/box/handcuffs,
-/turf/open/floor/wood,
-/area/centcom/holding)
 "Of" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -17142,15 +17127,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ctf)
-"Ol" = (
-/obj/structure/rack,
-/obj/item/storage/firstaid/toxin,
-/obj/item/storage/firstaid/toxin{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/turf/open/floor/wood,
-/area/centcom/holding)
 "Op" = (
 /obj/structure/sink{
 	dir = 8;
@@ -17183,19 +17159,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/plasteel/dark,
 /area/centcom/supplypod)
-"OE" = (
-/obj/structure/rack,
-/obj/item/storage/firstaid/regular,
-/obj/item/storage/firstaid/regular{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/storage/firstaid/regular{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/turf/open/floor/wood,
-/area/centcom/holding)
 "OG" = (
 /obj/structure/dresser,
 /obj/machinery/light{
@@ -17652,22 +17615,6 @@
 /obj/effect/spawner/xmastree,
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
-"RB" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/rack,
-/obj/item/throwing_star/ninja{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/throwing_star/ninja{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/throwing_star/ninja,
-/turf/open/floor/wood,
-/area/centcom/holding)
 "RC" = (
 /obj/machinery/door/poddoor/shuttledock,
 /obj/effect/turf_decal/delivery,
@@ -17725,22 +17672,6 @@
 /obj/item/nullrod/claymore/glowing{
 	damtype = "stamina";
 	force = 30
-	},
-/turf/open/floor/wood,
-/area/centcom/holding)
-"RX" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/rack,
-/obj/item/grenade/plastic/x4,
-/obj/item/grenade/plastic/x4{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/grenade/plastic/x4{
-	pixel_x = -3;
-	pixel_y = -3
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
@@ -17833,13 +17764,6 @@
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/holofloor,
 /area/holodeck/rec_center/basketball)
-"SE" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/teleport/hub/ninja,
-/turf/open/floor/wood,
-/area/centcom/holding)
 "SG" = (
 /obj/structure/table,
 /obj/machinery/microwave{
@@ -18096,10 +18020,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ctf)
-"TQ" = (
-/obj/machinery/teleport/station,
-/turf/open/floor/wood,
-/area/centcom/holding)
 "TT" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
@@ -18549,10 +18469,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
-"XB" = (
-/obj/effect/landmark/ninjaspawn,
-/turf/open/floor/wood,
-/area/centcom/holding)
 "XD" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -18687,16 +18603,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ctf)
-"YG" = (
-/mob/living/simple_animal/bot/medbot{
-	desc = "A little medical robot. You can make out the word \"sincerity\" on its chassis.";
-	name = "Hijikata";
-	radio_key = null;
-	stationary_mode = 1
-	},
-/obj/effect/landmark/ninjaspawn,
-/turf/open/floor/wood,
-/area/centcom/holding)
 "YJ" = (
 /obj/item/reagent_containers/food/condiment/enzyme,
 /obj/item/reagent_containers/food/drinks/shaker,
@@ -18798,10 +18704,6 @@
 /area/centcom/holding)
 "Zt" = (
 /obj/machinery/light,
-/turf/open/floor/wood,
-/area/centcom/holding)
-"Zx" = (
-/obj/structure/window/paperframe,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "Zy" = (
@@ -43294,10 +43196,10 @@ CV
 Xk
 NT
 Xk
-RX
-OE
-Ol
-Oe
+Yo
+Xk
+Xk
+Yo
 Xk
 Nd
 aa
@@ -43808,10 +43710,10 @@ CV
 Xk
 NT
 Xk
-XB
-XB
-XB
-XB
+Xk
+Xk
+Xk
+Xk
 Zt
 Nd
 aa
@@ -44063,12 +43965,12 @@ Nd
 Gs
 Xk
 Xk
-Zx
+MK
 Xk
-XB
-YG
-XB
-XB
+Xk
+Xk
+Xk
+Xk
 Xk
 Nd
 aa
@@ -44322,10 +44224,10 @@ CV
 Xk
 NT
 Xk
-XB
-XB
-XB
-XB
+Xk
+Xk
+Xk
+Xk
 Zt
 Nd
 aa
@@ -44836,10 +44738,10 @@ CV
 Xk
 NT
 Xk
-RB
-zn
-TQ
-SE
+Xx
+Xk
+Xk
+Xx
 Xk
 Nd
 aa

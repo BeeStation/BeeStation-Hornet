@@ -112,5 +112,5 @@
 /datum/action/innate/dash/ninja
 	current_charges = 2
 	max_charges = 2
-	charge_rate = 10
+	charge_rate = 60
 	recharge_sound = null
