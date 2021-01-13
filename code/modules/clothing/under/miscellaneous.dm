@@ -156,10 +156,10 @@
 
 /obj/item/clothing/under/gangster
 	name = "gangster suit"
-	desc = "Those who carry on the will of those who passed must keep moving forward"
+	desc = "Those who carry on the will of those who passed must keep moving forward."
 	icon_state = "gangster"
 	can_adjust = FALSE
 
 /obj/item/clothing/under/gangster/purple
-	desc = "I have a dream"
+	desc = "I have a dream."
 	icon_state = "gangster_p"

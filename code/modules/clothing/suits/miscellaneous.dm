@@ -348,23 +348,23 @@
 
 /obj/item/clothing/suit/delinquent
 	name = "deliquent jacket"
-	desc = "Yare yare daze"
+	desc = "Yare yare daze."
 	icon_state = "jocoat"
 
 /obj/item/clothing/suit/madsci
 	name = "mad scientist labcoat"
-	desc = "El psy congroo"
+	desc = "El psy congroo."
 	icon_state = "madsci"
 
 /obj/item/clothing/suit/hooded/renault_costume
 	name = "renault costume"
-	desc = "The cutest pair of pajamas you've ever seen"
+	desc = "The cutest pair of pajamas you've ever seen."
 	icon_state = "renault_suit"
 	hoodtype = /obj/item/clothing/head/hooded/renault_hood
 
 /obj/item/clothing/head/hooded/renault_hood
 	name = "renault hoodie"
-	desc = "An adorable hoodie vaguely resembling renault"
+	desc = "An adorable hoodie vaguely resembling renault."
 	icon_state = "renault_hoodie"
 	flags_inv = HIDEEARS
 

@@ -251,4 +251,4 @@
 
 /obj/item/clothing/neck/conductivescarf
 	name = "conductive scarf"
-	desc = "Made out of 30,000 scarabs. Use with caution"
+	desc = "Made out of 30,000 scarabs. Use with caution."

@@ -455,11 +455,11 @@
 
 /obj/item/clothing/head/oldhat
 	name = "old man hat"
-	desc = "OH MY GOD"
+	desc = "OH MY GOD."
 	icon_state = "oldmanhat"
 
 /obj/item/clothing/head/marine
 	name = "mariner hat"
-	desc = "There's nothing quite like the ocean breeze in the morning"
+	desc = "There's nothing quite like the ocean breeze in the morning."
 	icon_state = "marine"
 
