@@ -38,3 +38,11 @@
 			//Update the cog counts
 			for(var/obj/item/clockwork/clockwork_slab/S in GLOB.clockwork_slabs)
 				S.update_integration_cogs()
+			if(GLOB.clockcult_war)
+				//Instantly drain all power
+				new /obj/effect/temp_visual/ratvar/judicial_explosion(get_turf(A))
+				playsound(get_turf(user), 'sound/machines/clockcult/stargazer_activate.ogg', 80)
+				if(A.cell)
+					//Yoink all the power
+					GLOB.clockcult_power += A.cell.charge
+					A.cell.charge = 0

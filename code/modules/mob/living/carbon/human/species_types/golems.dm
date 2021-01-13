@@ -684,12 +684,44 @@
 
 /datum/species/golem/clockwork/no_scrap //These golems are created through the herald's beacon and leave normal corpses on death.
 	id = "clockwork golem servant"
-	armor = 15 //Balance reasons make this armor weak
+	armor = 40
+	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOEYESPRITES,NOFLASH,NOREAGENTS)
+	inherent_traits = list(TRAIT_RESISTHEAT,TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_NOFIRE,TRAIT_RADIMMUNE,TRAIT_PIERCEIMMUNE,TRAIT_NODISMEMBER,TRAIT_VIRUSIMMUNE,TRAIT_THERMAL_VISION,TRAIT_IGNOREDAMAGESLOWDOWN)
 	no_equip = list()
 	nojumpsuit = FALSE
 	has_corpse = TRUE
 	random_eligible = FALSE
+	species_language_holder = /datum/language_holder/clockmob
 	info_text = "<span class='bold alloy'>As a </span><span class='bold brass'>Clockwork Golem Servant</span><span class='bold alloy'>, you are faster than other types of golems.</span>" //warcult golems leave a corpse
+	var/obj/item/clockwork/clockwork_slab/empowered/internal_slab
+	var/datum/action/innate/activate_slab/activate_slab
+
+/datum/species/golem/clockwork/no_scrap/on_species_gain(mob/living/carbon/human/H)
+	. = ..()
+	internal_slab = new(src)
+	internal_slab.set_owner(H)
+	activate_slab = new
+	activate_slab.Grant(H)
+
+/datum/species/golem/clockwork/no_scrap/on_species_loss(mob/living/carbon/human/H)
+	qdel(internal_slab)
+	activate_slab.Remove(H)
+	. = ..()
+
+/datum/action/innate/activate_slab
+	name = "Slab Interface"
+	desc = "Interact with your internal clockwork components."
+	check_flags = AB_CHECK_CONSCIOUS
+	background_icon_state = "bg_clock"
+	icon_icon = 'icons/obj/clockwork_objects.dmi'
+	button_icon_state = "dread_ipad"
+
+/datum/action/innate/activate_slab/Activate()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		var/datum/species/golem/clockwork/no_scrap/species = H.dna.species
+		if(istype(species))
+			species.internal_slab.ui_interact(H)
 
 /datum/species/golem/cloth
 	name = "Cloth Golem"

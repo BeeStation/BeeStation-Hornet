@@ -91,7 +91,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 //==========Battle Phase===========
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/open_gateway()
 	SSshuttle.registerHostileEnvironment(src)
-	if(GLOB.gateway_opening)
+	if(GLOB.gateway_opening || GLOB.clockcult_war)
 		return
 	GLOB.gateway_opening = TRUE
 	var/s = sound('sound/magic/clockwork/ark_activation_sequence.ogg')
@@ -120,7 +120,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	activated = TRUE
 	set_security_level(SEC_LEVEL_DELTA)
 	mass_recall(TRUE)
-	var/grace_time = GLOB.narsie_breaching ? 0 : 1800
+	var/grace_time = GLOB.narsie_breaching ? 0 : 1800 + HERALDS_BEACON_TIME
 	addtimer(CALLBACK(src, .proc/begin_assault), grace_time)
 	priority_announce("Massive [Gibberish("bluespace", 100)] anomaly detected on all frequencies. All crew are directed to \
 	@!$, [text2ratvar("PURGE ALL UNTRUTHS")] <&. the anomalies and destroy their source to prevent further damage to corporate property. This is \
@@ -128,6 +128,33 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	,"Central Command Higher Dimensional Affairs", 'sound/magic/clockwork/ark_activation.ogg')
 	sound_to_playing_players(volume = 10, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_charging.ogg', TRUE))
 	GLOB.ratvar_arrival_tick = world.time + 6000 + grace_time
+
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/declare_war()
+	SSshuttle.registerHostileEnvironment(src)
+	if(GLOB.clockcult_war || GLOB.gateway_opening)
+		return
+	GLOB.clockcult_war = TRUE
+	var/s = sound('sound/magic/clockwork/ark_activation_sequence.ogg')
+	icon_state = "clockwork_gateway_charging"
+	for(var/datum/mind/M in GLOB.servants_of_ratvar)
+		SEND_SOUND(M.current, s)
+		to_chat(M, "<span class='big_brass'>The Ark has been activated by an energy surge, [HERALDS_BEACON_TIME/10] seconds until activation.</span>")
+		to_chat(M, "<span class='warning'>You feel your body aligning with the bluespace rift...</span>")
+	sleep(300)
+	//Do the announcing stuff
+	activated = TRUE
+	set_security_level(SEC_LEVEL_DELTA)
+	mass_recall(TRUE)
+	for(var/datum/mind/M in GLOB.servants_of_ratvar)
+		var/mob/living/carbon/human/H = M.current
+		if(H)
+			H.set_species(/datum/species/golem/clockwork/no_scrap)
+	addtimer(CALLBACK(src, .proc/announce_gateway), HERALDS_BEACON_TIME)
+	priority_announce("Caution temporal anomaly detected on route to [station_name()] originating from an energy spike within \
+	%$[text2ratvar("STOP RESISTING")]&. All crew are to prepare immediately to shut down the source of the temporal anomalies.\
+	[grace_period ? " Estimated time of temporal anomaly appearance: [HERALDS_BEACON_TIME/10] seconds." : ""]"\
+	,"Central Command Higher Dimensional Affairs", 'sound/magic/clockwork/ark_activation.ogg')
+	sound_to_playing_players(volume = 10, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_charging.ogg', TRUE))
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/mass_recall(add_overlay = FALSE)
 	var/list/spawns = GLOB.servant_spawns.Copy()

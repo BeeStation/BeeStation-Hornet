@@ -192,3 +192,11 @@
 	name = "spatial distortion"
 	icon_state = "teleport"
 	layer = ABOVE_MOB_LAYER
+
+/obj/effect/temp_visual/ratvar/judicial_explosion
+	name = "spatial distortion"
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "judicial_explosion"
+	pixel_x = -16
+	pixel_y = -16
+	layer = ABOVE_MOB_LAYER

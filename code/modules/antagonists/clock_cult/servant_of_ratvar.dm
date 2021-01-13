@@ -64,7 +64,7 @@
 	transmit_spell.Grant(owner.current)
 	owner.current.throw_alert("clockinfo", /atom/movable/screen/alert/clockwork/clocksense)
 	SSticker.mode.update_clockcult_icons_added(owner)
-	if(GLOB.gateway_opening && ishuman(owner.current))
+	if((GLOB.gateway_opening || GLOB.clockcult_war) && ishuman(owner.current))
 		var/mob/living/carbon/owner_mob = owner.current
 		forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
 		owner_mob.add_overlay(forbearance)
@@ -74,6 +74,12 @@
 	owner.current.clear_alert("clockinfo")
 	transmit_spell.Remove(transmit_spell.owner)
 	SSticker.mode.update_clockcult_icons_removed(owner)
+	//Check for special golems just in case
+	if(GLOB.clockcult_war)
+		var/mob/living/carbon/human/H = M
+		if(istype(H) && istype(H.dna.species, /datum/species/golem/clockwork/no_scrap))
+			H.set_species(/datum/species/human)
+	//Remove forebearence
 	if(forbearance && ishuman(owner.current))
 		var/mob/living/carbon/owner_mob = owner.current
 		owner_mob.remove_overlay(forbearance)

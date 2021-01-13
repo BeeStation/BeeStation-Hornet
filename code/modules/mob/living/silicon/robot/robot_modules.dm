@@ -340,7 +340,6 @@
 		/obj/item/clock_module/abscond,
 		/obj/item/clock_module/ocular_warden,
 		/obj/item/clock_module/tinkerers_cache,
-		/obj/item/clock_module/stargazer,
 		/obj/item/clock_module/abstraction_crystal,
 		/obj/item/clockwork/replica_fabricator,
 		/obj/item/stack/tile/brass/cyborg)

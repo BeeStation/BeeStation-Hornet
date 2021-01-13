@@ -13,7 +13,7 @@
 	cogs_required = 2
 	category = SPELLTYPE_STRUCTURES
 
-//Stargazer structure
+//Prosperity prism structure
 /obj/structure/destructible/clockwork/gear_base/prosperityprism
 	name = "prosperity prism"
 	desc = "A prism that seems to somehow always have its gaze locked to you."

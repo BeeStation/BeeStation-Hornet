@@ -75,7 +75,7 @@
 	if(!invoker || !invoking_slab)
 		message_admins("No invoker for [name]")
 		return FALSE
-	if(invoker.get_active_held_item() != invoking_slab && !iscyborg(invoker))
+	if(invoker.get_active_held_item() != invoking_slab && invoking_slab.empowered_user != invoker && !iscyborg(invoker))
 		to_chat(invoker, "<span class='brass'>You fail to invoke [name].</span>")
 		return FALSE
 	var/invokers
@@ -90,7 +90,7 @@
 	return TRUE
 
 /datum/clockcult/scripture/proc/begin_invoke(mob/living/M, obj/item/clockwork/clockwork_slab/slab, bypass_unlock_checks = FALSE)
-	if(M.get_active_held_item() != slab && !iscyborg(M))
+	if(M.get_active_held_item() != slab && slab.empowered_user != M && !iscyborg(M))
 		to_chat(M, "<span class='brass'>You need to have the [slab.name] in your active hand to recite scriptures.</span>")
 		return
 	slab.invoking_scripture = src
@@ -224,6 +224,7 @@
 	return TRUE
 
 /obj/effect/proc_holder/slab
+	ranged_mousepointer = 'icons/effects/clockcult_target.dmi'
 	var/datum/clockcult/scripture/slab/parent_scripture
 
 /obj/effect/proc_holder/slab/InterceptClickOn(mob/living/caller, params, atom/A)

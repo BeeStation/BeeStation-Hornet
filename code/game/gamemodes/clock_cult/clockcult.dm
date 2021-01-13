@@ -9,6 +9,7 @@ GLOBAL_VAR_INIT(installed_integration_cogs, 0)
 
 GLOBAL_VAR(celestial_gateway)	//The celestial gateway
 GLOBAL_VAR_INIT(ratvar_risen, FALSE)	//Has ratvar risen?
+GLOBAL_VAR_INIT(clockcult_war, FALSE)	//Is the gateway currently active?
 GLOBAL_VAR_INIT(gateway_opening, FALSE)	//Is the gateway currently active?
 
 //A useful list containing all scriptures with the index of the name.

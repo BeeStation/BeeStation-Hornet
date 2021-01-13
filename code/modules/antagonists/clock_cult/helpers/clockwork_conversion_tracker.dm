@@ -54,6 +54,8 @@ GLOBAL_VAR_INIT(conversion_warning_stage, CONVERSION_WARNING_NONE)
 		return
 	if(GLOB.ark_transport_triggered)
 		return
+	if(GLOB.clockcult_war)
+		return
 	//Cogscarabs will not trigger the gateway to open
 	if(GLOB.human_servants_of_ratvar.len < GLOB.critical_servant_count)
 		return FALSE

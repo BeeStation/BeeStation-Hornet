@@ -59,9 +59,6 @@
 /obj/item/clock_module/tinkerers_cache
 	scripture_datum = /datum/clockcult/scripture/create_structure/tinkerers_cache
 
-/obj/item/clock_module/stargazer
-	scripture_datum = /datum/clockcult/scripture/create_structure/stargazer
-
 /obj/item/clock_module/vanguard
 	scripture_datum = /datum/clockcult/scripture/slab/vanguard
 

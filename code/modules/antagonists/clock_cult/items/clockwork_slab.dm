@@ -10,7 +10,6 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 
 	var/datum/clockcult/scripture/invoking_scripture	//The scripture currently being invoked
 	var/datum/clockcult/scripture/slab/active_scripture		//For scriptures that power the slab
-	var/datum/progressbar/invokation_bar
 
 	var/holder_class
 	var/list/scriptures = list()
@@ -42,6 +41,9 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	//For trap linkage
 	var/datum/component/clockwork_trap/buffer
 
+	//If we are empowered, this is our owner
+	var/mob/empowered_user = null
+
 /obj/item/clockwork/clockwork_slab/Initialize()
 	var/pos = 1
 	cogs = GLOB.installed_integration_cogs
@@ -53,6 +55,14 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		var/datum/clockcult/scripture/default_script = new script
 		bind_spell(null, default_script, pos++)
 	..()
+
+/obj/item/clockwork/clockwork_slab/Destroy()
+	quick_bound_scriptures.Cut()
+	purchased_scriptures.Cut()
+	default_scriptures.Cut()
+	scriptures.Cut()
+	buffer = null
+	. = ..()
 
 /obj/item/clockwork/clockwork_slab/dropped(mob/user)
 	//Clear quickbinds
@@ -128,6 +138,9 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	ui_interact(user)
 
 /obj/item/clockwork/clockwork_slab/ui_interact(mob/user, datum/tgui/ui)
+	if(!is_servant_of_ratvar(user))
+		to_chat(user, "<span class='warning'>You cannot figure out what the device is used for!</span>")
+		return
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ClockworkSlab")
@@ -210,3 +223,28 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 			//Create and assign the quickbind
 			var/datum/clockcult/scripture/new_scripture = new S.type()
 			bind_spell(M, new_scripture, positions.Find(position))
+
+// Golem internal clockwork slab
+
+/obj/item/clockwork/clockwork_slab/empowered/ui_state(mob/user)
+	return GLOB.conscious_state
+
+/obj/item/clockwork/clockwork_slab/empowered/proc/set_owner(mob/living/M)
+	if(istype(M))
+		//Grant quickbound spells
+		for(var/datum/action/innate/clockcult/quick_bind/script in quick_bound_scriptures)
+			script.Grant(M)
+		M.update_action_buttons()
+		empowered_user = M
+
+/obj/item/clockwork/clockwork_slab/empowered/Destroy()
+	var/mob/living/M = empowered_user
+	if(istype(M))
+		//Clear quickbinds
+		for(var/datum/action/innate/clockcult/quick_bind/script in quick_bound_scriptures)
+			script.Remove(M)
+		if(active_scripture)
+			active_scripture.end_invokation()
+		if(buffer)
+			buffer = null
+	. = ..()
