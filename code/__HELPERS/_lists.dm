@@ -66,7 +66,7 @@
 		var/##TYPECONT/__BIN_ITEM;\
 		while(__BIN_LEFT < __BIN_RIGHT) {\
 			__BIN_ITEM = LIST[__BIN_MID];\
-			if(__BIN_ITEM.##COMPARE <= IN.##COMPARE) {\
+			if(sorttext(__BIN_ITEM.##COMPARE, IN.##COMPARE) > 0) {\
 				__BIN_LEFT = __BIN_MID + 1;\
 			} else {\
 				__BIN_RIGHT = __BIN_MID;\
@@ -74,7 +74,7 @@
 			__BIN_MID = (__BIN_LEFT + __BIN_RIGHT) >> 1;\
 		};\
 		__BIN_ITEM = LIST[__BIN_MID];\
-		__BIN_MID = sorttext(__BIN_ITEM.##COMPARE, IN.##COMPARE) > 0 ? __BIN_MID : __BIN_MID + 1;\
+		__BIN_MID = sorttext(__BIN_ITEM.##COMPARE, IN.##COMPARE) < 0 ? __BIN_MID : __BIN_MID + 1;\
 		LIST.Insert(__BIN_MID, IN);\
 	}
 
