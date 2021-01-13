@@ -472,6 +472,7 @@
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "dry and cheap noodles"
 
+/datum/reagent/consumable/hot_ramen
 	name = "Hot Ramen"
 	description = "The noodles are boiled, the flavors are artificial, just like being back in school."
 	nutriment_factor = 5 * REAGENTS_METABOLISM
