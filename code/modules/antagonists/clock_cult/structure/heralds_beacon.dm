@@ -6,12 +6,12 @@
 	var/used = FALSE
 	var/vote_active = FALSE
 	var/vote_timer
-	var/obj/effect/stargazer_light/light
+	var/obj/effect/stargazer_light/light_overlay
 	var/end_time
 
 /obj/structure/destructible/clockwork/heralds_beacon/Initialize()
 	. = ..()
-	light = new get_turf(src)
+	light_overlay = new get_turf(src)
 	end_time = world.time + 5 MINUTES
 
 /obj/structure/destructible/clockwork/heralds_beacon/attack_hand(mob/user)
@@ -25,8 +25,8 @@
 		deltimer(vote_timer)
 		vote_timer = null
 		vote_active = FALSE
-		light.icon_state = "stargazer_closed"
-		light.flick("stargazer_closing")
+		light_overlay.icon_state = "stargazer_closed"
+		light_overlay.flick("stargazer_closing")
 		hierophant_message("Power surge resolved, [user] has deactivated Herald's Beacon.")
 		return
 	if(used)
@@ -36,8 +36,8 @@
 	if(option == "No")
 		to_chat(user, "<span class='brass'>You think better than to play with powers outside your control.</span>")
 		return
-	light.icon_state = "stargazer_light"
-	light.flick("stargazer_opening")
+	light_overlay.icon_state = "stargazer_light"
+	light_overlay.flick("stargazer_opening")
 	hierophant_message("[user] has opted to use the Herald's beacon which will alert the crew to your presence. Interact with the beacon to disable.", span = "<span class='large_brass'>")
 	vote_timer = addtimer(CALLBACK(src, .proc/vote_succeed), 60 SECONDS, TIMER_STOPPABLE)
 	vote_active = TRUE
@@ -46,8 +46,8 @@
 	vote_active = FALSE
 	used = TRUE
 	hierophant_message("The Herald's beacon has been activated!", span = "<span class='large_brass'>")
-	light.icon_state = "stargazer_closed"
-		light.flick("stargazer_closing")
+	light_overlay.icon_state = "stargazer_closed"
+		light_overlay.flick("stargazer_closing")
 	new /obj/effect/temp_visual/ratvar/judicial_explosion(get_turf(src))
 	sleep(12.6)
 	var/obj/structure/destructible/clockwork/massive/celestial_gateway/gateway = GLOB.celestial_gateway
