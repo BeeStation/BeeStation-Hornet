@@ -217,7 +217,7 @@
 	build_path = /obj/machinery/computer/holodeck
 
 /obj/item/circuitboard/computer/libraryconsole
-	name = "kibrary visitor console (Computer Board)"
+	name = "library visitor console (Computer Board)"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/libraryconsole
 
