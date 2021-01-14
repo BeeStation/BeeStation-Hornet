@@ -13,7 +13,7 @@
 	var/ndir = get_dir(on_wall, user)
 	if(!(ndir in GLOB.cardinals))
 		return
-	var/area/A = get_area(T)
+	var/area/A = get_area(on_wall)
 	if(!isfloorturf(on_wall))
 		to_chat(user, "<span class='warning'>You cannot place [src] on this spot!</span>")
 		return
