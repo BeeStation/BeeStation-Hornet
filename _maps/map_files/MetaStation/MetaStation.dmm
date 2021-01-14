@@ -83433,6 +83433,7 @@
 "jbz" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "jdU" = (
@@ -126491,7 +126492,7 @@ wcC
 jbz
 jbz
 lZW
-xVS
+nYJ
 mjJ
 lMJ
 aaf
