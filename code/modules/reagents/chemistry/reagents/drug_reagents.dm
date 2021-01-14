@@ -506,7 +506,7 @@
 	M.disgust -= 3
 	//Ketamine is also a dissociative anasthetic which means Hallucinations!
 	M.hallucination = 5
-	. = ..()
+	..()
 
 /datum/reagent/drug/ketamine/overdose_process(mob/living/M)
 	//Dissociative anesthetics? Overdosing? Time to dissociate hard.
