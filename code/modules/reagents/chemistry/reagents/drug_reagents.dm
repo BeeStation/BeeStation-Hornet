@@ -513,6 +513,7 @@
 	var/obj/item/organ/brain/B = M.getorgan(/obj/item/organ/brain)
 	if(B.can_gain_trauma(/datum/brain_trauma/severe/split_personality, 5))
 		B.brain_gain_trauma(/datum/brain_trauma/severe/split_personality, 5)
+		. = 1
 	M.hallucination += 10
 	//Uh Oh Someone is tired
 	if(prob(40))
