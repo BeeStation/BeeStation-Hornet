@@ -93,7 +93,7 @@
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(mobile_port_id, FALSE)
 	if(!M)
 		return
-	for(var/turf/T in M.return_turfs())
+	for(var/turf/T as() in M.return_turfs())
 		var/obj/machinery/shuttle_weapon/weapon = locate() in T
 		if(weapon)
 			weapon_systems |= weapon
