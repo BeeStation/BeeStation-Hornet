@@ -15,8 +15,6 @@
 	var/obj/machinery/teleport/station/power_station
 	var/calibrated //Calibration prevents mutation
 
-/obj/machinery/teleport/hub/ninja
-
 /obj/machinery/teleport/hub/Initialize()
 	. = ..()
 	link_power_station()
