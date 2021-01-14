@@ -89,6 +89,10 @@
 	display_name = "bomber jacket"
 	path = /obj/item/clothing/suit/jacket
 
+/datum/gear/suit/jacket/softshell
+	display_name = "softshell jacket"
+	path = /obj/item/clothing/suit/toggle/softshell
+
 /datum/gear/suit/jacket/leather
 	display_name = "leather jacket"
 	path = /obj/item/clothing/suit/jacket/leather

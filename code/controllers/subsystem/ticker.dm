@@ -312,6 +312,7 @@ SUBSYSTEM_DEF(ticker)
 			to_chat(world, "<h4>[holiday.greet()]</h4>")
 
 	PostSetup()
+	SSstat.clear_global_alert()
 
 	return TRUE
 
