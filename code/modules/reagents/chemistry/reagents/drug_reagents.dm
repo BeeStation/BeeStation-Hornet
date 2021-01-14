@@ -526,7 +526,7 @@
 			to_chat(M, "<span class='warning'>You feel like you your limbs won't move...</span>")
 		M.drop_all_held_items()
 		M.Dizzy(5)
-		. = ..()
+	..()
 
 //Addiction Gradient
 /datum/reagent/drug/ketamine/addiction_act_stage1(mob/living/M)
