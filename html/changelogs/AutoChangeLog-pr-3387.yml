@@ -1,5 +1,0 @@
-author: Putnam3145
-delete-after: true
-changes:
-  - bugfix: Toilet loot spawners don't lag the server on server start with forced
-      hard dels.
