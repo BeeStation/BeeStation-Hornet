@@ -1,3 +1,5 @@
+GLOBAL_VAR_INIT(ships_destroyed, 0)
+
 /datum/ship_datum
 	var/ship_name = "unmarked vessel"
 	var/ship_faction = /datum/faction/station
@@ -113,6 +115,7 @@
 
 /datum/ship_datum/proc/destroy_ship(list/turfs)
 	set waitfor = FALSE
+	GLOB.ships_destroyed ++
 	var/exploded = FALSE
 	for(var/turf/T in turfs)
 		var/obj/machinery/bluespace_drive/BS = locate() in T
