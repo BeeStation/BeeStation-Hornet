@@ -254,14 +254,6 @@
 	overdose_threshold = 30
 
 /datum/reagent/teslium/energized_jelly/energized_ooze/on_mob_life(mob/living/carbon/M)
-	if(isjellyperson(M))
-		shock_timer = 0 //immune to shocks
-		M.AdjustAllImmobility(-40, FALSE)
-		M.adjustStaminaLoss(-2, 0)
-		if(isluminescent(M))
-			var/mob/living/carbon/human/H = M
-			var/datum/species/jelly/luminescent/L = H.dna.species
-			L.extract_cooldown = max(0, L.extract_cooldown - 20)
 	if(isoozeling(M))
 		shock_timer = 0 //immune to shocks
 		M.AdjustAllImmobility(-40, FALSE)
