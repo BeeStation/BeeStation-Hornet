@@ -12,5 +12,6 @@
 	l_pocket = /obj/item/grenade/plastic/x4
 	r_pocket = /obj/item/tank/internals/emergency_oxygen
 	l_hand = /obj/item/choice_beacon/ninja
+	id = /obj/item/card/id/syndicate/anyone
 	internals_slot = SLOT_R_STORE
 	implants = list(/obj/item/implant/explosive)

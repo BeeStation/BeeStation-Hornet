@@ -33,7 +33,7 @@ Contents:
 	//selecting a spawn_loc
 	if(!spawn_loc)
 		var/list/spawn_locs = list()
-		for(var/obj/effect/landmark/ninjaspawn/L in GLOB.landmarks_list)
+		for(var/obj/effect/landmark/carpspawn/L in GLOB.landmarks_list)
 			if(isturf(L.loc))
 				spawn_locs += L.loc
 		if(!spawn_locs.len)

@@ -79,8 +79,14 @@
 	QDEL_NULL(spark_system)
 	return ..()
 
+/obj/item/energy_katana/might
+	name = "mighty katana"
+	desc = "An energy katana so powerful, it is capable of batting bullets out of the air."
+	block_power = 75
+	block_level = 2
+
 /obj/item/energy_katana/dash
-	name = "energy katana of speed"
+	name = "dash katana"
 	desc = "A katana infused with strong energy and the power to dash, wielded by the fastest of spider clan operatives."
 	var/datum/action/innate/dash/ninja/jaunt
 	var/dash_toggled = TRUE

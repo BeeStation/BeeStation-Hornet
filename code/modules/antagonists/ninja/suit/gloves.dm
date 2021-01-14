@@ -35,7 +35,7 @@
 	name = "smart ninja gloves"
 	desc = "Advanced ninja gloves with a wider variety of better quality fabrications. Also teaches the user Krav Maga."
 	fabrication_charges = 15
-	fabrication_options = list(/obj/item/restraints/legcuffs/bola/tactical = "heavy bola", /obj/item/grenade/clusterbuster/smoke = "large smoke bomb", /obj/item/grenade/clusterbuster/caltrops = "caltrop scatter grenade")
+	fabrication_options = list(/obj/item/restraints/legcuffs/bola/tactical = "heavy bola", /obj/item/grenade/clusterbuster/smoke = "large smoke bomb", /obj/item/grenade/clusterbuster/caltrops = "caltrop scatter grenade", /obj/item/throwing_star/ninja = "throwing star")
 	var/datum/martial_art/krav_maga/style = new
 
 /obj/item/clothing/gloves/space_ninja/wisdom/equipped(mob/user, slot)
