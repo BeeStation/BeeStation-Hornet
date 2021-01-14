@@ -2000,8 +2000,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if(purchased_gear.len || equipped_gear.len)
 			for(var/key in DLC.gear)
 				var/datum/gear/donator/RG = GLOB.gear_datums[key]
-				if(RG.id in equipped_gear)
-					equipped_gear -= RG.id
-				if(RG.id in purchased_gear)
-					purchased_gear -= RG.id
+				equipped_gear -= RG.id
+				purchased_gear -= RG.id
 			save_preferences()
