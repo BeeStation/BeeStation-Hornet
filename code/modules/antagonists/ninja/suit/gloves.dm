@@ -18,18 +18,18 @@
 	actions_types = list(/datum/action/item_action/ninjafabricate, /datum/action/item_action/ninja_sword_recall)
 
 /obj/item/clothing/gloves/space_ninja/attackby(obj/I, mob/user, params)
-		if(istype(I, /obj/item/energy_katana))
-			energyKatana = I
-			to_chat(user, "<span class='notice'>You link the [I] to the [src].</span>")
+	if(istype(I, /obj/item/energy_katana))
+		energyKatana = I
+		to_chat(user, "<span class='notice'>You link the [I] to the [src].</span>")
 
 /obj/item/clothing/gloves/space_ninja/ui_action_click(mob/living/carbon/human/user, action)
-		if(istype(action, /datum/action/item_action/ninjafabricate))
-			ninjafabricate(user)
-			return TRUE
-		if(istype(action, /datum/action/item_action/ninja_sword_recall))
-			ninja_sword_recall(user)
-			return TRUE
-		return FALSE
+	if(istype(action, /datum/action/item_action/ninjafabricate))
+		ninjafabricate(user)
+		return TRUE
+	if(istype(action, /datum/action/item_action/ninja_sword_recall))
+		ninja_sword_recall(user)
+		return TRUE
+	return FALSE
 
 /obj/item/clothing/gloves/space_ninja/wisdom
 	name = "smart ninja gloves"
