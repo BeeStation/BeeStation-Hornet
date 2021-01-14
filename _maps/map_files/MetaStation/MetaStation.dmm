@@ -82664,12 +82664,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"fZG" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/science/shuttledock)
 "gbU" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 8
@@ -126233,7 +126227,7 @@ osW
 osW
 ctl
 nYJ
-fZG
+nYJ
 nYJ
 pCO
 xHp
