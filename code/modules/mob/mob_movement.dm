@@ -301,7 +301,9 @@
 			continue
 		else if(isturf(A))
 			var/turf/turf = A
-			if(!turf.density)
+			if(isspaceturf(turf))
+				continue
+			if(!turf.density && !mob_negates_gravity())
 				continue
 			return A
 		else
@@ -318,6 +320,14 @@
 				if(pulling == AM)
 					continue
 				. = AM
+
+/**
+  * Returns true if a mob has gravity
+  *
+  * I hate that this exists
+  */
+/mob/proc/mob_has_gravity()
+	return has_gravity()
 
 /**
   * Does this mob ignore gravity

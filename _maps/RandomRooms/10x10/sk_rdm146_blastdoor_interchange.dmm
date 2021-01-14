@@ -3,7 +3,7 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/four,
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "aT" = (
 /obj/structure/grille/broken,
 /obj/structure/closet/crate,
@@ -11,11 +11,11 @@
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/template_noop)
+/area/space)
 "bd" = (
 /obj/machinery/door/airlock/maintenance/external/glass,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "bH" = (
 /obj/machinery/button/door{
 	id = "maint2";
@@ -23,78 +23,78 @@
 	pixel_y = -24
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "cU" = (
 /obj/structure/grille/broken,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "di" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/six,
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "dF" = (
 /obj/structure/grille/broken,
 /obj/effect/turf_decal/stripes{
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "eb" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "ec" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
-/area/template_noop)
+/area/space)
 "eD" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg2"
 	},
-/area/template_noop)
+/area/space)
 "eQ" = (
 /obj/effect/turf_decal/delivery/red,
 /obj/machinery/door/poddoor/preopen{
 	id = "maint2"
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "fn" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "go" = (
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
-/area/template_noop)
+/area/space)
 "hh" = (
 /obj/structure/falsewall,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "hk" = (
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "hM" = (
 /turf/closed/wall,
-/area/template_noop)
+/area/space)
 "hZ" = (
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "iv" = (
 /obj/structure/grille,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "iA" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "iM" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -104,13 +104,13 @@
 	id = "maint2"
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "jc" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 9
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "kf" = (
 /obj/machinery/button/door{
 	id = "maint2";
@@ -118,53 +118,53 @@
 	pixel_y = 24
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "lm" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/gloves,
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "lq" = (
 /obj/effect/spawner/lootdrop/glowstick,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "nf" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/eight,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "oB" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 5
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "oE" = (
 /obj/effect/turf_decal/delivery/red,
 /obj/machinery/door/poddoor/preopen{
 	id = "maint2"
 	},
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "rm" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
-/area/template_noop)
+/area/space)
 "rP" = (
 /obj/item/storage/pod{
 	pixel_x = 32
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "sD" = (
 /obj/effect/turf_decal/delivery/red,
 /obj/machinery/door/poddoor/preopen{
 	id = "maint1"
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "ve" = (
 /obj/machinery/button/door{
 	id = "maint1";
@@ -172,15 +172,15 @@
 	pixel_x = 24
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "vl" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall,
-/area/template_noop)
+/area/space)
 "vq" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "wd" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
@@ -189,24 +189,24 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "wg" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/armor/vest/alt,
 /obj/item/clothing/head/helmet/justice/escape,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "wy" = (
 /obj/structure/barricade/security/ctf,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "wS" = (
 /obj/machinery/light/small{
 	brightness = 3;
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "xg" = (
 /obj/item/storage/toolbox/emergency,
 /obj/structure/rack,
@@ -214,7 +214,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "xu" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 6
@@ -222,7 +222,7 @@
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/template_noop)
+/area/space)
 "xF" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -232,28 +232,28 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "xK" = (
 /obj/effect/turf_decal/stripes{
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "yb" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "zk" = (
 /obj/structure/closet/firecloset/full,
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "zD" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /obj/effect/turf_decal/stripes,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "Bi" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -262,21 +262,21 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "Cq" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "IK" = (
 /obj/machinery/light/small,
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "Le" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "LZ" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/tile/red{
@@ -289,7 +289,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "Nt" = (
 /obj/effect/turf_decal/stripes{
 	dir = 1
@@ -301,13 +301,13 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "Nx" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 10
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "QE" = (
 /obj/effect/spawner/lootdrop/gambling,
 /obj/structure/rack,
@@ -317,25 +317,25 @@
 	pixel_x = -24
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "Rn" = (
 /obj/structure/grille/broken,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "Sc" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /obj/effect/turf_decal/stripes{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "Sg" = (
 /obj/machinery/light/small,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "Sn" = (
 /obj/structure/barricade/security/ctf,
 /obj/effect/turf_decal/tile/red,
@@ -346,20 +346,20 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "Va" = (
 /obj/structure/closet/toolcloset,
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "WK" = (
 /obj/machinery/door/airlock/maintenance/external/glass,
 /obj/structure/barricade/wooden,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "XK" = (
 /obj/effect/turf_decal/stripes,
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 
 (1,1,1) = {"
 vq

@@ -3,7 +3,6 @@
 	name = "pill press"
 	desc = "A press that presses pills."
 	icon_state = "pill_press"
-	active_power_usage = 100
 	///the minimum size a pill can be
 	var/minimum_pill = 5
 	///the maximum size a pill can be

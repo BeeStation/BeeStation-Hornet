@@ -1,6 +1,6 @@
 // tgstation-server DMAPI
 
-#define TGS_DMAPI_VERSION "5.2.10"
+#define TGS_DMAPI_VERSION "5.2.9"
 
 // All functions and datums outside this document are subject to change with any version and should not be relied on.
 
@@ -67,7 +67,7 @@
 #define TGS_EVENT_REPO_CHECKOUT 1
 /// When the repository performs a fetch operation. No parameters
 #define TGS_EVENT_REPO_FETCH 2
-/// When the repository test merges. Parameters: PR Number, PR Sha, (Nullable) Comment made by TGS user
+/// When the repository merges a pull request. Parameters: PR Number, PR Sha, (Nullable) Comment made by TGS user
 #define TGS_EVENT_REPO_MERGE_PULL_REQUEST 3
 /// Before the repository makes a sychronize operation. Parameters: Absolute repostiory path
 #define TGS_EVENT_REPO_PRE_SYNCHRONIZE 4
@@ -190,21 +190,21 @@
 
 /// Represents a merge of a GitHub pull request.
 /datum/tgs_revision_information/test_merge
-	/// The test merge number.
+	/// The pull request number.
 	var/number
-	/// The test merge source's title when it was merged.
+	/// The pull request title when it was merged.
 	var/title
-	/// The test merge source's body when it was merged.
+	/// The pull request body when it was merged.
 	var/body
-	/// The Username of the test merge source's author.
+	/// The GitHub username of the pull request's author.
 	var/author
-	/// An http URL to the test merge source.
+	/// An http URL to the pull request.
 	var/url
-	/// The SHA of the test merge when that was merged.
+	/// The SHA of the pull request when that was merged.
 	var/pull_request_commit
-	/// ISO 8601 timestamp of when the test merge was created on TGS.
+	/// ISO 8601 timestamp of when the pull request was merged.
 	var/time_merged
-	/// Optional comment left by the TGS user who initiated the merge.
+	/// (Nullable) Comment left by the TGS user who initiated the merge..
 	var/comment
 
 /// Represents a connected chat channel.

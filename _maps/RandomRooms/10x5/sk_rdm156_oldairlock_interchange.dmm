@@ -2,65 +2,65 @@
 "a" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "c" = (
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "d" = (
 /obj/effect/spawner/lootdrop/maintenance/two,
 /obj/structure/rack,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "f" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/template_noop)
+/area/space)
 "i" = (
 /turf/closed/wall,
-/area/template_noop)
+/area/space)
 "m" = (
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "n" = (
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "u" = (
 /obj/machinery/door/airlock/maintenance/external/glass,
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "w" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "A" = (
 /obj/structure/closet/toolcloset,
 /obj/item/storage/belt/bandolier,
 /obj/effect/spawner/lootdrop/gambling,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "B" = (
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
-/area/template_noop)
+/area/space)
 "M" = (
 /obj/item/trash/boritos,
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "T" = (
 /obj/effect/spawner/lootdrop/maintenance/two,
 /obj/structure/closet/secure_closet/personal,
 /obj/item/trash/can/food/peaches/maint,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "V" = (
 /obj/structure/closet/firecloset/full,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 
 (1,1,1) = {"
 V

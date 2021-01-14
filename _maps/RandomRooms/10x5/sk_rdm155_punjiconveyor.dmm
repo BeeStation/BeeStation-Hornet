@@ -4,12 +4,12 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "d" = (
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
-/area/template_noop)
+/area/space)
 "i" = (
 /obj/machinery/conveyor_switch/oneway{
 	dir = 1;
@@ -17,10 +17,10 @@
 	name = "punji conveyor switch"
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "m" = (
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "n" = (
 /obj/structure/punji_sticks,
 /obj/item/restraints/handcuffs/cable,
@@ -28,63 +28,63 @@
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/template_noop)
+/area/space)
 "r" = (
 /obj/item/wirerod,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "s" = (
 /obj/structure/grille/broken,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "t" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "w" = (
 /obj/structure/grille,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "x" = (
 /obj/item/trash/can/food/beans,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "z" = (
 /obj/item/stack/sheet/animalhide,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "B" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "H" = (
 /obj/item/trash/can{
 	pixel_x = -9;
 	pixel_y = 6
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "I" = (
 /obj/machinery/conveyor{
 	dir = 8;
 	id = "punji_conveyor"
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "M" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/template_noop)
+/area/space)
 "P" = (
 /obj/item/trash/sosjerky{
 	pixel_x = -10;
 	pixel_y = 2
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "Z" = (
 /obj/structure/closet{
 	name = "beekeeping wardrobe"
@@ -94,7 +94,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 
 (1,1,1) = {"
 a

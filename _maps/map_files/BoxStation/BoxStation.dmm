@@ -7590,8 +7590,7 @@
 /area/crew_quarters/heads/hos)
 "atp" = (
 /obj/machinery/door/airlock/external{
-	name = "Construction Zone";
-	req_one_access_txt = "72"
+	name = "Construction Zone"
 	},
 /turf/open/floor/plating,
 /area/construction/mining/aux_base)
@@ -12914,7 +12913,7 @@
 	id = "aux_base_shutters";
 	name = "Public Shutters Control";
 	pixel_x = 24;
-	req_one_access_txt = "72"
+	req_one_access_txt = "32;47;48"
 	},
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
@@ -14036,7 +14035,7 @@
 "aLu" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Auxillary Base Construction";
-	req_one_access_txt = "72"
+	req_one_access_txt = "32;47;48"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1

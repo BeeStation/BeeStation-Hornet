@@ -1,30 +1,30 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "b" = (
 /obj/machinery/seed_extractor,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "e" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "f" = (
 /obj/structure/flora/ausbushes/reedbush{
 	pixel_y = 5
 	},
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "g" = (
 /obj/machinery/biogenerator,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "h" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/liberty,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "j" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/spray/plantbgone{
@@ -39,68 +39,68 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "k" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/cannabis,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "l" = (
 /mob/living/simple_animal/butterfly,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "m" = (
 /obj/structure/flora/grass/jungle/b,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "n" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
-/area/template_noop)
+/area/space)
 "o" = (
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
-/area/template_noop)
+/area/space)
 "q" = (
 /obj/structure/sink/puddle,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "r" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/cabbage,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "t" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "u" = (
 /turf/open/floor/monotile/steel,
-/area/template_noop)
+/area/space)
 "v" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/template_noop)
+/area/space)
 "x" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "D" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/bamboo,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "G" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "H" = (
 /turf/closed/wall,
-/area/template_noop)
+/area/space)
 "J" = (
 /obj/structure/closet{
 	name = "beekeeping wardrobe"
@@ -122,33 +122,33 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
-/area/template_noop)
+/area/space)
 "K" = (
 /obj/item/stack/cable_coil/blue,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "M" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "N" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "O" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/replicapod,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "P" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "Q" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/ambrosia,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "R" = (
 /obj/structure/closet{
 	name = "beekeeping supplies"
@@ -167,28 +167,28 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
-/area/template_noop)
+/area/space)
 "T" = (
 /obj/structure/beebox,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "U" = (
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "X" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "Y" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/carrot,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 "Z" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/glowshroom,
 /turf/open/floor/grass,
-/area/template_noop)
+/area/space)
 
 (1,1,1) = {"
 a

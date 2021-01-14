@@ -19,7 +19,7 @@
 
 /obj/singularity/boh_tear/Initialize()
 	. = ..()
-	old_loc = get_turf(src)
+	old_loc = loc
 	addtimer(CALLBACK(src, /atom/movable.proc/moveToNullspace), 5 SECONDS) // vanishes after 5 seconds
 	QDEL_IN(src, 10 MINUTES)
 

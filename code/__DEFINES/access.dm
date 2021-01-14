@@ -64,9 +64,6 @@
 #define ACCESS_NETWORK 67 //! NTnet diagnostics/monitoring software
 #define ACCESS_CLONING 68 //! Cloning room and clone pod ejection
 
-/// Room and launching.
-#define ACCESS_AUX_BASE 72
-
 	//BEGIN CENTCOM ACCESS
 	/*Should leave plenty of room if we need to add more access levels.
 	Mostly for admin fun times.*/

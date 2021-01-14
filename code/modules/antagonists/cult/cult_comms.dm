@@ -15,7 +15,6 @@
 	name = "Communion"
 	desc = "Whispered words that all cultists can hear.<br><b>Warning:</b>Nearby non-cultists can still hear you."
 	button_icon_state = "cult_comms"
-	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/cult/comm/Activate()
 	var/input = stripped_input(usr, "Please choose a message to tell to the other acolytes.", "Voice of Blood", "")
@@ -149,7 +148,6 @@
 	name = "Final Reckoning"
 	desc = "A single-use spell that brings the entire cult to the master's location."
 	button_icon_state = "sintouch"
-	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/cult/master/finalreck/Activate()
 	var/datum/antagonist/cult/antag = owner.mind.has_antag_datum(/datum/antagonist/cult,TRUE)

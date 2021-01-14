@@ -3,152 +3,152 @@
 /obj/effect/spawner/lootdrop/maintenance/five,
 /obj/structure/rack,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "c" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "d" = (
 /obj/structure/closet/toolcloset,
 /obj/item/clothing/suit/straight_jacket,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "k" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/table,
 /obj/structure/window/reinforced/spawner/north,
 /obj/item/gun/syringe,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "l" = (
 /obj/machinery/status_display/ai{
 	pixel_y = -32
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "o" = (
 /obj/effect/mapping_helpers/dead_body_placer,
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/closet/secure_closet/freezer/meat,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "u" = (
 /turf/closed/wall,
-/area/template_noop)
+/area/space)
 "w" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/template_noop)
+/area/space)
 "x" = (
 /obj/machinery/gibber,
 /obj/structure/window/reinforced/spawner/north,
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "y" = (
 /obj/machinery/computer/crew{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "z" = (
 /obj/structure/table,
 /obj/machinery/microwave,
 /obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "B" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "C" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
-/area/template_noop)
+/area/space)
 "E" = (
 /obj/effect/mapping_helpers/dead_body_placer,
 /obj/structure/closet/secure_closet/freezer/meat,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "F" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "G" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/five,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "H" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "J" = (
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "K" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "L" = (
 /obj/structure/grille/broken,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "M" = (
 /obj/machinery/door/airlock/maintenance/external/glass,
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "N" = (
 /obj/effect/mapping_helpers/dead_body_placer,
 /obj/structure/closet/secure_closet/freezer/meat,
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/kitchen/knife/butcher,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "O" = (
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "P" = (
 /obj/structure/bed,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "Q" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/template_noop)
+/area/space)
 "R" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "S" = (
 /obj/structure/grille,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "W" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/template_noop)
+/area/space)
 "X" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "Y" = (
 /obj/machinery/computer/med_data{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 
 (1,1,1) = {"
 G

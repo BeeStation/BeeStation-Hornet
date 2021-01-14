@@ -1,31 +1,31 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "b" = (
 /obj/item/trash/boritos,
 /turf/open/floor/carpet/red,
-/area/template_noop)
+/area/space)
 "c" = (
 /obj/item/stack/cable_coil/cut,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "d" = (
 /obj/machinery/vending/boozeomat,
 /obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "e" = (
 /obj/effect/spawner/lootdrop/crate_spawner,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "f" = (
 /obj/structure/table_frame/wood,
 /obj/item/stack/sheet/mineral/wood,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/template_noop)
+/area/space)
 "g" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
@@ -37,82 +37,82 @@
 	pixel_y = 4
 	},
 /turf/open/floor/plasteel/cafeteria,
-/area/template_noop)
+/area/space)
 "h" = (
 /obj/item/trash/popcorn,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "i" = (
 /obj/structure/mirror{
 	pixel_y = 26
 	},
 /turf/open/floor/carpet,
-/area/template_noop)
+/area/space)
 "j" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/wood,
-/area/template_noop)
+/area/space)
 "k" = (
 /obj/structure/grille,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "l" = (
 /turf/closed/wall,
-/area/template_noop)
+/area/space)
 "m" = (
 /turf/open/floor/plasteel/cafeteria,
-/area/template_noop)
+/area/space)
 "n" = (
 /obj/structure/table,
 /obj/machinery/chem_dispenser/drinks/beer,
 /turf/open/floor/plasteel/cafeteria,
-/area/template_noop)
+/area/space)
 "o" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "p" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /turf/open/floor/wood,
-/area/template_noop)
+/area/space)
 "q" = (
 /obj/structure/chair/stool/bar,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "r" = (
 /obj/item/trash/can/food/peaches/maint,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/open/floor/carpet/red,
-/area/template_noop)
+/area/space)
 "s" = (
 /obj/effect/decal/cleanable/oil{
 	icon_state = "floor5"
 	},
 /obj/structure/grille/broken,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "t" = (
 /obj/structure/closet/firecloset/full,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "u" = (
 /obj/structure/closet,
 /obj/item/storage/toolbox/mechanical,
 /obj/effect/spawner/lootdrop/maintenance/three,
 /obj/effect/spawner/lootdrop/gloves,
 /turf/open/floor/carpet,
-/area/template_noop)
+/area/space)
 "v" = (
 /obj/structure/closet/crate/trashcart,
 /obj/structure/window/reinforced/spawner/west,
 /obj/structure/grille/broken,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "w" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -120,11 +120,11 @@
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/template_noop)
+/area/space)
 "x" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "y" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -132,39 +132,39 @@
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/template_noop)
+/area/space)
 "z" = (
 /obj/structure/chair/sofa{
 	dir = 1
 	},
 /turf/open/floor/carpet/red,
-/area/template_noop)
+/area/space)
 "A" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "B" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "C" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "D" = (
 /obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /turf/open/floor/carpet/red,
-/area/template_noop)
+/area/space)
 "E" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/eight,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "F" = (
 /obj/structure/table,
 /obj/machinery/chem_dispenser/drinks,
@@ -172,16 +172,16 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria,
-/area/template_noop)
+/area/space)
 "H" = (
 /obj/machinery/vending/autodrobe,
 /turf/open/floor/wood,
-/area/template_noop)
+/area/space)
 "I" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/template_noop)
+/area/space)
 "J" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
@@ -189,45 +189,45 @@
 	pixel_y = 4
 	},
 /turf/open/floor/plasteel/cafeteria,
-/area/template_noop)
+/area/space)
 "K" = (
 /obj/machinery/door/airlock/wood,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "L" = (
 /turf/open/floor/wood,
-/area/template_noop)
+/area/space)
 "M" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced/spawner/west,
 /obj/effect/spawner/lootdrop/gambling,
 /turf/open/floor/plasteel/cafeteria,
-/area/template_noop)
+/area/space)
 "N" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/wood,
-/area/template_noop)
+/area/space)
 "O" = (
 /obj/effect/decal/cleanable/insectguts,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "P" = (
 /obj/structure/chair/stool/bar,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "Q" = (
 /obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /turf/open/floor/carpet/red,
-/area/template_noop)
+/area/space)
 "R" = (
 /turf/open/floor/carpet/red,
-/area/template_noop)
+/area/space)
 "S" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "T" = (
 /obj/structure/window/reinforced/tinted/frosted{
 	dir = 4
@@ -235,19 +235,19 @@
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/glowstick,
 /turf/open/floor/carpet,
-/area/template_noop)
+/area/space)
 "U" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/wood,
-/area/template_noop)
+/area/space)
 "V" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "W" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "X" = (
 /obj/structure/window/reinforced/tinted/frosted{
 	dir = 4
@@ -262,16 +262,16 @@
 	pixel_y = 33
 	},
 /turf/open/floor/carpet,
-/area/template_noop)
+/area/space)
 "Y" = (
 /turf/open/floor/monotile/steel,
-/area/template_noop)
+/area/space)
 "Z" = (
 /obj/structure/grille/broken,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/template_noop)
+/area/space)
 
 (1,1,1) = {"
 S

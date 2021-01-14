@@ -209,8 +209,6 @@
 			if(++reagent_transfer >= 10 * efficiency) // Throttle reagent transfer (higher efficiency will transfer the same amount but consume less from the beaker).
 				reagent_transfer = 0
 
-		use_power(1000 * efficiency)
-
 	return 1
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/process_atmos()
@@ -468,6 +466,6 @@
 		if(node)
 			node.atmosinit()
 			node.addMember(src)
-		SSair.add_to_rebuild_queue(src)
+		build_network()
 
 #undef CRYOMOBS

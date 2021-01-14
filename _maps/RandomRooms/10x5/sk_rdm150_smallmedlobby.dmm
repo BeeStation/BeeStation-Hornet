@@ -2,14 +2,14 @@
 "a" = (
 /obj/machinery/vending/cigarette,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "b" = (
 /obj/machinery/door/airlock/maintenance/external/glass,
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "c" = (
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "f" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -18,23 +18,23 @@
 /obj/effect/spawner/lootdrop/maintenance/three,
 /obj/structure/closet/crate,
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "g" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "h" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "i" = (
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
-/area/template_noop)
+/area/space)
 "k" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -44,23 +44,23 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "o" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
-/area/template_noop)
+/area/space)
 "p" = (
 /turf/closed/wall,
-/area/template_noop)
+/area/space)
 "q" = (
 /obj/structure/chair/comfy/teal,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "s" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "t" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /obj/effect/turf_decal/tile/blue{
@@ -73,13 +73,13 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "v" = (
 /obj/item/storage/pod{
 	pixel_x = 32
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "x" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -89,7 +89,7 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/three,
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "z" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -102,13 +102,13 @@
 	},
 /obj/structure/chair/comfy/teal,
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "A" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "B" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -118,16 +118,16 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "D" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "G" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg2"
 	},
-/area/template_noop)
+/area/space)
 "H" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -140,7 +140,7 @@
 	pixel_y = 26
 	},
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "I" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -149,7 +149,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "J" = (
 /obj/structure/table,
 /obj/item/folder/white,
@@ -158,7 +158,7 @@
 	pixel_x = -32
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "K" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -171,34 +171,34 @@
 	},
 /obj/structure/chair/comfy/teal,
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "M" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
-/area/template_noop)
+/area/space)
 "O" = (
 /obj/machinery/newscaster{
 	pixel_x = 32
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "S" = (
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "V" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 "X" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/five,
 /turf/open/floor/plating,
-/area/template_noop)
+/area/space)
 
 (1,1,1) = {"
 t
