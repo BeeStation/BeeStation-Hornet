@@ -35,8 +35,9 @@
 	else
 		environment_temperature = T.return_temperature()
 
-	if(abs(environment_temperature-pipe_air.return_temperature()) > minimum_temperature_difference)
-		parent.temperature_interact(T, volume, thermal_conductivity)
+	if(pipe_air != null)
+		if(abs(environment_temperature-pipe_air.return_temperature()) > minimum_temperature_difference)
+			parent.temperature_interact(T, volume, thermal_conductivity)
 
 
 	//heatup/cooldown any mobs buckled to ourselves based on our temperature

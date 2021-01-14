@@ -41,6 +41,9 @@
 		var/datum/objective/O = X
 		to_chat(owner, "<b>[i].</b> [O.explanation_text]")
 		i++
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Brainwashed",
+		"You have been brainwashed!\n\
+		Ensure you follow your directive, no matter the cost.")
 
 /datum/antagonist/brainwashed/farewell()
 	to_chat(owner, "<span class='warning'>Your mind suddenly clears...</span>")

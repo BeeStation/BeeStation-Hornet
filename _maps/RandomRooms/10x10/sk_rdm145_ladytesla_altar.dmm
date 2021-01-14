@@ -1,21 +1,21 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "b" = (
 /obj/machinery/door/airlock/maintenance/external/glass,
 /turf/open/floor/plasteel,
-/area/space)
+/area/template_noop)
 "c" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "f" = (
 /obj/structure/chair/pew{
 	dir = 1
 	},
 /turf/open/floor/carpet/royalblue,
-/area/space)
+/area/template_noop)
 "g" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
@@ -23,54 +23,54 @@
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
-/area/space)
+/area/template_noop)
 "i" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "j" = (
 /turf/open/floor/wood{
 	icon_state = "wood-broken5"
 	},
-/area/space)
+/area/template_noop)
 "k" = (
 /obj/machinery/light/small,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "l" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
-/area/space)
+/area/template_noop)
 "m" = (
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
-/area/space)
+/area/template_noop)
 "n" = (
 /obj/item/stack/cable_coil/blue,
 /turf/open/floor/carpet/royalblue,
-/area/space)
+/area/template_noop)
 "o" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "p" = (
 /turf/closed/wall,
-/area/space)
+/area/template_noop)
 "q" = (
 /obj/structure/chair/pew{
 	dir = 8
 	},
 /turf/open/floor/carpet/royalblue,
-/area/space)
+/area/template_noop)
 "r" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/wood,
-/area/space)
+/area/template_noop)
 "s" = (
 /obj/item/stack/sheet/mineral/wood,
 /obj/structure/table_frame/wood,
@@ -79,19 +79,19 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "u" = (
 /obj/structure/chair/pew/left{
 	dir = 8
 	},
 /turf/open/floor/carpet/royalblue,
-/area/space)
+/area/template_noop)
 "v" = (
 /obj/structure/chair/pew/right{
 	dir = 1
 	},
 /turf/open/floor/carpet/royalblue,
-/area/space)
+/area/template_noop)
 "w" = (
 /obj/structure/chair/pew{
 	dir = 8
@@ -100,35 +100,35 @@
 	dir = 4
 	},
 /turf/open/floor/carpet/royalblue,
-/area/space)
+/area/template_noop)
 "x" = (
 /obj/structure/chair/pew/right{
 	dir = 8
 	},
 /turf/open/floor/carpet/royalblue,
-/area/space)
+/area/template_noop)
 "y" = (
 /obj/item/candle/infinite,
 /turf/open/floor/carpet/royalblue,
-/area/space)
+/area/template_noop)
 "z" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/eight,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "A" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "B" = (
 /obj/effect/decal/cleanable/oil,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "C" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -136,56 +136,56 @@
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/space)
+/area/template_noop)
 "D" = (
 /turf/open/floor/wood{
 	icon_state = "wood-broken2"
 	},
-/area/space)
+/area/template_noop)
 "E" = (
 /obj/item/radio/intercom{
 	pixel_y = 26
 	},
 /turf/open/floor/carpet/royalblue,
-/area/space)
+/area/template_noop)
 "F" = (
 /obj/item/stack/cable_coil/cut/red,
 /turf/open/floor/carpet/royalblue,
-/area/space)
+/area/template_noop)
 "I" = (
 /obj/item/stack/cable_coil/cyan,
 /turf/open/floor/carpet/royalblue,
-/area/space)
+/area/template_noop)
 "J" = (
 /obj/item/stack/cable_coil/cyan,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "K" = (
 /obj/effect/decal/cleanable/oil,
 /obj/item/stack/cable_coil/blue,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "L" = (
 /turf/open/floor/wood,
-/area/space)
+/area/template_noop)
 "N" = (
 /obj/structure/chair/pew{
 	dir = 1
 	},
 /obj/machinery/light/small/built,
 /turf/open/floor/carpet/royalblue,
-/area/space)
+/area/template_noop)
 "O" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/space)
+/area/template_noop)
 "Q" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "R" = (
 /obj/item/cardboard_cutout{
 	desc = "A cardboard cutout of the tesla ball generator. You could scribble over it easily.";
@@ -195,22 +195,22 @@
 	pixel_y = 12
 	},
 /turf/open/floor/monotile/steel,
-/area/space)
+/area/template_noop)
 "S" = (
 /obj/structure/chair/pew/left{
 	dir = 1
 	},
 /turf/open/floor/carpet/royalblue,
-/area/space)
+/area/template_noop)
 "T" = (
 /obj/structure/table/wood,
 /obj/item/storage/toolbox/mechanical,
 /turf/open/floor/carpet/royalblue,
-/area/space)
+/area/template_noop)
 "U" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/wood,
-/area/space)
+/area/template_noop)
 "W" = (
 /obj/structure/chair/pew/right{
 	dir = 8
@@ -220,18 +220,18 @@
 	pixel_y = 7
 	},
 /turf/open/floor/carpet/royalblue,
-/area/space)
+/area/template_noop)
 "X" = (
 /turf/open/floor/wood{
 	icon_state = "wood-broken"
 	},
-/area/space)
+/area/template_noop)
 "Z" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/candle_box,
 /obj/machinery/light/small/built,
 /turf/open/floor/carpet/royalblue,
-/area/space)
+/area/template_noop)
 
 (1,1,1) = {"
 a
