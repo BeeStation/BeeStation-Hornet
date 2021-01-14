@@ -47,7 +47,7 @@
 	used = TRUE
 	hierophant_message("The Herald's beacon has been activated!", span = "<span class='large_brass'>")
 	light_overlay.icon_state = "stargazer_closed"
-		light_overlay.flick("stargazer_closing")
+	light_overlay.flick("stargazer_closing")
 	new /obj/effect/temp_visual/ratvar/judicial_explosion(get_turf(src))
 	sleep(12.6)
 	var/obj/structure/destructible/clockwork/massive/celestial_gateway/gateway = GLOB.celestial_gateway
