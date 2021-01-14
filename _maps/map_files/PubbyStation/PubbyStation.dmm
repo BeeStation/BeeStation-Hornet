@@ -56644,8 +56644,7 @@
 "hDG" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Auxillary Base Construction";
-	req_access_txt = "0";
-	req_one_access_txt = "32;47;48"
+	req_one_access_txt = "72"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/stripes/line,
@@ -62786,7 +62785,7 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Auxillary Base Maintenance";
 	req_access_txt = "12";
-	req_one_access_txt = "32;47;48"
+	req_one_access_txt = "72"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -63393,8 +63392,7 @@
 	id = "aux_base_shutters";
 	name = "Public Shutters Control";
 	pixel_x = -26;
-	req_access_txt = "0";
-	req_one_access_txt = "32;47;48"
+	req_one_access_txt = "72"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/yellow,
@@ -65814,8 +65812,7 @@
 "xOC" = (
 /obj/machinery/door/airlock/external{
 	name = "Construction Zone";
-	req_access_txt = "0";
-	req_one_access_txt = "0"
+	req_one_access_txt = "72"
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating,

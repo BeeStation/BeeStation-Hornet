@@ -20,7 +20,7 @@
 		if(has_buckled_mobs())
 			for(var/m in buckled_mobs)
 				var/mob/living/buckled_mob = m
-				if(buckled_mob.mob_has_gravity())
+				if(buckled_mob.has_gravity())
 					buckled_mob.visible_message("<span class='danger'>[buckled_mob] falls over and hits the ground!</span>")
 					to_chat(buckled_mob, "<span class='userdanger'>You fall over and hit the ground!</span>")
 					buckled_mob.adjustBruteLoss(10)
@@ -126,7 +126,7 @@
 		else
 			animate(src, pixel_x = 3, time = 45, easing = ELASTIC_EASING)
 			animate(m, pixel_x = 3, time = 45, easing = ELASTIC_EASING)
-		if(buckled_mob.mob_has_gravity())
+		if(buckled_mob.has_gravity())
 			if(buckled_mob.get_bodypart("head"))
 				if(buckled_mob.stat != DEAD)
 					if(!HAS_TRAIT(buckled_mob, TRAIT_NOBREATH))

@@ -226,12 +226,14 @@
 // The following parameters area calculated during validation and added to the returned save list:
 // "requires_upgrades", "unsupported_circuit", "iron_cost", "complexity", "max_complexity", "used_space", "max_space"
 /datum/controller/subsystem/processing/circuit/proc/validate_electronic_assembly(program)
+	//Check for bad inputs
+	program = bad_regex.Replace(program, "")
+
 	var/list/blocks = json_decode(program)
 	if(!blocks)
 		return
 
 	var/error
-
 
 	// Block 1. Assembly.
 	var/list/assembly_params = blocks["assembly"]
@@ -338,8 +340,6 @@
 	var/obj/item/electronic_assembly/assembly_path = all_assemblies[assembly_params["type"]]
 	var/obj/item/electronic_assembly/assembly = new assembly_path(null)
 	assembly.load(assembly_params)
-
-
 
 	// Block 2. Components.
 	for(var/component_params in blocks["components"])

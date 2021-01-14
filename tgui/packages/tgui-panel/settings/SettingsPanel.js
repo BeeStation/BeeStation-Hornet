@@ -12,7 +12,8 @@ import { rebuildChat, saveChatToDisk } from '../chat/actions';
 import { THEMES } from '../themes';
 import { changeSettingsTab, updateSettings } from './actions';
 import { SETTINGS_TABS } from './constants';
-import { selectActiveTab, selectSettings } from './selectors';
+import { useSettings } from './hooks';
+import { selectActiveTab, selectSettings, selectStatPanel } from './selectors';
 
 export const SettingsPanel = (props, context) => {
   const activeTab = useSelector(context, selectActiveTab);
@@ -44,6 +45,9 @@ export const SettingsPanel = (props, context) => {
         )}
         {activeTab === 'highlightPage' && (
           <SettingsHighlight />
+        )}
+        {activeTab === 'statPanelpage' && (
+          <SettingsStat />
         )}
       </Flex.Item>
     </Flex>
@@ -106,6 +110,52 @@ export const SettingsGeneral = (props, context) => {
         onClick={() => dispatch(saveChatToDisk())}>
         Save chat log
       </Button>
+    </Section>
+  );
+};
+
+export const SettingsStat = (props, context) => {
+  const settings = useSettings(context);
+  const dispatch = useDispatch(context);
+  return (
+    <Section fill>
+      <Flex bold>
+        Stat Panel Settings
+      </Flex>
+      <Divider />
+      <LabeledList>
+        <LabeledList.Item label="Tab Mode">
+          <Dropdown
+            selected={settings.statTabMode}
+            options={["Scroll", "Multiline"]}
+            onSelected={value => dispatch(updateSettings({
+              statTabMode: value,
+            }))} />
+        </LabeledList.Item>
+        <LabeledList.Item label="Button Colour">
+          <Dropdown
+            selected={settings.statButtonColour}
+            options={[
+              "grey",
+              "green",
+              "blue",
+              "red",
+              "yellow",
+              "purple",
+              "orange",
+              "olive",
+              "teal",
+              "violet",
+              "pink",
+              "brown",
+              "black",
+              "white",
+            ]}
+            onSelected={value => dispatch(updateSettings({
+              statButtonColour: value,
+            }))} />
+        </LabeledList.Item>
+      </LabeledList>
     </Section>
   );
 };
