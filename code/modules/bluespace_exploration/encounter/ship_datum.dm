@@ -113,7 +113,7 @@
 /datum/ship_datum/proc/destroy_ship(list/turfs)
 	set waitfor = FALSE
 	var/exploded = FALSE
-	for(var/turf/T in turfs)
+	for(var/turf/T as() in turfs)
 		for(var/obj/machinery/bluespace_drive/BS in T)
 			if(!exploded)
 				//Blow up the bluespace drive (basically the ships reactor / core)
