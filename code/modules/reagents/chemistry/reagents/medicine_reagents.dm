@@ -1270,14 +1270,14 @@
 	. = 1
 	..()
 
-/datum/reagent/medicine/regen_jelly/regen_ooze
+/datum/reagent/medicine/regen_ooze
 	name = "Regenerative Ooze"
 	description = "Gradually regenerates all types of damage, without harming slime anatomy."
 	reagent_state = LIQUID
 	color = "#65d891"
 	taste_description = "jelly"
 
-/datum/reagent/medicine/regen_jelly/regen_ooze/on_mob_life(mob/living/carbon/M)
+/datum/reagent/medicine/regen_ooze/on_mob_life(mob/living/carbon/M)
 	M.adjustBruteLoss(-0.5*REM, 0)
 	M.adjustFireLoss(-0.5*REM, 0)
 	M.adjustOxyLoss(-0.5*REM, 0)

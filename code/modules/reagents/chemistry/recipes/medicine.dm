@@ -252,10 +252,10 @@
 	results = list(/datum/reagent/medicine/regen_jelly = 2)
 	required_reagents = list(/datum/reagent/medicine/tricordrazine = 1, /datum/reagent/toxin/slimejelly = 1)
 
-/datum/chemical_reaction/regen_jelly/regen_ooze
+/datum/chemical_reaction/regen_ooze
 	name = "Regenerative Ooze"
-	id = /datum/reagent/medicine/regen_jelly/regen_ooze
-	results = list(/datum/reagent/medicine/regen_jelly/regen_ooze = 2)
+	id = /datum/reagent/medicine/regen_ooze
+	results = list(/datum/reagent/medicine/regen_ooze = 2)
 	required_reagents = list(/datum/reagent/medicine/tricordrazine = 1, /datum/reagent/toxin/slimejelly/slimeooze = 1)
 
 /datum/chemical_reaction/corazone
