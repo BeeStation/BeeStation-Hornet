@@ -256,7 +256,6 @@
 
 	var/charges = 4
 	var/max_charges = 4
-	var/saving_throw_distance = 3
 
 /obj/item/teleporter/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -275,6 +274,7 @@
 			charges++
 	else
 		STOP_PROCESSING(SSobj, src)
+
 /obj/item/teleporter/emp_act(severity)
 	if(prob(50 / severity))
 		if(istype(loc, /mob/living/carbon/human))
@@ -291,7 +291,7 @@
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 		return
 		
-	var/turf/current_location = get_turf(user)//What turf is the user on?		
+	var/turf/current_location = get_turf(user)
 	var/area/current_area = current_location.loc
 	if(!current_location || current_area.noteleport || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
@@ -300,7 +300,7 @@
 	var/teleport_distance = rand(4,8)
 	var/mob/living/carbon/C = user
 	var/turf/mobloc = get_turf(C)
-	var/turf/destination = get_teleport_loc(mobloc,C,teleport_distance,0,0,0,0,0)
+	var/turf/destination = get_teleport_loc(mobloc,C,teleport_distance,0,0,0,0,0,0)
 
 	if(destination)
 		if(isclosedturf(destination))
@@ -308,7 +308,7 @@
 				var/direction = get_dir(user, destination)
 				panic_teleport(user, destination, direction) //We're in a wall, engage emergency parallel teleport.
 			else
-				get_fragged(user, destination) //EMP teleported you into a wall, you're dead.
+				get_fragged(user, destination) //EMP teleported you into a wall? You're dead.
 		else
 			telefrag(destination, user)
 			do_teleport(C, destination, channel = TELEPORT_CHANNEL_FREE)
@@ -322,45 +322,28 @@
 		to_chat(C, "<span class='danger'>Failed to find teleport location!</span>")
 
 /obj/item/teleporter/proc/panic_teleport(mob/user, turf/destination, direction = NORTH)
-	var/saving_throw
+	var/x_saving_throw = 0
+	var/y_saving_throw = 0
 	switch(direction) //Pick a parallel direction for the saving teleport
 		if(NORTH,SOUTH)
-			if(prob(50))
-				saving_throw = WEST
-			else
-				saving_throw = EAST
+			y_saving_throw = 0
+			x_saving_throw = 3
 		if(EAST,WEST)
-			if(prob(50))
-				saving_throw = NORTH
-			else
-				saving_throw = SOUTH
+			y_saving_throw = 0
+			x_saving_throw = 3
 
 	var/mob/living/carbon/C = user
 	var/turf/mobloc = get_turf(C)
-	var/list/turfs = list()
-	var/found_turf = FALSE
+	var/turf/emergency_destination = get_teleport_loc(destination,C,0,0,1,x_saving_throw,y_saving_throw,0,0)
 
-	for(var/turf/T in range(destination, saving_throw_distance))
-		if(get_dir(destination, T) != saving_throw)
-			continue
-		if(T.x > world.maxx-saving_throw_distance || T.x < saving_throw_distance)
-			continue	//putting them at the edge is dumb
-		if(T.y > world.maxy-saving_throw_distance || T.y < saving_throw_distance)
-			continue
-		if(istype(T, /turf/closed))
-			continue // We are only looking for safe tiles on the saving throw, since we are nice
-		turfs += T
-		found_turf = TRUE
-
-	if(found_turf)
-		var/turf/new_destination = pick(turfs)
-		var/turf/fragging_location = new_destination
-		telefrag(fragging_location, user)
-		C.forceMove(new_destination)
-		playsound(mobloc, "sparks", 50, TRUE)
+	if(emergency_destination)
+		telefrag(emergency_destination, user)
+		do_teleport(C, emergency_destination, channel = TELEPORT_CHANNEL_FREE)
+		charges--
 		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
-		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(new_destination)
-		playsound(new_destination, "sparks", 50, TRUE)
+		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(emergency_destination)
+		playsound(emergency_destination, 'sound/effects/phasein.ogg', 25, 1)
+		playsound(emergency_destination, "sparks", 50, 1)
 	else //We tried to save. We failed. Death time.
 		get_fragged(user, destination)
 
@@ -379,8 +362,8 @@
 /obj/item/teleporter/proc/telefrag(turf/fragging_location, mob/user)
 	for(var/mob/living/M in fragging_location)//Hit everything in the turf
 		M.apply_damage(20, BRUTE)
-		M.Paralyze(50)
-		to_chat(M, "<span_class='userdanger'>[user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
+		M.Paralyze(30)
+		to_chat(M, "<span class='userdanger'>[user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
 
 /obj/item/paper/teleporter
 	name = "Teleporter Guide"
