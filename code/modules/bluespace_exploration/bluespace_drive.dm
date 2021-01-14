@@ -3,7 +3,7 @@
 	desc = "A powerful state-of-the-art drive which propells a ship through hyperspatial dimensions through the use of a reality altering micro-singularity."
 	icon = 'icons/obj/bluespace_drive.dmi'
 	icon_state = "bluespace_drive"
-	var/cooldown_world_time
+	var/cooldown_world_time = 0
 	var/shuttle_id = "exploration"
 	var/drive_type = BLUESPACE_DRIVE_BSLEVEL
 	var/cooldown = 900	//Cooldown in deciseconds

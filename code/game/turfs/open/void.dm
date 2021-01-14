@@ -4,7 +4,6 @@
 	icon_state = "void"
 	intact = 0
 
-	temperature = T20C
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 700000
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED

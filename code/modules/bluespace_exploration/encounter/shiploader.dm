@@ -28,14 +28,16 @@
 	var/sanity = PLACEMENT_TRIES
 	while(sanity > 0)
 		sanity--
-		var/width_border = TRANSITIONEDGE + SPACERUIN_MAP_EDGE_PAD + round(width / 2)
-		var/height_border = TRANSITIONEDGE + SPACERUIN_MAP_EDGE_PAD + round(height / 2)
+		var/width_border = TRANSITIONEDGE + SPACERUIN_MAP_EDGE_PAD + round(width * 0.5)
+		var/height_border = TRANSITIONEDGE + SPACERUIN_MAP_EDGE_PAD + round(height * 0.5)
 		var/turf/central_turf = locate(rand(width_border, world.maxx - width_border), rand(height_border, world.maxy - height_border), z)
 		var/valid = TRUE
 
-		for(var/turf/check in get_affected_turfs(central_turf,1))
+		var/list/affected_turfs = get_affected_turfs(central_turf,1)
+
+		for(var/turf/check as() in affected_turfs)
 			var/area/new_area = get_area(check)
-			if(!(istype(new_area, allowed_areas)) || check.flags_1 & NO_RUINS_1 || isclosedturf(check))
+			if(!(istype(new_area, allowed_areas)) || (check.flags_1 & NO_RUINS_1) || isclosedturf(check))
 				valid = FALSE
 				break
 
@@ -53,16 +55,15 @@
 
 		var/located_port
 
-		for(var/turf/T in get_affected_turfs(central_turf, 1))
+		for(var/turf/T as() in affected_turfs)
 			T.flags_1 |= NO_RUINS_1
 
 		for(var/turf/T as() in turfs)
 			//Locate the shuttle dock
-			for(var/obj/docking_port/mobile/port in T)
+			var/obj/docking_port/mobile/port = locate() in T
+			if(port)
 				port.id = "[port.id][shuttles_spawned++]"
 				located_port = port
-				break
-			if(located_port)
 				break
 		amount_left --
 		return located_port

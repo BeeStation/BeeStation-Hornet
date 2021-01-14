@@ -133,7 +133,7 @@
 		data["ships"] += list(other_ship)
 	var/list/turfs = connected_port.return_turfs()
 	//Weapons
-	for(var/turf/T in turfs)
+	for(var/turf/T as() in turfs)
 		for(var/obj/machinery/shuttle_weapon/weapon in T)
 			var/list/active_weapon = list(
 				id = weapon.unique_id,

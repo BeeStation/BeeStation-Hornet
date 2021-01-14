@@ -72,14 +72,6 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 				pixel_y = offset_value
 			offset_turf_y = side
 
-/obj/machinery/shuttle_weapon/proc/check_ammo(ammount = 0)
-	return TRUE
-
-/obj/machinery/shuttle_weapon/proc/consume_ammo(amount = 0)
-	if(!check_ammo())
-		return FALSE
-	return TRUE
-
 /obj/machinery/shuttle_weapon/proc/fire(atom/target, shots_left = shots, forced = FALSE)
 	if(!target)
 		if(!target_turf)
@@ -87,8 +79,6 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 		target = target_turf
 	if(world.time < next_shot_world_time && !forced)
 		return FALSE
-	if(!consume_ammo())
-		return
 	if(!forced)
 		next_shot_world_time = world.time + cooldown
 	var/turf/current_target_turf = get_turf(target)

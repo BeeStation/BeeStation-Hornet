@@ -1,5 +1,9 @@
 #define CLEAR_TURF_PROCESSING_TIME 600	//Deciseconds (60 seconds it takes to clear all turfs)
 
+#define FIRE_UPDATE_SHIPS 1
+#define FIRE_START_CLEARING 2
+#define FIRE_CONTINUE_CLEARING 3
+
 SUBSYSTEM_DEF(bluespace_exploration)
 	name = "Bluespace Exploration"
 	wait = 1
@@ -55,6 +59,12 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/main_bluespace_drive
 	var/list/bluespace_drives
 
+	//=====Subsystem Fire Tracking=====
+	var/current_part = FIRE_UPDATE_SHIPS
+
+	//eh
+	ignored_atoms = list(/mob/dead, /mob/camera, /mob/dview)
+
 /datum/controller/subsystem/bluespace_exploration/New()
 	. = ..()
 	//Hello lists (Maximum internal arrays exceeded need for this)
@@ -82,28 +92,37 @@ SUBSYSTEM_DEF(bluespace_exploration)
 //#endif
 
 /datum/controller/subsystem/bluespace_exploration/fire(resumed = 0)
-	if(times_fired % 50 == 0)
-		for(var/ship_key in tracked_ships)
-			var/datum/ship_datum/SD = tracked_ships[ship_key]
-			SD.update_ship()
-			if(QDELETED(SD))
-				tracked_ships -= ship_key
-			CHECK_TICK
-		//Keep doing this just in case
-		if(CONFIG_GET(flag/bluespace_exploration_random_levels))
-			initiate_queued_warp()
-		CHECK_TICK
+	if(current_part == FIRE_UPDATE_SHIPS)
+		if(times_fired % 50 == 0)
+			for(var/ship_key in tracked_ships)
+				var/datum/ship_datum/SD = tracked_ships[ship_key]
+				SD.update_ship()
+				if(QDELETED(SD))
+					tracked_ships -= ship_key
+				if(MC_TICK_CHECK)
+					return
+			//Keep doing this just in case
+			if(CONFIG_GET(flag/bluespace_exploration_random_levels))
+				initiate_queued_warp()
+		current_part = FIRE_START_CLEARING
+	if(MC_TICK_CHECK)
+		return
 	if(!CONFIG_GET(flag/bluespace_exploration_random_levels))
 		return
-	if(!wiping_z_level && LAZYLEN(z_level_queue))
-		var/first = z_level_queue[1]
-		var/value = z_level_queue[first]
-		wipe_z_level(text2num(first), value)
-		CHECK_TICK
-	if(wiping_z_level)
-		continue_wipe(wipe_data_holder, wiping_divided_turfs, wipe_process_num)
-		wipe_process_num += 1
-		CHECK_TICK
+	if(current_part == FIRE_START_CLEARING)
+		if(!wiping_z_level && LAZYLEN(z_level_queue))
+			var/first = z_level_queue[1]
+			var/value = z_level_queue[first]
+			wipe_z_level(text2num(first), value)
+			CHECK_TICK
+		current_part = FIRE_CONTINUE_CLEARING
+	if(MC_TICK_CHECK)
+		return
+	if(current_part == FIRE_CONTINUE_CLEARING)
+		if(wiping_z_level)
+			continue_wipe(wipe_data_holder, wiping_divided_turfs, wipe_process_num)
+			wipe_process_num += 1
+	current_part = FIRE_UPDATE_SHIPS
 
 //====================================
 // Queue handling
@@ -238,10 +257,9 @@ SUBSYSTEM_DEF(bluespace_exploration)
 
 /datum/controller/subsystem/bluespace_exploration/proc/clear_turf_atoms(list/turfs)
 	//Clear atoms
-	for(var/turf/T in turfs)
+	for(var/turf/T as() in turfs)
 		SSair.remove_from_active(T)
 		// Remove all atoms except abstract mobs
-		var/static/list/ignored_atoms = typecacheof(list(/mob/dead, /mob/camera, /mob/dview))
 		var/list/allowed_contents = typecache_filter_list_reverse(T.contents, ignored_atoms)
 		allowed_contents -= T
 		for(var/i in 1 to allowed_contents.len)
@@ -282,8 +300,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/min = 1+TRANSITIONEDGE
 
 	var/list/possible_transtitons = list()
-	for(var/A in SSmapping.z_list)
-		var/datum/space_level/D = A
+	for(var/datum/space_level/D as() in SSmapping.z_list)
 		if (D.linkage == CROSSLINKED)
 			possible_transtitons += D.z_value
 	var/_z = pick(possible_transtitons)
@@ -298,8 +315,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 //TODO: Test if this actually changes area
 /datum/controller/subsystem/bluespace_exploration/proc/reset_turfs(list/turfs)
 	var/list/new_turfs = list()
-	for(var/i in turfs)
-		var/turf/T = i
+	for(var/turf/T as() in turfs)
 		var/turf/newT
 		if(istype(T, /turf/open/space))
 			newT = T
@@ -388,6 +404,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 				continue
 			if(spawnable_ship.difficulty * (ships_spawned + 1) < threat_left)
 				valid_ships += ship_name
+			CHECK_TICK
 		if(!LAZYLEN(valid_ships))
 			break
 		var/datum/map_template/shuttle/ship/S = spawnable_ships[pick(valid_ships)]
@@ -417,7 +434,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		away_mission_port.forceMove(locate(rand(max_size, world.maxx - max_size), rand(max_size, world.maxx - max_size), data_holder.z_value))
 		//Check if blocked
 		var/blocked = FALSE
-		for(var/turf/T in away_mission_port.return_turfs())
+		for(var/turf/T as() in away_mission_port.return_turfs())
 			if(T.density)
 				blocked = TRUE
 				break
@@ -447,12 +464,10 @@ SUBSYSTEM_DEF(bluespace_exploration)
 
 /datum/controller/subsystem/bluespace_exploration/proc/shuttle_translation(shuttle_id, datum/data_holder/bluespace_exploration/data_holder)
 	var/obj/docking_port/mobile/shuttle = SSshuttle.getShuttle(shuttle_id)
-	if(!shuttle)
-		return FALSE
-	if(generating)
+	if(!shuttle || generating)
 		return FALSE
 	generating = TRUE
-	if(away_mission_port && away_mission_port.get_docked())
+	if(away_mission_port?.get_docked())
 		away_mission_port.delete_after = TRUE
 		away_mission_port.id = null
 		away_mission_port.name = "Old [away_mission_port.name]"
@@ -480,7 +495,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		//Dead / Critted mobs don't count - They can't be saved most likely, and if they can can just be teleported away anyway.
 		if(M.stat == CONSCIOUS)
 			levels_in_use |= M.z
-	for(var/datum/space_level/level as anything in bluespace_systems)
+	for(var/datum/space_level/level as() in bluespace_systems)
 		//Run a quick check to check if the system is free
 		//TRUE if the system is in use, false if there are no cliented mobs in the system
 		if(level.z_value == generating_level)

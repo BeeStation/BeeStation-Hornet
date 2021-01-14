@@ -53,12 +53,12 @@
 	var/sanity = PLACEMENT_TRIES
 	while(sanity > 0)
 		sanity--
-		var/width_border = TRANSITIONEDGE + SPACERUIN_MAP_EDGE_PAD + round(width / 2)
-		var/height_border = TRANSITIONEDGE + SPACERUIN_MAP_EDGE_PAD + round(height / 2)
+		var/width_border = TRANSITIONEDGE + SPACERUIN_MAP_EDGE_PAD + round(width * 0.5)
+		var/height_border = TRANSITIONEDGE + SPACERUIN_MAP_EDGE_PAD + round(height * 0.5)
 		var/turf/central_turf = locate(rand(width_border, world.maxx - width_border), rand(height_border, world.maxy - height_border), z)
 		var/valid = TRUE
 
-		for(var/turf/check in get_affected_turfs(central_turf,1))
+		for(var/turf/check as() in get_affected_turfs(central_turf,1))
 			var/area/new_area = get_area(check)
 			if(!(istype(new_area, allowed_areas)) || (check.flags_1 & NO_RUINS_1))
 				valid = FALSE
@@ -70,8 +70,7 @@
 
 		testing("Ruin \"[name]\" placed at ([central_turf.x], [central_turf.y], [central_turf.z])")
 
-		for(var/i in get_affected_turfs(central_turf, 1))
-			var/turf/T = i
+		for(var/turf/T as() in get_affected_turfs(central_turf, 1))
 			for(var/mob/living/simple_animal/monster in T)
 				qdel(monster)
 			for(var/obj/structure/flora/ash/plant in T)
@@ -80,7 +79,7 @@
 		load(central_turf,centered = TRUE)
 		loaded++
 
-		for(var/turf/T in get_affected_turfs(central_turf, 1))
+		for(var/turf/T as() in get_affected_turfs(central_turf, 1))
 			T.flags_1 |= NO_RUINS_1
 
 		new /obj/effect/landmark/ruin(central_turf, src)

@@ -1,7 +1,7 @@
 /datum/ship_datum/npc
-	var/list/weapon_systems = list()
+	var/list/weapon_systems
 
-	var/list/hostile_ships = list()
+	var/list/hostile_ships
 
 	var/datum/ship_datum/target = null	//Our current target
 
@@ -22,6 +22,8 @@
 
 /datum/ship_datum/npc/New()
 	. = ..()
+	hostile_ships = list()
+	weapon_systems = list()
 	locate_weapons()
 
 /datum/ship_datum/npc/update_ship()
@@ -64,7 +66,7 @@
 
 /datum/ship_datum/npc/proc/update_weapons()
 	var/has_active_weapons = FALSE
-	for(var/obj/machinery/shuttle_weapon/weapon in weapon_systems)
+	for(var/obj/machinery/shuttle_weapon/weapon as() in weapon_systems)
 		if(!weapon)
 			weapon_systems -= weapon
 			continue
@@ -92,7 +94,8 @@
 	if(!M)
 		return
 	for(var/turf/T in M.return_turfs())
-		for(var/obj/machinery/shuttle_weapon/weapon in T)
+		var/obj/machinery/shuttle_weapon/weapon = locate() in T
+		if(weapon)
 			weapon_systems |= weapon
 
 /datum/ship_datum/npc/proc/check_mobs_alive()

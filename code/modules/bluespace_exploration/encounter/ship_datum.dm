@@ -1,5 +1,5 @@
 /datum/ship_datum
-	var/ship_name = "cringelord"
+	var/ship_name = "unmarked vessel"
 	var/ship_faction = /datum/faction/station
 
 	//Integrity calculations
@@ -97,30 +97,33 @@
 	message_admins("The [ship_name], port_id [mobile_port_id] has been destroyed, at [ADMIN_JMP(first_turf)]")
 	log_attack("The [ship_name], port_id [mobile_port_id] has been destroyed!")
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(mobile_port_id, FALSE)
-	if(M)
+	if(!M)
 		WARNING("Warning, no docking port located on shuttle [ship_name]")
-		qdel(M, force = TRUE)
-	for(var/turf/T in turfs)
-		for(var/obj/machinery/light/L in T)
+	for(var/turf/T as() in turfs)
+		var/obj/machinery/light/L = locate() in T
+		if(L)
 			L.force_emergency_mode = TRUE
 			L.update()
-		//Play an alarm to anyone / any observers on the shuttle
-		for(var/mob/smob in T)
-			if(smob.client)
-				SEND_SOUND(smob.client, 'sound/machines/alarm.ogg')
+	//Play an alarm to anyone / any observers on the shuttle
+	for(var/client/C in GLOB.clients)
+		var/mob/client_mob = C.current
+		if(get_turf(client_mob in turfs))
+			SEND_SOUND(C, 'sound/machines/alarm.ogg')
 	addtimer(CALLBACK(src, .proc/destroy_ship, turfs), 140)
 
 /datum/ship_datum/proc/destroy_ship(list/turfs)
 	set waitfor = FALSE
 	var/exploded = FALSE
 	for(var/turf/T in turfs)
-		for(var/obj/machinery/bluespace_drive/BS in T)
+		var/obj/machinery/bluespace_drive/BS = locate() in T
+		if(BS)
 			if(!exploded)
 				//Blow up the bluespace drive (basically the ships reactor / core)
 				explosion(T, 12, 15, 18, -1, FALSE)
 				exploded = TRUE
 			qdel(BS)
-		for(var/obj/machinery/power/apc/A in T)
+		var/obj/machinery/power/apc/A = locate() in T
+		if(A)
 			//No more power
 			A.set_broken()
 	//No explosion, explode anyway
@@ -141,7 +144,7 @@
 		star_systems = list()
 	else
 		star_systems.Cut()
-	for(var/i = 0 to 5)
+	for(var/i in 0 to 5)
 		//Generate star systems
 		var/datum/star_system/system = new(jumps)
 		system.bluespace_ruins = bluespace
