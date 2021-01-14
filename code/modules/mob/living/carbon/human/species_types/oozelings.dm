@@ -106,7 +106,7 @@
 	if(..())
 		var/mob/living/carbon/human/H = owner
 		var/list/limbs_to_heal = H.get_missing_limbs()
-		if(limbs_to_heal.len < 1 && H.blood_volume >= BLOOD_VOLUME_OKAY+40)
+		if(limbs_to_heal.len && H.blood_volume >= BLOOD_VOLUME_OKAY+40)
 			return TRUE
 		return FALSE
 
