@@ -463,14 +463,14 @@
 	build_path = /obj/item/wallframe/shuttle_weapon/missile/tri
 
 /datum/design/shuttle_weapon/breach_missile
-	name = "Burst Laser MKI Mount"
+	name = "Breaching Missile Mount"
 	desc=  "A wall mounted breaching missile launcher, designed for use on shuttles."
 	id = "shuttle_breach_missile"
 	materials = list(/datum/material/iron = 40000, /datum/material/gold = 10000, /datum/material/titanium = 5000)
 	build_path = /obj/item/wallframe/shuttle_weapon/missile/breach
 
 /datum/design/shuttle_weapon/fire_missile
-	name = "Burst Laser MKI Mount"
+	name = "Inferno Missile Mount"
 	desc=  "A wall mounted incendiary missile launcher, designed for use on shuttles."
 	id = "shuttle_fire_missile"
 	materials = list(/datum/material/iron = 40000, /datum/material/gold = 10000, /datum/material/uranium = 5000)

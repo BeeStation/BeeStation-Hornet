@@ -6,11 +6,9 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 
 /obj/machinery/shuttle_weapon
 	name = "Mounted Emplacement"
-	desc = "A weapon system mounted onto a shuttle system."
-	icon = 'icons/obj/shuttle_weapons.dmi'
-	icon_state = "cannon_left"
-	var/icon_state_left = "cannon_left"
-	var/icon_state_right = "cannon_left"
+	desc = "A weapon system mounted onto a shuttle system. Use a wrench to rotate."
+	icon = 'icons/obj/turrets.dmi'
+	icon_state = "syndie"
 	anchored = TRUE
 	var/unique_id
 	var/projectile_type = /obj/item/projectile/bullet/shuttle/beam/laser
@@ -104,3 +102,7 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 	qdel(P)
 	//Spawn the projectile to come in FTL style
 	fire_projectile_towards(target, projectile_type = projectile_type, missed = missed)
+
+/obj/machinery/shuttle_weapon/wrench_act(mob/living/user, obj/item/I)
+	. = ..()
+	setDir(turn(dir, 90))

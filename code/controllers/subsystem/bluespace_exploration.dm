@@ -63,7 +63,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/current_part = FIRE_UPDATE_SHIPS
 
 	//eh
-	ignored_atoms = list(/mob/dead, /mob/camera, /mob/dview)
+	var/list/ignored_atoms = list(/mob/dead, /mob/camera, /mob/dview)
 
 /datum/controller/subsystem/bluespace_exploration/New()
 	. = ..()

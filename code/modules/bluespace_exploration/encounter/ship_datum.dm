@@ -105,8 +105,8 @@
 			L.force_emergency_mode = TRUE
 			L.update()
 	//Play an alarm to anyone / any observers on the shuttle
-	for(var/client/C in GLOB.clients)
-		var/mob/client_mob = C.current
+	for(var/client/C as() in GLOB.clients)
+		var/mob/client_mob = C.mob
 		if(get_turf(client_mob in turfs))
 			SEND_SOUND(C, 'sound/machines/alarm.ogg')
 	addtimer(CALLBACK(src, .proc/destroy_ship, turfs), 140)

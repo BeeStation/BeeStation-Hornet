@@ -7,6 +7,26 @@
 	//Typepath of the weapon to place
 	result_path = /obj/machinery/shuttle_weapon
 
+/obj/item/wallframe/shuttle_weapon/try_build(turf/on_wall, mob/user)
+	if(get_dist(on_wall,user)>1)
+		return
+	var/ndir = get_dir(on_wall, user)
+	if(!(ndir in GLOB.cardinals))
+		return
+	var/area/A = get_area(T)
+	if(!isfloorturf(on_wall))
+		to_chat(user, "<span class='warning'>You cannot place [src] on this spot!</span>")
+		return
+	if(A.always_unpowered)
+		to_chat(user, "<span class='warning'>You cannot place [src] in this area!</span>")
+		return
+	if(gotwallitem(on_wall, ndir, inverse*2))
+		to_chat(user, "<span class='warning'>There's already an item on this wall!</span>")
+		return
+
+	return TRUE
+
+
 //Overriding the entire proc just to change 1 line. yikes
 /obj/item/wallframe/shuttle_weapon/attach(turf/on_wall, mob/user)
 	if(result_path)
@@ -16,7 +36,7 @@
 			"<span class='italics'>You hear clicking.</span>")
 		var/ndir = get_dir(on_wall,user)
 		if(inverse)
-			ndir = turn(ndir, 180)
+			ndir = turn(ndir, 270)
 
 		var/obj/O = new result_path(on_wall, ndir, TRUE)
 		if(pixel_shift)
