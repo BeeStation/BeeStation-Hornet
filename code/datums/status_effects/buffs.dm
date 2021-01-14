@@ -576,18 +576,27 @@
 		return
 	var/mob/living/carbon/carbie = owner
 
-	for(var/BP in carbie.bodyparts)
-		var/obj/item/bodypart/part = BP
-		for(var/W in part.wounds)
-			var/datum/wound/wound = W
-			var/heal_amt = 0
+	switch (carbie.getFireLoss())		
+		if (0 to 25)
+			carbie.adjustFireLoss(-5)
+		if (26 to 50)
+			carbie.adjustFireLoss(-10)		
+		if (51 to 75)
+			carbie.adjustFireLoss(-15)		
+		else
+			carbie.adjustFireLoss(-20)
 
-			switch(wound.severity)
-				if(WOUND_SEVERITY_MODERATE)
-					heal_amt = 1
-				if(WOUND_SEVERITY_SEVERE)
-					heal_amt = 3
-				if(WOUND_SEVERITY_CRITICAL)
-					heal_amt = 6
-			if(wound.wound_type == WOUND_BURN)
-				carbie.adjustFireLoss(-heal_amt)
+/atom/movable/screen/alert/status_effect/crucible_soul
+	name = "Blessing of Crucible Soul"
+	desc = "You phased through the reality, you are halfway to your final destination..."
+	icon_state = "crucible"
+
+/atom/movable/screen/alert/status_effect/duskndawn
+	name = "Blessing of Dusk and Dawn"
+	desc = "Many things hide beyond the horizon, with Owl's help i managed to slip past sun's guard and moon's watch."
+	icon_state = "duskndawn"
+
+/atom/movable/screen/alert/status_effect/marshal
+	name = "Blessing of Wounded Soldier"
+	desc = "Some people seek power through redemption, one thing many people don't know is that battle is the ultimate redemption and wounds let you bask in eternal glory."
+	icon_state = "wounded_soldier"

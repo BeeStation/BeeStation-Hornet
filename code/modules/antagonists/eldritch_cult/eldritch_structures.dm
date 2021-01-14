@@ -169,7 +169,7 @@
 	var/mob/living/carbon/carbon_victim = L
 	carbon_victim.adjustStaminaLoss(80)
 	carbon_victim.silent += 10
-	carbon_victim.add_confusion(5)
+	carbon_victim.confused+=5
 	carbon_victim.Jitter(10)
 	carbon_victim.Dizzy(20)
 	carbon_victim.blind_eyes(2)
