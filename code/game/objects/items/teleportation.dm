@@ -370,13 +370,13 @@
 	icon_state = "paper"
 	info = {"<b>Instructions on your new prototype syndicate teleporter:</b><br>
 	<br>
-	This teleporter will teleport the user 4-8 meters in the direction they are facing. Anything you are pulling will not be teleported with you.<br>
+	This experimental teleporter will teleport the user 4-8 meters in the direction they are facing. Anything you are pulling will not be teleported with you.<br>
 	<br>
-	It has 4 charges, and will recharge uses over time. No, sticking the teleporter into the tesla, an APC, a microwave, or an electrified door, will not make it charge faster.<br>
+	It has 4 charges, and will recharge over time. No, sticking the teleporter into the tesla, an APC, a microwave, or an electrified door will not make it charge faster.<br>
 	<br>
-	<b>Warning:</b> Teleporting into walls will activate a failsafe teleport parallel up to 3 meters, but the user will be ripped apart and gibbed in a wall if it fails.<br>
+	<b>Warning:</b> Teleporting into walls will activate a failsafe teleport parallel up to 3 meters, but the user will be ripped apart and gibbed in the wall if it fails to find a safe location.<br>
 	<br>
-	Do not expose the teleporter to electromagnetic pulses, unwanted malfunctions may occur.
+	Do not expose the teleporter to electromagnetic pulses, or unwanted malfunctions may occur.
 "}
 /obj/item/storage/box/syndie_kit/teleporter
 	name = "syndicate teleporter kit"
