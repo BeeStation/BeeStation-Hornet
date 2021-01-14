@@ -256,6 +256,7 @@
 
 	var/charges = 4
 	var/max_charges = 4
+	var/saving_throw_distance = 3
 
 /obj/item/teleporter/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -301,14 +302,14 @@
 	var/mob/living/carbon/C = user
 	var/turf/mobloc = get_turf(C)
 	var/turf/destination = get_teleport_loc(mobloc,C,teleport_distance,0,0,0,0,0,0)
+	var/list/bagholding = user.GetAllContents(/obj/item/storage/backpack/holding)
 
 	if(destination)
 		if(isclosedturf(destination))
-			if(EMP_D == FALSE)
-				var/direction = get_dir(user, destination)
-				panic_teleport(user, destination, direction) //We're in a wall, engage emergency parallel teleport.
+			if(EMP_D == FALSE && !(bagholding.len))
+				panic_teleport(user, destination) //We're in a wall, engage emergency parallel teleport.
 			else
-				get_fragged(user, destination) //EMP teleported you into a wall? You're dead.
+				get_fragged(user, destination) //EMP teleported you into a wall? Wearing a BoH? You're dead.
 		else
 			telefrag(destination, user)
 			do_teleport(C, destination, channel = TELEPORT_CHANNEL_FREE)
@@ -321,20 +322,10 @@
 	else
 		to_chat(C, "<span class='danger'>Failed to find teleport location!</span>")
 
-/obj/item/teleporter/proc/panic_teleport(mob/user, turf/destination, direction = NORTH)
-	var/x_saving_throw = 0
-	var/y_saving_throw = 0
-	switch(direction) //Pick a parallel direction for the saving teleport
-		if(NORTH,SOUTH)
-			y_saving_throw = 0
-			x_saving_throw = 3
-		if(EAST,WEST)
-			y_saving_throw = 0
-			x_saving_throw = 3
-
+/obj/item/teleporter/proc/panic_teleport(mob/user, turf/destination)
 	var/mob/living/carbon/C = user
 	var/turf/mobloc = get_turf(C)
-	var/turf/emergency_destination = get_teleport_loc(destination,C,0,0,1,x_saving_throw,y_saving_throw,0,0)
+	var/turf/emergency_destination = get_teleport_loc(destination,C,0,0,1,saving_throw_distance,0,0,0)
 
 	if(emergency_destination)
 		telefrag(emergency_destination, user)
@@ -376,7 +367,7 @@
 	<br>
 	<b>Warning:</b> Teleporting into walls will activate a failsafe teleport parallel up to 3 meters, but the user will be ripped apart and gibbed in the wall if it fails to find a safe location.<br>
 	<br>
-	Do not expose the teleporter to electromagnetic pulses, or unwanted malfunctions may occur.
+	Do not expose the teleporter to electromagnetic pulses, or possess a bag of holding while operating it. Unwanted malfunctions may occur.
 "}
 /obj/item/storage/box/syndie_kit/teleporter
 	name = "syndicate teleporter kit"
