@@ -74,6 +74,9 @@ SUBSYSTEM_DEF(stat)
 		var/A_name = icon_requests[icon_requests.len]
 		var/datum/weakref/A_ref = icon_requests[A_name]
 		var/atom/A = A_ref.resolve()
+		var/directionless = TRUE
+		if(ispipewire(A))
+			directionless = FALSE
 		icon_requests.len--
 
 		//Adding a new icon
@@ -82,7 +85,7 @@ SUBSYSTEM_DEF(stat)
 			flat_icon_cache.Cut(1, 2)
 		//We are only going to apply overlays to mobs.
 		//Massively faster, getFlatIcon is a bit of a sucky proc.
-		flat_icon_cache[A_name] = icon2base64(getStillIcon(A))
+		flat_icon_cache[A_name] = icon2base64(getStillIcon(A, directionless))
 
 		if (MC_TICK_CHECK)
 			return
@@ -115,7 +118,10 @@ SUBSYSTEM_DEF(stat)
 //Whoever examins an item with a decal first, everyone else will see that items decals.
 //Significantly reduces server lag though, like MASSIVELY!
 /datum/controller/subsystem/stat/proc/get_flat_icon(client/requester, atom/A)
-	var/what_to_search = "[A.type][(istext(A.icon_state) && length(A.icon_state)) ? A.icon_state[1] : "*"]"
+	var/directionless = TRUE
+	if(ispipewire(A))
+		directionless = FALSE
+	var/what_to_search = "[A.type][directionless ? 0 : A.dir][(istext(A.icon_state) && length(A.icon_state)) ? A.icon_state[1] : "*"]"
 	//Mobs are more important than items.
 	//Mob icons will change if their name changes, their type changes or their overlays change.
 	if(istype(A, /mob))
