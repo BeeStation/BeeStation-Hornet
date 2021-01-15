@@ -248,19 +248,23 @@
 
 /mob/living/simple_animal/hostile/nanotrasen/hugbox
 	loot = list(/obj/effect/gibspawner/human)//no gamer gear, sorry!
+	mobchatspan = "headofsecurity"
 
 /mob/living/simple_animal/hostile/zombie/hugbox
 	melee_damage = 12 //zombies have a base of 21, a bit much
 	stat_attack = CONSCIOUS
+	mobchatspan = "chaplain"
 
 /mob/living/simple_animal/hostile/alien/hugbox
 	health = 60 //they go down easy, to lull the player into a sense of false security
 	maxHealth = 60
+	mobchatspan = "researchdirector"
 
 /mob/living/simple_animal/hostile/cat_butcherer/hugbox //a cat butcher without a melee speed buff or a syringe gun. he's not too hard to take down, but can still go on catification rampages
 	ranged = FALSE
 	rapid_melee = 1
 	loot = list(/obj/effect/mob_spawn/human/corpse/cat_butcher, /obj/item/circular_saw)
+	mobchatspan = "medicaldoctor"
 
 //this abomination goes in here because it doesnt really belong with normal cult runes
 /obj/effect/rune/cluwne
@@ -281,7 +285,7 @@
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		SEND_SOUND(user,'sound/items/sheath.ogg')
 		if(do_after(user, 15, target = src))
-			to_chat(user, "<span class='clown'>It's not within your power to erase the [lowertext(cultist_name)].</span>")
+			to_chat(user, "<span class='clowntext'>It's not within your power to erase the [lowertext(cultist_name)].</span>")
 	else if(istype(I, /obj/item/nullrod))
 		user.say("BEGONE FOUL MAGIKS!!", forced = "nullrod")
 		to_chat(user, "<span class='danger'>You try to disrupt the magic of [src] with the [I], and nothing happens to the crude crayon markings. You feel foolish.</span>")
@@ -373,17 +377,17 @@
 			cluwne.stage = 4
 			if(prob(75))
 				cluwne.delete_after_target_killed = TRUE
-			to_chat(H, "<span class='Clown'>YOU'RE MINE!</span>")
+			to_chat(H, "<span class='clowntext'>YOU'RE MINE!</span>")
 		else if(prob(20))
 			var/mob/living/simple_animal/hostile/floor_cluwne/cluwne = new(src.loc)
 			cluwne.force_target(H)
 			if(prob(75))
 				cluwne.delete_after_target_killed = TRUE
-			to_chat(H, "<span class='Clown'>Do you want to play a game?</span>")
+			to_chat(H, "<span class='clowntext'>Do you want to play a game?</span>")
 		else if(prob(60))
 			H.cluwneify()
-			to_chat(H, "<span class='Clown'>Join us!</span>")
+			to_chat(H, "<span class='clowntext'>Join us!</span>")
 		else
-			to_chat(H, "<span class='Clown'>You bore me.</span>")
+			to_chat(H, "<span class='clowntext'>You bore me.</span>")
 	sound_to_playing_players('sound/misc/honk_echo_distant.ogg')
 	qdel(src)

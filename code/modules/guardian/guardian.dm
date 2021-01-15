@@ -39,6 +39,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	AIStatus = AI_OFF
 	hud_type = /datum/hud/guardian
 	mobsay_color = "#ffffff"
+	mobchatspan = "blob"
 	var/next_reset = 0
 	var/guardiancolor = "#ffffff"
 	var/mutable_appearance/cooloverlay
