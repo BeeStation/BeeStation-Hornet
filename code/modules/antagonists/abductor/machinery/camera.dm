@@ -69,6 +69,11 @@
 	var/mob/living/carbon/human/C = owner
 	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
 	var/obj/machinery/abductor/pad/P = target
+	var/target_loc = get_turf(remote_eye)
+
+	if(!get_area(target_loc).abductor_warp_allowed)
+		to_chat(owner, "<span class=warning>[get_area(target_loc).abductor_warp_fail]</span>")
+		return
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		P.PadToLoc(remote_eye.loc)
@@ -96,6 +101,11 @@
 	var/mob/living/carbon/human/C = owner
 	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
 	var/obj/machinery/abductor/pad/P = target
+	var/target_loc = get_turf(remote_eye)
+
+	if(!get_area(target_loc).abductor_warp_allowed)
+		to_chat(owner, "<span class=warning>[get_area(target_loc).abductor_warp_fail]</span>")
+		return
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		P.MobToLoc(remote_eye.loc,C)
