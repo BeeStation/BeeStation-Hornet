@@ -6,7 +6,6 @@ const initialState = {
   statTabs: [],
   statInfomation: [],
   statTabMode: "Scroll",
-  statButtonColour: "grey",
 };
 
 export const statReducer = (state = initialState, action) => {
