@@ -64545,6 +64545,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start/explorer,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -64703,6 +64704,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/obj/effect/landmark/start/explorer,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -100562,6 +100564,14 @@
 /obj/machinery/autolathe,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
+"msQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/landmark/start/explorer,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "oOk" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral,
@@ -140077,7 +140087,7 @@ bme
 bmh
 bhQ
 bhQ
-bOR
+msQ
 bGc
 bOc
 bTi

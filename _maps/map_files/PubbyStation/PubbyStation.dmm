@@ -16908,6 +16908,7 @@
 	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/explorer,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "aMq" = (
@@ -16919,6 +16920,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/explorer,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "aMr" = (
@@ -16947,6 +16949,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/explorer,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "aMt" = (

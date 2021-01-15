@@ -60311,6 +60311,11 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/security/brig)
+"vaC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/explorer,
+/turf/open/floor/plasteel,
+/area/quartermaster/warehouse)
 "vaL" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 9
@@ -62702,6 +62707,7 @@
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
 	},
+/obj/effect/landmark/start/explorer,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "xuI" = (
@@ -84183,7 +84189,7 @@ aTF
 aPG
 aSX
 gjl
-baS
+vaC
 aZI
 hOL
 baS
@@ -84440,7 +84446,7 @@ aPG
 aPG
 aSX
 gjl
-baS
+vaC
 aZp
 baY
 bcJ

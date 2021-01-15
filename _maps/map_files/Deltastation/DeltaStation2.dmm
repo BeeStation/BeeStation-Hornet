@@ -11055,6 +11055,7 @@
 "awT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
+/obj/effect/landmark/start/explorer,
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
 "awU" = (
@@ -124132,6 +124133,11 @@
 	},
 /turf/closed/wall,
 /area/security/checkpoint/escape)
+"qPs" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/explorer,
+/turf/open/floor/plating,
+/area/quartermaster/warehouse)
 "qSt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -166190,7 +166196,7 @@ ato
 aur
 avQ
 awT
-awU
+qPs
 azm
 aAt
 aBJ
@@ -166446,7 +166452,7 @@ arS
 atp
 aus
 avQ
-awU
+qPs
 aym
 azn
 aAu

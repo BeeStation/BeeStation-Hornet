@@ -144,6 +144,67 @@
 	new choice(get_turf(M))
 	to_chat(M, "You hear something crackle from the beacon for a moment before a voice speaks.  \"Please stand by for a message from S.E.L.F. Message as follows: <span class='bold'>Item request received. Your package has been transported, use the autosurgeon supplied to apply the upgrade.</span> Message ends.\"")
 
+/obj/item/choice_beacon/exploring
+	name = "Exploring equipment delivery beacon"
+	desc = "A device to order exploring equipment"
+	icon = 'icons/obj/exploring_beacon.dmi'
+	icon_state = "no name"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/choice_beacon/exploring/generate_display_names()
+	var/static/list/exploring_item_list
+	if(!exploring_item_list)
+		exploring_item_list = list()
+		var/list/templist = typesof(/obj/item/storage/box/exploring) //we have to convert type = name to name = type, how lovely!
+		for(var/V in templist)
+			var/atom/A = V
+			exploring_item_list[initial(A.name)] = A
+	return exploring_item_list
+
+
+/obj/item/storage/box/exploring
+	name = "Security"
+
+/obj/item/storage/box/exploring/PopulateContents()
+	new /obj/item/clothing/suit/space/eva(src)
+	new /obj/item/clothing/head/helmet/space/eva(src)
+	new /obj/item/gun/energy/kinetic_accelerator(src)
+	new /obj/item/gun/energy/kinetic_accelerator(src)
+	new /obj/item/storage/firstaid/regular(src)
+	new /obj/item/radio/off(src)
+
+/obj/item/storage/box/exploring/medic
+	name = "Medic"
+
+/obj/item/storage/box/exploring/medic/PopulateContents()
+	new /obj/item/clothing/suit/space/eva(src)
+	new /obj/item/clothing/head/helmet/space/eva(src)
+	new /obj/item/gun/energy/kinetic_accelerator(src)
+	new /obj/item/storage/belt/medical(src)
+	new /obj/item/reagent_containers/medspray/silver_sulf(src)
+	new /obj/item/reagent_containers/medspray/styptic(src)
+	new /obj/item/stack/medical/gauze
+	new /obj/item/clothing/glasses/hud/health(src)
+	new /obj/item/pinpointer/crew(src)
+	new /obj/item/radio/off(src)
+	new	/obj/item/fulton_core(src)
+	new /obj/item/extraction_pack(src)
+
+/obj/item/storage/box/exploring/engi
+	name = "Field Engineer"
+
+/obj/item/storage/box/exploring/engi/PopulateContents()
+	new /obj/item/clothing/suit/space/eva(src)
+	new /obj/item/clothing/head/helmet/space/eva(src)
+	new /obj/item/gun/energy/kinetic_accelerator(src)
+	new /obj/item/clothing/glasses/welding(src)
+	new /obj/item/clothing/gloves/color/fyellow(src)
+	new /obj/item/storage/belt/utility/full(src)
+	new /obj/item/storage/firstaid/regular(src)
+	new /obj/item/survivalcapsule(src)
+	new /obj/item/construction/rcd/poor(src)
+	new /obj/item/radio/off(src)
+	
 /obj/item/choice_beacon/magic
 	name = "beacon of summon magic"
 	desc = "Not actually magical."
