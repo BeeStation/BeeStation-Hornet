@@ -1,0 +1,4 @@
+author: aguyiguess
+delete-after: true
+changes:
+  - bugfix: Fixed softshell jacket sprite error
