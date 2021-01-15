@@ -85,7 +85,7 @@
 
 	if (istype(SSticker.mode, /datum/game_mode/dynamic))
 		mode = SSticker.mode
-	else if (GLOB.master_mode != "dynamic") // This is here to make roundstart forced ruleset function.
+	else if (!SSticker.is_mode("dynamic")) // This is here to make roundstart forced ruleset function.
 		qdel(src)
 
 
