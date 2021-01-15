@@ -29,13 +29,10 @@
 
 // update the icon_state
 /obj/machinery/bluespace_beacon/proc/updateicon()
-	var/state="floor_beacon"
-
 	if(invisibility)
-		icon_state = "[state]f"
-
+		icon_state = "floor_beaconf"
 	else
-		icon_state = "[state]"
+		icon_state = "floor_beacon"
 
 /obj/machinery/bluespace_beacon/process()
 	if(!Beacon)
@@ -44,5 +41,3 @@
 		Beacon.invisibility = INVISIBILITY_MAXIMUM
 	else if (Beacon.loc != loc)
 		Beacon.forceMove(loc)
-
-	updateicon()

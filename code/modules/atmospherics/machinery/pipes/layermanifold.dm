@@ -35,8 +35,9 @@
 	back_nodes = null
 	nodes = list()
 	for(var/obj/machinery/atmospherics/A in needs_nullifying)
-		A.disconnect(src)
-		A.build_network()
+		if(A != null && src != null) //if it's already null why are we doing this? The answer is byond... it'll always find a way
+			A.disconnect(src)
+			SSair.add_to_rebuild_queue(A)
 
 /obj/machinery/atmospherics/pipe/layer_manifold/proc/get_all_connected_nodes()
 	return front_nodes + back_nodes + nodes
@@ -74,9 +75,9 @@
 
 /obj/machinery/atmospherics/pipe/layer_manifold/SetInitDirections()
 	switch(dir)
-		if(NORTH || SOUTH)
+		if(NORTH, SOUTH)
 			initialize_directions = NORTH|SOUTH
-		if(EAST || WEST)
+		if(EAST, WEST)
 			initialize_directions = EAST|WEST
 
 /obj/machinery/atmospherics/pipe/layer_manifold/isConnectable(obj/machinery/atmospherics/target, given_layer)

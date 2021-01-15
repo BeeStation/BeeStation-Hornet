@@ -243,8 +243,7 @@
 
 /datum/action/item_action/chameleon/change/process()
 	if(world.time > emp_timer)
-		STOP_PROCESSING(SSprocessing, src)
-		return
+		return PROCESS_KILL
 	random_look(owner)
 
 /obj/item/clothing/under/chameleon

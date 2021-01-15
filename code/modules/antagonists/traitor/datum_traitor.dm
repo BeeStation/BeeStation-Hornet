@@ -45,7 +45,7 @@
 	if(traitor_kind == TRAITOR_AI && owner.current && isAI(owner.current))
 		var/mob/living/silicon/ai/A = owner.current
 		A.set_zeroth_law("")
-		A.verbs -= /mob/living/silicon/ai/proc/choose_modules
+		A.remove_verb(/mob/living/silicon/ai/proc/choose_modules)
 		A.malf_picker.remove_malf_verbs(A)
 		qdel(A.malf_picker)
 
@@ -202,6 +202,8 @@
 	owner.announce_objectives()
 	if(should_give_codewords)
 		give_codewords()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Traitor",
+		"Complete your objectives, no matter the cost.")
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
@@ -220,7 +222,7 @@
 			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE)
 			owner.current.grant_language(/datum/language/codespeak, TRUE, TRUE, LANGUAGE_MALF)
 		if(TRAITOR_HUMAN)
-			show_tips('html/antagtips/traitor.html')
+			show_tips("traitor")
 			if(should_equip)
 				equip(silent)
 			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)

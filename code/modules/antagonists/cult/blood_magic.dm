@@ -141,14 +141,14 @@
 	name = "Stun"
 	desc = "Empowers your hand to stun and mute a victim on contact."
 	button_icon_state = "hand"
-	magic_path = "/obj/item/melee/blood_magic/stun"
+	magic_path = /obj/item/melee/blood_magic/stun
 	health_cost = 10
 
 /datum/action/innate/cult/blood_spell/teleport
 	name = "Teleport"
 	desc = "Empowers your hand to teleport yourself or another cultist to a teleport rune on contact."
 	button_icon_state = "tele"
-	magic_path = "/obj/item/melee/blood_magic/teleport"
+	magic_path = /obj/item/melee/blood_magic/teleport
 	health_cost = 7
 
 /datum/action/innate/cult/blood_spell/emp
@@ -157,6 +157,7 @@
 	button_icon_state = "emp"
 	health_cost = 10
 	invocation = "Ta'gh fara'qha fel d'amar det!"
+	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/cult/blood_spell/emp/Activate()
 	owner.visible_message("<span class='warning'>[owner]'s hand flashes a bright blue!</span>", \
@@ -172,20 +173,20 @@
 	desc = "Empowers your hand to start handcuffing victim on contact, and mute them if successful."
 	button_icon_state = "cuff"
 	charges = 4
-	magic_path = "/obj/item/melee/blood_magic/shackles"
+	magic_path = /obj/item/melee/blood_magic/shackles
 
 /datum/action/innate/cult/blood_spell/construction
 	name = "Twisted Construction"
 	desc = "Empowers your hand to corrupt certain metalic objects.<br><u>Converts:</u><br>Plasteel into runed metal<br>50 iron into a construct shell<br>Living cyborgs into constructs after a delay<br>Cyborg shells into construct shells<br>Airlocks into brittle runed airlocks after a delay (harm intent)"
 	button_icon_state = "transmute"
-	magic_path = "/obj/item/melee/blood_magic/construction"
+	magic_path = /obj/item/melee/blood_magic/construction
 	health_cost = 12
 
 /datum/action/innate/cult/blood_spell/equipment
 	name = "Summon Equipment"
 	desc = "Allows you to summon a ritual dagger, or empowers your hand to summon combat gear onto a cultist you touch, including cult armor, a cult bola, and a cult sword."
 	button_icon_state = "equip"
-	magic_path = "/obj/item/melee/blood_magic/armor"
+	magic_path = /obj/item/melee/blood_magic/armor
 
 /datum/action/innate/cult/blood_spell/equipment/Activate()
 	var/choice = alert(owner,"Choose your equipment type",,"Combat Equipment","Ritual Dagger","Cancel")
@@ -214,6 +215,7 @@
 	button_icon_state = "horror"
 	var/obj/effect/proc_holder/horror/PH
 	charges = 4
+	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/cult/blood_spell/horror/New()
 	PH = new()
@@ -281,6 +283,7 @@
 	button_icon_state = "gone"
 	charges = 10
 	var/revealing = FALSE //if it reveals or not
+	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/cult/blood_spell/veiling/Activate()
 	if(!revealing)
@@ -329,7 +332,7 @@
 	invocation = "Fel'th Dol Ab'orod!"
 	button_icon_state = "manip"
 	charges = 5
-	magic_path = "/obj/item/melee/blood_magic/manipulator"
+	magic_path = /obj/item/melee/blood_magic/manipulator
 
 
 // The "magic hand" items

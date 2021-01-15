@@ -48,7 +48,14 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/toy/plush/moth = 2,
 		/obj/item/storage/box/heretic_asshole = 1,
 		/obj/item/toy/eldrich_book = 1,
-		/obj/item/storage/belt/military/snack = 2))
+		/obj/item/storage/belt/military/snack = 2,
+		/obj/item/choice_beacon/pet/cat = 1,
+		/obj/item/choice_beacon/pet/mouse = 1,	
+		/obj/item/choice_beacon/pet/corgi = 1,
+		/obj/item/choice_beacon/pet/hamster = 1,	
+		/obj/item/choice_beacon/pet/pug = 1,		
+		/obj/item/choice_beacon/pet/pingu = 1,	
+		/obj/item/choice_beacon/pet/clown = 1))
 
 /obj/machinery/computer/arcade
 	name = "random arcade"

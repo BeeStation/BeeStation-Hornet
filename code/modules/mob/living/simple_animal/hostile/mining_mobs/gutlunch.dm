@@ -111,7 +111,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/Life()
 	..()
-	if(udder.reagents.total_volume == udder.reagents.maximum_volume) //Only breed when we're full.
+	if(udder.reagents.total_volume == udder.reagents.maximum_volume && next_scan_time <= world.time) //Only breed when we're full.
 		make_babies()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/make_babies()

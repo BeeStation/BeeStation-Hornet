@@ -3062,10 +3062,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dompurify@npm:^2.0.11":
-  version: 2.0.12
-  resolution: "dompurify@npm:2.0.12"
-  checksum: 72fe758306be02d95c7ac51cecaf9d887dea6291cd83012b1c251d21912545c18d6ccc7140b84da2278a6910517cd1e996258991c7e3dda9b6da34f0b6040b91
+"dompurify@npm:^2.0.12":
+  version: 2.2.6
+  resolution: "dompurify@npm:2.2.6"
+  checksum: dfc77c2c603d84d4385a419acbda3f14777bf97f7a33a1de43d8a4f264171d12c916eda923715bc0199bcece20d3d6d3de730f3470d178c8ffdf25ba7ca18aee
   languageName: node
   linkType: hard
 
@@ -3634,13 +3634,6 @@ __metadata:
   version: 2.0.6
   resolution: "fast-levenshtein@npm:2.0.6"
   checksum: a2d03af3088b0397633e007fb3010ecfa4f91cae2116d2385653c59396a1b31467641afa672a79e6f82218518670dc144128378124e711e35dbf90bc82846f22
-  languageName: node
-  linkType: hard
-
-"fg-loadcss@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "fg-loadcss@npm:2.1.0"
-  checksum: 5672a437bd51ba418ffa3c304394a4f85d6b53ae2bbcec2ef54d6498642af4e2c11a9902a55bf95cd96e7e787483c2087f56569484a3120a4228d880ffec6309
   languageName: node
   linkType: hard
 
@@ -8155,8 +8148,7 @@ fsevents@~2.1.2:
   resolution: "tgui@workspace:packages/tgui"
   dependencies:
     common: "workspace:*"
-    dompurify: ^2.0.11
-    fg-loadcss: ^2.1.0
+    dompurify: ^2.0.12
     inferno: ^7.4.2
     inferno-vnode-flags: ^7.4.2
     marked: ^1.1.0

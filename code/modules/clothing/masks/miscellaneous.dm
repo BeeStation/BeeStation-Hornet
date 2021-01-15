@@ -241,7 +241,6 @@
 	adjustmask(user)
 
 /obj/item/clothing/mask/bandana/AltClick(mob/user)
-	. = ..()
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		if((C.get_item_by_slot(SLOT_HEAD == src)) || (C.get_item_by_slot(SLOT_WEAR_MASK) == src))

@@ -136,9 +136,9 @@
 		return ..()
 
 
-/obj/machinery/smartfridge/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)	
+/obj/machinery/smartfridge/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(!stat)
-		if (istype(AM, /obj/item))		
+		if (istype(AM, /obj/item))
 			var/obj/item/O = AM
 			if(contents.len < max_n_of_items && accept_check(O))
 				load(O)
@@ -341,7 +341,11 @@
 			S.forceMove(drop_location())
 		else
 			var/dried = S.dried_type
-			new dried(drop_location())
+			dried = new dried(drop_location())
+			if(istype(dried, /obj/item/reagent_containers)) // If the product is a reagent container, transfer reagents
+				var/obj/item/reagent_containers/R = dried
+				R.reagents.clear_reagents()
+				S.reagents.copy_to(R)
 			qdel(S)
 		return TRUE
 	for(var/obj/item/stack/sheet/wetleather/WL in src)

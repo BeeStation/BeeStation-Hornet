@@ -29,6 +29,10 @@
 	to_chat(owner.current, "<span class='brass'>Use your Clockwork Slab to summon integration cogs to unlock more scriptures and siphon power.</span>")
 	to_chat(owner.current, "<span class='brass'>Unlock Kindle to stun targets, Hateful Manacles to restrain them and use a sigil of submission to convert them!</span>")
 	to_chat(owner.current, "<span class='brass'>When you are ready, gather 6 cultists around the Ark and activate it to summon Rat'var, but be prepared to fight for your life.</span>")
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Servant of Rat'Var",
+		"Use your clockwork slab to unlock and invoke scriptures.\n\
+		Hijack APCs by placing an integration cog into them.\n\
+		Convert the unfaithful to your side but above all else, protect the Gateway!")
 
 /datum/antagonist/servant_of_ratvar/on_gain()
 	. = ..()
@@ -58,7 +62,7 @@
 	owner.current.faction |= "ratvar"
 	transmit_spell = new()
 	transmit_spell.Grant(owner.current)
-	owner.current.throw_alert("clockinfo", /obj/screen/alert/clockwork/clocksense)
+	owner.current.throw_alert("clockinfo", /atom/movable/screen/alert/clockwork/clocksense)
 	SSticker.mode.update_clockcult_icons_added(owner)
 	if(GLOB.gateway_opening && ishuman(owner.current))
 		var/mob/living/carbon/owner_mob = owner.current

@@ -25,8 +25,8 @@
 	var/static/regex/alien_name_regex = new("alien (larva|sentinel|drone|hunter|praetorian|queen)( \\(\\d+\\))?")
 
 /mob/living/carbon/alien/Initialize()
-	verbs += /mob/living/proc/mob_sleep
-	verbs += /mob/living/proc/lay_down
+	add_verb(/mob/living/proc/mob_sleep)
+	add_verb(/mob/living/proc/lay_down)
 
 	create_bodyparts() //initialize bodyparts
 
@@ -66,7 +66,7 @@
 
 	if(bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)
 		//Body temperature is too hot.
-		throw_alert("alien_fire", /obj/screen/alert/alien_fire)
+		throw_alert("alien_fire", /atom/movable/screen/alert/alien_fire)
 		switch(bodytemperature)
 			if(360 to 400)
 				apply_damage(HEAT_DAMAGE_LEVEL_1, BURN)
@@ -86,11 +86,12 @@
 /mob/living/carbon/alien/IsAdvancedToolUser()
 	return has_fine_manipulation
 
-/mob/living/carbon/alien/Stat()
-	..()
+/mob/living/carbon/alien/get_stat_tab_status()
+	var/list/tab_data = ..()
 
-	if(statpanel("Status"))
-		stat(null, "Intent: [a_intent]")
+	tab_data["Intent"] = GENERATE_STAT_TEXT("[a_intent]")
+
+	return tab_data
 
 /mob/living/carbon/alien/getTrail()
 	if(getBruteLoss() < 200)

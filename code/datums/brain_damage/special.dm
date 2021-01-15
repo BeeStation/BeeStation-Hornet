@@ -253,5 +253,6 @@
 			to_chat(victim, "<span class='name'>[name]</span> exclaims, \"<span class='robotic'>Level 10 infraction alert!\"</span>")
 
 /obj/effect/hallucination/simple/securitron/Destroy()
+	victim = null
 	STOP_PROCESSING(SSfastprocess,src)
 	return ..()
