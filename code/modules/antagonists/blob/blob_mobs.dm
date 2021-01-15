@@ -32,7 +32,7 @@
 /mob/living/simple_animal/hostile/blob/Initialize()
 	. = ..()
 	if(!independent) //no pulling people deep into the blob
-		verbs -= /mob/living/verb/pulled
+		remove_verb(/mob/living/verb/pulled)
 	else
 		pass_flags &= ~PASSBLOB
 

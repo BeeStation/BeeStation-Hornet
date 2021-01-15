@@ -112,6 +112,42 @@
 	if(istype(data))
 		src.data |= data.Copy()
 
+/datum/reagent/corgium
+	name = "Corgium"
+	description = "A happy looking liquid that you feel compelled to consume if you want a better life."
+	color = "#ecca7f"
+	taste_description = "dog treats"
+	var/mob/living/simple_animal/pet/dog/corgi/new_corgi
+
+/datum/reagent/corgium/on_mob_metabolize(mob/living/L)
+	. = ..()
+	new_corgi = new(get_turf(L))
+	new_corgi.key = L.key
+	new_corgi.name = L.name
+	ADD_TRAIT(L, TRAIT_NOBREATH, CORGIUM_TRAIT)
+	L.forceMove(new_corgi)
+
+/datum/reagent/corgium/on_mob_life(mob/living/carbon/M)
+	. = ..()
+	//If our corgi died :(
+	if(new_corgi.stat)
+		holder.remove_all_type(type)
+
+/datum/reagent/corgium/on_mob_end_metabolize(mob/living/L)
+	. = ..()
+	REMOVE_TRAIT(L, TRAIT_NOBREATH, CORGIUM_TRAIT)
+	//New corgi was deleted, goodbye cruel world.
+	if(QDELETED(new_corgi))
+		if(!QDELETED(L))
+			qdel(L)
+		return
+	//Leave the corgi
+	L.key = new_corgi.key
+	L.adjustBruteLoss(new_corgi.getBruteLoss())
+	L.adjustFireLoss(new_corgi.getFireLoss())
+	L.forceMove(get_turf(new_corgi))
+	qdel(new_corgi)
+
 /datum/reagent/water
 	name = "Water"
 	description = "An ubiquitous chemical substance that is composed of hydrogen and oxygen."
@@ -1867,47 +1903,6 @@
 		if(changeling)
 			changeling.chem_charges = max(changeling.chem_charges-2, 0)
 	return ..()
-
-/datum/reagent/concentrated_bz
-	name = "Concentrated BZ"
-	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings. Also causes minor brain damage."
-	color = "#FAFF00"
-	taste_description = "acrid cinnamon"
-	random_unrestricted = FALSE
-
-/datum/reagent/concentrated_bz/on_mob_metabolize(mob/living/L)
-	..()
-	ADD_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
-
-/datum/reagent/concentrated_bz/on_mob_end_metabolize(mob/living/L)
-	..()
-	REMOVE_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
-
-/datum/reagent/concentrated_bz/on_mob_life(mob/living/L)
-	if(L.mind)
-		var/datum/antagonist/changeling/changeling = L.mind.has_antag_datum(/datum/antagonist/changeling)
-		if(changeling)
-			changeling.chem_charges = max(changeling.chem_charges-2, 0)
-			if(prob(30))
-				L.losebreath += 1
-				L.adjustOxyLoss(3,5)
-				L.emote("gasp")
-				to_chat(L, "<font size=3 color=red><b>You can't breathe!</b></font>")
-
-		L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)
-	return ..()
-
-/datum/reagent/fake_cbz
-	name = "Concentrated BZ"
-	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings. Also causes minor brain damage."
-	color = "#FAFF00"
-	taste_description = "acrid cinnamon"
-	random_unrestricted = FALSE
-
-/datum/reagent/fake_cbz/on_mob_life(mob/living/L)
-	L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)
-	if(prob(15))
-		to_chat(L, "You don't feel much of anything")
 
 /datum/reagent/pax/peaceborg
 	name = "Synthpax"

@@ -896,6 +896,7 @@
 /obj/machinery/door/airlock/external{
 	name = "Emegency Shuttle External Airlock"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "cg" = (
@@ -966,6 +967,7 @@
 /area/shuttle/escape)
 "cn" = (
 /obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "co" = (
@@ -1851,6 +1853,7 @@
 	name = "CentCom Raven Cruiser";
 	width = 32
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ep" = (
