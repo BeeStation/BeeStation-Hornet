@@ -89,10 +89,9 @@
 			start_drowning(L)
 			drowning = TRUE
 		drown(L)
-	else
-		if(drowning)
-			stop_drowning(L)
-			drowning = FALSE
+	else if(drowning)
+		stop_drowning(L)
+		drowning = FALSE
 	L.adjust_fire_stacks(-1)
 
 /datum/component/swimming/proc/is_drowning(mob/living/victim)
