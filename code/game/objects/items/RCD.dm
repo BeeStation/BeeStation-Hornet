@@ -953,8 +953,3 @@ RLD
 #undef GLOW_MODE
 #undef LIGHT_MODE
 #undef REMOVE_MODE
-
-/obj/item/construction/rcd/poor
-	name = "Smoking RCD"	
-	desc = "It does not look safe, but it works... to some degree."
-	max_matter = 50

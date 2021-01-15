@@ -64659,7 +64659,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/start/explorer,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -64704,7 +64703,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/effect/landmark/start/explorer,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -64792,7 +64790,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/start/explorer,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},

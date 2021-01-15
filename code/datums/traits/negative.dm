@@ -169,8 +169,6 @@
 				heirloom_type = pick(/obj/item/stamp, /obj/item/stamp/denied)
 			if("Cargo Technician")
 				heirloom_type = /obj/item/clipboard
-			if("Explorer")
-				heirloom_type = pick(/obj/item/taperecorder)
 			if("Shaft Miner")
 				heirloom_type = pick(/obj/item/pickaxe/mini, /obj/item/shovel)
 

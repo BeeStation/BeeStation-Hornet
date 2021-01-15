@@ -27,7 +27,7 @@
 			jobs_to_revolt = list("Research Director","Scientist", "Roboticist")
 			nation_name = pick("Sci", "Griffa", "Explosi", "Mecha", "Xeno")
 		if("brown")
-			jobs_to_revolt = list("Quartermaster", "Cargo Technician", "Shaft Miner", "Explorer")
+			jobs_to_revolt = list("Quartermaster", "Cargo Technician", "Shaft Miner")
 			nation_name = pick("Cargo", "Guna", "Suppli", "Mule", "Crate", "Ore", "Mini", "Shaf")
 		if("whatevercolorrepresentstheservicepeople") //the few, the proud, the technically aligned
 			jobs_to_revolt = list("Bartender", "Cook", "Botanist", "Clown", "Mime", "Janitor", "Chaplain")

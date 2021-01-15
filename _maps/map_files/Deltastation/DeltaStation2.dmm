@@ -11055,7 +11055,6 @@
 "awT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/landmark/start/explorer,
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
 "awU" = (
@@ -11073,7 +11072,6 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/effect/landmark/start/explorer,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "awX" = (
@@ -123095,17 +123093,6 @@
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/engine,
 /area/science/explab)
-"ndU" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/obj/effect/landmark/start/explorer,
-/turf/open/floor/plasteel,
-/area/quartermaster/warehouse)
 "nfK" = (
 /obj/machinery/status_display/supply,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
@@ -167744,7 +167731,7 @@ arV
 att
 aux
 avQ
-ndU
+awY
 ayp
 azs
 aAz

@@ -60665,11 +60665,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
-"oxh" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/explorer,
-/turf/open/floor/plasteel,
-/area/quartermaster/warehouse)
 "oyF" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
@@ -106065,7 +106060,7 @@ aFI
 aKh
 aEd
 aMq
-oxh
+aNO
 aOZ
 aQd
 aRo
@@ -106322,7 +106317,7 @@ aJo
 aGF
 aEd
 aMr
-oxh
+aNO
 aPa
 aNO
 aRp
@@ -106579,7 +106574,7 @@ aEd
 aKi
 aEd
 aMs
-oxh
+aNO
 aPb
 aQe
 cDa

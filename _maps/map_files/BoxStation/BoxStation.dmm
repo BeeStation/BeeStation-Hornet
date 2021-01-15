@@ -57940,11 +57940,6 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
-"rUE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/explorer,
-/turf/open/floor/plasteel,
-/area/quartermaster/warehouse)
 "rVB" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -62707,7 +62702,6 @@
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
 	},
-/obj/effect/landmark/start/explorer,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "xuI" = (
@@ -84189,7 +84183,7 @@ aTF
 aPG
 aSX
 gjl
-rUE
+baS
 aZI
 hOL
 baS
@@ -84446,7 +84440,7 @@ aPG
 aPG
 aSX
 gjl
-rUE
+baS
 aZp
 baY
 bcJ
