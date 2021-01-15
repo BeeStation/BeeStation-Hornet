@@ -19,6 +19,17 @@
 	species_language_holder = /datum/language_holder/oozeling
 	limbs_id = "jelly"
 
+/datum/species/oozeling/random_name(gender,unique,lastname)
+	if(unique)
+		return random_unique_ooze_name()
+
+	var/randname = ooze_name()
+
+	if(lastname)
+		randname += " [lastname]"
+
+	return randname
+
 /datum/species/oozeling/on_species_loss(mob/living/carbon/C)
 	if(regenerate_limbs)
 		regenerate_limbs.Remove(C)
