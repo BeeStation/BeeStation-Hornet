@@ -309,8 +309,6 @@
 					cyberimp_detect += CI.name
 			if(length(cyberimp_detect))
 				. += "Detected cybernetic modifications: [english_list(cyberimp_detect)]"
-				for(var/name in cyberimp_detect)
-					. += "[name]"
 			if(R)
 				var/health_r = R.fields["p_stat"]
 				. += "<a href='?src=[REF(src)];hud=m;p_stat=1'>\[[health_r]\]</a>"
