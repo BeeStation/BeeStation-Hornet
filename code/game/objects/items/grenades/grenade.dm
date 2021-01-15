@@ -40,7 +40,7 @@
 			preprime(user, 5, FALSE)
 			return FALSE
 	else if(!clumsy && (clumsy_check == GRENADE_NONCLUMSY_FUMBLE))
-		to_chat(user, "<span class='warning'>You pull the pin on [src]. Attached to it is a pink ribbon that says, \"<span class='clown'>HONK</span>\"</span>")
+		to_chat(user, "<span class='warning'>You pull the pin on [src]. Attached to it is a pink ribbon that says, \"<span class='clowntext'>HONK</span>\"</span>")
 		preprime(user, 5, FALSE)
 		return FALSE
 	return TRUE
