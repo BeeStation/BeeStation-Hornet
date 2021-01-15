@@ -307,8 +307,8 @@
 			for(var/obj/item/organ/cyberimp/CI in internal_organs)
 				if(CI.status == ORGAN_ROBOTIC && !CI.syndicate_implant)
 					cyberimp_detect += CI.name
-			if(cyberimp_detect)
-				. += "Detected cybernetic modifications:"
+			if(length(cyberimp_detect))
+				. += "Detected cybernetic modifications: [english_list(cyberimp_detect)]"
 				for(var/name in cyberimp_detect)
 					. += "[name]"
 			if(R)
