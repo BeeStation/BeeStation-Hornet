@@ -25,6 +25,8 @@
 	faction = list("neutral", "silicon" , "turret")
 	hardattacks = TRUE
 
+	mobchatspan = "mime"
+
 	var/obj/machinery/bot_core/bot_core = null
 	var/bot_core_type = /obj/machinery/bot_core
 	var/list/users = list() //for dialog updates

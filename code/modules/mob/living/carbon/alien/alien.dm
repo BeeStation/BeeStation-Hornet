@@ -22,6 +22,7 @@
 	gib_type = /obj/effect/decal/cleanable/xenoblood/xgibs
 	unique_name = 1
 
+	mobchatspan = "alienmobsay"
 	var/static/regex/alien_name_regex = new("alien (larva|sentinel|drone|hunter|praetorian|queen)( \\(\\d+\\))?")
 
 /mob/living/carbon/alien/Initialize()
