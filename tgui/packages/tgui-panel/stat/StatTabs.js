@@ -1,12 +1,14 @@
-import { toFixed } from 'common/math';
 import { useDispatch, useSelector } from 'common/redux';
-import { Fragment } from 'inferno';
 import { Button, Flex, Knob, Tabs, Section } from 'tgui/components';
-import { Box } from '../../tgui/components';
+import { Box, ScrollableBox, Fragment } from '../../tgui/components';
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
-import { StatStatus } from './StatStatus';
-import { StatText } from './StatText';
+import { StatStatus, HoboStatStatus } from './StatStatus';
+import { StatText, HoboStatText } from './StatText';
+
+// =======================
+// Flex Supported
+// =======================
 
 export const StatTabs = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
@@ -18,21 +20,18 @@ export const StatTabs = (props, context) => {
       break;
   }
   return (
-    <Flex
-      height="100%"
-      direction="column">
-      <Flex.Item>
+    <Fragment>
+      <Flex.Item shrink={0}>
         {settings.statTabMode === "Scroll"
           ? <StatTabScroll />
           : <StatTabWrap />}
       </Flex.Item>
-      <Flex.Item
-        overflowY="scroll"
-        grow={1}
-        mt={1}>
-        {statSection}
-      </Flex.Item>
-    </Flex>
+      <ScrollableBox overflowY="scroll">
+        <Flex.Item>
+          {statSection}
+        </Flex.Item>
+      </ScrollableBox>
+    </Fragment>
   );
 };
 
@@ -78,6 +77,8 @@ export const StatTabWrap = (props, context) => {
         <Button
           key={tab}
           color="transparent"
+          pr={1.5}
+          pl={1.5}
           selected={tab === stat.selectedTab}
           onClick={() => dispatch({
             type: 'stat/setTab',
@@ -87,5 +88,29 @@ export const StatTabWrap = (props, context) => {
         </Button>
       ))}
     </Section>
+  );
+};
+
+// =======================
+// Non-Flex Support
+// =======================
+
+export const HoboStatTabs = (props, context) => {
+  const stat = useSelector(context, selectStatPanel);
+  const settings = useSettings(context);
+  let statSection = (<HoboStatText />);
+  switch (stat.selectedTab) {
+    case 'Status':
+      statSection = (<HoboStatStatus />);
+      break;
+  }
+  return (
+    <Box>
+      <StatTabWrap />
+      <Box
+        grow={1}>
+        {statSection}
+      </Box>
+    </Box>
   );
 };

@@ -12,7 +12,7 @@ SUBSYSTEM_DEF(throwing)
 	var/list/processing = list()
 
 /datum/controller/subsystem/throwing/stat_entry()
-	..("P:[processing.len]")
+	. = ..("P:[processing.len]")
 
 
 /datum/controller/subsystem/throwing/fire(resumed = 0)
@@ -177,7 +177,7 @@ SUBSYSTEM_DEF(throwing)
 
 	if (callback)
 		callback.Invoke()
-	
+
 	if(!thrownthing.zfalling) // I don't think you can zfall while thrown but hey, just in case.
 		var/turf/T = get_turf(thrownthing)
 		if(T && thrownthing.has_gravity(T))
