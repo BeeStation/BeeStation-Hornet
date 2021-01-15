@@ -415,15 +415,17 @@
 			var/turf/target = get_turf(loc)
 			I.safe_throw_at(target,I.throw_range,I.throw_speed,src, force = move_force)
 
+/mob/living/carbon/get_stat_tab_status()
+	var/list/tab_data = ..()
+	var/obj/item/organ/alien/plasmavessel/vessel = getorgan(/obj/item/organ/alien/plasmavessel)
+	if(vessel)
+		tab_data["Plasma Stored"] = GENERATE_STAT_TEXT("[vessel.storedPlasma]/[vessel.max_plasma]")
+	if(locate(/obj/item/assembly/health) in src)
+		tab_data["Health"] = GENERATE_STAT_TEXT("[health]")
+	return tab_data
+
 /mob/living/carbon/Stat()
 	..()
-	if(statpanel("Status"))
-		var/obj/item/organ/alien/plasmavessel/vessel = getorgan(/obj/item/organ/alien/plasmavessel)
-		if(vessel)
-			stat(null, "Plasma Stored: [vessel.storedPlasma]/[vessel.max_plasma]")
-		if(locate(/obj/item/assembly/health) in src)
-			stat(null, "Health: [health]")
-
 	add_abilities_to_panel()
 
 /mob/living/carbon/attack_ui(slot)
@@ -443,7 +445,8 @@
 			visible_message("<span class='warning'>[src] dry heaves!</span>", \
 							"<span class='userdanger'>You try to throw up, but there's nothing in your stomach!</span>")
 		if(stun)
-			Paralyze(200)
+			Paralyze(30)
+			Knockdown(180)
 		return 1
 
 	if(is_mouth_covered()) //make this add a blood/vomit overlay later it'll be hilarious
@@ -459,7 +462,8 @@
 				SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "vomit", /datum/mood_event/vomit)
 
 	if(stun)
-		Paralyze(80)
+		Paralyze(15)
+		Knockdown(90)
 
 	playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
 	var/turf/T = get_turf(src)

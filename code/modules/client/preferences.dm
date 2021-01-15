@@ -136,7 +136,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				max_save_slots = 8
 	var/loaded_preferences_successfully = load_preferences()
 	if(loaded_preferences_successfully)
-		if("extra character slot" in purchased_gear)
+		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
 			max_save_slots += 1
 		if(load_character())
 			return
@@ -692,16 +692,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<tr><td colspan=4><hr></td></tr>"
 			for(var/gear_name in LC.gear)
 				var/datum/gear/G = LC.gear[gear_name]
-				var/ticked = (G.display_name in equipped_gear)
+				var/ticked = (G.id in equipped_gear)
 
 				dat += "<tr style='vertical-align:top;'><td width=15%>[G.display_name]\n"
-				if(G.display_name in purchased_gear)
+				if(G.id in purchased_gear)
 					if(G.sort_category == "OOC")
 						dat += "<i>Purchased.</i></td>"
 					else
-						dat += "<a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>Equip</a></td>"
+						dat += "<a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.id]'>Equip</a></td>"
 				else
-					dat += "<a style='white-space:normal;' href='?_src_=prefs;preference=gear;purchase_gear=[G.display_name]'>Purchase</a></td>"
+					dat += "<a style='white-space:normal;' href='?_src_=prefs;preference=gear;purchase_gear=[G.id]'>Purchase</a></td>"
 				dat += "<td width = 5% style='vertical-align:top'>[G.cost]</td><td>"
 				if(G.allowed_roles)
 					dat += "<font size=2>"
@@ -1208,7 +1208,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if(href_list["purchase_gear"])
 			var/datum/gear/TG = GLOB.gear_datums[href_list["purchase_gear"]]
 			if(TG.cost < user.client.get_metabalance())
-				purchased_gear += TG.display_name
+				purchased_gear += TG.id
 				TG.purchase(user.client)
 				user.client.inc_metabalance((TG.cost * -1), TRUE, "Purchased [TG.display_name].")
 				save_preferences()
@@ -1216,21 +1216,21 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				to_chat(user, "<span class='warning'>You don't have enough [CONFIG_GET(string/metacurrency_name)]s to purchase \the [TG.display_name]!</span>")
 		if(href_list["toggle_gear"])
 			var/datum/gear/TG = GLOB.gear_datums[href_list["toggle_gear"]]
-			if(TG.display_name in equipped_gear)
-				equipped_gear -= TG.display_name
+			if(TG.id in equipped_gear)
+				equipped_gear -= TG.id
 			else
 				var/list/type_blacklist = list()
 				var/list/slot_blacklist = list()
-				for(var/gear_name in equipped_gear)
-					var/datum/gear/G = GLOB.gear_datums[gear_name]
+				for(var/gear_id in equipped_gear)
+					var/datum/gear/G = GLOB.gear_datums[gear_id]
 					if(istype(G))
 						if(!(G.subtype_path in type_blacklist))
 							type_blacklist += G.subtype_path
 						if(!(G.slot in slot_blacklist))
 							slot_blacklist += G.slot
-				if((TG.display_name in purchased_gear))
+				if((TG.id in purchased_gear))
 					if(!(TG.subtype_path in type_blacklist) || !(TG.slot in slot_blacklist))
-						equipped_gear += TG.display_name
+						equipped_gear += TG.id
 					else
 						to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. It conflicts with an already-equipped item.</span>")
 				else
@@ -1856,7 +1856,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						new_key = "Numpad[new_key]"
 
 					var/full_key = "[AltMod][CtrlMod][ShiftMod][new_key]"
-					if(old_key)
+					if(old_key && (old_key in key_bindings))
 						key_bindings[old_key] -= kb_name
 					key_bindings[full_key] += list(kb_name)
 					key_bindings[full_key] = sortList(key_bindings[full_key])

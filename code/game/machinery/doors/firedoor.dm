@@ -298,7 +298,6 @@
 	if(!(flags_1 & NODECONSTRUCT_1))
 		var/obj/structure/firelock_frame/F = new assemblytype(get_turf(src))
 		F.dir = src.dir
-		F.firelock_type = src.type
 		if(disassembled)
 			F.constructionStep = CONSTRUCTION_PANEL_OPEN
 		else
@@ -438,7 +437,7 @@
 	density = TRUE
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
-	var/firelock_type
+	var/firelock_type = /obj/machinery/door/firedoor
 
 /obj/structure/firelock_frame/examine(mob/user)
 	. = ..()
@@ -491,12 +490,9 @@
 				user.visible_message("<span class='notice'>[user] finishes the firelock.</span>", \
 									 "<span class='notice'>You finish the firelock.</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
-				if(reinforced)
-					new /obj/machinery/door/firedoor/heavy(get_turf(src))
-				else
-					var/obj/machinery/door/firedoor/F = new firelock_type(get_turf(src))
-					F.dir = src.dir
-					F.update_icon()
+				var/obj/machinery/door/firedoor/F = new firelock_type(get_turf(src))
+				F.dir = src.dir
+				F.update_icon()
 				qdel(src)
 				return
 			if(istype(C, /obj/item/stack/sheet/plasteel))
@@ -517,7 +513,8 @@
 										 "<span class='notice'>You reinforce [src].</span>")
 					playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 					P.use(2)
-					reinforced = 1
+					reinforced = TRUE
+					firelock_type = /obj/machinery/door/firedoor/heavy
 				return
 
 		if(CONSTRUCTION_WIRES_EXPOSED)
@@ -591,12 +588,21 @@
 				if(C.use_tool(src, user, 40, volume=50, amount=1))
 					if(constructionStep != CONSTRUCTION_NOCIRCUIT)
 						return
-					user.visible_message("<span class='notice'>[user] cuts apart [src]!</span>", \
-										 "<span class='notice'>You cut [src] into iron.</span>")
 					var/turf/T = get_turf(src)
-					new /obj/item/stack/sheet/iron(T, 3)
-					if(reinforced)
-						new /obj/item/stack/sheet/plasteel(T, 2)
+					switch(firelock_type)
+						if(/obj/machinery/door/firedoor/heavy)
+							user.visible_message("<span class='notice'>[user] cuts apart [src]!</span>", \
+										 "<span class='notice'>You cut [src] into iron and plasteel.</span>")
+							new /obj/item/stack/sheet/plasteel(T, 2)
+							new /obj/item/stack/sheet/iron(T, 3)
+						if(/obj/machinery/door/firedoor/window)
+							user.visible_message("<span class='notice'>[user] cuts apart [src]!</span>", \
+										 "<span class='notice'>You cut [src] into reinforced glass.</span>")
+							new /obj/item/stack/sheet/rglass(T,2)
+						else
+							user.visible_message("<span class='notice'>[user] cuts apart [src]!</span>", \
+										 "<span class='notice'>You cut [src] into iron.</span>")
+							new /obj/item/stack/sheet/iron(T, 3)
 					qdel(src)
 				return
 			if(istype(C, /obj/item/electronics/firelock))
@@ -649,11 +655,13 @@
 /obj/structure/firelock_frame/heavy
 	name = "heavy firelock frame"
 	reinforced = TRUE
+	firelock_type = /obj/machinery/door/firedoor/heavy
 
 /obj/structure/firelock_frame/border
 	name = "firelock frame"
 	icon = 'icons/obj/doors/edge_Doorfire.dmi'
 	icon_state = "door_frame"
+	firelock_type = /obj/machinery/door/firedoor/border_only
 
 /obj/structure/firelock_frame/border/ComponentInitialize()
 	. = ..()
@@ -672,6 +680,7 @@
 	name = "window firelock frame"
 	icon = 'icons/obj/doors/doorfirewindow.dmi'
 	icon_state = "door_frame"
+	firelock_type = /obj/machinery/door/firedoor/window
 
 /obj/structure/firelock_frame/window/update_icon()
 	return

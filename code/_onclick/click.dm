@@ -366,14 +366,14 @@
 	var/turf/T = get_turf(src)
 	if(T && user.TurfAdjacent(T))
 		user.listed_turf = T
-		user.client.statpanel = T.name
+		user.set_stat_tab(T.name)
 
 // Use this instead of /mob/proc/AltClickOn(atom/A) where you only want turf content listing without additional atom alt-click interaction
 /atom/proc/AltClickNoInteract(mob/user, atom/A)
 	var/turf/T = get_turf(A)
 	if(T && user.TurfAdjacent(T))
 		user.listed_turf = T
-		user.client.statpanel = T.name
+		user.set_stat_tab(T.name)
 
 /mob/proc/TurfAdjacent(turf/T)
 	return T.Adjacent(src)

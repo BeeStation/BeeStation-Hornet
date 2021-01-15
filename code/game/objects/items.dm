@@ -725,10 +725,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			itempush = 0 //too light to push anything
 		return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
 
-/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
+/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
+	if(HAS_TRAIT(src, TRAIT_NODROP))
+		return
 	thrownby = thrower
 	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
-	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force)
+	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force, quickstart = quickstart)
 
 
 /obj/item/proc/after_throw(datum/callback/callback)
@@ -1008,11 +1010,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			plane = initial(plane)
 			appearance_flags &= ~NO_CLIENT_COLOR
 			dropped(M)
-	return ..()
-
-/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=TRUE, diagonals_first = FALSE, var/datum/callback/callback)
-	if(HAS_TRAIT(src, TRAIT_NODROP))
-		return
 	return ..()
 
 /obj/item/proc/canStrip(mob/stripper, mob/owner)

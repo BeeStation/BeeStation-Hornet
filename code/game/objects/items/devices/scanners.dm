@@ -120,7 +120,7 @@ GENE SCANNER
 						"<span class='notice'>You analyze [M]'s vitals.</span>")
 
 	if(scanmode == 0)
-		healthscan(user, M, advanced)
+		healthscan(user, M, advanced=advanced)
 	else if(scanmode == 1)
 		chemscan(user, M)
 
