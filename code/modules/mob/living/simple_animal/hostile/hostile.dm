@@ -129,8 +129,11 @@
 
 /mob/living/simple_animal/hostile/proc/ListTargets()//Step 1, find out what we can see
 	if(!search_objects)
-		var/static/target_list = typecacheof(list(/mob, /obj/machinery/porta_turret, /obj/mecha))
-		return typecache_filter_list(dview(vision_range, get_turf(targets_from), SEE_INVISIBLE_MINIMUM), target_list) - src
+		var/static/target_list = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha))
+		. = list()
+		for(var/atom/A as() in dview(vision_range, get_turf(targets_from), SEE_INVISIBLE_MINIMUM), target_list))
+			if((ismob(A) && A != src) || target_list[A.type])
+				. += A
 	else
 		. = list()
 		for (var/atom/movable/A in oview(vision_range, targets_from))
