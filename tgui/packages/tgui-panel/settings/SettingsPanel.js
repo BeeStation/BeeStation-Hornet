@@ -6,7 +6,7 @@
 
 import { toFixed } from 'common/math';
 import { useDispatch, useSelector } from 'common/redux';
-import { Box, Button, ColorBox, Divider, Dropdown, Flex, Input, LabeledList, NumberInput, Section, Tabs, TextArea } from 'tgui/components';
+import { Box, Button, ColorBox, Divider, Dropdown, Flex, Input, LabeledList, NumberInput, Section, Tabs, TextArea, Grid } from 'tgui/components';
 import { ChatPageSettings } from '../chat';
 import { rebuildChat, saveChatToDisk } from '../chat/actions';
 import { THEMES } from '../themes';
@@ -57,6 +57,7 @@ export const SettingsPanel = (props, context) => {
 export const SettingsGeneral = (props, context) => {
   const {
     theme,
+    highContrast,
     fontSize,
     lineHeight,
   } = useSelector(context, selectSettings);
@@ -75,6 +76,15 @@ export const SettingsGeneral = (props, context) => {
             onSelected={value => dispatch(updateSettings({
               theme: value,
             }))} />
+        </LabeledList.Item>
+        <LabeledList.Item label="High Contrast">
+          <Button.Checkbox
+            checked={!highContrast}
+            onClick={() => dispatch(updateSettings({
+              highContrast: !highContrast,
+            }))}>
+            Colored names
+          </Button.Checkbox>
         </LabeledList.Item>
         <LabeledList.Item label="Font size">
           <NumberInput

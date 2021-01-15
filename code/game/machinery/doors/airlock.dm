@@ -1109,7 +1109,7 @@
 				return
 		INVOKE_ASYNC(src, (density ? .proc/open : .proc/close), 2)
 
-	if(istype(I, /obj/item/crowbar/power))
+	if(HAS_TRAIT(I, TRAIT_DOOR_PRYER))
 		if(isElectrified())
 			shock(user,100)//it's like sticking a forck in a power socket
 			return

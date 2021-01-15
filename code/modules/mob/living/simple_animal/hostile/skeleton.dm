@@ -35,6 +35,8 @@
 	do_footstep = TRUE
 	hardattacks = TRUE
 
+	mobchatspan = "assistant"
+
 /mob/living/simple_animal/hostile/skeleton/eskimo
 	name = "undead eskimo"
 	desc = "The reanimated remains of some poor traveler."
