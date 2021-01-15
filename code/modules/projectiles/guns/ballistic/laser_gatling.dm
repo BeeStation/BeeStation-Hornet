@@ -140,7 +140,7 @@
 /obj/item/gun/ballistic/minigun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	if(ammo_pack)
 		if(obj_flags & EMAGGED)
-			if (cooldown < world.time)
+			if(cooldown < world.time)
 				cooldown = world.time + 250
 				playsound(get_turf(src), 'sound/weapons/heavyminigunstart.ogg', 50, 0, 0)
 				slowdown = 5
