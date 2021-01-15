@@ -73,7 +73,7 @@
 	for(var/I in 0 to num_steps)
 		var/door_state = I == 0 || (I == num_steps && closing) ? "[icon_door || icon_state]_door" : animation_math_list[closing ? 2 * num_steps - I : num_steps + I] <= 0 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
 		var/door_layer = I == 0 || (I == num_steps && closing) ? ABOVE_MOB_LAYER : animation_math_list[closing ? 2 * num_steps - I : num_steps + I] <= 0 ? FLOAT_LAYER : ABOVE_MOB_LAYER
-		var/matrix/M = get_door_transform(I==0 || (I == num_steps && closing) ? 0 : animation_math_list[closing ? num_steps - I : I], I==0 || (I == num_steps && closing) ? 1 : animation_math_list[closing ?  2 * num_steps - I : num_steps + I])
+		var/matrix/M = get_door_transform(I == 0 || (I == num_steps && closing) ? 0 : animation_math_list[closing ? num_steps - I : I], I == 0 || (I == num_steps && closing) ? 1 : animation_math_list[closing ?  2 * num_steps - I : num_steps + I])
 		if(I == 0)
 			door_obj.transform = M
 			door_obj.icon_state = door_state
