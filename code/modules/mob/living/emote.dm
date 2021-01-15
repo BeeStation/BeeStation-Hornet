@@ -82,10 +82,9 @@
 	message_simple =  "stops moving..."
 	stat_allowed = UNCONSCIOUS
 
-/datum/emote/living/deathgasp/get_sound(mob/living/user)
-	if(!ishuman(user))
+/datum/emote/living/deathgasp/get_sound(mob/living/carbon/human/user)
+	if(!istype(user))
 		return
-	var/mob/living/carbon/human/H = user
 	if(H.mind?.miming)
 		return
 	if(ishumanbasic(H) || iscatperson(H))
