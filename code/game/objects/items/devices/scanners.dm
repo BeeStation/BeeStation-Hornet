@@ -402,7 +402,7 @@ GENE SCANNER
 		for(var/obj/item/organ/cyberimp/CI in C.internal_organs)
 			if(CI.status == ORGAN_ROBOTIC && !CI.syndicate_implant)
 				cyberimp_detect += CI.name
-		if(cyberimp_detect)
+		if(length(cyberimp_detect))
 			to_chat(user, "<span class='notice'>Detected cybernetic modifications:</span>")
 			for(var/name in cyberimp_detect)
 				to_chat(user, "<span class='notice'>[name]</span>")
@@ -969,4 +969,3 @@ GENE SCANNER
 	user.put_in_hands(B)
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 	return TRUE
-
