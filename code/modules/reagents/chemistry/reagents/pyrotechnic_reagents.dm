@@ -260,12 +260,11 @@
 		M.adjustStaminaLoss(-2, 0)
 	..()
 
-/datum/reagent/teslium/energized_jelly/overdose_process(mob/living/carbon/M)
-	shock_timer++
+/datum/reagent/teslium/energized_jelly/energized_ooze/overdose_process(mob/living/carbon/M)
 	if(isoozeling(M) || isjellyperson(M))
-		shock_timer = (rand(0,2))
-		M.electrocute_act(rand(5,20), "Energized Jelly overdose in their body", 1, 1) //Override because it's caused from INSIDE of you
-		playsound(M, "sparks", 50, 1)
+		if(prob(25))
+			M.electrocute_act(rand(5,20), "Energized Jelly overdose in their body", 1, 1) //Override because it's caused from INSIDE of you
+			playsound(M, "sparks", 50, 1)
 	..()
 
 /datum/reagent/firefighting_foam
