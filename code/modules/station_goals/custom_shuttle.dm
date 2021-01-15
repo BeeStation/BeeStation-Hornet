@@ -1,6 +1,10 @@
 /datum/station_goal/custom_shuttle
 	name = "Combat Shuttle"
-	var/kill_goal = rand(2, 6)
+	var/kill_goal
+
+/datum/station_goal/custom_shuttle/New()
+	. = ..()
+	kill_goal = rand(2, 6)
 
 /datum/station_goal/custom_shuttle/get_report()
 	return {"Nanotrasen's combat capability in this sector is limited, hostile activity in the surrounding area
