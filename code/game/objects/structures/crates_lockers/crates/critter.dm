@@ -15,7 +15,7 @@
 	var/obj/item/tank/internals/emergency_oxygen/tank
 	door_hinge = 5.5
 	door_anim_angle = 90
-	azimuth_angle_3 = 0.35
+	azimuth_angle_2 = 0.35
 
 /obj/structure/closet/crate/critter/Initialize()
 	. = ..()
@@ -41,7 +41,7 @@
 	door_obj.icon_state = "[icon_door || icon_state]_door"
 	is_animating_door = TRUE
 	var/num_steps = door_anim_time / world.tick_lag
-	var/list/animation_math_list = animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_3]-[radius_2]-[door_hinge]"]
+	var/list/animation_math_list = animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"]
 	for(var/I in 0 to num_steps)
 		var/matrix/M = get_door_transform(animation_math_list[closing ? num_steps + 1 - I : I + 1], animation_math_list[closing ? 2 * num_steps + 1 - I : num_steps + I + 1])
 
@@ -84,5 +84,5 @@
 	for(var/I in 0 to num_steps_1) //loop to save the animation values into the lists
 		var/angle_1 = I == 0 ? 0 : door_anim_angle * (I / num_steps_1)
 		new_animation_math_sublist[I+1] = cos(angle_1)
-		new_animation_math_sublist[num_steps_1+I+1] = sin(angle_1) * azimuth_angle_3
-	animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_3]-[radius_2]-[door_hinge]"] = new_animation_math_sublist
+		new_animation_math_sublist[num_steps_1+I+1] = sin(angle_1) * azimuth_angle_2
+	animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"] = new_animation_math_sublist

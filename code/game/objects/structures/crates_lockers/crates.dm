@@ -21,7 +21,7 @@
 	open_sound_volume = 35
 	close_sound_volume = 50
 	drag_slowdown = 0
-	var/azimuth_angle_3 = 138 //in this context the azimuth angle for over 90 degree
+	var/azimuth_angle_2 = 138 //in this context the azimuth angle for over 90 degree
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
 	var/radius_2 = 1.35
 	var/static/list/animation_math //assoc list with pre calculated values
@@ -30,7 +30,7 @@
 	. = ..()
 	if(animation_math == null) //checks if there is already a list for animation_math if not creates one to avoid runtimes
 		animation_math = new/list()
-	if(!door_anim_time == 0 && !animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_3]-[radius_2]-[door_hinge]"])
+	if(!door_anim_time == 0 && !animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"])
 		animation_list()
 
 /obj/structure/closet/crate/CanPass(atom/movable/mover, turf/target)
@@ -69,11 +69,11 @@
 	door_obj.icon_state = "[icon_door || icon_state]_door"
 	is_animating_door = TRUE
 	var/num_steps = door_anim_time / world.tick_lag
-	var/list/animation_math_list = animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_3]-[radius_2]-[door_hinge]"]
+	var/list/animation_math_list = animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"]
 	for(var/I in 0 to num_steps)
-		var/door_state = I == 0 ? "[icon_door || icon_state]_door" : animation_math_list[closing ? 3 * num_steps + I : num_steps + I] <= 0 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
-		var/door_layer = I == 0 ? ABOVE_MOB_LAYER : animation_math_list[closing ? 3 * num_steps + I : num_steps + I] <= 0 ? FLOAT_LAYER : ABOVE_MOB_LAYER
-		var/matrix/M = get_door_transform(I==0 ? 0 : animation_math_list[closing ? num_steps * 2 + I : I], I==0 ? 0 : animation_math_list[closing ?  num_steps * 3 + I : num_steps + I])
+		var/door_state = I == 0 || (I == num_steps && closing) ? "[icon_door || icon_state]_door" : animation_math_list[closing ? 2 * num_steps - I : num_steps + I] <= 0 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
+		var/door_layer = I == 0 || (I == num_steps && closing) ? ABOVE_MOB_LAYER : animation_math_list[closing ? 2 * num_steps - I : num_steps + I] <= 0 ? FLOAT_LAYER : ABOVE_MOB_LAYER
+		var/matrix/M = get_door_transform(I==0 || (I == num_steps && closing) ? 0 : animation_math_list[closing ? num_steps - I : I], I==0 || (I == num_steps && closing) ? 1 : animation_math_list[closing ?  2 * num_steps - I : num_steps + I])
 		if(I == 0)
 			door_obj.transform = M
 			door_obj.icon_state = door_state
@@ -99,21 +99,15 @@
 
 /obj/structure/closet/crate/proc/animation_list() //pre calculates a list of values for the crate animation cause byond not like math
 	var/num_steps_1 = door_anim_time / world.tick_lag
-	var/list/new_animation_math_sublist[num_steps_1 * 4]
+	var/list/new_animation_math_sublist[num_steps_1 * 2]
 	for(var/I in 1 to num_steps_1) //loop to save the animation values into the lists
-		var/angle_1 = I == 0 ? 0 : door_anim_angle * (I / num_steps_1)
-		var/angle_2 = I == 0 ? 0 : door_anim_angle * (1 - (I / num_steps_1))
+		var/angle_1 = door_anim_angle * (I / num_steps_1)
 		var/polar_angle = abs(arcsin(cos(angle_1)))
-		var/azimuth_angle = angle_1 >= 90 ? azimuth_angle_3 : 0
+		var/azimuth_angle = angle_1 >= 90 ? azimuth_angle_2 : 0
 		var/radius_cr = angle_1 >= 90 ? radius_2 : 1
-		var/polar_angle_2 = abs(arcsin(cos(angle_2)))
-		var/azimuth_angle_2 = angle_2 >= 90 ? azimuth_angle_3 : 0
-		var/radius_cr_2 = angle_2 >= 90 ? radius_2 : 1
 		new_animation_math_sublist[I] = -sin(polar_angle) * sin(azimuth_angle) * radius_cr
 		new_animation_math_sublist[num_steps_1 + I] = cos(azimuth_angle) * sin(polar_angle) * radius_cr
-		new_animation_math_sublist[num_steps_1 * 2 + I] = -sin(polar_angle_2) * sin(azimuth_angle_2) * radius_cr_2
-		new_animation_math_sublist[num_steps_1 * 3 + I] = cos(azimuth_angle_2) * sin(polar_angle_2) * radius_cr_2
-	animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_3]-[radius_2]-[door_hinge]"] = new_animation_math_sublist
+	animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"] = new_animation_math_sublist
 
 /obj/structure/closet/crate/attack_hand(mob/user)
 	. = ..()
