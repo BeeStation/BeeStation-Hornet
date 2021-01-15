@@ -1361,6 +1361,12 @@
 	icon_state = "miner"
 	toysay = "COLOSSUS RIGHT OUTSIDE THE BASE!"
 
+/obj/item/toy/figure/explorer
+	name = "Explorer action figure"
+	icon_state = "miner"
+	toysay = "NO, IT'S MINE! HAND OVER THE RCD, SCREEEEEEEE!!!"
+
+
 /obj/item/toy/figure/ninja
 	name = "Ninja action figure"
 	icon_state = "ninja"
@@ -1522,7 +1528,7 @@
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
 		update_icon()
-	
+
 	var/choice = null
 	if(!LAZYLEN(cards))
 		to_chat(user, "<span class='warning'>There are no more cards to draw!</span>")
