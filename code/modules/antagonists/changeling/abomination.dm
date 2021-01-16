@@ -10,7 +10,7 @@
 	name = "shiftium"
 	description = "A strange stimulant."
 	color = "#9D5A99"
-	overdose_threshold = 10
+	overdose_threshold = 8
 	taste_description = "savory with a bit of blood"
 	metabolization_rate = 0.3 * REAGENTS_METABOLISM
 	var/obj/shapeshift_holder/shapeshiftdata
@@ -33,7 +33,7 @@
 
 /datum/reagent/shiftium/overdose_process(mob/living/L)
 	L.adjustStaminaLoss(5, 0)
-	if (prob(volume/2))
+	if(prob(volume * 2.5))
 		var/datum/antagonist/changeling/changeling = L.mind?.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			metabolization_rate = 10 * REAGENTS_METABOLISM
@@ -46,14 +46,12 @@
 	..()
 
 /datum/reagent/shiftium/proc/polymorph_target(mob/living/L, var/dur)
-	if(L.anti_magic_check())
-		return
 	shapeshiftdata = locate() in L
 	if(shapeshiftdata)
 		return
 	var/mob/living/simple_animal/hostile/cling_horror/shape = new (get_turf(L))
 	shapeshiftdata = new(shape,null,L)
-	addtimer(CALLBACK(shapeshiftdata, /obj/shapeshift_holder.proc/restore), 60 SECONDS * dur)
+	addtimer(CALLBACK(shapeshiftdata, /obj/shapeshift_holder.proc/restore),  max(600, 600 * dur))
 
 //	CLING GIBS
 
@@ -82,10 +80,10 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "horror"
 	icon_living = "horror"
-	health = 150
-	maxHealth = 150
-	obj_damage = 50
-	melee_damage = 25
+	health = 180
+	maxHealth = 180
+	obj_damage = 35
+	melee_damage = 20
 	hardattacks = TRUE
 	attacktext = "claws"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
@@ -99,4 +97,4 @@
 	ranged = TRUE
 	ranged_cooldown = 6 SECONDS
 	projectilesound = 'sound/effects/splat.ogg'
-	projectiletype = /obj/item/projectile/tentacle
+	projectiletype = /obj/item/projectile/tentacle/creep

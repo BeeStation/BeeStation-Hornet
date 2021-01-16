@@ -343,8 +343,7 @@
 		return BULLET_ACT_BLOCK
 
 	var/mob/living/carbon/human/H = firer
-
-	if (istype (H))
+	if (istype(H))
 		if(isitem(target))
 			var/obj/item/I = target
 			if(!I.anchored)
@@ -360,9 +359,7 @@
 					var/mob/living/carbon/C = L
 					var/firer_intent = INTENT_HARM
 					var/mob/M = firer
-					if(istype(M))
-						firer_intent = M.a_intent
-					switch(firer_intent)
+					switch(H.a_intent)
 						if(INTENT_HELP)
 							C.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
 							C.throw_at(get_step_towards(H,C), 8, 2)
@@ -395,18 +392,19 @@
 					L.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
 					L.throw_at(get_step_towards(H,L), 8, 2)
 					. = BULLET_ACT_HIT
-	else
-		if(isliving(target))
-			var/mob/living/L = target
-			L.visible_message("<span class='danger'>[L] is pulled by [firer]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [firer]!</span>")
-			L.throw_at(get_step_towards(H,L), 8, 2)
-			L.Knockdown (2 SECONDS)
-			. = BULLET_ACT_HIT
 
 /obj/item/projectile/tentacle/Destroy()
 	qdel(chain)
 	source = null
 	return ..()
+	
+/obj/item/projectile/tentacle/creep/on_hit(atom/target, blocked = FALSE)
+	if(isliving(target))
+		var/mob/living/L = target
+		L.visible_message("<span class='danger'>[L] is pulled by [firer]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [firer]!</span>")
+		L.throw_at(get_step_towards(H,L), 8, 2)
+		L.Knockdown (2 SECONDS)
+		. = BULLET_ACT_HIT
 
 /***************************************\
 |*********SPACE SUIT + HELMET***********|
