@@ -103,6 +103,9 @@ export const chatMiddleware = store => {
       chatRenderer.setHighlight(
         settings.highlightText,
         settings.highlightColor);
+      chatRenderer.setHighContrast(
+        settings.highContrast,
+      );
       return;
     }
     if (type === 'roundrestart') {
