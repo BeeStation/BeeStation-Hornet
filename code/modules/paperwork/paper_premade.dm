@@ -40,8 +40,8 @@
 	name = "paper- Smelting Operations Closed"
 	info = "<B>**NOTICE**</B><BR><BR>Smelting operations moved on-station.<BR><BR>Take your unrefined ore to the Redemption Machine in the Delivery Office to redeem points.<BR><BR>--SS13 Command"
 
-/obj/item/paper/fluff/jobs/security/court_judgement
-	name = "paper- 'Judgement'"
+/obj/item/paper/fluff/jobs/security/court_judgment
+	name = "paper- 'Judgment'"
 	info = "For crimes against the station, the offender is sentenced to:<BR>\n<BR>\n"
 
 /obj/item/paper/fluff/jobs/toxins/chemical_info
@@ -104,4 +104,3 @@
 /obj/item/paper/fluff/stations/lavaland/orm_notice
 	name = "URGENT!"
 	info = "A hastily written note has been scribbled here... <br><br> Please use the ore redemption machine in the cargo office for smelting. PLEASE! <br><br>--The Research Staff"
-
