@@ -137,7 +137,7 @@
 				mixer.reagents.trans_id_to(DG, mixer.reagents.reagent_list[text2num(href_list["m_pour"])]?.type, portion)
 
 	if(href_list["mix"])
-		if(reagents.trans_id_to(mixer, reagents.reagent_list[text2num(href_list["mix"])]?.type, portion) == 0)
+		if(!reagents.trans_id_to(mixer, reagents.reagent_list[text2num(href_list["mix"])]?.type, portion))
 			to_chat(usr, "<span class='warning'>[mixer] is full!</span>")
 
 	if(href_list["transfer"])
