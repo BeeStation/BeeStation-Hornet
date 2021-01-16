@@ -1,7 +1,0 @@
-author: park66665
-delete-after: true
-changes:
-  - refactor: refactored cable and disposal pipe construction/deconstruction code
-      to remove ugly legacy code
-  - bugfix: removal of said ugly legacy code improved performance a bit
-  - bugfix: and fixed cable color bugs
