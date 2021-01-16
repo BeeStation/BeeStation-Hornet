@@ -203,7 +203,7 @@ RLD
 	var/use_one_access = 0 //If the airlock should require ALL or only ONE of the listed accesses.
 	var/delay_mod = 1
 	var/canRturf = FALSE //Variable for R walls to deconstruct them
-	var/id
+	var/linked_switch_id = null	//integer variable, the id for the assigned conveyor switch
 	var/obj/machinery/conveyor/last_placed
 
 /obj/item/construction/rcd/suicide_act(mob/user)
@@ -219,7 +219,7 @@ RLD
 		if(istype(I, /obj/item/conveyor_switch_construct))
 			to_chat(user, "<span class='notice'>You link the switch to the [src].</span>")
 			var/obj/item/conveyor_switch_construct/C = I
-			id = C.id
+			linked_switch_id = C.id
 
 /obj/item/construction/rcd/verb/toggle_window_type_verb()
 	set name = "RCD : Toggle Window Type"
@@ -521,7 +521,7 @@ RLD
 				if (last_placed)
 					cdir = get_dir(A, last_placed)
 					last_placed.setDir(get_dir(last_placed, A))
-				last_placed = new/obj/machinery/conveyor(A, cdir, id)
+				last_placed = new/obj/machinery/conveyor(A, cdir, linked_switch_id)
 				return
 	qdel(rcd_effect)
 
@@ -598,7 +598,7 @@ RLD
 			return
 		if("Conveyor")
 			mode = RCD_CONVEYOR
-			id = null
+			linked_switch_id = null
 			last_placed = null
 		else
 			return
@@ -620,7 +620,7 @@ RLD
 		if (!id)
 			to_chat(user, "<span class='warning'>Error! [src] is not linked!</span>")
 			return
-		if (A == user.loc)
+		if (get_turf(A) == get_turf(user))
 			to_chat(user, "<span class='notice'>Cannot place conveyor below your feet!</span>")
 			return
 
