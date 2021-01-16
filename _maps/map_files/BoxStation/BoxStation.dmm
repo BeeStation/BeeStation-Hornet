@@ -42753,10 +42753,13 @@
 /area/maintenance/aft)
 "cvE" = (
 /obj/machinery/door/window/eastleft{
+	dir = 2;
 	name = "Medical Delivery";
 	req_access_txt = "5"
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
@@ -42785,6 +42788,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/machinery/vending/wardrobe/medi_wardrobe,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "cvI" = (
