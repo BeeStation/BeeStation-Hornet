@@ -146,7 +146,7 @@
 /datum/contractor_item/fulton_extraction_kit
 	name = "Fulton Extraction Kit"
 	desc = "For getting your target across the station to those difficult dropoffs. Place the beacon somewhere secure, and link the pack. Activating the pack on your target in space will send them over to the beacon - make sure they're not just going to run away though!"
-	item = /obj/item/storage/box/contractor/fulton_extraction
+	item = /obj/item/storage/box/contractor_fulton_extraction
 	item_icon = "parachute-box"
 	limited = 1
 	cost = 1
@@ -281,12 +281,12 @@
 	has_owner = TRUE
 	ignore_suit_sensor_level = TRUE
 
-/obj/item/storage/box/contractor/fulton_extraction
+/obj/item/storage/box/contractor_fulton_extraction
 	name = "Fulton Extraction Kit"
 	icon_state = "syndiebox"
 	illustration = "writing_syndie"
 
-/obj/item/storage/box/contractor/fulton_extraction/PopulateContents()
+/obj/item/storage/box/contractor_fulton_extraction/PopulateContents()
 	new /obj/item/extraction_pack(src)
 	new /obj/item/fulton_core(src)
 

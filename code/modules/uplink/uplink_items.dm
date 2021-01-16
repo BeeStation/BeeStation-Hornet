@@ -1389,11 +1389,11 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	item = /obj/item/clothing/gloves/chameleon/combat
 	cost = 1
 
-/datum/uplink_item/stealthy_tools/jammer
-	name = "Radio Jammer"
-	desc = "This device will disrupt any nearby outgoing radio communication when activated. Does not affect binary chat."
-	item = /obj/item/jammer
-	cost = 3
+/datum/uplink_item/stealthy_tools/chamduffel
+	name = "Chameleon Lightweight Duffel Bag"
+	desc = "A duffel bag which holds more items than a backpack but has no additional slowdown, enhanced with chameleon disguise technology."
+	item = /obj/item/storage/backpack/chameleon/duffelbag
+	cost = 2
 
 /datum/uplink_item/stealthy_tools/smugglersatchel
 	name = "Smuggler's Satchel"
@@ -1402,6 +1402,12 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	item = /obj/item/storage/backpack/satchel/flat/with_tools
 	cost = 1
 	surplus = 30
+
+/datum/uplink_item/stealthy_tools/jammer
+	name = "Radio Jammer"
+	desc = "This device will disrupt any nearby outgoing radio communication when activated. Does not affect binary chat."
+	item = /obj/item/jammer
+	cost = 3
 
 //Space Suits and Hardsuits
 /datum/uplink_item/suits

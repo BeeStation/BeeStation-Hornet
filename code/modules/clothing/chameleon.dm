@@ -581,6 +581,18 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
+/obj/item/storage/backpack/chameleon/duffelbag
+	name = "duffel bag"
+	desc = "A large duffel bag for holding extra things."
+	icon_state = "duffel"
+	item_state = "duffel"
+	resistance_flags = FIRE_PROOF
+
+/obj/item/storage/backpack/chameleon/duffelbag/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_combined_w_class = 30
+
 /obj/item/storage/belt/chameleon
 	name = "toolbelt"
 	desc = "Holds tools."
