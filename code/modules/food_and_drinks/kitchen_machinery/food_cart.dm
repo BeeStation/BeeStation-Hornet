@@ -89,7 +89,7 @@
 			dat += "<a href='?src=[REF(src)];pour=[i]'>Pour in a glass</a>"
 		dat += "<a href='?src=[REF(src)];mix=[i]'>Add to the mixer</a><br>"
 	dat += "</div><br><b>MIXER CONTENTS</b><br><div class='statusDisplay'>"
-	for(var/i=1 to LAZYLEN(mixer.reagents.reagent_list))
+	for(var/i in 1 to LAZYLEN(mixer.reagents.reagent_list))
 		var/datum/reagent/R = mixer.reagents.reagent_list[i]
 		dat += "[R.name]: [R.volume] "
 		dat += "<a href='?src=[REF(src)];transfer=[i]'>Transfer back</a>"
