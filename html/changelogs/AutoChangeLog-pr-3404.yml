@@ -1,0 +1,7 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - tweak: minor adjustments to light and camera placements in box's medbay
+  - tweak: fix box's medbay disposal system
+  - tweak: moved intercom from the chapel window in escape
+  - rscadd: MediDrobe to Box medbay storage
