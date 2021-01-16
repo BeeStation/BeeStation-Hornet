@@ -337,6 +337,7 @@
 		if(stam_paralyzed)
 			. |= BODYPART_LIFE_UPDATE_HEALTH //make sure we remove the stamcrit
 	var/bodyparts_with_stam = 0
+	var/stam_heal_multiplier = 1
 	var/total_stamina_loss = 0	//Quicker to put it here too than do it again with getStaminaLoss
 	var/force_heal = 0
 	//Find how many bodyparts we have with stamina damage
@@ -347,10 +348,13 @@
 				total_stamina_loss += BP.stamina_dam * BP.stam_damage_coeff
 		//Force bodyparts to heal if we have more than 120 stamina damage (6 seconds)
 		force_heal = max(0, total_stamina_loss - 120) / max(bodyparts_with_stam, 1)
+	//Increase damage the more stam damage
+	//Incraesed stamina healing when above 60 stamloss
+	stam_heal_multiplier = CLAMP(total_stamina_loss / 60, 1, 2)
 	//Heal bodypart stamina damage
 	for(var/obj/item/bodypart/BP as anything in bodyparts)
 		if(BP.needs_processing)
-			. |= BP.on_life(force_heal + ((stam_regen * stam_heal) / max(bodyparts_with_stam, 1)))
+			. |= BP.on_life(force_heal + ((stam_regen * stam_heal * stam_heal_multiplier) / max(bodyparts_with_stam, 1)))
 
 /mob/living/carbon/handle_diseases()
 	for(var/thing in diseases)
