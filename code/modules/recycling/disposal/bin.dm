@@ -232,7 +232,7 @@
 	if(!(flags_1 & NODECONSTRUCT_1))
 		new /obj/structure/disposalconstruct(loc, null, SOUTH, FALSE, src)
 	for(var/atom/movable/AM in src) //out, out, darned crowbar!
-		AM.forceMove(loc)
+		AM.forceMove(get_turf(src))
 	..()
 
 /obj/machinery/disposal/get_dumping_location(obj/item/storage/source,mob/user)
