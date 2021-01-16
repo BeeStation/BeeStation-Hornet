@@ -22,7 +22,7 @@
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
 	ears = /obj/item/radio/headset
-	mask = /obj/item/clothing/mask/gas
+	mask = /obj/item/clothing/mask/gas/old
 	head = /obj/item/clothing/head/helmet/swat
 	back = /obj/item/storage/backpack
 	id = /obj/item/card/id/syndicate
@@ -110,7 +110,7 @@
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/bearpelt
 	gloves = /obj/item/clothing/gloves/color/black
-	mask = /obj/item/clothing/mask/gas
+	mask = /obj/item/clothing/mask/gas/old
 
 
 
