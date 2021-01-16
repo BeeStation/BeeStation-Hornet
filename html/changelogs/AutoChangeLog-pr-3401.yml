@@ -1,0 +1,4 @@
+author: OceanFish1
+delete-after: true
+changes:
+  - bugfix: some simple mob corpses got back their old gasmasks.
