@@ -43,7 +43,7 @@
 	var/num_steps = door_anim_time / world.tick_lag
 	var/list/animation_math_list = animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"]
 	for(var/I in 0 to num_steps)
-		var/matrix/M = get_door_transform(I == 0 || (I == num_steps && closing) ? 1 : animation_math_list[closing ? num_steps - I : I], I == 0 || (I == num_steps && closing) ? 0 : animation_math_list[closing ? 2 * num_steps - I : num_steps + I])
+		var/matrix/M = get_door_transform(I == (closing ? num_steps : 0) ? 1 : animation_math_list[closing ? num_steps - I : I], I == (closing ? num_steps : 0) ? 0 : animation_math_list[closing ? 2 * num_steps - I : num_steps + I])
 
 		if(I == 0)
 			door_obj.transform = M
@@ -80,7 +80,7 @@
 
 /obj/structure/closet/crate/critter/animation_list()
 	var/num_steps_1 = door_anim_time / world.tick_lag
-	var/list/new_animation_math_sublist[num_steps_1 * 2 + 1]
+	var/list/new_animation_math_sublist[num_steps_1 * 2]
 	for(var/I in 1 to num_steps_1) //loop to save the animation values into the lists
 		var/angle_1 = door_anim_angle * (I / num_steps_1)
 		new_animation_math_sublist[I] = cos(angle_1)
