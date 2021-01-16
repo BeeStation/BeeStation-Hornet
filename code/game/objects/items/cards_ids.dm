@@ -757,3 +757,10 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/job/lawyer
 	icon_state = "lawyer"
+
+/obj/item/card/id/temp
+	name = "temporary access pass"
+	desc = "A temporary access pass that will become obsolete in 5 minutes."
+	icon_state = "data_1"
+	registered_name = "Access Pass"
+	assignment = "Temporary"
