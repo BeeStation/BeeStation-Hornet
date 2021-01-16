@@ -114,10 +114,9 @@
 			return
 		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out jets of flame!</span>")
 		playsound(get_turf(owner),'sound/magic/fireball.ogg', 100, 1)
-		for(var/mob/living/carbon/C in range(6, owner))
-			if(C != owner)
-				C.fire_stacks += 8
-				C.IgniteMob()
+		for(var/mob/living/carbon/C in ohearers(6, owner))
+			C.fire_stacks += 8
+			C.IgniteMob()
 		owner.fire_stacks = -20
 		reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 		return 1
@@ -200,8 +199,8 @@
 		owner.visible_message("<span class='danger'>[src] blocks [attack_text], converting the attack into a wave of force!</span>")
 		var/turf/T = get_turf(owner)
 		var/list/thrown_items = list()
-		for(var/atom/movable/A in range(T, 7))
-			if(A == owner || A.anchored || thrown_items[A])
+		for(var/atom/movable/A in orange(T, 7))
+			if(A.anchored || thrown_items[A])
 				continue
 			var/throwtarget = get_edge_target_turf(T, get_dir(T, get_step_away(A, T)))
 			A.safe_throw_at(throwtarget, 10, 1, force = repulse_force)

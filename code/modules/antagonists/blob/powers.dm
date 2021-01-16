@@ -18,7 +18,7 @@
 				if(M.client)
 					to_chat(src, "<span class='warning'>There is someone too close to place your blob core!</span>")
 					return 0
-			for(var/mob/living/M in view(13, src))
+			for(var/mob/living/M in hearers(13, src))
 				if(ROLE_BLOB in M.faction)
 					continue
 				if(M.client)

@@ -50,7 +50,7 @@
 	if(lifetime < 1)
 		kill_smoke()
 		return 0
-	for(var/mob/living/L in range(0,src))
+	for(var/mob/living/L in hearers(0,src))
 		smoke_mob(L)
 	return 1
 

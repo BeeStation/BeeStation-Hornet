@@ -517,8 +517,8 @@
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/Life()
 	..()
-	for(var/mob/living/simple_animal/pet/P in range(1, src))
-		if(P != src && !istype(P,/mob/living/simple_animal/pet/dog/corgi/narsie))
+	for(var/mob/living/simple_animal/pet/P in ohearers(1, src))
+		if(!istype(P,/mob/living/simple_animal/pet/dog/corgi/narsie))
 			visible_message("<span class='warning'>[src] devours [P]!</span>", \
 			"<span class='cult big bold'>DELICIOUS SOULS</span>")
 			playsound(src, 'sound/magic/demon_attack1.ogg', 75, TRUE)

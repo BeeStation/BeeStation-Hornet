@@ -177,7 +177,7 @@
 	if(processing)
 		return
 	var/mob/living/simple_animal/slime/picked_slime
-	for(var/mob/living/simple_animal/slime/slime in range(1,src))
+	for(var/mob/living/simple_animal/slime/slime in hearers(1,src))
 		if(slime.loc == src)
 			continue
 		if(istype(slime, /mob/living/simple_animal/slime))

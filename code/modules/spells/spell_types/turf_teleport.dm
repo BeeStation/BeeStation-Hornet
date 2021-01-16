@@ -15,8 +15,8 @@
 	playsound(get_turf(user), sound1, 50,1)
 	for(var/mob/living/target in targets)
 		var/list/turfs = new/list()
-		for(var/turf/T in range(target,outer_tele_radius))
-			if(T in range(target,inner_tele_radius))
+		for(var/turf/T in range(outer_tele_radius, target))
+			if(T in range(inner_tele_radius, target))
 				continue
 			if(isspaceturf(T) && !include_space)
 				continue

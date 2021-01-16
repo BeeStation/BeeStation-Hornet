@@ -20,16 +20,18 @@
 	for(var/obj/item/organ/I in organs)
 		I.Remove(user, 1)
 
-	for(var/mob/living/carbon/human/H in range(2,user))
-		var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
-		to_chat(H, "<span class='userdanger'>You are blinded by a shower of blood!</span>")
-		H.Stun(20)
-		H.blur_eyes(20)
-		eyes?.applyOrganDamage(5)
-		H.confused += 10
-	for(var/mob/living/silicon/S in range(2,user))
-		to_chat(S, "<span class='userdanger'>Your sensors are disabled by a shower of blood!</span>")
-		S.Paralyze(60)
+	for(var/mob/M as() in hearers(2,user))
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			to_chat(H, "<span class='userdanger'>You are blinded by a shower of blood!</span>")
+			H.Stun(20)
+			H.blur_eyes(20)
+			eyes?.applyOrganDamage(5)
+			H.confused += 10
+		else if(issilicon(M))
+			var/mob/living/silicon/S = M
+			to_chat(S, "<span class='userdanger'>Your sensors are disabled by a shower of blood!</span>")
+			S.Paralyze(60)	
 	var/turf = get_turf(user)
 	user.gib()
 	. = TRUE

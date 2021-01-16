@@ -219,7 +219,7 @@
 	if(!can_target(targets[1], user))
 		return FALSE
 
-	for(var/mob/living/carbon/human/C in range(1,targets[1]))
+	for(var/mob/living/carbon/human/C in hearers(1,targets[1]))
 		targets |= C
 
 

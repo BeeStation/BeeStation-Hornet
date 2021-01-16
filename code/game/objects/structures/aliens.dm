@@ -295,7 +295,7 @@
 			if(kill)
 				child.Die()
 			else
-				for(var/mob/M in range(1,src))
+				for(var/mob/M as() in ohearers(1,src))
 					if(CanHug(M))
 						child.Leap(M)
 						break

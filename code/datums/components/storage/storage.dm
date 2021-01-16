@@ -728,7 +728,7 @@
 /datum/component/storage/proc/signal_on_pickup(datum/source, mob/user)
 	var/atom/A = parent
 	update_actions()
-	for(var/mob/M in range(1, A))
+	for(var/mob/M as() in hearers(1, A))
 		if(M.active_storage == src)
 			close(M)
 
