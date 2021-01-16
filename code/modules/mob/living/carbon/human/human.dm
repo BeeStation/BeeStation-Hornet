@@ -784,7 +784,7 @@
 				hud_used.healthdoll.icon_state = "healthdoll_OVERLAY"
 				for(var/X in bodyparts)
 					var/obj/item/bodypart/BP = X
-					var/damage = BP.burn_dam + BP.brute_dam + hallucination ? BP.stamina_dam : 0
+					var/damage = BP.burn_dam + BP.brute_dam + (hallucination ? BP.stamina_dam : 0)
 					var/comparison = (BP.max_damage/5)
 					var/icon_num = 0
 					if(damage)
