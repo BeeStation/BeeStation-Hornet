@@ -618,7 +618,7 @@ RLD
 		if(!range_check(A, user) || !target_check(A,user)  || istype(A, /obj/machinery/conveyor) || !isopenturf(A) || istype(A, /area/shuttle))
 			to_chat(user, "<span class='warning'>Error! Invalid tile!</span>")
 			return
-		if (!id)
+		if (!linked_switch_id)
 			to_chat(user, "<span class='warning'>Error! [src] is not linked!</span>")
 			return
 		if (get_turf(A) == get_turf(user))
