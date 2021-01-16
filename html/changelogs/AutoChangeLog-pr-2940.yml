@@ -1,0 +1,8 @@
+author: jlsnow301
+delete-after: true
+changes:
+  - bugfix: CentCom finally sent the spell checker that was on back order. A large
+      number of typos and punctuation errors have been fixed.
+  - bugfix: Several mutation-related messages should now display correctly.
+  - bugfix: Examine text for cybernetic implants is now formatted in a readable manner.
+  - bugfix: Emotes should no longer contain extra punctuation like this!.
