@@ -350,7 +350,7 @@
 	hat_offset = -4
 
 /obj/item/robot_module/deathsquad
-	name = "Centcom"
+	name = "CentCom"
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/restraints/handcuffs/cable/zipties,

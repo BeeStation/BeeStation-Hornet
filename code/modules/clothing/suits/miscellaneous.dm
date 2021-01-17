@@ -309,7 +309,7 @@
 	flags_inv = HIDEHAIR|HIDEEARS
 	dynamic_hair_suffix = ""
 
-/obj/item/clothing/suit/hooded/bee_costume/syndie 
+/obj/item/clothing/suit/hooded/bee_costume/syndie
 	name = "BLF costume"
 	armor = list("melee" = 20, "bullet" = 20, "laser" = 20,"energy" = 40, "bomb" = 0, "bio" = 60, "rad" = 0, "fire" = 0, "acid" = 50)
 	hoodtype = /obj/item/clothing/head/hooded/bee_hood/syndie
@@ -660,7 +660,7 @@
 	icon_state = "joker"
 	item_state = "joker"
 	item_color = "joker"
-	can_adjust = FALSE	
+	can_adjust = FALSE
 
 /obj/item/clothing/suit/joker
 	name = "comedian coat"
@@ -668,3 +668,13 @@
 	icon_state = "joker_coat"
 	item_state = "joker_coat"
 	item_color = "joker_coat"
+
+/obj/item/clothing/suit/toggle/softshell
+	name = "softshell jacket"
+	desc = "A Nanotrasen-branded softshell jacket."
+	icon_state = "softshell"
+	item_state = "softshell"
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/t_scanner, /obj/item/radio)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 30, "rad" = 0, "fire" = 0, "acid" = 0)
+	togglename = "zipper"
+	body_parts_covered = CHEST|GROIN|ARMS

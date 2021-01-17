@@ -16576,6 +16576,7 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "aTk" = (
+/obj/machinery/computer/arcade,
 /turf/open/floor/plasteel/white/corner{
 	dir = 1
 	},
@@ -17041,9 +17042,11 @@
 	},
 /area/chapel/main)
 "aUL" = (
-/obj/machinery/computer/arcade,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_x = -25
 	},
 /turf/open/floor/plasteel/white/corner{
 	dir = 1
@@ -17510,9 +17513,6 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "aVW" = (
-/obj/item/radio/intercom{
-	pixel_x = -25
-	},
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
@@ -27778,9 +27778,6 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -28388,9 +28385,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bBt" = (
-/obj/machinery/camera/autoname{
-	dir = 1
-	},
 /obj/structure/disposalpipe/junction/flip{
 	dir = 8
 	},
@@ -30411,7 +30405,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/disposalpipe/junction,
+/obj/structure/disposalpipe/sorting/wrap,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "bIc" = (
@@ -34065,10 +34059,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/structure/disposalpipe/sorting/mail{
-	dir = 1;
-	sortType = 10
-	},
+/obj/structure/disposalpipe/sorting/wrap/flip,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "bSX" = (
@@ -42762,10 +42753,13 @@
 /area/maintenance/aft)
 "cvE" = (
 /obj/machinery/door/window/eastleft{
+	dir = 2;
 	name = "Medical Delivery";
 	req_access_txt = "5"
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
@@ -42794,6 +42788,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/machinery/vending/wardrobe/medi_wardrobe,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "cvI" = (
@@ -52881,6 +52876,18 @@
 /obj/item/flashlight/lantern,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
+"lrp" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/camera/autoname{
+	dir = 10
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/central)
 "lrU" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 4
@@ -54553,7 +54560,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/structure/disposalpipe/junction/flip,
+/obj/structure/disposalpipe/sorting/wrap/flip,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "nkW" = (
@@ -58563,6 +58570,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/nanite)
+"suZ" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/sleeper)
 "svv" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
@@ -62245,7 +62261,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/structure/disposalpipe/junction{
+/obj/structure/disposalpipe/sorting/wrap{
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
@@ -93929,7 +93945,7 @@ aaa
 dgB
 aJq
 chm
-wbr
+lrp
 cBD
 bFi
 bFi
@@ -98801,7 +98817,7 @@ aNl
 blh
 bjQ
 blh
-blh
+suZ
 bzU
 blh
 blh
