@@ -54714,10 +54714,8 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
-/obj/structure/frame/computer{
-	desc = "Looks like the board never made it to this one.";
-	dir = 8;
-	name = "shuttle console frame"
+/obj/machinery/computer/shuttle/science{
+	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
