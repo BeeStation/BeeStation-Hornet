@@ -372,8 +372,7 @@
 /obj/item/storage/box/syndie_kit/teleporter
 	name = "syndicate teleporter kit"
 
-/obj/item/storage/box/syndie_kit/teleporter/Initialize()
-	..()
+/obj/item/storage/box/syndie_kit/teleporter/PopulateContents()
 	new /obj/item/teleporter(src)
 	new /obj/item/paper/teleporter(src)
 	return
