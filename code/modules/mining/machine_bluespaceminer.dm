@@ -6,6 +6,9 @@
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/bluespace_miner
 	layer = BELOW_OBJ_LAYER
+	var/mob/living/simple_animal/hostile/megafauna/chosen_mob
+	var/damage_buffer
+	var/list/lavaland_mobs = list()
 	var/list/ore_rates = list(/datum/material/iron = 0.6, /datum/material/glass = 0.6, /datum/material/copper = 0.4, /datum/material/plasma = 0.2,  /datum/material/silver = 0.2, /datum/material/gold = 0.1, /datum/material/titanium = 0.1, /datum/material/uranium = 0.1, /datum/material/diamond = 0.1)
 	var/datum/component/remote_materials/materials
 
@@ -31,10 +34,16 @@
 		. += "<span class='warning'>Ore silo access is on hold, please contact the quartermaster.</span>"
 
 /obj/machinery/mineral/bluespace_miner/process()
-	if(!materials?.silo || materials?.on_hold())
-		return
-	var/datum/component/material_container/mat_container = materials.mat_container
-	if(!mat_container || panel_open || !powered())
-		return
-	var/datum/material/ore = pick(ore_rates)
-	mat_container.insert_amount_mat((ore_rates[ore] * 1000), ore)
+	if(damage_buffer >= 1000)
+		for(var/mob/living/simple_animal/hostile/megafauna/chonker in GLOB.mob_living_list)
+			lavaland_mobs += chonker
+		if(!length(lavaland_mobs))
+			return
+		chosen_mob = pick(lavaland_mobs)
+		chosen_mob.adjustBruteLoss(2500)
+		chosen_mob.gib()
+		lavaland_mobs.Cut()
+		damage_buffer = 0
+		visible_message("<span class='notice'>[src] has automatically slain [chosen_mob]!</span>")
+	else
+		damage_buffer += 50
