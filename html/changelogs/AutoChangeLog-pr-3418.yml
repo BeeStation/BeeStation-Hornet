@@ -1,0 +1,4 @@
+author: OceanFish1
+delete-after: true
+changes:
+  - bugfix: Meta's white ship now shouldn't have three firelocks at one airlock.
