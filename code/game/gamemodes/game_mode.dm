@@ -359,6 +359,7 @@
 
 //Checks if we can convert the round type
 //Checks if antagonists are in brig to convert the roundtype to something else.
+//Returns TRUE if the end game checks should run
 /datum/game_mode/proc/check_round_conversion()
 	//Run checks
 	if(!SSticker.setup_done || !gamemode_ready)
@@ -429,7 +430,7 @@
 
 	//Check for living antagonists
 	round_converted = convert_roundtype()
-	return round_converted
+	return TRUE
 
 /datum/game_mode/proc/check_win() //universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
 	return 0
