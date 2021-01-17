@@ -37,9 +37,6 @@
 	speed = 0.2
 	armour_penetration = 10
 
-/obj/item/projectile/bullet/c38/trac/hos
-	name = "3D printed .454 TRAC"
-
 /obj/item/projectile/bullet/pellet/hos
 	name = "3D printed plastic pellet"
 	damage = 5

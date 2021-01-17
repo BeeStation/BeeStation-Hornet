@@ -7,7 +7,7 @@
 	projectile_type = /obj/item/projectile/energy/declone
 	select_name = "declone"
 	fire_sound = 'sound/weapons/pulse3.ogg'
-	
+
 /obj/item/ammo_casing/energy/declone/weak
 	projectile_type = /obj/item/projectile/energy/declone/weak
 
@@ -80,11 +80,6 @@
 	e_cost = 120
 	select_name = ".454HV"
 	projectile_type = /obj/item/projectile/bullet/hos/hv
-
-/obj/item/ammo_casing/energy/hos/trac
-	e_cost = 400
-	select_name = ".454TRAC"
-	projectile_type = /obj/item/projectile/bullet/c38/trac/hos
 
 /obj/item/ammo_casing/energy/hos/light
 	fire_sound = 'sound/weapons/gunshot.ogg'
