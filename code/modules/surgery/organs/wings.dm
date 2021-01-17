@@ -168,17 +168,17 @@
 		to_chat(L, "<span class='warning'>The atmosphere is too thin for you to dash!</span>")
 		return
 
-	var/atom/target = get_edge_target_turf(L, L.dir) //gets the user's direction
+	var/turf/target = get_edge_target_turf(L, L.dir) //represents the user's direction
 	var/hoppingtable = FALSE // Triggers the trip
 	var/jumpdistancemoved = jumpdistance // temp jumpdistance
 	var/turf/checkjump = get_turf(L)
 	for(var/i in 1 to jumpdistance) //This is how hiero club find the tiles in front of it, tell me/fix it if there's a better way
-		if(locate(/obj/structure/table, get_step(checkjump, L.dir))) // If there's a table, trip
+		var/turf/T = get_step(checkjump, L.dir)
+		if(locate(/obj/structure/table) in T) // If there's a table, trip
 			hoppingtable = TRUE
 			jumpdistancemoved = i
 			break
-		var/turf/T = get_turf(get_step(checkjump, L.dir))
-		if(T.density == TRUE) // If turf has density (wall), break
+		if(T.density) // If turf has density (wall), break
 			break
 		var/dense_in_the_way = FALSE
 		for(var/atom/movable/A in T) // breaks if there's anything solid in the way, no tripping on tables through walls
@@ -193,7 +193,7 @@
 		playsound(L, 'sound/creatures/bee.ogg', 50, 1, 1)
 		L.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
 		recharging_time = world.time + recharging_rate
-		if(hoppingtable == TRUE)
+		if(hoppingtable)
 			L.take_bodypart_damage(10,check_armor = TRUE)
 			L.Paralyze(40)
 			L.visible_message("<span class='danger'>[L] crashes into a table, falling over!</span>",\
