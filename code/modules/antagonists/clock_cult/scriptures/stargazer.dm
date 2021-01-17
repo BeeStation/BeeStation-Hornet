@@ -83,7 +83,7 @@
 	if(QDELETED(sg_light))
 		return
 	var/mob_nearby = FALSE
-	for(var/mob/living/M in view(2, get_turf(src)))
+	for(var/mob/living/M in viewers(2, get_turf(src)))
 		if(is_servant_of_ratvar(M))
 			mob_nearby = TRUE
 			break

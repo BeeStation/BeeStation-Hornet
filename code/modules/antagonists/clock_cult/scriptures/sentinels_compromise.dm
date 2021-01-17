@@ -11,7 +11,7 @@
 	power_cost = 80
 
 /datum/clockcult/scripture/slab/sentinelscompromise/click_on(atom/A)
-	if(!(get_turf(A) in view(7, get_turf(invoker))))
+	if(!(invoker in viewers(7, get_turf(A))))
 		return
 	var/mob/living/M = A
 	if(!istype(M))

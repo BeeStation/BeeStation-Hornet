@@ -175,7 +175,7 @@
 	var/list/mobss = list()
 	var/list/validturfs = list()
 	var/turf/T = get_turf(src)
-	for(var/atom/I in view(7, src))
+	for(var/atom/I as() in view(7, src))
 		if(isopenturf(I))
 			turfs += I 
 			continue 
@@ -359,7 +359,7 @@
 		FC.delete_after_target_killed = FALSE
 		FC.interest = 300
 	color = RUNE_COLOR_SUMMON
-	for(var/mob/living/carbon/C in view(10, src))
+	for(var/mob/living/carbon/C in hearers(10, src))
 		C.Stun(350, ignore_canstun = TRUE)
 	priority_announce("Figments of an elder god have been detected in your sector. Exercise extreme caution, and abide by the 'buddy system' at all times.","Central Command Higher Dimensional Affairs", 'sound/ai/spanomalies.ogg')
 	stoplag(315)

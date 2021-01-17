@@ -275,8 +275,7 @@
 
 	var/turf/targloc = get_turf(target)
 
-	var/mob/living/carbon/human/M
-	for(M in view(2,targloc))
+	for(var/mob/living/carbon/human/M in hearers(2,targloc))
 		if(M == user)
 			continue
 		to_chat(user, "<span class='notice'>You silence [M]'s radio devices.</span>")

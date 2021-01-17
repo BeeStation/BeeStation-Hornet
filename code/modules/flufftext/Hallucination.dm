@@ -420,9 +420,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	var/image/A = null
 	var/list/mob_pool = list()
 
-	for(var/mob/living/carbon/human/M in view(7,target))
-		if(M != target)
-			mob_pool += M
+	for(var/mob/living/carbon/human/M in ohearers(7,target))
+		mob_pool += M
 	if(!mob_pool.len)
 		return
 
@@ -681,9 +680,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 	var/mob/living/carbon/person = null
 	var/datum/language/understood_language = target.get_random_understood_language()
-	for(var/mob/living/carbon/H in view(target))
-		if(H == target)
-			continue
+	for(var/mob/living/carbon/H in ohearers(target))
 		if(!person)
 			person = H
 		else

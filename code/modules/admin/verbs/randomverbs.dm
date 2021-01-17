@@ -182,7 +182,7 @@
 	var/msg = capped_input(usr, "Message:", "Enter the text you wish to appear to everyone within view:")
 	if (!msg)
 		return
-	for(var/mob/M in view(range,A))
+	for(var/mob/M as() in hearers(range,A))
 		to_chat(M, msg)
 
 	log_admin("LocalNarrate: [key_name(usr)] at [AREACOORD(A)]: [msg]")

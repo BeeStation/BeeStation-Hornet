@@ -212,7 +212,7 @@
 /obj/item/grenade/chem_grenade/teargas/moustache/prime()
 	var/myloc = get_turf(src)
 	. = ..()
-	for(var/mob/living/carbon/M in view(6, myloc))
+	for(var/mob/living/carbon/M in hearers(6, myloc))
 		if(!istype(M.wear_mask, /obj/item/clothing/mask/gas/clown_hat) && !istype(M.wear_mask, /obj/item/clothing/mask/gas/mime) )
 			if(!M.wear_mask || M.dropItemToGround(M.wear_mask))
 				var/obj/item/clothing/mask/fakemoustache/sticky/the_stash = new /obj/item/clothing/mask/fakemoustache/sticky()

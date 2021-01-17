@@ -311,7 +311,7 @@
 		if(O == src)
 			return //DON'T DELETE YOURSELF GOD DAMN
 		if(!O.anchored)
-			var/mob/living/target = locate() in view(4,src)
+			var/mob/living/target = locate() in hearers(4,src)
 			if(target && !target.stat)
 				O.throw_at(target, 7, 5)
 		else
