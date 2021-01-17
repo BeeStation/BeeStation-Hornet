@@ -38,6 +38,14 @@
 		for(var/mob/living/simple_animal/hostile/megafauna/chonker in GLOB.mob_living_list)
 			lavaland_mobs += chonker
 		if(!length(lavaland_mobs))
+			for(var/mob/living/simple_animal/hostile/lesser_chonk in GLOB.mob_living_list)
+				if(istype(lesser_chonk, /area/lavaland/surface/outdoors))
+					lavaland_mobs += lesser_chonk
+		if(!length(lavaland_mobs))
+			for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
+				if(H.job == "Shaft Miner")
+					lavaland_mobs += H
+		if(!length(lavaland_mobs))
 			return
 		chosen_mob = pick(lavaland_mobs)
 		chosen_mob.adjustBruteLoss(2500)
