@@ -301,10 +301,9 @@
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
 
-	var/teleport_distance = rand(minimum_teleport_distance,maximum_teleport_distance)
 	var/mob/living/carbon/C = user
-	var/turf/mobloc = get_turf(C)
-	var/turf/destination = get_teleport_loc(mobloc,C,teleport_distance,0,0,0,0,0,0)
+	var/teleport_distance = rand(minimum_teleport_distance,maximum_teleport_distance)
+	var/turf/destination = get_teleport_loc(current_location,C,teleport_distance,0,0,0,0,0,0)
 	var/list/bagholding = user.GetAllContents(/obj/item/storage/backpack/holding)
 
 	if(isclosedturf(destination))
@@ -317,7 +316,7 @@
 		do_teleport(C, destination, channel = TELEPORT_CHANNEL_FREE)
 		charges--
 		START_PROCESSING(SSobj, src)
-		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
+		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(current_location)
 		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
 		playsound(destination, 'sound/effects/phasein.ogg', 25, 1)
 		playsound(destination, "sparks", 50, 1)
