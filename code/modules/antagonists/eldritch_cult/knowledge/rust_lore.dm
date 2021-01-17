@@ -186,11 +186,11 @@
   */
 /datum/rust_spread/proc/compile_turfs()
 	edge_turfs = list()
-	for(var/X in turfs)
+	for(var/turf/X as() in turfs)
 		if(!istype(X,/turf/closed/wall/rust) && !istype(X,/turf/closed/wall/r_wall/rust) && !istype(X,/turf/open/floor/plating/rust))
-			turfs -=X
+			turfs -= X
 			continue
-		for(var/turf/T as() in RANGE_TURFS(1,X))
+		for(var/turf/T as() in RANGE_TURFS(1, X))
 			if(T in turfs)
 				continue
 			if(is_type_in_typecache(T,blacklisted_turfs))

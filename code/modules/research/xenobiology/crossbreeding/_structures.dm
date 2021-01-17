@@ -243,7 +243,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		var/turf/open/open_turf = T
 		open_turf.MakeDry(TURF_WET_LUBE)
 
-	for(var/obj/item/trash/trashie in listie)
+	for(var/obj/item/trash/trashie in range(5, src))
 		if(prob(25))
 			qdel(trashie)
 
