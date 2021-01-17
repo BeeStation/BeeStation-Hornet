@@ -87,18 +87,17 @@ export const NaniteProgramHub = (props, context) => {
                     return (
                       <Button
                         key={category}
+                        color="grey"
                         selected={category === selectedCategory}
                         onClick={() => setSelectedCategory(category)}
                         mb={2}
                         width="80%"
-                        height={2} >
+                        height={2}>
                         <Flex direction="row" justify="space-between">
                           <Icon
                             mt={1}
                             color={
-                              category === selectedCategory
-                                ? "lime"
-                                : "lightskyblue"
+                              category === selectedCategory ? "lime" : "white"
                             }
                             name="microchip"
                           />
@@ -125,7 +124,7 @@ export const NaniteProgramHub = (props, context) => {
                             act("download", {
                               program_id: program.id,
                             })}>
-                          <Icon mr={2} name="download" />
+                          <Icon ml={1} mr={2} name="download" />
                           Download
                         </Button>
                       }>
@@ -151,7 +150,8 @@ export const NaniteProgramHub = (props, context) => {
                             <Icon mr={2} name="download" />
                             Download
                           </Button>
-                        } />
+                        }
+                      />
                     ))}
                   </LabeledList>
                 )}
