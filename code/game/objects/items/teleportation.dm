@@ -308,7 +308,7 @@
 	var/list/bagholding = user.GetAllContents(/obj/item/storage/backpack/holding)
 
 	if(isclosedturf(destination))
-		if(EMP_D == FALSE && !(bagholding.len))
+		if(!EMP_D && !(bagholding.len))
 			panic_teleport(user, destination) //We're in a wall, engage emergency parallel teleport.
 		else
 			get_fragged(user, destination) //EMP teleported you into a wall? Wearing a BoH? You're dead.
