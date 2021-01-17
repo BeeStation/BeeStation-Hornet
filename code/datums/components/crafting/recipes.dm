@@ -916,7 +916,7 @@
 	name = "Shank"
 	reqs = list(/obj/item/shard = 1,
 					/obj/item/stack/cable_coil = 10) // 1 glass shard + 10 cable; needs a wirecutter to snip the cable.
-	result = /obj/item/melee/shank
+	result = /obj/item/kitchen/knife/shank
 	tools = list(TOOL_WIRECUTTER)
 	time = 20
 	category = CAT_WEAPONRY
