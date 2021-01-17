@@ -269,8 +269,8 @@
 	. += "<span class='notice'>[src] has [charges] out of [max_charges] charges left.</span>"
 
 /obj/item/teleporter/attack_self(mob/user)
-	attempt_teleport(user, FALSE)
 	..()
+	attempt_teleport(user, FALSE)
 
 /obj/item/teleporter/process()
 	if(charges < max_charges)
