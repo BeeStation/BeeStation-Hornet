@@ -277,7 +277,7 @@
 		if(prob(10))
 			charges++
 	else
-		STOP_PROCESSING(SSobj, src)
+		return PROCESS_KILL
 
 /obj/item/teleporter/emp_act(severity)
 	if(prob(50 / severity))
