@@ -48,8 +48,8 @@
 		if(!length(lavaland_mobs))
 			return
 		chosen_mob = pick(lavaland_mobs)
-		chosen_mob.adjustBruteLoss(2500)
-		chosen_mob.gib()
+		chosen_mob.adjustBruteLoss(5000)
+		chosen_mob.adjustFireLoss(5000)
 		lavaland_mobs.Cut()
 		damage_buffer = 0
 		visible_message("<span class='notice'>[src] has automatically slain [chosen_mob]!</span>")
