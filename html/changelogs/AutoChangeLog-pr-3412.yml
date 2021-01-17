@@ -1,0 +1,5 @@
+author: bloons3
+delete-after: true
+changes:
+  - bugfix: fixed a bug with the Trashbag of Holding where it was given the same storage
+      as an admin spawn only item
