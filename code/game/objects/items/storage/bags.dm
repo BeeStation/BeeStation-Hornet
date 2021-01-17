@@ -94,7 +94,7 @@
 	icon_state = "hammerspace"
 	w_class = WEIGHT_CLASS_GIGANTIC
 
-/obj/item/storage/bag/trash/bluespace/ComponentInitialize()
+/obj/item/storage/bag/trash/bluespace/hammerspace/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_combined_w_class = 1000
