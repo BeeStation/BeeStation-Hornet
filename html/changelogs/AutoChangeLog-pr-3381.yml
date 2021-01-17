@@ -1,0 +1,5 @@
+author: LemonInTheDark
+delete-after: true
+changes:
+  - admin: Chat messages that are more then text, so videos, embedded games, font
+      changes, etc now get wiped when the chat is reloaded
