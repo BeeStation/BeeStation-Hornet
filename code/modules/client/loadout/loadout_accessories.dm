@@ -170,3 +170,14 @@
 	display_name = "lipstick, random color"
 	path = /obj/item/lipstick/random
 	cost = 1400
+
+//Cloaks
+
+/datum/gear/accessory/cloak
+	subtype_path = /datum/gear/accessory/cloak
+	cost = 10000
+
+/datum/gear/accessory/cloak/blackbishop
+	display_name = "black bishop's cloak"
+	path = /obj/item/clothing/neck/cloak/chap/bishop/black
+	allowed_roles = list("Chaplain")

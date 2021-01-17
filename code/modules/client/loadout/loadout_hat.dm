@@ -190,3 +190,10 @@
 	path = /obj/item/clothing/head/pirate
 	cost = 5000
 
+//CHAPLAIN HATS
+
+/datum/gear/hat/blackbishop
+	display_name = "black bishop mitre"
+	path = /obj/item/clothing/head/bishopmitre/black
+	cost = 5000
+	allowed_roles = list("Chaplain")
