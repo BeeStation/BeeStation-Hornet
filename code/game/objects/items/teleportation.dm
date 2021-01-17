@@ -270,6 +270,7 @@
 
 /obj/item/teleporter/attack_self(mob/user)
 	attempt_teleport(user, FALSE)
+	..()
 
 /obj/item/teleporter/process()
 	if(charges < max_charges)
