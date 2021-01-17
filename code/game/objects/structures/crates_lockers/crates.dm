@@ -13,7 +13,7 @@
 	climb_time = 10 //real fast, because let's be honest stepping into or onto a crate is easy
 	climb_stun = 0 //climbing onto crates isn't hard, guys
 	delivery_icon = "deliverycrate"
-	door_anim_time = 2
+	door_anim_time = 3
 	door_anim_angle = 210
 	door_hinge = 3.5
 	open_sound = 'sound/machines/crate_open.ogg'
@@ -21,11 +21,17 @@
 	open_sound_volume = 35
 	close_sound_volume = 50
 	drag_slowdown = 0
+	var/azimuth_angle_2 = 138 //in this context the azimuth angle for over 90 degree
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
 	var/radius_2 = 1.35
+	var/static/list/animation_math //assoc list with pre calculated values
 
 /obj/structure/closet/crate/Initialize()
 	. = ..()
+	if(animation_math == null) //checks if there is already a list for animation_math if not creates one to avoid runtimes
+		animation_math = new/list()
+	if(!door_anim_time == 0 && !animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"])
+		animation_list()
 
 /obj/structure/closet/crate/CanPass(atom/movable/mover, turf/target)
 	if(!istype(mover, /obj/structure/closet))
@@ -63,14 +69,11 @@
 	door_obj.icon_state = "[icon_door || icon_state]_door"
 	is_animating_door = TRUE
 	var/num_steps = door_anim_time / world.tick_lag
+	var/list/animation_math_list = animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"]
 	for(var/I in 0 to num_steps)
-		var/angle = door_anim_angle * (closing ? 1 - (I/num_steps) : (I/num_steps))
-		var/door_state = angle >= 90 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
-		var/door_layer = angle >= 90 ? FLOAT_LAYER : ABOVE_MOB_LAYER
-		var/azimuth_angle = angle >= 90 ? 138 : 338
-		var/polar_angle = abs(arcsin(cos(angle)))
-		var/radius_cr = angle >= 90 ? radius_2 : 1
-		var/matrix/M = get_door_transform(azimuth_angle, polar_angle, radius_cr)
+		var/door_state = I == (closing ? num_steps : 0) ? "[icon_door || icon_state]_door" : animation_math_list[closing ? 2 * num_steps - I : num_steps + I] <= 0 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
+		var/door_layer = I == (closing ? num_steps : 0) ? ABOVE_MOB_LAYER : animation_math_list[closing ? 2 * num_steps - I : num_steps + I] <= 0 ? FLOAT_LAYER : ABOVE_MOB_LAYER
+		var/matrix/M = get_door_transform(I == (closing ? num_steps : 0) ? 0 : animation_math_list[closing ? num_steps - I : I], I == (closing ? num_steps : 0) ? 1 : animation_math_list[closing ?  2 * num_steps - I : num_steps + I])
 		if(I == 0)
 			door_obj.transform = M
 			door_obj.icon_state = door_state
@@ -87,12 +90,24 @@
 	update_icon()
 	COMPILE_OVERLAYS(src)
 
-/obj/structure/closet/crate/get_door_transform(azimuth_angle, polar_angle, radius_cr)
-		var/matrix/M = matrix()
-		M.Translate(0, -door_hinge)
-		M.Multiply(matrix(1, -sin(polar_angle)*sin(azimuth_angle)* radius_cr, 0, 0, radius_cr*cos(azimuth_angle)*sin(polar_angle), 0))
-		M.Translate(0, door_hinge)
-		return M
+/obj/structure/closet/crate/get_door_transform(crateanim_1, crateanim_2)
+	var/matrix/M = matrix()
+	M.Translate(0, -door_hinge)
+	M.Multiply(matrix(1, crateanim_1, 0, 0, crateanim_2, 0))
+	M.Translate(0, door_hinge)
+	return M
+
+/obj/structure/closet/crate/proc/animation_list() //pre calculates a list of values for the crate animation cause byond not like math
+	var/num_steps_1 = door_anim_time / world.tick_lag
+	var/list/new_animation_math_sublist[num_steps_1 * 2]
+	for(var/I in 1 to num_steps_1) //loop to save the animation values into the lists
+		var/angle_1 = door_anim_angle * (I / num_steps_1)
+		var/polar_angle = abs(arcsin(cos(angle_1)))
+		var/azimuth_angle = angle_1 >= 90 ? azimuth_angle_2 : 0
+		var/radius_cr = angle_1 >= 90 ? radius_2 : 1
+		new_animation_math_sublist[I] = -sin(polar_angle) * sin(azimuth_angle) * radius_cr
+		new_animation_math_sublist[num_steps_1 + I] = cos(azimuth_angle) * sin(polar_angle) * radius_cr
+	animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"] = new_animation_math_sublist
 
 /obj/structure/closet/crate/attack_hand(mob/user)
 	. = ..()

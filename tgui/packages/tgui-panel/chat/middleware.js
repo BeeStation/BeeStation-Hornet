@@ -4,6 +4,7 @@
  * @license MIT
  */
 
+import DOMPurify from 'dompurify';
 import { storage } from 'common/storage';
 import { loadSettings, updateSettings } from '../settings/actions';
 import { selectSettings } from '../settings/selectors';
@@ -13,6 +14,14 @@ import { createMessage, serializeMessage } from './model';
 import { chatRenderer } from './renderer';
 import { selectChat, selectCurrentChatPage } from './selectors';
 import { logger } from 'tgui/logging';
+
+// List of blacklisted tags
+const FORBID_TAGS = [
+  'a',
+  'iframe',
+  'link',
+  'video',
+];
 
 const saveChatToStorage = async store => {
   const state = selectChat(store.getState());
@@ -36,6 +45,13 @@ const loadChatFromStorage = async store => {
     return;
   }
   if (messages) {
+    for (let message of messages) {
+      if (message.html) {
+        message.html = DOMPurify.sanitize(message.html, {
+          FORBID_TAGS,
+        });
+      }
+    }
     const batch = [
       ...messages,
       createMessage({
@@ -103,6 +119,9 @@ export const chatMiddleware = store => {
       chatRenderer.setHighlight(
         settings.highlightText,
         settings.highlightColor);
+      chatRenderer.setHighContrast(
+        settings.highContrast,
+      );
       return;
     }
     if (type === 'roundrestart') {

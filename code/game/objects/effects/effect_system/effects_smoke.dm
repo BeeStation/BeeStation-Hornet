@@ -252,6 +252,7 @@
 	reagents.reaction(M, INGEST, fraction)
 	if(isapid(C))
 		C.SetSleeping(50) // Bees sleep when smoked
+	M.log_message("breathed in some smoke with reagents [english_list(reagents.reagent_list)]", LOG_ATTACK, null, FALSE) // Do not log globally b/c spam
 	return 1
 
 
@@ -289,7 +290,7 @@
 
 		var/where = "[AREACOORD(location)]"
 		if(carry.my_atom.fingerprintslast)
-			var/mob/M = get_mob_by_key(carry.my_atom.fingerprintslast)
+			var/mob/M = get_mob_by_ckey(carry.my_atom.fingerprintslast)
 			var/more = ""
 			if(M)
 				more = "[ADMIN_LOOKUPFLW(M)] "

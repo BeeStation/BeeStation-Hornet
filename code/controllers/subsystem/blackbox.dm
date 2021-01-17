@@ -190,7 +190,7 @@ feedback data can be recorded in 5 formats:
 			SSblackbox.record_feedback("amount", "example", 2)
 	json: {"data":10}
 "tally"
-	used to track the number of occurances of multiple related values i.e. how many times each type of gun is fired
+	used to track the number of occurrences of multiple related values i.e. how many times each type of gun is fired
 	further calls to the same key will:
 	 	add or subtract from the saved value of the data key if it already exists
 		append the key and it's value if it doesn't exist
@@ -199,7 +199,7 @@ feedback data can be recorded in 5 formats:
 			SSblackbox.record_feedback("tally", "example", 2, "other data")
 	json: {"data":{"sample data":5,"other data":2}}
 "nested tally"
-	used to track the number of occurances of structured semi-relational values i.e. the results of arcade machines
+	used to track the number of occurrences of structured semi-relational values i.e. the results of arcade machines
 	similar to running total, but related values are nested in a multi-dimensional array built
 	the final element in the data list is used as the tracking key, all prior elements are used for nesting
 	all data list elements must be strings
