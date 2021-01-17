@@ -1,4 +1,0 @@
-author: ivanmixo
-delete-after: true
-changes:
-  - bugfix: ghosts can no longer flip pipes
