@@ -5,6 +5,7 @@
 	show_in_antagpanel = FALSE
 	var/datum/guardian_stats/stats
 	var/datum/mind/summoner
+	delay_roundend = FALSE
 
 /datum/antagonist/guardian/roundend_report()
 	var/list/parts = list()

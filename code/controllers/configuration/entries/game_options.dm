@@ -182,6 +182,11 @@
 	min_val = 0
 	max_val = 1
 
+/datum/config_entry/number/midround_antag_conversion_time
+	config_entry_value = 180
+	integer = FALSE
+	min_val = 0
+
 /datum/config_entry/number/shuttle_refuel_delay
 	config_entry_value = 12000
 	integer = FALSE

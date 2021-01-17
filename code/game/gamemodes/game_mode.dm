@@ -54,6 +54,9 @@
 	var/gamemode_ready = FALSE //Is the gamemode all set up and ready to start checking for ending conditions.
 	var/setup_error		//What stopepd setting up the mode.
 
+	//The time in world time where the gamemode will be converted
+	var/conversion_world_time = -1
+
 /datum/game_mode/proc/announce() //Shows the gamemode's name and a fast description.
 	to_chat(world, "<b>The gamemode is: <span class='[announce_span]'>[name]</span>!</b>")
 	to_chat(world, "<b>[announce_text]</b>")
@@ -353,6 +356,80 @@
 
 	return 0
 
+
+//Checks if we can convert the round type
+//Checks if antagonists are in brig to convert the roundtype to something else.
+/datum/game_mode/proc/check_round_conversion()
+	//Run checks
+	if(!SSticker.setup_done || !gamemode_ready)
+		conversion_world_time = -1
+		return FALSE
+	if(replacementmode && round_converted == 2)
+		conversion_world_time = -1
+		return FALSE
+	if(SSshuttle.emergency?.mode != SHUTTLE_IDLE)
+		conversion_world_time = -1
+		return FALSE
+	if(station_was_nuked)
+		conversion_world_time = -1
+		return FALSE
+
+	var/list/continuous = CONFIG_GET(keyed_list/continuous)
+	var/list/midround_antag = CONFIG_GET(keyed_list/midround_antag)
+
+	//Cannot convert on continuous gamemodes
+	if(!continuous)
+		conversion_world_time = -1
+		return FALSE
+
+	//Cannot apply midrounds with no midround antags
+	if(!midround_antag)
+		conversion_world_time = -1
+		return FALSE
+
+	//Check for living antagonists
+	//Additionally makes sure they are not in brig
+	if(living_antag_player
+		 && living_antag_player.mind	//Mindless players dont count
+		 && isliving(living_antag_player)	//Non living things dont count
+		 && living_antag_player.stat != DEAD	//Dead people dont count
+		 && !isnewplayer(living_antag_player)	//New players dont count
+		 && !isbrain(living_antag_player)	//Brains dont count
+		 && (living_antag_player.mind.special_role || LAZYLEN(living_antag_player.mind.antag_datums))	//Non antags dont count
+		 && !istype(get_area(living_antag_player), /area/security))	//People in security dont count
+		 && !issilicon(living_antag_player))	//Borgs dont count
+		return FALSE
+
+	for(var/mob/Player in GLOB.alive_mob_list)
+		if(Player
+		 && Player.mind	//Mindless players dont count
+		 && isliving(Player)	//Non living things dont count
+		 && Player.stat != DEAD	//Dead people dont count
+		 && !isnewplayer(Player)	//New players dont count
+		 && !isbrain(Player)	//Brains dont count
+		 && (Player.mind.special_role || LAZYLEN(Player.mind.antag_datums))	//Non antags dont count
+		 && !istype(get_area(Player), /area/security))	//People in security dont count
+		 && !issilicon(Player))	//Borgs dont count
+			for(var/datum/antagonist/antag_types in Player.mind.antag_datums)
+				if(antag_types.prevent_roundtype_conversion)
+					living_antag_player = Player //they were an important antag, they're our new mark
+					return FALSE
+
+	if(!are_special_antags_dead())
+		conversion_world_time = -1
+		return FALSE
+
+	//When we want to convert the roundtype
+	if(conversion_world_time == -1)
+		//TODO: config flag
+		var/time_until_conversion = CONFIG_GET(number/midround_antag_conversion_time)
+		message_admins("Round conversion checks successful. Round type will be converted to another gamemode in [DisplayTimeText(time_until_conversion)].")
+		conversion_world_time = world.time + time_until_conversion
+		return TRUE
+
+	//Check for living antagonists
+	round_converted = convert_roundtype()
+	return round_converted
 
 /datum/game_mode/proc/check_win() //universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
 	return 0

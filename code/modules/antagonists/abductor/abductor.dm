@@ -179,6 +179,7 @@
 	name = "Abductee"
 	roundend_category = "abductees"
 	antagpanel_category = "Abductee"
+	delay_roundend = FALSE
 
 /datum/antagonist/abductee/on_gain()
 	give_objective()

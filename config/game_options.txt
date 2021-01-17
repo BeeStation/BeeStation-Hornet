@@ -154,16 +154,26 @@ CONTINUOUS SECRET_EXTENDED
 ## In modes that are continuous, if all antagonists should die then a new set of antagonists will be created.
 
 MIDROUND_ANTAG TRAITOR
-#MIDROUND_ANTAG INCURSION
-#MIDROUND_ANTAG TRAITORBRO
+#MIDROUND_ANTAG CULT
+#MIDROUND_ANTAG DYNAMIC
+MIDROUND_ANTAG HERESY
+#MIDROUND_ANTAG NUCLEAR
 MIDROUND_ANTAG TRAITORCHAN
-MIDROUND_ANTAG INTERNAL_AFFAIRS
-#MIDROUND_ANTAG  NUCLEAR
-#MIDROUND_ANTAG  REVOLUTION
-MIDROUND_ANTAG CULT
 MIDROUND_ANTAG CHANGELING
-MIDROUND_ANTAG WIZARD
-#MIDROUND_ANTAG  MONKEY
+MIDROUND_ANTAG INCURSION
+#MIDROUND_ANTAG REVOLUTION
+MIDROUND_ANTAG INTERNAL_AFFAIRS
+MIDROUND_ANTAG TRAITORBRO
+#MIDROUND_ANTAG WIZARD
+#MIDROUND_ANTAG CLOWNOPS
+#MIDROUND_ANTAG CLOCKCULT
+#MIDROUND_ANTAG MONKEY
+#MIDROUND_ANTAG GANG
+#MIDROUND_ANTAG METEOR
+#MIDROUND_ANTAG EXTENDED
+#MIDROUND_ANTAG SECRET_EXTENDED
+MIDROUND_ANTAG DEVIL
+MIDROUND_ANTAG DEVIL_AGENTS
 
 ## Uncomment these for overrides of the minimum / maximum number of players in a round type.
 ## If you set any of these occasionally check to see if you still need them as the modes
@@ -526,6 +536,9 @@ MIDROUND_ANTAG_TIME_CHECK 60
 
 ## A ratio of living to total crew members, the lower this is, the more people will have to die in order for midround antag to be skipped
 MIDROUND_ANTAG_LIFE_CHECK 0.7
+
+## The amount of time is takes after all antagonists either die, enter brig or become borg before the round gets converted.
+MIDROUND_ANTAG_CONVERSION_TIME 180
 
 ##Limit Spell Choices##
 ## Uncomment to disallow wizards from using certain spells that may be too chaotic/fun for your playerbase
