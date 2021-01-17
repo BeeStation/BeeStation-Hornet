@@ -1,0 +1,4 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - bugfix: You can't curbstomp or groin kick with the pacifist trait anymore
