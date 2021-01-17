@@ -24,7 +24,7 @@
 			tab_data = get_stat_tab_status()						// ~ 0.525 CPU Time [15000 CALLS] (Depends on which tabs are selected)
 		// ===== MASTER CONTROLLER =====
 		if("MC")
-			client.stat_update_mode = STAT_SLOW_UPDATE
+			client.stat_update_mode = STAT_FAST_UPDATE
 			requires_holder = TRUE
 			tab_data = get_stat_tab_master_controller()				// ~ 0.037 CPU Time [33 CALLS]
 		// ===== ADMIN TICKETS =====
@@ -55,7 +55,7 @@
 						overrides += I.loc
 				tab_data[REF(listed_turf)] = list(
 					text="[listed_turf.name]",
-					icon=SSstat.get_flat_icon(listed_turf),
+					icon=SSstat.get_flat_icon(client, listed_turf),
 					type=STAT_ATOM,
 				)
 				var/sanity = MAX_ICONS_PER_TILE
@@ -71,7 +71,7 @@
 					sanity --
 					tab_data[REF(A)] = list(
 						text="[A.name]",
-						icon=SSstat.get_flat_icon(A),
+						icon=SSstat.get_flat_icon(client, A),
 						type=STAT_ATOM,
 					)
 					if(sanity < 0)
@@ -122,6 +122,7 @@
 	var/datum/map_config/cached = SSmapping.next_map_config
 	if(cached)
 		tab_data["Next Map"] = GENERATE_STAT_TEXT(cached.map_name)
+	tab_data["Round ID"] = GENERATE_STAT_TEXT("[GLOB.round_id ? GLOB.round_id : "Null"]")
 	tab_data["Server Time"] = GENERATE_STAT_TEXT(time2text(world.timeofday,"YYYY-MM-DD hh:mm:ss"))
 	tab_data["Round Time"] = GENERATE_STAT_TEXT(worldtime2text())
 	tab_data["Station Time"] = GENERATE_STAT_TEXT(station_time_timestamp())

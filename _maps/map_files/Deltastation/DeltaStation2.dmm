@@ -125522,7 +125522,7 @@
 	dir = 1
 	},
 /obj/item/stack/sheet/plasteel/fifty,
-/obj/item/crowbar/power,
+/obj/item/powertool/jaws_of_life,
 /obj/structure/sign/nanotrasen{
 	pixel_x = 32
 	},
@@ -125767,7 +125767,7 @@
 "wEB" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/electrical,
-/obj/item/wrench/power,
+/obj/item/powertool/hand_drill,
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
