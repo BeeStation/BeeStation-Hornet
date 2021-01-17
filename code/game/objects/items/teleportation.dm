@@ -256,6 +256,8 @@
 
 	var/charges = 4
 	var/max_charges = 4
+	var/minimum_teleport_distance = 4
+	var/maximum_teleport_distance = 8
 	var/saving_throw_distance = 3
 
 /obj/item/teleporter/Destroy()
@@ -298,29 +300,26 @@
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
 
-	var/teleport_distance = rand(4,8)
+	var/teleport_distance = rand(minimum_teleport_distance,maximum_teleport_distance)
 	var/mob/living/carbon/C = user
 	var/turf/mobloc = get_turf(C)
 	var/turf/destination = get_teleport_loc(mobloc,C,teleport_distance,0,0,0,0,0,0)
 	var/list/bagholding = user.GetAllContents(/obj/item/storage/backpack/holding)
 
-	if(destination)
-		if(isclosedturf(destination))
-			if(EMP_D == FALSE && !(bagholding.len))
-				panic_teleport(user, destination) //We're in a wall, engage emergency parallel teleport.
-			else
-				get_fragged(user, destination) //EMP teleported you into a wall? Wearing a BoH? You're dead.
+	if(isclosedturf(destination))
+		if(EMP_D == FALSE && !(bagholding.len))
+			panic_teleport(user, destination) //We're in a wall, engage emergency parallel teleport.
 		else
-			telefrag(destination, user)
-			do_teleport(C, destination, channel = TELEPORT_CHANNEL_FREE)
-			charges--
-			START_PROCESSING(SSobj, src)
-			new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
-			new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
-			playsound(destination, 'sound/effects/phasein.ogg', 25, 1)
-			playsound(destination, "sparks", 50, 1)
+			get_fragged(user, destination) //EMP teleported you into a wall? Wearing a BoH? You're dead.
 	else
-		to_chat(C, "<span class='danger'>Failed to find teleport location!</span>")
+		telefrag(destination, user)
+		do_teleport(C, destination, channel = TELEPORT_CHANNEL_FREE)
+		charges--
+		START_PROCESSING(SSobj, src)
+		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
+		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
+		playsound(destination, 'sound/effects/phasein.ogg', 25, 1)
+		playsound(destination, "sparks", 50, 1)
 
 /obj/item/teleporter/proc/panic_teleport(mob/user, turf/destination)
 	var/mob/living/carbon/C = user
