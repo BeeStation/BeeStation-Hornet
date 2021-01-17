@@ -190,7 +190,7 @@
 		if(!istype(X,/turf/closed/wall/rust) && !istype(X,/turf/closed/wall/r_wall/rust) && !istype(X,/turf/open/floor/plating/rust))
 			turfs -=X
 			continue
-		for(var/turf/T in range(1,X))
+		for(var/turf/T as() in RANGE_TURFS(1,X))
 			if(T in turfs)
 				continue
 			if(is_type_in_typecache(T,blacklisted_turfs))

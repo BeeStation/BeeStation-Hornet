@@ -32,8 +32,7 @@
 	var/list/knowledge = cultie.get_all_knowledge()
 	var/list/atoms_in_range = list()
 
-	for(var/A in range(1, src))
-		var/atom/atom_in_range = A
+	for(var/atom/atom_in_range as() in range(1, src))
 		if(istype(atom_in_range,/area))
 			continue
 		if(istype(atom_in_range,/turf)) // we dont want turfs

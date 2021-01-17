@@ -51,7 +51,7 @@
 ///Draws a rune on a selected turf
 /obj/item/forbidden_book/proc/draw_rune(atom/target,mob/user)
 
-	for(var/turf/T in range(1,target))
+	for(var/turf/T as() in RANGE_TURFS(1,target))
 		if(is_type_in_typecache(T, blacklisted_turfs))
 			to_chat(target, "<span class='warning'>The terrain doesn't support runes!</span>")
 			return

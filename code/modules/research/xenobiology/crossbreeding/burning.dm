@@ -80,7 +80,7 @@ Burning extracts:
 	effect_desc = "Instantly destroys walls around you."
 
 /obj/item/slimecross/burning/metal/do_effect(mob/user)
-	for(var/turf/closed/wall/W in range(1,get_turf(user)))
+	for(var/turf/closed/wall/W in RANGE_TURFS(1,user))
 		W.dismantle_wall(1)
 		playsound(W, 'sound/effects/break_stone.ogg', 50, 1)
 	user.visible_message("<span class='danger'>[src] pulses violently, and shatters the walls around it!</span>")
@@ -133,7 +133,7 @@ Burning extracts:
 /obj/item/slimecross/burning/silver/do_effect(mob/user)
 	var/amount = rand(3,6)
 	var/list/turfs = list()
-	for(var/turf/open/T in range(1,get_turf(user)))
+	for(var/turf/open/T in RANGE_TURFS(1,user))
 		turfs += T
 	for(var/i = 0, i < amount, i++)
 		var/path = get_random_food()

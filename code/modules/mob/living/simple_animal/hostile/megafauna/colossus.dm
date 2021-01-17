@@ -714,7 +714,7 @@ Difficulty: Very Hard
 	if(..())
 		if(ishuman(user))
 			var/mobcheck = FALSE
-			for(var/mob/living/simple_animal/A in range(1, src))
+			for(var/mob/living/simple_animal/A in viewers(1, src))
 				if(A.melee_damage > 5 || A.mob_size >= MOB_SIZE_LARGE || A.ckey || A.stat)
 					break
 				var/obj/structure/closet/stasis/S = new /obj/structure/closet/stasis(A)

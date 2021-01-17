@@ -35,7 +35,7 @@
                         "<span class='userdanger'>[A] sweeps your legs with their tail!</span>")
     var/obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon/R = new
     var/list/turfs = list()
-    for(var/turf/T in range(1,A))
+    for(var/turf/T as() in RANGE_TURFS(1,A))
         turfs.Add(T)
     R.cast(turfs)
     return

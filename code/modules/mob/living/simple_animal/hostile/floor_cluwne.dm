@@ -296,7 +296,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 			if(prob(3))
 				to_chat(H, "<i>KNOH ?od nottub siht seod tahW</i>")
-				for(var/turf/open/O in range(src, 6))
+				for(var/turf/open/O in RANGE_TURFS(6, src))
 					O.MakeSlippery(TURF_WET_WATER, 10)
 					playsound(src, 'sound/effects/meteorimpact.ogg', 30, 1)
 
@@ -310,7 +310,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 				Appear()
 				manifested = FALSE
 				addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Manifest), 2)
-				for(var/obj/machinery/light/L in range(H, 8))
+				for(var/obj/machinery/light/L in range(8, H))
 					L.flicker()
 
 		if(STAGE_ATTACK)
@@ -334,7 +334,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 				Manifest()
 				if(!eating)
 					addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Grab, H), 50, TIMER_OVERRIDE|TIMER_UNIQUE)
-					for(var/turf/open/O in range(src, 6))
+					for(var/turf/open/O in RANGE_TURFS(6, src))
 						O.MakeSlippery(TURF_WET_LUBE, 20)
 						playsound(src, 'sound/effects/meteorimpact.ogg', 30, 1)
 				eating = TRUE

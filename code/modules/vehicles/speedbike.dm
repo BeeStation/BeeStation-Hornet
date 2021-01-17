@@ -87,6 +87,6 @@
 /obj/vehicle/ridden/space/speedwagon/Moved()
 	. = ..()
 	if(has_buckled_mobs())
-		for(var/atom/A in range(2, src))
+		for(var/atom/A as() in range(2, src))
 			if(!(A in buckled_mobs))
 				Bump(A)

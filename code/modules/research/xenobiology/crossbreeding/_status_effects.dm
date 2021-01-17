@@ -261,7 +261,7 @@ datum/status_effect/rebreathing/tick()
 	return ..()
 
 /datum/status_effect/watercookie/tick()
-	for(var/turf/open/T in range(1, get_turf(owner)))
+	for(var/turf/open/T in RANGE_TURFS(1, owner))
 		T.MakeSlippery(TURF_WET_WATER, min_wet_time = 10, wet_time_to_add = 5)
 
 /datum/status_effect/watercookie/on_remove()

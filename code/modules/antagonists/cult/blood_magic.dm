@@ -292,14 +292,18 @@
 		charges--
 		SEND_SOUND(owner, sound('sound/magic/smoke.ogg',0,1,25))
 		owner.whisper(invocation, language = /datum/language/common)
-		for(var/obj/effect/rune/R in range(5,owner))
-			R.conceal()
-		for(var/obj/structure/destructible/cult/S in range(5,owner))
-			S.conceal()
-		for(var/turf/open/floor/engine/cult/T  in range(5,owner))
+		for(var/atom/A as() in range(5, owner))
+			if(istype(A, obj/effect/rune))
+				var/obj/effect/rune/R = A
+				R.conceal()
+			else if(istype(A, obj/structure/destructible/cult))
+				var/obj/structure/destructible/cult/S = A
+				S.conceal()
+			else if(istype(A, obj/machinery/door/airlock/cult))
+				var/obj/machinery/door/airlock/cult/AL = A
+				AL.conceal()
+		for(var/turf/open/floor/engine/cult/T in RANGE_TURFS(5,owner))
 			T.realappearance.alpha = 0
-		for(var/obj/machinery/door/airlock/cult/AL in range(5, owner))
-			AL.conceal()
 		revealing = TRUE
 		name = "Reveal Runes"
 		button_icon_state = "back"
@@ -313,7 +317,7 @@
 			R.reveal()
 		for(var/obj/structure/destructible/cult/S in range(6,owner))
 			S.reveal()
-		for(var/turf/open/floor/engine/cult/T  in range(6,owner))
+		for(var/turf/open/floor/engine/cult/T in RANGE_TURFS(6,owner))
 			T.realappearance.alpha = initial(T.realappearance.alpha)
 		for(var/obj/machinery/door/airlock/cult/AL in range(6, owner))
 			AL.reveal()

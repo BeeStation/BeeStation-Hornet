@@ -49,7 +49,7 @@
 
 /obj/effect/fun_balloon/sentience/effect()
 	var/list/bodies = list()
-	for(var/mob/living/M in range(effect_range, get_turf(src)))
+	for(var/mob/living/M in viewers(effect_range, get_turf(src)))
 		bodies += M
 
 	var/question = "Would you like to be [group_name]?"

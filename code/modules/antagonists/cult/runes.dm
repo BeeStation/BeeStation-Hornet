@@ -976,7 +976,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/duration = intensity*10
 	playsound(T, 'sound/magic/enter_blood.ogg', 100, 1)
 	visible_message("<span class='warning'>A colossal shockwave of energy bursts from the rune, disintegrating it in the process!</span>")
-	for(var/mob/living/L in range(src, 3))
+	for(var/mob/living/L in viewers(3, src))
 		L.Paralyze(30)
 	empulse(T, 0.42*(intensity), 1)
 	var/list/images = list()
