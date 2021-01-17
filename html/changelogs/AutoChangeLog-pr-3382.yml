@@ -1,0 +1,5 @@
+author: MNarath1
+delete-after: true
+changes:
+  - bugfix: crate animation at closing
+  - tweak: changing crate animation time from 2 to 3
