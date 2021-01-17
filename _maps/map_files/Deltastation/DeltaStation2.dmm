@@ -32033,7 +32033,6 @@
 /turf/closed/wall,
 /area/hydroponics)
 "bgm" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
 	name = "Hydroponics Backroom";
 	req_access_txt = "35"
@@ -32046,6 +32045,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "bgn" = (
