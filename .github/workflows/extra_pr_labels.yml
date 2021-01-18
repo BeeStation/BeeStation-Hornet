@@ -1,4 +1,4 @@
-name: "Add Extra PR labels"
+name: Add Extra PR labels
 on:
   push:
   pull_request_target:
@@ -8,14 +8,14 @@ jobs:
   triage:
     runs-on: ubuntu-latest
     steps:
-      - name: Check is the PR is conflicting
-      uses: eps1lon/actions-label-merge-conflict@releases/2.x
-      with:
-        dirtyLabel: "Merge Conflict"
-        repoToken: "${{ secrets.GITHUB_TOKEN }}"
-        commentOnDirty: "This pull request has conflicts, please resolve those before we can evaluate the pull request."
+      - name: Check if the PR is conflicting
+        uses: eps1lon/actions-label-merge-conflict@releases/2.x
+        with:
+          dirtyLabel: "Merge Conflict"
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          commentOnDirty: "This pull request has conflicts, please resolve those before we can evaluate the pull request."
       - name: Apply labels based on file changelogs
-      uses: actions/labeler@main
-      with:
-        repo-token: "${{ secrets.GITHUB_TOKEN }}"
-        sync-labels: true
+        uses: actions/labeler@main
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          sync-labels: true
