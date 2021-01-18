@@ -1,0 +1,12 @@
+sql:
+- ./**/*.sql
+mapping:
+- _maps/**/*
+config:
+- config/**/*
+Tools:
+- tools/**/*
+dme:
+- ./*.dme
+Sprites:
+- icons/**/*.dmi
