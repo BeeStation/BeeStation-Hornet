@@ -1,11 +1,9 @@
 name: Compile changelogs
 
 on:
-  push:
-    paths:
-    - 'html/changelogs/**'
-    branches:
-    - master
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
 
 jobs:
   CompileCL:
