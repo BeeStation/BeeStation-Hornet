@@ -8,5 +8,7 @@ tools:
 - tools/**/*
 sprites:
 - icons/**/*.dmi
+sound:
+- sound/**/*
 GitHub:
 - .github/**/*
