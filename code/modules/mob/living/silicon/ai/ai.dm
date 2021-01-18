@@ -335,7 +335,7 @@
 	set category = "OOC"
 	set desc = "Wipe your core. This is functionally equivalent to cryo, freeing up your job slot."
 
-	if(stat == DEAD)
+	if(stat)
 		return
 	
 	// Guard against misclicks, this isn't the sort of thing we want happening accidentally
@@ -370,7 +370,7 @@
 	set name = "Toggle Floor Bolts"
 	if(!isturf(loc)) // if their location isn't a turf
 		return // stop
-	if(stat == DEAD)
+	if(stat)
 		return
 	if(incapacitated())
 		if(battery < 50)
@@ -1012,7 +1012,7 @@
 	if(!target || !(target in possible)) //If the AI is looking for a new shell, or its pre-selected shell is no longer valid
 		target = input(src, "Which body to control?") as null|anything in sortNames(possible)
 
-	if (!target || target.stat == DEAD || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)) || (target.ratvar && !is_servant_of_ratvar(src)))
+	if (!target || target.stat || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)) || (target.ratvar && !is_servant_of_ratvar(src)))
 		return
 
 	else if(mind)
