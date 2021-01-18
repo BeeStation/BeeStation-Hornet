@@ -33,25 +33,31 @@ export const NaniteProgramHub = (props, context) => {
               <Button
                 icon="eject"
                 content="Eject"
+                disabled={!has_disk}
                 onClick={() => act("eject")}
               />
               <Button
                 icon="minus-circle"
                 content="Delete Program"
+                disabled={!has_disk || disk.name === undefined || !has_program}
                 onClick={() => act("clear")}
               />
             </Fragment>
           }>
           {has_disk ? (
             has_program ? (
-              <LabeledList>
-                <LabeledList.Item label="Program Name">
-                  {disk.name}
-                </LabeledList.Item>
-                <LabeledList.Item label="Description">
-                  {disk.desc}
-                </LabeledList.Item>
-              </LabeledList>
+              disk.name === undefined ? ( // This is dirty but it's not updating
+                <NoticeBox>No Program Installed</NoticeBox>
+              ) : (
+                <LabeledList>
+                  <LabeledList.Item label="Program Name">
+                    {disk.name}
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Description">
+                    {disk.desc}
+                  </LabeledList.Item>
+                </LabeledList>
+              )
             ) : (
               <NoticeBox>No Program Installed</NoticeBox>
             )
@@ -134,24 +140,26 @@ export const NaniteProgramHub = (props, context) => {
                 ) : (
                   <LabeledList>
                     {programsInCategory.map(program => (
-                      <LabeledList.Item
-                        key={program.id}
-                        label={program.name}
-                        buttons={
-                          <Button
-                            mt={1}
-                            mr={2}
-                            height={2}
-                            disabled={!has_disk}
-                            onClick={() =>
-                              act("download", {
-                                program_id: program.id,
-                              })}>
-                            <Icon mr={2} name="download" />
-                            Download
-                          </Button>
-                        }
-                      />
+                      <Box key={program.id}>
+                        <LabeledList.Item
+                          label={program.name}
+                          buttons={
+                            <Button
+                              mt={1}
+                              mr={2}
+                              height={2}
+                              disabled={!has_disk}
+                              onClick={() =>
+                                act("download", {
+                                  program_id: program.id,
+                                })}>
+                              <Icon ml={1} mr={2} name="download" />
+                              Download
+                            </Button>
+                          }
+                        />
+                        <LabeledList.Divider />
+                      </Box>
                     ))}
                   </LabeledList>
                 )}
