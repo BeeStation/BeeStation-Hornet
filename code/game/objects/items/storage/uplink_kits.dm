@@ -204,13 +204,13 @@
 			new /obj/item/melee/transforming/energy/sword/saber/blue(src) //see see it fits the theme bc its blue and ice is blue
 
 
-/obj/item/storage/box/contractor/kit
+/obj/item/storage/box/syndie_kit/contractor/kit
 	name = "Contract Kit"
 	desc = "Supplied to Syndicate contractors."
 	icon_state = "syndiebox"
 	illustration = "writing_syndie"
 
-/obj/item/storage/box/contractor/essentials
+/obj/item/storage/box/syndie_kit/contractor/essentials
 	name = "Contractor Essentials"
 	desc = "Supplied to Syndicate contractors, providing their specialised space suit, radio jammer and chameleon uniform."
 	icon_state = "syndiebox"
@@ -262,7 +262,7 @@
 
 	return ..()
 
-/obj/item/storage/box/contractor/essentials/PopulateContents()
+/obj/item/storage/box/syndie_kit/contractor/essentials/PopulateContents()
 	new /obj/item/clothing/head/helmet/space/syndicate/contract(src)
 	new /obj/item/clothing/suit/space/syndicate/contract(src)
 	new /obj/item/clothing/under/chameleon(src)
@@ -272,9 +272,9 @@
 	new /obj/item/lighter(src)
 	new /obj/item/jammer(src)
 
-/obj/item/storage/box/contractor/kit/PopulateContents()
+/obj/item/storage/box/syndie_kit/contractor/kit/PopulateContents()
 	new /obj/item/modular_computer/tablet/syndicate_contract_uplink/preset/uplink(src)
-	new /obj/item/storage/box/contractor/essentials(src)
+	new /obj/item/storage/box/syndie_kit/contractor/essentials(src)
 	new /obj/item/melee/classic_baton/contractor_baton(src)
 	new /obj/item/storage/backpack/chameleon/duffelbag(src)
 
