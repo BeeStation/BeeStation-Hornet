@@ -246,6 +246,8 @@
 			"revision" = GLOB.revdata.commit,
 			"contents" = E.contents)
 
+	. = json_encode(.)
+
 /datum/world_topic/cross_cargo_buy
 	keyword = "cross_cargo_buy"
 	require_comms_key = TRUE
