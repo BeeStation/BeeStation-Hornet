@@ -459,7 +459,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/wizard
 	jetpack = /obj/item/tank/jetpack/suit
-	slowdown = 0.3
+	slowdown = 0
 
 /obj/item/clothing/suit/space/hardsuit/wizard/Initialize()
 	. = ..()
@@ -910,6 +910,35 @@
 	item_state = "hardsuit0-clown"
 	item_color = "clown"
 
+// Wizard version
+
+/obj/item/clothing/suit/space/hardsuit/shielded/wizard
+	name = "battlemage armour"
+	desc = "Not all wizards are afraid of getting up close and personal."
+	icon_state = "battlemage"
+	item_state = "battlemage"
+	shield_state = "shield-red"
+	shield_on = "shield-red"
+	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
+	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
+	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 50, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+	slowdown = 0
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
+	name = "battlemage helmet"
+	desc = "A suitably impressive helmet.."
+	icon_state = "battlemage"
+	item_state = "battlemage"
+	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
+	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
+	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 50, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+	actions_types = null //No inbuilt light
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard/attack_self(mob/user)
+	return
 
 // Doomguy ERT version
 /obj/item/clothing/suit/space/hardsuit/shielded/doomguy

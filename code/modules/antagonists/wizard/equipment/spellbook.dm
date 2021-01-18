@@ -368,7 +368,7 @@
 	. = ..()
 	if(.)
 		new /obj/item/clothing/shoes/sandal/magic(get_turf(user)) //In case they've lost them.
-		new /obj/item/clothing/gloves/color/purple(get_turf(user))//To complete the outfit
+		new /obj/item/clothing/gloves/combat/wizard(get_turf(user))//To complete the outfit
 		new /obj/item/clothing/mask/breath(get_turf(user)) // so the air gets to your mouth. Just an average mask.
 		new /obj/item/tank/internals/emergency_oxygen/magic_oxygen(get_turf(user)) // so you have something to actually breathe. Near infinite.
 
@@ -418,17 +418,16 @@
 
 /datum/spellbook_entry/item/battlemage
 	name = "Battlemage Armour"
-	desc = "An ensorceled suit of armour, protected by a powerful shield. The shield can completely negate sixteen attacks before being permanently depleted."
+	desc = "An ensorceled suit of armour, protected by a powerful shield. The shield can completely negate three attacks and self-recharges permanently."
 	item_path = /obj/item/clothing/suit/space/hardsuit/shielded/wizard
 	limit = 1
 	category = "Defensive"
 
-/datum/spellbook_entry/item/battlemage_charge
-	name = "Battlemage Armour Charges"
-	desc = "A powerful defensive rune, it will grant eight additional charges to a suit of battlemage armour."
-	item_path = /obj/item/wizard_armour_charge
-	category = "Defensive"
-	cost = 1
+/datum/spellbook_entry/item/battlemage/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
+	. = ..()
+	if(.)
+		new /obj/item/clothing/shoes/sandal/magic(get_turf(user)) //In case they've lost them.
+		new /obj/item/clothing/gloves/combat/wizard(get_turf(user))//To complete the outfit
 
 /datum/spellbook_entry/item/warpwhistle
 	name = "Warp Whistle"
