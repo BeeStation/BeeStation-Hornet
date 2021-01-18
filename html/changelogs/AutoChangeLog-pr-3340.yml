@@ -1,0 +1,9 @@
+author: ike709
+delete-after: true
+changes:
+  - code_imp: Tons of code optimizations across the board, both big and small.
+  - code_imp: Micro-optimized playsound()
+  - code_imp: A ton of other micro-optimizations.
+  - code_imp: Replaced get_hearers_in_view() with hearers() in many places. This may
+      break hearing some messages, hearing some sounds, or seeing some speech bubbles.
+      Please report issues on github.
