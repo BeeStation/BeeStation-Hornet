@@ -335,6 +335,9 @@
 	set category = "OOC"
 	set desc = "Wipe your core. This is functionally equivalent to cryo, freeing up your job slot."
 
+	if(stat == DEAD)
+		return
+	
 	// Guard against misclicks, this isn't the sort of thing we want happening accidentally
 	if(alert("WARNING: This will immediately wipe your core and ghost you, removing your character from the round permanently (similar to cryo). Are you entirely sure you want to do this?",
 					"Wipe Core", "No", "No", "Yes") != "Yes")
