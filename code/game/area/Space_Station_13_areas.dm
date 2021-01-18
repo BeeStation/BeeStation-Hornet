@@ -795,7 +795,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/detectives_office
 	name = "Detective's Office"
 	icon_state = "detective"
-	ambient_effects = list('sound/ambience/ambidet1.ogg','sound/ambience/ambidet2.ogg')
+	ambient_effects = list('sound/ambience/ambidet1.ogg','sound/ambience/ambidet2.ogg','sound/ambience/ambidet3.ogg','sound/ambience/ambidet4.ogg')
 
 /area/security/detectives_office/private_investigators_office
 	name = "Private Investigator's Office"

@@ -786,7 +786,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	if(!check_rights(R_DEBUG))
 		return
-	verbs -= /client/proc/fucky_wucky
+	remove_verb(/client/proc/fucky_wucky)
 	message_admins("<span class='adminnotice'>[key_name_admin(src)] did a fucky wucky.</span>")
 	log_admin("[key_name(src)] did a fucky wucky.")
 	for(var/m in GLOB.player_list)
@@ -798,7 +798,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	addtimer(CALLBACK(src, .proc/restore_fucky_wucky), 600)
 
 /client/proc/restore_fucky_wucky()
-	verbs += /client/proc/fucky_wucky
+	add_verb(/client/proc/fucky_wucky)
 
 /client/proc/toggle_medal_disable()
 	set category = "Debug"
