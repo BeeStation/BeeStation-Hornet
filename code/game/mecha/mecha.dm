@@ -461,7 +461,7 @@
 			radio.talk_into(speaker, text, , spans, message_language)
 		//flick speech bubble
 		var/list/speech_bubble_recipients = list()
-		for(var/mob/M in get_hearers_in_view(7,src))
+		for(var/mob/M as() in hearers(7,src))
 			if(M.client)
 				speech_bubble_recipients.Add(M.client)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, image('icons/mob/talk.dmi', src, "machine[say_test(raw_message)]",MOB_LAYER+1), speech_bubble_recipients, 30)

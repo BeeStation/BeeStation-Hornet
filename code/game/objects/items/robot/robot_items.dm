@@ -325,7 +325,7 @@
 		user.visible_message("<font color='red' size='2'>[user] blares out a near-deafening siren from its speakers!</font>", \
 			"<span class='userdanger'>The siren pierces your hearing and confuses you!</span>", \
 			"<span class='danger'>The siren pierces your hearing!</span>")
-		for(var/mob/living/carbon/M in get_hearers_in_view(9, user))
+		for(var/mob/living/carbon/M in hearers(9, user))
 			if(M.get_ear_protection() == FALSE)
 				M.confused += 6
 		audible_message("<font color='red' size='7'>HUMAN HARM</font>")
@@ -340,7 +340,7 @@
 
 	if(safety == FALSE)
 		user.audible_message("<font color='red' size='7'>BZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZT</font>")
-		for(var/mob/living/carbon/C in get_hearers_in_view(9, user))
+		for(var/mob/living/carbon/C in hearers(9, user))
 			var/bang_effect = C.soundbang_act(2, 0, 0, 5)
 			switch(bang_effect)
 				if(1)
@@ -946,7 +946,7 @@
 	. = ..()
 	if(istype(A, /obj/item/aiModule) && !stored) //If an admin wants a borg to upload laws, who am I to stop them? Otherwise, we can hint that it fails
 		to_chat(user, "<span class='warning'>This circuit board doesn't seem to have standard robot apparatus pin holes. You're unable to pick it up.</span>")
-		
+
 ////////////////////
 //versatile service holder//
 ////////////////////
