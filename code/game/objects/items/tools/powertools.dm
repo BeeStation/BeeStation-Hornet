@@ -96,6 +96,10 @@
 	throwforce = 7
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 
+/obj/item/powertool/jaws_of_life/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_DOOR_PRYER, TRAIT_JAWS_OF_LIFE)
+
 /obj/item/powertool/jaws_of_life/toggle_mode(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	if(tool_behaviour == TOOL_CROWBAR)
