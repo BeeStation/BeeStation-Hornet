@@ -932,3 +932,18 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 	tools = list(TOOL_WIRECUTTER)
+
+/datum/crafting_recipe/poppy_pin
+	name = "Poppy Pin"
+	result = /obj/item/clothing/accessory/poppy_pin
+	time = 5
+	reqs = list(/obj/item/stack/rods = 1,
+				/obj/item/reagent_containers/food/snacks/grown/poppy = 1)
+	category = CAT_MISC
+
+/datum/crafting_recipe/poppy_pin_removal
+	name = "Poppy Pin Removal"
+	result = /obj/item/reagent_containers/food/snacks/grown/poppy
+	time = 5
+	reqs = /obj/item/clothing/accessory/poppy_pin
+	category = CAT_MISC
