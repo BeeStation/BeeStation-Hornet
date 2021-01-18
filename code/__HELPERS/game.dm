@@ -265,9 +265,8 @@
 
 	return found_mobs
 
-
+// Returns a list of hearers in view(R) from source (ignoring luminosity). Used in saycode. Consider using `hearers` when you *only* need mobs.
 /proc/get_hearers_in_view(R, atom/source)
-	// Returns a list of hearers in view(R) from source (ignoring luminosity). Used in saycode.
 	var/turf/T = get_turf(source)
 	. = list()
 
@@ -277,19 +276,22 @@
 	var/list/processing_list = list()
 	if (R == 0) // if the range is zero, we know exactly where to look for, we can skip view
 		processing_list += T.contents // We can shave off one iteration by assuming turfs cannot hear
-	else  // A variation of get_hear inlined here to take advantage of the compiler's fastpath for obj/mob in view
-		var/lum = T.luminosity
-		T.luminosity = 6 // This is the maximum luminosity
-		for(var/A in view(R, T))
-			if(isobj(A) || ismob(A))
-				processing_list += A
-		T.luminosity = lum
+	else  // A variation(?) of get_hear inlined here to take advantage of the compiler's fastpath for obj in view
+		// Benchmark before trying to "optimize" this
+		processing_list += hearers(R, T)
 
-	while(processing_list.len) // recursive_hear_check inlined here
-		var/atom/A = processing_list[1]
+		// dview is inlined here
+		GLOB.dview_mob.loc = T
+		GLOB.dview_mob.see_invisible = SEE_INVISIBLE_MINIMUM
+		for(var/obj/O in view(R, GLOB.dview_mob))
+			processing_list += O
+		GLOB.dview_mob.loc = null
+
+	while(length(processing_list)) // recursive_hear_check inlined here with optimized processing
+		var/atom/A = processing_list[length(processing_list)]
 		if(A.flags_1 & HEAR_1)
 			. += A
-		processing_list.Cut(1, 2)
+		processing_list.len--
 		processing_list += A.contents
 
 /proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
@@ -698,4 +700,5 @@
 	dump_memory_profile()
 
 /proc/dump_memory_profile(file_name = "Idledump.json")
+	// Extools barely works at this point; this doesn't work.
 	return call(EXTOOLS, "dump_memory_usage")(file_name)
