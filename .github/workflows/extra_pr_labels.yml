@@ -1,19 +1,23 @@
 name: Add Extra PR labels
+
 on:
+  push:
+    branches:
+      - master
   pull_request_target:
-    types: [synchronize, opened]
 
 jobs:
-  triage:
+  Label:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if the PR is conflicting
+      - name: Check for conflicting PRs
         uses: eps1lon/actions-label-merge-conflict@releases/2.x
         with:
           dirtyLabel: "Merge Conflict"
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           commentOnDirty: "This pull request has conflicts, please resolve those before we can evaluate the pull request."
-      - name: Apply labels based on file changelogs
+      - name: Apply labels based on changed files
+        if: github.event_name != 'push'
         uses: actions/labeler@main
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
