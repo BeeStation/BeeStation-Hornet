@@ -8,7 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.repository == 'BeeStation/BeeStation-Hornet'
     steps:
     - uses: actions/checkout@v2
     - name: Publish to Registry
