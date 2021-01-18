@@ -8,3 +8,5 @@ tools:
 - tools/**/*
 sprites:
 - icons/**/*.dmi
+GitHub:
+- .github/**/*
