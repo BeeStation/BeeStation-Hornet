@@ -277,12 +277,12 @@
 	if (R == 0) // if the range is zero, we know exactly where to look for, we can skip view
 		processing_list += T.contents // We can shave off one iteration by assuming turfs cannot hear
 	else  // A variation(?) of get_hear inlined here to take advantage of the compiler's fastpath for obj in view
-		// Benchmark before trying to "optimize" this
+		// Benchmark before trying to "optimize" this proc
 		processing_list += hearers(R, T)
 
 		// dview is inlined here
 		GLOB.dview_mob.loc = T
-		GLOB.dview_mob.see_invisible = SEE_INVISIBLE_MINIMUM
+		GLOB.dview_mob.see_invisible = SEE_INVISIBLE_MINIMUM // Sorry, invisible objects. You folks can't HEAR_1 anyway.
 		for(var/obj/O in view(R, GLOB.dview_mob))
 			processing_list += O
 		GLOB.dview_mob.loc = null
@@ -641,64 +641,3 @@
 				continue
 
 			C.energy_fail(rand(duration_min,duration_max))
-
-/mob/proc/viewesque_bench(iter = 100, range = 7)
-	var/timer
-	var/range_t = 0
-	var/orange_t = 0
-	var/view_t = 0
-	var/oview_t = 0
-	var/hearers_t = 0
-	var/ohearers_t = 0
-	var/viewers_t = 0
-	var/oviewers_t = 0
-	for(var/i in 1 to iter)
-		timer = TICK_USAGE
-		for(var/j in 1 to 10000)
-			range(range)
-		range_t += TICK_USAGE_TO_MS(timer)
-		timer = TICK_USAGE
-		for(var/j in 1 to 10000)
-			orange(range)
-		orange_t += TICK_USAGE_TO_MS(timer)
-		timer = TICK_USAGE
-		for(var/j in 1 to 10000)
-			view(range)
-		view_t += TICK_USAGE_TO_MS(timer)
-		timer = TICK_USAGE
-		for(var/j in 1 to 10000)
-			oview(range)
-		oview_t += TICK_USAGE_TO_MS(timer)
-		timer = TICK_USAGE
-		for(var/j in 1 to 10000)
-			hearers(range)
-		hearers_t += TICK_USAGE_TO_MS(timer)
-		timer = TICK_USAGE
-		for(var/j in 1 to 10000)
-			ohearers(range)
-		ohearers_t += TICK_USAGE_TO_MS(timer)
-		timer = TICK_USAGE
-		for(var/j in 1 to 10000)
-			viewers(range)
-		viewers_t += TICK_USAGE_TO_MS(timer)
-		timer = TICK_USAGE
-		for(var/j in 1 to 10000)
-			oviewers(range)
-		oviewers_t += TICK_USAGE_TO_MS(timer)
-	message_admins("[range_t]ms; range(); [10000*iter] calls")
-	message_admins("[orange_t]ms; orange(); [10000*iter] calls")
-	message_admins("[view_t]ms; view(); [10000*iter] calls")
-	message_admins("[oview_t]ms; oview(); [10000*iter] calls")
-	message_admins("[hearers_t]ms; hearers(); [10000*iter] calls")
-	message_admins("[ohearers_t]ms; ohearers(); [10000*iter] calls")
-	message_admins("[viewers_t]ms; viewers(); [10000*iter] calls")
-	message_admins("[oviewers_t]ms; oviewers(); [10000*iter] calls")
-
-/client/proc/memoryscan()
-	set category = "Debug"
-	set name = "Dump Memory Usage"
-	dump_memory_profile()
-
-/proc/dump_memory_profile(file_name = "Idledump.json")
-	// Extools barely works at this point; this doesn't work.
-	return call(EXTOOLS, "dump_memory_usage")(file_name)
