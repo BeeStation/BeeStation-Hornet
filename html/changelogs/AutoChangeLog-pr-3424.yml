@@ -1,0 +1,5 @@
+author: Sarchutar
+delete-after: true
+changes:
+  - bugfix: Cyborgs now get the ratvar laws upon conversion
+  - bugfix: Upon deconversion you now actually lose the ratvar language
