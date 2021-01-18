@@ -69,7 +69,7 @@
 	desc = "Choose one of several experimental guns created by leading scientists at NT to put it through proper field testing."
 
 /obj/item/choice_beacon/hosgun/generate_display_names()
-	var/static/list/hosgun_item_list
+	var/list/hosgun_item_list
 	if(!hosgun_item_list)
 		hosgun_item_list = list()
 		var/list/templist = typesof(/obj/item/gun/energy/e_gun/hos)
