@@ -88,10 +88,7 @@
 	attacktext = "claws"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	speak_emote = list("gurgles")
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 	a_intent = INTENT_HARM
-	speed = 3
 	ranged_message = "launches a tentacle"
 	deathmessage = "falls down limp, and reverts to the original form."
 	ranged = TRUE
