@@ -164,7 +164,7 @@
 	I = image('icons/effects/eldritch.dmi',src, "pierced_illusion",OBJ_LAYER)
 	I.override = TRUE
 	I.alpha = 255
-	// This was on TG but I'm not sure what the bee equivalent is --- add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/heretics,"pierced_reality",I)
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/heretics,"pierced_reality",I)
 	addtimer(CALLBACK(src,.proc/dissipate),15 MINUTES)
 
 ///Makes this obj appear out of nothing
