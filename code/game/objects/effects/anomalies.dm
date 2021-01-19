@@ -97,7 +97,7 @@
 	for(var/mob/living/M in orange(4, get_turf(src)))
 		if(!M.mob_negates_gravity())
 			step_towards(M,src)
-	for(var/obj/O in range(0,src))
+	for(var/obj/O in get_turf(src))
 		if(!O.anchored)
 			var/mob/living/target = locate() in hearers(4,src)
 			if(target && !target.stat)
