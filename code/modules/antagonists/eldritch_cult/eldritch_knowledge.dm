@@ -159,7 +159,7 @@
 	if(!chosen_mob)
 		return FALSE
 	var/mob/living/living_mob = chosen_mob
-	if (istype(living_mob) && HAS_TRAIT(chosen_mob, TRAIT_WARDED))
+	if (istype(living_mob) && HAS_TRAIT(living_mob, TRAIT_WARDED))
 		to_chat(user, "<span class='warning'>The curse failed! The target is warded against curses.</span>")
 		return FALSE
 	curse(compiled_list[chosen_mob])
