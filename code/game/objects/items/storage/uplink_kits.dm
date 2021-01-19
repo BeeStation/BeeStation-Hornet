@@ -379,6 +379,7 @@
 /obj/item/storage/box/syndie_kit/imp_radio/PopulateContents()
 	new /obj/item/implanter/radio/syndicate(src)
 
+//Space suit kits
 /obj/item/storage/box/syndie_kit/space
 	name = "boxed space suit and helmet"
 
@@ -386,17 +387,25 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.can_hold = typecacheof(list(/obj/item/clothing/suit/space/syndicate, /obj/item/clothing/head/helmet/space/syndicate))
+	STR.can_hold = typecacheof(list(/obj/item/clothing/suit/space/syndicate, /obj/item/clothing/head/helmet/space/syndicate, /obj/item/clothing/suit/chameleon/space, /obj/item/clothing/head/chameleon/envirohelm))
 
 /obj/item/storage/box/syndie_kit/space/PopulateContents()
 	if(prob(50))
 		new /obj/item/clothing/suit/space/syndicate/black/red(src) // Black and red is so in right now
 		new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
-
 	else
 		new /obj/item/clothing/head/helmet/space/syndicate(src)
 		new /obj/item/clothing/suit/space/syndicate(src)
 
+/obj/item/storage/box/syndie_kit/space/chameleon
+	name = "boxed chameleon space suit and helmet"
+
+/obj/item/storage/box/syndie_kit/space/chameleon/PopulateContents()
+	new /obj/item/clothing/head/chameleon/envirohelm/advanced(src)
+	new /obj/item/clothing/suit/chameleon/space(src)
+
+
+//EMP kit
 /obj/item/storage/box/syndie_kit/emp
 	name = "EMP kit"
 
@@ -492,6 +501,37 @@
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/pda/chameleon(src)
+
+/obj/item/storage/box/syndie_kit/chameleon/advanced
+	name = "advanced chameleon kit"
+
+/obj/item/storage/box/syndie_kit/chameleon/advanced/PopulateContents()
+	new /obj/item/clothing/accessory/chameleon/stealth/holster(src)
+	new /obj/item/clothing/accessory/chameleon/stealth/generic(src)
+	new /obj/item/clothing/under/chameleon/advanced(src) //4 TC package
+	new /obj/item/clothing/suit/chameleon/deeppocket(src) //2 TC
+	new /obj/item/clothing/suit/chameleon/space(src) //2 TC
+	new /obj/item/clothing/gloves/chameleon/combat(src) //1 TC
+	new /obj/item/clothing/shoes/chameleon/noslip(src) //3 TC
+	new /obj/item/clothing/glasses/chameleon/flashproof(src) //2 TC
+	new /obj/item/clothing/head/chameleon/envirohelm/advanced(src) //2 TC
+	new /obj/item/clothing/mask/chameleon/advanced(src) //2 TC
+	new /obj/item/clothing/neck/cloak/chameleon(src)
+	new /obj/item/storage/backpack/chameleon/duffelbag(src) //2 TC
+	new /obj/item/radio/headset/chameleon/bowman(src) //1 TC
+	new /obj/item/stamp/chameleon(src)
+	new /obj/item/pda/chameleon(src)
+	new /obj/item/razor(src)
+	new /obj/item/handmirror(src)
+	new /obj/item/clothing/head/wig(src)
+
+/obj/item/storage/box/syndie_kit/chameleon/advjumpsuit
+	name = "chameleon combat uniform & accessory kit"
+
+/obj/item/storage/box/syndie_kit/chameleon/advjumpsuit/PopulateContents()
+	new /obj/item/clothing/accessory/chameleon/stealth/holster(src)
+	new /obj/item/clothing/accessory/chameleon/stealth/generic(src)
+	new /obj/item/clothing/under/chameleon/advanced(src)
 
 //5*(2*4) = 5*8 = 45, 45 damage if you hit one person with all 5 stars.
 //Not counting the damage it will do while embedded (2*4 = 8, at 15% chance)

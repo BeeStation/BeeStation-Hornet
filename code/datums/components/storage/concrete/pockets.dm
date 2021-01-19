@@ -37,9 +37,20 @@
 
 /datum/component/storage/concrete/pockets/exo/large
 	max_items = 3
-	
+
+/datum/component/storage/concrete/pockets/exo/large/stealth
+	silent = TRUE
+
+/datum/component/storage/concrete/pockets/exo/extralarge
+	max_w_class = WEIGHT_CLASS_NORMAL
+
 /datum/component/storage/concrete/pockets/small/detective
 	attack_hand_interact = TRUE // so the detectives would discover pockets in their hats
+
+/datum/component/storage/concrete/pockets/stealthuniform
+	max_items = 4
+	attack_hand_interact = TRUE
+	silent = TRUE
 
 /datum/component/storage/concrete/pockets/shoes
 	max_items = 2

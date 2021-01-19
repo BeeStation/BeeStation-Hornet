@@ -257,7 +257,7 @@
 	random_sensor = FALSE
 	resistance_flags = NONE
 	can_adjust = FALSE
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 10, "bio" = 10, "rad" = 10, "fire" = 50, "acid" = 50)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -295,6 +295,59 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
+/obj/item/clothing/under/chameleon/advanced
+	name = "grey jumpsuit"
+	icon_state = "grey"
+	item_state = "gy_suit"
+	item_color = "grey"
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 10, "bio" = 10, "rad" = 10, "fire" = 100, "acid" = 50)
+	resistance_flags = FIRE_PROOF
+
+//Chameleon Accessory
+/obj/item/clothing/accessory/chameleon
+	name = "bronze medal"
+	desc = "A bronze medal."
+	icon_state = "bronze"
+	item_color = "bronze"
+
+	var/datum/action/item_action/chameleon/change/chameleon_action
+
+/obj/item/clothing/accessory/chameleon/Initialize()
+	. = ..()
+	chameleon_action = new(src)
+	chameleon_action.chameleon_type = /obj/item/clothing/accessory
+	chameleon_action.chameleon_name = "Accessory"
+	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/clothing/accessory), only_root_path = TRUE)
+	chameleon_action.initialize_disguises()
+
+/obj/item/clothing/accessory/chameleon/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	chameleon_action.emp_randomise()
+
+/obj/item/clothing/accessory/chameleon/broken/Initialize()
+	. = ..()
+	chameleon_action.emp_randomise(INFINITY)
+
+/obj/item/clothing/accessory/chameleon/stealth
+	flags_inv = HIDEACCESSORY
+
+/obj/item/clothing/accessory/chameleon/stealth/holster
+	name = "shoulder holster"
+	desc = "A holster to carry a handgun and ammo. WARNING: Badasses only."
+	icon_state = "holster"
+	item_color = "nothing"
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/holster
+
+/obj/item/clothing/accessory/chameleon/stealth/generic
+	name = "pocket protector"
+	desc = "Can protect your clothing from ink stains, but you'll look like a nerd if you're using one."
+	icon_state = "pocketprotector"
+	item_color = "nothing"
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/stealthuniform
+
+//Chameleon Suit
 /obj/item/clothing/suit/chameleon
 	name = "armor"
 	desc = "A slim armored vest that protects against most types of damage."
@@ -302,7 +355,7 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	resistance_flags = NONE
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 10, "bio" = 10, "rad" = 10, "fire" = 50, "acid" = 50)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -323,6 +376,32 @@
 /obj/item/clothing/suit/chameleon/broken/Initialize()
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
+
+/obj/item/clothing/suit/chameleon/deeppocket
+	name = "winter coat"
+	desc = "A heavy jacket made from 'synthetic' animal furs."
+	icon_state = "coatwinter"
+	item_state = "coatwinter"
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo/extralarge
+
+/obj/item/clothing/suit/chameleon/space
+	name = "EVA suit"
+	desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
+	icon_state = "space"
+	item_state = "eva_suit"
+	w_class = WEIGHT_CLASS_NORMAL
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo/extralarge
+
+	gas_transfer_coefficient = 0.01
+	permeability_coefficient = 0.02
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SHOWEROKAY
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	cold_protection = CHEST | GROIN | LEGS | FEET | ARMS | HANDS
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 
 /obj/item/clothing/glasses/chameleon
 	name = "Optical Meson Scanner"
@@ -359,6 +438,7 @@
 	item_state = "welding-g"
 	flash_protect = 3
 
+//Chameleon Gloves
 /obj/item/clothing/gloves/chameleon
 	desc = "These gloves provide protection against electric shock."
 	name = "insulated gloves"
@@ -402,6 +482,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 
+//Chameleon Hat
 /obj/item/clothing/head/chameleon
 	name = "grey cap"
 	desc = "It's a baseball hat in a tasteful grey colour."
@@ -410,7 +491,7 @@
 	item_color = "grey"
 
 	resistance_flags = NONE
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 5, "bio" = 5, "rad" = 5, "fire" = 50, "acid" = 50)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -464,6 +545,13 @@
 	var/datum/action/item_action/chameleon/drone/randomise/randomise_action = new(src)
 	randomise_action.UpdateButtonIcon()
 
+/obj/item/clothing/head/chameleon/envirohelm/advanced
+	name = "EVA helmet"
+	icon_state = "space"
+	item_state = "eva_helmet"
+	desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
+
+//Chameleon Mask
 /obj/item/clothing/mask/chameleon
 	name = "gas mask"
 	desc = "A face-covering mask that can be connected to an air supply. While good for concealing your identity, it isn't good for blocking gas flow." //More accurate
@@ -522,6 +610,25 @@
 /obj/item/clothing/mask/chameleon/drone/attack_self(mob/user)
 	to_chat(user, "<span class='notice'>[src] does not have a voice changer.</span>")
 
+/obj/item/clothing/mask/chameleon/advanced
+	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of the older models."
+	icon_state = "gas_alt_old"
+	item_state = "gas_alt_old"
+
+/obj/item/clothing/mask/chameleon/advanced/equipped(mob/living/carbon/human/user, slot)
+	. = ..()
+	if(slot == SLOT_WEAR_MASK)
+		ADD_TRAIT(user, TRAIT_NOBREATH, "breathmask_[REF(src)]")
+		user.failed_last_breath = FALSE
+		user.clear_alert("not_enough_oxy")
+		user.apply_status_effect(/datum/status_effect/rebreathing)
+
+/obj/item/clothing/mask/chameleon/advanced/dropped(mob/living/carbon/human/user)
+	..()
+	REMOVE_TRAIT(user, TRAIT_NOBREATH, "breathmask_[REF(src)]")
+	user.remove_status_effect(/datum/status_effect/rebreathing)
+
+//Chameleon Shoes
 /obj/item/clothing/shoes/chameleon
 	name = "black shoes"
 	icon_state = "black"

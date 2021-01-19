@@ -1301,11 +1301,19 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 
 /datum/uplink_item/stealthy_tools/chameleon
-	name = "Chameleon Kit"
+	name = "Basic Chameleon Kit"
 	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
 			Due to budget cuts, the shoes don't provide protection against slipping."
 	item = /obj/item/storage/box/syndie_kit/chameleon
 	cost = 2
+	exclude_modes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/stealthy_tools/chameleon_advanced
+	name = "Advanced Chameleon Kit"
+	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
+			Includes all advanced versions available, including spaceproof items, no-slip shoes, bangproof headsets and more."
+	item = /obj/item/storage/box/syndie_kit/chameleon/advanced
+	cost = 12
 	exclude_modes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_tools/chameleon_proj
@@ -1383,11 +1391,29 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	item = /obj/item/clothing/glasses/chameleon/flashproof
 	cost = 2
 
+/datum/uplink_item/stealthy_tools/chamadvmask
+	name = "Chameleon Rebreather Mask"
+	desc = "A gas mask which supports all your breathing requirements, enhanced with chameleon disguise technology."
+	item = /obj/item/clothing/mask/chameleon/advanced
+	cost = 2
+
 /datum/uplink_item/stealthy_tools/chaminsuls
 	name = "Chameleon Combat Gloves"
 	desc = "A pair of gloves reinforced with fire and shock resistance, enhanced with chameleon disguise technology."
 	item = /obj/item/clothing/gloves/chameleon/combat
-	cost = 1
+	cost = 1 //Toolbox includes (non-chameleon) insuls and is also 1 TC
+
+/datum/uplink_item/stealthy_tools/chamadvunder
+	name = "Chameleon Combat Uniform & Accessory Kit"
+	desc = "A lightly armored fireproof uniform with detachable hidden accessories (both holster and generic item pockets included). Enhanced with chameleon disguise technology."
+	item = /obj/item/storage/box/syndie_kit/chameleon/advjumpsuit
+	cost = 4
+
+/datum/uplink_item/stealthy_tools/chamadvsuit
+	name = "Chameleon Deep-Pocketed Coat"
+	desc = "A lightly armored coat with extra-large pockets, enhanced with chameleon disguise technology."
+	item = /obj/item/clothing/suit/chameleon/deeppocket
+	cost = 2
 
 /datum/uplink_item/stealthy_tools/jammer
 	name = "Radio Jammer"
@@ -1410,11 +1436,17 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 
 /datum/uplink_item/suits/space_suit
 	name = "Syndicate Space Suit"
-	desc = "This red and black Syndicate space suit is less encumbering than Nanotrasen variants, \
+	desc = "This well-armored red and black Syndicate space suit is less encumbering than Nanotrasen variants, \
 			fits inside bags, and has a weapon slot. Nanotrasen crew members are trained to report red space suit \
 			sightings, however."
 	item = /obj/item/storage/box/syndie_kit/space
 	cost = 3
+
+/datum/uplink_item/suits/cham_space_suit
+	name = "Chameleon Space Suit"
+	desc = "A lightly armored lightweight space suit with extra-large pockets, enhanced with chameleon disguise technology."
+	item = /obj/item/storage/box/syndie_kit/space/chameleon
+	cost = 4
 
 /datum/uplink_item/suits/hardsuit
 	name = "Syndicate Hardsuit"
