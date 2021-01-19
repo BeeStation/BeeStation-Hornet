@@ -214,7 +214,7 @@
 /obj/effect/broken_illusion/examine(mob/user)
 	. = ..()
 	var/mob/living/carbon/human/human_user = user
-	if(istype(user) && !IS_HERETIC(user) && !IS_HERETIC_CULTIST(user))		
+	if(istype(user) && !IS_HERETIC(user) && !IS_HERETIC_MONSTER(user))		
 		to_chat(human_user,"<span class='warning'>Your mind burns as you stare at the tear!</span>")
 		human_user.adjustOrganLoss(ORGAN_SLOT_BRAIN,10,190)
 		SEND_SIGNAL(human_user, COMSIG_ADD_MOOD_EVENT, "gates_of_mansus", /datum/mood_event/gates_of_mansus)

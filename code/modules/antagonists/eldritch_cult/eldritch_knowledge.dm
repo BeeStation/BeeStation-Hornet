@@ -182,9 +182,6 @@
 	if(!chosen_mob)
 		return FALSE
 	var/mob/living/living_target = chosen_mob
-	if (istype(living_target) && HAS_TRAIT(living_target, TRAIT_WARDED))
-		to_chat(user, "<span class='warning'>The curse failed! The target is warded against curses.</span>")
-		return FALSE
 	curse(compiled_list[chosen_mob])
 	addtimer(CALLBACK(src, .proc/uncurse, compiled_list[chosen_mob]),timer)
 	return TRUE

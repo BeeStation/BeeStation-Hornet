@@ -10,6 +10,7 @@
 	var/list/researched_knowledge = list()
 	var/total_sacrifices = 0
 	var/ascended = FALSE
+	can_hijack = HIJACK_HIJACKER
 
 /datum/antagonist/heretic/admin_add(datum/mind/new_owner,mob/admin)
 	give_equipment = FALSE
@@ -36,9 +37,10 @@
 		gain_knowledge(/datum/eldritch_knowledge/spell/basic)
 		gain_knowledge(/datum/eldritch_knowledge/living_heart)
 		gain_knowledge(/datum/eldritch_knowledge/codex_cicatrix)
-	current.log_message("has become a heretic", LOG_ATTACK, color="#960000")
-	GLOB.reality_smash_track.AddMind(owner)
+	current.log_message("has been turned into a heretic!", LOG_ATTACK, color="#960000")
+	GLOB.reality_smash_track.Generate()
 	START_PROCESSING(SSprocessing,src)
+	RegisterSignal(owner.current, COMSIG_MOB_DEATH, .proc/on_death)
 	if(give_equipment)
 		equip_cultist()
 	return ..()
@@ -55,8 +57,14 @@
 	GLOB.reality_smash_track.RemoveMind(owner)
 	STOP_PROCESSING(SSprocessing,src)
 
+	on_death()
 	return ..()
 
+/datum/antagonist/heretic/proc/on_death()
+
+	for(var/X in researched_knowledge)
+		var/datum/eldritch_knowledge/EK = researched_knowledge[X]
+		EK.on_death(owner.current)
 
 /datum/antagonist/heretic/proc/equip_cultist()
 	var/mob/living/carbon/H = owner.current
