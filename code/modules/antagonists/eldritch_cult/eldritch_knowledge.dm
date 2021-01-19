@@ -158,6 +158,9 @@
 	var/chosen_mob = input("Select the person you wish to curse","Your target") as null|anything in sortList(compiled_list, /proc/cmp_mob_realname_dsc)
 	if(!chosen_mob)
 		return FALSE
+	if (HAS_TRAIT(chosen_mob, TRAIT_WARDED))
+		to_chat(user, "<span class='warning'>The curse failed! The target is warded against curses.</span>")
+		return FALSE
 	curse(compiled_list[chosen_mob])
 	addtimer(CALLBACK(src, .proc/uncurse, compiled_list[chosen_mob]),timer)
 	return TRUE
