@@ -1,0 +1,5 @@
+author: Sarchutar
+delete-after: true
+changes:
+  - tweak: The border firelock frame can now be walked through
+  - imageadd: The frame also looks more open now
