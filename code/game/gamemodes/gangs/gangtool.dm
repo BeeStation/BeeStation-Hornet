@@ -207,7 +207,7 @@
 		gang.recalls--
 		return TRUE
 
-	to_chat(user, "<span class='info'>[icon2html(src, loc)]No response recieved. Emergency shuttle cannot be recalled at this time.</span>")
+	to_chat(user, "<span class='info'>[icon2html(src, loc)]No response received. Emergency shuttle cannot be recalled at this time.</span>")
 	return
 
 /obj/item/device/gangtool/proc/recallchecks(mob/user)

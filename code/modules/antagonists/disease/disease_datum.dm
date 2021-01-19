@@ -24,6 +24,8 @@
 	to_chat(owner.current, "<span class='notice'>You are the [owner.special_role]!</span>")
 	to_chat(owner.current, "<span class='notice'>Infect members of the crew to gain adaptation points, and spread your infection further.</span>")
 	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Sentient Disease",
+		"Infect members of the crew to gain adaptation points and spread your infection further.")
 
 /datum/antagonist/disease/apply_innate_effects(mob/living/mob_override)
 	if(!istype(owner.current, /mob/camera/disease))

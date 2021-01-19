@@ -17,4 +17,8 @@ export const SETTINGS_TABS = [
     id: 'highlightPage',
     name: 'Highlight',
   },
+  {
+    id: 'statPanelpage',
+    name: 'Stat Panel',
+  },
 ];

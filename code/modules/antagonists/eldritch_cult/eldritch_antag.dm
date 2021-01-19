@@ -26,6 +26,8 @@
 	Your book allows you to research abilities, read it very carefully! You cannot undo what has been done!<br>\
 	You gain charges by either collecting influences or sacrificing people tracked by the living heart<br> \
 	You can find a basic guide at : https://wiki.beestation13.com/view/Heretics </span>")
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Heretic",
+		"Collect influences or sacrafice targets to expand your forbidden knowledge.")
 
 /datum/antagonist/heretic/on_gain()
 	var/mob/living/current = owner.current
@@ -168,7 +170,7 @@
 			count++
 
 	if(ascended)
-		//Ascension isnt technically finishing the objectives, buut it is to be considered a great win.
+		//Ascension isn't technically finishing the objectives, buut it is to be considered a great win.
 		var/client/C = GLOB.directory[ckey(owner.key)]
 		if(C)
 			C.process_greentext()
