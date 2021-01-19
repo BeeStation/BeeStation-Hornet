@@ -93,7 +93,7 @@ transformative extracts:
 
 /obj/item/slimecross/transformative/bluespace/do_effect(mob/living/simple_animal/slime/S, mob/user)
 	..()
-	S.verbs += /mob/living/simple_animal/slime/proc/teleport
+	S.add_verb(/mob/living/simple_animal/slime/proc/teleport)
 
 /obj/item/slimecross/transformative/sepia
 	colour = "sepia"
@@ -166,4 +166,3 @@ transformative extracts:
 	colour = "rainbow"
 	effect_applied = SLIME_EFFECT_RAINBOW
 	effect_desc = "Slime randomly changes color periodically."
-
