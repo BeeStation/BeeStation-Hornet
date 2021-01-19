@@ -357,8 +357,6 @@
 			if(!L.anchored && !L.throwing)//avoid double hits
 				if(iscarbon(L))
 					var/mob/living/carbon/C = L
-					var/firer_intent = INTENT_HARM
-					var/mob/M = firer
 					switch(H.a_intent)
 						if(INTENT_HELP)
 							C.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
