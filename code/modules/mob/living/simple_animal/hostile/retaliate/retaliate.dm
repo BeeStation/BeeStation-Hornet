@@ -21,11 +21,9 @@
 	return see
 
 /mob/living/simple_animal/hostile/retaliate/proc/Retaliate()
-	var/list/around = view(src, vision_range)
+	var/list/around = oview(vision_range, src)
 
 	for(var/atom/movable/A in around)
-		if(A == src)
-			continue
 		if(isliving(A))
 			var/mob/living/M = A
 			if(faction_check_mob(M) && attack_same || !faction_check_mob(M))

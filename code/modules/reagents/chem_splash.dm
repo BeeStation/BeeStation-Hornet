@@ -34,8 +34,6 @@
 		steam.attach(epicenter)
 		steam.start()
 
-		var/list/viewable = view(affected_range, epicenter)
-
 		var/list/accessible = list(epicenter)
 		for(var/i=1; i<=affected_range; i++)
 			var/list/turflist = list()
@@ -59,7 +57,7 @@
 		var/list/reactable = accessible
 		for(var/turf/T in accessible)
 			for(var/atom/A in T.GetAllContents())
-				if(!(A in viewable))
+				if(!(A in view(affected_range, epicenter)))
 					continue
 				reactable |= A
 			if(extra_heat >= 300)

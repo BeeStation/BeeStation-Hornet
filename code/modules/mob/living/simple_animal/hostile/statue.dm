@@ -123,7 +123,7 @@
 
 	// This loop will, at most, loop twice.
 	for(var/atom/check in check_list)
-		for(var/mob/living/M in viewers(getexpandedview(world.view, 1, 1), check) - src)
+		for(var/mob/living/M in oviewers(getexpandedview(world.view, 1, 1), check))
 			if(M.client && CanAttack(M) && !M.has_unlimited_silicon_privilege)
 				if(!M.eye_blind)
 					return M

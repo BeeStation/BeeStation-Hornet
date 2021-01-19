@@ -226,7 +226,7 @@ Regenerative extracts:
 
 /obj/item/slimecross/regenerative/oil/core_effect(mob/living/target, mob/user)
 	playsound(src, 'sound/weapons/flash.ogg', 100, 1)
-	for(var/mob/living/L in view(user,7))
+	for(var/mob/living/L in viewers(7, user))
 		L.flash_act()
 
 /obj/item/slimecross/regenerative/black

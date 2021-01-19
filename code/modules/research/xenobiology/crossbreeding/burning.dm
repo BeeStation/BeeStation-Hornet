@@ -195,7 +195,7 @@ Burning extracts:
 
 /obj/item/slimecross/burning/red/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] pulses a hazy red aura for a moment, which wraps around [user]!</span>")
-	for(var/mob/living/simple_animal/slime/S in view(7, get_turf(user)))
+	for(var/mob/living/simple_animal/slime/S in hearers(7, get_turf(user)))
 		if(user in S.Friends)
 			var/friendliness = S.Friends[user]
 			S.Friends = list()
@@ -285,7 +285,7 @@ Burning extracts:
 
 /obj/item/slimecross/burning/lightpink/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] lets off a hypnotizing pink glow!</span>")
-	for(var/mob/living/carbon/C in view(7, get_turf(user)))
+	for(var/mob/living/carbon/C in hearers(7, get_turf(user)))
 		C.reagents.add_reagent(/datum/reagent/pax,5)
 	..()
 
