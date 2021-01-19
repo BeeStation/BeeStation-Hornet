@@ -32,7 +32,7 @@ transformative extracts:
 	if(S.transformeffects & SLIME_EFFECT_METAL)
 		S.maxHealth = round(S.maxHealth/1.3)
 	if(S.transformeffects & SLIME_EFFECT_BLUESPACE)
-		S.verbs -= /mob/living/simple_animal/slime/proc/teleport
+		S.remove_verb(/mob/living/simple_animal/slime/proc/teleport)
 	if(S.transformeffects & SLIME_EFFECT_PINK)
 		var/datum/language_holder/LH = S.get_language_holder()
 		LH.selected_language = /datum/language/slime
@@ -166,5 +166,4 @@ transformative extracts:
 	colour = "rainbow"
 	effect_applied = SLIME_EFFECT_RAINBOW
 	effect_desc = "Slime randomly changes color periodically."
-
 
