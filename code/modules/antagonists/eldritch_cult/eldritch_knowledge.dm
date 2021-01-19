@@ -286,7 +286,8 @@
 			for(var/X in carbon_user.get_all_gear())
 				if(!istype(X,/obj/item/forbidden_book))
 					continue
-				EC.gain_favor(8,FALSE)
+				var/obj/item/forbidden_book/FB = X
+				FB.charge += 2
 				break
 
 		if(!LH.target)
