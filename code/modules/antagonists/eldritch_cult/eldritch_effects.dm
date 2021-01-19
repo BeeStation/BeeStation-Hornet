@@ -150,7 +150,8 @@
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "pierced_illusion"
 	anchored = TRUE
-	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF	
+	invisibility = INVISIBILITY_OBSERVER
 	alpha = 0
 
 /obj/effect/broken_illusion/Initialize()
