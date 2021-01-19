@@ -217,3 +217,8 @@
 
 /datum/mood_event/nanite_sadness/add_effects(message)
 	description = "<span class='warning robot'>+++++++[message]+++++++</span>\n"
+
+/datum/mood_event/gates_of_mansus
+	description = "<span class='boldwarning'>I HAD A GLIMPSE OF THE HORROR BEYOND THIS WORLD. REALITY UNCOILED BEFORE MY EYES!</span>\n"
+	mood_change = -25
+	timeout = 4 MINUTES 
