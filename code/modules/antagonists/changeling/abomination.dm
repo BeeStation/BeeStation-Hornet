@@ -7,8 +7,8 @@
 */
 
 /datum/reagent/shiftium
-	name = "shiftium"
-	description = "A strange stimulant."
+	name = "shifium"
+	description = "A changeling matter derived stimulant that overexcites the nervous system, forcing transformations in changelings."
 	color = "#9D5A99"
 	overdose_threshold = 8
 	taste_description = "savory with a bit of blood"
@@ -16,7 +16,7 @@
 	var/obj/shapeshift_holder/shapeshiftdata
 
 /datum/reagent/shiftium/on_mob_metabolize(mob/living/L)
-	L.adjustStaminaLoss(-5, 0)
+	L.adjustStaminaLoss(-10, 0)
 	..()
 
 /datum/reagent/shiftium/on_mob_end_metabolize(mob/living/L)
@@ -40,7 +40,7 @@
 			ADD_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
 
 			playsound(L, 'sound/magic/demon_consume.ogg', 30, 1)
-			L.visible_message("<span class='warning'>[L]'s body uncontrolably transforms into an abomination!</span>", "<span class='boldwarning'>Your body uncontrolably transforms, revealing your true form!</span>")
+			L.visible_message("<span class='warning'>[L]'s body uncontrollably transforms into an abomination!</span>", "<span class='boldwarning'>Your body uncontrollably transforms, revealing your true form!</span>")
 
 			polymorph_target(L,volume/overdose_threshold)
 	..()
@@ -53,24 +53,22 @@
 	shapeshiftdata = new(shape,null,L)
 	addtimer(CALLBACK(shapeshiftdata, /obj/shapeshift_holder.proc/restore),  max(600, 600 * dur))
 
+/datum/reagent/clinggibs
+	name = "changeling spinal fluid"
+	color = "#FF9966"
+	description = "Matter sample from a fluid living being that is able to reform flesh and send nervous impulses. This sample is dead."
+	taste_description = "gross iron"
+
 //	CLING GIBS
 
 /obj/effect/decal/cleanable/blood/gibs/changeling
 	icon_state = "gib1"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6","gibup1","gibdown1")
-	can_rot = FALSE
 
 /obj/effect/decal/cleanable/blood/gibs/changeling/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
 	reagents.remove_reagent(/datum/reagent/liquidgibs, 5)
 	reagents.add_reagent(/datum/reagent/clinggibs, 10)
-
-/datum/reagent/clinggibs
-	name = "Changeling matter"
-	color = "#FF9966"
-	description = "You don't even want to think about what's in here."
-	taste_description = "gross iron"
-	shot_glass_icon_state = "shotglassred"
 
 //	THE CREATURE
 

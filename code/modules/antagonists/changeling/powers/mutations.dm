@@ -402,7 +402,7 @@
 	if(isliving(target))
 		var/mob/living/L = target
 		L.visible_message("<span class='danger'>[L] is pulled by [firer]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [firer]!</span>")
-		L.throw_at(get_step_towards(H,L), 8, 2)
+		L.throw_at(get_step_towards(firer,L), 8, 2)
 		L.Knockdown (2 SECONDS)
 		. = BULLET_ACT_HIT
 

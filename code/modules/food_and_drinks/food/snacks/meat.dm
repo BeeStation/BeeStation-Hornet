@@ -165,9 +165,9 @@
 	foodtype = RAW | MEAT
 
 /obj/item/reagent_containers/food/snacks/meat/slab/teratoma
-	name = "changeling meat"
+	name = "teratoma meat"
 	foodtype = RAW | MEAT
-	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/clinggibs = 15)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/clinggibs = 5)
 
 /obj/item/reagent_containers/food/snacks/meat/slab/mouse
 	name = "mouse meat"

@@ -32,7 +32,7 @@
 		S.Paralyze(60)
 	var/turf = get_turf(user)
 	user.gib()
-	if (prob(15))
+	if (!user.stat && prob(33))
 		new /obj/effect/decal/cleanable/blood/gibs/changeling(turf)
 	. = TRUE
 	sleep(8) // So it's not killed in explosion
