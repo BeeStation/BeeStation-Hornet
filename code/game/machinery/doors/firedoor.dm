@@ -6,7 +6,7 @@
 
 /obj/machinery/door/firedoor
 	name = "firelock"
-	desc = "A convenable firelock. Equipt with a manual lever for operating in case of emergency."
+	desc = "A convenable firelock. Equipped with a manual lever for operating in case of emergency."
 	icon = 'icons/obj/doors/doorfireglass.dmi'
 	icon_state = "door_open"
 	opacity = FALSE
@@ -98,17 +98,17 @@
 	. = ..()
 	if(.)
 		return
-	
+
 	if (!welded && !operating)
-		if (stat & NOPOWER) 				
+		if (stat & NOPOWER)
 			user.visible_message("[user] tries to open \the [src] manually.",
 						 "You operate the manual lever on \the [src].")
 			if (!do_after(user, 30, TRUE, src))
 				return FALSE
 		else if (density && !allow_hand_open(user))
 			return FALSE
-	
-		add_fingerprint(user)		
+
+		add_fingerprint(user)
 		if(density)
 			emergency_close_timer = world.time + 15 // prevent it from instaclosing again if in space
 			open()
@@ -117,7 +117,7 @@
 		return TRUE
 	if(operating || !density)
 		return
-	
+
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	user.visible_message("[user] bangs on \the [src].",

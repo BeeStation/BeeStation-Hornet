@@ -30,9 +30,12 @@
 		var/procpath/V = verb_in_list
 		if(V.category)
 			if(V.category in sorted_verbs)
-				//Add verb
-				sorted_verbs["[V.category]"] |= V
-				sortTim(sorted_verbs["[V.category]"], /proc/cmp_verb_des)
+				if(V in sorted_verbs[V.category])
+					continue
+				//Binary insert at the correct position
+				var/list/verbs = sorted_verbs["[V.category]"]
+				BINARY_INSERT_TEXT(V, verbs, procpath, name)
+				sorted_verbs["[V.category]"] = verbs
 			else
 				//Add category with verb
 				stat_tabs += V.category
