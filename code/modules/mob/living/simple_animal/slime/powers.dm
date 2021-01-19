@@ -137,10 +137,9 @@
 	if(!is_adult)
 		if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
 			is_adult = TRUE
-			var/new_maxHealth = 200
+			maxHealth = 200
 			if(transformeffects & SLIME_EFFECT_METAL)
-				new_maxHealth = round(new_maxHealth * 1.3)
-			maxHealth = new_maxHealth
+				maxHealth = round(maxHealth * 1.3)
 			amount_grown = 0
 			for(var/datum/action/innate/slime/evolve/E in actions)
 				E.Remove(src)
