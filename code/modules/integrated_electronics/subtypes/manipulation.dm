@@ -132,7 +132,7 @@
 	//Shooting Code:
 	A.preparePixelProjectile(target, src)
 	A.ignore_source_check = TRUE //needed else writing into firer will mess with the projectile collision
-	A.firer = usr == null ? "[assembly]/[REF(assembly)] circuit made by [assembly.creator]" : "[usr.ckey]/[usr] trough [assembly]/[REF(assembly)] circuit made by [assembly.creator]"
+	A.firer = !usr ? "[assembly]/[REF(assembly)] circuit made by [assembly.creator]" : "[usr.ckey]/[usr] trough [assembly]/[REF(assembly)] circuit made by [assembly.creator]"
 	A.log_override = TRUE //Only resoves a runtime that would be caused on call.
 	A.fire()
 	log_attack("[assembly] [REF(assembly)] made by [assembly.creator] has fired [installed_gun].")
