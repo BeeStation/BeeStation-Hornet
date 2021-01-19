@@ -181,7 +181,6 @@
 	var/chosen_mob = input("Select the person you wish to curse","Your target") as null|anything in sortList(compiled_list, /proc/cmp_mob_realname_dsc)
 	if(!chosen_mob)
 		return FALSE
-	var/mob/living/living_target = chosen_mob
 	curse(compiled_list[chosen_mob])
 	addtimer(CALLBACK(src, .proc/uncurse, compiled_list[chosen_mob]),timer)
 	return TRUE
