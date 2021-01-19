@@ -35,9 +35,8 @@
 /datum/action/innate/cult/blood_magic/Activate()
 	var/rune = FALSE
 	var/limit = RUNELESS_MAX_BLOODCHARGE
-	for(var/obj/effect/rune/empower/R in range(1, owner))
+	if(locate(/obj/effect/rune/empower) in range(1, owner))
 		rune = TRUE
-		break
 	if(rune)
 		limit = MAX_BLOODCHARGE
 	if(spells.len >= limit)

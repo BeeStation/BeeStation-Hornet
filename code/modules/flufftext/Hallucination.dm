@@ -283,7 +283,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	set waitfor = FALSE
 	. = ..()
 	var/turf/closed/wall/wall
-	for(var/turf/closed/wall/W in range(7,target))
+	for(var/turf/closed/wall/W in RANGE_TURFS(7,target))
 		wall = W
 		break
 	if(!wall)

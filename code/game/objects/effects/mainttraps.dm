@@ -290,9 +290,8 @@
 	var/cluwne = FALSE
 	if(rune_in_use)
 		return
-	for(var/mob/living/simple_animal/hostile/floor_cluwne/clown in range(5, src))
+	if(locate(/mob/living/simple_animal/hostile/floor_cluwne) in range(5, src))
 		cluwne = TRUE
-		break
 	if(!cluwne && !iscultist(user))
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -330,9 +329,8 @@
 		return
 	if(istype(M, /mob/living/simple_animal/cluwne) || istype(M, /mob/living/simple_animal/hostile/retaliate/clown))
 		var/cluwne = FALSE
-		for(var/mob/living/simple_animal/hostile/floor_cluwne/clown in range(5, src))
+		if(locate(/mob/living/simple_animal/hostile/floor_cluwne) in range(5, src))
 			cluwne = TRUE
-			break
 		if(!cluwne)
 			to_chat(M, "<span class='warning'>We need a connection! One of the honkmother's manifested forms!</span>")
 		else
@@ -342,8 +340,7 @@
 
 /obj/effect/rune/cluwne/can_invoke(user) //this is actually used to get "sacrifices", which can include the user
 	var/list/invokers = list() //people eligible to invoke the rune
-	var/list/things_in_range = range(1, src)
-	for(var/mob/living/carbon/human/L in things_in_range)
+	for(var/mob/living/carbon/human/L in range(1, src))
 		if(!L.mind)
 			continue
 		if(L.stat)

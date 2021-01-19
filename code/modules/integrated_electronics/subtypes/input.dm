@@ -571,9 +571,8 @@
 		return
 	var/desired_type = A.type
 
-	var/list/nearby_things = range(1, get_turf(src))
 	var/list/valid_things = list()
-	for(var/atom/thing in nearby_things)
+	for(var/atom/thing in range(1, get_turf(src)))
 		if(thing.type != desired_type)
 			continue
 		valid_things.Add(thing)

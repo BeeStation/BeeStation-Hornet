@@ -257,7 +257,7 @@
 	if(world.time < last_attack)
 		return
 	var/list/possibleblobs = list()
-	for(var/obj/structure/blob/AB in range(T, 1))
+	for(var/obj/structure/blob/AB in range(1, T))
 		possibleblobs += AB
 	if(!possibleblobs.len)
 		to_chat(src, "<span class='warning'>There is no blob adjacent to the target tile!</span>")

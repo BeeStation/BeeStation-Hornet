@@ -460,7 +460,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			l.hallucination += power * config_hallucination_power * D
 			l.hallucination = CLAMP(0, 200, l.hallucination)
 
-	for(var/mob/living/l in range(round((power / 100) ** 0.25)), src)
+	for(var/mob/living/l in range(round((power / 100) ** 0.25), src))
 		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src),1) )
 		l.rad_act(rads)
 
