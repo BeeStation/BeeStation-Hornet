@@ -75,7 +75,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				var/discount = A.get_discount()
 				if(A.cost >= 20) //Tough love for nuke ops
 					discount *= 0.5
-				A.cost = max(round(A.cost * discount),1)
+				A.cost = max(round(A.cost * discount), 1)
 				A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
 				A.desc += " Normally costs [initial(A.cost)] TC. All sales final. [pick(disclaimer)]"
 			if(4)
