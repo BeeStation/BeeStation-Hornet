@@ -81,3 +81,4 @@
 #define PATH_ASH "Ash"
 #define PATH_RUST "Rust"
 #define PATH_FLESH "Flesh"
+#define COMSIG_VOID_MASK_ACT "void_mask_act"
