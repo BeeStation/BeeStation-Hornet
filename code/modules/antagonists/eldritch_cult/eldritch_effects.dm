@@ -237,7 +237,7 @@
 	. = ..()
 	//var/img = image(icon, src, "reality_smash", OBJ_LAYER)
 	generate_name()
-	// This was on TG but I'm not sure what the bee equivalent is --- add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/heretics,"influence",img)
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/heretics,"influence",img)
 
 /obj/effect/reality_smash/Destroy()
 	on_destroy()
