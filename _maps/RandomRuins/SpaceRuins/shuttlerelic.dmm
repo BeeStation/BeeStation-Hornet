@@ -10,10 +10,6 @@
 "c" = (
 /turf/closed/indestructible/oldshuttle,
 /area/ruin/powered)
-"d" = (
-/obj/machinery/door/airlock/public/glass,
-/turf/open/floor/oldshuttle,
-/area/ruin/powered)
 "e" = (
 /turf/closed/indestructible/oldshuttle/corner,
 /area/ruin/powered)
@@ -381,7 +377,7 @@ a
 a
 a
 e
-d
+J
 h
 g
 g
