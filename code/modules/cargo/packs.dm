@@ -2738,6 +2738,6 @@ datum/supply_pack/medical/bruisekits
 /datum/supply_pack/security/armory/cling_test
 	name = "Changeling Testing Kit"
 	desc = "Contains a single bottle of shiftium, a powerful stimulant with adverse effects on changelings. Because it can turn them in dangerous, horrific monsters, it is often used to expose the identity of changelings. Requires Armory access to open."
-	cost = 20000
+	cost = 12500
 	contains = list(/obj/item/reagent_containers/glass/bottle/shiftium)
 	crate_name = "Changeling testing kit crate"
