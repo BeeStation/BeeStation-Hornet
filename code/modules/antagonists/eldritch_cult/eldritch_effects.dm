@@ -73,6 +73,7 @@
 				if(is_type_in_list(local_atom_in_range,local_required_atom_list))
 					selected_atoms |= local_atom_in_range
 					local_required_atoms -= list(local_required_atom_list)
+					break
 
 		if(length(local_required_atoms) > 0)
 			continue
@@ -96,7 +97,8 @@
 
 		return
 	is_in_use = FALSE
-	to_chat(user,"<span class='warning'>Your ritual failed! You used either wrong components or are missing something important!</span>")
+	to_chat(user,"<span class='warning'>Your ritual failed! You either used the wrong components or are missing something important!</span>")
+
 
 /obj/effect/eldritch/big
 	name = "transmutation rune"
