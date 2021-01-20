@@ -10,6 +10,9 @@
 	var/list/researched_knowledge = list()
 	var/total_sacrifices = 0
 	var/ascended = FALSE
+	var/dread = 0
+	var/favor_earned = 0
+	var/favor_spent = 0
 
 /datum/antagonist/heretic/admin_add(datum/mind/new_owner,mob/admin)
 	give_equipment = FALSE
@@ -266,3 +269,22 @@
 	if(!cultie)
 		return FALSE
 	return cultie.total_sacrifices >= target_amount
+
+/////////////
+// Economy //
+/////////////
+
+/datum/antagonist/heretic/proc/gain_favor(points,demonic = FALSE)
+	favor_earned += points
+	if (demonic)
+		dread++
+	return TRUE
+
+/datum/antagonist/heretic/proc/spend_favor(points)
+	if (get_favor_left()<points)
+		return FALSE
+	favor_spent += points
+	return TRUE
+
+/datum/antagonist/heretic/proc/get_favor_left()
+	return favor_earned - favor_spent	

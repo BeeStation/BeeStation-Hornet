@@ -6,14 +6,14 @@
 	next_knowledge = list(/datum/eldritch_knowledge/flesh_grasp)
 	required_atoms = list(/obj/item/kitchen/knife,/obj/effect/decal/cleanable/blood)
 	result_atoms = list(/obj/item/melee/sickly_blade/flesh)
-	cost = 1
+	cost = 4
 	route = PATH_FLESH
 
 /datum/eldritch_knowledge/flesh_ghoul
 	name = "Imperfect Ritual"
 	desc = "Allows you to resurrect the dead as voiceless dead by sacrificing them on the transmutation rune with a poppy. Voiceless dead are mute and have 50 HP. You can only have 2 at a time."
 	gain_text = "I found notes.. notes of a ritual, it was unfinished and yet i still did it."
-	cost = 1
+	cost = 4
 	required_atoms = list(/mob/living/carbon/human,/obj/item/reagent_containers/food/snacks/grown/poppy)
 	next_knowledge = list(/datum/eldritch_knowledge/flesh_mark,/datum/eldritch_knowledge/armor,/datum/eldritch_knowledge/ashen_eyes)
 	route = PATH_FLESH
@@ -74,7 +74,7 @@
 	name = "Grasp of Flesh"
 	gain_text = "My new found desire, it drove me to do great things! The Priest said."
 	desc = "Empowers your mansus grasp to be able to create a single ghoul out of a dead person. Ghouls have only 25 HP and look like husks."
-	cost = 1
+	cost = 4
 	next_knowledge = list(/datum/eldritch_knowledge/flesh_ghoul)
 	var/ghoul_amt = 1
 	var/list/spooky_scaries
@@ -136,7 +136,7 @@
 	name = "Mark of flesh"
 	gain_text = "I saw them, the marked ones. The screams.. the silence."
 	desc = "Your sickly blade now applies mark of flesh status effect. To proc the mark, use your mansus grasp on the marked. Mark of flesh when procced causeds additional bleeding."
-	cost = 2
+	cost = 8
 	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet)
 	banned_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/ash_mark)
 	route = PATH_FLESH
@@ -151,7 +151,7 @@
 	name = "Bleeding Steel"
 	gain_text = "It rained blood, that's when i understood the gravekeeper's advice."
 	desc = "Your blade will now cause additional bleeding."
-	cost = 2
+	cost = 8
 	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker)
 	banned_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/rust_blade_upgrade)
 	route = PATH_FLESH
@@ -167,7 +167,7 @@
 	name = "Raw Ritual"
 	gain_text = "Uncanny man, walks alone in the valley, I was able to call his aid."
 	desc = "You can now summon a Raw Prophet using eyes, a left arm, right arm and a pool of blood. Raw prophets have increased seeing range, as well as Xray. But are very fragile and weak."
-	cost = 1
+	cost = 4
 	required_atoms = list(/obj/item/organ/eyes,/obj/item/bodypart/l_arm,/obj/item/bodypart/r_arm,/obj/effect/decal/cleanable/blood)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/raw_prophet
 	next_knowledge = list(/datum/eldritch_knowledge/flesh_blade_upgrade,/datum/eldritch_knowledge/spell/blood_siphon,/datum/eldritch_knowledge/curse/paralysis)
@@ -177,7 +177,7 @@
 	name = "Lonely Ritual"
 	gain_text = "I was able to combine my greed and desires to summon an eldritch beast i have not seen before."
 	desc = "You can now summon a Stalker using a knife, a flower, a pen and a piece of paper. Stalkers can shapeshift into harmeless animals and get close to the victim."
-	cost = 1
+	cost = 4
 	required_atoms = list(/obj/item/kitchen/knife,/obj/item/reagent_containers/food/snacks/grown/poppy,/obj/item/pen,/obj/item/paper)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/stalker
 	next_knowledge = list(/datum/eldritch_knowledge/summon/ashy,/datum/eldritch_knowledge/summon/rusty,/datum/eldritch_knowledge/final/flesh_final)
@@ -187,7 +187,7 @@
 	name = "Ashen Ritual"
 	gain_text = "I combined principle of hunger with desire of destruction. The eyeful lords have noticed me."
 	desc = "You can now summon an Ash Man by transmutating a pile of ash , a head and a book."
-	cost = 1
+	cost = 4
 	required_atoms = list(/obj/effect/decal/cleanable/ash,/obj/item/bodypart/head,/obj/item/book)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/ash_spirit
 	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/rust_wave)
@@ -196,7 +196,7 @@
 	name = "Rusted Ritual"
 	gain_text = "I combined principle of hunger with desire of corruption. The rusted hills call my name."
 	desc = "You can now summon a Rust Walker transmutating vomit pool, a head and a book."
-	cost = 1
+	cost = 4
 	required_atoms = list(/obj/effect/decal/cleanable/vomit,/obj/item/bodypart/head,/obj/item/book)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/rust_spirit
 	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/flame_birth)
@@ -205,7 +205,7 @@
 	name = "Blood Siphon"
 	gain_text = "Our blood is all the same after all, the owl told me."
 	desc = "You gain a spell that drains enemies health and restores yours."
-	cost = 1
+	cost = 4
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/blood_siphon
 	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet,/datum/eldritch_knowledge/spell/area_conversion)
 
@@ -214,7 +214,7 @@
 	gain_text = "Man of this world. Hear me! For the time of the lord of arms has come! Emperor of Flesh guides my army!"
 	desc = "Bring 3 bodies onto a transmutation rune to gain the ability of shedding your human form, and gaining untold power."
 	required_atoms = list(/mob/living/carbon/human)
-	cost = 3
+	cost = 9
 	route = PATH_FLESH
 
 /datum/eldritch_knowledge/final/flesh_final/on_finished_recipe(mob/living/user, list/atoms, loc)

@@ -16,7 +16,7 @@
 	author = "Forces beyond your comprehension"
 	unique = 1
 	title = "the Codex Gigas"
-	var/inUse = 0
+	var/inUse = FALSE
 	var/currentName = ""
 	var/currentSection = PRE_TITLE
 
@@ -27,9 +27,12 @@
 		to_chat(user, "<span class='notice'>Someone else is reading it.</span>")
 	if(ishuman(user))
 		var/mob/living/carbon/human/U = user
+		if (IS_HERETIC(U))
+			do_eldritch_ritual(U)
+			return TRUE
 		if(U.check_acedia())
 			to_chat(user, "<span class='notice'>None of this matters, why are you reading this? You put [title] down.</span>")
-			return
+			return FALSE
 	user.visible_message("[user] opens [title] and begins reading intently.")
 	ask_name(user)
 
@@ -106,3 +109,57 @@
 	data["name"]=currentName
 	data["currentSection"]=currentSection
 	return data
+
+/obj/item/book/codex_gigas/proc/do_eldritch_ritual(mob/living/carbon/human/heretic)
+	var/datum/antagonist/heretic/cultie = heretic.mind.has_antag_datum(/datum/antagonist/heretic)	
+	to_chat(heretic, "<span class='notice'>You start researching the forbidden knowledge...</span>")		
+	while (cultie && do_after(heretic,10 SECONDS, src))
+		heretic.whisper(pick("hypnos","celephalis","azathoth","dagon","yig","ex oblivione","nyarlathotep","nathicana","arcadia","astrophobos"), language = /datum/language/common)
+		switch(cultie.dread)
+			if (1 || 2)	//light
+				switch(rand(1,3))
+					if (1)
+						to_chat(heretic, "<span class='notice'>The gods look down upon you.</span>")
+					if (2)
+						heretic.adjustToxLoss(2)
+						to_chat(heretic, "<span class='notice'>You feel a tingle in your abdomen.</span>")
+					if (3)
+						heretic.vomit()
+						to_chat(heretic, "<span class='notice'>You feel ill...</span>")
+				
+			if (3 to 8)	//tragic
+				switch(rand(1,4))
+					if (1)
+						heretic.adjustOrganLoss(ORGAN_SLOT_BRAIN,10)
+						to_chat(heretic, "<span class='warning'>Your sanity decays...</span>")
+					if (2)
+						heretic.adjustOrganLoss(ORGAN_SLOT_EYES,10)
+						to_chat(heretic, "<span class='warning'>Your eyes hurt...</span>")
+					if (3)
+						heretic.adjustOrganLoss(ORGAN_SLOT_EARS,10)
+						to_chat(heretic, "<span class='warning'>A peeping scream disturbs your concentration...</span>")
+					if (4)
+						heretic.adjustToxLoss(10)
+						to_chat(heretic, "<span class='warning'>Your body feels weaker.</span>")
+			else			//devastating
+				switch(rand(1,6))
+					if (1)
+						heretic.adjustOrganLoss(ORGAN_SLOT_BRAIN,20)
+						to_chat(heretic, "<span class='danger'>You lose your grip with this world!</span>")
+					if (2)
+						heretic.adjustOrganLoss(ORGAN_SLOT_HEART,20)
+						to_chat(heretic, "<span class='danger'>Your heart skips a beat!</span>")
+					if (3)
+						heretic.adjustToxLoss(30)
+						to_chat(heretic, "<span class='danger'>Your feel a sharp pain in your abdomen!</span>")
+					if (4)
+						new /mob/living/simple_animal/hostile/netherworld/blankbody(get_turf(src))
+						to_chat(heretic, "<span class='danger'>You draw unwanted attention!</span>")
+					if (5)
+						heretic.adjustCloneLoss(15)
+						to_chat(heretic, "<span class='danger'>Your body betrays you!</span>")	
+					if (6)
+						heretic.adjustOrganLoss(ORGAN_SLOT_EYES,20)
+						heretic.adjustOrganLoss(ORGAN_SLOT_EARS,20)
+						to_chat(heretic, "<span class='danger'>Your senses decay!</span>")					
+		cultie.gain_favor(1,TRUE)

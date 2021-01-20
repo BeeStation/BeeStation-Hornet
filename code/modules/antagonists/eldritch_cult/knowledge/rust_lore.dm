@@ -6,14 +6,14 @@
 	next_knowledge = list(/datum/eldritch_knowledge/rust_fist)
 	required_atoms = list(/obj/item/kitchen/knife,/obj/item/trash)
 	result_atoms = list(/obj/item/melee/sickly_blade/rust)
-	cost = 1
+	cost = 4
 	route = PATH_RUST
 
 /datum/eldritch_knowledge/rust_fist
 	name = "Grasp of rust"
 	desc = "Empowers your mansus grasp to deal 500 damage to non-living matter and rust any turf it touches. Destroys already rusted turfs."
 	gain_text = "Rust grows on the ceiling of the mansus."
-	cost = 1
+	cost = 4
 	next_knowledge = list(/datum/eldritch_knowledge/rust_regen)
 	var/rust_force = 500
 	var/static/list/blacklisted_turfs = typecacheof(list(/turf/closed,/turf/open/space,/turf/open/lava,/turf/open/chasm,/turf/open/floor/plating/rust))
@@ -34,7 +34,7 @@
 	name = "Agressive Spread"
 	desc = "Spreads rust to nearby turfs. Destroys already rusted walls."
 	gain_text = "All men wise know not to touch the bound king."
-	cost = 1
+	cost = 4
 	spell_to_add = /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
 	next_knowledge = list(/datum/eldritch_knowledge/rust_blade_upgrade,/datum/eldritch_knowledge/curse/corrosion,/datum/eldritch_knowledge/spell/blood_siphon)
 	route = PATH_RUST
@@ -43,7 +43,7 @@
 	name = "Leeching Walk"
 	desc = "Passively heals you when you are on rusted tiles."
 	gain_text = "The strength was unparallel, it was unnatural. Blacksmith was smiling."
-	cost = 1
+	cost = 4
 	next_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/armor,/datum/eldritch_knowledge/essence)
 	route = PATH_RUST
 
@@ -63,7 +63,7 @@
 	name = "Mark of Rust"
 	desc = "Your eldritch blade now applies a rust mark. Rust mark has a chance to deal between 0 to 200 damage to 75% of enemies items. To Detonate the mark use your mansus grasp on it."
 	gain_text = "Lords of the depths help those in dire need at a cost."
-	cost = 2
+	cost = 8
 	next_knowledge = list(/datum/eldritch_knowledge/spell/area_conversion)
 	banned_knowledge = list(/datum/eldritch_knowledge/ash_mark,/datum/eldritch_knowledge/flesh_mark)
 	route = PATH_RUST
@@ -78,7 +78,7 @@
 	name = "Toxic blade"
 	gain_text = "Let the blade guide you through the flesh."
 	desc = "Your blade of choice will now add toxin to enemies bloodstream."
-	cost = 2
+	cost = 8
 	next_knowledge = list(/datum/eldritch_knowledge/spell/rust_wave)
 	banned_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/flesh_blade_upgrade)
 	route = PATH_RUST
@@ -93,7 +93,7 @@
 	name = "Wave of Rust"
 	desc = "You can now send a projectile that converts an area into rust."
 	gain_text = "Messenger's of hope fear the rustbringer!"
-	cost = 1
+	cost = 4
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/projectile/dumbfire/rust_wave
 	next_knowledge = list(/datum/eldritch_knowledge/final/rust_final,/datum/eldritch_knowledge/spell/cleave,/datum/eldritch_knowledge/summon/rusty)
 	route = PATH_RUST
@@ -102,7 +102,7 @@
 	name = "Armorer's ritual"
 	desc = "You can now create eldritch armor using a table and a gas mask."
 	gain_text = "For I am the heir to the throne of doom."
-	cost = 1
+	cost = 4
 	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/flesh_ghoul)
 	required_atoms = list(/obj/structure/table,/obj/item/clothing/mask/gas)
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch)
@@ -111,7 +111,7 @@
 	name = "Priest's ritual"
 	desc = "You can now transmute a tank of water into a bottle of eldritch water."
 	gain_text = "This is an old recipe, i got it from an owl."
-	cost = 1
+	cost = 4
 	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift)
 	required_atoms = list(/obj/structure/reagent_dispensers/watertank)
 	result_atoms = list(/obj/item/reagent_containers/glass/beaker/eldritch)
@@ -120,7 +120,7 @@
 	name = "Rustbringer's Oath"
 	desc = "Bring 3 corpses onto the transmutation rune. After you finish the ritual rust will now automatically spread from the rune. Your healing on rust is also tripled, while you become more resillient overall."
 	gain_text = "Champion of rust. Corruptor of steel. Fear the dark for Rustbringer has come!"
-	cost = 3
+	cost = 9
 	required_atoms = list(/mob/living/carbon/human)
 	route = PATH_RUST
 

@@ -22,7 +22,6 @@
 	. = ..()
 	if(!IS_HERETIC(user))
 		return
-	. += "The Tome holds [charge] charges."
 	. += "Use it on the floor to create a transmutation rune, used to perform rituals."
 	. += "Hit an influence in the black part with it to gain a charge."
 	. += "Hit a transmutation rune to destroy it."
@@ -45,8 +44,10 @@
 	var/obj/effect/reality_smash/RS = target
 	to_chat(target, "<span class='danger'>You start drawing power from influence...</span>")
 	if(do_after(user,10 SECONDS,FALSE,RS))
+		var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
+		to_chat(target, "<span class='notice'>You rupture the seal between this world and the other, increasing the influence of your Gods!</span>")	//this is never explained
+		cultie.gain_favor(4)			
 		qdel(RS)
-		charge += 1
 
 ///Draws a rune on a selected turf
 /obj/item/forbidden_book/proc/draw_rune(atom/target,mob/user)
@@ -94,6 +95,7 @@
 	var/list/data = list()
 	var/list/lore = list()
 
+	var/charge = cultie.get_favor_left()
 	data["charges"] = charge
 
 	for(var/X in to_know)
@@ -139,7 +141,7 @@
 				if(initial(EK.name) != ekname)
 					continue
 				if(cultie.gain_knowledge(EK))
-					charge -= text2num(params["cost"])
+					cultie.spend_favor(EK.cost)
 					return TRUE
 
 	update_icon() // Not applicable to all objects.
@@ -148,6 +150,3 @@
 	flick("book_closing",src)
 	icon_state = initial(icon_state)
 	return ..()
-
-/obj/item/forbidden_book/debug
-	charge = 100
