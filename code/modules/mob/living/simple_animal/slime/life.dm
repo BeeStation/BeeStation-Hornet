@@ -161,7 +161,7 @@
 			visible_message("<span class='warning'>[src] slurps up [M]!</span>")
 			adjust_nutrition(10)
 			layer = initial(layer)
-			M.forceMove(src)
+			qdel(M)
 
 		Target = null
 		special_process = FALSE
