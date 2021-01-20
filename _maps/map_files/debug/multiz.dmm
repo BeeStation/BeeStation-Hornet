@@ -433,8 +433,8 @@
 "bo" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/structure/table,
-/obj/item/screwdriver/power,
-/obj/item/wirecutters/power,
+/obj/item/powertool/hand_drill,
+/obj/item/powertool/jaws_of_life,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "bp" = (
