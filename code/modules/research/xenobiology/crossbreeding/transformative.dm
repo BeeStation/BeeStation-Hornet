@@ -31,7 +31,7 @@ transformative extracts:
 	if(S.transformeffects & SLIME_EFFECT_METAL)
 		S.maxHealth = round(S.maxHealth/1.3)
 	if(S.transformeffects & SLIME_EFFECT_BLUESPACE)
-		S.verbs -= /mob/living/simple_animal/slime/proc/teleport
+		S.remove_verb(/mob/living/simple_animal/slime/proc/teleport)
 	if(S.transformeffects & SLIME_EFFECT_PINK)
 		var/datum/language_holder/LH = S.get_language_holder()
 		LH.selected_language = /datum/language/slime
@@ -92,7 +92,7 @@ transformative extracts:
 
 /obj/item/slimecross/transformative/bluespace/do_effect(mob/living/simple_animal/slime/S, mob/user)
 	..()
-	S.verbs += /mob/living/simple_animal/slime/proc/teleport
+	S.add_verb(/mob/living/simple_animal/slime/proc/teleport)
 
 /obj/item/slimecross/transformative/sepia
 	colour = "sepia"
