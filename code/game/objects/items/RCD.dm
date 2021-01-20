@@ -520,7 +520,7 @@ RLD
 				var/cdir = get_dir(A, user)
 				if (last_placed)
 					cdir = get_dir(A, last_placed)
-					if (cdir == NORTH || cdir == SOUTH || cdir == EAST || cdir == WEST)
+					if(cdir in GLOB.cardinals)
 						last_placed.setDir(get_dir(last_placed, A))
 				last_placed = new/obj/machinery/conveyor(A, cdir, linked_switch_id)
 				return
