@@ -20,12 +20,12 @@
 /datum/export/slime/uncommon
 	cost = 100
 	unit_name = "uncommon slime core"
-	export_types = list(/obj/item/slime_extract/gold,/obj/item/slime_extract/green,/obj/item/slime_extract/red,/obj/item/slime_extract/pink)
+	export_types = list(/obj/item/slime_extract/silver,/obj/item/slime_extract/darkblue,/obj/item/slime_extract/darkpurple,/obj/item/slime_extract/yellow)
 
 /datum/export/slime/rare
 	cost = 140
 	unit_name = "rare slime core"
-	export_types = list(/obj/item/slime_extract/silver,/obj/item/slime_extract/darkblue,/obj/item/slime_extract/darkpurple,/obj/item/slime_extract/yellow)
+	export_types = list(/obj/item/slime_extract/gold,/obj/item/slime_extract/green,/obj/item/slime_extract/red,/obj/item/slime_extract/pink)
 
 /datum/export/slime/hypercharged
 	cost = 600
