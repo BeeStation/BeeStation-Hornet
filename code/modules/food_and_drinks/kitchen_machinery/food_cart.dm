@@ -81,7 +81,7 @@
 	dat += "<br><b>STORED INGREDIENTS AND DRINKS</b><br><div class='statusDisplay'>"
 	dat += "Remaining glasses: [glasses]<br>"
 	dat += "Portion: <a href='?src=[REF(src)];portion=1'>[portion]</a><br>"
-	for(var/i=1 to LAZYLEN(reagents.reagent_list))
+	for(var/i in 1 to LAZYLEN(reagents.reagent_list))
 		var/datum/reagent/R = reagents.reagent_list[i]
 		dat += "[R.name]: [R.volume] "
 		dat += "<a href='?src=[REF(src)];disposeI=[i]'>Purge</a>"
@@ -89,7 +89,7 @@
 			dat += "<a href='?src=[REF(src)];pour=[i]'>Pour in a glass</a>"
 		dat += "<a href='?src=[REF(src)];mix=[i]'>Add to the mixer</a><br>"
 	dat += "</div><br><b>MIXER CONTENTS</b><br><div class='statusDisplay'>"
-	for(var/i=1 to LAZYLEN(mixer.reagents.reagent_list))
+	for(var/i in 1 to LAZYLEN(mixer.reagents.reagent_list))
 		var/datum/reagent/R = mixer.reagents.reagent_list[i]
 		dat += "[R.name]: [R.volume] "
 		dat += "<a href='?src=[REF(src)];transfer=[i]'>Transfer back</a>"
@@ -137,11 +137,11 @@
 				mixer.reagents.trans_id_to(DG, mixer.reagents.reagent_list[text2num(href_list["m_pour"])]?.type, portion)
 
 	if(href_list["mix"])
-		if(reagents.trans_id_to(mixer, reagents.reagent_list[text2num(href_list["mix"])]?.type, portion) == 0)
+		if(!reagents.trans_id_to(mixer, reagents.reagent_list[text2num(href_list["mix"])]?.type, portion))
 			to_chat(usr, "<span class='warning'>[mixer] is full!</span>")
 
 	if(href_list["transfer"])
-		if(mixer.reagents.trans_id_to(src, mixer.reagents.reagent_list[text2num(href_list["transfer"])]?.type, portion) == 0)
+		if(!mixer.reagents.trans_id_to(src, mixer.reagents.reagent_list[text2num(href_list["transfer"])]?.type, portion))
 			to_chat(usr, "<span class='warning'>[src] is full!</span>")
 
 	updateDialog()
