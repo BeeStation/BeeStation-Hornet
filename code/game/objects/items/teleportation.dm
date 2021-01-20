@@ -259,10 +259,8 @@
 	var/minimum_teleport_distance = 4
 	var/maximum_teleport_distance = 8
 	var/saving_throw_distance = 3
-
-/obj/item/teleporter/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
+	var/recharge_time = 200 //20 Seconds
+	var/recharging = FALSE
 
 /obj/item/teleporter/examine(mob/user)
 	. = ..()
@@ -272,12 +270,17 @@
 	..()
 	attempt_teleport(user, FALSE)
 
-/obj/item/teleporter/process()
+/obj/item/teleporter/proc/check_charges()
+	if(recharging)
+		return
 	if(charges < max_charges)
-		if(prob(10))
-			charges++
-	else
-		return PROCESS_KILL
+		addtimer(CALLBACK(src, .proc/recharge), recharge_time)
+		recharging = TRUE
+
+/obj/item/teleporter/proc/recharge()
+	charges++
+	recharging = FALSE
+	check_charges()
 
 /obj/item/teleporter/emp_act(severity)
 	if(prob(50 / severity))
@@ -291,7 +294,7 @@
 			qdel(src)
 
 /obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
-	if(!charges)
+	if(charges < 1)
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 		return
 		
@@ -315,7 +318,7 @@
 		telefrag(destination, user)
 		do_teleport(C, destination, channel = TELEPORT_CHANNEL_FREE)
 		charges--
-		START_PROCESSING(SSobj, src)
+		check_charges()
 		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(current_location)
 		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
 		playsound(destination, 'sound/effects/phasein.ogg', 25, 1)
@@ -330,7 +333,7 @@
 		telefrag(emergency_destination, user)
 		do_teleport(C, emergency_destination, channel = TELEPORT_CHANNEL_FREE)
 		charges--
-		START_PROCESSING(SSobj, src)
+		check_charges()
 		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(emergency_destination)
 		playsound(emergency_destination, 'sound/effects/phasein.ogg', 25, 1)
