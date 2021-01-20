@@ -1371,7 +1371,7 @@ datum/supply_pack/medical/bruisekits
 	crate_name = "brute treatment kits crate"
 
 /datum/supply_pack/medical/burnkits
-	name = "Bruise Treatment Kit Single-Pack"
+	name = "Burn Treatment Kits Crate"
 	desc = "Contains three first aid kits focused on healing severe burns."
 	cost = 1400
 	small_item = TRUE
