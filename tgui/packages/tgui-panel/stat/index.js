@@ -1,6 +1,6 @@
 
 export { statMiddleware } from './middleware';
-export { StatTabs } from './StatTabs';
+export { StatTabs, HoboStatTabs } from './StatTabs';
 export { statReducer } from './reducer';
-export { StatStatus } from './StatStatus';
-export { StatText } from './StatText';
+export { StatStatus, HoboStatStatus } from './StatStatus';
+export { StatText, HoboStatText } from './StatText';

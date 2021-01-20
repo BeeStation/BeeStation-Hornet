@@ -28322,7 +28322,6 @@
 /area/quartermaster/office)
 "bbV" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
 /obj/machinery/door/window/westleft{
 	name = "Cargo Desk";
 	req_access_txt = "50"
@@ -28332,6 +28331,12 @@
 	pixel_y = 7
 	},
 /obj/item/pen,
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "bbW" = (
@@ -32547,10 +32552,15 @@
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "bjM" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod Four";
 	req_access_txt = "32"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
@@ -82664,12 +82674,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"fZG" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/science/shuttledock)
 "gbU" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 8
@@ -83439,6 +83443,7 @@
 "jbz" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "jdU" = (
@@ -84712,10 +84717,8 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
-/obj/structure/frame/computer{
-	desc = "Looks like the board never made it to this one.";
-	dir = 8;
-	name = "shuttle console frame"
+/obj/machinery/computer/shuttle/science{
+	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
@@ -85856,7 +85859,12 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "47"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
 "sGh" = (
@@ -111776,8 +111784,8 @@ avZ
 wjt
 wjt
 fBA
-ajm
-ajm
+aHx
+aHx
 aDu
 aEJ
 aGa
@@ -126235,7 +126243,7 @@ osW
 osW
 ctl
 nYJ
-fZG
+nYJ
 nYJ
 pCO
 xHp
@@ -126499,7 +126507,7 @@ wcC
 jbz
 jbz
 lZW
-xVS
+nYJ
 mjJ
 lMJ
 aaf

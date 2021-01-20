@@ -298,7 +298,7 @@
 	for(var/obj/item/radio/R in radios)
 		if(R)
 			if(R.canhear_range != -1)
-				. |= get_hearers_in_view(R.canhear_range, R)
+				. |= hearers(R.canhear_range, get_turf(R))
 			else
 				if(istype(R.loc, /obj/item/implant))
 					var/obj/item/implant/I = R.loc
