@@ -66,6 +66,7 @@
 		use_charge = TRUE
 		var/mob/living/carbon/C = target
 		C.adjustBruteLoss(10)
+		C.silent = 3 SECONDS
 		C.AdjustKnockdown(5 SECONDS)
 		C.adjustStaminaLoss(80)
 	var/list/knowledge = cultie.get_all_knowledge()
