@@ -119,7 +119,6 @@
 			if (1 || 2)	//light
 				switch(rand(1,3))
 					if (1)
-						to_chat(heretic, )
 						var/conclusion = pick("The gods look down upon you","Some things are not meant to be known","The knowledge comes at a hideous price","A blight upon those who seek the sacred knowledge","Only madness can be found in these pages")
 						to_chat(heretic, "<span class='notice'>[conclusion].</span>")
 					if (2)
