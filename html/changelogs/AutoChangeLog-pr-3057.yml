@@ -1,6 +1,0 @@
-author: eeSPee
-delete-after: true
-changes:
-  - rscadd: coffee cart on Box, Delta and Pubby
-  - bugfix: fixed a bug with food vat not dispensing/mixing reagents properly (at
-      all)
