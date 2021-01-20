@@ -127,7 +127,6 @@
 					if (3)
 						heretic.vomit()
 						to_chat(heretic, "<span class='notice'>You feel ill.</span>")
-				
 			if (3 to 8)	//tragic
 				switch(rand(1,4))
 					if (1)
@@ -149,7 +148,7 @@
 						to_chat(heretic, "<span class='danger'>You feel a stabbing pain in your head!</span>")
 					if (2)
 						heretic.adjustOrganLoss(ORGAN_SLOT_HEART,20)
-						to_chat(heretic, "<span class='danger'>Your heart skips a burns!</span>")
+						to_chat(heretic, "<span class='danger'>Your heart burns!</span>")
 					if (3)
 						heretic.adjustToxLoss(30)
 						to_chat(heretic, "<span class='danger'>Your feel a sharp pain in your abdomen!</span>")
