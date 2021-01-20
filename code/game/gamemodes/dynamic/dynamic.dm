@@ -10,6 +10,10 @@
 
 #define RULESET_STOP_PROCESSING 1
 
+#define FAKE_REPORT_CHANCE 8
+#define REPORT_NEG_DIVERGENCE -15
+#define REPORT_POS_DIVERGENCE 15
+
 // -- Injection delays
 GLOBAL_VAR_INIT(dynamic_latejoin_delay_min, (5 MINUTES))
 GLOBAL_VAR_INIT(dynamic_latejoin_delay_max, (25 MINUTES))
@@ -196,7 +200,12 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 /datum/game_mode/dynamic/send_intercept()
 	. = "<b><i>Central Command Status Summary</i></b><hr>"
-	switch(round(threat_level))
+	var/shown_threat
+	if(prob(FAKE_REPORT_CHANCE))
+		shown_threat = rand(1, 100)
+	else
+		shown_threat = clamp(threat_level + rand(REPORT_NEG_DIVERGENCE, REPORT_POS_DIVERGENCE), 0, 100)
+	switch(round(shown_threat))
 		if(0 to 19)
 			update_playercounts()
 			if(!current_players[CURRENT_LIVING_ANTAGS].len)
@@ -812,3 +821,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		ruleset.restricted_roles |= "Assistant"
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		ruleset.restricted_roles |= GLOB.command_positions
+		
+#undef FAKE_REPORT_CHANCE
+#undef REPORT_NEG_DIVERGENCE
+#undef REPORT_POS_DIVERGENCE
