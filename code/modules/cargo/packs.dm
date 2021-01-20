@@ -1641,6 +1641,14 @@ datum/supply_pack/medical/bruisekits
 	crate_type = /obj/structure/closet/crate/secure/science
 	dangerous = TRUE
 
+/datum/supply_pack/critter/slime
+	name = "Grey Slime Crate"
+	desc = "In case a freak accident has rendered the xenobiology lab empty!"
+	cost = 5000
+	contains = list(/mob/living/simple_animal/slime)
+	crate_name = "slime crate"
+	group = "Science"
+
 //////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Service //////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
