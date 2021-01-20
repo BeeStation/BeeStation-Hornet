@@ -14962,7 +14962,7 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar)
 "aEP" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/machinery/food_cart/coffee,
 /obj/machinery/power/apc{
 	areastring = "/area/crew_quarters/bar";
 	dir = 1;
