@@ -21,7 +21,6 @@ transformative extracts:
 	to_chat(user,"<span class='notice'>You apply [src] to [target].</span>")
 	do_effect(S, user)
 	S.transformeffects = effect_applied //S.transformeffects |= effect_applied
-	S.effectsapplied = 1 //S.effectsapplied++
 	qdel(src)
 
 /obj/item/slimecross/transformative/proc/do_effect(mob/living/simple_animal/slime/S, mob/user)
@@ -32,7 +31,7 @@ transformative extracts:
 	if(S.transformeffects & SLIME_EFFECT_METAL)
 		S.maxHealth = round(S.maxHealth/1.3)
 	if(S.transformeffects & SLIME_EFFECT_BLUESPACE)
-		S.remove_verb(/mob/living/simple_animal/slime/proc/teleport)
+		S.verbs -= /mob/living/simple_animal/slime/proc/teleport
 	if(S.transformeffects & SLIME_EFFECT_PINK)
 		var/datum/language_holder/LH = S.get_language_holder()
 		LH.selected_language = /datum/language/slime
@@ -93,7 +92,7 @@ transformative extracts:
 
 /obj/item/slimecross/transformative/bluespace/do_effect(mob/living/simple_animal/slime/S, mob/user)
 	..()
-	S.add_verb(/mob/living/simple_animal/slime/proc/teleport)
+	S.verbs += /mob/living/simple_animal/slime/proc/teleport
 
 /obj/item/slimecross/transformative/sepia
 	colour = "sepia"

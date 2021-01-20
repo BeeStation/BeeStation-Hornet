@@ -238,7 +238,6 @@
 			child_colour = colour
 	var/mob/living/simple_animal/slime/M = new(drop_loc, child_colour, new_adult)
 	M.transformeffects = transformeffects
-	M.effectsapplied = effectsapplied
 	if(ckey || transformeffects & SLIME_EFFECT_CERULEAN)
 		M.set_nutrition(new_nutrition) //Player slimes are more robust at spliting. Once an oversight of poor copypasta, now a feature!
 	M.powerlevel = new_powerlevel
