@@ -468,8 +468,7 @@
 
 /mob/living/simple_animal/bot/mulebot/process()
 	if(num_steps <= 0)
-		STOP_PROCESSING(SSfastprocess, src)
-		return
+		return PROCESS_KILL
 	num_steps--
 	if(!on || client)
 		return
