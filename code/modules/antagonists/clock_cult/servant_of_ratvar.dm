@@ -47,7 +47,6 @@
 			GLOB.cyborg_servants_of_ratvar |= owner
 	check_ark_status()
 	owner.announce_objectives()
-	owner.language_holder.grant_language(/datum/language/ratvar)
 
 /datum/antagonist/servant_of_ratvar/on_removal()
 	team.remove_member(owner)
@@ -60,6 +59,7 @@
 /datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)
 	. = ..()
 	owner.current.faction |= "ratvar"
+	owner.language_holder.grant_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
 	transmit_spell = new()
 	transmit_spell.Grant(owner.current)
 	owner.current.throw_alert("clockinfo", /atom/movable/screen/alert/clockwork/clocksense)
@@ -71,6 +71,7 @@
 
 /datum/antagonist/servant_of_ratvar/remove_innate_effects(mob/living/M)
 	owner.current.faction -= "ratvar"
+	owner.language_holder.remove_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
 	owner.current.clear_alert("clockinfo")
 	transmit_spell.Remove(transmit_spell.owner)
 	SSticker.mode.update_clockcult_icons_removed(owner)
@@ -115,9 +116,6 @@
 //Grant access to the clockwork tools.
 //If AI, disconnect all active borgs and make it only able to control converted shells
 /datum/antagonist/servant_of_ratvar/proc/equip_silicon(mob/living/silicon/S)
-	S.laws = new /datum/ai_laws/ratvar
-	S.laws.associate(S)
-	S.show_laws()
 	if(isAI(S))
 		var/mob/living/silicon/ai/AI = S
 		AI.disconnect_shell()
@@ -129,6 +127,9 @@
 		var/mob/living/silicon/robot/R = S
 		R.connected_ai = null
 		R.SetRatvar(TRUE)
+	S.laws = new /datum/ai_laws/ratvar     //Laws down here so borgs don't instantly resync their laws
+	S.laws.associate(S)
+	S.show_laws()
 
 /datum/antagonist/servant_of_ratvar/proc/add_objectives()
 	objectives |= team.objectives
