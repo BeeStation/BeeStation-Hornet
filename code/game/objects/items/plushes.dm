@@ -569,26 +569,22 @@
 //DONATOR ITEMS//
 /////////////////
 
-/obj/item/toy/plush/donator
-	name = "donator plush"
-	desc = "Do not steal."
-
-/obj/item/toy/plush/donator/ian
+/obj/item/toy/plush/ian
 	name = "ian plushie"
 	desc = "Keep him by your side."
 	icon_state = "ianplush"
 
-/obj/item/toy/plush/donator/lisa
+/obj/item/toy/plush/lisa
 	name = "lisa plushie"
 	desc = "Keep her by your side."
 	icon_state = "lisaplush"
 
-/obj/item/toy/plush/donator/renault
+/obj/item/toy/plush/renault
 	name = "renault plushie"
 	desc = "AWOOOO!"
 	icon_state = "renaultplush"
 
-/obj/item/toy/plush/donator/opa
+/obj/item/toy/plush/opa
 	name = "metal upa"
 	desc = "You feel like this could have prevented World War 3 in a pararel timeline."
 	icon_state = "upaplush"

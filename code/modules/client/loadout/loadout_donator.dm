@@ -93,22 +93,22 @@
 //ITEMS
 
 /datum/gear/donator/item
-	subtype_path = /datum/gear/donator/item
+	subtype_path = /datum/gear/item
 	slot = SLOT_IN_BACKPACK
 
 /datum/gear/donator/item/plush_ian
 	display_name = "ian plushie"
-	path = /obj/item/toy/plush/donator/ian
+	path = /obj/item/toy/plush/ian
 
 /datum/gear/donator/item/plush_lisa
 	display_name = "lisa plushie"
-	path = /obj/item/toy/plush/donator/lisa
+	path = /obj/item/toy/plush/lisa
 
 /datum/gear/donator/item/plush_renault
 	display_name  = "renault plushie"
-	path = /obj/item/toy/plush/donator/renault
+	path = /obj/item/toy/plush/renault
 
 /datum/gear/donator/item/plush_opa
 	display_name = "metal opa plushie"
-	path = /obj/item/toy/plush/donator/opa
+	path = /obj/item/toy/plush/opa
 
