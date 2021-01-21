@@ -19,7 +19,7 @@ INSECURE_TOPIC_COOLDOWN 300
 ## Note: Servers should be either secure (normal) or insecure, but NOT both at the same time.
 #INSECURE_CROSS_SERVER ServerName byond://address:port
 
-## Toggles for different features on insecure crosscomms. Allows for modularity with different features enabled.
+## Toggles for different features on insecure crosscomms. Allows for modularity, with different features enabled at a time.
 ## Crosscomms announcements, mainly the comms console
 #INSECURE_ANNOUNCE
 ## Newscaster reports, for evacuation reports etc

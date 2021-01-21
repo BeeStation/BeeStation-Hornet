@@ -111,8 +111,12 @@
 /datum/world_topic/news_report
 	keyword = "News_Report"
 	require_comms_key = TRUE
+	permit_insecure = TRUE
 
 /datum/world_topic/news_report/Run(list/input, addr)
+	if(insecure_key && !CONFIG_GET(flag/insecure_newscaster))
+		return
+
 	minor_announce(input["message"], "Breaking Update From [input["message_sender"]]")
 
 /datum/world_topic/adminmsg
