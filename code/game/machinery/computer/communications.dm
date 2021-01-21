@@ -475,8 +475,6 @@
 					cross_servers_count += length(CONFIG_GET(keyed_list/insecure_cross_server))
 					if(cross_servers_count)
 						dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=crossserver'>Send a message to [cross_servers_count == 1 ? "an " : ""]allied station[cross_servers_count > 1 ? "s" : ""]</A> \]"
-						//if(cross_servers_count > 1)
-						dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=targeted_crossserver'>Send a message to a specific allied station</A> \]"
 					if(SSmapping.config.allow_custom_shuttles)
 						dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=purchase_menu'>Purchase Shuttle</A> \]"
 					dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=changeseclevel'>Change Alert Level</A> \]"
