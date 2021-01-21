@@ -93,7 +93,7 @@
 //ITEMS
 
 /datum/gear/donator/item
-	subtype_path = /datum/gear/item
+	subtype_path = /datum/gear/donator/item
 	slot = SLOT_IN_BACKPACK
 
 /datum/gear/donator/item/plush_ian
