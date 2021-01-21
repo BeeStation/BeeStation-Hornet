@@ -294,7 +294,7 @@
 			qdel(src)
 
 /obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
-	if(charges < 1)
+	if(!charges)
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 		return
 		
