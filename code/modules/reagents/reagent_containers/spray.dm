@@ -231,9 +231,8 @@
 /obj/item/reagent_containers/spray/waterflower/superlube
 	name = "clown flower"
 	desc = "A delightly devilish flower... you got a feeling where this is going."
-	icon = 'icons/obj/hydroponics/harvest.dmi'
-	icon_state = "sunflower"
-	item_state = "sunflower"
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "clownflower"
 	volume = 30
 	list_reagents = list(/datum/reagent/lube/superlube = 30)
 
