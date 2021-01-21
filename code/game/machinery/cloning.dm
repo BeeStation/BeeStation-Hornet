@@ -510,7 +510,7 @@
 	container_resist(user)
 
 /obj/machinery/clonepod/container_resist(mob/living/user)
-	if(user.stat == CONSCIOUS)
+	if(user.is_conscious())
 		go_out()
 
 /obj/machinery/clonepod/emp_act(severity)

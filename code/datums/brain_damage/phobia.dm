@@ -210,12 +210,12 @@
 		if(isliving(reason))
 			var/mob/living/L = reason
 			if(spooklevel)
-				if(L.stat)
+				if(L.stat > SOFT_CRIT)
 					if(fear_state <= (PHOBIA_STATE_EDGY))
 						fearscore += spooklevel
 				else
 					fearscore += spooklevel * 2
-			else if(L.stat)
+			else if(L.stat > SOFT_CRIT)
 				if(fear_state <= (PHOBIA_STATE_EDGY))
 					fearscore += 2
 			else
@@ -246,7 +246,7 @@
 			owner.Paralyze(10 * spooklevel)
 			owner.Jitter(3)
 		if(PHOBIA_STATE_FAINT)
-			if(!owner.stat)
+			if(owner.stat > SOFT_CRIT)
 				owner.Sleeping(300)
 
 /datum/brain_trauma/mild/phobia/on_lose()

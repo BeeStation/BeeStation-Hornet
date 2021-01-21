@@ -258,7 +258,7 @@
 
 
 /atom/movable/screen/drop/Click()
-	if(usr.stat <= SOFT_CRIT)
+	if(usr.is_conscious())
 		usr.dropItemToGround(usr.get_active_held_item())
 
 /atom/movable/screen/act_intent

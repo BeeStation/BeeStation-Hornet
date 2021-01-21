@@ -1336,7 +1336,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			if(current_cycle > 50 && prob(15))
 				if(!M.undergoing_cardiac_arrest() && M.can_heartattack())
 					M.set_heartattack(TRUE)
-					if(M.stat <= SOFT_CRIT)
+					if(M.is_conscious())
 						M.visible_message("<span class='userdanger'>[M] clutches at [M.p_their()] chest as if [M.p_their()] heart stopped!</span>")
 	. = 1
 	..()

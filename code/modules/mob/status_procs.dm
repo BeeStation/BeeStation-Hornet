@@ -40,7 +40,7 @@
 		var/old_eye_blind = eye_blind
 		eye_blind += amount
 		if(!old_eye_blind)
-			if(stat <= SOFT_CRIT)
+			if(is_conscious())
 				throw_alert("blind", /atom/movable/screen/alert/blind)
 			overlay_fullscreen("blind", /atom/movable/screen/fullscreen/blind)
 	else if(eye_blind)
