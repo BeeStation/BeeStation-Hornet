@@ -9,7 +9,7 @@
 	hair_alpha = 150
 	mutantlungs = /obj/item/organ/lungs/oozeling
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime
-	exotic_blood = /datum/reagent/toxin/slimejelly/slimeooze
+	exotic_blood = /datum/reagent/toxin/slimeooze
 	damage_overlay_type = ""
 	var/datum/action/innate/regenerate_limbs/regenerate_limbs
 	coldmod = 6   // = 3x cold damage

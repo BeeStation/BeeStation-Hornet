@@ -71,7 +71,7 @@
 	labelled = 1
 	name = "blood pack - OZ"
 	blood_type = "OZ"
-	unique_blood = /datum/reagent/toxin/slimejelly/slimeooze
+	unique_blood = /datum/reagent/toxin/slimeooze
 
 /obj/item/reagent_containers/blood/universal
 	blood_type = "U"

@@ -426,7 +426,7 @@
 	name = "Energized Ooze"
 	id = /datum/reagent/teslium/energized_jelly/energized_ooze
 	results = list(/datum/reagent/teslium/energized_jelly/energized_ooze = 2)
-	required_reagents = list(/datum/reagent/toxin/slimejelly/slimeooze = 1, /datum/reagent/teslium = 1)
+	required_reagents = list(/datum/reagent/toxin/slimeooze = 1, /datum/reagent/teslium = 1)
 	mix_message = "<span class='danger'>The slime ooze starts glowing intermittently.</span>"
 
 /datum/chemical_reaction/reagent_explosion/teslium_lightning
