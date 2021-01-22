@@ -410,6 +410,7 @@
 		slot_flags |= ITEM_SLOT_BELT		//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 		recoil = SAWN_OFF_RECOIL
 		sawn_off = TRUE
+		spread_multiplier = 1.6
 		update_icon()
 		return TRUE
 

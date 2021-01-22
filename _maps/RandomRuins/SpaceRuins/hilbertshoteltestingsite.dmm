@@ -187,6 +187,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/ruin/space/has_grav/hilbertresearchfacility)
 "I" = (
+/obj/structure/fans/tiny,
 /obj/machinery/door/airlock/highsecurity{
 	req_access = 207
 	},

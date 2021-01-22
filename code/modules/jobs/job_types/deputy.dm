@@ -22,6 +22,8 @@
 
 	display_order = JOB_DISPLAY_ORDER_DEPUTY  //see code/__DEFINES/jobs.dm
 
+	chat_color = "#ffeeee"
+
 /datum/outfit/job/deputy
 	name = "Deputy"
 	jobtype = /datum/job/deputy
@@ -39,7 +41,7 @@
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
 	box = /obj/item/storage/box/survival
-	
+
 /obj/item/card/deputy_access_card
 	name = "deputy assignment card"
 	desc = "A small card, that when used on any ID, will grant basic security access and the role of Deputy."
