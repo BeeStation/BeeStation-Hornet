@@ -249,7 +249,7 @@
 		var/datum/language_holder/LH = M.get_language_holder()
 		LH.selected_language = /datum/language/common
 	if(transformeffects & SLIME_EFFECT_BLUESPACE)
-		M.verbs += /mob/living/simple_animal/slime/proc/teleport
+		M.add_verb(/mob/living/simple_animal/slime/proc/teleport)
 	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
 		GLOB.poi_list |= M
 		M.master = master
