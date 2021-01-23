@@ -412,7 +412,7 @@
 
 	safe_oxygen_min = 16 //We breath THIS!
 	safe_toxins_min = 0 //We dont't breath this
-	safe_toxins_max = 0
+	safe_toxins_max = 1600
 
 /obj/item/organ/lungs/slime
 	name = "vacuole"
