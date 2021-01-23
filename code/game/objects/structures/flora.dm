@@ -363,7 +363,7 @@
 /obj/item/twohanded/required/kirbyplants/random/contraband/Initialize()
 	. = ..()
 	if(prob(3))
-		var/ctype = CONTRABAND_PRISON
+		var/ctype = pick( CONTRABAND_PRISON )
 		new ctype(src)
 
 /obj/item/twohanded/required/kirbyplants/dead
