@@ -55,7 +55,6 @@ Difficulty: Medium
 	guaranteed_butcher_results = list(/obj/item/stack/sheet/animalhide/ashdrake = 10)
 	var/swooping = NONE
 	var/player_cooldown = 0
-	gps_name = "Fiery Signal"
 	medal_type = BOSS_MEDAL_DRAKE
 	score_type = DRAKE_SCORE
 	deathmessage = "collapses into a pile of bones, its flesh sloughing away."

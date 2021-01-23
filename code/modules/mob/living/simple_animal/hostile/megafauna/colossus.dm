@@ -41,7 +41,6 @@ Difficulty: Very Hard
 	ranged = TRUE
 	pixel_x = -32
 	del_on_death = TRUE
-	gps_name = "Angelic Signal"
 	medal_type = BOSS_MEDAL_COLOSSUS
 	score_type = COLOSSUS_SCORE
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus/crusher)

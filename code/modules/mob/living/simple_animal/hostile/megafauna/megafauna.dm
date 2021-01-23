@@ -34,9 +34,9 @@
 	var/score_type = BOSS_SCORE
 	var/elimination = 0
 	var/anger_modifier = 0
-	var/gps_name = null
+
 	var/recovery_time = 0
-	var/true_spawn = TRUE // if this is a megafauna that should grant achievements, or have a gps signal
+	var/true_spawn = TRUE // if this is a megafauna that should grant achievements.
 	var/nest_range = 10
 	var/chosen_attack = 1 // chosen attack num
 	var/list/attack_action_types = list()
@@ -44,8 +44,6 @@
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
-	if(gps_name && true_spawn)
-		AddComponent(/datum/component/gps, gps_name)
 	ADD_TRAIT(src, TRAIT_NO_TELEPORT, MEGAFAUNA_TRAIT)
 	for(var/action_type in attack_action_types)
 		var/datum/action/innate/megafauna_attack/attack_action = new action_type()

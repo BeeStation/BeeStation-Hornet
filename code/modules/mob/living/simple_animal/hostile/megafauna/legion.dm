@@ -30,7 +30,6 @@ Difficulty: Medium
 	ranged_cooldown_time = 20
 	var/size = 5
 	var/charging = FALSE
-	gps_name = "Echoing Signal"
 	medal_type = BOSS_MEDAL_LEGION
 	score_type = LEGION_SCORE
 	pixel_y = -90

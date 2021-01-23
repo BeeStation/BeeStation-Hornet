@@ -15,7 +15,6 @@
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 
-	var/gps = null
 	var/obj/effect/light_emitter/tendril/emitted_light
 	var/list/necroseed = list()
 
@@ -34,7 +33,6 @@ GLOBAL_LIST_INIT(tendrils, list())
 		if(ismineralturf(F))
 			var/turf/closed/mineral/M = F
 			M.ScrapeAway(null, CHANGETURF_IGNORE_AIR)
-	AddComponent(/datum/component/gps, "Eerie Signal")
 	GLOB.tendrils += src
 	var/datum/disease/advance/random/necropolis/R = new
 	necroseed += R
@@ -68,7 +66,6 @@ GLOBAL_LIST_INIT(tendrils, list())
 				SSmedals.SetScore(TENDRIL_CLEAR_SCORE, L.client, 1)
 	GLOB.tendrils -= src
 	QDEL_NULL(emitted_light)
-	QDEL_NULL(gps)
 	return ..()
 
 /obj/effect/light_emitter/tendril
