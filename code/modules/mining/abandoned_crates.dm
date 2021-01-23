@@ -219,9 +219,7 @@
 				new food(src)
 			new /obj/effect/spawner/lootdrop/three_course_meal(src)
 		if(115)
-			var/list/type_list = subtypesof(/obj/item)//Yes, a_gift, but you at least need to put a little effort to get the contents.
-			var/chosen_type = pick(type_list)
-			new chosen_type(src)
+			new /obj/item/kitchen/knife/rainbowknife(src)//Yooo my 400000$ knife lets sell it and become rich!!!!11
 		if(116)
 			switch(pickweight(list("litestuff" = 1, "litestuff2" = 1, "litestuff3" = 1, "litestuff4" = 1, "litestuff5" = 1)))
 				if("litestuff")
