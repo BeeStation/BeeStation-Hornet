@@ -33,3 +33,60 @@
     list("gondolapod", "gondola", "The silent walker. This one seems to be part of a delivery agency."),\
     list("", "", "")\
 )
+
+#define CONTRABAND_SYNDIE list(\
+	/obj/item/poster/random_contraband,\
+	/obj/item/reagent_containers/food/snacks/grown/cannabis,\
+	/obj/item/reagent_containers/food/snacks/grown/cannabis/rainbow,\
+	/obj/item/reagent_containers/food/snacks/grown/cannabis/white,\
+	/obj/item/storage/pill_bottle/zoom,\
+	/obj/item/storage/pill_bottle/happy,\
+	/obj/item/storage/pill_bottle/lsd,\
+	/obj/item/storage/pill_bottle/aranesp,\
+	/obj/item/storage/pill_bottle/stimulant,\
+	/obj/item/toy/cards/deck/syndicate,\
+	/obj/item/reagent_containers/food/drinks/bottle/absinthe,\
+	/obj/item/clothing/under/syndicate/tacticool,\
+	/obj/item/storage/fancy/cigarettes/cigpack_syndicate,\
+	/obj/item/storage/fancy/cigarettes/cigpack_shadyjims,\
+	/obj/item/clothing/mask/gas/syndicate,\
+	/obj/item/clothing/neck/necklace/dope,\
+	/obj/item/vending_refill/donksoft\
+)
+
+#define CONTRABAND_PRISON list(\
+	/obj/item/clothing/mask/cigarette/space_cigarette,\
+	/obj/item/clothing/mask/cigarette/robust,\
+	/obj/item/clothing/mask/cigarette/carp,\
+	/obj/item/clothing/mask/cigarette/uplift,\
+	/obj/item/clothing/mask/cigarette/dromedary,\
+	/obj/item/clothing/mask/cigarette/robustgold,\
+	/obj/item/storage/fancy/cigarettes/cigpack_uplift,\
+	/obj/item/storage/fancy/cigarettes,\
+	/obj/item/clothing/mask/cigarette/rollie/cannabis,\
+	/obj/item/toy/crayon/spraycan,\
+	/obj/item/crowbar,\
+	/obj/item/restraints/handcuffs/cable/zipties,\
+	/obj/item/restraints/handcuffs,\
+	/obj/item/radio/off,\
+	/obj/item/reagent_containers/syringe/contraband/space_drugs,\
+	/obj/item/reagent_containers/syringe/contraband/krokodil,\
+	/obj/item/reagent_containers/syringe/contraband/crank,\
+	/obj/item/reagent_containers/syringe/contraband/methamphetamine,\
+	/obj/item/reagent_containers/syringe/contraband/bath_salts,\
+	/obj/item/reagent_containers/syringe/contraband/fentanyl,\
+	/obj/item/reagent_containers/syringe/contraband/morphine,\
+	/obj/item/reagent_containers/food/drinks/beer,\
+	/obj/item/reagent_containers/food/drinks/bottle/whiskey,\
+	/obj/item/grenade/smokebomb,\
+	/obj/item/flashlight/seclite,\
+	/obj/item/melee/shank,\
+	/obj/item/kitchen/knife/carrotshiv,\
+	/obj/item/storage/pill_bottle/zoom,\
+	/obj/item/storage/pill_bottle/happy,\
+	/obj/item/storage/pill_bottle/lsd,\
+	/obj/item/storage/pill_bottle/aranesp,\
+	/obj/item/storage/pill_bottle/stimulant,\
+	/obj/item/storage/pill_bottle/psicodine,\
+	/obj/item/poster/random_contraband\
+)

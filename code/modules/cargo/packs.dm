@@ -2332,24 +2332,7 @@ datum/supply_pack/medical/bruisekits
 	contraband = TRUE
 	cost = 3000
 	num_contained = 7
-	contains = list(/obj/item/poster/random_contraband,
-					/obj/item/poster/random_contraband,
-					/obj/item/reagent_containers/food/snacks/grown/cannabis,
-					/obj/item/reagent_containers/food/snacks/grown/cannabis/rainbow,
-					/obj/item/reagent_containers/food/snacks/grown/cannabis/white,
-					/obj/item/storage/pill_bottle/zoom,
-					/obj/item/storage/pill_bottle/happy,
-					/obj/item/storage/pill_bottle/lsd,
-					/obj/item/storage/pill_bottle/aranesp,
-					/obj/item/storage/pill_bottle/stimulant,
-					/obj/item/toy/cards/deck/syndicate,
-					/obj/item/reagent_containers/food/drinks/bottle/absinthe,
-					/obj/item/clothing/under/syndicate/tacticool,
-					/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
-					/obj/item/storage/fancy/cigarettes/cigpack_shadyjims,
-					/obj/item/clothing/mask/gas/syndicate,
-					/obj/item/clothing/neck/necklace/dope,
-					/obj/item/vending_refill/donksoft)
+	contains = CONTRABAND_SYNDIE
 	crate_name = "crate"
 
 /datum/supply_pack/costumes_toys/foamforce

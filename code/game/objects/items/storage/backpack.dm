@@ -342,12 +342,9 @@
 		icon_state = initial(icon_state)
 
 /obj/item/storage/backpack/satchel/flat/PopulateContents()
-	var/datum/supply_pack/costumes_toys/randomised/contraband/C = new
 	for(var/i in 1 to 2)
-		var/ctype = pick(C.contains)
+		var/ctype = pick(CONTRABAND_SYNDIE)
 		new ctype(src)
-
-	qdel(C)
 
 /obj/item/storage/backpack/satchel/flat/with_tools/PopulateContents()
 	new /obj/item/stack/tile/plasteel(src)
