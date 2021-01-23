@@ -53,6 +53,7 @@
 	if(!silent)
 		to_chat(owner.current, "<span class='userdanger'>Your mind begins to flare as the otherwordly knowledge escapes your grasp!</span>")
 		owner.current.log_message("has become a non-heretic", LOG_ATTACK, color="#960000")
+	GLOB.reality_smash_track.targets--
 	STOP_PROCESSING(SSprocessing,src)
 
 	return ..()

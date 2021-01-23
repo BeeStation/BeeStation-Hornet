@@ -135,7 +135,6 @@
 	var/number = max(targets * ( 4 - (targets-1) ) - smashes,1)
 
 	for(var/i in 0 to number)
-
 		var/turf/chosen_location = get_safe_random_station_turf()
 		//we also dont want them close to each other, at least 1 tile of seperation
 		var/obj/effect/reality_smash/what_if_i_have_one = locate() in range(1, chosen_location)
@@ -150,8 +149,7 @@
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "pierced_illusion"
 	anchored = TRUE
-	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF	
-	invisibility = INVISIBILITY_OBSERVER
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	alpha = 0
 
 /obj/effect/broken_illusion/Initialize()
@@ -170,7 +168,7 @@
 
 ///Makes this obj appear out of nothing
 /obj/effect/broken_illusion/proc/show_presence()
-	animate(src,alpha = 255,time = 15 SECONDS)	//might make this one longer
+	animate(src,alpha = 255,time = 15 SECONDS)
 	
 /obj/effect/broken_illusion/proc/dissipate()
 	animate(src,alpha = 0,time = 2 MINUTES)
@@ -217,26 +215,19 @@
 	var/mob/living/carbon/human/human_user = user
 	if(istype(user) && !IS_HERETIC(user) && !IS_HERETIC_MONSTER(user))		
 		to_chat(human_user,"<span class='warning'>Your mind burns as you stare at the tear!</span>")
-		human_user.adjustOrganLoss(ORGAN_SLOT_BRAIN,10,190)
 		SEND_SIGNAL(human_user, COMSIG_ADD_MOOD_EVENT, "gates_of_mansus", /datum/mood_event/gates_of_mansus)
-
+		
 /obj/effect/reality_smash
 	name = "reality smash"
 	desc = "A weak spot in the veil of reality. You can pierce reality by harvesting this with your Codex Cicatrix to gain charges."
 	icon = 'icons/effects/eldritch.dmi'
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	///We cannot use icon_state since this is invisible, functions the same way but with custom behaviour.
-	var/image_state = "reality_smash"
-	///Who can see us?
-	var/list/minds = list()
-	///Tracked image
-	var/image/img
 	invisibility = INVISIBILITY_OBSERVER
 
 /obj/effect/reality_smash/Initialize()
 	. = ..()
-	//var/img = image(icon, src, "reality_smash", OBJ_LAYER)
+	var/img = image(icon, src, "reality_smash", OBJ_LAYER)
 	generate_name()
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/heretics,"influence",img)
 
