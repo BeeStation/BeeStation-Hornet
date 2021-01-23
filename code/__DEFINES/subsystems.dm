@@ -213,22 +213,6 @@
 #define RUNLEVELS_DEFAULT (RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME)
 
 
-// Air subsystem subtasks
-#define SSAIR_PIPENETS 1
-#define SSAIR_ATMOSMACHINERY 2
-#define SSAIR_ACTIVETURFS 3
-#define SSAIR_HOTSPOTS 4
-#define SSAIR_EXCITEDCLEANUP 5
-#define SSAIR_EXCITEDGROUPS 6
-#define SSAIR_HIGHPRESSURE 7
-#define SSAIR_SUPERCONDUCTIVITY 8
-#define SSAIR_PROCESS_ATOMS 9
-
-// Explosion Subsystem subtasks
-#define SSEXPLOSIONS_MOVABLES 1
-#define SSEXPLOSIONS_TURFS 2
-#define SSEXPLOSIONS_THROWS 3
-
 //SSticker.current_state values
 /// Game is loading
 #define GAME_STATE_STARTUP 0
@@ -273,6 +257,22 @@
 	* * flags flags for this timer, see: code\__DEFINES\subsystems.dm
 */
 #define addtimer(args...) _addtimer(args, file = __FILE__, line = __LINE__)
+
+// Air subsystem subtasks
+#define SSAIR_PIPENETS 1
+#define SSAIR_ATMOSMACHINERY 2
+#define SSAIR_ACTIVETURFS 3
+#define SSAIR_HOTSPOTS 4
+#define SSAIR_EXCITEDCLEANUP 5
+#define SSAIR_EXCITEDGROUPS 6
+#define SSAIR_HIGHPRESSURE 7
+#define SSAIR_SUPERCONDUCTIVITY 8
+#define SSAIR_PROCESS_ATOMS 9
+
+// Explosion Subsystem subtasks
+#define SSEXPLOSIONS_MOVABLES 1
+#define SSEXPLOSIONS_TURFS 2
+#define SSEXPLOSIONS_THROWS 3
 
 // Subsystem delta times or tickrates, in seconds. I.e, how many seconds in between each process() call for objects being processed by that subsystem.
 // Only use these defines if you want to access some other objects processing delta_time, otherwise use the delta_time that is sent as a parameter to process()
