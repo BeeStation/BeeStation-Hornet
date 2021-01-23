@@ -81,6 +81,7 @@
 	/obj/item/grenade/smokebomb,\
 	/obj/item/flashlight/seclite,\
 	/obj/item/melee/shank,\
+	/obj/item/coin/arcade_token,\
 	/obj/item/kitchen/knife/carrotshiv,\
 	/obj/item/storage/pill_bottle/zoom,\
 	/obj/item/storage/pill_bottle/happy,\
