@@ -1,0 +1,13 @@
+author: ro5490
+delete-after: true
+changes:
+  - rscadd: Added Oozelings, a new race!
+  - rscadd: Added Slime Ooze (bloodtype for Oozelings)
+  - rscadd: Added Slime Vacuole Organ
+  - rscadd: Added Regenerative Ooze - Restores 0.5 Brute, Burn, Toxin, and clone damage
+      at 0.4u per tick. Created by combining Slime Ooze with Tricordrizine
+  - rscadd: Added Energizing Ooze - Boosts Oozeling's nervous system, but only shocks
+      other lifeforms. OD at 30u for teslium shocks. Created by combining Slime Ooze
+      with Teslium
+  - tweak: adjusted watertouch code to interact with Oozelings
+  - config: Oozelings are now in Roundstart Races!
