@@ -40,7 +40,6 @@
 	current.log_message("has been turned into a heretic!", LOG_ATTACK, color="#960000")
 	GLOB.reality_smash_track.Generate()
 	START_PROCESSING(SSprocessing,src)
-	RegisterSignal(owner.current, COMSIG_MOB_DEATH, .proc/on_death)
 	if(give_equipment)
 		equip_cultist()
 	return ..()
@@ -56,14 +55,7 @@
 		owner.current.log_message("has become a non-heretic", LOG_ATTACK, color="#960000")
 	STOP_PROCESSING(SSprocessing,src)
 
-	on_death()
 	return ..()
-
-/datum/antagonist/heretic/proc/on_death()
-
-	for(var/X in researched_knowledge)
-		var/datum/eldritch_knowledge/EK = researched_knowledge[X]
-		EK.on_death(owner.current)
 
 /datum/antagonist/heretic/proc/equip_cultist()
 	var/mob/living/carbon/H = owner.current

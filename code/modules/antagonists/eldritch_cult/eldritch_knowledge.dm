@@ -24,10 +24,6 @@
 	var/list/result_atoms = list()
 	///What path is this on defaults to "Side"
 	var/route = PATH_SIDE
-	///Cast delay when using the rune
-	var/cast_time = 10	//short delay so you can cancel?
-	//Increases the total amount of followers
-	var/followers_increment = 0
 
 /datum/eldritch_knowledge/New()
 	. = ..()
@@ -67,14 +63,6 @@
  */
 /datum/eldritch_knowledge/proc/recipe_snowflake_check(list/atoms,loc)
 	return TRUE
-
-/**
- * A proc that handles the code when the mob dies
- *
- * This proc is primarily used to end any soundloops when the heretic dies
- */
-/datum/eldritch_knowledge/proc/on_death(mob/user)
-	return
 
 /**
  * What happens once the recipe is succesfully finished
