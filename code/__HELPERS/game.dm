@@ -299,6 +299,8 @@
 		if(R)
 			if(R.canhear_range != -1)
 				. |= hearers(R.canhear_range, get_turf(R))
+				if(ismecha(R.loc))
+					. |= get_hearers_in_view(R.canhear_range, R)
 			else
 				if(istype(R.loc, /obj/item/implant))
 					var/obj/item/implant/I = R.loc
