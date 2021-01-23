@@ -83,9 +83,8 @@
 				if(environment.get_moles(/datum/gas/plasma) >= 1)
 					if(H.blood_volume <= 672)
 						H.blood_volume += 15
-	if(H.blood_volume < BLOOD_VOLUME_OKAY)
-		if(prob(5))
-			to_chat(H, "<span class='danger'>You feel drained!</span>")
+	if(H.blood_volume < BLOOD_VOLUME_OKAY && prob(5))
+		to_chat(H, "<span class='danger'>You feel drained!</span>")
 	if(H.blood_volume < BLOOD_VOLUME_BAD)
 		Cannibalize_Body(H)
 	if(regenerate_limbs)
