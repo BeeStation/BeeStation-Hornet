@@ -408,7 +408,7 @@
 
 /obj/item/organ/lungs/oozeling
 	name = "oozling vacuole"
-	desc = "A large organelle designed to store oxygen and filter plasma."
+	desc = "A large organelle designed to store oxygen and filter toxins."
 
 	safe_oxygen_min = 16 //We breath THIS!
 	safe_toxins_min = 0 //We dont't breath this
