@@ -34,7 +34,6 @@
 	var/score_type = BOSS_SCORE
 	var/elimination = 0
 	var/anger_modifier = 0
-
 	var/recovery_time = 0
 	var/true_spawn = TRUE // if this is a megafauna that should grant achievements.
 	var/nest_range = 10
