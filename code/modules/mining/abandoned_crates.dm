@@ -237,7 +237,6 @@
 			for(var/food in 5)
 				food = pick(subtypesof(/obj/item/reagent_containers/food/snacks))
 				new food(src)
-			new /obj/effect/spawner/lootdrop/three_course_meal(src)
 		if(115)
 			new /obj/item/kitchen/knife/rainbowknife(src)//Yooo my 400000$ knife lets sell it and become rich!!!!11
 		if(116)
