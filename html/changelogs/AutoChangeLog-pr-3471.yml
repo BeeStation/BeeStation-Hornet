@@ -1,4 +1,0 @@
-author: ro5490
-delete-after: true
-changes:
-  - bugfix: Oozelings now have blood, a heart, and can be defibbed.

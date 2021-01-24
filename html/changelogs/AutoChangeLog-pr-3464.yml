@@ -1,4 +1,0 @@
-author: jupyterkat
-delete-after: true
-changes:
-  - bugfix: fixes radios not working in mechs
