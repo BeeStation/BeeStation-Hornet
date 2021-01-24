@@ -969,20 +969,21 @@
 
 /datum/reagent/medicine/antihol
 	name = "Antihol"
-	description = "Purges alcoholic substance from the patient's body and eliminates its side effects."
+	description = "Purges alcoholic substance from the patient's body and eliminates its side effects. Less effective in light drinkers."
 	color = "#00B4C8"
 	taste_description = "raw egg"
 
 /datum/reagent/medicine/antihol/on_mob_life(mob/living/carbon/M)
-	M.dizziness = 0
-	M.drowsyness = 0
-	M.slurring = 0
-	M.confused = 0
+	if(!HAS_TRAIT(M, TRAIT_LIGHT_DRINKER))
+		M.dizziness = 0
+		M.drowsyness = 0
+		M.slurring = 0
+		M.confused = 0
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			H.drunkenness = max(H.drunkenness - 10, 0)
 	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3*REM, 0, 1)
 	M.adjustToxLoss(-0.2*REM, 0)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		H.drunkenness = max(H.drunkenness - 10, 0)
 	..()
 	. = 1
 
