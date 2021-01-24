@@ -356,7 +356,7 @@
 
 
 
-/datum/reagent/consumable/hot_cocoa
+/datum/reagent/consumable/cocoa/hot_cocoa
 	name = "Hot Chocolate"
 	description = "Made with love! And cocoa beans."
 	nutriment_factor = 3 * REAGENTS_METABOLISM
@@ -365,13 +365,8 @@
 	glass_icon_state  = "chocolateglass"
 	glass_name = "glass of chocolate"
 	glass_desc = "Tasty."
-/datum/reagent/consumable/hot_cocoa/on_mob_add(mob/living/carbon/M)
-	.=..()
-	if(iscatperson(M))
-		to_chat(M, "<span class='warning'>Your insides revolt at the presence of lethal chocolate!</span>")
-		M.vomit(20)
 
-/datum/reagent/consumable/hot_cocoa/on_mob_life(mob/living/carbon/M)
+/datum/reagent/consumable/cocoa/hot_cocoa/on_mob_life(mob/living/carbon/M)
 	M.adjust_bodytemperature(5 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, BODYTEMP_NORMAL)
 	..()
 
