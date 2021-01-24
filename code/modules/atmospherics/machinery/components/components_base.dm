@@ -105,7 +105,8 @@
 	for(var/i in 1 to device_type)
 		if(parents[i] == reference)
 			if(.)
-				. = list(.)
+				if(!islist(.))
+					. = list(.)
 				. += airs[i]
 			else
 				. = airs[i]
