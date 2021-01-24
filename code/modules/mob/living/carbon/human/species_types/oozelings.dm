@@ -3,7 +3,7 @@
 	id = "oozeling"
 	default_color = "00FF90"
 	say_mod = "says"
-	species_traits = list(MUTCOLORS,EYECOLOR,NOBLOOD,HAIR,FACEHAIR,TRAIT_EASYDISMEMBER)
+	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,TRAIT_EASYDISMEMBER)
 	inherent_traits = list(TRAIT_TOXINLOVER,TRAIT_NOFIRE)
 	hair_color = "mutcolor"
 	hair_alpha = 150
