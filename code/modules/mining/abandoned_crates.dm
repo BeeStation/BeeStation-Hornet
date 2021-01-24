@@ -20,7 +20,7 @@
 		code += dig
 		digits -= dig  //there are never matching digits in the answer
 
-	var/loot = rand(1,160) //150 different crates with varying chances of spawning
+	var/loot = rand(1,161) //161 different crates with varying chances of spawning
 	switch(loot)
 		if(1 to 5) //5% chance
 			new /obj/item/reagent_containers/food/drinks/bottle/rum(src)
@@ -294,7 +294,9 @@
 			new /obj/item/reagent_containers/spray/chemsprayer/janitor/clown(src)
 		if(127)
 			new /obj/item/clothing/head/crown/fancy(src)           //monke king
-			new /obj/item/storage/box/monkeycubes(src, 3)
+			new /obj/item/storage/box/monkeycubes(src)
+			new /obj/item/storage/box/monkeycubes(src)
+			new /obj/item/storage/box/monkeycubes(src)
 		if(128)
 			switch(pickweight(list("midstuff1" = 1, "midstuff2" = 4, "midstuff3" = 3, "midstuff4" = 4, "midstuff5" = 5, "midstuff6" = 3, "midstuff7" = 2, "midstuff8" = 1, "midstuff9" = 1)))
 				if("midstuff1")
@@ -302,7 +304,7 @@
 					new /obj/item/pickaxe/drill/diamonddrill(src)
 				if("midstuff2")
 					new /obj/item/shield/riot/buckler(src)
-					new /obj/item/melee/baseball_bat(src)
+					new /obj/item/melee/baseball_bat/ablative(src)
 				if("midstuff3")
 					new /obj/item/dnainjector/geladikinesis(src)
 				if("midstuff4")
@@ -427,6 +429,10 @@
 			new /obj/item/stack/sheet/animalhide/gondola(src)
 			new /obj/item/clothing/under/costume/gondola(src)
 			new /obj/item/storage/box/donkpockets/donkpocketgondola(src)
+		if(161)
+			for(var/injector in 1 to rand(1, 4))
+				injector = pick(subtypesof(/obj/item/dnainjector) - /obj/item/dnainjector)
+				new injector(src)
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/structure/closet/crate/secure/loot/attack_hand(mob/user)
