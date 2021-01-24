@@ -478,13 +478,6 @@
 					/obj/item/clothing/suit/armor/bulletproof)
 	crate_name = "bulletproof armor crate"
 
-/datum/supply_pack/security/armory/cling_test
-	name = "Changeling Testing Kit"
-	desc = "Contains a single bottle of concentrated BZ, used for detecting and incapacitating changelings. Due to the rarity of this chemical, the cost is extortionate, and security personnel are recommended to visit their local chemistry department instead if possible. Requires Armory access to open."
-	cost = 10000
-	contains = list(/obj/item/reagent_containers/glass/bottle/concentrated_bz)
-	crate_name = "Changeling testing kit crate"
-
 /datum/supply_pack/security/armory/chemimp
 	name = "Chemical Implants Crate"
 	desc = "Contains five Remote Chemical implants. Requires Armory access to open."
@@ -1379,7 +1372,7 @@ datum/supply_pack/medical/bruisekits
 	crate_name = "brute treatment kits crate"
 
 /datum/supply_pack/medical/burnkits
-	name = "Bruise Treatment Kit Single-Pack"
+	name = "Burn Treatment Kits Crate"
 	desc = "Contains three first aid kits focused on healing severe burns."
 	cost = 1400
 	small_item = TRUE
@@ -1716,7 +1709,7 @@ datum/supply_pack/medical/bruisekits
 
 /datum/supply_pack/service/janitor/janitank
 	name = "Janitor Backpack Crate"
-	desc = "Call forth divine judgement upon dirt and grime with this high capacity janitor backpack. Contains 500 units of station-cleansing cleaner."
+	desc = "Call forth divine judgment upon dirt and grime with this high capacity janitor backpack. Contains 500 units of station-cleansing cleaner."
 	cost = 700
 	contains = list(/obj/item/watertank/janitor)
 	crate_name = "janitor backpack crate"
@@ -2721,7 +2714,7 @@ datum/supply_pack/medical/bruisekits
 
 /datum/supply_pack/misc/religious_supplies
 	name = "Religious Supplies Crate"
-	desc = "Keep your local chaplain happy and well-supplied, lest they call down judgement upon your cargo bay. Contains two bottles of holywater, bibles, chaplain robes, and burial garmets."
+	desc = "Keep your local chaplain happy and well-supplied, lest they call down judgment upon your cargo bay. Contains two bottles of holywater, bibles, chaplain robes, and burial garmets."
 	cost = 4000	// it costs so much because the Space Church is ran by Space Jews
 	contains = list(/obj/item/reagent_containers/food/drinks/bottle/holywater,
 					/obj/item/reagent_containers/food/drinks/bottle/holywater,

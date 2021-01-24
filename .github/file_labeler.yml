@@ -1,0 +1,14 @@
+sql:
+- SQL/**/*.sql
+mapping:
+- _maps/**/*
+config:
+- config/**/*
+tools:
+- tools/**/*
+sprites:
+- icons/**/*.dmi
+sound:
+- sound/**/*
+GitHub:
+- .github/**/*
