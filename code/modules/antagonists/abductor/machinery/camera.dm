@@ -71,8 +71,8 @@
 	var/obj/machinery/abductor/pad/P = target
 	var/target_loc = get_turf(remote_eye)
 
-	if(!get_area(target_loc).abductor_warp_allowed)
-		to_chat(owner, "<span class=warning>[get_area(target_loc).abductor_warp_fail]</span>")
+	if(istype(get_area(target_loc), /area/ai_monitored))
+		to_chat(owner, "<span class=warning>This area is coated in bluespace interference, it's not possible to warp here safely!</span>")
 		return
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
@@ -103,8 +103,8 @@
 	var/obj/machinery/abductor/pad/P = target
 	var/target_loc = get_turf(remote_eye)
 
-	if(!get_area(target_loc).abductor_warp_allowed)
-		to_chat(owner, "<span class=warning>[get_area(target_loc).abductor_warp_fail]</span>")
+	if(istype(get_area(target_loc), /area/ai_monitored))
+		to_chat(owner, "<span class=warning>This area is coated in bluespace interference, it's not possible to warp here safely!</span>")
 		return
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
