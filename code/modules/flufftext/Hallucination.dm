@@ -1041,7 +1041,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	//Flashes of danger
 	if(!target.halimage)
 		var/list/possible_points = list()
-		for(var/turf/open/floor/F in view(target,world.view))
+		for(var/turf/open/floor/F in view(world.view, target))
 			possible_points += F
 		if(possible_points.len)
 			var/turf/open/floor/danger_point = pick(possible_points)
@@ -1250,7 +1250,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	..()
 	if(!target.halbody)
 		var/list/possible_points = list()
-		for(var/turf/open/floor/F in view(target,world.view))
+		for(var/turf/open/floor/F in view(world.view, target))
 			possible_points += F
 		if(possible_points.len)
 			var/turf/open/floor/husk_point = pick(possible_points)

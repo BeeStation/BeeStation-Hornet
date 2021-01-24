@@ -283,7 +283,7 @@
 	. = ..()
 	if(.)
 		var/list/things = list()
-		for(var/atom/movable/A in view(src))
+		for(var/atom/movable/A as mob|obj in view(src))
 			if(allowed(A))
 				things += A
 		var/atom/movable/T = pick(things)

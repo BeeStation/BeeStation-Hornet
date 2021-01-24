@@ -768,7 +768,7 @@
 	var/temp = 0
 	var/turf/T = get_turf(target)
 	if(T)
-		for(var/obj/effect/decal/cleanable/blood/B in view(T, 2))
+		for(var/obj/effect/decal/cleanable/blood/B in view(2, T))
 			if(B.blood_state == BLOOD_STATE_HUMAN)
 				if(B.bloodiness == 100) //Bonus for "pristine" bloodpools, also to prevent cheese with footprint spam
 					temp += 30
@@ -776,7 +776,7 @@
 					temp += max((B.bloodiness**2)/800,1)
 				new /obj/effect/temp_visual/cult/turf/floor(get_turf(B))
 				qdel(B)
-		for(var/obj/effect/decal/cleanable/trail_holder/TH in view(T, 2))
+		for(var/obj/effect/decal/cleanable/trail_holder/TH in view(2, T))
 			qdel(TH)
 		var/obj/item/clothing/shoes/shoecheck = user.shoes
 		if(shoecheck && shoecheck.bloody_shoes[/datum/reagent/blood])
