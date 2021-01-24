@@ -161,4 +161,3 @@
 				/obj/item/clothing/head/hardhat = 1,
 				/obj/item/stack/sheet/glass = 1)
 	category = CAT_CLOTHING
-
