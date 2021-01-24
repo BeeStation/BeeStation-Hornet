@@ -1,8 +1,0 @@
-author: 'MrLostman, thelaughingbomb '
-delete-after: true
-changes:
-  - rscadd: Debug tech disk, Syndicate materials closet, tier 4 brped, chief engineer
-      tool belt to spawn list.
-  - rscdel: Removed Airlock_maker.dm
-  - tweak: Changed events config to be set to false at roundstart.
-  - bugfix: fixed indentation of admin verb
