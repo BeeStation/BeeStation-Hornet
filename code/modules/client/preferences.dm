@@ -1283,6 +1283,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(href_list["preference"] in GLOB.preferences_custom_names)
 				ask_for_custom_name(user,href_list["preference"])
 
+			if(href_list["preference"] in pref_species.forced_features)
+				alert("You cannot change that bodypart for your selected species!")
+				features[href_list["preference"]] = pref_species.forced_features[href_list["preference"]]
+				return
 
 			switch(href_list["preference"])
 				if("ghostform")
@@ -1428,6 +1432,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							var/temp_hsv = RGBtoHSV(features["mcolor"])
 							if(features["mcolor"] == "#000" || (!(MUTCOLORS_PARTSONLY in pref_species.species_traits) && ReadHSV(temp_hsv)[3] < ReadHSV("#7F7F7F")[3]))
 								features["mcolor"] = pref_species.default_color
+							//Set our forced bodyparts
+							for(var/forced_part in pref_species.forced_features)
+								//Get the forced type
+								var/forced_type = pref_species.forced_features[forced_part]
+								//Apply the forced bodypart.
+								features[forced_part] = forced_type
 						else
 							if(alert(parent, "This species is only accessible to our patrons. Would you like to subscribe?", "Patron Locked", "Yes", "No") == "Yes")
 								parent.donate()
