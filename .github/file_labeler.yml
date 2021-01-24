@@ -1,14 +1,26 @@
-sql:
-- SQL/**/*.sql
-mapping:
-- _maps/**/*
-config:
+Administration:
+- code/modules/admin/**/*
+
+Config Update:
 - config/**/*
-tools:
-- tools/**/*
-sprites:
-- icons/**/*.dmi
-sound:
-- sound/**/*
+
 GitHub:
 - .github/**/*
+
+mapping:
+- _maps/**/*
+
+sound:
+- sound/**/*
+
+sprites:
+- icons/**/*.dmi
+
+sql:
+- SQL/**/*.sql
+
+tools:
+- tools/**/*
+
+TGUI-Changes:
+- tgui/**/*

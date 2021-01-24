@@ -1286,6 +1286,9 @@
 /mob/living/carbon/human/species/jelly
 	race = /datum/species/jelly
 
+/mob/living/carbon/human/species/oozeling
+	race = /datum/species/oozeling
+
 /mob/living/carbon/human/species/jelly/slime
 	race = /datum/species/jelly/slime
 

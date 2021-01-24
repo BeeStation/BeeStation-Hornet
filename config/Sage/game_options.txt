@@ -477,6 +477,7 @@ ROUNDSTART_RACES squid
 ## Races that are better than humans in some ways, but worse in others
 ROUNDSTART_RACES ethereal
 ROUNDSTART_RACES apid
+ROUNDSTART_RACES oozeling
 #ROUNDSTART_RACES jelly
 #ROUNDSTART_RACES shadow
 ROUNDSTART_RACES plasmaman

@@ -1335,7 +1335,8 @@
 					/obj/item/reagent_containers/blood/OPlus,
 					/obj/item/reagent_containers/blood/OMinus,
 					/obj/item/reagent_containers/blood/lizard,
-					/obj/item/reagent_containers/blood/ethereal)
+					/obj/item/reagent_containers/blood/ethereal,
+					/obj/item/reagent_containers/blood/oozeling)
 	crate_name = "blood freezer"
 	crate_type = /obj/structure/closet/crate/freezer
 
@@ -1371,7 +1372,7 @@ datum/supply_pack/medical/bruisekits
 	crate_name = "brute treatment kits crate"
 
 /datum/supply_pack/medical/burnkits
-	name = "Bruise Treatment Kit Single-Pack"
+	name = "Burn Treatment Kits Crate"
 	desc = "Contains three first aid kits focused on healing severe burns."
 	cost = 1400
 	small_item = TRUE
