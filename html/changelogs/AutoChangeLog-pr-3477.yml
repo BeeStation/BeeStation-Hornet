@@ -1,0 +1,4 @@
+author: githubuser343
+delete-after: true
+changes:
+  - bugfix: BZ creation now properly limits maximum research points per reaction.
