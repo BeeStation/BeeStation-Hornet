@@ -118,7 +118,7 @@
  */
 /mob/proc/get_stat_tab_status()
 	var/list/tab_data = list()
-	tab_data["Map"] = list("[SSmapping.config?.map_name || "Loading..."]", STAT_TEXT)
+	tab_data["Map"] = GENERATE_STAT_TEXT("[SSmapping.config?.map_name || "Loading..."]")
 	var/datum/map_config/cached = SSmapping.next_map_config
 	if(cached)
 		tab_data["Next Map"] = GENERATE_STAT_TEXT(cached.map_name)
