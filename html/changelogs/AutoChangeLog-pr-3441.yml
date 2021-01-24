@@ -1,0 +1,6 @@
+author: eeSPee
+delete-after: true
+changes:
+  - rscadd: Heretics have a chance to get hijack/ascend objective
+  - rscadd: Heretics no longer get protect objective
+  - rscdel: Heretics no longer automatically greentext when ascending
