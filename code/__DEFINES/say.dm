@@ -56,7 +56,7 @@
 #define SPAN_PAPYRUS "papyrus"
 #define SPAN_REALLYBIG "reallybig"
 #define SPAN_COMMAND "command_headset"
-#define SPAN_CLOWN "clown"
+#define SPAN_CLOWN "clowntext"
 #define SPAN_SINGING "singing"
 
 //bitflag #defines for return value of the radio() proc.

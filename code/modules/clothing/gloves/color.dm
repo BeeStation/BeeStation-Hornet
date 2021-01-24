@@ -1,5 +1,5 @@
 /obj/item/clothing/gloves/color/yellow
-	desc = "These gloves will protect the wearer from electric shock."
+	desc = "These gloves provide protection against electric shock."
 	name = "insulated gloves"
 	icon_state = "yellow"
 	item_state = "ygloves"
@@ -30,7 +30,7 @@
 			. += "[src] will fully protect from electric shocks."
 		if(siemens_coefficient > 1)
 			. += "[src] will only make shocks worse."
-		else 
+		else
 			. += "[src] will provide [protectionpercentage] percent protection from electric shocks."
 
 /obj/item/clothing/gloves/color/fyellow/old
@@ -86,7 +86,7 @@
 
 /obj/item/clothing/gloves/color/red/insulated
 	name = "insulated gloves"
-	desc = "These gloves will protect the wearer from electric shock."
+	desc = "These gloves provide protection against electric shock."
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	resistance_flags = NONE

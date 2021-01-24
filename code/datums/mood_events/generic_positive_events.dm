@@ -91,7 +91,7 @@
 
 /datum/mood_event/cult
 	description = "<span class='nicegreen'>I have seen the truth, praise the almighty one!</span>\n"
-	mood_change = 10 //maybe being a cultist isnt that bad after all
+	mood_change = 10 //maybe being a cultist isn't that bad after all
 	hidden = TRUE
 
 /datum/mood_event/determined
@@ -101,7 +101,7 @@
 
 /datum/mood_event/heretics
 	description = "<span class='nicegreen'>THE HIGHER I RISE , THE MORE I SEE.</span>\n"
-	mood_change = 10 //maybe being a cultist isnt that bad after all
+	mood_change = 10 //maybe being a cultist isn't that bad after all
 	hidden = TRUE
 
 /datum/mood_event/family_heirloom
@@ -128,7 +128,7 @@
 	timeout = 3 MINUTES
 
 /datum/mood_event/religiously_comforted
-	description = "<span class='nicegreen'>You are comforted by the presence of a holy person.</span>\n"
+	description = "<span class='nicegreen'>I feel comforted by the presence of a holy person.</span>\n"
 	mood_change = 3
 
 /datum/mood_event/clownshoes
