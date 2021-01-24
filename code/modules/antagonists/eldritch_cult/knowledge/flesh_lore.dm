@@ -214,7 +214,7 @@
 	gain_text = "Man of this world. Hear me! For the time of the lord of arms has come! Emperor of Flesh guides my army!"
 	desc = "Bring 3 bodies onto a transmutation rune to gain the ability of shedding your human form, and gaining untold power."
 	required_atoms = list(/mob/living/carbon/human)
-	cost = 9
+	cost = 12
 	route = PATH_FLESH
 
 /datum/eldritch_knowledge/final/flesh_final/on_finished_recipe(mob/living/user, list/atoms, loc)
