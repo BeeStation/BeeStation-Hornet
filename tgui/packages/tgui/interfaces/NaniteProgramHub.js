@@ -98,7 +98,7 @@ export const NaniteProgramHub = (props, context) => {
                         onClick={() => setSelectedCategory(category)}
                         mb={2}
                         width="80%"
-                        height={2}>
+                        height={1}>
                         <Flex direction="row" justify="space-between">
                           <Icon
                             mt={1}
@@ -130,7 +130,7 @@ export const NaniteProgramHub = (props, context) => {
                             act("download", {
                               program_id: program.id,
                             })}>
-                          <Icon ml={1} mr={2} name="download" />
+                          <Icon mr={2} name="download" />
                           Download
                         </Button>
                       }>
@@ -147,13 +147,13 @@ export const NaniteProgramHub = (props, context) => {
                             <Button
                               mt={1}
                               mr={2}
-                              height={2}
+                              height={1}
                               disabled={!has_disk}
                               onClick={() =>
                                 act("download", {
                                   program_id: program.id,
                                 })}>
-                              <Icon ml={1} mr={2} name="download" />
+                              <Icon mr={2} name="download" />
                               Download
                             </Button>
                           }
