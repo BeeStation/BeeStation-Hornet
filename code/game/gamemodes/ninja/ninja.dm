@@ -17,26 +17,19 @@
 	<span class='notice'>Crew</span>: Locate and kill the ninjas!"
 
 /datum/game_mode/ninja/pre_setup()
-	recommended_enemies = round(num_players() / 10)
-	var/datum/mind/ninja = antag_pick(antag_candidates, ROLE_NINJA)
-	ninjas += ninja
-	ninja.assigned_role = ROLE_NINJA
-	ninja.special_role = ROLE_NINJA
-	log_game("[key_name(ninja)] has been selected as a Space Ninja")
-	var/list/spawn_locs = list()
-	for(var/obj/effect/landmark/carpspawn/S in GLOB.landmarks_list)
-		if(isturf(S.loc))
-			spawn_locs += S.loc
-		if(!spawn_locs.len)
-			return
-	var/spawn_loc = pick(spawn_locs)
-	if(!spawn_loc)
-		return MAP_ERROR
-	for(var/datum/mind/ninjanew in ninjas)
-		ninjanew.current.forceMove(spawn_loc)
+	recommended_enemies = round(num_players() / 10) // How many ninjas?
+	if(recommended_enemies < 1)
+		recommended_enemies = 1 // In the event that this is run on extreme lowpop it won't break
+	for(var/i = 0, i < recommended_enemies, ++i)
+		var/datum/mind/ninja = antag_pick(antag_candidates, ROLE_NINJA)
+		ninja.assigned_role = ROLE_NINJA
+		ninja.special_role = ROLE_NINJA
+		log_game("[key_name(ninja)] has been selected as a Space Ninja")
+		ninjas += ninja
+		
 	return TRUE
 
 /datum/game_mode/ninja/post_setup()
 	for(var/datum/mind/ninja in ninjas)
 		ninja.add_antag_datum(/datum/antagonist/ninja)
-	return ..()
+	return ..() 

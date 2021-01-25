@@ -1,5 +1,3 @@
-/datum/action/item_action/initialize_ninja_suit
-	name = "Toggle ninja suit"
 
 /datum/action/item_action/ninjafabricate
 	name = "Create Ninja Gadget"

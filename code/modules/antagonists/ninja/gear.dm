@@ -36,25 +36,20 @@
 /obj/item/melee/classic_baton/contractor_baton/ninja
 	name = "ninja baton"
 	desc = "A retractable baton. Mutes targets on hit. Can also override doors."
+	icon_state = "ninja_baton_0"
+	on_icon_state = "ninja_baton_1"
+	off_icon_state = "ninja_baton_0"
+	on_item_state = "ninja_baton"
 
 /obj/item/melee/classic_baton/contractor_baton/ninja/additional_effects_carbon(mob/living/target, mob/living/user)
 	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		M.silent += 10
+	var/mob/living/carbon/C = target
+	C.silent += 10
 
 /obj/item/melee/classic_baton/contractor_baton/ninja/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(proximity_flag && (isobj(target) || issilicon(target)))
-		if(on)
-			target.emag_act(user)
-
-// NVGs
-
-/obj/item/clothing/glasses/night/ninja
-	name = "flashproofed night vision goggles"
-	desc = "These goggles allow you to see in the dark without sacrificing protection from bright lights."
-	flash_protect = 1
+	if(on && proximity_flag && (isobj(target) || issilicon(target)))
+		target.emag_act(user)
 
 /obj/item/storage/box/syndi_kit/ninja
 	name = "path of balance"
@@ -62,7 +57,6 @@
 /obj/item/storage/box/syndi_kit/ninja/PopulateContents()
 	new /obj/item/energy_katana(src)
 	new /obj/item/shadowcloak/ninja(src)
-	new /obj/item/clothing/glasses/night/ninja(src)
 	new /obj/item/throwing_star/ninja(src)
 	new /obj/item/throwing_star/ninja(src)
 	new /obj/item/implanter/adrenalin(src)
@@ -81,7 +75,6 @@
 /obj/item/storage/box/syndi_kit/ninja/might/PopulateContents()
 	new /obj/item/energy_katana/might(src)
 	new /obj/item/shadowcloak/ninja/might(src)
-	new /obj/item/clothing/glasses/night/ninja(src)
 	new /obj/item/clothing/suit/space/space_ninja/might(src)
 	new /obj/item/clothing/head/helmet/space/space_ninja/might(src)
 

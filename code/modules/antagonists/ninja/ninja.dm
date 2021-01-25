@@ -32,7 +32,7 @@
 	for(var/datum/mind/M in SSticker.minds)
 		if(M.current && M.current.stat != DEAD)
 			if(ishuman(M.current))
-				possible_targets[M] = 0
+				possible_targets+= M
 	var/list/possible_objectives = list(1,2,3,4)
 
 	while(objectives.len < quantity)

@@ -10,6 +10,7 @@
 			fabrication_charges--
 		else
 			qdel(choice)
+			to_chat(user, "<span class='warning'>Error: hands are full. [new_item] was not created.</span>")
 		user.throw_mode_on() //So they can quickly throw it.
 	else 
 		to_chat(user, "<span class='warning'>No charges left!</span>")

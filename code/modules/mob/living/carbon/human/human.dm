@@ -54,12 +54,6 @@
 	//...and display them.
 	add_to_all_human_data_huds()
 
-/mob/living/carbon/human/get_stat_tabs()
-	var/list/tabs = ..()
-	if(istype(wear_suit, /obj/item/clothing/suit/space/space_ninja))
-		tabs.Insert(1, "SpiderOS")
-	return tabs
-
 /mob/living/carbon/human/get_stat_tab_status()
 	var/list/tab_data = ..()
 
