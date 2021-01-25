@@ -123,7 +123,7 @@
 		if(I.sharpness)
 			dismemberthreshold = min(((affecting.max_damage * 2) - affecting.get_damage()), dismemberthreshold) //makes it so limbs wont become immune to being dismembered if the item is sharp
 			if(stat == DEAD)
-				dismemberthreshold = dismemberthreshold / 3 
+				dismemberthreshold = dismemberthreshold / 3
 		if(I.force >= dismemberthreshold && I.force >= 10)
 			if(affecting.dismember(I.damtype))
 				I.add_mob_blood(src)
@@ -325,7 +325,7 @@
 
 	. = ..()
 
-	var/damage = intensity - get_eye_protection()
+	var/damage = (intensity - get_eye_protection()) * eyes.damage_multiplier
 	if(.) // we've been flashed
 		if(visual)
 			return
@@ -333,15 +333,15 @@
 		if (damage == 1)
 			to_chat(src, "<span class='warning'>Your eyes sting a little.</span>")
 			if(prob(40))
-				eyes.applyOrganDamage(1)
+				eyes.applyOrganDamage(1 * eyes.damage_multiplier)
 
 		else if (damage == 2)
 			to_chat(src, "<span class='warning'>Your eyes burn.</span>")
-			eyes.applyOrganDamage(rand(2, 4))
+			eyes.applyOrganDamage(rand(2, 4) * eyes.damage_multiplier)
 
 		else if( damage >= 3)
 			to_chat(src, "<span class='warning'>Your eyes itch and burn severely!</span>")
-			eyes.applyOrganDamage(rand(12, 16))
+			eyes.applyOrganDamage(rand(12, 16) * eyes.damage_multiplier)
 
 		if(eyes.damage > 10)
 			blind_eyes(damage)

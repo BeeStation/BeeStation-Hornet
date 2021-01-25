@@ -25,6 +25,7 @@
 	var/eye_color = "" //set to a hex code to override a mob's eye color
 	var/eye_icon_state = "eyes"
 	var/old_eye_color = "fff"
+	var/damage_multiplier = 1
 	var/flash_protect = 0
 	var/see_invisible = SEE_INVISIBLE_LIVING
 	var/lighting_alpha
@@ -376,7 +377,7 @@
 /obj/item/organ/eyes/moth
 	name = "moth eyes"
 	desc = "These eyes seem to have increased sensitivity to bright light, with no improvement to low light vision."
-	flash_protect = -1
+	damage_multiplier = 2
 
 /obj/item/organ/eyes/snail
 	name = "snail eyes"
