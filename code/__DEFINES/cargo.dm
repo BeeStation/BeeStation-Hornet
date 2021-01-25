@@ -44,7 +44,6 @@
 	/obj/item/storage/pill_bottle/lsd,\
 	/obj/item/storage/pill_bottle/aranesp,\
 	/obj/item/storage/pill_bottle/stimulant,\
-	/obj/item/toy/cards/deck/syndicate,\
 	/obj/item/reagent_containers/food/drinks/bottle/absinthe,\
 	/obj/item/clothing/under/syndicate/tacticool,\
 	/obj/item/storage/fancy/cigarettes/cigpack_syndicate,\
