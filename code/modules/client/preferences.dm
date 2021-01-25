@@ -1986,17 +1986,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /// Handles adding and removing donator items from clients
 /datum/preferences/proc/handle_donator_items(client/user)
 	parent = user
-	var/req_donator = CONFIG_GET(flag/donator_items)
 	var/datum/loadout_category/DLC = GLOB.loadout_categories["Donator"] // stands for donator loadout category but the other def for DLC works too xD
 
-	if(IS_PATRON(user.ckey) || !req_donator)
+	if(IS_PATRON(user.ckey))
 		for(var/key in DLC.gear)
 			var/datum/gear/donator/AG = GLOB.gear_datums[key]
 			if(!(AG.id in purchased_gear))
 				purchased_gear += AG.id
 				AG.purchase(user)
 		save_preferences()
-	else
+		return
+	if(CONFIG_GET(flag/donator_items))
 		if(purchased_gear.len || equipped_gear.len)
 			for(var/key in DLC.gear)
 				var/datum/gear/donator/RG = GLOB.gear_datums[key]
