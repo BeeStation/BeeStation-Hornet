@@ -628,7 +628,7 @@
 	distort(user, target, pulse_cap)
 
 /obj/effect/proc_holder/spell/target_hive/hive_warp/proc/distort(user, target, pulse_cap, pulses = 0)
-	for(var/mob/living/carbon/human/victim in view(7,target))
+	for(var/mob/living/carbon/human/victim in hearers(7,target))
 		if(user == victim || victim.is_real_hivehost())
 			continue
 		if(pulses < 4)
