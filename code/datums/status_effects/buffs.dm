@@ -334,8 +334,11 @@
 	owner.adjustBruteLoss(-2.5, FALSE)
 	owner.adjustFireLoss(-2.5, FALSE)
 	owner.adjustOxyLoss(-2.5)
-	owner.adjustToxLoss(-2.5, TRUE)
 	owner.adjustCloneLoss(-2.5)
+	if(isoozeling(owner))
+		owner.adjustToxLoss(2.5)
+	else
+		owner.adjustToxLoss(-2.5, FALSE)
 
 /atom/movable/screen/alert/status_effect/fleshmend
 	name = "Fleshmend"
