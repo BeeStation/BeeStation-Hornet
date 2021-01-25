@@ -1074,9 +1074,11 @@
 	C.weather_immunities |= "snow"
 	ball = new
 	ball.charge_counter = 0
+	ball.start_recharge()
 	C.AddSpell(ball)
 	cryo = new
 	cryo.charge_counter = 0
+	cryo.start_recharge()
 	C.AddSpell(cryo)
 
 /datum/species/golem/snow/on_species_loss(mob/living/carbon/C)
