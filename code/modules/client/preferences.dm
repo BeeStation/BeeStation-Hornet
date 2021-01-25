@@ -686,7 +686,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			dat += "<tr><td colspan=4><hr></td></tr>"
 			dat += "<tr><td><b>Name</b></td>"
-			if(LC.category != "Donator" && CONFIG_GET(flag/donator_items))
+			if(LC.category != "Donator" || !CONFIG_GET(flag/donator_items))
 				dat += "<td><b>Cost</b></td>"
 			dat += "<td><b>Restricted Jobs</b></td>"
 			dat += "<td><b>Description</b></td></tr>"
