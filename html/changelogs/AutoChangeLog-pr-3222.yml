@@ -1,0 +1,7 @@
+author: nemvar, Dennok, Azarak, park66665
+delete-after: true
+changes:
+  - bugfix: recolored lights now preserve their color on nightshift
+  - bugfix: emergency lighting and vacuum lighting now have lighting overlay
+  - code_imp: light fixture now uses a non-unique mutable appearance for its lighting
+      overlay
