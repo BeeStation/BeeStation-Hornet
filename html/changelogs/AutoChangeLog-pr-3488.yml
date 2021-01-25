@@ -1,0 +1,5 @@
+author: park66665
+delete-after: true
+changes:
+  - bugfix: fixed lighting overlays decoupling with lighting fixtures when shuttle
+      rotates for real.
