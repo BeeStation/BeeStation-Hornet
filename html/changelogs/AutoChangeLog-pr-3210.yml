@@ -1,7 +1,0 @@
-author: park66665
-delete-after: true
-changes:
-  - bugfix: Fixed a few edge case bugs in case of components with multiple nodes sharing
-      a parent
-  - bugfix: Made connected canisters react properly
-  - bugfix: Improved pipenet code performance a little
