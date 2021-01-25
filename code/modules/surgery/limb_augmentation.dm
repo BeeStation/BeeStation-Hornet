@@ -46,9 +46,7 @@
 
 
 /datum/surgery/augmentation/can_start(mob/user, mob/living/carbon/target)
-	if(!isoozeling(target))
-		return TRUE
-	return FALSE
+	return !isoozeling(target)
 
 //SURGERY STEP SUCCESSES
 
