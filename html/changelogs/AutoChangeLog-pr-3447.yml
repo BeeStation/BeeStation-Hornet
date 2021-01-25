@@ -1,0 +1,5 @@
+author: MNarath1
+delete-after: true
+changes:
+  - bugfix: weapon circuit runtime
+  - tweak: adds creator to weapon circuit logging
