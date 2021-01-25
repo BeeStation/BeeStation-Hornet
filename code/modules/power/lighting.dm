@@ -354,13 +354,12 @@
 	if(on || emergency_mode)
 		if(!lighting_overlays)
 			lighting_overlays = list()
-		var/mutable_appearance/LO = lighting_overlays["[base_state]-[light_power]-[light_color]-[dir]"]
+		var/mutable_appearance/LO = lighting_overlays["[base_state]-[light_power]-[light_color]"]
 		if(!LO)
-			var/image/temp_image = image(overlayicon, null, base_state, layer, dir)
-			LO = new(temp_image)
+			LO = mutable_appearance(overlayicon, base_state, ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE)
 			LO.color = light_color
 			LO.alpha = clamp(light_power*255, 30, 200)
-			lighting_overlays["[base_state]-[light_power]-[light_color]-[dir]"] = LO
+			lighting_overlays["[base_state]-[light_power]-[light_color]"] = LO
 		. += LO
 
 // update the icon_state and luminosity of the light depending on its state
