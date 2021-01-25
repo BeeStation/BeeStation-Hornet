@@ -14,3 +14,4 @@ Crossedfall = Host
 CthulhuOnIce = Host
 
 # the rest are in the db
+# This is a test of the automated label system. Beeeep. Beeeep.
