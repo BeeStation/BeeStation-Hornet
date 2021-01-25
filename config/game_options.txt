@@ -85,6 +85,9 @@ ALERT_DELTA Destruction of the station is imminent. All crew are instructed to o
 
 ## GAME MODES ###
 
+#Set the Master (Default) Game Mode.
+MASTER_MODE secret
+
 ## Uncomment to not send a roundstart intercept report. Gamemodes may override this.
 #NO_INTERCEPT_REPORT
 
