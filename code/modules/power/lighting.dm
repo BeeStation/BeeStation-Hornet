@@ -363,6 +363,12 @@
 			lighting_overlays["[base_state]-[light_power]-[light_color]-[dir]"] = LO
 		. += LO
 
+/obj/machinery/light/setDir(newdir)
+	var/olddir = dir
+	..()
+	if(olddir != dir)
+		update_icon() // A few things need to update their overlays when dir changes. This is one of them.
+
 // update the icon_state and luminosity of the light depending on its state
 /obj/machinery/light/proc/update(trigger = TRUE)
 	switch(status)
