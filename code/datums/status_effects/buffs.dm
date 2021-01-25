@@ -334,7 +334,7 @@
 	owner.adjustBruteLoss(-2.5, FALSE)
 	owner.adjustFireLoss(-2.5, FALSE)
 	owner.adjustOxyLoss(-2.5)
-	owner.adjustToxLoss(-2.5, FALSE)
+	owner.adjustToxLoss(-2.5, TRUE)
 	owner.adjustCloneLoss(-2.5)
 
 /atom/movable/screen/alert/status_effect/fleshmend
