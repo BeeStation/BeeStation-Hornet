@@ -1210,7 +1210,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(href_list["preference"] == "gear")
 		if(href_list["purchase_gear"])
 			var/datum/gear/TG = GLOB.gear_datums[href_list["purchase_gear"]]
-			if(TG.sort_category == "Donator")
+			if(TG.sort_category == "Donator" && CONFIG_GET(flag/donator_items))
 				if(alert(parent, "This item is only accessible to our patrons. Would you like to subscribe?", "Patron Locked", "Yes", "No") == "Yes")
 					parent.donate()
 			else if(TG.cost < user.client.get_metabalance())
