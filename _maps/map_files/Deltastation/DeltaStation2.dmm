@@ -122014,7 +122014,6 @@
 	},
 /obj/item/storage/pod{
 	pixel_x = 32;
-	pixel_y = 0
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
