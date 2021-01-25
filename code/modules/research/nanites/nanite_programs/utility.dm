@@ -15,7 +15,7 @@
 		return
 	var/datum/nanite_extra_setting/program = extra_settings[NES_PROGRAM_OVERWRITE]
 	var/datum/nanite_extra_setting/cloud = extra_settings[NES_CLOUD_OVERWRITE]
-	for(var/mob/M in orange(host_mob, 5))
+	for(var/mob/M in orange(5, host_mob))
 		if(SEND_SIGNAL(M, COMSIG_NANITE_IS_STEALTHY))
 			continue
 		switch(program.get_value())

@@ -312,7 +312,7 @@
 	playsound(owner, 'sound/weapons/fwoosh.ogg', 75, 0)
 	var/obj/item/slashy
 	slashy = owner.get_active_held_item()
-	for(var/mob/living/M in orange(1,owner))
+	for(var/mob/living/M in ohearers(1,owner))
 		slashy.attack(M, owner)
 
 /datum/status_effect/sword_spin/on_remove()

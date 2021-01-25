@@ -158,7 +158,7 @@
 	for(var/i in 1 to 4)
 		chant(i)
 		var/list/destinations = list()
-		for(var/turf/T in orange(1, owner))
+		for(var/turf/T as() in RANGE_TURFS(1, owner))
 			if(!is_blocked_turf(T, TRUE))
 				destinations += T
 		if(!LAZYLEN(destinations))

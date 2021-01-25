@@ -462,7 +462,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 				return final_result
 	else
 		for(var/turf/scan as() in wider_search_list)
-			for(var/deepscan in scan.contents)
+			for(var/deepscan in scan.contents) // view() barely checks contents of contents of turfs anyway
 				if(!istype(deepscan, scan_type))
 					continue
 				final_result = checkscan(deepscan,old_target)

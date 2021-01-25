@@ -80,7 +80,7 @@
 		owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text], shutting itself off in the process!</span>")
 		playsound(get_turf(owner),'sound/magic/blink.ogg', 100, 1)
 		var/list/turfs = new/list()
-		for(var/turf/T in orange(tele_range, H))
+		for(var/turf/T as() in (RANGE_TURFS(tele_range, H)-get_turf(H)))
 			if(T.density)
 				continue
 			if(T.x>world.maxx-tele_range || T.x<tele_range)
@@ -89,7 +89,7 @@
 				continue
 			turfs += T
 		if(!turfs.len)
-			turfs += pick(/turf in orange(tele_range, H))
+			turfs += pick(RANGE_TURFS(tele_range, H)-get_turf(H))
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))
 			return
@@ -199,7 +199,7 @@
 		owner.visible_message("<span class='danger'>[src] blocks [attack_text], converting the attack into a wave of force!</span>")
 		var/turf/T = get_turf(owner)
 		var/list/thrown_items = list()
-		for(var/atom/movable/A in orange(T, 7))
+		for(var/atom/movable/A in orange(7, T))
 			if(A.anchored || thrown_items[A])
 				continue
 			var/throwtarget = get_edge_target_turf(T, get_dir(T, get_step_away(A, T)))
@@ -226,7 +226,7 @@
 		owner.visible_message("<font color='red' size='3'>[H] GOES ON THE TABLE!!!</font>")
 		owner.Paralyze(40)
 		var/list/turfs = new/list()
-		for(var/turf/T in orange(tele_range, H))
+		for(var/turf/T as() in (RANGE_TURFS(tele_range, H)-get_turf(H)))
 			if(T.density)
 				continue
 			if(T.x>world.maxx-tele_range || T.x<tele_range)
@@ -235,7 +235,7 @@
 				continue
 			turfs += T
 		if(!turfs.len)
-			turfs += pick(/turf in orange(tele_range, H))
+			turfs += pick(RANGE_TURFS(tele_range, H)-get_turf(H))
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))
 			return
