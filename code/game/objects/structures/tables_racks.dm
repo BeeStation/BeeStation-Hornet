@@ -602,7 +602,7 @@
 /obj/structure/rack/deconstruct(disassembled = TRUE)
 	if(!(flags_1&NODECONSTRUCT_1))
 		density = FALSE
-		var/obj/item/rack_parts/newparts = new(loc)
+		var/obj/item/rack_parts/newparts = new(get_turf(src))
 		transfer_fingerprints_to(newparts)
 	qdel(src)
 
@@ -653,7 +653,7 @@
 /obj/structure/rack/smith/deconstruct(disassembled = TRUE)
 	if(!(flags_1&NODECONSTRUCT_1))
 		density = FALSE
-		var/obj/item/smith_parts/newparts = new(loc)
+		var/obj/item/smith_parts/newparts = new(get_turf(src))
 		transfer_fingerprints_to(newparts)
 	qdel(src)
 
