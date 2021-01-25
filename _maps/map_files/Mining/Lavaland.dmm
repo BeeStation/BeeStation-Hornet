@@ -122,24 +122,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
-"at" = (
-/obj/machinery/camera{
-	c_tag = "Labor Camp Monitoring";
-	network = list("labor")
-	},
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "Labor Camp Security APC";
-	pixel_x = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/mine/laborcamp/security)
 "au" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3157,6 +3139,24 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
+"nI" = (
+/obj/machinery/camera{
+	c_tag = "Labor Camp Monitoring";
+	network = list("labor")
+	},
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "Labor Camp Security APC";
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/mine/laborcamp/security)
 "nZ" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -12643,7 +12643,7 @@ dH
 bw
 bw
 ee
-at
+nI
 ay
 OT
 aE
