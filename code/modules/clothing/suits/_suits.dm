@@ -1,3 +1,5 @@
+#define FOOTSTEP_COOLDOWN 3	//3 deci-seconds
+
 /obj/item/clothing/suit
 	icon = 'icons/obj/clothing/suits.dmi'
 	name = "suit"
@@ -8,6 +10,9 @@
 	var/blood_overlay_type = "suit"
 	var/togglename = null
 	var/suittoggled = FALSE
+	var/move_sound = null
+	var/footstep = 0
+	var/mob/listeningTo
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo
 
 
@@ -31,3 +36,42 @@
 	if(ismob(loc))
 		var/mob/M = loc
 		M.update_inv_wear_suit()
+
+/obj/item/clothing/suit/proc/on_mob_move()
+	var/mob/living/carbon/human/H = loc
+	if(!istype(H) || H.wear_suit != src)
+		return
+	if(world.time > footstep)
+		playsound(src, pick(move_sound), 100, 1)
+		footstep = world.time + FOOTSTEP_COOLDOWN
+
+/obj/item/clothing/suit/equipped(mob/user, slot)
+	. = ..()
+	//If we dont have move sounds, ignore
+	if(!islist(move_sound))
+		return
+	//Check if we were taken off.
+	if(slot != SLOT_WEAR_SUIT)
+		if(listeningTo)
+			UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
+		return
+	if(listeningTo == user)
+		return
+	//Remove old listener
+	if(listeningTo)
+		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
+	//Add new listener
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/on_mob_move)
+	listeningTo = user
+
+/obj/item/clothing/suit/dropped(mob/user)
+	. = ..()
+	//Remove our listener
+	if(listeningTo)
+		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
+
+/obj/item/clothing/suit/Destroy()
+	listeningTo = null
+	. = ..()
+
+#undef FOOTSTEP_COOLDOWN
