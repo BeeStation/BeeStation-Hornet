@@ -25,9 +25,6 @@
 		else
 			ctype = pick( CONTRABAND_SYNDIE )
 		
-		if (ctype == /obj/item/toy/cards/deck/syndicate)	//hardcoded protection to prevent syndie deck from spawning
-			ctype = /obj/item/coin/arcade_token
-		
 		var/obj/item/I = new ctype(src)
 		w_items += I.w_class
 
