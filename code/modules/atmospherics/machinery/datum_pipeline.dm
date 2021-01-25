@@ -63,7 +63,7 @@
 								if(item.air_temporary)
 									air.merge(item.air_temporary)
 									item.air_temporary = null
-						else
+						else if(!P.returnPipenet(borderline))
 							P.setPipenet(src, borderline)
 							addMachineryMember(P)
 
