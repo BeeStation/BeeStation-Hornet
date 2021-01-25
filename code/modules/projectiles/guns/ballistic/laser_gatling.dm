@@ -155,7 +155,7 @@
 				else
 					to_chat(user, "The gun's heat sensor locked the trigger to prevent lens damage.")
 			else
-				to_chat(user, "You don't want your hands melt, let it cool down!.")
+				to_chat(user, "You don't want your hands to melt, let it cool down!")
 				return
 		if(ammo_pack.overheat < ammo_pack.overheat_max)
 			ammo_pack.overheat += burst_size

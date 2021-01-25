@@ -200,7 +200,7 @@
 /obj/item/statuebust/toy/attack_self(mob/user)
 	if (cooldown < world.time)
 		cooldown = world.time + 450
-		user.visible_message("<span class='warning'>[user] activates [src].</span>", "<span class='notice'>You activate [src]!</span>", "<span class='italics'>You hear a music playing.</span>")
+		user.visible_message("<span class='warning'>[user] activates \the [src].</span>", "<span class='notice'>You activate \the [src]!</span>", "<span class='italics'>You hear a music playing.</span>")
 		playsound(src, 'sound/ambience/ambivapor1.ogg', 50, 0)
 	else
 		to_chat(user, "<span class='alert'>Nothing happens!</span>")
@@ -416,8 +416,6 @@
 		summon_backup_nosound(10)
 		playsound(get_turf(src), 'sound/weapons/sniper_rack.ogg', 80, TRUE)
 		say("I've got you in my scope.")
-	else
-		return
 
 /mob/living/simple_animal/hostile/syndicate/factory/sniper/Shoot()
 	var/allowed_projectile_types = list(/obj/item/ammo_casing/p50, /obj/item/ammo_casing/p50/penetrator)
@@ -472,14 +470,11 @@
 
 /mob/living/simple_animal/hostile/psycho/regular/Life()
 	..()
-	if(Aggro())
+	if(Aggro() || stat)
 		return
-	else
-		if(stat)
-			return
-		if(prob(20))
-			var/chosen_sound = pick(idle_sounds)
-			playsound(src, chosen_sound, 50, FALSE)
+	if(prob(20))
+		var/chosen_sound = pick(idle_sounds)
+		playsound(src, chosen_sound, 50, FALSE)
 
 /mob/living/simple_animal/hostile/psycho/regular/Aggro()
 	..()
@@ -488,8 +483,6 @@
 	if (cooldown < world.time)
 		cooldown = world.time + 300
 		playsound(get_turf(src), chosen_sound, 70, TRUE, 0)
-	else
-		return
 
 /mob/living/simple_animal/hostile/psycho/regular/death(gibbed)
 	var/list/possible_sounds = list('sound/creatures/psycdeath1.ogg','sound/creatures/psycdeath2.ogg')
@@ -532,8 +525,6 @@
 	if (cooldown < world.time)
 		cooldown = world.time + 300
 		playsound(get_turf(src), chosen_sound, 70, TRUE, 0)
-	else
-		return
 
 /mob/living/simple_animal/hostile/psycho/muzzle/AttackingTarget()
 	..()
@@ -571,8 +562,6 @@
 	if (cooldown < world.time)
 		cooldown = world.time + 300
 		playsound(get_turf(src), chosen_sound, 70, TRUE, 0)
-	else
-		return
 
 /mob/living/simple_animal/hostile/psycho/trap/Initialize()
 	. = ..()
@@ -580,19 +569,14 @@
 
 /mob/living/simple_animal/hostile/psycho/trap/Life()
 	..()
-	if(Aggro())
+	if(Aggro() || stat)
 		return
-	else
-		if(stat)
-			return
-		if(prob(20))
-			var/chosen_sound = pick(idle_sounds)
-			playsound(src, chosen_sound, 50, FALSE)
+	if(prob(20))
+		var/chosen_sound = pick(idle_sounds)
+		playsound(src, chosen_sound, 50, FALSE)
 	if(health < maxHealth)
 		playsound(src, 'sound/machines/beep.ogg', 80, FALSE)
 		addtimer(CALLBACK(src, .proc/death), 200)
-	else
-		return
 
 /mob/living/simple_animal/hostile/psycho/trap/AttackingTarget()
 	var/list/possible_sounds = list('sound/creatures/psychhead.ogg','sound/creatures/psychhead2.ogg')
@@ -709,8 +693,6 @@
 	if (cooldown < world.time)
 		cooldown = world.time + 300
 		playsound(get_turf(src), chosen_sound, 50, TRUE, 0)
-	else
-		return
 
 /mob/living/simple_animal/hostile/zombie_suicide/AttackingTarget()
 	if(!active)
@@ -721,11 +703,9 @@
 		playsound(get_turf(src), chosen_sound, 50, TRUE, 0)
 		visible_message("<span class='danger'>[src] primes the grenade!.</span>")
 		addtimer(CALLBACK(src, .proc/prime), det_time)
-	else
-		return
 
 /mob/living/simple_animal/hostile/zombie_suicide/proc/prime()
-	explosion(src.loc,0,2,3,flame_range = 3)
+	explosion(src,0, 2, 3, flame_range = 3)
 	new /obj/effect/gibspawner/generic(get_turf(src), src)
 	qdel(src)
 
@@ -783,7 +763,7 @@
 				/obj/effect/mob_spawn/human/corpse/facboss)
 
 /mob/living/simple_animal/hostile/syndicate/factory/boss/Shoot()
-	var/allowed_projectile_types = list(/obj/item/ammo_casing/shotgun/beanbag,
+	var/static/list/allowed_projectile_types = list(/obj/item/ammo_casing/shotgun/beanbag,
 										 /obj/item/ammo_casing/shotgun, /obj/item/ammo_casing/shotgun/incendiary,
 										 /obj/item/ammo_casing/shotgun/dragonsbreath,
 										 /obj/item/ammo_casing/shotgun/meteorslug,
@@ -809,8 +789,6 @@
 		cooldown = world.time + 300
 		playsound(get_turf(src), chosen_sound, 80, TRUE, 0)
 		say("Target!")
-	else
-		return
 
 /mob/living/simple_animal/hostile/syndicate/factory/boss/Life()
 	..()
@@ -818,6 +796,7 @@
 		icon_state = "facboss2"
 		icon_living = "facboss2"
 		ranged_cooldown_time = 20//less health - faster shooting
+		return
 	if(health <= 150)
 		if(prob(5) && Aggro())//change to insult the target on low health
 			playsound(get_turf(src), 'sound/voice/beepsky/insult.ogg', 100, 0, 0)
@@ -825,8 +804,6 @@
 		icon_state = "facboss3"
 		icon_living = "facboss3"
 		ranged_cooldown_time = 10//even faster
-	else
-		return
 
 /mob/living/simple_animal/hostile/syndicate/factory/boss/updatehealth()
 	..()
@@ -834,12 +811,10 @@
 		var/list/possible_sounds = list('sound/creatures/bosspain.ogg','sound/creatures/bosspain2.ogg')
 		var/chosen_sound = pick(possible_sounds)
 		playsound(get_turf(src), chosen_sound, 60, TRUE, 0)
-	else
-		return
 
 /mob/living/simple_animal/hostile/syndicate/factory/boss/death(gibbed)
 	playsound(get_turf(src), 'sound/voice/borg_deathsound.ogg', 80, TRUE, 0)
-	visible_message("<span class='boldwarning'>[src] activates its self-destruct system!.</span>")
+	visible_message("<span class='boldwarning'>\the [src] activates its self-destruct system!.</span>")
 	speed = 15
 	move_to_delay = 20
 	ranged_cooldown = 300
@@ -879,7 +854,7 @@
 /obj/item/gun/ballistic/shotgun/lever_action/rack(mob/user = null)
 	..()
 	if(user.get_inactive_held_item() && prob(50) && chambered)
-		user.visible_message("<span class='rose'>With a single move of [user.p_their()] arm, [user] flips [src] and loads the chamber with a shell.</span>")
+		user.visible_message("<span class='rose'>With a single move of [user.p_their()] arm, [user] flips \the [src] and loads the chamber with a shell.</span>")
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/sound
 	desc = "A robust .50 AE handgun. This one looks even more robust."
