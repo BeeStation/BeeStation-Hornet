@@ -14,7 +14,7 @@
 	var/obj/item/energy_katana/energyKatana
 	var/recall_charges = 3
 	var/fabrication_charges = 10
-	var/fabrication_options = list(/obj/item/restraints/legcuffs/bola/energy = "energy bola", /obj/item/caltrops = "caltrops", /obj/item/grenade/smokebomb = "smoke bomb")
+	var/fabrication_options = list(/obj/item/restraints/legcuffs/bola/energy/ninja = "energy bola", /obj/item/caltrops = "caltrops", /obj/item/grenade/smokebomb = "smoke bomb")
 	actions_types = list(/datum/action/item_action/ninjafabricate, /datum/action/item_action/ninja_sword_recall)
 
 /obj/item/clothing/gloves/space_ninja/attackby(obj/I, mob/user, params)

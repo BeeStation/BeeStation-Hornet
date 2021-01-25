@@ -41,6 +41,12 @@
 	off_icon_state = "ninja_baton_0"
 	on_item_state = "ninja_baton"
 
+/obj/item/restraints/legcuffs/bola/energy/ninja
+	name = "ninja energy bola"
+	desc = "A specialized hard-light bola designed to ensnare targets and slow pursuers."
+	icon_state = "nbola"
+	item_state = "nbola"
+
 /obj/item/melee/classic_baton/contractor_baton/ninja/additional_effects_carbon(mob/living/target, mob/living/user)
 	. = ..()
 	var/mob/living/carbon/C = target
