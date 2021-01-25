@@ -1,7 +1,7 @@
 /datum/gear/donator
 	subtype_path = /datum/gear/donator
 	sort_category = "Donator"
-	cost = 0
+	cost = 3500
 
 //BACKPACKS
 
@@ -95,6 +95,7 @@
 /datum/gear/donator/item
 	subtype_path = /datum/gear/donator/item
 	slot = SLOT_IN_BACKPACK
+	cost = 5000
 
 /datum/gear/donator/item/plush_ian
 	display_name = "ian plushie"

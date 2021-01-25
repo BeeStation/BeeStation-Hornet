@@ -686,7 +686,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			dat += "<tr><td colspan=4><hr></td></tr>"
 			dat += "<tr><td><b>Name</b></td>"
-			if(LC.category != "Donator")
+			if(LC.category != "Donator" && CONFIG_GET(flag/donator_items))
 				dat += "<td><b>Cost</b></td>"
 			dat += "<td><b>Restricted Jobs</b></td>"
 			dat += "<td><b>Description</b></td></tr>"
@@ -696,7 +696,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				var/ticked = (G.id in equipped_gear)
 
 				dat += "<tr style='vertical-align:top;'><td width=15%>[G.display_name]\n"
-				var/donator = (G.sort_category == "Donator")
+				var/donator = (G.sort_category == "Donator" && CONFIG_GET(flag/donator_items))
 				if(G.id in purchased_gear)
 					if(G.sort_category == "OOC")
 						dat += "<i>Purchased.</i></td>"
