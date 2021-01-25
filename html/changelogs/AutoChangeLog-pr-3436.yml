@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: Adds in the buy 1 get 1 free syndicate uplink deal.
+  - rscadd: Adds in the double discount bundle syndicate uplink deal.
