@@ -435,12 +435,16 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		if(check_bot(scan))	//Is there another bot there? Then let's just skip it
 			continue
 		if(isturf(scan_type))	//If we're lookeing for a turf we can just run the checks directly!
-			final_result = checkscan(scan,scan_type,old_target)
+			if(!istype(scan, scan_type))
+				continue
+			final_result = checkscan(scan,old_target)
 			if(final_result)
 				return final_result
 		else
 			for(var/deepscan in scan.contents)//Check the contents since adjacent is turfs
-				final_result = checkscan(deepscan,scan_type,old_target)
+				if(!istype(deepscan, scan_type))
+					continue
+				final_result = checkscan(deepscan,old_target)
 				if(final_result)
 					return final_result
 	
@@ -451,19 +455,21 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	shuffle(wider_search_list) // Do we *really* need shuffles? Future coders should decide this.
 	if(isturf(scan_type))
 		for(var/turf/scan as() in wider_search_list)
-			final_result = checkscan(scan,scan_type,old_target)
+			if(!istype(scan, scan_type))
+				continue
+			final_result = checkscan(scan,old_target)
 			if(final_result)
 				return final_result
 	else
 		for(var/turf/scan as() in wider_search_list)
 			for(var/deepscan in scan.contents)
-				final_result = checkscan(deepscan,scan_type,old_target)
+				if(!istype(deepscan, scan_type))
+					continue
+				final_result = checkscan(deepscan,old_target)
 				if(final_result)
 					return final_result
 
-/mob/living/simple_animal/bot/proc/checkscan(scan, scan_type, old_target)
-	if(!istype(scan, scan_type)) //Check that the thing we found is the type we want!
-		return FALSE //If not, keep searching!
+/mob/living/simple_animal/bot/proc/checkscan(scan, old_target)
 	if( (REF(scan) in ignore_list) || (scan == old_target) ) //Filter for blacklisted elements, usually unreachable or previously processed oness
 		return FALSE
 
