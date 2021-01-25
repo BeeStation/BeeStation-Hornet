@@ -78,7 +78,7 @@
 
 /obj/item/stack/tile/grass/attackby(obj/item/W, mob/user, params)
 	if((W.tool_behaviour == TOOL_SHOVEL) && params)
-		to_chat(user, "<span class='notice'>You start digging up [src]</span>")
+		to_chat(user, "<span class='notice'>You start digging up [src].</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		if(do_after(user, 2 * get_amount(), target = src))
 			new /obj/item/stack/ore/glass(get_turf(src), 2 * get_amount())
