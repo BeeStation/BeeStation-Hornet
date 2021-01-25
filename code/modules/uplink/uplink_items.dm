@@ -27,6 +27,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		filtered_uplink_items[I.category][I.name] = I
 		if(I.limited_stock < 0 && !I.cant_discount && I.item && I.cost > 1)
 			sale_items += I
+
 	if(allow_sales)
 		var/datum/team/nuclear/nuclear_team
 		if (gamemode == /datum/game_mode/nuclear) 					// uplink code kind of needs a redesign
@@ -63,20 +64,38 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	for (var/i in 1 to num)
 		var/datum/uplink_item/I = pick_n_take(sale_items)
 		var/datum/uplink_item/A = new I.type
-		var/discount = A.get_discount()
 		var/list/disclaimer = list("Void where prohibited.", "Not recommended for children.", "Contains small parts.", "Check local laws for legality in region.", "Do not taunt.", "Not responsible for direct, indirect, incidental or consequential damages resulting from any defect, error or failure to perform.", "Keep away from fire or flames.", "Product is provided \"as is\" without any implied or expressed warranties.", "As seen on TV.", "For recreational use only.", "Use only as directed.", "16% sales tax will be charged for orders originating within Space Nebraska.")
 		A.limited_stock = limited_stock
+		A.category = category_name
 		I.refundable = FALSE //THIS MAN USES ONE WEIRD TRICK TO GAIN FREE TC, CODERS HATES HIM!
 		A.refundable = FALSE
-		if(A.cost >= 20) //Tough love for nuke ops
-			discount *= 0.5
-		A.category = category_name
-		A.cost = max(round(A.cost * discount),1)
-		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
-		A.desc += " Normally costs [initial(A.cost)] TC. All sales final. [pick(disclaimer)]"
+		switch(rand(1, 5))
+			if(1 to 3)
+				//X% off!
+				var/discount = A.get_discount()
+				if(A.cost >= 20) //Tough love for nuke ops
+					discount *= 0.5
+				A.cost = max(round(A.cost * discount), 1)
+				A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
+				A.desc += " Normally costs [initial(A.cost)] TC. All sales final. [pick(disclaimer)]"
+			if(4)
+				//Buy 1 get 1 free!
+				A.name += " (Buy 1 get 1 free!)"
+				A.desc += " Obtain 2 for the price of 1. All sales final. [pick(disclaimer)]"
+				A.spawn_amount = 2
+			if(5)
+				//Get 2 items with their combined price reduced.
+				var/datum/uplink_item/second_I = pick_n_take(sale_items)
+				var/total_cost = second_I.cost + I.cost
+				var/discount = A.get_discount()
+				var/final_cost = max(round(total_cost * discount), 1)
+				//Setup the item
+				A.cost = final_cost
+				A.name += " + [second_I.name] (Discounted Bundle - [round((total_cost / final_cost )*100)]% off!)"
+				A.desc += " Also contains [second_I.name]. Normally costs [total_cost] TC when bought together. All sales final. [pick(disclaimer)]"
+				A.bonus_items = list(second_I.item)
 		A.discounted = TRUE
 		A.item = I.item
-
 		uplink_items[category_name][A.name] = A
 
 
@@ -108,6 +127,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/restricted_species //Limits items to a specific species. Hopefully.
 	var/illegal_tech = TRUE // Can this item be deconstructed to unlock certain techweb research nodes?
 	var/discounted = FALSE
+	var/spawn_amount = 1	//How many times we should run the spawn
+	var/bonus_items	= null	//Bonus items you gain if you purchase it
 
 /datum/uplink_item/New()
 	. = ..()
@@ -118,9 +139,17 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	return pick(4;0.75,2;0.5,1;0.25)
 
 /datum/uplink_item/proc/purchase(mob/user, datum/component/uplink/U)
-	var/atom/A = spawn_item(item, user, U)
-	if(purchase_log_vis && U.purchase_log)
-		U.purchase_log.LogPurchase(A, src, cost)
+	//Spawn base items
+	for(var/i in 1 to spawn_amount)
+		var/atom/A = spawn_item(item, user, U)
+		if(purchase_log_vis && U.purchase_log)
+			U.purchase_log.LogPurchase(A, src, cost)
+	//Spawn bonust items
+	if(islist(bonus_items))
+		for(var/bonus in bonus_items)
+			var/atom/A = spawn_item(bonus, user, U)
+			if(purchase_log_vis && U.purchase_log)
+				U.purchase_log.LogPurchase(A, src, cost)
 
 /datum/uplink_item/proc/spawn_item(spawn_path, mob/user, datum/component/uplink/U)
 	if(!spawn_path)
