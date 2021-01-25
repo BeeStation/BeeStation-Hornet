@@ -31,7 +31,7 @@
 			var/thisamount = user.reagents.get_reagent_amount(R.type)
 			user.reagents.remove_reagent(R.type, thisamount)
 	else
-			var/obj/effect/sweatsplash/S = new(user.loc)
+		var/obj/effect/sweatsplash/S = new(user.loc)
 		for(var/datum/reagent/R in user.reagents.reagent_list) //Not just toxins!
 			var/amount = R.volume
 			user.reagents.remove_reagent(R.type, amount)
