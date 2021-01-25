@@ -1,4 +1,0 @@
-author: francinum
-delete-after: true
-changes:
-  - config: Default gamemode is now a config entry.
