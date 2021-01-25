@@ -471,3 +471,85 @@
 		M.emote(pick("twitch","laugh","frown"))
 	..()
 	. = 1
+
+//I had to do too much research on this to make this a thing. Hopefully the FBI won't kick my door down.
+/datum/reagent/drug/ketamine
+	name = "Ketamine"
+	description = "A heavy duty tranquilizer found to also invoke feelings of euphoria, and assist with pain. Popular at parties and amongst small frogmen who drive Honda Civics."
+	reagent_state = LIQUID
+	color = "#c9c9c9"
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	addiction_threshold = 8
+	overdose_threshold = 16
+
+/datum/reagent/drug/ketamine/on_mob_metabolize(mob/living/L)
+	ADD_TRAIT(L, TRAIT_IGNOREDAMAGESLOWDOWN, type)
+	. = ..()
+
+/datum/reagent/drug/ketamine/on_mob_delete(mob/living/L)
+	REMOVE_TRAIT(L, TRAIT_IGNOREDAMAGESLOWDOWN, type)
+	. = ..()
+
+/datum/reagent/drug/ketamine/on_mob_life(mob/living/carbon/M)
+	//Friendly Reminder: Ketamine is a tranquilizer and will sleep you.
+	switch(current_cycle)
+		if(10)
+			to_chat(M, "<span class='warning'>You start to feel tired...</span>" )
+		if(11 to 25)
+			M.drowsyness ++
+		if(26 to INFINITY)
+			M.Sleeping(60, 0)
+			. = 1
+	//Providing a Mood Boost
+	M.confused -= 3
+	M.jitteriness -= 5
+	M.disgust -= 3
+	//Ketamine is also a dissociative anasthetic which means Hallucinations!
+	M.hallucination += 5
+	..()
+
+/datum/reagent/drug/ketamine/overdose_process(mob/living/M)
+	//Dissociative anesthetics? Overdosing? Time to dissociate hard.
+	var/obj/item/organ/brain/B = M.getorgan(/obj/item/organ/brain)
+	if(B.can_gain_trauma(/datum/brain_trauma/severe/split_personality, 5))
+		B.brain_gain_trauma(/datum/brain_trauma/severe/split_personality, 5)
+		. = 1
+	M.hallucination += 10
+	//Uh Oh Someone is tired
+	if(prob(40))
+		if(HAS_TRAIT(M, TRAIT_IGNOREDAMAGESLOWDOWN))
+			REMOVE_TRAIT(M, TRAIT_IGNOREDAMAGESLOWDOWN, type)
+		if(prob(33))
+			to_chat(M, "<span class='warning'>Your limbs begin to feel heavy...</span>")
+		else if(prob(33))
+			to_chat(M, "<span class='warning'>It feels hard to move...</span>")
+		else
+			to_chat(M, "<span class='warning'>You feel like you your limbs won't move...</span>")
+		M.drop_all_held_items()
+		M.Dizzy(5)
+	..()
+
+//Addiction Gradient
+/datum/reagent/drug/ketamine/addiction_act_stage1(mob/living/M)
+	if(prob(20))
+		M.drop_all_held_items()
+		M.Jitter(2)
+	..()
+
+/datum/reagent/drug/ketamine/addiction_act_stage2(mob/living/M)
+	if(prob(30))
+		M.drop_all_held_items()
+		M.adjustToxLoss(2*REM, 0)
+		. = 1
+		M.Jitter(3)
+		M.Dizzy(3)
+	..()
+
+/datum/reagent/drug/ketamine/addiction_act_stage3(mob/living/M)
+	if(prob(40))
+		M.drop_all_held_items()
+		M.adjustToxLoss(3*REM, 0)
+		. = 1
+		M.Jitter(4)
+		M.Dizzy(4)
+	..()

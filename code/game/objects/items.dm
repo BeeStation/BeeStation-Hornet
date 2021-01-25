@@ -474,10 +474,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!blockhand)
 		return 0
 	if(blockhand.is_disabled())
-		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack<!/span>")
+		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack!</span>")
 		return 0
 	else if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30)
-		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack<!/span>")
+		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack!</span>")
 		return 0
 	if(owner.a_intent == INTENT_HARM) //you can choose not to block an attack
 		return 0
@@ -788,7 +788,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(damtype == BURN)
 		. = 'sound/weapons/sear.ogg'
 	else
-		. = pick('sound/misc/desceration-01.ogg', 'sound/misc/desceration-02.ogg', 'sound/misc/desceration-03.ogg')
+		. = pick('sound/misc/desecration-01.ogg', 'sound/misc/desecration-02.ogg', 'sound/misc/desecration-03.ogg')
 
 /obj/item/proc/open_flame(flame_heat=700)
 	var/turf/location = loc

@@ -145,7 +145,7 @@
 					message_admins("[key_name(usr)] created an abductor team.")
 					log_admin("[key_name(usr)] created an abductor team.")
 				else
-					message_admins("[key_name_admin(usr)] tried to create an abductor team. Unfortunatly there were not enough candidates available.")
+					message_admins("[key_name_admin(usr)] tried to create an abductor team. Unfortunately there were not enough candidates available.")
 					log_admin("[key_name(usr)] failed to create an abductor team.")
 			if("revenant")
 				if(src.makeRevenant())
@@ -1989,7 +1989,7 @@
 			return
 
 		if(!CONFIG_GET(string/centcom_ban_db))
-			to_chat(usr, "<span class='warning'>Centcom Galactic Ban DB is disabled!</span>")
+			to_chat(usr, "<span class='warning'>CentCom Galactic Ban DB is disabled!</span>")
 			return
 
 		var/ckey = href_list["centcomlookup"]

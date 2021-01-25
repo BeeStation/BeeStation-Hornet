@@ -42,6 +42,7 @@
 	STR.max_combined_w_class = 21
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/crowbar,
+		/obj/item/powertool,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
@@ -74,8 +75,8 @@
 	item_state = "utility_ce"
 
 /obj/item/storage/belt/utility/chief/full/PopulateContents()
-	new /obj/item/screwdriver/power(src)
-	new /obj/item/crowbar/power(src)
+	new /obj/item/powertool/hand_drill(src)
+	new /obj/item/powertool/jaws_of_life(src)
 	new /obj/item/weldingtool/experimental(src)//This can be changed if this is too much
 	new /obj/item/multitool(src)
 	new /obj/item/stack/cable_coil(src,30,pick("red","yellow","orange"))
@@ -126,6 +127,7 @@
 	STR.max_items = 7
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/crowbar,
+		/obj/item/powertool,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
@@ -317,6 +319,7 @@
 	STR.max_combined_w_class = 20
 	STR.can_hold = typecacheof(list(
 		/obj/item/crowbar,
+		/obj/item/powertool,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,

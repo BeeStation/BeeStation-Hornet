@@ -6,7 +6,7 @@
 
 /obj/machinery/door/firedoor
 	name = "firelock"
-	desc = "A convenable firelock. Equipt with a manual lever for operating in case of emergency."
+	desc = "A convenable firelock. Equipped with a manual lever for operating in case of emergency."
 	icon = 'icons/obj/doors/doorfireglass.dmi'
 	icon_state = "door_open"
 	opacity = FALSE
@@ -661,6 +661,7 @@
 	name = "firelock frame"
 	icon = 'icons/obj/doors/edge_Doorfire.dmi'
 	icon_state = "door_frame"
+	density = FALSE
 	firelock_type = /obj/machinery/door/firedoor/border_only
 
 /obj/structure/firelock_frame/border/ComponentInitialize()
