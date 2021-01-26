@@ -26,7 +26,7 @@ export const NaniteProgramHub = (props, context) => {
       <Window.Content>
         <Section
           title="Program Disk"
-          height="20%"
+          grow={1}
           overflowY="scroll"
           buttons={
             <Fragment>
@@ -82,8 +82,8 @@ export const NaniteProgramHub = (props, context) => {
             </Fragment>
           }>
           {programs !== null ? (
-            <Flex height={39}>
-              <Flex.Item minWidth="150px">
+            <Flex grow={4}>
+              <Flex.Item grow={1} mr={2} minWidth="150px">
                 <Tabs vertical>
                   {map((cat_contents, category) => {
                     const progs = cat_contents || [];
@@ -92,47 +92,38 @@ export const NaniteProgramHub = (props, context) => {
                     const tabLabel = category.substring(0, category.length - 8);
                     return (
                       <Button
-                        key={category}
+                        grow
+                        mb={2}
                         color="grey"
+                        key={category}
+                        icon="microchip"
+                        content={tabLabel}
                         selected={category === selectedCategory}
                         onClick={() => setSelectedCategory(category)}
-                        mb={2}
-                        height="100%"
-                        width="80%">
-                        <Flex direction="row" justify="space-between">
-                          <Icon
-                            mt={0.7}
-                            color={
-                              category === selectedCategory ? "lime" : "white"
-                            }
-                            name="microchip"
-                          />
-                          {tabLabel}
-                        </Flex>
-                      </Button>
+                      />
                     );
                   })(programs)}
                 </Tabs>
               </Flex.Item>
-              <Flex.Item grow width="100%" overflowY="scroll">
+              <Flex.Item grow={3} overflowY="scroll">
                 {detail_view ? (
                   programsInCategory.map(program => (
                     <Section
                       key={program.id}
                       title={program.name}
                       level={2}
-                      width="100%"
                       buttons={
                         <Button
+                          mr={2}
                           height={2}
+                          icon="download"
+                          content="Download"
                           disabled={!has_disk}
                           onClick={() =>
                             act("download", {
                               program_id: program.id,
-                            })}>
-                          <Icon mr={2} name="download" />
-                          Download
-                        </Button>
+                            })}
+                        />
                       }>
                       {program.desc}
                     </Section>
@@ -147,14 +138,14 @@ export const NaniteProgramHub = (props, context) => {
                             <Button
                               mt={1}
                               mr={2}
+                              icon="download"
+                              content="Download"
                               disabled={!has_disk}
                               onClick={() =>
                                 act("download", {
                                   program_id: program.id,
-                                })}>
-                              <Icon mr={2} name="download" />
-                              Download
-                            </Button>
+                                })}
+                            />
                           }
                         />
                         <LabeledList.Divider />
