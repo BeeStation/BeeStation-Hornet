@@ -192,7 +192,7 @@
 				new_nutrition = round(nutrition * 0.5)
 				new_powerlevel = round(powerlevel / 2)
 				new_adult = TRUE
-			for(var/i=1,i<=childamount,i++)
+			for(var/i=1, i<=childamount, i++)
 				var/force_colour = FALSE
 				var/step_away = TRUE
 				if(i == 1)
