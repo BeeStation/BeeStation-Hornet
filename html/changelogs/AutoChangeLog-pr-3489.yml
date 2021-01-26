@@ -1,0 +1,4 @@
+author: OceanFish1
+delete-after: true
+changes:
+  - bugfix: MacSpace should be visitable now without internals required
