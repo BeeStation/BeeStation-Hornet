@@ -179,6 +179,8 @@
 			hoppingtable = TRUE
 			jumpdistancemoved = i
 			break
+		if(T.density)
+			break
 		if(!checkjump.Adjacent(T)) // Check for things other than tables that would block flight
 			break
 		checkjump = get_step(checkjump, L.dir)
