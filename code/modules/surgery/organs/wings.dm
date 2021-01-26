@@ -173,19 +173,15 @@
 	var/jumpdistancemoved = jumpdistance // temp jumpdistance
 	var/turf/checkjump = get_turf(L)
 
-	check_loop:
-		for(var/i in 1 to jumpdistance) //This is how hiero club find the tiles in front of it, tell me/fix it if there's a better way
-			var/turf/T = get_step(checkjump, L.dir)
-			if(locate(/obj/structure/table) in T) // If there's a table, trip
-				hoppingtable = TRUE
-				jumpdistancemoved = i
-				break
-			if(T.density) // If turf has density (wall), break
-				break
-			for(var/atom/movable/A in T) // breaks if there's anything solid in the way, no tripping on tables through walls
-				if(A.density == TRUE)
-					break check_loop
-			checkjump = get_step(checkjump, L.dir)
+	for(var/i in 1 to jumpdistance) //This is how hiero club find the tiles in front of it, tell me/fix it if there's a better way
+		var/turf/T = get_step(checkjump, L.dir)
+		if(locate(/obj/structure/table) in T) // If there's a table, trip
+			hoppingtable = TRUE
+			umpdistancemoved = i
+			break
+		if(!checkjump.Adjacent(T)) // Check for things other than tables that would block flight
+			break
+		checkjump = get_step(checkjump, L.dir)
 
 	if (L.throw_at(target, jumpdistancemoved, jumpspeed, spin = FALSE, diagonals_first = TRUE, force = MOVE_FORCE_WEAK))
 		playsound(L, 'sound/creatures/bee.ogg', 50, 1, 1)
