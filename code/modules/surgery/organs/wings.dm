@@ -177,7 +177,7 @@
 		var/turf/T = get_step(checkjump, L.dir)
 		if(locate(/obj/structure/table) in T) // If there's a table, trip
 			hoppingtable = TRUE
-			umpdistancemoved = i
+			jumpdistancemoved = i
 			break
 		if(!checkjump.Adjacent(T)) // Check for things other than tables that would block flight
 			break
