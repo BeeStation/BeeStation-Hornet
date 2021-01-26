@@ -532,14 +532,11 @@
 
 /mob/living/simple_animal/hostile/psycho/muzzle/Life()
 	..()
-	if(Aggro())
+	if(Aggro() || stat)
 		return
-	else
-		if(stat)
-			return
-		if(prob(20))
-			var/chosen_sound = pick(idle_sounds)
-			playsound(src, chosen_sound, 50, TRUE)
+	if(prob(20))
+		var/chosen_sound = pick(idle_sounds)
+		playsound(src, chosen_sound, 50, TRUE)
 
 /mob/living/simple_animal/hostile/psycho/trap
 	desc = "This one has a strange device on his head."
