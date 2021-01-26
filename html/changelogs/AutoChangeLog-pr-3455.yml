@@ -1,0 +1,7 @@
+author: nemvar
+delete-after: true
+changes:
+  - rscadd: something something lube... HONK
+  - rscadd: Added a new loot item to the lavaland clown ruin.
+  - rscdel: Removed the slime core from said ruin.
+  - tweak: The lavaland clown ruin has some new pranks ready.
