@@ -1175,7 +1175,7 @@
 	//Check to make sure legs are working
 	var/obj/item/bodypart/left_leg = get_bodypart(BODY_ZONE_L_LEG)
 	var/obj/item/bodypart/right_leg = get_bodypart(BODY_ZONE_R_LEG)
-	if(left_leg.disabled || right_leg.disabled)
+	if(!left_leg || !right_leg || left_leg.disabled || right_leg.disabled)
 		return ..()
 	//Nailed it!
 	visible_message("<span class='notice'>[src] lands elegantly on [p_their()] feet!</span>",
