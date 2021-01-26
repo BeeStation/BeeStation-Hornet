@@ -17,5 +17,5 @@
 	heavyfootstep = FOOTSTEP_WATER
 
 /turf/open/water/air
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	planetary_atmos = FALSE
