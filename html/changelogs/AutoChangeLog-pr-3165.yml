@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Names are now coloured in chat.
-  - rscadd: Added in a TGchat button to disable coloured names.

@@ -1,6 +1,6 @@
 //nutrition
 /datum/mood_event/fat
-	description = "<span class='warning'><B>I'm so fat...</B></span>\n" //muh fatshaming
+	description = "<span class='warning'><B>I'm so fat.</B></span>\n" //muh fatshaming
 	mood_change = -6
 
 /datum/mood_event/wellfed
@@ -38,15 +38,15 @@
 	mood_change = -4
 
 /datum/mood_event/verygross
-	description = "<span class='warning'>I think I'm going to puke...</span>\n"
+	description = "<span class='warning'>I think I'm going to puke.</span>\n"
 	mood_change = -6
 
 /datum/mood_event/disgusted
-	description = "<span class='boldwarning'>Oh god that's disgusting...</span>\n"
+	description = "<span class='boldwarning'>Oh god, that's disgusting.</span>\n"
 	mood_change = -8
 
 /datum/mood_event/disgust/bad_smell
-	description = "<span class='warning'>You smell something horribly decayed inside this room.</span>\n"
+	description = "<span class='warning'>I can smell something horribly decayed inside this room.</span>\n"
 	mood_change = -6
 
 /datum/mood_event/disgust/nauseating_stench

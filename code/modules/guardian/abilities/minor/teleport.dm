@@ -15,7 +15,7 @@
 
 /obj/effect/proc_holder/spell/targeted/guardian/teleport
 	name = "Teleport"
-	desc = "Teleport someone to your recieving pad."
+	desc = "Teleport someone to your receiving pad."
 
 /obj/effect/proc_holder/spell/targeted/guardian/teleport/InterceptClickOn(mob/living/caller, params, atom/movable/A)
 	if(!istype(A))
