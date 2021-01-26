@@ -14713,7 +14713,7 @@
 /turf/open/floor/circuit/red/anim,
 /area/awaymission/factory/factoryduring/down/levelthree)
 "mib" = (
-/obj/item/screwdriver/power,
+/obj/item/screwdriver/caravan,
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
 "miq" = (
@@ -14769,7 +14769,7 @@
 /turf/open/floor/carpet/red,
 /area/awaymission/factory/villageduring/house)
 "mkO" = (
-/obj/item/crowbar/power,
+/obj/item/crowbar/red/caravan,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
@@ -64511,8 +64511,8 @@ cPx
 cPx
 cPx
 cPx
-mkO
 xsu
+mkO
 xsu
 xsu
 xsu
