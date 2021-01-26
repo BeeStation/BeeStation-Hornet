@@ -587,10 +587,7 @@
 "ck" = (
 /obj/machinery/light/floor,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/water{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15";
-	planetary_atmos = 0
-	},
+/turf/open/water/air,
 /area/ruin/space/has_grav/powered/macspace)
 "cl" = (
 /obj/structure/table/wood/fancy/royalblue,

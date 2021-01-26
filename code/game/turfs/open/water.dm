@@ -15,3 +15,7 @@
 	barefootstep = FOOTSTEP_WATER
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
+
+/turf/open/water/air
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	planetary_atmos = 0
