@@ -23,18 +23,18 @@ export const NaniteProgramHub = (props, context) => {
           <Flex.Item>
             <DiskDisplay />
           </Flex.Item>
-          <Flex.Item grow>
-            <Section
-              mt={1}
-              height="100%"
-              title="Programs"
-              buttons={<MenuActions />}>
+          <Flex.Item>
+            <Section mt={1} fill title="Programs" buttons={<MenuActions />}>
               {programs !== null ? (
                 <Flex direction="row">
-                  <Flex.Item mr={1} width="150px">
+                  <Flex.Item mr={1} width="130px">
                     <ProgramLabels />
                   </Flex.Item>
-                  <Flex.Item grow basis={0} overflowY="scroll">
+                  <Flex.Item
+                    grow={1}
+                    basis={0}
+                    height="487px"
+                    overflowY="scroll">
                     <ProgramList />
                   </Flex.Item>
                 </Flex>
@@ -57,6 +57,7 @@ const DiskDisplay = (props, context) => {
 
   return (
     <Section
+      height="110px"
       title="Program Disk"
       overflowY="scroll"
       buttons={
@@ -136,7 +137,6 @@ const ProgramLabels = (props, context) => {
         const tabLabel = category.substring(0, category.length - 8);
         return (
           <Button
-            grow
             mb={1}
             color="grey"
             key={category}
@@ -161,7 +161,7 @@ const ProgramList = (props, context) => {
     programsInCategory.map(program => (
       <Section
         level={2}
-        height="100%"
+        width="100%"
         key={program.id}
         title={program.name}
         buttons={
