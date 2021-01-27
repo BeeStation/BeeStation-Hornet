@@ -53,9 +53,8 @@
 
 /datum/reagent/magic/polymorphine/on_mob_end_metabolize(mob/living/L)
 	..()
-	if(!shapeshiftdata)
-		return
-	shapeshiftdata.restore()
+	if(shapeshiftdata)
+		shapeshiftdata.restore()
 
 /datum/reagent/magic/polymorphine/proc/make_mob(turf/T)
 	return create_random_mob(T, FRIENDLY_SPAWN)
