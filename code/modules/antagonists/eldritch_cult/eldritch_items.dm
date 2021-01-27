@@ -186,19 +186,16 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "crucifix"
-	icon_state = "eye_medalion"
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/neck/crucifix/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
 	if(slot == SLOT_NECK && istype(user))
 		ADD_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
-		user.update_sight()
 
 /obj/item/clothing/neck/crucifix/dropped(mob/user)
 	. = ..()
 	REMOVE_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
-	user.update_sight()
 
 /obj/item/clothing/neck/crucifix/rosary
 	name = "rosary beads"
