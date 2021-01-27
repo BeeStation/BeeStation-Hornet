@@ -794,7 +794,6 @@
 		icon_living = "facboss2"
 		ranged_cooldown_time = 20//less health - faster shooting
 		return
-		return
 	if(health <= 150)
 		if(prob(5) && Aggro())//change to insult the target on low health
 			playsound(get_turf(src), 'sound/voice/beepsky/insult.ogg', 100, 0, 0)
