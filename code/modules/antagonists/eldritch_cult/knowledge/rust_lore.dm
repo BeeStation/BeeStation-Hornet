@@ -86,7 +86,7 @@
 /datum/eldritch_knowledge/rust_blade_upgrade/on_eldritch_blade(target,user,proximity_flag,click_parameters)
 	. = ..()
 	var/mob/living/carbon/carbon_user = user
-		var/mob/living/carbon/carbon_target = target
+	var/mob/living/carbon/carbon_target = target
 	if(istype(carbon_user) && istype(carbon_target))
 		carbon_target.adjustToxLoss((carbon_user.maxHealth - carbon_user.health)/10)
 
