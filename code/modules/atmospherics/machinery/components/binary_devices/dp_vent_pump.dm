@@ -82,7 +82,7 @@
 				air_update_turf()
 
 				var/datum/pipeline/parent1 = parents[1]
-				parent1.update = 1
+				parent1.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 	else //external -> output
 		if(environment.return_pressure() > 0)
@@ -102,7 +102,7 @@
 				air_update_turf()
 
 				var/datum/pipeline/parent2 = parents[2]
-				parent2.update = 1
+				parent2.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 	//Radio remote control
 

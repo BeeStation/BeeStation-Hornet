@@ -22,7 +22,7 @@
 /proc/cmp_keybinding_dsc(datum/keybinding/a, datum/keybinding/b)
 	return cmp_numeric_dsc(a.weight, b.weight)
 
-// Datum cmp with vars is always slower than a specialist cmp proc, use your judgement.
+// Datum cmp with vars is always slower than a specialist cmp proc, use your judgment.
 /proc/cmp_datum_numeric_asc(datum/a, datum/b, variable)
 	return cmp_numeric_asc(a.vars[variable], b.vars[variable])
 

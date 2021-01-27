@@ -121,7 +121,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			speak_emote = list("telepathically cries")
 			desc = "A truly alien creature, it is a mass of unknown organic material, standing by its' owner's side."
 			attack_sound = 'sound/weapons/pierce.ogg'
-	if(!recolorentiresprite) //we want this to proc before stand logs in, so the overlay isnt gone for some reason
+	if(!recolorentiresprite) //we want this to proc before stand logs in, so the overlay isn't gone for some reason
 		cooloverlay = mutable_appearance(icon, theme)
 		add_overlay(cooloverlay)
 

@@ -236,6 +236,7 @@
 #define SLIDE					(1<<1)
 #define GALOSHES_DONT_HELP		(1<<2)
 #define SLIDE_ICE				(1<<3)
+#define SLIP_WHEN_CRAWLING		(1<<4) //clown planet ruin
 
 ///Flags used by the flags parameter of electrocute act.
 ///Makes it so that the shock doesn't take gloves into account.
@@ -251,7 +252,7 @@
 #define INCORPOREAL_MOVE_SHADOW 2 //!  leaves a trail of shadows
 #define INCORPOREAL_MOVE_JAUNT 3 //! is blocked by holy water/salt
 
-//Secbot and ED209 judgement criteria bitflag values
+//Secbot and ED209 judgment criteria bitflag values
 #define JUDGE_EMAGGED		(1<<0)
 #define JUDGE_IDCHECK		(1<<1)
 #define JUDGE_WEAPONCHECK	(1<<2)
