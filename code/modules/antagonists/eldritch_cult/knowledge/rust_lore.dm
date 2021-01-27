@@ -77,7 +77,7 @@
 /datum/eldritch_knowledge/rust_blade_upgrade
 	name = "Toxic blade"
 	gain_text = "Let the blade guide you through the flesh."
-	desc = "Your blade of choice will now add toxin to enemies bloodstream."
+	desc = "Your blade of choice will now transfer your pain as toxic damage."
 	cost = 2
 	next_knowledge = list(/datum/eldritch_knowledge/spell/rust_wave)
 	banned_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/flesh_blade_upgrade)
@@ -118,7 +118,7 @@
 
 /datum/eldritch_knowledge/final/rust_final
 	name = "Rustbringer's Oath"
-	desc = "Bring 3 corpses onto the transmutation rune. After you finish the ritual rust will now automatically spread from the rune. Your healing on rust is also tripled, while you become more resillient overall."
+	desc = "Bring 3 corpses onto the transmutation rune. After you finish the ritual rust will now automatically spread from the rune. Your healing on rust is also tripled, while you become more resillient overall and spaceproof."
 	gain_text = "Champion of rust. Corruptor of steel. Fear the dark for Rustbringer has come!"
 	cost = 3
 	required_atoms = list(/mob/living/carbon/human)
