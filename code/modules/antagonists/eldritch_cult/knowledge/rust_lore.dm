@@ -87,7 +87,7 @@
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/carbon_target = target
-		carbon_target.reagents.add_reagent(/datum/reagent/eldritch, 2)
+		carbon_target.adjustToxLoss((user.maxHealth - user.health)/10)
 
 /datum/eldritch_knowledge/spell/rust_wave
 	name = "Wave of Rust"
@@ -123,11 +123,14 @@
 	cost = 3
 	required_atoms = list(/mob/living/carbon/human)
 	route = PATH_RUST
+	var/list/trait_list = list(TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_RESISTLOWPRESSURE,TRAIT_NODISMEMBER)
 
 /datum/eldritch_knowledge/final/rust_final/on_finished_recipe(mob/living/user, list/atoms, loc)
 	var/mob/living/carbon/human/H = user
 	H.physiology.brute_mod *= 0.5
 	H.physiology.burn_mod *= 0.5
+	for(var/X in trait_list)
+		ADD_TRAIT(user,X,MAGIC_TRAIT)
 	priority_announce("$^@&#*$^@(#&$(@&#^$&#^@# Fear the decay, for Rustbringer [user.real_name] has come! $^@&#*$^@(#&$(@&#^$&#^@#","#$^@&#*$^@(#&$(@&#^$&#^@#", 'sound/ai/spanomalies.ogg')
 	new /datum/rust_spread(loc)
 	return ..()
@@ -138,11 +141,12 @@
 	if(!finished)
 		return
 	var/mob/living/carbon/human/human_user = user
-	human_user.adjustBruteLoss(-3, FALSE)
-	human_user.adjustFireLoss(-3, FALSE)
-	human_user.adjustToxLoss(-3, FALSE)
-	human_user.adjustOxyLoss(-1, FALSE)
-	human_user.adjustStaminaLoss(-10)
+	human_user.adjustBruteLoss(-4, FALSE)
+	human_user.adjustFireLoss(-4, FALSE)
+	human_user.adjustToxLoss(-4, FALSE)
+	human_user.adjustOxyLoss(-2, FALSE)
+	human_user.adjustStaminaLoss(-20)
+	human_user.AdjustAllImmobility(-10)
 
 
 /**
