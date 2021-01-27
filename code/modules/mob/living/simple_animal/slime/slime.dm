@@ -553,6 +553,12 @@
 	remove_form_spawner_menu()
 	. = ..()
 
+/mob/living/simple_animal/slime/ghostize(can_reenter_corpse = TRUE)
+	. = ..()
+	if(. && transformeffects & SLIME_EFFECT_LIGHT_PINK)
+		LAZYADD(GLOB.mob_spawners["[S.master.real_name]'s slime"], src)
+	GLOB.poi_list += src
+
 /mob/living/simple_animal/slime/proc/remove_form_spawner_menu()
 	for(var/spawner in GLOB.mob_spawners)
 		LAZYREMOVE(GLOB.mob_spawners[spawner], src)
