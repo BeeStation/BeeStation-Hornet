@@ -36,7 +36,7 @@
 	gain_text = "All men wise know not to touch the bound king."
 	cost = 1
 	spell_to_add = /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
-	next_knowledge = list(/datum/eldritch_knowledge/rust_blade_upgrade,/datum/eldritch_knowledge/curse/corrosion,/datum/eldritch_knowledge/spell/blood_siphon)
+	next_knowledge = list(/datum/eldritch_knowledge/rust_blade_upgrade,/datum/eldritch_knowledge/crucible,/datum/eldritch_knowledge/spell/blood_siphon)
 	route = PATH_RUST
 
 /datum/eldritch_knowledge/rust_regen
