@@ -63,7 +63,7 @@
 /obj/item/soulstone/Exited(mob/living/simple_animal/shade/S, atom/newLoc)
 	..()
 	if(istype(S))
-		// Things that *really should always* happen when shade comes out go here.
+		// Things that *really should always* happen to the shade when it comes out should go here.
 		S.status_flags &= ~GODMODE
 		S.mobility_flags = MOBILITY_FLAGS_DEFAULT
 		S.cancel_camera()
@@ -119,7 +119,7 @@
 	for(var/mob/living/simple_animal/shade/A in src)
 		A.forceMove(get_turf(user))
 		if(purified)
-			icon_state = "purified_soulstone"			
+			icon_state = "purified_soulstone"
 		else
 			icon_state = "soulstone"
 		name = initial(name)
