@@ -175,13 +175,15 @@
 
 	for(var/i in 1 to jumpdistance) //This is how hiero club find the tiles in front of it, tell me/fix it if there's a better way
 		var/turf/T = get_step(checkjump, L.dir)
+		if(!T.ClickCross(invertDir(L.dir)))
+			break
+		if(T.density)
+			break
 		if(locate(/obj/structure/table) in T) // If there's a table, trip
 			hoppingtable = TRUE
 			jumpdistancemoved = i
 			break
-		if(T.density)
-			break
-		if(!checkjump.Adjacent(T)) // Check for things other than tables that would block flight
+		if(!T.ClickCross(invertDir(L.dir)) || !checkjump.ClickCross(L.dir)) // Check for things other than tables that would block flight
 			break
 		checkjump = get_step(checkjump, L.dir)
 
