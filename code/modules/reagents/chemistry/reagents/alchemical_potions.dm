@@ -262,9 +262,7 @@
 		qdel(O)
 
 /datum/reagent/magic/midas/reaction_turf(turf/T, reac_volume)
-	if (!istype(T))
-		return
-	if (reac_volume<MAGIC_REAGENT_TOUCH)
+	if (!istype(T) || reac_volume < MAGIC_REAGENT_TOUCH)
 		return
 	if(isclosedturf(T) && !isindestructiblewall(T))
 		T.ChangeTurf(/turf/closed/wall/mineral/gold, flags = CHANGETURF_INHERIT_AIR)
