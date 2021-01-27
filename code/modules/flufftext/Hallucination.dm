@@ -518,7 +518,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	feedback_details += "Type: [kind]"
 	var/list/nearby
 	if(skip_nearby)
-		nearby = get_hearers_in_view(7, target)
+		nearby = hearers(7, target)
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 		if(H == target)
 			continue

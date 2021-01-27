@@ -457,6 +457,13 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	features["ipc_chassis"]	 = sanitize_inlist(features["ipc_chassis"], GLOB.ipc_chassis_list)
 	features["insect_type"]	 = sanitize_inlist(features["insect_type"], GLOB.insect_type_list)
 
+	//Validate species forced mutant parts
+	for(var/forced_part in pref_species.forced_features)
+		//Get the forced type
+		var/forced_type = pref_species.forced_features[forced_part]
+		//Apply the forced bodypart.
+		features[forced_part] = forced_type
+
 	joblessrole	= sanitize_integer(joblessrole, 1, 3, initial(joblessrole))
 	//Validate job prefs
 	for(var/j in job_preferences)

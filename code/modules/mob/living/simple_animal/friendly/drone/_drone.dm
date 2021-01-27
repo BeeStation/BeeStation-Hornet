@@ -194,7 +194,7 @@
 	. += "*---------*</span>"
 
 
-/mob/living/simple_animal/drone/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null) //Secbots won't hunt maintenance drones.
+/mob/living/simple_animal/drone/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null) //Secbots won't hunt maintenance drones.
 	return -10
 
 
@@ -249,9 +249,9 @@
 		return ..()
 
 /mob/living/simple_animal/drone/mob_negates_gravity()
-	return 1
+	return !isspaceturf(get_turf(src)) //We don't mimick gravity on space turfs
 
-/mob/living/simple_animal/drone/mob_has_gravity()
+/mob/living/simple_animal/drone/has_gravity(turf/T)
 	return ..() || mob_negates_gravity()
 
 /mob/living/simple_animal/drone/experience_pressure_difference(pressure_difference, direction)

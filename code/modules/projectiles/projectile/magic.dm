@@ -375,14 +375,9 @@
 	icon_state = "locker"
 	nodamage = TRUE
 	flag = "magic"
-	var/weld = TRUE
 	var/created = FALSE //prevents creation of more then one locker if it has multiple hits
 	var/locker_suck = TRUE
-	var/obj/structure/closet/locker_temp_instance = /obj/structure/closet/decay
 
-/obj/item/projectile/magic/locker/Initialize()
-	. = ..()
-	locker_temp_instance = new(src)
 
 /obj/item/projectile/magic/locker/prehit(atom/A)
 	if(isliving(A) && locker_suck)
@@ -391,7 +386,7 @@
 			M.visible_message("<span class='warning'>[src] vanishes on contact with [A]!</span>")
 			qdel(src)
 			return
-		if(!locker_temp_instance.insertion_allowed(M))
+		if(M.incorporeal_move || M.mob_size > MOB_SIZE_HUMAN || LAZYLEN(contents)>=5)
 			return ..()
 		M.forceMove(src)
 		return FALSE
@@ -400,11 +395,11 @@
 /obj/item/projectile/magic/locker/on_hit(target)
 	if(created)
 		return ..()
-	var/obj/structure/closet/C = new locker_temp_instance(get_turf(src))
+	var/obj/structure/closet/decay/C = new(get_turf(src))
 	if(LAZYLEN(contents))
 		for(var/atom/movable/AM in contents)
-			C.insert(AM)
-		C.welded = weld
+			AM.forceMove(C)
+		C.welded = TRUE
 		C.update_icon()
 	created = TRUE
 	return ..()
@@ -418,21 +413,21 @@
 /obj/structure/closet/decay
 	breakout_time = 600
 	icon_welded = null
+	material_drop_amount = 0
 	var/magic_icon = "cursed"
 	var/weakened_icon = "decursed"
-	var/auto_destroy = TRUE
 
 /obj/structure/closet/decay/Initialize()
 	. = ..()
-	if(auto_destroy)
-		addtimer(CALLBACK(src, .proc/bust_open), 5 MINUTES)
-	addtimer(CALLBACK(src, .proc/magicly_lock), 5)
+	addtimer(CALLBACK(src, .proc/locker_magic_timer), 5)
 
-/obj/structure/closet/decay/proc/magicly_lock()
-	if(!welded)
-		return
-	icon_state = magic_icon
-	update_icon()
+/obj/structure/closet/decay/proc/locker_magic_timer()
+	if(welded)
+		addtimer(CALLBACK(src, .proc/bust_open), 5 MINUTES)
+		icon_state = magic_icon
+		update_icon()
+	else
+		addtimer(CALLBACK(src, .proc/decay), 15 SECONDS)
 
 /obj/structure/closet/decay/after_weld(weld_state)
 	if(weld_state)
@@ -454,7 +449,6 @@
 	icon_state = weakened_icon
 	update_icon()
 	addtimer(CALLBACK(src, .proc/decay), 15 SECONDS)
-	icon_welded = "welded"
 
 /obj/item/projectile/magic/flying
 	name = "bolt of flying"
