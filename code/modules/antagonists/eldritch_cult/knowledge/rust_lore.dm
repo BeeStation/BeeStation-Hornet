@@ -85,9 +85,10 @@
 
 /datum/eldritch_knowledge/rust_blade_upgrade/on_eldritch_blade(target,user,proximity_flag,click_parameters)
 	. = ..()
-	if(iscarbon(target))
+	var/mob/living/carbon/carbon_user = user
 		var/mob/living/carbon/carbon_target = target
-		carbon_target.adjustToxLoss((user.maxHealth - user.health)/10)
+	if(istype(carbon_user) && istype(carbon_target))
+		carbon_target.adjustToxLoss((carbon_user.maxHealth - carbon_user.health)/10)
 
 /datum/eldritch_knowledge/spell/rust_wave
 	name = "Wave of Rust"
