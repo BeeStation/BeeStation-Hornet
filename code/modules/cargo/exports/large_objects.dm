@@ -137,14 +137,32 @@
 	cost = 10 //Base cost of canister. You get more for nice gases inside.
 	unit_name = "Gas Canister"
 	export_types = list(/obj/machinery/portable_atmospherics/canister)
+	k_elasticity = 0.00033
+
 /datum/export/large/gas_canister/get_cost(obj/O)
 	var/obj/machinery/portable_atmospherics/canister/C = O
 	var/worth = 10
+	var/canister_mix = C.air_contents.gases
+	var/list/gases_to_check = list(/datum/gas/bz,
+								/datum/gas/stimulum,
+								/datum/gas/hypernoblium,
+								/datum/gas/miasma,
+								/datum/gas/tritium,
+								/datum/gas/pluoxium
+								)
 
-	worth += C.air_contents.get_moles(/datum/gas/bz)*4
-	worth += C.air_contents.get_moles(/datum/gas/stimulum)*100
-	worth += C.air_contents.get_moles(/datum/gas/hypernoblium)*1000
-	worth += C.air_contents.get_moles(/datum/gas/miasma)*10
-	worth += C.air_contents.get_moles(/datum/gas/tritium)*5
-	worth += C.air_contents.get_moles(/datum/gas/pluoxium)*5
+	var/list/gas_prices = list(/datum/gas/bz = 4,
+							/datum/gas/stimulum = 100,
+							/datum/gas/hypernoblium = 1000,
+							/datum/gas/miasma = 10,
+							/datum/gas/tritium = 5,
+							/datum/gas/pluoxium = 5
+							)
+
+	for(var/gasID in gases_to_check)
+		C.air_contents.assert_gas(gasID)
+		if(canister_mix[gasID][MOLES] > 0)
+			worth += round((gas_prices[gasID]/k_elasticity) * (1 - NUM_E**(-1 * k_elasticity * canister_mix[gasID][MOLES])))
+
+	C.air_contents.garbage_collect()
 	return worth
