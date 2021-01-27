@@ -473,9 +473,7 @@
 			M.emote("scream")
 
 /obj/item/twohanded/shockpaddles/proc/do_disarm(mob/living/M, mob/living/user)
-	if(req_defib && defib.safety)
-		return
-	if(!req_defib && !combat)
+	if(!combat)
 		return
 	busy = TRUE
 	M.visible_message("<span class='danger'>[user] has touched [M] with [src]!</span>", \
