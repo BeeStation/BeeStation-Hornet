@@ -142,7 +142,6 @@
 /datum/export/large/gas_canister/get_cost(obj/O)
 	var/obj/machinery/portable_atmospherics/canister/C = O
 	var/worth = 10
-	var/canister_mix = C.air_contents.gases
 	var/list/gases_to_check = list(/datum/gas/bz,
 								/datum/gas/stimulum,
 								/datum/gas/hypernoblium,
@@ -160,9 +159,7 @@
 							)
 
 	for(var/gasID in gases_to_check)
-		C.air_contents.assert_gas(gasID)
-		if(canister_mix[gasID][MOLES] > 0)
-			worth += round((gas_prices[gasID]/k_elasticity) * (1 - NUM_E**(-1 * k_elasticity * canister_mix[gasID][MOLES])))
+		if(C.air_contents.get_moles(gasID) > 0)
+			worth += round((gas_prices[gasID]/k_elasticity) * (1 - NUM_E**(-1 * k_elasticity * C.air_contents.get_moles(gasID))))
 
-	C.air_contents.garbage_collect()
 	return worth
