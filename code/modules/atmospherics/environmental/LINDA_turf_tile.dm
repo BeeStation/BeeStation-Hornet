@@ -185,7 +185,7 @@
 
 /turf/proc/handle_decompression_floor_rip()
 /turf/open/floor/handle_decompression_floor_rip(sum)
-	if(sum > 20 && prob(CLAMP(sum / 10, 0, 30)))
+	if(sum > 20 && prob(CLAMP(sum / 20, 0, 15)))
 		remove_tile()
 
 /turf/open/process_cell(fire_count)
