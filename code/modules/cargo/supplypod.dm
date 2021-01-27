@@ -47,7 +47,7 @@
 /obj/structure/closet/supplypod/bluespacepod
 	style = STYLE_BLUESPACE
 	bluespace = TRUE
-	explosionSize = list(0,0,1,2)
+	explosionSize = list(0,0,0,0)
 	landingDelay = 15 //Slightly quicker than the supplypod
 
 /obj/structure/closet/supplypod/extractionpod
