@@ -172,8 +172,7 @@
 	
 /obj/effect/broken_illusion/proc/dissipate()
 	animate(src,alpha = 0,time = 2 MINUTES)
-	sleep(2 MINUTES)
-	qdel(src)
+	QDEL_IN(src, 2 MINUTES)
 
 /obj/effect/broken_illusion/attack_hand(mob/living/user)
 	if(!ishuman(user))
