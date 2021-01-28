@@ -4,7 +4,7 @@
 	default_color = "00FF90"
 	say_mod = "says"
 	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,TRAIT_EASYDISMEMBER)
-	inherent_traits = list(TRAIT_TOXINLOVER,TRAIT_NOFIRE)
+	inherent_traits = list(TRAIT_TOXINLOVER,TRAIT_NOFIRE,TRAIT_ALWAYS_CLEAN)
 	hair_color = "mutcolor"
 	hair_alpha = 150
 	mutantlungs = /obj/item/organ/lungs/oozeling
@@ -50,7 +50,11 @@
 		H.adjustBruteLoss(5)
 		to_chat(H, "<span class='danger'>You feel empty!</span>")
 	if(H.nutrition >= NUTRITION_LEVEL_WELL_FED && H.blood_volume <= 672)
-		H.blood_volume += 1
+		if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
+			H.adjust_nutrition(-5)
+			H.blood_volume += 10
+		else
+			H.blood_volume += 8
 	if(H.nutrition <= NUTRITION_LEVEL_HUNGRY)
 		if(H.nutrition <= NUTRITION_LEVEL_STARVING)
 			H.blood_volume -= 8
