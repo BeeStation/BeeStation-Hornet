@@ -57,10 +57,7 @@
 	living_user.adjustFireLoss(-2, FALSE)
 	living_user.adjustOxyLoss(-0.5, FALSE)
 	living_user.adjustStaminaLoss(-2)
-	if(isoozeling(living_user))
-		living_user.adjustToxLoss(2)
-	else
-		living_user.adjustToxLoss(-2, FALSE)
+	living_user.adjustToxLoss(-2, FALSE, TRUE)
 
 /datum/eldritch_knowledge/rust_mark
 	name = "Mark of Rust"
