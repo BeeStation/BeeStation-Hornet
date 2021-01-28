@@ -585,17 +585,13 @@ SUBSYSTEM_DEF(ticker)
 			addtimer(CALLBACK(player, /mob/dead/new_player.proc/make_me_an_observer), 1)
 
 /datum/controller/subsystem/ticker/proc/load_mode()
-	var/mode = trim(rustg_file_read("data/mode.txt"))
+	var/mode = CONFIG_GET(string/master_mode)
 	if(mode)
 		GLOB.master_mode = mode
 	else
 		GLOB.master_mode = "extended"
-	log_game("Saved mode is '[GLOB.master_mode]'")
-
-/datum/controller/subsystem/ticker/proc/save_mode(the_mode)
-	var/F = file("data/mode.txt")
-	fdel(F)
-	WRITE_FILE(F, the_mode)
+	log_game("Master mode is '[GLOB.master_mode]'")
+	log_config("Master mode is '[GLOB.master_mode]'")
 
 /datum/controller/subsystem/ticker/proc/SetRoundEndSound(the_sound)
 	set waitfor = FALSE

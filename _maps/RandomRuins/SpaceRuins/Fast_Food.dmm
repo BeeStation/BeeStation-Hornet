@@ -587,7 +587,7 @@
 "ck" = (
 /obj/machinery/light/floor,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/water,
+/turf/open/water/air,
 /area/ruin/space/has_grav/powered/macspace)
 "cl" = (
 /obj/structure/table/wood/fancy/royalblue,
