@@ -126,7 +126,7 @@
 
 /datum/crafting_recipe/beergogglesremoval
 	name = "Beer Goggles removal"
-	result = /obj/item/clothing/glasses/sunglasses
+	result = /obj/item/clothing/glasses/sunglasses/advanced
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/sunglasses/advanced/reagent = 1)
