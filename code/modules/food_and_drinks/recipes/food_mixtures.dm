@@ -47,8 +47,8 @@
 
 /datum/chemical_reaction/hot_cocoa
 	name = "Hot Cocoa"
-	id = /datum/reagent/consumable/hot_cocoa
-	results = list(/datum/reagent/consumable/hot_cocoa = 5)
+	id = /datum/reagent/consumable/cocoa/hot_cocoa
+	results = list(/datum/reagent/consumable/cocoa/hot_cocoa = 5)
 	required_reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/cocoa = 1)
 
 /datum/chemical_reaction/coffee
