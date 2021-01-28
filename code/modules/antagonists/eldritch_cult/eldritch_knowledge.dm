@@ -140,7 +140,6 @@
 /datum/eldritch_knowledge/curse
 	var/timer = 5 MINUTES
 	var/list/fingerprints = list()
-	var/list/dna = list()
 
 /datum/eldritch_knowledge/curse/recipe_snowflake_check(list/atoms, loc)
 	fingerprints = list()
