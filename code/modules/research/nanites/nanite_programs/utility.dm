@@ -238,7 +238,7 @@
 		return
 	spread_cooldown = world.time + 50
 	var/list/mob/living/target_hosts = list()
-	for(var/mob/living/L in oview(5, host_mob))
+	for(var/mob/living/L in ohearers(5, host_mob))
 		if(!prob(25))
 			continue
 		if(!(MOB_ORGANIC in L.mob_biotypes) && !(MOB_UNDEAD in L.mob_biotypes))

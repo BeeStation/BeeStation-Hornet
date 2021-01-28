@@ -43,10 +43,10 @@
 			if((movement_target) && !isturf(movement_target.loc))
 				movement_target = null
 				stop_automated_movement = 0
-			if(!movement_target || !(movement_target.loc in oview(src, 5)))
+			if(!movement_target || !(movement_target.loc in oview(5, src)))
 				movement_target = null
 				stop_automated_movement = 0
-				for(var/obj/item/reagent_containers/food/snacks/S in oview(src,5)) //can smell things up to 5 blocks radius
+				for(var/obj/item/reagent_containers/food/snacks/S in oview(5, src)) //can smell things up to 5 blocks radius
 					if(isturf(S.loc))
 						movement_target = S
 						break
@@ -82,7 +82,7 @@
 
 			else //if we don't see a better snack, lick up nearby blood
 				var/obj/effect/decal/cleanable/blood/B
-				for(var/obj/effect/decal/cleanable/blood/O in oview(src,2))
+				for(var/obj/effect/decal/cleanable/blood/O in oview(2, src))
 					if (!istype(O, /obj/effect/decal/cleanable/blood/gibs) && !istype(O, /obj/effect/decal/cleanable/blood/innards)) //dont lick up gibs or innards
 						B = O
 						break

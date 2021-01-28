@@ -224,10 +224,10 @@
 			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
 				movement_target = null
 				stop_automated_movement = 0
-			if( !movement_target || !(movement_target.loc in oview(src, 3)) )
+			if( !movement_target || !(movement_target.loc in oview(3, src)) )
 				movement_target = null
 				stop_automated_movement = 0
-				for(var/mob/living/simple_animal/mouse/snack in oview(src,3))
+				for(var/mob/living/simple_animal/mouse/snack in oview(3, src))
 					if(isturf(snack.loc) && !snack.stat)
 						movement_target = snack
 						break

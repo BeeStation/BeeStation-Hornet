@@ -102,7 +102,7 @@
 				for(var/mob/living/L in oview(grasp_range, src))
 					if(faction_check_mob(L) || (L in grasping) || L == target)
 						continue
-					for(var/turf/T in getline(src,L))
+					for(var/turf/T as() in getline(src,L))
 						if (T.density)
 							continue grasping
 						for(var/obj/O in T)

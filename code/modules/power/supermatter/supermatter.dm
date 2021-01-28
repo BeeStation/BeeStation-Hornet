@@ -816,7 +816,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/list/arctargetsstructure = list()
 
 	if(prob(20)) //let's not hit all the engineers with every beam and/or segment of the arc
-		for(var/mob/living/Z in oview(zapstart, range+2))
+		for(var/mob/living/Z in ohearers(range+2, zapstart))
 			arctargetsmob += Z
 	if(arctargetsmob.len)
 		var/mob/living/H = pick(arctargetsmob)
@@ -825,7 +825,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		target_atom = A
 
 	else
-		for(var/obj/machinery/X in oview(zapstart, range+2))
+		for(var/obj/machinery/X in oview(range+2, zapstart))
 			arctargetsmachine += X
 		if(arctargetsmachine.len)
 			var/obj/machinery/M = pick(arctargetsmachine)
@@ -834,7 +834,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			target_atom = A
 
 		else
-			for(var/obj/structure/Y in oview(zapstart, range+2))
+			for(var/obj/structure/Y in oview(range+2, zapstart))
 				arctargetsstructure += Y
 			if(arctargetsstructure.len)
 				var/obj/structure/O = pick(arctargetsstructure)

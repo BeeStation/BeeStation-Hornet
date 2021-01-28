@@ -721,7 +721,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	var/list/mobpool = list()
 	var/mob/living/carbon/human/other
 	var/close_other = FALSE
-	for(var/mob/living/carbon/human/H in oview(target, 7))
+	for(var/mob/living/carbon/human/H in oview(7, target))
 		if(get_dist(H, target) <= 1)
 			other = H
 			close_other = TRUE
