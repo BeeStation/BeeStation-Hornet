@@ -216,7 +216,7 @@
 /obj/singularity/narsie/wizard/eat()
 //	if(defer_powernet_rebuild != 2)
 //		defer_powernet_rebuild = 1
-	for(var/atom/X in urange(consume_range,src,1))
+	for(var/atom/X as() in urange(consume_range,src,1))
 		if(isturf(X) || ismovableatom(X))
 			consume(X)
 //	if(defer_powernet_rebuild != 2)
