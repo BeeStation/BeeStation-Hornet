@@ -46,6 +46,8 @@
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ops.ogg',100,0)
 	to_chat(owner, "<span class='notice'>You are a [nuke_team ? nuke_team.syndicate_name : "syndicate"] agent!</span>")
 	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Nuclear Operative",
+		"Destroy the station with a nuclear device.")
 
 /datum/antagonist/nukeop/on_gain()
 	give_alias()
@@ -194,7 +196,8 @@
 	to_chat(owner, "<B>In your hand you will find a special item capable of triggering a greater challenge for your team. Examine it carefully and consult with your fellow operatives before activating it.</B>")
 	owner.announce_objectives()
 	addtimer(CALLBACK(src, .proc/nuketeam_name_assign), 1)
-
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Nuclear Operative Team Leader",
+		"Destroy the station with a nuclear explosive by leading your team.")
 
 /datum/antagonist/nukeop/leader/proc/nuketeam_name_assign()
 	if(!nuke_team)
@@ -241,7 +244,7 @@
 			else //Already set by admins/something else?
 				nuke_team.memorized_code = nuke.r_code
 		else
-			stack_trace("Station self destruct not found during lone op team creation.")
+			stack_trace("Station self-destruct not found during lone op team creation.")
 			nuke_team.memorized_code = null
 
 /datum/antagonist/nukeop/reinforcement
