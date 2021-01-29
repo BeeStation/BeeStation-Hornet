@@ -189,6 +189,9 @@
 		new floor_tile(src)
 		make_plating()
 
+/turf/open/floor/plating/handle_decompression_floor_rip()
+	return
+
 /turf/open/floor/engine/handle_decompression_floor_rip()
 	return
 
