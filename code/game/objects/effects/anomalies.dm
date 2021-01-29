@@ -92,7 +92,7 @@
 	for(var/obj/O in orange(4, src))
 		if(!O.anchored)
 			step_towards(O,src)
-	for(var/mob/living/M in ohearers(0, src))
+	for(var/mob/living/M in get_turf(src))
 		gravShock(M)
 	for(var/mob/living/M in orange(4, get_turf(src)))
 		if(!M.mob_negates_gravity())
@@ -146,7 +146,7 @@
 /obj/effect/anomaly/flux/anomalyEffect()
 	..()
 	canshock = 1
-	for(var/mob/living/M in hearers(0, src))
+	for(var/mob/living/M in get_turf(src))
 		mobShock(M)
 
 /obj/effect/anomaly/flux/Crossed(mob/living/M)

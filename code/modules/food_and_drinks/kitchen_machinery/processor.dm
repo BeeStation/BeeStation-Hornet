@@ -177,9 +177,7 @@
 	if(processing)
 		return
 	var/mob/living/simple_animal/slime/picked_slime
-	for(var/mob/living/simple_animal/slime/slime in hearers(1,src))
-		if(slime.loc == src)
-			continue
+	for(var/mob/living/simple_animal/slime/slime in ohearers(1,get_turf(src)))
 		if(istype(slime, /mob/living/simple_animal/slime))
 			if(slime.stat)
 				picked_slime = slime

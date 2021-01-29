@@ -20,7 +20,7 @@
 	for(var/obj/item/organ/I in organs)
 		I.Remove(user, 1)
 
-	for(var/mob/A as() in hearers(2,user))
+	for(var/mob/living/A in hearers(2,user))
 		if(ishuman(A))
 			var/mob/living/carbon/human/H = A
 			var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
