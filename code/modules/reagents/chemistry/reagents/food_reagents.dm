@@ -359,6 +359,7 @@
 /datum/reagent/consumable/cocoa/hot_cocoa
 	name = "Hot Chocolate"
 	description = "Made with love! And cocoa beans."
+	reagent_state = LIQUID
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	color = "#403010" // rgb: 64, 48, 16
 	taste_description = "creamy chocolate"
