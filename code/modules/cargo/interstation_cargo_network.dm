@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(icn_exports)
 			payment_account = temp_acc
 	else if(acc_type == "Department")
 		var/choice = input(user, "Select a department account","Account ID") as null|anything in SSeconomy.department_ids
-		if(SSeconomy.department_accounts[choice])
+		if(SSeconomy.department_accounts[choice]) //TODO: Fix this
 			payment_account = choice
 
 	to_chat(user, "<span class='notice'>Tag info updated! Price: [price]. Account ID: [account_name()]</span>")

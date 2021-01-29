@@ -17,14 +17,18 @@
 		else
 			.[keyword] = WT
 
-// DATUM
+// How the topic formats the return
+#define ENCODE_PARAMS "params"
+#define ENCODE_JSON "json"
 
+// DATUM
 /datum/world_topic
 	var/keyword
 	var/log = TRUE
 	var/key_valid
 	var/require_comms_key = FALSE
 	var/permit_insecure = FALSE
+	var/encoding = ENCODE_PARAMS
 
 /datum/world_topic/proc/TryRun(list/input, addr)
 	key_valid = config && (CONFIG_GET(string/comms_key) == input["key"])
@@ -42,7 +46,12 @@
 	input -= "key"
 	. = Run(input, addr)
 	if(islist(.))
-		. = list2params(.)
+		.["encoding"] = encoding
+		switch(encoding)
+			if(ENCODE_PARAMS)
+				. = list2params(.)
+			if(ENCODE_JSON)
+				. = json_encode(.)
 
 /datum/world_topic/proc/Run(list/input, addr)
 	CRASH("Run() not implemented for [type]!")
@@ -228,6 +237,7 @@
 
 /datum/world_topic/cross_cargo
 	keyword = "cross_cargo"
+	encoding = ENCODE_JSON
 
 /datum/world_topic/cross_cargo/Run(list/input, addr)
 	. = list()
@@ -287,3 +297,6 @@
 			signal.send_to_receivers()
 
 	qdel(order)
+
+#undef ENCODE_PARAMS
+#undef ENCODE_JSON
