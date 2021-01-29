@@ -250,8 +250,8 @@
 	linked_action = new(src)
 
 /obj/item/melee/rune_knife/Destroy()
-	. = ..()
 	QDEL_NULL(linked_action)
+	return ..()
 
 /obj/item/melee/rune_knife/pickup(mob/user)
 	. = ..()
