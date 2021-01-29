@@ -57,9 +57,10 @@
 	var/mob/living/living_user = user
 	living_user.adjustBruteLoss(-2, FALSE)
 	living_user.adjustFireLoss(-2, FALSE)
+	living_user.adjustToxLoss(-2, FALSE, TRUE)
 	living_user.adjustOxyLoss(-0.5, FALSE)
 	living_user.adjustStaminaLoss(-2)
-	living_user.adjustToxLoss(-2, FALSE, TRUE)
+	living_user.AdjustAllImmobility(-5)
 
 /datum/eldritch_knowledge/rust_mark
 	name = "Mark of Rust"
@@ -127,7 +128,6 @@
 	human_user.adjustToxLoss(-3, FALSE)
 	human_user.adjustOxyLoss(-1, FALSE)
 	human_user.adjustStaminaLoss(-10)
-	living_user.AdjustAllImmobility(-5)
 
 /**
  * #Rust spread datum
