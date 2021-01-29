@@ -450,3 +450,7 @@
 /datum/config_entry/flag/restricted_suicide
 
 /datum/config_entry/flag/dynamic_config_enabled
+
+// Master Mode
+/datum/config_entry/string/master_mode
+	config_entry_value = "extended"
