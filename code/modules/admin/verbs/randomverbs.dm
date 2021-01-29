@@ -795,7 +795,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(notifyplayers == "Yes")
 		to_chat(world, "<span class='adminnotice'>Admin [usr.key] has forced the players to have completely random identities!</span>")
 
-	to_chat(usr, "<i>Remember: you can always disable the randomness by using the verb again, assuming the round hasn't started yet</i>.")
+	to_chat(usr, "<i>Remember: you can always disable the randomness by using the verb again, assuming the round hasn't started yet.</i>.")
 
 	CONFIG_SET(flag/force_random_names, TRUE)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Everyone Random") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -808,10 +808,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/new_are = !CONFIG_GET(flag/allow_random_events)
 	CONFIG_SET(flag/allow_random_events, new_are)
 	if(new_are)
-		to_chat(usr, "Random events enabled")
+		to_chat(usr, "Random events enabled.")
 		message_admins("Admin [key_name_admin(usr)] has enabled random events.")
 	else
-		to_chat(usr, "Random events disabled")
+		to_chat(usr, "Random events disabled.")
 		message_admins("Admin [key_name_admin(usr)] has disabled random events.")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Random Events", "[new_are ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

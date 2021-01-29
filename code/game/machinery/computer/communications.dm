@@ -138,7 +138,7 @@
 					return
 				CM.lastTimeUsed = world.time
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
-				send2otherserver("[station_name()]", input,"Comms_Console")
+				cross_server(input)
 				minor_announce(input, title = "Outgoing message to allied station")
 				usr.log_talk(input, LOG_SAY, tag="message to the other server")
 				message_admins("[ADMIN_LOOKUPFLW(usr)] has sent a message to the other server.")
@@ -472,6 +472,7 @@
 					dat += "<BR><BR><B>Captain Functions</B>"
 					dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=announce'>Make a Captain's Announcement</A> \]"
 					var/cross_servers_count = length(CONFIG_GET(keyed_list/cross_server))
+					cross_servers_count += length(CONFIG_GET(keyed_list/insecure_cross_server))
 					if(cross_servers_count)
 						dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=crossserver'>Send a message to [cross_servers_count == 1 ? "an " : ""]allied station[cross_servers_count > 1 ? "s" : ""]</A> \]"
 					if(SSmapping.config.allow_custom_shuttles)
@@ -747,6 +748,27 @@
 
 /obj/machinery/computer/communications/proc/add_message(datum/comm_message/new_message)
 	messages += new_message
+
+/obj/machinery/computer/communications/proc/cross_server(msg)
+	var/list/message = list()
+	message["message_sender"] = station_name()
+	message["message"] = msg
+	message["source"] = "([CONFIG_GET(string/cross_comms_name)])"
+	message += "Comms_Console"
+
+	var/comms_key = CONFIG_GET(string/comms_key)
+	if(comms_key)
+		message["key"] = comms_key
+		var/list/servers = CONFIG_GET(keyed_list/cross_server)
+		for(var/I in servers)
+			world.Export("[servers[I]]?[list2params(message)]")
+
+	comms_key = CONFIG_GET(string/comms_key_insecure)
+	if(comms_key)
+		message["key"] = comms_key
+		var/list/servers = CONFIG_GET(keyed_list/insecure_cross_server)
+		for(var/I in servers)
+			world.Export("[servers[I]]?[list2params(message)]")
 
 /datum/comm_message
 	var/title

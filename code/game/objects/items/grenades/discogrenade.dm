@@ -1,6 +1,6 @@
 //Ethereal Disco Grenade for Ethereal traitors
 //Does not affect ethereals.
-//Some basic code peices taken from flashbang, spawner grenade and ethereal disco ball for functionality (basically a combination of the 3).
+//Some basic code pieces taken from flashbang, spawner grenade and ethereal disco ball for functionality (basically a combination of the 3).
 
 //////////////////////
 // Primary grenade  //

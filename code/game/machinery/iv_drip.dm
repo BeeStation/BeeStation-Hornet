@@ -162,7 +162,7 @@
 	if(!ishuman(user))
 		return
 	if(attached)
-		visible_message("[attached] is detached from [src]")
+		visible_message("[attached] is detached from \the [src].")
 		attached = null
 		update_icon()
 		return

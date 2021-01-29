@@ -163,7 +163,7 @@
 /datum/eldritch_knowledge/final/ash_final
 	name = "Ashlord's rite"
 	gain_text = "The forgotten lords have spoken! The lord of ash have come! Fear the fire!"
-	desc = "Bring 3 corpses onto a transmutation rune, you will become immune to fire ,space ,cold and other enviromental hazards and become overall sturdier to all other damages. You will gain a spell that passively creates ring of fire around you as well ,as you will gain a powerful abiltiy that let's you create a wave of flames all around you."
+	desc = "Bring 3 corpses onto a transmutation rune, you will become immune to fire ,space ,cold and other environmental hazards and become overall sturdier to all other damages. You will gain a spell that passively creates ring of fire around you as well ,as you will gain a powerful abiltiy that let's you create a wave of flames all around you."
 	required_atoms = list(/mob/living/carbon/human)
 	cost = 3
 	route = PATH_ASH

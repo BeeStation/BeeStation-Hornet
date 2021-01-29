@@ -12,7 +12,7 @@
 	if(!IS_HERETIC(user))
 		return
 	if(!target)
-		to_chat(user,"<span class='warning'>No target could be found. Put the living heart on the rune and use the rune to recieve a target.</span>")
+		to_chat(user,"<span class='warning'>No target could be found. Put the living heart on the rune and use the rune to receive a target.</span>")
 		return
 	var/dist = get_dist(user.loc,target.loc)
 	var/dir = get_dir(user.loc,target.loc)
@@ -74,7 +74,7 @@
 	flags_1 = CONDUCT_1
 	sharpness = IS_SHARP
 	w_class = WEIGHT_CLASS_NORMAL
-	force = 17
+	force = 24
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")

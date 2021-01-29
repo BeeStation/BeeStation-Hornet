@@ -398,13 +398,14 @@ GENE SCANNER
 			else
 				to_chat(user, "<span class='info'>Blood level: [blood_percent] %, [C.blood_volume] cl, type: [blood_type]</span>")
 
-		var/cyberimp_detect
+		var/list/cyberimp_detect = list()
 		for(var/obj/item/organ/cyberimp/CI in C.internal_organs)
 			if(CI.status == ORGAN_ROBOTIC && !CI.syndicate_implant)
-				cyberimp_detect += "[C.name] is modified with a [CI.name].<br>"
-		if(cyberimp_detect)
+				cyberimp_detect += CI.name
+		if(length(cyberimp_detect))
 			to_chat(user, "<span class='notice'>Detected cybernetic modifications:</span>")
-			to_chat(user, "<span class='notice'>[cyberimp_detect]</span>")
+			for(var/name in cyberimp_detect)
+				to_chat(user, "<span class='notice'>[name]</span>")
 	SEND_SIGNAL(M, COMSIG_NANITE_SCAN, user, FALSE)
 
 /proc/chemscan(mob/living/user, mob/living/M)
@@ -968,4 +969,3 @@ GENE SCANNER
 	user.put_in_hands(B)
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 	return TRUE
-

@@ -25,6 +25,7 @@
 	var/ascended = FALSE
 	var/mob/living/oldform
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
+	mobchatspan = "cultmobsay"
 
 /mob/living/carbon/true_devil/Initialize()
 	create_bodyparts() //initialize bodyparts
@@ -102,7 +103,7 @@
 		return FALSE
 	return TRUE
 
-/mob/living/carbon/true_devil/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null)
+/mob/living/carbon/true_devil/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null)
 	return 666
 
 /mob/living/carbon/true_devil/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)

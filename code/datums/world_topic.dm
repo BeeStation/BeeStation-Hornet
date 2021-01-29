@@ -24,11 +24,21 @@
 	var/log = TRUE
 	var/key_valid
 	var/require_comms_key = FALSE
+	var/permit_insecure = FALSE
 
 /datum/world_topic/proc/TryRun(list/input, addr)
 	key_valid = config && (CONFIG_GET(string/comms_key) == input["key"])
+	var/insecure_key = FALSE
+	if(!key_valid && permit_insecure)
+		key_valid = config && (CONFIG_GET(string/comms_key_insecure) == input["key"])
+		insecure_key = key_valid
 	if(require_comms_key && !key_valid)
 		return "Bad Key"
+	if(insecure_key) // ignore the rate limiting if using true comms key
+		var/delta = world.time - GLOB.topic_cooldown
+		if(delta < CONFIG_GET(number/insecure_topic_cooldown))
+			return "Rate Limited"
+		GLOB.topic_cooldown = world.time
 	input -= "key"
 	. = Run(input, addr)
 	if(islist(.))
@@ -84,8 +94,13 @@
 /datum/world_topic/comms_console
 	keyword = "Comms_Console"
 	require_comms_key = TRUE
+	permit_insecure = TRUE
 
 /datum/world_topic/comms_console/Run(list/input, addr)
+	if(CHAT_FILTER_CHECK(input["message"])) // prevents any.. diplomatic incidents
+		minor_announce("In the interest of station productivity and mental hygiene, a message from [input["message_sender"]] was intercepted by the CCC and determined to be unfit for crew-level access.", "CentCom Communications Commission")
+		message_admins("Incomming cross-comms message from [input["message_sender"]] blocked: [input["message"]]")
+		return
 	minor_announce(input["message"], "Incoming message from [input["message_sender"]]")
 	for(var/obj/machinery/computer/communications/CM in GLOB.machines)
 		CM.overrideCooldown()
@@ -210,5 +225,3 @@
 		.["identified_ckey"] = query_ckey_lookup.item[1]
 	qdel(query_ckey_lookup)
 	return .
-
-

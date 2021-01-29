@@ -85,6 +85,9 @@ ALERT_DELTA Destruction of the station is imminent. All crew are instructed to o
 
 ## GAME MODES ###
 
+#Set the Master (Default) Game Mode.
+MASTER_MODE secret
+
 ## Uncomment to not send a roundstart intercept report. Gamemodes may override this.
 NO_INTERCEPT_REPORT
 
@@ -477,6 +480,7 @@ ROUNDSTART_RACES squid
 ## Races that are better than humans in some ways, but worse in others
 ROUNDSTART_RACES ethereal
 ROUNDSTART_RACES apid
+ROUNDSTART_RACES oozeling
 #ROUNDSTART_RACES jelly
 #ROUNDSTART_RACES shadow
 ROUNDSTART_RACES plasmaman
