@@ -567,8 +567,8 @@
 	ADD_TRAIT(owner,TRAIT_IGNOREDAMAGESLOWDOWN,type)
 
 /datum/status_effect/marshal/on_remove()
-	. = ..()
 	REMOVE_TRAIT(owner,TRAIT_IGNOREDAMAGESLOWDOWN,type)
+	return ..()
 
 /datum/status_effect/marshal/tick()
 	. = ..()
