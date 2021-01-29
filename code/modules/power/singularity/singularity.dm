@@ -422,7 +422,7 @@
 			continue
 
 		if(M.stat == CONSCIOUS)
-			if (ishuman(M))
+			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
 				if(istype(H.glasses, /obj/item/clothing/glasses/meson))
 					var/obj/item/clothing/glasses/meson/MS = H.glasses

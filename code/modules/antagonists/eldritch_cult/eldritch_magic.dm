@@ -499,7 +499,7 @@
 		target.mind.transfer_to(outside, TRUE)
 		target.forceMove(outside)
 		target.apply_status_effect(STATUS_EFFECT_STASIS,STASIS_ASCENSION_EFFECT)
-		for(var/mob/living/carbon/human/humie in viewers(9,outside)-target)
+		for(var/mob/living/carbon/human/humie in (viewers(9,outside)-target))
 			if(IS_HERETIC(humie) || IS_HERETIC_MONSTER(humie))
 				continue
 			SEND_SIGNAL(humie, COMSIG_ADD_MOOD_EVENT, "gates_of_mansus", /datum/mood_event/gates_of_mansus)

@@ -105,8 +105,8 @@
 		if (ismob(src.loc))
 			attack_self(src.loc)
 		else
-			for(var/mob/M in viewers(1, src))
-				if (M.client)
+			for(var/mob/M as() in viewers(1, src))
+				if(M.client)
 					src.attack_self(M)
 	return
 

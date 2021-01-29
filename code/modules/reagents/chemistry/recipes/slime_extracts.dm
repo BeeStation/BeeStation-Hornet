@@ -156,7 +156,7 @@
 
 	playsound(T, 'sound/effects/phasein.ogg', 100, 1)
 
-	for(var/mob/living/carbon/C in viewers(T, null))
+	for(var/mob/living/carbon/C in viewers(T))
 		C.flash_act()
 
 	for(var/i in 1 to 4 + rand(1,2))
@@ -376,7 +376,7 @@
 	required_other = TRUE
 
 /datum/chemical_reaction/slime/slimebloodlust/on_reaction(datum/reagents/holder)
-	for(var/mob/living/simple_animal/slime/slime in viewers(get_turf(holder.my_atom), null))
+	for(var/mob/living/simple_animal/slime/slime in viewers(get_turf(holder.my_atom)))
 		if(slime.docile) //Undoes docility, but doesn't make rabid.
 			slime.visible_message("<span class='danger'>[slime] forgets its training, becoming wild once again!</span>")
 			slime.docile = FALSE

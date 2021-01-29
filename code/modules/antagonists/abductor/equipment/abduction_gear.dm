@@ -270,7 +270,7 @@
 	radio_off(target, user)
 
 /obj/item/abductor/silencer/proc/radio_off(atom/target, mob/living/user)
-	if( !(user in (viewers(7,target))) )
+	if(!(user in (viewers(7, target))))
 		return
 
 	var/turf/targloc = get_turf(target)

@@ -221,7 +221,7 @@
 			priority_announce("Massive bluespace translocation detected.", "Anomaly Alert")
 
 			var/list/flashers = list()
-			for(var/mob/living/carbon/C in viewers(TO, null))
+			for(var/mob/living/carbon/C in viewers(TO))
 				if(C.flash_act())
 					flashers += C
 

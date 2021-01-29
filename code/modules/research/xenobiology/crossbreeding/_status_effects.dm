@@ -347,9 +347,8 @@ datum/status_effect/rebreathing/tick()
 		if(C.handcuffed)
 			return
 	var/list/huggables = list()
-	for(var/mob/living/carbon/L in viewers(1, get_turf(owner)))
-		if(L != owner)
-			huggables += L
+	for(var/mob/living/carbon/L in oviewers(1, owner))
+		huggables += L
 	if(length(huggables))
 		var/mob/living/carbon/hugged = pick(huggables)
 		owner.visible_message("<span class='notice'>[owner] hugs [hugged]!</span>", "<span class='notice'>You hug [hugged]!</span>")
@@ -361,9 +360,8 @@ datum/status_effect/rebreathing/tick()
 	duration = 100
 
 /datum/status_effect/tarcookie/tick()
-	for(var/mob/living/carbon/human/L in viewers(1, get_turf(owner)))
-		if(L != owner)
-			L.apply_status_effect(/datum/status_effect/tarfoot)
+	for(var/mob/living/carbon/human/L in oviewers(1, owner))
+		L.apply_status_effect(/datum/status_effect/tarfoot)
 
 /datum/status_effect/tarfoot
 	id = "tarfoot"
@@ -400,7 +398,7 @@ datum/status_effect/rebreathing/tick()
 	duration = 100
 
 /datum/status_effect/peacecookie/tick()
-	for(var/mob/living/L in viewers(1, get_turf(owner)))
+	for(var/mob/living/L in viewers(1, owner))
 		L.apply_status_effect(/datum/status_effect/plur)
 
 /datum/status_effect/plur
@@ -466,7 +464,7 @@ datum/status_effect/rebreathing/tick()
 	colour = "grey"
 
 /datum/status_effect/stabilized/grey/tick()
-	for(var/mob/living/simple_animal/slime/S in viewers(1, get_turf(owner)))
+	for(var/mob/living/simple_animal/slime/S in viewers(1, owner))
 		if(!(owner in S.Friends))
 			to_chat(owner, "<span class='notice'>[linked_extract] pulses gently as it communicates with [S].</span>")
 			S.Friends[owner] = 1
