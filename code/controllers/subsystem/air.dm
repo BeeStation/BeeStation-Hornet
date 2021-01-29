@@ -175,12 +175,13 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/datum/thing = currentrun[currentrun.len]
+		var/datum/pipeline/P = currentrun[currentrun.len]
 		currentrun.len--
-		if(thing)
-			thing.process()
+		if(P)
+			if(P.update)
+				P.update = P.reconcile_air()
 		else
-			networks.Remove(thing)
+			networks.Remove(P)
 		if(MC_TICK_CHECK)
 			return
 

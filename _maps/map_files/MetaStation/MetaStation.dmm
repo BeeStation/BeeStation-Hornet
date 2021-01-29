@@ -28322,7 +28322,6 @@
 /area/quartermaster/office)
 "bbV" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
 /obj/machinery/door/window/westleft{
 	name = "Cargo Desk";
 	req_access_txt = "50"
@@ -28332,6 +28331,12 @@
 	pixel_y = 7
 	},
 /obj/item/pen,
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "bbW" = (
@@ -32547,10 +32552,15 @@
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "bjM" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod Four";
 	req_access_txt = "32"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
@@ -85849,7 +85859,12 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "47"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
 "sGh" = (

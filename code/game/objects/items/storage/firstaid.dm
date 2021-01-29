@@ -399,6 +399,13 @@
 	for(var/i in 1 to 7)
 		new /obj/item/reagent_containers/pill/mannitol(src)
 
+/obj/item/storage/pill_bottle/mannitol/braintumor //For the brain tumor quirk
+	desc = "Generously supplied by your Nanotrasen health insurance to treat that pesky tumor in your brain."
+
+/obj/item/storage/pill_bottle/mannitol/braintumor/PopulateContents()
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/pill/mannitol/braintumor(src)
+
 /obj/item/storage/pill_bottle/stimulant
 	name = "bottle of stimulant pills"
 	desc = "Guaranteed to give you that extra burst of energy during a long shift!"
