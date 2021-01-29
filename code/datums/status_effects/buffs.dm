@@ -576,8 +576,8 @@
 		return
 	var/mob/living/carbon/carbie = owner
 
-	carbie.adjustFireLoss(carbie.getFireLoss()/5)
-	carbie.adjustBruteLoss(carbie.getBruteLoss()/5)
+	carbie.adjustFireLoss(carbie.getFireLoss() * -0.2)
+	carbie.adjustBruteLoss(carbie.getBruteLoss() * -0.2)
 
 /atom/movable/screen/alert/status_effect/crucible_soul
 	name = "Blessing of Crucible Soul"
