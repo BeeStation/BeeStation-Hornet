@@ -268,8 +268,7 @@
 
 ///Action of carving runes, gives you the ability to click on floor and choose a rune of your need.
 /obj/item/melee/rune_knife/proc/carve_rune(atom/target, mob/user, proximity_flag, click_parameters)
-	var/obj/structure/trap/eldritch/elder = locate() in range(1,target)
-	if(elder)
+	if(locate(/obj/structure/trap/eldritch) in range(1, target))
 		to_chat(user,"<span class='notice'>You can't draw runes that close to each other!</span>")
 		return
 
