@@ -1402,10 +1402,8 @@
 /obj/item/integrated_circuit/input/tcomm_interceptor/proc/recalculate_channels()
 	whitelisted_freqs.Cut()
 	whitelisted_freqs.Add(FREQ_COMMON)
-	var/list/weakreffd_ekeys = list()
 	for(var/o in encryption_keys)
 		var/obj/item/encryptionkey/K = o
-		weakreffd_ekeys += WEAKREF(K)
 		for(var/i in K.channels)
 			whitelisted_freqs |= GLOB.radiochannels[i]
 
