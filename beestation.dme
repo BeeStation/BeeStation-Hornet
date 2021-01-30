@@ -1617,6 +1617,7 @@
 #include "code\modules\awaymissions\mission_code\snowdin.dm"
 #include "code\modules\awaymissions\mission_code\spacebattle.dm"
 #include "code\modules\awaymissions\mission_code\stationCollision.dm"
+#include "code\modules\awaymissions\mission_code\TheFactory.dm"
 #include "code\modules\awaymissions\mission_code\undergroundoutpost45.dm"
 #include "code\modules\awaymissions\mission_code\wildwest.dm"
 #include "code\modules\buildmode\bm_mode.dm"
