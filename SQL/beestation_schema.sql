@@ -549,6 +549,7 @@ DELIMITER ;
 -- Dumping structure for table ss13tgdb.SS13_criminal_records
 DROP TABLE IF EXISTS `SS13_criminal_records`;
 CREATE TABLE IF NOT EXISTS `SS13_criminal_records` (
+  `ckey` varchar(32) NOT NULL,
   `crime` varchar(2048) NOT NULL,
   `details` varchar(2048) NOT NULL,
   `author` varchar(32) NOT NULL,
