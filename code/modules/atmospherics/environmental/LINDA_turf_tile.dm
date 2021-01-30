@@ -186,7 +186,8 @@
 /turf/proc/handle_decompression_floor_rip()
 /turf/open/floor/handle_decompression_floor_rip(sum)
 	if(sum > 20 && prob(CLAMP(sum / 20, 0, 15)))
-		new floor_tile(src)
+		if(floor_tile)
+			new floor_tile(src)
 		make_plating()
 
 /turf/open/floor/plating/handle_decompression_floor_rip()
