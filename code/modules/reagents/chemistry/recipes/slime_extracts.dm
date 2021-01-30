@@ -579,7 +579,7 @@
 	new /obj/effect/timestop(T, null, null, null)
 	if(istype(extract))
 		if(extract.Uses > 0)
-			var/mob/lastheld = get_mob_by_key(holder.my_atom.fingerprintslast)
+			var/mob/lastheld = get_mob_by_ckey(holder.my_atom.fingerprintslast)
 			if(lastheld && !lastheld.equip_to_slot_if_possible(extract, ITEM_SLOT_HANDS, disable_warning = TRUE))
 				extract.forceMove(get_turf(lastheld))
 

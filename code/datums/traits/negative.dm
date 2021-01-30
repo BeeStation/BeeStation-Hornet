@@ -65,12 +65,12 @@
 	var/mob/living/carbon/human/H = quirk_holder
 	var/obj/item/storage/pill_bottle/mannitol/braintumor/P = new(get_turf(H))
 
-	var/slot = H.equip_in_one_of_slots(P, list(SLOT_L_STORE, SLOT_R_STORE, SLOT_IN_BACKPACK), FALSE)
+	var/slot = H.equip_in_one_of_slots(P, list(ITEM_SLOT_LPOCKET, ITEM_SLOT_RPOCKET, ITEM_SLOT_BACKPACK), FALSE)
 	if(slot)
 		var/list/slots = list(
-		SLOT_L_STORE = "in your left pocket",
-		SLOT_R_STORE = "in your right pocket",
-		SLOT_IN_BACKPACK = "in your backpack"
+		ITEM_SLOT_LPOCKET = "in your left pocket",
+		ITEM_SLOT_RPOCKET = "in your right pocket",
+		ITEM_SLOT_BACKPACK = "in your backpack"
 		)
 		where = slots[slot]
 
