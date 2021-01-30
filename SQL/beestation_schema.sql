@@ -546,6 +546,20 @@ END
 $$
 DELIMITER ;
 
+-- Dumping structure for table ss13tgdb.SS13_criminal_records
+DROP TABLE IF EXISTS `SS13_criminal_records`;
+CREATE TABLE IF NOT EXISTS `SS13_criminal_records` (
+  `crime` varchar(2048) NOT NULL,
+  `details` varchar(2048) NOT NULL,
+  `author` varchar(32) NOT NULL,
+  `time` datetime NOT NULL,
+  `fine` int(10) unsigned NOT NULL,
+  `author_ckey` varchar(32) NOT NULL,
+  `paid` int(10) unsigned NOT NULL,
+  `character_name` varchar(32) NOT NULL,
+  PRIMARY KEY (`ckey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

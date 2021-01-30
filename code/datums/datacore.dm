@@ -7,6 +7,16 @@
 	var/securityCrimeCounter = 0
 	//This list tracks characters spawned in the world and cannot be modified in-game. Currently referenced by respawn_character().
 	var/locked[] = list()
+	var/datum/callback/roundend_callback //Used to call upload_security_records() on roundend
+
+/datum/datacore/New()
+	..()
+	roundend_callback = CALLBACK(src,.proc/upload_security_records)
+	SSticker.OnRoundend(roundend_callback)
+
+/datum/datacore/Destroy() //This currently never happens, but better to future-proof it
+	SSticker.round_end_events -= roundend_callback
+	. = ..()
 
 /datum/data
 	var/name = "data"
@@ -31,12 +41,14 @@
 	var/crimeName = ""
 	var/crimeDetails = ""
 	var/author = ""
+	var/authorCkey = ""
 	var/time = ""
 	var/fine = 0
 	var/paid = 0
 	var/dataId = 0
+	var/fromDB = FALSE
 
-/datum/datacore/proc/createCrimeEntry(cname = "", cdetails = "", author = "", time = "", fine = 0)
+/datum/datacore/proc/createCrimeEntry(cname = "", cdetails = "", author = "", time = "", fine = 0, author_ckey = "", from_db = FALSE)
 	var/datum/data/crime/c = new /datum/data/crime
 	c.crimeName = cname
 	c.crimeDetails = cdetails
@@ -45,6 +57,8 @@
 	c.fine = fine
 	c.paid = 0
 	c.dataId = ++securityCrimeCounter
+	c.authorCkey = author_ckey
+	c.fromDB = from_db
 	return c
 
 /datum/datacore/proc/addCitation(id = "", datum/data/crime/crime)
@@ -265,14 +279,8 @@
 		medical += M
 
 		//Security Record
-		var/datum/data/record/S = new()
-		S.fields["id"]			= id
-		S.fields["name"]		= H.real_name
-		S.fields["criminal"]	= "None"
-		S.fields["citation"]	= list()
-		S.fields["crim"]		= list()
-		S.fields["notes"]		= "No notes."
-		security += S
+
+		security += generate_security_record(id, H)
 
 		//Locked Record
 		var/datum/data/record/L = new()
@@ -290,6 +298,46 @@
 		L.fields["mindref"]		= H.mind
 		locked += L
 	return
+
+/datum/datacore/proc/generate_security_record(id, mob/living/carbon/human/H)
+	var/datum/data/record/S = new()
+	S.fields["ckey"]		= H.ckey
+	S.fields["id"]			= id
+	S.fields["name"]		= H.real_name
+	S.fields["criminal"]	= "None"
+	S.fields["citation"]	= list()
+	S.fields["crim"]		= list()
+	S.fields["notes"]		= "No notes."
+	if(CONFIG_GET(number/persist_security_records) > 0 && SSdbcore.Connect())
+		var/datum/DBQuery/crime_record = SSdbcore.NewQuery(
+			"SELECT crime, details, author, time, fine, author_ckey, paid, character_name FROM [format_table_name("criminal_records")] WHERE ckey = :ckey",
+			list("ckey" = H.ckey) //TODO: Drop time and citations, update the code below
+		)
+		if(crime_record.Execute(async = TRUE))
+			while(crime_record.NextRow())
+				if(!H.client.prefs.be_random_name && (H.real_name != crime_record.item[8] && reject_bad_name(crime_record.item[8]) != null)) // Tie the records to the character unless they're using random names or the name isn't valid.
+					continue
+				S.fields["crim"] += createCrimeEntry(cname = crime_record.item[1], cdetails = crime_record.item[2], author = crime_record.item[3], time = "Archived", fine = crime_record.item[5], author_ckey = crime_record.item[6], paid = crime_record.item[7])
+
+		qdel(crime_record)
+	return S
+
+/datum/datacore/proc/upload_security_records()
+	if(CONFIG_GET(number/persist_security_records) == 0) //It can't be negative
+		return
+	var/list/data_to_upload = list()
+	for(var/datum/data/record/S as() in GLOB.data_core.security)
+		if(!S.fields["ckey"] || !S.fields["name"])
+			continue
+		var/list/crimes = S.fields["crim"]
+		for(var/datum/data/crime/C in crimes)
+			if(C.fromDB || C.fine > 0) //We don't want citations and we don't want to reupload existing crimes
+				continue
+
+			data_to_upload += list("ckey" = S.fields["ckey"], "crime" = C.crimeName, "details" = C.crimeDetails, "author" = C.author, "author_ckey" = C.authorCkey, "character_name" = S.fields["name"])
+
+	SSdbcore.MassInsert(format_table_name("criminal_records"), data_to_upload, duplicate_key = TRUE)
+
 
 /datum/datacore/proc/get_id_photo(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH))
 	var/datum/job/J = SSjob.GetJob(H.mind.assigned_role)
