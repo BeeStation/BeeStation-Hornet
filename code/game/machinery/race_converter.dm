@@ -1,6 +1,6 @@
 /obj/machinery/species_converter
 	name = "species conversion chamber"
-	desc = "Safely and efficiently converts the species of the occupant, warrenty void if exposed to plasma."
+	desc = "Safely and efficiently converts the species of the occupant, warranty void if exposed to plasma."
 	icon = 'icons/obj/machines/fat_sucker.dmi'
 	icon_state = "fat"
 	state_open = FALSE
@@ -9,6 +9,7 @@
 	var/brainwash = FALSE
 	var/processing = FALSE
 	var/iterations = 0 // how long the user (victim) has been in the chamber for
+	var/changed =  FALSE
 	var/datum/species/desired_race = /datum/species/human/felinid
 	var/datum/looping_sound/microwave/soundloop
 
@@ -126,12 +127,17 @@
 	if(user == occupant)
 		to_chat(user, "<span class='warning'>You can't reach the controls from inside!</span>")
 		return
+	if(brainwash && changed)
+		to_chat(user, "<span class='warning'>The species controller is locked!</span>")
+		return
+	if(brainwash && )
 	var/list/allowed = GLOB.roundstart_races
 	if(!dangerous)
 		allowed -= "plasmaman"
 	var/choice = input("Select desired race") as null|anything in allowed
 	if(choice)
 		desired_race = GLOB.species_list[choice]
+		changed = TRUE
 		to_chat(user, "<span class='notice'>You change \the [src]'s desired race setting to [initial(desired_race.name)].</span>")
 
 /obj/machinery/species_converter/emag_act(mob/user)
@@ -139,5 +145,6 @@
 		return
 	dangerous = TRUE
 	brainwash = prob(30)
+	changed = FALSE
 	obj_flags |= EMAGGED
 	to_chat(user, "<span class='warning'>You quitely disable \the [src]'s safeties.</span>")
