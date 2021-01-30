@@ -146,4 +146,4 @@
 	brainwash = prob(30)
 	changed = FALSE
 	obj_flags |= EMAGGED
-	to_chat(user, "<span class='warning'>You quitely disable \the [src]'s safeties.</span>")
+	to_chat(user, "<span class='warning'>You quitely disable \the [src]'s safety measures.</span>")
