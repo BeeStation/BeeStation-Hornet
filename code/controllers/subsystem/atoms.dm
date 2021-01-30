@@ -14,6 +14,12 @@ SUBSYSTEM_DEF(atoms)
 
 	var/list/BadInitializeCalls = list()
 
+	///initAtom() adds the atom its creating to this list iff InitializeAtoms() has been given a list to populate as an argument
+	var/list/created_atoms
+	// ^ if this is not null after InitializeAtoms() is done, this list will fill up with every atom in the world initialized afterwards!
+
+	initialized = INITIALIZATION_INSSATOMS
+
 /datum/controller/subsystem/atoms/Initialize(timeofday)
 	GLOB.fire_overlay.appearance_flags = RESET_COLOR
 	setupGenetics() //to set the mutations' sequence
@@ -21,11 +27,14 @@ SUBSYSTEM_DEF(atoms)
 	InitializeAtoms()
 	return ..()
 
-/datum/controller/subsystem/atoms/proc/InitializeAtoms(list/atoms)
+/datum/controller/subsystem/atoms/proc/InitializeAtoms(list/atoms, list/atoms_to_return = null)
 	if(initialized == INITIALIZATION_INSSATOMS)
 		return
 
 	initialized = INITIALIZATION_INNEW_MAPLOAD
+
+	if (atoms_to_return)
+		LAZYINITLIST(created_atoms)
 
 	var/count
 	var/list/mapload_arg = list(TRUE)
@@ -59,6 +68,11 @@ SUBSYSTEM_DEF(atoms)
 		testing("Late initialized [late_loaders.len] atoms")
 		late_loaders.Cut()
 
+	if (created_atoms)
+		atoms_to_return += created_atoms
+		created_atoms = null
+
+/// Init this specific atom
 /datum/controller/subsystem/atoms/proc/InitAtom(atom/A, list/arguments)
 	var/the_type = A.type
 	if(QDELING(A))
@@ -93,6 +107,9 @@ SUBSYSTEM_DEF(atoms)
 		BadInitializeCalls[the_type] |= BAD_INIT_DIDNT_INIT
 	else
 		SEND_SIGNAL(A,COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE)
+
+	if (created_atoms)
+		created_atoms += A
 
 	return qdeleted || QDELING(A)
 

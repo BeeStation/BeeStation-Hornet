@@ -264,7 +264,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 			if(O.resistance_flags & INDESTRUCTIBLE)
 				O.forceMove(src) // in case an item in container should be spared
 				conts -= O
-		
+
 		for(var/mob/living/M in conts)
 			if (M.stat != DEAD)
 				M.emote("scream")
