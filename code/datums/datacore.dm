@@ -47,6 +47,7 @@
 	var/paid = 0
 	var/dataId = 0
 	var/fromDB = FALSE
+	var/had_special_role = FALSE
 
 /datum/datacore/proc/createCrimeEntry(cname = "", cdetails = "", author = "", time = "", fine = 0, author_ckey = "", from_db = FALSE)
 	var/datum/data/crime/c = new /datum/data/crime
@@ -100,6 +101,12 @@
 	for(var/datum/data/record/R in security)
 		if(R.fields["id"] == id)
 			var/list/crimes = R.fields["crim"]
+
+			if(R.fields["ckey"])
+				var/mob/M = get_mob_by_ckey(R.fields["ckey"])
+				if(M?.mind?.special_role)
+					crime.had_special_role = TRUE
+
 			crimes |= crime
 			return
 
@@ -317,7 +324,7 @@
 			while(crime_record.NextRow())
 				if(!H.client.prefs.be_random_name && (H.real_name != crime_record.item[8] && reject_bad_name(crime_record.item[8]) != null)) // Tie the records to the character unless they're using random names or the name isn't valid.
 					continue
-				S.fields["crim"] += createCrimeEntry(cname = crime_record.item[1], cdetails = crime_record.item[2], author = crime_record.item[3], time = "Archived", fine = crime_record.item[5], author_ckey = crime_record.item[6], paid = crime_record.item[7])
+				S.fields["crim"] += createCrimeEntry(cname = crime_record.item[1], cdetails = crime_record.item[2], author = crime_record.item[3], time = "Archived", fine = crime_record.item[5], author_ckey = crime_record.item[6])
 
 		qdel(crime_record)
 	return S
@@ -331,7 +338,7 @@
 			continue
 		var/list/crimes = S.fields["crim"]
 		for(var/datum/data/crime/C in crimes)
-			if(C.fromDB || C.fine > 0) //We don't want citations and we don't want to reupload existing crimes
+			if(C.fromDB || C.had_special_role || C.fine > 0) //We don't want citations, crimes committed while antag, and we don't want to reupload existing crimes
 				continue
 
 			data_to_upload += list("ckey" = S.fields["ckey"], "crime" = C.crimeName, "details" = C.crimeDetails, "author" = C.author, "author_ckey" = C.authorCkey, "character_name" = S.fields["name"])
