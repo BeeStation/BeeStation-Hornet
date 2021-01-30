@@ -1,14 +1,20 @@
-/obj/machiney/species_converter
+/obj/machinery/species_converter
 	name = "species conversion chamber"
-	desc = "Safely and efficiently converts the species of the subject, warrenty void if exposed to plasma."
+	desc = "Safely and efficiently converts the species of the occupant, warrenty void if exposed to plasma."
 	icon = 'icons/obj/machines/fat_sucker.dmi'
 	icon_state = "fat"
 	state_open = FALSE
 	density = TRUE
+	var/dangerous = FALSE // Can the species coverter turn people into plasma men?
+	var/brainwash = FALSE
 	var/processing = FALSE
-	var/list/possible_races = list()
+	var/iterations = 0 // how long the user (victim) has been in the chamber for
 	var/datum/species/desired_race = /datum/species/human/felinid
 	var/datum/looping_sound/microwave/soundloop
+
+/obj/machinery/species_converter/racewar
+	name = "species hypnosis chamber"
+	brainwash = TRUE
 
 /obj/machinery/species_converter/Initialize()
 	. = ..()
@@ -23,6 +29,8 @@
 	if(panel_open)
 		to_chat(user, "<span class='warning'>You need to close the maintenance hatch first!</span>")
 		return
+	..()
+	playsound(src, 'sound/machines/click.ogg', 50)
 	if(occupant)
 		if(!iscarbon(occupant))
 			occupant.forceMove(drop_location())
@@ -33,10 +41,12 @@
 		update_icon()
 
 /obj/machinery/species_converter/open_machine(mob/user)
+	iterations = 0
 	playsound(src, 'sound/machines/click.ogg', 50)
 	if(processing)
 		stop()
 	..()
+
 /obj/machinery/species_converter/proc/stop()
 	processing = FALSE
 	soundloop.stop()
@@ -79,32 +89,55 @@
 		return
 
 	var/mob/living/carbon/C = occupant
-	if(C.dna.species == desired_race)
+	if(is_species(C, desired_race))
 		open_machine()
 		playsound(src, 'sound/machines/microwave/microwave-end.ogg', 100, FALSE)
 		return
 
-	else if(prob(20))
+	else if(prob(iterations * 2.5 + 10)) // conversion has some random variation in it
 		C.set_species(desired_race)
+		if(brainwash)
+			to_chat(C, "<span class='userdanger'>A new compulsion fills your mind... you feel forced to obey it!</span>")
+			var/objective = "Convert as many people as possible into a [initial(desired_race.name)]. Racewar!"
+			brainwash(C, objective)
+			log_game("[key_name(C)] has been brainwashed with the objective '[objective]' via the species converter.")
 
+	iterations++
 	use_power(500)
 
-/obj/machinery/species_converter/New()
-	if(!length(possible_races))
-		for(var/datum/species/ST in subtypesof(/datum/species))
-			if(ST.check_roundstart_eligible())
-				possible_races += ST
-		possible_races = sortList(possible_races)
-	..()
+/obj/machinery/species_converter/proc/start_extracting()
+	if(state_open || !occupant || processing || !is_operational())
+		return
+	if(iscarbon(occupant))
+		var/mob/living/carbon/C = occupant
+		if(!is_species(C, desired_race))
+			processing = TRUE
+			soundloop.start()
+			update_icon()
+			set_light(2, 1, "#ff0000")
+		else
+			say("Occupant is already the desired race.")
+			playsound(src, 'sound/machines/buzz-sigh.ogg', 40, FALSE)
+			overlays += "[icon_state]_red"
 
 /obj/machinery/species_converter/AltClick(mob/user)
-	if(!user.canUseTopic(src, !issilicon(user)) || processing)
+	if(!user.canUseTopic(src, BE_CLOSE) || processing)
 		return
-	desired_race = input("Select desired race") as null|anything in possible_races
+	if(user == occupant)
+		to_chat(user, "<span class='warning'>You can't reach the controls from inside!</span>")
+		return
+	var/list/allowed = GLOB.roundstart_races
+	if(!dangerous)
+		allowed -= "plasmaman"
+	var/choice = input("Select desired race") as null|anything in allowed
+	if(choice)
+		desired_race = GLOB.species_list[choice]
+		to_chat(user, "<span class='notice'>You change \the [src]'s desired race setting to [initial(desired_race.name)].</span>")
 
-/*
-/obj/machinery/species_converter/emag_act(mob/living/user)
-	if(LAZYLEN(possible_races))
-		desired_race = pick(possible_races)
-		to_chat(user, "<span class='notice'>You scramble \the [src]'s target species!</span>")
-*/
+/obj/machinery/species_converter/emag_act(mob/user)
+	if(obj_flags & EMAGGED)
+		return
+	dangerous = TRUE
+	brainwash = prob(30)
+	obj_flags |= EMAGGED
+	to_chat(user, "<span class='warning'>You quitely disable \the [src]'s safeties.</span>")
