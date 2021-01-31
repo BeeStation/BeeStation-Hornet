@@ -3,6 +3,10 @@
 	icon_state = "plating"
 	initial_gas_mix = AIRLESS_ATMOS
 
+/turf/open/floor/plating/lavaland
+	icon_state = "plating"
+	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
+
 /turf/open/floor/plating/abductor
 	name = "alien floor"
 	icon_state = "alienpod1"
@@ -224,7 +228,7 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/open/floor/plating/snowed/cavern
-	initial_gas_mix = "o2=0;n2=82;plasma=24;TEMP=120"
+	initial_gas_mix = "n2=82;plasma=24;TEMP=120"
 
 /turf/open/floor/plating/snowed/smoothed
 	smooth = SMOOTH_MORE | SMOOTH_BORDER

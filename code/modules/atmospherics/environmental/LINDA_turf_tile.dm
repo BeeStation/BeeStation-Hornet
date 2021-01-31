@@ -185,8 +185,16 @@
 
 /turf/proc/handle_decompression_floor_rip()
 /turf/open/floor/handle_decompression_floor_rip(sum)
-	if(sum > 20 && prob(CLAMP(sum / 10, 0, 30)))
-		remove_tile()
+	if(sum > 20 && prob(CLAMP(sum / 20, 0, 15)))
+		if(floor_tile)
+			new floor_tile(src)
+		make_plating()
+
+/turf/open/floor/plating/handle_decompression_floor_rip()
+	return
+
+/turf/open/floor/engine/handle_decompression_floor_rip()
+	return
 
 /turf/open/process_cell(fire_count)
 

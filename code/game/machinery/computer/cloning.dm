@@ -282,7 +282,7 @@
 					if(can_load)
 						dat += "<br /><a href='byond://?src=[REF(src)];disk=load'>Load From Disk</a>"
 					else
-						dat += "<span class='linkOff'>Cannot Load From Disk: Access Denied</span>"
+						dat += "<span class='linkOff'>Cannot Load From Disk: Access Denied.</span>"
 					if(diskette.fields["SE"])
 						if(!include_se)
 							dat += "<br /><a href='byond://?src=[REF(src)];task=include_se'>Currently Excluding SE</a>"

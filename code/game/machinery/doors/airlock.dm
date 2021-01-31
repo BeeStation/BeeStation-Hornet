@@ -1109,7 +1109,7 @@
 				return
 		INVOKE_ASYNC(src, (density ? .proc/open : .proc/close), 2)
 
-	if(istype(I, /obj/item/crowbar/power))
+	if(HAS_TRAIT(I, TRAIT_DOOR_PRYER))
 		if(isElectrified())
 			shock(user,100)//it's like sticking a forck in a power socket
 			return
@@ -1216,7 +1216,7 @@
 
 	var/obj/structure/window/killthis = (locate(/obj/structure/window) in get_turf(src))
 	if(killthis)
-		killthis.ex_act(EXPLODE_HEAVY)//Smashin windows
+		killthis.ex_act(EXPLODE_HEAVY)
 
 	operating = TRUE
 	update_icon(AIRLOCK_CLOSING, 1)

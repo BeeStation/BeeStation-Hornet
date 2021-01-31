@@ -92,7 +92,7 @@
 	SEND_SIGNAL(src, COMSIG_OBJ_SETANCHORED, anchorvalue)
 	anchored = anchorvalue
 
-/obj/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
+/obj/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
 	..()
 	if(obj_flags & FROZEN)
 		visible_message("<span class='danger'>[src] shatters into a million pieces!</span>")
@@ -163,7 +163,7 @@
 	if(obj_flags & IN_USE)
 		var/is_in_use = FALSE
 		if(update_viewers)
-			for(var/mob/M in viewers(1, src))
+			for(var/mob/M as() in viewers(1, src))
 				if ((M.client && M.machine == src))
 					is_in_use = TRUE
 					src.interact(M)

@@ -123,14 +123,14 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
 "at" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "Labor Camp Security APC";
-	pixel_x = 24
-	},
 /obj/machinery/camera{
 	c_tag = "Labor Camp Monitoring";
 	network = list("labor")
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "Labor Camp Security APC";
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -839,7 +839,7 @@
 	roundstart_template = /datum/map_template/shuttle/science;
 	width = 9
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plating/lavaland,
 /area/lavaland/surface/outdoors)
 "dv" = (
 /obj/machinery/atmospherics/pipe/layer_manifold{
@@ -1163,12 +1163,13 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
 "ex" = (
-/obj/machinery/computer{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/structure/frame/computer{
+	anchored = 1;
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/mine/science)
@@ -1309,13 +1310,7 @@
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/mine/science)
-"eW" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on,
-/obj/machinery/computer,
-/turf/open/floor/plasteel,
-/area/mine/science)
 "eX" = (
-/obj/machinery/computer,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light/small{
 	dir = 1
@@ -1999,7 +1994,7 @@
 /area/lavaland/surface/outdoors)
 "iL" = (
 /obj/structure/closet/crate{
-	opened = TRUE
+	opened = 1
 	},
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/brown,
@@ -2564,7 +2559,8 @@
 /turf/open/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "lA" = (
-/obj/machinery/computer{
+/obj/structure/frame/computer{
+	anchored = 1;
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -4074,10 +4070,11 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/computer{
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/frame/computer{
+	anchored = 1;
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
 /area/mine/science)
 "zD" = (
@@ -4397,12 +4394,28 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
-"CY" = (
+"CM" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/airlock/mining/glass{
+	name = "Mining Station EVA";
+	req_access_txt = "54"
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
 	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/mine/eva)
+"CY" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 1
@@ -4451,11 +4464,12 @@
 /turf/open/floor/plasteel,
 /area/mine/science)
 "DI" = (
-/obj/machinery/computer{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light,
+/obj/structure/frame/computer{
+	anchored = 1;
+	dir = 1
+	},
 /turf/open/floor/carpet/royalblue,
 /area/mine/science)
 "DK" = (
@@ -4553,6 +4567,7 @@
 	name = "Break Room"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "Ex" = (
@@ -4600,7 +4615,7 @@
 	pixel_y = -22
 	},
 /obj/structure/closet/crate{
-	opened = TRUE
+	opened = 1
 	},
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
@@ -4763,6 +4778,9 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -5161,7 +5179,6 @@
 	req_access_txt = "2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -5314,6 +5331,11 @@
 	},
 /turf/open/floor/engine,
 /area/mine/science)
+"MD" = (
+/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window/plasma/reinforced,
+/turf/open/floor/plating,
+/area/mine/laborcamp/security)
 "ME" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/machinery/vending/cigarette,
@@ -5401,10 +5423,11 @@
 /turf/open/floor/plasteel,
 /area/mine/production)
 "Ov" = (
-/obj/machinery/computer{
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/frame/computer{
+	anchored = 1;
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/royalblue,
 /area/mine/science)
 "Ox" = (
@@ -5483,11 +5506,6 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/engine,
-/area/mine/science)
-"Pu" = (
-/obj/machinery/computer,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel,
 /area/mine/science)
 "Pv" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
@@ -5906,7 +5924,7 @@
 /turf/open/floor/plasteel,
 /area/mine/science)
 "Uh" = (
-/turf/open/floor/plating,
+/turf/open/floor/plating/lavaland,
 /area/lavaland/surface/outdoors)
 "Un" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
@@ -6342,7 +6360,7 @@
 /area/mine/science)
 "Yz" = (
 /obj/structure/closet/crate{
-	opened = TRUE
+	opened = 1
 	},
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -6401,7 +6419,7 @@
 /area/mine/laborcamp/security)
 "YW" = (
 /obj/structure/closet/crate{
-	opened = TRUE
+	opened = 1
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
@@ -13902,7 +13920,7 @@ aG
 aG
 aG
 aG
-fA
+MD
 rU
 HP
 QV
@@ -14159,10 +14177,10 @@ aG
 aG
 aG
 aG
-fA
-fA
-fA
-fA
+MD
+MD
+MD
+MD
 fy
 WA
 Cw
@@ -22923,7 +22941,7 @@ Aj
 BZ
 eG
 Tn
-Pu
+BT
 Ee
 BT
 Lc
@@ -23180,7 +23198,7 @@ BT
 fJ
 eH
 Tn
-eW
+IZ
 tN
 BT
 sz
@@ -23668,7 +23686,7 @@ dz
 dz
 dz
 dA
-jV
+CM
 EG
 dz
 ai

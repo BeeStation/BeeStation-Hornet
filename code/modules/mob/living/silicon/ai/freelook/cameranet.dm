@@ -15,9 +15,6 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 	var/list/chunks = list()
 	var/ready = 0
 
-	// The object used for the clickable stat() button.
-	var/obj/effect/statclick/statclick
-
 	// The objects used in vis_contents of obscured turfs
 	var/list/vis_contents_objects
 	var/obj/effect/overlay/camera_static/vis_contents_opaque
@@ -172,7 +169,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 
 
 /datum/cameranet/proc/checkTurfVis(turf/position)
-	var/datum/camerachunk/chunk = chunkGenerated(position.x, position.y, position.z)
+	var/datum/camerachunk/chunk = getCameraChunk(position.x, position.y, position.z)
 	if(chunk)
 		if(chunk.changed)
 			chunk.hasChanged(1) // Update now, no matter if it's visible or not.
@@ -181,10 +178,17 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 	return 0
 
 /datum/cameranet/proc/stat_entry()
-	if(!statclick)
-		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
-
-	stat(name, statclick.update("Cameras: [GLOB.cameranet.cameras.len] | Chunks: [GLOB.cameranet.chunks.len]"))
+	var/list/tab_data = list()
+	tab_data["[name]"] = list(
+		text="Cameras: [GLOB.cameranet.cameras.len] | Chunks: [GLOB.cameranet.chunks.len]",
+		action = "statClickDebug",
+		params=list(
+			"targetRef" = REF(src),
+			"class"="datum",
+		),
+		type=STAT_BUTTON,
+	)
+	return tab_data
 
 /obj/effect/overlay/camera_static
 	name = "static"

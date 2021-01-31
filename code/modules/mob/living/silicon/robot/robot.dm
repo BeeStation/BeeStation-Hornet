@@ -213,8 +213,6 @@
 	"Service" = /obj/item/robot_module/butler)
 	if(!CONFIG_GET(flag/disable_peaceborg))
 		modulelist["Peacekeeper"] = /obj/item/robot_module/peacekeeper
-	if(!CONFIG_GET(flag/disable_secborg))
-		modulelist["Security"] = /obj/item/robot_module/security
 
 	var/input_module = input("Please, select a module!", "Robot", null, null) as null|anything in sortList(modulelist)
 	if(!input_module || module.type != /obj/item/robot_module)
@@ -307,19 +305,19 @@
 	if(thruster_button)
 		thruster_button.icon_state = "ionpulse[ionpulse_on]"
 
-/mob/living/silicon/robot/Stat()
-	..()
-	if(statpanel("Status"))
-		if(cell)
-			stat(null, "Charge Left: [cell.charge]/[cell.maxcharge]")
-		else
-			stat(null, text("No Cell Inserted!"))
+/mob/living/silicon/robot/get_stat_tab_status()
+	var/list/tab_data = ..()
+	if(cell)
+		tab_data["Charge Left"] = GENERATE_STAT_TEXT("[cell.charge]/[cell.maxcharge]")
+	else
+		tab_data["Charge Left"] = GENERATE_STAT_TEXT("No Cell Inserted!")
 
-		if(module)
-			for(var/datum/robot_energy_storage/st in module.storages)
-				stat(null, "[st.name]: [st.energy]/[st.max_energy]")
-		if(connected_ai)
-			stat(null, "Master AI: [connected_ai.name]")
+	if(module)
+		for(var/datum/robot_energy_storage/st in module.storages)
+			tab_data["[st.name]"] = GENERATE_STAT_TEXT("[st.energy]/[st.max_energy]")
+	if(connected_ai)
+		tab_data["Master AI"] = GENERATE_STAT_TEXT("[connected_ai.name]")
+	return tab_data
 
 /mob/living/silicon/robot/restrained(ignore_grab)
 	. = 0
@@ -387,14 +385,14 @@
 		if (!W.tool_start_check(user, amount=0)) //The welder has 1u of fuel consumed by it's afterattack, so we don't need to worry about taking any away.
 			return
 		if(src == user)
-			to_chat(user, "<span class='notice'>You start fixing yourself...</span>")
+			to_chat(user, "<span class='notice'>You start fixing yourself.</span>")
 			if(!W.use_tool(src, user, 50))
 				return
 
 		adjustBruteLoss(-30)
 		updatehealth()
 		add_fingerprint(user)
-		visible_message("<span class='notice'>[user] has fixed some of the dents on [src].</span>")
+		user.visible_message("[user] has fixed some of the dents on [src].", "<span class='notice'>You fix some of the dents on [src].</span>")
 		return
 
 	else if(istype(W, /obj/item/stack/cable_coil) && wiresexposed)
@@ -402,7 +400,7 @@
 		var/obj/item/stack/cable_coil/coil = W
 		if (getFireLoss() > 0 || getToxLoss() > 0)
 			if(src == user)
-				to_chat(user, "<span class='notice'>You start fixing yourself...</span>")
+				to_chat(user, "<span class='notice'>You start fixing yourself.</span>")
 				if(!do_after(user, 50, target = src))
 					return
 			if (coil.use(1))
@@ -449,12 +447,12 @@
 
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER && opened && !cell)	// haxing
 		wiresexposed = !wiresexposed
-		to_chat(user, "The wires have been [wiresexposed ? "exposed" : "unexposed"]")
+		to_chat(user, "The wires have been [wiresexposed ? "exposed" : "unexposed"].")
 		update_icons()
 
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER && opened && cell)	// radio
 		if(shell)
-			to_chat(user, "You cannot seem to open the radio compartment")	//Prevent AI radio key theft
+			to_chat(user, "You cannot seem to open the radio compartment.")	//Prevent AI radio key theft
 		else if(radio)
 			radio.attackby(W,user)//Push it to the radio to let it handle everything
 		else
@@ -467,7 +465,7 @@
 			spark_system.start()
 			return
 		else
-			to_chat(user, "<span class='notice'>You start to unfasten [src]'s securing bolts...</span>")
+			to_chat(user, "<span class='notice'>You start to unfasten [src]'s securing bolts.</span>")
 			if(W.use_tool(src, user, 50, volume=50) && !cell)
 				user.visible_message("[user] deconstructs [src]!", "<span class='notice'>You unfasten the securing bolts, and [src] falls to pieces!</span>")
 				log_attack("[key_name(user)] deconstructed [name] at [AREACOORD(src)].")
@@ -734,7 +732,7 @@
 
 //Some sort of magical "modulo" thing which somehow increments lamp power by 2, until it hits the max and resets to 0.
 	lamp_intensity = (lamp_intensity+2) % (lamp_max+2)
-	to_chat(src, "[lamp_intensity ? "Headlamp power set to Level [lamp_intensity/2]" : "Headlamp disabled."]")
+	to_chat(src, "[lamp_intensity ? "Headlamp power set to level [lamp_intensity/2]." : "Headlamp disabled."]")
 	update_headlamp()
 
 /mob/living/silicon/robot/proc/update_headlamp(var/turn_off = 0, var/cooldown = 100)

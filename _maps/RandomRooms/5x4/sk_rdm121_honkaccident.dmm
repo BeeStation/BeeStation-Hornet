@@ -78,12 +78,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"k" = (
-/turf/open/floor/plating{
-	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
-	},
-/area/space)
 "l" = (
 /obj/effect/spawner/lootdrop/clowntrap,
 /turf/open/floor/plating{
@@ -125,7 +119,7 @@ j
 (3,1,1) = {"
 e
 O
-k
+b
 m
 "}
 (4,1,1) = {"

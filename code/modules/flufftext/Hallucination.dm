@@ -11,7 +11,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	/datum/hallucination/weird_sounds = 8,
 	/datum/hallucination/stationmessage = 7,
 	/datum/hallucination/fake_flood = 7,
-	/datum/hallucination/stray_bullet = 7,
+	/datum/hallucination/stray_bullet = 3,
 	/datum/hallucination/bolts = 7,
 	/datum/hallucination/items_other = 7,
 	/datum/hallucination/husks = 7,
@@ -518,7 +518,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	feedback_details += "Type: [kind]"
 	var/list/nearby
 	if(skip_nearby)
-		nearby = get_hearers_in_view(7, target)
+		nearby = hearers(7, target)
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 		if(H == target)
 			continue
@@ -1284,7 +1284,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	set waitfor = FALSE
 	..()
 	var/list/turf/startlocs = list()
-	for(var/turf/open/T in view(world.view+1,target)-view(world.view,target))
+	for(var/turf/open/T in view(getexpandedview(world.view, 1, 1),target)-view(world.view,target)) // God this is terrible
 		startlocs += T
 	if(!startlocs.len)
 		qdel(src)

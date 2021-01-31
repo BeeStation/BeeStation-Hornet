@@ -231,7 +231,7 @@
 
 /obj/item/tank/process()
 	//Allow for reactions
-	air_contents.react()
+	air_contents.react(src)
 	check_status()
 
 /obj/item/tank/proc/check_status()
@@ -245,7 +245,7 @@
 
 	if(pressure > TANK_FRAGMENT_PRESSURE)
 		if(!istype(src.loc, /obj/item/transfer_valve))
-			log_bomber(get_mob_by_key(fingerprintslast), "was last key to touch", src, "which ruptured explosively")
+			log_bomber(get_mob_by_ckey(fingerprintslast), "was last key to touch", src, "which ruptured explosively")
 		//Give the gas a chance to build up more pressure through reacting
 		air_contents.react(src)
 		air_contents.react(src)

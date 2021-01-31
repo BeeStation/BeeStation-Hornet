@@ -11,17 +11,20 @@
 	throw_speed = 3
 	throw_range = 6
 	grind_results = list()
-	var/Uses = 1 //uses before it goes inert
+	var/Uses = 1 // uses before it goes inert
 	var/qdel_timer // deletion timer, for delayed reactions
-	var/effectmod //Which type of crossbred
+	var/effectmod
 	var/list/activate_reagents = list() //Reagents required for activation
 	var/recurring = FALSE
 	var/color_slime	///the color of the extract and the slime it came from
+	var/sparkly = FALSE //if true, cargo gets 2x the money for them
 
 /obj/item/slime_extract/examine(mob/user)
 	. = ..()
 	if(Uses > 1)
 		. += "It has [Uses] uses remaining."
+	if(sparkly)
+		. += "It looks sparkly."
 
 /obj/item/slime_extract/attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/slimepotion/enhancer))
@@ -980,6 +983,7 @@
 
 	M.visible_message("<span class='notice'><span class='name'>[M]</span> has a new name, <span class='name'>[new_name]</span>.</span>", "<span class='notice'>Your old name of <span class='name'>[M.real_name]</span> fades away, and your new name <span class='name'>[new_name]</span> anchors itself in your mind.</span>")
 	message_admins("[ADMIN_LOOKUPFLW(user)] used [src] on [ADMIN_LOOKUPFLW(M)], letting them rename themselves into [new_name].")
+	log_game("[key_name(user)] used [src] on [key_name(M)], letting them rename themselves into [new_name].")
 
 	// pass null as first arg to not update records or ID/PDA
 	M.fully_replace_character_name(null, new_name)
