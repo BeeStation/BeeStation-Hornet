@@ -329,14 +329,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		playMagSound()
 	cast(targets,user=user)
 	after_cast(targets)
-	//Use our spell points
-	switch(charge_type)
-		if("recharge")
-			charge_counter = 0
-		if("charges")
-			charge_counter--
-		if("holdervar")
-			adjust_var(user, holder_var_type, holder_var_amount)
 	if(action)
 		action.UpdateButtonIcon()
 

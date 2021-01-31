@@ -31,7 +31,7 @@
 
 /obj/item/melee/touch_attack/afterattack(atom/target, mob/user, proximity)
 	. = ..()
-	//User the spell
+	//Use the spell
 	attached_spell.spell_used = TRUE
 	//Do effects
 	user.say(catchphrase, forced = "spell")
