@@ -617,10 +617,7 @@
 /datum/techweb_node/bluespace_mining/New() //Techweb nodes don't have an init,
 	. = ..()
 
-	if(CONFIG_GET(flag/bsminer_researchable))
-		hidden = FALSE
-	else
-		hidden = TRUE
+	hidden = !CONFIG_GET(flag/bsminer_researchable)
 
 
 /datum/techweb_node/janitor
