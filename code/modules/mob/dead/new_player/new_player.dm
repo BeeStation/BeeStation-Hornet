@@ -144,7 +144,7 @@
 			if(IS_PATRON(src.ckey))
 				LateChoices()
 				return
-			if(ckey(key) in GLOB.admin_datums)
+			if(client in GLOB.admins)
 				LateChoices()
 				return
 			to_chat(usr, "<span class='danger'>[CONFIG_GET(string/hard_popcap_message)]</span>")
