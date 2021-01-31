@@ -145,9 +145,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 
 //Largely a copypaste from shower.dm. Checks if the mob was stupid enough to enter a pool fully clothed. We allow masks as to not discriminate against clown and mime players.
 /turf/open/indestructible/sound/pool/proc/check_clothes(mob/living/carbon/human/H)
-	if(!istype(H)) //Don't care about non humans.
-		return FALSE
-	if(iscatperson(H))
+	if(!istype(H) || iscatperson(H)) //Don't care about non humans.
 		return FALSE
 	if(H.wear_suit && (H.wear_suit.clothing_flags & SHOWEROKAY))
 		// Do not check underclothing if the over-suit is suitable.
@@ -156,12 +154,12 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 		return FALSE
 
 	. = FALSE
-	if(H.wear_suit && !(H.wear_suit.clothing_flags & SHOWEROKAY))
-		. = TRUE
-	else if(H.w_uniform && !(H.w_uniform.clothing_flags & SHOWEROKAY))
-		. = TRUE
-	else if(H.head && !(H.head.clothing_flags & SHOWEROKAY))
-		. = TRUE
+	if(!(H.wear_suit?.clothing_flags & SHOWEROKAY))
+		return TRUE
+	if(!(H.w_uniform?.clothing_flags & SHOWEROKAY))
+		return TRUE
+	if(!(H.head?.clothing_flags & SHOWEROKAY))
+		return TRUE
 
 /obj/effect/turf_decal/pool
 	name = "Pool siding"
@@ -234,10 +232,8 @@ GLOBAL_LIST_EMPTY(pool_filters)
 	return FALSE
 
 /obj/machinery/pool_filter/process()
-	if(!pool?.len)
+	if(!LAZYLEN(pool) || !is_operational())
 		return //No use having one of these processing for no reason is there?
-	if(!is_operational())
-		return
 	use_power(idle_power_usage)
 	var/delta = (current_temperature > desired_temperature) ? -0.5 : 0.5
 	current_temperature += delta
