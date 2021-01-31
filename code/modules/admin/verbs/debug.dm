@@ -906,5 +906,5 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_DEBUG))
 		return
 	for(var/type in GLOB.spells)
-		var/obj/effect/proc_holder/spell/spell = type
+		var/obj/effect/proc_holder/spell/spell = new type
 		mob.AddSpell(spell)
