@@ -1,6 +1,0 @@
-author: ro5490
-delete-after: true
-changes:
-  - rscadd: Oozelings now have their own sprites, although they arent that different
-      from what they where before.
-  - bugfix: Ooze sprites no longer have leg clipping issues

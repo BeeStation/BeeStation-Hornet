@@ -98,6 +98,8 @@ In all, this is a lot like the monkey code. /N
 		var/damage = rand(20)
 		if(M.is_adult)
 			damage = rand(30)
+		if(M.transformeffects & SLIME_EFFECT_RED)
+			damage *= 1.1
 		adjustBruteLoss(damage)
 		log_combat(M, src, "attacked")
 		updatehealth()
