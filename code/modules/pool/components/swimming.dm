@@ -95,7 +95,7 @@
 	L.adjust_fire_stacks(-1)
 
 /datum/component/swimming/proc/is_drowning(mob/living/victim)
-	var/obj/item/twohanded/required/pool/helditem = L.get_active_held_item()
+	var/obj/item/twohanded/required/pool/helditem = victim.get_active_held_item()
 	if(istype(helditem) && helditem.wielded)
 		return
 	return ((!(victim.mobility_flags & MOBILITY_STAND)) && (!HAS_TRAIT(victim, TRAIT_NOBREATH)))
