@@ -611,12 +611,15 @@
 	. = ..()
 	phase_shift = new
 	phase_shift.charge_counter = 0
+	phase_shift.start_recharge()
 	C.AddSpell(phase_shift)
 	abyssal_gaze = new
 	abyssal_gaze.charge_counter = 0
+	abyssal_gaze.start_recharge()
 	C.AddSpell(abyssal_gaze)
 	dominate = new
 	dominate.charge_counter = 0
+	dominate.start_recharge()
 	C.AddSpell(dominate)
 
 /datum/species/golem/runic/on_species_loss(mob/living/carbon/C)
@@ -1071,9 +1074,11 @@
 	C.weather_immunities |= "snow"
 	ball = new
 	ball.charge_counter = 0
+	ball.start_recharge()
 	C.AddSpell(ball)
 	cryo = new
 	cryo.charge_counter = 0
+	cryo.start_recharge()
 	C.AddSpell(cryo)
 
 /datum/species/golem/snow/on_species_loss(mob/living/carbon/C)
