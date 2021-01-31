@@ -1,0 +1,11 @@
+{
+    "map_name": "MetaStation 2019",
+    "map_path": "map_files/MetaClassic",
+    "map_file": "MetaClassic.dmm",
+    "shuttles": {
+	    "cargo": "cargo_box",
+	    "ferry": "ferry_fancy",
+	    "whiteship": "whiteship_meta",
+	    "emergency": "emergency_meta"
+    }
+}
