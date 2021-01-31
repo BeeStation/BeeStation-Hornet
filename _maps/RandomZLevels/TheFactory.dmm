@@ -890,6 +890,16 @@
 	baseturfs = /turf/open/floor/plating/asteroid
 	},
 /area/awaymission/factory/factoryafter/down/levelthree)
+"aOk" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/card/id/away/old{
+	access = list(200,53);
+	desc = "A card that will let anyone get to the surface level of The Factory.";
+	name = "factory pass"
+	},
+/turf/open/floor/monotile/steel,
+/area/awaymission/factory/villageafter/house)
 "aOo" = (
 /obj/item/ammo_casing/mm712x82{
 	caliber = null;
@@ -1835,9 +1845,6 @@
 /obj/item/dnainjector/antielvis{
 	pixel_y = 8
 	},
-/obj/item/dnainjector/timed/hulk{
-	pixel_y = 2
-	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/factory/factoryduring/down/leveltwo/asylum)
 "bEb" = (
@@ -1937,6 +1944,9 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
 /obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/item/card/id/job/med{
+	access = list(202)
+	},
 /turf/open/floor/plasteel{
 	dir = 8;
 	heat_capacity = 1e+006;
@@ -2026,6 +2036,12 @@
 /obj/item/clothing/head/helmet/old,
 /obj/item/storage/belt/security,
 /obj/machinery/light/built,
+/obj/item/card/id/ert{
+	access = list(204);
+	desc = "Provides access to the lowest level of the factory";
+	name = "\proper level three access ID card";
+	registered_name = null
+	},
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
 	},
@@ -2234,6 +2250,27 @@
 	},
 /turf/open/floor/plasteel/dark/side,
 /area/awaymission/factory/factoryduring/down/leveltwo)
+"bTn" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/stack/sheet/mineral/uranium,
+/obj/item/card/id/ert{
+	access = list(204);
+	desc = "Provides access to the lowest level of the factory";
+	name = "\proper level three access ID card";
+	registered_name = null
+	},
+/turf/open/floor/engine{
+	baseturfs = /turf/open/floor/plating/asteroid
+	},
+/area/awaymission/factory/factoryafter/down/levelthree)
 "bTM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/dark,
@@ -2377,6 +2414,23 @@
 	ambient_buzz = null;
 	noteleport = 1
 	})
+"bYB" = (
+/obj/structure/closet/secure{
+	anchored = 1;
+	icon_state = "warden"
+	},
+/obj/item/storage/belt/military/assault,
+/obj/item/melee/classic_baton/police,
+/obj/item/card/id/ert{
+	access = list(204);
+	desc = "Provides access to the lowest level of the factory";
+	name = "\proper level three access ID card";
+	registered_name = null
+	},
+/turf/open/floor/engine{
+	baseturfs = /turf/open/floor/plating/asteroid
+	},
+/area/awaymission/factory/factoryafter/down/levelthree)
 "bZi" = (
 /obj/structure/lattice/catwalk/over,
 /obj/structure/lattice/catwalk/over,
@@ -2574,6 +2628,15 @@
 	icon_state = "platingdmg3"
 	},
 /area/awaymission/factory/factoryafter/down/maint)
+"cjj" = (
+/mob/living/simple_animal/slaughter{
+	wander = 0
+	},
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered{
+	ambient_buzz = null;
+	noteleport = 1
+	})
 "cjs" = (
 /obj/structure/closet/crate/trashcart{
 	anchored = 1
@@ -2646,6 +2709,10 @@
 /obj/item/reagent_containers/food/drinks/bottle/rum,
 /obj/item/clothing/glasses/hud/terminator,
 /obj/item/gun/ballistic/shotgun/lever_action,
+/obj/item/gun/ballistic/automatic/pistol/APS,
+/obj/item/reagent_containers/food/drinks/bottle/rum,
+/obj/item/reagent_containers/food/drinks/bottle/rum,
+/obj/item/folder/syndicate/blue,
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
 	},
@@ -2721,6 +2788,10 @@
 /obj/item/clothing/under/color/random,
 /obj/item/clothing/shoes/sneakers/black,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/item/card/id/away{
+	desc = "An ID card that allows to pass through the second level of the factory.";
+	name = "\proper level two access card"
+	},
 /turf/open/floor/carpet/royalblue,
 /area/awaymission/factory/factoryafter/down)
 "cof" = (
@@ -3076,6 +3147,17 @@
 	baseturfs = /turf/open/floor/plating/asteroid
 	},
 /area/awaymission/factory/factoryafter/down/levelthree)
+"cCZ" = (
+/obj/effect/fun_balloon/sentience{
+	effect_range = 2;
+	group_name = "The demon";
+	name = "the demon sentience balloon"
+	},
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered{
+	ambient_buzz = null;
+	noteleport = 1
+	})
 "cDg" = (
 /obj/structure/chair/pew/right{
 	dir = 1
@@ -3235,6 +3317,9 @@
 	},
 /obj/item/melee/classic_baton/police,
 /obj/item/grenade/clusterbuster/random,
+/obj/item/card/id/job/sec{
+	access = list(203)
+	},
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
 	},
@@ -3529,6 +3614,9 @@
 /obj/item/clothing/mask/breath/medical,
 /obj/effect/spawner/lootdrop/minor/twentyfive_percent_cyborg_mask,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/item/card/id/job/med{
+	access = list(202)
+	},
 /turf/open/floor/plasteel/tiled/light,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "cYD" = (
@@ -4341,6 +4429,11 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/vomit/old,
+/obj/item/card/id/away/old{
+	access = list(200,53);
+	desc = "A card that will let anyone get to the surface level of The Factory.";
+	name = "factory pass"
+	},
 /turf/open/floor/wood,
 /area/awaymission/factory/villageafter/house/ritual)
 "dIc" = (
@@ -4766,6 +4859,15 @@
 	},
 /area/awaymission/factory/villageduring{
 	noteleport = 0
+	})
+"eda" = (
+/obj/effect/decal/cleanable/blood{
+	icon_state = "floor3"
+	},
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered{
+	ambient_buzz = null;
+	noteleport = 1
 	})
 "ede" = (
 /turf/open/floor/plasteel/showroomfloor,
@@ -5867,6 +5969,13 @@
 /obj/structure/bookcase/random/reference,
 /turf/open/floor/wood,
 /area/awaymission/factory/villageafter/house)
+"eWY" = (
+/obj/item/paper{
+	info = "We offered the best protection to the engine because this is the only thing that powers the whole Factory. Solars on the surface are made for villagers to think that we do nothing wrong. If you suspect that someone is in the engine room trying to break open the tear in reality: first - laugh at them, second - call security.";
+	name = "note"
+	},
+/turf/open/floor/circuit,
+/area/awaymission/factory/factoryduring/down/levelthree)
 "eXd" = (
 /obj/structure/dresser,
 /turf/open/floor/wood,
@@ -5970,6 +6079,14 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/awaymission/factory/factoryduring/down/leveltwo)
+"fbW" = (
+/obj/item/card/id/job/sec{
+	access = list(203)
+	},
+/turf/open/floor/engine{
+	baseturfs = /turf/open/floor/plating/asteroid
+	},
+/area/awaymission/factory/factoryafter/down/levelthree)
 "fcf" = (
 /obj/machinery/light/built{
 	dir = 4
@@ -5998,7 +6115,7 @@
 /obj/effect/decal/cleanable/blood{
 	icon_state = "floor2"
 	},
-/obj/machinery/light/small{
+/obj/machinery/light/small/built{
 	dir = 1
 	},
 /turf/open/floor/plasteel{
@@ -6652,6 +6769,13 @@
 	},
 /turf/open/floor/plasteel/checker,
 /area/awaymission/factory/factoryduring/down)
+"fEq" = (
+/mob/living/simple_animal/hostile/factory/ranged/smg{
+	dir = 8;
+	wander = 0
+	},
+/turf/open/floor/circuit/red/anim,
+/area/awaymission/factory/factoryduring/down/levelthree)
 "fEr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -6686,7 +6810,7 @@
 /turf/open/floor/plating,
 /area/awaymission/factory/factoryduring/down/levelthree)
 "fEZ" = (
-/obj/machinery/light/small{
+/obj/machinery/light/small/built{
 	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
@@ -7643,16 +7767,11 @@
 	},
 /area/awaymission/factory/factoryafter/down/levelthree)
 "gua" = (
-/obj/effect/fun_balloon/sentience{
-	effect_range = 4;
-	group_name = "The demon";
-	name = "the demon sentience balloon"
+/mob/living/simple_animal/hostile/breadloaf/slice{
+	wander = 0
 	},
-/turf/closed/indestructible/rock,
-/area/ruin/unpowered{
-	ambient_buzz = null;
-	noteleport = 1
-	})
+/turf/open/floor/plating/asteroid,
+/area/awaymission/factory/secret)
 "guh" = (
 /obj/structure/table/brass,
 /obj/item/clockwork/integration_cog,
@@ -8234,6 +8353,9 @@
 /obj/item/storage/belt/security,
 /obj/item/clothing/mask/balaclava,
 /obj/machinery/light/broken,
+/obj/item/card/id/job/sec{
+	access = list(203)
+	},
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
 	},
@@ -8467,6 +8589,7 @@
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "hbk" = (
 /obj/effect/mob_spawn/human/corpse{
+	brute_damage = 500;
 	outfit = /datum/outfit/job/cook
 	},
 /obj/item/pizzabox/meat,
@@ -10811,6 +10934,9 @@
 /obj/item/grenade/clusterbuster/random,
 /obj/item/key/security,
 /obj/item/melee/baton/loaded,
+/obj/item/card/id/job/sec{
+	access = list(203)
+	},
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
 	},
@@ -11492,6 +11618,12 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/item/card/id/ert{
+	access = list(204);
+	desc = "Provides access to the lowest level of the factory";
+	name = "\proper level three access ID card";
+	registered_name = null
+	},
 /turf/open/floor/plasteel,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "jof" = (
@@ -11521,7 +11653,6 @@
 /obj/item/card/id/job/sec{
 	access = list(203)
 	},
-/obj/item/storage/wallet/random,
 /turf/open/floor/carpet/orange,
 /area/awaymission/factory/factoryafter/down)
 "jpB" = (
@@ -11781,6 +11912,13 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
 /area/awaymission/factory/factoryafter/down/leveltwo)
+"jCw" = (
+/obj/effect/decal/cleanable/blood/bubblegum,
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered{
+	ambient_buzz = null;
+	noteleport = 1
+	})
 "jCC" = (
 /obj/item/paper{
 	info = "<i>That thing must hit my brain hard because... Why the fuck was I digging in THAT way?!</i>"
@@ -12047,6 +12185,9 @@
 	req_access = list(202)
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/item/card/id/job/rd{
+	access = list(206)
+	},
 /turf/open/floor/plasteel{
 	dir = 8;
 	heat_capacity = 1e+006;
@@ -12510,7 +12651,9 @@
 	})
 "kpj" = (
 /obj/effect/decal/remains/human,
-/obj/item/chair/wood,
+/obj/item/chair/wood{
+	pixel_y = -8
+	},
 /obj/structure/chair/noose,
 /turf/open/floor/carpet,
 /area/awaymission/factory/villageduring/house)
@@ -12924,7 +13067,7 @@
 /turf/open/floor/plasteel/ameridiner,
 /area/awaymission/factory/factoryduring/down/leveltwo/asylum)
 "kGr" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/built,
 /turf/open/floor/plasteel{
 	dir = 8;
 	heat_capacity = 1e+006;
@@ -13169,7 +13312,6 @@
 	pixel_y = -29
 	},
 /obj/structure/closet/crate/secure/weapon,
-/obj/effect/spawner/lootdrop/armory_contraband,
 /turf/open/floor/circuit/off,
 /area/awaymission/factory/factoryafter/down/levelthree)
 "kRh" = (
@@ -13224,6 +13366,10 @@
 "kTK" = (
 /obj/structure/closet/l3closet/janitor,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/item/card/id/away{
+	desc = "An ID card that allows to pass through the second level of the factory.";
+	name = "\proper level two access card"
+	},
 /turf/open/floor/mineral/titanium,
 /area/awaymission/factory/factoryafter/down/maint)
 "kTN" = (
@@ -13316,6 +13462,13 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/human,
 /turf/open/floor/plating/snowed/smoothed,
 /area/awaymission/factory/villageafter/house)
+"kYe" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/card/id/job/rd{
+	access = list(206)
+	},
+/turf/open/floor/stone,
+/area/awaymission/factory/factoryafter/down/leveltwo)
 "kYq" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/vomit/old,
@@ -13430,7 +13583,7 @@
 /turf/open/floor/circuit/red/anim,
 /area/awaymission/factory/factoryduring/down/levelthree)
 "lcE" = (
-/mob/living/simple_animal/hostile/heart,
+/mob/living/simple_animal/bot/secbot/grievous/nullcrate,
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
 "ldl" = (
@@ -13568,7 +13721,6 @@
 /obj/structure/closet/crate/secure/weapon,
 /obj/item/storage/belt/military,
 /obj/item/storage/toolbox/syndicate,
-/obj/item/ammo_box/a40mm,
 /obj/item/ammo_box/magazine/m556,
 /turf/open/floor/circuit/red/anim,
 /area/awaymission/factory/factoryduring/down/levelthree)
@@ -13578,6 +13730,13 @@
 	},
 /turf/open/floor/carpet,
 /area/awaymission/factory/villageduring/house)
+"lmf" = (
+/mob/living/simple_animal/hostile/psycho/trap{
+	dir = 8;
+	wander = 0
+	},
+/turf/open/floor/plating/asteroid,
+/area/awaymission/factory/secret)
 "lmk" = (
 /obj/machinery/camera,
 /mob/living/simple_animal/hostile/factory/ranged,
@@ -13842,7 +14001,6 @@
 /obj/item/weaponcrafting/receiver,
 /obj/item/weaponcrafting/stock,
 /obj/effect/spawner/lootdrop/armory_contraband,
-/obj/item/card/id/syndicate,
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
 	},
@@ -13927,13 +14085,19 @@
 	access = list(202)
 	},
 /obj/item/card/id/ert{
-	access = list(456);
+	access = list(204);
 	desc = "Provides access to the lowest level of the factory";
 	name = "\proper level three access ID card";
 	registered_name = null
 	},
 /obj/item/card/id/ert{
 	access = list(204);
+	desc = "Provides access to the lowest level of the factory";
+	name = "\proper level three access ID card";
+	registered_name = null
+	},
+/obj/item/card/id/ert{
+	access = list(456);
 	desc = "Provides access to the lowest level of the factory";
 	name = "\proper level three access ID card";
 	registered_name = null
@@ -14123,9 +14287,6 @@
 /obj/structure/closet,
 /obj/item/implantcase,
 /obj/item/implantcase,
-/obj/item/implantcase,
-/obj/effect/spawner/lootdrop/armory_contraband,
-/obj/item/card/id/syndicate,
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
 	},
@@ -14239,6 +14400,10 @@
 	pixel_y = 6
 	},
 /obj/item/dnainjector/shock,
+/obj/item/dnainjector/chameleonmut{
+	pixel_x = 4;
+	pixel_y = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/factory/factoryduring/down/leveltwo/asylum)
 "lNE" = (
@@ -15118,6 +15283,13 @@
 	icon_state = "plating_rust"
 	},
 /area/awaymission/factory/factoryafter/down/levelthree)
+"mAn" = (
+/obj/item/paper{
+	info = "We offered the best protection to the engine because this is the only thing that powers the whole Factory. Solars on the surface are made for villagers to think that we do nothing wrong. If you suspect that someone is in the engine room trying to break open the tear in reality: first - laugh at them, second - call security.";
+	name = "note"
+	},
+/turf/open/floor/circuit/off,
+/area/awaymission/factory/factoryafter/down/levelthree)
 "mAq" = (
 /obj/effect/decal/cleanable/blood/old{
 	icon_state = "floor4-old"
@@ -15397,7 +15569,6 @@
 /obj/item/gun/ballistic/automatic/gyropistol,
 /obj/item/clothing/gloves/combat,
 /obj/item/clothing/mask/gas/sechailer/swat/spacepol,
-/obj/item/ammo_box/magazine/m75,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/royalblack,
 /area/awaymission/factory/factoryafter/down/levelthree)
@@ -15865,6 +16036,19 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
+"njZ" = (
+/obj/structure/closet/firecloset/full,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/card/id/ert{
+	access = list(204);
+	desc = "Provides access to the lowest level of the factory";
+	name = "\proper level three access ID card";
+	registered_name = null
+	},
+/turf/open/floor/engine/light{
+	baseturfs = /turf/open/floor/plating/asteroid
+	},
+/area/awaymission/factory/factoryafter/down/levelthree)
 "nkn" = (
 /obj/effect/baseturf_helper/asteroid{
 	baseturf_to_replace = list(/turf/baseturf_bottom,/turf/open/space/basic,/turf/open/floor/plating);
@@ -15921,8 +16105,8 @@
 	pixel_y = -32
 	},
 /mob/living/simple_animal/hostile/blob/blobbernaut/independent{
-	AIStatus = 4;
-	speed = -3
+	speed = -3;
+	wander = 0
 	},
 /turf/open/floor/circuit/off,
 /area/awaymission/factory/factoryafter/down/levelthree)
@@ -15963,7 +16147,6 @@
 /area/awaymission/factory/factoryduring/down/levelthree)
 "npG" = (
 /obj/structure/closet/crate/secure/weapon,
-/obj/effect/spawner/lootdrop/armory_contraband,
 /obj/item/storage/belt/grenade,
 /obj/item/bear_armor,
 /turf/open/floor/circuit/off,
@@ -16253,6 +16436,13 @@
 /obj/effect/decal/cleanable/vomit/old,
 /turf/open/floor/monotile,
 /area/awaymission/factory/villageafter/hospital)
+"nCp" = (
+/obj/effect/gibspawner/human,
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered{
+	ambient_buzz = null;
+	noteleport = 1
+	})
 "nCs" = (
 /obj/effect/decal/cleanable/vomit,
 /turf/open/floor/circuit,
@@ -16554,9 +16744,6 @@
 	},
 /obj/effect/decal/cleanable/blood{
 	icon_state = "floor3"
-	},
-/mob/living/simple_animal/slaughter{
-	wander = 0
 	},
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
@@ -17064,7 +17251,6 @@
 /area/awaymission/factory/factoryduring/down/levelthree)
 "ogv" = (
 /obj/structure/closet/crate/secure/weapon,
-/obj/effect/spawner/lootdrop/armory_contraband,
 /obj/item/storage/belt/military/army,
 /obj/item/bear_armor,
 /turf/open/floor/circuit/off,
@@ -17387,11 +17573,11 @@
 	noteleport = 1
 	})
 "oqP" = (
-/obj/structure/closet/crate/secure/weapon,
-/obj/effect/spawner/lootdrop/armory_contraband,
-/obj/item/storage/belt/military,
-/turf/open/floor/circuit/off,
-/area/awaymission/factory/factoryafter/down/levelthree)
+/mob/living/simple_animal/hostile/breadloaf{
+	wander = 0
+	},
+/turf/open/floor/plating/asteroid,
+/area/awaymission/factory/secret)
 "ora" = (
 /obj/machinery/shower{
 	dir = 4
@@ -17426,6 +17612,12 @@
 /turf/open/floor/engine/light{
 	baseturfs = /turf/open/floor/plating/asteroid
 	},
+/area/awaymission/factory/factoryduring/down/levelthree)
+"orW" = (
+/mob/living/simple_animal/hostile/factory/ranged/shotgun{
+	wander = 0
+	},
+/turf/open/floor/circuit,
 /area/awaymission/factory/factoryduring/down/levelthree)
 "oti" = (
 /mob/living/simple_animal/hostile/factory/ranged/smg{
@@ -18006,7 +18198,6 @@
 /obj/structure/closet/secure{
 	icon_state = "hos"
 	},
-/obj/item/ammo_box/magazine/m50,
 /obj/item/clothing/under/rank/security/head_of_security/alt,
 /obj/item/clothing/under/shorts/black,
 /obj/item/clothing/under/suit/black_really,
@@ -18015,7 +18206,9 @@
 /obj/item/clothing/shoes/combat/swat,
 /obj/item/clothing/head/helmet/swat/nanotrasen,
 /obj/item/megaphone/sec,
-/obj/item/gun/ballistic/automatic/pistol/deagle/sound,
+/obj/item/gun/ballistic/automatic/pistol/deagle/sound{
+	spawnwithmagazine = 0
+	},
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
 	},
@@ -19362,11 +19555,7 @@
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "pRK" = (
 /obj/structure/safe,
-/obj/item/folder/syndicate/blue,
-/obj/item/gun/ballistic/automatic/pistol/APS,
 /obj/item/clothing/under/trek/command/ent,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
 /obj/item/reagent_containers/food/drinks/bottle/rum,
 /obj/item/reagent_containers/food/drinks/bottle/rum,
 /obj/item/clothing/glasses/hud/terminator,
@@ -19605,6 +19794,9 @@
 /obj/structure/closet/l3closet/virology,
 /obj/item/storage/belt/medical,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/item/card/id/job/med{
+	access = list(202)
+	},
 /turf/open/floor/plasteel/tiled/light,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "qeY" = (
@@ -19716,6 +19908,18 @@
 	icon_state = "wood-broken"
 	},
 /area/awaymission/factory/villageduring/house)
+"qhU" = (
+/obj/structure/spider/stickyweb,
+/mob/living/simple_animal/hostile/poison/giant_spider/tarantula{
+	AIStatus = 4;
+	dir = 1;
+	wander = 0
+	},
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered{
+	ambient_buzz = null;
+	noteleport = 1
+	})
 "qhV" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -20152,7 +20356,9 @@
 /area/awaymission/factory/factoryafter/down/levelthree)
 "qAw" = (
 /obj/effect/decal/remains/human,
-/obj/item/chair/wood,
+/obj/item/chair/wood{
+	pixel_y = -8
+	},
 /obj/structure/chair/noose,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet,
@@ -20662,14 +20868,13 @@
 	noteleport = 0
 	})
 "qWL" = (
-/mob/living/simple_animal/hostile/zombie{
-	deathsound = 'sound/voice/lizard/deathsound.ogg';
-	health = 30;
-	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
-	zombiejob = "Assistant"
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/card/id/away{
+	desc = "An ID card that allows to pass through the second level of the factory.";
+	name = "\proper level two access card"
 	},
-/turf/open/floor/circuit/red/anim,
-/area/awaymission/factory/factoryduring/down/levelthree)
+/turf/open/floor/mineral/titanium,
+/area/awaymission/factory/factoryafter/down)
 "qXa" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -20998,6 +21203,13 @@
 	},
 /turf/open/floor/circuit,
 /area/awaymission/factory/factoryduring/down/levelthree)
+"rlj" = (
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered{
+	ambient_buzz = null;
+	noteleport = 1
+	})
 "rlp" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/plasteel/cafeteria{
@@ -21308,7 +21520,7 @@
 	enemies = list(/mob/living/carbon,/mob/living/carbon/human);
 	environment_smash = 3;
 	health = 700;
-	loot = list(/obj/item/a_gift/anything,/obj/item/clothing/mask/gas/clown_hat,/obj/effect/gibspawner/human,/obj/effect/particle_effect/foam,/obj/item/soap,/obj/item/clothing/suit/space/hardsuit/shielded/swat/honk,/obj/item/veilrender/honkrender);
+	loot = list(/obj/item/a_gift/anything,/obj/item/clothing/mask/gas/clown_hat,/obj/effect/gibspawner/human,/obj/effect/particle_effect/foam,/obj/item/soap,/obj/item/veilrender/honkrender);
 	maxHealth = 700;
 	wander = 0
 	},
@@ -21348,6 +21560,10 @@
 	layer = 2
 	},
 /turf/closed/wall/r_wall,
+/area/awaymission/factory/factoryduring/down/levelthree)
+"rCP" = (
+/mob/living/simple_animal/hostile/factory,
+/turf/open/floor/circuit/off,
 /area/awaymission/factory/factoryduring/down/levelthree)
 "rCX" = (
 /obj/structure/window{
@@ -21392,6 +21608,15 @@
 /obj/structure/chair/wood,
 /turf/open/floor/carpet/cyan,
 /area/awaymission/factory/villageduring/house)
+"rEp" = (
+/obj/effect/decal/cleanable/blood{
+	icon_state = "floor2"
+	},
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered{
+	ambient_buzz = null;
+	noteleport = 1
+	})
 "rEC" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/blood/old{
@@ -21694,6 +21919,10 @@
 /obj/item/clothing/shoes/sneakers/brown,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/storage/wallet/random,
+/obj/item/card/id/away{
+	desc = "An ID card that allows to pass through the second level of the factory.";
+	name = "\proper level two access card"
+	},
 /turf/open/floor/carpet/red,
 /area/awaymission/factory/factoryafter/down)
 "rQb" = (
@@ -23053,6 +23282,15 @@
 /obj/item/storage/box/ingredients,
 /turf/open/floor/monotile/dark,
 /area/awaymission/factory/villageduring/house)
+"sQq" = (
+/obj/effect/decal/cleanable/blood{
+	icon_state = "bubblegumfoot"
+	},
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered{
+	ambient_buzz = null;
+	noteleport = 1
+	})
 "sQM" = (
 /obj/item/trash/can/food/beans,
 /turf/open/floor/wood,
@@ -24001,6 +24239,10 @@
 "tNw" = (
 /obj/structure/chair{
 	dir = 4
+	},
+/mob/living/simple_animal/hostile/factory/ranged/lmg{
+	dir = 4;
+	wander = 0
 	},
 /turf/open/floor/circuit,
 /area/awaymission/factory/factoryduring/down/levelthree)
@@ -25516,6 +25758,12 @@
 	dir = 1
 	},
 /area/awaymission/factory/factoryduring/down)
+"vgy" = (
+/mob/living/simple_animal/hostile/skeleton{
+	wander = 0
+	},
+/turf/open/floor/plating/asteroid,
+/area/awaymission/factory/secret)
 "vgJ" = (
 /obj/item/ammo_casing/c45{
 	caliber = null;
@@ -26623,7 +26871,6 @@
 /obj/item/implantcase,
 /obj/item/implantcase,
 /obj/item/implantcase,
-/obj/effect/spawner/lootdrop/armory_contraband,
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
 	},
@@ -27486,8 +27733,6 @@
 "wNu" = (
 /obj/structure/closet,
 /obj/item/mecha_parts/mecha_equipment/weapon/honker,
-/obj/effect/spawner/lootdrop/armory_contraband,
-/obj/item/card/id/syndicate,
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
 	},
@@ -27546,9 +27791,16 @@
 /turf/open/floor/carpet/black,
 /area/awaymission/factory/villageduring/house)
 "wPO" = (
-/obj/item/dnainjector/lasereyesmut,
 /mob/living/simple_animal/hostile/psycho{
 	wander = 0
+	},
+/obj/item/dnainjector/insulated{
+	pixel_x = -2;
+	pixel_y = -3
+	},
+/obj/item/dnainjector/mindread{
+	pixel_x = 6;
+	pixel_y = 4
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
@@ -27641,6 +27893,10 @@
 	},
 /obj/item/megaphone/command,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/item/card/id/away{
+	desc = "An ID card that allows to pass through the second level of the factory.";
+	name = "\proper level two access card"
+	},
 /turf/open/floor/mineral/titanium,
 /area/awaymission/factory/factoryafter/down)
 "wTd" = (
@@ -28081,6 +28337,12 @@
 /area/awaymission/factory/villageduring{
 	noteleport = 0
 	})
+"xmt" = (
+/mob/living/simple_animal/hostile/factory/ranged{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/awaymission/factory/factoryduring/down/maint)
 "xmy" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/gold,
@@ -29016,7 +29278,7 @@
 /area/awaymission/factory/factoryafter/down/maint)
 "xYd" = (
 /obj/item/soap,
-/obj/machinery/light/small,
+/obj/machinery/light/small/built,
 /turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "xYs" = (
@@ -29193,7 +29455,9 @@
 /turf/open/floor/monofloor,
 /area/awaymission/factory/villageduring/basement)
 "yho" = (
-/obj/item/gun/ballistic/automatic/tommygun,
+/obj/item/gun/ballistic/automatic/tommygun{
+	spawnwithmagazine = 0
+	},
 /obj/item/paper{
 	info = "<b>You've found a secret!</b>"
 	},
@@ -29736,9 +30000,9 @@ axI
 axI
 axI
 axI
-aIt
-aIt
-aIt
+axI
+axI
+axI
 axI
 axI
 axI
@@ -30153,8 +30417,8 @@ fgi
 fgi
 fgi
 piy
-aIt
-aIt
+axI
+axI
 axI
 axI
 axI
@@ -30365,7 +30629,7 @@ fgi
 fgi
 fgi
 piy
-aIt
+axI
 piy
 piy
 piy
@@ -30582,11 +30846,11 @@ axI
 aIt
 aIt
 axI
-aIt
-aIt
-aIt
-aIt
-aIt
+axI
+axI
+axI
+axI
+axI
 axI
 axI
 axI
@@ -30803,7 +31067,7 @@ piy
 piy
 piy
 piy
-aIt
+axI
 piy
 fgi
 fgi
@@ -31002,11 +31266,9 @@ fgi
 fgi
 piy
 aIt
-aIt
-aIt
-aIt
-aIt
-aIt
+axI
+axI
+axI
 axI
 aIt
 axI
@@ -31015,7 +31277,9 @@ axI
 aIt
 axI
 aIt
-aIt
+axI
+axI
+axI
 piy
 fgi
 fgi
@@ -31425,9 +31689,9 @@ fgi
 fgi
 fgi
 piy
-aIt
-aIt
-aIt
+axI
+axI
+axI
 axI
 aIt
 aIt
@@ -31436,10 +31700,10 @@ aIt
 aIt
 axI
 aIt
-aIt
-aIt
-aIt
-aIt
+axI
+axI
+axI
+axI
 piy
 fgi
 fgi
@@ -31651,7 +31915,7 @@ piy
 piy
 piy
 piy
-aIt
+axI
 piy
 fgi
 fgi
@@ -31849,10 +32113,10 @@ fgi
 fgi
 fgi
 piy
-aIt
-aIt
-aIt
-aIt
+axI
+axI
+axI
+axI
 axI
 aIt
 aIt
@@ -31861,9 +32125,9 @@ aIt
 aIt
 axI
 aIt
-aIt
-aIt
-aIt
+axI
+axI
+axI
 piy
 fgi
 fgi
@@ -32169,7 +32433,7 @@ fOB
 gNG
 cpL
 vaU
-gfI
+aOk
 fOB
 tRJ
 tRJ
@@ -34636,7 +34900,7 @@ foz
 aRv
 aRv
 rLj
-wTd
+qWL
 uxE
 xsu
 xsu
@@ -35931,7 +36195,7 @@ wAs
 jen
 cSX
 xEo
-cSX
+bTn
 tBh
 qZa
 gZi
@@ -38706,7 +38970,7 @@ jhK
 efA
 efA
 efA
-efA
+mAn
 vXI
 efA
 efA
@@ -40599,7 +40863,7 @@ cPx
 rnT
 cPx
 gZi
-uYo
+njZ
 sLv
 wvE
 jKH
@@ -45909,7 +46173,7 @@ gZi
 gZi
 gZi
 mxW
-lVg
+pFC
 efA
 evO
 gZi
@@ -45919,7 +46183,7 @@ jTS
 pFC
 pFC
 nhJ
-pFC
+fbW
 pwe
 ogv
 gZi
@@ -46335,7 +46599,7 @@ gjp
 pFC
 fSa
 efA
-lVg
+pFC
 gZi
 pFC
 sBF
@@ -46345,7 +46609,7 @@ pFC
 sWu
 pFC
 pFC
-oqP
+ggp
 gZi
 cPx
 piy
@@ -47826,7 +48090,7 @@ vlD
 vlD
 vlD
 gZi
-nXX
+bYB
 pFC
 hFU
 qxC
@@ -48644,7 +48908,7 @@ goV
 goV
 goV
 qRD
-nOR
+kYe
 goV
 goV
 goV
@@ -49922,8 +50186,8 @@ kwN
 riR
 kwN
 goV
-xsu
-iIF
+mXe
+qhU
 cPx
 cPx
 piy
@@ -52657,11 +52921,11 @@ fgi
 fgi
 fgi
 fgi
-fgi
-fgi
-fgi
-fgi
-fgi
+piy
+piy
+piy
+piy
+piy
 fgi
 fgi
 fgi
@@ -52869,11 +53133,11 @@ fgi
 fgi
 fgi
 fgi
-fgi
-fgi
-fgi
-fgi
-fgi
+piy
+nCp
+cCZ
+rlj
+piy
 fgi
 fgi
 fgi
@@ -53081,11 +53345,11 @@ fgi
 fgi
 fgi
 fgi
-fgi
-fgi
-fgi
-fgi
-fgi
+piy
+cjj
+rEp
+jCw
+piy
 fgi
 fgi
 fgi
@@ -53293,11 +53557,11 @@ fgi
 fgi
 fgi
 fgi
-fgi
-fgi
-fgi
-fgi
-fgi
+piy
+sQq
+eda
+nCp
+piy
 fgi
 fgi
 fgi
@@ -53505,11 +53769,11 @@ fgi
 fgi
 fgi
 fgi
-fgi
-fgi
-fgi
-fgi
-fgi
+piy
+piy
+piy
+piy
+piy
 fgi
 fgi
 fgi
@@ -54565,7 +54829,7 @@ fgi
 fgi
 fgi
 fgi
-gua
+piy
 bgk
 teT
 nML
@@ -55021,7 +55285,7 @@ iCj
 ffE
 uOG
 dlL
-mcK
+orW
 mcK
 mcK
 rkM
@@ -59691,7 +59955,7 @@ nWc
 iCj
 kfX
 nPk
-oPg
+kfX
 vKS
 srn
 srn
@@ -62662,7 +62926,7 @@ rXe
 mcK
 mcK
 mcK
-mcK
+eWY
 rSY
 mcK
 mcK
@@ -65202,7 +65466,7 @@ nBY
 iCj
 mTk
 qvZ
-qWL
+iLJ
 kfX
 qvZ
 kfX
@@ -67250,8 +67514,8 @@ fgi
 (180,1,1) = {"
 piy
 cPx
-lcE
-lcE
+aCo
+aCo
 aCo
 aCo
 aCo
@@ -67491,7 +67755,7 @@ aCo
 aCo
 aCo
 aCo
-aCo
+gua
 xsu
 cPx
 cPx
@@ -67524,7 +67788,7 @@ wjh
 udG
 nBY
 cPx
-aCo
+vgy
 cPx
 iCj
 iLJ
@@ -67674,8 +67938,8 @@ fgi
 (182,1,1) = {"
 piy
 cPx
-lcE
-lcE
+aCo
+aCo
 aCo
 aCo
 aCo
@@ -67700,9 +67964,9 @@ cPx
 xsu
 aCo
 aCo
-aCo
-aCo
-aCo
+gua
+oqP
+oqP
 aCo
 xsu
 cPx
@@ -67911,7 +68175,7 @@ cPx
 cPx
 xsu
 aCo
-aCo
+gua
 ifl
 dVk
 dVk
@@ -68126,7 +68390,7 @@ aCo
 aZm
 wBl
 pbB
-aCo
+oqP
 aCo
 xsu
 cPx
@@ -68334,10 +68598,10 @@ xsu
 cPx
 cPx
 xsu
-aCo
+gua
 hbk
 xik
-aCo
+oqP
 aCo
 aCo
 cPx
@@ -68597,9 +68861,9 @@ oFR
 iLJ
 jYn
 hKh
-ckG
-ckG
-ckG
+rCP
+rCP
+rCP
 czY
 iCj
 vwe
@@ -70506,7 +70770,7 @@ iLJ
 iLJ
 wuf
 iLJ
-iLJ
+fEq
 iLJ
 iLJ
 mUR
@@ -71778,7 +72042,7 @@ cyR
 wCc
 mxN
 iCj
-lkg
+xmt
 lkg
 lkg
 iCj
@@ -72416,7 +72680,7 @@ mxN
 iCj
 uxv
 kHc
-lkg
+xmt
 iCj
 qoJ
 kfX
@@ -74090,8 +74354,8 @@ cpF
 gxh
 cpF
 wKK
-aCo
-aCo
+lmf
+lmf
 cPx
 cPx
 piy
@@ -74302,7 +74566,7 @@ wKK
 wKK
 wKK
 wKK
-aCo
+lmf
 pbB
 cPx
 cPx
