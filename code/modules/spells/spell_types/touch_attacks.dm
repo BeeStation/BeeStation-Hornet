@@ -14,7 +14,7 @@
 	to_chat(usr, "<span class='notice'>The power of the spell dissipates from your hand.</span>")
 	..()
 
-/obj/effect/proc_holder/spell/targeted/touch/proc/remove_hand(mob/user)
+/obj/effect/proc_holder/spell/targeted/touch/proc/remove_hand()
 	QDEL_NULL(attached_hand)
 	if(!spell_used)
 		charge_counter = charge_max
@@ -29,7 +29,7 @@
 
 /obj/effect/proc_holder/spell/targeted/touch/cast(list/targets,mob/user = usr)
 	if(!QDELETED(attached_hand))
-		remove_hand(user)
+		remove_hand()
 		to_chat(user, "<span class='notice'>[dropmessage]</span>")
 		return
 

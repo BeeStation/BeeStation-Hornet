@@ -176,15 +176,6 @@
 		var/obj/item/reagent_containers/food/snacks/pie/cream/body/pie = new(get_turf(M))
 		pie.name = "\improper [name] [pie.name]"
 
-		playsound(get_turf(target), on_use_sound, 50, 1)
+		. = ..()
 
-		/*
-		var/obj/item/bodypart/head = M.get_bodypart("head")
-		if(head)
-			head.drop_limb()
-		head.throw_at(get_turf(head), 1, 1)
-		qdel(M)
-		*/
 		M.forceMove(pie)
-
-	. = ..()

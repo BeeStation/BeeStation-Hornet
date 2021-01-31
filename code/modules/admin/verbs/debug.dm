@@ -905,6 +905,6 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Give all spells"
 	if(!check_rights(R_DEBUG))
 		return
-	for(var/type in subtypesof(/obj/effect/proc_holder/spell))
-		var/obj/effect/proc_holder/spell/spell = new type
+	for(var/type in GLOB.spells)
+		var/obj/effect/proc_holder/spell/spell = type
 		mob.AddSpell(spell)
