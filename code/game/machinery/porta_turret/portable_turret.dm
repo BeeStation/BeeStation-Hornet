@@ -715,6 +715,7 @@
 	armor = list("melee" = 50, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 80, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
 
 /obj/machinery/porta_turret/syndicate/shuttle/target(atom/movable/target)
+	..()
 	if(target)
 		setDir(get_dir(base, target))//even if you can't shoot, follow the target
 		shootAt(target)
@@ -809,7 +810,7 @@
 	var/locked = TRUE
 	 /// An area in which linked turrets are located, it can be an area name, path or nothing
 	var/control_area = null
-	 /// AI is unable to use this machine if set to TRUE
+	 /// Silicons are unable to use this machine if set to TRUE
 	var/ailock = FALSE
 	/// Variable dictating if linked turrets will shoot cyborgs
 	var/shoot_cyborgs = FALSE
@@ -885,6 +886,12 @@
 	to_chat(user, "<span class='danger'>You short out the turret controls' access analysis module.</span>")
 	obj_flags |= EMAGGED
 	locked = FALSE
+
+/obj/machinery/turretid/attack_robot(mob/user)
+	if(!ailock || IsAdminGhost(user))
+		return attack_hand(user)
+	else
+		to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
 
 /obj/machinery/turretid/attack_ai(mob/user)
 	if(!ailock || IsAdminGhost(user))
