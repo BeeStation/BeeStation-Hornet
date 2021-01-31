@@ -1,0 +1,6 @@
+author: park66665
+delete-after: true
+changes:
+  - bugfix: you can now see space tiles' panel
+  - bugfix: admins (or people with perms) can now use mapping debug verbs that requires
+      enabling
