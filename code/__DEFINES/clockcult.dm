@@ -35,4 +35,4 @@
 #define CLOCKCULT_RECRUIT 0
 
 //Heralds beacon activation time
-#define HERALDS_BEACON_TIME 30 * 60 * 10
+#define HERALDS_BEACON_TIME 18000
