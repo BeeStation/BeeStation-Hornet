@@ -557,7 +557,7 @@
 	. = ..()
 	if(. && transformeffects & SLIME_EFFECT_LIGHT_PINK)
 		LAZYADD(GLOB.mob_spawners["[master.real_name]'s slime"], src)
-	GLOB.poi_list += src
+	GLOB.poi_list |= src
 
 /mob/living/simple_animal/slime/proc/remove_form_spawner_menu()
 	for(var/spawner in GLOB.mob_spawners)
