@@ -1,0 +1,5 @@
+author: francinum
+delete-after: true
+changes:
+  - config: Bluespace miner is now affected by config. Golden has two miners and cannot
+      research more. Sage has no miners and cannot research more.
