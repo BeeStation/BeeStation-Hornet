@@ -6,8 +6,8 @@
 /datum/component/swimming/felinid/process()
 	..()
 	var/mob/living/L = parent
-	var/obj/item/helditem = L.get_active_held_item()
-	if(helditem && helditem.check_float())
+	var/obj/item/twohanded/required/pool/helditem = L.get_active_held_item()
+	if(istype(helditem) && helditem.wielded)
 		return
 	switch(rand(1, 100))
 		if(1 to 4)

@@ -209,8 +209,6 @@ GLOBAL_LIST_EMPTY(pool_filters)
 		reagents.add_reagent(preset_reagent_type, 100)
 	var/area/AR = get_area(src)
 	for(var/turf/open/indestructible/sound/pool/water in get_area_turfs(AR))
-		if(!istype(water))
-			continue //Only affect pool turfs.
 		if(id && water.id != id)
 			continue //Not the same id. Fine. Ignore that one then!
 		pool += water
@@ -245,7 +243,7 @@ GLOBAL_LIST_EMPTY(pool_filters)
 	current_temperature += delta
 	current_temperature = CLAMP(current_temperature, T0C, desired_temperature)
 	var/trans_amount = reagents.total_volume / pool.len //Split up the reagents equally.
-	for(var/turf/open/indestructible/sound/pool/water in pool)
+	for(var/turf/open/indestructible/sound/pool/water as() in pool)
 		if(reagents.reagent_list.len)
 			water.set_colour(mix_color_from_reagents(reagents.reagent_list))
 		else

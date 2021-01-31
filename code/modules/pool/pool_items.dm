@@ -1,6 +1,3 @@
-/obj/item/proc/check_float(mob/living/holder)
-	return FALSE
-
 /obj/item/twohanded/required/pool
 	icon = 'icons/obj/pool.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -24,11 +21,6 @@
 	. = ..()
 	//Pick a random color
 	color = pick(COLOR_YELLOW, COLOR_LIME, COLOR_RED, COLOR_BLUE_LIGHT, COLOR_CYAN, COLOR_MAGENTA)
-
-/obj/item/twohanded/required/pool/check_float(mob/living/holder)
-	if(wielded)
-		return TRUE
-	return FALSE
 
 /obj/item/twohanded/required/pool/rubber_ring
 	name = "inflateable ring"
