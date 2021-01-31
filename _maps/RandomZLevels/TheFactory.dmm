@@ -9918,6 +9918,10 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/factoryafter/down)
+"hYx" = (
+/mob/living/simple_animal/hostile/retaliate/clown/clownhulk/chlown,
+/turf/open/floor/plating/asteroid,
+/area/awaymission/factory/secret)
 "hYI" = (
 /obj/structure/window/reinforced/spawner,
 /turf/open/floor/mineral/titanium/blue,
@@ -29991,7 +29995,7 @@ fgi
 fgi
 piy
 aaH
-aCo
+hYx
 cbX
 axI
 axI
