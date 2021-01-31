@@ -173,7 +173,7 @@
 /obj/item/projectile/magic/spell/magic_missile/lesser
 	color = "red" //Looks more culty this way
 	range = 10
-	
+
 /obj/item/projectile/magic/spell/magic_missile/lesser/can_hit_target(atom/target, list/passthrough, direct_target = FALSE, ignore_loc = FALSE)
 	if (iscultist(target))
 		return FALSE
@@ -281,7 +281,7 @@
 		revert_cast()
 		return
 
-	if(S.sentience_type != SENTIENCE_ORGANIC)
+	if(!istype(S) || S.sentience_type != SENTIENCE_ORGANIC)
 		to_chat(user, "<span class='warning'>[S] cannot be dominated!</span>")
 		revert_cast()
 		return

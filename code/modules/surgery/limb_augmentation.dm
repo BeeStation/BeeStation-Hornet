@@ -43,6 +43,11 @@
 	possible_locs = list(BODY_ZONE_R_ARM,BODY_ZONE_L_ARM,BODY_ZONE_R_LEG,BODY_ZONE_L_LEG,BODY_ZONE_CHEST,BODY_ZONE_HEAD)
 	requires_real_bodypart = TRUE
 
+
+
+/datum/surgery/augmentation/can_start(mob/user, mob/living/carbon/target)
+	return ..() && !isoozeling(target)
+
 //SURGERY STEP SUCCESSES
 
 /datum/surgery_step/replace_limb/success(mob/user, mob/living/carbon/target, target_zone, obj/item/bodypart/tool, datum/surgery/surgery)

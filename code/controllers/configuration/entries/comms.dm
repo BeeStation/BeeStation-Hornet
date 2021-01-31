@@ -44,6 +44,10 @@
 /datum/config_entry/keyed_list/insecure_cross_server/ValidateListEntry(key_name, key_value)
 	return key_value != "byond://address:port" && ..()
 
+/datum/config_entry/flag/insecure_announce
+
+/datum/config_entry/flag/insecure_newscaster
+
 /datum/config_entry/string/cross_comms_name
 
 /datum/config_entry/string/medal_hub_address

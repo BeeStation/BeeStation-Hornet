@@ -91,7 +91,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				var/final_cost = max(round(total_cost * discount), 1)
 				//Setup the item
 				A.cost = final_cost
-				A.name += " + [second_I.name] (Discounted Bundle - [round((total_cost / final_cost )*100)]% off!)"
+				A.name += " + [second_I.name] (Discounted Bundle - [100-(round((final_cost / total_cost)*100))]% off!)"
 				A.desc += " Also contains [second_I.name]. Normally costs [total_cost] TC when bought together. All sales final. [pick(disclaimer)]"
 				A.bonus_items = list(second_I.item)
 		A.discounted = TRUE

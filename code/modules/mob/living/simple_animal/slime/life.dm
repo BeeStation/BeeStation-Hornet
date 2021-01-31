@@ -8,9 +8,11 @@
 
 /mob/living/simple_animal/slime/Life()
 	set invisibility = 0
-
-	if (notransform)
+	if(notransform)
 		return
+	alpha = 255
+	if(transformeffects & SLIME_EFFECT_BLACK)
+		alpha = 64
 	if(..())
 		if(buckled)
 			handle_feeding()
@@ -45,7 +47,11 @@
 			Target.attack_slime(src)
 			attack_cooldown = world.time + attack_cooldown_time
 	else if(Target in view(7, src))
-		step_to(src, Target)
+		if((transformeffects & SLIME_EFFECT_BLUESPACE) && powerlevel >= 5)
+			do_teleport(src, get_turf(Target), asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
+			powerlevel -= 5
+		else
+			step_to(src, Target)
 	else
 		special_process = FALSE
 		Target = null
@@ -78,6 +84,12 @@
 	if(stat != DEAD)
 		var/bz_percentage = environment.total_moles() ? (environment.get_moles(/datum/gas/bz) / environment.total_moles()) : 0
 		var/stasis = (bz_percentage >= 0.05 && bodytemperature < (T0C + 100)) || force_stasis
+		if(transformeffects & SLIME_EFFECT_DARK_PURPLE)
+			var/amt = is_adult ? 30 : 15
+			var/plas_amt = min(amt,environment.get_moles(/datum/gas/plasma))
+			environment.adjust_moles(/datum/gas/plasma, -plas_amt)
+			environment.adjust_moles(/datum/gas/oxygen, plas_amt)
+			adjustBruteLoss(plas_amt ? -2 : 0)
 
 		if(stat == CONSCIOUS && stasis)
 			to_chat(src, "<span class='danger'>Nerve gas in the air has put you in stasis!</span>")
@@ -117,14 +129,22 @@
 /mob/living/simple_animal/slime/handle_status_effects()
 	..()
 	if(prob(30) && !stat)
-		adjustBruteLoss(-1)
+		var/heal = 1
+		if(transformeffects & SLIME_EFFECT_PURPLE)
+			heal += 0.5
+		adjustBruteLoss(-heal)
+	if((transformeffects & SLIME_EFFECT_RAINBOW) && prob(5))
+		random_colour()
 
 /mob/living/simple_animal/slime/proc/handle_feeding()
-	if(!ismob(buckled))
+	if(!isliving(buckled))
 		return
-
-	var/mob/M = buckled
-
+	alpha = 255
+	var/mob/living/M = buckled
+	if(transformeffects & SLIME_EFFECT_OIL)
+		var/datum/reagent/fuel/fuel = new
+		fuel.reaction_mob(buckled,TOUCH,20)
+		qdel(fuel)
 	if(M.stat == DEAD)
 		if(client)
 			to_chat(src, "<i>This subject does not have a strong enough life energy anymore...</i>")
@@ -136,6 +156,12 @@
 		//we go rabid after finishing to feed on a human with a client.
 		if(M.client && ishuman(M))
 			rabid = 1
+
+		if(transformeffects & SLIME_EFFECT_GREEN)
+			visible_message("<span class='warning'>[src] slurps up [M]!</span>")
+			adjust_nutrition(10)
+			layer = initial(layer)
+			qdel(M)
 
 		Target = null
 		special_process = FALSE
@@ -151,17 +177,13 @@
 		"You feel extremely weak!", \
 		"A sharp, deep pain bathes every inch of your body!")]</span>")
 
-	if(iscarbon(M))
-		var/mob/living/carbon/C = M
-		if(ismonkey(M))
-			C.adjustCloneLoss(monkey_bonus_damage)
-
-		C.adjustCloneLoss(4)
-		C.adjustToxLoss(2)
-	else if(isanimal(M))
-		var/mob/living/simple_animal/SA = M
-		SA.adjustCloneLoss(4)
-		SA.adjustToxLoss(2)
+	var/bonus_damage = 1
+	if(transformeffects & SLIME_EFFECT_RED)
+		bonus_damage *= 1.1
+	M.adjustCloneLoss(4*bonus_damage)
+	M.adjustToxLoss(2*bonus_damage)
+	if(ismonkey(M))
+		M.adjustCloneLoss(monkey_bonus_damage*bonus_damage)
 
 	add_nutrition((15 * CONFIG_GET(number/damage_multiplier)))
 	adjustBruteLoss(-5)
@@ -171,7 +193,7 @@
 		set_nutrition(700) //fuck you for using the base nutrition var
 		return
 
-	if(prob(15))
+	if(prob(15) && !(transformeffects & SLIME_EFFECT_SILVER))
 		adjust_nutrition(-(1 + is_adult))
 
 	if(nutrition <= 0)
@@ -189,18 +211,16 @@
 			Evolve()
 
 /mob/living/simple_animal/slime/proc/add_nutrition(nutrition_to_add = 0)
+	var/gainpower = (transformeffects & SLIME_EFFECT_YELLOW) ? 3 : 1
 	set_nutrition(min((nutrition + nutrition_to_add), get_max_nutrition()))
 	if(nutrition >= get_grow_nutrition())
 		if(powerlevel<10)
 			if(prob(30-powerlevel*2))
-				powerlevel++
+				powerlevel += gainpower
 	else if(nutrition >= get_hunger_nutrition() + 100) //can't get power levels unless you're a bit above hunger level.
 		if(powerlevel<5)
 			if(prob(25-powerlevel*5))
-				powerlevel++
-
-
-
+				powerlevel += gainpower
 
 /mob/living/simple_animal/slime/proc/handle_targets()
 	update_mobility()
@@ -519,3 +539,9 @@
 	if (holding_still)
 		return 0
 	return 1
+
+
+/mob/living/simple_animal/slime/movement_delay()
+	. = ..()
+	if(transformeffects & SLIME_EFFECT_SEPIA)
+		. *= 0.7
