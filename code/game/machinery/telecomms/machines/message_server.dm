@@ -44,8 +44,6 @@
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		stored = I
 		update_icon()
-		return ..()
-	return ..()
 
 /obj/machinery/blackbox_recorder/Destroy()
 	if(stored)
