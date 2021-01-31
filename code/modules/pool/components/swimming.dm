@@ -52,6 +52,16 @@
 		return
 	if(istype(clicked_turf, /turf/open/indestructible/sound/pool))
 		return
+	if(L.pulling)
+		to_chat(parent, "<span class='notice'>You start to lift [L.pulling] out of the pool...</span>")
+		var/atom/movable/pulled_object = L.pulling
+		if(do_after(parent, 1 SECONDS, target=pulled_object))
+			pulled_object.forceMove(clicked_turf)
+			L.visible_message("<span class='notice'>[parent] pulls [pulled_object] out of the pool.</span>")
+			var/datum/component/swimming/swimming_comp = pulled_object.GetComponent(/datum/component/swimming)
+			if(swimming_comp)
+				swimming_comp.RemoveComponent()
+		return
 	to_chat(parent, "<span class='notice'>You start to climb out of the pool...</span>")
 	if(do_after(parent, 1 SECONDS, target=clicked_turf))
 		L.forceMove(clicked_turf)
