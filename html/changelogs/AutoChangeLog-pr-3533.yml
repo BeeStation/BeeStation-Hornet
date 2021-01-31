@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: Oozelings dissolve into the pool
+  - bugfix: Items are dropped from people who dissolve in the pool.
