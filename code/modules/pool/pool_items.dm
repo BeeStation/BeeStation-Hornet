@@ -20,7 +20,7 @@
 /obj/item/twohanded/required/pool/Initialize()
 	. = ..()
 	//Pick a random color
-	color = pick(COLOR_YELLOW, COLOR_LIME, COLOR_RED, COLOR_BLUE_LIGHT, COLOR_CYAN, COLOR_MAGENTA)
+	add_atom_colour(pick(COLOR_YELLOW, COLOR_LIME, COLOR_RED, COLOR_BLUE_LIGHT, COLOR_CYAN, COLOR_MAGENTA), FIXED_COLOUR_PRIORITY)
 
 /obj/item/twohanded/required/pool/rubber_ring
 	name = "inflateable ring"
