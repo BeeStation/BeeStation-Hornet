@@ -552,17 +552,76 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	icon_state = "rune_gold"
 	desc = "This can be activated to transmute valuable items into a random item."
 	deleteme = FALSE
-	var/static/list/rare_items = list(/mob/living/simple_animal/pet/dog/corgi/puppy/void,
-							/obj/item/card/emagfake,
-							/obj/item/clothing/head/speedwagon/cursed,
-							/obj/structure/closet/crate/necropolis,
-							/obj/item/gun/ballistic/revolver/reverse,
-							/obj/item/grenade/gluon,
-							/obj/item/sharpener,
-							/obj/item/flashlight/flashdark,
-							/mob/living/simple_animal/slime/rainbow,
-							/obj/item/storage/belt/sabre)
 	var/target_value = 5000
+	var/static/list/common_items = list(
+		/obj/item/toy/plush/carpplushie,
+		/obj/item/toy/plush/bubbleplush,
+		/obj/item/toy/plush/plushvar,
+		/obj/item/toy/plush/narplush,
+		/obj/item/toy/plush/lizardplushie,
+		/obj/item/toy/plush/snakeplushie,
+		/obj/item/toy/plush/nukeplushie,
+		/obj/item/toy/plush/slimeplushie,
+		/obj/item/toy/plush/awakenedplushie,
+		/obj/item/toy/plush/beeplushie,
+		/obj/item/toy/plush/moth,
+		/obj/item/toy/eightball/haunted,
+		/obj/item/toy/foamblade,
+		/obj/item/toy/katana,
+		/obj/item/toy/snappop/phoenix,
+		/obj/item/toy/cards/deck/unum,
+		/obj/item/toy/redbutton,
+		/obj/item/toy/toy_xeno,
+		/obj/item/toy/reality_pierce,
+		/obj/item/toy/xmas_cracker,
+		/obj/item/gun/ballistic/automatic/c20r/toy/unrestricted,
+		/obj/item/gun/ballistic/automatic/l6_saw/toy/unrestricted,
+		/obj/item/gun/ballistic/automatic/toy/pistol/unrestricted,
+		/obj/item/gun/ballistic/shotgun/toy/unrestricted,
+		/obj/item/gun/ballistic/shotgun/toy/crossbow,
+		/obj/item/clothing/mask/facehugger/toy,
+		/obj/item/twohanded/dualsaber/toy,
+		/obj/item/clothing/under/costume/roman,
+		/obj/item/clothing/under/costume/pirate,
+		/obj/item/clothing/under/costume/kilt/highlander,
+		/obj/item/clothing/under/costume/gladiator/ash_walker,
+		/obj/item/clothing/under/costume/geisha,
+		/obj/item/clothing/under/costume/villain,
+		/obj/item/clothing/under/costume/singer/yellow,
+		/obj/item/clothing/under/costume/russian_officer
+	)
+
+	var/static/list/uncommon_items = list(
+		/obj/item/clothing/head/speedwagon/cursed,
+		/obj/item/clothing/suit/space/hardsuit/ancient,
+		/obj/item/gun/energy/laser/retro/old,
+		/obj/item/storage/toolbox/mechanical/old,
+		/obj/item/storage/toolbox/emergency/old,
+		/obj/effect/mob_spawn/teratomamonkey,
+		/obj/effect/mob_spawn/human/ash_walker,
+		/obj/effect/spawner/lootdrop/three_course_meal,
+		/mob/living/simple_animal/pet/dog/corgi/puppy/void,
+		/obj/structure/closet/crate/necropolis,
+		/obj/item/grenade/gluon,
+		/obj/item/card/emagfake,
+		/obj/item/gun/ballistic/revolver/reverse,
+		/obj/item/flashlight/flashdark,
+		/mob/living/simple_animal/slime/rainbow,
+		/obj/item/storage/belt/sabre,
+		/obj/item/drone_shell,
+		/obj/item/sharpener,
+		/mob/living/simple_animal/hostile/cat_butcherer
+	)
+
+	var/static/list/rare_items = list(
+		/obj/effect/mob_spawn/human/syndicate/battlecruiser/captain,
+		/obj/structure/spawner/skeleton,
+		/obj/effect/spawner/lootdrop/armory_contraband,
+		/obj/effect/spawner/lootdrop/teratoma/major
+	)
+
+
+
 
 /obj/effect/warped_rune/goldspace/do_effect(mob/user)
 	var/price = 0
@@ -573,9 +632,20 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 			if(ex.total_value[x])
 				price += ex.total_value[x]
 				valuable_items |= I
+
 	if(price >= target_value)
 		deleteme = TRUE
-		var/path = pick(rare_items)
+		var/num = rand(1,100)
+		var/path
+
+		switch(num)
+			if(1 to 80)
+				path = pick(common_items)
+			if(80 to 95)
+				path = pick(uncommon_items)
+			else
+				path = pick(rare_items)
+
 		var/atom/movable/A = new path(rune_turf)
 		for(var/obj/item/I in valuable_items)
 			I.loc = null
