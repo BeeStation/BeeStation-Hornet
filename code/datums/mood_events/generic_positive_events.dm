@@ -173,7 +173,7 @@
 
 /datum/mood_event/poppy_pin
 	description = "<span class='nicegreen'>I feel proud to show my remembrance of the many who have died to ensure that I have freedom.</span>\n"
-	mood_change = 0.3
+	mood_change = 1
 
 /datum/mood_event/area
 	description = "" //Fill this out in the area
