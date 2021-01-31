@@ -1,0 +1,4 @@
+author: githubuser343
+delete-after: true
+changes:
+  - tweak: Floor tile ripping due to decompression now half as likely.
