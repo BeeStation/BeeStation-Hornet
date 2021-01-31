@@ -95,6 +95,7 @@
 	var/list/part_overlays
 	var/panel_attachment = "right"
 	var/note_attachment = "left"
+	var/emag_unbolt = FALSE
 
 	var/cyclelinkeddir = 0
 	var/obj/machinery/door/airlock/cyclelinkedairlock
@@ -1339,6 +1340,8 @@
 		operating = TRUE
 		update_icon(AIRLOCK_EMAG, 1)
 		sleep(6)
+		if(emag_unbolt)
+			unbolt()
 		if(QDELETED(src))
 			return
 		operating = FALSE

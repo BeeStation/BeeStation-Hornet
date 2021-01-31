@@ -340,6 +340,7 @@
 	anim_parts = "top=0,16;bottom=0,-16"
 	note_attachment = "bottom"
 	panel_attachment = "bottom"
+	emag_unbolt = TRUE
 
 /obj/machinery/door/airlock/arrivals_external
 	name = "arrivals airlock"
