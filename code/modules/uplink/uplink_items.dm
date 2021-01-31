@@ -1737,6 +1737,15 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	item = /obj/item/clothing/glasses/thermal/syndi
 	cost = 3
 
+/datum/uplink_item/device_tools/syndi_auth
+	name = "Syndicate Authentication Device"
+	desc = "This device grants an individual temporary authentication to Syndicate networks, preventing them being marked as hostile by turrets and other technology."
+	item = /obj/item/faction_aligner_syndicate
+	cost = 1
+	surplus = 0
+	include_modes = list(/datum/game_mode/nuclear)
+
+
 // Implants
 /datum/uplink_item/implants
 	category = "Implants"

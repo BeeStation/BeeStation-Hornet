@@ -285,3 +285,18 @@ effective or pretty fucking useless.
 	else
 		GLOB.active_jammers -= src
 	update_icon()
+
+/obj/item/faction_aligner_syndicate
+	name = "Syndicate Authentication Device"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "gangtool-red"
+	item_state = "radio"
+	desc = "Used to temporarily grant individuals elite Syndicate authentication."
+	var/used_up = FALSE
+
+/obj/item/faction_aligner_syndicate/attack_self(mob/living/user)
+	if(used_up)
+	else
+		to_chat(user, "You are temporarily added to the elite Syndicate authentication database. Syndicate turrets will no longer attack you.")
+		user.faction |= "Syndicate"
+		used_up = TRUE
