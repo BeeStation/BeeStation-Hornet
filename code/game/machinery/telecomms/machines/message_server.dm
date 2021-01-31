@@ -28,10 +28,8 @@
 		stored = null
 		to_chat(user, "<span class='notice'>You remove the blackbox from [src]. The tapes stop spinning.</span>")
 		update_icon()
-		return
 	else
 		to_chat(user, "<span class='warning'>It seems that the blackbox is missing...</span>")
-		return
 
 /obj/machinery/blackbox_recorder/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
