@@ -4,6 +4,7 @@
  * @license MIT
  */
 
+import { createSearch } from 'common/string';
 import { clamp01 } from 'common/math';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Flex, Section, Input } from '../components';
@@ -164,8 +165,7 @@ export const ListInput = (props, context) => {
               <Input
                 fluid
                 onInput={(e, value) => setDisplayedArray(
-                  buttons.filter(val =>
-                    val.toLowerCase().search(value.toLowerCase()) !== -1
+                  buttons.filter(createSearch(value)
                   )
                 )}
               />
