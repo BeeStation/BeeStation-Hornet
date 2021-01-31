@@ -44,6 +44,8 @@
 		damage = 30
 	else
 		damage = 20
+	if(M.transformeffects & SLIME_EFFECT_RED)
+		damage *= 1.1
 	damage = round(damage / 2) // borgs receive half damage
 	adjustBruteLoss(damage)
 	updatehealth()

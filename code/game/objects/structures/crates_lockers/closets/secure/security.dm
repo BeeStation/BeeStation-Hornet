@@ -280,7 +280,7 @@
 	..()
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 	for(var/i in 1 to 3)
-		new /obj/item/paper/fluff/jobs/security/court_judgement (src)
+		new /obj/item/paper/fluff/jobs/security/court_judgment (src)
 	new /obj/item/pen (src)
 	new /obj/item/clothing/suit/judgerobe (src)
 	new /obj/item/clothing/head/powdered_wig (src)

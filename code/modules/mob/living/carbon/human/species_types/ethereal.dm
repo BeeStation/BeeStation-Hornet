@@ -23,6 +23,7 @@
 	toxic_food = NONE
 	hair_color = "fixedmutcolor"
 	hair_alpha = 140
+	swimming_component = /datum/component/swimming/ethereal
 	var/current_color
 	var/ethereal_charge = ETHEREAL_CHARGE_FULL
 	var/EMPeffect = FALSE
