@@ -141,10 +141,7 @@
 			return
 
 		if(SSticker.queued_players.len || (relevant_cap && living_player_count() >= relevant_cap))
-			if(IS_PATRON(src.ckey))
-				LateChoices()
-				return
-			if(client in GLOB.admins)
+			if(IS_PATRON(src.ckey) || (client in GLOB.admins))
 				LateChoices()
 				return
 			to_chat(usr, "<span class='danger'>[CONFIG_GET(string/hard_popcap_message)]</span>")
