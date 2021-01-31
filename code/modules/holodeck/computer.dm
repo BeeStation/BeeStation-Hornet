@@ -1,9 +1,7 @@
 /*
 Map Template Holodeck
 
-Holodeck finds the location of mapped_start_area and loads offline_program in it on LateInitialize. It then loads the programs that have the
-same holodeck_access flag as it (e.g. the station holodeck has the holodeck_access flag STATION_HOLODECK, and it loads all programs with this
-flag). These program templates are then given to Holodeck.js in the form of program_cache and emag_programs. when a user selects a program the
+Holodeck finds the location of mapped_start_area and loads offline_program in it on LateInitialize. It then passes its program templates to Holodeck.js in the form of program_cache and emag_programs. when a user selects a program the
 ui calls load_program() with the id of the selected program.
 load_program() -> map_template/load() on map_template/holodeck.
 
@@ -398,12 +396,6 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 /obj/machinery/computer/holodeck/blob_act(obj/structure/blob/B)
 	emergency_shutdown()
 	return ..()
-
-/obj/machinery/computer/holodeck/offstation //second holodeck if you want to add one to a ruin :flushed:
-	name = "holodeck control console"
-	desc = "A computer used to control a nearby holodeck."
-	offline_program = "holodeck_offline"
-	mapped_start_area = /area/holodeck/rec_center/offstation_one
 
 #undef HOLODECK_CD
 #undef HOLODECK_DMG_CD
