@@ -1,0 +1,6 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Targeted spells now give you a click ability rather than a dropdown list
+      of targets.
+  - tweak: The cooldown on spells is now on top of the button.
