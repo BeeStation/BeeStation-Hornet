@@ -228,7 +228,19 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		if(nonabstract_req && (isbrain(user) || ispAI(user)))
 			to_chat(user, "<span class='notice'>This spell can only be cast by physical beings!</span>")
 			return FALSE
+	if(action)
+		action.UpdateButtonIcon()
 	return TRUE
+
+/obj/effect/proc_holder/spell/proc/use_charge(mob/user)
+	switch(charge_type)
+		if("recharge")
+			charge_counter = 0 //doesn't start recharging until the targets selecting ends
+		if("charges")
+			charge_counter-- //returns the charge if the targets selecting fails
+		if("holdervar")
+			adjust_var(user, holder_var_type, holder_var_amount)
+	start_recharge()
 
 /obj/effect/proc_holder/spell/proc/charge_check(mob/user, silent = FALSE)
 	switch(charge_type)
@@ -304,6 +316,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		recharging = FALSE
 
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = TRUE, mob/user = usr) //if recharge is started is important for the trigger spells
+	if(!cast_check())
+		return
+	use_charge(user)
 	before_cast(targets)
 	invocation(user)
 	if(user?.ckey)
