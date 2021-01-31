@@ -25313,7 +25313,7 @@
 "uXF" = (
 /turf/open/lava/smooth{
 	desc = "Looks hot.";
-	initial_gas_mix = "n2=23;o2=14";
+	initial_gas_mix = "n2=23;o2=14;TEMP=293.15";
 	luminosity = 5
 	},
 /area/ruin/unpowered{
