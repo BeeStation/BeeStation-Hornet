@@ -1,0 +1,4 @@
+author: AnturK
+delete-after: true
+changes:
+  - admin: Admins can now modify traits
