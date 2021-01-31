@@ -67,6 +67,10 @@
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 */
 
+/*
+Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
+*/
+
 //mob traits
 #define TRAIT_BLIND 			"blind"
 #define TRAIT_MUTE				"mute"
