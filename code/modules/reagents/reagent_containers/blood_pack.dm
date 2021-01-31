@@ -67,6 +67,12 @@
 	blood_type = "LE"
 	unique_blood = /datum/reagent/consumable/liquidelectricity
 
+/obj/item/reagent_containers/blood/oozeling
+	labelled = 1
+	name = "blood pack - OZ"
+	blood_type = "OZ"
+	unique_blood = /datum/reagent/toxin/slimeooze
+
 /obj/item/reagent_containers/blood/universal
 	blood_type = "U"
 
