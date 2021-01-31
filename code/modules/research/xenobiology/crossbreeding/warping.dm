@@ -621,8 +621,6 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	)
 
 
-
-
 /obj/effect/warped_rune/goldspace/do_effect(mob/user)
 	var/price = 0
 	var/list/valuable_items = list()
