@@ -1,5 +1,0 @@
-author: Victor239
-delete-after: true
-changes:
-  - balance: Most window integrity is now halved, which is still double what it was
-      pre-fastmos.
