@@ -25,9 +25,7 @@
 	var/protected = FALSE
 
 /obj/item/holosign_creator/chrono_trap/proc/protection_check(mob/user)
-	if (protected && !user.mind?.has_antag_datum(/datum/antagonist/tca))
-		return FALSE
-	return TRUE
+	return !(protected && !user.mind?.has_antag_datum(/datum/antagonist/tca))
 
 /obj/item/holosign_creator/chrono_trap/afterattack(atom/A, mob/user, proximity)
 	if (protection_check(user))
@@ -60,9 +58,7 @@
 	var/protected = FALSE
 
 /obj/item/chrono_tele/proc/protection_check(mob/user)
-	if (protected && !user.mind?.has_antag_datum(/datum/antagonist/tca))
-		return FALSE
-	return TRUE
+	return !(protected && !user.mind?.has_antag_datum(/datum/antagonist/tca))
 
 /obj/item/chrono_tele/afterattack(atom/A, mob/user, proximity)
 	if (protection_check(user))

@@ -17,9 +17,7 @@
 	var/protected = FALSE
 
 /obj/item/clothing/head/helmet/space/chronos/proc/protection_check(mob/user)
-	if (protected && !user.mind?.has_antag_datum(/datum/antagonist/tca))
-		return FALSE
-	return TRUE
+	return !(protected && !user.mind?.has_antag_datum(/datum/antagonist/tca))
 
 /obj/item/clothing/head/helmet/space/chronos/equipped(mob/living/user, slot)
 	..()
