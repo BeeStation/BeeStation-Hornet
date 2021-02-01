@@ -39,41 +39,19 @@
 	var/efficiency = 0	
 	for(var/obj/item/stock_parts/P in component_parts)
 		efficiency += P.rating
-	
-	switch (efficiency)
-		if (19 to 28)
-			ore_rates = list(
-				/datum/material/iron = 0.6, 
-				/datum/material/glass = 0.6,
-				/datum/material/copper = 0.2, 
-				/datum/material/silver = 0.1, 
-			)
-		if (29 to 38)
-			ore_rates = list(
-				/datum/material/iron = 0.6, 
-				/datum/material/glass = 0.6,
-				/datum/material/copper = 0.4, 
-				/datum/material/silver = 0.2, 
-				/datum/material/gold = 0.1, 
-				/datum/material/plasma = 0.2,
-			)
-		if (39 to INFINITY)	//and beyond
-			ore_rates = list(
-				/datum/material/iron = 0.6, 
-				/datum/material/glass = 0.6, 
-				/datum/material/copper = 0.4, 
-				/datum/material/silver = 0.2, 
-				/datum/material/gold = 0.1, 
-				/datum/material/plasma = 0.2,
-				/datum/material/titanium = 0.1, 
-				/datum/material/uranium = 0.1, 
-				/datum/material/diamond = 0.1
-			)
-		else 
-			ore_rates = list(
-				/datum/material/iron = 0.6, 
-				/datum/material/glass = 0.6,
-			)
+	efficiency /= 40
+		
+	ore_rates = list(
+				/datum/material/iron = 0.2 + 0.6 * efficiency, 
+				/datum/material/glass = 0.2 + 0.6 * efficiency, 
+				/datum/material/copper = 0.2 + 0.3 * efficiency, 
+				/datum/material/silver = 0.1 + 0.2 * efficiency, 
+				/datum/material/plasma = 0.1 + 0.2 * efficiency,
+				/datum/material/gold = 0.05 + 0.1 * efficiency, 
+				/datum/material/titanium = 0.05 + 0.1 * efficiency, 
+				/datum/material/uranium = 0.05 + 0.1 * efficiency, 
+				/datum/material/diamond = 0.05 + 0.1 * efficiency
+		)
 
 /obj/machinery/mineral/bluespace_miner/process()
 	if(!materials?.silo || materials?.on_hold())
@@ -82,4 +60,4 @@
 	if(!mat_container || panel_open || !powered())
 		return
 	var/datum/material/ore = pick(ore_rates)
-	mat_container.insert_amount_mat((ore_rates[ore] * rand (200,400)), ore)
+	mat_container.insert_amount_mat((ore_rates[ore] * rand (300,500)), ore)
