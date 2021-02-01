@@ -27,35 +27,6 @@
 	QDEL_NULL(mixer)
 	return ..()
 
-/obj/machinery/food_cart/ui_interact(mob/user)
-	. = ..()
-	var/dat
-	dat += "<br><b>STORED INGREDIENTS AND DRINKS</b><br><div class='statusDisplay'>"
-	dat += "Remaining glasses: [glasses]<br>"
-	dat += "Portion: <a href='?src=[REF(src)];portion=1'>[portion]</a><br>"
-	for(var/datum/reagent/R in reagents.reagent_list)
-		dat += "[R.name]: [R.volume] "
-		dat += "<a href='?src=[REF(src)];disposeI=[R.type]'>Purge</a>"
-		if (glasses > 0)
-			dat += "<a href='?src=[REF(src)];pour=[R.type]'>Pour in a glass</a>"
-		dat += "<a href='?src=[REF(src)];mix=[R.type]'>Add to the mixer</a><br>"
-	dat += "</div><br><b>MIXER CONTENTS</b><br><div class='statusDisplay'>"
-	for(var/datum/reagent/R in mixer.reagents.reagent_list)
-		dat += "[R.name]: [R.volume] "
-		dat += "<a href='?src=[REF(src)];transfer=[R.type]'>Transfer back</a>"
-		if (glasses > 0)
-			dat += "<a href='?src=[REF(src)];m_pour=[R.type]'>Pour in a glass</a>"
-		dat += "<br>"
-	dat += "</div><br><b>STORED FOOD</b><br><div class='statusDisplay'>"
-	for(var/V in stored_food)
-		if(stored_food[V] > 0)
-			dat += "<b>[V]: [stored_food[V]]</b> <a href='?src=[REF(src)];dispense=[V]'>Dispense</a><br>"
-	dat += "</div><br><a href='?src=[REF(src)];refresh=1'>Refresh</a> <a href='?src=[REF(src)];close=1'>Close</a>"
-
-	var/datum/browser/popup = new(user, "foodcart","Food Cart", 500, 350, src)
-	popup.set_content(dat)
-	popup.open()
-
 /obj/machinery/food_cart/proc/isFull()
 	return food_stored >= STORAGE_CAPACITY
 
@@ -104,12 +75,43 @@
 		. = ..()
 	updateDialog()
 
+/obj/machinery/food_cart/ui_interact(mob/user)
+	. = ..()
+	var/dat
+	dat += "<br><b>STORED INGREDIENTS AND DRINKS</b><br><div class='statusDisplay'>"
+	dat += "Remaining glasses: [glasses]<br>"
+	dat += "Portion: <a href='?src=[REF(src)];portion=1'>[portion]</a><br>"
+	for(var/i in 1 to LAZYLEN(reagents.reagent_list))
+		var/datum/reagent/R = reagents.reagent_list[i]
+		dat += "[R.name]: [R.volume] "
+		dat += "<a href='?src=[REF(src)];disposeI=[i]'>Purge</a>"
+		if (glasses > 0)
+			dat += "<a href='?src=[REF(src)];pour=[i]'>Pour in a glass</a>"
+		dat += "<a href='?src=[REF(src)];mix=[i]'>Add to the mixer</a><br>"
+	dat += "</div><br><b>MIXER CONTENTS</b><br><div class='statusDisplay'>"
+	for(var/i in 1 to LAZYLEN(mixer.reagents.reagent_list))
+		var/datum/reagent/R = mixer.reagents.reagent_list[i]
+		dat += "[R.name]: [R.volume] "
+		dat += "<a href='?src=[REF(src)];transfer=[i]'>Transfer back</a>"
+		if (glasses > 0)
+			dat += "<a href='?src=[REF(src)];m_pour=[i]'>Pour in a glass</a>"
+		dat += "<br>"
+	dat += "</div><br><b>STORED FOOD</b><br><div class='statusDisplay'>"
+	for(var/V in stored_food)
+		if(stored_food[V] > 0)
+			dat += "<b>[V]: [stored_food[V]]</b> <a href='?src=[REF(src)];dispense=[V]'>Dispense</a><br>"
+	dat += "</div><br><a href='?src=[REF(src)];refresh=1'>Refresh</a> <a href='?src=[REF(src)];close=1'>Close</a>"
+
+	var/datum/browser/popup = new(user, "foodcart","Food Cart", 500, 350, src)
+	popup.set_content(dat)
+	popup.open()
+
 /obj/machinery/food_cart/Topic(href, href_list)
 	if(..())
 		return
 
 	if(href_list["disposeI"])
-		reagents.del_reagent(href_list["disposeI"])
+		reagents.del_reagent(reagents.reagent_list[text2num(href_list["disposeI"])]?.type)
 
 	if(href_list["dispense"])
 		if(stored_food[href_list["dispense"]]-- <= 0)
@@ -130,16 +132,16 @@
 		else
 			var/obj/item/reagent_containers/food/drinks/drinkingglass/DG = new(loc)
 			if(href_list["pour"])
-				reagents.trans_id_to(DG, href_list["pour"], portion)
+				reagents.trans_id_to(DG, reagents.reagent_list[text2num(href_list["pour"])]?.type, portion)
 			if(href_list["m_pour"])
-				mixer.reagents.trans_id_to(DG, href_list["m_pour"], portion)
+				mixer.reagents.trans_id_to(DG, mixer.reagents.reagent_list[text2num(href_list["m_pour"])]?.type, portion)
 
 	if(href_list["mix"])
-		if(reagents.trans_id_to(mixer, href_list["mix"], portion) == 0)
+		if(!reagents.trans_id_to(mixer, reagents.reagent_list[text2num(href_list["mix"])]?.type, portion))
 			to_chat(usr, "<span class='warning'>[mixer] is full!</span>")
 
 	if(href_list["transfer"])
-		if(mixer.reagents.trans_id_to(src, href_list["transfer"], portion) == 0)
+		if(!mixer.reagents.trans_id_to(src, mixer.reagents.reagent_list[text2num(href_list["transfer"])]?.type, portion))
 			to_chat(usr, "<span class='warning'>[src] is full!</span>")
 
 	updateDialog()
@@ -153,6 +155,25 @@
 	if(!(flags_1 & NODECONSTRUCT_1))
 		new /obj/item/stack/sheet/iron(loc, 4)
 	qdel(src)
+
+/obj/machinery/food_cart/coffee
+	name = "coffee cart"
+	desc = "Ah! The bitter drink of the Gods."
+	icon_state = "icecream_vat"
+	glasses = 10
+	portion = 20
+
+/obj/machinery/food_cart/coffee/Initialize()
+	..()
+	var/A = rand(0,3)
+	var/B = rand(0,3)
+	var/C = rand(0,3)
+	var/D = rand(0,1)
+	reagents.add_reagent(/datum/reagent/consumable/cafe_latte, A*20)
+	reagents.add_reagent(/datum/reagent/consumable/icecoffee, B*20)
+	reagents.add_reagent(/datum/reagent/consumable/soy_latte, C*20)
+	reagents.add_reagent(/datum/reagent/consumable/pumpkin_latte, D*20)
+	reagents.add_reagent(/datum/reagent/consumable/coffee, (10-A-B-C-D)*20)
 
 #undef STORAGE_CAPACITY
 #undef LIQUID_CAPACIY

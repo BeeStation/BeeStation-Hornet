@@ -91,12 +91,30 @@
 		EK.on_life(owner.current)
 
 /datum/antagonist/heretic/proc/forge_primary_objectives()
-	var/list/assasination = list()
-	var/list/protection = list()
-	for(var/i in 1 to 2)
-		var/pck = pick("assasinate","stalk","protect")
-		switch(pck)
-			if("assasinate")
+	if (prob(5))
+		if (prob(66))
+			var/datum/objective/ascend/AE = new()
+			AE.owner = owner
+			AE.update_explanation_text()
+			objectives += AE
+			log_objective(owner, AE.explanation_text)
+		else
+			var/datum/objective/hijack/hijack_objective = new
+			hijack_objective.owner = owner
+			hijack_objective.update_explanation_text()
+			objectives += hijack_objective
+			log_objective(owner, hijack_objective.explanation_text)
+	else
+		var/list/assasination = list()
+		var/list/protection = list()
+		for(var/i in 1 to 2)
+			if (prob(35))
+				var/datum/objective/stalk/S = new()
+				S.owner = owner
+				S.find_target()
+				objectives += S
+				log_objective(owner, S.explanation_text)
+			else
 				var/datum/objective/assassinate/A = new()
 				A.owner = owner
 				var/list/owners = A.get_owners()
@@ -104,26 +122,12 @@
 				assasination += A.target
 				objectives += A
 				log_objective(owner, A.explanation_text)
-			if("stalk")
-				var/datum/objective/stalk/S = new()
-				S.owner = owner
-				S.find_target()
-				objectives += S
-				log_objective(owner, S.explanation_text)
-			if("protect")
-				var/datum/objective/protect/P = new()
-				P.owner = owner
-				var/list/owners = P.get_owners()
-				P.find_target(owners,assasination)
-				protection += P.target
-				objectives += P
-				log_objective(owner, P.explanation_text)
+		var/datum/objective/sacrifice_ecult/SE = new()
+		SE.owner = owner
+		SE.update_explanation_text()
+		objectives += SE
+		log_objective(owner, SE.explanation_text)
 
-	var/datum/objective/sacrifice_ecult/SE = new()
-	SE.owner = owner
-	SE.update_explanation_text()
-	objectives += SE
-	log_objective(owner, SE.explanation_text)
 
 /datum/antagonist/heretic/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -171,13 +175,10 @@
 
 	if(ascended)
 		//Ascension isn't technically finishing the objectives, buut it is to be considered a great win.
-		var/client/C = GLOB.directory[ckey(owner.key)]
-		if(C)
-			C.process_greentext()
-		parts += "<span class='greentext big'>HERETIC HAS ASCENDED!</span>"
+		parts += "<span class='greentext'>THIS HERETIC ASCENDED!</span>"
 	else
 		if(cultiewin)
-			parts += "<span class='greentext'>The heretic was successful!</span>"
+			parts += "<span class='greentext big'>The heretic was successful!</span>"
 		else
 			parts += "<span class='redtext'>The heretic has failed.</span>"
 
@@ -189,6 +190,7 @@
 	parts += knowledge_message.Join(", ")
 
 	return parts.Join("<br>")
+
 ////////////////
 // Knowledge //
 ////////////////
@@ -254,9 +256,11 @@
 /datum/objective/sacrifice_ecult
 	name = "sacrifice"
 
-/datum/objective/sacrifice_ecult/update_explanation_text()
-	. = ..()
+/datum/objective/sacrifice_ecult/New()
+	..()
 	target_amount = rand(2,6)
+
+/datum/objective/sacrifice_ecult/update_explanation_text()
 	explanation_text = "Sacrifice at least [target_amount] people."
 
 /datum/objective/sacrifice_ecult/check_completion()
@@ -266,3 +270,13 @@
 	if(!cultie)
 		return FALSE
 	return cultie.total_sacrifices >= target_amount
+
+/datum/objective/ascend
+	name = "ascend"
+	explanation_text = "Appease the Gods and ascend."
+
+/datum/objective/ascend/check_completion()
+	if(!owner)
+		return FALSE
+	var/datum/antagonist/heretic/cultie = owner.has_antag_datum(/datum/antagonist/heretic)
+	return cultie?.ascended

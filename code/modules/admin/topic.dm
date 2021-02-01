@@ -878,11 +878,7 @@
 			return
 
 		if (SSticker.HasRoundStarted())
-			if(check_rights(R_DBRANKS, FALSE))
-				if(askuser(usr, "The game has already started. Would you like to save this as the default mode effective next round?", "Save mode", "Yes", "Cancel", Timeout = null) == 1)
-					SSticker.save_mode(href_list["c_mode2"])
-			else
-				to_chat(usr, "<span class='warning'>The round has already started!</span>")
+			alert("The round has already started.")
 			HandleCMode()
 			return
 		GLOB.master_mode = href_list["c_mode2"]
@@ -890,9 +886,6 @@
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] set the mode as [GLOB.master_mode].</span>")
 		to_chat(world, "<span class='adminnotice'><b>The mode is now: [GLOB.master_mode]</b></span>")
 		Game() // updates the main game menu
-		if(check_rights(R_DBRANKS, FALSE))
-			if(askuser(usr, "Would you like to save this as the default mode for the server?", "Save mode", "Yes", "No", Timeout = null) == 1)
-				SSticker.save_mode(GLOB.master_mode)
 		HandleCMode()
 
 	else if(href_list["f_secret2"])

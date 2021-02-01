@@ -540,7 +540,7 @@
 
 	var/mob/living/carbon/C = user
 	var/turf/mobloc = get_turf(C)
-	var/turf/destination = get_teleport_loc(mobloc,C,9,1,3,1,0,1)
+	var/turf/destination = get_teleport_loc(mobloc,C,9,1,0,3,1,0,1)
 
 	if(destination)
 		uses--

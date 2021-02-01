@@ -466,6 +466,19 @@
 				speech_bubble_recipients.Add(M.client)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, image('icons/mob/talk.dmi', src, "machine[say_test(raw_message)]",MOB_LAYER+1), speech_bubble_recipients, 30)
 
+/obj/mecha/emag_act(mob/user)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		to_chat(user, "<span class='warning'>The mech suit's internal controls are damaged beyond repair!</span>")
+		return
+	obj_flags |= EMAGGED
+	playsound(src, "sparks", 100, 1)
+	to_chat(user, "<span class='warning'>You short out the mech suit's internal controls.</span>")
+	dna_lock = null
+	equipment_disabled = TRUE
+	log_message("System emagged detected", LOG_MECHA, color="red")
+	addtimer(CALLBACK(src, /obj/mecha/proc/restore_equipment), 15 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+
 ////////////////////////////
 ///// Action processing ////
 ////////////////////////////

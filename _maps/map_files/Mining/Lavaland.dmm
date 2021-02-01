@@ -122,24 +122,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
-"at" = (
-/obj/machinery/camera{
-	c_tag = "Labor Camp Monitoring";
-	network = list("labor")
-	},
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "Labor Camp Security APC";
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/mine/laborcamp/security)
 "au" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3157,6 +3139,24 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
+"nI" = (
+/obj/machinery/camera{
+	c_tag = "Labor Camp Monitoring";
+	network = list("labor")
+	},
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "Labor Camp Security APC";
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/mine/laborcamp/security)
 "nZ" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -3534,6 +3534,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/mine/living_quarters)
+"rB" = (
+/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/mine/laborcamp/security)
 "rE" = (
 /obj/machinery/computer/security/labor,
 /obj/machinery/light{
@@ -5331,11 +5336,6 @@
 	},
 /turf/open/floor/engine,
 /area/mine/science)
-"MD" = (
-/obj/machinery/door/firedoor/window,
-/obj/effect/spawner/structure/window/plasma/reinforced,
-/turf/open/floor/plating,
-/area/mine/laborcamp/security)
 "ME" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/machinery/vending/cigarette,
@@ -6009,6 +6009,13 @@
 	},
 /turf/open/floor/carpet/black,
 /area/mine/science)
+"Vi" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
+/area/mine/laborcamp)
 "Vq" = (
 /obj/structure/table,
 /obj/machinery/microwave{
@@ -12636,7 +12643,7 @@ dH
 bw
 bw
 ee
-at
+nI
 ay
 OT
 aE
@@ -13143,7 +13150,7 @@ ba
 bW
 cg
 ba
-cl
+Vi
 dp
 ba
 dI
@@ -13919,8 +13926,8 @@ de
 aG
 aG
 aG
-aG
-MD
+aj
+rB
 rU
 HP
 QV
@@ -14176,11 +14183,11 @@ aG
 aG
 aG
 aG
-aG
-MD
-MD
-MD
-MD
+aj
+rB
+rB
+rB
+rB
 fy
 WA
 Cw

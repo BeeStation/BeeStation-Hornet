@@ -69,9 +69,9 @@
 /datum/eldritch_knowledge/curse/blindness
 	name = "Curse of blindness"
 	gain_text = "Blind man walks through the world, unnoticed by the masses."
-	desc = "Curse someone with 2 minutes of complete blindness by sacrificing a pair of eyes, a screwdriver and a pool of blood, with an object that the victim has touched with their bare hands."
+	desc = "Curse someone with 2 minutes of complete blindness by sacrificing a pair of eyes, a screwdriver and an object that the victim has touched with their bare hands."
 	cost = 1
-	required_atoms = list(/obj/item/organ/eyes,/obj/item/screwdriver,/obj/effect/decal/cleanable/blood)
+	required_atoms = list(/obj/item/screwdriver,/obj/item/organ/eyes)
 	next_knowledge = list(/datum/eldritch_knowledge/curse/corrosion,/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/curse/paralysis)
 	timer = 2 MINUTES
 	route = PATH_ASH
