@@ -87,15 +87,13 @@
 
 	for(var/turf/T in range(1,user))
 		if(is_type_in_typecache(T, blacklisted_turfs))
-			to_chat(user, "<span class='warning'>The terrain doesn't support runes!</span>")
+			to_chat(user, "<span class='warning'>The targeted terrain doesn't support runes!</span>")
 			return
 	var/A = get_turf(user)
 	to_chat(user, "<span class='danger'>You start drawing a rune...</span>")
 
 	if(do_after(user,30 SECONDS,FALSE,A))
-
 		new /obj/effect/eldritch/big(A)
-
 
 ///Removes runes from the selected turf
 /obj/item/melee/touch_attack/mansus_fist/proc/remove_rune(atom/target,mob/user)
