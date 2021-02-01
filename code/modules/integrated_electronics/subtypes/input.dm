@@ -1351,7 +1351,7 @@
 	receiver.holder = src
 
 /obj/item/integrated_circuit/input/tcomm_interceptor/Destroy()
-	qdel(receiver)
+	QDEL_NULL(receiver)
 	..()
 
 /obj/item/integrated_circuit/input/tcomm_interceptor/receive_signal(datum/signal/signal)
