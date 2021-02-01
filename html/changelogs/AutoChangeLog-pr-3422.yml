@@ -1,0 +1,7 @@
+author: Victor239
+delete-after: true
+changes:
+  - tweak: Poppies now spawn in maint loot.
+  - rscadd: Poppy pins can be crafted and give a very small mood buff when worn.
+  - tweak: Shanks are now a subtype of knife, allowing it to be used by heretics to
+      create their sickly blade.
