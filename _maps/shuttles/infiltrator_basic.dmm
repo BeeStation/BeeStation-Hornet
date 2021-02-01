@@ -173,7 +173,7 @@
 	name = "infiltrator turret controls";
 	pixel_y = -30;
 	req_access = null;
-	req_access_txt = "151"
+	req_access_txt = "150"
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/syndicate/bridge)
