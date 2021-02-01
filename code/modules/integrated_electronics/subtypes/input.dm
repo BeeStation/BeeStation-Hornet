@@ -1390,8 +1390,7 @@
 
 /obj/item/integrated_circuit/input/tcomm_interceptor/attack_self(mob/user)
 	if(encryption_keys.len)
-		for(var/i in encryption_keys)
-			var/obj/O = i
+		for(var/obj/item/encryptionkey/O as() in encryption_keys)
 			O.forceMove(drop_location())
 		encryption_keys.Cut()
 		to_chat(user, "<span class='notice'>You slide the encryption keys out of the circuit.</span>")
