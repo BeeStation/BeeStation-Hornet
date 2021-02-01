@@ -175,25 +175,19 @@
 	var/list/mobss = list()
 	var/list/validturfs = list()
 	var/turf/T = get_turf(src)
-	for(var/atom/I as() in view(7, src))
-		if(isopenturf(I))
-			turfs += I
-			continue
-		if(isliving(I))
-			var/mob/living/L = I
-			if(L.mind)
-				mobss += L
-				continue
-	for(var/turf/turf in turfs)
+	for(var/turf/open/O in view(7, src))
+		if(!isspaceturf(O))
+			turfs += O
+	for(var/mob/living/L in view(7, src))
+		if(L.mind)
+			mobss += L
+	for(var/turf/turf as() in turfs)
 		var/visible = FALSE
-		if(isspaceturf(turf))
-			continue
-		for(var/mob/living/L in mobss)
+		for(var/mob/living/L as() in mobss)
 			if(can_see(L, turf))
 				visible = TRUE
-		if(visible)
-			continue
-		validturfs += T
+		if(!visible)
+			validturfs += T
 	if(validturfs.len)
 		T = pick(validturfs)
 	if(mobs)

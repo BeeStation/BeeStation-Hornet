@@ -415,12 +415,12 @@
 		var/slimes_near = 0
 		var/dead_slimes = 0
 		var/friends_near = list()
-		for (var/mob/living/L in view(7,src))
-			if(isslime(L) && L != src)
+		for (var/mob/living/L in oview(7,src))
+			if(isslime(L))
 				++slimes_near
 				if (L.stat == DEAD)
 					++dead_slimes
-			if (L in Friends)
+			if(L in Friends)
 				t += 20
 				friends_near += L
 		if (nutrition < get_hunger_nutrition())
