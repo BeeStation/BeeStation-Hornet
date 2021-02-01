@@ -61,26 +61,26 @@
 	else
 		to_chat(user, "<span class='warning'>You can't open the [src] while it's active!</span>")
 
-/obj/machinery/species_converter/update_icon()
-	overlays.Cut()
+/obj/machinery/species_converter/update_overlays()
+	. = ..()
 	if(!state_open)
 		if(processing)
-			overlays += "[icon_state]_door_on"
-			overlays += "[icon_state]_stack"
-			overlays += "[icon_state]_smoke"
-			overlays += "[icon_state]_green"
+			. += "[icon_state]_door_on"
+			. += "[icon_state]_stack"
+			. += "[icon_state]_smoke"
+			. += "[icon_state]_green"
 		else
-			overlays += "[icon_state]_door_off"
+			. += "[icon_state]_door_off"
 			if(occupant)
 				if(powered(AREA_USAGE_EQUIP))
-					overlays += "[icon_state]_stack"
-					overlays += "[icon_state]_yellow"
+					. += "[icon_state]_stack"
+					. += "[icon_state]_yellow"
 			else
-				overlays += "[icon_state]_red"
+				. += "[icon_state]_red"
 	else if(powered(AREA_USAGE_EQUIP))
-		overlays += "[icon_state]_red"
+		. += "[icon_state]_red"
 	if(panel_open)
-		overlays += "[icon_state]_panel"
+		. += "[icon_state]_panel"
 
 /obj/machinery/species_converter/process()
 	if(!processing)
@@ -119,7 +119,7 @@
 		else
 			say("Occupant is already the desired race.")
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 40, FALSE)
-			overlays += "[icon_state]_red"
+			open_machine()
 
 /obj/machinery/species_converter/AltClick(mob/user)
 	if(!user.canUseTopic(src, BE_CLOSE) || processing)
