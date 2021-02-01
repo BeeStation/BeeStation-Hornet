@@ -212,14 +212,10 @@ RLD
 	
 /obj/item/construction/rcd/attackby(obj/item/I, mob/user, params)
 	..()
-	if(upgrade & RCD_UPGRADE_CONVEYORS)
-		if(istype(I, /obj/item/stack/conveyor))
-			loadwithsheets(I, 12, user)
-			to_chat(user, "<span class='notice'>[src] now holds [matter]/[max_matter] matter-units.</span>")
-		if(istype(I, /obj/item/conveyor_switch_construct))
-			to_chat(user, "<span class='notice'>You link the switch to the [src].</span>")
-			var/obj/item/conveyor_switch_construct/C = I
-			linked_switch_id = C.id
+	if(upgrade & RCD_UPGRADE_CONVEYORS && istype(I, /obj/item/conveyor_switch_construct))
+		to_chat(user, "<span class='notice'>You link the switch to the [src].</span>")
+		var/obj/item/conveyor_switch_construct/C = I
+		linked_switch_id = C.id
 
 /obj/item/construction/rcd/verb/toggle_window_type_verb()
 	set name = "RCD : Toggle Window Type"
