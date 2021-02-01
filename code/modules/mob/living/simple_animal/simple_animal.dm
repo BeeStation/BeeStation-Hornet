@@ -409,7 +409,7 @@
 			if(M.ckey || M.gender == FEMALE) //Better safe than sorry ;_;
 				continue
 			partner = M
-		else if(isliving(M) && !faction_check_mob(M)) //shyness check. we're not shy in front of things that share a faction with us.
+		else if(!faction_check_mob(M)) //shyness check. we're not shy in front of things that share a faction with us.
 			return //we never mate when not alone, so just abort early
 		CHECK_TICK
 
