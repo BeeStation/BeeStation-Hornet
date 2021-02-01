@@ -192,7 +192,8 @@
 			if(I && D.temporarilyRemoveItemFromInventory(I))
 				A.put_in_hands(I)
 			D.Jitter(2)
-			D.apply_damage(5, A.dna.species.attack_type, blocked = def_check)
+			if(!HAS_TRAIT(A, TRAIT_PACIFISM))
+				D.apply_damage(5, A.dna.species.attack_type, blocked = def_check)
 	else
 		D.visible_message("<span class='danger'>[A] fails to disarm [D]!</span>", \
 							"<span class='userdanger'>[A] fails to disarm you!</span>", null, COMBAT_MESSAGE_RANGE)
@@ -221,6 +222,7 @@
 	to_chat(usr, "<span class='notice'>CQC Kick</span>: Harm Harm. Knocks opponent away. Knocks out stunned or knocked down opponents.")
 	to_chat(usr, "<span class='notice'>Restrain</span>: Grab Grab. Locks opponents into a restraining position, disarm to knock them out with a chokehold.")
 	to_chat(usr, "<span class='notice'>Pressure</span>: Disarm Grab. Decent stamina damage.")
+	to_chat(usr, "<span class='notice'>Chokehold</span>: Grab Grab Disarm. Puts your opponent to sleep.")
 	to_chat(usr, "<span class='notice'>Consecutive CQC</span>: Disarm Disarm Harm. Mainly offensive move, huge damage and decent stamina damage.")
 
 	to_chat(usr, "<b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter attacks done to you.</i></b>")

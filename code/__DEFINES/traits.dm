@@ -279,3 +279,4 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define BATTLE_ROYALE_TRAIT "battleroyale_trait"
 #define MADE_UNCLONEABLE "made-uncloneable"
 #define TRAIT_JAWS_OF_LIFE "jaws-of-life"
+#define TRAIT_SNAKEOP "snake-op"

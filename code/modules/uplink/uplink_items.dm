@@ -261,6 +261,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 20
 	exclude_modes = list(/datum/game_mode/nuclear)
 
+/datum/uplink_item/bundles_TC/snake_op
+	name = "Snake Operative Kit"
+	desc = "Exclusive access to everything you need to be a Snake Operative including CQC Manual, Chameleon Projector, Space Suit and a full Syndicate outfit. \
+			Warning: in exchange for this fast-track access you'll be forbidden from using these elite techniques to kill anyone (which is enforced through pacification), \
+			and you won't be allowed to remove several clothing items. Make your mark and don't let them see you coming!"
+	item = /obj/item/snake_op_transform
+	cost = 20
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
+
 /datum/uplink_item/bundles_TC/surplus
 	name = "Syndicate Surplus Crate"
 	desc = "A dusty crate from the back of the Syndicate warehouse. Rumored to contain a valuable assortment of items, \
