@@ -172,8 +172,7 @@
 	
 /obj/effect/broken_illusion/proc/dissipate()
 	animate(src,alpha = 0,time = 2 MINUTES)
-	sleep(2 MINUTES)
-	qdel(src)
+	QDEL_IN(src, 2 MINUTES)
 
 /obj/effect/broken_illusion/attack_hand(mob/living/user)
 	if(!ishuman(user))
@@ -213,7 +212,7 @@
 /obj/effect/broken_illusion/examine(mob/user)
 	. = ..()
 	var/mob/living/carbon/human/human_user = user
-	if(istype(user) && !IS_HERETIC(user) && !IS_HERETIC_MONSTER(user))		
+	if(istype(human_user) && !IS_HERETIC(human_user) && !IS_HERETIC_MONSTER(human_user))
 		to_chat(human_user,"<span class='warning'>Your mind burns as you stare at the tear!</span>")
 		SEND_SIGNAL(human_user, COMSIG_ADD_MOOD_EVENT, "gates_of_mansus", /datum/mood_event/gates_of_mansus)
 		
