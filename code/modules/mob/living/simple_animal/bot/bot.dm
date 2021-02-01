@@ -451,10 +451,10 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 					return final_result
 	
 	var/list/wider_search_list = list()
-	for(var/turf/RT in view(scan_range, src))
+	for(var/turf/RT in oview(scan_range, src))
 		if(!(RT in adjacent))
 			wider_search_list += RT
-	shuffle(wider_search_list) // Do we *really* need shuffles? Future coders should decide this.
+	wider_search_list = shuffle(wider_search_list) // Do we *really* need shuffles? Future coders should decide this.
 	if(isturf(scan_type))
 		for(var/turf/scan as() in wider_search_list)
 			if(!istype(scan, scan_type))
