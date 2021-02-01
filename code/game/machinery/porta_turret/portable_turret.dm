@@ -572,7 +572,7 @@
 	if(controllock)
 		return
 	src.on = on
-	if(!on)
+	if(!on && !always_up)
 		popDown()
 	src.mode = mode
 	power_change()
