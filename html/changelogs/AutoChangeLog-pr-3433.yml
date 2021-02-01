@@ -1,6 +1,0 @@
-author: Arkatos, Sarchutar
-delete-after: true
-changes:
-  - rscadd: All Abductor machines now use tgui.
-  - tweak: Only the abductor scientist/agent can now interact with the abductor console
-      (not the camera console)

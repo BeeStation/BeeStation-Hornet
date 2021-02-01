@@ -1,9 +1,0 @@
-author: eeSPee
-delete-after: true
-changes:
-  - tweak: Heretic' Living Heart no longer has a range limit
-  - rscadd: Mansus grasp now always silences for 3 seconds
-  - balance: Made the recipes for curses a bit easier
-  - rscadd: Rust blade now deals tox damage, the lower the heretic's health, the more
-      damage it deals.
-  - balance: Rust ascension now makes you spaceproof

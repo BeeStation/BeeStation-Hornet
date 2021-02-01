@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - rscadd: Added a lava moat between the security station glass on the gulag.
-  - rscdel: Remove the plasmaglass from the gulag.
-  - rscadd: Added a window to see what you are smelting.
