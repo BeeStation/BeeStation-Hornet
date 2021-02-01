@@ -167,13 +167,13 @@
 	},
 /obj/machinery/turretid{
 	ailock = 1;
-	dir = 1;
+	desc = "Used to control the shuttle's automated defenses.";
 	icon_state = "control_kill";
 	lethal = 1;
-	name = "Infiltrator turret controls";
+	name = "infiltrator turret controls";
 	pixel_y = -30;
 	req_access = null;
-	req_access_txt = "150"
+	req_access_txt = "151"
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/syndicate/bridge)
