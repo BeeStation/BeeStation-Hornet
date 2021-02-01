@@ -661,6 +661,7 @@
 	name = "firelock frame"
 	icon = 'icons/obj/doors/edge_Doorfire.dmi'
 	icon_state = "door_frame"
+	density = FALSE
 	firelock_type = /obj/machinery/door/firedoor/border_only
 
 /obj/structure/firelock_frame/border/ComponentInitialize()

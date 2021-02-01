@@ -47,7 +47,7 @@
 		else
 			// ===== NON CONSTANT TABS (Tab names which can change) =====
 			// ===== LISTEDS TURFS =====
-			if(listed_turf && listed_turf.name == selected_tab)
+			if(listed_turf && sanitize(listed_turf.name) == selected_tab)
 				client.stat_update_mode = STAT_MEDIUM_UPDATE
 				var/list/overrides = list()
 				for(var/image/I in client.images)
@@ -118,7 +118,7 @@
  */
 /mob/proc/get_stat_tab_status()
 	var/list/tab_data = list()
-	tab_data["Map"] = list("[SSmapping.config?.map_name || "Loading..."]", STAT_TEXT)
+	tab_data["Map"] = GENERATE_STAT_TEXT("[SSmapping.config?.map_name || "Loading..."]")
 	var/datum/map_config/cached = SSmapping.next_map_config
 	if(cached)
 		tab_data["Next Map"] = GENERATE_STAT_TEXT(cached.map_name)
@@ -131,7 +131,7 @@
 	if(SSshuttle.emergency)
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
-			tab_data["ETA"] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
+			tab_data[ETA] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
 	return tab_data
 
 /mob/proc/get_stat_tab_master_controller()
@@ -173,7 +173,7 @@
 		if(!TurfAdjacent(listed_turf))
 			listed_turf = null
 		else
-			tabs |= listed_turf.name
+			tabs |= sanitize(listed_turf.name)
 	//Add spells
 	var/list/spells = mob_spell_list
 	if(mind)
