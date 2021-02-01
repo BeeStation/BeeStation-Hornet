@@ -1606,3 +1606,33 @@ config_setting should be one of the following:
 		if(-INFINITY to 0, 11 to INFINITY)
 			CRASH("Can't turn invalid directions!")
 	return turn(input_dir, 180)
+
+/**
+ * Sends a topic call to crosscomms servers.
+ *
+ * Params:
+ * sender - Name of the IC entity sending the message
+ * msg - Message text to send
+ * type - What handler the recieving server should use
+ * insecure - Send the messages to insecure servers
+*/
+/proc/comms_send(sender, msg, type, insecure = FALSE)
+	var/list/message = list()
+	message["message_sender"] = sender
+	message["message"] = msg
+	message["source"] = "([CONFIG_GET(string/cross_comms_name)])"
+	message += type
+
+	var/comms_key = CONFIG_GET(string/comms_key)
+	if(comms_key)
+		message["key"] = comms_key
+		var/list/servers = CONFIG_GET(keyed_list/cross_server)
+		for(var/I in servers)
+			world.Export("[servers[I]]?[list2params(message)]")
+
+	comms_key = CONFIG_GET(string/comms_key_insecure)
+	if(comms_key && insecure)
+		message["key"] = comms_key
+		var/list/servers = CONFIG_GET(keyed_list/insecure_cross_server)
+		for(var/I in servers)
+			world.Export("[servers[I]]?[list2params(message)]")
