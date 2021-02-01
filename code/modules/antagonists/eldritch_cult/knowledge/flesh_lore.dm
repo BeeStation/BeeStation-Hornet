@@ -1,13 +1,17 @@
-/datum/eldritch_knowledge/base_flesh
+/datum/eldritch_knowledge/spell/base_flesh
 	name = "Principle of Hunger"
 	desc = "Opens up the path of flesh to you. Allows you to transmute a pool of blood with a kitchen knife into a Flesh Blade"
 	gain_text = "Hundred's of us starved, but I.. I found the strength in my greed."
-	banned_knowledge = list(/datum/eldritch_knowledge/base_ash,/datum/eldritch_knowledge/base_rust,/datum/eldritch_knowledge/final/ash_final,/datum/eldritch_knowledge/final/rust_final)
+	banned_knowledge = list(/datum/eldritch_knowledge/spell/base_ash,/datum/eldritch_knowledge/spell/base_rust,/datum/eldritch_knowledge/final/ash_final,/datum/eldritch_knowledge/final/rust_final)
 	next_knowledge = list(/datum/eldritch_knowledge/flesh_grasp)
-	required_atoms = list(/obj/item/kitchen/knife,/obj/effect/decal/cleanable/blood)
-	result_atoms = list(/obj/item/melee/sickly_blade/flesh)
+	spell_to_add = /obj/effect/proc_holder/spell/targeted/conjure_item/heretic_blade/flesh
 	cost = 1
 	route = PATH_FLESH
+	
+/obj/effect/proc_holder/spell/targeted/conjure_item/heretic_blade/flesh
+	name = "Flesh Blade"
+	item_type = /obj/item/melee/sickly_blade/flesh
+	action_icon_state = "flesh_blade"
 
 /datum/eldritch_knowledge/flesh_ghoul
 	name = "Imperfect Ritual"

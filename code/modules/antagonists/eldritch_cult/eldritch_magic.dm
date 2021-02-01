@@ -605,3 +605,19 @@
 	range = 10
 	invocation = "E'E'S"
 	action_background_icon_state = "bg_ecult"
+	
+/obj/effect/proc_holder/spell/targeted/conjure_item/heretic_blade
+	name = "Sickly blade"
+	desc = "Summons a sickly blade infused with the blessing of your gods, that has different effects depending on your path."
+	invocation_type = "none"
+	include_user = TRUE
+	range = -1
+	clothes_req = FALSE
+	item_type = /obj/item/melee/sickly_blade
+
+	school = "conjuration"
+	charge_max = 150
+	cooldown_min = 10
+	action_icon = 'icons/obj/eldritch.dmi'
+	action_icon_state = "eldritch_blade"
+	action_background_icon_state = "bg_ecult"

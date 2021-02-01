@@ -1,13 +1,17 @@
-/datum/eldritch_knowledge/base_rust
+/datum/eldritch_knowledge/spell/base_rust
 	name = "Blacksmith's Tale"
 	desc = "Opens up the path of rust to you. Allows you to transmute a knife with any trash item into a Rusty Blade."
 	gain_text = "Let me tell you a story, blacksmith said as he glazed into his rusty blade."
-	banned_knowledge = list(/datum/eldritch_knowledge/base_ash,/datum/eldritch_knowledge/base_flesh,/datum/eldritch_knowledge/final/ash_final,/datum/eldritch_knowledge/final/flesh_final)
+	banned_knowledge = list(/datum/eldritch_knowledge/spell/base_ash,/datum/eldritch_knowledge/spell/base_flesh,/datum/eldritch_knowledge/final/ash_final,/datum/eldritch_knowledge/final/flesh_final)
 	next_knowledge = list(/datum/eldritch_knowledge/rust_fist)
-	required_atoms = list(/obj/item/kitchen/knife,/obj/item/trash)
-	result_atoms = list(/obj/item/melee/sickly_blade/rust)
+	spell_to_add = /obj/effect/proc_holder/spell/targeted/conjure_item/heretic_blade/rust
 	cost = 1
 	route = PATH_RUST
+	
+/obj/effect/proc_holder/spell/targeted/conjure_item/heretic_blade/rust
+	name = "Rusty Blade"
+	item_type = /obj/item/melee/sickly_blade/rust
+	action_icon_state = "rust_blade"
 
 /datum/eldritch_knowledge/rust_fist
 	name = "Grasp of rust"

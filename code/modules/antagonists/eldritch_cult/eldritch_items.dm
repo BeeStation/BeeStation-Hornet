@@ -30,35 +30,6 @@
 	if(target.stat == DEAD)
 		to_chat(user,"<span class='warning'>[target.real_name] is dead. Bring them onto a transmutation rune!</span>")
 
-/datum/action/innate/heretic_shatter
-	name = "Shattering Offer"
-	desc = "By breaking your blade you are noticed by the hill or rust and are granted an escape from a dire sitatuion. (Teleports you to a random safe z turf on your current z level but destroys your blade.)"
-	background_icon_state = "bg_ecult"
-	button_icon_state = "shatter"
-	icon_icon = 'icons/mob/actions/actions_ecult.dmi'
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUN
-	var/mob/living/carbon/human/holder
-	var/obj/item/melee/sickly_blade/sword
-
-/datum/action/innate/heretic_shatter/Grant(mob/user, obj/object)
-	sword = object
-	holder = user
-	//i know what im doing
-	return ..()
-
-/datum/action/innate/heretic_shatter/IsAvailable()
-	if(IS_HERETIC(holder) || IS_HERETIC_MONSTER(holder))
-		return TRUE
-	else
-		return FALSE
-
-/datum/action/innate/heretic_shatter/Activate()
-	var/turf/safe_turf = find_safe_turf(zlevels = sword.z, extended_safety_checks = TRUE)
-	do_teleport(holder,safe_turf,forceMove = TRUE)
-	to_chat(holder,"<span class='warning'> You feel a gust of energy flow through your body, Rusted Hills heard your call...")
-	qdel(sword)
-
-
 /obj/item/melee/sickly_blade
 	name = "Sickly blade"
 	desc = "A sickly green crescent blade, decorated with an ornamental eye. You feel like you're being watched..."
@@ -71,17 +42,12 @@
 	inhand_y_dimension = 64
 	flags_1 = CONDUCT_1
 	sharpness = IS_SHARP
-	w_class = WEIGHT_CLASS_NORMAL
-	force = 24
+	w_class = WEIGHT_CLASS_BULKY
+	force = 21
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
-	var/datum/action/innate/heretic_shatter/linked_action
-
-/obj/item/melee/sickly_blade/Initialize()
-	. = ..()
-	linked_action = new(src)
-
+	
 /obj/item/melee/sickly_blade/attack(mob/living/M, mob/living/user)
 	if(!(IS_HERETIC(user) || IS_HERETIC_MONSTER(user)))
 		to_chat(user,"<span class='danger'>You feel a pulse of some alien intellect lash out at your mind!</span>")
@@ -89,14 +55,6 @@
 		human_user.AdjustParalyzed(5 SECONDS)
 		return FALSE
 	return ..()
-
-/obj/item/melee/sickly_blade/pickup(mob/user)
-	. = ..()
-	linked_action.Grant(user, src)
-
-/obj/item/melee/sickly_blade/dropped(mob/user, silent)
-	. = ..()
-	linked_action.Remove(user, src)
 
 /obj/item/melee/sickly_blade/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()

@@ -1,13 +1,17 @@
-/datum/eldritch_knowledge/base_ash
+/datum/eldritch_knowledge/spell/base_ash
 	name = "Nightwatcher's secret"
 	desc = "Opens up the path of ash to you. Allows you to transmute a match with a kitchen knife or it's derivatives into an ashen blade."
 	gain_text = "City guard knows their watch. If you ask them at night they may tell you about the ashy lantern."
-	banned_knowledge = list(/datum/eldritch_knowledge/base_rust,/datum/eldritch_knowledge/base_flesh,/datum/eldritch_knowledge/final/rust_final,/datum/eldritch_knowledge/final/flesh_final)
+	banned_knowledge = list(/datum/eldritch_knowledge/spell/base_rust,/datum/eldritch_knowledge/spell/base_flesh,/datum/eldritch_knowledge/final/rust_final,/datum/eldritch_knowledge/final/flesh_final)
 	next_knowledge = list(/datum/eldritch_knowledge/ashen_grasp)
-	required_atoms = list(/obj/item/kitchen/knife,/obj/item/match)
-	result_atoms = list(/obj/item/melee/sickly_blade/ash)
+	spell_to_add = /obj/effect/proc_holder/spell/targeted/conjure_item/heretic_blade/ash
 	cost = 1
 	route = PATH_ASH
+	
+/obj/effect/proc_holder/spell/targeted/conjure_item/heretic_blade/ash
+	name = "Ashen Blade"
+	item_type = /obj/item/melee/sickly_blade/ash
+	action_icon_state = "flesh_blade"
 
 /datum/eldritch_knowledge/spell/ashen_shift
 	name = "Ashen Shift"
