@@ -70,7 +70,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 		if(!place.requires_power || place.noteleport || place.hidden)
 			continue // No expanding powerless rooms etc
 		areas[place.name] = place
-	var/area_choice = tgui_input_list(creator, "Choose an area to expand or make a new area.", "Area Expansion", areas)
+	var/area_choice = input(creator, "Choose an area to expand or make a new area.", "Area Expansion") as null|anything in areas
 	area_choice = areas[area_choice]
 
 	if(!area_choice)
