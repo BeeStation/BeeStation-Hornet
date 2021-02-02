@@ -1957,14 +1957,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/cyan,
 /area/awaymission/factory/factoryafter/down)
-"bUL" = (
-/turf/closed/mineral{
-	color = "#de1d1d"
-	},
-/area/ruin/unpowered{
-	ambient_buzz = null;
-	noteleport = 1
-	})
 "bUN" = (
 /mob/living/simple_animal/hostile/retaliate/clown{
 	deathsound = 'sound/misc/honk_echo_distant.ogg';
@@ -53256,12 +53248,12 @@ hzx
 hzx
 hzx
 hzx
-fGD
-fGD
-bUL
+hzx
+hzx
+vqM
 cgR
-bUL
-fGD
+vqM
+hzx
 fGD
 fGD
 fGD
@@ -53515,9 +53507,9 @@ vqM
 vqM
 vqM
 vqM
-bUL
+vqM
 cjj
-bUL
+vqM
 vqM
 vqM
 vqM
