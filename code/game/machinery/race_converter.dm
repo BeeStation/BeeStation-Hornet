@@ -26,6 +26,9 @@
 	QDEL_NULL(soundloop)
 	return ..()
 
+/obj/machinery/species_converter/can_be_occupant(atom/movable/am)
+	return ishuman(am)
+
 /obj/machinery/species_converter/close_machine(mob/user)
 	if(panel_open)
 		to_chat(user, "<span class='warning'>You need to close the maintenance hatch first!</span>")
@@ -33,16 +36,11 @@
 	..()
 	playsound(src, 'sound/machines/click.ogg', 50)
 	if(occupant)
-		if(!iscarbon(occupant))
-			occupant.forceMove(drop_location())
-			occupant = null
-			return
 		to_chat(occupant, "<span class='notice'>You enter [src]</span>")
 		addtimer(CALLBACK(src, .proc/start_extracting), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
 		update_icon()
 
 /obj/machinery/species_converter/open_machine(mob/user)
-	iterations = 0
 	playsound(src, 'sound/machines/click.ogg', 50)
 	if(processing)
 		stop()
@@ -50,6 +48,7 @@
 
 /obj/machinery/species_converter/proc/stop()
 	processing = FALSE
+	iterations = 0
 	soundloop.stop()
 	set_light(0, 0)
 
