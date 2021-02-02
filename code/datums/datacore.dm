@@ -43,7 +43,7 @@
 				continue
 			for(var/datum/data/D in fields[field])
 				qdel(D)
-			UNLINT(LAZYCLEARLIST(fields[field])) //We check if it's a list above, so I assume it's safe to unlint this
+			UNLINT(fields[field].Cut()) //We check if it's a list above, so I assume it's safe to unlint this
 	. = ..()
 
 /datum/data/crime
