@@ -363,7 +363,7 @@
 			if(C.fromDB || C.had_special_role || C.fine > 0) //We don't want citations, crimes committed while antag, and we don't want to reupload existing crimes
 				continue
 
-			data_to_upload += list("ckey" = S.fields["ckey"], "crime" = C.crimeName, "details" = C.crimeDetails, "author" = C.author, "author_ckey" = C.authorCkey, "character_name" = S.fields["name"])
+			data_to_upload += list(list("ckey" = S.fields["ckey"], "crime" = C.crimeName, "details" = C.crimeDetails, "author" = C.author, "author_ckey" = C.authorCkey, "character_name" = S.fields["name"]))
 
 	SSdbcore.MassInsert(format_table_name("criminal_records"), data_to_upload, duplicate_key = TRUE)
 
