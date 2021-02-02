@@ -2741,9 +2741,7 @@
 	},
 /area/awaymission/factory/factoryafter/down/maint)
 "cDO" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen"
-	},
+/obj/structure/closet/crate,
 /obj/item/clothing/under/rank/medical/doctor/nurse,
 /obj/item/clothing/under/rank/medical/doctor,
 /obj/item/clothing/under/rank/medical/doctor/blue,
@@ -8731,6 +8729,7 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
+	wander = 0;
 	zombiejob = "Assistant"
 	},
 /turf/open/floor/noslip/white{
@@ -21409,9 +21408,7 @@
 	noteleport = 0
 	})
 "rRh" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen"
-	},
+/obj/structure/closet/crate,
 /obj/item/storage/firstaid/ancient,
 /obj/item/storage/firstaid/brute,
 /obj/item/storage/firstaid/radbgone,
@@ -29182,9 +29179,7 @@
 	noteleport = 0
 	})
 "xWI" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen"
-	},
+/obj/structure/closet/crate,
 /obj/item/storage/firstaid/advanced,
 /obj/item/storage/firstaid/o2,
 /obj/item/storage/firstaid/fire,
