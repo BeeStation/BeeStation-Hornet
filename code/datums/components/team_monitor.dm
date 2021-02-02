@@ -469,7 +469,6 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 //=======
 
 /atom/movable/screen/arrow
-	name = "arrow"
 	icon = 'icons/mob/hud.dmi'
 	icon_state = "hud_arrow"
 	screen_loc = ui_team_finder
