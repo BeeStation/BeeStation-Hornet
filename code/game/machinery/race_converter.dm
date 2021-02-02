@@ -37,7 +37,7 @@
 	playsound(src, 'sound/machines/click.ogg', 50)
 	if(occupant)
 		to_chat(occupant, "<span class='notice'>You enter [src]</span>")
-		addtimer(CALLBACK(src, .proc/start_extracting), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
+		addtimer(CALLBACK(src, .proc/begin_conversion), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
 		update_icon()
 
 /obj/machinery/species_converter/open_machine(mob/user)
@@ -105,7 +105,7 @@
 	iterations++
 	use_power(500)
 
-/obj/machinery/species_converter/proc/start_extracting()
+/obj/machinery/species_converter/proc/begin_conversion()
 	if(state_open || !occupant || processing || !is_operational())
 		return
 	if(iscarbon(occupant))
