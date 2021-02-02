@@ -3767,7 +3767,6 @@
 /obj/structure/closet/crate/secure/weapon,
 /obj/effect/spawner/lootdrop/armory_contraband,
 /obj/item/storage/belt/military/army,
-/obj/item/ammo_box/a40mm,
 /obj/item/ammo_box/magazine/m556,
 /turf/open/floor/circuit/red/anim,
 /area/awaymission/factory/factoryduring/down/levelthree)
@@ -6483,8 +6482,6 @@
 	icon_state = "floorscorched2"
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
-<<<<<<< HEAD
-=======
 "fSa" = (
 /obj/machinery/door/airlock/centcom{
 	req_access = null;
@@ -6492,7 +6489,6 @@
 	},
 /turf/open/floor/circuit/off,
 /area/awaymission/factory/factoryafter/down/levelthree)
->>>>>>> parent of a244fd4cef... I fucked up with access
 "fSd" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/beakers/variety,
@@ -8691,10 +8687,10 @@
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "hLo" = (
 /obj/structure/closet/crate/secure/weapon,
-/obj/effect/spawner/lootdrop/armory_contraband,
 /obj/item/storage/belt/military,
 /obj/item/storage/belt/military/army,
 /obj/item/ammo_box/a40mm,
+/obj/item/gun/ballistic/shotgun/automatic/dual_tube,
 /turf/open/floor/circuit/red/anim,
 /area/awaymission/factory/factoryduring/down/levelthree)
 "hLp" = (
@@ -9012,6 +9008,12 @@
 	temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
+"hXB" = (
+/obj/structure/closet/crate/secure/weapon,
+/obj/item/storage/belt/military,
+/obj/item/storage/box/breacherslug,
+/turf/open/floor/circuit/off,
+/area/awaymission/factory/factoryafter/down/levelthree)
 "hXL" = (
 /mob/living/simple_animal/pet/dog/pug{
 	name = "Jack";
@@ -20739,7 +20741,6 @@
 /area/awaymission/factory/factoryafter/down/levelthree)
 "roV" = (
 /obj/structure/guncase,
-/obj/item/storage/box/breacherslug,
 /turf/open/floor/circuit/off,
 /area/awaymission/factory/factoryafter/down/levelthree)
 "rqa" = (
@@ -20951,6 +20952,8 @@
 /obj/item/storage/belt/military,
 /obj/item/storage/toolbox/syndicate,
 /obj/item/ammo_box/magazine/m556,
+/obj/item/gun/ballistic/shotgun/automatic/breaching,
+/obj/item/storage/box/breacherslug,
 /turf/open/floor/circuit/red/anim,
 /area/awaymission/factory/factoryduring/down/levelthree)
 "ryp" = (
@@ -20964,9 +20967,6 @@
 	})
 "ryU" = (
 /obj/structure/guncase/shotgun,
-/obj/item/storage/box/breacherslug,
-/obj/item/gun/ballistic/shotgun/automatic/breaching,
-/obj/item/gun/ballistic/shotgun/automatic/dual_tube,
 /turf/open/floor/circuit/red/anim,
 /area/awaymission/factory/factoryduring/down/levelthree)
 "rzL" = (
@@ -50773,7 +50773,7 @@ qzP
 qGh
 qYw
 pFC
-xiI
+hXB
 gZi
 cPx
 piy
