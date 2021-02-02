@@ -232,12 +232,15 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 
 /datum/component/team_monitor/proc/set_frequency(new_frequency)
 	var/hud_on = hud_visible
+	var/mob/user = updating
 	//Remove tracking from old frequency
 	if(team_frequency)
 		if(updating)
 			toggle_hud(FALSE, updating)
 		//Remove from the global frequency
 		GLOB.tracker_huds[team_frequency] -= src
+		//Clear tracking
+		tracking.Cut()
 	team_frequency = "[team_freq_key][new_frequency]"
 	//Add tracking to new frequency
 	if(!team_frequency)
@@ -246,9 +249,9 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	add_tracker_hud(team_frequency, src)
 	//Gets the other trackers on our frequency
 	get_active_trackers()
-	if(updating)
-		//Show hud if needed
-		toggle_hud(hud_on, updating)
+	//Show hud if needed
+	if(user)
+		toggle_hud(hud_on, user)
 
 //Adds a new atom to the tracking monitor, will create a hud element that tracks them
 //TODO: Add the screen if already equipped
