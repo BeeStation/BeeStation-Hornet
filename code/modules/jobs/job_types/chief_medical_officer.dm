@@ -49,6 +49,7 @@
 	satchel = /obj/item/storage/backpack/satchel/med
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
 
+	cyberimps = list(/obj/item/organ/cyberimp/skillChip/chiefMedical)
 	chameleon_extras = list(/obj/item/gun/syringe, /obj/item/stamp/cmo)
 
 /datum/outfit/job/cmo/hardsuit

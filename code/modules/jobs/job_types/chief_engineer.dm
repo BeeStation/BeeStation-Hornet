@@ -53,6 +53,8 @@
 	pda_slot = SLOT_L_STORE
 	chameleon_extras = /obj/item/stamp/ce
 
+	cyberimps = list(/obj/item/organ/cyberimp/skillChip/engineering)
+
 /datum/outfit/job/ce/rig
 	name = "Chief Engineer (Hardsuit)"
 

@@ -32,3 +32,4 @@
 	backpack_contents = list(/obj/item/storage/box/beanbag=1)
 	shoes = /obj/item/clothing/shoes/laceup
 
+	cyberimps = list(/obj/item/organ/cyberimp/skillChip/bartender)

@@ -33,4 +33,5 @@
 	backpack = /obj/item/storage/backpack/botany
 	satchel = /obj/item/storage/backpack/satchel/hyd
 
+	cyberimps = list(/obj/item/organ/cyberimp/skillChip/chemistry)
 

@@ -43,6 +43,8 @@
 	pda_slot = SLOT_L_STORE
 	backpack_contents = list(/obj/item/modular_computer/tablet/preset/advanced=1)
 
+	cyberimps = list(/obj/item/organ/cyberimp/skillChip/engineering)
+
 /datum/outfit/job/engineer/gloved
 	name = "Station Engineer (Gloves)"
 	gloves = /obj/item/clothing/gloves/color/yellow

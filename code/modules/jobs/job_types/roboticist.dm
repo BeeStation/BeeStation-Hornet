@@ -36,4 +36,6 @@
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel/tox
 
+	cyberimps = list(/obj/item/organ/cyberimp/skillChip/surgical)
+
 	pda_slot = SLOT_L_STORE
