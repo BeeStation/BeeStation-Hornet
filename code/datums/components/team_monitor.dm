@@ -133,7 +133,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	if(!updating)
 		return
 	var/atom/movable/screen/screen = tracking[beacon]
-	if(!screen)
+	if(!screen && target_turf.z == parent_turf.z)
 		//Create the screen
 		screen = new
 		screen.alpha = 240
@@ -147,14 +147,15 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	var/turf/target_turf = get_turf(beacon.parent)
 	var/turf/parent_turf = get_turf(parent)
 	if(target_turf.z != parent_turf.z)
-		//Remove the screen
-		if(updating.hud_used)
-			updating.hud_used.team_finder_arrows -= screen
-		qdel(screen)
-		tracking[beacon] = null
-		//Update their hud
-		if(updating.hud_used)
-			updating.hud_used.show_hud(updating.hud_used.hud_version, updating)
+		if(screen)
+			//Remove the screen
+			if(updating.hud_used)
+				updating.hud_used.team_finder_arrows -= screen
+			qdel(screen)
+			tracking[beacon] = null
+			//Update their hud
+			if(updating.hud_used)
+				updating.hud_used.show_hud(updating.hud_used.hud_version, updating)
 		return
 	var/matrix/rotationMatrix = matrix()
 	rotationMatrix.Scale(1.5)
