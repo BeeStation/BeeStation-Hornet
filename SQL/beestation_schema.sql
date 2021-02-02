@@ -549,17 +549,27 @@ DELIMITER ;
 -- Dumping structure for table ss13tgdb.SS13_criminal_records
 DROP TABLE IF EXISTS `SS13_criminal_records`;
 CREATE TABLE IF NOT EXISTS `SS13_criminal_records` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `ckey` varchar(32) NOT NULL,
   `crime` varchar(2048) DEFAULT NULL,
   `details` varchar(2048) DEFAULT NULL,
   `author` varchar(32) NOT NULL,
-  `recordtime` datetime NOT NULL DEFAULT current_timestamp(),
-  `fine` int(10) unsigned NOT NULL DEFAULT 0,
   `author_ckey` varchar(32) NOT NULL,
-  `paid` int(10) unsigned NOT NULL DEFAULT 0,
   `character_name` varchar(32) NOT NULL,
-  PRIMARY KEY (`ckey`)
+  `recordtime` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE EVENT `cleanup_sec_records`
+  ON SCHEDULE
+    EVERY 1 DAY STARTS '2021-02-02 00:00:00'
+  ON COMPLETION PRESERVE
+  ENABLE
+  COMMENT ''
+  DO BEGIN
+DELETE FROM ss13_criminal_records
+WHERE DATEDIFF(NOW(), recordtime)>6;
+END
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

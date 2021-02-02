@@ -339,14 +339,14 @@
 	S.fields["notes"]		= "No notes."
 	if(CONFIG_GET(number/persist_security_records) > 0 && SSdbcore.Connect())
 		var/datum/DBQuery/crime_record = SSdbcore.NewQuery(
-			"SELECT crime, details, author, time, fine, author_ckey, paid, character_name FROM [format_table_name("criminal_records")] WHERE ckey = :ckey",
-			list("ckey" = H.ckey) //TODO: Drop time and citations, update the code below
+			"SELECT crime, details, author, author_ckey, character_name FROM [format_table_name("criminal_records")] WHERE ckey = :ckey",
+			list("ckey" = H.ckey)
 		)
 		if(crime_record.Execute(async = TRUE))
 			while(crime_record.NextRow())
-				if(!H.client.prefs.be_random_name && (H.real_name != crime_record.item[8] && reject_bad_name(crime_record.item[8]) != null)) // Tie the records to the character unless they're using random names or the name isn't valid.
+				if(!H.client.prefs.be_random_name && (H.real_name != crime_record.item[5] && reject_bad_name(crime_record.item[5]) != null)) // Tie the records to the character unless they're using random names or the name isn't valid.
 					continue
-				S.fields["crim"] += createCrimeEntry(cname = crime_record.item[1], cdetails = crime_record.item[2], author = crime_record.item[3], time = "Archived", fine = crime_record.item[5], author_ckey = crime_record.item[6])
+				S.fields["crim"] += createCrimeEntry(cname = crime_record.item[1], cdetails = crime_record.item[2], author = crime_record.item[3], time = "Archived", author_ckey = crime_record.item[4])
 
 		qdel(crime_record)
 	return S
