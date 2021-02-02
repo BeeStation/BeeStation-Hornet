@@ -29,9 +29,10 @@
 		return
 	..()
 
-/mob/living/simple_animal/slime/proc/AIprocess()
+/mob/living/simple_animal/slime/process()
 	if(stat == DEAD || !Target || client || buckled)
 		return
+	special_process = FALSE
 
 	var/slime_on_target = 0
 	if(Target.buckled_mobs?.len && (locate(/mob/living/simple_animal/slime) in Target.buckled_mobs))
