@@ -402,6 +402,7 @@ Contains:
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	actions_types = list()
 	resistance_flags = FIRE_PROOF
+	beacon_colour = "#9ddb56"
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal
 	name = "paranormal response team hardsuit"
