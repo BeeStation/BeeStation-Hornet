@@ -26934,7 +26934,7 @@
 "aXN" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 3";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -26950,7 +26950,7 @@
 "aXP" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 2";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -26964,7 +26964,7 @@
 "aXQ" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 1";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -27979,7 +27979,7 @@
 	name = "Cell 3 Lockdown";
 	pixel_x = -4;
 	pixel_y = 25;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/button/flasher{
 	id = "PCell 3";
@@ -28047,7 +28047,7 @@
 	name = "Cell 2 Lockdown";
 	pixel_x = -4;
 	pixel_y = 25;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/button/flasher{
 	id = "PCell 2";
@@ -28112,7 +28112,7 @@
 	name = "Cell 1 Lockdown";
 	pixel_x = -4;
 	pixel_y = 25;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/button/flasher{
 	id = "PCell 1";
@@ -44472,6 +44472,7 @@
 /obj/structure/chair/office{
 	dir = 1
 	},
+/obj/effect/landmark/start/depsec/gulag,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -118853,7 +118854,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Holding Area";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
@@ -119564,7 +119565,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Holding Area";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8

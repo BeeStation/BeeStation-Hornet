@@ -88,7 +88,7 @@
 "aq" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Labor Camp Monitoring";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/manifold/supply{
@@ -718,7 +718,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Labor Camp Shuttle Security Airlock";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
@@ -730,7 +730,7 @@
 	id = "labor";
 	name = "Labor Camp Lockdown";
 	pixel_y = 28;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/advanced_airlock_controller/lavaland{
 	pixel_y = 24
@@ -750,7 +750,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Labor Camp Shuttle Security Airlock";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
@@ -5181,7 +5181,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/door/airlock/security/glass{
 	name = "Labor Camp Monitoring";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/cable/yellow{

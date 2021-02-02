@@ -1385,7 +1385,7 @@
 	name = "Justice Area Lockdown";
 	pixel_x = -25;
 	pixel_y = 26;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/item/assembly/signaler{
 	pixel_x = -3;
@@ -2126,7 +2126,7 @@
 "aem" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 3";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -2141,7 +2141,7 @@
 "aen" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 2";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -2160,7 +2160,7 @@
 "aeo" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 1";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -2175,7 +2175,7 @@
 "aep" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Sanitarium";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -2449,7 +2449,7 @@
 	name = "Cell 3 Lockdown";
 	pixel_x = -4;
 	pixel_y = 25;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -2513,7 +2513,7 @@
 	name = "Cell 2 Lockdown";
 	pixel_x = -4;
 	pixel_y = 25;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -2573,7 +2573,7 @@
 	name = "Cell 1 Lockdown";
 	pixel_x = -4;
 	pixel_y = 25;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -4694,7 +4694,7 @@
 	id = "Prison Gate";
 	name = "Prison Wing Lockdown";
 	pixel_x = 26;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -9976,6 +9976,7 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
+/obj/effect/landmark/start/depsec/gulag,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "asp" = (
@@ -10055,7 +10056,7 @@
 	id = "Prison Gate";
 	name = "Prison Wing Lockdown";
 	pixel_y = 7;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/button/door{
 	id = "Secure Gate";
@@ -11803,7 +11804,7 @@
 "avY" = (
 /obj/machinery/door/airlock/external{
 	name = "Labor Camp Shuttle Airlock";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -11816,13 +11817,13 @@
 "avZ" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Labor Camp Shuttle Airlock";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/button/door{
 	id = "prison release";
 	name = "Labor Camp Shuttle Lockdown";
 	pixel_y = -25;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -15486,7 +15487,7 @@
 	id = "prison release";
 	name = "Labor Camp Shuttle Lockdown";
 	pixel_x = -25;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -18970,7 +18971,7 @@
 "aKe" = (
 /obj/machinery/door/window/southleft{
 	name = "Court Cell";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)

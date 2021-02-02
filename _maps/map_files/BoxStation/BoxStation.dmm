@@ -1096,7 +1096,7 @@
 /obj/machinery/door/window/westright{
 	dir = 1;
 	name = "Transfer Room";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -1604,7 +1604,7 @@
 "adH" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 3";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -1619,7 +1619,7 @@
 "adI" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 2";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -1634,7 +1634,7 @@
 "adJ" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 1";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -1835,7 +1835,7 @@
 	name = "Transfer Area Lockdown";
 	pixel_x = 25;
 	pixel_y = -5;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
 /turf/open/floor/plasteel/dark,
@@ -1869,7 +1869,7 @@
 	name = "Cell 3 Lockdown";
 	pixel_x = -4;
 	pixel_y = 25;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/button/flasher{
 	id = "PCell 3";
@@ -1916,7 +1916,7 @@
 	name = "Cell 2 Lockdown";
 	pixel_x = -4;
 	pixel_y = 25;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/button/flasher{
 	id = "PCell 2";
@@ -1961,7 +1961,7 @@
 	name = "Cell 1 Lockdown";
 	pixel_x = -4;
 	pixel_y = 25;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/button/flasher{
 	id = "PCell 1";
@@ -2487,7 +2487,7 @@
 	dir = 4;
 	icon_state = "right";
 	name = "Armory";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating,
@@ -3585,7 +3585,7 @@
 	name = "Prison Wing Lockdown";
 	pixel_x = -27;
 	pixel_y = 8;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/button/door{
 	id = "Secure Gate";
@@ -4619,7 +4619,7 @@
 	},
 /obj/machinery/door/window/southleft{
 	name = "Court Cell";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
@@ -4678,9 +4678,10 @@
 /turf/open/floor/plating,
 /area/construction/mining/aux_base)
 "aka" = (
-/obj/structure/chair{
+/obj/structure/chair/office{
 	dir = 1
 	},
+/obj/effect/landmark/start/depsec/gulag,
 /turf/open/floor/plasteel,
 /area/security/processing)
 "akb" = (
@@ -5715,7 +5716,7 @@
 	},
 /obj/machinery/door/window/eastright{
 	name = "Brig Desk";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/item/restraints/handcuffs,
 /obj/item/radio/off,
@@ -5861,7 +5862,7 @@
 "amM" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prisoner Processing";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -6490,7 +6491,7 @@
 "apc" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Security Maintenance";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -46568,7 +46569,7 @@
 "dqp" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Holding Area";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 8
@@ -47790,7 +47791,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Labor Shuttle";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -48256,7 +48257,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "Security Escape Airlock";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 9
@@ -55519,7 +55520,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "Labor Camp Shuttle Airlock";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
@@ -56808,7 +56809,7 @@
 "qeE" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -58261,7 +58262,7 @@
 "sgN" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -58290,7 +58291,7 @@
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
 	name = "Prisoner Transfer Centre";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8

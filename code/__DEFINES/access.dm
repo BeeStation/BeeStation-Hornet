@@ -1,6 +1,6 @@
 #define ACCESS_SECURITY 1 //! Security equipment, security records, gulag item storage, secbots
 #define ACCESS_BRIG 2 //! Brig cells+timers, permabrig, gulag+gulag shuttle, prisoner management console
-#define ACCESS_ARMORY 3 //! Armory, gulag teleporter, execution chamber
+#define ACCESS_ARMORY 3 //! Armory, execution chamber
 #define ACCESS_FORENSICS_LOCKERS 4 //! Detective's office, forensics lockers, security+medical records
 #define ACCESS_MEDICAL 5
 #define ACCESS_MORGUE 6
@@ -63,6 +63,7 @@
 #define ACCESS_WEAPONS 66 //! Weapon authorization for secbots
 #define ACCESS_NETWORK 67 //! NTnet diagnostics/monitoring software
 #define ACCESS_CLONING 68 //! Cloning room and clone pod ejection
+#define ACCESS_GULAG 69 //! Hehehe (gulag teleporter)
 
 /// Room and launching.
 #define ACCESS_AUX_BASE 72

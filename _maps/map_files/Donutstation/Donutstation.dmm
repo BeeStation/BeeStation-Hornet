@@ -4719,7 +4719,7 @@
 "alH" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "N2O Storage";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /turf/open/floor/plating,
 /area/security/prison)
@@ -11768,7 +11768,7 @@
 "aBZ" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -17382,7 +17382,7 @@
 "aOT" = (
 /obj/machinery/door/window/southleft{
 	name = "Court Cell";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
@@ -22547,7 +22547,7 @@
 "aZF" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -22977,7 +22977,7 @@
 	},
 /obj/machinery/door/window/eastright{
 	name = "Armory";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -26883,7 +26883,7 @@
 "biK" = (
 /obj/machinery/door/window/eastleft{
 	name = "Armory";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -26906,7 +26906,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor/northleft{
 	name = "Armory Desk";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/security/armory)
@@ -27176,7 +27176,7 @@
 	name = "Cell 3 Lockdown";
 	pixel_x = 25;
 	pixel_y = -4;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/button/flasher{
 	id = "PCell 3";
@@ -27271,7 +27271,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 3";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -27538,7 +27538,7 @@
 	name = "Cell 2 Lockdown";
 	pixel_x = 25;
 	pixel_y = -4;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/button/flasher{
 	id = "PCell 2";
@@ -27659,7 +27659,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 2";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -27926,7 +27926,7 @@
 	name = "Cell 1 Lockdown";
 	pixel_x = 25;
 	pixel_y = -4;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/button/flasher{
 	id = "PCell 1";
@@ -27999,7 +27999,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 1";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)

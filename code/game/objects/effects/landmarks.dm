@@ -269,6 +269,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/depsec/science
 	name = "science_sec"
 
+/obj/effect/landmark/start/depsec/gulag
+	name = "gulag_sec"
+
 //Antagonist spawns
 
 /obj/effect/landmark/start/wizard

@@ -13874,7 +13874,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Prison Wing";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -19771,7 +19771,7 @@
 	name = "Justice Shutter Control";
 	pixel_x = -24;
 	pixel_y = -8;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -32026,7 +32026,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Prison Wing";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
@@ -61086,7 +61086,7 @@
 "bJB" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 1";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -63642,7 +63642,7 @@
 "bNh" = (
 /obj/machinery/door/airlock/external{
 	name = "Prison External Airlock";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -63786,7 +63786,7 @@
 "bNr" = (
 /obj/machinery/door/airlock/external{
 	name = "Prison External Airlock";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -65472,7 +65472,7 @@
 "bPL" = (
 /obj/machinery/door/airlock/external{
 	name = "Prison External Airlock";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -66505,7 +66505,7 @@
 "bRh" = (
 /obj/machinery/door/airlock/external{
 	name = "Prison External Airlock";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/cable/yellow{
@@ -72167,7 +72167,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Prison Wing";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -72849,7 +72849,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Prison Wing";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -74314,7 +74314,7 @@
 	name = "Long-Term Cell 1 Toggle";
 	pixel_x = -24;
 	pixel_y = -6;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -76656,7 +76656,7 @@
 "cfZ" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 3";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -77185,7 +77185,7 @@
 "cgM" = (
 /obj/machinery/door/airlock/external{
 	name = "Prison External Airlock";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -78561,7 +78561,7 @@
 "ciN" = (
 /obj/machinery/door/airlock/external{
 	name = "Prison External Airlock";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -95541,7 +95541,7 @@
 "cJf" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 2";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -95682,7 +95682,7 @@
 	name = "Long-Term Cell 2 Toggle";
 	pixel_x = -24;
 	pixel_y = -6;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -95877,7 +95877,7 @@
 	name = "Long-Term Cell 3 Toggle";
 	pixel_x = -24;
 	pixel_y = -6;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1

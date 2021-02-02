@@ -4,7 +4,7 @@
 	desc = "Used to send criminals to the Labor Camp."
 	icon_screen = "explosive"
 	icon_keyboard = "security_key"
-	req_access = list(ACCESS_ARMORY)
+	req_access = list(ACCESS_GULAG)
 	circuit = /obj/item/circuitboard/computer/gulag_teleporter_console
 
 

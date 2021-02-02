@@ -2334,7 +2334,7 @@
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
 	name = "Solutions Room";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/door/firedoor/border_only{
 	dir = 4
@@ -2595,7 +2595,7 @@
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
 	name = "Solutions Room";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -2725,7 +2725,7 @@
 "ahm" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 2";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -2753,7 +2753,7 @@
 "ahp" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 1";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -2856,7 +2856,7 @@
 	name = "Transfer Area Lockdown";
 	pixel_x = 25;
 	pixel_y = -5;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
 /obj/machinery/light/small{
@@ -2903,7 +2903,7 @@
 	name = "Cell 2 Lockdown";
 	pixel_x = 4;
 	pixel_y = 34;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -2943,7 +2943,7 @@
 	name = "Cell 1 Lockdown";
 	pixel_x = 4;
 	pixel_y = 34;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -6205,6 +6205,7 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
+/obj/effect/landmark/start/depsec/gulag,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "aoQ" = (
@@ -6235,7 +6236,7 @@
 	name = "Permabrig Lockdown";
 	pixel_x = 5;
 	pixel_y = 8;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
@@ -7198,7 +7199,7 @@
 "ari" = (
 /obj/machinery/door/airlock/external{
 	name = "Labor Camp Shuttle Airlock";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -7208,13 +7209,13 @@
 "arj" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Labor Camp Shuttle Airlock";
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/machinery/button/door{
 	id = "prison release";
 	name = "Labor Camp Shuttle Lockdown";
 	pixel_y = -25;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -10871,7 +10872,7 @@
 	id = "prison release";
 	name = "Labor Camp Shuttle Lockdown";
 	pixel_x = -25;
-	req_access_txt = "2"
+	req_access_txt = "69"
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
