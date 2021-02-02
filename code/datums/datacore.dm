@@ -30,6 +30,8 @@
 		GLOB.data_core.medical -= src
 	if(src in GLOB.data_core.security)
 		GLOB.data_core.security -= src
+		for(var/datum/data/crime/C as() in src.fields["crim"])
+			GLOB.data_core.purge_db_record(src, C)
 	if(src in GLOB.data_core.general)
 		GLOB.data_core.general -= src
 	if(src in GLOB.data_core.locked)
@@ -76,6 +78,7 @@
 			for(var/datum/data/crime/crime in crimes)
 				if(crime.dataId == text2num(cDataId))
 					crimes -= crime
+					qdel(crime)
 					return
 
 /datum/datacore/proc/payCitation(id, cDataId, amount)
@@ -124,8 +127,19 @@
 			var/list/crimes = R.fields["crim"]
 			for(var/datum/data/crime/crime in crimes)
 				if(crime.dataId == text2num(cDataId))
+					purge_db_record(R, crime)
 					crimes -= crime
+					qdel(crime)
 					return
+
+/datum/datacore/proc/purge_db_record(datum/data/record/R, datum/data/crime/crime)
+	if(crime.fromDB && R.fields["ckey"] && SSdbcore.Connect()) //We can ignore the config because it has to be enabled for it to exist anyways
+		var/datum/DBQuery/query_remove_crime = SSdbcore.NewQuery(
+		"DELETE FROM [format_table_name("criminal_records")] WHERE ckey = :ckey AND author_ckey = :author_ckey AND crime = :crime AND details = :details",
+
+		list("ckey" = R.fields["ckey"], "author_ckey" = crime.authorCkey, "crime" = crime.crimeName, "details" = crime.crimeDetails))
+		query_remove_crime.Execute(async = TRUE)
+		qdel(query_remove_crime)
 
 /**
   * Adds details to a crime.
