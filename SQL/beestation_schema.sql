@@ -550,13 +550,13 @@ DELIMITER ;
 DROP TABLE IF EXISTS `SS13_criminal_records`;
 CREATE TABLE IF NOT EXISTS `SS13_criminal_records` (
   `ckey` varchar(32) NOT NULL,
-  `crime` varchar(2048) NOT NULL,
-  `details` varchar(2048) NOT NULL,
+  `crime` varchar(2048) DEFAULT NULL,
+  `details` varchar(2048) DEFAULT NULL,
   `author` varchar(32) NOT NULL,
-  `time` datetime NOT NULL,
-  `fine` int(10) unsigned NOT NULL,
+  `recordtime` datetime NOT NULL DEFAULT current_timestamp(),
+  `fine` int(10) unsigned NOT NULL DEFAULT 0,
   `author_ckey` varchar(32) NOT NULL,
-  `paid` int(10) unsigned NOT NULL,
+  `paid` int(10) unsigned NOT NULL DEFAULT 0,
   `character_name` varchar(32) NOT NULL,
   PRIMARY KEY (`ckey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
