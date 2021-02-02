@@ -20,11 +20,6 @@ SUBSYSTEM_DEF(npcpool)
 	var/list/currentrun = src.currentrun
 
 	while(currentrun.len)
-		if(isnull(currentrun[currentrun.len])
-			GLOB.simple_animals[AI_ON] -= currentrun[currentrun.len]
-			--currentrun.len
-			continue
-			
 		var/mob/living/simple_animal/SA = currentrun[currentrun.len]
 		--currentrun.len
 
