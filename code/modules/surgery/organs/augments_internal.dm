@@ -184,6 +184,7 @@
 	slot = ORGAN_SLOT_SKILLCHIP
 	w_class = WEIGHT_CLASS_SMALL
 	var/applied_traits = list()
+	var/list/style = null
 
 /obj/item/organ/cyberimp/skillChip/Insert(mob/living/carbon/M, special, drop_if_replaced)
 	if(!iscarbon(M) || owner == M)
@@ -208,6 +209,10 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Grant(M)
+	if(style)
+		for(var/martialArt in style)
+			var/datum/martial_art/S = new martialArt
+			S.teach(M)
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/organ/cyberimp/skillChip/Remove(mob/living/carbon/M, special)
@@ -218,6 +223,10 @@
 			M.internal_organs_slot.Remove(slot)
 			for(var/trait in applied_traits)
 				REMOVE_TRAIT(M, trait, "skillChip")
+			if(style)
+				for(var/martialArt in style)
+					var/datum/martial_art/S = new martialArt
+					S.remove(M)
 			M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3)
 			to_chat(M, "<span class='warning>Your brain hurts as your neurons are forcefully rewired.</span>")
 		if((organ_flags & ORGAN_VITAL) && !special && !(M.status_flags & GODMODE))
@@ -258,28 +267,12 @@
 /obj/item/organ/cyberimp/skillChip/chef
 	name = "Chef SkillChip"
 	desc = "A piece of bleeding-edge tech which teaches the user the art of close quarters cooking."
-	var/datum/martial_art/cqc/under_siege/style = new
-
-/obj/item/organ/cyberimp/skillChip/chef/Insert(mob/living/carbon/M, special, drop_if_replaced)
-	style.teach(M)
-	..()
-
-/obj/item/organ/cyberimp/skillChip/chef/Remove(mob/living/carbon/M, special)
-	style.remove(M)
-	..()
+	style = list(/datum/martial_art/cqc/under_siege)
 
 /obj/item/organ/cyberimp/skillChip/security
 	name = "Security SkillChip"
 	desc = "A piece of bleeding-edge tech which teaches the user about Nanotrasen approved methods for unarmed takedowns."
-	var/datum/martial_art/security_cqc/style = new
-
-/obj/item/organ/cyberimp/skillChip/security/Insert(mob/living/carbon/M, special, drop_if_replaced)
-	style.teach(M)
-	..()
-
-/obj/item/organ/cyberimp/skillChip/security/Remove(mob/living/carbon/M, special)
-	style.remove(M)
-	..()
+	style = list(/datum/martial_art/security_cqc)
 
 /obj/item/organ/cyberimp/skillChip/omniChip //Parent type for all omni chips
 	name = "OmniChip"
@@ -289,25 +282,9 @@
 /obj/item/organ/cyberimp/skillChip/omniChip/omniChipChef
 	name = "OmniChip Cooking Edition"
 	desc = "A piece of bleeding-edge tech which teaches the user skills from other SkillChips in addition to close quarters cooking."
-	var/datum/martial_art/cqc/under_siege/style = new
-
-/obj/item/organ/cyberimp/skillChip/omniChip/omniChipChef/Insert(mob/living/carbon/M, special, drop_if_replaced)
-	style.teach(M)
-	..()
-
-/obj/item/organ/cyberimp/skillChip/omniChip/omniChipChef/Remove(mob/living/carbon/M, special)
-	style.remove(M)
-	..()
+	style =  list(/datum/martial_art/cqc/under_siege)
 
 /obj/item/organ/cyberimp/skillChip/omniChip/omniChipSecurity
 	name = "OmniChip Security Edition"
 	desc = "A piece of bleeding-edge tech which teaches the user skills from other SkillChips in addition to Nanotrasen approved methods for unarmed takedowns."
-	var/datum/martial_art/security_cqc/style = new
-
-/obj/item/organ/cyberimp/skillChip/omniChip/omniChipSecurity/Insert(mob/living/carbon/M, special, drop_if_replaced)
-	style.teach(M)
-	..()
-
-/obj/item/organ/cyberimp/skillChip/omniChip/omniChipSecurity/Remove(mob/living/carbon/M, special)
-	style.remove(M)
-	..()
+	style = list(/datum/martial_art/security_cqc)

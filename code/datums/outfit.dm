@@ -236,7 +236,7 @@
 		if(cyberimps)
 			for(var/cyberimp_type in cyberimps)
 				var/obj/item/organ/cyberimp/C = new cyberimp_type
-				C.Insert(H, null, FALSE)
+				C.Insert(H, TRUE, TRUE)
 
 	H.update_body()
 	return TRUE
