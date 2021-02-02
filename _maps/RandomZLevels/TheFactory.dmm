@@ -1,4 +1,13 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aaH" = (
+/obj/effect/baseturf_helper/asteroid{
+	baseturf_to_replace = list(/turf/baseturf_bottom,/turf/open/space/basic,/turf/open/floor/plating);
+	layer = 2
+	},
+/turf/open/space/basic,
+/area/space{
+	noteleport = 1
+	})
 "aaS" = (
 /turf/open/water{
 	color = "#FE2E2E";
@@ -6477,13 +6486,6 @@
 	icon_state = "floorscorched2"
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
-"fSa" = (
-/obj/effect/baseturf_helper/asteroid{
-	baseturf_to_replace = list(/turf/baseturf_bottom,/turf/open/space/basic,/turf/open/floor/plating);
-	layer = 2
-	},
-/turf/open/space/basic,
-/area/space)
 "fSd" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/beakers/variety,
@@ -29559,7 +29561,7 @@
 	})
 
 (1,1,1) = {"
-fSa
+bIV
 bIV
 bIV
 bIV
@@ -30373,7 +30375,7 @@ bIV
 bIV
 bIV
 bIV
-fgi
+aaH
 fgi
 fgi
 fgi
