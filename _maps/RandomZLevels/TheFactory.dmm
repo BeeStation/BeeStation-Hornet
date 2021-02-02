@@ -152,11 +152,11 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/card/id/away{
+/obj/item/card/id/ert{
 	access = list(204);
 	desc = "Provides access to the lowest level of the factory";
-	icon_state = "ert";
-	name = "\proper level three access ID card"
+	name = "\proper level three access ID card";
+	registered_name = null
 	},
 /turf/open/floor/plasteel,
 /area/awaymission/factory/factoryafter/down/leveltwo)
@@ -1555,12 +1555,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/showroomfloor,
 /area/awaymission/factory/factoryafter/down)
-"byO" = (
-/obj/structure/closet/crate/secure/weapon,
-/obj/item/storage/belt/military,
-/obj/item/storage/box/breacherslug,
-/turf/open/floor/circuit/off,
-/area/awaymission/factory/factoryafter/down/levelthree)
 "byP" = (
 /obj/structure/sink{
 	dir = 4;
@@ -6293,11 +6287,11 @@
 	icon_state = "floor2-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/card/id/away{
+/obj/item/card/id/ert{
 	access = list(204);
 	desc = "Provides access to the lowest level of the factory";
-	icon_state = "ert";
-	name = "\proper level three access ID card"
+	name = "\proper level three access ID card";
+	registered_name = null
 	},
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
@@ -6371,11 +6365,11 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/box/beakers/variety,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/card/id/away{
+/obj/item/card/id/ert{
 	access = list(204);
 	desc = "Provides access to the lowest level of the factory";
-	icon_state = "ert";
-	name = "\proper level three access ID card"
+	name = "\proper level three access ID card";
+	registered_name = null
 	},
 /turf/open/floor/plasteel,
 /area/awaymission/factory/factoryafter/down/leveltwo)
@@ -6489,6 +6483,16 @@
 	icon_state = "floorscorched2"
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
+<<<<<<< HEAD
+=======
+"fSa" = (
+/obj/machinery/door/airlock/centcom{
+	req_access = null;
+	req_access_txt = "204"
+	},
+/turf/open/floor/circuit/off,
+/area/awaymission/factory/factoryafter/down/levelthree)
+>>>>>>> parent of a244fd4cef... I fucked up with access
 "fSd" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/beakers/variety,
@@ -11449,12 +11453,14 @@
 /turf/open/floor/stone,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "keO" = (
-/obj/structure/closet/crate,
-/obj/item/card/id/away{
+/obj/structure/closet/crate{
+	icon_state = "crateopen"
+	},
+/obj/item/card/id/ert{
 	access = list(204);
 	desc = "Provides access to the lowest level of the factory";
-	icon_state = "ert";
-	name = "\proper level three access ID card"
+	name = "\proper level three access ID card";
+	registered_name = null
 	},
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
@@ -11972,11 +11978,11 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/item/card/id/away{
+/obj/item/card/id/ert{
 	access = list(204);
 	desc = "Provides access to the lowest level of the factory";
-	icon_state = "ert";
-	name = "\proper level three access ID card"
+	name = "\proper level three access ID card";
+	registered_name = null
 	},
 /turf/open/floor/circuit/green/off,
 /area/awaymission/factory/factoryafter/down/levelthree)
@@ -13229,11 +13235,11 @@
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lIS" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/card/id/away{
+/obj/item/card/id/ert{
 	access = list(204);
 	desc = "Provides access to the lowest level of the factory";
-	icon_state = "ert";
-	name = "\proper level three access ID card"
+	name = "\proper level three access ID card";
+	registered_name = null
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/factory/factoryafter/down/levelthree)
@@ -13443,11 +13449,11 @@
 "lRf" = (
 /obj/structure/closet/firecloset/full,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/card/id/away{
+/obj/item/card/id/ert{
 	access = list(204);
 	desc = "Provides access to the lowest level of the factory";
-	icon_state = "ert";
-	name = "\proper level three access ID card"
+	name = "\proper level three access ID card";
+	registered_name = null
 	},
 /turf/open/floor/engine/light{
 	baseturfs = /turf/open/floor/plating/asteroid
@@ -13691,6 +13697,7 @@
 /area/awaymission/factory/factoryduring)
 "mcs" = (
 /obj/machinery/door/airlock/centcom{
+	req_access = null;
 	req_access_txt = "204"
 	},
 /turf/open/floor/circuit,
@@ -14938,27 +14945,29 @@
 	noteleport = 0
 	})
 "nfm" = (
-/obj/structure/closet/crate,
+/obj/structure/closet/crate{
+	icon_state = "crateopen"
+	},
 /obj/item/card/id/job/med{
 	access = list(202)
 	},
-/obj/item/card/id/away{
+/obj/item/card/id/ert{
 	access = list(204);
 	desc = "Provides access to the lowest level of the factory";
-	icon_state = "ert";
-	name = "\proper level three access ID card"
+	name = "\proper level three access ID card";
+	registered_name = null
 	},
-/obj/item/card/id/away{
+/obj/item/card/id/ert{
 	access = list(204);
 	desc = "Provides access to the lowest level of the factory";
-	icon_state = "ert";
-	name = "\proper level three access ID card"
+	name = "\proper level three access ID card";
+	registered_name = null
 	},
-/obj/item/card/id/away{
-	access = list(204);
+/obj/item/card/id/ert{
+	access = list(456);
 	desc = "Provides access to the lowest level of the factory";
-	icon_state = "ert";
-	name = "\proper level three access ID card"
+	name = "\proper level three access ID card";
+	registered_name = null
 	},
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
@@ -15087,11 +15096,11 @@
 /obj/effect/decal/remains/human,
 /obj/item/melee/baseball_bat,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/card/id/away{
+/obj/item/card/id/ert{
 	access = list(204);
 	desc = "Provides access to the lowest level of the factory";
-	icon_state = "ert";
-	name = "\proper level three access ID card"
+	name = "\proper level three access ID card";
+	registered_name = null
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -17268,9 +17277,7 @@
 /turf/open/floor/circuit/green/anim,
 /area/awaymission/factory/factoryduring/down/levelthree)
 "oLG" = (
-/mob/living/simple_animal/hostile/bear/snow{
-	wander = 0
-	},
+/mob/living/simple_animal/hostile/bear/snow,
 /obj/item/bodypart/r_arm/monkey,
 /turf/open/floor/plating/snowed/smoothed,
 /area/awaymission/factory/villageafter/house)
@@ -19881,11 +19888,11 @@
 	},
 /obj/item/storage/belt/military/assault,
 /obj/item/melee/classic_baton/police,
-/obj/item/card/id/away{
+/obj/item/card/id/ert{
 	access = list(204);
 	desc = "Provides access to the lowest level of the factory";
-	icon_state = "ert";
-	name = "\proper level three access ID card"
+	name = "\proper level three access ID card";
+	registered_name = null
 	},
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
@@ -20732,6 +20739,7 @@
 /area/awaymission/factory/factoryafter/down/levelthree)
 "roV" = (
 /obj/structure/guncase,
+/obj/item/storage/box/breacherslug,
 /turf/open/floor/circuit/off,
 /area/awaymission/factory/factoryafter/down/levelthree)
 "rqa" = (
@@ -20943,9 +20951,6 @@
 /obj/item/storage/belt/military,
 /obj/item/storage/toolbox/syndicate,
 /obj/item/ammo_box/magazine/m556,
-/obj/item/storage/box/breacherslug,
-/obj/item/gun/ballistic/shotgun/automatic/breaching,
-/obj/item/gun/ballistic/shotgun/automatic/dual_tube,
 /turf/open/floor/circuit/red/anim,
 /area/awaymission/factory/factoryduring/down/levelthree)
 "ryp" = (
@@ -20959,6 +20964,9 @@
 	})
 "ryU" = (
 /obj/structure/guncase/shotgun,
+/obj/item/storage/box/breacherslug,
+/obj/item/gun/ballistic/shotgun/automatic/breaching,
+/obj/item/gun/ballistic/shotgun/automatic/dual_tube,
 /turf/open/floor/circuit/red/anim,
 /area/awaymission/factory/factoryduring/down/levelthree)
 "rzL" = (
@@ -21064,11 +21072,11 @@
 /obj/item/clothing/head/helmet/old,
 /obj/item/storage/belt/security,
 /obj/machinery/light/built,
-/obj/item/card/id/away{
+/obj/item/card/id/ert{
 	access = list(204);
 	desc = "Provides access to the lowest level of the factory";
-	icon_state = "ert";
-	name = "\proper level three access ID card"
+	name = "\proper level three access ID card";
+	registered_name = null
 	},
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
@@ -21710,11 +21718,11 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/card/id/away{
+/obj/item/card/id/ert{
 	access = list(204);
 	desc = "Provides access to the lowest level of the factory";
-	icon_state = "ert";
-	name = "\proper level three access ID card"
+	name = "\proper level three access ID card";
+	registered_name = null
 	},
 /turf/open/floor/plasteel{
 	dir = 8;
@@ -25397,6 +25405,7 @@
 "uXF" = (
 /turf/open/lava/smooth{
 	desc = "Looks hot.";
+	initial_gas_mix = "n2=23;o2=14";
 	luminosity = 5
 	},
 /area/ruin/unpowered{
@@ -25985,6 +25994,7 @@
 	})
 "vuk" = (
 /obj/machinery/door/airlock/centcom{
+	req_access = null;
 	req_access_txt = "204"
 	},
 /turf/open/floor/circuit/green/anim,
@@ -28956,11 +28966,11 @@
 /obj/item/stack/sheet/mineral/uranium,
 /obj/item/stack/sheet/mineral/uranium,
 /obj/item/stack/sheet/mineral/uranium,
-/obj/item/card/id/away{
+/obj/item/card/id/ert{
 	access = list(204);
 	desc = "Provides access to the lowest level of the factory";
-	icon_state = "ert";
-	name = "\proper level three access ID card"
+	name = "\proper level three access ID card";
+	registered_name = null
 	},
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
@@ -38914,7 +38924,7 @@ gZi
 gZi
 gZi
 gZi
-nWJ
+fSa
 gZi
 gZi
 gZi
@@ -40456,7 +40466,7 @@ gZi
 gZi
 gZi
 gZi
-nWJ
+fSa
 gZi
 gZi
 gZi
@@ -41745,14 +41755,14 @@ efA
 efA
 efA
 efA
-nWJ
+fSa
 efA
 efA
 miq
 efA
 efA
 miq
-nWJ
+fSa
 efA
 efA
 efA
@@ -42518,7 +42528,7 @@ xfR
 lxp
 gZi
 gZi
-nWJ
+fSa
 gZi
 gZi
 gZi
@@ -50763,7 +50773,7 @@ qzP
 qGh
 qYw
 pFC
-byO
+xiI
 gZi
 cPx
 piy
