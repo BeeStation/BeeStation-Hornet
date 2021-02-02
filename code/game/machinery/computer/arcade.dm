@@ -417,7 +417,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	var/canContinueEvent = 0
 
 	var/obj/item/radio/Radio
-	var/list/gamers = list()
+	var/static/list/gamers = list()
 	var/killed_crew = 0
 
 
