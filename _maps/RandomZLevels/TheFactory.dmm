@@ -13546,6 +13546,15 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/factory/factoryafter/down/levelthree)
+"lWb" = (
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "202"
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/noslip/white{
+	name = "padded floor"
+	},
+/area/awaymission/factory/factoryafter/down/leveltwo)
 "lWO" = (
 /obj/structure/closet/radiation,
 /obj/machinery/light{
@@ -26322,7 +26331,9 @@
 /obj/machinery/door/airlock/hatch{
 	req_access_txt = "202"
 	},
-/turf/open/floor/eighties,
+/turf/open/floor/noslip/white{
+	name = "padded floor"
+	},
 /area/awaymission/factory/factoryduring/down/leveltwo/asylum)
 "vFk" = (
 /obj/structure/cable/yellow{
@@ -53007,10 +53018,10 @@ goV
 kwN
 hNE
 kwN
-voF
+lWb
 jQs
 jQs
-voF
+lWb
 kwN
 kwN
 kwN
@@ -55320,10 +55331,10 @@ goV
 kwN
 rVY
 kwN
-voF
+lWb
 vVE
 jQs
-voF
+lWb
 kwN
 rVY
 kwN
