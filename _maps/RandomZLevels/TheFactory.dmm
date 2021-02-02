@@ -1,13 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aaH" = (
-/obj/effect/baseturf_helper/asteroid{
-	baseturf_to_replace = list(/turf/baseturf_bottom,/turf/open/space/basic,/turf/open/floor/plating);
-	layer = 2
-	},
-/turf/open/space/basic,
-/area/space{
-	noteleport = 1
-	})
 "aaS" = (
 /turf/open/water{
 	color = "#FE2E2E";
@@ -30382,7 +30373,7 @@ bIV
 bIV
 bIV
 bIV
-aaH
+fgi
 fgi
 fgi
 fgi
