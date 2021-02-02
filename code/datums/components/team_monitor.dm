@@ -171,6 +171,9 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	updating = target
 	//Register parent signal
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, .proc/parent_moved)
+	//Our hud is disabled
+	if(!hud_visible)
+		return
 	//Mob doesnt have a hud, dont add hud arrows
 	if(!target.hud_used)
 		return
