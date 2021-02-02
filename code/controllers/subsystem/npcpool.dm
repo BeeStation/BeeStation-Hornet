@@ -20,6 +20,11 @@ SUBSYSTEM_DEF(npcpool)
 	var/list/currentrun = src.currentrun
 
 	while(currentrun.len)
+		if(isnull(currentrun[currentrun.len])
+			GLOB.simple_animals[AI_ON] -= currentrun[currentrun.len]
+			--currentrun.len
+			continue
+			
 		var/mob/living/simple_animal/SA = currentrun[currentrun.len]
 		--currentrun.len
 
@@ -31,11 +36,6 @@ SUBSYSTEM_DEF(npcpool)
 			if(SA.stat != DEAD)
 				SA.handle_automated_speech()
 		if(SA.special_process)
-			var/mob/living/simple_animal/slime/S = SA
-			if(istype(S))
-				S.special_process = FALSE
-				S.AIprocess()
-			else
-				SA.process()
+			SA.process()
 		if (MC_TICK_CHECK)
 			return
