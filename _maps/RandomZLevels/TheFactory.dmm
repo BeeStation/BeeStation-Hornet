@@ -2147,7 +2147,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/awaymission/factory/factoryafter/down)
 "cdD" = (
-/obj/item/screwdriver/caravan,
+/obj/item/powertool/hand_drill,
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
 "cdK" = (
@@ -2377,7 +2377,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/awaymission/factory/factoryduring/down)
 "cnQ" = (
-/obj/item/crowbar/red/caravan,
+/obj/item/powertool/jaws_of_life,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
@@ -4952,6 +4952,11 @@
 /area/awaymission/factory/villageduring/house)
 "eGz" = (
 /obj/item/encryptionkey/binary,
+/mob/living/simple_animal/hostile/hivebot/strong{
+	health = 100;
+	maxHealth = 100;
+	wander = 0
+	},
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
 "eHd" = (
