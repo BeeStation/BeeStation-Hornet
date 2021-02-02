@@ -552,5 +552,5 @@ VOTE_AUTOTRANSFER_INTERVAL 18000
 ## Ghost role cooldown time after death (In deciseconds)
 GHOST_ROLE_COOLDOWN 3000
 
-## Number of days that IC security records should persist for. Set to 0 to disable.
-PERSIST_SECURITY_RECORDS 7
+## Uncomment for security records to persist between rounds. They will be deleted after 7 days.
+PERSIST_SECURITY_RECORDS

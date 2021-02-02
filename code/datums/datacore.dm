@@ -337,7 +337,7 @@
 	S.fields["citation"]	= list()
 	S.fields["crim"]		= list()
 	S.fields["notes"]		= "No notes."
-	if(CONFIG_GET(number/persist_security_records) > 0 && SSdbcore.Connect())
+	if(CONFIG_GET(flag/persist_security_records) && SSdbcore.Connect())
 		var/datum/DBQuery/crime_record = SSdbcore.NewQuery(
 			"SELECT crime, details, author, author_ckey, character_name FROM [format_table_name("criminal_records")] WHERE ckey = :ckey",
 			list("ckey" = H.ckey)
@@ -352,7 +352,7 @@
 	return S
 
 /datum/datacore/proc/upload_security_records()
-	if(CONFIG_GET(number/persist_security_records) == 0) //It can't be negative
+	if(!CONFIG_GET(flag/persist_security_records))
 		return
 	var/list/data_to_upload = list()
 	for(var/datum/data/record/S as() in GLOB.data_core.security)

@@ -555,6 +555,4 @@
 	config_entry_value = 0
 	min_val = 0
 
-/datum/config_entry/number/persist_security_records
-	config_entry_value = 0
-	min_val = 0
+/datum/config_entry/flag/persist_security_records
