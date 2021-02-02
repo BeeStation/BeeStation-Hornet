@@ -1056,9 +1056,7 @@
 /turf/open/floor/plating,
 /area/awaymission/factory/factoryduring/down/maint)
 "aZk" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen"
-	},
+/obj/structure/closet/crate,
 /obj/item/storage/firstaid/advanced,
 /obj/item/storage/firstaid/o2,
 /obj/item/storage/firstaid/fire,
@@ -2933,9 +2931,7 @@
 	noteleport = 1
 	})
 "cLj" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen"
-	},
+/obj/structure/closet/crate,
 /obj/item/clothing/under/rank/medical/doctor/nurse,
 /obj/item/clothing/under/rank/medical/doctor,
 /obj/item/clothing/under/rank/medical/doctor/blue,
@@ -11455,15 +11451,13 @@
 /turf/open/floor/stone,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "keO" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen"
-	},
 /obj/item/card/id/ert{
 	access = list(204);
 	desc = "Provides access to the lowest level of the factory";
 	name = "\proper level three access ID card";
 	registered_name = null
 	},
+/obj/structure/closet/crate,
 /turf/open/floor/engine{
 	baseturfs = /turf/open/floor/plating/asteroid
 	},
@@ -14947,9 +14941,7 @@
 	noteleport = 0
 	})
 "nfm" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen"
-	},
+/obj/structure/closet/crate,
 /obj/item/card/id/job/med{
 	access = list(202)
 	},
@@ -27629,9 +27621,7 @@
 /turf/open/floor/plasteel,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "wIC" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen"
-	},
+/obj/structure/closet/crate,
 /obj/item/storage/firstaid/ancient,
 /obj/item/storage/firstaid/brute,
 /obj/item/storage/firstaid/radbgone,
