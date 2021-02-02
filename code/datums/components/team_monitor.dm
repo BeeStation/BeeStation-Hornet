@@ -130,9 +130,9 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 
 //Update the arrow towards another atom
 /datum/component/team_monitor/proc/update_atom_dir(datum/component/tracking_beacon/beacon)
-	if(!updating)
+	if(!updating || !updating.hud_used)
 		return
-	var/atom/movable/screen/screen = tracking[beacon]
+	var/atom/movable/screen/arrow/screen = tracking[beacon]
 	var/turf/target_turf = get_turf(beacon.parent)
 	var/turf/parent_turf = get_turf(parent)
 	if(target_turf.z != parent_turf.z)
@@ -155,8 +155,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 		updating.hud_used.team_finder_arrows += screen
 		tracking[beacon] = screen
 		//Update their hud
-		if(updating.hud_used)
-			updating.hud_used.show_hud(updating.hud_used.hud_version, updating)
+		updating.hud_used.show_hud(updating.hud_used.hud_version, updating)
 	var/matrix/rotationMatrix = matrix()
 	rotationMatrix.Scale(1.5)
 	rotationMatrix.Translate(0, -distance)
