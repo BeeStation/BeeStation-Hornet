@@ -2034,7 +2034,6 @@
 	},
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
-	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	zombiejob = "Assistant"
 	},
 /turf/open/floor/plating{
@@ -2651,7 +2650,6 @@
 "cAZ" = (
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
-	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	zombiejob = "Assistant"
 	},
 /turf/open/floor/carpet/black,
@@ -8306,7 +8304,6 @@
 "hys" = (
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
-	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	zombiejob = "Assistant"
 	},
 /turf/open/floor/plasteel/dark,
@@ -8714,7 +8711,6 @@
 "hNE" = (
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
-	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	wander = 0;
 	zombiejob = "Assistant"
 	},
@@ -8922,7 +8918,6 @@
 "hUP" = (
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
-	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	zombiejob = "Assistant"
 	},
 /obj/effect/decal/cleanable/vomit,
@@ -12244,7 +12239,6 @@
 "kSk" = (
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
-	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	zombiejob = "Assistant"
 	},
 /obj/effect/gibspawner/human,
@@ -12622,7 +12616,6 @@
 "ljl" = (
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
-	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	zombiejob = "Assistant"
 	},
 /obj/machinery/light/small{
@@ -12683,7 +12676,6 @@
 	},
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
-	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	zombiejob = "Assistant"
 	},
 /obj/effect/decal/cleanable/vomit,
@@ -16917,7 +16909,6 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	health = 30;
-	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	zombiejob = "Assistant"
 	},
 /turf/open/floor/engine{
@@ -18516,7 +18507,6 @@
 "pGJ" = (
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
-	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	zombiejob = "Assistant"
 	},
 /turf/open/floor/grass/snow/basalt{
@@ -21214,7 +21204,6 @@
 /obj/item/bodypart/r_arm/monkey,
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
-	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	zombiejob = "Assistant"
 	},
 /turf/open/floor/plating/snowed/smoothed,
@@ -21638,7 +21627,6 @@
 "rZA" = (
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
-	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	zombiejob = "Assistant"
 	},
 /turf/open/floor/carpet/royalblack,
@@ -21922,7 +21910,6 @@
 	},
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
-	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	zombiejob = "Assistant"
 	},
 /obj/machinery/light/small,
@@ -22230,7 +22217,6 @@
 	},
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
-	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	zombiejob = "Assistant"
 	},
 /turf/open/floor/engine/light{
@@ -25629,7 +25615,6 @@
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
 	dir = 8;
-	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	wander = 0;
 	zombiejob = "Assistant"
 	},
@@ -26667,7 +26652,6 @@
 	},
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
-	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	zombiejob = "Assistant"
 	},
 /obj/machinery/light/small,
@@ -26832,7 +26816,6 @@
 "wdS" = (
 /mob/living/simple_animal/hostile/zombie{
 	deathsound = 'sound/voice/lizard/deathsound.ogg';
-	loot = list(/obj/effect/mob_spawn/human/corpse/zombie);
 	zombiejob = "Assistant"
 	},
 /turf/open/floor/holofloor/grass{
