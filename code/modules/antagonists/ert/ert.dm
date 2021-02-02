@@ -2,6 +2,11 @@
 /datum/team/ert
 	name = "Emergency Response Team"
 	var/datum/objective/mission //main mission
+	var/ert_frequency
+
+/datum/team/ert/New(starting_members)
+	. = ..()
+	ert_frequency = get_free_team_frequency("cent")
 
 /datum/antagonist/ert
 	name = "Emergency Response Officer"
@@ -155,6 +160,12 @@
 	if(!istype(H))
 		return
 	H.equipOutfit(outfit)
+	//Set the suits frequency
+	var/obj/item/I = H.get_item_by_slot(SLOT_WEAR_SUIT)
+	if(I)
+		var/datum/component/tracking_beacon/beacon = I.GetComponent(/datum/component/tracking_beacon)
+		if(beacon)
+			beacon.set_frequency(ert_team.ert_frequency)
 
 /datum/antagonist/ert/greet()
 	if(!ert_team)
