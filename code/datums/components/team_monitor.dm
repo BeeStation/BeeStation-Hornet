@@ -137,7 +137,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 		//Create the screen
 		screen = new
 		screen.alpha = 240
-		screen.color = key.colour
+		screen.color = beacon.colour
 		screen.hud = updating.hud_used
 		updating.hud_used.team_finder_arrows += screen
 		tracking[beacon] = screen
@@ -149,7 +149,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	if(target_turf.z != parent_turf.z)
 		//Remove the screen
 		if(updating.hud_used)
-			updating.hud_used .team_finder_arrows -= screen
+			updating.hud_used.team_finder_arrows -= screen
 		qdel(screen)
 		tracking[beacon] = null
 		//Update their hud
