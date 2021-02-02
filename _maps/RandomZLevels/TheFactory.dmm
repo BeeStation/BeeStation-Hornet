@@ -9145,7 +9145,7 @@
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "idj" = (
 /obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "456"
+	req_access_txt = "204"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/dark,
@@ -9266,7 +9266,7 @@
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "ijt" = (
 /obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "456"
+	req_access_txt = "204"
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/factory/factoryduring/down/leveltwo)
@@ -10872,7 +10872,7 @@
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "jAm" = (
 /obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "456"
+	req_access_txt = "204"
 	},
 /turf/open/floor/circuit/green/anim,
 /area/awaymission/factory/factoryduring/down/levelthree)
