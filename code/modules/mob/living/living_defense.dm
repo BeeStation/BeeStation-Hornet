@@ -38,6 +38,7 @@
 
 /mob/living/proc/is_eyes_covered(check_glasses = 1, check_head = 1, check_mask = 1)
 	return FALSE
+
 /mob/living/proc/on_hit(obj/item/projectile/P)
 	return BULLET_ACT_HIT
 
@@ -211,11 +212,11 @@
 			M.Feedstop()
 		return // can't attack while eating!
 
-	if(HAS_TRAIT(src, TRAIT_PACIFISM))
+	if(HAS_TRAIT(M, TRAIT_PACIFISM))
 		to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
 		return FALSE
 
-	if (stat != DEAD)
+	if(stat != DEAD)
 		log_combat(M, src, "attacked")
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>\The [M.name] glomps [src]!</span>", \

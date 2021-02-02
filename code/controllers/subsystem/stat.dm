@@ -37,7 +37,7 @@ SUBSYSTEM_DEF(stat)
 			var/mob/M = C.mob
 			if(M)
 				//Handle listed turfs seperately
-				if(M.listed_turf?.name == C.selected_stat_tab)
+				if(sanitize(M.listed_turf?.name) == C.selected_stat_tab)
 					currentrun_listed += C
 				else
 					//Auto-update, not forced

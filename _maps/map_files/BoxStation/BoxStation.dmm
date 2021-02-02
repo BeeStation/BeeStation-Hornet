@@ -31577,7 +31577,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	initial_gas_mix = "o2=0.01;n2=0.01";
+	initial_gas_mix = "o2=0.01;n2=0.01;TEMP=293.15";
 	luminosity = 2
 	},
 /area/science/test_area)
