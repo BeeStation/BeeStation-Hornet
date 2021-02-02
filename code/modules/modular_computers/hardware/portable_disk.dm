@@ -9,11 +9,11 @@
 	device_type = MC_SDD
 
 /obj/item/computer_hardware/hard_drive/portable/on_install(obj/item/modular_computer/M, mob/living/user = null)
-	M.add_verb(device_type)
+	M.add_computer_verbs(device_type)
 
 /obj/item/computer_hardware/hard_drive/portable/on_remove(obj/item/modular_computer/M, mob/living/user = null)
 	..()
-	M.remove_verb(device_type)
+	M.remove_computer_verbs(device_type)
 
 /obj/item/computer_hardware/hard_drive/portable/install_default_programs()
 	return // Empty by default

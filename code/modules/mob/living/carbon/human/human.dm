@@ -6,8 +6,8 @@
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
 
 /mob/living/carbon/human/Initialize()
-	verbs += /mob/living/proc/mob_sleep
-	verbs += /mob/living/proc/lay_down
+	add_verb(/mob/living/proc/mob_sleep)
+	add_verb(/mob/living/proc/lay_down)
 
 	icon_state = ""		//Remove the inherent human icon that is visible on the map editor. We're rendering ourselves limb by limb, having it still be there results in a bug where the basic human icon appears below as south in all directions and generally looks nasty.
 
@@ -54,59 +54,71 @@
 	//...and display them.
 	add_to_all_human_data_huds()
 
-/mob/living/carbon/human/Stat()
-	..()
+/mob/living/carbon/human/get_stat_tabs()
+	var/list/tabs = ..()
+	if(istype(wear_suit, /obj/item/clothing/suit/space/space_ninja))
+		tabs.Insert(1, "SpiderOS")
+	return tabs
 
-	if(statpanel("Status"))
-		stat(null, "Intent: [a_intent]")
-		stat(null, "Move Mode: [m_intent]")
-		if (internal)
-			if (!internal.air_contents)
-				qdel(internal)
-			else
-				stat(null, "Internal Atmosphere Info: [internal.name]")
-				stat(null, "Tank Pressure: [internal.air_contents.return_pressure()]")
-				stat(null, "Distribution Pressure: [internal.distribute_pressure]")
-
-		if(mind)
-			var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
-			if(changeling)
-				stat(null, "Chemical Storage: [changeling.chem_charges]/[changeling.chem_storage]")
-				stat(null, "Absorbed DNA: [changeling.absorbedcount]")
-			var/datum/antagonist/hivemind/hivemind = mind.has_antag_datum(/datum/antagonist/hivemind)
-			if(hivemind)
-				stat(null, "Hivemind Vessels: [hivemind.hive_size] (+[hivemind.size_mod])")
-				stat(null, "Psychic Link Duration: [(hivemind.track_bonus + TRACKER_DEFAULT_TIME)/10] seconds")
-
-	//NINJACODE
-	if(istype(wear_suit, /obj/item/clothing/suit/space/space_ninja)) //Only display if actually a ninja.
+//Ninja Code
+/mob/living/carbon/human/get_stat(selected_tab)
+	if(selected_tab == "SpiderOS")
+		var/list/tab_data = list()
 		var/obj/item/clothing/suit/space/space_ninja/SN = wear_suit
-		if(statpanel("SpiderOS"))
-			stat(null,"SpiderOS Status: [SN.s_initialized ? "Initialized" : "Disabled"]")
-			stat(null, "Current Time: [station_time_timestamp()]")
-			if(SN.s_initialized)
-				//Suit gear
-				stat(null, "Energy Charge: [round(SN.cell.charge/100)]%")
-				stat(null, "Smoke Bombs: \Roman [SN.s_bombs]")
-				//Ninja status
-				stat(null, "Fingerprints: [rustg_hash_string(RUSTG_HASH_MD5, dna.uni_identity)]")
-				stat(null, "Unique Identity: [dna.unique_enzymes]")
-				stat(null, "Overall Status: [stat > 1 ? "dead" : "[health]% healthy"]")
-				stat(null, "Nutrition Status: [nutrition]")
-				stat(null, "Oxygen Loss: [getOxyLoss()]")
-				stat(null, "Toxin Levels: [getToxLoss()]")
-				stat(null, "Burn Severity: [getFireLoss()]")
-				stat(null, "Brute Trauma: [getBruteLoss()]")
-				stat(null,"Radiation Levels: [radiation] rad")
-				stat(null,"Body Temperature: [bodytemperature-T0C] degrees C ([bodytemperature*1.8-459.67] degrees F)")
+		if(!SN)
+			return
+		tab_data["SpiderOS Status"] = GENERATE_STAT_TEXT("[SN.s_initialized ? "Initialized" : "Disabled"]")
+		tab_data["Current Time"] = GENERATE_STAT_TEXT("[station_time_timestamp()]")
+		tab_data["divider_spideros"] = GENERATE_STAT_DIVIDER
+		if(SN.s_initialized)
+			//Suit gear
+			tab_data["Energy Charge"] = GENERATE_STAT_TEXT("[round(SN.cell.charge/100)]%")
+			tab_data["Smoke Bombs"] = GENERATE_STAT_TEXT("[SN.s_bombs]")
+			//Ninja status
+			tab_data["Fingerprints"] = GENERATE_STAT_TEXT("[rustg_hash_string(RUSTG_HASH_MD5, dna.uni_identity)]")
+			tab_data["Unique Identity"] = GENERATE_STAT_TEXT("[dna.unique_enzymes]")
+			tab_data["Overall Status"] = GENERATE_STAT_TEXT("[stat > 1 ? "dead" : "[health]% healthy"]")
+			tab_data["Nutrition Status"] = GENERATE_STAT_TEXT("[nutrition]")
+			tab_data["Oxygen Loss"] = GENERATE_STAT_TEXT("[getOxyLoss()]")
+			tab_data["Toxin Levels"] = GENERATE_STAT_TEXT("[getToxLoss()]")
+			tab_data["Burn Severity"] = GENERATE_STAT_TEXT("[getFireLoss()]")
+			tab_data["Brute Trauma"] = GENERATE_STAT_TEXT("[getBruteLoss()]")
+			tab_data["Radiation Levels"] = GENERATE_STAT_TEXT("[radiation] rad")
+			tab_data["Body Temperature"] = GENERATE_STAT_TEXT("[bodytemperature-T0C] degrees C ([bodytemperature*1.8-459.67] degrees F)")
 
-				//Diseases
-				if(diseases.len)
-					stat(null, "Viruses:")
-					for(var/thing in diseases)
-						var/datum/disease/D = thing
-						stat(null, "* [D.name], Type: [D.spread_text], Stage: [D.stage]/[D.max_stages], Possible Cure: [D.cure_text]")
+			//Diseases
+			if(diseases.len)
+				tab_data["DivSpiderOs2"] = GENERATE_STAT_DIVIDER
+				tab_data["Viruses"] = GENERATE_STAT_TEXT("")
+				for(var/thing in diseases)
+					var/datum/disease/D = thing
+					tab_data["* [D.name]"] = GENERATE_STAT_TEXT("Type: [D.spread_text], Stage: [D.stage]/[D.max_stages], Possible Cure: [D.cure_text]")
+		return tab_data
+	return ..()
 
+/mob/living/carbon/human/get_stat_tab_status()
+	var/list/tab_data = ..()
+
+	tab_data["Intent"] = GENERATE_STAT_TEXT("[a_intent]")
+	tab_data["Move Mode"] = GENERATE_STAT_TEXT("[m_intent]")
+	if (internal)
+		if (!internal.air_contents)
+			qdel(internal)
+		else
+			tab_data["Internal Atmosphere Info"] = GENERATE_STAT_TEXT("[internal.name]")
+			tab_data["Tank Pressure"] = GENERATE_STAT_TEXT("[internal.air_contents.return_pressure()]")
+			tab_data["Distribution Pressure"] = GENERATE_STAT_TEXT("[internal.distribute_pressure]")
+
+	if(mind)
+		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
+		if(changeling)
+			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.chem_storage]")
+			tab_data["Absorbed DNA"] = GENERATE_STAT_TEXT("[changeling.absorbedcount]")
+		var/datum/antagonist/hivemind/hivemind = mind.has_antag_datum(/datum/antagonist/hivemind)
+		if(hivemind)
+			tab_data["Hivemind Vessels"] = GENERATE_STAT_TEXT("[hivemind.hive_size] (+[hivemind.size_mod])")
+			tab_data["Psychic Link Duration"] = GENERATE_STAT_TEXT("[(hivemind.track_bonus + TRACKER_DEFAULT_TIME)/10] seconds")
+	return tab_data
 
 /mob/living/carbon/human/show_inv(mob/user)
 	user.set_machine(src)
@@ -405,7 +417,7 @@
 				to_chat(usr, "<span class='warning'>ERROR: Unable to locate data core entry for target.</span>")
 				return
 			if(href_list["status"])
-				var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Incarcerated", "Paroled", "Discharged", "Cancel")
+				var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "Arrest", "Search", "Monitor", "Incarcerated", "Paroled", "Discharged", "Cancel")
 				if(setcriminal != "Cancel")
 					if(!R)
 						return
@@ -564,8 +576,8 @@
 							to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on these legs!</span>")
 							return 0
 
-/mob/living/carbon/human/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null)
-	if(judgement_criteria & JUDGE_EMAGGED)
+/mob/living/carbon/human/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null)
+	if(judgment_criteria & JUDGE_EMAGGED)
 		return 10 //Everyone is a criminal!
 
 	var/threatcount = 0
@@ -592,11 +604,11 @@
 
 	//Check for ID
 	var/obj/item/card/id/idcard = get_idcard(FALSE)
-	if( (judgement_criteria & JUDGE_IDCHECK) && !idcard && name=="Unknown")
+	if( (judgment_criteria & JUDGE_IDCHECK) && !idcard && name=="Unknown")
 		threatcount += 4
 
 	//Check for weapons
-	if( (judgement_criteria & JUDGE_WEAPONCHECK) && weaponcheck)
+	if( (judgment_criteria & JUDGE_WEAPONCHECK) && weaponcheck)
 		if(!idcard || !(ACCESS_WEAPONS in idcard.access))
 			for(var/obj/item/I in held_items) //if they're holding a gun
 				if(weaponcheck.Invoke(I))
@@ -605,16 +617,20 @@
 				threatcount += 2 //not enough to trigger look_for_perp() on it's own unless they also have criminal status.
 
 	//Check for arrest warrant
-	if(judgement_criteria & JUDGE_RECORDCHECK)
+	if(judgment_criteria & JUDGE_RECORDCHECK)
 		var/perpname = get_face_name(get_id_name())
 		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
-				if("*Arrest*")
+				if("Arrest")
 					threatcount += 5
 				if("Incarcerated")
 					threatcount += 2
 				if("Paroled")
+					threatcount += 2
+				if("Monitor")
+					threatcount += 1
+				if("Search")
 					threatcount += 2
 
 	//Check for dresscode violations
@@ -970,7 +986,7 @@
 	. = ..()
 	if(ishuman(over))
 		var/mob/living/carbon/human/T = over  // curbstomp, ported from PP with modifications
-		if(!src.is_busy && (src.zone_selected == BODY_ZONE_HEAD || src.zone_selected == BODY_ZONE_PRECISE_GROIN) && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP) //all the stars align, time to curbstomp
+		if(!src.is_busy && (src.zone_selected == BODY_ZONE_HEAD || src.zone_selected == BODY_ZONE_PRECISE_GROIN) && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP && !HAS_TRAIT(src, TRAIT_PACIFISM)) //all the stars align, time to curbstomp
 			src.is_busy = TRUE
 
 			if (!do_mob(src,T,25) || get_turf(src) != get_turf(T) || (T.mobility_flags & MOBILITY_STAND) || src.a_intent == INTENT_HELP || src == T) //wait 30ds and make sure the stars still align (Body zone check removed after PR #958)
@@ -1152,6 +1168,19 @@
 		return FALSE
 	return ..()
 
+/mob/living/carbon/human/ZImpactDamage(turf/T, levels)
+	//Non cat-people smash into the ground
+	if(!iscatperson(src))
+		return ..()
+	//Check to make sure legs are working
+	var/obj/item/bodypart/left_leg = get_bodypart(BODY_ZONE_L_LEG)
+	var/obj/item/bodypart/right_leg = get_bodypart(BODY_ZONE_R_LEG)
+	if(!left_leg || !right_leg || left_leg.disabled || right_leg.disabled)
+		return ..()
+	//Nailed it!
+	visible_message("<span class='notice'>[src] lands elegantly on [p_their()] feet!</span>",
+		"<span class='warning'>You fall [levels] level[levels > 1 ? "s" : ""] into [T], perfecting the landing!</span>")
+
 /mob/living/carbon/human/species
 	var/race = null
 
@@ -1269,6 +1298,9 @@
 
 /mob/living/carbon/human/species/jelly
 	race = /datum/species/jelly
+
+/mob/living/carbon/human/species/oozeling
+	race = /datum/species/oozeling
 
 /mob/living/carbon/human/species/jelly/slime
 	race = /datum/species/jelly/slime

@@ -81,6 +81,8 @@ Difficulty: Hard
 	var/list/target_phrases = list("Xevkix psgexih.", "Iriqc jsyrh.", "Eguymvih xevkix.")
 	var/list/stored_nearby = list() // stores people nearby the hierophant when it enters the death animation
 
+	mobchatspan = "hierosay"
+
 /mob/living/simple_animal/hostile/megafauna/hierophant/Initialize()
 	. = ..()
 	spawned_beacon = new(loc)

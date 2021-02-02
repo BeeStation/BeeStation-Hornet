@@ -161,17 +161,6 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		position = WEST
 	return position
 
-/obj/item/shuttle_creator/proc/invertDir(var/input_dir)
-	if(input_dir == NORTH)
-		return SOUTH
-	else if(input_dir == SOUTH)
-		return NORTH
-	else if(input_dir == EAST)
-		return WEST
-	else if(input_dir == WEST)
-		return EAST
-	return null
-
 /obj/item/shuttle_creator/proc/shuttle_create_docking_port(atom/target, mob/user)
 
 	if(loggedTurfs.len == 0 || !recorded_shuttle_area)

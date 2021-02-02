@@ -85,6 +85,8 @@ Runes can either be invoked by one's self or with many different cultists. Each 
 		if(istype(M, /mob/living/simple_animal/hostile/construct/wraith/angelic) || istype(M, /mob/living/simple_animal/hostile/construct/armored/angelic) || istype(M, /mob/living/simple_animal/hostile/construct/builder/angelic))
 			to_chat(M, "<span class='warning'>You purge the rune!</span>")
 			qdel(src)
+		else if(construct_invoke || !iscultist(M)) //if you're not a cult construct we want the normal fail message
+			attack_hand(M)
 		else
 			to_chat(M, "<span class='warning'>You are unable to invoke the rune!</span>")
 
@@ -710,6 +712,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(!(M.current in invokers) && M.current && M.current.stat != DEAD)
 			cultists |= M.current
 	var/mob/living/cultist_to_summon = input(user, "Who do you wish to call to [src]?", "Followers of the Geometer") as null|anything in cultists
+	var/held_in_place = FALSE
+	if(iscarbon(cultist_to_summon))
+		var/mob/living/carbon/C = cultist_to_summon
+		if(C.handcuffed && cultist_to_summon.pulledby)
+			held_in_place = TRUE
 	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
 		return
 	if(!cultist_to_summon)
@@ -722,7 +729,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target died")
 		return
-	if(cultist_to_summon.pulledby || cultist_to_summon.buckled)
+	if(held_in_place)
 		to_chat(user, "<span class='cult italic'>[cultist_to_summon] is being held in place!</span>")
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target restrained")

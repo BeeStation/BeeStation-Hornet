@@ -93,6 +93,19 @@
 /datum/holiday/valentines/getStationPrefix()
 	return pick("Love","Amore","Single","Smootch","Hug")
 
+/// Garbage DAYYYYY
+/// Huh?.... NOOOO
+/// *GUNSHOT*
+/// AHHHGHHHHHHH
+/datum/holiday/garbageday
+	name = GARBAGEDAY
+	begin_day = 17
+	end_day = 17
+	begin_month = JUNE
+
+/datum/holiday/garbageday/getStationPrefix()
+	return pick("Trash","Janitor","Rubish","Bin")
+
 /datum/holiday/birthday
 	name = "Birthday of Space Station 13"
 	begin_day = 16
@@ -506,9 +519,9 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 
 /datum/holiday/xmas
 	name = CHRISTMAS
-	begin_day = 22
+	begin_day = 24
 	begin_month = DECEMBER
-	end_day = 27
+	end_day = 26
 	drone_hat = /obj/item/clothing/head/santa
 
 /datum/holiday/xmas/greet()

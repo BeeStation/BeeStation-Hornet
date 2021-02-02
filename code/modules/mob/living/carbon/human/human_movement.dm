@@ -35,11 +35,8 @@
 			return 0
 	return ..()
 
-/mob/living/carbon/human/mob_has_gravity()
-	. = ..()
-	if(!.)
-		if(mob_negates_gravity())
-			. = 1
+/mob/living/carbon/human/has_gravity(turf/T)
+	return ..() || mob_negates_gravity()
 
 /mob/living/carbon/human/mob_negates_gravity()
 	return ((shoes && shoes.negates_gravity()) || (dna.species.negates_gravity(src)))

@@ -364,6 +364,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	for (var/datum/dynamic_ruleset/roundstart/rule in GLOB.dynamic_forced_roundstart_ruleset)
 		message_admins("Drafting players for forced ruleset [rule.name].")
 		log_game("DYNAMIC: Drafting players for forced ruleset [rule.name].")
+		configure_ruleset(rule)
 		rule.mode = src
 		rule.acceptable(roundstart_pop_ready, threat_level)	// Assigns some vars in the modes, running it here for consistency
 		rule.candidates = candidates.Copy()
@@ -787,20 +788,16 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			return rand(90, 100)
 
 /datum/game_mode/dynamic/proc/configure_ruleset(datum/dynamic_ruleset/ruleset)
+	var/rule_conf = configuration && configuration[ruleset.ruletype] && configuration[ruleset.ruletype][ruleset.name]
+	if(rule_conf)
+		for(var/variable in rule_conf)
+			if(isnull(ruleset.vars[variable]))
+				stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.ruletype] [ruleset.name].")
+				continue
+			ruleset.vars[variable] = rule_conf[variable]
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		ruleset.restricted_roles |= ruleset.protected_roles
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		ruleset.restricted_roles |= "Assistant"
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		ruleset.restricted_roles |= GLOB.command_positions
-	if(configuration)
-		if(!configuration[ruleset.ruletype])
-			return
-		if(!configuration[ruleset.ruletype][ruleset.name])
-			return
-		var/rule_conf = configuration[ruleset.ruletype][ruleset.name]
-		for(var/variable in rule_conf)
-			if(isnull(ruleset.vars[variable]))
-				stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.ruletype] [ruleset.name].")
-				continue
-			ruleset.vars[variable] = rule_conf[variable]

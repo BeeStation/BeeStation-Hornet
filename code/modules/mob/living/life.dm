@@ -42,7 +42,7 @@
 			handle_environment(environment)
 
 		//Handle gravity
-		var/gravity = mob_has_gravity()
+		var/gravity = has_gravity()
 		update_gravity(gravity)
 
 		if(gravity > STANDARD_GRAVITY)
