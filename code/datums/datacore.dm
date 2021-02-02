@@ -65,14 +65,14 @@
 	return c
 
 /datum/datacore/proc/addCitation(id = "", datum/data/crime/crime)
-	for(var/datum/data/record/R in security)
+	for(var/datum/data/record/R as() in security)
 		if(R.fields["id"] == id)
 			var/list/crimes = R.fields["citation"]
 			crimes |= crime
 			return
 
 /datum/datacore/proc/removeCitation(id, cDataId)
-	for(var/datum/data/record/R in security)
+	for(var/datum/data/record/R as() in security)
 		if(R.fields["id"] == id)
 			var/list/crimes = R.fields["citation"]
 			for(var/datum/data/crime/crime in crimes)
@@ -82,7 +82,7 @@
 					return
 
 /datum/datacore/proc/payCitation(id, cDataId, amount)
-	for(var/datum/data/record/R in security)
+	for(var/datum/data/record/R as() in security)
 		if(R.fields["id"] == id)
 			var/list/crimes = R.fields["citation"]
 			for(var/datum/data/crime/crime in crimes)
@@ -101,7 +101,7 @@
   * * datum/data/crime/crime - premade array containing every variable, usually created by createCrimeEntry.
   */
 /datum/datacore/proc/addCrime(id = "", datum/data/crime/crime)
-	for(var/datum/data/record/R in security)
+	for(var/datum/data/record/R as() in security)
 		if(R.fields["id"] == id)
 			var/list/crimes = R.fields["crim"]
 
@@ -122,7 +122,7 @@
   * * cDataId - id of already existing crime.
   */
 /datum/datacore/proc/removeCrime(id, cDataId)
-	for(var/datum/data/record/R in security)
+	for(var/datum/data/record/R as() in security)
 		if(R.fields["id"] == id)
 			var/list/crimes = R.fields["crim"]
 			for(var/datum/data/crime/crime in crimes)
@@ -133,7 +133,7 @@
 					return
 
 /datum/datacore/proc/purge_db_record(datum/data/record/R, datum/data/crime/crime)
-	if(crime.fromDB && R.fields["ckey"] && SSdbcore.Connect()) //We can ignore the config because it has to be enabled for it to exist anyways
+	if(crime.fromDB && R.fields["ckey"] && SSdbcore.Connect()) //We can ignore the config because it has to be enabled for fromDB to be true
 		var/datum/DBQuery/query_remove_crime = SSdbcore.NewQuery(
 		"DELETE FROM [format_table_name("criminal_records")] WHERE ckey = :ckey AND author_ckey = :author_ckey AND crime = :crime AND details = :details",
 
@@ -151,7 +151,7 @@
   * * details - data you want to add.
   */
 /datum/datacore/proc/addCrimeDetails(id, cDataId, details)
-	for(var/datum/data/record/R in security)
+	for(var/datum/data/record/R as() in security)
 		if(R.fields["id"] == id)
 			var/list/crimes = R.fields["crim"]
 			for(var/datum/data/crime/crime in crimes)
@@ -160,8 +160,7 @@
 					return
 
 /datum/datacore/proc/manifest()
-	for(var/i in GLOB.new_player_list)
-		var/mob/dead/new_player/N = i
+	for(var/mob/dead/new_player/N as() in GLOB.new_player_list)
 		if(N.new_character)
 			log_manifest(N.ckey,N.new_character.mind,N.new_character)
 		if(ishuman(N.new_character))
@@ -185,7 +184,7 @@
 		"Civilian" = GLOB.civilian_positions,
 		"Silicon" = GLOB.nonhuman_positions
 	)
-	for(var/datum/data/record/t in GLOB.data_core.general)
+	for(var/datum/data/record/t as() in GLOB.data_core.general)
 		var/name = t.fields["name"]
 		var/rank = t.fields["rank"]
 		var/has_department = FALSE
