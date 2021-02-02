@@ -182,6 +182,8 @@
 		missiondesc += "Avoid civilian casualites when possible."
 
 	missiondesc += "<BR><B>Your Mission</B> : [ert_team.mission.explanation_text]"
+	missiondesc += "<BR><b>Your Shared Tracking Frequency</b> : <i>[ert_team.ert_frequency]</i>"
+
 	to_chat(owner,missiondesc)
 
 /datum/antagonist/ert/deathsquad/greet()

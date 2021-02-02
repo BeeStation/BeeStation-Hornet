@@ -231,8 +231,10 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	to_chat(user, "<span class='notice'>Tracking HUD now scanning on frequency <i>[team_frequency]</i>.</span>")
 
 /datum/component/team_monitor/proc/set_frequency(new_frequency)
+	var/hud_on = hud_visible
 	//Remove tracking from old frequency
 	if(team_frequency)
+		toggle_hud(FALSE)
 		//Remove from the global frequency
 		GLOB.tracker_huds[team_frequency] -= src
 	team_frequency = "[team_freq_key][new_frequency]"
@@ -243,6 +245,8 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	add_tracker_hud(team_frequency, src)
 	//Gets the other trackers on our frequency
 	get_active_trackers()
+	//Show hud if needed
+	toggle_hud(hud_on)
 
 //Adds a new atom to the tracking monitor, will create a hud element that tracks them
 //TODO: Add the screen if already equipped
