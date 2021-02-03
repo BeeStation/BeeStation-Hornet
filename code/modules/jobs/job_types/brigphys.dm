@@ -1,12 +1,12 @@
 /datum/job/brig_phys
 	title = "Brig Physician"
 	flag = BRIG_PHYS
-	department_head = list("Head of Security", "Chief Medical Officer")
+	department_head = list("Chief Medical Officer")
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the head of security and chief medical officer"
+	supervisors = "chief medical officer"
 	selection_color = "#ffeeee"
 	chat_color = "#b16789"
 	minimal_player_age = 7
