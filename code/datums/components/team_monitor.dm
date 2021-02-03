@@ -54,7 +54,6 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	if(islist(GLOB.tracker_beacons[frequency]))
 		found_beacons.Add(GLOB.tracker_beacons[frequency])
 	if(islist(GLOB.tracker_beacons["[base_frequency]-GLOB"]))
-		message_admins("Found global beacons")
 		found_beacons.Add(GLOB.tracker_beacons["[base_frequency]-GLOB"])
 	return found_beacons
 
