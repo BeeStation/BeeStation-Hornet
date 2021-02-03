@@ -48,6 +48,8 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 		GLOB.tracker_beacons[frequency_added] = list(component_added)
 
 /proc/get_all_beacons_on_frequency(frequency, base_frequency)
+	if(!frequency)
+		return list()
 	var/list/found_beacons = list()
 	if(islist(GLOB.tracker_beacons[frequency]))
 		found_beacons.Add(GLOB.tracker_beacons[frequency])
@@ -61,7 +63,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 		. = list()
 		for(var/tracker_freq in GLOB.tracker_huds)
 			for(var/datum/component/team_monitor/TM as() in GLOB.tracker_huds[tracker_freq])
-				if(TM.team_freq_key == frequency)
+				if(TM.team_freq_key == team_key)
 					. += TM
 	else
 		return GLOB.tracker_huds[frequency]
