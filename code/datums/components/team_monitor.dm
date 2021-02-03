@@ -162,13 +162,11 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	if(target_turf.z != parent_turf.z || target_turf == parent_turf)
 		if(screen)
 			//Remove the screen
-			if(updating.hud_used)
-				updating.hud_used.team_finder_arrows -= screen
+			updating.hud_used.team_finder_arrows -= screen
 			qdel(screen)
 			tracking[beacon] = null
 			//Update their hud
-			if(updating.hud_used)
-				updating.hud_used.show_hud(updating.hud_used.hud_version, updating)
+			updating.hud_used.show_hud(updating.hud_used.hud_version, updating)
 		return
 	if(!screen)
 		//Create the screen
