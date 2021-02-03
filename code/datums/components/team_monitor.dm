@@ -356,11 +356,10 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 
 	//Set the frequency we are transmitting on
 	team_freq_key = _frequency_key
-	if(_frequency != null)
-		if(_global)
-			team_frequency = "[_frequency_key]-GLOB"
-		else
-			team_frequency = "[_frequency_key][_frequency]"
+	if(_global)
+		team_frequency = "[_frequency_key]-GLOB"
+	else if(_frequency)
+		team_frequency = "[_frequency_key][_frequency]"
 	else
 		team_frequency = null
 
