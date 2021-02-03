@@ -1,5 +1,4 @@
 /datum/species/squid
-
 	name = "Squidperson"
 	id = "squid"
 	default_color = "b8dfda"
