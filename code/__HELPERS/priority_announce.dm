@@ -7,18 +7,18 @@
 	if(type == "Priority")
 		announcement += "<h1 class='alert'>Priority Announcement</h1>"
 		if (title && length(title) > 0)
-			announcement += "<br><h2 class='alert'>[html_encode(title)]</h2>"
+			announcement += "<meta charset='UTF-8'><br><h2 class='alert'>[html_encode(title)]</h2>"
 	else if(type == "Captain")
 		announcement += "<h1 class='alert'>Captain Announces</h1>"
 		GLOB.news_network.SubmitArticle(text, "Captain's Announcement", "Station Announcements", null)
 
 	else
 		if(!sender_override)
-			announcement += "<h1 class='alert'>[command_name()] Update</h1>"
+			announcement += "<meta charset='UTF-8'><h1 class='alert'>[command_name()] Update</h1>"
 		else
-			announcement += "<h1 class='alert'>[sender_override]</h1>"
+			announcement += "<meta charset='UTF-8'><h1 class='alert'>[sender_override]</h1>"
 		if (title && length(title) > 0)
-			announcement += "<br><h2 class='alert'>[html_encode(title)]</h2>"
+			announcement += "<meta charset='UTF-8'><br><h2 class='alert'>[html_encode(title)]</h2>"
 
 		if(!sender_override)
 			if(title == "")
@@ -26,10 +26,10 @@
 			else
 				GLOB.news_network.SubmitArticle(title + "<br><br>" + text, "Central Command", "Station Announcements", null)
 
-	announcement += "<br><span class='alert'>[html_encode(text)]</span><br>"
+	announcement += "<meta charset='UTF-8'><br><span class='alert'>[html_encode(text)]</span><br>"
 	announcement += "<br>"
 	if(auth_id)
-		announcement += "<span class='alert'>-[auth_id]</span><br>"
+		announcement += "<meta charset='UTF-8'><span class='alert'>-[auth_id]</span><br>"
 
 	var/s = sound(sound)
 	for(var/mob/M in GLOB.player_list)
@@ -57,9 +57,9 @@
 
 	for(var/mob/M in GLOB.player_list)
 		if(!isnewplayer(M) && M.can_hear())
-			var/complete_msg = "<span class='big bold'><font color = red>[html_encode(title)]</font color><BR>[html_encode(message)]</span><BR>"
+			var/complete_msg = "<meta charset='UTF-8'><span class='big bold'><font color = red>[html_encode(title)]</font color><BR>[html_encode(message)]</span><BR>"
 			if(from)
-				complete_msg += "<span class='alert'>-[from]</span>"
+				complete_msg += "<meta charset='UTF-8'><span class='alert'>-[from]</span>"
 			to_chat(M, complete_msg)
 			if(M.client.prefs.toggles & SOUND_ANNOUNCEMENTS)
 				if(alert)
