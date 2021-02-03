@@ -27,6 +27,7 @@
 	var/cooling = TRUE
 	var/base_heating = 140
 	var/base_cooling = 170
+	var/was_on = FALSE      //checks if the machine was on before it lost power
 
 /obj/machinery/atmospherics/components/unary/thermomachine/Initialize()
 	. = ..()
@@ -110,8 +111,10 @@
 
 /obj/machinery/atmospherics/components/unary/thermomachine/process_atmos()
 	..()
-	if(!on || !nodes[1])
+	if(!is_operational || !on || !nodes[1])  //if it has no power or its switched off, dont process atmos
 		return
+	else if(is_operational && was_on == TRUE)  //if it was switched on before it turned off due to no power, turn the machine back on
+		on = TRUE
 	var/datum/gas_mixture/air_contents = airs[1]
 
 	var/air_heat_capacity = air_contents.heat_capacity()
@@ -203,6 +206,7 @@
 			use_power = on ? ACTIVE_POWER_USE : IDLE_POWER_USE
 			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			. = TRUE
+			was_on = !was_on  //if the machine was manually turned on, ensure it remembers it
 		if("cooling")
 			swap_function()
 			investigate_log("was changed to [cooling ? "cooling" : "heating"] by [key_name(usr)]", INVESTIGATE_ATMOS)
