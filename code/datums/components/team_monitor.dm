@@ -121,6 +121,9 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	if(team_frequency)
 		GLOB.tracker_huds[team_frequency] -= src
 
+	//Stop processing
+	STOP_PROCESSING(SSprocessing, src)
+
 	. = ..()
 
 //Gets the active trackers for when the team_monitor component
@@ -133,6 +136,9 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 //===========
 // Handles the parent being moved and updates the direction of the arrows.
 //===========
+
+/datum/component/team_monitor/process()
+	update_all_directions()
 
 //When the parent is removed, we need to update our arrows
 //Also if we are visible update the arrows of anything tracking us
@@ -207,6 +213,8 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 
 /datum/component/team_monitor/proc/show_hud(mob/target)
 	updating = target
+	//Start processing to update in weird situations
+	START_PROCESSING(SSprocessing, src)
 	//Register parent signal
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, .proc/parent_moved)
 	//Our hud is disabled
@@ -228,6 +236,8 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 
 /datum/component/team_monitor/proc/hide_hud(mob/target)
 	updating = null
+	//Stop processing
+	STOP_PROCESSING(SSprocessing, src)
 	//UnRegister parent signal
 	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 	//Remove our arrows
