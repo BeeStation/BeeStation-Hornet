@@ -50,7 +50,7 @@
 	if(!active)
 		var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
 		if(beacon)
-			beacon.RemoveComponent()
+			qdel(beacon)
 		STOP_PROCESSING(SSfastprocess, src)
 		detonation_timer = null
 		next_beep = null
@@ -80,7 +80,7 @@
 	if(active && ((detonation_timer <= world.time) || explode_now))
 		var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
 		if(beacon)
-			beacon.RemoveComponent()
+			qdel(beacon)
 		active = FALSE
 		timer_set = initial(timer_set)
 		update_icon()
