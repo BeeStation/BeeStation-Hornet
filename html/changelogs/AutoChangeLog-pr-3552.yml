@@ -1,0 +1,4 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - tweak: xenomorphs now break firelock window shutters instead of opening them
