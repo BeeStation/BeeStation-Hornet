@@ -47,6 +47,25 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	else
 		GLOB.tracker_beacons[frequency_added] = list(component_added)
 
+/proc/get_all_beacons_on_frequency(frequency, base_frequency)
+	var/list/found_beacons = list()
+	if(islist(GLOB.tracker_beacons[frequency]))
+		found_beacons.Add(GLOB.tracker_beacons[frequency])
+	if(islist(GLOB.tracker_beacons["[base_frequency]-GLOB"]))
+		message_admins("Found global beacons")
+		found_beacons.Add(GLOB.tracker_beacons["[base_frequency]-GLOB"])
+	return found_beacons
+
+/proc/get_all_watchers_on_frequency(frequency, team_key = "", global_freq = FALSE)
+	if(global_freq)
+		. = list()
+		for(var/tracker_freq in GLOB.tracker_huds)
+			for(var/datum/component/team_monitor/TM as() in GLOB.tracker_huds[tracker_freq])
+				if(TM.team_freq_key == frequency)
+					. += TM
+	else
+		return GLOB.tracker_huds[frequency]
+
 //==================
 // Component
 //  - HUD COMPONENT
@@ -105,10 +124,8 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 //Gets the active trackers for when the team_monitor component
 //is initialized while other trackers are already active.
 /datum/component/team_monitor/proc/get_active_trackers()
-	if(!team_frequency)
-		return
-	for(var/datum/component/tracking_beacon/beacon as() in GLOB.tracker_beacons[team_frequency])
-		if(beacon != attached_beacon && beacon.updating)
+	for(var/datum/component/tracking_beacon/beacon as() in get_all_beacons_on_frequency(team_frequency, team_freq_key))
+		if(beacon != attached_beacon && (beacon.updating || beacon.always_update))
 			add_to_tracking_network(beacon)
 
 //===========
@@ -312,18 +329,27 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	var/mob/updating = null
 	//Do we have an attached monitor?
 	var/datum/component/team_monitor/attached_monitor
+	//Should we update when not equipped?
+	var/always_update = FALSE
+	//Global signal?
+	var/global_signal = FALSE
 
-/datum/component/tracking_beacon/Initialize(frequency_key, frequency, _attached_monitor, comp_visible = TRUE, comp_colour = "#ffffff")
+/datum/component/tracking_beacon/Initialize(_frequency_key, _frequency, _attached_monitor, _visible = TRUE, _colour = "#ffffff", _global = FALSE, _always_update = FALSE)
 	. = ..()
 
 	//Set vars
-	colour = comp_colour
+	colour = _colour
 	attached_monitor = _attached_monitor
+	always_update = _always_update
+	global_signal = _global
 
 	//Set the frequency we are transmitting on
-	team_freq_key = frequency_key
-	if(frequency != null)
-		team_frequency = "[frequency_key][frequency]"
+	team_freq_key = _frequency_key
+	if(_frequency != null)
+		if(_global)
+			team_frequency = "[_frequency_key]-GLOB"
+		else
+			team_frequency = "[_frequency_key][_frequency]"
 	else
 		team_frequency = null
 
@@ -335,7 +361,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/parent_dequpped)
 
 	//Set our visibility on the tracking network
-	toggle_visibility(comp_visible)
+	toggle_visibility(_visible)
 
 /datum/component/tracking_beacon/Destroy(force, silent)
 	. = ..()
@@ -393,7 +419,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 /datum/component/tracking_beacon/proc/toggle_visibility(new_vis)
 	visible = new_vis
 	//If we are updating toggle our visibility
-	if(updating && visible)
+	if((updating || always_update) && visible)
 		add_to_huds()
 	else
 		remove_from_huds()
@@ -408,7 +434,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 		return
 	if(!team_frequency)
 		return
-	for(var/datum/component/team_monitor/TM as() in GLOB.tracker_huds[team_frequency])
+	for(var/datum/component/team_monitor/TM as() in get_all_watchers_on_frequency(team_frequency, team_freq_key, global_signal))
 		if(TM != attached_monitor)
 			TM.update_atom_dir(src)
 
@@ -420,7 +446,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 /datum/component/tracking_beacon/proc/remove_from_huds()
 	if(!team_frequency)
 		return
-	for(var/datum/component/team_monitor/team_monitor as() in GLOB.tracker_huds[team_frequency])
+	for(var/datum/component/team_monitor/team_monitor as() in get_all_watchers_on_frequency(team_frequency, team_freq_key, global_signal))
 		//Remove ourselves from the tracking list
 		var/atom/movable/screen/arrow = team_monitor.tracking[src]
 		team_monitor.tracking.Remove(src)
@@ -429,6 +455,8 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 			continue
 		if(team_monitor.updating?.hud_used)
 			team_monitor.updating.hud_used.team_finder_arrows -= arrow
+			//Update their hud
+			team_monitor.updating.hud_used.show_hud(team_monitor.updating.hud_used.hud_version, team_monitor.updating)
 		qdel(arrow)
 
 //Add ourselves to other tracking components
@@ -439,7 +467,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	//Find other trackers and add ourselves to their tracking network
 	if(!team_frequency)
 		return
-	for(var/datum/component/team_monitor/team_monitor as() in GLOB.tracker_huds[team_frequency])
+	for(var/datum/component/team_monitor/team_monitor as() in get_all_watchers_on_frequency(team_frequency, team_freq_key, global_signal))
 		if(team_monitor != attached_monitor)
 			team_monitor.add_to_tracking_network(src)
 

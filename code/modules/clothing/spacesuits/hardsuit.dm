@@ -436,7 +436,7 @@
 		H.update_inv_w_uniform()
 
 /obj/item/clothing/suit/space/hardsuit/syndi/proc/activate_combat_mode()
-	name += " (combat)"
+	name = "[initial(name)] (combat)"
 	desc = alt_desc
 	slowdown = 0
 	clothing_flags &= ~STOPSPRESSUREDAMAGE
