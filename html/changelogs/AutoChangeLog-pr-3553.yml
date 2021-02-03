@@ -1,0 +1,5 @@
+author: park66665
+delete-after: true
+changes:
+  - bugfix: Hardened npc subsystems so mobs are less prone to freeze completely and
+      irreversibly
