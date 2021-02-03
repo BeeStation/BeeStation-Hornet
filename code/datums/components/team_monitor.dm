@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	if(!frequency_added)
 		return
 	if(islist(GLOB.tracker_huds[frequency_added]))
-		GLOB.tracker_huds[frequency_added] += component_added
+		GLOB.tracker_huds[frequency_added] |= component_added
 	else
 		GLOB.tracker_huds[frequency_added] = list(component_added)
 
@@ -43,7 +43,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	if(!frequency_added)
 		return
 	if(islist(GLOB.tracker_beacons[frequency_added]))
-		GLOB.tracker_beacons[frequency_added] += component_added
+		GLOB.tracker_beacons[frequency_added] |= component_added
 	else
 		GLOB.tracker_beacons[frequency_added] = list(component_added)
 
@@ -149,7 +149,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 
 //Update the arrow towards another atom
 /datum/component/team_monitor/proc/update_atom_dir(datum/component/tracking_beacon/beacon)
-	if(!updating || !updating.hud_used)
+	if(!updating || !updating.hud_used || !beacon)
 		return
 	var/atom/movable/screen/arrow/screen = tracking[beacon]
 	var/turf/target_turf = get_turf(beacon.parent)
@@ -358,12 +358,13 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	//Add ourselves to the tracking network
 	add_tracker_beacon(team_frequency, src)
 
-	//Reigster equipping signals
-	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/parent_equipped)
-	RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/parent_dequpped)
 	//Register tracking signal
 	if(always_update)
 		RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/update_position)
+	else
+		//Reigster equipping signals
+		RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/parent_equipped)
+		RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/parent_dequpped)
 
 	//Set our visibility on the tracking network
 	toggle_visibility(_visible)
@@ -373,16 +374,16 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 
 	//Unregister signals
 	if(parent)
-		UnregisterSignal(parent, COMSIG_ITEM_EQUIPPED)
-		UnregisterSignal(parent, COMSIG_ITEM_DROPPED)
+		//Register tracking signal
+		if(always_update)
+			UnregisterSignal(parent, COMSIG_MOVABLE_MOVED)
+		else
+			UnregisterSignal(parent, COMSIG_ITEM_EQUIPPED)
+			UnregisterSignal(parent, COMSIG_ITEM_DROPPED)
 
 	//Unregister movement signal
 	if(updating)
 		UnregisterSignal(updating, COMSIG_MOVABLE_MOVED)
-
-	//Register tracking signal
-	if(always_update)
-		UnregisterSignal(parent, COMSIG_MOVABLE_MOVED)
 
 	//Goodbye, it was a good life
 	remove_from_huds()
