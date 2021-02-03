@@ -365,7 +365,7 @@
 
 			data_to_upload += list(list("ckey" = S.fields["ckey"], "crime" = C.crimeName, "details" = C.crimeDetails, "author" = C.author, "author_ckey" = C.authorCkey, "character_name" = S.fields["name"]))
 
-	SSdbcore.MassInsert(format_table_name("criminal_records"), data_to_upload, duplicate_key = TRUE)
+	SSdbcore.MassInsert(format_table_name("criminal_records"), data_to_upload, duplicate_key = FALSE)
 
 
 /datum/datacore/proc/get_id_photo(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH))
