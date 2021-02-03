@@ -650,7 +650,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 		var/disk_comfort_level = 0
 
 		//Go through and check for items that make disk comfy
-		for(var/obj/comfort_item in loc)
+		for(var/comfort_item in loc)
 			if(istype(comfort_item, /obj/item/bedsheet) || istype(comfort_item, /obj/structure/bed))
 				disk_comfort_level++
 
