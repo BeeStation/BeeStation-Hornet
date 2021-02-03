@@ -105,6 +105,11 @@
 		return
 	if(ismob(AM) && !can_attach_mob)
 		return
+	if(istype(AM, /obj/item/valentine))
+		to_chat(user, "<span class='userdanger'>Really...?</span>")
+		to_chat(user, "<span class='warning'>You start feeling incredibly depressed and horrified at what you tried to do.</span>")
+		ADD_TRAIT(user, TRAIT_DEPRESSION, ROUNDSTART_TRAIT)
+		return
 
 	to_chat(user, "<span class='notice'>You start planting [src]. The timer is set to [det_time]...</span>")
 
