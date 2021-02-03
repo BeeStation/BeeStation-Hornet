@@ -85,7 +85,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	var/mob/updating = null
 	//Distance from center
 	//Probably in pixels or something idk
-	var/distance = 15
+	var/distance = 20
 	//Should we display the hud in the firstplace
 	var/hud_visible = TRUE
 	//The attached beacon: Ignore this one
@@ -152,7 +152,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	var/atom/movable/screen/arrow/screen = tracking[beacon]
 	var/turf/target_turf = get_turf(beacon.parent)
 	var/turf/parent_turf = get_turf(parent)
-	if(target_turf.z != parent_turf.z)
+	if(target_turf.z != parent_turf.z || target_turf == parent_turf)
 		if(screen)
 			//Remove the screen
 			if(updating.hud_used)
@@ -359,6 +359,9 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	//Reigster equipping signals
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/parent_equipped)
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/parent_dequpped)
+	//Register tracking signal
+	if(always_update)
+		RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/update_position)
 
 	//Set our visibility on the tracking network
 	toggle_visibility(_visible)
@@ -374,6 +377,10 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	//Unregister movement signal
 	if(updating)
 		UnregisterSignal(updating, COMSIG_MOVABLE_MOVED)
+
+	//Register tracking signal
+	if(always_update)
+		UnregisterSignal(parent, COMSIG_MOVABLE_MOVED)
 
 	//Goodbye, it was a good life
 	remove_from_huds()
