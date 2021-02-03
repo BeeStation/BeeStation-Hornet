@@ -111,9 +111,9 @@
 
 /obj/machinery/atmospherics/components/unary/thermomachine/process_atmos()
 	..()
-	if(!is_operational || !on || !nodes[1])  //if it has no power or its switched off, dont process atmos
+	if(!(is_operational()) || !on || !nodes[1])  //if it has no power or its switched off, dont process atmos
 		return
-	else if(is_operational && was_on == TRUE)  //if it was switched on before it turned off due to no power, turn the machine back on
+	else if(is_operational() && was_on == TRUE)  //if it was switched on before it turned off due to no power, turn the machine back on
 		on = TRUE
 	var/datum/gas_mixture/air_contents = airs[1]
 
