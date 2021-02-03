@@ -47,7 +47,7 @@
 		else
 			// ===== NON CONSTANT TABS (Tab names which can change) =====
 			// ===== LISTEDS TURFS =====
-			if(listed_turf && listed_turf.name == selected_tab)
+			if(listed_turf && sanitize(listed_turf.name) == selected_tab)
 				client.stat_update_mode = STAT_MEDIUM_UPDATE
 				var/list/overrides = list()
 				for(var/image/I in client.images)
@@ -173,7 +173,7 @@
 		if(!TurfAdjacent(listed_turf))
 			listed_turf = null
 		else
-			tabs |= listed_turf.name
+			tabs |= sanitize(listed_turf.name)
 	//Add spells
 	var/list/spells = mob_spell_list
 	if(mind)
