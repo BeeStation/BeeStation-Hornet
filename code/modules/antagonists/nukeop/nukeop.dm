@@ -105,7 +105,7 @@
 		to_chat(owner, "Unfortunately the syndicate was unable to provide you with nuclear authorization code.")
 
 /datum/antagonist/nukeop/proc/memorize_frequency()
-	if(nuke_team && nuke_team.team_frequency)
+	if(nuke_team?.team_frequency)
 		antag_memory += "<B>Secure Tracking Beacon Frequency</B>: [nuke_team.team_frequency]<br>"
 		to_chat(owner, "Your team's unique tracking beacon code is: <B>[nuke_team.team_frequency]</B>")
 	else
