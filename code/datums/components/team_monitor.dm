@@ -123,8 +123,15 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	//Stop processing
 	STOP_PROCESSING(SSprocessing, src)
 
+	//Remove the HUD from the equipped mob
+	if(updating)
+		hide_hud(updating)
+
+	//Dispose
 	if(attached_beacon)
-		attached_beacon.attached_monitor = null
+		if(attached_beacon.attached_monitor == src)
+			attached_beacon.attached_monitor = null
+		attached_beacon = null
 
 	. = ..()
 
@@ -397,8 +404,9 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	if(team_frequency)
 		GLOB.tracker_huds[team_frequency] -= src
 
-	if(attached_monitor)
+	if(attached_monitor?.attached_beacon == src)
 		attached_monitor.attached_beacon = null
+		attached_monitor = null
 
 	. = ..()
 
