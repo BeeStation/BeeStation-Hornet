@@ -59,6 +59,8 @@
 	return
 
 /datum/beam/proc/recalculate_in(time)
+	if(QDELETED(src))
+		return
 	if(timing_id)
 		deltimer(timing_id)
 	timing_id = addtimer(CALLBACK(src, .proc/recalculate), time, TIMER_STOPPABLE)

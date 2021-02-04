@@ -184,8 +184,10 @@
 */
 /mob/living/simple_animal/slime/UnarmedAttack(atom/A)
 	A.attack_slime(src)
+
 /atom/proc/attack_slime(mob/user)
 	return
+
 /mob/living/simple_animal/slime/RestrainedClickOn(atom/A)
 	return
 
@@ -231,7 +233,7 @@
 */
 
 /mob/living/simple_animal/UnarmedAttack(atom/A, proximity)
-	if(!dextrous)
+	if(!dextrous || a_intent == INTENT_HARM)
 		return ..()
 	if(!ismob(A))
 		A.attack_hand(src)

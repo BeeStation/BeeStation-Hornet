@@ -30,7 +30,7 @@
 		if(getorgan(/obj/item/organ/brain))
 			. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive, with no signs of life.</span>"
 		else if(get_bodypart(BODY_ZONE_HEAD))
-			. += "<span class='deadsay'>It appears that [t_his] brain is missing...</span>"
+			. += "<span class='deadsay'>It appears that [t_his] brain is missing.</span>"
 
 	var/list/missing = get_missing_limbs()
 	for(var/t in missing)

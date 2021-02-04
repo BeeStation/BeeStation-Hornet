@@ -142,7 +142,7 @@
 	display_name = "skirt, purple"
 	path = /obj/item/clothing/under/dress/skirt/purple
 
-/datum/gear/uniform/dress/skirt/red
+/datum/gear/uniform/skirt/red
 	display_name = "skirt, red"
 	path = /obj/item/clothing/under/dress/skirt/red
 
@@ -181,7 +181,7 @@
 
 /datum/gear/uniform/suit/suit_jacket/female
 	display_name = "executive suit (female)"
-	path = /obj/item/clothing/under/suit/black/skirt
+	path = /obj/item/clothing/under/suit/black/female
 
 /datum/gear/uniform/suit/suit_jacket/green
 	display_name = "green suit"
@@ -289,7 +289,7 @@
 
 /datum/gear/uniform/rank/cargo/mining_classic
 	display_name = "miner's overalls, asteroid purple"
-	description = "Purple jumpsuit, dirty overalls. Standard NanoTrasen Shaft Miner attire, from when Lavaland had yet to be discovered and exploited for plasma."
+	description = "Purple jumpsuit, dirty overalls. Standard Nanotrasen Shaft Miner attire, from when Lavaland had yet to be discovered and exploited for plasma."
 	path = /obj/item/clothing/under/rank/cargo/miner
 	allowed_roles = list ("Shaft Miner")
 
@@ -349,6 +349,6 @@
 	cost = 7500
 
 /datum/gear/uniform/rank/security/blart
-	display_name = "security jumpsuit, NanoTrasen mall cop uniform"
+	display_name = "security jumpsuit, Nanotrasen mall cop uniform"
 	path = /obj/item/clothing/under/rank/security/officer/mallcop
 	cost = 7500

@@ -2,6 +2,7 @@
 	name = "Blob"
 	roundend_category = "blobs"
 	antagpanel_category = "Blob"
+	show_to_ghosts = TRUE
 	job_rank = ROLE_BLOB
 
 	var/datum/action/innate/blobpop/pop_action
@@ -21,6 +22,11 @@
 /datum/antagonist/blob/greet()
 	if(!isovermind(owner.current))
 		to_chat(owner,"<span class='userdanger'>You feel bloated.</span>")
+	else
+		owner.current.client?.tgui_panel?.give_antagonist_popup("Blob",
+			"Place your core by using the place core button.\n\
+			Expand and manage your resources carefully, the crew will know about your existence soon \
+			and will work together to destroy you.")
 
 /datum/antagonist/blob/on_gain()
 	create_objectives()
@@ -32,6 +38,7 @@
 	var/datum/objective/blob_takeover/main = new
 	main.owner = owner
 	objectives += main
+	log_objective(owner, main.explanation_text)
 
 /datum/antagonist/blob/apply_innate_effects(mob/living/mob_override)
 	if(!isovermind(owner.current))

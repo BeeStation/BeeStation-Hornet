@@ -15,14 +15,26 @@
 	maxbodytemp = 360
 	unique_name = 1
 	a_intent = INTENT_HARM
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	initial_language_holder = /datum/language_holder/empty
 	var/mob/camera/blob/overmind = null
 	var/obj/structure/blob/factory/factory = null
+	var/independent = FALSE
+	mobchatspan = "blob"
 
 /mob/living/simple_animal/hostile/blob/update_icons()
 	if(overmind)
 		add_atom_colour(overmind.blobstrain.color, FIXED_COLOUR_PRIORITY)
 	else
 		remove_atom_colour(FIXED_COLOUR_PRIORITY)
+
+/mob/living/simple_animal/hostile/blob/Initialize()
+	. = ..()
+	if(!independent) //no pulling people deep into the blob
+		remove_verb(/mob/living/verb/pulled)
+	else
+		pass_flags &= ~PASSBLOB
 
 /mob/living/simple_animal/hostile/blob/Destroy()
 	if(overmind)
@@ -56,8 +68,10 @@
 		return 1
 	return ..()
 
-/mob/living/simple_animal/hostile/blob/proc/blob_chat(msg)
-	var/spanned_message = say_quote(msg)
+/mob/living/simple_animal/hostile/blob/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+	if(!overmind)
+		return ..()
+	var/spanned_message = say_quote(message)
 	var/rendered = "<font color=\"#EE4000\"><b>\[Blob Telepathy\] [real_name]</b> [spanned_message]</font>"
 	for(var/M in GLOB.mob_list)
 		if(isovermind(M) || istype(M, /mob/living/simple_animal/hostile/blob))
@@ -81,25 +95,37 @@
 	verb_ask = "psychically probes"
 	verb_exclaim = "psychically yells"
 	verb_yell = "psychically screams"
-	melee_damage_lower = 2
-	melee_damage_upper = 4
+	melee_damage = 4
 	obj_damage = 20
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attacktext = "hits"
 	attack_sound = 'sound/weapons/genhit1.ogg'
 	movement_type = FLYING
-	del_on_death = 1
+	del_on_death = TRUE
 	deathmessage = "explodes into a cloud of gas!"
+	gold_core_spawnable = HOSTILE_SPAWN
 	var/death_cloud_size = 1 //size of cloud produced from a dying spore
 	var/mob/living/carbon/human/oldguy
-	var/is_zombie = 0
-	gold_core_spawnable = HOSTILE_SPAWN
+	var/is_zombie = FALSE
+	var/list/disease = list()
 
 /mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src
 	. = ..()
+	/*var/datum/disease/advance/random/blob/R = new //either viro is cooperating with xenobio, or a blob has spawned and the round is probably over sooner than they can make a virus for this
+	disease += R*/
+
+/mob/living/simple_animal/hostile/blob/blobspore/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+	if(scan)
+		E.scan(src, disease, user)
+	else
+		if(E.create_culture(disease, user))
+			dust()
+			user.visible_message("<span class='danger'>[user] stabs [src] with [E], sucking it up!</span>", \
+	 				 "<span class='danger'>You stab [src] with [E]'s probe, destroying it!</span>")
+	return TRUE
 
 /mob/living/simple_animal/hostile/blob/blobspore/Life()
 	if(!is_zombie && isturf(src.loc))
@@ -111,6 +137,24 @@
 		death()
 	..()
 
+/mob/living/simple_animal/hostile/blob/blobspore/attack_ghost(mob/user)
+	. = ..()
+	if(.)
+		return
+	humanize_pod(user)
+
+/mob/living/simple_animal/hostile/blob/blobspore/proc/humanize_pod(mob/user)
+	if((!overmind || key || stat || !is_zombie && istype(src, /mob/living/simple_animal/hostile/blob/blobspore) || istype(src, /mob/living/simple_animal/hostile/blob/blobspore/weak)))
+		return
+	var/pod_ask = alert("Become a blob zombie?", "Are you bulbous enough?", "Yes", "No")
+	if(pod_ask == "No" || !src || QDELETED(src))
+		return
+	if(key)
+		to_chat(user, "<span class='warning'>Someone else already took this blob zombie!</span>")
+		return
+	key = user.key
+	log_game("[key_name(src)] took control of [name].")
+
 /mob/living/simple_animal/hostile/blob/blobspore/proc/Zombify(mob/living/carbon/human/H)
 	is_zombie = 1
 	if(H.wear_suit)
@@ -121,8 +165,7 @@
 	name = "blob zombie"
 	desc = "A shambling corpse animated by the blob."
 	mob_biotypes += MOB_HUMANOID
-	melee_damage_lower += 8
-	melee_damage_upper += 11
+	melee_damage += 11
 	movement_type = GROUND
 	death_cloud_size = 0
 	icon = H.icon
@@ -133,6 +176,8 @@
 	oldguy = H
 	update_icons()
 	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
+	if(!key)
+		notify_ghosts("\A [src] has been created in \the [get_area(src)].", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Blob Zombie Created")
 
 /mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
 	// On death, create a small smoke of harmful gas (s-Acid)
@@ -184,8 +229,7 @@
 	name = "fragile blob spore"
 	health = 15
 	maxHealth = 15
-	melee_damage_lower = 1
-	melee_damage_upper = 2
+	melee_damage = 2
 	death_cloud_size = 0
 
 /////////////////
@@ -201,8 +245,7 @@
 	health = 200
 	maxHealth = 200
 	damage_coeff = list(BRUTE = 0.5, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
-	melee_damage_lower = 20
-	melee_damage_upper = 20
+	melee_damage = 20
 	obj_damage = 60
 	attacktext = "slams"
 	attack_sound = 'sound/effects/blobattack.ogg'
@@ -213,17 +256,7 @@
 	force_threshold = 10
 	pressure_resistance = 50
 	mob_size = MOB_SIZE_LARGE
-	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	hud_type = /datum/hud/blobbernaut
-	var/independent = FALSE
-
-/mob/living/simple_animal/hostile/blob/blobbernaut/Initialize()
-	. = ..()
-	if(!independent) //no pulling people deep into the blob
-		verbs -= /mob/living/verb/pulled
-	else
-		pass_flags &= ~PASSBLOB
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life()
 	if(..())
@@ -276,12 +309,10 @@
 /mob/living/simple_animal/hostile/blob/blobbernaut/update_icons()
 	..()
 	if(overmind) //if we have an overmind, we're doing chemical reactions instead of pure damage
-		melee_damage_lower = 4
-		melee_damage_upper = 4
+		melee_damage = 4
 		attacktext = overmind.blobstrain.blobbernaut_message
 	else
-		melee_damage_lower = initial(melee_damage_lower)
-		melee_damage_upper = initial(melee_damage_upper)
+		melee_damage = initial(melee_damage)
 		attacktext = initial(attacktext)
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)

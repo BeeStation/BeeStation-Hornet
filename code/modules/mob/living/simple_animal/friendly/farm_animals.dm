@@ -24,8 +24,7 @@
 	health = 40
 	maxHealth = 40
 	minbodytemp = 180
-	melee_damage_lower = 1
-	melee_damage_upper = 2
+	melee_damage = 5
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	stop_automated_movement_when_pulled = 1
 	blood_volume = BLOOD_VOLUME_NORMAL
@@ -86,7 +85,7 @@
 		eaten = TRUE
 
 	if(eaten && prob(10))
-		say("Nom")
+		INVOKE_ASYNC(src, /atom/movable/proc/say, "Nom")
 
 /mob/living/simple_animal/hostile/retaliate/goat/attackby(obj/item/O, mob/user, params)
 	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
@@ -282,6 +281,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/static/chicken_count = 0
 	mobsay_color = "#FFDC9B"
+	mobchatspan = "stationengineer"
 
 	do_footstep = TRUE
 

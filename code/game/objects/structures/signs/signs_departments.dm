@@ -73,6 +73,10 @@
 /obj/structure/sign/departments/medbay/alt
 	icon_state = "bluecross2"
 
+/obj/structure/sign/departments/medbay/alt2
+	icon_state = "medicalsign"
+	desc = "An image of the Caduceus, with a small cross. Makes sense to someone not well-versed in human mythology. You'll probably get help here."
+
 /obj/structure/sign/departments/minsky/research/research
 	name = "Research Department"
 	desc = "A sign labelling where the research and development of new technologies takes place. It's not an experiment if you know what's going on."

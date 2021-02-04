@@ -9,7 +9,7 @@
 	var/obj/target = null
 	var/check_flags = NONE
 	var/processing = FALSE
-	var/obj/screen/movable/action_button/button = null
+	var/atom/movable/screen/movable/action_button/button = null
 	var/buttontooltipstyle = ""
 	var/transparent_when_unavailable = TRUE
 
@@ -19,6 +19,8 @@
 	var/icon_icon = 'icons/mob/actions.dmi' //This is the file for the ACTION icon
 	var/button_icon_state = "default" //And this is the state for the action icon
 	var/mob/owner
+
+	var/has_cooldown_timer = FALSE
 
 /datum/action/New(Target)
 	link_to(Target)
@@ -68,6 +70,9 @@
 			M.client.screen += button
 			button.locked = M.client.prefs.buttons_locked || button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE //even if it's not defaultly locked we should remember we locked it before
 			button.moved = button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE
+			var/obj/effect/proc_holder/spell/spell_proc_holder = button.linked_action.target
+			if(istype(spell_proc_holder) && spell_proc_holder.text_overlay)
+				M.client.images += spell_proc_holder.text_overlay
 		M.update_action_buttons()
 	else
 		Remove(owner)
@@ -89,9 +94,6 @@
 	if(SEND_SIGNAL(src, COMSIG_ACTION_TRIGGER, src) & COMPONENT_ACTION_BLOCK_TRIGGER)
 		return FALSE
 	return TRUE
-
-/datum/action/proc/Process()
-	return
 
 /datum/action/proc/IsAvailable()
 	if(!owner)
@@ -134,12 +136,12 @@
 			ApplyIcon(button, force)
 
 		if(!IsAvailable())
-			button.color = transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0)
+			button.color = has_cooldown_timer ? rgb(219, 219, 219, 255) : transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0)
 		else
 			button.color = rgb(255,255,255,255)
 			return 1
 
-/datum/action/proc/ApplyIcon(obj/screen/movable/action_button/current_button, force = FALSE)
+/datum/action/proc/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force = FALSE)
 	if(icon_icon && button_icon_state && ((current_button.button_icon_state != button_icon_state) || force))
 		current_button.cut_overlays(TRUE)
 		current_button.add_overlay(mutable_appearance(icon_icon, button_icon_state))
@@ -173,7 +175,7 @@
 		I.ui_action_click(owner, src)
 	return 1
 
-/datum/action/item_action/ApplyIcon(obj/screen/movable/action_button/current_button, force)
+/datum/action/item_action/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force)
 	if(button_icon && button_icon_state)
 		// If set, use the custom icon that we set instead
 		// of the item appearence
@@ -638,12 +640,12 @@
 /datum/action/cooldown/process()
 	if(!owner)
 		button.maptext = ""
-		STOP_PROCESSING(SSfastprocess, src)
+		return PROCESS_KILL
 	var/timeleft = max(next_use_time - world.time, 0)
 	if(timeleft == 0)
 		button.maptext = ""
 		UpdateButtonIcon()
-		STOP_PROCESSING(SSfastprocess, src)
+		return PROCESS_KILL
 	else
 		button.maptext = "<b>[round(timeleft/10, 0.1)]</b>"
 
@@ -757,7 +759,7 @@
 	icon_icon = 'icons/mob/actions/actions_items.dmi'
 	button_icon_state = "storage_gather_switch"
 
-/datum/action/item_action/storage_gather_mode/ApplyIcon(obj/screen/movable/action_button/current_button)
+/datum/action/item_action/storage_gather_mode/ApplyIcon(atom/movable/screen/movable/action_button/current_button)
 	. = ..()
 	var/old_layer = target.layer
 	var/old_plane = target.plane

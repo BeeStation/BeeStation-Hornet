@@ -33,7 +33,7 @@
 			// FALSE is default type used for num/text/list/null
 			// TODO: support for special input types, such as internal refs and maybe typepaths
 
-			if(islist(input.data) || isnum(input.data) || istext(input.data) || isnull(input.data))
+			if(islist(input.data) || isnum_safe(input.data) || istext(input.data) || isnull(input.data))
 				saved_inputs.Add(list(input_value))
 
 		if(saved_inputs.len)
@@ -82,7 +82,7 @@
 			// TODO: support for special input types, such as typepaths and internal refs
 
 			// Input ID is a list index, make sure it's sane.
-			if(!isnum(input_id) || input_id % 1 || input_id > inputs_amt || input_id < 1)
+			if(!isnum_safe(input_id) || input_id % 1 || input_id > inputs_amt || input_id < 1)
 				return "Invalid input index at [init_name]."
 
 
@@ -124,7 +124,7 @@
 	// Save modified name
 	if(initial(name) != name)
 		assembly_params["name"] = name
-	
+
 	// Save modified description
 	if(initial(desc) != desc)
 		assembly_params["desc"] = desc
@@ -151,7 +151,7 @@
 	// Load modified name, if any.
 	if(assembly_params["name"])
 		name = assembly_params["name"]
-		
+
 	// Load modified description, if any.
 	if(assembly_params["desc"])
 		desc = assembly_params["desc"]
@@ -226,12 +226,14 @@
 // The following parameters area calculated during validation and added to the returned save list:
 // "requires_upgrades", "unsupported_circuit", "iron_cost", "complexity", "max_complexity", "used_space", "max_space"
 /datum/controller/subsystem/processing/circuit/proc/validate_electronic_assembly(program)
+	//Check for bad inputs
+	program = bad_regex.Replace(program, "")
+
 	var/list/blocks = json_decode(program)
 	if(!blocks)
 		return
 
 	var/error
-
 
 	// Block 1. Assembly.
 	var/list/assembly_params = blocks["assembly"]
@@ -338,8 +340,6 @@
 	var/obj/item/electronic_assembly/assembly_path = all_assemblies[assembly_params["type"]]
 	var/obj/item/electronic_assembly/assembly = new assembly_path(null)
 	assembly.load(assembly_params)
-
-
 
 	// Block 2. Components.
 	for(var/component_params in blocks["components"])

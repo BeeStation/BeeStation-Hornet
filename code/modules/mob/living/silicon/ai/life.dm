@@ -9,7 +9,7 @@
 	else //I'm not removing that shitton of tabs, unneeded as they are. -- Urist
 		//Being dead doesn't mean your temperature never changes
 
-		update_gravity(mob_has_gravity())
+		update_gravity(has_gravity())
 
 		handle_status_effects()
 
@@ -150,9 +150,8 @@
 				sleep(50)
 				to_chat(src, "Receiving control information from APC.")
 				sleep(2)
-				apc_override = 1
-				theAPC.ui_interact(src, state = GLOB.conscious_state)
-				apc_override = 0
+				apc_override = theAPC
+				theAPC.ui_interact(src)
 				aiRestorePowerRoutine = POWER_RESTORATION_APC_FOUND
 		sleep(50)
 		theAPC = null

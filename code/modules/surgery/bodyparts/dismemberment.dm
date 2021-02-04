@@ -21,15 +21,18 @@
 	C.emote("scream")
 	SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "dismembered", /datum/mood_event/dismembered)
 	drop_limb()
-	C.update_equipment_speed_mods() // Update in case speed affecting item unequipped by dismemberment
 
-	if(dam_type == BURN)
-		burn()
-		return 1
-	add_mob_blood(C)
+	C.update_equipment_speed_mods() // Update in case speed affecting item unequipped by dismemberment
 	var/turf/location = C.loc
 	if(istype(location))
 		C.add_splatter_floor(location)
+
+	if(QDELETED(src)) //Could have dropped into lava/explosion/chasm/whatever
+		return TRUE
+	if(dam_type == BURN)
+		burn()
+		return TRUE
+	add_mob_blood(C)
 	var/direction = pick(GLOB.cardinals)
 	var/t_range = rand(2,max(throw_range/2, 2))
 	var/turf/target_turf = get_turf(src)
@@ -41,7 +44,7 @@
 		if(new_turf.density)
 			break
 	throw_at(target_turf, throw_range, throw_speed)
-	return 1
+	return TRUE
 
 
 /obj/item/bodypart/chest/dismember()
@@ -180,7 +183,7 @@
 			C.handcuffed = null
 			C.update_handcuffed()
 		if(C.hud_used)
-			var/obj/screen/inventory/hand/R = C.hud_used.hand_slots["[held_index]"]
+			var/atom/movable/screen/inventory/hand/R = C.hud_used.hand_slots["[held_index]"]
 			if(R)
 				R.update_icon()
 		if(C.gloves)
@@ -198,7 +201,7 @@
 			C.handcuffed = null
 			C.update_handcuffed()
 		if(C.hud_used)
-			var/obj/screen/inventory/hand/L = C.hud_used.hand_slots["[held_index]"]
+			var/atom/movable/screen/inventory/hand/L = C.hud_used.hand_slots["[held_index]"]
 			if(L)
 				L.update_icon()
 		if(C.gloves)
@@ -283,7 +286,7 @@
 		if(C.dna.species.mutanthands && !is_pseudopart)
 			C.put_in_hand(new C.dna.species.mutanthands(), held_index)
 		if(C.hud_used)
-			var/obj/screen/inventory/hand/hand = C.hud_used.hand_slots["[held_index]"]
+			var/atom/movable/screen/inventory/hand/hand = C.hud_used.hand_slots["[held_index]"]
 			if(hand)
 				hand.update_icon()
 		C.update_inv_gloves()

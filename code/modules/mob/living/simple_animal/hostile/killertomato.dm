@@ -14,14 +14,25 @@
 	response_help  = "prods"
 	response_disarm = "pushes aside"
 	response_harm   = "smacks"
-	melee_damage_lower = 8
-	melee_damage_upper = 12
+	melee_damage = 10
 	attacktext = "slams"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	ventcrawler = VENTCRAWLER_ALWAYS
 	faction = list("plants")
 
+	mobchatspan = "headofsecurity"
+
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 150
 	maxbodytemp = 500
 	gold_core_spawnable = HOSTILE_SPAWN
+	var/frenzythreshold = 5 //how many tomatoes can this tomato see on screen before going berserk
+
+/mob/living/simple_animal/hostile/killertomato/CanAttack(atom/the_target)
+	var/tomatosseen = 0
+	for(var/mob/living/simple_animal/hostile/killertomato/T in oview(7, src))
+		tomatosseen += 1
+	if(tomatosseen >= frenzythreshold)
+		attack_same = TRUE
+	. = ..()
+

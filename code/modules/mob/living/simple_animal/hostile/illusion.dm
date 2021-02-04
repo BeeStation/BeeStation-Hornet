@@ -7,8 +7,7 @@
 	icon_dead = "null"
 	gender = NEUTER
 	mob_biotypes = list()
-	melee_damage_lower = 5
-	melee_damage_upper = 5
+	melee_damage = 5
 	a_intent = INTENT_HARM
 	attacktext = "gores"
 	maxHealth = 100
@@ -34,8 +33,7 @@
 	setDir(original.dir)
 	life_span = world.time+life
 	health = hp
-	melee_damage_lower = damage
-	melee_damage_upper = damage
+	melee_damage = damage
 	multiply_chance = replicate
 	faction -= "neutral"
 	transform = initial(transform)
@@ -57,7 +55,7 @@
 			return
 		var/mob/living/simple_animal/hostile/illusion/M = new(loc)
 		M.faction = faction.Copy()
-		M.Copy_Parent(parent_mob, 80, health/2, melee_damage_upper, multiply_chance/2)
+		M.Copy_Parent(parent_mob, 80, health/2, melee_damage, multiply_chance/2)
 		M.GiveTarget(L)
 
 ///////Actual Types/////////
@@ -65,8 +63,7 @@
 /mob/living/simple_animal/hostile/illusion/escape
 	retreat_distance = 10
 	minimum_distance = 10
-	melee_damage_lower = 0
-	melee_damage_upper = 0
+	melee_damage = 0
 	speed = -1
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE

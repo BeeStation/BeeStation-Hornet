@@ -6,22 +6,16 @@
 
 /// Inverts the colour of an HTML string
 /proc/invertHTML(HTMLstring)
-
-	if (!( istext(HTMLstring) ))
+	if(!istext(HTMLstring))
 		CRASH("Given non-text argument!")
-	else
-		if (length(HTMLstring) != 7)
-			CRASH("Given non-HTML argument!")
+	else if(length(HTMLstring) != 7)
+		CRASH("Given non-HTML argument!")
+	else if(length_char(HTMLstring) != 7)
+		CRASH("Given non-hex symbols in argument!")
 	var/textr = copytext(HTMLstring, 2, 4)
 	var/textg = copytext(HTMLstring, 4, 6)
 	var/textb = copytext(HTMLstring, 6, 8)
-	var/r = hex2num(textr)
-	var/g = hex2num(textg)
-	var/b = hex2num(textb)
-	textr = num2hex(255 - r, 2)
-	textg = num2hex(255 - g, 2)
-	textb = num2hex(255 - b, 2)
-	return text("#[][][]", textr, textg, textb)
+	return rgb(255 - hex2num(textr), 255 - hex2num(textg), 255 - hex2num(textb))
 
 /// Get the angle between two atoms
 /proc/Get_Angle(atom/movable/start,atom/movable/end)//For beams.
@@ -50,9 +44,9 @@
 		.+=360
 
 //Returns location. Returns null if no location was found.
-/proc/get_teleport_loc(turf/location,mob/target,distance = 1, density = FALSE, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
+/proc/get_teleport_loc(turf/location,mob/target,distance = 1, density = FALSE, closed = FALSE, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
 /*
-Location where the teleport begins, target that will teleport, distance to go, density checking 0/1(yes/no).
+Location where the teleport begins, target that will teleport, distance to go, density checking 0/1(yes/no), closed turf checking.
 Random error in tile placement x, error in tile placement y, and block offset.
 Block offset tells the proc how to place the box. Behind teleport location, relative to starting location, forward, etc.
 Negative values for offset are accepted, think of it in relation to North, -x is west, -y is south. Error defaults to positive.
@@ -127,6 +121,8 @@ Turf and target are separate in case you want to teleport some distance from a t
 			for(var/turf/T in block(locate(center.x+b1xerror,center.y+b1yerror,location.z), locate(center.x+b2xerror,center.y+b2yerror,location.z) ))
 				if(density&&T.density)
 					continue//If density was specified.
+				if(closed&&isclosedturf(T))
+					continue//If closed was specified.
 				if(T.x>world.maxx || T.x<1)
 					continue//Don't want them to teleport off the map.
 				if(T.y>world.maxy || T.y<1)
@@ -184,15 +180,15 @@ Turf and target are separate in case you want to teleport some distance from a t
 /// Returns whether or not a player is a guest using their ckey as an input
 /proc/IsGuestKey(key)
 	if (findtext(key, "Guest-", 1, 7) != 1) //was findtextEx
-		return 0
+		return FALSE
 
 	var/i, ch, len = length(key)
 
-	for (i = 7, i <= len, ++i)
+	for (i = 7, i <= len, ++i) //we know the first 6 chars are Guest-
 		ch = text2ascii(key, i)
-		if (ch < 48 || ch > 57)
-			return 0
-	return 1
+		if (ch < 48 || ch > 57) //0-9
+			return FALSE
+	return TRUE
 
 //// Generalised helper proc for letting mobs rename themselves. Used to be clname() and ainame()
 /mob/proc/apply_pref_name(role, client/C)
@@ -272,7 +268,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/mob/living/silicon/ai/selected
 	var/list/active = active_ais()
 	for(var/mob/living/silicon/ai/A in active)
-		if(!selected || (selected.connected_robots.len > A.connected_robots.len))
+		if((!selected || (selected.connected_robots.len > A.connected_robots.len)) && !is_servant_of_ratvar(A))
 			selected = A
 
 	return selected
@@ -282,7 +278,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/list/borgs = active_free_borgs()
 	if(borgs.len)
 		if(user)
-			. = input(user,"Unshackled cyborg signals detected:", "Cyborg Selection", borgs[1]) in borgs
+			. = input(user,"Unshackled cyborg signals detected:", "Cyborg Selection", borgs[1]) in sortList(borgs)
 		else
 			. = pick(borgs)
 	return .
@@ -292,7 +288,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/list/ais = active_ais()
 	if(ais.len)
 		if(user)
-			. = input(user,"AI signals detected:", "AI Selection", ais[1]) in ais
+			. = input(user,"AI signals detected:", "AI Selection", ais[1]) in sortList(ais)
 		else
 			. = pick(ais)
 	return .
@@ -387,14 +383,6 @@ Turf and target are separate in case you want to teleport some distance from a t
 	// means that one unit is 1 kJ.
 	return DisplayJoules(units * SSmachines.wait * 0.1 / GLOB.CELLRATE)
 
-/proc/get_mob_by_ckey(key)
-	if(!key)
-		return
-	var/list/mobs = sortmobs()
-	for(var/mob/M in mobs)
-		if(M.ckey == key)
-			return M
-
 //Returns the atom sitting on the turf.
 //For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
 //Optional arg 'type' to stop once it reaches a specific type instead of a turf.
@@ -451,15 +439,6 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/x = min(world.maxx, max(1, A.x + dx))
 	var/y = min(world.maxy, max(1, A.y + dy))
 	return locate(x,y,A.z)
-
-#if DM_VERSION > 513
-#warn 513 is definitely stable now, remove this
-#endif
-#if DM_VERSION < 513
-/proc/arctan(x)
-	var/y=arcsin(x/sqrt(1+x*x))
-	return y
-#endif
 
 /// Gets all contents of contents and returns them all in a list.
 /atom/proc/GetAllContents(var/T)
@@ -1197,7 +1176,7 @@ proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
 	if(matches.len==1)
 		chosen = matches[1]
 	else
-		chosen = input("Select a type", "Pick Type", matches[1]) as null|anything in matches
+		chosen = input("Select a type", "Pick Type", matches[1]) as null|anything in sortList(matches)
 		if(!chosen)
 			return
 	chosen = matches[chosen]
@@ -1354,6 +1333,10 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			var/obj/structure/window/W = O
 			if(W.ini_dir == dir_to_check || W.ini_dir == FULLTILE_WINDOW_DIR || dir_to_check == FULLTILE_WINDOW_DIR)
 				return FALSE
+		if(istype(O, /obj/structure/railing))
+			var/obj/structure/railing/rail = O
+			if(rail.ini_dir == dir_to_check || rail.ini_dir == FULLTILE_WINDOW_DIR || dir_to_check == FULLTILE_WINDOW_DIR)
+				return FALSE
 	return TRUE
 
 #define UNTIL(X) while(!(X)) stoplag()
@@ -1426,7 +1409,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /proc/GUID()
 	var/const/GUID_VERSION = "b"
 	var/const/GUID_VARIANT = "d"
-	var/node_id = copytext(md5("[rand()*rand(1,9999999)][world.name][world.hub][world.hub_password][world.internet_address][world.address][world.contents.len][world.status][world.port][rand()*rand(1,9999999)]"), 1, 13)
+	var/node_id = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, "[rand()*rand(1,9999999)][world.name][world.hub][world.hub_password][world.internet_address][world.address][world.contents.len][world.status][world.port][rand()*rand(1,9999999)]"), 1, 13)
 
 	var/time_high = "[num2hex(text2num(time2text(world.realtime,"YYYY")), 2)][num2hex(world.realtime, 6)]"
 
@@ -1450,7 +1433,7 @@ If it ever becomes necesary to get a more performant REF(), this lies here in wa
 /proc/REF(datum/input)
 	if(istype(input) && (input.datum_flags & DF_USE_TAG))
 		if(input.tag)
-			return "\[[url_encode(input.tag)]\]"
+			return "\[[rustg_url_encode(input.tag)]\]"
 		stack_trace("A ref was requested of an object with DF_USE_TAG set but no tag: [input]")
 		input.datum_flags &= ~DF_USE_TAG
 	return "\ref[input]"
@@ -1610,50 +1593,46 @@ config_setting should be one of the following:
 
 #define TURF_FROM_COORDS_LIST(List) (locate(List[1], List[2], List[3]))
 
-// Converts browser keycodes to BYOND keycodes.
-/proc/browser_keycode_to_byond(keycode)
-	keycode = text2num(keycode)
-	switch(keycode)
-		// letters and numbers
-		if(65 to 90, 48 to 57)
-			return ascii2text(keycode)
-		if(17)
-			return "Ctrl"
-		if(18)
-			return "Alt"
-		if(16)
-			return "Shift"
-		if(37)
-			return "West"
-		if(38)
-			return "North"
-		if(39)
-			return "East"
-		if(40)
-			return "South"
-		if(45)
-			return "Insert"
-		if(46)
-			return "Delete"
-		if(36)
-			return "Northwest"
-		if(35)
-			return "Southwest"
-		if(33)
-			return "Northeast"
-		if(34)
-			return "Southeast"
-		if(112 to 123)
-			return "F[keycode-111]"
-		if(96 to 105)
-			return "Numpad[keycode-96]"
-		if(188)
-			return ","
-		if(190)
-			return "."
-		if(189)
-			return "-"
-
 /proc/get_final_z(atom/A)
 	var/turf/T = get_turf(A)
 	return T ? T.z : A.z
+
+/proc/invertDir(var/input_dir)
+	switch(input_dir)
+		if(UP)
+			return DOWN
+		if(DOWN)
+			return UP
+		if(-INFINITY to 0, 11 to INFINITY)
+			CRASH("Can't turn invalid directions!")
+	return turn(input_dir, 180)
+
+/**
+ * Sends a topic call to crosscomms servers.
+ *
+ * Params:
+ * sender - Name of the IC entity sending the message
+ * msg - Message text to send
+ * type - What handler the recieving server should use
+ * insecure - Send the messages to insecure servers
+*/
+/proc/comms_send(sender, msg, type, insecure = FALSE)
+	var/list/message = list()
+	message["message_sender"] = sender
+	message["message"] = msg
+	message["source"] = "([CONFIG_GET(string/cross_comms_name)])"
+	message += type
+
+	var/comms_key = CONFIG_GET(string/comms_key)
+	if(comms_key)
+		message["key"] = comms_key
+		var/list/servers = CONFIG_GET(keyed_list/cross_server)
+		for(var/I in servers)
+			world.Export("[servers[I]]?[list2params(message)]")
+
+	comms_key = CONFIG_GET(string/comms_key_insecure)
+	if(comms_key && insecure)
+		message["key"] = comms_key
+		var/list/servers = CONFIG_GET(keyed_list/insecure_cross_server)
+		for(var/I in servers)
+			world.Export("[servers[I]]?[list2params(message)]")

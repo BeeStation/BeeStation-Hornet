@@ -17,7 +17,7 @@ proc
 			file = file_path
 		else
 			file = file(file_path)
-		return dd_text2list(file2text(file), separator)
+		return dd_text2list(rustg_file_read(file), separator)
 
 
     ////////////////////

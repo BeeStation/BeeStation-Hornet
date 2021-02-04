@@ -1,5 +1,5 @@
 /mob/living/simple_animal/hostile/nanotrasen
-	name = "Nanotrasen Private Security Officer"
+	name = "\improper Nanotrasen Private Security Officer"
 	desc = "An officer part of Nanotrasen's private security force, he seems rather unpleased to meet you."
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "nanotrasen"
@@ -17,9 +17,7 @@
 	robust_searching = 1
 	maxHealth = 100
 	health = 100
-	harm_intent_damage = 5
-	melee_damage_lower = 10
-	melee_damage_upper = 15
+	melee_damage = 12
 	attacktext = "punches"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HARM

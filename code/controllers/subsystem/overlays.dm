@@ -23,11 +23,11 @@ SUBSYSTEM_DEF(overlays)
 
 
 /datum/controller/subsystem/overlays/stat_entry()
-	..("Ov:[length(queue)]")
+	. = ..("Ov:[length(queue)]")
 
 
 /datum/controller/subsystem/overlays/Shutdown()
-	text2file(render_stats(stats), "[GLOB.log_directory]/overlay.log")
+	rustg_file_append(render_stats(stats), "[GLOB.log_directory]/overlay.log")
 
 
 /datum/controller/subsystem/overlays/Recover()

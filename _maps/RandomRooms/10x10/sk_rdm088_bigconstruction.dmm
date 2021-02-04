@@ -40,10 +40,12 @@
 /obj/machinery/door/window/northleft,
 /obj/structure/window/reinforced/spawner/east,
 /obj/structure/window/reinforced/spawner/west,
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
 /obj/machinery/door/airlock/external/glass,
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (

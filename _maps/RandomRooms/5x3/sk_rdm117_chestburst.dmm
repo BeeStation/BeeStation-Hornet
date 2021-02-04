@@ -1,0 +1,120 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/tracks{
+	icon_state = "tracks";
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	icon_state = "tracks";
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	icon_state = "tracks";
+	dir = 5
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/structure/table,
+/obj/item/storage/box/beakers{
+	pixel_y = 5
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/tracks{
+	icon_state = "tracks";
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/effect/decal/cleanable/blood/gibs/down,
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/structure/table,
+/obj/item/storage/belt/medical,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/retractor,
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/open/floor/plating,
+/area/template_noop)
+"j" = (
+/obj/vehicle/ridden/wheelchair{
+	icon_state = "wheelchair";
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"k" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/remains/xeno/larva,
+/obj/effect/spawner/lootdrop/trap,
+/obj/effect/trap/nexus/trickyspawner/xeno,
+/turf/open/floor/plating,
+/area/template_noop)
+"l" = (
+/obj/structure/table,
+/obj/item/storage/firstaid,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"m" = (
+/obj/structure/table,
+/obj/item/encryptionkey/headset_med{
+	pixel_y = 5
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small/broken,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+b
+g
+j
+"}
+(2,1,1) = {"
+f
+l
+n
+"}
+(3,1,1) = {"
+c
+h
+a
+"}
+(4,1,1) = {"
+d
+i
+k
+"}
+(5,1,1) = {"
+e
+a
+m
+"}

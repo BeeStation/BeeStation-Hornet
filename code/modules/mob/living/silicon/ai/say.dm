@@ -26,7 +26,8 @@
 	..()
 
 /mob/living/silicon/ai/get_message_mode(message)
-	if(copytext(message, 1, 3) in list(":h", ":H", ".h", ".H", "#h", "#H"))
+	var/static/regex/holopad_finder = regex(@"[:.#][hH]")
+	if(holopad_finder.Find(message, 1, 1))
 		return MODE_HOLOPAD
 	else
 		return ..()
@@ -96,7 +97,7 @@
 		to_chat(src, "<span class='notice'>Please wait [DisplayTimeText(announcing_vox - world.time)].</span>")
 		return
 
-	var/message = input(src, "WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", src.last_announcement) as text
+	var/message = capped_input(src, "WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", src.last_announcement)
 
 	last_announcement = message
 

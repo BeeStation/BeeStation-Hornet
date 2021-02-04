@@ -12,8 +12,8 @@
 	var/obj/item/clothing/suit/space/hardsuit/suit
 	item_color = "engineering" //Determines used sprites: hardsuit[on]-[color] and hardsuit[on]-[color]2 (lying down sprite)
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH	| PEPPERPROOF
-	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	var/rad_count = 0
 	var/rad_record = 0
 	var/grace_count = 0
@@ -26,8 +26,9 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()
-	. = ..()
+	QDEL_NULL(soundloop)
 	STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
 	on = !on
@@ -291,22 +292,10 @@
 	on = !on
 	if(on || force)
 		to_chat(user, "<span class='notice'>You switch your hardsuit to EVA mode, sacrificing speed for space protection.</span>")
-		name = initial(name)
-		desc = initial(desc)
-		set_light(brightness_on)
-		clothing_flags |= visor_flags
-		flags_cover |= HEADCOVERSEYES | HEADCOVERSMOUTH
-		flags_inv |= visor_flags_inv
-		cold_protection |= HEAD
+		activate_space_mode()
 	else
 		to_chat(user, "<span class='notice'>You switch your hardsuit to combat mode and can now run at full speed.</span>")
-		name += " (combat)"
-		desc = alt_desc
-		set_light(0)
-		clothing_flags &= ~visor_flags
-		flags_cover &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
-		flags_inv &= ~visor_flags_inv
-		cold_protection &= ~HEAD
+		activate_combat_mode()
 	update_icon()
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
 	toggle_hardsuit_mode(user)
@@ -320,25 +309,32 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/toggle_hardsuit_mode(mob/user) //Helmet Toggles Suit Mode
 	if(linkedsuit)
-		if(on)
-			linkedsuit.name = initial(linkedsuit.name)
-			linkedsuit.desc = initial(linkedsuit.desc)
-			linkedsuit.slowdown = 1
-			linkedsuit.clothing_flags |= STOPSPRESSUREDAMAGE
-			linkedsuit.cold_protection |= CHEST | GROIN | LEGS | FEET | ARMS | HANDS
-		else
-			linkedsuit.name += " (combat)"
-			linkedsuit.desc = linkedsuit.alt_desc
-			linkedsuit.slowdown = 0
-			linkedsuit.clothing_flags &= ~STOPSPRESSUREDAMAGE
-			linkedsuit.cold_protection &= ~(CHEST | GROIN | LEGS | FEET | ARMS | HANDS)
-
 		linkedsuit.icon_state = "hardsuit[on]-[item_color]"
 		linkedsuit.update_icon()
-		user.update_inv_wear_suit()
-		user.update_inv_w_uniform()
-		user.update_equipment_speed_mods()
+		if(on)
+			linkedsuit.activate_space_mode()
+		else
+			linkedsuit.activate_combat_mode()
 
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/activate_space_mode()
+	name = initial(name)
+	desc = initial(desc)
+	set_light(brightness_on)
+	clothing_flags |= visor_flags
+	flags_cover |= HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags_inv |= visor_flags_inv
+	cold_protection |= HEAD
+	on = TRUE
+
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/activate_combat_mode()
+	name += " (combat)"
+	desc = alt_desc
+	set_light(0)
+	clothing_flags &= ~visor_flags
+	flags_cover &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
+	flags_inv &= ~visor_flags_inv
+	cold_protection &= ~HEAD
+	on = FALSE
 
 /obj/item/clothing/suit/space/hardsuit/syndi
 	name = "blood-red hardsuit"
@@ -352,6 +348,45 @@
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
+
+/obj/item/clothing/suit/space/hardsuit/syndi/RemoveHelmet()
+	. = ..()
+	//Update helmet to non combat mode
+	var/obj/item/clothing/head/helmet/space/hardsuit/syndi/syndieHelmet = helmet
+	syndieHelmet.activate_combat_mode()
+	syndieHelmet.update_icon()
+	for(var/X in syndieHelmet.actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+	//Update the icon_state first
+	icon_state = "hardsuit[syndieHelmet.on]-[syndieHelmet.item_color]"
+	update_icon()
+	//Actually apply the non-combat mode to suit and update the suit overlay
+	activate_combat_mode()
+
+/obj/item/clothing/suit/space/hardsuit/syndi/proc/activate_space_mode()
+	name = initial(name)
+	desc = initial(desc)
+	slowdown = 1
+	clothing_flags |= STOPSPRESSUREDAMAGE
+	cold_protection |= CHEST | GROIN | LEGS | FEET | ARMS | HANDS
+	if(ishuman(loc))
+		var/mob/living/carbon/H = loc
+		H.update_equipment_speed_mods()
+		H.update_inv_wear_suit()
+		H.update_inv_w_uniform()
+
+/obj/item/clothing/suit/space/hardsuit/syndi/proc/activate_combat_mode()
+	name += " (combat)"
+	desc = alt_desc
+	slowdown = 0
+	clothing_flags &= ~STOPSPRESSUREDAMAGE
+	cold_protection &= ~(CHEST | GROIN | LEGS | FEET | ARMS | HANDS)
+	if(ishuman(loc))
+		var/mob/living/carbon/H = loc
+		H.update_equipment_speed_mods()
+		H.update_inv_wear_suit()
+		H.update_inv_w_uniform()
 
 //Elite Syndie suit
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
@@ -859,6 +894,22 @@
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	actions_types = list()
+
+/obj/item/clothing/suit/space/hardsuit/shielded/swat/honk
+	name = "honk squad spacesuit"
+	desc = "A hilarious hardsuit favored by HONK squad troopers for use in special pranks."
+	icon_state = "hardsuit-clown"
+	item_state = "clown_hardsuit"
+	item_color = "clown"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/swat/honk
+
+/obj/item/clothing/head/helmet/space/hardsuit/shielded/swat/honk
+	name = "honk squad helmet"
+	desc = "A hilarious helmet with built in anti-mime propaganda shielding."
+	icon_state = "hardsuit0-clown"
+	item_state = "hardsuit0-clown"
+	item_color = "clown"
+
 
 // Doomguy ERT version
 /obj/item/clothing/suit/space/hardsuit/shielded/doomguy

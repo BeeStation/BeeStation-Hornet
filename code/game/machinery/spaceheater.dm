@@ -13,8 +13,8 @@
 	max_integrity = 250
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 10)
 	circuit = /obj/item/circuitboard/machine/space_heater
-	ui_x = 400
-	ui_y = 305
+
+
 
 	var/obj/item/stock_parts/cell/cell
 	var/on = FALSE
@@ -85,9 +85,9 @@
 		var/datum/gas_mixture/env = L.return_air()
 
 		var/newMode = HEATER_MODE_STANDBY
-		if(setMode != HEATER_MODE_COOL && env.temperature < targetTemperature - temperatureTolerance)
+		if(setMode != HEATER_MODE_COOL && env.return_temperature() < targetTemperature - temperatureTolerance)
 			newMode = HEATER_MODE_HEAT
-		else if(setMode != HEATER_MODE_HEAT && env.temperature > targetTemperature + temperatureTolerance)
+		else if(setMode != HEATER_MODE_HEAT && env.return_temperature() > targetTemperature + temperatureTolerance)
 			newMode = HEATER_MODE_COOL
 
 		if(mode != newMode)
@@ -98,7 +98,7 @@
 			return
 
 		var/heat_capacity = env.heat_capacity()
-		var/requiredPower = abs(env.temperature - targetTemperature) * heat_capacity
+		var/requiredPower = abs(env.return_temperature() - targetTemperature) * heat_capacity
 		requiredPower = min(requiredPower, heatingPower)
 
 		if(requiredPower < 1)
@@ -108,7 +108,7 @@
 		if(mode == HEATER_MODE_COOL)
 			deltaTemperature *= -1
 		if(deltaTemperature)
-			env.temperature += deltaTemperature
+			env.set_temperature(env.return_temperature() + deltaTemperature)
 			air_update_turf()
 		cell.use(requiredPower / efficiency)
 	else
@@ -168,11 +168,14 @@
 	else
 		return ..()
 
-/obj/machinery/space_heater/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-										datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/space_heater/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/machinery/space_heater/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SpaceHeater", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "SpaceHeater")
 		ui.open()
 
 /obj/machinery/space_heater/ui_data()
@@ -191,9 +194,9 @@
 	var/curTemp
 	if(istype(L))
 		var/datum/gas_mixture/env = L.return_air()
-		curTemp = env.temperature
+		curTemp = env.return_temperature()
 	else if(isturf(L))
-		curTemp = L.temperature
+		curTemp = L.return_temperature()
 	if(isnull(curTemp))
 		data["currentTemp"] = "N/A"
 	else

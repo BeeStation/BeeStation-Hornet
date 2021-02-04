@@ -103,7 +103,11 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 /obj/machinery/telecomms/proc/add_link(obj/machinery/telecomms/T)
 	var/turf/position = get_turf(src)
 	var/turf/T_position = get_turf(T)
-	if((position.z == T_position.z) || (long_range_link && T.long_range_link))
+	var/same_zlevel = FALSE
+	if(position && T_position)	//Stops a bug with a phantom telecommunications interceptor which is spawned by circuits caching their components into nullspace
+		if(position.z == T_position.z)
+			same_zlevel = TRUE
+	if(same_zlevel || (long_range_link && T.long_range_link))
 		if(src != T)
 			for(var/x in autolinkers)
 				if(x in T.autolinkers)
@@ -132,7 +136,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 			on = TRUE
 	else
 		on = FALSE
-	
+
 	set_light(on)
 
 /obj/machinery/telecomms/process()

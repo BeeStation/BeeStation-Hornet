@@ -6,6 +6,7 @@
 	antagpanel_category = "Abductor"
 	job_rank = ROLE_ABDUCTOR
 	show_in_antagpanel = FALSE //should only show subtypes
+	show_to_ghosts = TRUE
 	var/datum/team/abductor_team/team
 	var/sub_role
 	var/outfit
@@ -33,6 +34,10 @@
 	name = "Abductor Solo"
 	outfit = /datum/outfit/abductor/scientist/onemanteam
 
+/datum/antagonist/abductor/scientist/onemanteam
+	name = "Abductor Solo"
+	outfit = /datum/outfit/abductor/scientist/onemanteam
+
 /datum/antagonist/abductor/create_team(datum/team/abductor_team/new_team)
 	if(!new_team)
 		return
@@ -47,6 +52,8 @@
 	owner.special_role = "[name]"
 	owner.assigned_role = "[name]"
 	objectives += team.objectives
+	for(var/datum/objective/O in objectives)
+		log_objective(owner.current, O.explanation_text)
 	finalize_abductor()
 	ADD_TRAIT(owner, TRAIT_ABDUCTOR_TRAINING, ABDUCTOR_ANTAGONIST)
 	return ..()
@@ -65,6 +72,8 @@
 	to_chat(owner.current, "<span class='notice'>Choose a worthy disguise and plan your targets carefully! Humans will kill you on sight.</span>")
 	to_chat(owner.current, "<span class='notice'>[greet_text]</span>")
 	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Abductor",
+		"Capture and experiment on members of the crew, without being spotted.")
 
 /datum/antagonist/abductor/proc/finalize_abductor()
 	//Equip
@@ -144,6 +153,8 @@
 	O.team = src
 	O.update_explanation_text()
 	objectives += O
+	for(var/datum/mind/abductor_mind in members)
+		log_objective(abductor_mind, O.explanation_text)
 
 /datum/team/abductor_team/roundend_report()
 	var/list/result = list()
@@ -177,6 +188,10 @@
 	to_chat(owner, "<span class='warning'><b>Your mind snaps!</b></span>")
 	to_chat(owner, "<big><span class='warning'><b>You can't remember how you got here...</b></span></big>")
 	owner.announce_objectives()
+	var/datum/objective/first_objective = objectives[1]
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Abductee",
+		"Something isn't right with your brain, you feel like there is something you have to do no matter what...\n\
+		[LAZYLEN(objectives)?"<B>Objective</B>: [first_objective.explanation_text]": "Nevermind..."]")
 
 /datum/antagonist/abductee/proc/give_objective()
 	var/mob/living/carbon/human/H = owner.current
@@ -185,6 +200,7 @@
 	var/objtype = (prob(75) ? /datum/objective/abductee/random : pick(subtypesof(/datum/objective/abductee/) - /datum/objective/abductee/random))
 	var/datum/objective/abductee/O = new objtype()
 	objectives += O
+	log_objective(H, O.explanation_text)
 
 /datum/antagonist/abductee/apply_innate_effects(mob/living/mob_override)
 	update_abductor_icons_added(mob_override ? mob_override.mind : owner,"abductee")

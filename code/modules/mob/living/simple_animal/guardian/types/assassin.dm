@@ -1,7 +1,6 @@
 //Assassin
 /mob/living/simple_animal/hostile/guardian/assassin
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	attacktext = "slashes"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
@@ -10,11 +9,11 @@
 	tech_fluff_string = "<span class='holoparasite'>Boot sequence complete. Assassin modules loaded. Holoparasite swarm online.</span>"
 	carp_fluff_string = "<span class='holoparasite'>CARP CARP CARP! Caught one! It's an assassin carp! Just when you thought it was safe to go back to the water... which is unhelpful, because we're in space.</span>"
 	hive_fluff_string = "<span class='holoparasite'>The mass seems to be able to attack with stealth causing massive damage.</span>"
-	toggle_button_type = /obj/screen/guardian/ToggleMode/Assassin
+	toggle_button_type = /atom/movable/screen/guardian/ToggleMode/Assassin
 	var/toggle = FALSE
 	var/stealthcooldown = 160
-	var/obj/screen/alert/canstealthalert
-	var/obj/screen/alert/instealthalert
+	var/atom/movable/screen/alert/canstealthalert
+	var/atom/movable/screen/alert/instealthalert
 
 /mob/living/simple_animal/hostile/guardian/assassin/Initialize()
 	. = ..()
@@ -26,11 +25,10 @@
 	if(loc == summoner && toggle)
 		ToggleMode(0)
 
-/mob/living/simple_animal/hostile/guardian/assassin/Stat()
-	..()
-	if(statpanel("Status"))
-		if(stealthcooldown >= world.time)
-			stat(null, "Stealth Cooldown Remaining: [DisplayTimeText(stealthcooldown - world.time)]")
+/mob/living/simple_animal/hostile/guardian/assassin/get_stat_tab_status()
+	var/list/tab_data = ..()
+	if(stealthcooldown >= world.time)
+		tab_data["Stealth Cooldown Remaining"] = GENERATE_STAT_TEXT("[DisplayTimeText(stealthcooldown - world.time)]")
 
 /mob/living/simple_animal/hostile/guardian/assassin/AttackingTarget()
 	. = ..()
@@ -49,8 +47,7 @@
 
 /mob/living/simple_animal/hostile/guardian/assassin/ToggleMode(forced = 0)
 	if(toggle)
-		melee_damage_lower = initial(melee_damage_lower)
-		melee_damage_upper = initial(melee_damage_upper)
+		melee_damage = initial(melee_damage)
 		armour_penetration = initial(armour_penetration)
 		obj_damage = initial(obj_damage)
 		environment_smash = initial(environment_smash)
@@ -67,8 +64,7 @@
 		if(src.loc == summoner)
 			to_chat(src, "<span class='danger'><B>You have to be manifested to enter stealth!</span></B>")
 			return
-		melee_damage_lower = 50
-		melee_damage_upper = 50
+		melee_damage = 50
 		armour_penetration = 100
 		obj_damage = 0
 		environment_smash = ENVIRONMENT_SMASH_NONE
@@ -85,12 +81,12 @@
 	if(stealthcooldown <= world.time)
 		if(toggle)
 			if(!instealthalert)
-				instealthalert = throw_alert("instealth", /obj/screen/alert/instealth)
+				instealthalert = throw_alert("instealth", /atom/movable/screen/alert/instealth)
 				clear_alert("canstealth")
 				canstealthalert = null
 		else
 			if(!canstealthalert)
-				canstealthalert = throw_alert("canstealth", /obj/screen/alert/canstealth)
+				canstealthalert = throw_alert("canstealth", /atom/movable/screen/alert/canstealth)
 				clear_alert("instealth")
 				instealthalert = null
 	else

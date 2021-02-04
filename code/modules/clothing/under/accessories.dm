@@ -195,7 +195,7 @@
 /obj/item/clothing/accessory/medal/silver/excellence
 	name = "the head of personnel award for outstanding achievement in the field of excellence"
 	desc = "Nanotrasen's dictionary defines excellence as \"the quality or condition of being excellent\". This is awarded to those rare crewmembers who fit that definition."
-	
+
 /obj/item/clothing/accessory/medal/gold
 	name = "gold medal"
 	desc = "A prestigious golden medal."
@@ -240,10 +240,20 @@
 
 /obj/item/clothing/accessory/armband
 	name = "red armband"
-	desc = "An fancy red armband!"
+	desc = "A fancy red armband!"
 	icon_state = "redband"
 	item_color = "redband"
 	attachment_slot = null
+
+/obj/item/clothing/accessory/armband/blue
+	name = "blue armband"
+	desc = "A fancy blue armband!"
+	color = list(0,0,1, 0,1,0, 1,0,0)
+
+/obj/item/clothing/accessory/armband/green
+	name = "green armband"
+	desc = "A fancy green armband!"
+	color = list(0,1,0, 1,0,0, 0,0,1)
 
 /obj/item/clothing/accessory/armband/deputy
 	name = "security deputy armband"
@@ -351,3 +361,36 @@
 	above_suit = TRUE
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 0, "acid" = 25)
 	attachment_slot = GROIN
+
+/obj/item/clothing/accessory/holster
+	name = "shoulder holster"
+	desc = "A holster to carry a handgun and ammo. WARNING: Badasses only."
+	icon_state = "holster"
+	item_state = "holster"
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/holster
+
+/obj/item/clothing/accessory/holster/detective
+	name = "detective's shoulder holster"
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/holster/detective
+
+/obj/item/clothing/accessory/holster/detective/Initialize()
+	. = ..()
+	new /obj/item/gun/ballistic/revolver/detective(src)
+	new /obj/item/ammo_box/c38(src)
+	new /obj/item/ammo_box/c38(src)
+
+//Poppy Pin
+/obj/item/clothing/accessory/poppy_pin
+	name = "poppy pin"
+	desc = "A pin made from a poppy, worn to remember those who have fallen in war."
+	icon_state = "poppy_pin"
+
+/obj/item/clothing/accessory/poppy_pin/on_uniform_equip(obj/item/clothing/under/U, user)
+	var/mob/living/L = user
+	if(L && L.mind)
+		SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "poppy_pin", /datum/mood_event/poppy_pin)
+
+/obj/item/clothing/accessory/poppy_pin/on_uniform_dropped(obj/item/clothing/under/U, user)
+	var/mob/living/L = user
+	if(L && L.mind)
+		SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "poppy_pin")

@@ -56,8 +56,8 @@
 	integrity_failure = 50
 	resistance_flags = FIRE_PROOF
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
-	ui_x = 450
-	ui_y = 460
+
+
 
 	FASTDMM_PROP(\
 		set_instance_vars(\
@@ -111,6 +111,9 @@
 	var/update_overlay = -1
 	var/icon_update_needed = FALSE
 	var/obj/machinery/computer/apc_control/remote_control = null
+
+	var/clock_cog_rewarded = FALSE	//Clockcult - Has the reward for converting an APC been given?
+	var/integration_cog = null		//Clockcult - The integration cog inserted inside of us
 
 /obj/machinery/power/apc/unlocked
 	locked = FALSE
@@ -272,6 +275,8 @@
 		else
 			. += {"It's [ !terminal ? "not" : "" ] wired up.\n
 			The electronics are[!has_electronics?"n't":""] installed."}
+		if(integration_cog || (user.hallucinating() && prob(20)))
+			. += "A small cogwheel is inside of it."
 
 	else
 		if (stat & MAINT)
@@ -429,12 +434,18 @@
 /obj/machinery/power/apc/crowbar_act(mob/user, obj/item/W)
 	. = TRUE
 	if (opened)
-		if (has_electronics == APC_ELECTRONICS_INSTALLED)
+		if(integration_cog)
+			to_chat(user, "<span class='notice'>You begin prying something out of the APC.</span>")
+			W.play_tool_sound(src)
+			if(W.use_tool(src, user, 50))
+				to_chat(user, "<span class='warning'>You screw up breaking whatever was inside!</span>")
+				QDEL_NULL(integration_cog)
+		else if (has_electronics == APC_ELECTRONICS_INSTALLED)
 			if (terminal)
 				to_chat(user, "<span class='warning'>Disconnect the wires first!</span>")
 				return
 			W.play_tool_sound(src)
-			to_chat(user, "<span class='notice'>You attempt to remove the power control board...</span>" )
+			to_chat(user, "<span class='notice'>You attempt to remove the power control board.</span>" )
 			if(W.use_tool(src, user, 50))
 				if (has_electronics == APC_ELECTRONICS_INSTALLED)
 					has_electronics = APC_ELECTRONICS_MISSING
@@ -515,7 +526,7 @@
 		return
 	else
 		panel_open = !panel_open
-		to_chat(user, "The wires have been [panel_open ? "exposed" : "unexposed"]")
+		to_chat(user, "The wires have been [panel_open ? "exposed" : "unexposed"].")
 		update_icon()
 
 /obj/machinery/power/apc/wirecutter_act(mob/living/user, obj/item/W)
@@ -529,7 +540,7 @@
 		if(!W.tool_start_check(user, amount=3))
 			return
 		user.visible_message("[user.name] welds [src].", \
-							"<span class='notice'>You start welding the APC frame...</span>", \
+							"<span class='notice'>You start welding the APC frame.</span>", \
 							"<span class='italics'>You hear welding.</span>")
 		if(W.use_tool(src, user, 50, volume=50, amount=3))
 			if ((stat & BROKEN) || opened==APC_COVER_REMOVED)
@@ -587,7 +598,7 @@
 			to_chat(user, "<span class='warning'>You need ten lengths of cable for APC!</span>")
 			return
 		user.visible_message("[user.name] adds cables to the APC frame.", \
-							"<span class='notice'>You start adding cables to the APC frame...</span>")
+							"<span class='notice'>You start adding cables to the APC frame.</span>")
 		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 		if(do_after(user, 20, target = src))
 			if (C.get_amount() < 10 || !C)
@@ -611,7 +622,7 @@
 			return
 
 		user.visible_message("[user.name] inserts the power control board into [src].", \
-							"<span class='notice'>You start to insert the power control board into the frame...</span>")
+							"<span class='notice'>You start to insert the power control board into the frame.</span>")
 		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 		if(do_after(user, 10, target = src))
 			if(!has_electronics)
@@ -642,18 +653,18 @@
 			cell = C
 			chargecount = 0
 			user.visible_message("<span class='notice'>[user] fabricates a weak power cell and places it into [src].</span>", \
-			"<span class='warning'>Your [P.name] whirrs with strain as you create a weak power cell and place it into [src]!</span>")
+			"<span class='warning'>Your [P.name] whirs with strain as you create a weak power cell and place it into [src]!</span>")
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>[src] has both electronics and a cell.</span>")
 			return
 	else if (istype(W, /obj/item/wallframe/apc) && opened)
 		if (!(stat & BROKEN || opened==APC_COVER_REMOVED || obj_integrity < max_integrity)) // There is nothing to repair
-			to_chat(user, "<span class='warning'>You found no reason for repairing this APC</span>")
+			to_chat(user, "<span class='warning'>You find no reason for repairing this APC.</span>")
 			return
 		if (!(stat & BROKEN) && opened==APC_COVER_REMOVED) // Cover is the only thing broken, we do not need to remove elctronicks to replace cover
 			user.visible_message("[user.name] replaces missing APC's cover.",\
-							"<span class='notice'>You begin to replace APC's cover...</span>")
+							"<span class='notice'>You begin to replace APC's cover.</span>")
 			if(do_after(user, 20, target = src)) // replacing cover is quicker than replacing whole frame
 				to_chat(user, "<span class='notice'>You replace missing APC's cover.</span>")
 				qdel(W)
@@ -664,7 +675,7 @@
 			to_chat(user, "<span class='warning'>You cannot repair this APC until you remove the electronics still inside!</span>")
 			return
 		user.visible_message("[user.name] replaces the damaged APC frame with a new one.",\
-							"<span class='notice'>You begin to replace the damaged APC frame...</span>")
+							"<span class='notice'>You begin to replace the damaged APC frame.</span>")
 		if(do_after(user, 50, target = src))
 			to_chat(user, "<span class='notice'>You replace the damaged APC frame with a new one.</span>")
 			qdel(W)
@@ -683,7 +694,6 @@
 		return ..()
 
 /obj/machinery/power/apc/AltClick(mob/user)
-	..()
 	if(!user.canUseTopic(src, !issilicon(user)) || !isturf(loc))
 		return
 	else
@@ -757,40 +767,55 @@
 	. = ..()
 	if(.)
 		return
-	var/mob/living/carbon/human/H = user
-	var/datum/species/ethereal/eth_species = H.dna?.species
-	if(istype(H) && istype(eth_species))
-		if(H.a_intent == INTENT_HARM)
-			if(eth_species.ethereal_charge >= ETHEREAL_CHARGE_FULL - 19)
+
+	if(isethereal(user))
+		var/mob/living/carbon/human/H = user
+		var/datum/species/ethereal/E = H.dna.species
+		if((H.a_intent == INTENT_HARM) && (E.drain_time < world.time))
+			if(cell.charge <= (cell.maxcharge / 2)) // if charge is under 50% you shouldn't drain it
+				to_chat(H, "<span class='warning'>The APC doesn't have much power, you probably shouldn't drain any.</span>")
+				return
+			var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+			if(!istype(stomach))
+				to_chat(H, "<span class='warning'>You can't receive charge!</span>")
+				return
+			if(stomach.crystal_charge >= ETHEREAL_CHARGE_FULL)
 				to_chat(H, "<span class='warning'>Your charge is full!</span>")
 				return
-			if(cell.charge < 100)
-				to_chat(H, "<span class='warning'>The cell has no charge!</span>")
-				return
+			E.drain_time = world.time + 75
 			to_chat(H, "<span class='notice'>You start channeling some power through the APC into your body.</span>")
-			if(do_after(user, 30, target = src))
-				if(cell.charge >= 100 && eth_species.ethereal_charge < ETHEREAL_CHARGE_FULL - 19)
-					to_chat(H, "<span class='notice'>You receive some charge from the APC.</span>")
-					eth_species.adjust_charge(20)
-					cell.charge -= 50 //Charging is inefficient
-				else
-					to_chat(H, "<span class='warning'>You can't receive charge from the APC!</span>")
+			if(do_after(user, 75, target = src))
+				if(cell.charge <= (cell.maxcharge / 2) || (stomach.crystal_charge >= ETHEREAL_CHARGE_FULL))
+					to_chat(H, "<span class='warning'>You can't receive more charge from the APC.</span>")
+					return
+				to_chat(H, "<span class='notice'>You receive some charge from the APC.</span>")
+				stomach.adjust_charge(10)
+				cell.charge -= 10
+			else
+				to_chat(H, "<span class='warning'>You fail to receive charge from the APC!</span>")
 			return
-		if(H.a_intent == INTENT_GRAB)
-			if(cell.charge >= cell.maxcharge)
+		if((H.a_intent == INTENT_GRAB) && (E.drain_time < world.time))
+			if(cell.charge == cell.maxcharge)
 				to_chat(H, "<span class='warning'>The APC is full!</span>")
 				return
-			if(eth_species.ethereal_charge < 20)
+			var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+			if(!istype(stomach))
+				to_chat(H, "<span class='warning'>You can't transfer charge!</span>")
+				return
+			if(stomach.crystal_charge < 10)
 				to_chat(H, "<span class='warning'>Your charge is too low!</span>")
 				return
+			E.drain_time = world.time + 75
 			to_chat(H, "<span class='notice'>You start channeling power through your body into the APC.</span>")
-			if(do_after(user, 30, target = src))
-				if(cell.charge + 20 <= cell.maxcharge && (eth_species.ethereal_charge > 20))
-					to_chat(H, "<span class='notice'>You transfer some power to the APC.</span>")
-					eth_species.adjust_charge(-20)
-					cell.charge += 20
-				else
-					to_chat(H, "<span class='warning'>You can't transfer power to the APC!</span>")
+			if(cell.charge == cell.maxcharge || (stomach.crystal_charge < 10))
+				to_chat(H, "<span class='warning'>You can't transfer more charge to the APC.</span>")
+				return
+			if(do_after(user, 75, target = src))
+				to_chat(H, "<span class='notice'>You transfer some power to the APC.</span>")
+				stomach.adjust_charge(-10)
+				cell.charge += 10
+			else
+				to_chat(H, "<span class='warning'>You fail to transfer power to the APC!</span>")
 			return
 
 	if(opened && (!issilicon(user)))
@@ -805,12 +830,19 @@
 	if((stat & MAINT) && !opened) //no board; no interface
 		return
 
-/obj/machinery/power/apc/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-										datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/power/apc/ui_state(mob/user)
+	if(isAI(user))
+		var/mob/living/silicon/ai/AI = user
+		if(AI.apc_override == src)
+			return GLOB.conscious_state
+	return GLOB.default_state
+
+/obj/machinery/power/apc/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 
 	if(!ui)
-		ui = new(user, src, ui_key, "Apc", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "Apc")
 		ui.open()
 
 /obj/machinery/power/apc/ui_data(mob/user)
@@ -989,6 +1021,12 @@
 				CHECK_TICK
 	return 1
 
+/obj/machinery/power/apc/ui_close(mob/user)
+	if(isAI(user))
+		var/mob/living/silicon/ai/AI = user
+		if(AI.apc_override == src)
+			AI.apc_override = null
+
 /obj/machinery/power/apc/proc/toggle_breaker(mob/user)
 	if(!is_operational() || failure_timer)
 		return
@@ -1010,8 +1048,8 @@
 	malf.malfhack = src
 	malf.malfhacking = addtimer(CALLBACK(malf, /mob/living/silicon/ai/.proc/malfhacked, src), 600, TIMER_STOPPABLE)
 
-	var/obj/screen/alert/hackingapc/A
-	A = malf.throw_alert("hackingapc", /obj/screen/alert/hackingapc)
+	var/atom/movable/screen/alert/hackingapc/A
+	A = malf.throw_alert("hackingapc", /atom/movable/screen/alert/hackingapc)
 	A.target = src
 
 /obj/machinery/power/apc/proc/malfoccupy(mob/living/silicon/ai/malf)
@@ -1037,7 +1075,7 @@
 	occupier.eyeobj.name = "[occupier.name] (AI Eye)"
 	if(malf.parent)
 		qdel(malf)
-	occupier.verbs += /mob/living/silicon/ai/proc/corereturn
+	occupier.add_verb(/mob/living/silicon/ai/proc/corereturn)
 	occupier.cancel_camera()
 
 
@@ -1049,7 +1087,7 @@
 		occupier.parent.shunted = 0
 		occupier.parent.setOxyLoss(occupier.getOxyLoss())
 		occupier.parent.cancel_camera()
-		occupier.parent.verbs -= /mob/living/silicon/ai/proc/corereturn
+		occupier.parent.remove_verb(/mob/living/silicon/ai/proc/corereturn)
 		qdel(occupier)
 	else
 		to_chat(occupier, "<span class='danger'>Primary core damaged, unable to return core processes.</span>")
@@ -1096,7 +1134,7 @@
 		to_chat(occupier, "<span class='warning'>[user] moved away! Transfer canceled.</span>")
 		transfer_in_progress = FALSE
 		return
-	to_chat(user, "<span class='notice'>AI accepted request. Transferring stored intelligence to [card]...</span>")
+	to_chat(user, "<span class='notice'>AI accepted request. Transferring stored intelligence to [card].</span>")
 	to_chat(occupier, "<span class='notice'>Transfer starting. You will be moved to [card] shortly.</span>")
 	if(!do_after(user, 50, target = src))
 		to_chat(occupier, "<span class='warning'>[user] was interrupted! Transfer canceled.</span>")
@@ -1201,28 +1239,31 @@
 		else if(longtermpower > -10)
 			longtermpower -= 2
 
+		var/power_alert_fine = TRUE
+
 		if(cell.charge <= 0)					// zero charge, turn all off
 			equipment = autoset(equipment, 0)
 			lighting = autoset(lighting, 0)
 			environ = autoset(environ, 0)
-			area.poweralert(0, src)
+			power_alert_fine = FALSE
 		else if(cell.percent() < 15 && longtermpower < 0)	// <15%, turn off lighting & equipment
 			equipment = autoset(equipment, 2)
 			lighting = autoset(lighting, 2)
 			environ = autoset(environ, 1)
-			area.poweralert(0, src)
+			power_alert_fine = FALSE
 		else if(cell.percent() < 30 && longtermpower < 0)			// <30%, turn off equipment
 			equipment = autoset(equipment, 2)
 			lighting = autoset(lighting, 1)
 			environ = autoset(environ, 1)
-			area.poweralert(0, src)
+			power_alert_fine = FALSE
 		else									// otherwise all can be on
 			equipment = autoset(equipment, 1)
 			lighting = autoset(lighting, 1)
 			environ = autoset(environ, 1)
-			area.poweralert(1, src)
-			if(cell.percent() > 75)
-				area.poweralert(1, src)
+
+		if(integration_cog)
+			power_alert_fine = TRUE
+		area.poweralert(power_alert_fine, src)
 
 		// now trickle-charge the cell
 		if(chargemode && charging == APC_CHARGING && operating)
@@ -1256,6 +1297,12 @@
 		else // chargemode off
 			charging = 0
 			chargecount = 0
+
+		//=====Clock Cult=====
+		if(integration_cog && cell.charge >= cell.maxcharge/2)
+			var/power_delta = CLAMP(cell.charge - 20, 0, 20)
+			GLOB.clockcult_power += power_delta
+			cell.charge -= power_delta
 
 	else // no cell, switch everything off
 

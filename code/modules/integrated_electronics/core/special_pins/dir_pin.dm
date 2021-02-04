@@ -13,7 +13,7 @@
 	Northwest = [NORTHWEST],\n\
 	Southeast = [SOUTHEAST],\n\
 	Southwest = [SOUTHWEST]","[src] dir writing") as null|num
-	if(isnum(new_data) && holder.check_interactivity(user) )
+	if(isnum_safe(new_data) && holder.check_interactivity(user) )
 		to_chat(user, "<span class='notice'>You input [new_data] into the pin.</span>")
 		write_data_to_pin(new_data)
 

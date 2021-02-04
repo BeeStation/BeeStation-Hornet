@@ -1,5 +1,5 @@
 /client/proc/dsay(msg as text)
-	set category = "Special Verbs"
+	set category = "Adminbus"
 	set name = "Dsay"
 	set hidden = 1
 	if(!holder)
@@ -14,7 +14,7 @@
 	if (handle_spam_prevention(msg,MUTE_DEADCHAT))
 		return
 
-	msg = copytext(sanitize(msg), 1, MAX_MESSAGE_LEN)
+	msg = copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN)
 	mob.log_talk(msg, LOG_DSAY)
 
 	if (!msg)
@@ -35,5 +35,5 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Dsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/get_dead_say()
-	var/msg = input(src, null, "dsay \"text\"") as text
+	var/msg = capped_input(src, null, "dsay \"text\"")
 	dsay(msg)

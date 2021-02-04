@@ -5,11 +5,10 @@
 	desc = "A canister for the storage of gas."
 	icon_state = "yellow"
 	density = TRUE
-	ui_x = 300
-	ui_y = 232
+
+
 
 	var/valve_open = FALSE
-	var/obj/machinery/atmospherics/components/binary/passive_gate/pump
 	var/release_log = ""
 
 	volume = 1000
@@ -142,7 +141,7 @@
 
 /obj/machinery/portable_atmospherics/canister/miasma
 	name = "miasma canister"
-	desc = "Miasma. Makes you wish your nose were blocked."
+	desc = "Miasma. Makes you wish your nose was blocked."
 	icon_state = "miasma"
 	gas_type = /datum/gas/miasma
 	filled = 1
@@ -185,7 +184,14 @@
 	filled = 1
 	release_pressure = ONE_ATMOSPHERE*2
 
+/obj/machinery/portable_atmospherics/canister/vv_get_dropdown()
+	. = ..()
+	VV_DROPDOWN_OPTION(VV_HK_MODIFY_CANISTER_GAS, "Modify Canister Gas")
 
+/obj/machinery/portable_atmospherics/canister/vv_do_topic(href_list)
+	. = ..()
+	if(href_list[VV_HK_MODIFY_CANISTER_GAS])
+		usr.client.modify_canister_gas(src)
 
 /obj/machinery/portable_atmospherics/canister/New(loc, datum/gas_mixture/existing_mixture)
 	. = ..()
@@ -193,30 +199,20 @@
 		air_contents.copy_from(existing_mixture)
 	else
 		create_gas()
-	pump = new(src, FALSE)
-	pump.on = TRUE
-	pump.stat = 0
-	pump.build_network()
-
 	update_icon()
 
-/obj/machinery/portable_atmospherics/canister/Destroy()
-	qdel(pump)
-	pump = null
-	return ..()
 
 /obj/machinery/portable_atmospherics/canister/proc/create_gas()
 	if(gas_type)
-		air_contents.add_gas(gas_type)
 		if(starter_temp)
-			air_contents.temperature = starter_temp
-		air_contents.gases[gas_type][MOLES] = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
-		if(starter_temp)
-			air_contents.temperature = starter_temp
+			air_contents.set_temperature(starter_temp)
+		air_contents.set_moles(gas_type, (maximum_pressure * filled) * air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
+
 /obj/machinery/portable_atmospherics/canister/air/create_gas()
-	air_contents.add_gases(/datum/gas/oxygen, /datum/gas/nitrogen)
-	air_contents.gases[/datum/gas/oxygen][MOLES] = (O2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
-	air_contents.gases[/datum/gas/nitrogen][MOLES] = (N2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	if(starter_temp)
+		air_contents.set_temperature(starter_temp)
+	air_contents.set_moles(/datum/gas/oxygen, (O2STANDARD * maximum_pressure * filled) * air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
+	air_contents.set_moles(/datum/gas/nitrogen, (N2STANDARD * maximum_pressure * filled) * air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
 
 #define CANISTER_UPDATE_HOLDING		(1<<0)
 #define CANISTER_UPDATE_CONNECTED	(1<<1)
@@ -332,9 +328,9 @@
 		if(close_valve)
 			valve_open = FALSE
 			update_icon()
-			investigate_log("Valve was <b>closed</b> by [key_name(user)].<br>", INVESTIGATE_ATMOS)
+			investigate_log("Valve was <b>closed</b> by [key_name(user)].", INVESTIGATE_ATMOS)
 		else if(valve_open && holding)
-			investigate_log("[key_name(user)] started a transfer into [holding].<br>", INVESTIGATE_ATMOS)
+			investigate_log("[key_name(user)] started a transfer into [holding].", INVESTIGATE_ATMOS)
 
 /obj/machinery/portable_atmospherics/canister/process_atmos()
 	..()
@@ -343,26 +339,24 @@
 	if(timing && valve_timer < world.time)
 		valve_open = !valve_open
 		timing = FALSE
+
+	// Handle gas transfer.
 	if(valve_open)
 		var/turf/T = get_turf(src)
-		pump.airs[1] = air_contents
-		pump.airs[2] = holding ? holding.air_contents : T.return_air()
-		pump.target_pressure = release_pressure
+		var/datum/gas_mixture/target_air = holding ? holding.air_contents : T.return_air()
 
-		pump.process_atmos() // Pump gas.
-		if(!holding)
-			air_update_turf() // Update the environment if needed.
-	else
-		pump.airs[1] = null
-		pump.airs[2] = null
+		if(air_contents.release_gas_to(target_air, release_pressure) && !holding)
+			air_update_turf()
 
 	update_icon()
 
-/obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-															datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/portable_atmospherics/canister/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Canister", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "Canister")
 		ui.open()
 
 /obj/machinery/portable_atmospherics/canister/ui_data()
@@ -397,7 +391,7 @@
 		return
 	switch(action)
 		if("relabel")
-			var/label = input("New canister label:", name) as null|anything in label2types
+			var/label = input("New canister label:", name) as null|anything in sortList(label2types)
 			if(label && !..())
 				var/newtype = label2types[label]
 				if(newtype)
@@ -440,12 +434,11 @@
 				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting a transfer into \the [holding || "air"].<br>"
 				if(!holding)
 					var/list/danger = list()
-					for(var/id in air_contents.gases)
-						var/gas = air_contents.gases[id]
-						if(!gas[GAS_META][META_GAS_DANGER])
+					for(var/id in air_contents.get_gases())
+						if(!GLOB.meta_gas_info[id][META_GAS_DANGER])
 							continue
-						if(gas[MOLES] > (gas[GAS_META][META_GAS_MOLES_VISIBLE] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
-							danger[gas[GAS_META][META_GAS_NAME]] = gas[MOLES] //ex. "plasma" = 20
+						if(air_contents.get_moles(id) > (GLOB.meta_gas_info[id][META_GAS_MOLES_VISIBLE] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
+							danger[GLOB.meta_gas_info[id][META_GAS_NAME]] = air_contents.get_moles(id) //ex. "plasma" = 20
 
 					if(danger.len)
 						message_admins("[ADMIN_LOOKUPFLW(usr)] opened a canister that contains the following at [ADMIN_VERBOSEJMP(src)]:")

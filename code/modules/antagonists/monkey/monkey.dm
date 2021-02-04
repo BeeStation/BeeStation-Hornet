@@ -8,6 +8,7 @@
 	job_rank = ROLE_MONKEY
 	roundend_category = "monkeys"
 	antagpanel_category = "Monkey"
+	show_to_ghosts = TRUE
 	var/datum/team/monkey/monkey_team
 	var/monkey_only = TRUE
 
@@ -35,6 +36,8 @@
 	to_chat(owner, "<b><i>As an intelligent monkey, you know how to use technology and how to ventcrawl while wearing things.</i></b>")
 	to_chat(owner, "<b>You can use :k to talk to fellow monkeys!</b>")
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/monkey.ogg'))
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Monkey",
+		"Bite other humans to infect them and escape on the emergency shuttle to succeed.")
 
 /datum/antagonist/monkey/on_removal()
 	owner.special_role = null
@@ -68,17 +71,8 @@
 
 /datum/antagonist/monkey/admin_remove(mob/admin)
 	var/mob/living/carbon/monkey/M = owner.current
-	if(istype(M))
-		switch(alert(admin, "Humanize?", "Humanize", "Yes", "No"))
-			if("Yes")
-				if(admin == M)
-					admin = M.humanize(TR_KEEPITEMS  |  TR_KEEPIMPLANTS  |  TR_KEEPORGANS  |  TR_KEEPDAMAGE  |  TR_KEEPVIRUS  |  TR_DEFAULTMSG)
-				else
-					M.humanize(TR_KEEPITEMS  |  TR_KEEPIMPLANTS  |  TR_KEEPORGANS  |  TR_KEEPDAMAGE  |  TR_KEEPVIRUS  |  TR_DEFAULTMSG)
-			if("No")
-				//nothing
-			else
-				return
+	if(alert(admin, "Humanize?", "Humanize", "Yes", "No") == "Yes")
+		M.humanize(TR_KEEPITEMS  |  TR_KEEPIMPLANTS  |  TR_KEEPORGANS  |  TR_KEEPDAMAGE  |  TR_KEEPVIRUS  |  TR_DEFAULTMSG)
 	. = ..()
 
 /datum/antagonist/monkey/leader
@@ -87,17 +81,8 @@
 
 /datum/antagonist/monkey/leader/admin_add(datum/mind/new_owner,mob/admin)
 	var/mob/living/carbon/human/H = new_owner.current
-	if(istype(H))
-		switch(alert(admin, "Monkeyize?", "Monkeyize", "Yes", "No"))
-			if("Yes")
-				if(admin == H)
-					admin = H.monkeyize()
-				else
-					H.monkeyize()
-			if("No")
-				//nothing
-			else
-				return
+	if(alert(admin, "Monkeyize?", "Monkeyize", "Yes", "No") == "Yes")
+		H.monkeyize()
 	new_owner.add_antag_datum(src)
 	log_admin("[key_name(admin)] made [key_name(new_owner)] a monkey leader!")
 	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] a monkey leader!")
@@ -125,6 +110,8 @@
 	to_chat(owner, "<b>As an initial infectee, you will be considered a 'leader' by your fellow monkeys.</b>")
 	to_chat(owner, "<b>You can use :k to talk to fellow monkeys!</b>")
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/monkey.ogg'))
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Monkey Leader",
+		"Bite other humans to infect them and escape on the emergency shuttle to succeed.")
 
 /datum/objective/monkey
 	explanation_text = "Ensure that infected monkeys escape on the emergency shuttle!"
@@ -149,6 +136,8 @@
 	var/datum/objective/monkey/O = new()
 	O.team = src
 	objectives += O
+	for(var/datum/mind/M in members)
+		log_objective(M, O.explanation_text)
 
 /datum/team/monkey/proc/infected_monkeys_alive()
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()

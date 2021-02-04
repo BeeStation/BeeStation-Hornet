@@ -15,8 +15,8 @@
 	requires_ntnet = 0
 	size = 8
 	tgui_id = "NtosCard"
-	ui_x = 450
-	ui_y = 520
+
+
 
 	var/is_centcom = FALSE
 	var/minor = FALSE
@@ -173,6 +173,7 @@
 			id_card.access -= get_all_centcom_access() + get_all_accesses()
 			id_card.assignment = "Unassigned"
 			id_card.update_label()
+			log_id("[key_name(usr)] unassigned and stripped all access from [id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_edit")
@@ -181,6 +182,7 @@
 			var/new_name = params["name"]
 			if(!new_name)
 				return
+			log_id("[key_name(usr)] changed [id_card] name to '[new_name]', using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			id_card.registered_name = new_name
 			id_card.update_label()
 			playsound(computer, "terminal_type", 50, FALSE)
@@ -195,6 +197,7 @@
 			if(target == "Custom")
 				var/custom_name = params["custom_name"]
 				if(custom_name)
+					log_id("[key_name(usr)] assigned a custom assignment '[custom_name]' to [id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 					id_card.assignment = custom_name
 					id_card.update_label()
 			else
@@ -211,13 +214,15 @@
 							job = J
 							break
 					if(!job)
-						to_chat(user, "<span class='warning'>No class exists for this job: [target]</span>")
+						to_chat(user, "<span class='warning'>No class exists for this job: [target].</span>")
 						return
 					new_access = job.get_access()
+				log_id("[key_name(usr)] changed [id_card] assignment to '[target]', overriding all previous access using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 				id_card.access -= get_all_centcom_access() + get_all_accesses()
 				id_card.access |= new_access
 				id_card.assignment = target
 				id_card.update_label()
+
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_access")
@@ -227,20 +232,24 @@
 			if(access_type in (is_centcom ? get_all_centcom_access() : get_all_accesses()))
 				if(access_type in id_card.access)
 					id_card.access -= access_type
+					log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 				else
 					id_card.access |= access_type
+					log_id("[key_name(usr)] added [get_access_desc(access_type)] to [id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 				playsound(computer, "terminal_type", 50, FALSE)
 				return TRUE
 		if("PRG_grantall")
 			if(!computer || !authenticated || minor)
 				return
 			id_card.access |= (is_centcom ? get_all_centcom_access() : get_all_accesses())
+			log_id("[key_name(usr)] granted All Access to [id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_denyall")
 			if(!computer || !authenticated || minor)
 				return
 			id_card.access.Cut()
+			log_id("[key_name(usr)] removed All Access from [id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_grantregion")
@@ -250,6 +259,7 @@
 			if(isnull(region))
 				return
 			id_card.access |= get_region_accesses(region)
+			log_id("[key_name(usr)] granted [get_region_accesses_name(region)] regional access to [id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_denyregion")
@@ -259,6 +269,7 @@
 			if(isnull(region))
 				return
 			id_card.access -= get_region_accesses(region)
+			log_id("[key_name(usr)] removed [region] regional access from [id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
 

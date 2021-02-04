@@ -38,7 +38,8 @@
 	if((holder == NONE) || (holder == (UP|DOWN)))
 		return turn(dir, 180)
 	dir &= ~(UP|DOWN)
-	dir = turn(dir, 180)
+	if(dir != 0)
+		dir = turn(dir, 180)
 	if(holder == UP)
 		holder = DOWN
 	else

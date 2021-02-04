@@ -3,5 +3,5 @@
 
 /datum/hud/lavaland_elite/New(mob/living/simple_animal/hostile/asteroid/elite)
 	..()
-	healths = new /obj/screen/healths/lavaland_elite()
+	healths = new /atom/movable/screen/healths/lavaland_elite()
 	infodisplay += healths

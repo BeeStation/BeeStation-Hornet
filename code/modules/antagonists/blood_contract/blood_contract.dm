@@ -14,10 +14,13 @@
 	var/datum/objective/survive/survive = new
 	survive.owner = owner
 	objectives += survive
+	log_objective(owner, survive.explanation_text)
 
 /datum/antagonist/blood_contract/greet()
 	. = ..()
 	to_chat(owner, "<span class='userdanger'>You've been marked for death! Don't let the demons get you! KILL THEM ALL!</span>")
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Blood Contract",
+		"You have been marked for death, the demons thirst for your blood. KILL THEM ALL.")
 
 /datum/antagonist/blood_contract/proc/start_the_hunt()
 	var/mob/living/carbon/human/H = owner.current

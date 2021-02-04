@@ -104,6 +104,13 @@
 	if(slot == SLOT_GLASSES)
 		return 1
 
+/obj/item/clothing/glasses/science/sciencesun
+	name = "science sunglasses"
+	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion. Has enhanced shielding which blocks flashes."
+	icon_state = "sunhudscience"
+	item_state = "sunhudscience"
+	flash_protect = 1
+
 /obj/item/clothing/glasses/night
 	name = "night vision goggles"
 	desc = "You can totally see in the dark now!"
@@ -463,8 +470,6 @@
 					else
 						to_chat(H, "You will no longer see glasses colors.")
 					H.update_glasses_color(src, 1)
-	else
-		return ..()
 
 /obj/item/clothing/glasses/proc/change_glass_color(mob/living/carbon/human/H, datum/client_colour/glass_colour/new_color_type)
 	var/old_colour_type = glass_colour_type

@@ -4,7 +4,7 @@
 	if (!create_mob_html)
 		var/mobjs = null
 		mobjs = jointext(typesof(/mob), ";")
-		create_mob_html = file2text('html/create_object.html')
+		create_mob_html = rustg_file_read('html/create_object.html')
 		create_mob_html = replacetext(create_mob_html, "Create Object", "Create Mob")
 		create_mob_html = replacetext(create_mob_html, "null /* object types */", "\"[mobjs]\"")
 

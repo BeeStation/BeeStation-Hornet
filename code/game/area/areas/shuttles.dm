@@ -12,6 +12,8 @@
 	icon_state = "shuttle"
 	// Loading the same shuttle map at a different time will produce distinct area instances.
 	unique = FALSE
+	lighting_colour_tube = "#fff0dd"
+	lighting_colour_bulb = "#ffe1c1"
 
 /area/shuttle/Initialize()
 	if(!canSmoothWithAreas)
@@ -32,7 +34,7 @@
 /area/shuttle/syndicate
 	name = "Syndicate Infiltrator"
 	blob_allowed = FALSE
-	ambientsounds = HIGHSEC
+	ambient_effects = HIGHSEC
 	canSmoothWithAreas = /area/shuttle/syndicate
 
 /area/shuttle/syndicate/bridge
@@ -133,6 +135,11 @@
 
 /area/shuttle/mining/large
 	name = "Mining Shuttle"
+	blob_allowed = FALSE
+	requires_power = TRUE
+
+/area/shuttle/science
+	name = "Science Shuttle"
 	blob_allowed = FALSE
 	requires_power = TRUE
 

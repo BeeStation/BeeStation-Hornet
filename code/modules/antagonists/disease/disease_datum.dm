@@ -2,6 +2,7 @@
 	name = "Sentient Disease"
 	roundend_category = "diseases"
 	antagpanel_category = "Disease"
+	show_to_ghosts = TRUE
 	var/disease_name = ""
 
 /datum/antagonist/disease/on_gain()
@@ -10,10 +11,12 @@
 	var/datum/objective/O = new /datum/objective/disease_infect()
 	O.owner = owner
 	objectives += O
+	log_objective(owner, O.explanation_text)
 
 	O = new /datum/objective/disease_infect_centcom()
 	O.owner = owner
 	objectives += O
+	log_objective(owner, O.explanation_text)
 
 	. = ..()
 
@@ -21,6 +24,8 @@
 	to_chat(owner.current, "<span class='notice'>You are the [owner.special_role]!</span>")
 	to_chat(owner.current, "<span class='notice'>Infect members of the crew to gain adaptation points, and spread your infection further.</span>")
 	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Sentient Disease",
+		"Infect members of the crew to gain adaptation points and spread your infection further.")
 
 /datum/antagonist/disease/apply_innate_effects(mob/living/mob_override)
 	if(!istype(owner.current, /mob/camera/disease))

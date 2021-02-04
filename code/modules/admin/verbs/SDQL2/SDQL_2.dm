@@ -276,7 +276,6 @@
 		"<span class='admin'>SDQL combined querys took [DisplayTimeText(end_time_total)] to complete.</span>") + combined_refs
 
 GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
-GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null, "VIEW VARIABLES (all)", null))
 
 /datum/SDQL2_query
 	var/list/query_tree
@@ -304,10 +303,6 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 	var/list/obj_count_all
 	var/list/obj_count_eligible
 	var/obj_count_finished
-
-	//Statclick
-	var/obj/effect/statclick/SDQL2_delete/delete_click
-	var/obj/effect/statclick/SDQL2_action/action_click
 
 /datum/SDQL2_query/New(list/tree, SU = FALSE, admin_interact = TRUE, _options = SDQL2_OPTIONS_DEFAULT, finished_qdel = FALSE)
 	if(IsAdminAdvancedProcCall() || !LAZYLEN(tree))
@@ -355,7 +350,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 			output += "[key]"
 
 		//print the value
-		var/is_value = (!isnum(key) && !isnull(input[key]))
+		var/is_value = (!isnum_safe(key) && !isnull(input[key]))
 		if(is_value)
 			var/value = input[key]
 			if(islist(value))
@@ -391,17 +386,29 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 			return "##HALTING"
 
 /datum/SDQL2_query/proc/generate_stat()
+	var/list/tab_data = list()
 	if(!allow_admin_interact)
 		return
-	if(!delete_click)
-		delete_click = new(null, "INITIALIZING", src)
-	if(!action_click)
-		action_click = new(null, "INITIALIZNG", src)
-	stat("[id]		", delete_click.update("DELETE QUERY | STATE : [text_state()] | ALL/ELIG/FIN \
-	[islist(obj_count_all)? length(obj_count_all) : (isnull(obj_count_all)? "0" : obj_count_all)]/\
-	[islist(obj_count_eligible)? length(obj_count_eligible) : (isnull(obj_count_eligible)? "0" : obj_count_eligible)]/\
-	[islist(obj_count_finished)? length(obj_count_finished) : (isnull(obj_count_finished)? "0" : obj_count_finished)] - [get_query_text()]"))
-	stat("			", action_click.update("[SDQL2_IS_RUNNING? "HALT" : "RUN"]"))
+	tab_data["Delete Query [id]"] = list(
+		text = "DELETE QUERY | STATE : [text_state()] | ALL/ELIG/FIN \
+			[islist(obj_count_all)? length(obj_count_all) : (isnull(obj_count_all)? "0" : obj_count_all)]/\
+			[islist(obj_count_eligible)? length(obj_count_eligible) : (isnull(obj_count_eligible)? "0" : obj_count_eligible)]/\
+			[islist(obj_count_finished)? length(obj_count_finished) : (isnull(obj_count_finished)? "0" : obj_count_finished)] - [get_query_text()]",
+		action = "sdql2delete",
+		params = list(
+			qid = id,
+		),
+		type = STAT_BUTTON,
+	)
+	tab_data["Toggle Query [id]"] = list(
+		text = "[SDQL2_IS_RUNNING? "HALT" : "RUN"]",
+		action = "sdql2toggle",
+		params = list(
+			qid = id,
+		),
+		type = STAT_BUTTON,
+	)
+	return tab_data
 
 /datum/SDQL2_query/proc/delete_click()
 	admin_del(usr)
@@ -716,7 +723,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 				text_list += ", "
 			first = FALSE
 			SDQL_print(x, text_list)
-			if (!isnull(x) && !isnum(x) && L[x] != null)
+			if (!isnull(x) && !isnum_safe(x) && L[x] != null)
 				text_list += " -> "
 				SDQL_print(L[L[x]])
 		text_list += "]<br>"
@@ -860,14 +867,14 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 	else if(expression[i] == "null")
 		val = null
 
-	else if(isnum(expression[i]))
+	else if(isnum_safe(expression[i]))
 		val = expression[i]
 
 	else if(ispath(expression[i]))
 		val = expression[i]
 
-	else if(copytext(expression[i], 1, 2) in list("'", "\""))
-		val = copytext(expression[i], 2, length(expression[i]))
+	else if(expression[i][1] in list("'", "\""))
+		val = copytext_char(expression[i], 2, -1)
 
 	else if(expression[i] == "\[")
 		var/list/expressions_list = expression[++i]
@@ -955,7 +962,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 		else
 			to_chat(usr, "[spaces][item]")
 
-		if(!isnum(item) && query_tree[item])
+		if(!isnum_safe(item) && query_tree[item])
 
 			if(istype(query_tree[item], /list))
 				to_chat(usr, "[spaces][whitespace](")
@@ -979,7 +986,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 		return null
 
 	else if(expression [start] == "{" && long)
-		if(lowertext(copytext(expression[start + 1], 1, 3)) != "0x")
+		if(lowertext(copytext(expression[start + 1], 1, 3)) != "0x") //3 == length("0x") + 1
 			to_chat(usr, "<span class='danger'>Invalid pointer syntax: [expression[start + 1]]</span>")
 			return null
 		v = locate("\[[expression[start + 1]]]")
@@ -1070,7 +1077,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 		else if(expression[start + 1] == "\[" && islist(v))
 			var/list/L = v
 			var/index = query.SDQL_expression(source, expression[start + 2])
-			if(isnum(index) && (!ISINTEGER(index) || L.len < index))
+			if(isnum_safe(index) && (!ISINTEGER(index) || L.len < index))
 				to_chat(usr, "<span class='danger'>Invalid list index: [index]</span>")
 				return null
 			return L[index]
@@ -1090,9 +1097,10 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 	var/word = ""
 	var/list/query_list = list()
 	var/len = length(query_text)
+	var/char = ""
 
-	for(var/i = 1, i <= len, i++)
-		var/char = copytext(query_text, i, i + 1)
+	for(var/i = 1, i <= len, i += length(char))
+		char = query_text[i]
 
 		if(char in whitespace)
 			if(word != "")
@@ -1111,7 +1119,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 				query_list += word
 				word = ""
 
-			var/char2 = copytext(query_text, i + 1, i + 2)
+			var/char2 = query_text[i + length(char)]
 
 			if(char2 in multi[char])
 				query_list += "[char][char2]"
@@ -1127,13 +1135,13 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 
 			word = "'"
 
-			for(i++, i <= len, i++)
-				char = copytext(query_text, i, i + 1)
+			for(i += length(char), i <= len, i += length(char))
+				char = query_text[i]
 
 				if(char == "'")
-					if(copytext(query_text, i + 1, i + 2) == "'")
+					if(query_text[i + length(char)] == "'")
 						word += "'"
-						i++
+						i += length(query_text[i + length(char)])
 
 					else
 						break
@@ -1155,13 +1163,13 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 
 			word = "\""
 
-			for(i++, i <= len, i++)
-				char = copytext(query_text, i, i + 1)
+			for(i += length(char), i <= len, i += length(char))
+				char = query_text[i]
 
 				if(char == "\"")
-					if(copytext(query_text, i + 1, i + 2) == "'")
+					if(query_text[i + length(char)] == "'")
 						word += "\""
-						i++
+						i += length(query_text[i + length(char)])
 
 					else
 						break
@@ -1186,16 +1194,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 /proc/is_proper_datum(thing)
 	return istype(thing, /datum) || istype(thing, /client)
 
-/obj/effect/statclick/SDQL2_delete/Click()
-	var/datum/SDQL2_query/Q = target
-	Q.delete_click()
-
-/obj/effect/statclick/SDQL2_action/Click()
-	var/datum/SDQL2_query/Q = target
-	Q.action_click()
-
-/obj/effect/statclick/SDQL2_VV_all
-	name = "VIEW VARIABLES"
-
-/obj/effect/statclick/SDQL2_VV_all/Click()
-	usr.client.debug_variables(GLOB.sdql2_queries)
+/proc/sdqlQueryByID(id)
+	for(var/datum/SDQL2_query/query as anything in GLOB.sdql2_queries)
+		if(query.id == id)
+			return query

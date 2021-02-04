@@ -89,7 +89,6 @@
 /obj/item/cautery,
 /obj/effect/spawner/lootdrop/teratoma/major,
 /obj/item/surgical_drapes,
-/obj/item/implant/radio,
 /obj/item/storage/firstaid,
 /obj/item/storage/box/syringes,
 /obj/item/reagent_containers/glass/bottle/morphine,
@@ -101,8 +100,13 @@
 /obj/item/twohanded/required/chainsaw,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/item/clothing/head/wig/random,
+/obj/item/radio,
 /obj/item/reagent_containers/medspray/spraytan,
 /turf/open/floor/plating,
+/area/template_noop)
+"M" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/carpet/green,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -131,7 +135,7 @@ k
 "}
 (5,1,1) = {"
 e
-h
+M
 i
 l
 "}

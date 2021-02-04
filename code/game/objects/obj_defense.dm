@@ -107,8 +107,8 @@
 		playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
 
 /obj/attack_animal(mob/living/simple_animal/M)
-	if(!M.melee_damage_upper && !M.obj_damage)
-		M.emote("custom", message = "[M.friendly] [src].")
+	if(!M.melee_damage && !M.obj_damage)
+		INVOKE_ASYNC(M, /mob.proc/emote, "custom", null, "[M.friendly] [src].")
 		return 0
 	else
 		var/play_soundeffect = 1
@@ -117,7 +117,7 @@
 		if(M.obj_damage)
 			. = attack_generic(M, M.obj_damage, M.melee_damage_type, "melee", play_soundeffect, M.armour_penetration)
 		else
-			. = attack_generic(M, rand(M.melee_damage_lower,M.melee_damage_upper), M.melee_damage_type, "melee", play_soundeffect, M.armour_penetration)
+			. = attack_generic(M, M.melee_damage, M.melee_damage_type, "melee", play_soundeffect, M.armour_penetration)
 		if(. && !play_soundeffect)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 
@@ -132,10 +132,13 @@
 	var/amt = max(0, ((force - (move_resist * MOVE_FORCE_CRUSH_RATIO)) / (move_resist * MOVE_FORCE_CRUSH_RATIO)) * 10)
 	take_damage(amt, BRUTE)
 
-/obj/attack_slime(mob/living/simple_animal/slime/user)
-	if(!user.is_adult)
+/obj/attack_slime(mob/living/simple_animal/slime/M)
+	if(!M.is_adult)
 		return
-	attack_generic(user, rand(10, 15), "melee", 1)
+	var/damage = rand(15)
+	if(M.transformeffects & SLIME_EFFECT_RED)
+		damage *= 1.1
+	attack_generic(M, damage, "melee", 1)
 
 /obj/mech_melee_attack(obj/mecha/M)
 	M.do_attack_animation(src)
@@ -185,7 +188,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/proc/acid_processing()
 	. = 1
 	if(!(resistance_flags & ACID_PROOF))
-		for(var/armour_value in armor)
+		for(var/armour_value in armor.getList())
 			if(armour_value != "acid" && armour_value != "fire")
 				armor = armor.modifyAllRatings(0 - round(sqrt(acid_level)*0.1))
 		if(prob(33))

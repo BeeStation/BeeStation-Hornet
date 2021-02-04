@@ -111,6 +111,21 @@
 "j" = (
 /turf/open/floor/plasteel/white,
 /area/template_noop)
+"k" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/trap/nexus/trickyspawner/zombie,
+/obj/effect/spawner/lootdrop/trap,
+/turf/open/floor/plasteel/white,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -124,7 +139,7 @@ j
 "}
 (3,1,1) = {"
 c
-c
+k
 j
 "}
 (4,1,1) = {"

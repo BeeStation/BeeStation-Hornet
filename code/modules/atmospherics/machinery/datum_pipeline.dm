@@ -5,7 +5,7 @@
 	var/list/obj/machinery/atmospherics/pipe/members
 	var/list/obj/machinery/atmospherics/components/other_atmosmch
 
-	var/update = TRUE
+	var/update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 /datum/pipeline/New()
 	other_airs = list()
@@ -15,7 +15,7 @@
 
 /datum/pipeline/Destroy()
 	SSair.networks -= src
-	if(air?.volume)
+	if(air?.return_volume())
 		temporarily_store_air()
 	for(var/obj/machinery/atmospherics/pipe/P in members)
 		P.parent = null
@@ -23,62 +23,58 @@
 		C.nullifyPipenet(src)
 	return ..()
 
-/datum/pipeline/process()
-	if(update)
-		update = FALSE
-		reconcile_air()
-	update = air.react(src)
-
 /datum/pipeline/proc/build_pipeline(obj/machinery/atmospherics/base)
-	var/volume = 0
-	if(istype(base, /obj/machinery/atmospherics/pipe))
-		var/obj/machinery/atmospherics/pipe/E = base
-		volume = E.volume
-		members += E
-		if(E.air_temporary)
-			air = E.air_temporary
-			E.air_temporary = null
-	else
-		addMachineryMember(base)
-	if(!air)
-		air = new
-	var/list/possible_expansions = list(base)
-	while(possible_expansions.len)
-		for(var/obj/machinery/atmospherics/borderline in possible_expansions)
-			var/list/result = borderline.pipeline_expansion(src)
-			if(result && result.len)
-				for(var/obj/machinery/atmospherics/P in result)
-					if(istype(P, /obj/machinery/atmospherics/pipe))
-						var/obj/machinery/atmospherics/pipe/item = P
-						if(!members.Find(item))
+	if(src != null && base != null)
+		var/volume = 0
+		if(istype(base, /obj/machinery/atmospherics/pipe))
+			var/obj/machinery/atmospherics/pipe/E = base
+			volume = E.volume
+			members += E
+			if(E.air_temporary)
+				air = E.air_temporary
+				E.air_temporary = null
+		else
+			addMachineryMember(base)
+		if(!air)
+			air = new
+		var/list/possible_expansions = list(base)
+		while(possible_expansions.len)
+			for(var/obj/machinery/atmospherics/borderline in possible_expansions)
+				var/list/result = borderline.pipeline_expansion(src)
+				if(result && result.len)
+					for(var/obj/machinery/atmospherics/P in result)
+						if(istype(P, /obj/machinery/atmospherics/pipe))
+							var/obj/machinery/atmospherics/pipe/item = P
+							if(!members.Find(item))
 
-							if(item.parent)
-								var/static/pipenetwarnings = 10
-								if(pipenetwarnings > 0)
-									log_mapping("build_pipeline(): [item.type] added to a pipenet while still having one. (pipes leading to the same spot stacking in one turf) around [AREACOORD(item)].")
-									pipenetwarnings--
-									if(pipenetwarnings == 0)
-										log_mapping("build_pipeline(): further messages about pipenets will be suppressed")
-							members += item
-							possible_expansions += item
+								if(item.parent)
+									var/static/pipenetwarnings = 10
+									if(pipenetwarnings > 0)
+										log_mapping("build_pipeline(): [item.type] added to a pipenet while still having one. (pipes leading to the same spot stacking in one turf) around [AREACOORD(item)].")
+										pipenetwarnings--
+										if(pipenetwarnings == 0)
+											log_mapping("build_pipeline(): further messages about pipenets will be suppressed")
+								members += item
+								possible_expansions += item
 
-							volume += item.volume
-							item.parent = src
+								volume += item.volume
+								item.parent = src
 
-							if(item.air_temporary)
-								air.merge(item.air_temporary)
-								item.air_temporary = null
-					else
-						P.setPipenet(src, borderline)
-						addMachineryMember(P)
+								if(item.air_temporary)
+									air.merge(item.air_temporary)
+									item.air_temporary = null
+						else if(!P.returnPipenet(borderline))
+							P.setPipenet(src, borderline)
+							addMachineryMember(P)
 
-			possible_expansions -= borderline
+				possible_expansions -= borderline
 
-	air.volume = volume
+		air.set_volume(volume)
 
 /datum/pipeline/proc/addMachineryMember(obj/machinery/atmospherics/components/C)
-	other_atmosmch |= C
-	var/datum/gas_mixture/G = C.returnPipenetAir(src)
+	//Yes we are having duplicate references to components with multiple nodes sharing a parent
+	other_atmosmch += C
+	var/G = C.returnPipenetAir(src)
 	if(!G)
 		stack_trace("addMachineryMember: Null gasmix added to pipeline datum from [C] which is of type [C.type]. Nearby: ([C.x], [C.y], [C.z])")
 	other_airs |= G
@@ -97,7 +93,7 @@
 			merge(E)
 		if(!members.Find(P))
 			members += P
-			air.volume += P.volume
+			air.set_volume(air.return_volume() + P.volume)
 	else
 		A.setPipenet(src, N)
 		addMachineryMember(A)
@@ -105,7 +101,7 @@
 /datum/pipeline/proc/merge(datum/pipeline/E)
 	if(E == src)
 		return
-	air.volume += E.air.volume
+	air.set_volume(air.return_volume() + E.air.return_volume())
 	members.Add(E.members)
 	for(var/obj/machinery/atmospherics/pipe/S in E.members)
 		S.parent = src
@@ -116,7 +112,7 @@
 	other_airs.Add(E.other_airs)
 	E.members.Cut()
 	E.other_atmosmch.Cut()
-	update = TRUE
+	update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 	qdel(E)
 
 /obj/machinery/atmospherics/proc/addMember(obj/machinery/atmospherics/A)
@@ -137,18 +133,16 @@
 
 	for(var/obj/machinery/atmospherics/pipe/member in members)
 		member.air_temporary = new
-		member.air_temporary.volume = member.volume
+		member.air_temporary.set_volume(member.volume)
 		member.air_temporary.copy_from(air)
-		var/member_gases = member.air_temporary.gases
 
-		for(var/id in member_gases)
-			member_gases[id][MOLES] *= member.volume/air.volume
+		member.air_temporary.multiply(member.volume/air.return_volume())
 
-		member.air_temporary.temperature = air.temperature
+		member.air_temporary.set_temperature(air.return_temperature())
 
 /datum/pipeline/proc/temperature_interact(turf/target, share_volume, thermal_conductivity)
 	var/total_heat_capacity = air.heat_capacity()
-	var/partial_heat_capacity = total_heat_capacity*(share_volume/air.volume)
+	var/partial_heat_capacity = total_heat_capacity*(share_volume/air.return_volume())
 	var/target_temperature
 	var/target_heat_capacity
 
@@ -161,19 +155,19 @@
 		if(modeled_location.blocks_air)
 
 			if((modeled_location.heat_capacity>0) && (partial_heat_capacity>0))
-				var/delta_temperature = air.temperature - target_temperature
+				var/delta_temperature = air.return_temperature() - target_temperature
 
 				var/heat = thermal_conductivity*delta_temperature* \
 					(partial_heat_capacity*target_heat_capacity/(partial_heat_capacity+target_heat_capacity))
 
-				air.temperature -= heat/total_heat_capacity
+				air.set_temperature(air.return_temperature() - heat/total_heat_capacity)
 				modeled_location.TakeTemperature(heat/target_heat_capacity)
 
 		else
 			var/delta_temperature = 0
 			var/sharer_heat_capacity = 0
 
-			delta_temperature = (air.temperature - target_temperature)
+			delta_temperature = (air.return_temperature() - target_temperature)
 			sharer_heat_capacity = target_heat_capacity
 
 			var/self_temperature_delta = 0
@@ -188,19 +182,19 @@
 			else
 				return 1
 
-			air.temperature += self_temperature_delta
+			air.set_temperature(air.return_temperature() + self_temperature_delta)
 			modeled_location.TakeTemperature(sharer_temperature_delta)
 
 
 	else
 		if((target.heat_capacity>0) && (partial_heat_capacity>0))
-			var/delta_temperature = air.temperature - target.temperature
+			var/delta_temperature = air.return_temperature() - target.temperature
 
 			var/heat = thermal_conductivity*delta_temperature* \
 				(partial_heat_capacity*target.heat_capacity/(partial_heat_capacity+target.heat_capacity))
 
-			air.temperature -= heat/total_heat_capacity
-	update = TRUE
+			air.set_temperature(air.return_temperature() - heat/total_heat_capacity)
+	update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 /datum/pipeline/proc/return_air()
 	. = other_airs + air
@@ -218,6 +212,11 @@
 		if(!P)
 			continue
 		GL += P.return_air()
+		if(P != src)
+			//If one of the reconciling pipenet requires full reconciliation, we have to comply
+			update = max(update, P.update)
+			//This prevents redundant reconciliations, highlander style: there can be only one (to reconcile)
+			P.update = PIPENET_UPDATE_STATUS_DORMANT
 		for(var/atmosmch in P.other_atmosmch)
 			if (istype(atmosmch, /obj/machinery/atmospherics/components/binary/valve))
 				var/obj/machinery/atmospherics/components/binary/valve/V = atmosmch
@@ -229,26 +228,30 @@
 				if(C.connected_device)
 					GL += C.portableConnectorReturnAir()
 
-	var/total_thermal_energy = 0
-	var/total_heat_capacity = 0
+	//This builds total_gas_mixture, which is the *only* instance of complete total gas of a superpipnet.
 	var/datum/gas_mixture/total_gas_mixture = new(0)
+	var/total_volume = 0
 
 	for(var/i in GL)
 		var/datum/gas_mixture/G = i
-		total_gas_mixture.volume += G.volume
-
 		total_gas_mixture.merge(G)
+		total_volume += G.return_volume()
 
-		total_thermal_energy += THERMAL_ENERGY(G)
-		total_heat_capacity += G.heat_capacity()
+	//Decides what this pipeline should do next tick
+	//Pipenet air reacts here or your connected canisters won't react properly
+	if(total_gas_mixture.react(pick(PL)))
+		//Might need another reaction next time; immediately set this pipenet for next reconcile_air()
+		. = PIPENET_UPDATE_STATUS_REACT_NEEDED
+	else
+		. = PIPENET_UPDATE_STATUS_DORMANT
+		//Needs no update and didn't even react? This reconcile_air() can return early since no change was made.
+		//This can only be achieved with self-ending stream of reactions, i.e. pipeline fire that has come to an end.
+		if(update < PIPENET_UPDATE_STATUS_RECONCILE_NEEDED)
+			return
 
-	total_gas_mixture.temperature = total_heat_capacity ? total_thermal_energy/total_heat_capacity : 0
-
-	if(total_gas_mixture.volume > 0)
+	if(total_volume > 0)
 		//Update individual gas_mixtures by volume ratio
 		for(var/i in GL)
 			var/datum/gas_mixture/G = i
 			G.copy_from(total_gas_mixture)
-			var/list/G_gases = G.gases
-			for(var/id in G_gases)
-				G_gases[id][MOLES] *= G.volume/total_gas_mixture.volume
+			G.multiply(G.return_volume()/total_volume)

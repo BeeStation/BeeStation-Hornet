@@ -1,6 +1,6 @@
 /* How it works:
  The shuttle arrives at CentCom dock and calls sell(), which recursively loops through all the shuttle contents that are unanchored.
- 
+
  Each object in the loop is checked for applies_to() of various export datums, except the invalid ones.
 */
 
@@ -31,7 +31,35 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 		setupExports()
 
 	var/list/contents = AM.GetAllContents()
-	
+
+	var/datum/export_report/report = external_report
+	if(!report) //If we don't have any longer transaction going on
+		report = new
+
+	// We go backwards, so it'll be innermost objects sold first
+	for(var/i in reverseRange(contents))
+		var/atom/movable/thing = i
+		var/sold = FALSE
+		for(var/datum/export/E in GLOB.exports_list)
+			if(!E)
+				continue
+			if(E.applies_to(thing, allowed_categories, apply_elastic))
+				sold = E.sell_object(thing, report, dry_run, allowed_categories , apply_elastic)
+				report.exported_atoms += " [thing.name]"
+				break
+		if(!dry_run && (sold || delete_unsold))
+			if(ismob(thing))
+				thing.investigate_log("deleted through cargo export",INVESTIGATE_CARGO)
+			qdel(thing)
+
+	return report
+
+/proc/export_contents(atom/movable/AM, allowed_categories = EXPORT_CARGO, apply_elastic = TRUE, delete_unsold = TRUE, dry_run=FALSE, datum/export_report/external_report)
+	if(!GLOB.exports_list.len)
+		setupExports()
+
+	var/list/contents = AM.GetAllContents() - AM
+
 	var/datum/export_report/report = external_report
 	if(!report) //If we don't have any longer transaction going on
 		report = new
@@ -125,9 +153,9 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 
 	if(amount <=0 || the_cost <=0)
 		return FALSE
-	
+
 	report.total_value[src] += the_cost
-	
+
 	if(istype(O, /datum/export/material))
 		report.total_amount[src] += amount*MINERAL_MATERIAL_AMOUNT
 	else
@@ -148,7 +176,7 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 
 	var/total_value = ex.total_value[src]
 	var/total_amount = ex.total_amount[src]
-	
+
 	var/msg = "[total_value] credits: Received [total_amount] "
 	if(total_value > 0)
 		msg = "+" + msg

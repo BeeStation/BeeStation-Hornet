@@ -13,6 +13,10 @@
 	maxHealth = 500
 	layer = BELOW_MOB_LAYER
 	can_be_held = TRUE
+	worn_slot_flags = ITEM_SLOT_HEAD
+	held_lh = 'icons/mob/pai_item_lh.dmi'
+	held_rh = 'icons/mob/pai_item_rh.dmi'
+	head_icon = 'icons/mob/pai_item_head.dmi'
 	var/network = "ss13"
 	var/obj/machinery/camera/current = null
 
@@ -63,7 +67,7 @@
 	var/can_receive = TRUE
 	var/obj/item/card/id/access_card = null
 	var/chassis = "repairbot"
-	var/list/possible_chassis = list("cat" = TRUE, "mouse" = TRUE, "monkey" = TRUE, "corgi" = FALSE, "fox" = FALSE, "repairbot" = TRUE, "rabbit" = TRUE, "bat" = FALSE, "butterfly" = FALSE, "hawk" = FALSE, "lizard" = FALSE, "duffel" = TRUE)		//assoc value is whether it can be picked up.
+	var/list/possible_chassis = list("cat" = TRUE, "mouse" = TRUE, "monkey" = TRUE, "corgi" = FALSE, "fox" = FALSE, "repairbot" = TRUE, "rabbit" = TRUE, "bat" = FALSE, "butterfly" = FALSE, "hawk" = FALSE, "lizard" = FALSE, "duffel" = TRUE, "snake" = FALSE, "spider" = FALSE, "frog" = FALSE)		//assoc value is whether it can be picked up.
 	var/static/item_head_icon = 'icons/mob/pai_item_head.dmi'
 	var/static/item_lh_icon = 'icons/mob/pai_item_lh.dmi'
 	var/static/item_rh_icon = 'icons/mob/pai_item_rh.dmi'
@@ -166,13 +170,13 @@
 		else
 			client.eye = card
 
-/mob/living/silicon/pai/Stat()
-	..()
-	if(statpanel("Status"))
-		if(!stat)
-			stat(null, text("Emitter Integrity: [emitterhealth * (100/emittermaxhealth)]"))
-		else
-			stat(null, text("Systems nonfunctional"))
+/mob/living/silicon/pai/get_stat_tab_status()
+	var/list/tab_data = ..()
+	if(!stat)
+		tab_data["Emitter Integrity"] = GENERATE_STAT_TEXT("[emitterhealth * (100/emittermaxhealth)]")
+	else
+		tab_data["Systems"] = GENERATE_STAT_TEXT("nonfunctional")
+	return tab_data
 
 /mob/living/silicon/pai/restrained(ignore_grab)
 	. = FALSE

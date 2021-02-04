@@ -18,9 +18,8 @@
 	..()
 	SSair.atmos_machinery += src
 
-	air_contents = new
-	air_contents.volume = volume
-	air_contents.temperature = T20C
+	air_contents = new(volume)
+	air_contents.set_temperature(T20C)
 
 	return 1
 
@@ -46,7 +45,7 @@
 	return ..()
 
 /obj/machinery/portable_atmospherics/process_atmos()
-	if(!connected_port) // Pipe network handles reactions if connected.
+	if(!connected_port && air_contents != null && src != null) // Pipe network handles reactions if connected.
 		air_contents.react(src)
 
 /obj/machinery/portable_atmospherics/return_air()
@@ -67,8 +66,7 @@
 	//Perform the connection
 	connected_port = new_port
 	connected_port.connected_device = src
-	var/datum/pipeline/connected_port_parent = connected_port.parents[1]
-	connected_port_parent.reconcile_air()
+	connected_port.parents[1].update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 	anchored = TRUE //Prevent movement
 	pixel_x = new_port.pixel_x
@@ -127,13 +125,13 @@
 			if(!user.transferItemToLoc(T, src))
 				return
 			to_chat(user, "<span class='notice'>[holding ? "In one smooth motion you pop [holding] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")
-			investigate_log("had its internal [holding] swapped with [T] by [key_name(user)].<br>", INVESTIGATE_ATMOS)
+			investigate_log("had its internal [holding] swapped with [T] by [key_name(user)].", INVESTIGATE_ATMOS)
 			replace_tank(user, FALSE, T)
 			update_icon()
 	else if(W.tool_behaviour == TOOL_WRENCH)
 		if(!(stat & BROKEN))
 			if(connected_port)
-				investigate_log("was disconnected from [connected_port] by [key_name(user)].<br>", INVESTIGATE_ATMOS)
+				investigate_log("was disconnected from [connected_port] by [key_name(user)].", INVESTIGATE_ATMOS)
 				disconnect()
 				W.play_tool_sound(src)
 				user.visible_message( \
@@ -156,7 +154,7 @@
 					"<span class='notice'>You fasten [src] to the port.</span>", \
 					"<span class='italics'>You hear a ratchet.</span>")
 				update_icon()
-				investigate_log("was connected to [possible_port] by [key_name(user)].<br>", INVESTIGATE_ATMOS)
+				investigate_log("was connected to [possible_port] by [key_name(user)].", INVESTIGATE_ATMOS)
 	else
 		return ..()
 

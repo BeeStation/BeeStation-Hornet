@@ -1,0 +1,19 @@
+{
+	"dreammaker.extoolsDLL": "byond-extools.dll",
+	"eslint.nodePath": "tgui/.yarn/sdks",
+	"eslint.workingDirectories": [
+		"./tgui"
+	],
+	"search.exclude": {
+		"tgui/.yarn": true,
+		"tgui/.pnp.*": true
+	},
+	"workbench.editorAssociations": [
+		{
+			"filenamePattern": "*.dmi",
+			"viewType": "imagePreview.previewEditor"
+		}
+	],
+	"files.eol": "\n",
+	"gitlens.advanced.blame.customArguments": ["-w"]
+}

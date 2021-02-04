@@ -26,7 +26,7 @@
 	var/broken = FALSE
 	var/broken_message = "ERROR"
 	idle_power_usage = 150
-	active_power_usage = 2000
+	active_power_usage = 3000
 
 /obj/machinery/atmospherics/miner/Initialize()
 	. = ..()
@@ -131,9 +131,8 @@
 	if(!isopenturf(O))
 		return FALSE
 	var/datum/gas_mixture/merger = new
-	merger.assert_gas(spawn_id)
-	merger.gases[spawn_id][MOLES] = (spawn_mol)
-	merger.temperature = spawn_temp
+	merger.set_moles(spawn_id, spawn_mol)
+	merger.set_temperature(spawn_temp)
 	O.assume_air(merger)
 	O.air_update_turf(TRUE)
 

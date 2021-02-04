@@ -26,10 +26,14 @@
 	src.debug_mode = debug_mode
 	src.guardian_color = rgb(rand(1, 255), rand(1, 255), rand(1, 255))
 
-/datum/guardianbuilder/ui_interact(mob/user, ui_key, datum/tgui/ui = null, force_open, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/datum/guardianbuilder/ui_state(mob/user)
+	return GLOB.always_state
+
+/datum/guardianbuilder/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Guardian", "Build-A-Guardian", 500, 600, master_ui, state)
+		ui = new(user, src, "Guardian")
 		ui.set_autoupdate(TRUE)
 		ui.open()
 
@@ -226,9 +230,9 @@
 				to_chat(user, "<span class='holoparasite'><font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> has been caught!</span>")
 			if(GUARDIAN_HIVE)
 				to_chat(user, "<span class='holoparasite'><font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> has been created from the core!</span>")
-		user.verbs += /mob/living/proc/guardian_comm
-		user.verbs += /mob/living/proc/guardian_recall
-		user.verbs += /mob/living/proc/guardian_reset
+		user.add_verb(/mob/living/proc/guardian_comm)
+		user.add_verb(/mob/living/proc/guardian_recall)
+		user.add_verb(/mob/living/proc/guardian_reset)
 		return TRUE
 	else
 		to_chat(user, "[failure_message]")

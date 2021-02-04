@@ -44,7 +44,7 @@ SUBSYSTEM_DEF(persistence)
 		var/json_file = file("data/npc_saves/ChiselMessages[SSmapping.config.map_name].json")
 		if(!fexists(json_file))
 			return
-		var/list/json = json_decode(file2text(json_file))
+		var/list/json = json_decode(rustg_file_read(json_file))
 
 		if(!json)
 			return
@@ -88,7 +88,7 @@ SUBSYSTEM_DEF(persistence)
 		var/json_file = file("data/npc_saves/TrophyItems.json")
 		if(!fexists(json_file))
 			return
-		var/list/json = json_decode(file2text(json_file))
+		var/list/json = json_decode(rustg_file_read(json_file))
 		if(!json)
 			return
 		saved_trophies = json["data"]
@@ -98,13 +98,13 @@ SUBSYSTEM_DEF(persistence)
 	var/json_file = file("data/RecentModes.json")
 	if(!fexists(json_file))
 		return
-	var/list/json = json_decode(file2text(json_file))
+	var/list/json = json_decode(rustg_file_read(json_file))
 	if(!json)
 		return
 	saved_modes = json["data"]
 
 /datum/controller/subsystem/persistence/proc/LoadAntagReputation()
-	var/json = file2text(FILE_ANTAG_REP)
+	var/json = rustg_file_read(FILE_ANTAG_REP)
 	if(!json)
 		var/json_file = file(FILE_ANTAG_REP)
 		if(!fexists(json_file))
@@ -150,18 +150,18 @@ SUBSYSTEM_DEF(persistence)
 /datum/controller/subsystem/persistence/proc/GetPhotoAlbums()
 	var/album_path = file("data/photo_albums.json")
 	if(fexists(album_path))
-		return json_decode(file2text(album_path))
+		return json_decode(rustg_file_read(album_path))
 
 /datum/controller/subsystem/persistence/proc/GetPhotoFrames()
 	var/frame_path = file("data/photo_frames.json")
 	if(fexists(frame_path))
-		return json_decode(file2text(frame_path))
+		return json_decode(rustg_file_read(frame_path))
 
 /datum/controller/subsystem/persistence/proc/LoadPhotoPersistence()
 	var/album_path = file("data/photo_albums.json")
 	var/frame_path = file("data/photo_frames.json")
 	if(fexists(album_path))
-		var/list/json = json_decode(file2text(album_path))
+		var/list/json = json_decode(rustg_file_read(album_path))
 		if(json.len)
 			for(var/i in photo_albums)
 				var/obj/item/storage/photo_album/A = i
@@ -171,7 +171,7 @@ SUBSYSTEM_DEF(persistence)
 					A.populate_from_id_list(json[A.persistence_id])
 
 	if(fexists(frame_path))
-		var/list/json = json_decode(file2text(frame_path))
+		var/list/json = json_decode(rustg_file_read(frame_path))
 		if(json.len)
 			for(var/i in photo_frames)
 				var/obj/structure/sign/picture_frame/PF = i
@@ -188,7 +188,7 @@ SUBSYSTEM_DEF(persistence)
 	var/list/album_json = list()
 
 	if(fexists(album_path))
-		album_json = json_decode(file2text(album_path))
+		album_json = json_decode(rustg_file_read(album_path))
 		fdel(album_path)
 
 	for(var/i in photo_albums)
@@ -203,7 +203,7 @@ SUBSYSTEM_DEF(persistence)
 	WRITE_FILE(album_path, album_json)
 
 	if(fexists(frame_path))
-		frame_json = json_decode(file2text(frame_path))
+		frame_json = json_decode(rustg_file_read(frame_path))
 		fdel(frame_path)
 
 	for(var/i in photo_frames)
@@ -280,5 +280,5 @@ SUBSYSTEM_DEF(persistence)
 	antag_rep_change = list()
 
 	fdel(FILE_ANTAG_REP)
-	text2file(json_encode(antag_rep), FILE_ANTAG_REP)
+	rustg_file_append(json_encode(antag_rep), FILE_ANTAG_REP)
 

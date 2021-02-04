@@ -125,6 +125,12 @@
 
 #define BRAIN_DAMAGE_INTEGRITY_MULTIPLIER 0.5
 
+//wing defines
+#define WINGS_COSMETIC 0 //Absolutely fucking useless
+#define WINGS_FLIGHTLESS 1 //can't generate lift, will only fly in 0-G, while atmos is present
+#define WINGS_FLYING 2 //can generate lift and fly if atmos is present
+#define WINGS_MAGIC 3 //can fly regardless of atmos
+
 //Surgery Defines
 #define BIOWARE_GENERIC "generic"
 #define BIOWARE_NERVES "nerves"
@@ -204,6 +210,31 @@
 #define SLIME_FRIENDSHIP_STAY				3 //! Min friendship to order it to stay
 #define SLIME_FRIENDSHIP_ATTACK				8 //! Min friendship to order it to attack
 
+//Slime transformative extract effects
+#define SLIME_EFFECT_DEFAULT		(1<<0)
+#define SLIME_EFFECT_GREY			(1<<1)
+#define SLIME_EFFECT_ORANGE			(1<<2)
+#define SLIME_EFFECT_PURPLE			(1<<3)
+#define SLIME_EFFECT_BLUE			(1<<4)
+#define SLIME_EFFECT_METAL			(1<<5)
+#define SLIME_EFFECT_YELLOW			(1<<6)
+#define SLIME_EFFECT_DARK_PURPLE	(1<<7)
+#define SLIME_EFFECT_DARK_BLUE		(1<<8)
+#define SLIME_EFFECT_SILVER			(1<<9)
+#define SLIME_EFFECT_BLUESPACE		(1<<10)
+#define SLIME_EFFECT_SEPIA			(1<<11)
+#define SLIME_EFFECT_CERULEAN		(1<<12)
+#define SLIME_EFFECT_PYRITE			(1<<13)
+#define SLIME_EFFECT_RED			(1<<14)
+#define SLIME_EFFECT_GREEN			(1<<15)
+#define SLIME_EFFECT_PINK			(1<<16)
+#define SLIME_EFFECT_GOLD			(1<<17)
+#define SLIME_EFFECT_OIL			(1<<18)
+#define SLIME_EFFECT_BLACK			(1<<19)
+#define SLIME_EFFECT_LIGHT_PINK		(1<<20)
+#define SLIME_EFFECT_ADAMANTINE		(1<<21)
+#define SLIME_EFFECT_RAINBOW		(1<<22)
+
 //Sentience types, to prevent things like sentience potions from giving bosses sentience
 #define SENTIENCE_ORGANIC 1
 #define SENTIENCE_ARTIFICIAL 2
@@ -230,6 +261,7 @@
 #define SLIDE					(1<<1)
 #define GALOSHES_DONT_HELP		(1<<2)
 #define SLIDE_ICE				(1<<3)
+#define SLIP_WHEN_CRAWLING		(1<<4) //clown planet ruin
 
 ///Flags used by the flags parameter of electrocute act.
 ///Makes it so that the shock doesn't take gloves into account.
@@ -245,7 +277,7 @@
 #define INCORPOREAL_MOVE_SHADOW 2 //!  leaves a trail of shadows
 #define INCORPOREAL_MOVE_JAUNT 3 //! is blocked by holy water/salt
 
-//Secbot and ED209 judgement criteria bitflag values
+//Secbot and ED209 judgment criteria bitflag values
 #define JUDGE_EMAGGED		(1<<0)
 #define JUDGE_IDCHECK		(1<<1)
 #define JUDGE_WEAPONCHECK	(1<<2)
@@ -273,7 +305,7 @@
 #define OFFSET_NECK "neck"
 
 //MINOR TWEAKS/MISC
-#define AGE_MIN				17	//! youngest a character can be
+#define AGE_MIN				18	//! youngest a character can be
 #define AGE_MAX				85	//! oldest a character can be
 #define WIZARD_AGE_MIN		30	//! youngest a wizard can be
 #define APPRENTICE_AGE_MIN	29	//! youngest an apprentice can be
@@ -327,3 +359,5 @@
 #define WABBAJACK     (1<<6)
 
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
+
+#define SILENCE_RANGED_MESSAGE (1<<0)

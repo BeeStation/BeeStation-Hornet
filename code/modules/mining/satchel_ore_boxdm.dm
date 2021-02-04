@@ -9,8 +9,8 @@
 	density = TRUE
 	pressure_resistance = 5*ONE_ATMOSPHERE
 
-	var/ui_x = 335
-	var/ui_y = 415
+
+
 
 /obj/structure/ore_box/attackby(obj/item/W, mob/user, params)
 	if (istype(W, /obj/item/stack/ore))
@@ -57,11 +57,14 @@
 			stoplag()
 			drop = drop_location()
 
-/obj/structure/ore_box/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/structure/ore_box/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/structure/ore_box/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "OreBox", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "OreBox")
 		ui.open()
 
 /obj/structure/ore_box/ui_data()

@@ -93,6 +93,14 @@
 	projectile = /obj/item/projectile/beam/disabler
 	fire_sound = 'sound/weapons/taser2.ogg'
 
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler/emag_act(mob/user)
+	if(!(obj_flags & EMAGGED))
+		obj_flags |= EMAGGED
+		to_chat(user, "<span class='notice'>You disable [src]'s safety procedures, making it shoot harmful lasers.</span>")
+		projectile = /obj/item/projectile/beam/laser
+		harmful = TRUE
+
+
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
 	equip_cooldown = 15
 	name = "\improper CH-LC \"Solaris\" laser cannon"

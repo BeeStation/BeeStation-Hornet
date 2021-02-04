@@ -1,7 +1,7 @@
 #define PRINTER_TIMEOUT 10
 
 /obj/machinery/computer/bounty
-	name = "Nanotrasen bounty console"
+	name = "\improper Nanotrasen bounty console"
 	desc = "Used to check and claim bounties offered by Nanotrasen"
 	icon_screen = "bounty"
 	circuit = /obj/item/circuitboard/computer/bounty
@@ -72,7 +72,6 @@
 
 	var/datum/browser/popup = new(user, "bounties", "Nanotrasen Bounties", 700, 600)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 /obj/machinery/computer/bounty/Topic(href, href_list)

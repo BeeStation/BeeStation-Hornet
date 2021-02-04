@@ -1,6 +1,6 @@
 //Ethereal Disco Grenade for Ethereal traitors
 //Does not affect ethereals.
-//Some basic code peices taken from flashbang, spawner grenade and ethereal disco ball for functionality (basically a combination of the 3).
+//Some basic code pieces taken from flashbang, spawner grenade and ethereal disco ball for functionality (basically a combination of the 3).
 
 //////////////////////
 // Primary grenade  //
@@ -107,6 +107,10 @@
 	if(HAS_TRAIT(M, TRAIT_MINDSHIELD))
 		M.show_message("<span class='warning'>You resist your inner urges to break out your best moves.</span>", 2)
 		M.set_drugginess(5)
+		return
+	if(istype(M.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		to_chat(M, "<span class = 'userdanger'>THOSE GLOW-IN-THE-DARK NANOTRASEN LIGHTBULBS WON'T CORRUPT ME WITH THEIR AGENDA!</span>")
+		M.emote("scream")
 		return
 
 	M.set_drugginess(10)

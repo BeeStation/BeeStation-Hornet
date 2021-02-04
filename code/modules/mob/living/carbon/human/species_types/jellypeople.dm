@@ -17,16 +17,16 @@
 	burnmod = 0.5 // = 1/2x generic burn damage
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	inherent_factions = list("slime")
+	species_language_holder = /datum/language_holder/jelly
+	swimming_component = /datum/component/swimming/dissolve
 
 /datum/species/jelly/on_species_loss(mob/living/carbon/C)
 	if(regenerate_limbs)
 		regenerate_limbs.Remove(C)
-	C.remove_language(/datum/language/slime)
 	..()
 
 /datum/species/jelly/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	C.grant_language(/datum/language/slime)
 	if(ishuman(C))
 		regenerate_limbs = new
 		regenerate_limbs.Grant(C)
@@ -262,11 +262,15 @@
 	else
 		ui_interact(owner)
 
-/datum/action/innate/swap_body/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/action/innate/swap_body/ui_state(mob/user)
+	return GLOB.always_state
+
+/datum/action/innate/swap_body/ui_interact(mob/user, datum/tgui/ui)
+
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SlimeBodySwapper", name, 400, 400, master_ui, state)
+		ui = new(user, src, "SlimeBodySwapper")
 		ui.open()
 
 /datum/action/innate/swap_body/ui_data(mob/user)
@@ -478,7 +482,7 @@
 		button_icon_state = "slimeeject"
 	..()
 
-/datum/action/innate/integrate_extract/ApplyIcon(obj/screen/movable/action_button/current_button, force)
+/datum/action/innate/integrate_extract/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force)
 	..(current_button, TRUE)
 	if(species?.current_extract)
 		current_button.add_overlay(mutable_appearance(species.current_extract.icon, species.current_extract.icon_state))
@@ -532,7 +536,7 @@
 			return TRUE
 		return FALSE
 
-/datum/action/innate/use_extract/ApplyIcon(obj/screen/movable/action_button/current_button, force)
+/datum/action/innate/use_extract/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force)
 	..(current_button, TRUE)
 	if(species && species.current_extract)
 		current_button.add_overlay(mutable_appearance(species.current_extract.icon, species.current_extract.icon_state))
@@ -596,6 +600,10 @@
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_MINDSHIELD)) //mindshield implant, no dice
 		return FALSE
+	if(istype(M.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		to_chat(M, "<span class='danger'>[slimelink_owner.real_name]'s no-good syndicate mind-slime is blocked by your protective headgear!</span>")
+
+		return FALSE
 	if(M in linked_mobs)
 		return FALSE
 	linked_mobs.Add(M)
@@ -634,7 +642,7 @@
 		Remove(H)
 		return
 
-	var/message = sanitize(input("Message:", "Slime Telepathy") as text|null)
+	var/message = stripped_input(usr, "Message:", "Slime Telepathy")
 
 	if(!species || !(H in species.linked_mobs))
 		to_chat(H, "<span class='warning'>The link seems to have been severed...</span>")
@@ -678,15 +686,15 @@
 	var/list/options = list()
 	for(var/mob/living/Ms in oview(H))
 		options += Ms
-	var/mob/living/M = input("Select who to send your message to:","Send thought to?",null) as null|mob in options
+	var/mob/living/M = input("Select who to send your message to:","Send thought to?",null) as null|mob in sortNames(options)
 	if(!M)
 		return
 
-	var/msg = sanitize(input("Message:", "Telepathy") as text|null)
+	var/msg = stripped_input(usr, "Message:", "Telepathy")
 	if(msg)
 		log_directed_talk(H, M, msg, LOG_SAY, "slime telepathy")
 		to_chat(M, "<span class='notice'>You hear an alien voice in your head... </span><font color=#008CA2>[msg]</font>")
-		to_chat(H, "<span class='notice'>You telepathically said: \"[msg]\" to [M]</span>")
+		to_chat(H, "<span class='notice'>You telepathically said: \"[msg]\" to [M].</span>")
 		for(var/dead in GLOB.dead_mob_list)
 			if(!isobserver(dead))
 				continue

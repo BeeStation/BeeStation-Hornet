@@ -77,9 +77,7 @@
 							c.info += copied
 							c.info += "</font>"
 							c.name = copy.name
-							c.fields = copy.fields
 							c.update_icon()
-							c.updateinfolinks()
 							c.stamps = copy.stamps
 							if(copy.stamped)
 								c.stamped = copy.stamped.Copy()
@@ -167,7 +165,7 @@
 		if(toner >= 5 && !busy)
 			var/mob/living/silicon/ai/tempAI = usr
 			if(tempAI.aicamera.stored.len == 0)
-				to_chat(usr, "<span class='boldannounce'>No images saved</span>")
+				to_chat(usr, "<span class='boldannounce'>No images saved.</span>")
 				return
 			var/datum/picture/selection = tempAI.aicamera.selectpicture(usr)
 			var/obj/item/photo/photo = new(loc, selection)
@@ -247,7 +245,7 @@
 			to_chat(user, "<span class='warning'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>")
 
 	else if(istype(O, /obj/item/areaeditor/blueprints))
-		to_chat(user, "<span class='warning'>The Blueprint is too large to put into the copier. You need to find something else to record the document</span>")
+		to_chat(user, "<span class='warning'>The Blueprint is too large to put into the copier. You need to find something else to record the document.</span>")
 	else
 		return ..()
 

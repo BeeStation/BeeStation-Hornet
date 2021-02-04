@@ -199,7 +199,7 @@ Regenerative extracts:
 		var/mob/living/simple_animal/slime/S = target
 		S.random_colour()
 	if(isjellyperson(target))
-		target.reagents.add_reagent(/datum/reagent/slime_toxin,5)
+		target.reagents.add_reagent(/datum/reagent/mutationtoxin/jelly,5)
 
 
 /obj/item/slimecross/regenerative/pink
@@ -247,6 +247,8 @@ Regenerative extracts:
 	dummy.adjustFireLoss(target.getFireLoss())
 	dummy.adjustToxLoss(target.getToxLoss())
 	dummy.adjustOxyLoss(200)
+	//Force death just in case
+	dummy.death()
 
 /obj/item/slimecross/regenerative/lightpink
 	colour = "light pink"

@@ -10,6 +10,10 @@
 
 	START_PROCESSING(SSprocessing, src)
 
+/datum/component/rot/Destroy()
+	STOP_PROCESSING(SSprocessing, src)
+	return ..()
+
 /datum/component/rot/process()
 	var/atom/A = parent
 
@@ -18,9 +22,8 @@
 		return
 
 	var/datum/gas_mixture/stank = new
-	ADD_GAS(/datum/gas/miasma, stank.gases)
-	stank.gases[/datum/gas/miasma][MOLES] = amount
-	stank.temperature = BODYTEMP_NORMAL // otherwise we have gas below 2.7K which will break our lag generator
+	stank.set_moles(/datum/gas/miasma, amount)
+	stank.set_temperature(BODYTEMP_NORMAL) // otherwise we have gas below 2.7K which will break our lag generator
 	T.assume_air(stank)
 	T.air_update_turf()
 
@@ -34,6 +37,9 @@
 
 /datum/component/rot/corpse/process()
 	var/mob/living/carbon/C = parent
+	if(C == null) //can't delete what doesnt exist
+		return
+
 	if(C.stat != DEAD)
 		qdel(src)
 		return

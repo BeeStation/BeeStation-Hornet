@@ -280,10 +280,9 @@
 	else  // A variation of get_hear inlined here to take advantage of the compiler's fastpath for obj/mob in view
 		var/lum = T.luminosity
 		T.luminosity = 6 // This is the maximum luminosity
-		for(var/mob/M in view(R, T))
-			processing_list += M
-		for(var/obj/O in view(R, T))
-			processing_list += O
+		for(var/A in view(R, T))
+			if(isobj(A) || ismob(A))
+				processing_list += A
 		T.luminosity = lum
 
 	while(processing_list.len) // recursive_hear_check inlined here
@@ -298,7 +297,13 @@
 	// Returns a list of mobs who can hear any of the radios given in @radios
 	for(var/obj/item/radio/R in radios)
 		if(R)
-			. |= get_hearers_in_view(R.canhear_range, R)
+			if(R.canhear_range != -1)
+				. |= get_hearers_in_view(R.canhear_range, R)
+			else
+				if(istype(R.loc, /obj/item/implant))
+					var/obj/item/implant/I = R.loc
+					if(I.imp_in)
+						. |= I.imp_in
 
 
 #define SIGNV(X) ((X<0)?-1:1)
@@ -371,11 +376,10 @@
 		if(AM.Move(get_step(T, direction)))
 			break
 
-/proc/get_mob_by_key(key)
-	var/ckey = ckey(key)
-	for(var/i in GLOB.player_list)
-		var/mob/M = i
-		if(M.ckey == ckey)
+/proc/get_mob_by_ckey(key)
+	var/ckey = ckey(key) //just to be safe
+	for(var/mob/M as() in GLOB.player_list)
+		if(M?.ckey == ckey)
 			return M
 	return null
 
@@ -385,7 +389,7 @@
 			var/mob/living/carbon/human/H
 			if(ishuman(M.current))
 				H = M.current
-			return M.current.stat != DEAD && !issilicon(M.current) && !isbrain(M.current) && (!H || H.dna.species.id != "memezombies")
+			return M.current.stat != DEAD && !issilicon(M.current) && !isbrain(M.current) && (!H || H.dna.species.id != "memezombies" && H.dna.species.id != "memezombiesfast")
 		else if(isliving(M.current))
 			return M.current.stat != DEAD
 	return FALSE
@@ -395,7 +399,7 @@
 
 /proc/ScreenText(obj/O, maptext="", screen_loc="CENTER-7,CENTER-7", maptext_height=480, maptext_width=480)
 	if(!isobj(O))
-		O = new /obj/screen/text()
+		O = new /atom/movable/screen/text()
 	O.maptext = maptext
 	O.maptext_height = maptext_height
 	O.maptext_width = maptext_width

@@ -1,0 +1,123 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall/mineral/titanium/survival,
+/area/survivalpod)
+"c" = (
+/obj/machinery/vending/wallmed/survival_pod,
+/turf/closed/wall/mineral/titanium/survival,
+/area/survivalpod)
+"d" = (
+/obj/machinery/stasis/survival_pod,
+/turf/open/floor/plasteel/grid,
+/area/survivalpod)
+"e" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/grid,
+/area/survivalpod)
+"f" = (
+/turf/open/floor/pod/light,
+/area/survivalpod)
+"g" = (
+/turf/open/floor/plasteel/grid,
+/area/survivalpod)
+"h" = (
+/obj/structure/table,
+/obj/item/storage/firstaid,
+/obj/item/holosign_creator/medical,
+/turf/open/floor/plasteel/grid,
+/area/survivalpod)
+"i" = (
+/obj/machinery/light,
+/turf/open/floor/plasteel/grid,
+/area/survivalpod)
+"j" = (
+/obj/machinery/chem_master,
+/turf/open/floor/plasteel/grid,
+/area/survivalpod)
+"k" = (
+/obj/machinery/sleeper/survival_pod,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue,
+/turf/open/floor/plasteel/grid,
+/area/survivalpod)
+"l" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/plasteel/grid,
+/area/survivalpod)
+"F" = (
+/obj/structure/sign/departments/medbay/alt,
+/turf/closed/wall/mineral/titanium/survival,
+/area/survivalpod)
+"N" = (
+/obj/structure/sign/departments/medbay/alt,
+/obj/structure/sign/departments/minsky/medical/medical2,
+/obj/structure/sign/departments/medbay/alt2,
+/turf/closed/wall/mineral/titanium/survival,
+/area/survivalpod)
+"U" = (
+/obj/machinery/door/airlock/survival_pod/glass,
+/obj/structure/fans/tiny,
+/turf/open/floor/pod/light,
+/area/survivalpod)
+
+(1,1,1) = {"
+a
+a
+U
+F
+a
+"}
+(2,1,1) = {"
+N
+d
+f
+k
+a
+"}
+(3,1,1) = {"
+a
+e
+f
+l
+a
+"}
+(4,1,1) = {"
+U
+f
+f
+f
+U
+"}
+(5,1,1) = {"
+c
+g
+f
+i
+a
+"}
+(6,1,1) = {"
+a
+h
+f
+j
+N
+"}
+(7,1,1) = {"
+a
+F
+U
+a
+a
+"}

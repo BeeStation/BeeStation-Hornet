@@ -20,6 +20,7 @@
 	if(ismovableatom(parent))
 		RegisterSignal(parent, list(COMSIG_MOVABLE_BUMP, COMSIG_MOVABLE_IMPACT), .proc/play_squeak)
 		RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, .proc/play_squeak_crossed)
+		RegisterSignal(parent, COMSIG_ATOM_EMINENCE_ACT, .proc/play_squeak_crossed)
 		RegisterSignal(parent, COMSIG_MOVABLE_DISPOSING, .proc/disposing_react)
 		if(isitem(parent))
 			RegisterSignal(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_ATTACK_OBJ, COMSIG_ITEM_HIT_REACT), .proc/play_squeak)
@@ -34,9 +35,9 @@
 		squeak_chance = chance_override
 	if(volume_override)
 		volume = volume_override
-	if(isnum(step_delay_override))
+	if(isnum_safe(step_delay_override))
 		step_delay = step_delay_override
-	if(isnum(use_delay_override))
+	if(isnum_safe(use_delay_override))
 		use_delay = use_delay_override
 
 /datum/component/squeak/proc/play_squeak()

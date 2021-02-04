@@ -91,6 +91,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	job_rank = ROLE_DEVIL
 	//Don't delete upon mind destruction, otherwise soul re-selling will break.
 	delete_on_mind_deletion = FALSE
+	show_to_ghosts = TRUE
 	var/obligation
 	var/ban
 	var/bane
@@ -497,6 +498,14 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	to_chat(owner.current, GLOB.lawlorify[LAW][banish])
 	to_chat(owner.current, "<span class='warning'>Remember, the crew can research your weaknesses if they find out your devil name.</span><br>")
 	.=..()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Devil",
+		"Summon contracts to purchase the souls of the crew.\n\
+		You may not use violence to coerce someone into selling their soul.\n\
+		You may not directly and knowingly physically harm a devil, other than yourself.\n\
+		[GLOB.lawlorify[LAW][bane]]\n\
+		[GLOB.lawlorify[LAW][ban]]\n\
+		[GLOB.lawlorify[LAW][obligation]]\n\
+		[GLOB.lawlorify[LAW][banish]]")
 
 /datum/antagonist/devil/on_gain()
 	truename = randomDevilName()
@@ -524,7 +533,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 
 /datum/antagonist/devil/apply_innate_effects(mob/living/mob_override)
 	give_appropriate_spells()
-	owner.current.grant_all_languages(TRUE)
+	owner.current.grant_all_languages(TRUE, TRUE, TRUE, LANGUAGE_DEVIL)
 	update_hud()
 	.=..()
 
@@ -533,6 +542,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 		var/obj/effect/proc_holder/spell/S = X
 		if(is_type_in_typecache(S, devil_spells))
 			owner.RemoveSpell(S)
+	owner.current.remove_all_languages(LANGUAGE_DEVIL)
 	.=..()
 
 /datum/antagonist/devil/proc/printdevilinfo()

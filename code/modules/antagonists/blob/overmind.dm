@@ -39,6 +39,9 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	var/blobwincount = 400
 	var/victory_in_progress = FALSE
 	var/rerolling = FALSE
+	var/announcement_size = 75
+	var/announcement_time
+	var/has_announced = FALSE
 
 /mob/camera/blob/Initialize(mapload, starting_points = 60)
 	validate_location()
@@ -56,6 +59,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	if(blob_core)
 		blob_core.update_icon()
 	SSshuttle.registerHostileEnvironment(src)
+	announcement_time = world.time + 6000
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
@@ -118,6 +122,9 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	if(!victory_in_progress && max_count < blobs_legit.len)
 		max_count = blobs_legit.len
 
+	if(!has_announced && (world.time >= announcement_time || blobs_legit.len >= announcement_size))
+		priority_announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/ai/outbreak5.ogg')
+		has_announced = TRUE
 /mob/camera/blob/proc/victory()
 	sound_to_playing_players('sound/machines/alarm.ogg')
 	sleep(100)
@@ -222,7 +229,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 /mob/camera/blob/proc/blob_talk(message)
 
-	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+	message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 
 	if (!message)
 		return
@@ -242,19 +249,18 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 /mob/camera/blob/blob_act(obj/structure/blob/B)
 	return
 
-/mob/camera/blob/Stat()
-	..()
-	if(statpanel("Status"))
-		if(blob_core)
-			stat(null, "Core Health: [blob_core.obj_integrity]")
-			stat(null, "Power Stored: [blob_points]/[max_blob_points]")
-			stat(null, "Blobs to Win: [blobs_legit.len]/[blobwincount]")
-		if(free_strain_rerolls)
-			stat(null, "You have [free_strain_rerolls] Free Strain Reroll\s Remaining")
-		if(!placed)
-			if(manualplace_min_time)
-				stat(null, "Time Before Manual Placement: [max(round((manualplace_min_time - world.time)*0.1, 0.1), 0)]")
-			stat(null, "Time Before Automatic Placement: [max(round((autoplace_max_time - world.time)*0.1, 0.1), 0)]")
+/mob/camera/blob/get_stat_tab_status()
+	var/list/tab_data = ..()
+	tab_data["Core Health"] = GENERATE_STAT_TEXT("[blob_core.obj_integrity]")
+	tab_data["Power Stored"] = GENERATE_STAT_TEXT("[blob_points]/[max_blob_points]")
+	tab_data["Blobs to Win"] = GENERATE_STAT_TEXT("[blobs_legit.len]/[blobwincount]")
+	if(free_strain_rerolls)
+		tab_data["Strain Reroll"] = GENERATE_STAT_TEXT("You have [free_strain_rerolls] Free Strain Reroll\s Remaining")
+	if(!placed)
+		if(manualplace_min_time)
+			tab_data["Time Before Manual Placement"] = GENERATE_STAT_TEXT("[max(round((manualplace_min_time - world.time)*0.1, 0.1), 0)]")
+		tab_data["Time Before Automatic Placement"] = GENERATE_STAT_TEXT("[max(round((autoplace_max_time - world.time)*0.1, 0.1), 0)]")
+	return tab_data
 
 /mob/camera/blob/Move(NewLoc, Dir = 0)
 	if(placed)

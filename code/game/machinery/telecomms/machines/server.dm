@@ -42,13 +42,14 @@
 	var/compression = signal.data["compression"]
 	if(compression > 0)
 		log.input_type = "Corrupt File"
-		log.parameters["name"] = Gibberish(signal.data["name"], compression + 50)
-		log.parameters["job"] = Gibberish(signal.data["job"], compression + 50)
-		log.parameters["message"] = Gibberish(signal.data["message"], compression + 50)
+		var/replace_characters = compression >= 20 ? TRUE : FALSE
+		log.parameters["name"] = Gibberish(signal.data["name"], replace_characters)
+		log.parameters["job"] = Gibberish(signal.data["job"], replace_characters)
+		log.parameters["message"] = Gibberish(signal.data["message"], replace_characters)
 
 	// Give the log a name and store it
 	var/identifier = num2text( rand(-1000,1000) + world.time )
-	log.name = "data packet ([md5(identifier)])"
+	log.name = "data packet ([rustg_hash_string(RUSTG_HASH_MD5, identifier)])"
 	log_entries.Add(log)
 
 	var/can_send = relay_information(signal, /obj/machinery/telecomms/hub)

@@ -21,7 +21,7 @@
 				check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT))
 		if(. >= 5 || prob(33))
 			occupant_message("<span class='userdanger'>Taking damage!</span>")
-		log_message("Took [damage_amount] points of damage. Damage type: [damage_type]", LOG_MECHA)
+		log_message("Took [damage_amount] points of damage. Damage type: [damage_type].", LOG_MECHA)
 
 /obj/mecha/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	. = ..()
@@ -75,7 +75,7 @@
 
 /obj/mecha/attack_animal(mob/living/simple_animal/user)
 	log_message("Attack by simple animal. Attacker - [user].", LOG_MECHA, color="red")
-	if(!user.melee_damage_upper && !user.obj_damage)
+	if(!user.melee_damage && !user.obj_damage)
 		user.emote("custom", message = "[user.friendly] [src].")
 		return 0
 	else
@@ -83,7 +83,7 @@
 		if(user.environment_smash)
 			play_soundeffect = 0
 			playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		var/animal_damage = rand(user.melee_damage_lower,user.melee_damage_upper)
+		var/animal_damage = user.melee_damage
 		if(user.obj_damage)
 			animal_damage = user.obj_damage
 		animal_damage = min(animal_damage, 20*user.environment_smash)
@@ -131,7 +131,7 @@
 	severity++
 	for(var/X in equipment)
 		var/obj/item/mecha_parts/mecha_equipment/ME = X
-		ME.ex_act(severity,target)
+		ME.ex_act(severity, target)
 	for(var/Y in trackers)
 		var/obj/item/mecha_parts/mecha_tracking/MT = Y
 		MT.ex_act(severity, target)
@@ -200,7 +200,7 @@
 				to_chat(user, "<span class='notice'>You install the power cell.</span>")
 				playsound(src, 'sound/items/screwdriver2.ogg', 50, FALSE)
 				cell = C
-				log_message("Powercell installed", LOG_MECHA)
+				log_message("Power cell installed", LOG_MECHA)
 			else
 				to_chat(user, "<span class='notice'>There's already a power cell installed.</span>")
 		return

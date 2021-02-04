@@ -15,6 +15,9 @@
 
 /obj/effect/proc_holder/spell/targeted/telepathy/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	for(var/mob/living/M in targets)
+		if(istype(M.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+			to_chat(user, "<span class='warning'>It appears the target's mind is ironclad! No getting a message in there!</span>")
+			return
 		var/msg = stripped_input(usr, "What do you wish to tell [M]?", null, "")
 		if(!msg)
 			charge_counter = charge_max

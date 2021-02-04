@@ -10,7 +10,7 @@
 _maps/RandomZLevels/blackmarketpackers.dmm
 _maps/RandomZLevels/spacebattle.dmm
 _maps/RandomZLevels/TheBeach.dmm
-_maps/RandomZLevels/Academy.dmm
+#_maps/RandomZLevels/Academy.dmm until its fixed this is just smack-a-window
 _maps/RandomZLevels/wildwest.dmm
 _maps/RandomZLevels/challenge.dmm
 _maps/RandomZLevels/centcomAway.dmm
@@ -23,3 +23,4 @@ _maps/RandomZLevels/SnowCabin.dmm
 _maps/RandomZLevels/VR/murderdome.dmm
 _maps/RandomZLevels/VR/snowdin_VR.dmm
 _maps/RandomZLevels/VR/syndicate_trainer.dmm
+_maps/RandomZLevels/TheFactory.dmm

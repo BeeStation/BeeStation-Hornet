@@ -33,7 +33,7 @@
 		restraining = 0
 	streak = streak+element
 	if(length(streak) > max_streak_length)
-		streak = copytext(streak,2)
+		streak = copytext(streak, 1 + length(streak[1]))
 	return
 
 /datum/martial_art/proc/basic_hit(mob/living/carbon/human/A,mob/living/carbon/human/D)
@@ -89,7 +89,7 @@
 	else if(make_temporary)
 		base = H.mind.default_martial_art
 	if(help_verb)
-		H.verbs += help_verb
+		H.add_verb(help_verb)
 	H.mind.martial_art = src
 	return TRUE
 
@@ -112,5 +112,5 @@
 
 /datum/martial_art/proc/on_remove(mob/living/carbon/human/H)
 	if(help_verb)
-		H.verbs -= help_verb
+		H.remove_verb(help_verb)
 	return

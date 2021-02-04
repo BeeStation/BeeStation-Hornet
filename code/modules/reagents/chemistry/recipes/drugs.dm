@@ -47,3 +47,10 @@
 	results = list(/datum/reagent/drug/happiness = 4)
 	required_reagents = list(/datum/reagent/nitrous_oxide = 2, /datum/reagent/medicine/epinephrine = 1, /datum/reagent/consumable/ethanol = 1)
 	required_catalysts = list(/datum/reagent/toxin/plasma = 5)
+
+/datum/chemical_reaction/ketamine
+	name = "Ketamine"
+	id = /datum/reagent/drug/ketamine
+	results = list(/datum/reagent/drug/ketamine = 3)
+	required_reagents = list(/datum/reagent/medicine/morphine = 3, /datum/reagent/toxin/chloralhydrate = 3, /datum/reagent/toxin/fentanyl = 3, /datum/reagent/medicine/epinephrine =3)
+	required_temp = 370

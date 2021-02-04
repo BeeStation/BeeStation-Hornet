@@ -97,7 +97,7 @@
 	var/json_path = file("[dir]/metadata.json")
 	if(!fexists(json_path))
 		return
-	var/list/json = json_decode(file2text(json_path))
+	var/list/json = json_decode(rustg_file_read(json_path))
 	if(!json[id])
 		return
 	var/datum/picture/P = new
@@ -117,9 +117,9 @@
 			if(data.len < 5)
 				return null
 			var/timestamp = data[2]
-			var/year = copytext(timestamp, 1, 5)
-			var/month = copytext(timestamp, 5, 7)
-			var/day = copytext(timestamp, 7, 9)
+			var/year = copytext_char(timestamp, 1, 5)
+			var/month = copytext_char(timestamp, 5, 7)
+			var/day = copytext_char(timestamp, 7, 9)
 			var/round = data[4]
 			. += "[year]/[month]/[day]/round-[round]"
 		if("O")
@@ -147,7 +147,7 @@
 	jsonpath = file(jsonpath)
 	var/list/json
 	if(fexists(jsonpath))
-		json = json_decode(file2text(jsonpath))
+		json = json_decode(rustg_file_read(jsonpath))
 		fdel(jsonpath)
 	else
 		json = list()

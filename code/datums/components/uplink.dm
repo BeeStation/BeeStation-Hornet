@@ -26,6 +26,7 @@
 	var/failsafe_code
 	var/compact_mode = FALSE
 	var/debug = FALSE
+	var/non_traitor_allowed = TRUE
 
 	var/list/previous_attempts
 
@@ -112,18 +113,23 @@
 /datum/component/uplink/proc/interact(datum/source, mob/user)
 	if(locked)
 		return
+	if(!non_traitor_allowed && !user.mind.special_role)
+		return
 	active = TRUE
 	if(user)
 		ui_interact(user)
 	// an unlocked uplink blocks also opening the PDA or headset menu
 	return COMPONENT_NO_INTERACT
 
-/datum/component/uplink/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
+
+/datum/component/uplink/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/datum/component/uplink/ui_interact(mob/user, datum/tgui/ui)
 	active = TRUE
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Uplink", name, 620, 580, master_ui, state)
+		ui = new(user, src, "Uplink")
 		// This UI is only ever opened by one person,
 		// and never is updated outside of user input.
 		ui.set_autoupdate(FALSE)
@@ -298,7 +304,7 @@
 	if(istype(parent,/obj/item/pda))
 		return "[rand(100,999)] [pick(GLOB.phonetic_alphabet)]"
 	else if(istype(parent,/obj/item/radio))
-		return sanitize_frequency(rand(MIN_FREQ, MAX_FREQ))
+		return sanitize_frequency(rand(MIN_FREQ, MAX_FREQ), TRUE)
 	else if(istype(parent,/obj/item/pen))
 		var/list/L = list()
 		for(var/i in 1 to PEN_ROTATIONS)

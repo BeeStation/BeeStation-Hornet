@@ -9,7 +9,7 @@ This file contains the cult dagger and rune list code
 	. = ..()
 	if(!LAZYLEN(GLOB.rune_types))
 		GLOB.rune_types = list()
-		var/static/list/non_revealed_runes = (subtypesof(/obj/effect/rune) - /obj/effect/rune/malformed)
+		var/static/list/non_revealed_runes = ((subtypesof(/obj/effect/rune) - /obj/effect/rune/malformed) - /obj/effect/rune/cluwne) //this is shitcode and i hate it
 		for(var/i_can_do_loops_now_thanks_remie in non_revealed_runes)
 			var/obj/effect/rune/R = i_can_do_loops_now_thanks_remie
 			GLOB.rune_types[initial(R.cultist_name)] = R //Uses the cultist name for displaying purposes

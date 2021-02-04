@@ -44,20 +44,6 @@
 	},
 /turf/template_noop,
 /area/template_noop)
-"aj" = (
-/obj/machinery/door/airlock/freezer{
-	name = "airlock";
-	opacity = 0
-	},
-/obj/structure/fluff/paper{
-	dir = 8
-	},
-/obj/structure/fluff/paper{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/turf/open/indestructible/paper,
-/area/ruin/powered)
 "ak" = (
 /obj/structure/fluff/paper{
 	dir = 9
@@ -896,7 +882,7 @@
 /mob/living/simple_animal/hostile/stickman/ranged,
 /turf/open/indestructible/paper,
 /area/ruin/powered)
-"wr" = (
+"fv" = (
 /obj/machinery/door/airlock/freezer{
 	name = "airlock";
 	opacity = 0
@@ -910,6 +896,22 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
+/obj/structure/fans/tiny/invisible,
+/turf/open/indestructible/paper,
+/area/ruin/powered)
+"mx" = (
+/obj/machinery/door/airlock/freezer{
+	name = "airlock";
+	opacity = 0
+	},
+/obj/structure/fluff/paper{
+	dir = 8
+	},
+/obj/structure/fluff/paper{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/structure/fans/tiny/invisible,
 /turf/open/indestructible/paper,
 /area/ruin/powered)
 
@@ -2536,9 +2538,9 @@ aa
 (37,1,1) = {"
 aa
 ah
-aj
+mx
 an
-wr
+fv
 av
 ap
 ap

@@ -15,7 +15,7 @@
 #define LAZYADD(L, I) if(!L) { L = list(); } L += I;
 #define LAZYOR(L, I) if(!L) { L = list(); } L |= I;
 #define LAZYFIND(L, V) L ? L.Find(V) : 0
-#define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= length(L) ? L[I] : null) : L[I]) : null)
+#define LAZYACCESS(L, I) (L ? (isnum_safe(I) ? (I > 0 && I <= length(L) ? L[I] : null) : L[I]) : null)
 #define LAZYSET(L, K, V) if(!L) { L = list(); } L[K] = V;
 #define LAZYLEN(L) length(L)
 #define LAZYCLEARLIST(L) if(L) L.Cut()
@@ -50,6 +50,34 @@
 		LIST.Insert(__BIN_MID, IN);\
 	}
 
+// binary search sorted insert (COMPARE = TEXT)
+// IN: Object to be inserted
+// LIST: List to insert object into
+// TYPECONT: The typepath of the contents of the list
+// COMPARE: The variable on the objects to compare (Must be a string)
+#define BINARY_INSERT_TEXT(IN, LIST, TYPECONT, COMPARE) \
+	var/__BIN_CTTL = length(LIST);\
+	if(!__BIN_CTTL) {\
+		LIST += IN;\
+	} else {\
+		var/__BIN_LEFT = 1;\
+		var/__BIN_RIGHT = __BIN_CTTL;\
+		var/__BIN_MID = (__BIN_LEFT + __BIN_RIGHT) >> 1;\
+		var/##TYPECONT/__BIN_ITEM;\
+		while(__BIN_LEFT < __BIN_RIGHT) {\
+			__BIN_ITEM = LIST[__BIN_MID];\
+			if(sorttext(__BIN_ITEM.##COMPARE, IN.##COMPARE) > 0) {\
+				__BIN_LEFT = __BIN_MID + 1;\
+			} else {\
+				__BIN_RIGHT = __BIN_MID;\
+			};\
+			__BIN_MID = (__BIN_LEFT + __BIN_RIGHT) >> 1;\
+		};\
+		__BIN_ITEM = LIST[__BIN_MID];\
+		__BIN_MID = sorttext(__BIN_ITEM.##COMPARE, IN.##COMPARE) < 0 ? __BIN_MID : __BIN_MID + 1;\
+		LIST.Insert(__BIN_MID, IN);\
+	}
+
 /// Returns a list in plain english as a string
 /proc/english_list(list/input, nothing_text = "nothing", and_text = " and ", comma_text = ", ", final_comma_text = "" )
 	var/total = length(input)
@@ -75,7 +103,7 @@
 /// Returns list element or null. Should prevent "index out of bounds" error.
 /proc/listgetindex(list/L, index)
 	if(LAZYLEN(L))
-		if(isnum(index) && ISINTEGER(index))
+		if(isnum_safe(index) && ISINTEGER(index))
 			if(ISINRANGE(index,1,L.len))
 				return L[index]
 		else if(index in L)
@@ -336,7 +364,7 @@
 	var/temp = L.Copy()
 	L.len = 0
 	for(var/key in temp)
-		if (isnum(key))
+		if (isnum_safe(key))
 			L |= key
 		else
 			L[key] = temp[key]
@@ -533,7 +561,7 @@
 	. = l.Copy()
 	for(var/i = 1 to l.len)
 		var/key = .[i]
-		if(isnum(key))
+		if(isnum_safe(key))
 			// numbers cannot ever be associative keys
 			continue
 		var/value = .[key]

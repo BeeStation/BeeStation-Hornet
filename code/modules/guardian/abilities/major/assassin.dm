@@ -10,8 +10,8 @@
 	arrow_weight = 0.9
 	var/next_stealth = 0
 	var/stealthcooldown = 0
-	var/obj/screen/alert/canstealthalert
-	var/obj/screen/alert/instealthalert
+	var/atom/movable/screen/alert/canstealthalert
+	var/atom/movable/screen/alert/instealthalert
 
 
 /datum/guardian_ability/major/assassin/Apply()
@@ -44,8 +44,7 @@
 			mode = FALSE
 			Mode()
 			return
-		guardian.melee_damage_lower = 50
-		guardian.melee_damage_upper = 50
+		guardian.melee_damage = 50
 		guardian.armour_penetration = 100
 		guardian.obj_damage = 0
 		guardian.environment_smash = ENVIRONMENT_SMASH_NONE
@@ -53,8 +52,7 @@
 		guardian.alpha = 15
 		updatestealthalert()
 	else
-		guardian.melee_damage_lower = initial(guardian.melee_damage_lower)
-		guardian.melee_damage_upper = initial(guardian.melee_damage_upper)
+		guardian.melee_damage = initial(guardian.melee_damage)
 		guardian.armour_penetration = initial(guardian.armour_penetration)
 		guardian.obj_damage = initial(guardian.obj_damage)
 		guardian.environment_smash = initial(guardian.environment_smash)
@@ -70,12 +68,12 @@
 	if(next_stealth <= world.time)
 		if(mode)
 			if(!instealthalert)
-				instealthalert = guardian.throw_alert("instealth", /obj/screen/alert/instealth)
+				instealthalert = guardian.throw_alert("instealth", /atom/movable/screen/alert/instealth)
 				guardian.clear_alert("canstealth")
 				canstealthalert = null
 		else
 			if(!canstealthalert)
-				canstealthalert = guardian.throw_alert("canstealth", /obj/screen/alert/canstealth)
+				canstealthalert = guardian.throw_alert("canstealth", /atom/movable/screen/alert/canstealth)
 				guardian.clear_alert("instealth")
 				instealthalert = null
 	else

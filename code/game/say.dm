@@ -25,7 +25,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 		return
 	spans |= speech_span
 	if(!language)
-		language = get_default_language()
+		language = get_selected_language()
 	send_speech(message, 7, src, , spans, message_language=language)
 
 /atom/movable/proc/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode)
@@ -50,9 +50,32 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	var/freqpart = radio_freq ? "\[[get_radio_name(radio_freq)]\] " : ""
 	//Speaker name
 	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
-	if(face_name && ishuman(speaker))
+	if(ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
-		namepart = "[H.get_face_name()]" //So "fake" speaking like in hallucinations does not give the speaker away if disguised
+		if(face_name)
+			namepart = "[H.get_face_name()]" //So "fake" speaking like in hallucinations does not give the speaker away if disguised
+		if(!radio_freq)
+			if(H.wear_id)
+				var/datum/job/wearer_job = SSjob.GetJob(H.wear_id.GetJobName())
+				var/wearer_say_span
+				if(wearer_job)
+					wearer_say_span = wearer_job.say_span
+				else
+					switch(H.wear_id.GetJobName())
+						if("CentCom")
+							wearer_say_span = "centcom"
+						if("Prisoner")
+							wearer_say_span = "prisoner"
+						else
+							wearer_say_span = "unknown"
+				if(wearer_say_span)
+					spanpart2 = "<span class='name [wearer_say_span]'>"
+			else
+				spanpart2 = "<span class='name unknown'>"
+	else if(isliving(speaker) && !radio_freq)
+		var/mob/living/L = speaker
+		spanpart2 = "<span class='name [L.mobchatspan]'>"
+
 	//End name span.
 	var/endspanpart = "</span>"
 
@@ -73,8 +96,8 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	return ""
 
 /atom/movable/proc/say_mod(input, message_mode)
-	var/ending = copytext(input, length(input))
-	if(copytext(input, length(input) - 1) == "!!")
+	var/ending = copytext_char(input, -1)
+	if(copytext_char(input, -2) == "!!")
 		return verb_yell
 	else if(ending == "?")
 		return verb_ask
@@ -87,7 +110,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	if(!input)
 		input = "..."
 
-	if(copytext(input, length(input) - 1) == "!!")
+	if(copytext_char(input, -2) == "!!")
 		spans |= SPAN_YELL
 
 	var/spanned = attach_spans(input, spans)
@@ -121,7 +144,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	var/returntext = GLOB.reverseradiochannels["[freq]"]
 	if(returntext)
 		return returntext
-	return "[copytext("[freq]", 1, 4)].[copytext("[freq]", 4, 5)]"
+	return "[copytext_char("[freq]", 1, 4)].[copytext_char("[freq]", 4, 5)]"
 
 /proc/attach_spans(input, list/spans)
 	return "[message_spans_start(spans)][input]</span>"
@@ -134,7 +157,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	return output
 
 /proc/say_test(text)
-	var/ending = copytext(text, length(text))
+	var/ending = copytext_char(text, -1)
 	if (ending == "?")
 		return "1"
 	else if (ending == "!")

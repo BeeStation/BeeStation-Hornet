@@ -28,7 +28,7 @@
 	var/response_help   = "pokes"
 	var/response_disarm = "shoves"
 	var/response_harm   = "hits"
-	var/harm_intent_damage = 3
+	var/harm_intent_damage = 6 //the damage dealt to a mob when punched. default is default punch damage
 	var/force_threshold = 0 //Minimum force required to deal any damage
 
 	//Temperature effect
@@ -43,8 +43,7 @@
 	var/unsuitable_atmos_damage = 2	//This damage is taken when atmos doesn't fit all the requirements above
 
 	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
-	var/melee_damage_lower = 0
-	var/melee_damage_upper = 0
+	var/melee_damage = 0
 	var/obj_damage = 0 //how much damage this simple animal does to objects, if any
 	var/armour_penetration = 0 //How much armour they ignore, as a flat reduction from the targets armour value
 	var/melee_damage_type = BRUTE //Damage type of a simple mob's melee attack, should it do damage.
@@ -53,6 +52,7 @@
 	var/attack_sound = null
 	var/friendly = "nuzzles" //If the mob does no damage with it's attack
 	var/environment_smash = ENVIRONMENT_SMASH_NONE //Set to 1 to allow breaking of crates,lockers,racks,tables; 2 for walls; 3 for Rwalls
+	var/hardattacks = FALSE //if true, a simplemob is unaffected by NASTY_BLOCKING
 
 	var/speed = 1 //LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
 
@@ -81,7 +81,7 @@
 	var/dextrous = FALSE //If the creature has, and can use, hands
 	var/dextrous_hud_type = /datum/hud/dextrous
 
-	var/AIStatus = AI_ON //The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever), AI_Z_OFF (Temporarily off due to nonpresence of players)
+	var/AIStatus = AI_ON //The Status of our AI, can be changed via toggle_ai(togglestatus) to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever), AI_Z_OFF (Temporarily off due to nonpresence of players)
 	var/can_have_ai = TRUE //once we have become sentient, we can never go back
 
 	var/shouldwakeup = FALSE //convenience var for forcibly waking up an idling AI on next check.
@@ -92,6 +92,10 @@
 	var/my_z // I don't want to confuse this with client registered_z
 
 	var/do_footstep = FALSE
+	///Generic flags
+	var/simple_mob_flags = NONE
+
+	var/special_process = FALSE
 
 /mob/living/simple_animal/Initialize()
 	. = ..()
@@ -202,25 +206,19 @@
 					else
 						emote("me", 2, pick(emote_hear))
 
-
-/mob/living/simple_animal/proc/environment_is_safe(datum/gas_mixture/environment, check_temp = FALSE)
+/mob/living/simple_animal/proc/environment_air_is_safe()
 	. = TRUE
 
 	if(pulledby && pulledby.grab_state >= GRAB_KILL && atmos_requirements["min_oxy"])
 		. = FALSE //getting choked
 
-	if(isturf(src.loc) && isopenturf(src.loc))
-		var/turf/open/ST = src.loc
+	if(isturf(loc) && isopenturf(loc))
+		var/turf/open/ST = loc
 		if(ST.air)
-			var/ST_gases = ST.air.gases
-			ST.air.assert_gases(arglist(GLOB.hardcoded_gases))
-
-			var/tox = ST_gases[/datum/gas/plasma][MOLES]
-			var/oxy = ST_gases[/datum/gas/oxygen][MOLES]
-			var/n2  = ST_gases[/datum/gas/nitrogen][MOLES]
-			var/co2 = ST_gases[/datum/gas/carbon_dioxide][MOLES]
-
-			ST.air.garbage_collect()
+			var/tox = ST.air.get_moles(/datum/gas/plasma)
+			var/oxy = ST.air.get_moles(/datum/gas/oxygen)
+			var/n2  = ST.air.get_moles(/datum/gas/nitrogen)
+			var/co2 = ST.air.get_moles(/datum/gas/carbon_dioxide)
 
 			if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 				. = FALSE
@@ -242,29 +240,51 @@
 			if(atmos_requirements["min_oxy"] || atmos_requirements["min_tox"] || atmos_requirements["min_n2"] || atmos_requirements["min_co2"])
 				. = FALSE
 
-	if(check_temp)
-		var/areatemp = get_temperature(environment)
-		if((areatemp < minbodytemp) || (areatemp > maxbodytemp))
-			. = FALSE
-
+/mob/living/simple_animal/proc/environment_temperature_is_safe(datum/gas_mixture/environment)
+	. = TRUE
+	var/areatemp = get_temperature(environment)
+	if((areatemp < minbodytemp) || (areatemp > maxbodytemp))
+		. = FALSE
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
-	var/atom/A = src.loc
+	var/atom/A = loc
 	if(isturf(A))
 		var/areatemp = get_temperature(environment)
-		if( abs(areatemp - bodytemperature) > 5)
+		if(abs(areatemp - bodytemperature) > 5)
 			var/diff = areatemp - bodytemperature
 			diff = diff / 5
 			adjust_bodytemperature(diff)
 
-	if(!environment_is_safe(environment))
+	if(!environment_air_is_safe())
 		adjustHealth(unsuitable_atmos_damage)
+		if(unsuitable_atmos_damage > 0)
+			throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
+	else
+		clear_alert("not_enough_oxy")
 
 	handle_temperature_damage()
 
 /mob/living/simple_animal/proc/handle_temperature_damage()
-	if((bodytemperature < minbodytemp) || (bodytemperature > maxbodytemp))
+	if(bodytemperature < minbodytemp)
 		adjustHealth(unsuitable_atmos_damage)
+		switch(unsuitable_atmos_damage)
+			if(1 to 5)
+				throw_alert("temp", /atom/movable/screen/alert/cold, 1)
+			if(5 to 10)
+				throw_alert("temp", /atom/movable/screen/alert/cold, 2)
+			if(10 to INFINITY)
+				throw_alert("temp", /atom/movable/screen/alert/cold, 3)
+	else if(bodytemperature > maxbodytemp)
+		adjustHealth(unsuitable_atmos_damage)
+		switch(unsuitable_atmos_damage)
+			if(1 to 5)
+				throw_alert("temp", /atom/movable/screen/alert/hot, 1)
+			if(5 to 10)
+				throw_alert("temp", /atom/movable/screen/alert/hot, 2)
+			if(10 to INFINITY)
+				throw_alert("temp", /atom/movable/screen/alert/hot, 3)
+	else
+		clear_alert("temp")
 
 /mob/living/simple_animal/gib()
 	if(butcher_results || guaranteed_butcher_results)
@@ -302,11 +322,10 @@
 		remove_movespeed_modifier(MOVESPEED_ID_SIMPLEMOB_VARSPEED, TRUE)
 	add_movespeed_modifier(MOVESPEED_ID_SIMPLEMOB_VARSPEED, TRUE, 100, multiplicative_slowdown = speed, override = TRUE)
 
-/mob/living/simple_animal/Stat()
-	..()
-	if(statpanel("Status"))
-		stat(null, "Health: [round((health / maxHealth) * 100)]%")
-		return 1
+/mob/living/simple_animal/get_stat_tab_status()
+	var/list/tab_data = ..()
+	tab_data["Health"] = GENERATE_STAT_TEXT("[round((health / maxHealth) * 100)]%")
+	return tab_data
 
 /mob/living/simple_animal/proc/drop_loot()
 	if(loot.len)
@@ -323,7 +342,7 @@
 		drop_all_held_items()
 	if(!gibbed)
 		if(deathsound || deathmessage || !del_on_death)
-			emote("deathgasp")
+			INVOKE_ASYNC(src, /mob.proc/emote, "deathgasp")
 	if(del_on_death)
 		..()
 		//Prevent infinite loops if the mob Destroy() is overridden in such
@@ -375,9 +394,10 @@
 		setMovetype(initial(movement_type))
 
 /mob/living/simple_animal/proc/make_babies() // <3 <3 <3
+	set waitfor = 0
 	if(gender != FEMALE || stat || next_scan_time > world.time || !childtype || !animal_species || !SSticker.IsRoundInProgress())
 		return
-	next_scan_time = world.time + 400
+	next_scan_time = world.time + (5 MINUTES)
 	var/alone = 1
 	var/mob/living/simple_animal/partner
 	var/children = 0
@@ -394,6 +414,7 @@
 
 		else if(isliving(M) && !faction_check_mob(M)) //shyness check. we're not shy in front of things that share a faction with us.
 			return //we never mate when not alone, so just abort early
+		CHECK_TICK
 
 	if(alone && partner && children < 3)
 		var/childspawn = pickweight(childtype)
@@ -517,7 +538,7 @@
 	var/oindex = active_hand_index
 	active_hand_index = hand_index
 	if(hud_used)
-		var/obj/screen/inventory/hand/H
+		var/atom/movable/screen/inventory/hand/H
 		H = hud_used.hand_slots["[hand_index]"]
 		if(H)
 			H.update_icon()

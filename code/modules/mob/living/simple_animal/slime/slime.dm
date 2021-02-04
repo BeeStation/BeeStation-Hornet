@@ -9,7 +9,6 @@
 	var/docile = 0
 	faction = list("slime","neutral")
 
-	harm_intent_damage = 5
 	icon_living = "grey baby slime"
 	icon_dead = "grey baby slime dead"
 	response_help  = "pets"
@@ -20,6 +19,7 @@
 	bubble_icon = "slime"
 	initial_language_holder = /datum/language_holder/slime
 	mobsay_color = "#A6E398"
+	mobchatspan = "slimemobsay"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
@@ -40,6 +40,7 @@
 	status_flags = CANUNCONSCIOUS|CANPUSH
 
 	hud_type = /datum/hud/slime
+	hardattacks = TRUE //A sharp blade wont cut a slime from a mere parry
 
 	var/cores = 1 // the number of /obj/item/slime_extract's the slime has left inside
 	var/mutation_chance = 30 // Chance of mutating, should be between 25 and 35
@@ -49,13 +50,14 @@
 
 	var/number = 0 // Used to understand when someone is talking to it
 
-	var/mob/living/Target = null // AI variable - tells the slime to hunt this down
-	var/mob/living/Leader = null // AI variable - tells the slime to follow this person
+	var/mob/living/Target // AI variable - tells the slime to hunt this down
+	var/mob/living/Leader // AI variable - tells the slime to follow this person
 
 	var/attacked = 0 // Determines if it's been attacked recently. Can be any number, is a cooloff-ish variable
 	var/rabid = 0 // If set to 1, the slime will attack and eat anything it comes in contact with
 	var/holding_still = 0 // AI variable, cooloff-ish for how long it's going to stay in one place
 	var/target_patience = 0 // AI variable, cooloff-ish for how long it's going to follow its target
+	var/bucklestrength = 5 //rng replacement var for wrestling slimes off
 
 	var/list/Friends = list() // A list of friends; they are not considered targets for feeding; passed down after splitting
 
@@ -84,6 +86,9 @@
 	var/effectmod //What core modification is being used.
 	var/applied = 0 //How many extracts of the modtype have been applied.
 
+	// Transformative extract effects - get passed down
+	var/transformeffects = SLIME_EFFECT_DEFAULT
+	var/mob/master
 
 /mob/living/simple_animal/slime/Initialize(mapload, new_colour="grey", new_is_adult=FALSE)
 	GLOB.total_slimes++
@@ -106,9 +111,11 @@
 	set_nutrition(700)
 
 /mob/living/simple_animal/slime/Destroy()
-	for (var/A in actions)
+	for(var/A in actions)
 		var/datum/action/AC = A
 		AC.Remove(src)
+	remove_form_spawner_menu()
+	master = null
 	return ..()
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
@@ -190,7 +197,7 @@
 				hud_used.healths.icon_state = "slime_health7"
 				severity = 6
 		if(severity > 0)
-			overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
+			overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 		else
 			clear_fullscreen("brute")
 
@@ -222,32 +229,29 @@
 				probab = 95
 		if(prob(probab))
 			if(istype(O, /obj/structure/window) || istype(O, /obj/structure/grille))
-				if(nutrition <= get_hunger_nutrition() && !Atkcool)
+				if(attack_cooldown < world.time && nutrition <= get_hunger_nutrition())
 					if (is_adult || prob(5))
 						O.attack_slime(src)
-						Atkcool = 1
-						spawn(45)
-							Atkcool = 0
+						attack_cooldown = world.time + attack_cooldown_time
 
 /mob/living/simple_animal/slime/Process_Spacemove(movement_dir = 0)
 	return 2
 
-/mob/living/simple_animal/slime/Stat()
-	if(..())
-
-		if(!docile)
-			stat(null, "Nutrition: [nutrition]/[get_max_nutrition()]")
-		if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
-			if(is_adult)
-				stat(null, "You can reproduce!")
-			else
-				stat(null, "You can evolve!")
-
-		if(stat == UNCONSCIOUS)
-			stat(null,"You are knocked out by high levels of BZ!")
+/mob/living/simple_animal/slime/get_stat_tab_status()
+	var/list/tab_data = list()
+	if(!docile)
+		tab_data["Nutrition"] = GENERATE_STAT_TEXT("[nutrition]/[get_max_nutrition()]")
+	if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
+		if(is_adult)
+			tab_data["Slime Status"] = GENERATE_STAT_TEXT("You can reproduce!")
 		else
-			stat(null,"Power Level: [powerlevel]")
+			tab_data["Slime Status"] = GENERATE_STAT_TEXT("You can evolve!")
 
+	if(stat == UNCONSCIOUS)
+		tab_data["Unconscious"] = GENERATE_STAT_TEXT("You are knocked out by high levels of BZ!")
+	else
+		tab_data["Power Level"] = GENERATE_STAT_TEXT("[powerlevel]")
+	return tab_data
 
 /mob/living/simple_animal/slime/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced)
@@ -324,31 +328,18 @@
 /mob/living/simple_animal/slime/attack_hand(mob/living/carbon/human/M)
 	if(buckled)
 		M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
-		if(buckled == M)
-			if(prob(60))
-				M.visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off!</span>", \
-					"<span class='danger'>You attempt to wrestle \the [name] off!</span>")
-				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-
-			else
-				M.visible_message("<span class='warning'>[M] manages to wrestle \the [name] off!</span>", \
-					"<span class='notice'>You manage to wrestle \the [name] off!</span>")
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-
-				discipline_slime(M)
+		if(bucklestrength >= 0)
+			M.visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off!</span>", \
+				"<span class='danger'>You attempt to wrestle \the [name] off!</span>")
+			playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+			bucklestrength --
 
 		else
-			if(prob(30))
-				buckled.visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off of [buckled]!</span>", \
-					"<span class='warning'>[M] attempts to wrestle \the [name] off of you!</span>")
-				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+			M.visible_message("<span class='warning'>[M] manages to wrestle \the [name] off!</span>", \
+				"<span class='notice'>You manage to wrestle \the [name] off!</span>")
+			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
-			else
-				buckled.visible_message("<span class='warning'>[M] manages to wrestle \the [name] off of [buckled]!</span>", \
-					"<span class='notice'>[M] manage to wrestle \the [name] off of you!</span>")
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-
-				discipline_slime(M)
+			discipline_slime(M)
 	else
 		if(stat == DEAD && surgeries.len)
 			if(M.a_intent == INTENT_HELP || M.a_intent == INTENT_DISARM)
@@ -439,7 +430,10 @@
 	qdel(src)
 
 /mob/living/simple_animal/slime/proc/apply_water()
-	adjustBruteLoss(rand(15,20))
+	var/new_damage = rand(15,20)
+	if(transformeffects & SLIME_EFFECT_DARK_BLUE)
+		new_damage *= 0.5
+	adjustBruteLoss(new_damage)
 	if(!client)
 		if(Target) // Like cats
 			Target = null
@@ -491,6 +485,7 @@
 		Target = null
 	if(buckled)
 		Feedstop(silent = TRUE) //we unbuckle the slime from the mob it latched onto.
+		bucklestrength = initial(bucklestrength)
 
 	SStun = world.time + rand(20,60)
 
@@ -523,3 +518,48 @@
 
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
 	. = ..(mapload, pick(slime_colours), prob(50))
+
+/mob/living/simple_animal/slime/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE)
+	if(damage && damagetype == BRUTE && !forced && (transformeffects & SLIME_EFFECT_ADAMANTINE))
+		blocked += 50
+	. = ..(damage, damagetype, def_zone, blocked, forced)
+
+/mob/living/simple_animal/slime/attack_ghost(mob/user)
+	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
+		make_sentient(user)
+
+/mob/living/simple_animal/slime/proc/make_sentient(mob/user)
+	if(key || stat)
+		return
+	var/slime_ask = alert("Become a slime?", "Slime time?", "Yes", "No")
+	if(slime_ask == "No" || QDELETED(src))
+		return
+	if(key)
+		to_chat(user, "<span class='warning'>Someone else already took this slime!</span>")
+		return
+	key = user.key
+	if(mind && master)
+		mind.store_memory("<b>Serve [master.real_name], your master.</b>")
+	remove_form_spawner_menu()
+	log_game("[key_name(src)] took control of [name].")
+
+/mob/living/simple_animal/slime/get_spawner_desc()
+	return "be a slime[master ? " under the command of [master.real_name]" : ""]."
+
+/mob/living/simple_animal/slime/get_spawner_flavour_text()
+	return "You are a slime born and raised in a laboratory.[master ? " Your duty is to follow the orders of [master.real_name].": ""]"
+
+/mob/living/simple_animal/slime/death(gibbed)
+	remove_form_spawner_menu()
+	. = ..()
+
+/mob/living/simple_animal/slime/ghostize(can_reenter_corpse = TRUE)
+	. = ..()
+	if(. && transformeffects & SLIME_EFFECT_LIGHT_PINK)
+		LAZYADD(GLOB.mob_spawners["[master.real_name]'s slime"], src)
+	GLOB.poi_list |= src
+
+/mob/living/simple_animal/slime/proc/remove_form_spawner_menu()
+	for(var/spawner in GLOB.mob_spawners)
+		LAZYREMOVE(GLOB.mob_spawners[spawner], src)
+	GLOB.poi_list -= src

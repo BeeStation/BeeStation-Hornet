@@ -9,9 +9,7 @@
 	stat_attack = UNCONSCIOUS //braains
 	maxHealth = 100
 	health = 100
-	harm_intent_damage = 5
-	melee_damage_lower = 21
-	melee_damage_upper = 21
+	melee_damage = 21
 	attacktext = "bites"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 	a_intent = INTENT_HARM
@@ -23,6 +21,7 @@
 	var/zombiejob = "Medical Doctor"
 	var/infection_chance = 0
 	var/obj/effect/mob_spawn/human/corpse/delayed/corpse
+	mobchatspan = "bartender"
 
 /mob/living/simple_animal/hostile/zombie/Initialize(mapload)
 	. = ..()

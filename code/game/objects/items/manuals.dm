@@ -14,6 +14,7 @@
 	//book contents below
 	dat = {"<html>
 				<head>
+				<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
 				h2 {font-size: 15px; margin: 15px 0px 5px;}
@@ -49,6 +50,7 @@
 	title = "APLU \"Ripley\" Construction and Operation Manual"
 	dat = {"<html>
 				<head>
+				<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
 				h2 {font-size: 15px; margin: 15px 0px 5px;}
@@ -71,47 +73,47 @@
 				<li><b>Width:</b> 1.8m</li>
 				<li><b>Top speed:</b> 5km/hour</li>
 				<li><b>Operation in vacuum/hostile environment:</b> Possible</b>
-				<li><b>Airtank Volume:</b> 500liters</li>
+				<li><b>Airtank Volume:</b> 500 liters</li>
 				<li><b>Devices:</b>
 					<ul>
 					<li>Hydraulic Clamp</li>
 					<li>High-speed Drill</li>
 					</ul>
 				</li>
-				<li><b>Propulsion Device:</b> Powercell-powered electro-hydraulic system.</li>
-				<li><b>Powercell capacity:</b> Varies.</li>
+				<li><b>Propulsion Device:</b> Electro-hydraulic system.</li>
+				<li><b>Power cell capacity:</b> Varies.</li>
 				</ul>
 
 				<h2>Construction:</h2>
 				<ol>
-				<li>Connect all exosuit parts to the chassis frame</li>
-				<li>Connect all hydraulic fittings and tighten them up with a wrench</li>
-				<li>Adjust the servohydraulics with a screwdriver</li>
-				<li>Wire the chassis. (Cable is not included.)</li>
+				<li>Connect all exosuit parts to the chassis frame.</li>
+				<li>Connect all hydraulic fittings and tighten them up with a wrench.</li>
+				<li>Adjust the servohydraulics with a screwdriver.</li>
+				<li>Wire the chassis (cable is not included).</li>
 				<li>Use the wirecutters to remove the excess cable if needed.</li>
-				<li>Install the central control module (Not included. Use supplied datadisk to create one).</li>
+				<li>Install the central control module (not included. Use supplied datadisk to create one).</li>
 				<li>Secure the mainboard with a screwdriver.</li>
-				<li>Install the peripherals control module (Not included. Use supplied datadisk to create one).</li>
-				<li>Secure the peripherals control module with a screwdriver</li>
-				<li>Install the internal armor plating (Not included due to Nanotrasen regulations. Can be made using 5 iron sheets.)</li>
-				<li>Secure the internal armor plating with a wrench</li>
-				<li>Weld the internal armor plating to the chassis</li>
-				<li>Install the external reinforced armor plating (Not included due to Nanotrasen regulations. Can be made using 5 reinforced iron sheets.)</li>
-				<li>Secure the external reinforced armor plating with a wrench</li>
-				<li>Weld the external reinforced armor plating to the chassis</li>
+				<li>Install the peripherals control module (not included. Use supplied datadisk to create one).</li>
+				<li>Secure the peripherals control module with a screwdriver.</li>
+				<li>Install the internal armor plating (not included due to Nanotrasen regulations. Can be made using 5 iron sheets).</li>
+				<li>Secure the internal armor plating with a wrench.</li>
+				<li>Weld the internal armor plating to the chassis.</li>
+				<li>Install the external reinforced armor plating (not included due to Nanotrasen regulations. Can be made using 5 reinforced iron sheets).</li>
+				<li>Secure the external reinforced armor plating with a wrench.</li>
+				<li>Weld the external reinforced armor plating to the chassis.</li>
 				<li></li>
 				<li>Additional Information:</li>
 				<li>The firefighting variation is made in a similar fashion.</li>
 				<li>A firesuit must be connected to the Firefighter chassis for heat shielding.</li>
 				<li>Internal armor is plasteel for additional strength.</li>
 				<li>External armor must be installed in 2 parts, totaling 10 sheets.</li>
-				<li>Completed mech is more resiliant against fire, and is a bit more durable overall</li>
+				<li>Completed mech is more resiliant against fire, and is a bit more durable overall.</li>
 				<li>Nanotrasen is determined to the safety of its <s>investments</s> employees.</li>
 				</ol>
 				</body>
 				</html>
 
-				<h2>Operation</h2>
+				<h2>Operation:</h2>
 				Please consult the Nanotrasen compendium "Robotics for Dummies".
 			"}
 
@@ -122,6 +124,7 @@
 	title = "Chef Recipes"
 	dat = {"<html>
 				<head>
+				<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
 				h2 {font-size: 15px; margin: 15px 0px 5px;}
@@ -202,6 +205,10 @@
 	author = "Syndicate"
 	title = "Fission Mailed: Nuclear Sabotage 101"
 	dat = {"<html>
+			<head>
+			<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+			</head>
+			<body>
 			Nuclear Explosives 101:<br>
 			Hello and thank you for choosing the Syndicate for your nuclear information needs.<br>
 			Today's crash course will deal with the operation of a Fusion Class Nanotrasen made Nuclear Device.<br>
@@ -229,6 +236,7 @@
 			<b>Disk, Code, Safety, Timer, Disk, RUN!</b><br>
 			Intelligence Analysts believe that normal Nanotrasen procedure is for the Captain to secure the nuclear authorisation disk.<br>
 			Good luck!
+			</body>
 			</html>"}
 
 // Wiki books that are linked to the configured wiki link.
@@ -248,7 +256,9 @@
 	if(wikiurl)
 		dat = {"
 
-			<html><head>
+			<html>
+			<head>
+			<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 			<style>
 				iframe {
 					display: none;

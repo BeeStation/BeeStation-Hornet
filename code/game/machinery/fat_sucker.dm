@@ -7,6 +7,7 @@
 	state_open = FALSE
 	density = TRUE
 	req_access = list(ACCESS_KITCHEN)
+	circuit = /obj/item/circuitboard/machine/fat_sucker
 	var/processing = FALSE
 	var/start_at = NUTRITION_LEVEL_WELL_FED
 	var/stop_at = NUTRITION_LEVEL_STARVING
@@ -32,13 +33,20 @@
 	soundloop = new(list(src),  FALSE)
 	update_icon()
 
+/obj/machinery/fat_sucker/Destroy()
+	QDEL_NULL(soundloop)
+	return ..()
+
 /obj/machinery/fat_sucker/RefreshParts()
 	..()
 	var/rating = 0
+	var/nutriment_rating
 	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
 		rating += L.rating
-	bite_size = initial(bite_size) + rating * 5
-	nutrient_to_meat = initial(nutrient_to_meat) - rating * 5
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
+		nutriment_rating += M.rating
+	bite_size = initial(bite_size) + rating * 2.5
+	nutrient_to_meat = initial(nutrient_to_meat) - nutriment_rating * 5
 
 /obj/machinery/fat_sucker/examine(mob/user)
 	. = ..()
@@ -130,7 +138,7 @@
 /obj/machinery/fat_sucker/process()
 	if(!processing)
 		return
-	if(!powered() || !occupant || !iscarbon(occupant))
+	if(!is_operational() || !occupant || !iscarbon(occupant))
 		open_machine()
 		return
 
@@ -151,7 +159,7 @@
 	use_power(500)
 
 /obj/machinery/fat_sucker/proc/start_extracting()
-	if(state_open || !occupant || processing || !powered())
+	if(state_open || !occupant || processing || !is_operational())
 		return
 	if(iscarbon(occupant))
 		var/mob/living/carbon/C = occupant

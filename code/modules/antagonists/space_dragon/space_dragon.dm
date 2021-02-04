@@ -2,6 +2,7 @@
 	name = "Space Dragon"
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
+	show_to_ghosts = TRUE
 
 /datum/antagonist/space_dragon/greet()
 	to_chat(owner, "<b>I am Space Dragon, ex-space carp, and defender of the secrets of constellation, Draco.</b>")
@@ -13,6 +14,8 @@
 	to_chat(owner, "<b>From the wizard's writings, he had been studying this station and its hierarchy.  From this, I know who leads the station, and will kill them so the station underlings see me as their new leader.</b>")
 	owner.announce_objectives()
 	SEND_SOUND(owner.current, sound('sound/magic/demon_attack1.ogg'))
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Space Dragon",
+		"Once you were a space carp, until a powerful wizard transformed you. Use your new-found powers to complete your goals.")
 
 /datum/antagonist/space_dragon/proc/forge_objectives()
 	if(!give_objectives)
@@ -24,9 +27,11 @@
 	killchosen.target = selected
 	killchosen.update_explanation_text()
 	objectives += killchosen
+	log_objective(owner, killchosen.explanation_text)
 	var/datum/objective/survive/survival = new
 	survival.owner = owner
 	objectives += survival
+	log_objective(owner, survival.explanation_text)
 
 /datum/antagonist/space_dragon/on_gain()
 	forge_objectives()

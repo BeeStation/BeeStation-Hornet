@@ -1,0 +1,50 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/dresser,
+/turf/open/floor/carpet/purple,
+/area/template_noop)
+"b" = (
+/turf/open/floor/carpet/purple,
+/area/template_noop)
+"c" = (
+/obj/structure/table/wood,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/item/clothing/glasses/blindfold,
+/obj/item/clothing/mask/muzzle,
+/turf/open/floor/carpet/purple,
+/area/template_noop)
+"d" = (
+/obj/structure/bed,
+/obj/item/bedsheet/random,
+/obj/effect/trap/nexus/trickyspawner/catbutcher,
+/obj/effect/trap/trigger,
+/turf/open/floor/carpet/purple,
+/area/template_noop)
+"e" = (
+/obj/item/restraints/handcuffs/fake,
+/turf/open/floor/carpet/purple,
+/area/template_noop)
+"f" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/clothing/head/kitty,
+/obj/item/clothing/under/costume/schoolgirl,
+/turf/open/floor/carpet/purple,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+b
+e
+"}
+(2,1,1) = {"
+b
+d
+b
+"}
+(3,1,1) = {"
+c
+b
+f
+"}

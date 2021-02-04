@@ -1,15 +1,15 @@
 #define STASIS_TOGGLE_COOLDOWN 50
 /obj/machinery/stasis
-	name = "Lifeform Stasis Unit"
-	desc = "A not so comfortable looking bed with some nozzles at the top and bottom. It will keep someone in stasis."
+	name = "lifeform stasis unit"
+	desc = "A not-so-comfortable looking bed with nozzles on top and bottom. Placing someone here will suspend their vital processes, putting them in stasis until removed."
 	icon = 'icons/obj/machines/stasis.dmi'
 	icon_state = "stasis"
 	density = FALSE
 	can_buckle = TRUE
 	buckle_lying = 90
 	circuit = /obj/item/circuitboard/machine/stasis
-	idle_power_usage = 40
-	active_power_usage = 340
+	idle_power_usage = 50
+	active_power_usage = 500
 	fair_market_price = 10
 	payment_department = ACCOUNT_MED
 	var/stasis_enabled = TRUE
@@ -82,9 +82,6 @@
 		overlays_to_remove = managed_vis_overlays - mattress_on
 
 	SSvis_overlays.remove_vis_overlay(src, overlays_to_remove)
-
-	if(occupant)
-		SSvis_overlays.add_vis_overlay(src, 'icons/obj/machines/stasis.dmi', "tubes", LYING_MOB_LAYER + 0.1, plane, dir) //using vis_overlays instead of normal overlays for mouse_opacity here
 
 	if(stat & BROKEN)
 		icon_state = "stasis_broken"

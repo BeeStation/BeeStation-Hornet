@@ -42,15 +42,15 @@
 /mob/living/carbon/human/set_drugginess(amount)
 	..()
 	if(!amount)
-		remove_language(/datum/language/beachbum)
+		remove_language(/datum/language/beachbum, TRUE, TRUE, LANGUAGE_DRUGGY)
 
 /mob/living/carbon/human/adjust_drugginess(amount)
 	..()
 	if(!dna.check_mutation(STONER))
 		if(druggy)
-			grant_language(/datum/language/beachbum)
+			grant_language(/datum/language/beachbum, TRUE, TRUE, LANGUAGE_DRUGGY)
 		else
-			remove_language(/datum/language/beachbum)
+			remove_language(/datum/language/beachbum, TRUE, TRUE, LANGUAGE_DRUGGY)
 
 /mob/living/carbon/human/proc/adjust_hygiene(amount)
 	hygiene = CLAMP(hygiene+amount, 0, HYGIENE_LEVEL_CLEAN)

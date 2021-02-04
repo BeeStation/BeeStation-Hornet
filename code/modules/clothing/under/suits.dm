@@ -55,23 +55,15 @@
 	item_state = "bl_suit"
 	item_color = "really_black_suit"
 
-/obj/item/clothing/under/suit/black_really/skirt
-	name = "executive suitskirt"
-	desc = "A formal black suitskirt and red tie, intended for the station's finest."
-	icon_state = "really_black_suit_skirt"
-	item_state = "bl_suit"
-	item_color = "really_black_suit_skirt"
-	body_parts_covered = CHEST|GROIN|ARMS
-	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
-
-
 /obj/item/clothing/under/suit/black/female
 	name = "executive suit"
 	desc = "A formal trouser suit for women, intended for the station's finest."
 	icon_state = "black_suit_fem"
 	item_state = "black_suit_fem"
 	item_color = "black_suit_fem"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+	fitted = FEMALE_UNIFORM_TOP
 
 /obj/item/clothing/under/suit/green
 	name = "green suit"

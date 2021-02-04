@@ -15,9 +15,10 @@
 
 /datum/symptom/heal/Start(datum/disease/advance/A)
 	if(!..())
-		return
+		return FALSE
 	if(A.properties["stage_rate"] >= 6) //stronger healing
 		power = 2
+	return TRUE //For super calls of subclasses
 
 /datum/symptom/heal/Activate(datum/disease/advance/A)
 	if(!..())
@@ -75,18 +76,19 @@
 
 /datum/symptom/heal/coma
 	name = "Regenerative Coma"
-	desc = "The virus causes the host to fall into a death-like coma when severely damaged, then rapidly fixes the damage."
+	desc = "The virus causes the host to fall into a death-like coma when severely damaged, then rapidly fixes the damage. Only fixes burn and brute damage."
 	stealth = 0
 	resistance = 2
 	stage_speed = -3
-	transmittable = -2
+	transmittable = -3
 	level = 8
 	severity = -2
-	passive_message = "<span class='notice'>The pain from your wounds makes you feel oddly sleepy...</span>"
+	passive_message = "<span class='notice'>The pain from your wounds makes you feel oddly sleepy.</span>"
 	var/deathgasp = FALSE
 	var/stabilize = FALSE
 	var/active_coma = FALSE //to prevent multiple coma procs
-	threshold_desc = "<b>Stealth 2:</b> Host appears to die when falling into a coma.<br>\
+	threshold_desc = "<b>Stealth 2:</b> Host appears to die when falling into a coma, triggering symptoms that activate on death.<br>\
+
 					  <b>Resistance 4:</b> The virus also stabilizes the host while they are in critical condition.<br>\
 					  <b>Stage Speed 7:</b> Increases healing speed."
 
@@ -125,7 +127,7 @@
 	else if(M.IsSleeping())
 		return power * 0.25
 	else if(M.getBruteLoss() + M.getFireLoss() >= 70 && !active_coma)
-		to_chat(M, "<span class='warning'>You feel yourself slip into a regenerative coma...</span>")
+		to_chat(M, "<span class='warning'>You feel yourself slip into a deep, regenerative slumber.</span>")
 		active_coma = TRUE
 		addtimer(CALLBACK(src, .proc/coma, M), 60)
 
@@ -173,7 +175,7 @@
 	stealth = -1
 	resistance = -2
 	stage_speed = -2
-	transmittable = 1
+	transmittable = 0
 	severity = -1
 	level = 6
 	passive_message = "<span class='notice'>Your skin tingles.</span>"
@@ -195,30 +197,64 @@
 	var/healed = FALSE
 
 	if(M.getBruteLoss() && M.getBruteLoss() <= threshhold)
-		M.adjustBruteLoss(-power)
+		M.heal_overall_damage(power, required_status = BODYPART_ORGANIC)
 		healed = TRUE
 		scarcounter++
 
 	if(M.getFireLoss() && M.getFireLoss() <= threshhold)
-		M.adjustFireLoss(-power)
+		M.heal_overall_damage(burn = power, required_status = BODYPART_ORGANIC)
 		healed = TRUE
 		scarcounter++
-	
+
 	if(M.getToxLoss() && M.getToxLoss() <= threshhold)
 		M.adjustToxLoss(-power)
-		healed = TRUE
 
 	if(healed)
 		if(prob(10))
-			to_chat(M, "<span class='notice'>Your wounds heal, granting you a new scar</span>")
+			to_chat(M, "<span class='notice'>Your wounds heal, granting you a new scar.</span>")
 		if(scarcounter >= 200 && !HAS_TRAIT(M, TRAIT_DISFIGURED))
 			ADD_TRAIT(M, TRAIT_DISFIGURED, DISEASE_TRAIT)
-			M.visible_message("<span class='warning'>[M]'s face becomes unrecognizeable </span>", "<span class='userdanger'>Your scars have made your face unrecognizeable.</span>")
+			M.visible_message("<span class='warning'>[M]'s face becomes unrecognizeable.</span>", "<span class='userdanger'>Your scars have made your face unrecognizeable.</span>")
 	return healed
 
 
 /datum/symptom/heal/surface/passive_message_condition(mob/living/M)
 	return M.getBruteLoss() <= threshhold || M.getFireLoss() <= threshhold
+
+/datum/symptom/heal/metabolism
+	name = "Metabolic Boost"
+	stealth = -1
+	resistance = -2
+	stage_speed = 2
+	transmittable = 1
+	level = 4
+	var/triple_metabolism = FALSE
+	var/reduced_hunger = FALSE
+	desc = "The virus causes the host's metabolism to accelerate rapidly, making them process chemicals twice as fast,\
+	 but also causing increased hunger."
+	threshold_desc = "<b>Stealth 3:</b> Reduces hunger rate.<br>\
+					  <b>Stage Speed 10:</b> Chemical metabolization is tripled instead of doubled."
+
+/datum/symptom/heal/metabolism/Start(datum/disease/advance/A)
+	if(!..())
+		return
+	if(A.properties["stage_rate"] >= 10)
+		triple_metabolism = TRUE
+	if(A.properties["stealth"] >= 3)
+		reduced_hunger = TRUE
+
+/datum/symptom/heal/metabolism/Heal(mob/living/carbon/C, datum/disease/advance/A, actual_power)
+	if(!istype(C))
+		return
+	C.reagents.metabolize(C, can_overdose=TRUE) //this works even without a liver; it's intentional since the virus is metabolizing by itself
+	if(triple_metabolism)
+		C.reagents.metabolize(C, can_overdose=TRUE)
+	C.overeatduration = max(C.overeatduration - 2, 0)
+	var/lost_nutrition = 9 - (reduced_hunger * 5)
+	C.adjust_nutrition(-lost_nutrition * HUNGER_FACTOR) //Hunger depletes at 10x the normal speed
+	if(prob(2))
+		to_chat(C, "<span class='notice'>You feel an odd gurgle in your stomach, as if it was working much faster than normal.</span>")
+	return 1
 
 /*
 //////////////////////////////////////
@@ -240,12 +276,12 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	symptom_delay_max = 40
 	var/bigemp = FALSE
 	var/cellheal = FALSE
-	threshold_desc = "<b>Stealth 4:</b> The disease resets cell DNA, quickly curing cell damage and mutations<br>\
-					<b>transmission 8:</b> The EMP affects electronics adjacent to the subject as well."
+	threshold_desc = "<b>Stealth 2:</b> The disease resets cell DNA, quickly curing cell damage and mutations.<br>\
+					<b>Transmission 8:</b> The EMP affects electronics adjacent to the subject as well."
 
 /datum/symptom/EMP/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["stealth"] >= 4)
+	if(A.properties["stealth"] >= 2) //if you combine this with pituitary disruption, you have the two most downside-heavy symptoms available
 		severity -= 1
 	if(A.properties["transmittable"] >= 8)
 		severity += 1
@@ -253,7 +289,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/EMP/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stealth"] >= 4)
+	if(A.properties["stealth"] >= 2)
 		cellheal = TRUE
 	if(A.properties["transmittable"] >= 8)
 		bigemp = TRUE
@@ -266,18 +302,18 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		if(4, 5)
 			M.emp_act(EMP_HEAVY)
 			if(cellheal)
-				M.adjustCloneLoss(-40)
+				M.adjustCloneLoss(-30)
 				M.reagents.add_reagent(/datum/reagent/medicine/mutadone = 1)
 			if(bigemp)
 				empulse(M.loc, 0, 1)
-			to_chat(M, "<span class='userdanger'>[pick("Your mind fills with static!.", "You feel a jolt!", "Your sense of direction flickers out!")]</span>")
+			to_chat(M, "<span class='userdanger'>[pick("Your mind fills with static!", "You feel a jolt!", "Your sense of direction flickers out!")]</span>")
 		else
-			to_chat(M, "<span class='notice'>[pick("You feel a slight tug toward the station's wall.", "Nearby electronics flicker", "Your hair stands on end")]</span>")
+			to_chat(M, "<span class='notice'>[pick("You feel a slight tug toward the station's wall.", "Nearby electronics flicker.", "Your hair stands on end.")]</span>")
 	return
 
 /datum/symptom/sweat
 	name = "Hyperperspiration"
-	desc = "Causes the host to sweat profusely, leaving small water puddles and extnguishing small fires"
+	desc = "Causes the host to sweat profusely, leaving small water puddles and extinguishing small fires"
 	stealth = 1
 	resistance = -1
 	stage_speed = 0
@@ -288,21 +324,25 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	symptom_delay_max = 30
 	var/bigsweat = FALSE
 	var/toxheal = FALSE
-	threshold_desc = "<b>transmission 6:</b> The sweat production ramps up to the point that it puts out fires in the general vicinity<br>\
-					<b>transmission 8:</b> The symptom heals toxin damage and purges chemicals."
+	var/ammonia = FALSE
+	threshold_desc = "<b>Transmission 4:</b> The sweat production ramps up to the point that it puts out fires in the general vicinity.<br>\
+					<b>Transmission 6:</b> The symptom heals toxin damage and purges chemicals.<br>\
+					<b>Stage speed 6:</b> The host's sweat contains traces of ammonia."
 
 /datum/symptom/sweat/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["transmittable"] >= 8)
+	if(A.properties["transmittable"] >= 6)
 		severity -= 1
 
 /datum/symptom/sweat/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 8)
-		toxheal = TRUE
 	if(A.properties["transmittable"] >= 6)
+		toxheal = TRUE
+	if(A.properties["transmittable"] >= 4)
 		bigsweat = TRUE
+	if(A.properties["stage_rate"] >= 6)
+		ammonia = TRUE
 
 /datum/symptom/sweat/Activate(datum/disease/advance/A)
 	if(!..())
@@ -323,10 +363,12 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						M.reagents.remove_reagent(R.type, 5)
 						S.reagents.add_reagent(R.type, 5)
 					M.adjustToxLoss(-20, forced = TRUE)
+				if(ammonia)
+					S.reagents.add_reagent(/datum/reagent/space_cleaner, 5)
 				S.splash()
 				to_chat(M, "<span class='userdanger'>You sweat out nearly everything in your body!</span>")
 		else
-			to_chat(M, "<span class='notice'>[pick("You feel moist.", "Your clothes are soaked", "You're sweating buckets")]</span>")
+			to_chat(M, "<span class='notice'>[pick("You feel moist.", "Your clothes are soaked.", "You're sweating buckets!")]</span>")
 	return
 
 /obj/effect/sweatsplash
@@ -342,7 +384,7 @@ obj/effect/sweatsplash/proc/splash()
 
 /datum/symptom/teleport
 	name = "Thermal Retrostable Displacement"
-	desc = "When too hot or cold, the subject will return to a recent location at which they experienced safe homeostasis"
+	desc = "When too hot or cold, the subject will return to a recent location at which they experienced safe homeostasis."
 	stealth = 1
 	resistance = 2
 	stage_speed = -2
@@ -355,7 +397,7 @@ obj/effect/sweatsplash/proc/splash()
 	var/burnheal = FALSE
 	var/turf/open/location_return = null
 	var/cooldowntimer = 0
-	threshold_desc = "<b>Resistance 6:</b> The disease acts on a smaller scale, resetting burnt tissue back to a state of health<br>\
+	threshold_desc = "<b>Resistance 6:</b> The disease acts on a smaller scale, resetting burnt tissue back to a state of health.<br>\
 					<b>Transmission 8:</b> The disease becomes more active, activating in a smaller temperature range."
 
 /datum/symptom/teleport/severityset(datum/disease/advance/A)
@@ -381,14 +423,14 @@ obj/effect/sweatsplash/proc/splash()
 	switch(A.stage)
 		if(4, 5)
 			if(burnheal)
-				M.adjustFireLoss(-1 * power)
+				M.heal_overall_damage(0, 1) //no required_status checks here, this does all bodyparts equally
 			if(prob(5) && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
 				location_return = get_turf(M)	//sets up return point
 				if(prob(50))
 					to_chat(M, "<span class='userwarning'>The lukewarm temperature makes you feel strange!</span>")
 			if(cooldowntimer == 0 && ((M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT + telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTHEAT)) || (M.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT - telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTCOLD)) || (burnheal && M.getFireLoss() > 60 + telethreshold)))
 				do_sparks(5,FALSE,M)
-				to_chat(M, "<span class='userdanger'>The change in temperature shocks you back to a previous spacial state!</span>")
+				to_chat(M, "<span class='userdanger'>The change in temperature shocks you back to a previous spatial state!</span>")
 				do_teleport(M, location_return, 0, asoundin = 'sound/effects/phasein.ogg') //Teleports home
 				do_sparks(5,FALSE,M)
 				cooldowntimer = 10
@@ -403,7 +445,7 @@ obj/effect/sweatsplash/proc/splash()
 
 /datum/symptom/growth
 	name = "Pituitary Disruption"
-	desc = "Causes uncontrolled growth in the subject"
+	desc = "Causes uncontrolled growth in the subject."
 	stealth = -3
 	resistance = -2
 	stage_speed = 1
@@ -415,8 +457,10 @@ obj/effect/sweatsplash/proc/splash()
 	var/current_size = 1
 	var/tetsuo = FALSE
 	var/bruteheal = FALSE
-	threshold_desc = "<b>Stage Speed 6:</b> The disease heals brute damage at a fast rate, but causes expulsion of benign tumors<br>\
-					<b>Stage Speed 12:</b> The disease heals brute damage incredibly fast, but deteriorates cell health and causes tumors to become more advanced."
+	var/sizemult = 1
+	var/datum/mind/ownermind
+	threshold_desc = "<b>Stage Speed 6:</b> The disease heals brute damage at a fast rate, but causes expulsion of benign tumors.<br>\
+					<b>Stage Speed 12:</b> The disease heals brute damage incredibly fast, but deteriorates cell health and causes tumors to become more advanced. The disease will also regenerate lost limbs and cause organ mutation."
 
 /datum/symptom/growth/severityset(datum/disease/advance/A)
 	. = ..()
@@ -432,48 +476,90 @@ obj/effect/sweatsplash/proc/splash()
 		bruteheal = TRUE
 	if(A.properties["stage_rate"] >= 12)
 		tetsuo = TRUE
+		power = 3 //should make this symptom actually worth it
+	var/mob/living/carbon/M = A.affected_mob
+	ownermind = M.mind
+	sizemult = CLAMP((0.5 + A.properties["stage_rate"] / 10), 1.1, 2.5)
+	M.resize = sizemult
+	M.update_transform()
 
 /datum/symptom/growth/Activate(datum/disease/advance/A)
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
-	var/newsize = current_size
 	switch(A.stage)
 		if(4, 5)
-			switch(A.properties["stage_rate"])
-				if(5 to 8)
-					newsize = 1.25
-				if(9 to 12)
-					newsize = 1.5
-				if(13 to 16)
-					newsize = 1.75
-				if(17 to INFINITY)
-					newsize = 2
-			M.resize = newsize/current_size
-			current_size = newsize
-			M.update_transform()
 			if(prob(5) && bruteheal)
-				to_chat(M, "<span class='userdanger'>You retch, and a splatter of gore escapes your gullet</span>")
+				to_chat(M, "<span class='userdanger'>You retch, and a splatter of gore escapes your gullet!</span>")
 				M.Knockdown(10)
+				new /obj/effect/decal/cleanable/blood/(M.loc)
 				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
-				if(prob(80))
+				if(prob(60))
 					new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
-				if(tetsuo && prob(30))
-					new /obj/effect/gibspawner/human/bodypartless(M.loc)
-					new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
+				if(tetsuo)
+					var/list/organcantidates = list()
+					var/list/missing = M.get_missing_limbs()
+					if(prob(35))
+						new /obj/effect/gibspawner/human/bodypartless(M.loc) //yes. this is very messy. very, very messy.
+						new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
+						for(var/obj/item/organ/O in M.loc)
+							if(O.organ_flags & ORGAN_FAILING || O.organ_flags & ORGAN_VITAL) //dont use shitty organs or brains
+								continue
+							if(O.organ_flags & (ORGAN_SYNTHETIC)) //if we can infect robots, we can implant cyber organs
+								if(MOB_ROBOTIC in A.infectable_biotypes) //why do i have to do this this way? no idea, but it wont fucking work otherwise
+									organcantidates += O
+								continue
+							organcantidates += O
+						if(organcantidates.len)
+							for(var/I in 1 to min(rand(1, 3), organcantidates.len))
+								var/obj/item/organ/chosen = pick_n_take(organcantidates)
+								chosen.Insert(M, TRUE, FALSE)
+								to_chat(M, "<span class='userdanger'>As the [chosen] touches your skin, it is promptly absorbed.</span>")
+					if(missing.len) //we regrow one missing limb
+						for(var/Z in missing) //uses the same text and sound a ling's regen does. This can false-flag the host as a changeling.
+							if(M.regenerate_limb(Z, TRUE))
+								playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
+								M.visible_message("<span class='warning'>[M]'s missing limbs \
+									reform, making a loud, grotesque sound!</span>",
+									"<span class='userdanger'>Your limbs regrow, making a \
+									loud, crunchy sound and giving you great pain!</span>",
+									"<span class='italics'>You hear organic matter ripping \
+									and tearing!</span>")
+								M.emote("scream")
+								if(Z == BODY_ZONE_HEAD) //if we regenerate the head, make sure the mob still owns us
+									if(isliving(ownermind.current))
+										var/mob/living/owner = ownermind.current
+										if(owner.stat != DEAD)//if they have a new mob, forget they exist
+											ownermind = null
+											break
+										if(owner == M) //they're already in control of this body, probably because their brain isn't in the head!
+											break
+									if(ishuman(M))
+										var/mob/living/carbon/human/H = M
+										H.dna.species.regenerate_organs(H, replace_current = FALSE) //get head organs, including the brain, back
+									ownermind.transfer_to(M)
+									M.grab_ghost()
+								break
 				if(tetsuo && prob(10) && A.affected_mob.job == "Clown")
 					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
-			if(tetsuo)
-				M.adjustBruteLoss(-4)
-				if(prob(20))
+			if(bruteheal)
+				M.heal_overall_damage(2 * power, required_status = BODYPART_ORGANIC)
+				if(prob(11 * power))
 					M.adjustCloneLoss(1)
-			else if(bruteheal)
-				M.adjustBruteLoss(-1)
 		else
 			if(prob(5))
-				to_chat(M, "<span class='notice'>[pick("You feel bloated.", "The station seems small", "You are the strongest")]</span>")
+				to_chat(M, "<span class='notice'>[pick("You feel bloated.", "The station seems small.", "You are the strongest.")]</span>")
 	return
 
+/datum/symptom/growth/End(datum/disease/advance/A)
+	. = ..()
+	var/mob/living/carbon/M = A.affected_mob
+	to_chat(M, "<span class='notice'>You lose your balance and stumble as you shrink, and your legs come out from underneath you!</span>")
+	animate(M, pixel_z = 4, time = 0) //size is fixed by having the player do one waddle. Animation for some reason resets size, meaning waddling can desize you
+	animate(pixel_z = 0, transform = turn(matrix(), pick(-12, 0, 12)), time=2) //waddle desizing is an issue, because you can game it to use this symptom and become small
+	animate(pixel_z = 0, transform = matrix(), time = 0) //so, instead, we use waddle desizing to desize you from this symptom, instead of a transformation, because it wont shrink you naturally
+
+//they are used for the maintenance spawn, for ling teratoma see changeling\teratoma.dm
 /obj/effect/mob_spawn/teratomamonkey //spawning these is one of the downsides of overclocking the symptom
 	name = "fleshy mass"
 	desc = "A writhing mass of flesh."
@@ -482,14 +568,13 @@ obj/effect/sweatsplash/proc/splash()
 	density = FALSE
 	anchored = FALSE
 
+	antagonist_type = /datum/antagonist/teratoma/hugbox
 	mob_type = /mob/living/carbon/monkey/tumor
 	mob_name = "a living tumor"
 	death = FALSE
 	roundstart = FALSE
-	short_desc = "You are a living tumor. By all accounts, you should not exist."
-	flavour_text = {"
-	<b>You are a living teratoma, and your existence is misery. You feel the need to spread woe about the station- but not to kill.
-	"}
+	use_cooldown = TRUE
+	show_flavour = FALSE	//it's handled by antag datum
 
 /obj/effect/mob_spawn/teratomamonkey/Initialize()
 	. = ..()
@@ -501,13 +586,13 @@ obj/effect/sweatsplash/proc/splash()
 	. = ..()
 	if(.)
 		return
-	to_chat(user, "<span class='notice'>Ew... It would be a bad idea to touch this. It could probably be destroyed with the extreme heat of a welder.</span>")
+	to_chat(user, "<span class='notice'>Ew. It would be a bad idea to touch this. It could probably be destroyed with the extreme heat of a welder.</span>")
 
 /obj/effect/mob_spawn/teratomamonkey/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
 		user.visible_message("<span class='warning'>[usr.name] destroys [src].</span>",
-			"<span class='notice'>You hold the welder to [src], and it violently bursts!</span>",
-			"<span class='italics'>You hear a gurgling noise</span>")
+			"<span class='notice'>You hold the welder to [src] and it violently bursts!</span>",
+			"<span class='italics'>You hear a gurgling noise.</span>")
 		new /obj/effect/gibspawner/human(get_turf(src))
 		qdel(src)
 	else

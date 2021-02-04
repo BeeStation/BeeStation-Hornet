@@ -65,7 +65,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	var/datum/language/D = GLOB.language_datum_instances[message_language]
 
 	// create 2 messages, one that appears if you know the language, and one that appears when you don't know the language
-	var/image/I = image(loc = target, layer=FLY_LAYER)
+	var/image/I = image(loc = get_atom_on_turf(target), layer=FLY_LAYER)
 	I.alpha = 0
 	I.maptext_width = 128
 	I.maptext_height = 64
@@ -73,7 +73,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	I.maptext = "<center><span class='chatOverhead' style='[css]'>[message]</span></center>"
 
-	var/image/O = image(loc = target, layer=FLY_LAYER)
+	var/image/O = image(loc = get_atom_on_turf(target), layer=FLY_LAYER)
 	O.alpha = 0
 	O.maptext_width = 128
 	O.maptext_height = 64
@@ -86,11 +86,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 	// find a client that's connected to measure the height of the message, so it knows how much to bump up the others
 	if(length(GLOB.clients))
-		var/client/C = null
-		for(var/client/player in GLOB.clients)
-			if(player.byond_version >= 513)
-				C = player
-				break
+		var/client/C = GLOB.clients[1]
 		if(C)
 			var/moveup = text2num(splittext(C.MeasureText(I.maptext, width = 128), "x")[2])
 			for(var/image/old in target.stored_chat_text)
@@ -105,7 +101,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 	for(var/client/C in show_to)
 		if(C.mob.can_hear() && C.prefs.overhead_chat)
-			if(C.mob.can_speak_in_language(message_language))
+			if(C.mob.has_language(message_language))
 				C.images += I
 			else
 				C.images += O
@@ -125,7 +121,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 /proc/delete_overhead_messages(image/I, image/O, list/show_to, mob/living/target, message_language)
 	for(var/client/C in show_to)
 		if(C.mob.can_hear() && C.prefs.overhead_chat)
-			if(C.mob.can_speak_in_language(message_language))
+			if(C.mob.can_speak_language(message_language))
 				C.images -= I
 			else
 				C.images -= O

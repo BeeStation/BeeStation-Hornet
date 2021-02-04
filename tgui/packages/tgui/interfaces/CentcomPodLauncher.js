@@ -6,7 +6,10 @@ import { Window } from '../layouts';
 
 export const CentcomPodLauncher = () => {
   return (
-    <Window resizable>
+    <Window
+      resizable
+      width={700}
+      height={700}>
       <Window.Content scrollable>
         <CentcomPodLauncherContent />
       </Window.Content>

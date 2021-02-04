@@ -7,8 +7,8 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	circuit = /obj/item/circuitboard/machine/biogenerator
-	ui_x = 550
-	ui_y = 380
+
+
 	var/processing = FALSE
 	var/obj/item/reagent_containers/glass/beaker = null
 	var/points = 0
@@ -153,7 +153,6 @@
 		to_chat(user, "<span class='warning'>You cannot put this in [src.name]!</span>")
 
 /obj/machinery/biogenerator/AltClick(mob/living/user)
-	. = ..()
 	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK) && can_interact(user))
 		detach(user)
 
@@ -251,17 +250,19 @@
 		return UI_CLOSE
 	return ..()
 
-/obj/machinery/biogenerator/ui_base_html(html)
-	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/research_designs)
-	. = replacetext(html, "<!--customheadhtml-->", assets.css_tag())
+/obj/machinery/biogenerator/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/research_designs),
+	)
 
-/obj/machinery/biogenerator/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/biogenerator/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/biogenerator/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		var/datum/asset/assets = get_asset_datum(/datum/asset/spritesheet/research_designs)
-		assets.send(user)
-		ui = new(user, src, ui_key, "Biogenerator", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "Biogenerator")
 		ui.open()
 
 /obj/machinery/biogenerator/ui_data(mob/user)

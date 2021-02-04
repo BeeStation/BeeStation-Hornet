@@ -64,7 +64,7 @@
 /obj/item/integrated_circuit/time/delay/custom/on_data_written()
 	..()
 	var/delay_input = get_pin_data(IC_INPUT, 1)
-	if(!isnum(delay_input))
+	if(!isnum_safe(delay_input))
 		return
 	if(delay_input < 1 || delay_input > 1 HOURS) // Value had to be clamped, update the pin. Check's here to avoid infinitely setting the pin.
 		set_pin_data(IC_INPUT, 1, CLAMP(delay_input ,1 ,1 HOURS))
@@ -118,7 +118,7 @@
 /obj/item/integrated_circuit/time/ticker/custom/on_data_written()
 	..()
 	var/delay_input = get_pin_data(IC_INPUT, 2)
-	if(!isnum(delay_input))
+	if(!isnum_safe(delay_input))
 		return
 	if(delay_input < 1 || delay_input > 1 HOURS)
 		set_pin_data(IC_INPUT, 2, CLAMP(delay_input ,1 ,1 HOURS))

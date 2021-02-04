@@ -83,16 +83,14 @@
 /obj/machinery/atmospherics/components/unary/shuttle/heater/examine(mob/user)
 	. = ..()
 	var/datum/gas_mixture/air_contents = airs[1]
-	. += "The engine heater's gas dial reads [air_contents.gases[gas_type][MOLES]] moles of gas.<br>"
+	. += "The engine heater's gas dial reads [air_contents.get_moles(gas_type)] moles of gas.<br>"
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/proc/updateGasStats()
 	var/datum/gas_mixture/air_contents = airs[1]
 	if(!air_contents)
 		return
-	air_contents.volume = gas_capacity
-	air_contents.temperature = T20C
-	if(gas_type)
-		air_contents.assert_gas(gas_type)
+	air_contents.set_volume(gas_capacity)
+	air_contents.set_temperature(T20C)
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/proc/hasFuel(var/required)
 	var/datum/gas_mixture/air_contents = airs[1]

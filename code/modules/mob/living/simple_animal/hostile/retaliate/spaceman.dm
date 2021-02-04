@@ -15,9 +15,7 @@
 	maxHealth = 100
 	health = 100
 	speed = 0
-	harm_intent_damage = 8
-	melee_damage_lower = 10
-	melee_damage_upper = 10
+	melee_damage = 10
 	attacktext = "hits"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	obj_damage = 0
@@ -27,7 +25,7 @@
 	do_footstep = TRUE
 
 /mob/living/simple_animal/hostile/retaliate/nanotrasenpeace //this should be in a different file
-	name = "Nanotrasen Private Security Officer"
+	name = "\improper Nanotrasen Private Security Officer"
 	desc = "An officer part of Nanotrasen's private security force."
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "nanotrasen"
@@ -44,9 +42,7 @@
 	vision_range = 3
 	maxHealth = 100
 	health = 100
-	harm_intent_damage = 5
-	melee_damage_lower = 10
-	melee_damage_upper = 15
+	melee_damage = 12
 	attacktext = "punches"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	faction = list("nanotrasenprivate")

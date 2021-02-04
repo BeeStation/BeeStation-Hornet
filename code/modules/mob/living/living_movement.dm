@@ -31,7 +31,7 @@
 		mod = CONFIG_GET(number/movedelay/walk_delay)
 	else
 		mod = CONFIG_GET(number/movedelay/run_delay)
-	if(!isnum(mod))
+	if(!isnum_safe(mod))
 		mod = 1
 	add_movespeed_modifier(MOVESPEED_ID_MOB_WALK_RUN_CONFIG_SPEED, TRUE, 100, override = TRUE, multiplicative_slowdown = mod)
 

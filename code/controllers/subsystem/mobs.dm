@@ -10,7 +10,7 @@ SUBSYSTEM_DEF(mobs)
 	var/static/list/cubemonkeys = list()
 
 /datum/controller/subsystem/mobs/stat_entry()
-	..("P:[GLOB.mob_living_list.len]")
+	. = ..("P:[GLOB.mob_living_list.len]")
 
 /datum/controller/subsystem/mobs/proc/MaxZChanged()
 	if (!islist(clients_by_zlevel))
@@ -30,6 +30,34 @@ SUBSYSTEM_DEF(mobs)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	var/times_fired = src.times_fired
+
+	//Every 10 fires we check for invalid locations and update registered zlevels (if necessary)
+	if(times_fired % 10 == 0)
+		for(var/X in currentrun)
+			var/mob/living/M = X
+			if (!M.client)
+				if (M.registered_z)
+					log_game("Z-TRACKING: [M] of type [M.type] has a Z-registration despite not having a client.")
+					M.update_z(null)
+				continue
+			var/turf/T = get_turf(M)
+			if(!T)
+				for(var/obj/effect/landmark/error/E in GLOB.landmarks_list)
+					M.forceMove(E.loc)
+					break
+				var/msg = "[ADMIN_LOOKUPFLW(M)] was found to have no .loc with an attached client, if the cause is unknown it would be wise to ask how this was accomplished."
+				message_admins(msg)
+				send2irc_adminless_only("Mob", msg, R_ADMIN)
+				log_game("[key_name(M)] was found to have no .loc with an attached client.")
+
+			// This is a temporary error tracker to make sure we've caught everything
+			else if (M.registered_z != T.z)
+#ifdef TESTING
+				message_admins("[ADMIN_LOOKUPFLW(M)] has somehow ended up in Z-level [T.z] despite being registered in Z-level [M.registered_z]. If you could ask them how that happened and notify coderbus, it would be appreciated.")
+#endif
+				log_game("Z-TRACKING: [M] has somehow ended up in Z-level [T.z] despite being registered in Z-level [M.registered_z].")
+				M.update_z(T.z)
+
 	while(currentrun.len)
 		var/mob/living/L = currentrun[currentrun.len]
 		currentrun.len--

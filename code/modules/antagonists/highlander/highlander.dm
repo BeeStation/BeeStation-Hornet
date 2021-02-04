@@ -18,11 +18,13 @@
 	steal_objective.owner = owner
 	steal_objective.set_target(new /datum/objective_item/steal/nukedisc)
 	objectives += steal_objective
+	log_objective(owner, steal_objective.explanation_text)
 
 	var/datum/objective/hijack/hijack_objective = new
 	hijack_objective.explanation_text = "Escape on the shuttle alone. Ensure that nobody else makes it out."
 	hijack_objective.owner = owner
 	objectives += hijack_objective
+	log_objective(owner, hijack_objective.explanation_text)
 
 /datum/antagonist/highlander/on_gain()
 	forge_objectives()
@@ -36,6 +38,8 @@
 	Activate it in your hand, and it will lead to the nearest target. Attack the nuclear authentication disk with it, and you will store it.</span>")
 
 	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Highlander",
+		"Locate victims to fall to your sword and claim the nuclear authentication disk for yourself.")
 
 /datum/antagonist/highlander/proc/give_equipment()
 	var/mob/living/carbon/human/H = owner.current

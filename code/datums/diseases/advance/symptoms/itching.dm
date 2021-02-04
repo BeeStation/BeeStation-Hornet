@@ -49,6 +49,6 @@ BONUS
 	var/obj/item/bodypart/bodypart = M.get_bodypart(picked_bodypart)
 	if(bodypart && bodypart.status == BODYPART_ORGANIC && !bodypart.is_pseudopart)	 //robotic limbs will mean less scratching overall
 		var/can_scratch = scratch && !M.incapacitated() && get_location_accessible(M, picked_bodypart)
-		M.visible_message("[can_scratch ? "<span class='warning'>[M] scratches [M.p_their()] [bodypart.name].</span>" : ""]", "<span class='warning'>Your [bodypart.name] itches. [can_scratch ? " You scratch it." : ""]</span>")
+		M.visible_message("[can_scratch ? "<span class='warning'>[M] scratches [M.p_their()] [bodypart.name].</span>" : ""]", "<span class='notice'>Your [bodypart.name] itches. [can_scratch ? " You scratch it." : ""]</span>")
 		if(can_scratch)
 			bodypart.receive_damage(0.5)

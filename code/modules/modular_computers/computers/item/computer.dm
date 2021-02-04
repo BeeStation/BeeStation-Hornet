@@ -70,23 +70,23 @@
 	return ..()
 
 
-/obj/item/modular_computer/proc/add_verb(var/path)
+/obj/item/modular_computer/proc/add_computer_verbs(var/path)
 	switch(path)
 		if(MC_CARD)
-			verbs += /obj/item/modular_computer/proc/eject_id
+			add_verb(/obj/item/modular_computer/proc/eject_id)
 		if(MC_SDD)
-			verbs += /obj/item/modular_computer/proc/eject_disk
+			add_verb(/obj/item/modular_computer/proc/eject_disk)
 		if(MC_AI)
-			verbs += /obj/item/modular_computer/proc/eject_card
+			add_verb(/obj/item/modular_computer/proc/eject_card)
 
-/obj/item/modular_computer/proc/remove_verb(path)
+/obj/item/modular_computer/proc/remove_computer_verbs(path)
 	switch(path)
 		if(MC_CARD)
-			verbs -= /obj/item/modular_computer/proc/eject_id
+			remove_verb(/obj/item/modular_computer/proc/eject_id)
 		if(MC_SDD)
-			verbs -= /obj/item/modular_computer/proc/eject_disk
+			remove_verb(/obj/item/modular_computer/proc/eject_disk)
 		if(MC_AI)
-			verbs -= /obj/item/modular_computer/proc/eject_card
+			remove_verb(/obj/item/modular_computer/proc/eject_card)
 
 // Eject ID card from computer, if it has ID slot with card inside.
 /obj/item/modular_computer/proc/eject_id()
@@ -126,7 +126,6 @@
 			portable_drive.verb_pickup()
 
 /obj/item/modular_computer/AltClick(mob/user)
-	..()
 	if(issilicon(user))
 		return
 
@@ -159,7 +158,7 @@
 
 /obj/item/modular_computer/MouseDrop(obj/over_object, src_location, over_location)
 	var/mob/M = usr
-	if((!istype(over_object, /obj/screen)) && usr.canUseTopic(src, BE_CLOSE))
+	if((!istype(over_object, /atom/movable/screen)) && usr.canUseTopic(src, BE_CLOSE))
 		return attack_self(M)
 	return ..()
 
@@ -420,7 +419,7 @@
 			var/obj/item/computer_hardware/H = all_components[h]
 			component_names.Add(H.name)
 
-		var/choice = input(user, "Which component do you want to uninstall?", "Computer maintenance", null) as null|anything in component_names
+		var/choice = input(user, "Which component do you want to uninstall?", "Computer maintenance", null) as null|anything in sortList(component_names)
 
 		if(!choice)
 			return

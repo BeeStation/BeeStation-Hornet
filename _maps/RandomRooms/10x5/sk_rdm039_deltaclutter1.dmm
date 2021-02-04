@@ -48,12 +48,6 @@
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/wood,
 /area/template_noop)
-"f" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen,
-/turf/open/floor/wood,
-/area/template_noop)
 "g" = (
 /obj/structure/table/wood,
 /obj/item/storage/briefcase,
@@ -289,6 +283,18 @@
 /obj/machinery/light/small,
 /turf/open/floor/wood,
 /area/template_noop)
+"O" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"R" = (
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"V" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/wood,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -299,9 +305,9 @@ F
 "}
 (2,1,1) = {"
 b
-k
+R
 j
-k
+O
 G
 "}
 (3,1,1) = {"
@@ -321,12 +327,12 @@ z
 (5,1,1) = {"
 e
 n
-n
+V
 r
 n
 "}
 (6,1,1) = {"
-f
+n
 o
 t
 A
@@ -349,7 +355,7 @@ n
 (9,1,1) = {"
 e
 n
-n
+V
 n
 m
 "}

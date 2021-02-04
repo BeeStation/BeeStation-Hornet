@@ -36,6 +36,12 @@
 	unit_name = "energy gun"
 	export_types = list(/obj/item/gun/energy/e_gun)
 
+/datum/export/weapon/bow
+	cost = 200
+	unit_name = "bow"
+	export_types = list(/obj/item/gun/ballistic/bow)
+	include_subtypes = TRUE
+
 /datum/export/weapon/wt550
 	cost = 300
 	unit_name = "WT-550 automatic rifle"
@@ -69,3 +75,9 @@
 	unit_name = "pair"
 	message = "of handcuffs"
 	export_types = list(/obj/item/restraints/handcuffs)
+
+/datum/export/weapon/arrows
+	cost = 50
+	unit_name = "arrow"
+	export_types = list(/obj/item/ammo_casing/caseless/arrow)
+	include_subtypes = TRUE

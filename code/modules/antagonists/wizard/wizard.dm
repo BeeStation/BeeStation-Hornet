@@ -12,6 +12,7 @@
 	var/outfit_type = /datum/outfit/wizard
 	var/wiz_age = WIZARD_AGE_MIN /* Wizards by nature cannot be too young. */
 	can_hijack = HIJACK_HIJACKER
+	show_to_ghosts = TRUE
 
 /datum/antagonist/wizard/on_gain()
 	register()
@@ -23,6 +24,7 @@
 	. = ..()
 	if(allow_rename)
 		rename_wizard()
+	owner.current.remove_quirk(/datum/quirk/nonviolent)
 
 /datum/antagonist/wizard/proc/register()
 	SSticker.mode.wizards |= owner
@@ -67,44 +69,52 @@
 			kill_objective.owner = owner
 			kill_objective.find_target()
 			objectives += kill_objective
+			log_objective(owner, kill_objective.explanation_text)
 
 			if (!(locate(/datum/objective/escape) in objectives))
 				var/datum/objective/escape/escape_objective = new
 				escape_objective.owner = owner
 				objectives += escape_objective
+				log_objective(owner, escape_objective.explanation_text)
 
 		if(31 to 60)
 			var/datum/objective/steal/steal_objective = new
 			steal_objective.owner = owner
 			steal_objective.find_target()
 			objectives += steal_objective
+			log_objective(owner, steal_objective.explanation_text)
 
 			if (!(locate(/datum/objective/escape) in objectives))
 				var/datum/objective/escape/escape_objective = new
 				escape_objective.owner = owner
 				objectives += escape_objective
+				log_objective(owner, escape_objective.explanation_text)
 
 		if(61 to 85)
 			var/datum/objective/assassinate/kill_objective = new
 			kill_objective.owner = owner
 			kill_objective.find_target()
 			objectives += kill_objective
+			log_objective(owner, kill_objective.explanation_text)
 
 			var/datum/objective/steal/steal_objective = new
 			steal_objective.owner = owner
 			steal_objective.find_target()
 			objectives += steal_objective
+			log_objective(owner, steal_objective.explanation_text)
 
 			if (!(locate(/datum/objective/survive) in objectives))
 				var/datum/objective/survive/survive_objective = new
 				survive_objective.owner = owner
 				objectives += survive_objective
+				log_objective(owner, survive_objective.explanation_text)
 
 		else
 			if (!(locate(/datum/objective/hijack) in objectives))
 				var/datum/objective/hijack/hijack_objective = new
 				hijack_objective.owner = owner
 				objectives += hijack_objective
+				log_objective(owner, hijack_objective.explanation_text)
 
 /datum/antagonist/wizard/on_removal()
 	unregister()
@@ -132,7 +142,9 @@
 	to_chat(owner, "You will find a list of available spells in your spell book. Choose your magic arsenal carefully.")
 	to_chat(owner, "The spellbook is bound to you, and others cannot use it.")
 	to_chat(owner, "In your pockets you will find a teleport scroll. Use it as needed.")
-	to_chat(owner,"<B>Remember:</B> do not forget to prepare your spells.")
+	to_chat(owner,"<B>Remember:</B> Do not forget to prepare your spells.")
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Space Wizard",
+		"Prepare your spells and cause havok upon the accursed station.")
 
 /datum/antagonist/wizard/farewell()
 	to_chat(owner, "<span class='userdanger'>You have been brainwashed! You are no longer a wizard!</span>")
@@ -144,7 +156,7 @@
 	var/wizard_name_second = pick(GLOB.wizard_second)
 	var/randomname = "[wizard_name_first] [wizard_name_second]"
 	var/mob/living/wiz_mob = owner.current
-	var/newname = copytext(sanitize_name(input(wiz_mob, "You are the [name]. Would you like to change your name to something else?", "Name change", randomname) as null|text),1,MAX_NAME_LEN)
+	var/newname = sanitize_name(reject_bad_text(stripped_input(wiz_mob, "You are the [name]. Would you like to change your name to something else?", "Name change", randomname, MAX_NAME_LEN)))
 
 	if (!newname)
 		newname = randomname
@@ -219,6 +231,7 @@
 	new_objective.target = master
 	new_objective.explanation_text = "Protect [master.current.real_name], the wizard."
 	objectives += new_objective
+	log_objective(owner, new_objective.explanation_text)
 
 //Random event wizard
 /datum/antagonist/wizard/apprentice/imposter
@@ -287,6 +300,7 @@
 	var/datum/objective/new_objective = new("Protect Wizard Academy from the intruders")
 	new_objective.owner = owner
 	objectives += new_objective
+	log_objective(owner, new_objective.explanation_text)
 
 //Solo wizard report
 /datum/antagonist/wizard/roundend_report()

@@ -54,7 +54,7 @@
 				basemob.access_card = new newaccess
 
 		if (mainsettings["maxhealth"]["value"])
-			if (!isnum(mainsettings["maxhealth"]["value"]))
+			if (!isnum_safe(mainsettings["maxhealth"]["value"]))
 				mainsettings["maxhealth"]["value"] = text2num(mainsettings["maxhealth"]["value"])
 			if (mainsettings["maxhealth"]["value"] > 0)
 				basemob.maxHealth = basemob.maxHealth =  mainsettings["maxhealth"]["value"]

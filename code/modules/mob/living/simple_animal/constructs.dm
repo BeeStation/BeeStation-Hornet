@@ -33,6 +33,7 @@
 	initial_language_holder = /datum/language_holder/construct
 	deathmessage = "collapses in a shattered heap."
 	hud_type = /datum/hud/constructs
+	hardattacks = TRUE
 	var/list/construct_spells = list()
 	var/playstyle_string = "<span class='big bold'>You are a generic construct!</span><b> Your job is to not exist, and you should probably adminhelp this.</b>"
 	var/master = null
@@ -42,6 +43,7 @@
 	var/runetype
 	var/holy = FALSE
 	mobsay_color = "#FF6262"
+	mobchatspan = "cultmobsay"
 
 /mob/living/simple_animal/hostile/construct/Initialize()
 	. = ..()
@@ -126,8 +128,7 @@
 	response_harm = "harmlessly punches"
 	harm_intent_damage = 0
 	obj_damage = 90
-	melee_damage_lower = 25
-	melee_damage_upper = 25
+	melee_damage = 25
 	attacktext = "smashes their armored gauntlet into"
 	speed = 2.5
 	environment_smash = ENVIRONMENT_SMASH_WALLS
@@ -193,8 +194,7 @@
 	icon_living = "floating"
 	maxHealth = 65
 	health = 65
-	melee_damage_lower = 20
-	melee_damage_upper = 20
+	melee_damage = 20
 	retreat_distance = 2 //AI wraiths will move in and out of combat
 	attacktext = "slashes"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
@@ -214,7 +214,7 @@
 
 	. = ..()
 
-	if(. && isnum(prev_stat))
+	if(. && isnum_safe(prev_stat))
 		var/mob/living/L = target
 		var/refund = 0
 		if(QDELETED(L) || (L.stat == DEAD && prev_stat != DEAD)) //they're dead, you killed them
@@ -249,10 +249,8 @@
 	maxHealth = 50
 	health = 50
 	response_harm = "viciously beats"
-	harm_intent_damage = 5
 	obj_damage = 60
-	melee_damage_lower = 5
-	melee_damage_upper = 5
+	melee_damage = 5
 	retreat_distance = 10
 	minimum_distance = 10 //AI artificers will flee like fuck
 	attacktext = "rams"
@@ -260,10 +258,10 @@
 	attack_sound = 'sound/weapons/punch2.ogg'
 	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/door,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
 							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser)
-	runetype = /datum/action/innate/cult/create_rune/revive
 	playstyle_string = "<b>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, \
 
 						use magic missile, repair allied constructs, shades, and yourself (by clicking on them), \
@@ -295,7 +293,7 @@
 		if(isconstruct(L) && L.health >= L.maxHealth) //is this target an unhurt construct? stop trying to heal it
 			LoseTarget()
 			return 0
-		if(L.health <= melee_damage_lower+melee_damage_upper) //ey bucko you're hurt as fuck let's go hit you
+		if(L.health <= melee_damage) //ey bucko you're hurt as fuck let's go hit you
 			retreat_distance = null
 			minimum_distance = 1
 
@@ -343,8 +341,7 @@
 	maxHealth = 40
 	health = 40
 	sight = SEE_MOBS
-	melee_damage_lower = 15
-	melee_damage_upper = 20
+	melee_damage = 15
 	attacktext = "butchers"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/area_conversion,

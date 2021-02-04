@@ -51,134 +51,169 @@
 /**
   * Convert random parts of a passed in message to stars
   *
-  * * n - the string to convert
-  * * pr - probability any character gets changed
+  * * phrase - the string to convert
+  * * probability - probability any character gets changed
   *
   * This proc is dangerously laggy, avoid it or die
   */
-/proc/stars(n, pr)
-	n = html_encode(n)
-	if (pr == null)
-		pr = 25
-	if (pr <= 0)
-		return null
-	else
-		if (pr >= 100)
-			return n
-	var/te = n
-	var/t = ""
-	n = length(n)
-
-	for(var/p = 1 to min(n,MAX_BROADCAST_LEN))
-		if ((copytext(te, p, p + 1) == " " || prob(pr)))
-			t = text("[][]", t, copytext(te, p, p + 1))
+/proc/stars(phrase, probability = 25)
+	if(probability <= 0)
+		return phrase
+	phrase = html_decode(phrase)
+	var/leng = length(phrase)
+	. = ""
+	var/char = ""
+	for(var/i = 1, i <= leng, i += length(char))
+		char = phrase[i]
+		if(char == " " || !prob(probability))
+			. += char
 		else
-			t = text("[]*", t)
-	if(n > MAX_BROADCAST_LEN)
-		t += "..." //signals missing text
-	return sanitize(t)
+			. += "*"
+	return sanitize(.)
+
 /**
   * Makes you speak like you're drunk
   */
-/proc/slur(n)
-	var/phrase = html_decode(n)
+/proc/slur(phrase)
+	phrase = html_decode(phrase)
 	var/leng = length(phrase)
-	var/counter=length(phrase)
-	var/newphrase=""
-	var/newletter=""
-	while(counter>=1)
-		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
-		if(rand(1,3)==3)
-			if(lowertext(newletter)=="o")
-				newletter="u"
-			if(lowertext(newletter)=="s")
-				newletter="ch"
-			if(lowertext(newletter)=="a")
-				newletter="ah"
-			if(lowertext(newletter)=="u")
-				newletter="oo"
-			if(lowertext(newletter)=="c")
-				newletter="k"
-		if(rand(1,20)==20)
-			if(newletter==" ")
-				newletter="...huuuhhh..."
-			if(newletter==".")
-				newletter=" *BURP*."
-		switch(rand(1,20))
+	. = ""
+	var/newletter = ""
+	var/rawchar = ""
+	for(var/i = 1, i <= leng, i += length(rawchar))
+		rawchar = newletter = phrase[i]
+		if(rand(1, 3) == 3)
+			var/lowerletter = lowertext(newletter)
+			if(lowerletter == "o")
+				newletter = "u"
+			else if(lowerletter == "s")
+				newletter = "ch"
+			else if(lowerletter == "a")
+				newletter = "ah"
+			else if(lowerletter == "u")
+				newletter = "oo"
+			else if(lowerletter == "c")
+				newletter = "k"
+		if(rand(1, 20) == 20)
+			if(newletter == " ")
+				newletter = "...huuuhhh..."
+			else if(newletter == ".")
+				newletter = " *BURP*."
+		switch(rand(1, 20))
 			if(1)
-				newletter+="'"
+				newletter += "'"
 			if(10)
-				newletter+="[newletter]"
+				newletter += "[newletter]"
 			if(20)
-				newletter+="[newletter][newletter]"
-		newphrase+="[newletter]";counter-=1
-	return newphrase
+				newletter += "[newletter][newletter]"
+		. += "[newletter]"
+	return sanitize(.)
 
 /// Makes you talk like you got cult stunned, which is slurring but with some dark messages
-/proc/cultslur(n) // Inflicted on victims of a stun talisman
-	var/phrase = html_decode(n)
+/proc/cultslur(phrase) // Inflicted on victims of a stun talisman
+	phrase = html_decode(phrase)
 	var/leng = length(phrase)
-	var/counter=length(phrase)
-	var/newphrase=""
-	var/newletter=""
-	while(counter>=1)
-		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
-		if(rand(1,2)==2)
-			if(lowertext(newletter)=="o")
-				newletter="u"
-			if(lowertext(newletter)=="t")
-				newletter="ch"
-			if(lowertext(newletter)=="a")
-				newletter="ah"
-			if(lowertext(newletter)=="u")
-				newletter="oo"
-			if(lowertext(newletter)=="c")
-				newletter=" NAR "
-			if(lowertext(newletter)=="s")
-				newletter=" SIE "
-		if(rand(1,4)==4)
-			if(newletter==" ")
-				newletter=" no hope... "
-			if(newletter=="H")
-				newletter=" IT COMES... "
+	. = ""
+	var/newletter = ""
+	var/rawchar = ""
+	for(var/i = 1, i <= leng, i += length(rawchar))
+		rawchar = newletter = phrase[i]
+		if(rand(1, 2) == 2)
+			var/lowerletter = lowertext(newletter)
+			if(lowerletter == "o")
+				newletter = "u"
+			else if(lowerletter == "t")
+				newletter = "ch"
+			else if(lowerletter == "a")
+				newletter = "ah"
+			else if(lowerletter == "u")
+				newletter = "oo"
+			else if(lowerletter == "c")
+				newletter = " NAR "
+			else if(lowerletter == "s")
+				newletter = " SIE "
+		if(rand(1, 4) == 4)
+			if(newletter == " ")
+				newletter = " no hope... "
+			else if(newletter == "H")
+				newletter = " IT COMES... "
 
-		switch(rand(1,15))
+		switch(rand(1, 15))
 			if(1)
-				newletter="'"
+				newletter = "'"
 			if(2)
-				newletter+="agn"
+				newletter += "agn"
 			if(3)
-				newletter="fth"
+				newletter = "fth"
 			if(4)
-				newletter="nglu"
+				newletter = "nglu"
 			if(5)
-				newletter="glor"
-		newphrase+="[newletter]";counter-=1
-	return newphrase
+				newletter = "glor"
+		. += newletter
+	return sanitize(.)
+
+/proc/clockslur(phrase) // cultslur but for clock
+	phrase = html_decode(phrase)
+	var/leng = length(phrase)
+	. = ""
+	var/newletter = ""
+	var/rawchar = ""
+	for(var/i = 1, i <= leng, i += length(rawchar))
+		rawchar = newletter = phrase[i]
+		if(rand(1, 2) == 2)
+			var/lowerletter = lowertext(newletter)
+			if(lowerletter == "o")
+				newletter = "u"
+			else if(lowerletter == "t")
+				newletter = "tch"
+			else if(lowerletter == "a")
+				newletter = "ah"
+			else if(lowerletter == "u")
+				newletter = "oo"
+			else if(lowerletter == "r")
+				newletter = " RAT "
+			else if(lowerletter == "e")
+				newletter = " VAR "
+		if(rand(1, 4) == 4)
+			if(newletter == " ")
+				newletter = " the brass... "
+			else if(newletter == "H")
+				newletter = " CLOCK TICKS... "
+
+		switch(rand(1, 15))
+			if(1)
+				newletter = "'"
+			if(2)
+				newletter += "cht"
+			if(3)
+				newletter = "tik"
+			if(4)
+				newletter = "kth"
+			if(5)
+				newletter = "toc"
+		. += newletter
+	return sanitize(.)
 
 ///Adds stuttering to the message passed in
-/proc/stutter(n)
-	var/te = html_decode(n)
-	var/t = ""//placed before the message. Not really sure what it's for.
-	n = length(n)//length of the entire word
-	var/p = null
-	p = 1//1 is the start of any word
-	while(p <= n)//while P, which starts at 1 is less or equal to N which is the length.
-		var/n_letter = copytext(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
-		if (prob(80) && (ckey(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
-			if (prob(10))
-				n_letter = text("[n_letter]-[n_letter]-[n_letter]-[n_letter]")//replaces the current letter with this instead.
+/proc/stutter(phrase)
+	phrase = html_decode(phrase)
+	var/leng = length(phrase)
+	. = ""
+	var/newletter = ""
+	var/rawchar
+	for(var/i = 1, i <= leng, i += length(rawchar))
+		rawchar = newletter = phrase[i]
+		if(prob(80) && !(lowertext(newletter) in list("a", "e", "i", "o", "u", " ")))
+			if(prob(10))
+				newletter = "[newletter]-[newletter]-[newletter]-[newletter]"
+			else if(prob(20))
+				newletter = "[newletter]-[newletter]-[newletter]"
+			else if (prob(5))
+				newletter = ""
 			else
-				if (prob(20))
-					n_letter = text("[n_letter]-[n_letter]-[n_letter]")
-				else
-					if (prob(5))
-						n_letter = null
-					else
-						n_letter = text("[n_letter]-[n_letter]")
-		t = text("[t][n_letter]")//since the above is ran through for each letter, the text just adds up back to the original word.
-		p++//for each letter p is increased to find where the next letter will be.
-	return copytext(sanitize(t),1,MAX_MESSAGE_LEN)
+				newletter = "[newletter]-[newletter]"
+		. += newletter
+	return sanitize(.)
 
 ///Convert a message to derpy speak
 /proc/derpspeech(message, stuttering)
@@ -202,56 +237,23 @@
 /**
   * Turn text into complete gibberish!
   *
-  * t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added
+  * text is the inputted message, replace_characters will cause original letters to be replaced and chance are the odds that a character gets modified.
   */
-/proc/Gibberish(t, p)
-	var/returntext = ""
-	for(var/i = 1, i <= length(t), i++)
-
-		var/letter = copytext(t, i, i+1)
-		if(prob(50))
-			if(p >= 70)
+/proc/Gibberish(text, replace_characters = FALSE, chance = 50)
+	text = html_decode(text)
+	. = ""
+	var/rawchar = ""
+	var/letter = ""
+	var/lentext = length(text)
+	for(var/i = 1, i <= lentext, i += length(rawchar))
+		rawchar = letter = text[i]
+		if(prob(chance))
+			if(replace_characters)
 				letter = ""
-
-			for(var/j = 1, j <= rand(0, 2), j++)
-				letter += pick("#","@","*","&","%","$","/", "<", ">", ";","*","*","*","*","*","*","*")
-
-		returntext += letter
-
-	return returntext
-
-
-/**
-  * Convert a message into leet non gaijin speak
-  *
-  * The difference with stutter is that this proc can stutter more than 1 letter
-  *
-  * The issue here is that anything that does not have a space is treated as one word (in many instances). For instance, "LOOKING," is a word, including the comma.
-  *
-  * It's fairly easy to fix if dealing with single letters but not so much with compounds of letters./N
-  */
-/proc/ninjaspeak(n) //NINJACODE
-	var/te = html_decode(n)
-	var/t = ""
-	n = length(n)
-	var/p = 1
-	while(p <= n)
-		var/n_letter
-		var/n_mod = rand(1,4)
-		if(p+n_mod>n+1)
-			n_letter = copytext(te, p, n+1)
-		else
-			n_letter = copytext(te, p, p+n_mod)
-		if (prob(50))
-			if (prob(30))
-				n_letter = text("[n_letter]-[n_letter]-[n_letter]")
-			else
-				n_letter = text("[n_letter]-[n_letter]")
-		else
-			n_letter = text("[n_letter]")
-		t = text("[t][n_letter]")
-		p=p+n_mod
-	return copytext(sanitize(t),1,MAX_MESSAGE_LEN)
+			for(var/j in 1 to rand(0, 2))
+				letter += pick("#", "@", "*", "&", "%", "$", "/", "<", ">", ";", "*", "*", "*", "*", "*", "*", "*")
+		. += letter
+	return sanitize(.)
 
 ///Shake the camera of the person viewing the mob SO REAL!
 /proc/shake_camera(mob/M, duration, strength=1)
@@ -428,7 +430,7 @@
 			if(flashwindow)
 				window_flash(O.client)
 			if(source)
-				var/obj/screen/alert/notify_action/A = O.throw_alert("[REF(source)]_notify_action", /obj/screen/alert/notify_action)
+				var/atom/movable/screen/alert/notify_action/A = O.throw_alert("[REF(source)]_notify_action", /atom/movable/screen/alert/notify_action)
 				if(A)
 					if(O.client.prefs && O.client.prefs.UI_style)
 						A.icon = ui_style2icon(O.client.prefs.UI_style)
@@ -549,8 +551,19 @@
 			colored_message = "<font color=[color]>[message]</font>"
 		else
 			colored_message = "<font color='[color]'>[message]</font>"
+	
+	//This makes readability a bit better for admins.
+	switch(message_type)
+		if(LOG_WHISPER)
+			colored_message = "(WHISPER) [colored_message]"
+		if(LOG_OOC)
+			colored_message = "(OOC) [colored_message]"
+		if(LOG_ASAY)
+			colored_message = "(ASAY) [colored_message]"
+		if(LOG_EMOTE)
+			colored_message = "(EMOTE) [colored_message]"
 
-	var/list/timestamped_message = list("[LAZYLEN(logging[smessage_type]) + 1]\[[time_stamp()]\] [key_name(src)] [loc_name(src)]" = colored_message)
+	var/list/timestamped_message = list("\[[time_stamp()]\] [key_name(src)] [loc_name(src)] (Event #[LAZYLEN(logging[smessage_type])])" = colored_message)
 
 	logging[smessage_type] += timestamped_message
 
@@ -574,3 +587,26 @@
 /mob/proc/common_trait_examine()
 	if(HAS_TRAIT(src, TRAIT_DISSECTED))
 		. += "<span class='notice'>This body has been dissected and analyzed. It is no longer worth experimenting on.</span><br>"
+
+// https://github.com/tgstation/tgstation/pull/44056
+// Used to make sure that a player has a valid job preference setup, used to knock players out of eligibility for anything if their prefs don't make sense.
+// A "valid job preference setup" in this situation means at least having one job set to low, or not having "return to lobby" enabled
+// Prevents "antag rolling" by setting antag prefs on, all jobs to never, and "return to lobby if preferences not availible"
+// Doing so would previously allow you to roll for antag, then send you back to lobby if you didn't get an antag role
+// This also does some admin notification and logging as well
+/mob/proc/has_valid_preferences()
+	if(!client)
+		return FALSE //Not sure how this would get run without the mob having a client, but let's just be safe.
+	if(client.prefs.joblessrole != RETURNTOLOBBY)
+		return TRUE
+	// If they have antags enabled, they're potentially doing this on purpose instead of by accident. Notify admins if so.
+	var/has_antags = FALSE
+	if(client.prefs.be_special.len > 0)
+		has_antags = TRUE
+	if(client.prefs.job_preferences.len == 0)
+		to_chat(src, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
+		if(has_antags)
+			log_admin("[src.ckey] just got booted back to lobby with no jobs, but antags enabled.")
+			message_admins("[src.ckey] just got booted back to lobby with no jobs enabled, but antag rolling enabled. Likely antag rolling abuse.")
+		return FALSE //This is the only case someone should actually be completely blocked from antag rolling as well
+	return TRUE

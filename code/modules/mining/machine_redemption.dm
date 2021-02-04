@@ -12,8 +12,8 @@
 	req_access = list(ACCESS_MINERAL_STOREROOM)
 	speed_process = TRUE
 	circuit = /obj/item/circuitboard/machine/ore_redemption
-	ui_x = 440
-	ui_y = 550
+
+
 	layer = BELOW_OBJ_LAYER
 
 	var/obj/item/card/id/inserted_id
@@ -63,7 +63,7 @@
 	var/datum/component/material_container/mat_container = materials.mat_container
 	if (!mat_container)
 		return
-		
+
 	if(O.refined_type == null)
 		return
 
@@ -187,17 +187,16 @@
 		if(user.transferItemToLoc(W, src))
 			inserted_disk = W
 			return TRUE
-			
+
 	var/obj/item/stack/ore/O = W
 	if(istype(O))
 		if(O.refined_type == null)
 			to_chat(user, "<span class='notice'>[O] has already been refined!</span>")
 			return
-		
+
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/AltClick(mob/living/user)
-	..()
 	if(!user.canUseTopic(src, BE_CLOSE))
 		return
 	if (panel_open)
@@ -206,10 +205,14 @@
 		to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
 		return TRUE
 
-/obj/machinery/mineral/ore_redemption/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/mineral/ore_redemption/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/mineral/ore_redemption/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "OreRedemptionMachine", "Ore Redemption Machine", ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "OreRedemptionMachine")
 		ui.open()
 
 /obj/machinery/mineral/ore_redemption/ui_data(mob/user)
@@ -293,7 +296,7 @@
 					desired = input("How many sheets?", "How many sheets would you like to smelt?", 1) as null|num
 
 				var/sheets_to_remove = round(min(desired,50,stored_amount))
-				
+
 				var/count = mat_container.retrieve_sheets(sheets_to_remove, mat, get_step(src, output_dir))
 				var/list/mats = list()
 				mats[mat] = MINERAL_MATERIAL_AMOUNT

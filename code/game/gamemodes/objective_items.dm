@@ -116,7 +116,7 @@
 
 //Items with special checks!
 /datum/objective_item/steal/plasma
-	name = "28 moles of plasma (full tank)."
+	name = "28 moles of plasma (full tank). Be sure to fill up the tank with additional plasma since it doesn't start full!"
 	targetitem = /obj/item/tank
 	difficulty = 3
 	excludefromjob = list("Chief Engineer","Research Director","Station Engineer","Scientist","Atmospheric Technician")
@@ -124,7 +124,7 @@
 /datum/objective_item/steal/plasma/check_special_completion(obj/item/tank/T)
 	var/target_amount = text2num(name)
 	var/found_amount = 0
-	found_amount += T.air_contents.gases[/datum/gas/plasma] ? T.air_contents.gases[/datum/gas/plasma][MOLES] : 0
+	found_amount += T.air_contents.get_moles(/datum/gas/plasma)
 	return found_amount>=target_amount
 
 

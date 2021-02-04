@@ -11,14 +11,12 @@
 /datum/guardian_stats/proc/Apply(mob/living/simple_animal/hostile/guardian/guardian)
 	guardian.range = range * 2
 	if(ranged)
-		guardian.melee_damage_lower = damage * 2.5
-		guardian.melee_damage_upper = damage * 2.5
+		guardian.melee_damage = damage * 2.5
 		guardian.obj_damage = damage * 6
 		guardian.ranged = TRUE
 		guardian.ranged_cooldown_time = 5 / speed
 	else
-		guardian.melee_damage_lower = damage * 5
-		guardian.melee_damage_upper = damage * 5
+		guardian.melee_damage = damage * 5
 		guardian.obj_damage = damage * 16
 	var/armor = CLAMP((max(6 - defense, 1)/2.5)/2, 0.25, 1)
 	guardian.damage_coeff = list(BRUTE = armor, BURN = armor, TOX = armor, CLONE = armor, STAMINA = 0, OXY = armor)
@@ -36,8 +34,7 @@
 	guardian.range = initial(guardian.range)
 	guardian.ranged = FALSE
 	guardian.ranged_cooldown_time = initial(guardian.ranged_cooldown_time)
-	guardian.melee_damage_lower = initial(guardian.melee_damage_lower)
-	guardian.melee_damage_upper = initial(guardian.melee_damage_upper)
+	guardian.melee_damage = initial(guardian.melee_damage)
 	guardian.obj_damage = initial(guardian.obj_damage)
 	guardian.damage_coeff = initial(guardian.damage_coeff)
 	guardian.environment_smash = initial(guardian.environment_smash)

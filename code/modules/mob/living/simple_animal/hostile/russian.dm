@@ -15,9 +15,7 @@
 	speed = 0
 	maxHealth = 100
 	health = 100
-	harm_intent_damage = 5
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	attacktext = "punches"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HARM
@@ -30,7 +28,7 @@
 	del_on_death = 1
 
 	do_footstep = TRUE
-
+	mobchatspan = "syndmob"
 
 /mob/living/simple_animal/hostile/russian/ranged
 	icon_state = "russianranged"

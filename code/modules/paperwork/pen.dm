@@ -71,6 +71,22 @@
 	icon_state = "pen-fountain"
 	font = FOUNTAIN_PEN_FONT
 
+/obj/item/pen/charcoal
+	name = "charcoal stylus"
+	desc = "It's just a wooden stick with some compressed ash on the end. At least it can write."
+	icon_state = "pen-charcoal"
+	colour = "dimgray"
+	font = CHARCOAL_FONT
+	custom_materials = null
+	
+/datum/crafting_recipe/charcoal_stylus
+	name = "Charcoal Stylus"
+	result = /obj/item/pen/charcoal
+	reqs = list(/obj/item/stack/sheet/mineral/wood = 1, /datum/reagent/ash = 30)
+	time = 30
+	category = CAT_PRIMAL
+
+
 /obj/item/pen/fountain/captain
 	name = "captain's fountain pen"
 	desc = "It's an expensive Oak fountain pen. The nib is quite sharp."
@@ -173,7 +189,7 @@
  * (Alan) Edaggers
  */
 /obj/item/pen/edagger
-	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut") //these wont show up if the pen is off
+	attack_verb = list("slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut") //these wont show up if the pen is off
 	var/on = FALSE
 
 /obj/item/pen/edagger/Initialize()

@@ -40,16 +40,20 @@
 /datum/antagonist/sintouched/on_gain()
 	forge_objectives()
 	. = ..()
+	for(var/datum/objective/O in objectives)
+		log_objective(owner, O.explanation_text)
 
 /datum/antagonist/sintouched/greet()
 	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Sintouched",
+		"You have been corrupted by devilish thought, complete your objectives no matter what.")
 
 /datum/antagonist/sintouched/roundend_report()
 	return printplayer(owner)
 
 /datum/antagonist/sintouched/admin_add(datum/mind/new_owner,mob/admin)
 	var/choices = sins + "Random"
-	var/chosen_sin = input(admin,"What kind ?","Sin kind") as null|anything in choices
+	var/chosen_sin = input(admin,"What kind ?","Sin kind") as null|anything in sortList(choices)
 	if(!chosen_sin)
 		return
 	if(chosen_sin in sins)

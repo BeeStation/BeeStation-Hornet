@@ -23,6 +23,12 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
 	var/state = 0
 	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/book) //Things allowed in the bookcase
+	/// When enabled, books_to_load number of random books will be generated for this bookcase when first interacted with.
+	var/load_random_books = FALSE
+	/// The category of books to pick from when populating random books.
+	var/random_category = null
+	/// How many random books to generate.
+	var/books_to_load = 0
 
 /obj/structure/bookcase/examine(mob/user)
 	. = ..()
@@ -119,8 +125,11 @@
 		return
 	if(!istype(user))
 		return
+	if(load_random_books)
+		create_random_books(books_to_load, src, FALSE, random_category)
+		load_random_books = FALSE
 	if(contents.len)
-		var/obj/item/book/choice = input(user, "Which book would you like to remove from the shelf?") as null|obj in contents
+		var/obj/item/book/choice = input(user, "Which book would you like to remove from the shelf?") as null|obj in sortNames(contents)
 		if(choice)
 			if(!(user.mobility_flags & MOBILITY_USE) || user.stat || user.restrained() || !in_range(loc, user))
 				return
@@ -140,10 +149,10 @@
 
 
 /obj/structure/bookcase/update_icon()
-	if(contents.len < 5)
-		icon_state = "book-[contents.len]"
-	else
-		icon_state = "book-5"
+	var/amount = contents.len
+	if(load_random_books)
+		amount += books_to_load
+	icon_state = "book-[amount < 5 ? amount : 5]"
 
 
 /obj/structure/bookcase/manuals/medical
@@ -255,6 +264,8 @@
 				if(!newauthor)
 					to_chat(user, "The name is invalid.")
 					return
+				else if(length(newauthor) > 45)
+					to_chat(user, "That name is too long!")
 				else
 					author = newauthor
 			else

@@ -1,0 +1,112 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/closet/crate,
+/obj/item/stack/ore/gold,
+/obj/item/stack/ore/gold,
+/obj/item/stack/ore/gold,
+/obj/item/stack/ore/gold,
+/obj/item/stack/ore/gold,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/structure/closet/crate,
+/obj/item/stack/ore/titanium,
+/obj/item/stack/ore/titanium,
+/obj/item/stack/ore/titanium,
+/obj/item/stack/ore/titanium,
+/obj/item/stack/ore/titanium,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/structure/closet/crate,
+/obj/item/stack/ore/silver,
+/obj/item/stack/ore/silver,
+/obj/item/stack/ore/silver,
+/obj/item/stack/ore/silver,
+/obj/item/stack/ore/silver,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/structure/closet/crate,
+/obj/item/stack/ore/uranium,
+/obj/item/stack/ore/uranium,
+/obj/item/stack/ore/uranium,
+/obj/item/stack/ore/uranium,
+/obj/item/stack/ore/uranium,
+/obj/machinery/light/broken{
+	icon_state = "tube-broken";
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/effect/spawner/lootdrop/trap/reusable,
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/structure/closet/crate,
+/obj/item/stack/ore/copper,
+/obj/item/stack/ore/copper,
+/obj/item/stack/ore/copper,
+/obj/item/stack/ore/copper,
+/obj/item/stack/ore/copper,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/structure/rack,
+/obj/item/flashlight/lantern,
+/obj/item/pickaxe,
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/structure/closet/crate,
+/obj/item/stack/ore/iron,
+/obj/item/stack/ore/iron,
+/obj/item/stack/ore/iron,
+/obj/item/stack/ore/iron,
+/obj/item/stack/ore/iron,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plating,
+/area/template_noop)
+"j" = (
+/obj/structure/ore_box,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plating,
+/area/template_noop)
+"k" = (
+/obj/effect/trap/nexus/trickyspawner/spookyskeleton,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+d
+b
+g
+i
+"}
+(2,1,1) = {"
+b
+b
+f
+k
+b
+"}
+(3,1,1) = {"
+c
+e
+b
+h
+j
+"}

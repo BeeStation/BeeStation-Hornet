@@ -85,6 +85,8 @@ Runes can either be invoked by one's self or with many different cultists. Each 
 		if(istype(M, /mob/living/simple_animal/hostile/construct/wraith/angelic) || istype(M, /mob/living/simple_animal/hostile/construct/armored/angelic) || istype(M, /mob/living/simple_animal/hostile/construct/builder/angelic))
 			to_chat(M, "<span class='warning'>You purge the rune!</span>")
 			qdel(src)
+		else if(construct_invoke || !iscultist(M)) //if you're not a cult construct we want the normal fail message
+			attack_hand(M)
 		else
 			to_chat(M, "<span class='warning'>You are unable to invoke the rune!</span>")
 
@@ -232,7 +234,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			to_chat(M, "<span class='danger'>You need at least two invokers to convert [convertee]!</span>")
 		log_game("Offer rune failed - tried conversion with one invoker")
 		return 0
-	if(convertee.anti_magic_check(TRUE, TRUE, major = FALSE)) //Not major because it can be spammed
+	if(convertee.anti_magic_check(TRUE, TRUE, major = FALSE) || istype(convertee.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat)) //Not major because it can be spammed
 		for(var/M in invokers)
 			to_chat(M, "<span class='warning'>Something is shielding [convertee]'s mind!</span>")
 		log_game("Offer rune failed - convertee had anti-magic")
@@ -498,7 +500,15 @@ structure_check() searches for nearby cultist structures required for the invoca
 	sleep(40)
 	if(src)
 		color = RUNE_COLOR_RED
-	new /obj/singularity/narsie/large/cult(T) //Causes Nar'Sie to spawn even if the rune has been removed
+	if(GLOB.celestial_gateway)
+		SEND_SOUND(world, 'sound/magic/clockwork/narsie_attack.ogg')
+		to_chat(world, "<span class='ratvar'>The dimensional veil is held shut by a powerful electric field.</span>")
+		GLOB.narsie_breaching = TRUE
+		GLOB.narsie_arrival = T
+		var/obj/structure/destructible/clockwork/massive/celestial_gateway/gateway = GLOB.celestial_gateway
+		gateway.open_gateway()
+	else
+		new /obj/singularity/narsie/large/cult(T) //Causes Nar'Sie to spawn even if the rune has been removed
 
 /obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))
@@ -702,6 +712,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(!(M.current in invokers) && M.current && M.current.stat != DEAD)
 			cultists |= M.current
 	var/mob/living/cultist_to_summon = input(user, "Who do you wish to call to [src]?", "Followers of the Geometer") as null|anything in cultists
+	var/held_in_place = FALSE
+	if(iscarbon(cultist_to_summon))
+		var/mob/living/carbon/C = cultist_to_summon
+		if(C.handcuffed && cultist_to_summon.pulledby)
+			held_in_place = TRUE
 	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
 		return
 	if(!cultist_to_summon)
@@ -714,7 +729,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target died")
 		return
-	if(cultist_to_summon.pulledby || cultist_to_summon.buckled)
+	if(held_in_place)
 		to_chat(user, "<span class='cult italic'>[cultist_to_summon] is being held in place!</span>")
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target restrained")

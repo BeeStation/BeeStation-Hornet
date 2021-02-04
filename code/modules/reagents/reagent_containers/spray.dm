@@ -159,7 +159,7 @@
 //space cleaner
 /obj/item/reagent_containers/spray/cleaner
 	name = "space cleaner"
-	desc = "BLAM!-brand non-foaming space cleaner!"
+	desc = "BLAM!-brand non-foaming space cleaner! A warning label reads 'CAUTION! NOT SAFE FOR INGESTION'"
 	volume = 100
 	list_reagents = list(/datum/reagent/space_cleaner = 100)
 	amount_per_transfer_from_this = 2
@@ -227,6 +227,14 @@
 
 /obj/item/reagent_containers/spray/waterflower/attack_self(mob/user) //Don't allow changing how much the flower sprays
 	return
+
+/obj/item/reagent_containers/spray/waterflower/superlube
+	name = "clown flower"
+	desc = "A delightly devilish flower... you got a feeling where this is going."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "clownflower"
+	volume = 30
+	list_reagents = list(/datum/reagent/lube/superlube = 30)
 
 /obj/item/reagent_containers/spray/waterflower/cyborg
 	reagent_flags = NONE
@@ -338,6 +346,14 @@
 	last_generate = world.time
 	reagents.add_reagent(generate_type, generate_amount)
 
+/obj/item/reagent_containers/spray/chemsprayer/janitor/clown
+	name = "lubinator 8000"
+	desc = "A modified industrial cleaning sprayer, capable of coating entire hallways in high performance lubricant, honk!"
+	icon_state = "chemsprayer"
+	item_state = "chemsprayer"
+	list_reagents = list(/datum/reagent/lube = 1000)
+	generate_type = /datum/reagent/lube
+
 // Plant-B-Gone
 /obj/item/reagent_containers/spray/plantbgone // -- Skie
 	name = "Plant-B-Gone"
@@ -349,3 +365,54 @@
 	righthand_file = 'icons/mob/inhands/equipment/hydroponics_righthand.dmi'
 	volume = 100
 	list_reagents = list(/datum/reagent/toxin/plantbgone = 100)
+
+/obj/item/reagent_containers/spray/cyborg
+	var/charge_cost = 50
+	var/charge_tick = 0
+	var/recharge_time = 2 //Time it takes for 5u to recharge (in seconds)
+	var/datum/reagent/set_reagent
+
+/obj/item/reagent_containers/spray/cyborg/Initialize()
+	. = ..()
+	reagents.add_reagent(set_reagent, volume)
+	START_PROCESSING(SSobj, src)
+
+/obj/item/reagent_containers/spray/cyborg/process()
+	charge_tick++
+	if(charge_tick >= recharge_time)
+		regenerate_reagents()
+		charge_tick = 0
+
+/obj/item/reagent_containers/spray/cyborg/proc/regenerate_reagents()
+	var/mob/living/silicon/robot/R = loc
+	if(istype(R))
+		if(R.cell)
+			if(reagents.total_volume <= volume)
+				R.cell.use(charge_cost)
+				reagents.add_reagent(set_reagent, 5)
+
+/obj/item/reagent_containers/spray/cyborg/drying_agent
+	name = "drying agent spray"
+	desc = "A spray for cleaning up wet floors."
+	color = "#A000A0"
+	set_reagent = /datum/reagent/drying_agent
+
+/obj/item/reagent_containers/spray/cyborg/plantbgone
+	name = "Plant-B-Gone"
+	desc = "A bottle of weed killer spray for stopping kudzu-based harm."
+	icon = 'icons/obj/hydroponics/equipment.dmi'
+	icon_state = "plantbgone"
+	item_state = "plantbgone"
+	set_reagent = /datum/reagent/toxin/plantbgone
+
+/obj/item/reagent_containers/spray/cyborg/lube
+	name = "lube spray"
+	desc = "A spray filled with space lube, for sabotaging the crew."
+	color = "#009CA8"
+	set_reagent = /datum/reagent/lube
+
+/obj/item/reagent_containers/spray/cyborg/acid
+	name = "acid spray"
+	desc = "A spray filled with sulphuric acid for offensive use."
+	color = "#00FF32"
+	set_reagent = /datum/reagent/toxin/acid

@@ -29,15 +29,6 @@ TGS3.json @crossedfall
 /code/game/machinery/shuttle @powerfulbacon
 /code/modules/shuttle @powerfulbacon
 
-
-# qwertyquerty
-
-/code/datums/keybinding @qwertyquerty
-/code/modules/lighting @qwertyquerty
-/code/modules/metacoin @qwertyquerty
-/code/modules/NTNet @qwertyquerty
-/code/modules/qwerty @qwertyquerty
-
 # zeskorion
 
 /code/__DEFINES/diseases.dm @zeskorion

@@ -32,7 +32,7 @@
 /area/template_noop)
 "h" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /obj/item/ammo_box/foambox,
 /obj/item/ammo_box/foambox,
@@ -50,7 +50,7 @@
 a
 c
 e
-b
+h
 g
 "}
 (2,1,1) = {"
@@ -58,7 +58,7 @@ b
 b
 b
 b
-h
+b
 "}
 (3,1,1) = {"
 b

@@ -148,6 +148,7 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BOLT_TYPE_OPEN 2
 #define BOLT_TYPE_NO_BOLT 3
 #define BOLT_TYPE_LOCKING 4
+#define BOLT_TYPE_PUMP 5	//Requires 2 hands to pump, but standard
 // Sawn off nerfs
 #define SAWN_OFF_ACC_PENALTY 25
 #define SAWN_OFF_RECOIL 1
@@ -160,6 +161,7 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BLOCKING_ACTIVE				(1<<0) //does the item need to be in hand to block
 #define BLOCKING_PROJECTILE			(1<<1) //does the item block projectiles
 #define BLOCKING_NASTY				(1<<2) //if it parries a bare hand, will the attacker be hurt?
+#define BLOCKING_HUNTER				(1<<3) //is the item more suited to fighting fauna?
 
 // Object/Item sharpness
 #define IS_BLUNT			0

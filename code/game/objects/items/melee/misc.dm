@@ -44,7 +44,7 @@
 	force = 20
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	sharpness = IS_SHARP
 
 /obj/item/melee/synthetic_arm_blade/Initialize()
@@ -185,7 +185,7 @@
 	. = list()
 
 	.["visibletrip"] =  "<span class ='danger'>[user] has knocked [target]'s legs out from under them with [src]!</span>"
-	.["localtrip"] = "<span class ='danger'>[user]  has knocked your legs out from under you [src]!</span>"
+	.["localtrip"] = "<span class ='danger'>[user] has knocked your legs out from under you [src]!</span>"
 	.["visibledisarm"] =  "<span class ='danger'>[user] has disarmed [target] with [src]!</span>"
 	.["localdisarm"] = "<span class ='danger'>[user] whacks your arm with [src], causing a coursing pain!</span>"
 	.["visiblestun"] =  "<span class ='danger'>[user] beat [target] with [src]!</span>"

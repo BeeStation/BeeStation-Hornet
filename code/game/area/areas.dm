@@ -26,6 +26,7 @@
 	var/atmosalm = FALSE
 	var/poweralm = TRUE
 	var/lightswitch = TRUE
+	var/vacuum = null
 
 	var/requires_power = TRUE
 	var/always_unpowered = FALSE	// This gets overridden to 1 for space in area/Initialize().
@@ -55,7 +56,10 @@
 
 	var/parallax_movedir = 0
 
-	var/list/ambientsounds = GENERIC
+	var/list/ambient_music = null // OOC, doesn't require the user to actually be able to hear it
+	var/list/ambient_effects = GENERIC // IC, requires the user to actually be able to hear it, will play spontaneously
+	var/ambient_buzz = 'sound/ambience/shipambience.ogg' // Ambient buzz of the station, plays repeatedly, also IC
+
 	flags_1 = CAN_BE_DIRTY_1
 
 	var/list/firedoors
@@ -69,6 +73,12 @@
 
 	var/list/power_usage
 
+	var/lighting_colour_tube = "#FFF6ED"
+	var/lighting_colour_bulb = "#FFE6CC"
+	var/lighting_colour_night = "#FFDBB5"
+	var/lighting_brightness_tube = 10
+	var/lighting_brightness_bulb = 6
+	var/lighting_brightness_night = 6
 
 /**
   * A list of teleport locations
@@ -100,7 +110,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		if (picked && is_station_level(picked.z))
 			GLOB.teleportlocs[AR.name] = AR
 
-	sortTim(GLOB.teleportlocs, /proc/cmp_text_dsc)
+	sortTim(GLOB.teleportlocs, /proc/cmp_text_asc)
 
 /**
   * Called when an area loads
@@ -199,7 +209,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/Destroy()
 	if(GLOB.areas_by_type[type] == src)
 		GLOB.areas_by_type[type] = null
-	STOP_PROCESSING(SSobj, src)
+	if(fire)
+		STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /**
@@ -313,6 +324,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if (!fire)
 		set_fire_alarm_effect()
 		ModifyFiredoors(FALSE)
+		START_PROCESSING(SSobj, src)
 		for(var/item in firealarms)
 			var/obj/machinery/firealarm/F = item
 			F.update_icon()
@@ -330,8 +342,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		var/datum/computer_file/program/alarm_monitor/p = item
 		p.triggerAlarm("Fire", src, cameras, source)
 
-	START_PROCESSING(SSobj, src)
-
 /**
   * Reset the firealarm alert for this area
   *
@@ -344,6 +354,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if (fire)
 		unset_fire_alarm_effects()
 		ModifyFiredoors(TRUE)
+		STOP_PROCESSING(SSobj, src)
 		for(var/item in firealarms)
 			var/obj/machinery/firealarm/F = item
 			F.update_icon()
@@ -360,8 +371,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	for(var/item in GLOB.alarmdisplay)
 		var/datum/computer_file/program/alarm_monitor/p = item
 		p.cancelAlarm("Fire", src, source)
-
-	STOP_PROCESSING(SSobj, src)
 
 /**
   * If 100 ticks has elapsed, toggle all the firedoors closed again
@@ -432,6 +441,18 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	for(var/obj/machinery/light/L in src)
 		L.update()
 
+/area/proc/set_vacuum_alarm_effect() //Just like fire alarm but blue
+	vacuum = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	for(var/obj/machinery/light/L in src)
+		L.update()
+
+/area/proc/unset_vacuum_alarm_effect()
+	vacuum = FALSE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	for(var/obj/machinery/light/L in src)
+		L.update()
+
 /**
   * Update the icon state of the area
   *
@@ -486,11 +507,12 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /**
   * Called when the area power status changes
   *
-  * Updates the area icon and calls power change on all machinees in the area
+  * Updates the area icon, calls power change on all machinees in the area, and sends the `COMSIG_AREA_POWER_CHANGE` signal.
   */
 /area/proc/power_change()
 	for(var/obj/machinery/M in src)	// for each machine in the area
 		M.power_change()				// reverify power status (to update icons etc.)
+	SEND_SIGNAL(src, COMSIG_AREA_POWER_CHANGE)
 	update_icon()
 
 
@@ -536,28 +558,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	set waitfor = FALSE
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, M)
 	SEND_SIGNAL(M, COMSIG_ENTER_AREA, src) //The atom that enters the area
-	if(!isliving(M))
-		return
-
-	var/mob/living/L = M
-	if(!L.ckey)
-		return
-
-	// Ambience goes down here -- make sure to list each area separately for ease of adding things in later, thanks! Note: areas adjacent to each other should have the same sounds to prevent cutoff when possible.- LastyScratch
-	if(L.client && !L.client.ambience_playing && L.client.prefs.toggles & SOUND_SHIP_AMBIENCE)
-		L.client.ambience_playing = 1
-		SEND_SOUND(L, sound('sound/ambience/shipambience.ogg', repeat = 1, wait = 0, volume = 35, channel = CHANNEL_BUZZ))
-
-	if(!(L.client && (L.client.prefs.toggles & SOUND_AMBIENCE)))
-		return //General ambience check is below the ship ambience so one can play without the other
-
-	if(prob(35))
-		var/sound = pick(ambientsounds)
-
-		if(!L.client.played)
-			SEND_SOUND(L, sound(sound, repeat = 0, wait = 0, volume = 25, channel = CHANNEL_AMBIENCE))
-			L.client.played = TRUE
-			addtimer(CALLBACK(L.client, /client/proc/ResetAmbiencePlayed), 600)
 
 /**
   * Called when an atom exits an area
@@ -569,13 +569,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	SEND_SIGNAL(M, COMSIG_EXIT_AREA, src) //The atom that exits the area
 
 /**
-  * Reset the played var to false on the client
-  */
-/client/proc/ResetAmbiencePlayed()
-	played = FALSE
-
-/**
-  * Returns true if this atom has gravity for the passed in turf
+  * Returns true if this atom has gravity for the passed in turf or other gravity-mimicking behaviors
+  * In other words, it returns whether the atom can be *on* the turf (i.e. not forced to float)
   *
   * Sends signals COMSIG_ATOM_HAS_GRAVITY and COMSIG_TURF_HAS_GRAVITY, both can force gravity with
   * the forced gravity var

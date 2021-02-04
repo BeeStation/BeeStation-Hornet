@@ -4,7 +4,6 @@
 #define CREDIT_EASE_DURATION 12
 
 GLOBAL_LIST(end_titles)
-GLOBAL_LIST_INIT(patrons, world.file2list("[global.config.directory]/patrons.txt"))
 
 /proc/RollCredits()
 	set waitfor = FALSE
@@ -31,7 +30,7 @@ GLOBAL_LIST_INIT(patrons, world.file2list("[global.config.directory]/patrons.txt
 		GLOB.end_titles += "<center><h1>Thanks for playing!</h1>"
 	for(var/client/C in GLOB.clients)
 		if(C.prefs.show_credits)
-			C.screen += new /obj/screen/credit/title_card(null, null, SSticker.mode.title_icon)
+			C.screen += new /atom/movable/screen/credit/title_card(null, null, SSticker.mode.title_icon)
 	sleep(CREDIT_SPAWN_SPEED * 3)
 	for(var/i in 1 to GLOB.end_titles.len)
 		var/C = GLOB.end_titles[i]
@@ -43,9 +42,9 @@ GLOBAL_LIST_INIT(patrons, world.file2list("[global.config.directory]/patrons.txt
 
 
 /proc/create_credit(credit)
-	new /obj/screen/credit(null, credit)
+	new /atom/movable/screen/credit(null, credit)
 
-/obj/screen/credit
+/atom/movable/screen/credit
 	icon_state = "blank"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	alpha = 0
@@ -53,7 +52,7 @@ GLOBAL_LIST_INIT(patrons, world.file2list("[global.config.directory]/patrons.txt
 	layer = SPLASHSCREEN_LAYER
 	var/matrix/target
 
-/obj/screen/credit/Initialize(mapload, credited)
+/atom/movable/screen/credit/Initialize(mapload, credited)
 	. = ..()
 	maptext = "<font face='Verdana'>[credited]</font>"
 	maptext_height = world.icon_size * 2
@@ -66,20 +65,20 @@ GLOBAL_LIST_INIT(patrons, world.file2list("[global.config.directory]/patrons.txt
 	INVOKE_ASYNC(src, .proc/add_to_clients)
 	QDEL_IN(src, CREDIT_ROLL_SPEED)
 
-/obj/screen/credit/proc/add_to_clients()
+/atom/movable/screen/credit/proc/add_to_clients()
 	for(var/client/C in GLOB.clients)
 		if(C.prefs.show_credits)
 			C.screen += src
 
-/obj/screen/credit/Destroy()
+/atom/movable/screen/credit/Destroy()
 	screen_loc = null
 	return ..()
 
-/obj/screen/credit/title_card
+/atom/movable/screen/credit/title_card
 	icon = 'icons/title_cards.dmi'
 	screen_loc = "4,1"
 
-/obj/screen/credit/title_card/Initialize(mapload, credited, title_icon_state)
+/atom/movable/screen/credit/title_card/Initialize(mapload, credited, title_icon_state)
 	icon_state = title_icon_state
 	. = ..()
 	maptext = null

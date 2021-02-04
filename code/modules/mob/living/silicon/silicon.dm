@@ -47,6 +47,8 @@
 	var/interaction_range = 7			//wireless control range
 	var/obj/item/pda/aiPDA
 
+	mobchatspan = "centcom"
+
 /mob/living/silicon/Initialize()
 	. = ..()
 	GLOB.silicon_mobs += src
@@ -210,6 +212,9 @@
 	if (href_list["laws"]) // With how my law selection code works, I changed statelaws from a verb to a proc, and call it through my law selection panel. --NeoFite
 		statelaws()
 
+	if (href_list["printlawtext"]) // this is kinda backwards
+		to_chat(usr, href_list["printlawtext"])
+
 	return
 
 
@@ -327,6 +332,12 @@
 	usr << browse(list, "window=laws")
 
 /mob/living/silicon/proc/ai_roster()
+	if(!client)
+		return
+	if(world.time < client.crew_manifest_delay)
+		return
+	client.crew_manifest_delay = world.time + (1 SECONDS)
+
 	var/datum/browser/popup = new(src, "airoster", "Crew Manifest", 387, 420)
 	popup.set_content(GLOB.data_core.get_manifest_html())
 	popup.open()
@@ -363,7 +374,7 @@
 	return 0
 
 
-/mob/living/silicon/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null) //Secbots won't hunt silicon units
+/mob/living/silicon/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null) //Secbots won't hunt silicon units
 	return -10
 
 /mob/living/silicon/proc/remove_sensors()
@@ -417,3 +428,9 @@
 
 /mob/living/silicon/handle_high_gravity(gravity)
 	return
+
+/mob/living/silicon/rust_heretic_act()
+	adjustBruteLoss(500)
+
+/mob/living/silicon/hears_radio()
+	return FALSE

@@ -46,6 +46,8 @@
 	if(loc)
 		loc.on_log(TRUE)
 
+	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)
+
 	//readd this mob's HUDs (antag, med, etc)
 	reload_huds()
 
@@ -65,7 +67,8 @@
 	update_client_colour()
 	update_mouse_pointer()
 	if(client)
-		client.change_view(CONFIG_GET(string/default_view)) // Resets the client.view in case it was changed.
+		client.view_size?.setDefault(getScreenSize(src))	// Sets the defaul view_size because it can be different to what it was on the lobby.
+		client.change_view(getScreenSize(src)) // Resets the client.view in case it was changed.
 
 		if(client.player_details.player_actions.len)
 			for(var/datum/action/A in client.player_details.player_actions)
@@ -76,6 +79,9 @@
 			CB.Invoke()
 		log_played_names(client.ckey,name,real_name)
 		auto_deadmin_on_login()
+
+	//Sort verbs
+	add_verb(verbs.Copy(), TRUE)	//verbs.Copy() because otherwise you can't see the list
 
 	log_message("Client [key_name(src)] has taken ownership of mob [src]([src.type])", LOG_OWNERSHIP)
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)

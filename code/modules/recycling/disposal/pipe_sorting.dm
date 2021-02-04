@@ -39,7 +39,7 @@
 	. = ..()
 	// Generate a list of soring tags.
 	if(sortType)
-		if(isnum(sortType))
+		if(isnum_safe(sortType))
 			sortTypes |= sortType
 		else if(istext(sortType))
 			var/list/sorts = splittext(sortType,";")

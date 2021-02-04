@@ -23,8 +23,8 @@
 
 	pipe_state = "injector"
 
-	ui_x = 310
-	ui_y = 115
+
+
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/CtrlClick(mob/user)
 	if(can_interact(user))
@@ -36,7 +36,7 @@
 	if(can_interact(user))
 		volume_rate = MAX_TRANSFER_RATE
 		update_icon()
-	return ..()
+	return
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/Destroy()
 	SSradio.remove_object(src,frequency)
@@ -69,15 +69,16 @@
 
 	var/datum/gas_mixture/air_contents = airs[1]
 
-	if(air_contents.temperature > 0)
-		var/transfer_moles = (air_contents.return_pressure())*volume_rate/(air_contents.temperature * R_IDEAL_GAS_EQUATION)
+	if(air_contents != null)
+		if(air_contents.return_temperature() > 0)
+			var/transfer_moles = (air_contents.return_pressure())*volume_rate/(air_contents.return_temperature() * R_IDEAL_GAS_EQUATION)
 
-		var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
+			var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 
-		loc.assume_air(removed)
-		air_update_turf()
+			loc.assume_air(removed)
+			air_update_turf()
 
-		update_parents()
+			update_parents()
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/proc/inject()
 
@@ -88,8 +89,8 @@
 
 	injecting = 1
 
-	if(air_contents.temperature > 0)
-		var/transfer_moles = (air_contents.return_pressure())*volume_rate/(air_contents.temperature * R_IDEAL_GAS_EQUATION)
+	if(air_contents.return_temperature() > 0)
+		var/transfer_moles = (air_contents.return_pressure())*volume_rate/(air_contents.return_temperature() * R_IDEAL_GAS_EQUATION)
 		var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 		loc.assume_air(removed)
 		update_parents()
@@ -140,7 +141,7 @@
 	if("set_volume_rate" in signal.data)
 		var/number = text2num(signal.data["set_volume_rate"])
 		var/datum/gas_mixture/air_contents = airs[1]
-		volume_rate = clamp(number, 0, air_contents.volume)
+		volume_rate = CLAMP(number, 0, air_contents.return_volume())
 
 	addtimer(CALLBACK(src, .proc/broadcast_status), 2)
 
@@ -148,11 +149,14 @@
 		update_icon()
 
 
-/obj/machinery/atmospherics/components/unary/outlet_injector/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-																		datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/atmospherics/components/unary/outlet_injector/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/atmospherics/components/unary/outlet_injector/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AtmosPump", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "AtmosPump")
 		ui.open()
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/ui_data()

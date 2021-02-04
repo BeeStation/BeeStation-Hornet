@@ -102,3 +102,16 @@
 		)
 	result = /obj/item/reagent_containers/food/snacks/butterdog
 	subcategory = CAT_BREAD
+
+/datum/crafting_recipe/food/breadcat
+	name = "Bread cat/bread hybrid"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/store/bread/plain = 1,
+		/obj/item/organ/ears/cat = 1,
+		/obj/item/organ/tail/cat = 1,
+		/obj/item/reagent_containers/food/snacks/meat/slab = 3,
+		/datum/reagent/blood = 50,
+		/datum/reagent/medicine/strange_reagent = 5
+		)
+	result = /mob/living/simple_animal/pet/cat/breadcat
+	subcategory = CAT_BREAD

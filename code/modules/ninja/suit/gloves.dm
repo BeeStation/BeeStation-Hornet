@@ -61,7 +61,7 @@
 	. = A.ninjadrain_act(suit,H,src)
 	draining = FALSE
 
-	if(isnum(.)) //Numerical values of drained handle their feedback here, Alpha values handle it themselves (Research hacking)
+	if(isnum_safe(.)) //Numerical values of drained handle their feedback here, Alpha values handle it themselves (Research hacking)
 		if(.)
 			to_chat(H, "<span class='notice'>Gained <B>[DisplayEnergy(.)]</B> of energy from [A].</span>")
 		else

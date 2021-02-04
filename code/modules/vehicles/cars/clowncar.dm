@@ -64,6 +64,12 @@
 		to_chat(user, "<span class='danger'>You use the [banana] to repair the [src]!</span>")
 		qdel(banana)
 
+/obj/vehicle/sealed/car/clowncar/remove_occupant(mob/M)
+	. = ..()
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M 
+		C.uncuff()
+
 /obj/vehicle/sealed/car/clowncar/Bump(atom/movable/M)
 	. = ..()
 	if(isliving(M))
@@ -73,6 +79,7 @@
 		if(iscarbon(L))
 			var/mob/living/carbon/C = L
 			C.Paralyze(40) //I play to make sprites go horizontal
+			restraintarget(C)
 		L.visible_message("<span class='warning'>[src] rams into [L] and sucks him up!</span>") //fuck off shezza this isn't ERP.
 		mob_forced_enter(L)
 		playsound(src, pick('sound/vehicles/clowncar_ram1.ogg', 'sound/vehicles/clowncar_ram2.ogg', 'sound/vehicles/clowncar_ram3.ogg'), 75)
@@ -81,6 +88,23 @@
 		playsound(src, pick('sound/vehicles/clowncar_crash1.ogg', 'sound/vehicles/clowncar_crash2.ogg'), 75)
 		playsound(src, 'sound/vehicles/clowncar_crashpins.ogg', 75)
 		DumpMobs(TRUE)
+
+/obj/vehicle/sealed/car/clowncar/RunOver(mob/living/carbon/human/H)
+	mob_forced_enter(H)
+	H.visible_message("<span class='warning'>[src] drives over [H] and sucks him up!</span>")
+	restraintarget(H)
+
+/obj/vehicle/sealed/car/clowncar/proc/restraintarget(mob/living/carbon/C)
+	if(istype(C))
+		if(!C.handcuffed)
+			if(C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore())
+				C.handcuffed = new /obj/item/restraints/handcuffs/energy/used(C)
+				C.update_handcuffed()
+				to_chat(C, "<span class = 'danger'> Your hands are restrained by the sheer volume of occupants in the car!</span>")
+
+/obj/item/restraints/handcuffs/energy/used/clown
+	name = "tangle of limbs"
+	desc = "You are restrained in a tangle of bodies!"
 
 /obj/vehicle/sealed/car/clowncar/emag_act(mob/user)
 	if(obj_flags & EMAGGED)

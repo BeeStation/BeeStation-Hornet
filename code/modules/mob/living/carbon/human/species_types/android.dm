@@ -8,6 +8,7 @@
 	meat = null
 	damage_overlay_type = "synth"
 	mutanttongue = /obj/item/organ/tongue/robot
+	species_language_holder = /datum/language_holder/synthetic
 	limbs_id = "synth"
 	reagent_tag = PROCESS_SYNTHETIC
 	species_gibs = "robotic"

@@ -38,7 +38,7 @@
 			var/list/prints = O.return_fingerprints()
 			if(LAZYLEN(prints))
 				for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
-					if(H.dna && prints[md5(H.dna.uni_identity)])
+					if(H.dna && prints[rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)])
 						if(!(H in can_track))
 							to_chat(guardian, "<span class='notice italics'>We learn the identity of [H.real_name].</span>")
 							can_track += H
@@ -83,7 +83,7 @@
 		status.scan_target = prey
 		status.point_to_target()
 
-/obj/screen/alert/status_effect/agent_pinpointer/predator
+/atom/movable/screen/alert/status_effect/agent_pinpointer/predator
 	name = "Predator's All-Seeing Eyes"
 
 /datum/status_effect/agent_pinpointer/predator
@@ -91,7 +91,7 @@
 	minimum_range = 1
 	range_fuzz_factor = 0
 	tick_interval = 10
-	alert_type = /obj/screen/alert/status_effect/agent_pinpointer/predator
+	alert_type = /atom/movable/screen/alert/status_effect/agent_pinpointer/predator
 
 /datum/status_effect/agent_pinpointer/predator/scan_for_target()
 	return

@@ -1,3 +1,4 @@
+GLOBAL_LIST_EMPTY(station_turfs)
 /turf
 	icon = 'icons/turf/floors.dmi'
 	level = 1
@@ -32,6 +33,7 @@
 
 	var/explosion_level = 0	//for preventing explosion dodging
 	var/explosion_id = 0
+	var/list/explosion_throw_details
 
 	var/requires_activation	//add to air processing after initialize?
 	var/changing_turf = FALSE
@@ -43,6 +45,8 @@
 
 	/// Should we used the smooth tiled dirt decal or not
 	var/tiled_dirt = FALSE
+
+	vis_flags = VIS_INHERIT_PLANE|VIS_INHERIT_ID	//when this be added to vis_contents of something it inherit something.plane and be associated with something on clicking, important for visualisation of turf in openspace and interraction with openspace that show you turf.
 
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
@@ -127,6 +131,8 @@
 
 /turf/attack_hand(mob/user)
 	. = ..()
+	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_NO_ATTACK_HAND)
+		. = TRUE
 	if(.)
 		return
 	user.Move_Pulled(src)
@@ -152,11 +158,18 @@
 /turf/proc/zAirOut(direction, turf/source)
 	return FALSE
 
-/turf/proc/zImpact(atom/movable/A, levels = 1)
+/turf/proc/zImpact(atom/movable/A, levels = 1, turf/prev_turf)
+	var/flags = NONE
+	var/mov_name = A.name
 	for(var/i in contents)
 		var/atom/thing = i
-		if(thing.intercept_zImpact(A, levels))
-			return FALSE
+		flags |= thing.intercept_zImpact(A, levels)
+		if(flags & FALL_STOP_INTERCEPTING)
+			break
+	if(prev_turf && !(flags & FALL_NO_MESSAGE))
+		prev_turf.visible_message("<span class='danger'>[mov_name] falls through [prev_turf]!</span>")
+	if(flags & FALL_INTERCEPTED)
+		return
 	if(zFall(A, ++levels))
 		return FALSE
 	A.visible_message("<span class='danger'>[A] crashes into [src]!</span>")
@@ -172,11 +185,10 @@
 		return FALSE
 	if(!force && (!can_zFall(A, levels, target) || !A.can_zFall(src, levels, target, DOWN)))
 		return FALSE
-	A.visible_message("<span class='danger'>[A] falls through [src]!</span>")
 	A.zfalling = TRUE
 	A.forceMove(target)
 	A.zfalling = FALSE
-	target.zImpact(A, levels)
+	target.zImpact(A, levels, src)
 	return TRUE
 
 /turf/proc/handleRCL(obj/item/twohanded/rcl/C, mob/user)
@@ -268,9 +280,6 @@
 
 /turf/Entered(atom/movable/AM)
 	..()
-	if(explosion_level && AM.ex_check(explosion_id))
-		AM.ex_act(explosion_level)
-
 	// If an opaque movable atom moves around we need to potentially update visibility.
 	if (AM.opacity)
 		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
@@ -279,7 +288,7 @@
 /turf/open/Entered(atom/movable/AM)
 	..()
 	//melting
-	if(isobj(AM) && air && air.temperature > T0C)
+	if(isobj(AM) && air && air.return_temperature() > T0C)
 		var/obj/O = AM
 		if(O.obj_flags & FROZEN)
 			O.make_unfrozen()
@@ -444,15 +453,14 @@
 	else
 		affecting_level = 1
 
-	for(var/V in contents)
-		var/atom/A = V
-		if(!QDELETED(A) && A.level >= affecting_level)
-			if(ismovableatom(A))
-				var/atom/movable/AM = A
-				if(!AM.ex_check(explosion_id))
+	for(var/thing in contents)
+		var/atom/atom_thing = thing
+		if(!QDELETED(atom_thing) && atom_thing.level >= affecting_level)
+			if(ismovableatom(atom_thing))
+				var/atom/movable/movable_thing = atom_thing
+				if(!movable_thing.ex_check(explosion_id))
 					continue
-			A.ex_act(severity, target)
-			CHECK_TICK
+			atom_thing.ex_act(severity, target)
 
 /turf/narsie_act(force, ignore_mobs, probability = 20)
 	. = (prob(probability) || force)

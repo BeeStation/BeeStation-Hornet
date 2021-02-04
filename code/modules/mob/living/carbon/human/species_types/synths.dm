@@ -4,7 +4,7 @@
 	say_mod = "beep boops" //inherited from a user's real species
 	sexes = 0
 	species_traits = list(NOTRANSSTING) //all of these + whatever we inherit from the real species
-	inherent_traits = list(TRAIT_VIRUSIMMUNE,TRAIT_NODISMEMBER,TRAIT_NOLIMBDISABLE,TRAIT_NOHUNGER,TRAIT_NOBREATH)
+	inherent_traits = list(TRAIT_NODISMEMBER,TRAIT_NOLIMBDISABLE,TRAIT_NOHUNGER,TRAIT_NOBREATH)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	meat = null
 	damage_overlay_type = "synth"
@@ -14,6 +14,8 @@
 	var/list/initial_species_traits //for getting these values back for assume_disguise()
 	var/list/initial_inherent_traits
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
+	species_language_holder = /datum/language_holder/synthetic
+
 
 /datum/species/synth/New()
 	initial_species_traits = species_traits.Copy()
@@ -62,6 +64,7 @@
 		mutant_bodyparts = S.mutant_bodyparts.Copy()
 		mutant_organs = S.mutant_organs.Copy()
 		default_features = S.default_features.Copy()
+		forced_features = S.forced_features.Copy()
 		nojumpsuit = S.nojumpsuit
 		no_equip = S.no_equip.Copy()
 		limbs_id = S.limbs_id
@@ -79,6 +82,7 @@
 		miss_sound = initial(miss_sound)
 		mutant_bodyparts = list()
 		default_features = list()
+		forced_features = list()
 		nojumpsuit = initial(nojumpsuit)
 		no_equip = list()
 		qdel(fake_species)

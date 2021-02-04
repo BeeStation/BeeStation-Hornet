@@ -74,7 +74,7 @@
 
 	if(spamprotection >= max_string_length*1.75 && assembly)
 		if(assembly.fingerprintslast)
-			var/mob/M = get_mob_by_key(assembly.fingerprintslast)
+			var/mob/M = get_mob_by_ckey(assembly.fingerprintslast)
 			var/more = ""
 			if(M)
 				more = "[ADMIN_LOOKUPFLW(M)] "
@@ -247,7 +247,7 @@
 /obj/item/integrated_circuit/text/text_replacer
 	name = "replace circuit"
 	desc = "Replaces all of one bit of text with another"
-	extended_desc = "Takes a string(haystack) and puts out the string while having a certain word(needle) replaced with another."
+	extended_desc = "Takes a string(haystack) and puts out the string while having a certain word(needle) replaced with another. Maximum 512 characters."
 	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
 	inputs = list(
 		"haystack" = IC_PINTYPE_STRING,
@@ -261,8 +261,11 @@
 	outputs = list(
 		"replaced string" = IC_PINTYPE_STRING
 	)
+	cooldown_per_use = (10 SECONDS)
+	complexity = 6
+	var/max_len = MAX_MESSAGE_LEN / 2
 
 /obj/item/integrated_circuit/text/text_replacer/do_work()
-	set_pin_data(IC_OUTPUT, 1,replacetext(get_pin_data(IC_INPUT, 1), get_pin_data(IC_INPUT, 2), get_pin_data(IC_INPUT, 3)))
+	set_pin_data(IC_OUTPUT, 1, replacetext(copytext(get_pin_data(IC_INPUT, 1), 1, max_len), copytext(get_pin_data(IC_INPUT, 2), 1, max_len), copytext(get_pin_data(IC_INPUT, 3), 1, max_len)))
 	push_data()
 	activate_pin(2)

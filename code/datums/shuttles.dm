@@ -11,6 +11,7 @@
 
 	var/credit_cost = INFINITY
 	var/can_be_bought = TRUE
+	var/illegal_shuttle = FALSE	//makes you able to buy the shuttle at a hacked/emagged comms console even if can_be_bought is FALSE
 
 	var/list/movement_force // If set, overrides default movement_force on shuttle
 
@@ -255,6 +256,12 @@
 	name = "Birdboat Station Emergency Shuttle"
 	description = "Though a little on the small side, this shuttle is feature complete, which is more than can be said for the pattern of station it was commissioned for."
 	credit_cost = 1000
+
+/datum/map_template/shuttle/emergency/shelter
+	suffix = "shelter"
+	name = "BSP Collapsable Emergency Shuttle"
+	description = "A new product by a Nanotrasen subsidary, designed to be quick to construct and employ, with the amenities of a small emergency shuttle, including sleepers. Luckily, the shuttle is indeed deployed faster. Un-luckily, that time is supplemented by construction time, so it won't make the transit any faster."
+	credit_cost = 2500
 
 /datum/map_template/shuttle/emergency/box
 	suffix = "box"
@@ -507,7 +514,7 @@
 	name = "basic syndicate infiltrator"
 
 /datum/map_template/shuttle/infiltrator/advanced
-	suffix = "basic"
+	suffix = "advanced"
 	name = "advanced syndicate infiltrator"
 
 /datum/map_template/shuttle/cargo/delta
@@ -525,6 +532,12 @@
 /datum/map_template/shuttle/mining/large
 	suffix = "large"
 	name = "mining shuttle (Large)"
+
+/datum/map_template/shuttle/science
+	port_id = "science"
+	suffix = "outpost"
+	name = "science outpost shuttle"
+	can_be_bought = FALSE
 
 /datum/map_template/shuttle/labour/delta
 	suffix = "delta"

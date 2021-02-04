@@ -1,3 +1,5 @@
+#define FREEMOVE_TIME 2 MINUTES
+
 /*
 A mob of type /mob/camera/disease is an overmind coordinating at least one instance of /datum/disease/advance/sentient_disease
 that has infected a host. All instances in a host will be synchronized with the stats of the overmind's disease_template. Any
@@ -22,7 +24,6 @@ the new instance inside the host to be updated to the template's stats.
 
 	var/freemove = TRUE
 	var/freemove_end = 0
-	var/const/freemove_time = 1200
 	var/freemove_end_timerid
 
 	var/datum/action/innate/disease_adapt/adaptation_menu_action
@@ -66,8 +67,8 @@ the new instance inside the host to be updated to the template's stats.
 
 	browser = new /datum/browser(src, "disease_menu", "Adaptation Menu", 1000, 770, src)
 
-	freemove_end = world.time + freemove_time
-	freemove_end_timerid = addtimer(CALLBACK(src, .proc/infect_random_patient_zero), freemove_time, TIMER_STOPPABLE)
+	freemove_end = world.time + FREEMOVE_TIME
+	freemove_end_timerid = addtimer(CALLBACK(src, .proc/infect_random_patient_zero), FREEMOVE_TIME, TIMER_STOPPABLE)
 
 /mob/camera/disease/Destroy()
 	. = ..()
@@ -83,18 +84,17 @@ the new instance inside the host to be updated to the template's stats.
 		to_chat(src, "<span class='warning'>You have [DisplayTimeText(freemove_end - world.time)] to select your first host. Click on a human to select your host.</span>")
 
 
-/mob/camera/disease/Stat()
-	..()
-	if(statpanel("Status"))
-		if(freemove)
-			stat("Host Selection Time: [round((freemove_end - world.time)/10)]s")
-		else
-			stat("Adaptation Points: [points]/[total_points]")
-			stat("Hosts: [disease_instances.len]")
-			var/adapt_ready = next_adaptation_time - world.time
-			if(adapt_ready > 0)
-				stat("Adaptation Ready: [round(adapt_ready/10, 0.1)]s")
-
+/mob/camera/disease/get_stat_tab_status()
+	var/list/tab_data = ..()
+	if(freemove)
+		tab_data["Host Selection Time"] = GENERATE_STAT_TEXT("[round((freemove_end - world.time)/10)]s")
+	else
+		tab_data["Adaptation Points"] = GENERATE_STAT_TEXT("[points]/[total_points]")
+		tab_data["Hosts"] = GENERATE_STAT_TEXT("[disease_instances.len]")
+		var/adapt_ready = next_adaptation_time - world.time
+		if(adapt_ready > 0)
+			tab_data["Adaptation Ready"] = GENERATE_STAT_TEXT("[round(adapt_ready/10, 0.1)]s")
+	return tab_data
 
 /mob/camera/disease/examine(mob/user)
 	. = ..()
@@ -398,3 +398,5 @@ the new instance inside the host to be updated to the template's stats.
 /datum/action/innate/disease_adapt/Activate()
 	var/mob/camera/disease/D = owner
 	D.adaptation_menu()
+
+#undef FREEMOVE_TIME

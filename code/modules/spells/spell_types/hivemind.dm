@@ -57,7 +57,7 @@
 	var/success = FALSE
 
 	if(target.mind && target.client && target.stat != DEAD)
-		if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield)
+		if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && !istype(target.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			if(HAS_TRAIT(target, TRAIT_MINDSHIELD) && ignore_mindshield)
 				to_chat(user, "<span class='notice'>We bruteforce our way past the mental barriers of [target.name] and begin linking our minds!</span>")
 			else
@@ -140,7 +140,7 @@
 			active = TRUE
 			host = user
 			user.clear_fullscreen("hive_mc")
-			user.overlay_fullscreen("hive_eyes", /obj/screen/fullscreen/hive_eyes)
+			user.overlay_fullscreen("hive_eyes", /atom/movable/screen/fullscreen/hive_eyes)
 		revert_cast()
 	else
 		vessel.remove_status_effect(STATUS_EFFECT_BUGGED)
@@ -148,7 +148,7 @@
 		user.clear_fullscreen("hive_eyes")
 		var/obj/effect/proc_holder/spell/target_hive/hive_control/the_spell = locate(/obj/effect/proc_holder/spell/target_hive/hive_control) in user.mind.spell_list
 		if(the_spell && the_spell.active)
-			user.overlay_fullscreen("hive_mc", /obj/screen/fullscreen/hive_mc)
+			user.overlay_fullscreen("hive_mc", /atom/movable/screen/fullscreen/hive_mc)
 		active = FALSE
 		revert_cast()
 
@@ -316,7 +316,7 @@
 		else
 			user.heal_ordered_damage(5, list(CLONE, BURN, BRUTE))
 		if(!user.getBruteLoss() && !user.getFireLoss() && !user.getCloneLoss()) //If we don't have any of these, stop looping
-			to_chat(user, "<span class='warning'>We finish our healing</span>")
+			to_chat(user, "<span class='warning'>We finish our healing.</span>")
 			break
 		iterations++
 	user.setOrganLoss(ORGAN_SLOT_BRAIN, 0)
@@ -430,7 +430,7 @@
 			vessel.mind.transfer_to(backseat, 1)
 			user.mind.transfer_to(vessel, 1)
 			backseat.blind_eyes(power)
-			vessel.overlay_fullscreen("hive_mc", /obj/screen/fullscreen/hive_mc)
+			vessel.overlay_fullscreen("hive_mc", /atom/movable/screen/fullscreen/hive_mc)
 			active = TRUE
 			out_of_range = FALSE
 			starting_spot = get_turf(vessel)
@@ -938,6 +938,7 @@
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='assimilator'>There is no you...</span>"), 110)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='bigassimilator'>...there is only us.</span>"), 130)
 		addtimer(CALLBACK(C, /mob/living/proc/hive_awaken, new_objective, one_mind_team), 150)
+		log_objective(M, new_objective.explanation_text)
 
 /obj/effect/proc_holder/spell/self/hive_comms
 	name = "Hive Communication"

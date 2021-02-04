@@ -13,6 +13,7 @@
 		protect_objective.human_check = FALSE
 	protect_objective.explanation_text = "Protect [date.name], your date."
 	objectives += protect_objective
+	log_objective(owner, protect_objective.explanation_text)
 
 /datum/antagonist/valentine/on_gain()
 	forge_objectives()
@@ -29,6 +30,8 @@
 
 /datum/antagonist/valentine/greet()
 	to_chat(owner, "<span class='warning'><B>You're on a date with [date.name]! Protect [date.p_them()] at all costs. This takes priority over all other loyalties.</B></span>")
+	owner.current.client?.tgui_panel?.give_antagonist_popup("You are on a date with [date.name]",
+		"Protect your date no matter the cost. Your loyalities are insignificant compared to your true love, you may do whatever you can to help and protect them!")
 
 //Squashed up a bit
 /datum/antagonist/valentine/roundend_report()

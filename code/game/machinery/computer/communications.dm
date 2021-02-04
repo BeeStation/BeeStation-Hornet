@@ -1,3 +1,15 @@
+#define STATE_DEFAULT 1
+#define STATE_CALLSHUTTLE 2
+#define STATE_CANCELSHUTTLE 3
+#define STATE_MESSAGELIST 4
+#define STATE_VIEWMESSAGE 5
+#define STATE_DELMESSAGE 6
+#define STATE_STATUSDISPLAY 7
+#define STATE_ALERT_LEVEL 8
+#define STATE_CONFIRM_LEVEL 9
+#define STATE_TOGGLE_EMERGENCY 10
+#define STATE_PURCHASE 11
+
 // The communications computer
 /obj/machinery/computer/communications
 	name = "communications console"
@@ -16,17 +28,6 @@
 	var/message_cooldown = 0
 	var/ai_message_cooldown = 0
 	var/tmp_alertlevel = 0
-	var/const/STATE_DEFAULT = 1
-	var/const/STATE_CALLSHUTTLE = 2
-	var/const/STATE_CANCELSHUTTLE = 3
-	var/const/STATE_MESSAGELIST = 4
-	var/const/STATE_VIEWMESSAGE = 5
-	var/const/STATE_DELMESSAGE = 6
-	var/const/STATE_STATUSDISPLAY = 7
-	var/const/STATE_ALERT_LEVEL = 8
-	var/const/STATE_CONFIRM_LEVEL = 9
-	var/const/STATE_TOGGLE_EMERGENCY = 10
-	var/const/STATE_PURCHASE = 11
 
 	var/stat_msg1
 	var/stat_msg2
@@ -137,7 +138,7 @@
 					return
 				CM.lastTimeUsed = world.time
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
-				send2otherserver("[station_name()]", input,"Comms_Console")
+				comms_send(station_name(), input, "Comms_Console", CONFIG_GET(flag/insecure_announce))
 				minor_announce(input, title = "Outgoing message to allied station")
 				usr.log_talk(input, LOG_SAY, tag="message to the other server")
 				message_admins("[ADMIN_LOOKUPFLW(usr)] has sent a message to the other server.")
@@ -170,7 +171,7 @@
 							SSshuttle.existing_shuttle = SSshuttle.emergency
 							SSshuttle.action_load(S)
 							D.adjust_money(-S.credit_cost)
-							minor_announce("[usr.real_name] has purchased [S.name] for [S.credit_cost] credits.[S.extra_desc ? " [S.extra_desc]" : ""]" , "Shuttle Purchase")
+							minor_announce("[S.name] has been purchased for [S.credit_cost] credits! Purchase authorized by [auth_id] [S.extra_desc ? " [S.extra_desc]" : ""]" , "Shuttle Purchase")
 							message_admins("[ADMIN_LOOKUPFLW(usr)] purchased [S.name].")
 							log_game("[key_name(usr)] has purchased [S.name].")
 							SSblackbox.record_feedback("text", "shuttle_purchase", 1, "[S.name]")
@@ -267,10 +268,10 @@
 					post_status(href_list["statdisp"])
 
 		if("setmsg1")
-			stat_msg1 = reject_bad_text(input("Line 1", "Enter Message Text", stat_msg1) as text|null, 40)
+			stat_msg1 = reject_bad_text(capped_input(usr, "Line 1", "Enter Message Text", stat_msg1), 40)
 			updateDialog()
 		if("setmsg2")
-			stat_msg2 = reject_bad_text(input("Line 2", "Enter Message Text", stat_msg2) as text|null, 40)
+			stat_msg2 = reject_bad_text(capped_input(usr, "Line 2", "Enter Message Text", stat_msg2), 40)
 			updateDialog()
 
 		// OMG CENTCOM LETTERHEAD
@@ -434,11 +435,10 @@
 	var/dat = ""
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 		var/timeleft = SSshuttle.emergency.timeLeft()
-		dat += "<B>Emergency shuttle</B>\n<BR>\nETA: [timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]"
+		dat += "<B>Emergency shuttle</B>\n<BR>\nETA: [timeleft / 60 % 60]:[add_leading(num2text(timeleft % 60), 2, "0")]"
 
 
 	var/datum/browser/popup = new(user, "communications", "Communications Console", 400, 500)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 
 	if(issilicon(user))
 		var/dat2 = interact_ai(user) // give the AI a different interact proc to limit its access
@@ -472,6 +472,7 @@
 					dat += "<BR><BR><B>Captain Functions</B>"
 					dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=announce'>Make a Captain's Announcement</A> \]"
 					var/cross_servers_count = length(CONFIG_GET(keyed_list/cross_server))
+					cross_servers_count += length(CONFIG_GET(keyed_list/insecure_cross_server))
 					if(cross_servers_count)
 						dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=crossserver'>Send a message to [cross_servers_count == 1 ? "an " : ""]allied station[cross_servers_count > 1 ? "s" : ""]</A> \]"
 					if(SSmapping.config.allow_custom_shuttles)
@@ -554,18 +555,31 @@
 
 		if(STATE_PURCHASE)
 			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+			var/obj/item/circuitboard/computer/communications/CM = circuit
 			dat += "Budget: [D.account_balance] Credits.<BR>"
 			dat += "<BR>"
-			dat += "<b>Caution: Purchasing dangerous shuttles may lead to mutiny and/or death.</b><br>"
-			dat += "<BR>"
+			if((obj_flags & EMAGGED) || CM.insecure)
+				dat += "<b>WARNING: Safety features disabled. Non-certified shuttles included. Order at your own peril.</b><BR><BR>"
+			else
+				dat += "<b>Safety protocols in effect: These shuttles all fulfill NT safety standards.</b><BR><BR>" //not that they're very high but these won't kill everyone aboard
 			for(var/shuttle_id in SSmapping.shuttle_templates)
 				var/datum/map_template/shuttle/S = SSmapping.shuttle_templates[shuttle_id]
-				if(S.can_be_bought && S.credit_cost < INFINITY)
+				if(S.can_be_bought && S.credit_cost < INFINITY &! S.illegal_shuttle)
 					dat += "[S.name] | [S.credit_cost] Credits<BR>"
 					dat += "[S.description]<BR>"
 					if(S.prerequisites)
 						dat += "Prerequisites: [S.prerequisites]<BR>"
 					dat += "<A href='?src=[REF(src)];operation=buyshuttle;chosen_shuttle=[REF(S)]'>(<font color=red><i>Purchase</i></font>)</A><BR><BR>"
+			if((obj_flags & EMAGGED) || CM.insecure)
+				dat += "<b>NON-CERTIFIED SHUTTLES APPENDED BELOW.</b><BR><BR>"
+				for(var/shuttle_id in SSmapping.shuttle_templates)
+					var/datum/map_template/shuttle/S = SSmapping.shuttle_templates[shuttle_id]
+					if(S.illegal_shuttle && S.credit_cost < INFINITY)
+						dat += "[S.name] | [S.credit_cost] Credits<BR>"
+						dat += "[S.description]<BR>"
+						if(S.prerequisites)
+							dat += "Prerequisites: [S.prerequisites]<BR>"
+						dat += "<A href='?src=[REF(src)];operation=buyshuttle;chosen_shuttle=[REF(S)]'>(<font color=red><i>Purchase</i></font>)</A><BR><BR>"
 
 	dat += "<BR><BR>\[ [(state != STATE_DEFAULT) ? "<A HREF='?src=[REF(src)];operation=main'>Main Menu</A> | " : ""]<A HREF='?src=[REF(user)];mach_close=communications'>Close</A> \]"
 
@@ -702,7 +716,7 @@
 	if(CHAT_FILTER_CHECK(input))
 		to_chat(user, "<span class='warning'>You cannot send an announcement that contains prohibited words.</span>")
 		return
-	SScommunications.make_announcement(user, is_silicon, input)
+	SScommunications.make_announcement(user, is_silicon, input, auth_id)
 	deadchat_broadcast("<span class='deadsay'><span class='name'>[user.real_name]</span> made a priority announcement from <span class='name'>[get_area_name(usr, TRUE)]</span>.</span>", user)
 
 /obj/machinery/computer/communications/proc/post_status(command, data1, data2)
@@ -750,3 +764,15 @@
 		content = new_content
 	if(new_possible_answers)
 		possible_answers = new_possible_answers
+
+#undef STATE_DEFAULT
+#undef STATE_CALLSHUTTLE
+#undef STATE_CANCELSHUTTLE
+#undef STATE_MESSAGELIST
+#undef STATE_VIEWMESSAGE
+#undef STATE_DELMESSAGE
+#undef STATE_STATUSDISPLAY
+#undef STATE_ALERT_LEVEL
+#undef STATE_CONFIRM_LEVEL
+#undef STATE_TOGGLE_EMERGENCY
+#undef STATE_PURCHASE

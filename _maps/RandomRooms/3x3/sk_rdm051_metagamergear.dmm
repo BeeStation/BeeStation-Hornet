@@ -92,7 +92,6 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/structure/table/reinforced,
 /obj/item/folder,
 /obj/item/folder,
 /obj/item/book/manual/wiki/engineering_hacking,

@@ -35,11 +35,11 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.5, TOX = 0.5, CLONE = 0.5, STAMINA = 0, OXY = 0.5) //how much damage from each damage type we transfer to the owner
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	obj_damage = 40
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	AIStatus = AI_OFF
 	hud_type = /datum/hud/guardian
 	mobsay_color = "#ffffff"
+	mobchatspan = "blob"
 	var/next_reset = 0
 	var/guardiancolor = "#ffffff"
 	var/mutable_appearance/cooloverlay
@@ -50,12 +50,11 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	var/range = 10
 	var/cooldown = 0
 	var/datum/mind/summoner
-	var/toggle_button_type = /obj/screen/guardian/ToggleMode
+	var/toggle_button_type = /atom/movable/screen/guardian/ToggleMode
 	var/datum/guardian_stats/stats
 	var/summoner_visible = TRUE
 	var/battlecry = "AT"
 	var/do_the_cool_invisible_thing = TRUE
-	var/erased_time = FALSE
 	var/berserk = FALSE
 	var/requiem = FALSE
 	// ability stuff below
@@ -107,7 +106,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	if(!client)
 		return
 	cut_barriers()
-	if(!summoner?.current || !is_deployed() || (range <= 1 || (stats && stats.range <= 1)) || get_dist_euclidian(summoner.current, src) < (range - world.view))
+	if(!summoner?.current || !is_deployed() || (range <= 1 || (stats && stats.range <= 1)) || get_dist_euclidian(summoner.current, src) < (range - getviewsize(world.view)[2]))
 		return
 	var/sx = summoner.current.x
 	var/sy = summoner.current.y
@@ -171,7 +170,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			speak_emote = list("telepathically cries")
 			desc = "A truly alien creature, it is a mass of unknown organic material, standing by its' owner's side."
 			attack_sound = 'sound/weapons/pierce.ogg'
-	if(!recolorentiresprite) //we want this to proc before stand logs in, so the overlay isnt gone for some reason
+	if(!recolorentiresprite) //we want this to proc before stand logs in, so the overlay isn't gone for some reason
 		cooloverlay = mutable_appearance(icon, theme)
 		cooloverlay.color = guardiancolor
 		add_overlay(cooloverlay)
@@ -198,12 +197,14 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	if(berserk || stat == DEAD)
 		return
 	if(!QDELETED(summoner) && !QDELETED(summoner.current))
-		if(summoner.current.stat == DEAD)
+		if(summoner.current.stat == DEAD || (HAS_TRAIT(summoner.current, TRAIT_NODEATH) && summoner.current.health <= -100))
 			if(transforming)
 				GoBerserk()
 			else
 				forceMove(summoner.current)
 				to_chat(src, "<span class='danger'>Your summoner has died!</span>")
+				to_chat(summoner, "<span class='userdanger'>'No...' you think to yourself as your bones crumple to dust.</span>")
+				summoner.current.dust()
 				visible_message("<span class='danger'><B>\The [src] dies along with its user!</B></span>")
 				death(TRUE)
 	else
@@ -236,24 +237,25 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		O.completed = TRUE
 		O.explanation_text = "AVENGE YOUR MASTER."
 		S.objectives |= O
+		log_objective(mind, O.explanation_text)
 		mind.announce_objectives()
 	if(stats.ability)
 		stats.ability.Berserk()
 
-/mob/living/simple_animal/hostile/guardian/Stat()
-	..()
-	if(statpanel("Status"))
-		if(summoner?.current)
-			var/resulthealth
-			if(iscarbon(summoner.current))
-				resulthealth = round((abs(HEALTH_THRESHOLD_DEAD - summoner.current.health) / abs(HEALTH_THRESHOLD_DEAD - summoner.current.maxHealth)) * 100)
-			else
-				resulthealth = round((summoner.current.health / summoner.current.maxHealth) * 100, 0.5)
-			stat(null, "Summoner Health: [resulthealth]%")
-		if(cooldown >= world.time)
-			stat(null, "Manifest/Recall Cooldown Remaining: [DisplayTimeText(cooldown - world.time)]")
-		if(stats.ability)
-			stats.ability.Stat()
+/mob/living/simple_animal/hostile/guardian/get_stat_tab_status()
+	var/list/tab_data = ..()
+	if(summoner?.current)
+		var/resulthealth
+		if(iscarbon(summoner.current))
+			resulthealth = round((abs(HEALTH_THRESHOLD_DEAD - summoner.current.health) / abs(HEALTH_THRESHOLD_DEAD - summoner.current.maxHealth)) * 100)
+		else
+			resulthealth = round((summoner.current.health / summoner.current.maxHealth) * 100, 0.5)
+		tab_data["Summoner Health"] = GENERATE_STAT_TEXT("[resulthealth]%")
+	if(cooldown >= world.time)
+		tab_data["Manifest/Recall Cooldown Remaining"] = GENERATE_STAT_TEXT(" [DisplayTimeText(cooldown - world.time)]")
+	if(stats.ability)
+		tab_data += stats.ability.Stat()
+	return tab_data
 
 /mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
 	pixel_x = initial(pixel_x)
@@ -362,9 +364,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	if(transforming)
 		to_chat(src, "<span class='holoparasite italics'>No... no... you can't!</span>")
 		return
-	if(erased_time)
-		to_chat(src, "<span class='danger'>There is no time, and you cannot intefere!</span>")
-		return
 	if(stats.ability && stats.ability.RangedAttack(A))
 		return
 	return ..()
@@ -372,9 +371,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 /mob/living/simple_animal/hostile/guardian/AttackingTarget()
 	if(transforming)
 		to_chat(src, "<span class='holoparasite italics'>No... no... you can't!</span>")
-		return FALSE
-	if(erased_time)
-		to_chat(src, "<span class='danger'>There is no time, and you cannot intefere!</span>")
 		return FALSE
 	if(stats.ability && stats.ability.Attack(target))
 		return FALSE
@@ -396,14 +392,14 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		if(stats.ability)
 			stats.ability.AfterAttack(target)
 
-/mob/living/simple_animal/hostile/guardian/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
+/mob/living/simple_animal/hostile/guardian/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash)
 	return FALSE
 
 /mob/living/simple_animal/hostile/guardian/death()
 	. = ..()
 	if(summoner?.current && summoner.current.stat != DEAD)
-		to_chat(summoner, "<span class='danger'><B>Your [name] died somehow!</span></B>")
-		summoner.current.death()
+		to_chat(summoner, "<span class='userdanger'>'No...' you think to yourself as your bones crumple to dust, as you watch your stand somehow die.</span>")
+		summoner.current.dust()
 	ghostize(FALSE)
 	nullspace() // move ourself into nullspace for the time being
 
@@ -462,7 +458,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	death()
 	if(summoner?.current)
 		to_chat(summoner.current, "<span class='danger'><B>Your [src] was blown up!</span></B>")
-		summoner.current.gib()
+		summoner.current.dust()
 
 /mob/living/simple_animal/hostile/guardian/AltClickOn(atom/A)
 	if(stats.ability && stats.ability.AltClickOn(A))
@@ -592,9 +588,9 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /mob/living/simple_animal/hostile/guardian/proc/OnMindTransfer(datum/_source, mob/old_body, mob/new_body)
 	if(!QDELETED(old_body))
-		old_body.verbs -= /mob/living/proc/guardian_comm
-		old_body.verbs -= /mob/living/proc/guardian_recall
-		old_body.verbs -= /mob/living/proc/guardian_reset
+		old_body.remove_verb(/mob/living/proc/guardian_comm)
+		old_body.remove_verb(/mob/living/proc/guardian_recall)
+		old_body.remove_verb(/mob/living/proc/guardian_reset)
 		UnregisterSignal(old_body, COMSIG_MOVABLE_MOVED)
 		UnregisterSignal(old_body, COMSIG_LIVING_REVIVE)
 	if(isliving(new_body))
@@ -605,9 +601,9 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		RegisterSignal(new_body, COMSIG_MOVABLE_MOVED, /mob/living/simple_animal/hostile/guardian.proc/OnMoved)
 		RegisterSignal(new_body, COMSIG_LIVING_REVIVE, /mob/living/simple_animal/hostile/guardian.proc/Reviveify)
 		to_chat(src, "<span class='notice'>You manifest into existence, as your master's soul appears in a new body!</span>")
-		new_body.verbs |= /mob/living/proc/guardian_comm
-		new_body.verbs |= /mob/living/proc/guardian_recall
-		new_body.verbs |= /mob/living/proc/guardian_reset
+		new_body.add_verb(/mob/living/proc/guardian_comm)
+		new_body.add_verb(/mob/living/proc/guardian_recall)
+		new_body.add_verb(/mob/living/proc/guardian_reset)
 
 /mob/living/proc/guardian_comm()
 	set name = "Communicate"
@@ -687,7 +683,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		else
 			to_chat(src, "<span class='holoparasite'>You decide not to reset [guardians.len > 1 ? "any of your guardians":"your guardian"].</span>")
 	else
-		verbs -= /mob/living/proc/guardian_reset
+		remove_verb(/mob/living/proc/guardian_reset)
 
 ////////parasite tracking/finding procs
 

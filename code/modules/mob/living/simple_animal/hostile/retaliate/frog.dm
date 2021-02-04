@@ -11,8 +11,7 @@
 	turns_per_move = 5
 	maxHealth = 15
 	health = 15
-	melee_damage_lower = 5
-	melee_damage_upper = 5
+	melee_damage = 5
 	attacktext = "bites"
 	response_help  = "pets"
 	response_disarm = "pokes"

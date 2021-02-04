@@ -1,11 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/sunflower,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
-/area/template_noop)
 "b" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /obj/machinery/light/small{
@@ -141,14 +134,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"r" = (
-/obj/structure/table,
-/obj/item/plant_analyzer,
-/obj/item/hatchet,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/template_noop)
 "s" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
@@ -171,39 +156,39 @@
 /area/template_noop)
 
 (1,1,1) = {"
-a
+b
 j
 k
 m
 n
 "}
 (2,1,1) = {"
-b
+c
 k
 k
 j
 o
 "}
 (3,1,1) = {"
-c
+d
 k
 k
 k
 p
 "}
 (4,1,1) = {"
-d
+e
 j
 k
 k
 q
 "}
 (5,1,1) = {"
-e
+s
 j
 k
 k
-r
+s
 "}
 (6,1,1) = {"
 f

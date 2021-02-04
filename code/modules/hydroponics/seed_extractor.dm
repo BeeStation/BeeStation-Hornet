@@ -46,15 +46,17 @@
 	icon_state = "sextractor"
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/seed_extractor
-	var/piles = list()
-	var/max_seeds = 1000
 	var/seed_multiplier = 1
+	var/max_seeds = 1000
+	var/list/piles = list()
+	// seed
+	/// Associated list of seeds, they are all weak refs.  We check the len to see how many refs we have for each
 
 /obj/machinery/seed_extractor/RefreshParts()
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		max_seeds = 1000 * B.rating
+		max_seeds = initial(max_seeds) * B.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		seed_multiplier = M.rating
+		seed_multiplier = initial(seed_multiplier) * M.rating
 
 /obj/machinery/seed_extractor/examine(mob/user)
 	. = ..()

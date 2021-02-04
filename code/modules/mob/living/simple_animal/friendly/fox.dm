@@ -19,7 +19,9 @@
 	response_harm = "kicks"
 	gold_core_spawnable = FRIENDLY_SPAWN
 	mobsay_color = "#FFAE64"
-
+	mobchatspan = "fox"
+	can_be_held = TRUE
+	held_state = "fox"
 	do_footstep = TRUE
 
 //Captain fox

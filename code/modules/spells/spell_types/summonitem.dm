@@ -12,6 +12,7 @@
 	include_user = TRUE
 
 	var/obj/marked_item
+	var/allow_change = TRUE
 
 	action_icon_state = "summons"
 
@@ -20,7 +21,7 @@
 		var/list/hand_items = list(L.get_active_held_item(),L.get_inactive_held_item())
 		var/message
 
-		if(!marked_item) //linking item to the spell
+		if(!marked_item && allow_change) //linking item to the spell
 			message = "<span class='notice'>"
 			for(var/obj/item/item in hand_items)
 				if(item.item_flags & ABSTRACT)
@@ -40,7 +41,7 @@
 				else
 					message = "<span class='notice'>You must hold the desired item in your hands to mark it for recall.</span>"
 
-		else if(marked_item && (marked_item in hand_items)) //unlinking item to the spell
+		else if(marked_item && (marked_item in hand_items) && allow_change) //unlinking item to the spell
 			message = "<span class='notice'>You remove the mark on [marked_item] to use elsewhere.</span>"
 			name = "Instant Summons"
 			marked_item = 		null
@@ -49,6 +50,9 @@
 			message = "<span class='warning'>You sense your marked item has been destroyed!</span>"
 			name = "Instant Summons"
 			marked_item = 		null
+			if(!allow_change)
+				qdel(src)
+				return
 
 		else	//Getting previously marked item
 			var/obj/item_to_retrieve = marked_item

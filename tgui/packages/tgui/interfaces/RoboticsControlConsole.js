@@ -12,7 +12,10 @@ export const RoboticsControlConsole = (props, context) => {
     drones = [],
   } = data;
   return (
-    <Window resizable>
+    <Window
+      resizable
+      width={500}
+      height={460}>
       <Window.Content scrollable>
         <Tabs>
           <Tabs.Tab

@@ -65,8 +65,8 @@
 /datum/chemical_reaction/synthflesh
 	name = "Synthflesh"
 	id = /datum/reagent/medicine/synthflesh
-	results = list(/datum/reagent/medicine/synthflesh = 3)
-	required_reagents = list(/datum/reagent/blood = 1, /datum/reagent/carbon = 1, /datum/reagent/medicine/styptic_powder = 1)
+	results = list(/datum/reagent/medicine/synthflesh = 4)
+	required_reagents = list(/datum/reagent/blood = 1, /datum/reagent/carbon = 1, /datum/reagent/medicine/styptic_powder = 1, /datum/reagent/medicine/silver_sulfadiazine = 1)
 
 /datum/chemical_reaction/styptic_powder
 	name = "Styptic Powder"
@@ -219,7 +219,7 @@
 	name = "Dexalin"
 	id = "dexalin"
 	results = list(/datum/reagent/medicine/dexalin = 5)
-	required_reagents = list(/datum/reagent/oxygen = 5)
+	required_reagents = list(/datum/reagent/oxygen = 5, /datum/reagent/nitrogen = 5)
 	required_catalysts = list(/datum/reagent/toxin/plasma = 5)
 
 /datum/chemical_reaction/dexalinp
@@ -251,6 +251,12 @@
 	id = /datum/reagent/medicine/regen_jelly
 	results = list(/datum/reagent/medicine/regen_jelly = 2)
 	required_reagents = list(/datum/reagent/medicine/tricordrazine = 1, /datum/reagent/toxin/slimejelly = 1)
+
+/datum/chemical_reaction/regen_ooze
+	name = "Regenerative Ooze"
+	id = /datum/reagent/medicine/regen_ooze
+	results = list(/datum/reagent/medicine/regen_ooze = 2)
+	required_reagents = list(/datum/reagent/medicine/tricordrazine = 1, /datum/reagent/toxin/slimeooze = 1)
 
 /datum/chemical_reaction/corazone
 	name = "Corazone"

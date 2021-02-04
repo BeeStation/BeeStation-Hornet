@@ -11,7 +11,6 @@
 	speak_emote = list("flutters")
 	maxHealth = 2
 	health = 2
-	harm_intent_damage = 1
 	friendly = "nudges"
 	density = FALSE
 	movement_type = FLYING

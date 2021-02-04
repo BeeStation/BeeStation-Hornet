@@ -6,7 +6,7 @@
 	has_gravity = STANDARD_GRAVITY
 	hidden = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
-	ambientsounds = RUINS
+	ambient_effects = RUINS
 
 
 /area/ruin/unpowered

@@ -48,8 +48,7 @@ Difficulty: Hard
 	faction = list("boss") //asteroid mobs? get that shit out of my beautiful square house
 	speak_emote = list("preaches")
 	armour_penetration = 50
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	speed = 10
 	move_to_delay = 10
 	ranged = TRUE
@@ -81,6 +80,8 @@ Difficulty: Hard
 	var/list/kill_phrases = list("Wsyvgi sj irivkc xettih. Vitemvmrk...", "Irivkc wsyvgi jsyrh. Vitemvmrk...", "Jyip jsyrh. Egxmzexmrk vitemv gcgpiw...", "Kix fiex. Liepmrk...")
 	var/list/target_phrases = list("Xevkix psgexih.", "Iriqc jsyrh.", "Eguymvih xevkix.")
 	var/list/stored_nearby = list() // stores people nearby the hierophant when it enters the death animation
+
+	mobchatspan = "hierosay"
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Initialize()
 	. = ..()

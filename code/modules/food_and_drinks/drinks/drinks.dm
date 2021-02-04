@@ -14,6 +14,7 @@
 	volume = 50
 	resistance_flags = NONE
 	var/isGlass = TRUE //Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it
+	var/beingChugged = FALSE //We don't want people downing 100u super fast with drinking glasses
 
 /obj/item/reagent_containers/food/drinks/on_reagent_change(changetype)
 	. = ..()
@@ -31,10 +32,23 @@
 	if (!is_drainable())
 		to_chat(user, "<span class='warning'>[src]'s lid hasn't been opened!</span>")
 		return 0
-
+	var/gulp_amount = gulp_size
 	if(M == user)
-		user.visible_message("<span class='notice'>[user] swallows a gulp of [src].</span>", \
-			"<span class='notice'>You swallow a gulp of [src].</span>")
+		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH && !beingChugged)
+			beingChugged = TRUE
+			user.visible_message("<span class='notice'>[user] starts chugging [src].</span>", \
+				"<span class='notice'>You start chugging [src].</span>")
+			if(!do_mob(user, M))
+				return
+			if(!reagents || !reagents.total_volume)
+				return
+			gulp_amount = 50
+			user.visible_message("<span class='notice'>[user] chugs [src].</span>", \
+				"<span class='notice'>You chug [src].</span>")
+			beingChugged = FALSE
+		else
+			user.visible_message("<span class='notice'>[user] swallows a gulp of [src].</span>", \
+				"<span class='notice'>You swallow a gulp of [src].</span>")
 		if(HAS_TRAIT(M, TRAIT_VORACIOUS))
 			M.changeNext_move(CLICK_CD_MELEE * 0.5) //chug! chug! chug!
 
@@ -49,10 +63,10 @@
 			"<span class='userdanger'>[user] fed you the contents of [src].</span>")
 		log_combat(user, M, "fed", reagents.log_list())
 
-	var/fraction = min(gulp_size/reagents.total_volume, 1)
+	var/fraction = min(gulp_amount/reagents.total_volume, 1)
 	checkLiked(fraction, M)
 	reagents.reaction(M, INGEST, fraction)
-	reagents.trans_to(M, gulp_size, transfered_by = user)
+	reagents.trans_to(M, gulp_amount, transfered_by = user)
 	playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	return 1
 
@@ -240,10 +254,10 @@
 	desc = "An insult to Duke Purple is an insult to the Space Queen! Any proper gentleman will fight you, if you sully this tea."
 	list_reagents = list(/datum/reagent/consumable/tea = 30)
 
-/obj/item/reagent_containers/food/drinks/mug/coco
-	name = "Dutch hot coco"
+/obj/item/reagent_containers/food/drinks/mug/cocoa
+	name = "Dutch hot cocoa"
 	desc = "Made in Space South America."
-	list_reagents = list(/datum/reagent/consumable/hot_coco = 15, /datum/reagent/consumable/sugar = 5)
+	list_reagents = list(/datum/reagent/consumable/cocoa/hot_cocoa = 15, /datum/reagent/consumable/sugar = 5)
 	foodtype = SUGAR
 	resistance_flags = FREEZE_PROOF
 	custom_price = 42
@@ -264,6 +278,20 @@
 	icon_state = "beer"
 	list_reagents = list(/datum/reagent/consumable/ethanol/beer = 30)
 	foodtype = GRAIN | ALCOHOL
+
+/obj/item/reagent_containers/food/drinks/syndicatebeer
+	name = "syndicate beer"
+	desc = "Consumed only by the finest syndicate agents. There is a round warning label stating 'Don't drink more than one in quick succession!'"
+	icon_state = "syndicatebeer"
+	list_reagents = list(/datum/reagent/consumable/ethanol/beer = 10, /datum/reagent/medicine/antitoxin = 20)
+	foodtype = GRAIN | ALCOHOL
+
+/obj/item/reagent_containers/food/drinks/ftliver
+	name = "Faster-Than-Liver"
+	desc = "They've gone into plaid!"
+	icon_state = "ftliver"
+	list_reagents = list(/datum/reagent/consumable/ethanol/ftliver = 30)
+	foodtype = ALCOHOL
 
 /obj/item/reagent_containers/food/drinks/beer/light
 	name = "Carp Lite"
@@ -421,7 +449,7 @@
 	playsound(H,'sound/items/drink.ogg', 80, 1)
 	reagents.trans_to(H, src.reagents.total_volume, transfered_by = H) //a big sip
 	sleep(5)
-	H.say(pick("Now, Outbomb Cuban Pete, THAT was a game.", "All these new fangled arcade games are too slow. I prefer the classics.", "They don't make 'em like Orion Trail anymore.", "You know what they say. Worst day of spess carp fishing is better than the best day at work.", "They don't make 'em like good old fashioned singularity engines anymore."))
+	H.say(pick("Now, Outbomb Cuban Pete, THAT was a game.", "All these new fangled arcade games are too slow. I prefer the classics.", "They don't make 'em like Orion Trail anymore.", "You know what they say. Worst day of spess carp fishing is better than the best day at work.", "They don't make 'em like good old-fashioned singularity engines anymore."))
 	if(H.age >= 30)
 		H.Stun(50)
 		sleep(50)

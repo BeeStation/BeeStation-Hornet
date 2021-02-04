@@ -1,23 +1,25 @@
-
 /mob/living/simple_animal/slime
-	var/AIproc = 0 // determines if the AI loop is activated
-	var/Atkcool = 0 // attack cooldown
-	var/Tempstun = 0 // temporary temperature stuns
 	var/Discipline = 0 // if a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while
 	var/SStun = 0 // stun variable
 
+	var/monkey_bonus_damage = 2
+	var/attack_cooldown = 0
+	var/attack_cooldown_time = 20 //How long, in deciseconds, the cooldown of attacks is
 
 /mob/living/simple_animal/slime/Life()
 	set invisibility = 0
-	if (notransform)
+	if(notransform)
 		return
+	alpha = 255
+	if(transformeffects & SLIME_EFFECT_BLACK)
+		alpha = 64
 	if(..())
 		if(buckled)
 			handle_feeding()
 		if(!stat) // Slimes in stasis don't lose nutrition, don't change mood and don't respond to speech
 			handle_nutrition()
 			handle_targets()
-			if (!ckey)
+			if(!ckey)
 				handle_mood()
 				handle_speech()
 
@@ -27,84 +29,39 @@
 		return
 	..()
 
-/mob/living/simple_animal/slime/proc/AIprocess()  // the master AI process
-
-	if(AIproc || stat || client)
+/mob/living/simple_animal/slime/proc/AIprocess()
+	if(stat == DEAD || !Target || client || buckled)
 		return
 
-	var/hungry = 0
-	if (nutrition < get_starve_nutrition())
-		hungry = 2
-	else if (nutrition < get_grow_nutrition() && prob(25) || nutrition < get_hunger_nutrition())
-		hungry = 1
+	var/slime_on_target = 0
+	if(Target.buckled_mobs?.len && (locate(/mob/living/simple_animal/slime) in Target.buckled_mobs))
+		slime_on_target = 1
 
-	AIproc = 1
+	if(Target.z == src.z && attack_cooldown < world.time && get_dist(Target, src) <= 1)
+		if(!slime_on_target && CanFeedon(Target))
+			if(!Target.client || prob(20))
+				Feedon(Target)
+				special_process = FALSE
+				return
+		if(attacked || rabid)
+			Target.attack_slime(src)
+			attack_cooldown = world.time + attack_cooldown_time
+	else if(Target in view(7, src))
+		if((transformeffects & SLIME_EFFECT_BLUESPACE) && powerlevel >= 5)
+			do_teleport(src, get_turf(Target), asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
+			powerlevel -= 5
+		else
+			step_to(src, Target)
+	else
+		special_process = FALSE
+		Target = null
+		return
 
-	while(AIproc && stat != DEAD && (attacked || hungry || rabid || buckled))
-		if(!(mobility_flags & MOBILITY_MOVE)) //also covers buckling. Not sure why buckled is in the while condition if we're going to immediately break, honestly
-			break
+	var/sleeptime = movement_delay()
+	if(sleeptime <= 0)
+		sleeptime = 1
 
-		if(!Target || client)
-			break
-
-		if(Target.health <= -70 || Target.stat == DEAD)
-			Target = null
-			AIproc = 0
-			break
-
-		if(Target)
-			if(locate(/mob/living/simple_animal/slime) in Target.buckled_mobs)
-				Target = null
-				AIproc = 0
-				break
-			if(!AIproc)
-				break
-
-			if(Target in view(1,src))
-				if(!CanFeedon(Target)) //If they're not able to be fed upon, ignore them.
-					if(!Atkcool)
-						Atkcool = 1
-						spawn(45)
-							Atkcool = 0
-
-						if(Target.Adjacent(src))
-							Target.attack_slime(src)
-					break
-				if((Target.mobility_flags & MOBILITY_STAND) && prob(80))
-
-					if(Target.client && Target.health >= 20)
-						if(!Atkcool)
-							Atkcool = 1
-							spawn(45)
-								Atkcool = 0
-
-							if(Target.Adjacent(src))
-								Target.attack_slime(src)
-
-					else
-						if(!Atkcool && Target.Adjacent(src))
-							Feedon(Target)
-
-				else
-					if(!Atkcool && Target.Adjacent(src))
-						Feedon(Target)
-
-			else if(Target in view(7, src))
-				if(!Target.Adjacent(src))
-				// Bug of the month candidate: slimes were attempting to move to target only if it was directly next to them, which caused them to target things, but not approach them
-					step_to(src, Target)
-			else
-				Target = null
-				AIproc = 0
-				break
-
-		var/sleeptime = movement_delay()
-		if(sleeptime <= 0)
-			sleeptime = 1
-
-		sleep(sleeptime + 2) // this is about as fast as a player slime can go
-
-	AIproc = 0
+	addtimer(VARSET_CALLBACK(src, special_process, TRUE), (sleeptime + 2), TIMER_UNIQUE)
 
 /mob/living/simple_animal/slime/handle_environment(datum/gas_mixture/environment)
 	if(!environment)
@@ -117,8 +74,6 @@
 	//Account for massive pressure differences
 
 	if(bodytemperature < (T0C + 5)) // start calculating temperature damage etc
-		if(bodytemperature <= (T0C - 40)) // stun temperature
-			Tempstun = 1
 
 		if(bodytemperature <= (T0C - 50)) // hurt temperature
 			if(bodytemperature <= 50) // sqrting negative numbers is bad
@@ -126,14 +81,15 @@
 			else
 				adjustBruteLoss(round(sqrt(bodytemperature)) * 2)
 
-	else
-		Tempstun = 0
-
 	if(stat != DEAD)
-		var/bz_percentage =0
-		if(environment.gases[/datum/gas/bz])
-			bz_percentage = environment.gases[/datum/gas/bz][MOLES] / environment.total_moles()
+		var/bz_percentage = environment.total_moles() ? (environment.get_moles(/datum/gas/bz) / environment.total_moles()) : 0
 		var/stasis = (bz_percentage >= 0.05 && bodytemperature < (T0C + 100)) || force_stasis
+		if(transformeffects & SLIME_EFFECT_DARK_PURPLE)
+			var/amt = is_adult ? 30 : 15
+			var/plas_amt = min(amt,environment.get_moles(/datum/gas/plasma))
+			environment.adjust_moles(/datum/gas/plasma, -plas_amt)
+			environment.adjust_moles(/datum/gas/oxygen, plas_amt)
+			adjustBruteLoss(plas_amt ? -2 : 0)
 
 		if(stat == CONSCIOUS && stasis)
 			to_chat(src, "<span class='danger'>Nerve gas in the air has put you in stasis!</span>")
@@ -173,83 +129,76 @@
 /mob/living/simple_animal/slime/handle_status_effects()
 	..()
 	if(prob(30) && !stat)
-		adjustBruteLoss(-1)
+		var/heal = 1
+		if(transformeffects & SLIME_EFFECT_PURPLE)
+			heal += 0.5
+		adjustBruteLoss(-heal)
+	if((transformeffects & SLIME_EFFECT_RAINBOW) && prob(5))
+		random_colour()
 
 /mob/living/simple_animal/slime/proc/handle_feeding()
-	if(!ismob(buckled))
+	if(!isliving(buckled))
 		return
-	var/mob/M = buckled
-
-	if(stat)
-		Feedstop(silent = TRUE)
-
-	if(M.stat == DEAD) // our victim died
-		if(!client)
-			if(!rabid && !attacked)
-				if(M.LAssailant && M.LAssailant != M)
-					if(prob(50))
-						if(!(M.LAssailant in Friends))
-							Friends[M.LAssailant] = 1
-						else
-							++Friends[M.LAssailant]
-		else
+	alpha = 255
+	var/mob/living/M = buckled
+	if(transformeffects & SLIME_EFFECT_OIL)
+		var/datum/reagent/fuel/fuel = new
+		fuel.reaction_mob(buckled,TOUCH,20)
+		qdel(fuel)
+	if(M.stat == DEAD)
+		if(client)
 			to_chat(src, "<i>This subject does not have a strong enough life energy anymore...</i>")
-
+		else if(!rabid && !attacked && M.LAssailant && prob(50))
+			if(M.LAssailant in Friends)
+				++Friends[M.LAssailant]
+			else
+				Friends[M.LAssailant] = 1
+		//we go rabid after finishing to feed on a human with a client.
 		if(M.client && ishuman(M))
-			if(prob(85))
-				rabid = 1 //we go rabid after finishing to feed on a human with a client.
+			rabid = 1
 
+		if(transformeffects & SLIME_EFFECT_GREEN)
+			visible_message("<span class='warning'>[src] slurps up [M]!</span>")
+			adjust_nutrition(10)
+			layer = initial(layer)
+			qdel(M)
+
+		Target = null
+		special_process = FALSE
 		Feedstop()
 		return
 
-	if(iscarbon(M))
-		var/mob/living/carbon/C = M
-		C.adjustCloneLoss(rand(2,4))
-		C.adjustToxLoss(rand(1,2))
+	if(prob(10) && M.client)
+		to_chat(M, "<span class='userdanger'>[pick("You can feel your body becoming weak!", \
+		"You feel like you're about to die!", \
+		"You feel every part of your body screaming in agony!", \
+		"A low, rolling pain passes through your body!", \
+		"Your body feels as if it's falling apart!", \
+		"You feel extremely weak!", \
+		"A sharp, deep pain bathes every inch of your body!")]</span>")
 
-		if(prob(10) && C.client)
-			to_chat(C, "<span class='userdanger'>[pick("You can feel your body becoming weak!", \
-			"You feel like you're about to die!", \
-			"You feel every part of your body screaming in agony!", \
-			"A low, rolling pain passes through your body!", \
-			"Your body feels as if it's falling apart!", \
-			"You feel extremely weak!", \
-			"A sharp, deep pain bathes every inch of your body!")]</span>")
+	var/bonus_damage = 1
+	if(transformeffects & SLIME_EFFECT_RED)
+		bonus_damage *= 1.1
+	M.adjustCloneLoss(4*bonus_damage)
+	M.adjustToxLoss(2*bonus_damage)
+	if(ismonkey(M))
+		M.adjustCloneLoss(monkey_bonus_damage*bonus_damage)
 
-	else if(isanimal(M))
-		var/mob/living/simple_animal/SA = M
-
-		var/totaldamage = 0 //total damage done to this unfortunate animal
-		totaldamage += SA.adjustCloneLoss(rand(2,4))
-		totaldamage += SA.adjustToxLoss(rand(1,2))
-
-		if(totaldamage <= 0) //if we did no(or negative!) damage to it, stop
-			Feedstop(0, 0)
-			return
-
-	else
-		Feedstop(0, 0)
-		return
-
-	add_nutrition((rand(7, 15) * CONFIG_GET(number/damage_multiplier)))
-
-	//Heal yourself.
-	adjustBruteLoss(-3)
+	add_nutrition((15 * CONFIG_GET(number/damage_multiplier)))
+	adjustBruteLoss(-5)
 
 /mob/living/simple_animal/slime/proc/handle_nutrition()
-
 	if(docile) //God as my witness, I will never go hungry again
 		set_nutrition(700) //fuck you for using the base nutrition var
 		return
 
-	if(prob(15))
+	if(prob(15) && !(transformeffects & SLIME_EFFECT_SILVER))
 		adjust_nutrition(-(1 + is_adult))
 
 	if(nutrition <= 0)
 		set_nutrition(0)
-		if(prob(75))
-			adjustBruteLoss(rand(0,5))
-
+		adjustBruteLoss(1)
 	else if (nutrition >= get_grow_nutrition() && amount_grown < SLIME_EVOLUTION_THRESHOLD)
 		adjust_nutrition(-20)
 		amount_grown++
@@ -262,24 +211,19 @@
 			Evolve()
 
 /mob/living/simple_animal/slime/proc/add_nutrition(nutrition_to_add = 0)
+	var/gainpower = (transformeffects & SLIME_EFFECT_YELLOW) ? 3 : 1
 	set_nutrition(min((nutrition + nutrition_to_add), get_max_nutrition()))
 	if(nutrition >= get_grow_nutrition())
 		if(powerlevel<10)
 			if(prob(30-powerlevel*2))
-				powerlevel++
+				powerlevel += gainpower
 	else if(nutrition >= get_hunger_nutrition() + 100) //can't get power levels unless you're a bit above hunger level.
 		if(powerlevel<5)
 			if(prob(25-powerlevel*5))
-				powerlevel++
-
-
-
+				powerlevel += gainpower
 
 /mob/living/simple_animal/slime/proc/handle_targets()
 	update_mobility()
-	if(Tempstun)
-		if(!buckled) // not while they're eating!
-			mobility_flags &= ~MOBILITY_MOVE
 
 	if(attacked > 50)
 		attacked = 50
@@ -288,113 +232,77 @@
 		attacked--
 
 	if(Discipline > 0)
-
-		if(Discipline >= 5 && rabid)
-			if(prob(60))
-				rabid = 0
-
-		if(prob(10))
+		if(Discipline >= 5 && rabid && prob(60))
+			rabid = 0
+		if(prob(5))
 			Discipline--
 
-	if(!client)
-		if(!(mobility_flags & MOBILITY_MOVE))
-			return
+	if(buckled || client)
+		return
 
-		if(buckled)
-			return // if it's eating someone already, continue eating!
+	if(Target)
+		--target_patience
+		if (target_patience <= 0 || SStun > world.time || Discipline || attacked || docile)
+			target_patience = 0
+			Target = null
+			special_process = FALSE
 
-		if(Target)
-			--target_patience
-			if (target_patience <= 0 || SStun > world.time || Discipline || attacked || docile) // Tired of chasing or something draws out attention
-				target_patience = 0
-				Target = null
+	var/hungry = 0
 
-		if(AIproc && SStun > world.time)
-			return
+	if (nutrition < get_starve_nutrition())
+		hungry = 2
+	else if (nutrition < get_grow_nutrition() || nutrition < get_hunger_nutrition())
+		hungry = 1
 
-		var/hungry = 0 // determines if the slime is hungry
+	if(hungry == 2)
+		if(Friends.len > 0 && prob(1))
+			var/mob/nofriend = pick(Friends)
+			--Friends[nofriend]
 
-		if (nutrition < get_starve_nutrition())
-			hungry = 2
-		else if (nutrition < get_grow_nutrition() && prob(25) || nutrition < get_hunger_nutrition())
-			hungry = 1
+	if(!Target)
+		if(will_hunt() && hungry || attacked || rabid)
+			for(var/mob/living/L in view(7,src))
+				if(isslime(L) || L.stat == DEAD)
+					continue
 
-		if(hungry == 2 && !client) // if a slime is starving, it starts losing its friends
-			if(Friends.len > 0 && prob(1))
-				var/mob/nofriend = pick(Friends)
-				--Friends[nofriend]
+				if(L in Friends)
+					continue
 
-		if(!Target)
-			if(will_hunt() && hungry || attacked || rabid) // Only add to the list if we need to
-				var/list/targets = list()
+				if((locate(/mob/living/simple_animal/slime) in L.buckled_mobs || issilicon(L)) && !(attacked || rabid))
+					continue
 
-				for(var/mob/living/L in view(7,src))
+				if(ishuman(L))
+					if(!Discipline && prob(5) || attacked || rabid)
+						Target = L
+				else
+					Target = L
 
-					if(isslime(L) || L.stat == DEAD) // Ignore other slimes and dead mobs
-						continue
+				if(Target)
+					target_patience = rand(5,7)
+					if(is_adult)
+						target_patience += 3
+					break
 
-					if(L in Friends) // No eating friends!
-						continue
-
-					var/ally = FALSE
-					for(var/F in faction)
-						if(F == "neutral") //slimes are neutral so other mobs not target them, but they can target neutral mobs
-							continue
-						if(F in L.faction)
-							ally = TRUE
-							break
-					if(ally)
-						continue
-
-					if(issilicon(L) && (rabid || attacked)) // They can't eat silicons, but they can glomp them in defence
-						targets += L // Possible target found!
-
-					if(locate(/mob/living/simple_animal/slime) in L.buckled_mobs) // Only one slime can latch on at a time.
-						continue
-
-					targets += L // Possible target found!
-
-				if(targets.len > 0)
-					if(attacked || rabid || hungry == 2)
-						Target = targets[1] // I am attacked and am fighting back or so hungry I don't even care
-					else
-						for(var/mob/living/carbon/C in targets)
-							if(!Discipline && prob(5))
-								if(ishuman(C) || isalienadult(C))
-									Target = C
-									break
-
-							if(islarva(C) || ismonkey(C))
-								Target = C
-								break
-
-			if (Target)
-				target_patience = rand(5,7)
-				if (is_adult)
-					target_patience += 3
-
-		if(!Target) // If we have no target, we are wandering or following orders
-			if (Leader)
-				if(holding_still)
-					holding_still = max(holding_still - 1, 0)
-				else if((mobility_flags & MOBILITY_MOVE) && isturf(loc))
-					step_to(src, Leader)
-
-			else if(hungry)
-				if (holding_still)
-					holding_still = max(holding_still - hungry, 0)
-				else if((mobility_flags & MOBILITY_MOVE) && isturf(loc) && prob(50))
-					step(src, pick(GLOB.cardinals))
-
-			else
-				if(holding_still)
-					holding_still = max(holding_still - 1, 0)
-				else if (docile && pulledby)
-					holding_still = 10
-				else if((mobility_flags & MOBILITY_MOVE) && isturf(loc) && prob(33))
-					step(src, pick(GLOB.cardinals))
-		else if(!AIproc)
-			INVOKE_ASYNC(src, .proc/AIprocess)
+	if(!Target) // If we have no target, we are wandering or following orders
+		if (Leader)
+			if(holding_still)
+				holding_still = max(holding_still - 1, 0)
+			else if((mobility_flags & MOBILITY_MOVE) && isturf(loc))
+				step_to(src, Leader)
+		else if(hungry)
+			if (holding_still)
+				holding_still = max(holding_still - hungry, 0)
+			else if((mobility_flags & MOBILITY_MOVE) && isturf(loc) && prob(50))
+				step(src, pick(GLOB.cardinals))
+		else
+			if(holding_still)
+				holding_still = max(holding_still - 1, 0)
+			else if (docile && pulledby)
+				holding_still = 10
+			else if((mobility_flags & MOBILITY_MOVE) && isturf(loc) && prob(33))
+				step(src, pick(GLOB.cardinals))
+	else if(!special_process)
+		special_process = TRUE
 
 /mob/living/simple_animal/slime/handle_automated_movement()
 	return //slime random movement is currently handled in handle_targets()
@@ -496,7 +404,7 @@
 			else if (findtext(phrase, "attack"))
 				if (rabid && prob(20))
 					Target = who
-					AIprocess() //Wake up the slime's Target AI, needed otherwise this doesn't work
+					special_process = TRUE
 					to_say = "ATTACK!?!?"
 				else if (Friends[who] >= SLIME_FRIENDSHIP_ATTACK)
 					for (var/mob/living/L in view(7,src)-list(src,who))
@@ -506,7 +414,7 @@
 								--Friends[who] //Don't ask a slime to attack its friend
 							else if(!Friends[L] || Friends[L] < 1)
 								Target = L
-								AIprocess()//Wake up the slime's Target AI, needed otherwise this doesn't work
+								special_process = TRUE
 								to_say = "Ok... I attack [Target]"
 							else
 								to_say = "No... like [L] ..."
@@ -519,9 +427,9 @@
 
 	//Speech starts here
 	if (to_say)
-		say (to_say)
+		INVOKE_ASYNC(src, /atom/movable/proc/say, to_say)
 	else if(prob(1))
-		emote(pick("bounce","sway","light","vibrate","jiggle"))
+		INVOKE_ASYNC(src, /mob.proc/emote, pick("bounce","sway","light","vibrate","jiggle"))
 	else
 		var/t = 10
 		var/slimes_near = 0
@@ -595,7 +503,7 @@
 				if (nutrition < get_hunger_nutrition())
 					phrases += "[M]... feed me..."
 			if(!stat)
-				say (pick(phrases))
+				INVOKE_ASYNC(src, /atom/movable/proc/say, pick(phrases))
 
 /mob/living/simple_animal/slime/proc/get_max_nutrition() // Can't go above it
 	if (is_adult)
@@ -631,3 +539,9 @@
 	if (holding_still)
 		return 0
 	return 1
+
+
+/mob/living/simple_animal/slime/movement_delay()
+	. = ..()
+	if(transformeffects & SLIME_EFFECT_SEPIA)
+		. *= 0.7

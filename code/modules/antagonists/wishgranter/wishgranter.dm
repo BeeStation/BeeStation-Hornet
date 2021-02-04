@@ -8,6 +8,7 @@
 	var/datum/objective/hijack/hijack = new
 	hijack.owner = owner
 	objectives += hijack
+	log_objective(owner, hijack.explanation_text)
 
 /datum/antagonist/wishgranter/on_gain()
 	owner.special_role = "Avatar of the Wish Granter"
@@ -18,6 +19,8 @@
 /datum/antagonist/wishgranter/greet()
 	to_chat(owner, "<B>Your inhibitions are swept away, the bonds of loyalty broken, you are free to murder as you please!</B>")
 	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Wishgranter's Avatar",
+		"Your inhibitions are swept away, the bonds of loyalty broken, you are free to murder as you please!")
 
 /datum/antagonist/wishgranter/proc/give_powers()
 	var/mob/living/carbon/human/H = owner.current

@@ -2,11 +2,12 @@
 	name = "portable air scrubber"
 	icon_state = "pscrubber:0"
 	density = TRUE
-	ui_x = 320
-	ui_y = 350
+
+
 
 	var/on = FALSE
 	var/volume_rate = 1000
+	var/overpressure_m = 80
 	volume = 1000
 
 	var/list/scrubbing = list(/datum/gas/plasma, /datum/gas/carbon_dioxide, /datum/gas/nitrous_oxide, /datum/gas/bz, /datum/gas/nitryl, /datum/gas/tritium, /datum/gas/hypernoblium, /datum/gas/water_vapor)
@@ -38,21 +39,17 @@
 		scrub(T.return_air())
 
 /obj/machinery/portable_atmospherics/scrubber/proc/scrub(var/datum/gas_mixture/mixture)
-	var/transfer_moles = min(1, volume_rate / mixture.volume) * mixture.total_moles()
+	if(air_contents.return_pressure() >= overpressure_m * ONE_ATMOSPHERE)
+		return
+
+	var/transfer_moles = min(1, volume_rate / mixture.return_volume()) * mixture.total_moles()
 
 	var/datum/gas_mixture/filtering = mixture.remove(transfer_moles) // Remove part of the mixture to filter.
-	var/datum/gas_mixture/filtered = new
 	if(!filtering)
 		return
 
-	filtered.temperature = filtering.temperature
-	for(var/gas in filtering.gases & scrubbing)
-		filtered.add_gas(gas)
-		filtered.gases[gas][MOLES] = filtering.gases[gas][MOLES] // Shuffle the "bad" gasses to the filtered mixture.
-		filtering.gases[gas][MOLES] = 0
-	filtering.garbage_collect() // Now that the gasses are set to 0, clean up the mixture.
+	filtering.scrub_into(air_contents, scrubbing)
 
-	air_contents.merge(filtered) // Store filtered out gasses.
 	mixture.merge(filtering) // Returned the cleaned gas.
 	if(!holding)
 		air_update_turf()
@@ -66,11 +63,14 @@
 			on = !on
 		update_icon()
 
-/obj/machinery/portable_atmospherics/scrubber/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-														datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/portable_atmospherics/scrubber/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/machinery/portable_atmospherics/scrubber/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PortableScrubber", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "PortableScrubber")
 		ui.open()
 
 /obj/machinery/portable_atmospherics/scrubber/ui_data()
@@ -101,7 +101,7 @@
 				on = FALSE
 				update_icon()
 		else if(on && holding)
-			investigate_log("[key_name(user)] started a transfer into [holding].<br>", INVESTIGATE_ATMOS)
+			investigate_log("[key_name(user)] started a transfer into [holding].", INVESTIGATE_ATMOS)
 
 /obj/machinery/portable_atmospherics/scrubber/ui_act(action, params)
 	if(..())
@@ -126,6 +126,7 @@
 	active_power_usage = 500
 	idle_power_usage = 10
 
+	overpressure_m = 200
 	volume_rate = 1500
 	volume = 50000
 

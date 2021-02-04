@@ -13,7 +13,9 @@
 	see_in_dark = 5
 	speak_chance = 1
 	turns_per_move = 10
+	can_be_held = TRUE
 	mobsay_color = "#ECDA88"
+	mobchatspan = "corgi"
 
 	do_footstep = TRUE
 
@@ -30,8 +32,8 @@
 	childtype = list(/mob/living/simple_animal/pet/dog/corgi/puppy = 95, /mob/living/simple_animal/pet/dog/corgi/puppy/void = 5)
 	animal_species = /mob/living/simple_animal/pet/dog
 	gold_core_spawnable = FRIENDLY_SPAWN
-	can_be_held = TRUE
 	collar_type = "corgi"
+	held_state = "corgi"
 	var/obj/item/inventory_head
 	var/obj/item/inventory_back
 	var/shaved = FALSE
@@ -65,6 +67,29 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/pug = 3)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_type = "pug"
+	held_state = "pug"
+
+/mob/living/simple_animal/pet/dog/bullterrier
+	name = "\improper bull terrier"
+	real_name = "bull terrier"
+	desc = "It's a bull terrier."
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "bullterrier"
+	icon_living = "bullterrier"
+	icon_dead = "bullterrier_dead"
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/corgi = 3) // Would feel redundant to add more new dog meats.
+	gold_core_spawnable = FRIENDLY_SPAWN
+	collar_type = "bullterrier"
+	held_state = "bullterrier"
+
+/mob/living/simple_animal/pet/dog/bullterrier/walter
+	name = "Walter"
+	real_name = "Walter"
+	gender = MALE
+	desc = "Nar'sie and rat'var are nothing compared to the might of this monstertruck loving dog."
+	gold_core_spawnable = NO_SPAWN
+	unique_pet = TRUE
+	speak = list("barks!", "woofs!", "Walter", "firetrucks", "monstertrucks")
 
 /mob/living/simple_animal/pet/dog/corgi/exoticcorgi
 	name = "Exotic Corgi"
@@ -151,13 +176,6 @@
 		return
 	..()
 	update_corgi_fluff()
-
-/mob/living/simple_animal/pet/dog/corgi/mob_pickup(mob/living/L)
-	var/obj/item/clothing/head/mob_holder/holder = new(get_turf(src), src, "corgi", null, 'icons/mob/pets_held_lh.dmi', 'icons/mob/pets_held_rh.dmi', FALSE)
-	if(!L.put_in_hands(holder))
-		qdel(holder)
-	else
-		L.visible_message("<span class='warning'>[L] scoops up [src]!</span>")
 
 /mob/living/simple_animal/pet/dog/corgi/Topic(href, href_list)
 	if(!(iscarbon(usr) || iscyborg(usr)) || !usr.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
@@ -368,6 +386,7 @@
 		icon_dead = "old_corgi_dead"
 		desc = "At a ripe old age of [record_age], Ian's not as spry as he used to be, but he'll always be the HoP's beloved corgi." //RIP
 		turns_per_move = 20
+		held_state = "old_corgi"
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/Life()
 	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)
@@ -391,7 +410,7 @@
 		var/json_file = file("data/npc_saves/Ian.json")
 		if(!fexists(json_file))
 			return
-		var/list/json = json_decode(file2text(json_file))
+		var/list/json = json_decode(rustg_file_read(json_file))
 		age = json["age"]
 		record_age = json["record_age"]
 		saved_head = json["saved_head"]
@@ -470,10 +489,10 @@
 						movement_target.attack_animal(src)
 					else if(ishuman(movement_target.loc) )
 						if(prob(20))
-							emote("me", 1, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
+							INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
 
 		if(prob(1))
-			emote("me", 1, pick("dances around.","chases its tail!"))
+			INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("dances around.","chases its tail!"))
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
 					setDir(i)
@@ -495,6 +514,7 @@
 	gold_core_spawnable = NO_SPAWN
 	nofur = TRUE
 	unique_pet = TRUE
+	held_state = "narsian"
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/Life()
 	..()
@@ -598,6 +618,7 @@
 	unsuitable_atmos_damage = 0
 	minbodytemp = TCMB
 	maxbodytemp = T0C + 40
+	held_state = "void_puppy"
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = 0)
 	return 1	//Void puppies can navigate space.
@@ -617,6 +638,7 @@
 	response_help  = "pets"
 	response_disarm = "bops"
 	response_harm   = "kicks"
+	held_state = "lisa"
 	var/turns_since_scan = 0
 	var/puppies = 0
 
@@ -630,11 +652,12 @@
 /mob/living/simple_animal/pet/dog/corgi/Lisa/Life()
 	..()
 
-	make_babies()
+	if(next_scan_time <= world.time)
+		make_babies()
 
 	if(!stat && !resting && !buckled)
 		if(prob(1))
-			emote("me", 1, pick("dances around.","chases her tail."))
+			INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("dances around.","chases her tail."))
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
 					setDir(i)
@@ -645,7 +668,7 @@
 
 	if(!stat && !resting && !buckled)
 		if(prob(1))
-			emote("me", 1, pick("chases its tail."))
+			INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("chases its tail."))
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
 					setDir(i)
@@ -655,17 +678,16 @@
 	. = ..()
 	switch(M.a_intent)
 		if("help")
-			wuv(1,M)
+			wuv(TRUE, M)
 		if("harm")
-			wuv(-1,M)
+			wuv(FALSE, M)
 
 /mob/living/simple_animal/pet/dog/proc/wuv(change, mob/M)
 	if(change)
-		if(change > 0)
-			if(M && stat != DEAD) // Added check to see if this mob (the dog) is dead to fix issue 2454
-				new /obj/effect/temp_visual/heart(loc)
-				emote("me", 1, "yaps happily!")
-				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
-		else
-			if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
-				emote("me", 1, "growls!")
+		if(M && stat != DEAD) // Added check to see if this mob (the dog) is dead to fix issue 2454
+			new /obj/effect/temp_visual/heart(loc)
+			emote("me", 1, "yaps happily!")
+			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
+	else
+		if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
+			emote("me", 1, "growls!")

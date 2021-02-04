@@ -15,8 +15,10 @@
 	var/datum/tgs_revision_information/revision
 	var/list/chat_channels
 
+	var/initialized = FALSE
+
 /datum/tgs_api/v5/ApiVersion()
-	return new /datum/tgs_version("5.2.0")
+	return new /datum/tgs_version(TGS_DMAPI_VERSION)
 
 /datum/tgs_api/v5/OnWorldNew(minimum_required_security_level)
 	server_port = world.params[DMAPI5_PARAM_SERVER_PORT]
@@ -79,6 +81,7 @@
 	chat_channels = list()
 	DecodeChannels(runtime_information)
 
+	initialized = TRUE
 	return TRUE
 
 /datum/tgs_api/v5/proc/RequireInitialBridgeResponse()
@@ -87,13 +90,6 @@
 
 /datum/tgs_api/v5/OnInitializationComplete()
 	Bridge(DMAPI5_BRIDGE_COMMAND_PRIME)
-
-	var/tgs4_secret_sleep_offline_sauce = 29051994
-	var/old_sleep_offline = world.sleep_offline
-	world.sleep_offline = tgs4_secret_sleep_offline_sauce
-	sleep(1)
-	if(world.sleep_offline == tgs4_secret_sleep_offline_sauce)	//if not someone changed it
-		world.sleep_offline = old_sleep_offline
 
 /datum/tgs_api/v5/proc/TopicResponse(error_message = null)
 	var/list/response = list()
@@ -105,11 +101,15 @@
 	var/list/params = params2list(T)
 	var/json = params[DMAPI5_TOPIC_DATA]
 	if(!json)
-		return FALSE	//continue world/Topic
+		return FALSE // continue to /world/Topic
 
 	var/list/topic_parameters = json_decode(json)
 	if(!topic_parameters)
 		return TopicResponse("Invalid topic parameters json!");
+
+	if(!initialized)
+		TGS_WARNING_LOG("Missed topic due to not being initialized: [T]")
+		return TRUE	// too early to handle, but it's still our responsibility
 
 	var/their_sCK = topic_parameters[DMAPI5_PARAMETER_ACCESS_IDENTIFIER]
 	if(their_sCK != access_identifier)
@@ -282,7 +282,7 @@
 
 /datum/tgs_api/v5/TestMerges()
 	RequireInitialBridgeResponse()
-	return test_merges
+	return test_merges.Copy()
 
 /datum/tgs_api/v5/EndProcess()
 	Bridge(DMAPI5_BRIDGE_COMMAND_KILL)
@@ -327,7 +327,7 @@
 
 /datum/tgs_api/v5/ChatChannelInfo()
 	RequireInitialBridgeResponse()
-	return chat_channels
+	return chat_channels.Copy()
 
 /datum/tgs_api/v5/proc/DecodeChannels(chat_update_json)
 	var/list/chat_channels_json = chat_update_json[DMAPI5_CHAT_UPDATE_CHANNELS]
@@ -353,30 +353,3 @@
 /datum/tgs_api/v5/SecurityLevel()
 	RequireInitialBridgeResponse()
 	return security_level
-
-/*
-The MIT License
-
-Copyright (c) 2020 Jordan Brown
-
-Permission is hereby granted, free of charge,
-to any person obtaining a copy of this software and
-associated documentation files (the "Software"), to
-deal in the Software without restriction, including
-without limitation the rights to use, copy, modify,
-merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom
-the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice
-shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
-ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/

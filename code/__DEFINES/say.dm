@@ -15,6 +15,7 @@
 
 #define MODE_INTERCOM "intercom"
 #define MODE_KEY_INTERCOM "i"
+#define MODE_TOKEN_INTERCOM ":i"
 
 #define MODE_BINARY "binary"
 #define MODE_KEY_BINARY "b"
@@ -55,7 +56,7 @@
 #define SPAN_PAPYRUS "papyrus"
 #define SPAN_REALLYBIG "reallybig"
 #define SPAN_COMMAND "command_headset"
-#define SPAN_CLOWN "clown"
+#define SPAN_CLOWN "clowntext"
 #define SPAN_SINGING "singing"
 
 //bitflag #defines for return value of the radio() proc.
@@ -65,6 +66,9 @@
 
 //Eavesdropping
 #define EAVESDROP_EXTRA_RANGE 1 //! how much past the specified message_range does the message get starred, whispering only
+
+/// How close intercoms can be for radio code use
+#define MODE_RANGE_INTERCOM 1
 
 // A link given to ghost alice to follow bob
 #define FOLLOW_LINK(alice, bob) "<a href=?src=[REF(alice)];follow=[REF(bob)]>(F)</a>"
@@ -82,7 +86,14 @@
 #define MAX_BROADCAST_LEN		512
 #define MAX_CHARTER_LEN			80
 
+//Sets the max string size that can be put in for circuit cloning
+#define MAX_SIZE_CIRCUIT		15000
+
 // Is something in the IC chat filter? This is config dependent.
 #define CHAT_FILTER_CHECK(T) (CONFIG_GET(flag/ic_filter_enabled) && config.ic_filter_regex && findtext(T, config.ic_filter_regex))
 // Is something in the OOC chat filter?
 #define OOC_FILTER_CHECK(T) (CONFIG_GET(flag/ooc_filter_enabled) && config.ooc_filter_regex && findtext(T, config.ooc_filter_regex))
+
+#define INVOCATION_SHOUT "shout"
+#define INVOCATION_EMOTE "emote"
+#define INVOCATION_WHISPER "whisper"

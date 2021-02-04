@@ -17,7 +17,11 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/turf/open/floor/plating,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/trap/nexus/trickyspawner,
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
 /area/template_noop)
 "d" = (
 /obj/structure/disposalpipe/trunk{
@@ -50,6 +54,8 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
@@ -73,25 +79,37 @@
 	icon_state = "panelscorched"
 	},
 /area/template_noop)
+"k" = (
+/obj/effect/spawner/lootdrop/trap/reusable,
+/turf/open/floor/plating,
+/area/template_noop)
+"l" = (
+/obj/effect/trap/nexus/trickyspawner/shitsec,
+/turf/open/floor/plating,
+/area/template_noop)
+"r" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/template_noop)
 
 (1,1,1) = {"
 a
-c
+r
 g
 "}
 (2,1,1) = {"
 b
-f
+c
 h
 "}
 (3,1,1) = {"
-c
-c
-c
+r
+k
+r
 "}
 (4,1,1) = {"
 d
-c
+l
 i
 "}
 (5,1,1) = {"

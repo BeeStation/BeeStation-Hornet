@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/clothing/head/that = 1,
 	/obj/item/clothing/head/ushanka = 1,
 	/obj/item/clothing/head/welding = 1,
-	/obj/item/clothing/mask/gas = 15,
+	/obj/item/clothing/mask/gas/old = 15,		//greytide
 	/obj/item/clothing/suit/hazardvest = 1,
 	/obj/item/clothing/under/misc/vice_officer = 1,
 	/obj/item/clothing/suit/hooded/flashsuit = 2,
@@ -98,7 +98,7 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/assembly/igniter = 2,
 	/obj/item/assembly/signaler = 2,
 	/obj/item/assembly/mousetrap = 2,
-	/obj/item/reagent_containers/syringe = 2,
+	/obj/item/reagent_containers/syringe/used = 4,
 	/obj/effect/spawner/lootdrop/gloves = 8,
 	/obj/item/clothing/shoes/laceup = 1,
 	/obj/item/storage/secure/briefcase = 3,
@@ -106,5 +106,7 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/toy/eightball = 1,
 	/obj/item/reagent_containers/pill/floorpill = 4,
 	/obj/item/reagent_containers/food/snacks/canned/peaches/maint = 1,
+	/obj/item/reagent_containers/food/drinks/bottle/homemaderum = 1,
+	/obj/item/reagent_containers/food/snacks/grown/poppy = 10,
 	"" = 3
 	))

@@ -908,6 +908,65 @@ world
 	#undef BLANK
 	#undef SET_SELF
 
+/proc/getStillIcon(atom/A, directionless = TRUE)//By whoever that guy below me is, I just kind of stole it and changed it a bit lol
+	var/icon/overlayIcon = new /icon()
+	var/isEmpty = TRUE	//So the overlay icon isn't empty.
+	//==== OVERLAYS ====
+	//Do sorting :(
+	var/list/layers = list()
+
+	var/direction = directionless ? SOUTH : A.dir
+
+	// Loop through the underlays, then overlays, sorting them into the layers list
+	for(var/i in 1 to A.overlays.len)
+		var/image/current = A.overlays[i]
+		if(!current)
+			continue
+		if(current.plane != FLOAT_PLANE && current.plane != A.plane)
+			continue
+		var/current_layer = current.layer
+		if(current_layer < 0)
+			current_layer = A.layer + current_layer / 1000
+
+		for(var/p in 1 to layers.len)
+			var/image/cmp = layers[p]
+			if(current_layer < layers[cmp])
+				layers.Insert(p, current)
+				break
+		layers[current] = current_layer
+		CHECK_TICK
+	//Apply sorted
+	for(var/V in layers)//For every image in overlays. var/image/I will not work, don't try it.
+		var/image/I = V
+		var/icon/image_overlay = new(I.icon,I.icon_state,direction)//Blend only works with icon objects.
+		//Make sure the overlay actually exists and is valid
+		if(!(I.icon_state in icon_states(I.icon)))
+			continue
+		//Colour
+		if(I.color)
+			if(islist(I.color))
+				image_overlay.MapColors(arglist(I.color))
+			else
+				image_overlay.Blend(I.color, ICON_MULTIPLY)
+		//Clean up repeated frames
+		var/icon/cleaned = new /icon()
+		cleaned.Insert(image_overlay, "", SOUTH, 1, 0)
+		//Also, icons cannot directly set icon_state. Slower than changing variables but whatever.
+		if(isEmpty)
+			overlayIcon.Insert(cleaned, "", SOUTH, 1, FALSE)
+			isEmpty = FALSE
+		else
+			overlayIcon.Blend(cleaned, ICON_OVERLAY)//OR so they are lumped together in a nice overlay.
+		CHECK_TICK
+	//==== PUTTING IT ALL TOGETHER ====
+	var/icon/default = new(A.icon, A.icon_state, direction)//So we want the default icon and icon state of A.
+	//Blend the 2 icons
+	default.Blend(overlayIcon, ICON_OVERLAY)
+	//Boom put it all together
+	var/icon/cleaned = new /icon()
+	cleaned.Insert(default, "", SOUTH, 1, FALSE)	//Clean out animation states.
+	return cleaned//And now return the mask.
+
 /proc/getIconMask(atom/A)//By yours truly. Creates a dynamic mask for a mob/whatever. /N
 	var/icon/alpha_mask = new(A.icon,A.icon_state)//So we want the default icon and icon state of A.
 	for(var/V in A.overlays)//For every image in overlays. var/image/I will not work, don't try it.
@@ -976,7 +1035,7 @@ world
 	var/icon/atom_icon = new(A.icon, A.icon_state)
 
 	if(!letter)
-		letter = copytext(A.name, 1, 2)
+		letter = A.name[1]
 		if(uppercase == 1)
 			letter = uppertext(letter)
 		else if(uppercase == -1)
@@ -1094,17 +1153,27 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 		alpha += 25
 		obj_flags &= ~FROZEN
 
+/// Save file used in icon2base64. Used for converting icons to base64.
+GLOBAL_DATUM_INIT(dummySave, /savefile, new("tmp/dummySave.sav")) //Cache of icons for the browser output
 
-//Converts an icon to base64. Operates by putting the icon in the iconCache savefile,
-// exporting it as text, and then parsing the base64 from that.
-// (This relies on byond automatically storing icons in savefiles as base64)
-/proc/icon2base64(icon/icon, iconKey = "misc")
+/// Generate a filename for this asset
+/// The same asset will always lead to the same asset name
+/// (Generated names do not include file extention.)
+/proc/generate_asset_name(file)
+	return "asset.[md5(fcopy_rsc(file))]"
+
+/**
+  * Converts an icon to base64. Operates by putting the icon in the iconCache savefile,
+  * exporting it as text, and then parsing the base64 from that.
+  * (This relies on byond automatically storing icons in savefiles as base64)
+  */
+/proc/icon2base64(icon/icon)
 	if (!isicon(icon))
 		return FALSE
-	WRITE_FILE(GLOB.iconCache[iconKey], icon)
-	var/iconData = GLOB.iconCache.ExportText(iconKey)
+	WRITE_FILE(GLOB.dummySave["dummy"], icon)
+	var/iconData = GLOB.dummySave.ExportText("dummy")
 	var/list/partial = splittext(iconData, "{")
-	return replacetext(copytext(partial[2], 3, -5), "\n", "")
+	return replacetext(copytext_char(partial[2], 3, -5), "\n", "")
 
 /proc/icon2html(thing, target, icon_state, dir, frame = 1, moving = FALSE)
 	if (!thing)
@@ -1127,10 +1196,10 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 	if (!isicon(I))
 		if (isfile(thing)) //special snowflake
 			var/name = sanitize_filename("[generate_asset_name(thing)].png")
-			register_asset(name, thing)
+			SSassets.transport.register_asset(name, thing)
 			for (var/thing2 in targets)
-				send_asset(thing2, key, FALSE)
-			return "<img class='icon icon-misc' src=\"[url_encode(name)]\">"
+				SSassets.transport.send_assets(thing2, name)
+			return "<img class='icon icon-misc' src='[SSassets.transport.get_asset_url(name)]'>"
 		var/atom/A = thing
 		if (isnull(dir))
 			dir = A.dir
@@ -1151,11 +1220,10 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 	I = icon(I, icon_state, dir, frame, moving)
 
 	key = "[generate_asset_name(I)].png"
-	register_asset(key, I)
+	SSassets.transport.register_asset(key, I)
 	for (var/thing2 in targets)
-		send_asset(thing2, key, FALSE)
-
-	return "<img class='icon icon-[icon_state]' src=\"[url_encode(key)]\">"
+		SSassets.transport.send_assets(thing2, key)
+	return "<img class='icon icon-[icon_state]' src='[SSassets.transport.get_asset_url(key)]'>"
 
 /proc/icon2base64html(thing)
 	if (!thing)
@@ -1166,7 +1234,7 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 		var/icon_base64 = icon2base64(I)
 
 		if (I.Height() > world.icon_size || I.Width() > world.icon_size)
-			var/icon_md5 = md5(icon_base64)
+			var/icon_md5 = rustg_hash_string(RUSTG_HASH_MD5, icon_base64)
 			icon_base64 = bicon_cache[icon_md5]
 			if (!icon_base64) // Doesn't exist yet, make it.
 				bicon_cache[icon_md5] = icon_base64 = icon2base64(I)

@@ -9,12 +9,14 @@
 		for(var/O in directives)
 			var/datum/objective/brainwashing/objective = new(O)
 			B.objectives += objective
+			log_objective(M, objective.explanation_text)
 		B.greet()
 	else
 		B = new()
 		for(var/O in directives)
 			var/datum/objective/brainwashing/objective = new(O)
 			B.objectives += objective
+			log_objective(M, objective.explanation_text)
 		M.add_antag_datum(B)
 
 	var/begin_message = "<span class='deadsay'><b>[L]</b> has been brainwashed with the following objectives: "
@@ -39,6 +41,9 @@
 		var/datum/objective/O = X
 		to_chat(owner, "<b>[i].</b> [O.explanation_text]")
 		i++
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Brainwashed",
+		"You have been brainwashed!\n\
+		Ensure you follow your directive, no matter the cost.")
 
 /datum/antagonist/brainwashed/farewell()
 	to_chat(owner, "<span class='warning'>Your mind suddenly clears...</span>")
@@ -70,6 +75,7 @@
 		var/objective = stripped_input(admin, "Add an objective, or leave empty to finish.", "Brainwashing", null, MAX_MESSAGE_LEN)
 		if(objective)
 			objectives += objective
+			log_objective(C, objective, admin)
 	while(alert(admin,"Add another objective?","More Brainwashing","Yes","No") == "Yes")
 
 	if(alert(admin,"Confirm Brainwashing?","Are you sure?","Yes","No") == "No")

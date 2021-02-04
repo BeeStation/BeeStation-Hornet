@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/heart
 	name = "Heart"
-	desc = "A living heart. It's angry!."
+	desc = "A living heart. It's angry!"
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "heart-on"
 	icon_living = "heart-on"
@@ -13,9 +13,7 @@
 	maxHealth = 24
 	health = 24
 	speed = -1
-	harm_intent_damage = 5
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	response_help = "touches"
 	response_disarm = "beats"
 	response_harm = "breaks"

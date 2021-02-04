@@ -38,15 +38,18 @@
 
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
 	heldname = sanitize_name(stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN))
+	log_game("[key_name(user)] have set \"[heldname]\" as a name in a cyborg reclassification board at [loc_name(user)]")
 
-/obj/item/borg/upgrade/rename/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/rename/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		var/oldname = R.real_name
+		var/oldkeyname = key_name(R)
 		R.custom_name = heldname
 		R.updatename()
 		if(oldname == R.real_name)
 			R.notify_ai(RENAME, oldname, R.real_name)
+		log_game("[key_name(user)] have used a cyborg reclassification board to rename [oldkeyname] to [key_name(R)] at [loc_name(user)]")
 
 /obj/item/borg/upgrade/restart
 	name = "cyborg emergency reboot module"
@@ -192,6 +195,26 @@
 		var/obj/item/storage/bag/ore/cyborg/S = new (R.module)
 		R.module.basic_modules += S
 		R.module.add_module(S, FALSE, TRUE)
+
+/obj/item/borg/upgrade/cutter
+	name = "mining cyborg plasma cutter"
+	desc = "An upgrade to the mining module granting a self-recharging plasma cutter."
+	icon_state = "cyborg_upgrade3"
+	require_module = 1
+	module_type = /obj/item/robot_module/miner
+
+/obj/item/borg/upgrade/cutter/action(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if(.)
+		var/obj/item/gun/energy/plasmacutter/cyborg/P = new(R.module)
+		R.module.basic_modules += P
+		R.module.add_module(P, FALSE, TRUE)
+
+/obj/item/borg/upgrade/cutter/deactivate(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if (.)
+		var/obj/item/gun/energy/plasmacutter/cyborg/P = locate() in R.module
+		R.module.remove_module(P, TRUE)
 
 /obj/item/borg/upgrade/tboh
 	name = "janitor cyborg trash bag of holding"
@@ -647,6 +670,18 @@
 	icon_state = "cyborg_upgrade3"
 	new_module = /obj/item/robot_module/clown
 
+/obj/item/borg/upgrade/transform/security
+	name = "borg module picker (Security)"
+	desc = "Allows you to turn a cyborg into a hunter, HALT!"
+	icon_state = "cyborg_upgrade3"
+	new_module = /obj/item/robot_module/security
+
+/obj/item/borg/upgrade/transform/security/action(mob/living/silicon/robot/R, user = usr)
+	if(CONFIG_GET(flag/disable_secborg))
+		to_chat(user, "<span class='warning'>Nanotrasen policy disallows the use of weapons of mass destruction.</span>")
+		return FALSE
+	return ..()
+
 /obj/item/borg/upgrade/circuit_app
 	name = "circuit manipulation apparatus"
 	desc = "An engineering cyborg upgrade allowing for manipulation of circuit boards."
@@ -697,4 +732,102 @@
 	if (.)
 		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
 		if (E)
-			R.module.remove_module(E, TRUE) 
+			R.module.remove_module(E, TRUE)
+
+
+/obj/item/borg/upgrade/speciality
+	name = "Speciality Module"
+	icon_state = "cyborg_upgrade3"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/butler
+	var/obj/item/hat
+	var/addmodules = list()
+	var/list/additional_reagents = list()
+
+/obj/item/borg/upgrade/speciality/action(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if(.)
+		for(var/obj/item/borg/upgrade/SPEC in R.upgrades)
+			if (istype(SPEC,/obj/item/borg/upgrade/speciality) && SPEC != src)
+				SPEC.deactivate(R)
+				R.upgrades -= SPEC
+				qdel(SPEC)
+
+
+		for(var/module in src.addmodules)
+			var/obj/item/nmodule = locate(module) in R
+			if (!nmodule)
+				nmodule = new module(R.module)
+				R.module.basic_modules += nmodule
+				R.module.add_module(nmodule, FALSE, TRUE)
+				
+		for(var/obj/item/reagent_containers/borghypo/borgshaker/H in R.module.modules)
+			for(var/re in additional_reagents)
+				H.add_reagent(re)
+
+		if(hat && R.hat_offset != INFINITY && !R.hat)
+			var/obj/item/equipt = new hat(src)
+			if (equipt )
+				R.place_on_head(equipt)
+
+/obj/item/borg/upgrade/speciality/deactivate(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if (.)
+		//Remove existing modules indiscriminately
+		for(var/module in src.addmodules)
+			var/dmod = locate(module) in R.module.modules
+			if (dmod)
+				R.module.remove_module(dmod, TRUE)
+		for(var/obj/item/reagent_containers/borghypo/borgshaker/H in R.module.modules)
+			for(var/re in additional_reagents)
+				H.del_reagent(re)
+
+/obj/item/borg/upgrade/speciality/kitchen
+	name = "Cook Speciality"
+	desc = "A service cyborg upgrade allowing for basic food handling."
+	hat = /obj/item/clothing/head/chefhat
+	addmodules = list (
+		/obj/item/kitchen/knife,
+		/obj/item/kitchen/rollingpin,
+	)
+	additional_reagents = list(
+		/datum/reagent/consumable/enzyme,
+		/datum/reagent/consumable/sugar,
+		/datum/reagent/consumable/flour,
+		/datum/reagent/water,
+	)
+
+/obj/item/borg/upgrade/speciality/botany
+	name = "Botany Speciality"
+	desc = "A service cyborg upgrade allowing for plant tending and manipulation."
+	hat = /obj/item/clothing/head/rice_hat
+	addmodules = list (
+		/obj/item/storage/bag/plants/portaseeder,
+		/obj/item/cultivator,
+		/obj/item/plant_analyzer,
+		/obj/item/shovel/spade,
+	)
+	additional_reagents = list(
+		/datum/reagent/water,
+	)
+
+
+/obj/item/borg/upgrade/speciality/casino
+	name = "Gambler Speciality"
+	desc = "It's not crew harm if they do it themselves!"
+	hat = /obj/item/clothing/head/rabbitears
+	addmodules = list (
+		/obj/item/gobbler,
+		/obj/item/storage/pill_bottle/dice_cup/cyborg,
+		/obj/item/toy/cards/deck/cyborg,
+	)
+
+/obj/item/borg/upgrade/speciality/party
+	name = "Party Speciality"
+	desc = "The night's still young..."
+	hat = /obj/item/clothing/head/beanie/rasta
+	addmodules = list (
+		/obj/item/stack/tile/light/cyborg,
+		/obj/item/crowbar/cyborg,
+		/obj/item/dance_trance,
+	)

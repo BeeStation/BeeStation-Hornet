@@ -23,6 +23,7 @@
 	var/list/datum/mind/antag_candidates = list()	// List of possible starting antags goes here
 	var/list/restricted_jobs = list()	// Jobs it doesn't make sense to be.  I.E chaplain or AI cultist
 	var/list/protected_jobs = list()	// Jobs that can't be traitors because
+	var/list/required_jobs = list()		// alternative required job groups eg list(list(cap=1),list(hos=1,sec=2)) translates to one captain OR one hos and two secmans
 	var/required_players = 0
 	var/maximum_players = -1 // -1 is no maximum, positive numbers limit the selection of a mode on overstaffed stations
 	var/required_enemies = 0
@@ -64,7 +65,7 @@
 /datum/game_mode/proc/can_start()
 	var/playerC = 0
 	for(var/mob/dead/new_player/player in GLOB.player_list)
-		if((player.client)&&(player.ready == PLAYER_READY_TO_PLAY))
+		if((player.client)&&(player.ready == PLAYER_READY_TO_PLAY) && player.has_valid_preferences())
 			playerC++
 	if(!GLOB.Debug2)
 		if(playerC < required_players || (maximum_players >= 0 && playerC > maximum_players))
@@ -95,6 +96,7 @@
 
 	for(var/role_to_init in allowed_special)
 		var/datum/special_role/new_role = new role_to_init
+		new_role.setup()
 		if(!prob(new_role.probability))
 			continue
 		new_role.add_to_pool()
@@ -109,7 +111,11 @@
 		for(var/i in 1 to amount)
 			if(candidates.len == 0)
 				return	//No more candidates, end the selection process, and active specials at this time will be handled by latejoins or not included
-			var/mob/person = pick_n_take(candidates)
+			var/mob/person
+			if(special.special_role_flag)
+				person = antag_pick(candidates, special.special_role_flag)
+			else
+				person = pick_n_take(candidates)
 			if(is_banned_from(person.ckey, special.preference_type))
 				continue
 			if(!person)
@@ -117,7 +123,7 @@
 			var/datum/mind/selected_mind = person.mind
 			if(selected_mind.special_role)
 				continue
-			if(person.job in special.protected_jobs)
+			if(person.job in special.restricted_jobs)
 				continue
 			//Would be annoying trying to assasinate someone with special statuses
 			if(selected_mind.isAntagTarget && !special.allowAntagTargets)
@@ -140,21 +146,29 @@
 		addtimer(CALLBACK(GLOBAL_PROC, .proc/reopen_roundstart_suicide_roles), delay)
 
 	if(SSdbcore.Connect())
-		var/sql
+		var/list/to_set = list()
+		var/arguments = list()
 		if(SSticker.mode)
-			sql += "game_mode = '[SSticker.mode]'"
+			to_set += "game_mode = :game_mode"
+			arguments["game_mode"] = SSticker.mode
 		if(GLOB.revdata.originmastercommit)
-			if(sql)
-				sql += ", "
-			sql += "commit_hash = '[GLOB.revdata.originmastercommit]'"
-		if(sql)
-			var/datum/DBQuery/query_round_game_mode = SSdbcore.NewQuery("UPDATE [format_table_name("round")] SET [sql] WHERE id = [GLOB.round_id]")
+			to_set += "commit_hash = :commit_hash"
+			arguments["commit_hash"] = GLOB.revdata.originmastercommit
+		if(to_set.len)
+			arguments["round_id"] = GLOB.round_id
+			var/datum/DBQuery/query_round_game_mode = SSdbcore.NewQuery(
+				"UPDATE [format_table_name("round")] SET [to_set.Join(", ")] WHERE id = :round_id",
+				arguments
+			)
 			query_round_game_mode.Execute()
 			qdel(query_round_game_mode)
-	if(report)
-		addtimer(CALLBACK(src, .proc/send_intercept, 0), rand(waittime_l, waittime_h))
 	create_special_antags()
 	generate_station_goals()
+	if(report)
+		addtimer(CALLBACK(src, .proc/send_intercept, 0), rand(waittime_l, waittime_h))
+	else // goals only become purchasable when on_report is called, this also makes a replacement announcement.
+		for(var/datum/station_goal/G in station_goals)
+			G.prepare_report()
 	gamemode_ready = TRUE
 	return 1
 
@@ -253,14 +267,14 @@
 	. = 1
 
 	sleep(rand(600,1800))
+	//somewhere between 1 and 3 minutes from now
 	if(!SSticker.IsRoundInProgress())
 		message_admins("Roundtype conversion cancelled, the game appears to have finished!")
 		round_converted = 0
 		return
-	 //somewhere between 1 and 3 minutes from now
 	if(!CONFIG_GET(keyed_list/midround_antag)[SSticker.mode.config_tag])
 		round_converted = 0
-		return 1
+		return
 	for(var/mob/living/carbon/human/H in antag_candidates)
 		if(H.client)
 			replacementmode.make_antag_chance(H)
@@ -268,10 +282,12 @@
 	round_converted = 2
 	message_admins("-- IMPORTANT: The roundtype has been converted to [replacementmode.name], antagonists may have been created! --")
 
-
-///Called by the gameSSticker
-/datum/game_mode/process()
-	return 0
+/**
+ *  ATTENTION:
+ *  If you make some special process() for your gamemode,
+ *  it'll be called by the SSticker, which ignores your
+ *  return value.
+ */
 
 //For things that do not die easily
 /datum/game_mode/proc/are_special_antags_dead()
@@ -505,6 +521,24 @@
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
 
+/datum/game_mode/proc/get_alive_non_antagonsist_players_for_role(role)
+	var/list/candidates = list()
+
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		if(player.client && is_station_level(player.z))
+			if(role in player.client.prefs.be_special)
+				if(!is_banned_from(player.ckey, list(role, ROLE_SYNDICATE)) && !QDELETED(player))
+					if(age_check(player.client) && !player.mind.special_role) //Must be older than the minimum age
+						candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
+
+	if(restricted_jobs)
+		for(var/datum/mind/player in candidates)
+			for(var/job in restricted_jobs)					// Remove people who want to be antagonist but have a job already that precludes it
+				if(player.assigned_role == job)
+					candidates -= player
+
+	return candidates
+
 
 /datum/game_mode/proc/num_players()
 	. = 0
@@ -667,15 +701,16 @@
 		return 0
 	if(!CONFIG_GET(flag/use_age_restriction_for_jobs))
 		return 0
-	if(!isnum(C.player_age))
+	if(!isnum_safe(C.player_age))
 		return 0 //This is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced
-	if(!isnum(enemy_minimum_age))
+	if(!isnum_safe(enemy_minimum_age))
 		return 0
 
 	return max(0, enemy_minimum_age - C.player_age)
 
 /datum/game_mode/proc/remove_antag_for_borging(datum/mind/newborgie)
 	SSticker.mode.remove_cultist(newborgie, 0, 0)
+	remove_servant_of_ratvar(newborgie)
 	var/datum/antagonist/rev/rev = newborgie.has_antag_datum(/datum/antagonist/rev)
 	if(rev)
 		rev.remove_revolutionary(TRUE)

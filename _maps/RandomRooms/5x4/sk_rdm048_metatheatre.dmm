@@ -6,15 +6,14 @@
 /area/template_noop)
 "b" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance/three,
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/structure/closet,
-/obj/item/clothing/shoes/jackboots,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/lootdrop/clowntrap,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
@@ -26,19 +25,6 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/costume,
 /obj/effect/spawner/lootdrop/costume,
-/turf/open/floor/plating,
-/area/template_noop)
-"f" = (
-/obj/item/lipstick/black,
-/obj/item/lipstick/jade{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/lipstick/purple{
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/obj/structure/table,
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
@@ -60,11 +46,6 @@
 /obj/structure/table,
 /obj/item/clothing/mask/cigarette/pipe,
 /turf/open/floor/plating,
-/area/template_noop)
-"k" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
 /area/template_noop)
 "l" = (
 /obj/item/cigbutt,
@@ -93,19 +74,19 @@
 
 (1,1,1) = {"
 a
-f
+h
 j
 m
 "}
 (2,1,1) = {"
 b
+h
 g
-k
 o
 "}
 (3,1,1) = {"
-c
 h
+c
 h
 h
 "}

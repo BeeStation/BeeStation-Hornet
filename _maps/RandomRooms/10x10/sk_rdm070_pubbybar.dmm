@@ -26,6 +26,7 @@
 /obj/effect/spawner/lootdrop/three_course_meal,
 /obj/effect/spawner/lootdrop/three_course_meal,
 /obj/structure/closet/crate,
+/obj/item/paper/crumpled/beernuke,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
@@ -221,6 +222,8 @@
 /area/template_noop)
 "M" = (
 /obj/item/clothing/under/rank/civilian/clown/sexy,
+/obj/effect/spawner/lootdrop/clowntrap,
+/obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "N" = (

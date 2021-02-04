@@ -30,6 +30,8 @@
 	owner.announce_objectives()
 	equip_overthrow()
 	owner.special_role = ROLE_OVERTHROW
+	for(var/datum/objective/O in team.objectives)
+		log_objective(owner, O.explanation_text)
 
 /datum/antagonist/overthrow/on_removal()
 	owner.special_role = null

@@ -4,7 +4,6 @@
 	school = "transmutation"
 	charge_type = "recharge"
 	charge_max	= 600
-	charge_counter = 0
 	clothes_req = 1
 	stat_allowed = 0
 	invocation = "CLU WO'NIS CA'TE'BEST'IS MAXIMUS!"

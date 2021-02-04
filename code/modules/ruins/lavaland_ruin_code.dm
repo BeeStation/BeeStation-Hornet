@@ -51,6 +51,7 @@
 	..()
 	var/static/list/golem_shell_species_types = list(
 		/obj/item/stack/sheet/iron	                = /datum/species/golem,
+		/obj/item/stack/sheet/mineral/copper        = /datum/species/golem/copper,
 		/obj/item/stack/sheet/glass 	            = /datum/species/golem/glass,
 		/obj/item/stack/sheet/plasteel 	            = /datum/species/golem/plasteel,
 		/obj/item/stack/sheet/mineral/sandstone	    = /datum/species/golem/sand,
@@ -67,7 +68,7 @@
 		/obj/item/stack/sheet/bluespace_crystal	    = /datum/species/golem/bluespace,
 		/obj/item/stack/sheet/runed_metal	        = /datum/species/golem/runic,
 		/obj/item/stack/medical/gauze	            = /datum/species/golem/cloth,
-		/obj/item/stack/sheet/cloth	                = /datum/species/golem/cloth,
+		/obj/item/stack/sheet/cotton/cloth			= /datum/species/golem/cloth,
 		/obj/item/stack/sheet/mineral/adamantine	= /datum/species/golem/adamantine,
 		/obj/item/stack/sheet/plastic	            = /datum/species/golem/plastic,
 		/obj/item/stack/tile/brass					= /datum/species/golem/clockwork,
@@ -113,6 +114,7 @@
 	important_info = "The base is rigged with explosives, DO NOT abandon it or let it fall into enemy hands!"
 	outfit = /datum/outfit/lavaland_syndicate
 	assignedrole = "Lavaland Syndicate"
+	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/special(mob/living/new_spawn)
 	new_spawn.grant_language(/datum/language/codespeak)

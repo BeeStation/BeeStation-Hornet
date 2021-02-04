@@ -21,22 +21,22 @@ GLOBAL_VAR_INIT(looc_allowed, 1)
         return
 
     if(!(prefs.toggles & CHAT_OOC))
-        to_chat(src, "<span class='danger'>You have OOC muted.</span>")
+        to_chat(src, "<span class='danger'>You have OOC (and therefore LOOC) muted.</span>")
         return
 
     if(is_banned_from(mob.ckey, "OOC"))
-        to_chat(src, "<span class='danger'>You have been banned from OOC.</span>")
+        to_chat(src, "<span class='danger'>You have been banned from OOC and LOOC.</span>")
         return
 
     if(!holder)
-        if(!GLOB.ooc_allowed)
-            to_chat(src, "<span class='danger'>OOC is globally muted</span>")
+        if(!CONFIG_GET(flag/looc_enabled))
+            to_chat(src, "<span class='danger'>LOOC is disabled.</span>")
             return
         if(!GLOB.dooc_allowed && (mob.stat == DEAD))
-            to_chat(usr, "<span class='danger'>OOC for dead mobs has been turned off.</span>")
+            to_chat(usr, "<span class='danger'>LOOC for dead mobs has been turned off.</span>")
             return
         if(prefs.muted & MUTE_OOC)
-            to_chat(src, "<span class='danger'>You cannot use OOC (muted).</span>")
+            to_chat(src, "<span class='danger'>You cannot use LOOC (muted).</span>")
             return
         if(handle_spam_prevention(msg,MUTE_OOC))
             return
@@ -57,10 +57,10 @@ GLOBAL_VAR_INIT(looc_allowed, 1)
 
     msg = emoji_parse(msg)
 
-    mob.log_talk(raw_msg, LOG_OOC, tag="(LOOC)")
+    mob.log_talk(raw_msg, LOG_OOC, tag="LOOC")
 
-    var/list/heard = get_hearers_in_view(7, get_top_level_mob(src.mob))
-    for(var/mob/M in heard)
+    var/list/heard = hearers(7, get_top_level_mob(src.mob))
+    for(var/mob/M as() in heard)
         if(!M.client)
             continue
         var/client/C = M.client

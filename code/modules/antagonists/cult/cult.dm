@@ -50,6 +50,8 @@
 	to_chat(owner, "<span class='userdanger'>You are a member of the cult!</span>")
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/bloodcult.ogg', 100, FALSE, pressure_affected = FALSE)//subject to change
 	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Blood Cult",
+		"Use your ritual dagger to draw runes with your blood and expand your cult until you have enough influence to summon the great Nar'Sie!")
 
 /datum/antagonist/cult/on_gain()
 	. = ..()
@@ -103,13 +105,13 @@
 	if(mob_override)
 		current = mob_override
 	current.faction |= "cult"
-	current.grant_language(/datum/language/narsie)
+	current.grant_language(/datum/language/narsie, TRUE, TRUE, LANGUAGE_CULTIST)
 	if(!cult_team.cult_master)
 		vote.Grant(current)
 	communion.Grant(current)
 	if(ishuman(current))
 		magic.Grant(current)
-	current.throw_alert("bloodsense", /obj/screen/alert/bloodsense)
+	current.throw_alert("bloodsense", /atom/movable/screen/alert/bloodsense)
 	if(cult_team.cult_risen)
 		cult_team.rise(current)
 		if(cult_team.cult_ascendent)
@@ -121,7 +123,7 @@
 	if(mob_override)
 		current = mob_override
 	current.faction -= "cult"
-	current.remove_language(/datum/language/narsie)
+	current.remove_language(/datum/language/narsie, TRUE, TRUE, LANGUAGE_CULTIST)
 	vote.Remove(current)
 	communion.Remove(current)
 	magic.Remove(current)
@@ -327,7 +329,7 @@
 	for(var/datum/mind/M in C.members)
 		if(M.current)
 			M.current.clear_alert("bloodsense")
-			M.current.throw_alert("bloodsense", /obj/screen/alert/bloodsense)
+			M.current.throw_alert("bloodsense", /atom/movable/screen/alert/bloodsense)
 
 /datum/team/cult/proc/setup_objectives()
 	var/datum/objective/sacrifice/sac_objective = new
@@ -339,12 +341,25 @@
 	summon_objective.team = src
 	objectives += summon_objective
 
+	for(var/datum/mind/M in members)
+		log_objective(M, sac_objective.explanation_text)
+		log_objective(M, summon_objective.explanation_text)
+
 
 /datum/objective/sacrifice
 	var/sacced = FALSE
 	var/sac_image
 
+/datum/objective/sacrifice/is_valid_target(possible_target)
+	. = ..()
+	var/datum/mind/M = possible_target
+	if(istype(M) && isipc(M.current))
+		return FALSE
+
 /datum/objective/sacrifice/check_completion()
+	//Target's a clockie
+	if(target?.has_antag_datum(/datum/antagonist/servant_of_ratvar))
+		return TRUE
 	return sacced || completed
 
 /datum/objective/sacrifice/update_explanation_text()

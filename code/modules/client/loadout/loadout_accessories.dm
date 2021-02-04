@@ -1,3 +1,5 @@
+// DO NOT CHANGE DISPLAY NAME
+
 /datum/gear/accessory
 	subtype_path = /datum/gear/accessory
 	slot = SLOT_NECK
@@ -34,9 +36,17 @@
 	path = /obj/item/clothing/neck/stripedbluescarf
 	cost = 1200
 
+//armbands
 /datum/gear/accessory/armband_red
-	display_name = "armband"
 	path = /obj/item/clothing/accessory/armband
+	cost = 1000
+
+/datum/gear/accessory/armband_blu
+	path = /obj/item/clothing/accessory/armband/blue
+	cost = 1000
+
+/datum/gear/accessory/armband_grn
+	path = /obj/item/clothing/accessory/armband/green
 	cost = 1000
 
 //ties
@@ -69,6 +79,11 @@
 
 /datum/gear/accessory/necklace
 	display_name = "dope necklace"
+	path = /obj/item/clothing/neck/necklace/dope
+	cost = 25000
+
+/datum/gear/accessory/oldnecklace
+	display_name = "necklace, gold"
 	path = /obj/item/clothing/neck/necklace/dope
 	cost = 25000
 

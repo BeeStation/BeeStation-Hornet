@@ -11,6 +11,7 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
 	close_sound_volume = 50
+	door_anim_time = 0
 
 /obj/structure/closet/crate/large/attack_hand(mob/user)
 	add_fingerprint(user)

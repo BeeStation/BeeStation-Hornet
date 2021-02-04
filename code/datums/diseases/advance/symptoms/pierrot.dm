@@ -59,9 +59,9 @@
 				if(clownmask)
 					give_clown_mask(A)
 				if(prob(5))
-					playsound(M.loc, 'sound/items/bikehorn.ogg', 50, 1)
-					if(honkspread && prob(25))
-						A.spread(1)
+					playsound(M.loc, 'sound/items/bikehorn.ogg', 100, 1)
+					if(honkspread)
+						A.spread(5)
 
 /datum/symptom/pierrot/End(datum/disease/advance/A)
 	..()

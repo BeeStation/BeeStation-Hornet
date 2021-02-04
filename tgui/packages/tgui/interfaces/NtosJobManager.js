@@ -4,7 +4,10 @@ import { NtosWindow } from '../layouts';
 
 export const NtosJobManager = (props, context) => {
   return (
-    <NtosWindow resizable>
+    <NtosWindow
+      resizable
+      width={400}
+      height={620}>
       <NtosWindow.Content scrollable>
         <NtosJobManagerContent />
       </NtosWindow.Content>

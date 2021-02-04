@@ -22,7 +22,7 @@
 /proc/cmp_keybinding_dsc(datum/keybinding/a, datum/keybinding/b)
 	return cmp_numeric_dsc(a.weight, b.weight)
 
-// Datum cmp with vars is always slower than a specialist cmp proc, use your judgement.
+// Datum cmp with vars is always slower than a specialist cmp proc, use your judgment.
 /proc/cmp_datum_numeric_asc(datum/a, datum/b, variable)
 	return cmp_numeric_asc(a.vars[variable], b.vars[variable])
 
@@ -35,15 +35,12 @@
 /proc/cmp_datum_text_dsc(datum/a, datum/b, variable)
 	return sorttext(a.vars[variable], b.vars[variable])
 
-
 GLOBAL_VAR_INIT(cmp_field, "name")
 /proc/cmp_records_asc(datum/data/record/a, datum/data/record/b)
 	return sorttext(b.fields[GLOB.cmp_field], a.fields[GLOB.cmp_field])
 
 /proc/cmp_records_dsc(datum/data/record/a, datum/data/record/b)
 	return sorttext(a.fields[GLOB.cmp_field], b.fields[GLOB.cmp_field])
-
-
 
 /proc/cmp_ckey_asc(client/a, client/b)
 	return sorttext(b.ckey, a.ckey)
@@ -59,6 +56,9 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 
 /proc/cmp_subsystem_priority(datum/controller/subsystem/a, datum/controller/subsystem/b)
 	return a.priority - b.priority
+
+/proc/cmp_filter_data_priority(list/A, list/B)
+	return A["priority"] - B["priority"]
 
 /proc/cmp_timer(datum/timedevent/a, datum/timedevent/b)
 	return a.timeToRun - b.timeToRun
@@ -133,3 +133,9 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 
 /proc/cmp_pdajob_asc(obj/item/pda/A, obj/item/pda/B)
 	return sorttext(B.ownjob, A.ownjob)
+
+/proc/cmp_num_string_asc(A, B)
+	return text2num(A) - text2num(B)
+
+/proc/cmp_mob_realname_dsc(mob/A,mob/B)
+	return sorttext(A.real_name,B.real_name)

@@ -117,7 +117,7 @@
 		return
 	var/datum/map_template/M = arena_templates[arena_template]
 	if(!M)
-		to_chat(user,"<span class='warning'>No such arena</span>")
+		to_chat(user,"<span class='warning'>No such arena.</span>")
 		return
 	clear_arena() //Clear current arena
 	var/turf/A = get_landmark_turf(ARENA_CORNER_A)
@@ -187,7 +187,7 @@
 	to_chat(user,"[ckey] removed from [team] team.")
 
 /obj/machinery/computer/arena/proc/spawn_member(obj/machinery/arena_spawn/spawnpoint,ckey,team)
-	var/mob/oldbody = get_mob_by_key(ckey)
+	var/mob/oldbody = get_mob_by_ckey(ckey)
 	if(!isobserver(oldbody))
 		return
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(get_turf(spawnpoint))
@@ -217,7 +217,7 @@
 	. = list()
 	for(var/team in team_keys)
 		for(var/key in team_keys[team])
-			var/mob/M = get_mob_by_key(key)
+			var/mob/M = get_mob_by_ckey(key)
 			if(M)
 				. += M
 
@@ -314,7 +314,7 @@
 
 /obj/machinery/computer/arena/proc/load_random_arena(mob/user)
 	if(!length(arena_templates))
-		to_chat(user,"<span class='warning'>No arenas present</span>")
+		to_chat(user,"<span class='warning'>No arenas present.</span>")
 		return
 	var/picked = pick(arena_templates)
 	load_arena(picked,user)
@@ -336,7 +336,7 @@
 		dat += "<ul>"
 		for(var/ckey in team_keys[team])
 			var/player_status = "Not Present"
-			var/mob/M = get_mob_by_key(ckey)
+			var/mob/M = get_mob_by_ckey(ckey)
 			if(M)
 				//Should define waiting room upper/lower corner and check if they're there instead of generic live/dead check
 				if(isobserver(M))
@@ -358,7 +358,7 @@
 	dat += "Current arena: [current_arena_template]"
 	dat += "<h2>Arena List:</h2>"
 	for(var/A in arena_templates)
-		dat += "<a href='?src=[REF(src)];change_arena=[url_encode(A)]'>[A]</a><br>"
+		dat += "<a href='?src=[REF(src)];change_arena=[rustg_url_encode(A)]'>[A]</a><br>"
 	dat += "<hr>"
 	dat += "<a href='?src=[REF(src)];upload=1'>Upload new arena</a><br>"
 	dat += "<hr>"
