@@ -321,6 +321,9 @@
 		if(M.is_adult)
 			damage = 30
 
+		if(M.transformeffects & SLIME_EFFECT_RED)
+			damage *= 1.1
+
 		if(check_shields(M, damage, "the [M.name]"))
 			return 0
 

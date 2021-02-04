@@ -171,6 +171,10 @@
 /datum/mood_event/nanite_happiness/add_effects(message)
 	description = "<span class='nicegreen robot'>+++++++[message]+++++++</span>\n"
 
+/datum/mood_event/poppy_pin
+	description = "<span class='nicegreen'>I feel proud to show my remembrance of the many who have died to ensure that I have freedom.</span>\n"
+	mood_change = 1
+
 /datum/mood_event/area
 	description = "" //Fill this out in the area
 	mood_change = 0

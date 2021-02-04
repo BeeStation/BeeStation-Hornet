@@ -252,7 +252,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 4
 	throw_range = 10
-	item_state = "electronic"
 
 	var/charges = 4
 	var/max_charges = 4
