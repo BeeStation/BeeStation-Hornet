@@ -330,7 +330,7 @@
 
 /datum/datacore/proc/generate_security_record(id, mob/living/carbon/human/H)
 	var/datum/data/record/S = new()
-	S.fields["ckey"]		= H.ckey
+	S.fields["ckey"]		= H.client.ckey
 	S.fields["id"]			= id
 	S.fields["name"]		= H.real_name
 	S.fields["criminal"]	= "None"
