@@ -344,7 +344,7 @@
 		)
 		if(crime_record.Execute(async = TRUE))
 			while(crime_record.NextRow())
-				if(!H.client.prefs.be_random_name && (H.real_name != crime_record.item[5] && reject_bad_name(crime_record.item[5]) != null)) // Tie the records to the character unless they're using random names or the name isn't valid.
+				if(!C.prefs.be_random_name && (H.real_name != crime_record.item[5] && reject_bad_name(crime_record.item[5]) != null)) // Tie the records to the character unless they're using random names or the name isn't valid.
 					continue
 				S.fields["crim"] += createCrimeEntry(cname = crime_record.item[1], cdetails = crime_record.item[2], author = crime_record.item[3], time = "Archived", author_ckey = crime_record.item[4])
 
