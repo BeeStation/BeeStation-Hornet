@@ -826,8 +826,7 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 
 ///Will delete the room when the rune is destroyed if no customer is left in the room.
 /obj/effect/warped_rune/rainbowspace/Destroy()
-	if(GLOB.warped_room)
-		GLOB.warped_room.rainbow_runes -= src
+	GLOB.warped_room?.rainbow_runes -= src
 	return ..()
 
 ///anyone on the exit rune when it is used will be teleported to the rune that was used to teleport to the warped room
