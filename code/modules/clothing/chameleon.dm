@@ -360,7 +360,7 @@
 	flash_protect = 3
 
 /obj/item/clothing/gloves/chameleon
-	desc = "These gloves will protect the wearer from electric shock."
+	desc = "These gloves provide protection against electric shock."
 	name = "insulated gloves"
 	icon_state = "yellow"
 	item_state = "ygloves"

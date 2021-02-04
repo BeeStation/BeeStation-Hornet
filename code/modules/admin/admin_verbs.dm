@@ -142,7 +142,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/restart_controller,
 	/client/proc/cmd_admin_list_open_jobs,
 	/client/proc/Debug2,
-	/client/proc/cmd_debug_make_powernets,
+	/client/proc/cmd_debug_make_powernets, 
 	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_admin_delete,
 	/client/proc/cmd_debug_del_all,
@@ -176,6 +176,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/cmd_display_init_log,
 	/client/proc/cmd_display_overlay_log,
 	/client/proc/reload_configuration,
+	/client/proc/give_all_spells,
 	/datum/admins/proc/create_or_modify_area,
 #ifdef REFERENCE_TRACKING
 	/datum/admins/proc/view_refs,
@@ -320,7 +321,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set name = "Adminverbs - Hide Most"
 	set category = "Admin"
 
-	remove_verb(list(/client/proc/hide_most_verbs, GLOB.admin_verbs_hideable))
+	remove_verb(list(/client/proc/hide_most_verbs) + GLOB.admin_verbs_hideable)
 	add_verb(/client/proc/show_verbs)
 
 	to_chat(src, "<span class='interface'>Most of your adminverbs have been hidden.</span>")

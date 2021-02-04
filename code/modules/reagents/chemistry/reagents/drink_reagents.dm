@@ -410,7 +410,7 @@
 	taste_description = "carbonated oil"
 	glass_icon_state = "grey_bull_glass"
 	glass_name = "glass of Grey Bull"
-	glass_desc = "Surprisingly it isnt grey."
+	glass_desc = "Surprisingly it isn't grey."
 
 /datum/reagent/consumable/grey_bull/on_mob_metabolize(mob/living/L)
 	..()
@@ -836,8 +836,8 @@
 /datum/reagent/consumable/bungojuice
 	name = "Bungo Juice"
 	color = "#F9E43D"
-	description = "Exotic! You feel like you are on vactation already."
+	description = "Exotic! You feel like you are on vacation already."
 	taste_description = "succulent bungo"
 	glass_icon_state = "glass_yellow"
 	glass_name = "glass of bungo juice"
-	glass_desc = "Exotic! You feel like you are on vactation already."
+	glass_desc = "Exotic! You feel like you are on vacation already."

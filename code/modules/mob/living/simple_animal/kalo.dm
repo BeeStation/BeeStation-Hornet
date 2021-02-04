@@ -28,6 +28,7 @@
 	maxbodytemp = 800
 	var/turns_since_scan = 0
 	var/obj/item/reagent_containers/food/snacks/movement_target
+	mobchatspan = "centcom"
 
 /mob/living/simple_animal/kalo/Destroy()
 	movement_target = null

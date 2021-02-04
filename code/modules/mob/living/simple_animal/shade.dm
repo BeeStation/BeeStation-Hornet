@@ -31,6 +31,7 @@
 	del_on_death = TRUE
 	initial_language_holder = /datum/language_holder/construct
 	mobsay_color = "#FF6262"
+	mobchatspan = "cultmobsay"
 
 /mob/living/simple_animal/shade/death()
 	deathmessage = "lets out a contented sigh as [p_their()] form unwinds."

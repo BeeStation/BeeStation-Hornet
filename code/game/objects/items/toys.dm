@@ -152,7 +152,7 @@
 	icon_state = "singularity_s1"
 
 /*
- * Toy gun: Why isnt this an /obj/item/gun?
+ * Toy gun: Why isn't this an /obj/item/gun?
  */
 /obj/item/toy/gun
 	name = "cap gun"

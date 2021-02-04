@@ -159,6 +159,7 @@
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDEEYES|HIDEEARS
 	w_class = WEIGHT_CLASS_SMALL
 	clothing_flags = VOICEBOX_TOGGLABLE
+	modifies_speech = TRUE
 
 /obj/item/clothing/mask/horsehead/handle_speech(datum/source, list/speech_args)
 	if(!CHECK_BITFIELD(clothing_flags, VOICEBOX_DISABLED))

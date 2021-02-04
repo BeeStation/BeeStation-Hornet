@@ -21,6 +21,7 @@
 	var/mob/camera/blob/overmind = null
 	var/obj/structure/blob/factory/factory = null
 	var/independent = FALSE
+	mobchatspan = "blob"
 
 /mob/living/simple_animal/hostile/blob/update_icons()
 	if(overmind)

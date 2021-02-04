@@ -271,7 +271,7 @@
 		return
 
 	if(is_locked)
-		to_chat(user, "<span class='danger'>The case is shut tight with an old fashioned physical lock. Maybe you should ask the curator for the key?</span>")
+		to_chat(user, "<span class='danger'>The case is shut tight with an old-fashioned physical lock. Maybe you should ask the curator for the key?</span>")
 		return
 
 	if(!added_roundstart)

@@ -1,8 +1,5 @@
-import { toFixed } from 'common/math';
 import { useDispatch, useSelector } from 'common/redux';
-import { Fragment } from 'inferno';
-import { Button, Flex, Knob, Tabs, Box, Section } from 'tgui/components';
-import { useSettings } from '../settings';
+import { Button, Flex, Box, Section } from 'tgui/components';
 import { selectStatPanel } from './selectors';
 import { StatText } from './StatText';
 
@@ -106,5 +103,96 @@ export const StatStatus = (props, context) => {
         :null}
       <StatText />
     </Flex>
+  );
+};
+
+// =======================
+// Non-Flex Support
+// =======================
+
+export const HoboStatStatus = (props, context) => {
+  const stat = useSelector(context, selectStatPanel);
+  const dispatch = useDispatch(context);
+  let statPanelData = [];
+  if (stat.infomationUpdate) {
+    for (const [key, value] of Object.entries(stat.infomationUpdate)) {
+      if (key === stat.selectedTab) {
+        statPanelData = value;
+      }
+    }
+  }
+  return (
+    <Box>
+      {stat.dead_popup
+        ?(
+          <div className="StatBorder_observer">
+            <Box>
+              <Section
+                className="deadsay">
+                <Button
+                  color="transparent"
+                  icon="times"
+                  onClick={() => dispatch({
+                    type: 'stat/clearDeadPopup',
+                  })} />
+                You are <b>dead</b>!
+              </Section>
+            </Box>
+            <Box>
+              <Section
+                className="deadsay">
+                Don&#39;t worry, you can still get back into the game
+                if your body is revived or through ghost roles.
+              </Section>
+            </Box>
+          </div>
+        )
+        :null}
+      {stat.alert_popup
+        ?(
+          <div className="StatBorder_infomation">
+            <Section>
+              <Box className="stat_infomation">
+                <Button
+                  color="transparent"
+                  icon="times"
+                  onClick={() => dispatch({
+                    type: 'stat/clearAlertPopup',
+                  })} />
+                <Box inline>
+                  {stat.alert_popup.title}
+                </Box>
+                <Box>
+                  {stat.alert_popup.text}
+                </Box>
+              </Box>
+            </Section>
+          </div>
+        )
+        :null}
+      {stat.antagonist_popup
+        ?(
+          <div className="StatBorder_antagonist">
+            <Section>
+              <Box className="stat_antagonist">
+                <Button
+                  color="transparent"
+                  icon="times"
+                  onClick={() => dispatch({
+                    type: 'stat/clearAntagPopup',
+                  })} />
+                <Box inline bold>
+                  {stat.antagonist_popup.title}
+                </Box>
+                <Box>
+                  {stat.antagonist_popup.text}
+                </Box>
+              </Box>
+            </Section>
+          </div>
+        )
+        :null}
+      <StatText />
+    </Box>
   );
 };

@@ -21,6 +21,7 @@
 	var/zombiejob = "Medical Doctor"
 	var/infection_chance = 0
 	var/obj/effect/mob_spawn/human/corpse/delayed/corpse
+	mobchatspan = "bartender"
 
 /mob/living/simple_animal/hostile/zombie/Initialize(mapload)
 	. = ..()
