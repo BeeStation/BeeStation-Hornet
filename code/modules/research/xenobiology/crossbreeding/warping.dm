@@ -752,9 +752,9 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	icon_state = "rune_adamantine"
 
 /obj/structure/reflector/box/anchored/mob_pass/CanPass(atom/movable/mover, turf/target)
-	. = ..()
 	if(isliving(mover))
-		. = TRUE
+		return TRUE
+	return ..()
 
 /obj/effect/warped_rune/adamantinespace/do_effect(mob/user)
 	for(var/turf/open/T in RANGE_TURFS(1, src) - rune_turf)
