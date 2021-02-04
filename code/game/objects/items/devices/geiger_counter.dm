@@ -37,7 +37,6 @@
 	soundloop = new(list(src), FALSE)
 
 /obj/item/geiger_counter/Destroy()
-	QDEL_NULL(soundloop)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 

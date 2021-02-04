@@ -88,7 +88,7 @@
 	var/chnotify = 0
 
 	var/multicam_on = FALSE
-	var/atom/movable/screen/movable/pic_in_pic/ai/master_multicam
+	var/obj/screen/movable/pic_in_pic/ai/master_multicam
 	var/list/multicam_screens = list()
 	var/list/all_eyes = list()
 	var/max_multicams = 6
@@ -140,7 +140,7 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-	add_verb(/mob/living/silicon/ai/proc/show_laws_verb)
+	verbs += /mob/living/silicon/ai/proc/show_laws_verb
 
 	aiPDA = new/obj/item/pda/ai(src)
 	aiPDA.owner = real_name
@@ -154,10 +154,10 @@
 	deploy_action.Grant(src)
 
 	if(isturf(loc))
-		add_verb(list(/mob/living/silicon/ai/proc/ai_network_change, \
+		verbs.Add(/mob/living/silicon/ai/proc/ai_network_change, \
 		/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
 		/mob/living/silicon/ai/proc/botcall, /mob/living/silicon/ai/proc/control_integrated_radio, \
-		/mob/living/silicon/ai/proc/set_automatic_say_channel))
+		/mob/living/silicon/ai/proc/set_automatic_say_channel)
 
 	GLOB.ai_list += src
 	GLOB.shuttle_caller_list += src
@@ -228,32 +228,28 @@
 	display_icon_override = ai_core_icon
 	set_core_display_icon(ai_core_icon)
 
-/mob/living/silicon/ai/get_stat_tab_status()
-	var/list/tab_data = ..()
-	if(!stat)
-		tab_data["System integrity"] = GENERATE_STAT_TEXT("[(health+100)/2]%")
-		if(isturf(loc)) //only show if we're "in" a core
-			tab_data["Backup Power"] = GENERATE_STAT_TEXT("[battery/2]%")
-		tab_data["Connected cyborgs"] = GENERATE_STAT_TEXT("[connected_robots.len]")
-		var/index = 0
-		for(var/mob/living/silicon/robot/R in connected_robots)
-			var/robot_status = "Nominal"
-			if(R.shell)
-				robot_status = "AI SHELL"
-			else if(R.stat || !R.client)
-				robot_status = "OFFLINE"
-			else if(!R.cell || R.cell.charge <= 0)
-				robot_status = "DEPOWERED"
-			//Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
-			index++
-			tab_data["[R.name] (Connection [index])"] = list(
-				text="S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge]/[R.cell.maxcharge]" : "Empty"] | \
-					Module: [R.designation] | Loc: [get_area_name(R, TRUE)] | Status: [robot_status]",
-				type=STAT_TEXT)
-		tab_data["AI shell beacons detected"] = GENERATE_STAT_TEXT("[LAZYLEN(GLOB.available_ai_shells)]") //Count of total AI shells
-	else
-		tab_data["Systems"] = GENERATE_STAT_TEXT("nonfunctional")
-	return tab_data
+/mob/living/silicon/ai/Stat()
+	..()
+	if(statpanel("Status"))
+		if(!stat)
+			stat(null, text("System integrity: [(health+100)/2]%"))
+			if(isturf(loc)) //only show if we're "in" a core
+				stat(null, text("Backup Power: [battery/2]%"))
+			stat(null, text("Connected cyborgs: [connected_robots.len]"))
+			for(var/mob/living/silicon/robot/R in connected_robots)
+				var/robot_status = "Nominal"
+				if(R.shell)
+					robot_status = "AI SHELL"
+				else if(R.stat || !R.client)
+					robot_status = "OFFLINE"
+				else if(!R.cell || R.cell.charge <= 0)
+					robot_status = "DEPOWERED"
+				//Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
+				stat(null, text("[R.name] | S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge]/[R.cell.maxcharge]" : "Empty"] | \
+				Module: [R.designation] | Loc: [get_area_name(R, TRUE)] | Status: [robot_status]"))
+			stat(null, text("AI shell beacons detected: [LAZYLEN(GLOB.available_ai_shells)]")) //Count of total AI shells
+		else
+			stat(null, text("Systems nonfunctional"))
 
 /mob/living/silicon/ai/proc/ai_alerts()
 	var/dat = "<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"
@@ -335,9 +331,6 @@
 	set category = "OOC"
 	set desc = "Wipe your core. This is functionally equivalent to cryo, freeing up your job slot."
 
-	if(stat)
-		return
-	
 	// Guard against misclicks, this isn't the sort of thing we want happening accidentally
 	if(alert("WARNING: This will immediately wipe your core and ghost you, removing your character from the round permanently (similar to cryo). Are you entirely sure you want to do this?",
 					"Wipe Core", "No", "No", "Yes") != "Yes")
@@ -370,7 +363,7 @@
 	set name = "Toggle Floor Bolts"
 	if(!isturf(loc)) // if their location isn't a turf
 		return // stop
-	if(stat)
+	if(stat == DEAD)
 		return
 	if(incapacitated())
 		if(battery < 50)
@@ -926,7 +919,7 @@
 	to_chat(src, "In the top right corner of the screen you will find the Malfunctions tab, where you can purchase various abilities, from upgraded surveillance to station ending doomsday devices.")
 	to_chat(src, "You are also capable of hacking APCs, which grants you more points to spend on your Malfunction powers. The drawback is that a hacked APC will give you away if spotted by the crew. Hacking an APC takes 60 seconds.")
 	view_core() //A BYOND bug requires you to be viewing your core before your verbs update
-	add_verb(/mob/living/silicon/ai/proc/choose_modules)
+	verbs += /mob/living/silicon/ai/proc/choose_modules
 	malf_picker = new /datum/module_picker
 
 
@@ -1012,7 +1005,7 @@
 	if(!target || !(target in possible)) //If the AI is looking for a new shell, or its pre-selected shell is no longer valid
 		target = input(src, "Which body to control?") as null|anything in sortNames(possible)
 
-	if (!target || target.stat || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)) || (target.ratvar && !is_servant_of_ratvar(src)))
+	if (!target || target.stat == DEAD || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)) || (target.ratvar && !is_servant_of_ratvar(src)))
 		return
 
 	else if(mind)
@@ -1062,9 +1055,9 @@
 	return
 
 /mob/living/silicon/ai/spawned/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
+	. = ..()
 	if(!target_ai)
 		target_ai = src //cheat! just give... ourselves as the spawned AI, because that's technically correct
-	. = ..() //This needs to be lower so we have a chance to actually update the assigned target_ai.
 
 /mob/living/silicon/ai/proc/camera_visibility(mob/camera/aiEye/moved_eye)
 	GLOB.cameranet.visibility(moved_eye, client, all_eyes, USE_STATIC_OPAQUE)

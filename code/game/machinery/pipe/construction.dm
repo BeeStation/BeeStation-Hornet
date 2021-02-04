@@ -90,7 +90,7 @@ Buildable meters
 	set name = "Flip Pipe"
 	set src in view(1)
 
-	if(usr.incapacitated() || !isliving(usr))
+	if ( usr.incapacitated() )
 		return
 
 	do_a_flip()

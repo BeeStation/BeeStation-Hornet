@@ -1702,12 +1702,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^0.21.1":
-  version: 0.21.1
-  resolution: "axios@npm:0.21.1"
+"axios@npm:^0.19.2":
+  version: 0.19.2
+  resolution: "axios@npm:0.19.2"
   dependencies:
-    follow-redirects: ^1.10.0
-  checksum: 864fb7b5d077d236737f10adca53bf451a93f35a15271f56fba8da07265a02d26b7d881b935a6697dc6adb0549ea3e56d2eecb403edaa3bb78f6479901c10f69
+    follow-redirects: 1.5.10
+  checksum: bad346deea24050f9953ce09bb8015f85a99a7b8f016806adccfab0b8981827d1fbee9c77c0ef7c70cc48392c1af6bbc65e07c3e88221d17282d2d5fd0a191f6
   languageName: node
   linkType: hard
 
@@ -2872,6 +2872,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"debug@npm:=3.1.0":
+  version: 3.1.0
+  resolution: "debug@npm:3.1.0"
+  dependencies:
+    ms: 2.0.0
+  checksum: 1295acd5e0531761255661d325cd0a80ac8c5f6de8942a53bb23c2197ccb97526972de662ed0e5d9393be83f3428a298a6e7185ecb02f0da6282019cd2ffb4a8
+  languageName: node
+  linkType: hard
+
 "debug@npm:^4.0.1, debug@npm:^4.1.0":
   version: 4.1.1
   resolution: "debug@npm:4.1.1"
@@ -3053,10 +3062,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dompurify@npm:^2.0.12":
-  version: 2.2.6
-  resolution: "dompurify@npm:2.2.6"
-  checksum: dfc77c2c603d84d4385a419acbda3f14777bf97f7a33a1de43d8a4f264171d12c916eda923715bc0199bcece20d3d6d3de730f3470d178c8ffdf25ba7ca18aee
+"dompurify@npm:^2.0.11":
+  version: 2.0.12
+  resolution: "dompurify@npm:2.0.12"
+  checksum: 72fe758306be02d95c7ac51cecaf9d887dea6291cd83012b1c251d21912545c18d6ccc7140b84da2278a6910517cd1e996258991c7e3dda9b6da34f0b6040b91
   languageName: node
   linkType: hard
 
@@ -3628,6 +3637,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fg-loadcss@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "fg-loadcss@npm:2.1.0"
+  checksum: 5672a437bd51ba418ffa3c304394a4f85d6b53ae2bbcec2ef54d6498642af4e2c11a9902a55bf95cd96e7e787483c2087f56569484a3120a4228d880ffec6309
+  languageName: node
+  linkType: hard
+
 "figgy-pudding@npm:^3.5.1":
   version: 3.5.2
   resolution: "figgy-pudding@npm:3.5.2"
@@ -3787,13 +3803,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.10.0":
-  version: 1.13.1
-  resolution: "follow-redirects@npm:1.13.1"
-  peerDependenciesMeta:
-    debug:
-      optional: true
-  checksum: c7c6c905876b939af04a1b27afa70e9c0ab5015d96f5ee49dd80db6952dc8c960b96a229647504468615d8a1a400da9bec9449e2aea9f9c6da6fdca0ba17d4c2
+"follow-redirects@npm:1.5.10":
+  version: 1.5.10
+  resolution: "follow-redirects@npm:1.5.10"
+  dependencies:
+    debug: =3.1.0
+  checksum: 6e58e02c31337b6b41ffc3d5f3d49920b7db428eddcf374537da00ef121fe473983e12d8557f4304287604168d3efcc288d1f009abaf4c9d61e5db0c0cee3c4a
   languageName: node
   linkType: hard
 
@@ -8070,7 +8085,7 @@ fsevents@~2.1.2:
   version: 0.0.0-use.local
   resolution: "tgui-dev-server@workspace:packages/tgui-dev-server"
   dependencies:
-    axios: ^0.21.1
+    axios: ^0.19.2
     common: "workspace:*"
     esm: ^3.2.25
     glob: ^7.1.4
@@ -8086,7 +8101,6 @@ fsevents@~2.1.2:
   resolution: "tgui-panel@workspace:packages/tgui-panel"
   dependencies:
     common: "workspace:*"
-    dompurify: ^2.0.12
     inferno: ^7.4.2
     tgui: "workspace:*"
     tgui-dev-server: "workspace:*"
@@ -8141,7 +8155,8 @@ fsevents@~2.1.2:
   resolution: "tgui@workspace:packages/tgui"
   dependencies:
     common: "workspace:*"
-    dompurify: ^2.0.12
+    dompurify: ^2.0.11
+    fg-loadcss: ^2.1.0
     inferno: ^7.4.2
     inferno-vnode-flags: ^7.4.2
     marked: ^1.1.0

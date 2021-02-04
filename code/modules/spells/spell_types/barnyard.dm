@@ -4,6 +4,7 @@
 	school = "transmutation"
 	charge_type = "recharge"
 	charge_max	= 150
+	charge_counter = 0
 	clothes_req = FALSE
 	stat_allowed = FALSE
 	invocation = "KN'A FTAGHU, PUCK 'BTHNK!"

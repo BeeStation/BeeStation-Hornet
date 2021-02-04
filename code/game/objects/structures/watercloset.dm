@@ -107,12 +107,19 @@
 		return ..()
 
 /obj/structure/toilet/secret
+	var/obj/item/secret
 	var/secret_type = null
 
-/obj/structure/toilet/secret/Initialize()
+/obj/structure/toilet/secret/Initialize(mapload)
 	. = ..()
 	if (secret_type)
-		new secret_type(src)
+		secret = new secret_type(src)
+		secret.desc += " It's a secret!"
+		w_items += secret.w_class
+		contents += secret
+
+
+
 
 /obj/structure/urinal
 	name = "urinal"

@@ -111,7 +111,6 @@
 	eggsleft = 0
 	egg_type = null
 	speak = list()
-	mobchatspan = "assistant"
 
 /*Cabin's forest. Removed in the new cabin map since it was buggy and I prefer manual placement.*/
 /datum/mapGenerator/snowy

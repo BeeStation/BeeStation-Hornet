@@ -90,7 +90,7 @@
 	if(istype(I, /obj/item/stack))
 		var/obj/item/stack/S = I
 
-		if(is_type_in_list(S, list(/obj/item/stack/sheet/iron, /obj/item/stack/rods, /obj/item/stack/tile/plasteel, /obj/item/stack/tile/light)))
+		if(is_type_in_list(S, list(/obj/item/stack/sheet/iron, /obj/item/stack/rods, /obj/item/stack/tile/plasteel)))
 			if(S.materials[/datum/material/iron])
 				S.cost = S.materials[/datum/material/iron] * 0.25
 			S.source = get_or_create_estorage(/datum/robot_energy_storage/metal)
@@ -350,7 +350,7 @@
 	hat_offset = -4
 
 /obj/item/robot_module/deathsquad
-	name = "CentCom"
+	name = "Centcom"
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/restraints/handcuffs/cable/zipties,

@@ -69,21 +69,21 @@
 	// Generate page html
 	var/html = SStgui.basehtml
 	html = replacetextEx(html, "\[tgui:windowId]", id)
-	// Inject inline assets
-	var/inline_assets_str = ""
+	// Process inline assets
+	var/inline_styles = ""
+	var/inline_scripts = ""
 	for(var/datum/asset/asset in inline_assets)
 		var/mappings = asset.get_url_mappings()
 		for(var/name in mappings)
 			var/url = mappings[name]
-			// Not encoding since asset strings are considered safe
+			// Not urlencoding since asset strings are considered safe
 			if(copytext(name, -4) == ".css")
-				inline_assets_str += "Byond.loadCss('[url]', true);\n"
+				inline_styles += "<link rel=\"stylesheet\" type=\"text/css\" href=\"[url]\">\n"
 			else if(copytext(name, -3) == ".js")
-				inline_assets_str += "Byond.loadJs('[url]', true);\n"
+				inline_scripts += "<script type=\"text/javascript\" defer src=\"[url]\"></script>\n"
 		asset.send(client)
-	if(length(inline_assets_str))
-		inline_assets_str = "<script>\n" + inline_assets_str + "</script>\n"
-	html = replacetextEx(html, "<!-- tgui:assets -->\n", inline_assets_str)
+	html = replacetextEx(html, "<!-- tgui:styles -->\n", inline_styles)
+	html = replacetextEx(html, "<!-- tgui:scripts -->\n", inline_scripts)
 	// Inject custom HTML
 	html = replacetextEx(html, "<!-- tgui:html -->\n", inline_html)
 	// Open the window

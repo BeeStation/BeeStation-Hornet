@@ -27,7 +27,7 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/invisimin,				/*allows our mob to go invisible/visible*/
 //	/datum/admins/proc/show_traitor_panel,	/*interface which shows a mob's mind*/ -Removed due to rare practical use. Moved to debug verbs ~Errorage
 	/datum/admins/proc/show_player_panel,	/*shows an interface for individual players, with various links (links require additional flags*/
-	/client/proc/playerpanel,
+	/datum/verbs/menu/Admin/verb/playerpanel,
 	/client/proc/game_panel,			/*game panel, allows to change game-mode etc*/
 	/client/proc/check_ai_laws,			/*shows AI and borg laws*/
 	/datum/admins/proc/toggleooc,		/*toggles ooc on/off for everyone*/
@@ -142,7 +142,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/restart_controller,
 	/client/proc/cmd_admin_list_open_jobs,
 	/client/proc/Debug2,
-	/client/proc/cmd_debug_make_powernets, 
+	/client/proc/cmd_debug_make_powernets,
 	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_admin_delete,
 	/client/proc/cmd_debug_del_all,
@@ -150,7 +150,6 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/enable_debug_verbs,
 	/client/proc/callproc,
 	/client/proc/callproc_datum,
-	/client/proc/forcemapconfig,
 	/client/proc/SDQL2_query,
 	/client/proc/test_movable_UI,
 	/client/proc/test_snap_UI,
@@ -176,12 +175,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/cmd_display_init_log,
 	/client/proc/cmd_display_overlay_log,
 	/client/proc/reload_configuration,
-	/client/proc/give_all_spells,
 	/datum/admins/proc/create_or_modify_area,
-#ifdef REFERENCE_TRACKING
-	/datum/admins/proc/view_refs,
-	/datum/admins/proc/view_del_failures,
-#endif
 	/client/proc/toggle_cdn
 	)
 
@@ -264,37 +258,36 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		control_freak = CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
 
 		var/rights = holder.rank.rights
-		add_verb(GLOB.admin_verbs_default)
+		verbs += GLOB.admin_verbs_default
 		if(rights & R_BUILD)
-			add_verb(/client/proc/togglebuildmodeself)
+			verbs += /client/proc/togglebuildmodeself
 		if(rights & R_ADMIN)
-			add_verb(GLOB.admin_verbs_admin)
+			verbs += GLOB.admin_verbs_admin
 		if(rights & R_BAN)
-			add_verb(GLOB.admin_verbs_ban)
+			verbs += GLOB.admin_verbs_ban
 		if(rights & R_FUN)
-			add_verb(GLOB.admin_verbs_fun)
+			verbs += GLOB.admin_verbs_fun
 		if(rights & R_SERVER)
-			add_verb(GLOB.admin_verbs_server)
+			verbs += GLOB.admin_verbs_server
 		if(rights & R_DEBUG)
-			add_verb(GLOB.admin_verbs_debug)
+			verbs += GLOB.admin_verbs_debug
 		if(rights & R_POSSESS)
-			add_verb(GLOB.admin_verbs_possess)
+			verbs += GLOB.admin_verbs_possess
 		if(rights & R_PERMISSIONS)
-			add_verb(GLOB.admin_verbs_permissions)
+			verbs += GLOB.admin_verbs_permissions
 		if(rights & R_STEALTH)
-			add_verb(/client/proc/stealth)
+			verbs += /client/proc/stealth
 		if(rights & R_ADMIN)
-			add_verb(GLOB.admin_verbs_poll)
+			verbs += GLOB.admin_verbs_poll
 		if(rights & R_SOUND)
-			add_verb(GLOB.admin_verbs_sounds)
+			verbs += GLOB.admin_verbs_sounds
 			if(CONFIG_GET(string/invoke_youtubedl))
-				add_verb(/client/proc/play_web_sound)
+				verbs += /client/proc/play_web_sound
 		if(rights & R_SPAWN)
-			add_verb(GLOB.admin_verbs_spawn)
+			verbs += GLOB.admin_verbs_spawn
 
 /client/proc/remove_admin_verbs()
-	var/list/verb_list = list()
-	verb_list.Add(
+	verbs.Remove(
 		GLOB.admin_verbs_default,
 		/client/proc/togglebuildmodeself,
 		GLOB.admin_verbs_admin,
@@ -315,14 +308,13 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		/client/proc/readmin,
 		/client/proc/fix_say
 		)
-	remove_verb(verb_list)
 
 /client/proc/hide_most_verbs()//Allows you to keep some functionality while hiding some verbs
 	set name = "Adminverbs - Hide Most"
 	set category = "Admin"
 
-	remove_verb(list(/client/proc/hide_most_verbs) + GLOB.admin_verbs_hideable)
-	add_verb(/client/proc/show_verbs)
+	verbs.Remove(/client/proc/hide_most_verbs, GLOB.admin_verbs_hideable)
+	verbs += /client/proc/show_verbs
 
 	to_chat(src, "<span class='interface'>Most of your adminverbs have been hidden.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Hide Most Adminverbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -333,7 +325,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set category = "Admin"
 
 	remove_admin_verbs()
-	add_verb(/client/proc/show_verbs)
+	verbs += /client/proc/show_verbs
 
 	to_chat(src, "<span class='interface'>Almost all of your adminverbs have been hidden.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Hide All Adminverbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -343,7 +335,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set name = "Adminverbs - Show"
 	set category = "Admin"
 
-	remove_verb(/client/proc/show_verbs)
+	verbs -= /client/proc/show_verbs
 	add_admin_verbs()
 
 	to_chat(src, "<span class='interface'>All of your adminverbs are now visible.</span>")

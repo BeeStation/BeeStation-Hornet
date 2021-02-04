@@ -17,7 +17,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	prepare_huds()
 
 	if(length(CONFIG_GET(keyed_list/cross_server)))
-		add_verb(/mob/dead/proc/server_hop)
+		verbs += /mob/dead/proc/server_hop
 	set_focus(src)
 	return INITIALIZE_HINT_NORMAL
 
@@ -39,26 +39,27 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	loc = destination
 	Moved(oldloc, NONE, TRUE)
 
-/mob/dead/get_stat_tab_status()
-	var/list/tab_data = ..()
+/mob/dead/Stat()
+	..()
 
-	tab_data["Game Mode"] = GENERATE_STAT_TEXT("[SSticker.hide_mode ? "Secret" : "[GLOB.master_mode]"]")
+	if(!statpanel("Status"))
+		return
+	stat(null, "Game Mode: [SSticker.hide_mode ? "Secret" : "[GLOB.master_mode]"]")
 
 	if(SSticker.HasRoundStarted())
-		return tab_data
+		return
 
 	var/time_remaining = SSticker.GetTimeLeft()
 	if(time_remaining > 0)
-		tab_data["Time To Start"] = GENERATE_STAT_TEXT("[round(time_remaining/10)]s")
+		stat(null, "Time To Start: [round(time_remaining/10)]s")
 	else if(time_remaining == -10)
-		tab_data["Time To Start"] = GENERATE_STAT_TEXT("DELAYED")
+		stat(null, "Time To Start: DELAYED")
 	else
-		tab_data["Time To Start"] = GENERATE_STAT_TEXT("SOON")
+		stat(null, "Time To Start: SOON")
 
-	tab_data["Players"] = GENERATE_STAT_TEXT("[SSticker.totalPlayers]")
+	stat(null, "Players: [SSticker.totalPlayers]")
 	if(client.holder)
-		tab_data["Players Ready"] = GENERATE_STAT_TEXT("[SSticker.totalPlayersReady]")
-	return tab_data
+		stat(null, "Players Ready: [SSticker.totalPlayersReady]")
 
 /mob/dead/proc/server_hop()
 	set category = "OOC"
@@ -70,7 +71,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	var/pick
 	switch(csa.len)
 		if(0)
-			remove_verb(/mob/dead/proc/server_hop)
+			verbs -= /mob/dead/proc/server_hop
 			to_chat(src, "<span class='notice'>Server Hop has been disabled.</span>")
 		if(1)
 			pick = csa[1]
@@ -87,7 +88,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 
 	var/client/C = client
 	to_chat(C, "<span class='notice'>Sending you to [pick].</span>")
-	new /atom/movable/screen/splash(C)
+	new /obj/screen/splash(C)
 
 	notransform = TRUE
 	sleep(29)	//let the animation play

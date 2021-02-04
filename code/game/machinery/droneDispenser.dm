@@ -135,9 +135,14 @@
 
 /obj/machinery/droneDispenser/power_change()
 	..()
+	if(powered())
+		stat &= ~NOPOWER
+	else
+		stat |= NOPOWER
 	update_icon()
 
 /obj/machinery/droneDispenser/process()
+	..()
 	if((stat & (NOPOWER|BROKEN)) || !anchored)
 		return
 

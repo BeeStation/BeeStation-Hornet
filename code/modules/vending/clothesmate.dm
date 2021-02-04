@@ -72,7 +72,6 @@
 		            /obj/item/clothing/suit/jacket = 2,
 		            /obj/item/clothing/suit/jacket/puffer/vest = 2,
 		            /obj/item/clothing/suit/jacket/puffer = 2,
-					/obj/item/clothing/suit/toggle/softshell = 2,
 		            /obj/item/clothing/suit/jacket/letterman = 2,
 		            /obj/item/clothing/suit/jacket/letterman_red = 2,
 		            /obj/item/clothing/glasses/sunglasses = 2,

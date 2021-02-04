@@ -313,7 +313,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/sweat
 	name = "Hyperperspiration"
-	desc = "Causes the host to sweat profusely, leaving small water puddles and extinguishing small fires"
+	desc = "Causes the host to sweat profusely, leaving small water puddles and extnguishing small fires"
 	stealth = 1
 	resistance = -1
 	stage_speed = 0
@@ -430,7 +430,7 @@ obj/effect/sweatsplash/proc/splash()
 					to_chat(M, "<span class='userwarning'>The lukewarm temperature makes you feel strange!</span>")
 			if(cooldowntimer == 0 && ((M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT + telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTHEAT)) || (M.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT - telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTCOLD)) || (burnheal && M.getFireLoss() > 60 + telethreshold)))
 				do_sparks(5,FALSE,M)
-				to_chat(M, "<span class='userdanger'>The change in temperature shocks you back to a previous spatial state!</span>")
+				to_chat(M, "<span class='userdanger'>The change in temperature shocks you back to a previous spacial state!</span>")
 				do_teleport(M, location_return, 0, asoundin = 'sound/effects/phasein.ogg') //Teleports home
 				do_sparks(5,FALSE,M)
 				cooldowntimer = 10
@@ -576,6 +576,7 @@ obj/effect/sweatsplash/proc/splash()
 	use_cooldown = TRUE
 	show_flavour = FALSE	//it's handled by antag datum
 
+
 /obj/effect/mob_spawn/teratomamonkey/Initialize()
 	. = ..()
 	var/area/A = get_area(src)
@@ -597,3 +598,8 @@ obj/effect/sweatsplash/proc/splash()
 		qdel(src)
 	else
 		..()
+
+/obj/effect/mob_spawn/teratomamonkey/create(ckey, name)
+	..()
+	var/datum/antagonist/teratoma/hugbox/D = new
+	usr.mind.add_antag_datum(D)

@@ -65,10 +65,8 @@
 // Pipenet stuff; housekeeping
 
 /obj/machinery/atmospherics/components/nullifyNode(i)
-	// Every node has a parent pipeline and an air associated with it, but we need to accomdate for edge cases like init dir cache building...
-	if(parents[i])
+	if(nodes[i])
 		nullifyPipenet(parents[i])
-	if(airs[i])
 		QDEL_NULL(airs[i])
 	..()
 
@@ -78,7 +76,7 @@
 
 /obj/machinery/atmospherics/components/build_network()
 	for(var/i in 1 to device_type)
-		if(QDELETED(parents[i]))
+		if(!parents[i])
 			parents[i] = new /datum/pipeline()
 			var/datum/pipeline/P = parents[i]
 			P.build_pipeline(src)
@@ -89,27 +87,10 @@
 	var/i = parents.Find(reference)
 	reference.other_airs -= airs[i]
 	reference.other_atmosmch -= src
-	/**
-	 *  We explicitly qdel pipeline when this particular pipeline
-	 *  is projected to have no member and cause GC problems.
-	 *  We have to do this because components don't qdel pipelines
-	 *  while pipes must and will happily wreck and rebuild everything again
-	 *  every time they are qdeleted.
-	 */
-	if(!(reference.other_atmosmch.len || reference.members.len || QDESTROYING(reference)))
-		qdel(reference)
 	parents[i] = null
 
-// We should return every air sharing a parent
 /obj/machinery/atmospherics/components/returnPipenetAir(datum/pipeline/reference)
-	for(var/i in 1 to device_type)
-		if(parents[i] == reference)
-			if(.)
-				if(!islist(.))
-					. = list(.)
-				. += airs[i]
-			else
-				. = airs[i]
+	return airs[parents.Find(reference)]
 
 /obj/machinery/atmospherics/components/pipeline_expansion(datum/pipeline/reference)
 	if(reference)
@@ -162,11 +143,9 @@
 	for(var/i in 1 to device_type)
 		var/datum/pipeline/parent = parents[i]
 		if(!parent)
-			//WARNING("Component is missing a pipenet! Rebuilding...")
-			//At pre-SSair_rebuild_pipenets times, not having a parent wasn't supposed to happen
-			SSair.add_to_rebuild_queue(src)
-			continue
-		parent.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
+			WARNING("Component is missing a pipenet! Rebuilding...")
+			build_network()
+		parent.update = 1
 
 /obj/machinery/atmospherics/components/returnPipenets()
 	. = list()

@@ -192,9 +192,6 @@
 	if(!ishuman(owner.current))
 		to_chat(owner.current, "<span class='danger'>We can't remove our evolutions in this form!</span>")
 		return
-	if(isabsorbing)
-		to_chat(owner.current, "<span class='danger'>We cannot readapt right now!</span>")
-		return
 	if(canrespec)
 		to_chat(owner.current, "<span class='notice'>We have removed our evolutions from this form, and are now ready to readapt.</span>")
 		reset_powers()
@@ -364,8 +361,6 @@
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_aler.ogg', 100, FALSE, pressure_affected = FALSE)
 
 	owner.announce_objectives()
-	owner.current.client?.tgui_panel?.give_antagonist_popup("Changeling",
-		"You have absorbed the form of [owner.current] and have infiltrated the station. Use your changeling powers to complete your objectives.")
 
 /datum/antagonist/changeling/farewell()
 	to_chat(owner.current, "<span class='userdanger'>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</span>")

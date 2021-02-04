@@ -10,10 +10,6 @@
 
 	START_PROCESSING(SSprocessing, src)
 
-/datum/component/rot/Destroy()
-	STOP_PROCESSING(SSprocessing, src)
-	return ..()
-
 /datum/component/rot/process()
 	var/atom/A = parent
 
@@ -37,9 +33,6 @@
 
 /datum/component/rot/corpse/process()
 	var/mob/living/carbon/C = parent
-	if(C == null) //can't delete what doesnt exist
-		return
-
 	if(C.stat != DEAD)
 		qdel(src)
 		return

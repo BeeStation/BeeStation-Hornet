@@ -146,14 +146,10 @@
 									crimstat = E.fields["criminal"]
 							var/background
 							switch(crimstat)
-								if("Arrest")
+								if("*Arrest*")
 									background = "'background-color:#990000;'"
 								if("Incarcerated")
-									background = "'background-color:#EB4823;'"
-								if("Search")
-									background = "'background-color:#9B13EB;'"
-								if("Monitor")
-									background = "'background-color:#990000;'"
+									background = "'background-color:#CD6500;'"
 								if("Paroled")
 									background = "'background-color:#CD6500;'"
 								if("Discharged")
@@ -234,7 +230,7 @@
 							else
 								dat += "<td>All Paid Off</td>"
 							dat += {"<td>
-							<A href='?src=[REF(src)];choice=Edit Field;field=citation_delete;cdataid=[c.dataId]'>\[X\]</A>
+							<A href='?src=[REF(src)];choice=Edit  Field;field=citation_delete;cdataid=[c.dataId]'>\[X\]</A>
 							</td>
 							</tr>"}
 						dat += "</table>"
@@ -739,9 +735,7 @@ What a mess.*/
 							temp = "<h5>Criminal Status:</h5>"
 							temp += "<ul>"
 							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=none'>None</a></li>"
-							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=arrest'>Arrest</a></li>"
-							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=search'>Search</a></li>"
-							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=monitor'>Monitor</a></li>"
+							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=arrest'>*Arrest*</a></li>"
 							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=incarcerated'>Incarcerated</a></li>"
 							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=paroled'>Paroled</a></li>"
 							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=released'>Discharged</a></li>"
@@ -774,11 +768,7 @@ What a mess.*/
 								if("none")
 									active2.fields["criminal"] = "None"
 								if("arrest")
-									active2.fields["criminal"] = "Arrest"
-								if("search")
-									active2.fields["criminal"] = "Search"
-								if("monitor")
-									active2.fields["criminal"] = "Monitor"
+									active2.fields["criminal"] = "*Arrest*"
 								if("incarcerated")
 									active2.fields["criminal"] = "Incarcerated"
 								if("paroled")
@@ -797,8 +787,6 @@ What a mess.*/
 					if("Delete Record (ALL) Execute")
 						if(active1)
 							investigate_log("[key_name(usr)] has deleted all records for [active1.fields["name"]].", INVESTIGATE_RECORDS)
-							if(isAI(usr) || iscyborg(usr))
-								message_admins("[ADMIN_LOOKUPFLW(usr)] has deleted all records for [active1.fields["name"]] as Borg/AI Player.")
 							for(var/datum/data/record/R in GLOB.data_core.medical)
 								if((R.fields["name"] == active1.fields["name"] || R.fields["id"] == active1.fields["id"]))
 									qdel(R)
@@ -858,7 +846,7 @@ What a mess.*/
 				if(3)
 					R.fields["age"] = rand(5, 85)
 				if(4)
-					R.fields["criminal"] = pick("None", "Arrest", "Search", "Monitor", "Incarcerated", "Paroled", "Discharged")
+					R.fields["criminal"] = pick("None", "*Arrest*", "Incarcerated", "Paroled", "Discharged")
 				if(5)
 					R.fields["p_stat"] = pick("*Unconscious*", "Active", "Physically Unfit")
 				if(6)

@@ -3,7 +3,6 @@
 	desc = "Contains all the luck you'll ever need."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
-	pill_variance = 0
 
 /obj/item/storage/pill_bottle/dice/Initialize()
 	. = ..()
@@ -40,7 +39,6 @@
 	desc = "For rolling several dice at once. A favorite of street urchins."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicecup"
-	pill_variance = 0
 
 /obj/item/storage/pill_bottle/dice_cup/attack_self(mob/user)
 	var/turf/throw_target = get_step(loc,user.dir) //with telekinesis, throws the direction the user is facing

@@ -15,7 +15,6 @@
 	turns_per_move = 10
 	can_be_held = TRUE
 	mobsay_color = "#ECDA88"
-	mobchatspan = "corgi"
 
 	do_footstep = TRUE
 
@@ -489,10 +488,10 @@
 						movement_target.attack_animal(src)
 					else if(ishuman(movement_target.loc) )
 						if(prob(20))
-							INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
+							emote("me", 1, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
 
 		if(prob(1))
-			INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("dances around.","chases its tail!"))
+			emote("me", 1, pick("dances around.","chases its tail!"))
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
 					setDir(i)
@@ -652,12 +651,11 @@
 /mob/living/simple_animal/pet/dog/corgi/Lisa/Life()
 	..()
 
-	if(next_scan_time <= world.time)
-		make_babies()
+	make_babies()
 
 	if(!stat && !resting && !buckled)
 		if(prob(1))
-			INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("dances around.","chases her tail."))
+			emote("me", 1, pick("dances around.","chases her tail."))
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
 					setDir(i)
@@ -668,7 +666,7 @@
 
 	if(!stat && !resting && !buckled)
 		if(prob(1))
-			INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("chases its tail."))
+			emote("me", 1, pick("chases its tail."))
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
 					setDir(i)
@@ -678,16 +676,17 @@
 	. = ..()
 	switch(M.a_intent)
 		if("help")
-			wuv(TRUE, M)
+			wuv(1,M)
 		if("harm")
-			wuv(FALSE, M)
+			wuv(-1,M)
 
 /mob/living/simple_animal/pet/dog/proc/wuv(change, mob/M)
 	if(change)
-		if(M && stat != DEAD) // Added check to see if this mob (the dog) is dead to fix issue 2454
-			new /obj/effect/temp_visual/heart(loc)
-			emote("me", 1, "yaps happily!")
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
-	else
-		if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
-			emote("me", 1, "growls!")
+		if(change > 0)
+			if(M && stat != DEAD) // Added check to see if this mob (the dog) is dead to fix issue 2454
+				new /obj/effect/temp_visual/heart(loc)
+				emote("me", 1, "yaps happily!")
+				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
+		else
+			if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
+				emote("me", 1, "growls!")

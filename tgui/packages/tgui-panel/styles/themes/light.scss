@@ -33,9 +33,8 @@
 
   // Components
   @include meta.load-css('~tgui/styles/components/Tabs.scss', $with: (
-    'text-color': rgba(0, 0, 0, 0.7),
-    'text-color-selected': rgb(0, 0, 0),
-    'color-default': rgb(0, 0, 0),
+    'text-color': rgba(0, 0, 0, 0.5),
+    'color-default': rgba(0, 0, 0, 1),
   ));
   @include meta.load-css('~tgui/styles/components/Section.scss', $with: (
     // 'background-color': rgba(0, 0, 0, 0.1),
@@ -50,7 +49,7 @@
     'color-selected': #0668b8,
     'color-caution': #be6209,
     'color-danger': #9a9d00,
-    'color-transparent-text': rgba(0, 0, 0, 0.8),
+    'color-transparent-text': rgba(0, 0, 0, 0.5),
   ));
   @include meta.load-css('~tgui/styles/components/Input.scss', $with: (
     'border-color': colors.fg(colors.$label),
@@ -80,9 +79,4 @@
 
   // Goonchat styles
   @include meta.load-css('../goon/chat-light.scss');
-
-  //Stat styles
-  @include meta.load-css('../components/Stat.scss', $with: (
-    'border-color': #000000,
-  ));
 }

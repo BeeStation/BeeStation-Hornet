@@ -47,7 +47,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	move_resist = INFINITY
 	hud_type = /datum/hud/ghost
 	hud_possible = list(ANTAG_HUD)
-	mobchatspan = "rainbow"
+
 
 /mob/living/simple_animal/hostile/floor_cluwne/Initialize()
 	. = ..()
@@ -257,6 +257,18 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 				Appear()
 				manifested = FALSE
 				addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Manifest), 1)
+				if(current_victim.hud_used)//yay skewium
+					var/list/screens = list(current_victim.hud_used.plane_masters["[GAME_PLANE]"], current_victim.hud_used.plane_masters["[LIGHTING_PLANE]"])
+					var/matrix/skew = matrix()
+					var/intensity = 8
+					skew.set_skew(rand(-intensity,intensity), rand(-intensity,intensity))
+					var/matrix/newmatrix = skew
+
+					for(var/whole_screen in screens)
+						animate(whole_screen, transform = newmatrix, time = 5, easing = QUAD_EASING, loop = -1)
+						animate(transform = -newmatrix, time = 5, easing = QUAD_EASING)
+
+					addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Reset_View, screens), 10)
 
 		if(STAGE_TORMENT)
 
@@ -315,7 +327,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 		if(STAGE_ATTACK)
 			if(dontkill)
-				stage = STAGE_TORMENT
+				stage = STAGE_TORMENT 
 				return
 			if(!eating)
 				Found_You()
@@ -328,7 +340,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 							forceMove(H.loc)
 				to_chat(H, "<span class='userdanger'>You feel the floor closing in on your feet!</span>")
 				H.Paralyze(300)
-				INVOKE_ASYNC(H, /mob.proc/emote, "scream")
+				H.emote("scream")
 				H.adjustBruteLoss(10)
 				manifested = TRUE
 				Manifest()

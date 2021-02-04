@@ -96,14 +96,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 	return defcon
 
 /datum/controller/failsafe/stat_entry()
-	var/list/tab_data = list()
-	tab_data["Failsafe Controller"] = list(
-		text="Defcon: [defcon_pretty()] (Interval: [Failsafe.processing_interval] | Iteration: [Failsafe.master_iteration])",
-		action = "statClickDebug",
-		params=list(
-			"targetRef" = REF(src),
-			"class"="controller",
-		),
-		type=STAT_BUTTON,
-	)
-	return tab_data
+	if(!statclick)
+		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
+
+	stat("Failsafe Controller:", statclick.update("Defcon: [defcon_pretty()] (Interval: [Failsafe.processing_interval] | Iteration: [Failsafe.master_iteration])"))

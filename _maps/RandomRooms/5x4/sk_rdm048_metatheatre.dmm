@@ -6,7 +6,7 @@
 /area/template_noop)
 "b" = (
 /obj/structure/closet/crate{
-	opened = 1
+	icon_state = "crateopen"
 	},
 /obj/effect/spawner/lootdrop/maintenance/three,
 /turf/open/floor/plating,

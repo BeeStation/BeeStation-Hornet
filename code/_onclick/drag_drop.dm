@@ -89,10 +89,10 @@
 /atom/proc/IsAutoclickable()
 	. = 1
 
-/atom/movable/screen/IsAutoclickable()
+/obj/screen/IsAutoclickable()
 	. = 0
 
-/atom/movable/screen/click_catcher/IsAutoclickable()
+/obj/screen/click_catcher/IsAutoclickable()
 	. = 1
 
 //Please don't roast me too hard

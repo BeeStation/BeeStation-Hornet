@@ -36,7 +36,7 @@
 /datum/objective/crew/foodhoard
 	var/datum/crafting_recipe/food/targetfood
 	var/obj/item/reagent_containers/food/foodpath
-	explanation_text = "Personally deliver at least (Something broke, yell on GitHub) to CentCom."
+	explanation_text = "Personally deliver at least (Something broke, yell on GitHub) to Centcom."
 	jobs = "cook"
 
 /datum/objective/crew/foodhoard/New()
@@ -50,7 +50,7 @@
 
 /datum/objective/crew/foodhoard/update_explanation_text()
 	. = ..()
-	explanation_text = "Personally deliver at least [target_amount] [initial(foodpath.name)]s to CentCom."
+	explanation_text = "Personally deliver at least [target_amount] [initial(foodpath.name)]s to Centcom."
 
 /datum/objective/crew/foodhoard/check_completion()
 	if(owner.current && owner.current.check_contents_for(foodpath) && SSshuttle.emergency.shuttle_areas[get_area(owner.current)])

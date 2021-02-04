@@ -228,7 +228,6 @@
 	desc = "A shitty knockoff of a portable microcomputer by Thinktronic Systems, LTD. Complete with a cracked operating system."
 	note = "Error: Unlicensed OS. Please contact your supervisor."
 	icon_state = "pda-knockoff"
-	inserted_item = /obj/item/pen/charcoal
 
 /obj/item/pda/celebrity
 	name = "fancy PDA"

@@ -25,9 +25,6 @@
 /proc/moth_name()
 	return "[pick(GLOB.moth_first)] [pick(GLOB.moth_last)]"
 
-/proc/ooze_name()
-	return "[pick(GLOB.oozeling_first_names)] [pick(GLOB.oozeling_last_names)]"
-
 proc/squid_name(gender)
 	if(gender == MALE)
 		return "[pick(GLOB.squid_names_male)] [pick(GLOB.last_names)]"
@@ -85,12 +82,11 @@ GLOBAL_VAR(command_name)
 		name = ""
 
 	// Prefix
-	var/holiday_name = pick(SSevents.holidays)
-	if(holiday_name)
+	for(var/holiday_name in SSevents.holidays)
+		if(holiday_name == "Friday the 13th")
+			random = 13
 		var/datum/holiday/holiday = SSevents.holidays[holiday_name]
 		name = holiday.getStationPrefix()
-		if(istype(holiday, /datum/holiday/friday_thirteenth))
-			random = 13
 		//get normal name
 	if(!name)
 		name = pick(GLOB.station_names)

@@ -21,7 +21,6 @@
 #define HALLOWEEN				"Halloween"
 #define CHRISTMAS				"Christmas"
 #define FESTIVE_SEASON			"Festive Season"
-#define GARBAGEDAY				"Garbage Day"
 
 /*
 

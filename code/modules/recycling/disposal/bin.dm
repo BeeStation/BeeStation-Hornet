@@ -23,6 +23,7 @@
 	var/flush_every_ticks = 30 //Every 30 ticks it will look whether it is ready to flush
 	var/flush_count = 0 //this var adds 1 once per tick. When it reaches flush_every_ticks it resets and tries to flush.
 	var/last_sound = 0
+	var/obj/structure/disposalconstruct/stored
 	// create a new disposal
 	// find the attached trunk (if present) and init gas resvr.
 
@@ -31,7 +32,11 @@
 
 	if(make_from)
 		setDir(make_from.dir)
+		make_from.moveToNullspace()
+		stored = make_from
 		pressure_charging = FALSE // newly built disposal bins start with pump off
+	else
+		stored = new /obj/structure/disposalconstruct(null, null , SOUTH , FALSE , src)
 
 	trunk_check()
 
@@ -229,10 +234,16 @@
 	qdel(H)
 
 /obj/machinery/disposal/deconstruct(disassembled = TRUE)
+	var/turf/T = loc
 	if(!(flags_1 & NODECONSTRUCT_1))
-		new /obj/structure/disposalconstruct(loc, null, SOUTH, FALSE, src)
+		if(stored)
+			stored.forceMove(T)
+			src.transfer_fingerprints_to(stored)
+			stored.anchored = FALSE
+			stored.density = TRUE
+			stored.update_icon()
 	for(var/atom/movable/AM in src) //out, out, darned crowbar!
-		AM.forceMove(get_turf(src))
+		AM.forceMove(T)
 	..()
 
 /obj/machinery/disposal/get_dumping_location(obj/item/storage/source,mob/user)
@@ -427,7 +438,7 @@
 
 /obj/machinery/disposal/bin/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
 
 //Delivery Chute
 

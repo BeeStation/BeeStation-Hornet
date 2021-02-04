@@ -8,14 +8,11 @@
 	liked_food = DAIRY | MEAT
 
 	mutant_bodyparts = list("ears", "tail_human")
-	default_features = list("mcolor" = "FFF", "wings" = "None")
-	forced_features = list("tail_human" = "Cat", "ears" = "Cat")
+	default_features = list("mcolor" = "FFF", "tail_human" = "Cat", "ears" = "Cat", "wings" = "None")
 
 	mutantears = /obj/item/organ/ears/cat
 	mutanttail = /obj/item/organ/tail/cat
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
-
-	swimming_component = /datum/component/swimming/felinid
 
 /datum/species/human/felinid/qualifies_for_rank(rank, list/features)
 	return TRUE
@@ -98,7 +95,7 @@
 
 /datum/species/human/felinid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/M)
 	.=..()
-	if(istype(chem, /datum/reagent/consumable/cocoa))
+	if(chem.type == /datum/reagent/consumable/cocoa)
 		if(prob(40))
 			M.adjust_disgust(20)
 		if(prob(5))

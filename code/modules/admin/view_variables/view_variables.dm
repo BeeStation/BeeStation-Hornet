@@ -27,9 +27,8 @@
 
 	if(istype(D, /atom))
 		sprite = getFlatIcon(D)
-		hash = md5(icon2base64(sprite))
-		if(hash) //Fixes VV shitting it's pants if the icon isn't valid
-			src << browse_rsc(sprite, "vv[hash].png")
+		hash = md5(sprite)
+		src << browse_rsc(sprite, "vv[hash].png")
 
 	title = "[D] ([REF(D)]) = [type]"
 	var/formatted_type = replacetext("[type]", "/", "<wbr>/")
@@ -59,9 +58,6 @@
 			"Set len" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_SET_LENGTH),
 			"Shuffle" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_SHUFFLE),
 			"Show VV To Player" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_EXPOSE),
-			#ifdef REFERENCE_TRACKING
-			"View References" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_VIEW_REFERENCES),
-			#endif
 			"---"
 			)
 		for(var/i in 1 to length(dropdownoptions))

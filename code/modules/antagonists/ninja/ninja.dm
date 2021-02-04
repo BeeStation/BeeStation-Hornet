@@ -123,8 +123,7 @@
 	to_chat(owner.current, "Surprise is my weapon. Shadows are my armor. Without them, I am nothing. (//initialize your suit by right clicking on it, to use abilities like stealth)!")
 	to_chat(owner.current, "Officially, [helping_station?"Nanotrasen":"The Syndicate"] are my employer.")
 	owner.announce_objectives()
-	owner.current.client?.tgui_panel?.give_antagonist_popup("Ninja",
-		"Infiltrate the station and complete your assigned objectives.")
+	return
 
 /datum/antagonist/ninja/on_gain()
 	if(give_objectives)

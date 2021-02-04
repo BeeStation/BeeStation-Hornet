@@ -416,9 +416,6 @@
 
 /atom/movable/proc/forceMove(atom/destination)
 	. = FALSE
-	if(destination == null) //destination destroyed due to explosion
-		return
-
 	if(destination)
 		. = doMove(destination)
 	else
@@ -536,12 +533,8 @@
 		return
 	return throw_at(target, range, speed, thrower, spin, diagonals_first, callback, force)
 
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG, quickstart = TRUE) //If this returns FALSE then callback will not be called.
+/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG) //If this returns FALSE then callback will not be called.
 	. = FALSE
-
-	if(QDELETED(src))
-		CRASH("Qdeleted thing being thrown around.")
-
 	if (!target || speed <= 0)
 		return
 
@@ -577,14 +570,20 @@
 
 	. = TRUE // No failure conditions past this point.
 
-	var/target_zone
-	if(QDELETED(thrower))
-		thrower = null //Let's not pass a qdeleting reference if any.
-	else
-		target_zone = thrower.zone_selected
-
-	var/datum/thrownthing/TT = new(src, target, get_turf(target), get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, target_zone)
-
+	var/datum/thrownthing/TT = new()
+	TT.thrownthing = src
+	TT.target = target
+	TT.target_turf = get_turf(target)
+	TT.init_dir = get_dir(src, target)
+	TT.maxrange = range
+	TT.speed = speed
+	TT.thrower = thrower
+	TT.diagonals_first = diagonals_first
+	TT.force = force
+	TT.callback = callback
+	if(!QDELETED(thrower))
+		TT.target_zone = thrower.zone_selected
+	
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
 	var/dx = (target.x > src.x) ? EAST : WEST
@@ -618,9 +617,7 @@
 	SSthrowing.processing[src] = TT
 	if (SSthrowing.state == SS_PAUSED && length(SSthrowing.currentrun))
 		SSthrowing.currentrun[src] = TT
-
-	if(quickstart)
-		TT.tick()
+	TT.tick()
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc,direct)
 	for(var/m in buckled_mobs)
@@ -764,8 +761,9 @@
 	if(throwing)
 		return
 	if(on && !(movement_type & FLOATING))
-		animate(src, pixel_y = 2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
-		animate(pixel_y = -2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
+		animate(src, pixel_y = pixel_y + 2, time = 10, loop = -1)
+		sleep(10)
+		animate(src, pixel_y = pixel_y - 2, time = 10, loop = -1)
 		setMovetype(movement_type | FLOATING)
 	else if (!on && (movement_type & FLOATING))
 		animate(src, pixel_y = initial(pixel_y), time = 10)
@@ -906,9 +904,3 @@
 	animate(I, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 3, transform = M, easing = CUBIC_EASING)
 	sleep(1)
 	animate(I, alpha = 0, transform = matrix(), time = 1)
-
-/atom/movable/proc/get_spawner_desc()
-	return name
-
-/atom/movable/proc/get_spawner_flavour_text()
-	return desc

@@ -276,6 +276,7 @@
 		"<span class='admin'>SDQL combined querys took [DisplayTimeText(end_time_total)] to complete.</span>") + combined_refs
 
 GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
+GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null, "VIEW VARIABLES (all)", null))
 
 /datum/SDQL2_query
 	var/list/query_tree
@@ -303,6 +304,10 @@ GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
 	var/list/obj_count_all
 	var/list/obj_count_eligible
 	var/obj_count_finished
+
+	//Statclick
+	var/obj/effect/statclick/SDQL2_delete/delete_click
+	var/obj/effect/statclick/SDQL2_action/action_click
 
 /datum/SDQL2_query/New(list/tree, SU = FALSE, admin_interact = TRUE, _options = SDQL2_OPTIONS_DEFAULT, finished_qdel = FALSE)
 	if(IsAdminAdvancedProcCall() || !LAZYLEN(tree))
@@ -386,29 +391,17 @@ GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
 			return "##HALTING"
 
 /datum/SDQL2_query/proc/generate_stat()
-	var/list/tab_data = list()
 	if(!allow_admin_interact)
 		return
-	tab_data["Delete Query [id]"] = list(
-		text = "DELETE QUERY | STATE : [text_state()] | ALL/ELIG/FIN \
-			[islist(obj_count_all)? length(obj_count_all) : (isnull(obj_count_all)? "0" : obj_count_all)]/\
-			[islist(obj_count_eligible)? length(obj_count_eligible) : (isnull(obj_count_eligible)? "0" : obj_count_eligible)]/\
-			[islist(obj_count_finished)? length(obj_count_finished) : (isnull(obj_count_finished)? "0" : obj_count_finished)] - [get_query_text()]",
-		action = "sdql2delete",
-		params = list(
-			qid = id,
-		),
-		type = STAT_BUTTON,
-	)
-	tab_data["Toggle Query [id]"] = list(
-		text = "[SDQL2_IS_RUNNING? "HALT" : "RUN"]",
-		action = "sdql2toggle",
-		params = list(
-			qid = id,
-		),
-		type = STAT_BUTTON,
-	)
-	return tab_data
+	if(!delete_click)
+		delete_click = new(null, "INITIALIZING", src)
+	if(!action_click)
+		action_click = new(null, "INITIALIZNG", src)
+	stat("[id]		", delete_click.update("DELETE QUERY | STATE : [text_state()] | ALL/ELIG/FIN \
+	[islist(obj_count_all)? length(obj_count_all) : (isnull(obj_count_all)? "0" : obj_count_all)]/\
+	[islist(obj_count_eligible)? length(obj_count_eligible) : (isnull(obj_count_eligible)? "0" : obj_count_eligible)]/\
+	[islist(obj_count_finished)? length(obj_count_finished) : (isnull(obj_count_finished)? "0" : obj_count_finished)] - [get_query_text()]"))
+	stat("			", action_click.update("[SDQL2_IS_RUNNING? "HALT" : "RUN"]"))
 
 /datum/SDQL2_query/proc/delete_click()
 	admin_del(usr)
@@ -1194,7 +1187,16 @@ GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
 /proc/is_proper_datum(thing)
 	return istype(thing, /datum) || istype(thing, /client)
 
-/proc/sdqlQueryByID(id)
-	for(var/datum/SDQL2_query/query as anything in GLOB.sdql2_queries)
-		if(query.id == id)
-			return query
+/obj/effect/statclick/SDQL2_delete/Click()
+	var/datum/SDQL2_query/Q = target
+	Q.delete_click()
+
+/obj/effect/statclick/SDQL2_action/Click()
+	var/datum/SDQL2_query/Q = target
+	Q.action_click()
+
+/obj/effect/statclick/SDQL2_VV_all
+	name = "VIEW VARIABLES"
+
+/obj/effect/statclick/SDQL2_VV_all/Click()
+	usr.client.debug_variables(GLOB.sdql2_queries)

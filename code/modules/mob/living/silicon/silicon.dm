@@ -47,8 +47,6 @@
 	var/interaction_range = 7			//wireless control range
 	var/obj/item/pda/aiPDA
 
-	mobchatspan = "centcom"
-
 /mob/living/silicon/Initialize()
 	. = ..()
 	GLOB.silicon_mobs += src
@@ -374,7 +372,7 @@
 	return 0
 
 
-/mob/living/silicon/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null) //Secbots won't hunt silicon units
+/mob/living/silicon/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null) //Secbots won't hunt silicon units
 	return -10
 
 /mob/living/silicon/proc/remove_sensors()

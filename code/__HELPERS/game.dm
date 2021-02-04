@@ -280,9 +280,10 @@
 	else  // A variation of get_hear inlined here to take advantage of the compiler's fastpath for obj/mob in view
 		var/lum = T.luminosity
 		T.luminosity = 6 // This is the maximum luminosity
-		for(var/A in view(R, T))
-			if(isobj(A) || ismob(A))
-				processing_list += A
+		for(var/mob/M in view(R, T))
+			processing_list += M
+		for(var/obj/O in view(R, T))
+			processing_list += O
 		T.luminosity = lum
 
 	while(processing_list.len) // recursive_hear_check inlined here
@@ -376,10 +377,11 @@
 		if(AM.Move(get_step(T, direction)))
 			break
 
-/proc/get_mob_by_ckey(key)
-	var/ckey = ckey(key) //just to be safe
-	for(var/mob/M as() in GLOB.player_list)
-		if(M?.ckey == ckey)
+/proc/get_mob_by_key(key)
+	var/ckey = ckey(key)
+	for(var/i in GLOB.player_list)
+		var/mob/M = i
+		if(M.ckey == ckey)
 			return M
 	return null
 
@@ -399,7 +401,7 @@
 
 /proc/ScreenText(obj/O, maptext="", screen_loc="CENTER-7,CENTER-7", maptext_height=480, maptext_width=480)
 	if(!isobj(O))
-		O = new /atom/movable/screen/text()
+		O = new /obj/screen/text()
 	O.maptext = maptext
 	O.maptext_height = maptext_height
 	O.maptext_width = maptext_width

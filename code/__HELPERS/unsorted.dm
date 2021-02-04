@@ -44,9 +44,9 @@
 		.+=360
 
 //Returns location. Returns null if no location was found.
-/proc/get_teleport_loc(turf/location,mob/target,distance = 1, density = FALSE, closed = FALSE, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
+/proc/get_teleport_loc(turf/location,mob/target,distance = 1, density = FALSE, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
 /*
-Location where the teleport begins, target that will teleport, distance to go, density checking 0/1(yes/no), closed turf checking.
+Location where the teleport begins, target that will teleport, distance to go, density checking 0/1(yes/no).
 Random error in tile placement x, error in tile placement y, and block offset.
 Block offset tells the proc how to place the box. Behind teleport location, relative to starting location, forward, etc.
 Negative values for offset are accepted, think of it in relation to North, -x is west, -y is south. Error defaults to positive.
@@ -121,8 +121,6 @@ Turf and target are separate in case you want to teleport some distance from a t
 			for(var/turf/T in block(locate(center.x+b1xerror,center.y+b1yerror,location.z), locate(center.x+b2xerror,center.y+b2yerror,location.z) ))
 				if(density&&T.density)
 					continue//If density was specified.
-				if(closed&&isclosedturf(T))
-					continue//If closed was specified.
 				if(T.x>world.maxx || T.x<1)
 					continue//Don't want them to teleport off the map.
 				if(T.y>world.maxy || T.y<1)
@@ -382,6 +380,14 @@ Turf and target are separate in case you want to teleport some distance from a t
 	// With the current configuration of wait=20 and CELLRATE=0.002, this
 	// means that one unit is 1 kJ.
 	return DisplayJoules(units * SSmachines.wait * 0.1 / GLOB.CELLRATE)
+
+/proc/get_mob_by_ckey(key)
+	if(!key)
+		return
+	var/list/mobs = sortmobs()
+	for(var/mob/M in mobs)
+		if(M.ckey == key)
+			return M
 
 //Returns the atom sitting on the turf.
 //For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
@@ -1596,43 +1602,3 @@ config_setting should be one of the following:
 /proc/get_final_z(atom/A)
 	var/turf/T = get_turf(A)
 	return T ? T.z : A.z
-
-/proc/invertDir(var/input_dir)
-	switch(input_dir)
-		if(UP)
-			return DOWN
-		if(DOWN)
-			return UP
-		if(-INFINITY to 0, 11 to INFINITY)
-			CRASH("Can't turn invalid directions!")
-	return turn(input_dir, 180)
-
-/**
- * Sends a topic call to crosscomms servers.
- *
- * Params:
- * sender - Name of the IC entity sending the message
- * msg - Message text to send
- * type - What handler the recieving server should use
- * insecure - Send the messages to insecure servers
-*/
-/proc/comms_send(sender, msg, type, insecure = FALSE)
-	var/list/message = list()
-	message["message_sender"] = sender
-	message["message"] = msg
-	message["source"] = "([CONFIG_GET(string/cross_comms_name)])"
-	message += type
-
-	var/comms_key = CONFIG_GET(string/comms_key)
-	if(comms_key)
-		message["key"] = comms_key
-		var/list/servers = CONFIG_GET(keyed_list/cross_server)
-		for(var/I in servers)
-			world.Export("[servers[I]]?[list2params(message)]")
-
-	comms_key = CONFIG_GET(string/comms_key_insecure)
-	if(comms_key && insecure)
-		message["key"] = comms_key
-		var/list/servers = CONFIG_GET(keyed_list/insecure_cross_server)
-		for(var/I in servers)
-			world.Export("[servers[I]]?[list2params(message)]")

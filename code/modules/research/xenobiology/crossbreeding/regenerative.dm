@@ -247,8 +247,6 @@ Regenerative extracts:
 	dummy.adjustFireLoss(target.getFireLoss())
 	dummy.adjustToxLoss(target.getToxLoss())
 	dummy.adjustOxyLoss(200)
-	//Force death just in case
-	dummy.death()
 
 /obj/item/slimecross/regenerative/lightpink
 	colour = "light pink"

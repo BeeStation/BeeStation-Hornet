@@ -40,7 +40,6 @@
 
 /obj/machinery/microwave/Destroy()
 	eject()
-	QDEL_NULL(soundloop)
 	if(wires)
 		QDEL_NULL(wires)
 	. = ..()
@@ -147,13 +146,10 @@
 			to_chat(user, "<span class='warning'>You need more space cleaner!</span>")
 		return TRUE
 
-	if(istype(O, /obj/item/soap) || istype(O, /obj/item/reagent_containers/glass/rag))
-		var/cleanspeed = 50
-		if(istype(O, /obj/item/soap))
-			var/obj/item/soap/used_soap = O
-			cleanspeed = used_soap.cleanspeed
+	if(istype(O, /obj/item/soap))
+		var/obj/item/soap/P = O
 		user.visible_message("[user] starts to clean \the [src].", "<span class='notice'>You start to clean \the [src]...</span>")
-		if(do_after(user, cleanspeed, target = src))
+		if(do_after(user, P.cleanspeed, target = src))
 			user.visible_message("[user] has cleaned \the [src].", "<span class='notice'>You clean \the [src].</span>")
 			dirty = 0
 			update_icon()

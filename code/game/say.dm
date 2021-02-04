@@ -50,32 +50,9 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	var/freqpart = radio_freq ? "\[[get_radio_name(radio_freq)]\] " : ""
 	//Speaker name
 	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
-	if(ishuman(speaker))
+	if(face_name && ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
-		if(face_name)
-			namepart = "[H.get_face_name()]" //So "fake" speaking like in hallucinations does not give the speaker away if disguised
-		if(!radio_freq)
-			if(H.wear_id)
-				var/datum/job/wearer_job = SSjob.GetJob(H.wear_id.GetJobName())
-				var/wearer_say_span
-				if(wearer_job)
-					wearer_say_span = wearer_job.say_span
-				else
-					switch(H.wear_id.GetJobName())
-						if("CentCom")
-							wearer_say_span = "centcom"
-						if("Prisoner")
-							wearer_say_span = "prisoner"
-						else
-							wearer_say_span = "unknown"
-				if(wearer_say_span)
-					spanpart2 = "<span class='name [wearer_say_span]'>"
-			else
-				spanpart2 = "<span class='name unknown'>"
-	else if(isliving(speaker) && !radio_freq)
-		var/mob/living/L = speaker
-		spanpart2 = "<span class='name [L.mobchatspan]'>"
-
+		namepart = "[H.get_face_name()]" //So "fake" speaking like in hallucinations does not give the speaker away if disguised
 	//End name span.
 	var/endspanpart = "</span>"
 

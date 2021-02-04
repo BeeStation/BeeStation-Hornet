@@ -100,7 +100,7 @@
 
 
 /obj/item/station_charter/flag
-	name = "\improper Nanotrasen banner"
+	name = "nanotrasen banner"
 	icon = 'icons/obj/banner.dmi'
 	name_type = "planet"
 	icon_state = "banner"

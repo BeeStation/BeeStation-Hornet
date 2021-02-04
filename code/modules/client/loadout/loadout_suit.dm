@@ -89,10 +89,6 @@
 	display_name = "bomber jacket"
 	path = /obj/item/clothing/suit/jacket
 
-/datum/gear/suit/jacket/softshell
-	display_name = "softshell jacket"
-	path = /obj/item/clothing/suit/toggle/softshell
-
 /datum/gear/suit/jacket/leather
 	display_name = "leather jacket"
 	path = /obj/item/clothing/suit/jacket/leather
@@ -115,7 +111,7 @@
 	path = /obj/item/clothing/suit/jacket/letterman_red
 
 /datum/gear/suit/jacket/letterman_nanotrasen
-	display_name = "letterman jacket, Nanotrasen blue"
+	display_name = "letterman jacket, NanoTrasen blue"
 	path = /obj/item/clothing/suit/jacket/letterman_nanotrasen
 	cost = 5000
 

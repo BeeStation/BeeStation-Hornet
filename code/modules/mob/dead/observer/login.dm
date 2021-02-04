@@ -18,6 +18,3 @@
 
 	update_icon(preferred_form)
 	updateghostimages()
-
-	if(mind?.current)
-		client.tgui_panel?.give_dead_popup()

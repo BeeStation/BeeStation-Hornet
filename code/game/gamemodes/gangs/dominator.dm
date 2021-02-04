@@ -37,6 +37,7 @@
 	gang = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(countdown)
+	STOP_PROCESSING(SSmachines, src)
 	return ..()
 
 /obj/machinery/dominator/emp_act(severity)
@@ -80,6 +81,7 @@
 	to_chat(user, "<span class='danger'>System Integrity: [round((obj_integrity/max_integrity)*100,1)]%</span>")
 
 /obj/machinery/dominator/process()
+	..()
 	if(gang && gang.domination_time != NOT_DOMINATING)
 		var/time_remaining = gang.domination_time_remaining()
 		if(time_remaining > 0)
@@ -109,7 +111,7 @@
 			SSticker.force_ending = TRUE
 
 	if(!.)
-		return PROCESS_KILL
+		STOP_PROCESSING(SSmachines, src)
 
 /obj/machinery/dominator/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

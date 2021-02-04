@@ -29,8 +29,6 @@
 	to_chat(owner, "<B>The Voices will retaliate if you fail to complete your tasks or spend too long away from your target.</B>")
 	to_chat(owner, "<span class='boldannounce'>This role does NOT enable you to otherwise surpass what's deemed creepy behavior per the rules.</span>")//ironic if you know the history of the antag
 	owner.announce_objectives()
-	owner.current.client?.tgui_panel?.give_antagonist_popup("Obsession",
-		"Stalk [trauma.obsession] and force them into a constant state of paranoia.")
 
 /datum/antagonist/obsessed/Destroy()
 	if(trauma)
@@ -253,8 +251,8 @@
 
 /datum/objective/polaroid/update_explanation_text()
 	..()
-	if(target && target.current)
-		explanation_text = "Take a photo of [target.name] while they're alive."
+	if(target?.current)
+		explanation_text = "Take a photo with [target.name] while they're alive."
 	else
 		explanation_text = "Free Objective"
 
@@ -267,7 +265,7 @@
 		for(var/obj/I in all_items) //Check for wanted items
 			if(istype(I, /obj/item/photo))
 				var/obj/item/photo/P = I
-				if(P.picture && (target.current in P.picture.mobs_seen) && !(target.current in P.picture.dead_seen)) //Does the picture exist and is the target in it and is the target not dead
+				if(P.picture.mobs_seen.Find(owner) && P.picture.mobs_seen.Find(target) && !P.picture.dead_seen.Find(target))//you are in the picture, they are but they are not dead.
 					return TRUE
 	return FALSE
 

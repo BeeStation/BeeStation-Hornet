@@ -1,79 +1,79 @@
-/atom/movable/screen/ghost
+/obj/screen/ghost
 	icon = 'icons/mob/screen_ghost.dmi'
 
-/atom/movable/screen/ghost/MouseEntered()
+/obj/screen/ghost/MouseEntered()
 	flick(icon_state + "_anim", src)
 
-/atom/movable/screen/ghost/jumptomob
+/obj/screen/ghost/jumptomob
 	name = "Jump to mob"
 	icon_state = "jumptomob"
 
-/atom/movable/screen/ghost/jumptomob/Click()
+/obj/screen/ghost/jumptomob/Click()
 	var/mob/dead/observer/G = usr
 	G.jumptomob()
 
-/atom/movable/screen/ghost/orbit
+/obj/screen/ghost/orbit
 	name = "Orbit"
 	icon_state = "orbit"
 
-/atom/movable/screen/ghost/orbit/Click()
+/obj/screen/ghost/orbit/Click()
 	var/mob/dead/observer/G = usr
 	G.follow()
 
-/atom/movable/screen/ghost/reenter_corpse
+/obj/screen/ghost/reenter_corpse
 	name = "Reenter corpse"
 	icon_state = "reenter_corpse"
 
-/atom/movable/screen/ghost/reenter_corpse/Click()
+/obj/screen/ghost/reenter_corpse/Click()
 	var/mob/dead/observer/G = usr
 	G.reenter_corpse()
 
-/atom/movable/screen/ghost/teleport
+/obj/screen/ghost/teleport
 	name = "Teleport"
 	icon_state = "teleport"
 
-/atom/movable/screen/ghost/teleport/Click()
+/obj/screen/ghost/teleport/Click()
 	var/mob/dead/observer/G = usr
 	G.dead_tele()
 
-/atom/movable/screen/ghost/pai
+/obj/screen/ghost/pai
 	name = "pAI Candidate"
 	icon_state = "pai"
 
-/atom/movable/screen/ghost/pai/Click()
+/obj/screen/ghost/pai/Click()
 	var/mob/dead/observer/G = usr
 	G.register_pai()
 
 /datum/hud/ghost/New(mob/owner)
 	..()
-	var/atom/movable/screen/using
+	var/obj/screen/using
 
-	using = new /atom/movable/screen/ghost/jumptomob()
+	using = new /obj/screen/ghost/jumptomob()
 	using.screen_loc = ui_ghost_jumptomob
 	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/orbit()
+	using = new /obj/screen/ghost/orbit()
 	using.screen_loc = ui_ghost_orbit
 	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/reenter_corpse()
+	using = new /obj/screen/ghost/reenter_corpse()
 	using.screen_loc = ui_ghost_reenter_corpse
 	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/teleport()
+	using = new /obj/screen/ghost/teleport()
 	using.screen_loc = ui_ghost_teleport
 	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/pai()
+	using = new /obj/screen/ghost/pai()
 	using.screen_loc = ui_ghost_pai
 	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/language_menu
+	using = new /obj/screen/language_menu
 	using.icon = ui_style
 	using.hud = src
 	static_inventory += using

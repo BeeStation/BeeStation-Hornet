@@ -98,7 +98,7 @@
 
 	var/datum/radio_frequency/radio_connection
 
-	var/on = TRUE // Reviewer: I can't find any way to turn this thing off but it stays
+	var/on = TRUE
 	var/alert = FALSE
 
 /obj/machinery/airlock_sensor/incinerator_toxmix
@@ -138,9 +138,7 @@
 	if(on)
 		var/datum/gas_mixture/air_sample = return_air()
 		var/pressure = round(air_sample.return_pressure(),0.1)
-		if((pressure < ONE_ATMOSPHERE*0.8) != alert)
-			alert = !alert
-			update_icon()
+		alert = (pressure < ONE_ATMOSPHERE*0.8)
 
 		var/datum/signal/signal = new(list(
 			"tag" = id_tag,
@@ -149,6 +147,8 @@
 		))
 
 		radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
+
+	update_icon()
 
 /obj/machinery/airlock_sensor/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)

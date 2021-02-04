@@ -312,7 +312,6 @@ SUBSYSTEM_DEF(ticker)
 			to_chat(world, "<h4>[holiday.greet()]</h4>")
 
 	PostSetup()
-	SSstat.clear_global_alert()
 
 	return TRUE
 
@@ -351,11 +350,10 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/station_explosion_detonation(atom/bomb)
 	if(bomb)	//BOOM
+		var/turf/epi = bomb.loc
 		qdel(bomb)
-		for(var/mob/M in GLOB.mob_list)
-			var/turf/T = get_turf(M)
-			if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer)) //protip: freezers protect you from nukes
-				M.gib(TRUE)
+		if(epi)
+			explosion(epi, 0, 256, 512, 0, TRUE, TRUE, 0, TRUE)
 
 /datum/controller/subsystem/ticker/proc/create_characters()
 	for(var/mob/dead/new_player/player in GLOB.player_list)
@@ -399,7 +397,7 @@ SUBSYSTEM_DEF(ticker)
 			qdel(player)
 			living.notransform = TRUE
 			if(living.client)
-				var/atom/movable/screen/splash/S = new(living.client, TRUE)
+				var/obj/screen/splash/S = new(living.client, TRUE)
 				S.Fade(TRUE)
 			livings += living
 	if(livings.len)
@@ -553,7 +551,7 @@ SUBSYSTEM_DEF(ticker)
 		if(WIZARD_KILLED)
 			news_message = "Tensions have flared with the Space Wizard Federation following the death of one of their members aboard [station_name()]."
 		if(STATION_NUKED)
-			news_message = "[station_name()] activated its self-destruct device for unknown reasons. Attempts to clone the Captain so he can be arrested and executed are underway."
+			news_message = "[station_name()] activated its self destruct device for unknown reasons. Attempts to clone the Captain so he can be arrested and executed are underway."
 		if(CLOCK_SUMMON)
 			news_message = "The garbled messages about hailing a mouse and strange energy readings from [station_name()] have been discovered to be an ill-advised, if thorough, prank by a clown."
 		if(CLOCK_SILICONS)
@@ -564,7 +562,7 @@ SUBSYSTEM_DEF(ticker)
 			news_message = "During routine evacuation procedures, the emergency shuttle of [station_name()] had its navigation protocols corrupted and went off course, but was recovered shortly after."
 
 	if(news_message)
-		comms_send(news_source, news_message, "News_Report", CONFIG_GET(flag/insecure_newscaster))
+		send2otherserver(news_source, news_message,"News_Report")
 
 /datum/controller/subsystem/ticker/proc/GetTimeLeft()
 	if(isnull(SSticker.timeLeft))
@@ -585,13 +583,17 @@ SUBSYSTEM_DEF(ticker)
 			addtimer(CALLBACK(player, /mob/dead/new_player.proc/make_me_an_observer), 1)
 
 /datum/controller/subsystem/ticker/proc/load_mode()
-	var/mode = CONFIG_GET(string/master_mode)
+	var/mode = trim(rustg_file_read("data/mode.txt"))
 	if(mode)
 		GLOB.master_mode = mode
 	else
 		GLOB.master_mode = "extended"
-	log_game("Master mode is '[GLOB.master_mode]'")
-	log_config("Master mode is '[GLOB.master_mode]'")
+	log_game("Saved mode is '[GLOB.master_mode]'")
+
+/datum/controller/subsystem/ticker/proc/save_mode(the_mode)
+	var/F = file("data/mode.txt")
+	fdel(F)
+	WRITE_FILE(F, the_mode)
 
 /datum/controller/subsystem/ticker/proc/SetRoundEndSound(the_sound)
 	set waitfor = FALSE

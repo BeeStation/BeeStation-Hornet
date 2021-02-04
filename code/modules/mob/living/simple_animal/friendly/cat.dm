@@ -39,7 +39,7 @@
 
 /mob/living/simple_animal/pet/cat/Initialize()
 	. = ..()
-	add_verb(/mob/living/proc/lay_down)
+	verbs += /mob/living/proc/lay_down
 
 /mob/living/simple_animal/pet/cat/update_mobility()
 	..()
@@ -171,50 +171,45 @@
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 
-/mob/living/simple_animal/pet/cat/Move()
-	. = ..()
-	if(.)
-		if(stat || resting || buckled)
-			return .
-
-		for(var/mob/living/simple_animal/mouse/M in get_turf(src))
-			if(!M.stat)
-				INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "splats \the [M]!")
-				M.splat()
-				movement_target = null
-				stop_automated_movement = 0
-				break
-		for(var/obj/item/toy/cattoy/T in get_turf(src))
-			if (T.cooldown < (world.time - 400))
-				INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "bats \the [T] around with its paw!")
-				T.cooldown = world.time
-
 /mob/living/simple_animal/pet/cat/Life()
 	if(!stat && !buckled && !client)
-		if(prob(3))
-			switch(rand(1, 3))
-				if (1)
-					INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
-					icon_state = "[icon_living]_rest"
-					collar_type = "[initial(collar_type)]_rest"
-					set_resting(TRUE)
-				if (2)
-					INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
-					icon_state = "[icon_living]_sit"
-					collar_type = "[initial(collar_type)]_sit"
-					set_resting(TRUE)
-				if (3)
-					if (resting)
-						INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("gets up and meows.", "walks around.", "stops resting."))
-						icon_state = "[icon_living]"
-						collar_type = "[initial(collar_type)]"
-						set_resting(FALSE)
-					else
-						INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
+		if(prob(1))
+			emote("me", 1, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
+			icon_state = "[icon_living]_rest"
+			collar_type = "[initial(collar_type)]_rest"
+			set_resting(TRUE)
+		else if (prob(1))
+			emote("me", 1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
+			icon_state = "[icon_living]_sit"
+			collar_type = "[initial(collar_type)]_sit"
+			set_resting(TRUE)
+		else if (prob(1))
+			if (resting)
+				emote("me", 1, pick("gets up and meows.", "walks around.", "stops resting."))
+				icon_state = "[icon_living]"
+				collar_type = "[initial(collar_type)]"
+				set_resting(FALSE)
+			else
+				emote("me", 1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
+
+	//MICE!
+	if((src.loc) && isturf(src.loc))
+		if(!stat && !resting && !buckled)
+			for(var/mob/living/simple_animal/mouse/M in view(1,src))
+				if(!M.stat && Adjacent(M))
+					emote("me", 1, "splats \the [M]!")
+					M.splat()
+					movement_target = null
+					stop_automated_movement = 0
+					break
+			for(var/obj/item/toy/cattoy/T in view(1,src))
+				if (T.cooldown < (world.time - 400))
+					emote("me", 1, "bats \the [T] around with its paw!")
+					T.cooldown = world.time
 
 	..()
-	if(next_scan_time <= world.time)
-		make_babies()
+
+	make_babies()
 
 	if(!stat && !resting && !buckled)
 		turns_since_scan++
@@ -239,21 +234,22 @@
 	. = ..()
 	switch(M.a_intent)
 		if("help")
-			wuv(TRUE, M)
+			wuv(1, M)
 		if("harm")
-			wuv(FALSE, M)
+			wuv(-1, M)
 
 /mob/living/simple_animal/pet/cat/proc/wuv(change, mob/M)
 	if(change)
-		if(M && stat != DEAD)
-			new /obj/effect/temp_visual/heart(loc)
-			emote("me", 1, "purrs!")
-			if(flags_1 & HOLOGRAM_1)
-				return
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
-	else
-		if(M && stat != DEAD)
-			emote("me", 1, "hisses!")
+		if(change > 0)
+			if(M && stat != DEAD)
+				new /obj/effect/temp_visual/heart(loc)
+				emote("me", 1, "purrs!")
+				if(flags_1 & HOLOGRAM_1)
+					return
+				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
+		else
+			if(M && stat != DEAD)
+				emote("me", 1, "hisses!")
 
 /mob/living/simple_animal/pet/cat/cak //I told you I'd do it, Remie
 	name = "Keeki"
@@ -293,13 +289,9 @@
 		return
 	if(health < maxHealth)
 		adjustBruteLoss(-8) //Fast life regen
-
-/mob/living/simple_animal/pet/cat/cak/Move()
-	. = ..()
-	if(. && !stat)
-		for(var/obj/item/reagent_containers/food/snacks/donut/D in get_turf(src)) //Frosts nearby donuts!
-			if(!D.is_decorated)
-				D.decorate_donut()
+	for(var/obj/item/reagent_containers/food/snacks/donut/D in range(1, src)) //Frosts nearby donuts!
+		if(!D.is_decorated)
+			D.decorate_donut()
 
 /mob/living/simple_animal/pet/cat/cak/attack_hand(mob/living/L)
 	..()

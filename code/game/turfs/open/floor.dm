@@ -56,13 +56,6 @@
 		icon_regular_floor = icon_state
 	if(mapload && prob(33))
 		MakeDirty()
-	if(is_station_level(z))
-		GLOB.station_turfs += src
-
-/turf/open/floor/Destroy()
-	if(is_station_level(z))
-		GLOB.station_turfs -= src
-	..()
 
 /turf/open/floor/ex_act(severity, target)
 	var/shielded = is_shielded()
@@ -173,7 +166,7 @@
 /turf/open/floor/proc/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	if(T.turf_type == type)
 		return
-	var/obj/item/CB = user.is_holding_tool_quality(TOOL_CROWBAR)
+	var/obj/item/crowbar/CB = user.is_holding_item_of_type(/obj/item/crowbar)
 	if(!CB)
 		return
 	var/turf/open/floor/plating/P = pry_tile(CB, user, TRUE)

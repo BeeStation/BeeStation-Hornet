@@ -16,13 +16,18 @@
 	var/dpdir = NONE					// bitmask of pipe directions
 	var/initialize_dirs = NONE			// bitflags of pipe directions added on init, see \code\_DEFINES\pipe_construction.dm
 	var/flip_type						// If set, the pipe is flippable and becomes this type when flipped
+	var/obj/structure/disposalconstruct/stored
 
 
 /obj/structure/disposalpipe/Initialize(mapload, obj/structure/disposalconstruct/make_from)
 	. = ..()
 
-	if(make_from)
+	if(!QDELETED(make_from))
 		setDir(make_from.dir)
+		make_from.forceMove(src)
+		stored = make_from
+	else
+		stored = new /obj/structure/disposalconstruct(src, null , SOUTH , FALSE , src)
 
 	if(dir in GLOB.diagonals) // Bent pipes already have all the dirs set
 		initialize_dirs = NONE
@@ -45,6 +50,7 @@
 	if(H)
 		H.active = FALSE
 		expel(H, get_turf(src), 0)
+	QDEL_NULL(stored)
 	return ..()
 
 // returns the direction of the next pipe object, given the entrance dir
@@ -140,7 +146,6 @@
 	if(!I.tool_start_check(user, amount=0))
 		return TRUE
 
-	add_fingerprint(user)
 	to_chat(user, "<span class='notice'>You start slicing [src]...</span>")
 	if(I.use_tool(src, user, 30, volume=50))
 		deconstruct()
@@ -155,14 +160,19 @@
 /obj/structure/disposalpipe/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		if(disassembled)
-			new /obj/structure/disposalconstruct(loc, null , SOUTH , FALSE , src)
+			if(stored)
+				stored.forceMove(loc)
+				transfer_fingerprints_to(stored)
+				stored.setDir(dir)
+				stored = null
 		else
 			var/turf/T = get_turf(src)
 			for(var/D in GLOB.cardinals)
 				if(D & dpdir)
 					var/obj/structure/disposalpipe/broken/P = new(T)
 					P.setDir(D)
-	..()
+	qdel(src)
+
 
 /obj/structure/disposalpipe/singularity_pull(S, current_size)
 	..()

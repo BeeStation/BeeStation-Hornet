@@ -116,7 +116,7 @@
 		if(node2)
 			node2.atmosinit()
 			node2.addMember(src)
-		SSair.add_to_rebuild_queue(src)
+		build_network()
 
 	return TRUE
 

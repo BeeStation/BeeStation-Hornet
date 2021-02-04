@@ -34,7 +34,7 @@
 
 /datum/component/chasm/process()
 	if (!drop_stuff())
-		return PROCESS_KILL
+		STOP_PROCESSING(SSobj, src)
 
 /datum/component/chasm/proc/is_safe()
 	//if anything matching this typecache is found in the chasm, we don't drop things

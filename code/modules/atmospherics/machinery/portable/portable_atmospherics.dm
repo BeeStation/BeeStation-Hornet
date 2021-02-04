@@ -45,7 +45,7 @@
 	return ..()
 
 /obj/machinery/portable_atmospherics/process_atmos()
-	if(!connected_port && air_contents != null && src != null) // Pipe network handles reactions if connected.
+	if(!connected_port) // Pipe network handles reactions if connected.
 		air_contents.react(src)
 
 /obj/machinery/portable_atmospherics/return_air()
@@ -66,7 +66,8 @@
 	//Perform the connection
 	connected_port = new_port
 	connected_port.connected_device = src
-	connected_port.parents[1].update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
+	var/datum/pipeline/connected_port_parent = connected_port.parents[1]
+	connected_port_parent.reconcile_air()
 
 	anchored = TRUE //Prevent movement
 	pixel_x = new_port.pixel_x

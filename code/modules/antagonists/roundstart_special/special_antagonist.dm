@@ -16,7 +16,6 @@
 	//----Required for roundspawn----
 	var/allowAntagTargets = FALSE	//Not used in events
 	var/latejoin_allowed = TRUE		//Can latejoins be assigned to this? If you want this to be a midround spawn, put these in the round_event
-	var/list/restricted_jobs = list("Cyborg")
 	var/list/protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Research Director", "Captain", "Brig Physician")
 	//----Required for midround----
 	var/weight = 10
@@ -25,17 +24,6 @@
 	var/holidayID = ""
 	//Preferences
 	var/preference_type = ROLE_TRAITOR
-	var/special_role_flag = null	//Will use antag rep if enabled
-
-/datum/special_role/proc/setup()
-	if(CONFIG_GET(flag/protect_roles_from_antagonist))
-		restricted_jobs += protected_jobs
-
-	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += "Assistant"
-
-	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		restricted_jobs += GLOB.command_positions
 
 /datum/special_role/proc/add_to_pool()
 	if(spawn_mode == SPAWNTYPE_ROUNDSTART)
@@ -46,7 +34,7 @@
 	E.antagonist_datum = attached_antag_datum
 	E.antag_name = role_name
 	E.preference_type = preference_type
-	E.protected_jobs = restricted_jobs
+	E.protected_jobs = protected_jobs
 	E.typepath = /datum/round_event/create_special_antag
 	E.weight = weight
 	E.holidayID = holidayID
@@ -59,7 +47,7 @@
 	//Shove our event into the subsystem pool :)
 	SSevents.control += E
 
-/datum/special_role/proc/add_antag_status_to(datum/mind/M)
+/datum/special_role/proc/add_antag_status_to(var/datum/mind/M)
 	M.special_role = role_name
 	var/datum/antagonist/special/A = M.add_antag_datum(new attached_antag_datum())
 	A.forge_objectives(M)

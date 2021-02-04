@@ -85,8 +85,6 @@
 		var/damage = 20
 		if(M.is_adult)
 			damage = 30
-		if(M.transformeffects & SLIME_EFFECT_RED)
-			damage *= 1.1
 		return attack_threshold_check(damage)
 
 /mob/living/simple_animal/attack_drone(mob/living/simple_animal/drone/M)

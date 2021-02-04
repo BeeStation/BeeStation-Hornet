@@ -27,15 +27,15 @@
 //	assignment			:	<variable name> '=' expression
 //	variable			:	<variable name> | variable '.' variable | variable '[' <list index> ']' | '{' <ref as hex number> '}' | '(' expression ')' | call_function
 //
-//	bool_expression		:	expression comparator expression  [bool_operator bool_expression]
+//	bool_expression		:	expression comparitor expression  [bool_operator bool_expression]
 //	expression			:	( unary_expression | '(' expression ')' | value ) [binary_operator expression]
 //	expression_list		:	expression [',' expression_list]
 //	unary_expression	:	unary_operator ( unary_expression | value )
 //
-//	comparator			:	'=' | '==' | '!=' | '<>' | '<' | '<=' | '>' | '>='
+//	comparitor			:	'=' | '==' | '!=' | '<>' | '<' | '<=' | '>' | '>='
 //	value				:	variable | string | number | 'null' | object_type | array | selectors_array
 //	unary_operator		:	'!' | '-' | '~'
-//	binary_operator		:	comparator | '+' | '-' | '/' | '*' | '&' | '|' | '^' | '%'
+//	binary_operator		:	comparitor | '+' | '-' | '/' | '*' | '&' | '|' | '^' | '%'
 //	bool_operator		:	'AND' | '&&' | 'OR' | '||'
 //
 //	array				:	'[' expression_list ']'
@@ -56,7 +56,7 @@
 	var/list/boolean_operators = list("and", "or", "&&", "||")
 	var/list/unary_operators = list("!", "-", "~")
 	var/list/binary_operators = list("+", "-", "/", "*", "&", "|", "^", "%")
-	var/list/comparators = list("=", "==", "!=", "<>", "<", "<=", ">", ">=")
+	var/list/comparitors = list("=", "==", "!=", "<>", "<", "<=", ">", ">=")
 
 /datum/SDQL_parser/New(query_list)
 	query = query_list
@@ -109,7 +109,7 @@
 		parse_error("Invalid option assignment symbol: [token(i + 1)]")
 	var/val = tokenl(i + 2)
 	if(!(val in SDQL2_VALID_OPTION_VALUES))
-		parse_error("Invalid option value: [val]")
+		parse_error("Invalid optoin value: [val]")
 	assignment_list[type] = val
 	return (i + 3)
 
@@ -396,21 +396,21 @@
 
 	var/path = text2path(token(i))
 	if (path == null)
-		return parse_error("Nonexistent type path: [token(i)]")
+		return parse_error("Nonexistant type path: [token(i)]")
 
 	node += path
 
 	return i + 1
 
 
-//comparator:	'=' | '==' | '!=' | '<>' | '<' | '<=' | '>' | '>='
-/datum/SDQL_parser/proc/comparator(i, list/node)
+//comparitor:	'=' | '==' | '!=' | '<>' | '<' | '<=' | '>' | '>='
+/datum/SDQL_parser/proc/comparitor(i, list/node)
 
 	if(token(i) in list("=", "==", "!=", "<>", "<", "<=", ">", ">="))
 		node += token(i)
 
 	else
-		parse_error("Unknown comparator [token(i)]")
+		parse_error("Unknown comparitor [token(i)]")
 
 	return i + 1
 
@@ -422,7 +422,7 @@
 		node += token(i)
 
 	else
-		parse_error("Unknown comparator [token(i)]")
+		parse_error("Unknown comparitor [token(i)]")
 
 	return i + 1
 
@@ -551,7 +551,7 @@
 		i = binary_operator(i, node)
 		i = expression(i, node)
 
-	else if(token(i) in comparators)
+	else if(token(i) in comparitors)
 		i = binary_operator(i, node)
 
 		var/list/rhs = list()
@@ -587,10 +587,10 @@
 	return i
 
 
-//binary_operator:	comparator | '+' | '-' | '/' | '*' | '&' | '|' | '^' | '%'
+//binary_operator:	comparitor | '+' | '-' | '/' | '*' | '&' | '|' | '^' | '%'
 /datum/SDQL_parser/proc/binary_operator(i, list/node)
 
-	if(token(i) in (binary_operators + comparators))
+	if(token(i) in (binary_operators + comparitors))
 		node += token(i)
 
 	else

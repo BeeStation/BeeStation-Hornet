@@ -6,7 +6,7 @@
 	requires_power = FALSE
 
 /area/awaymission/spacebattle/cruiser
-	name = "\improper Nanotrasen Cruiser"
+	name = "Nanotrasen Cruiser"
 	icon_state = "awaycontent2"
 
 /area/awaymission/spacebattle/syndicate1
