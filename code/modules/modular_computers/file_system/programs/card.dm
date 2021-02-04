@@ -179,7 +179,7 @@
 		if("PRG_edit")
 			if(!computer || !authenticated || !id_card)
 				return
-			var/new_name =  reject_bad_name(params["name"])
+			var/new_name = reject_bad_name(params["name"])
 			if(!new_name)
 				return
 			log_id("[key_name(usr)] changed [id_card] name to '[new_name]', using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
