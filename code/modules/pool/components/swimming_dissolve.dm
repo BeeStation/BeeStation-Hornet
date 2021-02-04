@@ -22,6 +22,10 @@
 		var/obj/item/organ/brain = L.getorgan(/obj/item/organ/brain)
 		brain.Remove(L)	//Maybe making them completely unrecoverable is too far
 		brain.forceMove(get_turf(L))
+		//Force all items to the ground to not delete anything important.
+		for(var/obj/item/W in L)
+			L.dropItemToGround(W, TRUE)
+		//Delete the body.
 		qdel(L)
 
 /datum/component/swimming/dissolve/exit_pool()

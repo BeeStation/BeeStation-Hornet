@@ -223,7 +223,6 @@ GLOBAL_LIST_EMPTY(pool_filters)
 	wrench_act(user, null)
 
 /obj/machinery/pool_filter/wrench_act(mob/living/user, obj/item/I)
-	. = ..()
 	var/newTemp = input(user, "Set a new temperature for [src] (Kelvin).", "[src]", null) as num
 	if(!newTemp)
 		return

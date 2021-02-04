@@ -827,6 +827,7 @@
 	desc = "A really old shotgun with five shell capacity. This one can fit in a backpack."
 	w_class = WEIGHT_CLASS_NORMAL
 	dual_wield_spread = 0
+	fire_sound_volume = 60    //tried on 90 my eardrums said goodbye
 	item_state = "leveraction"
 	icon_state = "leveraction"
 	rack_sound = "sound/weapons/leveractionrack.ogg"
@@ -849,7 +850,11 @@
 		rack()
 
 /obj/item/gun/ballistic/shotgun/lever_action/rack(mob/user = null)
-	..()
+	if (user)
+		to_chat(user, "<span class='notice'>You rack the [bolt_wording] of \the [src].</span>")
+	process_chamber(!chambered, FALSE)
+	playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
+	update_icon()
 	if(user.get_inactive_held_item() && prob(50) && chambered)
 		user.visible_message("<span class='rose'>With a single move of [user.p_their()] arm, [user] flips \the [src] and loads the chamber with a shell.</span>")
 

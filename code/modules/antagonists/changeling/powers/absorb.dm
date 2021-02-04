@@ -11,14 +11,15 @@
 		return
 	var/mob/living/carbon/target = user.pulling
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
+	if(!target || !iscarbon(target))
+		to_chat(user, "<span class='warning'>We must be grabbing a creature to absorb them!</span>")
+		changeling.isabsorbing = FALSE
+		return
 	if(changeling.isabsorbing)
 		to_chat(user, "<span class='warning'>We are already absorbing!</span>")
 		return
 	if(HAS_TRAIT(target, TRAIT_NODEATH))
 		to_chat(user, "<span class='warning'>We can't absorb this creature.</span>")
-		return
-	if(!user.pulling || !iscarbon(user.pulling))
-		to_chat(user, "<span class='warning'>We must be grabbing a creature to absorb them!</span>")
 		return
 	if(user.grab_state <= GRAB_NECK)
 		to_chat(user, "<span class='warning'>We must have a tighter grip to absorb this creature!</span>")
