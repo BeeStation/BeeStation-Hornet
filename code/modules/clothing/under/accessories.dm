@@ -372,3 +372,13 @@
 	new /obj/item/gun/ballistic/revolver/detective(src)
 	new /obj/item/ammo_box/c38(src)
 	new /obj/item/ammo_box/c38(src)
+
+/obj/item/clothing/accessory/holster/responder
+	name = "first responder's holster"
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/holster/detective
+
+/obj/item/clothing/accessory/holster/responder/Initialize()
+	. = ..()
+	new /obj/item/gun/ballistic/revolver/detective(src)
+	new /obj/item/ammo_box/c38/trac(src)
+	new /obj/item/ammo_box/c38/trac(src)

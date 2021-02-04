@@ -340,12 +340,6 @@
 	icon_state = "bigsunglasses"
 	item_state = "bigsunglasses"
 
-/obj/item/clothing/glasses/sunglasses/advanced/disco
-	name = "binoclard lenses"
-	desc = "Stylish round lenses subtly shaded for your protection and criminal discomfort. Has enhanced shielding which blocks flashes."
-	icon_state = "binoclard_lenses"
-	item_state = "binoclard_lenses"
-
 /obj/item/clothing/glasses/thermal
 	name = "optical thermal scanner"
 	desc = "Thermals in the shape of glasses."

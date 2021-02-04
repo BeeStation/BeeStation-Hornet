@@ -211,20 +211,6 @@
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 
-/obj/structure/closet/secure_closet/detective/PopulateContents()
-	..()
-	new /obj/item/storage/box/evidence(src)
-	new /obj/item/detective_scanner(src)
-	new /obj/item/taperecorder(src)
-	new /obj/item/camera/detective(src)
-	new /obj/item/flashlight/seclite(src)
-	new /obj/item/holosign_creator/security(src)
-	new /obj/item/assembly/flash/handheld(src)
-	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/clothing/accessory/holster/detective(src)
-	new /obj/item/twohanded/binoculars(src)
-	new /obj/item/pinpointer/crew(src)
-
 /obj/structure/closet/secure_closet/deputy
 	name = "deputy's locker"
 	req_access = list(ACCESS_BRIG)

@@ -318,6 +318,9 @@
 	desc = "This appears to be a standard Detective manual that smells really bad. I wonder if there's anything that can be learnt from it."
 	remarks = list("I feel tingling sensation across my face that's not the wind...", "I wonder if fingerprints have a smell too...", "Everybody has smelly, oily residue on their fingers...", "My nose is starting to identify all the smells within...")
 
+/obj/item/book/granter/spell/olfaction/onlearned(mob/user)
+	..()
+	user.add_client_colour(/datum/client_colour/monochrome)
 
 ///MARTIAL ARTS///
 
