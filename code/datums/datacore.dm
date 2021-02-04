@@ -328,7 +328,7 @@
 		locked += L
 	return
 
-/datum/datacore/proc/generate_security_record(id, mob/living/carbon/human/H)
+/datum/datacore/proc/generate_security_record(id, mob/living/carbon/human/H, client/C)
 	var/datum/data/record/S = new()
 	S.fields["ckey"]		= C.ckey
 	S.fields["id"]			= id
