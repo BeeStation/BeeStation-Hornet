@@ -123,6 +123,9 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	//Stop processing
 	STOP_PROCESSING(SSprocessing, src)
 
+	if(attached_beacon)
+		attached_beacon.attached_monitor = null
+
 	. = ..()
 
 //Gets the active trackers for when the team_monitor component
@@ -393,6 +396,9 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	//Remove from the global network
 	if(team_frequency)
 		GLOB.tracker_huds[team_frequency] -= src
+
+	if(attached_monitor)
+		attached_monitor.attached_beacon = null
 
 	. = ..()
 
