@@ -304,7 +304,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 			C = I.get_cell()
 			if(C && C.charge)
 				break
-	if(C && C.charge)
+	if(C?.charge)
 		do_sparks(5,FALSE,C)
 		empulse(rune_turf, 1, 1)
 		C.use(C.charge)
