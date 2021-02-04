@@ -8,6 +8,7 @@
 		            /obj/item/crowbar = 5,
 		            /obj/item/weldingtool = 3,
 		            /obj/item/wirecutters = 5,
+					/obj/item/multitool = 5,
 		            /obj/item/wrench = 5,
 		            /obj/item/analyzer = 5,
 		            /obj/item/t_scanner = 5,

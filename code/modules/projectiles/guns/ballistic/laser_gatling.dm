@@ -68,8 +68,8 @@
 
 		if(!M.incapacitated())
 
-			if(istype(over_object, /obj/screen/inventory/hand))
-				var/obj/screen/inventory/hand/H = over_object
+			if(istype(over_object, /atom/movable/screen/inventory/hand))
+				var/atom/movable/screen/inventory/hand/H = over_object
 				M.putItemFromInventoryInHandIfPossible(src, H.held_index)
 
 
@@ -91,6 +91,12 @@
 	update_icon()
 	user.update_inv_back()
 
+/obj/item/minigunpack/emag_act(mob/user)
+	if(obj_flags & EMAGGED)
+		return
+	obj_flags |= EMAGGED
+	to_chat(user, "<span class='warning'>You break the heat sensor.</span>")
+	overheat_max = 1000
 
 /obj/item/gun/ballistic/minigun
 	name = "laser gatling gun"
@@ -111,6 +117,7 @@
 	tac_reloads = FALSE
 	casing_ejector = FALSE
 	item_flags = NEEDS_PERMIT | SLOWS_WHILE_IN_HAND
+	var/cooldown = 0
 	var/obj/item/minigunpack/ammo_pack
 
 /obj/item/gun/ballistic/minigun/Initialize()
@@ -132,6 +139,24 @@
 
 /obj/item/gun/ballistic/minigun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	if(ammo_pack)
+		if(obj_flags & EMAGGED)
+			if(cooldown < world.time)
+				cooldown = world.time + 250
+				playsound(get_turf(src), 'sound/weapons/heavyminigunstart.ogg', 50, 0, 0)
+				slowdown = 5
+				bonus_spread = 50
+				sleep(15)
+				if(ammo_pack.overheat < ammo_pack.overheat_max)
+					playsound(get_turf(src), 'sound/weapons/heavyminigunshoot.ogg', 60, 0, 0)
+					for(var/i = 1 to burst_size)
+						addtimer(CALLBACK(src, .proc/process_burst, user, spread, i), fire_delay * (i - 1))
+					playsound(get_turf(src), 'sound/weapons/heavyminigunstop.ogg', 50, 0, 0)
+					slowdown = initial(slowdown)
+				else
+					to_chat(user, "The gun's heat sensor locked the trigger to prevent lens damage.")
+			else
+				to_chat(user, "You don't want your hands to melt, let it cool down!")
+				return
 		if(ammo_pack.overheat < ammo_pack.overheat_max)
 			ammo_pack.overheat += burst_size
 			..()
@@ -145,3 +170,15 @@
 
 /obj/item/gun/ballistic/minigun/dropped(mob/living/user)
 	ammo_pack.attach_gun(user)
+
+/obj/item/gun/ballistic/minigun/emag_act(mob/user)
+	if(obj_flags & EMAGGED)
+		return
+	obj_flags |= EMAGGED
+	fire_sound = null
+	spread = 60
+	recoil = 1
+	burst_size = 45
+	fire_delay = 0.5
+	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 30, 0, 0)
+	to_chat(user, "<span class='colossus'>OVERDRIVE.</span>")

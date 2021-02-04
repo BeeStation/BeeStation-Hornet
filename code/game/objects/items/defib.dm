@@ -51,12 +51,9 @@
 	if(paddles?.loc == src)
 		paddles.extinguish()
 
-/obj/item/defibrillator/update_icon()
-	update_power()
-	update_overlays()
-	update_charge()
+/obj/item/defibrillator/update_overlays()
+	. = ..()
 
-/obj/item/defibrillator/proc/update_power()
 	if(!QDELETED(cell))
 		if(QDELETED(paddles) || cell.charge < paddles.revivecost)
 			powered = FALSE
@@ -65,23 +62,17 @@
 	else
 		powered = FALSE
 
-/obj/item/defibrillator/proc/update_overlays()
-	cut_overlays()
 	if(!on)
-		add_overlay("[initial(icon_state)]-paddles")
+		. += "[initial(icon_state)]-paddles"
 	if(powered)
-		add_overlay("[initial(icon_state)]-powered")
+		. += "[initial(icon_state)]-powered"
+		var/ratio = cell.charge / cell.maxcharge
+		ratio = CEILING(ratio*4, 1) * 25
+		. += "[initial(icon_state)]-charge[ratio]"
 	if(!cell)
-		add_overlay("[initial(icon_state)]-nocell")
+		. += "[initial(icon_state)]-nocell"
 	if(!safety)
-		add_overlay("[initial(icon_state)]-emagged")
-
-/obj/item/defibrillator/proc/update_charge()
-	if(powered) //so it doesn't show charge if it's unpowered
-		if(!QDELETED(cell))
-			var/ratio = cell.charge / cell.maxcharge
-			ratio = CEILING(ratio*4, 1) * 25
-			add_overlay("[initial(icon_state)]-charge[ratio]")
+		. += "[initial(icon_state)]-emagged"
 
 /obj/item/defibrillator/CheckParts(list/parts_list)
 	..()
@@ -114,8 +105,8 @@
 	. = ..()
 	if(ismob(loc))
 		var/mob/M = loc
-		if(!M.incapacitated() && istype(over_object, /obj/screen/inventory/hand))
-			var/obj/screen/inventory/hand/H = over_object
+		if(!M.incapacitated() && istype(over_object, /atom/movable/screen/inventory/hand))
+			var/atom/movable/screen/inventory/hand/H = over_object
 			M.putItemFromInventoryInHandIfPossible(src, H.held_index)
 
 /obj/item/defibrillator/attackby(obj/item/W, mob/user, params)

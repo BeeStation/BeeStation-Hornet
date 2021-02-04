@@ -62,6 +62,7 @@
 /mob/living/attack_ghost(mob/dead/observer/user)
 	if(user.client && user.health_scan)
 		healthscan(user, src, 1, TRUE)
+		chemscan(user, src, 1, TRUE)
 	return ..()
 
 // ---------------------------------------

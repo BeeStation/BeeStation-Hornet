@@ -17,6 +17,8 @@
 /datum/antagonist/heretic_monster/greet()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', 100, FALSE, pressure_affected = FALSE)//subject to change
 	to_chat(owner, "<span class='boldannounce'>You became an Eldritch Horror!</span>")
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Eldritch Horror",
+		"You are an Eldritch Horror, follow your master's orders.")
 
 /datum/antagonist/heretic_monster/on_removal()
 	if(master)

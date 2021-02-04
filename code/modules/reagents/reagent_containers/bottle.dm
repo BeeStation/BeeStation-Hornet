@@ -45,7 +45,7 @@
 	name = "chloral hydrate bottle"
 	desc = "A small bottle of Choral Hydrate. Mickey's Favorite!"
 	icon_state = "bottle20"
-	list_reagents = list(/datum/reagent/toxin/chloralhydrate = 15)
+	list_reagents = list(/datum/reagent/toxin/chloralhydrate = 30)
 
 /obj/item/reagent_containers/glass/bottle/mannitol
 	name = "mannitol bottle"
@@ -81,11 +81,6 @@
 	name = "cryostylane bottle"
 	desc = "A small bottle of cryostylane. It feels cold to the touch"
 	list_reagents = list(/datum/reagent/cryostylane = 30)
-
-/obj/item/reagent_containers/glass/bottle/concentrated_bz
-	name = "concentrated BZ bottle"
-	desc = "A small bottle of concentrated BZ"
-	list_reagents = list(/datum/reagent/concentrated_bz = 30)
 
 /obj/item/reagent_containers/glass/bottle/ammonia
 	name = "ammonia bottle"

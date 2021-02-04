@@ -122,6 +122,24 @@
 		. = 1
 	..()
 
+/datum/reagent/toxin/slimeooze
+	name = "Slime Ooze"
+	description = "A gooey semi-liquid produced from Oozelings"
+	color = "#611e80"
+	toxpwr = 0
+	taste_description = "slime"
+	taste_mult = 1.5
+
+/datum/reagent/toxin/slimeooze/on_mob_life(mob/living/carbon/M)
+	if(prob(10))
+		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
+		M.adjustToxLoss(rand(1,10)*REM, 0)
+		. = 1
+	else if(prob(40))
+		M.heal_bodypart_damage(5*REM)
+		. = 1
+	..()
+
 /datum/reagent/toxin/minttoxin
 	name = "Mint Toxin"
 	description = "Useful for dealing with undesirable customers."
@@ -715,43 +733,6 @@
 			animate(whole_screen, transform = matrix(), time = 5, easing = QUAD_EASING)
 	..()
 
-/datum/reagent/toxin/skewium
-	name = "Skewium"
-	description = "A strange, dull coloured liquid that appears to warp back and forth inside its container. Causes any consumer to experience a visual phenomena similar to said warping."
-	silent_toxin = TRUE
-	reagent_state = LIQUID
-	color = "#ADBDCD"
-	metabolization_rate = 0.8 * REAGENTS_METABOLISM
-	toxpwr = 0.25
-	taste_description = "skewing"
-	process_flags = ORGANIC | SYNTHETIC
-
-/datum/reagent/toxin/skewium/on_mob_life(mob/living/carbon/M)
-	if(M.hud_used)
-		if(current_cycle >= 5 && current_cycle % 3 == 0)
-			var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
-			var/matrix/skew = matrix()
-			var/intensity = 8
-			skew.set_skew(rand(-intensity,intensity), rand(-intensity,intensity))
-			var/matrix/newmatrix = skew
-
-			if(prob(33)) // 1/3rd of the time, let's make it stack with the previous matrix! Mwhahahaha!
-				var/obj/screen/plane_master/PM = M.hud_used.plane_masters["[GAME_PLANE]"]
-				newmatrix = skew * PM.transform
-
-			for(var/whole_screen in screens)
-				animate(whole_screen, transform = newmatrix, time = 5, easing = QUAD_EASING, loop = -1)
-				animate(transform = -newmatrix, time = 5, easing = QUAD_EASING)
-	return ..()
-
-/datum/reagent/toxin/skewium/on_mob_end_metabolize(mob/living/M)
-	if(M?.hud_used)
-		var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
-		for(var/whole_screen in screens)
-			animate(whole_screen, transform = matrix(), time = 5, easing = QUAD_EASING)
-	..()
-
-
 /datum/reagent/toxin/anacea
 	name = "Anacea"
 	description = "A toxin that quickly purges medicines and metabolizes very slowly."
@@ -892,7 +873,7 @@
 		if(M.dna.species.type != /datum/species/skeleton && M.dna.species.type != /datum/species/plasmaman) //We're so sorry skeletons, you're so misunderstood
 			if(bp)
 				bp.receive_damage(0, 0, 200)
-				playsound(M, get_sfx("desceration"), 50, TRUE, -1)
+				playsound(M, get_sfx("desecration"), 50, TRUE, -1)
 				M.visible_message("<span class='warning'>[M]'s bones hurt too much!!</span>", "<span class='danger'>Your bones hurt too much!!</span>")
 				M.say("OOF!!", forced = /datum/reagent/toxin/bonehurtingjuice)
 			else //SUCH A LUST FOR REVENGE!!!
@@ -900,7 +881,7 @@
 				M.say("Why are we still here, just to suffer?", forced = /datum/reagent/toxin/bonehurtingjuice)
 		else //you just want to socialize
 			if(bp)
-				playsound(M, get_sfx("desceration"), 50, TRUE, -1)
+				playsound(M, get_sfx("desecration"), 50, TRUE, -1)
 				M.visible_message("<span class='warning'>[M] rattles loudly and flails around!!</span>", "<span class='danger'>Your bones hurt so much that your missing muscles spasm!!</span>")
 				M.say("OOF!!", forced=/datum/reagent/toxin/bonehurtingjuice)
 				bp.receive_damage(200, 0, 0) //But I don't think we should

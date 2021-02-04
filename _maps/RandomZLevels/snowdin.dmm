@@ -787,7 +787,7 @@
 	dir = 1
 	},
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/kitchen)
@@ -1215,7 +1215,7 @@
 "cU" = (
 /obj/effect/turf_decal/weather/snow,
 /obj/structure/closet/crate{
-	icon_state = "crateopen";
+	opened = 1;
 	name = "explosives ordinance"
 	},
 /obj/machinery/light/small{
@@ -1543,7 +1543,7 @@
 "dy" = (
 /obj/effect/turf_decal/weather/snow,
 /obj/structure/closet/crate{
-	icon_state = "crateopen";
+	opened = 1;
 	name = "explosives ordinance"
 	},
 /turf/open/floor/plasteel/dark/snowdin,
@@ -2689,14 +2689,14 @@
 /area/awaymission/snowdin/outside)
 "gc" = (
 /turf/open/floor/engine/cult{
-	initial_gas_mix = "o2=0;n2=82;plasma=24;TEMP=120";
+	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
 	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
 "gd" = (
 /obj/effect/spawner/lootdrop/crate_spawner,
 /turf/open/floor/engine/cult{
-	initial_gas_mix = "o2=0;n2=82;plasma=24;TEMP=120";
+	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
 	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
@@ -2707,7 +2707,7 @@
 /obj/structure/closet/crate/wooden,
 /obj/effect/spawner/lootdrop/snowdin/dungeonheavy,
 /turf/open/floor/engine/cult{
-	initial_gas_mix = "o2=0;n2=82;plasma=24;TEMP=120";
+	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
 	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
@@ -2760,7 +2760,7 @@
 "gk" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /obj/item/crowbar,
 /obj/item/crowbar,
@@ -3078,14 +3078,14 @@
 "gU" = (
 /obj/effect/decal/remains/human,
 /turf/open/floor/engine/cult{
-	initial_gas_mix = "o2=0;n2=82;plasma=24;TEMP=120";
+	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
 	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
 "gV" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/engine/cult{
-	initial_gas_mix = "o2=0;n2=82;plasma=24;TEMP=120";
+	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
 	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
@@ -3194,7 +3194,7 @@
 	pixel_y = 5
 	},
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/shoes/winterboots,
@@ -3392,7 +3392,7 @@
 "hF" = (
 /obj/structure/destructible/cult/pylon,
 /turf/open/floor/engine/cult{
-	initial_gas_mix = "o2=0;n2=82;plasma=24;TEMP=120";
+	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
 	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
@@ -3653,7 +3653,7 @@
 /obj/structure/closet/crate/wooden,
 /obj/effect/spawner/lootdrop/snowdin/dungeonmid,
 /turf/open/floor/engine/cult{
-	initial_gas_mix = "o2=0;n2=82;plasma=24;TEMP=120";
+	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
 	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
@@ -3663,7 +3663,7 @@
 	max_mobs = 5
 	},
 /turf/open/floor/engine/cult{
-	initial_gas_mix = "o2=0;n2=82;plasma=24;TEMP=120";
+	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
 	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
@@ -3673,7 +3673,7 @@
 	name = "Caleb Reed"
 	},
 /turf/open/floor/engine/cult{
-	initial_gas_mix = "o2=0;n2=82;plasma=24;TEMP=120";
+	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
 	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
@@ -4490,7 +4490,7 @@
 	name = "Jacob Ullman"
 	},
 /turf/open/floor/engine/cult{
-	initial_gas_mix = "o2=0;n2=82;plasma=24;TEMP=120";
+	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
 	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
@@ -4691,7 +4691,7 @@
 	pixel_x = 32
 	},
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /obj/item/tank/internals/plasma,
 /obj/item/tank/internals/plasma,
@@ -5617,7 +5617,7 @@
 /obj/structure/closet/crate/wooden,
 /obj/effect/spawner/lootdrop/snowdin/dungeonlite,
 /turf/open/floor/engine/cult{
-	initial_gas_mix = "o2=0;n2=82;plasma=24;TEMP=120";
+	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
 	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
@@ -7512,7 +7512,7 @@
 "qg" = (
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/engine/cult{
-	initial_gas_mix = "o2=0;n2=82;plasma=24;TEMP=120";
+	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
 	temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
@@ -10158,7 +10158,7 @@
 /area/awaymission/snowdin/cave)
 "xc" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -12088,7 +12088,7 @@
 "Ca" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate{
-	icon_state = "crateopen";
+	opened = 1;
 	name = "explosives ordinance"
 	},
 /turf/open/floor/plating/snowed,
@@ -14815,7 +14815,7 @@
 /area/awaymission/snowdin/post/mining_main)
 "IX" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 10
@@ -14960,7 +14960,7 @@
 /area/awaymission/snowdin/post/mining_dock)
 "Jp" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /obj/item/storage/toolbox/emergency,
 /obj/item/clothing/suit/hooded/wintercoat,
@@ -15009,7 +15009,7 @@
 /area/awaymission/snowdin/post/mining_main)
 "Jt" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /obj/item/storage/toolbox/emergency,
 /turf/open/floor/plating,
@@ -15117,7 +15117,7 @@
 /area/awaymission/snowdin/post/mining_dock)
 "JE" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /obj/item/storage/toolbox/emergency,
 /obj/item/clothing/suit/hooded/wintercoat,
@@ -15200,7 +15200,7 @@
 /area/awaymission/snowdin/post/mining_main)
 "JN" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /obj/item/clothing/suit/hooded/wintercoat,
 /obj/item/clothing/suit/hooded/wintercoat,

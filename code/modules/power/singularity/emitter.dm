@@ -16,7 +16,7 @@
 
 	use_power = NO_POWER_USE
 	idle_power_usage = 10
-	active_power_usage = 300
+	active_power_usage = 600
 
 	var/icon_state_on = "emitter_+a"
 	var/icon_state_underpowered = "emitter_+u"

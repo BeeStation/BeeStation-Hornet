@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	var/cooldown = 0
 	var/mob/living/summoner
 	var/range = 10 //how far from the user the spirit can be
-	var/toggle_button_type = /obj/screen/guardian/ToggleMode/Inactive //what sort of toggle button the hud uses
+	var/toggle_button_type = /atom/movable/screen/guardian/ToggleMode/Inactive //what sort of toggle button the hud uses
 	var/playstyle_string = "<span class='holoparasite bold'>You are a standard Guardian. You shouldn't exist!</span>"
 	var/magic_fluff_string = "<span class='holoparasite'>You draw the Coder, symbolizing bugs and errors. This shouldn't happen! Submit a bug report!</span>"
 	var/tech_fluff_string = "<span class='holoparasite'>BOOT SEQUENCE COMPLETE. ERROR MODULE LOADED. THIS SHOULDN'T HAPPEN. Submit a bug report!</span>"
@@ -121,7 +121,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			speak_emote = list("telepathically cries")
 			desc = "A truly alien creature, it is a mass of unknown organic material, standing by its' owner's side."
 			attack_sound = 'sound/weapons/pierce.ogg'
-	if(!recolorentiresprite) //we want this to proc before stand logs in, so the overlay isnt gone for some reason
+	if(!recolorentiresprite) //we want this to proc before stand logs in, so the overlay isn't gone for some reason
 		cooloverlay = mutable_appearance(icon, theme)
 		add_overlay(cooloverlay)
 
@@ -189,18 +189,18 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		qdel(src)
 	snapback()
 
-/mob/living/simple_animal/hostile/guardian/Stat()
-	..()
-	if(statpanel("Status"))
-		if(summoner)
-			var/resulthealth
-			if(iscarbon(summoner))
-				resulthealth = round((abs(HEALTH_THRESHOLD_DEAD - summoner.health) / abs(HEALTH_THRESHOLD_DEAD - summoner.maxHealth)) * 100)
-			else
-				resulthealth = round((summoner.health / summoner.maxHealth) * 100, 0.5)
-			stat(null, "Summoner Health: [resulthealth]%")
-		if(cooldown >= world.time)
-			stat(null, "Manifest/Recall Cooldown Remaining: [DisplayTimeText(cooldown - world.time)]")
+/mob/living/simple_animal/hostile/guardian/get_stat_tab_status()
+	var/list/tab_data = ..()
+	if(summoner)
+		var/resulthealth
+		if(iscarbon(summoner))
+			resulthealth = round((abs(HEALTH_THRESHOLD_DEAD - summoner.health) / abs(HEALTH_THRESHOLD_DEAD - summoner.maxHealth)) * 100)
+		else
+			resulthealth = round((summoner.health / summoner.maxHealth) * 100, 0.5)
+		tab_data["Summoner Health"] = GENERATE_STAT_TEXT("[resulthealth]%")
+	if(cooldown >= world.time)
+		tab_data["Manifest/Recall Cooldown Remaining"] = GENERATE_STAT_TEXT("[DisplayTimeText(cooldown - world.time)]")
+	return tab_data
 
 /mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
 	. = ..()
@@ -480,13 +480,13 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 						to_chat(src, "<span class='holoparasite'><font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> has been created from the core!</span>")
 				guardians -= G
 				if(!guardians.len)
-					verbs -= /mob/living/proc/guardian_reset
+					remove_verb(/mob/living/proc/guardian_reset)
 			else
 				to_chat(src, "<span class='holoparasite'>There were no ghosts willing to take control of <font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font>. Looks like you're stuck with it for now.</span>")
 		else
 			to_chat(src, "<span class='holoparasite'>You decide not to reset [guardians.len > 1 ? "any of your guardians":"your guardian"].</span>")
 	else
-		verbs -= /mob/living/proc/guardian_reset
+		remove_verb(/mob/living/proc/guardian_reset)
 
 ////////parasite tracking/finding procs
 
@@ -620,9 +620,9 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		if("hive")
 			to_chat(user, "[G.hive_fluff_string]")
 			to_chat(user, "<span class='holoparasite'><b>[G.real_name]</b> has been created from the core!</span>")
-	user.verbs += /mob/living/proc/guardian_comm
-	user.verbs += /mob/living/proc/guardian_recall
-	user.verbs += /mob/living/proc/guardian_reset
+	user.add_verb(/mob/living/proc/guardian_comm)
+	user.add_verb(/mob/living/proc/guardian_recall)
+	user.add_verb(/mob/living/proc/guardian_reset)
 
 /obj/item/guardiancreator/choose
 	random = FALSE

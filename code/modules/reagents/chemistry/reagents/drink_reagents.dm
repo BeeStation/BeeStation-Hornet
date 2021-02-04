@@ -410,7 +410,7 @@
 	taste_description = "carbonated oil"
 	glass_icon_state = "grey_bull_glass"
 	glass_name = "glass of Grey Bull"
-	glass_desc = "Surprisingly it isnt grey."
+	glass_desc = "Surprisingly it isn't grey."
 
 /datum/reagent/consumable/grey_bull/on_mob_metabolize(mob/living/L)
 	..()
@@ -813,12 +813,13 @@
 	glass_name = "Red Queen"
 	glass_desc = "DRINK ME."
 	random_unrestricted = TRUE
-	var/current_size = 1
+	var/current_size = RESIZE_DEFAULT_SIZE
 
 /datum/reagent/consumable/red_queen/on_mob_life(mob/living/carbon/H)
 	if(prob(75))
 		return ..()
 	var/newsize = pick(0.5, 0.75, 1, 1.50, 2)
+	newsize *= RESIZE_DEFAULT_SIZE
 	H.resize = newsize/current_size
 	current_size = newsize
 	H.update_transform()
@@ -827,15 +828,16 @@
 	..()
 
 /datum/reagent/consumable/red_queen/on_mob_end_metabolize(mob/living/M)
-	M.resize = 1/current_size
+	M.resize = RESIZE_DEFAULT_SIZE/current_size
+	current_size = RESIZE_DEFAULT_SIZE
 	M.update_transform()
 	..()
 
 /datum/reagent/consumable/bungojuice
 	name = "Bungo Juice"
 	color = "#F9E43D"
-	description = "Exotic! You feel like you are on vactation already."
+	description = "Exotic! You feel like you are on vacation already."
 	taste_description = "succulent bungo"
 	glass_icon_state = "glass_yellow"
 	glass_name = "glass of bungo juice"
-	glass_desc = "Exotic! You feel like you are on vactation already."
+	glass_desc = "Exotic! You feel like you are on vacation already."

@@ -85,7 +85,7 @@
 		eaten = TRUE
 
 	if(eaten && prob(10))
-		say("Nom")
+		INVOKE_ASYNC(src, /atom/movable/proc/say, "Nom")
 
 /mob/living/simple_animal/hostile/retaliate/goat/attackby(obj/item/O, mob/user, params)
 	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
@@ -281,6 +281,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/static/chicken_count = 0
 	mobsay_color = "#FFDC9B"
+	mobchatspan = "stationengineer"
 
 	do_footstep = TRUE
 

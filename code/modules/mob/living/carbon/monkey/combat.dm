@@ -64,7 +64,7 @@
 
 /mob/living/carbon/monkey/proc/battle_screech()
 	if(next_battle_screech < world.time)
-		emote(pick("roar","screech"))
+		INVOKE_ASYNC(src, /mob.proc/emote, pick("roar","screech"))
 		for(var/mob/living/carbon/monkey/M in view(7,src))
 			M.next_battle_screech = world.time + battle_screech_cooldown
 
@@ -139,7 +139,7 @@
 				blacklistItems[pickupTarget] ++
 				pickupTarget = null
 				pickupTimer = 0
-			else if(!IsDeadOrIncap())		
+			else if(!IsDeadOrIncap())
 				INVOKE_ASYNC(src, .proc/walk2derpless, pickupTarget.loc)
 				if(Adjacent(pickupTarget) || Adjacent(pickupTarget.loc)) // next to target
 					drop_all_held_items() // who cares about these items, i want that one!
