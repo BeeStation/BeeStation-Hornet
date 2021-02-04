@@ -302,7 +302,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		var/mob/living/L = AM
 		for(var/obj/item/I in L.GetAllContents())
 			C = I.get_cell()
-			if(C && C.charge)
+			if(C?.charge)
 				break
 	if(C?.charge)
 		do_sparks(5,FALSE,C)
