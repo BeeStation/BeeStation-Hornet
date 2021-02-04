@@ -26,7 +26,6 @@
 		. += "<span class='notice'>Alt-click to unlock.</span>"
 
 /obj/item/nanite_remote/AltClick(mob/user)
-	. = ..()
 	if(!user.canUseTopic(src, BE_CLOSE))
 		return
 	if(locked)

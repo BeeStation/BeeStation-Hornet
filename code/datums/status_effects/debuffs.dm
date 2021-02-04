@@ -168,9 +168,9 @@
 	id = "syringe"
 	status_type = STATUS_EFFECT_MULTIPLE
 	alert_type = null
-	var/obj/item/reagent_containers/syringe/syringe = null
+	var/obj/item/reagent_containers/syringe/syringe
 	var/injectmult = 1
-	
+
 /datum/status_effect/syringe/on_creation(mob/living/new_owner, obj/item/reagent_containers/syringe/origin, mult)
 	syringe = origin
 	injectmult = mult
@@ -200,6 +200,8 @@
 	. = ..()
 	if(usr != owner)
 		return
+	if(owner.incapacitated())
+		return
 	var/list/syringes = list()
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
@@ -223,7 +225,7 @@
 				syringe.reagents.trans_to(C, amount)
 				syringe.forceMove(C.loc)
 				qdel(syringestatus)
-		if(!C.has_status_effect(STATUS_EFFECT_SYRINGE))	
+		if(!C.has_status_effect(STATUS_EFFECT_SYRINGE))
 			C.clear_alert("syringealert")
 
 

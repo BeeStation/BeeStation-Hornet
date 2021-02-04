@@ -316,7 +316,7 @@
 		else
 			user.heal_ordered_damage(5, list(CLONE, BURN, BRUTE))
 		if(!user.getBruteLoss() && !user.getFireLoss() && !user.getCloneLoss()) //If we don't have any of these, stop looping
-			to_chat(user, "<span class='warning'>We finish our healing</span>")
+			to_chat(user, "<span class='warning'>We finish our healing.</span>")
 			break
 		iterations++
 	user.setOrganLoss(ORGAN_SLOT_BRAIN, 0)

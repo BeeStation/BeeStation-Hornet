@@ -36,7 +36,7 @@
 	if(can_interact(user))
 		volume_rate = MAX_TRANSFER_RATE
 		update_icon()
-	return ..()
+	return
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/Destroy()
 	SSradio.remove_object(src,frequency)

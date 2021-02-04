@@ -26,6 +26,11 @@ if grep -P '\td[1-2] =' _maps/**/*.dmm;	then
     echo "ERROR: d1/d2 cable variables detected in maps, please remove them."
     st=1
 fi;
+echo "Checking for stacked cables"
+if grep -P '"\w+" = \(\n([^)]+\n)*/obj/structure/cable,\n([^)]+\n)*/obj/structure/cable,\n([^)]+\n)*/area/.+\)' _maps/**/*.dmm;	then
+    echo "found multiple cables on the same tile, please remove them."
+    st=1
+fi;
 if grep '^/area/.+[\{]' _maps/**/*.dmm;	then
     echo "ERROR: Vareditted /area path use detected in maps, please replace with proper paths."
     st=1
@@ -53,7 +58,7 @@ fi;
 for json in _maps/*.json
 do
 	filepath="_maps/$(jq -r '.map_path' $json)"
-	filenames=$(jq -r '.map_file' $json) 
+	filenames=$(jq -r '.map_file' $json)
 	if [[ "$filenames" =~ ^\[ ]] # If it starts with brackets it's a list
 	then
 		echo "$filenames" | jq -c '.[]' | while read filename

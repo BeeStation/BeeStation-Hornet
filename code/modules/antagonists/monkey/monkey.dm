@@ -69,17 +69,8 @@
 
 /datum/antagonist/monkey/admin_remove(mob/admin)
 	var/mob/living/carbon/monkey/M = owner.current
-	if(istype(M))
-		switch(alert(admin, "Humanize?", "Humanize", "Yes", "No"))
-			if("Yes")
-				if(admin == M)
-					admin = M.humanize(TR_KEEPITEMS  |  TR_KEEPIMPLANTS  |  TR_KEEPORGANS  |  TR_KEEPDAMAGE  |  TR_KEEPVIRUS  |  TR_DEFAULTMSG)
-				else
-					M.humanize(TR_KEEPITEMS  |  TR_KEEPIMPLANTS  |  TR_KEEPORGANS  |  TR_KEEPDAMAGE  |  TR_KEEPVIRUS  |  TR_DEFAULTMSG)
-			if("No")
-				//nothing
-			else
-				return
+	if(alert(admin, "Humanize?", "Humanize", "Yes", "No") == "Yes")
+		M.humanize(TR_KEEPITEMS  |  TR_KEEPIMPLANTS  |  TR_KEEPORGANS  |  TR_KEEPDAMAGE  |  TR_KEEPVIRUS  |  TR_DEFAULTMSG)
 	. = ..()
 
 /datum/antagonist/monkey/leader
@@ -88,17 +79,8 @@
 
 /datum/antagonist/monkey/leader/admin_add(datum/mind/new_owner,mob/admin)
 	var/mob/living/carbon/human/H = new_owner.current
-	if(istype(H))
-		switch(alert(admin, "Monkeyize?", "Monkeyize", "Yes", "No"))
-			if("Yes")
-				if(admin == H)
-					admin = H.monkeyize()
-				else
-					H.monkeyize()
-			if("No")
-				//nothing
-			else
-				return
+	if(alert(admin, "Monkeyize?", "Monkeyize", "Yes", "No") == "Yes")
+		H.monkeyize()
 	new_owner.add_antag_datum(src)
 	log_admin("[key_name(admin)] made [key_name(new_owner)] a monkey leader!")
 	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] a monkey leader!")

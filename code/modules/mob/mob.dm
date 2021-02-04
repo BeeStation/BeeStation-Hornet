@@ -1282,3 +1282,7 @@
 	for(var/obj/item/I in held_items)
 		if(I.item_flags & SLOWS_WHILE_IN_HAND)
 			. += I.slowdown
+
+// Returns TRUE if the hearer should hear radio noises
+/mob/proc/hears_radio()
+	return TRUE

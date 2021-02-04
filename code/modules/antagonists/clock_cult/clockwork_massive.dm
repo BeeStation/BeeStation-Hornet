@@ -120,13 +120,14 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	activated = TRUE
 	set_security_level(SEC_LEVEL_DELTA)
 	mass_recall(TRUE)
-	addtimer(CALLBACK(src, .proc/begin_assault), 1800)
+	var/grace_time = GLOB.narsie_breaching ? 0 : 1800
+	addtimer(CALLBACK(src, .proc/begin_assault), grace_time)
 	priority_announce("Massive [Gibberish("bluespace", 100)] anomaly detected on all frequencies. All crew are directed to \
 	@!$, [text2ratvar("PURGE ALL UNTRUTHS")] <&. the anomalies and destroy their source to prevent further damage to corporate property. This is \
-	not a drill.[grace_period ? " Estimated time of appearance: [grace_period] seconds. Use this time to prepare for an attack on [station_name()]." : ""]"\
+	not a drill.[grace_period ? " Estimated time of appearance: [grace_time/10] seconds. Use this time to prepare for an attack on [station_name()]." : ""]"\
 	,"Central Command Higher Dimensional Affairs", 'sound/magic/clockwork/ark_activation.ogg')
 	sound_to_playing_players(volume = 10, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_charging.ogg', TRUE))
-	GLOB.ratvar_arrival_tick = world.time + 6000+1800
+	GLOB.ratvar_arrival_tick = world.time + 6000 + grace_time
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/mass_recall(add_overlay = FALSE)
 	var/list/spawns = GLOB.servant_spawns.Copy()
@@ -200,10 +201,14 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	QDEL_IN(src, 3)
 	sleep(3)
 	var/turf/center_station = SSmapping.get_station_center()
-	flee_reebe(TRUE)
 	new /obj/singularity/ratvar(center_station)
+	if(GLOB.narsie_breaching)
+		new /obj/singularity/narsie/large/cult(GLOB.narsie_arrival)
+	flee_reebe(TRUE)
 
 //=========Ratvar==========
+GLOBAL_VAR(cult_ratvar)
+
 /obj/singularity/ratvar
 	name = "ratvar, the Clockwork Justicar"
 	desc = "Oh, that's ratvar!"
@@ -215,20 +220,43 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	pixel_x = -236
 	pixel_y = -256
 	var/range = 1
+	var/ratvar_target
+	var/next_attack_tick
 
 /obj/singularity/ratvar/Initialize(mapload, starting_energy = 50)
 	log_game("!!! RATVAR HAS RISEN. !!!")
+	GLOB.cult_ratvar = src
 	. = ..()
 	desc = "[text2ratvar("That's Ratvar, the Clockwork Justicar. The great one has risen.")]"
 	SEND_SOUND(world, 'sound/effects/ratvar_reveal.ogg')
 	to_chat(world, "<span class='ratvar'>The bluespace veil gives way to Ratvar, his light shall shine upon all mortals!</span>")
-	trigger_clockcult_victory(src)
 	UnregisterSignal(src, COMSIG_ATOM_BSA_BEAM)
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/trigger_clockcult_victory, src)
+	check_gods_battle()
 
 //tasty
 /obj/singularity/ratvar/process()
-	move()
 	eat()
+	if(ratvar_target)
+		target = ratvar_target
+		if(get_dist(src, ratvar_target) < 5)
+			if(next_attack_tick < world.time)
+				next_attack_tick = world.time + rand(50, 100)
+				to_chat(world, "<span class='danger'>[pick("Reality shudders around you.","You hear the tearing of flesh.","The sound of bones cracking fills the air.")]</span>")
+				SEND_SOUND(world, 'sound/magic/clockwork/ratvar_attack.ogg')
+				SpinAnimation(4, 0)
+				for(var/mob/living/M in GLOB.player_list)
+					shake_camera(M, 25, 6)
+					M.Knockdown(10)
+				if(prob(max(GLOB.servants_of_ratvar.len/2, 15)))
+					SEND_SOUND(world, 'sound/magic/demon_dies.ogg')
+					to_chat(world, "<span class='ratvar'>You were a fool for underestimating me...</span>")
+					qdel(ratvar_target)
+					for(var/datum/mind/M as() in SSticker.mode?.cult)
+						to_chat(M, "<span class='userdanger'>You feel a stabbing pain in your chest... This can't be happening!</span>")
+						M.current?.dust()
+				return
+	move()
 
 /obj/singularity/ratvar/eat()
 	for(var/tile in spiral_range_turfs(range, src))

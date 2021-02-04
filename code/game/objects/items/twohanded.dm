@@ -929,7 +929,7 @@
 			_y = -zoom_amt
 		if(WEST)
 			_x = -zoom_amt
-	C.change_view(world.view + zoom_out_amt)
+	C.change_view(get_zoomed_view(world.view, zoom_out_amt))
 	C.pixel_x = world.icon_size*_x
 	C.pixel_y = world.icon_size*_y
 

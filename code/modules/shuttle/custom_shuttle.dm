@@ -109,7 +109,7 @@
 
 /obj/machinery/computer/custom_shuttle/proc/calculateStats(var/useFuel = FALSE, var/dist = 0, var/ignore_cooldown = FALSE)
 	if(!ignore_cooldown && stat_calc_cooldown >= world.time)
-		to_chat(usr, "<span>You are using this too fast, please slow down</span>")
+		to_chat(usr, "<span>You are using this too fast, please slow down.</span>")
 		return
 	stat_calc_cooldown = world.time + CALCULATE_STATS_COOLDOWN
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)

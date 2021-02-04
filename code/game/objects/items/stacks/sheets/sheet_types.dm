@@ -390,6 +390,14 @@ GLOBAL_LIST_INIT(bamboo_recipes, list ( \
 	recipes = GLOB.bamboo_recipes
 	return ..()
 
+/obj/item/stack/sheet/mineral/bamboo/Topic(href, href_list)
+	. = ..()
+	if(href_list["make"])
+		var/list/recipes_list = recipes
+		var/datum/stack_recipe/R = recipes_list[text2num(href_list["make"])]
+		if(R.result_type == /obj/structure/punji_sticks)
+			var/turf/T = get_turf(src)
+			usr.investigate_log("has placed punji sticks trap at [AREACOORD(T)].", INVESTIGATE_BOTANY)
 
 /*
  * Cardboard

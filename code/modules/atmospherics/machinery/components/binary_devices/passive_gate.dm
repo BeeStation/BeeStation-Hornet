@@ -39,7 +39,7 @@ Passive gate is similar to the regular pump except:
 	if(can_interact(user))
 		target_pressure = MAX_OUTPUT_PRESSURE
 		update_icon()
-	return ..()
+	return
 
 /obj/machinery/atmospherics/components/binary/passive_gate/Destroy()
 	SSradio.remove_object(src,frequency)
