@@ -118,7 +118,7 @@
 		RestrainedClickOn(A)
 		return
 
-	if(in_throw_mode)
+	if(in_throw_mode && throw_item(A))
 		if(throw_item(A))
 			return
 
