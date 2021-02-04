@@ -98,7 +98,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 		return COMPONENT_INCOMPATIBLE
 
 	team_freq_key = frequency_key
-	if(frequency != null)
+	if(frequency)
 		team_frequency = "[frequency_key][frequency]"
 	else
 		team_frequency = null
