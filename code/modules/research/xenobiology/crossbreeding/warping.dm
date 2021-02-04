@@ -707,7 +707,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		to_chat(user, "<span class='warning'>The rune is trying to repair [host.name]'s soul!</span>")
 		var/list/candidates = pollCandidatesForMob("Do you want to replace the soul of [host.name]?", ROLE_SENTIENCE, null, ROLE_SENTIENCE, 50, host, POLL_IGNORE_SHADE)//todo: fix desc
 
-		else if(length(candidates)) //check if anyone wanted to play as the dead person and check if no one's in control of the body one last time.
+		if(length(candidates) && !host.key) //check if anyone wanted to play as the dead person and check if no one's in control of the body one last time.
 			var/mob/dead/observer/ghost = pick(candidates)
 
 			host.mind.memory = "" //resets the memory since it's a new soul inside.
