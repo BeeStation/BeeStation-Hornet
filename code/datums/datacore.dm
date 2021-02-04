@@ -309,7 +309,7 @@
 
 		//Security Record
 
-		security += generate_security_record(id, H, C.ckey)
+		security += generate_security_record(id, H, C)
 
 		//Locked Record
 		var/datum/data/record/L = new()
