@@ -285,6 +285,9 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 		return
 	set_frequency(new_freq)
 	to_chat(user, "<span class='notice'>Tracking HUD now scanning on frequency <i>[team_frequency]</i>.</span>")
+	//Set frequency of the linked beacon
+	if(attached_beacon)
+		attached_beacon.set_frequency(new_freq)
 
 /datum/component/team_monitor/proc/set_frequency(new_frequency)
 	var/hud_on = hud_visible
