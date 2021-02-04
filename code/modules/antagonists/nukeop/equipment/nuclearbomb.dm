@@ -644,8 +644,6 @@ This is here to make the tiles around the station mininuke change when it's arme
 		CRASH("A fake nuke disk tried to call process(). Who the fuck and how the fuck")
 	var/turf/newturf = get_turf(src)
 	if(newturf && lastlocation == newturf)
-		/// Probability of ticking up lone op weight
-		var/lone_op_prob = 0.0001
 		/// How comfy is our disk?
 		var/disk_comfort_level = 0
 
