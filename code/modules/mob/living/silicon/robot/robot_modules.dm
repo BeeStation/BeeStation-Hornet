@@ -378,7 +378,11 @@
 		/obj/item/borg/charger,
 		/obj/item/gun/energy/disabler/cyborg,
 		/obj/item/clothing/mask/gas/sechailer/cyborg,
-		/obj/item/extinguisher/mini)
+		/obj/item/extinguisher/mini,
+		/obj/item/holosign_creator/security,
+		/obj/item/detective_scanner,
+		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/evidencebag)
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
 	ratvar_modules = list(
 		/obj/item/clock_module/abscond,

@@ -328,6 +328,7 @@
 		for(var/mob/living/carbon/M in hearers(9, user))
 			if(M.get_ear_protection() == FALSE)
 				M.confused += 6
+				M.Stun(1)
 		audible_message("<font color='red' size='7'>HUMAN HARM</font>")
 		playsound(get_turf(src), 'sound/ai/harmalarm.ogg', 70, 3)
 		cooldown = world.time + 200
@@ -969,3 +970,4 @@
 	. = ..()
 	if(stored)
 		. += "You are currently holding [stored]."
+
