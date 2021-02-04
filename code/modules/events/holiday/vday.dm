@@ -71,7 +71,6 @@ GLOBAL_LIST(valentine_mobs)
 	w_class = WEIGHT_CLASS_TINY
 	var/mob/target = null
 	var/mob/sender = null
-	var/list_shown = FALSE
 	var/used = FALSE
 
 /obj/item/valentine/Initialize()
@@ -127,11 +126,6 @@ GLOBAL_LIST(valentine_mobs)
 		if(used)
 			to_chat(user, "<span class='warning'>The card has already been used!</span>")
 			return
-		used = TRUE
-		sender = user
-		target = picked_human
-		name = "valentines card from [sender]"
-		desc = "A Valentine's card! It is addressed to [target]."
 		to_chat(user, "<span class='notice'>The card vanishes out of your hand! Lets hope they got it...</span>")
 		//List checking
 		GLOB.valentine_mobs[sender] = target
@@ -139,11 +133,16 @@ GLOBAL_LIST(valentine_mobs)
 			//wow.
 			forge_valentines_objective(sender, target)
 		//Off it goes!
-		//Remove all traits (Removes nodrop)
-		REMOVE_TRAIT(src, TRAIT_NODROP, null)
-		forceMove(get_turf(picked_human))
-		picked_human.equip_to_appropriate_slot(src)
+		//Create a new card to prevent exploiting
+		var/obj/item/valentine/new_card = new(get_turf(picked_human))
+		new_card.message = message
+		new_card.sender = user
+		new_card.target = picked_human
+		new_card.name = "valentines card from [new_card.sender]"
+		new_card.desc = "A Valentine's card! It is addressed to [new_card.target]."
+		picked_human.equip_to_appropriate_slot(new_card)
 		to_chat(picked_human, "<span class='clown'>A magical card suddenly appears!</span>")
+		qdel(src)
 
 /obj/item/valentine/examine(mob/user)
 	. = ..()
