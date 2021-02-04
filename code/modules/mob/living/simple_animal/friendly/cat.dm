@@ -228,7 +228,7 @@
 				movement_target = null
 				stop_automated_movement = 0
 				for(var/mob/living/simple_animal/mouse/snack in oview(3, src))
-					if(isturf(snack.loc) && !snack.stat)
+					if(!snack.stat)
 						movement_target = snack
 						break
 			if(movement_target)

@@ -37,7 +37,7 @@
 	return
 
 /obj/item/twohanded/singularityhammer/proc/vortex(turf/pull, mob/wielder)
-	for(var/atom/movable/A in orange(5,pull))
+	for(var/atom/movable/A as mob|obj in orange(5,pull))
 		if(A == wielder)
 			continue
 		if(A && !A.anchored && !ishuman(A))

@@ -572,7 +572,7 @@
 	var/desired_type = A.type
 
 	var/list/valid_things = list()
-	for(var/atom/thing in range(1, get_turf(src)))
+	for(var/atom/thing as() in range(1, get_turf(src)))
 		if(thing.type != desired_type)
 			continue
 		valid_things.Add(thing)

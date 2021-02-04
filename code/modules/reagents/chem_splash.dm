@@ -34,11 +34,10 @@
 		steam.attach(epicenter)
 		steam.start()
 
+		var/list/viewable = view(affected_range, epicenter)
 		var/list/accessible = list(epicenter)
 		for(var/i=1; i<=affected_range; i++)
-			var/list/turflist = list()
-			for(var/turf/T as() in (RANGE_TURFS(i, epicenter) - RANGE_TURFS(i-1, epicenter)))
-				turflist |= T
+			var/list/turflist = RANGE_TURFS(i, epicenter) - RANGE_TURFS(i-1, epicenter)
 			for(var/turf/T as() in turflist)
 				if(!(get_dir(T,epicenter) in GLOB.cardinals) && (abs(T.x - epicenter.x) == abs(T.y - epicenter.y) ))
 					turflist.Remove(T)
@@ -56,16 +55,15 @@
 					break
 		var/list/reactable = accessible
 		for(var/turf/T in accessible)
-			for(var/atom/A in T.GetAllContents())
-				if(!(A in view(affected_range, epicenter)))
+			for(var/atom/A as() in T.GetAllContents())
+				if(!(A in viewable))
 					continue
 				reactable |= A
 			if(extra_heat >= 300)
 				T.hotspot_expose(extra_heat*2, 5)
 		if(!reactable.len) //Nothing to react with. Probably means we're in nullspace.
 			return
-		for(var/thing in reactable)
-			var/atom/A = thing
+		for(var/atom/A as() in reactable)
 			var/distance = max(1,get_dist(A, epicenter))
 			var/fraction = 0.5/(2 ** distance) //50/25/12/6... for a 200u splash, 25/12/6/3... for a 100u, 12/6/3/1 for a 50u
 			splash_holder.reaction(A, TOUCH, fraction)

@@ -34,9 +34,7 @@
     D.visible_message("<span class='warning'>[A] sweeps [D]'s legs with their tail!</span>", \
                         "<span class='userdanger'>[A] sweeps your legs with their tail!</span>")
     var/obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon/R = new
-    var/list/turfs = list()
-    for(var/turf/T as() in RANGE_TURFS(1,A))
-        turfs.Add(T)
+    var/list/turfs = RANGE_TURFS(1,A)
     R.cast(turfs)
     return
 

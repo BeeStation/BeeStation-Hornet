@@ -43,9 +43,8 @@ Chilling extracts:
 
 /obj/item/slimecross/chilling/orange/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] shatters, and lets out a jet of heat!</span>")
-	for(var/turf/T as() in (RANGE_TURFS(2, user)-get_turf(user)))
-		if(get_dist(get_turf(user), T) > 1)
-			new /obj/effect/hotspot(T)
+	for(var/turf/T as() in (RANGE_TURFS(2, user)-RANGE_TURFS(1, user)))
+		new /obj/effect/hotspot(T)
 	..()
 
 /obj/item/slimecross/chilling/purple
@@ -78,8 +77,7 @@ Chilling extracts:
 /obj/item/slimecross/chilling/metal/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] melts like quicksilver, and surrounds [user] in a wall!</span>")
 	for(var/turf/T as() in (RANGE_TURFS(2, user)-get_turf(user)))
-		if(get_dist(get_turf(user), T) > 0)
-			new /obj/effect/forcefield/slimewall(T)
+		new /obj/effect/forcefield/slimewall(T)
 	..()
 
 /obj/item/slimecross/chilling/yellow

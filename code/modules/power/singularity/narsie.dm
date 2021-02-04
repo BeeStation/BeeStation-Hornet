@@ -216,9 +216,10 @@
 /obj/singularity/narsie/wizard/eat()
 //	if(defer_powernet_rebuild != 2)
 //		defer_powernet_rebuild = 1
-	for(var/atom/X as() in urange(consume_range,src,1))
-		if(isturf(X) || ismovableatom(X))
-			consume(X)
+	for(var/turf/T as() in RANGE_TURFS(consume_range, src))
+		consume(T)
+	for(var/atom/movable/AM in urange(consume_range,src,1))
+		consume(AM)
 //	if(defer_powernet_rebuild != 2)
 //		defer_powernet_rebuild = 0
 	return

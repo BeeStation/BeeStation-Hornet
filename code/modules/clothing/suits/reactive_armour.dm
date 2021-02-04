@@ -199,7 +199,7 @@
 		owner.visible_message("<span class='danger'>[src] blocks [attack_text], converting the attack into a wave of force!</span>")
 		var/turf/T = get_turf(owner)
 		var/list/thrown_items = list()
-		for(var/atom/movable/A in orange(7, T))
+		for(var/atom/movable/A as mob|obj in orange(7, T))
 			if(A.anchored || thrown_items[A])
 				continue
 			var/throwtarget = get_edge_target_turf(T, get_dir(T, get_step_away(A, T)))

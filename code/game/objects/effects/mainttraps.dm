@@ -339,9 +339,7 @@
 /obj/effect/rune/cluwne/can_invoke(user) //this is actually used to get "sacrifices", which can include the user
 	var/list/invokers = list() //people eligible to invoke the rune
 	for(var/mob/living/carbon/human/L in range(1, src))
-		if(!L.mind)
-			continue
-		if(L.stat)
+		if(!L.mind || L.stat)
 			continue
 		invokers += L
 	return invokers

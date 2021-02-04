@@ -409,7 +409,7 @@
 	. = ..()
 	if(!has_fire_ring)
 		return
-	for(var/turf/T as() in RANGE_TURFS(1,current_user))
+	for(var/turf/open/T in RANGE_TURFS(1,current_user))
 		new /obj/effect/hotspot(T)
 		T.hotspot_expose(700,50,1)
 

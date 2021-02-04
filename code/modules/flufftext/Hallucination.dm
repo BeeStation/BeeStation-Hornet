@@ -283,7 +283,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	set waitfor = FALSE
 	. = ..()
 	var/turf/closed/wall/wall
-	for(var/turf/closed/wall/W in RANGE_TURFS(7,target))
+	for(var/turf/closed/wall/W in spiral_range_turfs(7, target))
 		wall = W
 		break
 	if(!wall)
@@ -683,9 +683,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	for(var/mob/living/carbon/H in ohearers(target))
 		if(!person)
 			person = H
-		else
-			if(get_dist(target,H)<get_dist(target,person))
-				person = H
+		else if(get_dist(target,H)<get_dist(target,person))
+			person = H
 	if(person && !force_radio) //Basic talk
 		var/chosen = specific_message
 		if(!chosen)

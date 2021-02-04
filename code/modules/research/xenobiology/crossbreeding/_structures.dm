@@ -240,8 +240,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	for(var/turf/open/T in RANGE_TURFS(5, src))
 		if(prob(75))
 			continue
-		var/turf/open/open_turf = T
-		open_turf.MakeDry(TURF_WET_LUBE)
+		T.MakeDry(TURF_WET_LUBE)
 
 	for(var/obj/item/trash/trashie in range(5, src))
 		if(prob(25))

@@ -197,7 +197,7 @@
 		if(A == src)
 			restore()
 			return
-		if(istype(A) && allowed(A))
+		if((ismob(A) || isobj(A)) && allowed(A))
 			assume(A)
 	else
 		to_chat(src, "<span class='warning'>Your chameleon skin is still repairing itself!</span>")

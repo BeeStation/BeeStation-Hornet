@@ -20,8 +20,8 @@
 /obj/item/projectile/gravityrepulse/on_hit()
 	. = ..()
 	T = get_turf(src)
-	for(var/atom/movable/A in orange(power, T))
-		if((firer && A == src.firer) || A.anchored || thrown_items[A])
+	for(var/atom/movable/A in range(power, T))
+		if(A == src || (firer && A == src.firer) || A.anchored || thrown_items[A])
 			continue
 		if(ismob(A)) //because (ismob(A) && A:mob_negates_gravity()) is a recipe for bugs.
 			var/mob/M = A
@@ -55,8 +55,8 @@
 /obj/item/projectile/gravityattract/on_hit()
 	. = ..()
 	T = get_turf(src)
-	for(var/atom/movable/A in orange(power, T))
-		if((firer && A == src.firer) || A.anchored || thrown_items[A])
+	for(var/atom/movable/A in range(power, T))
+		if(A == src || (firer && A == src.firer) || A.anchored || thrown_items[A])
 			continue
 		if(ismob(A))
 			var/mob/M = A
@@ -89,8 +89,8 @@
 /obj/item/projectile/gravitychaos/on_hit()
 	. = ..()
 	T = get_turf(src)
-	for(var/atom/movable/A in orange(power, T))
-		if((firer && A == src.firer) || A.anchored || thrown_items[A])
+	for(var/atom/movable/A in range(power, T))
+		if(A == src || (firer && A == src.firer) || A.anchored || thrown_items[A])
 			continue
 		if(ismob(A))
 			var/mob/M = A
