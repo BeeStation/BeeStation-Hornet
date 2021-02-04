@@ -108,7 +108,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/parent_equipped)
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/parent_dequpped)
 
-	get_active_trackers()
+	get_matching_beacons()
 	add_tracker_hud(team_frequency, src)
 
 /datum/component/team_monitor/Destroy(force, silent)
@@ -127,7 +127,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 
 //Gets the active trackers for when the team_monitor component
 //is initialized while other trackers are already active.
-/datum/component/team_monitor/proc/get_active_trackers()
+/datum/component/team_monitor/proc/get_matching_beacons()
 	for(var/datum/component/tracking_beacon/beacon as() in get_all_beacons_on_frequency(team_frequency, team_freq_key))
 		if(beacon != attached_beacon && (beacon.updating || beacon.always_update))
 			add_to_tracking_network(beacon)
@@ -294,7 +294,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	//Adds our tracking component to the global list of trackers
 	add_tracker_hud(team_frequency, src)
 	//Gets the other trackers on our frequency
-	get_active_trackers()
+	get_matching_beacons()
 	//Show hud if needed
 	if(user)
 		toggle_hud(hud_on, user)
@@ -374,8 +374,6 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	toggle_visibility(_visible)
 
 /datum/component/tracking_beacon/Destroy(force, silent)
-	. = ..()
-
 	//Unregister signals
 	if(parent)
 		//Register tracking signal
@@ -395,6 +393,8 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	//Remove from the global network
 	if(team_frequency)
 		GLOB.tracker_huds[team_frequency] -= src
+
+	. = ..()
 
 //===========
 // Equip/Dequip transmission handling
