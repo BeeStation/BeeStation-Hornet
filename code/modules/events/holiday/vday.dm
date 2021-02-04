@@ -139,6 +139,8 @@ GLOBAL_LIST(valentine_mobs)
 			//wow.
 			forge_valentines_objective(sender, target)
 		//Off it goes!
+		//Remove all traits (Removes nodrop)
+		REMOVE_TRAIT(src, TRAIT_NODROP)
 		forceMove(get_turf(picked_human))
 		picked_human.equip_to_appropriate_slot(src)
 		to_chat(picked_human, "<span class='clown'>A magical card suddenly appears!</span>")
