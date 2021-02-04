@@ -497,11 +497,9 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	var/new_freq = input(user, "Enter a new frequency (1 - 999):", "Frequency Change", 1) as num|null
 	if(!new_freq)
 		to_chat(user, "<span class='warning'>Invalid frequency. Encrypted tracking beacon disabled.</span>")
-		team_frequency = null
 		return
 	if(new_freq < 1 || new_freq > 999)
 		to_chat(user, "<span class='warning'>Frequency is out of range. Must be between 1 and 999.</span>")
-		team_frequency = null
 		return
 	set_frequency(new_freq)
 	to_chat(user, "<span class='notice'>Tracking HUD now transmitting on frequency <i>[team_frequency]</i>.</span>")
