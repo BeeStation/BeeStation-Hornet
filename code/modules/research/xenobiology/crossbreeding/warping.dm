@@ -267,7 +267,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 /obj/effect/warped_rune/darkcyanspace/Crossed(atom/movable/AM, oldloc)
 	if(isliving(AM))
 		var/mob/living/L = AM
-		AM.adjust_bodytemperature(-300)
+		L.adjust_bodytemperature(-300)
 		activated = TRUE
 	. = ..()
 
