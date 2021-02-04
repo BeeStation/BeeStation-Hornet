@@ -838,7 +838,7 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 	for(var/mob/living/carbon/human/customer in get_turf(src))
 		do_sparks(3, FALSE, get_turf(src))
 		if(!exit_turf)
-			if(GLOB.warped_room && GLOB.warped_room.rainbow_runes.len)
+			if(GLOB.warped_room?.rainbow_runes.len)
 				var/obj/effect/warped_rune/WR = pick(GLOB.warped_room.rainbow_runes)
 				exit_turf = WR.rune_turf
 			else
