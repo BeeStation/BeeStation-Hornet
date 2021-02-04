@@ -333,7 +333,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 			qdel(P)
 		var/path_material = pick(materials)
 		new path_material(rune_turf, amt)
-		. = ..()
+		return ..()
 	else
 		to_chat(user, "<span class='warning'>Requires plasma!</span>")
 
