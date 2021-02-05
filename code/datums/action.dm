@@ -343,6 +343,21 @@
 /datum/action/item_action/toggle_helmet_mode
 	name = "Toggle Helmet Mode"
 
+/datum/action/item_action/toggle_beacon
+	name = "Toggle Hardsuit Locator Beacon"
+	icon_icon = 'icons/mob/actions.dmi'
+	button_icon_state = "toggle-transmission"
+
+/datum/action/item_action/toggle_beacon_hud
+	name = "Toggle Hardsuit Locator HUD"
+	icon_icon = 'icons/mob/actions.dmi'
+	button_icon_state = "toggle-hud"
+
+/datum/action/item_action/toggle_beacon_frequency
+	name = "Toggle Hardsuit Locator Frequency"
+	icon_icon = 'icons/mob/actions.dmi'
+	button_icon_state = "change-code"
+
 /datum/action/item_action/crew_monitor
 	name = "Interface With Crew Monitor"
 
