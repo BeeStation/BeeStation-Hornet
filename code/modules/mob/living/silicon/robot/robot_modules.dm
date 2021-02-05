@@ -382,7 +382,7 @@
 		/obj/item/holosign_creator/security,
 		/obj/item/detective_scanner,
 		/obj/item/reagent_containers/spray/pepper,
-		/obj/item/evidencebag)
+		/obj/item/evidencebag/cyborg)
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
 	ratvar_modules = list(
 		/obj/item/clock_module/abscond,

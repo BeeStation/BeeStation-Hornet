@@ -294,7 +294,7 @@
 
 /obj/item/harmalarm
 	name = "\improper Sonic Harm Prevention Tool"
-	desc = "Releases a harmless blast that confuses most organics. For when the harm is JUST TOO MUCH."
+	desc = "Releases a harmless blast that knocks down most organics. For when the harm is JUST TOO MUCH."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "megaphone"
 	var/cooldown = 0
@@ -327,8 +327,7 @@
 			"<span class='danger'>The siren pierces your hearing!</span>")
 		for(var/mob/living/carbon/M in hearers(9, user))
 			if(M.get_ear_protection() == FALSE)
-				M.confused += 6
-				M.Stun(1)
+				M.Knockdown(3 SECONDS)
 		audible_message("<font color='red' size='7'>HUMAN HARM</font>")
 		playsound(get_turf(src), 'sound/ai/harmalarm.ogg', 70, 3)
 		cooldown = world.time + 200

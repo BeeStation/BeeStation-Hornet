@@ -87,3 +87,22 @@
 /obj/item/storage/box/evidence/PopulateContents()
 	for(var/i in 1 to 6)
 		new /obj/item/evidencebag(src)
+
+/obj/item/evidencebag/proc/Remove()
+	if(contents.len)
+		var/obj/item/Contents = contents[1]
+		var/obj/item/TR = get_turf(src)
+		Contents.forceMove(TR)
+		cut_overlays()
+		w_class = WEIGHT_CLASS_TINY
+		icon_state = "evidenceobj"
+		desc = "An empty evidence bag."
+
+/obj/item/evidencebag/CtrlShiftClick(mob/user)
+	Remove()
+
+/obj/item/evidencebag/cyborg
+	name = "cyborg evidence bag"
+
+/obj/item/evidencebag/cyborg/Destroy()
+	Remove()
