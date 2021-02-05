@@ -78,6 +78,9 @@
 
 	var/actual_chance = embed_chance
 
+	if(throwingdatum?.speed > weapon.throw_speed)
+		actual_chance += (throwingdatum.speed - weapon.throw_speed) * EMBED_CHANCE_SPEED_BONUS
+
 	if(!weapon.isEmbedHarmless()) // all the armor in the world won't save you from a kick me sign
 		var/armor = max(victim.run_armor_check(hit_zone, "bullet", silent=TRUE), victim.run_armor_check(hit_zone, "bomb", silent=TRUE)) // we'll be nice and take the better of bullet and bomb armor
 
