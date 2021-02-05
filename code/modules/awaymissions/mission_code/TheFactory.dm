@@ -218,15 +218,6 @@
 	hud_type = list(DATA_HUD_SECURITY_ADVANCED, DATA_HUD_DIAGNOSTIC_BASIC, DATA_HUD_MEDICAL_ADVANCED)
 	hud_trait = list(TRAIT_SECURITY_HUD, TRAIT_MEDICAL_HUD)
 
-/obj/item/soundsynth/examine(mob/user)
-	. = ..()
-	. += "<span class='info'>Alt+Click on it to change volume.</span>"
-
-/obj/item/soundsynth/attack(mob/living/M as mob, mob/living/user as mob, def_zone)
-	if(spam_flag + 2 SECONDS < world.timeofday)
-		M.playsound_local(get_turf(src), selected_sound, volume, shiftpitch)
-		spam_flag = world.timeofday
-
 //MOBS//
 
 /mob/living/simple_animal/hostile/proc/summon_backup_nosound(distance, exact_faction_match)
