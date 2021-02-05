@@ -195,7 +195,7 @@
 				return
 
 			if(target == "Custom")
-				var/custom_name = reject_bad_name(params["custom_name"])
+				var/custom_name = reject_bad_name(params["custom_name"]) // if reject bad name fails, the edit will just not go through, as custom_name would be empty
 				if(custom_name)
 					log_id("[key_name(usr)] assigned a custom assignment '[custom_name]' to [id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 					id_card.assignment = custom_name
