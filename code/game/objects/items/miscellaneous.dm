@@ -324,77 +324,48 @@
 
 /obj/item/storage/box/detectivebeacon
 	name = "Paranormal Investigator"
+	desc = "Contains a variety of clothes from a deceased detective who was haunted by ghosts. Any lingering spiritual presence has been eradicated by a paranormal ERT squad."
 
 /obj/item/storage/box/detectivebeacon/PopulateContents()
-	new /obj/item/toy/eightball/haunted(src)
-	new /obj/item/clothing/glasses/detective/paranormal(src)
-	new /obj/item/book/granter/spell/olfaction(src)
-	new /obj/item/storage/box/detpiclothes(src)
+	new /obj/item/clothing/shoes/sneakers/disco(src)
+	new /obj/item/clothing/shoes/jackboots/aerostatic(src)
+	new /obj/item/clothing/suit/det_suit/disco/aerostatic(src)
+	new /obj/item/clothing/under/rank/security/detective/disco/aerostatic(src)
+	new /obj/item/clothing/gloves/color/black/aerostatic_gloves(src)
+	new /obj/item/clothing/glasses/hud/security/paranormal(src)
+	new /obj/item/clothing/accessory/holster/detective(src)
 
 /obj/item/storage/box/detectivebeacon/undercover
 	name = "Undercover Agent"
 
 /obj/item/storage/box/detectivebeacon/undercover/PopulateContents()
 	new /obj/item/implanter/undercover(src)
-	new /obj/item/card/assistant_disguise_card(src)
-	new /obj/item/storage/box/undercover(src)
-	new /obj/item/handmirror(src)
 	new /obj/item/radio/headset/headset_undercover(src)
-	new /obj/item/clothing/mask/gas/voicechange(src)
 	new /obj/item/clothing/under/color/grey(src)
-	new /obj/item/storage/backpack(src)
-	new /obj/item/clothing/shoes/sneakers/black(src)
-	new /obj/item/clothing/gloves/color/fyellow(src)
+	new /obj/item/clothing/mask/gas/voicechange(src)
 	new /obj/item/clothing/accessory/holster/undercover(src)
+	new /obj/item/card/assistant_disguise_card(src)
 
 /obj/item/storage/box/detectivebeacon/fastresponder
 	name = "Fast Responder"
 
 /obj/item/storage/box/detectivebeacon/fastresponder/PopulateContents()
 	new /obj/item/radio/headset/headset_sec/alt(src)
-	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
+	new /obj/item/clothing/glasses/hud/medsec(src)
 	new /obj/item/clothing/suit/armor/vest/det_suit(src)
 	new /obj/item/storage/belt/security/deputy(src)
 	new /obj/item/sensor_device(src)
 	new /obj/item/locator(src)
-	new /obj/item/ammo_box/c38/trac(src)
-	new /obj/item/ammo_box/c38/trac(src)
+	new /obj/item/clothing/accessory/holster/responder(src)
 
-/obj/item/card/assistant_disguise_card
-	name = "assistant disguise card"
-	desc = "A small card, that when used on any ID, will change the job role to Assistant whilst retaining current access."
-	icon_state = "data_1"
+/obj/item/storage/box/detectivebeacon/noir
+	name = "Noir Detective"
 
-/obj/item/card/assistant_disguise_card/afterattack(atom/movable/AM, mob/user, proximity)
-	. = ..()
-	if(istype(AM, /obj/item/card/id) && proximity)
-		var/obj/item/card/id/I = AM
-		I.assignment = "Assistant"
-		I.update_label()
-		to_chat(user, "You have disguised this ID as an Assistant ID.")
-		log_id("[key_name(user)] disguised the ID '[I]' as Assistant using [src] at [AREACOORD(user)].")
-		qdel(src)
-
-/obj/item/storage/box/undercover
-	name = "undercover ID box"
-	desc = "For holding an undercover agent's spare IDs when they're not in use."
-	illustration = "id"
-
-/obj/item/storage/box/undercover/PopulateContents()
-	new /obj/item/card/id/job/detective/spare(src)
-	new /obj/item/paper(src)
-	new /obj/item/pen(src)
-
-/obj/item/storage/box/detpiclothes
-	name = "paranormal investigator clothes box"
-	desc = "Contains a variety of clothes from a deceased detective who was haunted by ghosts. Any lingering spiritual presence has been eradicated by a paranormal ERT squad."
-
-/obj/item/storage/box/undercover/PopulateContents()
-	new /obj/item/clothing/shoes/sneakers/disco
-	new /obj/item/clothing/shoes/jackboots/aerostatic
-	new /obj/item/clothing/suit/det_suit/disco
-	new /obj/item/clothing/suit/det_suit/disco/aerostatic
-	new /obj/item/clothing/under/rank/security/detective/disco
-	new /obj/item/clothing/under/rank/security/detective/disco/aerostatic
-	new /obj/item/clothing/gloves/color/black/aerostatic_gloves
-	new /obj/item/clothing/glasses/sunglasses/advanced/disco
+/obj/item/storage/box/detectivebeacon/noir/PopulateContents()
+	new /obj/item/clothing/suit/det_suit/noir(src)
+	new /obj/item/clothing/under/rank/security/detective/grey(src)
+	new /obj/item/clothing/head/fedora (src)
+	new /obj/item/clothing/neck/tie/detective (src)
+	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
+	new /obj/item/book/granter/spell/olfaction(src)
+	new /obj/item/clothing/accessory/holster/detective(src)

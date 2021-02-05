@@ -47,42 +47,35 @@
 	icon_state = "det"
 	icon_deny = "det-deny"
 	req_access = list(ACCESS_FORENSICS_LOCKERS)
-	products = list(/obj/item/clothing/suit/det_suit/disco = 1,
-					/obj/item/clothing/suit/det_suit/disco/aerostatic = 1,
-					/obj/item/clothing/suit/det_suit = 1,
+	products = list(/obj/item/clothing/suit/det_suit = 1,
 					/obj/item/clothing/suit/det_suit/grey = 1,
 					/obj/item/clothing/suit/det_suit/noir = 1,
-					/obj/item/clothing/under/rank/security/detective/disco = 1,
-					/obj/item/clothing/under/rank/security/detective/disco/aerostatic = 1,
 					/obj/item/clothing/under/rank/security/detective = 1,
 					/obj/item/clothing/under/rank/security/detective/grey = 1,
 					/obj/item/clothing/accessory/waistcoat = 1,
 					/obj/item/clothing/neck/tie/red = 1,
 					/obj/item/clothing/neck/tie/black = 1,
-					/obj/item/clothing/neck/tie/detective = 1,
-					/obj/item/clothing/gloves/color/black/aerostatic_gloves = 1,
 					/obj/item/clothing/gloves/color/black = 1,
-					/obj/item/clothing/shoes/sneakers/disco = 1,
-					/obj/item/clothing/shoes/jackboots/aerostatic = 1,
 					/obj/item/clothing/shoes/laceup = 1,
-					/obj/item/clothing/glasses/sunglasses/advanced = 1,
-					/obj/item/clothing/glasses/sunglasses/advanced/disco = 1,
 					/obj/item/clothing/head/fedora/det_hat = 1,
 					/obj/item/clothing/head/fedora = 1,
-					/obj/item/radio/headset/headset_sec = 1,
-					/obj/item/detective_scanner = 2,
-					/obj/item/storage/box/matches = 12,
-					/obj/item/storage/fancy/cigarettes/cigars = 12,
-					/obj/item/reagent_containers/food/drinks/coffee = 12,
-					/obj/item/reagent_containers/food/snacks/donut = 12)
-	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,
-					  /obj/item/storage/fancy/donut_box = 2)
-	premium = list(/obj/item/coin/antagtoken = 1,
-					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 4,
-					/obj/item/lighter = 4,
-					/obj/item/clothing/mask/cigarette/pipe = 4,
-					/obj/item/storage/fancy/cigarettes/cigars/havana = 12,
-					/obj/item/storage/fancy/cigarettes/cigars/cohiba = 12)
+					/obj/item/clothing/neck/tie/detective = 3,
+					/obj/item/pinpointer/crew = 3,
+					/obj/item/radio/headset/headset_sec = 3,
+					/obj/item/flashlight/seclite = 3,
+					/obj/item/taperecorder = 3,
+					/obj/item/storage/box/evidence = 3,
+					/obj/item/storage/box/matches = 5,
+					/obj/item/storage/fancy/cigarettes/cigars = 5)
+	contraband = list(/obj/item/clothing/suit/det_suit/disco = 1,
+					/obj/item/clothing/under/rank/security/detective/disco = 1,
+					/obj/item/clothing/shoes/sneakers/disco = 1,
+					/obj/item/storage/box/rxglasses/spyglasskit = 1)
+	premium = list(	/obj/item/detective_scanner = 1,
+					/obj/item/twohanded/binoculars = 1,
+					/obj/item/camera/detective = 1,
+					/obj/item/holosign_creator/security = 1,
+					/obj/item/clothing/accessory/holster/detective = 1)
 
 	refill_canister = /obj/item/vending_refill/detective
 	extra_price = 100

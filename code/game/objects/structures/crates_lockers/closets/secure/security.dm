@@ -74,6 +74,7 @@
 /obj/structure/closet/secure_closet/brig_phys/PopulateContents()
 	..()
 	new /obj/item/defibrillator/loaded(src)
+	new /obj/item/blood_filter(src)
 	new /obj/item/radio/headset/headset_medsec(src)
 	new	/obj/item/storage/firstaid/regular(src)
 	new	/obj/item/storage/firstaid/fire(src)
@@ -81,6 +82,7 @@
 	new	/obj/item/storage/firstaid/o2(src)
 	new	/obj/item/storage/firstaid/brute(src)
 	new /obj/item/storage/belt/medical(src)
+	new /obj/item/storage/belt/security/deputy(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/restraints/handcuffs(src)
@@ -208,20 +210,6 @@
 	door_anim_time = 0 // no animation
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
-
-/obj/structure/closet/secure_closet/detective/PopulateContents()
-	..()
-	new /obj/item/storage/box/evidence(src)
-	new /obj/item/detective_scanner(src)
-	new /obj/item/taperecorder(src)
-	new /obj/item/camera/detective(src)
-	new /obj/item/flashlight/seclite(src)
-	new /obj/item/holosign_creator/security(src)
-	new /obj/item/assembly/flash/handheld(src)
-	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/clothing/accessory/holster/detective(src)
-	new /obj/item/twohanded/binoculars(src)
-	new /obj/item/pinpointer/crew(src)
 
 /obj/structure/closet/secure_closet/deputy
 	name = "deputy's locker"

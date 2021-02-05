@@ -340,12 +340,6 @@
 	icon_state = "bigsunglasses"
 	item_state = "bigsunglasses"
 
-/obj/item/clothing/glasses/sunglasses/advanced/disco
-	name = "binoclard lenses"
-	desc = "Stylish round lenses subtly shaded for your protection and criminal discomfort. Has enhanced shielding which blocks flashes."
-	icon_state = "binoclard_lenses"
-	item_state = "binoclard_lenses"
-
 /obj/item/clothing/glasses/thermal
 	name = "optical thermal scanner"
 	desc = "Thermals in the shape of glasses."
@@ -476,8 +470,6 @@
 					else
 						to_chat(H, "You will no longer see glasses colors.")
 					H.update_glasses_color(src, 1)
-	else
-		return ..()
 
 /obj/item/clothing/glasses/proc/change_glass_color(mob/living/carbon/human/H, datum/client_colour/glass_colour/new_color_type)
 	var/old_colour_type = glass_colour_type

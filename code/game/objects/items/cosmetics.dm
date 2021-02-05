@@ -297,28 +297,5 @@
 /obj/item/handmirror/attack_self(mob/user)
 	ADD_TRAIT(user, TRAIT_SELF_AWARE, "mirror_trait")
 	to_chat(user, "<span class='notice'>You look into the mirror</span>")
-
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-
-		//handle facial hair (if necessary)
-		if(H.gender == MALE)
-			var/new_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in GLOB.facial_hair_styles_list
-			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
-				return	//no tele-grooming
-			if(new_style)
-				H.facial_hair_style = new_style
-		else
-			H.facial_hair_style = "Shaved"
-
-		//handle normal hair
-		var/new_style = input(user, "Select a hair style", "Grooming")  as null|anything in GLOB.hair_styles_list
-		if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
-			return	//no tele-grooming
-		if(new_style)
-			H.hair_style = new_style
-
-		H.update_hair()
-
 	sleep(150)
 	REMOVE_TRAIT(user, TRAIT_SELF_AWARE, "mirror_trait")
