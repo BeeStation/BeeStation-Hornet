@@ -306,7 +306,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/used = FALSE
 
-<<<<<<< HEAD
 //Detective loadout
 /obj/item/choice_beacon/detective
 	name = "detective beacon"
@@ -369,7 +368,7 @@
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/book/granter/spell/olfaction(src)
 	new /obj/item/clothing/accessory/holster/detective(src)
-=======
+
 /obj/item/choice_beacon/pet
 	name = "animal delivery beacon"
 	desc = "There are no faster ways, only more humane."
@@ -441,4 +440,4 @@
 	name = "living lube delivery beacon"
 	default_name = "Offensive"
 	mob_choice = /mob/living/simple_animal/hostile/retaliate/clown/lube
->>>>>>> upstream/master
+

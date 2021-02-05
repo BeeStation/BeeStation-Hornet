@@ -383,7 +383,6 @@
 	new /obj/item/ammo_box/c38(src)
 	new /obj/item/ammo_box/c38(src)
 
-<<<<<<< HEAD
 /obj/item/clothing/accessory/holster/responder
 	name = "first responder's holster"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/holster/detective
@@ -393,7 +392,7 @@
 	new /obj/item/gun/ballistic/revolver/detective(src)
 	new /obj/item/ammo_box/c38/trac(src)
 	new /obj/item/ammo_box/c38/trac(src)
-=======
+
 //Poppy Pin
 /obj/item/clothing/accessory/poppy_pin
 	name = "poppy pin"
@@ -409,4 +408,4 @@
 	var/mob/living/L = user
 	if(L && L.mind)
 		SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "poppy_pin")
->>>>>>> upstream/master
+
