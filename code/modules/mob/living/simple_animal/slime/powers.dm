@@ -142,7 +142,7 @@
 				maxHealth = round(maxHealth * 1.3)
 			amount_grown = 0
 			for(var/datum/action/innate/slime/evolve/E in actions)
-				E.Remove(src)
+				qdel(E)
 			regenerate_icons()
 			update_name()
 		else
