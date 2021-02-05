@@ -1039,3 +1039,77 @@
 	build_path = /obj/item/stack/ducts
 	category = list("initial", "Construction")
 	maxstack = 50
+
+//Autosurgeon Designs for SkillChips
+
+/datum/design/skillChipBartending
+	name = "Bartending Skillchip"
+	id = "skillChip_Bartending"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 400, /datum/material/glass = 400)
+	build_path = /obj/item/autosurgeon/skillChip/barchip
+	category = list("initial", "misc","Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+/datum/design/skillChipChef
+	name = "Chef Skillchip"
+	id = "skillChip_Chef"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 400, /datum/material/glass = 400)
+	build_path = /obj/item/autosurgeon/skillChip/chefChip
+	category = list("initial", "misc","Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+/datum/design/skillChipBotany
+	name = "Botany Skillchip"
+	id = "skillChip_Botany"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 400, /datum/material/glass = 400)
+	build_path = /obj/item/autosurgeon/skillChip/botanyChip
+	category = list("initial", "misc","Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+/datum/design/skillChipSurgical
+	name = "Surgical Skillchip"
+	id = "skillChip_Chef"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 400, /datum/material/glass = 400)
+	build_path = /obj/item/autosurgeon/skillChip/surgicalChip
+	category = list("initial", "misc","Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/skillChipChemistry
+	name = "Chemistry Skillchip"
+	id = "skillChip_Chemistry"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 400, /datum/material/glass = 400)
+	build_path = /obj/item/autosurgeon/skillChip/chemChip
+	category = list("initial", "misc","Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/skillChipChiefMedical
+	name = "Chief Medical Officer Skillchip"
+	id = "skillChip_CMO"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 400, /datum/material/glass = 400)
+	build_path = /obj/item/autosurgeon/skillChip/cmoChip
+	category = list("hacked", "misc","Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/skillChipEngineering
+	name = "Engineering Skillchip"
+	id = "skillChip_Engineer"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 400, /datum/material/glass = 400)
+	build_path = /obj/item/autosurgeon/skillChip/engineeringChip
+	category = list("initial", "misc","Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/skillChipSecurity
+	name = "Security Skillchip"
+	id = "skillChip_Sec"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 400, /datum/material/glass = 400)
+	build_path = /obj/item/autosurgeon/skillChip/securityChip
+	category = list("initial", "misc","Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY

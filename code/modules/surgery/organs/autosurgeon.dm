@@ -102,6 +102,10 @@
 	desc = "A single use autosurgeon that contains a chemistry skill chip. A screwdriver can be used to remove it, but implants can't be placed back in"
 	starting_organ = /obj/item/organ/cyberimp/skillChip/chemistry
 
+/obj/item/autosurgeon/skillChip/botanyChip
+	desc = "A single use autosurgeon that contains a chemistry skill chip. A screwdriver can be used to remove it, but implants can't be placed back in"
+	starting_organ = /obj/item/organ/cyberimp/skillChip/chemistry/botany
+
 /obj/item/autosurgeon/skillChip/barchip
 	desc = "A single use autosurgeon that contains a bartending skill chip. A screwdriver can be used to remove it, but implants can't be placed back in"
 	starting_organ = /obj/item/organ/cyberimp/skillChip/bartender
@@ -110,11 +114,11 @@
 	desc = "A single use autosurgeon that contains a surgical skill chip. A screwdriver can be used to remove it, but implants can't be placed back in"
 	starting_organ = /obj/item/organ/cyberimp/skillChip/surgical
 
-/obj/item/autosurgeon/skillChip/cmoChip //Not lathe printable
+/obj/item/autosurgeon/skillChip/cmoChip //Requires Hacked MedLathe
 	desc = "A single use autosurgeon that contains a Chief Medical Officer skill chip. A screwdriver can be used to remove it, but implants can't be placed back in"
 	starting_organ = /obj/item/organ/cyberimp/skillChip/chiefMedical
 
-/obj/item/autosurgeon/skillChip/engineering
+/obj/item/autosurgeon/skillChip/engineeringChip
 	desc = "A single use autosurgeon that contains a engineering skill chip. A screwdriver can be used to remove it, but implants can't be placed back in"
 	starting_organ = /obj/item/organ/cyberimp/skillChip/engineering
 

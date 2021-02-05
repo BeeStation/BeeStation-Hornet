@@ -244,6 +244,10 @@
 	desc = "A piece of bleeding-edge tech which teaches the user how to efficiently use a Chem Dispenser."
 	applied_traits = list(TRAIT_CHEMISTRY)
 
+//Identical to Chemistry Skillchip but fluffed to hide the fact I do not want to fuck with making chips only work with specific Chem Dispensers
+/obj/item/organ/cyberimp/skillChip/chemistry/botany
+	name = "Botany Skillchip"
+	desc = "A piece of bleeding-edge tech which teaches the user how to efficiently use a Botany Chem Dispenser."
 /obj/item/organ/cyberimp/skillChip/bartender
 	name = "Bartending SkillChip"
 	desc = "A piece of bleeding-edge tech which teaches the user how to efficiently use a Chem Dispenser and throw drinks without spilling them"
@@ -274,7 +278,7 @@
 	desc = "A piece of bleeding-edge tech which teaches the user about Nanotrasen approved methods for unarmed takedowns."
 	style = list(/datum/martial_art/security_cqc)
 
-/obj/item/organ/cyberimp/skillChip/omniChip //Parent type for all omni chips
+/obj/item/organ/cyberimp/skillChip/omniChip //Parent type for all omni chips. This kind is Uplink Only
 	name = "OmniChip"
 	desc = "A piece of bleeding-edge tech which teaches the user all the non-martial arts related skills from other SkillChips."
 	applied_traits = list(TRAIT_CHEMISTRY, TRAIT_SURGICAL_EXPERT, TRAIT_WIRESEEING, TRAIT_BOOZE_SLIDER)
