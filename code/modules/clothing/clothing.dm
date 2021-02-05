@@ -42,7 +42,7 @@
 	var/dynamic_fhair_suffix = ""//mask > head for facial hair
 
 	var/high_pressure_multiplier = 1
-	var/list/high_pressure_muliplier_types = list("melee", "bullet", "laser", "energy", "bomb")
+	var/list/high_pressure_multiplier_types = list("melee", "bullet", "laser", "energy", "bomb")
 
 /obj/item/clothing/Initialize()
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))

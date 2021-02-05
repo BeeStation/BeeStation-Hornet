@@ -333,17 +333,7 @@
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
 	brightness_on = 0
 	actions_types = list()
-	high_pressure_decrease = 0.5
-
-/obj/item/clothing/head/helmet/space/hardsuit/cult/get_armor_rating(d_type, mob/wearer)
-	. = ..(d_type, wearer)
-	var/turf/T = get_turf(wearer)
-	if(!T)
-		return
-	if(!(d_type in high_pressure_decrease_types))
-		return
-	if(!lavaland_equipment_pressure_check(T))
-		. *= high_pressure_decrease
+	high_pressure_multiplier = 0.5
 
 /obj/item/clothing/suit/space/hardsuit/cult
 	name = "\improper Nar'Sien hardened armor"
