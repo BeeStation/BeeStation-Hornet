@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - rscadd: Adds in team tracking beacons for nukies and ERTs
-  - rscadd: Nukies and ERTs can now see the location of their teammates.
