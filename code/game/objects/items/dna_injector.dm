@@ -346,6 +346,7 @@
 /obj/item/dnainjector/antiradioactive
 	name = "\improper DNA injector (Anti-Radioactive)"
 	remove_mutations = list(RADIOACTIVE)
+	
 /obj/item/dnainjector/olfaction
 	name = "\improper DNA injector (Olfaction)"
 	add_mutations = list(OLFACTION)
@@ -449,6 +450,10 @@
 /obj/item/dnainjector/removeantiglow
 	name = "\improper DNA injector (Anti-Antiglowy)"
 	remove_mutations = list(ANTIGLOWY)
+
+/obj/item/dnainjector/privatedick
+	name = "The Extra Edge (Olfaction, Chav, Colorblind)"
+	add_mutations = list(OLFACTION,NOIR,CHAV)
 
 /obj/item/dnainjector/timed
 	var/duration = 600

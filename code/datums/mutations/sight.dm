@@ -34,6 +34,24 @@
 	owner.cure_blind(GENETIC_MUTATION)
 
 
+//Noir
+/datum/mutation/human/noir
+	name = "Color Blindness"
+	desc = "Renders the subject unable to see any colors."
+	quality = NEGATIVE
+	text_gain_indication = "<span class='danger'>Colors start to dissipate...</span>"
+
+/datum/mutation/human/noir/on_acquiring(mob/living/carbon/human/owner)
+	if(..())
+		return
+	owner.add_client_colour(/datum/client_colour/monochrome)
+
+/datum/mutation/human/noir/on_losing(mob/living/carbon/human/owner)
+	if(..())
+		return
+	owner.remove_client_colour(/datum/client_colour/monochrome)
+
+
 /datum/mutation/human/thermal
 	name = "Thermal Vision"
 	desc = "The user of this genome can visually percieve the unique human thermal signature."

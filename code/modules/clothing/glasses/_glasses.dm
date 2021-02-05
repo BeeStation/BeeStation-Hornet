@@ -487,3 +487,9 @@
 		add_client_colour(G.glass_colour_type)
 	else
 		remove_client_colour(G.glass_colour_type)
+
+/obj/item/clothing/glasses/sunglasses/advanced/disco
+	name = "binoclard lenses"
+	desc = "Stylish round lenses subtly shaded for your protection and criminal discomfort. Has enhanced shielding which blocks flashes."
+	icon_state = "binoclard_lenses"
+	item_state = "binoclard_lenses"

@@ -66,10 +66,15 @@
 					/obj/item/taperecorder = 3,
 					/obj/item/storage/box/evidence = 3,
 					/obj/item/storage/box/matches = 5,
-					/obj/item/storage/fancy/cigarettes/cigars = 5)
-	contraband = list(/obj/item/clothing/suit/det_suit/disco = 1,
-					/obj/item/clothing/under/rank/security/detective/disco = 1,
 					/obj/item/clothing/shoes/sneakers/disco = 1,
+					/obj/item/clothing/suit/det_suit/disco = 1,
+					/obj/item/clothing/under/rank/security/detective/disco = 1,
+					/obj/item/storage/fancy/cigarettes/cigars = 5)
+	contraband = list(/obj/item/clothing/shoes/jackboots/aerostatic = 1,
+					/obj/item/clothing/suit/det_suit/disco/aerostatic = 1,
+					/obj/item/clothing/under/rank/security/detective/disco/aerostatic = 1,
+					/obj/item/clothing/gloves/color/black/aerostatic_gloves = 1,
+					/obj/item/clothing/glasses/sunglasses/advanced/disco = 2,
 					/obj/item/storage/box/rxglasses/spyglasskit = 1)
 	premium = list(	/obj/item/detective_scanner = 1,
 					/obj/item/twohanded/binoculars = 1,

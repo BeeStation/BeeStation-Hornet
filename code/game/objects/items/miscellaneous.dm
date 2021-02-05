@@ -322,31 +322,32 @@
 	return detective_item_list
 
 /obj/item/storage/box/detectivebeacon
-	name = "Paranormal Investigator"
-	desc = "Contains a variety of clothes from a deceased detective who was haunted by ghosts. Any lingering spiritual presence has been eradicated by a paranormal ERT squad."
+	name = "Old School Detective"
+	desc = "Gritty, rude, and answers all questions in a sarcastic, monotone voice. The Old School Detective likes to rely more on his own senses and intuition, instead of this posh, fancy technology. Contains your standard gear, and an olfaction injector."
 
 /obj/item/storage/box/detectivebeacon/PopulateContents()
-	new /obj/item/clothing/shoes/sneakers/disco(src)
-	new /obj/item/clothing/shoes/jackboots/aerostatic(src)
-	new /obj/item/clothing/suit/det_suit/disco/aerostatic(src)
-	new /obj/item/clothing/under/rank/security/detective/disco/aerostatic(src)
-	new /obj/item/clothing/gloves/color/black/aerostatic_gloves(src)
-	new /obj/item/clothing/glasses/hud/security/paranormal(src)
+	new /obj/item/clothing/suit/det_suit/noir(src)
+	new /obj/item/clothing/under/rank/security/detective/grey(src)
+	new /obj/item/clothing/head/fedora (src)
+	new /obj/item/clothing/neck/tie/detective (src)
+	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/accessory/holster/detective(src)
+	new /obj/item/dnainjector/privatedick(src)
 
 /obj/item/storage/box/detectivebeacon/undercover
 	name = "Undercover Agent"
+	desc = "No, I don't know of any syndicate activity, mister Dick Detectiveson! The Undercover Agent Kit provides you with additional gear required to disguise yourself as a regular assistant."
 
 /obj/item/storage/box/detectivebeacon/undercover/PopulateContents()
 	new /obj/item/implanter/undercover(src)
 	new /obj/item/radio/headset/headset_undercover(src)
 	new /obj/item/clothing/under/color/grey(src)
-	new /obj/item/clothing/mask/gas/voicechange(src)
 	new /obj/item/clothing/accessory/holster/undercover(src)
 	new /obj/item/card/assistant_disguise_card(src)
 
 /obj/item/storage/box/detectivebeacon/fastresponder
 	name = "Fast Responder"
+	desc = "For being the first in the line of battle, the first responder kit equipts you with flash proof gear, a medsec hud, deputy gear, a sensor and locator and a dozen of tracking implant bullets."
 
 /obj/item/storage/box/detectivebeacon/fastresponder/PopulateContents()
 	new /obj/item/radio/headset/headset_sec/alt(src)
@@ -356,18 +357,6 @@
 	new /obj/item/sensor_device(src)
 	new /obj/item/locator(src)
 	new /obj/item/clothing/accessory/holster/responder(src)
-
-/obj/item/storage/box/detectivebeacon/noir
-	name = "Noir Detective"
-
-/obj/item/storage/box/detectivebeacon/noir/PopulateContents()
-	new /obj/item/clothing/suit/det_suit/noir(src)
-	new /obj/item/clothing/under/rank/security/detective/grey(src)
-	new /obj/item/clothing/head/fedora (src)
-	new /obj/item/clothing/neck/tie/detective (src)
-	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
-	new /obj/item/book/granter/spell/olfaction(src)
-	new /obj/item/clothing/accessory/holster/detective(src)
 
 /obj/item/choice_beacon/pet
 	name = "animal delivery beacon"
