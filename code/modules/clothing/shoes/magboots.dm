@@ -37,7 +37,7 @@
 		A.UpdateButtonIcon()
 
 /obj/item/clothing/shoes/magboots/negates_gravity()
-	return clothing_flags & NOSLIP
+	return isspaceturf(get_turf(src)) ? FALSE : magpulse //We don't mimick gravity on space turfs
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()

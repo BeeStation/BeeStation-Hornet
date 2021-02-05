@@ -34,7 +34,7 @@ BONUS
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.dna.species.use_skintones)
-			cachedcolor = H.skin_tone 
+			cachedcolor = H.skin_tone
 		else if(MUTCOLORS in H.dna.species.species_traits)
 			cachedcolor	= H.dna.features["mcolor"]
 
@@ -56,7 +56,7 @@ BONUS
 					H.dna.features["mcolor"] = "EEE" //pure white.
 				H.regenerate_icons()
 			else
-				H.visible_message("<span class='warning'>[H] looks a bit pale...</span>", "<span class='notice'>Your skin suddenly appears lighter...</span>")
+				H.visible_message("<span class='notice'>[H] looks a bit pale.</span>", "<span class='notice'>Your skin suddenly appears lighter.</span>")
 
 /datum/symptom/vitiligo/End(datum/disease/advance/A)
 	. = ..()
@@ -104,7 +104,7 @@ BONUS
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.dna.species.use_skintones)
-			cachedcolor = H.skin_tone 
+			cachedcolor = H.skin_tone
 		else if(MUTCOLORS in H.dna.species.species_traits)
 			cachedcolor	= H.dna.features["mcolor"]
 
@@ -126,7 +126,7 @@ BONUS
 					H.dna.features["mcolor"] = "000" //pure black.
 				H.regenerate_icons()
 			else
-				H.visible_message("<span class='warning'>[H] looks a bit dark...</span>", "<span class='notice'>Your skin suddenly appears darker...</span>")
+				H.visible_message("<span class='notice'>[H] looks a bit dark.</span>", "<span class='notice'>Your skin suddenly appears darker.</span>")
 
 /datum/symptom/revitiligo/End(datum/disease/advance/A)
 	. = ..()
@@ -180,4 +180,4 @@ BONUS
 				M.reagents.add_reagent(color, 5)
 		else
 			if (prob(50)) // spam
-				M.visible_message("<span class='warning'>[M] looks rather vibrant...</span>", "<span class='notice'>The colors, man, the colors...</span>")
+				M.visible_message("<span class='notice'>[M] looks rather vibrant.</span>", "<span class='notice'>The colors, man, the colors.</span>")

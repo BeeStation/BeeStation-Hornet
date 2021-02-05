@@ -16,14 +16,14 @@ SUBSYSTEM_DEF(communications)
 	else
 		. = TRUE
 
-/datum/controller/subsystem/communications/proc/make_announcement(mob/living/user, is_silicon, input)
+/datum/controller/subsystem/communications/proc/make_announcement(mob/living/user, is_silicon, input, auth_id)
 	if(!can_announce(user, is_silicon))
 		return FALSE
 	if(is_silicon)
 		minor_announce(html_decode(input),"[user.name] Announces:")
 		silicon_message_cooldown = world.time + COMMUNICATION_COOLDOWN_AI
 	else
-		priority_announce(html_decode(user.treat_message(input)), null, 'sound/misc/announce.ogg', "Captain")
+		priority_announce(html_decode(user.treat_message(input)), null, 'sound/misc/announce.ogg', "Captain", null, auth_id)
 		nonsilicon_message_cooldown = world.time + COMMUNICATION_COOLDOWN
 	user.log_talk(input, LOG_SAY, tag="priority announcement")
 	message_admins("[ADMIN_LOOKUPFLW(user)] has made a priority announcement.")

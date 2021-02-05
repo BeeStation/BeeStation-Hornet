@@ -6,42 +6,36 @@ SUBSYSTEM_DEF(vote)
 
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 
-	var/initiator = null
-	var/started_time = null
+	var/mode
+	var/question
+	var/initiator
+	var/started_time
 	var/time_remaining = 0
-	var/mode = null
-	var/question = null
-	var/list/choices = list()
 	var/list/voted = list()
 	var/list/voting = list()
+	var/list/choices = list()
+	var/list/choice_by_ckey = list()
 	var/list/generated_actions = list()
 
 /datum/controller/subsystem/vote/fire()	//called by master_controller
-	if(mode)
-		time_remaining = round((started_time + CONFIG_GET(number/vote_period) - world.time)/10)
-
-		if(time_remaining < 0)
-			result()
-			for(var/client/C in voting)
-				C << browse(null, "window=vote;can_close=0")
-			reset()
-		else
-			var/datum/browser/client_popup
-			for(var/client/C in voting)
-				client_popup = new(C, "vote", "Voting Panel")
-				client_popup.set_window_options("can_close=0")
-				client_popup.set_content(interface(C))
-				client_popup.open(FALSE)
-
+	if(!mode)
+		return
+	time_remaining = round((started_time + CONFIG_GET(number/vote_period) - world.time)/10)
+	if(time_remaining < 0)
+		result()
+		SStgui.close_uis(src)
+		reset()
 
 /datum/controller/subsystem/vote/proc/reset()
-	initiator = null
-	time_remaining = 0
 	mode = null
-	question = null
-	choices.Cut()
 	voted.Cut()
 	voting.Cut()
+	choices.Cut()
+	question = null
+	initiator = null
+	time_remaining = 0
+	choice_by_ckey.Cut()
+
 	remove_action_buttons()
 
 /datum/controller/subsystem/vote/proc/get_result()
@@ -135,18 +129,15 @@ SUBSYSTEM_DEF(vote)
 
 /datum/controller/subsystem/vote/proc/result()
 	. = announce_result()
-	var/restart = 0
+	var/restart = FALSE
 	if(.)
 		switch(mode)
 			if("restart")
 				if(. == "Restart Round")
-					restart = 1
+					restart = TRUE
 			if("gamemode")
 				if(GLOB.master_mode != .)
-					SSticker.save_mode(.)
-					if(SSticker.HasRoundStarted())
-						restart = 1
-					else
+					if(!SSticker.HasRoundStarted())
 						GLOB.master_mode = .
 			if("map")
 				SSmapping.changemap(global.config.maplist[.])
@@ -158,10 +149,10 @@ SUBSYSTEM_DEF(vote)
 					if(C)
 						C.post_status("shuttle")
 	if(restart)
-		var/active_admins = 0
-		for(var/client/C in GLOB.admins)
+		var/active_admins = FALSE
+		for(var/client/C in GLOB.admins+GLOB.deadmins)
 			if(!C.is_afk() && check_rights_for(C, R_SERVER))
-				active_admins = 1
+				active_admins = TRUE
 				break
 		if(!active_admins)
 			SSticker.Reboot("Restart vote successful.", "restart vote")
@@ -172,15 +163,21 @@ SUBSYSTEM_DEF(vote)
 	return .
 
 /datum/controller/subsystem/vote/proc/submit_vote(vote)
-	if(mode)
-		if(CONFIG_GET(flag/no_dead_vote) && (usr.stat == DEAD && !isnewplayer(usr)) && !usr.client.holder && mode != "map")
-			return 0
-		if(!(usr.ckey in voted))
-			if(vote && 1<=vote && vote<=choices.len)
-				voted += usr.ckey
-				choices[choices[vote]]++	//check this
-				return vote
-	return 0
+	if(!mode)
+		return FALSE
+	if(CONFIG_GET(flag/no_dead_vote) && (usr.stat == DEAD && !isnewplayer(usr)) && !usr.client.holder && mode != "map")
+		return FALSE
+	if(!(vote && 1<=vote && vote<=choices.len))
+		return FALSE
+	// If user has already voted
+	if(usr.ckey in voted)
+		choices[choices[choice_by_ckey[usr.ckey]]]--
+	else
+		voted += usr.ckey
+
+	choice_by_ckey[usr.ckey] = vote
+	choices[choices[vote]]++	//check this
+	return vote
 
 /datum/controller/subsystem/vote/proc/initiate_vote(vote_type, initiator_key, forced=FALSE, popup=FALSE)
 	if(!mode)
@@ -190,12 +187,12 @@ SUBSYSTEM_DEF(vote)
 				to_chat(usr, "<span class='warning'>There is already a vote in progress! please wait for it to finish.</span>")
 				return 0
 
-			var/admin = FALSE
+			var/lower_admin = FALSE
 			var/ckey = ckey(initiator_key)
 			if(GLOB.admin_datums[ckey] || forced)
-				admin = TRUE
+				lower_admin = TRUE
 
-			if(next_allowed_time > world.time && !admin)
+			if(next_allowed_time > world.time && !lower_admin)
 				to_chat(usr, "<span class='warning'>A vote was initiated recently, you must wait [DisplayTimeText(next_allowed_time-world.time)] before a new vote can be started!</span>")
 				return 0
 
@@ -237,7 +234,7 @@ SUBSYSTEM_DEF(vote)
 			text += "\n[question]"
 		log_vote(text)
 		var/vp = CONFIG_GET(number/vote_period)
-		to_chat(world, "\n<font color='purple'><b>[text]</b>\nType <b>vote</b> or click <a href='?src=[REF(src)]'>here</a> to place your votes.\nYou have [DisplayTimeText(vp)] to vote.</font>")
+		to_chat(world, "\n<font color='purple'><b>[text]</b>\nType <b>vote</b> or click <a href='byond://winset?command=vote'>here</a> to place your votes.\nYou have [DisplayTimeText(vp)] to vote.</font>")
 		time_remaining = round(vp/10)
 		for(var/c in GLOB.clients)
 			var/client/C = c
@@ -254,95 +251,80 @@ SUBSYSTEM_DEF(vote)
 		return 1
 	return 0
 
-/datum/controller/subsystem/vote/proc/interface(client/C)
-	if(!C)
+/datum/controller/subsystem/vote/proc/remove_action_buttons()
+	for(var/v in generated_actions)
+		var/datum/action/vote/V = v
+		if(!QDELETED(V))
+			V.remove_from_client()
+			V.Remove(V.owner)
+	generated_actions = list()
+
+/mob/verb/vote()
+	set category = "OOC"
+	set name = "Vote"
+	SSvote.ui_interact(usr)
+
+/datum/controller/subsystem/vote/ui_state()
+	return GLOB.always_state
+
+/datum/controller/subsystem/vote/ui_interact(mob/user, datum/tgui/ui)
+	// Tracks who is voting
+	if(!(user.client?.ckey in voting))
+		voting += user.client?.ckey
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Vote")
+		ui.open()
+
+/datum/controller/subsystem/vote/ui_data(mob/user)
+	var/list/data = list(
+		"mode" = mode,
+		"voted" = voted,
+		"voting" = voting,
+		"choices" = list(),
+		"question" = question,
+		"initiator" = initiator,
+		"started_time" = started_time,
+		"time_remaining" = time_remaining,
+		"lower_admin" = !!user.client?.holder,
+		"generated_actions" = generated_actions,
+		"avm" = CONFIG_GET(flag/allow_vote_mode),
+		"avmap" = CONFIG_GET(flag/allow_vote_map),
+		"avr" = CONFIG_GET(flag/allow_vote_restart),
+		"selectedChoice" = choice_by_ckey[user.client?.ckey],
+		"upper_admin" = check_rights_for(user.client, R_ADMIN),
+	)
+
+	for(var/key in choices)
+		data["choices"] += list(list(
+			"name" = key,
+			"votes" = choices[key] || 0
+		))
+
+	return data
+
+/datum/controller/subsystem/vote/ui_act(action, params)
+	. = ..()
+	if(.)
 		return
-	var/admin = 0
-	var/trialmin = 0
-	if(C.holder)
-		admin = 1
-		if(check_rights_for(C, R_ADMIN))
-			trialmin = 1
-	voting |= C
 
-	if(mode)
-		if(question)
-			. += "<h2>Vote: '[question]'</h2>"
-		else
-			. += "<h2>Vote: [capitalize(mode)]</h2>"
-		. += "Time Left: [time_remaining] s<hr><ul>"
-		for(var/i=1,i<=choices.len,i++)
-			var/votes = choices[choices[i]]
-			if(!votes)
-				votes = 0
-			. += "<li><a href='?src=[REF(src)];vote=[i]'>[choices[i]]</a> ([votes] votes)</li>"
-		. += "</ul><hr>"
-		if(admin)
-			. += "(<a href='?src=[REF(src)];vote=cancel'>Cancel Vote</a>) "
-	else
-		. += "<h2>Start a vote:</h2><hr><ul><li>"
-		//restart
-		var/avr = CONFIG_GET(flag/allow_vote_restart)
-		if(trialmin || avr)
-			. += "<a href='?src=[REF(src)];vote=restart'>Restart</a>"
-		else
-			. += "<font color='grey'>Restart (Disallowed)</font>"
-		if(trialmin)
-			. += "\t(<a href='?src=[REF(src)];vote=toggle_restart'>[avr ? "Allowed" : "Disallowed"]</a>)"
-		. += "</li><li>"
-		//gamemode
-		var/avm = CONFIG_GET(flag/allow_vote_mode)
-		if(trialmin || avm)
-			. += "<a href='?src=[REF(src)];vote=gamemode'>GameMode</a>"
-		else
-			. += "<font color='grey'>GameMode (Disallowed)</font>"
-		if(trialmin)
-			. += "\t(<a href='?src=[REF(src)];vote=toggle_gamemode'>[avm ? "Allowed" : "Disallowed"]</a>)"
-
-		. += "</li>"
-		//map
-		var/avmap = CONFIG_GET(flag/allow_vote_map)
-		if(trialmin || avmap)
-			. += "<a href='?src=[REF(src)];vote=map'>Map</a>"
-		else
-			. += "<font color='grey'>Map (Disallowed)</font>"
-		if(trialmin)
-			. += "\t(<a href='?src=[REF(src)];vote=toggle_map'>[avmap ? "Allowed" : "Disallowed"]</a>)"
-
-		. += "</li>"
-		//custom
-		if(trialmin)
-			. += "<li><a href='?src=[REF(src)];vote=custom'>Custom</a></li>"
-		. += "</ul><hr>"
-	. += "<a href='?src=[REF(src)];vote=close' style='position:absolute;right:50px'>Close</a>"
-	return .
-
-
-/datum/controller/subsystem/vote/Topic(href,href_list[],hsrc)
-	if(!usr || !usr.client)
-		return	//not necessary but meh...just in-case somebody does something stupid
-
-	var/trialmin = 0
+	var/upper_admin = 0
 	if(usr.client.holder)
 		if(check_rights_for(usr.client, R_ADMIN))
-			trialmin = 1
+			upper_admin = 1
 
-	switch(href_list["vote"])
-		if("close")
-			voting -= usr.client
-			usr << browse(null, "window=vote")
-			return
+	switch(action)
 		if("cancel")
 			if(usr.client.holder)
 				reset()
 		if("toggle_restart")
-			if(usr.client.holder && trialmin)
+			if(usr.client.holder && upper_admin)
 				CONFIG_SET(flag/allow_vote_restart, !CONFIG_GET(flag/allow_vote_restart))
 		if("toggle_gamemode")
-			if(usr.client.holder && trialmin)
+			if(usr.client.holder && upper_admin)
 				CONFIG_SET(flag/allow_vote_mode, !CONFIG_GET(flag/allow_vote_mode))
 		if("toggle_map")
-			if(usr.client.holder && trialmin)
+			if(usr.client.holder && upper_admin)
 				CONFIG_SET(flag/allow_vote_map, !CONFIG_GET(flag/allow_vote_map))
 		if("restart")
 			if(CONFIG_GET(flag/allow_vote_restart) || usr.client.holder)
@@ -356,26 +338,12 @@ SUBSYSTEM_DEF(vote)
 		if("custom")
 			if(usr.client.holder)
 				initiate_vote("custom",usr.key)
-		else
-			submit_vote(round(text2num(href_list["vote"])))
-	usr.vote()
+		if("vote")
+			submit_vote(round(text2num(params["index"])))
+	return TRUE
 
-/datum/controller/subsystem/vote/proc/remove_action_buttons()
-	for(var/v in generated_actions)
-		var/datum/action/vote/V = v
-		if(!QDELETED(V))
-			V.remove_from_client()
-			V.Remove(V.owner)
-	generated_actions = list()
-
-/mob/verb/vote()
-	set category = "OOC"
-	set name = "Vote"
-
-	var/datum/browser/popup = new(src, "vote", "Voting Panel")
-	popup.set_window_options("can_close=0")
-	popup.set_content(SSvote.interface(client))
-	popup.open(FALSE)
+/datum/controller/subsystem/vote/ui_close(mob/user)
+	voting -= user.client?.ckey
 
 /datum/action/vote
 	name = "Vote!"

@@ -85,6 +85,9 @@ ALERT_DELTA Destruction of the station is imminent. All crew are instructed to o
 
 ## GAME MODES ###
 
+#Set the Master (Default) Game Mode.
+MASTER_MODE secret
+
 ## Uncomment to not send a roundstart intercept report. Gamemodes may override this.
 NO_INTERCEPT_REPORT
 
@@ -94,6 +97,7 @@ NO_INTERCEPT_REPORT
 
 PROBABILITY TRAITOR 9
 PROBABILITY SECRET_EXTENDED 7
+PROBABILITY DYNAMIC 7
 PROBABILITY CULT 6
 PROBABILITY HERESY 6
 PROBABILITY INTERNAL_AFFAIRS 6
@@ -104,9 +108,9 @@ PROBABILITY INCURSION 4
 PROBABILITY NUCLEAR 4
 PROBABILITY TRAITORBRO 3
 PROBABILITY EXTENDED 2
-PROBABILITY MONKEY 1
 PROBABILITY WIZARD 1
 PROBABILITY CLOCKCULT 1
+PROBABILITY MONKEY 0
 PROBABILITY GANG 0
 PROBABILITY CLOWNOPS 0
 PROBABILITY METEOR 0
@@ -136,6 +140,7 @@ CONTINUOUS WIZARD
 #CONTINUOUS MONKEY
 CONTINUOUS HIVEMIND
 CONTINUOUS CLOCKCULT
+CONTINUOUS HERESY
 
 #Prevents the death of round-ending antagonist rulesets ending the round immediately.
 
@@ -288,6 +293,9 @@ DEFAULT_REP_VALUE 5
 
 ## Uncomment to allow players to see the set odds of different rounds in secret/random in the get server revision screen. This will NOT tell the current roundtype.
 #SHOW_GAME_TYPE_ODDS
+
+## Uncomment to enable dynamic ruleset config file.
+DYNAMIC_CONFIG_ENABLED
 
 ## RANDOM EVENTS ###
 ## Comment this out to disable random events during the round.
@@ -472,6 +480,7 @@ ROUNDSTART_RACES squid
 ## Races that are better than humans in some ways, but worse in others
 ROUNDSTART_RACES ethereal
 ROUNDSTART_RACES apid
+ROUNDSTART_RACES oozeling
 #ROUNDSTART_RACES jelly
 #ROUNDSTART_RACES shadow
 ROUNDSTART_RACES plasmaman
@@ -610,3 +619,11 @@ ALLOW_CREW_OBJECTIVES
 
 ## Uncomment to restrict suiciding. Adds an additional confirmation dialogue, additional logging, and prevents suicide within the first 15 minutes of the round.
 RESTRICTED_SUICIDE
+
+## Bluespace Miners.
+
+## Amount of miner boards in the RD's locker at roundstart.
+ROUNDSTART_BLUESPACE_MINERS 0
+
+## Enable the bluespace miner research node?
+#BSMINER_RESEARCHABLE

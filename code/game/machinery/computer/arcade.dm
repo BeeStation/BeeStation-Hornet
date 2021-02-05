@@ -48,7 +48,14 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/toy/plush/moth = 2,
 		/obj/item/storage/box/heretic_asshole = 1,
 		/obj/item/toy/eldrich_book = 1,
-		/obj/item/storage/belt/military/snack = 2))
+		/obj/item/storage/belt/military/snack = 2,
+		/obj/item/choice_beacon/pet/cat = 1,
+		/obj/item/choice_beacon/pet/mouse = 1,	
+		/obj/item/choice_beacon/pet/corgi = 1,
+		/obj/item/choice_beacon/pet/hamster = 1,	
+		/obj/item/choice_beacon/pet/pug = 1,		
+		/obj/item/choice_beacon/pet/pingu = 1,	
+		/obj/item/choice_beacon/pet/clown = 1))
 
 /obj/machinery/computer/arcade
 	name = "random arcade"
@@ -414,7 +421,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	stops = list("Pluto","Asteroid Belt","Proxima Centauri","Dead Space","Rigel Prime","Tau Ceti Beta","Black Hole","Space Outpost Beta-9","Orion Prime")
 	stopblurbs = list(
 		"Pluto, long since occupied with long-range sensors and scanners, stands ready to, and indeed continues to probe the far reaches of the galaxy.",
-		"At the edge of the Sol system lies a treacherous asteroid belt. Many have been crushed by stray asteroids and misguided judgement.",
+		"At the edge of the Sol system lies a treacherous asteroid belt. Many have been crushed by stray asteroids and misguided judgment.",
 		"The nearest star system to Sol, in ages past it stood as a reminder of the boundaries of sub-light travel, now a low-population sanctuary for adventurers and traders.",
 		"This region of space is particularly devoid of matter. Such low-density pockets are known to exist, but the vastness of it is astounding.",
 		"Rigel Prime, the center of the Rigel system, burns hot, basking its planetary bodies in warmth and radiation.",
@@ -455,7 +462,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	var/dat = ""
 	if(gameStatus == ORION_STATUS_GAMEOVER)
 		dat = "<center><h1>Game Over</h1></center>"
-		dat += "Like many before you, your crew never made it to Orion, lost to space... <br><b>Forever</b>."
+		dat += "Like many before you, your crew never made it to Orion, lost to space. <br><b>Forever</b>."
 		if(!settlers.len)
 			dat += "<br>Your entire crew died, and your ship joins the fleet of ghost-ships littering the galaxy."
 		else

@@ -32,7 +32,7 @@
 
 /obj/item/multitool/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] puts the [src] to [user.p_their()] chest. It looks like [user.p_theyre()] trying to pulse [user.p_their()] heart off!</span>")
-	return OXYLOSS//theres a reason it wasnt recommended by doctors
+	return OXYLOSS//theres a reason it wasn't recommended by doctors
 
 
 // circuit shit begin
@@ -163,7 +163,7 @@
 
 /obj/item/multitool/ai_detect/proc/show_hud(mob/user)
 	if(user && hud_type)
-		var/obj/screen/plane_master/camera_static/PM = user.hud_used.plane_masters["[CAMERA_STATIC_PLANE]"]
+		var/atom/movable/screen/plane_master/camera_static/PM = user.hud_used.plane_masters["[CAMERA_STATIC_PLANE]"]
 		PM.alpha = 150
 		var/datum/atom_hud/H = GLOB.huds[hud_type]
 		if(!H.hudusers[user])
@@ -173,7 +173,7 @@
 
 /obj/item/multitool/ai_detect/proc/remove_hud(mob/user)
 	if(user && hud_type)
-		var/obj/screen/plane_master/camera_static/PM = user.hud_used.plane_masters["[CAMERA_STATIC_PLANE]"]
+		var/atom/movable/screen/plane_master/camera_static/PM = user.hud_used.plane_masters["[CAMERA_STATIC_PLANE]"]
 		PM.alpha = 255
 		var/datum/atom_hud/H = GLOB.huds[hud_type]
 		H.remove_hud_from(user)

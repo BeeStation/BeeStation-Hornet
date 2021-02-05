@@ -178,9 +178,9 @@
 		users[G] = TRUE
 		log_game("[key_name(H)] has summoned [key_name(G)], a holoparasite, via the stand arrow.")
 		to_chat(H, "<span class='holoparasite'><font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> has been summoned!</span>")
-		H.verbs += /mob/living/proc/guardian_comm
-		H.verbs += /mob/living/proc/guardian_recall
-		H.verbs += /mob/living/proc/guardian_reset
+		H.add_verb(/mob/living/proc/guardian_comm)
+		H.add_verb(/mob/living/proc/guardian_recall)
+		H.add_verb(/mob/living/proc/guardian_reset)
 		uses--
 		in_use = FALSE
 		H.visible_message("<span class='danger bold'>\The [src] falls out of [H]!</span>")

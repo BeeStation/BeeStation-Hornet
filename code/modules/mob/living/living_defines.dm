@@ -116,6 +116,7 @@
 	var/losebreath = 0
 
 	var/mobsay_color = "#CCCCCC"	//The say colour of the mob, for when ID say isn't available (simplemobs that are not /mob/living/carbon/human)
+	var/mobchatspan = "unknown"	//The span to use when this mob talks in chat for the name tag
 
 	//List of active diseases
 	var/list/diseases = list() // list of all diseases in a mob

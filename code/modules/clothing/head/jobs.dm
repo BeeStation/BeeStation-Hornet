@@ -84,16 +84,14 @@
 	. += "<span class='notice'>Alt-click to take a candy corn.</span>"
 
 /obj/item/clothing/head/fedora/det_hat/AltClick(mob/user)
-	if(user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
-		..()
-		if(loc == user)
-			if(candy_cooldown < world.time)
-				var/obj/item/reagent_containers/food/snacks/candy_corn/CC = new /obj/item/reagent_containers/food/snacks/candy_corn(src)
-				user.put_in_hands(CC)
-				to_chat(user, "You slip a candy corn from your hat.")
-				candy_cooldown = world.time+1200
-			else
-				to_chat(user, "You just took a candy corn! You should wait a couple minutes, lest you burn through your stash.")
+	if(user.canUseTopic(src, BE_CLOSE, ismonkey(user)) && loc == user)
+		if(candy_cooldown < world.time)
+			var/obj/item/reagent_containers/food/snacks/candy_corn/CC = new /obj/item/reagent_containers/food/snacks/candy_corn(src)
+			user.put_in_hands(CC)
+			to_chat(user, "You slip a candy corn from your hat.")
+			candy_cooldown = world.time+1200
+		else
+			to_chat(user, "You just took a candy corn! You should wait a couple minutes, lest you burn through your stash.")
 
 
 //Mime
@@ -113,7 +111,7 @@
 
 /obj/item/clothing/head/beret/archaic
 	name = "archaic beret"
-	desc = "An absolutely ancient beret, allegedly worn by the first mime to ever step foot on a NanoTrasen station."
+	desc = "An absolutely ancient beret, allegedly worn by the first mime to ever step foot on a Nanotrasen station."
 	icon_state = "archaicberet"
 	dog_fashion = null
 
@@ -329,7 +327,7 @@
 	armor = list(bio = 30, acid = 20)
 	strip_delay = 60
 
-//Centcom
+//CentCom
 /obj/item/clothing/head/beret/cccaptain
 	name = "central command captain beret"
 	desc = "A pure white beret with a Captain insignia of Central Command."
@@ -354,14 +352,14 @@
 //For blueshields, but those aren't in so I renamed them to centcom guards
 /obj/item/clothing/head/beret/ccguard
 	name = "officer beret"
-	desc = "A black Centcom guard's beret."
+	desc = "A black CentCom guard's beret."
 	icon_state = "beret_centcom_officer"
 	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/ccguardnavy
 	name = "navy officer beret"
-	desc = "A navy Centcom guard's beret."
+	desc = "A navy CentCom guard's beret."
 	icon_state = "beret_centcom_officer_navy"
 	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30)
 	strip_delay = 60

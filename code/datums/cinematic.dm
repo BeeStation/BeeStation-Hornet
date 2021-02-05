@@ -19,7 +19,7 @@ GLOBAL_LIST_EMPTY(cinematics)
 		watcher = GLOB.mob_list
 	playing.play(watcher)
 
-/obj/screen/cinematic
+/atom/movable/screen/cinematic
 	icon = 'icons/effects/station_explosion.dmi'
 	icon_state = "station_intact"
 	plane = SPLASHSCREEN_PLANE
@@ -32,7 +32,7 @@ GLOBAL_LIST_EMPTY(cinematics)
 	var/list/watching = list() //List of clients watching this
 	var/list/locked = list() //Who had notransform set during the cinematic
 	var/is_global = FALSE //Global cinematics will override mob-specific ones
-	var/obj/screen/cinematic/screen
+	var/atom/movable/screen/cinematic/screen
 	var/datum/callback/special_callback //For special effects synced with animation (explosions after the countdown etc)
 	var/cleanup_time = 300 //How long for the final screen to remain
 	var/stop_ooc = TRUE //Turns off ooc when played globally.
@@ -84,7 +84,7 @@ GLOBAL_LIST_EMPTY(cinematics)
 
 	//Actually play it
 	content()
-	
+
 	//Cleanup
 	sleep(cleanup_time)
 

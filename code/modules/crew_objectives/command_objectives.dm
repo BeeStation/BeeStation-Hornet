@@ -11,7 +11,7 @@
 		return FALSE
 
 /datum/objective/crew/datfukkendisk //Ported from old Hippie
-	explanation_text = "Defend the nuclear authentication disk at all costs, and be the one to personally deliver it to Centcom."
+	explanation_text = "Defend the nuclear authentication disk at all costs, and be the one to personally deliver it to CentCom."
 	jobs = "captain" //give this to other heads at your own risk.
 
 /datum/objective/crew/datfukkendisk/check_completion()
@@ -31,7 +31,7 @@
 	return FALSE
 
 /datum/objective/crew/ian //Ported from old Hippie
-	explanation_text = "Defend Ian at all costs, and ensure he gets delivered to Centcom at the end of the shift."
+	explanation_text = "Defend Ian at all costs, and ensure he gets delivered to CentCom at the end of the shift."
 	jobs = "headofpersonnel"
 
 /datum/objective/crew/ian/check_completion()

@@ -29,7 +29,7 @@
 	if(can_interact(user))
 		target_pressure = MAX_OUTPUT_PRESSURE
 		update_icon()
-	return ..()
+	return
 
 /obj/machinery/atmospherics/components/trinary/mixer/update_icon()
 	cut_overlays()
@@ -120,16 +120,16 @@
 		var/datum/gas_mixture/removed1 = air1.remove(transfer_moles1)
 		air3.merge(removed1)
 		var/datum/pipeline/parent1 = parents[1]
-		parent1.update = TRUE
+		parent1.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 	if(transfer_moles2)
 		var/datum/gas_mixture/removed2 = air2.remove(transfer_moles2)
 		air3.merge(removed2)
 		var/datum/pipeline/parent2 = parents[2]
-		parent2.update = TRUE
+		parent2.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 	var/datum/pipeline/parent3 = parents[3]
-	parent3.update = TRUE
+	parent3.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 
 /obj/machinery/atmospherics/components/trinary/mixer/ui_state(mob/user)

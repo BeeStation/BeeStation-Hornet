@@ -83,7 +83,7 @@
 		status.scan_target = prey
 		status.point_to_target()
 
-/obj/screen/alert/status_effect/agent_pinpointer/predator
+/atom/movable/screen/alert/status_effect/agent_pinpointer/predator
 	name = "Predator's All-Seeing Eyes"
 
 /datum/status_effect/agent_pinpointer/predator
@@ -91,7 +91,7 @@
 	minimum_range = 1
 	range_fuzz_factor = 0
 	tick_interval = 10
-	alert_type = /obj/screen/alert/status_effect/agent_pinpointer/predator
+	alert_type = /atom/movable/screen/alert/status_effect/agent_pinpointer/predator
 
 /datum/status_effect/agent_pinpointer/predator/scan_for_target()
 	return

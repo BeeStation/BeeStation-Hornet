@@ -38,7 +38,6 @@
 		. += "<span class='info'>Alt-click to eject [is_close ? beaker : "the beaker"].</span>"
 
 /obj/machinery/computer/pandemic/AltClick(mob/user)
-	. = ..()
 	if(user.canUseTopic(src, BE_CLOSE))
 		eject_beaker()
 

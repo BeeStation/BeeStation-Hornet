@@ -134,7 +134,7 @@ SUBSYSTEM_DEF(mapping)
 		qdel(T, TRUE)
 
 /* Nuke threats, for making the blue tiles on the station go RED
-   Used by the AI doomsday and the self destruct nuke.
+   Used by the AI doomsday and the self-destruct nuke.
 */
 
 /datum/controller/subsystem/mapping/proc/add_nuke_threat(datum/nuke)
@@ -386,7 +386,8 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 			space_ruins_templates[R.name] = R
 
 /datum/controller/subsystem/mapping/proc/preloadShuttleTemplates()
-	var/list/unbuyable = generateMapList("[global.config.directory]/unbuyableshuttles.txt")
+	var/list/unbuyable = generateMapList("[global.config.directory]/shuttles_unbuyable.txt")
+	var/list/illegal = generateMapList("[global.config.directory]/shuttles_illegal.txt")
 
 	for(var/item in subtypesof(/datum/map_template/shuttle))
 		var/datum/map_template/shuttle/shuttle_type = item
@@ -396,6 +397,8 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		var/datum/map_template/shuttle/S = new shuttle_type()
 		if(unbuyable.Find(S.mappath))
 			S.can_be_bought = FALSE
+		if(illegal.Find(S.mappath))
+			S.illegal_shuttle = TRUE
 
 		shuttle_templates[S.shuttle_id] = S
 		map_templates[S.shuttle_id] = S

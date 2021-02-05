@@ -22,10 +22,12 @@
 	internal_magazine = TRUE
 	casing_ejector = FALSE
 	bolt_wording = "pump"
+	bolt_type = BOLT_TYPE_PUMP
 	cartridge_wording = "shell"
 	tac_reloads = FALSE
 	fire_rate = 1 //reee
 	block_upgrade_walk = 1
+	recoil = 1
 	pb_knockback = 2
 
 /obj/item/gun/ballistic/shotgun/blow_up(mob/user)
@@ -133,7 +135,7 @@
 
 /obj/item/gun/ballistic/shotgun/bulldog
 	name = "\improper Bulldog Shotgun"
-	desc = "A semi-auto, mag-fed shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
+	desc = "A semi-auto, mag-fed shotgun for combat in narrow corridors with a built in recoil dampening system, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
 	icon_state = "bulldog"
 	item_state = "bulldog"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -153,7 +155,8 @@
 	tac_reloads = TRUE
 	fire_rate = 2
 	automatic = 1
-
+	recoil = 0
+	bolt_type = BOLT_TYPE_STANDARD	//Not using a pump
 
 /obj/item/gun/ballistic/shotgun/bulldog/unrestricted
 	pin = /obj/item/firing_pin
@@ -214,6 +217,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
 	sawn_desc = "I'm just here for the gasoline."
 	unique_reskin = null
+	recoil = 2
 	var/slung = FALSE
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)

@@ -10,18 +10,14 @@
 	var/active = FALSE
 	var/turf/target	// this will be where the output objects are 'thrown' to.
 	var/obj/structure/disposalpipe/trunk/trunk // the attached pipe trunk
-	var/obj/structure/disposalconstruct/stored
 	var/start_eject = 0
 	var/eject_range = 2
 
 /obj/structure/disposaloutlet/Initialize(mapload, obj/structure/disposalconstruct/make_from)
 	. = ..()
+
 	if(make_from)
 		setDir(make_from.dir)
-		make_from.forceMove(src)
-		stored = make_from
-	else
-		stored = new /obj/structure/disposalconstruct(src, null , SOUTH , FALSE , src)
 
 	target = get_ranged_target_turf(src, dir, 10)
 
@@ -33,7 +29,6 @@
 	if(trunk)
 		trunk.linked = null
 		trunk = null
-	QDEL_NULL(stored)
 	return ..()
 
 // expel the contents of the holder object, then delete it
@@ -70,12 +65,15 @@
 	if(!I.tool_start_check(user, amount=0))
 		return TRUE
 
+	add_fingerprint(user)
 	playsound(src, 'sound/items/welder2.ogg', 100, 1)
 	to_chat(user, "<span class='notice'>You start slicing the floorweld off [src]...</span>")
 	if(I.use_tool(src, user, 20))
 		to_chat(user, "<span class='notice'>You slice the floorweld off [src].</span>")
-		stored.forceMove(loc)
-		transfer_fingerprints_to(stored)
-		stored = null
-		qdel(src)
+		deconstruct()
 	return TRUE
+
+/obj/structure/disposaloutlet/deconstruct(disassembled = TRUE)
+	if(!(flags_1 & NODECONSTRUCT_1))
+		new /obj/structure/disposalconstruct(loc, null, SOUTH, FALSE, src)
+	..()

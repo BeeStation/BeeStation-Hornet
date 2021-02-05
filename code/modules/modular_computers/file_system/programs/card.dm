@@ -214,7 +214,7 @@
 							job = J
 							break
 					if(!job)
-						to_chat(user, "<span class='warning'>No class exists for this job: [target]</span>")
+						to_chat(user, "<span class='warning'>No class exists for this job: [target].</span>")
 						return
 					new_access = job.get_access()
 				log_id("[key_name(usr)] changed [id_card] assignment to '[target]', overriding all previous access using [user_id_card] via a portable ID console at [AREACOORD(usr)].")

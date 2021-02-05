@@ -26,7 +26,7 @@
 		return
 
 	if(state_open)
-		to_chat(user, "<span class='notice'>Close the door first</span>")
+		to_chat(user, "<span class='notice'>Close the door first.</span>")
 		return
 
 	if(bloody_mess)

@@ -86,6 +86,9 @@
 		return
 	. = ..()
 
+/mob/living/simple_animal/eminence/bullet_act(obj/item/projectile/Proj)
+	return BULLET_ACT_FORCE_PIERCE
+
 //Eminence abilities
 
 /obj/effect/proc_holder/spell/targeted/eminence

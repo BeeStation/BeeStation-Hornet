@@ -26,7 +26,7 @@
 	var/broken = FALSE
 	var/broken_message = "ERROR"
 	idle_power_usage = 150
-	active_power_usage = 2000
+	active_power_usage = 3000
 
 /obj/machinery/atmospherics/miner/Initialize()
 	. = ..()

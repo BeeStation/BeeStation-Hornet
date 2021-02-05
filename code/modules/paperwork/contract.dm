@@ -210,7 +210,7 @@
 		to_chat(user, "<span class='notice'>You are already alive, this contract would do nothing.</span>")
 		return 0
 	else
-		to_chat(user, "<span class='notice'>You quickly scrawl your name on the contract</span>")
+		to_chat(user, "<span class='notice'>You quickly scrawl your name on the contract.</span>")
 		if(fulfillContract(target.current, blood)<=0)
 			to_chat(user, "<span class='notice'>But it seemed to have no effect, perhaps even Hell itself cannot grant this boon?</span>")
 		return 1

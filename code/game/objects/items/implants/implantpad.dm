@@ -32,7 +32,6 @@
 	. = ..()
 
 /obj/item/implantpad/AltClick(mob/user)
-	..()
 	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
 	if(!case)

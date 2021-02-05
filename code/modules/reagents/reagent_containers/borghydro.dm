@@ -181,6 +181,7 @@ Borg Shaker
 	possible_transfer_amounts = list(5,10,20)
 	charge_cost = 20 //Lots of reagents all regenerating at once, so the charge cost is lower. They also regenerate faster.
 	recharge_time = 3
+	volume = 50
 	accepts_reagent_upgrades = FALSE
 
 	reagent_ids = list(
@@ -197,7 +198,6 @@ Borg Shaker
 			/datum/reagent/consumable/ethanol/vodka,
 			/datum/reagent/consumable/ethanol/whiskey,
 			/datum/reagent/consumable/ethanol/wine,
-			/datum/reagent/consumable/enzyme,
 			/datum/reagent/consumable/banana,
 			/datum/reagent/consumable/coffee,
 			/datum/reagent/consumable/cream,

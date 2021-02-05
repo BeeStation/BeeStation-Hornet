@@ -51,6 +51,7 @@
 #define PIXEL_SCALING_1_2X 1.5
 #define PIXEL_SCALING_2X 2
 #define PIXEL_SCALING_3X 3
+#define PIXEL_SCALING_4X 4
 
 #define SCALING_METHOD_NORMAL "normal"
 #define SCALING_METHOD_DISTORT "distort"
