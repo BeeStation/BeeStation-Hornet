@@ -105,4 +105,9 @@
 	name = "cyborg evidence bag"
 
 /obj/item/evidencebag/cyborg/Destroy()
+	. = ..()
+	Remove()
+
+/obj/item/evidencebag/cyborg/emp_act()
+	. = ..()
 	Remove()
