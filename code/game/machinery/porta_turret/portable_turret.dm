@@ -887,7 +887,7 @@
 	locked = FALSE
 
 /obj/machinery/turretid/attack_robot(mob/user)
-	if(!ailock || IsAdminGhost(user))
+	if(!ailock)
 		return attack_hand(user)
 	else
 		to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
