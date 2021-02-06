@@ -140,7 +140,7 @@
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
 "akm" = (
-/mob/living/simple_animal/bot/secbot/grievous/nullcrate,
+/mob/living/simple_animal/hostile/mimic,
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
 "akF" = (
@@ -76337,7 +76337,7 @@ gdi
 piy
 cPx
 aCo
-aCo
+akm
 aCo
 aCo
 aCo
@@ -76851,7 +76851,7 @@ gdi
 piy
 cPx
 aCo
-aCo
+akm
 aCo
 aCo
 aCo
