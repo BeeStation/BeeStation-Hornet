@@ -36,7 +36,7 @@ EMOJIS
 ## To speed things up make the number negative, to slow things down, make the number positive.
 
 ## These modify the run/walk speed of all mobs before the mob-specific modifiers are applied.
-RUN_DELAY 1
+RUN_DELAY 1.5
 WALK_DELAY 3
 
 ## The variables below affect the movement of specific mob types. THIS AFFECTS ALL SUBTYPES OF THE TYPE YOU CHOOSE!
@@ -84,6 +84,9 @@ ALERT_DELTA Destruction of the station is imminent. All crew are instructed to o
 
 
 ## GAME MODES ###
+
+#Set the Master (Default) Game Mode.
+MASTER_MODE secret
 
 ## Uncomment to not send a roundstart intercept report. Gamemodes may override this.
 #NO_INTERCEPT_REPORT
@@ -476,6 +479,7 @@ ROUNDSTART_RACES ipc
 ## Races that are better than humans in some ways, but worse in others
 ROUNDSTART_RACES ethereal
 ROUNDSTART_RACES apid
+ROUNDSTART_RACES oozeling
 #ROUNDSTART_RACES jelly
 #ROUNDSTART_RACES iron_golem
 #ROUNDSTART_RACES adamantine_golem
@@ -637,3 +641,12 @@ CUSTOM_SHUTTLE_WEAPONS
 BLUESPACE_EXPLORATION_LEVELS 4
 
 ## END BLUESPACE EXPLORATION ##
+
+## Bluespace Miners.
+
+## Amount of miner boards in the RD's locker at roundstart.
+ROUNDSTART_BLUESPACE_MINERS 2
+
+## Enable the bluespace miner research node?
+#BSMINER_RESEARCHABLE
+

@@ -152,6 +152,14 @@
 		if(!findname(.))
 			break
 
+/proc/random_unique_ooze_name(attempts_to_find_unique_name=10)
+	for(var/i in 1 to attempts_to_find_unique_name)
+		. = capitalize(pick(GLOB.oozeling_first_names)) + " " + capitalize(pick(GLOB.oozeling_last_names))
+
+		if(!findname(.))
+			break
+
+
 /proc/random_skin_tone()
 	return pick(GLOB.skin_tones)
 

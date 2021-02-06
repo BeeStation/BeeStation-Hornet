@@ -70,6 +70,9 @@
 			M.client.screen += button
 			button.locked = M.client.prefs.buttons_locked || button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE //even if it's not defaultly locked we should remember we locked it before
 			button.moved = button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE
+			var/obj/effect/proc_holder/spell/spell_proc_holder = button.linked_action.target
+			if(istype(spell_proc_holder) && spell_proc_holder.text_overlay)
+				M.client.images += spell_proc_holder.text_overlay
 		M.update_action_buttons()
 	else
 		Remove(owner)

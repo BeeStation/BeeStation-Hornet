@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Fixes TGUI Stat Panel not working on Linux
-  - bugfix: Fixes TGUI Stat Panel light mode buttons being near invisible
-  - bugfix: Fixes TGUI Stat Panel not being scroll focused when hovered over
-  - bugfix: Fixes TGUI Stat Panel having a very slow update rate on certain tabs

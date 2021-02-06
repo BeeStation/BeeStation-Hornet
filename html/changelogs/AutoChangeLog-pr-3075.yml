@@ -1,9 +1,0 @@
-author: MNarath1
-delete-after: true
-changes:
-  - tweak: up to 5 mobs can end up in a cursed locker now
-  - tweak: Lockers that did not scoop up any mobs vanish after 18 seconds
-  - tweak: buckled mobs can be scooped up too(not AI)
-  - bugfix: lockerstaff now actually putting people into lockers
-  - bugfix: another infinit iron dublication glitch
-  - refactor: deleting some unneeded code

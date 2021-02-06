@@ -9,7 +9,7 @@
 	icon_state = "gavelblock"
 	invisibility = INVISIBILITY_MAXIMUM //sorry ghosts and curators, my tricks will remain hidden
 	var/reusable = FALSE //can it trigger more than once
-	var/inuse = FALSE //used to make sure it dont get used when it shouldnt
+	var/inuse = FALSE //used to make sure it dont get used when it shouldn't
 
 /obj/effect/trap/proc/TrapEffect(AM)
 	return TRUE
