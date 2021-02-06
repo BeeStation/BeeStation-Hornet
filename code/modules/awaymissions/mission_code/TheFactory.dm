@@ -207,7 +207,7 @@
 
 /obj/item/clothing/glasses/hud/terminator
 	name = "T-80 tactical sunglasses"
-	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Also shows information about criminals and their condition. Has enhanced shielding which blocks flashes."
+	desc = "Strangely ancient technology used to help provide rudimentary eye cover. This one also shows information about criminals and their condition. Has enhanced shielding which blocks flashes."
 	icon_state = "t80sunglasses"
 	darkness_view = 1
 	scan_reagents = TRUE
