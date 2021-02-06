@@ -8,7 +8,7 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 	name = "Mounted Emplacement"
 	desc = "A weapon system mounted onto a shuttle system. Use a wrench to rotate."
 	icon = 'icons/obj/turrets.dmi'
-	icon_state = "syndie"
+	icon_state = "syndie_lethal"
 	anchored = TRUE
 	var/unique_id
 	var/projectile_type = /obj/item/projectile/bullet/shuttle/beam/laser
