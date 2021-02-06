@@ -77,7 +77,7 @@
 /datum/eldritch_knowledge/rust_blade_upgrade
 	name = "Toxic blade"
 	gain_text = "Let the blade guide you through the flesh."
-	desc = "Your blade of choice will now add toxin to enemies bloodstream."
+	desc = "Your blade of choice will now transfer your pain as toxic damage."
 	cost = 2
 	next_knowledge = list(/datum/eldritch_knowledge/spell/rust_wave)
 	banned_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/flesh_blade_upgrade)
@@ -85,9 +85,10 @@
 
 /datum/eldritch_knowledge/rust_blade_upgrade/on_eldritch_blade(target,user,proximity_flag,click_parameters)
 	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/carbon_target = target
-		carbon_target.reagents.add_reagent(/datum/reagent/eldritch, 2)
+	var/mob/living/carbon/carbon_user = user
+	var/mob/living/carbon/carbon_target = target
+	if(istype(carbon_user) && istype(carbon_target))
+		carbon_target.adjustToxLoss((carbon_user.maxHealth - carbon_user.health)/10)
 
 /datum/eldritch_knowledge/spell/rust_wave
 	name = "Wave of Rust"
@@ -118,16 +119,19 @@
 
 /datum/eldritch_knowledge/final/rust_final
 	name = "Rustbringer's Oath"
-	desc = "Bring 3 corpses onto the transmutation rune. After you finish the ritual rust will now automatically spread from the rune. Your healing on rust is also tripled, while you become more resillient overall."
+	desc = "Bring 3 corpses onto the transmutation rune. After you finish the ritual rust will now automatically spread from the rune. Your healing on rust is also tripled, while you become more resillient overall and space proof."
 	gain_text = "Champion of rust. Corruptor of steel. Fear the dark for Rustbringer has come!"
 	cost = 3
 	required_atoms = list(/mob/living/carbon/human)
 	route = PATH_RUST
+	var/list/trait_list = list(TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_RESISTLOWPRESSURE,TRAIT_NODISMEMBER)
 
 /datum/eldritch_knowledge/final/rust_final/on_finished_recipe(mob/living/user, list/atoms, loc)
 	var/mob/living/carbon/human/H = user
 	H.physiology.brute_mod *= 0.5
 	H.physiology.burn_mod *= 0.5
+	for(var/X in trait_list)
+		ADD_TRAIT(user,X,MAGIC_TRAIT)
 	priority_announce("$^@&#*$^@(#&$(@&#^$&#^@# Fear the decay, for Rustbringer [user.real_name] has come! $^@&#*$^@(#&$(@&#^$&#^@#","#$^@&#*$^@(#&$(@&#^$&#^@#", 'sound/ai/spanomalies.ogg')
 	new /datum/rust_spread(loc)
 	return ..()
@@ -138,11 +142,12 @@
 	if(!finished)
 		return
 	var/mob/living/carbon/human/human_user = user
-	human_user.adjustBruteLoss(-3, FALSE)
-	human_user.adjustFireLoss(-3, FALSE)
-	human_user.adjustToxLoss(-3, FALSE)
-	human_user.adjustOxyLoss(-1, FALSE)
-	human_user.adjustStaminaLoss(-10)
+	human_user.adjustBruteLoss(-4, FALSE)
+	human_user.adjustFireLoss(-4, FALSE)
+	human_user.adjustToxLoss(-4, FALSE)
+	human_user.adjustOxyLoss(-2, FALSE)
+	human_user.adjustStaminaLoss(-20)
+	human_user.AdjustAllImmobility(-10)
 
 
 /**

@@ -12,15 +12,18 @@
 	throw_range = 6
 	grind_results = list()
 	var/Uses = 1 // uses before it goes inert
-	var/qdel_timer = null // deletion timer, for delayed reactions
+	var/qdel_timer // deletion timer, for delayed reactions
 	var/effectmod
 	var/list/activate_reagents = list() //Reagents required for activation
 	var/recurring = FALSE
+	var/sparkly = FALSE //if true, cargo gets 2x the money for them
 
 /obj/item/slime_extract/examine(mob/user)
 	. = ..()
 	if(Uses > 1)
 		. += "It has [Uses] uses remaining."
+	if(sparkly)
+		. += "It looks sparkly."
 
 /obj/item/slime_extract/attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/slimepotion/enhancer))

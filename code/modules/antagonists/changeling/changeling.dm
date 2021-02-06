@@ -192,6 +192,9 @@
 	if(!ishuman(owner.current))
 		to_chat(owner.current, "<span class='danger'>We can't remove our evolutions in this form!</span>")
 		return
+	if(isabsorbing)
+		to_chat(owner.current, "<span class='danger'>We cannot readapt right now!</span>")
+		return
 	if(canrespec)
 		to_chat(owner.current, "<span class='notice'>We have removed our evolutions from this form, and are now ready to readapt.</span>")
 		reset_powers()

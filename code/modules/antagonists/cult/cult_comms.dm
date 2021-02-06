@@ -135,7 +135,7 @@
 	for(var/datum/mind/B in team.members)
 		if(B.current)
 			for(var/datum/action/innate/cult/mastervote/vote in B.current.actions)
-				vote.Remove(B.current)
+				qdel(vote)
 			if(!B.current.incapacitated())
 				to_chat(B.current,"<span class='cultlarge'>[Nominee] has won the cult's support and is now their master. Follow [Nominee.p_their()] orders to the best of your ability!</span>")
 	return TRUE

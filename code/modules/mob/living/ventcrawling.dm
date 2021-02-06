@@ -25,7 +25,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 		to_chat(src, "You can't vent crawl while buckled!")
 		return
 
-	var/obj/machinery/atmospherics/components/unary/vent_found
+	var/obj/machinery/atmospherics/components/vent_found
 
 
 	if(A)
