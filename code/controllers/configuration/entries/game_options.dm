@@ -468,7 +468,7 @@
 
 //The number of z-levels created for bluespace exploration random levels
 /datum/config_entry/number/bluespace_exploration_levels
-	config_entry_value = 3
+	config_entry_value = 4
 
 //Default Game Mode
 /datum/config_entry/string/master_mode
