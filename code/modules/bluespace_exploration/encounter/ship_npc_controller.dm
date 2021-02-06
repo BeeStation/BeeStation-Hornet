@@ -42,12 +42,18 @@
 	var/obj/our_port = SSshuttle.getShuttle(mobile_port_id)
 	for(var/ship_key in SSbluespace_exploration.tracked_ships)
 		var/datum/ship_datum/ship = SSbluespace_exploration.tracked_ships[ship_key]
+		//Dont shoot ourselves
 		if(ship == src)
 			continue
 		var/obj/shuttle_port = SSshuttle.getShuttle(ship_key)
+		//Dont shoot nulls
 		if(!shuttle_port || !our_port || shuttle_port.z != our_port.z)
 			continue
+		//Dont something already hostile to use
 		if(ship in hostile_ships)
+			continue
+		//Dont shoot enemies in another realm
+		if(our_port.z != shuttle_port.z)
 			continue
 		var/datum/our_faction = ship_faction
 		if(check_faction_alignment(ship_faction, ship.ship_faction) == FACTION_STATUS_HOSTILE || (our_faction.type in ship.rogue_factions))
