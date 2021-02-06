@@ -14,7 +14,7 @@
 	if(!(ndir in GLOB.cardinals))
 		return
 	var/area/A = get_area(on_wall)
-	if(!isfloorturf(on_wall))
+	if(isfloorturf(on_wall))
 		to_chat(user, "<span class='warning'>You cannot place [src] on this spot!</span>")
 		return
 	if(A.always_unpowered)
@@ -30,7 +30,7 @@
 //Overriding the entire proc just to change 1 line. yikes
 /obj/item/wallframe/shuttle_weapon/attach(turf/on_wall, mob/user)
 	if(result_path)
-		playsound(src.loc, 'sound/machines/click.ogg', 75, 1)
+		playsound(loc, 'sound/machines/click.ogg', 75, 1)
 		user.visible_message("[user.name] attaches [src] to the wall.",
 			"<span class='notice'>You attach [src] to the wall.</span>",
 			"<span class='italics'>You hear clicking.</span>")
