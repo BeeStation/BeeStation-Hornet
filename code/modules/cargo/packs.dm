@@ -186,6 +186,16 @@
 	dangerous = TRUE
 	var/beepsky_chance = -1
 	var/level = 1
+	var/hijacking_chance = 0
+	var/list/possible_hijackers = list(
+		/mob/living/simple_animal/hostile/syndicate/space,
+		/mob/living/simple_animal/hostile/syndicate/space/stormtrooper,
+		/mob/living/simple_animal/hostile/syndicate/melee/space,
+		/mob/living/simple_animal/hostile/syndicate/melee/space/stormtrooper,
+		/mob/living/simple_animal/hostile/syndicate/ranged/space/stormtrooper,
+		/mob/living/simple_animal/hostile/syndicate/ranged/shotgun/space/stormtrooper,
+		/mob/living/simple_animal/hostile/syndicate/ranged/smg/space/stormtrooper
+	)
 
 /datum/supply_pack/emergency/syndicate/fill(obj/structure/closet/crate/C)
 	var/crate_value = 30
@@ -206,11 +216,24 @@
 			continue
 		crate_value -= I.cost
 		new I.item(C)
+	//Lone op chance increase
 	var/datum/round_event_control/operative/loneop = locate(/datum/round_event_control/operative) in SSevents.control
 	if(istype(loneop))
-		loneop.weight += 7
+		loneop.weight += 15
 		message_admins("a NULL_ENTRY crate has shipped, increasing the weight of the Lone Operative event to [loneop.weight]")
 		log_game("a NULL_ENTRY crate has shipped, increasing the weight of the Lone Operative event to [loneop.weight]")
+	hijacking_chance += 10
+	if(prob(hijacking_chance))
+		//Shuttle hijacking
+		hijack_ship(C)
+		message_admins("a NULL_ENTRY crate has shipped, the cargo ship has been hijacked")
+
+/datum/supply_pack/emergency/syndicate/proc/hijack_ship(obj/structure/closet/crate/C)
+	hijacking_chance = 0
+	for(var/i in 1 to rand(3, 7))
+		//Spawn random mobs
+		var/type = pick(possible_hijackers)
+		new type(get_turf(C))
 
 /datum/supply_pack/emergency/plasma_spacesuit
 	name = "Plasmaman Space Envirosuits"
