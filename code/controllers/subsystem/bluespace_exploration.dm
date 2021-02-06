@@ -85,11 +85,6 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	//Create factions (These ones are static, although each ship has its own)
 	for(var/faction_datum in subtypesof(/datum/faction))
 		factions[faction_datum] = new faction_datum
-	//Create z-levels
-//#ifndef LOWMEMORYMODE
-	for(var/i in 1 to CONFIG_GET(number/bluespace_exploration_levels))
-		bluespace_systems[SSmapping.add_new_zlevel("Bluespace Exploration Level [i]", ZTRAITS_BLUESPACE_EXPLORATION)] = BS_LEVEL_IDLE
-//#endif
 
 /datum/controller/subsystem/bluespace_exploration/fire(resumed = 0)
 	if(current_part == FIRE_UPDATE_SHIPS)

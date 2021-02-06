@@ -73,6 +73,10 @@ SUBSYSTEM_DEF(mapping)
 		++space_levels_so_far
 		empty_space = add_new_zlevel("Empty Area [space_levels_so_far]", list(ZTRAIT_LINKAGE = CROSSLINKED))
 
+	//Create z-levels for BSE
+	for(var/i in 1 to CONFIG_GET(number/bluespace_exploration_levels))
+		SSbluespace_exploration.bluespace_systems[SSmapping.add_new_zlevel("Bluespace Exploration Level [i]", ZTRAITS_BLUESPACE_EXPLORATION)] = BS_LEVEL_IDLE
+
 	// Pick a random away mission.
 	if(CONFIG_GET(flag/roundstart_away))
 		createRandomZlevel()

@@ -51,7 +51,7 @@
 			system_alignment = SSbluespace_exploration.get_faction(/datum/faction/syndicate/elite)
 	//Set other factors
 	calculated_threat = CLAMP(rand(0, zerotoonehundred) + rand(-15, 20), 0, 40)
-	calculated_research_potential = CLAMP(rand(0, zerotoonehundred), 10, 50) - rand(0, 10)
+	calculated_research_potential = CLAMP(rand(0, zerotoonehundred), 11, 50) - rand(0, 10)
 
 /datum/star_system/proc/normalize_difficulty()
 	return 100 * (1 - sin(TODEGREES(1 / ((distance_from_center / 5) + (0.6369)))))
