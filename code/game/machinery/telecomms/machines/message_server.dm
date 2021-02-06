@@ -49,12 +49,11 @@
 		new /obj/effect/decal/cleanable/oil(loc)
 	return ..()
 
-/obj/machinery/blackbox_recorder/update_icon()
-	. = ..()
-	if(!stored)
-		icon_state = "blackbox_b"
-	else
+/obj/machinery/blackbox_recorder/update_icon_state()
+	if(stored)
 		icon_state = "blackbox"
+	else
+		icon_state = "blackbox_b"
 
 /obj/item/blackbox
 	name = "the blackbox"
