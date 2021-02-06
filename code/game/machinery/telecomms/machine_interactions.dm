@@ -76,6 +76,22 @@
 		frequencies += list(x)
 	data["frequencies"] = frequencies
 
+	var/list/circuits = list()
+	var/n = -1 		//Apperently there is always one circuit in the list, so we have to go -1
+	data["circuits"] = list()
+	for(var/c in GLOB.ic_speakers)
+		n++
+		var/obj/item/integrated_circuit/I = c
+		var/obj/item/O = I.get_object()
+		var/list/circuit = list()
+		if(get_area(O)) //if it isn't in nullspace, can happen due to printer newing all possible circuits to fetch list data
+			circuit["index"] = n
+			circuit["name"] = O.name
+			circuit["coords"] = "[O.x], [O.y], [O.z]"
+			circuit["area"] = get_area(O)
+			circuits += list(circuit)
+	data["circuits"] = circuits
+
 	return data
 
 /obj/machinery/telecomms/ui_act(action, params)
@@ -171,6 +187,11 @@
 	var/list/data = list()
 	data["type"] = "bus"
 	data["changefrequency"] = change_frequency
+	return data
+
+/obj/machinery/telecomms/receiver/add_option()
+	var/list/data = list()
+	data["type"] = "receiver"
 	return data
 
 /obj/machinery/telecomms/relay/add_option()
