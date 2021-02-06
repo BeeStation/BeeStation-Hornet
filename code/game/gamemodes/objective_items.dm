@@ -167,7 +167,7 @@
 	return 0
 
 /datum/objective_item/steal/blackbox
-	name = "The Blackbox."
+	name = "the blackbox."
 	targetitem = /obj/item/blackbox
 	difficulty = 10
 	excludefromjob = list("Chief Engineer","Station Engineer","Atmospheric Technician")
