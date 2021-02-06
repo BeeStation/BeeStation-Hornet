@@ -999,7 +999,7 @@
 	if(is_type_in_typecache(target, banned_turfs))
 		return
 
-	if(target in view(user.client.view, get_turf(user)))
+	if(user in viewers(user.client.view, get_turf(target)))
 
 		var/turf/open/T = get_turf(target)
 		if(!istype(T))
@@ -1197,7 +1197,7 @@
 		if(ismineralturf(target) && get_dist(user, target) < 6) //target is minerals, we can hit it(even if we can't see it)
 			INVOKE_ASYNC(src, .proc/cardinal_blasts, T, user)
 			timer = world.time + cooldown_time
-		else if(target in view(5, get_turf(user))) //if the target is in view, hit it
+		else if(user in viewers(5, get_turf(target))) //if the target is in view, hit it
 			timer = world.time + cooldown_time
 			if(isliving(target) && chaser_timer <= world.time) //living and chasers off cooldown? fire one!
 				chaser_timer = world.time + chaser_cooldown

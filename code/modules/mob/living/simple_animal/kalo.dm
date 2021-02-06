@@ -44,7 +44,7 @@
 			if((movement_target) && !isturf(movement_target.loc))
 				movement_target = null
 				stop_automated_movement = 0
-			if(!movement_target || !(movement_target.loc in oview(5, src)))
+			if(!movement_target || !(src in viewers(5, movement_target.loc)))
 				stop_automated_movement = 0
 				movement_target = (locate(/obj/item/reagent_containers/food/snacks) in oview(5, src)) || null //can smell things up to 5 blocks radius
 

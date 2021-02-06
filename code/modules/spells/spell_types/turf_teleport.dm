@@ -27,7 +27,7 @@
 			turfs += T
 
 		if(!turfs.len)
-			turfs += pick(RANGE_TURFS(outer_tele_radius, target)-RANGE_TURFS(inner_tele_radius, target))
+			turfs += RANGE_TURFS(outer_tele_radius, target)-RANGE_TURFS(inner_tele_radius, target)
 
 		var/turf/picked = pick(turfs)
 

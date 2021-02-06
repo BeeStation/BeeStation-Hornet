@@ -44,7 +44,7 @@
 		if(attacked || rabid)
 			Target.attack_slime(src)
 			attack_cooldown = world.time + attack_cooldown_time
-	else if(Target in view(7, src))
+	else if(src in viewers(7, Target))
 		step_to(src, Target)
 	else
 		special_process = FALSE

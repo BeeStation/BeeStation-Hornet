@@ -307,9 +307,7 @@
 	grav(rand(0,3), rand(2,3), 50, 25)
 
 	//Throwing stuff around!
-	for(var/obj/O in range(2,src))
-		if(O == src)
-			return //DON'T DELETE YOURSELF GOD DAMN
+	for(var/obj/O in orange(2,src))
 		if(!O.anchored)
 			var/mob/living/target = locate() in hearers(4,src)
 			if(target && !target.stat)

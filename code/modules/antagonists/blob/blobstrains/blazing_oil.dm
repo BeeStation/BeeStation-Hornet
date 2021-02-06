@@ -20,7 +20,7 @@
 	if(damage_type == BURN && damage_flag != "energy")
 		for(var/turf/open/T in RANGE_TURFS(1, B))
 			var/obj/structure/blob/C = locate() in T
-			if(!(C && C.overmind && C.overmind.blobstrain.type == B.overmind.blobstrain.type) && prob(80))
+			if(!(C?.overmind && C.overmind.blobstrain.type == B.overmind.blobstrain.type) && prob(80))
 				new /obj/effect/hotspot(T)
 	if(damage_flag == "fire")
 		return 0

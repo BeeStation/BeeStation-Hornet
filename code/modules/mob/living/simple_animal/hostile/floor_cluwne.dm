@@ -279,7 +279,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 			if(prob(4))
 				for(var/obj/item/I in orange(8, H))
-					if(I && !I.anchored)
+					if(!I.anchored)
 						I.throw_at(H, 4, 3)
 				to_chat(H, "<span class='warning'>What the hell?!</span>")
 
@@ -381,7 +381,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	var/pure_red = list(0,0,0,0,0,0,0,0,0,1,0,0)
 	H.client.color = pure_red
 	animate(H.client,color = red_splash, time = 10, easing = SINE_EASING|EASE_OUT)
-	for(var/turf/T as() in RANGE_TURFS(4, H))
+	for(var/turf/open/T in RANGE_TURFS(4, H))
 		H.add_splatter_floor(T)
 	if(do_after(src, 50, target = H))
 		H.unequip_everything()//more runtime prevention
