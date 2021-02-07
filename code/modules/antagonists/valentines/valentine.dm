@@ -23,6 +23,10 @@
 		//Faction assignation
 		L.faction |= "[REF(date.current)]"
 		L.faction |= date.current.faction
+	if(issilicon(owner))
+		var/mob/living/silicon/S = owner
+		var/laws = list("Protect your date and do not allow them to come to harm.", "Ensure your date has a good time.")
+		S.set_valentines_laws(laws)
 	. = ..()
 
 /datum/antagonist/valentine/on_removal()
