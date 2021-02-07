@@ -1,0 +1,4 @@
+author: timothyteakettle
+delete-after: true
+changes:
+  - bugfix: newscaster sanitization go brrr
