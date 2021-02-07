@@ -84,6 +84,7 @@
 		return
 	var/mob/M = AM
 	shock(M, 70)
+	take_damage(rand(0,1), BRUTE, "melee", FALSE)
 
 /obj/structure/grille/attack_animal(mob/user)
 	. = ..()
@@ -252,7 +253,6 @@
 			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 			s.set_up(3, 1, src)
 			s.start()
-			take_damage(rand(0,1), BRUTE, "melee", FALSE)
 			return TRUE
 		else
 			return FALSE
