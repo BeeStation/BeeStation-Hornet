@@ -19,7 +19,7 @@ GLOBAL_LIST(valentine_mobs)
 	earliest_start = 0 MINUTES
 
 /datum/round_event/valentines
-	endWhen = 5 MINUTES				//Auto assign dates when finished
+	endWhen = 300
 
 /datum/round_event/valentines/start()
 	GLOB.valentine_mobs = list()
