@@ -167,7 +167,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	QDEL_NULL(orbit_menu)
 	QDEL_NULL(spawners_menu)
 
-	var/datum/component/tracking_beacon/beacon = GetComponent(datum/component/tracking_beacon)
+	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
 	if(beacon)
 		qdel(beacon)
 
