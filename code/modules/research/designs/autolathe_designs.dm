@@ -1071,7 +1071,7 @@
 
 /datum/design/skillChipSurgical
 	name = "Surgical Skillchip"
-	id = "skillChip_Chef"
+	id = "skillChip_Surgical"
 	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 400, /datum/material/glass = 400)
 	build_path = /obj/item/autosurgeon/skillChip/surgicalChip

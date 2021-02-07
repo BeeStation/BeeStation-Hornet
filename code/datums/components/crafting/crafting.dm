@@ -172,8 +172,10 @@
 	var/send_feedback = 1
 	if(check_contents(a, R, contents))
 		if(check_tools(a, R, contents))
-			//If we're a mob we'll try a do_after; non mobs will instead instantly construct the item
-			if(ismob(a) && !do_after(a, R.time, target = a))
+			//If we're a mob and they have the construction trait we'll try a do_after with a construction benefit; non mobs will instead instantly construct the item
+			if(ismob(a) && HAS_TRAIT(a, TRAIT_CONSTRUCTION) && !do_after(a, R.time/2, target = a))
+				return "."
+			else if(ismob(a) && !do_after(a, R.time, target = a))
 				return "."
 			contents = get_surroundings(a,R.blacklist)
 			if(!check_contents(a, R, contents))
