@@ -91,9 +91,6 @@
 		emagged_reagents = sortList(emagged_reagents, /proc/cmp_reagents_asc)
 	if(upgrade_reagents)
 		upgrade_reagents = sortList(upgrade_reagents, /proc/cmp_reagents_asc)
-	shuffle_inplace(dispensable_reagents)
-	shuffle_inplace(emagged_reagents)
-	shuffle_inplace(upgrade_reagents)
 	update_icon()
 
 /obj/machinery/chem_dispenser/Destroy()

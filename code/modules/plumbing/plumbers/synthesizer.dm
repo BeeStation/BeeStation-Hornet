@@ -55,7 +55,6 @@
 /obj/machinery/plumbing/synthesizer/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_supply, bolt)
-	shuffle_inplace(dispensable_reagents)
 
 /obj/machinery/plumbing/synthesizer/process()
 	if(stat & NOPOWER || !reagent_id || !amount)
