@@ -44,6 +44,7 @@
 	M.internal_organs |= src
 	M.internal_organs_slot[slot] = src
 	moveToNullspace()
+	log_combat(M, M, "had inserted this organ: ", "[name]")
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Grant(M)

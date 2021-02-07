@@ -205,6 +205,7 @@
 	M.internal_organs_slot[slot] = src
 	for(var/trait in applied_traits)
 		ADD_TRAIT(M, trait, "skillChip")
+	log_combat(M, M, "inserted this organ: ", "[name]")
 	moveToNullspace()
 	for(var/X in actions)
 		var/datum/action/A = X
