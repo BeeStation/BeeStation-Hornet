@@ -27,8 +27,6 @@
 	var/list/comp_lookup
 	/// List of callbacks for signal procs
 	var/list/list/datum/callback/signal_procs
-	/// Is this datum capable of sending signals?
-	var/signal_enabled = FALSE
 	/// Datum level flags
 	var/datum_flags = NONE
 
@@ -91,7 +89,7 @@
 		qdel(timer)
 
 	//BEGIN: ECS SHIT
-	signal_enabled = FALSE
+	datum_flags &= ~DF_SIGNAL_ENABLED
 
 	var/list/dc = datum_components
 	if(dc)
