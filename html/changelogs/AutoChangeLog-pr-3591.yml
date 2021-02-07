@@ -1,5 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Atropine now stops working at 20 HP as intended
-  - bugfix: Hepanephrodaxon now has its correct metabolization rate
