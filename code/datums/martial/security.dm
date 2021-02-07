@@ -6,8 +6,8 @@
 
 /datum/action/forceful_disarm
 	name = "Forceful Disarm - removes items from targets hands, and causes you to do a backstep"
-	icon_icon = 'icons/obj/kitchen.dmi'
-	button_icon_state = "survival"
+	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	button_icon_state = "ForcefulDisarm"
 
 /datum/action/forceful_disarm/Trigger()
 	if(owner.incapacitated())
@@ -23,8 +23,8 @@
 
 /datum/action/pressure_point_strike
 	name = "Pressure Point Strike - Deals stamina damage to a targeted limb"
-	icon_icon = 'icons/mob/screen_alert.dmi'
-	button_icon_state = "highpressure"
+	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	button_icon_state = "PressurePoint"
 
 /datum/action/pressure_point_strike/Trigger()
 	if(owner.incapacitated())
