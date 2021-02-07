@@ -252,6 +252,7 @@
 			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 			s.set_up(3, 1, src)
 			s.start()
+			take_damage(rand(0,1), BRUTE, "melee", FALSE)
 			return TRUE
 		else
 			return FALSE
