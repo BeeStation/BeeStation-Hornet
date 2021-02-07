@@ -256,7 +256,7 @@
 /obj/item/organ/cyberimp/skillChip/engineering
 	name = "Engineering SkillChip"
 	desc = "A piece of bleeding-edge tech which memorizes the wire layouts for each departments doors."
-	applied_traits = list(TRAIT_WIRESEEING)
+	applied_traits = list(TRAIT_CONSTRUCTION)
 
 /obj/item/organ/cyberimp/skillChip/surgical
 	name = "Surgical Skillchip"
@@ -281,7 +281,7 @@
 /obj/item/organ/cyberimp/skillChip/omniChip //Parent type for all omni chips. This kind is Uplink Only
 	name = "OmniChip"
 	desc = "A piece of bleeding-edge tech which teaches the user all the non-martial arts related skills from other SkillChips."
-	applied_traits = list(TRAIT_CHEMISTRY, TRAIT_SURGICAL_EXPERT, TRAIT_WIRESEEING, TRAIT_BOOZE_SLIDER)
+	applied_traits = list(TRAIT_CHEMISTRY, TRAIT_SURGICAL_EXPERT, TRAIT_CONSTRUCTION, TRAIT_BOOZE_SLIDER)
 
 /obj/item/organ/cyberimp/skillChip/omniChip/omniChipChef
 	name = "OmniChip Cooking Edition"
