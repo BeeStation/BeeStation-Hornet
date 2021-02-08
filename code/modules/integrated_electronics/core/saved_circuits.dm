@@ -225,7 +225,7 @@
 // Returns error code (type: text) if loading has failed.
 // The following parameters area calculated during validation and added to the returned save list:
 // "requires_upgrades", "unsupported_circuit", "iron_cost", "complexity", "max_complexity", "used_space", "max_space"
-/datum/controller/subsystem/processing/circuit/proc/validate_electronic_assembly(program,var/external_import)
+/datum/controller/subsystem/processing/circuit/proc/validate_electronic_assembly(program, var/external_import)
 	//Check for bad inputs
 	var/list/blocks
 	if(external_import == TRUE)
