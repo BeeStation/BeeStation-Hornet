@@ -274,13 +274,12 @@
 				validate_circuit(validation)
 
 			if("loadnew")
-				var/path = "data/player_saves/[usr.ckey[1]]/[usr.ckey]/circuits.sav"
-				var/savefile/S = new /savefile(path)
+				var/savefile/S = new /savefile("data/player_saves/[usr.ckey[1]]/[usr.ckey]/circuits.sav")
 				var/templist
 				S >> templist
-				var/name
-				name = input(usr,"Choose a Circuit from the list.","Choose") as null|anything in templist
-				load_circuit(templist["[name]"])
+				var/name = input(usr,"Choose a Circuit from the list.","Choose") as null|anything in templist
+				var/validation = SScircuit.validate_electronic_assembly(templist["[name]"], FALSE)
+				validate_circuit(validation)
 			if("print")
 				if(!program || cloning)
 					return
