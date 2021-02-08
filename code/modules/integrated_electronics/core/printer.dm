@@ -162,9 +162,10 @@
 	if((can_clone && CONFIG_GET(flag/ic_printing)) || debug)
 		HTML += "Here you can load script for your assembly.<br>"
 		if(!cloning)
-			HTML += " <A href='?src=[REF(src)];print=load'>Load Program</a> "
+			HTML += " <A href='?src=[REF(src)];print=load'>Load Old Program</a> "
 		else
 			HTML += " Load Program"
+		HTML += " <A href='?src=[REF(src)];print=loadnew'>Load new Program</a> "
 		if(!program)
 			HTML += " [fast_clone ? "Print" : "Begin Printing"] Assembly"
 		else if(cloning)
@@ -272,6 +273,14 @@
 				var/validation = SScircuit.validate_electronic_assembly(input, TRUE)
 				validate_circuit(validation)
 
+			if("loadnew")
+				var/path = "data/player_saves/[usr.ckey[1]]/[usr.ckey]/circuits.sav"
+				var/savefile/S = new /savefile(path)
+				var/templist
+				S >> templist
+				var/name
+				name = input(usr,"Choose a Circuit from the list.","Choose") as null|anything in templist
+				load_circuit(templist["[name]"])
 			if("print")
 				if(!program || cloning)
 					return
@@ -334,9 +343,6 @@
 	icon_state = "upgrade_disk_clone"
 
 /obj/item/integrated_circuit_printer/proc/load_circuit(var/saved_data)
-	var/path = "data/player_saves/[usr.ckey[1]]/[usr.ckey]/circuits.sav"
-	var/savefile/S = new /savefile(path)
-	S >> saved_data
 	var/validation = SScircuit.validate_electronic_assembly(saved_data, FALSE)
 	validate_circuit(validation)
 

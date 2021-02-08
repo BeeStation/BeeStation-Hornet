@@ -24,6 +24,9 @@
 /obj/item/integrated_electronics/analyzer/proc/save_circuit(ckey, var/saved_data)
 	if(!ckey||!saved_data)
 		return
+	if(saved_data["assembly"]["name"] == null)
+		to_chat(usr, "<span class='notice'>The Circuit has no individual name yet please name it before scanning.</span>")
+		return
 	var/path = "data/player_saves/[ckey[1]]/[ckey]/circuits.sav"
 
 	var/savefile/S = new /savefile(path)
