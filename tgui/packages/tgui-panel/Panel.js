@@ -89,7 +89,7 @@ export const Panel = (props, context) => {
         height={(number-1) + '%'}>
         <Stack.Item>
           <Section fitted>
-            <Stack mx={1} align="center">
+            <Stack mr={1} align="center">
               <Stack.Item grow overflowX="auto">
                 <ChatTabs />
               </Stack.Item>
