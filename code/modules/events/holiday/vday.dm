@@ -140,6 +140,7 @@ GLOBAL_LIST(valentine_mobs)
 		new_card.target = picked_human
 		new_card.name = "valentines card from [new_card.sender]"
 		new_card.desc = "A Valentine's card! It is addressed to [new_card.target]."
+		new_card.used = TRUE
 		picked_human.equip_to_appropriate_slot(new_card)
 		to_chat(picked_human, "<span class='clown'>A magical card suddenly appears!</span>")
 		qdel(src)
