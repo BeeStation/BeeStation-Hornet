@@ -87,8 +87,6 @@
 				if(is_hallucinating && prob(5))
 					chemname = "[pick_list_replacements("hallucination.json", "chemicals")]"
 				chemicals.Add(list(list("title" = chemname, "id" = ckey(R.name))))
-			else
-				chemicals.Add(list(list("title" = "", "id" = ckey(R.name))))
 	data["chemicals"] = chemicals
 	data["amount"] = amount
 	data["possible_amounts"] = possible_amounts
