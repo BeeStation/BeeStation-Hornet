@@ -35,7 +35,7 @@
 /obj/item/integrated_electronics/analyzer/proc/save_circuit(ckey, var/saved_data)
 	if(!ckey||!saved_data)
 		return
-	var/cname = saved_data["assembly"]["name"]
+	var/cname = input(usr,"Please Input a name for your circuit.","Name?") as text
 	if(cname == null)
 		to_chat(usr, "<span class='notice'>The Circuit has no individual name yet please name it before scanning.</span>")
 		return
@@ -43,10 +43,19 @@
 	var/savefile/S = new /savefile(path)
 	var/circuit_list
 	S >> circuit_list
+	if(length(circuit_list) >= 20)
+		var/override_circuit = input(usr,"You reached the max number of circuits choose a circuit to override.","Choose") as null|anything in circuit_list
+		if(override_circuit == null)
+			to_chat(usr, "<span class='notice'>You do not override the circuit.</span>")
+			return
+		if(alert(usr, "Warning this will override the old circuit.", "Do you still want to do continue?", "Abort", "Proceed") == "Abort")
+			to_chat(usr, "<span class='notice'>You do not override the circuit.</span>")
+			return
+		circuit_list -= override_circuit
 	if(!islist(circuit_list))
 		circuit_list = new/list()
 	if(circuit_list[cname])
-		if(alert(usr, "Warning this will override the old circuit with the same name..", "Do you still want to do continue this?", "Abort", "Proceed") == "Abort")
+		if(alert(usr, "Warning this will override the old circuit with the same name.", "Do you still want to do continue this?", "Abort", "Proceed") == "Abort")
 			to_chat(usr, "<span class='notice'>You do not override the circuit.</span>")
 			return
 	circuit_list[cname] = saved_data
