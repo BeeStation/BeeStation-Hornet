@@ -363,7 +363,7 @@
 	playsound(get_turf(centre), 'sound/items/welder.ogg', 75, TRUE)
 	var/_range = 1
 	for(var/i = 0, i <= max_range,i++)
-		for(var/turf/T in spiral_range_turfs(_range,centre))
+		for(var/turf/open/T in spiral_range_turfs(_range,centre))
 			new /obj/effect/hotspot(T)
 			T.hotspot_expose(700,50,1)
 		_range++

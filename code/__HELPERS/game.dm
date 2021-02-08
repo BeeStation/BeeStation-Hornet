@@ -28,10 +28,8 @@
 	if(!center)
 		return list()
 
-	var/list/turfs = RANGE_TURFS(dist, center)
 	var/list/areas = list()
-	for(var/V in turfs)
-		var/turf/T = V
+	for(var/turf/T as() in RANGE_TURFS(dist, center))
 		areas |= T.loc
 	return areas
 
@@ -609,10 +607,9 @@
 
 // Find a obstruction free turf that's within the range of the center. Can also condition on if it is of a certain area type.
 /proc/find_obstruction_free_location(var/range, var/atom/center, var/area/specific_area)
-	var/list/turfs = RANGE_TURFS(range, center)
 	var/list/possible_loc = list()
 
-	for(var/turf/found_turf in turfs)
+	for(var/turf/found_turf as() in RANGE_TURFS(range, center))
 		var/area/turf_area = get_area(found_turf)
 
 		// We check if both the turf is a floor, and that it's actually in the area.

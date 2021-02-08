@@ -985,8 +985,7 @@ eg2: `center_image(I, 96,96)`
 	if(orange)
 		turfs -= get_turf(center)
 	. = list()
-	for(var/V in turfs)
-		var/turf/T = V
+	for(var/turf/T as() in turfs)
 		. += T
 		. += T.contents
 		if(areas)

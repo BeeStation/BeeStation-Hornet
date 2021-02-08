@@ -267,8 +267,7 @@
 
 
 /obj/singularity/proc/eat()
-	for(var/tile in spiral_range_turfs(grav_pull, src))
-		var/turf/T = tile
+	for(var/turf/T as() in spiral_range_turfs(grav_pull, src))
 		if(!T || !isturf(loc))
 			continue
 		if(get_dist(T, src) > consume_range)

@@ -30,10 +30,8 @@ GLOBAL_LIST_INIT(tendrils, list())
 /obj/structure/spawner/lavaland/Initialize()
 	. = ..()
 	emitted_light = new(loc)
-	for(var/F in RANGE_TURFS(1, src))
-		if(ismineralturf(F))
-			var/turf/closed/mineral/M = F
-			M.ScrapeAway(null, CHANGETURF_IGNORE_AIR)
+	for(var/turf/closed/mineral/M in RANGE_TURFS(1, src))
+		M.ScrapeAway(null, CHANGETURF_IGNORE_AIR)
 	AddComponent(/datum/component/gps, "Eerie Signal")
 	GLOB.tendrils += src
 	var/datum/disease/advance/random/necropolis/R = new
