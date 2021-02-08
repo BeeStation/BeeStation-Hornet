@@ -390,7 +390,7 @@
 	list_reagents = list(/datum/reagent/consumable/honey = 25)
 
 /obj/item/reagent_containers/food/drinks/honeycomb/attack_self(mob/user)
-	if(!src.reagents.total_volume)
+	if(!reagents.total_volume)
 		user.visible_message("<span class='warning'>[user] snaps the [src] into 2 pieces!</span>",
 		"<span class='notice'>You snap [src] in half.</span>")
 		new /obj/item/stack/sheet/mineral/wax(user.loc, 2)
@@ -601,5 +601,4 @@
 	desc = "There is no air shortage. Do not drink."
 	icon_state = "air"
 	list_reagents = list(/datum/reagent/nitrogen = 24, /datum/reagent/oxygen = 6)
-
 
