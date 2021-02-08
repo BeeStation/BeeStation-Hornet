@@ -16,173 +16,173 @@
 //"old" means places we get in after the rune transition
 
 /area/awaymission/factory
+	ambient_buzz = null
 	teleport_restriction = TELEPORT_ALLOW_NONE
 
 /area/awaymission/factory/secret
 	name = "secrets"
-	ambientsounds = list('sound/ambience/secrets.ogg','sound/ambience/ambiholy2.ogg')
+	ambient_effects = list('sound/ambience/secrets.ogg','sound/ambience/ambiholy2.ogg')
 
 /area/awaymission/factory/villageafter
 	name = "The Village"
-	ambientsounds = list('sound/ambience/seag1.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/ambiodd.ogg', 'sound/ambience/ambimystery.ogg', 'sound/ambience/ambiearth.ogg', 'sound/ambience/ambiwind.ogg', 'sound/ambience/ambimine.ogg')
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	ambient_effects = list('sound/ambience/seag1.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/ambiodd.ogg', 'sound/ambience/ambimystery.ogg', 'sound/ambience/ambiearth.ogg', 'sound/ambience/ambiwind.ogg', 'sound/ambience/ambimine.ogg')
 	requires_power = FALSE
 
 /area/awaymission/factory/villageafter/church
 	name = "The Church"
-	ambience_index = AMBIENCE_HOLY
+	ambient_effects = HOLY
 
 /area/awaymission/factory/villageafter/house
-	ambientsounds = list('sound/ambience/ambiruin4.ogg','sound/ambience/ambiruin6.ogg','sound/ambience/ambiruin7.ogg','sound/ambience/ambiruin2.ogg')
+	ambient_effects = list('sound/ambience/ambiruin4.ogg','sound/ambience/ambiruin6.ogg','sound/ambience/ambiruin7.ogg','sound/ambience/ambiruin2.ogg')
 
 /area/awaymission/factory/villageafter/house/ritual
-	ambientsounds = list('sound/ambience/antag/ecult_op.ogg','sound/ambience/ambiruin2.ogg','sound/spookoween/insane_low_laugh.ogg')
+	ambient_effects = list('sound/ambience/antag/ecult_op.ogg','sound/ambience/ambiruin2.ogg','sound/spookoween/insane_low_laugh.ogg')
 	mood_bonus = -2
 	mood_message = "<span class='nicegreen'>It smells like death in here!\n</span>"
 
 /area/awaymission/factory/villageafter/house/start
 	name = "The House"
-	ambientsounds = list('sound/ambience/ambidet2.ogg','sound/ambience/ambiodd.ogg')
+	ambient_effects = list('sound/ambience/ambidet2.ogg','sound/ambience/ambiodd.ogg')
 
 /area/awaymission/factory/villageafter/hospital
-	ambientsounds = list('sound/ambience/ambiodd.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambiruin2.ogg')
+	ambient_effects = list('sound/ambience/ambiodd.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambiruin2.ogg')
 	name = "The Hospital"
 	requires_power = TRUE
 
 /area/awaymission/factory/villageafter/spooky
-	ambience_index = AMBIENCE_SPOOKY
+	ambient_effects = SPOOKY
 	mood_bonus = -2
 	mood_message = "<span class='nicegreen'>It smells like death in here!\n</span>"
 
 /area/awaymission/factory/factoryafter
 	name = "The Factory"
-	ambientsounds = list('sound/ambience/ambiodd.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambiruin6.ogg','sound/ambience/ambitech3.ogg')
+	ambient_effects = list('sound/ambience/ambiodd.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambiruin6.ogg','sound/ambience/ambitech3.ogg')
 	requires_power = TRUE
 	always_unpowered = TRUE
 
 /area/awaymission/factory/clownplanet
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	ambientsounds = list('sound/spookoween/scary_horn3.ogg','sound/spookoween/scary_horn.ogg','sound/spookoween/scary_horn2.ogg','sound/spookoween/scary_clown_appear.ogg')
+	ambient_effects = list('sound/spookoween/scary_horn3.ogg','sound/spookoween/scary_horn.ogg','sound/spookoween/scary_horn2.ogg','sound/spookoween/scary_clown_appear.ogg')
 	mood_bonus = 3
 	mood_message = "<span class='nicegreen'>I hate this!\n</span>"
 
 /area/awaymission/factory/factoryafter/down
-	ambientsounds = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambifac.ogg','sound/ambience/ambimaint3.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambiruin6.ogg','sound/ambience/ambitech3.ogg')
+	ambient_effects = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambifac.ogg','sound/ambience/ambimaint3.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambiruin6.ogg','sound/ambience/ambitech3.ogg')
 	requires_power = FALSE
 	always_unpowered = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/awaymission/factory/factoryafter/down/maint
-	ambientsounds = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambimaint3.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambimaint2.ogg')
+	ambient_effects = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambimaint3.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambimaint2.ogg')
 
 /area/awaymission/factory/factoryafter/down/batsecret
 	name = "The maze"
-	ambientsounds = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambimaint3.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambimaint2.ogg','sound/ambience/ambibasement.ogg')
+	ambient_buzz = ('sound/ambience/ambibasement.ogg')
+	ambient_effects = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambimaint3.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambimaint2.ogg')
 
 /area/awaymission/factory/factoryafter/down/leveltwo
 	name = "The Factory - middle level"
-	ambientsounds = list('sound/ambience/ambigen7.ogg','sound/ambience/ambifac.ogg','sound/ambience/ambireebe1.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambigen14.ogg')
+	ambient_effects = list('sound/ambience/ambigen7.ogg','sound/ambience/ambifac.ogg','sound/ambience/ambireebe1.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambigen14.ogg')
 
 /area/awaymission/factory/factoryafter/down/leveltwo/morgue
 	name = "The Morgue"
-	ambience_index = AMBIENCE_SPOOKY
+	ambient_effects = SPOOKY
 	mood_bonus = -2
 	mood_message = "<span class='nicegreen'>It smells like death in here!\n</span>"
 
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual
 	name = "a strange place"
-	ambientsounds = list('sound/ambience/antag/ecult_op.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambireebe2.ogg','sound/spookoween/insane_low_laugh.ogg','sound/spookoween/chain_rattling.ogg')
+	ambient_effects = list('sound/ambience/antag/ecult_op.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambireebe2.ogg','sound/spookoween/insane_low_laugh.ogg','sound/spookoween/chain_rattling.ogg')
 	mood_bonus = -2
 	mood_message = "<span class='nicegreen'>It smells like death in here!\n</span>"
 
 /area/awaymission/factory/factoryafter/down/levelthree
 	name = "The Factory - lower level"
-	ambientsounds = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambitech.ogg','sound/ambience/ambitech2.ogg','sound/ambience/ambitech3.ogg','sound/ambience/ambiatmos.ogg','sound/ambience/ambiatmos2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambimaint5.ogg','sound/ambience/ambireebe3.ogg','sound/ambience/ambilava.ogg')
+	ambient_effects = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambitech.ogg','sound/ambience/ambitech2.ogg','sound/ambience/ambitech3.ogg','sound/ambience/ambiatmos.ogg','sound/ambience/ambiatmos2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambimaint5.ogg','sound/ambience/ambireebe3.ogg','sound/ambience/ambilava.ogg')
 
 /area/awaymission/factory/factoryafter/down/levelthree/engine
 	name = "The reality engine"
-	ambientsounds = list('sound/ambience/singulambience.ogg','sound/ambience/ambisin1.ogg','sound/ambience/ambisin2.ogg','sound/ambience/ambisin3.ogg','sound/ambience/ambisin4.ogg','sound/ambience/antag/assimilation.ogg')
+	ambient_buzz = ('sound/ambience/singulambience.ogg')
+	ambient_effects = list('sound/ambience/ambisin1.ogg','sound/ambience/ambisin2.ogg','sound/ambience/ambisin3.ogg','sound/ambience/ambisin4.ogg','sound/ambience/antag/assimilation.ogg')
 	mood_bonus = 1
 	mood_message = "<span class='nicegreen'>Uhm... Ok?... I guess...\n</span>"
 
 /area/awaymission/factory/factoryduring
 	name = "The old Factory"
-	ambientsounds = list('sound/ambience/ambidanger.ogg','sound/ambience/ambifac.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambiatm1.ogg','sound/ambience/ambiatmos.ogg')
+	ambient_effects = list('sound/ambience/ambidanger.ogg','sound/ambience/ambifac.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambiatm1.ogg','sound/ambience/ambiatmos.ogg')
 
 /area/awaymission/factory/factoryduring/down/levelthree
 	name = "The old Factory - lower level"
-	ambientsounds = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambitech.ogg','sound/ambience/ambitech2.ogg','sound/ambience/ambitech3.ogg','sound/ambience/ambiatmos.ogg','sound/ambience/ambiatmos2.ogg','sound/ambience/signal.ogg','sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambiruin2.ogg')
+	ambient_effects = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambitech.ogg','sound/ambience/ambitech2.ogg','sound/ambience/ambitech3.ogg','sound/ambience/ambiatmos.ogg','sound/ambience/ambiatmos2.ogg','sound/ambience/signal.ogg','sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambiruin2.ogg')
 
 /area/awaymission/factory/factoryduring/down/levelthree/engine
 	name = "The old reality engine"
+	ambient_buzz = ('sound/ambience/singulambience.ogg')
 	mood_bonus = 1
 	mood_message = "<span class='nicegreen'>Uhm... Ok?... I guess...\n</span>"
-	ambientsounds = list('sound/ambience/singulambience.ogg','sound/ambience/ambisin1.ogg','sound/ambience/ambisin2.ogg','sound/ambience/ambisin3.ogg','sound/ambience/ambisin4.ogg','sound/ambience/antag/assimilation.ogg','sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg')
+	ambient_effects = list('sound/ambience/ambisin1.ogg','sound/ambience/ambisin2.ogg','sound/ambience/ambisin3.ogg','sound/ambience/ambisin4.ogg','sound/ambience/antag/assimilation.ogg','sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg')
 	name = "The reality engine"
 
 /area/awaymission/factory/factoryduring/down/leveltwo
 	name = "The old Factory - middle level"
-	ambientsounds = list('sound/ambience/ambidanger.ogg','sound/ambience/ambifac.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambiruin5.ogg','sound/ambience/ambiruin6.ogg','sound/ambience/ambigen1.ogg','sound/ambience/ambigen3.ogg')
+	ambient_effects = list('sound/ambience/ambidanger.ogg','sound/ambience/ambifac.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambiruin5.ogg','sound/ambience/ambiruin6.ogg','sound/ambience/ambigen1.ogg','sound/ambience/ambigen3.ogg')
 
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual
 	name = "a strange place"
-	ambientsounds = list('sound/ambience/antag/ecult_op.ogg','sound/spookoween/insane_low_laugh.ogg','sound/spookoween/spookywind.ogg')
+	ambient_effects = list('sound/ambience/antag/ecult_op.ogg','sound/spookoween/insane_low_laugh.ogg','sound/spookoween/spookywind.ogg')
 
 /area/awaymission/factory/factoryduring/down/leveltwo/morgue
 	name = "The old Morgue"
-	ambience_index = AMBIENCE_SPOOKY
+	ambient_effects = SPOOKY
 	mood_bonus = -2
 	mood_message = "<span class='nicegreen'>It smells like death in here!\n</span>"
 
 /area/awaymission/factory/factoryduring/down/leveltwo/asylum
 	name = "The sector of mentally disordered"
-	ambientsounds = list('sound/ambience/ambimo2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambitech.ogg','sound/ambience/ambireebe1.ogg')
+	ambient_effects = list('sound/ambience/ambimo2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambitech.ogg','sound/ambience/ambireebe1.ogg')
 
 /area/awaymission/factory/factoryduring/down
-	ambientsounds = list('sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambiruin6.ogg','sound/ambience/ambitech3.ogg','sound/ambience/ambiatm1.ogg')
+	ambient_effects = list('sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambiruin6.ogg','sound/ambience/ambitech3.ogg','sound/ambience/ambiatm1.ogg')
 
 /area/awaymission/factory/factoryduring/down/maint
-	ambientsounds = list('sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambiatm1.ogg','sound/ambience/ambimaint3.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambimaint2.ogg')
+	ambient_effects = list('sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambiatm1.ogg','sound/ambience/ambimaint3.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambimaint2.ogg')
 
 /area/awaymission/factory/villageduring
 	name = "The old village"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	requires_power = FALSE
-	ambientsounds = list('sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambiearthduring.ogg','sound/ambience/ambiwind.ogg','sound/ambience/ambimine.ogg')
+	ambient_effects = list('sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambiearthduring.ogg','sound/ambience/ambiwind.ogg','sound/ambience/ambimine.ogg')
 
 /area/awaymission/factory/villageduring/house
-	ambientsounds = list('sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambiearthduring.ogg','sound/ambience/ambiwind.ogg','sound/ambience/ambimine.ogg','sound/ambience/ambiruin4.ogg','sound/ambience/ambiruin6.ogg','sound/ambience/ambiruin7.ogg','sound/ambience/ambiruin2.ogg','sound/ambience/signal.ogg')
+	ambient_effects = list('sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambiearthduring.ogg','sound/ambience/ambiwind.ogg','sound/ambience/ambimine.ogg','sound/ambience/ambiruin4.ogg','sound/ambience/ambiruin6.ogg','sound/ambience/ambiruin7.ogg','sound/ambience/ambiruin2.ogg','sound/ambience/signal.ogg')
 
 /area/awaymission/factory/villageduring/house/ritual
-	ambientsounds = list('sound/ambience/antag/ecult_op.ogg','sound/ambience/ambiruin2.ogg','sound/spookoween/insane_low_laugh.ogg')
+	ambient_effects = list('sound/ambience/antag/ecult_op.ogg','sound/ambience/ambiruin2.ogg','sound/spookoween/insane_low_laugh.ogg')
 	mood_bonus = -2
 	mood_message = "<span class='nicegreen'>It smells like death in here!\n</span>"
 
 /area/awaymission/factory/villageduring/church
 	name = "The old Church"
-	ambience_index = AMBIENCE_HOLY
+	ambient_effects = HOLY
 
 /area/awaymission/factory/villageduring/church/leveltwo
 	name = "The old Church - 2nd floor"
-	ambientsounds = list('sound/ambience/ambimystery.ogg','sound/ambience/ambiodd.ogg','sound/ambience/signal.ogg','sound/ambience/ambiwind.ogg','sound/ambience/ambicha2.ogg','sound/ambience/ambiholy3.ogg')
+	ambient_effects = list('sound/ambience/ambimystery.ogg','sound/ambience/ambiodd.ogg','sound/ambience/signal.ogg','sound/ambience/ambiwind.ogg','sound/ambience/ambicha2.ogg','sound/ambience/ambiholy3.ogg')
 
 /area/awaymission/factory/villageduring/basement
 	name = "The old basement"
-	ambientsounds = list('sound/ambience/ambibasement.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambiodd.ogg')
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	ambient_effects = list('sound/ambience/ambimystery.ogg','sound/ambience/ambiodd.ogg')
+	ambient_buzz = ('sound/ambience/ambibasement.ogg')
 
 /area/awaymission/factory/villageduring/house/start
 	name = "The old House"
-	ambientsounds = list('sound/ambience/ambidet2.ogg')
+	ambient_effects = list('sound/ambience/ambidet2.ogg')
 
 /area/awaymission/factory/villageduring/hospital
-	ambientsounds = list('sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambiatmos.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambiruin2.ogg')
+	ambient_effects = list('sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambiatmos.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambiruin2.ogg')
 	name = "The Hospital"
 
 /area/awaymission/factory/transition
 	name = "Beyond the time"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
-	ambientsounds = list('sound/ambience/shipambience.ogg','sound/ambience/ambiatmos.ogg','sound/ambience/antag/malf.ogg','sound/ambience/signal.ogg','sound/ambience/ambimalf.ogg')
+	ambient_effects = list('sound/ambience/ambiatmos.ogg','sound/ambience/antag/malf.ogg','sound/ambience/signal.ogg','sound/ambience/ambimalf.ogg')
+	ambient_buzz = list('sound/ambience/shipambience.ogg')
 
 //ITEMS//
 
@@ -216,7 +216,7 @@
 
 /mob/living/simple_animal/hostile/proc/summon_backup_nosound(distance, exact_faction_match)
 	do_alert_animation(src)
-	for(var/mob/living/simple_animal/hostile/M in oview(distance, GET_TARGETS_FROM(src)))
+	for(var/mob/living/simple_animal/hostile/M in oview(distance, targets_from))
 		if(faction_check_mob(M, TRUE))
 			if(M.AIStatus == AI_OFF)
 				return
@@ -634,7 +634,7 @@
 	speed = 0
 	melee_damage = null
 	attack_sound = null
-	del_on_death = TRUE
+	del_on_death = 1
 	stat_attack = UNCONSCIOUS
 	a_intent = INTENT_HARM
 	var/det_time = 30
@@ -777,7 +777,8 @@
 	move_to_delay = 20
 	ranged_cooldown = 300
 	ranged_cooldown_time = 300
-	INVOKE_ASYNC(src, .proc/explosion, src.loc, 0, 3, 4, null, null, FALSE, 2)
+	sleep(30)
+	explosion(src.loc,0,3,4,flame_range = 2)
 	..()
 
 //GUNS//

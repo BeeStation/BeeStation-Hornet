@@ -10,7 +10,6 @@ SUBSYSTEM_DEF(lighting)
 /datum/controller/subsystem/lighting/stat_entry()
 	. = ..("L:[GLOB.lighting_update_lights.len]|O:[GLOB.lighting_update_objects.len]")
 
-
 /datum/controller/subsystem/lighting/Initialize(timeofday)
 	fire(FALSE, TRUE)
 	return ..()
