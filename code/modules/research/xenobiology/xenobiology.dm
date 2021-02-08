@@ -857,10 +857,10 @@
 		return
 	if(isitem(C))
 		var/obj/item/I = C
-		if(I.slowdown <= 0 || I.obj_flags & IMMUTABLE_SLOW)
+		if(I.slowdown != initial(I.slowdown) || I.obj_flags & IMMUTABLE_SLOW)
 			to_chat(user, "<span class='warning'>The [C] can't be made any faster!</span>")
 			return ..()
-		I.slowdown = 0
+		I.slowdown = initial(I.slowdown) * 0.5
 
 	if(istype(C, /obj/vehicle))
 		var/obj/vehicle/V = C
