@@ -84,7 +84,8 @@
 		return
 	var/mob/M = AM
 	shock(M, 70)
-	take_damage(rand(0,1), BRUTE, "melee", FALSE)
+	if(prob(50))
+		take_damage(1, BRUTE, "melee", FALSE)
 
 /obj/structure/grille/attack_animal(mob/user)
 	. = ..()
