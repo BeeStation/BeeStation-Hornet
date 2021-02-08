@@ -74,6 +74,9 @@
 #define VV_HK_CALLPROC "proc_call"
 #define VV_HK_MARK "mark"
 #define VV_HK_MODIFY_TRAITS "modtraits"
+#ifdef REFERENCE_TRACKING
+#define VV_HK_VIEW_REFERENCES "viewreferences"
+#endif
 
 // /atom
 #define VV_HK_MODIFY_TRANSFORM "atom_transform"

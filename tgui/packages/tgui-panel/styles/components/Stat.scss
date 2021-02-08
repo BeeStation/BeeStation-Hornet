@@ -1,0 +1,22 @@
+
+@use 'sass:color';
+@use '~tgui/styles/base.scss';
+@use '~tgui/styles/colors.scss';
+
+$border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default;
+
+.StatBorder {
+  border-left: (1em / 6) solid $border-color;
+}
+
+.StatBorder_observer {
+  border-left: (1em / 6) solid #b866ff;
+}
+
+.StatBorder_antagonist {
+  border-left: (1em / 6) solid #dd3535;
+}
+
+.StatBorder_infomation {
+  border-left: (1em / 6) solid #e6a648;
+}

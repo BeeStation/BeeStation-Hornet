@@ -42,6 +42,7 @@ God bless America.
 		/obj/item/wirecutters,
 		/obj/item/multitool,
 		/obj/item/weldingtool,
+		/obj/item/powertool,
 		/obj/item/reagent_containers/glass,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/food/condiment,

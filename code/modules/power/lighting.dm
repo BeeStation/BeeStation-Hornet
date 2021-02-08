@@ -232,6 +232,7 @@
 
 	var/bulb_vacuum_colour = "#4F82FF"	// colour of the light when air alarm is set to severe
 	var/bulb_vacuum_brightness = 8
+	var/static/list/lighting_overlays	// dictionary for lighting overlays
 
 /obj/machinery/light/broken
 	status = LIGHT_BROKEN
@@ -322,8 +323,7 @@
 	QDEL_NULL(cell)
 	return ..()
 
-/obj/machinery/light/update_icon()
-	cut_overlays()
+/obj/machinery/light/update_icon_state()
 	switch(status)		// set icon_states
 		if(LIGHT_OK)
 			var/area/A = get_area(src)
@@ -333,17 +333,25 @@
 				icon_state = "[base_state]_vacuum"
 			else
 				icon_state = "[base_state]"
-				if(on)
-					var/mutable_appearance/glowybit = mutable_appearance(overlayicon, base_state, ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE)
-					glowybit.alpha = CLAMP(light_power*250, 30, 200)
-					add_overlay(glowybit)
 		if(LIGHT_EMPTY)
 			icon_state = "[base_state]-empty"
 		if(LIGHT_BURNED)
 			icon_state = "[base_state]-burned"
 		if(LIGHT_BROKEN)
 			icon_state = "[base_state]-broken"
-	return
+
+/obj/machinery/light/update_overlays()
+	. = ..()
+	if(on || emergency_mode)
+		if(!lighting_overlays)
+			lighting_overlays = list()
+		var/mutable_appearance/LO = lighting_overlays["[base_state]-[light_power]-[light_color]"]
+		if(!LO)
+			LO = mutable_appearance(overlayicon, base_state, ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE)
+			LO.color = light_color
+			LO.alpha = clamp(light_power*255, 30, 200)
+			lighting_overlays["[base_state]-[light_power]-[light_color]"] = LO
+		. += LO
 
 // update the icon_state and luminosity of the light depending on its state
 /obj/machinery/light/proc/update(trigger = TRUE)
@@ -366,7 +374,8 @@
 		else if (nightshift_enabled)
 			BR = nightshift_brightness
 			PO = nightshift_light_power
-			CO = nightshift_light_color
+			if(!color)
+				CO = nightshift_light_color
 		var/matching = light && BR == light.light_range && PO == light.light_power && CO == light.light_color
 		if(!matching)
 			switchcount++
@@ -379,7 +388,7 @@
 			else
 				use_power = ACTIVE_POWER_USE
 				set_light(BR, PO, CO)
-	else if(has_emergency_power(LIGHT_EMERGENCY_POWER_USE) && !turned_off())
+	else if(use_emergency_power(LIGHT_EMERGENCY_POWER_USE) && !turned_off())
 		use_power = IDLE_POWER_USE
 		emergency_mode = TRUE
 		START_PROCESSING(SSmachines, src)

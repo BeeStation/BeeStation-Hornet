@@ -166,6 +166,7 @@ To remove:
 */
 
 #define PROP_CANTMOVE(x) x("cantmove", APPLY_MOB_PROPERTY_SIMPLE, REMOVE_MOB_PROPERTY_SIMPLE) // Currently-unused example
+#define PROP_CANTBUMPSLAM(x) x("cantbumpslam", APPLY_MOB_PROPERTY_SIMPLE, REMOVE_MOB_PROPERTY_SIMPLE) // Used in /mob/living/Bump(atom/A) to have a bumpslam cooldown without another mob var
 
 // In lieu of comments, these are the indexes used for list access in the macros below.
 #define MOB_PROPERTY_ACTIVE_VALUE 1

@@ -4,8 +4,8 @@
 	helptext = "This is obvious to nearby people, and can destroy standard restraints and closets."
 	button_icon_state = "biodegrade"
 	chemical_cost = 30 //High cost to prevent spam
-	dna_cost = 2
-	req_human = 1
+	dna_cost = 1
+	req_human = TRUE
 
 /datum/action/changeling/biodegrade/sting_action(mob/living/carbon/human/user)
 	var/used = FALSE // only one form of shackles removed per use

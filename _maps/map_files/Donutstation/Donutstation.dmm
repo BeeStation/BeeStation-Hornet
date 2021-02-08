@@ -2367,7 +2367,7 @@
 "agc" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate{
-	opened = TRUE
+	opened = 1
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -3314,7 +3314,7 @@
 /area/science/research)
 "ain" = (
 /obj/structure/closet/crate{
-	opened = TRUE
+	opened = 1
 	},
 /obj/item/stack/ore/silver,
 /obj/item/stack/ore/silver,
@@ -35723,7 +35723,7 @@
 "bzw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate{
-	opened = TRUE
+	opened = 1
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
@@ -42207,7 +42207,7 @@
 	dir = 4
 	},
 /obj/structure/closet/crate{
-	opened = TRUE
+	opened = 1
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -45445,7 +45445,7 @@
 /area/science/robotics/lab)
 "bSQ" = (
 /obj/structure/closet/crate{
-	opened = TRUE
+	opened = 1
 	},
 /obj/item/stack/sheet/mineral/copper{
 	amount = 5
@@ -47285,7 +47285,7 @@
 /area/maintenance/fore)
 "bWV" = (
 /obj/structure/closet/crate{
-	opened = TRUE
+	opened = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
@@ -47603,7 +47603,7 @@
 "bXS" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/structure/closet/crate{
-	opened = TRUE
+	opened = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)

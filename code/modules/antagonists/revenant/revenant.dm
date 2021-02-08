@@ -51,6 +51,8 @@
 	hud_possible = list(ANTAG_HUD)
 	hud_type = /datum/hud/revenant
 
+	mobchatspan = "revenminor"
+
 	var/essence = 75 //The resource, and health, of revenants.
 	var/essence_regen_cap = 75 //The regeneration cap of essence (go figure); regenerates every Life() tick up to this amount.
 	var/essence_regenerating = TRUE //If the revenant regenerates essence or not
@@ -127,13 +129,13 @@
 	update_health_hud()
 	..()
 
-/mob/living/simple_animal/revenant/Stat()
-	..()
-	if(statpanel("Status"))
-		stat(null, "Current essence: [essence]/[essence_regen_cap]E")
-		stat(null, "Stolen essence: [essence_accumulated]E")
-		stat(null, "Unused stolen essence: [essence_excess]E")
-		stat(null, "Stolen perfect souls: [perfectsouls]")
+/mob/living/simple_animal/revenant/get_stat_tab_status()
+	var/list/tab_data = ..()
+	tab_data["Current essence"] = GENERATE_STAT_TEXT("[essence]/[essence_regen_cap]E")
+	tab_data["Stolen essence"] = GENERATE_STAT_TEXT("[essence_accumulated]E")
+	tab_data["Unused stolen essence"] = GENERATE_STAT_TEXT("[essence_excess]E")
+	tab_data["Stolen perfect souls"] = GENERATE_STAT_TEXT("[perfectsouls]")
+	return tab_data
 
 /mob/living/simple_animal/revenant/update_health_hud()
 	if(hud_used)

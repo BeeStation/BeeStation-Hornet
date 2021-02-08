@@ -209,6 +209,8 @@
 			if(++reagent_transfer >= 10 * efficiency) // Throttle reagent transfer (higher efficiency will transfer the same amount but consume less from the beaker).
 				reagent_transfer = 0
 
+		use_power(1000 * efficiency)
+
 	return 1
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/process_atmos()
@@ -437,7 +439,7 @@
 	return // we don't see the pipe network while inside cryo.
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/get_remote_view_fullscreens(mob/user)
-	user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
+	user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/can_crawl_through()
 	return // can't ventcrawl in or out of cryo.
@@ -466,6 +468,6 @@
 		if(node)
 			node.atmosinit()
 			node.addMember(src)
-		build_network()
+		SSair.add_to_rebuild_queue(src)
 
 #undef CRYOMOBS

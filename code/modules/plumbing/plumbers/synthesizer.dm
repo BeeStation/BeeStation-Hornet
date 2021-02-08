@@ -7,6 +7,7 @@
 	icon = 'icons/obj/plumbing/plumbers.dmi'
 	rcd_cost = 25
 	rcd_delay = 15
+	active_power_usage = 500
 
 	///Amount we produce for every process. Ideally keep under 5 since thats currently the standard duct capacity
 	var/amount = 1

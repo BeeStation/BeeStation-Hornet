@@ -119,7 +119,6 @@
 		if(!finished)
 			SSticker.mode.check_win()
 		check_counter = 0
-	return FALSE
 
 //////////////////////////////////////
 //Checks if the revs have won or not//
@@ -129,7 +128,6 @@
 		finished = 1
 	else if(check_heads_victory())
 		finished = 2
-	return
 
 ///////////////////////////////
 //Checks if the round is over//
@@ -139,7 +137,7 @@
 		if(finished)
 			SSshuttle.clearHostileEnvironment(src)
 		return ..()
-	if(finished != 0 && end_when_heads_dead)
+	if(finished && end_when_heads_dead)
 		return TRUE
 	else
 		return ..()
@@ -212,7 +210,7 @@
 	return ..()
 
 /datum/game_mode/revolution/speedy/process()
-	. = ..()
+	..()
 	if(check_counter == 0)
 		if (world.time > endtime && !fuckingdone)
 			fuckingdone = TRUE

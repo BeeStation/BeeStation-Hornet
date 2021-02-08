@@ -84,6 +84,7 @@
 	START_PROCESSING(SSfastprocess, src)
 
 /obj/item/tk_grab/Destroy()
+	focus = null
 	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 

@@ -50,6 +50,8 @@
 	to_chat(owner, "<span class='userdanger'>You are a member of the cult!</span>")
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/bloodcult.ogg', 100, FALSE, pressure_affected = FALSE)//subject to change
 	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Blood Cult",
+		"Use your ritual dagger to draw runes with your blood and expand your cult until you have enough influence to summon the great Nar'Sie!")
 
 /datum/antagonist/cult/on_gain()
 	. = ..()
@@ -109,7 +111,7 @@
 	communion.Grant(current)
 	if(ishuman(current))
 		magic.Grant(current)
-	current.throw_alert("bloodsense", /obj/screen/alert/bloodsense)
+	current.throw_alert("bloodsense", /atom/movable/screen/alert/bloodsense)
 	if(cult_team.cult_risen)
 		cult_team.rise(current)
 		if(cult_team.cult_ascendent)
@@ -327,7 +329,7 @@
 	for(var/datum/mind/M in C.members)
 		if(M.current)
 			M.current.clear_alert("bloodsense")
-			M.current.throw_alert("bloodsense", /obj/screen/alert/bloodsense)
+			M.current.throw_alert("bloodsense", /atom/movable/screen/alert/bloodsense)
 
 /datum/team/cult/proc/setup_objectives()
 	var/datum/objective/sacrifice/sac_objective = new

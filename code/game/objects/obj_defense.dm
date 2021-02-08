@@ -108,7 +108,7 @@
 
 /obj/attack_animal(mob/living/simple_animal/M)
 	if(!M.melee_damage && !M.obj_damage)
-		M.emote("custom", message = "[M.friendly] [src].")
+		INVOKE_ASYNC(M, /mob.proc/emote, "custom", null, "[M.friendly] [src].")
 		return 0
 	else
 		var/play_soundeffect = 1
@@ -132,10 +132,13 @@
 	var/amt = max(0, ((force - (move_resist * MOVE_FORCE_CRUSH_RATIO)) / (move_resist * MOVE_FORCE_CRUSH_RATIO)) * 10)
 	take_damage(amt, BRUTE)
 
-/obj/attack_slime(mob/living/simple_animal/slime/user)
-	if(!user.is_adult)
+/obj/attack_slime(mob/living/simple_animal/slime/M)
+	if(!M.is_adult)
 		return
-	attack_generic(user, rand(15), "melee", 1)
+	var/damage = rand(15)
+	if(M.transformeffects & SLIME_EFFECT_RED)
+		damage *= 1.1
+	attack_generic(M, damage, "melee", 1)
 
 /obj/mech_melee_attack(obj/mecha/M)
 	M.do_attack_animation(src)

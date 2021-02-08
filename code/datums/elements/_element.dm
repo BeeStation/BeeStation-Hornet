@@ -11,7 +11,13 @@
 	if(type == /datum/element)
 		return ELEMENT_INCOMPATIBLE
 	if(element_flags & ELEMENT_DETACH)
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/Detach)
+		/** The override = TRUE here is to suppress runtimes happening because of the blood decal element
+		  * being applied multiple times to a same thing every time there is some bloody attacks,
+		  * which happens due to ludicrous use of check_blood() in forensics.dm,
+		  * and how elements system is design and coded; there isn't exactly a not-hacky
+		  * way to determine whether a datum has this particular element before adding it...
+		  */
+		RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/Detach, override = TRUE)
 
 /datum/element/proc/Detach(datum/source, force)
 	UnregisterSignal(source, COMSIG_PARENT_QDELETING)

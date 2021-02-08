@@ -25,12 +25,13 @@
 
 // Components
 @include meta.load-css('~tgui/styles/components/BlockQuote.scss');
-@include meta.load-css('~tgui/styles/components/Button.scss');
+@include meta.load-css('~tgui/styles/components/Button.scss', $with: (
+  'color-transparent-text': rgba(255, 255, 255, 0.6),
+));
 @include meta.load-css('~tgui/styles/components/ColorBox.scss');
 @include meta.load-css('~tgui/styles/components/Dimmer.scss');
 @include meta.load-css('~tgui/styles/components/Divider.scss');
 @include meta.load-css('~tgui/styles/components/Dropdown.scss');
-@include meta.load-css('~tgui/styles/components/FatalError.scss');
 @include meta.load-css('~tgui/styles/components/Flex.scss');
 @include meta.load-css('~tgui/styles/components/Input.scss');
 @include meta.load-css('~tgui/styles/components/Knob.scss');
@@ -50,6 +51,7 @@
 @include meta.load-css('./components/Chat.scss');
 @include meta.load-css('./components/Ping.scss');
 @include meta.load-css('./components/Notifications.scss');
+@include meta.load-css('./components/Stat.scss');
 
 // Layouts
 @include meta.load-css('~tgui/styles/layouts/Layout.scss');

@@ -1,20 +1,20 @@
 /datum/antagonist/wizard
-	tips = 'html/antagtips/wizard.html'
+	tips = "wizard"
 
 /datum/antagonist/nukeop
-	tips = 'html/antagtips/nukie.html'
+	tips = "nukie"
 
 /datum/antagonist/abductor
-	tips = 'html/antagtips/abductor.html'
-	
+	tips = "abductor"
+
 /datum/antagonist/cult
-	tips = 'html/antagtips/cult.html'
-	
+	tips = "cult"
+
 /datum/antagonist/xeno
-	tips = 'html/antagtips/xeno.html'
-	
+	tips = "xeno"
+
 /datum/antagonist/blob
-	tips = 'html/antagtips/blob.html'
-	
+	tips = "blob"
+
 /datum/antagonist/changeling
-	tips = 'html/antagtips/changeling.html'
+	tips = "changeling"

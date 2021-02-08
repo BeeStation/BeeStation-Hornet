@@ -32,9 +32,21 @@
 // start global signals with "!", this used to be necessary but now it's just a formatting choice
 #define COMSIG_GLOB_NEW_Z "!new_z"								//! from base of datum/controller/subsystem/mapping/proc/add_new_zlevel(): (list/args)
 #define COMSIG_GLOB_VAR_EDIT "!var_edit"						//! called after a successful var edit somewhere in the world: (list/args)
+#define COMSIG_GLOB_EXPLOSION "!explosion"						//! called after an explosion happened : (epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
 #define COMSIG_GLOB_MOB_CREATED "!mob_created"					//! mob was created somewhere : (mob)
 #define COMSIG_GLOB_MOB_DEATH "!mob_death"						//! mob died somewhere : (mob , gibbed)
 #define COMSIG_GLOB_LIVING_SAY_SPECIAL "!say_special"			//! global living say plug - use sparingly: (mob/speaker , message)
+
+/// Signifies that this proc is used to handle signals.
+/// Every proc you pass to RegisterSignal must have this.
+/// Mostly unused in Bee since it is a recent tg PR:
+/// https://github.com/tgstation/tgstation/pull/52761
+/// it doesn't matter *that* much so I don't care now *shrug
+#define SIGNAL_HANDLER SHOULD_NOT_SLEEP(TRUE)
+
+/// Signifies that this proc is used to handle signals, but also sleeps.
+/// Do not use this for new work.
+#define SIGNAL_HANDLER_DOES_SLEEP
 
 //////////////////////////////////////////////////////////////////
 
@@ -56,7 +68,9 @@
 	//End positions
 	#define COMPONENT_EXNAME_CHANGED 1
 #define COMSIG_ATOM_UPDATE_ICON "atom_update_icon"				//from base of atom/update_icon(): ()
-	#define COMSIG_ATOM_NO_UPDATE_ICON_STATE 1
+	#define COMSIG_ATOM_NO_UPDATE_ICON_STATE	1
+	#define COMSIG_ATOM_NO_UPDATE_OVERLAYS		2
+#define COMSIG_ATOM_UPDATE_OVERLAYS "atom_update_overlays"		//from base of atom/update_overlays(): (list/new_overlays)
 #define COMSIG_ATOM_ENTERED "atom_entered"                      //! from base of atom/Entered(): (atom/movable/entering, /atom)
 #define COMSIG_ATOM_EXIT "atom_exit"							//! from base of atom/Exit(): (/atom/movable/exiting, /atom/newloc)
 	#define COMPONENT_ATOM_BLOCK_EXIT 1
@@ -94,8 +108,6 @@
 #define COMSIG_ATOM_SCREWDRIVER_ACT "atom_screwdriver_act"		//! from base of atom/screwdriver_act(): (mob/living/user, obj/item/I)
 #define COMSIG_ATOM_INTERCEPT_TELEPORT "intercept_teleport"		//! called when teleporting into a protected turf: (channel, turf/origin)
 	#define COMPONENT_BLOCK_TELEPORT 1
-///from base of atom/update_overlays(): (list/new_overlays)
-#define COMSIG_ATOM_UPDATE_OVERLAYS "atom_update_overlays"
 /////////////////
 #define COMSIG_ATOM_ATTACK_GHOST "atom_attack_ghost"			//! from base of atom/attack_ghost(): (mob/dead/observer/ghost)
 #define COMSIG_ATOM_ATTACK_HAND "atom_attack_hand"				//! from base of atom/attack_hand(): (mob/user)
@@ -103,6 +115,8 @@
 	#define COMPONENT_NO_ATTACK_HAND 1							//works on all 3.
 //This signal return value bitflags can be found in __DEFINES/misc.dm
 #define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"	//called for each movable in a turf contents on /turf/zImpact(): (atom/movable/A, levels)
+
+#define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE "atom_init_success"
 
 /////////////////
 
@@ -127,6 +141,7 @@
 #define COMSIG_TURF_CHANGE "turf_change"						//! from base of turf/ChangeTurf(): (path, list/new_baseturfs, flags, list/transferring_comps)
 #define COMSIG_TURF_HAS_GRAVITY "turf_has_gravity"				//! from base of atom/has_gravity(): (atom/asker, list/forced_gravities)
 #define COMSIG_TURF_MULTIZ_NEW "turf_multiz_new"				//! from base of turf/New(): (turf/source, direction)
+#define COMSIG_TURF_AFTER_SHUTTLE_MOVE "turf_after_shuttle_move"	//! from base of turf/proc/afterShuttleMove: (turf/new_turf)
 
 // /atom/movable signals
 #define COMSIG_MOVABLE_PRE_MOVE "movable_pre_move"				//! from base of atom/movable/Moved(): (/atom)
@@ -167,6 +182,7 @@
 	#define COMPONENT_BLOCK_MAGIC 1
 #define COMSIG_MOB_HUD_CREATED "mob_hud_created"				//! from base of mob/create_mob_hud(): ()
 #define COMSIG_MOB_ATTACK_HAND "mob_attack_hand"				//! from base of
+#define COMSIG_MOB_ATTACK_HAND_TURF "mob_attack_hand_turf"		//! from base of turf/attack_hand
 #define COMSIG_MOB_HAND_ATTACKED "mob_hand_attacked"			//! from base of
 #define COMSIG_MOB_ITEM_ATTACK "mob_item_attack"				//! from base of /obj/item/attack(): (mob/M, mob/user)
 	#define COMPONENT_ITEM_NO_ATTACK 1
@@ -349,7 +365,7 @@
 #define COMSIG_MIND_TRANSFER_TO	"mind_transfer_to"					// (mob/old, mob/new)
 
 // /datum/component/clockwork_trap signals
-#define COMSIG_CLOCKWORK_SIGNAL_RECIEVED "clock_recieved"			//! When anything the trap is attatched to is triggered
+#define COMSIG_CLOCKWORK_SIGNAL_RECEIVED "clock_received"			//! When anything the trap is attatched to is triggered
 
 /*******Non-Signal Component Related Defines*******/
 

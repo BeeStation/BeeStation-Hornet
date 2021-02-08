@@ -111,7 +111,7 @@
 	name = "chocolate donut"
 	desc = "Goes great with a glass of warm milk."
 	icon_state = "donut_choc"
-	bonus_reagents = list(/datum/reagent/consumable/hot_cocoa = 3, /datum/reagent/consumable/sprinkles = 1) //the cocoa reagent is just bitter.
+	bonus_reagents = list(/datum/reagent/consumable/cocoa/hot_cocoa = 3, /datum/reagent/consumable/sprinkles = 1) //the cocoa reagent is just bitter.
 	tastes = list("donut" = 4, "bitterness" = 1)
 	decorated_icon = "donut_choc_sprinkles"
 	filling_color = "#4F230D"
@@ -201,7 +201,7 @@
 	name = "chocolate jelly donut"
 	desc = "Goes great with a glass of warm milk."
 	icon_state = "jelly_choc"
-	bonus_reagents = list(/datum/reagent/consumable/hot_cocoa = 3, /datum/reagent/consumable/sprinkles = 1, /datum/reagent/consumable/nutriment/vitamin = 1) //the cocoa reagent is just bitter.
+	bonus_reagents = list(/datum/reagent/consumable/cocoa/hot_cocoa = 3, /datum/reagent/consumable/sprinkles = 1, /datum/reagent/consumable/nutriment/vitamin = 1) //the cocoa reagent is just bitter.
 	tastes = list("jelly" = 1, "donut" = 4, "bitterness" = 1)
 	decorated_icon = "jelly_choc_sprinkles"
 	filling_color = "#4F230D"
@@ -282,7 +282,7 @@
 	name = "chocolate jelly donut"
 	desc = "Goes great with a glass of warm milk."
 	icon_state = "jelly_choc"
-	bonus_reagents = list(/datum/reagent/consumable/hot_cocoa = 3, /datum/reagent/consumable/sprinkles = 1, /datum/reagent/consumable/nutriment/vitamin = 1) //the cocoa reagent is just bitter.
+	bonus_reagents = list(/datum/reagent/consumable/cocoa/hot_cocoa = 3, /datum/reagent/consumable/sprinkles = 1, /datum/reagent/consumable/nutriment/vitamin = 1) //the cocoa reagent is just bitter.
 	tastes = list("jelly" = 1, "donut" = 4, "bitterness" = 1)
 	decorated_icon = "jelly_choc_sprinkles"
 	filling_color = "#4F230D"
@@ -782,13 +782,13 @@
 			to_chat(user, "<span class='notice'>You add the [I] to the [name].</span>")
 			P.name = initial(P.name)
 			contents += P
-			update_overlays(P)
+			update_customizable_overlays(P)
 			if (P.contents.len)
 				for(var/V in P.contents)
 					P = V
 					P.name = initial(P.name)
 					contents += P
-					update_overlays(P)
+					update_customizable_overlays(P)
 			P = I
 			clearlist(P.contents)
 		return
@@ -797,7 +797,7 @@
 		return O.attackby(I, user, params)
 	..()
 
-/obj/item/reagent_containers/food/snacks/pancakes/update_overlays(obj/item/reagent_containers/food/snacks/P)
+/obj/item/reagent_containers/food/snacks/pancakes/update_customizable_overlays(obj/item/reagent_containers/food/snacks/P)
 	var/mutable_appearance/pancake = mutable_appearance(icon, "[P.item_state]_[rand(1,3)]")
 	pancake.pixel_x = rand(-1,1)
 	pancake.pixel_y = 3 * contents.len - 1

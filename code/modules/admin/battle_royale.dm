@@ -194,7 +194,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 /datum/battle_royale_controller/Destroy(force, ...)
 	QDEL_LIST(death_wall)
 	for(var/client/C in GLOB.admins)
-		C.verbs -= BATTLE_ROYALE_AVERBS
+		C.remove_verb(BATTLE_ROYALE_AVERBS)
 	. = ..()
 	GLOB.enter_allowed = TRUE
 	world.update_status()
@@ -255,7 +255,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	//Give Verbs to admins
 	for(var/client/C in GLOB.admins)
 		if(check_rights_for(C, R_FUN))
-			C.verbs += BATTLE_ROYALE_AVERBS
+			C.add_verb(BATTLE_ROYALE_AVERBS)
 	toggle_ooc(FALSE)
 	to_chat(world, "<span class='ratvar'><font size=24>Battle Royale will begin soon...</span></span>")
 	//Stop new player joining
