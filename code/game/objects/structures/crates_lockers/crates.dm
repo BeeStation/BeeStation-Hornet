@@ -147,9 +147,10 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
 	close_sound_volume = 50
-	door_anim_angle = 120
+	door_anim_angle = 140
 	azimuth_angle_2 = 180
 	door_anim_time = 5
+	door_hinge = 5
 
 /obj/structure/closet/crate/internals
 	desc = "An internals crate."
