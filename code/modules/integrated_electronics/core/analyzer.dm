@@ -35,17 +35,21 @@
 /obj/item/integrated_electronics/analyzer/proc/save_circuit(ckey, var/saved_data)
 	if(!ckey||!saved_data)
 		return
-	if(saved_data["assembly"]["name"] == null)
+	var/cname = saved_data["assembly"]["name"]
+	if(cname == null)
 		to_chat(usr, "<span class='notice'>The Circuit has no individual name yet please name it before scanning.</span>")
 		return
 	var/path = "data/player_saves/[ckey[1]]/[ckey]/circuits.sav"
-
 	var/savefile/S = new /savefile(path)
 	var/circuit_list
 	S >> circuit_list
 	if(!islist(circuit_list))
 		circuit_list = new/list()
-	circuit_list[saved_data["assembly"]["name"]] = saved_data
+	if(circuit_list[cname])
+		if(alert(usr, "Warning this will override the old circuit with the same name..", "Do you still want to do continue this?", "Abort", "Proceed") == "Abort")
+			to_chat(usr, "<span class='notice'>You do not override the circuit.</span>")
+			return
+	circuit_list[cname] = saved_data
 	S << circuit_list
 
 /obj/item/integrated_electronics/analyzer/debug
