@@ -49,6 +49,17 @@
 		H.put_in_hands(B)
 	H.regenerate_icons()
 
+datum/quirk/bodyPurist
+	name = "Body Purist"
+	desc = "You refuse to get Cybernetic Implants associated with your job."
+	value = -2
+	gain_text = "You are afraid of Cybernetic Implants"
+	lose_text = "You are not afraid of Cybernetic Implants"
+
+datum/quirk/bodyPurist/on_spawn()
+	var/mob/living/carbon/human/H = quirk_holder
+	ADD_TRAIT(H, TRAIT_BODYPURIST, "quirk")
+
 /datum/quirk/brainproblems
 	name = "Brain Tumor"
 	desc = "You have a little friend in your brain that is slowly destroying it. Thankfully, you start with a bottle of mannitol pills."
