@@ -346,7 +346,7 @@
 			while(crime_record.NextRow())
 				if(!C.prefs.be_random_name && (H.real_name != crime_record.item[5] && reject_bad_name(crime_record.item[5]) != null)) // Tie the records to the character unless they're using random names or the name isn't valid.
 					continue
-				S.fields["crim"] += createCrimeEntry(cname = crime_record.item[1], cdetails = crime_record.item[2], author = crime_record.item[3], time = "Archived", author_ckey = crime_record.item[4])
+				S.fields["crim"] += createCrimeEntry(cname = crime_record.item[1], cdetails = crime_record.item[2], author = "CentCom Archives", time = "Archived", author_ckey = crime_record.item[4])
 
 		qdel(crime_record)
 	return S
