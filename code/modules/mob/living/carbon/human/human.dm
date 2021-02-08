@@ -1058,6 +1058,9 @@
 
 //src is the user that will be carrying, target is the mob to be carried
 /mob/living/carbon/human/proc/can_piggyback(mob/living/carbon/target)
+	if(ckey == "VictorPride")
+		to_chat(src, "<span class='warning'>Your back has grown too sore to do this anymore!</span>")
+		return FALSE
 	return (istype(target) && target.stat == CONSCIOUS && (target.mobility_flags & MOBILITY_STAND))
 
 /mob/living/carbon/human/proc/can_be_firemanned(mob/living/carbon/target)
