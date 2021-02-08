@@ -68,17 +68,17 @@
 	blend_mode = BLEND_MULTIPLY
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/atom/movable/plane_master/lighting/backdrop(mob/mymob)
-	mymob.overlay_fullscreen("lighting_backdrop_lit", /obj/screen/fullscreen/lighting_backdrop/lit)
-	mymob.overlay_fullscreen("lighting_backdrop_unlit", /obj/screen/fullscreen/lighting_backdrop/unlit)
+/atom/movable/screen/plane_master/lighting/backdrop(mob/mymob)
+	mymob.overlay_fullscreen("lighting_backdrop_lit", /atom/movable/screen/fullscreen/lighting_backdrop/lit)
+	mymob.overlay_fullscreen("lighting_backdrop_unlit", /atom/movable/screen/fullscreen/lighting_backdrop/unlit)
 
-/atom/movable/plane_master/lighting_colour
+/atom/movable/screen/plane_master/lighting_colour
 	name = "colour plane master"
 	plane = LIGHTING_COLOUR_PLANE
 	blend_mode = BLEND_MULTIPLY
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/atom/movable/plane_master/parallax
+/atom/movable/screen/plane_master/parallax
 	name = "parallax plane master"
 	plane = PLANE_SPACE_PARALLAX
 	blend_mode = BLEND_MULTIPLY
@@ -88,7 +88,7 @@
 	name = "parallax whitifier plane master"
 	plane = PLANE_SPACE
 
-/atom/movable/plane_master/camera_static
+/atom/movable/screen/plane_master/camera_static
 	name = "camera static plane master"
 	plane = CAMERA_STATIC_PLANE
 	appearance_flags = PLANE_MASTER
