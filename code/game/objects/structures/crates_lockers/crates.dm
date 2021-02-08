@@ -246,11 +246,12 @@
 	icon_state = "engi_e_crate"
 	icon_door = "engi_crate"
 
-/obj/structure/closet/crate/engineering/rcd
+/obj/structure/closet/crate/rcd
 	desc = "A crate for the storage of an RCD."
 	name = "\improper RCD crate"
+	icon_state = "engi_crate"
 
-/obj/structure/closet/crate/engineering/rcd/PopulateContents()
+/obj/structure/closet/crate/rcd/PopulateContents()
 	..()
 	for(var/i in 1 to 4)
 		new /obj/item/rcd_ammo(src)
@@ -261,10 +262,11 @@
 	desc = "A science crate."
 	icon_state = "sci_crate"
 
-/obj/structure/closet/crate/engineering/electrical/solarpanel_small
+/obj/structure/closet/crate/solarpanel_small
 	name = "budget solar panel crate"
+	icon_state = "engi_e_crate"
 
-/obj/structure/closet/crate/engineering/electrical/solarpanel_small/PopulateContents()
+/obj/structure/closet/crate/solarpanel_small/PopulateContents()
 	..()
 	for(var/i in 1 to 13)
 		new /obj/item/solar_assembly(src)

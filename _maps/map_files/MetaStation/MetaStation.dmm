@@ -17438,7 +17438,7 @@
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
-/obj/structure/closet/crate/engineering/electrical/solarpanel_small,
+/obj/structure/closet/crate/solarpanel_small,
 /turf/open/floor/plasteel{
 	dir = 1
 	},
@@ -47486,7 +47486,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bMS" = (
-/obj/structure/closet/crate/engineering/rcd{
+/obj/structure/closet/crate/rcd{
 	pixel_y = 4
 	},
 /obj/machinery/door/window/northleft{

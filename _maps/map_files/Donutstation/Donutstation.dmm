@@ -6099,7 +6099,7 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "app" = (
-/obj/structure/closet/crate/engineering/electrical/solarpanel_small,
+/obj/structure/closet/crate/solarpanel_small,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "apq" = (
@@ -12121,7 +12121,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
 "aCN" = (
-/obj/structure/closet/crate/engineering/rcd,
+/obj/structure/closet/crate/rcd,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)

@@ -732,7 +732,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/storage/power1)
 "cu" = (
-/obj/structure/closet/crate/engineering/electrical/solarpanel_small,
+/obj/structure/closet/crate/solarpanel_small,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/storage/power2)
 "cv" = (
