@@ -23,11 +23,23 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/apid
 	inert_mutation = WAXSALIVA
+	var/cold_cycle = 0
 
 /datum/species/apid/spec_life(mob/living/carbon/human/H)
 	. = ..()
-	if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT) // Sleep when cold, like bees
-		H.SetSleeping(50)
+	if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !H.IsSleeping()) // Sleep when cold, like bees
+		cold_cycle++
+		if(prob(5))
+			to_chat(H, "<span class='warning'>The cold is making you feel tired...</span>")
+		switch(cold_cycle)
+			if(5 to 10)
+				H.drowsyness++
+			if(10 to INFINITY)
+				H.SetSleeping(50) // Should be 5 seconds
+				cold_cycle = 0 // Resets the cycle, they have a chance to get out after waking up
+
+	else
+		cold_cycle = 0
 
 /datum/species/apid/random_name(gender,unique,lastname)
 	if(unique)

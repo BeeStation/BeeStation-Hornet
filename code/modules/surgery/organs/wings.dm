@@ -158,7 +158,7 @@
 /datum/action/item_action/organ_action/use/bee_dash/Trigger()
 	var/mob/living/carbon/L = owner
 
-	if(L.stat != CONSCIOUS || L.buckling) // Has to be concious and unbuckled
+	if(L.stat != CONSCIOUS || L.buckling || L.restrained()) // Has to be concious and unbuckled
 		return
 	if(recharging_time > world.time)
 		to_chat(L, "<span class='warning'>The wings aren't ready to dash yet!</span>")

@@ -453,5 +453,5 @@
 	learned_recipes |= R
 
 /datum/mind/proc/forget_crafting_recipe(R)
-	if(learned_recipes && R in learned_recipes)
+	if(learned_recipes && (R in learned_recipes))
 		learned_recipes -= R
