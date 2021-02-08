@@ -49,16 +49,20 @@
 		H.put_in_hands(B)
 	H.regenerate_icons()
 
-datum/quirk/bodyPurist
+/datum/quirk/bodyPurist
 	name = "Body Purist"
 	desc = "You refuse to get Cybernetic Implants associated with your job."
 	value = -2
 	gain_text = "You are afraid of Cybernetic Implants"
 	lose_text = "You are not afraid of Cybernetic Implants"
 
-datum/quirk/bodyPurist/on_spawn()
+/datum/quirk/bodyPurist/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	ADD_TRAIT(H, TRAIT_BODYPURIST, "quirk")
+	for(var/obj/item/organ/I in H.internal_organs)
+		if(istype(I, /obj/item/organ/cyberimp))
+			I.Remove(H, TRUE)
+
+
 
 /datum/quirk/brainproblems
 	name = "Brain Tumor"
