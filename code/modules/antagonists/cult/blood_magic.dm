@@ -312,10 +312,10 @@
 			R.reveal()
 		for(var/obj/structure/destructible/cult/S in range(6,owner))
 			S.reveal()
-		for(var/turf/open/floor/engine/cult/T in RANGE_TURFS(6,owner))
-			T.realappearance.alpha = initial(T.realappearance.alpha)
 		for(var/obj/machinery/door/airlock/cult/AL in range(6, owner))
 			AL.reveal()
+		for(var/turf/open/floor/engine/cult/T in RANGE_TURFS(6,owner))
+			T.realappearance.alpha = initial(T.realappearance.alpha)
 		revealing = FALSE
 		name = "Conceal Runes"
 		button_icon_state = "gone"

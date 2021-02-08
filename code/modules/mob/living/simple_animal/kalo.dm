@@ -46,7 +46,7 @@
 				stop_automated_movement = 0
 			if(!movement_target || !(src in viewers(5, movement_target.loc)))
 				stop_automated_movement = 0
-				movement_target = (locate(/obj/item/reagent_containers/food/snacks) in oview(5, src)) || null //can smell things up to 5 blocks radius
+				movement_target = locate(/obj/item/reagent_containers/food/snacks) in oview(5, src) //can smell things up to 5 blocks radius
 
 			if(movement_target)
 				stop_automated_movement = 1

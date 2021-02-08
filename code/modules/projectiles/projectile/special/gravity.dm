@@ -89,7 +89,7 @@
 /obj/item/projectile/gravitychaos/on_hit()
 	. = ..()
 	T = get_turf(src)
-	for(var/atom/movable/A in range(power, T))
+	for(var/atom/movable/A as mob|obj in range(power, T))
 		if(A == src || (firer && A == src.firer) || A.anchored || thrown_items[A])
 			continue
 		if(ismob(A))

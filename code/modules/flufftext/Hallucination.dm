@@ -1277,8 +1277,10 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	set waitfor = FALSE
 	..()
 	var/list/turf/startlocs = list()
-	for(var/turf/open/T in (view(getexpandedview(world.view, 1, 1),target)-view(world.view,target))) // God this is terrible
+	for(var/turf/open/T in view(getexpandedview(world.view, 1, 1),target))
 		startlocs += T
+	for(var/turf/open/T in view(world.view,target)) // God this is bad
+		startlocs -= T
 	if(!startlocs.len)
 		qdel(src)
 		return
