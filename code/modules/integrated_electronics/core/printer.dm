@@ -269,25 +269,8 @@
 					program = null
 					return
 
-				var/validation = SScircuit.validate_electronic_assembly(input)
-
-				// Validation error codes are returned as text.
-				if(istext(validation))
-					to_chat(usr, "<span class='warning'>Error: [validation]</span>")
-					return
-				else if(islist(validation))
-					program = validation
-					to_chat(usr, "<span class='notice'>This is a valid program for [program["assembly"]["type"]].</span>")
-					if(program["requires_upgrades"])
-						if(upgraded)
-							to_chat(usr, "<span class='notice'>It uses advanced component designs.</span>")
-						else
-							to_chat(usr, "<span class='warning'>It uses unknown component designs. Printer upgrade is required to proceed.</span>")
-					if(program["unsupported_circuit"])
-						to_chat(usr, "<span class='warning'>This program uses components not supported by the specified assembly. Please change the assembly type in the save file to a supported one.</span>")
-					to_chat(usr, "<span class='notice'>Used space: [program["used_space"]]/[program["max_space"]].</span>")
-					to_chat(usr, "<span class='notice'>Complexity: [program["complexity"]]/[program["max_complexity"]].</span>")
-					to_chat(usr, "<span class='notice'>Iron cost: [program["iron_cost"]].</span>")
+				var/validation = SScircuit.validate_electronic_assembly(input, TRUE)
+				validate_circuit(validation)
 
 			if("print")
 				if(!program || cloning)
@@ -355,6 +338,24 @@
 	var/path = "data/player_saves/[usr.ckey[1]]/[usr.ckey]/[filename]"
 	var/savefile/S = new /savefile(path)
 	S >> saved_data
-	// var/validation = SScircuit.validate_electronic_assembly(saved_data)
-	program = null
-	program = saved_data
+	var/validation = SScircuit.validate_electronic_assembly(saved_data, FALSE)
+	validate_circuit(validation)
+
+/obj/item/integrated_circuit_printer/proc/validate_circuit(var/validation)
+	// Validation error codes are returned as text.
+	if(istext(validation))
+		to_chat(usr, "<span class='warning'>Error: [validation]</span>")
+		return
+	else if(islist(validation))
+		program = validation
+		to_chat(usr, "<span class='notice'>This is a valid program for [program["assembly"]["type"]].</span>")
+		if(program["requires_upgrades"])
+			if(upgraded)
+				to_chat(usr, "<span class='notice'>It uses advanced component designs.</span>")
+			else
+				to_chat(usr, "<span class='warning'>It uses unknown component designs. Printer upgrade is required to proceed.</span>")
+		if(program["unsupported_circuit"])
+			to_chat(usr, "<span class='warning'>This program uses components not supported by the specified assembly. Please change the assembly type in the save file to a supported one.</span>")
+		to_chat(usr, "<span class='notice'>Used space: [program["used_space"]]/[program["max_space"]].</span>")
+		to_chat(usr, "<span class='notice'>Complexity: [program["complexity"]]/[program["max_complexity"]].</span>")
+		to_chat(usr, "<span class='notice'>Iron cost: [program["iron_cost"]].</span>")
