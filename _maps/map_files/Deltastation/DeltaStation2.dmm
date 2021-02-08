@@ -78310,7 +78310,7 @@
 /turf/closed/wall/r_wall,
 /area/ai_monitored/storage/eva)
 "cBj" = (
-/obj/structure/closet/crate/rcd{
+/obj/structure/closet/crate/engineering/rcd{
 	pixel_y = 4
 	},
 /obj/machinery/door/window/northleft{

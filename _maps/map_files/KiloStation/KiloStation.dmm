@@ -75722,7 +75722,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/structure/closet/crate/rcd,
+/obj/structure/closet/crate/engineering/rcd,
 /obj/machinery/door/window/northleft{
 	dir = 8;
 	name = "RCD Storage";
@@ -80725,7 +80725,7 @@
 /turf/open/floor/engine,
 /area/engine/gravity_generator)
 "cma" = (
-/obj/structure/closet/crate/solarpanel_small,
+/obj/structure/closet/crate/engineering/electrical/solarpanel_small,
 /obj/effect/turf_decal/delivery,
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/cobweb/cobweb2,

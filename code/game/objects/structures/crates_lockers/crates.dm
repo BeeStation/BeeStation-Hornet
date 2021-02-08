@@ -154,7 +154,7 @@
 /obj/structure/closet/crate/internals
 	desc = "An internals crate."
 	name = "internals crate"
-	icon_state = "o2crate"
+	icon_state = "o2_crate"
 
 /obj/structure/closet/crate/trashcart
 	desc = "A heavy, metal trashcart with wheels."
@@ -165,7 +165,7 @@
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
 	name = "medical crate"
-	icon_state = "medicalcrate"
+	icon_state = "medical_crate"
 
 /obj/structure/closet/crate/freezer
 	desc = "A freezer."
@@ -230,12 +230,12 @@
 /obj/structure/closet/crate/radiation
 	desc = "A crate with a radiation sign on it."
 	name = "radiation crate"
-	icon_state = "radiationcrate"
+	icon_state = "radiation_crate"
 
 /obj/structure/closet/crate/hydroponics
 	name = "hydroponics crate"
 	desc = "All you need to destroy those pesky weeds and pests."
-	icon_state = "hydrocrate"
+	icon_state = "hydro_crate"
 
 /obj/structure/closet/crate/engineering
 	name = "engineering crate"
@@ -243,13 +243,13 @@
 
 /obj/structure/closet/crate/engineering/electrical
 	icon_state = "engi_e_crate"
+	icon_door = "engi_crate"
 
-/obj/structure/closet/crate/rcd
+/obj/structure/closet/crate/engineering/rcd
 	desc = "A crate for the storage of an RCD."
 	name = "\improper RCD crate"
-	icon_state = "engi_crate"
 
-/obj/structure/closet/crate/rcd/PopulateContents()
+/obj/structure/closet/crate/engineering/rcd/PopulateContents()
 	..()
 	for(var/i in 1 to 4)
 		new /obj/item/rcd_ammo(src)
@@ -258,13 +258,12 @@
 /obj/structure/closet/crate/science
 	name = "science crate"
 	desc = "A science crate."
-	icon_state = "scicrate"
+	icon_state = "sci_crate"
 
-/obj/structure/closet/crate/solarpanel_small
+/obj/structure/closet/crate/engineering/electrical/solarpanel_small
 	name = "budget solar panel crate"
-	icon_state = "engi_e_crate"
 
-/obj/structure/closet/crate/solarpanel_small/PopulateContents()
+/obj/structure/closet/crate/engineering/electrical/solarpanel_small/PopulateContents()
 	..()
 	for(var/i in 1 to 13)
 		new /obj/item/solar_assembly(src)
