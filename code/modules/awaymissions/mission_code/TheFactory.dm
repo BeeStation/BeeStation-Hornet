@@ -26,7 +26,6 @@
 /area/awaymission/factory/villageafter
 	name = "The Village"
 	ambient_effects = list('sound/ambience/seag1.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/ambiodd.ogg', 'sound/ambience/ambimystery.ogg', 'sound/ambience/ambiearth.ogg', 'sound/ambience/ambiwind.ogg', 'sound/ambience/ambimine.ogg')
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	requires_power = FALSE
 
 /area/awaymission/factory/villageafter/church
@@ -62,7 +61,6 @@
 	always_unpowered = TRUE
 
 /area/awaymission/factory/clownplanet
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	ambient_effects = list('sound/spookoween/scary_horn3.ogg','sound/spookoween/scary_horn.ogg','sound/spookoween/scary_horn2.ogg','sound/spookoween/scary_clown_appear.ogg')
 	mood_bonus = 3
 	mood_message = "<span class='nicegreen'>I hate this!\n</span>"
@@ -71,7 +69,6 @@
 	ambient_effects = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambifac.ogg','sound/ambience/ambimaint3.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambiruin6.ogg','sound/ambience/ambitech3.ogg')
 	requires_power = FALSE
 	always_unpowered = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/awaymission/factory/factoryafter/down/maint
 	ambient_effects = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambimaint3.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambimaint2.ogg')
@@ -150,7 +147,6 @@
 
 /area/awaymission/factory/villageduring
 	name = "The old village"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	requires_power = FALSE
 	ambient_effects = list('sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambiearthduring.ogg','sound/ambience/ambiwind.ogg','sound/ambience/ambimine.ogg')
 
@@ -174,7 +170,6 @@
 	name = "The old basement"
 	ambient_effects = list('sound/ambience/ambimystery.ogg','sound/ambience/ambiodd.ogg')
 	ambient_buzz = ('sound/ambience/ambibasement.ogg')
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/awaymission/factory/villageduring/house/start
 	name = "The old House"
@@ -186,7 +181,6 @@
 
 /area/awaymission/factory/transition
 	name = "Beyond the time"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	ambient_effects = list('sound/ambience/ambiatmos.ogg','sound/ambience/antag/malf.ogg','sound/ambience/signal.ogg','sound/ambience/ambimalf.ogg')
 	ambient_buzz = list('sound/ambience/shipambience.ogg')
 
