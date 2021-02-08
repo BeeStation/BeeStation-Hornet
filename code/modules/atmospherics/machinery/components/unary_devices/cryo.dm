@@ -1,5 +1,4 @@
 #define CRYOMOBS 'icons/obj/cryo_mobs.dmi'
-///Max temperature allowed inside the cryotube, should break before reaching this heat
 
 /obj/machinery/atmospherics/components/unary/cryo_cell
 	name = "cryo cell"
@@ -180,7 +179,7 @@
 		return
 
 	var/mob/living/mob_occupant = occupant
-	if(mob_occupant.on_fire)
+	if(mob_occupant.on_fire) //Extinguish occupant, happens after the occupant is healed and ejected
 		mob_occupant.ExtinguishMob()
 	if(!check_nap_violations())
 		return
