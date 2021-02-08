@@ -14,7 +14,7 @@
 	climb_stun = 0 //climbing onto crates isn't hard, guys
 	delivery_icon = "deliverycrate"
 	door_anim_time = 3
-	door_anim_angle = 210
+	door_anim_angle = 180
 	door_hinge = 3.5
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
@@ -147,7 +147,9 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
 	close_sound_volume = 50
-	door_anim_time = 0
+	door_anim_angle = 120
+	azimuth_angle_2 = 180
+	door_anim_time = 5
 
 /obj/structure/closet/crate/internals
 	desc = "An internals crate."
