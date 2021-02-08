@@ -334,8 +334,7 @@
 	icon_state = "upgrade_disk_clone"
 
 /obj/item/integrated_circuit_printer/proc/load_circuit(var/saved_data)
-	var/filename = "circuits.sav"
-	var/path = "data/player_saves/[usr.ckey[1]]/[usr.ckey]/[filename]"
+	var/path = "data/player_saves/[usr.ckey[1]]/[usr.ckey]/circuits.sav"
 	var/savefile/S = new /savefile(path)
 	S >> saved_data
 	var/validation = SScircuit.validate_electronic_assembly(saved_data, FALSE)
