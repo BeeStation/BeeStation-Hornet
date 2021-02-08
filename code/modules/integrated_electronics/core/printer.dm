@@ -349,3 +349,12 @@
 	name = "integrated circuit printer upgrade disk - instant cloner"
 	desc = "Install this into your integrated circuit printer to enhance it.  This one allows the printer to duplicate assemblies instantaneously."
 	icon_state = "upgrade_disk_clone"
+
+/obj/item/integrated_circuit_printer/proc/load_circuit(var/saved_data)
+	var/filename = "circuits.sav"
+	var/path = "data/player_saves/[usr.ckey[1]]/[usr.ckey]/[filename]"
+	var/savefile/S = new /savefile(path)
+	S >> saved_data
+	// var/validation = SScircuit.validate_electronic_assembly(saved_data)
+	program = null
+	program = saved_data

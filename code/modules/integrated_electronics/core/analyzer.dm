@@ -14,9 +14,17 @@
 			to_chat(user, "<span class='notice'>[A] is currently identity-locked and can't be analyzed.</span>")
 			return FALSE
 
-		var/saved = "[A.name] analyzed! On circuit printers with cloning enabled, you may use the code below to clone the circuit:<br><br><code>[SScircuit.save_electronic_assembly(A)]</code>"
+		var/saved = SScircuit.save_electronic_assembly(A)
 		if(saved)
 			to_chat(user, "<span class='notice'>You scan [A].</span>")
-			user << browse(saved, "window=circuit_scan;size=500x600;border=1;can_resize=1;can_close=1;can_minimize=1")
+			save_circuit(usr.ckey,saved_data = saved)
 		else
 			to_chat(user, "<span class='warning'>[A] is not complete enough to be encoded!</span>")
+
+/obj/item/integrated_electronics/analyzer/proc/save_circuit(ckey, filename="circuits.sav", var/saved_data)
+	if(!ckey||!saved_data)
+		return
+	var/path = "data/player_saves/[ckey[1]]/[ckey]/[filename]"
+
+	var/savefile/S = new /savefile(path)
+	S << saved_data
