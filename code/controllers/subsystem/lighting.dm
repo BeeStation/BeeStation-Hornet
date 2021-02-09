@@ -7,6 +7,8 @@ SUBSYSTEM_DEF(lighting)
 	init_order = INIT_ORDER_LIGHTING
 	flags = SS_TICKER
 
+	var/list/light_sources = list()
+
 /datum/controller/subsystem/lighting/stat_entry()
 	. = ..("L:[GLOB.lighting_update_lights.len]|O:[GLOB.lighting_update_objects.len]")
 
@@ -21,3 +23,11 @@ SUBSYSTEM_DEF(lighting)
 /datum/controller/subsystem/lighting/Recover()
 	initialized = SSlighting.initialized
 	..()
+
+/datum/controller/subsystem/lighting/proc/build_shadows()
+	var/timer = TICK_USAGE
+	message_admins("Building [light_sources.len] shadows, its been an honour mrs obama")
+	for(var/datum/light_source/light as() in light_sources)
+		light.our_mask.calculate_lighting_shadows()
+		CHECK_TICK
+	message_admins("Shadows built in [TICK_USAGE_TO_MS(timer)]ms ([light_sources.len] shadows)")

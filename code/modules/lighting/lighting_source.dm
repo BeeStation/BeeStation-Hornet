@@ -50,8 +50,9 @@
 	set_light(light_range, light_power, light_color)
 	top_atom.add_vis_contents(our_mask)
 
+	SSlighting.light_sources += src
+
 /datum/light_source/Destroy(force, ...)
-	. = ..()
 	qdel(our_mask, force = TRUE)
 	top_atom.remove_vis_contents(our_mask)
 
@@ -59,6 +60,7 @@
 	source_atom = null
 	source_turf = null
 	pixel_turf = null
+	SSlighting.light_sources -= src
 
 	return ..()
 
