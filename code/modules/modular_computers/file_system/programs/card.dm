@@ -9,6 +9,7 @@
 /datum/computer_file/program/card_mod
 	filename = "cardmod"
 	filedesc = "ID Card Modification"
+	category = PROGRAM_CATEGORY_CREW
 	program_icon_state = "id"
 	extended_desc = "Program for programming employee ID cards to access parts of the station."
 	transfer_access = ACCESS_HEADS
