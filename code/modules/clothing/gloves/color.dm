@@ -188,6 +188,10 @@
 	..()
 	REMOVE_TRAIT(user, carrytrait, CLOTHING_TRAIT)
 
+/obj/item/clothing/gloves/color/latex/obj_break(mob/user)
+	..()
+	REMOVE_TRAIT(user, carrytrait, CLOTHING_TRAIT)
+
 /obj/item/clothing/gloves/color/latex/nitrile
 	name = "nitrile gloves"
 	desc = "Pricy sterile gloves that are stronger than latex. Transfers intimate paramedic knowledge into the user via nanochips."
