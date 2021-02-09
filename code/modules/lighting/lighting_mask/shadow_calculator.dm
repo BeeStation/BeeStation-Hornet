@@ -26,10 +26,6 @@
 	var/timer = TICK_USAGE
 	//Remove the old shadows
 	filters = null
-	if(filter_data)
-		filter_data.Cut()
-	else
-		filter_data = list()
 	//Optimise grouping by storing as
 	// Key : x (AS A STRING BECAUSE BYOND DOESNT ALLOW FOR INT KEY DICTIONARIES)
 	// Value: List(y values)
@@ -55,15 +51,12 @@
 			//message_admins(json_encode(triangle))
 			var/matrix/M = triangle_to_matrix(triangle)
 			var/icon/I = new(LIGHTING_ICON_BIG, "triangle")
-			filter_data["shadowfilter[filter_data.len]"] = list(
+			filters += filter(
 				type="layer",
 				icon = I,
 				color = "#000000",
 				transform = M,
-				blend_mode = BLEND_DEFAULT,
-				priority = 1
-			)
-	update_filters()
+				blend_mode = BLEND_DEFAULT)
 	message_admins("[TICK_USAGE_TO_MS(timer)]ms to process.")
 
 //Converts a triangle into a matrix that can be applied to a standardized triangle
