@@ -1040,8 +1040,6 @@
 	category = list("initial", "Construction")
 	maxstack = 50
 
-//Autosurgeon Designs for SkillChips
-
 /datum/design/skillChipBartending
 	name = "Bartending Skillchip"
 	id = "skillChip_Bartending"
