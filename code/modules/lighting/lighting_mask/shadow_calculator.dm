@@ -1,16 +1,14 @@
 #define SHADOW_DEBUG
 
-#ifdef SHADOW_DEBUG
+
 #define COORD_LIST_ADD(listtoadd, x, y) \
 	if(islist(listtoadd["[x]"])) { \
 		BINARY_INSERT_NUM(y, listtoadd["[x]"]); \
 	} else { \
 		listtoadd["[x]"] = list(y);\
 	}
-#else
-#define COORD_LIST_ADD(listtoadd, x, y)
-#endif
 
+#ifdef SHADOW_DEBUG
 #define DEBUG_HIGHLIGHT(x, y, colour) \
 	do { \
 		var/turf/T = locate(x, y, 2); \
@@ -18,34 +16,225 @@
 			T.color = colour; \
 		}\
 	} while (0)
-
-/atom/movable/lighting_mask
-	var/list/list_output
+#else
+#define DEBUG_HIGHLIGHT(x, y, colour)
+#endif
 
 //Returns a list of matrices corresponding to the matrices that should be applied to triangles of
 //coordinates (0,0),(1,0),(0,1) to create a triangcalculate_shadows_matricesle that respresents the shadows
-/atom/movable/lighting_mask/proc/calculate_lighting_shadows(range)
+/atom/movable/lighting_mask/alpha/proc/calculate_lighting_shadows(range = radius * 0.5)
+	var/timer = TICK_USAGE
+	//Remove the old shadows
+	filters = null
+	if(filter_data)
+		filter_data.Cut()
+	else
+		filter_data = list()
 	//Optimise grouping by storing as
 	// Key : x (AS A STRING BECAUSE BYOND DOESNT ALLOW FOR INT KEY DICTIONARIES)
 	// Value: List(y values)
 	var/list/opaque_atoms_in_view = list()
 	//Find atoms that are opaque
-	for(var/atom/thing as() in view(range, get_turf(src)))
-		if(thing.opacity)
+	for(var/turf/thing in view(range, get_turf(attached_atom)))
+		if(thing.has_opaque_atom)
 			//At this point we no longer care about
 			//the atom itself, only the position values
 			COORD_LIST_ADD(opaque_atoms_in_view, thing.x, thing.y)
 			DEBUG_HIGHLIGHT(thing.x, thing.y, "#0000FF")
 	//Group atoms together for optimisation
 	for(var/group in group_atoms(opaque_atoms_in_view))
-		message_admins("===group===")
-		message_admins(json_encode(group))
-		message_admins(json_encode(calculate_corners_in_group(group)))
+		//message_admins("=========== [rand(1, 10000)]")
+		var/list/coordgroup = calculate_corners_in_group(group)
+		//message_admins("Coordgroup: [json_encode(coordgroup)]")
+		var/list/cornergroup = get_corners_from_coords(coordgroup)
+		//message_admins("Cornergroup: [json_encode(cornergroup)]")
+		var/list/triangles = calculate_triangle_vertices(cornergroup, range)
+		//message_admins("Triangles: [json_encode(triangles)]")
+		for(var/triangle in triangles)
+			//message_admins("==TRIANGLE== [rand(1, 10000)]")
+			//message_admins(json_encode(triangle))
+			var/matrix/M = triangle_to_matrix(triangle)
+			var/icon/I = new(LIGHTING_ICON_BIG, "triangle")
+			filter_data["shadowfilter[filter_data.len]"] = list(
+				type="layer",
+				icon = I,
+				color = "#000000",
+				transform = M,
+				blend_mode = BLEND_DEFAULT,
+				priority = 1
+			)
+	update_filters()
+	message_admins("[TICK_USAGE_TO_MS(timer)]ms to process.")
+
+//Converts a triangle into a matrix that can be applied to a standardized triangle
+//to make it represent the points.
+//Note: Ignores translation because
+/atom/movable/lighting_mask/alpha/proc/triangle_to_matrix(list/triangle)
+	var/turf/our_turf = get_turf(attached_atom)
+	var/ourx = our_turf.x
+	var/oury = our_turf.y
+
+	var/originx = triangle[1][1] - ourx						//~Simultaneous Variable: U~ <-- no thats 0 dummy
+	var/originy = triangle[1][2] - oury						//~Simultaneous Variable: V~ <-- No thats 0 dummy
+	//Get points translating the first point to (0, 0)
+	var/translatedPoint2x = triangle[2][1] - ourx	//Simultaneous Variable: W
+	var/translatedPoint2y = triangle[2][2] - oury	//Simultaneous Variable: X
+	var/translatedPoint3x = triangle[3][1] - ourx	//Simultaneous Variable: Y
+	var/translatedPoint3y = triangle[3][2] - oury	//Simultaneous Variable: Z
+	//message_admins("Point 1: ([originx], [originy])")
+	//message_admins("Point 2: ([translatedPoint2x], [translatedPoint2y])")
+	//message_admins("Point 3: ([translatedPoint3x], [translatedPoint3y])")
+	//Assumption that is incorrect
+	//Triangle points are
+	// (-4, -4)
+	// (-4, 4)
+	// (4, -4)
+	//Would be much easier if it was (0, 0) instead of (-4, -4) but since we have 6 inputs and 6 unknowns
+	//we can solve the values of the matrix pretty easilly simultaneously.
+	//In fact since variables U,W,Y,A,B,C are separate to V,X,Z,D,E,F its easy since its 2 identical tri-variable simultaneous equations.
+	//By solving the equations simultaneously we get these results:
+	//a = (y-u)/8
+	var/a = (translatedPoint3x - originx) / 8
+	//b = (w-u)/ 8
+	var/b = (translatedPoint2x - originx) / 8
+	//c = (y+w)/2
+	var/c = (translatedPoint3x + translatedPoint2x) / 2
+	//d = (z-v)/8
+	var/d = (translatedPoint3y - originy) / 8
+	//e = (x-v)/8
+	var/e = (translatedPoint2y - originy) / 8
+	//f = (z+x)/2
+	var/f = (translatedPoint3y + translatedPoint2y) / 2
+	//Matrix time g
+	//a,b,d and e can be used to define the shape, C and F can be used for translation god matrices are so beautiful
+	var/matrix/M = matrix(a, b, c * 32 - (3.5 * 32), d, e, f * 32 - (3.5 * 32))
+	//message_admins("[M.a], [M.d], 0")
+	//message_admins("[M.b], [M.e], 0")
+	//message_admins("[M.c], [M.f], 1")
+	return M
+
+//Basically takes the 2-4 corners, extends them and then generates triangle coordinates representing shadows
+//Input: list(list(list(x, y), list(x, y)))
+// Layer 1: Lines
+// Layer 2: Vertex
+// Layer 3: X/Y value
+//OUTPUT: The same thing but with 3 lists embedded rather than 2 because they are triangles not lines now.
+/atom/movable/lighting_mask/alpha/proc/calculate_triangle_vertices(list/cornergroup, range)
+	//Get the origin poin's
+	var/turf/our_turf = get_turf(attached_atom)
+	var/ourx = our_turf.x
+	var/oury = our_turf.y
+	//The output
+	var/list/output_triangles = list()
+	//Every line has 2 triangles innit
+	for(var/list/line in cornergroup)
+		//Get the corner vertices
+		var/vertex1 = line[1]
+		var/vertex2 = line[2]
+		//Extend them and get end vertices
+		var/vertex3 = list(
+			(vertex1[1] - ourx) * range + ourx,
+			(vertex1[2] - oury) * range + oury
+			)
+		var/vertex4 = list(
+			(vertex2[1] - ourx) * range + ourx,
+			(vertex2[2] - oury) * range + oury
+			)
+		//Generate triangles
+		var/triangle1 = list(vertex1, vertex2, vertex3)
+		var/triangle2 = list(vertex2, vertex3, vertex4)
+		output_triangles += list(triangle1)
+		output_triangles += list(triangle2)
+	return output_triangles
+
+//Converts the corners into the 3 (or 2) valid points
+//For example if a wall is top right of the source, the bottom left wall corner
+//can be removed otherwise the wall itself will be in the shadow.
+//Input: list(list(x1, y1), list(x2, y2))
+//Output: list(list(list(x, y), list(x, y))) <-- 2 coordinates that form a line
+/atom/movable/lighting_mask/alpha/proc/get_corners_from_coords(list/coordgroup)
+	//Get the raw numbers
+	var/xlow = coordgroup[1][1]
+	var/ylow = coordgroup[1][2]
+	var/xhigh = coordgroup[2][1]
+	var/yhigh = coordgroup[2][2]
+
+	//Cache this for speed I guess
+	var/turf/our_turf = get_turf(attached_atom)
+	var/ourx = our_turf.x
+	var/oury = our_turf.y
+
+	//The source is above the point (Bottom Quad)
+	if(oury > yhigh)
+		//Bottom Right
+		if(ourx < xlow)
+			return list(
+				list(list(xlow, ylow), list(xhigh, ylow)),
+				list(list(xhigh, ylow), list(xhigh, yhigh)),
+			)
+		//Bottom Left
+		else if(ourx > xhigh)
+			return list(
+				list(list(xlow, yhigh), list(xlow, ylow)),
+				list(list(xlow, ylow), list(xhigh, ylow)),
+			)
+		//Bottom Middle
+		else
+			return list(
+				list(list(xlow, yhigh), list(xlow, ylow)),
+				list(list(xlow, ylow), list(xhigh, ylow)),
+				list(list(xhigh, ylow), list(xhigh, yhigh))
+			)
+	//The source is below the point (Top quad)
+	else if(oury < ylow)
+		//Top Right
+		if(ourx < xlow)
+			return list(
+				list(list(xlow, yhigh), list(xhigh, yhigh)),
+				list(list(xhigh, yhigh), list(xhigh, ylow)),
+			)
+		//Top Left
+		else if(ourx > xhigh)
+			return list(
+				list(list(xlow, ylow), list(xlow, yhigh)),
+				list(list(xlow, yhigh), list(xhigh, yhigh)),
+			)
+		//Top Middle
+		else
+			return list(
+				list(list(xlow, ylow), list(xlow, yhigh)),
+				list(list(xlow, yhigh), list(xhigh, yhigh)),
+				list(list(xhigh, yhigh), list(xhigh, ylow))
+			)
+	//the source is between the group Middle something
+	else
+		//Middle Right
+		if(ourx < xlow)
+			return list(
+				list(list(xlow, yhigh), list(xhigh, yhigh)),
+				list(list(xhigh, yhigh), list(xhigh, ylow)),
+				list(list(xhigh, ylow), list(xlow, ylow))
+			)
+		//Middle Left
+		else if(ourx > xhigh)
+			return list(
+				list(list(xhigh, ylow), list(xlow, ylow)),
+				list(list(xlow, ylow), list(xlow, yhigh)),
+				list(list(xlow, yhigh), list(xhigh, yhigh))
+			)
+		//Middle Middle (Why?????????)
+		else
+			return list(
+				list(list(xhigh, ylow), list(xlow, ylow)),
+				list(list(xlow, ylow), list(xlow, yhigh)),
+				list(list(xlow, yhigh), list(xhigh, yhigh)),
+				list(list(xlow, yhigh), list(xhigh, ylow))
+			)
 
 //Calculates the coordinates of the corner
 //Input: Group list(list(list(x,y), list(x,y)), list(list(x, y)))
 //Output: Coordinates list(list(left, bottom), list(right, top))
-/atom/movable/lighting_mask/proc/calculate_corners_in_group(list/group)
+/atom/movable/lighting_mask/alpha/proc/calculate_corners_in_group(list/group)
 	if(length(group) == 0)
 		CRASH("Calculate_corners_in_group called on a group of length 0. Critical error.")
 	if(length(group) == 1)
@@ -59,20 +248,20 @@
 	var/first = group[1]
 	var/second = group[2]
 	var/group_direction = NORTH
-	if(first[1] == second[1])
+	if(first[1] != second[1])
 		group_direction = EAST
-#ifdef SHADOW_DEBUG
+#ifdef SHADOW_DEBUG6
 	else if(first[2] != second[2])
 		message_admins("Major error, group is not 1xN or Nx1")
 #endif
-	var/lowest = 0
-	var/highest = INFINITY
+	var/lowest = INFINITY
+	var/highest = 0
 	for(var/vector in group)
 		var/value_to_comp = vector[1]
 		if(group_direction == NORTH)
 			value_to_comp = vector[2]
-		lowest = max(lowest, value_to_comp)
-		highest = min(highest, value_to_comp)
+		lowest = min(lowest, value_to_comp)
+		highest = max(highest, value_to_comp)
 	//done ez
 	if(group_direction == NORTH)
 		return list(
@@ -81,23 +270,15 @@
 		)
 	else
 		return list(
-			list(lowest - 0.5, first[1] - 0.5),
-			list(highest + 0.5, first[1] + 0.5)
+			list(lowest - 0.5, first[2] - 0.5),
+			list(highest + 0.5, first[2] + 0.5)
 		)
-
-//Calculates the matrices needed to apply to triangles in order to
-//properly generate the shadows
-//Input: Group
-//list(list(list(x, y), list(x,y)), list(list(x, y))) etc.
-//output: list(matrix(), matrix(), matrix(), ...)
-/atom/movable/lighting_mask/proc/calculate_group_matrix(list/group)
-
 
 //Groups things into vertical and horizontal lines.
 //Input: All atoms ungrouped list(atom1, atom2, atom3)
 //Output: List(List(Group), list(group2), ... , list(groupN))
 //Output: List(List(atom1, atom2), list(atom3, atom4...), ... , list(atomN))
-/atom/movable/lighting_mask/proc/group_atoms(list/ungrouped_things)
+/atom/movable/lighting_mask/alpha/proc/group_atoms(list/ungrouped_things)
 	var/list/grouped_atoms = list()
 	//Ungrouped things comes in as
 	// Key: X
@@ -149,13 +330,15 @@
 		if(group.len)
 			grouped_atoms += list(group)
 	//=================================================
+	//Bug somewhere in here
 	for(var/y_key in horizontal_atoms)
 		//Collect all y elements on that x plane
 		var/list/x_elements = horizontal_atoms[y_key]
 		//Too few elements to group
 		if(x_elements.len <= 1)
 			if(x_elements.len == 1)
-				DEBUG_HIGHLIGHT(x_elements[1], text2num(y_key), "#00FFFF")
+				//Single alone atom, add as its own group
+				DEBUG_HIGHLIGHT(x_elements[1], text2num(y_key), "#0055FF")
 				grouped_atoms += list(list(list(x_elements[1], text2num(y_key))))
 			continue
 		//Loop through elements and check if they are new to each other
@@ -167,9 +350,11 @@
 			if(actual_x_value == previous_x_element + 1)
 				//Start creating a group, remove grouped elements
 				if(group.len)
+					//Horizontal Grouping
 					group += list(list(actual_x_value, text2num(y_key)))
 					DEBUG_HIGHLIGHT(actual_x_value, text2num(y_key), "#00FF00")
 				else
+					//Horizontal Grouping
 					group += list(list(actual_x_value, text2num(y_key)))
 					DEBUG_HIGHLIGHT(actual_x_value, text2num(y_key), "#00FF00")
 					group += list(list(previous_x_element, text2num(y_key)))
@@ -180,8 +365,10 @@
 					grouped_atoms += list(group)
 					group = list()
 				if(i == 2)
+					//Single, alone atom = Add in own group
 					DEBUG_HIGHLIGHT(previous_x_element, text2num(y_key), "#00FFFF")
 					grouped_atoms += list(list(list(previous_x_element, text2num(y_key))))
+				//Single, alone atom = Add in own group
 				DEBUG_HIGHLIGHT(actual_x_value, text2num(y_key), "#00FFFF")
 				grouped_atoms += list(list(list(actual_x_value, text2num(y_key))))
 			previous_x_element = actual_x_value

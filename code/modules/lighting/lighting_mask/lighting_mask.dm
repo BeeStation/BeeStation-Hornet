@@ -24,6 +24,8 @@
 
 	var/radius = 0
 
+	var/atom/attached_atom
+
 /atom/movable/lighting_mask/proc/set_radius(radius, transform_time = 0)
 	apply_matrix(get_matrix(radius), transform_time)
 

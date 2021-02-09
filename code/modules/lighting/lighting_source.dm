@@ -46,6 +46,7 @@
 	PARSE_LIGHT_COLOR(src)
 
 	our_mask = new()
+	our_mask.attached_atom = owner
 	set_light(light_range, light_power, light_color)
 	top_atom.add_vis_contents(our_mask)
 
