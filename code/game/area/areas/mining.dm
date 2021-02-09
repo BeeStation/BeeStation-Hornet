@@ -18,6 +18,8 @@
 	outdoors = TRUE
 	flags_1 = NONE
 	ambience_index = AMBIENCE_MINING
+	min_ambience_cooldown = 70 SECONDS
+	max_ambience_cooldown = 220 SECONDS
 
 /area/mine/unexplored
 	name = "Mine"
@@ -31,6 +33,8 @@
 	outdoors = TRUE
 	flags_1 = NONE
 	ambience_index = AMBIENCE_MINING
+	min_ambience_cooldown = 70 SECONDS
+	max_ambience_cooldown = 220 SECONDS
 
 /area/mine/lobby
 	name = "Mining Station"
@@ -123,6 +127,8 @@
 	power_light = FALSE
 	requires_power = TRUE
 	ambience_index = AMBIENCE_MINING
+	min_ambience_cooldown = 70 SECONDS
+	max_ambience_cooldown = 220 SECONDS
 
 /area/lavaland/underground
 	name = "Lavaland Caves"
@@ -134,7 +140,8 @@
 	power_equip = FALSE
 	power_light = FALSE
 	ambience_index = AMBIENCE_MINING
-
+	min_ambience_cooldown = 70 SECONDS
+	max_ambience_cooldown = 220 SECONDS
 
 /area/lavaland/surface/outdoors
 	name = "Lavaland Wastes"

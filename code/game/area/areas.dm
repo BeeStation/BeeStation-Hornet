@@ -79,6 +79,11 @@
 	var/lighting_brightness_bulb = 6
 	var/lighting_brightness_night = 6
 
+	///Used to decide what the minimum time between ambience is
+	var/min_ambience_cooldown = 30 SECONDS
+	///Used to decide what the maximum time between ambience is
+	var/max_ambience_cooldown = 90 SECONDS
+
 /**
   * A list of teleport locations
   *
@@ -561,6 +566,16 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	set waitfor = FALSE
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, M)
 	SEND_SIGNAL(M, COMSIG_ENTER_AREA, src) //The atom that enters the area
+	if(!isliving(M))
+		return
+
+	var/mob/living/L = M
+	if(!L.ckey)
+		return
+
+	//Ship ambience just loops if turned on.
+	if(L.client?.prefs.toggles & SOUND_SHIP_AMBIENCE)
+		SEND_SOUND(L, sound('sound/ambience/shipambience.ogg', repeat = 1, wait = 0, volume = 35, channel = CHANNEL_BUZZ))
 
 /**
   * Called when an atom exits an area
