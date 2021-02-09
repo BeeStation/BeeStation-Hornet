@@ -24,9 +24,7 @@
 /atom/movable/lighting_mask/alpha/proc/calculate_lighting_shadows(range = radius * 0.5)
 	var/timer = TICK_USAGE
 	//Remove the old shadows
-	QDEL_LIST(shadow_masks)
 	overlays.Cut()
-	shadow_masks = list()
 	//Optimise grouping by storing as
 	// Key : x (AS A STRING BECAUSE BYOND DOESNT ALLOW FOR INT KEY DICTIONARIES)
 	// Value: List(y values)
@@ -62,7 +60,6 @@
 			shadow.transform = M
 			//var/atom/movable/lighting_mask/shadow/shadow = new()
 			//animate(shadow, transform = M, time = 200)
-			shadow_masks += shadow
 			overlays += shadow
 			//vis_contents += shadow
 	message_admins("[TICK_USAGE_TO_MS(timer)]ms to process.")
