@@ -188,9 +188,10 @@
 	..()
 	REMOVE_TRAIT(user, carrytrait, CLOTHING_TRAIT)
 
-/obj/item/clothing/gloves/color/latex/obj_break(mob/user)
+/obj/item/clothing/gloves/color/latex/obj_break()
 	..()
-	REMOVE_TRAIT(user, carrytrait, CLOTHING_TRAIT)
+	if(ishuman(loc))
+		REMOVE_TRAIT(loc, carrytrait, CLOTHING_TRAIT)
 
 /obj/item/clothing/gloves/color/latex/nitrile
 	name = "nitrile gloves"
