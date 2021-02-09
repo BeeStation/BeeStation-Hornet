@@ -1,14 +1,16 @@
 #define SHADOW_DEBUG
 
-
+#ifdef SHADOW_DEBUG
 #define COORD_LIST_ADD(listtoadd, x, y) \
 	if(islist(listtoadd["[x]"])) { \
 		BINARY_INSERT_NUM(y, listtoadd["[x]"]); \
 	} else { \
 		listtoadd["[x]"] = list(y);\
 	}
+#else
+#define COORD_LIST_ADD(listtoadd, x, y)
+#endif
 
-#ifdef SHADOW_DEBUG
 #define DEBUG_HIGHLIGHT(x, y, colour) \
 	do { \
 		var/turf/T = locate(x, y, 2); \
@@ -16,16 +18,15 @@
 			T.color = colour; \
 		}\
 	} while (0)
-#else
-#define DEBUG_HIGHLIGHT(x, y, colour)
-#endif
 
 //Returns a list of matrices corresponding to the matrices that should be applied to triangles of
 //coordinates (0,0),(1,0),(0,1) to create a triangcalculate_shadows_matricesle that respresents the shadows
 /atom/movable/lighting_mask/alpha/proc/calculate_lighting_shadows(range = radius * 0.5)
 	var/timer = TICK_USAGE
 	//Remove the old shadows
-	filters = null
+	QDEL_LIST(shadow_masks)
+	overlays.Cut()
+	shadow_masks = list()
 	//Optimise grouping by storing as
 	// Key : x (AS A STRING BECAUSE BYOND DOESNT ALLOW FOR INT KEY DICTIONARIES)
 	// Value: List(y values)
@@ -50,13 +51,20 @@
 			//message_admins("==TRIANGLE== [rand(1, 10000)]")
 			//message_admins(json_encode(triangle))
 			var/matrix/M = triangle_to_matrix(triangle)
-			var/icon/I = new(LIGHTING_ICON_BIG, "triangle")
-			filters += filter(
-				type="layer",
-				icon = I,
-				color = "#000000",
-				transform = M,
-				blend_mode = BLEND_DEFAULT)
+			var/mutable_appearance/shadow = new(src)
+			shadow.icon = LIGHTING_ICON_BIG
+			shadow.icon_state = "triangle"
+			shadow.plane = LIGHTING_PLANE
+			shadow.layer = LIGHTING_SHADOW_LAYER
+			shadow.blend_mode = BLEND_MULTIPLY
+			shadow.color = "#000000"
+			shadow.appearance_flags = RESET_TRANSFORM | RESET_COLOR | RESET_ALPHA
+			shadow.transform = M
+			//var/atom/movable/lighting_mask/shadow/shadow = new()
+			//animate(shadow, transform = M, time = 200)
+			shadow_masks += shadow
+			overlays += shadow
+			//vis_contents += shadow
 	message_admins("[TICK_USAGE_TO_MS(timer)]ms to process.")
 
 //Converts a triangle into a matrix that can be applied to a standardized triangle
