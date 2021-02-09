@@ -1,16 +1,13 @@
-#define SHADOW_DEBUG
+//#define SHADOW_DEBUG
 
-#ifdef SHADOW_DEBUG
 #define COORD_LIST_ADD(listtoadd, x, y) \
 	if(islist(listtoadd["[x]"])) { \
 		BINARY_INSERT_NUM(y, listtoadd["[x]"]); \
 	} else { \
 		listtoadd["[x]"] = list(y);\
 	}
-#else
-#define COORD_LIST_ADD(listtoadd, x, y)
-#endif
 
+#ifdef SHADOW_DEBUG
 #define DEBUG_HIGHLIGHT(x, y, colour) \
 	do { \
 		var/turf/T = locate(x, y, 2); \
@@ -18,10 +15,15 @@
 			T.color = colour; \
 		}\
 	} while (0)
+#else
+#define DEBUG_HIGHLIGHT(x, y, colour)
+#endif
 
 //Returns a list of matrices corresponding to the matrices that should be applied to triangles of
 //coordinates (0,0),(1,0),(0,1) to create a triangcalculate_shadows_matricesle that respresents the shadows
 /atom/movable/lighting_mask/alpha/proc/calculate_lighting_shadows(range = radius * 0.5)
+	if(range < 1.5)
+		return
 	var/timer = TICK_USAGE
 	//Remove the old shadows
 	overlays.Cut()
@@ -36,33 +38,80 @@
 			//the atom itself, only the position values
 			COORD_LIST_ADD(opaque_atoms_in_view, thing.x, thing.y)
 			DEBUG_HIGHLIGHT(thing.x, thing.y, "#0000FF")
+	log_game("[TICK_USAGE_TO_MS(timer)]ms to process view([range], src).")
+	var/temp_timer = TICK_USAGE
 	//Group atoms together for optimisation
-	for(var/group in group_atoms(opaque_atoms_in_view))
-		//message_admins("=========== [rand(1, 10000)]")
+	var/list/grouped_atoms = group_atoms(opaque_atoms_in_view)
+	log_game("[TICK_USAGE_TO_MS(temp_timer)]ms to process group_atoms")
+	temp_timer = TICK_USAGE
+	var/total_coordgroup_time = 0
+	var/total_cornergroup_time = 0
+	var/triangle_time = 0
+	var/triangle_to_matrix_time = 0
+	var/matrix_division_time = 0
+	var/MA_new_time = 0
+	var/MA_vars_time = 0
+	var/overlays_add_time = 0
+	var/list/overlays_to_add = list()
+	for(var/group in grouped_atoms)
+		temp_timer = TICK_USAGE
+
 		var/list/coordgroup = calculate_corners_in_group(group)
-		//message_admins("Coordgroup: [json_encode(coordgroup)]")
+		total_coordgroup_time += TICK_USAGE_TO_MS(temp_timer)
+		temp_timer = TICK_USAGE
+
 		var/list/cornergroup = get_corners_from_coords(coordgroup)
-		//message_admins("Cornergroup: [json_encode(cornergroup)]")
+		total_cornergroup_time += TICK_USAGE_TO_MS(temp_timer)
+		temp_timer = TICK_USAGE
+
 		var/list/triangles = calculate_triangle_vertices(cornergroup, range)
-		//message_admins("Triangles: [json_encode(triangles)]")
+		triangle_time += TICK_USAGE_TO_MS(temp_timer)
+		temp_timer = TICK_USAGE
+
 		for(var/triangle in triangles)
-			//message_admins("==TRIANGLE== [rand(1, 10000)]")
-			//message_admins(json_encode(triangle))
-			var/matrix/M = triangle_to_matrix(triangle)
+			var/matrix/M = matrix()
+
+			triangle_to_matrix_time += TICK_USAGE_TO_MS(temp_timer)
+			temp_timer = TICK_USAGE
+
+			M /= transform
+			M *= triangle_to_matrix(triangle)
+
+			matrix_division_time += TICK_USAGE_TO_MS(temp_timer)
+			temp_timer = TICK_USAGE
+
 			var/mutable_appearance/shadow = new(src)
+
+			MA_new_time += TICK_USAGE_TO_MS(temp_timer)
+			temp_timer = TICK_USAGE
+
 			shadow.icon = LIGHTING_ICON_BIG
 			shadow.icon_state = "triangle"
 			shadow.plane = LIGHTING_PLANE
 			shadow.layer = LIGHTING_SHADOW_LAYER
-			shadow.blend_mode = BLEND_MULTIPLY
+			shadow.blend_mode = BLEND_DEFAULT
 			shadow.color = "#000000"
 			shadow.appearance_flags = RESET_TRANSFORM | RESET_COLOR | RESET_ALPHA
 			shadow.transform = M
-			//var/atom/movable/lighting_mask/shadow/shadow = new()
-			//animate(shadow, transform = M, time = 200)
-			overlays += shadow
-			//vis_contents += shadow
-	message_admins("[TICK_USAGE_TO_MS(timer)]ms to process.")
+
+			MA_vars_time += TICK_USAGE_TO_MS(temp_timer)
+			temp_timer = TICK_USAGE
+
+			overlays_to_add += shadow
+
+			overlays_add_time += TICK_USAGE_TO_MS(temp_timer)
+			temp_timer = TICK_USAGE
+
+	overlays += overlays_to_add
+	log_game("total_coordgroup_time: [total_coordgroup_time]ms")
+	log_game("total_cornergroup_time: [total_cornergroup_time]ms")
+	log_game("triangle_time calculation: [triangle_time]ms")
+	log_game("triangle_to_matrix_time: [triangle_to_matrix_time]")
+	log_game("matrix_division_time: [matrix_division_time]")
+	log_game("MA_new_time: [MA_new_time]")
+	log_game("MA_vars_time: [MA_vars_time]")
+	log_game("overlays_add_time: [overlays_add_time]")
+	log_game("[TICK_USAGE_TO_MS(timer)]ms to process total.")
 
 //Converts a triangle into a matrix that can be applied to a standardized triangle
 //to make it represent the points.
