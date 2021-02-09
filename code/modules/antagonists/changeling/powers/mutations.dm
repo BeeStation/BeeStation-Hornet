@@ -389,7 +389,7 @@
 				else
 					L.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
 					L.throw_at(get_step_towards(H,L), 8, 2)
-					. = BULLET_ACT_HIT
+					return BULLET_ACT_HIT
 
 /obj/item/projectile/tentacle/Destroy()
 	qdel(chain)
