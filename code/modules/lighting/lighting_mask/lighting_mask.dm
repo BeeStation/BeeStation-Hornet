@@ -11,7 +11,7 @@
 	invisibility     = INVISIBILITY_LIGHTING
 	blend_mode		 = BLEND_ADD
 
-	appearance_flags = RESET_TRANSFORM | RESET_COLOR | RESET_ALPHA | KEEP_TOGETHER
+	appearance_flags = RESET_TRANSFORM | RESET_COLOR | RESET_ALPHA
 
 	bound_x = -128
 	bound_y = -128
