@@ -11,20 +11,17 @@
 #ifdef TESTING
 #define DATUMVAR_DEBUGGING_MODE
 
-///Method of tracking references.
-//#define LEGACY_REFERENCE_TRACKING
-#ifdef LEGACY_REFERENCE_TRACKING
+///Used to find the sources of harddels, quite laggy, don't be surpised if it freezes your client for a good while
+//#define REFERENCE_TRACKING
+#ifdef REFERENCE_TRACKING
 
-///Should we be logging our findings or not
-#define REFERENCE_TRACKING_LOG
-
-///Use the legacy reference on things hard deleting by default.
+///Run a lookup on things hard deleting by default.
 //#define GC_FAILURE_HARD_LOOKUP
 #ifdef GC_FAILURE_HARD_LOOKUP
 #define FIND_REF_NO_CHECK_TICK
 #endif //ifdef GC_FAILURE_HARD_LOOKUP
 
-#endif //ifdef LEGACY_REFERENCE_TRACKING
+#endif //ifdef REFERENCE_TRACKING
 
 
 //#define VISUALIZE_ACTIVE_TURFS	//Highlights atmos active turfs in green
@@ -51,6 +48,7 @@
 #error You need version 514.1568 or higher.
 #endif
 
+<<<<<<< HEAD
 //Update this whenever the byond version is stable so people stop updating to hilariously broken versions
 #define MAX_COMPILER_VERSION 514
 #define MAX_COMPILER_BUILD 1571
@@ -62,6 +60,12 @@
 #define SENDMAPS_PROFILE
 #endif
 
+=======
+//Don't load extools on 514
+#if DM_VERSION < 514
+#define USE_EXTOOLS
+#endif
+>>>>>>> 40cdb6d025 (Enables 514 testing on master, Removes all reliance on extools outside of maptick (#56724))
 
 //Additional code for the above flags.
 #ifdef TESTING
