@@ -1,4 +1,0 @@
-author: Melbert
-delete-after: true
-changes:
-  - bugfix: Fixes railings blocking bullets and immovable rods from a certain direction.
