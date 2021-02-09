@@ -50,10 +50,15 @@
 	set_light(light_range, light_power, light_color)
 	top_atom.add_vis_contents(our_mask)
 
+	SSlighting.light_sources += src
+
 /datum/light_source/Destroy(force, ...)
-	. = ..()
 	qdel(our_mask, force = TRUE)
 	top_atom.remove_vis_contents(our_mask)
+
+	SSlighting.light_sources -= src
+
+	. = ..()
 
 /datum/light_source/proc/set_light(var/l_range, var/l_power, var/l_color = NONSENSICAL_VALUE)
 	if(!our_mask)
