@@ -22,7 +22,6 @@ export const CentcomPodLauncher = (props, context) => {
   const [compact] = useCompact(context);
   return (
     <Window
-      resizable
       key={'CPL_' + compact}
       title={compact
         ? "Use against Helen Weinstein"

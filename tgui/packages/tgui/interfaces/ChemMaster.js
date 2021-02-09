@@ -7,7 +7,6 @@ export const ChemMaster = (props, context) => {
   const { screen } = data;
   return (
     <Window
-      resizable
       width={465}
       height={550}>
       <Window.Content scrollable>

@@ -15,7 +15,6 @@ export const NtosRoboControl = (props, context) => {
   } = data;
   return (
     <NtosWindow
-      resizable
       width={550}
       height={550}>
       <NtosWindow.Content scrollable>

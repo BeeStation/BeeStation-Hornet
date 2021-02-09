@@ -285,7 +285,6 @@ export const Pandemic = (props, context) => {
 
   return (
     <Window
-      resizable
       width={520}
       height={550}>
       <Window.Content scrollable>

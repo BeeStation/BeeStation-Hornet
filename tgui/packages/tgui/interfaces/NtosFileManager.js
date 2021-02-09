@@ -10,7 +10,7 @@ export const NtosFileManager = (props, context) => {
     usbfiles = [],
   } = data;
   return (
-    <NtosWindow resizable>
+    <NtosWindow>
       <NtosWindow.Content scrollable>
         <Section>
           <FileTable

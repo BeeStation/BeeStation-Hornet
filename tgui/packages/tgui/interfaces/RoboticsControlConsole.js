@@ -12,7 +12,6 @@ export const RoboticsControlConsole = (props, context) => {
   } = data;
   return (
     <Window
-      resizable
       width={500}
       height={460}>
       <Window.Content scrollable>

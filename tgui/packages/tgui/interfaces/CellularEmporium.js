@@ -7,7 +7,6 @@ export const CellularEmporium = (props, context) => {
   const { abilities } = data;
   return (
     <Window
-      resizable
       width={900}
       height={480}>
       <Window.Content scrollable>

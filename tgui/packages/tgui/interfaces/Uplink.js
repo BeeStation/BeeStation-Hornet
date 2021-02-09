@@ -12,7 +12,6 @@ export const Uplink = (props, context) => {
   return (
     <Window
       theme="syndicate"
-      resizable
       width={620}
       height={580}>
       <Window.Content scrollable>
