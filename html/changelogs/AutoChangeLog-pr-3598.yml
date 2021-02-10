@@ -1,0 +1,10 @@
+author: MNarath1
+delete-after: true
+changes:
+  - rscadd: coffin animation
+  - tweak: angle of crate animation
+  - tweak: freezer sprite and animation parameter
+  - bugfix: some crate sprites breaking animation
+  - tweak: use icon_door_override to allow for removal of unnecessary sprites
+  - tweak: changing crate sprite names for consistancy
+  - rscdel: unnecessary sprites after using icon_door_override whenever possible
