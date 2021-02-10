@@ -34,7 +34,8 @@
 		return
 
 	if (!light_power || !light_range) // We won't emit light anyways, destroy the light source.
-		QDEL_NULL(light)
+		if(light)
+			QDEL_NULL(light)
 	else
 		if (!ismovableatom(loc)) // We choose what atom should be the top atom of the light here.
 			. = src
@@ -106,31 +107,14 @@
 	return ..()
 
 
-/atom/proc/flash_lighting_fx(_range = FLASH_LIGHT_RANGE, _power = FLASH_LIGHT_POWER, _color = LIGHT_COLOR_WHITE, _duration = FLASH_LIGHT_DURATION, _reset_lighting = TRUE)
-	return
-
-/turf/flash_lighting_fx(_range = FLASH_LIGHT_RANGE, _power = FLASH_LIGHT_POWER, _color = LIGHT_COLOR_WHITE, _duration = FLASH_LIGHT_DURATION, _reset_lighting = TRUE)
-	if(!_duration)
-		stack_trace("Lighting FX obj created on a turf without a duration")
-	new /obj/effect/dummy/lighting_obj (src, _color, _range, _power, _duration)
-
-/obj/flash_lighting_fx(_range = FLASH_LIGHT_RANGE, _power = FLASH_LIGHT_POWER, _color = LIGHT_COLOR_WHITE, _duration = FLASH_LIGHT_DURATION, _reset_lighting = TRUE)
-	var/temp_color
-	var/temp_power
-	var/temp_range
-	if(!_reset_lighting) //incase the obj already has a lighting color that you don't want cleared out after, ie computer monitors.
-		temp_color = light_color
-		temp_power = light_power
-		temp_range = light_range
-	set_light(_range, _power, _color)
-	addtimer(CALLBACK(src, /atom/proc/set_light, _reset_lighting ? initial(light_range) : temp_range, _reset_lighting ? initial(light_power) : temp_power, _reset_lighting ? initial(light_color) : temp_color), _duration, TIMER_OVERRIDE|TIMER_UNIQUE)
-
-/mob/living/flash_lighting_fx(_range = FLASH_LIGHT_RANGE, _power = FLASH_LIGHT_POWER, _color = LIGHT_COLOR_WHITE, _duration = FLASH_LIGHT_DURATION, _reset_lighting = TRUE)
-	mob_light(_color, _range, _power, _duration)
-
-/mob/living/proc/mob_light(_color, _range, _power, _duration)
-	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = new (src, _color, _range, _power, _duration)
-	return mob_light_obj
+/atom/proc/flash_lighting_fx(
+		_range = FLASH_LIGHT_RANGE,
+		_power = FLASH_LIGHT_POWER,
+		_color = LIGHT_COLOR_WHITE,
+		_duration = FLASH_LIGHT_DURATION,
+		_reset_lighting = TRUE,
+		_flash_times = 1)
+	new /obj/effect/light_flash(get_turf(src), _range, _power, _color, _duration, _flash_times)
 
 /atom/proc/add_vis_contents(atom/thing)
 	return
@@ -149,3 +133,14 @@
 
 /atom/movable/remove_vis_contents(atom/thing)
 	vis_contents -= thing
+
+/obj/effect/light_flash/Initialize(mapload, _range = FLASH_LIGHT_RANGE, _power = FLASH_LIGHT_POWER, _color = LIGHT_COLOR_WHITE, _duration = FLASH_LIGHT_DURATION, _flash_times = 1)
+	light_range = _range
+	light_power = _power
+	light_color = _color
+	. = ..()
+	for(var/i in 1 to _flash_times)
+		light.our_mask.alpha = 255
+		animate(light.our_mask, time = _duration, easing = SINE_EASING, alpha = 0)
+		sleep(_duration)
+	qdel(src)

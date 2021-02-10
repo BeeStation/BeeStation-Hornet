@@ -31,11 +31,10 @@
 
 	src.radius = radius
 	var/radius_safe = FLOOR(radius + 1, 1) * 32
-	var/diameter = radius_safe * 2
-	bound_x = -radius_safe
-	bound_y = -radius_safe
-	bound_height = diameter
-	bound_width = diameter
+	bound_x = -radius_safe * 2
+	bound_y = -radius_safe * 2
+	bound_height = radius_safe * 4
+	bound_width = radius_safe * 4
 
 /atom/movable/lighting_mask/proc/apply_matrix(matrix/M, transform_time = 0)
 	if(transform_time)
