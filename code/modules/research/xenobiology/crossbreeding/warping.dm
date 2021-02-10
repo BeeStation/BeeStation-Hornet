@@ -662,7 +662,6 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 
 		var/atom/movable/A = new path(rune_turf)
 		for(var/obj/item/I in valuable_items)
-			I.loc = null
 			qdel(I)
 		to_chat(user, "<spawn class='notice'>[src] shines and [A] appears before you.</span>")
 	else
