@@ -26,15 +26,17 @@
 
 //Returns a list of matrices corresponding to the matrices that should be applied to triangles of
 //coordinates (0,0),(1,0),(0,1) to create a triangcalculate_shadows_matricesle that respresents the shadows
-/atom/movable/lighting_mask/alpha/proc/calculate_lighting_shadows(range = radius * 0.5)
+//takes in the old turf to smoothly animate shadow movement
+/atom/movable/lighting_mask/alpha/proc/calculate_lighting_shadows(oldTurf)
 	//Dont bother calculating at all for small shadows
+	var/range = radius * 0.5
 	if(range < 1)
 		return
 	var/unrounded_range = range
-	range = FLOOR(range, 1)
+	range = FLOOR(unrounded_range, 1)
 	if(unrounded_range > range)
 		range ++
-	var/timer = TICK_USAGE
+	//var/timer = TICK_USAGE
 	//Remove the old shadows
 	overlays.Cut()
 	//Optimise grouping by storing as
@@ -48,11 +50,11 @@
 			//the atom itself, only the position values
 			COORD_LIST_ADD(opaque_atoms_in_view, thing.x, thing.y)
 			DEBUG_HIGHLIGHT(thing.x, thing.y, "#0000FF")
-	log_game("[TICK_USAGE_TO_MS(timer)]ms to process view([range], src).")
+	//log_game("[TICK_USAGE_TO_MS(timer)]ms to process view([range], src).")
 	var/temp_timer = TICK_USAGE
 	//Group atoms together for optimisation
 	var/list/grouped_atoms = group_atoms(opaque_atoms_in_view)
-	log_game("[TICK_USAGE_TO_MS(temp_timer)]ms to process group_atoms")
+	//log_game("[TICK_USAGE_TO_MS(temp_timer)]ms to process group_atoms")
 	temp_timer = TICK_USAGE
 	var/total_coordgroup_time = 0
 	var/total_cornergroup_time = 0
@@ -74,12 +76,12 @@
 		total_cornergroup_time += TICK_USAGE_TO_MS(temp_timer)
 		temp_timer = TICK_USAGE
 
-		var/list/triangles = calculate_triangle_vertices(cornergroup, range)
+		var/list/triangles = calculate_triangle_vertices(cornergroup)
 		triangle_time += TICK_USAGE_TO_MS(temp_timer)
 		temp_timer = TICK_USAGE
 
 		for(var/triangle in triangles)
-			var/matrix/M = triangle_to_matrix(triangle, range)
+			var/matrix/M = triangle_to_matrix(triangle)
 
 			triangle_to_matrix_time += TICK_USAGE_TO_MS(temp_timer)
 			temp_timer = TICK_USAGE
@@ -112,20 +114,20 @@
 			temp_timer = TICK_USAGE
 
 	overlays += overlays_to_add
-	log_game("total_coordgroup_time: [total_coordgroup_time]ms")
-	log_game("total_cornergroup_time: [total_cornergroup_time]ms")
-	log_game("triangle_time calculation: [triangle_time]ms")
-	log_game("triangle_to_matrix_time: [triangle_to_matrix_time]")
-	log_game("matrix_division_time: [matrix_division_time]")
-	log_game("MA_new_time: [MA_new_time]")
-	log_game("MA_vars_time: [MA_vars_time]")
-	log_game("overlays_add_time: [overlays_add_time]")
-	log_game("[TICK_USAGE_TO_MS(timer)]ms to process total.")
+	//log_game("total_coordgroup_time: [total_coordgroup_time]ms")
+	//log_game("total_cornergroup_time: [total_cornergroup_time]ms")
+	//log_game("triangle_time calculation: [triangle_time]ms")
+	//log_game("triangle_to_matrix_time: [triangle_to_matrix_time]")
+	//log_game("matrix_division_time: [matrix_division_time]")
+	//log_game("MA_new_time: [MA_new_time]")
+	//log_game("MA_vars_time: [MA_vars_time]")
+	//log_game("overlays_add_time: [overlays_add_time]")
+	//log_game("[TICK_USAGE_TO_MS(timer)]ms to process total.")
 
 //Converts a triangle into a matrix that can be applied to a standardized triangle
 //to make it represent the points.
 //Note: Ignores translation because
-/atom/movable/lighting_mask/alpha/proc/triangle_to_matrix(list/triangle, range)
+/atom/movable/lighting_mask/alpha/proc/triangle_to_matrix(list/triangle)
 	var/turf/our_turf = get_turf(attached_atom)
 	var/ourx = our_turf.x
 	var/oury = our_turf.y
@@ -143,8 +145,8 @@
 	//Assumption that is incorrect
 	//Triangle points are
 	// (-4, -4)
-	// (-4, 4)
-	// (4, -4)
+	// (-4,  4)
+	// ( 4, -4)
 	//Would be much easier if it was (0, 0) instead of (-4, -4) but since we have 6 inputs and 6 unknowns
 	//we can solve the values of the matrix pretty easilly simultaneously.
 	//In fact since variables U,W,Y,A,B,C are separate to V,X,Z,D,E,F its easy since its 2 identical tri-variable simultaneous equations.
@@ -163,7 +165,8 @@
 	var/f = (translatedPoint3y + translatedPoint2y) / 2
 	//Matrix time g
 	//a,b,d and e can be used to define the shape, C and F can be used for translation god matrices are so beautiful
-	var/radius_based_offset = range * 6 + 0.5
+	//Completely random offset that I didnt derive, I just trialled and errored for about 4 hours until it randomly worked
+	var/radius_based_offset = radius * 3 + 3.5
 	var/matrix/M = matrix(a, b, (c * 32) - ((radius_based_offset) * 32), d, e, (f * 32) - ((radius_based_offset) * 32))
 	//message_admins("[M.a], [M.d], 0")
 	//message_admins("[M.b], [M.e], 0")
@@ -176,7 +179,7 @@
 // Layer 2: Vertex
 // Layer 3: X/Y value
 //OUTPUT: The same thing but with 3 lists embedded rather than 2 because they are triangles not lines now.
-/atom/movable/lighting_mask/alpha/proc/calculate_triangle_vertices(list/cornergroup, range)
+/atom/movable/lighting_mask/alpha/proc/calculate_triangle_vertices(list/cornergroup)
 	//Get the origin poin's
 	var/turf/our_turf = get_turf(attached_atom)
 	var/ourx = our_turf.x
@@ -189,13 +192,28 @@
 		var/vertex1 = line[1]
 		var/vertex2 = line[2]
 		//Extend them and get end vertices
+		//Calculate vertex 3 position
+		var/delta_x = abs(vertex1[1] - ourx)
+		var/delta_y = abs(vertex1[2] - oury)
+		var/extension = 0
+		if(delta_x < delta_y)
+			extension = radius / delta_x
+		else
+			extension = radius / delta_y
 		var/vertex3 = list(
-			(vertex1[1] - ourx) * range + ourx,
-			(vertex1[2] - oury) * range + oury
+			(vertex1[1] - ourx) * extension + ourx,
+			(vertex1[2] - oury) * extension + oury
 			)
+		//For vertex 4
+		delta_x = abs(vertex2[1] - ourx)
+		delta_y = abs(vertex2[2] - oury)
+		if(delta_x < delta_y)
+			extension = radius / delta_x
+		else
+			extension = radius / delta_y
 		var/vertex4 = list(
-			(vertex2[1] - ourx) * range + ourx,
-			(vertex2[2] - oury) * range + oury
+			(vertex2[1] - ourx) * extension + ourx,
+			(vertex2[2] - oury) * extension + oury
 			)
 		//Generate triangles
 		var/triangle1 = list(vertex1, vertex2, vertex3)

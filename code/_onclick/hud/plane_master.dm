@@ -72,13 +72,7 @@
 	mymob.overlay_fullscreen("lighting_backdrop_lit", /atom/movable/screen/fullscreen/lighting_backdrop/lit)
 	mymob.overlay_fullscreen("lighting_backdrop_unlit", /atom/movable/screen/fullscreen/lighting_backdrop/unlit)
 	filters = list()
-	filters += GAUSSIAN_BLUR(2)
-
-/atom/movable/screen/plane_master/lighting_colour
-	name = "colour plane master"
-	plane = LIGHTING_COLOUR_PLANE
-	blend_mode = BLEND_MULTIPLY
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	filters += GAUSSIAN_BLUR(4)
 
 /atom/movable/screen/plane_master/parallax
 	name = "parallax plane master"

@@ -202,7 +202,7 @@
 	var/on = FALSE					// 1 if on, 0 if off
 	var/on_gs = FALSE
 	var/static_power_used = 0
-	var/brightness = 10			// luminosity when on, also used in power calculation
+	var/brightness = 9			// luminosity when on, also used in power calculation
 	var/bulb_power = 0.4			// basically the alpha of the emitted light source
 	var/bulb_colour = "#FFF6ED"	// befault colour of the light.
 	var/status = LIGHT_OK		// LIGHT_OK, _EMPTY, _BURNED or _BROKEN
@@ -305,11 +305,11 @@
 	spawn(2)
 		switch(fitting)
 			if("tube")
-				brightness = 11
+				brightness = 7
 				if(prob(2))
 					break_light_tube(1)
 			if("bulb")
-				brightness = 6
+				brightness = 5
 				if(prob(5))
 					break_light_tube(1)
 		spawn(1)
@@ -387,7 +387,7 @@
 					burn_out()
 			else
 				use_power = ACTIVE_POWER_USE
-				set_light(BR, PO, CO)
+				set_light(BR, PO, CO, mask_type = /atom/movable/lighting_mask/alpha/primary_lighting)
 	else if(use_emergency_power(LIGHT_EMERGENCY_POWER_USE) && !turned_off())
 		use_power = IDLE_POWER_USE
 		emergency_mode = TRUE
