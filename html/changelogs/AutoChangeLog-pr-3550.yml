@@ -1,9 +1,0 @@
-author: 'cacogen, Ryll/Shaps, Moccha-Bee, Dennok, '
-delete-after: true
-changes:
-  - rscdel: Old medbay clean bots
-  - rscadd: Scrubs MD added to Meta, box, donut, pubby, kilo and delta
-  - rscadd: Scrubs MD now give doctors access to it.
-  - tweak: The station's new Orion Trail arcade machines now detect certain antisocial
-      behaviors and can warn security and medical personnel about unhinged gamers.
-  - tweak: Updated material_container.dm
