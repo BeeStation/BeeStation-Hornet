@@ -267,11 +267,11 @@
 /obj/item/organ/cyberimp/skillChip/paramedic
 	name = "Paramedical Skillchip"
 	desc = "A piece of bleeding-edge tech which teaches the user how to employ techniques to improve medical emergency response times."
-	applied_traits = list(TRAIT_PARAMEDIC)
+	applied_traits = list(TRAIT_QUICKER_CARRY)
 /obj/item/organ/cyberimp/skillChip/chiefMedical
 	name = "Chief Medical Officer Skillchip"
 	desc = "A piece of bleeding-edge tech which teaches the user how to efficiently use a chem dispenser and employ techniques to improve surgical outcomes."
-	applied_traits = list(TRAIT_SURGICAL_EXPERT, TRAIT_CHEMISTRY, TRAIT_PARAMEDIC)
+	applied_traits = list(TRAIT_SURGICAL_EXPERT, TRAIT_CHEMISTRY, TRAIT_QUICKER_CARRY)
 
 /obj/item/organ/cyberimp/skillChip/chef
 	name = "Chef SkillChip"
@@ -286,7 +286,7 @@
 /obj/item/organ/cyberimp/skillChip/omniChip //Parent type for all omni chips. This kind is Uplink Only
 	name = "OmniChip"
 	desc = "A piece of bleeding-edge tech which teaches the user all the non-martial arts related skills from other SkillChips."
-	applied_traits = list(TRAIT_CHEMISTRY, TRAIT_SURGICAL_EXPERT, TRAIT_CONSTRUCTION, TRAIT_BOOZE_SLIDER, TRAIT_PARAMEDIC)
+	applied_traits = list(TRAIT_CHEMISTRY, TRAIT_SURGICAL_EXPERT, TRAIT_CONSTRUCTION, TRAIT_BOOZE_SLIDER, TRAIT_QUICKER_CARRY)
 
 /obj/item/organ/cyberimp/skillChip/omniChip/omniChipChef
 	name = "OmniChip Cooking Edition"
