@@ -1341,3 +1341,11 @@
 	template_width = 10
 	weight = 4
 	stock = 2
+
+/datum/map_template/random_room/outdoors
+	name = "ancient interchange"
+	room_id = "sk_rdmo0_asteroid_test"
+	mappath = "_maps/RandomRooms/outdoors/sk_rdmo0_asteroid_test.dmm"
+	template_height = 7
+	template_width = 7
+	centerspawner = TRUE
