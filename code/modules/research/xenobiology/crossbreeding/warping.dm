@@ -400,7 +400,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/item/slimecross/warping/cerulean
 	colour = "cerulean"
 	runepath = /obj/effect/warped_rune/ceruleanspace
-	effect_desc = "Draws a rune creating a hologram of the last living thing that stepped on the tile."
+	effect_desc = "Draws a rune that creates a hologram of the first living thing that stepped on the tile."
 
 /obj/effect/warped_rune/ceruleanspace
 	desc = "A shadow of what once passed these halls, a memory perhaps?"
