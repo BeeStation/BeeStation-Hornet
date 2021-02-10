@@ -17,6 +17,7 @@
 	var/list/modules = list() //holds all the usable modules
 	var/list/added_modules = list() //modules not inherient to the robot module, are kept when the module changes
 	var/list/storages = list()
+	var/list/traits = list()
 
 	var/cyborg_base_icon = "robot" //produces the icon for the borg and, if no special_light_key is set, the lights
 	var/special_light_key //if we want specific lights, use this instead of copying lights in the dmi
@@ -306,6 +307,7 @@
 	moduleselect_icon = "medical"
 	can_be_pushed = FALSE
 	hat_offset = 3
+	traits = list(TRAIT_SURGICAL_EXPERT, TRAIT_CHEMISTRY)
 
 /obj/item/robot_module/engineering
 	name = "Engineering"
@@ -348,6 +350,7 @@
 	moduleselect_icon = "engineer"
 	magpulsing = TRUE
 	hat_offset = -4
+	traits = list(TRAIT_CONSTRUCTION)
 
 /obj/item/robot_module/deathsquad
 	name = "CentCom"
@@ -535,6 +538,7 @@
 	moduleselect_icon = "service"
 	special_light_key = "service"
 	hat_offset = 0
+	traits = list(TRAIT_CHEMISTRY, TRAIT_BOOZE_SLIDER)
 
 /obj/item/robot_module/butler/respawn_consumable(mob/living/silicon/robot/R, coeff = 1)
 	..()
@@ -678,6 +682,7 @@
 	moduleselect_icon = "malf"
 	can_be_pushed = FALSE
 	hat_offset = 3
+	traits = list(TRAIT_CHEMISTRY, TRAIT_SURGICAL_EXPERT)
 
 /obj/item/robot_module/saboteur
 	name = "Syndicate Saboteur"
@@ -712,6 +717,7 @@
 	magpulsing = TRUE
 	hat_offset = -4
 	canDispose = TRUE
+	traits = list(TRAIT_CONSTRUCTION)
 
 /datum/robot_energy_storage
 	var/name = "Generic energy storage"

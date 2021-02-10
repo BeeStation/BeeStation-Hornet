@@ -39,6 +39,7 @@
 	var/obj/item/robot_module/module = null
 	var/obj/item/module_active = null
 	held_items = list(null, null, null) //we use held_items for the module holding, because that makes sense to do!
+	var/list/traits = list()
 
 	var/mutable_appearance/eye_lights
 
@@ -219,6 +220,10 @@
 		return
 
 	module.transform_to(modulelist[input_module])
+	if(module)
+		for(var/trait in module.traits)
+			var/mob/living/silicon/robot/R = loc
+			ADD_TRAIT(R, trait, "Cyborg_Module")
 
 
 /mob/living/silicon/robot/proc/updatename(client/C)
