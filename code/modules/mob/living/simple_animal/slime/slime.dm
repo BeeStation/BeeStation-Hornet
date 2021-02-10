@@ -110,14 +110,6 @@
 	. = ..()
 	set_nutrition(700)
 
-/mob/living/simple_animal/slime/Destroy()
-	for(var/A in actions)
-		var/datum/action/AC = A
-		AC.Remove(src)
-	remove_form_spawner_menu()
-	master = null
-	return ..()
-
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
 	colour = new_colour
 	update_name()
@@ -549,15 +541,11 @@
 /mob/living/simple_animal/slime/get_spawner_flavour_text()
 	return "You are a slime born and raised in a laboratory.[master ? " Your duty is to follow the orders of [master.real_name].": ""]"
 
-/mob/living/simple_animal/slime/death(gibbed)
-	remove_form_spawner_menu()
-	. = ..()
-
 /mob/living/simple_animal/slime/ghostize(can_reenter_corpse = TRUE)
 	. = ..()
-	if(. && transformeffects & SLIME_EFFECT_LIGHT_PINK)
+	if(. && transformeffects & SLIME_EFFECT_LIGHT_PINK && stat != DEAD)
 		LAZYADD(GLOB.mob_spawners["[master.real_name]'s slime"], src)
-	GLOB.poi_list |= src
+		GLOB.poi_list |= src
 
 /mob/living/simple_animal/slime/proc/remove_form_spawner_menu()
 	for(var/spawner in GLOB.mob_spawners)

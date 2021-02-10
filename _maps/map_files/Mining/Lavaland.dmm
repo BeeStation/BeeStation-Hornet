@@ -1348,6 +1348,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 6
 	},
+/mob/living/simple_animal/bot/atmosbot{
+	name = "Officer Fastmosky"
+	},
 /turf/open/floor/plasteel,
 /area/mine/eva)
 "fi" = (
@@ -3178,7 +3181,7 @@
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock/research{
 	name = "Robotics Lab";
-	req_access_txt = "29"
+	req_access_txt = "47,54,29"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 8
@@ -4645,11 +4648,8 @@
 /area/mine/living_quarters)
 "Fe" = (
 /obj/structure/table/wood/bar,
-/obj/item/storage/box/donkpockets{
-	pixel_x = -2;
-	pixel_y = 5
-	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/donkpockets,
 /turf/open/floor/carpet/black,
 /area/mine/science)
 "Fi" = (
@@ -5326,7 +5326,7 @@
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock/medical/glass{
 	name = "Chemistry Lab";
-	req_access_txt = "5; 33"
+	req_access_txt = "47,54,29"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 8
@@ -5839,6 +5839,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 8
+	},
+/obj/item/bot_assembly/atmosbot{
+	created_name = "Fastmosky Senior";
+	name = "old atmosbot assembly"
 	},
 /turf/open/floor/plasteel,
 /area/mine/science)
