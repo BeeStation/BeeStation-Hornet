@@ -108,12 +108,10 @@
 /obj/effect/mine/proc/mineEffect(mob/victim)
 	to_chat(victim, "<span class='danger'>*click*</span>")
 
-/obj/effect/mine/Crossed(AM as mob|obj)
-	if(isturf(loc))
+/obj/effect/mine/Crossed(atom/movable/AM as mob|obj)
+	if(isturf(loc) && !(AM.movement_type & FLYING))
 		if(ismob(AM))
-			var/mob/MM = AM
-			if(!(MM.movement_type & FLYING))
-				checksmartmine(AM)
+			checksmartmine(AM)
 		else
 			triggermine(AM)
 
