@@ -1,4 +1,9 @@
 //#define SHADOW_DEBUG
+//Lighting texture scales in world units (divide by 32)
+//256 = 8,4,2
+//1024 = 32,16,8
+#define LIGHTING_SHADOW_TEX_SIZE 32
+#define NUMBER_IM_NOT_TELLING_YOU_HOW_TO_WORKOUT_OR_WHAT_THE_SIGNIFICANCE_OF_THIS_IS_BUT_IF_YOU_CHANGE_IT_LIGHTING_BREAKS 36.5
 
 #define COORD_LIST_ADD(listtoadd, x, y) \
 	if(islist(listtoadd["[x]"])) { \
@@ -22,8 +27,13 @@
 //Returns a list of matrices corresponding to the matrices that should be applied to triangles of
 //coordinates (0,0),(1,0),(0,1) to create a triangcalculate_shadows_matricesle that respresents the shadows
 /atom/movable/lighting_mask/alpha/proc/calculate_lighting_shadows(range = radius * 0.5)
-	if(range < 1.5)
+	//Dont bother calculating at all for small shadows
+	if(range < 1)
 		return
+	var/unrounded_range = range
+	range = FLOOR(range, 1)
+	if(unrounded_range > range)
+		range ++
 	var/timer = TICK_USAGE
 	//Remove the old shadows
 	overlays.Cut()
@@ -69,13 +79,12 @@
 		temp_timer = TICK_USAGE
 
 		for(var/triangle in triangles)
-			var/matrix/M = matrix()
+			var/matrix/M = triangle_to_matrix(triangle, range)
 
 			triangle_to_matrix_time += TICK_USAGE_TO_MS(temp_timer)
 			temp_timer = TICK_USAGE
 
 			M /= transform
-			M *= triangle_to_matrix(triangle)
 
 			matrix_division_time += TICK_USAGE_TO_MS(temp_timer)
 			temp_timer = TICK_USAGE
@@ -85,9 +94,8 @@
 			MA_new_time += TICK_USAGE_TO_MS(temp_timer)
 			temp_timer = TICK_USAGE
 
-			shadow.icon = LIGHTING_ICON_BIG
+			shadow.icon = LIGHTING_ICON_HUGE
 			shadow.icon_state = "triangle"
-			shadow.plane = LIGHTING_PLANE
 			shadow.layer = LIGHTING_SHADOW_LAYER
 			shadow.blend_mode = BLEND_DEFAULT
 			shadow.color = "#000000"
@@ -116,7 +124,7 @@
 //Converts a triangle into a matrix that can be applied to a standardized triangle
 //to make it represent the points.
 //Note: Ignores translation because
-/atom/movable/lighting_mask/alpha/proc/triangle_to_matrix(list/triangle)
+/atom/movable/lighting_mask/alpha/proc/triangle_to_matrix(list/triangle, range)
 	var/turf/our_turf = get_turf(attached_atom)
 	var/ourx = our_turf.x
 	var/oury = our_turf.y
@@ -141,20 +149,21 @@
 	//In fact since variables U,W,Y,A,B,C are separate to V,X,Z,D,E,F its easy since its 2 identical tri-variable simultaneous equations.
 	//By solving the equations simultaneously we get these results:
 	//a = (y-u)/8
-	var/a = (translatedPoint3x - originx) / 8
+	var/a = (translatedPoint3x - originx) / LIGHTING_SHADOW_TEX_SIZE
 	//b = (w-u)/ 8
-	var/b = (translatedPoint2x - originx) / 8
+	var/b = (translatedPoint2x - originx) / LIGHTING_SHADOW_TEX_SIZE
 	//c = (y+w)/2
 	var/c = (translatedPoint3x + translatedPoint2x) / 2
 	//d = (z-v)/8
-	var/d = (translatedPoint3y - originy) / 8
+	var/d = (translatedPoint3y - originy) / LIGHTING_SHADOW_TEX_SIZE
 	//e = (x-v)/8
-	var/e = (translatedPoint2y - originy) / 8
+	var/e = (translatedPoint2y - originy) / LIGHTING_SHADOW_TEX_SIZE
 	//f = (z+x)/2
 	var/f = (translatedPoint3y + translatedPoint2y) / 2
 	//Matrix time g
 	//a,b,d and e can be used to define the shape, C and F can be used for translation god matrices are so beautiful
-	var/matrix/M = matrix(a, b, c * 32 - (3.5 * 32), d, e, f * 32 - (3.5 * 32))
+	var/radius_based_offset = range * 6 + 0.5
+	var/matrix/M = matrix(a, b, (c * 32) - ((radius_based_offset) * 32), d, e, (f * 32) - ((radius_based_offset) * 32))
 	//message_admins("[M.a], [M.d], 0")
 	//message_admins("[M.b], [M.e], 0")
 	//message_admins("[M.c], [M.f], 1")

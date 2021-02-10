@@ -683,6 +683,7 @@
 			if(!stat)
 				update_icon(AIRLOCK_DENY)
 				playsound(src,doorDeni,50,0,3)
+				flash_lighting_fx(0.8, 22, LIGHT_COLOR_RED, 2, _flash_times = 3)
 				sleep(6)
 				update_icon(AIRLOCK_CLOSED)
 
