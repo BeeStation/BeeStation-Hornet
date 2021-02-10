@@ -99,6 +99,7 @@
 			shadow.layer = LIGHTING_SHADOW_LAYER
 			shadow.blend_mode = BLEND_DEFAULT
 			shadow.color = "#000000"
+			shadow.alpha = 255
 			shadow.appearance_flags = RESET_TRANSFORM | RESET_COLOR | RESET_ALPHA
 			shadow.transform = M
 
