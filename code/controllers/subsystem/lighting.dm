@@ -29,5 +29,4 @@ SUBSYSTEM_DEF(lighting)
 	message_admins("Building [light_sources.len] shadows, its been an honour mrs obama")
 	for(var/datum/light_source/light as() in light_sources)
 		light.our_mask.calculate_lighting_shadows()
-		CHECK_TICK
 	message_admins("Shadows built in [TICK_USAGE_TO_MS(timer)]ms ([light_sources.len] shadows)")

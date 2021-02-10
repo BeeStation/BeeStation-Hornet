@@ -123,9 +123,14 @@
 				C.head_update(src, forced = 1)
 
 			if(active_sound)
+				var/index = 0
 				while(up)
 					playsound(src, "[active_sound]", 100, FALSE, 4)
+					if(active_colours)
+						index = (index + 1) % length(active_colours)
+						set_light(active_light_range, active_light_intensity, active_colours[index + 1])
 					sleep(15)
+				set_light(initial(light_range), initial(light_power), initial(light_color))
 
 /obj/item/clothing/head/helmet/justice
 	name = "helmet of justice"
@@ -137,6 +142,9 @@
 	can_toggle = 1
 	toggle_cooldown = 20
 	active_sound = 'sound/items/weeoo1.ogg'
+	active_light_range = 1.6
+	active_light_intensity = 18
+	active_colours = list(LIGHT_COLOR_RED, LIGHT_COLOR_BLUE)
 	dog_fashion = null
 
 /obj/item/clothing/head/helmet/justice/escape

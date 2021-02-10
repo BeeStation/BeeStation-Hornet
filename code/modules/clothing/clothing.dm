@@ -19,6 +19,9 @@
 	var/toggle_message = null
 	var/alt_toggle_message = null
 	var/active_sound = null
+	var/list/active_colours = null
+	var/active_light_range = 0
+	var/active_light_intensity = 0
 	var/toggle_cooldown = null
 	var/cooldown = 0
 	var/envirosealed = FALSE //is it safe for plasmamen

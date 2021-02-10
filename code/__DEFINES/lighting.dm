@@ -10,6 +10,7 @@
 
 #define LIGHTING_ICON 'icons/effects/lighting_object.dmi' //! icon used for lighting shading effects
 #define LIGHTING_ICON_BIG 'icons/effects/lighting_object_big.dmi' //! icon used for lighting shading effects
+#define LIGHTING_ICON_HUGE 'icons/effects/lighting_object_huge.dmi'
 
 /// If the max of the lighting lumcounts of each spectrum drops below this, disable luminosity on the lighting objects. Set to zero to disable soft lighting. Luminosity changes then work if it's lit at all.
 #define LIGHTING_SOFT_THRESHOLD 0
@@ -74,7 +75,7 @@
 #define LIGHTING_FORCE_UPDATE 3
 
 #define FLASH_LIGHT_DURATION 2
-#define FLASH_LIGHT_POWER 3
+#define FLASH_LIGHT_POWER 22	//Maximum power for light mask opacity 255
 #define FLASH_LIGHT_RANGE 3.8
 
 /// Uses vis_overlays to leverage caching so that very few new items need to be made for the overlay. For anything that doesn't change outline or opaque area much or at all.
