@@ -1345,7 +1345,7 @@
 /datum/map_template/random_room/outdoors
 	name = "ancient interchange"
 	room_id = "sk_rdmo0_asteroid_test"
-	mappath = "_maps/RandomRooms/outdoors/sk_rdmo0_asteroid_test.dmm"
-	template_height = 7
-	template_width = 7
+	mappath = "_maps/RandomRooms/outdoors/sk_rdmo1_asteroid.dmm"
+	template_height = 12
+	template_width = 12
 	centerspawner = TRUE

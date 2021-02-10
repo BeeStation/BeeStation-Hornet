@@ -1,0 +1,19 @@
+"a" = (/turf/open/space/basic,/area/space)
+"b" = (/turf/closed/mineral/random/volcanic,/area/space)
+"c" = (/turf/closed/mineral/random/low_chance,/area/space)
+"d" = (/turf/open/floor/plating/asteroid/airless,/area/space)
+
+(1,1,1) = {"
+aaaaaaaaaaaa
+aaaaaaaaaaaa
+aaaaabbcbbaa
+aaabccbccbaa
+aacbccccbbaa
+aacccbcbddaa
+aabccccddaaa
+aabccbcdddaa
+aaaccbdddcaa
+aaabccadccca
+aaabbaaaacaa
+aaaaaaaaaaaa
+"}

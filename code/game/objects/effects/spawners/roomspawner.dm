@@ -70,11 +70,11 @@
 	room_height = 3
 
 /obj/effect/spawner/room/outdoors
-	name = "7x7 outdoors spawner"
-	room_width = 7
-	room_height = 7
+	name = "12x12 outdoors spawner"
+	room_width = 12
+	room_height = 12
 	//a chance to not spawn at all, so that meteors are not in predictable locations and exploration is required, to a lesser extent
-	var/spawnchance = 75
+	var/spawnchance = 80
 	
 /obj/effect/spawner/room/outdoors/LateSpawn()
 	if (prob(spawnchance))
