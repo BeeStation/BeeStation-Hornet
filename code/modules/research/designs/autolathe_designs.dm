@@ -1076,6 +1076,14 @@
 	category = list("initial", "misc","Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/skillChipParamedic
+	name = "Paramedic Skillchip"
+	id = "skillChip_Paramedical"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 400, /datum/material/glass = 400)
+	build_path = /obj/item/autosurgeon/skillChip/paramedicChip
+	category = list("initial", "misc","Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 /datum/design/skillChipChemistry
 	name = "Chemistry Skillchip"
 	id = "skillChip_Chemistry"
