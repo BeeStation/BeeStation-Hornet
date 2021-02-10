@@ -80,7 +80,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	anchored = TRUE
 	var/uid = 1
 	var/static/gl_uid = 1
-	light_range = 4
+	light_range = 10
+	light_color = LIGHT_COLOR_YELLOW
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 

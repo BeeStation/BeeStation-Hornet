@@ -3,6 +3,7 @@
 	var/light_power = 1 // Intensity of the light.
 	var/light_range = 0 // Range in tiles of the light.
 	var/light_color     // Hexadecimal RGB string representing the colour of the light.
+	var/light_mask_type
 
 	var/tmp/datum/light_source/light // Our light source. Don't fuck with this directly unless you have a good reason!
 	var/tmp/list/light_sources       // Any light sources that are "inside" of us, for example, if src here was a mob that's carrying a flashlight, that flashlight's light source would be part of this list.
@@ -10,7 +11,7 @@
 // The proc you should always use to set the light of this atom.
 // Nonesensical value for l_color default, so we can detect if it gets set to null.
 #define NONSENSICAL_VALUE -99999
-/atom/proc/set_light(var/l_range, var/l_power, var/l_color = NONSENSICAL_VALUE)
+/atom/proc/set_light(l_range, l_power, l_color = NONSENSICAL_VALUE, mask_type)
 	if(l_range > 0 && l_range < MINIMUM_USEFUL_LIGHT_RANGE)
 		l_range = MINIMUM_USEFUL_LIGHT_RANGE	//Brings the range up to 1.4, which is just barely brighter than the soft lighting that surrounds players.
 	if (l_power != null)
@@ -21,6 +22,9 @@
 
 	if (l_color != NONSENSICAL_VALUE)
 		light_color = l_color
+
+	if(mask_type != null)
+		light_mask_type = mask_type
 
 	SEND_SIGNAL(src, COMSIG_ATOM_SET_LIGHT, l_range, l_power, l_color)
 
@@ -37,21 +41,20 @@
 		if(light)
 			QDEL_NULL(light)
 	else
-		if (!ismovableatom(loc)) // We choose what atom should be the top atom of the light here.
-			. = src
-		else
-			. = loc
-
+		if(light && light_mask_type && light_mask_type != light.type)
+			QDEL_NULL(light)
 		if (!light) // Update the light or create it if it does not exist.
-			light = new/datum/light_source(src, .)
+			light = new /datum/light_source(src, light_mask_type)
 		else
 			light.set_light(light_range, light_power, light_color)
-			light.change_loc(.)
+			light.update_position()
 
 // If we have opacity, make sure to tell (potentially) affected light sources.
 /atom/movable/Destroy()
 	var/turf/T = loc
 	. = ..()
+	if(light)
+		QDEL_NULL(light)
 	if (opacity && istype(T))
 		var/old_has_opaque_atom = T.has_opaque_atom
 		T.recalc_atom_opacity()

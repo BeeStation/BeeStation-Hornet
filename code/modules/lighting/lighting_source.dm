@@ -2,8 +2,9 @@
 // These are the main datums that emit light.
 
 /datum/light_source
-	var/atom/top_atom        // The atom we're emitting light from (for example a mob if we're from a flashlight that's being held).
 	var/atom/source_atom     // The atom that we belong to.
+	var/atom/movable/contained_atom		//The atom that the source atom is contained inside
+	var/atom/cached_loc	//The loc where we were
 
 	var/turf/source_turf     // The turf under the above.
 	var/turf/pixel_turf      // The turf the top_atom appears to over.
@@ -22,22 +23,14 @@
 
 	var/atom/movable/lighting_mask/alpha/our_mask
 
-// Thanks to Lohikar for flinging this tiny bit of code at me, increasing my brain cell count from 1 to 2 in the process.
-// This macro will only offset up to 1 tile, but anything with a greater offset is an outlier and probably should handle its own lighting offsets.
-// Anything pixelshifted 16px or more will be considered on the next tile.
-#define GET_APPROXIMATE_PIXEL_DIR(PX, PY) ((!(PX) ? 0 : ((PX >= 16 ? EAST : (PX <= -16 ? WEST : 0)))) | (!PY ? 0 : (PY >= 16 ? NORTH : (PY <= -16 ? SOUTH : 0))))
-#define UPDATE_APPROXIMATE_PIXEL_TURF var/_mask = GET_APPROXIMATE_PIXEL_DIR(top_atom.pixel_x, top_atom.pixel_y); pixel_turf = _mask ? (get_step(source_turf, _mask) || source_turf) : source_turf
-
-/datum/light_source/New(var/atom/movable/owner, var/atom/top)
+/datum/light_source/New(var/atom/movable/owner, mask_type)
 	source_atom = owner // Set our new owner.
-	top_atom = top
 	LAZYADD(source_atom.light_sources, src)
-	top_atom = top
-	if (top_atom != source_atom)
-		LAZYADD(top_atom.light_sources, src)
 
-	source_turf = top_atom
-	UPDATE_APPROXIMATE_PIXEL_TURF
+	//Find the atom that contains us
+	find_containing_atom()
+
+	source_turf = get_turf(source_atom)
 
 	light_power = owner.light_power
 	light_range = owner.light_range
@@ -45,21 +38,45 @@
 
 	PARSE_LIGHT_COLOR(src)
 
-	our_mask = new()
+	if(!mask_type)
+		mask_type = /atom/movable/lighting_mask/alpha
+	our_mask = new mask_type(source_turf)
 	our_mask.attached_atom = owner
 	set_light(light_range, light_power, light_color)
-	top_atom.add_vis_contents(our_mask)
 
 	SSlighting.light_sources += src
 	our_mask.calculate_lighting_shadows()
 
 /datum/light_source/Destroy(force, ...)
 	qdel(our_mask, force = TRUE)
-	top_atom.remove_vis_contents(our_mask)
-
 	SSlighting.light_sources -= src
-
 	. = ..()
+
+/datum/light_source/proc/find_containing_atom()
+	//we are still in the same place, no action required
+	if(source_atom.loc == cached_loc)
+		return
+	//Store the loc so we know when we actually need to update
+	cached_loc = source_atom.loc
+	//Remove ourselves from the old containing atoms light sources
+	if(contained_atom && contained_atom != source_atom)
+		LAZYREMOVE(contained_atom.light_sources, src)
+	//Find our new container
+	if(isturf(source_atom) || isarea(source_atom))
+		contained_atom = source_atom
+		return
+	contained_atom = source_atom.loc
+	for(var/sanity in 1 to 20)
+		if(!contained_atom)
+			//Welcome to nullspace my friend.
+			contained_atom = source_atom
+			return
+		if(istype(contained_atom.loc, /turf))
+			break
+		contained_atom = contained_atom.loc
+	//Add ourselves to their light sources
+	if(contained_atom != source_atom)
+		LAZYADD(contained_atom.light_sources, src)
 
 /datum/light_source/proc/set_light(var/l_range, var/l_power, var/l_color = NONSENSICAL_VALUE)
 	if(!our_mask)
@@ -71,8 +88,6 @@
 	if(l_color != NONSENSICAL_VALUE)
 		our_mask.set_colour(l_color)
 
-/datum/light_source/proc/change_loc(atom/movable/new_loc)
-	top_atom.remove_vis_contents(our_mask)
-	top_atom = new_loc
-	top_atom.add_vis_contents(our_mask)
-	our_mask.calculate_lighting_shadows()
+/datum/light_source/proc/update_position()
+	our_mask.forceMove(get_turf(source_atom))
+	find_containing_atom()
