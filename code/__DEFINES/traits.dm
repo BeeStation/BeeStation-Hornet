@@ -147,9 +147,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ABDUCTOR_TRAINING "abductor-training"
 #define TRAIT_ABDUCTOR_SCIENTIST_TRAINING "abductor-scientist-training"
 #define TRAIT_SURGEON           "surgeon"
-#define TRAIT_CONSTRUCTION		"construction" //Having this trait makes you build/craft faster
-#define TRAIT_CHEMISTRY			"chemistry"  //Reagents are labelled when viewing a chem dispenser
-#define TRAIT_SURGICAL_EXPERT	"surgical_expertise"
+#define TRAIT_CONSTRUCTION		"construction" //Having this trait makes you build/craft faster; Skillchipped
+#define TRAIT_CHEMISTRY			"chemistry"  //Reagents are labelled when viewing a chem dispenser; Skillchipped
+#define TRAIT_SURGICAL_EXPERT	"surgical_expertise"//Better surgical outcomes when performing; Skillchipped
 #define	TRAIT_STRONG_GRABBER	"strong_grabber"
 #define	TRAIT_CALCIUM_HEALER	"calcium_healer"
 #define	TRAIT_MAGIC_CHOKE		"magic_choke"
