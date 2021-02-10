@@ -307,7 +307,7 @@
 	moduleselect_icon = "medical"
 	can_be_pushed = FALSE
 	hat_offset = 3
-	traits = list(TRAIT_SURGICAL_EXPERT, TRAIT_CHEMISTRY)
+	traits = list(TRAIT_CHEMISTRY)
 
 /obj/item/robot_module/engineering
 	name = "Engineering"
@@ -682,7 +682,7 @@
 	moduleselect_icon = "malf"
 	can_be_pushed = FALSE
 	hat_offset = 3
-	traits = list(TRAIT_CHEMISTRY, TRAIT_SURGICAL_EXPERT)
+	traits = list(TRAIT_CHEMISTRY)
 
 /obj/item/robot_module/saboteur
 	name = "Syndicate Saboteur"
