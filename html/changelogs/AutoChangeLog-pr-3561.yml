@@ -1,6 +1,0 @@
-author: bloons3
-delete-after: true
-changes:
-  - tweak: Modified Brig Physician access permissions and roundstart items
-  - balance: Made the Brig Physician a proper civilian, which means eligibility for
-      antags
