@@ -14,7 +14,6 @@
 
 	access = list(ACCESS_LIBRARY, ACCESS_AUX_BASE, ACCESS_MINING_STATION)
 	minimal_access = list(ACCESS_LIBRARY, ACCESS_AUX_BASE, ACCESS_MINING_STATION)
-
 	paycheck = PAYCHECK_EASY
 	paycheck_department = ACCOUNT_CIV
 
