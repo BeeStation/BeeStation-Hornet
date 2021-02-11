@@ -221,7 +221,7 @@
 			M.adjustStaminaLoss(25, 0)
 			to_chat(M, "<span class='warning'>You struggle to maintain your form!</span>")
 		else
-			M.blood_volume -= 30
+			M.blood_volume -= 10
 			to_chat(M, "<span class='warning'>The water causes you to melt away!</span>")
 		return
 	if(method == TOUCH)
