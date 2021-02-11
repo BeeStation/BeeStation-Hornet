@@ -166,6 +166,9 @@
 	blend_mode = BLEND_OVERLAY
 	show_when_dead = TRUE
 
+/atom/movable/screen/fullscreen/lighting_backdrop/update_for_view(client_view)
+	return
+
 //Provides darkness to the back of the lighting plane
 /atom/movable/screen/fullscreen/lighting_backdrop/lit
 	invisibility = INVISIBILITY_LIGHTING
@@ -182,7 +185,7 @@
 
 //Provides whiteness in case you don't see lights so everything is still visible
 /atom/movable/screen/fullscreen/lighting_backdrop/unlit
-	layer = BACKGROUND_LAYER+20
+	layer = BACKGROUND_LAYER
 	show_when_dead = TRUE
 
 /atom/movable/screen/fullscreen/see_through_darkness

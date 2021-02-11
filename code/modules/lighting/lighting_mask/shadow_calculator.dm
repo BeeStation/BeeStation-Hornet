@@ -153,9 +153,9 @@
 
 			shadow.icon = LIGHTING_ICON_BIG
 			shadow.icon_state = "triangle"
-			shadow.layer = LIGHTING_SHADOW_LAYER
+			shadow.layer = layer + 1
 			shadow.blend_mode = BLEND_DEFAULT
-			shadow.color = "#000000"
+			shadow.color = "#000"
 			shadow.alpha = 255
 			shadow.appearance_flags = RESET_TRANSFORM | RESET_COLOR | RESET_ALPHA
 			shadow.transform = M
