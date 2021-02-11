@@ -4,6 +4,11 @@
 # In the event that multiple org members are to be informed of changes
 # to the same file or dir, add them to the end under Multiple Owners
 
+
+# AzlanonPC
+
+/icons/ @SomeAngryMiner
+
 # crossedfall
 
 .dockerignore @crossedfall
