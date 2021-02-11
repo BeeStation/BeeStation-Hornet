@@ -48,14 +48,17 @@
 	our_mask.calculate_lighting_shadows()
 
 /datum/light_source/Destroy(force, ...)
-	qdel(our_mask, force = TRUE)
+	SSlighting.light_sources -= src
+	//Remove references to ourself.
+	LAZYREMOVE(source_atom?.light_sources, src)
+	LAZYREMOVE(contained_atom?.light_sources, src)
 	top_atom.remove_vis_contents(our_mask)
+	QDEL_NULL(our_mask)
 
 	top_atom = null
 	source_atom = null
 	source_turf = null
 	pixel_turf = null
-	SSlighting.light_sources -= src
 
 	return ..()
 

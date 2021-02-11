@@ -1,24 +1,30 @@
-GLOBAL_LIST_EMPTY(lighting_update_lights) // List of lighting sources  queued for update.
-GLOBAL_LIST_EMPTY(lighting_update_objects) // List of lighting objects queued for update.
-
 SUBSYSTEM_DEF(lighting)
 	name = "Lighting"
 	wait = 2
 	init_order = INIT_ORDER_LIGHTING
-	flags = SS_TICKER
+	flags = SS_NO_FIRE
 
+	var/total_shadow_calculations = 0
+
+	var/started = FALSE
+	var/list/sources_that_need_updating = list()
 	var/list/light_sources = list()
 
 /datum/controller/subsystem/lighting/stat_entry()
-	. = ..("L:[GLOB.lighting_update_lights.len]|O:[GLOB.lighting_update_objects.len]")
+	. = ..("Sources: [light_sources.len], ShCalcs: [total_shadow_calculations]")
 
 /datum/controller/subsystem/lighting/Initialize(timeofday)
-	fire(FALSE, TRUE)
-	return ..()
+	started = TRUE
+	to_chat(world, "<span class='boldannounce'>Generating shadows on [sources_that_need_updating.len] light sources.</span>")
+	var/timer = TICK_USAGE
+	for(var/atom/movable/lighting_mask/alpha/mask in sources_that_need_updating)
+		mask.calculate_lighting_shadows()
+	sources_that_need_updating = null
+	to_chat(world, "<span class='boldannounce'>Initial lighting conditions built successfully in [TICK_USAGE_TO_MS(timer)]ms.</span>")
+	. = ..()
 
-/datum/controller/subsystem/lighting/fire(resumed, init_tick_checks)
-	return
-
+/*/datum/controller/subsystem/lighting/fire(resumed, init_tick_checks)
+	return*/
 
 /datum/controller/subsystem/lighting/Recover()
 	initialized = SSlighting.initialized

@@ -18,9 +18,16 @@
 	bound_height = 256
 	bound_width = 256
 
+	move_resist = INFINITY
+
 	var/radius = 0
 
 	var/atom/attached_atom
+
+/atom/movable/lighting_mask/Destroy()
+	attached_atom = null
+
+	. = ..()
 
 /atom/movable/lighting_mask/proc/set_radius(radius, transform_time = 0)
 	apply_matrix(get_matrix(radius), transform_time)
@@ -47,5 +54,23 @@
 	// ^ Future me here, its because it works as translate then scale since its backwards.
 	M.Translate(-128 + (16 * proportion))
 	return M
+
+/atom/movable/lighting_mask/ex_act(severity, target)
+	return
+
+/atom/movable/lighting_mask/singularity_pull(obj/singularity/S, current_size)
+	return
+
+/atom/movable/lighting_mask/singularity_act()
+	return
+
+/atom/movable/lighting_mask/fire_act(exposed_temperature, exposed_volume)
+	return
+
+/atom/movable/lighting_mask/acid_act(acidpwr, acid_volume)
+	return
+
+/atom/movable/lighting_mask/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta, throw_target)
+	return
 
 #undef LIGHTING_MASK_SPRITE_SIZE
