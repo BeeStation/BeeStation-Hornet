@@ -10,7 +10,8 @@
 	description = ""
 
 /datum/keybinding/human/quick_equip/down(client/user)
-	if (!ishuman(user.mob)) return
+	if(!ishuman(user.mob) || user.mob.incapacitated())
+		return
 	var/mob/living/carbon/human/H = user.mob
 	H.quick_equip()
 	return TRUE
@@ -23,7 +24,8 @@
 	description = ""
 
 /datum/keybinding/human/quick_equip_belt/down(client/user)
-	if (!ishuman(user.mob)) return
+	if(!ishuman(user.mob) || user.mob.incapacitated())
+		return
 	var/mob/living/carbon/human/H = user.mob
 	var/obj/item/thing = H.get_active_held_item()
 	var/obj/item/equipped_belt = H.get_item_by_slot(SLOT_BELT)
@@ -61,7 +63,8 @@
 	description = ""
 
 /datum/keybinding/human/quick_equip_backpack/down(client/user)
-	if (!ishuman(user.mob)) return
+	if(!ishuman(user.mob) || user.mob.incapacitated())
+		return
 	var/mob/living/carbon/human/H = user.mob
 	var/obj/item/thing = H.get_active_held_item()
 	var/obj/item/equipped_back = H.get_item_by_slot(SLOT_BACK)
