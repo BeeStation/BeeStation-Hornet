@@ -59,12 +59,16 @@
 	return locate(target.x + round(gaussian(0, distro) * (dy+2)/8, 1), target.y + round(gaussian(0, distro) * (dx+2)/8, 1), target.z)
 
 /obj/item/ammo_casing/screwdriver_act(mob/living/user, obj/item/I)
-	user.visible_message("<span class='danger'>[user] hits the [src]'s primer with [user.p_their()] [I.name]!</span>")
-	if(prob(70))
+	user.visible_message("<span class='danger'>[user] hits the [src]'s primer with [user.p_their()] [I]!</span>")
+	if(prob(75))
 		fire_casing(get_step(src, user.dir), user, spread = rand(-40, 40), spread_mult = 4)
+		if(iscarbon(user))
+			var/mob/living/carbon/C = user
+			var/obj/item/bodypart/affecting = C.get_holding_bodypart_of_item(src)
+			C.apply_damage(rand(5, 10), affecting)
 	else
-		user.visible_message("<span class='danger'>[user]'s hand slips!</span>")
+		user.visible_message("<span class='danger'>[user]'s [I] slips!</span>")
 		fire_casing(user, user)
 
 /obj/item/ammo_casing/caseless/screwdriver_act(mob/living/user, /obj/item/I)
-	return
+	return // No launching arrows with screwdrivers!
