@@ -217,8 +217,12 @@
 	if(!istype(M))
 		return
 	if(isoozeling(M))
-		M.blood_volume -= 30
-		to_chat(M, "<span class='warning'>The water causes you to melt away!</span>")
+		if (method == TOUCH)
+			M.adjustStaminaLoss(25, 0)
+			to_chat(M, "<span class='warning'>You struggle to maintain your form!</span>")
+		else
+			M.blood_volume -= 30
+			to_chat(M, "<span class='warning'>The water causes you to melt away!</span>")
 		return
 	if(method == TOUCH)
 		M.adjust_fire_stacks(-(reac_volume / 10))
