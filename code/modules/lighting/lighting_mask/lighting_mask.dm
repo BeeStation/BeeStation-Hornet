@@ -13,10 +13,10 @@
 
 	appearance_flags = RESET_TRANSFORM | RESET_COLOR | RESET_ALPHA | KEEP_TOGETHER
 
-	bound_x = -128
+	/*bound_x = -128
 	bound_y = -128
 	bound_height = 256
-	bound_width = 256
+	bound_width = 256*/
 
 	move_resist = INFINITY
 
