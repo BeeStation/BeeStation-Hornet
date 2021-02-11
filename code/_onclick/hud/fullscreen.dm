@@ -172,7 +172,7 @@
 //Provides darkness to the back of the lighting plane
 /atom/movable/screen/fullscreen/lighting_backdrop/lit
 	invisibility = INVISIBILITY_LIGHTING
-	layer = BACKGROUND_LAYER+21
+	layer = BACKGROUND_LAYER + LIGHTING_BACKPLANE_LAYER
 	color = "#000"
 	show_when_dead = TRUE
 
@@ -185,7 +185,7 @@
 
 //Provides whiteness in case you don't see lights so everything is still visible
 /atom/movable/screen/fullscreen/lighting_backdrop/unlit
-	layer = BACKGROUND_LAYER
+	layer = BACKGROUND_LAYER + LIGHTING_BACKPLANE_LAYER - 1
 	show_when_dead = TRUE
 
 /atom/movable/screen/fullscreen/see_through_darkness
