@@ -86,14 +86,15 @@
 #define MASSIVE_OBJ_LAYER 11
 #define POINT_LAYER 12
 
+//Lighting
+
 #define LIGHTING_PLANE 15
-#define LIGHTING_LAYER 15
 
-#define LIGHTING_SHADOW_PLANE 16
-#define LIGHTING_SHADOW_LAYER 16
+#define LIGHTING_PRIMARY_LAYER 15	//The layer for the main lights of the station
+#define LIGHTING_PRIMARY_DIMMER_LAYER 15.1	//The layer that dims the main lights of the station
+#define LIGHTING_SECONDARY_LAYER 16	//The colourful, usually small lights that go on top
 
-#define LIGHTING_COLOUR_PLANE 17
-#define LIGHTING_COLOUR_LAYER 17
+#define LIGHTING_SHADOW_LAYER 17	//Where the shadows happen
 
 #define ABOVE_LIGHTING_PLANE 18
 #define ABOVE_LIGHTING_LAYER 18

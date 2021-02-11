@@ -44,6 +44,7 @@
 	layer = GASFIRE_LAYER
 	light_range = LIGHT_RANGE_FIRE
 	light_color = LIGHT_COLOR_FIRE
+	light_mask_type = /atom/movable/lighting_mask/alpha/flicker
 	blend_mode = BLEND_ADD
 
 	var/volume = 125
