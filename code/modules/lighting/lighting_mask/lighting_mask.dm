@@ -7,7 +7,7 @@
 	anchored = TRUE
 	plane            = LIGHTING_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	layer            = LIGHTING_LAYER
+	layer            = LIGHTING_SECONDARY_LAYER
 	invisibility     = INVISIBILITY_LIGHTING
 	blend_mode		 = BLEND_ADD
 
@@ -17,10 +17,6 @@
 	bound_y = -128
 	bound_height = 256
 	bound_width = 256
-
-	//Smooth shadows make the triangles as world objects.
-	//This is more expensive on memory, but when an object moves the shadows will be smooth.
-	var/smooth_shadows = FALSE
 
 	var/radius = 0
 

@@ -2,8 +2,7 @@
 //Lighting texture scales in world units (divide by 32)
 //256 = 8,4,2
 //1024 = 32,16,8
-#define LIGHTING_SHADOW_TEX_SIZE 32
-#define NUMBER_IM_NOT_TELLING_YOU_HOW_TO_WORKOUT_OR_WHAT_THE_SIGNIFICANCE_OF_THIS_IS_BUT_IF_YOU_CHANGE_IT_LIGHTING_BREAKS 36.5
+#define LIGHTING_SHADOW_TEX_SIZE 8
 
 #define COORD_LIST_ADD(listtoadd, x, y) \
 	if(islist(listtoadd["[x]"])) { \
@@ -23,6 +22,10 @@
 #else
 #define DEBUG_HIGHLIGHT(x, y, colour)
 #endif
+
+/atom/movable/lighting_mask/alpha
+	var/rbo_m = 0
+	var/rbo_c = 3.5
 
 //Returns a list of matrices corresponding to the matrices that should be applied to triangles of
 //coordinates (0,0),(1,0),(0,1) to create a triangcalculate_shadows_matricesle that respresents the shadows
@@ -45,7 +48,7 @@
 	var/list/opaque_atoms_in_view = list()
 	//Find atoms that are opaque
 	for(var/turf/thing in view(range, get_turf(attached_atom)))
-		if(thing.has_opaque_atom)
+		if(thing.has_opaque_atom/* || !thing.opacity*/)
 			//At this point we no longer care about
 			//the atom itself, only the position values
 			COORD_LIST_ADD(opaque_atoms_in_view, thing.x, thing.y)
@@ -96,7 +99,7 @@
 			MA_new_time += TICK_USAGE_TO_MS(temp_timer)
 			temp_timer = TICK_USAGE
 
-			shadow.icon = LIGHTING_ICON_HUGE
+			shadow.icon = LIGHTING_ICON_BIG
 			shadow.icon_state = "triangle"
 			shadow.layer = LIGHTING_SHADOW_LAYER
 			shadow.blend_mode = BLEND_DEFAULT
@@ -166,7 +169,8 @@
 	//Matrix time g
 	//a,b,d and e can be used to define the shape, C and F can be used for translation god matrices are so beautiful
 	//Completely random offset that I didnt derive, I just trialled and errored for about 4 hours until it randomly worked
-	var/radius_based_offset = radius * 3 + 3.5
+	//var/radius_based_offset = radius * 3 + 3.5 <-- for 1024x1024 lights DO NOT USE 1024x1024 SHADOWS UNLESS YOU ARE PLAYING WITH RTX200000 OR SOMETHING
+	var/radius_based_offset = (radius * rbo_m) + rbo_c
 	var/matrix/M = matrix(a, b, (c * 32) - ((radius_based_offset) * 32), d, e, (f * 32) - ((radius_based_offset) * 32))
 	//message_admins("[M.a], [M.d], 0")
 	//message_admins("[M.b], [M.e], 0")
