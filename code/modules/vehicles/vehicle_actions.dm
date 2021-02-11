@@ -228,3 +228,18 @@
 			V.icon_state = "[V.board_icon]-grind"
 			addtimer(CALLBACK(V, /obj/vehicle/ridden/scooter/skateboard/.proc/grind), 2)
 		next_ollie = world.time + 5
+
+/datum/action/vehicle/ridden/sirens
+	name = "Siren"
+	desc = "Turn on the sirens, stop resisting!"
+	button_icon_state = "car_removekey"
+	//When we can turn the siren on next
+	var/next_siren
+
+/datum/action/vehicle/ridden/sirens/Trigger()
+	var/obj/vehicle/ridden/secway/secway = vehicle_target
+	if(secway.sirens)
+		secway.sirens = FALSE
+	else if(world.time > next_siren)
+		INVOKE_ASYNC(secway, /obj/vehicle/ridden/secway.proc/play_sirens_async)
+		next_siren = world.time + 15

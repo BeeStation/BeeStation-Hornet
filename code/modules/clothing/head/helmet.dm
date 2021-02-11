@@ -126,10 +126,11 @@
 				var/index = 0
 				while(up)
 					playsound(src, "[active_sound]", 100, FALSE, 4)
-					if(active_colours)
-						index = (index + 1) % length(active_colours)
-						set_light(active_light_range, active_light_intensity, active_colours[index + 1])
-					sleep(15)
+					for(var/i in 1 to 3)
+						if(active_colours)
+							index = (index + 1) % length(active_colours)
+							set_light(active_light_range, active_light_intensity, active_colours[index + 1])
+						sleep(5)
 				set_light(initial(light_range), initial(light_power), initial(light_color))
 
 /obj/item/clothing/head/helmet/justice

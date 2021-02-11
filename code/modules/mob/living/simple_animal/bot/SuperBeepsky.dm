@@ -134,6 +134,7 @@
 			icon_state = "grievous-c"
 			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
+			enable_sirens()
 			INVOKE_ASYNC(src, .proc/handle_automated_action)
 			break
 		else

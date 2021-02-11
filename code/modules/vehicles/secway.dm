@@ -7,6 +7,7 @@
 	armor = list("melee" = 20, "bullet" = 15, "laser" = 10, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60, "stamina" = 0)
 	key_type = /obj/item/key/security
 	integrity_failure = 50
+	var/sirens = FALSE
 
 /obj/vehicle/ridden/secway/Initialize()
 	. = ..()
@@ -26,6 +27,7 @@
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(0, src)
 	smoke.start()
+
 
 /obj/vehicle/ridden/secway/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
@@ -52,3 +54,21 @@
 			M.bullet_act(P)
 		return TRUE
 	return ..()
+
+/obj/vehicle/ridden/secway/generate_actions()
+	. = ..()
+	initialize_controller_action_type(/datum/action/vehicle/ridden/sirens, VEHICLE_CONTROL_DRIVE)
+
+/obj/vehicle/ridden/secway/proc/play_sirens_async()
+	if(sirens)
+		return
+	sirens = TRUE
+	var/light_red = FALSE
+	set_light(l_range = 4)
+	while(sirens)
+		playsound(src, 'sound/items/weeoo1.ogg', 100, FALSE, 4)
+		for(var/i in 1 to 3)
+			set_light(l_color = light_red ? "#FF0000" : "#0000FF")
+			light_red = !light_red
+			sleep(5)
+	set_light(l_range = 0)

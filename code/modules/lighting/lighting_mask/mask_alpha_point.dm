@@ -17,7 +17,7 @@
 	layer = BACKGROUND_LAYER + LIGHTING_PRIMARY_LAYER
 
 /atom/movable/lighting_mask/alpha/primary_lighting/set_intensity(intensity)
-	alpha = 210
+	alpha = 180
 
 /atom/movable/lighting_mask/alpha/flicker
 	icon_state = "light_flicker"
