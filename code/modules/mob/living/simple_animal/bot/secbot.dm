@@ -21,6 +21,9 @@
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 	path_image_color = "#FF0000"
 
+	light_color = LIGHT_COLOR_WHITE
+
+	var/sirens = FALSE
 	var/noloot = FALSE
 	var/baton_type = /obj/item/melee/baton
 	var/mob/living/carbon/target
@@ -84,6 +87,7 @@
 /mob/living/simple_animal/bot/secbot/turn_off()
 	..()
 	mode = BOT_IDLE
+	disable_sirens()
 
 /mob/living/simple_animal/bot/secbot/bot_reset()
 	..()
@@ -158,6 +162,7 @@ Auto Patrol: []"},
 	if(threatlevel >= 4)
 		target = H
 		mode = BOT_HUNT
+		enable_sirens()
 
 /mob/living/simple_animal/bot/secbot/proc/judgment_criteria()
     var/final = FALSE
@@ -366,12 +371,14 @@ Auto Patrol: []"},
 	last_found = world.time
 	frustration = 0
 	INVOKE_ASYNC(src, .proc/handle_automated_action)
+	disable_sirens()
 
 /mob/living/simple_animal/bot/secbot/proc/back_to_hunt()
 	anchored = FALSE
 	frustration = 0
 	mode = BOT_HUNT
 	INVOKE_ASYNC(src, .proc/handle_automated_action)
+	enable_sirens()
 // look for a criminal in view of the bot
 
 /mob/living/simple_animal/bot/secbot/proc/look_for_perp()
@@ -396,6 +403,7 @@ Auto Patrol: []"},
 			playsound(loc, pick('sound/voice/beepsky/criminal.ogg', 'sound/voice/beepsky/justice.ogg', 'sound/voice/beepsky/freeze.ogg'), 50, FALSE)
 			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
+			enable_sirens()
 			INVOKE_ASYNC(src, .proc/handle_automated_action)
 			break
 		else
@@ -433,6 +441,7 @@ Auto Patrol: []"},
 	if(!isalien(target))
 		target = user
 		mode = BOT_HUNT
+		enable_sirens()
 
 /mob/living/simple_animal/bot/secbot/Crossed(atom/movable/AM)
 	if(has_gravity() && ismob(AM) && target)
@@ -442,6 +451,26 @@ Auto Patrol: []"},
 		knockOver(C)
 		return
 	..()
+
+/mob/living/simple_animal/bot/secbot/proc/enable_sirens()
+	set waitfor = FALSE
+	if(sirens)
+		return
+	sirens = TRUE
+	INVOKE_ASYNC(src, .proc/siren_animation)
+
+/mob/living/simple_animal/bot/secbot/proc/siren_animation()
+	var/light_red = FALSE
+	while(sirens)
+		playsound(src, 'sound/items/weeoo1.ogg', 100, FALSE, 4)
+		for(var/i in 1 to 3)
+			set_light(l_color = light_red ? "#FF0000" : "#0000FF")
+			light_red = !light_red
+			sleep(5)
+	set_light(l_color = initial(light_color))
+
+/mob/living/simple_animal/bot/secbot/proc/disable_sirens()
+	sirens = FALSE
 
 /obj/machinery/bot_core/secbot
 	req_access = list(ACCESS_SECURITY)
