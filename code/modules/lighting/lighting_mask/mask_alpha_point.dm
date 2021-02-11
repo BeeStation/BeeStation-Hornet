@@ -14,3 +14,10 @@
 
 /atom/movable/lighting_mask/alpha/primary_lighting
 	icon_state = "light_normalized_2"
+	//layer = BACKGROUND_LAYER + LIGHTING_PRIMARY_LAYER
+
+/atom/movable/lighting_mask/alpha/primary_lighting/set_intensity(intensity)
+	alpha = 210
+
+/atom/movable/lighting_mask/alpha/flicker
+	icon_state = "light_flicker"

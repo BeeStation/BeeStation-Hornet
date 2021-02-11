@@ -41,7 +41,7 @@
 	float(linked_minds.len)
 	if(linked_minds.len)
 		START_PROCESSING(SSobj, src)
-		set_light(lit_luminosity)
+		set_light(lit_luminosity, mask_type = /atom/movable/lighting_mask/alpha/flicker)
 	else
 		STOP_PROCESSING(SSobj, src)
 		set_light(0)

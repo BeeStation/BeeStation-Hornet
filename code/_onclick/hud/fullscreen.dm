@@ -173,6 +173,13 @@
 	color = "#000"
 	show_when_dead = TRUE
 
+/atom/movable/screen/fullscreen/lighting_backdrop/lit_secondary
+	invisibility = INVISIBILITY_LIGHTING
+	layer = BACKGROUND_LAYER + LIGHTING_PRIMARY_DIMMER_LAYER
+	color = "#000"
+	show_when_dead = TRUE
+	alpha = 90
+
 //Provides whiteness in case you don't see lights so everything is still visible
 /atom/movable/screen/fullscreen/lighting_backdrop/unlit
 	layer = BACKGROUND_LAYER+20
@@ -181,6 +188,6 @@
 /atom/movable/screen/fullscreen/see_through_darkness
 	icon_state = "nightvision"
 	plane = LIGHTING_PLANE
-	layer = LIGHTING_LAYER
+	layer = LIGHTING_PRIMARY_LAYER
 	blend_mode = BLEND_ADD
 	show_when_dead = TRUE

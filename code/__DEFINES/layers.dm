@@ -112,8 +112,11 @@
 #define LIGHTING_PLANE 15
 #define LIGHTING_LAYER 15
 #define LIGHTING_RENDER_TARGET "LIGHT_PLANE"
+#define LIGHTING_PRIMARY_LAYER 15	//The layer for the main lights of the station
+#define LIGHTING_PRIMARY_DIMMER_LAYER 15.1	//The layer that dims the main lights of the station
+#define LIGHTING_SECONDARY_LAYER 16	//The colourful, usually small lights that go on top
 
-#define RAD_TEXT_LAYER 21
+#define LIGHTING_SHADOW_LAYER 17	//Where the shadows happen
 
 #define ABOVE_LIGHTING_PLANE 16
 #define ABOVE_LIGHTING_LAYER 16
@@ -136,6 +139,7 @@
 
 #define FULLSCREEN_PLANE 21
 #define FLASH_LAYER 21
+#define RAD_TEXT_LAYER 21
 #define FULLSCREEN_LAYER 21.1
 #define UI_DAMAGE_LAYER 21.2
 #define BLIND_LAYER 21.3
