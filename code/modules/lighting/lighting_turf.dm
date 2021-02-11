@@ -2,11 +2,15 @@
 
 	luminosity           = 1
 
+	var/tmp/list/lights_affecting
 	var/tmp/has_opaque_atom = FALSE // Not to be confused with opacity, this will be TRUE if there's any opaque atom on the tile.
 
 // Causes any affecting light sources to be queued for a visibility update, for example a door got opened.
 /turf/proc/reconsider_lights()
-	return
+	if(!lights_affecting)
+		return
+	for(var/atom/movable/lighting_mask/alpha/mask as() in lights_affecting)
+		mask.calculate_lighting_shadows()
 
 // Used to get a scaled lumcount.
 /turf/proc/get_lumcount(var/minlum = 0, var/maxlum = 1)
