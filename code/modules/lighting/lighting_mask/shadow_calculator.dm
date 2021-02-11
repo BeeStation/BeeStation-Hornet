@@ -30,7 +30,7 @@
 //Returns a list of matrices corresponding to the matrices that should be applied to triangles of
 //coordinates (0,0),(1,0),(0,1) to create a triangcalculate_shadows_matricesle that respresents the shadows
 //takes in the old turf to smoothly animate shadow movement
-/atom/movable/lighting_mask/alpha/proc/calculate_lighting_shadows(oldTurf)
+/atom/movable/lighting_mask/alpha/proc/calculate_lighting_shadows()
 	//Dont bother calculating at all for small shadows
 	var/range = radius * 0.5
 	if(range < 1)
@@ -48,17 +48,17 @@
 	var/list/opaque_atoms_in_view = list()
 	//Find atoms that are opaque
 	for(var/turf/thing in view(range, get_turf(attached_atom)))
-		if(thing.has_opaque_atom/* || !thing.opacity*/)
+		if(thing.has_opaque_atom || !thing.opacity)
 			//At this point we no longer care about
 			//the atom itself, only the position values
 			COORD_LIST_ADD(opaque_atoms_in_view, thing.x, thing.y)
 			DEBUG_HIGHLIGHT(thing.x, thing.y, "#0000FF")
 	//log_game("[TICK_USAGE_TO_MS(timer)]ms to process view([range], src).")
-	var/temp_timer = TICK_USAGE
+	//var/temp_timer = TICK_USAGE
 	//Group atoms together for optimisation
 	var/list/grouped_atoms = group_atoms(opaque_atoms_in_view)
 	//log_game("[TICK_USAGE_TO_MS(temp_timer)]ms to process group_atoms")
-	temp_timer = TICK_USAGE
+	//temp_timer = TICK_USAGE
 	var/total_coordgroup_time = 0
 	var/total_cornergroup_time = 0
 	var/triangle_time = 0
@@ -69,35 +69,35 @@
 	var/overlays_add_time = 0
 	var/list/overlays_to_add = list()
 	for(var/group in grouped_atoms)
-		temp_timer = TICK_USAGE
+		//temp_timer = TICK_USAGE
 
 		var/list/coordgroup = calculate_corners_in_group(group)
-		total_coordgroup_time += TICK_USAGE_TO_MS(temp_timer)
-		temp_timer = TICK_USAGE
+		//total_coordgroup_time += TICK_USAGE_TO_MS(temp_timer)
+		//temp_timer = TICK_USAGE
 
 		var/list/cornergroup = get_corners_from_coords(coordgroup)
-		total_cornergroup_time += TICK_USAGE_TO_MS(temp_timer)
-		temp_timer = TICK_USAGE
+		//total_cornergroup_time += TICK_USAGE_TO_MS(temp_timer)
+		//temp_timer = TICK_USAGE
 
 		var/list/triangles = calculate_triangle_vertices(cornergroup)
-		triangle_time += TICK_USAGE_TO_MS(temp_timer)
-		temp_timer = TICK_USAGE
+		//triangle_time += TICK_USAGE_TO_MS(temp_timer)
+		//temp_timer = TICK_USAGE
 
 		for(var/triangle in triangles)
 			var/matrix/M = triangle_to_matrix(triangle)
 
-			triangle_to_matrix_time += TICK_USAGE_TO_MS(temp_timer)
-			temp_timer = TICK_USAGE
+			//triangle_to_matrix_time += TICK_USAGE_TO_MS(temp_timer)
+			//temp_timer = TICK_USAGE
 
 			M /= transform
 
-			matrix_division_time += TICK_USAGE_TO_MS(temp_timer)
-			temp_timer = TICK_USAGE
+			//matrix_division_time += TICK_USAGE_TO_MS(temp_timer)
+			//temp_timer = TICK_USAGE
 
 			var/mutable_appearance/shadow = new(src)
 
-			MA_new_time += TICK_USAGE_TO_MS(temp_timer)
-			temp_timer = TICK_USAGE
+			//MA_new_time += TICK_USAGE_TO_MS(temp_timer)
+			//temp_timer = TICK_USAGE
 
 			shadow.icon = LIGHTING_ICON_BIG
 			shadow.icon_state = "triangle"
@@ -108,13 +108,13 @@
 			shadow.appearance_flags = RESET_TRANSFORM | RESET_COLOR | RESET_ALPHA
 			shadow.transform = M
 
-			MA_vars_time += TICK_USAGE_TO_MS(temp_timer)
-			temp_timer = TICK_USAGE
+			//MA_vars_time += TICK_USAGE_TO_MS(temp_timer)
+			//temp_timer = TICK_USAGE
 
 			overlays_to_add += shadow
 
-			overlays_add_time += TICK_USAGE_TO_MS(temp_timer)
-			temp_timer = TICK_USAGE
+			//overlays_add_time += TICK_USAGE_TO_MS(temp_timer)
+			//temp_timer = TICK_USAGE
 
 	overlays += overlays_to_add
 	//log_game("total_coordgroup_time: [total_coordgroup_time]ms")
