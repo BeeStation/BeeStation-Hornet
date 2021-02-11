@@ -86,7 +86,7 @@
 	LAZYCLEARLIST(affecting_turfs)
 
 	//Rebuild the list
-	for(var/turf/thing in view(range, get_turf(attached_atom)))
+	for(var/turf/thing in view(range, get_turf(src)))
 		link_turf_to_light(thing)
 		if(thing.has_opaque_atom || thing.opacity)
 			//At this point we no longer care about
@@ -177,7 +177,7 @@
 //to make it represent the points.
 //Note: Ignores translation because
 /atom/movable/lighting_mask/alpha/proc/triangle_to_matrix(list/triangle)
-	var/turf/our_turf = get_turf(attached_atom)
+	var/turf/our_turf = get_turf(src)
 	var/ourx = our_turf.x
 	var/oury = our_turf.y
 
@@ -231,7 +231,7 @@
 //OUTPUT: The same thing but with 3 lists embedded rather than 2 because they are triangles not lines now.
 /atom/movable/lighting_mask/alpha/proc/calculate_triangle_vertices(list/cornergroup)
 	//Get the origin poin's
-	var/turf/our_turf = get_turf(attached_atom)
+	var/turf/our_turf = get_turf(src)
 	var/ourx = our_turf.x
 	var/oury = our_turf.y
 	//The output
@@ -285,7 +285,10 @@
 	var/yhigh = coordgroup[2][2]
 
 	//Cache this for speed I guess
-	var/turf/our_turf = get_turf(attached_atom)
+	var/turf/our_turf = get_turf(src)
+	if(!our_turf)
+		stack_trace("Lighting Fatal Error: Light is in an invalid location. Destroying")
+		return
 	var/ourx = our_turf.x
 	var/oury = our_turf.y
 
