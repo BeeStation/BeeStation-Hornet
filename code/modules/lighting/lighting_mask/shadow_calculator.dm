@@ -23,9 +23,19 @@
 #define DEBUG_HIGHLIGHT(x, y, colour)
 #endif
 
+#define DO_SOMETHING_IF_DEBUGGING_SHADOWS(something) something
+//#define DO_SOMETHING_IF_DEBUGGING_SHADOWS(something)
+
 /atom/movable/lighting_mask/alpha
 	var/rbo_m = 0
 	var/rbo_c = 3.5
+	var/list/turf/affecting_turfs
+
+/atom/movable/lighting_mask/alpha/Destroy()
+	. = ..()
+	if(affecting_turfs)
+		for(var/turf/thing as() in affecting_turfs)
+			LAZYREMOVE(thing.lights_affecting, src)
 
 //Returns a list of matrices corresponding to the matrices that should be applied to triangles of
 //coordinates (0,0),(1,0),(0,1) to create a triangcalculate_shadows_matricesle that respresents the shadows
@@ -39,65 +49,83 @@
 	range = FLOOR(unrounded_range, 1)
 	if(unrounded_range > range)
 		range ++
-	//var/timer = TICK_USAGE
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/timer = TICK_USAGE)
 	//Remove the old shadows
 	overlays.Cut()
 	//Optimise grouping by storing as
 	// Key : x (AS A STRING BECAUSE BYOND DOESNT ALLOW FOR INT KEY DICTIONARIES)
 	// Value: List(y values)
 	var/list/opaque_atoms_in_view = list()
+	//Clear the list of affecting turfs
+	var/temp_list = list(affecting_turfs)
+	LAZYCLEARLIST(affecting_turfs)
 	//Find atoms that are opaque
 	for(var/turf/thing in view(range, get_turf(attached_atom)))
-		if(thing.has_opaque_atom || !thing.opacity)
+		LAZYOR(thing.lights_affecting, src)	//Our light affects this turf
+		LAZYADD(affecting_turfs, thing)			//We need to know what lights we affect
+		if(thing.has_opaque_atom || thing.opacity)
 			//At this point we no longer care about
 			//the atom itself, only the position values
 			COORD_LIST_ADD(opaque_atoms_in_view, thing.x, thing.y)
 			DEBUG_HIGHLIGHT(thing.x, thing.y, "#0000FF")
-	//log_game("[TICK_USAGE_TO_MS(timer)]ms to process view([range], src).")
-	//var/temp_timer = TICK_USAGE
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("[TICK_USAGE_TO_MS(timer)]ms to process view([range], src)."))
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/temp_timer = TICK_USAGE)
+	//Find turfs that are no longer visible to this light source
+	var/list/removed_turfs = temp_list
+	if(removed_turfs)
+		if(affecting_turfs)
+			removed_turfs -= affecting_turfs
+		else
+			DO_SOMETHING_IF_DEBUGGING_SHADOWS(message_admins("no affecting turfs?"))
+		for(var/turf/thing as() in removed_turfs)
+			LAZYREMOVE(thing.lights_affecting, src)	//We no longer affect that turf
+		DO_SOMETHING_IF_DEBUGGING_SHADOWS(message_admins("We are no longer affecting [removed_turfs.len] turfs :("))
+	temp_list = null
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("[TICK_USAGE_TO_MS(timer)]ms to remove ourselves from invalid turfs."))
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 	//Group atoms together for optimisation
 	var/list/grouped_atoms = group_atoms(opaque_atoms_in_view)
-	//log_game("[TICK_USAGE_TO_MS(temp_timer)]ms to process group_atoms")
-	//temp_timer = TICK_USAGE
-	var/total_coordgroup_time = 0
-	var/total_cornergroup_time = 0
-	var/triangle_time = 0
-	var/triangle_to_matrix_time = 0
-	var/matrix_division_time = 0
-	var/MA_new_time = 0
-	var/MA_vars_time = 0
-	var/overlays_add_time = 0
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("[TICK_USAGE_TO_MS(temp_timer)]ms to process group_atoms"))
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/total_coordgroup_time = 0)
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/total_cornergroup_time = 0)
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/triangle_time = 0)
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/triangle_to_matrix_time = 0)
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/matrix_division_time = 0)
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/MA_new_time = 0)
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/MA_vars_time = 0)
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/overlays_add_time = 0)
 	var/list/overlays_to_add = list()
 	for(var/group in grouped_atoms)
-		//temp_timer = TICK_USAGE
+		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
 		var/list/coordgroup = calculate_corners_in_group(group)
-		//total_coordgroup_time += TICK_USAGE_TO_MS(temp_timer)
-		//temp_timer = TICK_USAGE
+		DO_SOMETHING_IF_DEBUGGING_SHADOWS(total_coordgroup_time += TICK_USAGE_TO_MS(temp_timer))
+		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
 		var/list/cornergroup = get_corners_from_coords(coordgroup)
-		//total_cornergroup_time += TICK_USAGE_TO_MS(temp_timer)
-		//temp_timer = TICK_USAGE
+		DO_SOMETHING_IF_DEBUGGING_SHADOWS(total_cornergroup_time += TICK_USAGE_TO_MS(temp_timer))
+		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
 		var/list/triangles = calculate_triangle_vertices(cornergroup)
-		//triangle_time += TICK_USAGE_TO_MS(temp_timer)
-		//temp_timer = TICK_USAGE
+		DO_SOMETHING_IF_DEBUGGING_SHADOWS(triangle_time += TICK_USAGE_TO_MS(temp_timer))
+		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
 		for(var/triangle in triangles)
 			var/matrix/M = triangle_to_matrix(triangle)
 
-			//triangle_to_matrix_time += TICK_USAGE_TO_MS(temp_timer)
-			//temp_timer = TICK_USAGE
+			DO_SOMETHING_IF_DEBUGGING_SHADOWS(triangle_to_matrix_time += TICK_USAGE_TO_MS(temp_timer))
+			DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
 			M /= transform
 
-			//matrix_division_time += TICK_USAGE_TO_MS(temp_timer)
-			//temp_timer = TICK_USAGE
+			DO_SOMETHING_IF_DEBUGGING_SHADOWS(matrix_division_time += TICK_USAGE_TO_MS(temp_timer))
+			DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
 			var/mutable_appearance/shadow = new(src)
 
-			//MA_new_time += TICK_USAGE_TO_MS(temp_timer)
-			//temp_timer = TICK_USAGE
+			DO_SOMETHING_IF_DEBUGGING_SHADOWS(MA_new_time += TICK_USAGE_TO_MS(temp_timer))
+			DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
 			shadow.icon = LIGHTING_ICON_BIG
 			shadow.icon_state = "triangle"
@@ -108,24 +136,24 @@
 			shadow.appearance_flags = RESET_TRANSFORM | RESET_COLOR | RESET_ALPHA
 			shadow.transform = M
 
-			//MA_vars_time += TICK_USAGE_TO_MS(temp_timer)
-			//temp_timer = TICK_USAGE
+			DO_SOMETHING_IF_DEBUGGING_SHADOWS(MA_vars_time += TICK_USAGE_TO_MS(temp_timer))
+			DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
 			overlays_to_add += shadow
 
-			//overlays_add_time += TICK_USAGE_TO_MS(temp_timer)
-			//temp_timer = TICK_USAGE
+			DO_SOMETHING_IF_DEBUGGING_SHADOWS(overlays_add_time += TICK_USAGE_TO_MS(temp_timer))
+			DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
 	overlays += overlays_to_add
-	//log_game("total_coordgroup_time: [total_coordgroup_time]ms")
-	//log_game("total_cornergroup_time: [total_cornergroup_time]ms")
-	//log_game("triangle_time calculation: [triangle_time]ms")
-	//log_game("triangle_to_matrix_time: [triangle_to_matrix_time]")
-	//log_game("matrix_division_time: [matrix_division_time]")
-	//log_game("MA_new_time: [MA_new_time]")
-	//log_game("MA_vars_time: [MA_vars_time]")
-	//log_game("overlays_add_time: [overlays_add_time]")
-	//log_game("[TICK_USAGE_TO_MS(timer)]ms to process total.")
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("total_coordgroup_time: [total_coordgroup_time]ms"))
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("total_cornergroup_time: [total_cornergroup_time]ms"))
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("triangle_time calculation: [triangle_time]ms"))
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("triangle_to_matrix_time: [triangle_to_matrix_time]"))
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("matrix_division_time: [matrix_division_time]"))
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("MA_new_time: [MA_new_time]"))
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("MA_vars_time: [MA_vars_time]"))
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("overlays_add_time: [overlays_add_time]"))
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("[TICK_USAGE_TO_MS(timer)]ms to process total."))
 
 //Converts a triangle into a matrix that can be applied to a standardized triangle
 //to make it represent the points.
