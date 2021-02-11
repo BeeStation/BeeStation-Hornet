@@ -58,7 +58,7 @@
 #define MAX_COMPILER_VERSION 513
 #define MAX_COMPILER_BUILD 1536
 #if DM_VERSION > MAX_COMPILER_VERSION || DM_BUILD > MAX_COMPILER_BUILD
-#warn WARNING! your BYOND version is over the recommended version(513.1536)! There may be unexpected byond bugs!
+#warn WARNING! your BYOND version is over the recommended version(513.1536)! There may be unexpected bugs!
 #endif
 
 
