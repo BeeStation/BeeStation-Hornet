@@ -13,7 +13,6 @@
 	if(lights_affecting)
 		for(var/atom/movable/lighting_mask/alpha/mask as() in lights_affecting)
 			LAZYREMOVE(mask.affecting_turfs, src)
-			mask.calculate_lighting_shadows()
 		lights_affecting = null
 	. = ..()
 
