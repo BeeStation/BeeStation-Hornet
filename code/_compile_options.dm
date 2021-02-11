@@ -50,9 +50,17 @@
 #define MIN_COMPILER_BUILD 1514
 #if DM_VERSION < MIN_COMPILER_VERSION || DM_BUILD < MIN_COMPILER_BUILD
 //Don't forget to update this part
-#error Your version of BYOND is too out-of-date to compile this project. Go to https://secure.byond.com/download and update. 
+#error Your version of BYOND is too out-of-date to compile this project. Go to https://secure.byond.com/download and update.
 #error You need version 513.1514 or higher.
 #endif
+
+//Update this whenever the byond version is stable so people stop updating to hilariously broken versions
+#define MAX_COMPILER_VERSION 513
+#define MAX_COMPILER_BUILD 1542
+#if DM_VERSION > MAX_COMPILER_VERSION || DM_BUILD > MAX_COMPILER_BUILD
+#warn WARNING! your byond version is over the recommended version(MAX_COMPILER_VERSION:MAX_COMPILER_BUILD)! There may be unexpected byond bugs!
+#endif
+
 
 //Additional code for the above flags.
 #ifdef TESTING
