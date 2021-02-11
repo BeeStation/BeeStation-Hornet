@@ -47,9 +47,12 @@
 	SSlighting.light_sources += src
 	our_mask.calculate_lighting_shadows()
 
-/datum/light_source/Destroy(force, ...)
-	qdel(our_mask, force = TRUE)
+/datum/light_source/Destroy(...)
 	SSlighting.light_sources -= src
+	//Remove references to ourself.
+	LAZYREMOVE(source_atom?.light_sources, src)
+	LAZYREMOVE(contained_atom?.light_sources, src)
+	qdel(our_mask)
 	. = ..()
 
 /datum/light_source/proc/find_containing_atom()
