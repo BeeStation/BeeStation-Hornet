@@ -80,6 +80,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	if(flags & CHANGETURF_SKIP)
 		return new path(src)
 
+	var/list/old_lights_affecting = lights_affecting.Copy()
+
 	var/old_exl = explosion_level
 	var/old_exi = explosion_id
 	var/old_bp = blueprint_data
@@ -112,6 +114,12 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		W.AfterChange(flags)
 
 	W.blueprint_data = old_bp
+
+	W.lights_affecting = old_lights_affecting
+
+	//Since the old turf was removed from lights_affecting, readd the new turf here
+	for(var/atom/movable/lighting_mask/alpha/mask as() in W.lights_affecting)
+		LAZYADD(mask.affecting_turfs, W)
 
 	if(W.opacity != old_opacity)
 		reconsider_lights()

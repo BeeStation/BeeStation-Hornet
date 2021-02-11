@@ -80,7 +80,7 @@
 	//Reset the list
 	if(islist(affecting_turfs))
 		for(var/turf/T in affecting_turfs)
-			T.lights_affecting -= src
+			T?.lights_affecting -= src
 
 	//Clear the list
 	LAZYCLEARLIST(affecting_turfs)
