@@ -88,6 +88,8 @@
 
 //Lighting
 
+#define LIGHTING_BACKPLANE_LAYER 14
+
 #define LIGHTING_PLANE 15
 
 #define LIGHTING_PRIMARY_LAYER 15	//The layer for the main lights of the station
