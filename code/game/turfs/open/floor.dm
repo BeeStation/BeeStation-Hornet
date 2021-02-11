@@ -268,7 +268,6 @@
 				return FALSE
 			to_chat(user, "<span class='notice'>You build an airlock.</span>")
 			var/obj/machinery/door/airlock/A = new the_rcd.airlock_type(src)
-
 			A.electronics = new /obj/item/electronics/airlock(A)
 			if(the_rcd.airlock_electronics)
 				A.electronics.accesses = the_rcd.airlock_electronics.accesses.Copy()
