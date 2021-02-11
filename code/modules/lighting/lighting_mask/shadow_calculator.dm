@@ -23,8 +23,8 @@
 #define DEBUG_HIGHLIGHT(x, y, colour)
 #endif
 
-//#define DO_SOMETHING_IF_DEBUGGING_SHADOWS(something) something
-#define DO_SOMETHING_IF_DEBUGGING_SHADOWS(something)
+#define DO_SOMETHING_IF_DEBUGGING_SHADOWS(something) something
+//#define DO_SOMETHING_IF_DEBUGGING_SHADOWS(something)
 
 /atom/movable/lighting_mask/alpha
 	var/rbo_m = 0
@@ -107,6 +107,7 @@
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/total_coordgroup_time = 0)
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/total_cornergroup_time = 0)
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/triangle_time = 0)
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/culling_time = 0)
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/triangle_to_matrix_time = 0)
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/matrix_division_time = 0)
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/MA_new_time = 0)
@@ -121,9 +122,14 @@
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(total_coordgroup_time += TICK_USAGE_TO_MS(temp_timer))
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
+		//This is where the lines are made
 		var/list/cornergroup = get_corners_from_coords(coordgroup)
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(total_cornergroup_time += TICK_USAGE_TO_MS(temp_timer))
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
+
+		//var/list/culledlinegroup = cull_blocked_in_group(cornergroup, opaque_atoms_in_view)
+		//DO_SOMETHING_IF_DEBUGGING_SHADOWS(culling_time += TICK_USAGE_TO_MS(temp_timer))
+		//DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
 		var/list/triangles = calculate_triangle_vertices(cornergroup)
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(triangle_time += TICK_USAGE_TO_MS(temp_timer))
@@ -167,6 +173,7 @@
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("total_cornergroup_time: [total_cornergroup_time]ms"))
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("triangle_time calculation: [triangle_time]ms"))
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("triangle_to_matrix_time: [triangle_to_matrix_time]"))
+	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("Culling Time: [culling_time]ms"))
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("matrix_division_time: [matrix_division_time]"))
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("MA_new_time: [MA_new_time]"))
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("MA_vars_time: [MA_vars_time]"))
