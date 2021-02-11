@@ -61,7 +61,7 @@
 /obj/item/ammo_casing/screwdriver_act(mob/living/user, obj/item/I)
 	user.visible_message("<span class='danger'>[user] hits the [src]'s primer with [user.p_their()] [I]!</span>")
 	if(prob(75))
-		fire_casing(get_step(src, user.dir), user, spread = rand(-40, 40), spread_mult = 4)
+		fire_casing(get_step(src, user.dir), user, spread = rand(-40, 40))
 		if(iscarbon(user))
 			var/mob/living/carbon/C = user
 			var/obj/item/bodypart/affecting = C.get_holding_bodypart_of_item(src)
