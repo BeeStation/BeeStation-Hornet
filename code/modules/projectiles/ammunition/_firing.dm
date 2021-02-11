@@ -59,9 +59,12 @@
 	return locate(target.x + round(gaussian(0, distro) * (dy+2)/8, 1), target.y + round(gaussian(0, distro) * (dx+2)/8, 1), target.z)
 
 /obj/item/ammo_casing/screwdriver_act(mob/living/user, obj/item/I)
-	visible_message("<span class='danger'>[user] hits the [src]'s primer with [user.p_their] [I]!</span>")
+	user.visible_message("<span class='danger'>[user] hits the [src]'s primer with [user.p_their()] [I.name]!</span>")
 	if(prob(70))
-		fire_casing(pick(RANGE_TURFS(1, src)), user, spread = 100)
+		fire_casing(get_step(src, user.dir), user, spread = rand(-40, 40), spread_mult = 4)
 	else
-		visible_message("<span class='danger'>[user]'s hand slips!</span>"
+		user.visible_message("<span class='danger'>[user]'s hand slips!</span>")
 		fire_casing(user, user)
+
+/obj/item/ammo_casing/caseless/screwdriver_act(mob/living/user, /obj/item/I)
+	return
