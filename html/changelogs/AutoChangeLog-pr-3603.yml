@@ -1,9 +1,0 @@
-author: park66665
-delete-after: true
-changes:
-  - bugfix: species-specific attack mechanics now correctly happen based on attacker
-  - bugfix: landmines no longer gets activated by flying objects (e.g. projectiles,
-      throwing things, etc.)
-  - bugfix: pools no longer teleport people in and out
-  - bugfix: monkeys can now retaliate better
-  - bugfix: AI slime attacks no longer transcend borders
