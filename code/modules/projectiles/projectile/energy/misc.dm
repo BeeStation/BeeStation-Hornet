@@ -5,7 +5,7 @@
 	damage_type = CLONE
 	irradiate = 100
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
-	light_color = "#00FF66"
+	//light_color = "#00FF66"
 
 /obj/item/projectile/energy/declone/weak
 	damage = 9
@@ -17,5 +17,5 @@
 	damage = 5
 	damage_type = TOX
 	paralyze = 100
-	range = 7
-	light_color = "#00CC33"
+	//range = 7
+	//light_color = "#00CC33"
