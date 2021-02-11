@@ -29,60 +29,77 @@
 /atom/movable/lighting_mask/alpha
 	var/rbo_m = 0
 	var/rbo_c = 3.5
-	var/list/turf/affecting_turfs
+	var/list/affecting_turfs
 
 /atom/movable/lighting_mask/alpha/Destroy()
-	. = ..()
 	if(affecting_turfs)
 		for(var/turf/thing as() in affecting_turfs)
 			LAZYREMOVE(thing.lights_affecting, src)
+		affecting_turfs = null
+	. = ..()
+
+/atom/movable/lighting_mask/alpha/proc/link_turf_to_light(turf/T)
+	LAZYOR(affecting_turfs, T)
+	LAZYOR(T.lights_affecting, src)
+
+/atom/movable/lighting_mask/alpha/proc/unlink_turf_from_light(turf/T)
+	LAZYREMOVE(affecting_turfs, T)
+	LAZYREMOVE(T.lights_affecting, src)
 
 //Returns a list of matrices corresponding to the matrices that should be applied to triangles of
 //coordinates (0,0),(1,0),(0,1) to create a triangcalculate_shadows_matricesle that respresents the shadows
 //takes in the old turf to smoothly animate shadow movement
 /atom/movable/lighting_mask/alpha/proc/calculate_lighting_shadows()
+
+	if(!SSlighting.started)
+		SSlighting.sources_that_need_updating |= src
+		return
+
 	//Dont bother calculating at all for small shadows
 	var/range = radius * 0.5
+
 	if(range < 1)
 		return
+
+	SSlighting.total_shadow_calculations ++
+
 	var/unrounded_range = range
 	range = FLOOR(unrounded_range, 1)
 	if(unrounded_range > range)
 		range ++
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/timer = TICK_USAGE)
+
 	//Remove the old shadows
 	overlays.Cut()
+
 	//Optimise grouping by storing as
 	// Key : x (AS A STRING BECAUSE BYOND DOESNT ALLOW FOR INT KEY DICTIONARIES)
 	// Value: List(y values)
 	var/list/opaque_atoms_in_view = list()
-	//Clear the list of affecting turfs
-	var/temp_list = list(affecting_turfs)
+
+	//Reset the list
+	if(islist(affecting_turfs))
+		for(var/turf/T in affecting_turfs)
+			T.lights_affecting -= src
+
+	//Clear the list
 	LAZYCLEARLIST(affecting_turfs)
-	//Find atoms that are opaque
+
+	//Rebuild the list
 	for(var/turf/thing in view(range, get_turf(attached_atom)))
-		LAZYOR(thing.lights_affecting, src)	//Our light affects this turf
-		LAZYADD(affecting_turfs, thing)			//We need to know what lights we affect
+		link_turf_to_light(thing)
 		if(thing.has_opaque_atom || thing.opacity)
 			//At this point we no longer care about
 			//the atom itself, only the position values
 			COORD_LIST_ADD(opaque_atoms_in_view, thing.x, thing.y)
 			DEBUG_HIGHLIGHT(thing.x, thing.y, "#0000FF")
+
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("[TICK_USAGE_TO_MS(timer)]ms to process view([range], src)."))
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/temp_timer = TICK_USAGE)
-	//Find turfs that are no longer visible to this light source
-	var/list/removed_turfs = temp_list
-	if(removed_turfs)
-		if(affecting_turfs)
-			removed_turfs -= affecting_turfs
-		else
-			DO_SOMETHING_IF_DEBUGGING_SHADOWS(message_admins("no affecting turfs?"))
-		for(var/turf/thing as() in removed_turfs)
-			LAZYREMOVE(thing.lights_affecting, src)	//We no longer affect that turf
-		DO_SOMETHING_IF_DEBUGGING_SHADOWS(message_admins("We are no longer affecting [removed_turfs.len] turfs :("))
-	temp_list = null
+
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("[TICK_USAGE_TO_MS(timer)]ms to remove ourselves from invalid turfs."))
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
+
 	//Group atoms together for optimisation
 	var/list/grouped_atoms = group_atoms(opaque_atoms_in_view)
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("[TICK_USAGE_TO_MS(temp_timer)]ms to process group_atoms"))
@@ -95,6 +112,7 @@
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/MA_new_time = 0)
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/MA_vars_time = 0)
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/overlays_add_time = 0)
+
 	var/list/overlays_to_add = list()
 	for(var/group in grouped_atoms)
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)

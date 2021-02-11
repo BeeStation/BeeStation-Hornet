@@ -1,3 +1,7 @@
+//Estimates the light power based on the alpha of the light and the range.
+//Assumes a linear fallout at (0, alpha/255) to (range, 0)
+#define LIGHT_POWER_ESTIMATION(alpha, range, distance) max((alpha * (range - distance)) / (255 * range), 0)
+
 /turf
 
 	luminosity           = 1
@@ -5,16 +9,28 @@
 	var/tmp/list/lights_affecting
 	var/tmp/has_opaque_atom = FALSE // Not to be confused with opacity, this will be TRUE if there's any opaque atom on the tile.
 
+/turf/Destroy(force)
+	if(lights_affecting)
+		for(var/atom/movable/lighting_mask/alpha/mask as() in lights_affecting)
+			LAZYREMOVE(mask.affecting_turfs, src)
+			mask.calculate_lighting_shadows()
+		lights_affecting = null
+	. = ..()
+
 // Causes any affecting light sources to be queued for a visibility update, for example a door got opened.
 /turf/proc/reconsider_lights()
 	if(!lights_affecting)
 		return
-	for(var/atom/movable/lighting_mask/alpha/mask as() in lights_affecting)
+	//Copy to prevent looping
+	for(var/atom/movable/lighting_mask/alpha/mask as() in lights_affecting.Copy())
 		mask.calculate_lighting_shadows()
 
 // Used to get a scaled lumcount.
-/turf/proc/get_lumcount(var/minlum = 0, var/maxlum = 1)
-	return 0
+/turf/proc/get_lumcount()
+	var/lums = 0
+	for(var/atom/movable/lighting_mask/alpha/mask as() in lights_affecting)
+		lums += LIGHT_POWER_ESTIMATION(mask.alpha, mask.radius, get_dist(src, get_turf(mask)))
+	return min(lums, 1.0)
 
 // Returns a boolean whether the turf is on soft lighting.
 // Soft lighting being the threshold at which point the overlay considers

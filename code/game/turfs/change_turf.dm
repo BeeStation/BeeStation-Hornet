@@ -57,6 +57,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 // Creates a new turf
 // new_baseturfs can be either a single type or list of types, formated the same as baseturfs. see turf.dm
 /turf/proc/ChangeTurf(path, list/new_baseturfs, flags)
+	var/old_opacity = opacity
+
 	switch(path)
 		if(null)
 			return
@@ -77,8 +79,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		return src
 	if(flags & CHANGETURF_SKIP)
 		return new path(src)
-
-	var/old_opacity = opacity
 
 	var/old_exl = explosion_level
 	var/old_exi = explosion_id
@@ -112,6 +112,9 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		W.AfterChange(flags)
 
 	W.blueprint_data = old_bp
+
+	if(W.opacity != old_opacity)
+		reconsider_lights()
 
 	return W
 
