@@ -242,7 +242,7 @@
 	var/ourx = our_turf.x
 	var/oury = our_turf.y
 	//The output
-	var/list/output_triangles = list()
+	. = list()
 	//Every line has 2 triangles innit
 	for(var/list/line in cornergroup)
 		//Get the corner vertices
@@ -275,9 +275,8 @@
 		//Generate triangles
 		var/triangle1 = list(vertex1, vertex2, vertex3)
 		var/triangle2 = list(vertex2, vertex3, vertex4)
-		output_triangles += list(triangle1)
-		output_triangles += list(triangle2)
-	return output_triangles
+		. += list(triangle1)
+		. += list(triangle2)
 
 //Converts the corners into the 3 (or 2) valid points
 //For example if a wall is top right of the source, the bottom left wall corner
@@ -414,7 +413,7 @@
 //Output: List(List(Group), list(group2), ... , list(groupN))
 //Output: List(List(atom1, atom2), list(atom3, atom4...), ... , list(atomN))
 /atom/movable/lighting_mask/alpha/proc/group_atoms(list/ungrouped_things)
-	var/list/grouped_atoms = list()
+	. = list()
 	//Ungrouped things comes in as
 	// Key: X
 	// Value = list(y values)
@@ -430,8 +429,8 @@
 		//Collect all y elements on that x plane
 		var/list/y_elements = ungrouped_things[x_key]
 		//Too few elements to group
-		if(y_elements.len <= 1)
-			if(y_elements.len == 1)
+		if(LAZYLEN(y_elements) <= 1)
+			if(LAZYLEN(y_elements) == 1)
 				DEBUG_HIGHLIGHT(text2num(x_key), y_elements[1], "#FFFF00")
 				COORD_LIST_ADD(horizontal_atoms, y_elements[1], text2num(x_key))
 			continue
@@ -443,7 +442,7 @@
 			var/actual_y_value = y_elements[i]
 			if(actual_y_value == previous_y_element + 1)
 				//Start creating a group, remove grouped elements
-				if(group.len)
+				if(LAZYLEN(group))
 					group += list(list(text2num(x_key), actual_y_value))
 					DEBUG_HIGHLIGHT(text2num(x_key), actual_y_value, "#FF0000")
 				else
@@ -452,9 +451,9 @@
 					group += list(list(text2num(x_key), previous_y_element))
 					DEBUG_HIGHLIGHT(text2num(x_key), previous_y_element, "#FF0000")
 			else
-				if(group.len)
+				if(LAZYLEN(group))
 					//Add the group to the output groups
-					grouped_atoms += list(group)
+					. += list(group)
 					group = list()
 				if(i == 2)
 					DEBUG_HIGHLIGHT(text2num(x_key), previous_y_element, "#FF00FF")
@@ -462,19 +461,19 @@
 				DEBUG_HIGHLIGHT(text2num(x_key), actual_y_value, "#FF00FF")
 				COORD_LIST_ADD(horizontal_atoms, actual_y_value, text2num(x_key))
 			previous_y_element = actual_y_value
-		if(group.len)
-			grouped_atoms += list(group)
+		if(LAZYLEN(group))
+			. += list(group)
 	//=================================================
 	//Bug somewhere in here
 	for(var/y_key in horizontal_atoms)
 		//Collect all y elements on that x plane
 		var/list/x_elements = horizontal_atoms[y_key]
 		//Too few elements to group
-		if(x_elements.len <= 1)
-			if(x_elements.len == 1)
+		if(LAZYLEN(x_elements) <= 1)
+			if(LAZYLEN(x_elements) == 1)
 				//Single alone atom, add as its own group
 				DEBUG_HIGHLIGHT(x_elements[1], text2num(y_key), "#0055FF")
-				grouped_atoms += list(list(list(x_elements[1], text2num(y_key))))
+				. += list(list(list(x_elements[1], text2num(y_key))))
 			continue
 		//Loop through elements and check if they are new to each other
 		var/previous_x_element = x_elements[1]
@@ -484,7 +483,7 @@
 			var/actual_x_value = x_elements[i]
 			if(actual_x_value == previous_x_element + 1)
 				//Start creating a group, remove grouped elements
-				if(group.len)
+				if(LAZYLEN(group))
 					//Horizontal Grouping
 					group += list(list(actual_x_value, text2num(y_key)))
 					DEBUG_HIGHLIGHT(actual_x_value, text2num(y_key), "#00FF00")
@@ -495,19 +494,17 @@
 					group += list(list(previous_x_element, text2num(y_key)))
 					DEBUG_HIGHLIGHT(previous_x_element, text2num(y_key), "#00FF00")
 			else
-				if(group.len)
+				if(LAZYLEN(group))
 					//Add the group to the output groups
-					grouped_atoms += list(group)
+					. += list(group)
 					group = list()
 				if(i == 2)
 					//Single, alone atom = Add in own group
 					DEBUG_HIGHLIGHT(previous_x_element, text2num(y_key), "#00FFFF")
-					grouped_atoms += list(list(list(previous_x_element, text2num(y_key))))
+					. += list(list(list(previous_x_element, text2num(y_key))))
 				//Single, alone atom = Add in own group
 				DEBUG_HIGHLIGHT(actual_x_value, text2num(y_key), "#00FFFF")
-				grouped_atoms += list(list(list(actual_x_value, text2num(y_key))))
+				. += list(list(list(actual_x_value, text2num(y_key))))
 			previous_x_element = actual_x_value
-		if(group.len)
-			grouped_atoms += list(group)
-	//=================================================
-	return grouped_atoms
+		if(LAZYLEN(group))
+			. += list(group)
