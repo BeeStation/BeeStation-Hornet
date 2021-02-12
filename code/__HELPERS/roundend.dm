@@ -200,8 +200,10 @@
 				var/mob/M = C.mob
 				if(M?.mind?.current && LAZYLEN(M.mind.crew_objectives))
 					for(var/datum/objective/crew/CO in M.mind.crew_objectives)
-						if(C && CO.check_completion()) //Yes, the client can be null here. BYOND moment.
-							C.inc_metabalance(METACOIN_CO_REWARD, reason="Completed your crew objective!")
+						if(!C) //Yes, the client can be null here. BYOND moment.
+							break
+						if(CO.check_completion())
+							C?.inc_metabalance(METACOIN_CO_REWARD, reason="Completed your crew objective!")
 							break
 
 	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
