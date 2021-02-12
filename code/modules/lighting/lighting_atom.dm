@@ -3,7 +3,7 @@
 	var/light_power = 1 // Intensity of the light.
 	var/light_range = 0 // Range in tiles of the light.
 	var/light_color     // Hexadecimal RGB string representing the colour of the light.
-	var/light_mask_type
+	var/light_mask_type = null
 
 	var/tmp/datum/light_source/light // Our light source. Don't fuck with this directly unless you have a good reason!
 	var/tmp/list/light_sources       // Any light sources that are "inside" of us, for example, if src here was a mob that's carrying a flashlight, that flashlight's light source would be part of this list.
@@ -41,7 +41,7 @@
 		if(light)
 			QDEL_NULL(light)
 	else
-		if(light && light_mask_type && light_mask_type != light.type)
+		if(light && light_mask_type && (light_mask_type != light.mask_type))
 			QDEL_NULL(light)
 		if (!light) // Update the light or create it if it does not exist.
 			light = new /datum/light_source(src, light_mask_type)
