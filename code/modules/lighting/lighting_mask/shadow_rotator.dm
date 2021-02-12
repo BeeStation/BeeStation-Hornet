@@ -2,7 +2,7 @@
 //Should be theoretically pretty simple, however mutable_appearances dont accept modifications
 //to their transform.
 
-#define ROTATION_PARTS_PER_DECISECOND 2
+#define ROTATION_PARTS_PER_DECISECOND 1
 
 /atom/movable/lighting_mask/alpha/proc/rotate(angle = 0, time = 0)
 	if(time > 0)
@@ -29,10 +29,17 @@
 //throws a 'nothing to animate' error, meaning we have to animate by parts ourselves.
 //Drawback: This animation only runs at 10 FPS.
 /atom/movable/lighting_mask/alpha/proc/async_rotation_animation(angle = 0, time = 0)
+	var/prev_times_calced = times_calculated
 	var/current_part = 0
+	//================
+	//Do the animation
+	//================
 	var/matrix/M = matrix()
 	M.Turn(angle / (time * ROTATION_PARTS_PER_DECISECOND))
 	while(current_part < time * ROTATION_PARTS_PER_DECISECOND)
+		//Shadows were recalculated during movement
+		if(times_calculated != prev_times_calced)
+			return
 		//Increase the current part of the animation
 		current_part ++
 		//Cut the overlays so we can update their transform

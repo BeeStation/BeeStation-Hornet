@@ -29,6 +29,7 @@
 /atom/movable/lighting_mask/alpha
 	var/list/affecting_turfs
 	var/list/mutable_appearance/shadows
+	var/times_calculated = 0
 
 /atom/movable/lighting_mask/alpha/Destroy()
 	if(affecting_turfs)
@@ -55,6 +56,9 @@
 	if(!SSlighting.started)
 		SSlighting.sources_that_need_updating |= src
 		return
+
+	//For tracking
+	times_calculated ++
 
 	//Dont bother calculating at all for small shadows
 	var/range = radius * 0.5
