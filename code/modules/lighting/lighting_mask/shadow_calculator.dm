@@ -26,12 +26,12 @@
 #define DO_SOMETHING_IF_DEBUGGING_SHADOWS(something)
 #endif
 
-/atom/movable/lighting_mask/alpha
+/atom/movable/lighting_mask
 	var/list/affecting_turfs
 	var/list/mutable_appearance/shadows
 	var/times_calculated = 0
 
-/atom/movable/lighting_mask/alpha/Destroy()
+/atom/movable/lighting_mask/Destroy()
 	if(affecting_turfs)
 		for(var/turf/thing as() in affecting_turfs)
 			LAZYREMOVE(thing.lights_affecting, src)
@@ -40,25 +40,22 @@
 	LAZYCLEARLIST(shadows)
 	. = ..()
 
-/atom/movable/lighting_mask/alpha/proc/link_turf_to_light(turf/T)
+/atom/movable/lighting_mask/proc/link_turf_to_light(turf/T)
 	LAZYOR(affecting_turfs, T)
 	LAZYOR(T.lights_affecting, src)
 
-/atom/movable/lighting_mask/alpha/proc/unlink_turf_from_light(turf/T)
+/atom/movable/lighting_mask/proc/unlink_turf_from_light(turf/T)
 	LAZYREMOVE(affecting_turfs, T)
 	LAZYREMOVE(T.lights_affecting, src)
 
 //Returns a list of matrices corresponding to the matrices that should be applied to triangles of
 //coordinates (0,0),(1,0),(0,1) to create a triangcalculate_shadows_matricesle that respresents the shadows
 //takes in the old turf to smoothly animate shadow movement
-/atom/movable/lighting_mask/alpha/proc/calculate_lighting_shadows()
+/atom/movable/lighting_mask/proc/calculate_lighting_shadows()
 
 	if(!SSlighting.started)
 		SSlighting.sources_that_need_updating |= src
 		return
-
-	//For tracking
-	times_calculated ++
 
 	//Dont bother calculating at all for small shadows
 	var/range = radius * 0.5
@@ -190,7 +187,7 @@
 //Converts a triangle into a matrix that can be applied to a standardized triangle
 //to make it represent the points.
 //Note: Ignores translation because
-/atom/movable/lighting_mask/alpha/proc/triangle_to_matrix(list/triangle)
+/atom/movable/lighting_mask/proc/triangle_to_matrix(list/triangle)
 	var/turf/our_turf = get_turf(src)
 	var/ourx = our_turf.x
 	var/oury = our_turf.y
@@ -243,7 +240,7 @@
 // Layer 2: Vertex
 // Layer 3: X/Y value
 //OUTPUT: The same thing but with 3 lists embedded rather than 2 because they are triangles not lines now.
-/atom/movable/lighting_mask/alpha/proc/calculate_triangle_vertices(list/cornergroup)
+/atom/movable/lighting_mask/proc/calculate_triangle_vertices(list/cornergroup)
 	//Get the origin poin's
 	var/turf/our_turf = get_turf(src)
 	var/ourx = our_turf.x
@@ -290,7 +287,7 @@
 //can be removed otherwise the wall itself will be in the shadow.
 //Input: list(list(x1, y1), list(x2, y2))
 //Output: list(list(list(x, y), list(x, y))) <-- 2 coordinates that form a line
-/atom/movable/lighting_mask/alpha/proc/get_corners_from_coords(list/coordgroup)
+/atom/movable/lighting_mask/proc/get_corners_from_coords(list/coordgroup)
 	//Get the raw numbers
 	var/xlow = coordgroup[1][1]
 	var/ylow = coordgroup[1][2]
@@ -375,7 +372,7 @@
 //Calculates the coordinates of the corner
 //Input: Group list(list(list(x,y), list(x,y)), list(list(x, y)))
 //Output: Coordinates list(list(left, bottom), list(right, top))
-/atom/movable/lighting_mask/alpha/proc/calculate_corners_in_group(list/group)
+/atom/movable/lighting_mask/proc/calculate_corners_in_group(list/group)
 	if(length(group) == 0)
 		CRASH("Calculate_corners_in_group called on a group of length 0. Critical error.")
 	if(length(group) == 1)
@@ -419,7 +416,7 @@
 //Input: All atoms ungrouped list(atom1, atom2, atom3)
 //Output: List(List(Group), list(group2), ... , list(groupN))
 //Output: List(List(atom1, atom2), list(atom3, atom4...), ... , list(atomN))
-/atom/movable/lighting_mask/alpha/proc/group_atoms(list/ungrouped_things)
+/atom/movable/lighting_mask/proc/group_atoms(list/ungrouped_things)
 	. = list()
 	//Ungrouped things comes in as
 	// Key: X

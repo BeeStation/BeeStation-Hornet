@@ -387,7 +387,7 @@
 					burn_out()
 			else
 				use_power = ACTIVE_POWER_USE
-				set_light(BR, PO, CO, mask_type = /atom/movable/lighting_mask/alpha/primary_lighting)
+				set_light(BR, PO, CO, mask_type = /atom/movable/lighting_mask/primary_lighting)
 	else if(use_emergency_power(LIGHT_EMERGENCY_POWER_USE) && !turned_off())
 		use_power = IDLE_POWER_USE
 		emergency_mode = TRUE
