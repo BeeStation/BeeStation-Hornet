@@ -80,7 +80,7 @@
 	if(I.force)
 		apply_damage(I.force, I.damtype, affecting)
 		if(I.damtype == BRUTE && affecting.status == BODYPART_ORGANIC)
-			if(I.sharpness || I.force >= 10)
+			if(I.is_sharp() || I.force >= 10)
 				I.add_mob_blood(src)
 				var/turf/location = get_turf(src)
 				add_splatter_floor(location)
@@ -101,10 +101,10 @@
 						update_inv_head()
 
 		//dismemberment
-		var/dismemberthreshold = (((affecting.max_damage * 2) / max(I.sharpness, 0.5)) - (affecting.get_damage() + ((I.w_class - 3) * 10) + ((I.attack_weight - 1) * 15)))
+		var/dismemberthreshold = (((affecting.max_damage * 2) / max(I.is_sharp(), 0.5)) - (affecting.get_damage() + ((I.w_class - 3) * 10) + ((I.attack_weight - 1) * 15)))
 		if(HAS_TRAIT(src, TRAIT_EASYDISMEMBER))
 			dismemberthreshold -= 50
-		if(I.sharpness)
+		if(I.is_sharp())
 			dismemberthreshold = min(((affecting.max_damage * 2) - affecting.get_damage()), dismemberthreshold) //makes it so limbs wont become immune to being dismembered if the item is sharp
 			if(stat == DEAD)
 				dismemberthreshold = dismemberthreshold / 3
