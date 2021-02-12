@@ -278,6 +278,11 @@
 	qdel(event)
 	update_mood()
 
+/datum/component/mood/proc/get_event(category)
+	if(!istext(category))
+		category = REF(category)
+	return mood_events[category]
+
 /datum/component/mood/proc/remove_temp_moods(var/admin) //Removes all temp moods
 	for(var/i in mood_events)
 		var/datum/mood_event/moodlet = mood_events[i]

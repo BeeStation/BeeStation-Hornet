@@ -175,6 +175,11 @@
 	description = "<span class='nicegreen'>I feel proud to show my remembrance of the many who have died to ensure that I have freedom.</span>\n"
 	mood_change = 1
 
+/datum/mood_event/funny_prank
+	description = "<span class='nicegreen'>That was a funny prank, clown!</span>\n"
+	mood_change = 2
+	timeout = 2 MINUTES
+
 /datum/mood_event/area
 	description = "" //Fill this out in the area
 	mood_change = 0
