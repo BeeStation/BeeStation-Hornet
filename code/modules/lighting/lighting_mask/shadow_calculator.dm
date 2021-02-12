@@ -6,7 +6,8 @@
 
 #define COORD_LIST_ADD(listtoadd, x, y) \
 	if(islist(listtoadd["[x]"])) { \
-		BINARY_INSERT_NUM(y, listtoadd["[x]"]); \
+		var/list/_L = listtoadd["[x]"]; \
+		BINARY_INSERT_NUM(y, _L); \
 	} else { \
 		listtoadd["[x]"] = list(y);\
 	}
@@ -27,12 +28,15 @@
 
 /atom/movable/lighting_mask/alpha
 	var/list/affecting_turfs
+	var/list/mutable_appearance/shadows
 
 /atom/movable/lighting_mask/alpha/Destroy()
 	if(affecting_turfs)
 		for(var/turf/thing as() in affecting_turfs)
 			LAZYREMOVE(thing.lights_affecting, src)
 		affecting_turfs = null
+	//Cut the shadows. Since they are overlays they will be deleted when cut from overlays probably.
+	LAZYCLEARLIST(shadows)
 	. = ..()
 
 /atom/movable/lighting_mask/alpha/proc/link_turf_to_light(turf/T)
@@ -81,6 +85,7 @@
 
 	//Clear the list
 	LAZYCLEARLIST(affecting_turfs)
+	LAZYCLEARLIST(shadows)
 
 	//Rebuild the list
 	for(var/turf/thing in view(range, get_turf(src)))
@@ -160,6 +165,7 @@
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(MA_vars_time += TICK_USAGE_TO_MS(temp_timer))
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
+			LAZYADD(shadows, shadow)
 			overlays_to_add += shadow
 
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(overlays_add_time += TICK_USAGE_TO_MS(temp_timer))
