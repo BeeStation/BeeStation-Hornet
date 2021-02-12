@@ -200,7 +200,7 @@
 				var/mob/M = C.mob
 				if(M?.mind?.current && LAZYLEN(M.mind.crew_objectives))
 					for(var/datum/objective/crew/CO in M.mind.crew_objectives)
-						if(CO.check_completion())
+						if(C && CO.check_completion()) //Yes, the client can be null here. BYOND moment.
 							C.inc_metabalance(METACOIN_CO_REWARD, reason="Completed your crew objective!")
 							break
 
