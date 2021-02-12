@@ -57,8 +57,14 @@
 //takes in the old turf to smoothly animate shadow movement
 /atom/movable/lighting_mask/proc/calculate_lighting_shadows()
 
+	//Check to make sure lighting is actually started
+	//If not count the amount of duplicate requests created.
 	if(!SSlighting.started)
-		SSlighting.sources_that_need_updating |= src
+		if(awaiting_update)
+			SSlighting.duplicate_shadow_updates_in_init ++
+			return
+		SSlighting.sources_that_need_updating += src
+		awaiting_update = TRUE
 		return
 
 	//Dont bother calculating at all for small shadows
