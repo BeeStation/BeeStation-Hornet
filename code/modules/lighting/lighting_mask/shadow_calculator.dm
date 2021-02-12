@@ -19,12 +19,11 @@
 			T.color = colour; \
 		}\
 	} while (0)
+#define DO_SOMETHING_IF_DEBUGGING_SHADOWS(something) something
 #else
 #define DEBUG_HIGHLIGHT(x, y, colour)
-#endif
-
-//#define DO_SOMETHING_IF_DEBUGGING_SHADOWS(something) something
 #define DO_SOMETHING_IF_DEBUGGING_SHADOWS(something)
+#endif
 
 /atom/movable/lighting_mask/alpha
 	var/rbo_m = 0
