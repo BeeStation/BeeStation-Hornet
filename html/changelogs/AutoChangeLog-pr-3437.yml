@@ -1,0 +1,16 @@
+author: EdgeLordExe, EOBGames, ShivCalev, Rohesie, Tad Hardesty, ATHATH, and eeSPee
+delete-after: true
+changes:
+  - tweak: Tears in reality no longer inflict brain damage when analyzed, instead
+      just give a bad moodlet
+  - tweak: Revised reality tears generation
+  - tweak: Tears in reality appear after a time, and slowly disappear after 15 minutes
+  - tweak: Coders rule, jannies drool
+  - balance: Heretic effects (runes, tears) are invisible to silicons
+  - spellcheck: Names and descriptions have been revised, thanks to @EOBGames
+  - balance: Heart now offers a pick between 3 targets
+  - balance: Doubled the charges sacrifices offer
+  - balance: Heretics marks area work differently; marks are applied by grasp, and
+      triggered with the blade
+  - balance: Ash grasp blinds instead of knockback
+  - tweak: Rust spread datum is revised/optimized
