@@ -236,6 +236,8 @@
 		var/datum/gas_mixture/G = i
 		total_gas_mixture.merge(G)
 		total_volume += G.return_volume()
+	
+	total_gas_mixture.set_volume(total_volume)
 
 	//Decides what this pipeline should do next tick
 	//Pipenet air reacts here or your connected canisters won't react properly
