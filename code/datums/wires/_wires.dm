@@ -237,6 +237,10 @@
 		reveal_wires = TRUE
 
 	// Same for anyone with an abductor multitool.
+	else if(HAS_TRAIT(user,TRAIT_CABLEVISION))
+		reveal_wires = TRUE
+
+	// Same for anyone with an abductor multitool.
 	else if(user.is_holding_item_of_type(/obj/item/multitool/abductor))
 		reveal_wires = TRUE
 

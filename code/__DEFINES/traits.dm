@@ -205,6 +205,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FRIENDLY			"friendly"
 #define TRAIT_GRABWEAKNESS		"grab_weakness"
 
+#define TRAIT_CABLEVISION "cable-vision"
+#define TRAIT_NERVEAUGS "augmented-nerves"
+#define TRAIT_RELIABLESURGERY "reliable-surgery"
+#define TRAIT_CHEMIST "chemist"
+
 // common trait sources
 #define TRAIT_GENERIC "generic"
 #define EYE_DAMAGE "eye_damage"
@@ -281,3 +286,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define BATTLE_ROYALE_TRAIT "battleroyale_trait"
 #define MADE_UNCLONEABLE "made-uncloneable"
 #define TRAIT_JAWS_OF_LIFE "jaws-of-life"
+
+//merge into one
+#define TRAIT_NOSPILL "nospill-throw"
+//chef CQC
+//sec CQC
