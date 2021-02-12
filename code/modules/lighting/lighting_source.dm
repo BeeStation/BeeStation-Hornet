@@ -33,10 +33,6 @@
 
 	source_turf = get_turf(source_atom)
 
-	light_power = owner.light_power
-	light_range = owner.light_range
-	light_color = owner.light_color
-
 	PARSE_LIGHT_COLOR(src)
 
 	if(!mask_type)
@@ -83,14 +79,18 @@
 	if(contained_atom != source_atom)
 		LAZYADD(contained_atom.light_sources, src)
 
+//Update light if changed.
 /datum/light_source/proc/set_light(var/l_range, var/l_power, var/l_color = NONSENSICAL_VALUE)
 	if(!our_mask)
 		return
-	if(l_range)
+	if(l_range && l_range != light_range)
+		light_range = l_range
 		our_mask.set_radius(l_range)
-	if(l_power)
+	if(l_power && l_power != light_power)
+		light_power = l_power
 		our_mask.set_intensity(l_power)
-	if(l_color != NONSENSICAL_VALUE)
+	if(l_color != NONSENSICAL_VALUE && l_color != light_color)
+		light_color = l_color
 		our_mask.set_colour(l_color)
 
 /datum/light_source/proc/update_position()

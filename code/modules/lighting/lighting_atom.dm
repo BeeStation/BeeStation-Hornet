@@ -90,6 +90,11 @@
 		L = thing
 		L.source_atom.update_light()
 
+/atom/movable/setDir(newdir)
+	. = ..()
+	for(var/datum/light_source/thing as() in light_sources)
+		thing.our_mask?.holder_turned(newdir)
+
 /atom/vv_edit_var(var_name, var_value)
 	switch (var_name)
 		if ("light_range")
