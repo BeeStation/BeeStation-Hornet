@@ -139,11 +139,11 @@
 /obj/structure/constructshell/examine(mob/user)
 	. = ..()
 	if(iscultist(user) || iswizard(user) || user.stat == DEAD)
-		. += {"<span class='cult'>A construct shell, used to house bound souls from a soulstone.\n
-		Placing a soulstone with a soul into this shell allows you to produce your choice of the following:\n
-		An <b>Artificer</b>, which can produce <b>more shells and soulstones</b>, as well as fortifications.\n
-		A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.\n
-		A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.</span>"}
+		. += "<span class='cult'>A construct shell, used to house bound souls from a soulstone.\n"+\
+		"Placing a soulstone with a soul into this shell allows you to produce your choice of the following:\n"+\
+		"An <b>Artificer</b>, which can produce <b>more shells and soulstones</b>, as well as fortifications.\n"+\
+		"A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.\n"+\
+		"A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.</span>"
 
 /obj/structure/constructshell/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/soulstone))
