@@ -26,8 +26,6 @@
 #endif
 
 /atom/movable/lighting_mask/alpha
-	var/rbo_m = 0
-	var/rbo_c = 3.5
 	var/list/affecting_turfs
 
 /atom/movable/lighting_mask/alpha/Destroy()
@@ -222,7 +220,7 @@
 	//a,b,d and e can be used to define the shape, C and F can be used for translation god matrices are so beautiful
 	//Completely random offset that I didnt derive, I just trialled and errored for about 4 hours until it randomly worked
 	//var/radius_based_offset = radius * 3 + 3.5 <-- for 1024x1024 lights DO NOT USE 1024x1024 SHADOWS UNLESS YOU ARE PLAYING WITH RTX200000 OR SOMETHING
-	var/radius_based_offset = (radius * rbo_m) + rbo_c
+	var/radius_based_offset = (radius * 0) + 3.5
 	var/matrix/M = matrix(a, b, (c * 32) - ((radius_based_offset) * 32), d, e, (f * 32) - ((radius_based_offset) * 32))
 	//message_admins("[M.a], [M.d], 0")
 	//message_admins("[M.b], [M.e], 0")
