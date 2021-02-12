@@ -507,3 +507,8 @@
 			previous_x_element = actual_x_value
 		if(LAZYLEN(group))
 			. += list(group)
+
+#undef LIGHTING_SHADOW_TEX_SIZE
+#undef COORD_LIST_ADD
+#undef DEBUG_HIGHLIGHT
+#undef DO_SOMETHING_IF_DEBUGGING_SHADOWS
