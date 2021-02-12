@@ -285,7 +285,7 @@
 	random_sensor = FALSE
 
 /obj/item/clothing/under/costume/swagoutfit
-	name = "Swag outfit"
+	name = "swag outfit"
 	desc = "Why don't you go secure some bitches?"
 	icon_state = "SwagOutfit"
 	item_state = "SwagOutfit"
