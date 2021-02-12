@@ -259,7 +259,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 /obj/machinery/cryopod/proc/handle_objectives()
 	var/mob/living/mob_occupant = occupant
 	//Update any existing objectives involving this mob.
-	for(var/datum/objective/O in GLOB.objectives)
+	for(var/thing in GLOB.objectives)
+		var/datum/objective/O = thing
 		// We don't want revs to get objectives that aren't for heads of staff. Letting
 		// them win or lose based on cryo is silly so we remove the objective.
 		if(istype(O,/datum/objective/mutiny) && O.target == mob_occupant.mind)
@@ -268,37 +269,20 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			for(var/datum/mind/M in O.team.members)
 				to_chat(M.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
 				M.announce_objectives()
-		else if(O.target && istype(O.target, /datum/mind))
-			if(O.target == mob_occupant.mind)
-				var/old_target = O.target
-				O.target = null
-				if(!O)
-					return
-				O.find_target()
-				if(!O.target && O.owner)
-					to_chat(O.owner.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
-					for(var/datum/antagonist/A in O.owner.antag_datums)
-						A.objectives -= O
-				if (!O.team)
-					O.update_explanation_text()
-					O.owner.announce_objectives()
-					to_chat(O.owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-				else
-					var/list/objectivestoupdate
-					for(var/datum/mind/own in O.get_owners())
-						to_chat(own.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-						for(var/datum/objective/ob in own.get_all_objectives())
-							LAZYADD(objectivestoupdate, ob)
-					objectivestoupdate += O.team.objectives
-					for(var/datum/objective/ob in objectivestoupdate)
-						if(ob.target != old_target || !istype(ob,O.type))
-							return
-						ob.target = O.target
-						ob.update_explanation_text()
-						to_chat(O.owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-						ob.owner.announce_objectives()
+		else if(O.target == mob_occupant.mind)
+			O.target = null
+			O.find_target()
+			O.update_explanation_text()
+
+			var/list/owners = O.get_owners()
+
+			if(!O.target && O.owner)
 				qdel(O)
 
+			for(var/M in owners)
+				var/datum/mind/own = M
+				to_chat(own.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+				O.owner.announce_objectives()
 // This function can not be undone; do not call this unless you are sure
 /obj/machinery/cryopod/proc/despawn_occupant()
 	var/mob/living/mob_occupant = occupant
