@@ -193,11 +193,11 @@
 	for(var/client/C in GLOB.clients)
 		if(C)
 
-			C.playtitlemusic(40)
-			C.process_endround_metacoin()
+			C?.process_endround_metacoin()
+			C?.playtitlemusic(40)
 
 			if(CONFIG_GET(flag/allow_crew_objectives))
-				var/mob/M = C.mob
+				var/mob/M = C?.mob
 				if(M?.mind?.current && LAZYLEN(M.mind.crew_objectives))
 					for(var/datum/objective/crew/CO in M.mind.crew_objectives)
 						if(!C) //Yes, the client can be null here. BYOND moment.
