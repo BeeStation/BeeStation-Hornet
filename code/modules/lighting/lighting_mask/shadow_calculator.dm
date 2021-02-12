@@ -32,6 +32,10 @@
 	var/times_calculated = 0
 
 /atom/movable/lighting_mask/Destroy()
+	//Make sure we werent destroyed in init
+	if(!SSlighting.started)
+		SSlighting.sources_that_need_updating -= src
+	//Remove from affecting turfs
 	if(affecting_turfs)
 		for(var/turf/thing as() in affecting_turfs)
 			LAZYREMOVE(thing.lights_affecting, src)
