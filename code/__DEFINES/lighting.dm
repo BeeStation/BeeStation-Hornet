@@ -91,3 +91,5 @@
 
 /// Returns the blue part of a #RRGGBB hex sequence as number
 #define GETBLUEPART(hexa) hex2num(copytext(hexa, 6, 8))
+
+#define BASE_LIGHTING_ALPHA 180

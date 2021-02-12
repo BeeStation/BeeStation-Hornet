@@ -32,6 +32,7 @@
 	our_mask = new mask_type(source_turf)
 	our_mask.attached_atom = owner
 	set_light(owner.light_range, owner.light_power, owner.light_color)
+	our_mask.calculate_lighting_shadows()
 
 	SSlighting.light_sources += src
 

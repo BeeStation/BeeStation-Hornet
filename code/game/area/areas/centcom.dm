@@ -132,6 +132,9 @@
 	has_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
 
+	base_lighting = "#cc89dd"
+	base_lighting_alpha = BASE_LIGHTING_ALPHA
+
 //Syndicates
 /area/syndicate_mothership
 	name = "Syndicate Mothership"
@@ -142,6 +145,9 @@
 	blob_allowed = FALSE //Not... entirely sure this will ever come up... but if the bus makes blobs AND ops, it shouldn't aim for the ops to win.
 	flags_1 = NONE
 	ambient_effects = HIGHSEC
+
+	base_lighting = "#555b72"
+	base_lighting_alpha = BASE_LIGHTING_ALPHA
 
 /area/syndicate_mothership/control
 	name = "Syndicate Control Room"
@@ -159,6 +165,9 @@
 	icon_state = "yellow"
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
+
+	base_lighting = "#ffffff"
+	base_lighting_alpha = BASE_LIGHTING_ALPHA
 
 /area/ctf/control_room
 	name = "Control Room A"
@@ -197,6 +206,9 @@
 	teleport_restriction = TELEPORT_ALLOW_CLOCKWORK
 	hidden = TRUE
 	ambient_effects = REEBE
+
+	base_lighting = "#eed8c4"
+	base_lighting_alpha = BASE_LIGHTING_ALPHA
 
 /area/reebe/city_of_cogs
 	name = "Reebe - City of Cogs"

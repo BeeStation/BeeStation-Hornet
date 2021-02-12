@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(lighting)
 	init_order = INIT_ORDER_LIGHTING
 	flags = SS_NO_FIRE
 
+	var/duplicate_shadow_updates_in_init = 0
 	var/total_shadow_calculations = 0
 
 	var/started = FALSE
@@ -15,6 +16,8 @@ SUBSYSTEM_DEF(lighting)
 
 /datum/controller/subsystem/lighting/Initialize(timeofday)
 	started = TRUE
+	if(duplicate_shadow_updates_in_init)
+		to_chat(world, "<span class='boldannounce'>Warning! [duplicate_shadow_updates_in_init] duplicate shadow generation requests were generated during init!</span>")
 	to_chat(world, "<span class='boldannounce'>Generating shadows on [sources_that_need_updating.len] light sources.</span>")
 	var/timer = TICK_USAGE
 	for(var/atom/movable/lighting_mask/mask as() in sources_that_need_updating)
