@@ -84,6 +84,9 @@
 	has_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
 
+	base_lighting = "#ffffff"
+	base_lighting_alpha = BASE_LIGHTING_ALPHA
+
 /area/tdome/arena
 	name = "Thunderdome Arena"
 	icon_state = "thunder"
@@ -153,10 +156,13 @@
 	name = "Syndicate Control Room"
 	icon_state = "syndie-control"
 
+	base_lighting_alpha = 0
 
 /area/syndicate_mothership/elite_squad
 	name = "Syndicate Elite Squad"
 	icon_state = "syndie-elite"
+
+	base_lighting_alpha = 0
 
 //CAPTURE THE FLAG
 
