@@ -205,22 +205,31 @@
 			mob_occupant.Sleeping((mob_occupant.bodytemperature * sleep_factor) * 1000 * delta_time)//delta_time is roughly ~2 seconds
 			mob_occupant.Unconscious((mob_occupant.bodytemperature * unconscious_factor) * 1000 * delta_time)
 		if(beaker)//How much to transfer. As efficiency is increased, less reagent from the beaker is used and more is magically transferred to occupant
-			beaker.reagents.trans_to(occupant, (CRYO_TX_QTY / (efficiency * CRYO_MULTIPLY_FACTOR)) * delta_time, efficiency * CRYO_MULTIPLY_FACTOR, method = VAPOR)
+			beaker.reagents.trans_to(occupant, (CRYO_TX_QTY / (efficiency * CRYO_MULTIPLY_FACTOR)) * delta_time, efficiency * 15, method = VAPOR)
 		use_power(1000 * efficiency)
 
 	return 1
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/process_atmos(delta_time)
+/obj/machinery/atmospherics/components/unary/cryo_cell/process_atmos()
 	..()
 
 	if(!on)
 		return
 
-	var/datum/gas_mixture/air1 = airs[1]
-
-	if(!nodes[1] || !airs[1] || air1.get_moles(/datum/gas/oxygen) < 5) // Turn off if the machine won't work.
+	if(!beaker || !beaker.reagents.reagent_list.len) //No beaker or beaker without reagents with stop the machine from running.
 		on = FALSE
 		update_icon()
+		var/msg = "Aborting. No beaker or chemicals installed."
+		radio.talk_into(src, msg, radio_channel)
+		return
+
+	var/datum/gas_mixture/air1 = airs[1]
+
+	if(!nodes[1] || !airs[1] || air1.get_moles(/datum/gas/oxygen) < 5) // Turn off if the machine won't work, it will not have enough moles to operate.
+		on = FALSE
+		update_icon()
+		var/msg = "Aborting. Not enough moles of gas present to operate."
+		radio.talk_into(src, msg, radio_channel)
 		return
 
 	if(occupant)
@@ -237,8 +246,9 @@
 
 			var/heat = ((1 - cold_protection) * 0.1 + conduction_coefficient) * temperature_delta * (air_heat_capacity * heat_capacity / (air_heat_capacity + heat_capacity))
 
-			air1.set_temperature(max(air1.return_temperature() - heat * delta_time/ air_heat_capacity, TCMB))
-			mob_occupant.adjust_bodytemperature(heat * delta_time / heat_capacity, TCMB)
+			air1.set_temperature(max(air1.return_temperature() - heat / air_heat_capacity, TCMB))
+			mob_occupant.adjust_bodytemperature(heat / heat_capacity, TCMB)
+
 
 		air1.set_moles(/datum/gas/oxygen, max(0,air1.get_moles(/datum/gas/oxygen) - 0.5 / efficiency)) // Magically consume gas? Why not, we run on cryo magic.
 
