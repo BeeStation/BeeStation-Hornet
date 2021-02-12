@@ -8,14 +8,9 @@
 
 	var/turf/source_turf     // The turf under the above.
 	var/turf/pixel_turf      // The turf the top_atom appears to over.
-	var/light_power    // Intensity of the emitter light.
-	var/light_range      // The range of the emitted light.
-	var/light_color    // The colour of the light, string, decomposed by parse_light_color()
-
-	// Variables for keeping track of the colour.
-	var/lum_r
-	var/lum_g
-	var/lum_b
+	var/light_power = 0    					// Intensity of the emitter light.
+	var/light_range = 0      				// The range of the emitted light.
+	var/light_color = NONSENSICAL_VALUE    // The colour of the light, string, decomposed by parse_light_color()
 
 	var/list/turf/affecting_turfs
 
@@ -33,17 +28,14 @@
 
 	source_turf = get_turf(source_atom)
 
-	PARSE_LIGHT_COLOR(src)
-
 	if(!mask_type)
 		mask_type = /atom/movable/lighting_mask/alpha
 	src.mask_type = mask_type
 	our_mask = new mask_type(source_turf)
 	our_mask.attached_atom = owner
-	set_light(light_range, light_power, light_color)
+	set_light(owner.light_range, owner.light_power, owner.light_color)
 
 	SSlighting.light_sources += src
-	our_mask.calculate_lighting_shadows()
 
 /datum/light_source/Destroy(...)
 	SSlighting.light_sources -= src
@@ -94,5 +86,5 @@
 		our_mask.set_colour(l_color)
 
 /datum/light_source/proc/update_position()
-	our_mask.forceMove(get_turf(source_atom))
+	our_mask?.forceMove(get_turf(source_atom))
 	find_containing_atom()
