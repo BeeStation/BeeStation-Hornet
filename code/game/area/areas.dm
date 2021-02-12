@@ -155,6 +155,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 	reg_in_areas_in_z()
 
+	update_base_lighting()
+
 	return INITIALIZE_HINT_LATELOAD
 
 /**

@@ -22,6 +22,8 @@
 
 	var/atom/attached_atom
 
+	var/awaiting_update = FALSE
+
 /atom/movable/lighting_mask/Destroy()
 	attached_atom = null
 
@@ -29,9 +31,8 @@
 
 /atom/movable/lighting_mask/proc/set_radius(radius, transform_time = 0)
 	apply_matrix(get_matrix(radius), transform_time)
-	calculate_lighting_shadows()
-
 	src.radius = radius
+	calculate_lighting_shadows()
 
 /atom/movable/lighting_mask/proc/apply_matrix(matrix/M, transform_time = 0)
 	if(transform_time)
