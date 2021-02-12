@@ -11,7 +11,7 @@
 
 /turf/Destroy(force)
 	if(lights_affecting)
-		for(var/atom/movable/lighting_mask/alpha/mask as() in lights_affecting)
+		for(var/atom/movable/lighting_mask/mask as() in lights_affecting)
 			LAZYREMOVE(mask.affecting_turfs, src)
 		lights_affecting = null
 	. = ..()
@@ -21,13 +21,13 @@
 	if(!lights_affecting)
 		return
 	//Copy to prevent looping
-	for(var/atom/movable/lighting_mask/alpha/mask as() in lights_affecting.Copy())
+	for(var/atom/movable/lighting_mask/mask as() in lights_affecting.Copy())
 		mask.calculate_lighting_shadows()
 
 // Used to get a scaled lumcount.
 /turf/proc/get_lumcount()
 	var/lums = 0
-	for(var/atom/movable/lighting_mask/alpha/mask as() in lights_affecting)
+	for(var/atom/movable/lighting_mask/mask as() in lights_affecting)
 		lums += LIGHT_POWER_ESTIMATION(mask.alpha, mask.radius, get_dist(src, get_turf(mask)))
 	return min(lums, 1.0)
 

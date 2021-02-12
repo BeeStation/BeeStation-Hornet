@@ -42,7 +42,7 @@
 		lit = TRUE
 		if(show_message)
 			usr.visible_message(show_message)
-		set_light(CANDLE_LUMINOSITY, mask_type = /atom/movable/lighting_mask/alpha/flicker)
+		set_light(CANDLE_LUMINOSITY, mask_type = /atom/movable/lighting_mask/flicker)
 		START_PROCESSING(SSobj, src)
 		update_icon()
 
