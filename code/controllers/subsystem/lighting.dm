@@ -17,7 +17,7 @@ SUBSYSTEM_DEF(lighting)
 	started = TRUE
 	to_chat(world, "<span class='boldannounce'>Generating shadows on [sources_that_need_updating.len] light sources.</span>")
 	var/timer = TICK_USAGE
-	for(var/atom/movable/lighting_mask/alpha/mask as() in sources_that_need_updating)
+	for(var/atom/movable/lighting_mask/mask as() in sources_that_need_updating)
 		mask.calculate_lighting_shadows()
 	sources_that_need_updating = null
 	to_chat(world, "<span class='boldannounce'>Initial lighting conditions built successfully in [TICK_USAGE_TO_MS(timer)]ms.</span>")

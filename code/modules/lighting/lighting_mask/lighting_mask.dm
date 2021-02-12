@@ -4,6 +4,9 @@
 /atom/movable/lighting_mask
 	name = ""
 
+	icon             = LIGHTING_ICON_BIG
+	icon_state       = "light_big"
+
 	anchored = TRUE
 	plane            = LIGHTING_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -12,11 +15,6 @@
 	blend_mode		 = BLEND_ADD
 
 	appearance_flags = RESET_TRANSFORM | RESET_COLOR | RESET_ALPHA | KEEP_TOGETHER
-
-	/*bound_x = -128
-	bound_y = -128
-	bound_height = 256
-	bound_width = 256*/
 
 	move_resist = INFINITY
 
@@ -31,6 +29,7 @@
 
 /atom/movable/lighting_mask/proc/set_radius(radius, transform_time = 0)
 	apply_matrix(get_matrix(radius), transform_time)
+	calculate_lighting_shadows()
 
 	src.radius = radius
 
@@ -46,13 +45,14 @@
 	//Scale
 	// - Scale to the appropriate radius
 	M.Scale(proportion)
-	//Rotate
-	// - Rotate (Directional lights TODO)
 	//Translate
 	// - Center the overlay image
 	// - Ok so apparently translate is affected by the scale we already did huh.
 	// ^ Future me here, its because it works as translate then scale since its backwards.
 	M.Translate(-128 + (16 * proportion))
+	//Rotate
+	// - Rotate (Directional lights)
+	M.Turn(currentAngle)
 	return M
 
 /atom/movable/lighting_mask/ex_act(severity, target)

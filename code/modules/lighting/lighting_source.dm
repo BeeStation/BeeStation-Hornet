@@ -12,12 +12,10 @@
 	var/light_range = 0      				// The range of the emitted light.
 	var/light_color = NONSENSICAL_VALUE    // The colour of the light, string, decomposed by parse_light_color()
 
-	var/list/turf/affecting_turfs
-
 	var/applied = FALSE // Whether we have applied our light yet or not.
 
 	var/mask_type
-	var/atom/movable/lighting_mask/alpha/our_mask
+	var/atom/movable/lighting_mask/our_mask
 
 /datum/light_source/New(var/atom/movable/owner, mask_type)
 	source_atom = owner // Set our new owner.
@@ -29,7 +27,7 @@
 	source_turf = get_turf(source_atom)
 
 	if(!mask_type)
-		mask_type = /atom/movable/lighting_mask/alpha
+		mask_type = /atom/movable/lighting_mask
 	src.mask_type = mask_type
 	our_mask = new mask_type(source_turf)
 	our_mask.attached_atom = owner
