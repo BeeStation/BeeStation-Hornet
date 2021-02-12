@@ -50,6 +50,8 @@
 
 	ComponentInitialize()
 
+	add_overlay(/obj/effect/fullbright)
+
 	return INITIALIZE_HINT_NORMAL
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
