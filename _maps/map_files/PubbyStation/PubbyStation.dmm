@@ -35292,13 +35292,6 @@
 /obj/structure/sign/warning/biohazard,
 /turf/closed/wall,
 /area/medical/virology)
-"bBb" = (
-/obj/effect/turf_decal/stripes/line,
-/mob/living/simple_animal/bot/cleanbot{
-	name = "McSweepsky"
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/sleeper)
 "bBc" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -56387,6 +56380,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"hjz" = (
+/obj/effect/turf_decal/stripes/line,
+/mob/living/simple_animal/bot/cleanbot/medbay,
+/turf/open/floor/plasteel/white,
+/area/medical/sleeper)
 "hjR" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/tile/brown{
@@ -93170,7 +93168,7 @@ bwH
 rAZ
 bzR
 bzR
-bBb
+hjz
 bDr
 bEx
 bkh

@@ -6,7 +6,7 @@
 /obj/structure/closet/crate/necropolis
 	name = "necropolis chest"
 	desc = "It's watching you closely."
-	icon_state = "necrocrate"
+	icon_state = "necro_crate"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	door_anim_time = 0
 

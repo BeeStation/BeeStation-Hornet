@@ -15,7 +15,6 @@
 	coldmod = 6   // = 3x cold damage
 	heatmod = 0.5 // = 1/4x heat damage
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
-	inherent_factions = list("slime")
 	species_language_holder = /datum/language_holder/oozeling
 	limbs_id = "ooze"
 	swimming_component = /datum/component/swimming/dissolve
