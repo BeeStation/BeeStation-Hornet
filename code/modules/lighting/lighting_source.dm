@@ -21,6 +21,7 @@
 
 	var/applied = FALSE // Whether we have applied our light yet or not.
 
+	var/mask_type
 	var/atom/movable/lighting_mask/alpha/our_mask
 
 /datum/light_source/New(var/atom/movable/owner, mask_type)
@@ -40,6 +41,7 @@
 
 	if(!mask_type)
 		mask_type = /atom/movable/lighting_mask/alpha
+	src.mask_type = mask_type
 	our_mask = new mask_type(source_turf)
 	our_mask.attached_atom = owner
 	set_light(light_range, light_power, light_color)
