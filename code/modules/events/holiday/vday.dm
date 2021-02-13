@@ -130,8 +130,8 @@ GLOBAL_LIST(valentine_mobs)
 		//List checking
 		GLOB.valentine_mobs[sender] = target
 		if(GLOB.valentine_mobs[target] == sender)
-			//wow.
 			forge_valentines_objective(sender, target)
+			forge_valentines_objective(target, sender)
 		//Off it goes!
 		//Create a new card to prevent exploiting
 		var/obj/item/valentine/new_card = new(get_turf(picked_human))
