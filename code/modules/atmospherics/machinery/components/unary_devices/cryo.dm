@@ -1,6 +1,6 @@
 #define CRYOMOBS 'icons/obj/cryo_mobs.dmi'
 #define CRYO_MULTIPLY_FACTOR 25 // Multiply factor is used with efficiency to multiply Tx quantity and how much extra is transfered to occupant magically.
-#define CRYO_TX_QTY 0.5 // Tx quantity is how much volume should be removed from the cell's beaker - multiplied by delta_time
+#define CRYO_TX_QTY 6 // Tx quantity is how much volume should be removed from the cell's beaker - multiplied by delta_time
 
 /obj/machinery/atmospherics/components/unary/cryo_cell
 	name = "cryo cell"
@@ -205,7 +205,7 @@
 			mob_occupant.Sleeping((mob_occupant.bodytemperature * sleep_factor) * 1000 * delta_time)//delta_time is roughly ~2 seconds
 			mob_occupant.Unconscious((mob_occupant.bodytemperature * unconscious_factor) * 1000 * delta_time)
 		if(beaker)//How much to transfer. As efficiency is increased, less reagent from the beaker is used and more is magically transferred to occupant
-			beaker.reagents.trans_to(occupant, (CRYO_TX_QTY / (efficiency * CRYO_MULTIPLY_FACTOR)) * delta_time, efficiency * 15, method = VAPOR)
+			beaker.reagents.trans_to(occupant, (CRYO_TX_QTY / (efficiency * CRYO_MULTIPLY_FACTOR)) * delta_time, (efficiency * CRYO_MULTIPLY_FACTOR)*(efficiency*0.05), method = VAPOR)
 		use_power(1000 * efficiency)
 
 	return 1
