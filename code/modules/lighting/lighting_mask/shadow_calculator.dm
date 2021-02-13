@@ -85,10 +85,10 @@
 
 	//Work out our position
 	//Calculate shadow origin offset
-	var/invert_offsets = attached_atom.dir & (NORTH | EAST)
-	var/left_or_right = attached_atom.dir & (EAST | WEST)
-	var/offset_x = (left_or_right ? attached_atom.light_pixel_y : attached_atom.light_pixel_x) * (invert_offsets ? -1 : 1)
-	var/offset_y = (left_or_right ? attached_atom.light_pixel_x : attached_atom.light_pixel_y) * (invert_offsets ? -1 : 1)
+	//var/invert_offsets = attached_atom.dir & (NORTH | EAST)
+	//var/left_or_right = attached_atom.dir & (EAST | WEST)
+	//var/offset_x = (left_or_right ? attached_atom.light_pixel_y : attached_atom.light_pixel_x) * (invert_offsets ? -1 : 1)
+	//var/offset_y = (left_or_right ? attached_atom.light_pixel_x : attached_atom.light_pixel_y) * (invert_offsets ? -1 : 1)
 
 	//Get the origin poin's
 	var/turf/our_turf = get_turf(src)
@@ -96,8 +96,8 @@
 	var/oury = our_turf.y
 
 	//Account for pixel shifting and light offset
-	calculated_position_x = ourx + ((attached_atom.pixel_x + offset_x) / world.icon_size)
-	calculated_position_y = oury + ((attached_atom.pixel_y + offset_y) / world.icon_size)
+	calculated_position_x = ourx/* + ((attached_atom.pixel_x + offset_x) / world.icon_size)*/
+	calculated_position_y = oury/* + ((attached_atom.pixel_y + offset_y) / world.icon_size)*/
 
 	//Simple clamp to the turf center to maintain low GPU usage.
 	//If the light source is too close to the wall, the shadows are much larger
