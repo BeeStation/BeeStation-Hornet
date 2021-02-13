@@ -14,24 +14,44 @@
 	invisibility     = INVISIBILITY_LIGHTING
 	blend_mode		 = BLEND_ADD
 
-	appearance_flags = RESET_TRANSFORM | RESET_COLOR | RESET_ALPHA | KEEP_TOGETHER
+	appearance_flags = KEEP_TOGETHER | RESET_TRANSFORM
 
 	move_resist = INFINITY
 
+	//The radius of the mask
 	var/radius = 0
 
-	var/atom/attached_atom
+	//The atom that we are attached to
+	var/atom/attached_atom = null
 
+	//Tracker var for the holder
+	var/datum/weakref/holder = null
+	var/destroying = FALSE
+
+	//Tracker var for tracking init dupe requests
 	var/awaiting_update = FALSE
 
 /atom/movable/lighting_mask/Destroy()
+	destroying = TRUE
+	//Delete the holder object
+	if(holder)
+		qdel(holder.resolve())
+		holder = null
+	//Remove reference to the atom we are attached to
 	attached_atom = null
-
+	//Continue with deletiib
 	. = ..()
 
 /atom/movable/lighting_mask/proc/set_radius(radius, transform_time = 0)
-	apply_matrix(get_matrix(radius), transform_time)
+	//Update our holders thing
+	var/obj/effect/lighting_mask_holder/mask_holder = holder.resolve()
+	mask_holder.update_matrix(radius)
+	//Update our matrix
+	var/matrix/M = get_matrix(radius)
+	apply_matrix(M, transform_time)
+	//Set the radius variable
 	src.radius = radius
+	//Calculate shadows
 	calculate_lighting_shadows()
 
 /atom/movable/lighting_mask/proc/apply_matrix(matrix/M, transform_time = 0)
