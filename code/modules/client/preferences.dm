@@ -1997,7 +1997,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/proc/handle_donator_items(client/user)
 	parent = user
 	var/datum/loadout_category/DLC = GLOB.loadout_categories["Donator"] // stands for donator loadout category but the other def for DLC works too xD
-
+	if(!LAZYLEN(GLOB.patrons)) // donator items are only accesibile by servers with a patreon
+		return
 	if(IS_PATRON(user.ckey))
 		for(var/key in DLC.gear)
 			var/datum/gear/donator/AG = GLOB.gear_datums[key]
