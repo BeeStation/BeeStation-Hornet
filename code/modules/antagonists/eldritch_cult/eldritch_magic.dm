@@ -46,10 +46,15 @@
 	icon_state = "mansus_grasp"
 	item_state = "mansus_grasp"
 	catchphrase = "R'CH T'H TR'TH"
+	///Where we cannot create the rune?
+	var/static/list/blacklisted_turfs = typecacheof(list(/turf/closed,/turf/open/space,/turf/open/lava))
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag || target == user)
-		return
+		return FALSE
+	if(istype(target,/obj/effect/eldritch))
+		remove_rune(target,user)
+		return FALSE
 	playsound(user, 'sound/items/welder.ogg', 75, TRUE)
 	if(ishuman(target))
 		var/mob/living/carbon/human/tar = target
@@ -77,6 +82,25 @@
 			use_charge = TRUE
 	if(use_charge)
 		return ..()
+
+///Draws a rune on a selected turf
+/obj/item/melee/touch_attack/mansus_fist/attack_self(mob/user)
+
+	for(var/turf/T in range(1,user))
+		if(is_type_in_typecache(T, blacklisted_turfs))
+			to_chat(user, "<span class='warning'>The targeted terrain doesn't support runes!</span>")
+			return
+	var/A = get_turf(user)
+	to_chat(user, "<span class='danger'>You start drawing a rune...</span>")
+
+	if(do_after(user,30 SECONDS,FALSE,A))
+		new /obj/effect/eldritch/big(A)
+
+///Removes runes from the selected turf
+/obj/item/melee/touch_attack/mansus_fist/proc/remove_rune(atom/target,mob/user)
+	to_chat(user, "<span class='danger'>You start removing a rune...</span>")
+	if(do_after(user,2 SECONDS,user))
+		qdel(target)
 
 /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
 	name = "Aggressive Spread"
