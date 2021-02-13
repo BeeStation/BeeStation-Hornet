@@ -5,17 +5,23 @@
 	name = "space"
 	icon_state = "awaycontent1"
 
+	base_lighting = "#555b72"
+	base_lighting_alpha = BASE_LIGHTING_ALPHA
+
 /area/awaymission/moonoutpost19/arrivals
 	name = "MO19 Arrivals"
 	icon_state = "awaycontent2"
+	base_lighting_alpha = 0
 
 /area/awaymission/moonoutpost19/research
 	name = "MO19 Research"
 	icon_state = "awaycontent3"
+	base_lighting_alpha = 0
 
 /area/awaymission/moonoutpost19/syndicate
 	name = "Syndicate Outpost"
 	icon_state = "awaycontent4"
+	base_lighting_alpha = 0
 
 /area/awaymission/moonoutpost19/main
 	name = "Khonsu 19"
@@ -26,6 +32,7 @@
 	poweralm = FALSE
 	ambient_effects = list('sound/ambience/ambimine.ogg')
 	icon_state = "awaycontent5"
+	base_lighting_alpha = 0
 
 /area/awaymission/moonoutpost19/hive
 	name = "The Hive"
@@ -35,6 +42,7 @@
 	power_light = FALSE
 	poweralm = FALSE
 	icon_state = "awaycontent6"
+	base_lighting_alpha = 0
 
 //Papers
 

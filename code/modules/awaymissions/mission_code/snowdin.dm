@@ -10,6 +10,9 @@
 	name = "Snowdin Tundra Plains"
 	icon_state = "awaycontent25"
 
+	base_lighting = "#555b72"
+	base_lighting_alpha = BASE_LIGHTING_ALPHA
+
 /area/awaymission/snowdin/post
 	name = "Snowdin Outpost"
 	icon_state = "awaycontent2"
