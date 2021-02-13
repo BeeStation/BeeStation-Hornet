@@ -6,7 +6,7 @@
 
 	luminosity           = 1
 
-	var/tmp/list/lights_affecting
+	var/tmp/list/atom/movable/lighting_mask/lights_affecting
 	var/tmp/has_opaque_atom = FALSE // Not to be confused with opacity, this will be TRUE if there's any opaque atom on the tile.
 
 /turf/Destroy(force)

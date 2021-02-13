@@ -28,6 +28,9 @@
 	name = "Hierophant's Arena"
 	icon_state = "dk_yellow"
 
+	base_lighting = "#d6bcd5"
+	base_lighting_alpha = BASE_LIGHTING_ALPHA
+
 /area/ruin/powered/pride
 	icon_state = "dk_yellow"
 

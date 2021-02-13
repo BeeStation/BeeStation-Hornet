@@ -61,6 +61,8 @@
 	name = "Research Exterior"
 	icon_state = "unknown"
 
+	base_lighting = "#555b72"
+	base_lighting_alpha = BASE_LIGHTING_ALPHA
 
 //research papers
 
