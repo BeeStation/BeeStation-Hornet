@@ -27,7 +27,7 @@
 #endif
 
 /atom/movable/lighting_mask
-	var/list/affecting_turfs
+	var/list/turf/affecting_turfs
 	var/list/mutable_appearance/shadows
 	var/times_calculated = 0
 
@@ -38,7 +38,7 @@
 	//Remove from affecting turfs
 	if(affecting_turfs)
 		for(var/turf/thing as() in affecting_turfs)
-			LAZYREMOVE(thing.lights_affecting, src)
+			LAZYREMOVE(thing?.lights_affecting, src)
 		affecting_turfs = null
 	//Cut the shadows. Since they are overlays they will be deleted when cut from overlays probably.
 	LAZYCLEARLIST(shadows)
@@ -91,7 +91,7 @@
 
 	//Reset the list
 	if(islist(affecting_turfs))
-		for(var/turf/T in affecting_turfs)
+		for(var/turf/T as() in affecting_turfs)
 			T?.lights_affecting -= src
 
 	//Clear the list
