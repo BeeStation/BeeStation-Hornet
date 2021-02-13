@@ -398,6 +398,7 @@
 			)
 
 //Calculates the coordinates of the corner
+//Takes a list of blocks and calculates the bottom left corner and the top right corner.
 //Input: Group list(list(list(x,y), list(x,y)), list(list(x, y)))
 //Output: Coordinates list(list(left, bottom), list(right, top))
 /atom/movable/lighting_mask/proc/calculate_corners_in_group(list/group)

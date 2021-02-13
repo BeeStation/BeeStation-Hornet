@@ -17,7 +17,6 @@
 	if(located)
 		if(!located.destroying)
 			return QDEL_HINT_LETMELIVE
-		qdel(located)
 		held_mask = null
 	. = ..()
 
