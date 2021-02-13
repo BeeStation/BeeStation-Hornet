@@ -176,11 +176,23 @@
 		on = FALSE
 		update_icon()
 		return
-	if(!occupant)
+
+	if(!occupant)//Won't operate unless there's an occupant.
+		on = FALSE
+		update_icon()
+		var/msg = "Aborting. No occupant detected."
+		radio.talk_into(src, msg, radio_channel)
+		return
+
+	if(!beaker || !beaker.reagents.reagent_list.len) //No beaker or beaker without reagents with stop the machine from running.
+		on = FALSE
+		update_icon()
+		var/msg = "Aborting. No beaker or chemicals installed."
+		radio.talk_into(src, msg, radio_channel)
 		return
 
 	var/mob/living/mob_occupant = occupant
-	if(mob_occupant.on_fire) //Extinguish occupant, happens after the occupant is healed and ejected
+	if(mob_occupant.on_fire) //Extinguish occupant, happens after the occupant is healed and ejected.
 		mob_occupant.ExtinguishMob()
 	if(!check_nap_violations())
 		return
@@ -214,13 +226,6 @@
 	..()
 
 	if(!on)
-		return
-
-	if(!beaker || !beaker.reagents.reagent_list.len) //No beaker or beaker without reagents with stop the machine from running.
-		on = FALSE
-		update_icon()
-		var/msg = "Aborting. No beaker or chemicals installed."
-		radio.talk_into(src, msg, radio_channel)
 		return
 
 	var/datum/gas_mixture/air1 = airs[1]
