@@ -1,0 +1,5 @@
+author: Totally Not Bacon
+delete-after: true
+changes: 
+  - rscadd: Improves valentines day, gives ai proper valentines laws.
+  - tweak: You can now send a card to someone by writing their name on it with a pen
