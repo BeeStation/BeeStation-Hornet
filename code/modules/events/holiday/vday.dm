@@ -128,6 +128,8 @@ GLOBAL_LIST(valentine_mobs)
 			return
 		to_chat(user, "<span class='notice'>The card vanishes out of your hand! Lets hope they got it...</span>")
 		//List checking
+		target = picked_human
+		sender = user
 		GLOB.valentine_mobs[sender] = target
 		if(GLOB.valentine_mobs[target] == sender)
 			//wow.
