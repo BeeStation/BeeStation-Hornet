@@ -1,8 +1,5 @@
 
 /atom
-	var/light_pixel_x	//How much to the right the light source should emit from. Default 0: Center of the turf. (This is added on top of pixel_x)
-	var/light_pixel_y	//How much to the up the light source should emit from Default 0: Center of the turf. (This is added on top of pixel_y)
-
 	var/light_power = 1 // Intensity of the light.
 	var/light_range = 0 // Range in tiles of the light.
 	var/light_color     // Hexadecimal RGB string representing the colour of the light.
