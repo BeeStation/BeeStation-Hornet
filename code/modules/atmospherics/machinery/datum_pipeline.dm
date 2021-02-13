@@ -188,7 +188,7 @@
 
 	else
 		if((target.heat_capacity>0) && (partial_heat_capacity>0))
-			var/delta_temperature = air.return_temperature() - target.temperature
+			var/delta_temperature = air.return_temperature() - target.return_temperature()
 
 			var/heat = thermal_conductivity*delta_temperature* \
 				(partial_heat_capacity*target.heat_capacity/(partial_heat_capacity+target.heat_capacity))
@@ -202,21 +202,19 @@
 		stack_trace("[src] has one or more null gas mixtures, which may cause bugs. Null mixtures will not be considered in reconcile_air().")
 		return removeNullsFromList(.)
 
-/datum/pipeline/proc/reconcile_air()
+/datum/pipeline/proc/empty()
+	for(var/datum/gas_mixture/GM in get_all_connected_airs())
+		GM.clear()
+
+/datum/pipeline/proc/get_all_connected_airs()
 	var/list/datum/gas_mixture/GL = list()
 	var/list/datum/pipeline/PL = list()
 	PL += src
-
 	for(var/i = 1; i <= PL.len; i++) //can't do a for-each here because we may add to the list within the loop
 		var/datum/pipeline/P = PL[i]
 		if(!P)
 			continue
 		GL += P.return_air()
-		if(P != src)
-			//If one of the reconciling pipenet requires full reconciliation, we have to comply
-			update = max(update, P.update)
-			//This prevents redundant reconciliations, highlander style: there can be only one (to reconcile)
-			P.update = PIPENET_UPDATE_STATUS_DORMANT
 		for(var/atmosmch in P.other_atmosmch)
 			if (istype(atmosmch, /obj/machinery/atmospherics/components/binary/valve))
 				var/obj/machinery/atmospherics/components/binary/valve/V = atmosmch
@@ -227,31 +225,8 @@
 				var/obj/machinery/atmospherics/components/unary/portables_connector/C = atmosmch
 				if(C.connected_device)
 					GL += C.portableConnectorReturnAir()
+	return GL
 
-	//This builds total_gas_mixture, which is the *only* instance of complete total gas of a superpipnet.
-	var/datum/gas_mixture/total_gas_mixture = new(0)
-	var/total_volume = 0
-
-	for(var/i in GL)
-		var/datum/gas_mixture/G = i
-		total_gas_mixture.merge(G)
-		total_volume += G.return_volume()
-
-	//Decides what this pipeline should do next tick
-	//Pipenet air reacts here or your connected canisters won't react properly
-	if(total_gas_mixture.react(pick(PL)))
-		//Might need another reaction next time; immediately set this pipenet for next reconcile_air()
-		. = PIPENET_UPDATE_STATUS_REACT_NEEDED
-	else
-		. = PIPENET_UPDATE_STATUS_DORMANT
-		//Needs no update and didn't even react? This reconcile_air() can return early since no change was made.
-		//This can only be achieved with self-ending stream of reactions, i.e. pipeline fire that has come to an end.
-		if(update < PIPENET_UPDATE_STATUS_RECONCILE_NEEDED)
-			return
-
-	if(total_volume > 0)
-		//Update individual gas_mixtures by volume ratio
-		for(var/i in GL)
-			var/datum/gas_mixture/G = i
-			G.copy_from(total_gas_mixture)
-			G.multiply(G.return_volume()/total_volume)
+/datum/pipeline/proc/reconcile_air()
+	var/list/datum/gas_mixture/GL = get_all_connected_airs()
+	equalize_all_gases_in_list(GL)

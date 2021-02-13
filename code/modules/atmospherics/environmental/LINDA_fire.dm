@@ -31,10 +31,6 @@
 
 		active_hotspot = new /obj/effect/hotspot(src, exposed_volume*25, exposed_temperature)
 
-		active_hotspot.just_spawned = (current_cycle < SSair.times_fired)
-			//remove just_spawned protection if no longer processing this cell
-		SSair.add_to_active(src, 0)
-
 //This is the icon for fire on turfs, also helps for nurturing small fires until they are full tile
 /obj/effect/hotspot
 	anchored = TRUE
@@ -48,7 +44,6 @@
 
 	var/volume = 125
 	var/temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
-	var/just_spawned = TRUE
 	var/bypassing = FALSE
 	var/visual_update_tick = 0
 
@@ -70,7 +65,7 @@
 
 	location.active_hotspot = src
 
-	bypassing = !just_spawned && (volume > CELL_VOLUME*0.95) || location.air.return_temperature() > FUSION_TEMPERATURE_THRESHOLD
+	bypassing = (volume > CELL_VOLUME*0.95) || location.air.return_temperature() > FUSION_TEMPERATURE_THRESHOLD
 
 	if(bypassing)
 		volume = location.air.reaction_results["fire"]*FIRE_GROWTH_RATE
@@ -150,10 +145,6 @@
 
 #define INSUFFICIENT(path) (location.air.get_moles(path) < 0.5)
 /obj/effect/hotspot/process()
-	if(just_spawned)
-		just_spawned = FALSE
-		return
-
 	var/turf/open/location = loc
 	if(!istype(location))
 		qdel(src)

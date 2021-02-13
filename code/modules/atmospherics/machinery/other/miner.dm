@@ -27,6 +27,7 @@
 	var/broken_message = "ERROR"
 	idle_power_usage = 150
 	active_power_usage = 3000
+	interacts_with_air = TRUE
 
 /obj/machinery/atmospherics/miner/Initialize()
 	. = ..()

@@ -259,6 +259,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isshuttleturf(T) (length(T.baseturfs) && (/turf/baseturf_skipover/shuttle in T.baseturfs))
 
+#define isfinite(n) (x != 1.#IND && abs(x) < 1.#INF)
+
 /// isnum() returns TRUE for NaN. Also, NaN != NaN. Checkmate, BYOND.
 #define isnan(x) ( (x) != (x) )
 

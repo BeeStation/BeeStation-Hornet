@@ -23,7 +23,7 @@
 	integrity_failure = 100
 	pressure_resistance = 7 * ONE_ATMOSPHERE
 	var/temperature_resistance = 1000 + T0C
-	var/starter_temp
+	var/starter_temp = T20C
 	// Prototype vars
 	var/prototype = FALSE
 	var/valve_timer = null
@@ -204,13 +204,11 @@
 
 /obj/machinery/portable_atmospherics/canister/proc/create_gas()
 	if(gas_type)
-		if(starter_temp)
-			air_contents.set_temperature(starter_temp)
+		air_contents.set_temperature(starter_temp)
 		air_contents.set_moles(gas_type, (maximum_pressure * filled) * air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
 
 /obj/machinery/portable_atmospherics/canister/air/create_gas()
-	if(starter_temp)
-		air_contents.set_temperature(starter_temp)
+	air_contents.set_temperature(starter_temp)
 	air_contents.set_moles(/datum/gas/oxygen, (O2STANDARD * maximum_pressure * filled) * air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
 	air_contents.set_moles(/datum/gas/nitrogen, (N2STANDARD * maximum_pressure * filled) * air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
 
@@ -435,10 +433,11 @@
 				if(!holding)
 					var/list/danger = list()
 					for(var/id in air_contents.get_gases())
-						if(!GLOB.meta_gas_info[id][META_GAS_DANGER])
+						var/gas = air_contents.get_moles(id)
+						if(!GLOB.meta_gas_dangers[id])
 							continue
-						if(air_contents.get_moles(id) > (GLOB.meta_gas_info[id][META_GAS_MOLES_VISIBLE] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
-							danger[GLOB.meta_gas_info[id][META_GAS_NAME]] = air_contents.get_moles(id) //ex. "plasma" = 20
+						if(gas > (GLOB.meta_gas_visibility[id] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
+							danger[GLOB.meta_gas_names[id]] = gas //ex. "plasma" = 20
 
 					if(danger.len)
 						message_admins("[ADMIN_LOOKUPFLW(usr)] opened a canister that contains the following at [ADMIN_VERBOSEJMP(src)]:")

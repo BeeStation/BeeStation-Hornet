@@ -287,7 +287,7 @@
 			continue
 		cur_tlv = TLV[gas_id]
 		data["environment_data"] += list(list(
-								"name" = GLOB.meta_gas_info[gas_id][META_GAS_NAME],
+								"name" = GLOB.meta_gas_names[gas_id],
 								"value" = environment.get_moles(gas_id) / total_moles * 100,
 								"unit" = "%",
 								"danger_level" = cur_tlv.get_danger_level(environment.get_moles(gas_id) * partial_pressure)
@@ -357,11 +357,11 @@
 		thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "max1", "selected" = selected.max1))
 		thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "max2", "selected" = selected.max2))
 
-		for(var/gas_id in GLOB.meta_gas_info)
+		for(var/gas_id in GLOB.meta_gas_ids)
 			if(!(gas_id in TLV)) // We're not interested in this gas, it seems.
 				continue
 			selected = TLV[gas_id]
-			thresholds += list(list("name" = GLOB.meta_gas_info[gas_id][META_GAS_NAME], "settings" = list()))
+			thresholds += list(list("name" = GLOB.meta_gas_names[gas_id], "settings" = list()))
 			thresholds[thresholds.len]["settings"] += list(list("env" = gas_id, "val" = "min2", "selected" = selected.min2))
 			thresholds[thresholds.len]["settings"] += list(list("env" = gas_id, "val" = "min1", "selected" = selected.min1))
 			thresholds[thresholds.len]["settings"] += list(list("env" = gas_id, "val" = "max1", "selected" = selected.max1))

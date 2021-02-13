@@ -21,7 +21,7 @@
 	air_contents.set_temperature(T20C)
 	if(gas_type)
 		air_contents.set_moles(gas_type, AIR_CONTENTS)
-		name = "[name] ([GLOB.meta_gas_info[gas_type][META_GAS_NAME]])"
+		name = "[name] ([GLOB.meta_gas_names[gas_type]])"
 	setPipingLayer(piping_layer)
 
 

@@ -15,6 +15,7 @@
 	can_unwrench = TRUE
 	welded = FALSE
 	level = 1
+	interacts_with_air = TRUE
 	layer = GAS_SCRUBBER_LAYER
 
 	var/id_tag = null

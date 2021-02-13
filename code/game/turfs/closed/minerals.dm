@@ -12,7 +12,7 @@
 	opacity = 1
 	density = TRUE
 	layer = EDGED_TURF_LAYER
-	temperature = TCMB
+	initial_temperature = TCMB
 	var/environment_type = "asteroid"
 	var/turf/open/floor/plating/turf_type = /turf/open/floor/plating/asteroid/airless
 	var/mineralType = null

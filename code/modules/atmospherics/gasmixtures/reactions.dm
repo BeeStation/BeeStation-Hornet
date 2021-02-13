@@ -2,9 +2,6 @@
 
 /proc/init_gas_reactions()
 	. = list()
-	for(var/type in subtypesof(/datum/gas))
-		.[type] = list()
-
 	for(var/r in subtypesof(/datum/gas_reaction))
 		var/datum/gas_reaction/reaction = r
 		if(initial(reaction.exclude))
@@ -16,8 +13,9 @@
 				var/datum/gas/req_gas = req
 				if (!reaction_key || initial(reaction_key.rarity) > initial(req_gas.rarity))
 					reaction_key = req_gas
-		.[reaction_key] += list(reaction)
-		sortTim(., /proc/cmp_gas_reactions, TRUE)
+		reaction.major_gas = reaction_key
+		. += reaction
+	sortTim(., /proc/cmp_gas_reactions, TRUE)
 
 /proc/cmp_gas_reactions(list/datum/gas_reaction/a, list/datum/gas_reaction/b) // compares lists of reactions by the maximum priority contained within the list
 	if (!length(a) || !length(b))
@@ -285,7 +283,7 @@
 							: 4 ** (temperature_scale-FUSION_BASE_TEMPSCALE) / FUSION_SLOPE_DIVISOR)
 	var/gas_power = 0
 	for (var/gas_id in air.get_gases())
-		gas_power += (GLOB.meta_gas_info[gas_id][META_GAS_FUSION_POWER]*air.get_moles(gas_id))
+		gas_power += (GLOB.meta_gas_fusions[gas_id]*air.get_moles(gas_id))
 	var/instability = MODULUS((gas_power*INSTABILITY_GAS_POWER_FACTOR),toroidal_size) //Instability effects how chaotic the behavior of the reaction is
 	cached_scan_results[id] = instability//used for analyzer feedback
 
@@ -322,7 +320,7 @@
 
 	//The decay of the tritium and the reaction's energy produces waste gases, different ones depending on whether the reaction is endo or exothermic
 	var/standard_waste_gas_output = scale_factor * (FUSION_TRITIUM_CONVERSION_COEFFICIENT*FUSION_TRITIUM_MOLES_USED)
-	delta_plasma > 0 ? air.adjust_moles(/datum/gas/water_vapor, standard_waste_gas_output) : air.adjust_moles(/datum/gas/bz, standard_waste_gas_output)	
+	delta_plasma > 0 ? air.adjust_moles(/datum/gas/water_vapor, standard_waste_gas_output) : air.adjust_moles(/datum/gas/bz, standard_waste_gas_output)
 	air.adjust_moles(/datum/gas/oxygen, standard_waste_gas_output) //Oxygen is a bit touchy subject
 
 	if(reaction_energy)

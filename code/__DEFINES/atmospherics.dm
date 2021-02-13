@@ -1,8 +1,5 @@
 //LISTMOS
 //indices of values in gas lists.
-#define MOLES			1
-#define ARCHIVE			2
-#define GAS_META		3
 #define META_GAS_SPECIFIC_HEAT	1
 #define META_GAS_NAME			2
 #define META_GAS_MOLES_VISIBLE	3
@@ -283,23 +280,16 @@
 	T.pixel_x = (PipingLayer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_P_X;\
 	T.pixel_y = (PipingLayer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_P_Y;
 
+#define QUANTIZE(variable)		(round(variable,0.0000001))/*I feel the need to document what happens here. Basically this is used to catch most rounding errors, however it's previous value made it so that
+															once gases got hot enough, most procedures wouldnt occur due to the fact that the mole counts would get rounded away. Thus, we lowered it a few orders of magnititude */
+
+
 #ifdef TESTING
 GLOBAL_LIST_INIT(atmos_adjacent_savings, list(0,0))
 #define CALCULATE_ADJACENT_TURFS(T) if (SSadjacent_air.queue[T]) { GLOB.atmos_adjacent_savings[1] += 1 } else { GLOB.atmos_adjacent_savings[2] += 1; SSadjacent_air.queue[T] = 1 }
 #else
 #define CALCULATE_ADJACENT_TURFS(T) SSadjacent_air.queue[T] = 1
 #endif
-
-GLOBAL_VAR(atmos_extools_initialized) // this must be an uninitialized (null) one or init_monstermos will be called twice because reasons
-#define ATMOS_EXTOOLS_CHECK if(!GLOB.atmos_extools_initialized){\
-	GLOB.atmos_extools_initialized=TRUE;\
-	if(fexists(EXTOOLS)){\
-		var/result = call(EXTOOLS,"init_monstermos")();\
-		if(result != "ok") {CRASH(result);}\
-	} else {\
-		CRASH("byond-extools.dll or libbyond-extools.so does not exist!");\
-	}\
-}
 
 GLOBAL_LIST_INIT(pipe_paint_colors, sortList(list(
 		"amethyst" = rgb(130,43,255), //supplymain

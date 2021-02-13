@@ -4,17 +4,23 @@ GLOBAL_VAR(restart_counter)
 
 //This happens after the Master subsystem new(s) (it's a global datum)
 //So subsystems globals exist, but are not initialised
+
+/proc/initialize_maptick()
+	CRASH("Auxtools is not loaded!")
+
 /world/New()
-	if (fexists(EXTOOLS))
-		call(EXTOOLS, "debug_initialize")()
-		call(EXTOOLS, "maptick_initialize")()
-		#ifdef REFERENCE_TRACKING
-		call(EXTOOLS, "ref_tracking_initialize")()
-		#endif
+
+	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
+	if (debug_server)
+		call(debug_server, "auxtools_init")()
+		enable_debugging()
+	AUXTOOLS_CHECK(AUXMOS)
 
 	//Early profile for auto-profiler - will be stopped on profiler init if necessary.
 	world.Profile(PROFILE_START)
 
+	AUXTOOLS_CHECK(AUXMAPTICK)
+	initialize_maptick()
 	log_world("World loaded at [time_stamp()]!")
 
 	GLOB.config_error_log = GLOB.world_manifest_log = GLOB.world_pda_log = GLOB.world_job_debug_log = GLOB.sql_error_log = GLOB.world_href_log = GLOB.world_runtime_log = GLOB.world_attack_log = GLOB.world_game_log = "data/logs/config_error.[GUID()].log" //temporary file used to record errors with loading config, moved to log directory once logging is set bl
@@ -265,8 +271,11 @@ GLOBAL_VAR(restart_counter)
 		GM.__gasmixture_unregister()
 		num_deleted++
 	log_world("Deallocated [num_deleted] gas mixtures")
-	if(fexists(EXTOOLS))
-		call(EXTOOLS, "cleanup")()
+	AUXTOOLS_SHUTDOWN(AUXMOS)
+	AUXTOOLS_SHUTDOWN(AUXMAPTICK)
+	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
+	if (debug_server)
+		call(debug_server, "auxtools_shutdown")()
 	..()
 
 /world/proc/update_status()

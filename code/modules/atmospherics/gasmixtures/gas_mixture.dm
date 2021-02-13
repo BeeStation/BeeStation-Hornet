@@ -5,32 +5,33 @@ What are the archived variables for?
 */
 #define MINIMUM_HEAT_CAPACITY	0.0003
 #define MINIMUM_MOLE_COUNT		0.01
-#define QUANTIZE(variable)		(round(variable,0.0000001))/*I feel the need to document what happens here. Basically this is used to catch most rounding errors, however it's previous value made it so that
-															once gases got hot enough, most procedures wouldnt occur due to the fact that the mole counts would get rounded away. Thus, we lowered it a few orders of magnititude */
-GLOBAL_LIST_INIT(meta_gas_info, meta_gas_list()) //see ATMOSPHERICS/gas_types.dm
-GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 
-/proc/init_gaslist_cache()
-	. = list()
-	for(var/id in GLOB.meta_gas_info)
-		var/list/cached_gas = new(3)
-
-		.[id] = cached_gas
-
-		cached_gas[MOLES] = 0
-		cached_gas[ARCHIVE] = 0
-		cached_gas[GAS_META] = GLOB.meta_gas_info[id]
+//Unomos - global list inits for all of the meta gas lists.
+//This setup allows procs to only look at one list instead of trying to dig around in lists-within-lists
+GLOBAL_LIST_INIT(meta_gas_specific_heats, meta_gas_heat_list())
+GLOBAL_LIST_INIT(meta_gas_names, meta_gas_name_list())
+GLOBAL_LIST_INIT(meta_gas_visibility, meta_gas_visibility_list())
+GLOBAL_LIST_INIT(meta_gas_overlays, meta_gas_overlay_list())
+GLOBAL_LIST_INIT(meta_gas_dangers, meta_gas_danger_list())
+GLOBAL_LIST_INIT(meta_gas_ids, meta_gas_id_list())
+GLOBAL_LIST_INIT(meta_gas_fusions, meta_gas_fusion_list())
 
 /datum/gas_mixture
 	var/initial_volume = CELL_VOLUME //liters
 	var/list/reaction_results
 	var/list/analyzer_results //used for analyzer feedback - not initialized until its used
-	var/_extools_pointer_gasmixture = 0 // Contains the memory address of the shared_ptr object for this gas mixture in c++ land. Don't. Touch. This. Var.
+	var/_extools_pointer_gasmixture // Contains the memory address of the shared_ptr object for this gas mixture in c++ land. Don't. Touch. This. Var. //I'll touch it anyways, Nyeh heh!
+
+GLOBAL_LIST_INIT(auxtools_atmos_initialized,FALSE)
+
+/proc/auxtools_atmos_init()
 
 /datum/gas_mixture/New(volume)
 	if (!isnull(volume))
 		initial_volume = volume
-	ATMOS_EXTOOLS_CHECK
+	AUXTOOLS_CHECK(AUXMOS)
+	if(!GLOB.auxtools_atmos_initialized && auxtools_atmos_init())
+		GLOB.auxtools_atmos_initialized = TRUE
 	__gasmixture_register()
 	reaction_results = new
 
@@ -38,6 +39,10 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 	if(var_name == "_extools_pointer_gasmixture")
 		return FALSE // please no. segfaults bad.
 	return ..()
+
+/datum/gas_mixture/Del()
+	__gasmixture_unregister()
+	. = ..()
 
 /datum/gas_mixture/proc/__gasmixture_unregister()
 /datum/gas_mixture/proc/__gasmixture_register()
@@ -49,7 +54,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 		L[gt] = initial(G.specific_heat)
 	return L
 
-/datum/gas_mixture/proc/heat_capacity(data = MOLES) //joules per kelvin
+/datum/gas_mixture/proc/heat_capacity() //joules per kelvin
 
 /datum/gas_mixture/proc/total_moles()
 
@@ -124,6 +129,18 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 	//Performs various reactions such as combustion or fusion (LOL)
 	//Returns: 1 if any reaction took place; 0 otherwise
 
+/datum/gas_mixture/proc/adjust_heat(amt)
+	//Adjusts the thermal energy of the gas mixture, rather than having to do the full calculation.
+	//Returns: null
+
+/datum/gas_mixture/proc/equalize_with(datum/gas_mixture/giver)
+	//Makes this mix have the same temperature and gas ratios as the giver, but with the same pressure, accounting for volume.
+	//Returns: null
+
+/proc/equalize_all_gases_in_list(list/L)
+	//Makes every gas in the given list have the same pressure, temperature and gas proportions.
+	//Returns: null
+
 /datum/gas_mixture/proc/__remove()
 /datum/gas_mixture/remove(amount)
 	var/datum/gas_mixture/removed = new type
@@ -146,12 +163,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 
 /datum/gas_mixture/copy_from_turf(turf/model)
 	parse_gas_string(model.initial_gas_mix)
-
-	//acounts for changes in temperature
-	var/turf/model_parent = model.parent_type
-	if(model.temperature != initial(model.temperature) || model.temperature != initial(model_parent.temperature))
-		set_temperature(model.temperature)
-
+	set_temperature(initial(model.initial_temperature))
 	return 1
 
 /datum/gas_mixture/parse_gas_string(gas_string)
@@ -159,8 +171,11 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 
 	var/list/gas = params2list(gas_string)
 	if(gas["TEMP"])
-		set_temperature(text2num(gas["TEMP"]))
+		var/temp = text2num(gas["TEMP"])
 		gas -= "TEMP"
+		if(!isnum(temp) || temp < 2.7)
+			temp = 2.7
+		set_temperature(temp)
 	clear()
 	for(var/id in gas)
 		var/path = id
@@ -168,7 +183,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 			path = gas_id2path(path) //a lot of these strings can't have embedded expressions (especially for mappers), so support for IDs needs to stick around
 		set_moles(path, text2num(gas[id]))
 	return 1
-
+/*
 /datum/gas_mixture/react(datum/holder)
 	. = NO_REACTION
 	var/list/reactions = list()
@@ -200,7 +215,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 			. |= reaction.react(src, holder)
 			if (. & STOP_REACTIONS)
 				break
-
+*/
 //Takes the amount of the gas you want to PP as an argument
 //So I don't have to do some hacky switches/defines/magic strings
 //eg:
