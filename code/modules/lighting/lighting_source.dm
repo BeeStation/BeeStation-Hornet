@@ -15,6 +15,7 @@
 	var/applied = FALSE // Whether we have applied our light yet or not.
 
 	var/mask_type
+	var/obj/effect/lighting_mask_holder/mask_holder
 	var/atom/movable/lighting_mask/our_mask
 
 /datum/light_source/New(var/atom/movable/owner, mask_type)
@@ -29,7 +30,9 @@
 	if(!mask_type)
 		mask_type = /atom/movable/lighting_mask
 	src.mask_type = mask_type
-	our_mask = new mask_type(source_turf)
+	mask_holder = new(source_turf)
+	our_mask = new mask_type(mask_holder)
+	mask_holder.assign_mask(our_mask)
 	our_mask.attached_atom = owner
 	set_light(owner.light_range, owner.light_power, owner.light_color)
 	our_mask.calculate_lighting_shadows()
@@ -85,5 +88,5 @@
 		our_mask.set_colour(l_color)
 
 /datum/light_source/proc/update_position()
-	our_mask?.forceMove(get_turf(source_atom))
+	mask_holder?.forceMove(get_turf(source_atom))
 	find_containing_atom()

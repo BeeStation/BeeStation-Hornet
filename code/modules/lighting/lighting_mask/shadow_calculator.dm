@@ -31,6 +31,10 @@
 	var/list/mutable_appearance/shadows
 	var/times_calculated = 0
 
+	//Please dont change these
+	var/calculated_position_x
+	var/calculated_position_y
+
 /atom/movable/lighting_mask/Destroy()
 	//Make sure we werent destroyed in init
 	if(!SSlighting.started)
@@ -76,10 +80,30 @@
 	SSlighting.total_shadow_calculations ++
 
 	var/unrounded_range = range
-	range = FLOOR(unrounded_range, 1)
-	if(unrounded_range > range)
-		range ++
+	range = CEILING(unrounded_range, 1)
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/timer = TICK_USAGE)
+
+	//Work out our position
+	//Calculate shadow origin offset
+	var/invert_offsets = attached_atom.dir & (NORTH | EAST)
+	var/left_or_right = attached_atom.dir & (EAST | WEST)
+	var/offset_x = (left_or_right ? attached_atom.light_pixel_y : attached_atom.light_pixel_x) * (invert_offsets ? -1 : 1)
+	var/offset_y = (left_or_right ? attached_atom.light_pixel_x : attached_atom.light_pixel_y) * (invert_offsets ? -1 : 1)
+
+	//Get the origin poin's
+	var/turf/our_turf = get_turf(src)
+	var/ourx = our_turf.x
+	var/oury = our_turf.y
+
+	//Account for pixel shifting and light offset
+	calculated_position_x = ourx + ((attached_atom.pixel_x + offset_x) / world.icon_size)
+	calculated_position_y = oury + ((attached_atom.pixel_y + offset_y) / world.icon_size)
+
+	//Simple clamp to the turf center to maintain low GPU usage.
+	//If the light source is too close to the wall, the shadows are much larger
+	//and this results in significant GPU slowdown.
+	calculated_position_x = round(calculated_position_x, 1)
+	calculated_position_y = round(calculated_position_y, 1)
 
 	//Remove the old shadows
 	overlays.Cut()
@@ -159,7 +183,7 @@
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(matrix_division_time += TICK_USAGE_TO_MS(temp_timer))
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
-			var/mutable_appearance/shadow = new(src)
+			var/mutable_appearance/shadow = new()
 
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(MA_new_time += TICK_USAGE_TO_MS(temp_timer))
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
@@ -170,7 +194,6 @@
 			shadow.blend_mode = BLEND_DEFAULT
 			shadow.color = "#000"
 			shadow.alpha = 255
-			shadow.appearance_flags = RESET_TRANSFORM | RESET_COLOR | RESET_ALPHA
 			shadow.transform = M
 
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(MA_vars_time += TICK_USAGE_TO_MS(temp_timer))
@@ -198,12 +221,13 @@
 //to make it represent the points.
 //Note: Ignores translation because
 /atom/movable/lighting_mask/proc/triangle_to_matrix(list/triangle)
+	//We need the world position raw, if we use the calculated position then the pixel values will cancel.
 	var/turf/our_turf = get_turf(src)
 	var/ourx = our_turf.x
 	var/oury = our_turf.y
 
-	var/originx = triangle[1][1] - ourx						//~Simultaneous Variable: U~ <-- no thats 0 dummy
-	var/originy = triangle[1][2] - oury						//~Simultaneous Variable: V~ <-- No thats 0 dummy
+	var/originx = triangle[1][1] - ourx						//~Simultaneous Variable: U
+	var/originy = triangle[1][2] - oury						//~Simultaneous Variable: V
 	//Get points translating the first point to (0, 0)
 	var/translatedPoint2x = triangle[2][1] - ourx	//Simultaneous Variable: W
 	var/translatedPoint2y = triangle[2][2] - oury	//Simultaneous Variable: X
@@ -239,9 +263,9 @@
 	//var/radius_based_offset = radius * 3 + 3.5 <-- for 1024x1024 lights DO NOT USE 1024x1024 SHADOWS UNLESS YOU ARE PLAYING WITH RTX200000 OR SOMETHING
 	var/radius_based_offset = (radius * 0) + 3.5
 	var/matrix/M = matrix(a, b, (c * 32) - ((radius_based_offset) * 32), d, e, (f * 32) - ((radius_based_offset) * 32))
-	//message_admins("[M.a], [M.d], 0")
-	//message_admins("[M.b], [M.e], 0")
-	//message_admins("[M.c], [M.f], 1")
+	//log_game("[M.a], [M.d], 0")
+	//log_game("[M.b], [M.e], 0")
+	//log_game("[M.c], [M.f], 1")
 	return M
 
 //Basically takes the 2-4 corners, extends them and then generates triangle coordinates representing shadows
@@ -252,9 +276,8 @@
 //OUTPUT: The same thing but with 3 lists embedded rather than 2 because they are triangles not lines now.
 /atom/movable/lighting_mask/proc/calculate_triangle_vertices(list/cornergroup)
 	//Get the origin poin's
-	var/turf/our_turf = get_turf(src)
-	var/ourx = our_turf.x
-	var/oury = our_turf.y
+	var/ourx = calculated_position_x
+	var/oury = calculated_position_y
 	//The output
 	. = list()
 	//Every line has 2 triangles innit
@@ -304,13 +327,8 @@
 	var/xhigh = coordgroup[2][1]
 	var/yhigh = coordgroup[2][2]
 
-	//Cache this for speed I guess
-	var/turf/our_turf = get_turf(src)
-	if(!our_turf)
-		stack_trace("Lighting Fatal Error: Light is in an invalid location. Destroying")
-		return
-	var/ourx = our_turf.x
-	var/oury = our_turf.y
+	var/ourx = calculated_position_x
+	var/oury = calculated_position_y
 
 	//The source is above the point (Bottom Quad)
 	if(oury > yhigh)
