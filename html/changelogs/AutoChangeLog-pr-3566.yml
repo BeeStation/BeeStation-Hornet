@@ -1,0 +1,6 @@
+author: "'s are required for the changelog to work! You can put your name to the right\
+  \ of the first :cl: if you want to overwrite your GitHub username as author ingame.\
+  \ -->"
+delete-after: true
+changes:
+  - tweak: You can now send a card to someone by writing their name on it with a pen
