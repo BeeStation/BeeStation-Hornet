@@ -1025,9 +1025,6 @@ GENE SCANNER
 	user.put_in_hands(B)
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 	return TRUE
-<<<<<<< HEAD
-
-
 
 //Detective Scanner
 #define HEALTH_SCANNER_RANGE 1
@@ -1151,5 +1148,3 @@ GENE SCANNER
 		write_mode = FALSE
 
 	playsound(loc, 'sound/machines/click.ogg', get_clamped_volume(), TRUE, -1)
-=======
->>>>>>> upstream/master

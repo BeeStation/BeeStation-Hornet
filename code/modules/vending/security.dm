@@ -55,32 +55,32 @@
 					/obj/item/clothing/accessory/waistcoat = 1,
 					/obj/item/clothing/neck/tie/red = 1,
 					/obj/item/clothing/neck/tie/black = 1,
-					/obj/item/clothing/gloves/color/black = 1,
 					/obj/item/clothing/shoes/laceup = 1,
 					/obj/item/clothing/head/fedora/det_hat = 1,
 					/obj/item/clothing/head/fedora = 1,
 					/obj/item/clothing/neck/tie/detective = 3,
+					/obj/item/clothing/gloves/color/black = 3,
 					/obj/item/pinpointer/crew = 3,
 					/obj/item/radio/headset/headset_sec = 3,
 					/obj/item/flashlight/seclite = 3,
 					/obj/item/taperecorder = 3,
 					/obj/item/storage/box/evidence = 3,
 					/obj/item/storage/box/matches = 5,
-					/obj/item/clothing/shoes/sneakers/disco = 1,
-					/obj/item/clothing/suit/det_suit/disco = 1,
-					/obj/item/clothing/under/rank/security/detective/disco = 1,
 					/obj/item/storage/fancy/cigarettes/cigars = 5)
 	contraband = list(/obj/item/clothing/shoes/jackboots/aerostatic = 1,
 					/obj/item/clothing/suit/det_suit/disco/aerostatic = 1,
 					/obj/item/clothing/under/rank/security/detective/disco/aerostatic = 1,
 					/obj/item/clothing/gloves/color/black/aerostatic_gloves = 1,
 					/obj/item/clothing/glasses/sunglasses/advanced/disco = 2,
+					/obj/item/clothing/shoes/sneakers/disco = 1,
+					/obj/item/clothing/suit/det_suit/disco = 1,
+					/obj/item/clothing/under/rank/security/detective/disco = 1,
 					/obj/item/storage/box/rxglasses/spyglasskit = 1)
 	premium = list(	/obj/item/detective_scanner = 1,
 					/obj/item/twohanded/binoculars = 1,
 					/obj/item/camera/detective = 1,
 					/obj/item/holosign_creator/security = 1,
-					/obj/item/clothing/accessory/holster/detective = 1)
+					/obj/item/choice_beacon/detective = 1)
 
 	refill_canister = /obj/item/vending_refill/detective
 	extra_price = 100
