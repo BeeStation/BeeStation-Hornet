@@ -30,6 +30,5 @@
 /obj/item/patool/attack_ghost(mob/user)
 	if(!user.client || !user.client.holder)
 		return
-	var/confirmation = alert("Trigger Announcer [src]","Priority Announcer","Yes","No")
-	if(confirmation == "Yes")
+	if(alert("Trigger Announcer [src]","Priority Announcer","Yes","No") == "Yes")
 		priority_announce(a_text, a_title, a_sound, a_type, a_override, a_id)
