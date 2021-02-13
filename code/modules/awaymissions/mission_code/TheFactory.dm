@@ -218,39 +218,6 @@
 	hud_type = list(DATA_HUD_SECURITY_ADVANCED, DATA_HUD_DIAGNOSTIC_BASIC, DATA_HUD_MEDICAL_ADVANCED)
 	hud_trait = list(TRAIT_SECURITY_HUD, TRAIT_MEDICAL_HUD)
 
-/obj/item/soundsynth/ancient//the original soundsynth code says it was ported from /vg/station. I guess I should mention it or I'll be sent to Brazil. https://github.com/vgstation-coders/vgstation13/blob/Bleeding-Edge/code/game/objects/items/devices/sound_synth.dm
-	name = "ancient sound synthesizer"
-	desc = "A device that is able to create sounds. This one is an ancient relic and has no restrictions."
-	shiftpitch = 0
-	sound_list = list()
-
-/obj/item/soundsynth/examine(mob/user)
-	. = ..()
-	. += "<span class='info'>Alt+Click on it to change volume.</span>"
-
-/obj/item/soundsynth/ancient/pick_sound(S as sound)
-	set category = "Object"
-	set name = "Select Sound Playback"
-	selected_sound = S
-	to_chat(usr, "Sound playback set to: [selected_sound]!")
-	if(!selected_sound)
-		return
-
-/obj/item/soundsynth/ancient/AltClick(mob/living/carbon/user)
-	volume = input(usr, "What volume would you like the sound to play at?",, 100) as null|num
-	if(!volume)
-		return
-
-/obj/item/soundsynth/ancient/attack_self(mob/user as mob)
-	if(spam_flag + 2 SECONDS < world.timeofday)
-		playsound(src, selected_sound, volume, 0, 0)
-		spam_flag = world.timeofday
-
-/obj/item/soundsynth/attack(mob/living/M as mob, mob/living/user as mob, def_zone)
-	if(spam_flag + 2 SECONDS < world.timeofday)
-		M.playsound_local(get_turf(src), selected_sound, volume, shiftpitch)
-		spam_flag = world.timeofday
-
 //MOBS//
 
 /mob/living/simple_animal/hostile/proc/summon_backup_nosound(distance, exact_faction_match)
@@ -827,6 +794,7 @@
 	desc = "A really old shotgun with five shell capacity. This one can fit in a backpack."
 	w_class = WEIGHT_CLASS_NORMAL
 	dual_wield_spread = 0
+	fire_sound_volume = 60    //tried on 90 my eardrums said goodbye
 	item_state = "leveraction"
 	icon_state = "leveraction"
 	rack_sound = "sound/weapons/leveractionrack.ogg"
@@ -849,7 +817,11 @@
 		rack()
 
 /obj/item/gun/ballistic/shotgun/lever_action/rack(mob/user = null)
-	..()
+	if (user)
+		to_chat(user, "<span class='notice'>You rack the [bolt_wording] of \the [src].</span>")
+	process_chamber(!chambered, FALSE)
+	playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
+	update_icon()
 	if(user.get_inactive_held_item() && prob(50) && chambered)
 		user.visible_message("<span class='rose'>With a single move of [user.p_their()] arm, [user] flips \the [src] and loads the chamber with a shell.</span>")
 

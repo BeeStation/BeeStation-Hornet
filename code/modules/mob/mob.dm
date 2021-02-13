@@ -37,6 +37,7 @@
 		qdel(cc)
 	client_colours = null
 	ghostize()
+	QDEL_LIST(actions)
 	return ..()
 
 /**
