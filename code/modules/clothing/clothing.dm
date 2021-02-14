@@ -335,7 +335,7 @@ BLIND     // can't see anything
 		..()
 
 /obj/item/clothing/get_armor_rating(d_type, mob/wearer)
-	. = ..(d_type, wearer)
+	. = ..()
 	if(high_pressure_multiplier == 1)
 		return
 	var/turf/T = get_turf(wearer)
