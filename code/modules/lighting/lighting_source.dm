@@ -31,7 +31,7 @@
 		mask_type = /atom/movable/lighting_mask
 	src.mask_type = mask_type
 	mask_holder = new(source_turf)
-	our_mask = new mask_type(mask_holder)
+	our_mask = new mask_type
 	mask_holder.assign_mask(our_mask)
 	our_mask.attached_atom = owner
 	set_light(owner.light_range, owner.light_power, owner.light_color)
@@ -44,7 +44,7 @@
 	//Remove references to ourself.
 	LAZYREMOVE(source_atom?.light_sources, src)
 	LAZYREMOVE(contained_atom?.light_sources, src)
-	qdel(our_mask)
+	qdel(mask_holder)
 	. = ..()
 
 /datum/light_source/proc/find_containing_atom()
