@@ -1,0 +1,9 @@
+author: park66665
+delete-after: true
+changes:
+  - bugfix: pool item attack verb
+  - bugfix: a vox-related error related to announcement help verb has been rectified;
+      there might be other bugs that has been fixed by this.
+  - bugfix: leftover gears sometimes failing to spawn
+  - bugfix: reactions at pipelines are less willy nilly
+  - bugfix: advanced surgery tools' examine texts are saner
