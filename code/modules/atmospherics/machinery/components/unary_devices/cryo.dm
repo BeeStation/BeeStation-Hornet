@@ -230,7 +230,7 @@
 
 	var/datum/gas_mixture/air1 = airs[1]
 
-	if(!nodes[1] || !airs[1] || air1.get_moles(/datum/gas/oxygen) < 5) // Turn off if the machine won't work, it will not have enough moles to operate.
+	if(!nodes[1] || !airs[1] || air1.get_moles(/datum/gas/oxygen) < 5) // Turn off if the machine won't work due to not having enough moles to operate.
 		on = FALSE
 		update_icon()
 		var/msg = "Aborting. Not enough gas present to operate."
