@@ -70,6 +70,9 @@
 			M.client.screen += button
 			button.locked = M.client.prefs.buttons_locked || button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE //even if it's not defaultly locked we should remember we locked it before
 			button.moved = button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE
+			var/obj/effect/proc_holder/spell/spell_proc_holder = button.linked_action.target
+			if(istype(spell_proc_holder) && spell_proc_holder.text_overlay)
+				M.client.images += spell_proc_holder.text_overlay
 		M.update_action_buttons()
 	else
 		Remove(owner)
@@ -91,9 +94,6 @@
 	if(SEND_SIGNAL(src, COMSIG_ACTION_TRIGGER, src) & COMPONENT_ACTION_BLOCK_TRIGGER)
 		return FALSE
 	return TRUE
-
-/datum/action/proc/Process()
-	return
 
 /datum/action/proc/IsAvailable()
 	if(!owner)
@@ -342,6 +342,21 @@
 
 /datum/action/item_action/toggle_helmet_mode
 	name = "Toggle Helmet Mode"
+
+/datum/action/item_action/toggle_beacon
+	name = "Toggle Hardsuit Locator Beacon"
+	icon_icon = 'icons/mob/actions.dmi'
+	button_icon_state = "toggle-transmission"
+
+/datum/action/item_action/toggle_beacon_hud
+	name = "Toggle Hardsuit Locator HUD"
+	icon_icon = 'icons/mob/actions.dmi'
+	button_icon_state = "toggle-hud"
+
+/datum/action/item_action/toggle_beacon_frequency
+	name = "Toggle Hardsuit Locator Frequency"
+	icon_icon = 'icons/mob/actions.dmi'
+	button_icon_state = "change-code"
 
 /datum/action/item_action/crew_monitor
 	name = "Interface With Crew Monitor"
@@ -640,12 +655,12 @@
 /datum/action/cooldown/process()
 	if(!owner)
 		button.maptext = ""
-		STOP_PROCESSING(SSfastprocess, src)
+		return PROCESS_KILL
 	var/timeleft = max(next_use_time - world.time, 0)
 	if(timeleft == 0)
 		button.maptext = ""
 		UpdateButtonIcon()
-		STOP_PROCESSING(SSfastprocess, src)
+		return PROCESS_KILL
 	else
 		button.maptext = "<b>[round(timeleft/10, 0.1)]</b>"
 

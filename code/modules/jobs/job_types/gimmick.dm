@@ -109,6 +109,7 @@
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/suit/black
 	shoes = /obj/item/clothing/shoes/laceup
+	backpack_contents = list(/obj/item/choice_beacon/pet/ems=1)
 
 /datum/job/gimmick/celebrity
 	title = "VIP"

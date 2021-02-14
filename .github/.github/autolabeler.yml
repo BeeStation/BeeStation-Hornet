@@ -1,6 +1,0 @@
-code: ["*.dm"]
-mapping: ["*.dmm"]
-config: ["config/*"]
-tooling: ["tools/*"]
-sql: ["*.sql"]
-dme: ["*.dme"]

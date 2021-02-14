@@ -18,7 +18,7 @@
 		return
 
 	var/list/wavetype = GLOB.meteors_normal
-	var/meteorminutes = (world.time - SSticker.round_start_time - meteordelay) / 10 / 60
+	var/meteorminutes = (world.time - SSticker.round_start_time - meteordelay) / 600
 
 
 	if (prob(meteorminutes))

@@ -281,6 +281,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/static/chicken_count = 0
 	mobsay_color = "#FFDC9B"
+	mobchatspan = "stationengineer"
 
 	do_footstep = TRUE
 

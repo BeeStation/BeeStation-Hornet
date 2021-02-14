@@ -12,7 +12,7 @@
 /client/proc/adminchangemap()
 	set category = "Server"
 	set name = "Change Map"
-		
+
 	var/list/maprotatechoices = list()
 	for (var/map in config.maplist)
 		var/datum/map_config/VM = config.maplist[map]
@@ -43,3 +43,28 @@
 	log_admin("[key_name(usr)] is changing the map to [VM.map_name]")
 	if (SSmapping.changemap(VM) == 0)
 		message_admins("[key_name_admin(usr)] has changed the map to [VM.map_name]")
+
+/client/proc/forcemapconfig()
+	set category = "Debug"
+	set name = "Debug Force Map"
+
+	//Locked behind permissions since it needs serious protection.
+	if(!check_rights(R_DEBUG) || !check_rights(R_SERVER) || !check_rights(R_PERMISSIONS))
+		to_chat(src, "<span class='warning'>Insufficient rights (Requires debug, server and permissions).</span>")
+		return
+
+	var/json_settings = input(usr, "Enter map json name:", "Map Json Name", "") as text|null
+
+	if(!json_settings)
+		return
+
+	var/datum/map_config/config = new
+	if(!config.LoadConfig("_maps/[json_settings].json", TRUE))
+		qdel(config)
+		to_chat(usr, "<span class='warning'>Map json failed to load!</span>")
+		return
+	SSticker.maprotatechecked = 1
+	message_admins("[key_name_admin(usr)] is changing the map to [config.map_name]")
+	log_admin("[key_name(usr)] is changing the map to [config.map_name]")
+	if (SSmapping.changemap(config) == 0)
+		message_admins("[key_name_admin(usr)] has changed the map to [config.map_name]")

@@ -908,6 +908,65 @@ world
 	#undef BLANK
 	#undef SET_SELF
 
+/proc/getStillIcon(atom/A, directionless = TRUE)//By whoever that guy below me is, I just kind of stole it and changed it a bit lol
+	var/icon/overlayIcon = new /icon()
+	var/isEmpty = TRUE	//So the overlay icon isn't empty.
+	//==== OVERLAYS ====
+	//Do sorting :(
+	var/list/layers = list()
+
+	var/direction = directionless ? SOUTH : A.dir
+
+	// Loop through the underlays, then overlays, sorting them into the layers list
+	for(var/i in 1 to A.overlays.len)
+		var/image/current = A.overlays[i]
+		if(!current)
+			continue
+		if(current.plane != FLOAT_PLANE && current.plane != A.plane)
+			continue
+		var/current_layer = current.layer
+		if(current_layer < 0)
+			current_layer = A.layer + current_layer / 1000
+
+		for(var/p in 1 to layers.len)
+			var/image/cmp = layers[p]
+			if(current_layer < layers[cmp])
+				layers.Insert(p, current)
+				break
+		layers[current] = current_layer
+		CHECK_TICK
+	//Apply sorted
+	for(var/V in layers)//For every image in overlays. var/image/I will not work, don't try it.
+		var/image/I = V
+		var/icon/image_overlay = new(I.icon,I.icon_state,direction)//Blend only works with icon objects.
+		//Make sure the overlay actually exists and is valid
+		if(!(I.icon_state in icon_states(I.icon)))
+			continue
+		//Colour
+		if(I.color)
+			if(islist(I.color))
+				image_overlay.MapColors(arglist(I.color))
+			else
+				image_overlay.Blend(I.color, ICON_MULTIPLY)
+		//Clean up repeated frames
+		var/icon/cleaned = new /icon()
+		cleaned.Insert(image_overlay, "", SOUTH, 1, 0)
+		//Also, icons cannot directly set icon_state. Slower than changing variables but whatever.
+		if(isEmpty)
+			overlayIcon.Insert(cleaned, "", SOUTH, 1, FALSE)
+			isEmpty = FALSE
+		else
+			overlayIcon.Blend(cleaned, ICON_OVERLAY)//OR so they are lumped together in a nice overlay.
+		CHECK_TICK
+	//==== PUTTING IT ALL TOGETHER ====
+	var/icon/default = new(A.icon, A.icon_state, direction)//So we want the default icon and icon state of A.
+	//Blend the 2 icons
+	default.Blend(overlayIcon, ICON_OVERLAY)
+	//Boom put it all together
+	var/icon/cleaned = new /icon()
+	cleaned.Insert(default, "", SOUTH, 1, FALSE)	//Clean out animation states.
+	return cleaned//And now return the mask.
+
 /proc/getIconMask(atom/A)//By yours truly. Creates a dynamic mask for a mob/whatever. /N
 	var/icon/alpha_mask = new(A.icon,A.icon_state)//So we want the default icon and icon state of A.
 	for(var/V in A.overlays)//For every image in overlays. var/image/I will not work, don't try it.

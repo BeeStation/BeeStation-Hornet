@@ -388,6 +388,26 @@
 		retaliate(L)
 	return ..()
 
+/mob/living/carbon/monkey/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(. && prob(MONKEY_RETALIATE_HARM_PROB))
+		retaliate(M)
+
+/mob/living/carbon/monkey/attack_alien(mob/living/carbon/alien/humanoid/M)
+	. = ..()
+	if(. && prob(MONKEY_RETALIATE_HARM_PROB))
+		retaliate(M)
+
+/mob/living/carbon/monkey/attack_larva(mob/living/carbon/alien/larva/L)
+	. = ..()
+	if(. && prob(MONKEY_RETALIATE_HARM_PROB))
+		retaliate(L)
+
+/mob/living/carbon/monkey/attack_slime(mob/living/simple_animal/slime/M)
+	. = ..()
+	if(. && prob(MONKEY_RETALIATE_HARM_PROB))
+		retaliate(M)
+
 /mob/living/carbon/monkey/attackby(obj/item/W, mob/user, params)
 	..()
 	if((W.force) && (!target) && (W.damtype != STAMINA) )

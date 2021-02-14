@@ -6,6 +6,7 @@ PROCESSING_SUBSYSTEM_DEF(circuit)
 
 	var/cipherkey
 
+	var/regex/bad_regex
 	var/list/all_components = list()								// Associative list of [component_name]:[component_path] pairs
 	var/list/cached_components = list()								// Associative list of [component_path]:[component] pairs
 	var/list/all_assemblies = list()								// Associative list of [assembly_name]:[assembly_path] pairs
@@ -17,6 +18,8 @@ PROCESSING_SUBSYSTEM_DEF(circuit)
 /datum/controller/subsystem/processing/circuit/Initialize(start_timeofday)
 	SScircuit.cipherkey = uppertext(random_string(2000+rand(0,10), GLOB.alphabet))
 	circuits_init()
+	//Setup the input regex
+	bad_regex = new("\[^\\w{}:\",.\\-*&+ =\'\\(\\)\\\[\\\]#\]", "g")
 	return ..()
 
 /datum/controller/subsystem/processing/circuit/proc/circuits_init()

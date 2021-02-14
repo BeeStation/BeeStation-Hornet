@@ -13,8 +13,8 @@
 	density = TRUE
 	desc = "A covered turret that shoots at its enemies."
 	use_power = IDLE_POWER_USE				//this turret uses and requires power
-	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
-	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
+	idle_power_usage = 100		//when inactive, this turret takes up constant 50 Equipment power
+	active_power_usage = 600	//when active, this turret takes up constant 300 Equipment power
 	req_access = list(ACCESS_SEC_DOORS)
 	power_channel = AREA_USAGE_EQUIP	//drains power from the EQUIPMENT channel
 
@@ -572,7 +572,7 @@
 	if(controllock)
 		return
 	src.on = on
-	if(!on)
+	if(!on && !always_up)
 		popDown()
 	src.mode = mode
 	power_change()
@@ -809,7 +809,7 @@
 	var/locked = TRUE
 	 /// An area in which linked turrets are located, it can be an area name, path or nothing
 	var/control_area = null
-	 /// AI is unable to use this machine if set to TRUE
+	 /// Silicons are unable to use this machine if set to TRUE
 	var/ailock = FALSE
 	/// Variable dictating if linked turrets will shoot cyborgs
 	var/shoot_cyborgs = FALSE
@@ -885,6 +885,12 @@
 	to_chat(user, "<span class='danger'>You short out the turret controls' access analysis module.</span>")
 	obj_flags |= EMAGGED
 	locked = FALSE
+
+/obj/machinery/turretid/attack_robot(mob/user)
+	if(!ailock)
+		return attack_hand(user)
+	else
+		to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
 
 /obj/machinery/turretid/attack_ai(mob/user)
 	if(!ailock || IsAdminGhost(user))

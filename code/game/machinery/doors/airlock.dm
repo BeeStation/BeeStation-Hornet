@@ -95,7 +95,6 @@
 	var/list/part_overlays
 	var/panel_attachment = "right"
 	var/note_attachment = "left"
-	var/mask_filter
 
 	var/cyclelinkeddir = 0
 	var/obj/machinery/door/airlock/cyclelinkedairlock
@@ -191,10 +190,7 @@
 		P.icon = icon
 		P.icon_state = part_id
 		P.name = name
-	if(mask_filter)
-		filters -= mask_filter
-	mask_filter = filter(type="alpha",icon=mask_file,x=mask_x,y=mask_y)
-	filters += mask_filter
+	add_filter("mask_filter", 1, list(type="alpha",icon=mask_file,x=mask_x,y=mask_y))
 
 /obj/machinery/door/airlock/proc/update_other_id()
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
@@ -1113,7 +1109,7 @@
 				return
 		INVOKE_ASYNC(src, (density ? .proc/open : .proc/close), 2)
 
-	if(istype(I, /obj/item/crowbar/power))
+	if(HAS_TRAIT(I, TRAIT_DOOR_PRYER))
 		if(isElectrified())
 			shock(user,100)//it's like sticking a forck in a power socket
 			return
@@ -1220,7 +1216,7 @@
 
 	var/obj/structure/window/killthis = (locate(/obj/structure/window) in get_turf(src))
 	if(killthis)
-		killthis.ex_act(EXPLODE_HEAVY)//Smashin windows
+		killthis.ex_act(EXPLODE_HEAVY)
 
 	operating = TRUE
 	update_icon(AIRLOCK_CLOSING, 1)

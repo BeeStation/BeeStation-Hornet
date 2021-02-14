@@ -19,7 +19,7 @@
 	return ..()
 
 /datum/guardian_ability/major/hand/Stat()
-	. = ..()
-	if(statpanel("Status"))
-		if(next_hand > world.time)
-			stat(null, "THE HAND Cooldown Remaining: [DisplayTimeText(next_hand - world.time)]")
+	var/list/tab_data = list()
+	if(next_hand > world.time)
+		tab_data["THE HAND Cooldown Remaining"] = GENERATE_STAT_TEXT("[DisplayTimeText(next_hand - world.time)]")
+	return tab_data

@@ -9,7 +9,7 @@
 	icon_state = "gavelblock"
 	invisibility = INVISIBILITY_MAXIMUM //sorry ghosts and curators, my tricks will remain hidden
 	var/reusable = FALSE //can it trigger more than once
-	var/inuse = FALSE //used to make sure it dont get used when it shouldnt
+	var/inuse = FALSE //used to make sure it dont get used when it shouldn't
 
 /obj/effect/trap/proc/TrapEffect(AM)
 	return TRUE
@@ -44,7 +44,7 @@
 /obj/effect/trap/trigger/TrapEffect(AM)
 	if(inuse)
 		return FALSE
-	else 
+	else
 		inuse = TRUE
 	if(!LAZYLEN(possibletraps))
 		for(var/obj/effect/trap/nexus/payload in view(10, src))
@@ -98,7 +98,7 @@
 	pick_style = PICK_STYLE_RANDOM
 
 /obj/effect/trap/nexus //this trap is triggered by pressurepads. doesnt do anything alone
-	icon_state = "madeyoulook" 
+	icon_state = "madeyoulook"
 
 /obj/effect/trap/nexus/doorbolt //a nasty little trap to put in a room with a simplemob
 	name = "door bolter"
@@ -108,7 +108,7 @@
 /obj/effect/trap/nexus/doorbolt/TrapEffect(AM)
 	if(inuse)
 		return FALSE
-	else 
+	else
 		inuse = TRUE
 	var/list/airlocks = list()
 	for(var/obj/machinery/door/airlock/airlock in view(10, src))
@@ -177,12 +177,12 @@
 	var/turf/T = get_turf(src)
 	for(var/atom/I in view(7, src))
 		if(isopenturf(I))
-			turfs += I 
-			continue 
+			turfs += I
+			continue
 		if(isliving(I))
 			var/mob/living/L = I
 			if(L.mind)
-				mobss += L 
+				mobss += L
 				continue
 	for(var/turf/turf in turfs)
 		var/visible = FALSE
@@ -201,7 +201,7 @@
 		spawninstance.target = AM
 		if(istype(spawninstance, /mob/living/simple_animal/hostile/retaliate))
 			var/mob/living/simple_animal/hostile/retaliate/R = spawninstance
-			R.enemies += AM 
+			R.enemies += AM
 		mobs--
 		crossattempts = rand(1, 5)
 		if(!mobs)
@@ -213,7 +213,7 @@
 	spawned = /mob/living/simple_animal/hostile/cat_butcherer/hugbox
 
 /obj/effect/trap/nexus/trickyspawner/faithless
-	spawned = /mob/living/simple_animal/hostile/faithless 
+	spawned = /mob/living/simple_animal/hostile/faithless
 
 /obj/effect/trap/nexus/trickyspawner/shitsec
 	spawned = /mob/living/simple_animal/hostile/nanotrasen/hugbox
@@ -231,7 +231,7 @@
 	spawned = /mob/living/simple_animal/hostile/alien/hugbox
 
 /obj/effect/trap/nexus/trickyspawner/honkling
-	mobs = 5 //honklings are annoying, but nearly harmless. 
+	mobs = 5 //honklings are annoying, but nearly harmless.
 	spawned = /mob/living/simple_animal/hostile/retaliate/clown/honkling
 
 /obj/effect/trap/nexus/trickyspawner/clownmutant
@@ -248,19 +248,23 @@
 
 /mob/living/simple_animal/hostile/nanotrasen/hugbox
 	loot = list(/obj/effect/gibspawner/human)//no gamer gear, sorry!
+	mobchatspan = "headofsecurity"
 
 /mob/living/simple_animal/hostile/zombie/hugbox
 	melee_damage = 12 //zombies have a base of 21, a bit much
 	stat_attack = CONSCIOUS
+	mobchatspan = "chaplain"
 
 /mob/living/simple_animal/hostile/alien/hugbox
 	health = 60 //they go down easy, to lull the player into a sense of false security
-	maxHealth = 60 
+	maxHealth = 60
+	mobchatspan = "researchdirector"
 
 /mob/living/simple_animal/hostile/cat_butcherer/hugbox //a cat butcher without a melee speed buff or a syringe gun. he's not too hard to take down, but can still go on catification rampages
 	ranged = FALSE
 	rapid_melee = 1
 	loot = list(/obj/effect/mob_spawn/human/corpse/cat_butcher, /obj/item/circular_saw)
+	mobchatspan = "medicaldoctor"
 
 //this abomination goes in here because it doesnt really belong with normal cult runes
 /obj/effect/rune/cluwne
@@ -269,7 +273,7 @@
 	cultist_name = "Invocation rune"
 	cultist_desc = "tears apart dimensional barriers, allowing a powerful elder being to exert its will upon the world. Requires at least nine invokers" //only shown to cultists, it does not actually require nine invokers if not used by cultists
 	invocation = "HONK!!"
-	req_cultists = 9//if a cultist invokes this, it acts like an invocation rune by asking them to check this. 
+	req_cultists = 9//if a cultist invokes this, it acts like an invocation rune by asking them to check this.
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "Cluwne"
 	color = RUNE_COLOR_SUMMON
@@ -281,7 +285,7 @@
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		SEND_SOUND(user,'sound/items/sheath.ogg')
 		if(do_after(user, 15, target = src))
-			to_chat(user, "<span class='clown'>It's not within your power to erase the [lowertext(cultist_name)].</span>")
+			to_chat(user, "<span class='clowntext'>It's not within your power to erase the [lowertext(cultist_name)].</span>")
 	else if(istype(I, /obj/item/nullrod))
 		user.say("BEGONE FOUL MAGIKS!!", forced = "nullrod")
 		to_chat(user, "<span class='danger'>You try to disrupt the magic of [src] with the [I], and nothing happens to the crude crayon markings. You feel foolish.</span>")
@@ -354,7 +358,7 @@
 /obj/effect/rune/cluwne/invoke(var/list/invokers)
 	..()
 	rune_in_use = TRUE
-	for(var/mob/living/simple_animal/hostile/floor_cluwne/FC in range(5, src)) //we unleash the floor cluwne 
+	for(var/mob/living/simple_animal/hostile/floor_cluwne/FC in range(5, src)) //we unleash the floor cluwne
 		FC.dontkill = FALSE
 		FC.delete_after_target_killed = FALSE
 		FC.interest = 300
@@ -373,17 +377,17 @@
 			cluwne.stage = 4
 			if(prob(75))
 				cluwne.delete_after_target_killed = TRUE
-			to_chat(H, "<span class='Clown'>YOU'RE MINE!</span>")
+			to_chat(H, "<span class='clowntext'>YOU'RE MINE!</span>")
 		else if(prob(20))
 			var/mob/living/simple_animal/hostile/floor_cluwne/cluwne = new(src.loc)
 			cluwne.force_target(H)
 			if(prob(75))
 				cluwne.delete_after_target_killed = TRUE
-			to_chat(H, "<span class='Clown'>Do you want to play a game?</span>")
+			to_chat(H, "<span class='clowntext'>Do you want to play a game?</span>")
 		else if(prob(60))
 			H.cluwneify()
-			to_chat(H, "<span class='Clown'>Join us!</span>")
+			to_chat(H, "<span class='clowntext'>Join us!</span>")
 		else
-			to_chat(H, "<span class='Clown'>You bore me.</span>")
+			to_chat(H, "<span class='clowntext'>You bore me.</span>")
 	sound_to_playing_players('sound/misc/honk_echo_distant.ogg')
 	qdel(src)
