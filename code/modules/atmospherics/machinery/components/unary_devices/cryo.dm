@@ -1,6 +1,6 @@
 #define CRYOMOBS 'icons/obj/cryo_mobs.dmi'
 #define CRYO_MULTIPLY_FACTOR 1.5 // Multiply factor is used with efficiency to multiply Tx quantity and how much extra is transfered to occupant magically.
-#define CRYO_TX_QTY 0.6 // Tx quantity is how much volume should be removed from the cell's beaker - multiplied by delta_time
+#define CRYO_TX_QTY 0.4 // Tx quantity is how much volume should be removed from the cell's beaker - multiplied by delta_time
 
 /obj/machinery/atmospherics/components/unary/cryo_cell
 	name = "cryo cell"
