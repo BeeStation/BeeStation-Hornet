@@ -184,7 +184,7 @@
 		radio.talk_into(src, msg, radio_channel)
 		return
 
-	if(!beaker || !beaker.reagents.reagent_list.len) //No beaker or beaker without reagents with stop the machine from running.
+	if(!beaker?.reagents?.reagent_list.len) //No beaker or beaker without reagents with stop the machine from running.
 		on = FALSE
 		update_icon()
 		var/msg = "Aborting. No beaker or chemicals installed."
