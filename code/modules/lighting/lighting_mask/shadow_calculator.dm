@@ -1,8 +1,13 @@
+//Uncomment if you want logs about the time it takes for parts of the shadows to generate
+//and turfs to be coloured depending on their grouping to a light source.
 //#define SHADOW_DEBUG
+
 //Lighting texture scales in world units (divide by 32)
 //256 = 8,4,2
 //1024 = 32,16,8
 #define LIGHTING_SHADOW_TEX_SIZE 8
+
+#define IS_COORD_BLOCKED(list, x, y) (list["[x]"]?.Find(y))
 
 #define COORD_LIST_ADD(listtoadd, x, y) \
 	if(islist(listtoadd["[x]"])) { \
@@ -72,13 +77,19 @@
 		return
 
 	//Dont bother calculating at all for small shadows
-	var/range = radius * 0.5
+	var/range = radius
 
-	if(range < 1)
+	if(radius < 2)
 		return
 
+	//Dont calculate when the source atom is in nullspace
+	if(!attached_atom.loc)
+		return
+
+	//Incremement the global counter for shadow calculations
 	SSlighting.total_shadow_calculations ++
 
+	//Ceiling the range since we need it in integer form
 	var/unrounded_range = range
 	range = CEILING(unrounded_range, 1)
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/timer = TICK_USAGE)
@@ -91,7 +102,7 @@
 	//var/offset_y = (left_or_right ? attached_atom.light_pixel_x : attached_atom.light_pixel_y) * (invert_offsets ? -1 : 1)
 
 	//Get the origin poin's
-	var/turf/our_turf = get_turf(src)
+	var/turf/our_turf = get_turf(attached_atom)	//The mask is in nullspace, so we need the source turf of the container
 	var/ourx = our_turf.x
 	var/oury = our_turf.y
 
@@ -116,14 +127,14 @@
 	//Reset the list
 	if(islist(affecting_turfs))
 		for(var/turf/T as() in affecting_turfs)
-			T?.lights_affecting -= src
+			LAZYREMOVE(T?.lights_affecting, src)
 
 	//Clear the list
 	LAZYCLEARLIST(affecting_turfs)
 	LAZYCLEARLIST(shadows)
 
 	//Rebuild the list
-	for(var/turf/thing in view(range, get_turf(src)))
+	for(var/turf/thing in view(range, get_turf(attached_atom)))
 		link_turf_to_light(thing)
 		if(thing.has_opaque_atom || thing.opacity)
 			//At this point we no longer care about
@@ -164,11 +175,14 @@
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(total_cornergroup_time += TICK_USAGE_TO_MS(temp_timer))
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
-		//var/list/culledlinegroup = cull_blocked_in_group(cornergroup, opaque_atoms_in_view)
-		//DO_SOMETHING_IF_DEBUGGING_SHADOWS(culling_time += TICK_USAGE_TO_MS(temp_timer))
-		//DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
+		var/list/culledlinegroup = cull_blocked_in_group(cornergroup, opaque_atoms_in_view)
+		DO_SOMETHING_IF_DEBUGGING_SHADOWS(culling_time += TICK_USAGE_TO_MS(temp_timer))
+		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
-		var/list/triangles = calculate_triangle_vertices(cornergroup)
+		if(!LAZYLEN(culledlinegroup))
+			continue
+
+		var/list/triangles = calculate_triangle_vertices(culledlinegroup)
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(triangle_time += TICK_USAGE_TO_MS(temp_timer))
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
@@ -222,7 +236,7 @@
 //Note: Ignores translation because
 /atom/movable/lighting_mask/proc/triangle_to_matrix(list/triangle)
 	//We need the world position raw, if we use the calculated position then the pixel values will cancel.
-	var/turf/our_turf = get_turf(src)
+	var/turf/our_turf = get_turf(attached_atom)
 	var/ourx = our_turf.x
 	var/oury = our_turf.y
 
@@ -287,33 +301,135 @@
 		var/vertex2 = line[2]
 		//Extend them and get end vertices
 		//Calculate vertex 3 position
-		var/delta_x = abs(vertex1[1] - ourx)
-		var/delta_y = abs(vertex1[2] - oury)
-		var/extension = 0
-		if(delta_x < delta_y)
-			extension = radius / delta_x
-		else
-			extension = radius / delta_y
-		var/vertex3 = list(
-			(vertex1[1] - ourx) * extension + ourx,
-			(vertex1[2] - oury) * extension + oury
-			)
+		var/delta_x = vertex1[1] - ourx
+		var/delta_y = vertex1[2] - oury
+		var/vertex3 = extend_line_to_radius(delta_x, delta_y, radius, ourx, oury)
+		var/vertex3side = (vertex3[1] - ourx) == -radius ? WEST : (vertex3[1] - ourx) == radius ? EAST : (vertex3[2] - oury) == radius ? NORTH : SOUTH
+
 		//For vertex 4
-		delta_x = abs(vertex2[1] - ourx)
-		delta_y = abs(vertex2[2] - oury)
-		if(delta_x < delta_y)
-			extension = radius / delta_x
-		else
-			extension = radius / delta_y
-		var/vertex4 = list(
-			(vertex2[1] - ourx) * extension + ourx,
-			(vertex2[2] - oury) * extension + oury
-			)
+		delta_x = vertex2[1] - ourx
+		delta_y = vertex2[2] - oury
+		var/vertex4 = extend_line_to_radius(delta_x, delta_y, radius, ourx, oury)
+		var/vertex4side = (vertex4[1] - ourx) == -radius ? WEST : (vertex4[1] - ourx) == radius ? EAST : (vertex4[2] - oury) == radius ? NORTH : SOUTH
+
+		//If vertex3 is not on the same border as vertex 4 then we need more triangles to fill in the space.
+		if(vertex3side != vertex4side)
+			var/eitherNorth = (vertex3side == NORTH || vertex4side == NORTH)
+			var/eitherEast = (vertex3side == EAST || vertex4side == EAST)
+			var/eitherSouth = (vertex3side == SOUTH || vertex4side == SOUTH)
+			var/eitherWest = (vertex3side == WEST || vertex4side == WEST)
+			if(eitherNorth && eitherEast)
+				//Add a vertex top right
+				var/vertex5 = list(radius + ourx, radius + oury)
+				var/triangle3 = list(vertex3, vertex4, vertex5)
+				. += list(triangle3)
+			else if(eitherNorth && eitherWest)
+				//Add a vertex top left
+				var/vertex5 = list(-radius + ourx, radius + oury)
+				var/triangle3 = list(vertex3, vertex4, vertex5)
+				. += list(triangle3)
+			else if(eitherNorth && eitherSouth)
+				//needs extra steps, either top left and bottom left or top right and bottom right
+				//we need to know what quadrant they are into
+				var/leftOfLine = (((vertex4[1] - vertex3[1]) * (oury - vertex3[2])) - ((vertex4[2] - vertex3[2]) * (ourx - vertex3[1]))) > 0
+				//If the origin point is to the left of the line vertex3, vertex 4 then its on the right
+				if(leftOfLine)
+					var/vertex5 = list(radius + ourx, radius + oury)
+					var/triangle3 = list(vertex3, vertex4, vertex5)
+					. += list(triangle3)
+					var/vertex6 = list(radius + ourx, -radius + oury)
+					var/triangle4 = list(vertex4, vertex5, vertex6)
+					. += list(triangle4)
+
+				else
+					var/vertex5 = list(-radius + ourx, radius + oury)
+					var/triangle3 = list(vertex3, vertex4, vertex5)
+					. += list(triangle3)
+					var/vertex6 = list(-radius + ourx, -radius + oury)
+					var/triangle4 = list(vertex4, vertex5, vertex6)
+					. += list(triangle4)
+			else if(eitherEast && eitherSouth)
+				//Add a vertex bottom right
+				var/vertex5 = list(radius + ourx, -radius + oury)
+				var/triangle3 = list(vertex3, vertex4, vertex5)
+				. += list(triangle3)
+			else if(eitherEast && eitherWest)
+				//Sort lines horizontally
+				var/list/vertexA
+				var/list/vertexB
+				if(vertex4[1] > vertex3[1])
+					vertexA = vertex3
+					vertexB = vertex4
+				else
+					vertexA = vertex4
+					vertexB = vertex3
+				//needs extra steps (left & right)(top | bottom)
+				var/aboveLine = (((ourx - vertexA[1]) * (vertexB[2] - vertexA[2])) - ((oury - vertexA[2]) * (vertexB[1] - vertexA[1]))) < 0
+				//If the origin point is to the left of the line vertex3, vertex 4 then its on the top
+				if(!aboveLine)
+					var/vertex5 = list(-radius + ourx, radius + oury)
+					var/triangle3 = list(vertexA, vertexB, vertex5)
+					. += list(triangle3)
+					var/vertex6 = list(radius + ourx, radius + oury)
+					var/triangle4 = list(vertexA, vertex5, vertex6)
+					. += list(triangle4)
+				else
+					var/vertex5 = list(-radius + ourx, -radius + oury)
+					var/triangle3 = list(vertexA, vertexB, vertex5)
+					. += list(triangle3)
+					var/vertex6 = list(radius + ourx, -radius + oury)
+					var/triangle4 = list(vertexA, vertex5, vertex6)
+					. += list(triangle4)
+			else if(eitherSouth && eitherWest)
+				//Bottom left
+				var/vertex5 = list(-radius + ourx, -radius + oury)
+				var/triangle3 = list(vertex3, vertex4, vertex5)
+				. += list(triangle3)
+			else
+				//bug
+				stack_trace("Major error: vertex in a bad position (North: [eitherNorth], East: [eitherEast], South: [eitherSouth], West: [eitherWest])")
+
 		//Generate triangles
 		var/triangle1 = list(vertex1, vertex2, vertex3)
 		var/triangle2 = list(vertex2, vertex3, vertex4)
 		. += list(triangle1)
 		. += list(triangle2)
+
+//Takes in the list of lines and sight blockers and returns only the lines that are not blocked
+/atom/movable/lighting_mask/proc/cull_blocked_in_group(list/lines, list/sight_blockers)
+	. = list()
+	for(var/list/line in lines)
+		var/vertex1 = line[1]
+		var/vertex2 = line[2]
+		var/allowed = TRUE
+		if(vertex1[1] == vertex2[1])
+			//Vertical line.
+			//Requires a block to the left and right all the way from the bottom to the top
+			var/left = vertex1[1] - 0.5
+			var/right = vertex1[1] + 0.5
+			var/bottom = min(vertex1[2], vertex2[2]) + 0.5
+			var/top = max(vertex1[2], vertex2[2]) - 0.5
+			for(var/i in bottom to top)
+				var/isLeftBlocked = IS_COORD_BLOCKED(sight_blockers, left, i)
+				var/isRightBlocked = IS_COORD_BLOCKED(sight_blockers, right, i)
+				if(isLeftBlocked == isRightBlocked)
+					allowed = FALSE
+					break
+		else
+			//Horizontal line
+			//Requires a block above and below for every position from left to right
+			var/left = min(vertex1[1], vertex2[1]) + 0.5
+			var/right = max(vertex1[1], vertex2[1]) - 0.5
+			var/top = vertex1[2] + 0.5
+			var/bottom = vertex1[2] - 0.5
+			for(var/i in left to right)
+				var/isAboveBlocked = IS_COORD_BLOCKED(sight_blockers, i, top)
+				var/isBelowBlocked = IS_COORD_BLOCKED(sight_blockers, i, bottom)
+				if(isAboveBlocked == isBelowBlocked)
+					allowed = FALSE
+					break
+		if(allowed)
+			. += list(line)
 
 //Converts the corners into the 3 (or 2) valid points
 //For example if a wall is top right of the source, the bottom left wall corner
@@ -541,6 +657,15 @@
 			previous_x_element = actual_x_value
 		if(LAZYLEN(group))
 			. += list(group)
+
+/proc/extend_line_to_radius(delta_x, delta_y, radius, offset_x, offset_y)
+	if(abs(delta_x) < abs(delta_y))
+		//top or bottom
+		var/proportion = radius / abs(delta_y)
+		return list(delta_x * proportion + offset_x, delta_y * proportion + offset_y)
+	else
+		var/proportion = radius / abs(delta_x)
+		return list(delta_x * proportion + offset_x, delta_y * proportion + offset_y)
 
 #undef LIGHTING_SHADOW_TEX_SIZE
 #undef COORD_LIST_ADD

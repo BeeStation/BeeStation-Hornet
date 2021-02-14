@@ -31,7 +31,7 @@
 		mask_type = /atom/movable/lighting_mask
 	src.mask_type = mask_type
 	mask_holder = new(source_turf)
-	our_mask = new mask_type(mask_holder)
+	our_mask = new mask_type
 	mask_holder.assign_mask(our_mask)
 	our_mask.attached_atom = owner
 	set_light(owner.light_range, owner.light_power, owner.light_color)
@@ -46,6 +46,7 @@
 	LAZYREMOVE(contained_atom?.light_sources, src)
 	top_atom.remove_vis_contents(our_mask)
 	QDEL_NULL(our_mask)
+	QDEL_NULL(mask_holder)
 
 	top_atom = null
 	source_atom = null
