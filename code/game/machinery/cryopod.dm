@@ -259,8 +259,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 /obj/machinery/cryopod/proc/handle_objectives()
 	var/mob/living/mob_occupant = occupant
 	//Update any existing objectives involving this mob.
-	for(var/thing in GLOB.objectives)
-		var/datum/objective/O = thing
+	for(var/datum/objective/O as() in GLOB.objectives)
 		// We don't want revs to get objectives that aren't for heads of staff. Letting
 		// them win or lose based on cryo is silly so we remove the objective.
 		if(istype(O,/datum/objective/mutiny) && O.target == mob_occupant.mind)
@@ -279,8 +278,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			if(!O.target && O.owner)
 				qdel(O)
 
-			for(var/M in owners)
-				var/datum/mind/own = M
+			for(var/datum/mind/own as() in owners)
 				to_chat(own.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
 				O.owner.announce_objectives()
 // This function can not be undone; do not call this unless you are sure
