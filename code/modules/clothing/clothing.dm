@@ -339,9 +339,7 @@ BLIND     // can't see anything
 	if(high_pressure_multiplier == 1)
 		return
 	var/turf/T = get_turf(wearer)
-	if(!T)
-		return
-	if(!(d_type in high_pressure_multiplier_types))
+	if(!T || !(d_type in high_pressure_multiplier_types))
 		return
 	if(!lavaland_equipment_pressure_check(T))
 		. *= high_pressure_multiplier
