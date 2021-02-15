@@ -175,7 +175,7 @@
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(total_cornergroup_time += TICK_USAGE_TO_MS(temp_timer))
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
-		var/list/culledlinegroup = cull_blocked_in_group(cornergroup, opaque_atoms_in_view)
+		var/list/culledlinegroup = cornergroup /*cull_blocked_in_group(cornergroup, opaque_atoms_in_view)*/
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(culling_time += TICK_USAGE_TO_MS(temp_timer))
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
