@@ -37,6 +37,13 @@
 		qdel(cc)
 	client_colours = null
 	ghostize()
+	QDEL_LIST(mob_spell_list)
+	for(var/datum/action/A as() in actions)
+		if(istype(A.target, /obj/effect/proc_holder))
+			A.Remove(src) // Mind's spells' actions should only be removed
+		else
+			qdel(A) // Other actions can be safely deleted
+	actions.Cut()
 	return ..()
 
 /**
