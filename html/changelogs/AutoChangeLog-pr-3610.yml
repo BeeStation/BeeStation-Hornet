@@ -1,0 +1,5 @@
+author: eeSPee
+delete-after: true
+changes:
+  - rscadd: Holobarrier projectors and barrier grenades to SecVendors
+  - rscdel: Holobarrier projectors from various sec lockers
