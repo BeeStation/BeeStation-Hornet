@@ -61598,7 +61598,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "wcA" = (
-/obj/effect/landmark/start/brig_phys,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "wdd" = (

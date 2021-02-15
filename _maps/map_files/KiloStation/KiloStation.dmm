@@ -100544,7 +100544,6 @@
 /area/science/lab)
 "sAg" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/landmark/start/brig_phys,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "tFu" = (
