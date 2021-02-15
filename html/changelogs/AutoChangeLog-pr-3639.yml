@@ -1,0 +1,5 @@
+author: MNarath1
+delete-after: true
+changes:
+  - bugfix: border firelocks holding Pressure after destroy
+  - bugfix: window doors holding Pressure after destroy
