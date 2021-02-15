@@ -14128,7 +14128,7 @@
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
-/obj/structure/closet/secure_closet/brig_phys,
+/obj/structure/closet/secure_closet/brig_med,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "avu" = (

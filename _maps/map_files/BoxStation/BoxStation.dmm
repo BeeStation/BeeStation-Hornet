@@ -3649,7 +3649,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/structure/closet/secure_closet/brig_phys,
+/obj/structure/closet/secure_closet/brig_med,
 /obj/machinery/camera/autoname{
 	dir = 4
 	},

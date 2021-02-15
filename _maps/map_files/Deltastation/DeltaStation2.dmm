@@ -120476,7 +120476,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/structure/closet/secure_closet/brig_phys,
+/obj/structure/closet/secure_closet/brig_med,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "faI" = (
