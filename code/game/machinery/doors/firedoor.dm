@@ -66,6 +66,8 @@
 			LAZYREMOVE(A.firedoors, src)
 
 /obj/machinery/door/firedoor/Destroy()
+	density = FALSE
+	air_update_turf(1)
 	remove_from_areas()
 	affecting_areas.Cut()
 	return ..()
