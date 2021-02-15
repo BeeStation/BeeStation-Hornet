@@ -602,94 +602,49 @@
 	// Key: Y
 	// Value = list(x values)
 	//to make it much easier.
-	//=================================================
 	var/list/horizontal_atoms = list()
-	//Group vertically first because its quick and easy
+	//=================================================
+	//Vertical sorting (X locked)
 	for(var/x_key in ungrouped_things)
-		//Collect all y elements on that x plane
-		var/list/y_elements = ungrouped_things[x_key]
-		//Too few elements to group
-		if(LAZYLEN(y_elements) <= 1)
-			if(LAZYLEN(y_elements) == 1)
-				//DEBUG_HIGHLIGHT(text2num(x_key), y_elements[1], "#FFFF00")
-				COORD_LIST_ADD(horizontal_atoms, y_elements[1], text2num(x_key))
-			continue
-		//Loop through elements and check if they are new to each other
-		var/previous_y_element = y_elements[1]
-		//Grouping check
-		var/list/group = list()
-		for(var/i in 2 to length(y_elements))
-			var/actual_y_value = y_elements[i]
-			if(actual_y_value == previous_y_element + 1)
-				//Start creating a group, remove grouped elements
-				if(LAZYLEN(group))
-					group += list(list(text2num(x_key), actual_y_value))
-					DEBUG_HIGHLIGHT(text2num(x_key), actual_y_value, "#FF0000")
+		var/list/y_components = ungrouped_things[x_key]
+		var/pointer = y_components[1]
+		var/list/group = list(list(text2num(x_key), y_components[1]))
+		for(var/i in 2 to length(y_components))
+			var/next = y_components[i]
+			if(next != pointer + 1)
+				if(length(group) == 1)
+					//Add the element in group to horizontal
+					COORD_LIST_ADD(horizontal_atoms, pointer, text2num(x_key))
 				else
-					group += list(list(text2num(x_key), actual_y_value))
-					DEBUG_HIGHLIGHT(text2num(x_key), actual_y_value, "#FF0000")
-					group += list(list(text2num(x_key), previous_y_element))
-					DEBUG_HIGHLIGHT(text2num(x_key), previous_y_element, "#FF0000")
-			else
-				if(LAZYLEN(group))
-					//Add the group to the output groups
+					//Add the group to the output
 					. += list(group)
-					group = list()
-				if(i == 2)
-					//DEBUG_HIGHLIGHT(text2num(x_key), previous_y_element, "#FF00FF")
-					COORD_LIST_ADD(horizontal_atoms, previous_y_element, text2num(x_key))
-				else
-					//DEBUG_HIGHLIGHT(text2num(x_key), actual_y_value, "#FF00FF")
-					COORD_LIST_ADD(horizontal_atoms, actual_y_value, text2num(x_key))
-			previous_y_element = actual_y_value
-		if(LAZYLEN(group))
+				group = list()
+			else
+				group += list(list(text2num(x_key), next))
+				DEBUG_HIGHLIGHT(text2num(x_key), next, "#FF0000")
+			pointer = next
+		if(length(group) == 1)
+			//Add the element in group to horizontal
+			COORD_LIST_ADD(horizontal_atoms, pointer, text2num(x_key))
+		else
+			//Add the group to the output
 			. += list(group)
 	//=================================================
-	//Bug somewhere in here
+	//Horizontal sorting (Y locked)
 	for(var/y_key in horizontal_atoms)
-		//Collect all y elements on that x plane
-		var/list/x_elements = horizontal_atoms[y_key]
-		//Too few elements to group
-		if(LAZYLEN(x_elements) <= 1)
-			if(LAZYLEN(x_elements) == 1)
-				//Single alone atom, add as its own group
-				DEBUG_HIGHLIGHT(x_elements[1], text2num(y_key), "#0055FF")
-				. += list(list(list(x_elements[1], text2num(y_key))))
-			continue
-		//Loop through elements and check if they are new to each other
-		var/previous_x_element = x_elements[1]
-		//Grouping check
-		var/list/group = list()
-		for(var/i in 2 to length(x_elements))
-			var/actual_x_value = x_elements[i]
-			if(actual_x_value == previous_x_element + 1)
-				//Start creating a group, remove grouped elements
-				if(LAZYLEN(group))
-					//Horizontal Grouping
-					group += list(list(actual_x_value, text2num(y_key)))
-					DEBUG_HIGHLIGHT(actual_x_value, text2num(y_key), "#00FF00")
-				else
-					//Horizontal Grouping
-					group += list(list(actual_x_value, text2num(y_key)))
-					DEBUG_HIGHLIGHT(actual_x_value, text2num(y_key), "#00FF00")
-					group += list(list(previous_x_element, text2num(y_key)))
-					DEBUG_HIGHLIGHT(previous_x_element, text2num(y_key), "#00FF00")
+		var/list/x_components = horizontal_atoms[y_key]
+		var/pointer = x_components[1]
+		var/list/group = list(list(x_components[1], text2num(y_key)))
+		for(var/i in 2 to length(x_components))
+			var/next = x_components[i]
+			if(next != pointer + 1)
+				. += list(group)
+				group = list()
 			else
-				if(LAZYLEN(group))
-					//Add the group to the output groups
-					. += list(group)
-					group = list()
-				if(i == 2)
-					//Single, alone atom = Add in own group
-					DEBUG_HIGHLIGHT(previous_x_element, text2num(y_key), "#00FFFF")
-					. += list(list(list(previous_x_element, text2num(y_key))))
-				else
-					//Single, alone atom = Add in own group
-					DEBUG_HIGHLIGHT(actual_x_value, text2num(y_key), "#00FFFF")
-					. += list(list(list(actual_x_value, text2num(y_key))))
-			previous_x_element = actual_x_value
-		if(LAZYLEN(group))
-			. += list(group)
+				group += list(list(next, text2num(y_key)))
+				DEBUG_HIGHLIGHT(next, text2num(y_key), "#00FF00")
+			pointer = next
+		. += list(group)
 
 /proc/extend_line_to_radius(delta_x, delta_y, radius, offset_x, offset_y)
 	if(abs(delta_x) < abs(delta_y))
