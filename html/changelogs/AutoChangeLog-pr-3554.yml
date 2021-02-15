@@ -1,5 +1,0 @@
-author: ike709
-delete-after: true
-changes:
-  - bugfix: Maybe fixed slimes sporadically no longer eating. Report it on github
-      if this is still an issue.
