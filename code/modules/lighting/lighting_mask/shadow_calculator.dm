@@ -328,58 +328,79 @@
 				var/vertex5 = list(-radius + ourx, radius + oury)
 				var/triangle3 = list(vertex3, vertex4, vertex5)
 				. += list(triangle3)
-			else if(eitherNorth && eitherSouth)
-				//needs extra steps, either top left and bottom left or top right and bottom right
-				//we need to know what quadrant they are into
-				var/leftOfLine = (((vertex4[1] - vertex3[1]) * (oury - vertex3[2])) - ((vertex4[2] - vertex3[2]) * (ourx - vertex3[1]))) > 0
-				//If the origin point is to the left of the line vertex3, vertex 4 then its on the right
-				if(leftOfLine)
-					var/vertex5 = list(radius + ourx, radius + oury)
-					var/triangle3 = list(vertex3, vertex4, vertex5)
-					. += list(triangle3)
-					var/vertex6 = list(radius + ourx, -radius + oury)
-					var/triangle4 = list(vertex4, vertex5, vertex6)
-					. += list(triangle4)
-
+			else if(eitherNorth && eitherSouth) //BLOCKER IS A | SHAPE
+				//If vertex3 is to the right of the center, both vertices are to the right.
+				if(vertex3[1] > ourx)
+					//New vertexes are on the right
+					var/vertex5 = list(ourx + radius, oury + radius)
+					var/vertex6 = list(ourx + radius, oury - radius)
+					//If vertex 4 is greater than 3 then triangles link as 4,5,6 and 3,4,6
+					if(vertex4[2] > vertex3[2])
+						var/triangle3 = list(vertex3, vertex5, vertex6)
+						. += list(triangle3)
+						var/triangle4 = list(vertex3, vertex4, vertex5)
+						. += list(triangle4)
+					else
+						//Vertex 3 is greater than 4, so triangles link as 3,5,6 and 3,4,6
+						var/triangle3 = list(vertex3, vertex4, vertex5)
+						. += list(triangle3)
+						var/triangle4 = list(vertex4, vertex5, vertex6)
+						. += list(triangle4)
 				else
-					var/vertex5 = list(-radius + ourx, radius + oury)
-					var/triangle3 = list(vertex3, vertex4, vertex5)
-					. += list(triangle3)
-					var/vertex6 = list(-radius + ourx, -radius + oury)
-					var/triangle4 = list(vertex4, vertex5, vertex6)
-					. += list(triangle4)
+					//New vertexes are on the left
+					var/vertex5 = list(ourx - radius, oury + radius)
+					var/vertex6 = list(ourx - radius, oury - radius)
+					//If vertex 4 is higher than 3 then triangles link as 4,5,6 and 3,4,6
+					if(vertex4[2] > vertex3[2])
+						var/triangle3 = list(vertex3, vertex5, vertex6)
+						. += list(triangle3)
+						var/triangle4 = list(vertex3, vertex4, vertex5)
+						. += list(triangle4)
+					else
+						//Vertex 3 is greater than 4, so triangles link as 3,5,6 and 3,4,6
+						var/triangle3 = list(vertex3, vertex4, vertex5)
+						. += list(triangle3)
+						var/triangle4 = list(vertex4, vertex5, vertex6)
+						. += list(triangle4)
 			else if(eitherEast && eitherSouth)
 				//Add a vertex bottom right
 				var/vertex5 = list(radius + ourx, -radius + oury)
 				var/triangle3 = list(vertex3, vertex4, vertex5)
 				. += list(triangle3)
-			else if(eitherEast && eitherWest)
-				//Sort lines horizontally
-				var/list/vertexA
-				var/list/vertexB
-				if(vertex4[1] > vertex3[1])
-					vertexA = vertex3
-					vertexB = vertex4
+			else if(eitherEast && eitherWest)	//BLOCKER IS A --- SHAPE
+				//If vertex3 is above the center, then pointers are along the top
+				if(vertex3[2] > oury)
+					//New vertexes are on the right
+					var/vertex5 = list(ourx + radius, oury + radius)
+					var/vertex6 = list(ourx - radius, oury + radius)
+					//If vertex 4 is greater than 3 then triangles link as 4,5,6 and 3,4,6
+					if(vertex4[1] > vertex3[1])
+						var/triangle3 = list(vertex3, vertex5, vertex6)
+						. += list(triangle3)
+						var/triangle4 = list(vertex3, vertex4, vertex5)
+						. += list(triangle4)
+					else
+						//Vertex 3 is greater than 4, so triangles link as 3,5,6 and 3,4,6
+						var/triangle3 = list(vertex3, vertex4, vertex5)
+						. += list(triangle3)
+						var/triangle4 = list(vertex4, vertex5, vertex6)
+						. += list(triangle4)
 				else
-					vertexA = vertex4
-					vertexB = vertex3
-				//needs extra steps (left & right)(top | bottom)
-				var/aboveLine = (((ourx - vertexA[1]) * (vertexB[2] - vertexA[2])) - ((oury - vertexA[2]) * (vertexB[1] - vertexA[1]))) < 0
-				//If the origin point is to the left of the line vertex3, vertex 4 then its on the top
-				if(!aboveLine)
-					var/vertex5 = list(-radius + ourx, radius + oury)
-					var/triangle3 = list(vertexA, vertexB, vertex5)
-					. += list(triangle3)
-					var/vertex6 = list(radius + ourx, radius + oury)
-					var/triangle4 = list(vertexA, vertex5, vertex6)
-					. += list(triangle4)
-				else
-					var/vertex5 = list(-radius + ourx, -radius + oury)
-					var/triangle3 = list(vertexA, vertexB, vertex5)
-					. += list(triangle3)
-					var/vertex6 = list(radius + ourx, -radius + oury)
-					var/triangle4 = list(vertexA, vertex5, vertex6)
-					. += list(triangle4)
+					//New vertexes are on the bottom
+					var/vertex5 = list(ourx + radius, oury - radius)
+					var/vertex6 = list(ourx - radius, oury - radius)
+					//If vertex 4 is higher than 3 then triangles link as 4,5,6 and 3,4,6
+					if(vertex4[1] > vertex3[1])
+						var/triangle3 = list(vertex3, vertex4, vertex5)
+						. += list(triangle3)
+						var/triangle4 = list(vertex3, vertex5, vertex6)
+						. += list(triangle4)
+					else
+						//Vertex 3 is greater than 4, so triangles link as 3,5,6 and 3,4,6
+						var/triangle3 = list(vertex3, vertex4, vertex5)
+						. += list(triangle3)
+						var/triangle4 = list(vertex4, vertex5, vertex6)
+						. += list(triangle4)
 			else if(eitherSouth && eitherWest)
 				//Bottom left
 				var/vertex5 = list(-radius + ourx, -radius + oury)
