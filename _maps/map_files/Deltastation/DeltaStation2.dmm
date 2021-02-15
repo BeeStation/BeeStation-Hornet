@@ -125926,10 +125926,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
-"wUk" = (
-/obj/machinery/atmospherics/miner/carbon_dioxide,
-/turf/open/space/basic,
-/area/space)
 "wZk" = (
 /obj/structure/closet/crate/critter,
 /obj/effect/turf_decal/tile/purple,
@@ -142896,7 +142892,7 @@ aaa
 aaa
 aaa
 aaa
-wUk
+aaa
 aaa
 aaa
 aaa
