@@ -1,4 +1,0 @@
-author: MCterra10
-delete-after: true
-changes:
-  - bugfix: brig phys locker can be opened again
