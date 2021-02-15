@@ -30,7 +30,7 @@
 	for(var/area/space/nearstation/area in GLOB.sortedAreas)
 		var/area/A = area
 		for(var/turf/open/space/S in A)
-			S.set_light(5, S.light_power * 0.5)
+			S.set_light(5, S.light_power * 0.5, aurora_colors[1])
 
 /datum/round_event/aurora_caelus/tick()
 	if(activeFor % 5 == 0)
@@ -52,5 +52,5 @@
 /datum/round_event/aurora_caelus/proc/fade_to_black(turf/open/space/S)
 	set waitfor = FALSE
 	var/new_light = initial(S.light_range)
-	S.flash_lighting_fx(S.light_range, S.light_power, S.color, 100)
+	S.flash_lighting_fx(S.light_range, S.light_power, S.light_color, 100)
 	S.set_light(new_light, initial(S.light_power), initial(S.light_color))
