@@ -1,7 +1,3 @@
-//Uncomment if you want logs about the time it takes for parts of the shadows to generate
-//and turfs to be coloured depending on their grouping to a light source.
-//#define SHADOW_DEBUG
-
 //Lighting texture scales in world units (divide by 32)
 //256 = 8,4,2
 //1024 = 32,16,8
@@ -175,7 +171,7 @@
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(total_cornergroup_time += TICK_USAGE_TO_MS(temp_timer))
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
-		var/list/culledlinegroup = cornergroup /*cull_blocked_in_group(cornergroup, opaque_atoms_in_view)*/
+		var/list/culledlinegroup = cull_blocked_in_group(cornergroup, opaque_atoms_in_view)
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(culling_time += TICK_USAGE_TO_MS(temp_timer))
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
@@ -422,7 +418,7 @@
 	for(var/list/line in lines)
 		var/vertex1 = line[1]
 		var/vertex2 = line[2]
-		var/allowed = TRUE
+		var/list/lines_to_add = list()
 		if(vertex1[1] == vertex2[1])
 			//Vertical line.
 			//Requires a block to the left and right all the way from the bottom to the top
@@ -430,12 +426,18 @@
 			var/right = vertex1[1] + 0.5
 			var/bottom = min(vertex1[2], vertex2[2]) + 0.5
 			var/top = max(vertex1[2], vertex2[2]) - 0.5
+			var/list/current_bottom_vertex = list(vertex1[1], bottom - 0.5)
+			var/list/current_top_vertex = list(vertex1[1], bottom - 0.5)
 			for(var/i in bottom to top)
 				var/isLeftBlocked = IS_COORD_BLOCKED(sight_blockers, left, i)
 				var/isRightBlocked = IS_COORD_BLOCKED(sight_blockers, right, i)
 				if(isLeftBlocked == isRightBlocked)
-					allowed = FALSE
-					break
+					if(current_bottom_vertex[2] != current_top_vertex[2])
+						lines_to_add += list(list(current_bottom_vertex, current_top_vertex))
+					current_bottom_vertex = list(vertex1[1], i + 0.5)
+				current_top_vertex = list(vertex1[1], i + 0.5)
+			if(current_bottom_vertex[2] != current_top_vertex[2])
+				lines_to_add += list(list(current_bottom_vertex, current_top_vertex))
 		else
 			//Horizontal line
 			//Requires a block above and below for every position from left to right
@@ -443,14 +445,19 @@
 			var/right = max(vertex1[1], vertex2[1]) - 0.5
 			var/top = vertex1[2] + 0.5
 			var/bottom = vertex1[2] - 0.5
+			var/list/current_left_vertex = list(left - 0.5, vertex1[2])
+			var/list/current_right_vertex = list(left - 0.5, vertex1[2])
 			for(var/i in left to right)
 				var/isAboveBlocked = IS_COORD_BLOCKED(sight_blockers, i, top)
 				var/isBelowBlocked = IS_COORD_BLOCKED(sight_blockers, i, bottom)
 				if(isAboveBlocked == isBelowBlocked)
-					allowed = FALSE
-					break
-		if(allowed)
-			. += list(line)
+					if(current_left_vertex[1] != current_right_vertex[1])
+						lines_to_add += list(list(current_left_vertex, current_right_vertex))
+					current_left_vertex = list(i + 0.5, vertex1[2])
+				current_right_vertex = list(i + 0.5, vertex1[2])
+			if(current_left_vertex[1] != current_right_vertex[1])
+				lines_to_add += list(list(current_left_vertex, current_right_vertex))
+		. += lines_to_add
 
 //Converts the corners into the 3 (or 2) valid points
 //For example if a wall is top right of the source, the bottom left wall corner

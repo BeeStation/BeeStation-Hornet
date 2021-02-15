@@ -42,7 +42,11 @@
 								//	2 for preloading absolutely everything;
 
 #ifdef LOWMEMORYMODE
+#ifdef SHADOW_DEBUG
+#define FORCE_MAP "_maps/lightstation.json"
+#else
 #define FORCE_MAP "_maps/runtimestation.json"
+#endif
 #endif
 
 //Update this whenever you need to take advantage of more recent byond features
