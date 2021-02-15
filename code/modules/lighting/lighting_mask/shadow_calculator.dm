@@ -14,13 +14,15 @@
 	}
 
 #ifdef SHADOW_DEBUG
-#define DEBUG_HIGHLIGHT(x, y, colour) \
+/*#define DEBUG_HIGHLIGHT(x, y, colour) \
 	do { \
 		var/turf/T = locate(x, y, 2); \
 		if(T) { \
 			T.color = colour; \
 		}\
-	} while (0)
+	} while (0)*/
+//For debugging use when we want to know if a turf is being affected multiple
+#define DEBUG_HIGHLIGHT(x, y, colour) do{var/turf/T=locate(x,y,2);if(T){switch(T.color){if("#ff0000"){T.color = "#00ff00"}if("#00ff00"){T.color="#0000ff"}else{T.color="#ff0000"}}}}while(0)
 #define DO_SOMETHING_IF_DEBUGGING_SHADOWS(something) something
 #else
 #define DEBUG_HIGHLIGHT(x, y, colour)
@@ -136,7 +138,8 @@
 			//At this point we no longer care about
 			//the atom itself, only the position values
 			COORD_LIST_ADD(opaque_atoms_in_view, thing.x, thing.y)
-			DEBUG_HIGHLIGHT(thing.x, thing.y, "#0000FF")
+			//DEBUG_HIGHLIGHT(thing.x, thing.y, "#0000FF")
+			locate(thing.x, thing.y, 2).color = "#ffffff"
 
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("[TICK_USAGE_TO_MS(timer)]ms to process view([range], src)."))
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/temp_timer = TICK_USAGE)
@@ -171,7 +174,7 @@
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(total_cornergroup_time += TICK_USAGE_TO_MS(temp_timer))
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
-		var/list/culledlinegroup = cull_blocked_in_group(cornergroup, opaque_atoms_in_view)
+		var/list/culledlinegroup = cornergroup /*cull_blocked_in_group(cornergroup, opaque_atoms_in_view)*/
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(culling_time += TICK_USAGE_TO_MS(temp_timer))
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
@@ -608,7 +611,7 @@
 		//Too few elements to group
 		if(LAZYLEN(y_elements) <= 1)
 			if(LAZYLEN(y_elements) == 1)
-				DEBUG_HIGHLIGHT(text2num(x_key), y_elements[1], "#FFFF00")
+				//DEBUG_HIGHLIGHT(text2num(x_key), y_elements[1], "#FFFF00")
 				COORD_LIST_ADD(horizontal_atoms, y_elements[1], text2num(x_key))
 			continue
 		//Loop through elements and check if they are new to each other
@@ -633,10 +636,11 @@
 					. += list(group)
 					group = list()
 				if(i == 2)
-					DEBUG_HIGHLIGHT(text2num(x_key), previous_y_element, "#FF00FF")
+					//DEBUG_HIGHLIGHT(text2num(x_key), previous_y_element, "#FF00FF")
 					COORD_LIST_ADD(horizontal_atoms, previous_y_element, text2num(x_key))
-				DEBUG_HIGHLIGHT(text2num(x_key), actual_y_value, "#FF00FF")
-				COORD_LIST_ADD(horizontal_atoms, actual_y_value, text2num(x_key))
+				else
+					//DEBUG_HIGHLIGHT(text2num(x_key), actual_y_value, "#FF00FF")
+					COORD_LIST_ADD(horizontal_atoms, actual_y_value, text2num(x_key))
 			previous_y_element = actual_y_value
 		if(LAZYLEN(group))
 			. += list(group)
@@ -679,9 +683,10 @@
 					//Single, alone atom = Add in own group
 					DEBUG_HIGHLIGHT(previous_x_element, text2num(y_key), "#00FFFF")
 					. += list(list(list(previous_x_element, text2num(y_key))))
-				//Single, alone atom = Add in own group
-				DEBUG_HIGHLIGHT(actual_x_value, text2num(y_key), "#00FFFF")
-				. += list(list(list(actual_x_value, text2num(y_key))))
+				else
+					//Single, alone atom = Add in own group
+					DEBUG_HIGHLIGHT(actual_x_value, text2num(y_key), "#00FFFF")
+					. += list(list(list(actual_x_value, text2num(y_key))))
 			previous_x_element = actual_x_value
 		if(LAZYLEN(group))
 			. += list(group)

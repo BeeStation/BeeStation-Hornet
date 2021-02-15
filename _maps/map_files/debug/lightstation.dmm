@@ -32,6 +32,11 @@
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
+"j" = (
+/obj/structure/table,
+/obj/item/autosurgeon/syndicate/xray_eyes,
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "l" = (
 /obj/machinery/gravity_generator/main/station,
 /turf/open/floor/plasteel,
@@ -112,9 +117,11 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/storage/primary)
-"P" = (
-/obj/structure/table,
-/obj/item/autosurgeon/syndicate/xray_eyes,
+"M" = (
+/obj/item/flashlight/lamp/green{
+	brightness_on = 8;
+	flashlight_power = 22
+	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "Q" = (
@@ -146,13 +153,6 @@
 	},
 /obj/machinery/airalarm/unlocked{
 	pixel_y = 23
-	},
-/turf/open/floor/plasteel,
-/area/storage/primary)
-"W" = (
-/obj/item/flashlight/lamp/green{
-	brightness_on = 8;
-	flashlight_power = 22
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
@@ -537,7 +537,7 @@ S
 S
 S
 S
-B
+S
 S
 S
 S
@@ -702,13 +702,13 @@ S
 S
 S
 S
-S
-S
-S
 B
-S
-S
-S
+B
+B
+B
+B
+B
+B
 S
 S
 S
@@ -939,11 +939,11 @@ F
 S
 S
 S
-S
-S
-S
-S
-S
+B
+B
+B
+B
+B
 S
 S
 S
@@ -983,7 +983,7 @@ S
 S
 S
 S
-S
+B
 S
 S
 S
@@ -1033,7 +1033,7 @@ S
 S
 S
 H
-W
+M
 r
 w
 H
@@ -1067,7 +1067,7 @@ S
 S
 S
 S
-S
+B
 S
 S
 S
@@ -1107,18 +1107,18 @@ L
 S
 S
 S
-S
-S
-S
-S
-S
+B
+B
+B
+B
+B
 S
 S
 S
 S
 H
 S
-P
+j
 S
 H
 S
