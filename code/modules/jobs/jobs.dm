@@ -1,66 +1,33 @@
 GLOBAL_LIST_INIT(command_positions, list(
-	"Captain",
-	"Head of Personnel",
-	"Head of Security",
-	"Chief Engineer",
-	"Research Director",
-	"Chief Medical Officer"))
+	"Head of Personnel",))
 
 
 GLOBAL_LIST_INIT(engineering_positions, list(
-	"Chief Engineer",
-	"Station Engineer",
-	"Atmospheric Technician"))
+))
 
 
 GLOBAL_LIST_INIT(medical_positions, list(
-	"Chief Medical Officer",
-	"Medical Doctor",
-	"Geneticist",
-	"Virologist",
-	"Paramedic",
-	"Chemist"))
+))
 
 
 GLOBAL_LIST_INIT(science_positions, list(
-	"Research Director",
-	"Scientist",
-	"Roboticist"))
+))
 
 
 GLOBAL_LIST_INIT(supply_positions, list(
-	"Head of Personnel",
-	"Quartermaster",
-	"Cargo Technician",
-	"Shaft Miner"))
+	"Head of Personnel",))
 
 
 GLOBAL_LIST_INIT(civilian_positions, list(
-	"Bartender",
-	"Botanist",
-	"Cook",
-	"Janitor",
-	"Curator",
-	"Lawyer",
-	"Chaplain",
-	"Clown",
-	"Mime",
 	"Assistant"))
 
 
 GLOBAL_LIST_INIT(security_positions, list(
-	"Head of Security",
-	"Warden",
-	"Detective",
-	"Security Officer",
-	"Brig Physician",
-	"Deputy"))
+))
 
 
 GLOBAL_LIST_INIT(nonhuman_positions, list(
-	"AI",
-	"Cyborg",
-	ROLE_PAI))
+))
 
 GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_CREW = list("titles" = command_positions | engineering_positions | medical_positions | science_positions | supply_positions | security_positions | civilian_positions | list("AI","Cyborg")), // crew positions
