@@ -1,0 +1,6 @@
+author: Arkatos and actioninja
+delete-after: true
+changes:
+  - rscadd: RCD Access Control now uses tgui.
+  - tweak: RCDs are now able to set unrestricted directional access for newly built
+      airlocks.
