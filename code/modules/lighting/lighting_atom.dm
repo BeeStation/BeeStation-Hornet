@@ -147,6 +147,10 @@
 	light_power = _power
 	light_color = _color
 	. = ..()
+	do_flashes(_flash_times, _duration)
+
+/obj/effect/light_flash/proc/do_flashes(_flash_times, _duration)
+	set waitfor = FALSE
 	for(var/i in 1 to _flash_times)
 		light.our_mask.alpha = 255
 		animate(light.our_mask, time = _duration, easing = SINE_EASING, alpha = 0)

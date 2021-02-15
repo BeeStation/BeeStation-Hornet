@@ -1,4 +1,7 @@
 //#define LOWMEMORYMODE //uncomment this to load centcom and runtime station and thats it.
+//Uncomment if you want logs about the time it takes for parts of the shadows to generate
+//and turfs to be coloured depending on their grouping to a light source.
+//#define SHADOW_DEBUG
 
 #include "map_files\generic\CentCom.dmm"
 
