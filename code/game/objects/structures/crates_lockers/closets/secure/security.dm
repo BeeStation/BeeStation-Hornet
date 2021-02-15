@@ -68,7 +68,7 @@
 
 /obj/structure/closet/secure_closet/brig_med
 	name = "\proper brig medical locker"
-	req_access = list(ACCESS_BRIGPHYS)
+	req_access = list(ACCESS_SECURITY)
 	icon_state = "brig_phys"
 
 /obj/structure/closet/secure_closet/brig_med/PopulateContents()
