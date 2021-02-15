@@ -280,7 +280,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 			for(var/datum/mind/own as() in owners)
 				to_chat(own.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-				O.owner.announce_objectives()
+				own.announce_objectives()
 // This function can not be undone; do not call this unless you are sure
 /obj/machinery/cryopod/proc/despawn_occupant()
 	var/mob/living/mob_occupant = occupant
