@@ -80,7 +80,7 @@
 
 		if("Stage Magician")
 			O = new /datum/outfit/plasmaman/magic
-		
+
 		if("VIP")
 			O = new /datum/outfit/plasmaman/vip
 
@@ -95,9 +95,6 @@
 
 		if("Deputy")
 			O = new /datum/outfit/plasmaman
-
-		if("Brig Physician")
-			O = new /datum/outfit/plasmaman/secmed
 
 		if("Detective")
 			O = new /datum/outfit/plasmaman/detective

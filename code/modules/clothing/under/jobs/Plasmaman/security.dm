@@ -19,11 +19,3 @@
 	icon_state = "hos_envirosuit"
 	item_state = "hos_envirosuit"
 	item_color = "hos_envirosuit"
-
-/obj/item/clothing/under/plasmaman/security/secmed
-	name = "security plasma envirosuit"
-	desc = "A plasmaman containment suit designed for brig physicians. It has a red cross emblasoned on the chest."
-	icon_state = "secmed_envirosuit"
-	item_state = "secmed_envirosuit"
-	item_color = "secmed_envirosuit"
-	armor = list("melee" = 5, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 95, "acid" = 95)

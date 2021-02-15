@@ -133,17 +133,6 @@
 	item_color = "hosalt"
 
 /*
- * Brig Physician
-*/
-
-/obj/item/clothing/under/rank/brig_phys
-	name = "brig physician's uniform"
-	desc = "A lightly armored uniform worn by Nanotrasen's Asset Protection Medical Corps."
-	icon_state = "brig_phys"
-	item_state = "labcoat_sec"
-	item_color = "brig_phys"
-
-/*
  * Navy uniforms
  */
 
@@ -163,7 +152,7 @@
 	item_state = "wardenblueclothes"
 	item_color = "wardenblueclothes"
 	alt_covers_chest = TRUE
-	
+
 /obj/item/clothing/under/rank/security/head_of_security/formal
 	desc = "The insignia on this uniform tells you that this uniform belongs to the Head of Security."
 	name = "head of security's formal uniform"
@@ -205,11 +194,11 @@
 	has_sensor = LOCKED_SENSORS
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
-	
+
 /*
  * Triiodine's security uniforms
  */
- 
+
 
 /obj/item/clothing/under/rank/security/officer/mallcop
 	name = "NT mall cop uniform"

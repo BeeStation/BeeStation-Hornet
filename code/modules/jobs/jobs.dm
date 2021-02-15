@@ -53,7 +53,6 @@ GLOBAL_LIST_INIT(security_positions, list(
 	"Warden",
 	"Detective",
 	"Security Officer",
-	"Brig Physician",
 	"Deputy"))
 
 

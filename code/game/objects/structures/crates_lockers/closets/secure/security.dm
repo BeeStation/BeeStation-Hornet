@@ -66,16 +66,15 @@
 	new /obj/item/storage/photo_album/HoP(src)
 	new /obj/item/card/id/departmental_budget/srv(src)
 
-/obj/structure/closet/secure_closet/brig_phys
-	name = "\proper brig physician's locker"
+/obj/structure/closet/secure_closet/brig_med
+	name = "\proper brig medical locker"
 	req_access = list(ACCESS_BRIGPHYS)
 	icon_state = "brig_phys"
 
-/obj/structure/closet/secure_closet/brig_phys/PopulateContents()
+/obj/structure/closet/secure_closet/brig_med/PopulateContents()
 	..()
 	new /obj/item/defibrillator/loaded(src)
 	new /obj/item/blood_filter(src)
-	new /obj/item/radio/headset/headset_medsec(src)
 	new	/obj/item/storage/firstaid/regular(src)
 	new	/obj/item/storage/firstaid/fire(src)
 	new	/obj/item/storage/firstaid/toxin(src)

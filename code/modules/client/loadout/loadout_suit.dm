@@ -9,16 +9,6 @@
 /datum/gear/suit/labcoat
 	subtype_path = /datum/gear/suit/labcoat
 
-/datum/gear/suit/labcoat/brig_doc_hazard
-	display_name = "brig physician's hazard vest"
-	path = /obj/item/clothing/suit/hazardvest/brig_phys
-	allowed_roles = list("Brig Physician")
-
-/datum/gear/suit/labcoat/brig_doc
-	display_name = "brig physician's labcoat"
-	path = /obj/item/clothing/suit/toggle/labcoat/brig_phys
-	allowed_roles = list("Brig Physician")
-
 /datum/gear/suit/labcoat/emt
 	display_name = "EMT labcoat"
 	path = /obj/item/clothing/suit/toggle/labcoat/emt
@@ -42,7 +32,7 @@
 /datum/gear/suit/wintercoat/security
 	display_name = "security winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/security
-	allowed_roles = list("Security Officer", "Brig Physician", "Head of Security")
+	allowed_roles = list("Security Officer", "Head of Security")
 
 /datum/gear/suit/wintercoat/medical
 	display_name = "medical winter coat"

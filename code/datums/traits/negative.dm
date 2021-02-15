@@ -152,8 +152,6 @@
 				heirloom_type = /obj/item/reagent_containers/food/drinks/bottle/whiskey
 			if("Lawyer")
 				heirloom_type = pick(/obj/item/gavelhammer, /obj/item/book/manual/wiki/security_space_law)
-			if("Brig Physician")
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/book/manual/wiki/security_space_law)
 			//RnD
 			if("Research Director")
 				heirloom_type = /obj/item/toy/plush/slimeplushie
