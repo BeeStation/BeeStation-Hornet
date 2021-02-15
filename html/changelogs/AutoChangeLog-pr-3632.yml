@@ -1,0 +1,6 @@
+author: park66665
+delete-after: true
+changes:
+  - bugfix: Prize from Orion Trail is no longer broken
+  - bugfix: Disease from rat is no longer broken
+  - bugfix: Bar emergency shuttle's bar table now properly boots unauthorized people
