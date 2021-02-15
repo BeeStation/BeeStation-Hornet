@@ -940,7 +940,8 @@ Nothing else in the console has ID requirements.
 		if(!linked_lathe.materials.mat_container)
 			say("No material storage linked to protolathe!")
 			return
-		linked_lathe.eject_sheets(ls["ejectsheet"], ls["eject_amt"])
+		var/datum/material/mat = locate(ls["ejectsheet"])
+		linked_lathe.eject_sheets(mat, ls["eject_amt"])
 	//Circuit Imprinter Materials
 	if(ls["disposeI"])  //Causes the circuit imprinter to dispose of a single reagent (all of it)
 		if(QDELETED(linked_imprinter))
@@ -959,7 +960,8 @@ Nothing else in the console has ID requirements.
 		if(!linked_imprinter.materials.mat_container)
 			say("No material storage linked to circuit imprinter!")
 			return
-		linked_imprinter.eject_sheets(ls["imprinter_ejectsheet"], ls["eject_amt"])
+		var/datum/material/mat = locate(ls["imprinter_ejectsheet"])
+		linked_imprinter.eject_sheets(mat, ls["eject_amt"])
 	if(ls["disk_slot"])
 		disk_slot_selected = text2num(ls["disk_slot"])
 	if(ls["research_node"])
