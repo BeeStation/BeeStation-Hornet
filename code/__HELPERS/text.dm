@@ -838,5 +838,5 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 		if(replace_letters_only && (!ISINRANGE(char, 65, 90) && !ISINRANGE(char, 97, 122)))
 			out += char
 			continue
-		out += prob(replaceprob)? pick(replacementchars) : char
+		out += prob(replaceprob) ? pick(replacementchars) : char
 	return out.Join("")
