@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(objectives)
 			A.objectives -= src
 	if(team)
 		team.objectives -= src
-	. = ..()
+	return ..()
 
 /datum/objective/proc/get_owners() // Combine owner and team into a single list.
 	. = (team && team.members) ? team.members.Copy() : list()
