@@ -22,8 +22,7 @@ GLOBAL_LIST_EMPTY(objectives)
 	if(owner)
 		for(var/datum/antagonist/A in owner.antag_datums)
 			A.objectives -= src
-	if(team)
-		team.objectives -= src
+	team?.objectives -= src
 	return ..()
 
 /datum/objective/proc/get_owners() // Combine owner and team into a single list.
