@@ -140,6 +140,8 @@
 			COORD_LIST_ADD(opaque_atoms_in_view, thing.x, thing.y)
 			DEBUG_HIGHLIGHT(thing.x, thing.y, "#0000FF")
 
+	debug_list = opaque_atoms_in_view
+
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("[TICK_USAGE_TO_MS(timer)]ms to process view([range], src)."))
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/temp_timer = TICK_USAGE)
 
@@ -173,7 +175,7 @@
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(total_cornergroup_time += TICK_USAGE_TO_MS(temp_timer))
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
-		var/list/culledlinegroup = cornergroup /*cull_blocked_in_group(cornergroup, opaque_atoms_in_view)*/
+		var/list/culledlinegroup = cull_blocked_in_group(cornergroup, opaque_atoms_in_view)
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(culling_time += TICK_USAGE_TO_MS(temp_timer))
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
@@ -431,8 +433,8 @@
 			var/list/current_bottom_vertex = list(vertex1[1], bottom - 0.5)
 			var/list/current_top_vertex = list(vertex1[1], bottom - 0.5)
 			for(var/i in bottom to top)
-				var/isLeftBlocked = IS_COORD_BLOCKED(sight_blockers, left, i)
-				var/isRightBlocked = IS_COORD_BLOCKED(sight_blockers, right, i)
+				var/isLeftBlocked = IS_COORD_BLOCKED(sight_blockers, left, i) ? TRUE : FALSE
+				var/isRightBlocked = IS_COORD_BLOCKED(sight_blockers, right, i) ? TRUE : FALSE
 				if(isLeftBlocked == isRightBlocked)
 					if(current_bottom_vertex[2] != current_top_vertex[2])
 						lines_to_add += list(list(current_bottom_vertex, current_top_vertex))
@@ -450,8 +452,8 @@
 			var/list/current_left_vertex = list(left - 0.5, vertex1[2])
 			var/list/current_right_vertex = list(left - 0.5, vertex1[2])
 			for(var/i in left to right)
-				var/isAboveBlocked = IS_COORD_BLOCKED(sight_blockers, i, top)
-				var/isBelowBlocked = IS_COORD_BLOCKED(sight_blockers, i, bottom)
+				var/isAboveBlocked = IS_COORD_BLOCKED(sight_blockers, i, top) ? TRUE : FALSE
+				var/isBelowBlocked = IS_COORD_BLOCKED(sight_blockers, i, bottom) ? TRUE : FALSE
 				if(isAboveBlocked == isBelowBlocked)
 					if(current_left_vertex[1] != current_right_vertex[1])
 						lines_to_add += list(list(current_left_vertex, current_right_vertex))

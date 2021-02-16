@@ -11,7 +11,7 @@
 // The proc you should always use to set the light of this atom.
 // Nonesensical value for l_color default, so we can detect if it gets set to null.
 #define NONSENSICAL_VALUE -99999
-/atom/proc/set_light(l_range, l_power, l_color = NONSENSICAL_VALUE, mask_type)
+/atom/proc/set_light(l_range, l_power, l_color = NONSENSICAL_VALUE, mask_type = null)
 	if(l_range > 0 && l_range < MINIMUM_USEFUL_LIGHT_RANGE)
 		l_range = MINIMUM_USEFUL_LIGHT_RANGE	//Brings the range up to 1.4, which is just barely brighter than the soft lighting that surrounds players.
 	if (l_power != null)
@@ -29,6 +29,12 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_SET_LIGHT, l_range, l_power, l_color)
 
 	update_light()
+
+/atom/proc/fade_light(new_colour, time)
+	light_color = new_colour
+	if(!light || !light.our_mask)
+		return
+	animate(light.our_mask, color = new_colour, time = time)
 
 // Will update the light (duh).
 // Creates or destroys it if needed, makes it update values, makes sure it's got the correct source turf...
@@ -152,6 +158,9 @@
 /obj/effect/light_flash/proc/do_flashes(_flash_times, _duration)
 	set waitfor = FALSE
 	for(var/i in 1 to _flash_times)
+		//Something bad happened
+		if(!(light?.our_mask))
+			break
 		light.our_mask.alpha = 255
 		animate(light.our_mask, time = _duration, easing = SINE_EASING, alpha = 0)
 		sleep(_duration)
