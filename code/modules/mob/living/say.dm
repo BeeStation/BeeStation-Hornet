@@ -409,7 +409,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 				return ITALICS | REDUCE_RANGE
 
 		if(MODE_INTERCOM)
-			for (var/obj/item/radio/intercom/I in view(MODE_RANGE_INTERCOM, null))
+			for (var/obj/item/radio/intercom/I in view(MODE_RANGE_INTERCOM, src))
 				I.talk_into(src, message, , spans, language)
 			return ITALICS | REDUCE_RANGE
 

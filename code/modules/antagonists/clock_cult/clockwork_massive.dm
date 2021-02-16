@@ -259,8 +259,7 @@ GLOBAL_VAR(cult_ratvar)
 	move()
 
 /obj/singularity/ratvar/eat()
-	for(var/tile in spiral_range_turfs(range, src))
-		var/turf/T = tile
+	for(var/turf/T as() in spiral_range_turfs(range, src))
 		if(!T || !isturf(loc))
 			continue
 		T.ratvar_act()

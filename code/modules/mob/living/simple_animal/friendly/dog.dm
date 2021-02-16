@@ -452,10 +452,10 @@
 			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
 				movement_target = null
 				stop_automated_movement = 0
-			if( !movement_target || !(movement_target.loc in oview(src, 3)) )
+			if(!movement_target || !(src in viewers(3, movement_target.loc)))
 				movement_target = null
 				stop_automated_movement = 0
-				for(var/obj/item/reagent_containers/food/snacks/S in oview(src,3))
+				for(var/obj/item/reagent_containers/food/snacks/S in oview(3, src))
 					if(isturf(S.loc) || ishuman(S.loc))
 						movement_target = S
 						break
@@ -518,8 +518,8 @@
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/Life()
 	..()
-	for(var/mob/living/simple_animal/pet/P in range(1, src))
-		if(P != src && !istype(P,/mob/living/simple_animal/pet/dog/corgi/narsie))
+	for(var/mob/living/simple_animal/pet/P in ohearers(1, src))
+		if(!istype(P,/mob/living/simple_animal/pet/dog/corgi/narsie))
 			visible_message("<span class='warning'>[src] devours [P]!</span>", \
 			"<span class='cult big bold'>DELICIOUS SOULS</span>")
 			playsound(src, 'sound/magic/demon_attack1.ogg', 75, TRUE)

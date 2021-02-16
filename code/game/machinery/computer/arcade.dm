@@ -620,16 +620,14 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 					if(ORION_TRAIL_COLLISION) //by far the most damaging event
 						if(prob(90))
 							playsound(loc, 'sound/effects/bang.ogg', 100, 1)
-							var/turf/open/floor/F
-							for(F in orange(1, src))
+							for(var/turf/open/floor/F in RANGE_TURFS(1, src))
 								F.ScrapeAway()
 							say("Something slams into the floor around [src], exposing it to space!")
 							if(hull)
 								sleep(10)
 								say("A new floor suddenly appears around [src]. What the hell?")
 								playsound(loc, 'sound/weapons/genhit.ogg', 100, 1)
-								var/turf/open/space/T
-								for(T in orange(1, src))
+								for(var/turf/open/space/T in RANGE_TURFS(1, src))
 									T.PlaceOnTop(/turf/open/floor/plating)
 						else
 							say("Something slams into the floor around [src] - luckily, it didn't get through!")
