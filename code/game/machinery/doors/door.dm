@@ -35,13 +35,15 @@
 	var/datum/effect_system/spark_spread/spark_system
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/red_alert_access = FALSE //if TRUE, this door will always open on red alert
-	var/poddoor = FALSE	
+	var/poddoor = FALSE
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
 	var/open_speed = 5
 
 /obj/machinery/door/examine(mob/user)
 	. = ..()
-	if(red_alert_access)
+	if(GLOB.security_level == SEC_LEVEL_DELTA)
+		. += "<span class='notice'>Due to a security threat, its access requirements have been lifted!</span>"
+	else if(red_alert_access)
 		if(GLOB.security_level >= SEC_LEVEL_RED)
 			. += "<span class='notice'>Due to a security threat, its access requirements have been lifted!</span>"
 		else
@@ -51,6 +53,8 @@
 
 /obj/machinery/door/check_access_list(list/access_list)
 	if(red_alert_access && GLOB.security_level >= SEC_LEVEL_RED)
+		return TRUE
+	if(GLOB.security_level == SEC_LEVEL_DELTA)
 		return TRUE
 	return ..()
 

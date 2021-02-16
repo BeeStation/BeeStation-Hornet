@@ -94,10 +94,10 @@
 
 	//Work out our position
 	//Calculate shadow origin offset
-	//var/invert_offsets = attached_atom.dir & (NORTH | EAST)
-	//var/left_or_right = attached_atom.dir & (EAST | WEST)
-	//var/offset_x = (left_or_right ? attached_atom.light_pixel_y : attached_atom.light_pixel_x) * (invert_offsets ? -1 : 1)
-	//var/offset_y = (left_or_right ? attached_atom.light_pixel_x : attached_atom.light_pixel_y) * (invert_offsets ? -1 : 1)
+	var/invert_offsets = attached_atom.dir & (NORTH | EAST)
+	var/left_or_right = attached_atom.dir & (EAST | WEST)
+	var/offset_x = (left_or_right ? attached_atom.light_pixel_y : attached_atom.light_pixel_x) * (invert_offsets ? -1 : 1)
+	var/offset_y = (left_or_right ? attached_atom.light_pixel_x : attached_atom.light_pixel_y) * (invert_offsets ? -1 : 1)
 
 	//Get the origin poin's
 	var/turf/our_turf = get_turf(attached_atom)	//The mask is in nullspace, so we need the source turf of the container
@@ -105,14 +105,8 @@
 	var/oury = our_turf.y
 
 	//Account for pixel shifting and light offset
-	calculated_position_x = ourx/* + ((attached_atom.pixel_x + offset_x) / world.icon_size)*/
-	calculated_position_y = oury/* + ((attached_atom.pixel_y + offset_y) / world.icon_size)*/
-
-	//Simple clamp to the turf center to maintain low GPU usage.
-	//If the light source is too close to the wall, the shadows are much larger
-	//and this results in significant GPU slowdown.
-	calculated_position_x = round(calculated_position_x, 1)
-	calculated_position_y = round(calculated_position_y, 1)
+	calculated_position_x = ourx + ((attached_atom.pixel_x + offset_x) / world.icon_size)
+	calculated_position_y = oury + ((attached_atom.pixel_y + offset_y) / world.icon_size)
 
 	//Remove the old shadows
 	overlays.Cut()
@@ -139,8 +133,6 @@
 			//the atom itself, only the position values
 			COORD_LIST_ADD(opaque_atoms_in_view, thing.x, thing.y)
 			DEBUG_HIGHLIGHT(thing.x, thing.y, "#0000FF")
-
-	debug_list = opaque_atoms_in_view
 
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("[TICK_USAGE_TO_MS(timer)]ms to process view([range], src)."))
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/temp_timer = TICK_USAGE)

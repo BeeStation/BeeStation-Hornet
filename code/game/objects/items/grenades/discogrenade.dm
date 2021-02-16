@@ -79,9 +79,9 @@
 
 /obj/item/grenade/discogrenade/subgrenade/proc/randomiseLightColor()
 	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
-	lightcolor = random_color()
+	lightcolor = "#[random_color()]"
 	set_light(range, power, lightcolor)
-	add_atom_colour("#[lightcolor]", FIXED_COLOUR_PRIORITY)
+	add_atom_colour(lightcolor, FIXED_COLOUR_PRIORITY)
 	update_icon()
 	timerID = addtimer(CALLBACK(src, .proc/randomiseLightColor), 2, TIMER_STOPPABLE)
 
