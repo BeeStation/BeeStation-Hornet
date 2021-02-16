@@ -344,6 +344,9 @@
 	if(actual_trauma.brain) //we don't accept used traumas here
 		WARNING("gain_trauma was given an already active trauma.")
 		return
+	if(QDELETED(actual_trauma)) // hypnosis might qdel on New, causing problems
+		stack_trace("brain_gain_trauma tried to add qdeleted trauma.")
+		return
 
 	traumas += actual_trauma
 	actual_trauma.brain = src
