@@ -68,6 +68,8 @@
 	// ^ Future me here, its because it works as translate then scale since its backwards.
 	// ^ ^ Future future me here, it totally shouldnt since the translation component of a matrix is independant to the scale component.
 	M.Translate(-128 + 16)
+	//Adjust for pixel offsets
+	M.Translate(attached_atom.pixel_x + attached_atom.light_pixel_x, attached_atom.pixel_y + attached_atom.light_pixel_y)
 	//Rotate
 	// - Rotate (Directional lights)
 	M.Turn(currentAngle)
