@@ -73,7 +73,7 @@
 	//Create the lights
 	new /obj/effect/dummy/lighting_obj (current_turf, rand_hex_color(), 4, 1, 10)
 
-	for(var/mob/living/carbon/human/M in view(4, src))
+	for(var/mob/living/carbon/human/M in hearers(4, src))
 		forcedance(get_turf(M), M)
 	qdel(src)
 

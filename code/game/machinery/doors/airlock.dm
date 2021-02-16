@@ -144,7 +144,7 @@
 		switch(outcome)
 			if(1 to 5)
 				var/turf/here = get_turf(src)
-				for(var/turf/closed/T in range(2, src))
+				for(var/turf/closed/T in spiral_range_turfs(2, here))
 					here.PlaceOnTop(T.type)
 					qdel(src)
 					return

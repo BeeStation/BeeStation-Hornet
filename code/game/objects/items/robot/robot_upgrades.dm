@@ -338,8 +338,8 @@
 /obj/item/borg/upgrade/selfrepair/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
-		toggle_action.Remove(cyborg)
-		QDEL_NULL(toggle_action)
+		if(toggle_action)
+			QDEL_NULL(toggle_action)
 		cyborg = null
 		deactivate_sr()
 
@@ -349,8 +349,8 @@
 
 /obj/item/borg/upgrade/selfrepair/proc/check_dropped()
 	if(loc != cyborg)
-		toggle_action.Remove(cyborg)
-		QDEL_NULL(toggle_action)
+		if(toggle_action)
+			QDEL_NULL(toggle_action)
 		cyborg = null
 		deactivate_sr()
 

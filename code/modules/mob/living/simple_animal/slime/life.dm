@@ -29,9 +29,10 @@
 		return
 	..()
 
-/mob/living/simple_animal/slime/proc/AIprocess()
+/mob/living/simple_animal/slime/process()
 	if(stat == DEAD || !Target || client || buckled)
 		return
+	special_process = FALSE
 
 	var/slime_on_target = 0
 	if(Target.buckled_mobs?.len && (locate(/mob/living/simple_animal/slime) in Target.buckled_mobs))
@@ -42,11 +43,12 @@
 			if(!Target.client || prob(20))
 				Feedon(Target)
 				special_process = FALSE
+				reset_processing()
 				return
-		if(attacked || rabid)
+		if((attacked || rabid) && Adjacent(Target))
 			Target.attack_slime(src)
 			attack_cooldown = world.time + attack_cooldown_time
-	else if(Target in view(7, src))
+	else if(src in viewers(7, Target))
 		if((transformeffects & SLIME_EFFECT_BLUESPACE) && powerlevel >= 5)
 			do_teleport(src, get_turf(Target), asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
 			powerlevel -= 5
@@ -55,12 +57,13 @@
 	else
 		special_process = FALSE
 		Target = null
-		return
 
+	reset_processing()
+
+/mob/living/simple_animal/slime/proc/reset_processing()
 	var/sleeptime = movement_delay()
 	if(sleeptime <= 0)
 		sleeptime = 1
-
 	addtimer(VARSET_CALLBACK(src, special_process, TRUE), (sleeptime + 2), TIMER_UNIQUE)
 
 /mob/living/simple_animal/slime/handle_environment(datum/gas_mixture/environment)
@@ -435,12 +438,12 @@
 		var/slimes_near = 0
 		var/dead_slimes = 0
 		var/friends_near = list()
-		for (var/mob/living/L in view(7,src))
-			if(isslime(L) && L != src)
+		for (var/mob/living/L in oview(7,src))
+			if(isslime(L))
 				++slimes_near
 				if (L.stat == DEAD)
 					++dead_slimes
-			if (L in Friends)
+			if(L in Friends)
 				t += 20
 				friends_near += L
 		if (nutrition < get_hunger_nutrition())
