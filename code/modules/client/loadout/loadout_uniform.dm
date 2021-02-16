@@ -234,6 +234,11 @@
 	path = /obj/item/clothing/under/costume/jabroni
 	cost = 20000
 
+/datum/gear/uniform/misc/geisha
+	display_name = "geisha suit"
+	path = /obj/item/clothing/under/costume/geisha
+	cost = 20000
+
 /datum/gear/uniform/misc/soviet
 	display_name = "soviet uniform"
 	path = /obj/item/clothing/under/costume/soviet
