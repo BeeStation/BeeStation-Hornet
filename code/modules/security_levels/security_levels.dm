@@ -54,6 +54,8 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 							SSshuttle.emergency.modTimer(0.5)
 				else
 					minor_announce(CONFIG_GET(string/alert_red_downto), "Attention! Code red!")
+					for(var/obj/machinery/light/light in GLOB.machines)
+						light.update()
 				GLOB.security_level = SEC_LEVEL_RED
 
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
@@ -74,9 +76,11 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 						FA.update_icon()
 				for(var/obj/machinery/computer/shuttle/pod/pod in GLOB.machines)
 					pod.admin_controlled = 0
+				for(var/obj/machinery/light/light in GLOB.machines)
+					light.update()
 		if(level >= SEC_LEVEL_RED)
 			for(var/obj/machinery/door/D in GLOB.machines)
-				if(D.red_alert_access)
+				if(D.red_alert_access || level == SEC_LEVEL_DELTA)
 					D.visible_message("<span class='notice'>[D] whirs as it automatically lifts access requirements!</span>")
 					playsound(D, 'sound/machines/boltsup.ogg', 50, TRUE)
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, get_security_level())

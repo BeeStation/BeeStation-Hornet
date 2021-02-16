@@ -34,7 +34,11 @@
 	our_mask = new mask_type
 	mask_holder.assign_mask(our_mask)
 	our_mask.attached_atom = owner
+
+	//Set light vars
 	set_light(owner.light_range, owner.light_power, owner.light_color)
+
+	//Calculate shadows
 	our_mask.calculate_lighting_shadows()
 
 	SSlighting.light_sources += src

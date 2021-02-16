@@ -41,7 +41,9 @@
 
 /obj/machinery/door/examine(mob/user)
 	. = ..()
-	if(red_alert_access)
+	if(GLOB.security_level == SEC_LEVEL_DELTA)
+		. += "<span class='notice'>Due to a security threat, its access requirements have been lifted!</span>"
+	else if(red_alert_access)
 		if(GLOB.security_level >= SEC_LEVEL_RED)
 			. += "<span class='notice'>Due to a security threat, its access requirements have been lifted!</span>"
 		else
@@ -51,6 +53,8 @@
 
 /obj/machinery/door/check_access_list(list/access_list)
 	if(red_alert_access && GLOB.security_level >= SEC_LEVEL_RED)
+		return TRUE
+	if(GLOB.security_level == SEC_LEVEL_DELTA)
 		return TRUE
 	return ..()
 
