@@ -21,7 +21,7 @@
 	if(..())
 		return TRUE
 	var/obj/machinery/bsa/full/B = locate()
-	if(B && B.is_conscious())
+	if(B && !B.stat)
 		return TRUE
 	return FALSE
 
