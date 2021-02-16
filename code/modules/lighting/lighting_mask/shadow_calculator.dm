@@ -3,8 +3,6 @@
 //1024 = 32,16,8
 #define LIGHTING_SHADOW_TEX_SIZE 8
 
-#define IS_COORD_BLOCKED(list, x, y) (list["[x]"]?.Find(y))
-
 #define COORD_LIST_ADD(listtoadd, x, y) \
 	if(islist(listtoadd["[x]"])) { \
 		var/list/_L = listtoadd["[x]"]; \
@@ -425,8 +423,10 @@
 			var/list/current_bottom_vertex = list(vertex1[1], bottom - 0.5)
 			var/list/current_top_vertex = list(vertex1[1], bottom - 0.5)
 			for(var/i in bottom to top)
-				var/isLeftBlocked = IS_COORD_BLOCKED(sight_blockers, left, i) ? TRUE : FALSE
-				var/isRightBlocked = IS_COORD_BLOCKED(sight_blockers, right, i) ? TRUE : FALSE
+				var/list/left_list = sight_blockers["[left]"]
+				var/isLeftBlocked = left_list?.Find(i) ? TRUE : FALSE
+				var/list/right_list = sight_blockers["[right]"]
+				var/isRightBlocked = right_list?.Find(i) ? TRUE : FALSE
 				if(isLeftBlocked == isRightBlocked)
 					if(current_bottom_vertex[2] != current_top_vertex[2])
 						lines_to_add += list(list(current_bottom_vertex, current_top_vertex))
@@ -444,8 +444,9 @@
 			var/list/current_left_vertex = list(left - 0.5, vertex1[2])
 			var/list/current_right_vertex = list(left - 0.5, vertex1[2])
 			for(var/i in left to right)
-				var/isAboveBlocked = IS_COORD_BLOCKED(sight_blockers, i, top) ? TRUE : FALSE
-				var/isBelowBlocked = IS_COORD_BLOCKED(sight_blockers, i, bottom) ? TRUE : FALSE
+				var/list/check_list = sight_blockers["[i]"]
+				var/isAboveBlocked = check_list?.Find(top) ? TRUE : FALSE
+				var/isBelowBlocked = check_list?.Find(bottom) ? TRUE : FALSE
 				if(isAboveBlocked == isBelowBlocked)
 					if(current_left_vertex[1] != current_right_vertex[1])
 						lines_to_add += list(list(current_left_vertex, current_right_vertex))

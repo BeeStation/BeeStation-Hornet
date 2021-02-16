@@ -1,4 +1,5 @@
 /obj/effect/lighting_mask_holder
+	name = ""
 	anchored = TRUE
 	appearance_flags = 0	//Removes TILE_BOUND meaning that the lighting mask will be visible even if the source turf is not.
 	var/datum/weakref/held_mask
