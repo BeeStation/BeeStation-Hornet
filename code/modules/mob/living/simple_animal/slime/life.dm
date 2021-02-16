@@ -43,7 +43,7 @@
 				Feedon(Target)
 				special_process = FALSE
 				return
-		if(attacked || rabid)
+		if((attacked || rabid) && Adjacent(Target))
 			Target.attack_slime(src)
 			attack_cooldown = world.time + attack_cooldown_time
 	else if(Target in view(7, src))

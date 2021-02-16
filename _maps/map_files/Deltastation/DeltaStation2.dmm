@@ -90011,17 +90011,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
-"cWw" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/mob/living/simple_animal/bot/cleanbot{
-	name = "C.L.E.A.N.";
-	trash = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/storage)
 "cWx" = (
 /obj/machinery/light_switch{
 	pixel_x = 26;
@@ -124825,6 +124814,14 @@
 	},
 /turf/open/floor/plating,
 /area/security/execution/transfer)
+"sTA" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/mob/living/simple_animal/bot/cleanbot/medbay,
+/turf/open/floor/plasteel/white,
+/area/medical/storage)
 "sTI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
@@ -173297,7 +173294,7 @@ cPF
 cRh
 cSU
 cRh
-cWw
+sTA
 cSS
 smY
 dbt

@@ -70,6 +70,6 @@ SUBSYSTEM_DEF(ambience)
 /datum/controller/subsystem/ambience/proc/update_effects(mob/M) // Effect, random sounds that will play at random times, IC (requires the user to be able to hear)
 	var/area/A = get_area(M)
 
-	if (A.ambient_effects && (M.client.prefs.toggles & SOUND_AMBIENCE) && M.can_hear_ambience() && (world.time - M.client.ambient_effect_last_played) > AMBIENT_EFFECT_COOLDOWN && prob(5) && !M.client.channel_in_use(CHANNEL_AMBIENT_EFFECTS)) // 1/20 chance to play every second after cooldown
+	if (length(A.ambient_effects) && (M.client?.prefs.toggles & SOUND_AMBIENCE) && M.can_hear_ambience() && (world.time - M.client?.ambient_effect_last_played) > AMBIENT_EFFECT_COOLDOWN && prob(5) && !M.client?.channel_in_use(CHANNEL_AMBIENT_EFFECTS)) // 1/20 chance to play every second after cooldown
+		M.client?.ambient_effect_last_played = world.time
 		SEND_SOUND(M, sound(pick(A.ambient_effects), repeat = 0, wait = 0, volume = AMBIENT_EFFECTS_VOLUME, channel = CHANNEL_AMBIENT_EFFECTS))
-		M.client.ambient_effect_last_played = world.time
