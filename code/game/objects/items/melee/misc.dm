@@ -141,13 +141,24 @@
 	desc = "An elegant weapon, its monomolecular edge is capable of cutting through flesh and bone with ease. Also very tasty."
 	force = 18
 	icon_state = "sabre"
-	item_state = null
+	item_state = "sabre"
+	alpha = 0
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	block_level = 1
 	block_upgrade_walk = 1
 	block_power = 60
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+
+/obj/item/melee/sabre/mime/attack_hand(mob/user)
+	..()
+	if(user.mind.miming)
+		alpha = 255
+
+/obj/item/melee/sabre/mime/Moved(oldLoc, dir)
+	if (iscarbon(oldLoc))
+		alpha = 0
+	..()
 
 /obj/item/melee/sabre/mime/on_exit_storage(datum/component/storage/concrete/R)
 	var/obj/item/storage/belt/sabre/mime/M = R.real_location()

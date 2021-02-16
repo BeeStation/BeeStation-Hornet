@@ -784,12 +784,23 @@
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "baguette"
 	item_state = "baguette"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
 
 /obj/item/storage/belt/sabre/mime/update_icon()
 	icon_state = "baguette"
 	item_state = "baguette"
 
+/obj/item/storage/belt/sabre/mime/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 1
+	STR.rustle_sound = FALSE
+	STR.max_w_class = WEIGHT_CLASS_BULKY
+	STR.can_hold = typecacheof(list(
+		/obj/item/melee/sabre/mime
+		))
+
 /obj/item/storage/belt/sabre/mime/PopulateContents()
 	new /obj/item/melee/sabre(src)
+	update_icon()
