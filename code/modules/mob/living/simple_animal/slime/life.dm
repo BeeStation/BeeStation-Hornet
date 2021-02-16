@@ -29,9 +29,10 @@
 		return
 	..()
 
-/mob/living/simple_animal/slime/proc/AIprocess()
+/mob/living/simple_animal/slime/process()
 	if(stat == DEAD || !Target || client || buckled)
 		return
+	special_process = FALSE
 
 	var/slime_on_target = 0
 	if(Target.buckled_mobs?.len && (locate(/mob/living/simple_animal/slime) in Target.buckled_mobs))
@@ -42,6 +43,7 @@
 			if(!Target.client || prob(20))
 				Feedon(Target)
 				special_process = FALSE
+				reset_processing()
 				return
 		if((attacked || rabid) && Adjacent(Target))
 			Target.attack_slime(src)
@@ -55,12 +57,13 @@
 	else
 		special_process = FALSE
 		Target = null
-		return
 
+	reset_processing()
+
+/mob/living/simple_animal/slime/proc/reset_processing()
 	var/sleeptime = movement_delay()
 	if(sleeptime <= 0)
 		sleeptime = 1
-
 	addtimer(VARSET_CALLBACK(src, special_process, TRUE), (sleeptime + 2), TIMER_UNIQUE)
 
 /mob/living/simple_animal/slime/handle_environment(datum/gas_mixture/environment)
