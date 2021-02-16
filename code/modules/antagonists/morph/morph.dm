@@ -214,8 +214,7 @@
 					"<span class='notice'>You twist your body and assume the form of [target].</span>")
 	appearance = target.appearance
 	copy_overlays(target)
-	vis_contents.Cut()
-	if(target.vis_contents)
+	if(target.vis_contents && !istype(target, /obj/machinery/computer))
 		vis_contents += target.vis_contents
 	alpha = max(alpha, 150)	//fucking chameleons
 	transform = initial(transform)
