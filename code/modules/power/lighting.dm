@@ -207,6 +207,7 @@
 	var/brightness = 9			// luminosity when on, also used in power calculation
 	var/bulb_power = 0.4			// basically the alpha of the emitted light source
 	var/bulb_colour = "#FFF6ED"	// befault colour of the light.
+	var/bulb_mask = /atom/movable/lighting_mask/primary_lighting
 	var/status = LIGHT_OK		// LIGHT_OK, _EMPTY, _BURNED or _BROKEN
 	var/flickering = FALSE
 	var/light_type = /obj/item/light/tube		// the type of light item
@@ -227,7 +228,7 @@
 
 	var/emergency_mode = FALSE	// if true, the light is in emergency mode
 	var/no_emergency = FALSE	// if true, this light cannot ever have an emergency mode
-	var/bulb_emergency_brightness_mul = 0.25	// multiplier for this light's base brightness in emergency power mode
+	var/bulb_emergency_brightness_mul = 0.7	// multiplier for this light's base brightness in emergency power mode
 	var/bulb_emergency_colour = "#FF3232"	// determines the colour of the light while it's in emergency mode
 	var/bulb_emergency_pow_mul = 0.75	// the multiplier for determining the light's power in emergency mode
 	var/bulb_emergency_pow_min = 0.5	// the minimum value for the light's power in emergency mode
@@ -366,7 +367,7 @@
 		var/BR = brightness
 		var/PO = bulb_power
 		var/CO = bulb_colour
-		var/TY = light_mask_type
+		var/TY = bulb_mask
 		if(color)
 			CO = color
 		var/area/A = get_area(src)

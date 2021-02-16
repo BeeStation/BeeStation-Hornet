@@ -66,7 +66,8 @@
 	// - Center the overlay image
 	// - Ok so apparently translate is affected by the scale we already did huh.
 	// ^ Future me here, its because it works as translate then scale since its backwards.
-	M.Translate(-128 + (16 * proportion))
+	// ^ ^ Future future me here, it totally shouldnt since the translation component of a matrix is independant to the scale component.
+	M.Translate(-128 + 16)
 	//Rotate
 	// - Rotate (Directional lights)
 	M.Turn(currentAngle)
