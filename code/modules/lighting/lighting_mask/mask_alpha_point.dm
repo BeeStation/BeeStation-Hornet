@@ -18,9 +18,6 @@
 	icon_state = "light_bright"
 	layer = BACKGROUND_LAYER + LIGHTING_PRIMARY_LAYER
 
-/atom/movable/lighting_mask/primary_lighting/set_intensity(intensity)
-	alpha = 180
-
 //Flicker
 
 /atom/movable/lighting_mask/flicker
