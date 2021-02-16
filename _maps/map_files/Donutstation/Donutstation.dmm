@@ -4633,8 +4633,8 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
 "alx" = (
-/mob/living/simple_animal/pet/dog/bullterrier/walter,
 /obj/structure/bed/dogbed/walter,
+/mob/living/simple_animal/pet/dog/bullterrier/walter,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "alA" = (
@@ -5454,9 +5454,7 @@
 	},
 /area/crew_quarters/kitchen)
 "anM" = (
-/obj/machinery/atmospherics/miner/n2o{
-	max_ext_kpa = 2500
-	},
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/open/floor/engine/n2o{
 	initial_gas_mix = "n2o=1000;TEMP=293.15"
 	},
@@ -10028,9 +10026,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "ayh" = (
-/obj/machinery/atmospherics/miner/toxins{
-	max_ext_kpa = 2500
-	},
+/obj/machinery/portable_atmospherics/canister/toxins,
 /turf/open/floor/engine/plasma{
 	initial_gas_mix = "plasma=1000;TEMP=293.15"
 	},
@@ -10350,9 +10346,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "ayS" = (
-/obj/machinery/atmospherics/miner/carbon_dioxide{
-	max_ext_kpa = 2500
-	},
+/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /turf/open/floor/engine/co2{
 	initial_gas_mix = "co2=1000;TEMP=293.15"
 	},
@@ -50136,9 +50130,7 @@
 	},
 /area/engine/atmos)
 "cdM" = (
-/obj/machinery/atmospherics/miner/nitrogen{
-	max_ext_kpa = 2500
-	},
+/obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/open/floor/engine/n2{
 	initial_gas_mix = "n2=1000;TEMP=293.15"
 	},
@@ -50615,9 +50607,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "ceK" = (
-/obj/machinery/atmospherics/miner/oxygen{
-	max_ext_kpa = 2500
-	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/open/floor/engine/o2{
 	initial_gas_mix = "o2=1000;TEMP=293.15"
 	},
@@ -50741,6 +50731,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/cryo)
+"cmA" = (
+/obj/machinery/portable_atmospherics/canister,
+/turf/open/floor/engine/vacuum,
+/area/engine/atmos)
 "csr" = (
 /obj/machinery/airalarm{
 	dir = 4;
@@ -52398,6 +52392,10 @@
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
+"hPZ" = (
+/obj/machinery/portable_atmospherics/canister/air,
+/turf/open/floor/engine/airless,
+/area/engine/atmos)
 "hRG" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -95279,7 +95277,7 @@ azB
 aDw
 avb
 aDF
-acF
+hPZ
 aDM
 acj
 sTB
@@ -96802,7 +96800,7 @@ bSE
 bMu
 acj
 auL
-auL
+cmA
 auL
 acj
 bFq
