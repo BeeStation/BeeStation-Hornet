@@ -1268,63 +1268,124 @@
 		if("Standard")
 			icon = 'icons/obj/doors/airlocks/station/public.dmi'
 			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 			assemblytype = /obj/structure/door_assembly
+			anim_parts = "left=-14,0;right=13,0"
+			panel_attachment = "right"
+			note_attachment = "left"
 		if("Public")
 			icon = 'icons/obj/doors/airlocks/station2/glass.dmi'
 			overlays_file = 'icons/obj/doors/airlocks/station2/overlays.dmi'
+			note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 			assemblytype = /obj/structure/door_assembly/door_assembly_public
+			anim_parts = "left=-14,0;right=13,0"
+			panel_attachment = "right"
+			note_attachment = "left"
 		if("Engineering")
 			icon = 'icons/obj/doors/airlocks/station/engineering.dmi'
 			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 			assemblytype = /obj/structure/door_assembly/door_assembly_eng
+			anim_parts = "left=-14,0;right=13,0"
+			panel_attachment = "right"
+			note_attachment = "left"
 		if("Atmospherics")
 			icon = 'icons/obj/doors/airlocks/station/atmos.dmi'
 			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 			assemblytype = /obj/structure/door_assembly/door_assembly_atmo
+			anim_parts = "left=-14,0;right=13,0"
+			panel_attachment = "right"
+			note_attachment = "left"
 		if("Security")
 			icon = 'icons/obj/doors/airlocks/station/security.dmi'
 			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 			assemblytype = /obj/structure/door_assembly/door_assembly_sec
+			anim_parts = "left=-14,0;right=13,0"
+			panel_attachment = "right"
+			note_attachment = "left"
 		if("Command")
 			icon = 'icons/obj/doors/airlocks/station/command.dmi'
 			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 			assemblytype = /obj/structure/door_assembly/door_assembly_com
+			anim_parts = "left=-14,0;right=13,0"
+			panel_attachment = "right"
+			note_attachment = "left"
 		if("Medical")
 			icon = 'icons/obj/doors/airlocks/station/medical.dmi'
 			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 			assemblytype = /obj/structure/door_assembly/door_assembly_med
+			anim_parts = "left=-14,0;right=13,0"
+			panel_attachment = "right"
+			note_attachment = "left"
 		if("Research")
 			icon = 'icons/obj/doors/airlocks/station/research.dmi'
 			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 			assemblytype = /obj/structure/door_assembly/door_assembly_research
+			anim_parts = "left=-14,0;right=13,0"
+			panel_attachment = "right"
+			note_attachment = "left"
 		if("Freezer")
 			icon = 'icons/obj/doors/airlocks/station/freezer.dmi'
 			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 			assemblytype = /obj/structure/door_assembly/door_assembly_fre
+			anim_parts = "left=-14,0;right=13,0"
+			panel_attachment = "right"
+			note_attachment = "left"
 		if("Science")
 			icon = 'icons/obj/doors/airlocks/station/science.dmi'
 			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 			assemblytype = /obj/structure/door_assembly/door_assembly_science
+			anim_parts = "left=-14,0;right=13,0"
+			panel_attachment = "right"
+			note_attachment = "left"
 		if("Virology")
 			icon = 'icons/obj/doors/airlocks/station/virology.dmi'
 			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 			assemblytype = /obj/structure/door_assembly/door_assembly_viro
+			anim_parts = "left=-14,0;right=13,0"
+			panel_attachment = "right"
+			note_attachment = "left"
 		if("Mining")
 			icon = 'icons/obj/doors/airlocks/station/mining.dmi'
 			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 			assemblytype = /obj/structure/door_assembly/door_assembly_min
+			anim_parts = "left=-14,0;right=13,0"
+			panel_attachment = "right"
+			note_attachment = "left"
 		if("Maintenance")
 			icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
 			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 			assemblytype = /obj/structure/door_assembly/door_assembly_mai
+			anim_parts = "left=-14,0;right=13,0"
+			panel_attachment = "right"
+			note_attachment = "left"
 		if("External")
 			icon = 'icons/obj/doors/airlocks/external/external.dmi'
 			overlays_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
+			note_overlay_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
 			assemblytype = /obj/structure/door_assembly/door_assembly_ext
+			anim_parts = "top=0,16;bottom=0,-16"
+			note_attachment = "bottom"
+			panel_attachment = "bottom"
 		if("External Maintenance")
 			icon = 'icons/obj/doors/airlocks/station/maintenanceexternal.dmi'
 			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 			assemblytype = /obj/structure/door_assembly/door_assembly_extmai
+			anim_parts = "left=-14,0;right=13,0"
+			panel_attachment = "right"
+			note_attachment = "left"
+	rebuild_parts()
 	update_icon()
 
 /obj/machinery/door/airlock/CanAStarPass(obj/item/card/id/ID)
