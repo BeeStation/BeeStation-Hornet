@@ -1,0 +1,8 @@
+author: park66665
+delete-after: true
+changes:
+  - bugfix: Engineering PDA catridge's APC monitors power percentage display
+  - bugfix: Crusher trophy's examine text is now sane
+  - bugfix: RCDs with a silo link now work properly
+  - bugfix: Ash walker tendril now applies mood properly
+  - bugfix: Fixed a memory leak related to TGUI Stat panel
