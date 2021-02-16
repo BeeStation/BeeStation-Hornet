@@ -103,8 +103,8 @@
 	var/oury = our_turf.y
 
 	//Account for pixel shifting and light offset
-	calculated_position_x = ourx + ((attached_atom.pixel_x + offset_x) / world.icon_size)
-	calculated_position_y = oury + ((attached_atom.pixel_y + offset_y) / world.icon_size)
+	calculated_position_x = ourx + ((offset_x) / world.icon_size)
+	calculated_position_y = oury + ((offset_y) / world.icon_size)
 
 	//Remove the old shadows
 	overlays.Cut()
@@ -279,6 +279,7 @@
 // Layer 3: X/Y value
 //OUTPUT: The same thing but with 3 lists embedded rather than 2 because they are triangles not lines now.
 /atom/movable/lighting_mask/proc/calculate_triangle_vertices(list/cornergroup)
+	var/shadow_radius = max(radius + 1, 3)
 	//Get the origin poin's
 	var/ourx = calculated_position_x
 	var/oury = calculated_position_y
@@ -293,14 +294,14 @@
 		//Calculate vertex 3 position
 		var/delta_x = vertex1[1] - ourx
 		var/delta_y = vertex1[2] - oury
-		var/vertex3 = extend_line_to_radius(delta_x, delta_y, radius, ourx, oury)
-		var/vertex3side = (vertex3[1] - ourx) == -radius ? WEST : (vertex3[1] - ourx) == radius ? EAST : (vertex3[2] - oury) == radius ? NORTH : SOUTH
+		var/vertex3 = extend_line_to_radius(delta_x, delta_y, shadow_radius, ourx, oury)
+		var/vertex3side = (vertex3[1] - ourx) == -shadow_radius ? WEST : (vertex3[1] - ourx) == shadow_radius ? EAST : (vertex3[2] - oury) == shadow_radius ? NORTH : SOUTH
 
 		//For vertex 4
 		delta_x = vertex2[1] - ourx
 		delta_y = vertex2[2] - oury
-		var/vertex4 = extend_line_to_radius(delta_x, delta_y, radius, ourx, oury)
-		var/vertex4side = (vertex4[1] - ourx) == -radius ? WEST : (vertex4[1] - ourx) == radius ? EAST : (vertex4[2] - oury) == radius ? NORTH : SOUTH
+		var/vertex4 = extend_line_to_radius(delta_x, delta_y, shadow_radius, ourx, oury)
+		var/vertex4side = (vertex4[1] - ourx) == -shadow_radius ? WEST : (vertex4[1] - ourx) == shadow_radius ? EAST : (vertex4[2] - oury) == shadow_radius ? NORTH : SOUTH
 
 		//If vertex3 is not on the same border as vertex 4 then we need more triangles to fill in the space.
 		if(vertex3side != vertex4side)
@@ -310,20 +311,20 @@
 			var/eitherWest = (vertex3side == WEST || vertex4side == WEST)
 			if(eitherNorth && eitherEast)
 				//Add a vertex top right
-				var/vertex5 = list(radius + ourx, radius + oury)
+				var/vertex5 = list(shadow_radius + ourx, shadow_radius + oury)
 				var/triangle3 = list(vertex3, vertex4, vertex5)
 				. += list(triangle3)
 			else if(eitherNorth && eitherWest)
 				//Add a vertex top left
-				var/vertex5 = list(-radius + ourx, radius + oury)
+				var/vertex5 = list(-shadow_radius + ourx, shadow_radius + oury)
 				var/triangle3 = list(vertex3, vertex4, vertex5)
 				. += list(triangle3)
 			else if(eitherNorth && eitherSouth) //BLOCKER IS A | SHAPE
 				//If vertex3 is to the right of the center, both vertices are to the right.
 				if(vertex3[1] > ourx)
 					//New vertexes are on the right
-					var/vertex5 = list(ourx + radius, oury + radius)
-					var/vertex6 = list(ourx + radius, oury - radius)
+					var/vertex5 = list(ourx + shadow_radius, oury + shadow_radius)
+					var/vertex6 = list(ourx + shadow_radius, oury - shadow_radius)
 					//If vertex 4 is greater than 3 then triangles link as 4,5,6 and 3,4,6
 					if(vertex4[2] > vertex3[2])
 						var/triangle3 = list(vertex3, vertex5, vertex6)
@@ -338,8 +339,8 @@
 						. += list(triangle4)
 				else
 					//New vertexes are on the left
-					var/vertex5 = list(ourx - radius, oury + radius)
-					var/vertex6 = list(ourx - radius, oury - radius)
+					var/vertex5 = list(ourx - shadow_radius, oury + shadow_radius)
+					var/vertex6 = list(ourx - shadow_radius, oury - shadow_radius)
 					//If vertex 4 is higher than 3 then triangles link as 4,5,6 and 3,4,6
 					if(vertex4[2] > vertex3[2])
 						var/triangle3 = list(vertex3, vertex5, vertex6)
@@ -354,15 +355,15 @@
 						. += list(triangle4)
 			else if(eitherEast && eitherSouth)
 				//Add a vertex bottom right
-				var/vertex5 = list(radius + ourx, -radius + oury)
+				var/vertex5 = list(shadow_radius + ourx, -shadow_radius + oury)
 				var/triangle3 = list(vertex3, vertex4, vertex5)
 				. += list(triangle3)
 			else if(eitherEast && eitherWest)	//BLOCKER IS A --- SHAPE
 				//If vertex3 is above the center, then pointers are along the top
 				if(vertex3[2] > oury)
 					//New vertexes are on the right
-					var/vertex5 = list(ourx + radius, oury + radius)
-					var/vertex6 = list(ourx - radius, oury + radius)
+					var/vertex5 = list(ourx + shadow_radius, oury + shadow_radius)
+					var/vertex6 = list(ourx - shadow_radius, oury + shadow_radius)
 					//If vertex 4 is greater than 3 then triangles link as 4,5,6 and 3,4,6
 					if(vertex4[1] > vertex3[1])
 						var/triangle3 = list(vertex3, vertex5, vertex6)
@@ -377,8 +378,8 @@
 						. += list(triangle4)
 				else
 					//New vertexes are on the bottom
-					var/vertex5 = list(ourx + radius, oury - radius)
-					var/vertex6 = list(ourx - radius, oury - radius)
+					var/vertex5 = list(ourx + shadow_radius, oury - shadow_radius)
+					var/vertex6 = list(ourx - shadow_radius, oury - shadow_radius)
 					//If vertex 4 is higher than 3 then triangles link as 4,5,6 and 3,4,6
 					if(vertex4[1] > vertex3[1])
 						var/triangle3 = list(vertex3, vertex4, vertex5)
@@ -393,7 +394,7 @@
 						. += list(triangle4)
 			else if(eitherSouth && eitherWest)
 				//Bottom left
-				var/vertex5 = list(-radius + ourx, -radius + oury)
+				var/vertex5 = list(-shadow_radius + ourx, -shadow_radius + oury)
 				var/triangle3 = list(vertex3, vertex4, vertex5)
 				. += list(triangle3)
 			else
