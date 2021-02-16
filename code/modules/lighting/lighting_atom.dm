@@ -169,6 +169,6 @@
 		if(!(light?.our_mask))
 			break
 		light.our_mask.alpha = 255
-		animate(light.our_mask, time = _duration, easing = SINE_EASING, alpha = 0)
+		animate(light.our_mask, time = _duration, easing = SINE_EASING, alpha = 0, flags = ANIMATION_END_NOW)
 		sleep(_duration)
 	qdel(src)
