@@ -39,7 +39,7 @@
 		for(var/area/space/nearstation/area in GLOB.sortedAreas)
 			var/area/A = area
 			for(var/turf/open/space/S in A)
-				S.set_light(l_color = aurora_color)
+				S.fade_light(aurora_color, 50)
 
 /datum/round_event/aurora_caelus/end()
 	for(var/area/space/nearstation/A in GLOB.sortedAreas)
