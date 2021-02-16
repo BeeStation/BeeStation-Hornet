@@ -136,6 +136,25 @@
 		user.death(FALSE)
 	REMOVE_TRAIT(src, TRAIT_NODROP, SABRE_SUICIDE_TRAIT)
 
+/obj/item/melee/sabre/mime
+	name = "Bread Blade"
+	desc = "An elegant weapon, its monomolecular edge is capable of cutting through flesh and bone with ease. Also very tasty."
+	force = 18
+	block_level = 1
+	block_upgrade_walk = 1
+	block_power = 60
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+
+/obj/item/melee/sabre/mime/on_exit_storage(datum/component/storage/concrete/R)
+	var/obj/item/storage/belt/sabre/mime/M = R.real_location()
+	if(istype(M))
+		playsound(M, 'sound/items/unsheath.ogg', 25, TRUE)
+
+/obj/item/melee/sabre/on_enter_storage(datum/component/storage/concrete/R)
+	var/obj/item/storage/belt/sabre/mime/M = R.real_location()
+	if(istype(M))
+		playsound(M, 'sound/items/sheath.ogg', 25, TRUE)
+
 /obj/item/melee/classic_baton
 	name = "classic baton"
 	desc = "A wooden truncheon for beating criminal scum."

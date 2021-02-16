@@ -777,3 +777,16 @@
 /obj/item/storage/belt/sabre/PopulateContents()
 	new /obj/item/melee/sabre(src)
 	update_icon()
+
+/obj/item/storage/belt/sabre/mime
+	name = "French Baguette"
+	desc = "It would be a shame if it was consumed by someone unworthy..."
+	icon = 'icons/obj/food/burgerbread.dmi'
+	icon_state = "baguette"
+	item_state = "baguette"
+	w_class = WEIGHT_CLASS_NORMAL
+	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
+
+/obj/item/storage/belt/sabre/mime/update_icon()
+	icon_state = "baguette"
+	item_state = "baguette"
