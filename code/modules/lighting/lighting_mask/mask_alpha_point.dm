@@ -29,8 +29,13 @@
 //Conical Light
 
 /atom/movable/lighting_mask/conical
-	icon_state = "light_debug"
+	icon_state = "light_conical"
 
 /atom/movable/lighting_mask/conical/holder_turned(new_direction)
 	var/wanted_angle = dir2angle(new_direction) - 180
 	rotate(wanted_angle)
+
+//Rotating Light
+
+/atom/movable/lighting_mask/rotating
+	icon_state = "light_rotating"

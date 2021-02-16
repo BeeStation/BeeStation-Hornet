@@ -198,6 +198,8 @@
 	use_power = ACTIVE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 20
+	light_pixel_y = -8
+	light_mask_type = /atom/movable/lighting_mask/primary_lighting
 	power_channel = AREA_USAGE_LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	var/on = FALSE					// 1 if on, 0 if off
 	var/on_gs = FALSE
@@ -229,6 +231,7 @@
 	var/bulb_emergency_colour = "#FF3232"	// determines the colour of the light while it's in emergency mode
 	var/bulb_emergency_pow_mul = 0.75	// the multiplier for determining the light's power in emergency mode
 	var/bulb_emergency_pow_min = 0.5	// the minimum value for the light's power in emergency mode
+	var/bulb_emergency_type = /atom/movable/lighting_mask/rotating
 
 	var/bulb_vacuum_colour = "#4F82FF"	// colour of the light when air alarm is set to severe
 	var/bulb_vacuum_brightness = 8
@@ -363,14 +366,20 @@
 		var/BR = brightness
 		var/PO = bulb_power
 		var/CO = bulb_colour
+		var/TY = light_mask_type
 		if(color)
 			CO = color
 		var/area/A = get_area(src)
 		if (A?.fire)
 			CO = bulb_emergency_colour
+			TY = bulb_emergency_type
 		else if (A?.vacuum)
 			CO = bulb_vacuum_colour
 			BR = bulb_vacuum_brightness
+			TY = bulb_emergency_type
+		else if (GLOB.security_level == SEC_LEVEL_DELTA)
+			CO = bulb_emergency_colour
+			TY = bulb_emergency_type
 		else if (nightshift_enabled)
 			BR = nightshift_brightness
 			PO = nightshift_light_power
@@ -387,7 +396,7 @@
 					burn_out()
 			else
 				use_power = ACTIVE_POWER_USE
-				set_light(BR, PO, CO, mask_type = /atom/movable/lighting_mask/primary_lighting)
+				set_light(BR, PO, CO, mask_type = TY)
 	else if(use_emergency_power(LIGHT_EMERGENCY_POWER_USE) && !turned_off())
 		use_power = IDLE_POWER_USE
 		emergency_mode = TRUE
@@ -606,7 +615,7 @@
 		burn_out()
 		return FALSE
 	cell.use(pwr)
-	set_light(brightness * bulb_emergency_brightness_mul, max(bulb_emergency_pow_min, bulb_emergency_pow_mul * (cell.charge / cell.maxcharge)), bulb_emergency_colour)
+	set_light(brightness * bulb_emergency_brightness_mul, max(bulb_emergency_pow_min, bulb_emergency_pow_mul * (cell.charge / cell.maxcharge)), bulb_emergency_colour, mask_type = bulb_emergency_type)
 	return TRUE
 
 

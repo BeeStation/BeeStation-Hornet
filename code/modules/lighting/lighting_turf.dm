@@ -28,15 +28,8 @@
 /turf/proc/get_lumcount()
 	var/lums = 0
 	for(var/atom/movable/lighting_mask/mask as() in lights_affecting)
-		lums += LIGHT_POWER_ESTIMATION(mask.alpha, mask.radius, get_dist(src, get_turf(mask)))
+		lums += LIGHT_POWER_ESTIMATION(mask.alpha, mask.radius, get_dist(src, get_turf(mask.attached_atom)))
 	return min(lums, 1.0)
-
-// Returns a boolean whether the turf is on soft lighting.
-// Soft lighting being the threshold at which point the overlay considers
-// itself as too dark to allow sight and see_in_dark becomes useful.
-// So basically if this returns true the tile is unlit black.
-/turf/proc/is_softly_lit()
-	return TRUE
 
 // Can't think of a good name, this proc will recalculate the has_opaque_atom variable.
 /turf/proc/recalc_atom_opacity()
