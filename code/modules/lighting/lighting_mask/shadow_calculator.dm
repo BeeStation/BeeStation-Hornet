@@ -14,15 +14,15 @@
 	}
 
 #ifdef SHADOW_DEBUG
-/*#define DEBUG_HIGHLIGHT(x, y, colour) \
+#define DEBUG_HIGHLIGHT(x, y, colour) \
 	do { \
 		var/turf/T = locate(x, y, 2); \
 		if(T) { \
 			T.color = colour; \
 		}\
-	} while (0)*/
+	} while (0)
 //For debugging use when we want to know if a turf is being affected multiple
-#define DEBUG_HIGHLIGHT(x, y, colour) do{var/turf/T=locate(x,y,2);if(T){switch(T.color){if("#ff0000"){T.color = "#00ff00"}if("#00ff00"){T.color="#0000ff"}else{T.color="#ff0000"}}}}while(0)
+//#define DEBUG_HIGHLIGHT(x, y, colour) do{var/turf/T=locate(x,y,2);if(T){switch(T.color){if("#ff0000"){T.color = "#00ff00"}if("#00ff00"){T.color="#0000ff"}else{T.color="#ff0000"}}}}while(0)
 #define DO_SOMETHING_IF_DEBUGGING_SHADOWS(something) something
 #else
 #define DEBUG_HIGHLIGHT(x, y, colour)
@@ -138,8 +138,7 @@
 			//At this point we no longer care about
 			//the atom itself, only the position values
 			COORD_LIST_ADD(opaque_atoms_in_view, thing.x, thing.y)
-			//DEBUG_HIGHLIGHT(thing.x, thing.y, "#0000FF")
-			locate(thing.x, thing.y, 2).color = "#ffffff"
+			DEBUG_HIGHLIGHT(thing.x, thing.y, "#0000FF")
 
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("[TICK_USAGE_TO_MS(timer)]ms to process view([range], src)."))
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/temp_timer = TICK_USAGE)
