@@ -95,6 +95,9 @@
 	area_flags = HIDDEN_AREA | UNIQUE_AREA
 	teleport_restriction = TELEPORT_ALLOW_NONE
 
+	base_lighting = "#ffffff"
+	base_lighting_alpha = 255
+
 GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 
 /obj/effect/landmark/ai_multicam_room
