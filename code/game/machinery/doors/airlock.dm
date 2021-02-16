@@ -1271,7 +1271,7 @@
 	if(airlock_material == "glass" && initial(assembly.noglass)) // prevents painting glass airlocks with a paint job that doesn't have a glass version, such as the freezer
 		to_chat(user, "<span class='warning'>This paint job can only be applied to non-glass airlocks.</span>")
 		return
-	// applies the user-chosen airlock's icon, overlays and assemblytype to the src airlock
+	// applies the user-chosen airlock's icon, overlays, assemblytype anim_parts, panel_attachement and note_attachment to the src airlock
 	painter.use_paint(user)
 	icon = initial(airlock.icon)
 	overlays_file = initial(airlock.overlays_file)
