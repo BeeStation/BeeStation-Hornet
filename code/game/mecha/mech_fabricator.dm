@@ -398,8 +398,8 @@
 					break
 
 	if(href_list["remove_mat"] && href_list["material"])
-		var/datum/material/Mat = locate(href_list["material"])
-		eject_sheets(Mat, text2num(href_list["remove_mat"]))
+		var/datum/material/mat = locate(href_list["material"])
+		eject_sheets(mat, text2num(href_list["remove_mat"]))
 
 	updateUsrDialog()
 	return
