@@ -4,7 +4,7 @@
 	default_color = "00FF90"
 	say_mod = "says"
 	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,TRAIT_EASYDISMEMBER)
-	inherent_traits = list(TRAIT_TOXINLOVER,TRAIT_NOFIRE)
+	inherent_traits = list(TRAIT_TOXINLOVER,TRAIT_NOFIRE,TRAIT_ALWAYS_CLEAN)
 	hair_color = "mutcolor"
 	hair_alpha = 150
 	mutantlungs = /obj/item/organ/lungs/oozeling
@@ -15,9 +15,9 @@
 	coldmod = 6   // = 3x cold damage
 	heatmod = 0.5 // = 1/4x heat damage
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
-	inherent_factions = list("slime")
 	species_language_holder = /datum/language_holder/oozeling
-	limbs_id = "jelly"
+	limbs_id = "ooze"
+	swimming_component = /datum/component/swimming/dissolve
 
 /datum/species/oozeling/random_name(gender,unique,lastname)
 	if(unique)
@@ -50,7 +50,11 @@
 		H.adjustBruteLoss(5)
 		to_chat(H, "<span class='danger'>You feel empty!</span>")
 	if(H.nutrition >= NUTRITION_LEVEL_WELL_FED && H.blood_volume <= 672)
-		H.blood_volume += 1
+		if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
+			H.adjust_nutrition(-5)
+			H.blood_volume += 10
+		else
+			H.blood_volume += 8
 	if(H.nutrition <= NUTRITION_LEVEL_HUNGRY)
 		if(H.nutrition <= NUTRITION_LEVEL_STARVING)
 			H.blood_volume -= 8

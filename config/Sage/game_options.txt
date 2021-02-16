@@ -85,6 +85,9 @@ ALERT_DELTA Destruction of the station is imminent. All crew are instructed to o
 
 ## GAME MODES ###
 
+#Set the Master (Default) Game Mode.
+MASTER_MODE secret
+
 ## Uncomment to not send a roundstart intercept report. Gamemodes may override this.
 NO_INTERCEPT_REPORT
 
@@ -616,3 +619,11 @@ ALLOW_CREW_OBJECTIVES
 
 ## Uncomment to restrict suiciding. Adds an additional confirmation dialogue, additional logging, and prevents suicide within the first 15 minutes of the round.
 RESTRICTED_SUICIDE
+
+## Bluespace Miners.
+
+## Amount of miner boards in the RD's locker at roundstart.
+ROUNDSTART_BLUESPACE_MINERS 0
+
+## Enable the bluespace miner research node?
+#BSMINER_RESEARCHABLE

@@ -251,8 +251,8 @@
 
 /datum/brain_trauma/mild/phobia/on_lose()
 	owner.remove_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE)
-	psychotic_brawling.remove(owner)
-	QDEL_NULL(psychotic_brawling)
+	if(psychotic_brawling)
+		QDEL_NULL(psychotic_brawling)
 	..()
 
 // Defined phobia types for badminry, not included in the RNG trauma pool to avoid diluting.

@@ -137,7 +137,7 @@
 	name = "Cryoxadone"
 	description = "A chemical mixture with almost magical healing powers. Its main limitation is that the patient's body temperature must be under 270K for it to metabolise correctly."
 	color = "#0000C8"
-	taste_description = "sludge"
+	taste_description = "blue"
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/carbon/M)
 	var/power = -0.00003 * (M.bodytemperature ** 2) + 3
@@ -827,7 +827,7 @@
 	overdose_threshold = 15
 
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/carbon/M)
-	if(M.health <= 80)
+	if(M.health <= 20)
 		M.adjustToxLoss(-4*REM, 0)
 		M.adjustBruteLoss(-4*REM, 0)
 		M.adjustFireLoss(-4*REM, 0)
@@ -1203,7 +1203,7 @@
 	taste_description = "glue"
 	reagent_state = LIQUID
 	color = "#D2691E"
-	metabolization_rate = REM * 1.5
+	metabolization_rate = REM * 3.75
 	overdose_threshold = 10
 
 /datum/reagent/medicine/hepanephrodaxon/on_mob_life(var/mob/living/carbon/M)

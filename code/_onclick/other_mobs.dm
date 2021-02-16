@@ -184,8 +184,10 @@
 */
 /mob/living/simple_animal/slime/UnarmedAttack(atom/A)
 	A.attack_slime(src)
+
 /atom/proc/attack_slime(mob/user)
 	return
+
 /mob/living/simple_animal/slime/RestrainedClickOn(atom/A)
 	return
 

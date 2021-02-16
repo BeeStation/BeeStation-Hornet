@@ -1064,10 +1064,20 @@
 	return (ishuman(target) && !(target.mobility_flags & MOBILITY_STAND))
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
-	if(can_be_firemanned(target))
-		visible_message("<span class='notice'>[src] starts lifting [target] onto their back.</span>",
-			"<span class='notice'>You start lifting [target] onto your back.</span>")
-		if(do_after(src, 50, TRUE, target))
+	var/carrydelay = 50 //if you have latex you are faster at grabbing
+	var/skills_space = "" //cobby told me to do this
+	if(HAS_TRAIT(src, TRAIT_QUICKER_CARRY))
+		carrydelay = 30
+		skills_space = " expertly"
+	else if(HAS_TRAIT(src, TRAIT_QUICK_CARRY))
+		carrydelay = 40
+		skills_space = " quickly"
+	if(can_be_firemanned(target) && !incapacitated(FALSE, TRUE))
+		visible_message("<span class='notice'>[src] starts[skills_space] lifting [target] onto their back..</span>",
+		//Joe Medic starts quickly/expertly lifting Grey Tider onto their back..
+		"<span class='notice'>[HAS_TRAIT(src, TRAIT_QUICKER_CARRY) ? "Using your gloves' nanochips, you" : "You"][skills_space] start to lift [target] onto your back[HAS_TRAIT(src, TRAIT_QUICK_CARRY) ? ", while assisted by the nanochips in your gloves..." : "..."]</span>")
+		//(Using your gloves' nanochips, you/You) ( /quickly/expertly) start to lift Grey Tider onto your back(, while assisted by the nanochips in your gloves../...)
+		if(do_after(src, carrydelay, TRUE, target))
 			//Second check to make sure they're still valid to be carried
 			if(can_be_firemanned(target) && !incapacitated(FALSE, TRUE) && !target.buckled)
 				buckle_mob(target, TRUE, TRUE, 90, 1, 0)
@@ -1167,6 +1177,19 @@
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
 	return ..()
+
+/mob/living/carbon/human/ZImpactDamage(turf/T, levels)
+	//Non cat-people smash into the ground
+	if(!iscatperson(src))
+		return ..()
+	//Check to make sure legs are working
+	var/obj/item/bodypart/left_leg = get_bodypart(BODY_ZONE_L_LEG)
+	var/obj/item/bodypart/right_leg = get_bodypart(BODY_ZONE_R_LEG)
+	if(!left_leg || !right_leg || left_leg.disabled || right_leg.disabled)
+		return ..()
+	//Nailed it!
+	visible_message("<span class='notice'>[src] lands elegantly on [p_their()] feet!</span>",
+		"<span class='warning'>You fall [levels] level[levels > 1 ? "s" : ""] into [T], perfecting the landing!</span>")
 
 /mob/living/carbon/human/species
 	var/race = null

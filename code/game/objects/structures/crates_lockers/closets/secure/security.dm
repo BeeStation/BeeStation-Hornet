@@ -68,7 +68,7 @@
 
 /obj/structure/closet/secure_closet/brig_phys
 	name = "\proper brig physician's locker"
-	req_access = list(ACCESS_BRIG)
+	req_access = list(ACCESS_BRIGPHYS)
 	icon_state = "brig_phys"
 
 /obj/structure/closet/secure_closet/brig_phys/PopulateContents()
@@ -82,10 +82,6 @@
 	new	/obj/item/storage/firstaid/o2(src)
 	new	/obj/item/storage/firstaid/brute(src)
 	new /obj/item/storage/belt/medical(src)
-	new /obj/item/storage/belt/security/deputy(src)
-	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/assembly/flash/handheld(src)
-	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 
 /obj/structure/closet/secure_closet/hos
@@ -112,7 +108,6 @@
 	new /obj/item/clothing/under/rank/security/head_of_security/white(src)
 	new /obj/item/storage/lockbox/medal/sec(src)
 	new /obj/item/megaphone/sec(src)
-	new /obj/item/holosign_creator/security(src)
 	new /obj/item/storage/lockbox/loyalty(src)
 	new /obj/item/clothing/mask/gas/sechailer/swat(src)
 	new /obj/item/storage/box/flashbangs(src)
@@ -141,7 +136,6 @@
 	new /obj/item/clothing/suit/armor/vest/warden/alt(src)
 	new /obj/item/clothing/under/rank/security/warden/formal(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
-	new /obj/item/holosign_creator/security(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/storage/box/zipties(src)
 	new /obj/item/storage/box/flashbangs(src)
@@ -227,7 +221,6 @@
 	new /obj/item/radio/headset/headset_sec(src)
 	new /obj/item/detective_scanner(src)
 	new /obj/item/flashlight/seclite(src)
-	new /obj/item/holosign_creator/security(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/clothing/suit/armor/vest/det_suit(src)
 	new /obj/item/clothing/accessory/holster/detective(src)
