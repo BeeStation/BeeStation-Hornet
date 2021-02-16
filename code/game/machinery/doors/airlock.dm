@@ -53,6 +53,7 @@
 	explosion_block = 1
 	open_speed = 2.5
 	hud_possible = list(DIAG_AIRLOCK_HUD)
+	var/allow_repaint = TRUE
 
 	FASTDMM_PROP(\
 		pinned_vars = list("req_access_txt", "req_one_access_txt", "name")\
@@ -1252,7 +1253,7 @@
 
 
 /obj/machinery/door/airlock/proc/change_paintjob(obj/item/airlock_painter/W, mob/user)
-	if(!W.can_use(user))
+	if(!W.can_use(user) || !allow_repaint)
 		return
 
 	var/list/optionlist

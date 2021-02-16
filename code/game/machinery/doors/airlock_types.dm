@@ -479,6 +479,7 @@
 	var/openingoverlaytype = /obj/effect/temp_visual/cult/door
 	var/friendly = FALSE
 	var/stealthy = FALSE
+	allow_repaint = FALSE
 
 /obj/machinery/door/airlock/cult/Initialize()
 	. = ..()
@@ -589,6 +590,7 @@
 	assemblytype = null
 	glass = TRUE
 	bound_width = 64 // 2x1
+	allow_repaint = FALSE
 
 /obj/machinery/door/airlock/glass_large/narsie_act()
 	return
