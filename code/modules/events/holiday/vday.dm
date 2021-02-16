@@ -128,10 +128,11 @@ GLOBAL_LIST(valentine_mobs)
 			return
 		to_chat(user, "<span class='notice'>The card vanishes out of your hand! Lets hope they got it...</span>")
 		//List checking
-		GLOB.valentine_mobs[sender] = target
-		if(GLOB.valentine_mobs[target] == sender)
+		GLOB.valentine_mobs[user] = picked_human
+		if(GLOB.valentine_mobs[picked_human] == user)
 			//wow.
-			forge_valentines_objective(sender, target)
+			forge_valentines_objective(user, picked_human)
+			forge_valentines_objective(picked_human, user)
 		//Off it goes!
 		//Create a new card to prevent exploiting
 		var/obj/item/valentine/new_card = new(get_turf(picked_human))
