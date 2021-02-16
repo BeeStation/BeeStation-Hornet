@@ -24,7 +24,7 @@
 	return ..()
 
 /datum/pipeline/proc/build_pipeline(obj/machinery/atmospherics/base)
-	if(src != null && base != null)
+	if(!QDELETED(base))
 		var/volume = 0
 		if(istype(base, /obj/machinery/atmospherics/pipe))
 			var/obj/machinery/atmospherics/pipe/E = base
