@@ -73,7 +73,7 @@
 	var/left_or_right = attached_atom.dir & (EAST | WEST)
 	var/offset_x = (left_or_right ? attached_atom.light_pixel_y : attached_atom.light_pixel_x) * (invert_offsets ? -1 : 1)
 	var/offset_y = (left_or_right ? attached_atom.light_pixel_x : attached_atom.light_pixel_y) * (invert_offsets ? -1 : 1)
-	M.Translate(attached_atom.pixel_x + offset_x, attached_atom.pixel_y + offset_y)
+	M.Translate(offset_x, offset_y)
 	//Rotate
 	// - Rotate (Directional lights)
 	M.Turn(currentAngle)
