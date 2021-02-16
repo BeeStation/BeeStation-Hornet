@@ -676,7 +676,6 @@
 /obj/machinery/door/airlock/do_animate(animation)
 	switch(animation)
 		if("opening")
-			flash_lighting_fx(4, 1, LIGHT_COLOR_GREEN, 4)
 			update_icon(AIRLOCK_OPENING)
 		if("closing")
 			update_icon(AIRLOCK_CLOSING)
