@@ -790,3 +790,6 @@
 /obj/item/storage/belt/sabre/mime/update_icon()
 	icon_state = "baguette"
 	item_state = "baguette"
+
+/obj/item/storage/belt/sabre/mime/PopulateContents()
+	new /obj/item/melee/sabre(src)
