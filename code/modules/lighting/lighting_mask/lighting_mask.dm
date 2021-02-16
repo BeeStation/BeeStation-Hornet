@@ -69,7 +69,11 @@
 	// ^ ^ Future future me here, it totally shouldnt since the translation component of a matrix is independant to the scale component.
 	M.Translate(-128 + 16)
 	//Adjust for pixel offsets
-	M.Translate(attached_atom.pixel_x + attached_atom.light_pixel_x, attached_atom.pixel_y + attached_atom.light_pixel_y)
+	var/invert_offsets = attached_atom.dir & (NORTH | EAST)
+	var/left_or_right = attached_atom.dir & (EAST | WEST)
+	var/offset_x = (left_or_right ? attached_atom.light_pixel_y : attached_atom.light_pixel_x) * (invert_offsets ? -1 : 1)
+	var/offset_y = (left_or_right ? attached_atom.light_pixel_x : attached_atom.light_pixel_y) * (invert_offsets ? -1 : 1)
+	M.Translate(attached_atom.pixel_x + offset_x, attached_atom.pixel_y + offset_y)
 	//Rotate
 	// - Rotate (Directional lights)
 	M.Turn(currentAngle)
