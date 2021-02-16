@@ -140,11 +140,11 @@
 	name = "Bread Blade"
 	desc = "An elegant weapon, its monomolecular edge is capable of cutting through flesh and bone with ease. Also very tasty."
 	force = 18
-	icon = '/icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "rapier"
 	item_state = "rapier"
-	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+	lefthand_file = null
+	righthand_file = null
 	alpha = 0
 	block_level = 1
 	block_upgrade_walk = 1
