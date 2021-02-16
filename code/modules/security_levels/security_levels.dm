@@ -92,9 +92,9 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 		return
 
 /proc/update_lights()
+	set waitfor = FALSE
 	for(var/obj/machinery/light/light in GLOB.machines)
 		light.update()
-		CHECK_TICK
 
 /proc/get_security_level()
 	switch(GLOB.security_level)

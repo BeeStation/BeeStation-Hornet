@@ -15,7 +15,7 @@
 //Normal lighting
 
 /atom/movable/lighting_mask/primary_lighting
-	icon_state = "light_normalized_2"
+	icon_state = "light_bright"
 	layer = BACKGROUND_LAYER + LIGHTING_PRIMARY_LAYER
 
 /atom/movable/lighting_mask/primary_lighting/set_intensity(intensity)
@@ -38,4 +38,8 @@
 //Rotating Light
 
 /atom/movable/lighting_mask/rotating
-	icon_state = "light_rotating"
+	icon_state = "light_rotating-1"
+
+/atom/movable/lighting_mask/rotating/Initialize(mapload, ...)
+	. = ..()
+	icon_state = "light_rotating-[rand(1, 3)]"
