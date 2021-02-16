@@ -614,17 +614,18 @@
 				if(length(group) == 1)
 					//Add the element in group to horizontal
 					COORD_LIST_ADD(horizontal_atoms, pointer, text2num(x_key))
+					DEBUG_HIGHLIGHT(text2num(x_key), pointer, "#FFFF00")
 				else
 					//Add the group to the output
 					. += list(group)
 				group = list()
-			else
-				group += list(list(text2num(x_key), next))
-				DEBUG_HIGHLIGHT(text2num(x_key), next, "#FF0000")
+			group += list(list(text2num(x_key), next))
+			DEBUG_HIGHLIGHT(text2num(x_key), next, "#FF0000")
 			pointer = next
 		if(length(group) == 1)
 			//Add the element in group to horizontal
 			COORD_LIST_ADD(horizontal_atoms, pointer, text2num(x_key))
+			DEBUG_HIGHLIGHT(text2num(x_key), pointer, "#FFFF00")
 		else
 			//Add the group to the output
 			. += list(group)
@@ -639,9 +640,8 @@
 			if(next != pointer + 1)
 				. += list(group)
 				group = list()
-			else
-				group += list(list(next, text2num(y_key)))
-				DEBUG_HIGHLIGHT(next, text2num(y_key), "#00FF00")
+			group += list(list(next, text2num(y_key)))
+			DEBUG_HIGHLIGHT(next, text2num(y_key), "#00FF00")
 			pointer = next
 		. += list(group)
 
