@@ -100,7 +100,7 @@
 	for(var/obj/O in range(0,src))
 		if(!O.anchored)
 			var/mob/living/target = locate() in view(4,src)
-			if(target && !target.stat)
+			if(target && target.is_conscious())
 				O.throw_at(target, 5, 10)
 
 /obj/effect/anomaly/grav/Crossed(mob/A)
@@ -113,7 +113,7 @@
 	gravShock(AM)
 
 /obj/effect/anomaly/grav/proc/gravShock(mob/living/A)
-	if(boing && isliving(A) && !A.stat)
+	if(boing && isliving(A) && A.is_conscious())
 		A.Paralyze(40)
 		var/atom/target = get_edge_target_turf(A, get_dir(src, get_step_away(A, src)))
 		A.throw_at(target, 5, 1)
@@ -312,7 +312,7 @@
 			return //DON'T DELETE YOURSELF GOD DAMN
 		if(!O.anchored)
 			var/mob/living/target = locate() in view(4,src)
-			if(target && !target.stat)
+			if(target && target.is_conscious())
 				O.throw_at(target, 7, 5)
 		else
 			O.ex_act(EXPLODE_HEAVY)

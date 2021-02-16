@@ -175,7 +175,7 @@
 	return TRUE
 
 /datum/brain_trauma/severe/monophobia/proc/stress_reaction()
-	if(owner.stat > SOFT_CRIT)
+	if(!owner.is_conscious())
 		return
 
 	var/high_stress = (stress > 60) //things get psychosomatic from here on

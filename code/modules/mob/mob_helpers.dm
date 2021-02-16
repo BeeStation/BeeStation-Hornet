@@ -589,7 +589,8 @@
 		. += "<span class='notice'>This body has been dissected and analyzed. It is no longer worth experimenting on.</span><br>"
 
 
-///Is the mob aware of their surroundings?
+//Is the mob aware of their surroundings?
+/// Should be used in place of non-dead stat checks for mobs
 /mob/proc/is_conscious()
 	return stat <= SOFT_CRIT
 

@@ -38,7 +38,7 @@
 	..(user)
 
 /obj/machinery/computer/apc_control/proc/check_apc(obj/machinery/power/apc/APC)
-	return APC.z == z && !APC.malfhack && !APC.aidisabled && !(APC.obj_flags & EMAGGED) && !APC.stat && !istype(APC.area, /area/ai_monitored) && !APC.area.outdoors
+	return APC.z == z && !APC.malfhack && !APC.aidisabled && !(APC.obj_flags & EMAGGED) && APC.is_conscious() && !istype(APC.area, /area/ai_monitored) && !APC.area.outdoors
 
 /obj/machinery/computer/apc_control/ui_interact(mob/living/user)
 	. = ..()
@@ -198,6 +198,6 @@
 
 /mob/proc/using_power_flow_console()
 	for(var/obj/machinery/computer/apc_control/A in range(1, src))
-		if(A.operator && A.operator == src && !A.stat)
+		if(A.operator && A.operator == src && A.is_conscious())
 			return TRUE
 	return

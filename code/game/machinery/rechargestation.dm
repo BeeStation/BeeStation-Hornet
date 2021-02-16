@@ -44,7 +44,7 @@
 	return 1
 
 /obj/machinery/recharge_station/relaymove(mob/user)
-	if(user.stat > SOFT_CRIT)
+	if(!user.is_conscious())
 		return
 	open_machine()
 

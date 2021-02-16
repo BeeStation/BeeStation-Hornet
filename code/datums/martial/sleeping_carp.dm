@@ -103,7 +103,7 @@
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		D.visible_message("<span class='warning'>[A] elbow drops [D]!</span>", \
 							"<span class='userdanger'>[A] piledrives you with their elbow!</span>")
-		if(D.stat > SOFT_CRIT)
+		if(!D.is_conscious())
 			D.death() //FINISH HIM!
 		D.apply_damage(50, A.dna.species.attack_type, BODY_ZONE_CHEST, blocked = def_check)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
@@ -202,7 +202,7 @@
 	if(!isliving(target))
 		return ..()
 	var/mob/living/carbon/C = target
-	if(C.stat > SOFT_CRIT)
+	if(!C.is_conscious())
 		to_chat(user, "<span class='warning'>It would be dishonorable to attack a foe while they cannot retaliate.</span>")
 		return
 	if(user.a_intent == INTENT_DISARM)

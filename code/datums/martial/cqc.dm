@@ -184,7 +184,7 @@
 	if(check_streak(A,D))
 		return TRUE
 	if(prob(65))
-		if(!D.stat || !D.IsParalyzed() || !restraining)
+		if(D.is_conscious() || !D.IsParalyzed() || !restraining)
 			I = D.get_active_held_item()
 			D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
 								"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>", null, COMBAT_MESSAGE_RANGE)

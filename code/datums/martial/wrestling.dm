@@ -416,7 +416,7 @@
 		A.emote("scream")
 
 		if (falling == 1)
-			if (prob(33) || D.stat > SOFT_CRIT)
+			if (prob(33) || !D.is_conscious())
 				D.ex_act(EXPLODE_LIGHT)
 			else
 				D.adjustBruteLoss(rand(20,30))

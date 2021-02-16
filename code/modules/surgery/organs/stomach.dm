@@ -49,7 +49,7 @@
 			if(prob(10))
 				H.stuttering += 1
 				H.confused += 2
-			if(prob(10) && !H.stat)
+			if(prob(10) && H.is_conscious())
 				to_chat(H, "<span class='warning'>You feel kind of iffy...</span>")
 			H.jitteriness = max(H.jitteriness - 3, 0)
 		if(H.disgust >= DISGUST_LEVEL_VERYGROSS)

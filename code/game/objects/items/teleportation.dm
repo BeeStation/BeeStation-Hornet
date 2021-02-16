@@ -42,7 +42,7 @@
 
 /obj/item/locator/Topic(href, href_list)
 	..()
-	if (usr.stat > SOFT_CRIT || usr.restrained())
+	if (!usr.is_conscious() || usr.restrained())
 		return
 	var/turf/current_location = get_turf(usr)//What turf is the user on?
 	if(!current_location || is_centcom_level(current_location.z))//If turf was not found or they're on CentCom
@@ -235,7 +235,7 @@
 		else
 			itemUser.visible_message("<span class='suicide'>[user] looks even further depressed as they realize they do not have a head...and suddenly dies of shame!</span>")
 		return (BRUTELOSS)
-		
+
 /*
  * Syndicate Teleporter
  */
@@ -296,7 +296,7 @@
 	if(!charges)
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 		return
-		
+
 	var/turf/current_location = get_turf(user)
 	var/area/current_area = current_location.loc
 	if(!current_location || current_area.noteleport || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
