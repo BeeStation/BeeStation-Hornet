@@ -31,6 +31,7 @@
 		var/area/A = area
 		for(var/turf/open/space/S in A)
 			S.set_light(5, S.light_power * 0.5, aurora_colors[1])
+			CHECK_TICK
 
 /datum/round_event/aurora_caelus/tick()
 	if(activeFor % 5 == 0)
