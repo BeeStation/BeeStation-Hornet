@@ -1,0 +1,12 @@
+author: park66665
+delete-after: true
+changes:
+  - bugfix: AI's wipe core verb now functions properly and no longer breaks random
+      stuff afterwards
+  - bugfix: Blob overmind's stat tab no longer errors at pre-core-blob-placing
+  - bugfix: Fixed a few more ambience related runtimes
+  - bugfix: Fixed an issue at "no prisoner left behind" crew objective
+  - bugfix: Prevented changelings from losing powers after Last Resort
+  - bugfix: Dead AIs no longer cause living things to be broken code-wise
+  - admin: Fixed a small visual bug that prevented some note severity icon images
+      from showing up at the note browser UI
