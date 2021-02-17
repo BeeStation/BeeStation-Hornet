@@ -69,7 +69,7 @@
 		if(M.scan_state)
 			minerals += M
 	if(LAZYLEN(minerals))
-		for(var/turf/closed/mineral/M in minerals)
+		for(var/turf/closed/mineral/M as() in minerals)
 			var/obj/effect/temp_visual/mining_overlay/oldC = locate(/obj/effect/temp_visual/mining_overlay) in M
 			if(oldC)
 				qdel(oldC)
