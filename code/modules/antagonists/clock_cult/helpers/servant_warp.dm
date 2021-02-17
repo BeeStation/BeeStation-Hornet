@@ -3,8 +3,8 @@
 		return FALSE
 	var/mob/living/M = servant
 	var/mob/living/P = M.pulling
-	var/area/start_area = get_area(M)
-	if(start_area.noteleport)
+	var/turf/T = get_turf(M)
+	if(is_centcom_level(T.z))
 		return FALSE
 	playsound(servant, 'sound/magic/magic_missile.ogg', 50, TRUE)
 	playsound(target_location, 'sound/magic/magic_missile.ogg', 50, TRUE)
