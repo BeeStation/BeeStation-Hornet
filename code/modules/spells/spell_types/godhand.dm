@@ -62,7 +62,7 @@
 		return
 	var/mob/M = target
 	do_sparks(4, FALSE, M.loc)
-	for(var/mob/living/L in viewers(7, src))
+	for(var/mob/living/L in viewers(7, get_turf(src)))
 		if(L != user)
 			L.flash_act(affect_silicon = FALSE)
 	var/atom/A = M.anti_magic_check()
