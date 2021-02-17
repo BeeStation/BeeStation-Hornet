@@ -218,8 +218,7 @@
 		for(var/I in 1 to length(target.vis_contents))
 			var/obj/p = target.vis_contents[I]
 			icon = p.icon
-			add_overlay(p.icon_state)
-			add_overlay(p.overlays)
+			add_overlay(list(p.icon_state, p.overlays))
 	alpha = max(alpha, 150)	//fucking chameleons
 	transform = initial(transform)
 	pixel_y = initial(pixel_y)
