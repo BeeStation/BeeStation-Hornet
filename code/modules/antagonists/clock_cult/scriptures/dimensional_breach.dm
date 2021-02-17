@@ -6,7 +6,7 @@
 	desc = "Prepares the Ark for activation, alerting the crew of your existence. Requires 6 invokers."
 	tip = "Prepares the Ark for activation, alerting the crew of your existence."
 	button_icon_state = "Spatial Gateway"
-	power_cost = 10000
+	power_cost = 5000
 	invokation_time = 140
 	invokation_text = list("Oh great Engine, take my soul...", "...it is time for you to rise...", "...through rifts you shall come...", "...to rise among the stars again!")
 	invokers_required = 6

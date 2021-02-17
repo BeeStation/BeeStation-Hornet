@@ -2,7 +2,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway
 	name = "ark of the Clockwork Justicar"
-	max_integrity = 400
+	max_integrity = 1000
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "clockwork_gateway_components"
 	pixel_x = -32
@@ -30,7 +30,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		return
 	destroyed = TRUE
 	hierophant_message("The Ark has been destroyed, Reebe is becomming unstable!", null, "<span class='large_brass'>")
-	for(var/mob/living/M in GLOB.mob_list)
+	for(var/mob/living/M in GLOB.player_list)
 		if(!is_reebe(M.z))
 			continue
 		if(is_servant_of_ratvar(M))

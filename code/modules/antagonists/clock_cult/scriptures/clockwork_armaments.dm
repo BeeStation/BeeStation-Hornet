@@ -6,7 +6,7 @@
 	desc = "Summon clockwork armor and weapons, to be ready for battle."
 	tip = "Summon clockwork armor and weapons, to be ready for battle."
 	button_icon_state = "clockwork_armor"
-	power_cost = 250
+	power_cost = 150
 	invokation_time = 20
 	invokation_text = list("Through courage and hope...", "...we shall protect thee!")
 	category = SPELLTYPE_PRESERVATION
