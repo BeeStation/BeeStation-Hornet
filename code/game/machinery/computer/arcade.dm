@@ -87,29 +87,20 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 /obj/machinery/computer/arcade/proc/prizevend(mob/user)
 	SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "arcade", /datum/mood_event/arcade)
+	var/atom/movable/the_prize
 	if(prob(0.0001)) //1 in a million
-		new /obj/item/gun/energy/pulse/prize(src)
+		the_prize = new /obj/item/gun/energy/pulse/prize(drop_location())
 		SSmedals.UnlockMedal(MEDAL_PULSE, user.client)
 	else
-		new prizeselect(src)
+		the_prize = new prizeselect(drop_location())
 
-	var/atom/movable/the_prize = pick(contents)
 	visible_message("<span class='notice'>[src] dispenses [the_prize]!</span>", "<span class='notice'>You hear a chime and a clunk.</span>")
-
-	the_prize.forceMove(get_turf(src))
 
 /obj/machinery/computer/arcade/proc/redeem(mob/user)
-	var/redeemselect
-	if(!contents.len)
-		if(prize_override)
-			redeemselect = pickweight(prize_override)
-		else
-			redeemselect = pickweight(GLOB.arcade_prize_pool)
+	var/redeemselect = pickweight(length(prize_override) ? prize_override : GLOB.arcade_prize_pool)
 
-	new redeemselect(src)
-	var/atom/movable/the_prize = pick(contents)
+	var/atom/movable/the_prize = new redeemselect(drop_location())
 	visible_message("<span class='notice'>[src] dispenses [the_prize]!</span>", "<span class='notice'>You hear a chime and a clunk.</span>")
-	the_prize.forceMove(get_turf(src))
 
 /obj/machinery/computer/arcade/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/coin/arcade_token) || istype(W, /obj/item/coin/bananium))
@@ -629,16 +620,14 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 					if(ORION_TRAIL_COLLISION) //by far the most damaging event
 						if(prob(90))
 							playsound(loc, 'sound/effects/bang.ogg', 100, 1)
-							var/turf/open/floor/F
-							for(F in orange(1, src))
+							for(var/turf/open/floor/F in RANGE_TURFS(1, src))
 								F.ScrapeAway()
 							say("Something slams into the floor around [src], exposing it to space!")
 							if(hull)
 								sleep(10)
 								say("A new floor suddenly appears around [src]. What the hell?")
 								playsound(loc, 'sound/weapons/genhit.ogg', 100, 1)
-								var/turf/open/space/T
-								for(T in orange(1, src))
+								for(var/turf/open/space/T in RANGE_TURFS(1, src))
 									T.PlaceOnTop(/turf/open/floor/plating)
 						else
 							say("Something slams into the floor around [src] - luckily, it didn't get through!")

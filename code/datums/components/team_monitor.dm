@@ -405,7 +405,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 
 	//Remove from the global network
 	if(team_frequency)
-		GLOB.tracker_huds[team_frequency] -= src
+		GLOB.tracker_beacons[team_frequency] -= src
 
 	if(attached_monitor?.attached_beacon == src)
 		attached_monitor.attached_beacon = null

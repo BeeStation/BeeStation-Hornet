@@ -245,7 +245,8 @@
 	updateUsrDialog()
 	sleep(30) //only sleep if called by user
 
-	for(var/obj/machinery/computer/rdconsole/RDC in oview(7,src))
+	var/obj/machinery/computer/rdconsole/RDC = locate() in oview(7,src)
+	if(RDC)
 		RDC.stored_research.copy_research_to(stored_research)
 		temp = "Processed equipment designs.<br>"
 		//check if the tech coefficients have changed
@@ -398,8 +399,8 @@
 					break
 
 	if(href_list["remove_mat"] && href_list["material"])
-		var/datum/material/Mat = locate(href_list["material"])
-		eject_sheets(Mat, text2num(href_list["remove_mat"]))
+		var/datum/material/mat = locate(href_list["material"])
+		eject_sheets(mat, text2num(href_list["remove_mat"]))
 
 	updateUsrDialog()
 	return

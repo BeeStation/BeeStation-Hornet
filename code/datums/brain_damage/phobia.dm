@@ -68,8 +68,7 @@
 
 			for(var/mob/living/carbon/human/HU in seen_atoms) //check equipment for trigger items
 				var/spook = 0
-				for(var/X in HU.get_all_slots() | HU.held_items)
-					var/obj/I = X
+				for(var/obj/I as() in HU.get_all_slots() | HU.held_items)
 					if(!QDELETED(I) && is_type_in_typecache(I, trigger_objs))
 						spook ++
 				if(spook)

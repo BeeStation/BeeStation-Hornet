@@ -149,7 +149,7 @@
 		M.adjustCloneLoss(-power, 0)
 		REMOVE_TRAIT(M, TRAIT_DISFIGURED, TRAIT_GENERIC) //fixes common causes for disfiguration
 		. = 1
-	metabolization_rate = REAGENTS_METABOLISM * (0.00001 * (M.bodytemperature ** 2) + 0.5)
+	metabolization_rate = REAGENTS_METABOLISM * (0.00001 * (M.bodytemperature ** 2) + 0.5)//Metabolism rate is reduced in colder body temps making it more effective
 	..()
 
 /datum/reagent/medicine/clonexadone
@@ -164,7 +164,7 @@
 		M.adjustCloneLoss(0.00006 * (M.bodytemperature ** 2) - 6, 0)
 		REMOVE_TRAIT(M, TRAIT_DISFIGURED, TRAIT_GENERIC)
 		. = 1
-	metabolization_rate = REAGENTS_METABOLISM * (0.000015 * (M.bodytemperature ** 2) + 0.75)
+	metabolization_rate = REAGENTS_METABOLISM * (0.000015 * (M.bodytemperature ** 2) + 0.75)//Metabolism rate is reduced in colder body temps making it more effective
 	..()
 
 /datum/reagent/medicine/pyroxadone
@@ -175,6 +175,7 @@
 
 /datum/reagent/medicine/pyroxadone/on_mob_life(mob/living/carbon/M)
 	if(M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)
+		metabolization_rate = 0.2 // It metabolises effectively when the body is taking heat damage
 		var/power = 0
 		switch(M.bodytemperature)
 			if(BODYTEMP_HEAT_DAMAGE_LIMIT to 400)
@@ -193,6 +194,8 @@
 		M.adjustCloneLoss(-power, 0)
 		REMOVE_TRAIT(M, TRAIT_DISFIGURED, TRAIT_GENERIC)
 		. = 1
+	else //If not the right temperature for pyroxadone to work
+		metabolization_rate = REAGENTS_METABOLISM
 	..()
 
 /datum/reagent/medicine/rezadone

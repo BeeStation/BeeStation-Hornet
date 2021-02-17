@@ -177,13 +177,10 @@
 	if(processing)
 		return
 	var/mob/living/simple_animal/slime/picked_slime
-	for(var/mob/living/simple_animal/slime/slime in range(1,src))
-		if(slime.loc == src)
-			continue
-		if(istype(slime, /mob/living/simple_animal/slime))
-			if(slime.stat)
-				picked_slime = slime
-				break
+	for(var/mob/living/simple_animal/slime/slime in ohearers(1,src))
+		if(slime.stat)
+			picked_slime = slime
+			break
 	if(!picked_slime)
 		return
 	var/datum/food_processor_process/P = select_recipe(picked_slime)

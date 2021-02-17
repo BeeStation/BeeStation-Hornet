@@ -202,9 +202,8 @@
 	var/open = FALSE
 	if(isclosedturf(loc))
 		return TRUE
-	for(var/turf/T in view(3, src))
-		if(!isclosedturf(T))
-			open++
+	for(var/turf/open/T in view(3, src))
+		open++
 	if(open < DOM_REQUIRED_TURFS)
 		return TRUE
 	else
