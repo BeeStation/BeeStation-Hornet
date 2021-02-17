@@ -52,6 +52,9 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	var/list/atom/movable/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
 	var/list/team_finder_arrows = list()
 
+	///UI for screentips that appear when you mouse over things
+	var/atom/movable/screen/screentip/screentip_text
+
 	var/atom/movable/screen/movable/action_button/hide_toggle/hide_actions_toggle
 	var/action_buttons_hidden = FALSE
 
@@ -75,6 +78,9 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 		hide_actions_toggle.locked = mymob.client.prefs.buttons_locked
 
 	hand_slots = list()
+
+	screentip_text = new(null, src)
+	static_inventory += screentip_text
 
 	for(var/mytype in subtypesof(/atom/movable/screen/plane_master))
 		var/atom/movable/screen/plane_master/instance = new mytype()
@@ -113,6 +119,8 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	QDEL_LIST_ASSOC_VAL(plane_masters)
 	QDEL_LIST(screenoverlays)
 	mymob = null
+
+	QDEL_NULL(screentip_text)
 
 	return ..()
 
