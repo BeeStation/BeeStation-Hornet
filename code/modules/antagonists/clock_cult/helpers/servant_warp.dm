@@ -3,6 +3,9 @@
 		return FALSE
 	var/mob/living/M = servant
 	var/mob/living/P = M.pulling
+	var/area/start_area = get_area(M)
+	if(start_area.noteleport)
+		return FALSE
 	playsound(servant, 'sound/magic/magic_missile.ogg', 50, TRUE)
 	playsound(target_location, 'sound/magic/magic_missile.ogg', 50, TRUE)
 	do_sparks(5, TRUE, servant)
