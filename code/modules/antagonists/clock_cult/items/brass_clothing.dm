@@ -40,7 +40,7 @@
 	desc = "A faltering cloak that bends light around it, distorting the user's appearance, making it hard to see them with the naked eye. However, it provides very little protection."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cloak"
-	armor = list("melee" = 10 "bullet" = 60, "laser" = 40, "energy" = 20, "bomb" = 40, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 10, "bullet" = 60, "laser" = 40, "energy" = 20, "bomb" = 40, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	slowdown = 0.4
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/shroud_active = FALSE
