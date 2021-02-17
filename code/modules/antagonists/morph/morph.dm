@@ -214,8 +214,11 @@
 					"<span class='notice'>You twist your body and assume the form of [target].</span>")
 	appearance = target.appearance
 	copy_overlays(target)
-	if(target.vis_contents && !istype(target, /obj/machinery/computer))
-		vis_contents += target.vis_contents
+	if(target.vis_contents)
+		for(var/I in 1 to length(target.vis_contents))
+			var/obj/p = target.vis_contents[I]
+			add_overlay(p.icon_state)
+			add_overlay(p.overlays)
 	alpha = max(alpha, 150)	//fucking chameleons
 	transform = initial(transform)
 	pixel_y = initial(pixel_y)
@@ -255,8 +258,6 @@
 	icon = initial(icon)
 	icon_state = initial(icon_state)
 	cut_overlays()
-	if(vis_contents)
-		vis_contents.Cut()
 
 	//Baseline stats
 	melee_damage = initial(melee_damage)
