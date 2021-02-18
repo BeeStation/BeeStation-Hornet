@@ -72,7 +72,8 @@
 
 /datum/antagonist/servant_of_ratvar/remove_innate_effects(mob/living/M)
 	owner.current.faction -= "ratvar"
-	owner.language_holder.remove_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
+	var/datum/language_holder/LH = owner.current.get_language_holder()
+	LH.remove_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
 	owner.current.clear_alert("clockinfo")
 	transmit_spell.Remove(transmit_spell.owner)
 	SSticker.mode.update_clockcult_icons_removed(owner)
