@@ -692,6 +692,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		feedback_details += "Type: Talk, Source: [person.real_name], Message: [message]"
 		to_chat(target, message)
 		if(target.client)
+			animate_chat(person, message, understood_language, null, list(target.client), 50)
 			target.client.images |= speech_overlay
 			sleep(30)
 			target.client.images.Remove(speech_overlay)
@@ -826,7 +827,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	..()
 	var/turf/source = random_far_turf()
 	if(!sound_type)
-		sound_type = pick("phone","hallelujah","highlander","laughter","hyperspace","game over","creepy","tesla")
+		sound_type = pick("phone","hallelujah","highlander","laughter","hyperspace","game over","creepy","tesla","clockcult")
 	feedback_details += "Type: [sound_type]"
 	//Strange audio
 	switch(sound_type)
@@ -860,6 +861,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			target.playsound_local(source, 'sound/magic/lightningbolt.ogg', 65, 1)
 			sleep(30)
 			target.playsound_local(source, 'sound/magic/lightningbolt.ogg', 100, 1)
+		if("clockcult")
+			target.playsound_local(source, pick('sound/magic/magic_missile.ogg', 'sound/magic/mm_hit.ogg', 'sound/machines/clockcult/integration_cog_install.ogg', 'sound/magic/staff_animation.ogg'), 50, 1)
 
 	qdel(src)
 
