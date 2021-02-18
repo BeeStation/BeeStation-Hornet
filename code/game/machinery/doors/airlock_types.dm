@@ -403,6 +403,7 @@
 	anim_parts = "ul=-15,0,0,5,-90;ur=0,15,0,5,-90;dl=0,-15,0,5,-90;dr=15,0,0,5,-90"
 	note_attachment = "ul"
 	panel_attachment = "dr"
+	allow_repaint = FALSE
 
 /obj/machinery/door/airlock/maintenance_hatch
 	name = "maintenance hatch"
@@ -414,6 +415,7 @@
 	anim_parts = "ul=-15,0,0,5,-90;ur=0,15,0,5,-90;dl=0,-15,0,5,-90;dr=15,0,0,5,-90"
 	note_attachment = "ul"
 	panel_attachment = "dr"
+	allow_repaint = FALSE
 
 //////////////////////////////////
 /*
@@ -461,6 +463,7 @@
 	aiControlDisabled = 1
 	normal_integrity = 700
 	security_level = 1
+	allow_repaint = FALSE
 
 //////////////////////////////////
 /*
