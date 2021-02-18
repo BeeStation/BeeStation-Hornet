@@ -171,7 +171,7 @@ GLOBAL_VAR(clockcult_eminence)
 
 /proc/generate_clockcult_scriptures()
 	//Generate scriptures
-	for(var/categorypath in typesof(/datum/clockcult/scripture))
+	for(var/categorypath in subtypesof(/datum/clockcult/scripture))
 		var/datum/clockcult/scripture/S = new categorypath
 		GLOB.clockcult_all_scriptures[S.name] = S
 
