@@ -116,7 +116,7 @@ PROBABILITY METEOR 0
 PROBABILITY DEVIL 0
 PROBABILITY DEVIL_AGENTS 0
 
-## If NO_INTERCEPT_REPORT is enabled, this causes issues with 3 announcements being made for station objectives. It's also a gamemode that can be meta'd easily by checking cargo unlike SECRET_EXTENDED. 
+## This gamemode is meta-able due to how it creates 3 station objectives, and is thus inappropriate for Sage. It also currently creates issues with NO_INTERCEPT_REPORT
 PROBABILITY EXTENDED 0 
 
 ## You probably want to keep sandbox off by default for secret and random.
