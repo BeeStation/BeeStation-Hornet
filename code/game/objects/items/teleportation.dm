@@ -235,7 +235,7 @@
 		else
 			itemUser.visible_message("<span class='suicide'>[user] looks even further depressed as they realize they do not have a head...and suddenly dies of shame!</span>")
 		return (BRUTELOSS)
-		
+
 /*
  * Syndicate Teleporter
  */
@@ -296,7 +296,7 @@
 	if(!charges)
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 		return
-		
+
 	var/turf/current_location = get_turf(user)
 	var/area/current_area = current_location.loc
 	if(!current_location || current_area.noteleport || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
@@ -342,15 +342,15 @@
 
 /obj/item/teleporter/proc/get_fragged(mob/user, turf/destination)
 	var/turf/mobloc = get_turf(user)
-	user.forceMove(destination)
-	playsound(mobloc, "sparks", 50, TRUE)
-	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
-	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
-	playsound(destination, "sparks", 50, TRUE)
-	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
-	to_chat(user, "<span class='userdanger'>You teleport into the wall, the teleporter tries to save you, but-</span>")
-	destination.ex_act(2) //Destroy the wall
-	user.gib()
+	if(do_teleport(user, destination, channel = TELEPORT_CHANNEL_FREE, no_effects = TRUE))
+		playsound(mobloc, "sparks", 50, TRUE)
+		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
+		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
+		playsound(destination, "sparks", 50, TRUE)
+		playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
+		to_chat(user, "<span class='userdanger'>You teleport into the wall, the teleporter tries to save you, but-</span>")
+		destination.ex_act(2) //Destroy the wall
+		user.gib()
 
 /obj/item/teleporter/proc/telefrag(turf/fragging_location, mob/user)
 	for(var/mob/living/M in fragging_location)//Hit everything in the turf

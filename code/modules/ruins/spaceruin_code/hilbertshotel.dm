@@ -54,7 +54,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
         return
     if(ismob(loc))
         if(user == loc) //Not always the same as user
-            forceMove(get_turf(user))
+			forceMove(get_turf(user))
     if(!storageTurf) //Blame subsystems for not allowing this to be in Initialize
         if(!GLOB.hhStorageTurf)
             var/datum/map_template/hilbertshotelstorage/storageTemp = new()

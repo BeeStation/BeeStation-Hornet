@@ -661,8 +661,8 @@
 				can_move = 0
 				if(phase_state)
 					flick(phase_state, src)
-				forceMove(get_step(src,dir))
-				use_power(phasing_energy_drain)
+				if(do_teleport(src, get_step(src, dir), no_effects = TRUE))
+					use_power(phasing_energy_drain)
 				sleep(step_in*3)
 				can_move = 1
 	else
