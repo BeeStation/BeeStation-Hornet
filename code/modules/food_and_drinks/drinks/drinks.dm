@@ -395,6 +395,7 @@
 		"<span class='notice'>You snap [src] in half.</span>")
 		new /obj/item/stack/sheet/mineral/wax(user.loc, 2)
 		qdel(src)
+		return
 	return ..()
 
 //////////////////////////drinkingglass and shaker//
