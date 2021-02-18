@@ -1,0 +1,6 @@
+author: francinum
+delete-after: true
+changes:
+  - balance: Slimepeople are only allowed to have 10 total bodies, for performance
+      reasons.
+  - config: This can be configured.
