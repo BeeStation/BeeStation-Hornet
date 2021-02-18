@@ -185,18 +185,24 @@
 			break
 		checkjump = get_step(checkjump, L.dir)
 
-	if (L.throw_at(target, jumpdistancemoved, jumpspeed, spin = FALSE, diagonals_first = TRUE, force = MOVE_FORCE_WEAK))
+	var/datum/callback/crashcallback
+	if(hoppingtable)
+		crashcallback = CALLBACK(src, .proc/crash_into_table, get_step(checkjump, L.dir))
+	if(L.throw_at(target, jumpdistancemoved, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = crashcallback, force = MOVE_FORCE_WEAK))
 		playsound(L, 'sound/creatures/bee.ogg', 50, 1, 1)
 		L.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
 		recharging_time = world.time + recharging_rate
-		if(hoppingtable)
-			L.take_bodypart_damage(10,check_armor = TRUE)
-			L.Paralyze(40)
-			L.visible_message("<span class='danger'>[L] crashes into a table, falling over!</span>",\
-				"<span class='userdanger'>You violently crash into a table!</span>")
-			playsound(src,'sound/weapons/punch1.ogg',50,1)
 	else
 		to_chat(L, "<span class='warning'>Something prevents you from dashing forward!</span>")
+
+/datum/action/item_action/organ_action/use/bee_dash/proc/crash_into_table(turf/tableturf)
+	if(owner.loc == tableturf)
+		var/mob/living/carbon/L = owner
+		L.take_bodypart_damage(10,check_armor = TRUE)
+		L.Paralyze(40)
+		L.visible_message("<span class='danger'>[L] crashes into a table, falling over!</span>",\
+			"<span class='userdanger'>You violently crash into a table!</span>")
+		playsound(src,'sound/weapons/punch1.ogg',50,1)
 
 /datum/action/innate/flight
 	name = "Toggle Flight"

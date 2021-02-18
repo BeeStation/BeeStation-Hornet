@@ -395,7 +395,7 @@
 		"<span class='notice'>You snap [src] in half.</span>")
 		new /obj/item/stack/sheet/mineral/wax(user.loc, 2)
 		qdel(src)
-	. = ..()
+	return ..()
 
 //////////////////////////drinkingglass and shaker//
 //Note by Darem: This code handles the mixing of drinks. New drinks go in three places: In Chemistry-Reagents.dm (for the drink
@@ -601,4 +601,3 @@
 	desc = "There is no air shortage. Do not drink."
 	icon_state = "air"
 	list_reagents = list(/datum/reagent/nitrogen = 24, /datum/reagent/oxygen = 6)
-
