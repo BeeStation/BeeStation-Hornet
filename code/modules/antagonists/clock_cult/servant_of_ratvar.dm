@@ -59,7 +59,7 @@
 /datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)
 	. = ..()
 	owner.current.faction |= "ratvar"
-	owner.language_holder.grant_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
+	owner.language_holder?.grant_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
 	transmit_spell = new()
 	transmit_spell.Grant(owner.current)
 	owner.current.throw_alert("clockinfo", /atom/movable/screen/alert/clockwork/clocksense)
