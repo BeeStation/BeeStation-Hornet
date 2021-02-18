@@ -384,7 +384,7 @@
 
 /obj/item/reagent_containers/food/drinks/honeycomb
 	name = "Honeycomb"
-	desc = "A honeycomb made by an apid. It seems to be overflowing with honey."
+	desc = "A honeycomb made by an apid. It seems to be made out of beeswax and fairly weak."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "honeycomb"
 	list_reagents = list(/datum/reagent/consumable/honey = 25)
