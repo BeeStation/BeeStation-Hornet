@@ -109,13 +109,15 @@ PROBABILITY NUCLEAR 4
 PROBABILITY TRAITORBRO 3
 PROBABILITY WIZARD 1
 PROBABILITY CLOCKCULT 1
-PROBABILITY EXTENDED 0 ## Causes issues with roundstart reports being disabled, and is meta-able unlike secret_extended.
 PROBABILITY MONKEY 0
 PROBABILITY GANG 0
 PROBABILITY CLOWNOPS 0
 PROBABILITY METEOR 0
 PROBABILITY DEVIL 0
 PROBABILITY DEVIL_AGENTS 0
+
+## If NO_INTERCEPT_REPORT is enabled, this causes issues with 3 announcements being made for station objectives. It's also a gamemode that can be meta'd easily by checking cargo unlike SECRET_EXTENDED. 
+PROBABILITY EXTENDED 0 
 
 ## You probably want to keep sandbox off by default for secret and random.
 PROBABILITY SANDBOX 0
