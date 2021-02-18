@@ -34,7 +34,7 @@
 	var/turf/T = get_turf(target)
 	if(user in viewers(user.client.view, T))
 		var/obj/spot1 = new phaseout(get_turf(user), user.dir)
-		if(do_teleport(user, T, channel = TELEPORT_CHANNEL_FREE), no_effects = TRUE)
+		if(do_teleport(user, T, channel = TELEPORT_CHANNEL_FREE, no_effects = TRUE))
 			playsound(T, dash_sound, 25, 1)
 			var/obj/spot2 = new phasein(get_turf(user), user.dir)
 			spot1.Beam(spot2,beam_effect,time=20)
