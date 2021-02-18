@@ -66,6 +66,7 @@
 	playsound(src, 'sound/magic/clockwork/anima_fragment_attack.ogg', 60, TRUE)
 	if(shield_health == 0)
 		to_chat(src, "<span class='userdanger'>Your shield breaks!</span>")
+		to_chat(src, "<span class='brass'>You require a welding tool to repair your damaged shield!</span>")
 
 /mob/living/simple_animal/clockwork_marauder/welder_act(mob/living/user, obj/item/I)
 	if(do_after(user, 25, target=src))
@@ -74,6 +75,7 @@
 		if(shield_health < MARAUDER_SHIELD_MAX)
 			shield_health ++
 			playsound(src, 'sound/magic/charge.ogg', 60, TRUE)
+	return TRUE
 
 #undef MARAUDER_SHIELD_RECHARGE
 #undef MARAUDER_SHIELD_MAX
