@@ -59,8 +59,7 @@
 /datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)
 	. = ..()
 	owner.current.faction |= "ratvar"
-	var/datum/language_holder/LH = owner.current.get_language_holder()
-	LH.grant_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
+	owner.language_holder.grant_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
 	transmit_spell = new()
 	transmit_spell.Grant(owner.current)
 	owner.current.throw_alert("clockinfo", /atom/movable/screen/alert/clockwork/clocksense)
@@ -72,8 +71,7 @@
 
 /datum/antagonist/servant_of_ratvar/remove_innate_effects(mob/living/M)
 	owner.current.faction -= "ratvar"
-	var/datum/language_holder/LH = owner.current.get_language_holder()
-	LH.remove_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
+	owner.language_holder.remove_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
 	owner.current.clear_alert("clockinfo")
 	transmit_spell.Remove(transmit_spell.owner)
 	SSticker.mode.update_clockcult_icons_removed(owner)
