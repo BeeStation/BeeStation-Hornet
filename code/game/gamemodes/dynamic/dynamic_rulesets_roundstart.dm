@@ -716,7 +716,7 @@
 		servant.mind.assigned_role = ROLE_SERVANT_OF_RATVAR
 		servant.mind.special_role = ROLE_SERVANT_OF_RATVAR
 	//Generate scriptures
-	for(var/categorypath in subtypesof(/datum/clockcult/scripture))
+	for(var/categorypath in typesof(/datum/clockcult/scripture))
 		var/datum/clockcult/scripture/S = new categorypath
 		GLOB.clockcult_all_scriptures[S.name] = S
 	return TRUE
