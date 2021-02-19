@@ -1,0 +1,4 @@
+author: Froststahr
+delete-after: true
+changes:
+  - bugfix: Pubby SM won't delam itself
