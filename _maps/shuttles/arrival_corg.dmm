@@ -56,6 +56,23 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
+"f" = (
+/obj/structure/table/reinforced,
+/obj/item/paper/pamphlet/centcom/visitor_info{
+	pixel_x = -3;
+	pixel_y = -1
+	},
+/obj/item/paper/pamphlet/centcom/visitor_info,
+/obj/item/paper/pamphlet/centcom/visitor_info{
+	pixel_x = 3;
+	pixel_y = 1
+	},
+/obj/item/pen/red,
+/obj/item/paicard,
+/obj/item/paicard,
+/obj/item/paicard,
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/arrival)
 "g" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -147,20 +164,6 @@
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
-"s" = (
-/obj/structure/table/reinforced,
-/obj/item/paper/pamphlet/centcom/visitor_info{
-	pixel_x = -3;
-	pixel_y = -1
-	},
-/obj/item/paper/pamphlet/centcom/visitor_info,
-/obj/item/paper/pamphlet/centcom/visitor_info{
-	pixel_x = 3;
-	pixel_y = 1
-	},
-/obj/item/pen/red,
-/turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/arrival)
 "t" = (
 /obj/structure/chair/comfy/shuttle{
@@ -496,7 +499,7 @@ m
 C
 W
 V
-s
+f
 g
 P
 P

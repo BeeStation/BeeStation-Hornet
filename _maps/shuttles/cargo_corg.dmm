@@ -53,8 +53,8 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/supply)
-"B" = (
-/turf/closed/wall/mineral/titanium/interior,
+"z" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/supply)
 "C" = (
 /obj/machinery/conveyor{
@@ -138,7 +138,7 @@ p
 m
 C
 p
-p
+z
 l
 S
 "}
@@ -152,7 +152,7 @@ L
 L
 L
 O
-B
+z
 l
 X
 "}
@@ -208,7 +208,7 @@ M
 L
 L
 o
-B
+z
 l
 R
 "}
@@ -222,7 +222,7 @@ p
 N
 s
 p
-p
+z
 l
 S
 "}
