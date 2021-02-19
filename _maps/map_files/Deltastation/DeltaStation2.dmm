@@ -34918,7 +34918,7 @@
 	},
 /turf/open/floor/engine/n2o,
 /area/engine/atmos{
-	valve_open = 1
+	valve_open = null
 	})
 "bkI" = (
 /obj/machinery/air_sensor/atmos/nitrous_tank,
