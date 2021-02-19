@@ -162,12 +162,13 @@
 
 /mob/living/silicon/pai/Login()
 	..()
-	if(client)
-		client.perspective = EYE_PERSPECTIVE
-		if(holoform)
-			client.eye = src
-		else
-			client.eye = card
+	var/datum/asset/notes_assets = get_asset_datum(/datum/asset/simple/pAI)
+	notes_assets.send(client)
+	client.perspective = EYE_PERSPECTIVE
+	if(holoform)
+		client.eye = src
+	else
+		client.eye = card
 
 /mob/living/silicon/pai/get_stat_tab_status()
 	var/list/tab_data = ..()

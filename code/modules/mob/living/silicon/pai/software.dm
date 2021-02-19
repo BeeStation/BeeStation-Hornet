@@ -123,8 +123,6 @@
 				</div>
 			</body>
 			</html>"} //"
-	var/datum/asset/notes_assets = get_asset_datum(/datum/asset/simple/pAI)
-	notes_assets.send(client)
 	src << browse(dat, "window=pai;size=640x480;border=0;can_close=1;can_resize=1;can_minimize=1;titlebar=1")
 	onclose(src, "pai")
 	temp = null
