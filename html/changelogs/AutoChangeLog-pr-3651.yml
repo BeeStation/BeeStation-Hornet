@@ -1,8 +1,0 @@
-author: MNarath1, JamieD1, Redmoogle
-delete-after: true
-changes:
-  - bugfix: Repainted airlocks sometimes missing the moving parts, or having wrong
-      animation
-  - bugfix: Exploit allowing cult to disguise their airlocks with airlock painter
-  - tweak: Disallowed repaint of large airlock and hatches
-  - refactor: Changes code to use the assoc list for airlock repaint choosing
