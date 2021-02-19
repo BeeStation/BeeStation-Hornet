@@ -1,6 +1,6 @@
 /mob/living/simple_animal/eminence
-	name = "eminence"
-	desc = "An glowing ball of light."
+	name = "\the Eminence"
+	desc = "A glowing ball of light."
 	icon = 'icons/effects/clockwork_effects.dmi'
 	icon_state = "eminence"
 	mob_biotypes = list(MOB_SPIRIT)
@@ -46,6 +46,9 @@
 	. = ..()
 	if(!.)
 		A.eminence_act(src)
+
+/mob/living/simple_animal/eminence/attack_animal(mob/living/simple_animal/M)
+	return
 
 /mob/living/simple_animal/eminence/Initialize()
 	. = ..()
