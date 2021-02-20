@@ -6,7 +6,7 @@
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the head of security"
+	supervisors = "the head of security and the chief medical officer"
 	selection_color = "#ffeeee"
 	chat_color = "#b16789"
 	minimal_player_age = 7
