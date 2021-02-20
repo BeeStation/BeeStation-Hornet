@@ -48,7 +48,10 @@
 		A.eminence_act(src)
 
 /mob/living/simple_animal/eminence/UnarmedAttack(atom/A)
-	return
+	return FALSE
+
+/mob/living/simple_animal/eminence/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
+	return FALSE
 
 /mob/living/simple_animal/eminence/Initialize()
 	. = ..()
