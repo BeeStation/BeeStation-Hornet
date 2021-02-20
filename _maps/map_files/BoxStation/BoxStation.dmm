@@ -29625,6 +29625,9 @@
 /area/medical/morgue)
 "bFo" = (
 /obj/effect/turf_decal/tile/blue,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "bFp" = (
@@ -29632,6 +29635,10 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 6
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "bFw" = (
@@ -30393,6 +30400,12 @@
 /obj/machinery/light/small,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
@@ -42195,6 +42208,8 @@
 	name = "Autopsy Room B";
 	req_access_txt = "6;5"
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "cuv" = (
@@ -42202,6 +42217,8 @@
 	name = "Autopsy Room A";
 	req_access_txt = "6;5"
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "cuw" = (
@@ -42404,14 +42421,18 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 8;
 	sortType = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
@@ -42425,6 +42446,12 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "cuW" = (
@@ -42433,6 +42460,12 @@
 	req_access_txt = "6;5"
 	},
 /obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
@@ -45557,12 +45590,6 @@
 	},
 /turf/open/space/basic,
 /area/space)
-"cIG" = (
-/obj/machinery/airalarm{
-	pixel_y = 23
-	},
-/turf/open/floor/plasteel/dark,
-/area/medical/morgue)
 "cKn" = (
 /obj/machinery/button/door{
 	id = "maint2";
@@ -47477,6 +47504,18 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible,
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
+"ezt" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/medical/morgue)
 "eAe" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -47846,6 +47885,18 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
+"faX" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/medical/morgue)
 "fcj" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 1
@@ -48321,6 +48372,10 @@
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/atmos)
+"fIm" = (
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
+/turf/closed/wall,
+/area/medical/morgue)
 "fJH" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
@@ -51136,6 +51191,18 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
+"joq" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/medical/morgue)
 "joR" = (
 /obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
@@ -51294,6 +51361,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"jvV" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/medical/morgue)
 "jwc" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -55970,6 +56049,14 @@
 /obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"peg" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
+/turf/open/floor/plasteel/dark,
+/area/medical/morgue)
 "pel" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -56631,6 +56718,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
+"pVs" = (
+/obj/machinery/airalarm{
+	pixel_y = 24
+	},
+/turf/open/floor/plasteel/dark,
+/area/medical/morgue)
 "pWN" = (
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
@@ -59013,6 +59106,18 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"sWT" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 9
+	},
+/turf/open/floor/plasteel/dark,
+/area/medical/morgue)
 "sYn" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -93185,7 +93290,7 @@ bwb
 chm
 bBr
 cBD
-cBD
+fIm
 cBD
 cBD
 cBD
@@ -93956,7 +94061,7 @@ aJq
 chm
 lrp
 cBD
-cIG
+pVs
 bFi
 bGE
 cuU
@@ -94730,7 +94835,7 @@ cBD
 cAL
 cAL
 cAL
-bHW
+ezt
 cBD
 bZN
 bLK
@@ -95244,7 +95349,7 @@ cBD
 bAV
 ctX
 cBD
-bHW
+faX
 cBD
 bZN
 bLK
@@ -95501,7 +95606,7 @@ cBD
 bDP
 bFp
 cus
-bHW
+peg
 cBD
 bZN
 bLK
@@ -95758,7 +95863,7 @@ cBD
 bDO
 bFo
 cBD
-bHW
+joq
 cBD
 bZN
 bLK
@@ -96272,7 +96377,7 @@ cBD
 ctN
 bFm
 cBD
-bHW
+jvV
 cBD
 bKD
 bLO
@@ -96529,7 +96634,7 @@ cBD
 ctP
 bFp
 cuv
-bHW
+sWT
 cBD
 bKG
 bLK
