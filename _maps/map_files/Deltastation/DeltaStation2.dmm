@@ -52129,7 +52129,7 @@
 /area/storage/primary)
 "bKt" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/gloves/color/yellow,
+/obj/item/clothing/gloves/color/fyellow,
 /obj/item/storage/box/lights/mixed,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
@@ -54663,7 +54663,7 @@
 /area/hallway/primary/port)
 "bOl" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/gloves/color/yellow,
+/obj/item/clothing/gloves/color/fyellow,
 /obj/item/storage/toolbox/electrical,
 /obj/item/multitool,
 /obj/machinery/light{
