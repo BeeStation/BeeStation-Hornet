@@ -74,7 +74,7 @@
 	item_state = "detsuit"
 
 //Brig Phys
-r
+/obj/item/clothing/suit/hazardvest/brig_phys
 	name = "brig physician's vest"
 	desc = "A lightweight vest worn by the Brig Physician."
 	icon_state = "brig_phys_vest"
