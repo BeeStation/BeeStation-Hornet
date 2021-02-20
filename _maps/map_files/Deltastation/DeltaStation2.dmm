@@ -23987,7 +23987,6 @@
 "aTQ" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow,
-/obj/item/multitool,
 /obj/item/pen/red,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 6
@@ -55064,7 +55063,6 @@
 /obj/structure/rack,
 /obj/item/clothing/gloves/color/fyellow,
 /obj/item/clothing/suit/hazardvest,
-/obj/item/multitool,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
@@ -55964,7 +55962,6 @@
 /obj/structure/table/reinforced,
 /obj/item/assembly/timer,
 /obj/item/assembly/timer,
-/obj/item/multitool,
 /obj/item/multitool,
 /obj/machinery/light,
 /obj/effect/turf_decal/bot,

@@ -7491,10 +7491,6 @@
 	pixel_x = -30
 	},
 /obj/item/t_scanner,
-/obj/item/multitool{
-	pixel_x = 4
-	},
-/obj/item/multitool,
 /obj/item/storage/box/lights/mixed,
 /turf/open/floor/plasteel,
 /area/storage/tools)
@@ -8849,7 +8845,6 @@
 	pixel_x = -2;
 	pixel_y = -1
 	},
-/obj/item/multitool,
 /obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
@@ -9329,7 +9324,6 @@
 "awC" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/gas,
-/obj/item/multitool,
 /obj/item/stack/cable_coil/random/five,
 /turf/open/floor/plating,
 /area/solar/starboard)
@@ -16178,7 +16172,6 @@
 	pixel_x = 1;
 	pixel_y = -1
 	},
-/obj/item/multitool,
 /turf/open/floor/plasteel,
 /area/construction)
 "aLY" = (
@@ -17740,7 +17733,6 @@
 	},
 /obj/item/clothing/gloves/color/fyellow,
 /obj/item/t_scanner,
-/obj/item/multitool,
 /turf/open/floor/plating,
 /area/storage/tech)
 "aPE" = (
@@ -17749,7 +17741,6 @@
 	pixel_x = 1;
 	pixel_y = -1
 	},
-/obj/item/multitool,
 /obj/item/clothing/glasses/meson{
 	pixel_x = -2;
 	pixel_y = -2
@@ -28474,9 +28465,6 @@
 	pixel_y = 5
 	},
 /obj/item/clothing/glasses/welding,
-/obj/item/multitool{
-	pixel_x = 3
-	},
 /obj/machinery/airalarm{
 	pixel_y = 25
 	},
@@ -38238,7 +38226,6 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/item/multitool,
 /obj/item/screwdriver,
 /obj/machinery/camera{
 	c_tag = "Cargo - Main 1";
@@ -44894,10 +44881,6 @@
 	},
 /obj/item/clothing/glasses/science,
 /obj/item/clothing/glasses/science,
-/obj/item/multitool{
-	pixel_x = 1;
-	pixel_y = -2
-	},
 /obj/item/stock_parts/matter_bin,
 /obj/item/stock_parts/matter_bin,
 /obj/item/stock_parts/scanning_module,

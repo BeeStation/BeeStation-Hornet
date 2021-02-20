@@ -5547,8 +5547,8 @@
 /obj/structure/rack,
 /obj/item/clothing/gloves/color/fyellow,
 /obj/item/clothing/suit/hazardvest,
-/obj/item/multitool,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/clothing/gloves/color/fyellow,
 /turf/open/floor/plasteel,
 /area/storage/tools)
 "alO" = (
@@ -6222,7 +6222,6 @@
 /obj/structure/sign/warning/vacuum/external{
 	pixel_y = 32
 	},
-/obj/item/multitool,
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
 "aoj" = (
@@ -9130,7 +9129,6 @@
 	pixel_x = -2;
 	pixel_y = -1
 	},
-/obj/item/multitool,
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
 "ayS" = (
@@ -10759,10 +10757,6 @@
 /obj/item/assembly/signaler,
 /obj/item/radio/intercom{
 	pixel_y = 20
-	},
-/obj/item/multitool,
-/obj/item/multitool{
-	pixel_x = 4
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
@@ -23436,9 +23430,6 @@
 	pixel_y = 5
 	},
 /obj/item/clothing/glasses/welding,
-/obj/item/multitool{
-	pixel_x = 3
-	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "bnj" = (
@@ -25666,7 +25657,6 @@
 	dir = 4;
 	pixel_x = -22
 	},
-/obj/item/multitool,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "buH" = (
@@ -29952,7 +29942,6 @@
 /obj/machinery/cell_charger{
 	pixel_y = 5
 	},
-/obj/item/multitool,
 /turf/open/floor/plating,
 /area/storage/tech)
 "bGw" = (
@@ -30347,7 +30336,6 @@
 	pixel_x = 1;
 	pixel_y = -1
 	},
-/obj/item/multitool,
 /obj/item/clothing/glasses/meson,
 /obj/machinery/light/small,
 /turf/open/floor/plating,
@@ -31670,7 +31658,6 @@
 	},
 /obj/item/clothing/gloves/color/fyellow,
 /obj/item/t_scanner,
-/obj/item/multitool,
 /turf/open/floor/plating,
 /area/storage/tech)
 "bLC" = (
@@ -54730,6 +54717,10 @@
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"npS" = (
+/obj/item/clothing/gloves/color/fyellow,
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
 "nqZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -79122,7 +79113,7 @@ ayl
 aNi
 ayl
 ayl
-ayl
+npS
 aSf
 czK
 czK

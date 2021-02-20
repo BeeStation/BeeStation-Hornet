@@ -19486,10 +19486,6 @@
 /obj/structure/table,
 /obj/item/assembly/signaler,
 /obj/item/assembly/signaler,
-/obj/item/multitool,
-/obj/item/multitool{
-	pixel_x = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 6
 	},
@@ -28436,7 +28432,6 @@
 	},
 /obj/item/clothing/gloves/color/fyellow,
 /obj/item/clothing/suit/hazardvest,
-/obj/item/multitool,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
@@ -29413,7 +29408,6 @@
 	pixel_x = 1;
 	pixel_y = -1
 	},
-/obj/item/multitool,
 /obj/item/clothing/glasses/meson,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plasteel/dark,
@@ -32001,7 +31995,6 @@
 /obj/item/clipboard,
 /obj/item/folder/yellow,
 /obj/item/folder/yellow,
-/obj/item/multitool,
 /obj/item/pen/red,
 /obj/effect/turf_decal/tile/brown{
 	dir = 1

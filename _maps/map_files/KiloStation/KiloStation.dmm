@@ -24174,7 +24174,6 @@
 	dir = 4;
 	pixel_x = -26
 	},
-/obj/item/multitool,
 /turf/open/floor/plasteel/dark,
 /area/storage/primary)
 "aKe" = (
@@ -56968,7 +56967,6 @@
 "bDD" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/electrical,
-/obj/item/multitool,
 /turf/open/floor/engine,
 /area/storage/tech)
 "bDE" = (
@@ -63519,7 +63517,6 @@
 	},
 /obj/item/pickaxe,
 /obj/item/pickaxe,
-/obj/item/multitool,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -87559,7 +87556,6 @@
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/folder,
-/obj/item/multitool,
 /obj/item/pen/red,
 /obj/machinery/airalarm{
 	pixel_y = 22
