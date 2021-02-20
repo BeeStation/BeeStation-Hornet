@@ -770,7 +770,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Brig"
 	icon_state = "brig"
 	mood_bonus = -3
-	mood_message = "<span class='nicegreen'>I hate cramped brig cells.\n</span>"
+	mood_message = "<span class='warning'>I hate cramped brig cells.\n</span>"
 
 /area/security/courtroom
 	name = "Courtroom"
@@ -808,7 +808,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/execution
 	icon_state = "execution_room"
 	mood_bonus = -5
-	mood_message = "<span class='nicegreen'>I feel a sense of impending doom.\n</span>"
+	mood_message = "<span class='warning'>I feel a sense of impending doom.\n</span>"
 
 /area/security/execution/transfer
 	name = "Transfer Centre"
@@ -903,7 +903,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "janitor"
 	flags_1 = NONE
 	mood_bonus = -1
-	mood_message = "<span class='nicegreen'>It feels dirty in here!\n</span>"
+	mood_message = "<span class='warning'>It feels dirty in here!\n</span>"
 
 /area/hydroponics
 	name = "Hydroponics"
