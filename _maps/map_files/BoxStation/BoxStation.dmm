@@ -46309,6 +46309,18 @@
 	},
 /turf/open/floor/plating,
 /area/storage/emergency/port)
+"cWG" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 9
+	},
+/turf/open/floor/plasteel/dark,
+/area/medical/morgue)
 "cWR" = (
 /obj/machinery/door/firedoor/border_only{
 	dir = 1
@@ -46842,18 +46854,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"dJw" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 9
-	},
-/turf/open/floor/plasteel/dark,
-/area/medical/morgue)
 "dKr" = (
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume{
 	dir = 4
@@ -46908,6 +46908,12 @@
 	},
 /turf/closed/wall,
 /area/maintenance/port/aft)
+"dOP" = (
+/obj/machinery/airalarm{
+	pixel_y = 24
+	},
+/turf/open/floor/plasteel/dark,
+/area/medical/morgue)
 "dPH" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -47630,6 +47636,18 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/shuttledock)
+"eKo" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/medical/morgue)
 "eKL" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 6
@@ -48932,6 +48950,14 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
+"gmT" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
+/turf/open/floor/plasteel/dark,
+/area/medical/morgue)
 "gmW" = (
 /obj/machinery/door/firedoor/border_only{
 	dir = 1
@@ -49910,10 +49936,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
-"htw" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
-/turf/closed/wall,
-/area/medical/morgue)
 "hvw" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
 /obj/effect/spawner/structure/window/reinforced,
@@ -51453,18 +51475,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
-"jHS" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/medical/morgue)
 "jHW" = (
 /obj/structure/table,
 /obj/item/stack/sheet/glass/fifty{
@@ -55457,6 +55467,18 @@
 /obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
+"oqG" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/medical/morgue)
 "orP" = (
 /obj/machinery/button/door{
 	id = "telelab";
@@ -59250,18 +59272,6 @@
 /obj/machinery/door/airlock/external,
 /turf/open/floor/plating,
 /area/science/shuttledock)
-"tmt" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/medical/morgue)
 "tmE" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -59649,12 +59659,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/misc_lab)
-"tKN" = (
-/obj/machinery/airalarm{
-	pixel_y = 24
-	},
-/turf/open/floor/plasteel/dark,
-/area/medical/morgue)
 "tLw" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -60811,14 +60815,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
-"vpz" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
-/turf/open/floor/plasteel/dark,
-/area/medical/morgue)
 "vpA" = (
 /obj/structure/sign/poster/official/anniversary_vintage_reprint{
 	pixel_x = 32
@@ -61342,6 +61338,18 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"vIT" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/medical/morgue)
 "vIU" = (
 /obj/machinery/hydroponics/soil,
 /obj/machinery/light{
@@ -61504,12 +61512,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
-"vRv" = (
+"vRB" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -62989,18 +62997,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
-"xqP" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/medical/morgue)
 "xrh" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
@@ -93290,7 +93286,7 @@ bwb
 chm
 bBr
 cBD
-htw
+cBD
 cBD
 cBD
 cBD
@@ -94061,7 +94057,7 @@ aJq
 chm
 lrp
 cBD
-tKN
+dOP
 bFi
 bGE
 cuU
@@ -94835,7 +94831,7 @@ cBD
 cAL
 cAL
 cAL
-vRv
+vIT
 cBD
 bZN
 bLK
@@ -95349,7 +95345,7 @@ cBD
 bAV
 ctX
 cBD
-jHS
+eKo
 cBD
 bZN
 bLK
@@ -95606,7 +95602,7 @@ cBD
 bDP
 bFp
 cus
-vpz
+gmT
 cBD
 bZN
 bLK
@@ -95863,7 +95859,7 @@ cBD
 bDO
 bFo
 cBD
-xqP
+vRB
 cBD
 bZN
 bLK
@@ -96377,7 +96373,7 @@ cBD
 ctN
 bFm
 cBD
-tmt
+oqG
 cBD
 bKD
 bLO
@@ -96634,7 +96630,7 @@ cBD
 ctP
 bFp
 cuv
-dJw
+cWG
 cBD
 bKG
 bLK
