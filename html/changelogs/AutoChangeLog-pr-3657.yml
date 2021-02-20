@@ -1,0 +1,7 @@
+author: park66665
+delete-after: true
+changes:
+  - bugfix: Fixed weighted picking logic, so various codes utilizing weighted pick
+      is now a bit more safe and correct
+  - bugfix: The most prominent of such cases would be preventing random maint rooms
+      from not spawning once in a while
