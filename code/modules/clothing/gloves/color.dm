@@ -54,6 +54,17 @@
 	resistance_flags = NONE
 	var/can_be_cut = 1
 
+/obj/item/clothing/gloves/color/black/equipped(mob/user, slot)
+	. = ..()
+	if(slot == SLOT_GLOVES)
+		if(user.mind && user.mind.assigned_role == "Security Officer")
+			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_black_gloves", /datum/mood_event/sec_black_gloves)
+
+/obj/item/clothing/gloves/color/black/dropped(mob/user)
+	. = ..()
+	if(user.mind && user.mind.assigned_role == "Security Officer")
+		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_black_gloves")
+
 /obj/item/clothing/gloves/color/black/hos
 	item_color = "hosred"	//Exists for washing machines. Is not different from black gloves in any way.
 
