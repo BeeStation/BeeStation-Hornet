@@ -219,5 +219,5 @@
 	description = "<span class='warning robot'>+++++++[message]+++++++</span>\n"
 
 /datum/mood_event/sec_insulated_gloves
-	description = "<span class='nicegreen'>I look like some dweeb Assistant</span>\n"
-	mood_change = 1
+	description = "<span class='warning'>I look like some dweeb Assistant</span>\n"
+	mood_change = -1
