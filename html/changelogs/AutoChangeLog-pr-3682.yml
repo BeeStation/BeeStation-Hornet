@@ -1,0 +1,5 @@
+author: bloons3
+delete-after: true
+changes:
+  - rscadd: Added an air alarm to the Morgue on Box Station
+  - rscadd: Added vent scrubbers and vent pumps to autopsy rooms
