@@ -1,0 +1,6 @@
+author: Naevi, Victor239
+delete-after: true
+changes:
+  - rscadd: Adds black bishop suit,mitre and cloak to beecoin shop
+  - rscadd: Adds bishop cloak to hacked chaplain vendor
+  - tweak: Updates bishop suit and mitre
