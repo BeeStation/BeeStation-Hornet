@@ -56973,7 +56973,7 @@
 /area/storage/tech)
 "bDE" = (
 /obj/structure/table,
-/obj/item/clothing/gloves/color/yellow,
+/obj/item/clothing/gloves/color/fyellow,
 /obj/item/electronics/apc,
 /obj/item/electronics/airlock{
 	pixel_y = 6
@@ -98542,7 +98542,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/clothing/gloves/color/yellow,
+/obj/item/clothing/gloves/color/fyellow,
 /obj/item/clothing/head/welding{
 	pixel_y = 4
 	},
