@@ -8,6 +8,22 @@
 	item_color="yellow"
 	resistance_flags = NONE
 
+/obj/item/clothing/gloves/color/yellow/equipped(mob/user, slot)
+	. = ..()
+	if(slot == SLOT_GLOVES)
+		if(user.mind && user.mind.assigned_role == "Assistant")
+			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "assistant_insulated_gloves", /datum/mood_event/assistant_insulated_gloves)
+		if(user.mind && user.mind.assigned_role == "Security Officer")
+			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_insulated_gloves", /datum/mood_event/sec_insulated_gloves)
+
+/obj/item/clothing/gloves/color/yellow/dropped(mob/user)
+	. = ..()
+	if(user.mind && user.mind.assigned_role == "Assistant")
+		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "assistant_insulated_gloves")
+	if(user.mind && user.mind.assigned_role == "Security Officer")
+		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_insulated_gloves")
+
+
 /obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
 	desc = "These gloves are cheap knockoffs of the coveted ones - no way this can end badly."
 	name = "budget insulated gloves"
