@@ -193,5 +193,5 @@
 	mood_change = 1
 
 /datum/mood_event/assistant_insulated_gloves
-	description = "<span class='nicegreen'>Finally got my hands on a good pair of gloves</span>\n"
+	description = "<span class='nicegreen'>Finally got my hands on a good pair of gloves!</span>\n"
 	mood_change = 1
