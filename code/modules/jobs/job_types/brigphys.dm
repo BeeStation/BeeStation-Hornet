@@ -1,7 +1,7 @@
 /datum/job/brig_phys
 	title = "Brig Physician"
 	flag = BRIG_PHYS
-	department_head = list("Head of Security")
+	department_head = list("Head of Security", "Chief Medical Officer")
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 1
