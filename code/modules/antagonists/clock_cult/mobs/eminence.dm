@@ -119,7 +119,7 @@
 	var/obj/structure/destructible/clockwork/massive/celestial_gateway/G = GLOB.celestial_gateway
 	if(G)
 		user.forceMove(get_turf(G))
-		user.playsound_local(user, 'sound/magic/magic_missile.ogg', 50, TRUE)
+		SEND_SOUND(user, sound('sound/magic/magic_missile.ogg'))
 		flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
 	else
 		to_chat(user, "<span class='warning'>There is no Ark!</span>")
@@ -131,9 +131,9 @@
 	action_icon_state = "warp_down"
 
 /obj/effect/proc_holder/spell/targeted/eminence/station/cast(mob/living/user)
-	if(is_reebe(user.z))
+	if(!is_station_level(user.z))
 		user.forceMove(get_turf(pick(GLOB.generic_event_spawns)))
-		user.playsound_local(user, 'sound/magic/magic_missile.ogg', 50, TRUE)
+		SEND_SOUND(user, sound('sound/magic/magic_missile.ogg'))
 		flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
 	else
 		to_chat(user, "<span class='warning'>You're already on the station!</span>")
