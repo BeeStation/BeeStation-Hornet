@@ -63688,7 +63688,6 @@
 /turf/closed/wall/r_wall,
 /area/science/mixing)
 "ucI" = (
-/obj/machinery/chem_dispenser/mutagensaltpetersmall,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "uek" = (
