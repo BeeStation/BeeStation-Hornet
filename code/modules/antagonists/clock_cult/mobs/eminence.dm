@@ -112,8 +112,14 @@
 	desc = "Teleport yourself to Reebe."
 	action_icon_state = "Abscond"
 
-/obj/effect/proc_holder/spell/targeted/eminence/reebe/cast(list/targets, mob/living/user)
-	user.forceMove(get_turf(GLOB.celestial_gateway))
+/obj/effect/proc_holder/spell/targeted/eminence/reebe/cast(mob/living/user)
+	var/obj/structure/destructible/clockwork/massive/celestial_gateway/G = GLOB.celestial_gateway
+	if(G)
+		user.forceMove(get_turf(G))
+		user.playsound_local(user, 'sound/magic/magic_missile.ogg', 50, TRUE)
+		flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
+	else
+		to_chat(user, "<span class='warning'>There is no Ark!</span>")
 
 //=====Warp to station=====
 /obj/effect/proc_holder/spell/targeted/eminence/station
@@ -121,8 +127,13 @@
 	desc = "Teleport yourself to the station."
 	action_icon_state = "warp_down"
 
-/obj/effect/proc_holder/spell/targeted/eminence/station/cast(list/targets, mob/living/user)
-	user.forceMove(SSmapping.get_station_center())
+/obj/effect/proc_holder/spell/targeted/eminence/station/cast(mob/living/user)
+	if(is_reebe(user.z))
+		user.forceMove(get_turf(pick(GLOB.generic_event_spawns)))
+		user.playsound_local(user, 'sound/magic/magic_missile.ogg', 50, TRUE)
+		flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
+	else
+		to_chat(user, "<span class='warning'>You're already on the station!</span>")
 
 //=====Mass Recall=====
 /obj/effect/proc_holder/spell/targeted/eminence/mass_recall
