@@ -2172,30 +2172,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
-"aep" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Prison Sanitarium";
-	req_access_txt = "2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only,
-/turf/open/floor/plasteel,
-/area/security/prison)
 "aeq" = (
 /turf/closed/wall/r_wall,
 /area/ai_monitored/security/armory)
@@ -3626,46 +3602,9 @@
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall,
 /area/security/prison)
-"agK" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/security/glass{
-	name = "Prison Wing";
-	req_access_txt = "1"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only,
-/turf/open/floor/plasteel,
-/area/security/prison)
 "agL" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/security/prison)
-"agM" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/door/airlock/security/glass{
-	name = "Prison Wing";
-	req_access_txt = "1"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only,
-/turf/open/floor/plasteel,
 /area/security/prison)
 "agN" = (
 /obj/structure/sign/warning/securearea{
@@ -5057,58 +4996,9 @@
 "ajm" = (
 /turf/closed/wall/r_wall,
 /area/security/brig)
-"ajn" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Prison Wing";
-	req_access_txt = "1"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only,
-/turf/open/floor/plasteel,
-/area/security/brig)
 "ajo" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/security/brig)
-"ajp" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/door/airlock/security/glass{
-	name = "Prison Wing";
-	req_access_txt = "1"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only,
-/turf/open/floor/plasteel,
 /area/security/brig)
 "ajq" = (
 /obj/structure/closet{
@@ -80803,6 +80693,29 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/starboard/fore)
+"dpu" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/airlock/security/glass{
+	name = "Prison Wing";
+	req_one_access_txt = "1;34"
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "dpG" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -82712,7 +82625,9 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
 "gjM" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -83019,6 +82934,30 @@
 	},
 /turf/open/floor/plating/airless,
 /area/maintenance/solars/port/aft)
+"hxy" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Prison Sanitarium";
+	req_one_access_txt = "1;34"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/turf/open/floor/plasteel,
+/area/security/prison)
 "hyP" = (
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod Two"
@@ -84227,6 +84166,32 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/tcommsat/server)
+"lXr" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Prison Wing";
+	req_one_access_txt = "1;34"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/turf/open/floor/plasteel,
+/area/security/brig)
 "lYP" = (
 /obj/machinery/door/airlock/research{
 	name = "Nanite Laboratory";
@@ -85035,6 +85000,23 @@
 /obj/machinery/vending/cigarette,
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
+"puH" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/airlock/security/glass{
+	name = "Prison Wing";
+	req_one_access_txt = "1;34"
+	},
+/turf/open/floor/plasteel,
+/area/security/prison)
 "pvA" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -86221,6 +86203,26 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall,
 /area/hallway/secondary/exit/departure_lounge)
+"uqv" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/airlock/security/glass{
+	name = "Prison Wing";
+	req_one_access_txt = "1;34"
+	},
+/turf/open/floor/plasteel,
+/area/security/prison)
 "urv" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/security/prison)
@@ -112021,10 +112023,10 @@ abe
 abe
 aeX
 afR
-agK
+uqv
 ahy
 aiu
-ajn
+lXr
 akx
 alQ
 anh
@@ -112535,10 +112537,10 @@ ohA
 abe
 aeZ
 afS
-agM
+puH
 ahA
 aiw
-ajp
+dpu
 akz
 ajQ
 anj
@@ -113046,7 +113048,7 @@ acO
 adh
 adB
 adW
-aep
+hxy
 afb
 afU
 agO

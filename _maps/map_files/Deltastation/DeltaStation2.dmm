@@ -29871,51 +29871,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
-"bcL" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Prison Wing";
-	req_access_txt = "1"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/security/prison)
 "bcM" = (
 /obj/structure/cable/white,
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/security/prison)
-"bcN" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Prison Wing";
-	req_access_txt = "1"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
 /area/security/prison)
 "bcO" = (
 /obj/structure/table/reinforced,
@@ -32466,30 +32425,6 @@
 "bgZ" = (
 /turf/closed/wall/r_wall,
 /area/security/brig)
-"bha" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Prison Wing";
-	req_access_txt = "1"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
 "bhb" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -32501,27 +32436,6 @@
 	name = "WARNING: BLAST DOORS"
 	},
 /turf/open/floor/plating,
-/area/security/brig)
-"bhc" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Prison Wing";
-	req_access_txt = "1"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
 /area/security/brig)
 "bhd" = (
 /turf/closed/wall/r_wall,
@@ -96763,6 +96677,28 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port)
+"dje" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Prison Wing";
+	req_one_access_txt = "1;34"
+	},
+/turf/open/floor/plasteel,
+/area/security/prison)
 "djn" = (
 /obj/structure/girder,
 /obj/machinery/door/firedoor/border_only{
@@ -123265,6 +123201,30 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/security/brig)
+"nTS" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Prison Wing";
+	req_one_access_txt = "1;34"
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "nXI" = (
 /obj/item/twohanded/required/pool/pool_noodle,
 /turf/open/indestructible/sound/pool,
@@ -125098,6 +125058,25 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
+"tJf" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Prison Wing";
+	req_one_access_txt = "1;34"
+	},
+/turf/open/floor/plasteel,
+/area/security/prison)
 "tKX" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -125791,6 +125770,27 @@
 /obj/machinery/pool_filter,
 /turf/open/indestructible/sound/pool/end,
 /area/crew_quarters/fitness/recreation)
+"woS" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Prison Wing";
+	req_one_access_txt = "1;34"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "wpB" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -177345,10 +177345,10 @@ aWb
 aXJ
 aZn
 bbc
-bcL
+dje
 bep
 bfN
-bha
+nTS
 biD
 bko
 bmh
@@ -177859,10 +177859,10 @@ aWc
 aXL
 aZp
 bbe
-bcN
+tJf
 ber
 bfP
-bhc
+woS
 biF
 bkq
 bmj
