@@ -403,6 +403,7 @@
 	anim_parts = "ul=-15,0,0,5,-90;ur=0,15,0,5,-90;dl=0,-15,0,5,-90;dr=15,0,0,5,-90"
 	note_attachment = "ul"
 	panel_attachment = "dr"
+	allow_repaint = FALSE
 
 /obj/machinery/door/airlock/maintenance_hatch
 	name = "maintenance hatch"
@@ -414,6 +415,7 @@
 	anim_parts = "ul=-15,0,0,5,-90;ur=0,15,0,5,-90;dl=0,-15,0,5,-90;dr=15,0,0,5,-90"
 	note_attachment = "ul"
 	panel_attachment = "dr"
+	allow_repaint = FALSE
 
 //////////////////////////////////
 /*
@@ -461,6 +463,7 @@
 	aiControlDisabled = 1
 	normal_integrity = 700
 	security_level = 1
+	allow_repaint = FALSE
 
 //////////////////////////////////
 /*
@@ -479,6 +482,7 @@
 	var/openingoverlaytype = /obj/effect/temp_visual/cult/door
 	var/friendly = FALSE
 	var/stealthy = FALSE
+	allow_repaint = FALSE
 
 /obj/machinery/door/airlock/cult/Initialize()
 	. = ..()
@@ -589,6 +593,7 @@
 	assemblytype = null
 	glass = TRUE
 	bound_width = 64 // 2x1
+	allow_repaint = FALSE
 
 /obj/machinery/door/airlock/glass_large/narsie_act()
 	return

@@ -283,3 +283,10 @@
 	alt_covers_chest = TRUE
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
+
+/obj/item/clothing/under/costume/swagoutfit
+	name = "swag outfit"
+	desc = "Why don't you go secure some bitches?"
+	icon_state = "SwagOutfit"
+	item_state = "SwagOutfit"
+	can_adjust = FALSE

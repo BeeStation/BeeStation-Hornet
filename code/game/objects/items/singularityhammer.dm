@@ -37,25 +37,23 @@
 	return
 
 /obj/item/twohanded/singularityhammer/proc/vortex(turf/pull, mob/wielder)
-	for(var/atom/X in orange(5,pull))
-		if(ismovableatom(X))
-			var/atom/movable/A = X
-			if(A == wielder)
-				continue
-			if(A && !A.anchored && !ishuman(X))
-				step_towards(A,pull)
-				step_towards(A,pull)
-				step_towards(A,pull)
-			else if(ishuman(X))
-				var/mob/living/carbon/human/H = X
-				if(istype(H.shoes, /obj/item/clothing/shoes/magboots))
-					var/obj/item/clothing/shoes/magboots/M = H.shoes
-					if(M.magpulse)
-						continue
-				H.apply_effect(20, EFFECT_PARALYZE, 0)
-				step_towards(H,pull)
-				step_towards(H,pull)
-				step_towards(H,pull)
+	for(var/atom/movable/A as mob|obj in orange(5,pull))
+		if(A == wielder)
+			continue
+		if(A && !A.anchored && !ishuman(A))
+			step_towards(A,pull)
+			step_towards(A,pull)
+			step_towards(A,pull)
+		else if(ishuman(A))
+			var/mob/living/carbon/human/H = A
+			if(istype(H.shoes, /obj/item/clothing/shoes/magboots))
+				var/obj/item/clothing/shoes/magboots/M = H.shoes
+				if(M.magpulse)
+					continue
+			H.apply_effect(20, EFFECT_PARALYZE, 0)
+			step_towards(H,pull)
+			step_towards(H,pull)
+			step_towards(H,pull)
 	return
 
 /obj/item/twohanded/singularityhammer/afterattack(atom/A as mob|obj|turf|area, mob/user, proximity)

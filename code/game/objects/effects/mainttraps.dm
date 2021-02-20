@@ -175,25 +175,19 @@
 	var/list/mobss = list()
 	var/list/validturfs = list()
 	var/turf/T = get_turf(src)
-	for(var/atom/I in view(7, src))
-		if(isopenturf(I))
-			turfs += I
-			continue
-		if(isliving(I))
-			var/mob/living/L = I
-			if(L.mind)
-				mobss += L
-				continue
-	for(var/turf/turf in turfs)
+	for(var/turf/open/O in view(7, src))
+		if(!isspaceturf(O))
+			turfs += O
+	for(var/mob/living/L in view(7, src))
+		if(L.mind)
+			mobss += L
+	for(var/turf/turf as() in turfs)
 		var/visible = FALSE
-		if(isspaceturf(turf))
-			continue
-		for(var/mob/living/L in mobss)
+		for(var/mob/living/L as() in mobss)
 			if(can_see(L, turf))
 				visible = TRUE
-		if(visible)
-			continue
-		validturfs += T
+		if(!visible)
+			validturfs += T
 	if(validturfs.len)
 		T = pick(validturfs)
 	if(mobs)
@@ -294,9 +288,8 @@
 	var/cluwne = FALSE
 	if(rune_in_use)
 		return
-	for(var/mob/living/simple_animal/hostile/floor_cluwne/clown in range(5, src))
+	if(locate(/mob/living/simple_animal/hostile/floor_cluwne) in range(5, src))
 		cluwne = TRUE
-		break
 	if(!cluwne && !iscultist(user))
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -334,9 +327,8 @@
 		return
 	if(istype(M, /mob/living/simple_animal/cluwne) || istype(M, /mob/living/simple_animal/hostile/retaliate/clown))
 		var/cluwne = FALSE
-		for(var/mob/living/simple_animal/hostile/floor_cluwne/clown in range(5, src))
+		if(locate(/mob/living/simple_animal/hostile/floor_cluwne) in range(5, src))
 			cluwne = TRUE
-			break
 		if(!cluwne)
 			to_chat(M, "<span class='warning'>We need a connection! One of the honkmother's manifested forms!</span>")
 		else
@@ -346,11 +338,8 @@
 
 /obj/effect/rune/cluwne/can_invoke(user) //this is actually used to get "sacrifices", which can include the user
 	var/list/invokers = list() //people eligible to invoke the rune
-	var/list/things_in_range = range(1, src)
-	for(var/mob/living/carbon/human/L in things_in_range)
-		if(!L.mind)
-			continue
-		if(L.stat)
+	for(var/mob/living/carbon/human/L in range(1, src))
+		if(!L.mind || L.stat)
 			continue
 		invokers += L
 	return invokers
@@ -363,7 +352,7 @@
 		FC.delete_after_target_killed = FALSE
 		FC.interest = 300
 	color = RUNE_COLOR_SUMMON
-	for(var/mob/living/carbon/C in view(10, src))
+	for(var/mob/living/carbon/C in hearers(10, src))
 		C.Stun(350, ignore_canstun = TRUE)
 	priority_announce("Figments of an elder god have been detected in your sector. Exercise extreme caution, and abide by the 'buddy system' at all times.","Central Command Higher Dimensional Affairs", 'sound/ai/spanomalies.ogg')
 	stoplag(315)

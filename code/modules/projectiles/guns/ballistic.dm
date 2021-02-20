@@ -134,15 +134,15 @@
 			return
 		if(BOLT_TYPE_OPEN)
 			if(!bolt_locked)	//If it's an open bolt, racking again would do nothing
-				if (user)
+				if(user)
 					to_chat(user, "<span class='notice'>\The [src]'s [bolt_wording] is already cocked!</span>")
 				return
 			bolt_locked = FALSE
 		if(BOLT_TYPE_PUMP)
-			if(user.get_inactive_held_item())
+			if(user?.get_inactive_held_item())
 				to_chat(user, "<span class='warning'>You require your other hand to be free to rack the [bolt_wording] of \the [src]!</span>")
 				return
-	if (user)
+	if(user)
 		to_chat(user, "<span class='notice'>You rack the [bolt_wording] of \the [src].</span>")
 	process_chamber(!chambered, FALSE)
 	if (bolt_type == BOLT_TYPE_LOCKING && !chambered)

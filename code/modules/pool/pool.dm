@@ -74,7 +74,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	var/atom/movable/AM = dropping
 	var/datum/component/swimming/S = dropping.GetComponent(/datum/component/swimming)
 	if(S)
-		if(do_after(user, 1 SECONDS, target=src))
+		if(do_after(user, 1 SECONDS, target = dropping))
 			S.RemoveComponent()
 			visible_message("<span class='notice'>[dropping] climbs out of the pool.</span>")
 			AM.forceMove(src)
@@ -93,7 +93,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 		 "<span class='notice'>You start to lower [dropping] down into [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>You start climbing down into [src]...")
-	if(do_after(user, 4 SECONDS, target=src))
+	if(do_after(user, 4 SECONDS, target = dropping))
 		splash(dropping)
 
 /datum/mood_event/poolparty

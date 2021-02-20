@@ -160,8 +160,7 @@
 		if(prob(10))
 			target = get_turf(user)
 		else
-			var/list/possible_targets = range(3,src)
-			target = pick(possible_targets)
+			target = pick(RANGE_TURFS(3,src))
 		discharge = 1
 	if(!discharge)
 		user.visible_message("<span class='danger'>[user] fires \the [src]!</span>", \

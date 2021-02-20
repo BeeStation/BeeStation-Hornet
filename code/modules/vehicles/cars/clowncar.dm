@@ -163,7 +163,7 @@
 		if(6)
 			visible_message("<span class='danger'>[user] has pressed one of the colorful buttons on [src] and the clown car lets out a comedic toot.</span>")
 			playsound(src, 'sound/vehicles/clowncar_fart.ogg', 100)
-			for(var/mob/living/L in orange(loc, 6))
+			for(var/mob/living/L in oviewers(6, loc))
 				L.emote("laughs")
 			for(var/mob/living/L in occupants)
 				L.emote("laughs")
