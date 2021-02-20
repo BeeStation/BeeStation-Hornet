@@ -40,14 +40,14 @@
 	var/obj/effect/proc_holder/spell/targeted/eminence/station/spell_station
 	var/obj/effect/proc_holder/spell/targeted/eminence/mass_recall/mass_recall
 	var/obj/effect/proc_holder/spell/targeted/eminence/reagent_purge/reagent_purge
-	var/obj/effect/proc_holder/spell/targeted/eminence/linked_asbcond/linked_abscond
+	var/obj/effect/proc_holder/spell/targeted/eminence/linked_abscond/linked_abscond
 
 /mob/living/simple_animal/eminence/ClickOn(atom/A, params)
 	. = ..()
 	if(!.)
 		A.eminence_act(src)
 
-/mob/living/simple_animal/eminence/attack_animal(mob/living/simple_animal/M)
+/mob/living/simple_animal/eminence/UnarmedAttack(atom/A)
 	return
 
 /mob/living/simple_animal/eminence/Initialize()
@@ -174,13 +174,13 @@
 	return TRUE
 
 //=====Linked Abscond=====
-/obj/effect/proc_holder/spell/targeted/eminence/linked_asbcond
+/obj/effect/proc_holder/spell/targeted/eminence/linked_abscond
 	name = "Linked Abscond"
 	desc = "Warps a target to Reebe if they are still for 7 seconds."
 	action_icon_state = "Linked Abscond"
 	charge_max = 4500
 
-/obj/effect/proc_holder/spell/targeted/eminence/linked_asbcond/can_cast(mob/user)
+/obj/effect/proc_holder/spell/targeted/eminence/linked_abscond/can_cast(mob/user)
 	if(!..())
 		return FALSE
 	var/mob/living/simple_animal/eminence/E = user
@@ -190,7 +190,7 @@
 		return TRUE
 	return FALSE
 
-/obj/effect/proc_holder/spell/targeted/eminence/linked_asbcond/cast(list/targets, mob/living/user)
+/obj/effect/proc_holder/spell/targeted/eminence/linked_abscond/cast(list/targets, mob/living/user)
 	var/mob/living/simple_animal/eminence/E = user
 	if(!istype(E))
 		to_chat(E, "<span class='brass'>You are not the Eminence! (This is a bug)</span>")
