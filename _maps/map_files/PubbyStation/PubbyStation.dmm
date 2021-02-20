@@ -43678,7 +43678,7 @@
 	pixel_x = 2;
 	pixel_y = 4
 	},
-/obj/item/clothing/gloves/color/yellow,
+/obj/item/clothing/gloves/color/fyellow,
 /obj/item/t_scanner,
 /obj/effect/turf_decal/tile/green{
 	dir = 1
