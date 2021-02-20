@@ -75289,7 +75289,6 @@
 /area/security/brig)
 "cdS" = (
 /obj/structure/sign/warning/securearea,
-/obj/item/multitool,
 /turf/closed/wall/r_wall,
 /area/security/nuke_storage)
 "cdT" = (
