@@ -31668,7 +31668,7 @@
 	pixel_x = 1;
 	pixel_y = -1
 	},
-/obj/item/clothing/gloves/color/yellow,
+/obj/item/clothing/gloves/color/fyellow,
 /obj/item/t_scanner,
 /obj/item/multitool,
 /turf/open/floor/plating,
