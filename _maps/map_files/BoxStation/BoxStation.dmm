@@ -45557,6 +45557,12 @@
 	},
 /turf/open/space/basic,
 /area/space)
+"cIG" = (
+/obj/machinery/airalarm{
+	pixel_y = 23
+	},
+/turf/open/floor/plasteel/dark,
+/area/medical/morgue)
 "cKn" = (
 /obj/machinery/button/door{
 	id = "maint2";
@@ -93950,7 +93956,7 @@ aJq
 chm
 lrp
 cBD
-bFi
+cIG
 bFi
 bGE
 cuU
