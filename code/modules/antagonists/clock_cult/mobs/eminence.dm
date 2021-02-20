@@ -69,7 +69,8 @@
 
 /mob/living/simple_animal/eminence/Login()
 	. = ..()
-	add_servant_of_ratvar(src, silent=TRUE)
+	var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(src, silent=TRUE)
+	S.prefix = CLOCKCULT_PREFIX_EMINENCE
 	to_chat(src, "<span class='large_brass'>You are the Eminence!</span>")
 	to_chat(src, "<span class='brass'>Click on objects to perform actions, different objects have different actions, try them out!</span>")
 	to_chat(src, "<span class='brass'>Many of your spells require a target first. Click on a servant to select them!</span>")
