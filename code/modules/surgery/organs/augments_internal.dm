@@ -187,34 +187,14 @@
 	var/list/style = null
 
 /obj/item/organ/cyberimp/skillChip/Insert(mob/living/carbon/M, special, drop_if_replaced)
-	if(!iscarbon(M) || owner == M)
-		return
-
-	var/obj/item/organ/replaced = M.getorganslot(slot)
-	if(replaced)
-		replaced.Remove(M, special = 1)
-		if(drop_if_replaced)
-			replaced.forceMove(get_turf(M))
-		else
-			qdel(replaced)
-
-	SEND_SIGNAL(M, COMSIG_CARBON_GAIN_ORGAN, src)
-
-	owner = M
-	M.internal_organs |= src
-	M.internal_organs_slot[slot] = src
+	..()
 	for(var/trait in applied_traits)
 		ADD_TRAIT(M, trait, "skillChip")
 	log_combat(M, M, "inserted this organ: ", "[name]")
-	moveToNullspace()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.Grant(M)
 	if(style)
 		for(var/martialArt in style)
 			var/datum/martial_art/S = new martialArt
 			S.teach(M)
-	STOP_PROCESSING(SSobj, src)
 
 /obj/item/organ/cyberimp/skillChip/Remove(mob/living/carbon/M, special)
 	owner = null
