@@ -213,12 +213,10 @@
 	visible_message("<span class='warning'>[src] suddenly twists and changes shape, becoming a copy of [target]!</span>", \
 					"<span class='notice'>You twist your body and assume the form of [target].</span>")
 	appearance = target.appearance
-	copy_overlays(target)
-	if(target.vis_contents)
-		for(var/I in 1 to length(target.vis_contents))
-			var/obj/p = target.vis_contents[I]
-			icon = p.icon
-			add_overlay(list(p.icon_state, p.overlays))
+	copy_overlays(target, TRUE)
+	if(length(target.vis_contents))
+		for(var/atom/A as() in target.vis_contents)
+			add_overlay(A)
 	alpha = max(alpha, 150)	//fucking chameleons
 	transform = initial(transform)
 	pixel_y = initial(pixel_y)
