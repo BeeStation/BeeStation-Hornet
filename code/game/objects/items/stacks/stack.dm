@@ -189,7 +189,7 @@
 			usr.visible_message("<span class='notice'>[usr] starts building \a [R.title].</span>", "<span class='notice'>You start building \a [R.title]...</span>")
 			if (HAS_TRAIT(usr, TRAIT_CONSTRUCTION) && !do_after(usr, R.time/2, target = usr))
 				return
-			if(!do_after(usr, R.time/2, target = usr))
+			else if(!do_after(usr, R.time, target = usr))
 				return
 			if(!building_checks(R, multiplier))
 				return
