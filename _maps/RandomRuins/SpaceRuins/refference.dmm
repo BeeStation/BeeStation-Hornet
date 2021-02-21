@@ -1,43 +1,81 @@
-"a" = (/turf/open/space/basic,/area/space)
-"b" = (/turf/open/floor/plating/beach/sand,/area/space)
-"c" = (/turf/open/floor/plating/asteroid/airless,/area/space)
-"d" = (/turf/closed/mineral/random/high_chance,/area/space)
-"e" = (/obj/structure/flora/ausbushes/brflowers,/turf/open/floor/plating/beach/sand,/area/space)
-"f" = (/obj/structure/flora/junglebush/b,/turf/open/floor/plating/beach/sand,/area/space)
-"g" = (/obj/structure/flora/junglebush/large,/turf/open/floor/plating/beach/sand,/area/space)
-"h" = (/obj/structure/flora/tree/palm,/turf/open/floor/plating/beach/sand,/area/space)
-"i" = (/obj/structure/flora/grass/jungle,/turf/open/floor/plating/beach/sand,/area/space)
-"j" = (/obj/structure/flora/grass/jungle/b,/turf/open/floor/plating/beach/sand,/area/space)
-"k" = (/obj/structure/flora/grass/both,/turf/open/floor/plating/beach/sand,/area/space)
-"l" = (/obj/structure/flora/stump,/turf/open/floor/plating/beach/sand,/area/space)
-"m" = (/obj/item/robot_suit/prebuilt{name = "rusty robot",created_name = "Bender"},/turf/open/floor/plating/beach/sand,/area/space)
-"n" = (/obj/item/toy/crayon/spraycan,/turf/open/floor/plating/beach/sand,/area/space)
-"o" = (/obj/item/reagent_containers/food/drinks/beer,/turf/open/floor/plating/beach/sand,/area/space)
+"aa" = (/turf/open/space/basic,/area/space)
+"ab" = (/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"ac" = (/turf/open/floor/plating/asteroid/airless,/area/ruin/unpowered)
+"ad" = (/turf/closed/mineral/random/high_chance,/area/ruin/unpowered)
+"ae" = (/obj/structure/flora/ausbushes/brflowers,/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"af" = (/obj/structure/flora/junglebush/b,/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"ag" = (/obj/structure/flora/junglebush/large,/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"ah" = (/obj/structure/flora/tree/palm,/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"ai" = (/obj/structure/flora/grass/jungle,/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aj" = (/obj/structure/flora/grass/jungle/b,/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"ak" = (/obj/structure/flora/grass/both,/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"al" = (/obj/structure/flora/stump,/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"am" = (/obj/item/robot_suit/prebuilt{name = "lost cyborg"; dest = "It looks rusty..."; created_name = "Bender"},/obj/effect/decal/cleanable/oil,/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"an" = (/obj/item/toy/crayon/spraycan{charges = 0},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"ao" = (/obj/item/reagent_containers/food/drinks/beer,/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"ap" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "s"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aq" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "w"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"ar" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "n"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "e"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"as" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "m"; pixel_x = -8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"at" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "i"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "t"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"au" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "m"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"av" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "a"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "y"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aw" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "c"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"ax" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "o"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "n"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"ay" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "c"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "e"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"az" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "r"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "n"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aA" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "i"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = ","; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aB" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "b"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "e"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aC" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "n"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "d"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aD" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "e"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "r"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aE" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = ","; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "b"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aG" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "y"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aH" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "o"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "u"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aK" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "e"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "d"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aL" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "!"; pixel_x = -8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aM" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "y"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "o"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aN" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "u"; pixel_x = -8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aO" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "d"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "o"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aP" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "n"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "t"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aQ" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "k"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aR" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "p"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "o"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aS" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "w"; pixel_x = -8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aT" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "m"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "e"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aU" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "h"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aV" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "b"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "u"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aW" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "i"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "n"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aX" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "l"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "o"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aY" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "a"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "t"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"aZ" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "s"; pixel_x = -8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"ba" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "n"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "o"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"bb" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "t"; pixel_x = -8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"bc" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "t"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "h"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"bd" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "e"; pixel_x = -8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"be" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "n"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "g"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"bf" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "e"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "l"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"bg" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "t"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "o"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"bh" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "r"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "y"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"bi" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "s"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"bj" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "h"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "o"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"bk" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "r"; pixel_x = -8},/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "t"; pixel_x = 8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"bl" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = ","; pixel_x = -8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
+"bn" = (/obj/effect/decal/cleanable/crayon{paint_colour = "#696969"; icon_state = "i"; pixel_x = -8},/turf/open/floor/plating/beach/sand,/area/ruin/unpowered)
 
 (1,1,1) = {"
-aaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaacdddcaaaaaaaaaaaaa
-aaaadccdddddccaacccaaaaaa
-aaadddccdddcccccccccaaaaa
-aaaadicccfjcccbbbgbcaaaaa
-aaaaabbhebbbbbbbbmbbaaaaa
-aaaaabbbbbbbbbbbnbobaaaaa
-aaaaaabbbbbbbbbbbbbbaaaaa
-aaaaaabbbbbbbbbbbbbaaaaaa
-aaaaaabbbbbbbbbbbaaaaaaaa
-aaaaaaabbbbbbbbbaaaaaaaaa
-aaaaaaabbbbbbbbbaaaaaaaaa
-aaaaaaaabbbbbbbkaaaaaaaaa
-aaaaaaaaacbbbblbaaaaaaaaa
-aaaaaaaaaacbbbbcaaaaaaaaa
-aaaaaaaaaaaccbcaaaaaaaaaa
-aaaaaaaaaaaaacaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaacadadadacaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaadacacadadadadadacacaaaaacacacaaaaaaaaaaaa
+aaaaaaadadadacacadadadacacacacacacacacacaaaaaaaaaa
+aaaaaaaaadaiacacacafajacacacabababagabacaaaaaaaaaa
+aaaaaaaaaaababahaeababababababababamababaaaaaaaaaa
+aaaaaaaaaaabababababababababababanabaoabaaaaaaaaaa
+aaaaaaaaaaababbgaqbjasatauavawaxayazababaaaaaaaaaa
+aaaaaaaaaaaAaBaCaDaEabaGaHaUbfaXaLababaaaaaaaaaaaa
+aaaaaaaaaaaaaMaNaOaPaQbaaSaTblabababaaaaaaaaaaaaaa
+aaaaaaaaaaaaaVbbbcaYaZbabbbcbdaRaWbbaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaXbebibgbhapbjbkblabaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaabbnaraKaUbfabakaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaacababababalabaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaacababababacaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaacacabacaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaacaaaaaaaaaaaaaaaaaaaaaa
 "}

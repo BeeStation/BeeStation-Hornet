@@ -14,9 +14,6 @@
 
 // BEGIN_INCLUDE
 #include "_maps\_basemap.dm"
-#include "_maps\RandomRuins\SpaceRuins\spacearcade.dmm"
-#include "_maps\RandomRuins\SpaceRuins\spacedock13.dmm"
-#include "_maps\RandomRuins\SpaceRuins\spaceskelscape.dmm"
 #include "code\_compile_options.dm"
 #include "code\world.dm"
 #include "code\__DEFINES\_globals.dm"

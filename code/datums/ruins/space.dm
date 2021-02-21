@@ -18,7 +18,6 @@
 	name = "Asteroid 1"
 	description = "I-spy with my little eye, something beginning with R."
 
-
 /datum/map_template/ruin/space/asteroid2
 	id = "asteroid2"
 	suffix = "asteroid2.dmm"
@@ -43,6 +42,78 @@
 	suffix = "asteroid5.dmm"
 	name = "Asteroid 5"
 	description = "Oh my god, another giant rock!"
+
+/datum/map_template/ruin/space/asteroid6
+	id = "asteroid6"
+	suffix = "asteroid6.dmm"
+	name = "Asteroid 6"
+	description = "A odd crescent body."
+
+/datum/map_template/ruin/space/asteroid7
+	id = "asteroid7"
+	suffix = "asteroid7.dmm"
+	name = "Asteroid 7"
+	description = "Space rocks!"
+
+/datum/map_template/ruin/space/asteroid8
+	id = "asteroid8"
+	suffix = "asteroid8.dmm"
+	name = "Asteroid 8"
+	description = "Space rocks."
+
+/datum/map_template/ruin/space/asteroid9
+	id = "asteroid9"
+	suffix = "asteroid9.dmm"
+	name = "Asteroid 9"
+	description = "This looks like it was a shuttle at some point... Now it's all rocks!"
+
+/datum/map_template/ruin/space/sos1
+	id = "sos1"
+	suffix = "sos1.dmm"
+	name = "Pod 1"
+	description = "Help! I ran off course and I will never reach my destination!"
+
+/datum/map_template/ruin/space/sos2
+	id = "sos2"
+	suffix = "sos2.dmm"
+	name = "Pod 2"
+	description = "Full frontal collision!"
+
+/datum/map_template/ruin/space/sos3
+	id = "sos3"
+	suffix = "sos3.dmm"
+	name = "Pod 3"
+	description = "An ancient pod made out of odd materials..."
+
+/datum/map_template/ruin/space/sos4
+	id = "sos4"
+	suffix = "sos4.dmm"
+	name = "Pod 4"
+	description = "Yuck!"
+
+/datum/map_template/ruin/space/sos5
+	id = "sos5"
+	suffix = "sos5.dmm"
+	name = "Pod 5"
+	description = "Help never arrived!"
+
+/datum/map_template/ruin/space/sos6
+	id = "sos6"
+	suffix = "sos6.dmm"
+	name = "Pod 6"
+	description = "Cyka bylat! Vodka!!!"
+
+/datum/map_template/ruin/space/sos7
+	id = "sos7"
+	suffix = "sos7.dmm"
+	name = "Pod 7"
+	description = "Help! I was human once!"
+
+/datum/map_template/ruin/space/sos8
+	id = "sos8"
+	suffix = "sos8.dmm"
+	name = "Pod 8"
+	description = "CRASH!!!"
 
 /datum/map_template/ruin/space/deep_storage
 	id = "deep-storage"
@@ -312,3 +383,33 @@
 	name = "Power Puzzle"
 	description = "an abandoned secure storage location. there is no power left in the batteries and the former ocupants locked it pretty tight before leaving.\
 	You will have to power areas to raise the bolts on the doors. look out for secrets."
+
+/datum/map_template/ruin/space/spacearcade
+	id = "spacearcade"
+	suffix = "spacearcade.dmm"
+	name = "Space Arcade"
+	description = "Come here to have fun! We even have the best arcade game in the Universe, Dance Dance Revolution!"
+
+/datum/spacedock13/ruin/space/spacedock
+	id = "spacearcade"
+	suffix = "spacedock13.dmm"
+	name = "Shuttle Construction"
+	description = "A shuttle building station that seems to have been forgotten, or floated off into space."
+
+/datum/spacedock13/ruin/space/spacehive
+	id = "spacehive"
+	suffix = "spacehive.dmm"
+	name = "Space Hive"
+	description = "A hydroponics experiment gone horribly, horribly wrong!"
+
+/datum/spacedock13/ruin/space/swarmerstation
+	id = "swarmerstation13"
+	suffix = "swarmerstation13.dmm"
+	name = "Swarmer Station"
+	description = "Shat is left of a syndicate radio station, after swarmers infiltrated it."
+
+/datum/spacedock13/ruin/space/refference
+	id = "refference"
+	suffix = "refference.dmm"
+	name = "Lost Cyborg"
+	description = "Dun dun! Dun duun! Dun dun! Dun duun!!!"
