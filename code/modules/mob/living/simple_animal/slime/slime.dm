@@ -110,14 +110,6 @@
 	. = ..()
 	set_nutrition(700)
 
-/mob/living/simple_animal/slime/Destroy()
-	for(var/A in actions)
-		var/datum/action/AC = A
-		AC.Remove(src)
-	remove_form_spawner_menu()
-	master = null
-	return ..()
-
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
 	colour = new_colour
 	update_name()
