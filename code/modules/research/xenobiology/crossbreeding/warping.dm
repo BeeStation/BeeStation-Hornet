@@ -50,9 +50,9 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	var/obj/item/stack/space_crystal = used_item
 	if(do_after(user, storing_time,target = src)) //the time it takes to nullify it depends on the rune too
 		to_chat(user, "<span class='notice'>You nullify the effects of the rune with the bluespace crystal!</span>")
-		qdel(src)
 		space_crystal.use(1)
 		playsound(src, 'sound/effects/phasein.ogg', 20, TRUE)
+		qdel(src)
 
 /obj/effect/warped_rune/acid_act()
 	. = ..()
