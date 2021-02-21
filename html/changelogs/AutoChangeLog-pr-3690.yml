@@ -1,8 +1,0 @@
-author: park66665
-delete-after: true
-changes:
-  - bugfix: atmos machines that operates with external air now no longer try to function
-      in walls and other closed turfs and cause unending errors and ridiculous results
-  - bugfix: closets now properly react to revenant's Malfunction ability
-  - bugfix: changelings no longer experience problems for having suit powers and then
-      transforming to and fro human
