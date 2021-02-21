@@ -1,5 +1,0 @@
-author: park66665
-delete-after: true
-changes:
-  - bugfix: AI controlled morphs should no longer disguise as light itself and be
-      un-click-able.
