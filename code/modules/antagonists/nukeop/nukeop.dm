@@ -54,7 +54,10 @@
 	forge_objectives()
 	. = ..()
 	equip_op()
-	memorize_code()
+	if(nuke_team?.memorized_code)
+		memorize_code()
+	if(nuke_team?.memorized_targets)
+		memorize_targets()
 	memorize_frequency()
 	if(send_to_spawnpoint)
 		move_to_spawnpoint()
@@ -71,17 +74,21 @@
 
 /datum/antagonist/nukeop/proc/assign_nuke()
 	if(nuke_team && !nuke_team.tracked_nuke)
-		nuke_team.memorized_code = random_nukecode()
 		var/obj/machinery/nuclearbomb/syndicate/nuke = locate() in GLOB.nuke_list
 		if(nuke)
 			nuke_team.tracked_nuke = nuke
-			if(nuke.r_code == "ADMIN")
-				nuke.r_code = nuke_team.memorized_code
-			else //Already set by admins/something else?
-				nuke_team.memorized_code = nuke.r_code
-			for(var/obj/machinery/nuclearbomb/beer/beernuke in GLOB.nuke_list)
-				if(beernuke.r_code == "ADMIN")
-					beernuke.r_code = nuke_team.memorized_code
+			if(istype(nuke, /obj/machinery/nuclearbomb/syndicate/proto))
+				var/obj/machinery/nuclearbomb/syndicate/proto/heisenbomb = nuke
+				nuke_team.memorized_targets = heisenbomb.target_areas
+			else
+				nuke_team.memorized_code = random_nukecode()
+				if(nuke.r_code == "ADMIN")
+					nuke.r_code = nuke_team.memorized_code
+				else //Already set by admins/something else?
+					nuke_team.memorized_code = nuke.r_code
+				for(var/obj/machinery/nuclearbomb/beer/beernuke in GLOB.nuke_list)
+					if(beernuke.r_code == "ADMIN")
+						beernuke.r_code = nuke_team.memorized_code
 		else
 			stack_trace("Syndicate nuke not found during nuke team creation.")
 			nuke_team.memorized_code = null
@@ -103,6 +110,24 @@
 		to_chat(owner, "The nuclear authorization code is: <B>[nuke_team.memorized_code]</B>")
 	else
 		to_chat(owner, "Unfortunately the syndicate was unable to provide you with nuclear authorization code.")
+
+/datum/antagonist/nukeop/proc/memorize_targets()
+	var/obj/machinery/nuclearbomb/syndicate/proto/specialbomb = nuke_team.tracked_nuke
+	if(nuke_team && nuke_team.tracked_nuke && nuke_team.memorized_targets)
+		var/chat_list
+		antag_memory += "<b>[nuke_team.tracked_nuke] Targets</b><br>"
+		for(var/area/target in nuke_team.memorized_targets)
+			antag_memory += "<b> * [target.name]</b><br>"
+			if(!chat_list)
+				chat_list = target.name
+			else
+				chat_list = "[chat_list], [target.name]"
+		to_chat(owner, "The nuclear bomb may be planted in: <B>[chat_list]</B>")
+	else if(specialbomb.plant_anywhere)
+		antag_memory += "<b>[nuke_team.tracked_nuke] Targets:</b> ANYWHERE<br>"
+		to_chat(owner, "The nuclear bomb may be planted: <B>ANYWHERE</B>")
+	else
+		to_chat(owner, "You aren't entirely sure your bomb actually works.")
 
 /datum/antagonist/nukeop/proc/memorize_frequency()
 	if(nuke_team?.team_frequency)
@@ -262,6 +287,7 @@
 	var/obj/machinery/nuclearbomb/tracked_nuke
 	var/core_objective = /datum/objective/nuclear
 	var/memorized_code
+	var/memorized_targets
 	var/team_frequency
 	var/list/team_discounts
 

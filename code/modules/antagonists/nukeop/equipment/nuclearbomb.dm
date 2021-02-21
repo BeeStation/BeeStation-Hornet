@@ -239,6 +239,8 @@
 			playsound(loc, 'sound/items/timer.ogg', volume, FALSE)
 
 /obj/machinery/nuclearbomb/proc/update_ui_mode()
+	if(!src)
+		return
 	if(exploded)
 		ui_mode = NUKEUI_EXPLODED
 		return
@@ -317,6 +319,8 @@
 	return data
 
 /obj/machinery/nuclearbomb/ui_act(action, params)
+	if(yes_code == 2)//magic number trigger shit to bypass the parent. FIXME
+		return ..()
 	if(..())
 		return
 	playsound(src, "terminal_type", 20, FALSE)
@@ -602,6 +606,206 @@ This is here to make the tiles around the station mininuke change when it's arme
 		SSmapping.add_nuke_threat(src)
 	else
 		SSmapping.remove_nuke_threat(src)
+
+//==========PROTOTYPE NUKE================
+
+/obj/machinery/nuclearbomb/syndicate/proto
+	name = "prototype nuclear fusion explosive"
+	desc = "A prototype nuclear weapon, the plating looks somewhat weak."
+
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF //Not indestructible.
+	max_integrity = 2000 //This will need adjustment through testing.
+	damage_deflection = 10 //But not *that* weak
+
+	yes_code = 2 //Dumb fucking trigger value.
+	safety = FALSE
+
+	//Timer defines. 10 minutes.
+	maximum_timer_set = 600
+	minimum_timer_set = 600
+	timer_set = 600
+
+	maptext_width = 64
+	maptext_x = -16
+	maptext_y = 12
+
+	var/list/area/target_areas
+	var/plant_anywhere = FALSE
+	var/disky_speedup = 10 //how many deciseconds does disky strip off per process?
+
+
+/obj/machinery/nuclearbomb/syndicate/proto/Initialize()
+	. = ..()
+	//We don't give a shit about power, and I need this for something far more useful.
+	RegisterSignal(src, COMSIG_ENTER_AREA, .proc/update_ui_mode, override=TRUE)
+
+/obj/machinery/nuclearbomb/syndicate/proto/ui_interact(mob/user, datum/tgui/ui=null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "GoonNuke")
+		ui.open()
+
+/obj/machinery/nuclearbomb/syndicate/proto/update_ui_mode()
+	if(!src)
+		return
+
+	if(!target_areas && !plant_anywhere)
+		ui_mode = PROTONUKEUI_NOTARGETS
+		return
+
+	if(exploded)
+		ui_mode = PROTONUKEUI_EXPLODED
+		return
+
+	if(obj_integrity <= integrity_failure)
+		ui_mode = PROTONUKEUI_DESTROYED
+		return
+
+	if(plant_anywhere || (get_area(src) in target_areas))
+		if(timing)
+			if(auth)
+				ui_mode = PROTONUKEUI_DISKUSED
+				return
+			else
+				ui_mode = PROTONUKEUI_TIMING
+				return
+		else
+			if(anchored)
+				ui_mode = PROTONUKEUI_AWAIT_ARM
+				return
+			else
+				ui_mode = PROTONUKEUI_NOT_READY
+				playsound(src, 'sound/machines/nuke/confirm_beep.ogg', 50, FALSE)
+				update_icon()
+				return
+	else
+		ui_mode = PROTONUKEUI_WRONGZONE
+		update_icon()
+		return
+
+/obj/machinery/nuclearbomb/syndicate/proto/ui_data(mob/user)
+	var/list/data = list()
+	var/first_status
+	var/second_status
+	switch(ui_mode)
+		if(PROTONUKEUI_NOTARGETS)
+			first_status = "TARGET EEPROM NOT FLASHED"
+			second_status = "CONTACT A WIZARD"
+		if(PROTONUKEUI_WRONGZONE)
+			first_status = "DEVICE LOCKED"
+			second_status = "NOT AT BOMBSITE"
+		if(PROTONUKEUI_NOT_READY)
+			first_status = "DEVICE LOCKED"
+			second_status = "MUST BE ANCHORED"
+		if(PROTONUKEUI_AWAIT_ARM)
+			first_status = "DEVICE READY"
+			second_status = "ALARM WILL SOUND"
+		if(PROTONUKEUI_TIMING)
+			first_status = "DEVICE ARMED"
+			second_status = "TIME: [get_time_left()]"
+		if(PROTONUKEUI_DISKUSED)
+			first_status = "ARMED, COPROCESSOR PRESENT"
+			second_status = "TIME: [get_time_left()]"
+		if(PROTONUKEUI_DESTROYED)
+			first_status = "SYS 152039: MEM CLEAR"
+			second_status = "CONTACT SUPPORT"
+		if(PROTONUKEUI_EXPLODED)
+			first_status = "DEVICE DEPLOYED"
+			second_status = "THANK YOU"
+
+	data["status1"] = first_status
+	data["status2"] = second_status
+
+	return data
+
+/obj/machinery/nuclearbomb/syndicate/proto/set_anchor()
+	if(timing)
+		to_chat(usr, "<span class='warning'>The reaction would destabilize if you moved it!</span>")
+		return
+	..()
+/obj/machinery/nuclearbomb/syndicate/proto/set_safety()
+	if(timing)
+		to_chat(usr, "<span class='warning'>The reaction can't be aborted!</span>")
+		return
+	..()
+
+/obj/machinery/nuclearbomb/syndicate/proto/set_active()
+	if(!anchored)
+		to_chat(usr, "<span class='warning'>You have to anchor the device first!</span>")
+		return
+	if(timing)
+		to_chat(usr, "<span class='warning'>The reaction can't be aborted!</span>")
+		return
+	..()
+	if(timing)
+		priority_announce("A high-yield fusion warhead has been detected in [get_area(src).name]. The device must be destroyed before the warhead detonates!","Nuclear Emergency", 'sound/misc/airraid.ogg')
+
+
+/obj/machinery/nuclearbomb/syndicate/proto/disk_check(obj/item/disk/nuclear/D)
+	if(D.fake)
+		say("Coprocessor CPUID Invalid; disk not recognised.")
+		return FALSE
+	else
+		return TRUE
+
+/obj/machinery/nuclearbomb/syndicate/proto/ui_act(action, params)
+	if(..()) //I just want to call the grandparent here...
+		return
+	playsound(src, "terminal_type", 20, FALSE)
+	switch(action)
+		if("eject_disk")
+			if(auth && auth.loc == src)
+				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+				playsound(src, 'sound/machines/nuke/general_beep.ogg', 50, FALSE)
+				auth.forceMove(get_turf(src))
+				auth = null
+				. = TRUE
+			else
+				var/obj/item/I = usr.is_holding_item_of_type(/obj/item/disk/nuclear)
+				if(I && disk_check(I) && usr.transferItemToLoc(I, src))
+					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+					playsound(src, 'sound/machines/nuke/general_beep.ogg', 50, FALSE)
+					auth = I
+					. = TRUE
+			update_ui_mode()
+		if("arm")
+			if(anchored && (plant_anywhere || (get_area(src) in target_areas)))
+				playsound(src, 'sound/machines/nuke/confirm_beep.ogg', 50, FALSE)
+				set_active()
+				update_ui_mode()
+				. = TRUE
+			else
+				playsound(src, 'sound/machines/nuke/angry_beep.ogg', 50, FALSE)
+		if("anchor")
+			if(!timing)
+				playsound(src, 'sound/machines/nuke/general_beep.ogg', 50, FALSE)
+				set_anchor()
+				update_ui_mode()
+			else
+				playsound(src, 'sound/machines/nuke/angry_beep.ogg', 50, FALSE)
+
+/obj/machinery/nuclearbomb/syndicate/proto/get_nuke_state()
+	if(exploding)
+		return NUKE_ON_EXPLODING
+	if(timing)
+		return NUKE_ON_TIMING
+	if(ui_mode == PROTONUKEUI_NOT_READY)
+		return NUKE_OFF_UNLOCKED
+	else
+		return NUKE_OFF_LOCKED
+
+/obj/machinery/nuclearbomb/syndicate/proto/process()
+	if(timing && !exploding)
+		if(auth) //Do we have the disk/coprocessor?
+			detonation_timer -= disky_speedup //Subtract the disky bonus
+		var/remaining = get_time_left()
+		if(remaining > 0)
+			remaining = "[add_leading(num2text((remaining / 60) % 60), 2, "0")]:[add_leading(num2text(remaining % 60), 2, " ")]"
+		else
+			remaining = "00:00"
+		maptext = "<center><span class='chatOverhead' style='color:red'>[remaining]</span></center>"
+		..()
+
 
 //==========DAT FUKKEN DISK===============
 /obj/item/disk

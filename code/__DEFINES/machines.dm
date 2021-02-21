@@ -116,6 +116,17 @@
 #define NUKE_ON_TIMING		2
 #define NUKE_ON_EXPLODING	3
 
+//Prototype (Goon) Nuclear bomb
+#define PROTONUKEUI_NOTARGETS	-1
+
+#define PROTONUKEUI_WRONGZONE	0	//Not in a valid target area.
+#define PROTONUKEUI_NOT_READY	1	//Not Anchored.
+#define PROTONUKEUI_AWAIT_ARM	2	//Ready to blast.
+#define PROTONUKEUI_TIMING		3	//Counting down.
+#define PROTONUKEUI_DISKUSED	4	//Counting down, with disk bonus.
+#define PROTONUKEUI_DESTROYED	5	//Broken.
+#define PROTONUKEUI_EXPLODED	6	//Blown.
+
 #define MACHINE_NOT_ELECTRIFIED 0
 #define MACHINE_ELECTRIFIED_PERMANENT -1
 #define MACHINE_DEFAULT_ELECTRIFY_TIME 30

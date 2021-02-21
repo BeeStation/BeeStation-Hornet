@@ -16,6 +16,15 @@ $background-beige: #E8E4C9;
   padding: 0.25em;
 }
 
+.NuclearBomb__namePlate {
+  background-color: #585337;
+  border: 0.167em inset $background-beige;
+  color: goldenrod;
+  font-size: 2em;
+  font-family: Georgia, serif;
+  padding: 0.25em;
+}
+
 .NuclearBomb__Button {
   outline-width: 0.25rem !important;
   border-width: 0.65rem !important;
