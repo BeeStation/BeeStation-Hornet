@@ -215,8 +215,7 @@
 	appearance = target.appearance
 	copy_overlays(target, TRUE)
 	if(length(target.vis_contents))
-		for(var/atom/A as() in target.vis_contents)
-			add_overlay(A)
+		add_overlay(target.vis_contents)
 	alpha = max(alpha, 150)	//fucking chameleons
 	transform = initial(transform)
 	pixel_y = initial(pixel_y)
