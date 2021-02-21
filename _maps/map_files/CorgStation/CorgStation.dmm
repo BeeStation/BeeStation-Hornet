@@ -5188,21 +5188,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"bfO" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/obj/machinery/door/airlock/security/glass{
-	name = "Security Medical";
-	req_access_txt = "2"
-	},
-/turf/open/floor/plasteel/white,
-/area/security/brig)
 "bfS" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -9131,6 +9116,21 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/security/prison)
+"cpJ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Security Medical";
+	req_access_txt = "63"
+	},
+/turf/open/floor/plasteel/white,
+/area/security/brig)
 "cpR" = (
 /obj/structure/rack,
 /obj/item/storage/box/monkeycubes,
@@ -13293,19 +13293,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
-"dGa" = (
-/obj/structure/window/reinforced/spawner{
-	dir = 1
-	},
-/obj/structure/transit_tube/station/reverse/flipped{
-	dir = 1
-	},
-/obj/effect/turf_decal/delivery,
-/obj/structure/transit_tube_pod{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/maintenance/starboard/central)
 "dGg" = (
 /obj/structure/cable/white{
 	icon_state = "0-2"
@@ -44224,6 +44211,16 @@
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
+"mDC" = (
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
+/obj/structure/transit_tube/station/reverse/flipped{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/starboard/central)
 "mDG" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
@@ -125650,7 +125647,7 @@ sXZ
 dmz
 tne
 uBk
-bfO
+cpJ
 nCY
 gfk
 pKS
@@ -133410,7 +133407,7 @@ aMT
 anT
 aMT
 uLw
-dGa
+mDC
 xmJ
 enq
 xsn
