@@ -1,0 +1,50 @@
+"a" = (/turf/template_noop,/area/template_noop)
+"b" = (/turf/closed/wall/mineral/wood/nonmetal,/area/ruin/unpowered)
+"c" = (/obj/structure/beebox/premade/random,/turf/open/floor/grass,/area/ruin/unpowered)
+"d" = (/turf/open/floor/grass,/area/ruin/unpowered)
+"e" = (/turf/open/floor/wood/airless,/area/ruin/unpowered)
+"f" = (/obj/machinery/door/airlock/wood,/obj/structure/punji_sticks,/turf/open/floor/wood/airless,/area/ruin/unpowered)
+"g" = (/turf/open/floor/wax,/area/ruin/unpowered)
+"h" = (/turf/closed/wall/mineral/sandstone,/area/ruin/unpowered)
+"i" = (/obj/item/stack/sheet/mineral/wax,/turf/open/floor/wax,/area/ruin/unpowered)
+"j" = (/mob/living/simple_animal/hostile/poison/bees/space,/turf/open/floor/wax,/area/ruin/unpowered)
+"k" = (/obj/machinery/hydroponics,/turf/open/floor/grass,/area/ruin/unpowered)
+"l" = (/obj/machinery/hydroponics,/turf/open/floor/wood/airless,/area/ruin/unpowered)
+"m" = (/obj/structure/sink{dir = 4; pixel_x = 11},/turf/open/floor/wood/airless,/area/ruin/unpowered)
+"n" = (/obj/structure/closet/secure_closet/hydroponics,/turf/open/floor/wood/airless,/area/ruin/unpowered)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaa
+aaaaaaaahhhaaaaaaaaa
+aaaaaaaahihaaaaaaaaa
+aaaaaaaahghaaaaaaaaa
+aaaaaaaahghaaaaaaaaa
+aaaaaaaggjggaaaaaaaa
+aaaaaagggggjgaaaaaaa
+aaaahhggggggghhaaaaa
+aaaahggghhhhgghaaaaa
+aaahhgjggihhgghhaaaa
+aahhhgggggghhgghhaaa
+aahhggghhbgggggjhaaa
+ahhhjghhbcbgggggggaa
+ahhhghhbkdlbghhgggaa
+ahhhghhbkelbghhgghaa
+ahiggjhbnembihggihaa
+ahgggghhbfbgghgjhhaa
+aagjggghgjgghhgghaaa
+aaggjggggggghgjghaaa
+aaahhhigggjghgggaaaa
+aaahhhhhggggggggaaaa
+aaahhhhhhgjgggggaaaa
+aaaahhhhgggggghaaaaa
+aaaahhhhgggjghhaaaaa
+aaaaahhggjgghhaaaaaa
+aaaaaahgggghhaaaaaaa
+aaaaaaaggghhhaaaaaaa
+"}

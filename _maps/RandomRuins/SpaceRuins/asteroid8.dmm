@@ -1,0 +1,25 @@
+"a" = (/turf/template_noop,/area/template_noop)
+"b" = (/turf/open/floor/plating/asteroid/airless,/area/ruin/unpowered)
+"c" = (/turf/closed/mineral/random/high_chance,/area/ruin/unpowered)
+"d" = (/turf/closed/mineral,/area/ruin/unpowered)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaabaaaaa
+aaacccccaaaadddaaaaaaaaaa
+aaaacccccaaadddabaaaaccaa
+aaaaccccccaaadaaaaacccaaa
+aaaaccccccaaaaaaaccccaaaa
+addaaccccccaaaaacccaadaaa
+addaaaccccaaabaaaaaadddaa
+aaaaaaaaaaaaaaaaabaaadaaa
+aaacaaaaaaabaaabaaaaaacaa
+aaacccccaaaaaaaaaacccccaa
+aaacccccccccaacccccccccaa
+aaaaccccccccccccccccccaaa
+aaaaaaccccccccccccccaaaaa
+aaddaaaaaaccccccaaaaabaaa
+adddaaaaaaaaaaaaaaabaaaaa
+aaaaaaabaaaaaaaabaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaa
+"}

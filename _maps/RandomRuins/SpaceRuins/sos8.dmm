@@ -1,0 +1,43 @@
+"a" = (/turf/template_noop,/area/template_noop)
+"b" = (/obj/structure/chair/comfy/shuttle{dir = 4},/turf/open/floor/sepia,/area/ruin/unpowered)
+"c" = (/turf/closed/mineral/random/high_chance,/area/ruin/unpowered)
+"d" = (/turf/closed/wall/mineral/titanium,/area/ruin/unpowered)
+"e" = (/obj/structure/window/shuttle,/turf/open/floor/mineral/titanium/white,/area/ruin/unpowered)
+"f" = (/turf/closed/mineral/random/low_chance,/area/ruin/unpowered)
+"g" = (/obj/item/pickaxe/drill,/turf/open/floor/sepia,/area/ruin/unpowered)
+"h" = (/obj/machinery/computer,/turf/open/floor/sepia,/area/ruin/unpowered)
+"i" = (/obj/effect/decal/cleanable/blood/splatter,/turf/open/floor/sepia,/area/ruin/unpowered)
+"j" = (/obj/structure/chair/comfy/shuttle{dir = 1},/obj/effect/decal/remains/human,/turf/open/floor/sepia,/area/ruin/unpowered)
+"k" = (/obj/structure/girder,/turf/open/floor/sepia,/area/ruin/unpowered)
+"l" = (/obj/item/gps{gpstag = "SOS"},/turf/open/floor/sepia,/area/ruin/unpowered)
+"m" = (/obj/structure/chair/comfy/shuttle{dir = 8},/turf/open/floor/sepia,/area/ruin/unpowered)
+"n" = (/obj/structure/chair/comfy/shuttle{dir = 4},/obj/item/storage/pod{pixel_x = -24},/turf/open/floor/sepia,/area/ruin/unpowered)
+"o" = (/turf/open/floor/sepia,/area/ruin/unpowered)
+"p" = (/obj/structure/shuttle/engine/propulsion,/turf/open/space/basic,/area/ruin/unpowered)
+"q" = (/obj/structure/chair/comfy/shuttle{dir = 8},/obj/item/storage/pod{pixel_x = 24},/turf/open/floor/sepia,/area/ruin/unpowered)
+"r" = (/obj/structure/grille,/turf/open/floor/mineral/titanium/white,/area/ruin/unpowered)
+"s" = (/obj/machinery/door/airlock/shuttle,/turf/open/floor/sepia,/area/ruin/unpowered)
+"t" = (/turf/open/floor/plating/asteroid/airless,/area/ruin/unpowered)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaffaaaaaaa
+aaaaaaaaaffffffaaaaa
+aaaaaffffffffffaaaaa
+aaaafffffccccfffaaaa
+aaaaffccccccccfffaaa
+aaaaffcccccccccffaaa
+aaaaaffffccccccffaaa
+aaaaaderrffccccffaaa
+aaaaadbghffffccffaaa
+aaaaadbijkffffffaaaa
+aaaaadblmdtaaaaaaaaa
+aaaaadnoqdtaaaaaaaaa
+aaaaapdsdpaaaattaaaa
+aaaaaaaaaaaaatttaaaa
+aataaaaaaaaaattaaaaa
+aattaaaaaaaaaaaaaaaa
+aaataaaataaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaa
+"}
