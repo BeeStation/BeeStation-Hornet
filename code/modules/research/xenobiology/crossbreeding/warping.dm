@@ -649,10 +649,8 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 
 	if(price >= target_value)
 		deleteme = TRUE
-		var/num = rand(1,100)
 		var/path
-
-		switch(num)
+		switch(rand(1,100))
 			if(1 to 80)
 				path = pick(common_items)
 			if(80 to 95)
