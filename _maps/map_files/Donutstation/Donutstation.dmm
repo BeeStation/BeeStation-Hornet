@@ -16128,7 +16128,9 @@
 /turf/open/floor/carpet,
 /area/library)
 "aLP" = (
-/obj/structure/destructible/cult/tome,
+/obj/structure/destructible/cult/tome{
+	debris = null
+	},
 /obj/item/book/codex_gigas,
 /turf/open/floor/engine/cult,
 /area/library)

@@ -15661,7 +15661,9 @@
 /turf/open/floor/engine/cult,
 /area/library)
 "aQs" = (
-/obj/structure/destructible/cult/tome,
+/obj/structure/destructible/cult/tome{
+	debris = null
+	},
 /obj/item/clothing/under/suit/red,
 /obj/item/book/codex_gigas,
 /turf/open/floor/engine/cult,

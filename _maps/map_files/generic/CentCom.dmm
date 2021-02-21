@@ -6450,7 +6450,9 @@
 /turf/open/floor/plasteel/grimy,
 /area/centcom/ferry)
 "pO" = (
-/obj/structure/destructible/cult/tome,
+/obj/structure/destructible/cult/tome{
+	debris = null
+	},
 /obj/item/book/codex_gigas,
 /obj/machinery/airalarm{
 	dir = 8;
@@ -10830,7 +10832,9 @@
 /turf/open/floor/plasteel,
 /area/centcom/evac)
 "zo" = (
-/obj/structure/destructible/cult/tome,
+/obj/structure/destructible/cult/tome{
+	debris = null
+	},
 /turf/open/floor/engine/cult,
 /area/wizard_station)
 "zp" = (

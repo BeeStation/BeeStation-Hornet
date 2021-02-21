@@ -76500,7 +76500,9 @@
 /turf/open/floor/plasteel/dark,
 /area/library)
 "cyc" = (
-/obj/structure/destructible/cult/tome,
+/obj/structure/destructible/cult/tome{
+	debris = null
+	},
 /obj/item/book/codex_gigas,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
