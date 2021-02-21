@@ -78,30 +78,6 @@
 	if(use_charge)
 		return ..()
 
-<<<<<<< HEAD
-=======
-///Draws a rune on a selected turf
-/obj/item/melee/touch_attack/mansus_fist/attack_self(mob/user)
-
-	for(var/turf/T in range(1,user))
-		if(is_type_in_typecache(T, blacklisted_turfs))
-			to_chat(user, "<span class='warning'>The terrain doesn't support runes!</span>")
-			return
-	var/A = get_turf(user)
-	to_chat(user, "<span class='danger'>You start drawing a rune...</span>")
-
-	if(do_after(user,30 SECONDS,FALSE,A))
-
-		new /obj/effect/eldritch/big(A)
-
-
-///Removes runes from the selected turf
-/obj/item/melee/touch_attack/mansus_fist/proc/remove_rune(atom/target,mob/user)
-	to_chat(user, "<span class='danger'>You start removing a rune...</span>")
-	if(do_after(user,2 SECONDS,user))
-		qdel(target)
-
->>>>>>> parent of b7108f59c3 (Merge remote-tracking branch 'upstream/master' into spess)
 /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
 	name = "Aggressive Spread"
 	desc = "Spreads rust onto nearby turfs."
