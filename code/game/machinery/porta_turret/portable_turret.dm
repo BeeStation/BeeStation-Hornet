@@ -364,7 +364,7 @@
 		return
 
 	var/list/targets = list()
-	for(var/mob/A in view(scan_range, base))
+	for(var/mob/A as() in hearers(scan_range, base))
 		if(A.invisibility > SEE_INVISIBLE_LIVING)
 			continue
 
