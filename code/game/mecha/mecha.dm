@@ -661,6 +661,13 @@
 				can_move = 0
 				if(phase_state)
 					flick(phase_state, src)
+				var/turf/target = get_step(src, dir)
+				if(target.flags_1 & NOJAUNT_1)
+					occupant_message("Phasing anomaly detected, emergency deactivation initiated.")
+					sleep(step_in*3)
+					can_move = 1
+					phasing = FALSE
+					return
 				if(do_teleport(src, get_step(src, dir), no_effects = TRUE))
 					use_power(phasing_energy_drain)
 				sleep(step_in*3)
