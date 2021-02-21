@@ -1,3 +1,42 @@
-"a" = ()
+"a" = (/turf/open/space/basic,/area/space)
+"b" = (/turf/closed/wall/mineral/gold,/area/ruin/space/has_grav/powered)
+"c" = (/turf/open/floor/eighties,/area/ruin/space/has_grav/powered)
+"d" = (/turf/open/floor/carpet/purple,/area/ruin/space/has_grav/powered)
+"e" = (/turf/open/floor/light/colour_cycle/dancefloor_a,/area/ruin/space/has_grav/powered)
+"f" = (/turf/open/floor/light/colour_cycle/dancefloor_b,/area/ruin/space/has_grav/powered)
+"g" = (/obj/machinery/computer{name = "Dance Dance Revolution"; desc = "Unfortunately, the machine seems to be broken..."},/turf/open/floor/eighties,/area/ruin/space/has_grav/powered)
+"h" = (/obj/structure/window/reinforced,/turf/open/floor/eighties,/area/ruin/space/has_grav/powered)
+"i" = (/turf/open/floor/plasteel/stairs,/turf/open/floor/eighties,/area/ruin/space/has_grav/powered)
+"j" = (/obj/structure/window/reinforced/fulltile,/turf/open/floor/carpet/purple,/area/ruin/space/has_grav/powered)
+"k" = (/obj/machinery/computer/arcade,/turf/open/floor/carpet/purple,/area/ruin/space/has_grav/powered)
+"l" = (/obj/machinery/computer/slot_machine,/turf/open/floor/carpet/purple,/area/ruin/space/has_grav/powered)
+"m" = (/obj/structure/table/wood/poker,/obj/item/gobbler,/turf/open/floor/carpet/purple,/area/ruin/space/has_grav/powered)
+"n" = (/obj/machinery/door/airlock/gold,/obj/structure/fans/tiny,/turf/open/floor/carpet/purple,/area/ruin/space/has_grav/powered)
+"o" = (/obj/structure/table/wood/fancy/purple,/obj/item/storage/belt/military/snack,/turf/open/floor/carpet/purple,/area/ruin/space/has_grav/powered)
+"p" = (/obj/structure/closet/crate/wooden{name = "prize crate"},/obj/item/choice_beacon/pet/pingu,/obj/item/coin/arcade_token,/obj/item/coin/arcade_token,/obj/item/coin/arcade_token,/obj/item/coin/arcade_token,/obj/item/coin/arcade_token,/obj/item/coin/arcade_token,/obj/item/coin/arcade_token,/obj/item/coin/arcade_token,/obj/item/coin/arcade_token,/obj/item/coin/arcade_token,/turf/open/floor/carpet/purple,/area/ruin/space/has_grav/powered)
+"q" = (/obj/structure/closet/crate/freezer{name = "refreshment cooler"},/obj/item/reagent_containers/food/drinks/beer/light,/obj/item/reagent_containers/food/drinks/soda_cans/sodawater,/obj/item/reagent_containers/food/drinks/soda_cans/shamblers,/obj/item/reagent_containers/food/drinks/soda_cans/shamblers,/obj/item/reagent_containers/food/drinks/soda_cans/grey_bull,/obj/item/reagent_containers/food/drinks/soda_cans/grey_bull,/obj/item/reagent_containers/food/drinks/soda_cans/air,/obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb,/obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb,/obj/item/reagent_containers/food/drinks/soda_cans/cola,/obj/item/reagent_containers/food/drinks/soda_cans/cola,/obj/item/reagent_containers/food/drinks/soda_cans/pwr_game,/obj/item/reagent_containers/food/drinks/soda_cans/pwr_game,/obj/item/reagent_containers/food/drinks/soda_cans/space_up,/obj/item/reagent_containers/food/drinks/soda_cans/space_up,/obj/item/reagent_containers/food/drinks/soda_cans/starkist,/turf/open/floor/carpet/purple,/area/ruin/space/has_grav/powered)
+"r" = (/obj/machinery/computer/arcade,/turf/open/floor/eighties,/area/ruin/space/has_grav/powered)
+"s" = (/turf/closed/mineral,/area/ruin/space/has_grav/powered)
 
-(1,1,1, 25,20,1) = {""}
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaasssaasssaaaaaaaaa
+aaaaaasssssssssssaaaaaaaa
+aaaaasssssssssssssaaaaaaa
+aaaasssssbbbbbssssaaaaaaa
+aaaassssbcgggcbssssaaaaaa
+aaaasssbrcefecrbsssaaaaaa
+aaaasssbrcfefcrbssaaaaaaa
+aaaaassbhhefehhbsaaaaaaaa
+aaaabbbkddiiiddkbbbaaaaaa
+aaaajpmdddcccdddoqjaaaaaa
+aaaajdmdddcccdddddjaaaaaa
+aaaajdmdddcccdddoqjaaaaaa
+aaasbbbkddcccddkbbbaaaaaa
+aasssssbldcccdlbsssaaaaaa
+aasssssbblccclbbsssaaaaaa
+aaasssssabcccbassssaaaaaa
+aaaassaaabnnnbaassaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaa
+"}

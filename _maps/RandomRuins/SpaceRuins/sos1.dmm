@@ -4,7 +4,7 @@
 "d" = (/obj/structure/chair/comfy/shuttle{dir = 8},/obj/item/gps{gpstag = "SOS"},/turf/open/floor/mineral/titanium/blue,/area/ruin/unpowered)
 "e" = (/obj/machinery/door/airlock/titanium{name = "Escape Pod Airlock"},/turf/open/floor/mineral/titanium/blue,/area/ruin/unpowered)
 "f" = (/obj/structure/window/shuttle,/turf/open/floor/mineral/titanium/blue,/area/ruin/unpowered)
-"g" = (/obj/structure/chair/comfy/shuttle{dir = 8},/obj/effect/mob_spawn/human/corpse/assistant{brute_damage = 120; oxy_damage = 75}, /obj/item/storage/secure/briefcase/syndie, /obj/item/storage/pod{ pixel_y = -30 },/turf/open/floor/mineral/titanium/blue,/area/ruin/unpowered)
+"g" = (/obj/structure/chair/comfy/shuttle{dir = 8},/obj/item/storage/pill_bottle/floorpill/full,/obj/effect/mob_spawn/human/corpse/assistant{brute_damage = 120; oxy_damage = 75}, /obj/item/storage/secure/briefcase/syndie, /obj/item/storage/pod{ pixel_y = -30 },/turf/open/floor/mineral/titanium/blue,/area/ruin/unpowered)
 
 (1,1,1) = {"
 aaaaaaaaaaaa

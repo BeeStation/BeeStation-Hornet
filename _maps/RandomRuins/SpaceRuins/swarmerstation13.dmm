@@ -1,3 +1,61 @@
-"a" = ()
+"a" = (/turf/template_noop,/area/template_noop)
+"b" = (/turf/closed/mineral/random/low_chance,/area/ruin/unpowered)
+"c" = (/turf/closed/wall/r_wall/rust,/area/ruin/unpowered)
+"d" = (/turf/closed/mineral/random/high_chance,/area/ruin/unpowered)
+"e" = (/turf/open/floor/plating/airless,/area/ruin/unpowered)
+"f" = (/obj/structure/window/reinforced/fulltile,/turf/open/floor/plating/airless,/area/ruin/unpowered)
+"g" = (/obj/effect/decal/remains/robot,/turf/open/floor/plating/airless,/area/ruin/unpowered)
+"h" = (/mob/living/simple_animal/hostile/swarmer/ai/melee_combat,/turf/open/floor/plating/airless,/area/ruin/unpowered)
+"i" = (/obj/machinery/door/airlock/external{req_access_txt = "150"},/turf/open/floor/plating/airless,/area/ruin/unpowered)
+"j" = (/obj/structure/swarmer/trap,/turf/open/floor/plating/airless,/area/ruin/unpowered)
+"k" = (/obj/effect/decal/cleanable/robot_debris/gib,/turf/open/floor/plating/airless,/area/ruin/unpowered)
+"l" = (/mob/living/simple_animal/hostile/swarmer/ai/ranged_combat,/turf/open/floor/plating/airless,/area/ruin/unpowered)
+"m" = (/obj/structure/swarmer/blockade,/turf/open/floor/plating/airless,/area/ruin/unpowered)
+"n" = (/obj/item/deactivated_swarmer,/turf/open/floor/plating/airless,/area/ruin/unpowered)
+"o" = (/obj/item/pen,/turf/open/floor/plating/airless,/area/ruin/unpowered)
+"p" = (/obj/item/clothing/head/beret/vintage,/turf/open/floor/plating/airless,/area/ruin/unpowered)
+"q" = (/obj/item/clothing/under/color/random,/obj/item/clothing/under/color/random,/obj/item/clothing/under/color/random,/turf/open/floor/plating/airless,/area/ruin/unpowered)
+"r" = (/obj/item/clothing/shoes/winterboots,/obj/item/clothing/shoes/winterboots,/turf/open/floor/plating/airless,/area/ruin/unpowered)
 
-(1,1,1, 40,40,1) = {""}
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaabbaaaaa
+aaaaaaaaaaaaaaabbbaaaaaaabaaaaaaabbbaaaa
+aaaaaaaaaaaaaabbbbbaaaaaaaaaaaaabbbbaaaa
+aaaaaaaacfffffcbbbbbbaaaaaaaaaaaabbaaaaa
+aaaaaaaaceeeeecddbbbbaaaaaaaaaaaaaaaaaaa
+aaaaaaaacegehecdddbbbbaaaaaaaaaaaaaaaaaa
+aaaaaaaaijeeekccccccccccccaaaaaaaaaaaaaa
+aaaaaaaaceheeejeeeeeeeeeocbaaaaaaaaaaaaa
+aaaaaaaaceeepejeeeeeeeehncbbaaaaaaaaaaaa
+aaaaaaaaccccccclemmmmeeeecbbbbaaaaaaaaaa
+aaaaaaaaabbdddceemeneeheecbbbbaaaaaaaaaa
+aaaaaaaaabbbddceemegeemeecdbbbbaaaaaaaaa
+aaaaaaaaabbbbdceeheenemeecdbbbbaaaaaaaaa
+aaaaaaaaaabbbbceeeemmmmgecddbbbaaaaaaaaa
+aaaaaaaaaabbbbceheeeeeeeecddbbbaaaaaaaaa
+aaaaaaaaaaaabbceeekeeeleecdddbaaaaaaaaaa
+aaaaaaaaaaaaabcccccccmjjmcccccaaaaaaaaaa
+aaaaaaaaaaaaaaabbdddceeeeeheecaaaaaaaaaa
+aaaabbaaaaaaaaaabbddcreeeeeejiaaaaaaaaaa
+aaabbbbaaaaaaaaabbbdcqegheeeecaaaaaaaaaa
+aaaabbaaaaaaaaaaabbbceeeeeeeecaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaabcffffffffcaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+"}
