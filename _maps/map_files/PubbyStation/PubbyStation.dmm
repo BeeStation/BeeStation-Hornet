@@ -53704,9 +53704,7 @@
 /turf/open/floor/plasteel/dark,
 /area/library)
 "cAT" = (
-/obj/structure/destructible/cult/tome{
-	debris = null
-	},
+/obj/structure/destructible/cult/tome/library,
 /turf/open/floor/plasteel/dark,
 /area/library)
 "cAU" = (

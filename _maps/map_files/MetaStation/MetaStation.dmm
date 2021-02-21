@@ -48911,9 +48911,7 @@
 /turf/open/floor/wood,
 /area/library)
 "bPV" = (
-/obj/structure/destructible/cult/tome{
-	debris = null
-	},
+/obj/structure/destructible/cult/tome/library,
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
