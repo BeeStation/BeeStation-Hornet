@@ -46,15 +46,10 @@
 	icon_state = "mansus_grasp"
 	item_state = "mansus_grasp"
 	catchphrase = "R'CH T'H TR'TH"
-	///Where we cannot create the rune?
-	var/static/list/blacklisted_turfs = typecacheof(list(/turf/closed,/turf/open/space,/turf/open/lava))
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag || target == user)
-		return FALSE
-	if(istype(target,/obj/effect/eldritch))
-		remove_rune(target,user)
-		return FALSE
+		return
 	playsound(user, 'sound/items/welder.ogg', 75, TRUE)
 	if(ishuman(target))
 		var/mob/living/carbon/human/tar = target
@@ -83,6 +78,7 @@
 	if(use_charge)
 		return ..()
 
+<<<<<<< HEAD
 ///Draws a rune on a selected turf
 /obj/item/melee/touch_attack/mansus_fist/attack_self(mob/user)
 
@@ -102,6 +98,8 @@
 	if(do_after(user,2 SECONDS,user))
 		qdel(target)
 
+=======
+>>>>>>> parent of 3d18da0600 (Merge branch 'master' into spess)
 /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
 	name = "Aggressive Spread"
 	desc = "Spreads rust onto nearby turfs."
