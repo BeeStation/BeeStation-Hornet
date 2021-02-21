@@ -24,7 +24,7 @@
 			tab_data = get_stat_tab_status()						// ~ 0.525 CPU Time [15000 CALLS] (Depends on which tabs are selected)
 		// ===== MASTER CONTROLLER =====
 		if("MC")
-			client.stat_update_mode = STAT_SLOW_UPDATE
+			client.stat_update_mode = STAT_FAST_UPDATE
 			requires_holder = TRUE
 			tab_data = get_stat_tab_master_controller()				// ~ 0.037 CPU Time [33 CALLS]
 		// ===== ADMIN TICKETS =====
@@ -47,7 +47,7 @@
 		else
 			// ===== NON CONSTANT TABS (Tab names which can change) =====
 			// ===== LISTEDS TURFS =====
-			if(listed_turf && listed_turf.name == selected_tab)
+			if(listed_turf && sanitize(listed_turf.name) == selected_tab)
 				client.stat_update_mode = STAT_MEDIUM_UPDATE
 				var/list/overrides = list()
 				for(var/image/I in client.images)
@@ -55,7 +55,7 @@
 						overrides += I.loc
 				tab_data[REF(listed_turf)] = list(
 					text="[listed_turf.name]",
-					icon=SSstat.get_flat_icon(listed_turf),
+					icon=SSstat.get_flat_icon(client, listed_turf),
 					type=STAT_ATOM,
 				)
 				var/sanity = MAX_ICONS_PER_TILE
@@ -71,7 +71,7 @@
 					sanity --
 					tab_data[REF(A)] = list(
 						text="[A.name]",
-						icon=SSstat.get_flat_icon(A),
+						icon=SSstat.get_flat_icon(client, A),
 						type=STAT_ATOM,
 					)
 					if(sanity < 0)
@@ -96,15 +96,15 @@
 	return tab_data
 
 /mob/proc/get_all_verbs()
-	var/list/all_verbs = list()
+	var/list/all_verbs = deepCopyList(sorted_verbs)
 	//An annoying thing to mention:
 	// list A [A: ["b", "c"]] +  (list B) [A: ["c", "d"]] will only have A from list B
-	all_verbs += sorted_verbs
 	for(var/i in client.sorted_verbs)
 		if(i in all_verbs)
 			all_verbs[i] += client.sorted_verbs[i]
 		else
-			all_verbs[i] = client.sorted_verbs[i]
+			var/list/verbs_to_copy = client.sorted_verbs[i]
+			all_verbs[i] = verbs_to_copy.Copy()
 	for(var/atom/A as() in contents)
 		//As an optimisation we will make it so all verbs on objects will go into the object tab.
 		//If you don't want this to happen change this.
@@ -118,10 +118,11 @@
  */
 /mob/proc/get_stat_tab_status()
 	var/list/tab_data = list()
-	tab_data["Map"] = list("[SSmapping.config?.map_name || "Loading..."]", STAT_TEXT)
+	tab_data["Map"] = GENERATE_STAT_TEXT("[SSmapping.config?.map_name || "Loading..."]")
 	var/datum/map_config/cached = SSmapping.next_map_config
 	if(cached)
 		tab_data["Next Map"] = GENERATE_STAT_TEXT(cached.map_name)
+	tab_data["Round ID"] = GENERATE_STAT_TEXT("[GLOB.round_id ? GLOB.round_id : "Null"]")
 	tab_data["Server Time"] = GENERATE_STAT_TEXT(time2text(world.timeofday,"YYYY-MM-DD hh:mm:ss"))
 	tab_data["Round Time"] = GENERATE_STAT_TEXT(worldtime2text())
 	tab_data["Station Time"] = GENERATE_STAT_TEXT(station_time_timestamp())
@@ -130,7 +131,7 @@
 	if(SSshuttle.emergency)
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
-			tab_data["ETA"] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
+			tab_data[ETA] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
 	return tab_data
 
 /mob/proc/get_stat_tab_master_controller()
@@ -172,7 +173,7 @@
 		if(!TurfAdjacent(listed_turf))
 			listed_turf = null
 		else
-			tabs |= listed_turf.name
+			tabs |= sanitize(listed_turf.name)
 	//Add spells
 	var/list/spells = mob_spell_list
 	if(mind)

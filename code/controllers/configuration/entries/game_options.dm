@@ -433,6 +433,8 @@
 	config_entry_value = 100
 /datum/config_entry/number/max_slimes
 	config_entry_value = 100
+/datum/config_entry/number/max_slimeperson_bodies
+	config_entry_value = 10
 
 //Maximum citation fine
 /datum/config_entry/number/maxfine
@@ -450,3 +452,13 @@
 /datum/config_entry/flag/restricted_suicide
 
 /datum/config_entry/flag/dynamic_config_enabled
+
+//Default Game Mode
+/datum/config_entry/string/master_mode
+	config_entry_value = "extended"
+
+//Bluespace Miners
+/datum/config_entry/number/roundstart_bluespace_miners
+	min_val = 0
+
+/datum/config_entry/flag/bsminer_researchable

@@ -908,16 +908,37 @@ world
 	#undef BLANK
 	#undef SET_SELF
 
-/proc/getStillIcon(atom/A)//By whoever that guy below me is, I just kind of stole it and changed it a bit lol
+/proc/getStillIcon(atom/A, directionless = TRUE)//By whoever that guy below me is, I just kind of stole it and changed it a bit lol
 	var/icon/overlayIcon = new /icon()
 	var/isEmpty = TRUE	//So the overlay icon isn't empty.
 	//==== OVERLAYS ====
 	//Do sorting :(
-	var/list/sorted_overlays = sortList(A.overlays, /proc/cmp_atom_layer_asc)
+	var/list/layers = list()
+
+	var/direction = directionless ? SOUTH : A.dir
+
+	// Loop through the underlays, then overlays, sorting them into the layers list
+	for(var/i in 1 to A.overlays.len)
+		var/image/current = A.overlays[i]
+		if(!current)
+			continue
+		if(current.plane != FLOAT_PLANE && current.plane != A.plane)
+			continue
+		var/current_layer = current.layer
+		if(current_layer < 0)
+			current_layer = A.layer + current_layer / 1000
+
+		for(var/p in 1 to layers.len)
+			var/image/cmp = layers[p]
+			if(current_layer < layers[cmp])
+				layers.Insert(p, current)
+				break
+		layers[current] = current_layer
+		CHECK_TICK
 	//Apply sorted
-	for(var/V in sorted_overlays)//For every image in overlays. var/image/I will not work, don't try it.
+	for(var/V in layers)//For every image in overlays. var/image/I will not work, don't try it.
 		var/image/I = V
-		var/icon/image_overlay = new(I.icon,I.icon_state)//Blend only works with icon objects.
+		var/icon/image_overlay = new(I.icon,I.icon_state,direction)//Blend only works with icon objects.
 		//Make sure the overlay actually exists and is valid
 		if(!(I.icon_state in icon_states(I.icon)))
 			continue
@@ -936,8 +957,9 @@ world
 			isEmpty = FALSE
 		else
 			overlayIcon.Blend(cleaned, ICON_OVERLAY)//OR so they are lumped together in a nice overlay.
+		CHECK_TICK
 	//==== PUTTING IT ALL TOGETHER ====
-	var/icon/default = new(A.icon, A.icon_state)//So we want the default icon and icon state of A.
+	var/icon/default = new(A.icon, A.icon_state, direction)//So we want the default icon and icon state of A.
 	//Blend the 2 icons
 	default.Blend(overlayIcon, ICON_OVERLAY)
 	//Boom put it all together

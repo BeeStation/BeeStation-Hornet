@@ -216,6 +216,10 @@
 /datum/reagent/water/reaction_mob(mob/living/M, method=TOUCH, reac_volume)//Splashing people with water can help put them out!
 	if(!istype(M))
 		return
+	if(isoozeling(M))
+		M.blood_volume -= 30
+		to_chat(M, "<span class='warning'>The water causes you to melt away!</span>")
+		return
 	if(method == TOUCH)
 		M.adjust_fire_stacks(-(reac_volume / 10))
 		M.ExtinguishMob()
@@ -345,12 +349,20 @@
 	description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
 	color = "#009CA8" // rgb: 0, 156, 168
 	taste_description = "cherry" // by popular demand
+	var/lube_kind = TURF_WET_LUBE ///What kind of slipperiness gets added to turfs.
 
 /datum/reagent/lube/reaction_turf(turf/open/T, reac_volume)
 	if (!istype(T))
 		return
 	if(reac_volume >= 1)
-		T.MakeSlippery(TURF_WET_LUBE, 15 SECONDS, min(reac_volume * 2 SECONDS, 120))
+		T.MakeSlippery(lube_kind, 15 SECONDS, min(reac_volume * 2 SECONDS, 120))
+
+///Stronger kind of lube. Applies TURF_WET_SUPERLUBE.
+/datum/reagent/lube/superlube
+	name = "Super Duper Lube"
+	description = "This \[REDACTED\] has been outlawed after the incident on \[DATA EXPUNGED\]."
+	lube_kind = TURF_WET_SUPERLUBE
+
 
 /datum/reagent/spraytan
 	name = "Spray Tan"
@@ -498,6 +510,7 @@
 		H.set_species(species_type)
 		H.reagents.del_reagent(type)
 		to_chat(H, "<span class='warning'>You've become \a [lowertext(initial(species_type.name))]!</span>")
+		return
 	..()
 
 /datum/reagent/mutationtoxin/classic //The one from plasma on green slimes
@@ -1801,22 +1814,22 @@
 	name = "Growth Serum"
 	description = "A commercial chemical designed to help older men in the bedroom."//not really it just makes you a giant
 	color = "#ff0000"//strong red. rgb 255, 0, 0
-	var/current_size = 1
+	var/current_size = RESIZE_DEFAULT_SIZE
 	taste_description = "bitterness" // apparently what viagra tastes like
 
 /datum/reagent/growthserum/on_mob_life(mob/living/carbon/H)
 	var/newsize = current_size
 	switch(volume)
 		if(0 to 19)
-			newsize = 1.25
+			newsize = 1.25*RESIZE_DEFAULT_SIZE
 		if(20 to 49)
-			newsize = 1.5
+			newsize = 1.5*RESIZE_DEFAULT_SIZE
 		if(50 to 99)
-			newsize = 2
+			newsize = 2*RESIZE_DEFAULT_SIZE
 		if(100 to 199)
-			newsize = 2.5
+			newsize = 2.5*RESIZE_DEFAULT_SIZE
 		if(200 to INFINITY)
-			newsize = 3.5
+			newsize = 3.5*RESIZE_DEFAULT_SIZE
 
 	H.resize = newsize/current_size
 	current_size = newsize
@@ -1824,7 +1837,8 @@
 	..()
 
 /datum/reagent/growthserum/on_mob_end_metabolize(mob/living/M)
-	M.resize = 1/current_size
+	M.resize = RESIZE_DEFAULT_SIZE/current_size
+	current_size = RESIZE_DEFAULT_SIZE
 	M.update_transform()
 	..()
 

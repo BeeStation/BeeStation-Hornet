@@ -122,24 +122,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
-"at" = (
-/obj/machinery/camera{
-	c_tag = "Labor Camp Monitoring";
-	network = list("labor")
-	},
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "Labor Camp Security APC";
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/mine/laborcamp/security)
 "au" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -1365,6 +1347,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 6
+	},
+/mob/living/simple_animal/bot/atmosbot{
+	name = "Officer Fastmosky"
 	},
 /turf/open/floor/plasteel,
 /area/mine/eva)
@@ -3157,6 +3142,24 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
+"nI" = (
+/obj/machinery/camera{
+	c_tag = "Labor Camp Monitoring";
+	network = list("labor")
+	},
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "Labor Camp Security APC";
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/mine/laborcamp/security)
 "nZ" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -3178,7 +3181,7 @@
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock/research{
 	name = "Robotics Lab";
-	req_access_txt = "29"
+	req_access_txt = "47,54,29"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 8
@@ -3534,6 +3537,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/mine/living_quarters)
+"rB" = (
+/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/mine/laborcamp/security)
 "rE" = (
 /obj/machinery/computer/security/labor,
 /obj/machinery/light{
@@ -4640,11 +4648,8 @@
 /area/mine/living_quarters)
 "Fe" = (
 /obj/structure/table/wood/bar,
-/obj/item/storage/box/donkpockets{
-	pixel_x = -2;
-	pixel_y = 5
-	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/donkpockets,
 /turf/open/floor/carpet/black,
 /area/mine/science)
 "Fi" = (
@@ -5174,16 +5179,16 @@
 /area/mine/science)
 "KZ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/door/airlock/security/glass{
-	name = "Labor Camp Monitoring";
-	req_access_txt = "2"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/vault{
+	name = "Labor Camp Monitoring";
+	req_access_txt = "2"
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
@@ -5321,7 +5326,7 @@
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock/medical/glass{
 	name = "Chemistry Lab";
-	req_access_txt = "5; 33"
+	req_access_txt = "47,54,29"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 8
@@ -5331,11 +5336,6 @@
 	},
 /turf/open/floor/engine,
 /area/mine/science)
-"MD" = (
-/obj/machinery/door/firedoor/window,
-/obj/effect/spawner/structure/window/plasma/reinforced,
-/turf/open/floor/plating,
-/area/mine/laborcamp/security)
 "ME" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/machinery/vending/cigarette,
@@ -5840,6 +5840,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 8
 	},
+/obj/item/bot_assembly/atmosbot{
+	created_name = "Fastmosky Senior";
+	name = "old atmosbot assembly"
+	},
 /turf/open/floor/plasteel,
 /area/mine/science)
 "TA" = (
@@ -6009,6 +6013,13 @@
 	},
 /turf/open/floor/carpet/black,
 /area/mine/science)
+"Vi" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
+/area/mine/laborcamp)
 "Vq" = (
 /obj/structure/table,
 /obj/machinery/microwave{
@@ -12636,7 +12647,7 @@ dH
 bw
 bw
 ee
-at
+nI
 ay
 OT
 aE
@@ -13143,7 +13154,7 @@ ba
 bW
 cg
 ba
-cl
+Vi
 dp
 ba
 dI
@@ -13919,8 +13930,8 @@ de
 aG
 aG
 aG
-aG
-MD
+aj
+rB
 rU
 HP
 QV
@@ -14176,11 +14187,11 @@ aG
 aG
 aG
 aG
-aG
-MD
-MD
-MD
-MD
+aj
+rB
+rB
+rB
+rB
 fy
 WA
 Cw

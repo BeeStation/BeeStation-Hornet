@@ -1,5 +1,5 @@
 /obj/item/clothing/gloves/color/yellow
-	desc = "These gloves will protect the wearer from electric shock."
+	desc = "These gloves provide protection against electric shock."
 	name = "insulated gloves"
 	icon_state = "yellow"
 	item_state = "ygloves"
@@ -30,7 +30,7 @@
 			. += "[src] will fully protect from electric shocks."
 		if(siemens_coefficient > 1)
 			. += "[src] will only make shocks worse."
-		else 
+		else
 			. += "[src] will provide [protectionpercentage] percent protection from electric shocks."
 
 /obj/item/clothing/gloves/color/fyellow/old
@@ -86,7 +86,7 @@
 
 /obj/item/clothing/gloves/color/red/insulated
 	name = "insulated gloves"
-	desc = "These gloves will protect the wearer from electric shock."
+	desc = "These gloves provide protection against electric shock."
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	resistance_flags = NONE
@@ -169,22 +169,38 @@
 
 /obj/item/clothing/gloves/color/latex
 	name = "latex gloves"
-	desc = "Cheap sterile gloves made from latex."
+	desc = "Cheap sterile gloves made from latex. Transfers minor paramedic knowledge to the user via budget nanochips."
 	icon_state = "latex"
-	item_state = "lgloves"
+	item_state = "latex"
 	siemens_coefficient = 0.3
 	permeability_coefficient = 0.01
 	item_color="mime"
 	transfer_prints = TRUE
 	resistance_flags = NONE
+	var/carrytrait = TRAIT_QUICK_CARRY
+
+/obj/item/clothing/gloves/color/latex/equipped(mob/user, slot)
+	..()
+	if(slot == SLOT_GLOVES)
+		ADD_TRAIT(user, carrytrait, CLOTHING_TRAIT)
+
+/obj/item/clothing/gloves/color/latex/dropped(mob/user)
+	..()
+	REMOVE_TRAIT(user, carrytrait, CLOTHING_TRAIT)
+
+/obj/item/clothing/gloves/color/latex/obj_break()
+	..()
+	if(ishuman(loc))
+		REMOVE_TRAIT(loc, carrytrait, CLOTHING_TRAIT)
 
 /obj/item/clothing/gloves/color/latex/nitrile
 	name = "nitrile gloves"
-	desc = "Pricy sterile gloves that are stronger than latex."
+	desc = "Pricy sterile gloves that are stronger than latex. Transfers intimate paramedic knowledge into the user via nanochips."
 	icon_state = "nitrile"
 	item_state = "nitrilegloves"
 	item_color = "cmo"
 	transfer_prints = FALSE
+	carrytrait = TRAIT_QUICKER_CARRY
 
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"

@@ -34,11 +34,13 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	bloodcrawl = BLOODCRAWL_EAT
-	hardattacks = TRUE 
+	hardattacks = TRUE
 	var/playstyle_string = "<span class='big bold'>You are a slaughter demon,</span><B> a terrible creature from another realm. You have a single desire: To kill.  \
 							You may use the \"Blood Crawl\" ability near blood pools to travel through them, appearing and disappearing from the station at will. \
 							Pulling a dead or unconscious mob while you enter a pool will pull them in with you, allowing you to feast and regain your health. \
 							You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. </B>"
+
+	mobchatspan = "cultmobsay"
 
 	loot = list(/obj/effect/decal/cleanable/blood, \
 				/obj/effect/decal/cleanable/blood/innards, \
@@ -133,7 +135,7 @@
 
 	playstyle_string = "<span class='big bold'>You are a laughter \
 	demon,</span><B> a wonderful creature from another realm. You have a single \
-	desire: <span class='clown'>To hug and tickle.</span><BR>\
+	desire: <span class='clowntext'>To hug and tickle.</span><BR>\
 	You may use the \"Blood Crawl\" ability near blood pools to travel \
 	through them, appearing and disappearing from the station at will. \
 	Pulling a dead or unconscious mob while you enter a pool will pull \
@@ -172,7 +174,7 @@
 		if(M.revive(full_heal = TRUE, admin_revive = TRUE))
 			M.grab_ghost(force = TRUE)
 			playsound(T, feast_sound, 50, 1, -1)
-			to_chat(M, "<span class='clown'>You leave [src]'s warm embrace,	and feel ready to take on the world.</span>")
+			to_chat(M, "<span class='clowntext'>You leave [src]'s warm embrace,	and feel ready to take on the world.</span>")
 
 /mob/living/simple_animal/slaughter/laughter/bloodcrawl_swallow(var/mob/living/victim)
 	if(consumed_mobs)

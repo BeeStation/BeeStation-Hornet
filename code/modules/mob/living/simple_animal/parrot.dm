@@ -60,6 +60,7 @@
 	movement_type = FLYING
 	gold_core_spawnable = FRIENDLY_SPAWN
 	mobsay_color = "#A6E398"
+	mobchatspan = "curator"
 
 	var/parrot_damage_upper = 10
 	var/parrot_state = PARROT_WANDER //Hunt for a perch when created
@@ -69,7 +70,7 @@
 
 	var/parrot_speed = 5 //"Delay in world ticks between movement." according to byond. Yeah, that's BS but it does directly affect movement. Higher number = slower.
 	var/parrot_lastmove = null //Updates/Stores position of the parrot while it's moving
-	var/parrot_stuck = 0	//If parrot_lastmove hasnt changed, this will increment until it reaches parrot_stuck_threshold
+	var/parrot_stuck = 0	//If parrot_lastmove hasn't changed, this will increment until it reaches parrot_stuck_threshold
 	var/parrot_stuck_threshold = 10 //if this == parrot_stuck, it'll force the parrot back to wandering
 
 	var/list/speech_buffer = list()
@@ -389,7 +390,7 @@
 
 //-----SLEEPING
 	if(parrot_state == PARROT_PERCH)
-		if(parrot_perch && parrot_perch.loc != src.loc) //Make sure someone hasnt moved our perch on us
+		if(parrot_perch && parrot_perch.loc != src.loc) //Make sure someone hasn't moved our perch on us
 			if(parrot_perch in view(src))
 				parrot_state = PARROT_SWOOP | PARROT_RETURN
 				icon_state = icon_living
@@ -514,7 +515,7 @@
 //-----RETURNING TO PERCH
 	else if(parrot_state == (PARROT_SWOOP | PARROT_RETURN))
 		walk(src, 0)
-		if(!parrot_perch || !isturf(parrot_perch.loc)) //Make sure the perch exists and somehow isnt inside of something else.
+		if(!parrot_perch || !isturf(parrot_perch.loc)) //Make sure the perch exists and somehow isn't inside of something else.
 			parrot_perch = null
 			parrot_state = PARROT_WANDER
 			return
@@ -613,7 +614,7 @@
 
 /mob/living/simple_animal/parrot/proc/search_for_item()
 	var/item
-	for(var/atom/movable/AM in view(src))
+	for(var/atom/movable/AM as obj|mob in view(src))
 		//Skip items we already stole or are wearing or are too big
 		if(parrot_perch && AM.loc == parrot_perch.loc || AM.loc == src)
 			continue
@@ -632,8 +633,6 @@
 				item = null
 				continue
 			return item
-
-	return null
 
 /mob/living/simple_animal/parrot/proc/search_for_perch()
 	for(var/obj/O in view(src))
@@ -786,7 +785,7 @@
 		return
 
 	if(icon_state == icon_living)
-		for(var/atom/movable/AM in view(src,1))
+		for(var/atom/movable/AM in view(1, src))
 			for(var/perch_path in desired_perches)
 				if(istype(AM, perch_path))
 					src.forceMove(AM.loc)
@@ -813,7 +812,7 @@
 		return
 
 	if(!buckled)
-		for(var/mob/living/carbon/human/H in view(src,1))
+		for(var/mob/living/carbon/human/H in view(1, src))
 			if(H.has_buckled_mobs() && H.buckled_mobs.len >= H.max_buckled_mobs) //Already has a parrot, or is being eaten by a slime
 				continue
 			perch_on_human(H)

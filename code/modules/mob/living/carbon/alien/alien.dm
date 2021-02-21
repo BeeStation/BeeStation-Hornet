@@ -22,6 +22,7 @@
 	gib_type = /obj/effect/decal/cleanable/xenoblood/xgibs
 	unique_name = 1
 
+	mobchatspan = "alienmobsay"
 	var/static/regex/alien_name_regex = new("alien (larva|sentinel|drone|hunter|praetorian|queen)( \\(\\d+\\))?")
 
 /mob/living/carbon/alien/Initialize()
@@ -43,7 +44,7 @@
 	internal_organs += new /obj/item/organ/ears
 	..()
 
-/mob/living/carbon/alien/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null) // beepsky won't hunt aliums
+/mob/living/carbon/alien/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null) // beepsky won't hunt aliums
 	return -10
 
 /mob/living/carbon/alien/handle_environment(datum/gas_mixture/environment)

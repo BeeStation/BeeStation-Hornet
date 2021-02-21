@@ -65,7 +65,7 @@
 /datum/game_mode/proc/can_start()
 	var/playerC = 0
 	for(var/mob/dead/new_player/player in GLOB.player_list)
-		if((player.client)&&(player.ready == PLAYER_READY_TO_PLAY))
+		if((player.client)&&(player.ready == PLAYER_READY_TO_PLAY) && player.has_valid_preferences())
 			playerC++
 	if(!GLOB.Debug2)
 		if(playerC < required_players || (maximum_players >= 0 && playerC > maximum_players))

@@ -19,11 +19,15 @@
 			var/background
 			var/notice = ""
 			switch(current.fields["criminal"])
-				if("*Arrest*")
+				if("Arrest")
 					background = "background-color:#990000;"
 					notice = "<br>**REPORT TO THE BRIG**"
 				if("Incarcerated")
 					background = "background-color:#CD6500;"
+				if("Search")
+					background = "'background-color:#9B13EB;'"
+				if("Monitor")
+					background = "'background-color:#990000;'"
 				if("Paroled")
 					background = "background-color:#CD6500;"
 				if("Discharged")

@@ -65,7 +65,7 @@
 /mob/living/carbon/monkey/proc/battle_screech()
 	if(next_battle_screech < world.time)
 		INVOKE_ASYNC(src, /mob.proc/emote, pick("roar","screech"))
-		for(var/mob/living/carbon/monkey/M in view(7,src))
+		for(var/mob/living/carbon/monkey/M in hearers(7,src))
 			M.next_battle_screech = world.time + battle_screech_cooldown
 
 /mob/living/carbon/monkey/proc/equip_item(obj/item/I)
@@ -158,7 +158,7 @@
 	switch(mode)
 		if(MONKEY_IDLE)		// idle
 			if(enemies.len)
-				var/list/around = view(src, MONKEY_ENEMY_VISION) // scan for enemies
+				var/list/around = view(MONKEY_ENEMY_VISION, src) // scan for enemies
 				for(var/mob/living/L in around)
 					if( should_target(L) )
 						if(L.stat == CONSCIOUS)
@@ -199,7 +199,7 @@
 					pickupTarget = W
 
 			// recruit other monkies
-			var/list/around = view(src, MONKEY_ENEMY_VISION)
+			var/list/around = view(MONKEY_ENEMY_VISION, src)
 			for(var/mob/living/carbon/monkey/M in around)
 				if(M.mode == MONKEY_IDLE && prob(MONKEY_RECRUIT_PROB))
 					M.battle_screech()
@@ -249,11 +249,10 @@
 				back_to_idle()
 
 		if(MONKEY_FLEE)
-			var/list/around = view(src, MONKEY_FLEE_VISION)
 			target = null
 
 			// flee from anyone who attacked us and we didn't beat down
-			for(var/mob/living/L in around)
+			for(var/mob/living/L in view(MONKEY_FLEE_VISION, src))
 				if( enemies[L] && L.stat == CONSCIOUS )
 					target = L
 
@@ -387,6 +386,26 @@
 	else if(L.a_intent == INTENT_DISARM && prob(MONKEY_RETALIATE_DISARM_PROB))
 		retaliate(L)
 	return ..()
+
+/mob/living/carbon/monkey/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(. && prob(MONKEY_RETALIATE_HARM_PROB))
+		retaliate(M)
+
+/mob/living/carbon/monkey/attack_alien(mob/living/carbon/alien/humanoid/M)
+	. = ..()
+	if(. && prob(MONKEY_RETALIATE_HARM_PROB))
+		retaliate(M)
+
+/mob/living/carbon/monkey/attack_larva(mob/living/carbon/alien/larva/L)
+	. = ..()
+	if(. && prob(MONKEY_RETALIATE_HARM_PROB))
+		retaliate(L)
+
+/mob/living/carbon/monkey/attack_slime(mob/living/simple_animal/slime/M)
+	. = ..()
+	if(. && prob(MONKEY_RETALIATE_HARM_PROB))
+		retaliate(M)
 
 /mob/living/carbon/monkey/attackby(obj/item/W, mob/user, params)
 	..()

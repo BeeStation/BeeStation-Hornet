@@ -72,6 +72,8 @@
 /mob/living/carbon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	var/hurt = TRUE
+	if(throwingdatum.force <= MOVE_FORCE_WEAK)
+		hurt = FALSE
 	if(istype(throwingdatum, /datum/thrownthing))
 		var/datum/thrownthing/D = throwingdatum
 		if(iscyborg(D.thrower))
@@ -119,15 +121,15 @@
 
 /mob/proc/throw_item(atom/target)
 	SEND_SIGNAL(src, COMSIG_MOB_THROW, target)
-	return
+	return TRUE
 
 /mob/living/carbon/throw_item(atom/target)
 	. = ..()
 	throw_mode_off()
 	if(!target || !isturf(loc))
-		return
+		return FALSE
 	if(istype(target, /atom/movable/screen))
-		return
+		return FALSE
 
 	var/atom/movable/thrown_thing
 	var/obj/item/I = get_active_held_item()
@@ -151,7 +153,7 @@
 
 		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
 			to_chat(src, "<span class='notice'>You set [I] down gently on the ground.</span>")
-			return
+			return TRUE
 
 	if(thrown_thing)
 		visible_message("<span class='danger'>[src] throws [thrown_thing].</span>", \
@@ -159,6 +161,8 @@
 		log_message("has thrown [thrown_thing]", LOG_ATTACK)
 		newtonian_move(get_dir(target, src))
 		thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
+		return TRUE
+	return FALSE
 
 /mob/living/carbon/restrained(ignore_grab)
 	. = (handcuffed || (!ignore_grab && pulledby && pulledby.grab_state >= GRAB_NECK))

@@ -17,12 +17,10 @@
 	var/list/listeners = SSmobs.clients_by_zlevel[z]
 	if(!ignore_walls) //these sounds don't carry through walls
 		listeners = listeners & hearers(maxdistance,turf_source)
-	for(var/P in listeners)
-		var/mob/M = P
+	for(var/mob/M as() in listeners)
 		if(get_dist(M, turf_source) <= maxdistance)
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, channel, pressure_affected, S)
-	for(var/P in SSmobs.dead_players_by_zlevel[z])
-		var/mob/M = P
+	for(var/mob/M as() in SSmobs.dead_players_by_zlevel[z])
 		if(get_dist(M, turf_source) <= maxdistance)
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, channel, pressure_affected, S)
 
@@ -147,8 +145,8 @@
 				soundin = pick('sound/machines/terminal_button01.ogg', 'sound/machines/terminal_button02.ogg', 'sound/machines/terminal_button03.ogg', \
 								'sound/machines/terminal_button04.ogg', 'sound/machines/terminal_button05.ogg', 'sound/machines/terminal_button06.ogg', \
 								'sound/machines/terminal_button07.ogg', 'sound/machines/terminal_button08.ogg')
-			if ("desceration")
-				soundin = pick('sound/misc/desceration-01.ogg', 'sound/misc/desceration-02.ogg', 'sound/misc/desceration-03.ogg')
+			if ("desecration")
+				soundin = pick('sound/misc/desecration-01.ogg', 'sound/misc/desecration-02.ogg', 'sound/misc/desecration-03.ogg')
 			if ("im_here")
 				soundin = pick('sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg')
 			if ("can_open")

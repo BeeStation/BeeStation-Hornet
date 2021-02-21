@@ -37,6 +37,13 @@
 		qdel(cc)
 	client_colours = null
 	ghostize()
+	QDEL_LIST(mob_spell_list)
+	for(var/datum/action/A as() in actions)
+		if(istype(A.target, /obj/effect/proc_holder))
+			A.Remove(src) // Mind's spells' actions should only be removed
+		else
+			qdel(A) // Other actions can be safely deleted
+	actions.Cut()
 	return ..()
 
 /**
@@ -175,7 +182,7 @@
 	var/range = 7
 	if(vision_distance)
 		range = vision_distance
-	for(var/mob/M in get_hearers_in_view(range, src))
+	for(var/mob/M as() in hearers(range, T))
 		if(!M.client)
 			continue
 		if(M in ignored_mobs)
@@ -215,7 +222,7 @@
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
-	for(var/mob/M in get_hearers_in_view(range, src))
+	for(var/mob/M as() in hearers(range, get_turf(src)))
 		var/msg = message
 		if(self_message && M==src)
 			msg = self_message
@@ -235,7 +242,7 @@
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
-	for(var/mob/M in get_hearers_in_view(range, src))
+	for(var/mob/M as() in hearers(range, get_turf(src)))
 		M.show_message( message, 2, deaf_message, 1)
 
 ///Get the item on the mob in the storage slot identified by the id passed in
@@ -798,7 +805,7 @@
 /mob/proc/activate_hand(selhand)
 	return
 
-/mob/proc/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null) //For sec bot threat assessment
+/mob/proc/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null) //For sec bot threat assessment
 	return 0
 
 ///Get the ghost of this mob (from the mind)

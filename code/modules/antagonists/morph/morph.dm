@@ -52,6 +52,8 @@
 							You can attack any item or dead creature to consume it - creatures will restore your health. \
 							Finally, you can restore yourself to your original form while morphed by shift-clicking yourself.</b>"
 
+	mobchatspan = "blob"
+
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	var/datum/action/innate/morph/stomach/S = new
 	S.Grant(src)
@@ -178,7 +180,7 @@
 	..()
 
 /mob/living/simple_animal/hostile/morph/proc/allowed(atom/movable/A) // make it into property/proc ? not sure if worth it
-	return !is_type_in_typecache(A, blacklist_typecache) && (isobj(A) || ismob(A))
+	return !is_type_in_typecache(A, blacklist_typecache)
 
 /mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/A)
 	if(morphed && !eat_while_disguised)
@@ -195,7 +197,7 @@
 		if(A == src)
 			restore()
 			return
-		if(istype(A) && allowed(A))
+		if((ismob(A) || isobj(A)) && allowed(A))
 			assume(A)
 	else
 		to_chat(src, "<span class='warning'>Your chameleon skin is still repairing itself!</span>")
@@ -217,6 +219,12 @@
 	pixel_y = initial(pixel_y)
 	pixel_x = initial(pixel_x)
 	density = target.density
+
+	if(isliving(target))
+		var/mob/living/L = target
+		mobchatspan = L.mobchatspan
+	else
+		mobchatspan = initial(mobchatspan)
 
 	//Morphed is weaker
 	melee_damage = melee_damage_disguised
@@ -283,7 +291,7 @@
 	. = ..()
 	if(.)
 		var/list/things = list()
-		for(var/atom/movable/A in view(src))
+		for(var/atom/movable/A as mob|obj in view(src))
 			if(allowed(A))
 				things += A
 		var/atom/movable/T = pick(things)

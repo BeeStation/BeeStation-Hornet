@@ -115,7 +115,7 @@
 	path = /obj/item/clothing/suit/jacket/letterman_red
 
 /datum/gear/suit/jacket/letterman_nanotrasen
-	display_name = "letterman jacket, NanoTrasen blue"
+	display_name = "letterman jacket, Nanotrasen blue"
 	path = /obj/item/clothing/suit/jacket/letterman_nanotrasen
 	cost = 5000
 
@@ -163,3 +163,13 @@
 /datum/gear/suit/poncho/red
 	display_name = "poncho, red"
 	path = /obj/item/clothing/suit/poncho/red
+
+//ROBES
+/datum/gear/suit/robe
+	subtype_path = /datum/gear/suit/robe
+	cost = 5000
+
+/datum/gear/suit/robe/blackbishop
+	display_name = "black bishop's robes"
+	path = /obj/item/clothing/suit/chaplainsuit/bishoprobe/black
+	allowed_roles = list("Chaplain")

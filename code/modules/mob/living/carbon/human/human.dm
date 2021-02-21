@@ -417,7 +417,7 @@
 				to_chat(usr, "<span class='warning'>ERROR: Unable to locate data core entry for target.</span>")
 				return
 			if(href_list["status"])
-				var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Incarcerated", "Paroled", "Discharged", "Cancel")
+				var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "Arrest", "Search", "Monitor", "Incarcerated", "Paroled", "Discharged", "Cancel")
 				if(setcriminal != "Cancel")
 					if(!R)
 						return
@@ -576,8 +576,8 @@
 							to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on these legs!</span>")
 							return 0
 
-/mob/living/carbon/human/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null)
-	if(judgement_criteria & JUDGE_EMAGGED)
+/mob/living/carbon/human/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null)
+	if(judgment_criteria & JUDGE_EMAGGED)
 		return 10 //Everyone is a criminal!
 
 	var/threatcount = 0
@@ -604,11 +604,11 @@
 
 	//Check for ID
 	var/obj/item/card/id/idcard = get_idcard(FALSE)
-	if( (judgement_criteria & JUDGE_IDCHECK) && !idcard && name=="Unknown")
+	if( (judgment_criteria & JUDGE_IDCHECK) && !idcard && name=="Unknown")
 		threatcount += 4
 
 	//Check for weapons
-	if( (judgement_criteria & JUDGE_WEAPONCHECK) && weaponcheck)
+	if( (judgment_criteria & JUDGE_WEAPONCHECK) && weaponcheck)
 		if(!idcard || !(ACCESS_WEAPONS in idcard.access))
 			for(var/obj/item/I in held_items) //if they're holding a gun
 				if(weaponcheck.Invoke(I))
@@ -617,16 +617,20 @@
 				threatcount += 2 //not enough to trigger look_for_perp() on it's own unless they also have criminal status.
 
 	//Check for arrest warrant
-	if(judgement_criteria & JUDGE_RECORDCHECK)
+	if(judgment_criteria & JUDGE_RECORDCHECK)
 		var/perpname = get_face_name(get_id_name())
 		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
-				if("*Arrest*")
+				if("Arrest")
 					threatcount += 5
 				if("Incarcerated")
 					threatcount += 2
 				if("Paroled")
+					threatcount += 2
+				if("Monitor")
+					threatcount += 1
+				if("Search")
 					threatcount += 2
 
 	//Check for dresscode violations
@@ -982,7 +986,7 @@
 	. = ..()
 	if(ishuman(over))
 		var/mob/living/carbon/human/T = over  // curbstomp, ported from PP with modifications
-		if(!src.is_busy && (src.zone_selected == BODY_ZONE_HEAD || src.zone_selected == BODY_ZONE_PRECISE_GROIN) && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP) //all the stars align, time to curbstomp
+		if(!src.is_busy && (src.zone_selected == BODY_ZONE_HEAD || src.zone_selected == BODY_ZONE_PRECISE_GROIN) && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP && !HAS_TRAIT(src, TRAIT_PACIFISM)) //all the stars align, time to curbstomp
 			src.is_busy = TRUE
 
 			if (!do_mob(src,T,25) || get_turf(src) != get_turf(T) || (T.mobility_flags & MOBILITY_STAND) || src.a_intent == INTENT_HELP || src == T) //wait 30ds and make sure the stars still align (Body zone check removed after PR #958)
@@ -1060,10 +1064,20 @@
 	return (ishuman(target) && !(target.mobility_flags & MOBILITY_STAND))
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
-	if(can_be_firemanned(target))
-		visible_message("<span class='notice'>[src] starts lifting [target] onto their back.</span>",
-			"<span class='notice'>You start lifting [target] onto your back.</span>")
-		if(do_after(src, 50, TRUE, target))
+	var/carrydelay = 50 //if you have latex you are faster at grabbing
+	var/skills_space = "" //cobby told me to do this
+	if(HAS_TRAIT(src, TRAIT_QUICKER_CARRY))
+		carrydelay = 30
+		skills_space = " expertly"
+	else if(HAS_TRAIT(src, TRAIT_QUICK_CARRY))
+		carrydelay = 40
+		skills_space = " quickly"
+	if(can_be_firemanned(target) && !incapacitated(FALSE, TRUE))
+		visible_message("<span class='notice'>[src] starts[skills_space] lifting [target] onto their back..</span>",
+		//Joe Medic starts quickly/expertly lifting Grey Tider onto their back..
+		"<span class='notice'>[HAS_TRAIT(src, TRAIT_QUICKER_CARRY) ? "Using your gloves' nanochips, you" : "You"][skills_space] start to lift [target] onto your back[HAS_TRAIT(src, TRAIT_QUICK_CARRY) ? ", while assisted by the nanochips in your gloves..." : "..."]</span>")
+		//(Using your gloves' nanochips, you/You) ( /quickly/expertly) start to lift Grey Tider onto your back(, while assisted by the nanochips in your gloves../...)
+		if(do_after(src, carrydelay, TRUE, target))
 			//Second check to make sure they're still valid to be carried
 			if(can_be_firemanned(target) && !incapacitated(FALSE, TRUE) && !target.buckled)
 				buckle_mob(target, TRUE, TRUE, 90, 1, 0)
@@ -1163,6 +1177,19 @@
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
 	return ..()
+
+/mob/living/carbon/human/ZImpactDamage(turf/T, levels)
+	//Non cat-people smash into the ground
+	if(!iscatperson(src))
+		return ..()
+	//Check to make sure legs are working
+	var/obj/item/bodypart/left_leg = get_bodypart(BODY_ZONE_L_LEG)
+	var/obj/item/bodypart/right_leg = get_bodypart(BODY_ZONE_R_LEG)
+	if(!left_leg || !right_leg || left_leg.disabled || right_leg.disabled)
+		return ..()
+	//Nailed it!
+	visible_message("<span class='notice'>[src] lands elegantly on [p_their()] feet!</span>",
+		"<span class='warning'>You fall [levels] level[levels > 1 ? "s" : ""] into [T], perfecting the landing!</span>")
 
 /mob/living/carbon/human/species
 	var/race = null
@@ -1281,6 +1308,9 @@
 
 /mob/living/carbon/human/species/jelly
 	race = /datum/species/jelly
+
+/mob/living/carbon/human/species/oozeling
+	race = /datum/species/oozeling
 
 /mob/living/carbon/human/species/jelly/slime
 	race = /datum/species/jelly/slime

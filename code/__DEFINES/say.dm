@@ -28,12 +28,6 @@
 #define MODE_KEY_DEPARTMENT "h"
 #define MODE_TOKEN_DEPARTMENT ":h"
 
-#define MODE_ADMIN "admin"
-#define MODE_KEY_ADMIN "p"
-
-#define MODE_DEADMIN "deadmin"
-#define MODE_KEY_DEADMIN "d"
-
 #define MODE_ALIEN "alientalk"
 #define MODE_HOLOPAD "holopad"
 
@@ -56,7 +50,7 @@
 #define SPAN_PAPYRUS "papyrus"
 #define SPAN_REALLYBIG "reallybig"
 #define SPAN_COMMAND "command_headset"
-#define SPAN_CLOWN "clown"
+#define SPAN_CLOWN "clowntext"
 #define SPAN_SINGING "singing"
 
 //bitflag #defines for return value of the radio() proc.

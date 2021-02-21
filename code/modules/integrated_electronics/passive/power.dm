@@ -51,9 +51,9 @@
 // For fat machines that need fat power, like drones.
 /obj/item/integrated_circuit/passive/power/relay
 	name = "tesla power relay"
-	desc = "A seemingly enigmatic device which connects to nearby APCs wirelessly and draws power from them."
+	desc = "An enigmatic device which wirelessly connects to nearby APCs to draw power."
 	w_class = WEIGHT_CLASS_SMALL
-	extended_desc = "The siphon drains 50 W of power from an APC in the same room as it as long as it has charge remaining. It will always drain \
+	extended_desc = "Siphons 50 W of power from an APC in the same room so long as there is charge remaining. It will always drain \
 	from the 'equipment' power channel."
 	icon_state = "power_relay"
 	complexity = 7
@@ -73,7 +73,7 @@
 // For really fat machines.
 /obj/item/integrated_circuit/passive/power/relay/large
 	name = "large tesla power relay"
-	desc = "A seemingly enigmatic device which connects to nearby APCs wirelessly and draws power from them, now in industrial size!"
+	desc = "A bulky, enigmatic device which wirelessly connects to nearby APCs to draw power. Now industrial size!"
 	w_class = WEIGHT_CLASS_BULKY
 	extended_desc = "The siphon drains 2 kW of power from an APC in the same room as it as long as it has charge remaining. It will always drain \
  	from the 'equipment' power channel."

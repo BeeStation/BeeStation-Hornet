@@ -145,7 +145,7 @@
 	if(!precision)
 		return list(center)
 	var/list/posturfs = list()
-	for(var/turf/T in range(precision,center))
+	for(var/turf/T as() in RANGE_TURFS(precision, center))
 		if(T.is_transition_turf())
 			continue // Avoid picking these.
 		var/area/A = T.loc

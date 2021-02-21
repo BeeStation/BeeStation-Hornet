@@ -3,16 +3,6 @@
 	if (!message)
 		return
 
-	var/message_mode = get_message_mode(message)
-	if(client && (message_mode == MODE_ADMIN || message_mode == MODE_DEADMIN))
-		message = copytext_char(message, 3)
-		message = trim_left(message)
-		if(message_mode == MODE_ADMIN)
-			client.cmd_admin_say(message)
-		else if(message_mode == MODE_DEADMIN)
-			client.dsay(message)
-		return
-
 	if(OOC_FILTER_CHECK(message))
 		to_chat(src, "<span class='warning'>That message contained a word prohibited in OOC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ooc_chat'>\"[message]\"</span></span>")
 		return
