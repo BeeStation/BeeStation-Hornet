@@ -86,7 +86,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		to_chat(user, "<span class='warning'>There is already a bluespace rune here!</span>")
 		return
 
-	if(!istype(target,/turf/open/floor))
+	if(!isfloorturf(target))
 		to_chat(user, "<span class='warning'>you cannot draw a rune here!</span>")
 		return
 
