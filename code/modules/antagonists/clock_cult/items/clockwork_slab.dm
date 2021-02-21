@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	var/datum/component/clockwork_trap/buffer
 
 /obj/item/clockwork/clockwork_slab/Initialize()
-	if(!GLOB.clockcult_all_scriptures)
+	if(!length(GLOB.clockcult_all_scriptures))
 		generate_clockcult_scriptures()
 	var/pos = 1
 	cogs = GLOB.installed_integration_cogs
