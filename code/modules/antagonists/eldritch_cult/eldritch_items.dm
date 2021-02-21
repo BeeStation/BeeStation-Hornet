@@ -200,6 +200,6 @@
 
 /obj/item/clothing/neck/crucifix/rosary
 	name = "rosary beads"
-	desc = "A wooden crucifix meant to ward of curses and hexes."
+	desc = "A wooden crucifix meant to ward off curses and hexes."
 	resistance_flags = FLAMMABLE
 	icon_state = "rosary"
