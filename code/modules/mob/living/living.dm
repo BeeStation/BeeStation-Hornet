@@ -1392,6 +1392,6 @@
 	"}
 
 /mob/living/eminence_act(mob/living/simple_animal/eminence/eminence)
-	if(is_servant_of_ratvar(src))
+	if(is_servant_of_ratvar(src) && !iseminence(src))
 		eminence.selected_mob = src
 		to_chat(eminence, "<span class='brass'>You select [src].</span>")
