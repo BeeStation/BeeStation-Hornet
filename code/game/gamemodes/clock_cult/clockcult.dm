@@ -240,6 +240,8 @@ GLOBAL_VAR(clockcult_eminence)
 					prefix = "Clonker"
 				else if(role in GLOB.civilian_positions)
 					prefix = "Cogworker"
+				else if(role in GLOB.gimmick_positions)
+					prefix = "Cogclocker"
 				else if(role in GLOB.security_positions)
 					prefix = "Warrior"
 				else if(role in GLOB.nonhuman_positions)
