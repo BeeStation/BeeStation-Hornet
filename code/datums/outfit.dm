@@ -235,7 +235,7 @@
 				I.implant(H, null, TRUE)
 		if(cyberimps)
 			for(var/cyberimp_type in cyberimps)
-				var/obj/item/organ/cyberimp/C = new cyberimp_type
+				var/obj/item/organ/cyberimp/C = new cyberimp_type(H)
 				C.Insert(H, TRUE, TRUE)
 
 	H.update_body()
