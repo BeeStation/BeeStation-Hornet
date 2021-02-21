@@ -10,12 +10,6 @@
 	special_role = "internal affairs agent"
 	antagpanel_category = "IAA"
 	var/syndicate = FALSE
-	var/last_man_standing = FALSE
-	var/list/datum/mind/targets_stolen
-
-/datum/antagonist/traitor/internal_affairs/New()
-	..()
-	targets_stolen = list()
 
 /datum/antagonist/traitor/internal_affairs/proc/give_pinpointer()
 	if(owner?.current)
@@ -30,16 +24,6 @@
 	.=..()
 	if(owner?.current)
 		owner.current.remove_status_effect(/datum/status_effect/agent_pinpointer)
-
-/datum/antagonist/traitor/internal_affairs/on_gain()
-	START_PROCESSING(SSprocessing, src)
-	.=..()
-/datum/antagonist/traitor/internal_affairs/on_removal()
-	STOP_PROCESSING(SSprocessing,src)
-	.=..()
-/datum/antagonist/traitor/internal_affairs/process()
-	iaa_process()
-
 
 /datum/status_effect/agent_pinpointer
 	id = "agent_pinpointer"
@@ -102,107 +86,6 @@
 
 /proc/is_internal_objective(datum/objective/O)
 	return (istype(O, /datum/objective/assassinate/internal)||istype(O, /datum/objective/destroy/internal))
-
-/datum/antagonist/traitor/proc/replace_escape_objective()
-	if(!owner || !objectives.len)
-		return
-	for (var/objective_ in objectives)
-		if(!(istype(objective_, /datum/objective/escape)||istype(objective_, /datum/objective/survive)))
-			continue
-		remove_objective(objective_)
-
-	var/datum/objective/martyr/martyr_objective = new
-	martyr_objective.owner = owner
-	add_objective(martyr_objective)
-
-/datum/antagonist/traitor/proc/reinstate_escape_objective()
-	if(!owner||!objectives.len)
-		return
-	for (var/objective_ in objectives)
-		if(!istype(objective_, /datum/objective/martyr))
-			continue
-		remove_objective(objective_)
-
-/datum/antagonist/traitor/internal_affairs/reinstate_escape_objective()
-	..()
-	var/objtype = traitor_kind == TRAITOR_HUMAN ? /datum/objective/escape : /datum/objective/survive/exist
-	var/datum/objective/escape_objective = new objtype
-	escape_objective.owner = owner
-	add_objective(escape_objective)
-
-/datum/antagonist/traitor/internal_affairs/proc/steal_targets(datum/mind/victim)
-	if(!owner.current||owner.current.stat==DEAD)
-		return
-	to_chat(owner.current, "<span class='userdanger'> Target eliminated: [victim.name]</span>")
-	for(var/objective_ in victim.get_all_objectives())
-		if(istype(objective_, /datum/objective/assassinate/internal))
-			var/datum/objective/assassinate/internal/objective = objective_
-			if(objective.target==owner)
-				continue
-			else if(targets_stolen.Find(objective.target) == 0)
-				var/datum/objective/assassinate/internal/new_objective = new
-				new_objective.owner = owner
-				new_objective.target = objective.target
-				new_objective.update_explanation_text()
-				new_objective.stolen = TRUE
-				add_objective(new_objective)
-				targets_stolen += objective.target
-				var/status_text = objective.check_completion() ? "neutralised" : "active"
-				to_chat(owner.current, "<span class='userdanger'> New target added to database: [objective.target.name] ([status_text]) </span>")
-		else if(istype(objective_, /datum/objective/destroy/internal))
-			var/datum/objective/destroy/internal/objective = objective_
-			var/datum/objective/destroy/internal/new_objective = new
-			if(objective.target==owner)
-				continue
-			else if(targets_stolen.Find(objective.target) == 0)
-				new_objective.owner = owner
-				new_objective.target = objective.target
-				new_objective.update_explanation_text()
-				new_objective.stolen = TRUE
-				add_objective(new_objective)
-				targets_stolen += objective.target
-				var/status_text = objective.check_completion() ? "neutralised" : "active"
-				to_chat(owner.current, "<span class='userdanger'> New target added to database: [objective.target.name] ([status_text]) </span>")
-	last_man_standing = TRUE
-	for(var/objective_ in objectives)
-		if(!is_internal_objective(objective_))
-			continue
-		var/datum/objective/assassinate/internal/objective = objective_
-		if(!objective.check_completion())
-			last_man_standing = FALSE
-			return
-	if(last_man_standing)
-		if(syndicate)
-			to_chat(owner.current,"<span class='userdanger'> All the loyalist agents are dead, and no more is required of you. Die a glorious death, agent. </span>")
-		else
-			to_chat(owner.current,"<span class='userdanger'> All the other agents are dead, and you're the last loose end. Stage a Syndicate terrorist attack to cover up for today's events. You no longer have any limits on collateral damage.</span>")
-		replace_escape_objective(owner)
-
-/datum/antagonist/traitor/internal_affairs/proc/iaa_process()
-	if(owner&&owner.current&&owner.current.stat!=DEAD)
-		for(var/objective_ in objectives)
-			if(!is_internal_objective(objective_))
-				continue
-			var/datum/objective/assassinate/internal/objective = objective_
-			if(!objective.target)
-				continue
-			if(objective.check_completion())
-				if(objective.stolen)
-					continue
-				else
-					steal_targets(objective.target)
-					objective.stolen = TRUE
-			else
-				if(objective.stolen)
-					var/fail_msg = "<span class='userdanger'>Your sensors tell you that [objective.target.current.real_name], one of the targets you were meant to have killed, pulled one over on you, and is still alive - do the job properly this time! </span>"
-					if(last_man_standing)
-						if(syndicate)
-							fail_msg += "<span class='userdanger'> You no longer have permission to die. </span>"
-						else
-							fail_msg += "<span class='userdanger'> The truth could still slip out!</font><B><font size=5 color=red> Cease any terrorist actions as soon as possible, unneeded property damage or loss of employee life will lead to your contract being terminated.</span>"
-						reinstate_escape_objective(owner)
-						last_man_standing = FALSE
-					to_chat(owner.current, fail_msg)
 
 /datum/antagonist/traitor/internal_affairs/proc/forge_iaa_objectives()
 	if(SSticker.mode.target_list.len && SSticker.mode.target_list[owner]) // Is a double agent
