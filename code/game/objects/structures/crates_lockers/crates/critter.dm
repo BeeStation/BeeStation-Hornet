@@ -1,7 +1,7 @@
 /obj/structure/closet/crate/critter
 	name = "critter crate"
 	desc = "A crate designed for safe transport of animals. It has an oxygen tank for safe transport in space."
-	icon_state = "crittercrate"
+	icon_state = "critter_crate"
 	horizontal = FALSE
 	allow_objects = FALSE
 	breakout_time = 600

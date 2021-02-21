@@ -53,7 +53,7 @@
 /datum/reagent/toxin/plasma
 	name = "Plasma"
 	description = "Plasma in its liquid form."
-	taste_description = "bitterness"
+	taste_description = "a burning, tingling sensation"
 	specific_heat = SPECIFIC_HEAT_PLASMA
 	taste_mult = 1.5
 	color = "#8228A0"
@@ -116,6 +116,24 @@
 	if(prob(10))
 		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
 		M.adjustToxLoss(rand(20,60)*REM, 0)
+		. = 1
+	else if(prob(40))
+		M.heal_bodypart_damage(5*REM)
+		. = 1
+	..()
+
+/datum/reagent/toxin/slimeooze
+	name = "Slime Ooze"
+	description = "A gooey semi-liquid produced from Oozelings"
+	color = "#611e80"
+	toxpwr = 0
+	taste_description = "slime"
+	taste_mult = 1.5
+
+/datum/reagent/toxin/slimeooze/on_mob_life(mob/living/carbon/M)
+	if(prob(10))
+		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
+		M.adjustToxLoss(rand(1,10)*REM, 0)
 		. = 1
 	else if(prob(40))
 		M.heal_bodypart_damage(5*REM)

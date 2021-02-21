@@ -13,7 +13,7 @@
 	var/datum/action/innate/clockcult/transmit/transmit_spell
 	var/datum/team/clock_cult/team
 
-	var/prefix = CLOCKCULT_RECRUIT
+	var/prefix = CLOCKCULT_PREFIX_RECRUIT
 
 	var/counts_towards_total = TRUE//Counts towards the total number of servants.
 

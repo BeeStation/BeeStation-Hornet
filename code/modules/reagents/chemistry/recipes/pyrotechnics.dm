@@ -66,11 +66,7 @@
 		playsound(get_turf(holder.my_atom), 'sound/effects/pray.ogg', 80, 0, round(created_volume/48))
 		strengthdiv = 8
 		for(var/mob/living/simple_animal/revenant/R in hearers(7,get_turf(holder.my_atom)))
-			var/deity
-			if(GLOB.deity)
-				deity = GLOB.deity
-			else
-				deity = "Christ"
+			var/deity = GLOB.deity || "Christ"
 			to_chat(R, "<span class='userdanger'>The power of [deity] compels you!</span>")
 			R.stun(20)
 			R.reveal(100)
@@ -161,8 +157,9 @@
 
 /datum/chemical_reaction/clf3/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
-	for(var/turf/turf in range(1,T))
-		new /obj/effect/hotspot(turf)
+	for(var/turf/open/turf in RANGE_TURFS(1,T))
+		if(!locate(/obj/effect/hotspot) in turf)
+			new /obj/effect/hotspot(turf)
 	holder.chem_temp = 1000 // hot as shit
 
 /datum/chemical_reaction/reagent_explosion/methsplosion
@@ -176,8 +173,9 @@
 
 /datum/chemical_reaction/reagent_explosion/methsplosion/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
-	for(var/turf/turf in range(1,T))
-		new /obj/effect/hotspot(turf)
+	for(var/turf/open/turf in RANGE_TURFS(1,T))
+		if(!locate(/obj/effect/hotspot) in turf)
+			new /obj/effect/hotspot(turf)
 	holder.chem_temp = 1000 // hot as shit
 	..()
 
@@ -421,6 +419,13 @@
 	results = list(/datum/reagent/teslium/energized_jelly = 2)
 	required_reagents = list(/datum/reagent/toxin/slimejelly = 1, /datum/reagent/teslium = 1)
 	mix_message = "<span class='danger'>The slime jelly starts glowing intermittently.</span>"
+
+/datum/chemical_reaction/energized_jelly/energized_ooze
+	name = "Energized Ooze"
+	id = /datum/reagent/teslium/energized_jelly/energized_ooze
+	results = list(/datum/reagent/teslium/energized_jelly/energized_ooze = 2)
+	required_reagents = list(/datum/reagent/toxin/slimeooze = 1, /datum/reagent/teslium = 1)
+	mix_message = "<span class='danger'>The slime ooze starts glowing intermittently.</span>"
 
 /datum/chemical_reaction/reagent_explosion/teslium_lightning
 	name = "Teslium Destabilization"

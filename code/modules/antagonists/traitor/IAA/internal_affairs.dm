@@ -13,6 +13,9 @@
 	var/last_man_standing = FALSE
 	var/list/datum/mind/targets_stolen
 
+/datum/antagonist/traitor/internal_affairs/New()
+	..()
+	targets_stolen = list()
 
 /datum/antagonist/traitor/internal_affairs/proc/give_pinpointer()
 	if(owner?.current)
@@ -248,7 +251,7 @@
 
 	to_chat(owner.current, "<span class='userdanger'>Finally, watch your back. Your target has friends in high places, and intel suggests someone may have taken out a contract of their own to protect them.</span>")
 	owner.announce_objectives()
-	owner.current.client?.tgui_panel?.give_antagonist_popup("[syndicate ? "Internal Affairs" : "External Affairs"]",
+	owner.current.client?.tgui_panel?.give_antagonist_popup("[syndicate ? "External Affairs" : "Internal Affairs"]",
 		"[syndicate?"Eliminate your target and cause as much damage to Nanotrasen property as you see fit."\
 		: "Eliminate your target without drawing too much attention to yourself, but watch your back since somebody is after you."]")
 

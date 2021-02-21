@@ -1,7 +1,7 @@
 /obj/structure/closet/crate/large
 	name = "large crate"
 	desc = "A hefty wooden crate. You'll need a crowbar to get it open."
-	icon_state = "largecrate"
+	icon_state = "large_crate"
 	density = TRUE
 	material_drop = /obj/item/stack/sheet/mineral/wood
 	material_drop_amount = 4

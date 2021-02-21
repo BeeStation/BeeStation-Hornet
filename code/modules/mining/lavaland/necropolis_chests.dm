@@ -6,7 +6,7 @@
 /obj/structure/closet/crate/necropolis
 	name = "necropolis chest"
 	desc = "It's watching you closely."
-	icon_state = "necrocrate"
+	icon_state = "necro_crate"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	door_anim_time = 0
 
@@ -999,7 +999,7 @@
 	if(is_type_in_typecache(target, banned_turfs))
 		return
 
-	if(target in view(user.client.view, get_turf(user)))
+	if(user in viewers(user.client.view, get_turf(target)))
 
 		var/turf/open/T = get_turf(target)
 		if(!istype(T))
@@ -1177,7 +1177,7 @@
 	for(var/obj/item/I in user)
 		if(I != src)
 			user.dropItemToGround(I)
-	for(var/turf/T in RANGE_TURFS(1, user))
+	for(var/turf/T as() in RANGE_TURFS(1, user))
 		var/obj/effect/temp_visual/hierophant/blast/B = new(T, user, TRUE)
 		B.damage = 0
 	user.dropItemToGround(src) //Drop us last, so it goes on top of their stuff
@@ -1197,7 +1197,7 @@
 		if(ismineralturf(target) && get_dist(user, target) < 6) //target is minerals, we can hit it(even if we can't see it)
 			INVOKE_ASYNC(src, .proc/cardinal_blasts, T, user)
 			timer = world.time + cooldown_time
-		else if(target in view(5, get_turf(user))) //if the target is in view, hit it
+		else if(user in viewers(5, get_turf(target))) //if the target is in view, hit it
 			timer = world.time + cooldown_time
 			if(isliving(target) && chaser_timer <= world.time) //living and chasers off cooldown? fire one!
 				chaser_timer = world.time + chaser_cooldown
@@ -1322,13 +1322,13 @@
 		user.log_message("teleported self from [AREACOORD(source)] to [beacon]", LOG_GAME)
 		new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, user)
 		new /obj/effect/temp_visual/hierophant/telegraph/teleport(source, user)
-		for(var/t in RANGE_TURFS(1, T))
+		for(var/turf/t as() in RANGE_TURFS(1, T))
 			var/obj/effect/temp_visual/hierophant/blast/B = new /obj/effect/temp_visual/hierophant/blast(t, user, TRUE) //blasts produced will not hurt allies
 			B.damage = 30
-		for(var/t in RANGE_TURFS(1, source))
+		for(var/turf/t as() in RANGE_TURFS(1, source))
 			var/obj/effect/temp_visual/hierophant/blast/B = new /obj/effect/temp_visual/hierophant/blast(t, user, TRUE) //but absolutely will hurt enemies
 			B.damage = 30
-		for(var/mob/living/L in range(1, source))
+		for(var/mob/living/L in hearers(1, source))
 			INVOKE_ASYNC(src, .proc/teleport_mob, source, L, T, user) //regardless, take all mobs near us along
 		sleep(6) //at this point the blasts detonate
 		if(beacon)

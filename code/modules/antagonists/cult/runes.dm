@@ -116,11 +116,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 	if(user)
 		invokers += user
 	if(req_cultists > 1 || istype(src, /obj/effect/rune/convert))
-		var/list/things_in_range = range(1, src)
-		var/obj/item/toy/plush/narplush/plushsie = locate() in things_in_range
-		if(istype(plushsie) && plushsie.is_invoker)
+		var/obj/item/toy/plush/narplush/plushsie = locate() in range(1, src)
+		if(plushsie?.is_invoker)
 			invokers += plushsie
-		for(var/mob/living/L in things_in_range)
+		for(var/mob/living/L in viewers(1, src))
 			if(iscultist(L))
 				if(L == user)
 					continue
@@ -610,7 +609,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/raise_dead/fail_invoke()
 	..()
 	rune_in_use = FALSE
-	for(var/mob/living/M in range(1,src))
+	for(var/mob/living/M in hearers(1,src))
 		if(iscultist(M) && M.stat == DEAD)
 			M.visible_message("<span class='warning'>[M] twitches.</span>")
 
@@ -977,7 +976,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/duration = intensity*10
 	playsound(T, 'sound/magic/enter_blood.ogg', 100, 1)
 	visible_message("<span class='warning'>A colossal shockwave of energy bursts from the rune, disintegrating it in the process!</span>")
-	for(var/mob/living/L in range(src, 3))
+	for(var/mob/living/L in viewers(3, src))
 		L.Paralyze(30)
 	empulse(T, 0.42*(intensity), 1)
 	var/list/images = list()
