@@ -9,6 +9,7 @@
 	<span class='notice'>Both</span>: The disk will double the countdown of the bomb!"
 
 	var/list/area/target_zones
+	var/obj/machinery/nuclearbomb/syndicate/proto/thebomb
 	var/max_zones = 3
 
 /datum/game_mode/nuclear/defense/pre_setup() //Stolen from clownops.
@@ -18,7 +19,7 @@
 			var/turf/T = get_turf(S)
 			if(T)
 				qdel(S)
-				var/obj/machinery/nuclearbomb/syndicate/proto/thebomb = new /obj/machinery/nuclearbomb/syndicate/proto(T)
+				thebomb = new /obj/machinery/nuclearbomb/syndicate/proto(T)
 				var/panic = 0
 				target_zones = list()
 				while(length(target_zones) < 3 && panic < 100)
@@ -44,3 +45,8 @@
 			return NUKE_RESULT_CREW_WIN
 		else
 			return //Everything else can fall through
+
+/datum/game_mode/nuclear/defense/check_finished()
+	if(!thebomb)
+		return TRUE //The bomb has been... Well not defused but-
+	return ..()

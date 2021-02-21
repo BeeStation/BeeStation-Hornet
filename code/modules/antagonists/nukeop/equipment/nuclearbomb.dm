@@ -616,6 +616,8 @@ This is here to make the tiles around the station mininuke change when it's arme
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF //Not indestructible.
 	max_integrity = 2000 //This will need adjustment through testing.
 	damage_deflection = 10 //But not *that* weak
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 90, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+
 
 	yes_code = 2 //Dumb fucking trigger value.
 	safety = FALSE
@@ -806,8 +808,11 @@ This is here to make the tiles around the station mininuke change when it's arme
 		maptext = "<center><span class='chatOverhead' style='color:red'>[remaining]</span></center>"
 		..()
 
+/obj/machinery/nuclearbomb/syndicate/proto/ex_act(severity, target)
+	if(severity == 1) // ah ah ah, It's not *that* weak.
+		ex_act(2, target)
 
-/obj/machinery/nuclearbomb/syndicate/proto/obj_break()
+/obj/machinery/nuclearbomb/syndicate/proto/obj_destruction()
 	disarm()
 	explosion(src.loc, -1, -1, 2, flame_range = 5)
 	qdel(src)
