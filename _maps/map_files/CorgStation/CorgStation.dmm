@@ -5130,21 +5130,6 @@
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/ai)
-"beQ" = (
-/obj/structure/table,
-/obj/item/clothing/under/color/random,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
-/obj/item/storage/crayons,
-/turf/open/floor/plasteel,
-/area/crew_quarters/dorms)
 "bff" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/effect/turf_decal/tile/neutral,
@@ -26079,6 +26064,21 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
+"hsA" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Security Medical";
+	req_access_txt = "63"
+	},
+/turf/open/floor/plasteel/white,
+/area/security/brig)
 "hsK" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer,
 /turf/open/floor/plasteel/dark,
@@ -29192,6 +29192,16 @@
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
+"imH" = (
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
+/obj/structure/transit_tube/station/reverse/flipped{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/starboard/central)
 "imI" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -36657,6 +36667,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
+"kuZ" = (
+/obj/structure/table/wood,
+/obj/item/coin/arcade_token,
+/obj/machinery/newscaster{
+	pixel_x = 28
+	},
+/obj/item/storage/crayons,
+/turf/open/floor/carpet/royalblue,
+/area/crew_quarters/theatre)
 "kvc" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 8
@@ -38106,6 +38125,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
+"kQq" = (
+/obj/structure/lattice,
+/obj/effect/landmark/carpspawn,
+/turf/open/space/basic,
+/area/space/nearstation)
 "kQu" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 4
@@ -39494,11 +39518,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel,
 /area/medical/medbay/aft)
-"lik" = (
-/obj/structure/lattice,
-/obj/effect/landmark/carpspawn,
-/turf/open/space/basic,
-/area/space/nearstation)
 "lin" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -44318,15 +44337,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
-"mFr" = (
-/obj/structure/table/wood,
-/obj/item/coin/arcade_token,
-/obj/machinery/newscaster{
-	pixel_x = 28
-	},
-/obj/item/storage/crayons,
-/turf/open/floor/carpet/royalblue,
-/area/crew_quarters/theatre)
 "mFu" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -45498,21 +45508,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/main)
-"nab" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/obj/machinery/door/airlock/security/glass{
-	name = "Security Medical";
-	req_access_txt = "63"
-	},
-/turf/open/floor/plasteel/white,
-/area/security/brig)
 "naw" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -65179,6 +65174,21 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
+"sZX" = (
+/obj/structure/table,
+/obj/item/clothing/under/color/random,
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
+/obj/item/storage/crayons,
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
 "tab" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -66291,6 +66301,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
+"ttf" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/landmark/xeno_spawn,
+/turf/open/floor/plating,
+/area/maintenance/starboard/central)
 "ttB" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -72132,6 +72147,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/security/brig)
+"vdu" = (
+/obj/effect/landmark/xeno_spawn,
+/turf/open/floor/plating,
+/area/maintenance/port)
 "vdA" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -77318,16 +77337,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
-"wzV" = (
-/obj/structure/window/reinforced/spawner{
-	dir = 1
-	},
-/obj/structure/transit_tube/station/reverse/flipped{
-	dir = 1
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/dark,
-/area/maintenance/starboard/central)
 "wzY" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -77718,12 +77727,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel,
 /area/science/storage)
-"wEM" = (
-/obj/structure/table/wood,
-/obj/item/paicard,
-/obj/item/storage/crayons,
-/turf/open/floor/wood,
-/area/crew_quarters/fitness/recreation)
 "wFg" = (
 /obj/machinery/light{
 	dir = 1
@@ -79550,6 +79553,12 @@
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
+"xiK" = (
+/obj/structure/table/wood,
+/obj/item/paicard,
+/obj/item/storage/crayons,
+/turf/open/floor/wood,
+/area/crew_quarters/fitness/recreation)
 "xiP" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -106449,7 +106458,7 @@ aMT
 aMT
 aMT
 vhc
-iOB
+vdu
 iOB
 iOB
 iOB
@@ -110841,7 +110850,7 @@ fMn
 fTU
 hHR
 iOL
-wEM
+xiK
 xsd
 kqH
 mon
@@ -111626,7 +111635,7 @@ rdA
 mjq
 oqC
 rdA
-mFr
+kuZ
 pql
 ykT
 glo
@@ -112882,7 +112891,7 @@ lMR
 vaO
 gRm
 vaO
-beQ
+sZX
 auR
 nAi
 aPk
@@ -125649,7 +125658,7 @@ sXZ
 dmz
 tne
 uBk
-nab
+hsA
 nCY
 gfk
 pKS
@@ -129335,7 +129344,7 @@ bfm
 jjI
 cOV
 xBm
-unf
+ttf
 cSs
 lAz
 anT
@@ -133382,7 +133391,7 @@ anT
 krU
 rgH
 krU
-lik
+kQq
 aMT
 aMT
 aMT
@@ -133409,7 +133418,7 @@ aMT
 anT
 aMT
 uLw
-wzV
+imH
 xmJ
 enq
 xsn
