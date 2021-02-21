@@ -1,0 +1,30 @@
+"a" = (/turf/template_noop,/area/template_noop)
+"b" = (/turf/closed/wall/r_wall/rust,/area/ruin/unpowered)
+"c" = (/obj/structure/window/reinforced/fulltile,/turf/open/floor/mineral/plastitanium/red,/area/ruin/unpowered)
+"d" = (/obj/structure/chair/comfy/shuttle{dir = 4},/obj/effect/mob_spawn/human/corpse/russian,/obj/item/reagent_containers/food/drinks/bottle/vodka,/turf/open/floor/mineral/plastitanium/red,/area/ruin/unpowered)
+"e" = (/obj/structure/shuttle/engine/propulsion,/turf/open/space/basic,/area/ruin/unpowered)
+"f" = (/turf/open/floor/mineral/plastitanium/red,/area/ruin/unpowered)
+"g" = (/obj/machinery/computer,/turf/open/floor/mineral/plastitanium/red,/area/ruin/unpowered)
+"h" = (/obj/structure/chair/comfy/shuttle{dir = 4},/turf/open/floor/mineral/plastitanium/red,/area/ruin/unpowered)
+"i" = (/obj/structure/chair/comfy/shuttle{dir = 1},/obj/effect/mob_spawn/human/corpse/russian/ranged,
+				/obj/item/gun/ballistic/rifle/boltaction,/turf/open/floor/mineral/plastitanium/red,/area/ruin/unpowered)
+"j" = (/obj/item/gps{gpstag = "SOS"},/turf/open/floor/mineral/plastitanium/red,/area/ruin/unpowered)
+"k" = (/obj/structure/chair/comfy/shuttle{dir = 8},/turf/open/floor/mineral/plastitanium/red,/area/ruin/unpowered)
+"l" = (/obj/structure/chair/comfy/shuttle{dir = 4},/obj/item/storage/pod{pixel_x = -24},/turf/open/floor/mineral/plastitanium/red,/area/ruin/unpowered)
+"m" = (/obj/machinery/door/airlock/vault{name = "secured door"; req_access = 207},/turf/open/floor/mineral/plastitanium/red,/area/ruin/unpowered)
+"n" = (/obj/structure/chair/comfy/shuttle{dir = 8},/obj/item/storage/pod{pixel_x = 24},/turf/open/floor/mineral/plastitanium/red,/area/ruin/unpowered)
+
+(1,1,1) = {"
+aaaaaaaa
+aaaaaaaa
+aaaaaaaa
+aaaaaaaa
+abcccbaa
+abhfgbaa
+abdfibaa
+abdjkbaa
+ablfnbaa
+aebmbeaa
+aaaaaaaa
+aaaaaaaa
+"}

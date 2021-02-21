@@ -19,7 +19,7 @@
 	var/map_file = "BoxStation.dmm"
 
 	var/traits = null
-	var/space_ruin_levels = 7
+	var/space_ruin_levels = 5
 	var/space_empty_levels = 1
 
 	var/minetype = "lavaland"
