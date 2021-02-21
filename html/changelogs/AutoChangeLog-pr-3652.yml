@@ -1,0 +1,6 @@
+author: MNarath1
+delete-after: true
+changes:
+  - bugfix: Fixes morph becoming invisible and unclickable if it tries to disguise
+      as an airlock
+  - bugfix: Fixes computer screen and apc screen not showing in disguise
