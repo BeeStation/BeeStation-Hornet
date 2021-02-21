@@ -555,7 +555,7 @@
 		visible_message("<span class='notice'>[src] fizzes ominously.</span>")
 		addtimer(CALLBACK(src, .proc/fizzbuzz), 110)
 
-/obj/machinery/nuclearbomb/beer/proc/disarm()
+/obj/machinery/nuclearbomb/proc/disarm()
 	detonation_timer = null
 	exploding = FALSE
 	exploded = TRUE
@@ -805,6 +805,12 @@ This is here to make the tiles around the station mininuke change when it's arme
 			remaining = "00:00"
 		maptext = "<center><span class='chatOverhead' style='color:red'>[remaining]</span></center>"
 		..()
+
+
+/obj/machinery/nuclearbomb/syndicate/proto/obj_break()
+	disarm()
+	explosion(src.loc, -1, -1, 2, flame_range = 5)
+	qdel(src)
 
 
 //==========DAT FUKKEN DISK===============
