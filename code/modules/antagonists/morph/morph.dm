@@ -180,7 +180,7 @@
 	..()
 
 /mob/living/simple_animal/hostile/morph/proc/allowed(atom/movable/A) // make it into property/proc ? not sure if worth it
-	return !is_type_in_typecache(A, blacklist_typecache)
+	return !is_type_in_typecache(A, blacklist_typecache) && (isobj(A) || ismob(A))
 
 /mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/A)
 	if(morphed && !eat_while_disguised)
@@ -197,7 +197,7 @@
 		if(A == src)
 			restore()
 			return
-		if((ismob(A) || isobj(A)) && allowed(A))
+		if(allowed(A))
 			assume(A)
 	else
 		to_chat(src, "<span class='warning'>Your chameleon skin is still repairing itself!</span>")
@@ -292,7 +292,7 @@
 	. = ..()
 	if(.)
 		var/list/things = list()
-		for(var/atom/movable/A as mob|obj in view(src))
+		for(var/atom/A as() in view(src))
 			if(allowed(A))
 				things += A
 		var/atom/movable/T = pick(things)
