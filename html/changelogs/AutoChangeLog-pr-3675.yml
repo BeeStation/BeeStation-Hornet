@@ -1,0 +1,11 @@
+author: Cenrus
+delete-after: true
+changes:
+  - bugfix: The eminence can no longer nuzzle things
+  - bugfix: The eminence can no longer select itself
+  - bugfix: The eminence can no longer pull other mobs
+  - bugfix: The eminence now teleports to random locations on the station, instead
+      of the core
+  - rscadd: The eminence teleport has a sound effect and a flash of color
+  - tweak: The eminence has a "Master" prefix on the hierophant network
+  - tweak: Tweak ark of the clockwork jusiticiar description

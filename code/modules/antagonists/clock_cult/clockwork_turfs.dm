@@ -349,6 +349,7 @@
 	air_tight = FALSE
 	CanAtmosPass = ATMOS_PASS_YES
 	var/construction_state = GEAR_SECURE //Pinion airlocks have custom deconstruction
+	allow_repaint = FALSE
 
 /obj/machinery/door/airlock/clockwork/Initialize()
 	. = ..()
