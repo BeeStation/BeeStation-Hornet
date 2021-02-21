@@ -1,0 +1,4 @@
+author: 'Tlaltecuhtli '
+delete-after: true
+changes:
+  - tweak: Lava damages contents of containers
