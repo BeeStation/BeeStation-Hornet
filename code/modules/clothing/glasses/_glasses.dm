@@ -215,12 +215,10 @@
 	. = ..()
 	if(ishuman(user) && slot == SLOT_GLASSES)
 		ADD_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
-		//ADD_TRAIT(user, TRAIT_CHEMISTRY, CLOTHING_TRAIT)
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent/dropped(mob/user)
 	. = ..()
 	REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
-	//ADD_TRAIT(user, TRAIT_CHEMISTRY, CLOTHING_TRAIT)
 
 /obj/item/clothing/glasses/sunglasses/advanced/garb
 	name = "black gar glasses"
