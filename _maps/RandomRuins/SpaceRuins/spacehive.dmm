@@ -1,3 +1,33 @@
-"a" = ()
+"a" = (/turf/open/space/basic,/area/space)
+"b" = (/turf/closed/wall/mineral/wood/nonmetal,/area/space)
+"c" = (/obj/structure/beebox/premade/random,/turf/open/floor/grass,/area/space)
+"d" = (/turf/open/floor/grass,/area/space)
+"e" = (/turf/open/floor/wood/airless,/area/space)
+"f" = (/obj/structure/punji_sticks,/turf/open/floor/wood/airless,/area/space)
 
-(1,1,1, 33,33,1) = {""}
+(13,10,1) = {"
+aaaaa
+aaaaa
+aaaaa
+aaaaa
+aaaaa
+aaaaa
+aaaaa
+aaaaa
+aaaaa
+aaaaa
+aaaaa
+aaaaa
+aaaaa
+aaaaa
+aaaaa
+aaaaa
+aaaaa
+aaaaa
+aabaa
+abcba
+bddeb
+bdeeb
+beeeb
+abfba
+"}
