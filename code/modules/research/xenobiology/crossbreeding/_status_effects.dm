@@ -261,7 +261,7 @@ datum/status_effect/rebreathing/tick()
 	return ..()
 
 /datum/status_effect/watercookie/tick()
-	for(var/turf/open/T in range(get_turf(owner),1))
+	for(var/turf/open/T in RANGE_TURFS(1, owner))
 		T.MakeSlippery(TURF_WET_WATER, min_wet_time = 10, wet_time_to_add = 5)
 
 /datum/status_effect/watercookie/on_remove()
@@ -347,9 +347,8 @@ datum/status_effect/rebreathing/tick()
 		if(C.handcuffed)
 			return
 	var/list/huggables = list()
-	for(var/mob/living/carbon/L in range(get_turf(owner),1))
-		if(L != owner)
-			huggables += L
+	for(var/mob/living/carbon/L in oviewers(1, owner))
+		huggables += L
 	if(length(huggables))
 		var/mob/living/carbon/hugged = pick(huggables)
 		owner.visible_message("<span class='notice'>[owner] hugs [hugged]!</span>", "<span class='notice'>You hug [hugged]!</span>")
@@ -361,9 +360,8 @@ datum/status_effect/rebreathing/tick()
 	duration = 100
 
 /datum/status_effect/tarcookie/tick()
-	for(var/mob/living/carbon/human/L in range(get_turf(owner),1))
-		if(L != owner)
-			L.apply_status_effect(/datum/status_effect/tarfoot)
+	for(var/mob/living/carbon/human/L in oviewers(1, owner))
+		L.apply_status_effect(/datum/status_effect/tarfoot)
 
 /datum/status_effect/tarfoot
 	id = "tarfoot"
@@ -400,7 +398,7 @@ datum/status_effect/rebreathing/tick()
 	duration = 100
 
 /datum/status_effect/peacecookie/tick()
-	for(var/mob/living/L in range(get_turf(owner),1))
+	for(var/mob/living/L in viewers(1, owner))
 		L.apply_status_effect(/datum/status_effect/plur)
 
 /datum/status_effect/plur
@@ -466,7 +464,7 @@ datum/status_effect/rebreathing/tick()
 	colour = "grey"
 
 /datum/status_effect/stabilized/grey/tick()
-	for(var/mob/living/simple_animal/slime/S in range(1, get_turf(owner)))
+	for(var/mob/living/simple_animal/slime/S in viewers(1, owner))
 		if(!(owner in S.Friends))
 			to_chat(owner, "<span class='notice'>[linked_extract] pulses gently as it communicates with [S].</span>")
 			S.Friends[owner] = 1
@@ -828,7 +826,7 @@ datum/status_effect/stabilized/blue/on_remove()
 			M.apply_status_effect(/datum/status_effect/pinkdamagetracker)
 			M.faction |= faction_name
 	for(var/mob/living/simple_animal/M in mobs)
-		if(!(M in view(7,get_turf(owner))))
+		if(!(M in hearers(7,get_turf(owner))))
 			M.faction -= faction_name
 			M.remove_status_effect(/datum/status_effect/pinkdamagetracker)
 			mobs -= M
@@ -910,8 +908,8 @@ datum/status_effect/stabilized/blue/on_remove()
 	return ..()
 
 /datum/status_effect/stabilized/lightpink/tick()
-	for(var/mob/living/carbon/human/H in range(1, get_turf(owner)))
-		if(H != owner && H.stat != DEAD && H.health <= 0 && !H.reagents.has_reagent(/datum/reagent/medicine/epinephrine))
+	for(var/mob/living/carbon/human/H in ohearers(1, owner))
+		if(H.stat != DEAD && H.health <= 0 && !H.reagents.has_reagent(/datum/reagent/medicine/epinephrine))
 			to_chat(owner, "[linked_extract] pulses in sync with [H]'s heartbeat, trying to keep [H.p_them()] alive.")
 			H.reagents.add_reagent(/datum/reagent/medicine/epinephrine,5)
 	return ..()

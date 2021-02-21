@@ -608,6 +608,9 @@ RANDOMIZE_SHIFT_TIME
 ## A cap on how many monkeys may be created via monkey cubes
 MONKEYCAP 100
 
+## Max amount of bodies allowed to slimepeople. Has balance considerations as well as technical ones.
+MAX_SLIMEPERSON_BODIES 10
+
 ## Maximum fine for a citation
 MAXFINE 2000
 

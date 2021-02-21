@@ -58,7 +58,7 @@
 		else if(prob(reac_volume))
 			F.burn_tile()
 		if(isfloorturf(F))
-			for(var/turf/turf in range(1,F))
+			for(var/turf/open/turf in RANGE_TURFS(1,F))
 				if(!locate(/obj/effect/hotspot) in turf)
 					new /obj/effect/hotspot(F)
 	if(iswallturf(T))

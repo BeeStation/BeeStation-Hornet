@@ -24,8 +24,8 @@
 		return 0
 
 	var/list/choices = list()
-	for(var/mob/living/C in view(1,src))
-		if(C!=src && Adjacent(C))
+	for(var/mob/living/C in oview(1,src))
+		if(Adjacent(C))
 			choices += C
 
 	var/mob/living/M = input(src,"Who do you wish to feed on?") in null|sortNames(choices)
@@ -142,7 +142,7 @@
 				maxHealth = round(maxHealth * 1.3)
 			amount_grown = 0
 			for(var/datum/action/innate/slime/evolve/E in actions)
-				E.Remove(src)
+				qdel(E)
 			regenerate_icons()
 			update_name()
 		else

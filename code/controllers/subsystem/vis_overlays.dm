@@ -26,6 +26,7 @@ SUBSYSTEM_DEF(vis_overlays)
 			overlay.unused = world.time
 		else if(overlay.unused && overlay.unused + overlay.cache_expiration < world.time)
 			vis_overlay_cache -= key
+			unique_vis_overlays -= overlay
 			qdel(overlay)
 		if(MC_TICK_CHECK)
 			return

@@ -246,6 +246,11 @@
 	display_name = "sailor outfit"
 	path = /obj/item/clothing/under/costume/sailor
 
+/datum/gear/uniform/misc/swagoutfit
+	display_name = "swag outfit"
+	path = /obj/item/clothing/under/costume/swagoutfit
+	cost = 69000
+
 //RANK SUBTYPE
 
 /datum/gear/uniform/rank
