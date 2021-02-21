@@ -770,7 +770,7 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 
 /obj/item/slimecross/warping/rainbow
 	colour = "rainbow"
-	effect_desc = "draws a rune that will teleport anything above it "
+	effect_desc = "draws a rune that can be activated to teleport whoever is standing on it. "
 	runepath = /obj/effect/warped_rune/rainbowspace
 
 /obj/effect/warped_rune/rainbowspace
