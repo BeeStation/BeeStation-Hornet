@@ -340,7 +340,6 @@
 		icon_state = "scalpel_a"
 
 /obj/item/scalpel/advanced/examine()
-	. = ..()
 	. += " It's set to [tool_behaviour == TOOL_SCALPEL ? "scalpel" : "saw"] mode."
 
 /obj/item/retractor/advanced
@@ -362,7 +361,6 @@
 		icon_state = "retractor_a"
 
 /obj/item/retractor/advanced/examine()
-	. = ..()
 	. += " It resembles a retractor[tool_behaviour == TOOL_RETRACTOR ? "retractor" : "hemostat"]."
 
 /obj/item/surgicaldrill/advanced
@@ -391,5 +389,4 @@
 		icon_state = "surgicaldrill_a"
 
 /obj/item/surgicaldrill/advanced/examine()
-	. = ..()
 	. += " It's set to [tool_behaviour == TOOL_DRILL ? "drilling" : "mending"] mode."

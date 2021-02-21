@@ -42,7 +42,7 @@
 		viewing = FALSE //they are further than our viewrange they are not viewing us
 		out_of_view()
 		return//so we're not searching everything in view every tick
-	if(owner in oviewers(7, obsession))
+	if(obsession in view(7, owner))
 		viewing = TRUE
 	else
 		viewing = FALSE

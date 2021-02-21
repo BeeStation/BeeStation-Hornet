@@ -364,7 +364,9 @@
 	var/falling = 0
 
 	for (var/obj/O in oview(1, A))
-		if(O.density)
+		if (O.density == 1)
+			if (O == A)
+				continue
 			if (O == D)
 				continue
 			if (O.opacity)

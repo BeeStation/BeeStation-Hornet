@@ -34,7 +34,10 @@
     D.visible_message("<span class='warning'>[A] sweeps [D]'s legs with their tail!</span>", \
                         "<span class='userdanger'>[A] sweeps your legs with their tail!</span>")
     var/obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon/R = new
-    R.cast(RANGE_TURFS(1,A))
+    var/list/turfs = list()
+    for(var/turf/T in range(1,A))
+        turfs.Add(T)
+    R.cast(turfs)
     return
 
 //Face Scratch, deals 10 brute to head(reduced by armor), blurs the target's vision and gives them the confused effect for a short time.

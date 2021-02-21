@@ -68,7 +68,8 @@
 
 			for(var/mob/living/carbon/human/HU in seen_atoms) //check equipment for trigger items
 				var/spook = 0
-				for(var/obj/I as() in HU.get_all_slots() | HU.held_items)
+				for(var/X in HU.get_all_slots() | HU.held_items)
+					var/obj/I = X
 					if(!QDELETED(I) && is_type_in_typecache(I, trigger_objs))
 						spook ++
 				if(spook)
@@ -250,8 +251,8 @@
 
 /datum/brain_trauma/mild/phobia/on_lose()
 	owner.remove_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE)
-	if(psychotic_brawling)
-		QDEL_NULL(psychotic_brawling)
+	psychotic_brawling.remove(owner)
+	QDEL_NULL(psychotic_brawling)
 	..()
 
 // Defined phobia types for badminry, not included in the RNG trauma pool to avoid diluting.

@@ -985,7 +985,8 @@ eg2: `center_image(I, 96,96)`
 	if(orange)
 		turfs -= get_turf(center)
 	. = list()
-	for(var/turf/T as() in turfs)
+	for(var/V in turfs)
+		var/turf/T = V
 		. += T
 		. += T.contents
 		if(areas)
@@ -1276,7 +1277,7 @@ Increases delay as the server gets more overloaded, as sleeps aren't cheap and s
 GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 /// Version of view() which ignores darkness, because BYOND doesn't have it (I actually suggested it but it was tagged redundant, BUT HEARERS IS A T- /rant).
-/proc/dview(range = world.view, center, invis_flags = 0)
+/proc/dview(var/range = world.view, var/center, var/invis_flags = 0)
 	if(!center)
 		return
 

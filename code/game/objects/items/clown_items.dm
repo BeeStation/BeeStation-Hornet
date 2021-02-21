@@ -201,7 +201,8 @@
 	..()
 
 /obj/item/bikehorn/golden/proc/flip_mobs(mob/living/carbon/M, mob/user)
-	for(M in ohearers(7, get_turf(src)))
+	var/turf/T = get_turf(src)
+	for(M in ohearers(7, T))
 		if(ishuman(M) && M.can_hear())
 			var/mob/living/carbon/human/H = M
 			if(istype(H.ears, /obj/item/clothing/ears/earmuffs))

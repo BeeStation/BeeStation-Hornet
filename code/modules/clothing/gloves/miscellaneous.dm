@@ -66,7 +66,7 @@
 
 /obj/item/clothing/gloves/rapid/Touch(atom/A, proximity)
 	var/mob/living/M = loc
-	if(get_dist(A, M) <= 1)
+	if(A in range(1, M))
 		if(isliving(A) && M.a_intent == INTENT_HARM)
 			M.changeNext_move(CLICK_CD_RAPID)
 			if(warcry)
@@ -110,9 +110,9 @@
 
 /obj/item/clothing/gloves/color/white/magic/Touch(atom/A, proximity)
 	var/mob/living/M = loc
-	if(get_dist(A, M) <= 1)
+	if(A in range(1, M))
 		return 0
-	if(M in viewers(range, A))
+	if(A in oview(range, M))
 		M.visible_message("<span_class ='danger'>[M] waves their hands at [A]</span>", "<span_class ='notice'>You begin manipulating [A].</span>")
 		new	/obj/effect/temp_visual/telegloves(A.loc)
 		M.changeNext_move(CLICK_CD_MELEE)

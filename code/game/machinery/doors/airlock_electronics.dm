@@ -2,14 +2,10 @@
 	name = "airlock electronics"
 	req_access = list(ACCESS_MAINT_TUNNELS)
 	custom_price = 5
-	/// A list of all granted accesses
+
 	var/list/accesses = list()
-	/// If the airlock should require ALL or only ONE of the listed accesses
 	var/one_access = 0
-	/// Unrestricted sides, or sides of the airlock that will open regardless of access
-	var/unres_sides = 0
-	/// A holder of the electronics, in case of them working as an integrated part
-	var/holder
+	var/unres_sides = 0 //unrestricted sides, or sides of the airlock that will open regardless of access
 
 /obj/item/electronics/airlock/examine(mob/user)
 	. = ..()
@@ -51,6 +47,7 @@
 	data["accesses"] = accesses
 	data["oneAccess"] = one_access
 	data["unres_direction"] = unres_sides
+
 	return data
 
 /obj/item/electronics/airlock/ui_act(action, params)
@@ -90,8 +87,3 @@
 				return
 			accesses -= get_region_accesses(region)
 			. = TRUE
-
-/obj/item/electronics/airlock/ui_host()
-	if(holder)
-		return holder
-	return src

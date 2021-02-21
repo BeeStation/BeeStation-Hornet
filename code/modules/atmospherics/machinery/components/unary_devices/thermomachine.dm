@@ -152,9 +152,7 @@
 	if(node)
 		node.disconnect(src)
 		nodes[1] = null
-	//Sometimes this gets called more than once per atmos tick; i.e. before the incoming build_network call by SSAIR_REBUILD_PIPENETS, so we check this here.
-	if(parents[1])
-		nullifyPipenet(parents[1])
+	nullifyPipenet(parents[1])
 
 	atmosinit()
 	node = nodes[1]

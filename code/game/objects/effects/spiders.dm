@@ -169,8 +169,9 @@
 	//=================
 
 	else if(prob(33))
-		var/target_atom = pick(oview(10, src))
-		if(target_atom)
+		var/list/nearby = oview(10, src)
+		if(nearby.len)
+			var/target_atom = pick(nearby)
 			walk_to(src, target_atom)
 			if(prob(40))
 				src.visible_message("<span class='notice'>\The [src] skitters[pick(" away"," around","")].</span>")

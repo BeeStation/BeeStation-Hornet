@@ -451,7 +451,3 @@
 	if(!learned_recipes)
 		learned_recipes = list()
 	learned_recipes |= R
-
-/datum/mind/proc/forget_crafting_recipe(R)
-	if(learned_recipes)
-		learned_recipes -= R

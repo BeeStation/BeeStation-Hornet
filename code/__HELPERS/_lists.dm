@@ -155,7 +155,8 @@
 /proc/typecache_filter_list(list/atoms, list/typecache)
 	RETURN_TYPE(/list)
 	. = list()
-	for(var/atom/A as() in atoms)
+	for(var/thing in atoms)
+		var/atom/A = thing
 		if (typecache[A.type])
 			. += A
 
@@ -163,14 +164,16 @@
 /proc/typecache_filter_list_reverse(list/atoms, list/typecache)
 	RETURN_TYPE(/list)
 	. = list()
-	for(var/atom/A as() in atoms)
+	for(var/thing in atoms)
+		var/atom/A = thing
 		if(!typecache[A.type])
 			. += A
 
 /// returns a new list with only atoms that are in typecache typecache_include but NOT in typecache_exclude
 /proc/typecache_filter_multi_list_exclusion(list/atoms, list/typecache_include, list/typecache_exclude)
 	. = list()
-	for(var/atom/A as() in atoms)
+	for(var/thing in atoms)
+		var/atom/A = thing
 		if(typecache_include[A.type] && !typecache_exclude[A.type])
 			. += A
 

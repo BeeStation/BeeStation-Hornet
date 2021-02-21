@@ -2519,14 +2519,15 @@ datum/supply_pack/medical/bruisekits
 	crate_name = "toy crate"
 	crate_type = /obj/structure/closet/crate/wooden
 
-/datum/supply_pack/costumes_toys/randomised/toys/fill(obj/structure/closet/crate/C)
+/datum/supply_pack/costumes_toys/randomised/toys/generate()
+	. = ..()
 	var/the_toy
 	for(var/i in 1 to num_contained)
 		if(prob(50))
 			the_toy = pickweight(GLOB.arcade_prize_pool)
 		else
 			the_toy = pick(subtypesof(/obj/item/toy/plush))
-		new the_toy(C)
+		new the_toy(.)
 
 /datum/supply_pack/costumes_toys/wizard
 	name = "Wizard Costume Crate"

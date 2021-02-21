@@ -66,7 +66,10 @@ GLOBAL_VAR(clockcult_eminence)
 		selected_servants += clockie
 		clockie.assigned_role = ROLE_SERVANT_OF_RATVAR
 		clockie.special_role = ROLE_SERVANT_OF_RATVAR
-	generate_clockcult_scriptures()
+	//Generate scriptures
+	for(var/categorypath in typesof(/datum/clockcult/scripture))
+		var/datum/clockcult/scripture/S = new categorypath
+		GLOB.clockcult_all_scriptures[S.name] = S
 	return TRUE
 
 /datum/game_mode/clockcult/post_setup(report)
@@ -168,12 +171,6 @@ GLOBAL_VAR(clockcult_eminence)
 	if(HAS_TRAIT(M, TRAIT_MINDSHIELD))
 		return FALSE
 	return TRUE
-
-/proc/generate_clockcult_scriptures()
-	//Generate scriptures
-	for(var/categorypath in typesof(/datum/clockcult/scripture))
-		var/datum/clockcult/scripture/S = new categorypath
-		GLOB.clockcult_all_scriptures[S.name] = S
 
 /proc/flee_reebe()
 	for(var/mob/living/M in GLOB.mob_list)

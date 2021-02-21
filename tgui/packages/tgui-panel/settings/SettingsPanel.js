@@ -5,14 +5,13 @@
  */
 
 import { toFixed } from 'common/math';
-import { useLocalState } from 'tgui/backend';
 import { useDispatch, useSelector } from 'common/redux';
 import { Box, Button, ColorBox, Divider, Dropdown, Flex, Input, LabeledList, NumberInput, Section, Tabs, TextArea, Grid } from 'tgui/components';
 import { ChatPageSettings } from '../chat';
 import { rebuildChat, saveChatToDisk } from '../chat/actions';
 import { THEMES } from '../themes';
 import { changeSettingsTab, updateSettings } from './actions';
-import { FONTS, SETTINGS_TABS } from './constants';
+import { SETTINGS_TABS } from './constants';
 import { useSettings } from './hooks';
 import { selectActiveTab, selectSettings, selectStatPanel } from './selectors';
 
@@ -58,13 +57,11 @@ export const SettingsPanel = (props, context) => {
 export const SettingsGeneral = (props, context) => {
   const {
     theme,
-    fontFamily,
     highContrast,
     fontSize,
     lineHeight,
   } = useSelector(context, selectSettings);
   const dispatch = useDispatch(context);
-  const [freeFont, setFreeFont] = useLocalState(context, "freeFont", false);
   return (
     <Section fill>
       <Flex bold>
@@ -79,34 +76,6 @@ export const SettingsGeneral = (props, context) => {
             onSelected={value => dispatch(updateSettings({
               theme: value,
             }))} />
-        </LabeledList.Item>
-        <LabeledList.Item label="Font style">
-          {!freeFont && (
-            <Dropdown
-              selected={fontFamily}
-              options={FONTS}
-              onSelected={value => dispatch(updateSettings({
-                fontFamily: value,
-              }))} />
-          ) || (
-            <Input
-              value={fontFamily}
-              onChange={(e, value) => dispatch(updateSettings({
-                fontFamily: value,
-              }))}
-            />
-          )}
-        </LabeledList.Item>
-        <LabeledList.Item>
-          <Button
-            content="Custom font"
-            icon={freeFont? "lock-open" : "lock"}
-            color={freeFont? "good" : "bad"}
-            ml={1}
-            onClick={() => {
-              setFreeFont(!freeFont);
-            }}
-          />
         </LabeledList.Item>
         <LabeledList.Item label="High Contrast">
           <Button.Checkbox

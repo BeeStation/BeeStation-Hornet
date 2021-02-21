@@ -578,8 +578,8 @@
 	. = TRUE // No failure conditions past this point.
 
 	var/target_zone
-	if(QDELETED(thrower) || !istype(thrower))
-		thrower = null //Let's not pass an invalid reference.
+	if(QDELETED(thrower))
+		thrower = null //Let's not pass a qdeleting reference if any.
 	else
 		target_zone = thrower.zone_selected
 

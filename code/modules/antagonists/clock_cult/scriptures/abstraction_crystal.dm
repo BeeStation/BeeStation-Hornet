@@ -22,11 +22,10 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 /datum/clockcult/scripture/create_structure/abstraction_crystal/check_special_requirements()
 	if(!..())
 		return FALSE
-	var/obj/structure/destructible/clockwork/structure = locate() in get_turf(invoker)
-	if(structure)
+	for(var/obj/structure/destructible/clockwork/structure in get_turf(invoker))
 		to_chat(invoker, "<span class='brass'>You cannot invoke that here, the tile is occupied by [structure].</span>")
 		return FALSE
-	if(locate(/obj/structure/destructible/clockwork/abstraction_crystal) in range(5))
+	for(var/obj/structure/destructible/clockwork/abstraction_crystal/AC in range(5))
 		to_chat(invoker, "<span class='brass'>There is an Abstraction Crystal nearby, you cannot place this here.</span>")
 		return FALSE
 	return TRUE

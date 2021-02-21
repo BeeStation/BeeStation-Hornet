@@ -109,7 +109,10 @@
 	last_flash = world.time
 	use_power(1000)
 
-	for (var/mob/living/L in hearers(range, src))
+	for (var/mob/living/L in viewers(src, null))
+		if (get_dist(src, L) > range)
+			continue
+
 		if(L.flash_act(affect_silicon = 1))
 			L.Paralyze(strength)
 

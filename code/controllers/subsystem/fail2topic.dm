@@ -7,7 +7,6 @@ SUBSYSTEM_DEF(fail2topic)
 	var/list/rate_limiting = list()
 	var/list/fail_counts = list()
 	var/list/active_bans = list()
-	var/list/currentrun = list()
 
 	var/rate_limit
 	var/max_fails
@@ -32,23 +31,16 @@ SUBSYSTEM_DEF(fail2topic)
 
 	. = ..()
 
-/datum/controller/subsystem/fail2topic/fire(resumed = 0)
-	if(!resumed)
-		currentrun = rate_limiting.Copy()
-	//cache for sanic speed (lists are references anyways)
-	var/list/current_run = currentrun
+/datum/controller/subsystem/fail2topic/fire()
+	while (rate_limiting.len)
+		var/ip = rate_limiting[1]
+		var/last_attempt = rate_limiting[ip]
 
-	while(current_run.len)
-		var/ip = current_run[current_run.len]
-		var/last_attempt = current_run[ip]
-		current_run.len--
-
-		// last_attempt list housekeeping
-		if(world.time - last_attempt > rate_limit)
+		if (world.time - last_attempt > rate_limit)
 			rate_limiting -= ip
 			fail_counts -= ip
 
-		if(MC_TICK_CHECK)
+		if (MC_TICK_CHECK)
 			return
 
 /datum/controller/subsystem/fail2topic/Shutdown()

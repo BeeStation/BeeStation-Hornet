@@ -282,7 +282,10 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 /datum/hallucination/oh_yeah/New(mob/living/carbon/C, forced = TRUE)
 	set waitfor = FALSE
 	. = ..()
-	var/turf/closed/wall/wall = locate() in spiral_range_turfs(7, target)
+	var/turf/closed/wall/wall
+	for(var/turf/closed/wall/W in range(7,target))
+		wall = W
+		break
 	if(!wall)
 		return INITIALIZE_HINT_QDEL
 	feedback_details += "Source: [wall.x],[wall.y],[wall.z]"
@@ -417,8 +420,9 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	var/image/A = null
 	var/list/mob_pool = list()
 
-	for(var/mob/living/carbon/human/M in ohearers(7,target))
-		mob_pool += M
+	for(var/mob/living/carbon/human/M in view(7,target))
+		if(M != target)
+			mob_pool += M
 	if(!mob_pool.len)
 		return
 
@@ -677,11 +681,14 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 	var/mob/living/carbon/person = null
 	var/datum/language/understood_language = target.get_random_understood_language()
-	for(var/mob/living/carbon/H in ohearers(target))
+	for(var/mob/living/carbon/H in view(target))
+		if(H == target)
+			continue
 		if(!person)
 			person = H
-		else if(get_dist(target,H)<get_dist(target,person))
-			person = H
+		else
+			if(get_dist(target,H)<get_dist(target,person))
+				person = H
 	if(person && !force_radio) //Basic talk
 		var/chosen = specific_message
 		if(!chosen)
@@ -717,7 +724,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	var/list/mobpool = list()
 	var/mob/living/carbon/human/other
 	var/close_other = FALSE
-	for(var/mob/living/carbon/human/H in oview(7, target))
+	for(var/mob/living/carbon/human/H in oview(target, 7))
 		if(get_dist(H, target) <= 1)
 			other = H
 			close_other = TRUE
@@ -1037,7 +1044,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	//Flashes of danger
 	if(!target.halimage)
 		var/list/possible_points = list()
-		for(var/turf/open/floor/F in view(world.view, target))
+		for(var/turf/open/floor/F in view(target,world.view))
 			possible_points += F
 		if(possible_points.len)
 			var/turf/open/floor/danger_point = pick(possible_points)
@@ -1246,7 +1253,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	..()
 	if(!target.halbody)
 		var/list/possible_points = list()
-		for(var/turf/open/floor/F in view(world.view, target))
+		for(var/turf/open/floor/F in view(target,world.view))
 			possible_points += F
 		if(possible_points.len)
 			var/turf/open/floor/husk_point = pick(possible_points)
@@ -1277,10 +1284,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	set waitfor = FALSE
 	..()
 	var/list/turf/startlocs = list()
-	for(var/turf/open/T in view(getexpandedview(world.view, 1, 1),target))
+	for(var/turf/open/T in view(getexpandedview(world.view, 1, 1),target)-view(world.view,target)) // God this is terrible
 		startlocs += T
-	for(var/turf/open/T in view(world.view,target)) // God this is bad
-		startlocs -= T
 	if(!startlocs.len)
 		qdel(src)
 		return
