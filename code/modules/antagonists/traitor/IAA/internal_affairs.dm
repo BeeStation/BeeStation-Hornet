@@ -144,6 +144,7 @@
 				new_objective.owner = owner
 				new_objective.target = objective.target
 				new_objective.update_explanation_text()
+				new_objective.stolen = TRUE
 				add_objective(new_objective)
 				targets_stolen += objective.target
 				var/status_text = objective.check_completion() ? "neutralised" : "active"
@@ -157,6 +158,7 @@
 				new_objective.owner = owner
 				new_objective.target = objective.target
 				new_objective.update_explanation_text()
+				new_objective.stolen = TRUE
 				add_objective(new_objective)
 				targets_stolen += objective.target
 				var/status_text = objective.check_completion() ? "neutralised" : "active"
@@ -201,7 +203,6 @@
 						reinstate_escape_objective(owner)
 						last_man_standing = FALSE
 					to_chat(owner.current, fail_msg)
-					objective.stolen = FALSE
 
 /datum/antagonist/traitor/internal_affairs/proc/forge_iaa_objectives()
 	if(SSticker.mode.target_list.len && SSticker.mode.target_list[owner]) // Is a double agent
