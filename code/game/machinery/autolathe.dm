@@ -97,8 +97,10 @@
 	viewing_mobs -= user
 
 /obj/machinery/autolathe/ui_static_data(mob/user)
-	var/list/data = list()
+	var/list/data = list()	
 	data["acceptsDisk"] = TRUE
+
+	var/list/ore_values = list(iron = 1, glass = 1, copper = 5, plasma = 15, silver = 16, gold = 18, titanium = 30, uranium = 30, diamond = 50, bluespace = 50, bananium = 60)
 
 	//Items
 	data["items"] = list()
@@ -113,12 +115,21 @@
 				categories_associative[cat] = list()
 
 			//Calculate cost
+			var/price = 0	
 			var/list/material_cost = list()
+			
 			for(var/material_id in D.materials)
-				material_cost += list(list(
-					"name" = material_id,
-					"amount" = D.materials[material_id] / MINERAL_MATERIAL_AMOUNT,
-				))
+				if(material_id != "rigid material")
+					price += ore_values["[material_id]"] * D.materials[material_id] / 50 // also multiplied by 2000, since there are 2000 mat units in a sheet
+					material_cost += list(list(
+						"name" = material_id,
+						"amount" = D.materials[material_id] / MINERAL_MATERIAL_AMOUNT,))
+				else
+					price += D.materials[material_id] / 50
+
+			if(price < 10) //To ensure the price isnt too low.
+				price += 10
+			material_cost += list(list("name" = "Credits", "amount" = price))
 
 			//Add
 			categories_associative[cat] += list(list(
@@ -126,7 +137,7 @@
 				"design_id" = D.id,
 				"material_cost" = material_cost,
 			))
-
+			
 	//Categories and their items
 	for(var/category in categories_associative)
 		data["items"] += list(list(
@@ -427,7 +438,8 @@
 	var/total_amount = 0
 
 	for(var/MAT in being_built.materials)
-		total_amount += being_built.materials[MAT]
+		if(!being_built.materials)
+			total_amount += being_built.materials[MAT]
 
 	var/power = max(AUTOLATHE_MAX_POWER_USE, (total_amount)*multiplier/5) //Change this to use all materials
 
@@ -436,7 +448,11 @@
 	var/list/materials_used = list()
 	var/list/custom_materials = list() //These will apply their material effect, This should usually only be one.
 
+	var/list/ore_values = list(iron = 1, glass = 1, copper = 5, plasma = 15, silver = 16, gold = 18, titanium = 30, uranium = 30, diamond = 50, bluespace = 50, bananium = 60)
+
+	var/price = 0 
 	for(var/MAT in being_built.materials)
+		price += ore_values["[MAT]"] * being_built.materials[MAT] / 50
 		var/datum/material/used_material = MAT
 		var/amount_needed = being_built.materials[MAT] * coeff * multiplier
 		if(istext(used_material)) //This means its a category
@@ -450,42 +466,68 @@
 				addtimer(CALLBACK(src, .proc/restart_process), 50)
 				return //Didn't pick any material, so you can't build shit either.
 			custom_materials[used_material] += amount_needed
-
 		materials_used[used_material] = amount_needed
 
-	if(materials.has_materials(materials_used))
-		busy = TRUE
-		use_power(power)
-		icon_state = "autolathe_n"
-		var/time = is_stack ? 32 : (32 * coeff * multiplier) ** 0.8
-		//===Repeating mode===
-		//Remove from queue
-		if(from_build_queue)
-			build_queue[requested_design_id]["amount"] -= multiplier
-			if(build_queue[requested_design_id]["amount"] <= 0)
-				build_queue -= requested_design_id
+	if(price < 10) //To ensure the price isnt too low. It doesnt matter if it adds greater than 10 :)
+		price += 10
+
+	var/datum/bank_account/B
+
+	if(ishuman(usr))
+		var/mob/living/carbon/human/H = usr
+		var/obj/item/card/id/C = H.get_idcard(TRUE)
+		B = C.registered_account	
+	else if(issilicon(usr))
+		B = SSeconomy.get_dep_account(ACCOUNT_CIV)
+
+	if(B)
+		if(materials.has_materials(materials_used))
+			if(B.adjust_money(-price)) 
+				busy = TRUE
+				use_power(power)
+				icon_state = "autolathe_n"
+				var/time = is_stack ? 32 : (32 * coeff * multiplier) ** 0.8
+				//===Repeating mode===
+				//Remove from queue
+				if(from_build_queue)
+					build_queue[requested_design_id]["amount"] -= multiplier
+					if(build_queue[requested_design_id]["amount"] <= 0)
+						build_queue -= requested_design_id
+				else
+					var/list/queue_data = item_queue[requested_design_id]
+					item_queue[requested_design_id]["amount"] -= multiplier
+					var/removed = FALSE
+					if(item_queue[requested_design_id]["amount"] <= 0)
+						item_queue -= requested_design_id
+						removed = TRUE
+					//Requeue if necessary
+					if(queue_repeating || queue_data["repeating"])
+						stored_item_amount ++
+						if(removed)
+							add_to_queue(item_queue, requested_design_id, stored_item_amount, queue_data["build_mat"])
+							stored_item_amount = 0
+				//Create item and restart
+				process_completion_world_tick = world.time + time
+				total_build_time = time
+				addtimer(CALLBACK(src, .proc/make_item, power, materials_used, custom_materials, multiplier, coeff, is_stack), time)
+				addtimer(CALLBACK(src, .proc/restart_process), time + 5)
+			else 
+				autolathe_failure(3)
 		else
-			var/list/queue_data = item_queue[requested_design_id]
-			item_queue[requested_design_id]["amount"] -= multiplier
-			var/removed = FALSE
-			if(item_queue[requested_design_id]["amount"] <= 0)
-				item_queue -= requested_design_id
-				removed = TRUE
-			//Requeue if necessary
-			if(queue_repeating || queue_data["repeating"])
-				stored_item_amount ++
-				if(removed)
-					add_to_queue(item_queue, requested_design_id, stored_item_amount, queue_data["build_mat"])
-					stored_item_amount = 0
-		//Create item and restart
-		process_completion_world_tick = world.time + time
-		total_build_time = time
-		addtimer(CALLBACK(src, .proc/make_item, power, materials_used, custom_materials, multiplier, coeff, is_stack), time)
-		addtimer(CALLBACK(src, .proc/restart_process), time + 5)
+			autolathe_failure(2)
 	else
-		say("Insufficient materials, operation will proceed when sufficient materials are available.")
-		operating = FALSE
+		autolathe_failure(1)
+
+/obj/machinery/autolathe/proc/autolathe_failure(failure) 
+	if(failure == 1)
+		failure = "bank credentials"
+	else if (failure == 2)
+		failure = "materials"
 		wants_operate = TRUE
+	else if (failure == 3)
+		failure = "credits"
+	say("Insufficient [failure], operation will proceed when sufficient [failure] are made available.")
+	operating = FALSE
 
 /obj/machinery/autolathe/proc/restart_process()
 	operating = FALSE
