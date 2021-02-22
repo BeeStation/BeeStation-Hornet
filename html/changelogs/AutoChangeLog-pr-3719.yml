@@ -1,0 +1,6 @@
+author: Mat05usz
+delete-after: true
+changes:
+  - bugfix: Area mood description is now written in red if it gives you negative mood.
+  - bugfix: Mood changes are now properly updated when walking between areas that
+      alter it.
