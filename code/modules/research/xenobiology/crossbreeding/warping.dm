@@ -745,7 +745,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	effect_desc = "Draw a rune that can summon reflective fields."
 
 /obj/effect/warped_rune/adamantinespace
-	desc = "This can be activated_on_step to summon reflective fields."
+	desc = "This can be activated to summon reflective fields."
 	icon_state = "rune_adamantine"
 
 /obj/structure/reflector/box/anchored/mob_pass/CanPass(atom/movable/mover, turf/target)
