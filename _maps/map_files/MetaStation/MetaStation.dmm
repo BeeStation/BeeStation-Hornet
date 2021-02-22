@@ -56255,12 +56255,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/external{
-	req_access_txt = "13"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cfB" = (
@@ -64563,9 +64557,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/lattice/catwalk,
-/turf/open/space,
-/area/space/nearstation)
+/obj/machinery/door/airlock/external{
+	req_access_txt = "13"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "cwh" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -82035,6 +82034,10 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"dZR" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "ecs" = (
 /obj/structure/chair/stool{
 	pixel_y = 8
@@ -83089,9 +83092,6 @@
 /area/science/misc_lab/range)
 "ioR" = (
 /obj/structure/closet/emcloset,
-/obj/structure/sign/warning/vacuum/external{
-	pixel_x = -32
-	},
 /obj/machinery/advanced_airlock_controller{
 	dir = 8;
 	pixel_x = 24
@@ -83960,11 +83960,6 @@
 /obj/effect/turf_decal/tile/purple,
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
-"lnp" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/open/space,
-/area/space/nearstation)
 "lnO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -85074,6 +85069,11 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump,
 /turf/open/floor/plating,
 /area/maintenance/aft/secondary)
+"pPS" = (
+/obj/structure/lattice,
+/obj/structure/lattice,
+/turf/open/space,
+/area/space/nearstation)
 "pRi" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 8
@@ -103552,7 +103552,7 @@ aob
 aob
 aob
 ate
-auv
+ack
 cwf
 ack
 aaf
@@ -103809,9 +103809,9 @@ aob
 aob
 aob
 alK
-ack
+dZR
 cwg
-ack
+dux
 ack
 aaa
 aaa
@@ -104066,7 +104066,7 @@ aob
 aob
 aob
 alK
-dux
+bXE
 cfA
 iLz
 tLf
@@ -129248,7 +129248,7 @@ aaf
 bzi
 aaa
 aaa
-lnp
+pPS
 aaa
 aaa
 aaa
@@ -130019,7 +130019,7 @@ aaa
 aai
 aaa
 aaa
-lnp
+pPS
 aaa
 aaa
 aaa
@@ -130533,7 +130533,7 @@ aaa
 bzj
 aaf
 aaa
-lnp
+pPS
 aaa
 aaa
 aaa
@@ -131047,7 +131047,7 @@ aaa
 bJf
 aaf
 aaa
-lnp
+pPS
 aaa
 aaa
 aaa
@@ -131268,7 +131268,7 @@ aaa
 aaf
 uGa
 aaf
-bhT
+aaa
 eOg
 bxc
 bzg
