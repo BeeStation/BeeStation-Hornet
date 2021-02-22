@@ -165,10 +165,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SECURITY_HUD		"sec_hud"
 #define TRAIT_MEDIBOTCOMINGTHROUGH "medbot" //Is a medbot healing you
 #define TRAIT_PASSTABLE			"passtable"
-#define TRAIT_ONEWAYROAD	"one-way road"
+#define TRAIT_ONEWAYROAD		"one-way road"
 #define TRAIT_APPRAISAL			"appraisal"
 #define TRAIT_NOBLOCK			"noblock"
-#define TRAIT_NANITECOMPATIBLE	"nanitecompatible"
+#define TRAIT_NANITECOMPATIBLE	"nanitecompatible" //Pretty sure simplemobs apparently can get nanites, Ian has been given nanites before
 
 //non-mob traits
 #define TRAIT_PARALYSIS			"paralysis" //Used for limb-based paralysis, where replacing the limb will fix it
@@ -204,6 +204,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_EMPATH			"empath"
 #define TRAIT_FRIENDLY			"friendly"
 #define TRAIT_GRABWEAKNESS		"grab_weakness"
+#define TRAIT_SIGN_LANG			"sign_language" //Galactic Common Sign Language, for some reason they have this under mob traits on TG, despite it being a quirk
 
 // common trait sources
 #define TRAIT_GENERIC "generic"

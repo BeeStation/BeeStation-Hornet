@@ -135,6 +135,9 @@
 				I = organs[I]
 				if(!I)
 					return -1
+				if(I.organ_flags & ORGAN_UNREMOVABLE)
+					to_chat(user, "<span class='warning'>[I] is too well connected to take out!</span>")
+					return -1
 				display_results(user, target, "<span class='notice'>You begin to extract [I] from [target]'s [parse_zone(target_zone)]...</span>",
 					"[user] begins to extract [I] from [target]'s [parse_zone(target_zone)].",
 					"[user] begins to extract something from [target]'s [parse_zone(target_zone)].")

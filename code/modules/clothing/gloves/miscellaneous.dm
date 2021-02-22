@@ -121,5 +121,11 @@
 			playsound(M, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 			A.attack_hand(M)
 			return 1
+
+/obj/item/clothing/gloves/radio
+	name = "translation gloves"
+	desc = "A pair of electronic gloves which connect to nearby radios wirelessly. Allows for sign language users to 'speak' over comms."
+	icon_state = "radio_g"
+	item_state = "radio_g"
 	
 	
