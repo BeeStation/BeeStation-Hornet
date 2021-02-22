@@ -82034,10 +82034,6 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
-"dZR" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "ecs" = (
 /obj/structure/chair/stool{
 	pixel_y = 8
@@ -83448,13 +83444,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/external{
-	name = "Solar Maintenance";
-	req_access_txt = "10; 13"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
@@ -84345,14 +84334,25 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "mSZ" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/external{
+	name = "Solar Maintenance";
+	req_access_txt = "10; 13"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/maintenance/solars/port/aft)
+"mTx" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
-"mTx" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/turf/closed/wall/r_wall,
-/area/space)
 "mTW" = (
 /obj/structure/table,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
@@ -85069,11 +85069,6 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump,
 /turf/open/floor/plating,
 /area/maintenance/aft/secondary)
-"pPS" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/open/space,
-/area/space/nearstation)
 "pRi" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 8
@@ -85258,6 +85253,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"qow" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "qqg" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 6
@@ -85532,10 +85531,10 @@
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "rPH" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
-/turf/open/floor/plasteel/dark,
-/area/engine/atmos)
+/obj/structure/lattice,
+/obj/structure/grille,
+/turf/closed/wall/r_wall,
+/area/space)
 "rQK" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -85574,8 +85573,9 @@
 /turf/open/floor/plasteel,
 /area/engine/storage_shared)
 "sbj" = (
-/obj/effect/landmark/blobstart,
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
+/turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "sdi" = (
 /obj/structure/window/reinforced{
@@ -85934,6 +85934,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
+"tfj" = (
+/obj/structure/lattice,
+/obj/structure/lattice,
+/turf/open/space,
+/area/space/nearstation)
 "tii" = (
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
@@ -86120,7 +86125,7 @@
 /turf/closed/wall,
 /area/hallway/secondary/exit/departure_lounge)
 "uoq" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
+/obj/effect/landmark/blobstart,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "uoA" = (
@@ -86276,7 +86281,7 @@
 /turf/open/floor/plasteel/white,
 /area/science/misc_lab/range)
 "uYt" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/visible,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "vcK" = (
@@ -86349,11 +86354,8 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "vox" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 4
-	},
-/turf/open/floor/plating,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/visible,
+/turf/open/floor/plasteel,
 /area/engine/atmos)
 "vpJ" = (
 /obj/effect/turf_decal/stripes/line{
@@ -86493,11 +86495,12 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "vRM" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/atmos_waste{
-	dir = 8
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
+	dir = 4
 	},
-/turf/open/floor/plating/airless,
-/area/space)
+/turf/open/floor/plating,
+/area/engine/atmos)
 "vUC" = (
 /obj/structure/window/reinforced,
 /turf/open/space/basic,
@@ -86675,6 +86678,10 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
+/area/engine/atmos)
+"wyr" = (
+/obj/structure/sign/warning/nosmoking/circle,
+/turf/closed/wall/r_wall,
 /area/engine/atmos)
 "wzD" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -87070,9 +87077,11 @@
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "xHS" = (
-/obj/structure/sign/warning/nosmoking/circle,
-/turf/closed/wall/r_wall,
-/area/engine/atmos)
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/atmos_waste{
+	dir = 8
+	},
+/turf/open/floor/plating/airless,
+/area/space)
 "xJp" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/carpet/blue,
@@ -100709,7 +100718,7 @@ bXt
 bYC
 vZU
 xgg
-aaa
+iGZ
 aaa
 aaf
 aaa
@@ -100966,8 +100975,8 @@ bXu
 bYD
 hvP
 jyQ
+mSZ
 cda
-cej
 cfz
 cED
 chY
@@ -101223,7 +101232,7 @@ bXv
 mKD
 jmO
 iGZ
-aaa
+iGZ
 aaa
 aaf
 aaa
@@ -103809,7 +103818,7 @@ aob
 aob
 aob
 alK
-dZR
+qow
 cwg
 dux
 ack
@@ -129248,7 +129257,7 @@ aaf
 bzi
 aaa
 aaa
-pPS
+tfj
 aaa
 aaa
 aaa
@@ -130019,7 +130028,7 @@ aaa
 aai
 aaa
 aaa
-pPS
+tfj
 aaa
 aaa
 aaa
@@ -130533,7 +130542,7 @@ aaa
 bzj
 aaf
 aaa
-pPS
+tfj
 aaa
 aaa
 aaa
@@ -131047,7 +131056,7 @@ aaa
 bJf
 aaf
 aaa
-pPS
+tfj
 aaa
 aaa
 aaa
@@ -131820,7 +131829,7 @@ aaa
 lMJ
 aaa
 aaa
-mTx
+rPH
 aaa
 aaa
 aaa
@@ -132077,7 +132086,7 @@ aaa
 lMJ
 aaa
 aaa
-mTx
+rPH
 aaa
 aaa
 aaa
@@ -132323,7 +132332,7 @@ wxc
 gkP
 bKG
 dac
-sbj
+uoq
 bCi
 bKD
 bCi
@@ -132591,7 +132600,7 @@ aaa
 lMJ
 aaa
 aaa
-mTx
+rPH
 aaa
 aaa
 aaa
@@ -133362,7 +133371,7 @@ auv
 lMJ
 aaa
 aaa
-mTx
+rPH
 aaa
 aaa
 aaa
@@ -133605,21 +133614,21 @@ aaf
 aaf
 nFY
 ccZ
-mSZ
+mTx
 orM
-rPH
-uoq
-uoq
-uoq
+sbj
 uYt
+uYt
+uYt
+vox
 ckM
-xHS
+wyr
 auv
 auv
 lMJ
 aaa
 aaa
-mTx
+rPH
 aaa
 aaa
 aaa
@@ -133868,7 +133877,7 @@ bza
 bza
 bza
 bza
-vox
+vRM
 bxc
 bxc
 auv
@@ -134125,7 +134134,7 @@ auv
 auv
 auv
 auv
-vRM
+xHS
 auv
 auv
 auv
@@ -134133,7 +134142,7 @@ aaa
 fwb
 aaa
 aaa
-mTx
+rPH
 aaa
 aaa
 aaa
@@ -134390,7 +134399,7 @@ aaa
 fwb
 aaa
 aaa
-mTx
+rPH
 aaa
 aaa
 aaa
@@ -135405,16 +135414,16 @@ aaa
 aaa
 lrF
 dkZ
-mTx
-mTx
-mTx
+rPH
+rPH
+rPH
 dkZ
 lrF
-mTx
-mTx
+rPH
+rPH
 lrF
-mTx
-mTx
+rPH
+rPH
 lrF
 aaa
 aaa
