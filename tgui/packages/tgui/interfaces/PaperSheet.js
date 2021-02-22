@@ -16,6 +16,8 @@ import { Box, Flex, Tabs, TextArea, Table } from '../components';
 import { Window } from '../layouts';
 
 const MAX_PAPER_LENGTH = 5000; // Question, should we send this with ui_data?
+const centerText = "<center>text</center>";
+
 
 const sanatize_text = value => {
   // This is VERY important to think first if you NEED
@@ -591,7 +593,7 @@ class PaperSheetEdit extends Component {
         left="10px"
         top="25px"
         width="300px"
-        height="350px"
+        height="385px"
         backgroundColor="#E8E4C9"
         textAlign="center">
         <h3>
@@ -667,6 +669,33 @@ class PaperSheetEdit extends Component {
               <s>
                 Strikethrough Text
               </s>
+            </Table.Cell>
+          </Table.Row>
+
+          <Table.Row>
+            <Table.Cell>
+              Signature
+            </Table.Cell>
+            <Table.Cell>
+              %sign
+            </Table.Cell>
+          </Table.Row>
+
+          <Table.Row>
+            <Table.Cell>
+              Input field
+            </Table.Cell>
+            <Table.Row>
+              [_____]
+            </Table.Row>
+          </Table.Row>
+
+          <Table.Row>
+            <Table.Cell>
+              Centering text
+            </Table.Cell>
+            <Table.Cell>
+              {centerText}
             </Table.Cell>
           </Table.Row>
 
