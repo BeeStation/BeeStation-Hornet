@@ -1,4 +1,0 @@
-author: park66665
-delete-after: true
-changes:
-  - bugfix: wire-on-catwalk check for swarmers now works properly

@@ -830,12 +830,17 @@
 	if((stat & MAINT) && !opened) //no board; no interface
 		return
 
+/obj/machinery/power/apc/eminence_act(mob/living/simple_animal/eminence/eminence)
+	. = ..()
+	ui_interact(eminence)
 
 /obj/machinery/power/apc/ui_state(mob/user)
 	if(isAI(user))
 		var/mob/living/silicon/ai/AI = user
 		if(AI.apc_override == src)
 			return GLOB.conscious_state
+	if(iseminence(user))
+		return GLOB.conscious_state
 	return GLOB.default_state
 
 /obj/machinery/power/apc/ui_interact(mob/user, datum/tgui/ui)
