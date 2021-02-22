@@ -135,16 +135,16 @@ export const Telecomms = (props, context) => {
             )}
             {(type === 'receiver') && (
               <Section title="Broadcasting Signals">
-              <Table>
-                {circuits.map(entry => (
-                  <Table.Row key={entry.name} className="candystripe">
-                    <Table.Cell bold>
-                      {entry.index}. {entry.name} {entry.coords} ({entry.area})
-                    </Table.Cell>
-                  </Table.Row>
-                ))}
-              </Table>
-            </Section>
+                <Table>
+                  {circuits.map(entry => (
+                    <Table.Row key={entry.index} className="candystripe">
+                      <Table.Cell bold>
+                        {entry.index}. {entry.name} ({entry.coords})
+                      </Table.Cell>
+                    </Table.Row>
+                  ))}
+                </Table>
+              </Section>
             )}
             <Section title="Linked Network Entities">
               <Table>

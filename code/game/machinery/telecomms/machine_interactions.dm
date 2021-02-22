@@ -77,18 +77,17 @@
 	data["frequencies"] = frequencies
 
 	var/list/circuits = list()
-	var/n = -1 		//Apperently there is always one circuit in the list, so we have to go -1
+	var/n = 0
 	data["circuits"] = list()
 	for(var/c in GLOB.ic_speakers)
-		n++
 		var/obj/item/integrated_circuit/I = c
 		var/obj/item/O = I.get_object()
 		var/list/circuit = list()
 		if(get_area(O)) //if it isn't in nullspace, can happen due to printer newing all possible circuits to fetch list data
+			n++
 			circuit["index"] = n
 			circuit["name"] = O.name
 			circuit["coords"] = "[O.x], [O.y], [O.z]"
-			circuit["area"] = get_area(O)
 			circuits += list(circuit)
 	data["circuits"] = circuits
 
@@ -138,7 +137,7 @@
 			if(params["value"])
 				tempfreq = text2num(params["value"]) * 10
 		if("freq")
-			var/newfreq = tempfreq * 10
+			var/newfreq = tempfreq
 			if(newfreq == FREQ_SYNDICATE)
 				to_chat(operator, "<span class='warning'>Error: Interference preventing filtering frequency: \"[newfreq / 10] GHz\"</span>")
 				playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
