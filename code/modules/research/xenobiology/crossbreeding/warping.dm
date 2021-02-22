@@ -369,7 +369,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	effect_desc = "Draw a rune that serves as a bluespace container."
 
 /obj/effect/warped_rune/bluespace
-	desc = "When activated_on_step, it gives access to a bluespace container."
+	desc = "When activated, it gives access to a bluespace container."
 	icon_state = "rune_bluespace"
 	remove_on_activation = FALSE
 
