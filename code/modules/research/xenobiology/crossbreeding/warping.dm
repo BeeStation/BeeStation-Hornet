@@ -198,7 +198,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 /obj/item/slimecross/warping/purple
 	colour = "purple"
 	runepath = /obj/effect/warped_rune/purplespace
-	effect_desc = "Draws a rune that may be activated_on_step to summon two random medical items "
+	effect_desc = "Draws a rune that may be activated to summon two random medical items "
 
 /obj/effect/warped_rune/purplespace
 	desc = "This can be activated_on_step to summon two random medical"
