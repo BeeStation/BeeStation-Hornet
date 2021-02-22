@@ -168,7 +168,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ONEWAYROAD		"one-way road"
 #define TRAIT_APPRAISAL			"appraisal"
 #define TRAIT_NOBLOCK			"noblock"
-#define TRAIT_NANITECOMPATIBLE	"nanitecompatible" //Pretty sure simplemobs apparently can get nanites, Ian has been given nanites before
+#define TRAIT_NANITECOMPATIBLE	"nanitecompatible"
+#define TRAIT_WARDED       		"curse_immune"
 
 //non-mob traits
 #define TRAIT_PARALYSIS			"paralysis" //Used for limb-based paralysis, where replacing the limb will fix it
