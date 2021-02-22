@@ -544,18 +544,18 @@ class PaperSheetEdit extends Component {
               {this.state.previewSelected === "confirm" ? "Confirm" : "Save"}
             </Tabs.Tab>
             <Tabs.Tab
-                key="marked_help"
-                textColor={'black'}
-                backgroundColor="white"
-                icon="question-circle-o"
-                onmouseover={() => {
-                  this.setState({ showingToolTip: 1 });
-                }}
-                onmouseout={() => {
-                  this.setState({ showingToolTip: 0 });
-                }}>
-                Help
-              </Tabs.Tab>
+              key="marked_help"
+              textColor={'black'}
+              backgroundColor="white"
+              icon="question-circle-o"
+              onmouseover={() => {
+                this.setState({ showingToolTip: 1 });
+              }}
+              onmouseout={() => {
+                this.setState({ showingToolTip: 0 });
+              }}>
+              Help
+            </Tabs.Tab>
           </Tabs>
         </Flex.Item>
         <Flex.Item
