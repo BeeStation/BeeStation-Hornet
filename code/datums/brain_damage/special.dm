@@ -59,7 +59,7 @@
 	if(world.time > next_portal)
 		next_portal = world.time + 100
 		var/list/turf/possible_turfs = list()
-		for(var/turf/T in range(owner, 8))
+		for(var/turf/T as() in RANGE_TURFS(8, owner))
 			if(!T.density)
 				var/clear = TRUE
 				for(var/obj/O in T)
@@ -76,7 +76,7 @@
 		if(!first_turf)
 			return
 
-		possible_turfs -= (possible_turfs & range(first_turf, 3))
+		possible_turfs -= (possible_turfs & RANGE_TURFS(3, first_turf))
 
 		var/turf/second_turf = pick(possible_turfs)
 		if(!second_turf)

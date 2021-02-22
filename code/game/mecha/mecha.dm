@@ -661,7 +661,14 @@
 				can_move = 0
 				if(phase_state)
 					flick(phase_state, src)
-				forceMove(get_step(src,dir))
+				var/turf/target = get_step(src, dir)
+				if(target.flags_1 & NOJAUNT_1)
+					occupant_message("Phasing anomaly detected, emergency deactivation initiated.")
+					sleep(step_in*3)
+					can_move = 1
+					phasing = FALSE
+					return
+				forceMove(target)
 				use_power(phasing_energy_drain)
 				sleep(step_in*3)
 				can_move = 1
@@ -946,7 +953,7 @@
 	return
 
 /obj/mecha/proc/moved_inside(mob/living/carbon/human/H)
-	if(H && H.client && (H in range(1)))
+	if(H?.client && get_dist(H, src) <= 1)
 		occupant = H
 		H.forceMove(src)
 		H.update_mouse_pointer()

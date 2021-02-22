@@ -28,12 +28,6 @@
 #define MODE_KEY_DEPARTMENT "h"
 #define MODE_TOKEN_DEPARTMENT ":h"
 
-#define MODE_ADMIN "admin"
-#define MODE_KEY_ADMIN "p"
-
-#define MODE_DEADMIN "deadmin"
-#define MODE_KEY_DEADMIN "d"
-
 #define MODE_ALIEN "alientalk"
 #define MODE_HOLOPAD "holopad"
 

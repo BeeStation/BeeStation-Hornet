@@ -40,7 +40,7 @@
 	var/has_job_loyalties = LAZYLEN(job_loyalties)
 	var/has_role_loyalties = LAZYLEN(role_loyalties)
 	inspired += user //The user is always inspired, regardless of loyalties
-	for(var/mob/living/carbon/human/H in range(4, get_turf(src)))
+	for(var/mob/living/carbon/human/H in viewers(4, get_turf(src)))
 		if(H.stat == DEAD || H == user)
 			continue
 		if(H.mind && (has_job_loyalties || has_role_loyalties))

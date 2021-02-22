@@ -433,6 +433,8 @@
 	config_entry_value = 100
 /datum/config_entry/number/max_slimes
 	config_entry_value = 100
+/datum/config_entry/number/max_slimeperson_bodies
+	config_entry_value = 10
 
 //Maximum citation fine
 /datum/config_entry/number/maxfine

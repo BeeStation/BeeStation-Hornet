@@ -344,7 +344,7 @@
 		return
 
 	// We warned you.
-	var/obj/structure/AIcore/latejoin_inactive/inactivecore = New(loc)
+	var/obj/structure/AIcore/latejoin_inactive/inactivecore = new(loc)
 	transfer_fingerprints_to(inactivecore)
 
 	if(GLOB.announcement_systems.len)
