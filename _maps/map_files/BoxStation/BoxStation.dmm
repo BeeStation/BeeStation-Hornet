@@ -25355,12 +25355,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
-"bty" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
 "btz" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/brown{
@@ -25542,15 +25536,6 @@
 	icon_state = "0-4"
 	},
 /obj/effect/turf_decal/tile/brown,
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
-"bud" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/obj/structure/sign/departments/minsky/supply/mining{
-	pixel_x = 32
-	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "bue" = (
@@ -47508,6 +47493,9 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor/border_only,
+/obj/structure/sign/departments/minsky/supply/mining{
+	pixel_x = 32
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
 "eyO" = (
@@ -50386,15 +50374,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
-"iiH" = (
-/obj/machinery/autolathe,
-/obj/machinery/door/window/westleft{
-	name = "Cargo Desk";
-	req_access_txt = "31"
-	},
-/obj/effect/turf_decal/stripes/box,
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
 "ijc" = (
 /obj/structure/table,
 /obj/item/stack/sheet/iron/fifty,
@@ -54250,6 +54229,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
+"mHl" = (
+/obj/effect/turf_decal/stripes/box,
+/obj/machinery/autolathe,
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "mHx" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
@@ -56195,15 +56179,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
-"pqP" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/chair{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
 "pqQ" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
@@ -86598,7 +86573,7 @@ bpA
 wDF
 bbR
 bbR
-bud
+biv
 eyM
 kSb
 bAZ
@@ -86854,8 +86829,8 @@ boS
 bfm
 wQP
 bfm
-iiH
-sdX
+bbR
+mHl
 bwe
 bwd
 bwY
@@ -87881,9 +87856,9 @@ bnJ
 bbR
 bbR
 bbR
-bty
-bty
-pqP
+bbR
+bbR
+bbR
 bwd
 byM
 bAd
