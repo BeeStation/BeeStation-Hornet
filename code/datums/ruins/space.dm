@@ -440,28 +440,28 @@
 	description = "Come here to have fun! We even have the best arcade game in the Universe, Dance Dance Revolution!"	
 	cost = 2
 
-/datum/spacedock13/ruin/space/spacedock
+/datum/map_template/ruin/space/spacedock
 	id = "spacearcade"
 	suffix = "spacedock13.dmm"
 	name = "Shuttle Construction"
 	description = "A shuttle building station that seems to have been forgotten, or floated off into space."	
 	cost = 2
 
-/datum/spacedock13/ruin/space/spacehive
+/datum/map_template/ruin/space/spacehive
 	id = "spacehive"
 	suffix = "spacehive.dmm"
 	name = "Space Hive"
 	description = "A hydroponics experiment gone horribly, horribly wrong!"
 	cost = 1
 
-/datum/spacedock13/ruin/space/swarmerstation
+/datum/map_template/ruin/space/swarmerstation
 	id = "swarmerstation13"
 	suffix = "swarmerstation13.dmm"
 	name = "Swarmer Station"
 	description = "Shat is left of a syndicate radio station, after swarmers infiltrated it."	
 	cost = 2
 
-/datum/spacedock13/ruin/space/refference
+/datum/map_template/ruin/space/refference
 	id = "refference"
 	suffix = "refference.dmm"
 	name = "Lost Cyborg"
