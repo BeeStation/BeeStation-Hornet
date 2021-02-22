@@ -15056,7 +15056,6 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "awA" = (
-/obj/structure/table/wood/fancy,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -15067,16 +15066,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/item/storage/book/bible{
-	pixel_x = 4;
-	pixel_y = 6
-	},
-/obj/item/storage/book/bible{
-	pixel_y = 2
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
+/obj/structure/altar_of_gods,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "awB" = (
@@ -52008,6 +52001,10 @@
 	dir = 4
 	},
 /obj/item/flashlight/lantern,
+/obj/item/storage/book/bible{
+	pixel_x = 9;
+	pixel_y = 7
+	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "bwD" = (

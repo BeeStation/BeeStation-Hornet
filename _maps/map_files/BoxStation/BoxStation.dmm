@@ -15682,7 +15682,7 @@
 	},
 /area/chapel/main)
 "aQw" = (
-/obj/structure/table/wood,
+/obj/structure/altar_of_gods,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "aQz" = (
