@@ -517,7 +517,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	chosen_pet = new chosen_pet(get_turf(human_mob))
 	human_mob.forceMove(chosen_pet)
 	human_mob.mind.transfer_to(chosen_pet)
-	ADD_TRAIT(human_mob, TRAIT_NOBREATH, MAGIC_TRAIT)
+	ADD_TRAIT(human_mob, TRAIT_NOBREATH, type)
 
 /obj/structure/slime_crystal/gold/on_mob_leave(mob/living/affected_mob)
 	if(!istype(affected_mob,/mob/living/simple_animal/pet))
@@ -530,7 +530,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 	affected_mob.mind.transfer_to(human_mob)
 	human_mob.forceMove(get_turf(affected_mob))
-	REMOVE_TRAIT(human_mob, TRAIT_NOBREATH, MAGIC_TRAIT)
+	REMOVE_TRAIT(human_mob, TRAIT_NOBREATH, type)
 	qdel(affected_mob)
 
 /obj/structure/slime_crystal/oil
