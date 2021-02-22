@@ -496,7 +496,7 @@ Contains:
 	flash_protect = 0
 	bang_protect = 0
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR
-	clothing_flags = STOPSPRESSUREDAMAGE | SHOWEROKAY | SNUG_FIT
+	clothing_flags = STOPSLOWPRESSUREDAMAGE | SHOWEROKAY | SNUG_FIT
 	max_heat_protection_temperature = 100
 
 /obj/item/clothing/suit/space/skinsuit
@@ -507,7 +507,7 @@ Contains:
 	icon_state = "skinsuit_rolled"
 	slowdown = 3 //Higher is slower
 	w_class = WEIGHT_CLASS_SMALL
-	clothing_flags = STOPSPRESSUREDAMAGE | SHOWEROKAY
+	clothing_flags = STOPSLOWPRESSUREDAMAGE | SHOWEROKAY
 	gas_transfer_coefficient = 0.5
 	permeability_coefficient = 0.5
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)

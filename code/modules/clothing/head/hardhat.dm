@@ -56,6 +56,7 @@
 	dog_fashion = null
 	name = "firefighter helmet"
 	clothing_flags = STOPSHIGHPRESSUREDAMAGE | SNUG_FIT
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
@@ -65,7 +66,7 @@
 	icon_state = "hardhat0_white"
 	item_state = "hardhat0_white"
 	item_color = "white"
-	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
+	clothing_flags = STOPSHIGHPRESSUREDAMAGE | SNUG_FIT
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
@@ -146,7 +147,7 @@
 	item_state = "hardhat0_white"
 	brightness_on = 4 //Boss always takes the best stuff
 	item_color = "white"
-	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
+	clothing_flags = STOPSHIGHPRESSUREDAMAGE | SNUG_FIT
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
