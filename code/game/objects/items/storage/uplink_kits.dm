@@ -570,5 +570,4 @@
 	desc = "Provides you with a hardly noticable blade hidden inside a baguette disguise."
 
 /obj/item/storage/box/syndie_kit/mimesabrekit/PopulateContents()
-	new /obj/item/melee/sabre/mime(src)
 	new /obj/item/storage/belt/sabre/mime(src)

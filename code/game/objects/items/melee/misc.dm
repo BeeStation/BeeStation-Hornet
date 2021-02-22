@@ -138,7 +138,7 @@
 
 /obj/item/melee/sabre/mime
 	name = "Bread Blade"
-	desc = "An elegant weapon, its monomolecular edge is capable of cutting through flesh and bone with ease. Also very tasty."
+	desc = "An elegant weapon, it has an inscription on it that says:  \"La Gluten Gutter\"."
 	force = 18
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "rapier"
