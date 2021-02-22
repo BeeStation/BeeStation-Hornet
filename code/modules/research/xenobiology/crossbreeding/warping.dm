@@ -187,7 +187,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	effect_desc = "Draws a rune that can summon a bonfire."
 
 /obj/effect/warped_rune/orangespace
-	desc = "This can be activated_on_step to summon a bonfire."
+	desc = "This can be activated to summon a bonfire."
 	icon_state = "rune_orange"
 
 /obj/effect/warped_rune/orangespace/do_effect(mob/user)
