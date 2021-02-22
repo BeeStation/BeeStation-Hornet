@@ -6450,7 +6450,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/centcom/ferry)
 "pO" = (
-/obj/structure/destructible/cult/tome/library,
+/obj/structure/destructible/cult/tome,
 /obj/item/book/codex_gigas,
 /obj/machinery/airalarm{
 	dir = 8;
