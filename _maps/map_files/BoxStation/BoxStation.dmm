@@ -25355,13 +25355,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
-"bty" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "public_autolathe";
-	name = "public autolathe shutters"
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
 "btz" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/brown{
@@ -25543,15 +25536,6 @@
 	icon_state = "0-4"
 	},
 /obj/effect/turf_decal/tile/brown,
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
-"bud" = (
-/obj/machinery/button/door{
-	id = "public_autolathe";
-	name = "Autolathe Shutters Control";
-	pixel_x = 28;
-	req_access_txt = "31"
-	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "bue" = (
@@ -49140,6 +49124,10 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/engine/atmos)
+"gxZ" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "gyH" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
 	dir = 4
@@ -56194,10 +56182,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
-"pqP" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
 "pqQ" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
@@ -56235,6 +56219,11 @@
 /obj/structure/chair/office,
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
+"pvX" = (
+/obj/effect/turf_decal/stripes/box,
+/obj/machinery/autolathe,
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "pwf" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -56782,6 +56771,13 @@
 /obj/structure/tank_dispenser,
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
+"qbk" = (
+/obj/machinery/door/poddoor/shutters{
+	id = "public_autolathe";
+	name = "public autolathe shutters"
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "qbp" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 1
@@ -59737,6 +59733,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"tTj" = (
+/obj/machinery/button/door{
+	id = "public_autolathe";
+	name = "Autolathe Shutters Control";
+	pixel_x = 28;
+	req_access_txt = "31"
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "tUd" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
@@ -61088,11 +61093,6 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/dorms)
-"vBt" = (
-/obj/effect/turf_decal/stripes/box,
-/obj/machinery/autolathe,
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
 "vBU" = (
 /obj/structure/plasticflaps/opaque,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -86583,7 +86583,7 @@ bnG
 bnz
 bpA
 wDF
-bud
+tTj
 bbR
 biv
 eyM
@@ -86842,7 +86842,7 @@ bfm
 wQP
 sdX
 iiH
-vBt
+pvX
 bwe
 bwd
 bwY
@@ -87098,7 +87098,7 @@ boR
 bqs
 wDF
 bbR
-bty
+qbk
 bqs
 bwd
 bvL
@@ -87355,7 +87355,7 @@ bbR
 hKl
 vaL
 btu
-pqP
+gxZ
 bqs
 bwd
 ccR
@@ -87612,7 +87612,7 @@ bbR
 bqt
 cBq
 bbR
-pqP
+gxZ
 bqs
 bwd
 bxC
@@ -87869,7 +87869,7 @@ bbR
 bbR
 bbR
 bbR
-bty
+qbk
 bqs
 bwd
 byM
