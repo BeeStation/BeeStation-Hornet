@@ -239,7 +239,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 
 /obj/effect/warped_rune/cyanspace
 	icon_state = "rune_blue"
-	desc = "Its slippery like water and may be activated_on_step to cover all adjacent tiles in ice."
+	desc = "Its slippery like water and may be activated to cover all adjacent tiles in ice."
 
 /obj/effect/warped_rune/cyanspace/do_effect(mob/user)
 	for(var/turf/open/T in RANGE_TURFS(1, src) - rune_turf)
