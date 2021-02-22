@@ -25355,13 +25355,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
-"bty" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "public_autolathe";
-	name = "public autolathe shutters"
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
 "btz" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/brown{
@@ -25543,15 +25536,6 @@
 	icon_state = "0-4"
 	},
 /obj/effect/turf_decal/tile/brown,
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
-"bud" = (
-/obj/machinery/button/door{
-	id = "public_autolathe";
-	name = "Autolathe Shutters Control";
-	pixel_x = 28;
-	req_access_txt = "31"
-	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "bue" = (
@@ -48339,6 +48323,15 @@
 /mob/living/simple_animal/pet/fox/Renault,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
+"fFT" = (
+/obj/machinery/button/door{
+	id = "public_autolathe";
+	name = "Autolathe Shutters Control";
+	pixel_x = 28;
+	req_access_txt = "31"
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "fGe" = (
 /obj/machinery/light{
 	dir = 4
@@ -51525,6 +51518,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"jJh" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "jJw" = (
 /obj/machinery/atmospherics/components/unary/tank/air,
 /turf/open/floor/plating,
@@ -52104,6 +52101,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"kvF" = (
+/obj/effect/turf_decal/stripes/box,
+/obj/machinery/autolathe,
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "kwh" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -56194,10 +56196,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
-"pqP" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
 "pqQ" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
@@ -61088,11 +61086,6 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/dorms)
-"vBt" = (
-/obj/effect/turf_decal/stripes/box,
-/obj/machinery/autolathe,
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
 "vBU" = (
 /obj/structure/plasticflaps/opaque,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -62072,6 +62065,13 @@
 	},
 /turf/closed/wall,
 /area/maintenance/port/aft)
+"wyR" = (
+/obj/machinery/door/poddoor/shutters{
+	id = "public_autolathe";
+	name = "public autolathe shutters"
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "wzO" = (
 /obj/effect/spawner/room/threexthree,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -86583,7 +86583,7 @@ bnG
 bnz
 bpA
 wDF
-bud
+fFT
 bbR
 biv
 eyM
@@ -86842,7 +86842,7 @@ bfm
 wQP
 sdX
 iiH
-vBt
+kvF
 bwe
 bwd
 bwY
@@ -87098,7 +87098,7 @@ boR
 bqs
 wDF
 bbR
-bty
+wyR
 bqs
 bwd
 bvL
@@ -87355,7 +87355,7 @@ bbR
 hKl
 vaL
 btu
-pqP
+jJh
 bqs
 bwd
 ccR
@@ -87612,7 +87612,7 @@ bbR
 bqt
 cBq
 bbR
-pqP
+jJh
 bqs
 bwd
 bxC
@@ -87869,7 +87869,7 @@ bbR
 bbR
 bbR
 bbR
-bty
+wyR
 bqs
 bwd
 byM
