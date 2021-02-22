@@ -18,6 +18,7 @@
 	var/hack_wire
 	var/disable_wire
 	var/shock_wire
+	var/price_factor = 50
 
 	//Security modes
 	var/security_interface_locked = TRUE
@@ -120,12 +121,12 @@
 			
 			for(var/material_id in D.materials)
 				if(material_id != "rigid material")
-					price += ore_values["[material_id]"] * D.materials[material_id] / 50 // also multiplied by 2000, since there are 2000 mat units in a sheet
+					price += ore_values["[material_id]"] * D.materials[material_id] / price_factor // also multiplied by 2000, since there are 2000 mat units in a sheet
 					material_cost += list(list(
 						"name" = material_id,
 						"amount" = D.materials[material_id] / MINERAL_MATERIAL_AMOUNT,))
 				else
-					price += D.materials[material_id] / 50
+					price += D.materials[material_id] / price_factor
 
 			if(price < 10) //To ensure the price isnt too low.
 				price += 10
@@ -452,7 +453,7 @@
 
 	var/price = 0 
 	for(var/MAT in being_built.materials)
-		price += ore_values["[MAT]"] * being_built.materials[MAT] / 50
+		price += ore_values["[MAT]"] * being_built.materials[MAT] / price_factor
 		var/datum/material/used_material = MAT
 		var/amount_needed = being_built.materials[MAT] * coeff * multiplier
 		if(istext(used_material)) //This means its a category
