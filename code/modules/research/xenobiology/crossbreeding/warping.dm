@@ -275,11 +275,11 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 /obj/item/slimecross/warping/metal
 	colour = "metal"
 	runepath = /obj/effect/warped_rune/metalspace
-	effect_desc = "Draws a rune that may be activated_on_step to create a 3x3 block of invisible walls."
+	effect_desc = "Draws a rune that may be activated to create a 3x3 block of invisible walls."
 
 //It's a wall what do you want from me
 /obj/effect/warped_rune/metalspace
-	desc = "This can be activated_on_step to to create a 3x3 block of invisible walls."
+	desc = "This can be activated to to create a 3x3 block of invisible walls."
 	icon_state = "rune_metal"
 
 /obj/effect/warped_rune/metalspace/do_effect(mob/user)
@@ -567,7 +567,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 
 /obj/effect/warped_rune/goldspace
 	icon_state = "rune_gold"
-	desc = "This can be activated_on_step to transmute valuable items into a random item."
+	desc = "This can be activated to transmute valuable items into a random item."
 	remove_on_activation = FALSE
 	var/target_value = 5000
 	var/static/list/common_items = list(
