@@ -51051,6 +51051,13 @@
 	},
 /turf/open/floor/carpet,
 /area/library)
+"jfg" = (
+/obj/machinery/door/poddoor/shutters{
+	id = "public_autolathe";
+	name = "public autolathe shutters"
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "jfI" = (
 /obj/machinery/porta_turret/ai{
 	dir = 4;
@@ -51109,6 +51116,10 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat_interior)
+"jjd" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "jjq" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -52859,6 +52870,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
+"lnC" = (
+/obj/machinery/button/door{
+	id = "public_autolathe";
+	name = "Autolathe Shutters Control";
+	pixel_x = 28;
+	req_access_txt = "31"
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "loO" = (
 /obj/machinery/atmospherics/pipe/simple,
 /obj/effect/turf_decal/stripes/line,
@@ -60182,6 +60202,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
+"uxP" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plasteel,
+/area/space)
 "uxV" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -86571,7 +86595,7 @@ bnG
 bnz
 bpA
 wDF
-bbR
+lnC
 bbR
 biv
 eyM
@@ -86828,8 +86852,8 @@ bfm
 boS
 bfm
 wQP
-bfm
-bbR
+sdX
+uxP
 mHl
 bwe
 bwd
@@ -87086,8 +87110,8 @@ boR
 bqs
 wDF
 bbR
-bbR
-bbR
+jfg
+bqs
 bwd
 bvL
 byI
@@ -87343,8 +87367,8 @@ bbR
 hKl
 vaL
 btu
-bbR
-bbR
+jjd
+bqs
 bwd
 ccR
 byK
@@ -87600,8 +87624,8 @@ bbR
 bqt
 cBq
 bbR
-bbR
-bbR
+jjd
+bqs
 bwd
 bxC
 byL
@@ -87857,8 +87881,8 @@ bbR
 bbR
 bbR
 bbR
-bbR
-bbR
+jfg
+bqs
 bwd
 byM
 bAd
