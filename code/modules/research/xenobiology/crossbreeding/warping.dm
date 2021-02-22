@@ -259,6 +259,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	colour = "dark blue"
 	runepath = /obj/effect/warped_rune/darkcyanspace //we'll call the blue rune cyanspace to not mix it up with actual bluespace rune
 	effect_desc = "Draw a rune that can lower the temperature of whoever steps on it."
+	remove_on_activation = FALSE
 
 /obj/effect/warped_rune/darkcyanspace
 	icon_state = "rune_dark_blue"
