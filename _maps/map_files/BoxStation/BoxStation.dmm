@@ -21671,12 +21671,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
-"bhV" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/science/lab)
 "bhW" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "qm_warehouse";
@@ -23067,7 +23061,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/autolathe,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "blL" = (
@@ -46664,6 +46657,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
+"duB" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/autolathe,
+/turf/open/floor/plasteel,
+/area/science/lab)
 "duJ" = (
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
@@ -47589,6 +47589,15 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
+"eFn" = (
+/obj/machinery/button/door{
+	id = "public_autolathe";
+	name = "Autolathe Shutters Control";
+	pixel_x = 28;
+	req_access_txt = "31"
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "eGg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
@@ -48320,15 +48329,6 @@
 /mob/living/simple_animal/pet/fox/Renault,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
-"fFT" = (
-/obj/machinery/button/door{
-	id = "public_autolathe";
-	name = "Autolathe Shutters Control";
-	pixel_x = 28;
-	req_access_txt = "31"
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
 "fGe" = (
 /obj/machinery/light{
 	dir = 4
@@ -50958,6 +50958,13 @@
 /obj/machinery/iv_drip,
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
+"iXQ" = (
+/obj/machinery/door/poddoor/shutters{
+	id = "public_autolathe";
+	name = "public autolathe shutters"
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "iXS" = (
 /obj/effect/spawner/room/threexthree,
 /turf/open/floor/plating,
@@ -51515,10 +51522,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
-"jJh" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
 "jJw" = (
 /obj/machinery/atmospherics/components/unary/tank/air,
 /turf/open/floor/plating,
@@ -52098,11 +52101,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"kvF" = (
-/obj/effect/turf_decal/stripes/box,
-/obj/machinery/autolathe,
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
 "kwh" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -54174,6 +54172,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
+"mCK" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "mDL" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Supermatter Engine Room";
@@ -58785,6 +58787,11 @@
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
+"szz" = (
+/obj/effect/turf_decal/stripes/box,
+/obj/machinery/autolathe,
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "szT" = (
 /obj/machinery/holopad,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -62065,13 +62072,6 @@
 	},
 /turf/closed/wall,
 /area/maintenance/port/aft)
-"wyR" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "public_autolathe";
-	name = "public autolathe shutters"
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
 "wzO" = (
 /obj/effect/spawner/room/threexthree,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -86583,7 +86583,7 @@ bnG
 bnz
 bpA
 wDF
-fFT
+eFn
 bbR
 biv
 eyM
@@ -86842,7 +86842,7 @@ bfm
 wQP
 sdX
 iiH
-kvF
+szz
 bwe
 bwd
 bwY
@@ -87098,7 +87098,7 @@ boR
 bqs
 wDF
 bbR
-wyR
+iXQ
 bqs
 bwd
 bvL
@@ -87355,7 +87355,7 @@ bbR
 hKl
 vaL
 btu
-jJh
+mCK
 bqs
 bwd
 ccR
@@ -87612,7 +87612,7 @@ bbR
 bqt
 cBq
 bbR
-jJh
+mCK
 bqs
 bwd
 bxC
@@ -87869,7 +87869,7 @@ bbR
 bbR
 bbR
 bbR
-wyR
+iXQ
 bqs
 bwd
 byM
@@ -110991,7 +110991,7 @@ sYn
 bfX
 bhD
 biV
-bhV
+blK
 bnp
 bnp
 bng
@@ -111248,7 +111248,7 @@ sYn
 bgb
 bhC
 biU
-blK
+duB
 blJ
 bno
 boA
