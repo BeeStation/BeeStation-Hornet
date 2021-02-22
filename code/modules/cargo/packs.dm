@@ -1928,6 +1928,17 @@ datum/supply_pack/medical/bruisekits
 	crate_name = "beekeeping starter crate"
 	crate_type = /obj/structure/closet/crate/hydroponics
 
+/datum/supply_pack/organic/hydroponics/chemical_refill
+	name = "Botanical Reagent Crate"
+	desc = ""
+	cost = 800
+	contains = list(/obj/item/reagent_containers/glass/bottle/mutagen,
+					/obj/item/reagent_containers/glass/bottle/mutagen,
+					/obj/item/reagent_containers/glass/bottle/mutagen,
+					/obj/item/reagent_containers/glass/bottle/diethylamine)
+	crate_name = "beekeeper suits"
+	crate_type = /obj/structure/closet/crate/hydroponics
+
 /datum/supply_pack/organic/randomized/chef
 	name = "Excellent Meat Crate"
 	desc = "The best cuts in the whole galaxy."
