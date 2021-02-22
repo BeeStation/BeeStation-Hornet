@@ -10830,7 +10830,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/evac)
 "zo" = (
-/obj/structure/destructible/cult/tome/library,
+/obj/structure/destructible/cult/tome,
 /turf/open/floor/engine/cult,
 /area/wizard_station)
 "zp" = (
