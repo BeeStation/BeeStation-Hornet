@@ -145,9 +145,8 @@
 	old_tongue.Remove(H)
 	new_tongue.Insert(H)
 	qdel(old_tongue)
-.H.put_in_hands(gloves)
-H.equip_to_slot(gloves, ITEM_SLOT_GLOVES)
-H.regenerate_icons()
-
+	H.put_in_hands(gloves)
+	H.equip_to_slot(gloves, ITEM_SLOT_GLOVES)
+	H.regenerate_icons()
 /datum/quirk/tongue_tied/post_add()
 	to_chat(quirk_holder, "<span class='boldannounce'>Because you speak with your hands, having them full hinders your ability to communicate!</span>")
