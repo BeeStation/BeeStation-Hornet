@@ -235,7 +235,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 /obj/item/slimecross/warping/blue
 	colour = "blue"
 	runepath = /obj/effect/warped_rune/cyanspace //we'll call the blue rune cyanspace to not mix it up with actual bluespace rune
-	effect_desc = "Draw a rune that is slippery like water and may be activated_on_step to cover all adjacent tiles in ice."
+	effect_desc = "Draw a rune that is slippery like water and may be activated to cover all adjacent tiles in ice."
 
 /obj/effect/warped_rune/cyanspace
 	icon_state = "rune_blue"
