@@ -747,8 +747,6 @@ class PaperSheetEdit extends Component {
 
 }
 
-
-
 export const PaperSheet = (props, context) => {
   const { data } = useBackend(context);
   const {
