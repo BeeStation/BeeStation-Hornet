@@ -659,8 +659,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 				path = pick(rare_items)
 
 		var/atom/movable/A = new path(rune_turf)
-		for(var/obj/item/I in valuable_items)
-			qdel(I)
+		QDEL_LIST(valuable_items)
 		to_chat(user, "<spawn class='notice'>[src] shines and [A] appears before you.</span>")
 	else
 		to_chat(user, "<span class='warning'>The sacrifice is insufficient.</span>")
