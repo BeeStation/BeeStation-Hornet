@@ -101,7 +101,7 @@
 	var/list/data = list()	
 	data["acceptsDisk"] = TRUE
 
-	var/list/ore_values = list(iron = 1, glass = 1, copper = 5, plasma = 15, silver = 16, gold = 18, titanium = 30, uranium = 30, diamond = 50, bluespace = 50, bananium = 60)
+	var/static/list/ore_values = list(iron = 1, glass = 1, copper = 5, plasma = 15, silver = 16, gold = 18, titanium = 30, uranium = 30, diamond = 50, bluespace = 50, bananium = 60)
 
 	//Items
 	data["items"] = list()
@@ -121,12 +121,12 @@
 			
 			for(var/material_id in D.materials)
 				if(material_id != "rigid material")
-					price += ore_values["[material_id]"] * D.materials[material_id] / price_factor // also multiplied by 2000, since there are 2000 mat units in a sheet
+					price += round(ore_values["[material_id]"] * D.materials[material_id] / price_factor) // also multiplied by 2000, since there are 2000 mat units in a sheet
 					material_cost += list(list(
 						"name" = material_id,
 						"amount" = D.materials[material_id] / MINERAL_MATERIAL_AMOUNT,))
 				else
-					price += D.materials[material_id] / price_factor
+					price += round(D.materials[material_id] / price_factor)
 
 			if(price < 10) //To ensure the price isnt too low.
 				price += 10
@@ -449,11 +449,11 @@
 	var/list/materials_used = list()
 	var/list/custom_materials = list() //These will apply their material effect, This should usually only be one.
 
-	var/list/ore_values = list(iron = 1, glass = 1, copper = 5, plasma = 15, silver = 16, gold = 18, titanium = 30, uranium = 30, diamond = 50, bluespace = 50, bananium = 60)
+	var/static/list/ore_values = list(iron = 1, glass = 1, copper = 5, plasma = 15, silver = 16, gold = 18, titanium = 30, uranium = 30, diamond = 50, bluespace = 50, bananium = 60)
 
 	var/price = 0 
 	for(var/MAT in being_built.materials)
-		price += ore_values["[MAT]"] * being_built.materials[MAT] / price_factor
+		price += round(ore_values["[MAT]"] * being_built.materials[MAT] / price_factor)
 		var/datum/material/used_material = MAT
 		var/amount_needed = being_built.materials[MAT] * coeff * multiplier
 		if(istext(used_material)) //This means its a category
@@ -520,13 +520,14 @@
 		autolathe_failure(1)
 
 /obj/machinery/autolathe/proc/autolathe_failure(failure) 
-	if(failure == 1)
-		failure = "bank credentials"
-	else if (failure == 2)
-		failure = "materials"
-		wants_operate = TRUE
-	else if (failure == 3)
-		failure = "credits"
+	switch(failure)
+		if(1)
+			failure = "bank credentials"
+		if(2)
+			failure = "materials"
+			wants_operate = TRUE
+		if(3)
+			failure = "credits"
 	say("Insufficient [failure], operation will proceed when sufficient [failure] are made available.")
 	operating = FALSE
 
