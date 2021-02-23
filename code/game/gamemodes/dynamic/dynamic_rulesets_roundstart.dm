@@ -716,9 +716,7 @@
 		servant.mind.assigned_role = ROLE_SERVANT_OF_RATVAR
 		servant.mind.special_role = ROLE_SERVANT_OF_RATVAR
 	//Generate scriptures
-	for(var/categorypath in typesof(/datum/clockcult/scripture))
-		var/datum/clockcult/scripture/S = new categorypath
-		GLOB.clockcult_all_scriptures[S.name] = S
+	generate_clockcult_scriptures()
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/clockcult/execute()
@@ -732,7 +730,7 @@
 		var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(servant_mind.current, team=main_cult)
 		S.equip_carbon(servant_mind.current)
 		S.equip_servant()
-		S.prefix = CLOCKCULT_MASTER
+		S.prefix = CLOCKCULT_PREFIX_MASTER
 	//Setup the conversion limits for auto opening the ark
 	calculate_clockcult_values()
 	return ..()

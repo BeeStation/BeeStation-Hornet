@@ -785,6 +785,10 @@
 	sleep(1)
 	qdel(src)
 
+/obj/machinery/light/eminence_act(mob/living/simple_animal/eminence/eminence)
+	. = ..()
+	break_light_tube()
+
 // the light item
 // can be tube or bulb subtypes
 // will fit into empty /obj/machinery/light of the corresponding type

@@ -1,4 +1,0 @@
-author: githubuser343
-delete-after: true
-changes:
-  - bugfix: Private cargo crate purchases no longer ignore access restrictions.

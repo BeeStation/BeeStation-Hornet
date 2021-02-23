@@ -13,7 +13,7 @@
 	var/datum/action/innate/clockcult/transmit/transmit_spell
 	var/datum/team/clock_cult/team
 
-	var/prefix = CLOCKCULT_RECRUIT
+	var/prefix = CLOCKCULT_PREFIX_RECRUIT
 
 	var/counts_towards_total = TRUE//Counts towards the total number of servants.
 
@@ -59,19 +59,19 @@
 /datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)
 	. = ..()
 	owner.current.faction |= "ratvar"
-	owner.language_holder.grant_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
 	transmit_spell = new()
 	transmit_spell.Grant(owner.current)
-	owner.current.throw_alert("clockinfo", /atom/movable/screen/alert/clockwork/clocksense)
-	SSticker.mode.update_clockcult_icons_added(owner)
 	if(GLOB.gateway_opening && ishuman(owner.current))
 		var/mob/living/carbon/owner_mob = owner.current
 		forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
 		owner_mob.add_overlay(forbearance)
+	owner.current.throw_alert("clockinfo", /atom/movable/screen/alert/clockwork/clocksense)
+	SSticker.mode.update_clockcult_icons_added(owner)
+	var/datum/language_holder/LH = owner.current.get_language_holder()
+	LH.grant_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
 
 /datum/antagonist/servant_of_ratvar/remove_innate_effects(mob/living/M)
 	owner.current.faction -= "ratvar"
-	owner.language_holder.remove_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
 	owner.current.clear_alert("clockinfo")
 	transmit_spell.Remove(transmit_spell.owner)
 	SSticker.mode.update_clockcult_icons_removed(owner)
@@ -79,6 +79,8 @@
 		var/mob/living/carbon/owner_mob = owner.current
 		owner_mob.remove_overlay(forbearance)
 		qdel(forbearance)
+	var/datum/language_holder/LH = owner.current.get_language_holder()
+	LH.remove_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
 	. = ..()
 
 /datum/antagonist/servant_of_ratvar/proc/equip_servant_conversion()

@@ -46,6 +46,7 @@
 	baseturfs = /turf/open/floor/clockwork/reebe
 	var/obj/effect/clockwork/overlay/wall/realappearence
 	var/d_state = INTACT
+	flags_1 = NOJAUNT_1
 
 /turf/closed/wall/clockwork/Initialize()
 	. = ..()
@@ -457,10 +458,16 @@
 	desc = "You shall not pass."
 	icon = 'icons/effects/clockwork_effects.dmi'
 	icon_state = "servant_blocker"
+	anchored = TRUE
 
 /obj/effect/clockwork/servant_blocker/CanPass(atom/movable/mover, turf/target)
-	if(is_servant_of_ratvar(mover))
-		return FALSE
+	if(ismob(mover))
+		var/mob/M = mover
+		if(is_servant_of_ratvar(M))
+			return FALSE
+	for(var/mob/M in mover.contents)
+		if(is_servant_of_ratvar(M))
+			return FALSE
 	return ..()
 
 //=================================================
