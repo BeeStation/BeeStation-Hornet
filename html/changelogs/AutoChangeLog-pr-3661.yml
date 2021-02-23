@@ -1,0 +1,5 @@
+author: francinum
+delete-after: true
+changes:
+  - config: Jobs no longer load from the txt file, This should hopefully solve some
+      issues related to insufficient spawners.
