@@ -232,3 +232,46 @@
 		.["identified_ckey"] = query_ckey_lookup.item[1]
 	qdel(query_ckey_lookup)
 	return .
+
+/datum/world_topic/get_metacoins
+	keyword = "get_metacoins"
+
+/datum/world_topic/get_metacoins/Run(list/input, addr)
+	var/ckey = input["ckey"]
+
+	if(!ckey || !SSdbcore.Connect())
+		return null
+
+	var/datum/DBQuery/query_get_metacoins = SSdbcore.NewQuery(
+		"SELECT metacoins FROM [format_table_name("player")] WHERE ckey = :ckey",
+		list("ckey" = ckey)
+	)
+	var/mc_count = null
+	if(query_get_metacoins.warn_execute())
+		if(query_get_metacoins.NextRow())
+			mc_count = query_get_metacoins.item[1]
+
+	qdel(query_get_metacoins)
+	return mc_count ? text2num(mc_count) : null
+
+/datum/world_topic/adjust_metacoins
+	keyword = "adjust_metacoins"
+	require_comms_key = TRUE
+
+/datum/world_topic/adjust_metacoins/Run(list/input, addr)
+	var/ckey = input["ckey"]
+	var/amount = input["amount"]
+
+	if(!ckey || !amount)
+		return FALSE
+
+	. = TRUE
+
+	var/datum/DBQuery/query_metacoins = SSdbcore.NewQuery(
+		"UPDATE [format_table_name("player")] SET metacoins = metacoins + :amount WHERE ckey = :ckey",
+		list("amount" = amount, "ckey" = ckey)
+	)
+	if(!query_metacoins.warn_execute())
+		. = FALSE
+
+	qdel(query_metacoins)
