@@ -140,14 +140,10 @@
 	name = "Bread Blade"
 	desc = "An elegant weapon, it has an inscription on it that says:  \"La Gluten Gutter\"."
 	force = 18
-	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "rapier"
 	item_state = "rapier"
 	lefthand_file = null
 	righthand_file = null
-	alpha = 255
-	block_level = 1
-	block_upgrade_walk = 1
 	block_power = 60
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 
