@@ -278,6 +278,11 @@
 	qdel(event)
 	update_mood()
 
+/datum/component/mood/proc/get_event(category)
+	if(!istext(category))
+		category = REF(category)
+	return mood_events[category]
+
 /datum/component/mood/proc/remove_temp_moods(var/admin) //Removes all temp moods
 	for(var/i in mood_events)
 		var/datum/mood_event/moodlet = mood_events[i]
@@ -370,6 +375,8 @@
 
 /datum/component/mood/proc/check_area_mood(datum/source, var/area/A)
 	if(A.mood_bonus)
+		if(get_event("area"))	//walking between areas that give mood bonus should first clear the bonus from the previous one
+			clear_event(null, "area")
 		add_event(null, "area", /datum/mood_event/area, list(A.mood_bonus, A.mood_message))
 	else
 		clear_event(null, "area")

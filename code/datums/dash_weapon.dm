@@ -32,7 +32,7 @@
 	if(!IsAvailable())
 		return
 	var/turf/T = get_turf(target)
-	if(target in view(user.client.view, user))
+	if(user in viewers(user.client.view, T))
 		var/obj/spot1 = new phaseout(get_turf(user), user.dir)
 		user.forceMove(T)
 		playsound(T, dash_sound, 25, 1)

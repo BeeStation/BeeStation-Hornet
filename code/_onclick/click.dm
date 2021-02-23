@@ -118,8 +118,7 @@
 		RestrainedClickOn(A)
 		return
 
-	if(in_throw_mode)
-		throw_item(A)
+	if(in_throw_mode && throw_item(A))
 		return
 
 	var/obj/item/W = get_active_held_item()
@@ -412,7 +411,7 @@
 	playsound(usr.loc, 'sound/weapons/taser2.ogg', 75, 1)
 
 	LE.firer = src
-	LE.def_zone = get_organ_target()
+	LE.def_zone = ran_zone(zone_selected)
 	LE.preparePixelProjectile(A, src, params)
 	LE.fire()
 

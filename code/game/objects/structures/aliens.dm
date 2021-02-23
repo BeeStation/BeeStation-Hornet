@@ -295,9 +295,9 @@
 			if(kill)
 				child.Die()
 			else
-				for(var/mob/M in range(1,src))
-					if(CanHug(M))
-						child.Leap(M)
+				for(var/mob/living/carbon/C in ohearers(1,src))
+					if(CanHug(C))
+						child.Leap(C)
 						break
 
 /obj/structure/alien/egg/obj_break(damage_flag)

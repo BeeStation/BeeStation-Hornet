@@ -116,7 +116,7 @@
 /obj/structure/disposalholder/relaymove(mob/user)
 	if(user.incapacitated())
 		return
-	for(var/mob/M in range(5, get_turf(src)))
+	for(var/mob/M as() in hearers(5, get_turf(src)))
 		M.show_message("<FONT size=[max(0, 5 - get_dist(src, M))]>CLONG, clong!</FONT>", 2)
 	var/obj/structure/disposalpipe/pipe = loc
 	pipe.take_damage(10)

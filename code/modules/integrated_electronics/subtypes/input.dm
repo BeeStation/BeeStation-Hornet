@@ -571,9 +571,8 @@
 		return
 	var/desired_type = A.type
 
-	var/list/nearby_things = range(1, get_turf(src))
 	var/list/valid_things = list()
-	for(var/atom/thing in nearby_things)
+	for(var/atom/thing as() in range(1, get_turf(src)))
 		if(thing.type != desired_type)
 			continue
 		valid_things.Add(thing)
@@ -620,8 +619,7 @@
 		for(var/item in input_list)
 			if(!isnull(item) && !isnum_safe(item))
 				if(istext(item))
-					for(var/i in nearby_things)
-						var/atom/thing = i
+					for(var/atom/thing as() in nearby_things)
 						if(ismob(thing) && !isliving(thing))
 							continue
 						if(findtext(addtext(thing.name," ",thing.desc), item, 1, 0) )
@@ -629,8 +627,7 @@
 				else
 					var/atom/A = item
 					var/desired_type = A.type
-					for(var/i in nearby_things)
-						var/atom/thing = i
+					for(var/atom/thing as() in nearby_things)
 						if(thing.type != desired_type)
 							continue
 						if(ismob(thing) && !isliving(thing))

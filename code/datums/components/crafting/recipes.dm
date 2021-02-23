@@ -945,5 +945,6 @@
 	name = "Poppy Pin Removal"
 	result = /obj/item/reagent_containers/food/snacks/grown/poppy
 	time = 5
-	reqs = /obj/item/clothing/accessory/poppy_pin
+	reqs = list(/obj/item/clothing/accessory/poppy_pin = 1)
+	
 	category = CAT_MISC
