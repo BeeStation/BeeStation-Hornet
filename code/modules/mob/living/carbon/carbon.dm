@@ -777,7 +777,7 @@
 			else
 				stat = CONSCIOUS
 				stuttering = 0
-				glide_size = initial(glize_size)
+				glide_size = initial(glide_size)
 			adjust_blindness(-1)
 			REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
 		update_mobility()
