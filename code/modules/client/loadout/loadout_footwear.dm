@@ -19,6 +19,11 @@
 	path = /obj/item/clothing/shoes/winterboots
 	cost = 4000
 
+/datum/gear/footwear/swagshoes
+	display_name = "swag shoes"
+	path = /obj/item/clothing/shoes/swagshoes
+	cost = 31000 
+
 //Standard shoes
 
 /datum/gear/footwear/color

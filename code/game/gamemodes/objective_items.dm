@@ -84,7 +84,7 @@
 
 /datum/objective_item/steal/reactive
 	name = "the reactive teleport armor."
-	targetitem = /obj/item/clothing/suit/armor/reactive
+	targetitem = /obj/item/clothing/suit/armor/reactive/teleport
 	difficulty = 5
 	excludefromjob = list("Research Director")
 
@@ -165,6 +165,12 @@
 	if(E.Uses > 0)
 		return 1
 	return 0
+
+/datum/objective_item/steal/blackbox
+	name = "the blackbox."
+	targetitem = /obj/item/blackbox
+	difficulty = 10
+	excludefromjob = list("Chief Engineer","Station Engineer","Atmospheric Technician")
 
 //Unique Objectives
 /datum/objective_item/unique/docs_red

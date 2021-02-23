@@ -324,6 +324,11 @@
 	CanAtmosPass = ATMOS_PASS_PROC
 	assemblytype = /obj/structure/firelock_frame/border
 
+/obj/machinery/door/firedoor/border_only/Destroy()
+	density = FALSE
+	air_update_turf(1)
+	return ..()
+
 /obj/machinery/door/firedoor/border_only/closed
 	icon_state = "door_closed"
 	opacity = TRUE
@@ -421,6 +426,10 @@
 	resistance_flags = 0 // not fireproof
 	heat_proof = FALSE
 	assemblytype = /obj/structure/firelock_frame/window
+
+/obj/machinery/door/firedoor/window/attack_alien(mob/living/carbon/alien/humanoid/user)
+	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
+	return attack_generic(user, 60, BRUTE, "melee", 0)
 
 /obj/item/electronics/firelock
 	name = "firelock circuitry"

@@ -60,9 +60,9 @@
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		if(!diode)
-			. += "<span class='notice'>The diode is missing.<span>"
+			. += "<span class='notice'>The diode is missing.</span>"
 		else
-			. += "<span class='notice'>A class <b>[diode.rating]</b> laser diode is installed. It is <i>screwed</i> in place.<span>"
+			. += "<span class='notice'>A class <b>[diode.rating]</b> laser diode is installed. It is <i>screwed</i> in place.</span>"
 
 /obj/item/laser_pointer/afterattack(atom/target, mob/living/user, flag, params)
 	. = ..()
@@ -137,30 +137,31 @@
 		else
 			outmsg = "<span class='warning'>You miss the lens of [C] with [src]!</span>"
 
-	//catpeople
-	for(var/mob/living/carbon/human/H in view(1,targloc))
-		if(!iscatperson(H) || H.incapacitated() || H.eye_blind )
-			continue
-		if(user.mobility_flags & MOBILITY_STAND)
-			H.setDir(get_dir(H,targloc)) // kitty always looks at the light
-			if(prob(effectchance))
-				H.visible_message("<span class='warning'>[H] makes a grab for the light!</span>","<span class='userdanger'>LIGHT!</span>")
-				H.Move(targloc)
-				log_combat(user, H, "moved with a laser pointer",src)
+	// For luring whatever mobs that are "interested" in laser pointers
+	for(var/mob/M as() in viewers(1,targloc))
+		if(M.incapacitated())
+			return
+		var/mob/living/carbon/human/H = M
+		if(iscatperson(H) && !H.eye_blind) //catpeople!
+			if(user.mobility_flags & MOBILITY_STAND)
+				H.setDir(get_dir(H,targloc)) // kitty always looks at the light
+				if(prob(effectchance))
+					H.visible_message("<span class='warning'>[H] makes a grab for the light!</span>","<span class='userdanger'>LIGHT!</span>")
+					H.Move(targloc)
+					log_combat(user, H, "moved with a laser pointer",src)
+				else
+					H.visible_message("<span class='notice'>[H] looks briefly distracted by the light.</span>","<span class = 'warning'> You're briefly tempted by the shiny light... </span>")
 			else
-				H.visible_message("<span class='notice'>[H] looks briefly distracted by the light.</span>","<span class = 'warning'> You're briefly tempted by the shiny light... </span>")
-		else
-			H.visible_message("<span class='notice'>[H] stares at the light</span>","<span class = 'warning'> You stare at the light... </span>")
-
-	//cats!
-	for(var/mob/living/simple_animal/pet/cat/C in view(1,targloc))
-		if(prob(50))
-			C.visible_message("<span class='notice'>[C] pounces on the light!</span>","<span class='warning'>LIGHT!</span>")
-			C.Move(targloc)
-			C.set_resting(TRUE, FALSE)
-		else
-			C.visible_message("<span class='notice'>[C] looks uninterested in your games.</span>","<span class='warning'>You spot [user] shining [src] at you. How insulting!</span>")
-
+				M.visible_message("<span class='notice'>[M] stares at the light</span>","<span class = 'warning'> You stare at the light... </span>")
+		else if(iscat(M)) //cats!
+			var/mob/living/simple_animal/pet/cat/C = M
+			if(prob(50))
+				C.visible_message("<span class='notice'>[C] pounces on the light!</span>","<span class='warning'>LIGHT!</span>")
+				C.Move(targloc)
+				C.set_resting(TRUE, FALSE)
+			else
+				C.visible_message("<span class='notice'>[C] looks uninterested in your games.</span>","<span class='warning'>You spot [user] shining [src] at you. How insulting!</span>")
+		
 	//laser pointer image
 	icon_state = "pointer_[pointer_icon_state]"
 	var/image/I = image('icons/obj/projectiles.dmi',targloc,pointer_icon_state,10)

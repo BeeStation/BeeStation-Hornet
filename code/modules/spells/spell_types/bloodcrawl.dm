@@ -15,7 +15,7 @@
 	var/phased = FALSE
 
 /obj/effect/proc_holder/spell/bloodcrawl/choose_targets(mob/user = usr)
-	for(var/obj/effect/decal/cleanable/target in range(range, get_turf(user)))
+	for(var/obj/effect/decal/cleanable/target in view(range, get_turf(user)))
 		if(target.can_bloodcrawl_in())
 			perform(target)
 			return

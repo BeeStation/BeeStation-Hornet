@@ -56462,23 +56462,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
-"cfN" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/mob/living/simple_animal/bot/cleanbot{
-	name = "Scrubs, MD";
-	trash = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/storage)
 "cfO" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/tile/blue,
@@ -85373,6 +85356,20 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
+"qsO" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/mob/living/simple_animal/bot/cleanbot/medbay,
+/turf/open/floor/plasteel/white,
+/area/medical/storage)
 "qze" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 9
@@ -110297,7 +110294,7 @@ cab
 cbN
 cdt
 cex
-cfN
+qsO
 cgV
 cim
 cjM

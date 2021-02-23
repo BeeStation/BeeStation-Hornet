@@ -112,10 +112,12 @@ PROBABILITY CLOCKCULT 1
 PROBABILITY MONKEY 0
 PROBABILITY GANG 0
 PROBABILITY METEOR 0
-PROBABILITY EXTENDED 0
 PROBABILITY SECRET_EXTENDED 0
 PROBABILITY DEVIL 0
 PROBABILITY DEVIL_AGENTS 0
+
+## Creates issues when NO_INTERCEPT_REPORT is enabled
+PROBABILITY EXTENDED 0 
 
 ## You probably want to keep sandbox off by default for secret and random.
 PROBABILITY SANDBOX 0
@@ -614,6 +616,10 @@ ALLOW_CREW_OBJECTIVES
 MAX_CUBE_MONKEYS 150
 MAX_CHICKENS 100
 MAX_SLIMES 100
+
+## Max amount of bodies allowed to slimepeople. Has balance considerations as well as technical ones.
+MAX_SLIMEPERSON_BODIES 10
+
 
 ## Uncomment to restrict suiciding. Adds an additional confirmation dialogue, additional logging, and prevents suicide within the first 15 minutes of the round.
 #RESTRICTED_SUICIDE

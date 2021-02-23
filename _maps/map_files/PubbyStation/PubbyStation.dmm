@@ -35292,13 +35292,6 @@
 /obj/structure/sign/warning/biohazard,
 /turf/closed/wall,
 /area/medical/virology)
-"bBb" = (
-/obj/effect/turf_decal/stripes/line,
-/mob/living/simple_animal/bot/cleanbot{
-	name = "McSweepsky"
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/sleeper)
 "bBc" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -42050,7 +42043,7 @@
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "bQa" = (
-/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
+/obj/machinery/atmospherics/miner/n2o,
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "bQb" = (
@@ -43455,7 +43448,7 @@
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "bSX" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/miner/toxins,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "bSY" = (
@@ -44958,7 +44951,7 @@
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "bWf" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/miner/carbon_dioxide,
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "bWg" = (
@@ -47180,14 +47173,14 @@
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "cbt" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/miner/nitrogen,
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "cbu" = (
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "cbv" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/miner/oxygen,
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "cbw" = (
@@ -55313,7 +55306,7 @@
 "frN" = (
 /obj/machinery/air_sensor/atmos/sm_core,
 /obj/machinery/power/supermatter_crystal/engine,
-/turf/open/floor/engine/airless,
+/turf/open/floor/engine,
 /area/engine/supermatter)
 "fsA" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
@@ -56387,6 +56380,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"hjz" = (
+/obj/effect/turf_decal/stripes/line,
+/mob/living/simple_animal/bot/cleanbot/medbay,
+/turf/open/floor/plasteel/white,
+/area/medical/sleeper)
 "hjR" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/tile/brown{
@@ -57989,9 +57987,6 @@
 /obj/effect/spawner/xmastree,
 /turf/open/floor/carpet,
 /area/library)
-"jOe" = (
-/turf/open/floor/engine/airless,
-/area/engine/supermatter)
 "jOB" = (
 /turf/open/floor/plating,
 /area/storage/emergency/starboard)
@@ -58415,7 +58410,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
-/turf/open/floor/engine/airless,
+/turf/open/floor/engine,
 /area/engine/supermatter)
 "kAa" = (
 /obj/structure/chair{
@@ -59540,7 +59535,7 @@
 /area/maintenance/department/crew_quarters/dorms)
 "mIr" = (
 /obj/effect/decal/remains/human,
-/turf/open/floor/engine/airless,
+/turf/open/floor/engine,
 /area/engine/supermatter)
 "mKc" = (
 /obj/structure/bookcase/random/nonfiction,
@@ -61561,7 +61556,7 @@
 	dir = 8;
 	icon_state = "vent_map_on-2"
 	},
-/turf/open/floor/engine/airless,
+/turf/open/floor/engine,
 /area/engine/supermatter)
 "qbZ" = (
 /obj/structure/rack,
@@ -93170,7 +93165,7 @@ bwH
 rAZ
 bzR
 bzR
-bBb
+hjz
 bDr
 bEx
 bkh
@@ -97327,7 +97322,7 @@ uAt
 wdK
 mIr
 frN
-jOe
+cnW
 mZR
 abI
 aht

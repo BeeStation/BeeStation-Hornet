@@ -32,8 +32,10 @@ SUBSYSTEM_DEF(idlenpcpool)
 	while(currentrun.len)
 		var/mob/living/simple_animal/SA = currentrun[currentrun.len]
 		--currentrun.len
-		if (!SA)
-			GLOB.simple_animals[AI_IDLE] -= SA
+
+		if(!SA)
+			stack_trace("Null entry found at GLOB.simple_animals\[AI_IDLE\]. Null entries will be purged. Yell at coderbus. Subsystem will try to continue.")
+			removeNullsFromList(GLOB.simple_animals[AI_IDLE])
 			continue
 
 		if(!SA.ckey)

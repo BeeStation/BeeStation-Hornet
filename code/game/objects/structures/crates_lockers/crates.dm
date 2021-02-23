@@ -14,7 +14,7 @@
 	climb_stun = 0 //climbing onto crates isn't hard, guys
 	delivery_icon = "deliverycrate"
 	door_anim_time = 3
-	door_anim_angle = 210
+	door_anim_angle = 180
 	door_hinge = 3.5
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
@@ -147,12 +147,15 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
 	close_sound_volume = 50
-	door_anim_time = 0
+	door_anim_angle = 140
+	azimuth_angle_2 = 180
+	door_anim_time = 5
+	door_hinge = 5
 
 /obj/structure/closet/crate/internals
 	desc = "An internals crate."
 	name = "internals crate"
-	icon_state = "o2crate"
+	icon_state = "o2_crate"
 
 /obj/structure/closet/crate/trashcart
 	desc = "A heavy, metal trashcart with wheels."
@@ -163,13 +166,15 @@
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
 	name = "medical crate"
-	icon_state = "medicalcrate"
+	icon_state = "medical_crate"
 
 /obj/structure/closet/crate/freezer
 	desc = "A freezer."
 	name = "freezer"
 	icon_state = "freezer"
-	door_hinge = 4.5
+	door_hinge = 5
+	door_anim_angle = 165
+	azimuth_angle_2 = 145
 
 //Snowflake organ freezer code
 //Order is important, since we check source, we need to do the check whenever we have all the organs in the crate
@@ -229,12 +234,12 @@
 /obj/structure/closet/crate/radiation
 	desc = "A crate with a radiation sign on it."
 	name = "radiation crate"
-	icon_state = "radiationcrate"
+	icon_state = "radiation_crate"
 
 /obj/structure/closet/crate/hydroponics
 	name = "hydroponics crate"
 	desc = "All you need to destroy those pesky weeds and pests."
-	icon_state = "hydrocrate"
+	icon_state = "hydro_crate"
 
 /obj/structure/closet/crate/engineering
 	name = "engineering crate"
@@ -242,6 +247,7 @@
 
 /obj/structure/closet/crate/engineering/electrical
 	icon_state = "engi_e_crate"
+	icon_door = "engi_crate"
 
 /obj/structure/closet/crate/rcd
 	desc = "A crate for the storage of an RCD."
@@ -257,7 +263,7 @@
 /obj/structure/closet/crate/science
 	name = "science crate"
 	desc = "A science crate."
-	icon_state = "scicrate"
+	icon_state = "sci_crate"
 
 /obj/structure/closet/crate/solarpanel_small
 	name = "budget solar panel crate"
