@@ -262,7 +262,7 @@
 	var/ckey = input["ckey"]
 	var/amount = input["amount"]
 
-	if(!ckey || !amount)
+	if(!ckey || !amount || !SSdbcore.Connect())
 		return FALSE
 
 	. = TRUE
