@@ -10,7 +10,7 @@
 	gas_transfer_coefficient = 0.1
 	permeability_coefficient = 0.5
 	actions_types = list(/datum/action/item_action/adjust)
-	visor_flags_inv = MASKCOVERSMOUTH
+	flags_cover = MASKCOVERSMOUTH
 	visor_flags_cover = MASKCOVERSMOUTH
 	resistance_flags = NONE
 
