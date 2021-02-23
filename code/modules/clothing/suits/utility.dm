@@ -22,7 +22,7 @@
 	slowdown = 1
 	armor = list("melee" = 15, "bullet" = 5, "laser" = 20, "energy" = 10, "bomb" = 20, "bio" = 10, "rad" = 20, "fire" = 100, "acid" = 50)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	clothing_flags = STOPSHIGHPRESSUREDAMAGE | THICKMATERIAL
+	clothing_flags = STOPS_HIGHPRESSURE_DAMAGE | THICKMATERIAL
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS

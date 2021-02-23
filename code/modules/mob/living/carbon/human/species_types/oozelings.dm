@@ -69,12 +69,12 @@
 	if(H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
 		var/obj/item/clothing/CS = H.wear_suit
 		var/obj/item/clothing/CH = H.head
-		if(CS.clothing_flags & CH.clothing_flags & STOPSPRESSUREDAMAGE)
+		if(CS.clothing_flags & CH.clothing_flags & STOPS_PRESSURE_DAMAGE)
 			atmos_sealed = TRUE
 	if(H.w_uniform && H.head)
 		var/obj/item/clothing/CU = H.w_uniform
 		var/obj/item/clothing/CH = H.head
-		if (CU.envirosealed && (CH.clothing_flags & STOPSPRESSUREDAMAGE))
+		if (CU.envirosealed && (CH.clothing_flags & STOPS_PRESSURE_DAMAGE))
 			atmos_sealed = TRUE
 	if(!atmos_sealed)
 		var/datum/gas_mixture/environment = H.loc.return_air()

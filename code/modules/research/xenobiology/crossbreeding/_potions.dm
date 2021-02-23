@@ -118,7 +118,7 @@ Slimecrossing Potions
 	if(!istype(C))
 		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
 		return
-	if(C.min_cold_protection_temperature == SPACE_SUIT_MIN_TEMP_PROTECT && C.clothing_flags & STOPSPRESSUREDAMAGE)
+	if(C.min_cold_protection_temperature == SPACE_SUIT_MIN_TEMP_PROTECT && C.clothing_flags & STOPS_PRESSURE_DAMAGE)
 		to_chat(user, "<span class='warning'>The [C] is already pressure-resistant!</span>")
 		return ..()
 	to_chat(user, "<span class='notice'>You slather the blue gunk over the [C], making it airtight.</span>")
@@ -127,7 +127,7 @@ Slimecrossing Potions
 	C.add_atom_colour("#000080", FIXED_COLOUR_PRIORITY)
 	C.min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	C.cold_protection = C.body_parts_covered
-	C.clothing_flags |= STOPSPRESSUREDAMAGE
+	C.clothing_flags |= STOPS_PRESSURE_DAMAGE
 	uses--
 	if(!uses)
 		qdel(src)

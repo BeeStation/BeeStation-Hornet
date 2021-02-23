@@ -31,9 +31,9 @@
 // Flags for the clothing_flags var on /obj/item/clothing
 
 #define LAVAPROTECT             (1<<0)
-#define STOPSPRESSUREDAMAGE		(1<<1)  //! SUIT and HEAD items which stop pressure damage. To stop you taking all pressure damage you must have both a suit and head item with this flag.
-#define STOPSLOWPRESSUREDAMAGE	(1<<2)  //! STOPSPRESSUREDAMAGE but only works against low pressure.
-#define STOPSHIGHPRESSUREDAMAGE	(1<<3)  //! STOPSPRESSUREDAMAGE but only works against high pressure.
+#define STOPS_PRESSURE_DAMAGE		(1<<1)  //! SUIT and HEAD items which stop pressure damage. To stop you taking all pressure damage you must have both a suit and head item with this flag.
+#define STOPS_LOWPRESSURE_DAMAGE	(1<<2)  //! STOPS_PRESSURE_DAMAGE but only works against low pressure.
+#define STOPS_HIGHPRESSURE_DAMAGE	(1<<3)  //! STOPS_PRESSURE_DAMAGE but only works against high pressure.
 #define BLOCK_GAS_SMOKE_EFFECT	(1<<4)	//! blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY!
 #define MASKINTERNALS		    (1<<5)	//! mask allows internals
 #define NOSLIP                  (1<<6)  //! prevents from slipping on wet floors, in space etc
