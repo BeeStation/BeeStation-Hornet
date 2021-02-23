@@ -146,6 +146,7 @@
 	AM.pulledby = src
 	setGrabState(state)
 	if(ismob(AM))
+		AM.glide_size = glide_size // make sure there's no weird laggy effect when pulling
 		var/mob/M = AM
 		log_combat(src, M, "grabbed", addition="passive grab")
 		if(!supress_message)
@@ -159,6 +160,8 @@
 		var/mob/living/ex_pulled = pulling
 		pulling = null
 		setGrabState(0)
+		if(ismob(ex_pulled))
+			ex_pulled.glide_size = initial(ex_pulled.glide_size)
 		if(isliving(ex_pulled))
 			var/mob/living/L = ex_pulled
 			L.update_mobility()// mob gets up if it was lyng down in a chokehold
