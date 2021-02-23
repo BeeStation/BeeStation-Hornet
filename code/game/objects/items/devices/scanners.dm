@@ -932,9 +932,9 @@ GENE SCANNER
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		if(!scanner)
-			. += "<span class='notice'>The scanner is missing.<span>"
+			. += "<span class='notice'>The scanner is missing.</span>"
 		else
-			. += "<span class='notice'>A class <b>[scanner.rating]</b> scanning module is installed. It is <i>screwed</i> in place.<span>"
+			. += "<span class='notice'>A class <b>[scanner.rating]</b> scanning module is installed. It is <i>screwed</i> in place.</span>"
 		if(cooldown > world.time - (1200 / scanner.rating))
 			. += "<span class='warning'>The extrapolator is still recharging!</span>"
 		else

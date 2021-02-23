@@ -288,7 +288,7 @@
 
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message("<span class='warning'>[user]'s skin flashes red for a moment...</span>", "<span class='warning'>Your skin flashes red as you emit rage-inducing pheromones...</span>")
-			for(var/mob/living/simple_animal/slime/slime in viewers(get_turf(user), null))
+			for(var/mob/living/simple_animal/slime/slime in viewers(get_turf(user)))
 				slime.rabid = TRUE
 				slime.visible_message("<span class='danger'>The [slime] is driven into a frenzy!</span>")
 			return 600
@@ -363,9 +363,8 @@
 
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message("<span class='warning'>[user]'s skin starts flashing hypnotically...</span>", "<span class='notice'>Your skin starts forming odd patterns, pacifying creatures around you.</span>")
-			for(var/mob/living/carbon/C in viewers(user, null))
-				if(C != user)
-					C.reagents.add_reagent(/datum/reagent/pax,2)
+			for(var/mob/living/carbon/C in oviewers(user))
+				C.reagents.add_reagent(/datum/reagent/pax,2)
 			return 600
 
 /obj/item/slime_extract/green

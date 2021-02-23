@@ -155,8 +155,7 @@
 /proc/typecache_filter_list(list/atoms, list/typecache)
 	RETURN_TYPE(/list)
 	. = list()
-	for(var/thing in atoms)
-		var/atom/A = thing
+	for(var/atom/A as() in atoms)
 		if (typecache[A.type])
 			. += A
 
@@ -164,16 +163,14 @@
 /proc/typecache_filter_list_reverse(list/atoms, list/typecache)
 	RETURN_TYPE(/list)
 	. = list()
-	for(var/thing in atoms)
-		var/atom/A = thing
+	for(var/atom/A as() in atoms)
 		if(!typecache[A.type])
 			. += A
 
 /// returns a new list with only atoms that are in typecache typecache_include but NOT in typecache_exclude
 /proc/typecache_filter_multi_list_exclusion(list/atoms, list/typecache_include, list/typecache_exclude)
 	. = list()
-	for(var/thing in atoms)
-		var/atom/A = thing
+	for(var/atom/A as() in atoms)
 		if(typecache_include[A.type] && !typecache_exclude[A.type])
 			. += A
 
@@ -264,13 +261,14 @@
 			L[item] = 1
 		total += L[item]
 
-	total = rand(1, total)
+	total *= rand()
 	for (item in L)
 		total -=L [item]
 		if (total <= 0)
 			return item
 
-	return null
+	// Emergency pick()
+	return pick(L)
 
 /proc/pickweightAllowZero(list/L) //The original pickweight proc will sometimes pick entries with zero weight.  I'm not sure if changing the original will break anything, so I left it be.
 	var/total = 0
@@ -280,13 +278,13 @@
 			L[item] = 0
 		total += L[item]
 
-	total = rand(0, total)
+	total *= rand()
 	for (item in L)
 		total -=L [item]
 		if (total <= 0 && L[item])
 			return item
 
-	return null
+	return pick(L)
 
 /// Pick a random element from the list and remove it from the list.
 /proc/pick_n_take(list/L)
