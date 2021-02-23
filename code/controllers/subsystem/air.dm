@@ -86,8 +86,9 @@ SUBSYSTEM_DEF(air)
 
 	if(currentpart == SSAIR_REBUILD_PIPENETS)
 		var/list/pipenet_rebuilds = pipenets_needing_rebuilt
-		for(var/thing in pipenet_rebuilds)
-			var/obj/machinery/atmospherics/AT = thing
+		for(var/obj/machinery/atmospherics/AT as() in pipenet_rebuilds)
+			if(!AT) //If a null somehow shows up here, this next line runtimes and the subsystem dies
+				continue
 			AT.build_network()
 		cost_rebuilds = MC_AVERAGE(cost_rebuilds, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 		pipenets_needing_rebuilt.Cut()
@@ -175,12 +176,13 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/datum/thing = currentrun[currentrun.len]
+		var/datum/pipeline/P = currentrun[currentrun.len]
 		currentrun.len--
-		if(thing)
-			thing.process()
+		if(P)
+			if(P.update)
+				P.update = P.reconcile_air()
 		else
-			networks.Remove(thing)
+			networks.Remove(P)
 		if(MC_TICK_CHECK)
 			return
 

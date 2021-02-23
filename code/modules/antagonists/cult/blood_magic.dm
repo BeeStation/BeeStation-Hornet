@@ -35,9 +35,8 @@
 /datum/action/innate/cult/blood_magic/Activate()
 	var/rune = FALSE
 	var/limit = RUNELESS_MAX_BLOODCHARGE
-	for(var/obj/effect/rune/empower/R in range(1, owner))
+	if(locate(/obj/effect/rune/empower) in range(1, owner))
 		rune = TRUE
-		break
 	if(rune)
 		limit = MAX_BLOODCHARGE
 	if(spells.len >= limit)
@@ -258,7 +257,7 @@
 	var/turf/T = get_turf(ranged_ability_user)
 	if(!isturf(T))
 		return FALSE
-	if(target in view(7, get_turf(ranged_ability_user)))
+	if(ranged_ability_user in viewers(7, get_turf(target)))
 		if(!ishuman(target) || iscultist(target))
 			return
 		var/mob/living/carbon/human/H = target
@@ -292,14 +291,14 @@
 		charges--
 		SEND_SOUND(owner, sound('sound/magic/smoke.ogg',0,1,25))
 		owner.whisper(invocation, language = /datum/language/common)
-		for(var/obj/effect/rune/R in range(5,owner))
+		for(var/obj/effect/rune/R in range(5, owner))
 			R.conceal()
-		for(var/obj/structure/destructible/cult/S in range(5,owner))
+		for(var/obj/structure/destructible/cult/S in range(5, owner))
 			S.conceal()
-		for(var/turf/open/floor/engine/cult/T  in range(5,owner))
-			T.realappearance.alpha = 0
 		for(var/obj/machinery/door/airlock/cult/AL in range(5, owner))
 			AL.conceal()
+		for(var/turf/open/floor/engine/cult/T in RANGE_TURFS(5,owner))
+			T.realappearance.alpha = 0
 		revealing = TRUE
 		name = "Reveal Runes"
 		button_icon_state = "back"
@@ -313,10 +312,10 @@
 			R.reveal()
 		for(var/obj/structure/destructible/cult/S in range(6,owner))
 			S.reveal()
-		for(var/turf/open/floor/engine/cult/T  in range(6,owner))
-			T.realappearance.alpha = initial(T.realappearance.alpha)
 		for(var/obj/machinery/door/airlock/cult/AL in range(6, owner))
 			AL.reveal()
+		for(var/turf/open/floor/engine/cult/T in RANGE_TURFS(6,owner))
+			T.realappearance.alpha = initial(T.realappearance.alpha)
 		revealing = FALSE
 		name = "Conceal Runes"
 		button_icon_state = "gone"
@@ -558,12 +557,12 @@
 
 /obj/item/melee/blood_magic/construction/examine(mob/user)
 	. = ..()
-	. += {"<u>A sinister spell used to convert:</u>\n
-	Plasteel into runed metal\n
-	[IRON_TO_CONSTRUCT_SHELL_CONVERSION] metal into a construct shell\n
-	Living cyborgs into constructs after a delay\n
-	Cyborg shells into construct shells\n
-	Airlocks into brittle runed airlocks after a delay (harm intent)"}
+	. += "<u>A sinister spell used to convert:</u>\n"+\
+	"Plasteel into runed metal\n"+\
+	"[IRON_TO_CONSTRUCT_SHELL_CONVERSION] metal into a construct shell\n"+\
+	"Living cyborgs into constructs after a delay\n"+\
+	"Cyborg shells into construct shells\n"+\
+	"Airlocks into brittle runed airlocks after a delay (harm intent)"
 
 /obj/item/melee/blood_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(proximity_flag && iscultist(user))
@@ -765,7 +764,7 @@
 	var/temp = 0
 	var/turf/T = get_turf(target)
 	if(T)
-		for(var/obj/effect/decal/cleanable/blood/B in view(T, 2))
+		for(var/obj/effect/decal/cleanable/blood/B in view(2, T))
 			if(B.blood_state == BLOOD_STATE_HUMAN)
 				if(B.bloodiness == 100) //Bonus for "pristine" bloodpools, also to prevent cheese with footprint spam
 					temp += 30
@@ -773,7 +772,7 @@
 					temp += max((B.bloodiness**2)/800,1)
 				new /obj/effect/temp_visual/cult/turf/floor(get_turf(B))
 				qdel(B)
-		for(var/obj/effect/decal/cleanable/trail_holder/TH in view(T, 2))
+		for(var/obj/effect/decal/cleanable/trail_holder/TH in view(2, T))
 			qdel(TH)
 		var/obj/item/clothing/shoes/shoecheck = user.shoes
 		if(shoecheck && shoecheck.bloody_shoes[/datum/reagent/blood])

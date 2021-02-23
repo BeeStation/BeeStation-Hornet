@@ -16,6 +16,24 @@
 	delete_old = FALSE
 	action_icon_state = "snow"
 
+/datum/mutation/human/wax_saliva
+	name = "Waxy Saliva"
+	desc = "Allows the user to secrete wax."
+	quality = POSITIVE
+	text_gain_indication = "<span class='notice'>Your mouth feels waxy.</span>"
+	instability = 10
+	difficulty = 10
+	synchronizer_coeff = 1
+	locked = TRUE
+	power = /obj/effect/proc_holder/spell/targeted/conjure_item/wax
+
+/obj/effect/proc_holder/spell/targeted/conjure_item/wax
+	name = "Secrete Wax"
+	desc = "Concentrate to spit out some wax, useful for bee-themed construction."
+	item_type = /obj/item/stack/sheet/mineral/wax
+	charge_max = 50
+	delete_old = FALSE
+	action_icon_state = "honey"
 
 /datum/mutation/human/cryokinesis
 	name = "Cryokinesis"

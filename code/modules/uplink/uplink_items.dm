@@ -91,7 +91,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				var/final_cost = max(round(total_cost * discount), 1)
 				//Setup the item
 				A.cost = final_cost
-				A.name += " + [second_I.name] (Discounted Bundle - [round((total_cost / final_cost )*100)]% off!)"
+				A.name += " + [second_I.name] (Discounted Bundle - [100-(round((final_cost / total_cost)*100))]% off!)"
 				A.desc += " Also contains [second_I.name]. Normally costs [total_cost] TC when bought together. All sales final. [pick(disclaimer)]"
 				A.bonus_items = list(second_I.item)
 		A.discounted = TRUE
@@ -1447,14 +1447,27 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 
 /datum/uplink_item/suits/hardsuit
 	name = "Syndicate Hardsuit"
-	desc = "The feared suit of a Syndicate nuclear agent. Features slightly better armoring and a built in jetpack \
-			that runs off standard atmospheric tanks. Toggling the suit in and out of \
+	desc = "The feared suit of a Syndicate nuclear agent. Features slightly better armoring, a built in jetpack \
+			that runs off standard atmospheric tanks and an advanced team location system. Toggling the suit in and out of \
 			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
 			Additionally the suit is collapsible, making it small enough to fit within a backpack. \
 			Nanotrasen crew who spot these suits are known to panic."
 	item = /obj/item/clothing/suit/space/hardsuit/syndi
 	cost = 7
 	exclude_modes = list(/datum/game_mode/nuclear) //you can't buy it in nuke, because the elite hardsuit costs the same while being better
+
+/datum/uplink_item/suits/hardsuit/spawn_item(spawn_path, mob/user, datum/component/uplink/U)
+	var/obj/item/clothing/suit/space/hardsuit/suit = ..()
+	var/datum/component/tracking_beacon/beacon = suit.GetComponent(/datum/component/tracking_beacon)
+	var/datum/component/team_monitor/hud = suit.helmet.GetComponent(/datum/component/team_monitor)
+
+	var/datum/antagonist/nukeop/nukie = is_nuclear_operative(user)
+	if(nukie?.nuke_team?.team_frequency)
+		if(hud)
+			hud.set_frequency(nukie.nuke_team.team_frequency)
+		if(beacon)
+			beacon.set_frequency(nukie.nuke_team.team_frequency)
+	return suit
 
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Elite Syndicate Hardsuit"

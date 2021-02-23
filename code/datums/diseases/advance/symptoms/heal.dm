@@ -313,7 +313,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/sweat
 	name = "Hyperperspiration"
-	desc = "Causes the host to sweat profusely, leaving small water puddles and extnguishing small fires"
+	desc = "Causes the host to sweat profusely, leaving small water puddles and extinguishing small fires"
 	stealth = 1
 	resistance = -1
 	stage_speed = 0

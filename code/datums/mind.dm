@@ -132,7 +132,7 @@
 
 /datum/mind/proc/store_memory(new_text)
 	var/newlength = length(memory) + length(new_text)
-	if (newlength > MAX_MESSAGE_LEN * 100)
+	if(newlength > MAX_MESSAGE_LEN * 100)
 		memory = copytext(memory, -newlength-MAX_MESSAGE_LEN * 100)
 	memory += "[new_text]<BR>"
 
@@ -165,6 +165,7 @@
 	if(antag_team)
 		antag_team.add_member(src)
 	A.on_gain()
+	log_game("[key_name(src)] has gained antag datum [A.name]([A.type])")
 	return A
 
 /datum/mind/proc/remove_antag_datum(datum_type)
@@ -347,7 +348,8 @@
 	current.faction |= creator.faction
 	creator.faction |= current.faction
 
-	if(creator.mind.special_role)
+	var/mob/living/carbon/C = creator
+	if(creator.mind?.special_role || (istype(C) && C.last_mind?.special_role))
 		message_admins("[ADMIN_LOOKUPFLW(current)] has been created by [ADMIN_LOOKUPFLW(creator)], an antagonist.")
 		to_chat(current, "<span class='userdanger'>Despite your creator's current allegiances, your true master remains [creator.real_name]. If their loyalties change, so do yours. This will never change unless your creator's body is destroyed.</span>")
 

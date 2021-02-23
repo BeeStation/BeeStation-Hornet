@@ -47,7 +47,7 @@
 		else
 			// ===== NON CONSTANT TABS (Tab names which can change) =====
 			// ===== LISTEDS TURFS =====
-			if(listed_turf && listed_turf.name == selected_tab)
+			if(listed_turf && sanitize(listed_turf.name) == selected_tab)
 				client.stat_update_mode = STAT_MEDIUM_UPDATE
 				var/list/overrides = list()
 				for(var/image/I in client.images)
@@ -96,15 +96,15 @@
 	return tab_data
 
 /mob/proc/get_all_verbs()
-	var/list/all_verbs = list()
+	var/list/all_verbs = deepCopyList(sorted_verbs)
 	//An annoying thing to mention:
 	// list A [A: ["b", "c"]] +  (list B) [A: ["c", "d"]] will only have A from list B
-	all_verbs += sorted_verbs
 	for(var/i in client.sorted_verbs)
 		if(i in all_verbs)
 			all_verbs[i] += client.sorted_verbs[i]
 		else
-			all_verbs[i] = client.sorted_verbs[i]
+			var/list/verbs_to_copy = client.sorted_verbs[i]
+			all_verbs[i] = verbs_to_copy.Copy()
 	for(var/atom/A as() in contents)
 		//As an optimisation we will make it so all verbs on objects will go into the object tab.
 		//If you don't want this to happen change this.
@@ -131,7 +131,7 @@
 	if(SSshuttle.emergency)
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
-			tab_data["ETA"] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
+			tab_data[ETA] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
 	return tab_data
 
 /mob/proc/get_stat_tab_master_controller()
@@ -173,7 +173,7 @@
 		if(!TurfAdjacent(listed_turf))
 			listed_turf = null
 		else
-			tabs |= listed_turf.name
+			tabs |= sanitize(listed_turf.name)
 	//Add spells
 	var/list/spells = mob_spell_list
 	if(mind)

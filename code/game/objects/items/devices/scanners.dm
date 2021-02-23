@@ -107,7 +107,7 @@ GENE SCANNER
 
 	// Clumsiness/brain damage check
 
-	if ((HAS_TRAIT(user, TRAIT_CLUMSY) || HAS_TRAIT(user, TRAIT_DUMB)) && prob(50))
+	if((HAS_TRAIT(user, TRAIT_CLUMSY) || HAS_TRAIT(user, TRAIT_DUMB)) && prob(50))
 		user.visible_message("<span class='warning'>[user] analyzes the floor's vitals!</span>", \
 							"<span class='notice'>You stupidly try to analyze the floor's vitals!</span>")
 		to_chat(user, "<span class='info'>Analyzing results for The floor:\n\tOverall status: <b>Healthy</b></span>")
@@ -162,11 +162,11 @@ GENE SCANNER
 		to_chat(user, "\t<span class='alert'>Subject appears to be suffering from fatigue.</span>")
 		if(advanced)
 			to_chat(user, "\t<span class='info'>Fatigue Level: [M.getStaminaLoss()]%.</span>")
-	if (M.getCloneLoss())
+	if(M.getCloneLoss())
 		to_chat(user, "\t<span class='alert'>Subject appears to have [M.getCloneLoss() > 30 ? "Severe" : "Minor"] cellular damage.</span>")
 		if(advanced)
 			to_chat(user, "\t<span class='info'>Cellular Damage Level: [M.getCloneLoss()].</span>")
-	if (!M.getorgan(/obj/item/organ/brain))
+	if(!M.getorgan(/obj/item/organ/brain))
 		to_chat(user, "\t<span class='alert'>Subject lacks a brain.</span>")
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
@@ -189,7 +189,7 @@ GENE SCANNER
 	if(advanced)
 		to_chat(user, "\t<span class='info'>Brain Activity Level: [(200 - M.getOrganLoss(ORGAN_SLOT_BRAIN))/2]%.</span>")
 
-	if (M.radiation)
+	if(M.radiation)
 		to_chat(user, "\t<span class='alert'>Subject is irradiated.</span>")
 		if(advanced)
 			to_chat(user, "\t<span class='info'>Radiation Level: [M.radiation]%.</span>")
@@ -336,27 +336,27 @@ GENE SCANNER
 		var/mob/living/carbon/human/H = M
 		var/datum/species/S = H.dna.species
 		var/mutant = FALSE
-		if (H.dna.check_mutation(HULK))
+		if(H.dna.check_mutation(HULK))
 			mutant = TRUE
-		else if (S.mutantlungs != initial(S.mutantlungs))
+		else if(S.mutantlungs != initial(S.mutantlungs))
 			mutant = TRUE
-		else if (S.mutant_brain != initial(S.mutant_brain))
+		else if(S.mutant_brain != initial(S.mutant_brain))
 			mutant = TRUE
-		else if (S.mutant_heart != initial(S.mutant_heart))
+		else if(S.mutant_heart != initial(S.mutant_heart))
 			mutant = TRUE
-		else if (S.mutanteyes != initial(S.mutanteyes))
+		else if(S.mutanteyes != initial(S.mutanteyes))
 			mutant = TRUE
-		else if (S.mutantears != initial(S.mutantears))
+		else if(S.mutantears != initial(S.mutantears))
 			mutant = TRUE
-		else if (S.mutanthands != initial(S.mutanthands))
+		else if(S.mutanthands != initial(S.mutanthands))
 			mutant = TRUE
-		else if (S.mutanttongue != initial(S.mutanttongue))
+		else if(S.mutanttongue != initial(S.mutanttongue))
 			mutant = TRUE
-		else if (S.mutanttail != initial(S.mutanttail))
+		else if(S.mutanttail != initial(S.mutanttail))
 			mutant = TRUE
-		else if (S.mutantliver != initial(S.mutantliver))
+		else if(S.mutantliver != initial(S.mutantliver))
 			mutant = TRUE
-		else if (S.mutantstomach != initial(S.mutantstomach))
+		else if(S.mutantstomach != initial(S.mutantstomach))
 			mutant = TRUE
 
 		to_chat(user, "<span class='info'>Species: [S.name][mutant ? "-derived mutant" : ""]</span>")
@@ -473,7 +473,7 @@ GENE SCANNER
 /obj/item/analyzer/attack_self(mob/user)
 	add_fingerprint(user)
 
-	if (user.stat || user.eye_blind)
+	if(user.stat || user.eye_blind)
 		return
 
 	//Functionality moved down to proc/scan_turf()
@@ -668,7 +668,7 @@ GENE SCANNER
 /obj/item/slime_scanner/attack(mob/living/M, mob/living/user)
 	if(user.stat || user.eye_blind)
 		return
-	if (!isslime(M))
+	if(!isslime(M))
 		to_chat(user, "<span class='warning'>This device can only scan slimes!</span>")
 		return
 	var/mob/living/simple_animal/slime/T = M
@@ -679,17 +679,17 @@ GENE SCANNER
 	to_chat(user, "<b>Slime scan results:</b>")
 	to_chat(user, "<span class='notice'>[T.colour] [T.is_adult ? "adult" : "baby"] slime</span>")
 	to_chat(user, "Nutrition: [T.nutrition]/[T.get_max_nutrition()]")
-	if (T.nutrition < T.get_starve_nutrition())
+	if(T.nutrition < T.get_starve_nutrition())
 		to_chat(user, "<span class='warning'>Warning: slime is starving!</span>")
-	else if (T.nutrition < T.get_hunger_nutrition())
+	else if(T.nutrition < T.get_hunger_nutrition())
 		to_chat(user, "<span class='warning'>Warning: slime is hungry</span>")
 	to_chat(user, "Electric change strength: [T.powerlevel]")
 	to_chat(user, "Health: [round(T.health/T.maxHealth,0.01)*100]%")
-	if (T.slime_mutation[4] == T.colour)
+	if(T.slime_mutation[4] == T.colour)
 		to_chat(user, "This slime does not evolve any further.")
 	else
-		if (T.slime_mutation[3] == T.slime_mutation[4])
-			if (T.slime_mutation[2] == T.slime_mutation[1])
+		if(T.slime_mutation[3] == T.slime_mutation[4])
+			if(T.slime_mutation[2] == T.slime_mutation[1])
 				to_chat(user, "Possible mutation: [T.slime_mutation[3]]")
 				to_chat(user, "Genetic destability: [T.mutation_chance/2] % chance of mutation on splitting")
 			else
@@ -698,12 +698,59 @@ GENE SCANNER
 		else
 			to_chat(user, "Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]], [T.slime_mutation[4]]")
 			to_chat(user, "Genetic destability: [T.mutation_chance] % chance of mutation on splitting")
-	if (T.cores > 1)
+	if(T.cores > 1)
 		to_chat(user, "Multiple cores detected")
 	to_chat(user, "Growth progress: [T.amount_grown]/[SLIME_EVOLUTION_THRESHOLD]")
 	if(T.effectmod)
 		to_chat(user, "<span class='notice'>Core mutation in progress: [T.effectmod]</span>")
 		to_chat(user, "<span class = 'notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>")
+	if(T.transformeffects != SLIME_EFFECT_DEFAULT)
+		var/slimeeffect = "\nTransformative extract effect detected: "
+		if(T.transformeffects & SLIME_EFFECT_GREY)
+			slimeeffect += "grey"
+		if(T.transformeffects & SLIME_EFFECT_ORANGE)
+			slimeeffect += "orange"
+		if(T.transformeffects & SLIME_EFFECT_PURPLE)
+			slimeeffect += "purple"
+		if(T.transformeffects & SLIME_EFFECT_BLUE)
+			slimeeffect += "blue"
+		if(T.transformeffects & SLIME_EFFECT_METAL)
+			slimeeffect += "metal"
+		if(T.transformeffects & SLIME_EFFECT_YELLOW)
+			slimeeffect += "yellow"
+		if(T.transformeffects & SLIME_EFFECT_DARK_PURPLE)
+			slimeeffect += "dark purple"
+		if(T.transformeffects & SLIME_EFFECT_DARK_BLUE)
+			slimeeffect += "dark blue"
+		if(T.transformeffects & SLIME_EFFECT_SILVER)
+			slimeeffect += "silver"
+		if(T.transformeffects & SLIME_EFFECT_BLUESPACE)
+			slimeeffect += "bluespace"
+		if(T.transformeffects & SLIME_EFFECT_SEPIA)
+			slimeeffect += "sepia"
+		if(T.transformeffects & SLIME_EFFECT_CERULEAN)
+			slimeeffect += "cerulean"
+		if(T.transformeffects & SLIME_EFFECT_PYRITE)
+			slimeeffect += "pyrite"
+		if(T.transformeffects & SLIME_EFFECT_RED)
+			slimeeffect += "red"
+		if(T.transformeffects & SLIME_EFFECT_GREEN)
+			slimeeffect += "green"
+		if(T.transformeffects & SLIME_EFFECT_PINK)
+			slimeeffect += "pink"
+		if(T.transformeffects & SLIME_EFFECT_GOLD)
+			slimeeffect += "gold"
+		if(T.transformeffects & SLIME_EFFECT_OIL)
+			slimeeffect += "oil"
+		if(T.transformeffects & SLIME_EFFECT_BLACK)
+			slimeeffect += "black"
+		if(T.transformeffects & SLIME_EFFECT_LIGHT_PINK)
+			slimeeffect += "light pink"
+		if(T.transformeffects & SLIME_EFFECT_ADAMANTINE)
+			slimeeffect += "adamantine"
+		if(T.transformeffects & SLIME_EFFECT_RAINBOW)
+			slimeeffect += "rainbow"
+		to_chat(user, "<span class='notice'>[slimeeffect].</span>")
 	to_chat(user, "========================")
 
 
@@ -757,7 +804,7 @@ GENE SCANNER
 
 /obj/item/sequence_scanner/attack(mob/living/M, mob/living/carbon/human/user)
 	add_fingerprint(user)
-	if (!HAS_TRAIT(M, TRAIT_RADIMMUNE) && !HAS_TRAIT(M, TRAIT_BADDNA)) //no scanning if its a husk or DNA-less Species
+	if(!HAS_TRAIT(M, TRAIT_RADIMMUNE) && !HAS_TRAIT(M, TRAIT_BADDNA)) //no scanning if its a husk or DNA-less Species
 		user.visible_message("<span class='notice'>[user] analyzes [M]'s genetic sequence.</span>", \
 							"<span class='notice'>You analyze [M]'s genetic sequence.</span>")
 		gene_scan(M, user)
@@ -885,9 +932,9 @@ GENE SCANNER
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		if(!scanner)
-			. += "<span class='notice'>The scanner is missing.<span>"
+			. += "<span class='notice'>The scanner is missing.</span>"
 		else
-			. += "<span class='notice'>A class <b>[scanner.rating]</b> scanning module is installed. It is <i>screwed</i> in place.<span>"
+			. += "<span class='notice'>A class <b>[scanner.rating]</b> scanning module is installed. It is <i>screwed</i> in place.</span>"
 		if(cooldown > world.time - (1200 / scanner.rating))
 			. += "<span class='warning'>The extrapolator is still recharging!</span>"
 		else

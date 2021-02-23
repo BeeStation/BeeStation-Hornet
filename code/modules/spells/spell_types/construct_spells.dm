@@ -173,7 +173,7 @@
 /obj/item/projectile/magic/spell/magic_missile/lesser
 	color = "red" //Looks more culty this way
 	range = 10
-	
+
 /obj/item/projectile/magic/spell/magic_missile/lesser/can_hit_target(atom/target, list/passthrough, direct_target = FALSE, ignore_loc = FALSE)
 	if (iscultist(target))
 		return FALSE
@@ -281,7 +281,7 @@
 		revert_cast()
 		return
 
-	if(S.sentience_type != SENTIENCE_ORGANIC)
+	if(!istype(S) || S.sentience_type != SENTIENCE_ORGANIC)
 		to_chat(user, "<span class='warning'>[S] cannot be dominated!</span>")
 		revert_cast()
 		return
@@ -339,7 +339,7 @@
 	var/turf/T = get_turf(src)
 	playsound(T, 'sound/weapons/resonator_blast.ogg', 100, FALSE)
 	new /obj/effect/temp_visual/cult/sac(T)
-	for(var/obj/O in range(src,1))
+	for(var/obj/O in range(1, src))
 		if(O.density && !istype(O, /obj/structure/destructible/cult))
 			O.take_damage(90, BRUTE, "melee", 0)
 			new /obj/effect/temp_visual/cult/turf/floor(get_turf(O))

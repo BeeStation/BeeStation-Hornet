@@ -7,7 +7,7 @@
 	pressure_resistance = 4*ONE_ATMOSPHERE
 	anchored = TRUE //initially is 0 for tile smoothing
 	flags_1 = ON_BORDER_1
-	max_integrity = 100
+	max_integrity = 50
 	can_be_unanchored = TRUE
 	resistance_flags = ACID_PROOF
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
@@ -377,7 +377,7 @@
 	reinf = TRUE
 	heat_resistance = 1600
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
-	max_integrity = 200
+	max_integrity = 100
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
 	rad_insulation = RAD_HEAVY_INSULATION
@@ -401,7 +401,7 @@
 	reinf = FALSE
 	heat_resistance = 25000
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
-	max_integrity = 600
+	max_integrity = 300
 	glass_type = /obj/item/stack/sheet/plasmaglass
 	rad_insulation = RAD_NO_INSULATION
 
@@ -433,7 +433,7 @@
 	reinf = TRUE
 	heat_resistance = 50000
 	armor = list("melee" = 85, "bullet" = 20, "laser" = 0, "energy" = 0, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
-	max_integrity = 1000
+	max_integrity = 500
 	explosion_block = 2
 	glass_type = /obj/item/stack/sheet/plasmarglass
 
@@ -463,7 +463,7 @@
 	icon = 'icons/obj/smooth_structures/window.dmi'
 	icon_state = "window"
 	dir = FULLTILE_WINDOW_DIR
-	max_integrity = 200
+	max_integrity = 100
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
 	smooth = SMOOTH_TRUE
@@ -477,7 +477,7 @@
 	icon = 'icons/obj/smooth_structures/plasma_window.dmi'
 	icon_state = "plasmawindow"
 	dir = FULLTILE_WINDOW_DIR
-	max_integrity = 1200
+	max_integrity = 600
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
 	smooth = SMOOTH_TRUE
@@ -504,7 +504,7 @@
 	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
 	icon_state = "r_window"
 	dir = FULLTILE_WINDOW_DIR
-	max_integrity = 400
+	max_integrity = 200
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
 	smooth = SMOOTH_TRUE
@@ -569,7 +569,7 @@
 	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
 	icon_state = "plastitanium_window"
 	dir = FULLTILE_WINDOW_DIR
-	max_integrity = 400
+	max_integrity = 200
 	wtype = "shuttle"
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
