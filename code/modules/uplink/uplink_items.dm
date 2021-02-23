@@ -241,7 +241,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			agent card, specialised contractor baton, and three randomly selected low cost items. Can include otherwise unobtainable items."
 	item = /obj/item/storage/box/syndicate/contract_kit
 	cost = 20
-	player_minimum = 15
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops, /datum/game_mode/incursion)
 
 /datum/uplink_item/bundles_TC/bundle_A
@@ -267,7 +266,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			but you never know. Contents are sorted to always be worth 50 TC."
 	item = /obj/structure/closet/crate
 	cost = 20
-	player_minimum = 20
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 	var/starting_crate_value = 50
 	var/check_include_modes = TRUE
@@ -277,7 +275,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A dusty SUPER-SIZED from the back of the Syndicate warehouse. Rumored to contain a valuable assortment of items, \
 			but you never know. Contents are sorted to always be worth 125 TC."
 	cost = 40
-	player_minimum = 30
 	starting_crate_value = 125
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 
@@ -312,7 +309,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Item price not guaranteed. Can contain normally unobtainable items."
 	check_include_modes = FALSE
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops, /datum/game_mode/incursion)
-	player_minimum = 30
 
 /datum/uplink_item/bundles_TC/surplus/random/purchase(mob/user, datum/component/uplink/U)
 	var/index = rand(1, 20)
@@ -543,7 +539,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The double-bladed energy sword does slightly more damage than a standard energy sword and will deflect \
 			all energy projectiles, but requires two hands to wield."
 	item = /obj/item/twohanded/dualsaber
-	player_minimum = 25
 	cost = 18
 	exclude_modes = list(/datum/game_mode/nuclear/clown_ops)
 
@@ -591,7 +586,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 10
 	surplus_nullcrates = 0
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
-	player_minimum = 25
 	restricted = TRUE
 
 /datum/uplink_item/dangerous/machinegun
@@ -752,7 +746,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			deflecting all ranged weapon fire, but you also refuse to use dishonorable ranged weaponry."
 	item = /obj/item/book/granter/martial/carp
 	cost = 16
-	player_minimum = 20
 	surplus = 10
 	surplus_nullcrates = 0
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops, /datum/game_mode/incursion)
@@ -1361,7 +1354,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0
 	include_modes = list(/datum/game_mode/nuclear/clown_ops)
 
-datum/uplink_item/stealthy_tools/taeclowndo_shoes
+/datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	name = "Tae-clown-do Shoes"
 	desc = "A pair of shoes for the most elite agents of the honkmotherland. They grant the mastery of taeclowndo with some honk-fu moves as long as they're worn."
 	cost = 12
@@ -1670,7 +1663,6 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 			traditional bags and boxes. Caution: Will explode if the powernet contains sufficient amounts of energy."
 	item = /obj/item/powersink
 	cost = 10
-	player_minimum = 35
 
 /datum/uplink_item/device_tools/stimpack
 	name = "Stimpack"
@@ -1760,7 +1752,6 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 			cocktail which removes all incapacitating effects, lets the user run faster and has a mild healing effect."
 	item = /obj/item/storage/box/syndie_kit/imp_adrenal
 	cost = 8
-	player_minimum = 20
 
 /datum/uplink_item/implants/antistun
 	name = "CNS Rebooter Implant"
@@ -2130,7 +2121,6 @@ datum/uplink_item/role_restricted/superior_honkrender
 	desc = "An incredibly deadly modified chainsaw with plasma-based energy blades instead of metal and a slick black-and-red finish. While it rips apart matter with extreme efficiency, it is heavy, large, and monstrously loud."
 	item = /obj/item/twohanded/required/chainsaw/energy
 	cost = 10
-	player_minimum = 25
 	restricted_roles = list("Botanist", "Cook", "Bartender")
 
 /datum/uplink_item/role_restricted/holocarp
@@ -2141,7 +2131,6 @@ datum/uplink_item/role_restricted/superior_honkrender
 	cost = 18
 	surplus = 5
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
-	player_minimum = 25
 	restricted = TRUE
 	restricted_roles = list("Cook", "Chaplain")
 
