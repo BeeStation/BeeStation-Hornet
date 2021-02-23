@@ -1,0 +1,4 @@
+author: Froststahr
+delete-after: true
+changes:
+  - config: Disables "Extended" on Sage (Secret Extended is still enabled)
