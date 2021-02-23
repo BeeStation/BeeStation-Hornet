@@ -173,7 +173,7 @@
 
 /obj/machinery/capture_the_flag/process()
 	for(var/i in spawned_mobs)
-		if(!i)
+		if(QDELETED(i))
 			spawned_mobs -= i
 			continue
 		// Anyone in crit, automatically reap
