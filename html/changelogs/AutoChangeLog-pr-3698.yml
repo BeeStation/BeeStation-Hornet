@@ -1,0 +1,6 @@
+author: Mat05usz
+delete-after: true
+changes:
+  - bugfix: 'Metastation: Kitchen Coldroom is under Kitchen area and can finally be
+      depowered.'
+  - bugfix: 'Metastation: Cryogenics 4-way manifold is visible again.'
