@@ -15,7 +15,7 @@
 	block_power = 0
 	block_power_wielded = 20
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
-	attack_verb = "wacked"
+	attack_verb = list("wacked")
 
 /obj/item/twohanded/required/pool/Initialize()
 	. = ..()

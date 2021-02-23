@@ -31,10 +31,3 @@ TGS3.json @crossedfall
 /code/modules/bluespace_exploration @powerfulbacon
 /code/modules/shuttle @powerfulbacon
 /code/modules/shuttle_weapons @powerfulbacon
-
-# zeskorion
-
-/code/__DEFINES/diseases.dm @zeskorion
-/code/controllers/subsystem/disease.dm @zeskorion
-/code/datums/diseases @zeskorion
-/code/modules/antagonists/disease @zeskorion

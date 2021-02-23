@@ -61,7 +61,7 @@
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
 "afB" = (
-/obj/item/soundsynth/ancient,
+/obj/item/soundsynth,
 /obj/effect/light_emitter{
 	light_power = 2;
 	light_range = 2

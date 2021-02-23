@@ -50,6 +50,7 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	var/list/inv_slots[SLOTS_AMT] // /atom/movable/screen/inventory objects, ordered by their slot ID.
 	var/list/hand_slots // /atom/movable/screen/inventory/hand objects, assoc list of "[held_index]" = object
 	var/list/atom/movable/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
+	var/list/team_finder_arrows = list()
 
 	var/atom/movable/screen/movable/action_button/hide_toggle/hide_actions_toggle
 	var/action_buttons_hidden = FALSE
@@ -87,6 +88,7 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	QDEL_NULL(hide_actions_toggle)
 	QDEL_NULL(module_store_icon)
 	QDEL_LIST(static_inventory)
+	QDEL_LIST(team_finder_arrows)
 
 	inv_slots.Cut()
 	action_intent = null
@@ -152,6 +154,8 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 				screenmob.client.screen += hotkeybuttons
 			if(infodisplay.len)
 				screenmob.client.screen += infodisplay
+			if(team_finder_arrows.len)
+				screenmob.client.screen += team_finder_arrows
 
 			screenmob.client.screen += hide_actions_toggle
 
@@ -162,6 +166,8 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 			hud_shown = FALSE	//Governs behavior of other procs
 			if(static_inventory.len)
 				screenmob.client.screen -= static_inventory
+			if(team_finder_arrows.len)
+				screenmob.client.screen += team_finder_arrows
 			if(toggleable_inventory.len)
 				screenmob.client.screen -= toggleable_inventory
 			if(hotkeybuttons.len)
@@ -188,6 +194,8 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 				screenmob.client.screen -= hotkeybuttons
 			if(infodisplay.len)
 				screenmob.client.screen -= infodisplay
+			if(team_finder_arrows.len)
+				screenmob.client.screen -= team_finder_arrows
 
 	hud_version = display_hud_version
 	persistent_inventory_update(screenmob)
