@@ -3,10 +3,11 @@
 	var/max_damage
 	var/probability
 	var/flags
+	var/damage_shoes
 
 	var/cooldown = 0
 
-/datum/component/caltrop/Initialize(_min_damage = 0, _max_damage = 0, _probability = 100,  _flags = NONE)
+/datum/component/caltrop/Initialize(_min_damage = 0, _max_damage = 0, _probability = 100,  _flags = NONE, _damage_shoes = 0)
 	min_damage = _min_damage
 	max_damage = max(_min_damage, _max_damage)
 	probability = _probability
@@ -40,6 +41,7 @@
 		var/feetCover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))
 
 		if(!(flags & CALTROP_BYPASS_SHOES) && (H.shoes || feetCover))
+			H?.shoes?.take_damage(damage_shoes)
 			return
 
 		if((H.movement_type & FLYING) || !(H.mobility_flags & MOBILITY_STAND)|| H.buckled)

@@ -43,3 +43,11 @@ Slimecrossing Mobs
 	speak_emote = list("blorbles", "bubbles", "borks")
 	emote_hear = list("bubbles!", "splorts.", "splops!")
 	emote_see = list("gets goop everywhere.", "flops.", "jiggles!")
+
+/mob/living/simple_animal/slime/agrro
+	name = "Rabid Slime"
+	rabid = TRUE
+	is_adult = TRUE
+
+
+

@@ -972,3 +972,30 @@ datum/status_effect/stabilized/blue/on_remove()
 				qdel(src)
 				qdel(linked_extract)
 	return ..()
+
+/atom/movable/screen/alert/status_effect/rainbow_death
+	name = "MULTICOLOR DEATH"
+	desc = "MY SKIN IS MELTING, THE LIQUID COVERING ME DEVOURS ME FROM INSIDE OUT, I NEED TO WASH IT OFF QUICKLY"
+	icon_state = "rainbow_skull"
+
+/datum/status_effect/rainbow_death
+	id = "rainbow_death"
+	alert_type = /atom/movable/screen/alert/status_effect/rainbow_death
+	var/originalcolor
+
+/datum/status_effect/rainbow_death/on_apply()
+	originalcolor = owner.color
+	RegisterSignal(owner,COMSIG_COMPONENT_CLEAN_ACT,.proc/clean)
+	return ..()
+
+/datum/status_effect/rainbow_death/tick()
+	owner.adjustCloneLoss(1)
+	owner.color = rgb(rand(0,255),rand(0,255),rand(0,255))
+	return ..()
+
+/datum/status_effect/rainbow_death/on_remove()
+	owner.color = originalcolor
+	return ..()
+
+/datum/status_effect/rainbow_death/proc/clean(datum/source,power)
+	qdel(src)

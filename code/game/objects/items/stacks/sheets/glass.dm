@@ -248,16 +248,15 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	max_integrity = 40
 	sharpness = IS_SHARP
 	var/icon_prefix
-
+	var/shoe_damage = 0
 
 /obj/item/shard/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] [pick("wrists", "throat")] with the shard of glass! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return (BRUTELOSS)
 
-
 /obj/item/shard/Initialize()
 	. = ..()
-	AddComponent(/datum/component/caltrop, force)
+	AddComponent(/datum/component/caltrop, force, force,100,NONE,shoe_damage)
 	AddComponent(/datum/component/butchering, 150, 65)
 	icon_state = pick("large", "medium", "small")
 	switch(icon_state)

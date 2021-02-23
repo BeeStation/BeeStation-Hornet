@@ -184,7 +184,7 @@
 /obj/effect/temp_visual/goliath_tentacle/proc/trip()
 	var/latched = FALSE
 	for(var/mob/living/L in loc)
-		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
+		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD || L == spawner)
 			continue
 		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
 		L.Stun(100)

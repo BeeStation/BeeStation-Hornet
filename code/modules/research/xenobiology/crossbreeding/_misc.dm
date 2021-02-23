@@ -332,3 +332,53 @@ Slimecrossing Items
 	stack_item.add(amt)
 
 	qdel(src)
+
+/obj/item/restraints/handcuffs/metal_cage
+	name = "metal_cage"
+	desc = "metallic construct immobilizes all actions"
+	breakouttime = 450
+	flags_1 = NONE
+	item_flags = DROPDEL
+	var/mob/living/carbon/restrained
+	var/image/cage_overlay
+
+/obj/item/restraints/handcuffs/metal_cage/Initialize()
+	. = ..()
+	cage_overlay = image(icon='icons/effects/effects.dmi',icon_state="wagecage")
+
+/obj/item/restraints/handcuffs/metal_cage/apply_cuffs(mob/living/carbon/target, mob/user, dispense)
+	restrained = target
+	RegisterSignal(target,COMSIG_CARBON_UPDATE_HANDCUFFED,.proc/update_handcuffs)
+	return ..()
+
+/obj/item/restraints/handcuffs/metal_cage/process()
+	restrained.SetImmobilized(5,ignore_canstun = TRUE)
+
+/obj/item/restraints/handcuffs/metal_cage/proc/update_handcuffs(bool)
+	if(bool)
+		restrained.add_overlay(cage_overlay)
+		START_PROCESSING(SSobj,src)
+	else
+		restrained.cut_overlay(cage_overlay)
+		restrained = null
+		UnregisterSignal(restrained,COMSIG_CARBON_UPDATE_HANDCUFFED)
+		STOP_PROCESSING(SSobj,src)
+
+/obj/item/restraints/handcuffs/metal_cage/Destroy()
+	. = ..()
+	restrained = null
+	cage_overlay = null
+
+/obj/structure/wage_cage
+	name = "Metal Cage"
+	desc = "Someone must have missed their throw!"
+	anchored = FALSE
+	density = TRUE
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "wagecage"
+
+/obj/item/shard/adamantine
+	name = "Adamantine Shards"
+	desc = "Scientists to this day have no idea how you managed to crush this metal..."
+	icon_prefix = "adamantine_"
+	shoe_damage = 25
