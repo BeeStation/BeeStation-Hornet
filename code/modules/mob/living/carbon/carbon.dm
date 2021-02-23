@@ -772,10 +772,12 @@
 				stat = SOFT_CRIT
 				stuttering = 10
 				glide_size = 2
+				if(!buckled && !pulledby)
+					glide_size = 2
 			else
 				stat = CONSCIOUS
 				stuttering = 0
-				glide_size = 8
+				glide_size = initial(glize_size)
 			adjust_blindness(-1)
 			REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
 		update_mobility()
@@ -789,32 +791,35 @@
 		var/duration = 0
 		switch(health)
 			if(HEALTH_THRESHOLD_FULLCRIT to -30)
-				if(prob(60))
+				if(prob(50 * crit_weight))
 					duration = 30
 
 				if(prob(60))
 					INVOKE_ASYNC(src, /mob.proc/emote, "gasp")
 			if(-30 to -20)
-				if(prob(50))
+				if(prob(40 * crit_weight))
 					duration = 20
 
 				if(prob(50))
 					INVOKE_ASYNC(src, /mob.proc/emote, "gasp")
 			if(-20 to -10)
-				if(prob(40))
+				if(prob(30 * crit_weight))
 					duration = 10
 
-				if(prob(40))
+				if(prob(40 * crit_weight))
 					INVOKE_ASYNC(src, /mob.proc/emote, "cough")
 			if(-10 to HEALTH_THRESHOLD_CRIT)
-				if(prob(35))
+				if(prob(25 * crit_weight))
 					duration = 5
 
 				if(prob(30))
 					INVOKE_ASYNC(src, /mob.proc/emote, "cough")
 		if(duration)
+			crit_weight = initial(crit_weight) // reset our crit chance multiplier
 			AdjustUnconscious(rand(duration, duration * 2), ignore_canstun = TRUE)
 			adjustOxyLoss(1.5 * oxy_mult)
+		else
+			crit_weight += 0.2
 
 //called when we get cuffed/uncuffed
 /mob/living/carbon/proc/update_handcuffed()
