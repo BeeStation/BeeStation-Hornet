@@ -550,12 +550,12 @@
 	// If targeting anything else, see if the wear suit is thin enough.
 	if (!penetrate_thick)
 		if(above_neck(target_zone))
-			if(head && istype(head, /obj/item/clothing))
+			if(head && isclothing(head))
 				var/obj/item/clothing/head/CH = head
 				if(CH.clothing_flags & THICKMATERIAL)
 					to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on [p_their()] head!</span>")
 					return 0
-		if(wear_suit && istype(wear_suit, /obj/item/clothing))
+		if(wear_suit && isclothing(wear_suit))
 			var/obj/item/clothing/suit/CS = wear_suit
 			if(CS.clothing_flags & THICKMATERIAL)
 				switch(target_zone)
@@ -1136,7 +1136,7 @@
 /mob/living/carbon/human/proc/is_shove_knockdown_blocked() //If you want to add more things that block shove knockdown, extend this
 	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, ears, wear_id) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	for(var/bp in body_parts)
-		if(istype(bp, /obj/item/clothing))
+		if(isclothing(bp))
 			var/obj/item/clothing/C = bp
 			if(C.blocks_shove_knockdown)
 				return TRUE

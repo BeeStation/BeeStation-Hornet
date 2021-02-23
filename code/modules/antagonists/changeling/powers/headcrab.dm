@@ -34,6 +34,9 @@
 			to_chat(S, "<span class='userdanger'>Your sensors are disabled by a shower of blood!</span>")
 			S.Paralyze(60)	
 	var/turf = get_turf(user)
+	// Headcrab transformation is *very* unique; origin mob death happens *before* resulting mob's creation. Action removal should happen beforehand.
+	for(var/datum/action/cp in user.actions)
+		cp.Remove(user)
 	user.gib()
 	. = TRUE
 	sleep(8) // So it's not killed in explosion

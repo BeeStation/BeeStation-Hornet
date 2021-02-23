@@ -5179,16 +5179,16 @@
 /area/mine/science)
 "KZ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/door/airlock/security/glass{
-	name = "Labor Camp Monitoring";
-	req_access_txt = "2"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/vault{
+	name = "Labor Camp Monitoring";
+	req_access_txt = "2"
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
