@@ -275,6 +275,6 @@
 	if(!query_metacoins.warn_execute())
 		. = FALSE
 
-	log_game("[ckey]'s metacoins were adjusted ([amount]) via Topic() call by [id ? "[id]" : "Unknown"]")
+	log_game("[ckey]'s metacoins were adjusted ([amount > 0 ? "+[amount]" : "[amount]"]) via Topic() call by [id ? "[id]" : "Unknown"]")
 
 	qdel(query_metacoins)
