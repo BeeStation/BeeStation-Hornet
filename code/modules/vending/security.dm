@@ -13,12 +13,14 @@
 					/obj/item/reagent_containers/food/snacks/donut = 12,
 					/obj/item/storage/box/evidence = 6,
 					/obj/item/flashlight/seclite = 4,
+					/obj/item/holosign_creator/security = 3,
 					/obj/item/restraints/legcuffs/bola/energy = 7)
 	contraband = list(/obj/item/clothing/glasses/sunglasses/advanced = 2,
 					  /obj/item/storage/fancy/donut_box = 2)
 	premium = list(/obj/item/storage/belt/security/webbing = 5,
 					/obj/item/storage/backpack/duffelbag/sec/deputy = 4,
 				   /obj/item/coin/antagtoken = 1,
+				   /obj/item/grenade/barrier = 4,
 				   /obj/item/clothing/head/helmet/blueshirt = 1,
 				   /obj/item/clothing/suit/armor/vest/blueshirt = 1)
 	refill_canister = /obj/item/vending_refill/security

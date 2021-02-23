@@ -668,6 +668,15 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_transform_security
+	name = "Cyborg Upgrade (Security Module)"
+	id = "borg_transform_security"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/transform/security
+	materials = list(/datum/material/iron = 15000, /datum/material/glass = 15000, /datum/material/diamond = 3000)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
 /datum/design/borg_upgrade_selfrepair
 	name = "Cyborg Upgrade (Self-repair)"
 	id = "borg_upgrade_selfrepair"
@@ -869,7 +878,7 @@
 	materials = list(/datum/material/iron = 2000, /datum/material/glass = 1000)
 	construction_time = 100
 	category = list("IPC Components")
-	
+
 //service modules
 
 /datum/design/borg_upgrade_botany

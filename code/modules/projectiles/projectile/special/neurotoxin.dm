@@ -11,5 +11,5 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/human/H = target
 		if(H.can_inject())
-			H.Stun(100)
+			H.adjustStaminaLoss(40)
 	return ..()

@@ -5,6 +5,7 @@
 #define SPINNING_COCOON 4
 
 /mob/living/simple_animal/hostile/poison
+	mobchatspan = "researchdirector"
 	var/poison_per_bite = 5
 	var/poison_type = /datum/reagent/toxin
 

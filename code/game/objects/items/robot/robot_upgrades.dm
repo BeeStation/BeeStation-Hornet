@@ -670,6 +670,18 @@
 	icon_state = "cyborg_upgrade3"
 	new_module = /obj/item/robot_module/clown
 
+/obj/item/borg/upgrade/transform/security
+	name = "borg module picker (Security)"
+	desc = "Allows you to turn a cyborg into a hunter, HALT!"
+	icon_state = "cyborg_upgrade3"
+	new_module = /obj/item/robot_module/security
+
+/obj/item/borg/upgrade/transform/security/action(mob/living/silicon/robot/R, user = usr)
+	if(CONFIG_GET(flag/disable_secborg))
+		to_chat(user, "<span class='warning'>Nanotrasen policy disallows the use of weapons of mass destruction.</span>")
+		return FALSE
+	return ..()
+
 /obj/item/borg/upgrade/circuit_app
 	name = "circuit manipulation apparatus"
 	desc = "An engineering cyborg upgrade allowing for manipulation of circuit boards."

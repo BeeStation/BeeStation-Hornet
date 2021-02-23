@@ -9,7 +9,7 @@
 	icon_state = "tele0"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
-	active_power_usage = 2000
+	active_power_usage = 3000
 	circuit = /obj/item/circuitboard/machine/teleporter_hub
 	var/accuracy = 0
 	var/obj/machinery/teleport/station/power_station
@@ -72,7 +72,7 @@
 		return
 	if (ismovableatom(M))
 		if(do_teleport(M, com.target, channel = TELEPORT_CHANNEL_BLUESPACE))
-			use_power(5000)
+			use_power(7500)
 			if(!calibrated && prob(30 - ((accuracy) * 10))) //oh dear a problem
 				log_game("[M] ([key_name(M)]) was turned into a fly person")
 				if(ishuman(M))//don't remove people from the round randomly you jerks

@@ -9,7 +9,6 @@
 
 
 	var/valve_open = FALSE
-	var/obj/machinery/atmospherics/components/binary/passive_gate/pump
 	var/release_log = ""
 
 	volume = 1000
@@ -200,17 +199,8 @@
 		air_contents.copy_from(existing_mixture)
 	else
 		create_gas()
-	pump = new(src, FALSE)
-	pump.on = TRUE
-	pump.stat = 0
-	pump.build_network()
-
 	update_icon()
 
-/obj/machinery/portable_atmospherics/canister/Destroy()
-	qdel(pump)
-	pump = null
-	return ..()
 
 /obj/machinery/portable_atmospherics/canister/proc/create_gas()
 	if(gas_type)
@@ -349,21 +339,16 @@
 	if(timing && valve_timer < world.time)
 		valve_open = !valve_open
 		timing = FALSE
+
+	// Handle gas transfer.
 	if(valve_open)
 		var/turf/T = get_turf(src)
-		pump.airs[1] = air_contents
-		pump.airs[2] = holding ? holding.air_contents : T.return_air()
-		pump.target_pressure = release_pressure
+		var/datum/gas_mixture/target_air = holding ? holding.air_contents : T.return_air()
 
-		pump.process_atmos() // Pump gas.
-		if(!holding)
-			air_update_turf() // Update the environment if needed.
-	else
-		pump.airs[1] = null
-		pump.airs[2] = null
+		if(air_contents.release_gas_to(target_air, release_pressure) && !holding)
+			air_update_turf()
 
 	update_icon()
-
 
 /obj/machinery/portable_atmospherics/canister/ui_state(mob/user)
 	return GLOB.physical_state

@@ -569,7 +569,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	SEND_SIGNAL(M, COMSIG_EXIT_AREA, src) //The atom that exits the area
 
 /**
-  * Returns true if this atom has gravity for the passed in turf
+  * Returns true if this atom has gravity for the passed in turf or other gravity-mimicking behaviors
+  * In other words, it returns whether the atom can be *on* the turf (i.e. not forced to float)
   *
   * Sends signals COMSIG_ATOM_HAS_GRAVITY and COMSIG_TURF_HAS_GRAVITY, both can force gravity with
   * the forced gravity var

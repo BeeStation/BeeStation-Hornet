@@ -21,6 +21,7 @@
 	var/mob/camera/blob/overmind = null
 	var/obj/structure/blob/factory/factory = null
 	var/independent = FALSE
+	mobchatspan = "blob"
 
 /mob/living/simple_animal/hostile/blob/update_icons()
 	if(overmind)
@@ -31,7 +32,7 @@
 /mob/living/simple_animal/hostile/blob/Initialize()
 	. = ..()
 	if(!independent) //no pulling people deep into the blob
-		verbs -= /mob/living/verb/pulled
+		remove_verb(/mob/living/verb/pulled)
 	else
 		pass_flags &= ~PASSBLOB
 

@@ -138,8 +138,9 @@
 #define ui_ai_take_picture "SOUTH:6,WEST+12"
 #define ui_ai_view_images "SOUTH:6,WEST+13"
 #define ui_ai_sensor "SOUTH:6,WEST+14"
-#define ui_ai_multicam "SOUTH+1:6,WEST+13"
-#define ui_ai_add_multicam "SOUTH+1:6,WEST+14"
+#define ui_ai_multicam "SOUTH:6,WEST+15"
+#define ui_ai_add_multicam "SOUTH:6,WEST+16"
+#define ui_ai_language_menu "CENTER+7:32,SOUTH+1:5"
 
 // pAI
 
@@ -177,3 +178,7 @@
 #define ui_ghost_reenter_corpse "SOUTH:6,CENTER:24"
 #define ui_ghost_teleport "SOUTH:6,CENTER+1:24"
 #define ui_ghost_pai "SOUTH: 6, CENTER+2:24"
+
+//Team finder
+
+#define ui_team_finder "CENTER,CENTER"

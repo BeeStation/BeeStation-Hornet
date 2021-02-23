@@ -219,7 +219,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		dna.species.spec_attack_hand(H, src)
+		H.dna.species.spec_attack_hand(H, src)
 
 /mob/living/carbon/human/attack_paw(mob/living/carbon/monkey/M)
 	if(check_shields(M, 0, "the M.name", UNARMED_ATTACK))
@@ -321,6 +321,9 @@
 		if(M.is_adult)
 			damage = 30
 
+		if(M.transformeffects & SLIME_EFFECT_RED)
+			damage *= 1.1
+
 		if(check_shields(M, damage, "the [M.name]"))
 			return 0
 
@@ -388,9 +391,14 @@
 	switch (severity)
 		if (EXPLODE_DEVASTATE)
 			if(bomb_armor < EXPLODE_GIB_THRESHOLD) //gibs the mob if their bomb armor is lower than EXPLODE_GIB_THRESHOLD
-				for(var/I in contents)
-					var/atom/A = I
-					A.ex_act(severity)
+				for(var/thing in contents)
+					switch(severity)
+						if(EXPLODE_DEVASTATE)
+							SSexplosions.high_mov_atom += thing
+						if(EXPLODE_HEAVY)
+							SSexplosions.med_mov_atom += thing
+						if(EXPLODE_LIGHT)
+							SSexplosions.low_mov_atom += thing
 				gib()
 				return
 			else

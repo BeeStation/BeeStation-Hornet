@@ -280,10 +280,9 @@
 	else  // A variation of get_hear inlined here to take advantage of the compiler's fastpath for obj/mob in view
 		var/lum = T.luminosity
 		T.luminosity = 6 // This is the maximum luminosity
-		for(var/mob/M in view(R, T))
-			processing_list += M
-		for(var/obj/O in view(R, T))
-			processing_list += O
+		for(var/A in view(R, T))
+			if(isobj(A) || ismob(A))
+				processing_list += A
 		T.luminosity = lum
 
 	while(processing_list.len) // recursive_hear_check inlined here
@@ -377,11 +376,10 @@
 		if(AM.Move(get_step(T, direction)))
 			break
 
-/proc/get_mob_by_key(key)
-	var/ckey = ckey(key)
-	for(var/i in GLOB.player_list)
-		var/mob/M = i
-		if(M.ckey == ckey)
+/proc/get_mob_by_ckey(key)
+	var/ckey = ckey(key) //just to be safe
+	for(var/mob/M as() in GLOB.player_list)
+		if(M?.ckey == ckey)
 			return M
 	return null
 

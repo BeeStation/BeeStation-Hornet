@@ -74,8 +74,7 @@
 		var/datum/beam/B = grasping[L]
 		if(B)
 			qdel(B)
-	for(var/datum/component/tether in tethers)
-		tether.RemoveComponent()
+	QDEL_LIST(tethers)
 	grasping = null
 	return ..()
 
