@@ -261,6 +261,7 @@
 /datum/world_topic/adjust_metacoins/Run(list/input, addr)
 	var/ckey = input["ckey"]
 	var/amount = input["amount"]
+	var/log_id = input["id"]
 
 	if(!ckey || !amount || !SSdbcore.Connect())
 		return FALSE
@@ -273,5 +274,7 @@
 	)
 	if(!query_metacoins.warn_execute())
 		. = FALSE
+
+	log_game("[ckey]'s metacoins were adjusted ([amount]) by [id ? "[id]" : "Unknown"]")
 
 	qdel(query_metacoins)
