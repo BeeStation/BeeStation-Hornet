@@ -145,7 +145,7 @@
 	item_state = "rapier"
 	lefthand_file = null
 	righthand_file = null
-	alpha = 0
+	alpha = 255
 	block_level = 1
 	block_upgrade_walk = 1
 	block_power = 60
