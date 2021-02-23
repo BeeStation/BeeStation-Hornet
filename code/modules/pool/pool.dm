@@ -123,11 +123,11 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 		var/datum/species/SS = F.dna.species
 		if(MOB_ROBOTIC in SS.inherent_biotypes)  //ZAP goes the IPC!
 			zap = 2 //You can protect yourself from water damage with thick clothing.
-		if(F.head && istype(F.head, /obj/item/clothing))
+		if(F.head && isclothing(F.head))
 			var/obj/item/clothing/CH = F.head
 			if (CH.clothing_flags & THICKMATERIAL) //Skinsuit should suffice! But IPCs are robots and probably not water-sealed.
 				zap --
-		if(F.wear_suit && istype(F.wear_suit, /obj/item/clothing))
+		if(F.wear_suit && isclothing(F.wear_suit))
 			var/obj/item/clothing/CS = F.wear_suit
 			if (CS.clothing_flags & THICKMATERIAL)
 				zap --
