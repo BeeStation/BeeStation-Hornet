@@ -792,19 +792,19 @@
 
 				if(prob(60))
 					INVOKE_ASYNC(src, /mob.proc/emote, "gasp")
-			if(-29 to -20)
+			if(-30 to -20)
 				if(prob(50))
 					duration = 20
 
 				if(prob(50))
 					INVOKE_ASYNC(src, /mob.proc/emote, "gasp")
-			if(-19 to -10)
+			if(-20 to -10)
 				if(prob(40))
 					duration = 10
 
 				if(prob(40))
 					INVOKE_ASYNC(src, /mob.proc/emote, "cough")
-			if(-9 to HEALTH_THRESHOLD_CRIT)
+			if(-10 to HEALTH_THRESHOLD_CRIT)
 				if(prob(35))
 					duration = 5
 
