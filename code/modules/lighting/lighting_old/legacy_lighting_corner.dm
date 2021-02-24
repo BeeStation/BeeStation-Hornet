@@ -7,7 +7,7 @@ GLOBAL_LIST_INIT(LIGHTING_CORNER_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 
 /datum/legacy_lighting_corner
 	var/list/turf/masters
-	var/list/datum/light_source/affecting // Light sources affecting us.
+	var/list/datum/legacy_light_source/affecting // Light sources affecting us.
 	var/active                            = FALSE  // TRUE if one of our masters has dynamic lighting.
 
 	var/x     = 0

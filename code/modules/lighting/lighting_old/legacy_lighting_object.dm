@@ -23,7 +23,6 @@
 	if (myturf.legacy_lighting_object)
 		qdel(myturf.legacy_lighting_object, force = TRUE)
 	myturf.legacy_lighting_object = src
-	//myturf.luminosity = 0
 
 	needs_update = TRUE
 	GLOB.lighting_update_objects += src
@@ -37,7 +36,6 @@
 			stack_trace("A lighting object was qdeleted with a different loc then it is suppose to have ([COORD(oldturf)] -> [COORD(newturf)])")
 		if (isturf(myturf))
 			myturf.legacy_lighting_object = null
-			myturf.luminosity = 1
 		myturf = null
 
 		return ..()
@@ -119,8 +117,6 @@
 			ar, ag, ab, 00,
 			00, 00, 00, 01
 		)
-
-	luminosity = set_luminosity
 
 // Variety of overrides so the overlays don't get affected by weird things.
 

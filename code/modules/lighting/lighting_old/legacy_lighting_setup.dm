@@ -5,7 +5,6 @@
 			continue
 
 		for(var/turf/T in A)
-			T.consider_legacy_lighting = TRUE
 			new/atom/movable/legacy_lighting_object(T)
 			CHECK_TICK
 		CHECK_TICK
