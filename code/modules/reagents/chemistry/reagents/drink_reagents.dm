@@ -228,17 +228,17 @@
 					to_chat(M, "<span class='warning'>Your bones hurt!</span>")
 	else if (current_cycle > 500) //The super milk overdose, this should only run if you effectively max out your body on milk
 		if(prob(4) && iscarbon(M)) //big oof
-		var/selected_part
-		switch(rand(1, 4)) //God help you if the same limb gets picked twice quickly.
-			if(1)
-				selected_part = BODY_ZONE_L_ARM
-			if(2)
-				selected_part = BODY_ZONE_R_ARM
-			if(3)
-				selected_part = BODY_ZONE_L_LEG
-			if(4)
-				selected_part = BODY_ZONE_R_LEG
-		var/obj/item/bodypart/bp = M.get_bodypart(selected_part)
+			var/selected_part
+			switch(rand(1, 4)) //God help you if the same limb gets picked twice quickly.
+				if(1)
+					selected_part = BODY_ZONE_L_ARM
+				if(2)
+					selected_part = BODY_ZONE_R_ARM
+				if(3)
+					selected_part = BODY_ZONE_L_LEG
+				if(4)
+					selected_part = BODY_ZONE_R_LEG
+			var/obj/item/bodypart/bp = M.get_bodypart(selected_part)
 		if(M.dna.species.type != /datum/species/skeleton && M.dna.species.type != /datum/species/plasmaman) //We're so sorry skeletons, you're so misunderstood
 			if(bp)
 				bp.receive_damage(0, 0, 200)
