@@ -60,7 +60,7 @@
 		var/obj/effect/particle_effect/water/W = new /obj/effect/particle_effect/water(get_turf(src))
 		W.Move(get_step(W,pick(GLOB.alldirs)))
 
-	for(var/mob/living/carbon/carbie in range(1,src)){
+	for(var/mob/living/carbon/carbie in range(1,src))
 		carbie.fire_stacks = -2
 		carbie.ExtinguishMob()
 
