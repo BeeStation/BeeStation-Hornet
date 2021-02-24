@@ -222,7 +222,7 @@
 	var/datum/reagent/converted_reagent = /datum/reagent/toxin/bonehurtingjuice //Needed to get the metabolism for desired reagent, exists solely for brevity compared to /datum/reagent/category/reagent.metabolization_rate
 	minimum_cycles = overdose_threshold/metabolization_rate
 	var/converted_metabolism = converted_reagent.metabolization_rate //Extra brevity with converted reagent metabolism
-	amount_to_add = (45)/minimum_cycles)+converted_metabolism
+	amount_to_add = 45/minimum_cycles+converted_metabolism
 	M.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, amount_to_add)
 	return ..()
 	/*In depth explanation by DatBoiTim
