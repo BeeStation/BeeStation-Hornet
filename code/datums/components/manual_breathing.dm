@@ -7,7 +7,7 @@
 	var/last_breath
 	var/check_every = 12 SECONDS
 	var/grace_period = 6 SECONDS
-	var/damage_rate = 1 // organ damage taken per tick
+	var/damage_rate = 0.5 // organ damage taken per second
 	var/datum/emote/next_breath_type = /datum/emote/inhale
 	var/datum/action/breathe/button = new
 
@@ -71,7 +71,7 @@
 /datum/component/manual_breathing/proc/pause()
 	STOP_PROCESSING(SSdcs, src)
 
-/datum/component/manual_breathing/process()
+/datum/component/manual_breathing/process(delta_time)
 	var/mob/living/carbon/C = parent
 
 	var/next_text = initial(next_breath_type.key)
@@ -80,7 +80,7 @@
 			to_chat(C, "<span class='userdanger'>You begin to suffocate, you need to [next_text]!</span>")
 			warn_dying = TRUE
 
-		L.applyOrganDamage(damage_rate)
+		L.applyOrganDamage(damage_rate * delta_time)
 		C.losebreath += 0.8
 	else if(world.time > (last_breath + check_every))
 		if(!warn_grace)
