@@ -223,8 +223,8 @@
 	minimum_cycles = overdose_threshold/metabolization_rate
 	var/target_units = 50 //Target amount of converted_reagent to exist in system after overdose_threshold units have processed
 	var/starting_amount = 5 //Should match the integer in ../milk/overdose_start(mob/living/M)
-	var/converted_reagent_metabolism = converted_reagent.metabolization_rate //Extra brevity with conver reagent metabolism
-	amount_to_add = ((target_units-starting_amount)/minimum_cycles)+starting_amount
+	var/converted_metabolism = converted_reagent.metabolization_rate //Extra brevity with converted reagent metabolism
+	amount_to_add = ((target_units-starting_amount)/minimum_cycles)+converted_metabolism
 	M.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, amount_to_add)
 	return ..()
 	/*In depth explanation by DatBoiTim
