@@ -204,8 +204,8 @@
 	var/on = FALSE					// 1 if on, 0 if off
 	var/on_gs = FALSE
 	var/static_power_used = 0
-	var/brightness = 9			// luminosity when on, also used in power calculation
-	var/bulb_power = 0.4			// basically the alpha of the emitted light source
+	var/brightness = 10			// luminosity when on, also used in power calculation
+	var/bulb_power = 1			// basically the alpha of the emitted light source
 	var/bulb_colour = "#FFF6ED"	// befault colour of the light.
 	var/status = LIGHT_OK		// LIGHT_OK, _EMPTY, _BURNED or _BROKEN
 	var/flickering = FALSE
@@ -227,7 +227,7 @@
 
 	var/emergency_mode = FALSE	// if true, the light is in emergency mode
 	var/no_emergency = FALSE	// if true, this light cannot ever have an emergency mode
-	var/bulb_emergency_brightness_mul = 0.3	// multiplier for this light's base brightness in emergency power mode
+	var/bulb_emergency_brightness_mul = 0.25	// multiplier for this light's base brightness in emergency power mode
 	var/bulb_emergency_colour = "#FF3232"	// determines the colour of the light while it's in emergency mode
 	var/bulb_emergency_pow_mul = 0.75	// the multiplier for determining the light's power in emergency mode
 	var/bulb_emergency_pow_min = 0.5	// the minimum value for the light's power in emergency mode
@@ -307,11 +307,11 @@
 	spawn(2)
 		switch(fitting)
 			if("tube")
-				brightness = 7
+				brightness = 11
 				if(prob(2))
 					break_light_tube(1)
 			if("bulb")
-				brightness = 5
+				brightness = 6
 				if(prob(5))
 					break_light_tube(1)
 		spawn(1)

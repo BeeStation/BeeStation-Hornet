@@ -3,7 +3,7 @@
 // For the record: these should never ever ever be deleted, even if the turf doesn't have dynamic lighting.
 
 // This list is what the code that assigns corners listens to, the order in this list is the order in which corners are added to the /turf/corners list.
-GLOBAL_LIST_INIT(lighting_corner_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST, NORTHWEST))
+GLOBAL_LIST_INIT(LIGHTING_CORNER_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST, NORTHWEST))
 
 /datum/legacy_lighting_corner
 	var/list/turf/masters
@@ -50,7 +50,7 @@ GLOBAL_LIST_INIT(lighting_corner_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 			T.legacy_corners = list(null, null, null, null)
 
 		masters[T]   = diagonal
-		i            = GLOB.lighting_corner_DIAGONAL.Find(turn(diagonal, 180))
+		i            = GLOB.LIGHTING_CORNER_DIAGONAL.Find(turn(diagonal, 180))
 		T.legacy_corners[i] = src
 
 	// Now the horizontal one.
@@ -60,7 +60,7 @@ GLOBAL_LIST_INIT(lighting_corner_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 			T.legacy_corners = list(null, null, null, null)
 
 		masters[T]   = ((T.x > x) ? EAST : WEST) | ((T.y > y) ? NORTH : SOUTH) // Get the dir based on coordinates.
-		i            = GLOB.lighting_corner_DIAGONAL.Find(turn(masters[T], 180))
+		i            = GLOB.LIGHTING_CORNER_DIAGONAL.Find(turn(masters[T], 180))
 		T.legacy_corners[i] = src
 
 	// And finally the vertical one.
@@ -70,7 +70,7 @@ GLOBAL_LIST_INIT(lighting_corner_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 			T.legacy_corners = list(null, null, null, null)
 
 		masters[T]   = ((T.x > x) ? EAST : WEST) | ((T.y > y) ? NORTH : SOUTH) // Get the dir based on coordinates.
-		i            = GLOB.lighting_corner_DIAGONAL.Find(turn(masters[T], 180))
+		i            = GLOB.LIGHTING_CORNER_DIAGONAL.Find(turn(masters[T], 180))
 		T.legacy_corners[i] = src
 
 	update_active()
@@ -87,7 +87,7 @@ GLOBAL_LIST_INIT(lighting_corner_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 // God that was a mess, now to do the rest of the corner code! Hooray!
 /datum/legacy_lighting_corner/proc/update_lumcount(var/delta_r, var/delta_g, var/delta_b)
 
-	if ((abs(delta_r)+abs(delta_g)+abs(delta_b)) == 0)
+	if (!(delta_r || delta_g || delta_b)) // 0 is falsey ok
 		return
 
 	lum_r += delta_r
@@ -124,10 +124,9 @@ GLOBAL_LIST_INIT(lighting_corner_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 
 	for (var/TT in masters)
 		var/turf/T = TT
-		if (T.legacy_lighting_object)
-			if (!T.legacy_lighting_object.needs_update)
-				T.legacy_lighting_object.needs_update = TRUE
-				GLOB.lighting_update_objects += T.legacy_lighting_object
+		if (T.legacy_lighting_object && !T.legacy_lighting_object.needs_update)
+			T.legacy_lighting_object.needs_update = TRUE
+			GLOB.lighting_update_objects += T.legacy_lighting_object
 
 
 /datum/legacy_lighting_corner/dummy/New()
