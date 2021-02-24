@@ -13,7 +13,7 @@
 	return dat
 
 /obj/item/implant/camera/on_implanted(mob/user)
-	camera = new (src)
+	camera = new (user)		//Insert the camera directly into the mob so the camera actually shows what it sees
 	var/rand_number = rand(1, 1000)
 	camera.c_tag = "IMPLANT #[rand_number]"
 	camera.network = list("ss13")
