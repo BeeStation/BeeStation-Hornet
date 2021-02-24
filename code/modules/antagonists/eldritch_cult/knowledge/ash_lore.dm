@@ -74,6 +74,7 @@
 	next_knowledge = list(/datum/eldritch_knowledge/curse/corrosion,/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/curse/paralysis)
 	timer = 2 MINUTES
 	route = PATH_ASH
+	cost = 4
 
 /datum/eldritch_knowledge/curse/blindness/curse(mob/living/chosen_mob)
 	. = ..()
