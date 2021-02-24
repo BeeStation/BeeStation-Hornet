@@ -47,7 +47,13 @@ GLOBAL_LIST_INIT(civilian_positions, list(
 	"Mime",
 	"Assistant"))
 
-GLOBAL_LIST_EMPTY(gimmick_positions)		//it's filled when gimmick jobs are initialized
+GLOBAL_LIST_INIT(gimmick_positions, list(
+	"Gimmick",
+	"Barber",
+	"Stage Magician",
+	"Debtor",
+	"Psychiatrist",
+	"VIP"))
 
 GLOBAL_LIST_INIT(security_positions, list(
 	"Head of Security",

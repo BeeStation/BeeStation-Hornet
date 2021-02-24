@@ -15,10 +15,6 @@
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 
-/datum/job/gimmick/New()
-	. = ..()
-	GLOB.gimmick_positions |= title
-
 /datum/job/gimmick/barber
 	title = "Barber"
 	flag = BARBER
