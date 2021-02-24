@@ -368,6 +368,7 @@
 	icon_state = "holster"
 	item_state = "holster"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/holster
+	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/clothing/accessory/holster/detective
 	name = "detective's shoulder holster"

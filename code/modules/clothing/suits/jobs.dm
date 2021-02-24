@@ -73,6 +73,18 @@
 	icon_state = "detsuit"
 	item_state = "detsuit"
 
+/obj/item/clothing/suit/det_suit/disco
+	name = "disco-ass blazer"
+	desc = "Looks like someone skinned this blazer off some long extinct disco-animal. It has an enigmatic white rectangle on the back and the right sleeve."
+	icon_state = "jamrock_blazer"
+	item_state = "jamrock_blazer"
+
+/obj/item/clothing/suit/det_suit/disco/aerostatic
+	name = "aerostatic bomber jacket"
+	desc = "Unquestionably gaudy and peculiar yet also curiously flattering; emanates a strange air of authority."
+	icon_state = "aerostatic_bomber_jacket"
+	item_state = "suit-orange"
+
 //Brig Phys
 /obj/item/clothing/suit/hazardvest/brig_phys
 	name = "brig physician's vest"

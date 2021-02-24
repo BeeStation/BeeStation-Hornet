@@ -344,3 +344,15 @@
 	desc = "They got me for my foams!"
 	icon_state = "SwagShoes"
 	item_state = "SwagShoes"
+/obj/item/clothing/shoes/sneakers/disco
+	name = "green lizardskin shoes"
+	desc = "Though depleted of lustre with the passage of time, these well-worn green lizard leather shoes fit almost perfectly."
+	icon_state = "lizardskin_shoes"
+	item_state = "lizardskin_shoes"
+
+/obj/item/clothing/shoes/jackboots/aerostatic
+	name = "aerostatic boots"
+	desc = "Sharp and comfortable looking boots crafted from tough brown leather."
+	icon_state = "aerostatic_boots"
+	item_state = "aerostatic_boots"
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes

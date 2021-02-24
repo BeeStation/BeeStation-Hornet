@@ -121,5 +121,10 @@
 			playsound(M, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 			A.attack_hand(M)
 			return 1
-	
-	
+
+/obj/item/clothing/gloves/color/black/aerostatic_gloves
+	name = "aerostatic gloves"
+	desc = "Vivid red gloves that exude a mysterious style."
+	icon_state = "aerostatic_gloves"
+	item_state = "aerostatic_gloves"
+	can_be_cut = FALSE

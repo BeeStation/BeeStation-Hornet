@@ -52,6 +52,12 @@
 	icon_state = "detective"
 	item_color = "detective"
 
+/obj/item/clothing/neck/tie/detective/disco_necktie
+	name = "horrific necktie"
+	desc = "The necktie is adorned with a garish pattern. It's disturbingly vivid. Somehow you feel as if it would be wrong to ever take it off. It's your friend now. You will betray it if you change it for some boring scarf."
+	icon_state = "eldritch_tie"
+	item_state = "eldritch_tie"
+	
 /obj/item/clothing/neck/stethoscope
 	name = "stethoscope"
 	desc = "An outdated medical apparatus for listening to the sounds of the human body. It also makes you look like you know what you're doing."

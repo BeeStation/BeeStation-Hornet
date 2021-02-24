@@ -39,3 +39,67 @@
 
 /obj/item/vending_refill/security
 	icon_state = "refill_sec"
+
+//Detective vendor
+/obj/machinery/vending/dic
+	name = "\improper DicTech"
+	desc = "A fashion and essentials vendor for the discerning detective."
+	product_ads = "Just one more question: Are you ready to look swag?; Upgrade your LA Noir threads today!;Evidence bags? Cigs? Matches? We got it all!;Get your fix of cheap cigs and burnt coffee!;Stogies here to complete that classic noir look!;Stylish apparel here! Crack your case in style!;Fedoras for her tipping pleasure.;Why not have a donut?"
+	icon_state = "det"
+	icon_deny = "det-deny"
+	req_access = list(ACCESS_FORENSICS_LOCKERS)
+	products = list(/obj/item/clothing/suit/det_suit = 1,
+					/obj/item/clothing/suit/det_suit/grey = 1,
+					/obj/item/clothing/suit/det_suit/noir = 1,
+					/obj/item/clothing/under/rank/security/detective = 1,
+					/obj/item/clothing/under/rank/security/detective/grey = 1,
+					/obj/item/clothing/accessory/waistcoat = 1,
+					/obj/item/clothing/neck/tie/red = 1,
+					/obj/item/clothing/neck/tie/black = 1,
+					/obj/item/clothing/shoes/laceup = 1,
+					/obj/item/clothing/head/fedora/det_hat = 1,
+					/obj/item/clothing/head/fedora = 1,
+					/obj/item/clothing/neck/tie/detective = 3,
+					/obj/item/clothing/gloves/color/black = 3,
+					/obj/item/pinpointer/crew = 3,
+					/obj/item/radio/headset/headset_sec = 3,
+					/obj/item/flashlight/seclite = 3,
+					/obj/item/taperecorder = 3,
+					/obj/item/storage/box/evidence = 3,
+					/obj/item/storage/box/matches = 5,
+					/obj/item/storage/fancy/cigarettes/cigars = 5)
+	contraband = list(/obj/item/clothing/shoes/jackboots/aerostatic = 1,
+					/obj/item/clothing/suit/det_suit/disco/aerostatic = 1,
+					/obj/item/clothing/under/rank/security/detective/disco/aerostatic = 1,
+					/obj/item/clothing/gloves/color/black/aerostatic_gloves = 1,
+					/obj/item/clothing/glasses/sunglasses/advanced/disco = 2,
+					/obj/item/clothing/shoes/sneakers/disco = 1,
+					/obj/item/clothing/suit/det_suit/disco = 1,
+					/obj/item/clothing/under/rank/security/detective/disco = 1)
+	premium = list(	/obj/item/detective_scanner = 1,
+					/obj/item/twohanded/binoculars = 1,
+					/obj/item/camera/detective = 1,
+					/obj/item/holosign_creator/security = 1)
+
+	refill_canister = /obj/item/vending_refill/detective
+	extra_price = 100
+	payment_department = ACCOUNT_SEC
+
+/obj/machinery/vending/dic/pre_throw(obj/item/I)
+	if(istype(I, /obj/item/grenade))
+		var/obj/item/grenade/G = I
+		G.preprime()
+	else if(istype(I, /obj/item/flashlight))
+		var/obj/item/flashlight/F = I
+		F.on = TRUE
+		F.update_brightness()
+
+/obj/item/vending_refill/detective
+	icon_state = "refill_det"
+
+/datum/supply_pack/security/vending/detective
+	name = "DicTech Supply Crate"
+	desc = "Did the other detectives snatch all the good outfits and gear? Regain your swag with this!"
+	cost = 1500
+	contains = list(/obj/item/vending_refill/detective)
+	crate_name = "DicTech supply crate"

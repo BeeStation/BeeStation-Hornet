@@ -102,6 +102,17 @@
 	item_state = "greydet"
 	item_color = "greydet"
 	alt_covers_chest = TRUE
+/obj/item/clothing/under/rank/security/detective/disco
+	name = "jamrock suit"
+	desc = "An... interesting looking ensemble consisting of golden-brown flare cut trousers and a hard worn white satin shirt."
+	icon_state = "jamrock_suit"
+	item_state = "jamrock_suit"
+
+/obj/item/clothing/under/rank/security/detective/disco/aerostatic
+	name = "aerostatic suit"
+	desc = "A crisp and well-pressed suit; professional, comfortable and curiously authoritative."
+	item_state = "aerostatic_suit"
+	item_state = "aerostatic_suit"
 
 /*
  * Head of Security
