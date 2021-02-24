@@ -74,7 +74,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	var/atom/movable/AM = dropping
 	var/datum/component/swimming/S = dropping.GetComponent(/datum/component/swimming)
 	if(S)
-		if(do_after(user, 1 SECONDS, target=src))
+		if(do_after(user, 1 SECONDS, target = dropping))
 			S.RemoveComponent()
 			visible_message("<span class='notice'>[dropping] climbs out of the pool.</span>")
 			AM.forceMove(src)
@@ -93,7 +93,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 		 "<span class='notice'>You start to lower [dropping] down into [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>You start climbing down into [src]...")
-	if(do_after(user, 4 SECONDS, target=src))
+	if(do_after(user, 4 SECONDS, target = dropping))
 		splash(dropping)
 
 /datum/mood_event/poolparty
@@ -123,11 +123,11 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 		var/datum/species/SS = F.dna.species
 		if(MOB_ROBOTIC in SS.inherent_biotypes)  //ZAP goes the IPC!
 			zap = 2 //You can protect yourself from water damage with thick clothing.
-		if(F.head && istype(F.head, /obj/item/clothing))
+		if(F.head && isclothing(F.head))
 			var/obj/item/clothing/CH = F.head
 			if (CH.clothing_flags & THICKMATERIAL) //Skinsuit should suffice! But IPCs are robots and probably not water-sealed.
 				zap --
-		if(F.wear_suit && istype(F.wear_suit, /obj/item/clothing))
+		if(F.wear_suit && isclothing(F.wear_suit))
 			var/obj/item/clothing/CS = F.wear_suit
 			if (CS.clothing_flags & THICKMATERIAL)
 				zap --

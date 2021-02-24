@@ -51,7 +51,7 @@
 	fixed_mut_color = rgb(128,128,128)
 	H.update_body()
 	var/datum/action/innate/squid_change/S = locate(/datum/action/innate/squid_change) in H.actions
-	S?.Remove(H)
+	qdel(S)
 
 /datum/action/innate/squid_change
 	name = "Color Change"

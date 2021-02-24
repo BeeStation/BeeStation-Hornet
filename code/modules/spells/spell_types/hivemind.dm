@@ -62,9 +62,9 @@
 				to_chat(user, "<span class='notice'>We bruteforce our way past the mental barriers of [target.name] and begin linking our minds!</span>")
 			else
 				to_chat(user, "<span class='notice'>We begin linking our mind with [target.name]!</span>")
-			if(do_after(user,5*(1.5**get_dist(user, target)),0,user) && (target in view(range)))
-				if(do_after(user,5*(1.5**get_dist(user, target)),0,user) && (target in view(range)))
-					if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && (target in view(range)))
+			if(do_after(user,5*(1.5**get_dist(user, target)),0,user) && (user in viewers(range, target)))
+				if(do_after(user,5*(1.5**get_dist(user, target)),0,user) && (user in viewers(range, target)))
+					if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && (user in viewers(range, target)))
 						to_chat(user, "<span class='notice'>[target.name] was added to the Hive!</span>")
 						success = TRUE
 						hive.add_to_hive(target)
@@ -628,7 +628,7 @@
 	distort(user, target, pulse_cap)
 
 /obj/effect/proc_holder/spell/target_hive/hive_warp/proc/distort(user, target, pulse_cap, pulses = 0)
-	for(var/mob/living/carbon/human/victim in view(7,target))
+	for(var/mob/living/carbon/human/victim in hearers(7,target))
 		if(user == victim || victim.is_real_hivehost())
 			continue
 		if(pulses < 4)

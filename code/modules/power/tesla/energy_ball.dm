@@ -162,7 +162,7 @@
 			return
 	if(!iscarbon(A))
 		return
-	for(var/obj/machinery/power/grounding_rod/GR in orange(src, 2))
+	for(var/obj/machinery/power/grounding_rod/GR in orange(2, src))
 		if(GR.anchored)
 			return
 	var/mob/living/carbon/C = A
@@ -205,8 +205,9 @@
 										/obj/machinery/the_singularitygen/tesla,
 										/obj/structure/frame/machine))
 
-	for(var/A in typecache_filter_multi_list_exclusion(oview(source, zap_range+2), things_to_shock, blacklisted_tesla_types))
-		if(!(tesla_flags & TESLA_ALLOW_DUPLICATES) && LAZYACCESS(shocked_targets, A))
+	for(var/atom/A as() in oview(zap_range+2, source))
+		//typecache_filter_multi_list_exclusion has been inlined to minimize lag.
+		if(!things_to_shock[A.type] || blacklisted_tesla_types[A.type] || (!(tesla_flags & TESLA_ALLOW_DUPLICATES) && LAZYACCESS(shocked_targets, A)))
 			continue
 
 		if(istype(A, /obj/machinery/power/tesla_coil))

@@ -192,6 +192,13 @@
 	if(!isslimeperson(H))
 		return
 	CHECK_DNA_AND_SPECIES(H)
+
+	//Prevent one person from creating 100 bodies.
+	var/datum/species/jelly/slime/species = H.dna.species
+	if(length(species.bodies) > CONFIG_GET(number/max_slimeperson_bodies))
+		to_chat(H, "<span class='warning'>Your mind is spread too thin! You have too many bodies already.</span>")
+		return
+
 	H.visible_message("<span class='notice'>[owner] gains a look of \
 		concentration while standing perfectly still.</span>",
 		"<span class='notice'>You focus intently on moving your body while \

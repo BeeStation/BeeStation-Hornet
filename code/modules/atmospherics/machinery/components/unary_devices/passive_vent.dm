@@ -20,6 +20,9 @@
 /obj/machinery/atmospherics/components/unary/passive_vent/process_atmos()
 	..()
 
+	if(!isopenturf(loc))
+		return
+
 	var/datum/gas_mixture/environment = loc.return_air()
 	var/environment_pressure = environment.return_pressure()
 	var/pressure_delta = abs(environment_pressure - airs[1].return_pressure())
@@ -37,8 +40,6 @@
 			var/transfer_moles = (pressure_delta * output_volume) / (air_temperature * R_IDEAL_GAS_EQUATION)
 			transfer_moles = min(transfer_moles, environment.total_moles()*airs[1].return_volume()/environment.return_volume())
 			var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
-			if(isnull(removed))
-				return
 			airs[1].merge(removed)
 			air_update_turf()
 	update_parents()

@@ -1,11 +1,10 @@
-
 /**
-  * #Eldritch Knwoledge
-  *
-  * Datum that makes eldritch cultist interesting.
-  *
-  * Eldritch knowledge aren't instantiated anywhere roundstart, and are initalized and destroyed as the round goes on.
-  */
+ * #Eldritch Knwoledge
+ *
+ * Datum that makes eldritch cultist interesting.
+ *
+ * Eldritch knowledge aren't instantiated anywhere roundstart, and are initalized and destroyed as the round goes on.
+ */
 /datum/eldritch_knowledge
 	///Name of the knowledge
 	var/name = "Basic knowledge"
@@ -35,41 +34,41 @@
 	required_atoms = temp_list
 
 /**
-  * What happens when this is assigned to an antag datum
-  *
-  * This proc is called whenever a new eldritch knowledge is added to an antag datum
-  */
+ * What happens when this is assigned to an antag datum
+ *
+ * This proc is called whenever a new eldritch knowledge is added to an antag datum
+ */
 /datum/eldritch_knowledge/proc/on_gain(mob/user)
 	to_chat(user, "<span class='warning'>[gain_text]</span>")
 	return
 /**
-  * What happens when you loose this
-  *
-  * This proc is called whenever antagonist looses his antag datum, put cleanup code in here
-  */
+ * What happens when you loose this
+ *
+ * This proc is called whenever antagonist looses his antag datum, put cleanup code in here
+ */
 /datum/eldritch_knowledge/proc/on_lose(mob/user)
 	return
 /**
-  * What happens every tick
-  *
-  * This proc is called on SSprocess in eldritch cultist antag datum. SSprocess happens roughly every second
-  */
+ * What happens every tick
+ *
+ * This proc is called on SSprocess in eldritch cultist antag datum. SSprocess happens roughly every second
+ */
 /datum/eldritch_knowledge/proc/on_life(mob/user)
 	return
 
 /**
-  * Special check for recipes
-  *
-  * If you are adding a more complex summoning or something that requires a special check that parses through all the atoms in an area override this.
-  */
+ * Special check for recipes
+ *
+ * If you are adding a more complex summoning or something that requires a special check that parses through all the atoms in an area override this.
+ */
 /datum/eldritch_knowledge/proc/recipe_snowflake_check(list/atoms,loc)
 	return TRUE
 
 /**
-  * What happens once the recipe is succesfully finished
-  *
-  * By default this proc creates atoms from result_atoms list. Override this is you want something else to happen.
-  */
+ * What happens once the recipe is succesfully finished
+ *
+ * By default this proc creates atoms from result_atoms list. Override this is you want something else to happen.
+ */
 /datum/eldritch_knowledge/proc/on_finished_recipe(mob/living/user,list/atoms,loc)
 	if(result_atoms.len == 0)
 		return FALSE
@@ -80,11 +79,11 @@
 	return TRUE
 
 /**
-  * Used atom cleanup
-  *
-  * Overide this proc if you dont want ALL ATOMS to be destroyed. useful in many situations.
-  */
-/datum/eldritch_knowledge/proc/cleanup_atoms(list/atoms)
+ * Used atom cleanup
+ *
+ * Overide this proc if you dont want ALL ATOMS to be destroyed. useful in many situations.
+ */
+/datum/eldritch_knowledge/proc/cleanup_atoms(list/atoms)	//BUG: crafting something will add to this list and delete ALL of the required components, IE if you have 2 bibles on a rune, and craft a codex, it will make 1 codex and qdel BOTH bibles
 	for(var/X in atoms)
 		var/atom/A = X
 		if(!isliving(A))
@@ -93,20 +92,33 @@
 	return
 
 /**
-  * Mansus grasp act
-  *
-  * Gives addtional effects to mansus grasp spell
-  */
+ * Mansus grasp act
+ *
+ * Gives addtional effects to mansus grasp spell
+ * Gives addtional effects to mansus touch spell of your followers
+ */
 /datum/eldritch_knowledge/proc/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
 	return FALSE
 
 
+/datum/eldritch_knowledge/proc/on_mansus_touch(atom/target, mob/user, proximity_flag, click_parameters)
+	return FALSE
+
+
 /**
-  * Sickly blade act
-  *
-  * Gives addtional effects to sickly blade weapon
-  */
+ * Sickly blade act
+ *
+ * Gives addtional effects to sickly blade weapon
+ */
 /datum/eldritch_knowledge/proc/on_eldritch_blade(target,user,proximity_flag,click_parameters)
+	return
+
+/**
+ * Sickly blade distant act
+ *
+ * Same as [/datum/eldritch_knowledge/proc/on_eldritch_blade] but works on targets that are not in proximity to you.
+ */
+/datum/eldritch_knowledge/proc/on_ranged_attack_eldritch_blade(atom/target,mob/user,click_parameters)
 	return
 
 //////////////
@@ -144,19 +156,21 @@
 	var/list/compiled_list = list()
 
 	for(var/H in GLOB.carbon_list)
-		if(!ishuman(H))
-			continue
 		var/mob/living/carbon/human/human_to_check = H
-		if(fingerprints[md5(human_to_check.dna.uni_identity)])
+		if(istype(human_to_check) && fingerprints[md5(human_to_check.dna.uni_identity)])
 			compiled_list |= human_to_check.real_name
 			compiled_list[human_to_check.real_name] = human_to_check
 
 	if(compiled_list.len == 0)
-		to_chat(user, "<span class='warning'>The items don't posses required fingerprints.</span>")
+		to_chat(user, "<span class='warning'>These items don't possess the required fingerprints or DNA.</span>")
 		return FALSE
 
 	var/chosen_mob = input("Select the person you wish to curse","Your target") as null|anything in sortList(compiled_list, /proc/cmp_mob_realname_dsc)
 	if(!chosen_mob)
+		return FALSE
+	var/mob/living/living_mob = chosen_mob
+	if (istype(living_mob) && HAS_TRAIT(living_mob, TRAIT_WARDED))
+		to_chat(user, "<span class='warning'>The curse failed! The target is warded against curses.</span>")
 		return FALSE
 	curse(compiled_list[chosen_mob])
 	addtimer(CALLBACK(src, .proc/uncurse, compiled_list[chosen_mob]),timer)
@@ -177,7 +191,7 @@
 	//we need to spawn the mob first so that we can use it in pollCandidatesForMob, we will move it from nullspace down the code
 	var/mob/living/summoned = new mob_to_summon(loc)
 	message_admins("[summoned.name] is being summoned by [user.real_name] in [loc]")
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [summoned.name]", ROLE_HERETIC, null, FALSE, 100, summoned)
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [summoned.real_name]", ROLE_HERETIC, null, FALSE, 100, summoned)
 	if(!LAZYLEN(candidates))
 		to_chat(user,"<span class='warning'>No ghost could be found...</span>")
 		qdel(summoned)
@@ -226,7 +240,7 @@
 
 /datum/eldritch_knowledge/spell/basic
 	name = "Break of dawn"
-	desc = "Starts your journey in the mansus. Allows you to select a target using a living heart on a transmutation rune."
+	desc = "You can sacrifice specific targets by placing their dead bodies and the living heart on a transmutation rune, and performing a transmutation ritual."
 	gain_text = "Gates of mansus open up to your mind."
 	next_knowledge = list(/datum/eldritch_knowledge/base_rust,/datum/eldritch_knowledge/base_ash,/datum/eldritch_knowledge/base_flesh)
 	cost = 0
@@ -260,28 +274,35 @@
 				if(!istype(X,/obj/item/forbidden_book))
 					continue
 				var/obj/item/forbidden_book/FB = X
-				FB.charge++
+				FB.charge += 2
 				break
 
 		if(!LH.target)
 			var/datum/objective/A = new
 			A.owner = user.mind
-			var/datum/mind/targeted =  A.find_target()//easy way, i dont feel like copy pasting that entire block of code
-			LH.target = targeted.current
+			var/list/targets = list()
+			for(var/i in 1 to 3)
+				var/datum/mind/targeted = A.find_target()//easy way, i dont feel like copy pasting that entire block of code
+				if(!targeted)
+					break
+				targets[targeted.current.real_name] = targeted.current
+			LH.target = targets[input(user,"Choose your next target","Target") in targets]
 			qdel(A)
 			if(LH.target)
 				to_chat(user,"<span class='warning'>Your new target has been selected, go and sacrifice [LH.target.real_name]!</span>")
-
 			else
 				to_chat(user,"<span class='warning'>target could not be found for living heart.</span>")
 
 /datum/eldritch_knowledge/spell/basic/cleanup_atoms(list/atoms)
 	return
 
+
+//	---	GENERAL	---
+
 /datum/eldritch_knowledge/living_heart
 	name = "Living Heart"
 	desc = "Allows you to create additional living hearts, using a heart, a pool of blood and a poppy. Living hearts when used on a transmutation rune will grant you a person to hunt and sacrifice on the rune. Every sacrifice gives you an additional charge in the book."
-	gain_text = "Gates of mansus open up to your mind."
+	gain_text = "The Gates of Mansus open up to your mind."
 	cost = 0
 	required_atoms = list(/obj/item/organ/heart,/obj/effect/decal/cleanable/blood,/obj/item/reagent_containers/food/snacks/grown/poppy)
 	result_atoms = list(/obj/item/living_heart)
@@ -295,3 +316,110 @@
 	required_atoms = list(/obj/item/organ/eyes,/obj/item/stack/sheet/animalhide/human,/obj/item/storage/book/bible,/obj/item/pen)
 	result_atoms = list(/obj/item/forbidden_book)
 	route = "Start"
+	
+//	---	CRAFTING ---
+
+/datum/eldritch_knowledge/ashen_eyes
+	name = "Ashen Eyes"
+	gain_text = "Piercing eyes, guide me through the mundane."
+	desc = "Allows you to craft thermal vision amulet by transmutating eyes with a glass shard."
+	cost = 1
+	next_knowledge = list(/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
+	required_atoms = list(/obj/item/organ/eyes,/obj/item/shard)
+	result_atoms = list(/obj/item/clothing/neck/eldritch_amulet)
+
+/datum/eldritch_knowledge/armor
+	name = "Armorer's ritual"
+	desc = "You can now create eldritch armor using a table and a gas mask."
+	gain_text = "For I am the heir to the throne of doom."
+	cost = 1
+	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/flesh_ghoul)
+	required_atoms = list(/obj/structure/table,/obj/item/clothing/mask/gas)
+	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch)
+
+/datum/eldritch_knowledge/essence
+	name = "Priest's Ritual"
+	desc = "You can now transmute a tank of water and a glass shard into a bottle of eldritch water."
+	gain_text = "This is an old recipe. The Owl whispered it to me."
+	cost = 1
+	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift)
+	required_atoms = list(/obj/structure/reagent_dispensers/watertank)
+	result_atoms = list(/obj/item/reagent_containers/glass/beaker/eldritch)
+
+//	---	CURSES ---
+
+/datum/eldritch_knowledge/curse/corrosion
+	name = "Curse of Corrosion"
+	gain_text = "Cursed land, cursed man, cursed mind."
+	desc = "Curse someone for 2 minutes of vomiting and major organ damage. Using a wirecutter, a heart, and an item that the victim touched  with their bare hands."
+	cost = 1
+	required_atoms = list(/obj/item/wirecutters,/obj/item/organ/heart)
+	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/spell/area_conversion)
+	timer = 2 MINUTES
+
+/datum/eldritch_knowledge/curse/corrosion/curse(mob/living/chosen_mob)
+	. = ..()
+	chosen_mob.apply_status_effect(/datum/status_effect/corrosion_curse)
+
+/datum/eldritch_knowledge/curse/corrosion/uncurse(mob/living/chosen_mob)
+	. = ..()
+	chosen_mob.remove_status_effect(/datum/status_effect/corrosion_curse)
+
+/datum/eldritch_knowledge/curse/paralysis
+	name = "Curse of Paralysis"
+	gain_text = "Corrupt their flesh, make them bleed."
+	desc = "Curse someone for 5 minutes of inability to walk. Using a left leg, right leg, a hatchet and an item that the victim touched  with their bare hands. "
+	cost = 1
+	required_atoms = list(/obj/item/bodypart/l_leg,/obj/item/bodypart/r_leg,/obj/item/hatchet)
+	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/summon/raw_prophet)
+	timer = 5 MINUTES
+
+/datum/eldritch_knowledge/curse/paralysis/curse(mob/living/chosen_mob)
+	. = ..()
+	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
+	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
+	chosen_mob.update_mobility()
+
+/datum/eldritch_knowledge/curse/paralysis/uncurse(mob/living/chosen_mob)
+	. = ..()
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
+	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
+	chosen_mob.update_mobility()
+	
+//	--- SPELLS ---
+
+/datum/eldritch_knowledge/spell/cleave
+	name = "Blood Cleave"
+	gain_text = "At first I didn't understand these instruments of war, but the priest told me to use them regardless. Soon, he said, I would know them well."
+	desc = "Gives AOE spell that causes heavy bleeding and blood loss."
+	cost = 1
+	spell_to_add = /obj/effect/proc_holder/spell/pointed/cleave
+	next_knowledge = list(/datum/eldritch_knowledge/spell/rust_wave,/datum/eldritch_knowledge/spell/flame_birth)
+
+/datum/eldritch_knowledge/spell/blood_siphon
+	name = "Blood Siphon"
+	gain_text = "No matter the man, we bleed all the same. That's what the Marshal told me."
+	desc = "You gain a spell that drains health from your enemies to restores your own."
+	cost = 1
+	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/blood_siphon
+	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet,/datum/eldritch_knowledge/spell/area_conversion)
+	
+//	--- SUMMONS ---
+
+/datum/eldritch_knowledge/summon/ashy
+	name = "Ashen Ritual"
+	gain_text = "I combined my principle of hunger with my desire for destruction. And the Nightwatcher knew my name."
+	desc = "You can now summon an Ash Man by transmutating a pile of ash, a head and a book."
+	cost = 1
+	required_atoms = list(/obj/effect/decal/cleanable/ash,/obj/item/bodypart/head,/obj/item/book)
+	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/ash_spirit
+	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/rust_wave)
+
+/datum/eldritch_knowledge/summon/rusty
+	name = "Rusted Ritual"
+	gain_text = "I combined my principle of hunger with my desire for corruption. And the Rusted Hills called my name."
+	desc = "You can now summon a Rust Walker by transmutating a vomit pool, a severed head and a book."
+	cost = 1
+	required_atoms = list(/obj/effect/decal/cleanable/vomit,/obj/item/bodypart/head,/obj/item/book)
+	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/rust_spirit
+	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/flame_birth)

@@ -65,7 +65,6 @@
 
 	var/display_order = JOB_DISPLAY_ORDER_DEFAULT
 
-	var/tmp/list/gear_leftovers = list()
 	var/gimmick = FALSE //least hacky way i could think of for this
 
 /datum/job/New()
@@ -84,6 +83,7 @@
 	if(!ishuman(H))
 		return
 	var/mob/living/carbon/human/human = H
+	var/list/gear_leftovers = list()
 	if(M.client && (M.client.prefs.equipped_gear && M.client.prefs.equipped_gear.len))
 		for(var/gear in M.client.prefs.equipped_gear)
 			var/datum/gear/G = GLOB.gear_datums[gear]
@@ -146,8 +146,6 @@
 
 			to_chat(M, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
 			qdel(item)
-
-		qdel(gear_leftovers)
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 	if(head_announce)

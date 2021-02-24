@@ -1467,6 +1467,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 			hud.set_frequency(nukie.nuke_team.team_frequency)
 		if(beacon)
 			beacon.set_frequency(nukie.nuke_team.team_frequency)
+	return suit
 
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Elite Syndicate Hardsuit"
