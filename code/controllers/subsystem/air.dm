@@ -49,8 +49,6 @@ SUBSYSTEM_DEF(air)
 	var/map_loading = TRUE
 	var/list/queued_for_activation
 
-	var/lasttick = 0
-
 /datum/controller/subsystem/air/stat_entry(msg)
 	msg += "C:{"
 	msg += "EQ:[round(cost_equalize,1)]|"
