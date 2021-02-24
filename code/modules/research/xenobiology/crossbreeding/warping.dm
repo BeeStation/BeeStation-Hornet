@@ -154,7 +154,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 
 /obj/effect/warped_rune/greyspace
 	name = "greyspace rune"
-	desc = "Death is merely a setback, anything can be rebuilt given the right components"
+	desc = "Death is merely a setback, anything can be rebuilt given the right components."
 	icon_state = "rune_grey"
 	///extractype is used to remember the type of the extract on the rune
 	var/extractype
@@ -198,10 +198,10 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 /obj/item/slimecross/warping/purple
 	colour = "purple"
 	runepath = /obj/effect/warped_rune/purplespace
-	effect_desc = "Draws a rune that may be activated to summon two random medical items "
+	effect_desc = "Draws a rune that may be activated to summon two random medical items."
 
 /obj/effect/warped_rune/purplespace
-	desc = "This can be activated to summon two random medical"
+	desc = "This can be activated to summon two random medical."
 	icon_state = "rune_purple"
 
 /obj/effect/warped_rune/purplespace/do_effect(mob/user)
@@ -481,7 +481,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/item/slimecross/warping/pyrite
 	colour = "pyrite"
 	runepath = /obj/effect/warped_rune/pyritespace
-	effect_desc = "draws a rune that will randomly color whatever steps on it"
+	effect_desc = "draws a rune that will randomly color whatever steps on it."
 
 /obj/effect/warped_rune/pyritespace
 	desc = "Who shall we be today? they asked, but not even the canvas would answer."
@@ -506,7 +506,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	effect_desc = "Draw a rune that covers with blood whoever steps on it."
 
 /obj/effect/warped_rune/redspace
-	desc = "watch out for blood!"
+	desc = "Watch out for blood!"
 	icon_state = "rune_red"
 	remove_on_activation = FALSE
 
@@ -714,8 +714,8 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 			S.health = 1
 			S.faction = host.faction
 			S.copy_languages(host, LANGUAGE_MIND)
-			QDEL_NULL(host)
 			playsound(host, "sound/magic/castsummon.ogg", 50, TRUE)
+			qdel(host)
 			activated_on_step = TRUE
 			return ..()
 
@@ -770,7 +770,7 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 
 /obj/item/slimecross/warping/rainbow
 	colour = "rainbow"
-	effect_desc = "draws a rune that can be activated to teleport whoever is standing on it. "
+	effect_desc = "Draws a rune that can be activated to teleport whoever is standing on it."
 	runepath = /obj/effect/warped_rune/rainbowspace
 
 /obj/effect/warped_rune/rainbowspace
