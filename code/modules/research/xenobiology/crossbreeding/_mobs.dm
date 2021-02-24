@@ -48,6 +48,3 @@ Slimecrossing Mobs
 	name = "Rabid Slime"
 	rabid = TRUE
 	is_adult = TRUE
-
-
-

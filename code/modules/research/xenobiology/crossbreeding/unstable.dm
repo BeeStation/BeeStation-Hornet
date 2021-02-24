@@ -63,7 +63,6 @@
 	for(var/mob/living/carbon/carbie in range(1,src)){
 		carbie.fire_stacks = -2
 		carbie.ExtinguishMob()
-	}
 
 /obj/item/slimecross/unstable/metal
 	colour = "metal"

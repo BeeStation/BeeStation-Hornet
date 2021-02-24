@@ -19,8 +19,7 @@
 		return
 	var/mob/user = glassies.loc
 	var/list/screens = list(user.hud_used.plane_masters["[FLOOR_PLANE]"], user.hud_used.plane_masters["[GAME_PLANE]"], user.hud_used.plane_masters["[LIGHTING_PLANE]"])
-	for(var/screen in screens)
-		var/atom/movable/screen/plane_master/plane = screen
+	for(var/atom/movable/screen/plane_master/plane as() in screens)
 		plane.add_filter("dirty_glasses_ang_blur",10,list("type" = "angular_blur","x" = 0, "y" = 0,"size" = 7))
 		plane.add_filter("dirty_glasses_blur",10,list("type" = "blur","size" = 2))
 
@@ -30,8 +29,7 @@
 		return
 	var/mob/user = glassies.loc
 	var/list/screens = list(user.hud_used.plane_masters["[FLOOR_PLANE]"], user.hud_used.plane_masters["[GAME_PLANE]"], user.hud_used.plane_masters["[LIGHTING_PLANE]"])
-	for(var/screen in screens)
-		var/atom/movable/screen/plane_master/plane = screen
+	for(var/atom/movable/screen/plane_master/plane as() in screens)
 		plane.remove_filter("dirty_glasses_ang_blur")
 		plane.remove_filter("dirty_glasses_blur")
 
@@ -42,8 +40,7 @@
 	SIGNAL_HANDLER
 
 	var/list/screens = list(user.hud_used.plane_masters["[FLOOR_PLANE]"], user.hud_used.plane_masters["[GAME_PLANE]"], user.hud_used.plane_masters["[LIGHTING_PLANE]"])
-	for(var/screen in screens)
-		var/atom/movable/screen/plane_master/plane = screen
+	for(var/atom/movable/screen/plane_master/plane as() in screens)
 		if(slot == SLOT_GLASSES && istype(user))
 			plane.add_filter("dirty_glasses_ang_blur",10,list("type" = "angular_blur","x" = 0, "y" = 0,"size" = 7))
 			plane.add_filter("dirty_glasses_blur",10,list("type" = "blur","size" = 2))
