@@ -256,6 +256,8 @@
 
 		air1.set_moles(/datum/gas/oxygen, max(0,air1.get_moles(/datum/gas/oxygen) - 0.5 / efficiency)) // Magically consume gas? Why not, we run on cryo magic.
 
+	update_parents()
+
 /obj/machinery/atmospherics/components/unary/cryo_cell/power_change()
 	..()
 	update_icon()
