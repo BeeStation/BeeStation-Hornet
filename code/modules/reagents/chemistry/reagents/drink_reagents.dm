@@ -216,7 +216,7 @@
 	. = ..()
 
 /datum/reagent/consumable/milk/overdose_process(mob/living/M)
-	M.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, .436)
+	M.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, (0.436))
 	/*
 	* This number will not put more than 50u of BHJ into their system if only 500u(ie bare minimum OD).
 	*  milk.overdose_threshold / milk.metabolization_rate = total_cycles = 1,250 cycles
