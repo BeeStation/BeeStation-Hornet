@@ -14398,7 +14398,7 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "aBk" = (
-/obj/structure/closet/secure_closet/detective,
+/obj/machinery/vending/dic,
 /obj/effect/landmark/blobstart,
 /obj/machinery/camera{
 	c_tag = "Detective's Office";

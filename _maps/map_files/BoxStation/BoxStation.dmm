@@ -62543,7 +62543,7 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
 "wUs" = (
-/obj/structure/closet/secure_closet/detective,
+/obj/machinery/vending/dic,
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "wUY" = (

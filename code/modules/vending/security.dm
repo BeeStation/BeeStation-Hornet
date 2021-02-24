@@ -72,7 +72,7 @@
 					/obj/item/clothing/suit/det_suit/disco/aerostatic = 1,
 					/obj/item/clothing/under/rank/security/detective/disco/aerostatic = 1,
 					/obj/item/clothing/gloves/color/black/aerostatic_gloves = 1,
-					/obj/item/clothing/glasses/sunglasses/advanced/disco = 2,
+					/obj/item/clothing/glasses/hud/security/sunglasses/disco = 1,
 					/obj/item/clothing/shoes/sneakers/disco = 1,
 					/obj/item/clothing/suit/det_suit/disco = 1,
 					/obj/item/clothing/under/rank/security/detective/disco = 1)

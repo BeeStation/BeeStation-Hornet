@@ -73076,7 +73076,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "cap" = (
-/obj/structure/closet/secure_closet/detective,
+/obj/machinery/vending/dic,
 /obj/machinery/power/apc{
 	areastring = "/area/security/detectives_office";
 	dir = 8;

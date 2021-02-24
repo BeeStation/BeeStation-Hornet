@@ -52186,7 +52186,7 @@
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "hlK" = (
-/obj/structure/closet/secure_closet/detective,
+/obj/machinery/vending/dic,
 /obj/item/camera_film,
 /obj/item/camera_film,
 /obj/item/radio/intercom{
