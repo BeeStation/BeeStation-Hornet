@@ -2,7 +2,7 @@
 	name = "camera implant"
 	desc = "Watchful eye inside you."
 	activated = FALSE
-	var/obj/machinery/camera/camera = null
+	var/obj/machinery/camera/camera
 
 /obj/item/implant/camera/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
