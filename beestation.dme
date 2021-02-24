@@ -1021,6 +1021,7 @@
 #include "code\game\objects\items\implants\implant.dm"
 #include "code\game\objects\items\implants\implant_abductor.dm"
 #include "code\game\objects\items\implants\implant_bb.dm"
+#include "code\game\objects\items\implants\implant_camera.dm"
 #include "code\game\objects\items\implants\implant_chem.dm"
 #include "code\game\objects\items\implants\implant_clown.dm"
 #include "code\game\objects\items\implants\implant_exile.dm"
