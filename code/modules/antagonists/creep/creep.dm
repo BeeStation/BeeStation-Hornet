@@ -202,7 +202,7 @@
 			their_chosen_department = "supply"
 		if(H.mind.assigned_role in GLOB.civilian_positions)
 			their_chosen_department = "civilian"
-		if(oldmind.assigned_role in GLOB.gimmick_positions)
+		if(H.mind.assigned_role in GLOB.gimmick_positions)
 			chosen_department = "civilian"
 		if(their_chosen_department != chosen_department)
 			continue
