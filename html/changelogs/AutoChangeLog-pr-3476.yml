@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Circuit comms receiver can no longer jam comms.
+  - balance: Circuit comms receiver requires encryption keys.
