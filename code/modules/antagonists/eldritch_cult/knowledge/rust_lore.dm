@@ -47,6 +47,7 @@
 	gain_text = "The strength was unparalleled, unnatural. The Blacksmith was smiling."
 	next_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/armor,/datum/eldritch_knowledge/essence)
 	route = PATH_RUST
+	cost = 4
 
 /datum/eldritch_knowledge/rust_regen/on_life(mob/user)
 	..()
