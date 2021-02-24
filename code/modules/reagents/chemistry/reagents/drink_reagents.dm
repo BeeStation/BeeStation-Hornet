@@ -210,23 +210,34 @@
 		holder.remove_reagent(/datum/reagent/consumable/capsaicin, 2)
 	..()
 
-//See block comment in ../milk/overdose_process(mob/living/M) for calculation and explanation of why this exists and why 5 was chosen
+/*See block comment in ../milk/overdose_process(mob/living/M) for calculation and explanation of why this exists and why 5 was chosen
+* For best results use in tandem with method outlined in this comment
+*/
 /datum/reagent/consumable/milk/overdose_start(mob/living/M)
-	M.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, 5)
+	M.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, 5) //The integer here should match var/starting_amount in ../milk/overdose_process(mob/living/M)
 	return ..()
 
 /datum/reagent/consumable/milk/overdose_process(mob/living/M)
-	M.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, (0.436))
-	/*
-	* This number will not put more than 50u of BHJ into their system if only 500u(ie bare minimum OD).
-	*  milk.overdose_threshold / milk.metabolization_rate = total_cycles = 1,250 cycles
-	* (target_units / total_cycles) + BHJ.metabolization_rate = amount_to_add = .44
-	* However, livers process 1u per tick of any toxin if it is under 3u.
-	* Meaning we need a starting amount to offset this which is more than three. Ideally this should yield the lowest amount of decimal spaces, while being as low as possible.
-	* In this case starting_amount = 5.
-	* ( (target_units - starting_amount) / total_cycles) + BHJ.metabolization_rate = amount_to_add = .436
-	*/
+	var/minimum_cycles, amount_to_add //minimum_cycles is the number of ticks for an amount of units equal to the overdose threshold to process. amount_to_add is the calculated amount to add per tick to meet ensure that target_units after minimum_cycle ticks.
+	var/datum/reagent/converted_reagent = /datum/reagent/toxin/bonehurtingjuice //Needed to get the metabolism for desired reagent, exists solely for brevity compared to /datum/reagent/category/reagent.metabolization_rate
+	minimum_cycles = overdose_threshold/metabolization_rate
+	var/target_units = 50 //Target amount of converted_reagent to exist in system after overdose_threshold units have processed
+	var/starting_amount = 5 //Should match the integer in ../milk/overdose_start(mob/living/M)
+	var/converted_reagent_metabolism = converted_reagent.metabolization_rate //Extra brevity with conver reagent metabolism
+	amount_to_add = ((target_units-starting_amount)/minimum_cycles)+starting_amount
+	M.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, amount_to_add)
 	return ..()
+	/*In depth explanation by DatBoiTim
+	* This number will not put more than 50u of BHJ into their system if only 500u(ie bare minimum OD).
+	*  milk.overdose_threshold / milk.metabolization_rate = minimum_cycles = 1,250 cycles
+	* (target_units / total_cycles) + BHJ.metabolization_rate = amount_to_add = .44
+	* However, regular livers process 1u per tick of any toxin if it is under 3u. This does not account for others, since most others are likely upgrades, and having a workaround for those upgrades defeats their purpose.
+	* Meaning we need a starting amount to offset this which is more than three. Ideally this should yield the lowest amount of decimal spaces to save space, while being as low as possible.
+	* In this case starting_amount = 5.
+	* ( (target_units - starting_amount) / minimum_cycles) + BHJ.metabolization_rate = amount_to_add = .436
+	* Copy pasting the above and changing /datum/reagent/toxin/bonehurtingjuice as well as the documentation to be accurate for another type path will work so long as the reagent using this has an OD threshold.
+	* You can just change the target units and should double check that the starting amount meets outlined criteria.
+	*/
 
 /datum/reagent/consumable/soymilk
 	name = "Soy Milk"
