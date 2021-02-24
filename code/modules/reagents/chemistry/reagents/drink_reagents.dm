@@ -200,6 +200,7 @@
 	glass_icon_state = "glass_white"
 	glass_name = "glass of milk"
 	glass_desc = "White and nutritious goodness!"
+	overdose_threshold = 500 //High calcium intake is bad for bone health. OD is exactly like having taken a normal-ish bone hurt juice. If anyone hits the superoverdose, well I'll be damned
 
 /datum/reagent/consumable/milk/on_mob_life(mob/living/carbon/M)
 	if(M.getBruteLoss() && prob(20))
@@ -208,6 +209,55 @@
 	if(holder.has_reagent(/datum/reagent/consumable/capsaicin))
 		holder.remove_reagent(/datum/reagent/consumable/capsaicin, 2)
 	..()
+/datum/reagent/consumable/milk/overdose_start(mob/living/M)
+	M.say("Oof ouch my bones!", forced = /datum/reagent/consumable/milk)
+	. = ..()
+
+/datum/reagent/consumable/milk/overdose_process(mob/living/M)
+	if(current_cycle <= 500) //Standard Milk Overdose
+		M.adjustStaminaLoss(7.5, 0)
+		if(prob(20))
+			switch(rand(1, 3))
+				if(1)
+					var/list/possible_says = list("oof.", "ouch!", "my bones.", "oof ouch.", "oof ouch my bones.")
+					M.say(pick(possible_says), forced = /datum/reagent/consumable/milk)
+				if(2)
+					var/list/possible_mes = list("oofs softly.", "looks like their bones hurt.", "grimaces, as though their bones hurt.")
+					M.say("*custom " + pick(possible_mes), forced = /datum/reagent/consumable/milk)
+				if(3)
+					to_chat(M, "<span class='warning'>Your bones hurt!</span>")
+	else if (current_cycle > 500) //The super milk overdose, this should only run if you effectively max out your body on milk
+		if(prob(4) && iscarbon(M)) //big oof
+		var/selected_part
+		switch(rand(1, 4)) //God help you if the same limb gets picked twice quickly.
+			if(1)
+				selected_part = BODY_ZONE_L_ARM
+			if(2)
+				selected_part = BODY_ZONE_R_ARM
+			if(3)
+				selected_part = BODY_ZONE_L_LEG
+			if(4)
+				selected_part = BODY_ZONE_R_LEG
+		var/obj/item/bodypart/bp = M.get_bodypart(selected_part)
+		if(M.dna.species.type != /datum/species/skeleton && M.dna.species.type != /datum/species/plasmaman) //We're so sorry skeletons, you're so misunderstood
+			if(bp)
+				bp.receive_damage(0, 0, 200)
+				playsound(M, get_sfx("desecration"), 50, TRUE, -1)
+				M.visible_message("<span class='warning'>[M]'s bones hurt too much!!</span>", "<span class='danger'>Your bones hurt too much!!</span>")
+				M.say("OOF!!", forced = /datum/reagent/toxin/bonehurtingjuice)
+			else //SUCH A LUST FOR REVENGE!!!
+				to_chat(M, "<span class='warning'>A phantom limb hurts!</span>")
+				M.say("Why are we still here, just to suffer?", forced = /datum/reagent/toxin/bonehurtingjuice)
+		else //you just want to socialize
+			if(bp)
+				playsound(M, get_sfx("desecration"), 50, TRUE, -1)
+				M.visible_message("<span class='warning'>[M] rattles loudly and flails around!!</span>", "<span class='danger'>Your bones hurt so much that your missing muscles spasm!!</span>")
+				M.say("OOF!!", forced=/datum/reagent/toxin/bonehurtingjuice)
+				bp.receive_damage(200, 0, 0) //But I don't think we should
+			else
+				to_chat(M, "<span class='warning'>Your missing arm aches from wherever you left it.</span>")
+				M.emote("sigh")
+	.=..()
 
 /datum/reagent/consumable/soymilk
 	name = "Soy Milk"
