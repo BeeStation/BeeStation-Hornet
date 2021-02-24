@@ -725,40 +725,7 @@
 	slowdown = 3
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ancient
 	resistance_flags = FIRE_PROOF
-	var/footstep = 1
-	var/mob/listeningTo
-
-/obj/item/clothing/suit/space/hardsuit/ancient/proc/on_mob_move()
-	var/mob/living/carbon/human/H = loc
-	if(!istype(H) || H.wear_suit != src)
-		return
-	if(footstep > 1)
-		playsound(src, 'sound/effects/servostep.ogg', 100, 1)
-		footstep = 0
-	else
-		footstep++
-
-/obj/item/clothing/suit/space/hardsuit/ancient/equipped(mob/user, slot)
-	. = ..()
-	if(slot != SLOT_WEAR_SUIT)
-		if(listeningTo)
-			UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
-		return
-	if(listeningTo == user)
-		return
-	if(listeningTo)
-		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/on_mob_move)
-	listeningTo = user
-
-/obj/item/clothing/suit/space/hardsuit/ancient/dropped()
-	. = ..()
-	if(listeningTo)
-		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
-
-/obj/item/clothing/suit/space/hardsuit/ancient/Destroy()
-	listeningTo = null
-	return ..()
+	move_sound = list('sound/effects/servostep.ogg')
 
 /////////////SHIELDED//////////////////////////////////
 
