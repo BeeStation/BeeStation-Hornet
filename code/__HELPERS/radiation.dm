@@ -9,7 +9,8 @@
 		/obj/effect,
 		/obj/docking_port,
 		/obj/item/projectile,
-		/obj/structure/chisel_message
+		/obj/structure/chisel_message,
+		/atom/movable/lighting_mask
 		))
 	var/list/processing_list = list(location)
 	. = list()
@@ -28,7 +29,7 @@
 /proc/radiation_pulse(atom/source, intensity, range_modifier, log=FALSE, can_contaminate=TRUE)
 	if(!SSradiation.can_fire)
 		return
-	
+
 	var/list/things = get_rad_contents(isturf(source) ? source : get_turf(source)) //copypasta because I don't want to put special code in waves to handle their origin
 	for(var/k in 1 to things.len)
 		var/atom/thing = things[k]
@@ -46,5 +47,5 @@
 		if(log)
 			var/turf/_source_T = isturf(source) ? source : get_turf(source)
 			log_game("Radiation pulse with intensity: [intensity] and range modifier: [range_modifier] in [loc_name(_source_T)] ")
-	
+
 	return TRUE

@@ -107,5 +107,5 @@
 		if (legacy_corners[i]) // Already have a corner on this direction.
 			continue
 
-		legacy_corners[i] = new/datum/legacy_lighting_corner(src, GLOB.lighting_corner_DIAGONAL[i])
+		legacy_corners[i] = new/datum/legacy_lighting_corner(src, GLOB.LIGHTING_CORNER_DIAGONAL[i])
 

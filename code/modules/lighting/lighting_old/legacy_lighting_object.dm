@@ -16,7 +16,7 @@
 
 /atom/movable/legacy_lighting_object/Initialize(mapload)
 	. = ..()
-	verbs.Cut()
+	remove_verb(verbs)
 	atom_colours.Cut()
 
 	myturf = loc
