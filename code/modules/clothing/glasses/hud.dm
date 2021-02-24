@@ -259,6 +259,6 @@
 
 /obj/item/clothing/glasses/hud/security/sunglasses/disco
 	name = "binoclard lenses"
-	desc = "Stylish round lenses subtly shaded for your protection and criminal discomfort. Has enhanced shielding which blocks flashes a security HUD."
+	desc = "Stylish round lenses subtly shaded for your protection and criminal discomfort. Has enhanced shielding which blocks flashes and a security HUD."
 	icon_state = "binoclard_lenses"
 	item_state = "binoclard_lenses"

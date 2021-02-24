@@ -30,16 +30,15 @@
 	jobtype = /datum/job/detective
 
 	id = /obj/item/card/id/job/detective
-	belt = /obj/item/clothing/accessory/holster/detective
+	belt = /obj/item/pda/detective
 	ears = /obj/item/radio/headset/headset_sec
-	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	uniform = /obj/item/clothing/under/rank/security/detective
 	neck = /obj/item/clothing/neck/tie/detective
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	suit = /obj/item/clothing/suit/det_suit
 	gloves = /obj/item/clothing/gloves/color/black
 	head = /obj/item/clothing/head/fedora/det_hat
-	l_pocket = /obj/item/pda/detective
+	l_pocket = /obj/item/toy/crayon/white
 	r_pocket = /obj/item/lighter
 	backpack_contents = list(/obj/item/storage/box/evidence=1,
 	/obj/item/detective_scanner=1,	

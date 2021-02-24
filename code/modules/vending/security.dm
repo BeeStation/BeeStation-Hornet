@@ -80,7 +80,8 @@
 	premium = list(	/obj/item/detective_scanner = 1,
 					/obj/item/twohanded/binoculars = 1,
 					/obj/item/camera/detective = 1,
-					/obj/item/holosign_creator/security = 1)
+					/obj/item/holosign_creator/security = 1,
+					/obj/item/clothing/accessory/holster/detective = 1)
 
 	refill_canister = /obj/item/vending_refill/detective
 	extra_price = 100

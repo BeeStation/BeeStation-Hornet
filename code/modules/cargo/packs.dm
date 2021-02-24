@@ -399,6 +399,13 @@
 	contains = list(/obj/item/vending_refill/security)
 	crate_name = "SecTech supply crate"
 
+/datum/supply_pack/security/vending/detective
+	name = "DicTech Supply Crate"
+	desc = "I'm sure there's a more effective way to get cigs, but the Detective wants more, so..."
+	cost = 1500
+	contains = list(/obj/item/vending_refill/detective)
+	crate_name = "SecTech supply crate"
+
 /datum/supply_pack/security/firingpins
 	name = "Standard Firing Pins Crate"
 	desc = "Upgrade your arsenal with 10 standard firing pins. Requires Security access to open."
