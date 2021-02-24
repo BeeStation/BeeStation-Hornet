@@ -140,7 +140,7 @@
 	var/list/visible_turfs = list()
 
 	// Is this camera located in or attached to a living thing? If so, assume the camera's loc is the living thing.
-	var/cam_location = isliving(active_camera.loc) ? active_camera.loc : active_camera
+	var/atom/cam_location = isliving(active_camera.loc) ? active_camera.loc : active_camera
 
 	// If we're not forcing an update for some reason and the cameras are in the same location,
 	// we don't need to update anything.
@@ -152,10 +152,11 @@
 	// Cameras that get here are moving, and are likely attached to some moving atom such as cyborgs.
 	last_camera_turf = get_turf(cam_location)
 
-	var/list/visible_things = active_camera.isXRay() ? range(active_camera.view_range, cam_location) : view(active_camera.view_range, cam_location)
-
-	for(var/turf/visible_turf in visible_things)
-		visible_turfs += visible_turf
+	if(active_camera.isXRay())
+		visible_turfs += RANGE_TURFS(active_camera.view_range, cam_location)
+	else
+		for(var/turf/T in view(active_camera.view_range, cam_location))
+			visible_turfs += T
 
 	var/list/bbox = get_bbox_of_atoms(visible_turfs)
 	var/size_x = bbox[3] - bbox[1] + 1
