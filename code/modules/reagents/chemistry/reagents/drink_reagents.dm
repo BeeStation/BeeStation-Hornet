@@ -213,7 +213,7 @@
 	M.say("Oof ouch my bones!", forced = /datum/reagent/consumable/milk)
 	. = ..()
 
-/datum/reagent/consumable/milk/overdose_process(mob/living/M)
+/datum/reagent/consumable/milk/overdose_process(mob/living/carbon/M)
 	if(current_cycle <= 500) //Standard Milk Overdose
 		M.adjustStaminaLoss(7.5, 0)
 		if(prob(20))
