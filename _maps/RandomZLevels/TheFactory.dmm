@@ -1697,9 +1697,7 @@
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
 "bIg" = (
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
@@ -2139,9 +2137,7 @@
 	dir = 8;
 	enemies = list(/mob/living/carbon,/mob/living/carbon/human/species)
 	},
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/holofloor/grass{
 	color = "#1eff00"
 	},
@@ -2407,9 +2403,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/awaymission/factory/factoryafter/down)
 "cqJ" = (
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/holofloor/grass{
 	color = "#1eff00"
 	},
@@ -2769,9 +2763,7 @@
 	noteleport = 1
 	})
 "cFr" = (
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
@@ -3544,9 +3536,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/plasteel,
 /area/awaymission/factory/factoryduring)
 "duU" = (
@@ -4857,9 +4847,7 @@
 /turf/open/floor/plasteel/dark/corner,
 /area/awaymission/factory/factoryduring/down)
 "eBU" = (
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /obj/effect/decal/cleanable/vomit,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/factory/factoryduring/down)
@@ -8033,9 +8021,7 @@
 /turf/closed/wall/r_wall,
 /area/awaymission/factory/factoryduring/down/leveltwo/asylum)
 "hoT" = (
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/wood,
 /area/awaymission/factory/villageduring{
 	noteleport = 0
@@ -10807,9 +10793,7 @@
 /turf/open/floor/carpet/cyan,
 /area/awaymission/factory/factoryafter/down)
 "jwO" = (
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/plasteel/checker,
 /area/awaymission/factory/factoryduring/down)
 "jxB" = (
@@ -11733,9 +11717,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/wood,
 /area/awaymission/factory/villageduring/house)
 "kwT" = (
@@ -14438,9 +14420,7 @@
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "mKg" = (
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/grass/snow/basalt{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15";
 	name = "road";
@@ -19619,9 +19599,7 @@
 /turf/open/floor/plasteel,
 /area/awaymission/factory/factoryduring)
 "qxW" = (
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/carpet,
 /area/awaymission/factory/villageduring/house)
 "qxZ" = (
@@ -20013,9 +19991,7 @@
 /area/awaymission/factory/factoryduring/down/levelthree)
 "qMq" = (
 /obj/structure/mineral_door/wood,
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/wood,
 /area/awaymission/factory/villageduring/house/start)
 "qML" = (
@@ -20487,9 +20463,7 @@
 /area/awaymission/factory/factoryduring/down/levelthree)
 "rhI" = (
 /obj/effect/trap/nexus/trickyspawner/clowns,
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
@@ -23938,9 +23912,7 @@
 /area/awaymission/factory/factoryafter/down)
 "tQN" = (
 /obj/structure/mineral_door/iron,
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/monotile/steel,
 /area/awaymission/factory/villageduring/hospital)
 "tRn" = (
@@ -24055,9 +24027,7 @@
 /obj/machinery/door/airlock/security/glass{
 	req_access_txt = "203"
 	},
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/plasteel{
 	dir = 8;
 	heat_capacity = 1e+006;
@@ -25237,9 +25207,7 @@
 /obj/machinery/door/airlock/security/glass{
 	req_access_txt = "203"
 	},
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/plasteel,
 /area/awaymission/factory/factoryduring)
 "uSS" = (
@@ -25364,9 +25332,7 @@
 /area/awaymission/factory/factoryduring/down/levelthree)
 "uXx" = (
 /obj/structure/trap/damage,
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/holofloor/grass{
 	color = "#A4A4A4"
 	},
@@ -26466,9 +26432,7 @@
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "vJa" = (
 /obj/structure/mineral_door/wood,
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/wood,
 /area/awaymission/factory/villageduring/house)
 "vJI" = (
@@ -26934,9 +26898,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/grass/snow/basalt{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15";
 	name = "road";
@@ -27009,9 +26971,7 @@
 /obj/machinery/door/airlock/research{
 	req_access_txt = "206"
 	},
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/plasteel,
 /area/awaymission/factory/factoryduring)
 "wmV" = (
@@ -28982,15 +28942,11 @@
 /area/awaymission/factory/factoryafter/down/maint)
 "xPE" = (
 /obj/machinery/door/airlock/wood,
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/monotile/dark,
 /area/awaymission/factory/villageduring/house)
 "xPF" = (
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/holofloor/grass{
 	color = "#A4A4A4"
 	},
