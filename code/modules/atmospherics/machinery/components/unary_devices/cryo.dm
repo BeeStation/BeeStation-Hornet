@@ -168,10 +168,9 @@
 	open_machine()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/process(delta_time)
-	..()
-
 	if(!on)
 		return
+
 	if(!is_operational())
 		on = FALSE
 		update_icon()
@@ -214,7 +213,7 @@
 
 	if(air1.total_moles())
 		if(mob_occupant.bodytemperature < T0C) // Sleepytime. Why? More cryo magic.
-			mob_occupant.Sleeping((mob_occupant.bodytemperature * sleep_factor) * 1000 * delta_time)//delta_time is roughly ~2 seconds
+			mob_occupant.Sleeping((mob_occupant.bodytemperature * sleep_factor) * 1000 * delta_time)
 			mob_occupant.Unconscious((mob_occupant.bodytemperature * unconscious_factor) * 1000 * delta_time)
 		if(beaker)//How much to transfer. As efficiency is increased, less reagent from the beaker is used and more is magically transferred to occupant
 			beaker.reagents.trans_to(occupant, (CRYO_TX_QTY / (efficiency * CRYO_MULTIPLY_FACTOR)) * delta_time, efficiency * CRYO_MULTIPLY_FACTOR, method = VAPOR) // Transfer reagents.
@@ -222,7 +221,7 @@
 
 	return 1
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/process_atmos()
+/obj/machinery/atmospherics/components/unary/cryo_cell/process_atmos(delta_time)
 	..()
 
 	if(!on)
@@ -251,8 +250,8 @@
 
 			var/heat = ((1 - cold_protection) * 0.1 + conduction_coefficient) * temperature_delta * (air_heat_capacity * heat_capacity / (air_heat_capacity + heat_capacity))
 
-			air1.set_temperature(max(air1.return_temperature() - heat / air_heat_capacity, TCMB))
-			mob_occupant.adjust_bodytemperature(heat / heat_capacity, TCMB)
+			air1.set_temperature(max(air1.return_temperature() - heat * delta_time / air_heat_capacity, TCMB))
+			mob_occupant.adjust_bodytemperature(heat * delta_time / heat_capacity, TCMB)
 
 
 		air1.set_moles(/datum/gas/oxygen, max(0,air1.get_moles(/datum/gas/oxygen) - 0.5 / efficiency)) // Magically consume gas? Why not, we run on cryo magic.

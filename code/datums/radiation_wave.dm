@@ -59,7 +59,7 @@
 	STOP_PROCESSING(SSradiation, src)
 	..()
 
-/datum/radiation_wave/process()
+/datum/radiation_wave/process(delta_time)
 	// If master_turf is no more, then we can't know where to irradiate. This is a very bad situation.
 	if(!master_turf)
 		qdel(src)
@@ -284,5 +284,5 @@
 #undef PRC_BEHAVIOR_D
 #undef PRC_BEHAVIOR_HL
 #undef PRC_BEHAVIOR_HLSTAR
-#undef PRC_BEHAVIOR_HR	
+#undef PRC_BEHAVIOR_HR
 #undef PRC_BEHAVIOR_HRSTAR

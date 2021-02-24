@@ -161,7 +161,7 @@
 	if(!anchored)
 		step(src, get_dir(M, src))
 
-/obj/machinery/power/emitter/process()
+/obj/machinery/power/emitter/process(delta_time)
 	if(stat & (BROKEN))
 		return
 	if(state != EMITTER_WELDED || (!powernet && active_power_usage))
@@ -183,7 +183,7 @@
 				log_game("Emitter lost power in [AREACOORD(src)]")
 			return
 		if(charge <= 80)
-			charge += 5
+			charge += 2.5 * delta_time
 		if(!check_delay() || manual == TRUE)
 			return FALSE
 		fire_beam()

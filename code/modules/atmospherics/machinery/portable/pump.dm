@@ -32,7 +32,7 @@
 	if(connected_port)
 		add_overlay("siphon-connector")
 
-/obj/machinery/portable_atmospherics/pump/process_atmos()
+/obj/machinery/portable_atmospherics/pump/process_atmos(delta_time)
 	..()
 	if(!on)
 		return

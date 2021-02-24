@@ -161,7 +161,7 @@
 				C.set_resting(TRUE, FALSE)
 			else
 				C.visible_message("<span class='notice'>[C] looks uninterested in your games.</span>","<span class='warning'>You spot [user] shining [src] at you. How insulting!</span>")
-		
+
 	//laser pointer image
 	icon_state = "pointer_[pointer_icon_state]"
 	var/image/I = image('icons/obj/projectiles.dmi',targloc,pointer_icon_state,10)
@@ -192,8 +192,11 @@
 	flick_overlay_view(I, targloc, 10)
 	icon_state = "pointer"
 
-/obj/item/laser_pointer/process()
-	if(prob(20 - recharge_locked*5))
+/obj/item/laser_pointer/process(delta_time)
+	if(!diode)
+		recharging = FALSE
+		return PROCESS_KILL
+	if(DT_PROB(10 + diode.rating*10 - recharge_locked*1, delta_time)) //t1 is 20, 2 40
 		energy += 1
 		if(energy >= max_energy)
 			energy = max_energy

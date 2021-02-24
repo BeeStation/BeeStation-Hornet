@@ -315,7 +315,10 @@
 	icon_state = "cyborg_upgrade5"
 	require_module = 1
 	var/repair_amount = -1
-	var/repair_tick = 1
+	/// world.time of next repair
+	var/next_repair = 0
+	/// Minimum time between repairs in seconds
+	var/repair_cooldown = 4
 	var/msg_cooldown = 0
 	var/on = FALSE
 	var/powercost = 10
@@ -379,8 +382,7 @@
 	update_icon()
 
 /obj/item/borg/upgrade/selfrepair/process()
-	if(!repair_tick)
-		repair_tick = 1
+	if(world.time < next_repair)
 		return
 
 	if(cyborg && (cyborg.stat != DEAD) && on)
@@ -407,7 +409,7 @@
 			cyborg.cell.use(powercost)
 		else
 			cyborg.cell.use(5)
-		repair_tick = 0
+		next_repair = world.time + repair_cooldown * 10 // Multiply by 10 since world.time is in deciseconds
 
 		if((world.time - 2000) > msg_cooldown )
 			var/msgmode = "standby"
@@ -760,7 +762,7 @@
 				nmodule = new module(R.module)
 				R.module.basic_modules += nmodule
 				R.module.add_module(nmodule, FALSE, TRUE)
-				
+
 		for(var/obj/item/reagent_containers/borghypo/borgshaker/H in R.module.modules)
 			for(var/re in additional_reagents)
 				H.add_reagent(re)

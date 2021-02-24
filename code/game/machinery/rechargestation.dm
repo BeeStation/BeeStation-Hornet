@@ -35,12 +35,11 @@
 		if(repairs)
 			. += "<span class='notice'>[src] has been upgraded to support automatic repairs.</span>"
 
-/obj/machinery/recharge_station/process()
+/obj/machinery/recharge_station/process(delta_time)
 	if(!is_operational())
 		return
-
 	if(occupant)
-		process_occupant()
+		process_occupant(delta_time)
 	return 1
 
 /obj/machinery/recharge_station/relaymove(mob/user)
@@ -104,7 +103,6 @@
 /obj/machinery/recharge_station/proc/process_occupant()
 	if(!occupant)
 		return
-	SEND_SIGNAL(occupant, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, recharge_speed, repairs)
 
 /obj/machinery/recharge_station/proc/restock_modules()
 	if(occupant)

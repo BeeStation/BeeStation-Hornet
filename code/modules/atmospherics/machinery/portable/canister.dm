@@ -332,7 +332,7 @@
 		else if(valve_open && holding)
 			investigate_log("[key_name(user)] started a transfer into [holding].", INVESTIGATE_ATMOS)
 
-/obj/machinery/portable_atmospherics/canister/process_atmos()
+/obj/machinery/portable_atmospherics/canister/process_atmos(delta_time)
 	..()
 	if(stat & BROKEN)
 		return PROCESS_KILL
@@ -347,7 +347,6 @@
 
 		if(air_contents.release_gas_to(target_air, release_pressure) && !holding)
 			air_update_turf()
-
 	update_icon()
 
 /obj/machinery/portable_atmospherics/canister/ui_state(mob/user)

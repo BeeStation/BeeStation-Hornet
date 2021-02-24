@@ -49,7 +49,7 @@ Ask ninjanomnom if they're around
 #define RAD_DISTANCE_COEFFICIENT_COMPONENT_MULTIPLIER 2	// Radiation components have additional penalty at distance coefficient
 														// This is to reduce radiation by contaminated objects, mostly
 
-#define RAD_HALF_LIFE 60							// The half-life of contaminated objects
+#define RAD_HALF_LIFE 90							// The half-life of contaminated objects
 
 #define RAD_WAVE_MINIMUM 10							// Radiation waves with less than this amount of power stop spreading
 													// WARNING: Reducing can make rads subsytem more expensive
@@ -61,3 +61,5 @@ Ask ninjanomnom if they're around
 													// Set to control the most typical situation: clutters around typical radiation sources
 													// This define is long and ugly because of the amount of math involved
 													// and to free this define from mathematical errors of future define number tweakers
+#define RAD_GEIGER_RC 4								// RC-constant for the LP filter for geiger counters. See #define LPFILTER for more info.
+#define RAD_GEIGER_GRACE_PERIOD 4					// How many seconds after we last detect a radiation pulse until we stop blipping

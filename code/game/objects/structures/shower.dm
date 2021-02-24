@@ -34,7 +34,7 @@
 	add_fingerprint(M)
 	if(on)
 		START_PROCESSING(SSmachines, src)
-		process()
+		process(SSMACHINES_DT)
 		soundloop.start()
 	else
 		soundloop.stop()

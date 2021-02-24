@@ -21,7 +21,7 @@
 	var/mode = HEATER_MODE_STANDBY
 	var/setMode = "auto" // Anything other than "heat" or "cool" is considered auto.
 	var/targetTemperature = T20C
-	var/heatingPower = 40000
+	var/heatingPower = 20000
 	var/efficiency = 20000
 	var/temperatureTolerance = 1
 	var/settableTemperatureMedian = 30 + T0C
@@ -68,7 +68,7 @@
 	if(panel_open)
 		add_overlay("sheater-open")
 
-/obj/machinery/space_heater/process()
+/obj/machinery/space_heater/process(delta_time)
 	if(!on || !is_operational())
 		if (on) // If it's broken, turn it off too
 			on = FALSE
@@ -99,9 +99,9 @@
 
 		var/heat_capacity = env.heat_capacity()
 		var/requiredPower = abs(env.return_temperature() - targetTemperature) * heat_capacity
-		requiredPower = min(requiredPower, heatingPower)
+		requiredPower = min(requiredPower, heatingPower * delta_time)
 
-		if(requiredPower < 1)
+		if(requiredPower< 1)
 			return
 
 		var/deltaTemperature = requiredPower / heat_capacity
@@ -124,7 +124,7 @@
 	for(var/obj/item/stock_parts/capacitor/M in component_parts)
 		cap += M.rating
 
-	heatingPower = laser * 40000
+	heatingPower = laser * 20000
 
 	settableTemperatureRange = cap * 30
 	efficiency = (cap + 1) * 10000
