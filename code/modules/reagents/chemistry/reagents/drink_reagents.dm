@@ -213,7 +213,7 @@
 //See block comment in ../milk/overdose_process(mob/living/M) for calculation and explanation of why this exists and why 5 was chosen
 /datum/reagent/consumable/milk/overdose_start(mob/living/M)
 	M.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, 5)
-	. = ..()
+	return ..()
 
 /datum/reagent/consumable/milk/overdose_process(mob/living/M)
 	M.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, (0.436))
@@ -226,7 +226,7 @@
 	* In this case starting_amount = 5.
 	* ( (target_units - starting_amount) / total_cycles) + BHJ.metabolization_rate = amount_to_add = .436
 	*/
-	.=..()
+	return ..()
 
 /datum/reagent/consumable/soymilk
 	name = "Soy Milk"
