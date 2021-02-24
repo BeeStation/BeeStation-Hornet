@@ -12,12 +12,6 @@
 /atom/movable/lighting_mask/proc/holder_turned(new_direction)
 	return
 
-//Normal lighting
-
-/atom/movable/lighting_mask/primary_lighting
-	icon_state = "light_bright"
-	layer = BACKGROUND_LAYER + LIGHTING_PRIMARY_LAYER
-
 //Flicker
 
 /atom/movable/lighting_mask/flicker
