@@ -209,54 +209,23 @@
 	if(holder.has_reagent(/datum/reagent/consumable/capsaicin))
 		holder.remove_reagent(/datum/reagent/consumable/capsaicin, 2)
 	..()
+
+//See block comment in ../milk/overdose_process(mob/living/M) for calculation and explanation of why this exists and why 5 was chosen
 /datum/reagent/consumable/milk/overdose_start(mob/living/M)
-	M.say("Oof ouch my bones!", forced = /datum/reagent/consumable/milk)
+	M.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, 5)
 	. = ..()
 
-/datum/reagent/consumable/milk/overdose_process(mob/living/carbon/M)
-	if(current_cycle <= 500) //Standard Milk Overdose
-		M.adjustStaminaLoss(7.5, 0)
-		if(prob(20))
-			switch(rand(1, 3))
-				if(1)
-					var/list/possible_says = list("oof.", "ouch!", "my bones.", "oof ouch.", "oof ouch my bones.")
-					M.say(pick(possible_says), forced = /datum/reagent/consumable/milk)
-				if(2)
-					var/list/possible_mes = list("oofs softly.", "looks like their bones hurt.", "grimaces, as though their bones hurt.")
-					M.say("*custom " + pick(possible_mes), forced = /datum/reagent/consumable/milk)
-				if(3)
-					to_chat(M, "<span class='warning'>Your bones hurt!</span>")
-	else if (current_cycle > 500) //The super milk overdose, this should only run if you effectively max out your body on milk
-		if(prob(4) && iscarbon(M)) //big oof
-			var/selected_part
-			switch(rand(1, 4)) //God help you if the same limb gets picked twice quickly.
-				if(1)
-					selected_part = BODY_ZONE_L_ARM
-				if(2)
-					selected_part = BODY_ZONE_R_ARM
-				if(3)
-					selected_part = BODY_ZONE_L_LEG
-				if(4)
-					selected_part = BODY_ZONE_R_LEG
-			var/obj/item/bodypart/bp = M.get_bodypart(selected_part)
-			if(M.dna.species.type != /datum/species/skeleton && M.dna.species.type != /datum/species/plasmaman) //We're so sorry skeletons, you're so misunderstood
-				if(bp)
-					bp.receive_damage(0, 0, 200)
-					playsound(M, get_sfx("desecration"), 50, TRUE, -1)
-					M.visible_message("<span class='warning'>[M]'s bones hurt too much!!</span>", "<span class='danger'>Your bones hurt too much!!</span>")
-					M.say("OOF!!", forced = /datum/reagent/toxin/bonehurtingjuice)
-				else //SUCH A LUST FOR REVENGE!!!
-					to_chat(M, "<span class='warning'>A phantom limb hurts!</span>")
-					M.say("Why are we still here, just to suffer?", forced = /datum/reagent/toxin/bonehurtingjuice)
-			else //you just want to socialize
-				if(bp)
-					playsound(M, get_sfx("desecration"), 50, TRUE, -1)
-					M.visible_message("<span class='warning'>[M] rattles loudly and flails around!!</span>", "<span class='danger'>Your bones hurt so much that your missing muscles spasm!!</span>")
-					M.say("OOF!!", forced=/datum/reagent/toxin/bonehurtingjuice)
-					bp.receive_damage(200, 0, 0) //But I don't think we should
-				else
-					to_chat(M, "<span class='warning'>Your missing arm aches from wherever you left it.</span>")
-					M.emote("sigh")
+/datum/reagent/consumable/milk/overdose_process(mob/living/M)
+	M.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, .436)
+	/*
+	* This number will not put more than 50u of BHJ into their system if only 500u(ie bare minimum OD).
+	*  milk.overdose_threshold / milk.metabolization_rate = total_cycles = 1,250 cycles
+	* (target_units / total_cycles) + BHJ.metabolization_rate = amount_to_add = .44
+	* However, livers process 1u per tick of any toxin if it is under 3u.
+	* Meaning we need a starting amount to offset this which is more than three. Ideally this should yield the lowest amount of decimal spaces, while being as low as possible.
+	* In this case starting_amount = 5.
+	* ( (target_units - starting_amount) / total_cycles) + BHJ.metabolization_rate = amount_to_add = .436
+	*/
 	.=..()
 
 /datum/reagent/consumable/soymilk
