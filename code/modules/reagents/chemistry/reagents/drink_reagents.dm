@@ -238,25 +238,25 @@
 					selected_part = BODY_ZONE_L_LEG
 				if(4)
 					selected_part = BODY_ZONE_R_LEG
-		var/obj/item/bodypart/bp = M.get_bodypart(selected_part)
-		if(M.dna.species.type != /datum/species/skeleton && M.dna.species.type != /datum/species/plasmaman) //We're so sorry skeletons, you're so misunderstood
-			if(bp)
-				bp.receive_damage(0, 0, 200)
-				playsound(M, get_sfx("desecration"), 50, TRUE, -1)
-				M.visible_message("<span class='warning'>[M]'s bones hurt too much!!</span>", "<span class='danger'>Your bones hurt too much!!</span>")
-				M.say("OOF!!", forced = /datum/reagent/toxin/bonehurtingjuice)
-			else //SUCH A LUST FOR REVENGE!!!
-				to_chat(M, "<span class='warning'>A phantom limb hurts!</span>")
-				M.say("Why are we still here, just to suffer?", forced = /datum/reagent/toxin/bonehurtingjuice)
-		else //you just want to socialize
-			if(bp)
-				playsound(M, get_sfx("desecration"), 50, TRUE, -1)
-				M.visible_message("<span class='warning'>[M] rattles loudly and flails around!!</span>", "<span class='danger'>Your bones hurt so much that your missing muscles spasm!!</span>")
-				M.say("OOF!!", forced=/datum/reagent/toxin/bonehurtingjuice)
-				bp.receive_damage(200, 0, 0) //But I don't think we should
-			else
-				to_chat(M, "<span class='warning'>Your missing arm aches from wherever you left it.</span>")
-				M.emote("sigh")
+			var/obj/item/bodypart/bp = M.get_bodypart(selected_part)
+			if(M.dna.species.type != /datum/species/skeleton && M.dna.species.type != /datum/species/plasmaman) //We're so sorry skeletons, you're so misunderstood
+				if(bp)
+					bp.receive_damage(0, 0, 200)
+					playsound(M, get_sfx("desecration"), 50, TRUE, -1)
+					M.visible_message("<span class='warning'>[M]'s bones hurt too much!!</span>", "<span class='danger'>Your bones hurt too much!!</span>")
+					M.say("OOF!!", forced = /datum/reagent/toxin/bonehurtingjuice)
+				else //SUCH A LUST FOR REVENGE!!!
+					to_chat(M, "<span class='warning'>A phantom limb hurts!</span>")
+					M.say("Why are we still here, just to suffer?", forced = /datum/reagent/toxin/bonehurtingjuice)
+			else //you just want to socialize
+				if(bp)
+					playsound(M, get_sfx("desecration"), 50, TRUE, -1)
+					M.visible_message("<span class='warning'>[M] rattles loudly and flails around!!</span>", "<span class='danger'>Your bones hurt so much that your missing muscles spasm!!</span>")
+					M.say("OOF!!", forced=/datum/reagent/toxin/bonehurtingjuice)
+					bp.receive_damage(200, 0, 0) //But I don't think we should
+				else
+					to_chat(M, "<span class='warning'>Your missing arm aches from wherever you left it.</span>")
+					M.emote("sigh")
 	.=..()
 
 /datum/reagent/consumable/soymilk
