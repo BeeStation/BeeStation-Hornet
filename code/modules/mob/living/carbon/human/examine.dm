@@ -237,21 +237,20 @@
 			if(stun_absorption[i]["end_time"] > world.time && stun_absorption[i]["examine_message"])
 				msg += "[t_He] [t_is][stun_absorption[i]["examine_message"]]\n"
 
-	if (!skipface)
-		if(drunkenness && !appears_dead) //Drunkenness
-			switch(drunkenness)
-				if(11 to 21)
-					msg += "[t_He] [t_is] slightly flushed.\n"
-				if(21.01 to 41) //.01s are used in case drunkenness ends up to be a small decimal
-					msg += "[t_He] [t_is] flushed.\n"
-				if(41.01 to 51)
-					msg += "[t_He] [t_is] quite flushed and [t_his] breath smells of alcohol.\n"
-				if(51.01 to 61)
-					msg += "[t_He] [t_is] very flushed and [t_his] movements jerky, with breath reeking of alcohol.\n"
-				if(61.01 to 91)
-					msg += "[t_He] look[p_s()] like a drunken mess.\n"
-				if(91.01 to INFINITY)
-					msg += "[t_He] [t_is] a shitfaced, slobbering wreck.\n"
+	if(drunkenness && !skipface && !appears_dead) //Drunkenness
+		switch(drunkenness)
+			if(11 to 21)
+				msg += "[t_He] [t_is] slightly flushed.\n"
+			if(21.01 to 41) //.01s are used in case drunkenness ends up to be a small decimal
+				msg += "[t_He] [t_is] flushed.\n"
+			if(41.01 to 51)
+				msg += "[t_He] [t_is] quite flushed and [t_his] breath smells of alcohol.\n"
+			if(51.01 to 61)
+				msg += "[t_He] [t_is] very flushed and [t_his] movements jerky, with breath reeking of alcohol.\n"
+			if(61.01 to 91)
+				msg += "[t_He] look[p_s()] like a drunken mess.\n"
+			if(91.01 to INFINITY)
+				msg += "[t_He] [t_is] a shitfaced, slobbering wreck.\n"
 
 	if(ismob(user))
 		if(HAS_TRAIT(user, TRAIT_EMPATH) && !appears_dead && (src != user))
