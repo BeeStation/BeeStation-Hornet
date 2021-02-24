@@ -6,7 +6,7 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 
 /turf/proc/empty(turf_type=/turf/open/space, baseturf_type, list/ignore_typecache, flags)
 	// Remove all atoms except observers, landmarks, docking ports
-	var/static/list/ignored_atoms = typecacheof(list(/mob/dead, /obj/effect/landmark, /obj/docking_port))
+	var/static/list/ignored_atoms = typecacheof(list(/mob/dead, /obj/effect/landmark, /obj/docking_port, /obj/effect/lighting_mask_holder, /atom/movable/legacy_lighting_object))
 	var/list/allowed_contents = typecache_filter_list_reverse(GetAllContentsIgnoring(ignore_typecache), ignored_atoms)
 	allowed_contents -= src
 	for(var/i in 1 to allowed_contents.len)
@@ -80,6 +80,11 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	if(flags & CHANGETURF_SKIP)
 		return new path(src)
 
+	//Legacy lighting
+	var/old_affecting_lights = legacy_affecting_lights
+	var/old_lighting_object = legacy_lighting_object
+	var/old_corners = legacy_corners
+	//New lighting
 	var/list/old_lights_affecting = lights_affecting?.Copy()
 
 	var/old_exl = explosion_level
@@ -117,11 +122,19 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 
 	W.lights_affecting = old_lights_affecting
 
+	//Legacy Update
+	if(SSlighting.initialized)
+		recalc_atom_opacity()
+		legacy_lighting_object = old_lighting_object
+		legacy_affecting_lights = old_affecting_lights
+		legacy_corners = old_corners
+
 	//Since the old turf was removed from lights_affecting, readd the new turf here
 	if(W.lights_affecting)
 		for(var/atom/movable/lighting_mask/mask as() in W.lights_affecting)
 			LAZYADD(mask.affecting_turfs, W)
 
+	if(W.lights_affecting || legacy_affecting_lights)
 		if(W.opacity != old_opacity)
 			W.reconsider_lights()
 
