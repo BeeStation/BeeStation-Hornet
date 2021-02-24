@@ -1,0 +1,5 @@
+author: Archanial
+delete-after: true
+changes:
+  - admin: removed ability to ban players from specific gimmick roles; old bans will
+      still be enforced.
