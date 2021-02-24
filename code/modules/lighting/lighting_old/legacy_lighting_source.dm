@@ -48,11 +48,9 @@
 	light_range = source_atom.light_range
 	light_color = source_atom.light_color
 
-	parse_light_color()
+	PARSE_LIGHT_COLOR(src)
 
 	update()
-
-	return ..()
 
 /datum/legacy_light_source/Destroy(force)
 	remove_lum()
@@ -245,9 +243,12 @@
 		var/oldlum = source_turf.luminosity
 		source_turf.luminosity = CEILING(light_range, 1)
 		for(T in view(CEILING(light_range, 1), source_turf))
-			for (thing in T.legacy_get_corners(source_turf))
-				C = thing
-				corners[C] = 0
+			if(!T.has_opaque_atom)
+				if(!T.lighting_corners_initialised)
+					T.legacy_generate_missing_corners()
+				for(thing in T.legacy_corners)
+					C = thing
+					corners[C] = 0
 			turfs += T
 		source_turf.luminosity = oldlum
 

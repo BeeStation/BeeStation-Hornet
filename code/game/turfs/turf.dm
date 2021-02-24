@@ -84,6 +84,9 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(A?.lighting_effect)
 		add_overlay(A.lighting_effect)
 
+	//Consider legacy lighting
+	consider_legacy_lighting = A.legacy_lighting
+
 	var/turf/T = SSmapping.get_turf_above(src)
 	if(T)
 		T.multiz_turf_new(src, DOWN)
