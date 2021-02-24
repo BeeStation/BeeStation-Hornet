@@ -108,6 +108,10 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		on_mob_leave(M)
 		affected_mobs -= M
 
+	for(var/mob/living/M in affected_mobs)
+		if(M.health <= 0)
+			on_mob_death(M)
+			affected_mobs -= M
 /obj/structure/slime_crystal/proc/master_crystal_destruction()
 	qdel(src)
 
@@ -118,6 +122,9 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	return
 
 /obj/structure/slime_crystal/proc/on_mob_leave(mob/living/affected_mob)
+	return
+
+/obj/structure/slime_crystal/proc/on_mob_death(mob/living/affected_mob)
 	return
 
 /obj/structure/slime_crystal/grey
@@ -536,6 +543,15 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	REMOVE_TRAIT(human_mob, TRAIT_NOBREATH, type)
 	qdel(affected_mob)
 
+/obj/structure/slime_crystal/gold/on_mob_death(mob/living/affected_mob)
+	var/mob/living/carbon/human/human_mob = locate() in affected_mob
+	affected_mob.mind.transfer_to(human_mob)
+	human_mob.forceMove(get_turf(affected_mob))
+	human_mob.grab_ghost()
+	human_mob.adjustStaminaLoss(affected_mob.maxHealth)
+	human_mob.Knockdown(affected_mob.maxHealth)
+	REMOVE_TRAIT(human_mob, TRAIT_NOBREATH, type)
+	qdel(affected_mob)
 /obj/structure/slime_crystal/oil
 	colour = "oil"
 
