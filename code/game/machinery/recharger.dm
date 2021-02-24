@@ -10,6 +10,7 @@
 	pass_flags = PASSTABLE
 	var/obj/item/charging = null
 	var/recharge_coeff = 1
+	var/using_power = FALSE
 
 	var/static/list/allowed_devices = typecacheof(list(
 		/obj/item/gun/energy,
@@ -119,7 +120,7 @@
 	if(stat & (NOPOWER|BROKEN) || !anchored)
 		return PROCESS_KILL
 
-	var/using_power = FALSE
+	using_power = FALSE
 	if(charging)
 		var/obj/item/stock_parts/cell/C = charging.get_cell()
 		if(C)
