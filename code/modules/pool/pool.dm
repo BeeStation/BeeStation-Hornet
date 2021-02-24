@@ -230,11 +230,11 @@ GLOBAL_LIST_EMPTY(pool_filters)
 	desired_temperature = newTemp
 	return FALSE
 
-/obj/machinery/pool_filter/process()
+/obj/machinery/pool_filter/process(delta_time)
 	if(!LAZYLEN(pool) || !is_operational())
 		return //No use having one of these processing for no reason is there?
 	use_power(idle_power_usage)
-	var/delta = (current_temperature > desired_temperature) ? -0.5 : 0.5
+	var/delta = ((current_temperature > desired_temperature) ? -0.25 : 0.25 ) * delta_time
 	current_temperature += delta
 	current_temperature = CLAMP(current_temperature, T0C, desired_temperature)
 	var/trans_amount = reagents.total_volume / pool.len //Split up the reagents equally.
@@ -251,7 +251,7 @@ GLOBAL_LIST_EMPTY(pool_filters)
 				splash_holder.my_atom = water
 				reagents.trans_to(splash_holder, trans_amount, transfered_by = src)
 				splash_holder.chem_temp = current_temperature
-				if(prob(80))
+				if(DT_PROB(80, delta_time))
 					splash_holder.reaction(M, TOUCH)
 				else //Sometimes the water penetrates a lil deeper than just a splosh.
 					splash_holder.reaction(M, INGEST)
@@ -265,7 +265,7 @@ GLOBAL_LIST_EMPTY(pool_filters)
 				else if(current_temperature >= 308.5) //Hotter than 35 celsius is going to make you burn up
 					if(iscarbon(M))
 						C.adjust_bodytemperature(35, 0, 500)
-					M.adjustFireLoss(5)
+					M.adjustFireLoss(2.5 * delta_time)
 					to_chat(M, "<span class='danger'>The water is searing hot!</span>")
 
 /obj/structure/pool_ladder/attack_hand(mob/user)
