@@ -221,10 +221,8 @@
 	var/minimum_cycles, amount_to_add //minimum_cycles is the number of ticks for an amount of units equal to the overdose threshold to process. amount_to_add is the calculated amount to add per tick to meet ensure that target_units after minimum_cycle ticks.
 	var/datum/reagent/converted_reagent = /datum/reagent/toxin/bonehurtingjuice //Needed to get the metabolism for desired reagent, exists solely for brevity compared to /datum/reagent/category/reagent.metabolization_rate
 	minimum_cycles = overdose_threshold/metabolization_rate
-	var/target_units = 50 //Target amount of converted_reagent to exist in system after overdose_threshold units have processed
-	var/starting_amount = 5 //Should match the integer in ../milk/overdose_start(mob/living/M)
 	var/converted_metabolism = converted_reagent.metabolization_rate //Extra brevity with converted reagent metabolism
-	amount_to_add = ((target_units-starting_amount)/minimum_cycles)+converted_metabolism
+	amount_to_add = ((50-5)/minimum_cycles)+converted_metabolism
 	M.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, amount_to_add)
 	return ..()
 	/*In depth explanation by DatBoiTim
