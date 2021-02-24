@@ -102,18 +102,6 @@
 		else
 			to_chat(user, "<span class='warning'>You need to hold a [is_robotic ? "screwdriver" : "cautery"] in your inactive hand to stop [M]'s surgery!</span>")
 
-/proc/get_location_modifier(mob/M)
-	var/turf/T = get_turf(M)
-	if(locate(/obj/structure/table/optable, T))
-		return 1
-	else if(locate(/obj/structure/table, T))
-		return 0.8
-	else if(locate(/obj/structure/bed, T))
-		return 0.7
-	else
-		return 0.5
-
-
 /proc/get_location_accessible(mob/M, location)
 	var/covered_locations = 0	//based on body_parts_covered
 	var/face_covered = 0	//based on flags_inv
