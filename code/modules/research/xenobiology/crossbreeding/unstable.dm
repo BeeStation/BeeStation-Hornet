@@ -22,6 +22,7 @@
 
 /obj/item/slimecross/unstable/grey
 	colour = "grey"
+	effect_desc = "When thrown creates a rabid slime that is loyal to you."
 
 /obj/item/slimecross/unstable/grey/on_effect(atom/hit_atom)
 	var/mob/living/simple_animal/slime/agrro/slimey =  new /mob/living/simple_animal/slime/agrro(get_turf(hit_atom))
@@ -32,12 +33,14 @@
 
 /obj/item/slimecross/unstable/orange
 	colour = "orange"
+	effect_desc = "When thrown creates a spot of immense heat"
 
 /obj/item/slimecross/unstable/orange/on_effect(atom/hit_atom)
-	new /obj/effect/hotspot(hit_atom.drop_location(),200,500)
+	new /obj/effect/hotspot(hit_atom.drop_location(),200,10000)
 
 /obj/item/slimecross/unstable/purple
 	colour = "purple"
+	effect_desc = "When thrown creates a smoke cloud of healing reagents."
 
 /obj/item/slimecross/unstable/purple/on_effect(atom/hit_atom)
 	var/datum/effect_system/smoke_spread/chem/S = new()
@@ -54,6 +57,7 @@
 
 /obj/item/slimecross/unstable/blue
 	colour = "blue"
+	effect_desc = "When thrown extinguishes mobs and cools them down."
 
 /obj/item/slimecross/unstable/blue/on_effect(atom/hit_atom)
 	for(var/i in 0 to 5)
@@ -63,6 +67,7 @@
 	for(var/mob/living/carbon/carbie in range(1,src))
 		carbie.fire_stacks = -2
 		carbie.ExtinguishMob()
+		carbie.set_bodytemperature(BODYTEMP_NORMAL)
 
 /obj/item/slimecross/unstable/metal
 	colour = "metal"
@@ -78,13 +83,15 @@
 
 /obj/item/slimecross/unstable/yellow
 	colour = "yellow"
+	effect_desc = "When thrown causes a tesla zap and a small emp."
 
 /obj/item/slimecross/unstable/yellow/on_effect(atom/hit_atom)
-	tesla_zap(get_turf(hit_atom),1,5000)
+	tesla_zap(get_turf(hit_atom),1,2000)
 	empulse(get_turf(hit_atom), 0,2,TRUE)
 
 /obj/item/slimecross/unstable/darkpurple
 	colour = "dark purple"
+	effect_desc = "When thrown spawns extremely hot plasma."
 
 /obj/item/slimecross/unstable/darkpurple/on_effect(atom/hit_atom)
 	atmos_spawn_air("plasma=[50];TEMP=[10000]")
@@ -96,6 +103,7 @@
 
 /obj/item/slimecross/unstable/darkblue
 	colour = "dark blue"
+	effect_desc = "When thrown stuns and ices the first thing it hits."
 
 /obj/item/slimecross/unstable/darkblue/on_effect(atom/hit_atom)
 	if(!iscarbon(hit_atom))
@@ -107,6 +115,7 @@
 
 /obj/item/slimecross/unstable/silver
 	colour = "silver"
+	effect_desc = "When thrown feeds whatever was hit with a lot of nutrition."
 
 /obj/item/slimecross/unstable/silver/on_effect(atom/hit_atom)
 	if(isliving(hit_atom))
@@ -115,6 +124,7 @@
 
 /obj/item/slimecross/unstable/bluespace
 	colour = "bluespace"
+	effect_desc = "When thrown teleports everything on hit turf to the thrower."
 
 /obj/item/slimecross/unstable/bluespace/on_effect(atom/hit_atom)
 	var/turf/turfie = get_turf(hit_atom)
@@ -127,6 +137,7 @@
 
 /obj/item/slimecross/unstable/sepia
 	colour = "sepia"
+	effect_desc = "When thrown creates a temporary 1 tile size timestop field."
 
 /obj/item/slimecross/unstable/sepia/on_effect(atom/hit_atom)
 	. = ..()
@@ -134,6 +145,7 @@
 
 /obj/item/slimecross/unstable/cerulean
 	colour = "cerulean"
+	effect_desc = "When thrown creates a weaker copy of the first human it hits or when it misses it creates a copy of it's thrower."
 
 /obj/item/slimecross/unstable/cerulean/on_effect(atom/hit_atom)
 	var/mob/living/carbon/human/H
@@ -164,10 +176,13 @@
 		spare.AddComponent(/datum/component/nanites, owner_nanites.nanite_volume)
 		SEND_SIGNAL(spare, COMSIG_NANITE_SYNC, owner_nanites, TRUE, TRUE) //The trues are to copy activation as well
 
+	spare.setMaxHealth(H.maxHealth/5)
+
 	H.notransform = FALSE
 
 /obj/item/slimecross/unstable/pyrite
 	colour = "pyrite"
+	effect_desc = "When thrown randomly colors nearby tiles"
 	var/list/color_list = list("#FFA500","#B19CD9", "#ADD8E6","#7E7E7E","#FFFF00","#551A8B","#0000FF","#D3D3D3", "#32CD32","#704214","#2956B2","#FAFAD2", "#FF0000",
 					"#00FF00", "#FF69B4","#FFD700", "#505050", "#FFB6C1","#008B8B")
 
@@ -177,6 +192,7 @@
 
 /obj/item/slimecross/unstable/red
 	colour = "red"
+	effect_desc = "When thrown causes extreme bleeding to the first person hit."
 
 /obj/item/slimecross/unstable/red/on_effect(atom/hit_atom)
 	if(!ishuman(hit_atom))
@@ -194,6 +210,7 @@
 
 /obj/item/slimecross/unstable/green
 	colour = "green"
+	effect_desc = "When thrown causes 25 brute damage, you heal for the amount of damage it deals after armor mitigation."
 
 /obj/item/slimecross/unstable/green/on_effect(atom/hit_atom)
 	if(!isliving(hit_atom))
@@ -207,6 +224,7 @@
 
 /obj/item/slimecross/unstable/pink
 	colour = "pink"
+	effect_desc = "When thrown it hugs the first thing it hits."
 
 /obj/item/slimecross/unstable/pink/on_effect(atom/hit_atom)
 	if(!iscarbon(hit_atom))
@@ -216,6 +234,7 @@
 
 /obj/item/slimecross/unstable/gold
 	colour = "gold"
+	effect_desc = "When thrown spawns goliath tentacles."
 
 /obj/item/slimecross/unstable/gold/on_effect(atom/hit_atom)
 	if(isliving(hit_atom))
@@ -225,12 +244,14 @@
 
 /obj/item/slimecross/unstable/oil
 	colour = "oil"
+	effect_desc = "When thrown it explodes."
 
 /obj/item/slimecross/unstable/oil/on_effect(atom/hit_atom)
 	dyn_explosion(get_turf(hit_atom),0.5)
 
 /obj/item/slimecross/unstable/black
 	colour = "black"
+	effect_desc = "When thrown it stains all visor in a 3x3 radius of the impact, additionally it also produces a small smoke cloud, both effects dont interact with eachother."
 
 /obj/item/slimecross/unstable/black/on_effect(atom/hit_atom)
 	var/datum/effect_system/smoke_spread/smoke = new
@@ -244,6 +265,7 @@
 
 /obj/item/slimecross/unstable/adamantine
 	colour = "adamantine"
+	effect_desc = "When thrown craetes deadly adamantine shards on the floor that rip apart shoes."
 
 /obj/item/slimecross/unstable/adamantine/on_effect(atom/hit_atom)
 	new /obj/item/slimecross/unstable/adamantine(get_turf(hit_atom))
@@ -252,6 +274,7 @@
 
 /obj/item/slimecross/unstable/rainbow
 	colour = "rainbow"
+	effect_desc = "When thrown the first human it hits will begin flaring in millions of colors and slowly melting."
 
 /obj/item/slimecross/unstable/rainbow/on_effect(atom/hit_atom)
 	if(!ishuman(hit_atom))
