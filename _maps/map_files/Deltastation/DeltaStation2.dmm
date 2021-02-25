@@ -59011,10 +59011,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/warden)
-"bVp" = (
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space)
 "bVq" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor/northright{
@@ -180265,9 +180261,9 @@ btw
 buS
 bwl
 bxt
-bVp
 qYo
-bVp
+qYo
+qYo
 bgZ
 bFO
 bHB
