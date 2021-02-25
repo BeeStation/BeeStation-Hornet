@@ -315,10 +315,10 @@
 
 /mob/living/carbon/proc/get_breath_from_internal(volume_needed)
 	if(internal)
-		if(internal.loc != src)
-			internal = null
-			update_internals_hud_icon(0)
-		else if ((!wear_mask || !(wear_mask.clothing_flags & MASKINTERNALS)) && !getorganslot(ORGAN_SLOT_BREATHING_TUBE))
+		//if(internal.loc != src)
+			//internal = null
+			//update_internals_hud_icon(0)
+		if ((!wear_mask || !(wear_mask.clothing_flags & MASKINTERNALS)) && !getorganslot(ORGAN_SLOT_BREATHING_TUBE))
 			internal = null
 			update_internals_hud_icon(0)
 		else
