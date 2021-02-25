@@ -39,11 +39,11 @@
 	button_icon_state = "warp_cancel"
 	owner.update_action_buttons_icon()
 	if(do_after(M, 50, target=target_loc, extra_checks=CALLBACK(src, .proc/special_check)))
+		button_icon_state = "warp_down"
+		owner.update_action_buttons_icon()
 		try_warp_servant(M, target_loc, 50, FALSE)
 		var/obj/machinery/computer/camera_advanced/console = cam.origin
 		console.remove_eye_control(M)
-	button_icon_state = "warp_down"
-	owner.update_action_buttons_icon()
 	warping = FALSE
 
 /datum/action/innate/clockcult/warp/proc/special_check()
