@@ -3,6 +3,10 @@
 	Currently contains speech spans and message modes
 */
 
+#define RADIO_EXTENSION "department specific"
+#define RADIO_KEY "department specific key"
+#define LANGUAGE_EXTENSION "language specific"
+
 //Message modes. Each one defines a radio channel, more or less.
 #define MODE_HEADSET "headset"
 #define MODE_ROBOT "robot"
@@ -21,12 +25,19 @@
 #define MODE_KEY_BINARY "b"
 #define MODE_TOKEN_BINARY ":b"
 
+ #define WHISPER_MODE "the type of whisper"
 #define MODE_WHISPER "whisper"
 #define MODE_WHISPER_CRIT "whispercrit"
 
 #define MODE_DEPARTMENT "department"
 #define MODE_KEY_DEPARTMENT "h"
 #define MODE_TOKEN_DEPARTMENT ":h"
+
+#define MODE_ADMIN "admin"
+#define MODE_KEY_ADMIN "p"
+
+#define MODE_DEADMIN "deadmin"
+#define MODE_KEY_DEADMIN "d"
 
 #define MODE_ALIEN "alientalk"
 #define MODE_HOLOPAD "holopad"
@@ -87,6 +98,10 @@
 #define CHAT_FILTER_CHECK(T) (CONFIG_GET(flag/ic_filter_enabled) && config.ic_filter_regex && findtext(T, config.ic_filter_regex))
 // Is something in the OOC chat filter?
 #define OOC_FILTER_CHECK(T) (CONFIG_GET(flag/ooc_filter_enabled) && config.ooc_filter_regex && findtext(T, config.ooc_filter_regex))
+
+// Audio/Visual Flags. Used to determine what sense are required to notice a message.
+#define MSG_VISUAL (1<<0)
+#define MSG_AUDIBLE (1<<1)
 
 #define INVOCATION_SHOUT "shout"
 #define INVOCATION_EMOTE "emote"

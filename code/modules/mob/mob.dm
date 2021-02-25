@@ -181,7 +181,7 @@
 	if(!islist(ignored_mobs))
 		ignored_mobs = list(ignored_mobs)
 
-	var/list/hearers = get_hearers_in_view(vision_distance, src) //caches the hearers and then removes ignored mobs.
+	var/list/hearers = hearers(vision_distance, T) //caches the hearers and then removes ignored mobs.
 	hearers -= ignored_mobs
 
 	if(self_message)
@@ -230,7 +230,11 @@
   * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
   */
 /atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, audible_message_flags = NONE)
-	var/list/hearers = get_hearers_in_view(hearing_distance, src)
+	var/turf/T = get_turf(src)
+	if(!T)
+		return
+
+	var/list/hearers = hearers(hearing_distance, T)
 	if(self_message)
 		hearers -= src
 

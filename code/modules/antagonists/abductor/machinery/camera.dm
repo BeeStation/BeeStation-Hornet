@@ -67,7 +67,7 @@
 	if(!target || !iscarbon(owner))
 		return
 	var/mob/living/carbon/human/C = owner
-	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
+	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
 	var/obj/machinery/abductor/pad/P = target
 	var/target_loc = get_turf(remote_eye)
 
@@ -99,7 +99,7 @@
 	if(!target || !iscarbon(owner))
 		return
 	var/mob/living/carbon/human/C = owner
-	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
+	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
 	var/obj/machinery/abductor/pad/P = target
 	var/target_loc = get_turf(remote_eye)
 
@@ -143,7 +143,7 @@
 		return
 
 	var/mob/living/carbon/human/C = owner
-	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
+	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
 
 	var/obj/machinery/abductor/console/console = target
 	console.SetDroppoint(remote_eye.loc,owner)

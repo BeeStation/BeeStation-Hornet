@@ -349,7 +349,7 @@ proc name: get fuel (/obj/item/weapon/weldingtool/proc/get_fuel)
 
 /obj/machinery/power/grounding_rod - 1 time(s).
 
-/mob/camera/aiEye - 1 time(s).
+/mob/camera/ai_eye - 1 time(s).
 
 /datum/data/record - 1 time(s).
 
