@@ -88,13 +88,13 @@
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
 
-/obj/screen/plane_master/runechat
+/atom/movable/screen/plane_master/runechat
 	name = "runechat plane master"
 	plane = RUNECHAT_PLANE
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
 
-/obj/screen/plane_master/runechat/backdrop(mob/mymob)
+/atom/movable/screen/plane_master/runechat/backdrop(mob/mymob)
 	filters = list()
 	if(istype(mymob) && mymob.client?.prefs?.ambientocclusion)
-		filters += AMBIENT_OCCLUSION
+		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
