@@ -1,8 +1,9 @@
 /area
 	var/legacy_lighting = TRUE
 
-/area/space
-	legacy_lighting = FALSE
+//Non legacy lighting areas.
+//Any lighting area that wont support static legacy lights.
+//These areas will not have corners generated.
 
-/area/lavaland
+/area/space
 	legacy_lighting = FALSE
