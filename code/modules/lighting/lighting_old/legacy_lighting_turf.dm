@@ -1,6 +1,4 @@
 /turf
-	var/consider_legacy_lighting = FALSE
-
 	var/tmp/lighting_corners_initialised = FALSE
 
 	var/tmp/list/datum/legacy_light_source/legacy_affecting_lights       // List of light sources affecting this turf.
@@ -97,7 +95,8 @@
 	return legacy_corners
 
 /turf/proc/legacy_generate_missing_corners()
-	if (!consider_legacy_lighting && !legacy_light_sources)
+	var/area/A = loc
+	if (!A.legacy_lighting && !legacy_light_sources)
 		return
 	lighting_corners_initialised = TRUE
 	if (!legacy_corners)
