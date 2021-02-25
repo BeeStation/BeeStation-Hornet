@@ -89,7 +89,7 @@
 	var/mob/living/stored
 	var/mob/living/shape
 	var/restoring = FALSE
-	var/convert_damage
+	var/convert_damage = TRUE
 	var/convert_damage_type = BRUTE
 	var/die_with_shapeshifted_form = TRUE
 	var/revert_on_death = TRUE
