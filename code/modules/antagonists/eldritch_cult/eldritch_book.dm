@@ -6,8 +6,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	///Last person that touched this
 	var/mob/living/last_user
-	///how many charges do we have?
-	var/charge = 1
 	///Is it in use?
 	var/in_use = FALSE
 
