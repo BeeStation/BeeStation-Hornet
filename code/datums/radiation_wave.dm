@@ -206,7 +206,7 @@
 
 	// Now is time to move forward
 	intensity = intensity_new
-	steps++
+	steps += delta_time
 
 /datum/radiation_wave/proc/check_obstructions(list/atoms, index)
 	for(var/k in 1 to atoms.len)
