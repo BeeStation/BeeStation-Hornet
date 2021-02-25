@@ -71,7 +71,7 @@
 /area/warped_room)
 "p" = (
 /obj/structure/table/wood,
-/obj/structure/showcase/machinery/microwave,
+/obj/machinery/microwave,
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "q" = (
