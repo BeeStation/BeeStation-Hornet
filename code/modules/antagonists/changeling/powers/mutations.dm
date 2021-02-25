@@ -343,7 +343,7 @@
 		return BULLET_ACT_BLOCK
 
 	var/mob/living/carbon/human/H = firer
-	if (istype(H))
+	if(istype(H))
 		if(isitem(target))
 			var/obj/item/I = target
 			if(!I.anchored)
