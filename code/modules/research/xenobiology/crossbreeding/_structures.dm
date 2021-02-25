@@ -100,9 +100,6 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		affected_mobs -= M
 
 /obj/structure/slime_crystal/gold/process()
-	if(!uses_process)
-		return PROCESS_KILL
-
 	var/list/current_mobs = view_or_range(3, src, range_type)
 	for(var/M in affected_mobs - current_mobs)
 		on_mob_leave(M)
