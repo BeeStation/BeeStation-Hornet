@@ -140,5 +140,5 @@
 	if(harderforce)
 		. = ..()
 
-/atom/movable/lighting_object/onShuttleMove()
+/atom/movable/legacy_lighting_object/onShuttleMove()
 	return FALSE

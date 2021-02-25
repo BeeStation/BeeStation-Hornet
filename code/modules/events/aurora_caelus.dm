@@ -24,8 +24,11 @@
 /datum/round_event/aurora_caelus/start()
 	for(var/area/space/nearstation/area in GLOB.sortedAreas)
 		var/area/A = area
+		var/number = 0
 		for(var/turf/open/space/S in A)
-			S.set_light(7, S.light_power * 0.5, aurora_colors[1])
+			if(number % 5 == 0)
+				S.set_light(7, S.light_power * 0.5, aurora_colors[1])
+			number ++
 			CHECK_TICK
 
 /datum/round_event/aurora_caelus/tick()
@@ -35,12 +38,15 @@
 		for(var/area/space/nearstation/area in GLOB.sortedAreas)
 			var/area/A = area
 			for(var/turf/open/space/S in A)
-				S.fade_light(aurora_color, 50)
+				if(S.light_range)
+					S.fade_light(aurora_color, 50)
+				CHECK_TICK
 
 /datum/round_event/aurora_caelus/end()
 	for(var/area/space/nearstation/A in GLOB.sortedAreas)
 		for(var/turf/open/space/S in A)
 			fade_to_black(S)
+			CHECK_TICK
 	priority_announce("The aurora caelus event is now ending. Starlight conditions will slowly return to normal. When this has concluded, please return to your workplace and continue work as normal. Have a pleasant shift, [station_name()], and thank you for watching with us.",
 	sound = 'sound/misc/notice2.ogg',
 	sender_override = "Nanotrasen Meteorology Division")
