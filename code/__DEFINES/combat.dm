@@ -107,6 +107,7 @@
 
 //the define for visible message range in combat
 #define COMBAT_MESSAGE_RANGE 3
+#define DEFAULT_MESSAGE_RANGE 7
 
 //Shove knockdown lengths (deciseconds)
 #define SHOVE_KNOCKDOWN_SOLID 30
@@ -215,3 +216,7 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BULLET_ACT_BLOCK			"BLOCK"		//! It's a blocked hit, whatever that means in the context of the thing it's hitting.
 #define BULLET_ACT_FORCE_PIERCE		"PIERCE"	//! It pierces through the object regardless of the bullet being piercing by default.
 #define BULLET_ACT_TURF				"TURF"		//! It hit us but it should hit something on the same turf too. Usually used for turfs.
+
+// Audio/Visual Flags. Used to determine what sense are required to notice a message.
+#define MSG_VISUAL (1<<0)
+#define MSG_AUDIBLE (1<<1)

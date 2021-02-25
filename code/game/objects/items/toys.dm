@@ -204,7 +204,7 @@
 		return
 	src.add_fingerprint(user)
 	if (src.bullets < 1)
-		user.show_message("<span class='warning'>*click*</span>", 2)
+		user.show_message("<span class='warning'>*click*</span>", MSG_AUDIBLE)
 		playsound(src, 'sound/weapons/gun_dry_fire.ogg', 30, TRUE)
 		return
 	playsound(user, 'sound/weapons/gunshot.ogg', 100, 1)
@@ -1522,7 +1522,7 @@
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
 		update_icon()
-	
+
 	var/choice = null
 	if(!LAZYLEN(cards))
 		to_chat(user, "<span class='warning'>There are no more cards to draw!</span>")

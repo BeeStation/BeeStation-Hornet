@@ -61,7 +61,7 @@
 	if(!(end in list("!", ".", "?", ":", "\"", "-")))
 		msg += "."
 
-	user.log_message(msg, LOG_EMOTE)
+	var/dchatmsg = "<b>[user]</b> [msg]"
 
 	msg = "<span class='emote'><b>[user]</b> " + msg + "</span>"
 
@@ -74,12 +74,12 @@
 			continue
 		var/T = get_turf(user)
 		if(M.stat == DEAD && M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTSIGHT) && !(M in viewers(T)))
-			M.show_message(msg)
+			M.show_message("[FOLLOW_LINK(M, user)] [dchatmsg]")
 
 	if(emote_type == EMOTE_AUDIBLE)
-		user.audible_message(msg)
+		user.audible_message(msg, audible_message_flags = EMOTE_MESSAGE)
 	else
-		user.visible_message(msg)
+		user.visible_message(msg, visible_message_flags = EMOTE_MESSAGE)
 
 /datum/emote/proc/get_sound(mob/living/user)
 	return sound //by default just return this var.

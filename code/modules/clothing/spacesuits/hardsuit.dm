@@ -67,7 +67,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/proc/display_visor_message(var/msg)
 	var/mob/wearer = loc
 	if(msg && ishuman(wearer))
-		wearer.show_message("[icon2html(src, wearer)]<b><span class='robot'>[msg]</span></b>", 1)
+		wearer.show_message("[icon2html(src, wearer)]<b><span class='robot'>[msg]</span></b>", MSG_VISUAL)
 
 /obj/item/clothing/head/helmet/space/hardsuit/rad_act(severity)
 	. = ..()
