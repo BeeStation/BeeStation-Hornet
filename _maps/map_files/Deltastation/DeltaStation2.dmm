@@ -5514,27 +5514,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port)
-"alP" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/brigdoor/northright{
-	dir = 4;
-	name = "Warden's Desk";
-	req_access_txt = "3"
-	},
-/obj/machinery/door/window/westleft{
-	name = "Warden's Desk"
-	},
-/obj/item/folder/red,
-/obj/item/pen,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/security/warden)
 "alQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -39032,7 +39011,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = "63"
+	req_one_access_txt = "1;4"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -40202,7 +40181,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Transferring Control";
-	req_access_txt = "63"
+	req_one_access_txt = "1;4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -40298,7 +40277,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = "63"
+	req_one_access_txt = "1;4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -42730,7 +42709,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Transferring Control";
-	req_access_txt = "63"
+	req_one_access_txt = "1;4"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/red{
@@ -44683,7 +44662,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage";
-	req_access_txt = "63"
+	req_one_access_txt = "1;4"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -121085,15 +121064,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
-"hKx" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
 "hLm" = (
 /obj/machinery/power/terminal{
 	dir = 4
@@ -121833,6 +121803,25 @@
 	},
 /turf/open/space,
 /area/space/nearstation)
+"kix" = (
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/structure/disposalpipe/junction/flip{
+	dir = 2
+	},
+/obj/machinery/requests_console{
+	department = "Security";
+	name = "Security RC";
+	pixel_x = 32;
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "kje" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -122012,25 +122001,6 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/aft)
-"kSW" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/structure/disposalpipe/junction/flip{
-	dir = 2
-	},
-/obj/machinery/requests_console{
-	department = "Security";
-	name = "Security RC";
-	pixel_x = 32;
-	pixel_y = 32
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
 "kWj" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -123062,15 +123032,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"oeQ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plasteel,
-/area/security/brig)
 "ogg" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall/r_wall,
@@ -124438,6 +124399,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
+"sqG" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/airalarm{
+	dir = 8;
+	pixel_x = 24
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "srd" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -124518,6 +124488,27 @@
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
+"sFS" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/brigdoor/northright{
+	dir = 4;
+	name = "Warden's Desk";
+	req_access_txt = "3"
+	},
+/obj/machinery/door/window/westleft{
+	name = "Warden's Desk"
+	},
+/obj/item/folder/red,
+/obj/item/pen,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/security/warden)
 "sII" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -124746,6 +124737,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"toy" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plasteel,
+/area/security/brig)
 "tub" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -177701,8 +177701,8 @@ bCg
 bCh
 bFK
 bNl
-oeQ
-kSW
+toy
+kix
 bNl
 cfh
 cfq
@@ -177712,7 +177712,7 @@ bXH
 bZP
 cbB
 cdp
-hKx
+sqG
 cgX
 ciH
 ckl
@@ -177960,7 +177960,7 @@ bFL
 bFL
 bFL
 bJB
-alP
+sFS
 bPs
 cfr
 bCc
