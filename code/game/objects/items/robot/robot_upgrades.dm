@@ -316,7 +316,6 @@
 	require_module = 1
 	var/repair_amount = -1
 	var/repair_tick = 1
-	var/msg_cooldown = 0
 	var/on = FALSE
 	var/powercost = 10
 	var/mob/living/silicon/robot/cyborg
