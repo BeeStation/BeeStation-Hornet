@@ -33,7 +33,7 @@
 
 /datum/reagent/shiftium/overdose_process(mob/living/L)
 	L.adjustStaminaLoss(5, 0)
-	if(prob(volume * 2.5))
+	if(!shapeshiftdata && prob(volume * 2.5))
 		var/datum/antagonist/changeling/changeling = L.mind?.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			metabolization_rate = 10 * REAGENTS_METABOLISM
