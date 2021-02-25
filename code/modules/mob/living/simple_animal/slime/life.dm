@@ -18,6 +18,9 @@
 			handle_feeding()
 		if(!stat) // Slimes in stasis don't lose nutrition, don't change mood and don't respond to speech
 			handle_nutrition()
+			if(QDELETED(src)) // Stop if the slime split during handle_nutrition()
+				return
+			reagents.remove_all(0.5 * REAGENTS_METABOLISM * reagents.reagent_list.len) //Slimes are such snowflakes
 			handle_targets()
 			if(!ckey)
 				handle_mood()
@@ -48,7 +51,7 @@
 		if((attacked || rabid) && Adjacent(Target))
 			Target.attack_slime(src)
 			attack_cooldown = world.time + attack_cooldown_time
-	else if(Target in view(7, src))
+	else if(src in viewers(7, Target))
 		if((transformeffects & SLIME_EFFECT_BLUESPACE) && powerlevel >= 5)
 			do_teleport(src, get_turf(Target), asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
 			powerlevel -= 5
@@ -438,12 +441,12 @@
 		var/slimes_near = 0
 		var/dead_slimes = 0
 		var/friends_near = list()
-		for (var/mob/living/L in view(7,src))
-			if(isslime(L) && L != src)
+		for (var/mob/living/L in oview(7,src))
+			if(isslime(L))
 				++slimes_near
 				if (L.stat == DEAD)
 					++dead_slimes
-			if (L in Friends)
+			if(L in Friends)
 				t += 20
 				friends_near += L
 		if (nutrition < get_hunger_nutrition())

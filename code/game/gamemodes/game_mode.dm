@@ -587,6 +587,7 @@
 	valid_positions += GLOB.science_positions
 	valid_positions += GLOB.supply_positions
 	valid_positions += GLOB.civilian_positions
+	valid_positions += GLOB.gimmick_positions
 	valid_positions += GLOB.security_positions
 	if(CONFIG_GET(flag/reopen_roundstart_suicide_roles_command_positions))
 		valid_positions += GLOB.command_positions //add any remaining command positions
@@ -824,7 +825,7 @@
 	var/list/human_garbage = list()
 	round_credits += "<center><h1>The Hardy Civilians:</h1>"
 	len_before_addition = round_credits.len
-	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.civilian_positions))
+	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.civilian_positions | GLOB.gimmick_positions))
 		if(current.assigned_role == "Assistant")
 			human_garbage += current
 		else

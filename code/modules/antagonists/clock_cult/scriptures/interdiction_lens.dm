@@ -1,4 +1,4 @@
-#define INTERDICTION_LENS_RANGE 3
+#define INTERDICTION_LENS_RANGE 5
 
 /datum/clockcult/scripture/create_structure/interdiction
 	name = "Interdiction Lens"
@@ -61,13 +61,12 @@
 		return
 	if(prob(5))
 		new /obj/effect/temp_visual/steam_release(get_turf(src))
-	for(var/mob/living/L in range(INTERDICTION_LENS_RANGE, src))
-		if(!is_servant_of_ratvar(L))
-			if(use_power(5))
-				L.apply_status_effect(STATUS_EFFECT_INTERDICTION)
-	for(var/obj/mecha/M in range(INTERDICTION_LENS_RANGE, src))
+	for(var/mob/living/L in viewers(INTERDICTION_LENS_RANGE, src))
+		if(!is_servant_of_ratvar(L) && use_power(5))
+			L.apply_status_effect(STATUS_EFFECT_INTERDICTION)
+	for(var/obj/mecha/M in dview(INTERDICTION_LENS_RANGE, src, SEE_INVISIBLE_MINIMUM))
 		if(use_power(5))
-			M.use_power(8000)
+			M.emp_act(EMP_HEAVY)
 			M.take_damage(80)
 			do_sparks(4, TRUE, M)
 

@@ -29,7 +29,7 @@
 		return
 	if(iscarbon(hit_atom))
 		var/mob/living/carbon/H = hit_atom
-		if(istype(H.head, /obj/item/clothing))
+		if(isclothing(H.head))
 			var/obj/item/clothing/WH = H.head
 			///check if the item has NODROP
 			if(HAS_TRAIT(WH, TRAIT_NODROP))
