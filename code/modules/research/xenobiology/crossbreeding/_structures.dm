@@ -106,7 +106,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		affected_mobs -= M
 
 	for(var/mob/living/M in affected_mobs)
-		if(M.health <= 0)
+		if(M.stat == DEAD)
 			on_mob_leave(M)
 			affected_mobs -= M
 
