@@ -82,6 +82,8 @@
 	. = ..()
 	if(light)
 		QDEL_NULL(light)
+	if(legacy_light)
+		QDEL_NULL(legacy_light)
 	if (opacity && istype(T))
 		var/old_has_opaque_atom = T.has_opaque_atom
 		T.recalc_atom_opacity()
