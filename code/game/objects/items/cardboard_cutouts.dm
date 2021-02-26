@@ -185,3 +185,63 @@
 
 /obj/item/cardboard_cutout/adaptive //Purchased by Syndicate agents, these cutouts are indistinguishable from normal cutouts but aren't discolored when their appearance is changed
 	deceptive = TRUE
+	
+//	--- CHESS PIECES ---
+
+// WHITE
+
+/obj/item/cardboard_cutout/adaptive/white
+	color = "#FFFFFF";
+
+/obj/item/cardboard_cutout/adaptive/white/king
+	name = "White King"
+	icon_state = "cutout_ian";
+
+/obj/item/cardboard_cutout/adaptive/white/queen
+	name = "White Queen"
+	icon_state = "cutout_deathsquad";
+
+/obj/item/cardboard_cutout/adaptive/white/rook
+	name = "White Rook"
+	icon_state = "cutout_ntsec";
+
+/obj/item/cardboard_cutout/adaptive/white/knight
+	name = "White Knight"
+	icon_state = "cutout_lusty";
+
+/obj/item/cardboard_cutout/adaptive/white/bishop
+	name = "White Bishop"
+	icon_state = "cutout_clown";
+	
+/obj/item/cardboard_cutout/adaptive/white/pawn
+	name = "White Pawn"
+	icon_state = "cutout_greytide";
+
+// BLACK
+
+/obj/item/cardboard_cutout/adaptive/black
+	color = "#9999BB";
+
+/obj/item/cardboard_cutout/adaptive/black/king
+	name = "Black King"
+	icon_state = "cutout_wizard";
+
+/obj/item/cardboard_cutout/adaptive/black/queen
+	name = "Black Queen"
+	icon_state = "cutout_fluke";
+
+/obj/item/cardboard_cutout/adaptive/black/rook
+	name = "Black Rook"
+	icon_state = "cutout_traitor";
+
+/obj/item/cardboard_cutout/adaptive/black/knight
+	name = "Black Knight"
+	icon_state = "cutout_fukken_xeno";
+
+/obj/item/cardboard_cutout/adaptive/black/bishop
+	name = "Black Bishop"
+	icon_state = "cutout_cultist";
+	
+/obj/item/cardboard_cutout/adaptive/black/pawn
+	name = "Black Pawn"
+	icon_state = "cutout_shadowling";

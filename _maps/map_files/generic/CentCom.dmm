@@ -1347,43 +1347,27 @@
 /turf/open/floor/holofloor/plating,
 /area/holodeck/rec_center/refuel)
 "dH" = (
-/obj/item/cardboard_cutout/adaptive{
-	color = "#9999BB";
-	icon_state = "cutout_viva";
-	name = "Black Rook"
-	},
+/obj/item/cardboard_cutout/adaptive/black/rook,
 /turf/open/floor/holofloor{
 	dir = 8;
 	icon_state = "dark"
 	},
 /area/holodeck/rec_center/spacechess)
 "dI" = (
-/obj/item/cardboard_cutout/adaptive{
-	color = "#9999BB";
-	icon_state = "cutout_mime";
-	name = "Black Queen"
-	},
+/obj/item/cardboard_cutout/adaptive/black/queen,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
 /area/holodeck/rec_center/spacechess)
 "dJ" = (
-/obj/item/cardboard_cutout/adaptive{
-	color = "#9999BB";
-	icon_state = "cutout_clown";
-	name = "Black King"
-	},
+/obj/item/cardboard_cutout/adaptive/black/king,
 /turf/open/floor/holofloor{
 	dir = 8;
 	icon_state = "dark"
 	},
 /area/holodeck/rec_center/spacechess)
 "dK" = (
-/obj/item/cardboard_cutout/adaptive{
-	color = "#9999BB";
-	icon_state = "cutout_ian";
-	name = "Black Knight"
-	},
+/obj/item/cardboard_cutout/adaptive/black/knight,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
@@ -1536,21 +1520,13 @@
 	},
 /area/holodeck/rec_center/firingrange)
 "ed" = (
-/obj/item/cardboard_cutout/adaptive{
-	color = "#9999BB";
-	icon_state = "cutout_greytide";
-	name = "Black Pawn"
-	},
+/obj/item/cardboard_cutout/adaptive/black/pawn,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
 /area/holodeck/rec_center/spacechess)
 "ee" = (
-/obj/item/cardboard_cutout/adaptive{
-	color = "#9999BB";
-	icon_state = "cutout_greytide";
-	name = "Black Pawn"
-	},
+/obj/item/cardboard_cutout/adaptive/black/pawn,
 /turf/open/floor/holofloor{
 	dir = 8;
 	icon_state = "dark"
@@ -1842,20 +1818,14 @@
 /turf/open/floor/holofloor/plating,
 /area/holodeck/rec_center/kobayashi)
 "eW" = (
-/obj/item/cardboard_cutout/adaptive{
-	icon_state = "cutout_greytide";
-	name = "White Pawn"
-	},
+/obj/item/cardboard_cutout/adaptive/white/pawn,
 /turf/open/floor/holofloor{
 	dir = 8;
 	icon_state = "dark"
 	},
 /area/holodeck/rec_center/spacechess)
 "eX" = (
-/obj/item/cardboard_cutout/adaptive{
-	icon_state = "cutout_greytide";
-	name = "White Pawn"
-	},
+/obj/item/cardboard_cutout/adaptive/white/pawn,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
@@ -1972,38 +1942,26 @@
 /turf/open/floor/holofloor,
 /area/holodeck/rec_center/firingrange)
 "fj" = (
-/obj/item/cardboard_cutout/adaptive{
-	icon_state = "cutout_viva";
-	name = "White Rook"
-	},
+/obj/item/cardboard_cutout/adaptive/white/rook,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
 /area/holodeck/rec_center/spacechess)
 "fk" = (
-/obj/item/cardboard_cutout/adaptive{
-	icon_state = "cutout_mime";
-	name = "White Queen"
-	},
+/obj/item/cardboard_cutout/adaptive/white/queen,
 /turf/open/floor/holofloor{
 	dir = 8;
 	icon_state = "dark"
 	},
 /area/holodeck/rec_center/spacechess)
 "fl" = (
-/obj/item/cardboard_cutout/adaptive{
-	icon_state = "cutout_clown";
-	name = "White King"
-	},
+/obj/item/cardboard_cutout/adaptive/white/king,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
 /area/holodeck/rec_center/spacechess)
 "fm" = (
-/obj/item/cardboard_cutout/adaptive{
-	icon_state = "cutout_ian";
-	name = "White Knight"
-	},
+/obj/item/cardboard_cutout/adaptive/white/knight,
 /turf/open/floor/holofloor{
 	dir = 8;
 	icon_state = "dark"
