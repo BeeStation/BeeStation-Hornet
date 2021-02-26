@@ -2510,7 +2510,7 @@ datum/supply_pack/medical/bruisekits
 
 /datum/supply_pack/costumes_toys/chess_white
 	name = "White Chess Piece Crate"
-	desc = "Look at you, playing a nerd's game within a nerd's game!"
+	desc = "Look at you, playing a nerd game within a nerd game!"
 	cost = 500
 	contains = list(
 		/obj/item/cardboard_cutout/adaptive/chess/king,
@@ -2534,7 +2534,7 @@ datum/supply_pack/medical/bruisekits
 
 /datum/supply_pack/costumes_toys/chess_black
 	name = "Black Chess Piece Crate"
-	desc = "Look at you, playing a nerd's game within a nerd's game!"
+	desc = "Look at you, playing a nerd game within a nerd game!"
 	cost = 500
 	contains = list(
 		/obj/item/cardboard_cutout/adaptive/chess/black/king,
