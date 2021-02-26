@@ -17,7 +17,6 @@ GLOBAL_VAR_INIT(bsa_unlock, FALSE)	//! BSA unlocked by head ID swipes
 
 GLOBAL_LIST_EMPTY(player_details)	//! ckey -> /datum/player_details
 
-GLOBAL_VAR_INIT(remote_control, TRUE) //! circuit shit
 ///All currently running polls held as datums
 GLOBAL_LIST_EMPTY(polls)
 GLOBAL_PROTECT(polls)
