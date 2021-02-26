@@ -1,5 +1,0 @@
-author: bloons3
-delete-after: true
-changes:
-  - bugfix: You can no longer roll a Die of Fate multiple times before the first roll
-      takes effect
