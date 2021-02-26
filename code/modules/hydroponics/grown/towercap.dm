@@ -157,6 +157,9 @@ obj/item/seeds/bamboo
 	var/fire_stack_strength = 5
 	var/needs_oxygen = TRUE
 
+/obj/structure/bonfire/bluespace
+	needs_oxygen = FALSE
+
 /obj/structure/bonfire/dense
 	density = TRUE
 
