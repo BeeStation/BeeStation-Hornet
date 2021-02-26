@@ -134,12 +134,10 @@
 /obj/item/reagent_containers/food/drinks/soda_cans/tonic{
 	pixel_y = -3
 },
-/obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/soda_cans/tonic{
 	pixel_x = -3,
 	pixel_y = 3
 },
-/obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/soda_cans/tonic{
 	pixel_x = 3,
 	pixel_y = 3
@@ -147,7 +145,6 @@
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "G" = (
-/obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/nachos{
 	pixel_y = -3
 },
@@ -156,7 +153,6 @@
 	pixel_x = -3,
 	pixel_y = 3
 },
-/obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/nachos {
 	pixel_x = 3,
 	pixel_y = 3
