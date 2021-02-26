@@ -133,12 +133,18 @@
 	turf_type = /turf/open/floor/carpet/blue
 	tableVariant = /obj/structure/table/wood/fancy/blue
 
+/obj/item/stack/tile/carpet/blue/thirtytwo
+	amount = 32
+
 /obj/item/stack/tile/carpet/cyan
 	name = "cyan carpet"
 	icon_state = "tile-carpet-cyan"
 	item_state = "tile-carpet-cyan"
 	turf_type = /turf/open/floor/carpet/cyan
 	tableVariant = /obj/structure/table/wood/fancy/cyan
+
+/obj/item/stack/tile/carpet/cyan/thirtytwo
+	amount = 32
 
 /obj/item/stack/tile/carpet/green
 	name = "green carpet"

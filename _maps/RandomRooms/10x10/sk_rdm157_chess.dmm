@@ -36,83 +36,83 @@
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "i" = (
-/obj/item/cardboard_cutout/adaptive/black/rook,
+/obj/item/cardboard_cutout/adaptive/chess/black/rook,
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "j" = (
-/obj/item/cardboard_cutout/adaptive/black/knight,
+/obj/item/cardboard_cutout/adaptive/chess/black/knight,
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "k" = (
-/obj/item/cardboard_cutout/adaptive/black/bishop,
+/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "l" = (
-/obj/item/cardboard_cutout/adaptive/black/queen,
+/obj/item/cardboard_cutout/adaptive/chess/black/queen,
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "m" = (
-/obj/item/cardboard_cutout/adaptive/black/king,
+/obj/item/cardboard_cutout/adaptive/chess/black/king,
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "n" = (
-/obj/item/cardboard_cutout/adaptive/black/bishop,
+/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "o" = (
-/obj/item/cardboard_cutout/adaptive/black/knight,
+/obj/item/cardboard_cutout/adaptive/chess/black/knight,
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "p" = (
-/obj/item/cardboard_cutout/adaptive/black/rook,
+/obj/item/cardboard_cutout/adaptive/chess/black/rook,
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "q" = (
-/obj/item/cardboard_cutout/adaptive/black/pawn,
+/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "r" = (
-/obj/item/cardboard_cutout/adaptive/black/pawn,
+/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "s" = (
-/obj/item/cardboard_cutout/adaptive/white/pawn,
+/obj/item/cardboard_cutout/adaptive/chess/pawn,
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "t" = (
-/obj/item/cardboard_cutout/adaptive/white/pawn,
+/obj/item/cardboard_cutout/adaptive/chess/pawn,
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "u" = (
-/obj/item/cardboard_cutout/adaptive/white/rook,
+/obj/item/cardboard_cutout/adaptive/chess/rook,
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "v" = (
-/obj/item/cardboard_cutout/adaptive/white/knight,
+/obj/item/cardboard_cutout/adaptive/chess/knight,
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "w" = (
-/obj/item/cardboard_cutout/adaptive/white/bishop,
+/obj/item/cardboard_cutout/adaptive/chess/bishop,
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "x" = (
-/obj/item/cardboard_cutout/adaptive/white/queen,
+/obj/item/cardboard_cutout/adaptive/chess/queen,
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "y" = (
-/obj/item/cardboard_cutout/adaptive/white/king,
+/obj/item/cardboard_cutout/adaptive/chess/king,
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "z" = (
-/obj/item/cardboard_cutout/adaptive/white/bishop,
+/obj/item/cardboard_cutout/adaptive/chess/bishop,
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "A" = (
-/obj/item/cardboard_cutout/adaptive/white/knight,
+/obj/item/cardboard_cutout/adaptive/chess/knight,
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "B" = (
-/obj/item/cardboard_cutout/adaptive/white/rook,
+/obj/item/cardboard_cutout/adaptive/chess/rook,
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "C" = (

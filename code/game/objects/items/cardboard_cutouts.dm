@@ -190,36 +190,36 @@
 
 // WHITE
 
-/obj/item/cardboard_cutout/adaptive/white
-	color = "#FFFFFF";
+/obj/item/cardboard_cutout/adaptive/chess
+	desc = "A large cardboard cutout resembling a chess piece."
 
-/obj/item/cardboard_cutout/adaptive/white/king
+/obj/item/cardboard_cutout/adaptive/chess/king
 	name = "White King"
 	icon_state = "cutout_ian";
 
-/obj/item/cardboard_cutout/adaptive/white/queen
+/obj/item/cardboard_cutout/adaptive/chess/queen
 	name = "White Queen"
 	icon_state = "cutout_clown";
 
-/obj/item/cardboard_cutout/adaptive/white/rook
+/obj/item/cardboard_cutout/adaptive/chess/rook
 	name = "White Rook"
 	icon_state = "cutout_deathsquad";
 
-/obj/item/cardboard_cutout/adaptive/white/knight
+/obj/item/cardboard_cutout/adaptive/chess/knight
 	name = "White Knight"
 	icon_state = "cutout_lusty";
 
-/obj/item/cardboard_cutout/adaptive/white/bishop
+/obj/item/cardboard_cutout/adaptive/chess/bishop
 	name = "White Bishop"
 	icon_state = "cutout_ntsec";
 	
-/obj/item/cardboard_cutout/adaptive/white/pawn
+/obj/item/cardboard_cutout/adaptive/chess/pawn
 	name = "White Pawn"
 	icon_state = "cutout_greytide";
 
 // BLACK
 
-/obj/item/cardboard_cutout/adaptive/black
+/obj/item/cardboard_cutout/adaptive/chess/black
 	color = "#9999BB";
 
 /obj/item/cardboard_cutout/adaptive/black/king

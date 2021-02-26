@@ -1347,27 +1347,27 @@
 /turf/open/floor/holofloor/plating,
 /area/holodeck/rec_center/refuel)
 "dH" = (
-/obj/item/cardboard_cutout/adaptive/black/rook,
+/obj/item/cardboard_cutout/adaptive/chess/black/rook,
 /turf/open/floor/holofloor{
 	dir = 8;
 	icon_state = "dark"
 	},
 /area/holodeck/rec_center/spacechess)
 "dI" = (
-/obj/item/cardboard_cutout/adaptive/black/queen,
+/obj/item/cardboard_cutout/adaptive/chess/black/queen,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
 /area/holodeck/rec_center/spacechess)
 "dJ" = (
-/obj/item/cardboard_cutout/adaptive/black/king,
+/obj/item/cardboard_cutout/adaptive/chess/black/king,
 /turf/open/floor/holofloor{
 	dir = 8;
 	icon_state = "dark"
 	},
 /area/holodeck/rec_center/spacechess)
 "dK" = (
-/obj/item/cardboard_cutout/adaptive/black/knight,
+/obj/item/cardboard_cutout/adaptive/chess/black/knight,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
@@ -1520,13 +1520,13 @@
 	},
 /area/holodeck/rec_center/firingrange)
 "ed" = (
-/obj/item/cardboard_cutout/adaptive/black/pawn,
+/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
 /area/holodeck/rec_center/spacechess)
 "ee" = (
-/obj/item/cardboard_cutout/adaptive/black/pawn,
+/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
 /turf/open/floor/holofloor{
 	dir = 8;
 	icon_state = "dark"
@@ -1818,14 +1818,14 @@
 /turf/open/floor/holofloor/plating,
 /area/holodeck/rec_center/kobayashi)
 "eW" = (
-/obj/item/cardboard_cutout/adaptive/white/pawn,
+/obj/item/cardboard_cutout/adaptive/chess/pawn,
 /turf/open/floor/holofloor{
 	dir = 8;
 	icon_state = "dark"
 	},
 /area/holodeck/rec_center/spacechess)
 "eX" = (
-/obj/item/cardboard_cutout/adaptive/white/pawn,
+/obj/item/cardboard_cutout/adaptive/chess/pawn,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
@@ -1942,26 +1942,26 @@
 /turf/open/floor/holofloor,
 /area/holodeck/rec_center/firingrange)
 "fj" = (
-/obj/item/cardboard_cutout/adaptive/white/rook,
+/obj/item/cardboard_cutout/adaptive/chess/rook,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
 /area/holodeck/rec_center/spacechess)
 "fk" = (
-/obj/item/cardboard_cutout/adaptive/white/queen,
+/obj/item/cardboard_cutout/adaptive/chess/queen,
 /turf/open/floor/holofloor{
 	dir = 8;
 	icon_state = "dark"
 	},
 /area/holodeck/rec_center/spacechess)
 "fl" = (
-/obj/item/cardboard_cutout/adaptive/white/king,
+/obj/item/cardboard_cutout/adaptive/chess/king,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
 /area/holodeck/rec_center/spacechess)
 "fm" = (
-/obj/item/cardboard_cutout/adaptive/white/knight,
+/obj/item/cardboard_cutout/adaptive/chess/knight,
 /turf/open/floor/holofloor{
 	dir = 8;
 	icon_state = "dark"
