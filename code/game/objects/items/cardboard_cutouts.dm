@@ -222,26 +222,26 @@
 /obj/item/cardboard_cutout/adaptive/chess/black
 	color = "#9999BB";
 
-/obj/item/cardboard_cutout/adaptive/black/king
+/obj/item/cardboard_cutout/adaptive/chess/black/king
 	name = "Black King"
 	icon_state = "cutout_wizard";
 
-/obj/item/cardboard_cutout/adaptive/black/queen
+/obj/item/cardboard_cutout/adaptive/chess/black/queen
 	name = "Black Queen"
 	icon_state = "cutout_fluke";
 
-/obj/item/cardboard_cutout/adaptive/black/rook
+/obj/item/cardboard_cutout/adaptive/chess/black/rook
 	name = "Black Rook"
 	icon_state = "cutout_traitor";
 
-/obj/item/cardboard_cutout/adaptive/black/knight
+/obj/item/cardboard_cutout/adaptive/chess/black/knight
 	name = "Black Knight"
 	icon_state = "cutout_fukken_xeno";
 
-/obj/item/cardboard_cutout/adaptive/black/bishop
+/obj/item/cardboard_cutout/adaptive/chess/black/bishop
 	name = "Black Bishop"
 	icon_state = "cutout_cultist";
 	
-/obj/item/cardboard_cutout/adaptive/black/pawn
+/obj/item/cardboard_cutout/adaptive/chess/black/pawn
 	name = "Black Pawn"
 	icon_state = "cutout_shadowling";
