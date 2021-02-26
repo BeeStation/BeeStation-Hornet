@@ -99,6 +99,17 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		on_mob_leave(M)
 		affected_mobs -= M
 
+/obj/structure/slime_crystal/gold/process()
+	var/list/current_mobs = view_or_range(3, src, range_type)
+	for(var/M in affected_mobs - current_mobs)
+		on_mob_leave(M)
+		affected_mobs -= M
+
+	for(var/mob/living/M in affected_mobs)
+		if(M.stat == DEAD)
+			on_mob_leave(M)
+			affected_mobs -= M
+
 /obj/structure/slime_crystal/proc/master_crystal_destruction()
 	qdel(src)
 
@@ -513,22 +524,19 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/human_mob = user
-	var/mob/living/simple_animal/pet/chosen_pet = pick(/mob/living/simple_animal/pet/dog/corgi,/mob/living/simple_animal/pet/dog/pug,/mob/living/simple_animal/pet/dog/bullterrier,/mob/living/simple_animal/pet/fox,/mob/living/simple_animal/pet/cat/kitten,/mob/living/simple_animal/pet/cat/space,/mob/living/simple_animal/pet,/mob/living/simple_animal/pet/penguin)
+	var/mob/living/simple_animal/pet/chosen_pet = pick(/mob/living/simple_animal/pet/dog/corgi,/mob/living/simple_animal/pet/dog/pug,/mob/living/simple_animal/pet/dog/bullterrier,/mob/living/simple_animal/pet/fox,/mob/living/simple_animal/pet/cat/kitten,/mob/living/simple_animal/pet/cat/space,/mob/living/simple_animal/pet/penguin/emperor)
 	chosen_pet = new chosen_pet(get_turf(human_mob))
 	human_mob.forceMove(chosen_pet)
 	human_mob.mind.transfer_to(chosen_pet)
+	ADD_TRAIT(human_mob, TRAIT_NOBREATH, type)
+	affected_mobs += chosen_pet
 
 /obj/structure/slime_crystal/gold/on_mob_leave(mob/living/affected_mob)
-	if(!istype(affected_mob,/mob/living/simple_animal/pet))
-		return
-
 	var/mob/living/carbon/human/human_mob = locate() in affected_mob
-
-	if(!human_mob)
-		return
-
 	affected_mob.mind.transfer_to(human_mob)
+	human_mob.grab_ghost()
 	human_mob.forceMove(get_turf(affected_mob))
+	REMOVE_TRAIT(human_mob, TRAIT_NOBREATH, type)
 	qdel(affected_mob)
 
 /obj/structure/slime_crystal/oil

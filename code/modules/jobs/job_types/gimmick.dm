@@ -15,10 +15,6 @@
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 
-/datum/job/gimmick/New()
-	. = ..()
-	GLOB.civilian_positions |= title
-
 /datum/job/gimmick/barber
 	title = "Barber"
 	flag = BARBER
@@ -76,7 +72,7 @@
 	ears = null //hobos dont start with a headset
 	uniform = /obj/item/clothing/under/pants/jeans
 	suit = /obj/item/clothing/suit/jacket
-	
+
 
 /datum/outfit/job/gimmick/hobo/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

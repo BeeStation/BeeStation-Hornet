@@ -67,17 +67,6 @@
 	name = "Receiver"
 	freq_listening = list()
 
-/obj/machinery/telecomms/receiver/receive_signal(datum/signal/signal)
-	if(LAZYLEN(GLOB.ic_jammers) && GLOB.remote_control)
-		for(var/i in GLOB.ic_jammers)
-			var/obj/item/integrated_circuit/input/tcomm_interceptor/T = i
-			var/obj/item/O = T.get_object()
-			if(is_station_level(O.z)&& (!istype(get_area(O), /area/space)))
-				if(!istype(signal.source, /obj/item/radio/headset/integrated))
-					signal.data["reject"] = TRUE
-					break
-	..()
-
 //makeshift receiver used for the circuit, so that we don't
 //have to edit radio.dm and other shit
 /obj/machinery/telecomms/receiver/circuit
