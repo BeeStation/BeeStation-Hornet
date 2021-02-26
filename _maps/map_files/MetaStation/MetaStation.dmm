@@ -47783,7 +47783,7 @@
 	},
 /obj/structure/closet/secure_closet/freezer/meat,
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "bNE" = (
 /obj/structure/sink/kitchen{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
@@ -47794,18 +47794,18 @@
 	dir = 6
 	},
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "bNF" = (
 /obj/machinery/gibber,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "bNG" = (
 /obj/structure/kitchenspike,
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "bNI" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
@@ -48427,7 +48427,7 @@
 "bOX" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "bOY" = (
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = 32
@@ -48446,14 +48446,14 @@
 	pixel_x = -4
 	},
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "bPa" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /mob/living/simple_animal/hostile/retaliate/goat{
 	name = "Pete"
 	},
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "bPb" = (
 /obj/structure/table/wood,
 /obj/structure/mirror{
@@ -49203,11 +49203,11 @@
 "bQI" = (
 /obj/machinery/vending/wardrobe/chef_wardrobe,
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "bQJ" = (
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "bQN" = (
 /obj/machinery/airalarm{
 	dir = 8;
@@ -49784,7 +49784,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "bRY" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -49804,7 +49804,7 @@
 	dir = 5
 	},
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "bRZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -49820,7 +49820,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "bSa" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -49830,7 +49830,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/dark/visible,
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "bSd" = (
 /obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/plating,
@@ -50263,7 +50263,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/kitchen_coldroom,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "bSY" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -50276,7 +50276,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/kitchen_coldroom,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "bSZ" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Kitchen Maintenance";
@@ -50926,7 +50926,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/kitchen_coldroom,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "bUq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -50938,7 +50938,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/kitchen_coldroom,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "bUr" = (
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=8";
@@ -50956,7 +50956,7 @@
 /turf/open/floor/plasteel{
 	dir = 1
 	},
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "bUs" = (
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 2;
@@ -53389,7 +53389,7 @@
 /obj/machinery/icecream_vat,
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "bZy" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/machinery/door/airlock{
@@ -56773,7 +56773,7 @@
 	dir = 9
 	},
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "cgG" = (
 /obj/structure/closet/emcloset/anchored,
 /obj/effect/turf_decal/stripes/line{
@@ -61308,7 +61308,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/manifold4w/general,
+/obj/machinery/atmospherics/pipe/manifold4w/general/visible,
 /turf/open/floor/plasteel,
 /area/medical/cryo)
 "cqg" = (
@@ -77320,7 +77320,7 @@
 "dbn" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "dbo" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -82406,6 +82406,7 @@
 /obj/structure/pool_ladder,
 /turf/open/indestructible/sound/pool/end,
 /area/crew_quarters/fitness/recreation)
+/area/crew_quarters/kitchen)
 "fBA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 9
@@ -85526,7 +85527,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "rHt" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -85580,9 +85581,6 @@
 /obj/machinery/vending/snack/random,
 /turf/open/floor/plasteel,
 /area/maintenance/department/science)
-"rUK" = (
-/turf/closed/wall,
-/area/crew_quarters/kitchen/coldroom)
 "sao" = (
 /obj/structure/closet/toolcloset,
 /obj/effect/turf_decal/bot,
@@ -122830,7 +122828,7 @@ bFs
 bHd
 byC
 bKl
-rUK
+bKe
 bND
 bOX
 bQI
@@ -123087,7 +123085,7 @@ bwX
 bHe
 dCU
 bKm
-rUK
+bKe
 bNE
 dbn
 dbn
@@ -123344,14 +123342,14 @@ bFt
 bHf
 byC
 bKn
-rUK
+bKe
 bNF
 bOZ
 bQJ
 bRZ
-rUK
-rUK
-rUK
+bKe
+bKe
+bKe
 bST
 bST
 bST
@@ -123601,14 +123599,14 @@ bwX
 bHe
 byC
 bKo
-rUK
+bKe
 fwt
 bPa
 rFZ
 bSa
 bSX
 bUp
-rUK
+bKe
 bWV
 bYm
 bZw
@@ -123858,14 +123856,14 @@ bFu
 bFr
 byC
 bKp
-rUK
+bKe
 bNG
 bNG
 bZx
 cgF
 bSY
 bUq
-rUK
+bKe
 diw
 bYn
 diz
@@ -124115,14 +124113,14 @@ bFv
 bHg
 dii
 byN
-rUK
-rUK
-rUK
-rUK
-rUK
+bKe
+bKe
+bKe
+bKe
+bKe
 bSZ
 bUr
-rUK
+bKe
 bST
 bST
 bST
