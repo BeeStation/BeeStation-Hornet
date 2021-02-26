@@ -6,7 +6,12 @@
 	color = colour
 
 /atom/movable/lighting_mask/proc/set_intensity(intensity = 1)
-	alpha = ALPHA_TO_INTENSITY(intensity)
+	if(intensity >= 0)
+		alpha = ALPHA_TO_INTENSITY(intensity)
+		blend_mode = BLEND_ADD
+	else
+		alpha = ALPHA_TO_INTENSITY(-intensity)
+		blend_mode = BLEND_SUBTRACT
 
 //The holder atom turned
 /atom/movable/lighting_mask/proc/holder_turned(new_direction)
