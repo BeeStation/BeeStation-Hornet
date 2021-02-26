@@ -148,7 +148,7 @@
 					. = TRUE
 		if("delete")
 			freq_listening.Remove(params["value"])
-			log_game("[key_name(operator)] added removed frequency [params["value"]] for [src] at [AREACOORD(src)].")
+			log_game("[key_name(operator)] removed frequency [params["value"]] for [src] at [AREACOORD(src)].")
 			. = TRUE
 		if("unlink")
 			var/obj/machinery/telecomms/T = links[text2num(params["value"])]
