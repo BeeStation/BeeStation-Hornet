@@ -60,9 +60,9 @@
 	var/i = 0
 	data["linked"] = list()
 	for(var/obj/machinery/telecomms/machine in links)
-		i++
 		if(machine.hide && !hide)
 			continue
+		i++			//Original was above the check if machine is hidden, index revealed there are more machines
 		var/list/entry = list()
 		entry["index"] = i
 		entry["name"] = machine.name
@@ -137,7 +137,7 @@
 			if(params["value"])
 				tempfreq = text2num(params["value"]) * 10
 		if("freq")
-			var/newfreq = tempfreq
+			var/newfreq = tempfreq			//* 10 was in original pr here but makes out of tempfreq something like 14590
 			if(newfreq == FREQ_SYNDICATE)
 				to_chat(operator, "<span class='warning'>Error: Interference preventing filtering frequency: \"[newfreq / 10] GHz\"</span>")
 				playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
