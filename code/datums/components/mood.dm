@@ -355,9 +355,9 @@
 
 /datum/component/mood/proc/HandleHygiene(mob/living/carbon/human/H)
 	switch (H.hygiene)
-		if(HYGIENE_LEVEL_DISGUSTING)
+		if(HYGIENE_LEVEL_DISGUSTING to HYGIENE_LEVEL_DISGUSTING)//Believe it or not but this is actually the cleaner option.
 			add_event(null, "hygiene", /datum/mood_event/disgusting)
-		if(0.0001 to HYGIENE_LEVEL_DIRTY)
+		if(HYGIENE_LEVEL_DISGUSTING to HYGIENE_LEVEL_DIRTY)
 			add_event(null, "hygiene", /datum/mood_event/dirty)
 		if(HYGIENE_LEVEL_DIRTY to HYGIENE_LEVEL_NORMAL)
 			clear_event(null, "hygiene")
