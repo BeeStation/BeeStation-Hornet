@@ -1,0 +1,5 @@
+author: Thebleh, Sarchutar
+delete-after: true
+changes:
+  - bugfix: Cyborgs can cancel surgeries, which are past the first step, with drapes
+      and a cautery again. (They have to be on harm intent to do it)
