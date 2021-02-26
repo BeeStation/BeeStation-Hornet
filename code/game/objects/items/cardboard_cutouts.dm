@@ -228,11 +228,11 @@
 
 /obj/item/cardboard_cutout/adaptive/chess/black/queen
 	name = "Black Queen"
-	icon_state = "cutout_fluke";
+	icon_state = "cutout_traitor";
 
 /obj/item/cardboard_cutout/adaptive/chess/black/rook
 	name = "Black Rook"
-	icon_state = "cutout_traitor";
+	icon_state = "cutout_cultist";
 
 /obj/item/cardboard_cutout/adaptive/chess/black/knight
 	name = "Black Knight"
@@ -240,7 +240,7 @@
 
 /obj/item/cardboard_cutout/adaptive/chess/black/bishop
 	name = "Black Bishop"
-	icon_state = "cutout_cultist";
+	icon_state = "cutout_fluke";
 	
 /obj/item/cardboard_cutout/adaptive/chess/black/pawn
 	name = "Black Pawn"
