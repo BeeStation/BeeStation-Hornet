@@ -199,11 +199,11 @@
 
 /obj/item/cardboard_cutout/adaptive/white/queen
 	name = "White Queen"
-	icon_state = "cutout_deathsquad";
+	icon_state = "cutout_clown";
 
 /obj/item/cardboard_cutout/adaptive/white/rook
 	name = "White Rook"
-	icon_state = "cutout_ntsec";
+	icon_state = "cutout_deathsquad";
 
 /obj/item/cardboard_cutout/adaptive/white/knight
 	name = "White Knight"
@@ -211,7 +211,7 @@
 
 /obj/item/cardboard_cutout/adaptive/white/bishop
 	name = "White Bishop"
-	icon_state = "cutout_clown";
+	icon_state = "cutout_ntsec";
 	
 /obj/item/cardboard_cutout/adaptive/white/pawn
 	name = "White Pawn"

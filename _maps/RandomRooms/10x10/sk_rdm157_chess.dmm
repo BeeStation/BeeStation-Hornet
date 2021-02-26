@@ -10,7 +10,7 @@
 /area/template_noop)
 "d" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/carpet/orange,
 /area/template_noop)
@@ -117,6 +117,7 @@
 /area/template_noop)
 "C" = (
 /obj/structure/table/wood,
+/obj/item/storage/crayons,
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "D" = (
@@ -132,9 +133,6 @@
 "F" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/soda_cans/tonic{
-	pixel_y = -3
-},
-/obj/item/reagent_containers/food/drinks/soda_cans/tonic{
 	pixel_x = -3;
 	pixel_y = 3
 },
@@ -142,12 +140,12 @@
 	pixel_x = 3;
 	pixel_y = 3
 },
+/obj/item/reagent_containers/food/drinks/soda_cans/tonic{
+	pixel_y = -3
+},
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "G" = (
-/obj/item/reagent_containers/food/snacks/nachos{
-	pixel_y = -3
-},
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/nachos{
 	pixel_x = -3;
@@ -156,6 +154,9 @@
 /obj/item/reagent_containers/food/snacks/nachos {
 	pixel_x = 3;
 	pixel_y = 3
+},
+/obj/item/reagent_containers/food/snacks/nachos{
+	pixel_y = -3
 },
 /turf/open/floor/carpet/orange,
 /area/template_noop)
