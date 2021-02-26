@@ -2164,7 +2164,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	restricted_roles = list("Mime")
 	surplus = 0
 
-/datum/uplink_item/role_restricted/mimery/obj/item/storage/box/syndie_kit/mimesabrekit
+/datum/uplink_item/role_restricted/mimesabrekit
 	name = "Baguette blade bundle"
 	desc = "A very stealthy blade located inside an even stealthier baguette-shaped sheath."
 	cost = 	12
