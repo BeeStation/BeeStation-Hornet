@@ -609,7 +609,6 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	)
 
 	var/static/list/uncommon_items = list(
-		/obj/item/clothing/head/speedwagon/cursed,
 		/obj/item/clothing/suit/space/hardsuit/ancient,
 		/obj/item/gun/energy/laser/retro/old,
 		/obj/item/storage/toolbox/mechanical/old,
@@ -618,21 +617,15 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		/obj/effect/mob_spawn/human/ash_walker,
 		/obj/effect/spawner/lootdrop/three_course_meal,
 		/mob/living/simple_animal/pet/dog/corgi/puppy/void,
-		/obj/structure/closet/crate/necropolis,
-		/obj/item/grenade/gluon,
 		/obj/item/card/emagfake,
 		/obj/item/gun/ballistic/revolver/reverse,
-		/obj/item/flashlight/flashdark,
 		/mob/living/simple_animal/slime/rainbow,
 		/obj/item/storage/belt/sabre,
-		/obj/item/drone_shell,
 		/obj/item/sharpener,
 		/mob/living/simple_animal/hostile/cat_butcherer
 	)
 
 	var/static/list/rare_items = list(
-		/obj/effect/mob_spawn/human/syndicate/battlecruiser/captain,
-		/obj/structure/spawner/skeleton,
 		/obj/effect/spawner/lootdrop/armory_contraband,
 		/obj/effect/spawner/lootdrop/teratoma/major
 	)
