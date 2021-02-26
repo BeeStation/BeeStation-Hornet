@@ -124,8 +124,13 @@
 	LAZYCLEARLIST(shadows)
 
 	//Rebuild the list
+	var/isClosedTurf = istype(our_turf, /turf/closed)
 	for(var/turf/thing in view(range, get_turf(attached_atom)))
 		link_turf_to_light(thing)
+		//Dont consider shadows about our turf.
+		if(!isClosedTurf)
+			if(thing == get_turf(attached_atom))
+				continue
 		if(thing.has_opaque_atom || thing.opacity)
 			//At this point we no longer care about
 			//the atom itself, only the position values
