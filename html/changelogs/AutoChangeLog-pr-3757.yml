@@ -1,5 +1,0 @@
-author: park66665
-delete-after: true
-changes:
-  - bugfix: transmutation rune drawing process no longer is incorrectly explained
-      in-game.
