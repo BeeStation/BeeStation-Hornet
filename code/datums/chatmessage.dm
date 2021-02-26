@@ -163,10 +163,6 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		qdel(src)
 		return
 
-	// Non mobs speakers can be small
-	if (!ismob(target))
-		extra_classes |= "small"
-
 	var/list/prefixes
 
 	// Append radio icon if from a virtual speaker

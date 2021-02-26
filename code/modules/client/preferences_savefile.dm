@@ -5,7 +5,7 @@
 //	You do not need to raise this if you are adding new values that have sane defaults.
 //	Only raise this value when changing the meaning/format/name/layout of an existing value
 //	where you would want the updater procs below to run
-#define SAVEFILE_VERSION_MAX	32
+#define SAVEFILE_VERSION_MAX	33
 
 /*
 SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Carn
@@ -63,6 +63,11 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 					break
 			if(n_gear)
 				purchased_gear += n_gear
+	if(current_version < 33)
+		chat_on_map = TRUE
+		max_chat_length = 110		//same as CHAT_MESSAGE_MAX_LENGTH
+		see_chat_non_mob = TRUE
+		see_rc_emotes = TRUE
 	return
 
 /datum/preferences/proc/update_character(current_version, savefile/S)
