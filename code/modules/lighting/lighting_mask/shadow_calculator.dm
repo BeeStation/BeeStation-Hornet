@@ -129,7 +129,7 @@
 		link_turf_to_light(thing)
 		//Dont consider shadows about our turf.
 		if(!isClosedTurf)
-			if(thing == get_turf(attached_atom))
+			if(thing == our_turf)
 				continue
 		if(thing.has_opaque_atom || thing.opacity)
 			//At this point we no longer care about
