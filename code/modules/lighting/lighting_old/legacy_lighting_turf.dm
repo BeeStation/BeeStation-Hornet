@@ -22,11 +22,10 @@
 		C.update_active()
 
 // Builds a lighting object for us, but only if our area is dynamic.
-/turf/proc/legacy_lighting_build_overlay()
+/turf/proc/legacy_lighting_build_overlay(area/A = loc)
 	if (legacy_lighting_object)
 		qdel(legacy_lighting_object,force=TRUE) //Shitty fix for lighting objects persisting after death
 
-	var/area/A = loc
 	if (!IS_DYNAMIC_LIGHTING(A) && !light_sources)
 		return
 
@@ -82,9 +81,14 @@
 	if(SSlighting.initialized)
 		if (new_area.legacy_lighting != old_area.legacy_lighting)
 			if (new_area.legacy_lighting)
-				legacy_lighting_build_overlay()
+				legacy_lighting_build_overlay(new_area)
 			else
 				legacy_lighting_clear_overlay()
+	//Inherit overlay of new area
+	if(old_area.lighting_effect)
+		cut_overlay(old_area.lighting_effect)
+	if(new_area.lighting_effect)
+		add_overlay(new_area.lighting_effect)
 
 /turf/proc/legacy_get_corners()
 	if (!lighting_corners_initialised)

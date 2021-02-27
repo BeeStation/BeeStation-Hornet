@@ -16,7 +16,7 @@ SUBSYSTEM_DEF(lighting)
 		//Handle legacy lightnig
 		create_all_lighting_objects()
 		//Handle fancy lighting
-		to_chat(world, "<span sclass='boldannounce'>Generating shadows on [sources_that_need_updating.len] light sources.</span>")
+		to_chat(world, "<span class='boldannounce'>Generating shadows on [sources_that_need_updating.len] light sources.</span>")
 		var/timer = TICK_USAGE
 		for(var/atom/movable/lighting_mask/mask as() in sources_that_need_updating)
 			mask.calculate_lighting_shadows()
