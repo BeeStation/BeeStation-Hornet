@@ -82402,11 +82402,11 @@
 	},
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen/coldroom)
+/area/crew_quarters/kitchen)
 "fAQ" = (
 /obj/structure/pool_ladder,
 /turf/open/indestructible/sound/pool/end,
 /area/crew_quarters/fitness/recreation)
-/area/crew_quarters/kitchen)
 "fBA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 9
