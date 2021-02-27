@@ -6,6 +6,7 @@
 	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
 	blood_state = BLOOD_STATE_HUMAN
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
+	plane = -1
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
 	C.add_blood_DNA(return_blood_DNA())
@@ -236,3 +237,66 @@
 	if((blood_state != BLOOD_STATE_OIL) && (blood_state != BLOOD_STATE_NOT_BLOODY))
 		return 1
 	return 0
+
+/obj/effect/decal/cleanable/blood/hitsplatter
+	name = "blood splatter"
+	pass_flags = PASSTABLE | PASSGRILLE
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "platter1"
+	random_icon_states = list("splatter1", "splatter2", "splatter3","splatter4","splatter5","splatter6")
+	var/turf/prev_loc
+	var/mob/living/blood_source
+	var/skip = FALSE //Skip creation of blood when destroyed?
+	var/amount = 3
+
+/obj/effect/decal/cleanable/blood/hitsplatter/Initialize(mapload, blood)
+	. = ..()
+	if(blood)
+		blood_source = blood
+	prev_loc = loc //Just so we are sure prev_loc exists
+
+/obj/effect/decal/cleanable/blood/hitsplatter/proc/bloodsplatter(turf/T, var/range, speed = 1)
+	for(var/i in 1 to range)
+		step_towards(src,T)
+		sleep(speed) //higher = slower
+		prev_loc = loc
+		for(var/atom/A in get_turf(src))
+			if(istype(A,/obj/item))
+				var/obj/item/I = A
+				I.add_mob_blood(blood_source)
+				amount--
+			if(istype(A, /mob/living/carbon/human))
+				var/mob/living/carbon/human/H = A
+				if(H.wear_suit)
+					H.wear_suit.add_mob_blood(blood_source)
+					H.update_inv_wear_suit()    //updates mob overlays to show the new blood (no refresh)
+				if(H.w_uniform)
+					H.w_uniform.add_mob_blood(blood_source)
+					H.update_inv_w_uniform()    //updates mob overlays to show the new blood (no refresh)
+				amount--
+		if(!amount) // we used all the puff so we delete it.
+			qdel(src)
+			break
+	qdel(src)
+
+/obj/effect/decal/cleanable/blood/hitsplatter/Bump(atom/A)
+	if(istype(A, /turf/closed/wall))
+		if(istype(prev_loc)) //var definition already checks for type
+			loc = A
+			skip = TRUE
+			var/mob/living/carbon/human/H = blood_source
+			if(istype(H))
+				var/obj/effect/decal/cleanable/blood/splatter/B = new(prev_loc)
+				//Adjust pixel offset to make splatters appear on the wall
+				if(istype(B))
+					B.pixel_x = (dir == EAST ? 32 : (dir == WEST ? -32 : 0))
+					B.pixel_y = (dir == NORTH ? 32 : (dir == SOUTH ? -32 : 0))
+		else //This will only happen if prev_loc is not even a turf, which is highly unlikely.
+			loc = A //Either way we got this.
+			QDEL_IN(src, 3)
+	qdel(src)
+
+/obj/effect/decal/cleanable/blood/hitsplatter/Destroy()
+	if(istype(loc, /turf) && !skip)
+		loc.add_mob_blood(blood_source)
+	return ..()

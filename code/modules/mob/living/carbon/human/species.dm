@@ -1576,8 +1576,16 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			if(prob(I.force * 2))	//blood spatter!
 				bloody = 1
 				var/turf/location = H.loc
-				if(istype(location))
-					H.add_splatter_floor(location)
+				if(prob(50))	//hippie start -- add blood splattering to walls and stuff
+					var/obj/effect/decal/cleanable/blood/hitsplatter/B = new(H.loc)
+					B.add_blood_DNA(H.return_blood_DNA())
+					B.blood_source = H
+					var/dist = rand(1,5)
+					var/turf/targ = get_ranged_target_turf(H, get_dir(user, H), dist)
+					B.bloodsplatter(targ, dist)
+				else
+					if(istype(location))
+						H.add_splatter_floor(location) //hippie end -- blood splattering
 				if(get_dist(user, H) <= 1)	//people with TK won't get smeared with blood
 					user.add_mob_blood(H)
 					if(ishuman(user))
