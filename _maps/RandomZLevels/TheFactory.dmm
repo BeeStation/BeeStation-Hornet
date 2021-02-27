@@ -5666,7 +5666,7 @@
 	})
 "fid" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on/coldroom{
-	target_initial_temperature = 170
+	target_temperature = 170
 	},
 /turf/open/floor/plating/snowed/smoothed,
 /area/awaymission/factory/villageafter/house)
