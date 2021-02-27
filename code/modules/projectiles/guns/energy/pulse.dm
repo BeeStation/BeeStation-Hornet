@@ -1,6 +1,6 @@
 /obj/item/gun/energy/pulse
-	name = "pulse rifle"
-	desc = "A heavy-duty, multifaceted energy rifle with three modes. Preferred by front-line combat personnel."
+	name = "M19C4 pulse energy rifle"
+	desc = "A heavy-duty, multifaceted energy weapon that uses pulse-based beam generation technology to emit powerful laser blasts. Because of its complexity and cost, it is rarely seen in use except by specialists and front-line combat personnel. This is a testing model issued only for Asset Protection units and offshore elite Nanotrasen squad."
 	icon_state = "pulse"
 	item_state = null
 	w_class = WEIGHT_CLASS_BULKY
@@ -38,8 +38,8 @@
 	pin = /obj/item/firing_pin/implant/mindshield
 
 /obj/item/gun/energy/pulse/carbine
-	name = "pulse carbine"
-	desc = "A compact variant of the pulse rifle with less firepower but easier storage."
+	name = "M19C4-C pulse carbine"
+	desc = "A heavy-duty, multifaceted energy weapon that uses pulse-based beam generation technology to emit powerful laser blasts, this is a compact variant of the pulse rifle with less firepower but easier storage."
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_carbine"
@@ -53,8 +53,8 @@
 	pin = /obj/item/firing_pin/implant/mindshield
 
 /obj/item/gun/energy/pulse/carbine/cyborg
-	name = "pulse carbine"
-	desc = "A compact, cyborg variant of the commonly used pulse carbine."
+	name = "M19C4-C pulse carbine"
+	desc = "A heavy-duty, multifaceted energy weapon that uses pulse-based beam generation technology to emit powerful laser blasts, this is a compact, cyborg variant of the commonly used pulse carbine."
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_carbine"
@@ -66,8 +66,8 @@
 
 
 /obj/item/gun/energy/pulse/pistol
-	name = "pulse pistol"
-	desc = "A pulse rifle in an easily concealed handgun package with low capacity."
+	name = "M19C4-P pulse pistol"
+	desc = "A heavy-duty, multifaceted energy weapon that uses pulse-based beam generation technology to emit powerful laser blasts, this is a pulse rifle in an easily concealed handgun package with low capacity."
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_pistol"
@@ -81,8 +81,8 @@
 	pin = /obj/item/firing_pin/implant/mindshield
 
 /obj/item/gun/energy/pulse/destroyer
-	name = "pulse destroyer"
-	desc = "A heavy-duty energy rifle built for pure destruction."
+	name = "M19C4-X pulse destroyer"
+	desc = "A heavy-duty, multifaceted energy weapon that uses pulse-based beam generation technology to emit powerful laser blasts, this particular pulse energy rifle was built for pure destruction."
 	cell_type = "/obj/item/stock_parts/cell/infinite"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
 
