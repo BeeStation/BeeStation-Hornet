@@ -674,28 +674,28 @@ class PaperSheetEdit extends Component {
 
           <Table.Row>
             <Table.Cell>
-              Signature
+              %sign
             </Table.Cell>
             <Table.Cell>
-              %sign
+              Signature
             </Table.Cell>
           </Table.Row>
 
           <Table.Row>
-            <Table.Cell>
-              Input field
-            </Table.Cell>
             <Table.Row>
               [_____]
             </Table.Row>
+            <Table.Cell>
+              Input field
+            </Table.Cell>
           </Table.Row>
 
           <Table.Row>
             <Table.Cell>
-              Centering text
+              {centerText}
             </Table.Cell>
             <Table.Cell>
-              {centerText}
+              <center>Centering text</center>
             </Table.Cell>
           </Table.Row>
 
