@@ -341,10 +341,9 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/max_stage = 5
 	var/datum/weakref/pylon
 
-/obj/structure/cerulean_slime_crystal/Initialize()
+/obj/structure/cerulean_slime_crystal/Initialize(mapload, obj/structure/slime_crystal/cerulean/master_pylon)
 	. = ..()
-	var/obj/structure/slime_crystal/cerulean/master_pylon = locate(/obj/structure/slime_crystal/cerulean) in range(2, get_turf(src))
-	if(master_pylon)
+	if(istype(master_pylon))
 		pylon = WEAKREF(master_pylon)
 	transform *= 1/(max_stage-1)
 	stage_growth()
@@ -377,6 +376,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		if(C)
 			C.crystals--
 			C.spawn_crystal()
+		else
+			pylon = null
 	return ..()
 
 /obj/structure/slime_crystal/cerulean
@@ -398,7 +399,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		var/obj/structure/cerulean_slime_crystal/CSC = locate() in range(1,T)
 		if(CSC)
 			continue
-		new /obj/structure/cerulean_slime_crystal(T)
+		new /obj/structure/cerulean_slime_crystal(T, src)
 		crystals++
 		return
 
