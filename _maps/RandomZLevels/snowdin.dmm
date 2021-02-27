@@ -15,14 +15,6 @@
 "af" = (
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/snowdin/outside)
-"ag" = (
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/outside)
 "ah" = (
 /obj/effect/baseturf_helper/asteroid/snow,
 /turf/closed/wall/ice,
@@ -803,8 +795,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Kitchen APC";
-	pixel_x = 1;
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -1215,8 +1206,8 @@
 "cU" = (
 /obj/effect/turf_decal/weather/snow,
 /obj/structure/closet/crate{
-	opened = 1;
-	name = "explosives ordinance"
+	name = "explosives ordinance";
+	opened = 1
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -1543,8 +1534,8 @@
 "dy" = (
 /obj/effect/turf_decal/weather/snow,
 /obj/structure/closet/crate{
-	opened = 1;
-	name = "explosives ordinance"
+	name = "explosives ordinance";
+	opened = 1
 	},
 /turf/open/floor/plasteel/dark/snowdin,
 /area/awaymission/snowdin/cave)
@@ -1853,7 +1844,7 @@
 /obj/machinery/power/apc{
 	dir = 2;
 	name = "Gateway APC";
-	pixel_y = -23;
+	pixel_y = -24;
 	req_access = 150
 	},
 /obj/structure/cable/yellow{
@@ -1869,8 +1860,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Research Center APC";
-	pixel_x = 1;
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -2050,15 +2040,6 @@
 "eL" = (
 /turf/closed/mineral/plasma/ice,
 /area/awaymission/snowdin/cave/cavern)
-"eM" = (
-/obj/structure/flora/tree/pine,
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/outside)
 "eN" = (
 /obj/structure/dresser,
 /turf/open/floor/carpet,
@@ -3058,7 +3039,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Garage APC";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -3620,14 +3601,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/garage)
-"ig" = (
-/obj/effect/light_emitter{
-	name = "cave light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/cave/mountain)
 "ih" = (
 /obj/effect/turf_decal/weather/snow,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -4122,31 +4095,6 @@
 /obj/structure/fence,
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/snowdin/outside)
-"iZ" = (
-/obj/item/clothing/head/cone,
-/obj/effect/light_emitter{
-	name = "cave light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/snowed/smoothed,
-/area/awaymission/snowdin/cave)
-"ja" = (
-/obj/effect/light_emitter{
-	name = "cave light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/cave)
-"jb" = (
-/obj/effect/light_emitter{
-	name = "cave light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/snowed/smoothed,
-/area/awaymission/snowdin/cave)
 "jc" = (
 /mob/living/simple_animal/hostile/bear/snow,
 /turf/open/floor/plating/asteroid/snow,
@@ -4839,8 +4787,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Custodials APC";
-	pixel_x = 1;
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -5870,17 +5817,6 @@
 	icon_state = "platingdmg2"
 	},
 /area/awaymission/snowdin/post/hydro)
-"mw" = (
-/obj/structure/lattice/catwalk,
-/obj/effect/turf_decal/weather/snow,
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/plating/snowed/smoothed,
-/area/awaymission/snowdin/outside)
 "mx" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -6089,15 +6025,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/garage)
-"mZ" = (
-/obj/structure/flora/grass/both,
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/outside)
 "na" = (
 /turf/closed/wall/ice,
 /area/awaymission/snowdin/post/custodials)
@@ -6300,7 +6227,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Engineering APC";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -6566,14 +6493,6 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/snowdin/post/garage)
-"oa" = (
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/snowed/smoothed,
-/area/awaymission/snowdin/outside)
 "ob" = (
 /turf/closed/wall/ice,
 /area/awaymission/snowdin/post/secpost)
@@ -6602,8 +6521,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Security Outpost APC";
-	pixel_x = 1;
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -6740,9 +6658,9 @@
 "oo" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4;
+	piping_layer = 3;
 	pixel_x = 5;
-	pixel_y = 5;
-	piping_layer = 3
+	pixel_y = 5
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
@@ -6750,9 +6668,9 @@
 "op" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4;
+	piping_layer = 3;
 	pixel_x = 5;
-	pixel_y = 5;
-	piping_layer = 3
+	pixel_y = 5
 	},
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/engineering)
@@ -7380,26 +7298,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post)
-"pS" = (
-/obj/machinery/power/terminal{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating,
-/area/awaymission/snowdin/post/engineering)
 "pT" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	piping_layer = 3;
@@ -8165,20 +8063,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post)
-"rI" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos{
-	dir = 1;
-	pixel_x = 5;
-	pixel_y = 5;
-	piping_layer = 3
-	},
-/obj/effect/light_emitter{
-	name = "cave light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/snowed/smoothed,
-/area/awaymission/snowdin/post/engineering)
 "rJ" = (
 /obj/machinery/light/small{
 	brightness = 3;
@@ -8341,15 +8225,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/cavern2)
-"se" = (
-/obj/structure/flora/tree/dead,
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/outside)
 "sf" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/asteroid/snow,
@@ -8833,15 +8708,6 @@
 "tq" = (
 /turf/closed/wall/ice,
 /area/awaymission/snowdin/outside)
-"tr" = (
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/mob/living/simple_animal/hostile/bear/snow,
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/outside)
 "ts" = (
 /obj/structure/closet/crate/wooden,
 /obj/effect/spawner/lootdrop/snowdin/dungeonheavy,
@@ -8946,14 +8812,6 @@
 /obj/structure/barricade/wooden/snowed,
 /turf/open/floor/plating/snowed/cavern,
 /area/awaymission/snowdin/cave/cavern)
-"tS" = (
-/obj/effect/light_emitter{
-	name = "cave light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/ice/smooth,
-/area/awaymission/snowdin/cave)
 "tT" = (
 /obj/structure/fence{
 	pixel_x = 16
@@ -9032,7 +8890,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Main Outpost APC";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -9081,14 +8939,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/cavern1)
-"uq" = (
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/ice/smooth,
-/area/awaymission/snowdin/outside)
 "ur" = (
 /obj/machinery/door/airlock{
 	name = "Private Quarters"
@@ -9326,19 +9176,6 @@
 /obj/structure/window/reinforced/fulltile/ice,
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/cavern1)
-"uX" = (
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/outside)
 "uY" = (
 /obj/structure/barricade/wooden/snowed,
 /obj/structure/spider/stickyweb,
@@ -9752,10 +9589,10 @@
 /area/awaymission/snowdin/post/broken_shuttle)
 "wc" = (
 /obj/machinery/computer{
-	name = "Shuttle Transist Console";
 	desc = "A console meant for calling and sending a transit ferry. It seems iced-over and non-functional.";
 	dir = 1;
-	icon_screen = null
+	icon_screen = null;
+	name = "Shuttle Transist Console"
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/awaymission/snowdin/post/broken_shuttle)
@@ -9844,9 +9681,9 @@
 "wm" = (
 /obj/machinery/porta_turret/centcom_shuttle/weak{
 	desc = "A turret built with substandard parts and run down further with age.";
-	icon_state = "syndie_off";
 	dir = 9;
-	faction = list("pirate")
+	faction = list("pirate");
+	icon_state = "syndie_off"
 	},
 /turf/open/floor/plating/snowed/smoothed,
 /area/awaymission/snowdin/cave)
@@ -9966,18 +9803,6 @@
 /area/awaymission/snowdin/cave)
 "wB" = (
 /obj/item/key,
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/outside)
-"wC" = (
-/obj/vehicle/ridden/atv{
-	icon_state = "atv";
-	dir = 4
-	},
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/snowdin/outside)
 "wD" = (
@@ -10489,14 +10314,6 @@
 	heat_capacity = 1e+006
 	},
 /area/awaymission/snowdin/post/mining_dock)
-"xR" = (
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/ice/smooth,
-/area/awaymission/snowdin/cave)
 "xS" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/item/stack/sheet/mineral/plasma{
@@ -10706,10 +10523,10 @@
 /area/awaymission/snowdin/cave)
 "yu" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	name = "toxin out";
 	dir = 8;
+	frequency = 1442;
 	id_tag = "snowdin_toxins_mine_1";
-	frequency = 1442
+	name = "toxin out"
 	},
 /turf/open/floor/engine/vacuum,
 /area/awaymission/snowdin/cave)
@@ -11081,8 +10898,8 @@
 /area/awaymission/snowdin/post/minipost)
 "zq" = (
 /obj/vehicle/ridden/atv{
-	icon_state = "atv";
-	dir = 8
+	dir = 8;
+	icon_state = "atv"
 	},
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/minipost)
@@ -11482,15 +11299,6 @@
 	},
 /turf/open/floor/plating/snowed/cavern,
 /area/awaymission/snowdin/cave/cavern)
-"Au" = (
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/obj/structure/flora/grass/both,
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/outside)
 "Av" = (
 /obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
@@ -11584,18 +11392,6 @@
 	},
 /turf/open/floor/wood,
 /area/awaymission/snowdin/igloo)
-"AJ" = (
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
-/area/awaymission/snowdin/outside)
 "AK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -11829,8 +11625,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Recon Post APC";
-	pixel_x = 1;
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -12088,8 +11883,8 @@
 "Ca" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate{
-	opened = 1;
-	name = "explosives ordinance"
+	name = "explosives ordinance";
+	opened = 1
 	},
 /turf/open/floor/plating/snowed,
 /area/awaymission/snowdin/cave)
@@ -12335,8 +12130,8 @@
 /area/awaymission/snowdin/cave)
 "CP" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater";
-	dir = 4
+	dir = 4;
+	icon_state = "heater"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -12365,17 +12160,6 @@
 	slowdown = 1
 	},
 /area/awaymission/snowdin/outside)
-"CS" = (
-/obj/effect/light_emitter{
-	name = "cave light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/cave)
 "CT" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/tile/neutral,
@@ -12566,17 +12350,6 @@
 	},
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plating/snowed,
-/area/awaymission/snowdin/cave)
-"Dm" = (
-/obj/effect/light_emitter{
-	name = "cave light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/obj/structure/fence/door{
-	dir = 4
-	},
-/turf/open/floor/plating/snowed/smoothed,
 /area/awaymission/snowdin/cave)
 "Dn" = (
 /obj/machinery/light/small{
@@ -12889,24 +12662,6 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/snowdin/cave)
-"DW" = (
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/outside)
 "DX" = (
 /obj/item/shard,
 /obj/effect/turf_decal/weather/snow,
@@ -13309,8 +13064,8 @@
 /area/awaymission/snowdin/cave)
 "EN" = (
 /obj/machinery/sleeper/syndie{
-	icon_state = "sleeper_s";
-	dir = 1
+	dir = 1;
+	icon_state = "sleeper_s"
 	},
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/plasteel/dark,
@@ -13322,8 +13077,8 @@
 "EP" = (
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/sleeper/syndie{
-	icon_state = "sleeper_s";
-	dir = 1
+	dir = 1;
+	icon_state = "sleeper_s"
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/snowdin/cave)
@@ -13387,15 +13142,6 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/snowdin/outside)
-"EZ" = (
-/obj/effect/turf_decal/weather/snow,
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/snowed,
-/area/awaymission/snowdin/outside)
 "Fa" = (
 /obj/structure/flora/grass/both,
 /obj/structure/flora/bush,
@@ -13444,15 +13190,6 @@
 /obj/vehicle/ridden/atv,
 /turf/open/floor/plating/snowed/smoothed,
 /area/awaymission/snowdin/outside)
-"Fi" = (
-/obj/structure/flora/bush,
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/outside)
 "Fj" = (
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating/snowed/smoothed,
@@ -13462,17 +13199,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/asteroid/snow/ice,
 /area/awaymission/snowdin/cave/cavern)
-"Fl" = (
-/obj/structure/fence{
-	dir = 4
-	},
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/outside)
 "Fm" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -13683,24 +13409,6 @@
 /obj/effect/turf_decal/loading_area,
 /turf/open/floor/plating/asteroid/snow/ice,
 /area/awaymission/snowdin/cave/cavern)
-"FQ" = (
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/obj/machinery/light/small,
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/post/mining_main)
-"FR" = (
-/obj/machinery/light/small,
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/post/mining_main)
 "FS" = (
 /obj/structure/fence/door{
 	dir = 4
@@ -13875,15 +13583,6 @@
 "Gq" = (
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/mining_main)
-"Gr" = (
-/obj/structure/flora/stump,
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/outside)
 "Gs" = (
 /obj/machinery/light/small,
 /turf/open/floor/plating/snowed,
@@ -13898,17 +13597,6 @@
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 8
-	},
-/turf/open/floor/plating/snowed,
-/area/awaymission/snowdin/outside)
-"Gv" = (
-/obj/machinery/atmospherics/pipe/simple/orange/visible{
-	dir = 8
-	},
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
 	},
 /turf/open/floor/plating/snowed,
 /area/awaymission/snowdin/outside)
@@ -14167,14 +13855,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/mining_main)
-"Hn" = (
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/cave/mountain)
 "Ho" = (
 /turf/open/floor/engine/vacuum,
 /area/awaymission/snowdin/outside)
@@ -14191,15 +13871,6 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/plating/snowed/smoothed,
-/area/awaymission/snowdin/outside)
-"Hr" = (
-/obj/structure/fence,
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/asteroid/snow,
 /area/awaymission/snowdin/outside)
 "Hs" = (
 /obj/machinery/light{
@@ -14320,16 +13991,6 @@
 "HH" = (
 /obj/machinery/atmospherics/miner/toxins,
 /turf/open/floor/engine/vacuum,
-/area/awaymission/snowdin/outside)
-"HI" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister,
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/snowed/smoothed,
 /area/awaymission/snowdin/outside)
 "HJ" = (
 /obj/effect/turf_decal/stripes/line,
@@ -14599,8 +14260,8 @@
 /area/awaymission/snowdin/post/mining_main)
 "Ix" = (
 /obj/vehicle/ridden/atv{
-	icon_state = "atv";
-	dir = 1
+	dir = 1;
+	icon_state = "atv"
 	},
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
@@ -14738,7 +14399,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Main Outpost APC";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -14752,7 +14413,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Mechbay APC";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -15506,7 +15167,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Mining Post APC";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -15725,6 +15386,12 @@
 /obj/effect/spawner/lootdrop/crate_spawner,
 /turf/open/floor/plating/asteroid/snow/ice,
 /area/awaymission/snowdin/cave/cavern)
+"Lu" = (
+/obj/structure/fence/door{
+	dir = 4
+	},
+/turf/open/floor/plating/snowed/smoothed,
+/area/awaymission/snowdin/cave)
 "Lw" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -15777,6 +15444,9 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/snowdin/cave)
+"Qt" = (
+/turf/open/floor/plating/asteroid/snow,
+/area/awaymission/snowdin/cave/mountain)
 "SX" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -15784,6 +15454,15 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/mining_main)
+"To" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos{
+	dir = 1;
+	piping_layer = 3;
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/turf/open/floor/plating/snowed/smoothed,
+/area/awaymission/snowdin/post/engineering)
 "TK" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -15803,6 +15482,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/mining_main/mechbay)
+"Vc" = (
+/obj/vehicle/ridden/atv{
+	dir = 4;
+	icon_state = "atv"
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/awaymission/snowdin/outside)
 "VW" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/structure/fans/tiny,
@@ -15844,6 +15530,10 @@
 "Ys" = (
 /turf/open/floor/plasteel/elevatorshaft,
 /area/awaymission/snowdin/post/mining_dock)
+"YW" = (
+/obj/machinery/light/small,
+/turf/open/floor/plating/asteroid/snow,
+/area/awaymission/snowdin/post/mining_main)
 
 (1,1,1) = {"
 aa
@@ -18188,7 +17878,7 @@ ae
 ae
 ae
 af
-ag
+af
 af
 af
 ae
@@ -18441,7 +18131,7 @@ ae
 ae
 af
 af
-ag
+af
 af
 af
 af
@@ -18964,7 +18654,7 @@ af
 am
 af
 af
-ag
+af
 af
 af
 af
@@ -19467,7 +19157,7 @@ af
 af
 af
 af
-eM
+fq
 af
 af
 al
@@ -19481,7 +19171,7 @@ af
 af
 af
 af
-ag
+af
 ae
 ae
 ae
@@ -19720,7 +19410,7 @@ ae
 ae
 ae
 af
-ag
+af
 aK
 aK
 aK
@@ -19972,7 +19662,7 @@ ae
 ae
 ae
 af
-ag
+af
 af
 ak
 af
@@ -19985,7 +19675,7 @@ aK
 af
 af
 af
-ag
+af
 af
 af
 am
@@ -20232,7 +19922,7 @@ af
 af
 af
 af
-ag
+af
 af
 af
 aK
@@ -20255,7 +19945,7 @@ af
 af
 af
 af
-ag
+af
 af
 ak
 ae
@@ -20640,7 +20330,7 @@ ae
 ae
 ae
 af
-ag
+af
 af
 fq
 af
@@ -20741,7 +20431,7 @@ ae
 ae
 ae
 ae
-ag
+af
 af
 af
 af
@@ -20758,12 +20448,12 @@ eO
 eO
 hH
 aK
-ag
 af
 af
 af
 af
-ag
+af
+af
 af
 af
 af
@@ -20901,15 +20591,15 @@ af
 af
 af
 af
-ag
+af
 af
 am
 af
-ag
 af
 af
 af
-ag
+af
+af
 af
 af
 ae
@@ -21002,7 +20692,7 @@ af
 af
 af
 am
-ag
+af
 aK
 bP
 cn
@@ -21183,7 +20873,7 @@ ae
 ae
 ae
 af
-ag
+af
 af
 af
 ae
@@ -21285,7 +20975,7 @@ af
 af
 af
 af
-ag
+af
 ae
 ae
 ae
@@ -21318,13 +21008,13 @@ ae
 ae
 tG
 tI
-ja
+tI
 tx
 tx
-tS
 tx
 tx
-tS
+tx
+tx
 tx
 aj
 aj
@@ -21400,15 +21090,15 @@ ae
 ae
 ae
 ae
-ag
 af
 af
 af
-ag
+af
+af
 fq
 ko
 af
-ag
+af
 am
 af
 af
@@ -21445,7 +21135,7 @@ af
 tN
 af
 af
-ag
+af
 af
 af
 ae
@@ -21682,7 +21372,7 @@ al
 af
 af
 af
-ag
+af
 ae
 ae
 ae
@@ -21770,7 +21460,7 @@ ae
 ae
 ae
 af
-ag
+af
 aK
 aR
 bj
@@ -21792,7 +21482,7 @@ kx
 lg
 lW
 aK
-ag
+af
 af
 am
 af
@@ -21827,7 +21517,7 @@ ae
 ae
 ae
 af
-ag
+af
 af
 af
 af
@@ -21842,7 +21532,7 @@ tN
 tN
 tN
 af
-mZ
+am
 af
 af
 af
@@ -21943,15 +21633,15 @@ af
 af
 af
 af
-ag
+af
 af
 af
 ak
-ag
 af
 af
 af
-ag
+af
+af
 af
 af
 af
@@ -22059,7 +21749,7 @@ af
 af
 af
 af
-se
+al
 ae
 ae
 ae
@@ -22152,24 +21842,24 @@ tx
 tx
 tx
 tx
-uq
+tN
 tN
 ae
 ae
 ae
 tN
-uq
 tN
 tN
 tN
-uq
+tN
+tN
 af
 af
-ag
-ag
+af
+af
 fq
 af
-ag
+af
 af
 af
 am
@@ -22337,7 +22027,7 @@ ae
 ae
 ae
 ae
-ag
+af
 af
 af
 af
@@ -22355,12 +22045,12 @@ tN
 tN
 tN
 tN
-uq
+tN
 af
 af
 af
 am
-uX
+af
 ae
 ae
 ae
@@ -22475,11 +22165,11 @@ tN
 af
 af
 af
-ag
 af
 af
 af
-ag
+af
+af
 af
 af
 ae
@@ -22564,7 +22254,7 @@ li
 aV
 aV
 aK
-ag
+af
 af
 af
 af
@@ -22664,13 +22354,13 @@ tx
 tx
 tx
 tx
-xR
+tx
 tN
 tN
 tN
 tN
 tN
-uq
+tN
 tN
 tN
 tN
@@ -22794,7 +22484,7 @@ ac
 ae
 ae
 ae
-ag
+af
 af
 af
 af
@@ -22831,10 +22521,10 @@ ak
 af
 am
 af
-ag
 af
 af
-ag
+af
+af
 af
 af
 ae
@@ -23079,7 +22769,7 @@ jR
 jR
 na
 na
-ag
+af
 af
 af
 af
@@ -23105,7 +22795,7 @@ ae
 ae
 ae
 af
-ag
+af
 af
 af
 af
@@ -23253,7 +22943,7 @@ af
 af
 af
 af
-ag
+af
 af
 af
 ae
@@ -23312,7 +23002,7 @@ af
 af
 af
 af
-ag
+af
 aK
 aX
 bm
@@ -23389,11 +23079,11 @@ tN
 af
 af
 fq
-ag
 af
 af
 af
-mZ
+af
+am
 af
 ae
 ae
@@ -23433,7 +23123,7 @@ ae
 ae
 af
 ko
-ag
+af
 af
 af
 tN
@@ -23513,11 +23203,11 @@ af
 fq
 af
 af
-ag
 af
 af
 af
-ag
+af
+af
 ae
 ae
 ae
@@ -23597,7 +23287,7 @@ ob
 ob
 ob
 ob
-ag
+af
 af
 af
 af
@@ -23608,7 +23298,7 @@ af
 am
 af
 af
-ag
+af
 tq
 ae
 ae
@@ -23686,7 +23376,7 @@ ae
 ae
 ae
 ae
-ag
+af
 af
 af
 ko
@@ -23868,11 +23558,11 @@ sH
 tn
 ko
 af
-ag
 af
 af
 af
-ag
+af
+af
 af
 af
 af
@@ -24079,7 +23769,7 @@ ac
 ae
 ae
 ae
-ag
+af
 af
 af
 af
@@ -24166,21 +23856,21 @@ am
 af
 af
 af
-ag
+af
 af
 fq
 af
-ag
-af
-af
-ag
-af
-af
-eM
 af
 af
 af
-ag
+af
+af
+af
+fq
+af
+af
+af
+af
 af
 ae
 ae
@@ -24291,7 +23981,7 @@ af
 am
 af
 af
-ag
+af
 af
 ae
 ae
@@ -24441,11 +24131,11 @@ af
 af
 af
 af
-ag
 af
 af
 af
-ag
+af
+af
 af
 af
 af
@@ -24454,7 +24144,7 @@ ae
 af
 af
 af
-ag
+af
 af
 af
 af
@@ -24707,7 +24397,7 @@ af
 af
 af
 af
-ag
+af
 af
 af
 af
@@ -24854,7 +24544,7 @@ af
 am
 af
 af
-ag
+af
 aK
 bb
 bn
@@ -24941,13 +24631,13 @@ dX
 dX
 dX
 dX
-oa
+dX
 vN
 vT
 vY
 wc
 vM
-oa
+dX
 dX
 dX
 dX
@@ -25105,7 +24795,7 @@ ac
 ac
 ac
 ae
-ag
+af
 af
 af
 am
@@ -25321,7 +25011,7 @@ af
 af
 af
 af
-Fl
+ko
 af
 ae
 ae
@@ -25365,7 +25055,7 @@ ae
 af
 af
 al
-ag
+af
 ar
 aw
 aE
@@ -25654,7 +25344,7 @@ oF
 pn
 pL
 qq
-ag
+af
 rj
 am
 af
@@ -25712,13 +25402,13 @@ af
 af
 af
 al
-ag
 af
 af
-ag
+af
+af
 am
 af
-ag
+af
 fq
 af
 af
@@ -26028,20 +25718,20 @@ fq
 ao
 af
 af
-ag
+af
 af
 fq
 af
 kp
-ag
 af
 af
 af
-ag
 af
 af
 af
-ag
+af
+af
+af
 af
 af
 af
@@ -26095,7 +25785,7 @@ af
 ko
 af
 am
-ag
+af
 ae
 ae
 ae
@@ -26274,7 +25964,7 @@ dX
 dX
 dX
 af
-ag
+af
 af
 am
 af
@@ -26282,7 +25972,7 @@ af
 af
 af
 af
-ag
+af
 ae
 ae
 ae
@@ -26302,15 +25992,15 @@ af
 af
 af
 fq
-ag
+af
 af
 af
 af
 fq
-ag
 af
 af
-ag
+af
+af
 af
 af
 fq
@@ -26393,7 +26083,7 @@ ae
 af
 af
 af
-ag
+af
 ar
 aw
 aE
@@ -26535,7 +26225,7 @@ yW
 af
 af
 ak
-eM
+fq
 af
 ae
 ae
@@ -26570,7 +26260,7 @@ ae
 ae
 ae
 ae
-ag
+af
 af
 af
 af
@@ -26647,7 +26337,7 @@ ac
 ac
 ac
 ae
-ag
+af
 af
 af
 af
@@ -26784,13 +26474,13 @@ am
 am
 af
 zK
-oa
+dX
 te
-Au
+am
 AD
 yW
 af
-ag
+af
 af
 ae
 ae
@@ -26869,7 +26559,7 @@ af
 af
 af
 af
-FQ
+YW
 FZ
 Go
 GP
@@ -26942,7 +26632,7 @@ dK
 qO
 rl
 qL
-oa
+dX
 dX
 dX
 dX
@@ -27295,7 +26985,7 @@ ak
 af
 ao
 yV
-oa
+dX
 dX
 yW
 yW
@@ -27342,7 +27032,7 @@ ae
 ae
 ae
 ae
-ag
+af
 fq
 af
 af
@@ -27548,7 +27238,7 @@ kp
 af
 af
 af
-ag
+af
 af
 af
 yW
@@ -27678,7 +27368,7 @@ ae
 af
 af
 am
-ag
+af
 ar
 ax
 aI
@@ -27866,11 +27556,11 @@ af
 af
 af
 af
-ag
 af
 af
 af
-ag
+af
+af
 af
 am
 af
@@ -27897,7 +27587,7 @@ af
 af
 af
 af
-FR
+YW
 FZ
 FZ
 Go
@@ -28113,13 +27803,13 @@ ae
 ae
 ae
 ae
-CS
+AT
 af
 af
 af
-CS
+AT
 af
-DW
+af
 af
 ae
 ae
@@ -28155,7 +27845,7 @@ af
 af
 ao
 af
-mZ
+am
 ae
 ae
 ae
@@ -28189,7 +27879,7 @@ ac
 ac
 ac
 ae
-ag
+af
 af
 af
 af
@@ -28222,11 +27912,11 @@ nP
 om
 oN
 om
-pS
+oN
 qt
 qQ
 ro
-rI
+To
 dX
 dX
 dX
@@ -28316,7 +28006,7 @@ af
 fq
 af
 ko
-ag
+af
 af
 af
 ae
@@ -28372,7 +28062,7 @@ ae
 aj
 ai
 Db
-Dm
+Lu
 Db
 ai
 ae
@@ -28571,7 +28261,7 @@ af
 af
 af
 af
-ag
+af
 ku
 ae
 ae
@@ -28644,7 +28334,7 @@ ae
 ae
 ae
 ae
-ag
+af
 af
 am
 af
@@ -28672,7 +28362,7 @@ af
 Gc
 af
 am
-Hn
+Qt
 Ga
 HF
 GR
@@ -28710,7 +28400,7 @@ af
 ao
 am
 af
-ag
+af
 bf
 bv
 bM
@@ -28746,7 +28436,7 @@ sA
 rp
 rp
 rp
-ag
+af
 dX
 dX
 ko
@@ -29162,7 +28852,7 @@ ae
 ae
 ae
 af
-ag
+af
 af
 af
 af
@@ -29184,7 +28874,7 @@ af
 af
 af
 af
-Gr
+ao
 ae
 ae
 GP
@@ -29342,7 +29032,7 @@ af
 ak
 af
 af
-ag
+af
 ae
 ae
 ae
@@ -29475,7 +29165,6 @@ ac
 ac
 ae
 ae
-ag
 af
 af
 af
@@ -29483,7 +29172,8 @@ af
 af
 af
 af
-ag
+af
+af
 bf
 ce
 cK
@@ -29680,7 +29370,7 @@ ae
 ae
 af
 af
-ag
+af
 am
 af
 af
@@ -29940,7 +29630,7 @@ ae
 af
 af
 af
-ag
+af
 af
 am
 af
@@ -29958,7 +29648,7 @@ ak
 af
 dX
 dX
-oa
+dX
 Ia
 Gq
 II
@@ -30111,7 +29801,7 @@ af
 af
 af
 af
-ag
+af
 ae
 ae
 ae
@@ -30285,7 +29975,7 @@ nN
 nN
 nN
 oW
-ag
+af
 af
 af
 af
@@ -30365,7 +30055,7 @@ af
 af
 af
 af
-ag
+af
 af
 ae
 ae
@@ -30714,7 +30404,7 @@ ae
 ae
 ae
 ae
-ag
+af
 ko
 Fh
 Fj
@@ -30760,7 +30450,6 @@ ac
 ac
 ae
 ae
-ag
 af
 af
 af
@@ -30768,7 +30457,8 @@ af
 af
 af
 af
-ag
+af
+af
 bf
 cj
 cP
@@ -30982,7 +30672,7 @@ af
 af
 am
 af
-ag
+af
 ae
 ae
 ae
@@ -31134,7 +30824,7 @@ af
 af
 af
 af
-mZ
+am
 ae
 ae
 ae
@@ -31230,7 +30920,7 @@ ae
 ae
 ae
 ae
-Fi
+ak
 af
 af
 af
@@ -31570,7 +31260,7 @@ rt
 rR
 si
 oW
-ag
+af
 af
 af
 af
@@ -31902,7 +31592,7 @@ tN
 tN
 tN
 tN
-uq
+tN
 ae
 ae
 ae
@@ -32048,7 +31738,6 @@ ae
 ae
 ae
 ae
-ag
 af
 af
 af
@@ -32057,7 +31746,8 @@ af
 af
 af
 af
-ag
+af
+af
 af
 af
 fm
@@ -32081,7 +31771,7 @@ qf
 qD
 oW
 af
-ag
+af
 af
 af
 af
@@ -32317,7 +32007,7 @@ af
 af
 af
 af
-ag
+af
 af
 af
 af
@@ -32327,7 +32017,7 @@ jC
 iM
 kT
 hB
-mw
+hB
 kT
 iM
 iM
@@ -32589,7 +32279,7 @@ am
 af
 af
 am
-ag
+af
 ao
 af
 af
@@ -32782,7 +32472,7 @@ dX
 ao
 dX
 te
-Gv
+Gw
 ae
 ae
 ae
@@ -32838,11 +32528,11 @@ ak
 af
 af
 af
-ag
+af
 am
 am
 af
-ag
+af
 af
 af
 af
@@ -32930,7 +32620,7 @@ tN
 tN
 tN
 tN
-uq
+tN
 ae
 ae
 ae
@@ -33091,7 +32781,7 @@ af
 af
 af
 gN
-ag
+af
 fY
 fY
 fY
@@ -33591,7 +33281,7 @@ ae
 ae
 ae
 af
-ag
+af
 af
 af
 af
@@ -33958,7 +33648,7 @@ tN
 tN
 tN
 tN
-uq
+tN
 ae
 ae
 ae
@@ -34070,7 +33760,7 @@ dX
 dX
 dX
 Fj
-HI
+Hq
 ae
 ae
 ae
@@ -34320,7 +34010,7 @@ ae
 ae
 ae
 ae
-mZ
+am
 af
 ak
 af
@@ -34373,7 +34063,7 @@ af
 af
 ao
 af
-ag
+af
 fY
 gS
 hE
@@ -34386,7 +34076,7 @@ id
 mA
 mV
 fY
-ag
+af
 af
 fq
 af
@@ -34840,7 +34530,7 @@ FS
 iY
 FS
 iY
-Hr
+iY
 ae
 ae
 ae
@@ -34877,7 +34567,7 @@ ae
 ae
 ae
 ae
-ag
+af
 af
 af
 af
@@ -34987,7 +34677,7 @@ tN
 tN
 tN
 tN
-uq
+tN
 ae
 ae
 ae
@@ -35348,7 +35038,7 @@ ae
 ae
 ae
 ae
-ag
+af
 af
 af
 ak
@@ -35661,7 +35351,7 @@ eF
 fo
 ga
 eE
-ag
+af
 fY
 iW
 jL
@@ -35868,7 +35558,7 @@ am
 af
 af
 af
-mZ
+am
 ae
 ae
 ae
@@ -35928,7 +35618,7 @@ iW
 hE
 hE
 nB
-oa
+dX
 dX
 dX
 af
@@ -36017,7 +35707,7 @@ tN
 tN
 tN
 tN
-uq
+tN
 ae
 ae
 ae
@@ -36117,7 +35807,7 @@ ae
 ae
 af
 af
-ag
+af
 af
 af
 af
@@ -36351,7 +36041,7 @@ Dp
 an
 EF
 CC
-AJ
+zh
 Cr
 ae
 ae
@@ -36419,15 +36109,15 @@ ae
 ae
 ae
 ae
-ag
 af
 af
 af
-ag
 af
 af
 af
-ag
+af
+af
+af
 dX
 af
 af
@@ -36639,7 +36329,7 @@ am
 af
 af
 af
-se
+al
 ae
 ae
 ae
@@ -36692,12 +36382,12 @@ af
 dX
 af
 af
-ag
 af
 af
 af
 af
-ag
+af
+af
 af
 af
 af
@@ -36790,7 +36480,7 @@ tN
 tN
 tN
 tN
-uq
+tN
 ae
 ae
 ae
@@ -36806,7 +36496,7 @@ ae
 ae
 ae
 af
-ag
+af
 zZ
 Aa
 zD
@@ -36815,9 +36505,9 @@ AU
 Aa
 Aa
 af
-ag
 af
 af
+af
 ae
 ae
 ae
@@ -36832,12 +36522,12 @@ ae
 ae
 ae
 ae
-ag
+af
 af
 am
 am
 af
-ag
+af
 af
 ae
 ae
@@ -36868,9 +36558,9 @@ CC
 zh
 af
 af
-ag
 af
 af
+af
 ae
 ae
 ae
@@ -36886,7 +36576,7 @@ ae
 ae
 af
 af
-ag
+af
 ak
 af
 af
@@ -36942,7 +36632,7 @@ ae
 ae
 ae
 ae
-ag
+af
 fq
 af
 af
@@ -37050,7 +36740,7 @@ tN
 af
 af
 fq
-mZ
+am
 am
 ae
 ae
@@ -37098,10 +36788,10 @@ am
 af
 af
 af
-ag
+af
 am
 af
-ag
+af
 af
 ae
 ae
@@ -37340,10 +37030,10 @@ ae
 ae
 ae
 ae
-eM
+fq
 af
 af
-mZ
+am
 af
 af
 af
@@ -37362,7 +37052,7 @@ af
 Co
 af
 af
-AJ
+zh
 CC
 CH
 CH
@@ -37385,11 +37075,11 @@ af
 af
 af
 af
-ag
+af
 zh
 Cv
 Cv
-EZ
+Cv
 Ct
 ae
 ae
@@ -37397,7 +37087,7 @@ ae
 ae
 ae
 af
-ag
+af
 af
 af
 af
@@ -37637,7 +37327,7 @@ Di
 Di
 EO
 CC
-AJ
+zh
 af
 Cw
 af
@@ -37665,7 +37355,7 @@ af
 af
 af
 am
-ag
+af
 ae
 ae
 ae
@@ -37715,7 +37405,7 @@ ae
 ae
 ae
 ae
-ag
+af
 af
 af
 af
@@ -37822,7 +37512,7 @@ tN
 af
 af
 fq
-mZ
+am
 ae
 ae
 ae
@@ -37850,7 +37540,7 @@ AI
 zD
 zD
 Aa
-ag
+af
 af
 af
 yv
@@ -37907,7 +37597,7 @@ zh
 zh
 af
 af
-ag
+af
 af
 af
 af
@@ -38133,7 +37823,7 @@ af
 af
 am
 af
-AJ
+zh
 CC
 CK
 CV
@@ -38349,14 +38039,14 @@ yv
 ae
 ae
 af
-ag
+af
 af
 Aa
 zD
 Aa
 af
 af
-ag
+af
 Aa
 Aa
 zD
@@ -38408,7 +38098,7 @@ Ep
 EK
 EQ
 CC
-ag
+af
 af
 af
 af
@@ -38433,7 +38123,7 @@ af
 af
 af
 af
-eM
+fq
 ae
 ae
 ae
@@ -38489,7 +38179,7 @@ ae
 ae
 ae
 ae
-ag
+af
 af
 af
 af
@@ -38596,15 +38286,15 @@ tN
 tN
 af
 af
-ag
 af
 af
 af
-ag
+af
+af
 am
 yv
 af
-ag
+af
 af
 af
 af
@@ -38866,7 +38556,7 @@ fq
 af
 am
 AB
-AJ
+zh
 zs
 af
 am
@@ -38877,7 +38567,7 @@ Aa
 zD
 Aa
 af
-ag
+af
 af
 fq
 af
@@ -39161,19 +38851,19 @@ af
 af
 zh
 af
-ag
+af
 CC
 CO
 CZ
 CZ
 CD
-AJ
+zh
 CC
 DV
 Ee
 Eh
 CC
-AJ
+zh
 CC
 CH
 EM
@@ -39260,7 +38950,7 @@ ai
 ai
 ae
 ae
-ig
+Qt
 iY
 iY
 kn
@@ -39388,7 +39078,7 @@ zr
 af
 af
 AB
-AJ
+zh
 zs
 af
 af
@@ -39427,7 +39117,7 @@ Du
 DE
 zh
 zh
-AJ
+zh
 zh
 zh
 zh
@@ -39436,7 +39126,7 @@ CP
 CP
 CP
 CC
-AJ
+zh
 af
 zh
 zh
@@ -39680,14 +39370,14 @@ CE
 CQ
 Da
 Dl
-AJ
-zh
-DE
-zh
 zh
 zh
 DE
-AJ
+zh
+zh
+zh
+DE
+zh
 Ey
 CQ
 Da
@@ -39716,7 +39406,7 @@ am
 af
 af
 af
-ag
+af
 am
 af
 ae
@@ -39933,7 +39623,6 @@ af
 zh
 af
 af
-AJ
 zh
 zh
 zh
@@ -39948,7 +39637,8 @@ zh
 zh
 zh
 zh
-AJ
+zh
+zh
 zh
 zh
 af
@@ -40032,7 +39722,7 @@ ap
 ap
 as
 ih
-iZ
+ij
 dX
 ko
 af
@@ -40546,7 +40236,7 @@ an
 an
 an
 ij
-ja
+tI
 dX
 ko
 af
@@ -40662,7 +40352,7 @@ zi
 zh
 tF
 tF
-ag
+af
 am
 af
 af
@@ -40742,7 +40432,7 @@ af
 af
 af
 af
-ag
+af
 ae
 ae
 ae
@@ -40803,7 +40493,7 @@ an
 an
 an
 ij
-jb
+ii
 dX
 kr
 dX
@@ -40915,7 +40605,7 @@ am
 af
 af
 yv
-ag
+af
 zt
 zu
 zu
@@ -41178,7 +40868,7 @@ zC
 zP
 Ac
 zu
-ag
+af
 af
 tF
 tF
@@ -41317,7 +41007,7 @@ ap
 ap
 au
 ik
-iZ
+ij
 dX
 kr
 dX
@@ -41692,7 +41382,7 @@ zE
 zQ
 zD
 Ao
-ag
+af
 af
 ao
 tF
@@ -42026,7 +41716,7 @@ af
 af
 af
 am
-ag
+af
 ae
 ae
 ae
@@ -42088,7 +41778,7 @@ ai
 ae
 ae
 ae
-ig
+Qt
 iY
 kt
 af
@@ -42201,10 +41891,10 @@ af
 tF
 tF
 tF
-ag
 af
 af
-ag
+af
+af
 af
 af
 fq
@@ -42859,7 +42549,7 @@ ae
 ae
 ae
 ae
-ag
+af
 af
 af
 af
@@ -43235,7 +42925,7 @@ af
 af
 af
 AB
-AJ
+zh
 zs
 af
 af
@@ -43243,7 +42933,7 @@ af
 af
 af
 AB
-AJ
+zh
 zh
 zh
 zA
@@ -43312,7 +43002,7 @@ af
 af
 fq
 af
-ag
+af
 ae
 ae
 ae
@@ -43494,11 +43184,11 @@ af
 Aa
 Ao
 Aa
-ag
+af
 af
 fq
 ak
-ag
+af
 Aa
 Ao
 Aa
@@ -43710,10 +43400,10 @@ af
 af
 fq
 af
-ag
 af
 af
-ag
+af
+af
 af
 fq
 af
@@ -43746,7 +43436,7 @@ yv
 af
 zF
 af
-ag
+af
 af
 Aa
 zD
@@ -43829,7 +43519,7 @@ fq
 af
 af
 af
-ag
+af
 af
 ae
 ae
@@ -43973,11 +43663,11 @@ ae
 ae
 af
 af
-ag
 af
 af
 af
-mZ
+af
+am
 af
 af
 af
@@ -44010,14 +43700,14 @@ zD
 Aa
 Aa
 af
-ag
+af
 af
 Aa
 Aa
 zD
 Aa
 Aa
-ag
+af
 af
 af
 Bn
@@ -44143,7 +43833,7 @@ ae
 ae
 ae
 ae
-ag
+af
 af
 af
 af
@@ -44221,7 +43911,7 @@ af
 am
 am
 af
-ag
+af
 af
 ae
 ae
@@ -44237,7 +43927,7 @@ ae
 ae
 ae
 af
-mZ
+am
 af
 af
 af
@@ -44498,7 +44188,7 @@ ae
 ae
 af
 wB
-wC
+Vc
 af
 af
 am
@@ -44516,7 +44206,7 @@ yv
 af
 am
 af
-ag
+af
 Aa
 zD
 zD
@@ -44730,7 +44420,7 @@ af
 af
 af
 af
-ag
+af
 tG
 vV
 vV
@@ -44759,15 +44449,15 @@ ae
 ae
 af
 af
-ag
 af
 af
 af
-ag
 af
 af
 af
-ag
+af
+af
+af
 af
 yv
 af
@@ -44789,7 +44479,7 @@ AI
 zD
 zD
 Aa
-ag
+af
 af
 fq
 am
@@ -44858,7 +44548,7 @@ af
 af
 af
 af
-ag
+af
 ae
 ae
 ae
@@ -44916,7 +44606,7 @@ ae
 ae
 ae
 ae
-ag
+af
 af
 af
 ko
@@ -44983,7 +44673,7 @@ af
 fq
 af
 am
-ag
+af
 ae
 ae
 ae
@@ -45049,7 +44739,7 @@ Aa
 af
 af
 af
-ag
+af
 af
 yv
 af
@@ -45073,15 +44763,15 @@ af
 af
 af
 af
-AJ
 zh
 zh
 zh
-AJ
 zh
 zh
 zh
-AJ
+zh
+zh
+zh
 zh
 zh
 zh
@@ -45237,7 +44927,7 @@ af
 af
 al
 af
-ag
+af
 ae
 ae
 ae
@@ -45284,7 +44974,7 @@ ae
 am
 af
 yv
-ag
+af
 af
 af
 af
@@ -45318,15 +45008,15 @@ af
 af
 af
 af
-ag
 af
 af
 af
-ag
+af
+af
 af
 zh
 af
-ag
+af
 ae
 ae
 ae
@@ -45454,10 +45144,10 @@ af
 af
 af
 af
-tr
+jc
 af
 af
-ag
+af
 af
 af
 af
@@ -45467,7 +45157,6 @@ af
 af
 af
 af
-ag
 af
 af
 af
@@ -45475,7 +45164,8 @@ af
 af
 af
 af
-ag
+af
+af
 af
 af
 af
@@ -45490,7 +45180,7 @@ tN
 tN
 af
 af
-eM
+fq
 af
 af
 ae
@@ -45552,7 +45242,7 @@ Aa
 Aa
 Aa
 af
-ag
+af
 af
 Aa
 Aa
@@ -45597,15 +45287,15 @@ ae
 ae
 ae
 zh
-AJ
 zh
 zh
-AJ
+zh
+zh
 zh
 zh
 zh
 af
-ag
+af
 zh
 af
 af
@@ -45689,7 +45379,7 @@ ae
 ae
 ae
 ae
-ag
+af
 af
 af
 af
@@ -45718,7 +45408,7 @@ ae
 ae
 af
 af
-ag
+af
 af
 ak
 af
@@ -45728,13 +45418,13 @@ ae
 ae
 ae
 ae
-ag
+af
 ae
 ae
 ae
 ae
 ae
-ag
+af
 af
 af
 tN
@@ -45802,32 +45492,32 @@ ae
 ae
 ae
 ae
-ag
-af
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
 af
 af
-mZ
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+af
+af
+am
 am
 af
-ag
+af
 af
 af
 ae
@@ -45866,15 +45556,15 @@ af
 zh
 af
 af
-ag
 af
 af
 af
-ag
 af
 af
 af
-ag
+af
+af
+af
 af
 am
 af
@@ -45885,7 +45575,7 @@ af
 sf
 FB
 am
-ag
+af
 af
 ae
 ae
@@ -45992,7 +45682,7 @@ ae
 ae
 ae
 aj
-ja
+tI
 af
 tN
 tN
@@ -46000,7 +45690,7 @@ tN
 tN
 tN
 tN
-ag
+af
 am
 af
 af
@@ -46222,9 +45912,9 @@ af
 af
 af
 af
-ag
 af
 af
+af
 ae
 ae
 ae
@@ -46235,7 +45925,7 @@ ae
 ae
 ae
 af
-ag
+af
 ae
 ae
 ae
@@ -46252,11 +45942,11 @@ tx
 tx
 tx
 tx
-tS
 tx
 tx
 tx
-tS
+tx
+tx
 tG
 ae
 ae
@@ -46396,7 +46086,7 @@ af
 af
 af
 af
-ag
+af
 af
 af
 ae
@@ -46645,7 +46335,7 @@ ae
 ae
 ae
 ae
-ag
+af
 af
 af
 af
@@ -46720,7 +46410,7 @@ ae
 ae
 ae
 ae
-mZ
+am
 af
 af
 af
@@ -46733,7 +46423,7 @@ af
 af
 af
 af
-ag
+af
 af
 ae
 ae
@@ -46906,7 +46596,7 @@ af
 af
 fq
 af
-ag
+af
 af
 af
 ae
@@ -47242,7 +46932,7 @@ af
 af
 af
 af
-ag
+af
 af
 af
 af
@@ -47496,7 +47186,7 @@ am
 af
 af
 af
-ag
+af
 ae
 ae
 ae
@@ -47750,7 +47440,7 @@ ae
 ae
 af
 af
-ag
+af
 ae
 ae
 ae

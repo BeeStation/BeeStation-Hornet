@@ -16,9 +16,7 @@ SUBSYSTEM_DEF(lighting)
 		//Handle legacy lightnig
 		create_all_lighting_objects()
 		//Handle fancy lighting
-		if(duplicate_shadow_updates_in_init)
-			to_chat(world, "<span class='boldannounce'>Warning! [duplicate_shadow_updates_in_init] duplicate shadow generation requests were generated during init!</span>")
-		to_chat(world, "<span class='boldannounce'>Generating shadows on [sources_that_need_updating.len] light sources.</span>")
+		to_chat(world, "<span sclass='boldannounce'>Generating shadows on [sources_that_need_updating.len] light sources.</span>")
 		var/timer = TICK_USAGE
 		for(var/atom/movable/lighting_mask/mask as() in sources_that_need_updating)
 			mask.calculate_lighting_shadows()
