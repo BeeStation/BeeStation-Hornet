@@ -177,7 +177,7 @@
 	equip_cooldown = 5
 	energy_drain = 0
 	range = MECHA_MELEE|MECHA_RANGED
-	mech_flags = EXOSUIT_MODULE_WORKING
+	mech_flags = EXOSUIT_MODULE_RIPLEY
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/Initialize()
 	. = ..()
