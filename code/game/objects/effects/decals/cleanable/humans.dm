@@ -6,7 +6,6 @@
 	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
 	blood_state = BLOOD_STATE_HUMAN
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
-	plane = -1
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
 	C.add_blood_DNA(return_blood_DNA())
@@ -290,6 +289,7 @@
 				var/obj/effect/decal/cleanable/blood/splatter/B = new(prev_loc)
 				//Adjust pixel offset to make splatters appear on the wall
 				if(istype(B))
+					B.plane = -1
 					B.pixel_x = (dir == EAST ? 32 : (dir == WEST ? -32 : 0))
 					B.pixel_y = (dir == NORTH ? 32 : (dir == SOUTH ? -32 : 0))
 		else //This will only happen if prev_loc is not even a turf, which is highly unlikely.
