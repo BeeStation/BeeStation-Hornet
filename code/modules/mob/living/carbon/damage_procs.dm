@@ -38,8 +38,7 @@
 			adjustCloneLoss(damage_amount, forced = forced)
 		if(STAMINA)
 			if(BP)
-				var/obj/item/bodypart/applied_part = BP
-				if(applied_part.receive_damage(0, 0, damage_amount))
+				if(BP.receive_damage(0, 0, damage_amount))
 					update_damage_overlays()
 			else
 				adjustStaminaLoss(damage_amount, forced = forced)
