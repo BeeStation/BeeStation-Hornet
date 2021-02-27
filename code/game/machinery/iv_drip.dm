@@ -224,14 +224,15 @@
 /obj/machinery/iv_drip/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(user.is_holding_item_of_type(/obj/item/clothing/mask/breath) && can_convert)
-		visible_message("<span class='warning'>[user] attemps to covert the [src] into a anesthetic tank holder.</span>", "<span class='notice'>You attempt to convert the [src] into a anesthetic tank holder.</span>")
+		visible_message("<span class='warning'>[user] attempts to attach the breath mask to [src].</span>", "<span class='notice'>You attempt to attach the breath mask to [src].</span>")
 		if(!do_after(user, 100, FALSE, src))
-			to_chat(user, "<span class='warning'>You fail to convert the [src]!</span>")
+			to_chat(user, "<span class='warning'>You fail to attach the breath mask to [src]!</span>")
 			return
-		if(!user.is_holding_item_of_type(/obj/item/clothing/mask/breath)) // Check after the do_after as well
+		var/item = user.is_holding_item_of_type(/obj/item/clothing/mask/breath)
+		if(!item) // Check after the do_after as well
 			return
-		visible_message("<span class='warning'>[user] converts the [src] into a anesthetic tank holder.</span>", "<span class='notice'>You convert the [src] into a anesthetic tank holder.</span>")
-		qdel(user.is_holding_item_of_type(/obj/item/clothing/mask))
+		visible_message("<span class='warning'>[user] attaches the breath mask to [src].</span>", "<span class='notice'>You attach the breath mask to [src].</span>")
+		qdel(item)
 		new /obj/machinery/anesthetic_machine(loc)
 		qdel(src)
 

@@ -96,10 +96,11 @@
 		return PROCESS_KILL
 
 /obj/machinery/anesthetic_machine/Destroy()
-	. = ..()
 	if(mask_out)
 		retract_mask()
 	qdel(attached_mask)
+	new /obj/item/clothing/mask/breath(src)
+	. = ..()
 
 /obj/item/clothing/mask/breath/machine
 	var/obj/machinery/anesthetic_machine/machine_attached
