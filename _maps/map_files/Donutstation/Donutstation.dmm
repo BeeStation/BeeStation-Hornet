@@ -12649,6 +12649,9 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/machinery/door/window/northleft{
+	name = "Infirmary"
+	},
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "aEa" = (
@@ -52558,6 +52561,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
+"ihQ" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/machinery/door/window/northright{
+	name = "Infirmary"
+	},
+/turf/open/floor/plasteel/white,
+/area/security/brig)
 "iif" = (
 /obj/structure/table,
 /obj/item/stack/sheet/iron/fifty,
@@ -106290,7 +106305,7 @@ aij
 aij
 aOi
 aZI
-aDZ
+ihQ
 aEq
 aFs
 aGd

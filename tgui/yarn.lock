@@ -3790,6 +3790,8 @@ __metadata:
 "follow-redirects@npm:^1.10.0":
   version: 1.13.1
   resolution: "follow-redirects@npm:1.13.1"
+  peerDependencies:
+    debug: "*"
   peerDependenciesMeta:
     debug:
       optional: true

@@ -1,0 +1,8 @@
+author: bloons3
+delete-after: true
+changes:
+  - rscadd: Adds Brig Physician permission node (ACCESS_BRIGPHYS = 34)
+  - tweak: Gives Brig Physician somewhat exclusive access to their medical supply
+      locker
+  - rscadd: Brig Physician permission is applied to relevant areas on maps
+  - tweak: Other minor access control changes around Brig/Brig medical areas
