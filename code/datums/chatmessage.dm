@@ -141,7 +141,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			var/mob/living/L = target
 			target.chat_color = L.mobsay_color
 			target.chat_color_name = L.name
-		else					//no predefined color, randomizing one
+		else if(!target.chat_color)				//no predefined color, randomizing one
 			target.chat_color = colorize_string(target.name)
 			target.chat_color_name = target.name
 		var/list/rgb = ReadRGB(target.chat_color)
