@@ -17,6 +17,8 @@
 	level = 1
 	layer = GAS_SCRUBBER_LAYER
 
+	interacts_with_air = TRUE
+
 	var/id_tag = null
 	var/pump_direction = RELEASING
 

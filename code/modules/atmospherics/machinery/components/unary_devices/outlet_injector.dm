@@ -19,6 +19,7 @@
 	var/datum/radio_frequency/radio_connection
 
 	level = 1
+	interacts_with_air = TRUE
 	layer = GAS_SCRUBBER_LAYER
 
 	pipe_state = "injector"

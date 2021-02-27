@@ -5,12 +5,12 @@ GLOBAL_VAR(restart_counter)
 //This happens after the Master subsystem new(s) (it's a global datum)
 //So subsystems globals exist, but are not initialised
 /world/New()
-	if (fexists(EXTOOLS))
-		call(EXTOOLS, "debug_initialize")()
-		call(EXTOOLS, "maptick_initialize")()
-		#ifdef REFERENCE_TRACKING
-		call(EXTOOLS, "ref_tracking_initialize")()
-		#endif
+	//Keep the auxtools stuff at the top
+	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
+	if (debug_server)
+		call(debug_server, "auxtools_init")()
+		enable_debugging()
+	AUXTOOLS_CHECK(AUXMOS)
 
 	//Early profile for auto-profiler - will be stopped on profiler init if necessary.
 	world.Profile(PROFILE_START)
@@ -259,14 +259,10 @@ GLOBAL_VAR(restart_counter)
 	..()
 
 /world/Del()
-	// memory leaks bad
-	var/num_deleted = 0
-	for(var/datum/gas_mixture/GM)
-		GM.__gasmixture_unregister()
-		num_deleted++
-	log_world("Deallocated [num_deleted] gas mixtures")
-	if(fexists(EXTOOLS))
-		call(EXTOOLS, "cleanup")()
+	AUXTOOLS_SHUTDOWN(AUXMOS)
+	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
+	if (debug_server)
+		call(debug_server, "auxtools_shutdown")()
 	..()
 
 /world/proc/update_status()

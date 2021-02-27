@@ -1,5 +1,4 @@
 {
-	"dreammaker.extoolsDLL": "byond-extools.dll",
 	"eslint.nodePath": "tgui/.yarn/sdks",
 	"eslint.workingDirectories": [
 		"./tgui"

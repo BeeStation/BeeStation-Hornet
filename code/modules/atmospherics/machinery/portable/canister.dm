@@ -23,7 +23,7 @@
 	integrity_failure = 100
 	pressure_resistance = 7 * ONE_ATMOSPHERE
 	var/temperature_resistance = 1000 + T0C
-	var/starter_temp
+	var/starter_temp = T20C
 	// Prototype vars
 	var/prototype = FALSE
 	var/valve_timer = null
@@ -204,13 +204,11 @@
 
 /obj/machinery/portable_atmospherics/canister/proc/create_gas()
 	if(gas_type)
-		if(starter_temp)
-			air_contents.set_temperature(starter_temp)
+		air_contents.set_temperature(starter_temp)
 		air_contents.set_moles(gas_type, (maximum_pressure * filled) * air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
 
 /obj/machinery/portable_atmospherics/canister/air/create_gas()
-	if(starter_temp)
-		air_contents.set_temperature(starter_temp)
+	air_contents.set_temperature(starter_temp)
 	air_contents.set_moles(/datum/gas/oxygen, (O2STANDARD * maximum_pressure * filled) * air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
 	air_contents.set_moles(/datum/gas/nitrogen, (N2STANDARD * maximum_pressure * filled) * air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
 

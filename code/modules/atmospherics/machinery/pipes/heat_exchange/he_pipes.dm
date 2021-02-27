@@ -6,6 +6,7 @@
 	buckle_lying = -1
 	var/icon_temperature = T20C //stop small changes in temperature causing icon refresh
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	interacts_with_air = TRUE
 
 /obj/machinery/atmospherics/pipe/heat_exchanging/Initialize()
 	. = ..()

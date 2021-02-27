@@ -638,7 +638,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	GLOB.wall_runes -= src
 	return ..()
 
-/obj/effect/rune/wall/BlockSuperconductivity()
+/obj/effect/rune/wall/BlockThermalConductivity()
 	return density
 
 /obj/effect/rune/wall/invoke(var/list/invokers)

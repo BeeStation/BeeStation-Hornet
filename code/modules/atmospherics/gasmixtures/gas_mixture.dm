@@ -25,14 +25,24 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 	var/initial_volume = CELL_VOLUME //liters
 	var/list/reaction_results
 	var/list/analyzer_results //used for analyzer feedback - not initialized until its used
-	var/_extools_pointer_gasmixture = 0 // Contains the memory address of the shared_ptr object for this gas mixture in c++ land. Don't. Touch. This. Var.
+	var/_extools_pointer_gasmixture // Contains the index in the gas vector for this gas mixture in rust land. Don't. Touch. This. Var.
+
+GLOBAL_LIST_INIT(auxtools_atmos_initialized, FALSE)
+
+/proc/auxtools_atmos_init()
 
 /datum/gas_mixture/New(volume)
 	if (!isnull(volume))
 		initial_volume = volume
-	ATMOS_EXTOOLS_CHECK
+	AUXTOOLS_CHECK(AUXMOS)
+	if(!GLOB.auxtools_atmos_initialized && auxtools_atmos_init())
+		GLOB.auxtools_atmos_initialized = TRUE
 	__gasmixture_register()
 	reaction_results = new
+
+/datum/gas_mixture/Del()
+	__gasmixture_unregister()
+	. = ..()
 
 /datum/gas_mixture/vv_edit_var(var_name, var_value)
 	if(var_name == "_extools_pointer_gasmixture")
@@ -124,6 +134,18 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 	//Performs various reactions such as combustion or fusion (LOL)
 	//Returns: 1 if any reaction took place; 0 otherwise
 
+/datum/gas_mixture/proc/adjust_heat(amt)
+	//Adjusts the thermal energy of the gas mixture, rather than having to do the full calculation.
+	//Returns: null
+
+/datum/gas_mixture/proc/equalize_with(datum/gas_mixture/giver)
+	//Makes this mix have the same temperature and gas ratios as the giver, but with the same pressure, accounting for volume.
+	//Returns: null
+
+/proc/equalize_all_gases_in_list(list/L)
+	//Makes every gas in the given list have the same pressure, temperature and gas proportions.
+	//Returns: null
+
 /datum/gas_mixture/proc/__remove()
 /datum/gas_mixture/remove(amount)
 	var/datum/gas_mixture/removed = new type
@@ -146,21 +168,17 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 
 /datum/gas_mixture/copy_from_turf(turf/model)
 	parse_gas_string(model.initial_gas_mix)
-
-	//acounts for changes in temperature
-	var/turf/model_parent = model.parent_type
-	if(model.temperature != initial(model.temperature) || model.temperature != initial(model_parent.temperature))
-		set_temperature(model.temperature)
-
+	set_temperature(initial(model.initial_temperature))
 	return 1
 
 /datum/gas_mixture/parse_gas_string(gas_string)
-	gas_string = SSair.preprocess_gas_string(gas_string)
-
 	var/list/gas = params2list(gas_string)
 	if(gas["TEMP"])
-		set_temperature(text2num(gas["TEMP"]))
+		var/temp = text2num(gas["TEMP"])
 		gas -= "TEMP"
+		if(!isnum(temp) || temp < 2.7)
+			temp = 2.7
+		set_temperature(temp)
 	clear()
 	for(var/id in gas)
 		var/path = id

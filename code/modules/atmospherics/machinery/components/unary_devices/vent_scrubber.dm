@@ -14,6 +14,8 @@
 	level = 1
 	layer = GAS_SCRUBBER_LAYER
 
+	interacts_with_air = TRUE
+
 	var/id_tag = null
 	var/scrubbing = SCRUBBING //0 = siphoning, 1 = scrubbing
 

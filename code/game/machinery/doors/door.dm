@@ -35,7 +35,7 @@
 	var/datum/effect_system/spark_spread/spark_system
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/red_alert_access = FALSE //if TRUE, this door will always open on red alert
-	var/poddoor = FALSE	
+	var/poddoor = FALSE
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
 	var/open_speed = 5
 
@@ -384,7 +384,7 @@
 	if(!glass && GLOB.cameranet)
 		GLOB.cameranet.updateVisibility(src, 0)
 
-/obj/machinery/door/BlockSuperconductivity() // All non-glass airlocks block heat, this is intended.
+/obj/machinery/door/BlockThermalConductivity() // All non-glass airlocks block heat, this is intended.
 	if(opacity || heat_proof)
 		return 1
 	return 0
