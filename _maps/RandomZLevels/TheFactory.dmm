@@ -301,7 +301,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
 "aqr" = (
@@ -507,7 +507,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged3";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
 "ayw" = (
@@ -799,7 +799,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged3";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
 "aOp" = (
@@ -809,7 +809,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
 "aPb" = (
@@ -924,7 +924,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
 "aVL" = (
@@ -933,7 +933,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
 "aWi" = (
@@ -943,7 +943,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
 "aWw" = (
@@ -962,7 +962,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged3";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "aWU" = (
@@ -2086,7 +2086,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "cbG" = (
@@ -2581,7 +2581,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
 "cyR" = (
@@ -2811,7 +2811,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "cHj" = (
@@ -2893,7 +2893,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "cKF" = (
@@ -3363,7 +3363,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
 "dkX" = (
@@ -3372,7 +3372,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
 "dkY" = (
@@ -3665,7 +3665,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "dzb" = (
@@ -4120,7 +4120,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
 "dTz" = (
@@ -4305,7 +4305,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
 "ebm" = (
@@ -4328,7 +4328,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
 "eci" = (
@@ -4698,7 +4698,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "euB" = (
@@ -5540,7 +5540,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "fdQ" = (
@@ -5666,7 +5666,7 @@
 	})
 "fid" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on/coldroom{
-	target_temperature = 170
+	target_initial_temperature = 170
 	},
 /turf/open/floor/plating/snowed/smoothed,
 /area/awaymission/factory/villageafter/house)
@@ -5835,7 +5835,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "foZ" = (
@@ -6368,7 +6368,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "fMy" = (
@@ -6483,7 +6483,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "fSQ" = (
@@ -6618,7 +6618,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "gak" = (
@@ -6634,7 +6634,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "gbf" = (
@@ -6765,7 +6765,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "ggp" = (
@@ -7137,7 +7137,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "gyB" = (
@@ -7169,7 +7169,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "gzj" = (
@@ -7317,7 +7317,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "gIy" = (
@@ -7331,7 +7331,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "gIJ" = (
@@ -7396,7 +7396,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "gLE" = (
@@ -7443,7 +7443,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "gNl" = (
@@ -7506,7 +7506,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "gPv" = (
@@ -8069,7 +8069,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "hqC" = (
@@ -8082,7 +8082,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "hrl" = (
@@ -8101,7 +8101,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "hrz" = (
@@ -8269,7 +8269,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "hyj" = (
@@ -8277,7 +8277,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "hyq" = (
@@ -8292,7 +8292,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "hyr" = (
@@ -8420,7 +8420,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "hEx" = (
@@ -8431,7 +8431,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "hEI" = (
@@ -8791,7 +8791,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "hQg" = (
@@ -8981,7 +8981,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
 "hXB" = (
@@ -9033,7 +9033,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "ias" = (
@@ -9063,7 +9063,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "iaX" = (
@@ -9077,7 +9077,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "ibs" = (
@@ -9161,7 +9161,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "ifl" = (
@@ -9199,7 +9199,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "ihu" = (
@@ -9220,7 +9220,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "iiw" = (
@@ -9296,7 +9296,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "imx" = (
@@ -9372,7 +9372,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "ipb" = (
@@ -9390,7 +9390,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "ipl" = (
@@ -9404,7 +9404,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "ipA" = (
@@ -9426,7 +9426,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "ipK" = (
@@ -9460,7 +9460,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "isj" = (
@@ -9815,7 +9815,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "iHN" = (
@@ -10223,7 +10223,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "iZN" = (
@@ -10248,7 +10248,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "jan" = (
@@ -10326,7 +10326,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "jen" = (
@@ -10618,7 +10618,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "jqB" = (
@@ -10637,7 +10637,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "jqP" = (
@@ -10648,7 +10648,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "jrz" = (
@@ -11784,7 +11784,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "kyu" = (
@@ -11944,7 +11944,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "kGr" = (
@@ -12802,7 +12802,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lrI" = (
@@ -12962,7 +12962,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "lyU" = (
@@ -13097,7 +13097,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
 "lFk" = (
@@ -13487,7 +13487,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "lSN" = (
@@ -13788,7 +13788,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "mhf" = (
@@ -13854,7 +13854,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "mku" = (
@@ -13863,7 +13863,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "mkO" = (
@@ -13875,7 +13875,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "mkY" = (
@@ -14028,7 +14028,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "mvM" = (
@@ -14044,7 +14044,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "mwp" = (
@@ -14199,7 +14199,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "mAe" = (
@@ -14420,7 +14420,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "mJD" = (
@@ -14434,7 +14434,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "mKg" = (
@@ -14731,7 +14731,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "mXv" = (
@@ -14742,7 +14742,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged3";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "mYt" = (
@@ -14751,7 +14751,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "mZI" = (
@@ -14765,7 +14765,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "mZS" = (
@@ -14781,7 +14781,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "naA" = (
@@ -15355,7 +15355,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "nsa" = (
@@ -15496,7 +15496,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "nyz" = (
@@ -15550,7 +15550,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "nAJ" = (
@@ -16974,7 +16974,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "oER" = (
@@ -17605,7 +17605,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "oZd" = (
@@ -18003,7 +18003,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "pnq" = (
@@ -18430,7 +18430,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "pER" = (
@@ -18762,7 +18762,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "pNH" = (
@@ -18814,7 +18814,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "pPs" = (
@@ -19366,7 +19366,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "qnC" = (
@@ -19518,7 +19518,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "quI" = (
@@ -20769,7 +20769,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "rsO" = (
@@ -21446,7 +21446,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
 "rSK" = (
@@ -21701,7 +21701,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "sce" = (
@@ -22285,7 +22285,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "sBo" = (
@@ -22650,7 +22650,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "sNN" = (
@@ -22706,7 +22706,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "sPr" = (
@@ -22719,7 +22719,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "sPv" = (
@@ -22730,7 +22730,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "sPJ" = (
@@ -22746,7 +22746,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "sQq" = (
@@ -22756,7 +22756,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "sQM" = (
@@ -22766,7 +22766,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "sQS" = (
@@ -22886,7 +22886,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "sVg" = (
@@ -22917,7 +22917,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "sWu" = (
@@ -22929,7 +22929,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "sWw" = (
@@ -22945,7 +22945,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
 "sWJ" = (
@@ -22955,7 +22955,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "sXi" = (
@@ -22964,7 +22964,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "sYb" = (
@@ -22995,7 +22995,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "sYm" = (
@@ -23015,7 +23015,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "sZL" = (
@@ -23141,7 +23141,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "thx" = (
@@ -23197,7 +23197,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "tjb" = (
@@ -23213,7 +23213,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "tje" = (
@@ -23229,7 +23229,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "tjC" = (
@@ -23239,7 +23239,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "tjU" = (
@@ -23250,7 +23250,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "tku" = (
@@ -23282,7 +23282,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "tnk" = (
@@ -23429,7 +23429,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "ttL" = (
@@ -23469,7 +23469,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "tvv" = (
@@ -23514,7 +23514,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "twZ" = (
@@ -23524,7 +23524,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "txi" = (
@@ -23534,7 +23534,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "txo" = (
@@ -23581,7 +23581,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "tzs" = (
@@ -23593,7 +23593,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "tAO" = (
@@ -23881,7 +23881,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "tPo" = (
@@ -23933,7 +23933,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
 "tQN" = (
@@ -24062,7 +24062,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "uax" = (
@@ -24215,7 +24215,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged3";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "ufz" = (
@@ -24262,7 +24262,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "ugG" = (
@@ -24279,7 +24279,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "ugW" = (
@@ -24302,7 +24302,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "uht" = (
@@ -24347,7 +24347,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "ujl" = (
@@ -24405,7 +24405,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged3";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "ulV" = (
@@ -24426,7 +24426,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "unJ" = (
@@ -24434,7 +24434,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "unZ" = (
@@ -24487,7 +24487,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "urs" = (
@@ -24517,7 +24517,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "usE" = (
@@ -24709,7 +24709,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "uzE" = (
@@ -24725,7 +24725,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "uBH" = (
@@ -24743,7 +24743,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "uBR" = (
@@ -24753,7 +24753,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "uCi" = (
@@ -24772,7 +24772,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "uCC" = (
@@ -24792,7 +24792,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "uDX" = (
@@ -24886,7 +24886,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "uHy" = (
@@ -24898,7 +24898,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "uIj" = (
@@ -24915,7 +24915,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "uIH" = (
@@ -24934,7 +24934,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "uJY" = (
@@ -24951,7 +24951,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "uKb" = (
@@ -24962,7 +24962,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "uLb" = (
@@ -24983,7 +24983,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "uLy" = (
@@ -25003,7 +25003,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "uLU" = (
@@ -25029,7 +25029,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "uMG" = (
@@ -25042,7 +25042,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "uMI" = (
@@ -25125,7 +25125,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "uOG" = (
@@ -25133,7 +25133,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "uPd" = (
@@ -25149,7 +25149,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "uPz" = (
@@ -25184,7 +25184,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "uRk" = (
@@ -25193,7 +25193,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down)
 "uRo" = (
@@ -25285,7 +25285,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "uVn" = (
@@ -25308,7 +25308,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "uWs" = (
@@ -25415,7 +25415,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "uYM" = (
@@ -25424,7 +25424,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "uYO" = (
@@ -25901,7 +25901,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "vrA" = (
@@ -26959,7 +26959,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "wkc" = (
@@ -27313,7 +27313,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "floorscorched1";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "wxK" = (
@@ -27654,7 +27654,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged3";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "wJV" = (
@@ -28075,7 +28075,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "xdR" = (
@@ -28368,7 +28368,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged2";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryduring)
 "xoa" = (
@@ -28544,7 +28544,7 @@
 	dir = 8;
 	heat_capacity = 1e+006;
 	icon_state = "damaged4";
-	temperature = 251
+	initial_temperature = 251
 	},
 /area/awaymission/factory/factoryafter)
 "xwI" = (
