@@ -12,6 +12,8 @@
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 700000
 
+	is_legacy_light_source = TRUE
+
 	var/destination_z
 	var/destination_x
 	var/destination_y
@@ -75,6 +77,16 @@
 
 /turf/open/space/Assimilate_Air()
 	return
+
+/turf/open/space/proc/update_starlight()
+	if(CONFIG_GET(flag/starlight))
+		for(var/t in RANGE_TURFS(1,src)) //RANGE_TURFS is in code\__HELPERS\game.dm
+			if(isspaceturf(t))
+				//let's NOT update this that much pls
+				continue
+			set_light(2)
+			return
+		set_light(0)
 
 /turf/open/space/attack_paw(mob/user)
 	return attack_hand(user)

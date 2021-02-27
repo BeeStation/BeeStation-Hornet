@@ -32,6 +32,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambient_music = SPACE
 	blob_allowed = FALSE //Eating up space doesn't count for victory as a blob.
 	ambient_buzz = null // Space is pretty quiet
+	base_lighting_alpha = BASE_LIGHTING_STARLIGHT
+	base_lighting = "#f3e7f8"
 
 /area/space/nearstation
 	icon_state = "space_near"
@@ -570,6 +572,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	blob_allowed = FALSE
 	flags_1 = NONE
 	ambient_effects = ENGINEERING
+
+	base_lighting_alpha = BASE_LIGHTING_STARLIGHT
+	base_lighting = "#f3e7f8"
 
 /area/solar/fore
 	name = "Fore Solar Array"

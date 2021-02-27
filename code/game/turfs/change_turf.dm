@@ -125,6 +125,10 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	//Legacy Update
 	if(SSlighting.initialized)
 		recalc_atom_opacity()
+
+		for(var/turf/open/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
+			S.update_starlight()
+
 		legacy_lighting_object = old_lighting_object
 		legacy_affecting_lights = old_affecting_lights
 		legacy_corners = old_corners
