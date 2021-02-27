@@ -33,6 +33,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambientmusic = AMBIENCE_SPACE
 	ambient_buzz = null
 	sound_environment = SOUND_AREA_SPACE
+	base_lighting_alpha = BASE_LIGHTING_STARLIGHT
+	base_lighting = "#f3e7f8"
 
 /area/space/nearstation
 	icon_state = "space_near"
@@ -606,6 +608,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	flags_1 = NONE
 	ambience_index = AMBIENCE_ENGI
 	sound_environment = SOUND_AREA_SPACE
+
+	base_lighting_alpha = BASE_LIGHTING_STARLIGHT
+	base_lighting = "#f3e7f8"
 
 /area/solar/fore
 	name = "Fore Solar Array"

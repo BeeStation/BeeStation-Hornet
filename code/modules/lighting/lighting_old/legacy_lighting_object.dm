@@ -20,6 +20,10 @@
 	atom_colours.Cut()
 
 	myturf = loc
+
+	for(var/turf/open/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
+		S.update_starlight()
+
 	if (myturf.legacy_lighting_object)
 		qdel(myturf.legacy_lighting_object, force = TRUE)
 	myturf.legacy_lighting_object = src
