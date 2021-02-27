@@ -97,7 +97,7 @@
 	..()
 
 /obj/item/bodypart/attackby(obj/item/W, mob/user, params)
-	if(W.sharpness)
+	if(W.is_sharp())
 		add_fingerprint(user)
 		if(!contents.len)
 			to_chat(user, "<span class='warning'>There is nothing left inside [src]!</span>")
@@ -252,7 +252,7 @@
 /obj/item/bodypart/proc/update_bodypart_damage_state()
 	var/tbrute	= round( (brute_dam/max_damage)*3, 1 )
 	var/tburn	= round( (burn_dam/max_damage)*3, 1 )
-	if((tbrute != brutestate) || (tburn != burnstate))
+	if((brute_dam < max_damage) && (tbrute != brutestate) || (burn_dam < max_damage) && (tburn != burnstate))
 		brutestate = tbrute
 		burnstate = tburn
 		return TRUE
