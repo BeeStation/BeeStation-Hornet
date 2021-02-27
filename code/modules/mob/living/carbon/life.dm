@@ -352,7 +352,7 @@
 	//Incraesed stamina healing when above 60 stamloss
 	stam_heal_multiplier = CLAMP(total_stamina_loss / 60, 1, 2)
 	//Heal bodypart stamina damage
-	for(var/obj/item/bodypart/BP as anything in bodyparts)
+	for(var/obj/item/bodypart/BP as() in bodyparts)
 		if(BP.needs_processing)
 			. |= BP.on_life(force_heal + ((stam_regen * stam_heal * stam_heal_multiplier) / max(bodyparts_with_stam, 1)))
 
