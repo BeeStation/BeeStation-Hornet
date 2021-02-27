@@ -289,7 +289,7 @@
 				var/obj/effect/decal/cleanable/blood/splatter/B = new(prev_loc)
 				//Adjust pixel offset to make splatters appear on the wall
 				if(istype(B))
-					B.plane = -1
+					B.plane = GAME_PLANE
 					B.pixel_x = (dir == EAST ? 32 : (dir == WEST ? -32 : 0))
 					B.pixel_y = (dir == NORTH ? 32 : (dir == SOUTH ? -32 : 0))
 		else //This will only happen if prev_loc is not even a turf, which is highly unlikely.
