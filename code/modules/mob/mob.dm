@@ -189,13 +189,10 @@
 
 	var/raw_msg = message
 	if(visible_message_flags & EMOTE_MESSAGE)
-		message = "<b>[src]</b> [message]"
+		message = "<span class='emote'><b>[src]</b> [message]</span>"
 
 	for(var/mob/M as() in hearers)
 		if(!M.client)
-			continue
-
-		if(M in ignored_mobs)
 			continue
 
 		var/msg = message
@@ -203,7 +200,7 @@
 			msg = blind_message
 		else if(T != loc && T != src) //if src is inside something and not a turf.
 			msg = blind_message
-		else if(T.lighting_object && T.lighting_object.invisibility <= M.see_invisible && T.is_softly_lit()) //if it is too dark.
+		else if(T.lighting_object && T.lighting_object.invisibility <= M.see_invisible && T.is_softly_lit() && !in_range(T,M)) //if it is too dark.
 			msg = blind_message
 		if(!msg)
 			continue
@@ -230,19 +227,15 @@
   * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
   */
 /atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, audible_message_flags = NONE)
-	var/turf/T = get_turf(src)
-	if(!T)
-		return
-
-	var/list/hearers = hearers(hearing_distance, T)
+	var/list/hearers = get_hearers_in_view(hearing_distance, src)
 	if(self_message)
 		hearers -= src
 
 	var/raw_msg = message
 	if(audible_message_flags & EMOTE_MESSAGE)
-		message = "<b>[src]</b> [message]"
+		message = "<span class='emote'><b>[src]</b> [message]</span>"
 
-	for(var/mob/M as() in hearers)
+	for(var/mob/M in hearers)
 		if(audible_message_flags & EMOTE_MESSAGE && runechat_prefs_check(M, audible_message_flags) && M.can_hear())
 			M.create_chat_message(src, raw_message = raw_msg, runechat_flags = audible_message_flags)
 		M.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
@@ -302,7 +295,7 @@
 		//IF HELD TRY APPLY TO SLOT
 		if(equip_to_slot_if_possible(W, slot,0,0,0))
 			W.apply_outline()
-			return 1
+			return TRUE
 	//IF NO ITEM IS HELD, APPLY TO SLOT
 	if(!W)
 		// Activate the item
@@ -310,7 +303,7 @@
 		if(istype(I))
 			I.attack_hand(src)
 
-	return 0
+	return FALSE
 
 /**
   * Try to equip an item to a slot on the mob
