@@ -132,26 +132,20 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 				var/datum/job/wearer_job = SSjob.GetJob(idcard.GetJobName())
 				if(wearer_job)
 					target.chat_color = wearer_job.chat_color
-					//target.chat_color_darkened = wearer_job.chat_color		//reminder to self to fix (or make actually work) this part
 				else
 					target.chat_color = GLOB.job_colors_pastel[idcard.GetJobName()]
-					//target.chat_color_darkened = GLOB.job_colors_pastel[idcard.GetJobName()]
 				target.chat_color_name = H.name
 			else
 				target.chat_color = COLOR_PERSON_UNKNOWN
 		else if(isliving(target))
 			var/mob/living/L = target
 			target.chat_color = L.mobsay_color
-			//target.chat_color_darkened = L.mobsay_color
 			target.chat_color_name = L.name
-
-	if(!target.chat_color)		//no predefined color, randomizing one
-		target.chat_color = colorize_string(target.name)
-		//target.chat_color_darkened = colorize_string(target.name, 0.85, 0.85)
-		target.chat_color_name = target.name
-
-	var/list/rgb = ReadRGB(target.chat_color)
-	target.chat_color_darkened = rgb(round(rgb[1]*0.85), round(rgb[2]*0.85), round(rgb[3]*0.85))
+		else					//no predefined color, randomizing one
+			target.chat_color = colorize_string(target.name)
+			target.chat_color_name = target.name
+		var/list/rgb = ReadRGB(target.chat_color)
+		target.chat_color_darkened = rgb(round(rgb[1]*0.85), round(rgb[2]*0.85), round(rgb[3]*0.85))
 
 	// Get rid of any URL schemes that might cause BYOND to automatically wrap something in an anchor tag
 	var/static/regex/url_scheme = new(@"[A-Za-z][A-Za-z0-9+-\.]*:\/\/", "g")
