@@ -1573,10 +1573,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if((I.damtype == BRUTE) && (I.force >= max(10, armor_block) || I.is_sharp()))
 		if(affecting.status == BODYPART_ORGANIC)
 			I.add_mob_blood(H)	//Make the weapon bloody, not the person.
-			if(prob(I.force * 2))	//blood spatter!
+			if(prob(I.force * 2) && H.loc)	//blood spatter!
 				bloody = 1
 				var/turf/location = H.loc
-				if(prob(50))	//hippie start -- add blood splattering to walls and stuff
+				if(prob(50))
 					var/obj/effect/decal/cleanable/blood/hitsplatter/B = new(H.loc)
 					B.add_blood_DNA(H.return_blood_DNA())
 					B.blood_source = H
@@ -1585,7 +1585,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					B.bloodsplatter(targ, dist)
 				else
 					if(istype(location))
-						H.add_splatter_floor(location) //hippie end -- blood splattering
+						H.add_splatter_floor(location)
 				if(get_dist(user, H) <= 1)	//people with TK won't get smeared with blood
 					user.add_mob_blood(H)
 					if(ishuman(user))

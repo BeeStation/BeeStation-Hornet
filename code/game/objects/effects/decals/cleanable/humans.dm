@@ -260,23 +260,24 @@
 		step_towards(src,T)
 		sleep(speed) //higher = slower
 		prev_loc = loc
-		for(var/atom/A in get_turf(src))
-			if(istype(A,/obj/item))
-				var/obj/item/I = A
-				I.add_mob_blood(blood_source)
-				amount--
-			if(istype(A, /mob/living/carbon/human))
-				var/mob/living/carbon/human/H = A
-				if(H.wear_suit)
-					H.wear_suit.add_mob_blood(blood_source)
-					H.update_inv_wear_suit()    //updates mob overlays to show the new blood (no refresh)
-				if(H.w_uniform)
-					H.w_uniform.add_mob_blood(blood_source)
-					H.update_inv_w_uniform()    //updates mob overlays to show the new blood (no refresh)
-				amount--
-		if(!amount) // we used all the puff so we delete it.
-			qdel(src)
-			break
+		var/turf/src_turf = get_turf(src)
+		if(src_turf)
+			for(var/atom/A in src_turf)
+				if(istype(A,/obj/item))
+					var/obj/item/I = A
+					I.add_mob_blood(blood_source)
+					amount--
+				else if(istype(A, /mob/living/carbon/human))
+					var/mob/living/carbon/human/H = A
+					if(H.wear_suit)
+						H.wear_suit.add_mob_blood(blood_source)
+						H.update_inv_wear_suit()    //updates mob overlays to show the new blood (no refresh)
+					if(H.w_uniform)
+						H.w_uniform.add_mob_blood(blood_source)
+						H.update_inv_w_uniform()    //updates mob overlays to show the new blood (no refresh)
+					amount--
+			if(!amount) // we used all the puff so we delete it.
+				break
 	qdel(src)
 
 /obj/effect/decal/cleanable/blood/hitsplatter/Bump(atom/A)
@@ -297,6 +298,6 @@
 	qdel(src)
 
 /obj/effect/decal/cleanable/blood/hitsplatter/Destroy()
-	if(istype(loc, /turf) && !skip)
+	if((loc) && !skip)
 		loc.add_mob_blood(blood_source)
 	return ..()
