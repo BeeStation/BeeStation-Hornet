@@ -126,21 +126,27 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	if(SSlighting.initialized)
 		recalc_atom_opacity()
 
+		W.legacy_lighting_object = old_lighting_object
+		W.legacy_affecting_lights = old_affecting_lights
+		W.legacy_corners = old_corners
+
+		var/area/A = loc
+
+		if(A.legacy_lighting && !old_lighting_object)
+			W.legacy_lighting_build_overlay()
+		else if(!A.legacy_lighting && old_lighting_object)
+			W.legacy_lighting_clear_overlay()
+
 		for(var/turf/open/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 			S.update_starlight()
-
-		legacy_lighting_object = old_lighting_object
-		legacy_affecting_lights = old_affecting_lights
-		legacy_corners = old_corners
 
 	//Since the old turf was removed from lights_affecting, readd the new turf here
 	if(W.lights_affecting)
 		for(var/atom/movable/lighting_mask/mask as() in W.lights_affecting)
 			LAZYADD(mask.affecting_turfs, W)
 
-	if(W.lights_affecting || legacy_affecting_lights)
-		if(W.opacity != old_opacity)
-			W.reconsider_lights()
+	if(W.opacity != old_opacity)
+		W.reconsider_lights()
 
 	return W
 
