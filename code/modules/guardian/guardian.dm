@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	melee_damage = 15
 	AIStatus = AI_OFF
 	hud_type = /datum/hud/guardian
-	mobsay_color = "#ffffff"
+	chat_color = "#ffffff"
 	mobchatspan = "blob"
 	var/next_reset = 0
 	var/guardiancolor = "#ffffff"
@@ -69,7 +69,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	GLOB.parasites += src
 	if(guardiancolor)
 		src.guardiancolor = guardiancolor
-		src.mobsay_color = guardiancolor
+		src.chat_color = guardiancolor
 	updatetheme(theme)
 	battlecry = pick("ORA", "MUDA", "DORA", "ARRI", "VOLA", "AT")
 	return ..()

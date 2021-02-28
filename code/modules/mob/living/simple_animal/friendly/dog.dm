@@ -14,7 +14,7 @@
 	speak_chance = 1
 	turns_per_move = 10
 	can_be_held = TRUE
-	mobsay_color = "#ECDA88"
+	chat_color = "#ECDA88"
 	mobchatspan = "corgi"
 
 	do_footstep = TRUE

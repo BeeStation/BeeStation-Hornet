@@ -59,7 +59,7 @@
 	mob_size = MOB_SIZE_SMALL
 	movement_type = FLYING
 	gold_core_spawnable = FRIENDLY_SPAWN
-	mobsay_color = "#A6E398"
+	chat_color = "#A6E398"
 	mobchatspan = "curator"
 
 	var/parrot_damage_upper = 10

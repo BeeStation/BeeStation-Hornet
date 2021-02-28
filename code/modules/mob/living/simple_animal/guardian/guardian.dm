@@ -42,7 +42,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	hardattacks = TRUE
 	var/mutable_appearance/cooloverlay
 	var/guardiancolor = "#ffffff"
-	mobsay_color = "#ffffff"
+	chat_color = "#ffffff"
 	var/recolorentiresprite
 	var/theme
 	var/list/guardian_overlays[GUARDIAN_TOTAL_LAYERS]
@@ -144,7 +144,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /mob/living/simple_animal/hostile/guardian/proc/guardianrecolor()
 	guardiancolor = input(src,"What would you like your color to be?","Choose Your Color","#ffffff") as color|null
-	mobsay_color = guardiancolor
+	chat_color = guardiancolor
 	if(!guardiancolor) //redo proc until we get a color
 		to_chat(src, "<span class='warning'>Not a valid color, please try again.</span>")
 		guardianrecolor()
