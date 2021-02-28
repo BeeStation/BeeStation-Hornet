@@ -115,9 +115,13 @@
 	. = ..()
 	var/datum/light_source/L
 	var/thing
-	for (thing in light_sources) // Cycle through the light sources on this atom and tell them to update.
+	//Cycle through the light sources on this atom and tell them to update.
+	//Copy the list, as find_containing_atom will change this list.
+	for (thing in light_sources.Copy())
 		L = thing
 		L.source_atom.update_light()
+		if(!istype(loc))
+			L.find_containing_atom()
 
 /atom/movable/setDir(newdir)
 	. = ..()
