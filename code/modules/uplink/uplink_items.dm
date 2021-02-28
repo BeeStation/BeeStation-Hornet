@@ -1758,7 +1758,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	name = "OmniChip"
 	desc = "A Skillchip implant which will teach you all skills not related to martial arts. Comes with an autosurgeon."
 	item = /obj/item/autosurgeon/skillChip/omni
-	cost = 8 //Subject to Change before full PR Merge
+	cost = 3 //Subject to Change before full PR Merge
 
 /datum/uplink_item/implants/antistun
 	name = "CNS Rebooter Implant"
