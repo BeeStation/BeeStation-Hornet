@@ -207,6 +207,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_LIGHT_DRINKER		"light_drinker"
 #define TRAIT_EMPATH			"empath"
 #define TRAIT_FRIENDLY			"friendly"
+#define TRAIT_BODYPURIST		"body_purist"
 #define TRAIT_GRABWEAKNESS		"grab_weakness"
 
 // common trait sources
