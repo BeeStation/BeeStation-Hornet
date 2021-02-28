@@ -146,7 +146,7 @@ export const ExosuitFabricator = (props, context) => {
     <Window
       resizable
       title="Exosuit Fabricator"
-      width={1100}
+      width={1170}
       height={640}>
       <Window.Content
         scrollable>
