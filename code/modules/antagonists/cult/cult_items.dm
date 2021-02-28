@@ -436,6 +436,7 @@
 	icon_state = "blindfold"
 	item_state = "blindfold"
 	flash_protect = 1
+	night_vision_colour = "#e97e7e"
 
 /obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/living/user, slot)
 	..()
