@@ -3276,6 +3276,16 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
+"afR" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "afT" = (
 /obj/structure/chair{
 	dir = 4
@@ -46028,6 +46038,9 @@
 /area/security/brig)
 "bCe" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "bCf" = (
@@ -177614,7 +177627,7 @@ bwd
 bwh
 bxq
 bDZ
-bFJ
+afR
 bFJ
 cbB
 bwd
