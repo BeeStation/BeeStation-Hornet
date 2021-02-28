@@ -8,6 +8,22 @@
 	item_color="yellow"
 	resistance_flags = NONE
 
+/obj/item/clothing/gloves/color/yellow/equipped(mob/user, slot)
+	. = ..()
+	if(slot == SLOT_GLOVES)
+		if(user.mind?.assigned_role == "Assistant")
+			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "assistant_insulated_gloves", /datum/mood_event/assistant_insulated_gloves)
+		if(user.mind?.assigned_role in GLOB.security_positions)
+			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_insulated_gloves", /datum/mood_event/sec_insulated_gloves)
+
+/obj/item/clothing/gloves/color/yellow/dropped(mob/user)
+	. = ..()
+	if(user.mind?.assigned_role == "Assistant")
+		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "assistant_insulated_gloves")
+	if(user.mind?.assigned_role in GLOB.security_positions)
+		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_insulated_gloves")
+
+
 /obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
 	desc = "These gloves are cheap knockoffs of the coveted ones - no way this can end badly."
 	name = "budget insulated gloves"
@@ -53,6 +69,17 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	var/can_be_cut = 1
+
+/obj/item/clothing/gloves/color/black/equipped(mob/user, slot)
+	. = ..()
+	if(slot == SLOT_GLOVES)
+		if(user.mind?.assigned_role in GLOB.security_positions)
+			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_black_gloves", /datum/mood_event/sec_black_gloves)
+
+/obj/item/clothing/gloves/color/black/dropped(mob/user)
+	. = ..()
+	if(user.mind?.assigned_role in GLOB.security_positions)
+		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_black_gloves")
 
 /obj/item/clothing/gloves/color/black/hos
 	item_color = "hosred"	//Exists for washing machines. Is not different from black gloves in any way.
