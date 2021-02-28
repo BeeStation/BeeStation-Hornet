@@ -233,7 +233,7 @@
 			for(var/implant_type in implants)
 				var/obj/item/implant/I = new implant_type(H)
 				I.implant(H, null, TRUE)
-		if(cyberimps)
+		if(cyberimps && !HAS_TRAIT(H, TRAIT_BODYPURIST))
 			for(var/cyberimp_type in cyberimps)
 				var/obj/item/organ/cyberimp/C = new cyberimp_type(H)
 				C.Insert(H, TRUE, TRUE)

@@ -56,11 +56,8 @@
 	gain_text = "You are afraid of Cybernetic Implants"
 	lose_text = "You are not afraid of Cybernetic Implants"
 
-/datum/quirk/bodyPurist/on_spawn()
-	var/mob/living/carbon/human/H = quirk_holder
-	for(var/obj/item/organ/I in H.internal_organs)
-		if(istype(I, /obj/item/organ/cyberimp))
-			I.Remove(H, TRUE)
+/datum/quirk/bodyPurist/add()
+	ADD_TRAIT(quirk_holder, TRAIT_BODYPURIST, ROUNDSTART_TRAIT)
 
 
 
