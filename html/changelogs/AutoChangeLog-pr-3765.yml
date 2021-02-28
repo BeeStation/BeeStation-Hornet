@@ -1,0 +1,7 @@
+author: francinum
+delete-after: true
+changes:
+  - balance: Neat moodlet integrated into standard behavior
+  - balance: To go along with that, the relevant moodlets have been adjusted.
+  - tweak: Hygiene visual effect only happens when you can't get any dirtier
+  - code_imp: Hygiene no longer generates miasma
