@@ -113,6 +113,8 @@
 
 /atom/movable/Moved(atom/OldLoc, Dir)
 	. = ..()
+	if(!light_sources)
+		return
 	var/datum/light_source/L
 	var/thing
 	//Cycle through the light sources on this atom and tell them to update.
