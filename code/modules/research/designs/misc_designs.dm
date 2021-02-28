@@ -177,6 +177,16 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SECURITY
 
+/datum/design/disco_vision_goggles
+	name = "Night Vision Party Goggles"
+	desc = "Goggles that let you see through darkness in a fun way."
+	id = "disco_night_visision_goggles"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/plasma = 350, /datum/material/uranium = 1000)
+	build_path = /obj/item/clothing/glasses/night/disco
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
 /datum/design/magboots
 	name = "Magnetic Boots"
 	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
