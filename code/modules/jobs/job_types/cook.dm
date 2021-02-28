@@ -44,8 +44,6 @@
 		if(!visualsOnly)
 			J.cooks++
 
-/datum/outfit/job/cook/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
 
 /datum/outfit/job/cook/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
