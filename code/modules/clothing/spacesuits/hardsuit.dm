@@ -14,6 +14,7 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	light_mask_type = /atom/movable/lighting_mask/conical
 	var/rad_count = 0
 	var/rad_record = 0
 	var/grace_count = 0
