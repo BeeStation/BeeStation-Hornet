@@ -52,7 +52,7 @@
 			return
 		if(isobj(pulling))
 			var/obj/structure/S = pulling
-			if(!slowed_by_drag || !S.drag_slowdown)
+			if(!slowed_by_drag || !S.drag_slowdown || HAS_TRAIT(src,TRAIT_NERVEAUGS))
 				remove_movespeed_modifier(MOVESPEED_ID_BULKY_DRAGGING)
 				return
 			add_movespeed_modifier(MOVESPEED_ID_BULKY_DRAGGING, multiplicative_slowdown = S.drag_slowdown)
