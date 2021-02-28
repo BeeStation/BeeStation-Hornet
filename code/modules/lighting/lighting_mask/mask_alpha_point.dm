@@ -39,3 +39,15 @@
 /atom/movable/lighting_mask/rotating/Initialize(mapload, ...)
 	. = ..()
 	icon_state = "light_rotating-[rand(1, 3)]"
+
+//Client light
+//It just works
+/atom/movable/lighting_mask/personal_light
+	var/mob/owner
+
+/atom/movable/lighting_mask/personal_light/proc/give_owner(mob/_owner)
+	owner = _owner
+	var/image/blank = image(loc = src)
+	blank.override = TRUE
+	remove_alt_appearance("nightvision")
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/allbutone, "nightvision", blank, owner)
