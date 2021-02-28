@@ -148,6 +148,31 @@
 	night_vision_range = 9
 	glass_colour_type = /datum/client_colour/glass_colour/green
 
+/obj/item/clothing/glasses/night/disco
+	name = "disco night vision glasses"
+	desc = "Bring the party wherever you go."
+	icon_state = "disconight"
+	clothing_flags = SCAN_REAGENTS
+
+/obj/item/clothing/glasses/night/disco/equipped(mob/user, slot)
+	. = ..()
+	if(slot == SLOT_GLASSES)
+		START_PROCESSING(SSobj, src)
+		if(ishuman(user))
+			ADD_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
+	else
+		STOP_PROCESSING(SSobj, src)
+		REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
+
+/obj/item/clothing/glasses/night/disco/dropped(mob/user)
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
+	REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
+
+/obj/item/clothing/glasses/night/disco/process()
+	night_vision_colour = "#[random_color()]"
+	fade_light(night_vision_colour, 10)
+
 /obj/item/clothing/glasses/science/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is tightening \the [src]'s straps around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS
