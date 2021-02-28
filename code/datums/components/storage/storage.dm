@@ -629,7 +629,7 @@
 		return
 	if(rustle_sound)
 		playsound(parent, "rustle", 50, 1, -5)
-	for(var/mob/viewing in viewers(user, null))
+	for(var/mob/viewing as() in viewers(user))
 		if(M == viewing)
 			to_chat(usr, "<span class='notice'>You put [I] [insert_preposition]to [parent].</span>")
 		else if(in_range(M, viewing)) //If someone is standing close enough, they can tell what it is...
@@ -728,7 +728,7 @@
 /datum/component/storage/proc/signal_on_pickup(datum/source, mob/user)
 	var/atom/A = parent
 	update_actions()
-	for(var/mob/M in range(1, A))
+	for(var/mob/M as() in hearers(1, A))
 		if(M.active_storage == src)
 			close(M)
 

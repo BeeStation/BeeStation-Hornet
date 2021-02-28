@@ -128,7 +128,7 @@ GLOBAL_VAR(antag_prototypes)
 		var/list/possible_admin_antags = list()
 
 		for(var/datum/antagonist/prototype in GLOB.antag_prototypes[antag_category])
-			var/datum/antagonist/A = has_antag_datum(prototype.type)
+			var/datum/antagonist/A = has_antag_datum(prototype.type, FALSE)
 			if(A)
 				//We got the antag
 				if(!current_antag)

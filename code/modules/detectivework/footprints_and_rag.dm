@@ -48,7 +48,7 @@
 			user.visible_message("[user] finishes wiping off [A]!", "<span class='notice'>You finish wiping off [A].</span>")
 			SEND_SIGNAL(A, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_MEDIUM)
 			A.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-			if(istype(A, /obj/item/clothing) && HAS_TRAIT(A, TRAIT_SPRAYPAINTED))
+			if(isclothing(A) && HAS_TRAIT(A, TRAIT_SPRAYPAINTED))
 				var/obj/item/clothing/C = A
 				var/mob/living/carbon/human/H = user
 				C.flash_protect -= 1

@@ -122,7 +122,7 @@
 	var/sleepbonus = 0
 	var/surgical_expertise = 0
 	if(target == user)
-		if(HAS_TRAIT(user, TRAIT_SELF_AWARE) || locate(/obj/structure/mirror) in range(1, user))
+		if(HAS_TRAIT(user, TRAIT_SELF_AWARE) || locate(/obj/structure/mirror) in view(1, user))
 			selfpenalty = 0.4
 		else
 			selfpenalty = 0.6
