@@ -1025,6 +1025,10 @@
 		resize = 0.5
 		hasExpanded = FALSE
 		update_transform()
+	if(module.traits)
+		for(var/trait in module.traits)
+			var/mob/living/silicon/robot/R = loc
+			REMOVE_TRAIT(R, trait, "Cyborg_Module")
 	module.transform_to(/obj/item/robot_module)
 
 	// Remove upgrades.
