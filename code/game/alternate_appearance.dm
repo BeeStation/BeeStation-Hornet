@@ -202,3 +202,18 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 
 /datum/atom_hud/alternate_appearance/basic/heretics/mobShouldSee(mob/M)
 	return IS_HERETIC(M) || IS_HERETIC_MONSTER(M)
+
+/datum/atom_hud/alternate_appearance/basic/allbutone
+	var/mob/nonseer
+
+/datum/atom_hud/alternate_appearance/basic/allbutone/New(key, image/I, mob/living/M)
+	..(key, I, FALSE)
+	nonseer = M
+	for(var/mob in GLOB.player_list)
+		if(mobShouldSee(mob))
+			add_hud_to(mob)
+
+/datum/atom_hud/alternate_appearance/basic/allbutone/mobShouldSee(mob/M)
+	if(M != nonseer)
+		return TRUE
+	return FALSE
