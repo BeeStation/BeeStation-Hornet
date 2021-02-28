@@ -354,24 +354,15 @@
 			add_event(null, "charge", /datum/mood_event/charged)
 
 /datum/component/mood/proc/HandleHygiene(mob/living/carbon/human/H)
-	if(H.hygiene <= HYGIENE_LEVEL_DIRTY)
-		HygieneMiasma(H)
-
-/datum/component/mood/proc/HygieneMiasma(mob/living/carbon/human/H)
-	// Properly stored humans shouldn't create miasma
-	if(istype(H.loc, /obj/structure/closet/crate/coffin)|| istype(H.loc, /obj/structure/closet/body_bag) || istype(H.loc, /obj/structure/bodycontainer))
-		return
-
-	var/turf/T = get_turf(H)
-
-	if(!istype(T) || T.return_air().return_pressure() > (WARNING_HIGH_PRESSURE - 10))
-		return
-
-	var/datum/gas_mixture/stank = new
-	stank.set_moles(/datum/gas/miasma, MIASMA_HYGIENE_MOLES)
-	stank.set_temperature(BODYTEMP_NORMAL)
-	T.assume_air(stank)
-	T.air_update_turf()
+	switch (H.hygiene)
+		if(HYGIENE_LEVEL_DISGUSTING to HYGIENE_LEVEL_DISGUSTING)//Believe it or not but this is actually the cleaner option.
+			add_event(null, "hygiene", /datum/mood_event/disgusting)
+		if(HYGIENE_LEVEL_DISGUSTING to HYGIENE_LEVEL_DIRTY)
+			add_event(null, "hygiene", /datum/mood_event/dirty)
+		if(HYGIENE_LEVEL_DIRTY to HYGIENE_LEVEL_NORMAL)
+			clear_event(null, "hygiene")
+		if(HYGIENE_LEVEL_NORMAL to HYGIENE_LEVEL_CLEAN)
+			add_event(null, "hygiene", /datum/mood_event/neat)
 
 /datum/component/mood/proc/check_area_mood(datum/source, var/area/A)
 	if(A.mood_bonus)
