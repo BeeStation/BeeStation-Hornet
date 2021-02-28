@@ -1,6 +1,0 @@
-author: park66665
-delete-after: true
-changes:
-  - code_imp: range, view and their related high-cost procs' usages have been audited
-  - bugfix: above audit should improve performance, but there might be bugs. Please
-      report bugs to GitHub.

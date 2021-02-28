@@ -43,6 +43,8 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	var/datum/component/clockwork_trap/buffer
 
 /obj/item/clockwork/clockwork_slab/Initialize()
+	if(!length(GLOB.clockcult_all_scriptures))
+		generate_clockcult_scriptures()
 	var/pos = 1
 	cogs = GLOB.installed_integration_cogs
 	GLOB.clockwork_slabs += src
@@ -135,7 +137,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		ui.open()
 
 /obj/item/clockwork/clockwork_slab/ui_state(mob/user)
-	return GLOB.default_state
+	return GLOB.clockcult_state
 
 /obj/item/clockwork/clockwork_slab/ui_data(mob/user)
 	//Data
@@ -144,10 +146,6 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	data["vitality"] = GLOB.clockcult_vitality
 	data["power"] = GLOB.clockcult_power
 	data["scriptures"] = list()
-	//Generate Scriptures Infomation
-	var/datum/antagonist/servant_of_ratvar/servant_datum = is_servant_of_ratvar(user)
-	if(!servant_datum)
-		return data
 	//2 scriptures accessable at the same time will cause issues
 	for(var/scripture_name in GLOB.clockcult_all_scriptures)
 		var/datum/clockcult/scripture/scripture = GLOB.clockcult_all_scriptures[scripture_name]

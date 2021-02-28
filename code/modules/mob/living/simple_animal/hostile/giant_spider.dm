@@ -341,11 +341,11 @@
 /datum/action/innate/spider
 	icon_icon = 'icons/mob/actions/actions_animal.dmi'
 	background_icon_state = "bg_alien"
+	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/spider/lay_web
 	name = "Spin Web"
 	desc = "Spin a web to slow down potential prey."
-	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "lay_web"
 
 /datum/action/innate/spider/lay_web/Activate()
@@ -434,7 +434,6 @@
 /datum/action/innate/spider/lay_eggs
 	name = "Lay Eggs"
 	desc = "Lay a cluster of eggs, which will soon grow into more spiders. You must wrap a living being to do this."
-	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "lay_eggs"
 
 /datum/action/innate/spider/lay_eggs/IsAvailable()
@@ -479,7 +478,6 @@
 /datum/action/innate/spider/set_directive
 	name = "Set Directive"
 	desc = "Set a directive for your children to follow."
-	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "directive"
 
 /datum/action/innate/spider/set_directive/IsAvailable()
@@ -514,9 +512,7 @@
 	button_icon_state = "command"
 
 /datum/action/innate/spider/comm/IsAvailable()
-	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife))
-		return FALSE
-	return TRUE
+	return ..() && istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife)
 
 /datum/action/innate/spider/comm/Trigger()
 	var/input = stripped_input(owner, "Input a command for your legions to follow.", "Command", "")
