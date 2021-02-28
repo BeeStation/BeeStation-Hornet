@@ -191,7 +191,7 @@
 
 /obj/item/clothing/neck/crucifix/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
-	if(slot == SLOT_NECK && istype(user))
+	if(slot == ITEM_SLOT_NECK && istype(user))
 		ADD_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
 
 /obj/item/clothing/neck/crucifix/dropped(mob/user)
