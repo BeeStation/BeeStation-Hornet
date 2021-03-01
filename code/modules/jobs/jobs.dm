@@ -78,7 +78,8 @@ GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_SUPPLY = list("titles" = supply_positions),
 	EXP_TYPE_SECURITY = list("titles" = security_positions),
 	EXP_TYPE_SILICON = list("titles" = list("AI","Cyborg")),
-	EXP_TYPE_SERVICE = list("titles" = civilian_positions | gimmick_positions),
+	EXP_TYPE_SERVICE = list("titles" = civilian_positions),
+	EXP_TYPE_GIMMICK = list("titles" = gimmick_positions)
 ))
 
 GLOBAL_LIST_INIT(exp_specialmap, list(
