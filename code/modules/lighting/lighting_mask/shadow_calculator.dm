@@ -114,13 +114,12 @@
 	// Value: List(y values)
 	var/list/opaque_atoms_in_view = list()
 
-	var/area/A = our_turf.loc
-
 	//Reset the list
 	if(islist(affecting_turfs))
 		for(var/turf/T as() in affecting_turfs)
 			LAZYREMOVE(T?.lights_affecting, src)
 			//The turf is no longer affected by any lights, make it non-luminous.
+			var/area/A = T.loc
 			if(T?.luminosity && !LAZYLEN(T.lights_affecting) && !LAZYLEN(T.legacy_affecting_lights) && !A.base_lighting_alpha)
 				T.luminosity = FALSE
 
