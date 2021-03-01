@@ -122,6 +122,14 @@
 			00, 00, 00, 01
 		)
 
+	//We are luminous
+	var/area/A = myturf.loc
+	if(set_luminosity)
+		myturf.luminosity = TRUE
+	//We are not lit by legacy light OR new light.
+	else if(!LAZYLEN(myturf.lights_affecting) && !A.base_lighting_alpha)
+		myturf.luminosity = FALSE
+
 // Variety of overrides so the overlays don't get affected by weird things.
 
 /atom/movable/legacy_lighting_object/ex_act(severity)
