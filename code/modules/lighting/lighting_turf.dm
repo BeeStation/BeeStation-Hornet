@@ -4,7 +4,7 @@
 
 /turf
 
-	luminosity           = 1
+	luminosity           = FALSE
 
 	var/tmp/list/atom/movable/lighting_mask/lights_affecting
 	var/tmp/has_opaque_atom = FALSE // Not to be confused with opacity, this will be TRUE if there's any opaque atom on the tile.
@@ -30,9 +30,12 @@
 /turf/proc/get_lumcount()
 	var/lums = 0
 	for(var/atom/movable/lighting_mask/mask as() in lights_affecting)
-		lums += LIGHT_POWER_ESTIMATION(mask.alpha, mask.radius, get_dist(src, get_turf(mask.attached_atom)))
+		if(mask.blend_mode == BLEND_ADD)
+			lums += LIGHT_POWER_ESTIMATION(mask.alpha, mask.radius, get_dist(src, get_turf(mask.attached_atom)))
+		else
+			lums -= LIGHT_POWER_ESTIMATION(mask.alpha, mask.radius, get_dist(src, get_turf(mask.attached_atom)))
 	lums += legacy_get_lumcount()
-	return min(lums, 1.0)
+	return CLAMP(lums, 0.0, 1.0)
 
 // Can't think of a good name, this proc will recalculate the has_opaque_atom variable.
 /turf/proc/recalc_atom_opacity()

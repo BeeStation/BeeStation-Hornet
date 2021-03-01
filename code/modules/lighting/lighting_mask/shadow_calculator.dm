@@ -42,8 +42,11 @@
 		SSlighting.sources_that_need_updating -= src
 	//Remove from affecting turfs
 	if(affecting_turfs)
-		for(var/turf/thing as() in affecting_turfs)
-			LAZYREMOVE(thing?.lights_affecting, src)
+		for(var/turf/thing as() in affecting_turf)
+			var/area/A = thing.loc
+			LAZYREMOVE(thing.lights_affecting, src)
+			if(!LAZYLEN(thing.lights_affecting) && !LAZYLEN(thing.legacy_affecting_lights) && !A.base_lighting_alpha)
+				thing.luminosity = FALSE
 		affecting_turfs = null
 	//Cut the shadows. Since they are overlays they will be deleted when cut from overlays probably.
 	LAZYCLEARLIST(shadows)
@@ -74,9 +77,6 @@
 
 	//Dont bother calculating at all for small shadows
 	var/range = radius
-
-	if(radius < 2)
-		return
 
 	//Dont calculate when the source atom is in nullspace
 	if(!attached_atom.loc)
@@ -114,10 +114,15 @@
 	// Value: List(y values)
 	var/list/opaque_atoms_in_view = list()
 
+	var/area/A = our_turf.loc
+
 	//Reset the list
 	if(islist(affecting_turfs))
 		for(var/turf/T as() in affecting_turfs)
 			LAZYREMOVE(T?.lights_affecting, src)
+			//The turf is no longer affected by any lights, make it non-luminous.
+			if(T?.luminosity && !LAZYLEN(T.lights_affecting) && !LAZYLEN(T.legacy_affecting_lights) && !A.base_lighting_alpha)
+				T.luminosity = FALSE
 
 	//Clear the list
 	LAZYCLEARLIST(affecting_turfs)
@@ -125,8 +130,11 @@
 
 	//Rebuild the list
 	var/isClosedTurf = istype(our_turf, /turf/closed)
-	for(var/turf/thing in view(range, get_turf(attached_atom)))
+	for(var/turf/thing in dview(range, get_turf(attached_atom)))
 		link_turf_to_light(thing)
+		//The turf is now affected by our light, make it luminous
+		if(!thing.luminosity)
+			thing.luminosity = TRUE
 		//Dont consider shadows about our turf.
 		if(!isClosedTurf)
 			if(thing == our_turf)
@@ -136,6 +144,10 @@
 			//the atom itself, only the position values
 			COORD_LIST_ADD(opaque_atoms_in_view, thing.x, thing.y)
 			DEBUG_HIGHLIGHT(thing.x, thing.y, "#0000FF")
+
+	//We are too small to consider shadows on, luminsoty has been considered at least.
+	if(radius < 2)
+		return
 
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("[TICK_USAGE_TO_MS(timer)]ms to process view([range], src)."))
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/temp_timer = TICK_USAGE)

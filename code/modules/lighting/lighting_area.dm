@@ -51,4 +51,5 @@
 	lighting_effect.color = base_lighting
 	for(var/turf/T in src)
 		T.add_overlay(lighting_effect)
+		T.luminosity = TRUE
 	area_has_base_lighting = TRUE
