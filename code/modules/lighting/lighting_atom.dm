@@ -122,7 +122,7 @@
 	for (thing in light_sources.Copy())
 		L = thing
 		L.source_atom.update_light()
-		if(!istype(loc, /turf))
+		if(!isturf(loc))
 			L.find_containing_atom()
 
 /atom/movable/setDir(newdir)
