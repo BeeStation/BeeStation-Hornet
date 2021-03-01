@@ -42,7 +42,7 @@
 		SSlighting.sources_that_need_updating -= src
 	//Remove from affecting turfs
 	if(affecting_turfs)
-		for(var/turf/thing as() in affecting_turf)
+		for(var/turf/thing as() in affecting_turfs)
 			var/area/A = thing.loc
 			LAZYREMOVE(thing.lights_affecting, src)
 			if(!LAZYLEN(thing.lights_affecting) && !LAZYLEN(thing.legacy_affecting_lights) && !A.base_lighting_alpha)
