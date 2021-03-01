@@ -56,22 +56,24 @@
 
 /datum/light_source/proc/find_containing_atom()
 	//we are still in the same place, no action required
-	if(source_atom.loc == cached_loc)
+	if(contained_atom && contained_atom == cached_loc)
 		return
-	//Store the loc so we know when we actually need to update
-	cached_loc = source_atom.loc
 	//Remove ourselves from the old containing atoms light sources
 	if(contained_atom && contained_atom != source_atom)
 		LAZYREMOVE(contained_atom.light_sources, src)
 	//Find our new container
 	if(isturf(source_atom) || isarea(source_atom))
 		contained_atom = source_atom
+		//Store the loc so we know when we actually need to update
+		cached_loc = contained_atom
 		return
 	contained_atom = source_atom.loc
 	for(var/sanity in 1 to 20)
 		if(!contained_atom)
 			//Welcome to nullspace my friend.
 			contained_atom = source_atom
+			//Store the loc so we know when we actually need to update
+			cached_loc = contained_atom
 			return
 		if(istype(contained_atom.loc, /turf))
 			break
@@ -79,6 +81,8 @@
 	//Add ourselves to their light sources
 	if(contained_atom != source_atom)
 		LAZYADD(contained_atom.light_sources, src)
+	//Store the loc so we know when we actually need to update
+	cached_loc = contained_atom
 
 //Update light if changed.
 /datum/light_source/proc/set_light(var/l_range, var/l_power, var/l_color = NONSENSICAL_VALUE)
