@@ -284,35 +284,35 @@
 	name = "engineering beret"
 	desc = "A beret with the engineering insignia emblazoned on it. For engineers that are more inclined towards style than safety."
 	icon_state = "beret_engineering"
-	armor = list(rad = 10, fire = 10)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 10, "fire" = 10, "acid" = 0, "stamina" = 0)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/atmos
 	name = "atmospherics beret"
 	desc = "A beret for those who have shown immaculate proficienty in piping. Or plumbing."
 	icon_state = "beret_atmospherics"
-	armor = list(rad = 10, fire = 10)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 10, "fire" = 10, "acid" = 0, "stamina" = 0)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/ce
 	name = "chief engineer beret"
 	desc = "A white beret with the engineering insignia emblazoned on it. Its owner knows what they're doing. Probably."
 	icon_state = "beret_ce"
-	armor = list(rad = 20, fire = 30)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 20, "fire" = 30, "acid" = 0, "stamina" = 0)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/sci
 	name = "science beret"
 	desc = "A purple beret with the science insignia emblazoned on it. It has that authentic burning plasma smell."
 	icon_state = "beret_sci"
-	armor = list(bomb = 5, bio = 5, fire = 5, acid = 10)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 5, "bio" = 5, "rad" = 0, "fire" = 5, "acid" = 10, "stamina" = 0)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/supply
 	name = "supply beret"
 	desc = "A brown beret with the supply insignia emblazoned on it. You can't help but wonder how much it'd sell for."
 	icon_state = "beret_supply"
-	armor = list(rad = 10, fire = 10)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 10, "fire" = 10, "acid" = 0, "stamina" = 0)
 	strip_delay = 60
 
 //Medical
@@ -320,14 +320,14 @@
 	name = "medical beret"
 	desc = "A white beret with a blue cross finely threaded into it. It has that sterile smell about it."
 	icon_state = "beret_med"
-	armor = list(bio = 20)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 20, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/cmo
 	name = "chief medical officer beret"
 	desc = "A baby blue beret with the insignia of Medistan. It smells very sterile."
 	icon_state = "beret_cmo"
-	armor = list(bio = 30, acid = 20)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 30, "rad" = 10, "fire" = 0, "acid" = 20, "stamina" = 0)
 	strip_delay = 60
 
 //CentCom
