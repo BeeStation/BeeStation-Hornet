@@ -260,8 +260,12 @@
 =======
 	var/tbrute	= round( (brute_dam/max_damage)*3, 1 )
 	var/tburn	= round( (burn_dam/max_damage)*3, 1 )
+<<<<<<< refs/remotes/BeeStation/master
 	if((brute_dam < max_damage) && (tbrute != brutestate) || (burn_dam < max_damage) && (tburn != burnstate))
 >>>>>>> Add files via upload
+=======
+	if((tbrute != brutestate) || (tburn != burnstate))
+>>>>>>> Update code/modules/surgery/bodyparts/bodyparts.dm
 		brutestate = tbrute
 		burnstate = tburn
 		return TRUE
