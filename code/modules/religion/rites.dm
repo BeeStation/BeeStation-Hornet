@@ -30,8 +30,10 @@
 		to_chat(user, "<span class='warning'>This rite requires more favor!</span>")
 		return FALSE
 	to_chat(user, "<span class='notice'>You begin to perform the rite of [name]...</span>")
-	if(!ritual_invocations)
+	if(!LAZYLEN(ritual_invocations))
 		if(do_after(user, target = user, delay = ritual_length))
+			if(invoke_msg)
+				user.say(invoke_msg)
 			return TRUE
 		return FALSE
 	var/first_invoke = TRUE
