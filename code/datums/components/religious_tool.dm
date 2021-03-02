@@ -19,10 +19,10 @@
 
 /datum/component/religious_tool/Initialize(_flags = ALL, _force_catalyst_afterattack = FALSE, _after_sect_select_cb, override_catalyst_type)
 	. = ..()
-	SetGlobalToLocal() //attempt to connect on start in case one already exists!
 	operation_flags = _flags
 	force_catalyst_afterattack = _force_catalyst_afterattack
 	after_sect_select_cb = _after_sect_select_cb
+	SetGlobalToLocal() //attempt to connect on start in case one already exists!
 	if(override_catalyst_type)
 		catalyst_type = override_catalyst_type
 
