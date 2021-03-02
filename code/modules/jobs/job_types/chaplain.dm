@@ -36,8 +36,7 @@
 		var/nrt = GLOB.holy_weapon_type || /obj/item/nullrod
 		var/obj/item/nullrod/N = new nrt(H)
 		H.put_in_hands(N)
-		if(GLOB.religious_sect)
-			GLOB.religious_sect.on_conversion(H)
+		GLOB.religious_sect?.on_conversion(H)
 		return
 	if(H.mind)
 		H.mind.holy_role = HOLY_ROLE_HIGHPRIEST
