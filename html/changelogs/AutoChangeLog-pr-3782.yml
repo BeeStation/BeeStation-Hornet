@@ -1,6 +1,0 @@
-author: r1ks-iwnl
-delete-after: true
-changes:
-  - bugfix: Virologist PDA starts registered with your account.
-  - bugfix: Necropolis seed stealth 8 threshold actually drops a chest and doesn't
-      just gib you.
