@@ -21090,7 +21090,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
 	name = "Infirmary";
-	req_access_txt = "63"
+	req_one_access_txt = "1;34"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
