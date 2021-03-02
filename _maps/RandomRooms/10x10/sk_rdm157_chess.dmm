@@ -31,7 +31,7 @@
 /area/template_noop)
 "h" = (
 /obj/machinery/light/small{
-	dir = 2
+	dir = 1
 	},
 /turf/open/floor/carpet/orange,
 /area/template_noop)
@@ -135,14 +135,14 @@
 /obj/item/reagent_containers/food/drinks/soda_cans/tonic{
 	pixel_x = -3;
 	pixel_y = 3
-},
+	},
 /obj/item/reagent_containers/food/drinks/soda_cans/tonic{
 	pixel_x = 3;
 	pixel_y = 3
-},
+	},
 /obj/item/reagent_containers/food/drinks/soda_cans/tonic{
 	pixel_y = -3
-},
+	},
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "G" = (
@@ -150,26 +150,26 @@
 /obj/item/reagent_containers/food/snacks/nachos{
 	pixel_x = -3;
 	pixel_y = 3
-},
-/obj/item/reagent_containers/food/snacks/nachos {
+	},
+/obj/item/reagent_containers/food/snacks/nachos{
 	pixel_x = 3;
 	pixel_y = 3
-},
+	},
 /obj/item/reagent_containers/food/snacks/nachos{
 	pixel_y = -3
-},
+	},
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 
 (1,1,1) = {"
 a
 a
-h
+d
 a
 a
 a
 a
-h
+d
 C
 D
 "}
@@ -186,7 +186,7 @@ u
 E
 "}
 (3,1,1) = {"
-d
+h
 j
 r
 c
@@ -246,7 +246,7 @@ z
 a
 "}
 (8,1,1) = {"
-d
+h
 o
 q
 b
