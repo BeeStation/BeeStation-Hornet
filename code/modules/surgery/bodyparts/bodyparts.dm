@@ -252,7 +252,7 @@
 /obj/item/bodypart/proc/update_bodypart_damage_state()
 	var/tbrute	= round( (brute_dam/max_damage)*3, 1 )
 	var/tburn	= round( (burn_dam/max_damage)*3, 1 )
-	if((brute_dam < max_damage) && (tbrute != brutestate) || (burn_dam < max_damage) && (tburn != burnstate))
+	if((tbrute != brutestate) || (tburn != burnstate))
 		brutestate = tbrute
 		burnstate = tburn
 		return TRUE
