@@ -38,8 +38,7 @@
 		H.put_in_hands(N)
 		GLOB.religious_sect?.on_conversion(H)
 		return
-	if(H.mind)
-		H.mind.holy_role = HOLY_ROLE_HIGHPRIEST
+	H.mind?.holy_role = HOLY_ROLE_HIGHPRIEST
 
 	var/new_religion = DEFAULT_RELIGION
 	if(M.client && M.client.prefs.custom_names["religion"])
