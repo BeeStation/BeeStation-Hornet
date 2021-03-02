@@ -10,7 +10,7 @@
 
 /obj/item/clockwork/component/pickup(mob/living/user)
 	..()
-	if(iscultist(user) || (user.mind && user.mind.holy_role))
+	if(iscultist(user) || (user.mind?.holy_role))
 		to_chat(user, "<span class='[message_span]'>[cultist_message]</span>")
 		if(user.mind?.holy_role)
 			to_chat(user, "<span class='boldannounce'>The power of your faith melts away [src]!</span>")
