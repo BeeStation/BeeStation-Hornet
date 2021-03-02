@@ -180,9 +180,11 @@
 		chosen_sacrifice = corpse
 		if(chosen_sacrifice.stat != DEAD)
 			to_chat(user, "<span class='warning'>You can only sacrifice dead bodies, this one is still alive!</span>")
+			chosen_sacrifice = null
 			return FALSE
 		if(!chosen_sacrifice.on_fire)
 			to_chat(user, "<span class='warning'>This corpse needs to be on fire to be sacrificed!</span>")
+			chosen_sacrifice = null
 			return FALSE
 		return ..()
 
