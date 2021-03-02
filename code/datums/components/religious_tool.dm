@@ -74,7 +74,7 @@
 				continue
 			GLOB.religious_sect.on_conversion(am_i_holy_living)
 		easy_access_sect = GLOB.religious_sect
-		after_sect_select_cb.Invoke()
+		after_sect_select_cb?.Invoke()
 		return
 	/**********Rite Invocation**********/
 	else if(istype(the_item, catalyst_type))
