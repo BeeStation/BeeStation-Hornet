@@ -69,10 +69,7 @@
 			return
 		var/type_selected = available_options[sect_select]
 		GLOB.religious_sect = new type_selected()
-		for(var/i in GLOB.player_list)
-			if(!isliving(i))
-				continue
-			var/mob/living/am_i_holy_living = i
+		for(var/mob/living/am_i_holy_living in GLOB.player_list)
 			if(!am_i_holy_living.mind?.holy_role)
 				continue
 			GLOB.religious_sect.on_conversion(am_i_holy_living)
