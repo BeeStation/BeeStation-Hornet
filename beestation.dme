@@ -127,6 +127,7 @@
 #include "code\__DEFINES\status_effects.dm"
 #include "code\__DEFINES\strippable.dm"
 #include "code\__DEFINES\subsystems.dm"
+#include "code\__DEFINES\supermatter.dm"
 #include "code\__DEFINES\text.dm"
 #include "code\__DEFINES\tgs.config.dm"
 #include "code\__DEFINES\tgs.dm"
