@@ -254,6 +254,7 @@
 //Returns 1 if we need to update overlays. 0 otherwise.
 /obj/item/bodypart/proc/update_bodypart_damage_state()
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 	var/tbrute = round((min(brute_dam, max_damage) / max_damage) * 3, 1)
 	var/tburn = round((min(burn_dam, max_damage) / max_damage) * 3, 1)
 	if((tbrute != brutestate) || (tburn != burnstate))
@@ -264,6 +265,10 @@
 	if((brute_dam < max_damage) && (tbrute != brutestate) || (burn_dam < max_damage) && (tburn != burnstate))
 >>>>>>> Add files via upload
 =======
+=======
+	var/tbrute = round((min(brute_dam, max_damage) / max_damage) * 3, 1)
+	var/tburn = round((min(burn_dam, max_damage) / max_damage) * 3, 1)
+>>>>>>> Update bodyparts.dm
 	if((tbrute != brutestate) || (tburn != burnstate))
 >>>>>>> Update code/modules/surgery/bodyparts/bodyparts.dm
 		brutestate = tbrute
