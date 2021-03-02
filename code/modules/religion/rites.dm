@@ -42,8 +42,6 @@
 			user.say(i)
 			first_invoke = FALSE
 			continue
-		if(!ritual_invocations.len) //we divide so we gotta protect
-			return FALSE
 		if(!do_after(user, target = user, delay = ritual_length/ritual_invocations.len))
 			return FALSE
 		user.say(i)
