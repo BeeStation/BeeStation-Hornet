@@ -91,11 +91,7 @@
 	var/atom/movable/movable_reltool = religious_tool
 	if(!movable_reltool?.buckled_mobs?.len)
 		return FALSE
-	var/mob/living/carbon/human/human2borg
-	for(var/i in movable_reltool.buckled_mobs)
-		if(istype(i,/mob/living/carbon/human))
-			human2borg = i
-			break
+	var/mob/living/carbon/human/human2borg = locate() in movable_reltool.buckled_mobs
 	if(!human2borg)
 		return FALSE
 	human2borg.set_species(/datum/species/android)
