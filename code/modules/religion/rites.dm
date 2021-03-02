@@ -144,7 +144,7 @@
 		apply_fireproof(chosen_clothing)
 		playsound(get_turf(religious_tool), 'sound/magic/fireball.ogg', 50, TRUE)
 		chosen_clothing = null //our lord and savior no longer cares about this apparel
-		return TRUE
+		return ..()
 	chosen_clothing = null
 	to_chat(user, "<span class='warning'>The clothing that was chosen for the rite is no longer on the altar!</span>")
 	return FALSE
