@@ -85,7 +85,7 @@
 		. = favor //if favor = 5 and we want to subtract 10, we'll only be able to subtract 5
 	if((favor + amount > max_favor))
 		. = (max_favor-favor) //if favor = 5 and we want to add 10 with a max of 10, we'll only be able to add 5
-	favor = clamp(0,max_favor, favor+amount)
+	favor = clamp(favor+amount, 0, max_favor)
 
 /// Sets favor to a specific amount. Can provide optional features based on a user.
 /datum/religion_sect/proc/set_favor(amount = 0, mob/living/L)
