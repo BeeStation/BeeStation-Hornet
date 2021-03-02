@@ -206,7 +206,7 @@
 	chosen_sacrifice.dust(force = TRUE)
 	playsound(get_turf(religious_tool), 'sound/effects/supermatter.ogg', 50, TRUE)
 	chosen_sacrifice = null
-	return TRUE
+	return ..()
 
 
 /datum/religion_rites/infinite_candle
