@@ -42,7 +42,7 @@
 	if(!GLOB.religious_sect)
 		return FALSE
 	easy_access_sect = GLOB.religious_sect
-	after_sect_select_cb.Invoke()
+	after_sect_select_cb?.Invoke()
 	return TRUE
 
 
