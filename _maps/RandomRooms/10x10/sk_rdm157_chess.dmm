@@ -16,7 +16,7 @@
 /area/template_noop)
 "e" = (
 /obj/structure/table/wood,
-/obj/item/clothing/hat/festive,
+/obj/item/clothing/head/festive,
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "f" = (
