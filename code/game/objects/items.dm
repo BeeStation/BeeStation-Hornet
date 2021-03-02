@@ -1034,3 +1034,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			take_damage(75, BRUTE, "bomb", 0)
 		if(3)
 			take_damage(20, BRUTE, "bomb", 0)
+
+/obj/item/proc/get_armor_rating(d_type, mob/wearer)
+	return armor.getRating(d_type)

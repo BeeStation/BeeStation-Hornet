@@ -7,6 +7,9 @@
 	spawn_positions = 0
 	supervisors = "no one"
 	selection_color = "#dddddd"
+	chat_color = "#FFFFFF"
+
+	exp_type_department = EXP_TYPE_GIMMICK
 
 	access = list( ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
@@ -22,6 +25,7 @@
 	access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
+	chat_color = "#bd9e86"
 
 /datum/outfit/job/gimmick/barber
 	name = "Barber"
@@ -41,6 +45,7 @@
 	access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
+	chat_color = "#b898b3"
 
 /datum/outfit/job/gimmick/magician
 	name = "Stage Magician"
@@ -63,6 +68,7 @@
 	access = list(ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
+	chat_color = "#929292"
 
 /datum/outfit/job/gimmick/hobo
 	name = "Debtor"
@@ -96,6 +102,7 @@
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
 	paycheck = PAYCHECK_EASY
 	gimmick = TRUE
+	chat_color = "#a2dfdc"
 
 /datum/outfit/job/gimmick/shrink //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
 	name = "Psychiatrist"
@@ -115,6 +122,7 @@
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
 	paycheck = PAYCHECK_VIP //our power is being fucking rich
+	chat_color = "#ebc96b"
 
 /datum/outfit/job/gimmick/celebrity
 	name = "VIP"
