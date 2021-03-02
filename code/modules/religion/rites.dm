@@ -100,7 +100,7 @@
 		return FALSE
 	human2borg.set_species(/datum/species/android)
 	human2borg.visible_message("<span class='notice'>[human2borg] has been converted by the rite of [name]!</span>")
-	return TRUE
+	return ..()
 
 /*********Ever-Burning Candle**********/
 
