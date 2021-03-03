@@ -37,18 +37,6 @@
 	results = list(/datum/reagent/impedrezene = 2)
 	required_reagents = list(/datum/reagent/mercury = 1, /datum/reagent/oxygen = 1, /datum/reagent/consumable/sugar = 1)
 
-/datum/chemical_reaction/concentrated_bz
-	name = "Concentrated BZ"
-	id = "Concentrated BZ"
-	results = list(/datum/reagent/concentrated_bz = 10)
-	required_reagents = list(/datum/reagent/toxin/plasma = 40, /datum/reagent/nitrous_oxide = 10)
-
-/datum/chemical_reaction/fake_cbz
-	name = "Fake CBZ"
-	id = "Fake CBZ"
-	results = list(/datum/reagent/fake_cbz = 1)
-	required_reagents = list(/datum/reagent/concentrated_bz = 1, /datum/reagent/medicine/neurine = 3)
-
 /datum/chemical_reaction/cryptobiolin
 	name = "Cryptobiolin"
 	id = /datum/reagent/cryptobiolin
@@ -434,7 +422,7 @@
 
 /datum/chemical_reaction/foam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	for(var/mob/M in viewers(5, location))
+	for(var/mob/M as() in viewers(5, location))
 		to_chat(M, "<span class='danger'>The solution spews out foam!</span>")
 	var/datum/effect_system/foam_spread/s = new()
 	s.set_up(created_volume*2, location, holder)
@@ -452,7 +440,7 @@
 /datum/chemical_reaction/metalfoam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 
-	for(var/mob/M in viewers(5, location))
+	for(var/mob/M as() in viewers(5, location))
 		to_chat(M, "<span class='danger'>The solution spews out a metallic foam!</span>")
 
 	var/datum/effect_system/foam_spread/metal/s = new()
@@ -482,7 +470,7 @@
 
 /datum/chemical_reaction/ironfoam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	for(var/mob/M in viewers(5, location))
+	for(var/mob/M as() in viewers(5, location))
 		to_chat(M, "<span class='danger'>The solution spews out a metallic foam!</span>")
 	var/datum/effect_system/foam_spread/metal/s = new()
 	s.set_up(created_volume*5, location, holder, 2)
@@ -739,13 +727,13 @@
 	name = /datum/reagent/mutationtoxin/squid
 	id = /datum/reagent/mutationtoxin/squid
 	results = list(/datum/reagent/mutationtoxin/squid = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/teslium = 20)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/consumable/sodiumchloride = 10, /datum/reagent/water = 20)
 
 /datum/chemical_reaction/mutationtoxin/ipc
 	name = /datum/reagent/mutationtoxin/ipc
 	id = /datum/reagent/mutationtoxin/ipc
 	results = list(/datum/reagent/mutationtoxin/ipc = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/consumable/sodiumchloride = 10, /datum/reagent/water = 20)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/teslium = 20)
 
 //////////////Mutatuion toxins made out of advanced toxin/////////////
 

@@ -39,7 +39,7 @@
 
 /obj/item/clothing/mask/cluwne/handle_speech(datum/source, list/speech_args)
     if(voicechange)
-        if(prob(5)) //the brain isnt fully gone yet...
+        if(prob(5)) //the brain isn't fully gone yet...
             speech_args[SPEECH_MESSAGE] = pick("HELP ME!!","PLEASE KILL ME!!","I WANT TO DIE!!", "END MY SUFFERING", "I CANT TAKE THIS ANYMORE!!" ,"SOMEBODY STOP ME!!")
             play_laugh2()
         if(prob(3))

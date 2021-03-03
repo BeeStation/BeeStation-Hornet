@@ -157,7 +157,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 
 	if(intercom_range_display_status)
 		for(var/obj/item/radio/intercom/I in world)
-			for(var/turf/T in orange(7,I))
+			for(var/turf/T as() in RANGE_TURFS(7,I))
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
 				if (!(F in view(7,I.loc)))
 					qdel(F)
@@ -205,15 +205,15 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 	set name = "Debug verbs - Enable"
 	if(!check_rights(R_DEBUG))
 		return
-	verbs -= /client/proc/enable_debug_verbs
-	verbs.Add(/client/proc/disable_debug_verbs, GLOB.admin_verbs_debug_mapping)
+	remove_verb(/client/proc/enable_debug_verbs)
+	add_verb(list(/client/proc/disable_debug_verbs) + GLOB.admin_verbs_debug_mapping)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Enable Debug Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/disable_debug_verbs()
 	set category = "Debug"
 	set name = "Debug verbs - Disable"
-	verbs.Remove(/client/proc/disable_debug_verbs, GLOB.admin_verbs_debug_mapping)
-	verbs += /client/proc/enable_debug_verbs
+	remove_verb(list(/client/proc/disable_debug_verbs) + GLOB.admin_verbs_debug_mapping)
+	add_verb(/client/proc/enable_debug_verbs)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Disable Debug Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/count_objects_on_z_level()

@@ -244,7 +244,7 @@ a creative player the means to solve many problems.  Circuits are held inside an
 	if(power_draw_idle)
 		HTML += "<br>Power Draw: [power_draw_idle] W (Idle)"
 	if(power_draw_per_use)
-		HTML += "<br>Power Draw: [power_draw_per_use] W (Active)" // Borgcode says that powercells' checked_use() takes joules as input.
+		HTML += "<br>Power Draw: [power_draw_per_use] W (Active)" // Borgcode says that power cells' checked_use() takes joules as input.
 
 	HTML += "<br>[extended_desc]</body></html>"
 

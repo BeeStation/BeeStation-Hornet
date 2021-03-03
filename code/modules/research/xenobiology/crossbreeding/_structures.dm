@@ -99,6 +99,17 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		on_mob_leave(M)
 		affected_mobs -= M
 
+/obj/structure/slime_crystal/gold/process()
+	var/list/current_mobs = view_or_range(3, src, range_type)
+	for(var/M in affected_mobs - current_mobs)
+		on_mob_leave(M)
+		affected_mobs -= M
+
+	for(var/mob/living/M in affected_mobs)
+		if(M.stat == DEAD)
+			on_mob_leave(M)
+			affected_mobs -= M
+
 /obj/structure/slime_crystal/proc/master_crystal_destruction()
 	qdel(src)
 
@@ -237,14 +248,12 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	colour = "dark blue"
 
 /obj/structure/slime_crystal/darkblue/process()
-	var/list/listie = range(5,src)
-	for(var/turf/open/T in listie)
+	for(var/turf/open/T in RANGE_TURFS(5, src))
 		if(prob(75))
 			continue
-		var/turf/open/open_turf = T
-		open_turf.MakeDry(TURF_WET_LUBE)
+		T.MakeDry(TURF_WET_LUBE)
 
-	for(var/obj/item/trash/trashie in listie)
+	for(var/obj/item/trash/trashie in range(5, src))
 		if(prob(25))
 			qdel(trashie)
 
@@ -373,7 +382,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	colour = "cerulean"
 
 /obj/structure/slime_crystal/cerulean/process()
-	for(var/turf/T in range(2,src))
+	for(var/turf/T as() in RANGE_TURFS(2,src))
 		if(is_blocked_turf(T) || isspaceturf(T)  || T == get_turf(src) || prob(50))
 			continue
 		var/obj/structure/cerulean_slime_crystal/CSC = locate() in range(1,T)
@@ -392,7 +401,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 /obj/structure/slime_crystal/pyrite/proc/change_colour()
 	var/list/color_list = list("#FFA500","#B19CD9", "#ADD8E6","#7E7E7E","#FFFF00","#551A8B","#0000FF","#D3D3D3", "#32CD32","#704214","#2956B2","#FAFAD2", "#FF0000",
 					"#00FF00", "#FF69B4","#FFD700", "#505050", "#FFB6C1","#008B8B")
-	for(var/turf/T in RANGE_TURFS(4,src))
+	for(var/turf/T as() in RANGE_TURFS(4,src))
 		T.add_atom_colour(pick(color_list), FIXED_COLOUR_PRIORITY)
 
 	addtimer(CALLBACK(src,.proc/change_colour),rand(0.75 SECONDS,1.25 SECONDS))
@@ -515,32 +524,26 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/human_mob = user
-	var/mob/living/simple_animal/pet/chosen_pet = pick(/mob/living/simple_animal/pet/dog/corgi,/mob/living/simple_animal/pet/dog/pug,/mob/living/simple_animal/pet/dog/bullterrier,/mob/living/simple_animal/pet/fox,/mob/living/simple_animal/pet/cat/kitten,/mob/living/simple_animal/pet/cat/space,/mob/living/simple_animal/pet,/mob/living/simple_animal/pet/penguin)
+	var/mob/living/simple_animal/pet/chosen_pet = pick(/mob/living/simple_animal/pet/dog/corgi,/mob/living/simple_animal/pet/dog/pug,/mob/living/simple_animal/pet/dog/bullterrier,/mob/living/simple_animal/pet/fox,/mob/living/simple_animal/pet/cat/kitten,/mob/living/simple_animal/pet/cat/space,/mob/living/simple_animal/pet/penguin/emperor)
 	chosen_pet = new chosen_pet(get_turf(human_mob))
 	human_mob.forceMove(chosen_pet)
 	human_mob.mind.transfer_to(chosen_pet)
+	ADD_TRAIT(human_mob, TRAIT_NOBREATH, type)
+	affected_mobs += chosen_pet
 
 /obj/structure/slime_crystal/gold/on_mob_leave(mob/living/affected_mob)
-	if(!istype(affected_mob,/mob/living/simple_animal/pet))
-		return
-
 	var/mob/living/carbon/human/human_mob = locate() in affected_mob
-
-	if(!human_mob)
-		return
-
 	affected_mob.mind.transfer_to(human_mob)
+	human_mob.grab_ghost()
 	human_mob.forceMove(get_turf(affected_mob))
+	REMOVE_TRAIT(human_mob, TRAIT_NOBREATH, type)
 	qdel(affected_mob)
 
 /obj/structure/slime_crystal/oil
 	colour = "oil"
 
 /obj/structure/slime_crystal/oil/process()
-	for(var/T in RANGE_TURFS(3,src))
-		if(!isopenturf(T))
-			continue
-		var/turf/open/turf_in_range = T
+	for(var/turf/open/turf_in_range in RANGE_TURFS(3,src))
 		turf_in_range.MakeSlippery(TURF_WET_LUBE,5 SECONDS)
 
 /obj/structure/slime_crystal/black

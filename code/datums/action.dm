@@ -70,6 +70,9 @@
 			M.client.screen += button
 			button.locked = M.client.prefs.buttons_locked || button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE //even if it's not defaultly locked we should remember we locked it before
 			button.moved = button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE
+			var/obj/effect/proc_holder/spell/spell_proc_holder = button.linked_action.target
+			if(istype(spell_proc_holder) && spell_proc_holder.text_overlay)
+				M.client.images += spell_proc_holder.text_overlay
 		M.update_action_buttons()
 	else
 		Remove(owner)
@@ -339,6 +342,21 @@
 
 /datum/action/item_action/toggle_helmet_mode
 	name = "Toggle Helmet Mode"
+
+/datum/action/item_action/toggle_beacon
+	name = "Toggle Hardsuit Locator Beacon"
+	icon_icon = 'icons/mob/actions.dmi'
+	button_icon_state = "toggle-transmission"
+
+/datum/action/item_action/toggle_beacon_hud
+	name = "Toggle Hardsuit Locator HUD"
+	icon_icon = 'icons/mob/actions.dmi'
+	button_icon_state = "toggle-hud"
+
+/datum/action/item_action/toggle_beacon_frequency
+	name = "Toggle Hardsuit Locator Frequency"
+	icon_icon = 'icons/mob/actions.dmi'
+	button_icon_state = "change-code"
 
 /datum/action/item_action/crew_monitor
 	name = "Interface With Crew Monitor"
@@ -667,12 +685,6 @@
 	desc = "Activates the jump boot's internal propulsion system, allowing the user to dash over 4-wide gaps."
 	icon_icon = 'icons/mob/actions/actions_items.dmi'
 	button_icon_state = "jetboot"
-
-/datum/action/item_action/bhop/apid
-	name = "Apid Dash"
-	desc = "Uses your wings to dash forward 6 tiles."
-	icon_icon = 'icons/mob/neck.dmi'
-	button_icon_state = "apid_wings"
 
 /datum/action/language_menu
 	name = "Language Menu"

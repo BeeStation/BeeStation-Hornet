@@ -42,6 +42,7 @@
 
 /obj/machinery/door/window/Destroy()
 	density = FALSE
+	air_update_turf(1)
 	QDEL_LIST(debris)
 	if(obj_integrity == 0)
 		playsound(src, "shatter", 70, 1)

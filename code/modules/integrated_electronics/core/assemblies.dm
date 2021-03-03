@@ -283,7 +283,7 @@
 		if(circuit_pins.power_draw_idle)
 			HTML += "<br>Power Draw: [circuit_pins.power_draw_idle] W (Idle)"
 		if(circuit_pins.power_draw_per_use)
-			HTML += "<br>Power Draw: [circuit_pins.power_draw_per_use] W (Active)" // Borgcode says that powercells' checked_use() takes joules as input.
+			HTML += "<br>Power Draw: [circuit_pins.power_draw_per_use] W (Active)" // Borgcode says that power cells' checked_use() takes joules as input.
 		HTML += "<br>[circuit_pins.extended_desc]</font></tr></table></div>"
 
 

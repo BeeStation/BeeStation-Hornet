@@ -26,6 +26,8 @@
 	del_on_death = 1
 	loot = list(/obj/effect/mob_spawn/human/clown/corpse)
 
+	mobchatspan = "clown"
+
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 270
 	maxbodytemp = 370
@@ -163,7 +165,6 @@
 	response_help = "tries desperately to appease"
 	response_disarm = "foolishly pushes"
 	response_harm = "angers"
-	access_card = ACCESS_THEATRE
 	speak = list("HONK", "Honk!", "HAUAUANK!!!", "GUUURRRRAAAHHH!!!")
 	emote_see = list("honks", "sweats", "grunts")
 	speak_chance = 5

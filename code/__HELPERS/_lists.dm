@@ -50,6 +50,34 @@
 		LIST.Insert(__BIN_MID, IN);\
 	}
 
+// binary search sorted insert (COMPARE = TEXT)
+// IN: Object to be inserted
+// LIST: List to insert object into
+// TYPECONT: The typepath of the contents of the list
+// COMPARE: The variable on the objects to compare (Must be a string)
+#define BINARY_INSERT_TEXT(IN, LIST, TYPECONT, COMPARE) \
+	var/__BIN_CTTL = length(LIST);\
+	if(!__BIN_CTTL) {\
+		LIST += IN;\
+	} else {\
+		var/__BIN_LEFT = 1;\
+		var/__BIN_RIGHT = __BIN_CTTL;\
+		var/__BIN_MID = (__BIN_LEFT + __BIN_RIGHT) >> 1;\
+		var/##TYPECONT/__BIN_ITEM;\
+		while(__BIN_LEFT < __BIN_RIGHT) {\
+			__BIN_ITEM = LIST[__BIN_MID];\
+			if(sorttext(__BIN_ITEM.##COMPARE, IN.##COMPARE) > 0) {\
+				__BIN_LEFT = __BIN_MID + 1;\
+			} else {\
+				__BIN_RIGHT = __BIN_MID;\
+			};\
+			__BIN_MID = (__BIN_LEFT + __BIN_RIGHT) >> 1;\
+		};\
+		__BIN_ITEM = LIST[__BIN_MID];\
+		__BIN_MID = sorttext(__BIN_ITEM.##COMPARE, IN.##COMPARE) < 0 ? __BIN_MID : __BIN_MID + 1;\
+		LIST.Insert(__BIN_MID, IN);\
+	}
+
 /// Returns a list in plain english as a string
 /proc/english_list(list/input, nothing_text = "nothing", and_text = " and ", comma_text = ", ", final_comma_text = "" )
 	var/total = length(input)
@@ -127,8 +155,7 @@
 /proc/typecache_filter_list(list/atoms, list/typecache)
 	RETURN_TYPE(/list)
 	. = list()
-	for(var/thing in atoms)
-		var/atom/A = thing
+	for(var/atom/A as() in atoms)
 		if (typecache[A.type])
 			. += A
 
@@ -136,16 +163,14 @@
 /proc/typecache_filter_list_reverse(list/atoms, list/typecache)
 	RETURN_TYPE(/list)
 	. = list()
-	for(var/thing in atoms)
-		var/atom/A = thing
+	for(var/atom/A as() in atoms)
 		if(!typecache[A.type])
 			. += A
 
 /// returns a new list with only atoms that are in typecache typecache_include but NOT in typecache_exclude
 /proc/typecache_filter_multi_list_exclusion(list/atoms, list/typecache_include, list/typecache_exclude)
 	. = list()
-	for(var/thing in atoms)
-		var/atom/A = thing
+	for(var/atom/A as() in atoms)
 		if(typecache_include[A.type] && !typecache_exclude[A.type])
 			. += A
 
@@ -236,13 +261,14 @@
 			L[item] = 1
 		total += L[item]
 
-	total = rand(1, total)
+	total *= rand()
 	for (item in L)
 		total -=L [item]
 		if (total <= 0)
 			return item
 
-	return null
+	// Emergency pick()
+	return pick(L)
 
 /proc/pickweightAllowZero(list/L) //The original pickweight proc will sometimes pick entries with zero weight.  I'm not sure if changing the original will break anything, so I left it be.
 	var/total = 0
@@ -252,13 +278,13 @@
 			L[item] = 0
 		total += L[item]
 
-	total = rand(0, total)
+	total *= rand()
 	for (item in L)
 		total -=L [item]
 		if (total <= 0 && L[item])
 			return item
 
-	return null
+	return pick(L)
 
 /// Pick a random element from the list and remove it from the list.
 /proc/pick_n_take(list/L)

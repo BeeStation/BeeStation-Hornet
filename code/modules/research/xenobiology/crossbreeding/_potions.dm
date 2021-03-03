@@ -41,24 +41,24 @@ Slimecrossing Potions
 
 /obj/item/slimepotion/peacepotion/attack(mob/living/M, mob/user)
 	if(!isliving(M) || M.stat == DEAD)
-		to_chat(user, "<span class='warning'>The pacification potion only works on the living.</span>")
+		to_chat(user, "<span class='warning'>[src] only works on the living.</span>")
 		return ..()
 	if(istype(M, /mob/living/simple_animal/hostile/megafauna))
-		to_chat(user, "<span class='warning'>The pacification potion does not work on beings of pure evil!</span>")
+		to_chat(user, "<span class='warning'>[src] does not work on beings of pure evil!</span>")
 		return ..()
 	if(M != user)
 		M.visible_message("<span class='danger'>[user] starts to feed [M] a pacification potion!</span>",
 			"<span class='userdanger'>[user] starts to feed you a pacification!</span>")
 	else
-		M.visible_message("<span class='danger'>[user] starts to drink the pacification potion!</span>",
-			"<span class='danger'>You start to drink the pacification potion!</span>")
+		M.visible_message("<span class='danger'>[user] starts to drink [src]!</span>",
+			"<span class='danger'>You start to drink [src]!</span>")
 
 	if(!do_after(user, 100, target = M))
 		return
 	if(M != user)
-		to_chat(user, "<span class='notice'>You feed [M] the pacification potion!</span>")
+		to_chat(user, "<span class='notice'>You feed [M] [src]!</span>")
 	else
-		to_chat(user, "<span class='warning'>You drink the pacification potion!</span>")
+		to_chat(user, "<span class='warning'>You drink [src]!</span>")
 	if(isanimal(M))
 		ADD_TRAIT(M, TRAIT_PACIFISM, MAGIC_TRAIT)
 	else if(iscarbon(M))
@@ -164,7 +164,7 @@ Slimecrossing Potions
 	C.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	C.add_atom_colour("#800000", FIXED_COLOUR_PRIORITY)
 	C.resistance_flags |= LAVA_PROOF
-	if (istype(C, /obj/item/clothing))
+	if (isclothing(C))
 		var/obj/item/clothing/CL = C
 		CL.clothing_flags |= LAVAPROTECT
 	uses--

@@ -46,6 +46,8 @@
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ops.ogg',100,0)
 	to_chat(owner, "<span class='notice'>You are a [nuke_team ? nuke_team.syndicate_name : "syndicate"] agent!</span>")
 	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Nuclear Operative",
+		"Destroy the station with a nuclear device.")
 
 /datum/antagonist/nukeop/on_gain()
 	give_alias()
@@ -53,6 +55,7 @@
 	. = ..()
 	equip_op()
 	memorize_code()
+	memorize_frequency()
 	if(send_to_spawnpoint)
 		move_to_spawnpoint()
 		// grant extra TC for the people who start in the nukie base ie. not the lone op
@@ -94,14 +97,19 @@
 			number = nuke_team.members.Find(owner)
 			owner.current.real_name = "[nuke_team.syndicate_name] Operative #[number]"
 
-
-
 /datum/antagonist/nukeop/proc/memorize_code()
 	if(nuke_team && nuke_team.tracked_nuke && nuke_team.memorized_code)
 		antag_memory += "<B>[nuke_team.tracked_nuke] Code</B>: [nuke_team.memorized_code]<br>"
 		to_chat(owner, "The nuclear authorization code is: <B>[nuke_team.memorized_code]</B>")
 	else
 		to_chat(owner, "Unfortunately the syndicate was unable to provide you with nuclear authorization code.")
+
+/datum/antagonist/nukeop/proc/memorize_frequency()
+	if(nuke_team?.team_frequency)
+		antag_memory += "<B>Secure Tracking Beacon Frequency</B>: [nuke_team.team_frequency]<br>"
+		to_chat(owner, "Your team's unique tracking beacon code is: <B>[nuke_team.team_frequency]</B>")
+	else
+		to_chat(owner, "You were not assigned a frequency for your hardsuits beacons. You will have to coordinate with each other to decide a frequency to use.")
 
 /datum/antagonist/nukeop/proc/forge_objectives()
 	if(!give_objectives)
@@ -194,7 +202,8 @@
 	to_chat(owner, "<B>In your hand you will find a special item capable of triggering a greater challenge for your team. Examine it carefully and consult with your fellow operatives before activating it.</B>")
 	owner.announce_objectives()
 	addtimer(CALLBACK(src, .proc/nuketeam_name_assign), 1)
-
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Nuclear Operative Team Leader",
+		"Destroy the station with a nuclear explosive by leading your team.")
 
 /datum/antagonist/nukeop/leader/proc/nuketeam_name_assign()
 	if(!nuke_team)
@@ -241,7 +250,7 @@
 			else //Already set by admins/something else?
 				nuke_team.memorized_code = nuke.r_code
 		else
-			stack_trace("Station self destruct not found during lone op team creation.")
+			stack_trace("Station self-destruct not found during lone op team creation.")
 			nuke_team.memorized_code = null
 
 /datum/antagonist/nukeop/reinforcement
@@ -253,11 +262,13 @@
 	var/obj/machinery/nuclearbomb/tracked_nuke
 	var/core_objective = /datum/objective/nuclear
 	var/memorized_code
+	var/team_frequency
 	var/list/team_discounts
 
 /datum/team/nuclear/New()
 	..()
 	syndicate_name = syndicate_name()
+	team_frequency = get_free_team_frequency("synd")
 
 /datum/team/nuclear/proc/update_objectives()
 	if(core_objective)

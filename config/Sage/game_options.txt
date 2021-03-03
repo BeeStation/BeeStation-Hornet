@@ -85,6 +85,9 @@ ALERT_DELTA Destruction of the station is imminent. All crew are instructed to o
 
 ## GAME MODES ###
 
+#Set the Master (Default) Game Mode.
+MASTER_MODE secret
+
 ## Uncomment to not send a roundstart intercept report. Gamemodes may override this.
 NO_INTERCEPT_REPORT
 
@@ -104,7 +107,6 @@ PROBABILITY REVOLUTION 4
 PROBABILITY INCURSION 4
 PROBABILITY NUCLEAR 4
 PROBABILITY TRAITORBRO 3
-PROBABILITY EXTENDED 2
 PROBABILITY WIZARD 1
 PROBABILITY CLOCKCULT 1
 PROBABILITY MONKEY 0
@@ -113,6 +115,9 @@ PROBABILITY CLOWNOPS 0
 PROBABILITY METEOR 0
 PROBABILITY DEVIL 0
 PROBABILITY DEVIL_AGENTS 0
+
+## Creates issues when NO_INTERCEPT_REPORT is enabled
+PROBABILITY EXTENDED 0 
 
 ## You probably want to keep sandbox off by default for secret and random.
 PROBABILITY SANDBOX 0
@@ -477,6 +482,7 @@ ROUNDSTART_RACES squid
 ## Races that are better than humans in some ways, but worse in others
 ROUNDSTART_RACES ethereal
 ROUNDSTART_RACES apid
+ROUNDSTART_RACES oozeling
 #ROUNDSTART_RACES jelly
 #ROUNDSTART_RACES shadow
 ROUNDSTART_RACES plasmaman
@@ -604,6 +610,9 @@ RANDOMIZE_SHIFT_TIME
 ## A cap on how many monkeys may be created via monkey cubes
 MONKEYCAP 100
 
+## Max amount of bodies allowed to slimepeople. Has balance considerations as well as technical ones.
+MAX_SLIMEPERSON_BODIES 10
+
 ## Maximum fine for a citation
 MAXFINE 2000
 
@@ -615,3 +624,11 @@ ALLOW_CREW_OBJECTIVES
 
 ## Uncomment to restrict suiciding. Adds an additional confirmation dialogue, additional logging, and prevents suicide within the first 15 minutes of the round.
 RESTRICTED_SUICIDE
+
+## Bluespace Miners.
+
+## Amount of miner boards in the RD's locker at roundstart.
+ROUNDSTART_BLUESPACE_MINERS 0
+
+## Enable the bluespace miner research node?
+#BSMINER_RESEARCHABLE

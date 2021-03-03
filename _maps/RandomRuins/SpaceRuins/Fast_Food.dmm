@@ -141,7 +141,6 @@
 "aF" = (
 /obj/item/toy/figure/chaplain,
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 4
 	},
 /turf/open/floor/plasteel/cafeteria,
@@ -158,7 +157,6 @@
 "aH" = (
 /obj/item/toy/figure/assistant,
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 8
 	},
 /turf/open/floor/plasteel/cafeteria,
@@ -170,7 +168,6 @@
 /area/ruin/space/has_grav/powered/macspace)
 "aJ" = (
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 8
 	},
 /turf/open/floor/plasteel/cafeteria,
@@ -206,7 +203,6 @@
 /area/ruin/space/has_grav/powered/macspace)
 "aR" = (
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria,
@@ -307,7 +303,6 @@
 /obj/item/toy/figure/clown,
 /obj/effect/decal/cleanable/food/tomato_smudge,
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 4
 	},
 /turf/open/floor/plasteel/cafeteria,
@@ -328,7 +323,6 @@
 /obj/item/toy/figure/mime,
 /obj/effect/decal/cleanable/food/salt,
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 8
 	},
 /turf/open/floor/plasteel/cafeteria,
@@ -379,7 +373,6 @@
 /area/ruin/space/has_grav/powered/macspace)
 "bw" = (
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 4
 	},
 /turf/open/floor/plasteel/cafeteria,
@@ -398,7 +391,6 @@
 /area/ruin/space/has_grav/powered/macspace)
 "bz" = (
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 8
 	},
 /turf/open/floor/carpet,
@@ -532,7 +524,6 @@
 /area/ruin/space/has_grav/powered/macspace)
 "ca" = (
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 4
 	},
 /obj/item/toy/figure/geneticist,
@@ -559,7 +550,6 @@
 "ce" = (
 /obj/item/toy/figure/janitor,
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 8
 	},
 /obj/item/toy/plush/lizardplushie,
@@ -569,7 +559,6 @@
 /obj/item/toy/figure/qm,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/food/salt,
@@ -598,7 +587,7 @@
 "ck" = (
 /obj/machinery/light/floor,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/water,
+/turf/open/water/air,
 /area/ruin/space/has_grav/powered/macspace)
 "cl" = (
 /obj/structure/table/wood/fancy/royalblue,
@@ -624,7 +613,6 @@
 "cp" = (
 /obj/item/toy/figure/botanist,
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 8
 	},
 /turf/open/floor/plasteel/cafeteria,
@@ -648,7 +636,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/food/pie_smudge,
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 8
 	},
 /turf/open/floor/carpet,
@@ -820,7 +807,6 @@
 "cW" = (
 /obj/item/toy/figure/lawyer,
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria,
@@ -828,7 +814,6 @@
 "cX" = (
 /obj/item/toy/figure/secofficer,
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria,
@@ -841,7 +826,6 @@
 "cZ" = (
 /obj/item/toy/figure/cargotech,
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria,
@@ -853,7 +837,6 @@
 /obj/item/toy/sword,
 /obj/effect/decal/cleanable/food/tomato_smudge,
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 1
 	},
 /obj/effect/decal/cleanable/food/salt,
@@ -935,6 +918,7 @@
 /area/ruin/space/has_grav/powered/macspace)
 "dr" = (
 /obj/machinery/door/airlock/silver,
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium,
 /area/ruin/space/has_grav/powered/macspace)
 "ds" = (
@@ -947,7 +931,6 @@
 /area/ruin/space/has_grav/powered/macspace)
 "dx" = (
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 4
 	},
 /obj/item/toy/toy_xeno,
@@ -956,7 +939,6 @@
 /area/ruin/space/has_grav/powered/macspace)
 "dy" = (
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 8
 	},
 /obj/item/toy/plush/slimeplushie,
@@ -965,7 +947,6 @@
 /area/ruin/space/has_grav/powered/macspace)
 "dz" = (
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 4
 	},
 /obj/item/toy/figure/scientist,
@@ -980,7 +961,6 @@
 /area/ruin/space/has_grav/powered/macspace)
 "dB" = (
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 8
 	},
 /obj/item/toy/talking/AI,
@@ -989,7 +969,6 @@
 "dC" = (
 /obj/item/toy/figure/botanist,
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 8
 	},
 /obj/item/toy/plush/beeplushie,
@@ -997,7 +976,6 @@
 /area/ruin/space/has_grav/powered/macspace)
 "dD" = (
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 4
 	},
 /obj/item/toy/figure/roboticist,
@@ -1012,7 +990,6 @@
 /area/ruin/space/has_grav/powered/macspace)
 "dF" = (
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 1
 	},
 /obj/item/toy/plush/nukeplushie,
@@ -1029,7 +1006,6 @@
 /area/ruin/space/has_grav/powered/macspace)
 "ea" = (
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 4
 	},
 /obj/item/toy/figure/cmo,
@@ -1037,7 +1013,6 @@
 /area/ruin/space/has_grav/powered/macspace)
 "iO" = (
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 8
 	},
 /obj/item/toy/figure/md,
@@ -1051,7 +1026,6 @@
 /area/ruin/space/has_grav/powered/macspace)
 "rA" = (
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 4
 	},
 /obj/item/toy/figure/chemist,
@@ -1059,7 +1033,6 @@
 /area/ruin/space/has_grav/powered/macspace)
 "uO" = (
 /obj/structure/chair/wood/wings{
-	icon_state = "wooden_chair_wings";
 	dir = 8
 	},
 /obj/item/toy/figure/virologist,

@@ -45,7 +45,7 @@
 	wanted_objects = typecacheof(/obj/mecha/combat, TRUE)
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/nanotrasen //nanotrasen are syndies! no it's just a weird path.
-	name = "Nanotrasen Mecha Pilot"
+	name = "\improper Nanotrasen Mecha Pilot"
 	desc = "Death to the Syndicate. This variant comes in MECHA DEATH flavour."
 	icon_living = "nanotrasen"
 	icon_state = "nanotrasen"
@@ -53,7 +53,7 @@
 	spawn_mecha_type = /obj/mecha/combat/marauder/loaded
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/no_mech/nanotrasen
-	name = "Nanotrasen Mecha Pilot"
+	name = "\improper Nanotrasen Mecha Pilot"
 	desc = "Death to the Syndicate. This variant comes in MECHA DEATH flavour."
 	icon_living = "nanotrasen"
 	icon_state = "nanotrasen"
@@ -104,7 +104,7 @@
 	//Find a new mecha
 	wanted_objects = typecacheof(/obj/mecha/combat, TRUE)
 	var/search_aggressiveness = 2
-	for(var/obj/mecha/combat/C in range(vision_range,src))
+	for(var/obj/mecha/combat/C in view(vision_range,src))
 		if(is_valid_mecha(C))
 			target = C
 			search_aggressiveness = 3 //We can see a mech? RUN FOR IT, IGNORE MOBS!
@@ -201,7 +201,7 @@
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/handle_automated_action()
 	if(..())
 		if(!mecha)
-			for(var/obj/mecha/combat/C in range(src,vision_range))
+			for(var/obj/mecha/combat/C in view(vision_range, src))
 				if(is_valid_mecha(C))
 					target = C //Let's nab it!
 					minimum_distance = 1

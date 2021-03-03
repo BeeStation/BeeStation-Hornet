@@ -20,10 +20,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	RADIO_KEY_SYNDICATE = RADIO_CHANNEL_SYNDICATE,
 	RADIO_KEY_CENTCOM = RADIO_CHANNEL_CENTCOM,
 
-	// Admin
-	MODE_KEY_ADMIN = MODE_ADMIN,
-	MODE_KEY_DEADMIN = MODE_DEADMIN,
-
 	// Misc
 	RADIO_KEY_AI_PRIVATE = RADIO_CHANNEL_AI_PRIVATE, // AI Upload channel
 	MODE_KEY_VOCALCORDS = MODE_VOCALCORDS,		// vocal cords, used by Voice of God
@@ -49,10 +45,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	// Faction
 	"å" = RADIO_CHANNEL_SYNDICATE,
 	"í" = RADIO_CHANNEL_CENTCOM,
-
-	// Admin
-	"ç" = MODE_ADMIN,
-	"â" = MODE_ADMIN,
 
 	// Misc
 	"ù" = RADIO_CHANNEL_AI_PRIVATE,
@@ -113,16 +105,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	else if(message_mode || saymode)
 		message = copytext_char(message, 3)
 	message = trim_left(message)
-
-	if(message_mode == MODE_ADMIN)
-		if(client)
-			client.cmd_admin_say(message)
-		return
-
-	if(message_mode == MODE_DEADMIN)
-		if(client)
-			client.dsay(message)
-		return
 
 	if(stat == DEAD)
 		say_dead(original_message)
@@ -259,8 +241,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		eavesdrop_range = EAVESDROP_EXTRA_RANGE
 	var/list/listening = get_hearers_in_view(message_range+eavesdrop_range, source)
 	var/list/the_dead = list()
-	for(var/_M in GLOB.player_list)
-		var/mob/M = _M
+	for(var/mob/M as() in GLOB.player_list)
 		if(!M)				//yogs
 			continue		//yogs | null in player_list for whatever reason :shrug:
 		if(M.stat != DEAD) //not dead, not important
@@ -282,8 +263,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		eavesrendered = compose_message(src, message_language, eavesdropping, , spans, message_mode)
 
 	var/rendered = compose_message(src, message_language, message, , spans, message_mode)
-	for(var/_AM in listening)
-		var/atom/movable/AM = _AM
+	for(var/atom/movable/AM as() in listening)
 		if(eavesdrop_range && get_dist(source, AM) > message_range && !(the_dead[AM]))
 			AM.Hear(eavesrendered, src, message_language, eavesdropping, , spans, message_mode)
 		else
@@ -376,7 +356,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	if(clockslurring)
 		message = clockslur(message)
-   
+
 	// check for and apply punctuation
 	var/end = copytext(message, length(message))
 	if(!(end in list("!", ".", "?", ":", "\"", "-")))
@@ -411,7 +391,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 				return ITALICS | REDUCE_RANGE
 
 		if(MODE_INTERCOM)
-			for (var/obj/item/radio/intercom/I in view(MODE_RANGE_INTERCOM, null))
+			for (var/obj/item/radio/intercom/I in view(MODE_RANGE_INTERCOM, src))
 				I.talk_into(src, message, , spans, language)
 			return ITALICS | REDUCE_RANGE
 

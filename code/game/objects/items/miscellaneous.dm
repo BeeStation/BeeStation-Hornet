@@ -14,7 +14,7 @@
 
 /obj/item/choice_beacon
 	name = "choice beacon"
-	desc = "Hey, why are you viewing this?!! Please let Centcom know about this odd occurance."
+	desc = "Hey, why are you viewing this?!! Please let CentCom know about this odd occurrence."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-blue"
 	item_state = "radio"
@@ -77,7 +77,6 @@
 			hero_item_list[initial(A.name)] = A
 	return hero_item_list
 
-
 /obj/item/storage/box/hero
 	name = "Courageous Tomb Raider - 1940's."
 
@@ -111,7 +110,7 @@
 
 /obj/item/storage/box/hero/ghostbuster/PopulateContents()
 	new /obj/item/clothing/glasses/welding/ghostbuster(src)
-	new /obj/item/storage/belt/fannypack/bustin(src)	
+	new /obj/item/storage/belt/fannypack/bustin(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/under/color/khaki/buster(src)
@@ -193,7 +192,7 @@
 			maximum_size = 4
 			to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand].</span>")
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
-	
+
 /obj/item/clothing/head/that/bluespace/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!proximity_flag)
@@ -306,3 +305,74 @@
 	item_state = "wand"
 	w_class = WEIGHT_CLASS_SMALL
 	var/used = FALSE
+
+/obj/item/choice_beacon/pet
+	name = "animal delivery beacon"
+	desc = "There are no faster ways, only more humane."
+	var/default_name = "Bacon"
+	var/mob_choice = /mob/living/simple_animal/pet/dog/corgi/exoticcorgi
+
+/obj/item/choice_beacon/pet/generate_options(mob/living/M)
+	var/input_name = stripped_input(M, "What would you like your new pet to be named?", "New Pet Name", default_name, MAX_NAME_LEN)
+	if(!input_name)
+		return
+	spawn_mob(M,input_name)
+	uses--
+	if(!uses)
+		qdel(src)
+	else
+		to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
+
+/obj/item/choice_beacon/pet/proc/spawn_mob(mob/living/M,name)
+	var/obj/structure/closet/supplypod/bluespacepod/pod = new()
+	var/mob/your_pet = new mob_choice(pod)
+	pod.explosionSize = list(0,0,0,0)
+	your_pet.name = name
+	var/msg = "<span class=danger>After making your selection, you notice a strange target on the ground. It might be best to step back!</span>"
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(istype(H.ears, /obj/item/radio/headset))
+			msg = "You hear something crackle in your ears for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows: <span class='bold'>One pet delivery straight from Central Command. Stand clear!</span> Message ends.\""
+	to_chat(M, msg)
+
+	new /obj/effect/DPtarget(get_turf(src), pod)
+
+/obj/item/choice_beacon/pet/cat
+	name = "cat delivery beacon"
+	default_name = "Tom"
+	mob_choice = /mob/living/simple_animal/pet/cat
+
+/obj/item/choice_beacon/pet/mouse
+	name = "mouse delivery beacon"
+	default_name = "Jerry"
+	mob_choice = /mob/living/simple_animal/mouse
+	
+/obj/item/choice_beacon/pet/corgi
+	name = "corgi delivery beacon"
+	default_name = "Tosha"
+	mob_choice = /mob/living/simple_animal/pet/dog/corgi
+	
+/obj/item/choice_beacon/pet/hamster
+	name = "hamster delivery beacon"
+	default_name = "Doctor"
+	mob_choice = /mob/living/simple_animal/pet/hamster
+	
+/obj/item/choice_beacon/pet/pug
+	name = "pug delivery beacon"
+	default_name = "Silvestro"
+	mob_choice = /mob/living/simple_animal/pet/dog/pug
+	
+/obj/item/choice_beacon/pet/ems
+	name = "emotional support animal delivery beacon"
+	default_name = "Hugsie"
+	mob_choice = /mob/living/simple_animal/pet/cat/kitten
+	
+/obj/item/choice_beacon/pet/pingu
+	name = "penguin delivery beacon"
+	default_name = "Pingu"
+	mob_choice = /mob/living/simple_animal/pet/penguin/baby
+	
+/obj/item/choice_beacon/pet/clown
+	name = "living lube delivery beacon"
+	default_name = "Offensive"
+	mob_choice = /mob/living/simple_animal/hostile/retaliate/clown/lube

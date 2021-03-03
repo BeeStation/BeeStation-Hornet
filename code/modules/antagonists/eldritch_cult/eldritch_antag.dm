@@ -10,6 +10,7 @@
 	var/list/researched_knowledge = list()
 	var/total_sacrifices = 0
 	var/ascended = FALSE
+	can_hijack = HIJACK_HIJACKER
 
 /datum/antagonist/heretic/admin_add(datum/mind/new_owner,mob/admin)
 	give_equipment = FALSE
@@ -26,6 +27,8 @@
 	Your book allows you to research abilities, read it very carefully! You cannot undo what has been done!<br>\
 	You gain charges by either collecting influences or sacrificing people tracked by the living heart<br> \
 	You can find a basic guide at : https://wiki.beestation13.com/view/Heretics </span>")
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Heretic",
+		"Collect influences or sacrafice targets to expand your forbidden knowledge.")
 
 /datum/antagonist/heretic/on_gain()
 	var/mob/living/current = owner.current
@@ -34,8 +37,8 @@
 		gain_knowledge(/datum/eldritch_knowledge/spell/basic)
 		gain_knowledge(/datum/eldritch_knowledge/living_heart)
 		gain_knowledge(/datum/eldritch_knowledge/codex_cicatrix)
-	current.log_message("has become a heretic", LOG_ATTACK, color="#960000")
-	GLOB.reality_smash_track.AddMind(owner)
+	current.log_message("has been turned into a heretic!", LOG_ATTACK, color="#960000")
+	GLOB.reality_smash_track.Generate()
 	START_PROCESSING(SSprocessing,src)
 	if(give_equipment)
 		equip_cultist()
@@ -50,11 +53,10 @@
 	if(!silent)
 		to_chat(owner.current, "<span class='userdanger'>Your mind begins to flare as the otherwordly knowledge escapes your grasp!</span>")
 		owner.current.log_message("has become a non-heretic", LOG_ATTACK, color="#960000")
-	GLOB.reality_smash_track.RemoveMind(owner)
+	GLOB.reality_smash_track.targets--
 	STOP_PROCESSING(SSprocessing,src)
 
 	return ..()
-
 
 /datum/antagonist/heretic/proc/equip_cultist()
 	var/mob/living/carbon/H = owner.current
@@ -89,12 +91,30 @@
 		EK.on_life(owner.current)
 
 /datum/antagonist/heretic/proc/forge_primary_objectives()
-	var/list/assasination = list()
-	var/list/protection = list()
-	for(var/i in 1 to 2)
-		var/pck = pick("assasinate","stalk","protect")
-		switch(pck)
-			if("assasinate")
+	if (prob(5))
+		if (prob(66))
+			var/datum/objective/ascend/AE = new()
+			AE.owner = owner
+			AE.update_explanation_text()
+			objectives += AE
+			log_objective(owner, AE.explanation_text)
+		else
+			var/datum/objective/hijack/hijack_objective = new
+			hijack_objective.owner = owner
+			hijack_objective.update_explanation_text()
+			objectives += hijack_objective
+			log_objective(owner, hijack_objective.explanation_text)
+	else
+		var/list/assasination = list()
+		var/list/protection = list()
+		for(var/i in 1 to 2)
+			if (prob(35))
+				var/datum/objective/stalk/S = new()
+				S.owner = owner
+				S.find_target()
+				objectives += S
+				log_objective(owner, S.explanation_text)
+			else
 				var/datum/objective/assassinate/A = new()
 				A.owner = owner
 				var/list/owners = A.get_owners()
@@ -102,26 +122,12 @@
 				assasination += A.target
 				objectives += A
 				log_objective(owner, A.explanation_text)
-			if("stalk")
-				var/datum/objective/stalk/S = new()
-				S.owner = owner
-				S.find_target()
-				objectives += S
-				log_objective(owner, S.explanation_text)
-			if("protect")
-				var/datum/objective/protect/P = new()
-				P.owner = owner
-				var/list/owners = P.get_owners()
-				P.find_target(owners,assasination)
-				protection += P.target
-				objectives += P
-				log_objective(owner, P.explanation_text)
+		var/datum/objective/sacrifice_ecult/SE = new()
+		SE.owner = owner
+		SE.update_explanation_text()
+		objectives += SE
+		log_objective(owner, SE.explanation_text)
 
-	var/datum/objective/sacrifice_ecult/SE = new()
-	SE.owner = owner
-	SE.update_explanation_text()
-	objectives += SE
-	log_objective(owner, SE.explanation_text)
 
 /datum/antagonist/heretic/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -168,14 +174,11 @@
 			count++
 
 	if(ascended)
-		//Ascension isnt technically finishing the objectives, buut it is to be considered a great win.
-		var/client/C = GLOB.directory[ckey(owner.key)]
-		if(C)
-			C.process_greentext()
-		parts += "<span class='greentext big'>HERETIC HAS ASCENDED!</span>"
+		//Ascension isn't technically finishing the objectives, buut it is to be considered a great win.
+		parts += "<span class='greentext'>THIS HERETIC ASCENDED!</span>"
 	else
 		if(cultiewin)
-			parts += "<span class='greentext'>The heretic was successful!</span>"
+			parts += "<span class='greentext big'>The heretic was successful!</span>"
 		else
 			parts += "<span class='redtext'>The heretic has failed.</span>"
 
@@ -187,6 +190,7 @@
 	parts += knowledge_message.Join(", ")
 
 	return parts.Join("<br>")
+
 ////////////////
 // Knowledge //
 ////////////////
@@ -225,7 +229,7 @@
 	var/timer = 5 MINUTES
 
 /datum/objective/stalk/process()
-	if(owner?.current?.stat != DEAD && target?.current?.stat != DEAD && (target in view(5,owner.current)))
+	if(owner?.current?.stat != DEAD && target?.current?.stat != DEAD && (owner.current in viewers(5, get_turf(target))))
 		timer -= 1 SECONDS
 	///we don't want to process after the counter reaches 0, otherwise it is wasted processing
 	if(timer <= 0)
@@ -252,9 +256,11 @@
 /datum/objective/sacrifice_ecult
 	name = "sacrifice"
 
-/datum/objective/sacrifice_ecult/update_explanation_text()
-	. = ..()
+/datum/objective/sacrifice_ecult/New()
+	..()
 	target_amount = rand(2,6)
+
+/datum/objective/sacrifice_ecult/update_explanation_text()
 	explanation_text = "Sacrifice at least [target_amount] people."
 
 /datum/objective/sacrifice_ecult/check_completion()
@@ -264,3 +270,13 @@
 	if(!cultie)
 		return FALSE
 	return cultie.total_sacrifices >= target_amount
+
+/datum/objective/ascend
+	name = "ascend"
+	explanation_text = "Appease the Gods and ascend."
+
+/datum/objective/ascend/check_completion()
+	if(!owner)
+		return FALSE
+	var/datum/antagonist/heretic/cultie = owner.has_antag_datum(/datum/antagonist/heretic)
+	return cultie?.ascended

@@ -1,0 +1,26 @@
+Administration:
+- code/modules/admin/**/*
+
+Config Update:
+- config/**/*
+
+GitHub:
+- .github/**/*
+
+mapping:
+- _maps/**/*
+
+sound:
+- sound/**/*
+
+sprites:
+- icons/**/*.dmi
+
+sql:
+- SQL/**/*.sql
+
+tools:
+- tools/**/*
+
+TGUI-Changes:
+- tgui/**/*

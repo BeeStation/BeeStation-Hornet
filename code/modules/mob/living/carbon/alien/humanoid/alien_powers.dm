@@ -143,10 +143,10 @@ Doesn't work on other aliens/AI.*/
 	action_icon_state = "alien_acid"
 
 /obj/effect/proc_holder/alien/acid/on_gain(mob/living/carbon/user)
-	user.verbs.Add(/mob/living/carbon/proc/corrosive_acid)
+	user.add_verb(/mob/living/carbon/proc/corrosive_acid)
 
 /obj/effect/proc_holder/alien/acid/on_lose(mob/living/carbon/user)
-	user.verbs.Remove(/mob/living/carbon/proc/corrosive_acid)
+	user.remove_verb(/mob/living/carbon/proc/corrosive_acid)
 
 /obj/effect/proc_holder/alien/acid/proc/corrode(atom/target,mob/living/carbon/user = usr)
 	if(target in oview(1,user))
@@ -204,7 +204,7 @@ Doesn't work on other aliens/AI.*/
 /obj/effect/proc_holder/alien/neurotoxin/InterceptClickOn(mob/living/caller, params, atom/target)
 	if(..())
 		return
-	var/p_cost = 50
+	var/p_cost = 30
 	if(!iscarbon(ranged_ability_user) || ranged_ability_user.stat)
 		remove_ranged_ability()
 		return

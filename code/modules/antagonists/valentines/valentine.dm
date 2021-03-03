@@ -20,6 +20,13 @@
 	if(isliving(owner))
 		var/mob/living/L = owner
 		L.apply_status_effect(STATUS_EFFECT_INLOVE, date)
+		//Faction assignation
+		L.faction |= "[REF(date.current)]"
+		L.faction |= date.current.faction
+	if(issilicon(owner))
+		var/mob/living/silicon/S = owner
+		var/laws = list("Protect your date and do not allow them to come to harm.", "Ensure your date has a good time.")
+		S.set_valentines_laws(laws)
 	. = ..()
 
 /datum/antagonist/valentine/on_removal()
@@ -27,9 +34,12 @@
 	if(isliving(owner))
 		var/mob/living/L = owner
 		L.remove_status_effect(STATUS_EFFECT_INLOVE)
+		L.faction -= "[REF(date.current)]"
 
 /datum/antagonist/valentine/greet()
-	to_chat(owner, "<span class='warning'><B>You're on a date with [date.name]! Protect [date.p_them()] at all costs. This takes priority over all other loyalties.</B></span>")
+	to_chat(owner, "<span class='clown'><B>You're on a date with [date.name]! Protect [date.p_them()] at all costs. This takes priority over all other loyalties.</B></span>")
+	owner.current.client?.tgui_panel?.give_antagonist_popup("You are on a date with [date.name]",
+		"Protect your date no matter the cost. Your loyalities are insignificant compared to your true love, you may do whatever you can to help and protect them!")
 
 //Squashed up a bit
 /datum/antagonist/valentine/roundend_report()

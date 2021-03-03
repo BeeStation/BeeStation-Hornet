@@ -42,6 +42,7 @@
 	STR.max_combined_w_class = 21
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/crowbar,
+		/obj/item/powertool,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
@@ -74,11 +75,11 @@
 	item_state = "utility_ce"
 
 /obj/item/storage/belt/utility/chief/full/PopulateContents()
-	new /obj/item/screwdriver/power(src)
-	new /obj/item/crowbar/power(src)
+	new /obj/item/powertool/hand_drill(src)
+	new /obj/item/powertool/jaws_of_life(src)
 	new /obj/item/weldingtool/experimental(src)//This can be changed if this is too much
 	new /obj/item/multitool(src)
-	new /obj/item/stack/cable_coil(src,30,pick("red","yellow","orange"))
+	new /obj/item/stack/cable_coil(src,MAXCOIL,pick("red","yellow","orange"))
 	new /obj/item/extinguisher/mini(src)
 	new /obj/item/analyzer/ranged(src)
 	//much roomier now that we've managed to remove two tools
@@ -90,7 +91,7 @@
 	new /obj/item/crowbar(src)
 	new /obj/item/wirecutters(src)
 	new /obj/item/multitool(src)
-	new /obj/item/stack/cable_coil(src,30,pick("red","yellow","orange"))
+	new /obj/item/stack/cable_coil(src,MAXCOIL,pick("red","yellow","orange"))
 
 /obj/item/storage/belt/utility/full/engi/PopulateContents()
 	new /obj/item/screwdriver(src)
@@ -99,7 +100,7 @@
 	new /obj/item/crowbar(src)
 	new /obj/item/wirecutters(src)
 	new /obj/item/multitool(src)
-	new /obj/item/stack/cable_coil(src,30,pick("red","yellow","orange"))
+	new /obj/item/stack/cable_coil(src,MAXCOIL,pick("red","yellow","orange"))
 
 
 /obj/item/storage/belt/utility/atmostech/PopulateContents()
@@ -126,6 +127,7 @@
 	STR.max_items = 7
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/crowbar,
+		/obj/item/powertool,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
@@ -317,6 +319,7 @@
 	STR.max_combined_w_class = 20
 	STR.can_hold = typecacheof(list(
 		/obj/item/crowbar,
+		/obj/item/powertool,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
@@ -489,7 +492,7 @@
 	new /obj/item/crowbar/abductor(src)
 	new /obj/item/wirecutters/abductor(src)
 	new /obj/item/multitool/abductor(src)
-	new /obj/item/stack/cable_coil(src,30,"white")
+	new /obj/item/stack/cable_coil/white(src)
 
 /obj/item/storage/belt/military/army
 	name = "army belt"

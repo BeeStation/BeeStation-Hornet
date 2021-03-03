@@ -1,6 +1,6 @@
 //Ethereal Disco Grenade for Ethereal traitors
 //Does not affect ethereals.
-//Some basic code peices taken from flashbang, spawner grenade and ethereal disco ball for functionality (basically a combination of the 3).
+//Some basic code pieces taken from flashbang, spawner grenade and ethereal disco ball for functionality (basically a combination of the 3).
 
 //////////////////////
 // Primary grenade  //
@@ -73,7 +73,7 @@
 	//Create the lights
 	new /obj/effect/dummy/lighting_obj (current_turf, rand_hex_color(), 4, 1, 10)
 
-	for(var/mob/living/carbon/human/M in view(4, src))
+	for(var/mob/living/carbon/human/M in hearers(4, src))
 		forcedance(get_turf(M), M)
 	qdel(src)
 
