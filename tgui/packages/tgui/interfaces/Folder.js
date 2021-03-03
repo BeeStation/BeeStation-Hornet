@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import { useBackend } from "../backend";
 import { Box, Button, Flex, Section } from "../components";
 import { Window } from "../layouts";
