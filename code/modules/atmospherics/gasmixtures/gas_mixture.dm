@@ -80,7 +80,7 @@ GLOBAL_LIST_INIT(auxtools_atmos_initialized, FALSE)
 /datum/gas_mixture/proc/clear()
 
 /datum/gas_mixture/proc/adjust_moles(gas_type, amt = 0)
-	set_moles(gas_type, get_moles(gas_type) + amt)
+	set_moles(gas_type, clamp(get_moles(gas_type) + amt,0,INFINITY))
 
 /datum/gas_mixture/proc/return_volume() //liters
 
