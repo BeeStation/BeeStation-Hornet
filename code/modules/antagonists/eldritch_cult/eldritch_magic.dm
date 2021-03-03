@@ -99,7 +99,7 @@
 ///Removes runes from the selected turf
 /obj/item/melee/touch_attack/mansus_fist/proc/remove_rune(atom/target,mob/user)
 	to_chat(user, "<span class='danger'>You start removing a rune...</span>")
-	if(do_after(user,2 SECONDS,user))
+	if(do_after(user,2 SECONDS,target = user))
 		qdel(target)
 
 /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
@@ -581,7 +581,7 @@
 
 	to_chat(originator, "<span class='notice'>You begin linking [target]'s mind to yours...</span>")
 	to_chat(target, "<span class='warning'>You feel your mind being pulled... connected... intertwined with the very fabric of reality...</span>")
-	if(!do_after(originator, 6 SECONDS, target))
+	if(!do_after(originator, 6 SECONDS, target = target))
 		return
 	if(!originator.link_mob(target))
 		to_chat(originator, "<span class='warning'>You can't seem to link [target]'s mind...</span>")
