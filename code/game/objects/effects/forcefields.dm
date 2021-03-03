@@ -10,7 +10,7 @@
 
 /obj/effect/forcefield/Initialize(mapload, ntiemelef)
 	. = ..()
-	if(ntiemelef)
+	if(isnum_safe(ntiemelef))
 		timeleft = ntiemelef
 	if(timeleft)
 		QDEL_IN(src, timeleft)
