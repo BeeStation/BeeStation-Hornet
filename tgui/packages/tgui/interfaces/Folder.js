@@ -15,8 +15,7 @@ export const Folder = (props, context) => {
                 <Flex
                   color="black"
                   backgroundColor="white"
-                  style={{ padding: "2px 2px 0 2px" }}
-                >
+                  style={{ padding: "2px 2px 0 2px" }}>
                   <Flex.Item align="center" grow={1}>
                     <Box align="center">{item}</Box>
                   </Flex.Item>
