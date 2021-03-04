@@ -92,8 +92,9 @@
 			var/datum/computer_file/program/computer_program = p
 			computer_program.event_idremoved(1)
 	if(ishuman(user))
-		var/mob/living/carbon/human/human_user = user
-		human_user.sec_hud_set_ID()
+		var/mob/living/carbon/human/human_wearer = user
+		if(human_wearer.wear_id == holder)
+			human_wearer.sec_hud_set_ID()
 	to_chat(user, "<span class='notice'>You remove the card from \the [src].</span>")
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	stored_card = null
