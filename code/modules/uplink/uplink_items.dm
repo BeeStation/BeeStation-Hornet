@@ -505,7 +505,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Syndicate Labs brought you the tools nescessary for quick and easy removal of pets, including both cats and moths! \
 			Now, the kit contains specialised weaponry just for your comfort, but beware as besides the anti friction countermeasure \
 			and small amount of concentrated fire in your pest removal device you are pretty harmless. ( IN CASE YOU DO NOT WISH TO \
-			PERMANENTLY REMOVE THE PESTS YOU HAVE THE OPTION TO SPARE THEM WITH 100 UNITS OF CONCENTRADED APE DNA)"
+			PERMANENTLY REMOVE THE PESTS YOU HAVE THE OPTION TO SPARE THEM WITH 100 UNITS OF CONCENTRATED APE DNA)"
 	item = /obj/item/storage/backpack/duffelbag/syndie/med/mothbgonbundle
 	cost = 14
 	restricted_species = list("human")
