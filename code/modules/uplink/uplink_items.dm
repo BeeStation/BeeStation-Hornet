@@ -1890,6 +1890,14 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 	surplus = 0
 
+/datum/uplink_item/role_restricted/feline_symptom_bottle
+	name = "Assimilative Toxoplasmosis Derivative"
+	desc = "A culture bottle containing a weakened derivative of the fabled cat virus"
+	item = /obj/item/reagent_containers/glass/bottle/feline
+	cost = 20 //This is meant purely to be a meme pick.
+	restricted_roles = list("Virologist", "Chief Medical Officer")
+	surplus = 10
+
 /datum/uplink_item/role_restricted/ancient_jumpsuit
 	name = "Ancient Jumpsuit"
 	desc = "A tattered old jumpsuit that will provide absolutely no benefit to you. It fills the wearer with a strange compulsion to blurt out 'glorf'."
