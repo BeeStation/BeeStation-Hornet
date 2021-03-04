@@ -42,11 +42,11 @@
 	if(user.canUseTopic(src, BE_CLOSE))
 		name = "folder[(inputvalue ? " - '[inputvalue]'" : null)]"
 
-/obj/item/folder/proc/remove_item(obj/item/Item, mob/user)
-	if(istype(Item))
-		Item.forceMove(user.loc)
-		user.put_in_hands(Item)
-		to_chat(user, "<span class='notice'>You remove [Item] from [src].</span>")
+/obj/item/folder/proc/remove_item(obj/item/I, mob/user)
+	if(istype(I))
+		I.forceMove(user.loc)
+		user.put_in_hands(I)
+		to_chat(user, "<span class='notice'>You remove [I] from [src].</span>")
 		update_icon()
 
 /obj/item/folder/AltClick(mob/user)
