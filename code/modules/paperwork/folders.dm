@@ -34,7 +34,7 @@
 		to_chat(user, "<span class='notice'>You scribble illegibly on the cover of [src]!</span>")
 		return
 
-	var/inputvalue = stripped_input(user, "What would you like to label the folder?", "Folder Labelling", "", MAX_NAME_LEN)
+	var/inputvalue = stripped_input(user, "What would you like to label the folder?", "Folder Labelling", null, MAX_NAME_LEN)
 
 	if(!inputvalue)
 		return
