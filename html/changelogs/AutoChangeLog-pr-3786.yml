@@ -1,4 +1,0 @@
-author: francinum
-delete-after: true
-changes:
-  - bugfix: Cult forcewalls now properly expire
