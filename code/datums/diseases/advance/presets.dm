@@ -16,6 +16,15 @@
 	symptoms = list(new/datum/symptom/cough)
 	..()
 
+//Feline Symptom for Uplink
+/datum/disease/advance/feline
+	copy_type = /datum/disease/advance
+
+/datum/disease/feline/New()
+	name = "Assimilative Toxoplasmosis Derivative"
+	symptoms = list(new/datum/symptom/feline)
+	..()
+
 //Randomly generated Disease, for virus crates and events
 /datum/disease/advance/random
 	name = "Experimental Disease"

@@ -236,6 +236,10 @@
 	desc = "A small bottle. Contains H13N1 flu virion culture in synthblood medium."
 	spawned_disease = /datum/disease/advance/flu
 
+/obj/item/reagent_containers/glass/bottle/feline
+	name = "Assimilative Toxoplasmosis Derivative Culture Bottle"
+	desc = "A small bottle. Contains a weakened derivative of Assimilative Toxoplasmosis, the fabled Cat Virus, in synthblood medium."
+	spawned_disease = /datum/disease/advance/feline
 /obj/item/reagent_containers/glass/bottle/retrovirus
 	name = "Retrovirus culture bottle"
 	desc = "A small bottle. Contains a retrovirus culture in a synthblood medium."
