@@ -469,6 +469,7 @@
 #include "code\datums\diseases\advance\symptoms\confusion.dm"
 #include "code\datums\diseases\advance\symptoms\cough.dm"
 #include "code\datums\diseases\advance\symptoms\deafness.dm"
+#include "code\datums\diseases\advance\symptoms\feline.dm"
 #include "code\datums\diseases\advance\symptoms\fever.dm"
 #include "code\datums\diseases\advance\symptoms\fire.dm"
 #include "code\datums\diseases\advance\symptoms\flesh_eating.dm"
