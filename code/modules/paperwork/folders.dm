@@ -102,7 +102,7 @@
 	if(.)
 		return
 
-	if(usr.stat != CONSCIOUS)
+	if(usr.incapacitated())
 		return
 
 	switch(action)
