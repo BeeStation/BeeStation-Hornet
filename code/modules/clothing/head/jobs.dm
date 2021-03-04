@@ -105,6 +105,7 @@
 	dog_fashion = /datum/dog_fashion/head/beret
 	dynamic_hair_suffix = "+generic"
 	dynamic_fhair_suffix = "+generic"
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/head/beret/vintage
 	name = "vintage beret"
