@@ -76,30 +76,14 @@
 		frequencies += list(x)
 	data["frequencies"] = frequencies
 
-	var/list/circuits = list()
-	var/n = 0
-	data["circuits"] = list()
-	for(var/c in GLOB.ic_speakers)
-		var/obj/item/integrated_circuit/I = c
-		var/obj/item/O = I.get_object()
-		var/list/circuit = list()
-		if(get_area(O)) //if it isn't in nullspace, can happen due to printer newing all possible circuits to fetch list data
-			n++
-			circuit["index"] = n
-			circuit["name"] = O.name
-			circuit["coords"] = "[O.x], [O.y], [O.z]"
-			circuits += list(circuit)
-	data["circuits"] = circuits
-
 	return data
 
 /obj/machinery/telecomms/ui_act(action, params)
 	if(..())
 		return
 
-	if(!issilicon(usr))
-		if(!istype(usr.get_active_held_item(), /obj/item/multitool))
-			return
+	if(!issilicon(operator) && !istype(operator.get_active_held_item(), /obj/item/multitool))
+		return
 
 	var/obj/item/multitool/heldmultitool = get_multitool(operator)
 
@@ -176,8 +160,8 @@
 			heldmultitool.buffer = null
 			. = TRUE
 
-	add_act(action, params)
-	. = TRUE
+	if(add_act(action, params))
+		. = TRUE
 
 /obj/machinery/telecomms/proc/add_option()
 	return
@@ -191,6 +175,22 @@
 /obj/machinery/telecomms/receiver/add_option()
 	var/list/data = list()
 	data["type"] = "receiver"
+
+	//text-to-radio circuit stuff
+	var/list/circuits = list()
+	var/n = 0
+	data["circuits"] = list()
+	for(var/c in GLOB.ic_speakers)
+		var/obj/item/integrated_circuit/I = c
+		var/obj/item/O = I.get_object()
+		var/list/circuit = list()
+		if(get_area(O)) //if it isn't in nullspace, can happen due to printer newing all possible circuits to fetch list data
+			n++
+			circuit["index"] = n
+			circuit["name"] = O.name
+			circuit["coords"] = "[O.x], [O.y], [O.z]"
+			circuits += list(circuit)
+	data["circuits"] = circuits
 	return data
 
 /obj/machinery/telecomms/relay/add_option()
@@ -221,6 +221,7 @@
 					. = TRUE
 				else
 					change_frequency = 0
+					. = TRUE
 
 // Returns a multitool from a user depending on their mobtype.
 
