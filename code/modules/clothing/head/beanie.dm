@@ -9,6 +9,7 @@
 	icon_state = "beanie" //Default white
 	item_color = "beanie"
 	custom_price = 10
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/head/beanie/black
 	name = "black beanie"
@@ -89,11 +90,11 @@
 	desc = "If you're going on a worldwide hike, you'll need some cold protection."
 	icon_state = "waldo_hat"
 	item_color = "waldo_hat"
-	
+
 /obj/item/clothing/head/beanie/rasta
 	name = "rastacap"
 	desc = "Perfect for tucking in those dreadlocks."
 	icon_state = "beanierasta"
-	item_color = "beanierasta"	
+	item_color = "beanierasta"
 
 //No dog fashion sprites yet :(  poor Ian can't be dope like the rest of us yet

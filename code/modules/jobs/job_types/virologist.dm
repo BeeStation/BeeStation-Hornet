@@ -40,3 +40,6 @@
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
 
 	cyberimps = list(/obj/item/organ/cyberimp/skillChip/chemistry)
+
+	pda_slot = SLOT_R_STORE
+
