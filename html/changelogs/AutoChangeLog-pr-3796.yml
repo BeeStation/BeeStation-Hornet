@@ -1,0 +1,4 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - bugfix: fixes some code warnings
