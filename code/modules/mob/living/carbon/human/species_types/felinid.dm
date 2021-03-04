@@ -151,3 +151,19 @@
 
 	if(!silent)
 		to_chat(H, "You are no longer a cat.")
+
+/datum/species/human/felinid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+	. = ..()
+	if(chem.type == /datum/reagent/toxin/catbgon)
+		H.adjustToxLoss(8)
+		H.adjustOxyLoss(8)
+		if(prob(50))
+			H.drowsyness += 1
+		H.visible_message("<span class='danger'>You have to get this chocolate out of your system!!!</span>")
+		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
+
+
+/datum/species/human/felinid/check_species_weakness(obj/item/weapon, mob/living/attacker)
+	if(istype(weapon, /obj/item/melee/flyswatter/cat))
+		return 19 //flyswatters deal 20x damage to moths
+	return 0

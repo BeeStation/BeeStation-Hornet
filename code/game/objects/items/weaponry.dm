@@ -754,6 +754,21 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 			else
 				qdel(target)
 
+/obj/item/melee/flyswatter/moth
+	name = "Mothswatter"
+	desc = "Brought to you by the humans at the syndicate"
+
+/obj/item/melee/flyswatter/cat
+	name = "Felinid BONKer"
+	desc = "Best defense against pouncing mammals"
+	attack_verb = list("Homerunned", "BONKed")
+	hitsound = 'sound/weapons/smash.ogg'	
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "baseball_bat_metal"
+	item_state = "baseball_bat_metal"
+	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
+
 /obj/item/circlegame
 	name = "circled hand"
 	desc = "If somebody looks at this while it's below your waist, you get to bop them."

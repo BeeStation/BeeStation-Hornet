@@ -595,6 +595,16 @@
 	if(prob(5))
 		new /obj/item/reagent_containers/food/snacks/pizza/pineapple(src)
 
+/obj/item/storage/backpack/duffelbag/syndie/med/mothbgonbundle
+	desc = "A large duffel bag containing the CHAD device, the Mothswatter, Catbeater and Anti Fricton Solution."
+
+/obj/item/storage/backpack/duffelbag/syndie/med/mothbgonbundle/PopulateContents()
+	new /obj/item/reagent_containers/spray/chesmprayer/mothbgon(src)
+	new /obj/item/reagent_containers/spray/cleaner/lube(src)
+	new /obj/item/reagent_containers/spray/cleaner/mercy(src)
+	new /obj/item/melee/flyswatter/cat(src)
+	new /obj/item/melee/flyswatter/moth(src)
+
 /obj/item/storage/backpack/duffelbag/syndie/c4/PopulateContents()
 	for(var/i in 1 to 10)
 		new /obj/item/grenade/plastic/c4(src)

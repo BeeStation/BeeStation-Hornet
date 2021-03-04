@@ -261,6 +261,33 @@
 		var/damage = min(round(0.4*reac_volume, 0.1),10)
 		M.adjustToxLoss(damage)
 
+/datum/reagent/toxin/mothbgon
+	name = "Moth-B-Gone"
+	description = "From syndicate extermination labs, the brand new potent chemical for removing the fluttery f-.... disease."
+	color = "#6CCC11" // rgb: 75, 0, 75
+	toxpwr = 1
+
+/datum/reagent/toxin/mothbgon/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+	..()
+	if(MOB_BUG in M.mob_biotypes)
+		var/damage = min(round(0.8*reac_volume, 0.1),10)
+		M.adjustToxLoss(damage)
+
+/datum/reagent/toxin/catbgon
+	name = "Cat-B-Gone"
+	description = "From the finest Confectioners of the syndicate, the premium dark concentrated chocolate is by far the best the galaxy has ever seen..."
+	color = "#180303" // rgb: 75, 0, 75
+	toxpwr = 1
+	taste_description = "Premium Dark Chocolate, oh god, this is the best thing you ever tried!"
+
+/datum/reagent/toxin/catbgon/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+	..()
+	if(MOB_BEAST in M.mob_biotypes)
+		var/damage = min(round(0.8*reac_volume, 0.1),10)
+		M.adjustToxLoss(damage)
+	else
+		M.heal_overall_damage(min(round(0.6*reac_volume, 0.1),10)) //placebo effect from the so good chocolate
+
 /datum/reagent/toxin/spore
 	name = "Spore Toxin"
 	description = "A natural toxin produced by blob spores that inhibits vision when ingested."

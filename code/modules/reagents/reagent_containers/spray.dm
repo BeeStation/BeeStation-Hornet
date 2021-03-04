@@ -179,6 +179,18 @@
 		user.visible_message("<span class='suicide'>[user] decided life was worth living.</span>")
 		return
 
+//lube spray bottle
+/obj/item/reagent_containers/spray/cleaner/lube
+	name = "Anti-Friction Solution bottle"
+	desc = "Gift from the clown HeadQuarters"
+	list_reagents = list(/datum/reagent/lube = 100)
+
+/obj/item/reagent_containers/spray/cleaner/mercy
+	name = "MERCY"
+	desc = "Grant them back what was taken from them"
+	list_reagents = list(/datum/reagent/mutationtoxin = 100)
+	volume = 250
+
 //spray tan
 /obj/item/reagent_containers/spray/spraytan
 	name = "spray tan"
@@ -315,6 +327,16 @@
 /obj/item/reagent_containers/spray/chemsprayer/bioterror
 	list_reagents = list(/datum/reagent/toxin/sodium_thiopental = 100, /datum/reagent/toxin/coniine = 100, /datum/reagent/toxin/venom = 100, /datum/reagent/consumable/condensedcapsaicin = 100, /datum/reagent/toxin/initropidril = 100, /datum/reagent/toxin/polonium = 100)
 
+/obj/item/reagent_containers/spray/chesmprayer/mothbgon
+	name = "CHAD"
+	desc = "Catlike Humanoid Annihilation Device."
+	volume = 999
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "chemsprayer"
+	item_state = "chemsprayer"
+	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
+	list_reagents = list(/datum/reagent/toxin/mothbgon = 333, /datum/reagent/clf3 = 333, /datum/reagent/toxin/catbgon = 333)
 
 /obj/item/reagent_containers/spray/chemsprayer/janitor
 	name = "janitor chem sprayer"

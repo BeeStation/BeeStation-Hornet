@@ -529,6 +529,18 @@
 	results = list(/datum/reagent/toxin/pestkiller = 5)
 	required_reagents = list(/datum/reagent/toxin = 1, /datum/reagent/consumable/ethanol = 4)
 
+/datum/chemical_reaction/mothbgon
+	name = "Moth-B-Gone"
+	id = /datum/reagent/toxin/mothbgon
+	results = list(/datum/reagent/toxin/mothbgon = 5)
+	required_reagents = list(/datum/reagent/toxin/carpotoxin = 5, /datum/reagent/toxin/pestkiller = 5, /datum/reagent/consumable/condensedcapsaicin = 5)
+
+/datum/chemical_reaction/catbgon
+	name = "Cat-B-Gone"
+	id = /datum/reagent/toxin/catbgon
+	results = list(/datum/reagent/toxin/mothbgon = 5)
+	required_reagents = list(/datum/reagent/consumable/cocoa = 5, /datum/reagent/toxin/mindbreaker = 5, /datum/reagent/drug/happiness = 10)
+
 /datum/chemical_reaction/drying_agent
 	name = "Drying agent"
 	id = /datum/reagent/drying_agent
