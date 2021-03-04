@@ -20,7 +20,7 @@
 /datum/disease/advance/feline
 	copy_type = /datum/disease/advance
 
-/datum/disease/feline/New()
+/datum/disease/advance/feline/New()
 	name = "Assimilative Toxoplasmosis Derivative"
 	symptoms = list(new/datum/symptom/feline)
 	..()
