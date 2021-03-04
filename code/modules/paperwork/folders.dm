@@ -108,8 +108,8 @@
 	switch(action)
 		// Take item out
 		if("remove")
-			var/obj/item/Item = locate(params["ref"]) in src
-			remove_item(Item, usr)
+			var/obj/item/I= locate(params["ref"]) in src
+			remove_item(I, usr)
 			. = TRUE
 		// Inspect the item
 		if("examine")
