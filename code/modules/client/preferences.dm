@@ -675,6 +675,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += " |"
 				if(category == gear_tab)
 					dat += " <span class='linkOff'>[category]</span> "
+				if(category == "Donator" && (!LAZYLEN(GLOB.patrons) || !CONFIG_GET(flag/donator_items)))
+					continue
 				else
 					dat += " <a href='?_src_=prefs;preference=gear;select_category=[category]'>[category]</a> "
 			dat += "</b></center></td></tr>"
@@ -696,7 +698,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				var/ticked = (G.id in equipped_gear)
 
 				dat += "<tr style='vertical-align:top;'><td width=15%>[G.display_name]\n"
-				var/donator = (G.sort_category == "Donator" && CONFIG_GET(flag/donator_items))
+				var/donator = (G.sort_category == "Donator" && CONFIG_GET(flag/donator_items)) // purchase box and cost coloumns doesn't appear on donator items
 				if(G.id in purchased_gear)
 					if(G.sort_category == "OOC")
 						dat += "<i>Purchased.</i></td>"
@@ -1997,20 +1999,19 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/proc/handle_donator_items(client/user)
 	parent = user
 	var/datum/loadout_category/DLC = GLOB.loadout_categories["Donator"] // stands for donator loadout category but the other def for DLC works too xD
-	if(!LAZYLEN(GLOB.patrons)) // donator items are only accesibile by servers with a patreon
+	if(!LAZYLEN(GLOB.patrons) || !CONFIG_GET(flag/donator_items) // donator items are only accesibile by servers with a patreon
 		return
 	if(IS_PATRON(user.ckey))
 		for(var/key in DLC.gear)
 			var/datum/gear/donator/AG = GLOB.gear_datums[key]
-			if(!(AG.id in purchased_gear))
-				purchased_gear += AG.id
-				AG.purchase(user)
+			if(AG.id in purchased_gear)
+				continue
+			purchased_gear += AG.id
+			AG.purchase(user)
 		save_preferences()
-		return
-	if(CONFIG_GET(flag/donator_items))
-		if(purchased_gear.len || equipped_gear.len)
-			for(var/key in DLC.gear)
-				var/datum/gear/donator/RG = GLOB.gear_datums[key]
-				equipped_gear -= RG.id
-				purchased_gear -= RG.id
-			save_preferences()
+	else if(purchased_gear.len || equipped_gear.len)
+		for(var/key in DLC.gear)
+			var/datum/gear/donator/RG = GLOB.gear_datums[key]
+			equipped_gear -= RG.id
+			purchased_gear -= RG.id
+		save_preferences()
