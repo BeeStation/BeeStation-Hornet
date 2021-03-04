@@ -1,6 +1,6 @@
 /mob/living/simple_animal/eminence
-	name = "eminence"
-	desc = "An glowing ball of light."
+	name = "\the Eminence"
+	desc = "A glowing ball of light."
 	icon = 'icons/effects/clockwork_effects.dmi'
 	icon_state = "eminence"
 	mob_biotypes = list(MOB_SPIRIT)
@@ -40,12 +40,18 @@
 	var/obj/effect/proc_holder/spell/targeted/eminence/station/spell_station
 	var/obj/effect/proc_holder/spell/targeted/eminence/mass_recall/mass_recall
 	var/obj/effect/proc_holder/spell/targeted/eminence/reagent_purge/reagent_purge
-	var/obj/effect/proc_holder/spell/targeted/eminence/linked_asbcond/linked_abscond
+	var/obj/effect/proc_holder/spell/targeted/eminence/linked_abscond/linked_abscond
 
 /mob/living/simple_animal/eminence/ClickOn(atom/A, params)
 	. = ..()
 	if(!.)
 		A.eminence_act(src)
+
+/mob/living/simple_animal/eminence/UnarmedAttack(atom/A)
+	return FALSE
+
+/mob/living/simple_animal/eminence/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
+	return FALSE
 
 /mob/living/simple_animal/eminence/Initialize()
 	. = ..()
@@ -63,7 +69,8 @@
 
 /mob/living/simple_animal/eminence/Login()
 	. = ..()
-	add_servant_of_ratvar(src, silent=TRUE)
+	var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(src, silent=TRUE)
+	S.prefix = CLOCKCULT_PREFIX_EMINENCE
 	to_chat(src, "<span class='large_brass'>You are the Eminence!</span>")
 	to_chat(src, "<span class='brass'>Click on objects to perform actions, different objects have different actions, try them out!</span>")
 	to_chat(src, "<span class='brass'>Many of your spells require a target first. Click on a servant to select them!</span>")
@@ -109,8 +116,14 @@
 	desc = "Teleport yourself to Reebe."
 	action_icon_state = "Abscond"
 
-/obj/effect/proc_holder/spell/targeted/eminence/reebe/cast(list/targets, mob/living/user)
-	user.forceMove(get_turf(GLOB.celestial_gateway))
+/obj/effect/proc_holder/spell/targeted/eminence/reebe/cast(mob/living/user)
+	var/obj/structure/destructible/clockwork/massive/celestial_gateway/G = GLOB.celestial_gateway
+	if(G)
+		user.forceMove(get_turf(G))
+		SEND_SOUND(user, sound('sound/magic/magic_missile.ogg'))
+		flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
+	else
+		to_chat(user, "<span class='warning'>There is no Ark!</span>")
 
 //=====Warp to station=====
 /obj/effect/proc_holder/spell/targeted/eminence/station
@@ -118,8 +131,13 @@
 	desc = "Teleport yourself to the station."
 	action_icon_state = "warp_down"
 
-/obj/effect/proc_holder/spell/targeted/eminence/station/cast(list/targets, mob/living/user)
-	user.forceMove(SSmapping.get_station_center())
+/obj/effect/proc_holder/spell/targeted/eminence/station/cast(mob/living/user)
+	if(!is_station_level(user.z))
+		user.forceMove(get_turf(pick(GLOB.generic_event_spawns)))
+		SEND_SOUND(user, sound('sound/magic/magic_missile.ogg'))
+		flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
+	else
+		to_chat(user, "<span class='warning'>You're already on the station!</span>")
 
 //=====Mass Recall=====
 /obj/effect/proc_holder/spell/targeted/eminence/mass_recall
@@ -171,13 +189,13 @@
 	return TRUE
 
 //=====Linked Abscond=====
-/obj/effect/proc_holder/spell/targeted/eminence/linked_asbcond
+/obj/effect/proc_holder/spell/targeted/eminence/linked_abscond
 	name = "Linked Abscond"
 	desc = "Warps a target to Reebe if they are still for 7 seconds."
 	action_icon_state = "Linked Abscond"
-	charge_max = 4500
+	charge_max = 1800
 
-/obj/effect/proc_holder/spell/targeted/eminence/linked_asbcond/can_cast(mob/user)
+/obj/effect/proc_holder/spell/targeted/eminence/linked_abscond/can_cast(mob/user)
 	if(!..())
 		return FALSE
 	var/mob/living/simple_animal/eminence/E = user
@@ -187,7 +205,7 @@
 		return TRUE
 	return FALSE
 
-/obj/effect/proc_holder/spell/targeted/eminence/linked_asbcond/cast(list/targets, mob/living/user)
+/obj/effect/proc_holder/spell/targeted/eminence/linked_abscond/cast(list/targets, mob/living/user)
 	var/mob/living/simple_animal/eminence/E = user
 	if(!istype(E))
 		to_chat(E, "<span class='brass'>You are not the Eminence! (This is a bug)</span>")

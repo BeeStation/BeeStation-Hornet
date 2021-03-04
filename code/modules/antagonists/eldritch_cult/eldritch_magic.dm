@@ -42,7 +42,7 @@
 
 /obj/item/melee/touch_attack/mansus_fist
 	name = "Mansus Grasp"
-	desc = "A sinister looking aura that distorts the flow of reality around it. Mutes, causes knockdown, major stamina damage aswell as some Brute. It gains additional beneficial effects with certain knowledges you can research."
+	desc = "A sinister looking aura that distorts the flow of reality around it. Mutes, causes knockdown, major stamina damage aswell as some Brute. You also can lay and remove transmutation runes using this. It gains additional beneficial effects with certain knowledges you can research."
 	icon_state = "mansus_grasp"
 	item_state = "mansus_grasp"
 	catchphrase = "R'CH T'H TR'TH"
@@ -99,7 +99,7 @@
 ///Removes runes from the selected turf
 /obj/item/melee/touch_attack/mansus_fist/proc/remove_rune(atom/target,mob/user)
 	to_chat(user, "<span class='danger'>You start removing a rune...</span>")
-	if(do_after(user,2 SECONDS,user))
+	if(do_after(user,2 SECONDS,target = user))
 		qdel(target)
 
 /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
@@ -244,7 +244,7 @@
 	if(!can_target(targets[1], user))
 		return FALSE
 
-	for(var/mob/living/carbon/human/C in range(1,targets[1]))
+	for(var/mob/living/carbon/human/C in hearers(1,targets[1]))
 		targets |= C
 
 
@@ -387,7 +387,7 @@
 	playsound(get_turf(centre), 'sound/items/welder.ogg', 75, TRUE)
 	var/_range = 1
 	for(var/i = 0, i <= max_range,i++)
-		for(var/turf/T in spiral_range_turfs(_range,centre))
+		for(var/turf/open/T in spiral_range_turfs(_range,centre))
 			new /obj/effect/hotspot(T)
 			T.hotspot_expose(700,50,1)
 		_range++
@@ -434,7 +434,7 @@
 	. = ..()
 	if(!has_fire_ring)
 		return
-	for(var/turf/T in range(1,current_user))
+	for(var/turf/open/T in RANGE_TURFS(1,current_user))
 		new /obj/effect/hotspot(T)
 		T.hotspot_expose(700,50,1)
 
@@ -485,7 +485,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/human_user = user
-	for(var/mob/living/carbon/target in view(7,user))
+	for(var/mob/living/carbon/target in ohearers(7,user))
 		if(target.stat == DEAD || !target.on_fire)
 			continue
 		//This is essentially a death mark, use this to finish your opponent quicker.
@@ -524,7 +524,7 @@
 		target.mind.transfer_to(outside, TRUE)
 		target.forceMove(outside)
 		target.apply_status_effect(STATUS_EFFECT_STASIS,STASIS_ASCENSION_EFFECT)
-		for(var/mob/living/carbon/human/humie in view(9,outside)-target)
+		for(var/mob/living/carbon/human/humie in (viewers(9,outside)-target))
 			if(IS_HERETIC(humie) || IS_HERETIC_MONSTER(humie))
 				continue
 			SEND_SIGNAL(humie, COMSIG_ADD_MOOD_EVENT, "gates_of_mansus", /datum/mood_event/gates_of_mansus)
@@ -581,7 +581,7 @@
 
 	to_chat(originator, "<span class='notice'>You begin linking [target]'s mind to yours...</span>")
 	to_chat(target, "<span class='warning'>You feel your mind being pulled... connected... intertwined with the very fabric of reality...</span>")
-	if(!do_after(originator, 6 SECONDS, target))
+	if(!do_after(originator, 6 SECONDS, target = target))
 		return
 	if(!originator.link_mob(target))
 		to_chat(originator, "<span class='warning'>You can't seem to link [target]'s mind...</span>")

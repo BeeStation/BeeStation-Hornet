@@ -65,6 +65,9 @@
 	desc = "An opulent hat that functions as a radio to God. Or as a lightning rod, depending on who you ask."
 	icon_state = "bishopmitre"
 
+/obj/item/clothing/head/bishopmitre/black
+	icon_state = "blackbishopmitre"
+
 //Detective
 /obj/item/clothing/head/fedora/det_hat
 	name = "detective's fedora"
@@ -102,6 +105,7 @@
 	dog_fashion = /datum/dog_fashion/head/beret
 	dynamic_hair_suffix = "+generic"
 	dynamic_fhair_suffix = "+generic"
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/head/beret/vintage
 	name = "vintage beret"

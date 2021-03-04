@@ -43,6 +43,7 @@ Contains:
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/deathsquad
 	dog_fashion = /datum/dog_fashion/back/deathsquad
+	footstep = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 
 	//NEW SWAT suit
 /obj/item/clothing/suit/space/swat
@@ -54,6 +55,7 @@ Contains:
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30,"energy" = 30, "bomb" = 50, "bio" = 90, "rad" = 20, "fire" = 100, "acid" = 100)
 	strip_delay = 120
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	footstep = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 
 /obj/item/clothing/head/helmet/space/beret
 	name = "officer's beret"
@@ -417,6 +419,41 @@ Contains:
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE)
 
+//Lavaland suits
+
+/obj/item/clothing/suit/space/hardsuit/ert/paranormal/lavaland
+	desc = "Powerful wards are built into this hardsuit, protecting the user from all manner of paranormal threats with armor designed specifically for low pressures."
+	high_pressure_multiplier = 0.4
+
+/obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/lavaland
+	high_pressure_multiplier = 0.4
+
+/obj/item/clothing/suit/space/hardsuit/ert/paranormal/lavaland/beserker
+	name = "champion's hardsuit"
+	desc = "Voices echo from the hardsuit, driving the user insane."
+	icon_state = "hardsuit-beserker"
+	item_state = "hardsuit-beserker"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/lavaland/beserker
+
+/obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/lavaland/beserker
+	name = "champion's helmet"
+	desc = "Peering into the eyes of the helmet is enough to seal damnation."
+	icon_state = "hardsuit0-beserker"
+	item_state = "hardsuit0-beserker"
+
+/obj/item/clothing/suit/space/hardsuit/ert/paranormal/lavaland/inquisitor
+	name = "inquisitor's hardsuit"
+	icon_state = "hardsuit-inq"
+	item_state = "hardsuit-inq"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/lavaland/inquisitor
+
+/obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/lavaland/inquisitor
+	name = "inquisitor's helmet"
+	icon_state = "hardsuit0-inq"
+	item_state = "hardsuit0-inq"
+
+//End lavaland suits
+
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
 	name = "inquisitor's hardsuit"
 	icon_state = "hardsuit-inq"
@@ -427,19 +464,6 @@ Contains:
 	name = "inquisitor's helmet"
 	icon_state = "hardsuit0-inq"
 	item_state = "hardsuit0-inq"
-
-/obj/item/clothing/suit/space/hardsuit/ert/paranormal/beserker
-	name = "champion's hardsuit"
-	desc = "Voices echo from the hardsuit, driving the user insane."
-	icon_state = "hardsuit-beserker"
-	item_state = "hardsuit-beserker"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/beserker
-
-/obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/beserker
-	name = "champion's helmet"
-	desc = "Peering into the eyes of the helmet is enough to seal damnation."
-	icon_state = "hardsuit0-beserker"
-	item_state = "hardsuit0-beserker"
 
 /obj/item/clothing/head/helmet/space/fragile
 	name = "emergency space helmet"
@@ -481,13 +505,13 @@ Contains:
 	strip_delay = 130
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/obj/item/clothing/head/helmet/space/skinsuit
+/obj/item/clothing/head/helmet/space/hardsuit/skinsuit
 	name = "skinsuit helmet"
 	icon = 'icons/obj/clothing/hats.dmi'
-	w_class = WEIGHT_CLASS_SMALL //Don't question it. We want it to fit back in the box
 	alternate_worn_icon = 'icons/mob/head.dmi'
 	icon_state = "skinsuit_helmet"
 	item_state = "skinsuit_helmet"
+	max_integrity = 200
 	desc = "An airtight helmet meant to protect the wearer during emergency situations."
 	permeability_coefficient = 0.01
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 20, "rad" = 0, "fire" = 0, "acid" = 0)
@@ -498,51 +522,33 @@ Contains:
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = STOPSPRESSUREDAMAGE | SHOWEROKAY | SNUG_FIT
 	max_heat_protection_temperature = 100
+	brightness_on = null
+	actions_types = null
 
-/obj/item/clothing/suit/space/skinsuit
+/obj/item/clothing/head/helmet/space/hardsuit/skinsuit/attack_self(mob/user)
+	return
+
+/obj/item/clothing/head/helmet/space/hardsuit/skinsuit/emp_act(severity)
+	return
+
+/obj/item/clothing/suit/space/hardsuit/skinsuit
 	name = "skinsuit"
 	desc = "A slim, compression-based spacesuit meant to protect the user during emergency situations. It's only a little warmer than your uniform."
 	icon = 'icons/obj/clothing/suits.dmi'
 	alternate_worn_icon = 'icons/mob/suit.dmi'
-	icon_state = "skinsuit_rolled"
+	icon_state = "skinsuit"
+	item_state = "s_suit"
+	max_integrity = 200
 	slowdown = 3 //Higher is slower
-	w_class = WEIGHT_CLASS_SMALL
 	clothing_flags = STOPSPRESSUREDAMAGE | SHOWEROKAY
 	gas_transfer_coefficient = 0.5
 	permeability_coefficient = 0.5
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	min_cold_protection_temperature = EMERGENCY_SUIT_MIN_TEMP_PROTECT
 	heat_protection = NONE
 	max_heat_protection_temperature = 100
-	var/rolled_up = TRUE
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/skinsuit
 
-/obj/item/clothing/suit/space/skinsuit/mob_can_equip(mob/M, mob/living/equipper, slot)
-	if(rolled_up && slot == SLOT_WEAR_SUIT)
-		if(equipper)
-			to_chat(equipper, "<span class='warning'>You need to unroll \the [src], silly.</span>")
-		else
-			to_chat(M, "<span class='warning'>You need to unroll \the [src], silly.</span>")
-		return FALSE
-	return ..()
-
-/obj/item/clothing/suit/space/skinsuit/examine(mob/user)
-	. = ..()
-	if(rolled_up)
-		. += "<span class='notice'>It is currently rolled up.</span>"
-	else
-		. += "<span class='notice'>It can be rolled up to fit in a box.</span>"
-
-
-/obj/item/clothing/suit/space/skinsuit/attack_self(mob/user)
-	if(rolled_up)
-		to_chat(user, "<span class='notice'>You unroll \the [src].</span>")
-		icon_state = "skinsuit"
-		update_icon()
-		w_class = WEIGHT_CLASS_NORMAL
-	else
-		to_chat(user, "<span class='notice'>You roll up \the [src].</span>")
-		icon_state = "skinsuit_rolled"
-		update_icon()
-		w_class = WEIGHT_CLASS_SMALL
-
-	rolled_up = !rolled_up
+/obj/item/clothing/suit/space/hardsuit/skinsuit/attackby(obj/item/I, mob/user, params)
+	return
