@@ -113,7 +113,7 @@
 			. = TRUE
 		// Inspect the item
 		if("examine")
-			var/obj/item/Item = locate(params["ref"]) in src
-			if(istype(Item))
-				usr.examinate(Item)
+			var/obj/item/I = locate(params["ref"]) in src
+			if(istype(I))
+				usr.examinate(I)
 				. = TRUE
