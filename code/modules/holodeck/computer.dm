@@ -158,7 +158,7 @@
 	if(!floorcheck())
 		emergency_shutdown()
 		damaged = TRUE
-		for(var/mob/M in urange(10,src))
+		for(var/mob/M as() in viewers(10, src))
 			M.show_message("The holodeck overloads!")
 
 		for(var/turf/T in linked)

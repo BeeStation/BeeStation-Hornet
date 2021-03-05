@@ -23,12 +23,12 @@
 	var/keyword
 	var/log = TRUE
 	var/key_valid
+	var/insecure_key = FALSE
 	var/require_comms_key = FALSE
 	var/permit_insecure = FALSE
 
 /datum/world_topic/proc/TryRun(list/input, addr)
 	key_valid = config && (CONFIG_GET(string/comms_key) == input["key"])
-	var/insecure_key = FALSE
 	if(!key_valid && permit_insecure)
 		key_valid = config && (CONFIG_GET(string/comms_key_insecure) == input["key"])
 		insecure_key = key_valid
@@ -97,6 +97,9 @@
 	permit_insecure = TRUE
 
 /datum/world_topic/comms_console/Run(list/input, addr)
+	if(insecure_key && !CONFIG_GET(flag/insecure_announce))
+		return
+
 	if(CHAT_FILTER_CHECK(input["message"])) // prevents any.. diplomatic incidents
 		minor_announce("In the interest of station productivity and mental hygiene, a message from [input["message_sender"]] was intercepted by the CCC and determined to be unfit for crew-level access.", "CentCom Communications Commission")
 		message_admins("Incomming cross-comms message from [input["message_sender"]] blocked: [input["message"]]")
@@ -108,8 +111,12 @@
 /datum/world_topic/news_report
 	keyword = "News_Report"
 	require_comms_key = TRUE
+	permit_insecure = TRUE
 
 /datum/world_topic/news_report/Run(list/input, addr)
+	if(insecure_key && !CONFIG_GET(flag/insecure_newscaster))
+		return
+
 	minor_announce(input["message"], "Breaking Update From [input["message_sender"]]")
 
 /datum/world_topic/adminmsg
@@ -225,3 +232,49 @@
 		.["identified_ckey"] = query_ckey_lookup.item[1]
 	qdel(query_ckey_lookup)
 	return .
+
+/datum/world_topic/get_metacoins
+	keyword = "get_metacoins"
+
+/datum/world_topic/get_metacoins/Run(list/input, addr)
+	var/ckey = input["ckey"]
+
+	if(!ckey || !SSdbcore.Connect())
+		return null
+
+	var/datum/DBQuery/query_get_metacoins = SSdbcore.NewQuery(
+		"SELECT metacoins FROM [format_table_name("player")] WHERE ckey = :ckey",
+		list("ckey" = ckey)
+	)
+	var/mc_count = null
+	if(query_get_metacoins.warn_execute())
+		if(query_get_metacoins.NextRow())
+			mc_count = query_get_metacoins.item[1]
+
+	qdel(query_get_metacoins)
+	return mc_count ? text2num(mc_count) : null
+
+/datum/world_topic/adjust_metacoins
+	keyword = "adjust_metacoins"
+	require_comms_key = TRUE
+
+/datum/world_topic/adjust_metacoins/Run(list/input, addr)
+	var/ckey = input["ckey"]
+	var/amount = input["amount"]
+	var/adjuster_ckey = input["id"]
+
+	if(!ckey || !amount || !SSdbcore.Connect())
+		return FALSE
+
+	. = TRUE
+
+	var/datum/DBQuery/query_metacoins = SSdbcore.NewQuery(
+		"UPDATE [format_table_name("player")] SET metacoins = metacoins + :amount WHERE ckey = :ckey",
+		list("amount" = amount, "ckey" = ckey)
+	)
+	if(!query_metacoins.warn_execute())
+		. = FALSE
+
+	log_game("[ckey]'s metacoins were adjusted ([amount > 0 ? "+[amount]" : "[amount]"]) via Topic() call by [adjuster_ckey ? "[adjuster_ckey]" : "Unknown"]")
+
+	qdel(query_metacoins)

@@ -50,8 +50,8 @@
 
 	var/number = 0 // Used to understand when someone is talking to it
 
-	var/mob/living/Target = null // AI variable - tells the slime to hunt this down
-	var/mob/living/Leader = null // AI variable - tells the slime to follow this person
+	var/mob/living/Target // AI variable - tells the slime to hunt this down
+	var/mob/living/Leader // AI variable - tells the slime to follow this person
 
 	var/attacked = 0 // Determines if it's been attacked recently. Can be any number, is a cooloff-ish variable
 	var/rabid = 0 // If set to 1, the slime will attack and eat anything it comes in contact with
@@ -86,6 +86,9 @@
 	var/effectmod //What core modification is being used.
 	var/applied = 0 //How many extracts of the modtype have been applied.
 
+	// Transformative extract effects - get passed down
+	var/transformeffects = SLIME_EFFECT_DEFAULT
+	var/mob/master
 
 /mob/living/simple_animal/slime/Initialize(mapload, new_colour="grey", new_is_adult=FALSE)
 	GLOB.total_slimes++
@@ -106,12 +109,6 @@
 	set_colour(new_colour)
 	. = ..()
 	set_nutrition(700)
-
-/mob/living/simple_animal/slime/Destroy()
-	for (var/A in actions)
-		var/datum/action/AC = A
-		AC.Remove(src)
-	return ..()
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
 	colour = new_colour
@@ -425,7 +422,10 @@
 	qdel(src)
 
 /mob/living/simple_animal/slime/proc/apply_water()
-	adjustBruteLoss(rand(15,20))
+	var/new_damage = rand(15,20)
+	if(transformeffects & SLIME_EFFECT_DARK_BLUE)
+		new_damage *= 0.5
+	adjustBruteLoss(new_damage)
 	if(!client)
 		if(Target) // Like cats
 			Target = null
@@ -510,3 +510,47 @@
 
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
 	. = ..(mapload, pick(slime_colours), prob(50))
+
+/mob/living/simple_animal/slime/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE)
+	if(damage && damagetype == BRUTE && !forced && (transformeffects & SLIME_EFFECT_ADAMANTINE))
+		blocked += 50
+	. = ..(damage, damagetype, def_zone, blocked, forced)
+
+/mob/living/simple_animal/slime/attack_ghost(mob/user)
+	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
+		make_sentient(user)
+
+/mob/living/simple_animal/slime/proc/make_sentient(mob/user)
+	if(key || stat)
+		return
+	var/slime_ask = alert("Become a slime?", "Slime time?", "Yes", "No")
+	if(slime_ask == "No" || QDELETED(src))
+		return
+	if(key)
+		to_chat(user, "<span class='warning'>Someone else already took this slime!</span>")
+		return
+	key = user.key
+	if(mind && master)
+		mind.store_memory("<b>Serve [master.real_name], your master.</b>")
+	remove_form_spawner_menu()
+	log_game("[key_name(src)] took control of [name].")
+
+/mob/living/simple_animal/slime/get_spawner_desc()
+	return "be a slime[master ? " under the command of [master.real_name]" : ""]."
+
+/mob/living/simple_animal/slime/get_spawner_flavour_text()
+	return "You are a slime born and raised in a laboratory.[master ? " Your duty is to follow the orders of [master.real_name].": ""]"
+
+/mob/living/simple_animal/slime/ghostize(can_reenter_corpse = TRUE)
+	. = ..()
+	if(. && transformeffects & SLIME_EFFECT_LIGHT_PINK && stat != DEAD)
+		LAZYADD(GLOB.mob_spawners["[master.real_name]'s slime"], src)
+		GLOB.poi_list |= src
+
+/mob/living/simple_animal/slime/proc/remove_form_spawner_menu()
+	for(var/spawner in GLOB.mob_spawners)
+		LAZYREMOVE(GLOB.mob_spawners[spawner], src)
+	GLOB.poi_list -= src
+
+/mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_colour="rainbow", new_is_adult)
+	. = ..(mapload, new_colour, new_is_adult)

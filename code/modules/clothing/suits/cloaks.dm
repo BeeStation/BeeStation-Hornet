@@ -81,6 +81,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	transparent_protection = HIDEGLOVES|HIDESUITSTORAGE|HIDEJUMPSUIT|HIDESHOES
+	high_pressure_multiplier = 0.4
 
 /obj/item/clothing/head/hooded/cloakhood/drake
 	name = "drake helm"
@@ -90,6 +91,7 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	high_pressure_multiplier = 0.4
 
 /obj/item/clothing/suit/hooded/cloak/bone
 	name = "Heavy bone armor"
@@ -113,3 +115,12 @@
 	resistance_flags = NONE
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES
+
+/obj/item/clothing/neck/cloak/chap/bishop
+	name = "bishop's cloak"
+	desc = "Become the space pope."
+	icon_state = "bishopcloak"
+
+/obj/item/clothing/neck/cloak/chap/bishop/black
+	name = "black bishop's cloak"
+	icon_state = "blackbishopcloak"
