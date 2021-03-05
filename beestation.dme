@@ -1798,7 +1798,6 @@
 #include "code\modules\detectivework\footprints_and_rag.dm"
 #include "code\modules\detectivework\scanner.dm"
 #include "code\modules\discord\discord.dm"
-#include "code\modules\discord\from_discord.dm"
 #include "code\modules\economy\_economy.dm"
 #include "code\modules\economy\account.dm"
 #include "code\modules\economy\pay_stand.dm"

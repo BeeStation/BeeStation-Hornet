@@ -1612,26 +1612,16 @@ config_setting should be one of the following:
  * Params:
  * sender - Name of the IC entity sending the message
  * msg - Message text to send
- * type - What handler the recieving server should use
+ * query - What handler the recieving server should use
  * insecure - Send the messages to insecure servers
 */
-/proc/comms_send(sender, msg, type, insecure = FALSE)
+/proc/comms_send(sender, msg, query, insecure)
 	var/list/message = list()
-	message["message_sender"] = sender
+	message["query"] = query
 	message["message"] = msg
 	message["source"] = "([CONFIG_GET(string/cross_comms_name)])"
-	message += type
 
-	var/comms_key = CONFIG_GET(string/comms_key)
-	if(comms_key)
-		message["key"] = comms_key
-		var/list/servers = CONFIG_GET(keyed_list/cross_server)
-		for(var/I in servers)
-			world.Export("[servers[I]]?[list2params(message)]")
-
-	comms_key = CONFIG_GET(string/comms_key_insecure)
-	if(comms_key && insecure)
-		message["key"] = comms_key
-		var/list/servers = CONFIG_GET(keyed_list/insecure_cross_server)
-		for(var/I in servers)
-			world.Export("[servers[I]]?[list2params(message)]")
+	var/list/servers = CONFIG_GET(keyed_list/cross_server)
+	for(var/I in servers)
+		message["auth"] = servers[I]
+		world.Export("[I]?[json_encode(message)]")

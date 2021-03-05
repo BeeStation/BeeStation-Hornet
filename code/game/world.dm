@@ -30,6 +30,9 @@ GLOBAL_VAR(restart_counter)
 	load_admins()
 	load_mentors()
 
+	// Initialize the topic handlers
+	InitTopics()
+
 	//SetupLogs depends on the RoundID, so lets check
 	//DB schema and set RoundID if we can
 	SSdbcore.CheckSchemaVersion()
@@ -153,6 +156,10 @@ GLOBAL_VAR(restart_counter)
 
 
 	var/list/response[] = list()
+	var/list/params[] = json_decode(T)
+	var/query = params["query"]
+	var/auth = params["auth"]
+	log_topic("\"[T]\", from:[addr], master:[master], key:[key], auth:[auth]")
 	if (SSfail2topic?.IsRateLimited(addr))
 		response["statuscode"] = 429
 		response["response"] = "Rate limited."
@@ -163,23 +170,33 @@ GLOBAL_VAR(restart_counter)
 		response["response"] = "Payload too large."
 		return json_encode(response)
 
-	var/static/list/topic_handlers = TopicHandlers()
+	if(!query)
+		response["statuscode"] = 400
+		response["response"] = "Bad Request - No endpoint specified"
+		return json_encode(response)
 
-	var/list/input = params2list(T)
-	var/datum/world_topic/handler
-	for(var/I in topic_handlers)
-		if(I in input)
-			handler = topic_handlers[I]
-			break
+	if(!LAZYACCESS(GLOB.topic_tokens[auth], query))
+		response["statuscode"] = 401
+		response["response"] = "Unauthorized - Bad auth"
+		return json_encode(response)
 
-	if((!handler || initial(handler.log)) && config && CONFIG_GET(flag/log_world_topic))
-		log_topic("\"[T]\", from:[addr], master:[master], key:[key]")
+	var/datum/world_topic/command = GLOB.topic_commands[query]
+	if(!command)
+		response["statuscode"] = 501
+		response["response"] = "Not Implemented"
+		return json_encode(response)
 
-	if(!handler)
-		return
-
-	handler = new handler()
-	return handler.TryRun(input, addr)
+	if(command.CheckParams(params))
+		response["statuscode"] = command.statuscode
+		response["response"] = command.response
+		response["data"] = command.data
+		return json_encode(response)
+	else
+		command.Run(params)
+		response["statuscode"] = command.statuscode
+		response["response"] = command.response
+		response["data"] = command.data
+		return json_encode(response)
 
 /world/proc/AnnouncePR(announcement, list/payload)
 	var/static/list/PRcounts = list()	//PR id -> number of times announced this round
