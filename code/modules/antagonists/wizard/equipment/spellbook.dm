@@ -437,13 +437,6 @@
 	category = "Mobility"
 	cost = 1
 
-/datum/spellbook_entry/duffelbag
-	name = "Bestow Cursed Duffel Bag"
-	desc = "A curse that firmly attaches a demonic duffel bag to the target's back. The duffel bag will make the person it's attached to take periodical damage if it is not fed regularly, and regardless of whether or not it's been fed, it will slow the person wearing it down significantly."
-	spell_type = /obj/effect/proc_holder/spell/targeted/touch/duffelbag
-	category = "Defensive"
-	cost = 1
-
 /// How much threat we need to let these rituals happen on dynamic
 #define MINIMUM_THREAT_FOR_RITUALS 100
 
