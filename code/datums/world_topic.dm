@@ -6,31 +6,11 @@
 #define TOPIC_VERSION_MINOR		0	//	Minor Version Number --> Increment when adding features
 #define TOPIC_VERSION_PATCH		0	//	Patchlevel --> Increment when fixing bugs
 
-// SETUP
-
-/proc/InitTopics()
-	for(var/path in subtypesof(/datum/world_topic))
-		var/datum/world_topic/T = new path()
-		GLOB.topic_commands[T.key] = T
-
-	var/list/tokens = CONFIG_GET(keyed_list/comms_key)
-	for(var/token in tokens)
-		var/list/keys = list()
-		if(tokens[token] == "all")
-			for(var/key in GLOB.topic_commands)
-				keys[key] = TRUE
-		else
-			for(var/key in splittext(tokens[token], ","))
-				keys[trim(key)] = TRUE
-			// Grant access to informational topic calls (version, authed functions etc.) by default
-			for(var/datum/world_topic/api/path in subtypesof(/datum/world_topic/api))
-				keys[initial(path.key)] = TRUE
-		GLOB.topic_tokens[token] = keys
-
 // DATUM
 
 /datum/world_topic
-	var/key
+	var/key // query key
+	var/anonymous = FALSE // can be used with anonymous authentication
 	var/list/required_params = list()
 	var/statuscode = null
 	var/response = null
@@ -57,12 +37,11 @@
 
 // API INFO TOPICS
 
-///datum/world_topic/api
-
-/datum/world_topic/api/get_version
+/datum/world_topic/api_get_version
 	key = "api_get_version"
+	anonymous = TRUE
 
-/datum/world_topic/api/get_version/Run(list/input)
+/datum/world_topic/api_get_version/Run(list/input)
 	. = ..()
 	var/list/version = list()
 	var/versionstring = null
@@ -77,10 +56,11 @@
 	response = versionstring
 	data = version
 
-/datum/world_topic/api/get_authed_functions
+/datum/world_topic/api_get_authed_functions
 	key = "api_get_authed_functions"
+	anonymous = TRUE
 
-/datum/world_topic/api/get_authed_functions/Run(list/input)
+/datum/world_topic/api_get_authed_functions/Run(list/input)
 	. = ..()
 	statuscode = 200
 	response = "Authorized functions retrieved"
@@ -90,6 +70,7 @@
 
 /datum/world_topic/ping
 	key = "ping"
+	anonymous = TRUE
 
 /datum/world_topic/ping/Run(list/input)
 	. = ..()
@@ -102,6 +83,7 @@
 
 /datum/world_topic/playing
 	key = "playing"
+	anonymous = TRUE
 
 /datum/world_topic/playing/Run(list/input)
 	. = ..()
@@ -111,11 +93,11 @@
 
 /datum/world_topic/pr_announce
 	key = "announce"
+	required_params = list("id", "key", "announce")
 	var/static/list/PRcounts = list()	//PR id -> number of times announced this round
 
 /datum/world_topic/pr_announce/Run(list/input)
 	. = ..()
-	var/list/payload = json_decode(input["payload"])
 	if(!PRcounts[input["id"]])
 		PRcounts[input["id"]] = 1
 	else
@@ -125,7 +107,7 @@
 			response = "PR Spam blocked"
 			return
 
-	var/final_composed = "<span class='announce'>PR: [input[key]]</span>"
+	var/final_composed = "<span class='announce'>PR: [input["announce"]]</span>"
 	for(var/client/C in GLOB.clients)
 		C.AnnouncePR(final_composed)
 	statuscode = 200
@@ -133,6 +115,7 @@
 
 /datum/world_topic/ahelp_relay
 	key = "ahelp"
+	required_params = list("source", "message", "message_sender")
 
 /datum/world_topic/ahelp_relay/Run(list/input)
 	. = ..()
@@ -142,6 +125,7 @@
 
 /datum/world_topic/comms_console
 	key = "comms_console"
+	required_params = list("message", "message_sender")
 
 /datum/world_topic/comms_console/Run(list/input)
 	. = ..()
@@ -160,6 +144,7 @@
 
 /datum/world_topic/news_report
 	key = "news_report"
+	required_params = list("message", "message_sender")
 
 /datum/world_topic/news_report/Run(list/input)
 	. = ..()
@@ -169,10 +154,11 @@
 
 /datum/world_topic/adminmsg
 	key = "adminmsg"
+	required_params = list("adminmsg", "msg", "sender")
 
 /datum/world_topic/adminmsg/Run(list/input)
 	. = ..()
-	var/msg_response = IrcPm(input[key], input["msg"], input["sender"])
+	var/msg_response = IrcPm(input["adminmsg"], input["msg"], input["sender"])
 	statuscode = response == "Message Successful" ? 200 : 400 // Todo rework the irc message thingo to not need string comp
 	response = msg_response
 
@@ -196,6 +182,7 @@
 
 /datum/world_topic/playerlist
 	key = "playerlist"
+	anonymous = TRUE
 
 /datum/world_topic/playerlist/Run(list/input)
 	. = ..()
@@ -207,6 +194,7 @@
 
 /datum/world_topic/status
 	key = "status"
+	anonymous = TRUE
 
 /datum/world_topic/status/Run(list/input)
 	. = ..()
@@ -268,6 +256,7 @@
 
 /datum/world_topic/identify_uuid
 	key = "identify_uuid"
+	required_params = list("uuid")
 
 /datum/world_topic/identify_uuid/Run(list/input)
 	var/uuid = input["uuid"]
@@ -298,6 +287,7 @@
 
 /datum/world_topic/d_ooc_send
 	key = "discord_send"
+	required_params = list("message", "user")
 
 /datum/world_topic/d_ooc_send/Run(list/input)
 	. = ..()
@@ -316,6 +306,7 @@
 
 /datum/world_topic/get_metacoins
 	key = "get_metacoins"
+	required_params = list("ckey")
 
 /datum/world_topic/get_metacoins/Run(list/input)
 	. = ..()
@@ -350,6 +341,7 @@
 
 /datum/world_topic/adjust_metacoins
 	key = "adjust_metacoins"
+	required_params = list("ckey", "amount", "id")
 
 /datum/world_topic/adjust_metacoins/Run(list/input)
 	. = ..()

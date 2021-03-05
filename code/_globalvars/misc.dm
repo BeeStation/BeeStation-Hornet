@@ -47,5 +47,8 @@ GLOBAL_VAR_INIT(topic_cooldown, 0)
 
 // Topic stuff
 GLOBAL_LIST_EMPTY(topic_commands)
+GLOBAL_PROTECT(topic_commands)
 GLOBAL_LIST_EMPTY(topic_tokens)
+GLOBAL_PROTECT(topic_tokens)
 GLOBAL_LIST_EMPTY(topic_servers)
+GLOBAL_PROTECT(topic_servers)

@@ -22,9 +22,15 @@
 #COMMS_KEY comms_token ping,playing,adminwho
 
 ## World address and port for server receiving cross server messages
-## Use '+' to denote spaces in ServerName
+## Provide token from other server's config
 ## Repeat this entry to add more servers
-#CROSS_SERVER ServerName byond://address:port
+#CROSS_SERVER byond://address:port token
+
+## Server hop targets
+## Has a name and an address
+## Use + to denote spaces in ServerName
+## Copy the entry to add additional servers
+#SERVER_HOP ServerName byond://address:port
 
 ## Name that the server calls itself in communications
 #CROSS_COMMS_NAME

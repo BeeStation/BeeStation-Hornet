@@ -30,9 +30,6 @@ GLOBAL_VAR(restart_counter)
 	load_admins()
 	load_mentors()
 
-	// Initialize the topic handlers
-	InitTopics()
-
 	//SetupLogs depends on the RoundID, so lets check
 	//DB schema and set RoundID if we can
 	SSdbcore.CheckSchemaVersion()

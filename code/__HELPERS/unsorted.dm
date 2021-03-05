@@ -1613,9 +1613,8 @@ config_setting should be one of the following:
  * sender - Name of the IC entity sending the message
  * msg - Message text to send
  * query - What handler the recieving server should use
- * insecure - Send the messages to insecure servers
 */
-/proc/comms_send(sender, msg, query, insecure)
+/proc/comms_send(sender, msg, query)
 	var/list/message = list()
 	message["query"] = query
 	message["message"] = msg

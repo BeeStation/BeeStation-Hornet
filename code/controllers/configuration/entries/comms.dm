@@ -9,9 +9,17 @@
 /datum/config_entry/keyed_list/cross_server
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_TEXT
+	protection = CONFIG_ENTRY_HIDDEN | CONFIG_ENTRY_LOCKED
+
+/datum/config_entry/keyed_list/cross_server/ValidateListEntry(key_name, key_value)
+	return key_name != "byond://address:port" && key_value != "token" && ..()
+
+/datum/config_entry/keyed_list/server_hop
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_TEXT
 	protection = CONFIG_ENTRY_LOCKED
 
-/datum/config_entry/keyed_list/cross_server/ValidateAndSet(str_val)
+/datum/config_entry/keyed_list/server_hop/ValidateAndSet(str_val)
 	. = ..()
 	if(.)
 		var/list/newv = list()
@@ -19,7 +27,7 @@
 			newv[replacetext(I, "+", " ")] = config_entry_value[I]
 		config_entry_value = newv
 
-/datum/config_entry/keyed_list/cross_server/ValidateListEntry(key_name, key_value)
+/datum/config_entry/keyed_list/server_hop/ValidateListEntry(key_name, key_value)
 	return key_value != "byond://address:port" && ..()
 
 /datum/config_entry/string/cross_comms_name
