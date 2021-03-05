@@ -2504,6 +2504,7 @@
 #include "code\modules\mob\living\simple_animal\hostile\mining_mobs\goliath.dm"
 #include "code\modules\mob\living\simple_animal\hostile\mining_mobs\gutlunch.dm"
 #include "code\modules\mob\living\simple_animal\hostile\mining_mobs\hivelord.dm"
+#include "code\modules\mob\living\simple_animal\hostile\mining_mobs\lobstrosity.dm"
 #include "code\modules\mob\living\simple_animal\hostile\mining_mobs\mining_mobs.dm"
 #include "code\modules\mob\living\simple_animal\hostile\mining_mobs\elites\elite.dm"
 #include "code\modules\mob\living\simple_animal\hostile\mining_mobs\elites\goliath_broodmother.dm"
