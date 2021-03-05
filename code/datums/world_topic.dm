@@ -159,7 +159,7 @@
 /datum/world_topic/adminmsg/Run(list/input)
 	. = ..()
 	var/msg_response = IrcPm(input["adminmsg"], input["msg"], input["sender"])
-	statuscode = response == "Message Successful" ? 200 : 400 // Todo rework the irc message thingo to not need string comp
+	statuscode = msg_response == "Message Successful" ? 200 : 400 // Todo rework the irc message thingo to not need string comp
 	response = msg_response
 
 /datum/world_topic/namecheck
