@@ -276,6 +276,7 @@
 	if(!SSdbcore.Connect())
 		statuscode = 500
 		response = "Failed to reach database"
+		data = null
 		return
 
 	var/datum/DBQuery/query_ckey_lookup = SSdbcore.NewQuery(
@@ -313,6 +314,72 @@
 	statuscode = 200
 	response = "Message forwarded to OOC"
 
+/datum/world_topic/get_metacoins
+	key = "get_metacoins"
+
+/datum/world_topic/get_metacoins/Run(list/input)
+	. = ..()
+
+	var/ckey = input["ckey"]
+
+	if(!ckey || !SSdbcore.Connect())
+		statuscode = 500
+		response = "Database query failed"
+		data = null
+		return
+
+	var/datum/DBQuery/query_get_metacoins = SSdbcore.NewQuery(
+		"SELECT metacoins FROM [format_table_name("player")] WHERE ckey = :ckey",
+		list("ckey" = ckey)
+	)
+	var/mc_count = null
+	if(query_get_metacoins.warn_execute())
+		if(query_get_metacoins.NextRow())
+			mc_count = query_get_metacoins.item[1]
+	else
+		statuscode = 500
+		response = "Database query failed"
+		data = null
+		return
+
+	qdel(query_get_metacoins)
+
+	statuscode = 200
+	response = "Metacoin count retrieved"
+	data = mc_count ? text2num(mc_count) : 0
+
+/datum/world_topic/adjust_metacoins
+	key = "adjust_metacoins"
+
+/datum/world_topic/adjust_metacoins/Run(list/input)
+	. = ..()
+
+	var/ckey = input["ckey"]
+	var/amount = input["amount"]
+	var/adjuster_ckey = input["id"]
+
+	if(!SSdbcore.Connect())
+		statuscode = 500
+		response = "Database query failed"
+		data = null
+		return
+
+	var/datum/DBQuery/query_metacoins = SSdbcore.NewQuery(
+		"UPDATE [format_table_name("player")] SET metacoins = metacoins + :amount WHERE ckey = :ckey",
+		list("amount" = amount, "ckey" = ckey)
+	)
+	if(!query_metacoins.warn_execute())
+		statuscode = 500
+		response = "Database query failed"
+		data = null
+		return
+
+	log_game("[ckey]'s metacoins were adjusted ([amount > 0 ? "+[amount]" : "[amount]"]) via Topic() call by [adjuster_ckey ? "[adjuster_ckey]" : "Unknown"]")
+
+	qdel(query_metacoins)
+
+	statuscode = 200
+	response = "Metacoin count updated"
 
 #undef TOPIC_VERSION_MAJOR
 #undef TOPIC_VERSION_MINOR
