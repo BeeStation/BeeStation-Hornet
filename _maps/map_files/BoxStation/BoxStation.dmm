@@ -4865,6 +4865,21 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"aku" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id = "bridge blast";
+	name = "bridge blast door"
+	},
+/obj/machinery/door/firedoor/window,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plating,
+/area/bridge)
 "akv" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -5504,6 +5519,18 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
+"alL" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id = "bridge blast";
+	name = "bridge blast door"
+	},
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/bridge)
 "alM" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -9604,6 +9631,24 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
+"aAj" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id = "bridge blast";
+	name = "bridge blast door"
+	},
+/obj/machinery/door/firedoor/window,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating,
+/area/bridge)
 "aAk" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -9790,6 +9835,21 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"aAL" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id = "bridge blast";
+	name = "bridge blast door"
+	},
+/obj/machinery/door/firedoor/window,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating,
+/area/bridge)
 "aAN" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -9953,6 +10013,12 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore)
+"aBi" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel,
+/area/bridge)
 "aBj" = (
 /obj/structure/rack,
 /obj/machinery/light{
@@ -15322,55 +15388,9 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/bridge)
-"aPU" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/machinery/status_display/evac,
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id = "bridge blast";
-	name = "bridge blast door"
-	},
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/bridge)
-"aPV" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id = "bridge blast";
-	name = "bridge blast door"
-	},
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/bridge)
 "aPW" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
 /obj/machinery/status_display/evac,
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id = "bridge blast";
-	name = "bridge blast door"
-	},
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
+/turf/closed/wall/r_wall,
 /area/bridge)
 "aPX" = (
 /obj/structure/cable/yellow{
@@ -15698,6 +15718,9 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel,
 /area/bridge)
 "aRj" = (
@@ -15713,9 +15736,6 @@
 "aRk" = (
 /obj/machinery/computer/monitor{
 	name = "bridge power monitoring console"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
 	},
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
@@ -15739,6 +15759,9 @@
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
@@ -15765,9 +15788,6 @@
 /turf/open/floor/plasteel,
 /area/bridge)
 "aRp" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/computer/shuttle/mining,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -15786,6 +15806,9 @@
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
@@ -16140,6 +16163,9 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel,
 /area/bridge)
 "aSv" = (
@@ -16149,9 +16175,6 @@
 /turf/open/floor/plasteel,
 /area/bridge)
 "aSw" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
@@ -16180,6 +16203,9 @@
 	pixel_x = 29;
 	pixel_y = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel,
 /area/bridge)
 "aSz" = (
@@ -16202,9 +16228,6 @@
 /area/bridge)
 "aSB" = (
 /obj/structure/table/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -16214,6 +16237,9 @@
 "aSC" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
@@ -16654,17 +16680,14 @@
 /area/bridge)
 "aTU" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel,
 /area/bridge)
 "aTV" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
-/turf/open/floor/plasteel,
-/area/bridge)
-"aTW" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/plasteel,
 /area/bridge)
 "aTX" = (
@@ -16677,9 +16700,6 @@
 /turf/open/floor/plasteel,
 /area/bridge)
 "aTZ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -16687,6 +16707,9 @@
 /area/bridge)
 "aUa" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel,
 /area/bridge)
 "aUb" = (
@@ -17059,14 +17082,14 @@
 /turf/open/floor/plasteel,
 /area/bridge)
 "aVj" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
@@ -17084,24 +17107,12 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
-/area/bridge)
-"aVl" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/bridge)
-"aVn" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/turf/open/floor/plasteel,
+/area/bridge)
+"aVl" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -17124,6 +17135,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plasteel,
 /area/bridge)
 "aVp" = (
@@ -40653,6 +40667,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plasteel,
 /area/bridge)
 "cpG" = (
@@ -91364,7 +91381,7 @@ dgB
 aJq
 aJq
 aOE
-aPS
+aku
 aRi
 aSu
 aTU
@@ -91621,11 +91638,11 @@ aKE
 aMa
 aNw
 aOE
-aPU
+aPW
 aRl
 aSx
 aTX
-aVi
+aVj
 aWR
 bfv
 aZS
@@ -91878,10 +91895,10 @@ aJq
 aLZ
 aNv
 aOE
-aPS
+alL
 aRk
 aSw
-aTW
+aTX
 aVj
 aWQ
 bfv
@@ -92392,10 +92409,10 @@ aJq
 aMb
 aNx
 aOE
-aPS
+aAj
 aRm
 aSy
-aTX
+aBi
 aVk
 aWS
 gaT
@@ -92649,11 +92666,11 @@ aJq
 aMe
 aNA
 aOE
-aPV
+aPS
 aRp
 aSB
 aTZ
-aVn
+aVl
 aWV
 bfv
 twp
@@ -92906,7 +92923,7 @@ aJq
 aMd
 aNz
 aOE
-aPS
+aPX
 aRo
 aSA
 aTX
@@ -93420,7 +93437,7 @@ dgB
 aJq
 aJq
 aOE
-aPS
+aAL
 aRq
 aSC
 aUa
