@@ -3,8 +3,8 @@
 	var/max_damage
 	var/probability
 	var/flags
+	COOLDOWN_DECLARE(caltrop_cooldown)
 
-	var/cooldown = 0
 
 /datum/component/caltrop/Initialize(_min_damage = 0, _max_damage = 0, _probability = 100,  _flags = NONE)
 	min_damage = _min_damage
@@ -52,7 +52,8 @@
 			damage *= 1.3
 		H.apply_damage(damage, BRUTE, picked_def_zone)
 
-		if(cooldown < world.time - 10) //cooldown to avoid message spam.
+		if(COOLDOWN_FINISHED(src, caltrop_cooldown))
+			COOLDOWN_START(src, caltrop_cooldown, 1 SECONDS) //cooldown to avoid message spam.
 			if(!H.incapacitated(ignore_restraints = TRUE))
 				H.visible_message("<span class='danger'>[H] steps on [A].</span>", \
 						"<span class='userdanger'>You step on [A]!</span>")
@@ -60,7 +61,6 @@
 				H.visible_message("<span class='danger'>[H] slides on [A]!</span>", \
 						"<span class='userdanger'>You slide on [A]!</span>")
 
-			cooldown = world.time
 		if(is_species(H, /datum/species/squid))
 			H.Paralyze(10)
 		else
