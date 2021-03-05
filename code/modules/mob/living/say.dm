@@ -186,8 +186,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		spans |= SPAN_ITALICS
 	if(radio_return & REDUCE_RANGE)
 		message_range = 1
-		if(!message_mods[WHISPER_MODE])
-			message_mods[WHISPER_MODE] = MODE_WHISPER
+		message_mods[MODE_NOOVERHEAD] = MODE_NOOVERHEAD
 	if(radio_return & NOPASS)
 		return 1
 
@@ -224,7 +223,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		deaf_type = 2 // Since you should be able to hear yourself without looking
 
 	// Create map text prior to modifying message for goonchat
-	if(client?.prefs.chat_on_map && stat != UNCONSCIOUS && (client.prefs.see_chat_non_mob || ismob(speaker)) && can_hear())
+	if(client?.prefs.chat_on_map && stat != UNCONSCIOUS && (client.prefs.see_chat_non_mob || ismob(speaker)) && can_hear() && !message_mods[MODE_NOOVERHEAD])
 		create_chat_message(speaker, message_language, raw_message, spans)
 
 	// Recompose message for AI hrefs, language incomprehension.

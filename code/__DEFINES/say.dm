@@ -47,6 +47,8 @@
 
 #define MODE_SING "%"
 
+#define MODE_NOOVERHEAD "nooverhead"
+
 //Spans. Robot speech, italics, etc. Applied in compose_message().
 #define SPAN_ROBOT "robot"
 #define SPAN_YELL "yell"

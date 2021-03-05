@@ -904,7 +904,7 @@
 
 	var/rendered = "<i><span class='game say'>[start]<span class='name'>[hrefpart][namepart] ([jobpart])</a> </span><span class='message'>[treated_message]</span></span></i>"
 
-	if (client?.prefs.chat_on_map && (client.prefs.see_chat_non_mob || ismob(speaker)))
+	if (client?.prefs.chat_on_map && (client.prefs.see_chat_non_mob || ismob(speaker)) && !message_mods[MODE_NOOVERHEAD])
 		create_chat_message(speaker, message_language, raw_message, spans)
 
 	show_message(rendered, 2)

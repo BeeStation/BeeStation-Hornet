@@ -11,7 +11,7 @@
 /// Approximate height in pixels of an 'average' line, used for height decay
 #define CHAT_MESSAGE_APPROX_LHEIGHT	11
 /// Max width of chat message in pixels
-#define CHAT_MESSAGE_WIDTH			96
+#define CHAT_MESSAGE_WIDTH			128
 /// Max length of chat message in characters
 #define CHAT_MESSAGE_MAX_LENGTH		110
 /// Maximum precision of float before rounding errors occur (in this context)
@@ -19,12 +19,13 @@
 /// The number of z-layer 'slices' usable by the chat message layering
 #define CHAT_LAYER_MAX_Z			(CHAT_LAYER_MAX - CHAT_LAYER) / CHAT_LAYER_Z_STEP
 /// The dimensions of the chat message icons
-#define CHAT_MESSAGE_ICON_SIZE		9
+#define CHAT_MESSAGE_ICON_SIZE		
 /// Macro from Lummox used to get height from a MeasureText proc
 #define WXH_TO_HEIGHT(x)			text2num(copytext(x, findtextEx(x, "x") + 1))
 
 #define COLOR_JOB_UNKNOWN "#dda583"
 #define COLOR_PERSON_UNKNOWN "#999999"
+#define COLOR_CHAT_EMOTE "#727272"
 
 //For jobs that aren't roundstart but still need colours
 GLOBAL_LIST_INIT(job_colors_pastel, list(
@@ -123,6 +124,9 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	if (length_char(text) > maxlen)
 		text = copytext_char(text, 1, maxlen + 1) + "..." // BYOND index moment
 
+	//The colour of the message.
+	var/tgt_color
+
 	// Get the chat color
 	if(isliving(target))		//target is living, thus we have preset color for him
 		if(ishuman(target))
@@ -131,21 +135,22 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 				var/obj/item/card/id/idcard = H.wear_id
 				var/datum/job/wearer_job = SSjob.GetJob(idcard.GetJobName())
 				if(wearer_job)
-					target.chat_color = wearer_job.chat_color
+					tgt_color = wearer_job.chat_color
 				else
-					target.chat_color = GLOB.job_colors_pastel[idcard.GetJobName()]
-				target.chat_color_name = H.name
+					tgt_color = GLOB.job_colors_pastel[idcard.GetJobName()]
 			else
-				target.chat_color = COLOR_PERSON_UNKNOWN
-			target.chat_color_darkened = MultiplyHexColor(target.chat_color, 0.85)
-		if(!target.chat_color)		//extreme case - mob doesn't have set color
+				tgt_color = COLOR_PERSON_UNKNOWN
+		else
+			if(!target.chat_color)		//extreme case - mob doesn't have set color
+				stack_trace("Error: Mob did not have a chat_color. The only way this can happen is if you set it to null purposely in the thing. Don't do that please.")
+				target.chat_color = colorize_string(target.name)
+				target.chat_color_name = target.name
+			tgt_color = target.chat_color
+	else		//target is not living, randomizing its color
+		if(!target.chat_color || target.chat_color_name != target.name)
 			target.chat_color = colorize_string(target.name)
 			target.chat_color_name = target.name
-			target.chat_color_darkened = MultiplyHexColor(target.chat_color, 0.85)
-	else if(!target.chat_color || target.chat_color_name != target.name)		//target is not living, randomizing its color
-		target.chat_color = colorize_string(target.name)
-		target.chat_color_name = target.name
-		target.chat_color_darkened = MultiplyHexColor(target.chat_color, 0.85)
+		tgt_color = target.chat_color
 
 	// Get rid of any URL schemes that might cause BYOND to automatically wrap something in an anchor tag
 	var/static/regex/url_scheme = new(@"[A-Za-z][A-Za-z0-9+-\.]*:\/\/", "g")
@@ -166,6 +171,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	else if (extra_classes.Find("emote"))
 		var/image/r_icon = image('icons/UI_Icons/chat/chat_icons.dmi', icon_state = "emote")
 		LAZYADD(prefixes, "\icon[r_icon]")
+		tgt_color = COLOR_CHAT_EMOTE
 
 	// Append language icon if the language uses one
 	var/datum/language/language_instance = GLOB.language_datum_instances[language]
@@ -177,10 +183,8 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			LAZYSET(language_icons, language, language_icon)
 		LAZYADD(prefixes, "\icon[language_icon]")
 
-	text = "[prefixes?.Join("&nbsp;")][text]"
-
-	// We dim italicized text to make it more distinguishable from regular text
-	var/tgt_color = extra_classes.Find("italics") ? target.chat_color_darkened : target.chat_color
+	//Add on the icons and add a little space.
+	text = prefixes ? "[prefixes.Join("&nbsp;")] [text]" : "[text]"
 
 	// Approximate text height
 	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[text]</span>"
@@ -213,10 +217,12 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	message.plane = RUNECHAT_PLANE
 	message.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
 	message.alpha = 0
-	message.pixel_y = owner.bound_height * 0.95
+	message.pixel_y = owner.bound_height
 	message.maptext_width = CHAT_MESSAGE_WIDTH
 	message.maptext_height = mheight
 	message.maptext_x = (CHAT_MESSAGE_WIDTH - owner.bound_width) * -0.5
+	if(extra_classes.Find("italics"))
+		message.color = "#CCCCCC"
 	message.maptext = MAPTEXT(complete_text)
 
 	// View the message
@@ -266,7 +272,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 	// Display visual above source
 	if(runechat_flags & EMOTE_MESSAGE)
-		new /datum/chatmessage(raw_message, speaker, src, message_language, list("emote", "italics"))
+		new /datum/chatmessage(raw_message, speaker, src, message_language, list("emote"))
 	else
 		new /datum/chatmessage(lang_treat(speaker, message_language, raw_message, spans, null, TRUE), speaker, src, message_language, spans)
 
