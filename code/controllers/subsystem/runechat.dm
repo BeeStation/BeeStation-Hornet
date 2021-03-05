@@ -40,7 +40,7 @@ SUBSYSTEM_DEF(runechat)
 	bucket_resolution = world.tick_lag
 
 /datum/controller/subsystem/runechat/stat_entry(msg)
-	..("ActMsgs:[bucket_count] SecQueue:[length(second_queue)]")
+	. = ..("ActMsgs:[bucket_count] SecQueue:[length(second_queue)]")
 
 /datum/controller/subsystem/runechat/fire(resumed = FALSE)
 	// Store local references to datum vars as it is faster to access them this way
