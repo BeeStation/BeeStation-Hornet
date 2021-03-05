@@ -7184,7 +7184,10 @@
 /obj/item/folder/blue,
 /obj/item/folder/blue,
 /obj/item/stamp/law,
-/obj/item/clothing/glasses/sunglasses/advanced/big,
+/obj/item/clothing/glasses/sunglasses/advanced{
+	pixel_x = 5;
+	pixel_y = 10
+	},
 /turf/open/floor/wood,
 /area/lawoffice)
 "arZ" = (
@@ -49009,7 +49012,6 @@
 	pixel_y = 8
 	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/item/clothing/glasses/sunglasses/advanced,
 /turf/open/floor/wood,
 /area/lawoffice)
 "gpT" = (
