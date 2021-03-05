@@ -262,7 +262,7 @@
 		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
 		if(R)
 			switch(R.fields["criminal"])
-				if("*Arrest*")
+				if("Arrest")
 					holder.icon_state = "hudwanted"
 					return
 				if("Incarcerated")
@@ -273,6 +273,12 @@
 					return
 				if("Discharged")
 					holder.icon_state = "huddischarged"
+					return
+				if("Search")
+					holder.icon_state = "hudsearch"
+					return
+				if("Monitor")
+					holder.icon_state = "hudmonitor"
 					return
 	holder.icon_state = null
 

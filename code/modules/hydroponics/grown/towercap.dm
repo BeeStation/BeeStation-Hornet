@@ -50,7 +50,7 @@
 	/obj/item/reagent_containers/food/snacks/grown/wheat))
 
 /obj/item/grown/log/attackby(obj/item/W, mob/user, params)
-	if(W.sharpness)
+	if(W.is_sharp())
 		user.show_message("<span class='notice'>You make [plank_name] out of \the [src]!</span>", 1)
 		var/seed_modifier = 0
 		if(seed)
@@ -156,6 +156,9 @@ obj/item/seeds/bamboo
 	var/grill = FALSE
 	var/fire_stack_strength = 5
 	var/needs_oxygen = TRUE
+
+/obj/structure/bonfire/bluespace
+	needs_oxygen = FALSE
 
 /obj/structure/bonfire/dense
 	density = TRUE

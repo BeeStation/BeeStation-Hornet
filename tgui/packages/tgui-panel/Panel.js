@@ -8,7 +8,7 @@ import { Button, Flex, Section, NoticeBox } from 'tgui/components';
 import { Pane } from 'tgui/layouts';
 import { useDispatch } from 'common/redux';
 import { NowPlayingWidget, useAudio } from './audio';
-import { StatTabs } from './stat';
+import { StatTabs, HoboStatTabs } from './stat';
 import { ChatPanel, ChatTabs } from './chat';
 import { useGame } from './game';
 import { Notifications } from './Notifications';
@@ -42,10 +42,6 @@ export const Panel = (props, context) => {
     number,
     setNumber,
   ] = useLocalState(context, 'number', settings.statSize);
-  const [
-    erroring,
-    setErroring,
-  ] = useLocalState(context, 'erroring', false);
   const dispatch = useDispatch(context);
   const resizeFunction = value => {
     dispatch(updateSettings({
@@ -55,10 +51,12 @@ export const Panel = (props, context) => {
   return (
     <Pane theme={settings.theme}>
       <Flex
+        height={(98-number) + '%'}
         direction="column"
-        height={(98-number) + '%'}>
+        grow={0}
+        shrink={0}>
         <StatTabs
-          height="100%" />
+          direction="column" />
       </Flex>
       <DraggableControl
         value={number}
@@ -86,9 +84,9 @@ export const Panel = (props, context) => {
         )}
       </DraggableControl>
       <Flex
+        mt={1}
         direction="column"
-        height={(number-1) + '%'}
-        mt={1}>
+        height={(number-1) + '%'}>
         <Flex.Item>
           <Section fitted>
             <Flex mx={0.5} align="center">
@@ -157,20 +155,6 @@ export const Panel = (props, context) => {
                   restarting. Please wait while you automatically reconnect.
                 </Notifications.Item>
               )}
-              {erroring && (
-                <Notifications.Item
-                  rightSlot={(
-                    <Button
-                      color="white"
-                      onClick={() => setErroring(false)}>
-                      Close
-                    </Button>
-                  )}>
-                  Caution: The stat panel experienced an exception attempting
-                  to handle resizing. This has been fixed, however should be
-                  reported.
-                </Notifications.Item>
-              )}
             </Notifications>
           </Section>
         </Flex.Item>
@@ -181,28 +165,85 @@ export const Panel = (props, context) => {
 
 const HoboPanel = (props, context) => {
   const settings = useSettings(context);
+  const audio = useAudio(context);
+  const game = useGame(context);
+  if (process.env.NODE_ENV !== 'production') {
+    const { useDebug, KitchenSink } = require('tgui/debug');
+    const debug = useDebug(context);
+    if (debug.kitchenSink) {
+      return (
+        <KitchenSink panel />
+      );
+    }
+  }
+
+  const [
+    number,
+    setNumber,
+  ] = useLocalState(context, 'number', settings.statSize);
+  const dispatch = useDispatch(context);
+  const resizeFunction = value => {
+    dispatch(updateSettings({
+      statSize: Math.max(Math.min(value, 90), 10),
+    }));
+  };
+
   return (
     <Pane theme={settings.theme}>
-      <Pane.Content scrollable>
-        <Button
-          style={{
-            position: 'fixed',
-            top: '1em',
-            right: '2em',
-            'z-index': 1000,
-          }}
-          selected={settings.visible}
-          onClick={() => settings.toggle()}>
-          Settings
-        </Button>
-        {settings.visible && (
-          <Flex.Item mt={1}>
-            <SettingsPanel />
-          </Flex.Item>
-        ) || (
-          <ChatPanel lineHeight={settings.lineHeight} />
+      <Section
+        direction="column"
+        height={(98-number) + '%'}
+        overflowY="scroll">
+        <HoboStatTabs
+          height="100%" />
+      </Section>
+      <DraggableControl
+        value={number}
+        height="1%"
+        minValue={0}
+        maxValue={100}
+        dragMatrix={[0, -1]}
+        step={1}
+        stepPixelSize={9}
+        onDrag={(e, value) => resizeFunction(value)}
+        updateRate={5}>
+        {control => (
+          <Box
+            onMouseDown={control.handleDragStart}
+            height="10px">
+            <Box
+              position="relative"
+              height="4px"
+              backgroundColor="grey"
+              top="3px">
+              <Divider />
+              {control.inputElement}
+            </Box>
+          </Box>
         )}
-      </Pane.Content>
+      </DraggableControl>
+      <Section height={(number-1) + '%'}>
+        <Pane.Content scrollable>
+          <Button
+            style={{
+              position: 'fixed',
+              bottom: '3em',
+              right: '2em',
+              'z-index': 1000,
+            }}
+            selected={settings.visible}
+            onClick={() => settings.toggle()}>
+            Settings
+          </Button>
+          {settings.visible && (
+            <Flex.Item mt={1}>
+              <SettingsPanel />
+            </Flex.Item>
+          ) || (
+            <ChatPanel lineHeight={settings.lineHeight} />
+          )}
+        </Pane.Content>
+      </Section>
     </Pane>
   );
 };

@@ -75,7 +75,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			if(isliving(A))
 				var/mob/living/M = A
 				M.Paralyze(320) // Keep them from moving during the duration of the extraction
-				M.buckled = 0 // Unbuckle them to prevent anchoring problems
+				M.buckled?.unbuckle_mob(M, TRUE) // Unbuckle them to prevent anchoring problems
 			else
 				A.anchored = TRUE
 				A.density = FALSE
@@ -112,7 +112,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 				L.SetSleeping(0)
 			sleep(30)
 			var/list/flooring_near_beacon = list()
-			for(var/turf/open/floor in orange(1, beacon))
+			for(var/turf/open/floor in (RANGE_TURFS(1, beacon)-get_turf(beacon)))
 				flooring_near_beacon += floor
 			holder_obj.forceMove(pick(flooring_near_beacon))
 			animate(holder_obj, pixel_z = 10, time = 50)
@@ -169,7 +169,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 
 /obj/effect/extraction_holder
 	name = "extraction holder"
-	desc = "you shouldnt see this"
+	desc = "you shouldn't see this"
 	var/atom/movable/stored_obj
 
 /obj/item/extraction_pack/proc/check_for_living_mobs(atom/A)

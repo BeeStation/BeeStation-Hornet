@@ -3,10 +3,10 @@
 @use '~tgui/styles/base.scss';
 @use '~tgui/styles/colors.scss';
 
-$color-default: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default;
+$border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default;
 
 .StatBorder {
-  border-left: (1em / 6) solid $color-default;
+  border-left: (1em / 6) solid $border-color;
 }
 
 .StatBorder_observer {
