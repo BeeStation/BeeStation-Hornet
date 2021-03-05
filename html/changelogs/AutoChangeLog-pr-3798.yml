@@ -1,8 +1,0 @@
-author: Rohesie, LemonInTheDark, spookydonut
-delete-after: true
-changes:
-  - code_imp: Ports the TGMC timer cooldowns system.
-  - bugfix: Fixed stealth implants not properly boxing the user, and doors not shocking
-  - refactor: Renamed COOLDOWN_CHECK to COOLDOWN_FINISHED
-  - bugfix: Abductor implant now reports the correct remaining time until it can be
-      used again.
