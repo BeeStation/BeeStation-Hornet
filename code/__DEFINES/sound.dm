@@ -71,3 +71,21 @@
 	'sound/hallucinations/growl3.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg', 'sound/hallucinations/i_see_you1.ogg', 'sound/hallucinations/i_see_you2.ogg',\
 	'sound/hallucinations/look_up1.ogg', 'sound/hallucinations/look_up2.ogg', 'sound/hallucinations/over_here1.ogg', 'sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg',\
 	'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
+
+///Announcer audio keys
+#define ANNOUNCER_AIMALF 			"announcer_aimalf"
+#define ANNOUNCER_ALIENS			"announcer_aliens"
+#define ANNOUNCER_ANIMES 			"announcer_animes"
+#define ANNOUNCER_GRANOMALIES 		"announcer_granomalies"
+#define ANNOUNCER_INTERCEPT 		"announcer_animes"
+#define ANNOUNCER_IONSTORM 			"announcer_ionstorm"
+#define ANNOUNCER_METEORS			"announcer_meteors"
+#define ANNOUNCER_OUTBREAK5			"announcer_outbreak5"
+#define ANNOUNCER_OUTBREAK7			"announcer_outbreak7"
+#define ANNOUNCER_POWEROFF			"announcer_poweroff"
+#define ANNOUNCER_POWERON			"announcer_poweron"
+#define ANNOUNCER_RADIATION			"announcer_radiation"
+#define ANNOUNCER_SHUTTLECALLED		"announcer_shuttlecalled"
+#define ANNOUNCER_SHUTTLEDOCK		"announcer_shuttledock"
+#define ANNOUNCER_SHUTTLERECALLED	"announcer_shuttlerecalled"
+#define ANNOUNCER_SPANOMALIES		"announcer_spanomalies"
