@@ -164,6 +164,7 @@
 
 /datum/world_topic/namecheck
 	key = "namecheck"
+	required_params = list("namecheck")
 
 /datum/world_topic/namecheck/Run(list/input)
 	. = ..()
