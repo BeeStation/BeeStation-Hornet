@@ -137,16 +137,15 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 				target.chat_color_name = H.name
 			else
 				target.chat_color = COLOR_PERSON_UNKNOWN
-			MultiplyHexColor(target.chat_color, 0.85)
-		else if(target.chat_color_name != target.name)		//this is only needed if target's name has changed since we last set it's color
-			var/mob/living/L = target
-			target.chat_color = L.chat_color
-			target.chat_color_name = L.name
-			MultiplyHexColor(target.chat_color, 0.85)
+			target.chat_color_darkened = MultiplyHexColor(target.chat_color, 0.85)
+		if(!target.chat_color)		//extreme case - mob doesn't have set color
+			target.chat_color = colorize_string(target.name)
+			target.chat_color_name = target.name
+			target.chat_color_darkened = MultiplyHexColor(target.chat_color, 0.85)
 	else if(!target.chat_color || target.chat_color_name != target.name)		//target is not living, randomizing its color
 		target.chat_color = colorize_string(target.name)
 		target.chat_color_name = target.name
-		MultiplyHexColor(target.chat_color, 0.85)
+		target.chat_color_darkened = MultiplyHexColor(target.chat_color, 0.85)
 
 	// Get rid of any URL schemes that might cause BYOND to automatically wrap something in an anchor tag
 	var/static/regex/url_scheme = new(@"[A-Za-z][A-Za-z0-9+-\.]*:\/\/", "g")

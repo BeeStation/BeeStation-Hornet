@@ -64,9 +64,9 @@
 	else if(message_mods[RADIO_EXTENSION] == MODE_DEPARTMENT || (GLOB.radiochannels[message_mods[RADIO_EXTENSION]]))
 		if(ears)
 			ears.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
-		return ITALICS | REDUCE_RANGE
+			return ITALICS | REDUCE_RANGE
 
-	return 0
+	return FALSE
 
 /mob/living/carbon/human/get_alt_name()
 	if(name != GetVoice())
