@@ -853,9 +853,9 @@
 	var/wall_type_b = /obj/effect/forcefield/wizard/hive/invis
 
 /obj/effect/proc_holder/spell/targeted/forcewall/hive/cast(list/targets,mob/user = usr)
-	new wall_type(get_turf(user),user)
+	new wall_type(get_turf(user), null, user)
 	for(var/dir in GLOB.alldirs)
-		new wall_type_b(get_step(user, dir),user)
+		new wall_type_b(get_step(user, dir), null, user)
 	var/datum/antagonist/hivemind/hive = user.mind.has_antag_datum(/datum/antagonist/hivemind)
 	if(hive)
 		hive.threat_level += 0.5

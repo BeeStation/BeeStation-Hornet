@@ -81,6 +81,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	transparent_protection = HIDEGLOVES|HIDESUITSTORAGE|HIDEJUMPSUIT|HIDESHOES
+	high_pressure_multiplier = 0.4
 
 /obj/item/clothing/head/hooded/cloakhood/drake
 	name = "drake helm"
@@ -90,6 +91,7 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	high_pressure_multiplier = 0.4
 
 /obj/item/clothing/suit/hooded/cloak/bone
 	name = "Heavy bone armor"
