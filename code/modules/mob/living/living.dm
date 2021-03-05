@@ -1411,7 +1411,7 @@
 	give_mind(user)
 
 /mob/living/Topic(href, href_list)
-	if(..() && href_list["activate"])
+	if(href_list["activate"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost) && playable)
 			give_mind(ghost)
