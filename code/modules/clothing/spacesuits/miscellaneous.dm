@@ -43,6 +43,7 @@ Contains:
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/deathsquad
 	dog_fashion = /datum/dog_fashion/back/deathsquad
+	footstep = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 
 	//NEW SWAT suit
 /obj/item/clothing/suit/space/swat
@@ -54,6 +55,7 @@ Contains:
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30,"energy" = 30, "bomb" = 50, "bio" = 90, "rad" = 20, "fire" = 100, "acid" = 100)
 	strip_delay = 120
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	footstep = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 
 /obj/item/clothing/head/helmet/space/beret
 	name = "officer's beret"
@@ -417,6 +419,41 @@ Contains:
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE)
 
+//Lavaland suits
+
+/obj/item/clothing/suit/space/hardsuit/ert/paranormal/lavaland
+	desc = "Powerful wards are built into this hardsuit, protecting the user from all manner of paranormal threats with armor designed specifically for low pressures."
+	high_pressure_multiplier = 0.4
+
+/obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/lavaland
+	high_pressure_multiplier = 0.4
+
+/obj/item/clothing/suit/space/hardsuit/ert/paranormal/lavaland/beserker
+	name = "champion's hardsuit"
+	desc = "Voices echo from the hardsuit, driving the user insane."
+	icon_state = "hardsuit-beserker"
+	item_state = "hardsuit-beserker"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/lavaland/beserker
+
+/obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/lavaland/beserker
+	name = "champion's helmet"
+	desc = "Peering into the eyes of the helmet is enough to seal damnation."
+	icon_state = "hardsuit0-beserker"
+	item_state = "hardsuit0-beserker"
+
+/obj/item/clothing/suit/space/hardsuit/ert/paranormal/lavaland/inquisitor
+	name = "inquisitor's hardsuit"
+	icon_state = "hardsuit-inq"
+	item_state = "hardsuit-inq"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/lavaland/inquisitor
+
+/obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/lavaland/inquisitor
+	name = "inquisitor's helmet"
+	icon_state = "hardsuit0-inq"
+	item_state = "hardsuit0-inq"
+
+//End lavaland suits
+
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
 	name = "inquisitor's hardsuit"
 	icon_state = "hardsuit-inq"
@@ -427,19 +464,6 @@ Contains:
 	name = "inquisitor's helmet"
 	icon_state = "hardsuit0-inq"
 	item_state = "hardsuit0-inq"
-
-/obj/item/clothing/suit/space/hardsuit/ert/paranormal/beserker
-	name = "champion's hardsuit"
-	desc = "Voices echo from the hardsuit, driving the user insane."
-	icon_state = "hardsuit-beserker"
-	item_state = "hardsuit-beserker"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/beserker
-
-/obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/beserker
-	name = "champion's helmet"
-	desc = "Peering into the eyes of the helmet is enough to seal damnation."
-	icon_state = "hardsuit0-beserker"
-	item_state = "hardsuit0-beserker"
 
 /obj/item/clothing/head/helmet/space/fragile
 	name = "emergency space helmet"
