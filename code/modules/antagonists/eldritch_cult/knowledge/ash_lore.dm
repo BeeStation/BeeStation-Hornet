@@ -73,6 +73,8 @@
 	result_atoms = list(/obj/item/clothing/mask/void_mask)
 	required_atoms = list(/obj/item/organ/eyes,/obj/item/screwdriver,/obj/effect/decal/cleanable/blood)
 	next_knowledge = list(/datum/eldritch_knowledge/curse/corrosion,/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/curse/paralysis)
+	cost = 1
+	route = PATH_ASH
 
 /datum/eldritch_knowledge/curse/blindness
 	name = "Curse of blindness"
@@ -81,7 +83,6 @@
 	cost = 1
 	required_atoms = list(/obj/item/screwdriver,/obj/item/organ/eyes)
 	next_knowledge = list(/datum/eldritch_knowledge/curse/corrosion,/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/curse/paralysis)
-	cost = 1
 	route = PATH_ASH
 
 /datum/eldritch_knowledge/spell/flame_birth
