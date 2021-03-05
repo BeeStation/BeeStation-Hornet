@@ -42865,7 +42865,7 @@
 "cwu" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
-/area/crew_quarters/heads/cmo)
+/area/maintenance/aft)
 "cwv" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 6
@@ -42902,10 +42902,6 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/heads/cmo)
-"cwB" = (
-/obj/structure/reagent_dispensers/fueltank,
-/turf/open/floor/plating,
 /area/crew_quarters/heads/cmo)
 "cwD" = (
 /obj/structure/chair/office{
@@ -43449,7 +43445,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/crew_quarters/heads/cmo)
+/area/maintenance/aft)
 "cAS" = (
 /obj/structure/table,
 /obj/item/folder/white,
@@ -43519,9 +43515,6 @@
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
-"cAX" = (
-/turf/open/floor/plating,
-/area/crew_quarters/heads/cmo)
 "cAY" = (
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
@@ -43567,7 +43560,7 @@
 "cBd" = (
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating,
-/area/crew_quarters/heads/cmo)
+/area/maintenance/aft)
 "cBe" = (
 /obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
@@ -47245,10 +47238,6 @@
 /obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
-"eyO" = (
-/obj/structure/closet/emcloset,
-/turf/open/floor/plating,
-/area/crew_quarters/heads/cmo)
 "ezj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
@@ -105042,11 +105031,11 @@ bon
 bon
 bOt
 cwu
-cwB
+cki
 cAR
-cAX
+bAw
 cBd
-eyO
+clf
 bWj
 fLK
 bNd
