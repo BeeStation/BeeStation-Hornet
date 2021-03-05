@@ -285,6 +285,7 @@
 	S.rabid = TRUE
 	S.amount_grown = SLIME_EVOLUTION_THRESHOLD
 	S.Evolve()
+	S.flavor_text = FLAVOR_TEXT_EVIL
 	S.set_playable()
 
 /////////////////////

@@ -194,6 +194,7 @@
 			S.directive = directive
 			if(player_spiders)
 				S.set_playable()
+				S.flavor_text = FLAVOR_TEXT_BLOB
 			qdel(src)
 
 

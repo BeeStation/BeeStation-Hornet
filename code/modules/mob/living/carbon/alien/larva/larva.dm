@@ -15,7 +15,8 @@
 	var/time_of_birth
 
 	rotate_on_lying = 0
-	bodyparts = list(/obj/item/bodypart/chest/larva, /obj/item/bodypart/head/larva)
+	bodyparts = list(/obj/item/bodypart/chest/larva, /obj/item/bodypart/head/larva)	
+	flavor_text = FLAVOR_TEXT_EVIL
 	playable = TRUE
 
 

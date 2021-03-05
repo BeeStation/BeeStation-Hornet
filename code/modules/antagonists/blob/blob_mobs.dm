@@ -108,6 +108,7 @@
 	var/mob/living/carbon/human/oldguy
 	var/is_zombie = FALSE
 	var/list/disease = list()
+	flavor_text = FLAVOR_TEXT_BLOB
 
 /mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
@@ -239,6 +240,7 @@
 	pressure_resistance = 50
 	mob_size = MOB_SIZE_LARGE
 	hud_type = /datum/hud/blobbernaut
+	flavor_text = FLAVOR_TEXT_BLOB
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life()
 	if(..())
