@@ -184,7 +184,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		LAZYADD(prefixes, "\icon[language_icon]")
 
 	//Add on the icons and add a little space.
-	text = prefixes ? "[prefixes.Join("&nbsp;")] [text]" : "[text]"
+	text = "[prefixes?.Join("&nbsp;")][text]"
 
 	// Approximate text height
 	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[text]</span>"
