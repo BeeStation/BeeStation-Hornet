@@ -178,13 +178,15 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/cmd_display_overlay_log,
 	/client/proc/reload_configuration,
 	/client/proc/give_all_spells,
+	/datum/admins/proc/create_or_modify_area,
+	#ifdef TESTING
 	/client/proc/export_dynamic_json,
 	/client/proc/run_dynamic_simulations,
-	/datum/admins/proc/create_or_modify_area,
-#ifdef REFERENCE_TRACKING
+	#endif
+	#ifdef REFERENCE_TRACKING
 	/datum/admins/proc/view_refs,
 	/datum/admins/proc/view_del_failures,
-#endif
+	#endif
 	/client/proc/toggle_cdn
 	)
 

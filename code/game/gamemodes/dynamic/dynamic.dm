@@ -725,6 +725,8 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		ruleset.restricted_roles |= ruleset.protected_roles
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		ruleset.restricted_roles |= "Assistant"
+	if(CONFIG_GET(flag/protect_heads_from_antagonist))
+		ruleset.restricted_roles |= GLOB.command_positions
 
 /// Refund threat, but no more than threat_level.
 /datum/game_mode/dynamic/proc/refund_threat(regain)
@@ -768,21 +770,6 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			return RULE_OF_THREE(40, 20, x) + 50
 		if (20 to INFINITY)
 			return rand(90, 100)
-
-/datum/game_mode/dynamic/proc/configure_ruleset(datum/dynamic_ruleset/ruleset)
-	var/rule_conf = configuration && configuration[ruleset.ruletype] && configuration[ruleset.ruletype][ruleset.name]
-	if(rule_conf)
-		for(var/variable in rule_conf)
-			if(isnull(ruleset.vars[variable]))
-				stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.ruletype] [ruleset.name].")
-				continue
-			ruleset.vars[variable] = rule_conf[variable]
-	if(CONFIG_GET(flag/protect_roles_from_antagonist))
-		ruleset.restricted_roles |= ruleset.protected_roles
-	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		ruleset.restricted_roles |= "Assistant"
-	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		ruleset.restricted_roles |= GLOB.command_positions
 		
 #undef FAKE_REPORT_CHANCE
 #undef REPORT_NEG_DIVERGENCE
