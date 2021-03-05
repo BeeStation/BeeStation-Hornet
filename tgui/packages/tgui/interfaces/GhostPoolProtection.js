@@ -15,7 +15,7 @@ export const GhostPoolProtection = (props, context) => {
     <Window
       title="Ghost Pool Protection"
       width={400}
-      height={270}>
+      height={285}>
       <Window.Content>
         <Flex grow={1} height="100%">
           <Section
@@ -43,6 +43,7 @@ export const GhostPoolProtection = (props, context) => {
             <Flex.Item>
               <Button
                 fluid
+                my={0.5}
                 textAlign="center"
                 color={events_or_midrounds ? "good" : "bad"}
                 icon="meteor"
@@ -52,6 +53,7 @@ export const GhostPoolProtection = (props, context) => {
             <Flex.Item>
               <Button
                 fluid
+                my={0.5}
                 textAlign="center"
                 color={spawners ? "good" : "bad"}
                 icon="pastafarianism"
@@ -61,6 +63,7 @@ export const GhostPoolProtection = (props, context) => {
             <Flex.Item>
               <Button
                 fluid
+                my={0.5}
                 textAlign="center"
                 color={station_sentience ? "good" : "bad"}
                 icon="user-astronaut"
@@ -70,6 +73,7 @@ export const GhostPoolProtection = (props, context) => {
             <Flex.Item>
               <Button
                 fluid
+                my={0.5}
                 textAlign="center"
                 color={silicons ? "good" : "bad"}
                 icon="robot"
@@ -79,6 +83,7 @@ export const GhostPoolProtection = (props, context) => {
             <Flex.Item>
               <Button
                 fluid
+                my={0.5}
                 textAlign="center"
                 color={minigames ? "good" : "bad"}
                 icon="gamepad"
@@ -88,6 +93,7 @@ export const GhostPoolProtection = (props, context) => {
             <Flex.Item>
               <Button
                 fluid
+                my={1.4}
                 textAlign="center"
                 color="orange"
                 icon="check"
