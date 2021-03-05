@@ -31,10 +31,10 @@
 		to_chat(S, "<span class='userdanger'>Your sensors are disabled by a shower of blood!</span>")
 		S.Paralyze(60)
 	var/turf = get_turf(user)
-	user.gib()
-	if (!user.stat && prob(33))
+	if (prob(!user.stat ? 33 : 10))
 		new /obj/effect/decal/cleanable/blood/gibs/changeling(turf)
 	. = TRUE
+	user.gib()
 	sleep(8) // So it's not killed in explosion
 	var/mob/living/simple_animal/hostile/headcrab/crab = new(turf)
 	for(var/obj/item/organ/I in organs)

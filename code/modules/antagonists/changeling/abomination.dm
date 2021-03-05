@@ -19,15 +19,8 @@
 	L.adjustStaminaLoss(-10, 0)
 	..()
 
-/datum/reagent/shiftium/on_mob_end_metabolize(mob/living/L)
-	..()
-	if(!shapeshiftdata)
-		return
-	shapeshiftdata.restore()
-	REMOVE_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
-
 /datum/reagent/shiftium/overdose_start(mob/living/L)
-	if (L.mind?.has_antag_datum(/datum/antagonist/changeling))
+	if(L.mind?.has_antag_datum(/datum/antagonist/changeling))
 		to_chat(L,"<span class='danger'>You struggle to maintain your form!</span>")
 	..()
 
@@ -36,13 +29,11 @@
 	if(!shapeshiftdata && prob(volume * 2.5))
 		var/datum/antagonist/changeling/changeling = L.mind?.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
-			metabolization_rate = 10 * REAGENTS_METABOLISM
-			ADD_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
-
 			playsound(L, 'sound/magic/demon_consume.ogg', 30, 1)
 			L.visible_message("<span class='warning'>[L]'s body uncontrollably transforms into an abomination!</span>", "<span class='boldwarning'>Your body uncontrollably transforms, revealing your true form!</span>")
 
 			polymorph_target(L,volume/overdose_threshold)
+			L.reagents.remove_reagent(/datum/reagent/shiftium,volume)
 	..()
 
 /datum/reagent/shiftium/proc/polymorph_target(mob/living/L, var/dur)
