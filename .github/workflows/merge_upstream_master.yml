@@ -1,4 +1,4 @@
-name: Merge Origin to DownStream Master
+name: Merge Upstream to DownStream-Master
 
 # Controls when the action will run.
 on:
