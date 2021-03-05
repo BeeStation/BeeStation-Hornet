@@ -350,9 +350,12 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	max_integrity = 5
 	var/stage = 0
 	var/max_stage = 5
+	var/datum/weakref/pylon
 
-/obj/structure/cerulean_slime_crystal/Initialize()
+/obj/structure/cerulean_slime_crystal/Initialize(mapload, obj/structure/slime_crystal/cerulean/master_pylon)
 	. = ..()
+	if(istype(master_pylon))
+		pylon = WEAKREF(master_pylon)
 	transform *= 1/(max_stage-1)
 	stage_growth()
 
@@ -368,27 +371,48 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/matrix/M = new
 	M.Scale(1/max_stage * stage)
 
-	animate(src, transform = M, time = 60 SECONDS)
+	animate(src, transform = M, time = 120 SECONDS)
 
-	addtimer(CALLBACK(src, .proc/stage_growth), 60 SECONDS)
+	addtimer(CALLBACK(src, .proc/stage_growth), 120 SECONDS)
 
 /obj/structure/cerulean_slime_crystal/Destroy()
-	if(stage > 1)
+	if(stage > 3)
 		var/obj/item/cerulean_slime_crystal/crystal = new(get_turf(src))
-		crystal.amt = stage
+		if(stage == 5)
+			crystal.amt = rand(1,3)
+		else
+			crystal.amt = 1
+	if(pylon)
+		var/obj/structure/slime_crystal/cerulean/C = pylon.resolve()
+		if(C)
+			C.crystals--
+			C.spawn_crystal()
+		else
+			pylon = null
 	return ..()
 
 /obj/structure/slime_crystal/cerulean
 	colour = "cerulean"
+	uses_process = FALSE
+	var/crystals = 0
 
-/obj/structure/slime_crystal/cerulean/process()
+/obj/structure/slime_crystal/cerulean/Initialize()
+	. = ..()
+	while(crystals < 3)
+		spawn_crystal()
+
+/obj/structure/slime_crystal/cerulean/proc/spawn_crystal()
+	if(crystals >= 3)
+		return
 	for(var/turf/T as() in RANGE_TURFS(2,src))
 		if(is_blocked_turf(T) || isspaceturf(T)  || T == get_turf(src) || prob(50))
 			continue
 		var/obj/structure/cerulean_slime_crystal/CSC = locate() in range(1,T)
 		if(CSC)
 			continue
-		new /obj/structure/cerulean_slime_crystal(T)
+		new /obj/structure/cerulean_slime_crystal(T, src)
+		crystals++
+		return
 
 /obj/structure/slime_crystal/pyrite
 	colour = "pyrite"
