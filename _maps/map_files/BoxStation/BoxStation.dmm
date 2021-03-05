@@ -14514,20 +14514,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
-"aNp" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/maintenance/port)
 "aNq" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 5
@@ -17865,17 +17851,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "aXh" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -48988,16 +48968,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"gEe" = (
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
 "gES" = (
 /obj/item/radio/intercom{
 	pixel_x = 28;
@@ -50066,9 +50036,6 @@
 "ifA" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Diner"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor/border_only{
 	dir = 8
@@ -58324,12 +58291,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/medical)
-"soA" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/central)
 "sqB" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -58551,16 +58512,6 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
-"sCF" = (
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
 "sCT" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible,
 /obj/effect/spawner/structure/window/reinforced,
@@ -83712,7 +83663,7 @@ aWu
 aQM
 aWk
 aWk
-aNp
+aWk
 aWk
 tiR
 aWk
@@ -96044,7 +95995,7 @@ dgB
 dgB
 dgB
 aJs
-wbr
+aXf
 aYk
 aZV
 aZV
@@ -96557,8 +96508,8 @@ aJq
 aJq
 aJq
 aJq
-soA
-bBl
+aJq
+aJq
 aJq
 gmW
 aJq
@@ -96814,7 +96765,7 @@ aJq
 aRt
 aJq
 aJq
-bBi
+aJq
 aJq
 aJq
 gmW
@@ -97328,7 +97279,7 @@ aPZ
 aRu
 aQc
 aUf
-gEe
+aQc
 aXi
 aQc
 baa
@@ -97585,7 +97536,7 @@ aPY
 aQc
 aRx
 aQc
-sCF
+aQc
 aPY
 aQc
 aZZ
