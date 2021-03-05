@@ -6209,7 +6209,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/camera/autoname,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "aok" = (
@@ -37183,9 +37182,6 @@
 /obj/structure/sign/departments/minsky/engineering/engineering{
 	pixel_y = -32
 	},
-/obj/machinery/camera/autoname{
-	dir = 1
-	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "cdt" = (
@@ -38064,9 +38060,6 @@
 	dir = 8
 	},
 /obj/structure/closet/emcloset,
-/obj/machinery/camera/autoname{
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cgE" = (
