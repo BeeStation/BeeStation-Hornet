@@ -1,11 +1,3 @@
-//Modified version of get_message_mods, removes the trimming, the only thing we care about here is admin channels
-/mob/dead/observer/get_message_mods(message, list/mods)
-	var/key = message[1]
-	if((key in GLOB.department_radio_prefixes) && length(message) > length(key) + 1 && !mods[RADIO_EXTENSION])
-		mods[RADIO_KEY] = lowertext(message[1 + length(key)])
-		mods[RADIO_EXTENSION] = GLOB.department_radio_keys[mods[RADIO_KEY]]
-	return message
-
 /mob/dead/observer/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 	if (!message)
@@ -17,13 +9,6 @@
 
 	var/list/message_mods = list()
 	message = get_message_mods(message, message_mods)
-	if(client && (message_mods[RADIO_EXTENSION] == MODE_ADMIN || message_mods[RADIO_EXTENSION] == MODE_DEADMIN))
-		message = trim_left(copytext_char(message, length(message_mods[RADIO_KEY]) + 2))
-		if(message_mods[RADIO_EXTENSION] == MODE_ADMIN)
-			client.cmd_admin_say(message)
-		else if(message_mods[RADIO_EXTENSION] == MODE_DEADMIN)
-			client.dsay(message)
-		return
 
 	if(check_emote(message, forced))
 		return

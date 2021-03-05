@@ -101,16 +101,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(!message)
 		return
 
-	if(message_mods[RADIO_EXTENSION] == MODE_ADMIN)
-		if(client)
-			client.cmd_admin_say(message)
-		return
-
-	if(message_mods[RADIO_EXTENSION] == MODE_DEADMIN)
-		if(client)
-			client.dsay(message)
-		return
-
 	if(stat == DEAD)
 		say_dead(original_message)
 		return

@@ -42,8 +42,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 //if your savefile is 3 months out of date, then 'tough shit'.
 
 /datum/preferences/proc/update_preferences(current_version, savefile/S)
-	if(current_version < 29)
-		overhead_chat = TRUE
 	if(current_version < 30)
 		outline_enabled = TRUE
 		outline_color = COLOR_BLUE_GRAY
@@ -166,7 +164,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["ooccolor"], ooccolor)
 	READ_FILE(S["lastchangelog"], lastchangelog)
 	READ_FILE(S["UI_style"], UI_style)
-	READ_FILE(S["overhead_chat"], overhead_chat)
 	READ_FILE(S["outline_color"], outline_color)
 	READ_FILE(S["outline_enabled"], outline_enabled)
 	READ_FILE(S["hotkeys"], hotkeys)
@@ -275,7 +272,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["ooccolor"], ooccolor)
 	WRITE_FILE(S["lastchangelog"], lastchangelog)
 	WRITE_FILE(S["UI_style"], UI_style)
-	WRITE_FILE(S["overhead_chat"], overhead_chat)
 	WRITE_FILE(S["outline_enabled"], outline_enabled)
 	WRITE_FILE(S["outline_color"], outline_color)
 	WRITE_FILE(S["hotkeys"], hotkeys)
