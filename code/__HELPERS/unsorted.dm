@@ -1618,6 +1618,7 @@ config_setting should be one of the following:
 	var/list/message = list()
 	message["query"] = query
 	message["message"] = msg
+	message["message_sender"] = sender
 	message["source"] = "([CONFIG_GET(string/cross_comms_name)])"
 
 	var/list/servers = CONFIG_GET(keyed_list/cross_server)
