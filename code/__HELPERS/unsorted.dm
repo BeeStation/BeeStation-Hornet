@@ -1623,5 +1623,7 @@ config_setting should be one of the following:
 
 	var/list/servers = CONFIG_GET(keyed_list/cross_server)
 	for(var/I in servers)
+		if(!LAZYACCESS(GLOB.topic_servers[I], query))
+			continue
 		message["auth"] = servers[I]
 		world.Export("[I]?[json_encode(message)]")
