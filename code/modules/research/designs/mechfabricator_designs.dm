@@ -878,7 +878,7 @@
 	materials = list(/datum/material/iron = 2000, /datum/material/glass = 1000)
 	construction_time = 100
 	category = list("IPC Components")
-	
+
 //service modules
 
 /datum/design/borg_upgrade_botany

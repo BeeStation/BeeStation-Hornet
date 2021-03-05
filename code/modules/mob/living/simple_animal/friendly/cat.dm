@@ -39,7 +39,7 @@
 
 /mob/living/simple_animal/pet/cat/Initialize()
 	. = ..()
-	verbs += /mob/living/proc/lay_down
+	add_verb(/mob/living/proc/lay_down)
 
 /mob/living/simple_animal/pet/cat/update_mobility()
 	..()
@@ -224,11 +224,11 @@
 			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
 				movement_target = null
 				stop_automated_movement = 0
-			if( !movement_target || !(movement_target.loc in oview(src, 3)) )
+			if(!movement_target || !(src in viewers(3, movement_target.loc)))
 				movement_target = null
 				stop_automated_movement = 0
-				for(var/mob/living/simple_animal/mouse/snack in oview(src,3))
-					if(isturf(snack.loc) && !snack.stat)
+				for(var/mob/living/simple_animal/mouse/snack in oview(3, src))
+					if(!snack.stat)
 						movement_target = snack
 						break
 			if(movement_target)

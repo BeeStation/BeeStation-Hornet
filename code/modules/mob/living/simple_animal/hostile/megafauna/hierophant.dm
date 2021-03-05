@@ -81,6 +81,8 @@ Difficulty: Hard
 	var/list/target_phrases = list("Xevkix psgexih.", "Iriqc jsyrh.", "Eguymvih xevkix.")
 	var/list/stored_nearby = list() // stores people nearby the hierophant when it enters the death animation
 
+	mobchatspan = "hierosay"
+
 /mob/living/simple_animal/hostile/megafauna/hierophant/Initialize()
 	. = ..()
 	spawned_beacon = new(loc)
@@ -362,8 +364,7 @@ Difficulty: Hard
 /proc/hierophant_burst(mob/caster, turf/original, burst_range, spread_speed = 0.5)
 	playsound(original,'sound/machines/airlockopen.ogg', 200, 1)
 	var/last_dist = 0
-	for(var/t in spiral_range_turfs(burst_range, original))
-		var/turf/T = t
+	for(var/turf/T as() in spiral_range_turfs(burst_range, original))
 		if(!T)
 			continue
 		var/dist = get_dist(original, T)
@@ -401,7 +402,7 @@ Difficulty: Hard
 		blinking = TRUE //we do a fancy animation, release a huge burst(), and leave our staff.
 		visible_message("<span class='hierophant'>\"Mrmxmexmrk wipj-hiwxvygx wiuyirgi...\"</span>")
 		visible_message("<span class='hierophant_warning'>[src] shrinks, releasing a massive burst of energy!</span>")
-		for(var/mob/living/L in view(7,src))
+		for(var/mob/living/L in oviewers(7,src))
 			stored_nearby += L // store the people to grant the achievements to once we die
 		hierophant_burst(null, get_turf(src), 10)
 		stat = CONSCIOUS // deathgasp wont run if dead, stupid

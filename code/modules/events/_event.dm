@@ -18,7 +18,7 @@
 	var/holidayID = ""				//string which should be in the SSeventss.holidays list if you wish this event to be holiday-specific
 									//anything with a (non-null) holidayID which does not match holiday, cannot run.
 	var/wizardevent = FALSE
-	var/random = FALSE				//If the event has occured randomly, or if it was forced by an admin or in-game occurance
+	var/random = FALSE				//If the event has occured randomly, or if it was forced by an admin or in-game occurrence
 	var/alert_observers = TRUE		//should we let the ghosts and admins know this event is firing
 									//should be disabled on events that fire a lot
 
@@ -52,6 +52,8 @@
 	if(gamemode_whitelist.len && !(gamemode in gamemode_whitelist))
 		return FALSE
 	if(holidayID && (!SSevents.holidays || !SSevents.holidays[holidayID]))
+		return FALSE
+	if(ispath(typepath, /datum/round_event/ghost_role) && GHOSTROLE_MIDROUND_EVENT)
 		return FALSE
 	return TRUE
 

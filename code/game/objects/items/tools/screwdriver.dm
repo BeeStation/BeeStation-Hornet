@@ -104,36 +104,6 @@
 /obj/item/screwdriver/abductor/get_belt_overlay()
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', "screwdriver_nuke")
 
-/obj/item/screwdriver/power
-	name = "hand drill"
-	desc = "A simple powered hand drill. It's fitted with a screw bit."
-	icon_state = "drill_screw"
-	item_state = "drill"
-	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	materials = list(/datum/material/iron=150,/datum/material/silver=50,/datum/material/titanium=25) //done for balance reasons, making them high value for research, but harder to get
-	force = 8 //might or might not be too high, subject to change
-	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 8
-	throw_speed = 2
-	throw_range = 3//it's heavier than a screw driver/wrench, so it does more damage, but can't be thrown as far
-	attack_verb = list("drilled", "screwed", "jabbed","whacked")
-	hitsound = 'sound/items/drill_hit.ogg'
-	usesound = 'sound/items/drill_use.ogg'
-	toolspeed = 0.7
-	random_color = FALSE
-
-/obj/item/screwdriver/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return(BRUTELOSS)
-
-/obj/item/screwdriver/power/attack_self(mob/user)
-	playsound(get_turf(user),'sound/items/change_drill.ogg',50,1)
-	var/obj/item/wrench/power/b_drill = new /obj/item/wrench/power(drop_location())
-	to_chat(user, "<span class='notice'>You attach the bolt driver bit to [src].</span>")
-	qdel(src)
-	user.put_in_active_hand(b_drill)
-
 /obj/item/screwdriver/cyborg
 	name = "automated screwdriver"
 	desc = "A powerful automated screwdriver, designed to be both precise and quick."

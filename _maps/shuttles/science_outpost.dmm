@@ -73,7 +73,6 @@
 "s" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/auto_name/east,
-/obj/effect/mapping_helpers/apc/discharged,
 /obj/structure/janitorialcart,
 /obj/item/mop,
 /turf/open/floor/mineral/titanium/purple,

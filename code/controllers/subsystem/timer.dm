@@ -34,7 +34,7 @@ SUBSYSTEM_DEF(timer)
 	bucket_resolution = world.tick_lag
 
 /datum/controller/subsystem/timer/stat_entry(msg)
-	..("B:[bucket_count] P:[length(second_queue)] H:[length(hashes)] C:[length(clienttime_timers)] S:[length(timer_id_dict)]")
+	. = ..("B:[bucket_count] P:[length(second_queue)] H:[length(hashes)] C:[length(clienttime_timers)] S:[length(timer_id_dict)]")
 
 /datum/controller/subsystem/timer/fire(resumed = FALSE)
 	var/lit = last_invoke_tick
@@ -516,6 +516,20 @@ SUBSYSTEM_DEF(timer)
 		return TRUE
 	return FALSE
 
+// How long left on a timer
+/proc/timeleft(id)
+	if (!id)
+		return null
+	if (id == TIMER_ID_NULL)
+		CRASH("Tried to get timeleft of a null timerid. Use TIMER_STOPPABLE flag")
+	if (istype(id, /datum/timedevent))
+		var/datum/timedevent/timer = id
+		return timer.timeToRun - world.time
+	//id is string
+	var/datum/timedevent/timer = SStimer.timer_id_dict[id]
+	if (timer && !timer.spent)
+		return timer.timeToRun - world.time
+	return null
 
 #undef BUCKET_LEN
 #undef BUCKET_POS

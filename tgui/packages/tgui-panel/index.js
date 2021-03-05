@@ -21,6 +21,7 @@ import { gameMiddleware, gameReducer } from './game';
 import { setupPanelFocusHacks } from './panelFocus';
 import { pingMiddleware, pingReducer } from './ping';
 import { settingsMiddleware, settingsReducer } from './settings';
+import { statMiddleware, statReducer } from './stat';
 import { telemetryMiddleware } from './telemetry';
 
 perf.mark('inception', window.performance?.timing?.navigationStart);
@@ -33,6 +34,7 @@ const store = configureStore({
     game: gameReducer,
     ping: pingReducer,
     settings: settingsReducer,
+    stat: statReducer,
   }),
   middleware: {
     pre: [
@@ -42,6 +44,7 @@ const store = configureStore({
       settingsMiddleware,
       audioMiddleware,
       gameMiddleware,
+      statMiddleware,
     ],
   },
 });
@@ -94,6 +97,8 @@ const setupApp = () => {
     'size': '0x0',
   });
 
+  based_winset();
+
   // Enable hot module reloading
   if (module.hot) {
     setupHotReloading();
@@ -105,11 +110,19 @@ const setupApp = () => {
       './Panel',
       './ping',
       './settings',
+      './stat',
       './telemetry',
     ], () => {
       renderApp();
     });
   }
+};
+
+const based_winset = async (based_on_what = 'output') => {
+  const winget_output = await Byond.winget(based_on_what);
+  Byond.winset('browseroutput', {
+    'size': winget_output["size"],
+  });
 };
 
 setupApp();

@@ -61,7 +61,7 @@ Bonus
 				M.emote(emote)
 		else
 			if(prob(base_message_chance))
-				to_chat(M, "<span class='notice'>[pick("Your lungs feel great.", "You realize you haven't been breathing.", "You don't feel the need to breathe.", "Something smells rotten", "You feel peckish")]</span>")
+				to_chat(M, "<span class='notice'>[pick("Your lungs feel great.", "You realize you haven't been breathing.", "You don't feel the need to breathe.", "Something smells rotten.", "You feel peckish.")]</span>")
 	return
 
 /datum/symptom/oxygen/on_stage_change(new_stage, datum/disease/advance/A)

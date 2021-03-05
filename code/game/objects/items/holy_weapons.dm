@@ -117,6 +117,7 @@
 /obj/item/storage/box/holy/witchhunter/PopulateContents()
 	new /obj/item/clothing/suit/armor/riot/chaplain/witchhunter(src)
 	new /obj/item/clothing/head/helmet/chaplain/witchunter_hat(src)
+	new /obj/item/clothing/neck/crucifix(src)
 
 /obj/item/clothing/suit/armor/riot/chaplain/witchhunter
 	name = "witchunter garb"
@@ -472,6 +473,9 @@
 
 /obj/item/nullrod/scythe/talking/attack_self(mob/living/user)
 	if(possessed)
+		return
+	if(!(GLOB.ghost_role_flags & GHOSTROLE_STATION_SENTIENCE))
+		to_chat(user, "<span class='notice'>Anomalous otherworldly energies block you from awakening the blade!</span>")
 		return
 
 	to_chat(user, "You attempt to wake the spirit of the blade...")

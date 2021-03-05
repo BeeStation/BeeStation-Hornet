@@ -25,9 +25,7 @@
 
 	var/turf/T = loc
 	if(istype(T))
-		if(islava(T))
-			environment_temperature = 5000
-		else if(T.blocks_air)
+		if(T.blocks_air)
 			environment_temperature = T.return_temperature()
 		else
 			var/turf/open/OT = T

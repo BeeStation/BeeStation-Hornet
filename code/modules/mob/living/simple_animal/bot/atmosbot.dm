@@ -96,7 +96,7 @@
 /mob/living/simple_animal/bot/atmosbot/emag_act(mob/user)
 	. = ..()
 	if(emagged == 2)
-		audible_message("<span class='danger'>[src] ominously whirs....</span>")
+		audible_message("<span class='danger'>[src] whirs ominously.</span>")
 		playsound(src, "sparks", 75, TRUE)
 
 /mob/living/simple_animal/bot/atmosbot/handle_automated_action()
@@ -286,7 +286,7 @@
 	var/dat
 	dat += hack(user)
 	dat += showpai(user)
-	dat += "<tt><b>Atmospheric Stabalizer Controls v1.1</b></tt><br><br>"
+	dat += "<tt><b>Atmospheric Stabilizer Controls v1.1</b></tt><br><br>"
 	dat += "Status: <a href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</a><br>"
 	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<br>"
 	if(!locked || issilicon(user) || IsAdminGhost(user))

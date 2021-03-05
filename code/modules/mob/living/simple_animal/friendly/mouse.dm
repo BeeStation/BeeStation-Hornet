@@ -58,7 +58,7 @@
 	death()
 
 /mob/living/simple_animal/mouse/death(gibbed, toast)
-	var/list/data = list("viruses" = list(ratdisease))
+	var/list/data = list("viruses" = ratdisease)
 	if(!ckey)
 		..(1)
 		if(!gibbed)

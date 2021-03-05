@@ -74,7 +74,7 @@
 
 	if(spamprotection >= max_string_length*1.75 && assembly)
 		if(assembly.fingerprintslast)
-			var/mob/M = get_mob_by_key(assembly.fingerprintslast)
+			var/mob/M = get_mob_by_ckey(assembly.fingerprintslast)
 			var/more = ""
 			if(M)
 				more = "[ADMIN_LOOKUPFLW(M)] "

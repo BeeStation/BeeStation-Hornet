@@ -246,6 +246,11 @@
 	display_name = "sailor outfit"
 	path = /obj/item/clothing/under/costume/sailor
 
+/datum/gear/uniform/misc/swagoutfit
+	display_name = "swag outfit"
+	path = /obj/item/clothing/under/costume/swagoutfit
+	cost = 69000
+
 //RANK SUBTYPE
 
 /datum/gear/uniform/rank
@@ -289,7 +294,7 @@
 
 /datum/gear/uniform/rank/cargo/mining_classic
 	display_name = "miner's overalls, asteroid purple"
-	description = "Purple jumpsuit, dirty overalls. Standard NanoTrasen Shaft Miner attire, from when Lavaland had yet to be discovered and exploited for plasma."
+	description = "Purple jumpsuit, dirty overalls. Standard Nanotrasen Shaft Miner attire, from when Lavaland had yet to be discovered and exploited for plasma."
 	path = /obj/item/clothing/under/rank/cargo/miner
 	allowed_roles = list ("Shaft Miner")
 
@@ -349,6 +354,6 @@
 	cost = 7500
 
 /datum/gear/uniform/rank/security/blart
-	display_name = "security jumpsuit, NanoTrasen mall cop uniform"
+	display_name = "security jumpsuit, Nanotrasen mall cop uniform"
 	path = /obj/item/clothing/under/rank/security/officer/mallcop
 	cost = 7500

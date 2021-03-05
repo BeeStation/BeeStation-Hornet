@@ -29,6 +29,8 @@
 	to_chat(owner, "<B>The Voices will retaliate if you fail to complete your tasks or spend too long away from your target.</B>")
 	to_chat(owner, "<span class='boldannounce'>This role does NOT enable you to otherwise surpass what's deemed creepy behavior per the rules.</span>")//ironic if you know the history of the antag
 	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Obsession",
+		"Stalk [trauma.obsession] and force them into a constant state of paranoia.")
 
 /datum/antagonist/obsessed/Destroy()
 	if(trauma)
@@ -179,6 +181,8 @@
 		chosen_department = "supply"
 	if(oldmind.assigned_role in GLOB.civilian_positions)
 		chosen_department = "civilian"
+	if(oldmind.assigned_role in GLOB.gimmick_positions)
+		chosen_department = "civilian"
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 		if(!H.mind)
 			continue
@@ -198,6 +202,8 @@
 			their_chosen_department = "supply"
 		if(H.mind.assigned_role in GLOB.civilian_positions)
 			their_chosen_department = "civilian"
+		if(H.mind.assigned_role in GLOB.gimmick_positions)
+			chosen_department = "civilian"
 		if(their_chosen_department != chosen_department)
 			continue
 		viable_coworkers += H.mind

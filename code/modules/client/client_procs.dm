@@ -95,6 +95,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(tgui_Topic(href_list))
 		return
 
+	if(href_list["reload_tguipanel"])
+		nuke_chat()
+
 	// Admin PM
 	if(href_list["priv_msg"])
 		cmd_admin_pm(href_list["priv_msg"],null)
@@ -223,7 +226,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		holder.owner = src
 		connecting_admin = TRUE
 	else if(GLOB.deadmins[ckey])
-		verbs += /client/proc/readmin
+		add_verb(/client/proc/readmin)
 		connecting_admin = TRUE
 	if(CONFIG_GET(flag/autoadmin))
 		if(!GLOB.admin_datums[ckey])
@@ -253,7 +256,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	fps = prefs.clientfps
 
 	if(fexists(roundend_report_file()))
-		verbs += /client/proc/show_previous_roundend_report
+		add_verb(/client/proc/show_previous_roundend_report)
 
 	var/full_version = "[byond_version].[byond_build ? byond_build : "xxx"]"
 	log_access("Login: [key_name(src)] from [address ? address : "localhost"]-[computer_id] || BYOND v[full_version]")
@@ -399,7 +402,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	validate_key_in_db()
 
 	fetch_uuid()
-	verbs += /client/proc/show_account_identifier
+	add_verb(/client/proc/show_account_identifier)
 
 	send_resources()
 
@@ -429,27 +432,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
 
-	var/list/topmenus = GLOB.menulist[/datum/verbs/menu]
-	for (var/thing in topmenus)
-		var/datum/verbs/menu/topmenu = thing
-		var/topmenuname = "[topmenu]"
-		if (topmenuname == "[topmenu.type]")
-			var/list/tree = splittext(topmenuname, "/")
-			topmenuname = tree[tree.len]
-		winset(src, "[topmenu.type]", "parent=menu;name=[rustg_url_encode(topmenuname)]")
-		var/list/entries = topmenu.Generate_list(src)
-		for (var/child in entries)
-			winset(src, "[child]", "[entries[child]]")
-			if (!ispath(child, /datum/verbs/menu))
-				var/procpath/verbpath = child
-				if (verbpath.name[1] != "@")
-					new child(src)
-
-	for (var/thing in prefs.menuoptions)
-		var/datum/verbs/menu/menuitem = GLOB.menulist[thing]
-		if (menuitem)
-			menuitem.Load_checked(src)
-
 	view_size = new(src, getScreenSize(mob))
 	view_size.resetFormat()
 	view_size.setZoomMode()
@@ -462,6 +444,12 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			addtimer(CALLBACK(src, .proc/time_to_redirect), (10 SECONDS))
 		else
 			GLOB.ckey_redirects -= ckey
+
+	//Add the default client verbs to the TGUI window
+	add_verb(subtypesof(/client/verb), TRUE)
+
+	//Load the TGUI stat in case of TGUI subsystem not ready (startup)
+	mob.UpdateMobStat(TRUE)
 
 /client/proc/time_to_redirect()
 	var/redirect_address = CONFIG_GET(string/redirect_address)
@@ -916,9 +904,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /client/proc/add_verbs_from_config()
 	if(CONFIG_GET(flag/see_own_notes))
-		verbs += /client/proc/self_notes
+		add_verb(/client/proc/self_notes)
 	if(CONFIG_GET(flag/use_exp_tracking))
-		verbs += /client/proc/self_playtime
+		add_verb(/client/proc/self_playtime)
 
 
 #undef UPLOAD_LIMIT
@@ -1027,7 +1015,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	set category = "OOC"
 	set desc ="Get your ID for account verification."
 
-	verbs -= /client/proc/show_account_identifier
+	remove_verb(/client/proc/show_account_identifier)
 	addtimer(CALLBACK(src, .proc/restore_account_identifier), 20) //Don't DoS DB queries, asshole
 
 	var/confirm = alert("Do NOT share the verification ID in the following popup. Understand?", "Important Warning", "Yes", "Cancel")
@@ -1050,7 +1038,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			onclose(src, "accountidentifier")
 
 /client/proc/restore_account_identifier()
-	verbs += /client/proc/show_account_identifier
+	add_verb(/client/proc/show_account_identifier)
 
 /client/proc/check_upstream_bans()
 	set waitfor = 0
