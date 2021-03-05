@@ -1,6 +1,0 @@
-author: tralezab
-delete-after: true
-changes:
-  - admin: New Adminbus button- Ghost Pool Protection! It lets you enable and disable
-      which sources ghosts can rejoin the round, minus their physical bodies getting
-      revived.

@@ -1,7 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - tweak: Crystalized cerulean pylon only spawns 3 crystals at the time.
-  - tweak: Each crystal takes twice as long to grow than before.
-  - tweak: Each crystal only drops poly-crystal upon reaching state 4 (only 1 amt)
-      or 5 (randomly chosen between 1 ~ 3 amt).
