@@ -66,6 +66,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		max_chat_length = 110		//same as CHAT_MESSAGE_MAX_LENGTH
 		see_chat_non_mob = TRUE
 		see_rc_emotes = TRUE
+		S.dir.Remove("overhead_chat")
 	return
 
 /datum/preferences/proc/update_character(current_version, savefile/S)
