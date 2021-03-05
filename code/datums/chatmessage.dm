@@ -9,7 +9,7 @@
 /// Factor of how much height will account to exponential decay
 #define CHAT_MESSAGE_HEIGHT_DECAY	0.9
 /// Approximate height in pixels of an 'average' line, used for height decay
-#define CHAT_MESSAGE_APPROX_LHEIGHT	11
+#define CHAT_MESSAGE_APPROX_LHEIGHT	10
 /// Max width of chat message in pixels
 #define CHAT_MESSAGE_WIDTH			128
 /// Max length of chat message in characters
@@ -19,7 +19,7 @@
 /// The number of z-layer 'slices' usable by the chat message layering
 #define CHAT_LAYER_MAX_Z			(CHAT_LAYER_MAX - CHAT_LAYER) / CHAT_LAYER_Z_STEP
 /// The dimensions of the chat message icons
-#define CHAT_MESSAGE_ICON_SIZE		
+#define CHAT_MESSAGE_ICON_SIZE
 /// Macro from Lummox used to get height from a MeasureText proc
 #define WXH_TO_HEIGHT(x)			text2num(copytext(x, findtextEx(x, "x") + 1))
 
@@ -260,15 +260,10 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	spans = spans ? spans.Copy() : list()
 
 	// Check for virtual speakers (aka hearing a message through a radio)
-	var/atom/movable/originalSpeaker = speaker
 	if (istype(speaker, /atom/movable/virtualspeaker))
 		var/atom/movable/virtualspeaker/v = speaker
 		speaker = v.source
 		spans |= "virtual-speaker"
-
-	// Ignore virtual speaker (most often radio messages) from ourself
-	if (originalSpeaker != src && speaker == src)
-		return
 
 	// Display visual above source
 	if(runechat_flags & EMOTE_MESSAGE)
