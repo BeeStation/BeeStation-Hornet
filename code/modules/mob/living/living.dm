@@ -1410,7 +1410,7 @@
 /mob/living/proc/give_mind(mob/user)
 	if(key || !playable || stat)
 		return 0
-	var/question = alert("Control [name]?", "[name]", "Yes", "No")
+	var/question = alert("Do you want to play as [name]?", "[name]", "Yes", "No")
 	if(question == "No" || !src || QDELETED(src))
 		return TRUE
 	if(key)
@@ -1420,7 +1420,7 @@
 	log_game("[key_name(src)] took control of [name].")
 	return TRUE
 			
-/mob/living/proc/set_playable(mob/user)
+/mob/living/proc/set_playable()
 	playable = TRUE
 	if (!key)	//check if there is nobody already inhibiting this mob
 		notify_ghosts("[name] can be controlled", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = name)
