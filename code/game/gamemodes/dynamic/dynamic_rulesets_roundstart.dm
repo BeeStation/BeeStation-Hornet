@@ -536,13 +536,14 @@
 	required_candidates = 1
 	weight = 3
 	cost = 0
+	flags = LONE_RULESET
 	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	antag_cap = list(1,1,1,2,2,2,3,3,3,4)
 
-/datum/dynamic_ruleset/roundstart/devil/pre_execute()
-	var/num_devils = antag_cap[indice_pop]
-	mode.antags_rolled += num_devils
-
+/datum/dynamic_ruleset/roundstart/traitor/pre_execute(population)
+	. = ..()
+	var/num_devils = get_antag_cap(population) * (scaled_times + 1)
+	
 	for(var/j = 0, j < num_devils, j++)
 		if (!candidates.len)
 			break
@@ -595,9 +596,9 @@
 	var/escaped_monkeys = 0
 	var/datum/team/monkey/monkey_team
 
-/datum/dynamic_ruleset/roundstart/monkey/pre_execute()
-	var/carriers_to_make = max(round(mode.roundstart_pop_ready / players_per_carrier, 1), 1)
-	mode.antags_rolled += carriers_to_make
+/datum/dynamic_ruleset/roundstart/traitor/pre_execute(population)
+	. = ..()
+	var/carriers_to_make = get_antag_cap(population) * (scaled_times + 1)
 
 	for(var/j = 0, j < carriers_to_make, j++)
 		if (!candidates.len)
