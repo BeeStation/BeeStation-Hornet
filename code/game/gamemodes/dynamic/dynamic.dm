@@ -349,7 +349,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		generate_threat()
 	generate_budgets()
 	set_cooldowns()
-	log_game("DYNAMIC: Dynamic Mode initialized with a Threat Level of... [threat_level]! ([round_start_budget] round start budget)")
+	dynamic_log("Dynamic Mode initialized with a Threat Level of... [threat_level]! ([round_start_budget] round start budget)")
 	return TRUE
 
 /datum/game_mode/dynamic/proc/set_cooldowns()
