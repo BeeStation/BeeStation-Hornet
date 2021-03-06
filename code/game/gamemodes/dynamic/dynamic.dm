@@ -598,8 +598,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		if(EMERGENCY_ESCAPED_OR_ENDGAMED) // Unless the shuttle is gone
 			return
 
-		message_admins("DYNAMIC: Checking for midround injection.")
-		log_game("DYNAMIC: Checking for midround injection.")
+		dynamic_log("Checking for midround injection.")
 
 		last_midround_injection_attempt = world.time
 
