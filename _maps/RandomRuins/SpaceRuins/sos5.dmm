@@ -62,7 +62,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
 "m" = (
-/obj/item/gps {
+/obj/item/gps{
 	gpstag = "SOS"
 	},
 /turf/open/floor/mineral/titanium/white,
