@@ -247,8 +247,6 @@
 	. = ..()
 	if(!proximity)
 		return
-	if(!isitem(I))		//Check if it is an actual item
-		return
 	if(contents.len)
 		to_chat(user, "<span class='notice'>[src] already has something inside it.</span>")
 		return
