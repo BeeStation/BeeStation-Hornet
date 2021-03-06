@@ -78,8 +78,7 @@
 			only_ruleset_executed = TRUE
 		if(rule.ruletype == "Latejoin")
 			var/mob/M = pick(rule.candidates)
-			message_admins("[key_name(M)] joined the station, and was selected by the [rule.name] ruleset.")
-			log_game("DYNAMIC: [key_name(M)] joined the station, and was selected by the [rule.name] ruleset.")
+			dynamic_log("[key_name(M)] joined the station, and was selected by the [rule.name] ruleset.")
 		executed_rules += rule
 		rule.candidates.Cut()
 		if (rule.persistent)
