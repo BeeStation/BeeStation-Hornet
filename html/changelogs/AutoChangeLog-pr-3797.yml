@@ -1,0 +1,30 @@
+author: TheChosenEvilOne, Rohesie, IndieanaJones, Mothblocks, Qustinnus
+delete-after: true
+changes:
+  - rscdel: Removed high population override from dynamic.
+  - bugfix: Fixed abductors being listed at round end on Dynamic despite none existing
+  - bugfix: Dynamic abductors should no longer be split up between two different ships.
+  - bugfix: Dynamic can now be configured when made the forced secret mode.
+  - tweak: dynamic threat reports are no longer perfectly accurate, they diverge and
+      are sometimes downright wrong.
+  - rscadd: Dynamic now rolls a separate budget for round start and midround antagonists,
+      meaning less round start antags will roll in favor of more midround ones.
+  - admin: The antag_cap value now uses an equation that scales with population, rather
+      than a fixed array.
+  - admin: autotraitor_cooldown now uses deciseconds rather than ticks, so the older
+      value of 450 now means 45 seconds. Set it to be 9000 if you want it to be accurate
+      to the old value (15 minutes), or simply unset it.
+  - admin: Midround/latejoin dynamic timers are now configurable.
+  - admin: Syndicate Sleeper Agent will now give details when ti fails.
+  - bugfix: The autotraitor cooldown now respects configuration, rather than resetting
+      back to 15 minutes after it is rolled.
+  - bugfix: Fixed dynamic parameters not checking the configuration. This means that
+      Manuel will now have slower midrounds, as was intended.
+  - rscadd: you can now cast rituals on dynamic if the threat level is 100
+  - bugfix: Fixed multiple high impact rulesets being chosen on Dynamic.
+  - bugfix: Midround dynamic injection no longer has a 100% chance of activating.
+  - rscadd: Dynamic will now play a part in controlling random event antagonists.
+      If a dynamic midround injection is coming too soon, or too early, then the next
+      midround injection will be buffed. Otherwise, it'll spawn normally.
+  - admin: Admins can now cancel or replace midround rulesets.
+  - bugfix: Admins can now correctly force midround rulesets.
