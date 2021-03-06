@@ -7,8 +7,8 @@
 	"typescript.tsdk": "./tgui/.yarn/sdks/typescript/lib",
 	"typescript.enablePromptUseWorkspaceTsdk": true,
 	"search.exclude": {
-		"tgui/.yarn": true,
-		"tgui/.pnp.*": true
+		"**/.yarn": true,
+		"**/.pnp.*": true
 	},
 	"workbench.editorAssociations": [
 		{
