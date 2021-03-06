@@ -75,7 +75,7 @@ SUBSYSTEM_DEF(mapping)
 
 	//Create z-levels for BSE
 	for(var/i in 1 to CONFIG_GET(number/bluespace_exploration_levels))
-		SSbluespace_exploration.bluespace_systems[SSmapping.add_new_zlevel("Bluespace Exploration Level [i]", ZTRAITS_BLUESPACE_EXPLORATION)] = BS_LEVEL_IDLE
+		SSbluespace_exploration.bluespace_systems[add_new_zlevel("Bluespace Exploration Level [i]", ZTRAITS_BLUESPACE_EXPLORATION)] = BS_LEVEL_IDLE
 
 	// Pick a random away mission.
 	if(CONFIG_GET(flag/roundstart_away))
