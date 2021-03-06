@@ -596,7 +596,7 @@
 	var/escaped_monkeys = 0
 	var/datum/team/monkey/monkey_team
 
-/datum/dynamic_ruleset/roundstart/traitor/pre_execute(population)
+/datum/dynamic_ruleset/roundstart/monkey/pre_execute(population)
 	. = ..()
 	var/carriers_to_make = get_antag_cap(population) * (scaled_times + 1)
 
