@@ -8,7 +8,6 @@
 	minimum_required = 1
 	role_name = "friendly zombie"
 	var/spawns = 3
-	var/one = "one"
 	fakeable = TRUE
 
 /datum/round_event/ghost_role/undead/announce(fake)
