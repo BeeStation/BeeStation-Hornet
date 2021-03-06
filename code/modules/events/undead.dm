@@ -26,19 +26,23 @@
 	var/list/dead_bodies = list()
 	
 	//Search for living human bodies
+	message_admins("Searching [GLOB.dead_mob_list.len] bodies.")
 	for(var/mob/living/carbon/human/body in GLOB.dead_mob_list) //look for any dead bodies
-		if (istype(body) && body.getBruteLoss() + body.getFireLoss() < 300 && body.getorgan(/obj/item/organ/heart) && body.getorgan(/obj/item/organ/brain) && !body.get_ghost())
+	
+		if (istype(body) && body.getBruteLoss() + body.getFireLoss() < 300 && body.getorgan(/obj/item/organ/heart) && body.getorgan(/obj/item/organ/brain) && !body.get_ghost(FALSE))
 			var/turf/T = get_turf(body)
 			//check if they are on the station level
 			if(T && is_station_level(T.z))
-				//check if they fit the conditions
-				LAZYADD(body,dead_bodies)				
+				//check if they fit the conditions	
+				message_admins("Found valid body.")
+				LAZYADD(dead_bodies,body)			
 	
+	message_admins("Found [dead_bodies.len] bodies for event.")
 	if(!dead_bodies.len)
 		return WAITING_FOR_SOMETHING
 
 	//Coprses have been found, start giving them life
-	var/revived_zeds = min(spawns,candidates.len,dead_bodies.len)+1
+	var/revived_zeds = min(spawns,candidates.len,dead_bodies.len)
 	while(revived_zeds > 0)
 		var/mob/living/carbon/human/zombie = popleft(dead_bodies)
 		//var/mob/dead/observer/ghost = pick_n_take(dead_bodies)
