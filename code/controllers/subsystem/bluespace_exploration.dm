@@ -71,7 +71,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/current_part = FIRE_UPDATE_SHIPS
 
 	//eh
-	var/list/ignored_atoms = list(/mob/dead, /mob/camera, /mob/dview, /atom/movable/lighting_object)
+	var/list/ignored_atoms = list(null, /mob/dead, /mob/camera, /mob/dview, /atom/movable/lighting_object)
 
 /datum/controller/subsystem/bluespace_exploration/New()
 	. = ..()
@@ -267,7 +267,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	for(var/turf/T as() in turfs)
 		SSair.remove_from_active(T)
 		// Remove all atoms except abstract mobs
-		var/list/allowed_contents = typecache_filter_list_reverse(T.contents, ignored_atoms)
+		var/list/allowed_contents = T.GetAllContentsIgnoring(ignored_atoms)
 		allowed_contents -= T
 		for(var/i in 1 to allowed_contents.len)
 			var/thing = allowed_contents[i]
