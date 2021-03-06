@@ -3043,6 +3043,7 @@
 #include "code\modules\shuttle\shuttle_weapons\weapons_mapping.dm"
 #include "code\modules\shuttle\shuttle_weapons\weapons\laser.dm"
 #include "code\modules\shuttle\shuttle_weapons\weapons\missile.dm"
+#include "code\modules\shuttle\shuttle_weapons\weapons\projectile.dm"
 #include "code\modules\spells\spell.dm"
 #include "code\modules\spells\spell_types\aimed.dm"
 #include "code\modules\spells\spell_types\area_teleport.dm"

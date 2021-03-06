@@ -2,7 +2,6 @@
 
 /obj/machinery/shuttle_weapon/missile
 	name = "Centaur I Missile Launcher"
-	icon_state = "missile_left"
 	projectile_type = /obj/item/projectile/bullet/shuttle/missile/mini
 	cooldown = 180
 	innaccuracy = 1

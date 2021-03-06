@@ -15,6 +15,7 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 	var/flight_time = 10
 
 	var/shots = 1
+	var/simultaneous_shots = 1
 	var/shot_time = 2
 	var/cooldown = 150
 
@@ -86,12 +87,13 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 		if(prob(miss_chance))
 			missed = TRUE
 	playsound(loc, fire_sound, 75, 1)
-	//Spawn the projectile to make it look like its firing from your end
-	var/obj/item/projectile/bullet/shuttle/P = new projectile_type(get_offset_target_turf(get_turf(src), offset_turf_x, offset_turf_y))
-	//Outgoing shots shouldn't hit our own ship because its easier
-	P.force_miss = TRUE
-	P.fire(dir2angle(dir))
-	addtimer(CALLBACK(src, .proc/spawn_incoming_fire, P, current_target_turf, missed), flight_time)
+	for(var/i in 1 to simultaneous_shots)
+		//Spawn the projectile to make it look like its firing from your end
+		var/obj/item/projectile/bullet/shuttle/P = new projectile_type(get_offset_target_turf(get_turf(src), offset_turf_x, offset_turf_y))
+		//Outgoing shots shouldn't hit our own ship because its easier
+		P.force_miss = TRUE
+		P.fire(dir2angle(dir))
+		addtimer(CALLBACK(src, .proc/spawn_incoming_fire, P, current_target_turf, missed), flight_time)
 	//Multishot cannons
 	if(shots_left > 1)
 		addtimer(CALLBACK(src, .proc/fire, target, shots_left - 1, TRUE), shot_time)

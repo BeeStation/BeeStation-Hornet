@@ -367,6 +367,33 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
 	export_price = 5000
 
+/datum/techweb_node/shuttle_ballistics
+	id = "shuttle_ballistics"
+	display_name = "Shuttle Mounted Ballistics"
+	description = "Research into simple, yet effective ballistic weapons for shuttles."
+	prereq_ids = list("shuttle_weapons")
+	design_ids = list("shuttle_point_defense", "shuttle_scatter_shot")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 5000
+
+/datum/techweb_node/shuttle_better_ballistics
+	id = "shuttle_ballistics_better"
+	display_name = "Upgraded Shuttle Mounted Ballistics"
+	description = "Research into slightly less simple, yet even more effective ballistic weapons for shuttles."
+	prereq_ids = list("shuttle_ballistics", "adv_weaponry")
+	design_ids = list("shuttle_point_defense_upgraded")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 5000
+
+/datum/techweb_node/shuttle_magnetics
+	id = "shuttle_magnetics"
+	display_name = "Shuttle Mounted Railguns"
+	description = "Combines the power of electromagnetism with the destructive power of iron, creating shuttle-mounted weapons capable of tearing through ships."
+	prereq_ids = list("shuttle_ballistics_better", "emp_super")
+	design_ids = list("shuttle_railgun", "shuttle_railgun_crew")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	export_price = 5000
+
 /////////////////////////robotics tech/////////////////////////
 /datum/techweb_node/robotics
 	id = "robotics"

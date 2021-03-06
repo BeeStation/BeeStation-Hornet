@@ -475,3 +475,38 @@
 	id = "shuttle_fire_missile"
 	materials = list(/datum/material/iron = 40000, /datum/material/gold = 10000, /datum/material/uranium = 5000)
 	build_path = /obj/item/wallframe/shuttle_weapon/missile/fire
+
+/datum/design/shuttle_weapon/point_defense_one
+	name = "Hades MKI Chaincannon Mount"
+	desc=  "A wall mounted automatic chain channon with limited capability to destroy hull, but extremely powerful at taking down crews and machinery. Designed for use on shuttles."
+	id = "shuttle_point_defense"
+	materials = list(/datum/material/iron = 30000, /datum/material/glass = 10000)
+	build_path = /obj/item/wallframe/shuttle_weapon/point_defense
+
+/datum/design/shuttle_weapon/point_defense_two
+	name = "Hades MKII Chaincannon Mount"
+	desc=  "An upgraded version of the MKI Hades. While less accurate and slower to reload, it has a larger volley size. Designed for use on shuttles."
+	id = "shuttle_point_defense_upgraded"
+	materials = list(/datum/material/iron = 50000, /datum/material/glass = 15000, /datum/material/gold = 5000)
+	build_path = /obj/item/wallframe/shuttle_weapon/point_defense/upgraded
+
+/datum/design/shuttle_weapon/scatter_shot
+	name = "Ares Scattershot Mount"
+	desc=  "A powerful flak cannon that fires 8 projectiles at once. Designed for use on shuttles."
+	id = "shuttle_scatter_shot"
+	materials = list(/datum/material/iron = 80000, /datum/material/glass = 5000)
+	build_path = /obj/item/wallframe/shuttle_weapon/scatter
+
+/datum/design/shuttle_weapon/railgun
+	name = "Zeus MKI Railgun Mount"
+	desc=  "A kinetic weapon capable of cutting through an entire ship in a single shot. Designed for use on shuttles."
+	id = "shuttle_railgun"
+	materials = list(/datum/material/iron = 60000, /datum/material/glass = 20000, /datum/material/copper = 10000, /datum/material/diamond = 5000)
+	build_path = /obj/item/wallframe/shuttle_weapon/railgun
+
+/datum/design/shuttle_weapon/railgun_crew
+	name = "Zeus MKII Anti-Personnel Railgun Mount"
+	desc=  "A kinetic weapon that fired uranium coated magnetic rounds. Tears aparts ships and crews, however has a longer reload time and a lower accuracy. Designed for use on shuttles."
+	id = "shuttle_railgun_crew"
+	materials = list(/datum/material/iron = 60000, /datum/material/glass = 20000, /datum/material/copper = 10000, /datum/material/diamond = 5000, /datum/material/uranium = 5000)
+	build_path = /obj/item/wallframe/shuttle_weapon/railgun/anti_crew
