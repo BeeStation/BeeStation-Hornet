@@ -327,10 +327,9 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		if(istype(T, /turf/open/space))
 			newT = T
 		else
-			newT = T.ChangeTurf(/turf/open/space)
+			newT = T.ChangeTurf(/turf/open/space/basic)
 		if(!istype(newT.loc, /area/space))
 			var/area/newA = GLOB.areas_by_type[/area/space]
-			newT.loc.contents -= newT
 			newA.contents += newT
 			newT.change_area(newT.loc, newA)
 		newT.flags_1 -= NO_RUINS_1
