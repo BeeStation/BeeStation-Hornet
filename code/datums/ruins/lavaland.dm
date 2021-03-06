@@ -88,11 +88,13 @@
 	description = "When you get what they have, then you'll finally be happy."
 	suffix = "lavaland_surface_envy.dmm"
 
+/*
 /datum/map_template/ruin/lavaland/sin/gluttony
 	name = "Ruin of Gluttony"
 	id = "gluttony"
 	description = "If you eat enough, then eating will be all that you do."
 	suffix = "lavaland_surface_gluttony.dmm"
+*/
 
 /datum/map_template/ruin/lavaland/sin/greed
 	name = "Ruin of Greed"
@@ -222,7 +224,7 @@
 	description = "Mystery to be solved."
 	suffix = "lavaland_surface_puzzle.dmm"
 	cost = 5
-  
+
 /datum/map_template/ruin/lavaland/elite_tumor
 	name = "Pulsating Tumor"
 	id = "tumor"
