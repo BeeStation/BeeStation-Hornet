@@ -221,8 +221,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		if (!added_rule)
 			return
 		forced_latejoin_rule = added_rule
-		log_admin("[key_name(usr)] set [added_rule] to proc on the next latejoin.")
-		message_admins("[key_name(usr)] set [added_rule] to proc on the next latejoin.")
+		dynamic_log("[key_name(usr)] set [added_rule] to proc on the next latejoin.")
 	else if(href_list["clear_forced_latejoin"])
 		forced_latejoin_rule = null
 		log_admin("[key_name(usr)] cleared the forced latejoin ruleset.")
