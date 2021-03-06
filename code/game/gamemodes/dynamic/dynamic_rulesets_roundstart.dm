@@ -538,7 +538,7 @@
 	cost = 0
 	flags = LONE_RULESET
 	requirements = list(101,101,101,101,101,101,101,101,101,101)
-	antag_cap = list(1,1,1,2,2,2,3,3,3,4)
+	antag_cap = list("denominator" = 30)
 
 /datum/dynamic_ruleset/roundstart/devil/pre_execute(population)
 	. = ..()
