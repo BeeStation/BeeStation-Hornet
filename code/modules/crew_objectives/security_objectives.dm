@@ -25,6 +25,8 @@
 
 /datum/objective/crew/nomanleftbehind/check_completion()
 	for(var/mob/living/carbon/M in GLOB.alive_mob_list)
+		if(!M.mind)
+			continue
 		if(!(M.mind.assigned_role in GLOB.security_positions) && istype(get_area(M), /area/security/prison)) //there's no list of incarcerated players, so we just assume any non-security people in prison are prisoners, and assume that any security people aren't prisoners
 			return FALSE
 	return TRUE

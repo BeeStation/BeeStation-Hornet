@@ -163,7 +163,7 @@ RLD
 	return .
 
 /obj/item/construction/proc/range_check(atom/A, mob/user)
-	if(!(A in view(7, get_turf(user))))
+	if(!(user in viewers(7, get_turf(A))))
 		to_chat(user, "<span class='warning'>The \'Out of Range\' light on [src] blinks red.</span>")
 		return FALSE
 	else

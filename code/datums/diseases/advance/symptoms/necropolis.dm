@@ -77,7 +77,7 @@
 			LAZYCLEARLIST(cached_tentacle_turfs)
 			last_location = loc
 			tentacle_recheck_cooldown = world.time + initial(tentacle_recheck_cooldown)
-			for(var/turf/open/T in orange(2, loc))
+			for(var/turf/open/T in (RANGE_TURFS(2, loc)-loc))
 				LAZYADD(cached_tentacle_turfs, T)
 		for(var/t in cached_tentacle_turfs)
 			if(isopenturf(t))
@@ -112,15 +112,17 @@
 		M.visible_message("<span class='danger'>An unearthly roar shakes the ground as [M] explodes into a shower of gore, leaving behind an ominous, fleshy chest.</span>")
 		playsound(M.loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, 1, 1)
 		M.hellbound = TRUE
-		M.gib()
 		if(ishuman(M)) //We don't NEED them to be human. However, I want to avoid people making teratoma-farms for necrochests
 			var/mob/living/carbon/human/H = M
 			var/S = H.dna.species
 			if(istype(S, /datum/species/golem) || istype(S, /datum/species/jelly)) //nope. sorry, xenobio.
+				M.gib()
 				return
 		else
+			M.gib()
 			return
 		new /obj/structure/closet/crate/necropolis/tendril(M.loc)
+		M.gib()
 
 /obj/effect/temp_visual/goliath_tentacle/necro
 	name = "fledgling necropolis tendril"

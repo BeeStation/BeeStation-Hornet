@@ -15,7 +15,7 @@
 		return
 	var/datum/nanite_extra_setting/program = extra_settings[NES_PROGRAM_OVERWRITE]
 	var/datum/nanite_extra_setting/cloud = extra_settings[NES_CLOUD_OVERWRITE]
-	for(var/mob/M in orange(host_mob, 5))
+	for(var/mob/M in orange(5, host_mob))
 		if(SEND_SIGNAL(M, COMSIG_NANITE_IS_STEALTHY))
 			continue
 		switch(program.get_value())
@@ -238,7 +238,7 @@
 		return
 	spread_cooldown = world.time + 50
 	var/list/mob/living/target_hosts = list()
-	for(var/mob/living/L in oview(5, host_mob))
+	for(var/mob/living/L in ohearers(5, host_mob))
 		if(!prob(25))
 			continue
 		if(!(MOB_ORGANIC in L.mob_biotypes) && !(MOB_UNDEAD in L.mob_biotypes))

@@ -60,6 +60,10 @@
 
 /datum/mood_event/dirty
 	description = "<span class='warning'>I smell horrid.</span>\n"
+	mood_change = -3
+
+/datum/mood_event/disgusting
+	description = "<span class='warning'>I smell <i>DISGUSTING!</i></span>\n"
 	mood_change = -5
 
 /datum/mood_event/happy_neet
