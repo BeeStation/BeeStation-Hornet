@@ -1,0 +1,4 @@
+author: KagiyamaWeb
+delete-after: true
+changes:
+  - rscadd: INCORPOREAL_MOVE_EMINENCE to mob_movement.dm, eminence.dm and __DEFINES/mobs.dm
