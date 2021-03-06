@@ -31,7 +31,7 @@
 	oxy_damage = 75
 	},
 /obj/item/storage/pod{
-	 pixel_y = -30 
+	pixel_y = -30
 	},
 /mob/living/simple_animal/hostile/blob/blobspore,
 /turf/open/floor/mineral/titanium/blue,

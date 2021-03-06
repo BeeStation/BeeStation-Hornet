@@ -39,7 +39,7 @@
 	},
  /obj/item/storage/secure/briefcase/syndie,
  /obj/item/storage/pod{
-	 pixel_y = -30 
+	pixel_y = -30
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/unpowered)

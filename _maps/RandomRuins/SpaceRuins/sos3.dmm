@@ -15,13 +15,13 @@
 /area/ruin/unpowered)
 "e" = (
 /obj/item/gps{
-	 gpstag = "SOS" 
+	gpstag = "SOS"
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /obj/item/storage/pod{
-	 pixel_y = -30 
+	pixel_y = -30
 	},
 /turf/open/floor/mineral/bananium/airless,
 /area/ruin/unpowered)
