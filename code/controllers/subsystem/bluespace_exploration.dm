@@ -253,6 +253,9 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		if((CLEAR_TURF_PROCESSING_TIME*0.5) to (CLEAR_TURF_PROCESSING_TIME-1))
 			clear_turf_atoms(divided_turfs[list_element])
 		else
+			//Finalize area
+			var/area/spaceA = GLOB.areas_by_type[/area/space]
+			spaceA.reg_in_areas_in_z()
 			var/datum/data_holder/bluespace_exploration/data = data_holder
 			if(data.spawn_ruins)
 				addtimer(CALLBACK(src, .proc/place_ruins, data_holder), 0)
@@ -327,6 +330,8 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			newT = T.ChangeTurf(/turf/open/space)
 		if(!istype(newT.loc, /area/space))
 			var/area/newA = GLOB.areas_by_type[/area/space]
+			newT.loc.contents -= newT
+			newA.contents += newT
 			newT.change_area(newT.loc, newA)
 		newT.flags_1 -= NO_RUINS_1
 		new_turfs += newT

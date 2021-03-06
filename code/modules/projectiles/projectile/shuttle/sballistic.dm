@@ -17,7 +17,6 @@
 	icon_state = "guassstrong"
 	name = "guass round"
 	damage = 50
-	speed = 0.3
 	movement_type = FLYING | UNSTOPPABLE
 	armour_penetration = 40
 
