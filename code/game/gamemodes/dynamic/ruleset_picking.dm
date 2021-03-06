@@ -95,8 +95,7 @@
 		to_chat(user, "<span class='notice'>Too late!</span>")
 		return
 
-	log_admin("[key_name(user)] cancelled the next midround injection.")
-	message_admins("[key_name(user)] cancelled the next midround injection.")
+	dynamic_log("[key_name(user)] cancelled the next midround injection.")
 	midround_injection_timer_id = null
 	current_midround_rulesets = null
 
