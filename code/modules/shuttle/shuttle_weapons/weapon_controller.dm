@@ -63,6 +63,8 @@
 	return ..()
 
 /obj/machinery/computer/weapons/ui_interact(mob/user, datum/tgui/ui = null)
+	if(..())
+		return
 	if(!CONFIG_GET(flag/bluespace_exploration_weapons))
 		//Boring!
 		to_chat(user, "<span class='warning'>Nanotrasen have restricted the use of shuttle based weaponry in this sector. Sorry for the inconvinience.</span>")

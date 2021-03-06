@@ -88,6 +88,8 @@
 	return data
 
 /obj/machinery/computer/system_map/ui_act(action, params)
+	if(..())
+		return
 	var/obj/docking_port/mobile/linkedShuttle = SSshuttle.getShuttle(shuttle_id)
 	if(!linkedShuttle || linkedShuttle.mode != SHUTTLE_IDLE)
 		say("Jump already in progress.")
@@ -175,6 +177,8 @@
 
 /obj/machinery/computer/system_map/proc/handle_space_jump(star)
 	say("Calculating hyperlane jump, please stand back from the doors...")
+	if(LAZYLEN(SSbluespace_exploration.ship_traffic_queue))
+		say("Waiting for space traffic control clearance, estimated time of departure: [LAZYLEN(SSbluespace_exploration.ship_traffic_queue) * 90] seconds.")
 	SSbluespace_exploration.request_ship_transit_to(shuttle_id, star)
 
 /obj/machinery/computer/system_map/proc/calculate_distance_to_stationary_port(obj/docking_port/stationary/S)

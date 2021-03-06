@@ -4,13 +4,21 @@
 #define FIRE_START_CLEARING 2
 #define FIRE_CONTINUE_CLEARING 3
 
+//#define BLUESPACE_EXPLORATION_DEBUGGING
+
+#ifdef BLUESPACE_EXPLORATION_DEBUGGING
+#define BLUESPACE_EXPLORATION_DEBUG_MESSAGE(text) message_admins(text)
+#else
+#define BLUESPACE_EXPLORATION_DEBUG_MESSAGE(text)
+#endif
+
 SUBSYSTEM_DEF(bluespace_exploration)
 	name = "Bluespace Exploration"
 	wait = 1
 	priority = FIRE_PRIORITY_EXPLORATION
 	init_order = INIT_ORDER_BS_EXPLORATION
 
-	var/generating = FALSE
+	var/generating = 0	//Time generation will finish.
 	var/generating_level
 
 	//Which systems are ours?
@@ -63,7 +71,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/current_part = FIRE_UPDATE_SHIPS
 
 	//eh
-	var/list/ignored_atoms = list(/mob/dead, /mob/camera, /mob/dview)
+	var/list/ignored_atoms = list(/mob/dead, /mob/camera, /mob/dview, /atom/movable/lighting_object)
 
 /datum/controller/subsystem/bluespace_exploration/New()
 	. = ..()
@@ -139,10 +147,11 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		extra_data = new /datum/data_holder/bluespace_exploration
 	extra_data.shuttle_id = shuttle_id
 	ship_traffic_queue[shuttle_id] = extra_data
+	BLUESPACE_EXPLORATION_DEBUG_MESSAGE("Ship transit requested, [shuttle_id] added to warp queue.")
 
 //Starts the next ship in the queue for warping
 /datum/controller/subsystem/bluespace_exploration/proc/initiate_queued_warp()
-	if(generating)
+	if(generating > world.time)
 		return
 	if(!LAZYLEN(ship_traffic_queue))
 		return
@@ -207,12 +216,12 @@ SUBSYSTEM_DEF(bluespace_exploration)
 /datum/controller/subsystem/bluespace_exploration/proc/wipe_z_level(z_level, datum/data_holder/bluespace_exploration/data_holder)
 	wiping_z_level = TRUE
 	z_level_queue.Remove("[z_level]")
-	var/list/turfs = get_area_turfs(/area, z_level, TRUE)
+	var/list/turfs = block(locate(1, 1, z_level), locate(world.maxx, world.maxy, z_level))
 	var/list/divided_turfs = list()
 	var/section_process_time = CLEAR_TURF_PROCESSING_TIME * 0.5 //There are 3 processes, cleaing atoms, cleaing turfs and then reseting atmos
 
 	//Divide the turfs into groups
-	var/group_size = FLOOR((turfs.len / section_process_time) + 0.9999, 1)
+	var/group_size = CEILING(turfs.len / section_process_time, 1)
 	var/list/current_group = list()
 	for(var/i in 1 to turfs.len)
 		var/turf/T = turfs[i]
@@ -450,7 +459,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		if(level.z_value == data_holder.z_value)
 			bluespace_systems[level] = BS_LEVEL_USED
 			break
-	generating = FALSE
+	generating = world.time + shuttle.ignitionTime + 10
 	generating_level = -1
 
 /datum/controller/subsystem/bluespace_exploration/proc/generate_z_level(datum/data_holder/bluespace_exploration/data_holder)
@@ -461,7 +470,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/obj/docking_port/mobile/shuttle = SSshuttle.getShuttle(shuttle_id)
 	if(!shuttle || generating)
 		return FALSE
-	generating = TRUE
+	generating = INFINITY
 	if(away_mission_port?.get_docked())
 		away_mission_port.delete_after = TRUE
 		away_mission_port.id = null
@@ -497,6 +506,8 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			bluespace_systems[level] = BS_LEVEL_GENERATING
 		else if(level.z_value in levels_in_use)
 			bluespace_systems[level] = BS_LEVEL_USED
+		else if(z_level_queue["[level.z_value]"])
+			bluespace_systems[level] = BS_LEVEL_QUEUED
 		else
 			bluespace_systems[level] = BS_LEVEL_IDLE
 

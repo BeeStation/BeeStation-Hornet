@@ -14,3 +14,4 @@
 #define BS_LEVEL_IDLE 0
 #define BS_LEVEL_GENERATING 1
 #define BS_LEVEL_USED 2
+#define BS_LEVEL_QUEUED 3

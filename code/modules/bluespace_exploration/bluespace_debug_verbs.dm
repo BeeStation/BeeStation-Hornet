@@ -11,16 +11,19 @@ GLOBAL_LIST_INIT(bluespace_debug_verbs, list(
 	set name = "Bluespace Exploration Verbs - Enable"
 	if(!check_rights(R_DEBUG))
 		return
-	verbs -= /client/proc/enable_exploration_verbs
-	verbs.Add(/client/proc/disable_exploration_verbs, GLOB.bluespace_debug_verbs)
+
+	remove_verb(/client/proc/enable_exploration_verbs)
+	add_verb(/client/proc/disable_exploration_verbs)
+	add_verb(GLOB.bluespace_debug_verbs)
 
 /client/proc/disable_exploration_verbs()
 	set category = "Debug"
 	set name = "Bluespace Exploration Verbs - Disable"
 	if(!check_rights(R_DEBUG))
 		return
-	verbs += /client/proc/enable_exploration_verbs
-	verbs.Remove(/client/proc/disable_exploration_verbs, GLOB.bluespace_debug_verbs)
+	add_verb(/client/proc/enable_exploration_verbs)
+	remove_verb(/client/proc/disable_exploration_verbs)
+	remove_verb(GLOB.bluespace_debug_verbs)
 
 /client/proc/spawn_ship()
 	set category = "Bluespace Exploration"
@@ -60,7 +63,7 @@ GLOBAL_LIST_INIT(bluespace_debug_verbs, list(
 	to_chat(src, "Z-Level Wipe Queue Size: [SSbluespace_exploration.z_level_queue.len]")
 	for(var/datum/space_level/level in SSbluespace_exploration.bluespace_systems)
 		var/in_use = SSbluespace_exploration.bluespace_systems[level]
-		var/status = ""
+		var/status = "Invalid state"
 		switch(in_use)
 			if(BS_LEVEL_IDLE)
 				status = "Idle"
@@ -68,6 +71,8 @@ GLOBAL_LIST_INIT(bluespace_debug_verbs, list(
 				status = "Generating"
 			if(BS_LEVEL_USED)
 				status = "In Use"
+			if(BS_LEVEL_QUEUED)
+				status = "Queued"
 		to_chat(src, "Z-Level: [level.z_value] ([level.name]): [status]")
 
 /client/proc/make_all_weapons_accurate()
