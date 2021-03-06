@@ -108,8 +108,7 @@
 	midround_injection_timer_id = null
 
 	if (isnull(current_midround_rulesets) || current_midround_rulesets.len == 0)
-		log_admin("[key_name(user)] asked for a different midround injection, but there were none left.")
-		message_admins("[key_name(user)] asked for a different midround injection, but there were none left.")
+		dynamic_log("[key_name(user)] asked for a different midround injection, but there were none left.")
 		return
 
 	log_admin("[key_name(user)] asked for a different midround injection.")
