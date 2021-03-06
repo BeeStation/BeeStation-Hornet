@@ -540,7 +540,7 @@
 	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	antag_cap = list(1,1,1,2,2,2,3,3,3,4)
 
-/datum/dynamic_ruleset/roundstart/traitor/pre_execute(population)
+/datum/dynamic_ruleset/roundstart/devil/pre_execute(population)
 	. = ..()
 	var/num_devils = get_antag_cap(population) * (scaled_times + 1)
 	
