@@ -111,8 +111,7 @@
 		dynamic_log("[key_name(user)] asked for a different midround injection, but there were none left.")
 		return
 
-	log_admin("[key_name(user)] asked for a different midround injection.")
-	message_admins("[key_name(user)] asked for a different midround injection.")
+	dynamic_log("[key_name(user)] asked for a different midround injection.")
 	pick_midround_rule(current_midround_rulesets)
 
 #undef ADMIN_CANCEL_MIDROUND_TIME
