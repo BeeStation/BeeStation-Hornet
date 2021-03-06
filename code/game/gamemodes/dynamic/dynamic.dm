@@ -408,7 +408,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	else
 		roundstart()
 
-	log_game("DYNAMIC: [round_start_budget] round start budget was left, donating it to midrounds.")
+	dynamic_log("[round_start_budget] round start budget was left, donating it to midrounds.")
 	threat_log += "[worldtime2text()]: [round_start_budget] round start budget was left, donating it to midrounds."
 	mid_round_budget += round_start_budget
 
