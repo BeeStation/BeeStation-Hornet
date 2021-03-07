@@ -93,7 +93,7 @@
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))
 			return
-		H.forceMove(picked)
+		do_teleport(H, picked, no_effects = TRUE)
 		H.rad_act(rad_amount)
 		reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 		return 1
@@ -239,7 +239,7 @@
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))
 			return
-		H.forceMove(picked)
+		do_teleport(H, picked, no_effects = TRUE)
 		new /obj/structure/table(get_turf(owner))
 		reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 		return 1

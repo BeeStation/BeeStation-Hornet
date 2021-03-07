@@ -668,8 +668,8 @@
 					can_move = 1
 					phasing = FALSE
 					return
-				forceMove(target)
-				use_power(phasing_energy_drain)
+				if(do_teleport(src, get_step(src, dir), no_effects = TRUE))
+					use_power(phasing_energy_drain)
 				sleep(step_in*3)
 				can_move = 1
 	else

@@ -19,6 +19,7 @@
 #define LAZYSET(L, K, V) if(!L) { L = list(); } L[K] = V;
 #define LAZYLEN(L) length(L)
 #define LAZYCLEARLIST(L) if(L) L.Cut()
+#define LAZYACCESSASSOC(L, I, K) L ? L[I] ? L[I][K] ? L[I][K] : null : null : null
 #define SANITIZE_LIST(L) ( islist(L) ? L : list() )
 #define reverseList(L) reverseRange(L.Copy())
 
@@ -267,8 +268,7 @@
 		if (total <= 0)
 			return item
 
-	// Emergency pick()
-	return pick(L)
+	return null
 
 /proc/pickweightAllowZero(list/L) //The original pickweight proc will sometimes pick entries with zero weight.  I'm not sure if changing the original will break anything, so I left it be.
 	var/total = 0
@@ -284,7 +284,7 @@
 		if (total <= 0 && L[item])
 			return item
 
-	return pick(L)
+	return null
 
 /// Pick a random element from the list and remove it from the list.
 /proc/pick_n_take(list/L)
