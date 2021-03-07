@@ -789,7 +789,7 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	requires_power = FALSE
 	has_gravity = TRUE
-	noteleport = TRUE
+	teleport_restriction = TELEPORT_ALLOW_NONE
 
 ///creates the warped room and place an exit rune to exit the room
 /obj/effect/warped_rune/rainbowspace/Initialize()

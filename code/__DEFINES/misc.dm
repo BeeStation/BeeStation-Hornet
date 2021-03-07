@@ -391,6 +391,17 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define TELEPORT_CHANNEL_CULT "cult"			//! Cult teleportation, does whatever it wants (unless there's holiness)
 #define TELEPORT_CHANNEL_FREE "free"			//! Anything else
 
+//Teleport restriction modes (For areas)
+#define TELEPORT_ALLOW_ALL 0
+#define TELEPORT_ALLOW_NONE 1
+#define TELEPORT_ALLOW_CLOCKWORK 2
+#define TELEPORT_ALLOW_ABDUCTORS 3
+
+//Teleport modes
+#define TELEPORT_MODE_DEFAULT 0
+#define TELEPORT_MODE_CLOCKWORK 2
+#define TELEPORT_MODE_ABDUCTORS 3
+
 /// Force the log directory to be something specific in the data/logs folder
 #define OVERRIDE_LOG_DIRECTORY_PARAMETER "log-directory"
 /// Prevent the master controller from starting automatically
