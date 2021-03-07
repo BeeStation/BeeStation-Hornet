@@ -88,7 +88,7 @@ Bonus
 	base_message_chance = 50
 	symptom_delay_min = 15
 	symptom_delay_max = 50
-	var/list/thresholds = list()//An Associative List of Threshhold related vars. ["better_vis"], ["nvgs"], ["thermal"], ["xray"], ["nvision_buff"], ["other_buff"] are the indexes.
+	thresholds = list()//An Associative List of Threshhold related vars. ["better_vis"], ["nvgs"], ["thermal"], ["xray"], ["nvision_buff"], ["other_buff"] are the indexes.
 	//Associative Index Initialization
 	thresholds["better_vis"] = FALSE
 	thresholds["nvgs"] = FALSE
