@@ -59,7 +59,7 @@
 	if(!forced && (HAS_TRAIT(teleatom, TRAIT_NO_TELEPORT)))
 		return FALSE
 
-	//Either area has teleport restriction and teleport mode isnt allowede in that area
+	//Either area has teleport restriction and teleport mode isn't allowed in that area
 	if(!forced && ((A.teleport_restriction && A.teleport_restriction != teleport_mode) || (B.teleport_restriction && B.teleport_restriction != teleport_mode)))
 		return FALSE
 
