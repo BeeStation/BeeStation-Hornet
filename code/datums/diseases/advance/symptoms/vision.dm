@@ -88,12 +88,14 @@ Bonus
 	base_message_chance = 50
 	symptom_delay_min = 15
 	symptom_delay_max = 50
-	var/better_vis = FALSE
-	var/nvgs = FALSE
-	var/thermal = FALSE
-	var/xray = FALSE
-	var/nvision_buff = FALSE //Toggles TRUE when the Night Vision Buffs are Applied
-	var/other_buff = FALSE //Toggles TRUE when Thermal/Xray is applied
+	var/list/thresholds = list()//An Associative List of Threshhold related vars. ["better_vis"], ["nvgs"], ["thermal"], ["xray"], ["nvision_buff"], ["other_buff"] are the indexes.
+	//Associative Index Initialization
+	thresholds["better_vis"] = FALSE
+	thresholds["nvgs"] = FALSE
+	thresholds["thermal"] = FALSE
+	thresholds["xray"] = FALSE
+	thresholds["nvision_buff"] = FALSE //Toggles TRUE when the Night Vision Buffs are Applied
+	thresholds["other_buff"] = FALSE //Toggles TRUE when Thermal/Xray is applied
 	threshold_desc = "<b>Resistance 10:</b> Vision in the dark is even better.<br>\
 					  <b>Resistance 14:</b> The host will grow a pair of NVGs.<br>\
 					  <b>Stage Speed 10:</b> The host's eyes are able to percieve infrared radiation.<br>\
@@ -113,13 +115,13 @@ Bonus
 /datum/symptom/ocularsensitivity/Start(datum/disease/advance/A)
 	. = ..()
 	if(A.properties["resistance"] >= 10) //Better Night Vision
-		better_vis = TRUE
+		thresholds["better_vis"] = TRUE
 	if(A.properties["resistance"] >= 14) //Grow a pair of NVGS
-		nvgs = TRUE
+		thresholds["nvgs"] = TRUE
 	if(A.properties["stage_rate"] >= 10) //Thermal Vision
-		thermal = TRUE
+		thresholds["thermal"] = TRUE
 	if(A.properties["stage_rate"] >= 18) //Xray Vision
-		xray = TRUE
+		thresholds["xray"] = TRUE
 
 /datum/symptom/ocularsensitivity/Activate(datum/disease/advance/A)
 	if(!..())
@@ -127,20 +129,22 @@ Bonus
 	var/mob/living/L = A.affected_mob
 	switch(A.stage)
 		if(4)
-			if(!nvision_buff)
+			if(!thresholds["nvision_buff"])
 				to_chat(L, "<span class='userdanger'>Your vision becomes better!</span>")
-				if(better_vis)
+				if(thresholds["better_vis"])
 					L.see_in_dark += 4
-					nvision_buff = TRUE
+					thresholds["nvision_buff"] = TRUE
 				else
 					L.see_in_dark += 2
-					nvision_buff = TRUE
-			if(thermal && !xray && !other_buff)
+					thresholds["nvision_buff"] = TRUE
+			if(thresholds["thermal"] && !thresholds["xray"] && !thresholds["other_buff"])
 				ADD_TRAIT(L, TRAIT_THERMAL_VISION, DISEASE_TRAIT)
-			if(xray && !other_buff)
+				thresholds["other_buff"] = TRUE
+			if(thresholds["xray"] && thresholds["other_buff"])
 				ADD_TRAIT(L, TRAIT_XRAY_VISION, DISEASE_TRAIT)
+				thresholds["other_buff"] = TRUE
 		if(5)
-			if(nvgs)
+			if(thresholds["nvgs"])
 				giveNVGS(A)
 
 /datum/symptom/ocularsensitivity/proc/giveNVGS(datum/disease/advance/A)
