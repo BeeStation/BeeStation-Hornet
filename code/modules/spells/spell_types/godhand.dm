@@ -31,10 +31,14 @@
 
 /obj/item/melee/touch_attack/afterattack(atom/target, mob/user, proximity)
 	. = ..()
+	//Use the spell
+	attached_spell.spell_used = TRUE
+	//Do effects
 	user.say(catchphrase, forced = "spell")
 	playsound(get_turf(user), on_use_sound,50,1)
 	charges--
 	if(charges <= 0)
+		attached_spell.use_charge(user)
 		qdel(src)
 
 /obj/item/melee/touch_attack/Destroy()
@@ -58,7 +62,7 @@
 		return
 	var/mob/M = target
 	do_sparks(4, FALSE, M.loc)
-	for(var/mob/living/L in view(src, 7))
+	for(var/mob/living/L in viewers(7, get_turf(src)))
 		if(L != user)
 			L.flash_act(affect_silicon = FALSE)
 	var/atom/A = M.anti_magic_check()
@@ -120,7 +124,6 @@
 /obj/item/melee/touch_attack/megahonk/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || !iscarbon(target) || !iscarbon(user) || user.handcuffed)
 		return
-	user.say(catchphrase, forced = "spell")
 	playsound(get_turf(target), on_use_sound,100,1)
 	for(var/mob/living/carbon/M in (hearers(1, target) - user)) //3x3 around the target, not affecting the user
 		if(ishuman(M))
@@ -138,9 +141,7 @@
 		else
 			M.Jitter(500*mul)
 
-	charges--
-	if(charges <= 0)
-		qdel(src)
+	. = ..()
 
 /obj/item/melee/touch_attack/megahonk/attack_self(mob/user)
 	. = ..()
@@ -175,19 +176,6 @@
 		var/obj/item/reagent_containers/food/snacks/pie/cream/body/pie = new(get_turf(M))
 		pie.name = "\improper [name] [pie.name]"
 
-		playsound(get_turf(target), on_use_sound, 50, 1)
+		. = ..()
 
-		/*
-		var/obj/item/bodypart/head = M.get_bodypart("head")
-		if(head)
-			head.drop_limb()
-		head.throw_at(get_turf(head), 1, 1)
-		qdel(M)
-		*/
 		M.forceMove(pie)
-
-
-		charges--
-
-	if(charges <= 0)
-		qdel(src)

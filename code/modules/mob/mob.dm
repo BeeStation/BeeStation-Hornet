@@ -21,10 +21,9 @@
   * Parent call
   */
 /mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
-	GLOB.mob_list -= src
-	GLOB.dead_mob_list -= src
-	GLOB.alive_mob_list -= src
-	GLOB.mob_directory -= tag
+	remove_from_mob_list()
+	remove_from_dead_mob_list()
+	remove_from_alive_mob_list()
 	focus = null
 	for (var/alert in alerts)
 		clear_alert(alert, TRUE)
@@ -37,6 +36,13 @@
 		qdel(cc)
 	client_colours = null
 	ghostize()
+	QDEL_LIST(mob_spell_list)
+	for(var/datum/action/A as() in actions)
+		if(istype(A.target, /obj/effect/proc_holder))
+			A.Remove(src) // Mind's spells' actions should only be removed
+		else
+			qdel(A) // Other actions can be safely deleted
+	actions.Cut()
 	return ..()
 
 /**
@@ -60,12 +66,11 @@
 /mob/Initialize()
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_CREATED, src)
 	mob_properties = list()
-	GLOB.mob_list += src
-	GLOB.mob_directory[tag] = src
+	add_to_mob_list()
 	if(stat == DEAD)
-		GLOB.dead_mob_list += src
+		add_to_dead_mob_list()
 	else
-		GLOB.alive_mob_list += src
+		add_to_alive_mob_list()
 	set_focus(src)
 	prepare_huds()
 	for(var/v in GLOB.active_alternate_appearances)
@@ -896,26 +901,6 @@
 ///Can the mob interact() with an atom?
 /mob/proc/can_interact_with(atom/A)
 	return IsAdminGhost(src) || Adjacent(A)
-
-///Can the mob see reagents inside of containers?
-/mob/proc/can_see_reagents()
-	if(stat == DEAD) //Ghosts and such can always see reagents
-		return 1
-	if(has_unlimited_silicon_privilege) //Silicons can automatically view reagents
-		return 1
-	if(ishuman(src))
-		var/mob/living/carbon/human/H = src
-		if(H.head && istype(H.head, /obj/item/clothing))
-			var/obj/item/clothing/CL = H.head
-			if(CL.scan_reagents)
-				return 1
-		if(H.wear_mask && H.wear_mask.scan_reagents)
-			return 1
-		if(H.glasses && istype(H.glasses, /obj/item/clothing))
-			var/obj/item/clothing/CL = H.glasses
-			if(CL.scan_reagents)
-				return 1
-	return 0
 
 ///Can the mob use Topic to interact with machines
 /mob/proc/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)

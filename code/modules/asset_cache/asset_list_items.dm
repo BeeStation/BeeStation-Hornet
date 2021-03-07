@@ -412,3 +412,8 @@
 	// Special case to handle Bluespace Crystals
 	Insert("polycrystal", 'icons/obj/telescience.dmi', "polycrystal")
 	..()
+
+/datum/asset/simple/pAI
+	assets = list(
+		"paigrid.png" = 'html/paigrid.png'
+	)

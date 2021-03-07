@@ -19,6 +19,7 @@
 #define LAZYSET(L, K, V) if(!L) { L = list(); } L[K] = V;
 #define LAZYLEN(L) length(L)
 #define LAZYCLEARLIST(L) if(L) L.Cut()
+#define LAZYACCESSASSOC(L, I, K) L ? L[I] ? L[I][K] ? L[I][K] : null : null : null
 #define SANITIZE_LIST(L) ( islist(L) ? L : list() )
 #define reverseList(L) reverseRange(L.Copy())
 
@@ -155,8 +156,7 @@
 /proc/typecache_filter_list(list/atoms, list/typecache)
 	RETURN_TYPE(/list)
 	. = list()
-	for(var/thing in atoms)
-		var/atom/A = thing
+	for(var/atom/A as() in atoms)
 		if (typecache[A.type])
 			. += A
 
@@ -164,16 +164,14 @@
 /proc/typecache_filter_list_reverse(list/atoms, list/typecache)
 	RETURN_TYPE(/list)
 	. = list()
-	for(var/thing in atoms)
-		var/atom/A = thing
+	for(var/atom/A as() in atoms)
 		if(!typecache[A.type])
 			. += A
 
 /// returns a new list with only atoms that are in typecache typecache_include but NOT in typecache_exclude
 /proc/typecache_filter_multi_list_exclusion(list/atoms, list/typecache_include, list/typecache_exclude)
 	. = list()
-	for(var/thing in atoms)
-		var/atom/A = thing
+	for(var/atom/A as() in atoms)
 		if(typecache_include[A.type] && !typecache_exclude[A.type])
 			. += A
 
@@ -264,7 +262,7 @@
 			L[item] = 1
 		total += L[item]
 
-	total = rand(1, total)
+	total *= rand()
 	for (item in L)
 		total -=L [item]
 		if (total <= 0)
@@ -280,7 +278,7 @@
 			L[item] = 0
 		total += L[item]
 
-	total = rand(0, total)
+	total *= rand()
 	for (item in L)
 		total -=L [item]
 		if (total <= 0 && L[item])

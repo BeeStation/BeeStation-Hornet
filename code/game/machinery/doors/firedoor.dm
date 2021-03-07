@@ -4,6 +4,8 @@
 #define CONSTRUCTION_GUTTED 3 //Wires are removed, circuit ready to remove
 #define CONSTRUCTION_NOCIRCUIT 4 //Circuit board removed, can safely weld apart
 
+#define RECLOSE_DELAY 5 SECONDS // How long until a firelock tries to shut itself if it's blocking a vacuum.
+
 /obj/machinery/door/firedoor
 	name = "firelock"
 	desc = "A convenable firelock. Equipped with a manual lever for operating in case of emergency."
@@ -110,7 +112,7 @@
 
 		add_fingerprint(user)
 		if(density)
-			emergency_close_timer = world.time + 15 // prevent it from instaclosing again if in space
+			emergency_close_timer = world.time + RECLOSE_DELAY // prevent it from instaclosing again if in space
 			open()
 		else
 			close()
@@ -181,7 +183,7 @@
 			whack_a_mole()
 		if(welded || operating || !density)
 			return // in case things changed during our do_after
-		emergency_close_timer = world.time + 15 // prevent it from instaclosing again if in space
+		emergency_close_timer = world.time + RECLOSE_DELAY // prevent it from instaclosing again if in space
 		open()
 	else
 		close()
@@ -324,6 +326,11 @@
 	CanAtmosPass = ATMOS_PASS_PROC
 	assemblytype = /obj/structure/firelock_frame/border
 
+/obj/machinery/door/firedoor/border_only/Destroy()
+	density = FALSE
+	air_update_turf(1)
+	return ..()
+
 /obj/machinery/door/firedoor/border_only/closed
 	icon_state = "door_closed"
 	opacity = TRUE
@@ -421,6 +428,10 @@
 	resistance_flags = 0 // not fireproof
 	heat_proof = FALSE
 	assemblytype = /obj/structure/firelock_frame/window
+
+/obj/machinery/door/firedoor/window/attack_alien(mob/living/carbon/alien/humanoid/user)
+	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
+	return attack_generic(user, 60, BRUTE, "melee", 0)
 
 /obj/item/electronics/firelock
 	name = "firelock circuitry"

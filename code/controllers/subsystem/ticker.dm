@@ -564,7 +564,7 @@ SUBSYSTEM_DEF(ticker)
 			news_message = "During routine evacuation procedures, the emergency shuttle of [station_name()] had its navigation protocols corrupted and went off course, but was recovered shortly after."
 
 	if(news_message)
-		send2otherserver(news_source, news_message,"News_Report")
+		comms_send(news_source, news_message, "News_Report", CONFIG_GET(flag/insecure_newscaster))
 
 /datum/controller/subsystem/ticker/proc/GetTimeLeft()
 	if(isnull(SSticker.timeLeft))
@@ -592,6 +592,10 @@ SUBSYSTEM_DEF(ticker)
 		GLOB.master_mode = "extended"
 	log_game("Master mode is '[GLOB.master_mode]'")
 	log_config("Master mode is '[GLOB.master_mode]'")
+
+/// Returns if either the master mode or the forced secret ruleset matches the mode name.
+/datum/controller/subsystem/ticker/proc/is_mode(mode_name)
+	return GLOB.master_mode == mode_name || GLOB.secret_force_mode == mode_name
 
 /datum/controller/subsystem/ticker/proc/SetRoundEndSound(the_sound)
 	set waitfor = FALSE

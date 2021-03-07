@@ -193,15 +193,17 @@
 	for(var/client/C in GLOB.clients)
 		if(C)
 
-			C.playtitlemusic(40)
-			C.process_endround_metacoin()
+			C?.process_endround_metacoin()
+			C?.playtitlemusic(40)
 
 			if(CONFIG_GET(flag/allow_crew_objectives))
-				var/mob/M = C.mob
+				var/mob/M = C?.mob
 				if(M?.mind?.current && LAZYLEN(M.mind.crew_objectives))
 					for(var/datum/objective/crew/CO in M.mind.crew_objectives)
+						if(!C) //Yes, the client can be null here. BYOND moment.
+							break
 						if(CO.check_completion())
-							C.inc_metabalance(METACOIN_CO_REWARD, reason="Completed your crew objective!")
+							C?.inc_metabalance(METACOIN_CO_REWARD, reason="Completed your crew objective!")
 							break
 
 	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
@@ -334,7 +336,7 @@
 	if(istype(SSticker.mode, /datum/game_mode/dynamic))
 		var/datum/game_mode/dynamic/mode = SSticker.mode
 		parts += "[FOURSPACES]Threat level: [mode.threat_level]"
-		parts += "[FOURSPACES]Threat left: [mode.threat]" //yes
+		parts += "[FOURSPACES]Threat left: [mode.mid_round_budget]"
 		parts += "[FOURSPACES]Executed rules:"
 		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
 			parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat"
@@ -426,12 +428,11 @@
 
 		if (aiPlayer.connected_robots.len)
 			var/borg_num = aiPlayer.connected_robots.len
-			var/robolist = "<br><b>[aiPlayer.real_name]</b>'s minions were: "
+			parts += "<br><b>[aiPlayer.real_name]</b>'s minions were:"
 			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
 				borg_num--
 				if(robo.mind)
-					robolist += "<b>[robo.name]</b> (Played by: <b>[robo.mind.key]</b>)[robo.stat == DEAD ? " <span class='redtext'>(Deactivated)</span>" : ""][borg_num ?", ":""]<br>"
-			parts += "[robolist]"
+					parts += "<b>[robo.name]</b> (Played by: <b>[robo.mind.key]</b>)[robo.stat == DEAD ? " <span class='redtext'>(Deactivated)</span>" : ""][borg_num ?", ":""]"
 		if(!borg_spacer)
 			borg_spacer = TRUE
 

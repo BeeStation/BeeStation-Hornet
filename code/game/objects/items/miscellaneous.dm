@@ -324,10 +324,9 @@
 		to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
 
 /obj/item/choice_beacon/pet/proc/spawn_mob(mob/living/M,name)
-	var/mob/your_pet = new mob_choice()
 	var/obj/structure/closet/supplypod/bluespacepod/pod = new()
+	var/mob/your_pet = new mob_choice(pod)
 	pod.explosionSize = list(0,0,0,0)
-	your_pet.forceMove(pod)
 	your_pet.name = name
 	var/msg = "<span class=danger>After making your selection, you notice a strange target on the ground. It might be best to step back!</span>"
 	if(ishuman(M))

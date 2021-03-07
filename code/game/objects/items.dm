@@ -535,7 +535,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else if(isitem(hitby))
 		var/obj/item/I = hitby
 		attackforce = damage
-		if(I.sharpness)
+		if(I.is_sharp())
 			attackforce = (attackforce / 2)//sharp weapons get much of their force by virtue of being sharp, not physical power
 		if(!I.damtype == BRUTE)
 			attackforce = (attackforce / 2)//as above, burning weapons, or weapons that deal other damage type probably dont get force from physical power
@@ -1034,3 +1034,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			take_damage(75, BRUTE, "bomb", 0)
 		if(3)
 			take_damage(20, BRUTE, "bomb", 0)
+
+/obj/item/proc/get_armor_rating(d_type, mob/wearer)
+	return armor.getRating(d_type)
