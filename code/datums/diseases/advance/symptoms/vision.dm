@@ -83,7 +83,7 @@ Bonus
 	resistance = -2
 	stage_speed = -2
 	transmittable = 0
-	level = 7
+	level = 9
 	severity = 0
 	base_message_chance = 50
 	symptom_delay_min = 15
@@ -97,7 +97,7 @@ Bonus
 	threshold_desc = "<b>Resistance 10:</b> Vision in the dark is even better.<br>\
 					  <b>Resistance 14:</b> The host will grow a pair of NVGs.<br>\
 					  <b>Stage Speed 10:</b> The host's eyes are able to percieve infrared radiation.<br>\
-					  <b>Stage Speed 14:</b> The host's eyes are able to percieve xray radiation. This overrides the thermal vision threshhold."
+					  <b>Stage Speed 18:</b> The host's eyes are able to percieve xray radiation. This overrides the thermal vision threshhold."
 
 /datum/symptom/ocularsensitivity/severityset(datum/disease/advance/A)
 	. = ..()
@@ -107,7 +107,7 @@ Bonus
 		severity += 2 //Disregards the decrease from other resistance threshold, in fact is probably borderline antagonistic.
 	if(A.properties["stage_rate"] >= 10) //Thermal Vision
 		severity -= 1
-	if(A.properties["stage_rate"] >= 14) //Xray Vision
+	if(A.properties["stage_rate"] >= 18) //Xray Vision
 		severity -= 2
 
 /datum/symptom/ocularsensitivity/Start(datum/disease/advance/A)
@@ -118,7 +118,7 @@ Bonus
 		nvgs = TRUE
 	if(A.properties["stage_rate"] >= 10) //Thermal Vision
 		thermal = TRUE
-	if(A.properties["stage_rate"] >= 14) //Xray Vision
+	if(A.properties["stage_rate"] >= 18) //Xray Vision
 		xray = TRUE
 
 /datum/symptom/ocularsensitivity/Activate(datum/disease/advance/A)
@@ -128,13 +128,13 @@ Bonus
 	switch(A.stage)
 		if(4)
 			if(!nvision_buff)
-				to_chat(M, "<span class='userdanger'>Your vision becomes better!</span>")
+				to_chat(L, "<span class='userdanger'>Your vision becomes better!</span>")
 				if(better_vis)
 					L.see_in_dark += 4
-					vision_buff_tracker = TRUE
+					nvision_buff = TRUE
 				else
 					L.see_in_dark += 2
-					vision_buff_tracker = TRUE
+					nvision_buff = TRUE
 			if(thermal && !xray && !other_buff)
 				ADD_TRAIT(L, TRAIT_THERMAL_VISION, DISEASE_TRAIT)
 			if(xray && !other_buff)
@@ -143,7 +143,7 @@ Bonus
 			if(nvgs)
 				giveNVGS(A)
 
-/datum/symptop/ocularsensitivity/proc/giveNVGS(datum/disease/advance/A)
+/datum/symptom/ocularsensitivity/proc/giveNVGS(datum/disease/advance/A)
 	if(ishuman(A.affected_mob))
 		var/mob/living/carbon/human/M = A.affected_mob
 		if(!istype(M.glasses, /obj/item/clothing/glasses/night))
