@@ -1,6 +1,0 @@
-author: park66665
-delete-after: true
-changes:
-  - bugfix: Ghosts can no longer dance with the music and be stuck horribly
-  - bugfix: Fixed a bug where pressure plates sometimes don't activate traps
-  - bugfix: pAI on bot no longer makes languages willy nilly
