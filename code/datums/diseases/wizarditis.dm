@@ -111,7 +111,7 @@ STI KALY - blind
 	if(!L)
 		return
 
-	affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!", forced = "wizarditis teleport")
-	affected_mob.forceMove(pick(L))
+	if(do_teleport(affected_mob, pick(L), channel = TELEPORT_CHANNEL_MAGIC, no_effects = TRUE))
+		affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!", forced = "wizarditis teleport")
 
 	return
