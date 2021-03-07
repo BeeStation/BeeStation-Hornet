@@ -627,8 +627,8 @@
 	var/datum/action/innate/linked_speech/action = linked_actions[link_id]
 	action.Remove(M)
 	to_chat(M, "<span class='notice'>You are no longer connected to [slimelink_owner.real_name]'s Slime Link.</span>")
-	linked_mobs[link_id] = null
-	linked_actions[link_id] = null
+	linked_mobs -= M
+	linked_actions -= action
 
 /datum/action/innate/linked_speech
 	name = "Slimelink"
