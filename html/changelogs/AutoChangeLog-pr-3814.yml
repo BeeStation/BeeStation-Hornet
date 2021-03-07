@@ -1,4 +1,0 @@
-author: francinum
-delete-after: true
-changes:
-  - bugfix: Rod subtypes now properly merge
