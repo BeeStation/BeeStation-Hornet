@@ -1,0 +1,6 @@
+author: park66665
+delete-after: true
+changes:
+  - bugfix: floorbots no longer cause an infinite source of removed tiles
+  - bugfix: floorbots is a bit less dumb
+  - bugfix: CPU usage of floorbots has been reduced
