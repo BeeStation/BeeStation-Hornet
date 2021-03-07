@@ -2,9 +2,9 @@
 	name = "Neurological Overdrive"
 	desc = "The disease increases connectivity between the infected's nerves, reducing stuns."
 	stealth = 1
-	resistance = 0
-	stage_speed = 3
-	transmittable = 0
+	resistance = -1
+	stage_speed = 1
+	transmittable = -2
 	level = 9
 	severity = 0
 	symptom_delay_min = 1
