@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - code_imp: Replaces some teleporters forceMoves with do_teleports.
