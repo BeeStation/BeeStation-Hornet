@@ -14,7 +14,7 @@
 	for(var/atom/movable/AM in get_turf(target))
 		if(AM.anchored)
 			continue
-		AM.forceMove(hand_turf)
+		do_teleport(AM, hand_turf, no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
 	guardian.face_atom(hand_turf)
 	return ..()
 

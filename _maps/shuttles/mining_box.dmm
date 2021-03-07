@@ -42,6 +42,7 @@
 	width = 7
 	},
 /obj/machinery/door/airlock/survival_pod/glass,
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "i" = (
