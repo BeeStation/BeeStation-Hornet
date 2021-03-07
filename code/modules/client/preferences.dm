@@ -669,14 +669,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			var/firstcat = 1
 			for(var/category in GLOB.loadout_categories)
+				if(category == "Donator" && (!LAZYLEN(GLOB.patrons) || !CONFIG_GET(flag/donator_items)))
+					continue
 				if(firstcat)
 					firstcat = 0
 				else
 					dat += " |"
 				if(category == gear_tab)
 					dat += " <span class='linkOff'>[category]</span> "
-				if(category == "Donator" && (!LAZYLEN(GLOB.patrons) || !CONFIG_GET(flag/donator_items)))
-					continue
 				else
 					dat += " <a href='?_src_=prefs;preference=gear;select_category=[category]'>[category]</a> "
 			dat += "</b></center></td></tr>"
