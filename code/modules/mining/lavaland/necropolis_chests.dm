@@ -367,7 +367,7 @@
 	var/turf/T = get_turf(src)
 	var/area/A1 = get_area(T)
 	var/area/A2 = get_area(linked)
-	if(A1.noteleport || A2.noteleport)
+	if(A1.teleport_restriction || A2.teleport_restriction)
 		to_chat(user, "[src] fizzles gently as it fails to breach the bluespace veil.")
 		return
 	teleporting = TRUE
