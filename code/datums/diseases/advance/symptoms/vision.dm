@@ -88,14 +88,7 @@ Bonus
 	base_message_chance = 50
 	symptom_delay_min = 15
 	symptom_delay_max = 50
-	thresholds = list()//An Associative List of Threshhold related vars. ["better_vis"], ["nvgs"], ["thermal"], ["xray"], ["nvision_buff"], ["other_buff"] are the indexes.
-	//Associative Index Initialization
-	thresholds["better_vis"] = FALSE
-	thresholds["nvgs"] = FALSE
-	thresholds["thermal"] = FALSE
-	thresholds["xray"] = FALSE
-	thresholds["nvision_buff"] = FALSE //Toggles TRUE when the Night Vision Buffs are Applied
-	thresholds["other_buff"] = FALSE //Toggles TRUE when Thermal/Xray is applied
+	thresholds = list()//An Associative List of Threshhold related vars. ["better_vis"], ["nvgs"], ["thermal"], ["xray"], ["nvision_buff"], ["other_buff"] are the indexes
 	threshold_desc = "<b>Resistance 10:</b> Vision in the dark is even better.<br>\
 					  <b>Resistance 14:</b> The host will grow a pair of NVGs.<br>\
 					  <b>Stage Speed 10:</b> The host's eyes are able to percieve infrared radiation.<br>\
@@ -161,13 +154,13 @@ Bonus
 /datum/symptom/ocularsensitivity/End(datum/disease/advance/A)
 	..()
 	var/mob/living/L = A.affected_mob
-	if(better_vis)
+	if(thresholds["better_vis"])
 		L.see_in_dark -= 4
 	else
 		L.see_in_dark -= 2
-	if(thermal && !xray)
+	if(thresholds["thermal"] && !thresholds["xray"])
 		REMOVE_TRAIT(L, TRAIT_THERMAL_VISION, DISEASE_TRAIT)
-	if(xray)
+	if(thresholds["xray"])
 		REMOVE_TRAIT(L, TRAIT_XRAY_VISION, DISEASE_TRAIT)
 	if(ishuman(A.affected_mob))
 		var/mob/living/carbon/human/M = A.affected_mob
