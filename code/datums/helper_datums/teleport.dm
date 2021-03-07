@@ -60,9 +60,7 @@
 		return FALSE
 
 	//Either area has teleport restriction and teleport mode isnt allowede in that area
-	if(!forced && (
-		(A.teleport_restriction && A.teleport_restriction != teleport_mode)
-		|| (B.teleport_restriction && B.teleport_restriction != teleport_mode)))
+	if(!forced && ((A.teleport_restriction && A.teleport_restriction != teleport_mode) || (B.teleport_restriction && B.teleport_restriction != teleport_mode)))
 		return FALSE
 
 	if(SEND_SIGNAL(destturf, COMSIG_ATOM_INTERCEPT_TELEPORT, channel, curturf, destturf))
