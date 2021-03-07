@@ -97,7 +97,7 @@ Bonus
 	threshold_desc = "<b>Resistance 10:</b> Vision in the dark is even better.<br>\
 					  <b>Resistance 14:</b> The host will grow a pair of NVGs.<br>\
 					  <b>Stage Speed 10:</b> The host's eyes are able to percieve infrared radiation.<br>\
-					  <b>Stage Speed 14:</b> The host's eyes are able to percieve xray radiation."
+					  <b>Stage Speed 14:</b> The host's eyes are able to percieve xray radiation. This overrides the thermal vision threshhold."
 
 /datum/symptom/ocularsensitivity/severityset(datum/disease/advance/A)
 	. = ..()
