@@ -159,7 +159,7 @@
 
 /area/shuttle/escape/luxury
 	name = "Luxurious Emergency Shuttle"
-	teleport_restriction = TELEPORT_ALLOW_ABDUCTORS
+	teleport_restriction = TELEPORT_ALLOW_NONE
 
 /area/shuttle/escape/arena
 	name = "The Arena"
