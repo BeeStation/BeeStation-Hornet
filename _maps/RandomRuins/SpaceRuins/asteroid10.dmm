@@ -1,0 +1,64 @@
+"a" = (/turf/open/space/basic,/area/space)
+"b" = (/turf/closed/mineral/random/low_chance,/area/space)
+"c" = (/turf/open/floor/grass,/area/space)
+"d" = (/turf/closed/wall/r_wall,/area/space)
+"e" = (/turf/open/floor/wood,/area/space)
+"f" = (/turf/open/floor/plasteel/checker,/area/space)
+"g" = (/turf/open/floor/holofloor/beach,/area/space)
+"h" = (/turf/open/floor/holofloor/beach/coast_t,/area/space)
+"i" = (/turf/open/floor/holofloor/beach/water,/area/space)
+"j" = (/turf/open/floor/plating/asteroid/airless,/area/space)
+"k" = (/obj/machinery/door/airlock/wood/glass,/turf/open/floor/wood,/area/space)
+"l" = (/obj/machinery/door/airlock/wood,/turf/open/floor/wood,/area/space)
+"m" = (/obj/machinery/computer{dir = 8},/turf/open/floor/wood,/area/space)
+"n" = (/obj/machinery/computer{dir = 4},/turf/open/floor/wood,/area/space)
+"o" = (/obj/machinery/hydroponics/soil,/turf/open/floor/grass,/area/space)
+"p" = (/mob/living/simple_animal/pet/dog/pug,/turf/open/floor/wood,/area/space)
+"q" = (/mob/living/simple_animal/pet/dog/corgi/exoticcorgi,/turf/open/floor/grass,/area/space)
+"r" = (/mob/living/simple_animal/pet/dog/corgi/exoticcorgi,/turf/open/floor/wood,/area/space)
+"s" = (/mob/living/simple_animal/pet/dog/corgi/puppy,/turf/open/floor/wood,/area/space)
+"t" = (/mob/living/simple_animal/pet/dog/bullterrier,/turf/open/floor/grass,/area/space)
+"u" = (/obj/machinery/hydroponics,/turf/open/floor/plasteel/checker,/area/space)
+"v" = (/obj/machinery/power/rtg/advanced,/turf/open/floor/wood,/area/space)
+"w" = (/mob/living/simple_animal/pet/dog/corgi,/turf/open/floor/plasteel/checker,/area/space)
+"x" = (/obj/structure/table/wood,/turf/open/floor/wood,/area/space)
+"y" = (/mob/living/simple_animal/pet/dog/corgi/puppy,/turf/open/floor/holofloor/beach/coast_t,/area/space)
+"z" = (/mob/living/simple_animal/pet/dog/corgi,/turf/open/floor/wood,/area/space)
+"A" = (/obj/item/reagent_containers/food/snacks/bbqribs,/turf/open/floor/plasteel/checker,/area/space)
+"B" = (/obj/item/reagent_containers/food/snacks/meat/bacon,/turf/open/floor/plasteel/checker,/area/space)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaabbbbaaaaaaaaaa
+aaaaaaajjjjaaaaabbbbbbbjjjaabbaaa
+aaaabbjjjjjjabbbbbbbbbbbjjjbbbbaa
+aaabbbbjjjbbbbbdddddbbbbbjjbbbbba
+aabbbbbbjbbbbddeedccddbbbbjjbbbba
+abbbbbbbbbbbdeeeedcccodbbbbjjbbba
+abbbbbbbbbbdeeeeedocccodbbbbjjbaa
+abbbbbbbjjdeeepeekccqqcodbbbbjjja
+abbbbbbjjjdeerseedocctccdbbbbbjja
+abbbbbbjjdeeeeeeedoccccccdbbbbbja
+abbbbbbbjdeeeeeeedccocoocdbbbbbbb
+aajjjbbbbddddkddldlddkddddbbbbbbb
+aabbbbbbbduffffdevedgggggdbbbbbbb
+aabbbbbbbduffffleeelgggggdbbbbbbb
+aabbbbbbbbdAfwfdxexdhyyhdbbbbbbba
+aaabbbbbbbdBfffdxemdiiiidbbbbbbba
+aaaabjbbbbbdfffdnzmdiiidbbbbbbbaa
+aaaaajbbbbbbduudxexdiidbbbbbbbaaa
+aaaaaabbbbbbbdddeeedddbbbbbbbaaaa
+aaaaaaabbbbbbbbdllldbbbbbbbaaaaja
+aabbaaaaajjbbbbjjjjjbbbbbbaaaaaaa
+abbbbaaaaajjbbbbjjjbbbbbbaajjaaaa
+aabbaaaaaaajbbbbbbbbbbbbaajjjjaaa
+aaaaaaaaaaaabbbbbbbbbbbaaajjaaaaa
+aaaaaaaaaaaaabbbbbbbbbaaaaaaaaaaa
+"}

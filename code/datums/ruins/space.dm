@@ -437,7 +437,7 @@
 	id = "spacearcade"
 	suffix = "spacearcade.dmm"
 	name = "Space Arcade"
-	description = "Come here to have fun! We even have the best arcade game in the Universe, Dance Dance Revolution!"	
+	description = "Come here to have fun! We even have the best arcade game in the Universe, Disco Disco Rave!"	
 	cost = 2
 
 /datum/map_template/ruin/space/spacedock

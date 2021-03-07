@@ -19,7 +19,7 @@
 /area/ruin/space/has_grav/powered)
 "g" = (
 /obj/machinery/computer{
-	name = "Dance Dance Revolution";
+	name = "Disco Disco Rave";
 	desc = "Unfortunately, the machine seems to be broken..."
 	},
 /turf/open/floor/eighties,

@@ -18,6 +18,7 @@
 /area/ruin/unpowered)
 "f" = (
 /obj/machinery/door/airlock/shuttle,
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
 "g" = (
@@ -48,7 +49,7 @@
 	dir = 4
 	},
 /obj/item/storage/pod{
-	pixel_x = -24
+	pixel_x = -32
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
@@ -57,7 +58,7 @@
 	dir = 8
 	},
 /obj/item/storage/pod{
-	pixel_x = 24
+	pixel_x = 32
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)

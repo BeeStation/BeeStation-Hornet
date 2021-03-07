@@ -7,10 +7,10 @@
 /area/ruin/unpowered)
 "c" = (
 /obj/structure/beebox/premade/random,
-/turf/open/floor/grass,
+/turf/open/floor/wood/airless,
 /area/ruin/unpowered)
 "d" = (
-/turf/open/floor/grass,
+/turf/open/floor/wood/airless,
 /area/ruin/unpowered)
 "e" = (
 /turf/open/floor/wood/airless,
@@ -27,7 +27,7 @@
 /turf/closed/wall/mineral/sandstone,
 /area/ruin/unpowered)
 "i" = (
-/obj/item/stack/sheet/mineral/wax,
+/obj/item/stack/sheet/mineral/wax/airless,
 /turf/open/floor/wax,
 /area/ruin/unpowered)
 "j" = (
@@ -36,7 +36,7 @@
 /area/ruin/unpowered)
 "k" = (
 /obj/machinery/hydroponics,
-/turf/open/floor/grass,
+/turf/open/floor/wood/airless,
 /area/ruin/unpowered)
 "l" = (
 /obj/machinery/hydroponics,

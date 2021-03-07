@@ -59,7 +59,7 @@
 	dir = 4
 	},
 /obj/item/storage/pod{
-	pixel_x = -24
+	pixel_x = -32
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
@@ -68,6 +68,7 @@
 	name = "secured door";
 	req_access = 207
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
 "n" = (
@@ -75,7 +76,7 @@
 	dir = 8
 	},
 /obj/item/storage/pod{
-	pixel_x = 24
+	pixel_x = 32
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
