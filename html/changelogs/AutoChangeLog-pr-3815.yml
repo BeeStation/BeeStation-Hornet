@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - refactor: Noteleport refactor
+  - bugfix: Abductors can teleport again.
