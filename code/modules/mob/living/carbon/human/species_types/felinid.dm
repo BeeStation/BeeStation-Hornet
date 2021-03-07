@@ -157,7 +157,7 @@
 	if(chem.type == /datum/reagent/toxin/catbgon)
 		H.adjustToxLoss(8)
 		H.adjustOxyLoss(8)
-		if(prob(50))
+		if(prob(10))
 			H.drowsyness += 1
 		H.visible_message("<span class='danger'>You have to get this chocolate out of your system!!!</span>")
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
