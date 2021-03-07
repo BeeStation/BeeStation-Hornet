@@ -1,0 +1,6 @@
+author: park66665
+delete-after: true
+changes:
+  - bugfix: telecrystal, bluespace polycrystal, conveyor belt, and carpet stacks now
+      properly merge with its own respective subtypes
+  - bugfix: high-traction floor tile stacks no longer merge between different colors
