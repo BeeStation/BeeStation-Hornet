@@ -21,18 +21,18 @@
 /turf/open/floor/wood/airless,
 /area/ruin/unpowered)
 "g" = (
-/turf/open/floor/wax,
+/turf/open/floor/wax/airless,
 /area/ruin/unpowered)
 "h" = (
 /turf/closed/wall/mineral/sandstone,
 /area/ruin/unpowered)
 "i" = (
-/obj/item/stack/sheet/mineral/wax/airless,
-/turf/open/floor/wax,
+/obj/item/stack/sheet/mineral/wax,
+/turf/open/floor/wax/airless,
 /area/ruin/unpowered)
 "j" = (
 /mob/living/simple_animal/hostile/poison/bees/space,
-/turf/open/floor/wax,
+/turf/open/floor/wax/airless,
 /area/ruin/unpowered)
 "k" = (
 /obj/machinery/hydroponics,
