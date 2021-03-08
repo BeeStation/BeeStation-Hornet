@@ -602,8 +602,8 @@
 		for (var/X in temp_pod.explosionSize)
 			explosionString += "[X]|"
 
-	var/msg = "launched [podString][whomString].[delayString][damageString][explosionString]"
-	message_admins("[key_name_admin(usr)] [msg] in [AREACOORD(specificTarget)].")
+	var/msg = "launched [podString] towards [whomString] [delayString][damageString][explosionString]"
+	message_admins("[key_name_admin(usr)] [msg] in [ADMIN_VERBOSEJMP(specificTarget)].")
 	if (!isemptylist(whoDyin))
 		for (var/mob/living/M in whoDyin)
 			admin_ticket_log(M, "[key_name_admin(usr)] [msg]")
