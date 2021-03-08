@@ -10,6 +10,7 @@
 	selection_color = "#ffeeff"
 	chat_color = "#C772C7"
 	exp_type = EXP_TYPE_CREW
+	exp_requirements = 120
 
 	outfit = /datum/outfit/job/scientist
 

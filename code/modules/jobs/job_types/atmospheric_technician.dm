@@ -10,6 +10,7 @@
 	selection_color = "#fff5cc"
 	chat_color = "#D4A07D"
 	exp_type = EXP_TYPE_CREW
+	exp_requirements = 120
 
 	outfit = /datum/outfit/job/atmos
 
