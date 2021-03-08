@@ -7,7 +7,7 @@
 
 
 	var/on = FALSE
-	var/volume_rate = 1000
+	var/volume_rate = 500
 	var/overpressure_m = 80
 	volume = 1000
 
