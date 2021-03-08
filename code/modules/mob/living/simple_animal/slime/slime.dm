@@ -552,7 +552,7 @@
 		LAZYREMOVE(GLOB.mob_spawners[spawner], src)
 	GLOB.poi_list -= src
 
-/mob/living/simple_animal/slime/make_master(mob/user)
+/mob/living/simple_animal/slime/proc/make_master(mob/user)
 	Friends[user]++
 	S.master = user
 
