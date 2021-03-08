@@ -162,8 +162,24 @@
 		H.visible_message("<span class='danger'>You have to get this chocolate out of your system!!!</span>")
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
 
+/datum/reagent/toxin/mothbgon/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+	if(!iscatperson(M))
+		return
+
+	var/mob/living/carbon/victim = M
+	if(method == TOUCH || method == VAPOR)
+		//check for protection
+		//actually handle the pepperspray effects
+		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
+			victim.blur_eyes(2)
+			victim.blind_eyes(2) // 6 seconds
+			victim.emote("scream")
+			victim.confused = max(M.confused, 5) // 10 seconds
+			victim.add_movespeed_modifier(MOVESPEED_ID_PEPPER_SPRAY, update=TRUE, priority=100, multiplicative_slowdown=0.25, blacklisted_movetypes=(FLYING|FLOATING))
+			addtimer(CALLBACK(victim, /mob.proc/remove_movespeed_modifier, MOVESPEED_ID_PEPPER_SPRAY), 10 SECONDS)
+		victim.update_damage_hud()
 
 /datum/species/human/felinid/check_species_weakness(obj/item/weapon, mob/living/attacker)
 	if(istype(weapon, /obj/item/melee/flyswatter/cat))
-		return 19 //flyswatters deal 20x damage to moths
+		return 29 //flyswatters deal 20x damage to moths
 	return 0

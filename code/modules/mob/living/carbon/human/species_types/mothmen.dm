@@ -74,5 +74,5 @@
 
 /datum/species/moth/check_species_weakness(obj/item/weapon, mob/living/attacker)
 	if(istype(weapon, /obj/item/melee/flyswatter/moth))
-		return 19 //flyswatters deal 20x damage to moths
+		return 29 //flyswatters deal 30x damage to moths
 	return 0

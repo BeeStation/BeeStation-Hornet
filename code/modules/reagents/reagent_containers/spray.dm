@@ -336,6 +336,9 @@
 	item_state = "chemsprayer"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
+	spray_range = 10 //the range of tiles the sprayer will reach when in spray mode.
+	stream_range = 5 //the range of tiles the sprayer will reach when in stream mode.
+	stream_amount = 10 //the amount of reagents transfered when in stream mode.
 	list_reagents = list(/datum/reagent/toxin/mothbgon = 333, /datum/reagent/clf3 = 333, /datum/reagent/toxin/catbgon = 333)
 
 /obj/item/reagent_containers/spray/chemsprayer/janitor
