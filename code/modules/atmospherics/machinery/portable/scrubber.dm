@@ -6,7 +6,7 @@
 
 
 	var/on = FALSE
-	var/volume_rate = 500
+	var/volume_rate = 1000
 	var/overpressure_m = 80
 	volume = 1000
 
@@ -27,22 +27,22 @@
 	if(connected_port)
 		add_overlay("scrubber-connector")
 
-/obj/machinery/portable_atmospherics/scrubber/process_atmos(delta_time)
+/obj/machinery/portable_atmospherics/scrubber/process_atmos()
 	..()
 	if(!on)
 		return
 
 	if(holding)
-		scrub(holding.air_contents, delta_time)
+		scrub(holding.air_contents)
 	else
 		var/turf/T = get_turf(src)
-		scrub(T.return_air(), delta_time)
+		scrub(T.return_air())
 
-/obj/machinery/portable_atmospherics/scrubber/proc/scrub(var/datum/gas_mixture/mixture, delta_time = 2)
+/obj/machinery/portable_atmospherics/scrubber/proc/scrub(var/datum/gas_mixture/mixture)
 	if(air_contents.return_pressure() >= overpressure_m * ONE_ATMOSPHERE)
 		return
 
-	var/transfer_moles = min(1, volume_rate * delta_time / mixture.return_volume()) * mixture.total_moles()
+	var/transfer_moles = min(1, volume_rate / mixture.return_volume()) * mixture.total_moles()
 
 	var/datum/gas_mixture/filtering = mixture.remove(transfer_moles) // Remove part of the mixture to filter.
 	if(!filtering)
@@ -138,7 +138,7 @@
 /obj/machinery/portable_atmospherics/scrubber/huge/update_icon()
 	icon_state = "scrubber:[on]"
 
-/obj/machinery/portable_atmospherics/scrubber/huge/process_atmos(delta_time)
+/obj/machinery/portable_atmospherics/scrubber/huge/process_atmos()
 	if((!anchored && !movable) || !is_operational())
 		on = FALSE
 		update_icon()
@@ -150,7 +150,7 @@
 	if(!holding)
 		var/turf/T = get_turf(src)
 		for(var/turf/AT in T.GetAtmosAdjacentTurfs(alldir = TRUE))
-			scrub(AT.return_air(), delta_time)
+			scrub(AT.return_air())
 
 /obj/machinery/portable_atmospherics/scrubber/huge/attackby(obj/item/W, mob/user)
 	if(default_unfasten_wrench(user, W))

@@ -18,7 +18,7 @@
 	var/scrubbing = SCRUBBING //0 = siphoning, 1 = scrubbing
 
 	var/filter_types = list(/datum/gas/carbon_dioxide, /datum/gas/bz)
-	var/volume_rate = 400
+	var/volume_rate = 200
 	var/widenet = 0 //is this scrubber acting on the 3x3 area around it.
 	var/list/turf/adjacent_turfs = list()
 
@@ -133,20 +133,20 @@
 	check_turfs()
 	..()
 
-/obj/machinery/atmospherics/components/unary/vent_scrubber/process_atmos(delta_time)
+/obj/machinery/atmospherics/components/unary/vent_scrubber/process_atmos()
 	..()
 	if(welded || !is_operational())
 		return FALSE
 	if(!nodes[1] || !on)
 		on = FALSE
 		return FALSE
-	scrub(loc, delta_time)
+	scrub(loc)
 	if(widenet)
 		for(var/turf/tile in adjacent_turfs)
-			scrub(tile, delta_time)
+			scrub(tile)
 	return TRUE
 
-/obj/machinery/atmospherics/components/unary/vent_scrubber/proc/scrub(var/turf/open/tile, delta_time = 0.5)
+/obj/machinery/atmospherics/components/unary/vent_scrubber/proc/scrub(var/turf/open/tile)
 	if(!istype(tile))
 		return FALSE
 	var/datum/gas_mixture/environment = tile.return_air()
@@ -156,7 +156,7 @@
 		return FALSE
 
 	if(scrubbing & SCRUBBING)
-		var/transfer_moles = min(1, volume_rate * delta_time / environment.return_volume()) * environment.total_moles()
+		var/transfer_moles = min(1, volume_rate / environment.return_volume()) * environment.total_moles()
 
 		//Take a gas sample
 		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
@@ -173,7 +173,7 @@
 
 	else //Just siphoning all air
 
-		var/transfer_moles = environment.total_moles() * (volume_rate * delta_time / environment.return_volume())
+		var/transfer_moles = environment.total_moles() * (volume_rate / environment.return_volume())
 
 		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
 

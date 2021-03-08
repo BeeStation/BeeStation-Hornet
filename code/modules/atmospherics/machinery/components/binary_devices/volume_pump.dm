@@ -50,7 +50,7 @@
 /obj/machinery/atmospherics/components/binary/volume_pump/update_icon_nopipes()
 	icon_state = on && is_operational() ? "volpump_on" : "volpump_off"
 
-/obj/machinery/atmospherics/components/binary/volume_pump/process_atmos(delta_time)
+/obj/machinery/atmospherics/components/binary/volume_pump/process_atmos()
 //	..()
 	if(!on || !is_operational())
 		return
@@ -69,15 +69,14 @@
 	if(overclocked && (output_starting_pressure-input_starting_pressure > 1000))//Overclocked pumps can only force gas a certain amount.
 		return
 
-
-	var/transfer_ratio = (transfer_rate * delta_time) / air1.return_volume()
+	var/transfer_ratio = transfer_rate / air1.return_volume()
 
 	var/datum/gas_mixture/removed = air1.remove_ratio(transfer_ratio)
 
 	if(overclocked)//Some of the gas from the mixture leaks to the environment when overclocked
 		var/turf/open/T = loc
 		if(istype(T))
-			var/datum/gas_mixture/leaked = removed.remove_ratio(DT_PROB_RATE(VOLUME_PUMP_LEAK_AMOUNT, delta_time))
+			var/datum/gas_mixture/leaked = removed.remove_ratio(VOLUME_PUMP_LEAK_AMOUNT)
 			T.assume_air(leaked)
 			T.air_update_turf()
 

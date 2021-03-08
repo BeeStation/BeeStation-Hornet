@@ -66,7 +66,7 @@
 	if(stat != old_stat)
 		update_icon()
 
-/obj/machinery/atmospherics/components/trinary/filter/process_atmos(delta_time)
+/obj/machinery/atmospherics/components/trinary/filter/process_atmos()
 	..()
 	if(!on || !(nodes[1] && nodes[2] && nodes[3]) || !is_operational())
 		return
@@ -85,7 +85,7 @@
 		//No need to transfer if target is already full!
 		return
 
-	var/transfer_ratio = (transfer_rate * delta_time) / air1.return_volume()
+	var/transfer_ratio = transfer_rate / air1.return_volume()
 
 	//Actually transfer the gas
 
