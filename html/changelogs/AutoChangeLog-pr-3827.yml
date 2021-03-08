@@ -1,0 +1,4 @@
+author: Evankhell561
+delete-after: true
+changes:
+  - tweak: AI-controlled slimes that have a master no longer attack their master
