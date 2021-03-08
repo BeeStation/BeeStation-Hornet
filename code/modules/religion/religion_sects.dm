@@ -114,7 +114,7 @@
 			if(affecting.heal_damage(heal_amt, heal_amt, null, BODYPART_ORGANIC))
 				H.update_damage_overlays()
 		H.visible_message("<span class='notice'>[user] heals [H] with the power of [GLOB.deity]!</span>")
-		to_chat(H, "<span class='boldnotice'>May the power of [GLOB.deity] compel you to be healed!</span>")
+		to_chat(H, "<span class='boldnotice'>May the power of [GLOB.deity] compels you to be healed!</span>")
 		playsound(user, "punch", 25, TRUE, -1)
 		SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
 	return TRUE
@@ -212,7 +212,7 @@
 	if(!offering.lit)
 		to_chat(user, "<span class='notice'>The candle needs to be lit to be offered!</span>")
 		return
-	to_chat(user, "<span class='notice'>Another candle for [GLOB.deity]'s collection</span>")
+	to_chat(user, "<span class='notice'>Another candle for [GLOB.deity]'s collection.</span>")
 	adjust_favor(20, user) //it's not a lot but hey there's a pacifist favor option at least
 	qdel(offering)
 	return TRUE
