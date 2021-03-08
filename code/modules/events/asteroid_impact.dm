@@ -8,7 +8,6 @@
 /datum/round_event/asteroid_impact
 	//Should be enough time to escape.
 	startWhen = 260
-	endWhen = 261
 	announceWhen = 1
 
 /datum/round_event/asteroid_impact/announce(fake)
@@ -22,8 +21,9 @@
 			if(SSshuttle.emergency.timer > world.time + 5 MINUTES)
 				SSshuttle.emergency.setTimer(5 MINUTES)
 
-/datum/round_event/asteroid_impact/tick()
+/datum/round_event/asteroid_impact/start()
 	for(var/mob/living/M in GLOB.mob_list)
-		if(is_station_level(M.z))
+		if(is_station_level(M.z) && !QDELETED(M))
 			explosion(M, 3, 4, 6, 0, FALSE)
+			qdel(M)
 			CHECK_TICK
