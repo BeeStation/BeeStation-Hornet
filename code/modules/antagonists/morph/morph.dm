@@ -55,7 +55,7 @@
 	mobchatspan = "blob"
 
 /mob/living/simple_animal/hostile/morph/discount
-	ventcrawler = null
+	ventcrawler = FALSE
 
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	var/datum/action/innate/morph/stomach/S = new
