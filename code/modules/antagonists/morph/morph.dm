@@ -54,6 +54,9 @@
 
 	mobchatspan = "blob"
 
+/mob/living/simple_animal/hostile/morph/discount
+	ventcrawler = null
+
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	var/datum/action/innate/morph/stomach/S = new
 	S.Grant(src)
