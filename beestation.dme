@@ -14,7 +14,6 @@
 
 // BEGIN_INCLUDE
 #include "_maps\_basemap.dm"
-#include "_maps\RandomRuins\SpaceRuins\asteroid10.dmm"
 #include "code\_compile_options.dm"
 #include "code\world.dm"
 #include "code\__DEFINES\_globals.dm"
@@ -2959,6 +2958,7 @@
 #include "code\modules\ruins\objects_and_mobs\ash_walker_den.dm"
 #include "code\modules\ruins\objects_and_mobs\necropolis_gate.dm"
 #include "code\modules\ruins\objects_and_mobs\sin_ruins.dm"
+#include "code\modules\ruins\spaceruin_code\asteroid10.dm"
 #include "code\modules\ruins\spaceruin_code\asteroid4.dm"
 #include "code\modules\ruins\spaceruin_code\bigderelict1.dm"
 #include "code\modules\ruins\spaceruin_code\caravanambush.dm"

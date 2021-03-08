@@ -72,6 +72,12 @@
 	name = "Asteroid 9"
 	description = "This looks like it was a shuttle at some point... Now it's all rocks!"
 
+/datum/map_template/ruin/space/asteroid10
+	id = "asteroid10"
+	suffix = "asteroid10.dmm"
+	name = "Asteroid 10"
+	description = "Welcome to dog heaven!"
+
 /datum/map_template/ruin/space/sos1
 	id = "sos1"
 	suffix = "sos1.dmm"
