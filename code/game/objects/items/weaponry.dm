@@ -760,7 +760,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/melee/flyswatter/cat
 	name = "Felinid BONKer"
-	desc = "Best defense against pouncing mammals"
+	desc = "The bat has the word 'horny jail' scribbeld on it, wonder what that means"
 	attack_verb = list("Homerunned", "BONKed")
 	hitsound = 'sound/weapons/smash.ogg'	
 	icon = 'icons/obj/items_and_weapons.dmi'
