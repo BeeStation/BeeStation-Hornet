@@ -17,6 +17,8 @@ SUBSYSTEM_DEF(economy)
 							//Take care when enabling, as players will NOT respond well if the economy is set up for low cash flows.
 	var/list/bank_accounts = list() //List of normal accounts (not department accounts)
 	var/list/dep_cards = list()
+	///The modifier multiplied to the value of bounties paid out.
+	var/bounty_modifier = 1
 
 /datum/controller/subsystem/economy/Initialize(timeofday)
 	var/budget_to_hand_out = round(budget_pool / department_accounts.len)

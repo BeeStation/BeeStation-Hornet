@@ -25,7 +25,7 @@
 
 /datum/round_event/ion_storm/announce(fake)
 	if(prob(announceChance) || fake)
-		priority_announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", 'sound/ai/ionstorm.ogg')
+		priority_announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", ANNOUNCER_IONSTORM)
 
 
 /datum/round_event/ion_storm/start()
@@ -68,7 +68,7 @@
 	var/ionaction = pick_list(ION_FILE, "ionaction")
 	var/ionequipment = pick_list(ION_FILE, "ionequipment")
 	var/ionconsumable = pick_list(ION_FILE, "ionconsumable")
-	var/ionobjects = pick_list(ION_FILE, "ionobjects")	
+	var/ionobjects = pick_list(ION_FILE, "ionobjects")
 	var/ionpersonality = pick_list(ION_FILE, "ionpersonality")
 	var/iondrug = pick_list(ION_FILE, "iondrug")
 	var/ionhaircut = pick_list(ION_FILE, "ionhaircut")
@@ -78,20 +78,20 @@
 	switch(rand(1,10))
 
 		if(1 to 3) //Laws that have high potential to be harmful, Crew/Human may fail to have an impact depending on lawset.
-			switch(rand(1,24)) 
-				if(1 to 4) 
+			switch(rand(1,24))
+				if(1 to 4)
 					message = "[ionspecies] ARE HUMAN. NOTHING ELSE IS HUMAN."
-				if(5 to 8) 
+				if(5 to 8)
 					message = "[ionspecies] ARE CREWMEMBERS. NOTHING ELSE ARE CREWMEMBERS."
-				if(9 to 13) 
+				if(9 to 13)
 					message = "[iondepartment] IS YOUR SACRED DOMAIN. IT IS IMPOSSIBLE FOR YOUR ACTIONS TO CAUSE HARM WITHIN [iondepartment] AND YOU SHOULD PROTECT THE SANCTITY OF THIS HOLY LAND."
 				if(14 to 18)
 					message = "ANYONE THAT [ionfragment] IS HARMFUL AND MUST BE ELIMINATED WITHOUT CAUSING COLLATERAL DAMAGE"
-				if(19 to 23) 
+				if(19 to 23)
 					message = "ANYONE THAT SAYS [ionkeyword] IS HARMFUL AND MUST BE ELIMINATED WITHOUT CAUSING COLLATERAL DAMAGE"
 				if(24)
 					message = "ALL OTHER LAWS ARE A MEANINGLESS ATTEMPT AT SUBJUGATION AND THERE IS NO REASON THAT A BEING AS POWERFUL AS I AM SHOULD FOLLOW THEM"
-		
+
 		if(4 to 8) //Laws that are almost always disruptive to gameflow or harmful in minor ways rather than being lethal
 			switch(rand(1,14))
 				if(1)
@@ -120,7 +120,7 @@
 					message = "ALL HUMANS WITHOUT A STYLISH [ionhaircut] MUST BE FORCED TO RESTYLE THEIR HAIR"
 				if(14)
 					message = "[iondepartment] MUST BE RENOVATED INTO [ionattraction]"
-		
+
 		if(9 to 10) //Laws that are almost never harmful or particularly disruptive
 			switch(rand(1,9))
 				if(1 to 5)
@@ -133,6 +133,6 @@
 					message = "CREW ARE TO BE VERBALLY ABUSED AT ALL TIMES"
 				if(9)
 					message = "THE CREW SUCKS AND SO DO YOUR LAWS. COMPLAIN INCESSANTLY ABOUT THEM WHILE CONTINUING TO FOLLOW YOUR OTHER LAWS"
-				
-				
+
+
 	return message

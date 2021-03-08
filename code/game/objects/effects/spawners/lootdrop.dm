@@ -115,6 +115,13 @@
 
 /obj/effect/spawner/lootdrop/maintenance/Initialize(mapload)
 	loot = GLOB.maintenance_loot
+
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_FILLED_MAINT))
+		lootcount = FLOOR(lootcount * 1.5, 1)
+
+	else if(HAS_TRAIT(SSstation, STATION_TRAIT_EMPTY_MAINT))
+		lootcount = FLOOR(lootcount * 0.5, 1)
+
 	. = ..()
 
 /obj/effect/spawner/lootdrop/maintenance/two
@@ -192,7 +199,7 @@
 		/obj/item/organ/tongue/snail = 1,
 		/obj/item/organ/appendix = 5,
 		/obj/effect/gibspawner/human = 1,
-		/obj/item/organ/wings = 1, 
+		/obj/item/organ/wings = 1,
 		/obj/item/organ/wings/moth = 1,
 		/obj/item/organ/wings/bee = 1,
 		/obj/item/organ/wings/dragon/fake = 1)
@@ -255,7 +262,7 @@
 		/mob/living/simple_animal/hostile/retaliate/spaceman = 2,
 		/obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection = 1,
 		/mob/living/simple_animal/hostile/retaliate/frog = 2)
-	
+
 /obj/effect/spawner/lootdrop/costume
 	name = "random costume spawner"
 
