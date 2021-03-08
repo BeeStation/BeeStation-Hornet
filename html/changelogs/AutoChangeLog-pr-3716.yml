@@ -1,0 +1,7 @@
+author: ExcessiveUseOfCobblestone, Caldony, Archanial
+delete-after: true
+changes:
+  - rscadd: Sects!
+  - rscadd: Technophile and Ever-burning Candle sects!
+  - rscadd: Every chapel has now altair of gods which allows you to create sect and
+      perform their specfic rites or make sacrifices that appease the gods.
