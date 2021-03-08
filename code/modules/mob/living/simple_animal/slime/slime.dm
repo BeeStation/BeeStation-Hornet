@@ -554,7 +554,7 @@
 
 /mob/living/simple_animal/slime/proc/make_master(mob/user)
 	Friends[user]++
-	S.master = user
+	master = user
 
 /mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_colour="rainbow", new_is_adult)
 	. = ..(mapload, new_colour, new_is_adult)
