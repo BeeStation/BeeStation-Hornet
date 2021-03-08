@@ -500,16 +500,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0
 	include_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 
-/datum/uplink_item/dangerous/mothbgonbundle
-	name = "EXTERIMINATION bundle"
-	desc = "Syndicate Labs brought you the tools nescessary for quick and easy removal of pets, including both cats and moths! \
-			Now, the kit contains specialised weaponry just for your comfort, but beware as besides the anti friction countermeasure \
-			and small amount of concentrated fire in your pest removal device you are pretty harmless. ( IN CASE YOU DO NOT WISH TO \
-			PERMANENTLY REMOVE THE PESTS YOU HAVE THE OPTION TO SPARE THEM WITH 100 UNITS OF CONCENTRATED APE DNA)"
-	item = /obj/item/storage/backpack/duffelbag/syndie/med/mothbgonbundle
-	cost = 14
-	restricted_species = list("human")
-
 /datum/uplink_item/dangerous/throwingweapons
 	name = "Box of Throwing Weapons"
 	desc = "A box of shurikens and reinforced bolas from ancient Earth martial arts. They are highly effective \
@@ -1868,6 +1858,16 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	cost = 2
 	item = /obj/item/flashlight/lantern/syndicate
 	restricted_species = list("moth")
+
+/datum/uplink_item/race_restricted/mothbgonbundle
+	name = "EXTERIMINATION bundle"
+	desc = "Syndicate Labs brought you the tools nescessary for quick and easy removal of pets, including both cats and moths! \
+			Now, the kit contains specialised weaponry just for your comfort, but beware as besides the anti friction countermeasure \
+			and small amount of concentrated fire in your pest removal device you are pretty harmless. ( IN CASE YOU DO NOT WISH TO \
+			PERMANENTLY REMOVE THE PESTS YOU HAVE THE OPTION TO SPARE THEM WITH 100 UNITS OF CONCENTRATED APE DNA)"
+	item = /obj/item/storage/backpack/duffelbag/syndie/med/mothbgonbundle
+	cost = 14
+	restricted_species = list("human")
 
 /datum/uplink_item/race_restricted/ethereal_grenade
 	name = "Ethereal Dance Grenade"
