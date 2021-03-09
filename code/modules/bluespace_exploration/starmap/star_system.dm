@@ -38,10 +38,7 @@
 	//Faction Selection
 	//Base difficulty + random variance
 	switch(rand(0, zerotoonehundred) + rand(-10, 10))
-		if(-INFINITY to 0)
-			//Peaceful faction
-			system_alignment = SSbluespace_exploration.get_faction(/datum/faction/nanotrasen)
-		if(0 to 20)
+		if(-INFINITY to 20)
 			system_alignment = SSbluespace_exploration.get_faction(/datum/faction/nanotrasen)
 		if(20 to 50)
 			system_alignment = SSbluespace_exploration.get_faction(pick(/datum/faction/spider_clan, /datum/faction/independant, /datum/faction/pirates, /datum/faction/golems))
