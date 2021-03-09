@@ -207,7 +207,7 @@
 			message = replacetextEx(message, "[capitalize(key)]", "[capitalize(value)]")
 			message = replacetextEx(message, "[key]", "[value]")
 
-		if(prob(2))
+		if(prob(8))
 			message += pick(british_appends)
 	speech_args[SPEECH_MESSAGE] = trim(message)
 
