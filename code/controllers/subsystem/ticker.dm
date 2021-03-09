@@ -374,22 +374,31 @@ SUBSYSTEM_DEF(ticker)
 
 
 /datum/controller/subsystem/ticker/proc/equip_characters()
-	var/captainless=1
+	var/captainless = TRUE
 	for(var/mob/dead/new_player/N in GLOB.player_list)
 		var/mob/living/carbon/human/player = N.new_character
 		if(istype(player) && player.mind && player.mind.assigned_role)
 			if(player.mind.assigned_role == "Captain")
-				captainless=0
+				captainless = FALSE
 			if(player.mind.assigned_role != player.mind.special_role)
-				SSjob.EquipRank(N, player.mind.assigned_role, 0)
+				SSjob.EquipRank(N, player.mind.assigned_role, FALSE)
 			if(CONFIG_GET(flag/roundstart_traits) && ishuman(N.new_character))
 				SSquirks.AssignQuirks(N.new_character, N.client, TRUE)
 		CHECK_TICK
-	if(captainless)
+	if(captainless)			//No captain, time to choose acting captain
 		for(var/mob/dead/new_player/N in GLOB.player_list)
-			if(N.new_character)
-				to_chat(N, "Captainship not forced on anyone.")
-			CHECK_TICK
+			var/mob/living/carbon/human/H = N.new_character
+			if(istype(H) && H.mind && (H.mind.assigned_role in GLOB.command_positions))
+				if(is_banned_from(N.ckey, "Captain"))
+					continue
+				if(!H.wear_id?.GetID())
+					continue
+				var/obj/item/card/id/idcard = H.wear_id
+				LAZYADD(idcard.access, ACCESS_CAPTAIN)
+				to_chat(N, "<b>You've been chosen as acting captain for this station. Perform regular captain's duties until Centcom assigned captain arrives. Additional access has been added to your ID card.</b>")
+				message_admins("[capitalize(N.ckey)] has been made acting captain roundstart.")
+				break
+		CHECK_TICK
 
 /datum/controller/subsystem/ticker/proc/transfer_characters()
 	var/list/livings = list()
