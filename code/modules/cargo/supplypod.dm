@@ -328,7 +328,6 @@
 /obj/structure/closet/supplypod/close(atom/movable/holder) //Closes the supplypod and sends it back to centcom. Should only ever be called if the "reversing" variable is true
 	if (!holder)
 		return
-	message_admins(holder)
 	take_contents(holder)
 	playsound(holder, close_sound, soundVolume*0.75, TRUE, -3)
 	holder.setClosed()
@@ -461,7 +460,6 @@
 	if(!glow_effect)
 		return
 	glow_effect.layer = LOW_ITEM_LAYER
-	message_admins("HUU!")
 	glow_effect.fadeAway(delays[POD_OPENING])
 	glow_effect = null
 
@@ -493,7 +491,6 @@
 /obj/effect/engineglow/proc/fadeAway(leaveTime)
 	var/duration = min(leaveTime, 25)
 	animate(src, alpha=0, time = duration)
-	message_admins("HYUU!")
 	QDEL_IN(src, duration + 5)
 
 /obj/effect/supplypod_smoke/proc/drawSelf(amount)
