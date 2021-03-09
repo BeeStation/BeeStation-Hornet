@@ -332,7 +332,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			var/area/newA = GLOB.areas_by_type[/area/space]
 			newA.contents += newT
 			newT.change_area(newT.loc, newA)
-		newT.flags_1 -= NO_RUINS_1
+		newT.flags_1 &= ~NO_RUINS_1
 		new_turfs += newT
 	return new_turfs
 
