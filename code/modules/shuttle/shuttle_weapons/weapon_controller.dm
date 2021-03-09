@@ -193,10 +193,9 @@
 			cam_screen.vis_contents = visible_turfs
 			cam_background.icon_state = "clear"
 
-			var/list/bbox = get_bbox_of_atoms(visible_turfs)
-			var/size_x = bbox[3] - bbox[1] + 1
-			var/size_y = bbox[4] - bbox[2] + 1
-			cam_background.fill_rect(1, 1, size_x, size_y)
+			cam_background.fill_rect(1, 1, \
+								clamp(right+extra_range, 1, world.maxx) - clamp(left-extra_range, 1, world.maxx) + 1, \
+								clamp(top+extra_range, 1, world.maxy) - clamp(bottom-extra_range, 1, world.maxy) + 1)
 			return TRUE
 		if("set_weapon_target")
 			//Select the weapon system
