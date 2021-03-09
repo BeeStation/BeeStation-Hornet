@@ -17,7 +17,7 @@
 	priority_announce("Your station has been subjected to [source]. Some dead bodies have come back to life to [purpose]. On behalf of Nanotrasen, please welcome these former employees as your new coworkers!","[command_name()] Medium-Priority Update")
 
 /datum/round_event/ghost_role/undead/spawn_role()
-	var/list/mob/dead/observer/candidates = get_candidates(ROLE_REVENANT, null, ROLE_REVENANT)
+	var/list/mob/dead/observer/candidates = get_candidates(ROLE_ALIEN, null, ROLE_ALIEN)
 	
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
