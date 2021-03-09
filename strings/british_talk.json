@@ -22,7 +22,7 @@
         "robusted": ["shanked", "banged"],
         "thief": ["robber", "burglar"],
 		"centcom": "royal family",
-		"man": ["block", "lad", "fam", "fella"],
+		"man": ["block", "lad", "fam", "fella", "chap"],
 		"friend": ["mate", "g", "fam", "blud"],
 		"family": "fam",
 		"boy": ["block", "lad"],
