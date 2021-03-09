@@ -40,6 +40,8 @@
 	var/dynamic_hair_suffix = ""//head > mask for head hair
 	var/dynamic_fhair_suffix = ""//mask > head for facial hair
 
+	var/high_pressure_multiplier = 1
+	var/static/list/high_pressure_multiplier_types = list("melee", "bullet", "laser", "energy", "bomb")
 
 /obj/item/clothing/Initialize()
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
@@ -330,3 +332,13 @@ BLIND     // can't see anything
 		deconstruct(FALSE)
 	else
 		..()
+
+/obj/item/clothing/get_armor_rating(d_type, mob/wearer)
+	. = ..()
+	if(high_pressure_multiplier == 1)
+		return
+	var/turf/T = get_turf(wearer)
+	if(!T || !(d_type in high_pressure_multiplier_types))
+		return
+	if(!lavaland_equipment_pressure_check(T))
+		. *= high_pressure_multiplier

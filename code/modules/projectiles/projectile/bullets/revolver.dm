@@ -22,14 +22,14 @@
 
 /obj/item/projectile/bullet/c38/trac/on_hit(atom/target, blocked = FALSE)
 	. = ..()
-	var/mob/living/carbon/M = target
-	var/obj/item/implant/tracking/c38/imp
-	for(var/obj/item/implant/tracking/c38/TI in M.implants) //checks if the target already contains a tracking implant
-		imp = TI
+	var/mob/living/M = target
+	if(!istype(M))
 		return
-	if(!imp)
-		imp = new /obj/item/implant/tracking/c38(M)
-		imp.implant(M)
+	if(locate(/obj/item/implant/tracking/c38) in M.implants) //checks if the target already contains a tracking implant
+		return
+	
+	var/obj/item/implant/tracking/c38/imp = new (M)
+	imp.implant(M)
 
 /obj/item/projectile/bullet/c38/hotshot //similar to incendiary bullets, but do not leave a flaming trail
 	name = ".38 Hot Shot bullet"

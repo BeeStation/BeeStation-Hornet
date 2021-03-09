@@ -56,7 +56,7 @@
 	gain_text = "The Nightwatcher was a very particular man, always watching in the dead of night. But in spite of his duty, he regularly tranced through the manse with his blazing lantern held high."
 	desc = "Your Mansus Grasp now applies the Mark of Ash on hit. Attack the afflicted with your Sickly Blade to detonate the mark. Upon detonation, the Mark of Ash causes stamina damage and burn damage, and spreads to an additional nearby opponent. The damage decreases with each spread."
 	cost = 2
-	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness)
+	next_knowledge = list(/datum/eldritch_knowledge/mad_mask)
 	banned_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/flesh_mark)
 	route = PATH_ASH
 
@@ -66,23 +66,15 @@
 		var/mob/living/living_target = target
 		living_target.apply_status_effect(/datum/status_effect/eldritch/ash,5)
 
-/datum/eldritch_knowledge/curse/blindness
-	name = "Curse of blindness"
-	gain_text = "Blind man walks through the world, unnoticed by the masses."
-	desc = "Curse someone with 2 minutes of complete blindness by sacrificing a pair of eyes, a screwdriver and an object that the victim has touched with their bare hands."
-	cost = 1
-	required_atoms = list(/obj/item/screwdriver,/obj/item/organ/eyes)
+/datum/eldritch_knowledge/mad_mask
+	name = "Mask of Madness"
+	gain_text = "He walks the world, unnoticed by the masses."
+	desc = "Allows you to transmute any mask, with a candle and a pair of eyes, to create a mask of madness, It causes passive stamina damage to everyone around the wearer and hallucinations, can be forced on a non believer to make him unable to take it off..."
+	result_atoms = list(/obj/item/clothing/mask/void_mask)
+	required_atoms = list(/obj/item/organ/eyes,/obj/item/screwdriver,/obj/effect/decal/cleanable/blood)
 	next_knowledge = list(/datum/eldritch_knowledge/curse/corrosion,/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/curse/paralysis)
-	timer = 2 MINUTES
+	cost = 1
 	route = PATH_ASH
-
-/datum/eldritch_knowledge/curse/blindness/curse(mob/living/chosen_mob)
-	. = ..()
-	chosen_mob.become_blind(MAGIC_TRAIT)
-
-/datum/eldritch_knowledge/curse/blindness/uncurse(mob/living/chosen_mob)
-	. = ..()
-	chosen_mob.cure_blind(MAGIC_TRAIT)
 
 /datum/eldritch_knowledge/spell/flame_birth
 	name = "Flame Birth"

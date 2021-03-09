@@ -327,18 +327,19 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/cult
 	name = "\improper Nar'Sien hardened helmet"
-	desc = "A heavily-armored helmet worn by warriors of the Nar'Sien cult. It can withstand hard vacuum."
+	desc = "A heavily-armored helmet worn by warriors of the Nar'Sien cult. It is reinforced by hard vacuum."
 	icon_state = "cult_helmet"
 	item_state = "cult_helmet"
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
 	brightness_on = 0
 	actions_types = list()
+	high_pressure_multiplier = 0.5
 
 /obj/item/clothing/suit/space/hardsuit/cult
 	name = "\improper Nar'Sien hardened armor"
 	icon_state = "cult_armor"
 	item_state = "cult_armor"
-	desc = "A heavily-armored exosuit worn by warriors of the Nar'Sien cult. It can withstand hard vacuum."
+	desc = "A heavily-armored exosuit worn by warriors of the Nar'Sien cult."
 	w_class = WEIGHT_CLASS_BULKY
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals/)
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)

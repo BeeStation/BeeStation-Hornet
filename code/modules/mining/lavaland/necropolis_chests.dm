@@ -42,7 +42,7 @@
 		if(11)
 			new /obj/item/ship_in_a_bottle(src)
 		if(12)
-			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/beserker(src)
+			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/lavaland/beserker(src)
 		if(13)
 			new /obj/item/jacobs_ladder(src)
 		if(14)
@@ -70,7 +70,7 @@
 			new /obj/item/grenade/clusterbuster/inferno(src)
 		if(24)
 			new /obj/item/reagent_containers/food/drinks/bottle/holywater/hell(src)
-			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor(src)
+			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/lavaland/inquisitor(src)
 		if(25)
 			new /obj/item/book/granter/spell/summonitem(src)
 		if(26)
@@ -367,7 +367,7 @@
 	var/turf/T = get_turf(src)
 	var/area/A1 = get_area(T)
 	var/area/A2 = get_area(linked)
-	if(A1.noteleport || A2.noteleport)
+	if(A1.teleport_restriction || A2.teleport_restriction)
 		to_chat(user, "[src] fizzles gently as it fails to breach the bluespace veil.")
 		return
 	teleporting = TRUE
@@ -385,7 +385,7 @@
 		user.forceMove(get_turf(link_holder))
 		qdel(link_holder)
 		return
-	link_holder.forceMove(get_turf(linked))
+	do_teleport(link_holder, get_turf(linked), no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
 	sleep(2.5)
 	if(QDELETED(user))
 		qdel(link_holder)
@@ -1356,7 +1356,7 @@
 	sleep(2)
 	if(!M)
 		return
-	M.forceMove(turf_to_teleport_to)
+	do_teleport(M, turf_to_teleport_to, no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
 	sleep(1)
 	if(!M)
 		return

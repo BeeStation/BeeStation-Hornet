@@ -593,6 +593,10 @@ SUBSYSTEM_DEF(ticker)
 	log_game("Master mode is '[GLOB.master_mode]'")
 	log_config("Master mode is '[GLOB.master_mode]'")
 
+/// Returns if either the master mode or the forced secret ruleset matches the mode name.
+/datum/controller/subsystem/ticker/proc/is_mode(mode_name)
+	return GLOB.master_mode == mode_name || GLOB.secret_force_mode == mode_name
+
 /datum/controller/subsystem/ticker/proc/SetRoundEndSound(the_sound)
 	set waitfor = FALSE
 	round_end_sound_sent = FALSE

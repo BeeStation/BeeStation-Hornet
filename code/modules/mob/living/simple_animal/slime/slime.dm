@@ -552,5 +552,10 @@
 		LAZYREMOVE(GLOB.mob_spawners[spawner], src)
 	GLOB.poi_list -= src
 
+/mob/living/simple_animal/slime/proc/make_master(mob/user)
+	Friends[user] += SLIME_FRIENDSHIP_ATTACK * 2
+	master = user
+
 /mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_colour="rainbow", new_is_adult)
 	. = ..(mapload, new_colour, new_is_adult)
+

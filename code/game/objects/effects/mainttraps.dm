@@ -20,7 +20,6 @@
 	var/grounded = FALSE //does it ignore fliers
 	var/pick_style = PICK_STYLE_ORDERED
 	var/requirehuman = TRUE
-	var/list/possibletraps = list()
 
 /obj/effect/trap/trigger/Crossed(AM as mob|obj)
 	if(isturf(loc))
@@ -46,12 +45,12 @@
 		return FALSE
 	else
 		inuse = TRUE
+	var/list/possibletraps = list()
+	for(var/obj/effect/trap/nexus/payload in view(10, src))
+		possibletraps += payload
 	if(!LAZYLEN(possibletraps))
-		for(var/obj/effect/trap/nexus/payload in view(10, src))
-			possibletraps += payload
-		if(!LAZYLEN(possibletraps))
-			qdel(src)
-			return FALSE
+		qdel(src)
+		return FALSE
 	switch(pick_style)
 		if(PICK_STYLE_RANDOM)
 			var/obj/effect/trap/nexus/chosen = pick(possibletraps)

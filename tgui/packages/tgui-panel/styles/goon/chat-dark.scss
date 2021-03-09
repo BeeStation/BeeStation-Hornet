@@ -462,6 +462,7 @@ em						{font-style: normal;	font-weight: bold;}
 .hidden {display: none; visibility: hidden;}
 
 //Job Colours
+//Make sure you add to replacementNodes in renderer.js
 .unknown {color: #cec9c1}
 .assistant {color: #cccccc}
 .atmospherictechnician {color: #d4a07d}
@@ -508,6 +509,12 @@ em						{font-style: normal;	font-weight: bold;}
 .alienmobsay {color: #855d85;}
 .cultmobsay {color: #aa1c1c;}
 .slimemobsay {color: #00CED1;}
+.gimmick {color: #a1a1a1;}
+.barber {color: #a58264;}
+.stagemagician {color: #b659a6;}
+.debtor {color: #6d6056;}
+.psychiatrist {color: #88bac9;}
+.vip {color: #e4ce6c;}
 
 @keyframes rainbowtext {
 	0% { color: #ff0000 }

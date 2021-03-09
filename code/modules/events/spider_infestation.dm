@@ -4,6 +4,7 @@
 	weight = 5
 	max_occurrences = 1
 	min_players = 15
+	dynamic_should_hijack = TRUE
 
 /datum/round_event/spider_infestation
 	announceWhen	= 400

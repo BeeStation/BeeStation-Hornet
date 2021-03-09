@@ -36283,13 +36283,10 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bqB" = (
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 4
-	},
-/obj/item/pen,
 /obj/structure/window/reinforced,
-/obj/structure/table/wood,
+/obj/machinery/computer/secure_data{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "bqC" = (
@@ -39267,9 +39264,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/break_room)
 "bwm" = (
-/obj/machinery/computer/secure_data{
-	dir = 1
-	},
+/obj/structure/filingcabinet/chestdrawer/wheeled,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "bwn" = (
@@ -39315,12 +39310,15 @@
 "bwp" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
-	pixel_x = -2;
+	pixel_x = 5;
 	pixel_y = 4
 	},
 /obj/item/stamp/hop{
-	pixel_x = -4;
-	pixel_y = 4
+	pixel_x = -6
+	},
+/obj/item/pen{
+	pixel_x = 5;
+	pixel_y = 6
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
@@ -75288,8 +75286,7 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "cQG" = (
-/obj/item/storage/book/bible,
-/obj/structure/table/wood,
+/obj/structure/altar_of_gods,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "cQH" = (
@@ -86178,6 +86175,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
+"ujB" = (
+/obj/structure/table/wood,
+/obj/item/storage/book/bible,
+/turf/open/floor/plasteel/dark,
+/area/chapel/main)
 "ujJ" = (
 /obj/machinery/door/airlock/external{
 	req_one_access_txt = "13,8"
@@ -110587,7 +110589,7 @@ cOO
 cPo
 cPM
 cQi
-cQF
+ujB
 cOP
 cRp
 cRL
