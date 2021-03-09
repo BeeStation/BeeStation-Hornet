@@ -1846,6 +1846,7 @@
 #include "code\modules\events\mice_migration.dm"
 #include "code\modules\events\nightmare.dm"
 #include "code\modules\events\operative.dm"
+#include "code\modules\events\patient_zero.dm"
 #include "code\modules\events\pirates.dm"
 #include "code\modules\events\portal_storm.dm"
 #include "code\modules\events\prison_break.dm"
