@@ -463,6 +463,7 @@
 	glow_effect.layer = LOW_ITEM_LAYER
 	message_admins("HUU!")
 	glow_effect.fadeAway(delays[POD_OPENING])
+	glow_effect = null
 
 /obj/structure/closet/supplypod/Destroy()
 	open_pod(src, broken = TRUE) //Lets dump our contents by opening up
@@ -540,6 +541,7 @@
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
 
 /obj/effect/pod_landingzone_effect/Initialize(mapload, obj/structure/closet/supplypod/pod)
+	. = ..()
 	transform = matrix() * 1.5
 	animate(src, transform = matrix()*0.01, time = pod.delays[POD_TRANSIT]+pod.delays[POD_FALLING])
 
