@@ -154,6 +154,7 @@ GLOBAL_VAR(restart_counter)
 
 	var/list/response[] = list()
 	var/list/params[] = json_decode(T)
+	params["addr"] = addr
 	var/query = params["query"]
 	var/auth = params["auth"]
 	log_topic("\"[T]\", from:[addr], master:[master], key:[key], auth:[auth]")

@@ -66,6 +66,27 @@
 	response = "Authorized functions retrieved"
 	data = GLOB.topic_tokens[input["auth"]]
 
+/datum/world_topic/api_do_handshake
+	key = "api_do_handshake"
+	anonymous = TRUE
+
+/datum/world_topic/api_do_handshake/Run(list/input)
+	. = ..()
+	var/list/functions = GLOB.topic_tokens[input["auth"]]
+	var/list/servers = CONFIG_GET(keyed_list/cross_server)
+	var/fmt_addr = "byond://[input["addr"]]"
+	var/token = servers[fmt_addr]
+	if(!token || !functions) // Handshake requires both servers to have each other's deets
+		statuscode = 401
+		response = "Unauthorized - Handshake Failed"
+		data = null
+	else
+		statuscode = 200
+		response = "Handshake Successful"
+		data = list("token" = token, "functions" = functions)
+		if(!GLOB.topic_servers[fmt_addr]) // part of the ad-hoc connection system
+			CallAsync(SStopic, "handshake_server", list(fmt_addr, token))
+
 // TOPICS
 
 /datum/world_topic/ping

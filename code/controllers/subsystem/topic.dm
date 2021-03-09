@@ -28,15 +28,39 @@ SUBSYSTEM_DEF(topic)
 			keys |= anonymous_functions
 		GLOB.topic_tokens[token] = keys
 
-	// Load the servers from config and query for the valid functions
-	// A bit expensive but it only runs once at startup, and then we know all the available functions for each server.
 	var/list/servers = CONFIG_GET(keyed_list/cross_server)
 	for(var/server in servers)
-		var/key = servers[server]
-		var/request = list("query" = "api_get_authed_functions", "auth" = key)
-		var/response = json_decode(world.Export("[server]?[json_encode(request)]"))
-		if(response["statuscode"] != 200)
-			continue
-		GLOB.topic_servers[server] = response["data"]
+		handshake_server(server, servers[server])
 
 	return ..()
+
+/*
+	A bit of background for future coders maintaining this:
+	When we contact a server or we contact a server to handshake, there are two outcomes to account for:
+
+	First, if the server being contacted has freshly rebooted, they will have no knowledge of us,
+	and as such will need to store our server details too by sending a handshake request back to us for information.
+
+	Second, if we rebooted while the other server was mid-round, they simply can send back the current details they have about us,
+	and don't need to get any additional information of their own.
+
+	Code for handling requests is in world_topic.dm
+
+	Basically, this proc exists to allow servers to make ad-hoc connections, going offline and coming back up without interrupting anything.
+*/
+/datum/controller/subsystem/topic/proc/handshake_server(addr, key)
+	var/request = list("query" = "api_do_handshake", "auth" = key)
+	var/response = world.Export("[addr]?[json_encode(request)]")
+	if(!response)
+		return
+	response = json_decode(response)
+	if(response["statuscode"] != 200)
+		return
+	var/list/local_funcs = GLOB.topic_tokens[LAZYACCESS(response["data"], "token")]
+	var/list/remote_funcs = LAZYACCESS(response["data"], "functions")
+	var/list/functions = list()
+	// Both servers need to have a function available to each other for it to be valid
+	for(var/func in remote_funcs)
+		if(local_funcs[func])
+			functions[func] = TRUE
+	GLOB.topic_servers[addr] = functions
