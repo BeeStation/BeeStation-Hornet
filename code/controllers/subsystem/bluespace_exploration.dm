@@ -454,12 +454,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		log_shuttle("Bluespace exploration docking failed, returning shuttle to home (Sanity check failed to place shuttle)")
 		log_runtime("Bluespace exploration docking failed, returning shuttle to home (Sanity check failed to place shuttle)")
 	shuttle.setTimer(shuttle.ignitionTime)
-<<<<<<< Updated upstream
-	current_system = data_holder.target_star_system
 	for(var/datum/space_level/level as() in bluespace_systems)
-=======
-	for(var/datum/space_level/level as anything in bluespace_systems)
->>>>>>> Stashed changes
 		if(level.z_value == data_holder.z_value)
 			bluespace_systems[level] = BS_LEVEL_USED
 			break
