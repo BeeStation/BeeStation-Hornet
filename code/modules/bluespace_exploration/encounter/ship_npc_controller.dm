@@ -73,7 +73,7 @@
 /datum/ship_datum/npc/proc/update_weapons()
 	var/has_active_weapons = FALSE
 	for(var/obj/machinery/shuttle_weapon/weapon as() in weapon_systems)
-		if(!weapon)
+		if(QDELETED(weapon))
 			weapon_systems -= weapon
 			continue
 		has_active_weapons = TRUE
