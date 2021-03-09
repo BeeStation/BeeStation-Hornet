@@ -135,8 +135,6 @@ GLOBAL_VAR_INIT(ships_destroyed, 0)
 	if(max_ship_integrity > 20 && !SSmapping.level_has_any_trait(any_turf.z, list(ZTRAIT_STATION)))
 		if(!exploded)
 			explosion(any_turf, 12, 15, 18, -1, FALSE)
-	if(mobile_port_id == "exploration")
-		print_command_report("Sensors of your station's exploration shuttle, The Pathfinder have gone dark. The ship and its crew are assumed lost. Their bodies could potentially be recovered, however their last known sector is known to be dangerous.")
 	qdel(src)
 
 //Removes all the star systems we could jump to, and generates new ones

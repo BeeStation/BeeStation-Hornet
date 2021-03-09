@@ -47,7 +47,7 @@
 			system_alignment = SSbluespace_exploration.get_faction(pick(/datum/faction/spider_clan, /datum/faction/independant, /datum/faction/pirates, /datum/faction/golems))
 		if(50 to 70)
 			system_alignment = SSbluespace_exploration.get_faction(pick(subtypesof(/datum/faction/syndicate) - /datum/faction/syndicate/elite + /datum/faction/pirates))
-		if(70 to 100)
+		if(70 to INFINITY)
 			system_alignment = SSbluespace_exploration.get_faction(/datum/faction/syndicate/elite)
 	//Set other factors
 	calculated_threat = CLAMP(rand(0, zerotoonehundred) + rand(-15, 20), 0, 40)

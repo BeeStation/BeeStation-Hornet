@@ -201,7 +201,7 @@
 			//Select the weapon system
 			//This seems highly exploitable
 			var/id = params["id"]
-			var/found_weapon = GLOB.shuttle_weapons["[id]"]
+			var/found_weapon = SSbluespace_exploration.shuttle_weapons["[id]"]
 			if(!found_weapon)
 				to_chat(usr, "<span class='warning'>Failed to locate weapon system.</span>")
 				return

@@ -82,8 +82,8 @@ GLOBAL_LIST_INIT(bluespace_debug_verbs, list(
 		return
 	message_admins("[ADMIN_LOOKUPFLW(usr)] made all weapons accurate for some reason")
 	log_admin("[ADMIN_LOOKUP(usr)] made all weapons accurate for some reason")
-	for(var/id in GLOB.shuttle_weapons)
-		var/obj/machinery/shuttle_weapon/weapon = GLOB.shuttle_weapons[id]
+	for(var/id in SSbluespace_exploration.shuttle_weapons)
+		var/obj/machinery/shuttle_weapon/weapon = SSbluespace_exploration.shuttle_weapons[id]
 		weapon.miss_chance = 0
 		weapon.hit_chance = 100
 
@@ -95,7 +95,7 @@ GLOBAL_LIST_INIT(bluespace_debug_verbs, list(
 		return
 	message_admins("[ADMIN_LOOKUPFLW(usr)] reset all weapons accurate")
 	log_admin("[ADMIN_LOOKUP(usr)] reset all weapons accurate")
-	for(var/id in GLOB.shuttle_weapons)
-		var/obj/machinery/shuttle_weapon/weapon = GLOB.shuttle_weapons[id]
+	for(var/id in SSbluespace_exploration.shuttle_weapons)
+		var/obj/machinery/shuttle_weapon/weapon = SSbluespace_exploration.shuttle_weapons[id]
 		weapon.miss_chance = initial(weapon.miss_chance)
 		weapon.hit_chance = initial(weapon.hit_chance)

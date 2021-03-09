@@ -73,8 +73,6 @@
 		for(var/turf/T as() in get_affected_turfs(central_turf, 1))
 			for(var/mob/living/simple_animal/monster in T)
 				qdel(monster)
-			for(var/obj/structure/flora/ash/plant in T)
-				qdel(plant)
 
 		load(central_turf,centered = TRUE)
 		loaded++

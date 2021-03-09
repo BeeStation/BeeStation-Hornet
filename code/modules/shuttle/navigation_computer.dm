@@ -144,14 +144,18 @@
 		my_port = null
 
 	if(!my_port)
-		my_port = new()
-		my_port.name = shuttlePortName
-		my_port.id = shuttlePortId
-		my_port.height = shuttle_port.height
-		my_port.width = shuttle_port.width
-		my_port.dheight = shuttle_port.dheight
-		my_port.dwidth = shuttle_port.dwidth
-		my_port.hidden = shuttle_port.hidden
+		//Check for existing landing pads
+		my_port = SSshuttle.getDock(shuttlePortId)
+		//Still no port
+		if(!my_port)
+			my_port = new()
+			my_port.name = shuttlePortName
+			my_port.id = shuttlePortId
+			my_port.height = shuttle_port.height
+			my_port.width = shuttle_port.width
+			my_port.dheight = shuttle_port.dheight
+			my_port.dwidth = shuttle_port.dwidth
+			my_port.hidden = shuttle_port.hidden
 	my_port.setDir(the_eye.dir)
 	my_port.forceMove(locate(eyeobj.x - x_offset, eyeobj.y - y_offset, eyeobj.z))
 

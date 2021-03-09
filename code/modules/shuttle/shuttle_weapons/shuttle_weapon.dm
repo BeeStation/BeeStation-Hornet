@@ -2,8 +2,6 @@
 #define WEAPON_SIDE_RIGHT 1
 #define WEAPON_SIDE_NONE 0
 
-GLOBAL_LIST_EMPTY(shuttle_weapons)
-
 /obj/machinery/shuttle_weapon
 	name = "Mounted Emplacement"
 	desc = "A weapon system mounted onto a shuttle system. Use a wrench to rotate."
@@ -34,12 +32,18 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 	var/offset_turf_x = 0
 	var/offset_turf_y = 0
 
+	//weapon ID
+	var/weapon_id
+
 /obj/machinery/shuttle_weapon/Initialize(mapload, ndir = 0)
 	. = ..()
-	var/static/weapon_systems = 0
-	unique_id = weapon_systems++
-	GLOB.shuttle_weapons["[unique_id]"] = src
+	weapon_id = "[LAZYLEN(SSbluespace_exploration.shuttle_weapons)]"
+	SSbluespace_exploration.shuttle_weapons[weapon_id] = src
 	set_directional_offset(ndir || dir, TRUE)
+
+/obj/machinery/shuttle_weapon/Destroy()
+	SSbluespace_exploration.shuttle_weapons.Remove(weapon_id)
+	. = ..()
 
 /obj/machinery/shuttle_weapon/setDir(newdir)
 	. = ..()

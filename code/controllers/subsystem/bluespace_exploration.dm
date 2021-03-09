@@ -24,10 +24,8 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	//Which systems are ours?
 	var/list/bluespace_systems	// Key = /datum/space_level, Value = Boolean (Are we in use)
 
-	//Starmap generation
-	var/datum/star_system/current_system = null
-	var/list/star_systems
-	var/list/star_links
+	//Shuttle weapons
+	var/list/shuttle_weapons
 
 	//Ruin generation
 	var/list/ruin_templates
@@ -75,7 +73,6 @@ SUBSYSTEM_DEF(bluespace_exploration)
 
 /datum/controller/subsystem/bluespace_exploration/New()
 	. = ..()
-	//Hello lists (Maximum internal arrays exceeded need for this)
 	//Also this has to be done before SSmapping init
 	bluespace_systems = list()
 	z_level_queue = list()
@@ -83,10 +80,9 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	tracked_ships = list()
 	spawnable_ships = list()
 	factions = list()
-	star_systems = list()
 	ruin_templates = list()
-	star_links = list()
 	bluespace_drives = list()
+	shuttle_weapons = list()
 
 /datum/controller/subsystem/bluespace_exploration/Initialize(start_timeofday)
 	. = ..()
@@ -327,7 +323,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		if(istype(T, /turf/open/space))
 			newT = T
 		else
-			newT = T.ChangeTurf(/turf/open/space/basic)
+			newT = T.ChangeTurf(/turf/open/space)
 		if(!istype(newT.loc, /area/space))
 			var/area/newA = GLOB.areas_by_type[/area/space]
 			newA.contents += newT
@@ -458,8 +454,12 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		log_shuttle("Bluespace exploration docking failed, returning shuttle to home (Sanity check failed to place shuttle)")
 		log_runtime("Bluespace exploration docking failed, returning shuttle to home (Sanity check failed to place shuttle)")
 	shuttle.setTimer(shuttle.ignitionTime)
+<<<<<<< Updated upstream
 	current_system = data_holder.target_star_system
 	for(var/datum/space_level/level as() in bluespace_systems)
+=======
+	for(var/datum/space_level/level as anything in bluespace_systems)
+>>>>>>> Stashed changes
 		if(level.z_value == data_holder.z_value)
 			bluespace_systems[level] = BS_LEVEL_USED
 			break
@@ -485,7 +485,6 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	shuttle.mode = SHUTTLE_IGNITING
 	shuttle.setTimer(shuttle.ignitionTime)
 	//Clear the z-level after the shuttle leaves
-	//TODO: Remove usage of timers
 	addtimer(CALLBACK(src, .proc/generate_z_level, data_holder), shuttle.ignitionTime + 50, TIMER_UNIQUE)
 
 //====================================

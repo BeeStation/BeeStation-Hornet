@@ -222,16 +222,6 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/custom/placeLandingSpot()
 	if(!shuttleId)
 		return	//Only way this would happen is if someone else delinks the console while in use somehow
-	var/obj/docking_port/stationary/S = SSshuttle.getDock(shuttlePortId)
-	var/sanity = 50
-	//Multi-console support
-	while(S && sanity)
-		S.delete_after = TRUE
-		S.id = null
-		S.name = "Old [my_port.name]"
-		S = null
-		S = SSshuttle.getDock(shuttlePortId)
-		sanity --
 
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	if(M?.mode != SHUTTLE_IDLE)
