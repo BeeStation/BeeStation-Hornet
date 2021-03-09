@@ -152,7 +152,7 @@ SUBSYSTEM_DEF(air)
 
 	if(currentpart == SSAIR_HOTSPOTS)
 		timer = TICK_USAGE_REAL
-		process_hotspots(delta_time, resumed)
+		process_hotspots(resumed)
 		cost_hotspots = MC_AVERAGE(cost_hotspots, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 		if(state != SS_RUNNING)
 			return
