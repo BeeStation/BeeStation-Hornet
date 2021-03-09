@@ -102,7 +102,7 @@
 	for(var/turf/T as() in M.return_turfs())
 		var/obj/machinery/shuttle_weapon/weapon = locate() in T
 		if(weapon)
-			weapon_systems |= weapon
+			weapon_systems += weapon
 
 /datum/ship_datum/npc/proc/check_mobs_alive()
 	if(!islist(mobs))
