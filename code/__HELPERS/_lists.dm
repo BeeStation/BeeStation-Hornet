@@ -19,6 +19,7 @@
 #define LAZYSET(L, K, V) if(!L) { L = list(); } L[K] = V;
 #define LAZYLEN(L) length(L)
 #define LAZYCLEARLIST(L) if(L) L.Cut()
+#define LAZYACCESSASSOC(L, I, K) L ? L[I] ? L[I][K] ? L[I][K] : null : null : null
 #define SANITIZE_LIST(L) ( islist(L) ? L : list() )
 #define reverseList(L) reverseRange(L.Copy())
 
@@ -261,7 +262,7 @@
 			L[item] = 1
 		total += L[item]
 
-	total = rand(1, total)
+	total *= rand()
 	for (item in L)
 		total -=L [item]
 		if (total <= 0)
@@ -277,7 +278,7 @@
 			L[item] = 0
 		total += L[item]
 
-	total = rand(0, total)
+	total *= rand()
 	for (item in L)
 		total -=L [item]
 		if (total <= 0 && L[item])

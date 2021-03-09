@@ -92,7 +92,7 @@
 
 /obj/machinery/atmospherics/components/unary/vent_pump/process_atmos()
 	..()
-	if(!is_operational())
+	if(!is_operational() || !isopenturf(loc))
 		return
 	if(!nodes[1])
 		on = FALSE

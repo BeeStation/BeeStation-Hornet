@@ -61,7 +61,7 @@
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/process_atmos()
 	..()
-	if(welded || !is_operational())
+	if(welded || !is_operational() || !isopenturf(loc))
 		return FALSE
 	if(!on)
 		return

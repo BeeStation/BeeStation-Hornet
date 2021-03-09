@@ -65,7 +65,7 @@
 
 	injecting = 0
 
-	if(!on || !is_operational())
+	if(!on || !is_operational() || !isopenturf(loc))
 		return
 
 	var/datum/gas_mixture/air_contents = airs[1]
