@@ -22,11 +22,11 @@
         "robusted": ["shanked", "banged"],
         "thief": ["robber", "burglar"],
 		"centcom": "royal family",
-		"man": ["block", "lad", "mate", "g", "fam"],
-		"friend": ["block", "lad", "mate", "g", "fam"],
+		"man": ["block", "lad", "fam", "fella"],
+		"friend": ["mate", "g", "fam"],
 		"family": "fam",
-		"boy": ["block", "lad", "mate", "g", "fam"],
-		"dude": ["block", "lad", "mate", "g", "fam"],
+		"boy": ["block", "lad"],
+		"dude": ["block", "lad"],
 		"crazy": "bonkers",
 		"insane": "bonkers",
 		"run": "leg it",
@@ -96,7 +96,9 @@
 		"cool": "sick",
 		"good": "sick",
 		"amazing": "sick",
-		"bayonet": "shank"
+		"bayonet": "shank",
+		"thanks": "cheers",
+		"thank you": "cheers"
     },
     "sounds": {
         "t": "'",
