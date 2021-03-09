@@ -373,7 +373,7 @@
 	if(age == 0)
 		var/turf/target = get_turf(loc)
 		if(target)
-			new /mob/living/simple_animal/pet/dog/corgi/puppy/ian(target)
+			new /mob/living/simple_animal/pet/dog/corgi/puppy/Ian(target)
 			Write_Memory(FALSE)
 			return INITIALIZE_HINT_QDEL
 	else if(age == record_age)
@@ -602,7 +602,7 @@
 		return
 	..()
 
-/mob/living/simple_animal/pet/dog/corgi/puppy/ian
+/mob/living/simple_animal/pet/dog/corgi/puppy/Ian
 	name = "Ian"
 	real_name = "Ian"
 	gender = MALE

@@ -1,4 +1,4 @@
-/proc/priority_announce(text, title = "", sound, type , sender_override, has_important_message)
+/proc/priority_announce(text, title = "", sound, type, sender_override, has_important_message, auth_id)
 	if(!text)
 		return
 

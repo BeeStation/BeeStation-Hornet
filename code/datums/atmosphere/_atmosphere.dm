@@ -21,12 +21,11 @@
 	var/pressure_scalar = target_pressure / maximum_pressure
 
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNNATURAL_ATMOSPHERE))
-		restricted_chance = restricted_chance + 30
+		restricted_chance = restricted_chance + 40
 
 	// First let's set up the gasmix and base gases for this template
 	// We make the string from a gasmix in this proc because gases need to calculate their pressure
 	var/datum/gas_mixture/gasmix = new
-	var/list/gaslist = gasmix.gases
 	gasmix.set_temperature(rand(minimum_temp, maximum_temp))
 	for(var/i in base_gases)
 		gasmix.set_moles(i, base_gases[i])
@@ -41,7 +40,7 @@
 		else
 			gastype = pick(restricted_gases)
 			amount = restricted_gases[gastype]
-			if(!HAS_TRAIT(SSstation, STATION_TRAIT_UNNATURAL_ATMOSPHERE) && gaslist[gastype])
+			if(gasmix.get_moles(gastype))
 				continue
 
 		amount *= rand(50, 200) / 100	// Randomly modifes the amount from half to double the base for some variety

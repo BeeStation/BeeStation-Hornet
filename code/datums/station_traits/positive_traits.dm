@@ -68,10 +68,6 @@
 	report_message = "Prices are low in this system, BUY BUY BUY!"
 	blacklist = list(/datum/station_trait/distant_supply_lines)
 
-
-/datum/station_trait/strong_supply_lines/on_round_start()
-	SSeconomy.pack_price_modifier *= 0.8
-
 /datum/station_trait/scarves
 	name = "Scarves"
 	trait_type = STATION_TRAIT_POSITIVE
@@ -101,7 +97,7 @@
 	SIGNAL_HANDLER
 	var/scarf_type = pick(scarves)
 
-	living_mob.equip_to_slot_or_del(new scarf_type(living_mob), ITEM_SLOT_NECK, initial = FALSE)
+	living_mob.equip_to_slot_or_del(new scarf_type(living_mob), ITEM_SLOT_NECK)
 
 /datum/station_trait/filled_maint
 	name = "Filled up maintenance"

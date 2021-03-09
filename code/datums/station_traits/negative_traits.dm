@@ -14,9 +14,6 @@
 	report_message = "Due to the distance to our normal supply lines, cargo orders are more expensive."
 	blacklist = list(/datum/station_trait/strong_supply_lines)
 
-/datum/station_trait/distant_supply_lines/on_round_start()
-	SSeconomy.pack_price_modifier *= 1.2
-
 /datum/station_trait/late_arrivals
 	name = "Late Arrivals"
 	trait_type = STATION_TRAIT_NEGATIVE

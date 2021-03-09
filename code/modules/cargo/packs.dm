@@ -35,7 +35,10 @@
 
 /datum/supply_pack/proc/get_cost()
 	. = cost
-	. *= SSeconomy.pack_price_modifier
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_DISTANT_SUPPLY_LINES))
+		. *= 1.2
+	else if(HAS_TRAIT(SSstation, STATION_TRAIT_STRONG_SUPPLY_LINES))
+		. *= 0.8
 
 /datum/supply_pack/proc/fill(obj/structure/closet/crate/C)
 	if (admin_spawned)
