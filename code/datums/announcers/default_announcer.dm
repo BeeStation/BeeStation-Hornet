@@ -1,4 +1,4 @@
-/datum/centcom_announcer/default
+	/datum/centcom_announcer/default
 	welcome_sounds = list('sound/ai/default/welcome.ogg')
 	alert_sounds = list('sound/ai/default/attention.ogg')
 	command_report_sounds = list('sound/ai/default/commandreport.ogg')
@@ -8,6 +8,7 @@
 						ANNOUNCER_GRANOMALIES = 'sound/ai/default/granomalies.ogg',
 						ANNOUNCER_INTERCEPT = 'sound/ai/default/intercept.ogg',
 						ANNOUNCER_IONSTORM = 'sound/ai/default/ionstorm.ogg',
+						ANNOUNCER_METEORS = 'sound/ai/default/meteors.ogg',
 						ANNOUNCER_OUTBREAK5 = 'sound/ai/default/outbreak5.ogg',
 						ANNOUNCER_OUTBREAK7 = 'sound/ai/default/outbreak7.ogg',
 						ANNOUNCER_POWEROFF = 'sound/ai/default/poweroff.ogg',

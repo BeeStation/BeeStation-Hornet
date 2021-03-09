@@ -198,7 +198,7 @@
 						if(empty_turfs?.len)
 							LZ = pick(empty_turfs)
 					if (SO.pack.get_cost() <= points_to_check && LZ)//we need to call the cost check again because of the CHECK_TICK call
-						D.adjust_money(-SO.pack.cost)
+						D.adjust_money(-SO.pack.get_cost())
 						new /obj/effect/DPtarget(LZ, podType, SO)
 						. = TRUE
 						update_icon()

@@ -41,7 +41,7 @@
 		else
 			gastype = pick(restricted_gases)
 			amount = restricted_gases[gastype]
-			if(if(!HAS_TRAIT(SSstation, STATION_TRAIT_UNNATURAL_ATMOSPHERE) && gaslist[gastype]))
+			if(!HAS_TRAIT(SSstation, STATION_TRAIT_UNNATURAL_ATMOSPHERE) && gaslist[gastype])
 				continue
 
 		amount *= rand(50, 200) / 100	// Randomly modifes the amount from half to double the base for some variety
