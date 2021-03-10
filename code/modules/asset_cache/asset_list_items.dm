@@ -261,6 +261,7 @@
 /datum/asset/spritesheet/supplypods/register()
 	for (var/style in 1 to length(GLOB.podstyles))
 		var/icon_file = "icons/obj/supplypods.dmi"
+		var/states = icon_states(icon_file)
 		if (style == STYLE_SEETHROUGH)
 			Insert("pod_asset[style]", icon(icon_file, "seethrough-icon", SOUTH))
 			continue
@@ -272,16 +273,19 @@
 		var/door = GLOB.podstyles[style][POD_DOOR]
 		if (door)
 			door = "[base]_door"
-			podIcon.Blend(icon(icon_file, door, SOUTH), ICON_OVERLAY)
+			if(door in states)
+				podIcon.Blend(icon(icon_file, door, SOUTH), ICON_OVERLAY)
 		var/shape = GLOB.podstyles[style][POD_SHAPE]
 		if (shape == POD_SHAPE_NORML)
 			var/decal = GLOB.podstyles[style][POD_DECAL]
 			if (decal)
-				podIcon.Blend(icon(icon_file, decal, SOUTH), ICON_OVERLAY)
+				if(decal in states)
+					podIcon.Blend(icon(icon_file, decal, SOUTH), ICON_OVERLAY)
 			var/glow = GLOB.podstyles[style][POD_GLOW]
 			if (glow)
 				glow = "pod_glow_[glow]"
-				podIcon.Blend(icon(icon_file, glow, SOUTH), ICON_OVERLAY)
+				if(glow in states)
+					podIcon.Blend(icon(icon_file, glow, SOUTH), ICON_OVERLAY)
 		Insert("pod_asset[style]", podIcon)
 	return ..()
 
