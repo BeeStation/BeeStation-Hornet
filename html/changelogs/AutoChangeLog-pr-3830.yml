@@ -1,0 +1,10 @@
+author: LemonInTheDark, Azarak
+delete-after: true
+changes:
+  - bugfix: Dog beds are now properly tagged, and if your pet bites the dust, the
+      bed will be kept in their memory.
+  - bugfix: Pre-owned beds now retain their predetermined flavor text.
+  - bugfix: Fixed garbage collection of ghosts and lobby players, making the game
+      run faster.
+  - bugfix: Fixes a very rare edgecase that could cause spawned ghosts to be unable
+      to move.
