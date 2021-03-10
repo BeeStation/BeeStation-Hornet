@@ -16173,6 +16173,7 @@
 /obj/item/restraints/legcuffs/beartrap,
 /obj/item/storage/box/mousetraps,
 /obj/item/storage/box/mousetraps,
+/obj/vehicle/ridden/janicart,
 /turf/open/floor/plasteel,
 /area/janitor)
 "aSb" = (
@@ -16183,7 +16184,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "aSc" = (
-/obj/vehicle/ridden/janicart,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -55373,7 +55373,9 @@
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/storage/box/lights/mixed,
-/obj/machinery/camera/autoname,
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/storage/tools)
 "oof" = (
