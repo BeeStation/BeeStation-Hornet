@@ -1,0 +1,5 @@
+author: Hollandaise
+delete-after: true
+changes:
+  - bugfix: Made Box mining dock a proper advanced cycling airlock and stopped it
+      from plasmaflooding itself
