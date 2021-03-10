@@ -19,6 +19,7 @@
 	resistance_flags = FIRE_PROOF
 	var/status = FALSE
 	var/lit = FALSE	//on or off
+	light_color = LIGHT_COLOR_FIRE
 	var/operating = FALSE//cooldown
 	var/obj/item/weldingtool/weldtool = null
 	var/obj/item/assembly/igniter/igniter = null
