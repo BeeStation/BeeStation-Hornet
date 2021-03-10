@@ -1,0 +1,5 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - bugfix: No more floating camera on Box's Aux Tool Storage
+  - tweak: Pimpin' ride no longer obstructs Box's Custodial Closet's airlock roundstart
