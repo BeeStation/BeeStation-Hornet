@@ -375,30 +375,42 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/equip_characters()
 	var/captainless = TRUE
+	var/list/spare_id_candidates = list()
+	var/highest_rank = length(SSjob.chain_of_command) + 1
+	var/enforce_coc = CONFIG_GET(flag/spare_enforce_coc)
+
 	for(var/mob/dead/new_player/N in GLOB.player_list)
 		var/mob/living/carbon/human/player = N.new_character
 		if(istype(player) && player.mind && player.mind.assigned_role)
 			if(player.mind.assigned_role == "Captain")
 				captainless = FALSE
+				spare_id_candidates += N
+			else if(captainless && (player.mind.assigned_role in GLOB.command_positions) && !(is_banned_from(N.ckey, "Captain")))
+				if(!enforce_coc)
+					spare_id_candidates += N
+				else
+					var/spare_id_priority = SSjob.chain_of_command[player.mind.assigned_role]
+					if(spare_id_priority)
+						if(spare_id_priority < highest_rank)
+							spare_id_candidates.Cut()
+							spare_id_candidates += N
+							highest_rank = spare_id_priority
+						else if(spare_id_priority == highest_rank)
+							spare_id_candidates += N
 			if(player.mind.assigned_role != player.mind.special_role)
 				SSjob.EquipRank(N, player.mind.assigned_role, FALSE)
 			if(CONFIG_GET(flag/roundstart_traits) && ishuman(N.new_character))
 				SSquirks.AssignQuirks(N.new_character, N.client, TRUE)
 		CHECK_TICK
-	if(captainless)			//No captain, time to choose acting captain
-		for(var/mob/dead/new_player/N in GLOB.player_list)
-			var/mob/living/carbon/human/H = N.new_character
-			if(istype(H) && H.mind && (H.mind.assigned_role in GLOB.command_positions))
-				if(is_banned_from(N.ckey, "Captain"))
-					continue
-				if(!H.wear_id?.GetID())
-					continue
-				var/obj/item/card/id/idcard = H.wear_id
-				LAZYADD(idcard.access, ACCESS_CAPTAIN)
-				to_chat(N, "<b>You've been chosen as acting captain for this station. Perform regular captain's duties until Centcom assigned captain arrives. Additional access has been added to your ID card.</b>")
-				message_admins("[capitalize(N.ckey)] has been made acting captain roundstart.")
-				break
+	if(length(spare_id_candidates))			//No captain, time to choose acting captain
+		if(!enforce_coc)
+			for(var/mob/dead/new_player/player in spare_id_candidates)
+				SSjob.promote_to_captain(player, captainless)
+
+		else
+			SSjob.promote_to_captain(pick(spare_id_candidates), captainless)		//This is just in case 2 heads of the same priority spawn
 		CHECK_TICK
+
 
 /datum/controller/subsystem/ticker/proc/transfer_characters()
 	var/list/livings = list()
