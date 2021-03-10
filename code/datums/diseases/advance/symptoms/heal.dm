@@ -514,8 +514,6 @@ obj/effect/sweatsplash/proc/splash()
 								var/mob/living/carbon/human/H = M //To view species
 								if(!is_species(H, /datum/species/plasmaman))
 									O -= /obj/item/organ/lungs/plasmaman //So this disease doesn't eventually kill everyone with lungs
-								else
-									O -= /obj/item/organ/lungs //Also so this disease doesn't eventually kill everyone with lungs
 						if(organcantidates.len)
 							for(var/I in 1 to min(rand(1, 3), organcantidates.len))
 								var/obj/item/organ/chosen = pick_n_take(organcantidates)
