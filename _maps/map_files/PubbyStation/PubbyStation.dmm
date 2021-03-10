@@ -47239,17 +47239,20 @@
 /area/chapel/main/monastery)
 "cbN" = (
 /obj/structure/table/wood,
-/obj/item/storage/book/bible,
+/obj/item/storage/book/bible{
+	pixel_x = -4
+	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/item/reagent_containers/food/drinks/trophy{
+	pixel_x = 9;
+	pixel_y = 8
 	},
 /turf/open/floor/carpet,
 /area/chapel/main/monastery)
 "cbO" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/trophy{
-	pixel_y = 8
-	},
+/obj/structure/altar_of_gods,
 /turf/open/floor/carpet,
 /area/chapel/main/monastery)
 "cbP" = (
