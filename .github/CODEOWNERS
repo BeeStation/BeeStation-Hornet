@@ -15,7 +15,7 @@ dependencies.sh @crossedfall
 Dockerfile @crossedfall
 /SQL @crossedfall
 TGS3.json @crossedfall
-#/tools @crossedfall
+/tools @crossedfall
 
 
 # ike709
