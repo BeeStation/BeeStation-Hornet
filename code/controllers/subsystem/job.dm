@@ -16,6 +16,27 @@ SUBSYSTEM_DEF(job)
 
 	var/list/level_order = list(JP_HIGH,JP_MEDIUM,JP_LOW)
 
+		/**
+	 * Keys should be assigned job roles. Values should be >= 1.
+	 * Represents the chain of command on the station. Lower numbers mean higher priority.
+	 * Used to give the Cap's Spare safe code to a an appropriate player.
+	 * Assumed Captain is always the highest in the chain of command.
+	 * See [/datum/controller/subsystem/ticker/proc/equip_characters]
+	 */
+	var/list/chain_of_command = list(
+		"Captain" = 1,
+		"Head of Personnel" = 2,
+		"Research Director" = 3,
+		"Chief Engineer" = 4,
+		"Chief Medical Officer" = 5,
+		"Head of Security" = 6,
+		"Quartermaster" = 7)
+
+	/// If TRUE, some player has been assigned Captaincy or Acting Captaincy at some point during the shift and has been given the spare ID safe code.
+	var/assigned_captain = FALSE
+	/// If TRUE, the "Captain" job will always be given the code to the spare ID safe and always have a "Captain on deck!" announcement.
+	var/always_promote_captain_job = TRUE
+
 /datum/controller/subsystem/job/Initialize(timeofday)
 	SSmapping.HACK_LoadMapConfig()
 	if(!occupations.len)
@@ -407,7 +428,7 @@ SUBSYSTEM_DEF(job)
 		message_admins(message)
 		RejectPlayer(player)
 //Gives the player the stuff he should have with his rank
-/datum/controller/subsystem/job/proc/EquipRank(mob/M, rank, joined_late = FALSE)
+/datum/controller/subsystem/job/proc/EquipRank(mob/M, rank, joined_late = FALSE, is_captain = FALSE)
 	var/mob/dead/new_player/newplayer
 	var/mob/living/living_mob
 
