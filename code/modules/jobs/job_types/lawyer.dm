@@ -9,6 +9,9 @@
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 	chat_color = "#C07D7D"
+	minimal_player_age = 1
+	exp_requirements = 120
+	exp_type = EXP_TYPE_CREW
 	var/lawyers = 0 //Counts lawyer amount
 
 	outfit = /datum/outfit/job/lawyer

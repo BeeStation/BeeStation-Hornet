@@ -9,6 +9,8 @@
 	supervisors = "the research director"
 	selection_color = "#ffeeff"
 	chat_color = "#C772C7"
+	minimal_player_age = 7
+	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/scientist

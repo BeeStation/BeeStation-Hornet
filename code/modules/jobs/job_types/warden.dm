@@ -10,8 +10,8 @@
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
 	chat_color = "#EA545E"
-	minimal_player_age = 7
-	exp_requirements = 600
+	minimal_player_age = 14
+	exp_requirements = 900
 	exp_type = EXP_TYPE_SECURITY
 	exp_type_department = EXP_TYPE_SECURITY
 

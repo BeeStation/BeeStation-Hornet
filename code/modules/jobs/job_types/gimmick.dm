@@ -8,6 +8,9 @@
 	supervisors = "no one"
 	selection_color = "#dddddd"
 	chat_color = "#FFFFFF"
+	minimal_player_age = 1
+	exp_requirements = 120
+	exp_type = EXP_TYPE_CREW
 
 	exp_type_department = EXP_TYPE_GIMMICK
 

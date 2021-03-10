@@ -12,8 +12,8 @@
 	selection_color = "#ffeeaa"
 	chat_color = "#CFBB72"
 	req_admin_notify = 1
-	minimal_player_age = 7
-	exp_requirements = 1200
+	minimal_player_age = 30
+	exp_requirements = 1500
 	exp_type = EXP_TYPE_ENGINEERING
 	exp_type_department = EXP_TYPE_ENGINEERING
 

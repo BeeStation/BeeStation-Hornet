@@ -9,6 +9,8 @@
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
 	chat_color = "#D9BC89"
+	minimal_player_age = 7
+	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/engineer

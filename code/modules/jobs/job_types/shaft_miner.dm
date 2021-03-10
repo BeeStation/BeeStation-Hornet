@@ -9,6 +9,9 @@
 	supervisors = "the quartermaster and the head of personnel"
 	selection_color = "#dcba97"
 	chat_color = "#CE957E"
+	minimal_player_age = 1
+	exp_requirements = 120
+	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/miner
 

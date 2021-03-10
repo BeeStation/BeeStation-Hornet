@@ -11,8 +11,8 @@
 	selection_color = "#ccccff"
 	chat_color = "#FFDC9B"
 	req_admin_notify = 1
-	minimal_player_age = 14
-	exp_requirements = 1200
+	minimal_player_age = 30
+	exp_requirements = 1800
 	exp_type = EXP_TYPE_COMMAND
 	exp_type_department = EXP_TYPE_COMMAND
 

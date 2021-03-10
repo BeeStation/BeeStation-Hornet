@@ -9,6 +9,9 @@
 	supervisors = "the head of personnel"
 	selection_color = "#bbe291"
 	chat_color = "#95DE85"
+	minimal_player_age = 1
+	exp_requirements = 120
+	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/botanist
 

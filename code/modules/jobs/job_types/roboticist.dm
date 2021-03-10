@@ -9,6 +9,8 @@
 	supervisors = "the research director"
 	selection_color = "#ffeeff"
 	chat_color = "#AC71BA"
+	minimal_player_age = 1
+	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/roboticist
