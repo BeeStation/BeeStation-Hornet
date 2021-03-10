@@ -787,7 +787,7 @@
 			myseed = O
 			update_name()
 			age = 1
-			lastproduce = 0
+			lastproduce = 1
 			plant_health = myseed.endurance
 			lastcycle = world.time
 			update_icon()
