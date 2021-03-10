@@ -381,7 +381,7 @@
 		else
 			myseed = new /obj/item/seeds/starthistle(src)
 	age = 1
-	lastproduce = 0
+	lastproduce = 1
 	plant_health = myseed.endurance
 	lastcycle = world.time
 	harvest = 0
