@@ -40,12 +40,12 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 
 /obj/item/clothing/head/festive/Initialize()
-	. = ..()
 	//Merry christmas
 	if(CHRISTMAS in SSevents.holidays)
 		armor = list("melee" = 30, "bullet" = 30, "laser" = 30,"energy" = 30, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 30, "acid" = 30, "stamina" = 30)
 	else if(FESTIVE_SEASON in SSevents.holidays)
 		armor = list("melee" = 20, "bullet" = 20, "laser" = 20,"energy" = 20, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 20, "acid" = 20, "stamina" = 20)
+	return ..()
 
 /obj/effect/spawner/xmastree
 	name = "christmas tree spawner"
