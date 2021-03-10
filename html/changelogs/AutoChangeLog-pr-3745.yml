@@ -1,4 +1,0 @@
-author: froststahr
-delete-after: true
-changes:
-  - tweak: Hiero no longer skips its main attack if you're in melee range
