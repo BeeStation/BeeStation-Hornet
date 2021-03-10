@@ -30287,6 +30287,9 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
 "bHC" = (
@@ -31127,6 +31130,9 @@
 /area/quartermaster/miningdock)
 "bKm" = (
 /obj/structure/sign/warning/vacuum/external,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 9
+	},
 /turf/closed/wall,
 /area/quartermaster/miningdock)
 "bKn" = (
@@ -46908,6 +46914,12 @@
 	},
 /turf/closed/wall,
 /area/maintenance/port/aft)
+"dOJ" = (
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
+	},
+/turf/closed/wall,
+/area/quartermaster/miningdock)
 "dOP" = (
 /obj/machinery/airalarm{
 	pixel_y = 24
@@ -49207,8 +49219,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 5
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
@@ -53844,9 +53856,7 @@
 /obj/machinery/camera/autoname{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
-	dir = 1
-	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
 "mnP" = (
@@ -56405,18 +56415,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/cryo)
-"pHo" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 6
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/miningdock)
 "pHt" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/yellow{
@@ -56582,7 +56580,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer3,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1{
+	dir = 6
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
 "pPF" = (
@@ -58633,7 +58633,9 @@
 /area/science/shuttledock)
 "ssw" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 9
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
 "ssF" = (
@@ -58936,9 +58938,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer3,
 /obj/machinery/advanced_airlock_controller{
 	pixel_y = 24
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer1{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
@@ -60561,9 +60565,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 9
-	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
 "uWA" = (
@@ -60872,10 +60873,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
@@ -62673,10 +62671,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
 "xaZ" = (
@@ -63356,10 +63353,7 @@
 	shuttledocked = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
+	dir = 6
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
@@ -84809,7 +84803,7 @@ aaf
 aaf
 jZP
 pPw
-pHo
+xaG
 gCp
 jZP
 aoV
@@ -85322,7 +85316,7 @@ bxu
 aaa
 bxy
 bxy
-bxy
+dOJ
 xIO
 bKm
 bxy
