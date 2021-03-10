@@ -65,7 +65,9 @@
 	reagent_id = /datum/reagent/fuel
 
 /obj/structure/reagent_dispensers/fueltank/boom()
-	explosion(get_turf(src), 0, 1, 5, flame_range = 5)
+	var/light_explosion_range = round(reagents.get_reagent_amount(/datum/reagent/fuel)/200, 1) //explosion range should decrease when there is less fuel in the tank
+	var/heavy_explosion_range = round(light_explosion_range/5, 1) //if there is less than 500 fuel in the tank, no heavy explosion
+	explosion(get_turf(src), 0, heavy_explosion_range, light_explosion_range, flame_range = light_explosion_range)
 	qdel(src)
 
 /obj/structure/reagent_dispensers/fueltank/blob_act(obj/structure/blob/B)
@@ -105,10 +107,10 @@
 		else
 			user.visible_message("<span class='warning'>[user] catastrophically fails at refilling [user.p_their()] [I.name]!</span>", "<span class='userdanger'>That was stupid of you.</span>")
 			log_bomber(user, "detonated a", src, "via welding tool")
-			
+
 			if (user.client)
 				SSmedals.UnlockMedal(MEDAL_DETONATE_WELDERBOMB,user.client)
-			
+
 			boom()
 		return
 	return ..()
