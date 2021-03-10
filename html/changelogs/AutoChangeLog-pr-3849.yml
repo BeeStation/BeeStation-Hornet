@@ -1,4 +1,0 @@
-author: Vexylius
-delete-after: true
-changes:
-  - config: Assistants don't have maintenance access on Sage anymore
