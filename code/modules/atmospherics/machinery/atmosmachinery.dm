@@ -43,6 +43,9 @@
 	/// whether it can be painted
 	var/paintable = FALSE
 
+	///Is the thing being rebuilt by SSair or not. Prevents list blaot
+	var/rebuilding = FALSE
+
 /obj/machinery/atmospherics/examine(mob/user)
 	. = ..()
 	if(is_type_in_list(src, GLOB.ventcrawl_machinery) && isliving(user))
@@ -68,7 +71,7 @@
 		nullifyNode(i)
 
 	SSair.stop_processing_machine(src)
-	SSair.pipenets_needing_rebuilt -= src
+	SSair.rebuild_queue -= src
 
 	if(pipe_vision_img)
 		qdel(pipe_vision_img)
@@ -79,8 +82,10 @@
 /obj/machinery/atmospherics/proc/destroy_network()
 	return
 
-/obj/machinery/atmospherics/proc/build_network()
-	// Called to build a network from this node
+/**
+ * Returns a list of new pipelines that need to be built up
+ */
+/obj/machinery/atmospherics/proc/get_rebuild_targets()
 	return
 
 /obj/machinery/atmospherics/proc/nullifyNode(i)
@@ -281,7 +286,7 @@
 	for(var/obj/machinery/atmospherics/A in nodes)
 		A.atmosinit()
 		A.addMember(src)
-	build_network()
+	SSair.add_to_rebuild_queue(src)
 
 /obj/machinery/atmospherics/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	if(istype(arrived, /mob/living))
