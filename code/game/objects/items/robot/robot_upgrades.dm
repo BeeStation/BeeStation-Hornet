@@ -732,7 +732,32 @@
 		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
 		if (E)
 			R.module.remove_module(E, TRUE)
+			
+/obj/item/borg/upgrade/service_beaker_app
+	name = "beaker storage apparatus"
+	desc = "A supplementary beaker storage apparatus for service cyborgs."
+	icon_state = "cyborg_upgrade3"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/butler
 
+/obj/item/borg/upgrade/service_beaker_app/action(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if(.)
+		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
+		if(E)
+			to_chat(user, "<span class='warning'>This unit has no room for additional beaker storage.</span>")
+			return FALSE
+
+		E = new(R.module)
+		R.module.basic_modules += E
+		R.module.add_module(E, FALSE, TRUE)
+
+/obj/item/borg/upgrade/service_beaker_app/deactivate(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if (.)
+		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
+		if (E)
+			R.module.remove_module(E, TRUE)
 
 /obj/item/borg/upgrade/speciality
 	name = "Speciality Module"
