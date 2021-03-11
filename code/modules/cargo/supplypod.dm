@@ -11,7 +11,7 @@
 	allow_dense = TRUE
 	delivery_icon = null
 	can_weld_shut = FALSE
-	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 100, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 80)
+	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 100, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 80, "stamina" = 0)
 	anchored = TRUE //So it cant slide around after landing
 	anchorable = FALSE
 	appearance_flags = KEEP_TOGETHER | PIXEL_SCALE

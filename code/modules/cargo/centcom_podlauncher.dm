@@ -661,7 +661,7 @@
 			numTurfs ++
 
 	launchList = list() //Anything in launchList will go into the supplypod when it is launched
-	if (!isemptylist(acceptableTurfs) && !temp_pod.reversing && !temp_pod.effectMissile) //We dont fill the supplypod if acceptableTurfs is empty, if the pod is going in reverse (effectReverse=true), or if the pod is acitng like a missile (effectMissile=true)
+	if (length(acceptableTurfs) && !temp_pod.reversing && !temp_pod.effectMissile) //We dont fill the supplypod if acceptableTurfs is empty, if the pod is going in reverse (effectReverse=true), or if the pod is acitng like a missile (effectMissile=true)
 		switch(launchChoice)
 			if(LAUNCH_ALL) //If we are launching all the turfs at once
 				for (var/t in acceptableTurfs)
@@ -772,7 +772,7 @@
 
 	var/msg = "launched [podString] towards [whomString]"
 	message_admins("[key_name_admin(usr)] [msg] in [ADMIN_VERBOSEJMP(specificTarget)].")
-	if (!isemptylist(whoDyin))
+	if (length(whoDyin))
 		for (var/mob/living/M in whoDyin)
 			admin_ticket_log(M, "[key_name_admin(usr)] [msg]")
 
