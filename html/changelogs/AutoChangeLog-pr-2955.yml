@@ -1,8 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - refactor: Refactors stamina armour, makes stun batons and most stunning weapons
-      check stamina armour rather than melee, laser or energy interchangeably
-  - rscadd: Christmas hats now provide minor armour on christmas.
-  - rscadd: You can now see how well something will protect from stamina based damages
-      by examining it.
