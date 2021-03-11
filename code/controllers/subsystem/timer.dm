@@ -103,9 +103,6 @@ SUBSYSTEM_DEF(timer)
 		clienttime_timers.Cut(1, next_clienttime_timer_index+1)
 		next_clienttime_timer_index = 0
 
-	if (MC_TICK_CHECK)
-		return
-
 	var/static/list/spent = list()
 	var/static/datum/timedevent/timer
 	if (practical_offset > BUCKET_LEN)
