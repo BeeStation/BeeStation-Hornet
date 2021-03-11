@@ -84,7 +84,7 @@ Bonus
 /datum/symptom/flesh_death
 
 	name = "Autophagocytosis Necrosis"
-	desc = "The virus rapidly consumes infected cells, leading to heavy and widespread damage. Contains dormant prions- expert virologists believe it to be the precursor to Romerol, though the mechanism through which they are activated is largely unknown"
+	desc = "The virus rapidly consumes infected cells, leading to heavy and widespread damage."
 	stealth = -2
 	resistance = -2
 	stage_speed = 1
@@ -95,7 +95,6 @@ Bonus
 	symptom_delay_min = 3
 	symptom_delay_max = 6
 	var/chems = FALSE
-	var/zombie = FALSE
 	threshold_desc = "<b>Stage Speed 7:</b> Synthesizes Heparin and Lipolicide inside the host, causing increased bleeding and hunger.<br>\
 					  <b>Stealth 5:</b> The symptom remains hidden until active."
 
@@ -106,8 +105,6 @@ Bonus
 		suppress_warning = TRUE
 	if(A.properties["stage_rate"] >= 7) //bleeding and hunger
 		chems = TRUE
-	if((A.properties["stealth"] >= 2) && (A.properties["stage_rate"] >= 12))
-		zombie = TRUE
 
 /datum/symptom/flesh_death/Activate(datum/disease/advance/A)
 	if(!..())
@@ -125,7 +122,7 @@ Bonus
 				return
 			if(prob(base_message_chance / 2)) //reduce spam
 				to_chat(M, "<span class='userdanger'>[pick("You feel your muscles weakening.", "Some of your skin detaches itself.", "You feel sandy.")]</span>")
-		
+
 /datum/symptom/flesh_death/proc/Flesh_death(mob/living/M, datum/disease/advance/A)
 	var/get_damage = rand(6,10)
 	if(MOB_UNDEAD in M.mob_biotypes)
@@ -141,9 +138,4 @@ Bonus
 	M.take_overall_damage(brute = get_damage, required_status = BODYPART_ORGANIC)
 	if(chems)
 		M.reagents.add_reagent_list(list(/datum/reagent/toxin/heparin = 2, /datum/reagent/toxin/lipolicide = 2))
-	if(zombie)
-		if(ishuman(A.affected_mob))
-			if(!A.affected_mob.getorganslot(ORGAN_SLOT_ZOMBIE))
-				var/obj/item/organ/zombie_infection/ZI = new()
-				ZI.Insert(M)
 	return 1
