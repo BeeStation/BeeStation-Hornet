@@ -70,7 +70,7 @@
 	if(affecting == ARM_LEFT || ARM_RIGHT)
 		if(!H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))//Are they blocking?
 			if(U.targetedZone == l_arm)
-				var/obj/item/targetedItem = T.HAND_LEFT
+				var/obj/item/activeItem = T.HAND_LEFT
 				T.dropItemToGround(activeItem)
 				var/disarmDir = get_dir(U, T)
 				var/turf/throwAt = get_ranged_target_turf(activeItem, disarmDir, 2)
