@@ -1,6 +1,6 @@
 /datum/symptom/nerve_overdrive
 	name = "Neurological Overdrive"
-	desc = "The disease increases connectivity between the infected's nerves, reducing stuns."
+	desc = "The disease increases connectivity between the infected's nerves, reducing stuns. Increased nerve connections however make burns far more painful."
 	stealth = 1
 	resistance = -1
 	stage_speed = 1
@@ -36,12 +36,16 @@
 	if(!..())
 		return
 	var/mob/living/carbon/C = A.affected_mob
+	if(is_human(C))
+		var/mob/living/carbon/human/H = C
+		for(var/obj/item/bodypart/B in H.bodyparts)
+			B.burn_reduction -= 2.5 //Burn Damage Increased. 2.5 burn reduction to avoid robusto clockwork disease breaking even on burn reduction
 	switch(A.stage)
 		if(2)
 			C.AdjustStun(-10, FALSE)
 			if(fastmover)
 				if(fastmover_activation < A.stage) //Checks if Modifier for the Stage was Added
-					C.add_movespeed_modifier(type, TRUE, 100, multiplicative_slowdown = 0.25, blacklisted_movetypes=(FLYING|FLOATING))
+					C.add_movespeed_modifier(type, TRUE, 100, multiplicative_slowdown = -0.25, blacklisted_movetypes=(FLYING|FLOATING))
 					fastmover_activation = A.stage //Ensures Multiplier Not Added 2x
 		if(3)
 			if(super_reduction)
@@ -51,7 +55,7 @@
 			if(fastmover)
 				if(fastmover_activation < A.stage)//Checks if Modifier for Stage was Added
 					C.remove_movespeed_modifier(type) //Removes Previous Stage Modifier
-					C.add_movespeed_modifier(type, TRUE, 100, multiplicative_slowdown = 0.5, blacklisted_movetypes=(FLYING|FLOATING)) //New Modifier
+					C.add_movespeed_modifier(type, TRUE, 100, multiplicative_slowdown = -0.5, blacklisted_movetypes=(FLYING|FLOATING)) //New Modifier
 					fastmover_activation = A.stage
 		if(4)
 			if(super_reduction)
@@ -61,7 +65,7 @@
 			if(fastmover)
 				if(fastmover_activation < A.stage)//Checks if Modifier for Stage was Added
 					C.remove_movespeed_modifier(type) //Removes Previous Stage Modifier
-					C.add_movespeed_modifier(type, TRUE, 100, multiplicative_slowdown = 0.75, blacklisted_movetypes=(FLYING|FLOATING)) //New Modifier
+					C.add_movespeed_modifier(type, TRUE, 100, multiplicative_slowdown = -0.75, blacklisted_movetypes=(FLYING|FLOATING)) //New Modifier
 					fastmover_activation = A.stage
 		if(5)
 			if(super_reduction)
@@ -71,7 +75,7 @@
 			if(fastmover)
 				if(fastmover_activation < A.stage)//Checks if Modifier for Stage was Added
 					C.remove_movespeed_modifier(type) //Removes Previous Stage Modifier
-					C.add_movespeed_modifier(type, TRUE, 100, multiplicative_slowdown = 1, blacklisted_movetypes=(FLYING|FLOATING)) //New Modifier
+					C.add_movespeed_modifier(type, TRUE, 100, multiplicative_slowdown = -1, blacklisted_movetypes=(FLYING|FLOATING)) //New Modifier
 					fastmover_activation = A.stage
 		if(prob(10)) //Frequent Activation, would prefer not to Spam
 				to_chat(M, "<span class='notice'>[pick("You feel like you are thinking faster than ever.", "You feel like your limbs are more responsive.", "You feel like everything is slower than you remember.", "Your eyes adjust quickly to sudden changes in light", "You feel more aware of everything around you.")]</span>")
