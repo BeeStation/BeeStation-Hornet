@@ -20015,7 +20015,7 @@
 	},
 /area/engine/atmos)
 "aDA" = (
-/obj/machinery/atmospherics/miner/nitrogen{
+/obj/machinery/atmospherics/miner/station/nitrogen{
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/n2{
@@ -20031,7 +20031,7 @@
 	},
 /area/engine/atmos)
 "aDD" = (
-/obj/machinery/atmospherics/miner/oxygen{
+/obj/machinery/atmospherics/miner/station/oxygen{
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/o2{
@@ -20958,7 +20958,7 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/cryo)
 "aFm" = (
-/obj/machinery/atmospherics/miner/carbon_dioxide{
+/obj/machinery/atmospherics/miner/station/carbon_dioxide{
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/co2{
@@ -20966,7 +20966,7 @@
 	},
 /area/engine/atmos)
 "aFn" = (
-/obj/machinery/atmospherics/miner/toxins{
+/obj/machinery/atmospherics/miner/station/toxins{
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/plasma{
@@ -20974,7 +20974,7 @@
 	},
 /area/engine/atmos)
 "aFo" = (
-/obj/machinery/atmospherics/miner/n2o{
+/obj/machinery/atmospherics/miner/station/n2o{
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/n2o{
