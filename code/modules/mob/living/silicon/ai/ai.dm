@@ -46,7 +46,6 @@
 	var/mob/living/simple_animal/bot/Bot
 	var/tracking = FALSE //this is 1 if the AI is currently tracking somebody, but the track has not yet been completed.
 	var/datum/effect_system/spark_spread/spark_system //So they can initialize sparks whenever/N
-	var/list/traits = list(TRAIT_CONSTRUCTION, TRAIT_CHEMISTRY, TRAIT_SURGICAL_EXPERT)
 
 	//MALFUNCTION
 	var/datum/module_picker/malf_picker
@@ -151,8 +150,6 @@
 	aiMulti = new(src)
 	radio = new /obj/item/radio/headset/silicon/ai(src)
 	aicamera = new/obj/item/camera/siliconcam/ai_camera(src)
-	for(var/trait in traits)
-		ADD_TRAIT(target_ai, trait, "AI_Trait")
 
 	deploy_action.Grant(src)
 
