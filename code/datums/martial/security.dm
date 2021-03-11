@@ -68,16 +68,16 @@
 	playsound(get_turf(U), 'sound/effects/grillehit.ogg', 50, 1, -1)
 	var/obj/item/bodypart/affecting = T.get_bodypart(ran_zone(U.zone_selected))
 	if(affecting == ARM_LEFT || ARM_RIGHT)
-		if(!T.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))//Are they blocking?
+		if(!T.check_shields(src, 0, "[U]'s [name]", MELEE_ATTACK))//Are they blocking?
 			if(U.zone_selected == ARM_LEFT)
-				var/obj/item/activeItem = T.HAND_LEFT
+				var/obj/item/activeItem = T.held_items[1]
 				T.dropItemToGround(activeItem)
 				var/disarmDir = get_dir(U, T)
 				var/turf/throwAt = get_ranged_target_turf(activeItem, disarmDir, 2)
 				activeItem.throw_at(throwAt, 7, 1)
 				log_combat(U, T, "Forceful Disarm")
 			else
-				var/obj/item/activeItem = T.HAND_RIGHT
+				var/obj/item/activeItem = T.held_items[2]
 				T.dropItemToGround(activeItem)
 				var/disarmDir = get_dir(U, T)
 				var/turf/throwAt = get_ranged_target_turf(activeItem, disarmDir, 2)

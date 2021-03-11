@@ -121,6 +121,9 @@
 	  * len = number of hands, eg: 2 nulls is 2 empty hands, 1 item and 1 null is 1 full hand
 	  * and 1 empty hand.
 	  *
+	  * held_items[1] is lefthand
+	  * held_items[2] is righthand
+	  *
 	  * NB: contains nulls!
 	  *
 	  * held_items[active_hand_index] is the actively held item, but please use
