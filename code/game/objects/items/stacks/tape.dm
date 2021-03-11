@@ -10,8 +10,6 @@
 	item_flags = NOBLUDGEON
 	amount = 5
 	max_amount = 5
-	resistance_flags = FLAMMABLE
-	grind_results = list(/datum/reagent/cellulose = 5)
 
 	var/datum/embedding_behavior/conferred_embed = EMBED_HARMLESS
 	var/overwrite_existing = FALSE
