@@ -2,17 +2,14 @@
 	name = "Patient Zero"
 	typepath = /datum/round_event/ghost_role/patient_zero
 	weight = 5
-
-	min_players = 10
+	max_occurrences = 1
+	min_players = 20
+	earliest_start = 50 MINUTES
 
 /datum/round_event/ghost_role/patient_zero
-	announceWhen	= 400
-
+	announceWhen	= 500
 	minimum_required = 1
 	role_name = "patient zero"
-
-	// 50% chance of being incremented by one
-	var/spawncount = 1
 	fakeable = TRUE
 
 /datum/round_event/ghost_role/patient_zero/announce(fake)
