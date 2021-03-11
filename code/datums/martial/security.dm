@@ -69,7 +69,7 @@
 	var/obj/item/bodypart/affecting = T.get_bodypart(ran_zone(U.zone_selected))
 	if(affecting == ARM_LEFT || ARM_RIGHT)
 		if(!H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))//Are they blocking?
-			if(U.targetedZone == l_arm)
+			if(U.targetedZone == ARM_LEFT)
 				var/obj/item/activeItem = T.HAND_LEFT
 				T.dropItemToGround(activeItem)
 				var/disarmDir = get_dir(U, T)
