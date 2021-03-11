@@ -77,7 +77,7 @@
 				activeItem.throw_at(throwAt, 7, 1)
 				log_combat(U, T, "Forceful Disarm")
 			else
-				var/obj/item/targetedItem = T.HAND_RIGHT
+				var/obj/item/activeItem = T.HAND_RIGHT
 				T.dropItemToGround(activeItem)
 				var/disarmDir = get_dir(U, T)
 				var/turf/throwAt = get_ranged_target_turf(activeItem, disarmDir, 2)
