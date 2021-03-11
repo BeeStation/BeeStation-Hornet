@@ -64,14 +64,24 @@
 	return 0
 
 /datum/martial_art/security_cqc/proc/forceful_disarm(mob/living/carbon/human/U, mob/living/carbon/human/T)//User is U, target is T
-	T.visible_message("<span class = 'warning'>[U] forcefully disarms [T]!</span>", "<span class = 'userdanger'>[U] forcefully disarms you!", null, COMBAT_MESSAGE_RANGE)
+	T.visible_message("<span class = 'warning'>[U] attempts to forcefully disarm [T]!</span>", "<span class = 'userdanger'>[U] attempts to forcefully disarm you!", null, COMBAT_MESSAGE_RANGE)
 	playsound(get_turf(U), 'sound/effects/grillehit.ogg', 50, 1, -1)
-	var/obj/item/activeItem = T.get_active_held_item()
-	T.dropItemToGround(activeItem)
-	var/disarmDir = get_dir(U, T)
-	var/turf/throwAt = get_ranged_target_turf(activeItem, disarmDir, 2)
-	activeItem.throw_at(throwAt, 7, 1)
-	log_combat(U, T, "Forceful Disarm")
+	if(U.targetedZone == l_arm || r_arm)
+		if(!H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))//Are they blocking?
+			if(U.targetedZone == l_arm)
+				var/obj/item/targetedItem = T.HAND_LEFT
+				T.dropItemToGround(activeItem)
+				var/disarmDir = get_dir(U, T)
+				var/turf/throwAt = get_ranged_target_turf(activeItem, disarmDir, 2)
+				activeItem.throw_at(throwAt, 7, 1)
+				log_combat(U, T, "Forceful Disarm")
+			else
+				var/obj/item/targetedItem = T.HAND_RIGHT
+				T.dropItemToGround(activeItem)
+				var/disarmDir = get_dir(U, T)
+				var/turf/throwAt = get_ranged_target_turf(activeItem, disarmDir, 2)
+				activeItem.throw_at(throwAt, 7, 1)
+				log_combat(U, T, "Forceful Disarm")
 
 /datum/martial_art/security_cqc/proc/pressure_point_strike(mob/living/carbon/human/U, mob/living/carbon/human/T)
 	var/obj/item/bodypart/targetedZone = T.get_bodypart(ran_zone(U.zone_selected))
