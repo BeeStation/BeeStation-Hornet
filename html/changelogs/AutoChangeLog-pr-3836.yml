@@ -1,0 +1,5 @@
+author: githubuser343
+delete-after: true
+changes:
+  - bugfix: Trays now properly cleanup after non-repeat harvest plants were harvested.
+  - bugfix: Weeds overtaking a tray start at same age as freshly planted seeds.
