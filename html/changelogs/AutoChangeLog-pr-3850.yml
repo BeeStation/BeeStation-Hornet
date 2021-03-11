@@ -1,5 +1,0 @@
-author: ghost
-delete-after: true
-changes:
-  - bugfix: Constructs do not count as having arms or legs for purpose of vehicle
-      driving.
