@@ -9,8 +9,8 @@
 	supervisors = "the chief medical officer and research director"
 	selection_color = "#d4ebf2"
 	chat_color = "#83BBBF"
-	minimal_player_age = 7
-	exp_requirements = 600
+	minimal_player_age = 1
+	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/geneticist
