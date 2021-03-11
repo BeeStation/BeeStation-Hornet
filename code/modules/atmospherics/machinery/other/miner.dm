@@ -175,3 +175,46 @@
 	name = "\improper Water Vapor Gas Miner"
 	overlay_color = "#99928E"
 	spawn_id = /datum/gas/water_vapor
+
+/obj/machinery/atmospherics/miner/station
+	power_draw = GASMINER_POWER_FULLSCALE
+	spawn_mol = MOLES_CELLSTANDARD / 10
+	desc = "This item should not exist, file a bug report if you see this message"
+	max_ext_kpa = 2500
+
+/obj/machinery/atmospherics/miner/station/n2o
+	name = "\improper N2O Gas Miner"
+	overlay_color = "#FFCCCC"
+	spawn_id = /datum/gas/nitrous_oxide
+
+/obj/machinery/atmospherics/miner/station/nitrogen
+	name = "\improper N2 Gas Miner"
+	overlay_color = "#CCFFCC"
+	spawn_id = /datum/gas/nitrogen
+
+/obj/machinery/atmospherics/miner/station/oxygen
+	name = "\improper O2 Gas Miner"
+	overlay_color = "#007FFF"
+	spawn_id = /datum/gas/oxygen
+
+/obj/machinery/atmospherics/miner/station/toxins
+	name = "\improper Plasma Gas Miner"
+	overlay_color = "#FF0000"
+	spawn_id = /datum/gas/plasma
+
+/obj/machinery/atmospherics/miner/station/carbon_dioxide
+	name = "\improper CO2 Gas Miner"
+	overlay_color = "#CDCDCD"
+	spawn_id = /datum/gas/carbon_dioxide
+
+/obj/machinery/atmospherics/miner/station/bz
+	name = "\improper BZ Gas Miner"
+	overlay_color = "#FAFF00"
+	spawn_id = /datum/gas/bz
+
+/obj/machinery/atmospherics/miner/station/water_vapor
+	name = "\improper Water Vapor Gas Miner"
+	overlay_color = "#99928E"
+	spawn_id = /datum/gas/water_vapor
+
+
