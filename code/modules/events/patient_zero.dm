@@ -42,8 +42,7 @@
 	patient.equipOutfit(/datum/outfit/pzero)
 	patient.dna.update_dna_identity()
 	
-	var/turf/T = locate(125,125,2)
-	patient.throw_at(T, 2, 2)
+	patient.throw_at(SSmapping.get_station_center(), 2, 2)
 	
 	message_admins("[ADMIN_LOOKUPFLW(patient)] has been spawned as Romerol Zombie by an event.")
 	spawned_mobs += patient
