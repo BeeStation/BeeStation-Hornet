@@ -66,7 +66,8 @@
 /datum/martial_art/security_cqc/proc/forceful_disarm(mob/living/carbon/human/U, mob/living/carbon/human/T)//User is U, target is T
 	T.visible_message("<span class = 'warning'>[U] attempts to forcefully disarm [T]!</span>", "<span class = 'userdanger'>[U] attempts to forcefully disarm you!", null, COMBAT_MESSAGE_RANGE)
 	playsound(get_turf(U), 'sound/effects/grillehit.ogg', 50, 1, -1)
-	if(U.targetedZone == l_arm || r_arm)
+	var/obj/item/bodypart/affecting = T.get_bodypart(ran_zone(U.zone_selected))
+	if(affecting == l_arm || r_arm)
 		if(!H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))//Are they blocking?
 			if(U.targetedZone == l_arm)
 				var/obj/item/targetedItem = T.HAND_LEFT
