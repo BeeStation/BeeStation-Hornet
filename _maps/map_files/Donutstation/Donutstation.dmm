@@ -5455,8 +5455,6 @@
 /area/crew_quarters/kitchen)
 "anM" = (
 /obj/machinery/atmospherics/miner/n2o{
-	power_draw = 4;
-	spawn_mol = 103;
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/n2o{
@@ -10031,8 +10029,6 @@
 /area/engine/atmos)
 "ayh" = (
 /obj/machinery/atmospherics/miner/toxins{
-	power_draw = 4;
-	spawn_mol = 103;
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/plasma{
@@ -10355,8 +10351,6 @@
 /area/engine/atmos)
 "ayS" = (
 /obj/machinery/atmospherics/miner/carbon_dioxide{
-	power_draw = 4;
-	spawn_mol = 103;
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/co2{
@@ -50143,8 +50137,6 @@
 /area/engine/atmos)
 "cdM" = (
 /obj/machinery/atmospherics/miner/nitrogen{
-	power_draw = 4;
-	spawn_mol = 103;
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/n2{
@@ -50624,8 +50616,6 @@
 /area/hallway/primary/central)
 "ceK" = (
 /obj/machinery/atmospherics/miner/oxygen{
-	power_draw = 4;
-	spawn_mol = 103;
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/o2{
