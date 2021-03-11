@@ -16,8 +16,8 @@
 	var/has_syringe_overlay = TRUE ///If it has an overlay for inserted syringes. If true, the overlay is determined by the number of syringes inserted into it.
 
 /obj/item/gun/syringe/Initialize()
-	update_icon()
 	. = ..()
+	update_icon()	
 	chambered = new /obj/item/ammo_casing/syringegun(src)
 
 /obj/item/gun/syringe/handle_atom_del(atom/A)
@@ -37,6 +37,7 @@
 	if(chambered && !chambered.BB) //we just fired
 		recharge_newshot()
 	update_icon()
+
 /obj/item/gun/syringe/examine(mob/user)
 	. = ..()
 	. += "Can hold [max_syringes] syringe\s. Has [syringes.len] syringe\s remaining."
