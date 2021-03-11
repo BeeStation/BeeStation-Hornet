@@ -187,7 +187,7 @@ Borg Shaker
 	reagent_ids = list(
 			/datum/reagent/consumable/ethanol/absinthe,
 			/datum/reagent/consumable/ethanol/ale,
-			/datum/reagent/consumable/ethanol/applejack
+			/datum/reagent/consumable/ethanol/applejack,
 			/datum/reagent/consumable/ethanol/beer,
 			/datum/reagent/consumable/ethanol/cognac,
 			/datum/reagent/consumable/ethanol/creme_de_cacao,
