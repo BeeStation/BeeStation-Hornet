@@ -777,10 +777,19 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_beaker_app
-	name = "Cyborg Upgrade (Beaker Storage)"
+	name = "Cyborg Upgrade (Medical Beaker Storage)"
 	id = "borg_upgrade_beakerapp"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/beaker_app
+	materials = list(/datum/material/iron = 2000, /datum/material/glass = 2250) //Need glass for the new beaker too
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+	
+/datum/design/borg_upgrade_service_beaker_app
+	name = "Cyborg Upgrade (Service Beaker Storage)"
+	id = "borg_upgrade_servicebeakerapp"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/service_beaker_app
 	materials = list(/datum/material/iron = 2000, /datum/material/glass = 2250) //Need glass for the new beaker too
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
