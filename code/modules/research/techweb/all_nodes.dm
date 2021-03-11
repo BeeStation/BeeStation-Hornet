@@ -370,9 +370,9 @@
 /datum/techweb_node/cyborg_upg_service
 	id = "cyborg_upg_service"
 	display_name = "Cyborg Upgrades: Service"
-	description = "Allows service borgs to specialize with various modules."
+	description = "Allows service borgs to specialize and upgrade with various modules."
 	prereq_ids = list("cyborg_upg_util")
-	design_ids = list("borg_upgrade_casino", "borg_upgrade_kitchen", "borg_upgrade_botany", "borg_upgrade_party")
+	design_ids = list("borg_upgrade_casino", "borg_upgrade_kitchen", "borg_upgrade_botany", "borg_upgrade_party", "borg_upgrade_servicebeakerapp")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500)
 	export_price = 1000
 
