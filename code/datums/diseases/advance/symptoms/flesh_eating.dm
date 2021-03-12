@@ -125,16 +125,6 @@ Bonus
 
 /datum/symptom/flesh_death/proc/Flesh_death(mob/living/M, datum/disease/advance/A)
 	var/get_damage = rand(6,10)
-	if(MOB_UNDEAD in M.mob_biotypes)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			var/S = H.dna.species
-			if(zombie && istype(S, /datum/species/zombie/infectious) && !istype(S, /datum/species/zombie/infectious/fast))
-				H.set_species(/datum/species/zombie/infectious/fast)
-				to_chat(M, "<span class='warning'>Your extraneous flesh sloughs off, giving you a boost of speed at the cost of a bit of padding!</span>")
-			else if(prob(base_message_chance))
-				to_chat(M, "<span class='warning'>Your body slowly decays... luckily, you're already dead!</span>")
-		return //this symptom wont work on the undead.
 	M.take_overall_damage(brute = get_damage, required_status = BODYPART_ORGANIC)
 	if(chems)
 		M.reagents.add_reagent_list(list(/datum/reagent/toxin/heparin = 2, /datum/reagent/toxin/lipolicide = 2))
