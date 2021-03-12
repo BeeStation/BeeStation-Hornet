@@ -1,4 +1,0 @@
-author: Cenrus
-delete-after: true
-changes:
-  - bugfix: removed a rogue closing square bracket from modular computer examine
