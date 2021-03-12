@@ -9,7 +9,8 @@
         "Space",
         "Solar",
         "Laser",
-        "Ion"
+        "Ion",
+		"Tachyon"
     ],
     "endings":[
         "keel",
@@ -22,10 +23,12 @@
         "salt",
         "knot",
         "fish",
-        "helm"
+        "helm",
+		"sail"
     ],
     "ship_names":[
         "Space Queen's Revenge",
-        "Syndicate Privateer"
+        "Syndicate Privateer",
+		"The Jolly Roger"
     ]
 }
