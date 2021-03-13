@@ -44,6 +44,26 @@
 			for(var/i in GLOB.sdql2_queries)
 				var/datum/SDQL2_query/Q = i
 				tab_data += Q.generate_stat()
+		// ===== ADMIN PMS =====
+		if("(!) Admin PM")
+			client.stat_update_mode = STAT_MEDIUM_UPDATE
+			var/datum/admin_help/ticket = client.current_ticket
+			tab_data["ckey"] = key_name(client, FALSE, FALSE)
+			tab_data["admin_name"] = key_name(ticket.claimed_admin, FALSE, FALSE)
+			//Messages:
+			tab_data["messages"] = list()
+			for(var/datum/ticket_interaction/message as() in ticket._interactions)
+				//Only non-private messages have safe users.
+				//Only admins can see adminbus logs.
+				if(!message.from_user_safe || !message.to_user_safe)
+					var/list/msg = list(
+						"time" = message.time_stamp,
+						"color" = message.message_color,
+						"from" = message.from_user_safe,
+						"to" = message.to_user_safe,
+						"message" = message.message
+					)
+					tab_data["messages"] += list(msg)
 		else
 			// ===== NON CONSTANT TABS (Tab names which can change) =====
 			// ===== LISTEDS TURFS =====
@@ -194,6 +214,9 @@
 	additional_tabs = sortList(additional_tabs)
 	//Get verbs
 	tabs |= additional_tabs
+	//Get Tickets
+	if(client.current_ticket)
+		tabs |= "(!) Admin PM"
 	return tabs
 
 /*
@@ -254,6 +277,10 @@
 			var/datum/SDQL2_query/query = sdqlQueryByID(text2num(query_id))
 			if(query)
 				query.action_click()
+		if("ticket_message")
+			var/message = sanitize(params["msg"])
+			if(message)
+				client.adminhelp(message)
 
 /*
  * Sets the current stat tab selected.
