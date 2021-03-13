@@ -1,4 +1,5 @@
 GLOBAL_VAR(battle_royale_map)
+GLOBAL_VAR(battle_royale_z)
 
 /datum/battle_royale_controller
 	var/list/players
@@ -110,10 +111,12 @@ GLOBAL_VAR(battle_royale_map)
 		if(errorList.len)
 			message_admins("br_map failed to load")
 			log_game("br_map failed to load")
+			to_chat(world, "<span class='greenannounce'>Battle Royale: Loading map failed.</span>")
 			return FALSE
 		for(var/datum/parsed_map/map in br_map)
 			map.initTemplateBounds()
 			GLOB.battle_royale_map = map
+		GLOB.battle_royale_z = world.maxz
 	//Wait to start
 	sleep(50)
 	to_chat(world, "<span class='greenannounce'>Battle Royale: STARTING IN 30 SECONDS.</span>")
@@ -128,7 +131,7 @@ GLOBAL_VAR(battle_royale_map)
 	INVOKE_ASYNC(src, .proc/titanfall)
 	sleep(350)	//So people spawn in
 	death_wall = list()
-	var/z_level = SSmapping.station_start
+	var/z_level = GLOB.battle_royale_z
 	var/turf/center = SSmapping.get_station_center()
 	var/list/edge_turfs = list()
 	edge_turfs += block(locate(12, 12, z_level), locate(244, 12, z_level))			//BOTTOM

@@ -126,7 +126,7 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 /datum/battle_royale_controller/proc/send_item(item_path, style = STYLE_BOX, announce=FALSE, force_time = 0)
 	if(!item_path)
 		return
-	var/turf/target = get_safe_random_station_turf()
+	var/turf/target = pick(GLOB.br_lootdrop)
 	var/obj/structure/closet/supplypod/battleroyale/pod = new()
 	if(islist(item_path))
 		for(var/thing in item_path)
