@@ -284,7 +284,10 @@
 			if(message)
 				if(world.time > client.last_adminhelp_reply + 10 SECONDS)
 					client.last_adminhelp_reply = world.time
-					client.current_ticket.MessageNoRecipient(message)
+					if(client.current_ticket)
+						client.current_ticket.MessageNoRecipient(message)
+					else
+						to_chat(src, "<span class='warning'>Your issue has already been resolved!</span>")
 				else
 					to_chat(src, "<span class='warning'>You are sending messages too fast!</span>")
 
