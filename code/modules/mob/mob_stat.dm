@@ -189,6 +189,10 @@
 	var/list/tabs = list(
 		"Status",
 	)
+	//Get Tickets
+	if(client.current_ticket)
+		//Bwoinks come after status
+		tabs += "(!) Admin PM"
 	//Listed turfs
 	if(listed_turf && client)
 		if(!TurfAdjacent(listed_turf))
@@ -215,9 +219,6 @@
 	additional_tabs = sortList(additional_tabs)
 	//Get verbs
 	tabs |= additional_tabs
-	//Get Tickets
-	if(client.current_ticket)
-		tabs |= "(!) Admin PM"
 	return tabs
 
 /*
@@ -281,8 +282,8 @@
 		if("ticket_message")
 			var/message = sanitize(params["msg"])
 			if(message)
-				if(world.time > last_adminhelp_reply + 10 SECONDS)
-					last_adminhelp_reply = world.time
+				if(world.time > client.last_adminhelp_reply + 10 SECONDS)
+					client.last_adminhelp_reply = world.time
 					client.current_ticket.MessageNoRecipient(message)
 				else
 					to_chat(src, "<span class='warning'>You are sending messages too fast!</span>")
