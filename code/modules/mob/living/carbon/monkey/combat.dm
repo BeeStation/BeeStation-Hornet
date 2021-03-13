@@ -253,7 +253,11 @@
 
 			// flee from anyone who attacked us and we didn't beat down
 			for(var/mob/living/L in view(MONKEY_FLEE_VISION, src))
+<<<<<<< refs/remotes/BeeStation/master
 				if( enemies[L] && L.is_conscious())
+=======
+				if( enemies[L] && L.stat == CONSCIOUS )
+>>>>>>> update
 					target = L
 
 			if(target != null)

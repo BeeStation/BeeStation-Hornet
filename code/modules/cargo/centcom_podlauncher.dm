@@ -632,6 +632,7 @@
 		to_chat(holder.mob, "No /area/centcom/supplypod/loading/one (or /two or /three or /four) in the world! You can make one yourself (then refresh) for now, but yell at a mapper to fix this, today!")
 		CRASH("No /area/centcom/supplypod/loading/one (or /two or /three or /four) has been mapped into the centcom z-level!")
 	orderedArea = list()
+<<<<<<< refs/remotes/BeeStation/master
 	if (length(area_to_order.contents)) //Go through the area passed into the proc, and figure out the top left and bottom right corners by calculating max and min values
 		var/startX = area_to_order.contents[1].x //Create the four values (we do it off a.contents[1] so they have some sort of arbitrary initial value. They should be overwritten in a few moments)
 		var/endX = area_to_order.contents[1].x
@@ -649,6 +650,25 @@
 		for (var/vertical in endY to startY)
 			for (var/horizontal in startX to endX)
 				orderedArea.Add(locate(horizontal, startY - (vertical - endY), 1)) //After gathering the start/end x and y, go through locating each turf from top left to bottom right, like one would read a book
+=======
+	if (length(A.contents)) //Go through the area passed into the proc, and figure out the top left and bottom right corners by calculating max and min values
+		var/startX = A.contents[1].x //Create the four values (we do it off a.contents[1] so they have some sort of arbitrary initial value. They should be overwritten in a few moments)
+		var/endX = A.contents[1].x
+		var/startY = A.contents[1].y
+		var/endY = A.contents[1].y
+		for (var/turf/T in A) //For each turf in the area, go through and find:
+			if (T.x < startX) //The turf with the smallest x value. This is our startX
+				startX = T.x
+			else if (T.x > endX) //The turf with the largest x value. This is our endX
+				endX = T.x
+			else if (T.y > startY) //The turf with the largest Y value. This is our startY
+				startY = T.y
+			else if (T.y < endY) //The turf with the smallest Y value. This is our endY
+				endY = T.y
+		for (var/i in endY to startY)
+			for (var/j in startX to endX)
+				orderedArea.Add(locate(j,startY - (i - endY),1)) //After gathering the start/end x and y, go through locating each turf from top left to bottom right, like one would read a book
+>>>>>>> update
 	return orderedArea //Return the filled list
 
 /datum/centcom_podlauncher/proc/preLaunch() //Creates a list of acceptable items,
@@ -739,8 +759,13 @@
 		//If we aren't cloning objects, taking and removing the first item each time from the acceptableTurfs list will inherently iterate through the list in order
 
 /datum/centcom_podlauncher/proc/updateSelector() //Ensures that the selector effect will showcase the next item if needed
+<<<<<<< refs/remotes/BeeStation/master
 	if (launchChoice == LAUNCH_ORDERED && length(acceptableTurfs) > 1 && !temp_pod.reversing && !temp_pod.effectMissile) //We only show the selector if we are taking items from the bay
 		var/index = (launchCounter == 1 ? launchCounter : launchCounter + 1) //launchCounter acts as an index to the ordered acceptableTurfs list, so adding one will show the next item in the list. We don't want to do this for the very first item tho
+=======
+	if (launchChoice == 1 && length(acceptableTurfs) && !temp_pod.reversing && !temp_pod.effectMissile) //We only show the selector if we are taking items from the bay
+		var/index = launchCounter + 1 //launchCounter acts as an index to the ordered acceptableTurfs list, so adding one will show the next item in the list
+>>>>>>> update
 		if (index > acceptableTurfs.len) //out of bounds check
 			index = 1
 		selector.forceMove(acceptableTurfs[index]) //forceMove the selector to the next turf in the ordered acceptableTurfs list
@@ -770,8 +795,22 @@
 		for (var/mob/living/M in whoDyin)
 			whomString += "[key_name(M)], "
 
+<<<<<<< refs/remotes/BeeStation/master
 	var/msg = "launched [podString] towards [whomString]"
 	message_admins("[key_name_admin(usr)] [msg] in [ADMIN_VERBOSEJMP(specificTarget)].")
+=======
+	var/delayString = temp_pod.landingDelay == initial(temp_pod.landingDelay) ? "" : " Delay=[temp_pod.landingDelay*0.1]s"
+	var/damageString = temp_pod.damage == 0 ? "" : " Dmg=[temp_pod.damage]"
+	var/explosionString = ""
+	var/explosion_sum = temp_pod.explosionSize[1] + temp_pod.explosionSize[2] + temp_pod.explosionSize[3] + temp_pod.explosionSize[4]
+	if (explosion_sum != 0)
+		explosionString = " Boom=|"
+		for (var/X in temp_pod.explosionSize)
+			explosionString += "[X]|"
+
+	var/msg = "launched [podString][whomString].[delayString][damageString][explosionString]"
+	message_admins("[key_name_admin(usr)] [msg] in [AREACOORD(specificTarget)].")
+>>>>>>> update
 	if (length(whoDyin))
 		for (var/mob/living/M in whoDyin)
 			admin_ticket_log(M, "[key_name_admin(usr)] [msg]")

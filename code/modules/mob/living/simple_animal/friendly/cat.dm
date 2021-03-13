@@ -228,7 +228,11 @@
 				movement_target = null
 				stop_automated_movement = 0
 				for(var/mob/living/simple_animal/mouse/snack in oview(3, src))
+<<<<<<< refs/remotes/BeeStation/master
 					if(snack.is_conscious())
+=======
+					if(!snack.stat)
+>>>>>>> update
 						movement_target = snack
 						break
 			if(movement_target)

@@ -181,12 +181,21 @@
 	var/too_little_antags = antag_count < max_traitors
 	if (!too_little_antags)
 		log_game("DYNAMIC: Too many living antags compared to living players ([antag_count] living antags, [player_count] living players, [max_traitors] max traitors)")
+<<<<<<< refs/remotes/BeeStation/master
 		return FALSE
 
 	if (!prob(mode.threat_level))
 		log_game("DYNAMIC: Random chance to roll autotraitor failed, it was a [mode.threat_level]% chance.")
 		return FALSE
 
+=======
+		return FALSE
+
+	if (!prob(mode.threat_level))
+		log_game("DYNAMIC: Random chance to roll autotraitor failed, it was a [mode.threat_level]% chance.")
+		return FALSE
+
+>>>>>>> update
 	return ..()
 
 /datum/dynamic_ruleset/midround/autotraitor/trim_candidates()

@@ -382,9 +382,12 @@ BLIND     // can't see anything
 		return
 	if(!lavaland_equipment_pressure_check(T))
 		. *= high_pressure_multiplier
+<<<<<<< refs/remotes/BeeStation/master
 
 #undef SENSORS_OFF
 #undef SENSORS_BINARY
 #undef SENSORS_VITALS
 #undef SENSORS_TRACKING
 #undef SENSOR_CHANGE_DELAY
+=======
+>>>>>>> update

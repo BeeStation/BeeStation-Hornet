@@ -27095,7 +27095,11 @@
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "aXW" = (
+<<<<<<< refs/remotes/BeeStation/master
 /obj/machinery/atmospherics/miner/station/carbon_dioxide,
+=======
+/obj/machinery/atmospherics/miner/carbon_dioxide,
+>>>>>>> update
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "aXX" = (
@@ -29492,7 +29496,11 @@
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "bbO" = (
+<<<<<<< refs/remotes/BeeStation/master
 /obj/machinery/atmospherics/miner/station/oxygen,
+=======
+/obj/machinery/atmospherics/miner/oxygen,
+>>>>>>> update
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "bbP" = (
@@ -31009,7 +31017,11 @@
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "bev" = (
+<<<<<<< refs/remotes/BeeStation/master
 /obj/machinery/atmospherics/miner/station/toxins,
+=======
+/obj/machinery/atmospherics/miner/toxins,
+>>>>>>> update
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "bew" = (
@@ -32834,7 +32846,11 @@
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "bhw" = (
+<<<<<<< refs/remotes/BeeStation/master
 /obj/machinery/atmospherics/miner/station/nitrogen,
+=======
+/obj/machinery/atmospherics/miner/nitrogen,
+>>>>>>> update
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "bhx" = (
@@ -34979,7 +34995,11 @@
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "bkH" = (
+<<<<<<< refs/remotes/BeeStation/master
 /obj/machinery/atmospherics/miner/station/n2o,
+=======
+/obj/machinery/atmospherics/miner/n2o,
+>>>>>>> update
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "bkI" = (
@@ -50214,7 +50234,31 @@
 "bHD" = (
 /obj/machinery/door/firedoor/window,
 /obj/structure/cable/yellow{
+<<<<<<< refs/remotes/BeeStation/master
 	icon_state = "0-8"
+=======
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/security{
+	name = "Evidence Storage";
+	req_one_access_txt = "1;4"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+>>>>>>> update
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -121694,6 +121738,7 @@
 /obj/item/storage/book/bible,
 /turf/open/floor/plasteel/grimy,
 /area/chapel/main)
+<<<<<<< refs/remotes/BeeStation/master
 "hPf" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -121707,6 +121752,8 @@
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+=======
+>>>>>>> update
 "hVp" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{

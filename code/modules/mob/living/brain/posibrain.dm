@@ -134,7 +134,11 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	name = "[initial(name)] ([brainmob.name])"
 	to_chat(brainmob, welcome_message)
 	brainmob.mind.assigned_role = new_role
+<<<<<<< refs/remotes/BeeStation/master
 	brainmob.set_stat(CONSCIOUS)
+=======
+	brainmob.stat = CONSCIOUS
+>>>>>>> update
 	brainmob.remove_from_dead_mob_list()
 	brainmob.add_to_alive_mob_list()
 

@@ -444,7 +444,11 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 				final_result = checkscan(deepscan,old_target)
 				if(final_result)
 					return final_result
+<<<<<<< refs/remotes/BeeStation/master
 
+=======
+	
+>>>>>>> update
 	var/list/wider_search_list = list()
 	for(var/turf/RT in oview(scan_range, src))
 		if(!(RT in adjacent))

@@ -89,7 +89,10 @@
 	name = "flesh"
 	slot_flags = ALL
 	allowed = list(/obj/item/changeling)
+<<<<<<< refs/remotes/BeeStation/master
 	item_flags = DROPDEL
+=======
+>>>>>>> update
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/changeling/attack_hand(mob/user)

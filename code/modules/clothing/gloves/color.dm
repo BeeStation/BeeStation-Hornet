@@ -10,7 +10,11 @@
 
 /obj/item/clothing/gloves/color/yellow/equipped(mob/user, slot)
 	. = ..()
+<<<<<<< refs/remotes/BeeStation/master
 	if(slot == ITEM_SLOT_GLOVES)
+=======
+	if(slot == SLOT_GLOVES)
+>>>>>>> update
 		if(user.mind?.assigned_role == "Assistant")
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "assistant_insulated_gloves", /datum/mood_event/assistant_insulated_gloves)
 		if(user.mind?.assigned_role in GLOB.security_positions)
@@ -72,7 +76,11 @@
 
 /obj/item/clothing/gloves/color/black/equipped(mob/user, slot)
 	. = ..()
+<<<<<<< refs/remotes/BeeStation/master
 	if(slot == ITEM_SLOT_GLOVES)
+=======
+	if(slot == SLOT_GLOVES)
+>>>>>>> update
 		if(user.mind?.assigned_role in GLOB.security_positions)
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_black_gloves", /datum/mood_event/sec_black_gloves)
 

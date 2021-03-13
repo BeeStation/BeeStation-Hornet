@@ -570,6 +570,7 @@
 	desc = "Provides you with a hardly noticable blade hidden inside a baguette disguise."
 
 /obj/item/storage/box/syndie_kit/mimesabrekit/PopulateContents()
+<<<<<<< refs/remotes/BeeStation/master
 	new /obj/item/storage/belt/sabre/mime(src)
 
 /obj/item/storage/box/syndie_kit/imp_deathrattle
@@ -590,3 +591,6 @@
 		group.register(i)
 	desc += " The implants are registered to the \"[group.name]\" group."
   
+=======
+	new /obj/item/storage/belt/sabre/mime(src)
+>>>>>>> update

@@ -4,7 +4,10 @@
 	weight = 0 //Admin only
 	max_occurrences = 1
 	dynamic_should_hijack = TRUE
+<<<<<<< refs/remotes/BeeStation/master
 	cannot_spawn_after_shuttlecall = TRUE
+=======
+>>>>>>> update
 
 /datum/round_event/ghost_role/operative
 	minimum_required = 1

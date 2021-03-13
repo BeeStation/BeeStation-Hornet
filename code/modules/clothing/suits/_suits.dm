@@ -51,10 +51,16 @@
 	if(!islist(move_sound))
 		return
 	//Check if we were taken off.
+<<<<<<< refs/remotes/BeeStation/master
 	if(slot != ITEM_SLOT_OCLOTHING)
 		if(listeningTo)
 			UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
 			listeningTo = null
+=======
+	if(slot != SLOT_WEAR_SUIT)
+		if(listeningTo)
+			UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
+>>>>>>> update
 		return
 	if(listeningTo == user)
 		return
@@ -70,7 +76,10 @@
 	//Remove our listener
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
+<<<<<<< refs/remotes/BeeStation/master
 		listeningTo = null
+=======
+>>>>>>> update
 
 /obj/item/clothing/suit/Destroy()
 	listeningTo = null

@@ -40,4 +40,8 @@
 	name = "replicant manacles"
 	desc = "Heavy manacles made out of freezing-cold metal. It looks like brass, but feels much more solid."
 	icon_state = "brass_manacles"
+<<<<<<< refs/remotes/BeeStation/master
 	item_flags = DROPDEL
+=======
+	item_flags = DROPDEL
+>>>>>>> update

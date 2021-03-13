@@ -100,7 +100,11 @@
 	for(var/obj/O in get_turf(src))
 		if(!O.anchored)
 			var/mob/living/target = locate() in hearers(4,src)
+<<<<<<< refs/remotes/BeeStation/master
 			if(target && target.is_conscious())
+=======
+			if(target && !target.stat)
+>>>>>>> update
 				O.throw_at(target, 5, 10)
 
 /obj/effect/anomaly/grav/Crossed(mob/A)
@@ -285,8 +289,17 @@
 	S.rabid = TRUE
 	S.amount_grown = SLIME_EVOLUTION_THRESHOLD
 	S.Evolve()
+<<<<<<< refs/remotes/BeeStation/master
 	S.flavor_text = FLAVOR_TEXT_EVIL
 	S.set_playable()
+=======
+
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a pyroclastic anomaly slime?", ROLE_PAI, null, null, 100, S, POLL_IGNORE_PYROSLIME)
+	if(LAZYLEN(candidates))
+		var/mob/dead/observer/chosen = pick(candidates)
+		S.key = chosen.key
+		log_game("[key_name(S.key)] was made into a slime by pyroclastic anomaly at [AREACOORD(T)].")
+>>>>>>> update
 
 /////////////////////
 
@@ -307,7 +320,11 @@
 	for(var/obj/O in orange(2,src))
 		if(!O.anchored)
 			var/mob/living/target = locate() in hearers(4,src)
+<<<<<<< refs/remotes/BeeStation/master
 			if(target && target.is_conscious())
+=======
+			if(target && !target.stat)
+>>>>>>> update
 				O.throw_at(target, 7, 5)
 		else
 			SSexplosions.med_mov_atom += O

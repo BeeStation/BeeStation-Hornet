@@ -85,7 +85,11 @@
 	if(!ishuman(target) || target == user)
 		return
 	var/mob/living/carbon/human/human_target = target
+<<<<<<< refs/remotes/BeeStation/master
 
+=======
+	
+>>>>>>> update
 	if(QDELETED(human_target) || human_target.stat != DEAD)
 		return
 
@@ -124,6 +128,15 @@
 	spooky_scaries -= humie
 	humie.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
 	UnregisterSignal(source, COMSIG_MOB_DEATH)
+	
+/datum/eldritch_knowledge/flesh_grasp/on_eldritch_blade(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/C = target
+	var/datum/status_effect/eldritch/E = C.has_status_effect(/datum/status_effect/eldritch/rust) || C.has_status_effect(/datum/status_effect/eldritch/ash) || C.has_status_effect(/datum/status_effect/eldritch/flesh)
+	if(E)
+		E.on_effect()
 
 /datum/eldritch_knowledge/flesh_grasp/on_eldritch_blade(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -194,7 +207,11 @@
 
 /datum/eldritch_knowledge/final/flesh_final/on_finished_recipe(mob/living/user, list/atoms, loc)
 	. = ..()
+<<<<<<< refs/remotes/BeeStation/master
 	priority_announce("$^@&#*$^@(#&$(@&#^$&#^@# Ever coiling vortex. Reality unfolded. THE LORD OF ARMS, [user.real_name] has ascended! Fear the ever twisting hand! $^@&#*$^@(#&$(@&#^$&#^@#","#$^@&#*$^@(#&$(@&#^$&#^@#", ANNOUNCER_SPANOMALIES)
+=======
+	priority_announce("$^@&#*$^@(#&$(@&#^$&#^@# Ever coiling vortex. Reality unfolded. THE LORD OF ARMS, [user.real_name] has ascended! Fear the ever twisting hand! $^@&#*$^@(#&$(@&#^$&#^@#","#$^@&#*$^@(#&$(@&#^$&#^@#", 'sound/ai/spanomalies.ogg')
+>>>>>>> update
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shed_human_form)
 	if(!ishuman(user))
 		return

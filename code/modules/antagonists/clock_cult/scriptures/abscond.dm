@@ -9,7 +9,11 @@
 	button_icon_state = "Abscond"
 	power_cost = 5
 	invokation_time = 25
+<<<<<<< refs/remotes/BeeStation/master
 	invokation_text = list("As we bid farewell, and return to the stars...", "we shall find our way home.")
+=======
+	invokation_text = list("As we bid farewell, and return to the stars...", "...we shall find our way home.")
+>>>>>>> update
 	category = SPELLTYPE_SERVITUDE
 	var/client_color
 

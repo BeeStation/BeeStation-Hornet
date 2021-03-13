@@ -150,6 +150,7 @@
 	item_color = "durathread"
 	can_adjust = FALSE
 	armor = list("melee" = 10, "laser" = 10, "fire" = 40, "acid" = 10, "bomb" = 5, "stamina" = 30)
+<<<<<<< refs/remotes/BeeStation/master
 
 /////////////////
 //DONATOR ITEMS//
@@ -165,3 +166,5 @@
 	desc = "I have a dream."
 	icon_state = "gangster_p"
 	armor = list("melee" = 10, "laser" = 10, "fire" = 40, "acid" = 10, "bomb" = 5, "stamina" = 30)
+=======
+>>>>>>> update

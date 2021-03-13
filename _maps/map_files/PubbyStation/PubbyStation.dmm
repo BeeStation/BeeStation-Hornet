@@ -42069,7 +42069,11 @@
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "bQa" = (
+<<<<<<< refs/remotes/BeeStation/master
 /obj/machinery/atmospherics/miner/station/n2o,
+=======
+/obj/machinery/atmospherics/miner/n2o,
+>>>>>>> update
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "bQb" = (
@@ -43476,7 +43480,11 @@
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "bSX" = (
+<<<<<<< refs/remotes/BeeStation/master
 /obj/machinery/atmospherics/miner/station/toxins,
+=======
+/obj/machinery/atmospherics/miner/toxins,
+>>>>>>> update
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "bSY" = (
@@ -44979,7 +44987,11 @@
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "bWf" = (
+<<<<<<< refs/remotes/BeeStation/master
 /obj/machinery/atmospherics/miner/station/carbon_dioxide,
+=======
+/obj/machinery/atmospherics/miner/carbon_dioxide,
+>>>>>>> update
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "bWg" = (
@@ -47201,14 +47213,22 @@
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "cbt" = (
+<<<<<<< refs/remotes/BeeStation/master
 /obj/machinery/atmospherics/miner/station/nitrogen,
+=======
+/obj/machinery/atmospherics/miner/nitrogen,
+>>>>>>> update
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "cbu" = (
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "cbv" = (
+<<<<<<< refs/remotes/BeeStation/master
 /obj/machinery/atmospherics/miner/station/oxygen,
+=======
+/obj/machinery/atmospherics/miner/oxygen,
+>>>>>>> update
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "cbw" = (

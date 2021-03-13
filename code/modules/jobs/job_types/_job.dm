@@ -92,7 +92,11 @@
 		return
 	var/mob/living/carbon/human/human = H
 	var/list/gear_leftovers = list()
+<<<<<<< refs/remotes/BeeStation/master
 	if(M.client && LAZYLEN(M.client.prefs.equipped_gear))
+=======
+	if(M.client && (M.client.prefs.equipped_gear && M.client.prefs.equipped_gear.len))
+>>>>>>> update
 		for(var/gear in M.client.prefs.equipped_gear)
 			var/datum/gear/G = GLOB.gear_datums[gear]
 			if(G)

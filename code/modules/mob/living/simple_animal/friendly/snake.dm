@@ -32,7 +32,11 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
+<<<<<<< refs/remotes/BeeStation/master
 	chat_color = "#26F55A"
+=======
+	mobsay_color = "#26F55A"
+>>>>>>> update
 	poison_per_bite = 3
 	poison_type = /datum/reagent/toxin/venom
 

@@ -140,7 +140,11 @@
 	strip_delay = 80
 	equip_delay_other = 60
 	slowdown = 0.05
+<<<<<<< refs/remotes/BeeStation/master
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+=======
+	footstep = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+>>>>>>> update
 
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
@@ -216,7 +220,11 @@
 	slowdown = 3
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 60, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 90, "stamina" = 60)
+<<<<<<< refs/remotes/BeeStation/master
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+=======
+	footstep = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+>>>>>>> update
 
 /obj/item/clothing/suit/armor/tdome
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
@@ -224,7 +232,11 @@
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 60, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 90, "stamina" = 0)
+<<<<<<< refs/remotes/BeeStation/master
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+=======
+	footstep = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+>>>>>>> update
 
 /obj/item/clothing/suit/armor/tdome/red
 	name = "thunderdome suit"
@@ -244,7 +256,11 @@
 	desc = "A classic suit of plate armour, highly effective at stopping melee attacks."
 	icon_state = "knight_green"
 	item_state = "knight_green"
+<<<<<<< refs/remotes/BeeStation/master
 	move_sound = list()
+=======
+	footstep = list()
+>>>>>>> update
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
 	icon_state = "knight_yellow"

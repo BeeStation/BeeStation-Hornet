@@ -149,7 +149,11 @@
 
 /obj/singularity/narsie/mezzer()
 	for(var/mob/living/carbon/M in hearers(consume_range, src))
+<<<<<<< refs/remotes/BeeStation/master
 		if(M.is_conscious() || iscultist(M))
+=======
+		if(M.stat || iscultist(M))
+>>>>>>> update
 			continue
 		to_chat(M, "<span class='cultsmall'>You feel conscious thought crumble away in an instant as you gaze upon [src.name].</span>")
 		M.apply_effect(60, EFFECT_STUN)

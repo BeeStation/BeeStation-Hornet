@@ -30,9 +30,14 @@
 	var/triggering	//admin cancellation
 	var/auto_add = TRUE				//Auto add to the event pool, if not you have to do it yourself!
 
+<<<<<<< refs/remotes/BeeStation/master
 	
 	var/dynamic_should_hijack = FALSE	// Whether or not dynamic should hijack this event	
 	var/cannot_spawn_after_shuttlecall = FALSE	// Prevents the event from spawning after the shuttle was called
+=======
+	/// Whether or not dynamic should hijack this event
+	var/dynamic_should_hijack = FALSE
+>>>>>>> update
 
 /datum/round_event_control/New()
 	if(config && !wizardevent) // Magic is unaffected by configs
@@ -59,8 +64,11 @@
 		return FALSE
 	if(holidayID && (!SSevents.holidays || !SSevents.holidays[holidayID]))
 		return FALSE
+<<<<<<< refs/remotes/BeeStation/master
 	if(cannot_spawn_after_shuttlecall && !EMERGENCY_IDLE_OR_RECALLED)
 		return FALSE
+=======
+>>>>>>> update
 	if(ispath(typepath, /datum/round_event/ghost_role) && GHOSTROLE_MIDROUND_EVENT)
 		return FALSE
 

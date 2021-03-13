@@ -62,6 +62,15 @@
 	QDEL_NULL(lay_web)
 	return ..()
 
+<<<<<<< refs/remotes/BeeStation/master
+=======
+/mob/living/simple_animal/hostile/poison/giant_spider/Topic(href, href_list)
+	if(href_list["activate"])
+		var/mob/dead/observer/ghost = usr
+		if(istype(ghost) && playable_spider && !(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER))
+			humanize_spider(ghost)
+
+>>>>>>> update
 /mob/living/simple_animal/hostile/poison/giant_spider/Login()
 	..()
 	if(directive)

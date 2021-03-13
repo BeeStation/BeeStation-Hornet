@@ -98,8 +98,16 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	var/datum/saymode/saymode = SSradio.saymodes[message_mods[RADIO_KEY]]
 	var/in_critical = InCritical()
 
+<<<<<<< refs/remotes/BeeStation/master
 	if(!message)
 		return
+=======
+	if(one_character_prefix[message_mode])
+		message = copytext_char(message, 2)
+	else if(message_mode || saymode)
+		message = copytext_char(message, 3)
+	message = trim_left(message)
+>>>>>>> update
 
 	if(stat == DEAD)
 		say_dead(original_message)
@@ -379,7 +387,11 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 		if(MODE_INTERCOM)
 			for (var/obj/item/radio/intercom/I in view(MODE_RANGE_INTERCOM, src))
+<<<<<<< refs/remotes/BeeStation/master
 				I.talk_into(src, message, , spans, language, message_mods)
+=======
+				I.talk_into(src, message, , spans, language)
+>>>>>>> update
 			return ITALICS | REDUCE_RANGE
 
 		if(MODE_BINARY)

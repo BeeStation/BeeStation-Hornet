@@ -6,7 +6,10 @@
 	min_players = 10
 
 	dynamic_should_hijack = TRUE
+<<<<<<< refs/remotes/BeeStation/master
 	cannot_spawn_after_shuttlecall = TRUE
+=======
+>>>>>>> update
 
 /datum/round_event_control/alien_infestation/canSpawnEvent()
 	. = ..()

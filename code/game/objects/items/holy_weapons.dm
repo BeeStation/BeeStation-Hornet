@@ -117,7 +117,11 @@
 
 /obj/item/storage/box/holy/witchhunter/PopulateContents()
 	new /obj/item/clothing/suit/armor/riot/chaplain/witchhunter(src)
+<<<<<<< refs/remotes/BeeStation/master
 	new /obj/item/clothing/head/chaplain/witchunter_hat(src)
+=======
+	new /obj/item/clothing/head/helmet/chaplain/witchunter_hat(src)
+>>>>>>> update
 	new /obj/item/clothing/neck/crucifix(src)
 
 /obj/item/clothing/suit/armor/riot/chaplain/witchhunter

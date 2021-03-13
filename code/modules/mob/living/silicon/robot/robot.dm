@@ -172,7 +172,11 @@
 			mmi.forceMove(T)
 		if(mmi.brainmob)
 			if(mmi.brainmob.stat == DEAD)
+<<<<<<< refs/remotes/BeeStation/master
 				mmi.brainmob.set_stat(CONSCIOUS)
+=======
+				mmi.brainmob.stat = CONSCIOUS
+>>>>>>> update
 				mmi.brainmob.remove_from_dead_mob_list()
 				mmi.brainmob.add_to_alive_mob_list()
 			mind.transfer_to(mmi.brainmob)

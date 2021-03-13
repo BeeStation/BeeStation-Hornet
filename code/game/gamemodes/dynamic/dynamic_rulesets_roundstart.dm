@@ -644,7 +644,11 @@
 	required_candidates = 4
 	weight = 3
 	cost = 35
+<<<<<<< refs/remotes/BeeStation/master
 	requirements = list(100,90,80,70,60,50,30,30,30,30)
+=======
+	requirements = list(101,101,101,80,70,60,50,50,50,50)
+>>>>>>> update
 	flags = HIGH_IMPACT_RULESET
 	var/datum/team/clock_cult/main_cult
 	var/list/selected_servants = list()

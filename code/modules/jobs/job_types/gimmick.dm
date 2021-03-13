@@ -17,7 +17,10 @@
 	paycheck_department = ACCOUNT_CIV
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
+<<<<<<< refs/remotes/BeeStation/master
 	departments = DEPARTMENT_SERVICE
+=======
+>>>>>>> update
 
 /datum/job/gimmick/barber
 	title = "Barber"
@@ -70,7 +73,10 @@
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
 	chat_color = "#929292"
+<<<<<<< refs/remotes/BeeStation/master
 	departments = NONE		//being hobo is not a real job
+=======
+>>>>>>> update
 
 /datum/outfit/job/gimmick/hobo
 	name = "Debtor"
@@ -105,7 +111,10 @@
 	paycheck = PAYCHECK_EASY
 	gimmick = TRUE
 	chat_color = "#a2dfdc"
+<<<<<<< refs/remotes/BeeStation/master
 	departments = DEPARTMENT_MEDICAL
+=======
+>>>>>>> update
 
 /datum/outfit/job/gimmick/shrink //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
 	name = "Psychiatrist"

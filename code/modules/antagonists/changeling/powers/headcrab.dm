@@ -28,7 +28,11 @@
 	for(var/obj/item/organ/I in organs)
 		I.Remove(user, 1)
 
+<<<<<<< refs/remotes/BeeStation/master
 	for(var/mob/living/A in view(2,user))
+=======
+	for(var/mob/living/A in hearers(2,user))
+>>>>>>> update
 		if(ishuman(A))
 			var/mob/living/carbon/human/H = A
 			var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
@@ -40,7 +44,11 @@
 		else if(issilicon(A))
 			var/mob/living/silicon/S = A
 			to_chat(S, "<span class='userdanger'>Your sensors are disabled by a shower of blood!</span>")
+<<<<<<< refs/remotes/BeeStation/master
 			S.Paralyze(60)
+=======
+			S.Paralyze(60)	
+>>>>>>> update
 	var/turf = get_turf(user)
 	// Headcrab transformation is *very* unique; origin mob death happens *before* resulting mob's creation. Action removal should happen beforehand.
 	for(var/datum/action/cp in user.actions)

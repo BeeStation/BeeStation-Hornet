@@ -531,9 +531,27 @@
 /mob/living/simple_animal/slime/get_spawner_flavour_text()
 	return "You are a slime born and raised in a laboratory.[master ? " Your duty is to follow the orders of [master.real_name].": ""]"
 
+<<<<<<< refs/remotes/BeeStation/master
+=======
+/mob/living/simple_animal/slime/ghostize(can_reenter_corpse = TRUE)
+	. = ..()
+	if(. && transformeffects & SLIME_EFFECT_LIGHT_PINK && stat != DEAD)
+		LAZYADD(GLOB.mob_spawners["[master.real_name]'s slime"], src)
+		GLOB.poi_list |= src
+
+/mob/living/simple_animal/slime/proc/remove_form_spawner_menu()
+	for(var/spawner in GLOB.mob_spawners)
+		LAZYREMOVE(GLOB.mob_spawners[spawner], src)
+	GLOB.poi_list -= src
+
+>>>>>>> update
 /mob/living/simple_animal/slime/proc/make_master(mob/user)
 	Friends[user] += SLIME_FRIENDSHIP_ATTACK * 2
 	master = user
 
 /mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_colour="rainbow", new_is_adult)
 	. = ..(mapload, new_colour, new_is_adult)
+<<<<<<< refs/remotes/BeeStation/master
+=======
+
+>>>>>>> update

@@ -7538,7 +7538,10 @@
 /area/crew_quarters/fitness/recreation)
 "anG" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+<<<<<<< refs/remotes/BeeStation/master
 /obj/effect/landmark/start/hangover,
+=======
+>>>>>>> update
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "anH" = (
@@ -47895,6 +47898,7 @@
 	pixel_x = -27
 	},
 /obj/structure/closet/secure_closet/freezer/meat,
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bNF" = (
@@ -47904,6 +47908,17 @@
 "bNG" = (
 /obj/structure/kitchenspike,
 /turf/open/floor/plasteel/freezer,
+=======
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/area/crew_quarters/kitchen)
+"bNF" = (
+/obj/machinery/gibber,
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/area/crew_quarters/kitchen)
+"bNG" = (
+/obj/structure/kitchenspike,
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
 /area/crew_quarters/kitchen)
 "bNI" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -48525,7 +48540,11 @@
 /area/crew_quarters/kitchen)
 "bOX" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
+=======
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
 /area/crew_quarters/kitchen)
 "bOY" = (
 /obj/structure/sign/warning/vacuum/external{
@@ -48544,13 +48563,21 @@
 	name = "CondiMaster Neo";
 	pixel_x = -4
 	},
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
+=======
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
 /area/crew_quarters/kitchen)
 "bPa" = (
 /mob/living/simple_animal/hostile/retaliate/goat{
 	name = "Pete"
 	},
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
+=======
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
 /area/crew_quarters/kitchen)
 "bPb" = (
 /obj/structure/table/wood,
@@ -49300,11 +49327,19 @@
 /area/crew_quarters/kitchen)
 "bQI" = (
 /obj/machinery/vending/wardrobe/chef_wardrobe,
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bQJ" = (
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plasteel/freezer,
+=======
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/area/crew_quarters/kitchen)
+"bQJ" = (
+/obj/effect/landmark/xeno_spawn,
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
 /area/crew_quarters/kitchen)
 "bQN" = (
 /obj/machinery/airalarm{
@@ -49882,7 +49917,11 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
+=======
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
 /area/crew_quarters/kitchen)
 "bRY" = (
 /obj/structure/disposalpipe/segment{
@@ -49899,7 +49938,11 @@
 	dir = 1;
 	pixel_y = -24
 	},
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
+=======
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
 /area/crew_quarters/kitchen)
 "bRZ" = (
 /obj/structure/disposalpipe/segment{
@@ -49912,7 +49955,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
+=======
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
 /area/crew_quarters/kitchen)
 "bSa" = (
 /obj/structure/disposalpipe/segment{
@@ -49921,7 +49968,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
+=======
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
 /area/crew_quarters/kitchen)
 "bSd" = (
 /obj/machinery/portable_atmospherics/canister,
@@ -50352,7 +50403,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel,
+=======
+/turf/open/floor/plasteel/kitchen_coldroom,
+>>>>>>> update
 /area/crew_quarters/kitchen)
 "bSY" = (
 /obj/structure/disposalpipe/segment,
@@ -50365,7 +50420,11 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 5
 	},
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel,
+=======
+/turf/open/floor/plasteel/kitchen_coldroom,
+>>>>>>> update
 /area/crew_quarters/kitchen)
 "bSZ" = (
 /obj/machinery/door/airlock/maintenance{
@@ -51014,7 +51073,11 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel,
+=======
+/turf/open/floor/plasteel/kitchen_coldroom,
+>>>>>>> update
 /area/crew_quarters/kitchen)
 "bUq" = (
 /obj/structure/disposalpipe/segment{
@@ -51026,7 +51089,11 @@
 	req_access_txt = "28"
 	},
 /obj/effect/turf_decal/delivery,
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel,
+=======
+/turf/open/floor/plasteel/kitchen_coldroom,
+>>>>>>> update
 /area/crew_quarters/kitchen)
 "bUr" = (
 /obj/machinery/navbeacon{
@@ -53471,7 +53538,11 @@
 "bZx" = (
 /obj/machinery/icecream_vat,
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
+=======
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
 /area/crew_quarters/kitchen)
 "bZy" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
@@ -56859,7 +56930,11 @@
 	},
 /obj/structure/reagent_dispensers/cooking_oil,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
+=======
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
 /area/crew_quarters/kitchen)
 "cgG" = (
 /obj/structure/closet/emcloset/anchored,
@@ -82585,7 +82660,11 @@
 	name = "old sink";
 	pixel_y = 28
 	},
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
+=======
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
 /area/crew_quarters/kitchen)
 "fBA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -84180,6 +84259,7 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
+<<<<<<< refs/remotes/BeeStation/master
 "kDa" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -84190,6 +84270,8 @@
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+=======
+>>>>>>> update
 "kDM" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -85339,7 +85421,10 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+<<<<<<< refs/remotes/BeeStation/master
 /obj/effect/landmark/start/hangover,
+=======
+>>>>>>> update
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "pfL" = (
@@ -86008,7 +86093,11 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "rFZ" = (
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
+=======
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
 /area/crew_quarters/kitchen)
 "rHt" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -87878,10 +87967,13 @@
 /obj/structure/pool_ladder,
 /turf/open/indestructible/sound/pool/end,
 /area/crew_quarters/fitness/recreation)
+<<<<<<< refs/remotes/BeeStation/master
 "xUW" = (
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel/white,
 /area/science/research)
+=======
+>>>>>>> update
 "xVl" = (
 /turf/closed/wall,
 /area/hallway/secondary/service)
@@ -125096,7 +125188,11 @@ dZx
 dZx
 etr
 alk
+<<<<<<< refs/remotes/BeeStation/master
 jtv
+=======
+alk
+>>>>>>> update
 mYo
 aoZ
 aqk

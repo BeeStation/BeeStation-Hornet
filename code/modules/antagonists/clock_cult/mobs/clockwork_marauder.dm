@@ -60,6 +60,7 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 			new item(get_turf(src))
 	qdel(src)
 
+<<<<<<< refs/remotes/BeeStation/master
 /mob/living/simple_animal/clockwork_marauder/attacked_by(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/nullrod))
 		apply_damage(15, BURN)
@@ -71,6 +72,8 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 		return
 	. = ..()
 
+=======
+>>>>>>> update
 /mob/living/simple_animal/clockwork_marauder/bullet_act(obj/item/projectile/Proj)
 	//Block Ranged Attacks
 	if(shield_health > 0)
