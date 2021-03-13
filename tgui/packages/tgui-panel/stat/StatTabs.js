@@ -131,7 +131,7 @@ export const HoboStatTabs = (props, context) => {
       break;
     case '(!) Admin PM':
       statSection = (<StatTicket />);
-      break
+      break;
   }
   return (
     <Box>

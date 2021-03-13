@@ -55,7 +55,7 @@
 			for(var/datum/ticket_interaction/message as() in ticket._interactions)
 				//Only non-private messages have safe users.
 				//Only admins can see adminbus logs.
-				if(!message.from_user_safe || !message.to_user_safe)
+				if(message.from_user_safe && message.to_user_safe)
 					var/list/msg = list(
 						"time" = message.time_stamp,
 						"color" = message.message_color,

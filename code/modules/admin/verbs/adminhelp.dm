@@ -267,8 +267,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	var/from_user = ""
 	var/to_user = ""
 	var/message = ""
-	var/from_user_safe = ""
-	var/to_user_safe = ""
+	var/from_user_safe
+	var/to_user_safe
 
 /datum/ticket_interaction/New()
 	. = ..()
