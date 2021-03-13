@@ -19,6 +19,7 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/medicine/salbutamol = 5)
 
 	//Breath damage
+	//These thresholds are checked against what amounts to total_mix_pressure * (gas_type_mols/total_mols)
 
 	var/breathing_class = BREATH_OXY // can be a gas instead of a breathing class
 	var/safe_breath_min = 16
