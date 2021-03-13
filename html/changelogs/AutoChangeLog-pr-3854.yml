@@ -1,0 +1,5 @@
+author: Mat05usz
+delete-after: true
+changes:
+  - tweak: Welder fuel tanks now explode with a power dependent on the amount of fuel
+      stored.
