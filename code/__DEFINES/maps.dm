@@ -33,6 +33,7 @@ require only minor tweaks.
 #define ZTRAIT_STATION "Station"
 #define ZTRAIT_MINING "Mining"
 #define ZTRAIT_REEBE "Reebe"
+#define ZTRAIT_BATTLEROYALE "Battle Royale"
 #define ZTRAIT_RESERVED "Transit/Reserved"
 #define ZTRAIT_AWAY "Away Mission"
 #define ZTRAIT_SPACE_RUINS "Space Ruins"
@@ -71,6 +72,7 @@ require only minor tweaks.
     ZTRAIT_BOMBCAP_MULTIPLIER = 2, \
     ZTRAIT_BASETURF = /turf/open/lava/smooth/lava_land_surface)
 #define ZTRAITS_REEBE list(ZTRAIT_REEBE = TRUE, ZTRAIT_BOMBCAP_MULTIPLIER = 0.5)
+#define ZTRAITS_BATTLE_ROYALE list(ZTRAIT_LINKAGE = SELFLOOPING, ZTRAIT_BATTLEROYALE = TRUE)
 #define DL_NAME "name"
 #define DL_TRAITS "traits"
 #define DECLARE_LEVEL(NAME, TRAITS) list(DL_NAME = NAME, DL_TRAITS = TRAITS)
