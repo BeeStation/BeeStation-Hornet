@@ -116,7 +116,7 @@ GLOBAL_VAR(battle_royale_z)
 		for(var/datum/parsed_map/map in br_map)
 			map.initTemplateBounds()
 			GLOB.battle_royale_map = map
-		GLOB.battle_royale_z = world.maxz
+		GLOB.battle_royale_z = world.maxz - 1
 	//Wait to start
 	sleep(50)
 	to_chat(world, "<span class='greenannounce'>Battle Royale: STARTING IN 30 SECONDS.</span>")
